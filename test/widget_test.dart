@@ -10,4 +10,11 @@ void main() {
     expect(title.text, 'snapmon');
     expect(title.position, game.size / 2);
   });
+
+  testWithGame<SnapmonGame>('画面サイズが変わってもタイトルを中央に置き直す', SnapmonGame.new, (
+    game,
+  ) async {
+    game.onGameResize(Vector2(300, 900));
+    expect(game.title.position, Vector2(150, 450));
+  });
 }
