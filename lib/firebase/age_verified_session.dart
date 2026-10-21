@@ -115,6 +115,8 @@ Future<void> activateAppCheck() async {
         ? const AppleDebugProvider()
         : const AppleAppAttestWithDeviceCheckFallbackProvider(),
   );
+  // iOS は Info.plist の FirebaseAppCheckTokenAutoRefreshEnabled で自動取得を止めているため、ここで有効にする。
+  await FirebaseAppCheck.instance.setTokenAutoRefreshEnabled(true);
 }
 
 /// Analytics と Crashlytics の収集を始め、未捕捉の例外を Crashlytics に送る。Crashlytics は Web 非対応のため Web では Analytics だけ。

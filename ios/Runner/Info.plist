@@ -8,6 +8,10 @@
 	<false/>
 	<key>FirebaseCrashlyticsCollectionEnabled</key>
 	<false/>
+	<!-- App Check の iOS プラグインは Firebase の初期化だけで DeviceCheck の provider を置くため、トークンの自動取得を既定で止める。
+	     年齢の確認を通った後に activateAppCheck が有効にする -->
+	<key>FirebaseAppCheckTokenAutoRefreshEnabled</key>
+	<false/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
