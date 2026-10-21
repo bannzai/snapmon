@@ -113,28 +113,29 @@ class DexScreen extends StatelessWidget {
                   const SizedBox(height: 8),
                   Row(
                     children: [
-                      for (var index = 0; index < maximumPartySize; index++)
+                      // 枠の幅を揃えるため、間隔は枠の外に置く (下の「すべて」の 3 列と同じ幅になる)
+                      for (
+                        var index = 0;
+                        index < maximumPartySize;
+                        index++
+                      ) ...[
+                        if (index > 0) const SizedBox(width: 10),
                         Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              left: index == 0 ? 0 : 5,
-                              right: index == maximumPartySize - 1 ? 0 : 5,
-                            ),
-                            child: AspectRatio(
-                              aspectRatio: _monsterTileAspectRatio,
-                              child: index < party.length
-                                  ? _MonsterTile(
+                          child: AspectRatio(
+                            aspectRatio: _monsterTileAspectRatio,
+                            child: index < party.length
+                                ? _MonsterTile(
+                                    monster: party[index],
+                                    isInParty: true,
+                                    onTap: () => _openMonster(
+                                      context: context,
                                       monster: party[index],
-                                      isInParty: true,
-                                      onTap: () => _openMonster(
-                                        context: context,
-                                        monster: party[index],
-                                      ),
-                                    )
-                                  : const _EmptyPartySlot(),
-                            ),
+                                    ),
+                                  )
+                                : const _EmptyPartySlot(),
                           ),
                         ),
+                      ],
                     ],
                   ),
                 ],
