@@ -18,7 +18,7 @@ launched_at:
 | 指標 | 計測元 (skill / コマンド) | 継続のしきい値 | 打ち切り条件 | 転換の条件 |
 | --- | --- | --- | --- | --- |
 | 1 人あたりのモンスター生成数 (公開後 14 日間) | Firebase Analytics の生成完了イベントを firebase-analytics-events-report skill で集計 (イベント名は実装時に決めて記録する) | 3 体以上 | 2 回連続で 1.5 体未満 | 起動はあるのに生成が少なければ、撮影の導線か生成結果 (似ているか) の転換 |
-| D7 継続率 | Firebase Analytics の BigQuery エクスポートを firebase-analytics-bigquery-report skill で集計 | 4% 以上 (GameAnalytics 2026 のモバイル中央値) | 2 回連続で 2% 未満 | 生成数は多いのに継続しなければ、バトル・収集の遊びの転換 |
+| D7 継続率 | Firebase Analytics の BigQuery エクスポートを firebase-analytics-bigquery-report skill で集計 | 4% 以上 (GameAnalytics「2026 Mobile & PC Gaming Benchmarks」のモバイル全体の D7 中央値が 4% 弱。 https://www.gameanalytics.com/reports/2026-mobile-pc-gaming-benchmarks ) | 2 回連続で 2% 未満 | 生成数は多いのに継続しなければ、バトル・収集の遊びの転換 |
 | 1 人あたりのバトル数 (公開後 14 日間) | 同上 (バトル完了イベント) | 5 戦以上 | 2 回連続で 1 戦未満 | 生成で満足して戦わないなら、バトル主体から図鑑・収集主体への転換 |
 
 ## 必要な機能

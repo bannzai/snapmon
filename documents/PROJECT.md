@@ -17,9 +17,9 @@
 
 調査で分かった、機能の選び方によって効いてくる制約。どれを受け入れるかは DIRECTION.md の「決めたこと」に記録する。
 
-- AI API の利用規約: Gemini API の追加利用規約は利用者を 18 歳以上とし、18 歳未満が使う、または使う可能性が高いサービスでの利用を禁止している ( https://ai.google.dev/gemini-api/terms )。Anthropic は未成年が触れる製品に年齢確認・コンテンツフィルタ等の安全策を求めている
-- ストアの UGC 要件: App Store Review Guidelines 1.2 は AI content creation apps を対象に、不適切なコンテンツのフィルタ・通報・悪質なユーザーのブロック・連絡先の公開を必須にしている。Google Play も AI 生成コンテンツの通報機能を求めている
-- 知的財産: ポケモンの名称・外見・固有の技名・タイプ相性表は使わない (App Review Guidelines 4.1・5.2.1)。任天堂がポケットペアを提訴した特許は「アイテムを投げてキャラクターを捕獲する・狙う・乗る」の機構 ( https://www.nintendo.co.jp/corporate/release/2024/240919.html )
-- 個人情報: 本人を判別できる写真は個人情報に当たる (個人情報保護委員会 Q&A)。人物を被写体にした生成を他人に見せる機能は肖像権・いじめの問題になり得る
-- Firebase: Cloud Storage for Firebase は 2026-02-03 から Blaze プラン (従量課金) が必須。Cloud Functions も Spark プランでは使えない
-- Web: オンデバイス画像分類 (ML Kit) の Flutter プラグインは Web 非対応。Flutter Web のカメラは HTTPS が必要
+- AI API の利用規約: Gemini API の追加利用規約は「You must be 18 years of age or older to use the APIs」とし、18 歳未満が使う、または使う可能性が高いサービス ("directed towards or is likely to be accessed by individuals under the age of 18") での利用を禁止している ( https://ai.google.dev/gemini-api/terms 、2026-10-21 に確認)。Anthropic は未成年が直接触れる製品の組織に、年齢確認・コンテンツフィルタ・子どもの安全向けのシステムプロンプトなどの安全策を求めている ( https://support.claude.com/en/articles/9307344-responsible-use-of-anthropic-s-models-guidelines-for-organizations-serving-minors )
+- ストアの UGC 要件: App Store Review Guidelines 1.2 は対象に「AI content creation apps」を明記し、不適切なコンテンツのフィルタ・通報と懸念へのすみやかな対応・悪質なユーザーのブロック・連絡先の公開を求めている ( https://developer.apple.com/app-store/review/guidelines/ )。Google Play は、AI でコンテンツを生成するアプリにアプリを離れずに不快なコンテンツを通報・フラグできる機能を求め、公開 UGC があるアプリにはユーザーとコンテンツの通報、ユーザーのブロックを求めている ( https://support.google.com/googleplay/android-developer/answer/13985936 、 https://support.google.com/googleplay/android-developer/answer/9876937 )
+- 知的財産: ポケモンの名称・外見・固有の技名・タイプ相性表は使わない。App Review Guidelines 4.1 は他社のブランド・製品名を許可なくアプリのアイコンや名前に使うことを、5.2.1 は商標・著作物を許可なく使うことを禁じている ( https://developer.apple.com/app-store/review/guidelines/ )。任天堂がポケットペアを提訴した特許は「アイテムを投げてキャラクターを捕獲する・狙う・乗る」の機構 ( https://www.nintendo.co.jp/corporate/release/2024/240919.html )
+- 個人情報: 個人情報保護委員会の Q&A は、本人を判別できる写真は個人情報に当たるとしている ( https://www.ppc.go.jp/all_faq_index/faq1-q1-16/ 、 https://www.ppc.go.jp/all_faq_index/faq1-q7-11/ )。人物を被写体にした生成を他人に見せる機能が肖像権・いじめの問題になり得るのは agent の推測
+- Firebase: Cloud Storage for Firebase は 2026-02-03 から Blaze プラン (従量課金) が必須 ( https://firebase.google.com/docs/storage/faqs-storage-changes-announced-sept-2024 、2026-10-21 に確認)。Cloud Functions は料金表の Spark の欄が「Not applicable」で、Spark プランでは使えない ( https://firebase.google.com/pricing )
+- Web: オンデバイス画像分類の Flutter プラグイン google_mlkit_image_labeling は Android・iOS だけに対応し、"Web or any other platform is not supported" としている ( https://pub.dev/packages/google_mlkit_image_labeling )。Flutter Web のカメラ (camera_web) は secure context (HTTPS、ローカル開発なら localhost) が必要 ( https://pub.dev/packages/camera_web )
