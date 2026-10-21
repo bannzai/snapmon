@@ -18,7 +18,9 @@ void main() {
   });
 
   test('相性表は属性数 × 属性数のすべての組に 0.5 / 1 / 2 の倍率を持つ', () {
-    final elementTypeIds = master.elementTypes.map((elementType) => elementType.id);
+    final elementTypeIds = master.elementTypes.map(
+      (elementType) => elementType.id,
+    );
     expect(master.typeChart.keys.toSet(), elementTypeIds.toSet());
     for (final attackerElementTypeId in elementTypeIds) {
       final row = master.typeChart[attackerElementTypeId]!;

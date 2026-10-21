@@ -101,7 +101,12 @@ void main() {
   });
 
   group('ステータスの値の範囲', () {
-    const lowest = MonsterStats(hitPoints: 40, attack: 40, defense: 40, speed: 40);
+    const lowest = MonsterStats(
+      hitPoints: 40,
+      attack: 40,
+      defense: 40,
+      speed: 40,
+    );
     const highest = MonsterStats(
       hitPoints: 120,
       attack: 120,
@@ -145,7 +150,12 @@ void main() {
           level: 999,
           statCalculationVersion: 1,
         ),
-        const MonsterStats(hitPoints: 1808, attack: 804, defense: 804, speed: 804),
+        const MonsterStats(
+          hitPoints: 1808,
+          attack: 804,
+          defense: 804,
+          speed: 804,
+        ),
       );
       expect(
         calculateStats(

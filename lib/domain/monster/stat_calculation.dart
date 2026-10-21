@@ -19,7 +19,8 @@ int individualValueSeed({required String subjectDescription}) =>
 /// 引く順番は HP・攻撃・防御・素早さで固定する (順番を変えると既存の値が変わるため)。
 MonsterStats individualValuesFromSeed({required int seed}) {
   final random = DeterministicRandom(seed: seed);
-  int next() => random.nextIntInRange(minimum: 0, maximum: individualValueMaximum);
+  int next() =>
+      random.nextIntInRange(minimum: 0, maximum: individualValueMaximum);
   return MonsterStats(
     hitPoints: next(),
     attack: next(),

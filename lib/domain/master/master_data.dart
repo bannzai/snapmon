@@ -92,7 +92,8 @@ class MasterData {
             MoveEffect.fromJson(json: effectJson as Map<String, dynamic>),
         ],
         statGrades: [
-          for (final statGradeJson in json['statGrades'] as List<dynamic>? ?? [])
+          for (final statGradeJson
+              in json['statGrades'] as List<dynamic>? ?? [])
             StatGrade.fromJson(json: statGradeJson as Map<String, dynamic>),
         ],
         elementSelection: json['elementSelection'] == null

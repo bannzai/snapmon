@@ -90,13 +90,15 @@ MonsterDefinition testDefinition({
   masterVersion: 1,
 );
 
-BattleMonster prepare({required MonsterDefinition definition, int level = 50}) =>
-    prepareBattleMonster(
-      definition: definition,
-      level: level,
-      experience: 0,
-      master: testMaster,
-    );
+BattleMonster prepare({
+  required MonsterDefinition definition,
+  int level = 50,
+}) => prepareBattleMonster(
+  definition: definition,
+  level: level,
+  experience: 0,
+  master: testMaster,
+);
 
 /// 両陣営とも CPU の規則で行動させ、決着までのターンを進めた状態を返す。
 BattleState playUntilFinished({required BattleState state}) {
@@ -181,13 +183,12 @@ void main() {
       ],
       randomSeed: 1,
     );
-    MoveUsedEvent firstHit(BattleState battleState) =>
-        advanceTurn(
-              state: battleState,
-              playerAction: const UseMoveAction(moveId: 'fire_strong'),
-              opponentAction: const UseMoveAction(moveId: 'grass_strong'),
-              master: testMaster,
-            ).events.whereType<MoveUsedEvent>().first;
+    MoveUsedEvent firstHit(BattleState battleState) => advanceTurn(
+      state: battleState,
+      playerAction: const UseMoveAction(moveId: 'fire_strong'),
+      opponentAction: const UseMoveAction(moveId: 'grass_strong'),
+      master: testMaster,
+    ).events.whereType<MoveUsedEvent>().first;
     expect(firstHit(grassTarget).typeMultiplier, 2);
     expect(firstHit(grassTarget).damage, greaterThan(firstHit(state).damage));
   });
@@ -316,7 +317,10 @@ void main() {
         master: testMaster,
       );
     }
-    expect(state.player.activeMember.state.remainingPowerPoints['grass_weak'], 0);
+    expect(
+      state.player.activeMember.state.remainingPowerPoints['grass_weak'],
+      0,
+    );
     expect(
       selectableMoves(monster: state.player.activeMember, master: testMaster),
       isEmpty,
@@ -380,7 +384,9 @@ void main() {
     );
 
     test('3 体すべて倒れた側が負け、勝った側の手持ちのレベルが 1 上がる (上限 999)', () {
-      final finished = playUntilFinished(state: startThreeOnThree(randomSeed: 7));
+      final finished = playUntilFinished(
+        state: startThreeOnThree(randomSeed: 7),
+      );
 
       expect(finished.winner, BattleSideId.player);
       expect(finished.opponent.isDefeated, isTrue);
@@ -390,18 +396,21 @@ void main() {
         ),
         containsAllInOrder(['opponent_2', 'opponent_3']),
       );
-      expect(
-        finished.player.members.map((member) => member.state.level),
-        [51, 51, 999],
-      );
-      expect(
-        finished.player.members.map((member) => member.state.experience),
-        [1, 1, 1],
-      );
-      expect(
-        finished.opponent.members.map((member) => member.state.level),
-        [50, 50, 50],
-      );
+      expect(finished.player.members.map((member) => member.state.level), [
+        51,
+        51,
+        999,
+      ]);
+      expect(finished.player.members.map((member) => member.state.experience), [
+        1,
+        1,
+        1,
+      ]);
+      expect(finished.opponent.members.map((member) => member.state.level), [
+        50,
+        50,
+        50,
+      ]);
       expect(finished.events.last, isA<BattleFinishedEvent>());
       expect(
         () => advanceTurn(
@@ -420,7 +429,9 @@ void main() {
           event.damage,
       ];
       final first = playUntilFinished(state: startThreeOnThree(randomSeed: 42));
-      final second = playUntilFinished(state: startThreeOnThree(randomSeed: 42));
+      final second = playUntilFinished(
+        state: startThreeOnThree(randomSeed: 42),
+      );
       expect(damages(first), damages(second));
       expect(first.turnNumber, second.turnNumber);
       expect(first.randomState, second.randomState);
