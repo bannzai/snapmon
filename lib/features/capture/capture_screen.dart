@@ -55,8 +55,19 @@ class CaptureScreen extends StatelessWidget {
     }
   }
 
+  // 高さが足りない画面 (横向き・低い Web のウィンドウ) では全体をスクロールし、撮る操作に必ず届くようにする。
+  // 足りる時はファインダーが残りの高さを埋める
   @override
-  Widget build(BuildContext context) => Column(
+  Widget build(BuildContext context) => LayoutBuilder(
+    builder: (context, constraints) => SingleChildScrollView(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(minHeight: constraints.maxHeight),
+        child: IntrinsicHeight(child: _buildContent(context: context)),
+      ),
+    ),
+  );
+
+  Widget _buildContent({required BuildContext context}) => Column(
     children: [
       Padding(
         padding: const EdgeInsets.fromLTRB(20, 16, 20, 12),
@@ -113,7 +124,14 @@ class CaptureScreen extends StatelessWidget {
           ],
         ),
       ),
-      const Expanded(child: _Viewfinder()),
+      Expanded(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(
+            minHeight: _minimumViewfinderHeight,
+          ),
+          child: const _Viewfinder(),
+        ),
+      ),
       const Padding(
         padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
         child: Text(
@@ -168,6 +186,9 @@ class CaptureScreen extends StatelessWidget {
     ],
   );
 }
+
+/// 高さが足りない画面でのファインダーの高さ。四隅の鉤形 (36 + 余白 24) 2 つと案内の札が重ならない高さにした。
+const double _minimumViewfinderHeight = 200;
 
 /// ファインダー。カメラの映像 (#14) を繋ぐまでは枠と案内だけを描く。
 class _Viewfinder extends StatelessWidget {

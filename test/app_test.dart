@@ -227,6 +227,27 @@ void main() {
       );
     });
 
+    testWidgets('高さの低い画面でも撮る画面がはみ出さず、スクロールしてシャッターを押せる', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        isDeveloperMenuEnabled: false,
+      );
+      tester.view.physicalSize = const Size(844, 390);
+      await tester.pumpAndSettle();
+      // はみ出しは RenderFlex のエラーとして報告されるため、例外が無いことで確かめる
+      expect(tester.takeException(), isNull);
+
+      await tester.scrollUntilVisible(
+        find.byTooltip('撮る'),
+        100,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tester.tap(find.byTooltip('撮る'));
+      await tester.pumpAndSettle();
+      expect(dexStore.monsters, hasLength(1));
+    });
+
     testWidgets('手持ちがいない時は挑めない', (tester) async {
       await pumpApp(
         tester: tester,
