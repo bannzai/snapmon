@@ -35,7 +35,7 @@ MonsterStats baseStatsFromStatGrades({
   required Map<StatKind, String> statGradeIds,
   required MasterData master,
 }) {
-  int baseStatOf(StatKind statKind) {
+  int baseStatOf({required StatKind statKind}) {
     final statGradeId = statGradeIds[statKind];
     if (statGradeId == null) {
       throw StateError('${statKind.name} の段階が判定結果に無い');
@@ -49,10 +49,10 @@ MonsterStats baseStatsFromStatGrades({
   }
 
   return MonsterStats(
-    hitPoints: baseStatOf(StatKind.hitPoints),
-    attack: baseStatOf(StatKind.attack),
-    defense: baseStatOf(StatKind.defense),
-    speed: baseStatOf(StatKind.speed),
+    hitPoints: baseStatOf(statKind: StatKind.hitPoints),
+    attack: baseStatOf(statKind: StatKind.attack),
+    defense: baseStatOf(statKind: StatKind.defense),
+    speed: baseStatOf(statKind: StatKind.speed),
   );
 }
 
@@ -96,16 +96,16 @@ MonsterStats calculateStats({
 }) {
   switch (statCalculationVersion) {
     case 1:
-      int scaled(StatKind statKind) =>
+      int scaled({required StatKind statKind}) =>
           (2 * baseStats.valueOf(statKind: statKind) +
               individualValues.valueOf(statKind: statKind)) *
           level ~/
           100;
       return MonsterStats(
-        hitPoints: scaled(StatKind.hitPoints) + level + 10,
-        attack: scaled(StatKind.attack) + 5,
-        defense: scaled(StatKind.defense) + 5,
-        speed: scaled(StatKind.speed) + 5,
+        hitPoints: scaled(statKind: StatKind.hitPoints) + level + 10,
+        attack: scaled(statKind: StatKind.attack) + 5,
+        defense: scaled(statKind: StatKind.defense) + 5,
+        speed: scaled(statKind: StatKind.speed) + 5,
       );
     default:
       throw ArgumentError('ステータスの計算手順の版 $statCalculationVersion を知らない');

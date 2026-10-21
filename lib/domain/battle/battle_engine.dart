@@ -177,7 +177,7 @@ BattleState advanceTurn({
   };
   final events = [...state.events];
 
-  int speedOf(BattleSideId side) {
+  int speedOf({required BattleSideId side}) {
     final monster = parties[side]!.activeMember;
     return calculateStats(
       baseStats: monster.definition.baseStats,
@@ -187,8 +187,8 @@ BattleState advanceTurn({
     ).speed;
   }
 
-  final playerSpeed = speedOf(BattleSideId.player);
-  final opponentSpeed = speedOf(BattleSideId.opponent);
+  final playerSpeed = speedOf(side: BattleSideId.player);
+  final opponentSpeed = speedOf(side: BattleSideId.opponent);
   final playerMovesFirst = playerSpeed != opponentSpeed
       ? playerSpeed > opponentSpeed
       : random.nextUint32() % 2 == 0;
