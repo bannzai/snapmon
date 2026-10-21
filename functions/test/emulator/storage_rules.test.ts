@@ -4,7 +4,7 @@ import {
   initializeTestEnvironment,
   type RulesTestEnvironment,
 } from "@firebase/rules-unit-testing";
-import { getBytes, ref, uploadBytes } from "firebase/storage";
+import { deleteObject, getBytes, listAll, ref, type StorageReference, uploadBytes } from "firebase/storage";
 import { afterAll, beforeAll, beforeEach, describe, it } from "vitest";
 
 // firebase emulators:exec (package.json の test:emulator) の中で実行する。
@@ -24,13 +24,22 @@ afterAll(async () => {
 });
 
 beforeEach(async () => {
-  await testEnvironment.clearStorage();
+  // clearStorage は既定のバケット gs://demo-snapmon を消すが、Rules を対応させているのは snapmon-prod-storage だけのため、
+  // テストで使うバケットの中身を自分で消す。
   await testEnvironment.withSecurityRulesDisabled(async (context) => {
     const storage = context.storage(bucketUrl);
+    await Promise.all((await listAllRecursively(ref(storage))).map((item) => deleteObject(item)));
     await uploadBytes(ref(storage, "users/bob/photos/request1"), smallImage, { contentType: "image/jpeg" });
     await uploadBytes(ref(storage, "monsters/monster1/art.png"), smallImage, { contentType: "image/png" });
   });
 });
+
+/** [folder] の配下のファイルを、下の階層まですべて返す。 */
+async function listAllRecursively(folder: StorageReference): Promise<StorageReference[]> {
+  const { items, prefixes } = await listAll(folder);
+  const nestedItems = await Promise.all(prefixes.map((prefix) => listAllRecursively(prefix)));
+  return [...items, ...nestedItems.flat()];
+}
 
 /** 年齢の確認を通ったユーザー (カスタムクレーム ageVerified 付き) の Storage。 */
 function ageVerifiedStorage(uid: string) {

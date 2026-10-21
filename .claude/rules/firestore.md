@@ -15,7 +15,7 @@ paths:
 | --- | --- | --- | --- |
 | `master/{version}` | master (属性・技・相性表・分類) の 1 つの版。数値の `version` を持つ | 読む (年齢の確認済み) | `functions/scripts/seed-master.mjs` が投入。投入済みの版は書き換えない |
 | `definitions/{definitionId}` | 生成時にその場で作った属性・技の定義 | 読む (年齢の確認済み) | 書く |
-| `users/{uid}` | 生成中ロック等 | 本人が読む | 書く |
+| `users/{uid}` | 生成中ロック、`ageRejected` (confirmAge が 13 歳未満と判定した印。生年月は持たない) 等 | 本人が読む | 書く |
 | `users/{uid}/monsters/{monsterId}` | 図鑑のモンスター | 本人が読む | 書く |
 | `users/{uid}/generations/{subjectKey}` | 生成の状態遷移のレコード | 本人が読む | 書く |
 | `users/{uid}/battles/{battleId}` | バトルの開始と完了の記録 | 本人が読む | 書く |

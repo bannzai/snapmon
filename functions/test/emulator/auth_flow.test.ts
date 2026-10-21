@@ -79,6 +79,26 @@ describe("匿名ログインと年齢の確認", () => {
     expect((await credential.user.getIdTokenResult(true)).claims.ageVerified).toBeUndefined();
   });
 
+  it("13 歳未満と判定された uid は、別の生年月で呼び直しても通さない", async () => {
+    const credential = await signInAnonymously(auth);
+    const idToken = await credential.user.getIdToken();
+    const rejected = await callConfirmAge({
+      idToken,
+      appCheckToken: fakeAppCheckToken,
+      data: { birthYear: new Date().getUTCFullYear() - 5, birthMonth: 1 },
+    });
+    expect(rejected.status).toBe(400);
+
+    const retried = await callConfirmAge({
+      idToken,
+      appCheckToken: fakeAppCheckToken,
+      data: { birthYear: 2000, birthMonth: 1 },
+    });
+    expect(retried.status).toBe(400);
+    expect((await retried.json()).error.status).toBe("FAILED_PRECONDITION");
+    expect((await credential.user.getIdTokenResult(true)).claims.ageVerified).toBeUndefined();
+  });
+
   it("App Check のトークンが無い呼び出しは弾く", async () => {
     const credential = await signInAnonymously(auth);
     const response = await callConfirmAge({
