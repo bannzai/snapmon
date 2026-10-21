@@ -265,15 +265,18 @@ class _MonsterStatusCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
+          // 名前とレベルが 1 行に収まらない時 (端末の文字が大きい時) はレベルを次の行に回す
+          Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 8,
             children: [
-              Expanded(
-                child: Text(
-                  monster.definition.name,
-                  overflow: TextOverflow.ellipsis,
-                  style: SnapmonTextStyles.label.copyWith(
-                    color: SnapmonColors.textOnCard,
-                  ),
+              Text(
+                monster.definition.name,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: SnapmonTextStyles.label.copyWith(
+                  color: SnapmonColors.textOnCard,
                 ),
               ),
               Text(
@@ -392,9 +395,19 @@ class _BattleCommandButton extends StatelessWidget {
     child: InkWell(
       borderRadius: SnapmonRadii.button,
       onTap: onPressed,
-      child: SizedBox(
-        height: 44,
-        child: Center(child: Text(label, style: SnapmonTextStyles.caption)),
+      // 端末の文字を大きくした時は 44 より高く伸ばし、文字が切れないようにする
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(minHeight: 44),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: Center(
+            child: Text(
+              label,
+              textAlign: TextAlign.center,
+              style: SnapmonTextStyles.caption,
+            ),
+          ),
+        ),
       ),
     ),
   );
