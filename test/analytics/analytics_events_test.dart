@@ -10,4 +10,14 @@ void main() {
     }
     expect(eventNames.toSet().length, AnalyticsEvent.values.length);
   });
+
+  test(
+    '収集を始める前は Analytics の SDK を呼ばずに終わる (Firebase を初期化していなくても例外にならない)',
+    () async {
+      await logAnalyticsEvent(
+        event: AnalyticsEvent.monsterGenerated,
+        parameters: null,
+      );
+    },
+  );
 }

@@ -20,14 +20,28 @@ enum AnalyticsEvent {
   final String eventName;
 }
 
+/// 年齢の確認を通って Analytics の収集を始めたか。
+/// iOS・Android は収集の既定を無効にできるが、Web の Analytics は最初の logEvent で初期化され識別子を作るため、
+/// 収集を始めるまで SDK を呼ばない判定にこの値を使う。
+var _analyticsCollectionStarted = false;
+
+/// 年齢の確認を通った後に、[logAnalyticsEvent] が Analytics へ送るようにする。
+/// lib/firebase/age_verified_session.dart の enableAnalyticsAndCrashlyticsCollection だけが呼ぶ。何度呼んでも同じ (冪等)。
+void markAnalyticsCollectionStarted() {
+  _analyticsCollectionStarted = true;
+}
+
 /// [event] を Analytics に送る。[parameters] はイベントごとの補足 (値は文字列か数値)。
 ///
-/// 年齢の確認を通るまで収集は無効のため (lib/firebase/age_verified_session.dart)、その前に呼んでも送られない。
+/// 年齢の確認を通るまで ([markAnalyticsCollectionStarted] の前) は Analytics の SDK を呼ばずに何もしない。
 Future<void> logAnalyticsEvent({
   required AnalyticsEvent event,
   required Map<String, Object>? parameters,
-}) {
-  return FirebaseAnalytics.instance.logEvent(
+}) async {
+  if (!_analyticsCollectionStarted) {
+    return;
+  }
+  await FirebaseAnalytics.instance.logEvent(
     name: event.eventName,
     parameters: parameters,
   );

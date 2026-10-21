@@ -6,6 +6,7 @@ import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
+import 'package:snapmon/analytics/analytics_events.dart';
 
 // 年齢の確認 (#11 の最初の画面) より前に識別子 (uid・Analytics・App Check) を取らないため、
 // Firebase のうち識別子を作る機能はこのファイルの関数からだけ始める (documents/adr/0001-tech-stack.md の対象年齢の行)。
@@ -122,6 +123,7 @@ Future<void> activateAppCheck() async {
 /// Analytics と Crashlytics の収集を始め、未捕捉の例外を Crashlytics に送る。Crashlytics は Web 非対応のため Web では Analytics だけ。
 Future<void> enableAnalyticsAndCrashlyticsCollection() async {
   await FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(true);
+  markAnalyticsCollectionStarted();
   if (kIsWeb) {
     return;
   }
