@@ -23,6 +23,15 @@ class MonsterStats {
     required this.speed,
   });
 
+  /// `hitPoints`・`attack`・`defense`・`speed` を持つ JSON から値の組を読む。
+  factory MonsterStats.fromJson({required Map<String, dynamic> json}) =>
+      MonsterStats(
+        hitPoints: json['hitPoints'] as int,
+        attack: json['attack'] as int,
+        defense: json['defense'] as int,
+        speed: json['speed'] as int,
+      );
+
   /// 体力 (HP)。
   final int hitPoints;
 
