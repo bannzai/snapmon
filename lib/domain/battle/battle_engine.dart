@@ -146,8 +146,8 @@ BattleAction chooseCpuAction({
 /// 両陣営の行動 [playerAction]・[opponentAction] で 1 ターンを解決し、次の状態を返す。
 /// 場のモンスターの素早さが高い順に行動し (同じなら乱数)、倒れたモンスターはそのターンの行動を失う。
 /// ターンの終わりに倒れたモンスターを手持ちの次のモンスターと交代し、手持ちがすべて倒れた側が負ける。
-/// 決着がついたら勝敗を問わず両陣営の手持ち全員のレベルを 1 上げる (上限 [maximumLevel]。
-/// DIRECTION.md「ゲームの仕様」の「1 回戦闘するとレベルが 1 上がる」)。
+/// 決着がついたら勝敗を問わず両陣営の、場に出たことがある手持ちのレベルを 1 上げる (上限 [maximumLevel]。
+/// DIRECTION.md「必要な機能」の「1 戦ごとに、戦闘に出た手持ちのレベルが勝敗に関係なく 1 上がる」)。
 /// 決着済みの状態・選べない行動 (PP が 0 か未開放の技、使える技があるのにわるあがき) には例外を投げる。
 BattleState advanceTurn({
   required BattleState state,
@@ -312,20 +312,26 @@ BattleState advanceTurn({
   if (winner != null) {
     for (final side in BattleSideId.values) {
       final party = parties[side]!;
+      // 交代は倒れていない最も前のモンスターを出し、倒れるのは場に出ている間だけのため、
+      // 手持ちは先頭から順に場に出る。場に出たことがあるのは activeMemberIndex 以下の位置のモンスター。
       parties[side] = BattleParty(
         members: [
-          for (final member in party.members)
-            BattleMonster(
-              definition: member.definition,
-              state: member.state.copyWith(
-                level: math.min(member.state.level + 1, maximumLevel),
-                experience: member.state.experience + 1,
-              ),
-            ),
+          for (final (memberIndex, member) in party.members.indexed)
+            memberIndex <= party.activeMemberIndex
+                ? BattleMonster(
+                    definition: member.definition,
+                    state: member.state.copyWith(
+                      level: math.min(member.state.level + 1, maximumLevel),
+                      experience: member.state.experience + 1,
+                    ),
+                  )
+                : member,
         ],
         activeMemberIndex: party.activeMemberIndex,
       );
-      for (final member in parties[side]!.members) {
+      for (final member in parties[side]!.members.take(
+        party.activeMemberIndex + 1,
+      )) {
         events.add(
           LevelUpEvent(
             turnNumber: state.turnNumber,

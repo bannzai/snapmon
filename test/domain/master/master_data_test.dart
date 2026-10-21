@@ -1,15 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:snapmon/domain/master/master_data.dart';
-import 'package:snapmon/master/load_master_data.dart';
 
 void main() {
   final master = MasterData.fromJson(
     json:
-        jsonDecode(File(masterDataAssetPath).readAsStringSync())
+        jsonDecode(File('assets/master/master.json').readAsStringSync())
             as Map<String, dynamic>,
   );
 
@@ -71,9 +69,6 @@ void main() {
         'elementTypes': [
           {'id': 'custom_rubber', 'displayName': 'ゴム'},
         ],
-        'typeChart': {
-          'custom_rubber': {'electric': 2},
-        },
         'moves': [
           {
             'id': 'custom_rubber_1',
@@ -96,13 +91,6 @@ void main() {
     expect(
       merged.typeMultiplier(
         attackerElementTypeId: 'custom_rubber',
-        defenderElementTypeId: 'electric',
-      ),
-      2,
-    );
-    expect(
-      merged.typeMultiplier(
-        attackerElementTypeId: 'custom_rubber',
         defenderElementTypeId: 'metal',
       ),
       1,
@@ -114,12 +102,5 @@ void main() {
       ),
       1,
     );
-  });
-
-  test('同梱の asset から master を読める', () async {
-    TestWidgetsFlutterBinding.ensureInitialized();
-    final loaded = await loadMasterData(assetBundle: rootBundle);
-    expect(loaded.version, master.version);
-    expect(loaded.moves.length, master.moves.length);
   });
 }

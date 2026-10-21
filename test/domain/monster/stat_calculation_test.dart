@@ -6,12 +6,11 @@ import 'package:snapmon/domain/master/master_data.dart';
 import 'package:snapmon/domain/monster/monster_stats.dart';
 import 'package:snapmon/domain/monster/stat_calculation.dart';
 import 'package:snapmon/domain/random/deterministic_random.dart';
-import 'package:snapmon/master/load_master_data.dart';
 
 void main() {
   final master = MasterData.fromJson(
     json:
-        jsonDecode(File(masterDataAssetPath).readAsStringSync())
+        jsonDecode(File('assets/master/master.json').readAsStringSync())
             as Map<String, dynamic>,
   );
   const description = '赤い陶器のマグカップ。手のひらほどの大きさで硬い';

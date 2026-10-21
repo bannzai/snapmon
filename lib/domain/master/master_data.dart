@@ -51,8 +51,9 @@ class ElementSelectionRule {
 }
 
 /// 属性・相性表・技・エフェクト・ステータスの段階をまとめた定義の集まり。
-/// `assets/master/master.json` と、登録時にその場で作って Firestore に保存した定義
-/// (`definitions/`) が同じ形の JSON を持ち、どちらも [MasterData.fromJson] で読む。
+/// master の元の JSON (`assets/master/master.json`。アプリには同梱せず、Firestore の `master/{version}` に
+/// 置いたものをクライアントが取得する。ADR 0001「master に無い属性・技」) と、登録時にその場で作って
+/// Firestore に保存した定義 (`definitions/`) が同じ形の JSON を持ち、どちらも [MasterData.fromJson] で読む。
 class MasterData {
   /// 定義の集まりを作る。
   const MasterData({
@@ -66,7 +67,8 @@ class MasterData {
   });
 
   /// JSON から定義の集まりを読む。Firestore に保存したその場で作った定義は
-  /// `statGrades`・`elementSelection` を持たないため、どちらも省略できる。
+  /// `typeChart` (新しい属性の相性は等倍に固定)・`effects`・`statGrades`・`elementSelection` を
+  /// 持たないことがあるため、どれも省略できる。
   factory MasterData.fromJson({required Map<String, dynamic> json}) =>
       MasterData(
         version: json['version'] as int,
@@ -76,7 +78,7 @@ class MasterData {
         ],
         typeChart: {
           for (final attackerEntry
-              in (json['typeChart'] as Map<String, dynamic>).entries)
+              in (json['typeChart'] as Map<String, dynamic>? ?? {}).entries)
             attackerEntry.key: {
               for (final defenderEntry
                   in (attackerEntry.value as Map<String, dynamic>).entries)

@@ -356,7 +356,10 @@ void main() {
   });
 
   group('3 体の手持ち', () {
-    BattleState startThreeOnThree({required int randomSeed}) => startBattle(
+    BattleState startThreeOnThree({
+      required int randomSeed,
+      int leadPlayerLevel = 50,
+    }) => startBattle(
       playerMembers: [
         for (final index in [1, 2, 3])
           prepare(
@@ -366,7 +369,7 @@ void main() {
               moveIds: ['fire_strong'],
               speed: 100,
             ),
-            level: index == 3 ? 999 : 50,
+            level: index == 1 ? leadPlayerLevel : 50,
           ),
       ],
       opponentMembers: [
@@ -383,9 +386,9 @@ void main() {
       randomSeed: randomSeed,
     );
 
-    test('3 体すべて倒れた側が負け、勝敗を問わず両陣営の手持ちのレベルが 1 上がる (上限 999)', () {
+    test('3 体すべて倒れた側が負け、勝敗を問わず場に出た手持ちのレベルが 1 上がる (上限 999)', () {
       final finished = playUntilFinished(
-        state: startThreeOnThree(randomSeed: 7),
+        state: startThreeOnThree(randomSeed: 7, leadPlayerLevel: 999),
       );
 
       expect(finished.winner, BattleSideId.player);
@@ -396,15 +399,16 @@ void main() {
         ),
         containsAllInOrder(['opponent_2', 'opponent_3']),
       );
+      // 先頭の 1 体 (レベル 999) だけで勝つため、場に出なかった 2・3 体目は変わらない
       expect(finished.player.members.map((member) => member.state.level), [
-        51,
-        51,
         999,
+        50,
+        50,
       ]);
       expect(finished.player.members.map((member) => member.state.experience), [
         1,
-        1,
-        1,
+        0,
+        0,
       ]);
       expect(finished.opponent.members.map((member) => member.state.level), [
         51,
