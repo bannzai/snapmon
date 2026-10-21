@@ -166,31 +166,42 @@ class _BattleScreenState extends State<BattleScreen> {
                     ],
                   ),
                   const SizedBox(height: 10),
-                  GridView(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: EdgeInsets.zero,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 10,
-                          crossAxisSpacing: 10,
-                          mainAxisExtent: 64,
+                  // 2 列に並べ、端末の文字を大きくした時は行ごとに高さを伸ばす (同じ行の 2 つは高さを揃える)
+                  for (
+                    var rowStart = 0;
+                    rowStart < moveSlots.length;
+                    rowStart += 2
+                  )
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: IntrinsicHeight(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            for (final (column, move)
+                                in moveSlots
+                                    .skip(rowStart)
+                                    .take(2)
+                                    .indexed) ...[
+                              if (column > 0) const SizedBox(width: 10),
+                              Expanded(
+                                child: _MoveButton(
+                                  move: move,
+                                  remainingPowerPoints: move == null
+                                      ? 0
+                                      : playerMonster
+                                                .state
+                                                .remainingPowerPoints[move
+                                                .id] ??
+                                            0,
+                                  definitions: widget.definitions,
+                                ),
+                              ),
+                            ],
+                          ],
                         ),
-                    children: [
-                      for (final move in moveSlots)
-                        _MoveButton(
-                          move: move,
-                          remainingPowerPoints: move == null
-                              ? 0
-                              : playerMonster.state.remainingPowerPoints[move
-                                        .id] ??
-                                    0,
-                          definitions: widget.definitions,
-                        ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
+                      ),
+                    ),
                   Row(
                     children: [
                       Expanded(
@@ -313,6 +324,9 @@ class _MonsterStatusCard extends StatelessWidget {
   }
 }
 
+/// 技のボタンの高さ。モック (Battle.dc.html) の技のボタンの高さから取った。端末の文字を大きくした時はこれより伸びる。
+const double _moveButtonMinimumHeight = 64;
+
 /// 技のボタン。技が無い枠 ([move] が null) は空の枠として描く。
 class _MoveButton extends StatelessWidget {
   const _MoveButton({
@@ -329,7 +343,7 @@ class _MoveButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final move = this.move;
     return Container(
-      height: 64,
+      constraints: const BoxConstraints(minHeight: _moveButtonMinimumHeight),
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
       decoration: BoxDecoration(
         color: move == null ? SnapmonColors.surface : SnapmonColors.card,

@@ -339,6 +339,28 @@ void main() {
     });
   });
 
+  testWidgets('端末の文字を 2 倍にしてもバトル画面の技のボタンがはみ出さない', (tester) async {
+    tester.platformDispatcher.textScaleFactorTestValue = 2;
+    addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+    await pumpApp(
+      tester: tester,
+      hasConfirmedAge: true,
+      isDeveloperMenuEnabled: false,
+    );
+    dexStore.replaceAll(monsters: sampleData.monsters);
+    await tester.tap(find.byKey(const Key('tab-opponent')));
+    await tester.pumpAndSettle();
+    await tester.tap(
+      find.byKey(Key('challenge-${sampleData.opponents.first.id}')),
+    );
+    // バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
+    expect(find.text('にげる'), findsOneWidget);
+    // はみ出しは RenderFlex のエラーとして報告されるため、例外が無いことで確かめる
+    expect(tester.takeException(), isNull);
+  });
+
   group('設定画面', () {
     testWidgets('お問い合わせと法務ドキュメントのリンクを開く', (tester) async {
       await pumpApp(
