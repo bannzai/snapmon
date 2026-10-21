@@ -138,7 +138,7 @@ class MonsterSwitchedInEvent extends BattleEvent {
   final String monsterId;
 }
 
-/// 勝った側のモンスターのレベルが上がった。上限に達していて上がらなかった時も、経験の加算として出す。
+/// 決着後にモンスターのレベルが上がった。上限に達していて上がらなかった時も、経験の加算として出す。
 class LevelUpEvent extends BattleEvent {
   /// レベルアップのログを作る。
   const LevelUpEvent({

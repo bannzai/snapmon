@@ -15,7 +15,7 @@ class MonsterState {
   /// レベル (1 以上 [maximumLevel] 以下)。
   final int level;
 
-  /// バトルに勝った回数の累計。レベルが上限に達した後も増える。
+  /// 決着まで戦ったバトルの回数の累計 (勝敗を問わない)。レベルが上限に達した後も増える。
   final int experience;
 
   /// バトル中の HP の残り。0 で倒れている。

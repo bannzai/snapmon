@@ -383,7 +383,7 @@ void main() {
       randomSeed: randomSeed,
     );
 
-    test('3 体すべて倒れた側が負け、勝った側の手持ちのレベルが 1 上がる (上限 999)', () {
+    test('3 体すべて倒れた側が負け、勝敗を問わず両陣営の手持ちのレベルが 1 上がる (上限 999)', () {
       final finished = playUntilFinished(
         state: startThreeOnThree(randomSeed: 7),
       );
@@ -407,10 +407,14 @@ void main() {
         1,
       ]);
       expect(finished.opponent.members.map((member) => member.state.level), [
-        50,
-        50,
-        50,
+        51,
+        51,
+        51,
       ]);
+      expect(
+        finished.opponent.members.map((member) => member.state.experience),
+        [1, 1, 1],
+      );
       expect(finished.events.last, isA<BattleFinishedEvent>());
       expect(
         () => advanceTurn(
