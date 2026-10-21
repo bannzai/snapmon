@@ -238,9 +238,15 @@ void main() {
       final opponent = sampleData.opponents.first;
       final challengeButton = find.byKey(Key('challenge-${opponent.id}'));
 
-      // バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める
+      // バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める。
+      // 押した直後のフレームは新しい画面が offstage で作られる (Hero の計測のため) ので、もう 1 フレーム進めてから遷移を終わらせる
+      Future<void> pumpTransition() async {
+        await tester.pump();
+        await tester.pump(const Duration(seconds: 1));
+      }
+
       await tester.tap(challengeButton);
-      await tester.pump(const Duration(seconds: 1));
+      await pumpTransition();
       final playerMonster = dexStore.party.first.definition;
       expect(find.text('${playerMonster.name} の 技をえらぶ'), findsOneWidget);
       expect(
@@ -252,13 +258,13 @@ void main() {
       expect(find.text('ターン 1'), findsOneWidget);
 
       await tester.tap(find.text('にげる'));
-      await tester.pump(const Duration(seconds: 1));
+      await pumpTransition();
       expect(find.text('相手をえらぶ'), findsOneWidget);
 
       await tester.tap(challengeButton);
-      await tester.pump(const Duration(seconds: 1));
+      await pumpTransition();
       await tester.tap(find.text('モンスターを交代'));
-      await tester.pump(const Duration(seconds: 1));
+      await pumpTransition();
       expect(
         find.text('${sampleData.monsters.length} 体 · 手持ち 3 体'),
         findsOneWidget,

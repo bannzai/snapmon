@@ -284,23 +284,26 @@ class _MonsterStatusCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 6),
-          Row(
+          // HP の数値と属性の札が 1 行に収まらない時は札を次の行に回す
+          Wrap(
+            spacing: 4,
+            runSpacing: 4,
+            crossAxisAlignment: WrapCrossAlignment.center,
             children: [
               if (showsHitPointsNumber)
-                Text(
-                  'HP ${monster.state.currentHitPoints} / $maximumHitPoints',
-                  style: SnapmonTextStyles.small.copyWith(
-                    color: SnapmonColors.textOnCardMuted,
+                Padding(
+                  padding: const EdgeInsets.only(right: 4),
+                  child: Text(
+                    'HP ${monster.state.currentHitPoints} / $maximumHitPoints',
+                    style: SnapmonTextStyles.small.copyWith(
+                      color: SnapmonColors.textOnCardMuted,
+                    ),
                   ),
                 ),
-              const Spacer(),
               for (final elementTypeId in monster.definition.elementTypeIds)
-                Padding(
-                  padding: const EdgeInsets.only(left: 4),
-                  child: ElementTypeTag(
-                    elementTypeId: elementTypeId,
-                    definitions: definitions,
-                  ),
+                ElementTypeTag(
+                  elementTypeId: elementTypeId,
+                  definitions: definitions,
                 ),
             ],
           ),
@@ -327,7 +330,7 @@ class _MoveButton extends StatelessWidget {
     final move = this.move;
     return Container(
       height: 64,
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
       decoration: BoxDecoration(
         color: move == null ? SnapmonColors.surface : SnapmonColors.card,
         borderRadius: SnapmonRadii.card,
@@ -340,13 +343,16 @@ class _MoveButton extends StatelessWidget {
               children: [
                 Text(
                   move.displayName,
+                  maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: SnapmonTextStyles.label.copyWith(
                     color: SnapmonColors.textOnCard,
                   ),
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 2),
                 Text(
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   '${definitions.elementTypes.firstWhere((elementType) => elementType.id == move.elementTypeId).displayName}  威力 ${move.power}  PP $remainingPowerPoints/${move.powerPoints}',
                   style: SnapmonTextStyles.small.copyWith(
                     color: SnapmonColors.textOnCardMuted,
