@@ -370,7 +370,7 @@ class _MoveButton extends StatelessWidget {
                 Text(
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  '${definitions.elementTypes.firstWhere((elementType) => elementType.id == move.elementTypeId).displayName}  威力 ${move.power}  PP $remainingPowerPoints/${move.powerPoints}',
+                  '${definitions.elementTypes.firstWhere((elementType) => elementType.id == move.elementTypeId, orElse: () => throw StateError('属性 ${move.elementTypeId} が定義に無い')).displayName}  威力 ${move.power}  PP $remainingPowerPoints/${move.powerPoints}',
                   style: SnapmonTextStyles.small.copyWith(
                     color: SnapmonColors.textOnCardMuted,
                   ),
