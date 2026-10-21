@@ -314,6 +314,39 @@ void main() {
       expect(find.text('アカウントを削除'), findsOneWidget);
     });
 
+    testWidgets('リンクを開けない時と開く時に例外になった時は、そのことを出す', (tester) async {
+      SharedPreferences.setMockInitialValues({});
+      final preferences = await SharedPreferences.getInstance();
+      Future<void> pumpSettings({required OpenUrl openUrl}) async {
+        await tester.pumpWidget(
+          MaterialApp(
+            key: UniqueKey(),
+            home: SettingsScreen(
+              sampleData: sampleData,
+              dexStore: DexStore(),
+              ageConfirmationStore: AgeConfirmationStore(
+                preferences: preferences,
+                today: () => today,
+              ),
+              openUrl: openUrl,
+              isDeveloperMenuEnabled: false,
+            ),
+          ),
+        );
+        await tester.tap(find.text('お問い合わせ'));
+        await tester.pumpAndSettle();
+      }
+
+      await pumpSettings(openUrl: ({required uri}) async => false);
+      expect(find.text('$contactUri を開けませんでした'), findsOneWidget);
+
+      await pumpSettings(
+        openUrl: ({required uri}) async =>
+            throw Exception('ACTIVITY_NOT_FOUND'),
+      );
+      expect(find.text('Exception: ACTIVITY_NOT_FOUND'), findsOneWidget);
+    });
+
     testWidgets('開発者メニューは無効の時に出ない', (tester) async {
       await pumpApp(
         tester: tester,

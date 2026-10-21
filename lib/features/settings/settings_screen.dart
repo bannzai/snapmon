@@ -55,13 +55,24 @@ class SettingsScreen extends StatelessWidget {
   final bool isDeveloperMenuEnabled;
 
   /// [uri] を開き、開けなかった時 (メールのアプリが無い simulator など) はそのことを伝える。
+  /// 開くアプリが無い Android では false ではなく例外になるため、例外の時はその内容を出す。
   Future<void> _open({required BuildContext context, required Uri uri}) async {
-    if (await openUrl(uri: uri) || !context.mounted) {
+    final message = await _openAndDescribeFailure(uri: uri);
+    if (message == null || !context.mounted) {
       return;
     }
     ScaffoldMessenger.of(
       context,
-    ).showSnackBar(SnackBar(content: Text('$uri を開けませんでした')));
+    ).showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  /// [uri] を開く。開けた時は null、開けなかった時は利用者に出す文言を返す。
+  Future<String?> _openAndDescribeFailure({required Uri uri}) async {
+    try {
+      return await openUrl(uri: uri) ? null : '$uri を開けませんでした';
+    } on Exception catch (error) {
+      return error.toString();
+    }
   }
 
   @override
