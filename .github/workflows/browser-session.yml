@@ -1,0 +1,58 @@
+# Web 版を GitHub Actions の Linux Runner の Chromium で開く caller workflow。実体は bannzai/webtunnel の session.yml（reusable workflow）。
+# 参照: https://github.com/bannzai/webtunnel の PROJECT.md「各アプリ repo での実行（reusable workflow）」
+name: browser-session
+# run-name は local/webtunnel CLI が run を特定するキーのためこの形式を維持する
+run-name: "session=${{ inputs.session }} duration=${{ inputs.duration_minutes }}m"
+on:
+  workflow_dispatch: # fork PR に Secrets を渡さないため workflow_dispatch のみ
+    # session / duration_minutes は local/webtunnel の up が常に送るため宣言必須
+    # （未定義の input を送ると dispatch が拒否される）
+    inputs:
+      session:
+        required: true
+        default: snapmon
+      duration_minutes:
+        required: true
+        default: "60"
+      start_url:
+        required: false
+        default: "" # 空なら dev サーバの URL を開く（session.yml 側の既定に合わせる）
+      record:
+        required: false
+        default: "true"
+      preview:
+        required: false
+        default: "true"
+      setup_script:
+        required: false
+        default: ".webtunnel/setup.sh"
+      software_webgl:
+        required: false
+        # Flutter Web の描画 (CanvasKit) は WebGL を使うため、runner の Chromium では既定で有効にする
+        default: "true"
+jobs:
+  session:
+    permissions:
+      id-token: write # Tailscale の OIDC (workload identity federation) 認証に必要
+      contents: read
+    # タグ運用はしないため main の commit SHA で固定する（更新時は SHA を書き換える）
+    uses: bannzai/webtunnel/.github/workflows/session.yml@a407318a96c0c8630f515d3acf44c23ccecdf29a # main 2026-10-19
+    with:
+      session: ${{ inputs.session }}
+      duration_minutes: ${{ inputs.duration_minutes }}
+      start_url: ${{ inputs.start_url }}
+      record: ${{ inputs.record }}
+      preview: ${{ inputs.preview }}
+      setup_script: ${{ inputs.setup_script }}
+      software_webgl: ${{ inputs.software_webgl }}
+      # ubuntu-latest に Flutter は入っていないため、flutter-ci.yml の FLUTTER_VERSION と同じタグを clone して web をビルドする
+      setup_command: >-
+        git clone --depth 1 --branch 3.41.9 https://github.com/flutter/flutter.git "$RUNNER_TEMP/flutter" &&
+        "$RUNNER_TEMP/flutter/bin/flutter" pub get &&
+        "$RUNNER_TEMP/flutter/bin/flutter" build web --release
+      # webtunnel は dev サーバが 127.0.0.1 で listen していることを検証するため loopback に束縛する
+      start_command: python3 -m http.server "$PORT" --bind 127.0.0.1 --directory build/web
+      port: "8080"
+    secrets:
+      TS_OIDC_CLIENT_ID: ${{ secrets.TS_OIDC_CLIENT_ID }}
+      TS_OIDC_AUDIENCE: ${{ secrets.TS_OIDC_AUDIENCE }}
