@@ -248,6 +248,33 @@ void main() {
       expect(dexStore.monsters, hasLength(1));
     });
 
+    testWidgets('手持ちが 3 体の時も、カードから外して別のモンスターを入れられる', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        isDeveloperMenuEnabled: false,
+      );
+      dexStore.replaceAll(monsters: sampleData.monsters);
+      await tester.tap(find.byKey(const Key('tab-dex')));
+      await tester.pumpAndSettle();
+      final partyMonsterName = sampleData.monsters.first.definition.name;
+      await tester.tap(find.text(partyMonsterName).first);
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('手持ちから外す'));
+      await tester.pumpAndSettle();
+      expect(find.text('手持ちに入れる'), findsOneWidget);
+      await tester.tap(find.byTooltip('戻る'));
+      await tester.pumpAndSettle();
+
+      final benchMonster = sampleData.monsters.last.definition;
+      await tester.tap(find.text(benchMonster.name));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('手持ちに入れる'));
+      await tester.pumpAndSettle();
+      expect(dexStore.isInParty(monsterId: benchMonster.id), isTrue);
+      expect(dexStore.party, hasLength(3));
+    });
+
     testWidgets('手持ちがいない時は挑めない', (tester) async {
       await pumpApp(
         tester: tester,

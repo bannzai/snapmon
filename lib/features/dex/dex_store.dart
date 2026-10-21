@@ -49,6 +49,13 @@ class DexStore extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// [monsterId] のモンスターを手持ちから外す。手持ちにいない時は何もしない。
+  void removeFromParty({required String monsterId}) {
+    if (_partyMonsterIds.remove(monsterId)) {
+      notifyListeners();
+    }
+  }
+
   /// 図鑑を [monsters] だけにし、先頭から [maximumPartySize] 体を手持ちにする (開発者メニューの見本の投入)。
   void replaceAll({required List<OwnedMonster> monsters}) {
     _monsters

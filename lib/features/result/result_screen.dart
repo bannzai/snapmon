@@ -259,8 +259,13 @@ class ResultScreen extends StatelessWidget {
                       final isInParty = dexStore.isInParty(
                         monsterId: definition.id,
                       );
+                      // 手持ちにいるモンスターはここから外せるようにし、満員でも入れ替えられるようにする
                       return FilledButton(
-                        onPressed: isInParty || !dexStore.hasPartyVacancy
+                        onPressed: isInParty
+                            ? () => dexStore.removeFromParty(
+                                monsterId: definition.id,
+                              )
+                            : !dexStore.hasPartyVacancy
                             ? null
                             : () {
                                 dexStore.addToParty(monsterId: definition.id);
@@ -270,10 +275,10 @@ class ResultScreen extends StatelessWidget {
                               },
                         child: Text(
                           isInParty
-                              ? '手持ちに入っています'
+                              ? '手持ちから外す'
                               : dexStore.hasPartyVacancy
                               ? '手持ちに入れる'
-                              : '手持ちがいっぱいです',
+                              : '手持ちがいっぱいです 外してから入れる',
                         ),
                       );
                     },

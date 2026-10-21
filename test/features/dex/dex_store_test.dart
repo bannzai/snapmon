@@ -32,6 +32,22 @@ void main() {
     expect(dexStore.hasPartyVacancy, isFalse);
   });
 
+  test('手持ちから外すと空きができ、別のモンスターを入れられる', () {
+    final dexStore = DexStore()..replaceAll(monsters: monsters);
+    dexStore
+      ..removeFromParty(monsterId: monsters[1].definition.id)
+      ..removeFromParty(monsterId: 'not-in-party')
+      ..addToParty(monsterId: monsters[3].definition.id);
+    expect(
+      dexStore.party.map((monster) => monster.definition.id),
+      [
+        monsters[0],
+        monsters[2],
+        monsters[3],
+      ].map((monster) => monster.definition.id),
+    );
+  });
+
   test('replaceAll は図鑑を置き換えて先頭 3 体を手持ちにし、clear で空になる', () {
     final dexStore = DexStore()..replaceAll(monsters: monsters);
     expect(dexStore.monsters, hasLength(monsters.length));
