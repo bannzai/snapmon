@@ -99,22 +99,29 @@ describe("匿名ログインと年齢の確認", () => {
     expect((await credential.user.getIdTokenResult(true)).claims.ageVerified).toBeUndefined();
   });
 
+  // 呼び出しが実際に重なるかは Emulator の処理順に依存し、1 回では原子性を確かめられない。
+  // 重なる回数を増やすため別々の uid で繰り返す (重ならなかった回は修正前のコードでも通る)。
   it("同じ uid から 13 歳未満と 13 歳以上を同時に送っても、判定は 1 通りになる", async () => {
-    const credential = await signInAnonymously(auth);
-    const idToken = await credential.user.getIdToken();
-    const responses = await Promise.all([
-      callConfirmAge({
-        idToken,
-        appCheckToken: fakeAppCheckToken,
-        data: { birthYear: new Date().getUTCFullYear() - 5, birthMonth: 1 },
-      }),
-      callConfirmAge({ idToken, appCheckToken: fakeAppCheckToken, data: { birthYear: 2000, birthMonth: 1 } }),
-    ]);
-    const claimed = (await credential.user.getIdTokenResult(true)).claims.ageVerified === true;
-    const statuses = responses.map((response) => response.status);
-    // 先に確定した判定だけが有効なため、クレームが付いた時は両方 200、付かない時は両方 400 になる
-    expect(statuses).toEqual(claimed ? [200, 200] : [400, 400]);
-  });
+    // 10 回: 重なる機会を増やしつつ、テストの時間を下の上限に収めるため
+    for (let attempt = 0; attempt < 10; attempt++) {
+      await signOut(auth);
+      const credential = await signInAnonymously(auth);
+      const idToken = await credential.user.getIdToken();
+      const responses = await Promise.all([
+        callConfirmAge({
+          idToken,
+          appCheckToken: fakeAppCheckToken,
+          data: { birthYear: new Date().getUTCFullYear() - 5, birthMonth: 1 },
+        }),
+        callConfirmAge({ idToken, appCheckToken: fakeAppCheckToken, data: { birthYear: 2000, birthMonth: 1 } }),
+      ]);
+      const claimed = (await credential.user.getIdTokenResult(true)).claims.ageVerified === true;
+      const statuses = responses.map((response) => response.status);
+      // 先に確定した判定だけが有効なため、クレームが付いた時は両方 200、付かない時は両方 400 になる
+      expect(statuses).toEqual(claimed ? [200, 200] : [400, 400]);
+    }
+    // 60 秒: 呼び出しが重なると Firestore のトランザクションが競合して再試行で待つため、既定の 5 秒では足りない (手元の実測で超えた)
+  }, 60_000);
 
   it("App Check のトークンが無い呼び出しは弾く", async () => {
     const credential = await signInAnonymously(auth);
