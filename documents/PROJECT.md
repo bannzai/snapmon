@@ -4,7 +4,7 @@
 
 ## 企画
 
-撮った写真の被写体がモンスターになってバトルするゲーム。カメラで撮った画像の被写体に、HP・攻撃・防御・特攻・素早さ・技・PP が割り当てられ、ターン制のバトルができる。
+撮った写真の被写体がモンスターになってバトルするゲーム。カメラで撮った画像の被写体に、HP・攻撃・防御・特攻・素早さ・技・PP が割り当てられ、ターン制のバトルができる (起票時の案。特攻は作るかの判断の返答に無く、DIRECTION.md の「決めたこと」で実装では置かないと決めた)。
 
 - 起票元: https://github.com/bannzai/IdeaMemo/issues/372
 - 配信先: iOS / Android / Web (Flutter + Flame)。立ち上げ設定 https://github.com/bannzai/IdeaMemo/issues/372#issuecomment-6306523682 の `platform`
