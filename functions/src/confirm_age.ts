@@ -11,8 +11,11 @@ import { hasReachedMinimumAge } from "./age";
  * 返す値: `{ ageVerified: true }`。クライアントは `getIdToken(true)` でクレームの付いたトークンに更新してから、
  * Rules がクレームを必須にしている Firestore・Storage と、Analytics の初期化に進む。
  * 最低年齢に達していなければ `users/{uid}` に `ageRejected: true` を書いて `failed-precondition` を投げ、クレームを付けない。
- * `ageRejected` のある uid は、別の生年月で呼び直しても通さない (13 歳未満と判定された子どもが年齢を入れ直して通るのを防ぐため。
- * PR #21 のレビュー指摘)。
+ * 判定は uid ごとに 1 回だけ有効にする: `ageRejected` のある uid は別の生年月で呼び直しても通さず、`ageAccepted` のある uid は通す
+ * (13 歳未満と判定された子どもが年齢を入れ直して通るのを防ぐため。PR #21 のレビュー指摘)。
+ * 判定の読み書きはトランザクションで行い、同じ uid から同時に呼んでも判定が 2 通りに分かれない。
+ * 限界: 匿名ログインをやり直すと別の uid になり、この印は引き継がれない (アプリのデータを消すと入れ直せる)。
+ * 端末に拒否を残して年齢の入力を出し直さない処理は、年齢の確認の画面 (#11) で行う。
  * 既にクレームがある uid に再度呼んでも同じ結果になる (冪等)。
  */
 export const confirmAge = onCall({ enforceAppCheck: true }, async (request) => {
@@ -28,12 +31,21 @@ export const confirmAge = onCall({ enforceAppCheck: true }, async (request) => {
   if (user.customClaims?.ageVerified === true) {
     return { ageVerified: true };
   }
-  const userDocument = getFirestore().doc(`users/${request.auth.uid}`);
-  if ((await userDocument.get()).get("ageRejected") === true) {
-    throw new HttpsError("failed-precondition", "13 歳未満の方は利用できません");
-  }
-  if (!hasReachedMinimumAge({ birthYear, birthMonth, now: new Date() })) {
-    await userDocument.set({ ageRejected: true }, { merge: true });
+  const firestore = getFirestore();
+  const userDocument = firestore.doc(`users/${request.auth.uid}`);
+  const accepted = await firestore.runTransaction(async (transaction) => {
+    const userSnapshot = await transaction.get(userDocument);
+    if (userSnapshot.get("ageRejected") === true) {
+      return false;
+    }
+    if (userSnapshot.get("ageAccepted") === true) {
+      return true;
+    }
+    const reachedMinimumAge = hasReachedMinimumAge({ birthYear, birthMonth, now: new Date() });
+    transaction.set(userDocument, reachedMinimumAge ? { ageAccepted: true } : { ageRejected: true }, { merge: true });
+    return reachedMinimumAge;
+  });
+  if (!accepted) {
     throw new HttpsError("failed-precondition", "13 歳未満の方は利用できません");
   }
   await auth.setCustomUserClaims(request.auth.uid, { ...user.customClaims, ageVerified: true });

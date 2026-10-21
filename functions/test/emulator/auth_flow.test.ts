@@ -99,6 +99,23 @@ describe("匿名ログインと年齢の確認", () => {
     expect((await credential.user.getIdTokenResult(true)).claims.ageVerified).toBeUndefined();
   });
 
+  it("同じ uid から 13 歳未満と 13 歳以上を同時に送っても、判定は 1 通りになる", async () => {
+    const credential = await signInAnonymously(auth);
+    const idToken = await credential.user.getIdToken();
+    const responses = await Promise.all([
+      callConfirmAge({
+        idToken,
+        appCheckToken: fakeAppCheckToken,
+        data: { birthYear: new Date().getUTCFullYear() - 5, birthMonth: 1 },
+      }),
+      callConfirmAge({ idToken, appCheckToken: fakeAppCheckToken, data: { birthYear: 2000, birthMonth: 1 } }),
+    ]);
+    const claimed = (await credential.user.getIdTokenResult(true)).claims.ageVerified === true;
+    const statuses = responses.map((response) => response.status);
+    // 先に確定した判定だけが有効なため、クレームが付いた時は両方 200、付かない時は両方 400 になる
+    expect(statuses).toEqual(claimed ? [200, 200] : [400, 400]);
+  });
+
   it("App Check のトークンが無い呼び出しは弾く", async () => {
     const credential = await signInAnonymously(auth);
     const response = await callConfirmAge({

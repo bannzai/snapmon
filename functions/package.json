@@ -8,7 +8,7 @@
   "scripts": {
     "build": "tsc",
     "test": "vitest run test/unit",
-    "test:emulator": "firebase emulators:exec --project demo-snapmon --only auth,firestore,storage,functions \"vitest run test/emulator\"",
+    "test:emulator": "firebase emulators:exec --project demo-snapmon --only auth,firestore,storage,functions \"vitest run test/emulator --no-file-parallelism\"",
     "seed-master": "node scripts/seed-master.mjs"
   },
   "dependencies": {
