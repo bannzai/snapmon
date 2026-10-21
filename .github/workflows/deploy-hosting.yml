@@ -38,6 +38,10 @@ jobs:
         node-version: '22'
         cache: npm
         cache-dependency-path: functions/package-lock.json
+    # Firebase の設定ファイルは git の管理外のため、ビルドの前に Secrets から書き出す
+    - run: scripts/restore-firebase-config.sh dart
+      env:
+        FIREBASE_OPTIONS_DART_B64: ${{ secrets.FIREBASE_OPTIONS_DART_B64 }}
     - run: flutter pub get
     - name: Build web
       env:
