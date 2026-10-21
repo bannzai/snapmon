@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>snapmon | 撮った写真がモンスターになるバトルゲーム</title>
+<meta name="description" content="身の回りの物を撮ると、その物に似た自分だけのモンスターが生まれる。属性の相性や技で勝敗が決まるターン制バトルで、集めて、戦わせて、見せ合おう。">
+<link rel="canonical" href="https://bannzai.github.io/snapmon/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="snapmon">
+<meta property="og:title" content="snapmon | 撮った写真がモンスターになるバトルゲーム">
+<meta property="og:description" content="身の回りの物を撮ると、その物に似た自分だけのモンスターが生まれる。ターン制バトルで集めて、戦わせて、見せ合おう。">
+<meta property="og:url" content="https://bannzai.github.io/snapmon/">
+<meta property="og:image" content="https://bannzai.github.io/snapmon/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="snapmon | 撮った写真がモンスターになるバトルゲーム">
+<meta name="twitter:description" content="身の回りの物を撮ると、その物に似た自分だけのモンスターが生まれる。ターン制バトルで集めて、戦わせて、見せ合おう。">
+<meta name="twitter:image" content="https://bannzai.github.io/snapmon/og.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "snapmon",
+  "description": "身の回りの物を撮ると、その物に似た自分だけのモンスターが生まれ、ターン制バトルで戦わせられるゲーム。",
+  "applicationCategory": "GameApplication",
+  "operatingSystem": "iOS, Android, Web",
+  "inLanguage": "ja",
+  "url": "https://bannzai.github.io/snapmon/",
+  "image": "https://bannzai.github.io/snapmon/og.png",
+  "author": { "@type": "Person", "name": "bannzai" }
+}
+</script>
+<style>
+:root {
+  --color-bg: #f4f8fa;
+  --color-surface: #ffffff;
+  --color-text: #14304a;
+  --color-muted: #4d6678;
+  --color-accent: #1e8f78;
+  --color-accent-strong: #14304a;
+  --color-on-accent: #ffffff;
+  --color-border: #c9d9e1;
+  --radius: 6px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: "Hiragino Sans", "Noto Sans JP", "Yu Gothic", system-ui, sans-serif;
+  line-height: 1.8;
+}
+a { color: var(--color-accent); }
+a:focus-visible, .button:focus-visible { outline: 3px solid var(--color-accent-strong); outline-offset: 2px; }
+.wrap { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+header.site { background: var(--color-accent-strong); color: #fff; }
+header.site .wrap { display: flex; justify-content: space-between; align-items: center; padding-top: 14px; padding-bottom: 14px; }
+header.site strong { font-size: 1.25rem; letter-spacing: 0.02em; }
+header.site nav a { color: #d6ece6; margin-left: 20px; text-decoration: none; font-size: 0.95rem; }
+header.site nav a:hover { text-decoration: underline; }
+.hero { background: var(--color-accent-strong); color: #fff; padding: 56px 0 72px; }
+.hero .wrap { display: grid; grid-template-columns: 1.3fr 1fr; gap: 32px; align-items: center; }
+.hero h1 { font-size: 2.4rem; line-height: 1.35; margin: 0 0 16px; }
+.hero p { margin: 0 0 24px; color: #d6ece6; font-size: 1.05rem; }
+.hero img { width: 100%; height: auto; border-radius: var(--radius); display: block; }
+.button {
+  display: inline-block; padding: 12px 22px; border-radius: var(--radius);
+  background: var(--color-accent); color: var(--color-on-accent); text-decoration: none; font-weight: 700;
+}
+.button[aria-disabled="true"] { background: #7fb9ad; color: #0d2a3f; cursor: default; }
+.store-note { display: block; margin-top: 10px; font-size: 0.9rem; color: #bcd8d0; }
+section { padding: 56px 0; }
+section h2 { font-size: 1.6rem; margin: 0 0 20px; }
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 20px; }
+.card h3 { margin: 0 0 8px; font-size: 1.1rem; }
+.card p { margin: 0; color: var(--color-muted); }
+.flow { background: var(--color-surface); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
+.flow ol { margin: 0; padding-left: 1.4em; }
+.flow li { margin-bottom: 8px; }
+ul.links { padding-left: 1.2em; }
+footer { padding: 28px 0 40px; color: var(--color-muted); font-size: 0.9rem; border-top: 1px solid var(--color-border); }
+@media (max-width: 720px) {
+  .hero .wrap { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 1.9rem; }
+  .cards { grid-template-columns: 1fr; }
+  header.site nav a { margin-left: 12px; }
+}
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <strong>snapmon</strong>
+    <nav aria-label="ページ内リンク">
+      <a href="#features">特徴</a>
+      <a href="#support">サポート</a>
+      <a href="#documents">規約・ポリシー</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <h1>撮った写真が<br>自分だけのモンスターになる</h1>
+        <p>身の回りの物にカメラを向けると、その物に似たモンスターが生まれます。属性の相性と技で勝敗が決まるターン制バトルで、集めて、戦わせて、見せ合おう。</p>
+        <a class="button" href="#store" aria-disabled="true">近日公開</a>
+        <span class="store-note">App Store・Google Play・Web 版を準備中です。</span>
+      </div>
+      <img src="./og.png" width="1200" height="630" alt="snapmon のロゴと、カメラのレンズの形をした緑のモンスター">
+    </div>
+  </div>
+
+  <section id="features">
+    <div class="wrap">
+      <h2>snapmon でできること</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>撮った物が、モンスターに</h3>
+          <p>カメラで撮るか、アルバムから選ぶだけ。被写体の特徴から名前と図鑑の文章、属性、技、ステータスが決まります。一度生まれたモンスターは後から変わりません。</p>
+        </div>
+        <div class="card">
+          <h3>ステータスが効くバトル</h3>
+          <p>素早さの順に行動し、技の威力、属性の弱点、攻撃と防御、技の残り回数が勝敗に効きます。バトルのたびにレベルが上がります。</p>
+        </div>
+        <div class="card">
+          <h3>集めて、見せ合う</h3>
+          <p>図鑑にはモンスターと元の写真が並びます。元の写真は自分だけに表示されます。図鑑のカードやバトルの結果は SNS に共有できます。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="flow" id="how">
+    <div class="wrap">
+      <h2>遊び方</h2>
+      <ol>
+        <li>身の回りの物を撮る、またはアルバムから選ぶ。</li>
+        <li>生まれたモンスターを図鑑に登録し、手持ちの 3 体を選ぶ。</li>
+        <li>CPU や他のユーザーの手持ちと、ターン制バトルで戦う。</li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="support">
+    <div class="wrap">
+      <h2>サポート・お問い合わせ</h2>
+      <p>不具合のご報告やご質問は、次のメールアドレスで受け付けています。アプリの設定画面の「お問い合わせ」からも連絡できます。</p>
+      <p><a href="mailto:bannzai.app@gmail.com">bannzai.app@gmail.com</a></p>
+      <p>不適切なモンスターの通報やユーザーのブロックは、アプリ内の機能から行えます。</p>
+      <p>アカウントとデータの削除手順は <a href="./AccountDeletion">アカウントの削除について</a> を確認してください。</p>
+    </div>
+  </section>
+
+  <section id="documents" class="flow">
+    <div class="wrap">
+      <h2>規約・ポリシー</h2>
+      <ul class="links">
+        <li><a href="./Terms">利用規約</a></li>
+        <li><a href="./PrivacyPolicy">プライバシーポリシー</a></li>
+        <li><a href="./AccountDeletion">アカウントの削除について</a></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>&copy; 2026 bannzai</p>
+  </div>
+</footer>
+</body>
+</html>
