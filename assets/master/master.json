@@ -1,0 +1,726 @@
+{
+  "version": 1,
+  "elementTypes": [
+    {
+      "id": "metal",
+      "displayName": "金属"
+    },
+    {
+      "id": "wood",
+      "displayName": "木"
+    },
+    {
+      "id": "plant",
+      "displayName": "植物"
+    },
+    {
+      "id": "water",
+      "displayName": "水"
+    },
+    {
+      "id": "heat",
+      "displayName": "熱"
+    },
+    {
+      "id": "stone",
+      "displayName": "石"
+    },
+    {
+      "id": "paper",
+      "displayName": "紙"
+    },
+    {
+      "id": "cloth",
+      "displayName": "布"
+    },
+    {
+      "id": "glass",
+      "displayName": "ガラス"
+    },
+    {
+      "id": "plastic",
+      "displayName": "樹脂"
+    },
+    {
+      "id": "electric",
+      "displayName": "電気"
+    },
+    {
+      "id": "food",
+      "displayName": "食べ物"
+    }
+  ],
+  "typeChart": {
+    "metal": {
+      "metal": 0.5,
+      "wood": 2,
+      "plant": 1,
+      "water": 1,
+      "heat": 0.5,
+      "stone": 0.5,
+      "paper": 2,
+      "cloth": 1,
+      "glass": 2,
+      "plastic": 1,
+      "electric": 1,
+      "food": 1
+    },
+    "wood": {
+      "metal": 0.5,
+      "wood": 1,
+      "plant": 1,
+      "water": 2,
+      "heat": 0.5,
+      "stone": 1,
+      "paper": 1,
+      "cloth": 1,
+      "glass": 1,
+      "plastic": 1,
+      "electric": 2,
+      "food": 1
+    },
+    "plant": {
+      "metal": 0.5,
+      "wood": 1,
+      "plant": 0.5,
+      "water": 2,
+      "heat": 0.5,
+      "stone": 2,
+      "paper": 1,
+      "cloth": 1,
+      "glass": 1,
+      "plastic": 1,
+      "electric": 1,
+      "food": 1
+    },
+    "water": {
+      "metal": 1,
+      "wood": 1,
+      "plant": 0.5,
+      "water": 0.5,
+      "heat": 2,
+      "stone": 2,
+      "paper": 2,
+      "cloth": 1,
+      "glass": 1,
+      "plastic": 0.5,
+      "electric": 1,
+      "food": 1
+    },
+    "heat": {
+      "metal": 1,
+      "wood": 1,
+      "plant": 2,
+      "water": 0.5,
+      "heat": 1,
+      "stone": 0.5,
+      "paper": 2,
+      "cloth": 2,
+      "glass": 0.5,
+      "plastic": 2,
+      "electric": 1,
+      "food": 2
+    },
+    "stone": {
+      "metal": 2,
+      "wood": 1,
+      "plant": 0.5,
+      "water": 1,
+      "heat": 2,
+      "stone": 1,
+      "paper": 0.5,
+      "cloth": 1,
+      "glass": 2,
+      "plastic": 1,
+      "electric": 2,
+      "food": 1
+    },
+    "paper": {
+      "metal": 0.5,
+      "wood": 1,
+      "plant": 1,
+      "water": 0.5,
+      "heat": 0.5,
+      "stone": 2,
+      "paper": 1,
+      "cloth": 1,
+      "glass": 1,
+      "plastic": 1,
+      "electric": 1,
+      "food": 1
+    },
+    "cloth": {
+      "metal": 0.5,
+      "wood": 1,
+      "plant": 1,
+      "water": 1,
+      "heat": 0.5,
+      "stone": 1,
+      "paper": 1,
+      "cloth": 1,
+      "glass": 2,
+      "plastic": 1,
+      "electric": 1,
+      "food": 2
+    },
+    "glass": {
+      "metal": 0.5,
+      "wood": 1,
+      "plant": 1,
+      "water": 1,
+      "heat": 1,
+      "stone": 0.5,
+      "paper": 2,
+      "cloth": 2,
+      "glass": 1,
+      "plastic": 2,
+      "electric": 1,
+      "food": 1
+    },
+    "plastic": {
+      "metal": 0.5,
+      "wood": 1,
+      "plant": 1,
+      "water": 2,
+      "heat": 0.5,
+      "stone": 1,
+      "paper": 1,
+      "cloth": 1,
+      "glass": 1,
+      "plastic": 1,
+      "electric": 2,
+      "food": 1
+    },
+    "electric": {
+      "metal": 2,
+      "wood": 0.5,
+      "plant": 1,
+      "water": 2,
+      "heat": 1,
+      "stone": 1,
+      "paper": 1,
+      "cloth": 1,
+      "glass": 0.5,
+      "plastic": 0.5,
+      "electric": 1,
+      "food": 1
+    },
+    "food": {
+      "metal": 0.5,
+      "wood": 1,
+      "plant": 1,
+      "water": 1,
+      "heat": 0.5,
+      "stone": 1,
+      "paper": 2,
+      "cloth": 2,
+      "glass": 1,
+      "plastic": 1,
+      "electric": 1,
+      "food": 1
+    }
+  },
+  "moves": [
+    {
+      "id": "metal_1",
+      "displayName": "ブリキパンチ",
+      "elementTypeId": "metal",
+      "power": 40,
+      "powerPoints": 30,
+      "category": "attack",
+      "effectId": "metal_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "metal_2",
+      "displayName": "スチールプレス",
+      "elementTypeId": "metal",
+      "power": 70,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "metal_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200
+    },
+    {
+      "id": "metal_3",
+      "displayName": "ギアクラッシュ",
+      "elementTypeId": "metal",
+      "power": 110,
+      "powerPoints": 5,
+      "category": "attack",
+      "effectId": "metal_particle",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999
+    },
+    {
+      "id": "wood_1",
+      "displayName": "こっぱとばし",
+      "elementTypeId": "wood",
+      "power": 40,
+      "powerPoints": 30,
+      "category": "attack",
+      "effectId": "wood_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "wood_2",
+      "displayName": "まるたうち",
+      "elementTypeId": "wood",
+      "power": 70,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "wood_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200
+    },
+    {
+      "id": "wood_3",
+      "displayName": "おおぎのしなり",
+      "elementTypeId": "wood",
+      "power": 110,
+      "powerPoints": 5,
+      "category": "attack",
+      "effectId": "wood_particle",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999
+    },
+    {
+      "id": "plant_1",
+      "displayName": "はっぱカッター",
+      "elementTypeId": "plant",
+      "power": 40,
+      "powerPoints": 30,
+      "category": "attack",
+      "effectId": "plant_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "plant_2",
+      "displayName": "つるしめつけ",
+      "elementTypeId": "plant",
+      "power": 70,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "plant_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200
+    },
+    {
+      "id": "plant_3",
+      "displayName": "ねっこのあらし",
+      "elementTypeId": "plant",
+      "power": 110,
+      "powerPoints": 5,
+      "category": "attack",
+      "effectId": "plant_particle",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999
+    },
+    {
+      "id": "water_1",
+      "displayName": "しずくだま",
+      "elementTypeId": "water",
+      "power": 40,
+      "powerPoints": 30,
+      "category": "attack",
+      "effectId": "water_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "water_2",
+      "displayName": "みずでっぽう",
+      "elementTypeId": "water",
+      "power": 70,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "water_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200
+    },
+    {
+      "id": "water_3",
+      "displayName": "おおつなみ",
+      "elementTypeId": "water",
+      "power": 110,
+      "powerPoints": 5,
+      "category": "attack",
+      "effectId": "water_particle",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999
+    },
+    {
+      "id": "heat_1",
+      "displayName": "ほかほかタッチ",
+      "elementTypeId": "heat",
+      "power": 40,
+      "powerPoints": 30,
+      "category": "attack",
+      "effectId": "heat_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "heat_2",
+      "displayName": "ねつふうしゃ",
+      "elementTypeId": "heat",
+      "power": 70,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "heat_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200
+    },
+    {
+      "id": "heat_3",
+      "displayName": "ようこうろ",
+      "elementTypeId": "heat",
+      "power": 110,
+      "powerPoints": 5,
+      "category": "attack",
+      "effectId": "heat_particle",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999
+    },
+    {
+      "id": "stone_1",
+      "displayName": "こいしなげ",
+      "elementTypeId": "stone",
+      "power": 40,
+      "powerPoints": 30,
+      "category": "attack",
+      "effectId": "stone_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "stone_2",
+      "displayName": "いしがきタックル",
+      "elementTypeId": "stone",
+      "power": 70,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "stone_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200
+    },
+    {
+      "id": "stone_3",
+      "displayName": "がんばんおとし",
+      "elementTypeId": "stone",
+      "power": 110,
+      "powerPoints": 5,
+      "category": "attack",
+      "effectId": "stone_particle",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999
+    },
+    {
+      "id": "paper_1",
+      "displayName": "かみひこうき",
+      "elementTypeId": "paper",
+      "power": 40,
+      "powerPoints": 30,
+      "category": "attack",
+      "effectId": "paper_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "paper_2",
+      "displayName": "おりがみカッター",
+      "elementTypeId": "paper",
+      "power": 70,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "paper_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200
+    },
+    {
+      "id": "paper_3",
+      "displayName": "かみふぶき",
+      "elementTypeId": "paper",
+      "power": 110,
+      "powerPoints": 5,
+      "category": "attack",
+      "effectId": "paper_particle",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999
+    },
+    {
+      "id": "cloth_1",
+      "displayName": "ハンカチはたき",
+      "elementTypeId": "cloth",
+      "power": 40,
+      "powerPoints": 30,
+      "category": "attack",
+      "effectId": "cloth_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "cloth_2",
+      "displayName": "まきつきマフラー",
+      "elementTypeId": "cloth",
+      "power": 70,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "cloth_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200
+    },
+    {
+      "id": "cloth_3",
+      "displayName": "カーテンコール",
+      "elementTypeId": "cloth",
+      "power": 110,
+      "powerPoints": 5,
+      "category": "attack",
+      "effectId": "cloth_particle",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999
+    },
+    {
+      "id": "glass_1",
+      "displayName": "ガラスのかけら",
+      "elementTypeId": "glass",
+      "power": 40,
+      "powerPoints": 30,
+      "category": "attack",
+      "effectId": "glass_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "glass_2",
+      "displayName": "プリズムビーム",
+      "elementTypeId": "glass",
+      "power": 70,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "glass_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200
+    },
+    {
+      "id": "glass_3",
+      "displayName": "ステンドスラッシュ",
+      "elementTypeId": "glass",
+      "power": 110,
+      "powerPoints": 5,
+      "category": "attack",
+      "effectId": "glass_particle",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999
+    },
+    {
+      "id": "plastic_1",
+      "displayName": "ストローショット",
+      "elementTypeId": "plastic",
+      "power": 40,
+      "powerPoints": 30,
+      "category": "attack",
+      "effectId": "plastic_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "plastic_2",
+      "displayName": "ボトルロケット",
+      "elementTypeId": "plastic",
+      "power": 70,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "plastic_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200
+    },
+    {
+      "id": "plastic_3",
+      "displayName": "ブロックラッシュ",
+      "elementTypeId": "plastic",
+      "power": 110,
+      "powerPoints": 5,
+      "category": "attack",
+      "effectId": "plastic_particle",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999
+    },
+    {
+      "id": "electric_1",
+      "displayName": "せいでんきタッチ",
+      "elementTypeId": "electric",
+      "power": 40,
+      "powerPoints": 30,
+      "category": "attack",
+      "effectId": "electric_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "electric_2",
+      "displayName": "でんちショック",
+      "elementTypeId": "electric",
+      "power": 70,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "electric_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200
+    },
+    {
+      "id": "electric_3",
+      "displayName": "こうあつスパーク",
+      "elementTypeId": "electric",
+      "power": 110,
+      "powerPoints": 5,
+      "category": "attack",
+      "effectId": "electric_particle",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999
+    },
+    {
+      "id": "food_1",
+      "displayName": "パンくずなげ",
+      "elementTypeId": "food",
+      "power": 40,
+      "powerPoints": 30,
+      "category": "attack",
+      "effectId": "food_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "food_2",
+      "displayName": "ジャムぬりつけ",
+      "elementTypeId": "food",
+      "power": 70,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "food_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200
+    },
+    {
+      "id": "food_3",
+      "displayName": "まんぷくプレス",
+      "elementTypeId": "food",
+      "power": 110,
+      "powerPoints": 5,
+      "category": "attack",
+      "effectId": "food_particle",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999
+    }
+  ],
+  "effects": [
+    {
+      "id": "metal_particle",
+      "displayName": "金属のパーティクル",
+      "kind": "particle",
+      "colorHex": "#9AA5B1"
+    },
+    {
+      "id": "wood_particle",
+      "displayName": "木のパーティクル",
+      "kind": "particle",
+      "colorHex": "#8B5A2B"
+    },
+    {
+      "id": "plant_particle",
+      "displayName": "植物のパーティクル",
+      "kind": "particle",
+      "colorHex": "#4CAF50"
+    },
+    {
+      "id": "water_particle",
+      "displayName": "水のパーティクル",
+      "kind": "particle",
+      "colorHex": "#2196F3"
+    },
+    {
+      "id": "heat_particle",
+      "displayName": "熱のパーティクル",
+      "kind": "particle",
+      "colorHex": "#F4511E"
+    },
+    {
+      "id": "stone_particle",
+      "displayName": "石のパーティクル",
+      "kind": "particle",
+      "colorHex": "#795548"
+    },
+    {
+      "id": "paper_particle",
+      "displayName": "紙のパーティクル",
+      "kind": "particle",
+      "colorHex": "#F5F0E1"
+    },
+    {
+      "id": "cloth_particle",
+      "displayName": "布のパーティクル",
+      "kind": "particle",
+      "colorHex": "#AB47BC"
+    },
+    {
+      "id": "glass_particle",
+      "displayName": "ガラスのパーティクル",
+      "kind": "particle",
+      "colorHex": "#80DEEA"
+    },
+    {
+      "id": "plastic_particle",
+      "displayName": "樹脂のパーティクル",
+      "kind": "particle",
+      "colorHex": "#FFCA28"
+    },
+    {
+      "id": "electric_particle",
+      "displayName": "電気のパーティクル",
+      "kind": "particle",
+      "colorHex": "#FFEB3B"
+    },
+    {
+      "id": "food_particle",
+      "displayName": "食べ物のパーティクル",
+      "kind": "particle",
+      "colorHex": "#FF8A65"
+    }
+  ],
+  "statGrades": [
+    {
+      "id": "veryLow",
+      "displayName": "とても低い",
+      "baseStat": 40
+    },
+    {
+      "id": "low",
+      "displayName": "低い",
+      "baseStat": 60
+    },
+    {
+      "id": "medium",
+      "displayName": "ふつう",
+      "baseStat": 80
+    },
+    {
+      "id": "high",
+      "displayName": "高い",
+      "baseStat": 100
+    },
+    {
+      "id": "veryHigh",
+      "displayName": "とても高い",
+      "baseStat": 120
+    }
+  ],
+  "elementSelection": {
+    "probabilityThreshold": 0.5,
+    "maximumCount": 2
+  }
+}
