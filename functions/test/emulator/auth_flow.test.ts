@@ -1,6 +1,6 @@
 import { deleteApp, initializeApp } from "firebase/app";
-import { connectAuthEmulator, getAuth, signInAnonymously } from "firebase/auth";
-import { afterAll, describe, expect, it } from "vitest";
+import { connectAuthEmulator, getAuth, signInAnonymously, signOut } from "firebase/auth";
+import { afterAll, beforeEach, describe, expect, it } from "vitest";
 
 // firebase emulators:exec (package.json の test:emulator) の中で実行する。
 // 年齢の確認の後の流れ (匿名ログイン → confirmAge → クレーム付きのトークン) を Auth と Functions の Emulator で確かめる。
@@ -19,6 +19,11 @@ const fakeAppCheckToken = [
 const app = initializeApp({ projectId, apiKey: "demo-api-key" }, "auth-flow-test");
 const auth = getAuth(app);
 connectAuthEmulator(auth, "http://127.0.0.1:9099", { disableWarnings: true });
+
+// signInAnonymously はログイン済みの匿名ユーザーを使い回すため、テストごとに未確認の新しいユーザーで始める。
+beforeEach(async () => {
+  await signOut(auth);
+});
 
 afterAll(async () => {
   await deleteApp(app);

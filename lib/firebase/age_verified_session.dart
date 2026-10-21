@@ -5,7 +5,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/foundation.dart';
 
 // 年齢の確認 (#11 の最初の画面) より前に識別子 (uid・Analytics・App Check) を取らないため、
 // Firebase のうち識別子を作る機能はこのファイルの関数からだけ始める (documents/adr/0001-tech-stack.md の対象年齢の行)。

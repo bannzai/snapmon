@@ -5,7 +5,7 @@
   },
   "storage": [
     {
-      "bucket": "snapmon-prod-storage",
+      "target": "main",
       "rules": "firebase/storage.rules"
     }
   ],
