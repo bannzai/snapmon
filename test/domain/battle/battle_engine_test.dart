@@ -446,6 +446,109 @@ void main() {
     });
   });
 
+  test('素早さが同じ時の行動順は seed で決まる (同じ seed なら同じ、seed によって入れ替わる)', () {
+    BattleSideId firstAttacker({required int randomSeed}) => advanceTurn(
+      state: startBattle(
+        playerMembers: [
+          prepare(
+            definition: testDefinition(
+              id: 'player',
+              elementTypeId: 'fire',
+              moveIds: ['fire_strong'],
+              speed: 80,
+            ),
+          ),
+        ],
+        opponentMembers: [
+          prepare(
+            definition: testDefinition(
+              id: 'opponent',
+              elementTypeId: 'fire',
+              moveIds: ['fire_strong'],
+              speed: 80,
+            ),
+          ),
+        ],
+        randomSeed: randomSeed,
+      ),
+      playerAction: const UseMoveAction(moveId: 'fire_strong'),
+      opponentAction: const UseMoveAction(moveId: 'fire_strong'),
+      master: testMaster,
+    ).events.whereType<MoveUsedEvent>().first.attackerSide;
+
+    final firstAttackers = [
+      for (var randomSeed = 1; randomSeed <= 20; randomSeed++)
+        firstAttacker(randomSeed: randomSeed),
+    ];
+    expect(firstAttackers.toSet(), BattleSideId.values.toSet());
+    expect([
+      for (var randomSeed = 1; randomSeed <= 20; randomSeed++)
+        firstAttacker(randomSeed: randomSeed),
+    ], firstAttackers);
+  });
+
+  test('補助技しか残っていない時はわるあがきを選べ、CPU の行動で決着する', () {
+    final supportOnlyMaster = mergeMasterData(
+      base: testMaster,
+      additional: const MasterData(
+        version: 1,
+        elementTypes: [],
+        typeChart: {},
+        moves: [
+          Move(
+            id: 'support_only',
+            displayName: 'みまもる',
+            elementTypeId: 'fire',
+            power: 0,
+            powerPoints: 5,
+            category: MoveCategory.support,
+            effectId: 'none',
+            learnableLevelMinimum: 1,
+            learnableLevelMaximum: 999,
+          ),
+        ],
+        effects: [],
+        statGrades: [],
+        elementSelection: null,
+      ),
+    );
+    BattleMonster supportOnlyMonster({required String id}) =>
+        prepareBattleMonster(
+          definition: testDefinition(
+            id: id,
+            elementTypeId: 'fire',
+            moveIds: ['support_only'],
+            speed: id == 'player' ? 100 : 50,
+          ),
+          level: 50,
+          experience: 0,
+          master: supportOnlyMaster,
+        );
+    var state = startBattle(
+      playerMembers: [supportOnlyMonster(id: 'player')],
+      opponentMembers: [supportOnlyMonster(id: 'opponent')],
+      randomSeed: 1,
+    );
+    while (state.winner == null) {
+      state = advanceTurn(
+        state: state,
+        playerAction: chooseCpuAction(
+          state: state,
+          side: BattleSideId.player,
+          master: supportOnlyMaster,
+        ),
+        opponentAction: chooseCpuAction(
+          state: state,
+          side: BattleSideId.opponent,
+          master: supportOnlyMaster,
+        ),
+        master: supportOnlyMaster,
+      );
+      expect(state.turnNumber, lessThan(1000), reason: 'バトルが終わらない');
+    }
+    expect(state.winner, isNotNull);
+  });
+
   test('手持ちが 0 体・4 体以上ではバトルを始められない', () {
     final member = prepare(
       definition: testDefinition(

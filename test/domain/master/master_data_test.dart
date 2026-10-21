@@ -69,6 +69,11 @@ void main() {
         'elementTypes': [
           {'id': 'custom_rubber', 'displayName': 'ゴム'},
         ],
+        // その場で作った定義が相性を持っていても取り込まれず、等倍に固定されることを確かめる
+        'typeChart': {
+          'custom_rubber': {'electric': 2},
+          'heat': {'custom_rubber': 2},
+        },
         'moves': [
           {
             'id': 'custom_rubber_1',

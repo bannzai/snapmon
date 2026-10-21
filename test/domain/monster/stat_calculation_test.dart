@@ -36,6 +36,12 @@ void main() {
         baseStatsFromStatGrades(statGradeIds: statGradeIds, master: master);
 
     expect(individualValues(), individualValues());
+    // 保存済みのモンスターの値を変えないよう、固定の説明文から引いた値を固定する。
+    // 期待値は FNV-1a と xorshift32 を任意精度の整数で別実装 (Python) して求めた。
+    expect(
+      individualValues(),
+      const MonsterStats(hitPoints: 1, attack: 5, defense: 22, speed: 25),
+    );
     expect(baseStats(), baseStats());
     expect(
       baseStats(),

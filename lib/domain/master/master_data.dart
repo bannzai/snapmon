@@ -144,7 +144,7 @@ class MasterData {
 }
 
 /// master [base] に、その場で作った定義 [additional] を足した定義の集まりを返す。
-/// 版・ステータスの段階・属性を選ぶ規則は [base] のものを使う。
+/// 版・相性表・ステータスの段階・属性を選ぶ規則は [base] のものを使う。
 /// 同じ ID の定義が両方にある時は [base] を優先する (master の定義を上書きさせないため)。
 MasterData mergeMasterData({
   required MasterData base,
@@ -163,16 +163,9 @@ MasterData mergeMasterData({
         (elementType) => !baseElementTypeIds.contains(elementType.id),
       ),
     ],
-    typeChart: {
-      for (final attackerElementTypeId in {
-        ...base.typeChart.keys,
-        ...additional.typeChart.keys,
-      })
-        attackerElementTypeId: {
-          ...?additional.typeChart[attackerElementTypeId],
-          ...?base.typeChart[attackerElementTypeId],
-        },
-    },
+    // その場で作った属性の相性は等倍に固定するため (ADR 0001「master に無い属性・技」)、
+    // [additional] が相性表を持っていても取り込まず、[typeMultiplier] の等倍の既定に任せる。
+    typeChart: base.typeChart,
     moves: [
       ...base.moves,
       ...additional.moves.where((move) => !baseMoveIds.contains(move.id)),

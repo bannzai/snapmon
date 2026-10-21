@@ -60,7 +60,7 @@ class UseMoveAction extends BattleAction {
   final String moveId;
 }
 
-/// 使える技が無い (すべて PP が 0) 時の行動 (わるあがき)。
+/// 使える攻撃技が無い (PP が 0 か補助技しか残っていない) 時の行動 (わるあがき)。
 class StruggleAction extends BattleAction {
   /// わるあがきの行動を作る。
   const StruggleAction();

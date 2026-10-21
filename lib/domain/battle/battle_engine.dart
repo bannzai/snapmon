@@ -67,7 +67,7 @@ BattleState startBattle({
 }
 
 /// [monster] が今使える技 (レベルで開放済みで PP が残っている技) を、覚える技の一覧の順で返す。
-/// 空なら行動はわるあがき ([StruggleAction]) だけになる。
+/// 攻撃技が 1 つも無ければわるあがき ([StruggleAction]) も選べる (補助技だけが残って決着しなくなるのを防ぐため)。
 List<Move> selectableMoves({
   required BattleMonster monster,
   required MasterData master,
@@ -148,7 +148,7 @@ BattleAction chooseCpuAction({
 /// ターンの終わりに倒れたモンスターを手持ちの次のモンスターと交代し、手持ちがすべて倒れた側が負ける。
 /// 決着がついたら勝敗を問わず両陣営の、場に出たことがある手持ちのレベルを 1 上げる (上限 [maximumLevel]。
 /// DIRECTION.md「必要な機能」の「1 戦ごとに、戦闘に出た手持ちのレベルが勝敗に関係なく 1 上がる」)。
-/// 決着済みの状態・選べない行動 (PP が 0 か未開放の技、使える技があるのにわるあがき) には例外を投げる。
+/// 決着済みの状態・選べない行動 (PP が 0 か未開放の技、使える攻撃技があるのにわるあがき) には例外を投げる。
 BattleState advanceTurn({
   required BattleState state,
   required BattleAction playerAction,
@@ -369,18 +369,15 @@ void _validateAction({
   required BattleAction action,
   required MasterData master,
 }) {
-  final selectableMoveIds = {
-    for (final move in selectableMoves(monster: monster, master: master))
-      move.id,
-  };
+  final moves = selectableMoves(monster: monster, master: master);
   switch (action) {
     case UseMoveAction(:final moveId):
-      if (!selectableMoveIds.contains(moveId)) {
+      if (!moves.any((move) => move.id == moveId)) {
         throw ArgumentError('技 $moveId は PP が 0 か、まだ使えない');
       }
     case StruggleAction():
-      if (selectableMoveIds.isNotEmpty) {
-        throw ArgumentError('使える技があるため、わるあがきは選べない');
+      if (moves.any((move) => move.category == MoveCategory.attack)) {
+        throw ArgumentError('使える攻撃技があるため、わるあがきは選べない');
       }
   }
 }
