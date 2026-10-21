@@ -431,7 +431,7 @@ void main() {
       );
     });
 
-    test('seed が同じなら結果が同じ', () {
+    test('seed が同じなら結果が同じで、seed が違えばダメージの乱数幅で結果が変わる', () {
       List<int> damages(BattleState state) => [
         for (final event in state.events.whereType<MoveUsedEvent>())
           event.damage,
@@ -443,6 +443,11 @@ void main() {
       expect(damages(first), damages(second));
       expect(first.turnNumber, second.turnNumber);
       expect(first.randomState, second.randomState);
+      // 素早さが違う組み合わせで同速の判定を通らないため、差はダメージの乱数幅からだけ生まれる
+      final otherSeed = playUntilFinished(
+        state: startThreeOnThree(randomSeed: 43),
+      );
+      expect(damages(otherSeed), isNot(damages(first)));
     });
   });
 
