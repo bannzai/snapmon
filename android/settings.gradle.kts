@@ -24,7 +24,8 @@ plugins {
     id("com.google.gms.google-services") version("4.4.4") apply false
     id("com.google.firebase.crashlytics") version("3.0.7") apply false
     // END: FlutterFire Configuration
-    id("org.jetbrains.kotlin.android") version "2.2.20" apply false
+    // 2.3.21: firebase-auth 25.0.0 等の Kotlin メタデータが 2.4.0 で、Kotlin のコンパイラは 1 つ先の版のメタデータまでしか読めないため (2.2.20 では読めずビルドが失敗した)
+    id("org.jetbrains.kotlin.android") version "2.3.21" apply false
 }
 
 include(":app")
