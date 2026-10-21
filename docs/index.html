@@ -33,17 +33,23 @@
   "author": { "@type": "Person", "name": "bannzai" }
 }
 </script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap">
 <style>
 :root {
-  --color-bg: #f4f8fa;
-  --color-surface: #ffffff;
-  --color-text: #14304a;
-  --color-muted: #4d6678;
-  --color-accent: #1e8f78;
-  --color-accent-strong: #14304a;
-  --color-on-accent: #ffffff;
-  --color-border: #c9d9e1;
-  --radius: 6px;
+  --color-bg: #15121c;
+  --color-surface: #f4f1ea;
+  --color-text: #f4f1ea;
+  --color-muted: #cfc9bd;
+  --color-card-text: #15121c;
+  --color-card-muted: #4a4452;
+  --color-accent: #c6f432;
+  --color-on-accent: #15121c;
+  --color-border: #3a3347;
+  --radius: 16px;
+  --font-heading: "Dela Gothic One", "Zen Kaku Gothic New", sans-serif;
+  --font-body: "Zen Kaku Gothic New", "Hiragino Sans", "Noto Sans JP", sans-serif;
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -51,39 +57,40 @@ body {
   margin: 0;
   background: var(--color-bg);
   color: var(--color-text);
-  font-family: "Hiragino Sans", "Noto Sans JP", "Yu Gothic", system-ui, sans-serif;
+  font-family: var(--font-body);
   line-height: 1.8;
 }
+h1, h2, h3, header.site strong { font-family: var(--font-heading); font-weight: 400; }
 a { color: var(--color-accent); }
-a:focus-visible, .button:focus-visible { outline: 3px solid var(--color-accent-strong); outline-offset: 2px; }
+a:focus-visible, .button:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 3px; }
 .wrap { max-width: 960px; margin: 0 auto; padding: 0 20px; }
-header.site { background: var(--color-accent-strong); color: #fff; }
+header.site { border-bottom: 1px solid var(--color-border); }
 header.site .wrap { display: flex; justify-content: space-between; align-items: center; padding-top: 14px; padding-bottom: 14px; }
-header.site strong { font-size: 1.25rem; letter-spacing: 0.02em; }
-header.site nav a { color: #d6ece6; margin-left: 20px; text-decoration: none; font-size: 0.95rem; }
-header.site nav a:hover { text-decoration: underline; }
-.hero { background: var(--color-accent-strong); color: #fff; padding: 56px 0 72px; }
+header.site strong { font-size: 1.25rem; color: var(--color-accent); }
+header.site nav a { color: var(--color-muted); margin-left: 20px; text-decoration: none; font-size: 0.95rem; }
+header.site nav a:hover { color: var(--color-accent); }
+.hero { padding: 56px 0 72px; }
 .hero .wrap { display: grid; grid-template-columns: 1.3fr 1fr; gap: 32px; align-items: center; }
 .hero h1 { font-size: 2.4rem; line-height: 1.35; margin: 0 0 16px; }
-.hero p { margin: 0 0 24px; color: #d6ece6; font-size: 1.05rem; }
+.hero p { margin: 0 0 24px; color: var(--color-muted); font-size: 1.05rem; }
 .hero img { width: 100%; height: auto; border-radius: var(--radius); display: block; }
 .button {
-  display: inline-block; padding: 12px 22px; border-radius: var(--radius);
+  display: inline-block; padding: 12px 22px; border-radius: 12px;
   background: var(--color-accent); color: var(--color-on-accent); text-decoration: none; font-weight: 700;
 }
-.button[aria-disabled="true"] { background: #7fb9ad; color: #0d2a3f; cursor: default; }
-.store-note { display: block; margin-top: 10px; font-size: 0.9rem; color: #bcd8d0; }
+span.button { background: transparent; color: var(--color-accent); border: 2px solid var(--color-accent); }
+.store-note { display: block; margin-top: 10px; font-size: 0.9rem; color: var(--color-muted); }
 section { padding: 56px 0; }
 section h2 { font-size: 1.6rem; margin: 0 0 20px; }
 .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 20px; }
+.card { background: var(--color-surface); color: var(--color-card-text); border-radius: var(--radius); padding: 24px; }
 .card h3 { margin: 0 0 8px; font-size: 1.1rem; }
-.card p { margin: 0; color: var(--color-muted); }
-.flow { background: var(--color-surface); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
+.card p { margin: 0; color: var(--color-card-muted); }
+.flow { border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
 .flow ol { margin: 0; padding-left: 1.4em; }
 .flow li { margin-bottom: 8px; }
 ul.links { padding-left: 1.2em; }
-footer { padding: 28px 0 40px; color: var(--color-muted); font-size: 0.9rem; border-top: 1px solid var(--color-border); }
+footer { padding: 28px 0 40px; color: var(--color-muted); font-size: 0.9rem; }
 @media (max-width: 720px) {
   .hero .wrap { grid-template-columns: 1fr; }
   .hero h1 { font-size: 1.9rem; }
@@ -110,7 +117,7 @@ footer { padding: 28px 0 40px; color: var(--color-muted); font-size: 0.9rem; bor
       <div>
         <h1>撮った写真が<br>自分だけのモンスターになる</h1>
         <p>身の回りの物にカメラを向けると、その物に似たモンスターが生まれます。属性の相性と技で勝敗が決まるターン制バトルで、集めて、戦わせて、見せ合おう。</p>
-        <a class="button" href="#store" aria-disabled="true">近日公開</a>
+        <span class="button">近日公開</span>
         <span class="store-note">App Store・Google Play・Web 版を準備中です。</span>
       </div>
       <img src="./og.png" width="1200" height="630" alt="snapmon のロゴと、カメラのレンズの形をした緑のモンスター">
