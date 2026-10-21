@@ -44,5 +44,34 @@
     "ui": {
       "enabled": false
     }
+  },
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "snapmon-prod",
+          "appId": "1:1032186168570:android:ff75ee5a70c774d627f543",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "snapmon-prod",
+          "appId": "1:1032186168570:ios:8942cc45bb72e5b027f543",
+          "uploadDebugSymbols": true,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "snapmon-prod",
+          "configurations": {
+            "android": "1:1032186168570:android:ff75ee5a70c774d627f543",
+            "ios": "1:1032186168570:ios:8942cc45bb72e5b027f543",
+            "web": "1:1032186168570:web:98749fdc1c115fe327f543"
+          }
+        }
+      }
+    }
   }
 }
