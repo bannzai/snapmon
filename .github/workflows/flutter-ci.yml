@@ -14,7 +14,7 @@ on:
 permissions:
   contents: read
 
-# ローカル開発の Flutter (3.41.9) と揃える。上げる時は simulator-session.yml / browser-session.yml も同じ値にする
+# ローカル開発の Flutter (3.41.9) と揃える。上げる時は simulator-session.yml / browser-session.yml (タグが指す commit SHA) も同じ版にする
 env:
   FLUTTER_VERSION: '3.41.9'
 

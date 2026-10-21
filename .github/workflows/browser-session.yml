@@ -45,9 +45,12 @@ jobs:
       preview: ${{ inputs.preview }}
       setup_script: ${{ inputs.setup_script }}
       software_webgl: ${{ inputs.software_webgl }}
-      # ubuntu-latest に Flutter は入っていないため、flutter-ci.yml の FLUTTER_VERSION と同じタグを clone して web をビルドする
+      # ubuntu-latest に Flutter は入っていないため、flutter-ci.yml の FLUTTER_VERSION (3.41.9) を取得して web をビルドする。
+      # タグは書き換えられ得るため、3.41.9 タグが指す commit (git ls-remote で確認) の SHA で固定して取得する
       setup_command: >-
-        git clone --depth 1 --branch 3.41.9 https://github.com/flutter/flutter.git "$RUNNER_TEMP/flutter" &&
+        git init -q "$RUNNER_TEMP/flutter" &&
+        git -C "$RUNNER_TEMP/flutter" fetch -q --depth 1 https://github.com/flutter/flutter.git 00b0c91f06209d9e4a41f71b7a512d6eb3b9c694 &&
+        git -C "$RUNNER_TEMP/flutter" checkout -q --detach FETCH_HEAD &&
         "$RUNNER_TEMP/flutter/bin/flutter" pub get &&
         "$RUNNER_TEMP/flutter/bin/flutter" build web --release
       # webtunnel は dev サーバが 127.0.0.1 で listen していることを検証するため loopback に束縛する
