@@ -1,0 +1,62 @@
+name: deploy-hosting
+
+# Web 版をビルドして snapmon-prod の Firebase Hosting へデプロイする。
+# 本番への配布は、触れる版を見て公開に進むと決めてもらうまで手動実行 (workflow_dispatch) だけにする (ADR 0001 の Web 版のホスティングの行)。
+# 認証は deploy-functions.yml と同じデプロイ専用サービスアカウントの鍵 (Secret FIREBASE_SERVICE_ACCOUNT_BASE64)。
+# Web の App Check に使う reCAPTCHA Enterprise のサイトキーは公開値のため、リポジトリの Variable RECAPTCHA_ENTERPRISE_SITE_KEY から渡す。
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-firebase
+  cancel-in-progress: false
+
+# リポジトリの読み取りだけ。デプロイの認証はサービスアカウントの鍵で行う
+permissions:
+  contents: read
+
+# flutter-ci.yml の FLUTTER_VERSION と同じ版にする
+env:
+  FLUTTER_VERSION: '3.41.9'
+  PROJECT_ID: snapmon-prod
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
+    - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+      with:
+        channel: stable
+        flutter-version: ${{ env.FLUTTER_VERSION }}
+    - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+      with:
+        # functions/package.json の engines.node に合わせる (firebase-tools を functions の devDependencies から使うため)
+        node-version: '22'
+        cache: npm
+        cache-dependency-path: functions/package-lock.json
+    - run: flutter pub get
+    - name: Build web
+      env:
+        RECAPTCHA_ENTERPRISE_SITE_KEY: ${{ vars.RECAPTCHA_ENTERPRISE_SITE_KEY }}
+      run: flutter build web --release --dart-define=RECAPTCHA_ENTERPRISE_SITE_KEY="$RECAPTCHA_ENTERPRISE_SITE_KEY"
+    - name: Install firebase-tools
+      working-directory: functions
+      run: npm ci
+    - name: Restore service account key
+      env:
+        FIREBASE_SERVICE_ACCOUNT_BASE64: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BASE64 }}
+      run: |
+        if [ -z "$FIREBASE_SERVICE_ACCOUNT_BASE64" ]; then
+          echo "::error::Secret FIREBASE_SERVICE_ACCOUNT_BASE64 が未登録です"
+          exit 1
+        fi
+        key_path="$RUNNER_TEMP/firebase-deployer.json"
+        echo "$FIREBASE_SERVICE_ACCOUNT_BASE64" | base64 --decode > "$key_path"
+        echo "GOOGLE_APPLICATION_CREDENTIALS=$key_path" >> "$GITHUB_ENV"
+    - name: Deploy
+      working-directory: functions
+      run: npx firebase deploy --only hosting --project "$PROJECT_ID" --non-interactive
