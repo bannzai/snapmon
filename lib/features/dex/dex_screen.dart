@@ -120,16 +120,19 @@ class DexScreen extends StatelessWidget {
                               left: index == 0 ? 0 : 5,
                               right: index == maximumPartySize - 1 ? 0 : 5,
                             ),
-                            child: index < party.length
-                                ? _MonsterTile(
-                                    monster: party[index],
-                                    isInParty: true,
-                                    onTap: () => _openMonster(
-                                      context: context,
+                            child: AspectRatio(
+                              aspectRatio: _monsterTileAspectRatio,
+                              child: index < party.length
+                                  ? _MonsterTile(
                                       monster: party[index],
-                                    ),
-                                  )
-                                : const _EmptyPartySlot(),
+                                      isInParty: true,
+                                      onTap: () => _openMonster(
+                                        context: context,
+                                        monster: party[index],
+                                      ),
+                                    )
+                                  : const _EmptyPartySlot(),
+                            ),
                           ),
                         ),
                     ],
@@ -162,7 +165,7 @@ class DexScreen extends StatelessWidget {
                 crossAxisCount: 3,
                 mainAxisSpacing: 10,
                 crossAxisSpacing: 10,
-                childAspectRatio: 0.72,
+                childAspectRatio: _monsterTileAspectRatio,
                 children: [
                   for (final monster in dexStore.monsters)
                     _MonsterTile(
@@ -180,7 +183,11 @@ class DexScreen extends StatelessWidget {
   );
 }
 
+/// 図鑑のカードと手持ちの枠の幅 / 高さ。モック (Dex.dc.html) の 3 列のカードの比率から取った。
+const double _monsterTileAspectRatio = 0.72;
+
 /// 図鑑の 1 体のカード。手持ちは生成りのカードに黄緑の縁、それ以外は地の色のカードで描く。
+/// 高さは呼び出し元の比率で決まり、絵は文字の残りの高さに収める (端末の文字を大きくしてもはみ出さないため)。
 class _MonsterTile extends StatelessWidget {
   const _MonsterTile({
     required this.monster,
@@ -212,15 +219,18 @@ class _MonsterTile extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
             children: [
-              AspectRatio(
-                aspectRatio: 1,
-                child: PlaceholderMonsterArt(
-                  definition: monster.definition,
-                  backgroundColor: isInParty
-                      ? SnapmonColors.cardSubtle
-                      : SnapmonColors.artBackground,
+              Expanded(
+                child: Center(
+                  child: AspectRatio(
+                    aspectRatio: 1,
+                    child: PlaceholderMonsterArt(
+                      definition: monster.definition,
+                      backgroundColor: isInParty
+                          ? SnapmonColors.cardSubtle
+                          : SnapmonColors.artBackground,
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(height: 6),
@@ -251,14 +261,11 @@ class _EmptyPartySlot extends StatelessWidget {
   const _EmptyPartySlot();
 
   @override
-  Widget build(BuildContext context) => AspectRatio(
-    aspectRatio: 0.72,
-    child: DecoratedBox(
-      decoration: BoxDecoration(
-        borderRadius: SnapmonRadii.card,
-        border: Border.all(color: SnapmonColors.surface, width: 2),
-      ),
-      child: Center(child: Text('あき', style: SnapmonTextStyles.small)),
+  Widget build(BuildContext context) => DecoratedBox(
+    decoration: BoxDecoration(
+      borderRadius: SnapmonRadii.card,
+      border: Border.all(color: SnapmonColors.surface, width: 2),
     ),
+    child: Center(child: Text('あき', style: SnapmonTextStyles.small)),
   );
 }

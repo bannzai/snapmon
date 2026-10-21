@@ -208,6 +208,25 @@ void main() {
       );
     });
 
+    testWidgets('端末の文字を 2 倍にしても図鑑のカードがはみ出さない', (tester) async {
+      tester.platformDispatcher.textScaleFactorTestValue = 2;
+      addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        isDeveloperMenuEnabled: false,
+      );
+      dexStore.replaceAll(monsters: sampleData.monsters);
+      await tester.tap(find.byKey(const Key('tab-dex')));
+      await tester.pumpAndSettle();
+      // はみ出しは RenderFlex のエラーとして報告されるため、例外が無いことで確かめる
+      expect(tester.takeException(), isNull);
+      expect(
+        find.text(sampleData.monsters.last.definition.name),
+        findsOneWidget,
+      );
+    });
+
     testWidgets('手持ちがいない時は挑めない', (tester) async {
       await pumpApp(
         tester: tester,

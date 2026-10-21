@@ -62,8 +62,16 @@ class CaptureScreen extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(20, 16, 20, 12),
         child: Row(
           children: [
-            const Text('snapmon', style: SnapmonTextStyles.logo),
-            const Spacer(),
+            // 端末の文字を大きくした時は、右のボタンを押し出さないようロゴの方を縮める
+            const Expanded(
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text('snapmon', style: SnapmonTextStyles.logo),
+                ),
+              ),
+            ),
             ListenableBuilder(
               listenable: dexStore,
               builder: (context, _) => Material(
