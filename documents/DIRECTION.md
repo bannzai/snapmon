@@ -24,7 +24,7 @@ launched_at:
 ## 必要な機能
 
 - [ ] 撮影・アルバムから選ぶ: カメラで撮るか、端末の写真を選ぶ
-- [ ] モンスター生成: 写真の被写体から名前・図鑑の文章 (LLM)、属性・技・HP・攻撃・防御・素早さの基礎値と個体値 (master + Jev)、見た目 (AI 生成のイラスト。「デザインの方向」) を決める。同じユーザーの同じ被写体は二重に登録しない。生まれた時に決まる部分 (元の写真・名前・図鑑の文章・属性・覚える技の一覧・基礎値・個体値・見た目のパラメータと描画の版) は後から変わらず、変わるのはレベルと戦闘中の HP・PP だけ。使える技はレベルに応じて一覧から開放される。属性の相性表は全体で更新され、対戦時点の最新の版を両者に適用する
+- [ ] モンスター生成: 写真の被写体から名前・図鑑の文章 (LLM)、属性・技・HP・攻撃・防御・素早さの基礎値と個体値 (master + Jev)、見た目 (AI 生成のイラスト。「デザインの方向」) を決める。同じユーザーの同じ被写体は二重に登録しない。生まれた時に決まる部分 (元の写真・名前・図鑑の文章・属性・覚える技の一覧・基礎値・個体値・生成した絵 (仮の絵の間はパラメータと描画の版)) は後から変わらず、変わるのはレベルと戦闘中の HP・PP だけ。使える技はレベルに応じて一覧から開放される。属性の相性表は全体で更新され、対戦時点の最新の版を両者に適用する
 - [ ] 図鑑: 生まれたモンスターと元の写真を並べて残す
 - [ ] 手持ち: 3 体まで選ぶ
 - [ ] ターン制バトル (CPU 対戦): 素早さ順に行動し、技の威力・属性の相性・攻撃と防御・PP がダメージと行動に効く。1 戦ごとに、戦闘に出た手持ちのレベルが勝敗に関係なく 1 上がる
@@ -32,7 +32,7 @@ launched_at:
 - [ ] 技のエフェクト
 - [ ] アカウントと引き継ぎ: 二重登録の判定と PvP に要るユーザーの識別。機種変更しても図鑑が残る
 - [ ] 不適切な画像・人物の扱い: 不適切な写真と人物 (顔) が写る写真からは生成しない。他人に見せる場面 (PvP) ではストアの UGC 要件 (フィルタ・通報・ブロック・連絡先) を満たす
-- [ ] 未成年向けの安全策: 初回起動の年齢の確認 (13 歳未満は使えない)、モンスターの名前・図鑑の文章が AI 生成であることの表示、子ども向けのシステムプロンプト、生成した文章とその場で作った定義のコンテンツフィルタ、法令順守 (COPPA 等) の方針のプライバシーポリシーでの表明 (Claude API を未成年が触れる製品で使う条件。対象年齢の決定は「決めたこと」)
+- [ ] 未成年向けの安全策: 初回起動の最初の画面での年齢の確認 (13 歳未満は使えない。確認より前にログイン・計測・App Check を始めない)、モンスターの名前・図鑑の文章が AI 生成であることの表示、子ども向けのシステムプロンプト、生成した文章とその場で作った定義のコンテンツフィルタ、法令順守 (COPPA 等) の方針のプライバシーポリシーでの表明 (Claude API を未成年が触れる製品で使う条件。対象年齢の決定は「決めたこと」)
 - [ ] 共有: 図鑑のカード (元の写真は含めない) とバトルの結果を SNS に出す (目的「バズらせる」の導線)
 - [ ] 計測: 生成・バトル・共有のイベントを送る (判定基準の計測元。共有は最初の判定日に判定基準へ足す候補)
 - [ ] 法務ドキュメントと紹介ページ: 利用規約・プライバシーポリシー・サポート連絡先
@@ -63,7 +63,8 @@ launched_at:
 | 2026-10-21 | 関門 1 (作るかの判断) | モンスターの見た目は AI の画像生成を使うかを見た目の方向の判断 (#7) で決める。決まるまでは Claude の説明から決めた色・形のパラメータでクライアントが描く (費用ゼロ・決定的)。どちらでも、生まれた時の見た目 (画像またはパラメータと描画の版) を保存して後から変えない (関門 2 の行で AI 生成のイラストに決まった) | agent |
 | 2026-10-21 | 関門 1 (作るかの判断) | 人物 (顔) が写る写真からは生成しない (本人を判別できる写真は個人情報で、他人に見せると肖像権の問題になるため)。共有カードに元の写真は含めない | agent |
 | 2026-10-21 | 関門 1 (作るかの判断) | アカウントは Firebase Authentication の匿名ログインで始め、引き継ぎは Apple / Google のサインイン連携で行う (二重登録の判定と PvP にユーザーの識別が要るため。返答で指定が無かったので可逆な方)。書き込みの権限と非同期 PvP の検証の範囲は ADR 0001 の DB の行 | agent |
-| 2026-10-21 | 関門 1 (作るかの判断) | 対象年齢の方針を改める: 対象は 13 歳以上にし、初回起動に年齢の確認 (生年月) を置いて 13 歳未満は使えないようにする。理由: COPPA は 13 歳未満から個人情報 (写真を含む) を集める前に保護者の検証可能な同意を求め ("an operator must obtain verifiable parental consent before collecting any personal information from a child"、"The Rule considers photos, videos, and audio recordings that contain a child's image or voice to be personal information"。 https://www.ftc.gov/business-guidance/resources/complying-coppa-frequently-asked-questions )、利用規約の記載は同意の方法に挙がっていない。Google Play も対象に子どもを含む時は Families のポリシーの順守を求める ("If one of the target audiences for your app is children, you must comply with the following requirements"。 https://support.google.com/googleplay/android-developer/answer/9893335 )。写真のアップロードと Analytics を使う本アプリでは満たせないため、対象を 13 歳以上にする。Play Console の対象年齢は 13 歳以上で申告し、App Store の年齢区分は内容に合わせる。前の行 (13 歳未満を対象に含める) は無効 | agent (bannzai が違う方針なら変える) |
+| 2026-10-21 | 関門 1 (作るかの判断) | 対象年齢の方針を改める: 対象は 13 歳以上にし、初回起動に年齢の確認 (生年月) を置いて 13 歳未満は使えないようにする。理由: COPPA は 13 歳未満から個人情報 (写真を含む) を集める前に保護者の検証可能な同意を求め ("an operator must obtain verifiable parental consent before collecting any personal information from a child"、"The Rule considers photos, videos, and audio recordings that contain a child's image or voice to be personal information"。 https://www.ftc.gov/business-guidance/resources/complying-coppa-frequently-asked-questions )、利用規約の記載は同意の方法に挙がっていない。Google Play も対象に子どもを含む時は Families のポリシーの順守を求める ("If one of the target audiences for your app is children, you must comply with the following requirements"。 https://support.google.com/googleplay/android-developer/answer/9893335 )。写真のアップロードと Analytics を使う本アプリでは満たせないため、対象を 13 歳以上にする。年齢の確認より前に識別子 (uid・Analytics・App Check) を取らない (同 FAQ D.4 の mixed audience の条件 "does not collect personal information from any visitor prior to collecting age information")。Play Console の対象年齢は 13 歳以上で申告し、App Store の年齢区分は内容に合わせる。前の行 (13 歳未満を対象に含める) は無効。**bannzai の判断待ち**: 同 FAQ D.1 は「子ども向け」の判断要素に "the use of animated characters or child-oriented activities" を挙げ、D.4 は子ども向けのサービスでは "you may not block children from participating" とする。本アプリが「子ども向け」に当たると判断するなら、締め出しではなく「13 歳未満には写真のアップロードと識別子の収集をしない、または保護者の検証可能な同意を取る」設計に変える (認証・計測・最初の画面が変わる) | agent (bannzai が違う方針なら変える) |
+| 2026-10-21 | 関門 1 (作るかの判断) | 「同じ被写体」は同じ個体 (同じマグカップ) を指し、同じ種類の別の物 (別のマグカップ) は別の被写体として登録できる (返答の「同じ画像・被写体」の解釈。種類単位にすると集める楽しみが減るため。判定の仕方は ADR 0001) | agent (bannzai が違う方針なら変える) |
 | 2026-10-21 | 関門 2 (見た目と体験の方向) | `documents/design/mock-2026-10-21/` のモックの方向で進める (暗い地 + 黄緑のアクセント、太いゴシックの見出し、カード中心、5 画面の構成)。モンスターの絵は AI 生成のイラスト (関門の issue の既定)。出典: チャットでの返答「デザインはそんな感じでやろう」(2026-10-21) | bannzai |
 | 2026-10-21 | 関門 1 (作るかの判断) | 最初の版には課金も広告も入れない (返答で指定が無く、目的が「バズらせる」ため。後から足せる) | agent |
 | 2026-10-21 | 関門 1 (作るかの判断) | PvP は非同期対戦 (相手の手持ちのデータを取得して端末内で CPU が操作する) から始め、リアルタイム対戦は後に回す (返答は「PvP を入れる」で形の指定が無く、非同期はターン同期のサーバーが要らないため) | agent |
