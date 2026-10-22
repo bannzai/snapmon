@@ -1,4 +1,4 @@
-import { randomUUID } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 
 import { deleteApp as deleteAdminApp, getApps, initializeApp as initializeAdminApp } from "firebase-admin/app";
 import { getAuth as getAdminAuth } from "firebase-admin/auth";
@@ -308,6 +308,49 @@ describe("アカウントの削除 (deleteAccount)", () => {
     expect(record?.leaseToken).toBe("expired-lease");
     expect(record?.attemptCount).toBe(1);
     expect((await adminFirestore.doc(`users/${uid}`).get()).get("generationLock")).toBeUndefined();
+  });
+
+  it("削除が始まった後は、バトルを始められない", async () => {
+    const user = await signInAgeVerifiedUser();
+    await adminFirestore.doc(`users/${user.uid}/monsters/m1`).set({ name: "m1", level: 1 });
+    await adminFirestore.doc(`users/${user.uid}`).set({ accountDeletionStartedAt: Timestamp.now() }, { merge: true });
+
+    const response = await callFunction({ name: "startBattle", idToken: await user.getIdToken(), data: { partyMonsterIds: ["m1"] } });
+
+    expect(response.status).toBe(400);
+    expect((await response.json()).error.status).toBe("FAILED_PRECONDITION");
+    expect((await adminFirestore.collection(`users/${user.uid}/battles`).get()).empty).toBe(true);
+  });
+
+  it("消し終えた後 (users/{uid} が無い) は、同じ写真の使い回しの記録も書かずに生成を断る", async () => {
+    const uid = randomUUID();
+    const requestId = randomUUID();
+    const photo = Buffer.from([0xff, 0xd8, 0xff, 0xe0]);
+    await bucket.file(`users/${uid}/photos/${requestId}`).save(photo);
+    // 削除の途中に消し残った、同じ写真の生成のレコード (使い回しの対象になる)
+    await adminFirestore.doc(`users/${uid}/generations/previous`).set({ status: "saved", inputKey: `${createHash("sha256").update(photo).digest("hex")}:auto` });
+    const unused = async () => {
+      throw new Error("受け付ける前に外部の API を呼ばない");
+    };
+
+    await expect(
+      handleGenerateRequest(
+        {
+          firestore: adminFirestore,
+          bucket,
+          annotateImage: unused,
+          segmentSubject: unused,
+          describeSubject: unused,
+          proposeElement: unused,
+          askJev: unused,
+          enqueueResume: async () => {},
+          now: () => new Date(),
+        },
+        { auth: { uid, token: { ageVerified: true } } as never, data: { requestId, photoPath: `users/${uid}/photos/${requestId}` } },
+      ),
+    ).rejects.toMatchObject({ code: "failed-precondition", details: { reason: "account_not_found" } });
+    expect((await adminFirestore.doc(`users/${uid}/generationAliases/${requestId}`).get()).exists).toBe(false);
+    expect((await adminFirestore.doc(`users/${uid}`).get()).exists).toBe(false);
   });
 
   it("削除が始まった後は、生成を受け付けない", async () => {

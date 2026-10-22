@@ -15,7 +15,7 @@ paths:
 | --- | --- | --- | --- |
 | `master/{version}` | master (属性・技・相性表・分類) の 1 つの版。数値の `version` を持つ | 読む (年齢の確認済み) | `functions/scripts/seed-master.mjs` が投入。投入済みの版は書き換えない |
 | `definitions/{definitionId}` | 生成時にその場で作った属性・技の定義 | 読む (年齢の確認済み) | 書く |
-| `users/{uid}` | 生成中ロック (`generationLock`)、uid ごとの 1 日の生成数 (`dailyGeneration`)、`ageRejected`・`ageAccepted` (confirmAge が 13 歳未満 / 以上と判定した印。uid ごとに最初の判定だけが有効。生年月は持たない)、`dailyBattleDate`・`dailyBattleCount` (recordBattle が 1 日 50 戦の上限の判定に使う、日本時間の日付とその日に記録したバトルの数)、`accountDeletionStartedAt` (deleteAccount が削除を始めた時刻。付いている間は生成を受け付けない。`users/{uid}` と一緒に最後に消える) 等 | 本人が読む | 書く |
+| `users/{uid}` | 生成中ロック (`generationLock`)、uid ごとの 1 日の生成数 (`dailyGeneration`)、`ageRejected`・`ageAccepted` (confirmAge が 13 歳未満 / 以上と判定した印。uid ごとに最初の判定だけが有効。生年月は持たない。生成とバトルの開始は `ageAccepted` のある uid にだけ受け付ける)、`dailyBattleDate`・`dailyBattleCount` (recordBattle が 1 日 50 戦の上限の判定に使う、日本時間の日付とその日に記録したバトルの数)、`accountDeletionStartedAt` (deleteAccount が削除を始めた時刻。付いている間は生成とバトルの開始を受け付けない。`users/{uid}` と一緒に最後に消える) 等 | 本人が読む | 書く |
 | `users/{uid}/monsters/{monsterId}` | 図鑑のモンスター (形は `functions/src/generation/records.ts` の `MonsterDocument`) | 本人が読む | 書く |
 | `users/{uid}/generations/{requestId}` | 生成の状態遷移のレコード (形は `functions/src/generation/records.ts` の `GenerationRecord`) | 本人が読む | 書く |
 | `users/{uid}/generationAliases/{requestId}` | 同じ写真・マスクの組で別の要求 ID の結果を使い回した要求の、使い回し先 (`reusedRequestId`)。同じ要求 ID の再送に結果を返すため | 読み書きしない | 書く |

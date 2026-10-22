@@ -156,7 +156,7 @@ const MOVE_LIMIT = 2_000;
 /** 生成の要求を受け付けられない理由。callable は HttpsError に、それ以外はログに出す。 */
 export class GenerationRequestError extends Error {
   /** 理由の種類。 */
-  readonly code: "daily_limit_per_user" | "daily_limit_total" | "another_generation_in_progress" | "photo_not_found" | "account_deletion_in_progress";
+  readonly code: "daily_limit_per_user" | "daily_limit_total" | "another_generation_in_progress" | "photo_not_found" | "account_deletion_in_progress" | "account_not_found";
 
   constructor(code: GenerationRequestError["code"], message: string) {
     super(message);
@@ -256,6 +256,16 @@ export async function startGeneration(
   await enqueueLeaseRecovery(dependencies, { uid, requestId });
   const leaseToken = randomUUID();
   const reservation = await firestore.runTransaction(async (transaction): Promise<GenerationResult | "reserved"> => {
+    const userDocument = firestore.doc(`users/${uid}`);
+    const userSnapshot = await transaction.get(userDocument);
+    // アカウントの削除 (account.ts) が始まった後と消し終えた後 (confirmAge が付けた ageAccepted ごと users/{uid} が消える) は、
+    // 使い回しの記録も含めて何も書かない。書くと、消し終えた後に生成のレコードやモンスターが残るため
+    if (userSnapshot.get("accountDeletionStartedAt") !== undefined) {
+      throw new GenerationRequestError("account_deletion_in_progress", "アカウントの削除が進んでいます");
+    }
+    if (userSnapshot.get("ageAccepted") !== true) {
+      throw new GenerationRequestError("account_not_found", "アカウントが見つかりません");
+    }
     // failed と、Claude の応答で結果が揺れる拒否は使い回さない (撮り直さずに同じ写真で再挑戦できるように)。
     // 状態は複合インデックスを増やさないようコードで絞る。
     const sameInput = (await transaction.get(firestore.collection(`users/${uid}/generations`).where("inputKey", "==", inputKey))).docs.find((document) => {
@@ -271,13 +281,8 @@ export async function startGeneration(
     if (current.exists) {
       return generationResult({ requestId, record: current.data() as GenerationRecord });
     }
-    const userDocument = firestore.doc(`users/${uid}`);
     const totalCounterDocument = firestore.doc(`generationDailyCounts/${today}`);
-    const [userSnapshot, totalCounterSnapshot] = await Promise.all([transaction.get(userDocument), transaction.get(totalCounterDocument)]);
-    // アカウントの削除 (account.ts) が始まった後に生成を始めると、消し終えた後に図鑑のモンスターが書かれて残るため
-    if (userSnapshot.get("accountDeletionStartedAt") !== undefined) {
-      throw new GenerationRequestError("account_deletion_in_progress", "アカウントの削除が進んでいます");
-    }
+    const totalCounterSnapshot = await transaction.get(totalCounterDocument);
     assertGenerationLockAvailable({ lock: userSnapshot.get("generationLock"), requestId, now });
     const userCount = userSnapshot.get("dailyGeneration.date") === today ? (userSnapshot.get("dailyGeneration.count") as number) : 0;
     if (userCount >= DAILY_GENERATION_LIMIT_PER_USER) {
