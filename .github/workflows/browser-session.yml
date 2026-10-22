@@ -36,7 +36,7 @@ jobs:
       id-token: write # Tailscale の OIDC (workload identity federation) 認証に必要
       contents: read
     # タグ運用はしないため main の commit SHA で固定する（更新時は SHA を書き換える）
-    uses: bannzai/webtunnel/.github/workflows/session.yml@a407318a96c0c8630f515d3acf44c23ccecdf29a # main 2026-10-19
+    uses: bannzai/webtunnel/.github/workflows/session.yml@caa3cecd4987f8f7bc70e17ba3e1e18cf37aacf8 # main 2026-10-22 (WEBTUNNEL_SETUP_ENV 対応)
     with:
       session: ${{ inputs.session }}
       duration_minutes: ${{ inputs.duration_minutes }}
@@ -48,7 +48,9 @@ jobs:
       # ubuntu-latest に Flutter は入っていないため、flutter-ci.yml の FLUTTER_VERSION (3.41.9) を取得して web をビルドする。
       # タグは書き換えられ得るため、3.41.9 タグが指す commit (git ls-remote で確認) の SHA と一致する時だけ使う。
       # flutter_tools はタグから自分のバージョンを求め、タグが無いと 0.0.0-unknown になって pubspec の SDK 制約を満たせないため、タグごと取得する
+      # lib/firebase_options.dart は git の管理外のため、secret WEBTUNNEL_SETUP_ENV が運ぶ FIREBASE_OPTIONS_DART_B64 から書き出す (.claude/rules/firebase-config-files.md)
       setup_command: >-
+        bash scripts/restore-firebase-config.sh dart &&
         git init -q "$RUNNER_TEMP/flutter" &&
         git -C "$RUNNER_TEMP/flutter" fetch -q --depth 1 https://github.com/flutter/flutter.git refs/tags/3.41.9:refs/tags/3.41.9 &&
         [ "$(git -C "$RUNNER_TEMP/flutter" rev-parse '3.41.9^{commit}')" = 00b0c91f06209d9e4a41f71b7a512d6eb3b9c694 ] &&
@@ -61,3 +63,5 @@ jobs:
     secrets:
       TS_OIDC_CLIENT_ID: ${{ secrets.TS_OIDC_CLIENT_ID }}
       TS_OIDC_AUDIENCE: ${{ secrets.TS_OIDC_AUDIENCE }}
+      # setup_command にだけ渡る。登録は scripts/set-webtunnel-setup-env-secret.sh
+      WEBTUNNEL_SETUP_ENV: ${{ secrets.WEBTUNNEL_SETUP_ENV }}
