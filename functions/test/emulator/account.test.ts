@@ -236,6 +236,8 @@ describe("アカウントの削除 (deleteAccount)", () => {
 
     expect(enqueued).toHaveLength(1);
     expect(enqueued[0].uid).toBe(user.uid);
+    // 削除の途中に積むタスクは、削除の印のある users/{uid} を消さない
+    expect(enqueued[0].deleteUserDocument).toBe(false);
     expect([...enqueued[0].artPaths].sort()).toEqual([`monsters/failed-${user.uid}/art.png`, `monsters/monster-${user.uid}/art.png`]);
     await expect(adminAuth.getUser(user.uid)).rejects.toMatchObject({ code: "auth/user-not-found" });
     expect((await adminFirestore.doc(`users/${user.uid}`).get()).exists).toBe(false);
@@ -275,12 +277,23 @@ describe("アカウントの削除 (deleteAccount)", () => {
     await deleteAccountData({ ...accountDeletionDependencies({ enqueued }), firestore: failingFirestore }, { uid: user.uid });
 
     await expect(adminAuth.getUser(user.uid)).rejects.toMatchObject({ code: "auth/user-not-found" });
-    expect(enqueued).toEqual([{ uid: user.uid, artPaths: [] }]);
+    expect(enqueued).toEqual([{ uid: user.uid, artPaths: [], deleteUserDocument: true }]);
     expect((await adminFirestore.doc(userDocumentPath).get()).exists).toBe(true);
 
     await deleteAccountLeftovers({ firestore: adminFirestore, bucket }, enqueued[0]);
 
     expect(await remainingAccountData({ uid: user.uid })).toEqual([]);
+  });
+
+  it("削除の途中に積んだ消し残しのタスクは、ファイルだけを消し、削除の印のある users/{uid} を残す", async () => {
+    const uid = randomUUID();
+    await adminFirestore.doc(`users/${uid}`).set({ ageAccepted: true, accountDeletionStartedAt: Timestamp.now() });
+    await bucket.file(`users/${uid}/photos/request1`).save(Buffer.from([0xff, 0xd8, 0xff, 0xe0]));
+
+    await deleteAccountLeftovers({ firestore: adminFirestore, bucket }, { uid, artPaths: [], deleteUserDocument: false });
+
+    expect((await bucket.file(`users/${uid}/photos/request1`).exists())[0]).toBe(false);
+    expect((await adminFirestore.doc(`users/${uid}`).get()).get("accountDeletionStartedAt")).toBeDefined();
   });
 
   it("消し終えたアカウントにもう一度呼んでも成功する (冪等)", async () => {

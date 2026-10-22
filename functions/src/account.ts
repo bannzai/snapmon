@@ -13,10 +13,15 @@ import type { StorageBucket } from "./generation/pipeline";
 
 /** 消し残したファイルと `users/{uid}` を消すタスクの中身。 */
 export interface AccountFileDeletionTask {
-  /** 削除したユーザー。Storage の `users/{uid}/` の配下と Firestore の `users/{uid}` を消す。 */
+  /** 削除したユーザー。Storage の `users/{uid}/` の配下を消す。 */
   uid: string;
   /** そのユーザーのモンスターの絵 (`monsters/{monsterId}/art.png`)。Firestore を消した後は引けないため、タスクに持たせる。 */
   artPaths: string[];
+  /**
+   * Firestore の `users/{uid}` も消すか。Auth を消し終えた後に積んだタスクだけが true。削除の途中に積んだタスクで消すと、
+   * 削除の印 (`accountDeletionStartedAt`) が先に消えて、削除の途中に生成やバトルが始まるため。
+   */
+  deleteUserDocument: boolean;
 }
 
 /** アカウントの削除が使う外部の資源。callable は本番の実装を、テストは Emulator の資源と差し替えたタスクの積み方を渡す。 */
@@ -81,7 +86,7 @@ export async function deleteAccountData(dependencies: AccountDeletionDependencie
     await deleteAccountFiles(bucket, { uid, artPaths });
   } catch (error) {
     logger.error("アカウントのファイルを消せませんでした。再試行に回します", { uid, error });
-    await dependencies.enqueueFileDeletion({ uid, artPaths });
+    await dependencies.enqueueFileDeletion({ uid, artPaths, deleteUserDocument: false });
   }
 
   await Promise.all(
@@ -109,7 +114,7 @@ export async function deleteAccountData(dependencies: AccountDeletionDependencie
   } catch (error) {
     // Auth を消した後は、クライアントはトークンを更新できず呼び直せないため、サーバーのタスクで消し切る
     logger.error("users/{uid} を消せませんでした。再試行に回します", { uid, error });
-    await dependencies.enqueueFileDeletion({ uid, artPaths: [] });
+    await dependencies.enqueueFileDeletion({ uid, artPaths: [], deleteUserDocument: true });
   }
 }
 
@@ -132,7 +137,7 @@ export async function rejectDeletedAccount({ auth, bucket, uid }: { auth: Auth; 
 }
 
 /** [uid] の `users/{uid}/` の配下のファイルと [artPaths] の絵を消す。無いファイルは無視する (何度呼んでもよい)。 */
-export async function deleteAccountFiles(bucket: StorageBucket, { uid, artPaths }: AccountFileDeletionTask): Promise<void> {
+export async function deleteAccountFiles(bucket: StorageBucket, { uid, artPaths }: Pick<AccountFileDeletionTask, "uid" | "artPaths">): Promise<void> {
   await bucket.deleteFiles({ prefix: `users/${uid}/` });
   await Promise.all(artPaths.filter((path) => ART_PATH_PATTERN.test(path)).map((path) => bucket.file(path).delete({ ignoreNotFound: true })));
 }
@@ -168,12 +173,14 @@ export const deleteAccount = onCall({ enforceAppCheck: true }, async (request) =
 });
 
 /**
- * 削除の時に消し残したファイルと `users/{uid}` を消すタスク (Cloud Tasks のキュー) の本体。何度呼んでもよい。
- * 削除の途中に呼ばれて `users/{uid}` を先に消しても、生成とバトルの開始は `ageAccepted` が無いと受け付けないため、データは増えない。
+ * 削除の時に消し残したファイルと、[AccountFileDeletionTask.deleteUserDocument] が true なら `users/{uid}` を消すタスク
+ * (Cloud Tasks のキュー) の本体。何度呼んでもよい。
  */
 export async function deleteAccountLeftovers({ firestore, bucket }: { firestore: Firestore; bucket: StorageBucket }, task: AccountFileDeletionTask): Promise<void> {
   await deleteAccountFiles(bucket, task);
-  await firestore.doc(`users/${task.uid}`).delete();
+  if (task.deleteUserDocument) {
+    await firestore.doc(`users/${task.uid}`).delete();
+  }
 }
 
 /**

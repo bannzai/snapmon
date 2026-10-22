@@ -405,8 +405,9 @@ async function acquireLease(
     const record = snapshot.data() as GenerationRecord;
     const userDocument = firestore.doc(`users/${uid}`);
     const userSnapshot = await transaction.get(userDocument);
-    // アカウントの削除 (account.ts) が始まった後・消し終えた後は再開しない。再開すると、消した後に切り出し画像やモンスターを書いて残すため
-    if (!snapshot.exists || userSnapshot.get("accountDeletionStartedAt") !== undefined) {
+    // アカウントの削除 (account.ts) が始まった後・消し終えた後 (confirmAge が付けた ageAccepted ごと users/{uid} が消える) は再開しない。
+    // 再開すると、消した後に切り出し画像やモンスターを書いて残すため
+    if (!snapshot.exists || userSnapshot.get("accountDeletionStartedAt") !== undefined || userSnapshot.get("ageAccepted") !== true) {
       return { requestId, status: "failed" };
     }
     // 同じ回の judge のタスクが同時に 2 つ届いても、回数が一致する方の 1 つだけが予約を取る

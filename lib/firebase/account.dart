@@ -84,10 +84,20 @@ Future<String> _signInToLinkedAccount({
 }
 
 /// Functions の deleteAccount で、いまのアカウントのサーバーのデータと Auth のユーザーを消す。
-Future<void> deleteCurrentAccountOnServerWithFirebase() =>
-    FirebaseFunctions.instanceFor(
+/// 呼び出しが失敗しても、サーバーで消し終えていた (応答を受け取れなかった) 時は成功として返す
+/// (削除済みの uid のまま残ると、連携・削除をやり直しても失敗し続けるため)。
+Future<void> deleteCurrentAccountOnServerWithFirebase() async {
+  try {
+    await FirebaseFunctions.instanceFor(
       region: functionsRegion,
     ).httpsCallable('deleteAccount').call<Object?>();
+  } catch (_) {
+    if (await _isCurrentUserDeletedOnServer()) {
+      return;
+    }
+    rethrow;
+  }
+}
 
 /// いまのアカウントを消す (設定画面の「アカウントを削除」)。
 ///
@@ -97,34 +107,11 @@ Future<void> deleteCurrentAccountOnServerWithFirebase() =>
 /// その後に [deleteCurrentAccountOnServerWithFirebase] を呼ぶ。サインアウトは呼び出し側が行う。
 ///
 /// 前の削除がサーバーで終わっていた (応答を受け取れなかった) 時は、何もせずに返す。再認証は消えたユーザーでは失敗し、
-/// 削除をやり直しても年齢の確認の画面に戻れなくなるため。削除の途中で失敗した時も、サーバーで消し終えていれば返す。
+/// 削除をやり直しても年齢の確認の画面に戻れなくなるため。
 Future<void> deleteAccountWithFirebase() async {
   if (await _isCurrentUserDeletedOnServer()) {
     return;
   }
-  try {
-    await _deleteAccountWithFirebase();
-  } catch (_) {
-    if (await _isCurrentUserDeletedOnServer()) {
-      return;
-    }
-    rethrow;
-  }
-}
-
-/// いまのユーザーが Auth から消えているか。ユーザーを読み直し、消えている時のエラーだけを消えていると扱う
-/// (通信の失敗などで読み直せない時は、消えていないと扱う)。
-Future<bool> _isCurrentUserDeletedOnServer() async {
-  try {
-    await FirebaseAuth.instance.currentUser!.reload();
-    return false;
-  } on FirebaseAuthException catch (error) {
-    return error.code == 'user-not-found' || error.code == 'user-token-expired';
-  }
-}
-
-/// [deleteAccountWithFirebase] の本体 (Apple の連携の取り消しと、サーバーでの削除)。
-Future<void> _deleteAccountWithFirebase() async {
   final user = FirebaseAuth.instance.currentUser!;
   if (_isIOS &&
       user.providerData.any((provider) => provider.providerId == 'apple.com')) {
@@ -139,4 +126,15 @@ Future<void> _deleteAccountWithFirebase() async {
     );
   }
   await deleteCurrentAccountOnServerWithFirebase();
+}
+
+/// いまのユーザーが Auth から消えているか。ユーザーを読み直し、ユーザーが無い時のエラー (`user-not-found`) だけを
+/// 消えていると扱う (トークンの失効・通信の失敗などで読み直せない時は、ユーザーが残っていることがあるため消えていないと扱う)。
+Future<bool> _isCurrentUserDeletedOnServer() async {
+  try {
+    await FirebaseAuth.instance.currentUser!.reload();
+    return false;
+  } on FirebaseAuthException catch (error) {
+    return error.code == 'user-not-found';
+  }
 }
