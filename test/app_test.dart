@@ -494,6 +494,80 @@ void main() {
       );
     });
 
+    testWidgets('サーバーの図鑑では挑む前に定義を読み直し、読み直した定義で戦う', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      final waxMonster = generatedWaxMonster(monsterId: 'm1');
+      var refreshCount = 0;
+      dexStore
+        ..connectServer(
+          savePartyMonsterIds: ({required monsterIds}) async {},
+          refreshDefinitions: () async {
+            refreshCount++;
+            dexStore.applyServerSnapshot(
+              monsters: null,
+              partyMonsterIds: null,
+              definitions: definitionsWithWax(base: sampleData.definitions),
+            );
+          },
+        )
+        // 読み直す前の定義には、このモンスターの属性・技が無い
+        ..applyServerSnapshot(
+          monsters: [waxMonster],
+          partyMonsterIds: [waxMonster.definition.id],
+          definitions: sampleData.definitions,
+        );
+      await tester.tap(find.byKey(const Key('tab-opponent')));
+      await tester.pumpAndSettle();
+      final challengeButton = find.byKey(const Key('challenge-$cpuOpponentId'));
+      await tester.ensureVisible(challengeButton);
+      await tester.pumpAndSettle();
+      await tester.tap(challengeButton);
+      // バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
+      expect(refreshCount, 1);
+      expect(tester.takeException(), isNull);
+      expect(
+        find.text('${waxMonster.definition.name} の 技をえらぶ'),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('挑む前の定義の読み直しに失敗したら、エラーをそのまま出してバトルを始めない', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      dexStore
+        ..replaceAll(monsters: sampleData.monsters)
+        ..connectServer(
+          savePartyMonsterIds: ({required monsterIds}) async {},
+          refreshDefinitions: () async =>
+              throw StateError('Firestore に master が投入されていません'),
+        );
+      await tester.tap(find.byKey(const Key('tab-opponent')));
+      await tester.pumpAndSettle();
+      final challengeButton = find.byKey(const Key('challenge-$cpuOpponentId'));
+      await tester.ensureVisible(challengeButton);
+      await tester.pumpAndSettle();
+      await tester.tap(challengeButton);
+      await tester.pumpAndSettle();
+      expect(
+        find.text('Bad state: Firestore に master が投入されていません'),
+        findsOneWidget,
+      );
+      expect(find.textContaining('技をえらぶ'), findsNothing);
+    });
+
     testWidgets('見本の定義に無い属性・技を持つ生成したモンスターも、カードを開けて CPU と戦える', (tester) async {
       await pumpApp(
         tester: tester,
@@ -911,6 +985,7 @@ void main() {
       );
       dexStore.connectServer(
         savePartyMonsterIds: ({required monsterIds}) async {},
+        refreshDefinitions: () async {},
       );
       await tester.tap(find.byTooltip('設定'));
       await tester.pumpAndSettle();

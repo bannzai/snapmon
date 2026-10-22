@@ -27,6 +27,7 @@ void main() {
         }
         savedPartyMonsterIds.add(monsterIds);
       },
+      refreshDefinitions: () async {},
     )
     ..applyServerSnapshot(
       monsters: monsters,

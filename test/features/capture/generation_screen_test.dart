@@ -288,6 +288,38 @@ void main() {
     expect(find.text('あたらしい なかま'), findsOneWidget);
   });
 
+  testWidgets('サーバーが写真を見つけられなかった時は、もう一度試すと同じ要求 ID で写真を置き直して呼ぶ', (tester) async {
+    var remainingFailureCount = 1;
+    await pumpGenerationScreen(
+      tester: tester,
+      generator: fakeMonsterGenerator(
+        calls: calls,
+        albumPhoto: null,
+        uploadError: null,
+        requestGeneration: ({required requestId}) async {
+          if (remainingFailureCount > 0) {
+            remainingFailureCount--;
+            throw const GenerationPhotoMissingException(
+              message: '写真が見つかりません。写真を上げ直してください',
+            );
+          }
+          return savedGeneration(
+            monsterId: 'm1',
+            status: GenerationStatus.saved,
+            resultRequestId: null,
+          )(requestId: requestId);
+        },
+        fetchGeneration: unexpectedFetch,
+      ),
+    );
+    expect(find.text('写真が見つかりません。写真を上げ直してください'), findsOneWidget);
+    await tester.tap(find.text('もう一度試す'));
+    await tester.pumpAndSettle();
+    expect(calls.uploadedRequestIds, ['request-1', 'request-1']);
+    expect(calls.requestedRequestIds, ['request-1', 'request-1']);
+    expect(find.text('あたらしい なかま'), findsOneWidget);
+  });
+
   testWidgets('ログインしていない時 (DEBUG でログインを飛ばした) は送る前のエラーをそのまま出し、生成を呼ばない', (
     tester,
   ) async {

@@ -59,17 +59,33 @@ Future<void> Function() connectDexToFirestore({
 }) {
   final userDocument = firestore.collection('users').doc(uid);
   final partyDocument = userDocument.collection('party').doc('current');
+  var isConnected = true;
+  Map<String, dynamic>? latestMasterJson;
+  final definitionJsonsById = <String, Map<String, dynamic>>{};
   dexStore.connectServer(
     // updatedAt は Rules が request.time と一致することを求める (firebase/firestore.rules の party/current)
     savePartyMonsterIds: ({required monsterIds}) => partyDocument.set({
       'monsterIds': monsterIds,
       'updatedAt': FieldValue.serverTimestamp(),
     }),
+    refreshDefinitions: () async {
+      latestMasterJson = (await fetchLatestMaster(
+        firestore: firestore,
+      ))?.data();
+      final definitions = buildDexDefinitions(
+        latestMasterJson: latestMasterJson,
+        definitionJsons: definitionJsonsById.values.toList(),
+      );
+      if (isConnected) {
+        dexStore.applyServerSnapshot(
+          monsters: null,
+          partyMonsterIds: null,
+          definitions: definitions,
+        );
+      }
+    },
   );
 
-  var isConnected = true;
-  Map<String, dynamic>? latestMasterJson;
-  final definitionJsonsById = <String, Map<String, dynamic>>{};
   Future<MasterData> definitionsFor({
     required List<OwnedMonster> monsters,
   }) async {

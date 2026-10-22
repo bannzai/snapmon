@@ -45,6 +45,20 @@ class OpponentScreen extends StatelessWidget {
     required BuildContext context,
     required SampleOpponent opponent,
   }) async {
+    // 相性表は対戦時点の最新の版を使う (documents/adr/0001-tech-stack.md)。読み直せない時は古い版で戦わせず、エラーをそのまま出す
+    try {
+      await dexStore.refreshDefinitions();
+    } catch (error) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(SnackBar(content: Text(error.toString())));
+      }
+      return;
+    }
+    if (!context.mounted) {
+      return;
+    }
     // 挑むたびに別の展開にするため、seed は毎回作る。値の範囲は DeterministicRandom の状態 (32 bit) に合わせた。
     // Web (JavaScript) ではシフトが 32 bit に切り詰められ `1 << 32` が 0 になるため、上限は整数リテラルで書く
     final randomSeed = math.Random().nextInt(0x100000000);

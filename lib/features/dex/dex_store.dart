@@ -19,6 +19,7 @@ class DexStore extends ChangeNotifier {
   MasterData _definitions;
   Future<void> Function({required List<String> monsterIds})?
   _savePartyMonsterIds;
+  Future<void> Function()? _refreshDefinitions;
   Object? _serverError;
 
   /// 図鑑のモンスター (入った順)。
@@ -51,18 +52,26 @@ class DexStore extends ChangeNotifier {
   /// 手持ちに空きがあるか。
   bool get hasPartyVacancy => party.length < maximumPartySize;
 
-  /// サーバーの図鑑に繋ぐ。以後の手持ちの変更は [savePartyMonsterIds] で保存する。何度呼んでも最後の関数を使う。
+  /// サーバーの図鑑に繋ぐ。以後の手持ちの変更は [savePartyMonsterIds] で保存し、[refreshDefinitions] で定義を
+  /// サーバーの最新の master から読み直す。何度呼んでも最後の関数を使う。
   void connectServer({
     required Future<void> Function({required List<String> monsterIds})
     savePartyMonsterIds,
+    required Future<void> Function() refreshDefinitions,
   }) {
     _savePartyMonsterIds = savePartyMonsterIds;
+    _refreshDefinitions = refreshDefinitions;
     notifyListeners();
   }
+
+  /// サーバーの図鑑に繋いでいる時は、定義を最新の master から読み直す (対戦の前。相性表は対戦時点の最新の版を両者に適用するため。
+  /// documents/adr/0001-tech-stack.md)。繋いでいない時は何もしない。読み直しに失敗した時は例外を投げる。
+  Future<void> refreshDefinitions() async => _refreshDefinitions?.call();
 
   /// サーバーの図鑑から離れ、空の端末の図鑑 (定義は [definitions]) に戻す (ログインを終えた時。別の uid の図鑑を残さないため)。
   void disconnectServer({required MasterData definitions}) {
     _savePartyMonsterIds = null;
+    _refreshDefinitions = null;
     _definitions = definitions;
     _monsters = [];
     _partyMonsterIds = [];

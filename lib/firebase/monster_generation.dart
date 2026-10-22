@@ -82,6 +82,12 @@ Future<GenerationResult> requestGenerationWithFirebase({
       json: Map<String, dynamic>.from(result.data! as Map<Object?, Object?>),
     );
   } on FirebaseFunctionsException catch (error) {
+    final details = error.details;
+    if (details is Map && details['reason'] == 'photo_not_found') {
+      throw GenerationPhotoMissingException(
+        message: error.message ?? error.code,
+      );
+    }
     if (error.code != 'deadline-exceeded') {
       rethrow;
     }

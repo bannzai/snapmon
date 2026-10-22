@@ -113,6 +113,10 @@ class _GenerationScreenState extends State<GenerationScreen> {
         setState(() {
           _phase = _GenerationPhase.error;
           _error = error;
+          // サーバーが写真を見つけられなかった (受け付けを断られた写真を消した) 時は、次に試す時に置き直す
+          if (error is GenerationPhotoMissingException) {
+            _isUploaded = false;
+          }
         });
       }
     }

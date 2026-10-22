@@ -125,6 +125,19 @@ class GenerationResult {
   final GenerationRejectionReason? rejectionReason;
 }
 
+/// 生成を受け付ける前にサーバーが写真を見つけられなかった (functions/src/generation/pipeline.ts の `photo_not_found`)。
+/// 受け付けを断られた写真はサーバーが後で消すため、同じ要求 ID で写真を置き直してから呼び直す目印にする。
+class GenerationPhotoMissingException implements Exception {
+  /// 例外を作る。[message] はサーバーが返したエラーの文言。
+  const GenerationPhotoMissingException({required this.message});
+
+  /// サーバーが返したエラーの文言。
+  final String message;
+
+  @override
+  String toString() => message;
+}
+
 /// 写真がどこから来たか (計測の `monster_generated` の `source`)。
 enum GenerationPhotoSource {
   /// カメラで撮った。
