@@ -69,7 +69,7 @@ export interface GenerationDependencies {
   /** Jev。 */
   askJev: AskJev;
   /** 再試行のタスクを積む。`delaySeconds` 後に `resumeGeneration` が同じ要求 ID と目的で呼ばれる。 */
-  enqueueResume: (task: ResumeTask & { delaySeconds: number }) => Promise<void>;
+  enqueueResume: (task: ResumeTask & { delaySeconds: number; taskId?: string }) => Promise<void>;
   /** 現在時刻。 */
   now: () => Date;
 }
@@ -163,6 +163,9 @@ async function downloadFile(bucket: StorageBucket, path: string): Promise<Buffer
   const [contents] = await bucket.file(path).download();
   return contents;
 }
+
+/** 同じ被写体と判定した相手がまだ保存前の生成で、その結果を待つ必要があることを表す。Jev が答えない時と同じく判定待ちにする。 */
+class WaitingForOtherGenerationError extends Error {}
 
 /** 受け付けた後に写真かマスクが差し替えられたこと (検査した画像と切り出す画像が別物になる) を表す。生成は failed にする。 */
 class InputChangedError extends Error {}
@@ -390,10 +393,19 @@ async function advanceGeneration(dependencies: GenerationDependencies, { uid, re
     try {
       outcome = await runStage(dependencies, { uid, requestId, record, stage: nextStage });
     } catch (error) {
-      if (error instanceof JevUnavailableError) {
-        logger.warn("Jev が答えないため判定待ちにします", { uid, requestId, stage: nextStage, error: error.message });
+      if (error instanceof JevUnavailableError || error instanceof WaitingForOtherGenerationError) {
+        logger.warn("判定待ちにします", { uid, requestId, stage: nextStage, error: error.message });
+        // タスクを先に積んでから判定待ちにする。逆の順で積むのに失敗すると、判定待ちを進めるタスクが無いまま止まるため
+        // (先に積んで状態の更新が失敗した時は、処理中のまま予約切れを引き継ぐタスクが拾う)。
+        // タスクの ID を再試行の回数で決め、同じ回の再試行のタスクが 2 つ積まれないようにする。
+        await dependencies.enqueueResume({
+          uid,
+          requestId,
+          purpose: "judge",
+          delaySeconds: JUDGE_RETRY_INTERVAL_SECONDS,
+          taskId: `${uid}-${requestId}-judge-${record.judgeRetryCount}`,
+        });
         await releaseLock(dependencies, { uid, requestId, update: { status: "pending_judge" } });
-        await dependencies.enqueueResume({ uid, requestId, purpose: "judge", delaySeconds: JUDGE_RETRY_INTERVAL_SECONDS });
         return { requestId, status: "pending_judge" };
       }
       if (error instanceof ClaudeRefusalError) {
@@ -590,14 +602,13 @@ async function runDedupeStage(
   if (!sameCandidateId) {
     return { kind: "next", update: { jevInputTokens } };
   }
-  return {
-    kind: "finish",
-    update: {
-      status: "duplicate",
-      jevInputTokens,
-      ...(sameCandidateId.startsWith("generation:") ? { duplicateOfRequestId: sameCandidateId.slice("generation:".length) } : { monsterId: sameCandidateId }),
-    },
-  };
+  if (sameCandidateId.startsWith("generation:")) {
+    // 同じ被写体の生成がまだ保存前なら、結果が出るまで判定待ちにして dedupe からやり直す
+    // (相手が保存されれば重複としてそのモンスターを返し、失敗すれば候補から外れて保存に進む)。
+    await generationDocument({ firestore, uid, requestId }).update({ jevInputTokens });
+    throw new WaitingForOtherGenerationError(`同じ被写体の生成 ${sameCandidateId} の結果を待ちます`);
+  }
+  return { kind: "finish", update: { status: "duplicate", jevInputTokens, monsterId: sameCandidateId } };
 }
 
 /** master とその場で作った定義の属性・技を合わせる。 */

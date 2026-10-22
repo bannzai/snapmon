@@ -52,8 +52,17 @@ export function createProductionDependencies(): GenerationDependencies {
     proposeElement: createProposeElement(getAnthropicClient),
     // Secret は使う時に読む (入力の検査で弾く呼び出しと、Secret の無い Emulator で読まないため)。
     askJev: (request) => createAskJev({ apiKey: typesafeApiKey.value(), fetchFunction: fetch })(request),
-    enqueueResume: async ({ uid, requestId, purpose, delaySeconds }) => {
-      await getFunctions().taskQueue(RESUME_QUEUE_FUNCTION_NAME).enqueue({ uid, requestId, purpose }, { scheduleDelaySeconds: delaySeconds });
+    enqueueResume: async ({ uid, requestId, purpose, delaySeconds, taskId }) => {
+      try {
+        await getFunctions()
+          .taskQueue(RESUME_QUEUE_FUNCTION_NAME)
+          .enqueue({ uid, requestId, purpose }, { scheduleDelaySeconds: delaySeconds, ...(taskId ? { id: taskId } : {}) });
+      } catch (error) {
+        // 同じ ID のタスクが既にある (task-already-exists) のは、積みたいタスクが既にあるということなので成功として扱う
+        if ((error as { code?: string }).code !== "functions/task-already-exists") {
+          throw error;
+        }
+      }
     },
     now: () => new Date(),
   };

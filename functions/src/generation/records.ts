@@ -77,8 +77,6 @@ export interface GenerationRecord {
   };
   /** saved なら生まれたモンスター、duplicate なら同じ被写体の既存のモンスターの ID。 */
   monsterId?: string;
-  /** duplicate で、相手がまだ判定待ちの生成だった時の、その生成の requestId。 */
-  duplicateOfRequestId?: string;
   /** 作った時刻。 */
   createdAt: Timestamp;
   /** 最後に書いた時刻。 */
