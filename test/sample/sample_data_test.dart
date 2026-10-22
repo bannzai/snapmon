@@ -17,10 +17,10 @@ void main() {
           as Map<String, dynamic>;
   final sampleData = loadSampleDataFixture();
 
-  test('見本の属性・技の定義は master と同じ ID・同じ値', () {
+  test('見本の属性・技・エフェクトの定義と相性表は master と同じ ID・同じ値', () {
     final sampleDefinitions = sampleJson['definitions'] as Map<String, dynamic>;
     expect(sampleDefinitions['version'], masterJson['version']);
-    for (final key in ['elementTypes', 'moves']) {
+    for (final key in ['elementTypes', 'moves', 'effects']) {
       final masterById = {
         for (final entry in masterJson[key] as List<dynamic>)
           (entry as Map<String, dynamic>)['id']: entry,
@@ -34,6 +34,8 @@ void main() {
         );
       }
     }
+    // 相性表が無いと倍率が常に 1 になり、バトルで属性の相性が効かないため、master と同じ表を持つ
+    expect(sampleDefinitions['typeChart'], masterJson['typeChart']);
   });
 
   test('見本のモンスターの属性・技はすべて見本の定義にある', () {
@@ -47,8 +49,11 @@ void main() {
         isTrue,
       );
       for (final learnsetEntry in monster.definition.learnset) {
+        final move = sampleData.definitions.moveById(
+          moveId: learnsetEntry.moveId,
+        );
         expect(
-          () => sampleData.definitions.moveById(moveId: learnsetEntry.moveId),
+          () => sampleData.definitions.effectById(effectId: move.effectId),
           returnsNormally,
         );
       }

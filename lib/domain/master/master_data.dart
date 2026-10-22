@@ -134,6 +134,12 @@ class MasterData {
     orElse: () => throw StateError('技 $moveId が定義に無い'),
   );
 
+  /// [effectId] のエフェクトを返す。無ければ [StateError] を投げる。
+  MoveEffect effectById({required String effectId}) => effects.firstWhere(
+    (effect) => effect.id == effectId,
+    orElse: () => throw StateError('エフェクト $effectId が定義に無い'),
+  );
+
   /// 攻撃側の属性 [attackerElementTypeId] から防御側の属性 [defenderElementTypeId] への倍率を返す。
   double typeMultiplier({
     required String attackerElementTypeId,

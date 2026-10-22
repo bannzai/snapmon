@@ -56,6 +56,20 @@ class DexStore extends ChangeNotifier {
     }
   }
 
+  /// 図鑑のモンスターのレベルを [levelsByMonsterId] (monsterId ごとのレベル) に置き換える。図鑑にいない ID は無視する。
+  void updateLevels({required Map<String, int> levelsByMonsterId}) {
+    for (final (index, monster) in _monsters.indexed) {
+      final level = levelsByMonsterId[monster.definition.id];
+      if (level != null) {
+        _monsters[index] = OwnedMonster(
+          definition: monster.definition,
+          level: level,
+        );
+      }
+    }
+    notifyListeners();
+  }
+
   /// 図鑑を [monsters] だけにし、先頭から [maximumPartySize] 体を手持ちにする (開発者メニューの見本の投入)。
   void replaceAll({required List<OwnedMonster> monsters}) {
     _monsters

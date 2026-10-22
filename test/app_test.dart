@@ -8,8 +8,10 @@ import 'package:snapmon/features/age_gate/age_confirmation.dart';
 import 'package:snapmon/features/battle/battle_screen.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
 import 'package:snapmon/features/settings/settings_screen.dart';
+import 'package:snapmon/sample/sample_data.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
 
+import 'battle_recorder_fixture.dart';
 import 'sample_data_fixture.dart';
 
 void main() {
@@ -22,6 +24,7 @@ void main() {
   late DexStore dexStore;
   late AgeConfirmationStore ageConfirmationStore;
   late List<Uri> openedUris;
+  late RecordedBattleCalls battleCalls;
 
   /// iPhone の画面の大きさ (モックの 390 × 844) で [SnapmonApp] を起動する。
   /// [hasConfirmedAge] が true なら年齢の確認を済ませた状態で起動する。
@@ -44,6 +47,7 @@ void main() {
       await ageConfirmationStore.answer(birthYear: 2000, birthMonth: 1);
     }
     openedUris = [];
+    battleCalls = RecordedBattleCalls();
     await tester.pumpWidget(
       SnapmonApp(
         sampleData: sampleData,
@@ -54,6 +58,12 @@ void main() {
           return true;
         },
         isDeveloperMenuEnabled: isDeveloperMenuEnabled,
+        battleRecorder: fakeBattleRecorder(
+          calls: battleCalls,
+          // アプリは図鑑を Firestore に繋ぐ (#14) までログインしないため、記録しない時の振る舞いで起動する
+          startBattleRecord: () async => null,
+          recordedLevels: const {},
+        ),
       ),
     );
     await tester.pumpAndSettle();
@@ -115,6 +125,11 @@ void main() {
           ),
           openUrl: ({required uri}) async => true,
           isDeveloperMenuEnabled: false,
+          battleRecorder: fakeBattleRecorder(
+            calls: RecordedBattleCalls(),
+            startBattleRecord: () async => null,
+            recordedLevels: const {},
+          ),
         ),
       );
       await tester.pumpAndSettle();
@@ -342,6 +357,63 @@ void main() {
     });
   });
 
+  testWidgets('CPU トレーナーに挑むと技を選んで決着まで戦え、戦ったモンスターのレベルが上がる', (tester) async {
+    await pumpApp(
+      tester: tester,
+      hasConfirmedAge: true,
+      isDeveloperMenuEnabled: false,
+    );
+    dexStore.replaceAll(monsters: sampleData.monsters);
+    final partyBefore = dexStore.party;
+    await tester.tap(find.byKey(const Key('tab-opponent')));
+    await tester.pumpAndSettle();
+    expect(
+      find.text(
+        '平均 Lv. ${partyBefore.fold<int>(0, (sum, monster) => sum + monster.level) ~/ partyBefore.length} 前後',
+      ),
+      findsOneWidget,
+    );
+    final challengeButton = find.byKey(const Key('challenge-$cpuOpponentId'));
+    await tester.ensureVisible(challengeButton);
+    await tester.pumpAndSettle();
+    await tester.tap(challengeButton);
+    // バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
+
+    // 100 ターン: 見本の手持ち同士なら十数ターンで決着するため、決着しない不具合でテストが止まらない上限として十分な数
+    for (
+      var turn = 0;
+      turn < 100 && find.text('もどる').evaluate().isEmpty;
+      turn++
+    ) {
+      await tester.tap(
+        find.text('わるあがき').evaluate().isEmpty
+            ? find.byKey(const Key('move-slot-0'))
+            : find.text('わるあがき'),
+      );
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 5));
+    }
+    expect(find.text('もどる'), findsOneWidget);
+    expect(
+      find.text('かった').evaluate().length + find.text('まけた').evaluate().length,
+      1,
+    );
+    expect(find.text('ログインしていないため記録していません'), findsOneWidget);
+    expect(battleCalls.startedPartyMonsterIds, [
+      [for (final monster in partyBefore) monster.definition.id],
+    ]);
+    expect(battleCalls.loggedEvents.single.event.eventName, 'battle_completed');
+    // 先頭の手持ちは必ず場に出るため、勝敗に関係なくレベルが 1 上がる
+    expect(dexStore.party.first.level, partyBefore.first.level + 1);
+
+    await tester.tap(find.text('もどる'));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
+    expect(find.text('相手をえらぶ'), findsOneWidget);
+  });
+
   testWidgets('端末の文字を 2 倍にしてもバトル画面の技のボタンがはみ出さない', (tester) async {
     tester.platformDispatcher.textScaleFactorTestValue = 2;
     addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
@@ -380,6 +452,13 @@ void main() {
           playerParty: sampleData.monsters.take(3).toList(),
           opponentParty: sampleData.monsters.skip(3).toList(),
           definitions: sampleData.definitions,
+          randomSeed: 1,
+          battleRecorder: fakeBattleRecorder(
+            calls: RecordedBattleCalls(),
+            startBattleRecord: () async => null,
+            recordedLevels: const {},
+          ),
+          onPlayerLevelsChanged: ({required levelsByMonsterId}) {},
         ),
       ),
     );

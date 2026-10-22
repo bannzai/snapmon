@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'features/age_gate/age_confirmation.dart';
 import 'features/age_gate/age_gate_screen.dart';
+import 'features/battle/battle_recorder.dart';
 import 'features/dex/dex_store.dart';
 import 'features/home/home_shell.dart';
 import 'features/settings/settings_screen.dart';
@@ -18,6 +19,7 @@ class SnapmonApp extends StatelessWidget {
     required this.ageConfirmationStore,
     required this.openUrl,
     required this.isDeveloperMenuEnabled,
+    required this.battleRecorder,
   });
 
   /// 見本データ。
@@ -34,6 +36,9 @@ class SnapmonApp extends StatelessWidget {
 
   /// 設定画面に開発者メニューを出すか ([SettingsScreen.isDeveloperMenuEnabled])。
   final bool isDeveloperMenuEnabled;
+
+  /// バトルの記録と計測。
+  final BattleRecorder battleRecorder;
 
   @override
   Widget build(BuildContext context) => MaterialApp(
@@ -52,6 +57,7 @@ class SnapmonApp extends StatelessWidget {
           ageConfirmationStore: ageConfirmationStore,
           openUrl: openUrl,
           isDeveloperMenuEnabled: isDeveloperMenuEnabled,
+          battleRecorder: battleRecorder,
         ),
       },
     ),

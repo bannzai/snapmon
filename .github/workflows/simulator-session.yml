@@ -30,7 +30,9 @@ jobs:
   # Simulator 用 .app (debug) をビルドして artifact に上げる
   build:
     runs-on: macos-26
-    timeout-minutes: 30
+    # キャッシュの無い `flutter build ios --simulator --debug` が 30 分前後かかり (2026-10-22 の PR #26 の CI で 29 分 19 秒)、
+    # 30 分の上限で取り消されたため、余裕を持たせた
+    timeout-minutes: 50
     permissions:
       contents: read # checkout のみ。OIDC token (id-token) は session job だけに与える
     steps:
