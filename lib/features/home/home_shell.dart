@@ -12,6 +12,7 @@ import '../capture/monster_generator.dart';
 import '../dex/dex_screen.dart';
 import '../dex/dex_store.dart';
 import '../opponent/opponent_screen.dart';
+import '../settings/account_store.dart';
 import '../settings/settings_screen.dart';
 
 /// 下タブの項目。並びは DIRECTION.md「デザインの方向」の「下タブは図鑑・撮る・対戦」。
@@ -39,6 +40,7 @@ class HomeShell extends StatefulWidget {
     required this.isDeveloperMenuEnabled,
     required this.battleRecorder,
     required this.monsterGenerator,
+    required this.accountStore,
   });
 
   /// 見本データ。
@@ -65,6 +67,9 @@ class HomeShell extends StatefulWidget {
   /// 撮る・選ぶ・生成の呼び出しと計測。
   final MonsterGenerator monsterGenerator;
 
+  /// 設定画面のアカウントの連携と削除。
+  final AccountStore accountStore;
+
   @override
   State<HomeShell> createState() => _HomeShellState();
 }
@@ -85,6 +90,7 @@ class _HomeShellState extends State<HomeShell> {
         monsterGenerator: widget.monsterGenerator,
         openUrl: widget.openUrl,
         isDeveloperMenuEnabled: widget.isDeveloperMenuEnabled,
+        accountStore: widget.accountStore,
       ),
     ),
   );

@@ -24,13 +24,13 @@ beforeEach(async () => {
   await testEnvironment.clearFirestore();
   await testEnvironment.withSecurityRulesDisabled(async (context) => {
     const firestore = context.firestore();
-    await setDoc(doc(firestore, "users/alice"), { createdAt: 0 });
+    await setDoc(doc(firestore, "users/alice"), { createdAt: 0, ageAccepted: true });
     await setDoc(doc(firestore, "users/alice/monsters/m1"), { name: "a" });
     await setDoc(doc(firestore, "users/alice/monsters/m2"), { name: "b" });
     await setDoc(doc(firestore, "users/alice/monsters/m3"), { name: "c" });
     await setDoc(doc(firestore, "users/alice/monsters/m4"), { name: "d" });
     await setDoc(doc(firestore, "users/bob/monsters/b1"), { name: "e" });
-    await setDoc(doc(firestore, "users/bob"), { createdAt: 0 });
+    await setDoc(doc(firestore, "users/bob"), { createdAt: 0, ageAccepted: true });
     await setDoc(doc(firestore, "master/1"), { version: 1 });
     await setDoc(doc(firestore, "definitions/d1"), { name: "x" });
   });
@@ -130,6 +130,23 @@ describe("users/{uid}/settings/current", () => {
   it("本人は書ける", async () => {
     const firestore = ageVerifiedFirestore("alice");
     await assertSucceeds(setDoc(doc(firestore, "users/alice/settings/current"), { soundEnabled: true }));
+  });
+});
+
+describe("アカウントの削除の途中と削除の後", () => {
+  it("削除の印のある本人は、手持ちと設定を書けない", async () => {
+    await testEnvironment.withSecurityRulesDisabled(async (context) => {
+      await setDoc(doc(context.firestore(), "users/alice"), { createdAt: 0, ageAccepted: true, accountDeletionStartedAt: 0 });
+    });
+    const firestore = ageVerifiedFirestore("alice");
+    await assertFails(setDoc(doc(firestore, "users/alice/party/current"), { monsterIds: [], updatedAt: serverTimestamp() }));
+    await assertFails(setDoc(doc(firestore, "users/alice/settings/current"), { soundEnabled: true }));
+  });
+
+  it("users/{uid} が消えた本人 (ID トークンが期限まで残る別の端末) は、手持ちと設定を書けない", async () => {
+    const firestore = ageVerifiedFirestore("carol");
+    await assertFails(setDoc(doc(firestore, "users/carol/party/current"), { monsterIds: [], updatedAt: serverTimestamp() }));
+    await assertFails(setDoc(doc(firestore, "users/carol/settings/current"), { soundEnabled: true }));
   });
 });
 

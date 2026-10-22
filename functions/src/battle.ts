@@ -38,17 +38,25 @@ export const startBattle = onCall({ enforceAppCheck: true }, async (request) => 
     throw new HttpsError("invalid-argument", "partyMonsterIds にモンスターの ID を重複なく 1〜3 件渡してください");
   }
   const firestore = getFirestore();
-  const monsterSnapshots = await firestore.getAll(
-    ...partyMonsterIds.map((monsterId) => firestore.doc(`users/${uid}/monsters/${monsterId}`)),
-  );
-  if (monsterSnapshots.some((snapshot) => !snapshot.exists)) {
-    throw new HttpsError("not-found", "図鑑に無いモンスターが手持ちに入っています");
-  }
   const battleDocument = firestore.collection(`users/${uid}/battles`).doc();
-  await battleDocument.create({
-    status: "started",
-    partyMonsterIds,
-    startedAt: FieldValue.serverTimestamp(),
+  // 確認と作成を 1 つのトランザクションにする。アカウントの削除 (account.ts) が始まった後と消し終えた後 (confirmAge が付けた
+  // ageAccepted ごと users/{uid} が消える) にバトルの記録を作ると、消し終えた後に残るため
+  await firestore.runTransaction(async (transaction) => {
+    const [userSnapshot, ...monsterSnapshots] = await transaction.getAll(
+      firestore.doc(`users/${uid}`),
+      ...partyMonsterIds.map((monsterId) => firestore.doc(`users/${uid}/monsters/${monsterId}`)),
+    );
+    if (userSnapshot.get("accountDeletionStartedAt") !== undefined || userSnapshot.get("ageAccepted") !== true) {
+      throw new HttpsError("failed-precondition", "アカウントの削除が進んでいるか、アカウントが見つかりません");
+    }
+    if (monsterSnapshots.some((snapshot) => !snapshot.exists)) {
+      throw new HttpsError("not-found", "図鑑に無いモンスターが手持ちに入っています");
+    }
+    transaction.create(battleDocument, {
+      status: "started",
+      partyMonsterIds,
+      startedAt: FieldValue.serverTimestamp(),
+    });
   });
   return { battleId: battleDocument.id };
 });

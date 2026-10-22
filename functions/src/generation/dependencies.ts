@@ -17,7 +17,7 @@ import { createAnnotateImage } from "./vision";
  * 写真と絵を置くバケット。snapmon-prod は既定のバケット (`snapmon-prod.firebasestorage.app`) を作らず `snapmon-prod-storage` を使う
  * (.claude/rules/firebase-config-files.md)。Emulator のテストも同じ名前のバケットに Rules を当てている (test/emulator/storage_rules.test.ts)。
  */
-const STORAGE_BUCKET_NAME = "snapmon-prod-storage";
+export const STORAGE_BUCKET_NAME = "snapmon-prod-storage";
 
 /** 再試行のタスクのキューの関数名 (index.ts の export と同じ名前)。 */
 const RESUME_QUEUE_FUNCTION_NAME = "locations/asia-northeast1/functions/resumeGeneration";

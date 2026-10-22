@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- Debug だけが参照する。App Attest の entitlement は持たない (Debug は App Check の debug provider を使うため。Runner.entitlements) -->
+	<!-- 設定画面の「データを引き継ぐ」の Sign in with Apple (lib/firebase/account.dart) -->
+	<key>com.apple.developer.applesignin</key>
+	<array>
+		<string>Default</string>
+	</array>
+</dict>
+</plist>

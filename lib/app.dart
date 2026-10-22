@@ -7,6 +7,7 @@ import 'features/battle/battle_recorder.dart';
 import 'features/capture/monster_generator.dart';
 import 'features/dex/dex_store.dart';
 import 'features/home/home_shell.dart';
+import 'features/settings/account_store.dart';
 import 'features/settings/settings_screen.dart';
 import 'sample/sample_data.dart';
 import 'theme/snapmon_theme.dart';
@@ -24,6 +25,7 @@ class SnapmonApp extends StatelessWidget {
     required this.isDeveloperMenuEnabled,
     required this.battleRecorder,
     required this.monsterGenerator,
+    required this.accountStore,
   });
 
   /// 見本データ。
@@ -49,6 +51,9 @@ class SnapmonApp extends StatelessWidget {
 
   /// 撮る・選ぶ・生成の呼び出しと計測。
   final MonsterGenerator monsterGenerator;
+
+  /// 設定画面のアカウントの連携と削除。
+  final AccountStore accountStore;
 
   @override
   Widget build(BuildContext context) => MaterialApp(
@@ -80,6 +85,7 @@ class SnapmonApp extends StatelessWidget {
           isDeveloperMenuEnabled: isDeveloperMenuEnabled,
           battleRecorder: battleRecorder,
           monsterGenerator: monsterGenerator,
+          accountStore: accountStore,
         ),
       },
     ),
