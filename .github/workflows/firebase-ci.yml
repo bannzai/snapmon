@@ -15,7 +15,7 @@ permissions:
   contents: read
 
 jobs:
-  # Functions のビルドと単体テスト、Emulator 上の Security Rules と匿名ログイン → confirmAge のテスト
+  # Functions のビルドと単体テスト、Emulator 上の Security Rules と匿名ログイン → confirmAge・generate のテスト
   functions:
     runs-on: ubuntu-latest
     defaults:
@@ -37,6 +37,12 @@ jobs:
         distribution: temurin
         java-version: '21'
     - run: npm ci
+    # 被写体の切り出しのモデル (178 MB) を、取得元とハッシュを固定したスクリプトの内容をキーにして使い回す (documents/adr/0002-subject-cutout-and-generation-cost.md)
+    - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: functions/models
+        key: segmentation-model-${{ hashFiles('functions/scripts/fetch-segmentation-model.mjs') }}
+    - run: npm run fetch-model
     - run: npm run build
     - run: npm test
     - run: npm run test:emulator

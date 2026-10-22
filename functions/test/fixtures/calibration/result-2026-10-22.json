@@ -1,0 +1,808 @@
+{
+  "model": "jev-1.13.0",
+  "measuredAt": "2026-10-22T06:40:05.147Z",
+  "repeatCount": 2,
+  "element": {
+    "trueCount": 48,
+    "falseCount": 426,
+    "trueMinimum": {
+      "sampleId": "28b",
+      "round": 0,
+      "elementTypeId": "stone",
+      "probability": 0.54
+    },
+    "falseMaximum": {
+      "sampleId": "01b",
+      "round": 0,
+      "elementTypeId": "food",
+      "probability": 0.16
+    },
+    "trueBelowHalf": [],
+    "falseAtLeastHalf": []
+  },
+  "dedupe": {
+    "sameMinimumOfSame": {
+      "kind": "same",
+      "leftId": "01",
+      "rightId": "01b",
+      "round": 1,
+      "same": 0.76,
+      "different": 0.17
+    },
+    "sameMaximumOfDifferent": {
+      "kind": "same",
+      "leftId": "01",
+      "rightId": "01b",
+      "round": 1,
+      "same": 0.76,
+      "different": 0.17
+    },
+    "differentMaximumOfSame": {
+      "kind": "differentSameKind",
+      "leftId": "22",
+      "rightId": "05",
+      "round": 0,
+      "same": 0.46,
+      "different": 0.63
+    },
+    "differentMinimumOfDifferent": {
+      "kind": "differentSameKind",
+      "leftId": "22",
+      "rightId": "05",
+      "round": 0,
+      "same": 0.46,
+      "different": 0.63
+    },
+    "rows": [
+      {
+        "kind": "same",
+        "leftId": "01",
+        "rightId": "01b",
+        "round": 0,
+        "same": 0.77,
+        "different": 0.16
+      },
+      {
+        "kind": "same",
+        "leftId": "01",
+        "rightId": "01b",
+        "round": 1,
+        "same": 0.76,
+        "different": 0.17
+      },
+      {
+        "kind": "same",
+        "leftId": "08",
+        "rightId": "08b",
+        "round": 0,
+        "same": 0.84,
+        "different": 0.07
+      },
+      {
+        "kind": "same",
+        "leftId": "08",
+        "rightId": "08b",
+        "round": 1,
+        "same": 0.84,
+        "different": 0.07
+      },
+      {
+        "kind": "same",
+        "leftId": "15",
+        "rightId": "15b",
+        "round": 0,
+        "same": 0.87,
+        "different": 0.08
+      },
+      {
+        "kind": "same",
+        "leftId": "15",
+        "rightId": "15b",
+        "round": 1,
+        "same": 0.87,
+        "different": 0.07
+      },
+      {
+        "kind": "same",
+        "leftId": "28",
+        "rightId": "28b",
+        "round": 0,
+        "same": 0.89,
+        "different": 0.08
+      },
+      {
+        "kind": "same",
+        "leftId": "28",
+        "rightId": "28b",
+        "round": 1,
+        "same": 0.89,
+        "different": 0.08
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "01",
+        "rightId": "02",
+        "round": 0,
+        "same": 0.01,
+        "different": 0.98
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "01",
+        "rightId": "02",
+        "round": 1,
+        "same": 0.01,
+        "different": 0.98
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "01",
+        "rightId": "28",
+        "round": 0,
+        "same": 0.05,
+        "different": 0.96
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "01",
+        "rightId": "28",
+        "round": 1,
+        "same": 0.04,
+        "different": 0.96
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "02",
+        "rightId": "28",
+        "round": 0,
+        "same": 0.06,
+        "different": 0.95
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "02",
+        "rightId": "28",
+        "round": 1,
+        "same": 0.07,
+        "different": 0.96
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "08",
+        "rightId": "09",
+        "round": 0,
+        "same": 0.12,
+        "different": 0.89
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "08",
+        "rightId": "09",
+        "round": 1,
+        "same": 0.12,
+        "different": 0.89
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "08b",
+        "rightId": "09",
+        "round": 0,
+        "same": 0.08,
+        "different": 0.92
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "08b",
+        "rightId": "09",
+        "round": 1,
+        "same": 0.07,
+        "different": 0.92
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "22",
+        "rightId": "05",
+        "round": 0,
+        "same": 0.46,
+        "different": 0.63
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "22",
+        "rightId": "05",
+        "round": 1,
+        "same": 0.45,
+        "different": 0.64
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "22",
+        "rightId": "23",
+        "round": 0,
+        "same": 0.18,
+        "different": 0.94
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "22",
+        "rightId": "23",
+        "round": 1,
+        "same": 0.18,
+        "different": 0.94
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "13",
+        "rightId": "14",
+        "round": 0,
+        "same": 0.02,
+        "different": 0.97
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "13",
+        "rightId": "14",
+        "round": 1,
+        "same": 0.03,
+        "different": 0.97
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "12",
+        "rightId": "03",
+        "round": 0,
+        "same": 0.01,
+        "different": 0.98
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "12",
+        "rightId": "03",
+        "round": 1,
+        "same": 0.01,
+        "different": 0.98
+      },
+      {
+        "kind": "differentKind",
+        "leftId": "01",
+        "rightId": "15",
+        "round": 0,
+        "same": 0.01,
+        "different": 0.99
+      },
+      {
+        "kind": "differentKind",
+        "leftId": "01",
+        "rightId": "15",
+        "round": 1,
+        "same": 0.01,
+        "different": 0.99
+      },
+      {
+        "kind": "differentKind",
+        "leftId": "08",
+        "rightId": "21",
+        "round": 0,
+        "same": 0.01,
+        "different": 0.99
+      },
+      {
+        "kind": "differentKind",
+        "leftId": "08",
+        "rightId": "21",
+        "round": 1,
+        "same": 0.01,
+        "different": 0.99
+      },
+      {
+        "kind": "differentKind",
+        "leftId": "12",
+        "rightId": "26",
+        "round": 0,
+        "same": 0.01,
+        "different": 0.99
+      },
+      {
+        "kind": "differentKind",
+        "leftId": "12",
+        "rightId": "26",
+        "round": 1,
+        "same": 0.01,
+        "different": 0.99
+      },
+      {
+        "kind": "differentKind",
+        "leftId": "19",
+        "rightId": "11",
+        "round": 0,
+        "same": 0.01,
+        "different": 0.99
+      },
+      {
+        "kind": "differentKind",
+        "leftId": "19",
+        "rightId": "11",
+        "round": 1,
+        "same": 0.01,
+        "different": 0.99
+      },
+      {
+        "kind": "differentKind",
+        "leftId": "04",
+        "rightId": "18",
+        "round": 0,
+        "same": 0.01,
+        "different": 0.98
+      },
+      {
+        "kind": "differentKind",
+        "leftId": "04",
+        "rightId": "18",
+        "round": 1,
+        "same": 0.01,
+        "different": 0.98
+      }
+    ]
+  },
+  "statGrades": {
+    "11": [
+      {
+        "hitPoints": "high",
+        "attack": "medium",
+        "defense": "high",
+        "speed": "low"
+      },
+      {
+        "hitPoints": "high",
+        "attack": "medium",
+        "defense": "high",
+        "speed": "low"
+      }
+    ],
+    "12": [
+      {
+        "hitPoints": "high",
+        "attack": "high",
+        "defense": "high",
+        "speed": "low"
+      },
+      {
+        "hitPoints": "high",
+        "attack": "medium",
+        "defense": "high",
+        "speed": "low"
+      }
+    ],
+    "13": [
+      {
+        "hitPoints": "high",
+        "attack": "high",
+        "defense": "high",
+        "speed": "veryLow"
+      },
+      {
+        "hitPoints": "high",
+        "attack": "high",
+        "defense": "high",
+        "speed": "veryLow"
+      }
+    ],
+    "14": [
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "medium",
+        "speed": "high"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "medium",
+        "speed": "high"
+      }
+    ],
+    "15": [
+      {
+        "hitPoints": "low",
+        "attack": "high",
+        "defense": "high",
+        "speed": "high"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "high",
+        "defense": "high",
+        "speed": "high"
+      }
+    ],
+    "18": [
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "low",
+        "speed": "low"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "low",
+        "speed": "low"
+      }
+    ],
+    "19": [
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "high",
+        "speed": "high"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "high",
+        "speed": "high"
+      }
+    ],
+    "20": [
+      {
+        "hitPoints": "high",
+        "attack": "medium",
+        "defense": "high",
+        "speed": "veryLow"
+      },
+      {
+        "hitPoints": "high",
+        "attack": "medium",
+        "defense": "high",
+        "speed": "veryLow"
+      }
+    ],
+    "21": [
+      {
+        "hitPoints": "medium",
+        "attack": "high",
+        "defense": "high",
+        "speed": "high"
+      },
+      {
+        "hitPoints": "medium",
+        "attack": "high",
+        "defense": "high",
+        "speed": "high"
+      }
+    ],
+    "22": [
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "low",
+        "speed": "low"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "low",
+        "speed": "low"
+      }
+    ],
+    "23": [
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "low",
+        "speed": "low"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "low",
+        "speed": "low"
+      }
+    ],
+    "26": [
+      {
+        "hitPoints": "medium",
+        "attack": "low",
+        "defense": "high",
+        "speed": "low"
+      },
+      {
+        "hitPoints": "medium",
+        "attack": "low",
+        "defense": "high",
+        "speed": "low"
+      }
+    ],
+    "28": [
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "medium",
+        "speed": "low"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "medium",
+        "speed": "low"
+      }
+    ],
+    "01": [
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "high",
+        "speed": "medium"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "high",
+        "speed": "high"
+      }
+    ],
+    "01b": [
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "high",
+        "speed": "medium"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "high",
+        "speed": "medium"
+      }
+    ],
+    "02": [
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "medium",
+        "speed": "high"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "medium",
+        "speed": "high"
+      }
+    ],
+    "03": [
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "medium",
+        "speed": "high"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "medium",
+        "speed": "high"
+      }
+    ],
+    "04": [
+      {
+        "hitPoints": "low",
+        "attack": "medium",
+        "defense": "medium",
+        "speed": "low"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "medium",
+        "defense": "medium",
+        "speed": "low"
+      }
+    ],
+    "05": [
+      {
+        "hitPoints": "low",
+        "attack": "medium",
+        "defense": "medium",
+        "speed": "low"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "medium",
+        "defense": "medium",
+        "speed": "low"
+      }
+    ],
+    "08": [
+      {
+        "hitPoints": "low",
+        "attack": "veryLow",
+        "defense": "low",
+        "speed": "high"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "veryLow",
+        "defense": "low",
+        "speed": "high"
+      }
+    ],
+    "08b": [
+      {
+        "hitPoints": "low",
+        "attack": "veryLow",
+        "defense": "low",
+        "speed": "high"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "veryLow",
+        "defense": "low",
+        "speed": "high"
+      }
+    ],
+    "09": [
+      {
+        "hitPoints": "low",
+        "attack": "veryLow",
+        "defense": "low",
+        "speed": "high"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "veryLow",
+        "defense": "low",
+        "speed": "high"
+      }
+    ],
+    "15b": [
+      {
+        "hitPoints": "low",
+        "attack": "high",
+        "defense": "high",
+        "speed": "high"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "high",
+        "defense": "high",
+        "speed": "high"
+      }
+    ],
+    "28b": [
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "medium",
+        "speed": "low"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "medium",
+        "speed": "medium"
+      }
+    ]
+  },
+  "categories": {
+    "11": [
+      "cookware",
+      "container",
+      "tableware"
+    ],
+    "12": [
+      "electronics",
+      "accessory",
+      "appliance"
+    ],
+    "13": [
+      "decoration",
+      "natural_object",
+      "accessory"
+    ],
+    "14": [
+      "container",
+      "decoration",
+      "other"
+    ],
+    "15": [
+      "stationery",
+      "tool",
+      "accessory"
+    ],
+    "18": [
+      "lighting",
+      "other",
+      "accessory"
+    ],
+    "19": [
+      "clock",
+      "other",
+      "accessory"
+    ],
+    "20": [
+      "furniture",
+      "accessory",
+      "appliance"
+    ],
+    "21": [
+      "vehicle",
+      "other",
+      "accessory"
+    ],
+    "22": [
+      "plant",
+      "other",
+      "accessory"
+    ],
+    "23": [
+      "decoration",
+      "plant",
+      "accessory"
+    ],
+    "26": [
+      "electronics",
+      "accessory",
+      "appliance"
+    ],
+    "28": [
+      "tableware",
+      "other",
+      "drink"
+    ],
+    "01": [
+      "tableware",
+      "other",
+      "accessory"
+    ],
+    "01b": [
+      "tableware",
+      "other",
+      "accessory"
+    ],
+    "02": [
+      "tableware",
+      "other",
+      "accessory"
+    ],
+    "03": [
+      "audio",
+      "electronics",
+      "accessory"
+    ],
+    "04": [
+      "plant",
+      "accessory",
+      "appliance"
+    ],
+    "05": [
+      "plant",
+      "other",
+      "accessory"
+    ],
+    "08": [
+      "toy",
+      "accessory",
+      "appliance"
+    ],
+    "08b": [
+      "toy",
+      "accessory",
+      "appliance"
+    ],
+    "09": [
+      "toy",
+      "accessory",
+      "appliance"
+    ],
+    "15b": [
+      "stationery",
+      "tool",
+      "accessory"
+    ],
+    "28b": [
+      "tableware",
+      "drink",
+      "other"
+    ]
+  },
+  "inputTokens": 248993
+}
