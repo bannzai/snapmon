@@ -6,13 +6,13 @@ import 'package:firebase_storage/firebase_storage.dart';
 const int _artImageMaximumBytes = 10 * 1024 * 1024;
 
 /// 写真から切り出した被写体の画像を Storage の [storagePath] から読んでデコードする (CardSharer.loadArtImage の実体)。
-/// 読めない・大きさの上限を超える時は throw する。
+/// 読めない時は throw する。
 Future<ui.Image> loadArtImageWithFirebase({required String storagePath}) async {
   final bytes = await FirebaseStorage.instance
       .ref(storagePath)
       .getData(_artImageMaximumBytes);
   if (bytes == null) {
-    throw StateError('$storagePath の画像が大きすぎて読めません');
+    throw StateError('$storagePath の画像を読めませんでした');
   }
   final codec = await ui.instantiateImageCodec(bytes);
   try {

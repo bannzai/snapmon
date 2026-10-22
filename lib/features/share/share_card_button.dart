@@ -58,6 +58,12 @@ class _ShareCardButtonState extends State<ShareCardButton> {
   bool _isSharing = false;
 
   Future<void> _share() async {
+    // 形を選ぶシートが開くまでの間に 2 回押されて共有が 2 本走らないよう、押した時点で押せなくする
+    setState(() => _isSharing = true);
+    // iPad の共有シートの起点は、共有シートを開く時に閉じているダイアログではなく、押したこのボタンにする
+    final buttonBox = context.findRenderObject()! as RenderBox;
+    final sharePositionOrigin =
+        buttonBox.localToGlobal(Offset.zero) & buttonBox.size;
     final format = await showModalBottomSheet<ShareCardFormat>(
       context: context,
       builder: (context) => SafeArea(
@@ -86,12 +92,15 @@ class _ShareCardButtonState extends State<ShareCardButton> {
         ),
       ),
     );
-    if (format == null || !mounted) {
+    if (!mounted) {
+      return;
+    }
+    if (format == null) {
+      setState(() => _isSharing = false);
       return;
     }
     final view = View.of(context);
     final messenger = ScaffoldMessenger.of(context);
-    setState(() => _isSharing = true);
     final artImagesByPath = <String, ui.Image>{};
     try {
       for (final artPath in widget.artPaths.toSet()) {
@@ -113,35 +122,30 @@ class _ShareCardButtonState extends State<ShareCardButton> {
       // 描いた画像を見せ、共有シートは「共有する」を押した操作から開く。
       // Web の Web Share API は直前のユーザー操作 (transient activation) からしか呼べず、
       // 形を選んだ操作から画像の読み込み・描画を待つと失効してダウンロードに落ちるため
-      final sharePositionOrigin = await showDialog<Rect>(
+      final previewImage = MemoryImage(pngBytes);
+      final shouldShare = await showDialog<bool>(
         context: context,
         builder: (context) => AlertDialog(
           content: ConstrainedBox(
             constraints: const BoxConstraints(maxHeight: 360),
-            child: Image.memory(pngBytes, fit: BoxFit.contain),
+            child: Image(image: previewImage, fit: BoxFit.contain),
           ),
           actions: [
             TextButton(
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () => Navigator.of(context).pop(false),
               child: const Text('やめる'),
             ),
-            Builder(
-              builder: (buttonContext) => FilledButton(
-                key: const Key('share-confirm'),
-                onPressed: () {
-                  final buttonBox =
-                      buttonContext.findRenderObject()! as RenderBox;
-                  Navigator.of(
-                    context,
-                  ).pop(buttonBox.localToGlobal(Offset.zero) & buttonBox.size);
-                },
-                child: const Text('共有する'),
-              ),
+            FilledButton(
+              key: const Key('share-confirm'),
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text('共有する'),
             ),
           ],
         ),
       );
-      if (sharePositionOrigin == null) {
+      // 見せ終えたカード画像 (1080×1920 をデコードしたもの) を ImageCache に残さない
+      unawaited(previewImage.evict());
+      if (shouldShare != true) {
         return;
       }
       final shareResultStatus = await widget.cardSharer.shareImage(

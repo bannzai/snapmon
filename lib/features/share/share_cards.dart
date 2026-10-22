@@ -215,11 +215,7 @@ class MonsterShareCard extends StatelessWidget {
                       valueColor: SnapmonColors.textOnBackground,
                     ),
                     const Spacer(),
-                    // 名前が AI の生成であることの表示 (DIRECTION.md「必要な機能」の未成年向けの安全策)
-                    const Text(
-                      'モンスターの名前は AI が作りました',
-                      style: SnapmonTextStyles.small,
-                    ),
+                    const _AiNameNotice(textAlign: TextAlign.start),
                     const SizedBox(height: 4),
                     const _LandingPageAddress(textAlign: TextAlign.start),
                   ],
@@ -316,68 +312,69 @@ class BattleResultShareCard extends StatelessWidget {
               const SizedBox(height: 20),
               for (final (index, monster) in playerParty.indexed) ...[
                 if (index > 0) const SizedBox(height: 10),
-                SizedBox(
-                  height: 112,
-                  child: DecoratedBox(
-                    decoration: const BoxDecoration(
-                      color: SnapmonColors.card,
-                      borderRadius: SnapmonRadii.card,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Row(
-                        children: [
-                          AspectRatio(
-                            aspectRatio: 1,
-                            child: _ShareCardMonsterArt(
-                              monster: monster,
-                              artImagesByPath: artImagesByPath,
-                              backgroundColor: SnapmonColors.cardSubtle,
-                            ),
+                // 行の高さは中身に合わせる (属性の札が 2 行に折り返しても切れないように)
+                DecoratedBox(
+                  decoration: const BoxDecoration(
+                    color: SnapmonColors.card,
+                    borderRadius: SnapmonRadii.card,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Row(
+                      children: [
+                        SizedBox.square(
+                          dimension: 92,
+                          child: _ShareCardMonsterArt(
+                            monster: monster,
+                            artImagesByPath: artImagesByPath,
+                            backgroundColor: SnapmonColors.cardSubtle,
                           ),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  monster.definition.name,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: SnapmonTextStyles.label.copyWith(
-                                    color: SnapmonColors.textOnCard,
-                                  ),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                monster.definition.name,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: SnapmonTextStyles.label.copyWith(
+                                  color: SnapmonColors.textOnCard,
                                 ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  _levelText(monster: monster),
-                                  style: SnapmonTextStyles.caption.copyWith(
-                                    color: SnapmonColors.textOnCardMuted,
-                                  ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                _levelText(monster: monster),
+                                style: SnapmonTextStyles.caption.copyWith(
+                                  color: SnapmonColors.textOnCardMuted,
                                 ),
-                                const SizedBox(height: 6),
-                                Wrap(
-                                  spacing: 6,
-                                  children: [
-                                    for (final elementTypeId
-                                        in monster.definition.elementTypeIds)
-                                      ElementTypeTag(
-                                        elementTypeId: elementTypeId,
-                                        definitions: definitions,
-                                      ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                              ),
+                              const SizedBox(height: 6),
+                              Wrap(
+                                spacing: 6,
+                                runSpacing: 6,
+                                children: [
+                                  for (final elementTypeId
+                                      in monster.definition.elementTypeIds)
+                                    ElementTypeTag(
+                                      elementTypeId: elementTypeId,
+                                      definitions: definitions,
+                                    ),
+                                ],
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
               ],
               const Spacer(),
+              const _AiNameNotice(textAlign: TextAlign.center),
+              const SizedBox(height: 4),
               const _LandingPageAddress(textAlign: TextAlign.center),
             ],
           ),
@@ -460,12 +457,28 @@ class BattleResultShareCard extends StatelessWidget {
                   ],
                 ),
               ),
+              const SizedBox(height: 6),
+              const _AiNameNotice(textAlign: TextAlign.start),
             ],
           ),
         ),
       },
     );
   }
+}
+
+/// モンスターの名前が AI の生成であることの表示 (DIRECTION.md「必要な機能」の未成年向けの安全策)。
+class _AiNameNotice extends StatelessWidget {
+  const _AiNameNotice({required this.textAlign});
+
+  final TextAlign textAlign;
+
+  @override
+  Widget build(BuildContext context) => Text(
+    'モンスターの名前は AI が作りました',
+    textAlign: textAlign,
+    style: SnapmonTextStyles.small,
+  );
 }
 
 /// カードの左上の snapmon のロゴ。

@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:snapmon/domain/battle/battle_state.dart';
+import 'package:snapmon/domain/monster/monster_definition.dart';
 import 'package:snapmon/features/dex/owned_monster.dart';
 import 'package:snapmon/features/share/card_sharer.dart';
 import 'package:snapmon/features/share/render_widget_png.dart';
@@ -137,7 +138,7 @@ void main() {
       }
     });
 
-    /// 見本のモンスターのうち名前の長い 3 体 (はみ出しやすい手持ち)。
+    /// 見本のモンスターのうち名前の長い 3 体に、属性を 4 つずつ持たせたもの (はみ出しやすい手持ち。属性の札が折り返す)。
     List<OwnedMonster> longestNamedMonsters() =>
         ([...sampleData.monsters]..sort(
               (first, second) => second.definition.name.length.compareTo(
@@ -145,7 +146,48 @@ void main() {
               ),
             ))
             .take(3)
+            .map(
+              (monster) => OwnedMonster(
+                definition: MonsterDefinition(
+                  id: monster.definition.id,
+                  sourcePhotoReference: monster.definition.sourcePhotoReference,
+                  name: monster.definition.name,
+                  encyclopediaText: monster.definition.encyclopediaText,
+                  elementTypeIds: [
+                    for (final elementType
+                        in sampleData.definitions.elementTypes.take(4))
+                      elementType.id,
+                  ],
+                  learnset: monster.definition.learnset,
+                  baseStats: monster.definition.baseStats,
+                  individualValues: monster.definition.individualValues,
+                  statCalculationVersion:
+                      monster.definition.statCalculationVersion,
+                  masterVersion: monster.definition.masterVersion,
+                ),
+                level: monster.level,
+                artPath: monster.artPath,
+                definitionIds: monster.definitionIds,
+              ),
+            )
             .toList();
+
+    testWidgets('描く間のエラーを握りつぶさず、PNG にせずに投げる', (tester) async {
+      Object? renderError;
+      await tester.runAsync(() async {
+        try {
+          await renderWidgetToPng(
+            view: tester.view,
+            card: Builder(builder: (context) => throw StateError('カードを描けない')),
+            format: ShareCardFormat.portrait,
+          );
+        } catch (error) {
+          renderError = error;
+        }
+      });
+      expect(renderError, isA<StateError>());
+      expect(tester.takeException(), isNull);
+    });
 
     for (final format in ShareCardFormat.values) {
       final expectedSize = (

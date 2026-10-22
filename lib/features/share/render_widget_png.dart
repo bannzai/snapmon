@@ -49,8 +49,14 @@ Future<Uint8List> renderWidgetToPng({
       ),
     ),
   );
-  final rootElement = adapter.attachToRenderTree(buildOwner);
+  // build・layout・paint の例外は FlutterError.reportError に流れるだけで呼び出し元に投げられず、
+  // 壊れた部分が ErrorWidget に置き換わった画像を共有してしまうため、描く間だけ報告を集めて投げる
+  final renderErrors = <FlutterErrorDetails>[];
+  final previousOnError = FlutterError.onError;
+  FlutterError.onError = renderErrors.add;
+  final RenderObjectToWidgetElement<RenderBox> rootElement;
   try {
+    rootElement = adapter.attachToRenderTree(buildOwner);
     buildOwner
       ..buildScope(rootElement)
       ..finalizeTree();
@@ -58,6 +64,13 @@ Future<Uint8List> renderWidgetToPng({
       ..flushLayout()
       ..flushCompositingBits()
       ..flushPaint();
+  } finally {
+    FlutterError.onError = previousOnError;
+  }
+  try {
+    if (renderErrors.isNotEmpty) {
+      throw renderErrors.first.exception;
+    }
     final image = await repaintBoundary.toImage(pixelRatio: format.pixelRatio);
     try {
       final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
@@ -78,6 +91,10 @@ Future<Uint8List> renderWidgetToPng({
       ..finalizeTree();
     pipelineOwner.rootNode = null;
     pipelineOwner.dispose();
+    // 描いたカードの layer (Picture) を GC を待たずに手放す
+    repaintBoundary.dispose();
+    renderView.child?.dispose();
+    renderView.dispose();
     // Web では FocusManager がアプリのライフサイクルの監視を登録するため、描画ごとに作った分を外す
     buildOwner.focusManager.dispose();
   }
