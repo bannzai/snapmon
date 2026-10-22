@@ -15,6 +15,12 @@ describe("findModerationViolation", () => {
   it("普通の文章は通す", () => {
     expect(findModerationViolation("マグカップン\n朝いちばんの湯気をまとって、持ち主のそばにやってくる。")).toBeUndefined();
   });
+
+  it("普通の語の一部になる禁止語 (殺菌のイエローのスプレー、おうちにかえろう、ワインレッド、テロップ、skill) は止めない", () => {
+    expect(findModerationViolation("殺菌スプレーのイエローモン。おうちにかえろうと鳴く")).toBeUndefined();
+    expect(findModerationViolation("ワインレッドの体でテロップを読む。special skill")).toBeUndefined();
+    expect(findModerationViolation("kill them")).toBe("kill");
+  });
 });
 
 describe("visionRejectionReason", () => {

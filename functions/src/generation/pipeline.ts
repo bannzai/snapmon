@@ -114,6 +114,12 @@ const MAXIMUM_ATTEMPT_COUNT = 4;
 /** 段階が予期しないエラーで落ちた時に、再試行を始めるまでの秒数。一時的なエラー (API の 5xx・通信の切断) が収まる時間として置いた。 */
 const FAILED_STAGE_RETRY_DELAY_SECONDS = 60;
 
+/**
+ * 手で決めた範囲が写真に占める割合の上限。95%: 写真の縁を少し残しただけの範囲を切り出しとみなさない値として置いた
+ * (見本の物の写真の自動のマスクは最大 49%。ADR 0002 の実測)。
+ */
+const MAXIMUM_CLIENT_MASK_COVERAGE = 0.95;
+
 /** Claude の文章が禁止語の検査を通らなかった時に、作り直させる回数の上限 (最初の 1 回を含む)。 */
 const DESCRIBE_SUBJECT_MAXIMUM_ATTEMPTS = 2;
 
@@ -383,10 +389,9 @@ async function acquireLease(
 export async function resumeGeneration(dependencies: GenerationDependencies, { uid, requestId, purpose, judgeAttempt }: ResumeTask): Promise<GenerationResult> {
   const snapshot = await generationDocument({ firestore: dependencies.firestore, uid, requestId }).get();
   if (!snapshot.exists) {
-    // レコードの無い要求の写真とマスクだけを消す (パスは uid と要求 ID から決め、タスクの中身からは受け取らない)
-    if (purpose === "discard") {
-      await deleteFiles(dependencies.bucket, [`users/${uid}/photos/${requestId}`, `users/${uid}/masks/${requestId}`]);
-    }
+    // レコードの無い要求 (使い回し・1 日の上限・生成中のロックで受け付けなかった) の写真とマスクを消す。受け付けた要求は、予約より先に
+    // 積んだこのタスクが届く頃 (11 分後) には必ずレコードがある。パスは uid と要求 ID から決め、タスクの中身からは受け取らない。
+    await deleteFiles(dependencies.bucket, [`users/${uid}/photos/${requestId}`, `users/${uid}/masks/${requestId}`]);
     return { requestId, status: "failed" };
   }
   const record = snapshot.data() as GenerationRecord;
@@ -525,15 +530,16 @@ async function finishGeneration(
 }
 
 /**
- * 終わった生成の要らなくなったファイルを消し、消し終えたことを `filesDeleted` に記録する。rejected・duplicate は元の写真・マスク・
- * 中間の切り出し画像を、saved はマスクと中間の切り出し画像を消す (元の写真は本人の図鑑のために残す)。
- * 消し終えている生成と、終わっていない・failed の生成には何もしない (何度呼んでもよい)。
+ * 終わった生成の要らなくなったファイルを消し、消し終えたことを `filesDeleted` に記録する。rejected・duplicate・failed は元の写真・
+ * マスク・中間の切り出し画像を、saved はマスクと中間の切り出し画像を消す (元の写真は本人の図鑑のために残す。failed の写真は検査を
+ * 通っていないことがあり、再挑戦は新しい要求 ID で上げ直すため残さない)。
+ * 消し終えている生成と、終わっていない生成には何もしない (何度呼んでもよい)。
  */
 async function deleteDiscardedFiles(
   dependencies: GenerationDependencies,
   { uid, requestId, record }: { uid: string; requestId: string; record: GenerationRecord },
 ): Promise<void> {
-  if (!(record.status === "rejected" || record.status === "duplicate" || record.status === "saved") || record.filesDeleted) {
+  if (!TERMINAL_GENERATION_STATUSES.includes(record.status) || record.filesDeleted) {
     return;
   }
   await deleteFiles(dependencies.bucket, [record.status === "saved" ? undefined : record.photoPath, record.maskPath, record.cutoutPath]);
@@ -592,7 +598,9 @@ async function runCutoutStage(
   const photo = await downscalePhoto(input.photo);
   const mask = input.mask ?? (await dependencies.segmentSubject(photo));
   const { cutoutPng, coverage } = await applyMask({ photo, mask });
-  if (!cutoutPng) {
+  // 手で決めた範囲が写真のほぼ全体なら切り出しにならず、元の写真がそのまま他人も読める絵になるため拒否する。
+  // 自動のマスクには上限を置かない (物を大写しにした写真は、正しく切り出しても全体に近くなるため)。
+  if (!cutoutPng || (input.mask && coverage > MAXIMUM_CLIENT_MASK_COVERAGE)) {
     return { kind: "finish", update: { status: "rejected", rejectionReason: "no_subject", cutoutCoverage: coverage } };
   }
   const cutoutPath = `users/${uid}/generations/${requestId}/cutout.png`;
@@ -609,7 +617,8 @@ async function runClaudeStage(dependencies: GenerationDependencies, record: Gene
     if (output.containsPerson) {
       return { kind: "finish", update: { status: "rejected", rejectionReason: "person_detected", claudeUsages } };
     }
-    const violation = findModerationViolation(`${output.name}\n${output.encyclopediaText}\n${output.description.what}`);
+    // 照らすのは利用者に見せる名前と図鑑の文章だけ (被写体の説明は画面に出さず、ワイングラスのような被写体の名前で止めないため)
+    const violation = findModerationViolation(`${output.name}\n${output.encyclopediaText}`);
     if (!violation) {
       return { kind: "next", update: { subject: output, subjectDescriptionText: canonicalDescriptionText(output.description), claudeUsages } };
     }

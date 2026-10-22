@@ -310,6 +310,17 @@ describe("generate", () => {
     expect(mocks.calls.segment).toBe(0);
   });
 
+  it("手で決めた範囲が写真のほぼ全体なら、元の写真をそのまま絵にしないよう拒否する", async () => {
+    const mocks = createMocks();
+    const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
+    const maskPath = `users/alice/masks/${data.requestId}`;
+    const fullMask = await sharp({ create: { width: 64, height: 48, channels: 3, background: "#ffffff" } }).png().toBuffer();
+    await bucket.file(maskPath).save(fullMask, { contentType: "image/png", resumable: false });
+    const result = await handleGenerateRequest(mocks.dependencies, ageVerifiedRequest({ uid: "alice", data: { ...data, maskPath } }));
+    expect(result).toMatchObject({ status: "rejected", rejectionReason: "no_subject" });
+    expect(mocks.calls.describe).toBe(0);
+  });
+
   it("Jev が答えない時は pending_judge で保存し、再試行で続きから完了する (Claude を呼び直さない)", async () => {
     const mocks = createMocks({ jev: { unavailableFor: new Set(["judge"]) } });
     const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
@@ -439,6 +450,8 @@ describe("generate", () => {
     const result = await handleGenerateRequest(mocks.dependencies, ageVerifiedRequest({ uid: "alice", data }));
     expect(result.status).toBe("failed");
     expect(mocks.calls).toMatchObject({ segment: 0, describe: 0 });
+    // failed の写真 (検査を通っていない) も消す
+    expect((await bucket.file(data.photoPath).exists())[0]).toBe(false);
   });
 
   it("拒否した写真を消し損ねても、再試行のタスクが消して記録する", async () => {
@@ -494,13 +507,16 @@ describe("generate", () => {
 describe("generate の上限と検査", () => {
   const today = new Intl.DateTimeFormat("sv-SE", { timeZone: "Asia/Tokyo" }).format(new Date());
 
-  it("uid ごとの 1 日の上限を超えると生成しない", async () => {
+  it("uid ごとの 1 日の上限を超えると生成せず、受け付けなかった写真は後のタスクが消す", async () => {
     await firestore.doc("users/alice").set({ dailyGeneration: { date: today, count: DAILY_GENERATION_LIMIT_PER_USER } });
     const mocks = createMocks();
-    await expect(
-      handleGenerateRequest(mocks.dependencies, ageVerifiedRequest({ uid: "alice", data: await uploadPhoto({ uid: "alice", photo: photoFixture("01") }) })),
-    ).rejects.toMatchObject({ code: "resource-exhausted" });
+    const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
+    await expect(handleGenerateRequest(mocks.dependencies, ageVerifiedRequest({ uid: "alice", data }))).rejects.toMatchObject({ code: "resource-exhausted" });
     expect(mocks.calls.vision).toBe(0);
+    const [task] = mocks.enqueued;
+    expect(task).toMatchObject({ requestId: data.requestId, purpose: "lease" });
+    await resumeGeneration(mocks.dependencies, task);
+    expect((await bucket.file(data.photoPath).exists())[0]).toBe(false);
   });
 
   it("前日の回数は数えない", async () => {
