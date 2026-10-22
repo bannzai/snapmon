@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../domain/master/master_data.dart';
+import '../features/dex/owned_monster.dart';
 
 // master (属性・技・相性表・分類) はアプリに同梱せず、Firestore の master/{version} から最新の版を読む。
 // 起動時と対戦の前に読み直す (相性表は対戦時点の最新の版を両者に適用するため。documents/adr/0001-tech-stack.md)。
@@ -25,6 +26,19 @@ Future<DocumentSnapshot<Map<String, dynamic>>> fetchDefinition({
 }) {
   return firestore.collection('definitions').doc(definitionId).get();
 }
+
+/// 読んである master [cachedMasterJson] で [monsters] の属性・技を引けないおそれがあり、最新の master を読み直すべきかを返す。
+/// まだ読んでいない (null) 時と、読んだ版より新しい版で生まれたモンスターがいる時 (ログインの後に新しい版が投入された) に true。
+bool needsLatestMasterFetch({
+  required Map<String, dynamic>? cachedMasterJson,
+  required List<OwnedMonster> monsters,
+}) =>
+    cachedMasterJson == null ||
+    monsters.any(
+      (monster) =>
+          monster.definition.masterVersion >
+          (cachedMasterJson['version'] as int),
+    );
 
 /// 図鑑と対戦で属性・技を引く定義の集まりを返す: 最新の版の master [latestMasterJson] に、図鑑のモンスターが参照する
 /// その場で作った定義 [definitionJsons] を足す (同じ ID は master を優先する。[mergeMasterData])。

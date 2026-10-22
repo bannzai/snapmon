@@ -126,8 +126,9 @@ class _GenerationScreenState extends State<GenerationScreen> {
     });
     try {
       await _handleResult(
+        // 同じ写真の別の要求の結果を使い回した時は、送った ID のレコードは無く、使い回し先の ID のレコードを読む
         result: await widget.monsterGenerator.fetchGeneration(
-          requestId: _requestId,
+          requestId: _result?.requestId ?? _requestId,
         ),
       );
     } catch (error) {

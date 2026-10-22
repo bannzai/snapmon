@@ -186,6 +186,35 @@ void main() {
     expect(calls.loggedEvents, hasLength(1));
   });
 
+  testWidgets('使い回した別の要求が判定待ちの時は、使い回し先の要求 ID で読み直す', (tester) async {
+    await pumpGenerationScreen(
+      tester: tester,
+      generator: fakeMonsterGenerator(
+        calls: calls,
+        albumPhoto: null,
+        uploadError: null,
+        requestGeneration: ({required requestId}) async =>
+            const GenerationResult(
+              requestId: 'earlier-request',
+              status: GenerationStatus.pendingJudge,
+              monsterId: null,
+              rejectionReason: null,
+            ),
+        fetchGeneration: savedGeneration(
+          monsterId: 'm1',
+          status: GenerationStatus.saved,
+          resultRequestId: null,
+        ),
+      ),
+    );
+    await tester.tap(find.text('もう一度確かめる'));
+    await tester.pumpAndSettle();
+    expect(calls.fetchedRequestIds, ['earlier-request']);
+    // 読み直した結果は使い回し先の要求のもので、この写真から新しく生まれたのではない
+    expect(find.text('もう図鑑にいます'), findsOneWidget);
+    expect(calls.loggedEvents, isEmpty);
+  });
+
   testWidgets('生成しなかった時は理由を出す', (tester) async {
     await pumpGenerationScreen(
       tester: tester,

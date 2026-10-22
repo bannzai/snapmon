@@ -73,7 +73,16 @@ Future<void> Function() connectDexToFirestore({
   Future<MasterData> definitionsFor({
     required List<OwnedMonster> monsters,
   }) async {
-    latestMasterJson ??= (await fetchLatestMaster(firestore: firestore))?.data();
+    // ログインの後に新しい版の master が投入され、その版で生まれたモンスターが届いた時は読み直す
+    // (古い版には無い属性・技を引けなくなるため)
+    if (needsLatestMasterFetch(
+      cachedMasterJson: latestMasterJson,
+      monsters: monsters,
+    )) {
+      latestMasterJson = (await fetchLatestMaster(
+        firestore: firestore,
+      ))?.data();
+    }
     for (final definitionId in {
       for (final monster in monsters) ...monster.definitionIds,
     }) {

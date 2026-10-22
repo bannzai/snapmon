@@ -56,6 +56,29 @@ void main() {
     );
   });
 
+  test('まだ読んでいない時と、読んだ版より新しい版で生まれたモンスターがいる時だけ master を読み直す', () {
+    // generatedWaxMonster は master の版 1 で生まれたモンスター
+    final monsters = [generatedWaxMonster(monsterId: 'm1')];
+    expect(
+      needsLatestMasterFetch(cachedMasterJson: null, monsters: monsters),
+      isTrue,
+    );
+    expect(
+      needsLatestMasterFetch(
+        cachedMasterJson: const {'version': 1},
+        monsters: monsters,
+      ),
+      isFalse,
+    );
+    expect(
+      needsLatestMasterFetch(
+        cachedMasterJson: const {'version': 0},
+        monsters: monsters,
+      ),
+      isTrue,
+    );
+  });
+
   test('master が投入されていない時は StateError を投げる (空の定義で続けない)', () {
     expect(
       () => buildDexDefinitions(
