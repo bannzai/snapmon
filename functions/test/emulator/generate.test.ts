@@ -359,6 +359,45 @@ describe("generate", () => {
     expect(resumed).toMatchObject({ status: "duplicate", monsterId: savedMonsterId });
   });
 
+  it("後から受け付けた保存前の生成は候補にせず、先の生成は待たずに保存へ進む (互いに待ち合わない)", async () => {
+    const mocks = createMocks({ jev: { dedupe: { same: 0.9, different: 0.05 }, unavailableFor: new Set(["judge"]) } });
+    const earlierData = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
+    // 先の生成を judge で止め、dedupe の前 (classify まで済んだ状態) に戻す
+    expect((await handleGenerateRequest(mocks.dependencies, ageVerifiedRequest({ uid: "alice", data: earlierData }))).status).toBe("pending_judge");
+    await firestore.doc(`users/alice/generations/${earlierData.requestId}`).update({ completedStage: "classify" });
+    // 後の生成は先の生成を待つ
+    mocks.jevBehavior.unavailableFor = new Set();
+    const laterData = await uploadPhoto({ uid: "alice", photo: photoFixture("01b") });
+    expect((await handleGenerateRequest(mocks.dependencies, ageVerifiedRequest({ uid: "alice", data: laterData }))).status).toBe("pending_judge");
+    // 先の生成は後の生成を候補にしないため、待たずに保存される
+    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: earlierData.requestId, purpose: "judge" })).status).toBe("saved");
+  });
+
+  it("保存の後に中間のファイルを消し損ねても saved のままにし、再試行のタスクが消す", async () => {
+    const mocks = createMocks();
+    const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
+    const realBucket = mocks.dependencies.bucket;
+    mocks.dependencies.bucket = Object.create(realBucket, {
+      file: {
+        value: (path: string) =>
+          // 本物の File の delete だけを差し替える (File は private フィールドを持ち、Object.create で包むと他のメソッドが動かないため)
+          Object.assign(realBucket.file(path), {
+            delete: async () => {
+              throw new Error("一時的な削除の失敗");
+            },
+          }),
+      },
+    });
+    expect((await handleGenerateRequest(mocks.dependencies, ageVerifiedRequest({ uid: "alice", data }))).status).toBe("saved");
+    const cutoutPath = `users/alice/generations/${data.requestId}/cutout.png`;
+    expect((await bucket.file(cutoutPath).exists())[0]).toBe(true);
+
+    mocks.dependencies.bucket = realBucket;
+    await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "lease" });
+    expect((await bucket.file(cutoutPath).exists())[0]).toBe(false);
+    expect((await bucket.file(data.photoPath).exists())[0]).toBe(true);
+  });
+
   it("同じ被写体の相手の生成が失敗したら、待っていた生成は保存に進む", async () => {
     const otherData = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
     await handleGenerateRequest(createMocks().dependencies, ageVerifiedRequest({ uid: "alice", data: otherData }));
@@ -394,7 +433,8 @@ describe("generate", () => {
     mocks.dependencies.bucket = Object.create(realBucket, {
       file: {
         value: (path: string) =>
-          Object.assign(Object.create(realBucket.file(path)), {
+          // 本物の File の delete だけを差し替える (File は private フィールドを持ち、Object.create で包むと他のメソッドが動かないため)
+          Object.assign(realBucket.file(path), {
             delete: async () => {
               throw new Error("一時的な削除の失敗");
             },
