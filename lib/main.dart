@@ -36,7 +36,9 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   final ageConfirmationStore = AgeConfirmationStore(
     preferences: await SharedPreferences.getInstance(),
-    today: DateTime.now,
+    // Functions の confirmAge (functions/src/age.ts) と同じく UTC の年月で数える。端末の地域の時刻で数えると、
+    // 日本時間の月初 0〜9 時に端末だけが通して confirmAge が拒否し、最初の判定だけが有効なためその uid では使えなくなる
+    today: () => DateTime.now().toUtc(),
   );
   String? resumedUid;
   try {
