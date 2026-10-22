@@ -204,5 +204,7 @@ export function reportNotificationText({ reportId, report }: { reportId: string;
     `絵: ${report.monsterArtPath}`,
     `通報: reports/${reportId}`,
     `${REPORT_HIDE_THRESHOLD} 人から通報されると、持ち主は対戦の相手の候補から外れる`,
+    // 通報者の数は匿名ログインの uid で数えるため、1 人が複数のアカウントで数を作れる。外れた持ち主を戻す手順を通知に添える
+    `不当な通報で外れた持ち主を戻す時は reportedMonsters/${report.monsterId} を消す`,
   ].join("\n");
 }

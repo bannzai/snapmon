@@ -120,7 +120,15 @@ describe("通報の通知", () => {
     await handleReportCreated({ reportId: "reporter-1_monster-1", report, sendMessage });
     expect(sendMessage).toHaveBeenCalledWith({ text: reportNotificationText({ reportId: "reporter-1_monster-1", report }) });
     const text = reportNotificationText({ reportId: "reporter-1_monster-1", report });
-    for (const expected of ["不適切な絵", "マグモン", "monster-1", "owner-1", "reporter-1", "reports/reporter-1_monster-1"]) {
+    for (const expected of [
+      "不適切な絵",
+      "マグモン",
+      "monster-1",
+      "owner-1",
+      "reporter-1",
+      "reports/reporter-1_monster-1",
+      "reportedMonsters/monster-1 を消す",
+    ]) {
       expect(text).toContain(expected);
     }
   });
