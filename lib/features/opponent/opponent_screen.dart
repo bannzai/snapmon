@@ -12,6 +12,7 @@ import '../battle/battle_screen.dart';
 import '../dex/dex_store.dart';
 import '../dex/owned_monster.dart';
 import '../home/home_shell.dart';
+import '../share/card_sharer.dart';
 import 'cpu_party.dart';
 
 /// 対戦相手を選ぶ画面 (モックの Pvp.dc.html)。PvP の相手の取得 (#16) までは見本の対戦相手を並べる。
@@ -24,6 +25,7 @@ class OpponentScreen extends StatefulWidget {
     required this.onSelectTab,
     required this.onOpenSettings,
     required this.battleRecorder,
+    required this.cardSharer,
   });
 
   /// 見本データ (見本の対戦相手)。
@@ -40,6 +42,9 @@ class OpponentScreen extends StatefulWidget {
 
   /// バトルの記録と計測。
   final BattleRecorder battleRecorder;
+
+  /// バトルの結果の共有に使う関数の組。
+  final CardSharer cardSharer;
 
   @override
   State<OpponentScreen> createState() => _OpponentScreenState();
@@ -109,6 +114,7 @@ class _OpponentScreenState extends State<OpponentScreen> {
           randomSeed: randomSeed,
           battleRecorder: widget.battleRecorder,
           onPlayerLevelsChanged: dexStore.updateLevels,
+          cardSharer: widget.cardSharer,
         ),
       ),
     );

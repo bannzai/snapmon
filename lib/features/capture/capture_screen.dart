@@ -10,6 +10,7 @@ import '../../widgets/square_icon_button.dart';
 import '../dex/dex_store.dart';
 import '../home/home_shell.dart';
 import '../result/result_screen.dart';
+import '../share/card_sharer.dart';
 import 'generation_screen.dart';
 import 'monster_generator.dart';
 
@@ -23,6 +24,7 @@ class CaptureScreen extends StatefulWidget {
     required this.monsterGenerator,
     required this.onSelectTab,
     required this.onOpenSettings,
+    required this.cardSharer,
   });
 
   /// 図鑑と手持ち。
@@ -36,6 +38,9 @@ class CaptureScreen extends StatefulWidget {
 
   /// 設定画面を開く。
   final VoidCallback onOpenSettings;
+
+  /// 生まれた画面からの図鑑のカードの共有に使う関数の組。
+  final CardSharer cardSharer;
 
   @override
   State<CaptureScreen> createState() => _CaptureScreenState();
@@ -196,6 +201,7 @@ class _CaptureScreenState extends State<CaptureScreen>
           photoSource: photoSource,
           monsterGenerator: widget.monsterGenerator,
           dexStore: widget.dexStore,
+          cardSharer: widget.cardSharer,
         ),
       ),
     );

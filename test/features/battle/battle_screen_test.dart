@@ -1,16 +1,23 @@
+import 'dart:ui' as ui;
+
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:share_plus/share_plus.dart';
 
 import 'package:snapmon/analytics/analytics_events.dart';
 import 'package:snapmon/domain/battle/battle_state.dart';
 import 'package:snapmon/features/battle/battle_field_game.dart';
 import 'package:snapmon/features/battle/battle_recorder.dart';
 import 'package:snapmon/features/battle/battle_screen.dart';
+import 'package:snapmon/features/dex/owned_monster.dart';
+import 'package:snapmon/features/share/card_sharer.dart';
+import 'package:snapmon/features/share/share_cards.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
 
 import '../../battle_recorder_fixture.dart';
+import '../../card_sharer_fixture.dart';
 import '../../sample_data_fixture.dart';
 
 void main() {
@@ -23,28 +30,38 @@ void main() {
   final weakOpponent = sampleData.monsterById(monsterId: 'sample-ringora');
 
   late List<Map<String, int>> levelChanges;
+  late RecordedShareCalls shareCalls;
 
-  /// [battleRecorder] を使うバトル画面を、iPhone の画面の大きさ (モックの 390 × 844) で開く。
+  /// [battleRecorder] を使い、自分の手持ちを [playerMonster] 1 体にしたバトル画面を、iPhone の画面の大きさ (モックの 390 × 844) で開く。
+  /// 共有は [shareCalls] に残し、切り出した画像の読み込みには [artImage] を返す。
   Future<void> pumpBattleScreen({
     required WidgetTester tester,
     required BattleRecorder battleRecorder,
+    required OwnedMonster playerMonster,
+    required ui.Image? artImage,
   }) async {
     tester.view
       ..physicalSize = const Size(390, 844)
       ..devicePixelRatio = 1;
     addTearDown(tester.view.reset);
     levelChanges = [];
+    shareCalls = RecordedShareCalls();
     await tester.pumpWidget(
       MaterialApp(
         theme: snapmonThemeData(),
         home: BattleScreen(
-          playerParty: [strongPlayer],
+          playerParty: [playerMonster],
           opponentParty: [weakOpponent],
           definitions: sampleData.definitions,
           randomSeed: 1,
           battleRecorder: battleRecorder,
           onPlayerLevelsChanged: ({required levelsByMonsterId}) =>
               levelChanges.add(levelsByMonsterId),
+          cardSharer: fakeCardSharer(
+            calls: shareCalls,
+            artImage: artImage,
+            shareResultStatus: ShareResultStatus.success,
+          ),
         ),
       ),
     );
@@ -75,6 +92,8 @@ void main() {
     final calls = RecordedBattleCalls();
     await pumpBattleScreen(
       tester: tester,
+      playerMonster: strongPlayer,
+      artImage: null,
       battleRecorder: fakeBattleRecorder(
         calls: calls,
         startBattleRecord: () async => 'battle-1',
@@ -115,6 +134,8 @@ void main() {
     final calls = RecordedBattleCalls();
     await pumpBattleScreen(
       tester: tester,
+      playerMonster: strongPlayer,
+      artImage: null,
       battleRecorder: fakeBattleRecorder(
         calls: calls,
         startBattleRecord: () async => null,
@@ -138,6 +159,8 @@ void main() {
     final calls = RecordedBattleCalls();
     await pumpBattleScreen(
       tester: tester,
+      playerMonster: strongPlayer,
+      artImage: null,
       battleRecorder: fakeBattleRecorder(
         calls: calls,
         startBattleRecord: () async => throw Exception('unavailable'),
@@ -166,6 +189,8 @@ void main() {
     );
     await pumpBattleScreen(
       tester: tester,
+      playerMonster: strongPlayer,
+      artImage: null,
       battleRecorder: BattleRecorder(
         startBattleRecord: recorder.startBattleRecord,
         completeBattleRecord: recorder.completeBattleRecord,
@@ -178,10 +203,98 @@ void main() {
     expect(calls.completedBattles, hasLength(1));
   });
 
+  testWidgets('勝敗の画面から結果を共有すると、切り出した画像だけを読んでカードを描き、共有イベントを送る', (tester) async {
+    final artImage = (await tester.runAsync(
+      () => createTestImage(width: 8, height: 8),
+    ))!;
+    addTearDown(artImage.dispose);
+    const artPath = 'monsters/sample-mugmon/art.png';
+    const sourcePhotoReference = 'users/uid-1/photos/original-photo';
+    final calls = RecordedBattleCalls();
+    await pumpBattleScreen(
+      tester: tester,
+      playerMonster: ownedMonsterWithArt(
+        monster: strongPlayer,
+        artPath: artPath,
+        sourcePhotoReference: sourcePhotoReference,
+      ),
+      artImage: artImage,
+      battleRecorder: fakeBattleRecorder(
+        calls: calls,
+        startBattleRecord: () async => 'battle-1',
+        recordedLevels: {strongPlayer.definition.id: 9},
+      ),
+    );
+    await playUntilFinished(tester: tester);
+    await tester.tap(find.text('結果を共有'));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
+    await tester.tap(find.byKey(const Key('share-format-portrait')));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
+    await tester.tap(find.byKey(const Key('share-confirm')));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
+
+    // 元の写真のパスは読まず、切り出した画像だけを読む
+    expect(shareCalls.loadedArtPaths, [artPath]);
+    final rendered = shareCalls.renderedCards.single;
+    expect(rendered.format, ShareCardFormat.portrait);
+    final card = rendered.card as BattleResultShareCard;
+    expect(card.winner, BattleSideId.player);
+    // 勝敗の画面と同じく、Functions が返した確定したレベルを描く
+    expect(card.appliedLevels, {strongPlayer.definition.id: 9});
+    expect(card.artImagesByPath.keys, [artPath]);
+    final shared = shareCalls.sharedImages.single;
+    expect(shared.fileName, 'snapmon-battle-portrait.png');
+    expect(shared.text, contains('かった'));
+    final logged = shareCalls.loggedEvents.single;
+    expect(logged.event, AnalyticsEvent.contentShared);
+    expect(logged.parameters, {
+      'screen': 'battle_result',
+      'format': 'portrait',
+    });
+  });
+
+  testWidgets('切り出した画像を読めない時は共有せず、エラーをそのまま出す', (tester) async {
+    final calls = RecordedBattleCalls();
+    await pumpBattleScreen(
+      tester: tester,
+      playerMonster: ownedMonsterWithArt(
+        monster: strongPlayer,
+        artPath: 'monsters/sample-mugmon/art.png',
+        sourcePhotoReference: 'users/uid-1/photos/original-photo',
+      ),
+      artImage: null,
+      battleRecorder: fakeBattleRecorder(
+        calls: calls,
+        startBattleRecord: () async => null,
+        recordedLevels: const {},
+      ),
+    );
+    await playUntilFinished(tester: tester);
+    await tester.tap(find.text('結果を共有'));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
+    await tester.tap(find.byKey(const Key('share-format-landscape')));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
+
+    expect(
+      find.text('Bad state: monsters/sample-mugmon/art.png を読めない'),
+      findsOneWidget,
+    );
+    expect(shareCalls.renderedCards, isEmpty);
+    expect(shareCalls.sharedImages, isEmpty);
+    expect(shareCalls.loggedEvents, isEmpty);
+  });
+
   testWidgets('技を使うと被弾した側に属性のパーティクルが出て、演出の間は技を選べない', (tester) async {
     final calls = RecordedBattleCalls();
     await pumpBattleScreen(
       tester: tester,
+      playerMonster: strongPlayer,
+      artImage: null,
       battleRecorder: fakeBattleRecorder(
         calls: calls,
         startBattleRecord: () async => 'battle-1',

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:snapmon/analytics/analytics_events.dart';
@@ -14,10 +15,13 @@ import 'package:snapmon/features/capture/monster_generator.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
 import 'package:snapmon/features/settings/account_store.dart';
 import 'package:snapmon/features/settings/settings_screen.dart';
+import 'package:snapmon/features/share/card_sharer.dart';
+import 'package:snapmon/features/share/share_cards.dart';
 import 'package:snapmon/sample/sample_data.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
 
 import 'battle_recorder_fixture.dart';
+import 'card_sharer_fixture.dart';
 import 'monster_generator_fixture.dart';
 import 'sample_data_fixture.dart';
 
@@ -42,6 +46,10 @@ void main() {
   late Future<String?> Function() startBattleRecord;
   late Map<String, int> recordedLevels;
 
+  /// [pumpApp] の共有シートが返す結果。既定は共有した。テストが [pumpApp] の前に変える。
+  late ShareResultStatus shareResultStatus;
+  late RecordedShareCalls shareCalls;
+
   /// [pumpApp] の設定画面のアカウントの連携と削除。呼ばれた操作を [accountCalls] に順に残す。
   /// 連携と削除の振る舞いは、テストが [pumpApp] の前に変える。既定は連携でき、削除できる。
   late AccountStore accountStore;
@@ -53,6 +61,7 @@ void main() {
   setUp(() {
     startBattleRecord = () async => null;
     recordedLevels = const {};
+    shareResultStatus = ShareResultStatus.success;
     accountCalls = [];
     linkedProviderNames = [];
     linkAccount = () async {
@@ -159,6 +168,7 @@ void main() {
     );
     openedUris = [];
     battleCalls = RecordedBattleCalls();
+    shareCalls = RecordedShareCalls();
     accountStore = fakeAccountStore(
       sessionStore: ageVerifiedSessionStore,
       ageConfirmationStore: ageConfirmationStore,
@@ -180,6 +190,11 @@ void main() {
           recordedLevels: recordedLevels,
         ),
         monsterGenerator: appMonsterGenerator(),
+        cardSharer: fakeCardSharer(
+          calls: shareCalls,
+          artImage: null,
+          shareResultStatus: shareResultStatus,
+        ),
         accountStore: accountStore,
       ),
     );
@@ -258,6 +273,11 @@ void main() {
             recordedLevels: const {},
           ),
           monsterGenerator: appMonsterGenerator(),
+          cardSharer: fakeCardSharer(
+            calls: RecordedShareCalls(),
+            artImage: null,
+            shareResultStatus: ShareResultStatus.success,
+          ),
           accountStore: accountStore,
         ),
       );
@@ -422,6 +442,131 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
       expect(find.text('図鑑 1'), findsOneWidget);
+    });
+
+    testWidgets('生まれた画面から図鑑のカードを形を選んで共有し、共有イベントを送る', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      await tester.tap(find.byTooltip('アルバムから選ぶ'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('カードを共有'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('share-format-portrait')));
+      await tester.pumpAndSettle();
+      // 描いた画像を見せている間は、まだ共有シートを開かない
+      expect(shareCalls.renderedCards, hasLength(1));
+      expect(shareCalls.sharedImages, isEmpty);
+      await tester.tap(find.byKey(const Key('share-confirm')));
+      await tester.pumpAndSettle();
+
+      final bornMonster = generatedWaxMonster(
+        monsterId: 'generated-request-1',
+      ).definition;
+      final rendered = shareCalls.renderedCards.single;
+      expect(rendered.format, ShareCardFormat.portrait);
+      expect(
+        (rendered.card as MonsterShareCard).monster.definition.id,
+        bornMonster.id,
+      );
+      // 切り出した画像を持たない見本のモンスターは Storage を読まない
+      expect(shareCalls.loadedArtPaths, isEmpty);
+      final shared = shareCalls.sharedImages.single;
+      expect(shared.fileName, 'snapmon-${bornMonster.id}-portrait.png');
+      expect(shared.text, contains(bornMonster.name));
+      expect(shared.text, contains(landingPageUri.toString()));
+      final logged = shareCalls.loggedEvents.single;
+      expect(logged.event, AnalyticsEvent.contentShared);
+      expect(logged.parameters, {
+        'screen': 'result_newly_born',
+        'format': 'portrait',
+      });
+    });
+
+    testWidgets('図鑑の詳細から共有シートを閉じただけの時は共有イベントを送らない', (tester) async {
+      shareResultStatus = ShareResultStatus.dismissed;
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      dexStore.replaceAll(monsters: sampleData.monsters);
+      await tester.tap(find.byKey(const Key('tab-dex')));
+      await tester.pumpAndSettle();
+      // 手持ちにいない (図鑑の一覧にだけ名前が出る) 最後のモンスターを開く
+      await tester.tap(find.text(sampleData.monsters.last.definition.name));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('カードを共有'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('share-format-landscape')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('share-confirm')));
+      await tester.pumpAndSettle();
+
+      expect(shareCalls.renderedCards.single.format, ShareCardFormat.landscape);
+      expect(shareCalls.sharedImages, hasLength(1));
+      expect(shareCalls.loggedEvents, isEmpty);
+    });
+
+    testWidgets('描いた画像を見せた後に「やめる」を押した時は共有しない', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      dexStore.replaceAll(monsters: sampleData.monsters);
+      await tester.tap(find.byKey(const Key('tab-dex')));
+      await tester.pumpAndSettle();
+      // 手持ちにいない (図鑑の一覧にだけ名前が出る) 最後のモンスターを開く
+      await tester.tap(find.text(sampleData.monsters.last.definition.name));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('カードを共有'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('share-format-portrait')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('やめる'));
+      await tester.pumpAndSettle();
+
+      expect(shareCalls.renderedCards, hasLength(1));
+      expect(shareCalls.sharedImages, isEmpty);
+      expect(shareCalls.loggedEvents, isEmpty);
+      // ボタンは再び押せる
+      await tester.tap(find.text('カードを共有'));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('share-format-portrait')), findsOneWidget);
+    });
+
+    testWidgets('図鑑の詳細の共有で形を選ばずに閉じた時は共有しない', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      dexStore.replaceAll(monsters: sampleData.monsters);
+      await tester.tap(find.byKey(const Key('tab-dex')));
+      await tester.pumpAndSettle();
+      // 手持ちにいない (図鑑の一覧にだけ名前が出る) 最後のモンスターを開く
+      await tester.tap(find.text(sampleData.monsters.last.definition.name));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('カードを共有'));
+      await tester.pumpAndSettle();
+      // 形を選ぶシートの外 (画面の上端) を押して閉じる
+      await tester.tapAt(const Offset(195, 20));
+      await tester.pumpAndSettle();
+
+      expect(shareCalls.renderedCards, isEmpty);
+      expect(shareCalls.sharedImages, isEmpty);
+      expect(shareCalls.loggedEvents, isEmpty);
     });
 
     testWidgets('図鑑のモンスターを押すとカードが開く', (tester) async {
@@ -966,6 +1111,11 @@ void main() {
             recordedLevels: const {},
           ),
           onPlayerLevelsChanged: ({required levelsByMonsterId}) {},
+          cardSharer: fakeCardSharer(
+            calls: RecordedShareCalls(),
+            artImage: null,
+            shareResultStatus: ShareResultStatus.success,
+          ),
         ),
       ),
     );
@@ -1031,6 +1181,11 @@ void main() {
               ageConfirmationStore: settingsAgeConfirmationStore,
               ageVerifiedSessionStore: settingsSessionStore,
               monsterGenerator: appMonsterGenerator(),
+              cardSharer: fakeCardSharer(
+                calls: RecordedShareCalls(),
+                artImage: null,
+                shareResultStatus: ShareResultStatus.success,
+              ),
               openUrl: openUrl,
               isDeveloperMenuEnabled: false,
               accountStore: fakeAccountStore(

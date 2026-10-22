@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:share_plus/share_plus.dart';
 
 import 'package:snapmon/analytics/analytics_events.dart';
 import 'package:snapmon/features/capture/generation_screen.dart';
@@ -8,6 +9,7 @@ import 'package:snapmon/features/dex/dex_store.dart';
 import 'package:snapmon/features/result/result_screen.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
 
+import '../../card_sharer_fixture.dart';
 import '../../monster_generator_fixture.dart';
 import '../../sample_data_fixture.dart';
 
@@ -41,6 +43,11 @@ void main() {
                         photoSource: GenerationPhotoSource.album,
                         monsterGenerator: generator,
                         dexStore: dexStore,
+                        cardSharer: fakeCardSharer(
+                          calls: RecordedShareCalls(),
+                          artImage: null,
+                          shareResultStatus: ShareResultStatus.success,
+                        ),
                       ),
                     ),
                   ),
