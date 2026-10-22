@@ -151,9 +151,31 @@ void main() {
     // 記録に失敗した対戦はサーバーと食い違わないよう、図鑑のレベルを変えない
     expect(levelChanges, isEmpty);
     expect(find.textContaining('Lv. 7 →'), findsNothing);
+    expect(find.text('勝ち負けに関係なく 戦ったモンスターのレベルが上がる'), findsNothing);
     // 場のカードも確定していない上がった後のレベル (8) を出さない
     expect(find.text('Lv. 7'), findsOneWidget);
     expect(find.text('Lv. 8'), findsNothing);
+  });
+
+  testWidgets('計測の送信に失敗してもバトルの記録は続く', (tester) async {
+    final calls = RecordedBattleCalls();
+    final recorder = fakeBattleRecorder(
+      calls: calls,
+      startBattleRecord: () async => 'battle-1',
+      recordedLevels: {strongPlayer.definition.id: 8},
+    );
+    await pumpBattleScreen(
+      tester: tester,
+      battleRecorder: BattleRecorder(
+        startBattleRecord: recorder.startBattleRecord,
+        completeBattleRecord: recorder.completeBattleRecord,
+        logEvent: ({required event, required parameters}) async =>
+            throw Exception('analytics unavailable'),
+      ),
+    );
+    await playUntilFinished(tester: tester);
+    expect(find.text('記録しました'), findsOneWidget);
+    expect(calls.completedBattles, hasLength(1));
   });
 
   testWidgets('技を使うと被弾した側に属性のパーティクルが出て、演出の間は技を選べない', (tester) async {

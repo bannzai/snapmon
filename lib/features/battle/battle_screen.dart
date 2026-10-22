@@ -263,15 +263,18 @@ class _BattleScreenState extends State<BattleScreen> {
     final playerLevelUps = _playerLevelUpsOf(state: finishedState);
     setState(() => _recordStatusText = _recordingText);
     unawaited(
-      widget.battleRecorder.logEvent(
-        event: AnalyticsEvent.battleCompleted,
-        parameters: {
-          'result': finishedEvent.winner == BattleSideId.player
-              ? 'win'
-              : 'lose',
-          'turn_count': finishedEvent.turnNumber,
-        },
-      ),
+      widget.battleRecorder
+          .logEvent(
+            event: AnalyticsEvent.battleCompleted,
+            parameters: {
+              'result': finishedEvent.winner == BattleSideId.player
+                  ? 'win'
+                  : 'lose',
+              'turn_count': finishedEvent.turnNumber,
+            },
+          )
+          // 計測の失敗はバトルの記録と画面に影響させない (未処理の非同期の例外として報告させないため)
+          .catchError((Object _) {}),
     );
     try {
       final battleId = await _battleRecordStart;
@@ -542,11 +545,14 @@ class _BattleResultPanel extends StatelessWidget {
               : SnapmonColors.hitPointsLoss,
         ),
       ),
-      const SizedBox(height: 4),
-      const Text(
-        '勝ち負けに関係なく 戦ったモンスターのレベルが上がる',
-        style: SnapmonTextStyles.caption,
-      ),
+      // レベルが確定するまで (記録の待ち・失敗) は、上がったと読める説明を出さない
+      if (appliedLevels.isNotEmpty) ...[
+        const SizedBox(height: 4),
+        const Text(
+          '勝ち負けに関係なく 戦ったモンスターのレベルが上がる',
+          style: SnapmonTextStyles.caption,
+        ),
+      ],
       const SizedBox(height: 12),
       for (final monster in playerParty)
         if (appliedLevels[monster.definition.id] case final newLevel?)
