@@ -8,6 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:snapmon/analytics/analytics_events.dart';
 import 'package:snapmon/app.dart';
 import 'package:snapmon/features/age_gate/age_confirmation.dart';
+import 'package:snapmon/features/age_gate/age_verified_session_store.dart';
 import 'package:snapmon/features/battle/battle_recorder.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
 import 'package:snapmon/firebase/age_verified_session.dart';
@@ -33,10 +34,11 @@ Future<void> main() async {
   // initializeApp だけでは識別子を作らない (Analytics・Crashlytics の自動収集は既定で無効、App Check と匿名ログインは未開始)。
   // 識別子を作る機能は、年齢の確認を通った後に lib/firebase/age_verified_session.dart から始める。
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  String? resumedUid;
   try {
-    await resumeAgeVerifiedSession();
+    resumedUid = await resumeAgeVerifiedSession();
   } catch (error) {
-    // 再開に失敗しても起動は止めない (年齢の確認を済ませていない時と同じ状態で始まる)。
+    // 再開に失敗しても起動は止めない (ログインしていない時と同じく、年齢の確認の後のログインからやり直す)。
     debugPrint(error.toString());
   }
   runApp(
@@ -46,6 +48,10 @@ Future<void> main() async {
       ageConfirmationStore: AgeConfirmationStore(
         preferences: await SharedPreferences.getInstance(),
         today: DateTime.now,
+      ),
+      ageVerifiedSessionStore: AgeVerifiedSessionStore(
+        startSession: startAgeVerifiedSessionWithFirebase,
+        resumedUid: resumedUid,
       ),
       openUrl: ({required uri}) =>
           launchUrl(uri, mode: LaunchMode.externalApplication),

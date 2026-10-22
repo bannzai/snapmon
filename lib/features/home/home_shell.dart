@@ -5,6 +5,7 @@ import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
 import '../age_gate/age_confirmation.dart';
+import '../age_gate/age_verified_session_store.dart';
 import '../battle/battle_recorder.dart';
 import '../capture/capture_screen.dart';
 import '../dex/dex_screen.dart';
@@ -32,6 +33,7 @@ class HomeShell extends StatefulWidget {
     required this.sampleData,
     required this.dexStore,
     required this.ageConfirmationStore,
+    required this.ageVerifiedSessionStore,
     required this.openUrl,
     required this.isDeveloperMenuEnabled,
     required this.battleRecorder,
@@ -45,6 +47,9 @@ class HomeShell extends StatefulWidget {
 
   /// 年齢の確認 (開発者メニューのやり直しに使う)。
   final AgeConfirmationStore ageConfirmationStore;
+
+  /// 年齢の確認の後のログイン (開発者メニューのログイン状態に使う)。
+  final AgeVerifiedSessionStore ageVerifiedSessionStore;
 
   /// 設定画面のリンクを開く。
   final OpenUrl openUrl;
@@ -71,6 +76,7 @@ class _HomeShellState extends State<HomeShell> {
         sampleData: widget.sampleData,
         dexStore: widget.dexStore,
         ageConfirmationStore: widget.ageConfirmationStore,
+        ageVerifiedSessionStore: widget.ageVerifiedSessionStore,
         openUrl: widget.openUrl,
         isDeveloperMenuEnabled: widget.isDeveloperMenuEnabled,
       ),
