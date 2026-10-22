@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -5,6 +6,7 @@ import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
 import 'age_confirmation.dart';
+import 'age_verified_session_store.dart';
 
 /// 初回起動の最初の画面。生年月を入力してもらう。
 /// 入力の前に使える年齢を示さず、年齢の既定値も置かない (FTC の COPPA の FAQ D.7 "ask age information in a
@@ -143,6 +145,88 @@ class _NumberField extends StatelessWidget {
       border: const OutlineInputBorder(
         borderRadius: SnapmonRadii.button,
         borderSide: BorderSide.none,
+      ),
+    ),
+  );
+}
+
+/// 年齢の確認を通った後、Firebase へのログインが済むまで出す画面。開くとログインを始め、
+/// 失敗したらエラーの文言と「もう一度試す」を出してこの画面で止める (ログインせずにアプリに入れない)。
+class AgeVerifiedSessionScreen extends StatefulWidget {
+  /// ログインを待つ画面を作る。
+  const AgeVerifiedSessionScreen({
+    super.key,
+    required this.ageConfirmationStore,
+    required this.ageVerifiedSessionStore,
+    required this.isDebugSkipEnabled,
+  });
+
+  /// ログインに渡す生年月の保存先。
+  final AgeConfirmationStore ageConfirmationStore;
+
+  /// ログインの状態。
+  final AgeVerifiedSessionStore ageVerifiedSessionStore;
+
+  /// 失敗の画面に「ログインせずに進む (DEBUG)」を出すか。release ビルドでは [kDebugMode] が const の false のため、
+  /// この値に関係なくボタンがビルドから除かれる (設定画面の開発者メニューの入口と同じ)。
+  final bool isDebugSkipEnabled;
+
+  @override
+  State<AgeVerifiedSessionScreen> createState() =>
+      _AgeVerifiedSessionScreenState();
+}
+
+class _AgeVerifiedSessionScreenState extends State<AgeVerifiedSessionScreen> {
+  @override
+  void initState() {
+    super.initState();
+    // build の途中で状態を変えて親の ListenableBuilder を作り直させないため、最初のフレームの後に始める
+    WidgetsBinding.instance.addPostFrameCallback((_) => _start());
+  }
+
+  Future<void> _start() => widget.ageVerifiedSessionStore.start(
+    birthYear: widget.ageConfirmationStore.birthYear!,
+    birthMonth: widget.ageConfirmationStore.birthMonth!,
+  );
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+    body: SafeArea(
+      child: ListenableBuilder(
+        listenable: widget.ageVerifiedSessionStore,
+        builder: (context, _) {
+          final error = widget.ageVerifiedSessionStore.error;
+          return ListView(
+            padding: const EdgeInsets.fromLTRB(20, 56, 20, 40),
+            children: [
+              const Text('snapmon', style: SnapmonTextStyles.logo),
+              const SizedBox(height: 32),
+              if (error == null) ...[
+                const Text('じゅんびしています', style: SnapmonTextStyles.hero),
+                const SizedBox(height: 24),
+                const Center(child: CircularProgressIndicator()),
+              ] else ...[
+                const Text('つながりませんでした', style: SnapmonTextStyles.hero),
+                const SizedBox(height: 16),
+                Text(
+                  error.toString(),
+                  style: SnapmonTextStyles.body.copyWith(
+                    color: SnapmonColors.hitPointsLoss,
+                  ),
+                ),
+                const SizedBox(height: 32),
+                FilledButton(onPressed: _start, child: const Text('もう一度試す')),
+                if (kDebugMode && widget.isDebugSkipEnabled) ...[
+                  const SizedBox(height: 12),
+                  OutlinedButton(
+                    onPressed: widget.ageVerifiedSessionStore.skipForDebug,
+                    child: const Text('ログインせずに進む (DEBUG)'),
+                  ),
+                ],
+              ],
+            ],
+          );
+        },
       ),
     ),
   );

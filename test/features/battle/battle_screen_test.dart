@@ -111,7 +111,7 @@ void main() {
     });
   });
 
-  testWidgets('年齢の確認を通ったログインが無い時は記録せず、そのことを出す', (tester) async {
+  testWidgets('記録しない時は端末の計算のレベルを反映し、記録していないことを出す', (tester) async {
     final calls = RecordedBattleCalls();
     await pumpBattleScreen(
       tester: tester,
@@ -122,7 +122,7 @@ void main() {
       ),
     );
     await playUntilFinished(tester: tester);
-    expect(find.text('ログインしていないため記録していません'), findsOneWidget);
+    expect(find.text('図鑑をサーバーに保存するまでバトルは記録しません'), findsOneWidget);
     expect(calls.completedBattles, isEmpty);
     expect(levelChanges, [
       {strongPlayer.definition.id: 8},
