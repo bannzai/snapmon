@@ -280,10 +280,22 @@ describe("generate", () => {
     expect(mocks.calls.describe).toBe(0);
   });
 
-  it("Claude が人が写っていると答えた画像は生成しない", async () => {
+  it("Claude が人が写っていると答えた画像は生成せず、同じ写真の送り直しは使い回さずに Claude に聞き直す", async () => {
     const mocks = createMocks({ description: { ...descriptions["01"], containsPerson: true } });
     const result = await handleGenerateRequest(mocks.dependencies, ageVerifiedRequest({ uid: "alice", data: await uploadPhoto({ uid: "alice", photo: photoFixture("01") }) }));
     expect(result).toMatchObject({ status: "rejected", rejectionReason: "person_detected" });
+
+    const retryMocks = createMocks();
+    const retried = await handleGenerateRequest(retryMocks.dependencies, ageVerifiedRequest({ uid: "alice", data: await uploadPhoto({ uid: "alice", photo: photoFixture("01") }) }));
+    expect(retried.status).toBe("saved");
+    expect(retryMocks.calls.describe).toBe(1);
+  });
+
+  it("写真が無い要求は、理由の分かるエラー (failed-precondition) にする", async () => {
+    const requestId = randomUUID();
+    await expect(
+      handleGenerateRequest(createMocks().dependencies, ageVerifiedRequest({ uid: "alice", data: { requestId, photoPath: `users/alice/photos/${requestId}` } })),
+    ).rejects.toMatchObject({ code: "failed-precondition" });
   });
 
   // 単色の写真を実際のモデルで切り出す。CI は firebase-ci.yml で `npm run fetch-model` してから実行し、手元でモデルが無い時だけ飛ばす。
@@ -365,6 +377,35 @@ describe("generate", () => {
     expect(mocks.calls).toMatchObject({ vision: 1, segment: 1, describe: 2 });
     // 引き継いだ実行にも、予約切れを引き継ぐタスクを積む
     expect(mocks.enqueued.filter((task) => task.purpose === "lease" && task.delaySeconds > 600)).toHaveLength(2);
+  });
+
+  it("再試行のタスクの中で段階が失敗しても、次のタスクを積んでタスクは成功で終える (Cloud Tasks に再配送させない)", async () => {
+    const mocks = createMocks({ describeFailureCount: 2 });
+    const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
+    await expect(handleGenerateRequest(mocks.dependencies, ageVerifiedRequest({ uid: "alice", data }))).rejects.toThrow();
+    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "lease" })).status).toBe("processing");
+    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "lease" })).status).toBe("saved");
+  });
+
+  it("後から受け付けて dedupe を済ませた保存前の生成も、先の生成の候補にする", async () => {
+    const mocks = createMocks({ jev: { dedupe: { same: 0.9, different: 0.05 }, unavailableFor: new Set(["classify"]) } });
+    const earlierData = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
+    // 先の生成は classify で止まる (dedupe 前)
+    expect((await handleGenerateRequest(mocks.dependencies, ageVerifiedRequest({ uid: "alice", data: earlierData }))).status).toBe("pending_judge");
+    // 後の生成は dedupe を済ませて judge で止まる
+    mocks.jevBehavior.unavailableFor = new Set(["judge"]);
+    const laterData = await uploadPhoto({ uid: "alice", photo: photoFixture("01b") });
+    expect((await handleGenerateRequest(mocks.dependencies, ageVerifiedRequest({ uid: "alice", data: laterData }))).status).toBe("pending_judge");
+    expect((await generationRecord({ uid: "alice", requestId: laterData.requestId })).completedStage).toBe("dedupe");
+    // 先の生成が再開すると、後の生成を待つ (二重に保存しない)
+    mocks.jevBehavior.unavailableFor = new Set();
+    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: earlierData.requestId, purpose: "judge", judgeAttempt: 0 })).status).toBe("pending_judge");
+    const later = await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: laterData.requestId, purpose: "judge", judgeAttempt: 0 });
+    expect(later.status).toBe("saved");
+    expect(await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: earlierData.requestId, purpose: "judge", judgeAttempt: 1 })).toMatchObject({
+      status: "duplicate",
+      monsterId: later.monsterId,
+    });
   });
 
   it("再試行を待つ処理中の生成と同じ被写体なら、その結果を待ち、保存された後にそのモンスターを返す", async () => {

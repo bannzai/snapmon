@@ -39,7 +39,7 @@ export async function handleGenerateRequest(dependencies: GenerationDependencies
     return await startGeneration(dependencies, { uid, requestId, photoPath, maskPath: typeof maskPath === "string" ? maskPath : null });
   } catch (error) {
     if (error instanceof GenerationRequestError) {
-      throw new HttpsError(error.code === "another_generation_in_progress" ? "failed-precondition" : "resource-exhausted", error.message, { reason: error.code });
+      throw new HttpsError(error.code.startsWith("daily_limit") ? "resource-exhausted" : "failed-precondition", error.message, { reason: error.code });
     }
     throw error;
   }
@@ -60,14 +60,15 @@ export const generate = onCall({ ...GENERATION_FUNCTION_OPTIONS, enforceAppCheck
 /**
  * 生成の再試行のタスク (Cloud Tasks のキュー)。判定待ちの生成を 1 時間おきに続きから進め、予約が切れた生成を引き継ぐ。
  * 積むのは pipeline.ts だけで、間隔はタスクを積む時の `scheduleDelaySeconds` で決める。
- * retryConfig: 段階の失敗は pipeline.ts が新しいタスクを積んで再試行するため、Cloud Tasks の再試行はタスクの配送の失敗
- * (インスタンスの起動の失敗等) だけを受け持つ。回数は直して再試行の既定 3 回 (~/.claude/documents/rules/retry-limit-and-failure-classification.md)。
+ * retryConfig: 段階の失敗は pipeline.ts が新しいタスクを積んで再試行し、タスクは成功で終えるため、Cloud Tasks の再試行は
+ * 予約を取る前の失敗 (Firestore・Cloud Tasks の障害、インスタンスの起動の失敗) だけを受け持つ。judge のタスクは次のタスクを自分で
+ * 積むため、再試行を使い切ると判定待ちが進まなくなる。障害が数時間続いても使い切らないよう、10 回・最大 1 時間の間隔にした。
  * rateLimits: 同時に動く再試行を maxInstances (index.ts の 10) に収める。
  */
 export const resumeGenerationTask = onTaskDispatched<ResumeTask>(
   {
     ...GENERATION_FUNCTION_OPTIONS,
-    retryConfig: { maxAttempts: 3, minBackoffSeconds: 60 },
+    retryConfig: { maxAttempts: 10, minBackoffSeconds: 60, maxBackoffSeconds: 3_600 },
     rateLimits: { maxConcurrentDispatches: 10 },
   },
   async (request) => {

@@ -28,7 +28,7 @@ export const DESCRIBE_SUBJECT_SYSTEM_PROMPT = `あなたは、写真に写った
    - eyeCenterX / eyeCenterY: 両目の中心の位置。画像の幅・高さに対する 0〜1 の割合で、被写体の上半分の目立つ面に置く
    - eyeScale: 目の大きさ。被写体の幅に対する 0.05〜0.3 の割合
    - outlineColorHex: 輪郭線の色 (#RRGGBB)。被写体の色と見分けやすい色にする
-5. containsPerson: 画像に人 (顔・体・手を含む) や動物が写っていれば true
+5. containsPerson: 画像に人 (顔・体・手を含む) が写っていれば true。動物・人形・ぬいぐるみ・人の絵は人に含めない
 
 守ること:
 - 読む人には子どもが含まれます。暴力・流血・死・武器による攻撃・性的な表現・差別的な表現・怖がらせる表現・飲酒・喫煙・ギャンブル・危険な行為を、名前と文章に出さない
@@ -153,7 +153,7 @@ export interface DescribeSubjectOutput {
   encyclopediaText: string;
   /** 装飾のパラメータ。 */
   decoration: MonsterDecoration;
-  /** 人や動物が写っていると Claude が判断したか。true なら生成しない (顔の検出の取りこぼしへの備え)。 */
+  /** 人が写っていると Claude が判断したか。true なら生成しない (顔の検出の取りこぼしへの備え)。 */
   containsPerson: boolean;
 }
 

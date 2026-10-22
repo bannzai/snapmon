@@ -19,6 +19,7 @@ describe("findModerationViolation", () => {
   it("普通の語の一部になる禁止語 (殺菌のイエローのスプレー、おうちにかえろう、ワインレッド、テロップ、skill) は止めない", () => {
     expect(findModerationViolation("殺菌スプレーのイエローモン。おうちにかえろうと鳴く")).toBeUndefined();
     expect(findModerationViolation("ワインレッドの体でテロップを読む。special skill")).toBeUndefined();
+    expect(findModerationViolation("机のかたわらで眠る。めくらましの光を放つ郷土人形")).toBeUndefined();
     expect(findModerationViolation("kill them")).toBe("kill");
   });
 });

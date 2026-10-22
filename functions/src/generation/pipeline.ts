@@ -111,6 +111,12 @@ export const JUDGE_RETRY_MAXIMUM_COUNT = 24;
  */
 const MAXIMUM_ATTEMPT_COUNT = 4;
 
+/**
+ * 同じ写真・マスクの組でも使い回さない拒否の理由。Claude の応答で結果が揺れるため、送り直せば通ることがある
+ * (決定的な検査の拒否 — SafeSearch・顔・被写体なし — は使い回す)。
+ */
+const RETRYABLE_REJECTION_REASONS: RejectionReason[] = ["person_detected", "inappropriate_text", "refused"];
+
 /** 段階が予期しないエラーで落ちた時に、再試行を始めるまでの秒数。一時的なエラー (API の 5xx・通信の切断) が収まる時間として置いた。 */
 const FAILED_STAGE_RETRY_DELAY_SECONDS = 60;
 
@@ -150,7 +156,7 @@ const MOVE_LIMIT = 2_000;
 /** 生成の要求を受け付けられない理由。callable は HttpsError に、それ以外はログに出す。 */
 export class GenerationRequestError extends Error {
   /** 理由の種類。 */
-  readonly code: "daily_limit_per_user" | "daily_limit_total" | "another_generation_in_progress";
+  readonly code: "daily_limit_per_user" | "daily_limit_total" | "another_generation_in_progress" | "photo_not_found";
 
   constructor(code: GenerationRequestError["code"], message: string) {
     super(message);
@@ -179,6 +185,13 @@ function generationAliasDocument({ firestore, uid, requestId }: { firestore: Fir
 async function downloadFile(bucket: StorageBucket, path: string): Promise<Buffer> {
   const [contents] = await bucket.file(path).download();
   return contents;
+}
+
+/** 段階が一時的なエラーで失敗し、再試行のタスクを積み終えたことを表す。元のエラーを `cause` に持つ。 */
+class StageRetryScheduledError extends Error {
+  constructor(cause: unknown) {
+    super(`生成の段階が失敗したため再試行に回しました: ${cause instanceof Error ? cause.message : String(cause)}`, { cause });
+  }
 }
 
 /** 同じ被写体と判定した相手がまだ保存前の生成で、その結果を待つ必要があることを表す。Jev が答えない時と同じく判定待ちにする。 */
@@ -228,6 +241,10 @@ export async function startGeneration(
     return generationResult({ requestId: reusedRequestId, record: (await generationDocument({ firestore, uid, requestId: reusedRequestId }).get()).data() as GenerationRecord });
   }
 
+  const [[photoExists], [maskExists]] = await Promise.all([bucket.file(photoPath).exists(), maskPath ? bucket.file(maskPath).exists() : [true]]);
+  if (!photoExists || !maskExists) {
+    throw new GenerationRequestError("photo_not_found", "写真が見つかりません。写真を上げ直してください");
+  }
   const photo = await downloadFile(bucket, photoPath);
   const mask = maskPath ? await downloadFile(bucket, maskPath) : undefined;
   const inputKey = `${sha256(photo)}:${mask ? sha256(mask) : "auto"}`;
@@ -238,10 +255,12 @@ export async function startGeneration(
   // レコードが無いか予約の取れない状態を見て何もしない。
   await enqueueLeaseRecovery(dependencies, { uid, requestId });
   const reservation = await firestore.runTransaction(async (transaction): Promise<GenerationResult | "reserved"> => {
-    // failed は使い回さない (撮り直さずに同じ写真で再挑戦できるように)。状態は複合インデックスを増やさないようコードで絞る。
-    const sameInput = (await transaction.get(firestore.collection(`users/${uid}/generations`).where("inputKey", "==", inputKey))).docs.find(
-      (document) => (document.data() as GenerationRecord).status !== "failed",
-    );
+    // failed と、Claude の応答で結果が揺れる拒否は使い回さない (撮り直さずに同じ写真で再挑戦できるように)。
+    // 状態は複合インデックスを増やさないようコードで絞る。
+    const sameInput = (await transaction.get(firestore.collection(`users/${uid}/generations`).where("inputKey", "==", inputKey))).docs.find((document) => {
+      const generation = document.data() as GenerationRecord;
+      return generation.status !== "failed" && !(generation.rejectionReason && RETRYABLE_REJECTION_REASONS.includes(generation.rejectionReason));
+    });
     if (sameInput) {
       // 写真を消す前に、この要求 ID と使い回し先の対応を残す (応答を受け取れずに同じ要求 ID で再送されても結果を返せるように)
       transaction.set(generationAliasDocument({ firestore, uid, requestId }), { reusedRequestId: sameInput.id, createdAt: Timestamp.fromDate(now) });
@@ -437,7 +456,15 @@ export async function resumeGeneration(dependencies: GenerationDependencies, { u
   if (acquired !== "acquired") {
     return acquired;
   }
-  return advanceGeneration(dependencies, { uid, requestId });
+  try {
+    return await advanceGeneration(dependencies, { uid, requestId });
+  } catch (error) {
+    // 段階の失敗は再試行のタスクを積み終えているため、タスクとしては成功で終える (Cloud Tasks に同じタスクを再配送させないため)
+    if (error instanceof StageRetryScheduledError) {
+      return generationResult({ requestId, record: (await generationDocument({ firestore: dependencies.firestore, uid, requestId }).get()).data() as GenerationRecord });
+    }
+    throw error;
+  }
 }
 
 /** 段階の処理が返す、レコードへの書き込みと次の行き先。 */
@@ -485,7 +512,7 @@ async function advanceGeneration(dependencies: GenerationDependencies, { uid, re
       logger.error("生成の段階が失敗しました。再試行に回します", { uid, requestId, stage: nextStage, error });
       await releaseLock(dependencies, { uid, requestId, update: { leaseExpiresAt: Timestamp.fromDate(dependencies.now()) } });
       await dependencies.enqueueResume({ uid, requestId, purpose: "lease", delaySeconds: FAILED_STAGE_RETRY_DELAY_SECONDS });
-      throw error;
+      throw new StageRetryScheduledError(error);
     }
     if (outcome.kind === "finish") {
       return finishGeneration(dependencies, { uid, requestId, update: outcome.update });
@@ -658,13 +685,21 @@ async function runDedupeStage(
     ...monsters.docs.map((document) => ({ candidateId: document.id, description: (document.data() as MonsterDocument).subjectDescription })),
     // 保存前で止まっている生成 (判定待ち・一時的なエラーで再試行を待つ処理中) も候補にする。ロックを外した後に同じ被写体を送られても、
     // 止まっている方が再開時に dedupe を飛ばして保存し、二重に登録されないように。
-    // 候補にするのは自分より先に受け付けた生成だけにする (待つ向きを後から来た方 → 先の方の一方向にし、互いに待ち合わないため)。
+    // 候補にするのは、自分より先に受け付けた生成と、dedupe を済ませた生成 (受け付けた順を問わない)。dedupe を済ませた生成は
+    // もう誰も待たないため、待つ向きが一方向になり互いに待ち合わない。後から来て dedupe を済ませた生成を候補にしないと、
+    // そちらも先の生成も保存まで進んで二重に登録されるため。
     ...generations.docs
       .filter((document) => {
         const generation = document.data() as GenerationRecord;
         const isEarlier =
           generation.createdAt.toMillis() < record.createdAt.toMillis() || (generation.createdAt.toMillis() === record.createdAt.toMillis() && document.id < requestId);
-        return document.id !== requestId && isEarlier && (generation.status === "pending_judge" || generation.status === "processing") && generation.subject;
+        const passedDedupe = generation.completedStage === "dedupe" || generation.completedStage === "judge";
+        return (
+          document.id !== requestId &&
+          (isEarlier || passedDedupe) &&
+          (generation.status === "pending_judge" || generation.status === "processing") &&
+          generation.subject
+        );
       })
       .map((document) => ({ candidateId: `generation:${document.id}`, description: (document.data() as GenerationRecord).subject!.description })),
   ];

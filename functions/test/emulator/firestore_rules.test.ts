@@ -157,3 +157,15 @@ describe("reports と blocks", () => {
     await assertFails(getDoc(doc(firestore, "reports/r1")));
   });
 });
+
+describe("生成のカウンタと使い回しの記録", () => {
+  it("本人も含めてクライアントから読み書きできない", async () => {
+    const firestore = ageVerifiedFirestore("alice");
+    await assertFails(getDoc(doc(firestore, "users/alice/generationAliases/request1")));
+    await assertFails(setDoc(doc(firestore, "users/alice/generationAliases/request1"), { reusedRequestId: "request0" }));
+    await assertFails(getDoc(doc(firestore, "generationDailyCounts/2026-10-22")));
+    await assertFails(setDoc(doc(firestore, "generationDailyCounts/2026-10-22"), { count: 0 }));
+    await assertFails(getDoc(doc(firestore, "definitionCounters/global")));
+    await assertFails(setDoc(doc(firestore, "definitionCounters/global"), { elementCount: 0 }));
+  });
+});
