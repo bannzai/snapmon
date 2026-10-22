@@ -4,6 +4,7 @@ import 'features/age_gate/age_confirmation.dart';
 import 'features/age_gate/age_gate_screen.dart';
 import 'features/age_gate/age_verified_session_store.dart';
 import 'features/battle/battle_recorder.dart';
+import 'features/capture/monster_generator.dart';
 import 'features/dex/dex_store.dart';
 import 'features/home/home_shell.dart';
 import 'features/settings/settings_screen.dart';
@@ -22,6 +23,7 @@ class SnapmonApp extends StatelessWidget {
     required this.openUrl,
     required this.isDeveloperMenuEnabled,
     required this.battleRecorder,
+    required this.monsterGenerator,
   });
 
   /// 見本データ。
@@ -44,6 +46,9 @@ class SnapmonApp extends StatelessWidget {
 
   /// バトルの記録と計測。
   final BattleRecorder battleRecorder;
+
+  /// 撮る・選ぶ・生成の呼び出しと計測。
+  final MonsterGenerator monsterGenerator;
 
   @override
   Widget build(BuildContext context) => MaterialApp(
@@ -74,6 +79,7 @@ class SnapmonApp extends StatelessWidget {
           openUrl: openUrl,
           isDeveloperMenuEnabled: isDeveloperMenuEnabled,
           battleRecorder: battleRecorder,
+          monsterGenerator: monsterGenerator,
         ),
       },
     ),

@@ -64,7 +64,9 @@ class OpponentScreen extends StatelessWidget {
                   randomSeed: randomSeed,
                 )
               : opponentMonsters,
-          definitions: sampleData.definitions,
+          // 見本の対戦相手の属性・技は master と同じ ID・同じ値のため (test/sample/sample_data_test.dart)、
+          // 図鑑の定義 (サーバーの master と図鑑が参照する定義) から両者を引ける
+          definitions: dexStore.definitions,
           randomSeed: randomSeed,
           battleRecorder: battleRecorder,
           onPlayerLevelsChanged: dexStore.updateLevels,

@@ -2,12 +2,53 @@ import 'package:flutter/material.dart';
 
 import '../domain/master/master_data.dart';
 import '../domain/monster/monster_definition.dart';
+import '../features/dex/owned_monster.dart';
 import '../theme/snapmon_colors.dart';
 import '../theme/snapmon_radii.dart';
 import '../theme/snapmon_text_styles.dart';
 import 'placeholder_monster_painting.dart';
+import 'storage_image.dart';
 
-/// モンスターの絵。AI 生成のイラスト (#13) が入るまでは仮の絵を描く。
+/// 図鑑の 1 体の絵。写真から切り出した被写体の画像 ([OwnedMonster.artPath]) があればそれを、
+/// 無ければ (見本のモンスター) 仮の絵を [backgroundColor] の地に描く。
+/// 切り出した画像に重ねる装飾 (目・手足・オーラ・輪郭線。DIRECTION.md「デザインの方向」) はまだ描かない。
+class MonsterArt extends StatelessWidget {
+  /// [monster] の絵を作る。
+  const MonsterArt({
+    super.key,
+    required this.monster,
+    required this.backgroundColor,
+  });
+
+  /// 描くモンスター。
+  final OwnedMonster monster;
+
+  /// 絵の地の色。
+  final Color backgroundColor;
+
+  @override
+  Widget build(BuildContext context) {
+    final artPath = monster.artPath;
+    return artPath == null
+        ? PlaceholderMonsterArt(
+            definition: monster.definition,
+            backgroundColor: backgroundColor,
+          )
+        : ClipRRect(
+            borderRadius: SnapmonRadii.button,
+            child: ColoredBox(
+              color: backgroundColor,
+              child: StorageImage(
+                storagePath: artPath,
+                fit: BoxFit.contain,
+                placeholder: const SizedBox.expand(),
+              ),
+            ),
+          );
+  }
+}
+
+/// 見本のモンスターの仮の絵。
 class PlaceholderMonsterArt extends StatelessWidget {
   /// [definition] のモンスターの絵を [backgroundColor] の地に描く。
   const PlaceholderMonsterArt({

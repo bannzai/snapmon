@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../../domain/master/move.dart';
 import '../../domain/monster/stat_calculation.dart';
-import '../../sample/sample_data.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
 import '../../widgets/monster_parts.dart';
 import '../../widgets/square_icon_button.dart';
+import '../../widgets/storage_image.dart';
 import '../dex/dex_store.dart';
 import '../dex/owned_monster.dart';
 
@@ -17,28 +17,98 @@ enum ResultScreenAction {
   openDex,
 }
 
+/// 生まれた画面をどこから開いたか。
+enum ResultScreenOrigin {
+  /// 撮った写真から新しく生まれた。
+  newlyBorn,
+
+  /// 撮った写真の被写体が、もう図鑑にいた (同じ被写体・同じ写真の撮り直し)。
+  alreadyInDex,
+
+  /// 図鑑から開いた。
+  dex,
+}
+
 /// 生まれた画面。生まれたばかりのモンスターと、図鑑から開いたモンスターのカードを出す。
 class ResultScreen extends StatelessWidget {
   /// モンスターのカードの画面を作る。
   const ResultScreen({
     super.key,
     required this.monster,
-    required this.sampleData,
     required this.dexStore,
-    required this.isNewlyBorn,
+    required this.origin,
   });
 
   /// カードに出すモンスター。
   final OwnedMonster monster;
 
-  /// 見本データ (属性・技の定義を引く)。
-  final SampleData sampleData;
-
-  /// 図鑑と手持ち。
+  /// 図鑑と手持ち (属性・技の定義も引く)。
   final DexStore dexStore;
 
-  /// 生まれたばかりか。true なら「もう 1 体撮る」を出し、false (図鑑から開いた) なら出さない。
-  final bool isNewlyBorn;
+  /// どこから開いたか。撮る画面から開いた時は「もう 1 体撮る」を出し、図鑑から開いた時は出さない。
+  final ResultScreenOrigin origin;
+
+  /// 手持ちの変更 [change] を待ち、保存に失敗したらエラーをそのまま出す。成功したら true を返す。
+  static Future<bool> _changeParty({
+    required BuildContext context,
+    required Future<void> Function() change,
+  }) async {
+    final messenger = ScaffoldMessenger.of(context);
+    try {
+      await change();
+      return true;
+    } catch (error) {
+      messenger
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(content: Text(error.toString())));
+      return false;
+    }
+  }
+
+  /// 手持ちが満員の時に [monster] と入れ替える手持ちを選んでもらい、入れ替えたら図鑑を開くよう閉じる。
+  Future<void> _replacePartyMember({required BuildContext context}) async {
+    final outgoingMonster = await showDialog<OwnedMonster>(
+      context: context,
+      builder: (context) => SimpleDialog(
+        title: Text('${monster.definition.name} と入れ替える'),
+        children: [
+          for (final partyMonster in dexStore.party)
+            SimpleDialogOption(
+              key: Key('replace-${partyMonster.definition.id}'),
+              onPressed: () => Navigator.of(context).pop(partyMonster),
+              child: Text(
+                '${partyMonster.definition.name}  Lv. ${partyMonster.level}',
+              ),
+            ),
+        ],
+      ),
+    );
+    if (outgoingMonster == null || !context.mounted) {
+      return;
+    }
+    if (await _changeParty(
+          context: context,
+          change: () => dexStore.replacePartyMember(
+            outgoingMonsterId: outgoingMonster.definition.id,
+            incomingMonsterId: monster.definition.id,
+          ),
+        ) &&
+        context.mounted) {
+      Navigator.of(context).pop(ResultScreenAction.openDex);
+    }
+  }
+
+  /// [monster] を手持ちに入れ、入れたら図鑑を開くよう閉じる。
+  Future<void> _addToParty({required BuildContext context}) async {
+    if (await _changeParty(
+          context: context,
+          change: () =>
+              dexStore.addToParty(monsterId: monster.definition.id),
+        ) &&
+        context.mounted) {
+      Navigator.of(context).pop(ResultScreenAction.openDex);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +135,11 @@ class ResultScreen extends StatelessWidget {
                   ),
                   Expanded(
                     child: Text(
-                      isNewlyBorn ? 'あたらしい なかま' : '図鑑',
+                      switch (origin) {
+                        ResultScreenOrigin.newlyBorn => 'あたらしい なかま',
+                        ResultScreenOrigin.alreadyInDex => 'もう図鑑にいます',
+                        ResultScreenOrigin.dex => '図鑑',
+                      },
                       textAlign: TextAlign.center,
                       style: SnapmonTextStyles.label.copyWith(
                         color: SnapmonColors.accent,
@@ -118,7 +192,7 @@ class ResultScreen extends StatelessWidget {
                                       in definition.elementTypeIds)
                                     ElementTypeTag(
                                       elementTypeId: elementTypeId,
-                                      definitions: sampleData.definitions,
+                                      definitions: dexStore.definitions,
                                     ),
                                 ],
                               ),
@@ -132,15 +206,18 @@ class ResultScreen extends StatelessWidget {
                                   aspectRatio: 1,
                                   child: _LabeledPanel(
                                     label: '写真',
-                                    child: const ColoredBox(
+                                    // 元の写真は本人の図鑑だけに出す (Storage の Rules で本人だけが読める)。
+                                    // 見本のモンスターは写真も切り出した画像も持たないため、印だけを出す
+                                    child: ColoredBox(
                                       color: SnapmonColors.surfaceRaised,
-                                      child: Center(
-                                        child: Icon(
-                                          Icons.image_outlined,
-                                          color: SnapmonColors.textMuted,
-                                          size: 40,
-                                        ),
-                                      ),
+                                      child: monster.artPath == null
+                                          ? const _NoPhotoIcon()
+                                          : StorageImage(
+                                              storagePath: definition
+                                                  .sourcePhotoReference,
+                                              fit: BoxFit.cover,
+                                              placeholder: const _NoPhotoIcon(),
+                                            ),
                                     ),
                                   ),
                                 ),
@@ -151,8 +228,8 @@ class ResultScreen extends StatelessWidget {
                                   aspectRatio: 1,
                                   child: _LabeledPanel(
                                     label: 'モンスター',
-                                    child: PlaceholderMonsterArt(
-                                      definition: definition,
+                                    child: MonsterArt(
+                                      monster: monster,
                                       backgroundColor: SnapmonColors.cardSubtle,
                                     ),
                                   ),
@@ -236,7 +313,7 @@ class ResultScreen extends StatelessWidget {
                               for (final learnsetEntry in definition.learnset)
                                 if (learnsetEntry.unlockLevel <= monster.level)
                                   _MoveChip(
-                                    move: sampleData.definitions.moveById(
+                                    move: dexStore.definitions.moveById(
                                       moveId: learnsetEntry.moveId,
                                     ),
                                   ),
@@ -259,26 +336,24 @@ class ResultScreen extends StatelessWidget {
                       final isInParty = dexStore.isInParty(
                         monsterId: definition.id,
                       );
-                      // 手持ちにいるモンスターはここから外せるようにし、満員でも入れ替えられるようにする
+                      // 手持ちにいるモンスターはここから外せるようにし、満員の時は手持ちの 1 体と入れ替える
                       return FilledButton(
                         onPressed: isInParty
-                            ? () => dexStore.removeFromParty(
-                                monsterId: definition.id,
+                            ? () => _changeParty(
+                                context: context,
+                                change: () => dexStore.removeFromParty(
+                                  monsterId: definition.id,
+                                ),
                               )
-                            : !dexStore.hasPartyVacancy
-                            ? null
-                            : () {
-                                dexStore.addToParty(monsterId: definition.id);
-                                Navigator.of(
-                                  context,
-                                ).pop(ResultScreenAction.openDex);
-                              },
+                            : dexStore.hasPartyVacancy
+                            ? () => _addToParty(context: context)
+                            : () => _replacePartyMember(context: context),
                         child: Text(
                           isInParty
                               ? '手持ちから外す'
                               : dexStore.hasPartyVacancy
                               ? '手持ちに入れる'
-                              : '手持ちがいっぱいです 外してから入れる',
+                              : '手持ちと入れ替える',
                         ),
                       );
                     },
@@ -286,7 +361,7 @@ class ResultScreen extends StatelessWidget {
                   const SizedBox(height: 10),
                   Row(
                     children: [
-                      if (isNewlyBorn) ...[
+                      if (origin != ResultScreenOrigin.dex) ...[
                         Expanded(
                           child: _SecondaryButton(
                             label: 'もう 1 体撮る',
@@ -352,6 +427,16 @@ class _LabeledPanel extends StatelessWidget {
         ),
       ],
     ),
+  );
+}
+
+/// 写真の枠の、写真が無い・読めない時の印。
+class _NoPhotoIcon extends StatelessWidget {
+  const _NoPhotoIcon();
+
+  @override
+  Widget build(BuildContext context) => const Center(
+    child: Icon(Icons.image_outlined, color: SnapmonColors.textMuted, size: 40),
   );
 }
 

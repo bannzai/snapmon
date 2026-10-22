@@ -122,7 +122,7 @@ void main() {
       ),
     );
     await playUntilFinished(tester: tester);
-    expect(find.text('図鑑をサーバーに保存するまでバトルは記録しません'), findsOneWidget);
+    expect(find.text('ログインしていないため記録していません'), findsOneWidget);
     expect(calls.completedBattles, isEmpty);
     expect(levelChanges, [
       {strongPlayer.definition.id: 8},

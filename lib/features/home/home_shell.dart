@@ -8,6 +8,7 @@ import '../age_gate/age_confirmation.dart';
 import '../age_gate/age_verified_session_store.dart';
 import '../battle/battle_recorder.dart';
 import '../capture/capture_screen.dart';
+import '../capture/monster_generator.dart';
 import '../dex/dex_screen.dart';
 import '../dex/dex_store.dart';
 import '../opponent/opponent_screen.dart';
@@ -37,6 +38,7 @@ class HomeShell extends StatefulWidget {
     required this.openUrl,
     required this.isDeveloperMenuEnabled,
     required this.battleRecorder,
+    required this.monsterGenerator,
   });
 
   /// 見本データ。
@@ -60,6 +62,9 @@ class HomeShell extends StatefulWidget {
   /// バトルの記録と計測。
   final BattleRecorder battleRecorder;
 
+  /// 撮る・選ぶ・生成の呼び出しと計測。
+  final MonsterGenerator monsterGenerator;
+
   @override
   State<HomeShell> createState() => _HomeShellState();
 }
@@ -77,6 +82,7 @@ class _HomeShellState extends State<HomeShell> {
         dexStore: widget.dexStore,
         ageConfirmationStore: widget.ageConfirmationStore,
         ageVerifiedSessionStore: widget.ageVerifiedSessionStore,
+        monsterGenerator: widget.monsterGenerator,
         openUrl: widget.openUrl,
         isDeveloperMenuEnabled: widget.isDeveloperMenuEnabled,
       ),
@@ -89,14 +95,13 @@ class _HomeShellState extends State<HomeShell> {
       bottom: false,
       child: switch (_selectedTab) {
         HomeTab.dex => DexScreen(
-          sampleData: widget.sampleData,
           dexStore: widget.dexStore,
           onSelectTab: _selectTab,
           onOpenSettings: _openSettings,
         ),
         HomeTab.capture => CaptureScreen(
-          sampleData: widget.sampleData,
           dexStore: widget.dexStore,
+          monsterGenerator: widget.monsterGenerator,
           onSelectTab: _selectTab,
           onOpenSettings: _openSettings,
         ),
