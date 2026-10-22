@@ -360,14 +360,12 @@ void main() {
         blockUser: () async {},
       ),
     );
-    tester.view.physicalSize = const Size(844, 390);
-    await tester.pumpAndSettle();
-    final monsterChip = find.byKey(
-      const Key('opponent-monster-uid-b-sample-noton'),
+    await tester.longPress(
+      find.byKey(const Key('opponent-monster-uid-b-sample-noton')),
     );
-    await tester.ensureVisible(monsterChip);
     await tester.pumpAndSettle();
-    await tester.longPress(monsterChip);
+    // シートを開いたまま横向きにする
+    tester.view.physicalSize = const Size(844, 390);
     await tester.pumpAndSettle();
     final otherReason = find.byKey(const Key('report-reason-other'));
     await tester.ensureVisible(otherReason);
