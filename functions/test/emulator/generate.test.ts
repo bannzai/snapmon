@@ -3,7 +3,7 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 
 import { deleteApp, getApps, initializeApp } from "firebase-admin/app";
-import { getFirestore, Timestamp } from "firebase-admin/firestore";
+import { type DocumentReference, FieldValue, type Firestore, getFirestore, Timestamp, type Transaction } from "firebase-admin/firestore";
 import { getStorage } from "firebase-admin/storage";
 import sharp from "sharp";
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
@@ -13,7 +13,15 @@ import { createSegmentSubject, SEGMENTATION_MODEL_PATH, type SegmentSubject } fr
 import { handleGenerateRequest } from "../../src/generation/generate";
 import { type AskJev, type JevQuestion, type JevResponse, JevUnavailableError } from "../../src/generation/jev";
 import type { Master } from "../../src/generation/master";
-import { DAILY_GENERATION_LIMIT_PER_USER, DAILY_GENERATION_LIMIT_TOTAL, type GenerationDependencies, JUDGE_RETRY_INTERVAL_SECONDS, resumeGeneration, type ResumeTask } from "../../src/generation/pipeline";
+import {
+  DAILY_GENERATION_LIMIT_PER_USER,
+  DAILY_GENERATION_LIMIT_TOTAL,
+  FAILED_STAGE_RETRY_DELAY_SECONDS,
+  type GenerationDependencies,
+  JUDGE_RETRY_INTERVAL_SECONDS,
+  resumeGeneration,
+  type ResumeTask,
+} from "../../src/generation/pipeline";
 import type { DescribeSubjectOutput } from "../../src/generation/prompts/describe_subject";
 import type { GenerationRecord, MonsterDocument } from "../../src/generation/records";
 import type { AnnotateImage, VisionAnnotation } from "../../src/generation/vision";
@@ -189,6 +197,68 @@ function ageVerifiedRequest({ uid, data }: { uid: string; data: unknown }) {
 
 async function generationRecord({ uid, requestId }: { uid: string; requestId: string }): Promise<GenerationRecord> {
   return (await firestore.doc(`users/${uid}/generations/${requestId}`).get()).data() as GenerationRecord;
+}
+
+/** メソッドを本物の対象に束縛して返す Proxy の get (Firestore と Transaction は private な状態を持ち、Proxy を this にすると動かないため)。 */
+function forwardToTarget<T extends object>(target: T, property: string | symbol) {
+  const value = Reflect.get(target, property, target);
+  return typeof value === "function" ? value.bind(target) : value;
+}
+
+/**
+ * 生成のレコードに saved を書くトランザクションだけを、本体を実行した後のコミットの前に失敗させる Firestore を返す
+ * (保存の段階の書き込みの途中で実行が落ちた状況)。それ以外の読み書きは本物の Firestore に渡す。
+ */
+function failingSavedCommitFirestore(): Firestore {
+  return new Proxy(firestore, {
+    get(target, property) {
+      if (property !== "runTransaction") {
+        return forwardToTarget(target, property);
+      }
+      return (updateFunction: (transaction: Transaction) => Promise<unknown>) =>
+        target.runTransaction(async (transaction) => {
+          let writesSaved = false;
+          const result = await updateFunction(
+            new Proxy(transaction, {
+              get(transactionTarget, transactionProperty) {
+                if (transactionProperty !== "update") {
+                  return forwardToTarget(transactionTarget, transactionProperty);
+                }
+                return (document: DocumentReference, data: Partial<GenerationRecord>) => {
+                  writesSaved ||= document.path.includes("/generations/") && data.status === "saved";
+                  return transactionTarget.update(document, data);
+                };
+              },
+            }),
+          );
+          if (writesSaved) {
+            throw new Error("保存の段階のコミットの前に落ちた");
+          }
+          return result;
+        });
+    },
+  });
+}
+
+/**
+ * 予約の回数の上限を判定したトランザクション ("exhausted" を返す) のコミットの直後に、`concurrentWrite` を挟む Firestore を返す
+ * (上限を判定してから failed を書くまでの間に、予約を持つ古い実行が書き込んだ状況)。それ以外の読み書きは本物の Firestore に渡す。
+ */
+function writeAfterExhaustedFirestore(concurrentWrite: () => Promise<unknown>): Firestore {
+  return new Proxy(firestore, {
+    get(target, property) {
+      if (property !== "runTransaction") {
+        return forwardToTarget(target, property);
+      }
+      return async (updateFunction: (transaction: Transaction) => Promise<unknown>) => {
+        const result = await target.runTransaction(updateFunction);
+        if (result === "exhausted") {
+          await concurrentWrite();
+        }
+        return result;
+      };
+    },
+  });
 }
 
 describe("generate", () => {
@@ -481,6 +551,86 @@ describe("generate", () => {
     await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "lease" });
     expect((await bucket.file(cutoutPath).exists())[0]).toBe(false);
     expect((await bucket.file(data.photoPath).exists())[0]).toBe(true);
+  });
+
+  it("保存の段階のコミットの前に落ちても、モンスターとレコードが片方だけにならず、再試行で 1 体だけ保存して絵を残す", async () => {
+    const mocks = createMocks();
+    const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
+    mocks.dependencies.firestore = failingSavedCommitFirestore();
+    expect((await handleGenerateRequest(mocks.dependencies, ageVerifiedRequest({ uid: "alice", data }))).status).toBe("processing");
+    const stalled = await generationRecord({ uid: "alice", requestId: data.requestId });
+    expect(stalled).toMatchObject({ status: "processing", completedStage: "judge" });
+    expect((await firestore.collection("users/alice/monsters").get()).size).toBe(0);
+    // ほかの段階の一時的な失敗と同じく、ロックを外して少し後の再試行に回す
+    expect((await firestore.doc("users/alice").get()).get("generationLock")).toBeUndefined();
+    expect(mocks.enqueued).toContainEqual({ uid: "alice", requestId: data.requestId, purpose: "lease", delaySeconds: FAILED_STAGE_RETRY_DELAY_SECONDS });
+
+    // 予約を切れた扱いにした後に、再試行のタスクが届く
+    mocks.dependencies.firestore = firestore;
+    expect(await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "lease" })).toMatchObject({
+      status: "saved",
+      monsterId: stalled.monsterId,
+    });
+    expect((await firestore.collection("users/alice/monsters").get()).docs.map((document) => document.id)).toEqual([stalled.monsterId]);
+    expect((await bucket.file(`monsters/${stalled.monsterId}/art.png`).exists())[0]).toBe(true);
+  });
+
+  it("保存の段階で落ち続けて failed になった生成は絵を消し、failed でもモンスターの文書がある生成の絵と元の写真は消さない", async () => {
+    const mocks = createMocks();
+    const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
+    mocks.dependencies.firestore = failingSavedCommitFirestore();
+    await handleGenerateRequest(mocks.dependencies, ageVerifiedRequest({ uid: "alice", data }));
+    const stalled = await generationRecord({ uid: "alice", requestId: data.requestId });
+    expect((await bucket.file(`monsters/${stalled.monsterId}/art.png`).exists())[0]).toBe(true);
+    // 予約を取る回数の上限に達した後に予約が切れる
+    await firestore.doc(`users/alice/generations/${data.requestId}`).update({ leaseExpiresAt: Timestamp.fromMillis(0), attemptCount: 4 });
+    mocks.dependencies.firestore = firestore;
+    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "lease" })).status).toBe("failed");
+    expect((await bucket.file(`monsters/${stalled.monsterId}/art.png`).exists())[0]).toBe(false);
+
+    // モンスターの作成と saved を別々のトランザクションで書いていた版が残し得る、モンスターの文書がある failed のレコード
+    const savedData = await uploadPhoto({ uid: "bob", photo: photoFixture("01") });
+    const saved = await handleGenerateRequest(createMocks().dependencies, ageVerifiedRequest({ uid: "bob", data: savedData }));
+    await firestore.doc(`users/bob/generations/${savedData.requestId}`).update({ status: "failed", filesDeleted: FieldValue.delete() });
+    await resumeGeneration(mocks.dependencies, { uid: "bob", requestId: savedData.requestId, purpose: "lease" });
+    expect((await generationRecord({ uid: "bob", requestId: savedData.requestId })).filesDeleted).toBe(true);
+    expect((await bucket.file(`monsters/${saved.monsterId}/art.png`).exists())[0]).toBe(true);
+    expect((await bucket.file(savedData.photoPath).exists())[0]).toBe(true);
+  });
+
+  it("予約の回数の上限を判定した後に古い実行が saved にした生成は、failed で上書きしない", async () => {
+    const mocks = createMocks();
+    const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
+    const saved = await handleGenerateRequest(mocks.dependencies, ageVerifiedRequest({ uid: "alice", data }));
+    const document = firestore.doc(`users/alice/generations/${data.requestId}`);
+    // 予約の期限を過ぎて上限に達した処理中のレコード。上限の判定の直後に、古い実行が saved を書く
+    await document.update({ status: "processing", completedStage: "judge", leaseExpiresAt: Timestamp.fromMillis(0), attemptCount: 4 });
+    mocks.dependencies.firestore = writeAfterExhaustedFirestore(() => document.update({ status: "saved", completedStage: "saved" }));
+    expect(await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "lease" })).toMatchObject({
+      status: "saved",
+      monsterId: saved.monsterId,
+    });
+    expect((await generationRecord({ uid: "alice", requestId: data.requestId })).status).toBe("saved");
+  });
+
+  it("モンスターの文書が既にある処理中の生成は、モンスターを作り直さずに saved にする", async () => {
+    const mocks = createMocks();
+    const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
+    const saved = await handleGenerateRequest(mocks.dependencies, ageVerifiedRequest({ uid: "alice", data }));
+    const monster = (await firestore.doc(`users/alice/monsters/${saved.monsterId}`).get()).data();
+    // モンスターの作成と saved を別々のトランザクションで書いていた版が残し得る、モンスターだけを作って処理中のまま予約が切れたレコード
+    await firestore.doc(`users/alice/generations/${data.requestId}`).update({
+      status: "processing",
+      completedStage: "judge",
+      leaseExpiresAt: Timestamp.fromMillis(0),
+      filesDeleted: FieldValue.delete(),
+    });
+    expect(await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "lease" })).toMatchObject({
+      status: "saved",
+      monsterId: saved.monsterId,
+    });
+    expect((await firestore.collection("users/alice/monsters").get()).docs.map((document) => document.id)).toEqual([saved.monsterId]);
+    expect((await firestore.doc(`users/alice/monsters/${saved.monsterId}`).get()).data()).toEqual(monster);
   });
 
   it("同じ被写体の相手の生成が失敗したら、待っていた生成は保存に進む", async () => {
