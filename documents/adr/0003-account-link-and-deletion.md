@@ -37,4 +37,5 @@ Accepted
 
 - iPhone で Apple と連携した人は、Android・Web に移っても Apple でサインインできず、図鑑を引き継げない (Android と Web は Google だけ)。Android・Web に Sign in with Apple を足すには、Apple の Services ID と Firebase の設定が要る
 - 連携済みのアカウントへの切り替えでは、その端末で作ったモンスターは戻らない
-- 削除が終わった後も、その uid の ID トークンは期限 (1 時間) まで Functions の呼び出しに通る。クライアントは削除の後にサインアウトするため、正規のアプリからは呼ばれない
+- 削除が終わった後も、その uid の ID トークンは期限 (1 時間) まで通る (同じアカウントでサインインしている別の端末)。`generate` は最初に Auth のユーザーが残っているかを確かめ、消えていれば断ってその uid の `users/{uid}/` の配下のファイルを消す (`functions/src/account.ts` の `rejectDeletedAccount`)。バトルは図鑑のモンスターが無いと始められないため、削除の後にデータを作らない。Storage の Rules は Auth のユーザーの有無を見られないため、削除の後のその期限の間に、別の端末が写真を置いたまま `generate` を呼ばなかった時は、そのファイルを消す経路が無く残る
+- 予約の切れた生成の再試行 (`resumeGeneration`) も、削除の印がある時と生成のレコードが消えた時は再開しない

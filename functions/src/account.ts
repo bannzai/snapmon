@@ -106,6 +106,24 @@ export async function deleteAccountData(dependencies: AccountDeletionDependencie
   await userDocument.delete();
 }
 
+/**
+ * [uid] の Auth のユーザーが消えていたら (削除の後も ID トークンは期限の 1 時間まで通るため、別の端末から呼ばれた)、
+ * その uid が削除の後に Storage に置いたファイル (`users/{uid}/` の配下) を消し、`unauthenticated` の HttpsError を投げる。
+ * 消えていなければ何もしない。生成のようにアカウントのデータを新しく書く callable の最初に呼ぶ。
+ */
+export async function rejectDeletedAccount({ auth, bucket, uid }: { auth: Auth; bucket: StorageBucket; uid: string }): Promise<void> {
+  try {
+    await auth.getUser(uid);
+    return;
+  } catch (error) {
+    if ((error as { code?: string }).code !== "auth/user-not-found") {
+      throw error;
+    }
+  }
+  await deleteAccountFiles(bucket, { uid, artPaths: [] });
+  throw new HttpsError("unauthenticated", "このアカウントは削除されています");
+}
+
 /** [uid] の `users/{uid}/` の配下のファイルと [artPaths] の絵を消す。無いファイルは無視する (何度呼んでもよい)。 */
 export async function deleteAccountFiles(bucket: StorageBucket, { uid, artPaths }: AccountFileDeletionTask): Promise<void> {
   await bucket.deleteFiles({ prefix: `users/${uid}/` });

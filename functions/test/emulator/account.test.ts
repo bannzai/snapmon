@@ -20,7 +20,7 @@ import { afterAll, beforeEach, describe, expect, it } from "vitest";
 
 import { type AccountDeletionDependencies, type AccountFileDeletionTask, deleteAccountData } from "../../src/account";
 import { handleGenerateRequest } from "../../src/generation/generate";
-import type { GenerationDependencies, StorageBucket } from "../../src/generation/pipeline";
+import { type GenerationDependencies, resumeGeneration, type StorageBucket } from "../../src/generation/pipeline";
 
 // firebase emulators:exec (package.json の test:emulator) の中で実行する。
 // 匿名アカウントへの Google の連携 (引き継ぎ) と、アカウントの削除 (deleteAccount) を Auth・Firestore・Storage・Functions の Emulator で確かめる。
@@ -157,7 +157,7 @@ describe("匿名アカウントへの連携 (引き継ぎ)", () => {
     expect((await getDoc(doc(clientFirestore, `users/${anonymousUid}/monsters/monster1`))).data()).toEqual({ name: "マグカップン", level: 3 });
   });
 
-  it("別の端末で連携済みの Google で連携すると credential-already-in-use になり、その credential で連携済みのアカウントに切り替えられる", async () => {
+  it("別の端末で連携済みの Google で連携すると credential-already-in-use になり、その Google の credential で連携済みのアカウントに切り替えられる", async () => {
     const googleUserId = randomUUID();
     const firstDevice = await signInAgeVerifiedUser();
     await linkWithCredential(firstDevice, fakeGoogleCredential({ googleUserId }));
@@ -170,10 +170,11 @@ describe("匿名アカウントへの連携 (引き継ぎ)", () => {
       (linkError: unknown) => linkError,
     );
     expect((error as { code?: string }).code).toBe("auth/credential-already-in-use");
-    const credentialFromError = GoogleAuthProvider.credentialFromError(error as Parameters<typeof GoogleAuthProvider.credentialFromError>[0]);
-    expect(credentialFromError).not.toBeNull();
 
-    const switched = await signInWithCredential(auth, credentialFromError!);
+    // Auth の Emulator は credential-already-in-use のエラーに連携済みのアカウントの credential を載せない (CI の実測で
+    // GoogleAuthProvider.credentialFromError が null だった)。そのため、Android の経路 (lib/firebase/account.dart が連携に使った
+    // credential を持ち続ける) と同じく、連携に使った credential でサインインする
+    const switched = await signInWithCredential(auth, fakeGoogleCredential({ googleUserId }));
     expect(switched.user.uid).toBe(firstDevice.uid);
     expect((await switched.user.getIdTokenResult(true)).claims.ageVerified).toBe(true);
     expect((await getDoc(doc(clientFirestore, `users/${firstDevice.uid}/monsters/monster1`))).data()).toEqual({ name: "サボテンダ", level: 5 });
@@ -250,6 +251,63 @@ describe("アカウントの削除 (deleteAccount)", () => {
 
     expect(enqueued).toEqual([]);
     expect(await remainingAccountData({ uid: user.uid })).toEqual([]);
+  });
+
+  it("削除の後に、別の端末に残った ID トークンで写真を置いて generate を呼んでも断り、置いた写真を消す", async () => {
+    const user = await signInAgeVerifiedUser();
+    const staleIdToken = await user.getIdToken();
+    const deleted = await callFunction({ name: "deleteAccount", idToken: staleIdToken, data: null });
+    expect(deleted.status).toBe(200);
+    const requestId = randomUUID();
+    await bucket.file(`users/${user.uid}/photos/${requestId}`).save(Buffer.from([0xff, 0xd8, 0xff, 0xe0]));
+
+    const response = await callFunction({ name: "generate", idToken: staleIdToken, data: { requestId, photoPath: `users/${user.uid}/photos/${requestId}` } });
+
+    expect(response.status).toBe(401);
+    expect((await response.json()).error.status).toBe("UNAUTHENTICATED");
+    expect((await bucket.file(`users/${user.uid}/photos/${requestId}`).exists())[0]).toBe(false);
+    expect((await adminFirestore.collection(`users/${user.uid}/generations`).get()).empty).toBe(true);
+  });
+
+  it("削除が始まった後は、予約の切れた生成を再試行のタスクで再開しない", async () => {
+    const uid = randomUUID();
+    const requestId = randomUUID();
+    await adminFirestore.doc(`users/${uid}`).set({ accountDeletionStartedAt: Timestamp.now() });
+    await adminFirestore.doc(`users/${uid}/generations/${requestId}`).set({
+      status: "processing",
+      completedStage: "accepted",
+      photoPath: `users/${uid}/photos/${requestId}`,
+      maskPath: null,
+      inputKey: "input-key",
+      leaseExpiresAt: Timestamp.fromMillis(Date.now() - 60_000),
+      leaseToken: "expired-lease",
+      attemptCount: 1,
+      judgeRetryCount: 0,
+    });
+    const unused = async () => {
+      throw new Error("再開しないので外部の API を呼ばない");
+    };
+
+    const result = await resumeGeneration(
+      {
+        firestore: adminFirestore,
+        bucket,
+        annotateImage: unused,
+        segmentSubject: unused,
+        describeSubject: unused,
+        proposeElement: unused,
+        askJev: unused,
+        enqueueResume: async () => {},
+        now: () => new Date(),
+      },
+      { uid, requestId, purpose: "lease" },
+    );
+
+    expect(result).toEqual({ requestId, status: "failed" });
+    const record = (await adminFirestore.doc(`users/${uid}/generations/${requestId}`).get()).data();
+    expect(record?.leaseToken).toBe("expired-lease");
+    expect(record?.attemptCount).toBe(1);
+    expect((await adminFirestore.doc(`users/${uid}`).get()).get("generationLock")).toBeUndefined();
   });
 
   it("削除が始まった後は、生成を受け付けない", async () => {
