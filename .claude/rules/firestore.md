@@ -15,15 +15,17 @@ paths:
 | --- | --- | --- | --- |
 | `master/{version}` | master (属性・技・相性表・分類) の 1 つの版。数値の `version` を持つ | 読む (年齢の確認済み) | `functions/scripts/seed-master.mjs` が投入。投入済みの版は書き換えない |
 | `definitions/{definitionId}` | 生成時にその場で作った属性・技の定義 | 読む (年齢の確認済み) | 書く |
-| `users/{uid}` | 生成中ロック、`ageRejected`・`ageAccepted` (confirmAge が 13 歳未満 / 以上と判定した印。uid ごとに最初の判定だけが有効。生年月は持たない) 等 | 本人が読む | 書く |
-| `users/{uid}/monsters/{monsterId}` | 図鑑のモンスター | 本人が読む | 書く |
-| `users/{uid}/generations/{subjectKey}` | 生成の状態遷移のレコード | 本人が読む | 書く |
+| `users/{uid}` | 生成中ロック (`generationLock`)、uid ごとの 1 日の生成数 (`dailyGeneration`)、`ageRejected`・`ageAccepted` (confirmAge が 13 歳未満 / 以上と判定した印。uid ごとに最初の判定だけが有効。生年月は持たない) 等 | 本人が読む | 書く |
+| `users/{uid}/monsters/{monsterId}` | 図鑑のモンスター (形は `functions/src/generation/records.ts` の `MonsterDocument`) | 本人が読む | 書く |
+| `users/{uid}/generations/{requestId}` | 生成の状態遷移のレコード (形は `functions/src/generation/records.ts` の `GenerationRecord`) | 本人が読む | 書く |
+| `generationDailyCounts/{YYYY-MM-DD}` | プロジェクト全体の 1 日の生成数 (原価の上限のカウンタ。日付は日本時間) | 読み書きしない | 書く |
+| `definitionCounters/global` | その場で作った属性・技の数 (上限のカウンタ) | 読み書きしない | 書く |
 | `users/{uid}/battles/{battleId}` | バトルの開始と完了の記録 | 本人が読む | 書く |
 | `users/{uid}/party/current` | 手持ち (`monsterIds`: 自分の monsters の ID を重複なく 3 件まで、`updatedAt`) | 本人が読み書き | - |
 | `users/{uid}/settings/current` | 端末の設定 | 本人が読み書き | - |
 | `reports/{reportId}`・`blocks/{blockId}` | PvP の通報・ブロック | 読み書きしない | 書く |
 
-Storage: `users/{uid}/photos/{requestId}` (元の写真。本人だけ読み書き、4 MB 以下の JPEG・PNG)、`monsters/{monsterId}/art.png` (生成したイラスト。年齢の確認済みの全員が読み、書くのは Functions だけ)。
+Storage: `users/{uid}/photos/{requestId}` (元の写真。本人だけ読み書き、4 MB 以下の JPEG・PNG)、`users/{uid}/masks/{requestId}` (手で決めた切り出しの範囲。本人だけ読み書き、1 MB 以下の PNG)、`users/{uid}/generations/{requestId}/cutout.png` (生成の途中の切り出し画像。本人だけ読み、書くのは Functions だけ)、`monsters/{monsterId}/art.png` (写真から切り出した被写体の画像。年齢の確認済みの全員が読み、書くのは Functions だけ)。
 
 ## ルール
 

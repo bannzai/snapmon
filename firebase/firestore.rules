@@ -61,7 +61,7 @@ service cloud.firestore {
         allow write: if false;
       }
 
-      match /generations/{subjectKey} {
+      match /generations/{requestId} {
         allow read: if isAgeVerifiedOwner(uid);
         allow write: if false;
       }

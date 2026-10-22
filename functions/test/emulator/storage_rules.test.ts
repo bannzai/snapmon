@@ -31,6 +31,7 @@ beforeEach(async () => {
     await Promise.all((await listAllRecursively(ref(storage))).map((item) => deleteObject(item)));
     await uploadBytes(ref(storage, "users/bob/photos/request1"), smallImage, { contentType: "image/jpeg" });
     await uploadBytes(ref(storage, "monsters/monster1/art.png"), smallImage, { contentType: "image/png" });
+    await uploadBytes(ref(storage, "users/alice/generations/request1/cutout.png"), smallImage, { contentType: "image/png" });
   });
 });
 
@@ -81,6 +82,28 @@ describe("users/{uid}/photos", () => {
     const storage = testEnvironment.authenticatedContext("alice").storage(bucketUrl);
     await assertFails(
       uploadBytes(ref(storage, "users/alice/photos/request1"), smallImage, { contentType: "image/jpeg" }),
+    );
+  });
+});
+
+describe("users/{uid}/masks", () => {
+  it("本人は 1 MB 以下の PNG のマスクを置け、他人の場所と PNG 以外には置けない", async () => {
+    const storage = ageVerifiedStorage("alice");
+    await assertSucceeds(uploadBytes(ref(storage, "users/alice/masks/request1"), smallImage, { contentType: "image/png" }));
+    await assertFails(uploadBytes(ref(storage, "users/alice/masks/request2"), smallImage, { contentType: "image/jpeg" }));
+    await assertFails(
+      uploadBytes(ref(storage, "users/alice/masks/request3"), new Uint8Array(1024 * 1024 + 1), { contentType: "image/png" }),
+    );
+    await assertFails(uploadBytes(ref(storage, "users/bob/masks/request1"), smallImage, { contentType: "image/png" }));
+  });
+});
+
+describe("users/{uid}/generations/{requestId}/cutout.png", () => {
+  it("本人だけが読め、本人も書けない", async () => {
+    await assertSucceeds(getBytes(ref(ageVerifiedStorage("alice"), "users/alice/generations/request1/cutout.png")));
+    await assertFails(getBytes(ref(ageVerifiedStorage("bob"), "users/alice/generations/request1/cutout.png")));
+    await assertFails(
+      uploadBytes(ref(ageVerifiedStorage("alice"), "users/alice/generations/request2/cutout.png"), smallImage, { contentType: "image/png" }),
     );
   });
 });
