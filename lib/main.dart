@@ -51,6 +51,7 @@ Future<void> main() async {
       ),
       ageVerifiedSessionStore: AgeVerifiedSessionStore(
         startSession: startAgeVerifiedSessionWithFirebase,
+        endSession: endAgeVerifiedSessionWithFirebase,
         resumedUid: resumedUid,
       ),
       openUrl: ({required uri}) =>

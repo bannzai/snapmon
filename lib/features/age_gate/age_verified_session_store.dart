@@ -6,8 +6,13 @@ class AgeVerifiedSessionStore extends ChangeNotifier {
   /// [startSession] でログインする。前回の起動で済ませたログインを再開できた時は、その uid を [resumedUid] に渡す。
   AgeVerifiedSessionStore({
     required this.startSession,
+    required this.endSession,
     required String? resumedUid,
   }) : _uid = resumedUid;
+
+  /// 収集を止めてサインアウトする (lib/firebase/age_verified_session.dart の
+  /// `endAgeVerifiedSessionWithFirebase` と同じ形。テストで差し替える)。
+  final Future<void> Function() endSession;
 
   /// 生年月を渡してログインし、uid を返す (lib/firebase/age_verified_session.dart の
   /// `startAgeVerifiedSessionWithFirebase` と同じ形。テストで差し替える)。
@@ -57,6 +62,16 @@ class AgeVerifiedSessionStore extends ChangeNotifier {
   /// (Functions のデプロイや App Check の登録が済んでいない検証環境でも、ほかの画面の動作確認を止めないため)。
   void skipForDebug() {
     _isSkippedForDebug = true;
+    notifyListeners();
+  }
+
+  /// ログインを終えて、ログインしていない状態に戻す。開発者メニューの「年齢の確認をやり直す」だけが使う
+  /// (やり直した後に初回起動と同じくログインと confirmAge を通すため)。何度呼んでも同じ (冪等)。
+  Future<void> resetForDebug() async {
+    await endSession();
+    _uid = null;
+    _error = null;
+    _isSkippedForDebug = false;
     notifyListeners();
   }
 }

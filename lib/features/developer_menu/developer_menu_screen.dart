@@ -99,9 +99,10 @@ class DeveloperMenuScreen extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.restart_alt),
             title: const Text('年齢の確認をやり直す'),
-            subtitle: const Text('保存した生年月を消して最初の画面に戻る'),
+            subtitle: const Text('ログインを終え 保存した生年月を消して最初の画面に戻る'),
             onTap: () async {
               Navigator.of(context).popUntil((route) => route.isFirst);
+              await ageVerifiedSessionStore.resetForDebug();
               await ageConfirmationStore.reset();
             },
           ),

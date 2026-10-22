@@ -74,6 +74,18 @@ Future<String> startAgeVerifiedSessionWithFirebase({
   );
 }
 
+/// 収集を止めて匿名ログインからサインアウトし、年齢の確認より前の状態に戻す。
+/// 開発者メニュー (DEBUG ビルド) の「年齢の確認をやり直す」だけが使う (やり直しで初回起動と同じ経路を通すため)。
+/// 何度呼んでも同じ (冪等)。App Check は一度始めると止める API が無いため止めない。
+Future<void> endAgeVerifiedSessionWithFirebase() async {
+  markAnalyticsCollectionStopped();
+  await FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(false);
+  if (!kIsWeb) {
+    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+  }
+  await FirebaseAuth.instance.signOut();
+}
+
 /// 前回の起動で年齢の確認を済ませたユーザーなら、App Check と収集を再開する。アプリの起動時に呼ぶ。
 ///
 /// 端末に保存された Auth のユーザーがいて、ID トークンに ageVerified のクレームがある時だけ再開し、uid を返す。
