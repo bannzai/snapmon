@@ -5,5 +5,10 @@
 	<!-- App Check の App Attest に要る (lib/firebase/age_verified_session.dart の activateAppCheck)。Profile・Release だけが参照する (Debug は debug provider) -->
 	<key>com.apple.developer.devicecheck.appattest-environment</key>
 	<string>production</string>
+	<!-- 設定画面の「データを引き継ぐ」の Sign in with Apple (lib/firebase/account.dart)。Debug は RunnerDebug.entitlements -->
+	<key>com.apple.developer.applesignin</key>
+	<array>
+		<string>Default</string>
+	</array>
 </dict>
 </plist>

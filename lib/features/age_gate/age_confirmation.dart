@@ -75,7 +75,8 @@ class AgeConfirmationStore extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// 保存した生年月を消して、年齢の確認をやり直せるようにする (DEBUG の開発者メニューだけが使う)。
+  /// 保存した生年月を消して、年齢の確認をやり直せるようにする (アカウントを削除した後と、DEBUG の開発者メニューが使う。
+  /// 削除した後に年齢の確認から始めることは docs/AccountDeletion.md に書いている)。
   Future<void> reset() async {
     await preferences.remove(_birthYearKey);
     await preferences.remove(_birthMonthKey);

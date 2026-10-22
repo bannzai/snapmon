@@ -15,6 +15,8 @@ import 'package:snapmon/features/battle/battle_recorder.dart';
 import 'package:snapmon/features/capture/monster_generator.dart';
 import 'package:snapmon/features/capture/photo_preparation.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
+import 'package:snapmon/features/settings/account_store.dart';
+import 'package:snapmon/firebase/account.dart';
 import 'package:snapmon/firebase/age_verified_session.dart';
 import 'package:snapmon/firebase/battle_record.dart';
 import 'package:snapmon/firebase/dex_firestore.dart';
@@ -92,6 +94,15 @@ Future<void> main() async {
         requestGeneration: requestGenerationWithFirebase,
         fetchGeneration: fetchGenerationWithFirebase,
         logEvent: logAnalyticsEvent,
+      ),
+      accountStore: AccountStore(
+        sessionStore: ageVerifiedSessionStore,
+        ageConfirmationStore: ageConfirmationStore,
+        linkProviderName: accountLinkProviderNameForPlatform,
+        readLinkedProviderNames: linkedProviderNamesWithFirebase,
+        linkAccount: linkAccountWithFirebase,
+        discardCurrentAccount: deleteCurrentAccountOnServerWithFirebase,
+        deleteAccount: deleteAccountWithFirebase,
       ),
     ),
   );
