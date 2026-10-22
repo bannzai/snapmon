@@ -560,7 +560,8 @@ async function advanceGeneration(
 
 /**
  * uid の生成中ロックを、自分の要求 ID のものなら外し、レコードに書く。`leaseToken` を渡した時は、レコードが処理中でそのトークンの
- * 予約のままの時だけ書く (予約の期限を過ぎて引き継がれた後に、古い実行が結果を上書きしないため)。`monster` を渡した時は、図鑑の
+ * 予約のままの時だけ書く (予約の期限を過ぎて引き継がれた後に、古い実行が結果を上書きしないため)。渡さない時は、レコードが終了状態
+ * でない時だけ書く。`monster` を渡した時は、図鑑の
  * モンスターが無ければ同じトランザクションで作る (図鑑のモンスターと saved のレコードが片方だけ残らないように)。書いた後か、書かなかった
  * 時は今のレコードを返す。
  */
@@ -580,6 +581,11 @@ async function releaseLock(
     ]);
     const current = snapshot.data() as GenerationRecord;
     if (leaseToken !== undefined && (current.status !== "processing" || current.leaseToken !== leaseToken)) {
+      return current;
+    }
+    // 予約を持たない書き込み (予約の回数の上限・Jev の再試行の上限で failed にする) は、判定した後に予約を持つ古い実行が saved に
+    // した結果を上書きしない
+    if (leaseToken === undefined && TERMINAL_GENERATION_STATUSES.includes(current.status)) {
       return current;
     }
     // モンスターの作成と saved を別々のトランザクションで書いていた版が残した、モンスターだけがある処理中のレコードの再試行では作らない

@@ -238,6 +238,27 @@ function failingSavedCommitFirestore(): Firestore {
   });
 }
 
+/**
+ * 予約の回数の上限を判定したトランザクション ("exhausted" を返す) のコミットの直後に、`concurrentWrite` を挟む Firestore を返す
+ * (上限を判定してから failed を書くまでの間に、予約を持つ古い実行が書き込んだ状況)。それ以外の読み書きは本物の Firestore に渡す。
+ */
+function writeAfterExhaustedFirestore(concurrentWrite: () => Promise<unknown>): Firestore {
+  return new Proxy(firestore, {
+    get(target, property) {
+      if (property !== "runTransaction") {
+        return forwardToTarget(target, property);
+      }
+      return async (updateFunction: (transaction: Transaction) => Promise<unknown>) => {
+        const result = await target.runTransaction(updateFunction);
+        if (result === "exhausted") {
+          await concurrentWrite();
+        }
+        return result;
+      };
+    },
+  });
+}
+
 describe("generate", () => {
   it("写真から 1 体を保存し、同じ requestId の 2 回目は API を呼ばずに保存済みの結果を返す", async () => {
     const mocks = createMocks();
@@ -573,6 +594,21 @@ describe("generate", () => {
     expect((await generationRecord({ uid: "bob", requestId: savedData.requestId })).filesDeleted).toBe(true);
     expect((await bucket.file(`monsters/${saved.monsterId}/art.png`).exists())[0]).toBe(true);
     expect((await bucket.file(savedData.photoPath).exists())[0]).toBe(true);
+  });
+
+  it("予約の回数の上限を判定した後に古い実行が saved にした生成は、failed で上書きしない", async () => {
+    const mocks = createMocks();
+    const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
+    const saved = await handleGenerateRequest(mocks.dependencies, ageVerifiedRequest({ uid: "alice", data }));
+    const document = firestore.doc(`users/alice/generations/${data.requestId}`);
+    // 予約の期限を過ぎて上限に達した処理中のレコード。上限の判定の直後に、古い実行が saved を書く
+    await document.update({ status: "processing", completedStage: "judge", leaseExpiresAt: Timestamp.fromMillis(0), attemptCount: 4 });
+    mocks.dependencies.firestore = writeAfterExhaustedFirestore(() => document.update({ status: "saved", completedStage: "saved" }));
+    expect(await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "lease" })).toMatchObject({
+      status: "saved",
+      monsterId: saved.monsterId,
+    });
+    expect((await generationRecord({ uid: "alice", requestId: data.requestId })).status).toBe("saved");
   });
 
   it("モンスターの文書が既にある処理中の生成は、モンスターを作り直さずに saved にする", async () => {
