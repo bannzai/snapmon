@@ -1,0 +1,1040 @@
+{
+  "11": {
+    "description": {
+      "what": "茶葉の入った紺色の鉄瓶",
+      "colors": [
+        "紺色",
+        "黒",
+        "銀色",
+        "緑"
+      ],
+      "materials": [
+        "金属",
+        "植物"
+      ],
+      "size": "medium",
+      "hardness": "hard",
+      "temperature": "warm",
+      "uses": [
+        "お茶をいれる",
+        "湯をわかす"
+      ],
+      "impression": [
+        "どっしり",
+        "しっとり"
+      ],
+      "distinctiveMarks": [
+        "丸い取っ手",
+        "中に入った乾いた花と茶葉",
+        "銀色のふちの茶こし"
+      ]
+    },
+    "name": "テツビンハーブ",
+    "encyclopediaText": "おなかの丸い穴に花や葉っぱをためこみ、ゆっくり温めていい香りを広げる。重たい体でじっと座り、取っ手を持ってもらうとうれしそうにぬくもりを分けてくれる。",
+    "decoration": {
+      "eyeStyle": "sleepy",
+      "mouthStyle": "smile",
+      "limbStyle": "stubby",
+      "auraStyle": "leaf",
+      "eyeCenterX": 0.5,
+      "eyeCenterY": 0.22,
+      "eyeScale": 0.12,
+      "outlineColorHex": "#F2C14E"
+    },
+    "containsPerson": false
+  },
+  "12": {
+    "description": {
+      "what": "レンズフードを付けた黒い一眼レフカメラ",
+      "colors": [
+        "黒",
+        "濃い灰色",
+        "赤"
+      ],
+      "materials": [
+        "プラスチック",
+        "金属",
+        "ガラス"
+      ],
+      "size": "medium",
+      "hardness": "hard",
+      "temperature": "cold",
+      "uses": [
+        "写真を撮る",
+        "動画を撮る"
+      ],
+      "impression": [
+        "どっしり",
+        "精密",
+        "クール"
+      ],
+      "distinctiveMarks": [
+        "花びら形のレンズフード",
+        "レンズの赤いライン",
+        "上部に付いた付属品",
+        "側面のストラップ"
+      ]
+    },
+    "name": "パシャレンズ",
+    "encyclopediaText": "花びらのような大きなフードの奥にある丸いひとみで、気になった景色をじっと見つめる。お気に入りの瞬間を見つけると、カシャッと音を鳴らして思い出の中にしまいこむ。",
+    "decoration": {
+      "eyeStyle": "round",
+      "mouthStyle": "smile",
+      "limbStyle": "stubby",
+      "auraStyle": "spark",
+      "eyeCenterX": 0.7,
+      "eyeCenterY": 0.25,
+      "eyeScale": 0.12,
+      "outlineColorHex": "#FFC83D"
+    },
+    "containsPerson": false
+  },
+  "13": {
+    "description": {
+      "what": "松かさの形をした石の彫刻",
+      "colors": [
+        "ベージュ",
+        "薄い茶色"
+      ],
+      "materials": [
+        "石"
+      ],
+      "size": "medium",
+      "hardness": "hard",
+      "temperature": "cold",
+      "uses": [
+        "飾り"
+      ],
+      "impression": [
+        "どっしり",
+        "ざらざら",
+        "とがった"
+      ],
+      "distinctiveMarks": [
+        "うろこ状の彫り模様",
+        "四角い台座",
+        "てっぺんの白っぽい欠け"
+      ]
+    },
+    "name": "イシマツボック",
+    "encyclopediaText": "体じゅうをうろこのような石のもようでおおい、四角い足でじっと立って庭を見守る。とがった頭をいつも空に向けていて、日なたでひなたぼっこをするのが大好きだ。",
+    "decoration": {
+      "eyeStyle": "sleepy",
+      "mouthStyle": "smile",
+      "limbStyle": "stubby",
+      "auraStyle": "leaf",
+      "eyeCenterX": 0.5,
+      "eyeCenterY": 0.38,
+      "eyeScale": 0.18,
+      "outlineColorHex": "#3B2A1A"
+    },
+    "containsPerson": false
+  },
+  "14": {
+    "description": {
+      "what": "松ぼっくり形の緑色のガラス瓶",
+      "colors": [
+        "緑",
+        "白",
+        "黄土色"
+      ],
+      "materials": [
+        "ガラス"
+      ],
+      "size": "small",
+      "hardness": "hard",
+      "temperature": "cold",
+      "uses": [
+        "飾り",
+        "小物入れ"
+      ],
+      "impression": [
+        "古びた",
+        "でこぼこ",
+        "しっとり"
+      ],
+      "distinctiveMarks": [
+        "うろこ状の凹凸",
+        "白く曇ったはがれ模様",
+        "口の周りの黒いさび"
+      ]
+    },
+    "name": "マツボトルン",
+    "encyclopediaText": "うろこのようなでこぼこの体を持ち、森の奥で長い時間をかけて白い粉をまとっていく。小さな口に朝つゆをためこみ、ひんやりした体で静かに眠るのが好きだ。",
+    "decoration": {
+      "eyeStyle": "sleepy",
+      "mouthStyle": "smile",
+      "limbStyle": "stubby",
+      "auraStyle": "leaf",
+      "eyeCenterX": 0.5,
+      "eyeCenterY": 0.45,
+      "eyeScale": 0.18,
+      "outlineColorHex": "#3B2A1A"
+    },
+    "containsPerson": false
+  },
+  "15": {
+    "description": {
+      "what": "交差した2本の黒い持ち手のハサミ",
+      "colors": [
+        "黒",
+        "銀色",
+        "灰色"
+      ],
+      "materials": [
+        "金属",
+        "プラスチック"
+      ],
+      "size": "small",
+      "hardness": "hard",
+      "temperature": "cold",
+      "uses": [
+        "紙を切る",
+        "工作"
+      ],
+      "impression": [
+        "するどい",
+        "シャープ"
+      ],
+      "distinctiveMarks": [
+        "2本が交差して重なっている",
+        "持ち手に刻まれたアルファベットの文字",
+        "灰色の丸い留め具"
+      ]
+    },
+    "name": "チョキクロス",
+    "encyclopediaText": "いつも2ひきでなかよく交差して並び、チョキチョキと音を立てておしゃべりする。紙を見つけると、きれいな形に切りそろえて工作をてつだってくれる。",
+    "decoration": {
+      "eyeStyle": "sharp",
+      "mouthStyle": "smile",
+      "limbStyle": "stubby",
+      "auraStyle": "spark",
+      "eyeCenterX": 0.5,
+      "eyeCenterY": 0.42,
+      "eyeScale": 0.1,
+      "outlineColorHex": "#FFB300"
+    },
+    "containsPerson": false
+  },
+  "18": {
+    "description": {
+      "what": "緑のガラス容器に入った火のついたキャンドル",
+      "colors": [
+        "深緑",
+        "白",
+        "オレンジ"
+      ],
+      "materials": [
+        "ガラス",
+        "ろう",
+        "紙"
+      ],
+      "size": "small",
+      "hardness": "hard",
+      "temperature": "warm",
+      "uses": [
+        "明かりをともす",
+        "部屋の飾り"
+      ],
+      "impression": [
+        "おちついた",
+        "あたたか"
+      ],
+      "distinctiveMarks": [
+        "白いラベルが2枚貼られている",
+        "ラベルに線で描かれたマーク",
+        "中で2つの炎がゆれている"
+      ]
+    },
+    "name": "ミドリトモシ",
+    "encyclopediaText": "深い緑のガラスの体の中に、小さな炎を2つ大切にかかえている。夜になると静かにゆらめいて、まわりの人をほっとさせる明かりをともす。",
+    "decoration": {
+      "eyeStyle": "sleepy",
+      "mouthStyle": "smile",
+      "limbStyle": "stubby",
+      "auraStyle": "flame",
+      "eyeCenterX": 0.56,
+      "eyeCenterY": 0.53,
+      "eyeScale": 0.15,
+      "outlineColorHex": "#FFD27A"
+    },
+    "containsPerson": false
+  },
+  "19": {
+    "description": {
+      "what": "鎖のついたふた付きの懐中時計",
+      "colors": [
+        "ブロンズ",
+        "白",
+        "黒"
+      ],
+      "materials": [
+        "金属",
+        "ガラス"
+      ],
+      "size": "small",
+      "hardness": "hard",
+      "temperature": "cold",
+      "uses": [
+        "時間を確かめる",
+        "身につけて持ち歩く"
+      ],
+      "impression": [
+        "レトロ",
+        "上品",
+        "クラシック"
+      ],
+      "distinctiveMarks": [
+        "透かし彫り模様のふた",
+        "長い鎖",
+        "アラビア数字の文字盤"
+      ]
+    },
+    "name": "チクタクロケット",
+    "encyclopediaText": "透かし模様のふたをぱかっと開けて、白い顔で今の時刻を教えてくれる。長い金色の鎖をしっぽのように引きずりながら、のんびりと歩き回る。",
+    "decoration": {
+      "eyeStyle": "round",
+      "mouthStyle": "smile",
+      "limbStyle": "stubby",
+      "auraStyle": "spark",
+      "eyeCenterX": 0.535,
+      "eyeCenterY": 0.47,
+      "eyeScale": 0.12,
+      "outlineColorHex": "#2A3A6B"
+    },
+    "containsPerson": false
+  },
+  "20": {
+    "containsPerson": false,
+    "name": "クロシェルチェア",
+    "encyclopediaText": "つるりとした黒い殻で体をつつみ、ひじかけのような腕で疲れた人をそっと受け止める。細い脚をクロスさせて立ち、部屋のすみで静かにじっと座る相手を待っている。",
+    "description": {
+      "what": "黒いシェル型のアームチェア",
+      "colors": [
+        "黒",
+        "グレー"
+      ],
+      "materials": [
+        "プラスチック",
+        "木",
+        "金属"
+      ],
+      "size": "large",
+      "hardness": "hard",
+      "temperature": "neutral",
+      "uses": [
+        "座る",
+        "くつろぐ"
+      ],
+      "impression": [
+        "なめらか",
+        "スマート"
+      ],
+      "distinctiveMarks": [
+        "ひじかけと一体の曲線的な座面",
+        "金属ワイヤーで組まれた交差する脚"
+      ]
+    },
+    "decoration": {
+      "eyeStyle": "sharp",
+      "mouthStyle": "smile",
+      "limbStyle": "long",
+      "auraStyle": "soft",
+      "eyeCenterX": 0.48,
+      "eyeCenterY": 0.32,
+      "eyeScale": 0.12,
+      "outlineColorHex": "#FFD23F"
+    }
+  },
+  "21": {
+    "containsPerson": false,
+    "name": "ムラサキリンリン",
+    "encyclopediaText": "むらさき色の細いからだと、黒と茶色の大きな輪っかを二つ持つモンスター。風を切って走るのが大好きで、からだの横に二つのかごをつけて水を運ぶ。",
+    "description": {
+      "what": "紫色のロードバイク",
+      "colors": [
+        "紫",
+        "黒",
+        "茶色",
+        "銀"
+      ],
+      "materials": [
+        "金属",
+        "ゴム",
+        "プラスチック"
+      ],
+      "size": "large",
+      "hardness": "hard",
+      "temperature": "cold",
+      "uses": [
+        "移動",
+        "サイクリング",
+        "運動"
+      ],
+      "impression": [
+        "スマート",
+        "すばやい",
+        "軽やか"
+      ],
+      "distinctiveMarks": [
+        "紫のフレームに描かれたサイン風の文字",
+        "茶色い側面のタイヤ",
+        "サドル下の黒い小さなバッグ",
+        "紫色のボトルケージ2つ"
+      ]
+    },
+    "decoration": {
+      "eyeStyle": "sharp",
+      "mouthStyle": "smile",
+      "limbStyle": "none",
+      "auraStyle": "spark",
+      "eyeCenterX": 0.5,
+      "eyeCenterY": 0.31,
+      "eyeScale": 0.08,
+      "outlineColorHex": "#FFD700"
+    }
+  },
+  "22": {
+    "description": {
+      "what": "細長い葉が房になった多肉植物",
+      "colors": [
+        "緑",
+        "白っぽい銀緑"
+      ],
+      "materials": [
+        "植物"
+      ],
+      "size": "small",
+      "hardness": "soft",
+      "temperature": "neutral",
+      "uses": [
+        "観賞"
+      ],
+      "impression": [
+        "みずみずしい",
+        "つんつん",
+        "さわやか"
+      ],
+      "distinctiveMarks": [
+        "指のような細長い葉が星形に広がる",
+        "右側に白っぽい粉をまとった葉が混ざる"
+      ]
+    },
+    "name": "タニクツンツン",
+    "encyclopediaText": "指のような葉を星の形に広げて、お日さまの光をたっぷり集める。のどがかわいても葉にためた水でへっちゃらで、のんびり日なたぼっこをして過ごす。",
+    "decoration": {
+      "eyeStyle": "sleepy",
+      "mouthStyle": "smile",
+      "limbStyle": "tentacles",
+      "auraStyle": "leaf",
+      "eyeCenterX": 0.68,
+      "eyeCenterY": 0.45,
+      "eyeScale": 0.12,
+      "outlineColorHex": "#5A3A1E"
+    },
+    "containsPerson": false
+  },
+  "23": {
+    "description": {
+      "what": "ガラスドームに入った多肉植物の鉢植え",
+      "colors": [
+        "透明",
+        "白",
+        "緑",
+        "ベージュ"
+      ],
+      "materials": [
+        "ガラス",
+        "植物",
+        "木"
+      ],
+      "size": "small",
+      "hardness": "hard",
+      "temperature": "cold",
+      "uses": [
+        "観賞",
+        "インテリアの飾り"
+      ],
+      "impression": [
+        "すずしげ",
+        "しずか",
+        "きちんと"
+      ],
+      "distinctiveMarks": [
+        "多面体のコンクリート風の白い鉢",
+        "ドーム上部の黒いひもと持ち手",
+        "丸い木の台座"
+      ]
+    },
+    "name": "ドームリーフ",
+    "encyclopediaText": "透明なドームの中で小さな葉を大切に育てながら、静かに暮らしている。角ばった白い体はとても丈夫で、木の台座の上にいると安心して葉をのばすという。",
+    "decoration": {
+      "eyeStyle": "round",
+      "mouthStyle": "smile",
+      "limbStyle": "stubby",
+      "auraStyle": "leaf",
+      "eyeCenterX": 0.48,
+      "eyeCenterY": 0.6,
+      "eyeScale": 0.15,
+      "outlineColorHex": "#2E5E3A"
+    },
+    "containsPerson": false
+  },
+  "26": {
+    "description": {
+      "what": "木の台にのった白いキーボード",
+      "colors": [
+        "白",
+        "銀色",
+        "木の茶色",
+        "オレンジ"
+      ],
+      "materials": [
+        "プラスチック",
+        "金属",
+        "木"
+      ],
+      "size": "medium",
+      "hardness": "hard",
+      "temperature": "neutral",
+      "uses": [
+        "文字を打つ",
+        "パソコンの操作"
+      ],
+      "impression": [
+        "すっきり",
+        "あたたかみ",
+        "きちょうめん"
+      ],
+      "distinctiveMarks": [
+        "木目の台座",
+        "横に革張りのリストレスト",
+        "そばに白いマウスとパッド"
+      ]
+    },
+    "name": "キボードモク",
+    "encyclopediaText": "木のゆりかごの上でくらし、白いボタンをカタカタ鳴らしておしゃべりする。そばにいる丸い相棒といつもいっしょに机の上をまもっている。",
+    "decoration": {
+      "eyeStyle": "round",
+      "mouthStyle": "smile",
+      "limbStyle": "stubby",
+      "auraStyle": "soft",
+      "eyeCenterX": 0.27,
+      "eyeCenterY": 0.25,
+      "eyeScale": 0.12,
+      "outlineColorHex": "#2B3A67"
+    },
+    "containsPerson": false
+  },
+  "28": {
+    "containsPerson": false,
+    "name": "ミルカップン",
+    "encyclopediaText": "白いからだに泡立つミルク色の飲み物をたたえ、ほかほかの湯気でまわりをくつろがせる。いつも丸いクッキーを相棒としてそばに置き、休けい時間になると現れる。",
+    "description": {
+      "what": "ミルク入りの飲み物が入った白いマグカップ",
+      "colors": [
+        "白",
+        "ベージュ",
+        "茶色"
+      ],
+      "materials": [
+        "陶器",
+        "食べ物"
+      ],
+      "size": "small",
+      "hardness": "hard",
+      "temperature": "warm",
+      "uses": [
+        "飲み物を飲む",
+        "休けい"
+      ],
+      "impression": [
+        "ほっこり",
+        "まるい"
+      ],
+      "distinctiveMarks": [
+        "表面に細かな泡",
+        "そばに丸いクッキーが2枚",
+        "青みがかった取っ手"
+      ]
+    },
+    "decoration": {
+      "eyeStyle": "sleepy",
+      "mouthStyle": "smile",
+      "limbStyle": "stubby",
+      "auraStyle": "soft",
+      "eyeCenterX": 0.36,
+      "eyeCenterY": 0.6,
+      "eyeScale": 0.15,
+      "outlineColorHex": "#5A3A1E"
+    }
+  },
+  "01": {
+    "description": {
+      "what": "白いホーローのマグカップ",
+      "colors": [
+        "白",
+        "黒"
+      ],
+      "materials": [
+        "金属",
+        "ホーロー"
+      ],
+      "size": "small",
+      "hardness": "hard",
+      "temperature": "cold",
+      "uses": [
+        "飲み物を入れる"
+      ],
+      "impression": [
+        "すっきり",
+        "レトロ"
+      ],
+      "distinctiveMarks": [
+        "側面の黒い横顔のイラスト",
+        "黒い縁取りの飲み口",
+        "側面の小さな文字の印刷",
+        "底のふちの小さな欠け"
+      ]
+    },
+    "name": "ホーロマグン",
+    "encyclopediaText": "つるりとした白い体と黒いふちどりが自慢で、朝になると温かい飲み物を抱えて持ち主のそばにやってくる。取っ手をしっぽのように揺らし、少しの欠けも冒険の思い出として大切にしている。",
+    "decoration": {
+      "eyeStyle": "round",
+      "mouthStyle": "smile",
+      "limbStyle": "stubby",
+      "auraStyle": "soft",
+      "eyeCenterX": 0.62,
+      "eyeCenterY": 0.42,
+      "eyeScale": 0.15,
+      "outlineColorHex": "#2F6FD6"
+    },
+    "containsPerson": false
+  },
+  "01b": {
+    "description": {
+      "what": "白いホーローのマグカップ",
+      "colors": [
+        "白",
+        "黒"
+      ],
+      "materials": [
+        "金属"
+      ],
+      "size": "small",
+      "hardness": "hard",
+      "temperature": "cold",
+      "uses": [
+        "飲み物を飲む"
+      ],
+      "impression": [
+        "シンプル",
+        "すっきり"
+      ],
+      "distinctiveMarks": [
+        "縁が黒い",
+        "黒い絵柄のプリント",
+        "小さな線の模様"
+      ]
+    },
+    "name": "ホーロマグン",
+    "encyclopediaText": "つるりとした白い体に黒いふちどりをもつモンスター。あたたかい飲み物を入れてもらうと、うれしそうに湯気をくゆらせる。",
+    "decoration": {
+      "eyeStyle": "round",
+      "mouthStyle": "smile",
+      "limbStyle": "stubby",
+      "auraStyle": "soft",
+      "eyeCenterX": 0.12,
+      "eyeCenterY": 0.55,
+      "eyeScale": 0.15,
+      "outlineColorHex": "#2B6CB0"
+    },
+    "containsPerson": false
+  },
+  "02": {
+    "containsPerson": false,
+    "name": "シマポット",
+    "encyclopediaText": "黄色と白のしましま模様をまとい、ふちの青い線がじまんのモンスター。頭から湯気をふわりと立ちのぼらせて、まわりをぽかぽかと温めるのが好き。",
+    "description": {
+      "what": "黄色と白のしま模様のマグカップ",
+      "colors": [
+        "黄色",
+        "白",
+        "水色"
+      ],
+      "materials": [
+        "陶器"
+      ],
+      "size": "small",
+      "hardness": "hard",
+      "temperature": "hot",
+      "uses": [
+        "飲み物を飲む"
+      ],
+      "impression": [
+        "あたたか",
+        "ほっこり",
+        "ころん"
+      ],
+      "distinctiveMarks": [
+        "黄色と白の横じま模様",
+        "ふちの水色の線",
+        "立ちのぼる湯気"
+      ]
+    },
+    "decoration": {
+      "eyeStyle": "sleepy",
+      "mouthStyle": "smile",
+      "limbStyle": "stubby",
+      "auraStyle": "soft",
+      "eyeCenterX": 0.32,
+      "eyeCenterY": 0.55,
+      "eyeScale": 0.15,
+      "outlineColorHex": "#3A2A1A"
+    }
+  },
+  "03": {
+    "description": {
+      "what": "台座の付いた小型の携帯ラジオ",
+      "colors": [
+        "シルバー",
+        "黒",
+        "白"
+      ],
+      "materials": [
+        "金属",
+        "プラスチック"
+      ],
+      "size": "small",
+      "hardness": "hard",
+      "temperature": "cold",
+      "uses": [
+        "ラジオ放送を聞く"
+      ],
+      "impression": [
+        "コンパクト",
+        "レトロ",
+        "つるつる"
+      ],
+      "distinctiveMarks": [
+        "正面の黒いパネルに周波数の目盛り",
+        "正面に白いロゴの文字",
+        "下に小さな支柱",
+        "手前がぼやけて写っている"
+      ]
+    },
+    "name": "ラジオペタン",
+    "encyclopediaText": "小さな体で遠くの空を飛ぶ音の波をつかまえ、黒い顔の目盛りをじっと見つめて聞き入る。つるつるの体に景色を映すのが好きで、静かな机の上で一日じゅう耳をすましている。",
+    "decoration": {
+      "eyeStyle": "round",
+      "mouthStyle": "smile",
+      "limbStyle": "stubby",
+      "auraStyle": "spark",
+      "eyeCenterX": 0.56,
+      "eyeCenterY": 0.53,
+      "eyeScale": 0.12,
+      "outlineColorHex": "#FF8C00"
+    },
+    "containsPerson": false
+  },
+  "04": {
+    "description": {
+      "what": "トゲのあるアザミの花のつぼみ",
+      "colors": [
+        "深緑",
+        "白",
+        "赤紫"
+      ],
+      "materials": [
+        "植物"
+      ],
+      "size": "small",
+      "hardness": "medium",
+      "temperature": "neutral",
+      "uses": [
+        "観賞"
+      ],
+      "impression": [
+        "とげとげ",
+        "するどい"
+      ],
+      "distinctiveMarks": [
+        "つぼみが3つ並んでいる",
+        "先端にわずかに赤紫の花が見える"
+      ]
+    },
+    "name": "トゲボウズ",
+    "encyclopediaText": "3つの頭をよせあって暮らす、とげとげのモンスター。近づかれるとトゲをぴんと広げ、てっぺんにこっそり赤紫の花をさかせる。",
+    "decoration": {
+      "eyeStyle": "sharp",
+      "mouthStyle": "fang",
+      "limbStyle": "stubby",
+      "auraStyle": "leaf",
+      "eyeCenterX": 0.4,
+      "eyeCenterY": 0.4,
+      "eyeScale": 0.12,
+      "outlineColorHex": "#E07A1F"
+    },
+    "containsPerson": false
+  },
+  "05": {
+    "description": {
+      "what": "白い鉢に植えられた白い斑点のある多肉植物",
+      "colors": [
+        "緑",
+        "白"
+      ],
+      "materials": [
+        "植物",
+        "陶器"
+      ],
+      "size": "small",
+      "hardness": "medium",
+      "temperature": "neutral",
+      "uses": [
+        "観賞",
+        "室内の飾り"
+      ],
+      "impression": [
+        "とげとげ",
+        "すっきり",
+        "さわやか"
+      ],
+      "distinctiveMarks": [
+        "葉に並ぶ白い粒々の模様",
+        "放射状に広がる細長い葉",
+        "白い丸い鉢"
+      ]
+    },
+    "name": "ツブハトゲラ",
+    "encyclopediaText": "白い鉢の中でとがった葉を四方に広げ、ひなたでじっと光を集めている。葉の白い粒々はおひさまの光をためた印で、晴れた日ほど粒がきらきら光る。",
+    "decoration": {
+      "eyeStyle": "sharp",
+      "mouthStyle": "smile",
+      "limbStyle": "stubby",
+      "auraStyle": "leaf",
+      "eyeCenterX": 0.56,
+      "eyeCenterY": 0.55,
+      "eyeScale": 0.12,
+      "outlineColorHex": "#1E3A2A"
+    },
+    "containsPerson": false
+  },
+  "08": {
+    "containsPerson": false,
+    "name": "プカアヒラ",
+    "encyclopediaText": "水面にぷかぷか浮かびながら、のんびりと一日を過ごす。オレンジ色のくちばしをぱくぱく動かして、水に映る自分の姿とおしゃべりするのが好き。",
+    "description": {
+      "what": "黄色いゴムのアヒルのおもちゃ",
+      "colors": [
+        "黄色",
+        "オレンジ",
+        "黒"
+      ],
+      "materials": [
+        "ゴム"
+      ],
+      "size": "small",
+      "hardness": "soft",
+      "temperature": "neutral",
+      "uses": [
+        "お風呂遊び",
+        "水遊び"
+      ],
+      "impression": [
+        "まるい",
+        "かわいい",
+        "のんびり"
+      ],
+      "distinctiveMarks": [
+        "水面に姿が映っている",
+        "くちばしが少し開いている"
+      ]
+    },
+    "decoration": {
+      "eyeStyle": "round",
+      "mouthStyle": "smile",
+      "limbStyle": "wings",
+      "auraStyle": "bubble",
+      "eyeCenterX": 0.48,
+      "eyeCenterY": 0.38,
+      "eyeScale": 0.12,
+      "outlineColorHex": "#1E4FA0"
+    }
+  },
+  "08b": {
+    "description": {
+      "what": "黄色いゴムのアヒルのおもちゃ",
+      "colors": [
+        "黄色",
+        "オレンジ",
+        "黒"
+      ],
+      "materials": [
+        "ゴム"
+      ],
+      "size": "small",
+      "hardness": "soft",
+      "temperature": "neutral",
+      "uses": [
+        "お風呂遊び",
+        "飾り"
+      ],
+      "impression": [
+        "まるっこい",
+        "にこやか",
+        "ぷかぷか"
+      ],
+      "distinctiveMarks": [
+        "オレンジ色のくちばし",
+        "黒い描かれた目",
+        "水面に浮かんでいる"
+      ]
+    },
+    "name": "プカアヒル",
+    "encyclopediaText": "お風呂の水面にぷかぷか浮かんで、ゆったりと泳ぐのが大好きなモンスター。ぎゅっとにぎられると、オレンジ色のくちばしからかわいい声で返事をする。",
+    "decoration": {
+      "eyeStyle": "round",
+      "mouthStyle": "smile",
+      "limbStyle": "wings",
+      "auraStyle": "bubble",
+      "eyeCenterX": 0.62,
+      "eyeCenterY": 0.4,
+      "eyeScale": 0.12,
+      "outlineColorHex": "#1E4FA0"
+    },
+    "containsPerson": false
+  },
+  "09": {
+    "description": {
+      "what": "黄色いゴムのアヒルのおもちゃ",
+      "colors": [
+        "黄色",
+        "オレンジ",
+        "金色",
+        "白"
+      ],
+      "materials": [
+        "ゴム",
+        "プラスチック"
+      ],
+      "size": "small",
+      "hardness": "soft",
+      "temperature": "neutral",
+      "uses": [
+        "お風呂遊び",
+        "飾り"
+      ],
+      "impression": [
+        "にぎやか",
+        "ぴかぴか",
+        "かわいい"
+      ],
+      "distinctiveMarks": [
+        "金色のシャツの模様",
+        "片手に白いサイコロ",
+        "もう片手にトランプ",
+        "胴体に文字のプリント"
+      ]
+    },
+    "name": "キンピカアヒル",
+    "encyclopediaText": "金色のシャツを着てお風呂にぷかぷか浮かぶのが大好きなモンスター。両手に小さな白い四角とカードを持ち歩き、仲間に見せてはにっこり笑う。",
+    "decoration": {
+      "eyeStyle": "round",
+      "mouthStyle": "smile",
+      "limbStyle": "stubby",
+      "auraStyle": "bubble",
+      "eyeCenterX": 0.6,
+      "eyeCenterY": 0.31,
+      "eyeScale": 0.12,
+      "outlineColorHex": "#1E3A8A"
+    },
+    "containsPerson": false
+  },
+  "15b": {
+    "description": {
+      "what": "黒い持ち手のハサミ(2本が交差している)",
+      "colors": [
+        "黒",
+        "銀色",
+        "灰色"
+      ],
+      "materials": [
+        "金属",
+        "プラスチック"
+      ],
+      "size": "small",
+      "hardness": "hard",
+      "temperature": "cold",
+      "uses": [
+        "紙を切る",
+        "布を切る"
+      ],
+      "impression": [
+        "するどい",
+        "シャープ"
+      ],
+      "distinctiveMarks": [
+        "2本が交差して重なっている",
+        "刃に細かいすり傷",
+        "持ち手に刻まれた文字のような模様",
+        "丸い灰色の留め具"
+      ]
+    },
+    "name": "チョキクロス",
+    "encyclopediaText": "いつも2ひきで刃を重ねあい、なかよく十字の形をつくって休んでいる。紙を見つけると黒い輪っかの手をカチカチ鳴らし、まっすぐきれいに切りそろえてくれる。",
+    "decoration": {
+      "eyeStyle": "sharp",
+      "mouthStyle": "smile",
+      "limbStyle": "none",
+      "auraStyle": "spark",
+      "eyeCenterX": 0.5,
+      "eyeCenterY": 0.42,
+      "eyeScale": 0.08,
+      "outlineColorHex": "#FF8C00"
+    },
+    "containsPerson": false
+  },
+  "28b": {
+    "description": {
+      "what": "ミルク入りの飲み物が入った白いカップ",
+      "colors": [
+        "白",
+        "ベージュ",
+        "茶色"
+      ],
+      "materials": [
+        "陶器",
+        "食べ物"
+      ],
+      "size": "small",
+      "hardness": "hard",
+      "temperature": "warm",
+      "uses": [
+        "飲み物を飲む",
+        "ひと休み"
+      ],
+      "impression": [
+        "ほっこり",
+        "まるい"
+      ],
+      "distinctiveMarks": [
+        "表面の細かい泡",
+        "そばに置かれた丸いクッキー2枚"
+      ]
+    },
+    "name": "カフェモコン",
+    "encyclopediaText": "白いからだの中にあたたかいミルク色の泉をたくわえ、表面にこまかい泡をうかべて満足そうにしている。いつも丸いクッキーをそばに連れて歩き、つかれた人のとなりにそっと座ってひと休みさせてくれる。",
+    "decoration": {
+      "eyeStyle": "sleepy",
+      "mouthStyle": "smile",
+      "limbStyle": "stubby",
+      "auraStyle": "soft",
+      "eyeCenterX": 0.63,
+      "eyeCenterY": 0.6,
+      "eyeScale": 0.15,
+      "outlineColorHex": "#5A3A22"
+    },
+    "containsPerson": false
+  }
+}

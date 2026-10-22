@@ -4,39 +4,48 @@
     "elementTypes": [
       {
         "id": "metal",
-        "displayName": "金属"
+        "displayName": "金属",
+        "description": "主な素材が金属 (鉄・ステンレス・アルミ・銅・ホーロー・ブリキ・メッキ) の物"
       },
       {
         "id": "plant",
-        "displayName": "植物"
+        "displayName": "植物",
+        "description": "生きている植物 (草花・観葉植物・サボテン・多肉植物・苗・葉っぱ) の物"
       },
       {
         "id": "water",
-        "displayName": "水"
+        "displayName": "水",
+        "description": "水や液体を入れる・運ぶ・浴びる物、または水の中や水辺のもの (水筒・やかん・コップの中の水・じょうろ・貝殻・雨具)"
       },
       {
         "id": "heat",
-        "displayName": "熱"
+        "displayName": "熱",
+        "description": "熱を出す・熱い物を扱う・火に関わる物 (ろうそく・ライター・コンロ・鍋・やかん・アイロン・温かい飲み物・暖房)"
       },
       {
         "id": "paper",
-        "displayName": "紙"
+        "displayName": "紙",
+        "description": "主な素材が紙・段ボール・本・カードの物"
       },
       {
         "id": "cloth",
-        "displayName": "布"
+        "displayName": "布",
+        "description": "主な素材が布・糸・毛糸・革・フェルト・綿の物 (服・ぬいぐるみ・かばん・タオル)"
       },
       {
         "id": "plastic",
-        "displayName": "樹脂"
+        "displayName": "樹脂",
+        "description": "主な素材がプラスチック・ゴム・ビニール・樹脂の物"
       },
       {
         "id": "electric",
-        "displayName": "電気"
+        "displayName": "電気",
+        "description": "電気や電池で動く・電気を通す・光を出す物 (家電・電子機器・電球・電池・ケーブル)"
       },
       {
         "id": "food",
-        "displayName": "食べ物"
+        "displayName": "食べ物",
+        "description": "食べられる物・飲める物 (料理・お菓子・果物・野菜・パン・飲み物)"
       }
     ],
     "typeChart": {

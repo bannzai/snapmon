@@ -14,4 +14,5 @@ initializeApp();
 
 export { recordBattle, startBattle } from "./battle";
 export { confirmAge } from "./confirm_age";
+export { generate, resumeGenerationTask as resumeGeneration } from "./generation/generate";
 export { healthCheck } from "./health_check";
