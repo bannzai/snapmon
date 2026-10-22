@@ -174,7 +174,11 @@ class _BattleScreenState extends State<BattleScreen> {
       }
     }
     setState(() {
-      _displayedActiveMembers = _activeMembersOf(state: nextState);
+      // 決着した状態は場の手持ちのレベルが上がった後のため写さない。場のカードに確定していないレベルを出さないため
+      // (HP・交代は各ログの演出で反映済みで、確定したレベルは勝敗の画面に出す)
+      if (nextState.winner == null) {
+        _displayedActiveMembers = _activeMembersOf(state: nextState);
+      }
       _isPlaying = false;
     });
     if (nextState.winner != null) {

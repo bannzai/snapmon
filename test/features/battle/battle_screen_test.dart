@@ -151,6 +151,9 @@ void main() {
     // 記録に失敗した対戦はサーバーと食い違わないよう、図鑑のレベルを変えない
     expect(levelChanges, isEmpty);
     expect(find.textContaining('Lv. 7 →'), findsNothing);
+    // 場のカードも確定していない上がった後のレベル (8) を出さない
+    expect(find.text('Lv. 7'), findsOneWidget);
+    expect(find.text('Lv. 8'), findsNothing);
   });
 
   testWidgets('技を使うと被弾した側に属性のパーティクルが出て、演出の間は技を選べない', (tester) async {
