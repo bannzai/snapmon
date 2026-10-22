@@ -89,6 +89,10 @@ describe("buildJudgeRequest / readJudgeResponse", () => {
       },
     });
     expect(judged.elementProbabilities).toEqual({ metal: 0.8 });
+    // 属性の答えが 1 つも無い応答は判定待ちに回す
+    expect(() =>
+      readJudgeResponse({ statGrades: master.statGrades, response: { model: "jev-1.13.0", usage: { input_tokens: 0, output_tokens: 0 }, answers: {} } }),
+    ).toThrow(JevUnavailableError);
     expect(judged.statGradeIds).toEqual({ hitPoints: "veryLow", attack: "veryHigh", defense: "medium", speed: "high" });
   });
 });

@@ -304,6 +304,10 @@ export function readJudgeResponse({
       moveProbabilitiesByElement[id] = answer.probabilities;
     }
   }
+  if (Object.keys(elementProbabilities).length === 0) {
+    // 属性の問いに 1 つも答えていない応答は、属性を選べない (既存の属性に寄せることもできない) ため、Jev が答えなかった時と同じく判定待ちにする
+    throw new JevUnavailableError("Jev の応答に属性の答えがありません");
+  }
   const gradeOf = (statKind: (typeof STAT_KINDS)[number]) => {
     const answer = response.answers[`stat__${statKind}`];
     if (answer?.type !== "score") {

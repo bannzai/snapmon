@@ -20,6 +20,12 @@ export const CLAUDE_MODEL = "claude-opus-5-5";
 /** 出力の上限。説明・名前・文章・装飾の JSON は実測で 800 トークン前後 (ADR 0002) のため、思考の分を含めて余裕を持たせた。 */
 const MAX_TOKENS = 8_000;
 
+/**
+ * 1 回の呼び出しの待ち時間 (ミリ秒) と再試行の回数。SDK の既定 (10 分・2 回) のままだと、関数のタイムアウト (generate.ts の 300 秒)
+ * を過ぎても応答を待ち続けるため、2 回分 (120 秒) が関数のタイムアウトに収まる値にした。
+ */
+const CLAUDE_REQUEST_OPTIONS = { timeout: 60_000, maxRetries: 1 };
+
 /** Claude のトークンの使用量。原価の実測のため生成レコードに残す。 */
 export interface ClaudeUsage {
   /** 入力トークン数。 */
@@ -64,7 +70,7 @@ async function createStructuredMessage({
     output_config: { effort: "low", format: { type: "json_schema", schema } },
     system,
     messages: [{ role: "user", content }],
-  });
+  }, CLAUDE_REQUEST_OPTIONS);
   if (response.stop_reason === "refusal") {
     throw new ClaudeRefusalError("Claude が安全上の理由で答えませんでした");
   }

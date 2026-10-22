@@ -35,6 +35,8 @@ export interface GenerationRecord {
   inputKey: string;
   /** 処理の予約の期限。期限までは別の実行が同じレコードを処理しない。 */
   leaseExpiresAt: Timestamp;
+  /** 今の予約のトークン。予約を取るたびに変わり、古い実行が引き継がれた後の結果を書かないための照合に使う。 */
+  leaseToken: string;
   /** 予約を取った回数 (呼び出しと、期限切れの引き継ぎ)。上限を超えたら failed にする。 */
   attemptCount: number;
   /** 判定待ちから再試行した回数。 */

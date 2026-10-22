@@ -368,7 +368,8 @@ describe("generate", () => {
   it("Claude の一時的なエラーで落ちた生成は、再試行のタスクが済んだ段階を飛ばして続きから完了する", async () => {
     const mocks = createMocks({ describeFailureCount: 1 });
     const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
-    await expect(handleGenerateRequest(mocks.dependencies, ageVerifiedRequest({ uid: "alice", data }))).rejects.toThrow("一時的なエラー");
+    // 再試行に回した生成は、クライアントには処理中として返す (同じ要求 ID で問い合わせ直せばよい)
+    expect((await handleGenerateRequest(mocks.dependencies, ageVerifiedRequest({ uid: "alice", data }))).status).toBe("processing");
     expect(await generationRecord({ uid: "alice", requestId: data.requestId })).toMatchObject({ status: "processing", completedStage: "cutout" });
     expect(mocks.enqueued.at(-1)).toEqual({ uid: "alice", requestId: data.requestId, purpose: "lease", delaySeconds: 60 });
 
@@ -382,9 +383,23 @@ describe("generate", () => {
   it("再試行のタスクの中で段階が失敗しても、次のタスクを積んでタスクは成功で終える (Cloud Tasks に再配送させない)", async () => {
     const mocks = createMocks({ describeFailureCount: 2 });
     const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
-    await expect(handleGenerateRequest(mocks.dependencies, ageVerifiedRequest({ uid: "alice", data }))).rejects.toThrow();
+    expect((await handleGenerateRequest(mocks.dependencies, ageVerifiedRequest({ uid: "alice", data }))).status).toBe("processing");
     expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "lease" })).status).toBe("processing");
     expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "lease" })).status).toBe("saved");
+  });
+
+  it("予約の期限を過ぎて別の実行に引き継がれた後は、古い実行が段階の結果も終了状態も書かない", async () => {
+    const mocks = createMocks({ description: { ...descriptions["01"], containsPerson: true } });
+    const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
+    const describe = mocks.dependencies.describeSubject;
+    mocks.dependencies.describeSubject = async (cutout) => {
+      // Claude の応答を待っている間に、引き継いだ実行が保存まで済ませた状態を作る
+      await firestore.doc(`users/alice/generations/${data.requestId}`).update({ leaseToken: "taken-over", status: "saved" });
+      return describe(cutout);
+    };
+    const result = await handleGenerateRequest(mocks.dependencies, ageVerifiedRequest({ uid: "alice", data }));
+    expect(result.status).toBe("saved");
+    expect(await generationRecord({ uid: "alice", requestId: data.requestId })).toMatchObject({ status: "saved", leaseToken: "taken-over" });
   });
 
   it("後から受け付けて dedupe を済ませた保存前の生成も、先の生成の候補にする", async () => {

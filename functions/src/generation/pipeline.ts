@@ -3,7 +3,7 @@
 // 冪等性: 要求 ID ごとのレコードを予約 (lease) してから段階を進め、各段階の結果をレコードに書く。再試行は済んだ段階を飛ばすため、
 // 有料の API (Vision・Claude・Jev) を同じ段階で 2 回呼ばない。例外は、段階の途中で落ちた時 (結果を書く前) の 1 回分。
 
-import { createHash } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 
 import { FieldValue, type Firestore, Timestamp, type Transaction } from "firebase-admin/firestore";
 import type { getStorage } from "firebase-admin/storage";
@@ -254,6 +254,7 @@ export async function startGeneration(
   // 予約より先に積む (予約の後で積むのに失敗すると、引き継ぐタスクの無い予約が残るため)。予約しなかった時のタスクは、
   // レコードが無いか予約の取れない状態を見て何もしない。
   await enqueueLeaseRecovery(dependencies, { uid, requestId });
+  const leaseToken = randomUUID();
   const reservation = await firestore.runTransaction(async (transaction): Promise<GenerationResult | "reserved"> => {
     // failed と、Claude の応答で結果が揺れる拒否は使い回さない (撮り直さずに同じ写真で再挑戦できるように)。
     // 状態は複合インデックスを増やさないようコードで絞る。
@@ -295,6 +296,7 @@ export async function startGeneration(
       maskPath,
       inputKey,
       leaseExpiresAt,
+      leaseToken,
       attemptCount: 1,
       judgeRetryCount: 0,
       createdAt: Timestamp.fromDate(now),
@@ -312,7 +314,25 @@ export async function startGeneration(
     }
     return reservation;
   }
-  return advanceGeneration(dependencies, { uid, requestId });
+  return advanceGenerationForCaller(dependencies, { uid, requestId, leaseToken });
+}
+
+/**
+ * callable とタスクから予約を取った生成を進める。段階が一時的なエラーで落ちた時は、再試行のタスクを積み終えているため、
+ * 投げずに処理中の結果を返す (クライアントは同じ要求 ID で問い合わせ直せばよく、タスクは Cloud Tasks に再配送させない)。
+ */
+async function advanceGenerationForCaller(
+  dependencies: GenerationDependencies,
+  { uid, requestId, leaseToken }: { uid: string; requestId: string; leaseToken: string },
+): Promise<GenerationResult> {
+  try {
+    return await advanceGeneration(dependencies, { uid, requestId, leaseToken });
+  } catch (error) {
+    if (error instanceof StageRetryScheduledError) {
+      return generationResult({ requestId, record: (await generationDocument({ firestore: dependencies.firestore, uid, requestId }).get()).data() as GenerationRecord });
+    }
+    throw error;
+  }
 }
 
 /**
@@ -333,10 +353,10 @@ async function continueExistingGeneration(
   }
   await enqueueLeaseRecovery(dependencies, { uid, requestId });
   const acquired = await acquireLease(dependencies, { uid, requestId, resumingFromPendingJudge: false });
-  if (acquired !== "acquired") {
+  if (!("leaseToken" in acquired)) {
     return acquired;
   }
-  return advanceGeneration(dependencies, { uid, requestId });
+  return advanceGenerationForCaller(dependencies, { uid, requestId, leaseToken: acquired.leaseToken });
 }
 
 /**
@@ -355,8 +375,8 @@ function assertGenerationLockAvailable({ lock, requestId, now }: { lock: { reque
 }
 
 /**
- * 既存のレコードの予約を取る。取れたら "acquired"、取れない (終了状態・予約中・判定待ちで再試行からの呼び出しでない) なら現在の結果を返す。
- * 予約を取る回数が上限を超えたら failed にする。
+ * 既存のレコードの予約を取る。取れたら新しい予約のトークン (`leaseToken`)、取れない (終了状態・予約中・判定待ちで再試行からの
+ * 呼び出しでない) なら現在の結果を返す。予約を取る回数が上限を超えたら failed にする。
  */
 async function acquireLease(
   dependencies: GenerationDependencies,
@@ -366,10 +386,11 @@ async function acquireLease(
     resumingFromPendingJudge,
     judgeAttempt,
   }: { uid: string; requestId: string; resumingFromPendingJudge: boolean; judgeAttempt?: number },
-): Promise<GenerationResult | "acquired"> {
+): Promise<GenerationResult | { leaseToken: string }> {
   const { firestore } = dependencies;
   const document = generationDocument({ firestore, uid, requestId });
   const now = dependencies.now();
+  const leaseToken = randomUUID();
   const outcome = await firestore.runTransaction(async (transaction): Promise<GenerationResult | "acquired" | "exhausted"> => {
     const snapshot = await transaction.get(document);
     const record = snapshot.data() as GenerationRecord;
@@ -390,6 +411,7 @@ async function acquireLease(
     transaction.update(document, {
       status: "processing",
       leaseExpiresAt,
+      leaseToken,
       updatedAt: Timestamp.fromDate(now),
       ...(isWaitingJudge ? { judgeRetryCount: FieldValue.increment(1) } : { attemptCount: FieldValue.increment(1) }),
     });
@@ -398,7 +420,7 @@ async function acquireLease(
   if (outcome === "exhausted") {
     return finishGeneration(dependencies, { uid, requestId, update: { status: "failed", failureMessage: `予約を ${MAXIMUM_ATTEMPT_COUNT} 回取っても終わりませんでした` } });
   }
-  return outcome;
+  return outcome === "acquired" ? { leaseToken } : outcome;
 }
 
 /**
@@ -439,7 +461,7 @@ export async function resumeGeneration(dependencies: GenerationDependencies, { u
     return generationResult({ requestId, record });
   }
   await enqueueLeaseRecovery(dependencies, { uid, requestId });
-  let acquired: GenerationResult | "acquired";
+  let acquired: GenerationResult | { leaseToken: string };
   try {
     acquired = await acquireLease(dependencies, { uid, requestId, resumingFromPendingJudge: purpose === "judge", judgeAttempt });
   } catch (error) {
@@ -453,18 +475,10 @@ export async function resumeGeneration(dependencies: GenerationDependencies, { u
     }
     throw error;
   }
-  if (acquired !== "acquired") {
+  if (!("leaseToken" in acquired)) {
     return acquired;
   }
-  try {
-    return await advanceGeneration(dependencies, { uid, requestId });
-  } catch (error) {
-    // 段階の失敗は再試行のタスクを積み終えているため、タスクとしては成功で終える (Cloud Tasks に同じタスクを再配送させないため)
-    if (error instanceof StageRetryScheduledError) {
-      return generationResult({ requestId, record: (await generationDocument({ firestore: dependencies.firestore, uid, requestId }).get()).data() as GenerationRecord });
-    }
-    throw error;
-  }
+  return advanceGenerationForCaller(dependencies, { uid, requestId, leaseToken: acquired.leaseToken });
 }
 
 /** 段階の処理が返す、レコードへの書き込みと次の行き先。 */
@@ -472,12 +486,19 @@ type StageOutcome =
   | { kind: "next"; update: Partial<GenerationRecord> }
   | { kind: "finish"; update: Partial<GenerationRecord> & { status: GenerationRecord["status"] } };
 
-/** 予約を取った生成を、終了状態か判定待ちになるまで段階ごとに進める。 */
-async function advanceGeneration(dependencies: GenerationDependencies, { uid, requestId }: { uid: string; requestId: string }): Promise<GenerationResult> {
-  const document = generationDocument({ firestore: dependencies.firestore, uid, requestId });
+/**
+ * 予約を取った生成を、終了状態か判定待ちになるまで段階ごとに進める。`leaseToken` は予約を取った時のトークンで、
+ * レコードのトークンが変わっていたら (予約の期限を過ぎて別の実行に引き継がれた) 何も書かずに抜ける。
+ */
+async function advanceGeneration(
+  dependencies: GenerationDependencies,
+  { uid, requestId, leaseToken }: { uid: string; requestId: string; leaseToken: string },
+): Promise<GenerationResult> {
+  const { firestore } = dependencies;
+  const document = generationDocument({ firestore, uid, requestId });
   for (;;) {
     const record = (await document.get()).data() as GenerationRecord;
-    if (record.status !== "processing") {
+    if (record.status !== "processing" || record.leaseToken !== leaseToken) {
       return generationResult({ requestId, record });
     }
     const nextStage = GENERATION_STAGES[GENERATION_STAGES.indexOf(record.completedStage) + 1];
@@ -498,53 +519,75 @@ async function advanceGeneration(dependencies: GenerationDependencies, { uid, re
           judgeAttempt: record.judgeRetryCount,
           taskId: `${uid}-${requestId}-judge-${record.judgeRetryCount}`,
         });
-        await releaseLock(dependencies, { uid, requestId, update: { status: "pending_judge" } });
-        return { requestId, status: "pending_judge" };
+        return generationResult({ requestId, record: await releaseLock(dependencies, { uid, requestId, leaseToken, update: { status: "pending_judge" } }) });
       }
       if (error instanceof ClaudeRefusalError) {
-        return finishGeneration(dependencies, { uid, requestId, update: { status: "rejected", rejectionReason: "refused" } });
+        return finishGeneration(dependencies, { uid, requestId, leaseToken, update: { status: "rejected", rejectionReason: "refused" } });
       }
       if (error instanceof InputChangedError) {
-        return finishGeneration(dependencies, { uid, requestId, update: { status: "failed", failureMessage: error.message } });
+        return finishGeneration(dependencies, { uid, requestId, leaseToken, update: { status: "failed", failureMessage: error.message } });
       }
       // それ以外 (Claude・Vision・Storage の一時的なエラー) は、予約を今すぐ切れた扱いにしてロックを外し、少し後の再試行に引き継ぐ。
       // 予約を取る回数の上限 (MAXIMUM_ATTEMPT_COUNT) で、直らない失敗は failed になる。
       logger.error("生成の段階が失敗しました。再試行に回します", { uid, requestId, stage: nextStage, error });
-      await releaseLock(dependencies, { uid, requestId, update: { leaseExpiresAt: Timestamp.fromDate(dependencies.now()) } });
+      await releaseLock(dependencies, { uid, requestId, leaseToken, update: { leaseExpiresAt: Timestamp.fromDate(dependencies.now()) } });
       await dependencies.enqueueResume({ uid, requestId, purpose: "lease", delaySeconds: FAILED_STAGE_RETRY_DELAY_SECONDS });
       throw new StageRetryScheduledError(error);
     }
     if (outcome.kind === "finish") {
-      return finishGeneration(dependencies, { uid, requestId, update: outcome.update });
+      return finishGeneration(dependencies, { uid, requestId, leaseToken, update: outcome.update });
     }
-    await document.update({ ...outcome.update, completedStage: nextStage, updatedAt: Timestamp.fromDate(dependencies.now()) });
+    const written = await firestore.runTransaction(async (transaction) => {
+      const current = (await transaction.get(document)).data() as GenerationRecord;
+      if (current.status !== "processing" || current.leaseToken !== leaseToken) {
+        return false;
+      }
+      transaction.update(document, { ...outcome.update, completedStage: nextStage, updatedAt: Timestamp.fromDate(dependencies.now()) });
+      return true;
+    });
+    if (!written) {
+      logger.warn("予約が別の実行に引き継がれたため、段階の結果を書かずに抜けます", { uid, requestId, stage: nextStage });
+    }
   }
 }
 
-/** uid の生成中ロックを、自分の要求 ID のものなら外し、レコードに書く。 */
+/**
+ * uid の生成中ロックを、自分の要求 ID のものなら外し、レコードに書く。`leaseToken` を渡した時は、レコードが処理中でそのトークンの
+ * 予約のままの時だけ書く (予約の期限を過ぎて引き継がれた後に、古い実行が結果を上書きしないため)。書いた後か、書かなかった時は今の
+ * レコードを返す。
+ */
 async function releaseLock(
   dependencies: GenerationDependencies,
-  { uid, requestId, update }: { uid: string; requestId: string; update: Partial<GenerationRecord> },
+  { uid, requestId, leaseToken, update }: { uid: string; requestId: string; leaseToken?: string; update: Partial<GenerationRecord> },
 ): Promise<GenerationRecord> {
   const { firestore } = dependencies;
   const document = generationDocument({ firestore, uid, requestId });
   return firestore.runTransaction(async (transaction) => {
     const userDocument = firestore.doc(`users/${uid}`);
     const [userSnapshot, snapshot] = await Promise.all([transaction.get(userDocument), transaction.get(document)]);
+    const current = snapshot.data() as GenerationRecord;
+    if (leaseToken !== undefined && (current.status !== "processing" || current.leaseToken !== leaseToken)) {
+      return current;
+    }
     if (userSnapshot.get("generationLock.requestId") === requestId) {
       transaction.update(userDocument, { generationLock: FieldValue.delete() });
     }
     transaction.update(document, { ...update, updatedAt: Timestamp.fromDate(dependencies.now()) });
-    return { ...(snapshot.data() as GenerationRecord), ...update };
+    return { ...current, ...update };
   });
 }
 
 /** 終了状態にし、ロックを外し、拒否・重複なら元の写真と中間のファイルを消す (ADR 0001「画像ストレージ」)。 */
 async function finishGeneration(
   dependencies: GenerationDependencies,
-  { uid, requestId, update }: { uid: string; requestId: string; update: Partial<GenerationRecord> & { status: GenerationRecord["status"] } },
+  {
+    uid,
+    requestId,
+    leaseToken,
+    update,
+  }: { uid: string; requestId: string; leaseToken?: string; update: Partial<GenerationRecord> & { status: GenerationRecord["status"] } },
 ): Promise<GenerationResult> {
-  const record = await releaseLock(dependencies, { uid, requestId, update });
+  const record = await releaseLock(dependencies, { uid, requestId, leaseToken, update });
   logger.info("生成を終えました", { uid, requestId, status: record.status, rejectionReason: record.rejectionReason, failureMessage: record.failureMessage });
   try {
     await deleteDiscardedFiles(dependencies, { uid, requestId, record });
@@ -569,7 +612,13 @@ async function deleteDiscardedFiles(
   if (!TERMINAL_GENERATION_STATUSES.includes(record.status) || record.filesDeleted) {
     return;
   }
-  await deleteFiles(dependencies.bucket, [record.status === "saved" ? undefined : record.photoPath, record.maskPath, record.cutoutPath]);
+  await deleteFiles(dependencies.bucket, [
+    record.status === "saved" ? undefined : record.photoPath,
+    record.maskPath,
+    record.cutoutPath,
+    // 保存の段階で絵を置いた後に failed になった生成の絵 (モンスターは保存されていない)。duplicate の monsterId は既存のモンスターなので消さない
+    record.status === "failed" && record.monsterId ? `monsters/${record.monsterId}/art.png` : undefined,
+  ]);
   await generationDocument({ firestore: dependencies.firestore, uid, requestId }).update({ filesDeleted: true });
 }
 
