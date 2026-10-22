@@ -11,7 +11,8 @@ let anthropicTokenCache: TokenCache | undefined;
  * `anthropicTokenExchange` は Claude API の WIF のトークン交換が成功するか (anthropic.ts)。トークンの値は返さない。
  *
  * App Check を必須にしない: デプロイ後に `curl` で応答を確かめるため (アプリ以外から呼べる必要がある)。
- * データにも有料の API にも触れない (トークン交換は課金されない) ため、App Check の対象から外しても弾くべき呼び出しが無い。
+ * データに触れず、Claude のメッセージ API も呼ばない (行うのはトークン交換だけで、交換したトークンはインスタンス内で期限まで使い回す) ため、
+ * App Check の対象から外しても弾くべき呼び出しが無い。
  */
 export const healthCheck = onRequest(async (_request, response) => {
   const provider = anthropicFederationProvider({ env: process.env, fetchFunction: fetch });
