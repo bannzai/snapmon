@@ -47,6 +47,9 @@ class _CaptureScreenState extends State<CaptureScreen>
   Object? _cameraError;
   bool _isTakingPicture = false;
 
+  /// カメラを開く試みの番号。開いている途中にアプリが裏に回る・開き直すと進み、古い試みの結果を捨てる目印にする。
+  int _cameraStartGeneration = 0;
+
   @override
   void initState() {
     super.initState();
@@ -66,6 +69,8 @@ class _CaptureScreenState extends State<CaptureScreen>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch (state) {
       case AppLifecycleState.inactive:
+        // 開いている途中の試みも、裏に回った後に開き終えたカメラを持たないよう無効にする
+        _cameraStartGeneration++;
         final cameraController = _cameraController;
         setState(() => _cameraController = null);
         cameraController?.dispose();
@@ -81,7 +86,10 @@ class _CaptureScreenState extends State<CaptureScreen>
   }
 
   /// 背面のカメラ (無ければ最初のカメラ) を開く。カメラが無い・開けない時は [_cameraError] に残す。
+  /// 開き終える前に次の試みが始まった・アプリが裏に回った時は、開いたカメラを捨てて結果を反映しない。
   Future<void> _startCamera() async {
+    final generation = ++_cameraStartGeneration;
+    bool isCurrent() => mounted && generation == _cameraStartGeneration;
     try {
       final cameras = await widget.monsterGenerator.listCameras();
       if (cameras.isEmpty) {
@@ -98,16 +106,18 @@ class _CaptureScreenState extends State<CaptureScreen>
         imageFormatGroup: ImageFormatGroup.jpeg,
       );
       await cameraController.initialize();
-      if (!mounted) {
+      if (!isCurrent()) {
         await cameraController.dispose();
         return;
       }
+      final previousCameraController = _cameraController;
       setState(() {
         _cameraController = cameraController;
         _cameraError = null;
       });
+      await previousCameraController?.dispose();
     } catch (error) {
-      if (mounted) {
+      if (isCurrent()) {
         setState(() => _cameraError = error);
       }
     }
