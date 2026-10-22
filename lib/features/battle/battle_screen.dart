@@ -105,6 +105,10 @@ class _BattleScreenState extends State<BattleScreen> {
   /// 勝敗の画面に出す、バトルの記録の状態の文言。決着前は null。
   String? _recordStatusText;
 
+  /// 決着の後に確定した自分のモンスターのレベル (monsterId ごと)。記録する対戦は Functions が返した値で、
+  /// 記録の待ち・失敗の間は空のまま (勝敗の画面に確定していないレベルアップを出さないため)。
+  Map<String, int> _appliedLevels = const {};
+
   @override
   void initState() {
     super.initState();
@@ -270,7 +274,7 @@ class _BattleScreenState extends State<BattleScreen> {
       if (battleId == null) {
         // 記録しない対戦は端末の計算のレベルを反映する。記録する対戦は Functions が成功した時だけ反映し、
         // 拒否された (1 日の上限等) 時にサーバーと食い違うレベルを残さない
-        widget.onPlayerLevelsChanged(
+        _applyPlayerLevels(
           levelsByMonsterId: {
             for (final levelUp in playerLevelUps)
               levelUp.monsterId: levelUp.newLevel,
@@ -289,7 +293,7 @@ class _BattleScreenState extends State<BattleScreen> {
         winner: finishedEvent.winner,
         turnCount: finishedEvent.turnNumber,
       );
-      widget.onPlayerLevelsChanged(levelsByMonsterId: recordedLevels);
+      _applyPlayerLevels(levelsByMonsterId: recordedLevels);
       if (mounted) {
         setState(() => _recordStatusText = _recordedText);
       }
@@ -297,6 +301,14 @@ class _BattleScreenState extends State<BattleScreen> {
       if (mounted) {
         setState(() => _recordStatusText = error.toString());
       }
+    }
+  }
+
+  /// 確定したレベル [levelsByMonsterId] を呼び出し元に渡し、勝敗の画面に出す。
+  void _applyPlayerLevels({required Map<String, int> levelsByMonsterId}) {
+    widget.onPlayerLevelsChanged(levelsByMonsterId: levelsByMonsterId);
+    if (mounted) {
+      setState(() => _appliedLevels = levelsByMonsterId);
     }
   }
 
@@ -374,7 +386,7 @@ class _BattleScreenState extends State<BattleScreen> {
               child: isFinished
                   ? _BattleResultPanel(
                       winner: _battleState.winner!,
-                      playerLevelUps: _playerLevelUpsOf(state: _battleState),
+                      appliedLevels: _appliedLevels,
                       playerParty: widget.playerParty,
                       recordStatusText: _recordStatusText,
                     )
@@ -498,15 +510,15 @@ class _BattleScreenState extends State<BattleScreen> {
 class _BattleResultPanel extends StatelessWidget {
   const _BattleResultPanel({
     required this.winner,
-    required this.playerLevelUps,
+    required this.appliedLevels,
     required this.playerParty,
     required this.recordStatusText,
   });
 
   final BattleSideId winner;
 
-  /// 戦闘に出た自分のモンスターのレベルアップ。
-  final List<LevelUpEvent> playerLevelUps;
+  /// 確定した自分のモンスターのレベル (monsterId ごと)。確定していない間は空。
+  final Map<String, int> appliedLevels;
 
   /// バトルの前の自分の手持ち (上がる前のレベルを出すため)。
   final List<OwnedMonster> playerParty;
@@ -532,33 +544,29 @@ class _BattleResultPanel extends StatelessWidget {
         style: SnapmonTextStyles.caption,
       ),
       const SizedBox(height: 12),
-      for (final (levelUp, monster) in [
-        for (final levelUp in playerLevelUps)
-          (
-            levelUp,
-            playerParty.firstWhere(
-              (monster) => monster.definition.id == levelUp.monsterId,
-            ),
-          ),
-      ])
-        Padding(
-          padding: const EdgeInsets.only(bottom: 8),
-          child: DecoratedBox(
-            decoration: const BoxDecoration(
-              color: SnapmonColors.card,
-              borderRadius: SnapmonRadii.button,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-              child: Text(
-                '${monster.definition.name}  Lv. ${monster.level} → ${levelUp.newLevel}',
-                style: SnapmonTextStyles.label.copyWith(
-                  color: SnapmonColors.textOnCard,
+      for (final monster in playerParty)
+        if (appliedLevels[monster.definition.id] case final newLevel?)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: DecoratedBox(
+              decoration: const BoxDecoration(
+                color: SnapmonColors.card,
+                borderRadius: SnapmonRadii.button,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 10,
+                ),
+                child: Text(
+                  '${monster.definition.name}  Lv. ${monster.level} → $newLevel',
+                  style: SnapmonTextStyles.label.copyWith(
+                    color: SnapmonColors.textOnCard,
+                  ),
                 ),
               ),
             ),
           ),
-        ),
       if (recordStatusText != null) ...[
         const SizedBox(height: 4),
         Text(

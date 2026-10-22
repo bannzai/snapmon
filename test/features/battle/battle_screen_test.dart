@@ -88,7 +88,8 @@ void main() {
     await playUntilFinished(tester: tester);
     expect(find.text('かった'), findsOneWidget);
     expect(
-      find.text('${strongPlayer.definition.name}  Lv. 7 → 8'),
+      // 端末の計算 (8) ではなく Functions が返したレベル (9) を出す
+      find.text('${strongPlayer.definition.name}  Lv. 7 → 9'),
       findsOneWidget,
     );
     expect(find.text('記録しました'), findsOneWidget);
@@ -126,6 +127,10 @@ void main() {
     expect(levelChanges, [
       {strongPlayer.definition.id: 8},
     ]);
+    expect(
+      find.text('${strongPlayer.definition.name}  Lv. 7 → 8'),
+      findsOneWidget,
+    );
     expect(calls.loggedEvents, hasLength(1));
   });
 
@@ -145,6 +150,7 @@ void main() {
     expect(calls.completedBattles, isEmpty);
     // 記録に失敗した対戦はサーバーと食い違わないよう、図鑑のレベルを変えない
     expect(levelChanges, isEmpty);
+    expect(find.textContaining('Lv. 7 →'), findsNothing);
   });
 
   testWidgets('技を使うと被弾した側に属性のパーティクルが出て、演出の間は技を選べない', (tester) async {
