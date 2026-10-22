@@ -78,5 +78,7 @@ Future<Uint8List> renderWidgetToPng({
       ..finalizeTree();
     pipelineOwner.rootNode = null;
     pipelineOwner.dispose();
+    // Web では FocusManager がアプリのライフサイクルの監視を登録するため、描画ごとに作った分を外す
+    buildOwner.focusManager.dispose();
   }
 }
