@@ -98,7 +98,8 @@ void main() {
     );
     expect(
       selectElementTypeIds(
-        elementProbabilities: {'metal': 0.49, 'water': 0.1},
+        // 閾値 (master の elementSelection.probabilityThreshold = 0.4) のすぐ下
+        elementProbabilities: {'metal': 0.39, 'water': 0.1},
         master: master,
       ),
       isEmpty,

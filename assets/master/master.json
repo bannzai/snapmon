@@ -3,51 +3,63 @@
   "elementTypes": [
     {
       "id": "metal",
-      "displayName": "金属"
+      "displayName": "金属",
+      "description": "主な素材が金属 (鉄・ステンレス・アルミ・銅・ホーロー・ブリキ・メッキ) の物"
     },
     {
       "id": "wood",
-      "displayName": "木"
+      "displayName": "木",
+      "description": "主な素材が木材 (木の板・木の家具・竹・コルク・木の枝・松ぼっくり) の物"
     },
     {
       "id": "plant",
-      "displayName": "植物"
+      "displayName": "植物",
+      "description": "生きている植物 (草花・観葉植物・サボテン・多肉植物・苗・葉っぱ) の物"
     },
     {
       "id": "water",
-      "displayName": "水"
+      "displayName": "水",
+      "description": "水や液体を入れる・運ぶ・浴びる物、または水の中や水辺のもの (水筒・やかん・コップの中の水・じょうろ・貝殻・雨具)"
     },
     {
       "id": "heat",
-      "displayName": "熱"
+      "displayName": "熱",
+      "description": "熱を出す・熱い物を扱う・火に関わる物 (ろうそく・ライター・コンロ・鍋・やかん・アイロン・温かい飲み物・暖房)"
     },
     {
       "id": "stone",
-      "displayName": "石"
+      "displayName": "石",
+      "description": "主な素材が石・岩・陶器・磁器・コンクリート・砂の物"
     },
     {
       "id": "paper",
-      "displayName": "紙"
+      "displayName": "紙",
+      "description": "主な素材が紙・段ボール・本・カードの物"
     },
     {
       "id": "cloth",
-      "displayName": "布"
+      "displayName": "布",
+      "description": "主な素材が布・糸・毛糸・革・フェルト・綿の物 (服・ぬいぐるみ・かばん・タオル)"
     },
     {
       "id": "glass",
-      "displayName": "ガラス"
+      "displayName": "ガラス",
+      "description": "主な素材がガラス (瓶・グラス・ガラスの容器・レンズ・鏡) の物"
     },
     {
       "id": "plastic",
-      "displayName": "樹脂"
+      "displayName": "樹脂",
+      "description": "主な素材がプラスチック・ゴム・ビニール・樹脂の物"
     },
     {
       "id": "electric",
-      "displayName": "電気"
+      "displayName": "電気",
+      "description": "電気や電池で動く・電気を通す・光を出す物 (家電・電子機器・電球・電池・ケーブル)"
     },
     {
       "id": "food",
-      "displayName": "食べ物"
+      "displayName": "食べ物",
+      "description": "食べられる物・飲める物 (料理・お菓子・果物・野菜・パン・飲み物)"
     }
   ],
   "typeChart": {
@@ -720,7 +732,159 @@
     }
   ],
   "elementSelection": {
-    "probabilityThreshold": 0.5,
+    "probabilityThreshold": 0.4,
     "maximumCount": 2
-  }
+  },
+  "subjectCategories": [
+    {
+      "id": "tableware",
+      "displayName": "食器・コップ",
+      "description": "マグカップ・グラス・皿・茶碗・箸・スプーンなど、食べたり飲んだりする時に使う器や道具"
+    },
+    {
+      "id": "cookware",
+      "displayName": "台所の道具",
+      "description": "鍋・やかん・フライパン・包丁・まな板・おたまなど、料理に使う道具"
+    },
+    {
+      "id": "food",
+      "displayName": "食べ物",
+      "description": "料理・お菓子・パン・果物・野菜など、食べられる物"
+    },
+    {
+      "id": "drink",
+      "displayName": "飲み物",
+      "description": "ペットボトルや缶や瓶に入った飲み物、コーヒー・お茶など"
+    },
+    {
+      "id": "plant",
+      "displayName": "植物",
+      "description": "鉢植え・観葉植物・花・草・木・サボテン・多肉植物など、生きている植物"
+    },
+    {
+      "id": "natural_object",
+      "displayName": "自然の物",
+      "description": "石・貝殻・松ぼっくり・木の枝・葉っぱ・砂など、自然の中で拾える物"
+    },
+    {
+      "id": "stationery",
+      "displayName": "文房具",
+      "description": "ペン・鉛筆・消しゴム・はさみ・定規・ノート・ホッチキスなど"
+    },
+    {
+      "id": "book_paper",
+      "displayName": "本・紙",
+      "description": "本・雑誌・紙・封筒・カード・段ボールなど、紙でできた物"
+    },
+    {
+      "id": "electronics",
+      "displayName": "電子機器",
+      "description": "スマートフォン・パソコン・キーボード・マウス・カメラ・ゲーム機・リモコンなど"
+    },
+    {
+      "id": "audio",
+      "displayName": "音の道具",
+      "description": "ヘッドホン・イヤホン・スピーカー・ラジオなど、音を出す・聞く機械"
+    },
+    {
+      "id": "appliance",
+      "displayName": "家電",
+      "description": "電子レンジ・扇風機・ドライヤー・炊飯器・掃除機・時計など、電気で動く家の道具"
+    },
+    {
+      "id": "lighting",
+      "displayName": "明かり",
+      "description": "ライト・ランプ・電球・ろうそく・懐中電灯など、明かりを出す物"
+    },
+    {
+      "id": "clock",
+      "displayName": "時計",
+      "description": "置き時計・目覚まし時計・腕時計・懐中時計など"
+    },
+    {
+      "id": "furniture",
+      "displayName": "家具",
+      "description": "椅子・机・棚・ソファ・ベッドなど"
+    },
+    {
+      "id": "clothing",
+      "displayName": "衣類",
+      "description": "服・帽子・手袋・靴下・マフラーなど、身に着ける布の物"
+    },
+    {
+      "id": "footwear",
+      "displayName": "靴",
+      "description": "スニーカー・ブーツ・サンダル・スリッパなど"
+    },
+    {
+      "id": "bag",
+      "displayName": "かばん",
+      "description": "リュック・ハンドバッグ・財布・ポーチなど、物を入れて持ち歩く物"
+    },
+    {
+      "id": "accessory",
+      "displayName": "装飾品",
+      "description": "アクセサリー・メガネ・髪留め・バッジなど、身に着ける小物"
+    },
+    {
+      "id": "toy",
+      "displayName": "おもちゃ",
+      "description": "ぬいぐるみ・人形・ブロック・ゴムのアヒル・ミニカー・ボールなど"
+    },
+    {
+      "id": "sports",
+      "displayName": "スポーツ用品",
+      "description": "ボール・ラケット・バット・グローブ・なわとびなど、運動に使う道具"
+    },
+    {
+      "id": "musical_instrument",
+      "displayName": "楽器",
+      "description": "ギター・ピアノ・笛・太鼓など"
+    },
+    {
+      "id": "vehicle",
+      "displayName": "乗り物",
+      "description": "自転車・車・バイク・電車・スケートボードなど"
+    },
+    {
+      "id": "tool",
+      "displayName": "工具",
+      "description": "ドライバー・ハンマー・ペンチ・メジャー・テープなど、作ったり直したりする道具"
+    },
+    {
+      "id": "cleaning",
+      "displayName": "掃除・洗面の道具",
+      "description": "ほうき・スポンジ・歯ブラシ・タオル・石けんなど"
+    },
+    {
+      "id": "cosmetic",
+      "displayName": "化粧品・薬",
+      "description": "化粧品・香水・ハンドクリーム・薬の容器など"
+    },
+    {
+      "id": "container",
+      "displayName": "入れ物",
+      "description": "瓶・箱・缶・ケース・かご・ガラスの容器など、物を入れておく物"
+    },
+    {
+      "id": "decoration",
+      "displayName": "飾り物",
+      "description": "置物・花瓶・写真立て・オブジェ・テラリウムなど、部屋を飾る物"
+    },
+    {
+      "id": "umbrella_rain",
+      "displayName": "雨具",
+      "description": "傘・レインコート・長靴など"
+    },
+    {
+      "id": "outdoor_structure",
+      "displayName": "屋外の物",
+      "description": "看板・ポスト・ベンチ・自動販売機・街灯など、外に置いてある物"
+    },
+    {
+      "id": "other",
+      "displayName": "その他",
+      "description": "上のどれにも当たらない物"
+    }
+  ]
 }
