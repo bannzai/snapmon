@@ -1,0 +1,741 @@
+// 写真からモンスターを生成する状態遷移。callable (generate.ts) と再試行のタスク (resume.ts) の両方がここを呼ぶ。
+// 設計は documents/adr/0001-tech-stack.md「サーバーコード」「同じ被写体の判定」「master に無い属性・技」と ADR 0002。
+// 冪等性: 要求 ID ごとのレコードを予約 (lease) してから段階を進め、各段階の結果をレコードに書く。再試行は済んだ段階を飛ばすため、
+// 有料の API (Vision・Claude・Jev) を同じ段階で 2 回呼ばない。例外は、段階の途中で落ちた時 (結果を書く前) の 1 回分。
+
+import { createHash } from "node:crypto";
+
+import { FieldValue, type Firestore, Timestamp, type Transaction } from "firebase-admin/firestore";
+import type { getStorage } from "firebase-admin/storage";
+import { logger } from "firebase-functions";
+
+import { ClaudeRefusalError, type DescribeSubject, type ProposeElement } from "./claude";
+import { applyMask, downscalePhoto, flattenCutoutForDescription, type SegmentSubject } from "./cutout";
+import {
+  type AskJev,
+  buildClassifyRequest,
+  buildDedupeRequests,
+  buildJudgeRequest,
+  buildSameDefinitionRequest,
+  DEDUPE_THRESHOLDS,
+  type DedupeCandidate,
+  type JevResponse,
+  JevUnavailableError,
+  readJudgeResponse,
+  sameSubjectCandidateIds,
+  topCategoryIds,
+} from "./jev";
+import { type DynamicDefinition, fetchDynamicDefinitions, fetchLatestMaster, type Master, type MasterElementType, type MasterMove } from "./master";
+import { findModerationViolation } from "./moderation";
+import {
+  baseStatsFromStatGrades,
+  buildLearnset,
+  CURRENT_STAT_CALCULATION_VERSION,
+  fnv1a32,
+  individualValuesFromDescription,
+  selectElementTypeIds,
+} from "./monster_stats";
+import { DECORATION_VERSION } from "./prompts/describe_subject";
+import { PROPOSED_MOVE_TIERS, proposalRangeViolation } from "./prompts/propose_element";
+import {
+  canonicalDescriptionText,
+  type GenerationRecord,
+  type GenerationResult,
+  generationResult,
+  GENERATION_STAGES,
+  type GenerationStage,
+  type MonsterDocument,
+  TERMINAL_GENERATION_STATUSES,
+} from "./records";
+import { type AnnotateImage, type RejectionReason, visionRejectionReason } from "./vision";
+
+/** Cloud Storage のバケット。 */
+export type StorageBucket = ReturnType<ReturnType<typeof getStorage>["bucket"]>;
+
+/** 生成が使う外部の資源。callable と再試行は本番の実装を、テストはモックを渡す。 */
+export interface GenerationDependencies {
+  /** Firestore。 */
+  firestore: Firestore;
+  /** 写真・切り出し・絵を置くバケット。 */
+  bucket: StorageBucket;
+  /** Cloud Vision。 */
+  annotateImage: AnnotateImage;
+  /** 自動のマスク。 */
+  segmentSubject: SegmentSubject;
+  /** Claude の被写体の説明。 */
+  describeSubject: DescribeSubject;
+  /** Claude の新しい属性の提案。 */
+  proposeElement: ProposeElement;
+  /** Jev。 */
+  askJev: AskJev;
+  /** 再試行のタスクを積む。`delaySeconds` 後に resume.ts の処理が同じ要求 ID で呼ばれる。 */
+  enqueueResume: (task: { uid: string; requestId: string; delaySeconds: number }) => Promise<void>;
+  /** 現在時刻。 */
+  now: () => Date;
+}
+
+/**
+ * 予約 (lease) と uid ごとの生成中ロックの期間 (ADR 0001 の 10 分)。生成の Functions のタイムアウト (generate.ts の 300 秒) より長くし、
+ * 元の実行が終わる前に再試行が同じレコードを処理し始めないようにする。
+ */
+export const LEASE_DURATION_SECONDS = 600;
+
+/** 判定待ちの再試行の間隔と回数 (ADR 0001 の 1 時間おき・最大 24 回)。 */
+export const JUDGE_RETRY_INTERVAL_SECONDS = 3_600;
+export const JUDGE_RETRY_MAXIMUM_COUNT = 24;
+
+/**
+ * 予約を取れる回数の上限。Jev 以外の失敗 (Claude・Vision の一時的なエラー、タイムアウト) で落ちた生成を、期限切れの引き継ぎで
+ * やり直す回数を抑える (直らない失敗で有料の API を呼び続けないため)。直して再試行の既定 3 回
+ * (~/.claude/documents/rules/retry-limit-and-failure-classification.md) に最初の 1 回を足した値。
+ */
+const MAXIMUM_ATTEMPT_COUNT = 4;
+
+/** 段階が予期しないエラーで落ちた時に、再試行を始めるまでの秒数。一時的なエラー (API の 5xx・通信の切断) が収まる時間として置いた。 */
+const FAILED_STAGE_RETRY_DELAY_SECONDS = 60;
+
+/** Claude の文章が禁止語の検査を通らなかった時に、作り直させる回数の上限 (最初の 1 回を含む)。 */
+const DESCRIBE_SUBJECT_MAXIMUM_ATTEMPTS = 2;
+
+/**
+ * uid ごとの 1 日の生成の上限。1 体の原価の見積もり (ADR 0002) と、1 日に遊ぶ回数として十分な数から決めた。
+ * 利用規約 (docs/Terms.md 第 4 条の 4) は上限を設けることだけを書き、値は書かない。
+ */
+export const DAILY_GENERATION_LIMIT_PER_USER = 20;
+/** プロジェクト全体の 1 日の生成の上限。1 体の原価の見積もり (ADR 0002 の約 0.03 ドル) で、1 日の原価を 30 ドル前後に抑える値。 */
+export const DAILY_GENERATION_LIMIT_TOTAL = 1_000;
+
+/** 物の分類を保存する件数 (ADR 0001 の上位 3 件)。 */
+const CATEGORY_COUNT = 3;
+/** Cloud Vision のラベルのうち、分類の state に入れる確からしさの下限 (Vision のラベルは 0.5 以上で返る。根拠の薄いものを除くため 0.6)。 */
+const VISION_LABEL_MINIMUM_SCORE = 0.6;
+
+/**
+ * その場で作った属性を、既存のその場で作った属性と同じ意味とみなす Jev の確率の下限。
+ * その場で作った属性がまだ 1 件も無く、ラベル付きのサンプルで測れないため未較正 (documents/game-rules.md「Jev の閾値」)。
+ * 誤って同じとみなすと別の性質の属性に寄せられるだけで、二重の定義より害が小さいため、低すぎない値を置いた。
+ */
+const SAME_DEFINITION_PROBABILITY_THRESHOLD = 0.8;
+
+/** 属性と技の数の上限 (ADR 0001 の属性 24 種・技 2,000 件)。 */
+const ELEMENT_TYPE_LIMIT = 24;
+const MOVE_LIMIT = 2_000;
+
+/** 生成の要求を受け付けられない理由。callable は HttpsError に、それ以外はログに出す。 */
+export class GenerationRequestError extends Error {
+  /** 理由の種類。 */
+  readonly code: "daily_limit_per_user" | "daily_limit_total" | "another_generation_in_progress";
+
+  constructor(code: GenerationRequestError["code"], message: string) {
+    super(message);
+    this.code = code;
+  }
+}
+
+/** Asia/Tokyo の日付 (YYYY-MM-DD)。1 日の上限の区切りに使う (利用者の多くが日本にいる前提で、日付の変わり目を日本時間にした)。 */
+function tokyoDate(date: Date): string {
+  return new Intl.DateTimeFormat("sv-SE", { timeZone: "Asia/Tokyo" }).format(date);
+}
+
+function sha256(buffer: Buffer): string {
+  return createHash("sha256").update(buffer).digest("hex");
+}
+
+function generationDocument({ firestore, uid, requestId }: { firestore: Firestore; uid: string; requestId: string }) {
+  return firestore.doc(`users/${uid}/generations/${requestId}`);
+}
+
+async function downloadFile(bucket: StorageBucket, path: string): Promise<Buffer> {
+  const [contents] = await bucket.file(path).download();
+  return contents;
+}
+
+/** 中間のファイルを消す。無いファイルは無視する (再試行で 2 回目に呼ばれても成功させるため)。 */
+async function deleteFiles(bucket: StorageBucket, paths: (string | null | undefined)[]): Promise<void> {
+  await Promise.all(paths.filter((path): path is string => !!path).map((path) => bucket.file(path).delete({ ignoreNotFound: true })));
+}
+
+/**
+ * 生成の要求を受け付け、終了状態か判定待ちになるまで進めて結果を返す (callable の本体)。
+ * 同じ要求 ID の 2 回目以降は、保存済みの結果を返す (処理中なら processing を返し、二重に処理しない)。
+ * 画像とマスクの組が同じ生成が既にあれば、新しいレコードを作らずにその結果を返す。
+ */
+export async function startGeneration(
+  dependencies: GenerationDependencies,
+  { uid, requestId, photoPath, maskPath }: { uid: string; requestId: string; photoPath: string; maskPath: string | null },
+): Promise<GenerationResult> {
+  const { firestore, bucket } = dependencies;
+  const document = generationDocument({ firestore, uid, requestId });
+  const existing = await document.get();
+  if (existing.exists) {
+    return continueExistingGeneration(dependencies, { uid, requestId });
+  }
+
+  const photo = await downloadFile(bucket, photoPath);
+  const mask = maskPath ? await downloadFile(bucket, maskPath) : undefined;
+  const inputKey = `${sha256(photo)}:${mask ? sha256(mask) : "auto"}`;
+  const now = dependencies.now();
+  const today = tokyoDate(now);
+
+  const reservation = await firestore.runTransaction(async (transaction): Promise<GenerationResult | "reserved"> => {
+    // failed は使い回さない (撮り直さずに同じ写真で再挑戦できるように)。状態は複合インデックスを増やさないようコードで絞る。
+    const sameInput = (await transaction.get(firestore.collection(`users/${uid}/generations`).where("inputKey", "==", inputKey))).docs.find(
+      (document) => (document.data() as GenerationRecord).status !== "failed",
+    );
+    if (sameInput) {
+      return generationResult({ requestId: sameInput.id, record: sameInput.data() as GenerationRecord });
+    }
+    const current = await transaction.get(document);
+    if (current.exists) {
+      return generationResult({ requestId, record: current.data() as GenerationRecord });
+    }
+    const userDocument = firestore.doc(`users/${uid}`);
+    const totalCounterDocument = firestore.doc(`generationDailyCounts/${today}`);
+    const [userSnapshot, totalCounterSnapshot] = await Promise.all([transaction.get(userDocument), transaction.get(totalCounterDocument)]);
+    assertGenerationLockAvailable({ lock: userSnapshot.get("generationLock"), requestId, now });
+    const userCount = userSnapshot.get("dailyGeneration.date") === today ? (userSnapshot.get("dailyGeneration.count") as number) : 0;
+    if (userCount >= DAILY_GENERATION_LIMIT_PER_USER) {
+      throw new GenerationRequestError("daily_limit_per_user", `今日の生成は ${DAILY_GENERATION_LIMIT_PER_USER} 回までです`);
+    }
+    if (((totalCounterSnapshot.get("count") as number | undefined) ?? 0) >= DAILY_GENERATION_LIMIT_TOTAL) {
+      throw new GenerationRequestError("daily_limit_total", "今日は生成が混み合っています。明日またためしてください");
+    }
+    const leaseExpiresAt = Timestamp.fromMillis(now.getTime() + LEASE_DURATION_SECONDS * 1000);
+    transaction.set(
+      userDocument,
+      { generationLock: { requestId, expiresAt: leaseExpiresAt }, dailyGeneration: { date: today, count: userCount + 1 } },
+      { merge: true },
+    );
+    transaction.set(totalCounterDocument, { count: FieldValue.increment(1) }, { merge: true });
+    const record: GenerationRecord = {
+      status: "processing",
+      completedStage: "uploaded",
+      photoPath,
+      maskPath,
+      inputKey,
+      leaseExpiresAt,
+      attemptCount: 1,
+      judgeRetryCount: 0,
+      createdAt: Timestamp.fromDate(now),
+      updatedAt: Timestamp.fromDate(now),
+    };
+    transaction.create(document, record);
+    return "reserved";
+  });
+  if (reservation !== "reserved") {
+    // 別の要求 ID の結果を使い回した時は、今回の要求で置かれた写真とマスクにはレコードが無く、誰も消さないため、ここで消す。
+    if (reservation.requestId !== requestId) {
+      await deleteFiles(bucket, [photoPath, maskPath]);
+    }
+    return reservation;
+  }
+  // 実行が予約の期限までに終わらなかった時 (タイムアウト・インスタンスの停止) に、再試行のタスクが期限切れの予約を引き継ぐ。
+  await dependencies.enqueueResume({ uid, requestId, delaySeconds: LEASE_DURATION_SECONDS + 60 });
+  return advanceGeneration(dependencies, { uid, requestId });
+}
+
+/** 既にレコードがある要求 ID の呼び出し。終了状態・判定待ち・予約中はそのまま返し、予約が切れた処理中は引き継ぐ。 */
+async function continueExistingGeneration(dependencies: GenerationDependencies, { uid, requestId }: { uid: string; requestId: string }): Promise<GenerationResult> {
+  const acquired = await acquireLease(dependencies, { uid, requestId, resumingFromPendingJudge: false });
+  if (acquired !== "acquired") {
+    return acquired;
+  }
+  return advanceGeneration(dependencies, { uid, requestId });
+}
+
+/** uid ごとの生成中ロックが、別の要求 ID に期限内で取られていれば throw する。 */
+function assertGenerationLockAvailable({ lock, requestId, now }: { lock: { requestId: string; expiresAt: Timestamp } | undefined; requestId: string; now: Date }) {
+  if (lock && lock.requestId !== requestId && lock.expiresAt.toMillis() > now.getTime()) {
+    throw new GenerationRequestError("another_generation_in_progress", "別の生成が進んでいます。終わってからためしてください");
+  }
+}
+
+/**
+ * 既存のレコードの予約を取る。取れたら "acquired"、取れない (終了状態・予約中・判定待ちで再試行からの呼び出しでない) なら現在の結果を返す。
+ * 予約を取る回数が上限を超えたら failed にする。
+ */
+async function acquireLease(
+  dependencies: GenerationDependencies,
+  { uid, requestId, resumingFromPendingJudge }: { uid: string; requestId: string; resumingFromPendingJudge: boolean },
+): Promise<GenerationResult | "acquired"> {
+  const { firestore } = dependencies;
+  const document = generationDocument({ firestore, uid, requestId });
+  const now = dependencies.now();
+  const outcome = await firestore.runTransaction(async (transaction): Promise<GenerationResult | "acquired" | "exhausted"> => {
+    const snapshot = await transaction.get(document);
+    const record = snapshot.data() as GenerationRecord;
+    const userDocument = firestore.doc(`users/${uid}`);
+    const userSnapshot = await transaction.get(userDocument);
+    const isWaitingJudge = record.status === "pending_judge";
+    const isExpiredProcessing = record.status === "processing" && record.leaseExpiresAt.toMillis() <= now.getTime();
+    if (!(isExpiredProcessing || (isWaitingJudge && resumingFromPendingJudge))) {
+      return generationResult({ requestId, record });
+    }
+    if (isExpiredProcessing && record.attemptCount >= MAXIMUM_ATTEMPT_COUNT) {
+      return "exhausted";
+    }
+    assertGenerationLockAvailable({ lock: userSnapshot.get("generationLock"), requestId, now });
+    const leaseExpiresAt = Timestamp.fromMillis(now.getTime() + LEASE_DURATION_SECONDS * 1000);
+    transaction.set(userDocument, { generationLock: { requestId, expiresAt: leaseExpiresAt } }, { merge: true });
+    transaction.update(document, {
+      status: "processing",
+      leaseExpiresAt,
+      updatedAt: Timestamp.fromDate(now),
+      ...(isWaitingJudge ? { judgeRetryCount: FieldValue.increment(1) } : { attemptCount: FieldValue.increment(1) }),
+    });
+    return "acquired";
+  });
+  if (outcome === "exhausted") {
+    return finishGeneration(dependencies, { uid, requestId, update: { status: "failed", failureMessage: `予約を ${MAXIMUM_ATTEMPT_COUNT} 回取っても終わりませんでした` } });
+  }
+  return outcome;
+}
+
+/**
+ * 再試行のタスクの本体。判定待ちなら 1 回分の再試行として続きから進め、回数の上限を超えたら failed にする。
+ * 予約が切れた処理中なら引き継ぐ。それ以外 (終了状態・予約中) は何もしない。
+ */
+export async function resumeGeneration(dependencies: GenerationDependencies, { uid, requestId }: { uid: string; requestId: string }): Promise<GenerationResult> {
+  const snapshot = await generationDocument({ firestore: dependencies.firestore, uid, requestId }).get();
+  if (!snapshot.exists) {
+    return { requestId, status: "failed" };
+  }
+  const record = snapshot.data() as GenerationRecord;
+  if (record.status === "pending_judge" && record.judgeRetryCount >= JUDGE_RETRY_MAXIMUM_COUNT) {
+    return finishGeneration(dependencies, {
+      uid,
+      requestId,
+      update: { status: "failed", failureMessage: `Jev が ${JUDGE_RETRY_MAXIMUM_COUNT} 回の再試行でも答えませんでした` },
+    });
+  }
+  let acquired: GenerationResult | "acquired";
+  try {
+    acquired = await acquireLease(dependencies, { uid, requestId, resumingFromPendingJudge: true });
+  } catch (error) {
+    if (error instanceof GenerationRequestError && error.code === "another_generation_in_progress") {
+      // 同じ uid の別の生成が終わるまで待ってから続ける (直列にするため。ADR 0001「同じ被写体の判定」)
+      await dependencies.enqueueResume({ uid, requestId, delaySeconds: LEASE_DURATION_SECONDS });
+      return generationResult({ requestId, record });
+    }
+    throw error;
+  }
+  if (acquired !== "acquired") {
+    return acquired;
+  }
+  return advanceGeneration(dependencies, { uid, requestId });
+}
+
+/** 段階の処理が返す、レコードへの書き込みと次の行き先。 */
+type StageOutcome =
+  | { kind: "next"; update: Partial<GenerationRecord> }
+  | { kind: "finish"; update: Partial<GenerationRecord> & { status: GenerationRecord["status"] } };
+
+/** 予約を取った生成を、終了状態か判定待ちになるまで段階ごとに進める。 */
+async function advanceGeneration(dependencies: GenerationDependencies, { uid, requestId }: { uid: string; requestId: string }): Promise<GenerationResult> {
+  const document = generationDocument({ firestore: dependencies.firestore, uid, requestId });
+  for (;;) {
+    const record = (await document.get()).data() as GenerationRecord;
+    if (record.status !== "processing") {
+      return generationResult({ requestId, record });
+    }
+    const nextStage = GENERATION_STAGES[GENERATION_STAGES.indexOf(record.completedStage) + 1];
+    let outcome: StageOutcome;
+    try {
+      outcome = await runStage(dependencies, { uid, requestId, record, stage: nextStage });
+    } catch (error) {
+      if (error instanceof JevUnavailableError) {
+        logger.warn("Jev が答えないため判定待ちにします", { uid, requestId, stage: nextStage, error: error.message });
+        await releaseLock(dependencies, { uid, requestId, update: { status: "pending_judge" } });
+        await dependencies.enqueueResume({ uid, requestId, delaySeconds: JUDGE_RETRY_INTERVAL_SECONDS });
+        return { requestId, status: "pending_judge" };
+      }
+      if (error instanceof ClaudeRefusalError) {
+        return finishGeneration(dependencies, { uid, requestId, update: { status: "rejected", rejectionReason: "refused" } });
+      }
+      // それ以外 (Claude・Vision・Storage の一時的なエラー) は、予約を今すぐ切れた扱いにしてロックを外し、少し後の再試行に引き継ぐ。
+      // 予約を取る回数の上限 (MAXIMUM_ATTEMPT_COUNT) で、直らない失敗は failed になる。
+      logger.error("生成の段階が失敗しました。再試行に回します", { uid, requestId, stage: nextStage, error });
+      await releaseLock(dependencies, { uid, requestId, update: { leaseExpiresAt: Timestamp.fromDate(dependencies.now()) } });
+      await dependencies.enqueueResume({ uid, requestId, delaySeconds: FAILED_STAGE_RETRY_DELAY_SECONDS });
+      throw error;
+    }
+    if (outcome.kind === "finish") {
+      return finishGeneration(dependencies, { uid, requestId, update: outcome.update });
+    }
+    await document.update({ ...outcome.update, completedStage: nextStage, updatedAt: Timestamp.fromDate(dependencies.now()) });
+  }
+}
+
+/** uid の生成中ロックを、自分の要求 ID のものなら外し、レコードに書く。 */
+async function releaseLock(
+  dependencies: GenerationDependencies,
+  { uid, requestId, update }: { uid: string; requestId: string; update: Partial<GenerationRecord> },
+): Promise<GenerationRecord> {
+  const { firestore } = dependencies;
+  const document = generationDocument({ firestore, uid, requestId });
+  return firestore.runTransaction(async (transaction) => {
+    const userDocument = firestore.doc(`users/${uid}`);
+    const [userSnapshot, snapshot] = await Promise.all([transaction.get(userDocument), transaction.get(document)]);
+    if (userSnapshot.get("generationLock.requestId") === requestId) {
+      transaction.update(userDocument, { generationLock: FieldValue.delete() });
+    }
+    transaction.update(document, { ...update, updatedAt: Timestamp.fromDate(dependencies.now()) });
+    return { ...(snapshot.data() as GenerationRecord), ...update };
+  });
+}
+
+/** 終了状態にし、ロックを外し、拒否・重複なら元の写真と中間のファイルを消す (ADR 0001「画像ストレージ」)。 */
+async function finishGeneration(
+  dependencies: GenerationDependencies,
+  { uid, requestId, update }: { uid: string; requestId: string; update: Partial<GenerationRecord> & { status: GenerationRecord["status"] } },
+): Promise<GenerationResult> {
+  const record = await releaseLock(dependencies, { uid, requestId, update });
+  if (record.status === "rejected" || record.status === "duplicate") {
+    await deleteFiles(dependencies.bucket, [record.photoPath, record.maskPath, record.cutoutPath]);
+  }
+  if (TERMINAL_GENERATION_STATUSES.includes(record.status)) {
+    logger.info("生成を終えました", { uid, requestId, status: record.status, rejectionReason: record.rejectionReason, failureMessage: record.failureMessage });
+  }
+  return generationResult({ requestId, record });
+}
+
+/** 段階を 1 つ進める。 */
+async function runStage(
+  dependencies: GenerationDependencies,
+  { uid, requestId, record, stage }: { uid: string; requestId: string; record: GenerationRecord; stage: GenerationStage },
+): Promise<StageOutcome> {
+  switch (stage) {
+    case "safesearch":
+      return runSafeSearchStage(dependencies, record);
+    case "cutout":
+      return runCutoutStage(dependencies, { uid, requestId, record });
+    case "claude":
+      return runClaudeStage(dependencies, record);
+    case "classify":
+      return runClassifyStage(dependencies, record);
+    case "dedupe":
+      return runDedupeStage(dependencies, { uid, requestId, record });
+    case "judge":
+      return runJudgeStage(dependencies, { uid, requestId, record });
+    case "saved":
+      return runSaveStage(dependencies, { uid, requestId, record });
+    case "uploaded":
+      throw new Error("uploaded は予約の時に済む段階で、ここには来ない");
+  }
+}
+
+function rejected(rejectionReason: RejectionReason): StageOutcome {
+  return { kind: "finish", update: { status: "rejected", rejectionReason } };
+}
+
+async function runSafeSearchStage(dependencies: GenerationDependencies, record: GenerationRecord): Promise<StageOutcome> {
+  // Vision にも縮めた写真を送る (顔・露骨な内容の判定は長辺 1024px で足り、送る量を抑えるため)。
+  const annotation = await dependencies.annotateImage(await downscalePhoto(await downloadFile(dependencies.bucket, record.photoPath)));
+  const rejectionReason = visionRejectionReason(annotation);
+  if (rejectionReason) {
+    return rejected(rejectionReason);
+  }
+  return {
+    kind: "next",
+    update: {
+      visionLabels: (annotation.labelAnnotations ?? []).filter((label) => label.score >= VISION_LABEL_MINIMUM_SCORE).map((label) => label.description),
+    },
+  };
+}
+
+async function runCutoutStage(
+  dependencies: GenerationDependencies,
+  { uid, requestId, record }: { uid: string; requestId: string; record: GenerationRecord },
+): Promise<StageOutcome> {
+  const photo = await downscalePhoto(await downloadFile(dependencies.bucket, record.photoPath));
+  const mask = record.maskPath ? await downloadFile(dependencies.bucket, record.maskPath) : await dependencies.segmentSubject(photo);
+  const { cutoutPng, coverage } = await applyMask({ photo, mask });
+  if (!cutoutPng) {
+    return { kind: "finish", update: { status: "rejected", rejectionReason: "no_subject", cutoutCoverage: coverage } };
+  }
+  const cutoutPath = `users/${uid}/generations/${requestId}/cutout.png`;
+  await dependencies.bucket.file(cutoutPath).save(cutoutPng, { contentType: "image/png", resumable: false });
+  return { kind: "next", update: { cutoutPath, cutoutCoverage: coverage, maskSource: record.maskPath ? "client" : "server" } };
+}
+
+async function runClaudeStage(dependencies: GenerationDependencies, record: GenerationRecord): Promise<StageOutcome> {
+  const cutoutJpeg = await flattenCutoutForDescription(await downloadFile(dependencies.bucket, record.cutoutPath!));
+  const claudeUsages = [...(record.claudeUsages ?? [])];
+  for (let attempt = 1; attempt <= DESCRIBE_SUBJECT_MAXIMUM_ATTEMPTS; attempt++) {
+    const { output, usage } = await dependencies.describeSubject(cutoutJpeg);
+    claudeUsages.push(usage);
+    if (output.containsPerson) {
+      return { kind: "finish", update: { status: "rejected", rejectionReason: "person_detected", claudeUsages } };
+    }
+    const violation = findModerationViolation(`${output.name}\n${output.encyclopediaText}\n${output.description.what}`);
+    if (!violation) {
+      return { kind: "next", update: { subject: output, subjectDescriptionText: canonicalDescriptionText(output.description), claudeUsages } };
+    }
+    logger.warn("生成した文章が禁止語の検査を通りませんでした", { attempt, violation });
+  }
+  return { kind: "finish", update: { status: "rejected", rejectionReason: "inappropriate_text", claudeUsages } };
+}
+
+/** Jev を呼び、入力トークン数をレコードの合計に足す値を返す。 */
+async function askJevCounting(dependencies: GenerationDependencies, record: GenerationRecord, requests: Parameters<AskJev>[0][]) {
+  const responses: JevResponse[] = [];
+  for (const request of requests) {
+    responses.push(await dependencies.askJev(request));
+  }
+  return { responses, jevInputTokens: (record.jevInputTokens ?? 0) + responses.reduce((sum, response) => sum + response.usage.input_tokens, 0) };
+}
+
+async function runClassifyStage(dependencies: GenerationDependencies, record: GenerationRecord): Promise<StageOutcome> {
+  const master = await fetchLatestMaster(dependencies.firestore);
+  const { responses, jevInputTokens } = await askJevCounting(dependencies, record, [
+    buildClassifyRequest({ description: record.subject!.description, visionLabels: record.visionLabels ?? [], subjectCategories: master.subjectCategories }),
+  ]);
+  return { kind: "next", update: { categoryIds: topCategoryIds({ response: responses[0], count: CATEGORY_COUNT }), masterVersion: master.version, jevInputTokens } };
+}
+
+async function runDedupeStage(
+  dependencies: GenerationDependencies,
+  { uid, requestId, record }: { uid: string; requestId: string; record: GenerationRecord },
+): Promise<StageOutcome> {
+  const { firestore } = dependencies;
+  const categoryIds = record.categoryIds!;
+  const [monsters, generations] = await Promise.all([
+    firestore.collection(`users/${uid}/monsters`).where("categoryIds", "array-contains-any", categoryIds).get(),
+    firestore.collection(`users/${uid}/generations`).where("categoryIds", "array-contains-any", categoryIds).get(),
+  ]);
+  const candidates: DedupeCandidate[] = [
+    ...monsters.docs.map((document) => ({ candidateId: document.id, description: (document.data() as MonsterDocument).subjectDescription })),
+    ...generations.docs
+      .filter((document) => document.id !== requestId && (document.data() as GenerationRecord).status === "pending_judge" && (document.data() as GenerationRecord).subject)
+      .map((document) => ({ candidateId: `generation:${document.id}`, description: (document.data() as GenerationRecord).subject!.description })),
+  ];
+  if (candidates.length === 0) {
+    return { kind: "next", update: {} };
+  }
+  const { responses, jevInputTokens } = await askJevCounting(dependencies, record, buildDedupeRequests({ description: record.subject!.description, candidates }));
+  const [sameCandidateId] = sameSubjectCandidateIds({ responses, candidates, thresholds: DEDUPE_THRESHOLDS });
+  if (!sameCandidateId) {
+    return { kind: "next", update: { jevInputTokens } };
+  }
+  return {
+    kind: "finish",
+    update: {
+      status: "duplicate",
+      jevInputTokens,
+      ...(sameCandidateId.startsWith("generation:") ? { duplicateOfRequestId: sameCandidateId.slice("generation:".length) } : { monsterId: sameCandidateId }),
+    },
+  };
+}
+
+/** master とその場で作った定義の属性・技を合わせる。 */
+function mergeDefinitions({ master, dynamicDefinitions }: { master: Master; dynamicDefinitions: { id: string; definition: DynamicDefinition }[] }) {
+  const masterElementIds = new Set(master.elementTypes.map((elementType) => elementType.id));
+  const masterMoveIds = new Set(master.moves.map((move) => move.id));
+  return {
+    elementTypes: [...master.elementTypes, ...dynamicDefinitions.flatMap(({ definition }) => definition.elementTypes).filter((elementType) => !masterElementIds.has(elementType.id))],
+    moves: [...master.moves, ...dynamicDefinitions.flatMap(({ definition }) => definition.moves).filter((move) => !masterMoveIds.has(move.id))],
+  };
+}
+
+async function runJudgeStage(
+  dependencies: GenerationDependencies,
+  { uid, requestId, record }: { uid: string; requestId: string; record: GenerationRecord },
+): Promise<StageOutcome> {
+  const { firestore } = dependencies;
+  const master = await fetchLatestMaster(firestore);
+  const dynamicDefinitions = await fetchDynamicDefinitions(firestore);
+  const { elementTypes, moves } = mergeDefinitions({ master, dynamicDefinitions });
+  const description = record.subject!.description;
+  const { responses, jevInputTokens } = await askJevCounting(dependencies, record, [buildJudgeRequest({ description, elementTypes, moves, statGrades: master.statGrades })]);
+  const judged = readJudgeResponse({ response: responses[0], statGrades: master.statGrades });
+  let elementTypeIds = selectElementTypeIds({ elementProbabilities: judged.elementProbabilities, master });
+  let judgedMoves = moves;
+  let update: Partial<GenerationRecord> = { jevInputTokens };
+  let definitionIds = dynamicDefinitions.map(({ id }) => id);
+  if (elementTypeIds.length === 0) {
+    const resolved = await resolveNewElementType(dependencies, {
+      uid,
+      requestId,
+      record: { ...record, jevInputTokens },
+      master,
+      elementTypes,
+      dynamicDefinitions,
+      elementProbabilities: judged.elementProbabilities,
+    });
+    elementTypeIds = [resolved.elementTypeId];
+    judgedMoves = [...moves, ...resolved.createdDefinition.moves];
+    definitionIds = [...definitionIds, ...(resolved.createdDefinition.moves.length > 0 ? [resolved.elementTypeId] : [])];
+    update = { ...update, ...resolved.update };
+  }
+  return {
+    kind: "next",
+    update: {
+      ...update,
+      judgement: {
+        elementTypeIds,
+        learnset: buildLearnset({ elementTypeIds, moveProbabilitiesByElement: judged.moveProbabilitiesByElement, moves: judgedMoves }),
+        baseStats: baseStatsFromStatGrades({ statGradeIds: judged.statGradeIds, master }),
+        individualValues: individualValuesFromDescription(record.subjectDescriptionText!),
+        // その場で作った定義のうち、このモンスターの属性を持つものだけを参照として残す (定義の ID は属性の ID と同じ)。
+        definitionIds: definitionIds.filter((definitionId) => elementTypeIds.includes(definitionId)),
+      },
+      // 生まれるモンスターの ID を先に決めて残す。保存の段階を再試行しても同じ ID の 1 体だけになるように。
+      monsterId: firestore.collection(`users/${uid}/monsters`).doc().id,
+    },
+  };
+}
+
+/**
+ * どの属性にも当てはまらない時に、新しい属性を作るか既存の属性に寄せる (ADR 0001「master に無い属性・技」)。
+ * Claude の提案が範囲外・禁止語に当たる・上限に達した時は、Jev の当てはまりが最も高い既存の属性を使う。
+ */
+async function resolveNewElementType(
+  dependencies: GenerationDependencies,
+  {
+    uid,
+    requestId,
+    record,
+    master,
+    elementTypes,
+    dynamicDefinitions,
+    elementProbabilities,
+  }: {
+    uid: string;
+    requestId: string;
+    record: GenerationRecord;
+    master: Master;
+    elementTypes: MasterElementType[];
+    dynamicDefinitions: { id: string; definition: DynamicDefinition }[];
+    elementProbabilities: Record<string, number>;
+  },
+): Promise<{ elementTypeId: string; createdDefinition: { moves: MasterMove[] }; update: Partial<GenerationRecord> }> {
+  const [bestExistingElementTypeId] = Object.entries(elementProbabilities).sort(([, left], [, right]) => right - left)[0];
+  const reuse = ({ elementTypeId, update }: { elementTypeId: string; update: Partial<GenerationRecord> }) => ({ elementTypeId, createdDefinition: { moves: [] }, update });
+  const fallback = (update: Partial<GenerationRecord>) => reuse({ elementTypeId: bestExistingElementTypeId, update });
+
+  let proposal = record.elementProposal;
+  const claudeUsages = [...(record.claudeUsages ?? [])];
+  if (!proposal) {
+    const proposed = await dependencies.proposeElement({ description: record.subject!.description, existingElementNames: elementTypes.map((elementType) => elementType.displayName) });
+    proposal = proposed.output;
+    claudeUsages.push(proposed.usage);
+    // Jev が答えず判定待ちになっても、再試行で Claude を呼び直さないよう先に書く。
+    await generationDocument({ firestore: dependencies.firestore, uid, requestId }).update({
+      elementProposal: proposal,
+      claudeUsages,
+    });
+  }
+  const baseUpdate: Partial<GenerationRecord> = { elementProposal: proposal, claudeUsages };
+  const violation =
+    proposalRangeViolation(proposal) ??
+    findModerationViolation([proposal.element.displayName, proposal.element.description, ...proposal.moves.map((move) => move.displayName)].join("\n"));
+  if (violation) {
+    logger.warn("新しい属性の提案を使いません", { violation });
+    return fallback(baseUpdate);
+  }
+  const sameName = elementTypes.find((elementType) => elementType.displayName === proposal.element.displayName);
+  if (sameName) {
+    return reuse({ elementTypeId: sameName.id, update: baseUpdate });
+  }
+  const dynamicElementTypes = dynamicDefinitions.flatMap(({ definition }) => definition.elementTypes);
+  let jevInputTokens = record.jevInputTokens ?? 0;
+  if (dynamicElementTypes.length > 0) {
+    const response = await dependencies.askJev(
+      buildSameDefinitionRequest({ proposal: { id: "proposed", displayName: proposal.element.displayName, description: proposal.element.description }, existingElementTypes: dynamicElementTypes }),
+    );
+    jevInputTokens += response.usage.input_tokens;
+    const same = dynamicElementTypes.find((elementType) => {
+      const answer = response.answers[`same_element__${elementType.id}`];
+      return answer?.type === "noul" && answer.noul >= SAME_DEFINITION_PROBABILITY_THRESHOLD;
+    });
+    if (same) {
+      return reuse({ elementTypeId: same.id, update: { ...baseUpdate, jevInputTokens } });
+    }
+  }
+  const elementTypeId = `element_${fnv1a32(proposal.element.displayName).toString(16)}`;
+  const definition: DynamicDefinition & { effects: { id: string; displayName: string; kind: string; colorHex: string }[] } = {
+    version: 1,
+    elementTypes: [{ id: elementTypeId, displayName: proposal.element.displayName, description: proposal.element.description }],
+    moves: proposal.moves.map((move, index) => ({
+      id: `${elementTypeId}_${index + 1}`,
+      displayName: move.displayName,
+      elementTypeId,
+      power: move.power,
+      powerPoints: move.powerPoints,
+      category: "attack",
+      effectId: `${elementTypeId}_particle`,
+      learnableLevelMinimum: PROPOSED_MOVE_TIERS[index].learnableLevelMinimum,
+      learnableLevelMaximum: PROPOSED_MOVE_TIERS[index].learnableLevelMaximum,
+    })),
+    effects: [{ id: `${elementTypeId}_particle`, displayName: `${proposal.element.displayName}のパーティクル`, kind: "particle", colorHex: proposal.element.colorHex }],
+  };
+  const created = await dependencies.firestore.runTransaction(async (transaction: Transaction) => {
+    const definitionDocument = dependencies.firestore.doc(`definitions/${elementTypeId}`);
+    const counterDocument = dependencies.firestore.doc("definitionCounters/global");
+    const [definitionSnapshot, counterSnapshot] = await Promise.all([transaction.get(definitionDocument), transaction.get(counterDocument)]);
+    if (definitionSnapshot.exists) {
+      return "exists" as const;
+    }
+    const elementCount = master.elementTypes.length + ((counterSnapshot.get("elementCount") as number | undefined) ?? 0);
+    const moveCount = master.moves.length + ((counterSnapshot.get("moveCount") as number | undefined) ?? 0);
+    if (elementCount + 1 > ELEMENT_TYPE_LIMIT || moveCount + definition.moves.length > MOVE_LIMIT) {
+      return "limit" as const;
+    }
+    transaction.create(definitionDocument, { ...definition, createdAt: Timestamp.fromDate(dependencies.now()) });
+    transaction.set(counterDocument, { elementCount: FieldValue.increment(1), moveCount: FieldValue.increment(definition.moves.length) }, { merge: true });
+    return "created" as const;
+  });
+  if (created === "limit") {
+    logger.warn("属性・技の上限に達したため、新しい属性を作りません");
+    return fallback({ ...baseUpdate, jevInputTokens });
+  }
+  // "exists" は同じ名前の定義を別の生成が先に作った時で、その定義の技は既存の定義の一覧に含まれていないため、作った定義の技として返す。
+  return { elementTypeId, createdDefinition: { moves: definition.moves }, update: { ...baseUpdate, jevInputTokens } };
+}
+
+async function runSaveStage(
+  dependencies: GenerationDependencies,
+  { uid, requestId, record }: { uid: string; requestId: string; record: GenerationRecord },
+): Promise<StageOutcome> {
+  const { firestore, bucket } = dependencies;
+  const monsterId = record.monsterId!;
+  const artPath = `monsters/${monsterId}/art.png`;
+  // 絵を先に置く。保存のトランザクションの前に落ちても、再試行が同じ ID で置き直す (同じ中身の上書きで冪等)。
+  if (!(await bucket.file(artPath).exists())[0]) {
+    await bucket.file(record.cutoutPath!).copy(bucket.file(artPath));
+  }
+  const subject = record.subject!;
+  const judgement = record.judgement!;
+  const monster: MonsterDocument = {
+    definition: {
+      id: monsterId,
+      sourcePhotoReference: record.photoPath,
+      name: subject.name,
+      encyclopediaText: subject.encyclopediaText,
+      elementTypeIds: judgement.elementTypeIds,
+      learnset: judgement.learnset,
+      baseStats: judgement.baseStats,
+      individualValues: judgement.individualValues,
+      statCalculationVersion: CURRENT_STAT_CALCULATION_VERSION,
+      masterVersion: record.masterVersion!,
+    },
+    level: 1,
+    experience: 0,
+    artPath,
+    decoration: subject.decoration,
+    decorationVersion: DECORATION_VERSION,
+    subjectDescription: subject.description,
+    categoryIds: record.categoryIds!,
+    definitionIds: judgement.definitionIds,
+    generationRequestId: requestId,
+    createdAt: Timestamp.fromDate(dependencies.now()),
+  };
+  const monsterDocument = firestore.doc(`users/${uid}/monsters/${monsterId}`);
+  await firestore.runTransaction(async (transaction) => {
+    if (!(await transaction.get(monsterDocument)).exists) {
+      transaction.create(monsterDocument, monster);
+    }
+  });
+  await deleteFiles(bucket, [record.cutoutPath, record.maskPath]);
+  return { kind: "finish", update: { status: "saved", completedStage: "saved" } };
+}
