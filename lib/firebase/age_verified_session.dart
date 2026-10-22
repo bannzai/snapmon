@@ -88,10 +88,18 @@ Future<void> endAgeVerifiedSessionWithFirebase() async {
 
 /// 前回の起動で年齢の確認を済ませたユーザーなら、App Check と収集を再開する。アプリの起動時に呼ぶ。
 ///
-/// 端末に保存された Auth のユーザーがいて、ID トークンに ageVerified のクレームがある時だけ再開し、uid を返す。
-/// それ以外 (初回起動・確認の途中で終了した) は何も始めずに null を返し、年齢の確認の画面へ進ませる。
-Future<String?> resumeAgeVerifiedSession() async {
+/// 端末に保存した生年月が 13 歳以上 ([hasAllowedAge]) で、Auth のユーザーがいて、ID トークンに ageVerified のクレームが
+/// ある時だけ再開し、uid を返す。それ以外 (初回起動・確認の途中で終了した) は何も始めずに null を返し、年齢の確認の画面へ進ませる。
+/// 生年月が無い・13 歳未満なのに Auth のユーザーが残っている時 (iOS で再インストールすると Auth は Keychain に残り、
+/// 生年月だけが消える) は、年齢の確認より前に識別子を使わないためサインアウトする。
+Future<String?> resumeAgeVerifiedSession({required bool hasAllowedAge}) async {
   final user = FirebaseAuth.instance.currentUser;
+  if (!hasAllowedAge) {
+    if (user != null) {
+      await FirebaseAuth.instance.signOut();
+    }
+    return null;
+  }
   if (user == null ||
       !await hasAgeVerifiedClaim(user: user, forceRefresh: false)) {
     return null;

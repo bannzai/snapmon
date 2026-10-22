@@ -34,9 +34,16 @@ Future<void> main() async {
   // initializeApp だけでは識別子を作らない (Analytics・Crashlytics の自動収集は既定で無効、App Check と匿名ログインは未開始)。
   // 識別子を作る機能は、年齢の確認を通った後に lib/firebase/age_verified_session.dart から始める。
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  final ageConfirmationStore = AgeConfirmationStore(
+    preferences: await SharedPreferences.getInstance(),
+    today: DateTime.now,
+  );
   String? resumedUid;
   try {
-    resumedUid = await resumeAgeVerifiedSession();
+    resumedUid = await resumeAgeVerifiedSession(
+      hasAllowedAge:
+          ageConfirmationStore.status == AgeConfirmationStatus.allowed,
+    );
   } catch (error) {
     // 再開に失敗しても起動は止めない (ログインしていない時と同じく、年齢の確認の後のログインからやり直す)。
     debugPrint(error.toString());
@@ -45,10 +52,7 @@ Future<void> main() async {
     SnapmonApp(
       sampleData: await loadSampleData(bundle: rootBundle),
       dexStore: DexStore(),
-      ageConfirmationStore: AgeConfirmationStore(
-        preferences: await SharedPreferences.getInstance(),
-        today: DateTime.now,
-      ),
+      ageConfirmationStore: ageConfirmationStore,
       ageVerifiedSessionStore: AgeVerifiedSessionStore(
         startSession: startAgeVerifiedSessionWithFirebase,
         endSession: endAgeVerifiedSessionWithFirebase,
