@@ -29,6 +29,7 @@ void main() {
   late AgeConfirmationStore ageConfirmationStore;
   late AgeVerifiedSessionStore ageVerifiedSessionStore;
   late List<({int birthYear, int birthMonth})> startSessionCalls;
+  var endSessionCallCount = 0;
   late List<Uri> openedUris;
   late RecordedBattleCalls battleCalls;
   late RecordedGenerationCalls generationCalls;
@@ -84,6 +85,7 @@ void main() {
         }
         return 'uid-1';
       },
+      endSession: () async => endSessionCallCount++,
       resumedUid: resumedUid,
     );
   }
@@ -936,7 +938,10 @@ void main() {
       });
     });
 
-    testWidgets('開発者メニューで年齢の確認をやり直せる', (tester) async {
+    testWidgets('開発者メニューで年齢の確認をやり直すと、ログインを終えて初回起動と同じくログインからやり直す', (
+      tester,
+    ) async {
+      endSessionCallCount = 0;
       await pumpApp(
         tester: tester,
         hasConfirmedAge: true,
@@ -951,6 +956,12 @@ void main() {
       await tester.tap(find.text('年齢の確認をやり直す'));
       await tester.pumpAndSettle();
       expect(find.byKey(const Key('birthYearField')), findsOneWidget);
+      expect(endSessionCallCount, 1);
+      expect(ageVerifiedSessionStore.uid, isNull);
+
+      await enterBirth(tester: tester, year: '2000', month: '1');
+      expect(startSessionCalls, [(birthYear: 2000, birthMonth: 1)]);
+      expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
     });
   });
 }

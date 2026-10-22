@@ -39,9 +39,18 @@ Future<void> main() async {
   // initializeApp だけでは識別子を作らない (Analytics・Crashlytics の自動収集は既定で無効、App Check と匿名ログインは未開始)。
   // 識別子を作る機能は、年齢の確認を通った後に lib/firebase/age_verified_session.dart から始める。
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  final ageConfirmationStore = AgeConfirmationStore(
+    preferences: await SharedPreferences.getInstance(),
+    // Functions の confirmAge (functions/src/age.ts) と同じく UTC の年月で数える。端末の地域の時刻で数えると、
+    // 日本時間の月初 0〜9 時に端末だけが通して confirmAge が拒否し、最初の判定だけが有効なためその uid では使えなくなる
+    today: () => DateTime.now().toUtc(),
+  );
   String? resumedUid;
   try {
-    resumedUid = await resumeAgeVerifiedSession();
+    resumedUid = await resumeAgeVerifiedSession(
+      hasAllowedAge:
+          ageConfirmationStore.status == AgeConfirmationStatus.allowed,
+    );
   } catch (error) {
     // 再開に失敗しても起動は止めない (ログインしていない時と同じく、年齢の確認の後のログインからやり直す)。
     debugPrint(error.toString());
@@ -51,20 +60,19 @@ Future<void> main() async {
   final dexStore = DexStore(definitions: sampleData.definitions);
   final ageVerifiedSessionStore = AgeVerifiedSessionStore(
     startSession: startAgeVerifiedSessionWithFirebase,
+    endSession: endAgeVerifiedSessionWithFirebase,
     resumedUid: resumedUid,
   );
-  connectDexToFirestoreAfterSignIn(
+  connectDexToFirestoreWhileSignedIn(
     sessionStore: ageVerifiedSessionStore,
     dexStore: dexStore,
+    localDefinitions: sampleData.definitions,
   );
   runApp(
     SnapmonApp(
       sampleData: sampleData,
       dexStore: dexStore,
-      ageConfirmationStore: AgeConfirmationStore(
-        preferences: await SharedPreferences.getInstance(),
-        today: DateTime.now,
-      ),
+      ageConfirmationStore: ageConfirmationStore,
       ageVerifiedSessionStore: ageVerifiedSessionStore,
       openUrl: ({required uri}) =>
           launchUrl(uri, mode: LaunchMode.externalApplication),

@@ -60,6 +60,16 @@ class DexStore extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// サーバーの図鑑から離れ、空の端末の図鑑 (定義は [definitions]) に戻す (ログインを終えた時。別の uid の図鑑を残さないため)。
+  void disconnectServer({required MasterData definitions}) {
+    _savePartyMonsterIds = null;
+    _definitions = definitions;
+    _monsters = [];
+    _partyMonsterIds = [];
+    _serverError = null;
+    notifyListeners();
+  }
+
   /// サーバーから届いた図鑑 [monsters]・手持ち [partyMonsterIds]・定義 [definitions] を反映する。null の項目は変えない。
   void applyServerSnapshot({
     required List<OwnedMonster>? monsters,

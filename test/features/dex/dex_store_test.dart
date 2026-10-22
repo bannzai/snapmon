@@ -90,6 +90,25 @@ void main() {
     expect(dexStore.isServerBacked, isTrue);
   });
 
+  test('サーバーの図鑑から離れると、空の端末の図鑑と渡した定義に戻り、手持ちを保存しなくなる', () async {
+    final savedPartyMonsterIds = <List<String>>[];
+    final dexStore = serverBackedDexStore(
+      savedPartyMonsterIds: savedPartyMonsterIds,
+      saveError: null,
+    )..applyServerSnapshot(
+        monsters: null,
+        partyMonsterIds: null,
+        definitions: definitionsWithWax(base: sampleData.definitions),
+      );
+    dexStore.disconnectServer(definitions: sampleData.definitions);
+    expect(dexStore.monsters, isEmpty);
+    expect(dexStore.isServerBacked, isFalse);
+    expect(dexStore.definitions, same(sampleData.definitions));
+    dexStore.replaceAll(monsters: monsters);
+    await dexStore.removeFromParty(monsterId: monsters[0].definition.id);
+    expect(savedPartyMonsterIds, isEmpty);
+  });
+
   test('手持ちの保存に失敗したら変更の前に戻して例外を投げる', () async {
     final dexStore = serverBackedDexStore(
       savedPartyMonsterIds: [],

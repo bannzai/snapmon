@@ -31,6 +31,12 @@ void markAnalyticsCollectionStarted() {
   _analyticsCollectionStarted = true;
 }
 
+/// [logAnalyticsEvent] が Analytics へ送るのをやめる。
+/// lib/firebase/age_verified_session.dart の endAgeVerifiedSessionWithFirebase だけが呼ぶ。何度呼んでも同じ (冪等)。
+void markAnalyticsCollectionStopped() {
+  _analyticsCollectionStarted = false;
+}
+
 /// [event] を Analytics に送る。[parameters] はイベントごとの補足 (値は文字列か数値)。
 ///
 /// 年齢の確認を通るまで ([markAnalyticsCollectionStarted] の前) は Analytics の SDK を呼ばずに何もしない。

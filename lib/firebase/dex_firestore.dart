@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../domain/master/master_data.dart';
@@ -9,35 +11,48 @@ import '../master/master_repository.dart';
 // 図鑑 (users/{uid}/monsters) と手持ち (users/{uid}/party/current) を Firestore から読み続け、DexStore に反映する。
 // 図鑑はクライアントから書けず (Functions が生成で書く)、手持ちだけを書く (.claude/rules/firestore.md)。
 
-/// [sessionStore] のログインが済んだら (済んでいれば今)、その uid の図鑑に [dexStore] を繋ぐ。
-/// 繋ぐのは 1 回だけで、後から何度ログインの状態が変わっても繋ぎ直さない (同じ購読を二重に作らないため)。
-void connectDexToFirestoreAfterSignIn({
+/// [sessionStore] のログインが続く間、その uid の図鑑に [dexStore] を繋ぐ。
+/// ログインした時 (起動時に済んでいれば今) に繋ぎ、uid が変わった・ログインを終えた時は前の uid の購読をやめて
+/// [dexStore] を空の端末の図鑑 (定義は [localDefinitions]) に戻す (開発者メニューの年齢の確認のやり直しで uid が変わるため)。
+/// 同じ uid の間は繋ぎ直さない (同じ購読を二重に作らないため)。
+void connectDexToFirestoreWhileSignedIn({
   required AgeVerifiedSessionStore sessionStore,
   required DexStore dexStore,
+  required MasterData localDefinitions,
 }) {
-  var isConnected = false;
-  void connectIfSignedIn() {
+  String? connectedUid;
+  Future<void> Function()? disconnect;
+  void followSignedInUid() {
     final uid = sessionStore.uid;
-    if (isConnected || uid == null) {
+    if (uid == connectedUid) {
       return;
     }
-    isConnected = true;
-    connectDexToFirestore(
-      firestore: FirebaseFirestore.instance,
-      uid: uid,
-      dexStore: dexStore,
-    );
+    final previousDisconnect = disconnect;
+    disconnect = null;
+    if (previousDisconnect != null) {
+      unawaited(previousDisconnect());
+      dexStore.disconnectServer(definitions: localDefinitions);
+    }
+    connectedUid = uid;
+    if (uid != null) {
+      disconnect = connectDexToFirestore(
+        firestore: FirebaseFirestore.instance,
+        uid: uid,
+        dexStore: dexStore,
+      );
+    }
   }
 
-  sessionStore.addListener(connectIfSignedIn);
-  connectIfSignedIn();
+  sessionStore.addListener(followSignedInUid);
+  followSignedInUid();
 }
 
 /// [uid] の図鑑・手持ちを [firestore] から読み続けて [dexStore] に反映し、手持ちの変更を保存するようにする。
+/// 返す関数は購読をやめる。
 ///
 /// 図鑑のモンスターは、参照する定義 (最新の master と、まだ読んでいないその場で作った定義) を読んでから反映する
 /// (属性・技を引けないモンスターを画面に出さないため)。読み込みの失敗は [DexStore.reportServerError] に残す。
-void connectDexToFirestore({
+Future<void> Function() connectDexToFirestore({
   required FirebaseFirestore firestore,
   required String uid,
   required DexStore dexStore,
@@ -52,6 +67,7 @@ void connectDexToFirestore({
     }),
   );
 
+  var isConnected = true;
   Map<String, dynamic>? latestMasterJson;
   final definitionJsonsById = <String, Map<String, dynamic>>{};
   Future<MasterData> definitionsFor({
@@ -79,7 +95,7 @@ void connectDexToFirestore({
   }
 
   // asyncMap は前の反映が済むまで次のスナップショットを待たせるため、古い図鑑が新しい図鑑を上書きしない
-  userDocument
+  final monstersSubscription = userDocument
       .collection('monsters')
       .orderBy('createdAt')
       .snapshots()
@@ -88,15 +104,19 @@ void connectDexToFirestore({
           for (final document in snapshot.docs)
             OwnedMonster.fromJson(json: document.data()),
         ];
-        dexStore.applyServerSnapshot(
-          monsters: monsters,
-          partyMonsterIds: null,
-          definitions: await definitionsFor(monsters: monsters),
-        );
+        final definitions = await definitionsFor(monsters: monsters);
+        // 定義を読んでいる間に購読をやめた (ログインを終えた) 時は、前の uid の図鑑を反映しない
+        if (isConnected) {
+          dexStore.applyServerSnapshot(
+            monsters: monsters,
+            partyMonsterIds: null,
+            definitions: definitions,
+          );
+        }
       })
       .handleError((Object error) => dexStore.reportServerError(error: error))
       .listen(null);
-  partyDocument.snapshots().listen(
+  final partySubscription = partyDocument.snapshots().listen(
     (snapshot) => dexStore.applyServerSnapshot(
       monsters: null,
       partyMonsterIds: [
@@ -108,4 +128,9 @@ void connectDexToFirestore({
     ),
     onError: (Object error) => dexStore.reportServerError(error: error),
   );
+  return () async {
+    isConnected = false;
+    await monstersSubscription.cancel();
+    await partySubscription.cancel();
+  };
 }
