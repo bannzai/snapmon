@@ -43,6 +43,6 @@ snapmon は、撮った写真の被写体がモンスターになってターン
 
 - Firebase は Blaze プラン (従量課金) で始める。生成 1 体の原価は未試算。単価の出典: Claude の vision 入力はトークン換算 ( https://platform.claude.com/docs/en/build-with-claude/vision 、料金 https://platform.claude.com/docs/en/about-claude/pricing )、Jev は入力トークンだけに課金で jev-1.13.0 が $42 / 10 億トークン ( https://docs.typesafe.ai/models.md 「$42 per Btok」。出力トークンは現時点では無料: https://docs.typesafe.ai/api.md の `Usage.output_tokens` "Output tokens are currently free of charge.")、Cloud Vision は上の表。実装時に見本 20 件で実測して本 ADR の後続に書く
 - サーバーコードが Cloud Functions に集まるため、デプロイ対象はアプリ (3 プラットフォーム) + Functions + Hosting + Pages になる
-- 生成の待ち時間は少なくとも 6 回の API 呼び出し分 (Cloud Vision → Claude → Jev の分類 → Jev の同じ被写体の判定 → Jev の属性・技・ステータスの判定 → 被写体の切り出し。master に無い時は Claude の提案と Jev の照合が加わる) になる (既存アプリで褒められている「生成の速さ」を落とさないよう、計測して見直す)
+- 生成の待ち時間は、Cloud Vision → Claude → Jev の分類 → (候補がある時の) Jev の同じ被写体の判定 → Jev の属性・技・ステータスの判定の各 API 呼び出しと、被写体の切り出しの所要時間の合計になる。切り出しが API 呼び出しになるかは ADR 0002 で選ぶ手段による。同じ被写体の判定は候補の数に応じて複数回の呼び出しになり、master に無い時は Claude の提案と Jev の照合が加わる (既存アプリで褒められている「生成の速さ」を落とさないよう、計測して見直す)
 - TypeSafe の課金の仕組み (前払いのクレジットか、切れた時の API の応答) は一次情報で未確認。Jev が答えない (HTTP エラー・タイムアウト) 時は Claude に判定を代わらせず (属性・技・ステータスの決め方を master + Jev に固定するため)、生成レコードを待ち状態 `pending_judge` で保存してクライアントには待ち状態を返し、Cloud Tasks の再試行が同じレコードを続きから処理する (回数の上限と failed への遷移は Decision のサーバーコードの行)。Claude の段階は済んでいるため、復帰後に再課金は起きない。判定待ちのレコードは dedupe の比較対象に含める (同じ被写体の別の写真が通らないため)
 - 登録時にその場で作った属性・技の定義は Firestore に版付きで保存し、モンスターには定義の ID と master の版を保存する ([DIRECTION.md](../DIRECTION.md)「決めたこと」)。master の更新で既存のモンスターの値・技を変えない
