@@ -99,6 +99,63 @@ Future<void> Function() connectDexToFirestore({
     );
   }
 
+  StreamSubscription<void>? monstersSubscription;
+  StreamSubscription<void>? partySubscription;
+  // Firestore の購読はエラーを出すとそこで終わり、以後の変更は届かない。終わった購読は読み直しの時に作り直す
+  var hasSubscriptionStopped = false;
+  void reportSubscriptionError(Object error) {
+    hasSubscriptionStopped = true;
+    dexStore.reportServerError(error: error);
+  }
+
+  /// 図鑑と手持ちの購読を (作ってあれば止めてから) 作る。
+  Future<void> subscribe() async {
+    await monstersSubscription?.cancel();
+    await partySubscription?.cancel();
+    // 前の購読を止めている間に購読をやめた (ログインを終えた) 時は作らない
+    if (!isConnected) {
+      return;
+    }
+    hasSubscriptionStopped = false;
+    // asyncMap は前の反映が済むまで次のスナップショットを待たせるため、古い図鑑が新しい図鑑を上書きしない。
+    // 定義の読み込みの失敗 (asyncMap の中の例外) では購読は続き、Firestore の購読自体のエラーでは終わる
+    monstersSubscription = userDocument
+        .collection('monsters')
+        .orderBy('createdAt')
+        .snapshots()
+        .handleError(reportSubscriptionError)
+        .asyncMap((snapshot) async {
+          final monsters = [
+            for (final document in snapshot.docs)
+              OwnedMonster.fromJson(json: document.data()),
+          ];
+          latestMonsters = monsters;
+          final definitions = await definitionsFor(monsters: monsters);
+          // 定義を読んでいる間に購読をやめた (ログインを終えた) 時は、前の uid の図鑑を反映しない
+          if (isConnected) {
+            dexStore.applyServerSnapshot(
+              monsters: monsters,
+              partyMonsterIds: null,
+              definitions: definitions,
+            );
+          }
+        })
+        .handleError((Object error) => dexStore.reportServerError(error: error))
+        .listen(null);
+    partySubscription = partyDocument.snapshots().listen(
+      (snapshot) => dexStore.applyServerSnapshot(
+        monsters: null,
+        partyMonsterIds: [
+          for (final monsterId
+              in snapshot.data()?['monsterIds'] as List<dynamic>? ?? [])
+            monsterId as String,
+        ],
+        definitions: null,
+      ),
+      onError: reportSubscriptionError,
+    );
+  }
+
   dexStore.connectServer(
     // updatedAt は Rules が request.time と一致することを求める (firebase/firestore.rules の party/current)
     savePartyMonsterIds: ({required monsterIds}) => partyDocument.set({
@@ -106,6 +163,9 @@ Future<void> Function() connectDexToFirestore({
       'updatedAt': FieldValue.serverTimestamp(),
     }),
     refreshDefinitions: () async {
+      if (hasSubscriptionStopped && isConnected) {
+        await subscribe();
+      }
       latestMasterJson = (await fetchLatestMaster(
         firestore: firestore,
       ))?.data();
@@ -121,44 +181,10 @@ Future<void> Function() connectDexToFirestore({
     },
   );
 
-  // asyncMap は前の反映が済むまで次のスナップショットを待たせるため、古い図鑑が新しい図鑑を上書きしない
-  final monstersSubscription = userDocument
-      .collection('monsters')
-      .orderBy('createdAt')
-      .snapshots()
-      .asyncMap((snapshot) async {
-        final monsters = [
-          for (final document in snapshot.docs)
-            OwnedMonster.fromJson(json: document.data()),
-        ];
-        latestMonsters = monsters;
-        final definitions = await definitionsFor(monsters: monsters);
-        // 定義を読んでいる間に購読をやめた (ログインを終えた) 時は、前の uid の図鑑を反映しない
-        if (isConnected) {
-          dexStore.applyServerSnapshot(
-            monsters: monsters,
-            partyMonsterIds: null,
-            definitions: definitions,
-          );
-        }
-      })
-      .handleError((Object error) => dexStore.reportServerError(error: error))
-      .listen(null);
-  final partySubscription = partyDocument.snapshots().listen(
-    (snapshot) => dexStore.applyServerSnapshot(
-      monsters: null,
-      partyMonsterIds: [
-        for (final monsterId
-            in snapshot.data()?['monsterIds'] as List<dynamic>? ?? [])
-          monsterId as String,
-      ],
-      definitions: null,
-    ),
-    onError: (Object error) => dexStore.reportServerError(error: error),
-  );
+  unawaited(subscribe());
   return () async {
     isConnected = false;
-    await monstersSubscription.cancel();
-    await partySubscription.cancel();
+    await monstersSubscription?.cancel();
+    await partySubscription?.cancel();
   };
 }
