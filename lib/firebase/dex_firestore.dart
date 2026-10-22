@@ -171,7 +171,8 @@ Future<void> Function() connectDexToFirestore({
       ))?.data();
       final monsters = latestMonsters;
       final definitions = await definitionsFor(monsters: monsters ?? const []);
-      if (isConnected) {
+      // 定義を読んでいる間に新しい図鑑が届いた時は、古い図鑑で上書きしない (新しい図鑑は購読の側が定義と一緒に反映する)
+      if (isConnected && identical(monsters, latestMonsters)) {
         dexStore.applyServerSnapshot(
           monsters: monsters,
           partyMonsterIds: null,
