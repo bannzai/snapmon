@@ -254,7 +254,8 @@ class _BattleScreenState extends State<BattleScreen> {
     final playerLevelUps = _playerLevelUpsOf(state: finishedState);
     widget.onPlayerLevelsChanged(
       levelsByMonsterId: {
-        for (final levelUp in playerLevelUps) levelUp.monsterId: levelUp.newLevel,
+        for (final levelUp in playerLevelUps)
+          levelUp.monsterId: levelUp.newLevel,
       },
     );
     setState(() => _recordStatusText = _recordingText);
@@ -374,7 +375,10 @@ class _BattleScreenState extends State<BattleScreen> {
                       playerParty: widget.playerParty,
                       recordStatusText: _recordStatusText,
                     )
-                  : _buildCommands(context: context, playerMonster: playerMonster),
+                  : _buildCommands(
+                      context: context,
+                      playerMonster: playerMonster,
+                    ),
             ),
           ),
         ],
@@ -467,16 +471,17 @@ class _BattleScreenState extends State<BattleScreen> {
                 label: 'モンスターを交代',
                 onPressed: _isPlaying
                     ? null
-                    : () => Navigator.of(
-                        context,
-                      ).pop(BattleScreenAction.openDex),
+                    : () =>
+                          Navigator.of(context).pop(BattleScreenAction.openDex),
               ),
             ),
             const SizedBox(width: 10),
             Expanded(
               child: _BattleCommandButton(
                 label: 'にげる',
-                onPressed: _isPlaying ? null : () => Navigator.of(context).pop(),
+                onPressed: _isPlaying
+                    ? null
+                    : () => Navigator.of(context).pop(),
               ),
             ),
           ],
@@ -519,7 +524,10 @@ class _BattleResultPanel extends StatelessWidget {
         ),
       ),
       const SizedBox(height: 4),
-      const Text('勝ち負けに関係なく 戦ったモンスターのレベルが上がる', style: SnapmonTextStyles.caption),
+      const Text(
+        '勝ち負けに関係なく 戦ったモンスターのレベルが上がる',
+        style: SnapmonTextStyles.caption,
+      ),
       const SizedBox(height: 12),
       for (final (levelUp, monster) in [
         for (final levelUp in playerLevelUps)

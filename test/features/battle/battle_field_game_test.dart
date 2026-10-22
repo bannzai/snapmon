@@ -100,6 +100,9 @@ void main() {
     expect(game.opponentMonsterComponent.definition.id, nextMonster.id);
     expect(game.opponentMonsterComponent.isVisible, isTrue);
     expect(game.opponentMonsterComponent.position, positionBefore);
-    expect(game.children.whereType<PlaceholderMonsterComponent>(), hasLength(2));
+    expect(
+      game.children.whereType<PlaceholderMonsterComponent>(),
+      hasLength(2),
+    );
   });
 }

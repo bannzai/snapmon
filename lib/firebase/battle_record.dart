@@ -15,11 +15,9 @@ Future<String?> startBattleRecordWithFirebase({
       !await hasAgeVerifiedClaim(user: user, forceRefresh: false)) {
     return null;
   }
-  final result = await FirebaseFunctions.instanceFor(
-    region: functionsRegion,
-  ).httpsCallable('startBattle').call<Object?>({
-    'partyMonsterIds': partyMonsterIds,
-  });
+  final result = await FirebaseFunctions.instanceFor(region: functionsRegion)
+      .httpsCallable('startBattle')
+      .call<Object?>({'partyMonsterIds': partyMonsterIds});
   return (result.data! as Map<Object?, Object?>)['battleId']! as String;
 }
 

@@ -2,7 +2,8 @@ import 'dart:math' as math;
 import 'dart:ui';
 
 import 'package:flame/components.dart';
-import 'package:flame/effects.dart';
+// 技のエフェクトの定義 (MoveEffect) と名前が重なるため、Flame の effects には接頭辞を付ける
+import 'package:flame/effects.dart' as flame_effects;
 import 'package:flame/game.dart';
 import 'package:flame/particles.dart';
 
@@ -78,20 +79,21 @@ class BattleFieldGame extends FlameGame {
   }
 
   /// [side] の場のモンスター。
-  PlaceholderMonsterComponent monsterComponentOf({required BattleSideId side}) =>
-      switch (side) {
-        BattleSideId.player => playerMonsterComponent,
-        BattleSideId.opponent => opponentMonsterComponent,
-      };
+  PlaceholderMonsterComponent monsterComponentOf({
+    required BattleSideId side,
+  }) => switch (side) {
+    BattleSideId.player => playerMonsterComponent,
+    BattleSideId.opponent => opponentMonsterComponent,
+  };
 
   /// [attackerSide] のモンスターを相手の方へ前進させて戻す ([attackLungeSeconds] の往復)。
   void lunge({required BattleSideId attackerSide}) {
     final attacker = monsterComponentOf(side: attackerSide);
     final defender = monsterComponentOf(side: _otherSide(side: attackerSide));
     attacker.add(
-      MoveEffect.by(
+      flame_effects.MoveEffect.by(
         (defender.center - attacker.center)..scale(0.15),
-        EffectController(
+        flame_effects.EffectController(
           duration: attackLungeSeconds,
           reverseDuration: attackLungeSeconds,
         ),
@@ -115,11 +117,10 @@ class BattleFieldGame extends FlameGame {
           count: _hitParticleCount,
           lifespan: hitReactionSeconds,
           generator: (_) => AcceleratedParticle(
-            speed:
-                Vector2(
-                  _particleRandom.nextDouble() * 2 - 1,
-                  _particleRandom.nextDouble() * 2 - 1,
-                )..scale(_hitParticleMaximumSpeed),
+            speed: Vector2(
+              _particleRandom.nextDouble() * 2 - 1,
+              _particleRandom.nextDouble() * 2 - 1,
+            )..scale(_hitParticleMaximumSpeed),
             acceleration: Vector2(0, _hitParticleGravity),
             child: CircleParticle(
               radius: 3 + _particleRandom.nextDouble() * 3,
