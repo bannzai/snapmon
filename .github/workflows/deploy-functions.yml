@@ -3,8 +3,9 @@ name: deploy-functions
 # Functions と、それが前提にする Firestore・Storage の Security Rules・インデックスを snapmon-prod へデプロイする。
 # 本番への配布は、触れる版を見て公開に進むと決めてもらうまで手動実行 (workflow_dispatch) だけにする (ADR 0001 の Web 版のホスティングの行と同じ方針)。
 #
-# 認証: デプロイ専用サービスアカウント (github-firebase-deployer@snapmon-prod.iam.gserviceaccount.com) の鍵 (JSON) を base64 にした
-# Secret FIREBASE_SERVICE_ACCOUNT_BASE64 を Application Default Credentials として復元する。
+# 認証: 鍵を持たず、GitHub の OIDC トークンを Workload Identity Federation でデプロイ専用サービスアカウント
+# (github-firebase-deployer@snapmon-prod.iam.gserviceaccount.com) の短命なトークンに交換する。
+# GCP 側の前提と environment firebase-prod を付ける理由は .claude/rules/firebase-deploy.md。
 # サービスアカウントの IAM は /firebase-functions-deploy-iam-setup skill で揃える。
 # master の投入 (master_file) には、同じサービスアカウントに Firestore への書き込み (roles/datastore.user) が要る。
 # Functions は実行サービスアカウント snapmon-functions で動く (functions/src/index.ts) ため、同じサービスアカウントに snapmon-functions の actAs (roles/iam.serviceAccountUser) が要る。
@@ -31,9 +32,10 @@ concurrency:
   group: deploy-firebase
   cancel-in-progress: false
 
-# リポジトリの読み取りだけ。デプロイの認証はサービスアカウントの鍵で行う
+# id-token は Workload Identity Federation に渡す OIDC トークンの発行に要る
 permissions:
   contents: read
+  id-token: write
 
 env:
   PROJECT_ID: snapmon-prod
@@ -41,6 +43,7 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: firebase-prod
     steps:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
@@ -54,17 +57,16 @@ jobs:
     - name: Install dependencies
       working-directory: functions
       run: npm ci
-    - name: Restore service account key
-      env:
-        FIREBASE_SERVICE_ACCOUNT_BASE64: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BASE64 }}
-      run: |
-        if [ -z "$FIREBASE_SERVICE_ACCOUNT_BASE64" ]; then
-          echo "::error::Secret FIREBASE_SERVICE_ACCOUNT_BASE64 が未登録です"
-          exit 1
-        fi
-        key_path="$RUNNER_TEMP/firebase-deployer.json"
-        echo "$FIREBASE_SERVICE_ACCOUNT_BASE64" | base64 --decode > "$key_path"
-        echo "GOOGLE_APPLICATION_CREDENTIALS=$key_path" >> "$GITHUB_ENV"
+    # npm ci の後に置く。依存の lifecycle script が資格情報を読めないようにするため。
+    # external_account 形式の資格情報ファイルを GOOGLE_APPLICATION_CREDENTIALS に出し、firebase-tools が Application Default Credentials として読む
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3.0.0
+      with:
+        project_id: ${{ env.PROJECT_ID }}
+        workload_identity_provider: projects/1032186168570/locations/global/workloadIdentityPools/github/providers/snapmon
+        service_account: github-firebase-deployer@snapmon-prod.iam.gserviceaccount.com
+        create_credentials_file: true
+        export_environment_variables: true
     - name: Deploy
       working-directory: functions
       env:
