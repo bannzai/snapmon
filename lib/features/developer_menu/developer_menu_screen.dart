@@ -91,7 +91,9 @@ class DeveloperMenuScreen extends StatelessWidget {
             leading: const Icon(Icons.person_outline),
             title: const Text('ログイン状態'),
             subtitle: Text(
-              '匿名ログイン (年齢の確認済み) uid: ${ageVerifiedSessionStore.uid}',
+              ageVerifiedSessionStore.uid == null
+                  ? '未ログイン (年齢の確認の後のログインを DEBUG で飛ばした)'
+                  : '匿名ログイン (年齢の確認済み) uid: ${ageVerifiedSessionStore.uid}',
             ),
           ),
           ListTile(

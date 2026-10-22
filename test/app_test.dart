@@ -207,6 +207,7 @@ void main() {
       expect(find.text('つながりませんでした'), findsOneWidget);
       expect(find.text('Exception: network-request-failed'), findsOneWidget);
       expect(find.byKey(const Key('tab-capture')), findsNothing);
+      expect(find.text('ログインせずに進む (DEBUG)'), findsNothing);
       expect(ageVerifiedSessionStore.uid, isNull);
 
       await tester.tap(find.text('もう一度試す'));
@@ -216,6 +217,26 @@ void main() {
         (birthYear: 2000, birthMonth: 1),
       ]);
       expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
+    });
+
+    testWidgets('開発者メニューが有効な時だけ、ログインに失敗した画面からログインせずに進める', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        hasStartedSession: false,
+        startSessionFailureCount: 1,
+        isDeveloperMenuEnabled: true,
+      );
+      expect(find.text('つながりませんでした'), findsOneWidget);
+      await tester.tap(find.text('ログインせずに進む (DEBUG)'));
+      await tester.pumpAndSettle();
+      expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
+
+      await tester.tap(find.byTooltip('設定'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('開発者メニュー'));
+      await tester.pumpAndSettle();
+      expect(find.text('未ログイン (年齢の確認の後のログインを DEBUG で飛ばした)'), findsOneWidget);
     });
 
     testWidgets('生年月を入力済みでログインが済んでいない時は、起動するとログインを始める', (tester) async {

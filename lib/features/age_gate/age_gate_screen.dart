@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -157,6 +158,7 @@ class AgeVerifiedSessionScreen extends StatefulWidget {
     super.key,
     required this.ageConfirmationStore,
     required this.ageVerifiedSessionStore,
+    required this.isDebugSkipEnabled,
   });
 
   /// ログインに渡す生年月の保存先。
@@ -164,6 +166,10 @@ class AgeVerifiedSessionScreen extends StatefulWidget {
 
   /// ログインの状態。
   final AgeVerifiedSessionStore ageVerifiedSessionStore;
+
+  /// 失敗の画面に「ログインせずに進む (DEBUG)」を出すか。release ビルドでは [kDebugMode] が const の false のため、
+  /// この値に関係なくボタンがビルドから除かれる (設定画面の開発者メニューの入口と同じ)。
+  final bool isDebugSkipEnabled;
 
   @override
   State<AgeVerifiedSessionScreen> createState() =>
@@ -210,6 +216,13 @@ class _AgeVerifiedSessionScreenState extends State<AgeVerifiedSessionScreen> {
                 ),
                 const SizedBox(height: 32),
                 FilledButton(onPressed: _start, child: const Text('もう一度試す')),
+                if (kDebugMode && widget.isDebugSkipEnabled) ...[
+                  const SizedBox(height: 12),
+                  OutlinedButton(
+                    onPressed: widget.ageVerifiedSessionStore.skipForDebug,
+                    child: const Text('ログインせずに進む (DEBUG)'),
+                  ),
+                ],
               ],
             ],
           );

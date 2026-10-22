@@ -60,10 +60,11 @@ class SnapmonApp extends StatelessWidget {
         ),
         AgeConfirmationStatus.restricted => const AgeRestrictedScreen(),
         AgeConfirmationStatus.allowed
-            when ageVerifiedSessionStore.uid == null =>
+            when !ageVerifiedSessionStore.canEnterApp =>
           AgeVerifiedSessionScreen(
             ageConfirmationStore: ageConfirmationStore,
             ageVerifiedSessionStore: ageVerifiedSessionStore,
+            isDebugSkipEnabled: isDeveloperMenuEnabled,
           ),
         AgeConfirmationStatus.allowed => HomeShell(
           sampleData: sampleData,
