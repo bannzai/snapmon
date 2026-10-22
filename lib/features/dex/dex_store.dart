@@ -49,8 +49,12 @@ class DexStore extends ChangeNotifier {
   bool isInParty({required String monsterId}) =>
       _partyMonsterIds.contains(monsterId);
 
-  /// 手持ちに空きがあるか。
-  bool get hasPartyVacancy => party.length < maximumPartySize;
+  /// 手持ちに空きがあるか。図鑑にまだ届いていない手持ちも数える (届く前に入れて、保存した手持ちから外さないため)。
+  bool get hasPartyVacancy => _partyMonsterIds.length < maximumPartySize;
+
+  /// 手持ちの変更を保存している途中か。途中は次の変更を受け付けない ([addToParty] 等が [StateError] を投げる)。
+  bool get isSavingParty => _isSavingParty;
+  bool _isSavingParty = false;
 
   /// サーバーの図鑑に繋ぐ。以後の手持ちの変更は [savePartyMonsterIds] で保存し、[refreshDefinitions] で定義を
   /// サーバーの最新の master から読み直す。何度呼んでも最後の関数を使う。
@@ -143,12 +147,7 @@ class DexStore extends ChangeNotifier {
         !contains(monsterId: monsterId)) {
       return Future.value();
     }
-    return _changeParty(
-      monsterIds: [
-        for (final monster in party) monster.definition.id,
-        monsterId,
-      ],
-    );
+    return _changeParty(monsterIds: [..._partyMonsterIds, monsterId]);
   }
 
   /// 手持ちの [outgoingMonsterId] を、図鑑にいる [incomingMonsterId] と入れ替える (手持ちの中の位置は変えない)。
@@ -165,10 +164,8 @@ class DexStore extends ChangeNotifier {
     }
     return _changeParty(
       monsterIds: [
-        for (final monster in party)
-          monster.definition.id == outgoingMonsterId
-              ? incomingMonsterId
-              : monster.definition.id,
+        for (final monsterId in _partyMonsterIds)
+          monsterId == outgoingMonsterId ? incomingMonsterId : monsterId,
       ],
     );
   }
@@ -180,24 +177,32 @@ class DexStore extends ChangeNotifier {
     }
     return _changeParty(
       monsterIds: [
-        for (final monster in party)
-          if (monster.definition.id != monsterId) monster.definition.id,
+        for (final partyMonsterId in _partyMonsterIds)
+          if (partyMonsterId != monsterId) partyMonsterId,
       ],
     );
   }
 
   /// 手持ちを [monsterIds] にして、サーバーに繋いでいれば保存する。
   /// 画面にはすぐ反映し、保存に失敗したら変更の前に戻して例外を投げる (Firestore の手持ちと食い違わせないため)。
+  /// 保存の途中に呼ばれた時は変えずに [StateError] を投げる (並んだ保存の片方が失敗した時に、もう片方の変更まで
+  /// 巻き戻して食い違わせないため)。
   Future<void> _changeParty({required List<String> monsterIds}) async {
+    if (_isSavingParty) {
+      throw StateError('手持ちを保存しています');
+    }
     final previousPartyMonsterIds = _partyMonsterIds;
     _partyMonsterIds = monsterIds;
+    _isSavingParty = true;
     notifyListeners();
     try {
       await _savePartyMonsterIds?.call(monsterIds: monsterIds);
     } catch (_) {
       _partyMonsterIds = previousPartyMonsterIds;
-      notifyListeners();
       rethrow;
+    } finally {
+      _isSavingParty = false;
+      notifyListeners();
     }
   }
 

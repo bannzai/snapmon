@@ -105,7 +105,13 @@ class _CaptureScreenState extends State<CaptureScreen>
         enableAudio: false,
         imageFormatGroup: ImageFormatGroup.jpeg,
       );
-      await cameraController.initialize();
+      try {
+        await cameraController.initialize();
+      } catch (_) {
+        // 開けなかったカメラも、開く途中で始めた端末の向きの購読等を残さないよう捨てる
+        await cameraController.dispose();
+        rethrow;
+      }
       if (!isCurrent()) {
         await cameraController.dispose();
         return;

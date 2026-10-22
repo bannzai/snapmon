@@ -134,6 +134,52 @@ void main() {
     expect(dexStore.hasPartyVacancy, isTrue);
   });
 
+  test('図鑑にまだ届いていない手持ちも、手持ちを変えて保存する一覧と空きの数に残す', () async {
+    final savedPartyMonsterIds = <List<String>>[];
+    final dexStore =
+        serverBackedDexStore(
+          savedPartyMonsterIds: savedPartyMonsterIds,
+          saveError: null,
+        )..applyServerSnapshot(
+          monsters: null,
+          partyMonsterIds: [monsters[0].definition.id, 'not-arrived'],
+          definitions: null,
+        );
+    await dexStore.addToParty(monsterId: monsters[1].definition.id);
+    expect(savedPartyMonsterIds.single, [
+      monsters[0].definition.id,
+      'not-arrived',
+      monsters[1].definition.id,
+    ]);
+    expect(dexStore.hasPartyVacancy, isFalse);
+  });
+
+  test('手持ちの保存の途中は次の変更を受け付けず、保存が済めば受け付ける', () async {
+    final pendingSave = Completer<void>();
+    final dexStore = DexStore(definitions: sampleData.definitions)
+      ..connectServer(
+        savePartyMonsterIds: ({required monsterIds}) => pendingSave.future,
+        refreshDefinitions: () async {},
+      )
+      ..applyServerSnapshot(
+        monsters: monsters,
+        partyMonsterIds: const [],
+        definitions: null,
+      );
+    final firstChange = dexStore.addToParty(
+      monsterId: monsters[0].definition.id,
+    );
+    expect(dexStore.isSavingParty, isTrue);
+    await expectLater(
+      dexStore.addToParty(monsterId: monsters[1].definition.id),
+      throwsStateError,
+    );
+    pendingSave.complete();
+    await firstChange;
+    expect(dexStore.isSavingParty, isFalse);
+    expect(partyIds(dexStore: dexStore), [monsters[0].definition.id]);
+  });
+
   test('サーバーの図鑑と定義を反映し、null の項目は変えない', () {
     final definitions = definitionsWithWax(base: sampleData.definitions);
     final dexStore = DexStore(definitions: sampleData.definitions)

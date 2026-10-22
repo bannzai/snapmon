@@ -335,9 +335,12 @@ class ResultScreen extends StatelessWidget {
                       final isInParty = dexStore.isInParty(
                         monsterId: definition.id,
                       );
-                      // 手持ちにいるモンスターはここから外せるようにし、満員の時は手持ちの 1 体と入れ替える
+                      // 手持ちにいるモンスターはここから外せるようにし、満員の時は手持ちの 1 体と入れ替える。
+                      // 保存の途中は押せなくする (DexStore は保存の途中の次の変更を受け付けないため)
                       return FilledButton(
-                        onPressed: isInParty
+                        onPressed: dexStore.isSavingParty
+                            ? null
+                            : isInParty
                             ? () => _changeParty(
                                 context: context,
                                 change: () => dexStore.removeFromParty(
