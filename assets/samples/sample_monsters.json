@@ -1,0 +1,525 @@
+{
+  "definitions": {
+    "version": 1,
+    "elementTypes": [
+      {
+        "id": "metal",
+        "displayName": "金属"
+      },
+      {
+        "id": "plant",
+        "displayName": "植物"
+      },
+      {
+        "id": "water",
+        "displayName": "水"
+      },
+      {
+        "id": "heat",
+        "displayName": "熱"
+      },
+      {
+        "id": "paper",
+        "displayName": "紙"
+      },
+      {
+        "id": "cloth",
+        "displayName": "布"
+      },
+      {
+        "id": "plastic",
+        "displayName": "樹脂"
+      },
+      {
+        "id": "electric",
+        "displayName": "電気"
+      },
+      {
+        "id": "food",
+        "displayName": "食べ物"
+      }
+    ],
+    "moves": [
+      {
+        "id": "metal_1",
+        "displayName": "ブリキパンチ",
+        "elementTypeId": "metal",
+        "power": 40,
+        "powerPoints": 30,
+        "category": "attack",
+        "effectId": "metal_particle",
+        "learnableLevelMinimum": 1,
+        "learnableLevelMaximum": 30
+      },
+      {
+        "id": "metal_2",
+        "displayName": "スチールプレス",
+        "elementTypeId": "metal",
+        "power": 70,
+        "powerPoints": 15,
+        "category": "attack",
+        "effectId": "metal_particle",
+        "learnableLevelMinimum": 15,
+        "learnableLevelMaximum": 200
+      },
+      {
+        "id": "plant_1",
+        "displayName": "はっぱカッター",
+        "elementTypeId": "plant",
+        "power": 40,
+        "powerPoints": 30,
+        "category": "attack",
+        "effectId": "plant_particle",
+        "learnableLevelMinimum": 1,
+        "learnableLevelMaximum": 30
+      },
+      {
+        "id": "plant_2",
+        "displayName": "つるしめつけ",
+        "elementTypeId": "plant",
+        "power": 70,
+        "powerPoints": 15,
+        "category": "attack",
+        "effectId": "plant_particle",
+        "learnableLevelMinimum": 15,
+        "learnableLevelMaximum": 200
+      },
+      {
+        "id": "water_1",
+        "displayName": "しずくだま",
+        "elementTypeId": "water",
+        "power": 40,
+        "powerPoints": 30,
+        "category": "attack",
+        "effectId": "water_particle",
+        "learnableLevelMinimum": 1,
+        "learnableLevelMaximum": 30
+      },
+      {
+        "id": "water_2",
+        "displayName": "みずでっぽう",
+        "elementTypeId": "water",
+        "power": 70,
+        "powerPoints": 15,
+        "category": "attack",
+        "effectId": "water_particle",
+        "learnableLevelMinimum": 15,
+        "learnableLevelMaximum": 200
+      },
+      {
+        "id": "heat_1",
+        "displayName": "ほかほかタッチ",
+        "elementTypeId": "heat",
+        "power": 40,
+        "powerPoints": 30,
+        "category": "attack",
+        "effectId": "heat_particle",
+        "learnableLevelMinimum": 1,
+        "learnableLevelMaximum": 30
+      },
+      {
+        "id": "heat_2",
+        "displayName": "ねつふうしゃ",
+        "elementTypeId": "heat",
+        "power": 70,
+        "powerPoints": 15,
+        "category": "attack",
+        "effectId": "heat_particle",
+        "learnableLevelMinimum": 15,
+        "learnableLevelMaximum": 200
+      },
+      {
+        "id": "paper_1",
+        "displayName": "かみひこうき",
+        "elementTypeId": "paper",
+        "power": 40,
+        "powerPoints": 30,
+        "category": "attack",
+        "effectId": "paper_particle",
+        "learnableLevelMinimum": 1,
+        "learnableLevelMaximum": 30
+      },
+      {
+        "id": "paper_2",
+        "displayName": "おりがみカッター",
+        "elementTypeId": "paper",
+        "power": 70,
+        "powerPoints": 15,
+        "category": "attack",
+        "effectId": "paper_particle",
+        "learnableLevelMinimum": 15,
+        "learnableLevelMaximum": 200
+      },
+      {
+        "id": "cloth_1",
+        "displayName": "ハンカチはたき",
+        "elementTypeId": "cloth",
+        "power": 40,
+        "powerPoints": 30,
+        "category": "attack",
+        "effectId": "cloth_particle",
+        "learnableLevelMinimum": 1,
+        "learnableLevelMaximum": 30
+      },
+      {
+        "id": "cloth_2",
+        "displayName": "まきつきマフラー",
+        "elementTypeId": "cloth",
+        "power": 70,
+        "powerPoints": 15,
+        "category": "attack",
+        "effectId": "cloth_particle",
+        "learnableLevelMinimum": 15,
+        "learnableLevelMaximum": 200
+      },
+      {
+        "id": "plastic_1",
+        "displayName": "ストローショット",
+        "elementTypeId": "plastic",
+        "power": 40,
+        "powerPoints": 30,
+        "category": "attack",
+        "effectId": "plastic_particle",
+        "learnableLevelMinimum": 1,
+        "learnableLevelMaximum": 30
+      },
+      {
+        "id": "plastic_2",
+        "displayName": "ボトルロケット",
+        "elementTypeId": "plastic",
+        "power": 70,
+        "powerPoints": 15,
+        "category": "attack",
+        "effectId": "plastic_particle",
+        "learnableLevelMinimum": 15,
+        "learnableLevelMaximum": 200
+      },
+      {
+        "id": "electric_1",
+        "displayName": "せいでんきタッチ",
+        "elementTypeId": "electric",
+        "power": 40,
+        "powerPoints": 30,
+        "category": "attack",
+        "effectId": "electric_particle",
+        "learnableLevelMinimum": 1,
+        "learnableLevelMaximum": 30
+      },
+      {
+        "id": "electric_2",
+        "displayName": "でんちショック",
+        "elementTypeId": "electric",
+        "power": 70,
+        "powerPoints": 15,
+        "category": "attack",
+        "effectId": "electric_particle",
+        "learnableLevelMinimum": 15,
+        "learnableLevelMaximum": 200
+      },
+      {
+        "id": "food_1",
+        "displayName": "パンくずなげ",
+        "elementTypeId": "food",
+        "power": 40,
+        "powerPoints": 30,
+        "category": "attack",
+        "effectId": "food_particle",
+        "learnableLevelMinimum": 1,
+        "learnableLevelMaximum": 30
+      },
+      {
+        "id": "food_2",
+        "displayName": "ジャムぬりつけ",
+        "elementTypeId": "food",
+        "power": 70,
+        "powerPoints": 15,
+        "category": "attack",
+        "effectId": "food_particle",
+        "learnableLevelMinimum": 15,
+        "learnableLevelMaximum": 200
+      }
+    ]
+  },
+  "monsters": [
+    {
+      "definition": {
+        "id": "sample-mugmon",
+        "sourcePhotoReference": "",
+        "name": "マグモン",
+        "encyclopediaText": "朝いちばんのコーヒーの熱を体にためこむ。取っ手を振り回して戦うが、中身をこぼすと急に弱気になる。",
+        "elementTypeIds": [
+          "heat",
+          "metal"
+        ],
+        "learnset": [
+          {
+            "moveId": "heat_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveId": "metal_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveId": "heat_2",
+            "unlockLevel": 15
+          },
+          {
+            "moveId": "metal_2",
+            "unlockLevel": 15
+          }
+        ],
+        "baseStats": {
+          "hitPoints": 80,
+          "attack": 100,
+          "defense": 100,
+          "speed": 60
+        },
+        "individualValues": {
+          "hitPoints": 12,
+          "attack": 25,
+          "defense": 7,
+          "speed": 18
+        },
+        "statCalculationVersion": 1,
+        "masterVersion": 1
+      },
+      "level": 7
+    },
+    {
+      "definition": {
+        "id": "sample-petbottler",
+        "sourcePhotoReference": "",
+        "name": "ペットボトラ",
+        "encyclopediaText": "中の水をゆらして相手の目をくらませる。空っぽになると軽くなって素早く動く。",
+        "elementTypeIds": [
+          "plastic",
+          "water"
+        ],
+        "learnset": [
+          {
+            "moveId": "plastic_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveId": "water_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveId": "plastic_2",
+            "unlockLevel": 15
+          },
+          {
+            "moveId": "water_2",
+            "unlockLevel": 15
+          }
+        ],
+        "baseStats": {
+          "hitPoints": 100,
+          "attack": 80,
+          "defense": 60,
+          "speed": 100
+        },
+        "individualValues": {
+          "hitPoints": 20,
+          "attack": 3,
+          "defense": 15,
+          "speed": 29
+        },
+        "statCalculationVersion": 1,
+        "masterVersion": 1
+      },
+      "level": 12
+    },
+    {
+      "definition": {
+        "id": "sample-keybon",
+        "sourcePhotoReference": "",
+        "name": "キーボン",
+        "encyclopediaText": "たくさんのキーを鳴らして仲間を呼ぶ。夜中に光るのは充電が足りない合図。",
+        "elementTypeIds": [
+          "plastic",
+          "electric"
+        ],
+        "learnset": [
+          {
+            "moveId": "plastic_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveId": "electric_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveId": "plastic_2",
+            "unlockLevel": 15
+          },
+          {
+            "moveId": "electric_2",
+            "unlockLevel": 15
+          }
+        ],
+        "baseStats": {
+          "hitPoints": 60,
+          "attack": 80,
+          "defense": 80,
+          "speed": 120
+        },
+        "individualValues": {
+          "hitPoints": 5,
+          "attack": 30,
+          "defense": 11,
+          "speed": 22
+        },
+        "statCalculationVersion": 1,
+        "masterVersion": 1
+      },
+      "level": 3
+    },
+    {
+      "definition": {
+        "id": "sample-ringora",
+        "sourcePhotoReference": "",
+        "name": "リンゴラ",
+        "encyclopediaText": "甘い香りで相手を油断させる。日に当たるほど赤く丈夫になる。",
+        "elementTypeIds": [
+          "food",
+          "plant"
+        ],
+        "learnset": [
+          {
+            "moveId": "food_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveId": "plant_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveId": "food_2",
+            "unlockLevel": 15
+          },
+          {
+            "moveId": "plant_2",
+            "unlockLevel": 15
+          }
+        ],
+        "baseStats": {
+          "hitPoints": 120,
+          "attack": 60,
+          "defense": 80,
+          "speed": 40
+        },
+        "individualValues": {
+          "hitPoints": 27,
+          "attack": 9,
+          "defense": 14,
+          "speed": 2
+        },
+        "statCalculationVersion": 1,
+        "masterVersion": 1
+      },
+      "level": 1
+    },
+    {
+      "definition": {
+        "id": "sample-noton",
+        "sourcePhotoReference": "",
+        "name": "ノートン",
+        "encyclopediaText": "書きかけのページをめくって技を思い出す。雨の日は少し元気がない。",
+        "elementTypeIds": [
+          "paper"
+        ],
+        "learnset": [
+          {
+            "moveId": "paper_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveId": "paper_2",
+            "unlockLevel": 15
+          }
+        ],
+        "baseStats": {
+          "hitPoints": 80,
+          "attack": 60,
+          "defense": 60,
+          "speed": 80
+        },
+        "individualValues": {
+          "hitPoints": 16,
+          "attack": 21,
+          "defense": 8,
+          "speed": 13
+        },
+        "statCalculationVersion": 1,
+        "masterVersion": 1
+      },
+      "level": 2
+    },
+    {
+      "definition": {
+        "id": "sample-slippan",
+        "sourcePhotoReference": "",
+        "name": "スリッパン",
+        "encyclopediaText": "ぱたぱたと音を立てて床を走り回る。片方をなくすとずっと探している。",
+        "elementTypeIds": [
+          "cloth"
+        ],
+        "learnset": [
+          {
+            "moveId": "cloth_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveId": "cloth_2",
+            "unlockLevel": 15
+          }
+        ],
+        "baseStats": {
+          "hitPoints": 60,
+          "attack": 80,
+          "defense": 60,
+          "speed": 100
+        },
+        "individualValues": {
+          "hitPoints": 10,
+          "attack": 18,
+          "defense": 24,
+          "speed": 6
+        },
+        "statCalculationVersion": 1,
+        "masterVersion": 1
+      },
+      "level": 5
+    }
+  ],
+  "opponents": [
+    {
+      "id": "sample-trainer-1024",
+      "name": "トレーナー 1024",
+      "monsterIds": [
+        "sample-slippan",
+        "sample-noton",
+        "sample-ringora"
+      ]
+    },
+    {
+      "id": "sample-trainer-0417",
+      "name": "トレーナー 0417",
+      "monsterIds": [
+        "sample-petbottler",
+        "sample-keybon",
+        "sample-mugmon"
+      ]
+    },
+    {
+      "id": "sample-cpu",
+      "name": "CPU トレーナー",
+      "monsterIds": [
+        "sample-keybon",
+        "sample-ringora"
+      ]
+    }
+  ]
+}
