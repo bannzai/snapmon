@@ -18,6 +18,7 @@ paths:
 | `users/{uid}` | 生成中ロック (`generationLock`)、uid ごとの 1 日の生成数 (`dailyGeneration`)、`ageRejected`・`ageAccepted` (confirmAge が 13 歳未満 / 以上と判定した印。uid ごとに最初の判定だけが有効。生年月は持たない) 等 | 本人が読む | 書く |
 | `users/{uid}/monsters/{monsterId}` | 図鑑のモンスター (形は `functions/src/generation/records.ts` の `MonsterDocument`) | 本人が読む | 書く |
 | `users/{uid}/generations/{requestId}` | 生成の状態遷移のレコード (形は `functions/src/generation/records.ts` の `GenerationRecord`) | 本人が読む | 書く |
+| `users/{uid}/generationAliases/{requestId}` | 同じ写真・マスクの組で別の要求 ID の結果を使い回した要求の、使い回し先 (`reusedRequestId`)。同じ要求 ID の再送に結果を返すため | 読み書きしない | 書く |
 | `generationDailyCounts/{YYYY-MM-DD}` | プロジェクト全体の 1 日の生成数 (原価の上限のカウンタ。日付は日本時間) | 読み書きしない | 書く |
 | `definitionCounters/global` | その場で作った属性・技の数 (上限のカウンタ) | 読み書きしない | 書く |
 | `users/{uid}/battles/{battleId}` | バトルの開始と完了の記録 | 本人が読む | 書く |

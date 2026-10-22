@@ -224,6 +224,8 @@ describe("generate", () => {
     // 使い回した時は、今回置かれた写真 (レコードが無い) を消し、先の生成の写真は残す
     expect((await bucket.file(secondData.photoPath).exists())[0]).toBe(false);
     expect((await bucket.file(firstData.photoPath).exists())[0]).toBe(true);
+    // 写真を消した後に同じ要求 ID で再送されても、使い回し先の結果を返す
+    expect(await handleGenerateRequest(mocks.dependencies, ageVerifiedRequest({ uid: "alice", data: secondData }))).toEqual(first);
     // 消し損ねた時のために、消すタスクも積む。タスクはレコードの無い要求の写真だけを消す
     expect(mocks.enqueued).toContainEqual(expect.objectContaining({ requestId: secondData.requestId, purpose: "discard" }));
     await bucket.file(secondData.photoPath).save(photoFixture("01"), { contentType: "image/jpeg", resumable: false });

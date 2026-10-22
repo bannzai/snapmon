@@ -165,6 +165,11 @@ function generationDocument({ firestore, uid, requestId }: { firestore: Firestor
   return firestore.doc(`users/${uid}/generations/${requestId}`);
 }
 
+/** 別の要求 ID の結果を使い回した要求の、使い回し先 (`reusedRequestId`) の記録。 */
+function generationAliasDocument({ firestore, uid, requestId }: { firestore: Firestore; uid: string; requestId: string }) {
+  return firestore.doc(`users/${uid}/generationAliases/${requestId}`);
+}
+
 async function downloadFile(bucket: StorageBucket, path: string): Promise<Buffer> {
   const [contents] = await bucket.file(path).download();
   return contents;
@@ -210,6 +215,12 @@ export async function startGeneration(
   if (existing.exists) {
     return continueExistingGeneration(dependencies, { uid, requestId, record: existing.data() as GenerationRecord });
   }
+  // 別の要求 ID の結果を使い回した要求の再送 (写真は消してあるため、記録した使い回し先の結果を返す)
+  const alias = await generationAliasDocument({ firestore, uid, requestId }).get();
+  if (alias.exists) {
+    const reusedRequestId = alias.get("reusedRequestId") as string;
+    return generationResult({ requestId: reusedRequestId, record: (await generationDocument({ firestore, uid, requestId: reusedRequestId }).get()).data() as GenerationRecord });
+  }
 
   const photo = await downloadFile(bucket, photoPath);
   const mask = maskPath ? await downloadFile(bucket, maskPath) : undefined;
@@ -226,6 +237,8 @@ export async function startGeneration(
       (document) => (document.data() as GenerationRecord).status !== "failed",
     );
     if (sameInput) {
+      // 写真を消す前に、この要求 ID と使い回し先の対応を残す (応答を受け取れずに同じ要求 ID で再送されても結果を返せるように)
+      transaction.set(generationAliasDocument({ firestore, uid, requestId }), { reusedRequestId: sameInput.id, createdAt: Timestamp.fromDate(now) });
       return generationResult({ requestId: sameInput.id, record: sameInput.data() as GenerationRecord });
     }
     const current = await transaction.get(document);
