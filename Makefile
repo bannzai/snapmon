@@ -34,6 +34,7 @@ verify:
 	flutter analyze --no-pub --no-fatal-infos --fatal-warnings
 	dart format --set-exit-if-changed lib test
 	flutter test
+	bash scripts/test/test-set-webtunnel-setup-env-secret.sh
 
 .PHONY: clean
 clean:
