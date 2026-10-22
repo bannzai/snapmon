@@ -78,6 +78,7 @@ export interface GenerationDependencies {
  * 再試行のタスクの中身。`purpose` は何を引き継ぐタスクかを表す。
  * - lease: 予約が切れた処理中の生成を引き継ぐ (と、終了した生成の消し残したファイルを消す)。判定待ちには触れない
  * - judge: 判定待ちの生成を 1 回分の再試行として続きから進める (1 時間おきの系列を 1 つだけにするため、lease のタスクとは分ける)
+ * - discard: 別の要求 ID の結果を使い回した要求の、写真とマスクを消す (その要求にはレコードが無く、ほかに消す経路が無いため)
  */
 export interface ResumeTask {
   /** 生成したユーザー。 */
@@ -85,7 +86,12 @@ export interface ResumeTask {
   /** 生成の要求 ID。 */
   requestId: string;
   /** タスクの目的。 */
-  purpose: "lease" | "judge";
+  purpose: "lease" | "judge" | "discard";
+  /**
+   * judge のタスクが進めてよい再試行の回数 (積んだ時点の `judgeRetryCount`)。Cloud Tasks は同じタスクを 2 回届けることがあり、
+   * 一度進めた後に届いた同じタスクで再試行を重ねないため、レコードの回数と一致する時だけ進める。
+   */
+  judgeAttempt?: number;
 }
 
 /**
@@ -261,7 +267,9 @@ export async function startGeneration(
   });
   if (reservation !== "reserved") {
     // 別の要求 ID の結果を使い回した時は、今回の要求で置かれた写真とマスクにはレコードが無く、誰も消さないため、ここで消す。
+    // 消すのに失敗した時のために、消すタスクを先に積む (タスクも同じパスを消し、無いファイルは無視する)。
     if (reservation.requestId !== requestId) {
+      await dependencies.enqueueResume({ uid, requestId, purpose: "discard", delaySeconds: FAILED_STAGE_RETRY_DELAY_SECONDS });
       await deleteFiles(bucket, [photoPath, maskPath]);
     }
     return reservation;
@@ -314,7 +322,12 @@ function assertGenerationLockAvailable({ lock, requestId, now }: { lock: { reque
  */
 async function acquireLease(
   dependencies: GenerationDependencies,
-  { uid, requestId, resumingFromPendingJudge }: { uid: string; requestId: string; resumingFromPendingJudge: boolean },
+  {
+    uid,
+    requestId,
+    resumingFromPendingJudge,
+    judgeAttempt,
+  }: { uid: string; requestId: string; resumingFromPendingJudge: boolean; judgeAttempt?: number },
 ): Promise<GenerationResult | "acquired"> {
   const { firestore } = dependencies;
   const document = generationDocument({ firestore, uid, requestId });
@@ -324,7 +337,8 @@ async function acquireLease(
     const record = snapshot.data() as GenerationRecord;
     const userDocument = firestore.doc(`users/${uid}`);
     const userSnapshot = await transaction.get(userDocument);
-    const isWaitingJudge = record.status === "pending_judge";
+    // 同じ回の judge のタスクが同時に 2 つ届いても、回数が一致する方の 1 つだけが予約を取る
+    const isWaitingJudge = record.status === "pending_judge" && record.judgeRetryCount === judgeAttempt;
     const isExpiredProcessing = record.status === "processing" && record.leaseExpiresAt.toMillis() <= now.getTime();
     if (!(isExpiredProcessing || (isWaitingJudge && resumingFromPendingJudge))) {
       return generationResult({ requestId, record });
@@ -353,12 +367,23 @@ async function acquireLease(
  * 再試行のタスクの本体。judge のタスクは、判定待ちなら 1 回分の再試行として続きから進め、回数の上限を超えたら failed にする。
  * どちらのタスクも、予約が切れた処理中なら引き継ぎ、終了した生成に消し残したファイルがあれば消す。それ以外 (予約中・目的の違う判定待ち) は何もしない。
  */
-export async function resumeGeneration(dependencies: GenerationDependencies, { uid, requestId, purpose }: ResumeTask): Promise<GenerationResult> {
+export async function resumeGeneration(dependencies: GenerationDependencies, { uid, requestId, purpose, judgeAttempt }: ResumeTask): Promise<GenerationResult> {
   const snapshot = await generationDocument({ firestore: dependencies.firestore, uid, requestId }).get();
   if (!snapshot.exists) {
+    // レコードの無い要求の写真とマスクだけを消す (パスは uid と要求 ID から決め、タスクの中身からは受け取らない)
+    if (purpose === "discard") {
+      await deleteFiles(dependencies.bucket, [`users/${uid}/photos/${requestId}`, `users/${uid}/masks/${requestId}`]);
+    }
     return { requestId, status: "failed" };
   }
   const record = snapshot.data() as GenerationRecord;
+  if (purpose === "discard") {
+    return generationResult({ requestId, record });
+  }
+  if (record.status === "pending_judge" && purpose === "judge" && judgeAttempt !== record.judgeRetryCount) {
+    // 進め終えた回の judge のタスクがもう一度届いた
+    return generationResult({ requestId, record });
+  }
   if (TERMINAL_GENERATION_STATUSES.includes(record.status)) {
     await deleteDiscardedFiles(dependencies, { uid, requestId, record });
     return generationResult({ requestId, record });
@@ -379,13 +404,13 @@ export async function resumeGeneration(dependencies: GenerationDependencies, { u
   await enqueueLeaseRecovery(dependencies, { uid, requestId });
   let acquired: GenerationResult | "acquired";
   try {
-    acquired = await acquireLease(dependencies, { uid, requestId, resumingFromPendingJudge: purpose === "judge" });
+    acquired = await acquireLease(dependencies, { uid, requestId, resumingFromPendingJudge: purpose === "judge", judgeAttempt });
   } catch (error) {
     if (error instanceof GenerationRequestError && error.code === "another_generation_in_progress") {
       // 同じ uid の別の生成が終わるまで待ってから続ける (直列にするため。ADR 0001「同じ被写体の判定」)。
       // lease のタスクは直前に積んだタスク (ロックの期限より後に届く) が続きを受け持つため、judge のタスクだけを積み直す。
       if (purpose === "judge") {
-        await dependencies.enqueueResume({ uid, requestId, purpose, delaySeconds: LEASE_DURATION_SECONDS });
+        await dependencies.enqueueResume({ uid, requestId, purpose, judgeAttempt, delaySeconds: LEASE_DURATION_SECONDS });
       }
       return generationResult({ requestId, record });
     }
@@ -425,6 +450,7 @@ async function advanceGeneration(dependencies: GenerationDependencies, { uid, re
           requestId,
           purpose: "judge",
           delaySeconds: JUDGE_RETRY_INTERVAL_SECONDS,
+          judgeAttempt: record.judgeRetryCount,
           taskId: `${uid}-${requestId}-judge-${record.judgeRetryCount}`,
         });
         await releaseLock(dependencies, { uid, requestId, update: { status: "pending_judge" } });

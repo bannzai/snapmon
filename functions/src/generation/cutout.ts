@@ -113,13 +113,15 @@ export async function applyMask({ photo, mask }: { photo: Buffer; mask: Buffer }
   let top = height;
   let right = -1;
   let bottom = -1;
+  // 被写体でない画素は RGB も 0 にする (透明でも RGB が残ると、art.png のアルファを外すだけで背景、つまり元の写真が見えてしまうため)。
+  // 境界の半透明は被写体とみなした画素 (マスクの値が半分以上) にだけ残す。
   const rgba = Buffer.alloc(width * height * 4);
   for (let index = 0; index < width * height; index++) {
-    rgba[index * 4] = rgb[index * 3];
-    rgba[index * 4 + 1] = rgb[index * 3 + 1];
-    rgba[index * 4 + 2] = rgb[index * 3 + 2];
-    rgba[index * 4 + 3] = alpha[index];
     if (alpha[index] >= SUBJECT_ALPHA_THRESHOLD) {
+      rgba[index * 4] = rgb[index * 3];
+      rgba[index * 4 + 1] = rgb[index * 3 + 1];
+      rgba[index * 4 + 2] = rgb[index * 3 + 2];
+      rgba[index * 4 + 3] = alpha[index];
       subjectPixels++;
       const x = index % width;
       const y = Math.floor(index / width);

@@ -36,6 +36,16 @@ describe("applyMask", () => {
     expect(metadata.width).toBeLessThan(320);
   });
 
+  it("被写体でない画素は RGB も 0 にし、背景の色を残さない", async () => {
+    const result = await applyMask({ photo: await uniformPhoto(), mask: await centeredSquareMask({ width: 320, height: 240 }) });
+    const { data, info } = await sharp(result.cutoutPng!).raw().toBuffer({ resolveWithObject: true });
+    for (let index = 0; index < info.width * info.height; index++) {
+      if (data[index * 4 + 3] === 0) {
+        expect([data[index * 4], data[index * 4 + 1], data[index * 4 + 2]]).toEqual([0, 0, 0]);
+      }
+    }
+  });
+
   it("写真と大きさの違うマスク (端末の表示の大きさで手で決めた範囲) も写真に合わせて適用する", async () => {
     const result = await applyMask({ photo: await uniformPhoto(), mask: await centeredSquareMask({ width: 160, height: 120 }) });
     expect(result.coverage).toBeCloseTo(0.25, 2);

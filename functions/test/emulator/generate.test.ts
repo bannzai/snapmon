@@ -224,6 +224,13 @@ describe("generate", () => {
     // 使い回した時は、今回置かれた写真 (レコードが無い) を消し、先の生成の写真は残す
     expect((await bucket.file(secondData.photoPath).exists())[0]).toBe(false);
     expect((await bucket.file(firstData.photoPath).exists())[0]).toBe(true);
+    // 消し損ねた時のために、消すタスクも積む。タスクはレコードの無い要求の写真だけを消す
+    expect(mocks.enqueued).toContainEqual(expect.objectContaining({ requestId: secondData.requestId, purpose: "discard" }));
+    await bucket.file(secondData.photoPath).save(photoFixture("01"), { contentType: "image/jpeg", resumable: false });
+    await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: secondData.requestId, purpose: "discard" });
+    expect((await bucket.file(secondData.photoPath).exists())[0]).toBe(false);
+    await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: firstData.requestId, purpose: "discard" });
+    expect((await bucket.file(firstData.photoPath).exists())[0]).toBe(true);
   });
 
   it("同じ被写体の別の写真は、Jev のモックが同じ物と答えると既存のモンスターを返し、属性の判定を呼ばない", async () => {
@@ -312,18 +319,25 @@ describe("generate", () => {
       requestId: data.requestId,
       purpose: "judge",
       delaySeconds: JUDGE_RETRY_INTERVAL_SECONDS,
+      judgeAttempt: 0,
       taskId: `alice-${data.requestId}-judge-0`,
     });
     // 判定待ちの間はロックを外し、同じ uid の別の生成を止めない
     expect((await firestore.doc("users/alice").get()).get("generationLock")).toBeUndefined();
 
+    // 1 回目の再試行でも Jev が答えず、もう一度判定待ちになる
+    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "judge", judgeAttempt: 0 })).status).toBe("pending_judge");
+    // 進め終えた回のタスクがもう一度届いても、Jev を呼ばない
+    await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "judge", judgeAttempt: 0 });
+    expect(mocks.calls.jev.judge).toBe(2);
+
     mocks.jevBehavior.unavailableFor.clear();
     // 予約切れの引き継ぎのタスクは判定待ちを進めない (1 時間おきの系列を 1 つにするため)
     expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "lease" })).status).toBe("pending_judge");
-    const resumed = await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "judge" });
+    const resumed = await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "judge", judgeAttempt: 1 });
     expect(resumed.status).toBe("saved");
-    expect(mocks.calls).toMatchObject({ vision: 1, segment: 1, describe: 1, jev: { classify: 1, judge: 2 } });
-    expect((await generationRecord({ uid: "alice", requestId: data.requestId })).judgeRetryCount).toBe(1);
+    expect(mocks.calls).toMatchObject({ vision: 1, segment: 1, describe: 1, jev: { classify: 1, judge: 3 } });
+    expect((await generationRecord({ uid: "alice", requestId: data.requestId })).judgeRetryCount).toBe(2);
   });
 
   it("Claude の一時的なエラーで落ちた生成は、再試行のタスクが済んだ段階を飛ばして続きから完了する", async () => {
@@ -355,7 +369,7 @@ describe("generate", () => {
     expect(mocks.calls.jev.judge).toBeUndefined();
 
     expect((await resumeGeneration(stalledMocks.dependencies, { uid: "alice", requestId: stalledData.requestId, purpose: "lease" })).status).toBe("saved");
-    const resumed = await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "judge" });
+    const resumed = await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "judge", judgeAttempt: 0 });
     expect(resumed).toMatchObject({ status: "duplicate", monsterId: savedMonsterId });
   });
 
@@ -370,7 +384,7 @@ describe("generate", () => {
     const laterData = await uploadPhoto({ uid: "alice", photo: photoFixture("01b") });
     expect((await handleGenerateRequest(mocks.dependencies, ageVerifiedRequest({ uid: "alice", data: laterData }))).status).toBe("pending_judge");
     // 先の生成は後の生成を候補にしないため、待たずに保存される
-    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: earlierData.requestId, purpose: "judge" })).status).toBe("saved");
+    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: earlierData.requestId, purpose: "judge", judgeAttempt: 0 })).status).toBe("saved");
   });
 
   it("保存の後に中間のファイルを消し損ねても saved のままにし、再試行のタスクが消す", async () => {
@@ -409,7 +423,7 @@ describe("generate", () => {
     const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01b") });
     expect((await handleGenerateRequest(mocks.dependencies, ageVerifiedRequest({ uid: "alice", data }))).status).toBe("pending_judge");
     await firestore.doc(`users/alice/generations/${otherData.requestId}`).update({ status: "failed" });
-    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "judge" })).status).toBe("saved");
+    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "judge", judgeAttempt: 0 })).status).toBe("saved");
   });
 
   it("受け付けた後に写真が差し替えられたら、差し替えた写真を検査せずに使わず failed にする", async () => {
@@ -457,7 +471,7 @@ describe("generate", () => {
     const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
     await handleGenerateRequest(mocks.dependencies, ageVerifiedRequest({ uid: "alice", data }));
     await firestore.doc(`users/alice/generations/${data.requestId}`).update({ judgeRetryCount: 24 });
-    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "judge" })).status).toBe("failed");
+    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "judge", judgeAttempt: 24 })).status).toBe("failed");
   });
 
   it("どの属性にも当てはまらない時は、Claude の提案から新しい属性を版付きで definitions に保存して使う", async () => {
