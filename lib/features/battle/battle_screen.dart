@@ -42,7 +42,7 @@ const Duration _messageDuration = Duration(milliseconds: 700);
 /// バトルの記録 (Functions) の状態を勝敗の画面に出す文言。
 const String _recordingText = '記録しています';
 const String _recordedText = '記録しました';
-const String _notSignedInText = 'ログインしていないため記録していません';
+const String _notRecordedText = '図鑑をサーバーに保存するまでバトルは記録しません';
 
 /// バトル画面 (モックの Battle.dc.html)。フィールドは Flame の [BattleFieldGame]、名前・HP・技のボタン・ログの帯・勝敗は Flutter で描く。
 /// 技を選ぶと CPU の行動と合わせて 1 ターンを [advanceTurn] で解決し、増えたバトルのログを 1 件ずつ演出して見せる。
@@ -288,7 +288,7 @@ class _BattleScreenState extends State<BattleScreen> {
           },
         );
         if (mounted) {
-          setState(() => _recordStatusText = _notSignedInText);
+          setState(() => _recordStatusText = _notRecordedText);
         }
         return;
       }

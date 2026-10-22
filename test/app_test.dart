@@ -515,7 +515,7 @@ void main() {
       find.text('かった').evaluate().length + find.text('まけた').evaluate().length,
       1,
     );
-    expect(find.text('ログインしていないため記録していません'), findsOneWidget);
+    expect(find.text('図鑑をサーバーに保存するまでバトルは記録しません'), findsOneWidget);
     expect(battleCalls.startedPartyMonsterIds, [
       [for (final monster in partyBefore) monster.definition.id],
     ]);

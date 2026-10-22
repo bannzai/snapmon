@@ -56,8 +56,10 @@ Future<void> main() async {
       openUrl: ({required uri}) =>
           launchUrl(uri, mode: LaunchMode.externalApplication),
       isDeveloperMenuEnabled: kDebugMode,
-      battleRecorder: const BattleRecorder(
-        startBattleRecord: startBattleRecordWithFirebase,
+      battleRecorder: BattleRecorder(
+        // 図鑑を Firestore に繋ぐ (#14) までは、サーバーにモンスターが無く startBattle が not-found で拒否するため、
+        // 記録を始めない (端末の計算のレベルを反映する)。#14 で startBattleRecordWithFirebase に戻す
+        startBattleRecord: ({required partyMonsterIds}) async => null,
         completeBattleRecord: completeBattleRecordWithFirebase,
         logEvent: logAnalyticsEvent,
       ),
