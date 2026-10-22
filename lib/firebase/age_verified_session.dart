@@ -76,8 +76,12 @@ Future<String> startAgeVerifiedSessionWithFirebase({
 
 /// 収集を止めて匿名ログインからサインアウトし、年齢の確認より前の状態に戻す。
 /// 開発者メニュー (DEBUG ビルド) の「年齢の確認をやり直す」だけが使う (やり直しで初回起動と同じ経路を通すため)。
-/// 何度呼んでも同じ (冪等)。App Check は一度始めると止める API が無いため止めない。
+/// 何度呼んでも同じ (冪等)。App Check は止める API が無いため、トークンの自動更新だけを止める。
 Future<void> endAgeVerifiedSessionWithFirebase() async {
+  // activateAppCheck が始めなかった時 (Web でサイトキーが無い) は止めるものが無い
+  if (!kIsWeb || _recaptchaEnterpriseSiteKey.isNotEmpty) {
+    await FirebaseAppCheck.instance.setTokenAutoRefreshEnabled(false);
+  }
   markAnalyticsCollectionStopped();
   await FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(false);
   if (!kIsWeb) {
@@ -100,9 +104,21 @@ Future<String?> resumeAgeVerifiedSession({required bool hasAllowedAge}) async {
     }
     return null;
   }
-  if (user == null ||
-      !await hasAgeVerifiedClaim(user: user, forceRefresh: false)) {
+  if (user == null) {
     return null;
+  }
+  try {
+    if (!await hasAgeVerifiedClaim(user: user, forceRefresh: false)) {
+      return null;
+    }
+  } on FirebaseAuthException catch (error) {
+    // ID トークンの期限 (1 時間) が切れていると取り直しに通信が要り、オフラインでは失敗する。
+    // 端末の生年月は 13 歳以上と確かめ済みなので、通信できない時だけはクレームを確かめずに再開する
+    // (年齢の確認の後のログインに倒すと confirmAge も通信できず、ログイン済みの人がオフラインで使えなくなるため)。
+    // クレームの無いユーザーが混じっても、Rules と Functions がクレームを検査するためサーバーのデータには触れない
+    if (error.code != 'network-request-failed') {
+      rethrow;
+    }
   }
   await activateAppCheck();
   await enableAnalyticsAndCrashlyticsCollection();
