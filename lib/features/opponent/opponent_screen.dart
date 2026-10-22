@@ -266,8 +266,9 @@ class _OpponentScreenState extends State<OpponentScreen> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('${opponent.displayName} をブロック'),
-        content: const Text('このトレーナーと互いに対戦の相手に出なくなります'),
+        // 表示名は最大 12 文字で、タイトルの大きな文字に入れると 1 行に収まらないため本文に置く
+        title: const Text('ブロック'),
+        content: Text('${opponent.displayName} と互いに対戦の相手に出なくなります'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),

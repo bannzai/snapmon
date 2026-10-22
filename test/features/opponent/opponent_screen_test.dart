@@ -275,7 +275,7 @@ void main() {
     expect(find.text('マグモン を通報'), findsOneWidget);
     await tester.tap(find.byKey(const Key('block-uid-a')));
     await tester.pumpAndSettle();
-    expect(find.text('トレーナー 1111 をブロック'), findsOneWidget);
+    expect(find.text('トレーナー 1111 と互いに対戦の相手に出なくなります'), findsOneWidget);
     await tester.tap(find.byKey(const Key('block-confirm')));
     await tester.pumpAndSettle();
     expect(calls.blockedUids, ['uid-a']);
