@@ -15,10 +15,12 @@ import 'package:snapmon/features/battle/battle_recorder.dart';
 import 'package:snapmon/features/capture/monster_generator.dart';
 import 'package:snapmon/features/capture/photo_preparation.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
+import 'package:snapmon/features/opponent/pvp_client.dart';
 import 'package:snapmon/firebase/age_verified_session.dart';
 import 'package:snapmon/firebase/battle_record.dart';
 import 'package:snapmon/firebase/dex_firestore.dart';
 import 'package:snapmon/firebase/monster_generation.dart';
+import 'package:snapmon/firebase/pvp.dart';
 import 'package:snapmon/firebase_options.dart';
 import 'package:snapmon/sample/sample_data.dart';
 
@@ -82,6 +84,15 @@ Future<void> main() async {
         startBattleRecord: startBattleRecordWithFirebase,
         completeBattleRecord: completeBattleRecordWithFirebase,
         logEvent: logAnalyticsEvent,
+      ),
+      pvpClient: const PvpClient(
+        fetchOpponents: fetchPvpOpponentsWithFirebase,
+        fetchDefinitions: fetchDefinitionsWithFirebase,
+        reportMonster: reportMonsterWithFirebase,
+        blockUser: blockUserWithFirebase,
+        fetchBattleRecord: fetchBattleRecordWithFirebase,
+        fetchDisplayName: fetchDisplayNameWithFirebase,
+        updateDisplayName: updateDisplayNameWithFirebase,
       ),
       monsterGenerator: MonsterGenerator(
         listCameras: availableCameras,

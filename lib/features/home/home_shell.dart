@@ -12,6 +12,7 @@ import '../capture/monster_generator.dart';
 import '../dex/dex_screen.dart';
 import '../dex/dex_store.dart';
 import '../opponent/opponent_screen.dart';
+import '../opponent/pvp_client.dart';
 import '../settings/settings_screen.dart';
 
 /// 下タブの項目。並びは DIRECTION.md「デザインの方向」の「下タブは図鑑・撮る・対戦」。
@@ -39,7 +40,11 @@ class HomeShell extends StatefulWidget {
     required this.isDeveloperMenuEnabled,
     required this.battleRecorder,
     required this.monsterGenerator,
+    required this.pvpClient,
   });
+
+  /// 非同期 PvP の相手の取得・通報・ブロック・戦績・表示名。
+  final PvpClient pvpClient;
 
   /// 見本データ。
   final SampleData sampleData;
@@ -83,6 +88,7 @@ class _HomeShellState extends State<HomeShell> {
         ageConfirmationStore: widget.ageConfirmationStore,
         ageVerifiedSessionStore: widget.ageVerifiedSessionStore,
         monsterGenerator: widget.monsterGenerator,
+        pvpClient: widget.pvpClient,
         openUrl: widget.openUrl,
         isDeveloperMenuEnabled: widget.isDeveloperMenuEnabled,
       ),
@@ -111,6 +117,8 @@ class _HomeShellState extends State<HomeShell> {
           onSelectTab: _selectTab,
           onOpenSettings: _openSettings,
           battleRecorder: widget.battleRecorder,
+          pvpClient: widget.pvpClient,
+          openUrl: widget.openUrl,
         ),
       },
     ),

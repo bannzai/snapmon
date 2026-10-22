@@ -40,6 +40,7 @@ void main() {
         home: BattleScreen(
           playerParty: [strongPlayer],
           opponentParty: [weakOpponent],
+          opponentKind: BattleOpponentKind.pvp,
           definitions: sampleData.definitions,
           randomSeed: 1,
           battleRecorder: battleRecorder,
@@ -108,6 +109,7 @@ void main() {
     expect(logged.parameters, {
       'result': 'win',
       'turn_count': completed.turnCount,
+      'opponent': 'pvp',
     });
   });
 

@@ -50,6 +50,10 @@ service cloud.firestore {
     match /blocks/{blockId} {
       allow read, write: if false;
     }
+    // 通報したユーザー数のカウンタ。通報した人を他人に知られないよう、クライアントから読ませない。
+    match /reportedMonsters/{monsterId} {
+      allow read, write: if false;
+    }
 
     match /users/{uid} {
       // ユーザーのドキュメントには Functions が生成中ロック等を書く。

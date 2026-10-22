@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +10,7 @@ import '../age_gate/age_verified_session_store.dart';
 import '../capture/monster_generator.dart';
 import '../developer_menu/developer_menu_screen.dart';
 import '../dex/dex_store.dart';
+import '../opponent/pvp_client.dart';
 
 /// [uri] を外部のアプリ (ブラウザ・メール) で開き、開けたかを返す。
 typedef OpenUrl = Future<bool> Function({required Uri uri});
@@ -38,9 +41,13 @@ class SettingsScreen extends StatelessWidget {
     required this.ageConfirmationStore,
     required this.ageVerifiedSessionStore,
     required this.monsterGenerator,
+    required this.pvpClient,
     required this.openUrl,
     required this.isDeveloperMenuEnabled,
   });
+
+  /// 表示名の読み込みと変更。
+  final PvpClient pvpClient;
 
   /// 見本データ (開発者メニューが使う)。
   final SampleData sampleData;
@@ -90,6 +97,7 @@ class SettingsScreen extends StatelessWidget {
     appBar: AppBar(title: const Text('設定')),
     body: ListView(
       children: [
+        _DisplayNameTile(pvpClient: pvpClient),
         const _SectionTitle(title: 'サポート'),
         ListTile(
           leading: const Icon(Icons.mail_outline),
@@ -139,6 +147,168 @@ class SettingsScreen extends StatelessWidget {
         ],
       ],
     ),
+  );
+}
+
+/// 対戦の相手に見える表示名の節。名前はサーバー (Functions の getDisplayName) が決めた値を出し、押すと変えられる。
+/// ログインが無い時 (DEBUG ビルドでログインを飛ばした時) は名前が無いため節を出さない。
+class _DisplayNameTile extends StatefulWidget {
+  const _DisplayNameTile({required this.pvpClient});
+
+  final PvpClient pvpClient;
+
+  @override
+  State<_DisplayNameTile> createState() => _DisplayNameTileState();
+}
+
+class _DisplayNameTileState extends State<_DisplayNameTile> {
+  /// 今の表示名。読み込み中・ログインが無い時は null。
+  String? _displayName;
+
+  /// 読み込みの失敗。
+  Object? _loadError;
+
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    unawaited(_load());
+  }
+
+  Future<void> _load() async {
+    try {
+      final displayName = await widget.pvpClient.fetchDisplayName();
+      if (mounted) {
+        setState(() {
+          _displayName = displayName;
+          _loadError = null;
+          _isLoading = false;
+        });
+      }
+    } catch (error) {
+      if (mounted) {
+        setState(() {
+          _loadError = error;
+          _isLoading = false;
+        });
+      }
+    }
+  }
+
+  Future<void> _edit({required String currentDisplayName}) async {
+    final savedDisplayName = await showDialog<String>(
+      context: context,
+      builder: (context) => _DisplayNameDialog(
+        initialDisplayName: currentDisplayName,
+        updateDisplayName: widget.pvpClient.updateDisplayName,
+      ),
+    );
+    if (savedDisplayName != null && mounted) {
+      setState(() => _displayName = savedDisplayName);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final displayName = _displayName;
+    if (!_isLoading && displayName == null && _loadError == null) {
+      return const SizedBox.shrink();
+    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        const _SectionTitle(title: 'プロフィール'),
+        ListTile(
+          key: const Key('display-name'),
+          leading: const Icon(Icons.badge_outlined),
+          title: const Text('表示名'),
+          subtitle: Text(displayName ?? _loadError?.toString() ?? '読み込んでいます'),
+          trailing: displayName == null ? null : const Icon(Icons.edit),
+          onTap: displayName == null
+              ? (_loadError == null ? null : _load)
+              : () => _edit(currentDisplayName: displayName),
+        ),
+      ],
+    );
+  }
+}
+
+/// 表示名を入力するダイアログ。保存できたら保存した名前で閉じ、できなければ理由をそのまま出して閉じない。
+class _DisplayNameDialog extends StatefulWidget {
+  const _DisplayNameDialog({
+    required this.initialDisplayName,
+    required this.updateDisplayName,
+  });
+
+  final String initialDisplayName;
+  final Future<String> Function({required String displayName})
+  updateDisplayName;
+
+  @override
+  State<_DisplayNameDialog> createState() => _DisplayNameDialogState();
+}
+
+class _DisplayNameDialogState extends State<_DisplayNameDialog> {
+  late final TextEditingController _controller = TextEditingController(
+    text: widget.initialDisplayName,
+  );
+  bool _isSaving = false;
+  String? _errorText;
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  Future<void> _save() async {
+    setState(() {
+      _isSaving = true;
+      _errorText = null;
+    });
+    try {
+      final savedDisplayName = await widget.updateDisplayName(
+        displayName: _controller.text,
+      );
+      if (mounted) {
+        Navigator.of(context).pop(savedDisplayName);
+      }
+    } catch (error) {
+      if (mounted) {
+        setState(() {
+          _isSaving = false;
+          _errorText = error.toString();
+        });
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) => AlertDialog(
+    title: const Text('表示名'),
+    content: TextField(
+      key: const Key('display-name-field'),
+      controller: _controller,
+      autofocus: true,
+      enabled: !_isSaving,
+      decoration: InputDecoration(
+        helperText: '対戦の相手に見える名前',
+        errorText: _errorText,
+        errorMaxLines: 4,
+      ),
+    ),
+    actions: [
+      TextButton(
+        onPressed: _isSaving ? null : () => Navigator.of(context).pop(),
+        child: const Text('やめる'),
+      ),
+      TextButton(
+        key: const Key('display-name-save'),
+        onPressed: _isSaving ? null : _save,
+        child: const Text('保存'),
+      ),
+    ],
   );
 }
 

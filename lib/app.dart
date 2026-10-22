@@ -7,6 +7,7 @@ import 'features/battle/battle_recorder.dart';
 import 'features/capture/monster_generator.dart';
 import 'features/dex/dex_store.dart';
 import 'features/home/home_shell.dart';
+import 'features/opponent/pvp_client.dart';
 import 'features/settings/settings_screen.dart';
 import 'sample/sample_data.dart';
 import 'theme/snapmon_theme.dart';
@@ -24,7 +25,11 @@ class SnapmonApp extends StatelessWidget {
     required this.isDeveloperMenuEnabled,
     required this.battleRecorder,
     required this.monsterGenerator,
+    required this.pvpClient,
   });
+
+  /// 非同期 PvP の相手の取得・通報・ブロック・戦績・表示名。
+  final PvpClient pvpClient;
 
   /// 見本データ。
   final SampleData sampleData;
@@ -80,6 +85,7 @@ class SnapmonApp extends StatelessWidget {
           isDeveloperMenuEnabled: isDeveloperMenuEnabled,
           battleRecorder: battleRecorder,
           monsterGenerator: monsterGenerator,
+          pvpClient: pvpClient,
         ),
       },
     ),
