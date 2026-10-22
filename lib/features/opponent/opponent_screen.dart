@@ -98,6 +98,10 @@ class _OpponentScreenState extends State<OpponentScreen> {
   /// 最後に始めた相手の読み込み。後から始めた読み込みがある時は、古い結果で上書きしない。
   int _pvpOpponentsRequestNumber = 0;
 
+  /// この画面で通報・ブロックした相手の uid。読み込みが通報・ブロックの保存より前に始まっていると、
+  /// サーバーはその相手をまだ候補に含めて返すため、読み込んだ結果からも除く。
+  final Set<String> _removedOpponentUids = {};
+
   /// 自分の戦績 (勝ち数と負け数)。読み込み中・ログインが無い時は null。
   ({int wins, int losses})? _battleRecord;
 
@@ -140,7 +144,10 @@ class _OpponentScreenState extends State<OpponentScreen> {
     try {
       final opponents = await widget.pvpClient.fetchOpponents();
       nextState = _PvpOpponentsLoaded(
-        opponents: opponents ?? _sampleOpponents(),
+        opponents: [
+          for (final opponent in opponents ?? _sampleOpponents())
+            if (!_removedOpponentUids.contains(opponent.opponentUid)) opponent,
+        ],
         isSample: opponents == null,
       );
     } catch (error) {
@@ -184,6 +191,7 @@ class _OpponentScreenState extends State<OpponentScreen> {
 
   /// [opponentUid] の相手をこの画面の候補から消す (通報・ブロックの後。サーバーも次の読み込みから外す)。
   void _removeOpponent({required String opponentUid}) {
+    _removedOpponentUids.add(opponentUid);
     final state = _pvpOpponentsState;
     if (state is! _PvpOpponentsLoaded) {
       return;

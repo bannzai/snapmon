@@ -315,6 +315,40 @@ void main() {
     expect(find.text('ばんざい'), findsNothing);
   });
 
+  testWidgets('ブロックを送っている間に読み直しても、読み込みの結果にブロックした相手を戻さない', (tester) async {
+    final calls = RecordedPvpCalls();
+    final blockCompleter = Completer<void>();
+    final reloadCompleter = Completer<List<PvpOpponent>>();
+    var fetchCount = 0;
+    await pumpOpponentScreen(
+      tester: tester,
+      pvpClient: signedInPvpClient(
+        calls: calls,
+        fetchOpponents: () => ++fetchCount == 1
+            ? Future.value(opponents)
+            : reloadCompleter.future,
+        reportMonster: () async {},
+        blockUser: () => blockCompleter.future,
+      ),
+    );
+    await tester.tap(find.byKey(const Key('opponent-menu-uid-a')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('block-uid-a')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('block-confirm')));
+    await tester.pumpAndSettle();
+    // ブロックを送っている間に読み直す (サーバーはブロックの保存前の候補を返す)
+    await tester.tap(find.byKey(const Key('reload-opponents')));
+    await tester.pump();
+    blockCompleter.complete();
+    await tester.pumpAndSettle();
+    reloadCompleter.complete(opponents);
+    await tester.pumpAndSettle();
+    expect(calls.blockedUids, ['uid-a']);
+    expect(find.text('トレーナー 1111'), findsNothing);
+    expect(find.text('ばんざい'), findsOneWidget);
+  });
+
   testWidgets('横向きの低い画面でも通報のシートをスクロールして送れる', (tester) async {
     final calls = RecordedPvpCalls();
     await pumpOpponentScreen(
