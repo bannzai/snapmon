@@ -18,7 +18,7 @@ import {
 import { connectFirestoreEmulator, doc, getDoc, getFirestore } from "firebase/firestore";
 import { afterAll, beforeEach, describe, expect, it } from "vitest";
 
-import { type AccountDeletionDependencies, type AccountFileDeletionTask, deleteAccountData } from "../../src/account";
+import { type AccountDeletionDependencies, type AccountFileDeletionTask, deleteAccountData, deleteAccountLeftovers } from "../../src/account";
 import { handleGenerateRequest } from "../../src/generation/generate";
 import { type GenerationDependencies, resumeGeneration, type StorageBucket } from "../../src/generation/pipeline";
 
@@ -239,6 +239,48 @@ describe("アカウントの削除 (deleteAccount)", () => {
     expect([...enqueued[0].artPaths].sort()).toEqual([`monsters/failed-${user.uid}/art.png`, `monsters/monster-${user.uid}/art.png`]);
     await expect(adminAuth.getUser(user.uid)).rejects.toMatchObject({ code: "auth/user-not-found" });
     expect((await adminFirestore.doc(`users/${user.uid}`).get()).exists).toBe(false);
+  });
+
+  it("Auth を消した後に users/{uid} を消すのに失敗したら、タスクを積み、そのタスクで消し切る", async () => {
+    const user = await signInAgeVerifiedUser();
+    await seedAccount({ uid: user.uid });
+    const enqueued: AccountFileDeletionTask[] = [];
+    const userDocumentPath = `users/${user.uid}`;
+    const failingFirestore = new Proxy(adminFirestore, {
+      get(target, property) {
+        if (property === "doc") {
+          return (path: string) => {
+            const reference = target.doc(path);
+            if (path !== userDocumentPath) {
+              return reference;
+            }
+            return new Proxy(reference, {
+              get(referenceTarget, referenceProperty) {
+                if (referenceProperty === "delete") {
+                  return async () => {
+                    throw new Error("Firestore の一時的なエラー");
+                  };
+                }
+                const value = Reflect.get(referenceTarget, referenceProperty) as unknown;
+                return typeof value === "function" ? value.bind(referenceTarget) : value;
+              },
+            });
+          };
+        }
+        const value = Reflect.get(target, property) as unknown;
+        return typeof value === "function" ? value.bind(target) : value;
+      },
+    });
+
+    await deleteAccountData({ ...accountDeletionDependencies({ enqueued }), firestore: failingFirestore }, { uid: user.uid });
+
+    await expect(adminAuth.getUser(user.uid)).rejects.toMatchObject({ code: "auth/user-not-found" });
+    expect(enqueued).toEqual([{ uid: user.uid, artPaths: [] }]);
+    expect((await adminFirestore.doc(userDocumentPath).get()).exists).toBe(true);
+
+    await deleteAccountLeftovers({ firestore: adminFirestore, bucket }, enqueued[0]);
+
+    expect(await remainingAccountData({ uid: user.uid })).toEqual([]);
   });
 
   it("消し終えたアカウントにもう一度呼んでも成功する (冪等)", async () => {

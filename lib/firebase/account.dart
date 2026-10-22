@@ -95,7 +95,36 @@ Future<void> deleteCurrentAccountOnServerWithFirebase() =>
 /// 取り消す (Apple の要件。認可コードは再認証の結果にだけ入る。https://firebase.google.com/docs/auth/flutter/federated-auth の
 /// "Apple sign-in on Apple platforms returns an authorization code that can be used to revoke the Apple auth token")。
 /// その後に [deleteCurrentAccountOnServerWithFirebase] を呼ぶ。サインアウトは呼び出し側が行う。
+///
+/// 前の削除がサーバーで終わっていた (応答を受け取れなかった) 時は、何もせずに返す。再認証は消えたユーザーでは失敗し、
+/// 削除をやり直しても年齢の確認の画面に戻れなくなるため。削除の途中で失敗した時も、サーバーで消し終えていれば返す。
 Future<void> deleteAccountWithFirebase() async {
+  if (await _isCurrentUserDeletedOnServer()) {
+    return;
+  }
+  try {
+    await _deleteAccountWithFirebase();
+  } catch (_) {
+    if (await _isCurrentUserDeletedOnServer()) {
+      return;
+    }
+    rethrow;
+  }
+}
+
+/// いまのユーザーが Auth から消えているか。ユーザーを読み直し、消えている時のエラーだけを消えていると扱う
+/// (通信の失敗などで読み直せない時は、消えていないと扱う)。
+Future<bool> _isCurrentUserDeletedOnServer() async {
+  try {
+    await FirebaseAuth.instance.currentUser!.reload();
+    return false;
+  } on FirebaseAuthException catch (error) {
+    return error.code == 'user-not-found' || error.code == 'user-token-expired';
+  }
+}
+
+/// [deleteAccountWithFirebase] の本体 (Apple の連携の取り消しと、サーバーでの削除)。
+Future<void> _deleteAccountWithFirebase() async {
   final user = FirebaseAuth.instance.currentUser!;
   if (_isIOS &&
       user.providerData.any((provider) => provider.providerId == 'apple.com')) {

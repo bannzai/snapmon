@@ -11,9 +11,9 @@ import { onTaskDispatched } from "firebase-functions/v2/tasks";
 import { STORAGE_BUCKET_NAME } from "./generation/dependencies";
 import type { StorageBucket } from "./generation/pipeline";
 
-/** 消し残したファイルを消すタスクの中身。 */
+/** 消し残したファイルと `users/{uid}` を消すタスクの中身。 */
 export interface AccountFileDeletionTask {
-  /** 削除したユーザー。`users/{uid}/` の配下を消す。 */
+  /** 削除したユーザー。Storage の `users/{uid}/` の配下と Firestore の `users/{uid}` を消す。 */
   uid: string;
   /** そのユーザーのモンスターの絵 (`monsters/{monsterId}/art.png`)。Firestore を消した後は引けないため、タスクに持たせる。 */
   artPaths: string[];
@@ -27,7 +27,7 @@ export interface AccountDeletionDependencies {
   bucket: StorageBucket;
   /** Firebase Authentication。 */
   auth: Auth;
-  /** ファイルを消し残した時に、消すタスクを積む。 */
+  /** ファイルか、Auth を消した後の `users/{uid}` を消し残した時に、消すタスク (deleteAccountLeftovers) を積む。 */
   enqueueFileDeletion: (task: AccountFileDeletionTask) => Promise<void>;
   /** 現在時刻。 */
   now: () => Date;
@@ -49,6 +49,7 @@ const ART_PATH_PATTERN = /^monsters\/[^/]+\/art\.png$/;
  * Auth のユーザー → `users/{uid}`。`users/{uid}` に削除の始まりの印 (`accountDeletionStartedAt`) を最後まで残し、
  * 削除の途中に生成 (pipeline.ts の startGeneration) が始まらないようにする。Auth を消すまでに失敗した時は、もう一度呼べば続きから消せる (冪等)。
  * Storage を消すのに失敗した時は、消すタスクを積んでから先へ進む (ADR 0001「画像ストレージ」の削除の再試行)。
+ * Auth を消した後に `users/{uid}` を消すのに失敗した時も、同じタスクを積む (クライアントはもう呼び直せないため)。
  * 生成の途中 (生成中ロックが期限内) は断る (消し終えた後に生成がモンスターを書いて残るため)。
  */
 export async function deleteAccountData(dependencies: AccountDeletionDependencies, { uid }: { uid: string }): Promise<void> {
@@ -103,7 +104,13 @@ export async function deleteAccountData(dependencies: AccountDeletionDependencie
       throw error;
     }
   }
-  await userDocument.delete();
+  try {
+    await userDocument.delete();
+  } catch (error) {
+    // Auth を消した後は、クライアントはトークンを更新できず呼び直せないため、サーバーのタスクで消し切る
+    logger.error("users/{uid} を消せませんでした。再試行に回します", { uid, error });
+    await dependencies.enqueueFileDeletion({ uid, artPaths: [] });
+  }
 }
 
 /**
@@ -161,12 +168,21 @@ export const deleteAccount = onCall({ enforceAppCheck: true }, async (request) =
 });
 
 /**
- * 削除の時に消し残したファイルを消すタスク (Cloud Tasks のキュー)。失敗したら投げて、Cloud Tasks に再試行させる。
- * retryConfig: Storage の障害が数時間続いても消し終えるよう、最大 1 時間の間隔で 24 回 (1 日分) にした。
+ * 削除の時に消し残したファイルと `users/{uid}` を消すタスク (Cloud Tasks のキュー) の本体。何度呼んでもよい。
+ * 削除の途中に呼ばれて `users/{uid}` を先に消しても、生成とバトルの開始は `ageAccepted` が無いと受け付けないため、データは増えない。
+ */
+export async function deleteAccountLeftovers({ firestore, bucket }: { firestore: Firestore; bucket: StorageBucket }, task: AccountFileDeletionTask): Promise<void> {
+  await deleteAccountFiles(bucket, task);
+  await firestore.doc(`users/${task.uid}`).delete();
+}
+
+/**
+ * [deleteAccountLeftovers] のタスク。失敗したら投げて、Cloud Tasks に再試行させる。
+ * retryConfig: Storage・Firestore の障害が数時間続いても消し終えるよう、最大 1 時間の間隔で 24 回 (1 日分) にした。
  */
 export const deleteAccountFilesTask = onTaskDispatched<AccountFileDeletionTask>(
   { retryConfig: { maxAttempts: 24, minBackoffSeconds: 60, maxBackoffSeconds: 3_600 } },
   async (request) => {
-    await deleteAccountFiles(getStorage().bucket(STORAGE_BUCKET_NAME), request.data);
+    await deleteAccountLeftovers({ firestore: getFirestore(), bucket: getStorage().bucket(STORAGE_BUCKET_NAME) }, request.data);
   },
 );
