@@ -39,6 +39,8 @@ export interface GenerationRecord {
   attemptCount: number;
   /** 判定待ちから再試行した回数。 */
   judgeRetryCount: number;
+  /** rejected・duplicate で、元の写真・マスク・中間の切り出し画像を消し終えたか。消し残しは再試行のタスクが消す。 */
+  filesDeleted?: boolean;
   /** rejected の理由。 */
   rejectionReason?: RejectionReason;
   /** failed の理由 (ログと調査のため)。 */

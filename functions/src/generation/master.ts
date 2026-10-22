@@ -94,6 +94,15 @@ export async function fetchLatestMaster(firestore: Firestore): Promise<Master> {
   return snapshot.docs[0].data() as Master;
 }
 
+/** 指定した版の master (`master/{version}`) を読む。無ければ throw する (投入済みの版は消さないため、無いのは不整合)。 */
+export async function fetchMaster({ firestore, version }: { firestore: Firestore; version: number }): Promise<Master> {
+  const snapshot = await firestore.doc(`master/${version}`).get();
+  if (!snapshot.exists) {
+    throw new Error(`master の版 ${version} がありません`);
+  }
+  return snapshot.data() as Master;
+}
+
 /** その場で作った定義をすべて読む。件数は属性の上限 (ADR 0001 の 24 種) までに収まるため、全件を読む。 */
 export async function fetchDynamicDefinitions(firestore: Firestore): Promise<{ id: string; definition: DynamicDefinition }[]> {
   const snapshot = await firestore.collection("definitions").get();

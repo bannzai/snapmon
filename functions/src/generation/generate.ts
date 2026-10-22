@@ -3,7 +3,7 @@ import { onTaskDispatched } from "firebase-functions/v2/tasks";
 
 import { typesafeApiKey } from "../secrets";
 import { createProductionDependencies } from "./dependencies";
-import { type GenerationDependencies, GenerationRequestError, resumeGeneration, startGeneration } from "./pipeline";
+import { type GenerationDependencies, GenerationRequestError, resumeGeneration, type ResumeTask, startGeneration } from "./pipeline";
 import type { GenerationResult } from "./records";
 
 /** 要求 ID の形 (クライアントが要求ごとに作る UUID)。 */
@@ -64,7 +64,7 @@ export const generate = onCall({ ...GENERATION_FUNCTION_OPTIONS, enforceAppCheck
  * (インスタンスの起動の失敗等) だけを受け持つ。回数は直して再試行の既定 3 回 (~/.claude/documents/rules/retry-limit-and-failure-classification.md)。
  * rateLimits: 同時に動く再試行を maxInstances (index.ts の 10) に収める。
  */
-export const resumeGenerationTask = onTaskDispatched<{ uid: string; requestId: string }>(
+export const resumeGenerationTask = onTaskDispatched<ResumeTask>(
   {
     ...GENERATION_FUNCTION_OPTIONS,
     retryConfig: { maxAttempts: 3, minBackoffSeconds: 60 },

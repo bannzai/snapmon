@@ -52,8 +52,8 @@ export function createProductionDependencies(): GenerationDependencies {
     proposeElement: createProposeElement(getAnthropicClient),
     // Secret は使う時に読む (入力の検査で弾く呼び出しと、Secret の無い Emulator で読まないため)。
     askJev: (request) => createAskJev({ apiKey: typesafeApiKey.value(), fetchFunction: fetch })(request),
-    enqueueResume: async ({ uid, requestId, delaySeconds }) => {
-      await getFunctions().taskQueue(RESUME_QUEUE_FUNCTION_NAME).enqueue({ uid, requestId }, { scheduleDelaySeconds: delaySeconds });
+    enqueueResume: async ({ uid, requestId, purpose, delaySeconds }) => {
+      await getFunctions().taskQueue(RESUME_QUEUE_FUNCTION_NAME).enqueue({ uid, requestId, purpose }, { scheduleDelaySeconds: delaySeconds });
     },
     now: () => new Date(),
   };

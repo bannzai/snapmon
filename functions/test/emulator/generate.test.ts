@@ -13,7 +13,7 @@ import { createSegmentSubject, SEGMENTATION_MODEL_PATH, type SegmentSubject } fr
 import { handleGenerateRequest } from "../../src/generation/generate";
 import { type AskJev, type JevQuestion, type JevResponse, JevUnavailableError } from "../../src/generation/jev";
 import type { Master } from "../../src/generation/master";
-import { DAILY_GENERATION_LIMIT_PER_USER, DAILY_GENERATION_LIMIT_TOTAL, type GenerationDependencies, JUDGE_RETRY_INTERVAL_SECONDS, resumeGeneration } from "../../src/generation/pipeline";
+import { DAILY_GENERATION_LIMIT_PER_USER, DAILY_GENERATION_LIMIT_TOTAL, type GenerationDependencies, JUDGE_RETRY_INTERVAL_SECONDS, resumeGeneration, type ResumeTask } from "../../src/generation/pipeline";
 import type { DescribeSubjectOutput } from "../../src/generation/prompts/describe_subject";
 import type { GenerationRecord, MonsterDocument } from "../../src/generation/records";
 import type { AnnotateImage, VisionAnnotation } from "../../src/generation/vision";
@@ -48,7 +48,7 @@ beforeEach(async () => {
 interface Mocks {
   calls: { vision: number; segment: number; describe: number; propose: number; jev: Record<string, number> };
   dependencies: GenerationDependencies;
-  enqueued: { uid: string; requestId: string; delaySeconds: number }[];
+  enqueued: (ResumeTask & { delaySeconds: number })[];
 }
 
 /** Jev のモックの答え方。 */
@@ -307,12 +307,14 @@ describe("generate", () => {
     const pending = await handleGenerateRequest(mocks.dependencies, ageVerifiedRequest({ uid: "alice", data }));
     expect(pending.status).toBe("pending_judge");
     expect(await generationRecord({ uid: "alice", requestId: data.requestId })).toMatchObject({ status: "pending_judge", completedStage: "dedupe" });
-    expect(mocks.enqueued).toContainEqual({ uid: "alice", requestId: data.requestId, delaySeconds: JUDGE_RETRY_INTERVAL_SECONDS });
+    expect(mocks.enqueued).toContainEqual({ uid: "alice", requestId: data.requestId, purpose: "judge", delaySeconds: JUDGE_RETRY_INTERVAL_SECONDS });
     // 判定待ちの間はロックを外し、同じ uid の別の生成を止めない
     expect((await firestore.doc("users/alice").get()).get("generationLock")).toBeUndefined();
 
     mocks.jevBehavior.unavailableFor.clear();
-    const resumed = await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId });
+    // 予約切れの引き継ぎのタスクは判定待ちを進めない (1 時間おきの系列を 1 つにするため)
+    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "lease" })).status).toBe("pending_judge");
+    const resumed = await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "judge" });
     expect(resumed.status).toBe("saved");
     expect(mocks.calls).toMatchObject({ vision: 1, segment: 1, describe: 1, jev: { classify: 1, judge: 2 } });
     expect((await generationRecord({ uid: "alice", requestId: data.requestId })).judgeRetryCount).toBe(1);
@@ -323,11 +325,67 @@ describe("generate", () => {
     const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
     await expect(handleGenerateRequest(mocks.dependencies, ageVerifiedRequest({ uid: "alice", data }))).rejects.toThrow("一時的なエラー");
     expect(await generationRecord({ uid: "alice", requestId: data.requestId })).toMatchObject({ status: "processing", completedStage: "cutout" });
-    expect(mocks.enqueued.at(-1)).toEqual({ uid: "alice", requestId: data.requestId, delaySeconds: 60 });
+    expect(mocks.enqueued.at(-1)).toEqual({ uid: "alice", requestId: data.requestId, purpose: "lease", delaySeconds: 60 });
 
-    const resumed = await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId });
+    const resumed = await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "lease" });
     expect(resumed.status).toBe("saved");
     expect(mocks.calls).toMatchObject({ vision: 1, segment: 1, describe: 2 });
+    // 引き継いだ実行にも、予約切れを引き継ぐタスクを積む
+    expect(mocks.enqueued.filter((task) => task.purpose === "lease" && task.delaySeconds > 600)).toHaveLength(2);
+  });
+
+  it("再試行を待つ処理中の生成も同じ被写体の判定の候補にする", async () => {
+    const stalledMocks = createMocks();
+    const stalledData = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
+    await handleGenerateRequest(stalledMocks.dependencies, ageVerifiedRequest({ uid: "alice", data: stalledData }));
+    // 保存の手前で止まった状態 (judge まで済んだ処理中・予約切れ・ロックなし) を作る
+    await firestore.doc(`users/alice/generations/${stalledData.requestId}`).update({ status: "processing", completedStage: "judge", leaseExpiresAt: Timestamp.fromMillis(0) });
+    const savedMonsterId = (await generationRecord({ uid: "alice", requestId: stalledData.requestId })).monsterId!;
+    await firestore.doc(`users/alice/monsters/${savedMonsterId}`).delete();
+
+    const mocks = createMocks({ description: descriptions["01b"], jev: { dedupe: { same: 0.9, different: 0.05 } } });
+    const result = await handleGenerateRequest(mocks.dependencies, ageVerifiedRequest({ uid: "alice", data: await uploadPhoto({ uid: "alice", photo: photoFixture("01b") }) }));
+    expect(result.status).toBe("duplicate");
+    expect(mocks.calls.jev.judge).toBeUndefined();
+  });
+
+  it("受け付けた後に写真が差し替えられたら、差し替えた写真を検査せずに使わず failed にする", async () => {
+    const mocks = createMocks();
+    const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
+    mocks.dependencies.annotateImage = async () => {
+      mocks.calls.vision++;
+      await bucket.file(data.photoPath).save(photoFixture("28"), { contentType: "image/jpeg", resumable: false });
+      return { safeSearchAnnotation: { adult: "VERY_UNLIKELY" } };
+    };
+    const result = await handleGenerateRequest(mocks.dependencies, ageVerifiedRequest({ uid: "alice", data }));
+    expect(result.status).toBe("failed");
+    expect(mocks.calls).toMatchObject({ segment: 0, describe: 0 });
+  });
+
+  it("拒否した写真を消し損ねても、再試行のタスクが消して記録する", async () => {
+    const mocks = createMocks({ vision: { safeSearchAnnotation: { adult: "VERY_LIKELY" } } });
+    const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
+    const realBucket = mocks.dependencies.bucket;
+    // 削除だけが失敗するバケット
+    mocks.dependencies.bucket = Object.create(realBucket, {
+      file: {
+        value: (path: string) =>
+          Object.assign(Object.create(realBucket.file(path)), {
+            delete: async () => {
+              throw new Error("一時的な削除の失敗");
+            },
+          }),
+      },
+    });
+    const result = await handleGenerateRequest(mocks.dependencies, ageVerifiedRequest({ uid: "alice", data }));
+    expect(result).toMatchObject({ status: "rejected" });
+    expect((await bucket.file(data.photoPath).exists())[0]).toBe(true);
+    expect(mocks.enqueued.at(-1)).toMatchObject({ purpose: "lease" });
+
+    mocks.dependencies.bucket = realBucket;
+    await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "lease" });
+    expect((await bucket.file(data.photoPath).exists())[0]).toBe(false);
+    expect((await generationRecord({ uid: "alice", requestId: data.requestId })).filesDeleted).toBe(true);
   });
 
   it("判定待ちの再試行が上限を超えたら failed にする", async () => {
@@ -335,7 +393,7 @@ describe("generate", () => {
     const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
     await handleGenerateRequest(mocks.dependencies, ageVerifiedRequest({ uid: "alice", data }));
     await firestore.doc(`users/alice/generations/${data.requestId}`).update({ judgeRetryCount: 24 });
-    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId })).status).toBe("failed");
+    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "judge" })).status).toBe("failed");
   });
 
   it("どの属性にも当てはまらない時は、Claude の提案から新しい属性を版付きで definitions に保存して使う", async () => {
