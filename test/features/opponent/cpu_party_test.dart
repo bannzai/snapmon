@@ -22,6 +22,8 @@ void main() {
       OwnedMonster(
         definition: sampleData.monsters[index].definition,
         level: level,
+        artPath: null,
+        definitionIds: const [],
       ),
   ];
 
