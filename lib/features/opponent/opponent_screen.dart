@@ -45,8 +45,9 @@ class OpponentScreen extends StatelessWidget {
     required BuildContext context,
     required SampleOpponent opponent,
   }) async {
-    // 挑むたびに別の展開にするため、seed は毎回作る。値の範囲は DeterministicRandom の状態 (32 bit) に合わせた
-    final randomSeed = math.Random().nextInt(1 << 32);
+    // 挑むたびに別の展開にするため、seed は毎回作る。値の範囲は DeterministicRandom の状態 (32 bit) に合わせた。
+    // Web (JavaScript) ではシフトが 32 bit に切り詰められ `1 << 32` が 0 になるため、上限は整数リテラルで書く
+    final randomSeed = math.Random().nextInt(0x100000000);
     final playerParty = dexStore.party;
     final opponentMonsters = [
       for (final monsterId in opponent.monsterIds)
