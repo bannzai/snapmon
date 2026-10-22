@@ -2,7 +2,7 @@ name: deploy-hosting
 
 # Web 版をビルドして snapmon-prod の Firebase Hosting へデプロイする。
 # 本番への配布は、触れる版を見て公開に進むと決めてもらうまで手動実行 (workflow_dispatch) だけにする (ADR 0001 の Web 版のホスティングの行)。
-# 認証は deploy-functions.yml と同じデプロイ専用サービスアカウントの鍵 (Secret FIREBASE_SERVICE_ACCOUNT_BASE64)。
+# 認証はデプロイ専用サービスアカウントの鍵 (Secret FIREBASE_SERVICE_ACCOUNT_BASE64)。deploy-functions.yml は OIDC に移した (.claude/rules/firebase-deploy.md)。
 # Web の App Check に使う reCAPTCHA Enterprise のサイトキーは公開値のため、リポジトリの Variable RECAPTCHA_ENTERPRISE_SITE_KEY から渡す。
 
 on:
