@@ -39,6 +39,176 @@
         "displayName": "食べ物"
       }
     ],
+    "typeChart": {
+      "metal": {
+        "metal": 0.5,
+        "wood": 2,
+        "plant": 1,
+        "water": 1,
+        "heat": 0.5,
+        "stone": 0.5,
+        "paper": 2,
+        "cloth": 1,
+        "glass": 2,
+        "plastic": 1,
+        "electric": 1,
+        "food": 1
+      },
+      "wood": {
+        "metal": 0.5,
+        "wood": 1,
+        "plant": 1,
+        "water": 2,
+        "heat": 0.5,
+        "stone": 1,
+        "paper": 1,
+        "cloth": 1,
+        "glass": 1,
+        "plastic": 1,
+        "electric": 2,
+        "food": 1
+      },
+      "plant": {
+        "metal": 0.5,
+        "wood": 1,
+        "plant": 0.5,
+        "water": 2,
+        "heat": 0.5,
+        "stone": 2,
+        "paper": 1,
+        "cloth": 1,
+        "glass": 1,
+        "plastic": 1,
+        "electric": 1,
+        "food": 1
+      },
+      "water": {
+        "metal": 1,
+        "wood": 1,
+        "plant": 0.5,
+        "water": 0.5,
+        "heat": 2,
+        "stone": 2,
+        "paper": 2,
+        "cloth": 1,
+        "glass": 1,
+        "plastic": 0.5,
+        "electric": 1,
+        "food": 1
+      },
+      "heat": {
+        "metal": 1,
+        "wood": 1,
+        "plant": 2,
+        "water": 0.5,
+        "heat": 1,
+        "stone": 0.5,
+        "paper": 2,
+        "cloth": 2,
+        "glass": 0.5,
+        "plastic": 2,
+        "electric": 1,
+        "food": 2
+      },
+      "stone": {
+        "metal": 2,
+        "wood": 1,
+        "plant": 0.5,
+        "water": 1,
+        "heat": 2,
+        "stone": 1,
+        "paper": 0.5,
+        "cloth": 1,
+        "glass": 2,
+        "plastic": 1,
+        "electric": 2,
+        "food": 1
+      },
+      "paper": {
+        "metal": 0.5,
+        "wood": 1,
+        "plant": 1,
+        "water": 0.5,
+        "heat": 0.5,
+        "stone": 2,
+        "paper": 1,
+        "cloth": 1,
+        "glass": 1,
+        "plastic": 1,
+        "electric": 1,
+        "food": 1
+      },
+      "cloth": {
+        "metal": 0.5,
+        "wood": 1,
+        "plant": 1,
+        "water": 1,
+        "heat": 0.5,
+        "stone": 1,
+        "paper": 1,
+        "cloth": 1,
+        "glass": 2,
+        "plastic": 1,
+        "electric": 1,
+        "food": 2
+      },
+      "glass": {
+        "metal": 0.5,
+        "wood": 1,
+        "plant": 1,
+        "water": 1,
+        "heat": 1,
+        "stone": 0.5,
+        "paper": 2,
+        "cloth": 2,
+        "glass": 1,
+        "plastic": 2,
+        "electric": 1,
+        "food": 1
+      },
+      "plastic": {
+        "metal": 0.5,
+        "wood": 1,
+        "plant": 1,
+        "water": 2,
+        "heat": 0.5,
+        "stone": 1,
+        "paper": 1,
+        "cloth": 1,
+        "glass": 1,
+        "plastic": 1,
+        "electric": 2,
+        "food": 1
+      },
+      "electric": {
+        "metal": 2,
+        "wood": 0.5,
+        "plant": 1,
+        "water": 2,
+        "heat": 1,
+        "stone": 1,
+        "paper": 1,
+        "cloth": 1,
+        "glass": 0.5,
+        "plastic": 0.5,
+        "electric": 1,
+        "food": 1
+      },
+      "food": {
+        "metal": 0.5,
+        "wood": 1,
+        "plant": 1,
+        "water": 1,
+        "heat": 0.5,
+        "stone": 1,
+        "paper": 2,
+        "cloth": 2,
+        "glass": 1,
+        "plastic": 1,
+        "electric": 1,
+        "food": 1
+      }
+    },
     "moves": [
       {
         "id": "metal_1",
@@ -237,6 +407,62 @@
         "effectId": "food_particle",
         "learnableLevelMinimum": 15,
         "learnableLevelMaximum": 200
+      }
+    ],
+    "effects": [
+      {
+        "id": "metal_particle",
+        "displayName": "金属のパーティクル",
+        "kind": "particle",
+        "colorHex": "#9AA5B1"
+      },
+      {
+        "id": "plant_particle",
+        "displayName": "植物のパーティクル",
+        "kind": "particle",
+        "colorHex": "#4CAF50"
+      },
+      {
+        "id": "water_particle",
+        "displayName": "水のパーティクル",
+        "kind": "particle",
+        "colorHex": "#2196F3"
+      },
+      {
+        "id": "heat_particle",
+        "displayName": "熱のパーティクル",
+        "kind": "particle",
+        "colorHex": "#F4511E"
+      },
+      {
+        "id": "paper_particle",
+        "displayName": "紙のパーティクル",
+        "kind": "particle",
+        "colorHex": "#F5F0E1"
+      },
+      {
+        "id": "cloth_particle",
+        "displayName": "布のパーティクル",
+        "kind": "particle",
+        "colorHex": "#AB47BC"
+      },
+      {
+        "id": "plastic_particle",
+        "displayName": "樹脂のパーティクル",
+        "kind": "particle",
+        "colorHex": "#FFCA28"
+      },
+      {
+        "id": "electric_particle",
+        "displayName": "電気のパーティクル",
+        "kind": "particle",
+        "colorHex": "#FFEB3B"
+      },
+      {
+        "id": "food_particle",
+        "displayName": "食べ物のパーティクル",
+        "kind": "particle",
+        "colorHex": "#FF8A65"
       }
     ]
   },
@@ -518,7 +744,8 @@
       "name": "CPU トレーナー",
       "monsterIds": [
         "sample-keybon",
-        "sample-ringora"
+        "sample-ringora",
+        "sample-noton"
       ]
     }
   ]

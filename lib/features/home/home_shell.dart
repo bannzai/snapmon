@@ -5,6 +5,7 @@ import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
 import '../age_gate/age_confirmation.dart';
+import '../battle/battle_recorder.dart';
 import '../capture/capture_screen.dart';
 import '../dex/dex_screen.dart';
 import '../dex/dex_store.dart';
@@ -33,6 +34,7 @@ class HomeShell extends StatefulWidget {
     required this.ageConfirmationStore,
     required this.openUrl,
     required this.isDeveloperMenuEnabled,
+    required this.battleRecorder,
   });
 
   /// 見本データ。
@@ -49,6 +51,9 @@ class HomeShell extends StatefulWidget {
 
   /// 設定画面に開発者メニューを出すか (DEBUG ビルドだけ true。[SettingsScreen.isDeveloperMenuEnabled])。
   final bool isDeveloperMenuEnabled;
+
+  /// バトルの記録と計測。
+  final BattleRecorder battleRecorder;
 
   @override
   State<HomeShell> createState() => _HomeShellState();
@@ -94,6 +99,7 @@ class _HomeShellState extends State<HomeShell> {
           dexStore: widget.dexStore,
           onSelectTab: _selectTab,
           onOpenSettings: _openSettings,
+          battleRecorder: widget.battleRecorder,
         ),
       },
     ),
