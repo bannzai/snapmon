@@ -91,7 +91,9 @@ class AccountStore extends ChangeNotifier {
   /// 削除に失敗した時は、ログインを続けたまま投げる (もう一度削除を選べば続きから消せる)。
   Future<void> delete() => _work(() async {
     await deleteAccount();
-    await sessionStore.reset();
+    // 生年月を先に消す。ログインを先に終えると、年齢の確認の後のログインの画面が保存した生年月で新しい匿名アカウントを
+    // 作り始め、年齢の確認より前にログインすることになるため
     await ageConfirmationStore.reset();
+    await sessionStore.reset();
   });
 }

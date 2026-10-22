@@ -89,13 +89,22 @@ void main() {
   });
 
   group('delete', () {
-    test('消した後にログインを終え、保存した生年月を消す', () async {
+    test('消した後に保存した生年月を消してからログインを終える', () async {
       final store = accountStore(
         linkAccount: () async => null,
         deleteAccount: () async {},
       );
+      // ログインを終えた時点で生年月が残っていると、年齢の確認の後のログインの画面が新しい匿名アカウントを作り始める
+      AgeConfirmationStatus? statusWhenSessionEnded;
+      sessionStore.addListener(() {
+        if (sessionStore.uid == null) {
+          statusWhenSessionEnded ??= ageConfirmationStore.status;
+        }
+      });
 
       await store.delete();
+
+      expect(statusWhenSessionEnded, AgeConfirmationStatus.unanswered);
 
       expect(calls, ['delete', 'endSession']);
       expect(sessionStore.uid, isNull);
