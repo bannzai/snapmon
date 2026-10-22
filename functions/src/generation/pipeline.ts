@@ -156,7 +156,7 @@ const MOVE_LIMIT = 2_000;
 /** 生成の要求を受け付けられない理由。callable は HttpsError に、それ以外はログに出す。 */
 export class GenerationRequestError extends Error {
   /** 理由の種類。 */
-  readonly code: "daily_limit_per_user" | "daily_limit_total" | "another_generation_in_progress" | "photo_not_found";
+  readonly code: "daily_limit_per_user" | "daily_limit_total" | "another_generation_in_progress" | "photo_not_found" | "account_deletion_in_progress";
 
   constructor(code: GenerationRequestError["code"], message: string) {
     super(message);
@@ -274,6 +274,10 @@ export async function startGeneration(
     const userDocument = firestore.doc(`users/${uid}`);
     const totalCounterDocument = firestore.doc(`generationDailyCounts/${today}`);
     const [userSnapshot, totalCounterSnapshot] = await Promise.all([transaction.get(userDocument), transaction.get(totalCounterDocument)]);
+    // アカウントの削除 (account.ts) が始まった後に生成を始めると、消し終えた後に図鑑のモンスターが書かれて残るため
+    if (userSnapshot.get("accountDeletionStartedAt") !== undefined) {
+      throw new GenerationRequestError("account_deletion_in_progress", "アカウントの削除が進んでいます");
+    }
     assertGenerationLockAvailable({ lock: userSnapshot.get("generationLock"), requestId, now });
     const userCount = userSnapshot.get("dailyGeneration.date") === today ? (userSnapshot.get("dailyGeneration.count") as number) : 0;
     if (userCount >= DAILY_GENERATION_LIMIT_PER_USER) {
