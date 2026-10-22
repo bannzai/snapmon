@@ -75,7 +75,8 @@ class BattleScreen extends StatefulWidget {
   final BattleRecorder battleRecorder;
 
   /// 決着の後、自分のモンスターのレベルが変わった時に monsterId ごとのレベルで呼ぶ。
-  /// 端末の計算で上がったレベルで 1 回呼び、Functions が記録した時はその返したレベルでもう 1 回呼ぶ。
+  /// 記録しない対戦 (年齢の確認を通ったログインが無い) では端末の計算で上がったレベルで、
+  /// 記録する対戦では Functions が返したレベルで 1 回呼ぶ。記録に失敗した時は呼ばない。
   final void Function({required Map<String, int> levelsByMonsterId})
   onPlayerLevelsChanged;
 
@@ -245,19 +246,13 @@ class _BattleScreenState extends State<BattleScreen> {
     }
   }
 
-  /// 決着した [finishedState] の結果を反映する: 自分のモンスターのレベルを呼び出し元に渡し、バトル完了を Analytics に送り、
-  /// Functions に結果を記録する。記録の成否は勝敗の画面に出す。
+  /// 決着した [finishedState] の結果を反映する: バトル完了を Analytics に送り、Functions に結果を記録し、
+  /// 自分のモンスターのレベルを呼び出し元に渡す ([BattleScreen.onPlayerLevelsChanged])。記録の成否は勝敗の画面に出す。
   Future<void> _finishBattle({required BattleState finishedState}) async {
     final finishedEvent = finishedState.events
         .whereType<BattleFinishedEvent>()
         .single;
     final playerLevelUps = _playerLevelUpsOf(state: finishedState);
-    widget.onPlayerLevelsChanged(
-      levelsByMonsterId: {
-        for (final levelUp in playerLevelUps)
-          levelUp.monsterId: levelUp.newLevel,
-      },
-    );
     setState(() => _recordStatusText = _recordingText);
     unawaited(
       widget.battleRecorder.logEvent(
@@ -273,6 +268,14 @@ class _BattleScreenState extends State<BattleScreen> {
     try {
       final battleId = await _battleRecordStart;
       if (battleId == null) {
+        // 記録しない対戦は端末の計算のレベルを反映する。記録する対戦は Functions が成功した時だけ反映し、
+        // 拒否された (1 日の上限等) 時にサーバーと食い違うレベルを残さない
+        widget.onPlayerLevelsChanged(
+          levelsByMonsterId: {
+            for (final levelUp in playerLevelUps)
+              levelUp.monsterId: levelUp.newLevel,
+          },
+        );
         if (mounted) {
           setState(() => _recordStatusText = _notSignedInText);
         }

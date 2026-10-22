@@ -78,7 +78,7 @@ void main() {
       battleRecorder: fakeBattleRecorder(
         calls: calls,
         startBattleRecord: () async => 'battle-1',
-        recordedLevels: {strongPlayer.definition.id: 8},
+        recordedLevels: {strongPlayer.definition.id: 9},
       ),
     );
     expect(calls.startedPartyMonsterIds, [
@@ -97,10 +97,9 @@ void main() {
     expect(completed.battleId, 'battle-1');
     expect(completed.participantMonsterIds, [strongPlayer.definition.id]);
     expect(completed.winner, BattleSideId.player);
-    // 端末の計算で上がったレベルと、Functions が返したレベルの 2 回
+    // 記録する対戦では端末の計算 (8) ではなく、Functions が返したレベルだけを反映する
     expect(levelChanges, [
-      {strongPlayer.definition.id: 8},
-      {strongPlayer.definition.id: 8},
+      {strongPlayer.definition.id: 9},
     ]);
 
     final logged = calls.loggedEvents.single;
@@ -144,6 +143,8 @@ void main() {
     expect(find.text('かった'), findsOneWidget);
     expect(find.text('Exception: unavailable'), findsOneWidget);
     expect(calls.completedBattles, isEmpty);
+    // 記録に失敗した対戦はサーバーと食い違わないよう、図鑑のレベルを変えない
+    expect(levelChanges, isEmpty);
   });
 
   testWidgets('技を使うと被弾した側に属性のパーティクルが出て、演出の間は技を選べない', (tester) async {
