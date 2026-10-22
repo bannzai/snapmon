@@ -481,10 +481,13 @@ export async function resumeGeneration(dependencies: GenerationDependencies, { u
   return advanceGenerationForCaller(dependencies, { uid, requestId, leaseToken: acquired.leaseToken });
 }
 
-/** 段階の処理が返す、レコードへの書き込みと次の行き先。 */
+/**
+ * 段階の処理が返す、レコードへの書き込みと次の行き先。finish の `monster` は、終了状態と同じトランザクションで作る図鑑のモンスター
+ * (保存の段階だけが返す)。
+ */
 type StageOutcome =
   | { kind: "next"; update: Partial<GenerationRecord> }
-  | { kind: "finish"; update: Partial<GenerationRecord> & { status: GenerationRecord["status"] } };
+  | { kind: "finish"; update: Partial<GenerationRecord> & { status: GenerationRecord["status"] }; monster?: MonsterDocument };
 
 /**
  * 予約を取った生成を、終了状態か判定待ちになるまで段階ごとに進める。`leaseToken` は予約を取った時のトークンで、
@@ -535,7 +538,7 @@ async function advanceGeneration(
       throw new StageRetryScheduledError(error);
     }
     if (outcome.kind === "finish") {
-      return finishGeneration(dependencies, { uid, requestId, leaseToken, update: outcome.update });
+      return finishGeneration(dependencies, { uid, requestId, leaseToken, update: outcome.update, monster: outcome.monster });
     }
     const written = await firestore.runTransaction(async (transaction) => {
       const current = (await transaction.get(document)).data() as GenerationRecord;
@@ -553,21 +556,31 @@ async function advanceGeneration(
 
 /**
  * uid の生成中ロックを、自分の要求 ID のものなら外し、レコードに書く。`leaseToken` を渡した時は、レコードが処理中でそのトークンの
- * 予約のままの時だけ書く (予約の期限を過ぎて引き継がれた後に、古い実行が結果を上書きしないため)。書いた後か、書かなかった時は今の
- * レコードを返す。
+ * 予約のままの時だけ書く (予約の期限を過ぎて引き継がれた後に、古い実行が結果を上書きしないため)。`monster` を渡した時は、図鑑の
+ * モンスターが無ければ同じトランザクションで作る (図鑑のモンスターと saved のレコードが片方だけ残らないように)。書いた後か、書かなかった
+ * 時は今のレコードを返す。
  */
 async function releaseLock(
   dependencies: GenerationDependencies,
-  { uid, requestId, leaseToken, update }: { uid: string; requestId: string; leaseToken?: string; update: Partial<GenerationRecord> },
+  { uid, requestId, leaseToken, update, monster }: { uid: string; requestId: string; leaseToken?: string; update: Partial<GenerationRecord>; monster?: MonsterDocument },
 ): Promise<GenerationRecord> {
   const { firestore } = dependencies;
   const document = generationDocument({ firestore, uid, requestId });
+  const monsterDocument = monster && firestore.doc(`users/${uid}/monsters/${monster.definition.id}`);
   return firestore.runTransaction(async (transaction) => {
     const userDocument = firestore.doc(`users/${uid}`);
-    const [userSnapshot, snapshot] = await Promise.all([transaction.get(userDocument), transaction.get(document)]);
+    const [userSnapshot, snapshot, monsterSnapshot] = await Promise.all([
+      transaction.get(userDocument),
+      transaction.get(document),
+      monsterDocument && transaction.get(monsterDocument),
+    ]);
     const current = snapshot.data() as GenerationRecord;
     if (leaseToken !== undefined && (current.status !== "processing" || current.leaseToken !== leaseToken)) {
       return current;
+    }
+    // モンスターの作成と saved を別々のトランザクションで書いていた版が残した、モンスターだけがある処理中のレコードの再試行では作らない
+    if (monster && monsterDocument && !monsterSnapshot?.exists) {
+      transaction.create(monsterDocument, monster);
     }
     if (userSnapshot.get("generationLock.requestId") === requestId) {
       transaction.update(userDocument, { generationLock: FieldValue.delete() });
@@ -585,9 +598,16 @@ async function finishGeneration(
     requestId,
     leaseToken,
     update,
-  }: { uid: string; requestId: string; leaseToken?: string; update: Partial<GenerationRecord> & { status: GenerationRecord["status"] } },
+    monster,
+  }: {
+    uid: string;
+    requestId: string;
+    leaseToken?: string;
+    update: Partial<GenerationRecord> & { status: GenerationRecord["status"] };
+    monster?: MonsterDocument;
+  },
 ): Promise<GenerationResult> {
-  const record = await releaseLock(dependencies, { uid, requestId, leaseToken, update });
+  const record = await releaseLock(dependencies, { uid, requestId, leaseToken, update, monster });
   logger.info("生成を終えました", { uid, requestId, status: record.status, rejectionReason: record.rejectionReason, failureMessage: record.failureMessage });
   try {
     await deleteDiscardedFiles(dependencies, { uid, requestId, record });
@@ -602,7 +622,7 @@ async function finishGeneration(
 /**
  * 終わった生成の要らなくなったファイルを消し、消し終えたことを `filesDeleted` に記録する。rejected・duplicate・failed は元の写真・
  * マスク・中間の切り出し画像を、saved はマスクと中間の切り出し画像を消す (元の写真は本人の図鑑のために残す。failed の写真は検査を
- * 通っていないことがあり、再挑戦は新しい要求 ID で上げ直すため残さない)。
+ * 通っていないことがあり、再挑戦は新しい要求 ID で上げ直すため残さない。モンスターの文書がある failed は saved と同じに扱う)。
  * 消し終えている生成と、終わっていない生成には何もしない (何度呼んでもよい)。
  */
 async function deleteDiscardedFiles(
@@ -612,12 +632,17 @@ async function deleteDiscardedFiles(
   if (!TERMINAL_GENERATION_STATUSES.includes(record.status) || record.filesDeleted) {
     return;
   }
+  // モンスターの作成と saved を別々のトランザクションで書いていた版は、モンスターだけがある failed のレコードを残し得る。
+  // そのモンスターは図鑑に出ていて元の写真と絵を使うため、saved と同じく消さない
+  const keepsMonsterFiles =
+    record.status === "saved" ||
+    (record.status === "failed" && !!record.monsterId && (await dependencies.firestore.doc(`users/${uid}/monsters/${record.monsterId}`).get()).exists);
   await deleteFiles(dependencies.bucket, [
-    record.status === "saved" ? undefined : record.photoPath,
+    keepsMonsterFiles ? undefined : record.photoPath,
     record.maskPath,
     record.cutoutPath,
-    // 保存の段階で絵を置いた後に failed になった生成の絵 (モンスターは保存されていない)。duplicate の monsterId は既存のモンスターなので消さない
-    record.status === "failed" && record.monsterId ? `monsters/${record.monsterId}/art.png` : undefined,
+    // 保存の段階で絵を置いた後に failed になった生成の絵。duplicate の monsterId は既存のモンスターなので消さない
+    record.status === "failed" && record.monsterId && !keepsMonsterFiles ? `monsters/${record.monsterId}/art.png` : undefined,
   ]);
   await generationDocument({ firestore: dependencies.firestore, uid, requestId }).update({ filesDeleted: true });
 }
@@ -641,7 +666,7 @@ async function runStage(
     case "judge":
       return runJudgeStage(dependencies, { uid, requestId, record });
     case "saved":
-      return runSaveStage(dependencies, { uid, requestId, record });
+      return runSaveStage(dependencies, { requestId, record });
     case "uploaded":
       throw new Error("uploaded は予約の時に済む段階で、ここには来ない");
   }
@@ -938,12 +963,13 @@ async function resolveNewElementType(
 
 async function runSaveStage(
   dependencies: GenerationDependencies,
-  { uid, requestId, record }: { uid: string; requestId: string; record: GenerationRecord },
+  { requestId, record }: { requestId: string; record: GenerationRecord },
 ): Promise<StageOutcome> {
-  const { firestore, bucket } = dependencies;
+  const { bucket } = dependencies;
   const monsterId = record.monsterId!;
   const artPath = `monsters/${monsterId}/art.png`;
   // 絵を先に置く。保存のトランザクションの前に落ちても、再試行が同じ ID で置き直す (同じ中身の上書きで冪等)。
+  // 置いたまま失敗が続いて failed になった時は、モンスターの文書が無いため deleteDiscardedFiles が消す。
   if (!(await bucket.file(artPath).exists())[0]) {
     await bucket.file(record.cutoutPath!).copy(bucket.file(artPath));
   }
@@ -973,12 +999,7 @@ async function runSaveStage(
     generationRequestId: requestId,
     createdAt: Timestamp.fromDate(dependencies.now()),
   };
-  const monsterDocument = firestore.doc(`users/${uid}/monsters/${monsterId}`);
-  await firestore.runTransaction(async (transaction) => {
-    if (!(await transaction.get(monsterDocument)).exists) {
-      transaction.create(monsterDocument, monster);
-    }
-  });
-  // 中間のファイルは saved を記録した後に finishGeneration が消す (消すのに失敗しても保存の成功を失敗にしないため)。
-  return { kind: "finish", update: { status: "saved", completedStage: "saved" } };
+  // モンスターの文書は saved と同じトランザクションで finishGeneration が作る。中間のファイルは saved を記録した後に消す
+  // (消すのに失敗しても保存の成功を失敗にしないため)。
+  return { kind: "finish", update: { status: "saved", completedStage: "saved" }, monster };
 }
