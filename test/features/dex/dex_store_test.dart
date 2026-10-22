@@ -180,6 +180,23 @@ void main() {
     expect(partyIds(dexStore: dexStore), [monsters[0].definition.id]);
   });
 
+  test('読み込みの失敗の表示は、手持ちだけが届いても消えず、図鑑か定義が届いた時に消える', () {
+    final dexStore = DexStore(definitions: sampleData.definitions)
+      ..reportServerError(error: StateError('通信できません'))
+      ..applyServerSnapshot(
+        monsters: null,
+        partyMonsterIds: const [],
+        definitions: null,
+      );
+    expect(dexStore.serverError, isNotNull);
+    dexStore.applyServerSnapshot(
+      monsters: monsters,
+      partyMonsterIds: null,
+      definitions: null,
+    );
+    expect(dexStore.serverError, isNull);
+  });
+
   test('サーバーの図鑑と定義を反映し、null の項目は変えない', () {
     final definitions = definitionsWithWax(base: sampleData.definitions);
     final dexStore = DexStore(definitions: sampleData.definitions)

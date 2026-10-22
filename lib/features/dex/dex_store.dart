@@ -85,6 +85,7 @@ class DexStore extends ChangeNotifier {
   }
 
   /// サーバーから届いた図鑑 [monsters]・手持ち [partyMonsterIds]・定義 [definitions] を反映する。null の項目は変えない。
+  /// 読み込みの失敗の表示 ([serverError]) は、図鑑か定義を反映した時だけ消す (手持ちだけが届いても図鑑は直っていないため)。
   void applyServerSnapshot({
     required List<OwnedMonster>? monsters,
     required List<String>? partyMonsterIds,
@@ -99,7 +100,9 @@ class DexStore extends ChangeNotifier {
     if (partyMonsterIds != null) {
       _partyMonsterIds = List.of(partyMonsterIds);
     }
-    _serverError = null;
+    if (monsters != null || definitions != null) {
+      _serverError = null;
+    }
     notifyListeners();
   }
 
