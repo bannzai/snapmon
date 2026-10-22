@@ -12,5 +12,6 @@ setGlobalOptions({
 });
 initializeApp();
 
+export { recordBattle, startBattle } from "./battle";
 export { confirmAge } from "./confirm_age";
 export { healthCheck } from "./health_check";
