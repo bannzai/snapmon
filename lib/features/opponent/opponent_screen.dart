@@ -224,11 +224,12 @@ class _OpponentScreenState extends State<OpponentScreen> {
   }
 
   /// [opponent] のモンスター [monster] を通報するシートを開き、送れたら候補から消す。
+  /// 送っている間にシートを閉じられても通報は届くため、候補から消すのはシートの結果ではなく送れた時に行う。
   Future<void> _report({
     required PvpOpponent opponent,
     required OwnedMonster monster,
   }) async {
-    final reported = await showModalBottomSheet<bool>(
+    await showModalBottomSheet<bool>(
       context: context,
       isScrollControlled: true,
       backgroundColor: SnapmonColors.surface,
@@ -242,14 +243,14 @@ class _OpponentScreenState extends State<OpponentScreen> {
               reason: reason,
             );
           }
+          if (mounted) {
+            _removeOpponent(opponentUid: opponent.opponentUid);
+            _showMessage(message: '通報しました');
+          }
         },
         onOpenContact: _openContact,
       ),
     );
-    if (reported == true && mounted) {
-      _removeOpponent(opponentUid: opponent.opponentUid);
-      _showMessage(message: '通報しました');
-    }
   }
 
   /// [opponent] をブロックするかを確かめ、ブロックしたら候補から消す。失敗した時はエラーをそのまま出す。

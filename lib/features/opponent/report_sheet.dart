@@ -56,8 +56,9 @@ class _ReportSheetState extends State<ReportSheet> {
   @override
   Widget build(BuildContext context) {
     final selectedReason = _selectedReason;
+    // 横向きの端末・高さの低い Web のウィンドウ・大きな文字では、理由と送るボタンが画面の高さを超えるためスクロールさせる
     return SafeArea(
-      child: Padding(
+      child: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(20, 20, 20, 12),
         child: Column(
           mainAxisSize: MainAxisSize.min,

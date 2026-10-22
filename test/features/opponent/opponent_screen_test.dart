@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -279,6 +281,72 @@ void main() {
     expect(calls.blockedUids, ['uid-a']);
     expect(find.text('トレーナー 1111'), findsNothing);
     expect(find.text('ブロックしました'), findsOneWidget);
+  });
+
+  testWidgets('送っている間にシートを閉じても、送れたら相手を候補から消す', (tester) async {
+    final calls = RecordedPvpCalls();
+    final reportCompleter = Completer<void>();
+    await pumpOpponentScreen(
+      tester: tester,
+      pvpClient: signedInPvpClient(
+        calls: calls,
+        fetchOpponents: () async => opponents,
+        reportMonster: () => reportCompleter.future,
+        blockUser: () async {},
+      ),
+    );
+    await tester.longPress(
+      find.byKey(const Key('opponent-monster-uid-b-sample-noton')),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('report-reason-other')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('report-submit')));
+    await tester.pump();
+    // シートの外を押して閉じる
+    await tester.tapAt(const Offset(195, 40));
+    await tester.pumpAndSettle();
+    expect(find.text('ノートン を通報'), findsNothing);
+    expect(find.text('ばんざい'), findsOneWidget);
+
+    reportCompleter.complete();
+    await tester.pumpAndSettle();
+    expect(calls.reports.single.monsterOwnerUid, 'uid-b');
+    expect(find.text('ばんざい'), findsNothing);
+  });
+
+  testWidgets('横向きの低い画面でも通報のシートをスクロールして送れる', (tester) async {
+    final calls = RecordedPvpCalls();
+    await pumpOpponentScreen(
+      tester: tester,
+      pvpClient: signedInPvpClient(
+        calls: calls,
+        fetchOpponents: () async => opponents,
+        reportMonster: () async {},
+        blockUser: () async {},
+      ),
+    );
+    tester.view.physicalSize = const Size(844, 390);
+    await tester.pumpAndSettle();
+    final monsterChip = find.byKey(
+      const Key('opponent-monster-uid-b-sample-noton'),
+    );
+    await tester.ensureVisible(monsterChip);
+    await tester.pumpAndSettle();
+    await tester.longPress(monsterChip);
+    await tester.pumpAndSettle();
+    final otherReason = find.byKey(const Key('report-reason-other'));
+    await tester.ensureVisible(otherReason);
+    await tester.pumpAndSettle();
+    await tester.tap(otherReason);
+    await tester.pumpAndSettle();
+    final submitButton = find.byKey(const Key('report-submit'));
+    await tester.ensureVisible(submitButton);
+    await tester.pumpAndSettle();
+    await tester.tap(submitButton);
+    await tester.pumpAndSettle();
+    expect(tester.takeException(), isNull);
+    expect(calls.reports.single.reason, ReportReason.other);
   });
 
   testWidgets('通報 · ブロックの説明からお問い合わせを開ける', (tester) async {
