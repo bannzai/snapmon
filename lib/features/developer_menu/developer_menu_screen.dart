@@ -9,6 +9,7 @@ import '../capture/generation_screen.dart';
 import '../capture/monster_generator.dart';
 import '../dex/dex_store.dart';
 import '../result/result_screen.dart';
+import '../share/card_sharer.dart';
 
 /// 開発者メニューから生成に送る見本の写真の名前とファイル。Simulator にはカメラが無いため、撮影の代わりに使う
 /// (出典とライセンスは assets/samples/photos/LICENSES.md)。
@@ -30,6 +31,7 @@ class DeveloperMenuScreen extends StatelessWidget {
     required this.ageConfirmationStore,
     required this.ageVerifiedSessionStore,
     required this.monsterGenerator,
+    required this.cardSharer,
   });
 
   /// 見本データ。
@@ -46,6 +48,9 @@ class DeveloperMenuScreen extends StatelessWidget {
 
   /// 生成の呼び出しと計測 (見本の写真からの生成に使う)。
   final MonsterGenerator monsterGenerator;
+
+  /// 見本の写真から生まれた画面の、図鑑のカードの共有に使う関数の組。
+  final CardSharer cardSharer;
 
   void _showMessage({required BuildContext context, required String message}) =>
       ScaffoldMessenger.of(context)
@@ -68,6 +73,7 @@ class DeveloperMenuScreen extends StatelessWidget {
           photoSource: GenerationPhotoSource.sample,
           monsterGenerator: monsterGenerator,
           dexStore: dexStore,
+          cardSharer: cardSharer,
         ),
       ),
     );

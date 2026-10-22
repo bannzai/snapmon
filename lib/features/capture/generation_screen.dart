@@ -9,6 +9,7 @@ import '../../theme/snapmon_text_styles.dart';
 import '../../widgets/square_icon_button.dart';
 import '../dex/dex_store.dart';
 import '../result/result_screen.dart';
+import '../share/card_sharer.dart';
 import 'monster_generator.dart';
 
 /// 生成の直後に図鑑の反映を待つ時間。Firestore のスナップショットは保存から 1 秒前後で届くため、通信が遅い時の余裕を見た値。
@@ -24,6 +25,7 @@ class GenerationScreen extends StatefulWidget {
     required this.photoSource,
     required this.monsterGenerator,
     required this.dexStore,
+    required this.cardSharer,
   });
 
   /// 撮った・選んだ写真の中身。
@@ -37,6 +39,9 @@ class GenerationScreen extends StatefulWidget {
 
   /// 図鑑と手持ち。
   final DexStore dexStore;
+
+  /// 生まれた画面からの図鑑のカードの共有に使う関数の組。
+  final CardSharer cardSharer;
 
   @override
   State<GenerationScreen> createState() => _GenerationScreenState();
@@ -182,6 +187,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
               origin: isNewlyBorn
                   ? ResultScreenOrigin.newlyBorn
                   : ResultScreenOrigin.alreadyInDex,
+              cardSharer: widget.cardSharer,
             ),
           ),
         );

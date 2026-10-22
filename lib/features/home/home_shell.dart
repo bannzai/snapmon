@@ -13,6 +13,7 @@ import '../dex/dex_screen.dart';
 import '../dex/dex_store.dart';
 import '../opponent/opponent_screen.dart';
 import '../settings/settings_screen.dart';
+import '../share/card_sharer.dart';
 
 /// 下タブの項目。並びは DIRECTION.md「デザインの方向」の「下タブは図鑑・撮る・対戦」。
 enum HomeTab {
@@ -39,6 +40,7 @@ class HomeShell extends StatefulWidget {
     required this.isDeveloperMenuEnabled,
     required this.battleRecorder,
     required this.monsterGenerator,
+    required this.cardSharer,
   });
 
   /// 見本データ。
@@ -65,6 +67,9 @@ class HomeShell extends StatefulWidget {
   /// 撮る・選ぶ・生成の呼び出しと計測。
   final MonsterGenerator monsterGenerator;
 
+  /// 図鑑のカードとバトルの結果の共有に使う関数の組。
+  final CardSharer cardSharer;
+
   @override
   State<HomeShell> createState() => _HomeShellState();
 }
@@ -83,6 +88,7 @@ class _HomeShellState extends State<HomeShell> {
         ageConfirmationStore: widget.ageConfirmationStore,
         ageVerifiedSessionStore: widget.ageVerifiedSessionStore,
         monsterGenerator: widget.monsterGenerator,
+        cardSharer: widget.cardSharer,
         openUrl: widget.openUrl,
         isDeveloperMenuEnabled: widget.isDeveloperMenuEnabled,
       ),
@@ -98,12 +104,14 @@ class _HomeShellState extends State<HomeShell> {
           dexStore: widget.dexStore,
           onSelectTab: _selectTab,
           onOpenSettings: _openSettings,
+          cardSharer: widget.cardSharer,
         ),
         HomeTab.capture => CaptureScreen(
           dexStore: widget.dexStore,
           monsterGenerator: widget.monsterGenerator,
           onSelectTab: _selectTab,
           onOpenSettings: _openSettings,
+          cardSharer: widget.cardSharer,
         ),
         HomeTab.opponent => OpponentScreen(
           sampleData: widget.sampleData,
@@ -111,6 +119,7 @@ class _HomeShellState extends State<HomeShell> {
           onSelectTab: _selectTab,
           onOpenSettings: _openSettings,
           battleRecorder: widget.battleRecorder,
+          cardSharer: widget.cardSharer,
         ),
       },
     ),
