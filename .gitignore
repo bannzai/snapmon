@@ -33,6 +33,11 @@ migrate_working_dir/
 /build/
 /coverage/
 
+# Firebase の設定ファイル。手元では flutterfire configure で生成し、CI は Secrets から書き出す (.claude/rules/firebase-config-files.md)
+/lib/firebase_options.dart
+/ios/Runner/GoogleService-Info.plist
+/android/app/google-services.json
+
 # Symbolication related
 app.*.symbols
 

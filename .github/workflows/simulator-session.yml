@@ -42,6 +42,11 @@ jobs:
         with:
           channel: stable
           flutter-version: '3.41.9' # flutter-ci.yml の FLUTTER_VERSION と揃える
+      # Firebase の設定ファイルは git の管理外のため、ビルドの前に Secrets から書き出す
+      - run: scripts/restore-firebase-config.sh dart ios
+        env:
+          FIREBASE_OPTIONS_DART_B64: ${{ secrets.FIREBASE_OPTIONS_DART_B64 }}
+          GOOGLE_SERVICE_INFO_PLIST_B64: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST_B64 }}
       - run: flutter pub get
       - run: flutter build ios --simulator --debug
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

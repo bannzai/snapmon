@@ -1,0 +1,32 @@
+rules_version = '2';
+
+// 置き場と書き込みの主体は documents/adr/0001-tech-stack.md の画像ストレージの行。
+// 構造を変える時は、このファイルと Rules のテスト (functions/test/emulator/storage_rules.test.ts) を同時に直す。
+service firebase.storage {
+  match /b/{bucket}/o {
+    // 年齢の確認を通ったユーザー (Functions の confirmAge がカスタムクレーム ageVerified を付ける) か。
+    function isAgeVerified() {
+      return request.auth != null && request.auth.token.get("ageVerified", false) == true;
+    }
+
+    // 年齢の確認を通った本人か。
+    function isAgeVerifiedOwner(uid) {
+      return isAgeVerified() && request.auth.uid == uid;
+    }
+
+    // 元の写真。本人だけが読み書きでき、他人には見せない。
+    match /users/{uid}/photos/{requestId} {
+      allow read, delete: if isAgeVerifiedOwner(uid);
+      // 4 MB と JPEG / PNG は ADR 0001 の画像ストレージの行の制限。
+      allow create, update: if isAgeVerifiedOwner(uid)
+        && request.resource.size <= 4 * 1024 * 1024
+        && request.resource.contentType.matches('image/(jpeg|png)');
+    }
+
+    // 生成したイラスト。PvP と共有カードで他人にも見せる。書き込みは Functions (Admin SDK) だけ。
+    match /monsters/{monsterId}/art.png {
+      allow read: if isAgeVerified();
+      allow write: if false;
+    }
+  }
+}

@@ -1,0 +1,89 @@
+rules_version = '2';
+
+// 構造と書き込みの主体は .claude/rules/firestore.md と documents/adr/0001-tech-stack.md の DB の行。
+// 構造を変える時は、このファイル・Rules のテスト (functions/test/emulator/firestore_rules.test.ts)・.claude/rules/firestore.md を同時に直す。
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 年齢の確認を通ったユーザー (Functions の confirmAge がカスタムクレーム ageVerified を付ける) か。
+    function isAgeVerified() {
+      return request.auth != null && request.auth.token.get("ageVerified", false) == true;
+    }
+
+    // 年齢の確認を通った本人か。
+    function isAgeVerifiedOwner(uid) {
+      return isAgeVerified() && request.auth.uid == uid;
+    }
+
+    // 本人の図鑑にあるモンスターか。
+    function ownsMonster(uid, monsterId) {
+      return monsterId is string
+        && exists(/databases/$(database)/documents/users/$(uid)/monsters/$(monsterId));
+    }
+
+    // 手持ちの monsterIds が「本人の図鑑にあるモンスターの ID を重複なく 3 件まで」か。
+    // Rules にループが無いため、上限の 3 件を添字で確かめる。
+    function isValidParty(uid, monsterIds) {
+      return monsterIds is list
+        && monsterIds.size() <= 3
+        && monsterIds.toSet().size() == monsterIds.size()
+        && (monsterIds.size() < 1 || ownsMonster(uid, monsterIds[0]))
+        && (monsterIds.size() < 2 || ownsMonster(uid, monsterIds[1]))
+        && (monsterIds.size() < 3 || ownsMonster(uid, monsterIds[2]));
+    }
+
+    // master (属性・技・相性表・分類) の版。投入は Functions のデプロイ時のスクリプトだけが行う。
+    match /master/{version} {
+      allow read: if isAgeVerified();
+      allow write: if false;
+    }
+
+    // 生成時にその場で作った属性・技の定義。他人のモンスターが参照する定義を端末で解決するため、年齢の確認を通った全員が読める。
+    match /definitions/{definitionId} {
+      allow read: if isAgeVerified();
+      allow write: if false;
+    }
+
+    // 通報・ブロックは Functions 経由で書き、クライアントから直接読み書きしない。
+    match /reports/{reportId} {
+      allow read, write: if false;
+    }
+    match /blocks/{blockId} {
+      allow read, write: if false;
+    }
+
+    match /users/{uid} {
+      // ユーザーのドキュメントには Functions が生成中ロック等を書く。
+      allow read: if isAgeVerifiedOwner(uid);
+      allow write: if false;
+
+      match /monsters/{monsterId} {
+        allow read: if isAgeVerifiedOwner(uid);
+        allow write: if false;
+      }
+
+      match /generations/{subjectKey} {
+        allow read: if isAgeVerifiedOwner(uid);
+        allow write: if false;
+      }
+
+      match /battles/{battleId} {
+        allow read: if isAgeVerifiedOwner(uid);
+        allow write: if false;
+      }
+
+      // 手持ち。クライアントが書ける 2 つのうちの 1 つ。
+      match /party/current {
+        allow read, delete: if isAgeVerifiedOwner(uid);
+        allow create, update: if isAgeVerifiedOwner(uid)
+          && request.resource.data.keys().hasOnly(['monsterIds', 'updatedAt'])
+          && request.resource.data.updatedAt == request.time
+          && isValidParty(uid, request.resource.data.monsterIds);
+      }
+
+      // 端末の設定。クライアントが書ける 2 つのうちの 1 つ。
+      match /settings/current {
+        allow read, write: if isAgeVerifiedOwner(uid);
+      }
+    }
+  }
+}
