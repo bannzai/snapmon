@@ -232,6 +232,9 @@ void main() {
     await tester.tap(find.byKey(const Key('share-format-portrait')));
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
+    await tester.tap(find.byKey(const Key('share-confirm')));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
 
     // 元の写真のパスは読まず、切り出した画像だけを読む
     expect(shareCalls.loadedArtPaths, [artPath]);

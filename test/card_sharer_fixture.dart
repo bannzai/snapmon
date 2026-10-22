@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
@@ -23,6 +24,11 @@ class RecordedShareCalls {
   final List<({AnalyticsEvent event, Map<String, Object>? parameters})>
   loggedEvents = [];
 }
+
+/// 1×1 の透明な PNG。共有の前に見せる画像として読める値にするため。
+final Uint8List _onePixelPng = base64Decode(
+  'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==',
+);
 
 /// [monster] を、写真から切り出した画像 [artPath] と元の写真 [sourcePhotoReference] を持つ 1 体にしたもの。
 /// 見本のモンスターは切り出した画像を持たないため、共有のカードが元の写真を読まないことの確認に使う。
@@ -52,7 +58,7 @@ OwnedMonster ownedMonsterWithArt({
 }
 
 /// Firebase・描画・OS の共有シートを呼ばずに [calls] へ呼び出しを残す [CardSharer] を返す。
-/// loadArtImage は [artImage] の複製を返し ([artImage] が null なら throw する)、renderPng は空の PNG を返し、
+/// loadArtImage は [artImage] の複製を返し ([artImage] が null なら throw する)、renderPng は 1×1 の PNG を返し、
 /// shareImage は [shareResultStatus] を返す。
 CardSharer fakeCardSharer({
   required RecordedShareCalls calls,
@@ -66,7 +72,7 @@ CardSharer fakeCardSharer({
   },
   renderPng: ({required view, required card, required format}) async {
     calls.renderedCards.add((card: card, format: format));
-    return Uint8List(0);
+    return _onePixelPng;
   },
   shareImage:
       ({

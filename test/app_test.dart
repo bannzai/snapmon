@@ -416,6 +416,11 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key('share-format-portrait')));
       await tester.pumpAndSettle();
+      // 描いた画像を見せている間は、まだ共有シートを開かない
+      expect(shareCalls.renderedCards, hasLength(1));
+      expect(shareCalls.sharedImages, isEmpty);
+      await tester.tap(find.byKey(const Key('share-confirm')));
+      await tester.pumpAndSettle();
 
       final bornMonster = generatedWaxMonster(
         monsterId: 'generated-request-1',
@@ -452,16 +457,49 @@ void main() {
       dexStore.replaceAll(monsters: sampleData.monsters);
       await tester.tap(find.byKey(const Key('tab-dex')));
       await tester.pumpAndSettle();
-      await tester.tap(find.text(sampleData.monsters.first.definition.name));
+      // 手持ちにいない (図鑑の一覧にだけ名前が出る) 最後のモンスターを開く
+      await tester.tap(find.text(sampleData.monsters.last.definition.name));
       await tester.pumpAndSettle();
       await tester.tap(find.text('カードを共有'));
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key('share-format-landscape')));
       await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('share-confirm')));
+      await tester.pumpAndSettle();
 
       expect(shareCalls.renderedCards.single.format, ShareCardFormat.landscape);
       expect(shareCalls.sharedImages, hasLength(1));
       expect(shareCalls.loggedEvents, isEmpty);
+    });
+
+    testWidgets('描いた画像を見せた後に「やめる」を押した時は共有しない', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      dexStore.replaceAll(monsters: sampleData.monsters);
+      await tester.tap(find.byKey(const Key('tab-dex')));
+      await tester.pumpAndSettle();
+      // 手持ちにいない (図鑑の一覧にだけ名前が出る) 最後のモンスターを開く
+      await tester.tap(find.text(sampleData.monsters.last.definition.name));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('カードを共有'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('share-format-portrait')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('やめる'));
+      await tester.pumpAndSettle();
+
+      expect(shareCalls.renderedCards, hasLength(1));
+      expect(shareCalls.sharedImages, isEmpty);
+      expect(shareCalls.loggedEvents, isEmpty);
+      // ボタンは再び押せる
+      await tester.tap(find.text('カードを共有'));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('share-format-portrait')), findsOneWidget);
     });
 
     testWidgets('図鑑の詳細の共有で形を選ばずに閉じた時は共有しない', (tester) async {
@@ -475,7 +513,8 @@ void main() {
       dexStore.replaceAll(monsters: sampleData.monsters);
       await tester.tap(find.byKey(const Key('tab-dex')));
       await tester.pumpAndSettle();
-      await tester.tap(find.text(sampleData.monsters.first.definition.name));
+      // 手持ちにいない (図鑑の一覧にだけ名前が出る) 最後のモンスターを開く
+      await tester.tap(find.text(sampleData.monsters.last.definition.name));
       await tester.pumpAndSettle();
       await tester.tap(find.text('カードを共有'));
       await tester.pumpAndSettle();
@@ -1098,6 +1137,11 @@ void main() {
                 failureCount: 0,
               ),
               monsterGenerator: appMonsterGenerator(),
+              cardSharer: fakeCardSharer(
+                calls: RecordedShareCalls(),
+                artImage: null,
+                shareResultStatus: ShareResultStatus.success,
+              ),
               openUrl: openUrl,
               isDeveloperMenuEnabled: false,
             ),
