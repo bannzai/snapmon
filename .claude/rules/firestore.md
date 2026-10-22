@@ -32,7 +32,7 @@ Storage: `users/{uid}/photos/{requestId}` (元の写真。本人だけ読み書�
 
 - 構造 (パス・クライアントが書けるフィールド) を変える時は、`firebase/firestore.rules`・`firebase/storage.rules`・`functions/test/emulator/` の Rules のテスト・この文書を同じ PR で直す
 - Rules はすべての読み書きにカスタムクレーム `ageVerified == true` を求める (年齢の確認を Functions の `confirmAge` が検査した証。ADR 0001 の対象年齢の行)
-- クライアントが書けるのは `party/current` と `settings/current` だけにする。図鑑・生成・バトルの結果・定義はクライアントから書かせず、Functions が検証してから書く (改ざんで値・レベルを変えさせないため)
+- クライアントが書けるのは `party/current` と `settings/current` だけにする。書けるのは `users/{uid}` に `ageAccepted` があり `accountDeletionStartedAt` が無い間だけ (削除の後も別の端末の ID トークンは期限まで通るため)。図鑑・生成・バトルの結果・定義はクライアントから書かせず、Functions が検証してから書く (改ざんで値・レベルを変えさせないため)
 - 他人のデータ (PvP の相手の手持ち) はクライアントが直接読まず、Functions が見せてよい項目 (生成したイラスト・名前・属性・技・ステータス) だけを返す。元の写真は他人に見せない
 - 件数・合計などの集計のサマリーをドキュメントに持たない。判定基準の集計は Analytics の BigQuery エクスポートで行い、Firestore に二重に持たない (サマリーと実データが食い違う状態を作らないため)。原価の上限のカウンタ (1 日の生成数) のように、書き込みの可否の判定に使う値は集計のサマリーに当たらない
 - master の版とモンスターの生まれた時に決まる値は書き換えない。変える時は新しい版を足す

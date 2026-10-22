@@ -128,13 +128,21 @@ Future<void> deleteAccountWithFirebase() async {
   await deleteCurrentAccountOnServerWithFirebase();
 }
 
-/// いまのユーザーが Auth から消えているか。ユーザーを読み直し、ユーザーが無い時のエラー (`user-not-found`) だけを
-/// 消えていると扱う (トークンの失効・通信の失敗などで読み直せない時は、ユーザーが残っていることがあるため消えていないと扱う)。
+/// いまのユーザーがこの端末から使えなくなったか (Auth から消えた)。ユーザーを読み直し、ユーザーが無い時のエラー
+/// (`user-not-found`) か、読み直しの失敗で SDK がサインアウトした時 (Web の SDK はユーザーが無い時のエラーを
+/// `user-token-expired` に変えてサインアウトする。firebase-js-sdk の packages/auth/src/api/errors.ts の
+/// `[ServerError.USER_NOT_FOUND]: AuthErrorCode.TOKEN_EXPIRED`) だけを使えなくなったと扱う。通信の失敗などで読み直せず、サインインが
+/// 続いている時は、ユーザーが残っていることがあるため使えると扱う。
 Future<bool> _isCurrentUserDeletedOnServer() async {
+  final user = FirebaseAuth.instance.currentUser;
+  if (user == null) {
+    return true;
+  }
   try {
-    await FirebaseAuth.instance.currentUser!.reload();
+    await user.reload();
     return false;
   } on FirebaseAuthException catch (error) {
-    return error.code == 'user-not-found';
+    return error.code == 'user-not-found' ||
+        FirebaseAuth.instance.currentUser == null;
   }
 }
