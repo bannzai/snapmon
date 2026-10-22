@@ -327,8 +327,10 @@ class _GenerationScreenState extends State<GenerationScreen> {
       switch (result.rejectionReason) {
         GenerationRejectionReason.explicitContent => 'この写真からはモンスターを作れません',
         GenerationRejectionReason.faceDetected ||
-        GenerationRejectionReason.personDetected => '人が写っている写真からは作れません\n物だけを撮ってください',
-        GenerationRejectionReason.noSubject => '被写体が見つかりませんでした\n物を大きく写して撮ってください',
+        GenerationRejectionReason.personDetected =>
+          '人が写っている写真からは作れません\n物だけを撮ってください',
+        GenerationRejectionReason.noSubject =>
+          '被写体が見つかりませんでした\n物を大きく写して撮ってください',
         GenerationRejectionReason.inappropriateText ||
         GenerationRejectionReason.refused => 'うまく作れませんでした\nもう一度撮ってみてください',
         null => '生成に失敗しました\nもう一度撮ってみてください',

@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -83,6 +84,7 @@ Future<void> main() async {
         logEvent: logAnalyticsEvent,
       ),
       monsterGenerator: MonsterGenerator(
+        listCameras: availableCameras,
         pickAlbumPhoto: pickAlbumPhoto,
         preparePhoto: prepareGenerationPhotoInBackground,
         createRequestId: const Uuid().v4,

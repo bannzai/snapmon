@@ -41,6 +41,8 @@ MonsterGenerator fakeMonsterGenerator({
 }) {
   var requestIdCount = 0;
   return MonsterGenerator(
+    // テストの環境にはカメラが無い (Simulator と同じ)
+    listCameras: () async => const [],
     pickAlbumPhoto: () async => albumPhoto,
     preparePhoto: ({required sourceBytes}) async => sourceBytes,
     createRequestId: () => 'request-${++requestIdCount}',

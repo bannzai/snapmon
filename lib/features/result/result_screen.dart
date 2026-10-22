@@ -102,8 +102,7 @@ class ResultScreen extends StatelessWidget {
   Future<void> _addToParty({required BuildContext context}) async {
     if (await _changeParty(
           context: context,
-          change: () =>
-              dexStore.addToParty(monsterId: monster.definition.id),
+          change: () => dexStore.addToParty(monsterId: monster.definition.id),
         ) &&
         context.mounted) {
       Navigator.of(context).pop(ResultScreenAction.openDex);

@@ -1,5 +1,7 @@
 import 'dart:typed_data';
 
+import 'package:camera/camera.dart';
+
 import '../../analytics/analytics_events.dart';
 
 /// 生成の段階 (functions/src/generation/records.ts の `GENERATION_STAGES`)。順に進む。
@@ -141,6 +143,7 @@ enum GenerationPhotoSource {
 class MonsterGenerator {
   /// 関数の組を作る。
   const MonsterGenerator({
+    required this.listCameras,
     required this.pickAlbumPhoto,
     required this.preparePhoto,
     required this.createRequestId,
@@ -149,6 +152,9 @@ class MonsterGenerator {
     required this.fetchGeneration,
     required this.logEvent,
   });
+
+  /// 端末のカメラの一覧を返す (camera パッケージの `availableCameras` と同じ形)。
+  final Future<List<CameraDescription>> Function() listCameras;
 
   /// アルバムから写真を 1 枚選んでもらい、その中身を返す。選ばずに閉じた時は null。
   final Future<Uint8List?> Function() pickAlbumPhoto;

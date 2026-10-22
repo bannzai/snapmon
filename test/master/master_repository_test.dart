@@ -21,10 +21,7 @@ void main() {
       definitions.elementTypes.map((elementType) => elementType.id),
       contains('dynamic-wax'),
     );
-    expect(
-      definitions.moveById(moveId: 'dynamic-wax-1').displayName,
-      'ろうアタック',
-    );
+    expect(definitions.moveById(moveId: 'dynamic-wax-1').displayName, 'ろうアタック');
     expect(definitions.moveById(moveId: 'metal_1').displayName, isNotEmpty);
   });
 

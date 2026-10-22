@@ -63,20 +63,19 @@ void main() {
     required String monsterId,
     required GenerationStatus status,
     required String? resultRequestId,
-  }) =>
-      ({required requestId}) async {
-        dexStore.applyServerSnapshot(
-          monsters: [generatedWaxMonster(monsterId: monsterId)],
-          partyMonsterIds: null,
-          definitions: definitionsWithWax(base: sampleData.definitions),
-        );
-        return GenerationResult(
-          requestId: resultRequestId ?? requestId,
-          status: status,
-          monsterId: monsterId,
-          rejectionReason: null,
-        );
-      };
+  }) => ({required requestId}) async {
+    dexStore.applyServerSnapshot(
+      monsters: [generatedWaxMonster(monsterId: monsterId)],
+      partyMonsterIds: null,
+      definitions: definitionsWithWax(base: sampleData.definitions),
+    );
+    return GenerationResult(
+      requestId: resultRequestId ?? requestId,
+      status: status,
+      monsterId: monsterId,
+      rejectionReason: null,
+    );
+  };
 
   Future<GenerationResult> unexpectedFetch({required String requestId}) =>
       throw StateError('fetchGeneration は呼ばない');
@@ -158,7 +157,9 @@ void main() {
     expect(closedActions, [null]);
   });
 
-  testWidgets('判定待ちの時はもう少し待ってねを出し、同じ要求 ID で読み直して生まれたら生まれた画面を開く', (tester) async {
+  testWidgets('判定待ちの時はもう少し待ってねを出し、同じ要求 ID で読み直して生まれたら生まれた画面を開く', (
+    tester,
+  ) async {
     await pumpGenerationScreen(
       tester: tester,
       generator: fakeMonsterGenerator(
@@ -255,7 +256,9 @@ void main() {
     expect(find.text('生成に失敗しました\nもう一度撮ってみてください'), findsOneWidget);
   });
 
-  testWidgets('呼び出しが例外で終わったらエラーをそのまま出し、もう一度試すと写真を送り直さず同じ要求 ID で呼ぶ', (tester) async {
+  testWidgets('呼び出しが例外で終わったらエラーをそのまま出し、もう一度試すと写真を送り直さず同じ要求 ID で呼ぶ', (
+    tester,
+  ) async {
     var remainingFailureCount = 1;
     await pumpGenerationScreen(
       tester: tester,
@@ -285,7 +288,9 @@ void main() {
     expect(find.text('あたらしい なかま'), findsOneWidget);
   });
 
-  testWidgets('ログインしていない時 (DEBUG でログインを飛ばした) は送る前のエラーをそのまま出し、生成を呼ばない', (tester) async {
+  testWidgets('ログインしていない時 (DEBUG でログインを飛ばした) は送る前のエラーをそのまま出し、生成を呼ばない', (
+    tester,
+  ) async {
     await pumpGenerationScreen(
       tester: tester,
       generator: fakeMonsterGenerator(

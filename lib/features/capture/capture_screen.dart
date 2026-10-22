@@ -83,7 +83,7 @@ class _CaptureScreenState extends State<CaptureScreen>
   /// 背面のカメラ (無ければ最初のカメラ) を開く。カメラが無い・開けない時は [_cameraError] に残す。
   Future<void> _startCamera() async {
     try {
-      final cameras = await availableCameras();
+      final cameras = await widget.monsterGenerator.listCameras();
       if (cameras.isEmpty) {
         throw StateError('カメラが見つかりません');
       }
@@ -332,7 +332,10 @@ const double _minimumViewfinderHeight = 200;
 
 /// ファインダー。カメラの映像の上に枠と案内を重ねる。カメラが使えない時は、映像の代わりにその理由を出す。
 class _Viewfinder extends StatelessWidget {
-  const _Viewfinder({required this.cameraController, required this.cameraError});
+  const _Viewfinder({
+    required this.cameraController,
+    required this.cameraError,
+  });
 
   /// 開いたカメラ。開くまでと使えない時は null。
   final CameraController? cameraController;

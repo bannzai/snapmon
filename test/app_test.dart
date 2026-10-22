@@ -452,7 +452,7 @@ void main() {
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
       );
-      // テストの環境にはカメラのプラグインが無く、カメラを開けない
+      // fakeMonsterGenerator のカメラの一覧は空
       expect(find.textContaining('カメラが使えません'), findsOneWidget);
       await tester.tap(find.byTooltip('撮る'));
       await tester.pump();
@@ -691,7 +691,9 @@ void main() {
     expect(find.text('相手をえらぶ'), findsOneWidget);
   });
 
-  testWidgets('ログインして記録した対戦は勝敗の画面に記録しましたと出し、Functions が返したレベルを図鑑に反映する', (tester) async {
+  testWidgets('ログインして記録した対戦は勝敗の画面に記録しましたと出し、Functions が返したレベルを図鑑に反映する', (
+    tester,
+  ) async {
     startBattleRecord = () async => 'battle-1';
     recordedLevels = {
       for (final monster in sampleData.monsters.take(3))
@@ -907,7 +909,9 @@ void main() {
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: true,
       );
-      dexStore.connectServer(savePartyMonsterIds: ({required monsterIds}) async {});
+      dexStore.connectServer(
+        savePartyMonsterIds: ({required monsterIds}) async {},
+      );
       await tester.tap(find.byTooltip('設定'));
       await tester.pumpAndSettle();
       await tester.tap(find.text('開発者メニュー'));

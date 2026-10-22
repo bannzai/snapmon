@@ -120,10 +120,8 @@ class DexStore extends ChangeNotifier {
     return completer.future
         .timeout(
           timeout,
-          onTimeout: () => throw TimeoutException(
-            'モンスター $monsterId が図鑑に届きませんでした',
-            timeout,
-          ),
+          onTimeout: () =>
+              throw TimeoutException('モンスター $monsterId が図鑑に届きませんでした', timeout),
         )
         .whenComplete(() => removeListener(onChanged));
   }
@@ -137,7 +135,10 @@ class DexStore extends ChangeNotifier {
       return Future.value();
     }
     return _changeParty(
-      monsterIds: [for (final monster in party) monster.definition.id, monsterId],
+      monsterIds: [
+        for (final monster in party) monster.definition.id,
+        monsterId,
+      ],
     );
   }
 
