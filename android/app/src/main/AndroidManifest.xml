@@ -30,6 +30,14 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <!-- 年齢の確認より前に識別子を取らないため、Analytics と Crashlytics の自動収集を既定で無効にする。
+             確認を通った後に lib/firebase/age_verified_session.dart が有効にする (documents/adr/0001-tech-stack.md の対象年齢の行) -->
+        <meta-data
+            android:name="firebase_analytics_collection_enabled"
+            android:value="false" />
+        <meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="false" />
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and

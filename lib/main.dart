@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -7,6 +8,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:snapmon/app.dart';
 import 'package:snapmon/features/age_gate/age_confirmation.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
+import 'package:snapmon/firebase/age_verified_session.dart';
+import 'package:snapmon/firebase_options.dart';
 import 'package:snapmon/sample/sample_data.dart';
 
 /// 同梱したフォントの OFL のライセンス本文 (pubspec.yaml の assets) と、そのフォントの名前。
@@ -24,8 +27,15 @@ Future<void> main() async {
       ], await rootBundle.loadString(entry.value));
     }
   });
-  // Firebase Auth・Analytics・App Check (#12) はここで初期化しない。年齢の確認
-  // (AgeConfirmationStatus.allowed) の後に初期化する (ADR 0001「対象年齢」)。
+  // initializeApp だけでは識別子を作らない (Analytics・Crashlytics の自動収集は既定で無効、App Check と匿名ログインは未開始)。
+  // 識別子を作る機能は、年齢の確認を通った後に lib/firebase/age_verified_session.dart から始める。
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  try {
+    await resumeAgeVerifiedSession();
+  } catch (error) {
+    // 再開に失敗しても起動は止めない (年齢の確認を済ませていない時と同じ状態で始まる)。
+    debugPrint(error.toString());
+  }
   runApp(
     SnapmonApp(
       sampleData: await loadSampleData(bundle: rootBundle),

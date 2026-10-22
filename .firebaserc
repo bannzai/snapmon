@@ -1,0 +1,17 @@
+{
+  "projects": {
+    "default": "snapmon-prod"
+  },
+  "targets": {
+    "snapmon-prod": {
+      "storage": {
+        "main": ["snapmon-prod-storage"]
+      }
+    },
+    "demo-snapmon": {
+      "storage": {
+        "main": ["snapmon-prod-storage"]
+      }
+    }
+  }
+}
