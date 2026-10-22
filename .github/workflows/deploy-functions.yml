@@ -6,7 +6,6 @@ name: deploy-functions
 # 認証: 鍵を持たず、GitHub の OIDC トークンを Workload Identity Federation でデプロイ専用サービスアカウント
 # (github-firebase-deployer@snapmon-prod.iam.gserviceaccount.com) の短命なトークンに交換する。
 # GCP 側の前提と environment firebase-prod を付ける理由は .claude/rules/firebase-deploy.md。
-# サービスアカウントの IAM は /firebase-functions-deploy-iam-setup skill で揃える。
 # master の投入 (master_file) には、同じサービスアカウントに Firestore への書き込み (roles/datastore.user) が要る。
 # Functions は実行サービスアカウント snapmon-functions で動く (functions/src/index.ts) ため、同じサービスアカウントに snapmon-functions の actAs (roles/iam.serviceAccountUser) が要る。
 
