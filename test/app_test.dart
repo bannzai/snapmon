@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -535,6 +537,72 @@ void main() {
       expect(tester.takeException(), isNull);
       expect(
         find.text('${waxMonster.definition.name} の 技をえらぶ'),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('挑む前の定義の読み直しを待っている間は、挑む操作を受け付けない', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      final pendingRefresh = Completer<void>();
+      var refreshCount = 0;
+      dexStore
+        ..replaceAll(monsters: sampleData.monsters)
+        ..connectServer(
+          savePartyMonsterIds: ({required monsterIds}) async {},
+          refreshDefinitions: () {
+            refreshCount++;
+            return pendingRefresh.future;
+          },
+        );
+      await tester.tap(find.byKey(const Key('tab-opponent')));
+      await tester.pumpAndSettle();
+      final challengeButton = find.byKey(const Key('challenge-$cpuOpponentId'));
+      await tester.ensureVisible(challengeButton);
+      await tester.pumpAndSettle();
+      await tester.tap(challengeButton);
+      await tester.pump();
+      await tester.tap(challengeButton, warnIfMissed: false);
+      await tester.pump();
+      expect(refreshCount, 1);
+      pendingRefresh.complete();
+      // バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
+      expect(find.byType(BattleScreen), findsOneWidget);
+    });
+
+    testWidgets('図鑑の読み込みに失敗した時は、もう一度読み込むで読み直して図鑑を反映する', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      dexStore
+        ..connectServer(
+          savePartyMonsterIds: ({required monsterIds}) async {},
+          refreshDefinitions: () async => dexStore.applyServerSnapshot(
+            monsters: sampleData.monsters,
+            partyMonsterIds: null,
+            definitions: sampleData.definitions,
+          ),
+        )
+        ..reportServerError(error: StateError('通信できません'));
+      await tester.tap(find.byKey(const Key('tab-dex')));
+      await tester.pumpAndSettle();
+      expect(find.text('Bad state: 通信できません'), findsOneWidget);
+      await tester.tap(find.text('もう一度読み込む'));
+      await tester.pumpAndSettle();
+      expect(find.text('Bad state: 通信できません'), findsNothing);
+      expect(
+        find.text('${sampleData.monsters.length} 体 · 手持ち 0 体'),
         findsOneWidget,
       );
     });

@@ -66,13 +66,22 @@ class DexScreen extends StatelessWidget {
                           '${dexStore.monsters.length} 体 · 手持ち ${party.length} 体',
                           style: SnapmonTextStyles.caption,
                         ),
-                        if (dexStore.serverError != null)
+                        if (dexStore.serverError != null) ...[
                           Text(
                             dexStore.serverError.toString(),
                             style: SnapmonTextStyles.small.copyWith(
                               color: SnapmonColors.hitPointsLoss,
                             ),
                           ),
+                          TextButton(
+                            onPressed: () =>
+                                dexStore.refreshDefinitions().catchError(
+                                  (Object error) =>
+                                      dexStore.reportServerError(error: error),
+                                ),
+                            child: const Text('もう一度読み込む'),
+                          ),
+                        ],
                       ],
                     ),
                   ),

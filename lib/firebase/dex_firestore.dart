@@ -62,29 +62,9 @@ Future<void> Function() connectDexToFirestore({
   var isConnected = true;
   Map<String, dynamic>? latestMasterJson;
   final definitionJsonsById = <String, Map<String, dynamic>>{};
-  dexStore.connectServer(
-    // updatedAt は Rules が request.time と一致することを求める (firebase/firestore.rules の party/current)
-    savePartyMonsterIds: ({required monsterIds}) => partyDocument.set({
-      'monsterIds': monsterIds,
-      'updatedAt': FieldValue.serverTimestamp(),
-    }),
-    refreshDefinitions: () async {
-      latestMasterJson = (await fetchLatestMaster(
-        firestore: firestore,
-      ))?.data();
-      final definitions = buildDexDefinitions(
-        latestMasterJson: latestMasterJson,
-        definitionJsons: definitionJsonsById.values.toList(),
-      );
-      if (isConnected) {
-        dexStore.applyServerSnapshot(
-          monsters: null,
-          partyMonsterIds: null,
-          definitions: definitions,
-        );
-      }
-    },
-  );
+  // 最後に届いた図鑑。定義を読めずに反映できなかった図鑑を、読み直しの時に反映し直すために持つ
+  // (Firestore は図鑑が変わるまで同じスナップショットを送り直さないため)
+  List<OwnedMonster>? latestMonsters;
 
   Future<MasterData> definitionsFor({
     required List<OwnedMonster> monsters,
@@ -119,6 +99,28 @@ Future<void> Function() connectDexToFirestore({
     );
   }
 
+  dexStore.connectServer(
+    // updatedAt は Rules が request.time と一致することを求める (firebase/firestore.rules の party/current)
+    savePartyMonsterIds: ({required monsterIds}) => partyDocument.set({
+      'monsterIds': monsterIds,
+      'updatedAt': FieldValue.serverTimestamp(),
+    }),
+    refreshDefinitions: () async {
+      latestMasterJson = (await fetchLatestMaster(
+        firestore: firestore,
+      ))?.data();
+      final monsters = latestMonsters;
+      final definitions = await definitionsFor(monsters: monsters ?? const []);
+      if (isConnected) {
+        dexStore.applyServerSnapshot(
+          monsters: monsters,
+          partyMonsterIds: null,
+          definitions: definitions,
+        );
+      }
+    },
+  );
+
   // asyncMap は前の反映が済むまで次のスナップショットを待たせるため、古い図鑑が新しい図鑑を上書きしない
   final monstersSubscription = userDocument
       .collection('monsters')
@@ -129,6 +131,7 @@ Future<void> Function() connectDexToFirestore({
           for (final document in snapshot.docs)
             OwnedMonster.fromJson(json: document.data()),
         ];
+        latestMonsters = monsters;
         final definitions = await definitionsFor(monsters: monsters);
         // 定義を読んでいる間に購読をやめた (ログインを終えた) 時は、前の uid の図鑑を反映しない
         if (isConnected) {

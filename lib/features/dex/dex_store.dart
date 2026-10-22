@@ -68,8 +68,9 @@ class DexStore extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// サーバーの図鑑に繋いでいる時は、定義を最新の master から読み直す (対戦の前。相性表は対戦時点の最新の版を両者に適用するため。
-  /// documents/adr/0001-tech-stack.md)。繋いでいない時は何もしない。読み直しに失敗した時は例外を投げる。
+  /// サーバーの図鑑に繋いでいる時は、定義を最新の master から読み直し、最後に届いた図鑑を反映し直す (対戦の前。相性表は
+  /// 対戦時点の最新の版を両者に適用するため。documents/adr/0001-tech-stack.md。図鑑の読み込みに失敗した後のやり直しにも使う)。
+  /// 繋いでいない時は何もしない。読み直しに失敗した時は例外を投げる。
   Future<void> refreshDefinitions() async => _refreshDefinitions?.call();
 
   /// サーバーの図鑑から離れ、空の端末の図鑑 (定義は [definitions]) に戻す (ログインを終えた時。別の uid の図鑑を残さないため)。
