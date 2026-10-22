@@ -46,10 +46,16 @@ class AgeConfirmationStore extends ChangeNotifier {
   /// 今日の日付を返す。
   final DateTime Function() today;
 
+  /// 保存した生まれ年。入力していない時は null。
+  int? get birthYear => preferences.getInt(_birthYearKey);
+
+  /// 保存した生まれ月。入力していない時は null。
+  int? get birthMonth => preferences.getInt(_birthMonthKey);
+
   /// 年齢の確認の状態。保存した生年月から毎回求めるため、確認の時に満たなかった人も満たした月から使える。
   AgeConfirmationStatus get status {
-    final birthYear = preferences.getInt(_birthYearKey);
-    final birthMonth = preferences.getInt(_birthMonthKey);
+    final birthYear = this.birthYear;
+    final birthMonth = this.birthMonth;
     if (birthYear == null || birthMonth == null) {
       return AgeConfirmationStatus.unanswered;
     }

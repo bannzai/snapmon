@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../sample/sample_data.dart';
 import '../../theme/snapmon_text_styles.dart';
 import '../age_gate/age_confirmation.dart';
+import '../age_gate/age_verified_session_store.dart';
 import '../capture/sample_generation.dart';
 import '../dex/dex_store.dart';
 import '../result/result_screen.dart';
@@ -17,6 +18,7 @@ class DeveloperMenuScreen extends StatelessWidget {
     required this.sampleData,
     required this.dexStore,
     required this.ageConfirmationStore,
+    required this.ageVerifiedSessionStore,
   });
 
   /// 見本データ。
@@ -27,6 +29,9 @@ class DeveloperMenuScreen extends StatelessWidget {
 
   /// 年齢の確認。
   final AgeConfirmationStore ageConfirmationStore;
+
+  /// 年齢の確認の後のログイン。
+  final AgeVerifiedSessionStore ageVerifiedSessionStore;
 
   void _showMessage({required BuildContext context, required String message}) =>
       ScaffoldMessenger.of(context)
@@ -82,18 +87,22 @@ class DeveloperMenuScreen extends StatelessWidget {
               _showMessage(context: context, message: '図鑑をクリアしました');
             },
           ),
-          // Firebase Authentication の接続は #12 で行う。それまでは常に未ログイン
-          const ListTile(
-            leading: Icon(Icons.person_outline),
-            title: Text('ログイン状態'),
-            subtitle: Text('未ログイン (Firebase Authentication は未接続)'),
+          ListTile(
+            leading: const Icon(Icons.person_outline),
+            title: const Text('ログイン状態'),
+            subtitle: Text(
+              ageVerifiedSessionStore.uid == null
+                  ? '未ログイン (年齢の確認の後のログインを DEBUG で飛ばした)'
+                  : '匿名ログイン (年齢の確認済み) uid: ${ageVerifiedSessionStore.uid}',
+            ),
           ),
           ListTile(
             leading: const Icon(Icons.restart_alt),
             title: const Text('年齢の確認をやり直す'),
-            subtitle: const Text('保存した生年月を消して最初の画面に戻る'),
+            subtitle: const Text('ログインを終え 保存した生年月を消して最初の画面に戻る'),
             onTap: () async {
               Navigator.of(context).popUntil((route) => route.isFirst);
+              await ageVerifiedSessionStore.resetForDebug();
               await ageConfirmationStore.reset();
             },
           ),

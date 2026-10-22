@@ -74,15 +74,51 @@ Future<String> startAgeVerifiedSessionWithFirebase({
   );
 }
 
+/// 収集を止めて匿名ログインからサインアウトし、年齢の確認より前の状態に戻す。
+/// 開発者メニュー (DEBUG ビルド) の「年齢の確認をやり直す」だけが使う (やり直しで初回起動と同じ経路を通すため)。
+/// 何度呼んでも同じ (冪等)。App Check は止める API が無いため、トークンの自動更新だけを止める。
+Future<void> endAgeVerifiedSessionWithFirebase() async {
+  // activateAppCheck が始めなかった時 (Web でサイトキーが無い) は止めるものが無い
+  if (!kIsWeb || _recaptchaEnterpriseSiteKey.isNotEmpty) {
+    await FirebaseAppCheck.instance.setTokenAutoRefreshEnabled(false);
+  }
+  markAnalyticsCollectionStopped();
+  await FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(false);
+  if (!kIsWeb) {
+    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+  }
+  await FirebaseAuth.instance.signOut();
+}
+
 /// 前回の起動で年齢の確認を済ませたユーザーなら、App Check と収集を再開する。アプリの起動時に呼ぶ。
 ///
-/// 端末に保存された Auth のユーザーがいて、ID トークンに ageVerified のクレームがある時だけ再開し、uid を返す。
-/// それ以外 (初回起動・確認の途中で終了した) は何も始めずに null を返し、年齢の確認の画面へ進ませる。
-Future<String?> resumeAgeVerifiedSession() async {
+/// 端末に保存した生年月が 13 歳以上 ([hasAllowedAge]) で、Auth のユーザーがいて、ID トークンに ageVerified のクレームが
+/// ある時だけ再開し、uid を返す。それ以外 (初回起動・確認の途中で終了した) は何も始めずに null を返し、年齢の確認の画面へ進ませる。
+/// 生年月が無い・13 歳未満なのに Auth のユーザーが残っている時 (iOS で再インストールすると Auth は Keychain に残り、
+/// 生年月だけが消える) は、年齢の確認より前に識別子を使わないためサインアウトする。
+Future<String?> resumeAgeVerifiedSession({required bool hasAllowedAge}) async {
   final user = FirebaseAuth.instance.currentUser;
-  if (user == null ||
-      !await hasAgeVerifiedClaim(user: user, forceRefresh: false)) {
+  if (!hasAllowedAge) {
+    if (user != null) {
+      await FirebaseAuth.instance.signOut();
+    }
     return null;
+  }
+  if (user == null) {
+    return null;
+  }
+  try {
+    if (!await hasAgeVerifiedClaim(user: user, forceRefresh: false)) {
+      return null;
+    }
+  } on FirebaseAuthException catch (error) {
+    // ID トークンの期限 (1 時間) が切れていると取り直しに通信が要り、オフラインでは失敗する。
+    // 端末の生年月は 13 歳以上と確かめ済みなので、通信できない時だけはクレームを確かめずに再開する
+    // (年齢の確認の後のログインに倒すと confirmAge も通信できず、ログイン済みの人がオフラインで使えなくなるため)。
+    // クレームの無いユーザーが混じっても、Rules と Functions がクレームを検査するためサーバーのデータには触れない
+    if (error.code != 'network-request-failed') {
+      rethrow;
+    }
   }
   await activateAppCheck();
   await enableAnalyticsAndCrashlyticsCollection();

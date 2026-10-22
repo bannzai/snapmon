@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:snapmon/app.dart';
 import 'package:snapmon/features/age_gate/age_confirmation.dart';
+import 'package:snapmon/features/age_gate/age_verified_session_store.dart';
 import 'package:snapmon/features/battle/battle_screen.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
 import 'package:snapmon/features/settings/settings_screen.dart';
@@ -23,14 +24,41 @@ void main() {
   /// 起動した [SnapmonApp] と、テストから覗く状態。
   late DexStore dexStore;
   late AgeConfirmationStore ageConfirmationStore;
+  late AgeVerifiedSessionStore ageVerifiedSessionStore;
+  late List<({int birthYear, int birthMonth})> startSessionCalls;
+  var endSessionCallCount = 0;
   late List<Uri> openedUris;
   late RecordedBattleCalls battleCalls;
 
+  /// Firebase を呼ばずに [startSessionCalls] へ呼び出しを残すログイン。
+  /// 先頭から [failureCount] 回は通信の失敗を投げ、その後は uid を返す。
+  AgeVerifiedSessionStore fakeAgeVerifiedSessionStore({
+    required String? resumedUid,
+    required int failureCount,
+  }) {
+    var remainingFailureCount = failureCount;
+    return AgeVerifiedSessionStore(
+      startSession: ({required birthYear, required birthMonth}) async {
+        startSessionCalls.add((birthYear: birthYear, birthMonth: birthMonth));
+        if (remainingFailureCount > 0) {
+          remainingFailureCount--;
+          throw Exception('network-request-failed');
+        }
+        return 'uid-1';
+      },
+      endSession: () async => endSessionCallCount++,
+      resumedUid: resumedUid,
+    );
+  }
+
   /// iPhone の画面の大きさ (モックの 390 × 844) で [SnapmonApp] を起動する。
-  /// [hasConfirmedAge] が true なら年齢の確認を済ませた状態で起動する。
+  /// [hasConfirmedAge] が true なら年齢の確認を済ませた状態で起動する。[hasStartedSession] が true なら、
+  /// 前回の起動で済ませたログインを再開した状態で起動する。ログインは先頭から [startSessionFailureCount] 回失敗する。
   Future<void> pumpApp({
     required WidgetTester tester,
     required bool hasConfirmedAge,
+    required bool hasStartedSession,
+    required int startSessionFailureCount,
     required bool isDeveloperMenuEnabled,
   }) async {
     tester.view
@@ -46,6 +74,11 @@ void main() {
     if (hasConfirmedAge) {
       await ageConfirmationStore.answer(birthYear: 2000, birthMonth: 1);
     }
+    startSessionCalls = [];
+    ageVerifiedSessionStore = fakeAgeVerifiedSessionStore(
+      resumedUid: hasStartedSession ? 'uid-resumed' : null,
+      failureCount: startSessionFailureCount,
+    );
     openedUris = [];
     battleCalls = RecordedBattleCalls();
     await tester.pumpWidget(
@@ -53,6 +86,7 @@ void main() {
         sampleData: sampleData,
         dexStore: dexStore,
         ageConfirmationStore: ageConfirmationStore,
+        ageVerifiedSessionStore: ageVerifiedSessionStore,
         openUrl: ({required uri}) async {
           openedUris.add(uri);
           return true;
@@ -85,6 +119,8 @@ void main() {
       await pumpApp(
         tester: tester,
         hasConfirmedAge: false,
+        hasStartedSession: false,
+        startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
       );
       expect(find.text('生まれた年と月を\n入力してください'), findsOneWidget);
@@ -96,6 +132,8 @@ void main() {
       await pumpApp(
         tester: tester,
         hasConfirmedAge: false,
+        hasStartedSession: false,
+        startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
       );
       for (final (year, month) in [('2000', '13'), ('2030', '1'), ('', '')]) {
@@ -103,16 +141,21 @@ void main() {
         expect(find.text('正しい年と月を入力してください'), findsOneWidget);
         expect(ageConfirmationStore.status, AgeConfirmationStatus.unanswered);
       }
+      expect(startSessionCalls, isEmpty);
     });
 
     testWidgets('13 歳未満は使えず、起動し直しても入力に戻れない', (tester) async {
       await pumpApp(
         tester: tester,
         hasConfirmedAge: false,
+        hasStartedSession: false,
+        startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
       );
       await enterBirth(tester: tester, year: '2015', month: '3');
       expect(find.text('ごめんなさい\nsnapmon は使えません'), findsOneWidget);
+      // 13 歳未満からは識別子を取らないため、ログインを始めない
+      expect(startSessionCalls, isEmpty);
 
       await tester.pumpWidget(
         SnapmonApp(
@@ -123,6 +166,7 @@ void main() {
             preferences: ageConfirmationStore.preferences,
             today: () => today,
           ),
+          ageVerifiedSessionStore: ageVerifiedSessionStore,
           openUrl: ({required uri}) async => true,
           isDeveloperMenuEnabled: false,
           battleRecorder: fakeBattleRecorder(
@@ -137,13 +181,87 @@ void main() {
       expect(find.byKey(const Key('birthYearField')), findsNothing);
     });
 
-    testWidgets('13 歳以上は撮る画面に進む', (tester) async {
+    testWidgets('13 歳以上は入力した生年月でログインしてから撮る画面に進む', (tester) async {
       await pumpApp(
         tester: tester,
         hasConfirmedAge: false,
+        hasStartedSession: false,
+        startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
       );
       await enterBirth(tester: tester, year: '2000', month: '1');
+      expect(startSessionCalls, [(birthYear: 2000, birthMonth: 1)]);
+      expect(ageVerifiedSessionStore.uid, 'uid-1');
+      expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
+    });
+
+    testWidgets('ログインに失敗したらエラーと「もう一度試す」を出して止まり、やり直して成功したら撮る画面に進む', (
+      tester,
+    ) async {
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: false,
+        hasStartedSession: false,
+        startSessionFailureCount: 1,
+        isDeveloperMenuEnabled: false,
+      );
+      await enterBirth(tester: tester, year: '2000', month: '1');
+      expect(find.text('つながりませんでした'), findsOneWidget);
+      expect(find.text('Exception: network-request-failed'), findsOneWidget);
+      expect(find.byKey(const Key('tab-capture')), findsNothing);
+      expect(find.text('ログインせずに進む (DEBUG)'), findsNothing);
+      expect(ageVerifiedSessionStore.uid, isNull);
+
+      await tester.tap(find.text('もう一度試す'));
+      await tester.pumpAndSettle();
+      expect(startSessionCalls, [
+        (birthYear: 2000, birthMonth: 1),
+        (birthYear: 2000, birthMonth: 1),
+      ]);
+      expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
+    });
+
+    testWidgets('開発者メニューが有効な時だけ、ログインに失敗した画面からログインせずに進める', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        hasStartedSession: false,
+        startSessionFailureCount: 1,
+        isDeveloperMenuEnabled: true,
+      );
+      expect(find.text('つながりませんでした'), findsOneWidget);
+      await tester.tap(find.text('ログインせずに進む (DEBUG)'));
+      await tester.pumpAndSettle();
+      expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
+
+      await tester.tap(find.byTooltip('設定'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('開発者メニュー'));
+      await tester.pumpAndSettle();
+      expect(find.text('未ログイン (年齢の確認の後のログインを DEBUG で飛ばした)'), findsOneWidget);
+    });
+
+    testWidgets('生年月を入力済みでログインが済んでいない時は、起動するとログインを始める', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        hasStartedSession: false,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      expect(startSessionCalls, [(birthYear: 2000, birthMonth: 1)]);
+      expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
+    });
+
+    testWidgets('前回の起動でログインを済ませた時は、ログインせずに撮る画面から始まる', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      expect(startSessionCalls, isEmpty);
       expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
     });
   });
@@ -153,6 +271,8 @@ void main() {
       await pumpApp(
         tester: tester,
         hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
       );
       expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
@@ -175,6 +295,8 @@ void main() {
       await pumpApp(
         tester: tester,
         hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
       );
       await tester.tap(find.byTooltip('撮る'));
@@ -198,6 +320,8 @@ void main() {
       await pumpApp(
         tester: tester,
         hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
       );
       await tester.tap(find.byTooltip('アルバムから選ぶ'));
@@ -212,6 +336,8 @@ void main() {
       await pumpApp(
         tester: tester,
         hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
       );
       dexStore.replaceAll(monsters: sampleData.monsters);
@@ -232,6 +358,8 @@ void main() {
       await pumpApp(
         tester: tester,
         hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
       );
       dexStore.replaceAll(monsters: sampleData.monsters);
@@ -249,6 +377,8 @@ void main() {
       await pumpApp(
         tester: tester,
         hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
       );
       tester.view.physicalSize = const Size(844, 390);
@@ -270,6 +400,8 @@ void main() {
       await pumpApp(
         tester: tester,
         hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
       );
       dexStore.replaceAll(monsters: sampleData.monsters);
@@ -297,6 +429,8 @@ void main() {
       await pumpApp(
         tester: tester,
         hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
       );
       await tester.tap(find.byKey(const Key('tab-opponent')));
@@ -315,6 +449,8 @@ void main() {
       await pumpApp(
         tester: tester,
         hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
       );
       dexStore.replaceAll(monsters: sampleData.monsters);
@@ -361,6 +497,8 @@ void main() {
     await pumpApp(
       tester: tester,
       hasConfirmedAge: true,
+      hasStartedSession: true,
+      startSessionFailureCount: 0,
       isDeveloperMenuEnabled: false,
     );
     dexStore.replaceAll(monsters: sampleData.monsters);
@@ -400,7 +538,7 @@ void main() {
       find.text('かった').evaluate().length + find.text('まけた').evaluate().length,
       1,
     );
-    expect(find.text('ログインしていないため記録していません'), findsOneWidget);
+    expect(find.text('図鑑をサーバーに保存するまでバトルは記録しません'), findsOneWidget);
     expect(battleCalls.startedPartyMonsterIds, [
       [for (final monster in partyBefore) monster.definition.id],
     ]);
@@ -420,6 +558,8 @@ void main() {
     await pumpApp(
       tester: tester,
       hasConfirmedAge: true,
+      hasStartedSession: true,
+      startSessionFailureCount: 0,
       isDeveloperMenuEnabled: false,
     );
     dexStore.replaceAll(monsters: sampleData.monsters);
@@ -483,6 +623,8 @@ void main() {
       await pumpApp(
         tester: tester,
         hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
       );
       await tester.tap(find.byTooltip('設定'));
@@ -515,6 +657,10 @@ void main() {
                 preferences: preferences,
                 today: () => today,
               ),
+              ageVerifiedSessionStore: fakeAgeVerifiedSessionStore(
+                resumedUid: 'uid-resumed',
+                failureCount: 0,
+              ),
               openUrl: openUrl,
               isDeveloperMenuEnabled: false,
             ),
@@ -538,6 +684,8 @@ void main() {
       await pumpApp(
         tester: tester,
         hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
       );
       await tester.tap(find.byTooltip('設定'));
@@ -549,13 +697,15 @@ void main() {
       await pumpApp(
         tester: tester,
         hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
         isDeveloperMenuEnabled: true,
       );
       await tester.tap(find.byTooltip('設定'));
       await tester.pumpAndSettle();
       await tester.tap(find.text('開発者メニュー'));
       await tester.pumpAndSettle();
-      expect(find.text('未ログイン (Firebase Authentication は未接続)'), findsOneWidget);
+      expect(find.text('匿名ログイン (年齢の確認済み) uid: uid-resumed'), findsOneWidget);
 
       await tester.tap(find.text('見本モンスターを図鑑に投入'));
       await tester.pumpAndSettle();
@@ -567,10 +717,15 @@ void main() {
       expect(dexStore.monsters, isEmpty);
     });
 
-    testWidgets('開発者メニューで年齢の確認をやり直せる', (tester) async {
+    testWidgets('開発者メニューで年齢の確認をやり直すと、ログインを終えて初回起動と同じくログインからやり直す', (
+      tester,
+    ) async {
+      endSessionCallCount = 0;
       await pumpApp(
         tester: tester,
         hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
         isDeveloperMenuEnabled: true,
       );
       await tester.tap(find.byTooltip('設定'));
@@ -580,6 +735,12 @@ void main() {
       await tester.tap(find.text('年齢の確認をやり直す'));
       await tester.pumpAndSettle();
       expect(find.byKey(const Key('birthYearField')), findsOneWidget);
+      expect(endSessionCallCount, 1);
+      expect(ageVerifiedSessionStore.uid, isNull);
+
+      await enterBirth(tester: tester, year: '2000', month: '1');
+      expect(startSessionCalls, [(birthYear: 2000, birthMonth: 1)]);
+      expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
     });
   });
 }

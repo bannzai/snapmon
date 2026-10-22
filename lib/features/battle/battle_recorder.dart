@@ -12,7 +12,7 @@ class BattleRecorder {
   });
 
   /// バトルの開始を記録し、結果の送信に使う battleId を返す。[partyMonsterIds] は連れて行く手持ち。
-  /// 年齢の確認を通ったログインが無く記録しない時は null を返す。
+  /// 記録しない時 (年齢の確認を通ったログインが無い・図鑑がサーバーに無い) は null を返す。
   final Future<String?> Function({required List<String> partyMonsterIds})
   startBattleRecord;
 

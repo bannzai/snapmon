@@ -6,7 +6,7 @@ import 'age_verified_session.dart';
 
 /// Functions の startBattle を呼び、battleId を返す。[partyMonsterIds] は連れて行く手持ち。
 /// 年齢の確認を通ったログイン (ID トークンに ageVerified のクレーム) が無い時は呼ばずに null を返す
-/// (Functions がクレームの無い呼び出しを拒否するため。図鑑を Firestore に繋ぐ #14 まではアプリはログインしない)。
+/// (Functions がクレームの無い呼び出しを拒否するため。アプリは年齢の確認の後のログインが済むまで下タブの画面に入れない)。
 Future<String?> startBattleRecordWithFirebase({
   required List<String> partyMonsterIds,
 }) async {

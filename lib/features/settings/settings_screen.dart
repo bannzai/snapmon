@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../sample/sample_data.dart';
 import '../../theme/snapmon_text_styles.dart';
 import '../age_gate/age_confirmation.dart';
+import '../age_gate/age_verified_session_store.dart';
 import '../developer_menu/developer_menu_screen.dart';
 import '../dex/dex_store.dart';
 
@@ -34,6 +35,7 @@ class SettingsScreen extends StatelessWidget {
     required this.sampleData,
     required this.dexStore,
     required this.ageConfirmationStore,
+    required this.ageVerifiedSessionStore,
     required this.openUrl,
     required this.isDeveloperMenuEnabled,
   });
@@ -46,6 +48,9 @@ class SettingsScreen extends StatelessWidget {
 
   /// 年齢の確認 (開発者メニューが使う)。
   final AgeConfirmationStore ageConfirmationStore;
+
+  /// 年齢の確認の後のログイン (開発者メニューが使う)。
+  final AgeVerifiedSessionStore ageVerifiedSessionStore;
 
   /// リンクを開く。
   final OpenUrl openUrl;
@@ -120,6 +125,7 @@ class SettingsScreen extends StatelessWidget {
                   sampleData: sampleData,
                   dexStore: dexStore,
                   ageConfirmationStore: ageConfirmationStore,
+                  ageVerifiedSessionStore: ageVerifiedSessionStore,
                 ),
               ),
             ),
