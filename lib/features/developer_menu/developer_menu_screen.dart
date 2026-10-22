@@ -141,7 +141,7 @@ class DeveloperMenuScreen extends StatelessWidget {
             subtitle: const Text('ログインを終え 保存した生年月を消して最初の画面に戻る'),
             onTap: () async {
               Navigator.of(context).popUntil((route) => route.isFirst);
-              await ageVerifiedSessionStore.resetForDebug();
+              await ageVerifiedSessionStore.reset();
               await ageConfirmationStore.reset();
             },
           ),

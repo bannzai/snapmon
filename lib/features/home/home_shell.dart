@@ -12,6 +12,7 @@ import '../capture/monster_generator.dart';
 import '../dex/dex_screen.dart';
 import '../dex/dex_store.dart';
 import '../opponent/opponent_screen.dart';
+import '../settings/account_store.dart';
 import '../settings/settings_screen.dart';
 import '../share/card_sharer.dart';
 
@@ -41,6 +42,7 @@ class HomeShell extends StatefulWidget {
     required this.battleRecorder,
     required this.monsterGenerator,
     required this.cardSharer,
+    required this.accountStore,
   });
 
   /// 見本データ。
@@ -70,6 +72,9 @@ class HomeShell extends StatefulWidget {
   /// 図鑑のカードとバトルの結果の共有に使う関数の組。
   final CardSharer cardSharer;
 
+  /// 設定画面のアカウントの連携と削除。
+  final AccountStore accountStore;
+
   @override
   State<HomeShell> createState() => _HomeShellState();
 }
@@ -91,6 +96,7 @@ class _HomeShellState extends State<HomeShell> {
         cardSharer: widget.cardSharer,
         openUrl: widget.openUrl,
         isDeveloperMenuEnabled: widget.isDeveloperMenuEnabled,
+        accountStore: widget.accountStore,
       ),
     ),
   );

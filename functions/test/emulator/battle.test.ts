@@ -197,7 +197,7 @@ describe("startBattle と recordBattle", () => {
       await setDoc(doc(context.firestore(), `users/${user.uid}`), {
         dailyBattleDate: battleDayKey({ now: new Date() }),
         dailyBattleCount: DAILY_BATTLE_LIMIT,
-      });
+      }, { merge: true });
     });
     const battleId = await startBattle({ user, partyMonsterIds: ["m1"] });
 
@@ -213,7 +213,7 @@ describe("startBattle と recordBattle", () => {
       await setDoc(doc(context.firestore(), `users/${user.uid}`), {
         dailyBattleDate: "2000-01-01",
         dailyBattleCount: DAILY_BATTLE_LIMIT,
-      });
+      }, { merge: true });
     });
     const battleId = await startBattle({ user, partyMonsterIds: ["m1"] });
 

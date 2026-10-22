@@ -13,6 +13,7 @@ import 'package:snapmon/features/age_gate/age_verified_session_store.dart';
 import 'package:snapmon/features/battle/battle_screen.dart';
 import 'package:snapmon/features/capture/monster_generator.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
+import 'package:snapmon/features/settings/account_store.dart';
 import 'package:snapmon/features/settings/settings_screen.dart';
 import 'package:snapmon/features/share/card_sharer.dart';
 import 'package:snapmon/features/share/share_cards.dart';
@@ -49,11 +50,46 @@ void main() {
   late ShareResultStatus shareResultStatus;
   late RecordedShareCalls shareCalls;
 
+  /// [pumpApp] の設定画面のアカウントの連携と削除。呼ばれた操作を [accountCalls] に順に残す。
+  /// 連携と削除の振る舞いは、テストが [pumpApp] の前に変える。既定は連携でき、削除できる。
+  late AccountStore accountStore;
+  late List<String> accountCalls;
+  late List<String> linkedProviderNames;
+  late Future<Future<String> Function()?> Function() linkAccount;
+  late Future<void> Function() deleteAccount;
+
   setUp(() {
     startBattleRecord = () async => null;
     recordedLevels = const {};
     shareResultStatus = ShareResultStatus.success;
+    accountCalls = [];
+    linkedProviderNames = [];
+    linkAccount = () async {
+      linkedProviderNames = ['Google'];
+      return null;
+    };
+    deleteAccount = () async {};
   });
+
+  /// [sessionStore] と [ageConfirmationStore] に繋いだ、Firebase を呼ばない [AccountStore]。
+  AccountStore fakeAccountStore({
+    required AgeVerifiedSessionStore sessionStore,
+    required AgeConfirmationStore ageConfirmationStore,
+  }) => AccountStore(
+    sessionStore: sessionStore,
+    ageConfirmationStore: ageConfirmationStore,
+    linkProviderName: 'Google',
+    readLinkedProviderNames: () => linkedProviderNames,
+    linkAccount: () {
+      accountCalls.add('link');
+      return linkAccount();
+    },
+    discardCurrentAccount: () async => accountCalls.add('discard'),
+    deleteAccount: () {
+      accountCalls.add('delete');
+      return deleteAccount();
+    },
+  );
 
   /// アルバムから選ぶと、要求 ID ごとに見本のモンスター ([generatedWaxMonster]) をサーバーが保存して図鑑に届けたことにする生成。
   MonsterGenerator appMonsterGenerator() => fakeMonsterGenerator(
@@ -133,6 +169,10 @@ void main() {
     openedUris = [];
     battleCalls = RecordedBattleCalls();
     shareCalls = RecordedShareCalls();
+    accountStore = fakeAccountStore(
+      sessionStore: ageVerifiedSessionStore,
+      ageConfirmationStore: ageConfirmationStore,
+    );
     await tester.pumpWidget(
       SnapmonApp(
         sampleData: sampleData,
@@ -155,6 +195,7 @@ void main() {
           artImage: null,
           shareResultStatus: shareResultStatus,
         ),
+        accountStore: accountStore,
       ),
     );
     await tester.pumpAndSettle();
@@ -237,6 +278,7 @@ void main() {
             artImage: null,
             shareResultStatus: ShareResultStatus.success,
           ),
+          accountStore: accountStore,
         ),
       );
       await tester.pumpAndSettle();
@@ -1122,20 +1164,22 @@ void main() {
       SharedPreferences.setMockInitialValues({});
       final preferences = await SharedPreferences.getInstance();
       Future<void> pumpSettings({required OpenUrl openUrl}) async {
+        final settingsAgeConfirmationStore = AgeConfirmationStore(
+          preferences: preferences,
+          today: () => today,
+        );
+        final settingsSessionStore = fakeAgeVerifiedSessionStore(
+          resumedUid: 'uid-resumed',
+          failureCount: 0,
+        );
         await tester.pumpWidget(
           MaterialApp(
             key: UniqueKey(),
             home: SettingsScreen(
               sampleData: sampleData,
               dexStore: DexStore(definitions: sampleData.definitions),
-              ageConfirmationStore: AgeConfirmationStore(
-                preferences: preferences,
-                today: () => today,
-              ),
-              ageVerifiedSessionStore: fakeAgeVerifiedSessionStore(
-                resumedUid: 'uid-resumed',
-                failureCount: 0,
-              ),
+              ageConfirmationStore: settingsAgeConfirmationStore,
+              ageVerifiedSessionStore: settingsSessionStore,
               monsterGenerator: appMonsterGenerator(),
               cardSharer: fakeCardSharer(
                 calls: RecordedShareCalls(),
@@ -1144,6 +1188,10 @@ void main() {
               ),
               openUrl: openUrl,
               isDeveloperMenuEnabled: false,
+              accountStore: fakeAccountStore(
+                sessionStore: settingsSessionStore,
+                ageConfirmationStore: settingsAgeConfirmationStore,
+              ),
             ),
           ),
         );
@@ -1159,6 +1207,131 @@ void main() {
             throw Exception('ACTIVITY_NOT_FOUND'),
       );
       expect(find.text('Exception: ACTIVITY_NOT_FOUND'), findsOneWidget);
+    });
+
+    /// 年齢の確認とログインを済ませた状態で起動し、設定画面を開く。
+    Future<void> openSettings({required WidgetTester tester}) async {
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      await tester.tap(find.byTooltip('設定'));
+      await tester.pumpAndSettle();
+    }
+
+    testWidgets(
+      'アカウントを削除は、確認ダイアログで「削除する」を選ぶと消してから年齢の確認の画面に戻る (docs/AccountDeletion.md の手順)',
+      (tester) async {
+        await openSettings(tester: tester);
+        final endSessionCallCountBeforeDeletion = endSessionCallCount;
+        await tester.tap(find.text('アカウントを削除'));
+        await tester.pumpAndSettle();
+        expect(find.text('アカウントを削除しますか'), findsOneWidget);
+
+        await tester.tap(find.text('削除する'));
+        await tester.pumpAndSettle();
+
+        expect(accountCalls, ['delete']);
+        expect(endSessionCallCount, endSessionCallCountBeforeDeletion + 1);
+        expect(ageVerifiedSessionStore.uid, isNull);
+        expect(ageConfirmationStore.status, AgeConfirmationStatus.unanswered);
+        expect(find.text('生まれた年と月を\n入力してください'), findsOneWidget);
+      },
+    );
+
+    testWidgets('アカウントを削除の確認で「やめる」を選ぶと消さない', (tester) async {
+      await openSettings(tester: tester);
+      await tester.tap(find.text('アカウントを削除'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('やめる'));
+      await tester.pumpAndSettle();
+
+      expect(accountCalls, isEmpty);
+      expect(ageVerifiedSessionStore.uid, 'uid-resumed');
+      expect(find.text('アカウントを削除'), findsOneWidget);
+    });
+
+    testWidgets('アカウントの削除に失敗したら理由をそのまま出し、ログインを続ける', (tester) async {
+      deleteAccount = () async => throw Exception('deadline-exceeded');
+      await openSettings(tester: tester);
+      await tester.tap(find.text('アカウントを削除'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('削除する'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Exception: deadline-exceeded'), findsOneWidget);
+      expect(ageVerifiedSessionStore.uid, 'uid-resumed');
+      expect(ageConfirmationStore.status, AgeConfirmationStatus.allowed);
+    });
+
+    testWidgets('データを引き継ぐで連携すると、連携済みの表示になり押せなくなる', (tester) async {
+      await openSettings(tester: tester);
+      expect(find.text('Google でサインインして\n機種変更しても図鑑を残す'), findsOneWidget);
+
+      await tester.tap(find.text('データを引き継ぐ'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Google と連携しました'), findsOneWidget);
+      expect(find.text('Google で連携済み'), findsOneWidget);
+      expect(ageVerifiedSessionStore.uid, 'uid-resumed');
+      await tester.tap(find.text('データを引き継ぐ'));
+      await tester.pumpAndSettle();
+      expect(accountCalls, ['link']);
+    });
+
+    testWidgets('別の端末で連携済みなら、確認してからこの端末の匿名アカウントを捨てて切り替える', (tester) async {
+      linkAccount = () async => () async {
+        accountCalls.add('signInToLinkedAccount');
+        return 'uid-linked';
+      };
+      await openSettings(tester: tester);
+      await tester.tap(find.text('データを引き継ぐ'));
+      await tester.pumpAndSettle();
+      expect(find.text('連携済みのアカウントに切り替えますか'), findsOneWidget);
+
+      await tester.tap(find.text('切り替える'));
+      await tester.pumpAndSettle();
+
+      expect(accountCalls, ['link', 'discard', 'signInToLinkedAccount']);
+      expect(ageVerifiedSessionStore.uid, 'uid-linked');
+      expect(find.text('連携済みのアカウントに切り替えました'), findsOneWidget);
+    });
+
+    testWidgets('別の端末で連携済みの確認で「やめる」を選ぶと、匿名アカウントを捨てない', (tester) async {
+      linkAccount = () async =>
+          () async => 'uid-linked';
+      await openSettings(tester: tester);
+      await tester.tap(find.text('データを引き継ぐ'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('やめる'));
+      await tester.pumpAndSettle();
+
+      expect(accountCalls, ['link']);
+      expect(ageVerifiedSessionStore.uid, 'uid-resumed');
+    });
+
+    testWidgets('ログインを飛ばした時 (DEBUG) は、データを引き継ぐとアカウントを削除を押せない', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        hasStartedSession: false,
+        startSessionFailureCount: 1,
+        isDeveloperMenuEnabled: true,
+      );
+      await tester.tap(find.text('ログインせずに進む (DEBUG)'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byTooltip('設定'));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('データを引き継ぐ'));
+      await tester.tap(find.text('アカウントを削除'));
+      await tester.pumpAndSettle();
+
+      expect(accountCalls, isEmpty);
+      expect(find.text('アカウントを削除しますか'), findsNothing);
     });
 
     testWidgets('開発者メニューは無効の時に出ない', (tester) async {

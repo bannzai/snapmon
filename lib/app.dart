@@ -7,6 +7,7 @@ import 'features/battle/battle_recorder.dart';
 import 'features/capture/monster_generator.dart';
 import 'features/dex/dex_store.dart';
 import 'features/home/home_shell.dart';
+import 'features/settings/account_store.dart';
 import 'features/settings/settings_screen.dart';
 import 'features/share/card_sharer.dart';
 import 'sample/sample_data.dart';
@@ -26,6 +27,7 @@ class SnapmonApp extends StatelessWidget {
     required this.battleRecorder,
     required this.monsterGenerator,
     required this.cardSharer,
+    required this.accountStore,
   });
 
   /// 見本データ。
@@ -54,6 +56,9 @@ class SnapmonApp extends StatelessWidget {
 
   /// 図鑑のカードとバトルの結果の共有に使う関数の組。
   final CardSharer cardSharer;
+
+  /// 設定画面のアカウントの連携と削除。
+  final AccountStore accountStore;
 
   @override
   Widget build(BuildContext context) => MaterialApp(
@@ -86,6 +91,7 @@ class SnapmonApp extends StatelessWidget {
           battleRecorder: battleRecorder,
           monsterGenerator: monsterGenerator,
           cardSharer: cardSharer,
+          accountStore: accountStore,
         ),
       },
     ),

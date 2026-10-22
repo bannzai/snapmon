@@ -1,6 +1,8 @@
+import { getAuth } from "firebase-admin/auth";
 import { CallableRequest, HttpsError, onCall } from "firebase-functions/v2/https";
 import { onTaskDispatched } from "firebase-functions/v2/tasks";
 
+import { rejectDeletedAccount } from "../account";
 import { typesafeApiKey } from "../secrets";
 import { createProductionDependencies } from "./dependencies";
 import { type GenerationDependencies, GenerationRequestError, resumeGeneration, type ResumeTask, startGeneration } from "./pipeline";
@@ -55,7 +57,13 @@ export async function handleGenerateRequest(dependencies: GenerationDependencies
 const GENERATION_FUNCTION_OPTIONS = { timeoutSeconds: 300, memory: "4GiB" as const, concurrency: 1, cpu: 2, secrets: [typesafeApiKey] };
 
 /** 写真からモンスターを生成する callable (App Check 必須)。設計は pipeline.ts の冒頭。 */
-export const generate = onCall({ ...GENERATION_FUNCTION_OPTIONS, enforceAppCheck: true }, (request) => handleGenerateRequest(createProductionDependencies(), request));
+export const generate = onCall({ ...GENERATION_FUNCTION_OPTIONS, enforceAppCheck: true }, async (request) => {
+  const dependencies = createProductionDependencies();
+  if (request.auth) {
+    await rejectDeletedAccount({ auth: getAuth(), bucket: dependencies.bucket, uid: request.auth.uid });
+  }
+  return handleGenerateRequest(dependencies, request);
+});
 
 /**
  * 生成の再試行のタスク (Cloud Tasks のキュー)。判定待ちの生成を 1 時間おきに続きから進め、予約が切れた生成を引き継ぐ。

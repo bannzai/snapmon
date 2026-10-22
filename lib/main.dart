@@ -18,6 +18,8 @@ import 'package:snapmon/features/dex/dex_store.dart';
 import 'package:snapmon/features/share/card_sharer.dart';
 import 'package:snapmon/features/share/render_widget_png.dart';
 import 'package:snapmon/features/share/share_image.dart';
+import 'package:snapmon/features/settings/account_store.dart';
+import 'package:snapmon/firebase/account.dart';
 import 'package:snapmon/firebase/age_verified_session.dart';
 import 'package:snapmon/firebase/battle_record.dart';
 import 'package:snapmon/firebase/dex_firestore.dart';
@@ -102,6 +104,15 @@ Future<void> main() async {
         renderPng: renderWidgetToPng,
         shareImage: shareImageWithSharePlus,
         logEvent: logAnalyticsEvent,
+      ),
+      accountStore: AccountStore(
+        sessionStore: ageVerifiedSessionStore,
+        ageConfirmationStore: ageConfirmationStore,
+        linkProviderName: accountLinkProviderNameForPlatform,
+        readLinkedProviderNames: linkedProviderNamesWithFirebase,
+        linkAccount: linkAccountWithFirebase,
+        discardCurrentAccount: deleteCurrentAccountOnServerWithFirebase,
+        deleteAccount: deleteAccountWithFirebase,
       ),
     ),
   );

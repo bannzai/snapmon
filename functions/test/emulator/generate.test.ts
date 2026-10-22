@@ -40,6 +40,8 @@ afterAll(async () => {
 beforeEach(async () => {
   await fetch(`http://127.0.0.1:8080/emulator/v1/projects/${projectId}/databases/(default)/documents`, { method: "DELETE" });
   await firestore.doc("master/1").set(master);
+  // 生成は confirmAge が年齢の確認を通した印 (ageAccepted) のある users/{uid} にだけ受け付ける
+  await Promise.all(["alice", "bob"].map((uid) => firestore.doc(`users/${uid}`).set({ ageAccepted: true })));
   const [files] = await bucket.getFiles();
   await Promise.all(files.map((file) => file.delete({ ignoreNotFound: true })));
 });
@@ -564,7 +566,7 @@ describe("generate の上限と検査", () => {
   const today = new Intl.DateTimeFormat("sv-SE", { timeZone: "Asia/Tokyo" }).format(new Date());
 
   it("uid ごとの 1 日の上限を超えると生成せず、受け付けなかった写真は後のタスクが消す", async () => {
-    await firestore.doc("users/alice").set({ dailyGeneration: { date: today, count: DAILY_GENERATION_LIMIT_PER_USER } });
+    await firestore.doc("users/alice").set({ dailyGeneration: { date: today, count: DAILY_GENERATION_LIMIT_PER_USER } }, { merge: true });
     const mocks = createMocks();
     const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
     await expect(handleGenerateRequest(mocks.dependencies, ageVerifiedRequest({ uid: "alice", data }))).rejects.toMatchObject({ code: "resource-exhausted" });
@@ -576,7 +578,7 @@ describe("generate の上限と検査", () => {
   });
 
   it("前日の回数は数えない", async () => {
-    await firestore.doc("users/alice").set({ dailyGeneration: { date: "2000-01-01", count: DAILY_GENERATION_LIMIT_PER_USER } });
+    await firestore.doc("users/alice").set({ dailyGeneration: { date: "2000-01-01", count: DAILY_GENERATION_LIMIT_PER_USER } }, { merge: true });
     const result = await handleGenerateRequest(createMocks().dependencies, ageVerifiedRequest({ uid: "alice", data: await uploadPhoto({ uid: "alice", photo: photoFixture("01") }) }));
     expect(result.status).toBe("saved");
     expect((await firestore.doc("users/alice").get()).get("dailyGeneration")).toEqual({ date: today, count: 1 });
@@ -591,7 +593,7 @@ describe("generate の上限と検査", () => {
   });
 
   it("同じ uid の別の生成が進んでいる間は受け付けない", async () => {
-    await firestore.doc("users/alice").set({ generationLock: { requestId: randomUUID(), expiresAt: Timestamp.fromMillis(Date.now() + 60_000) } });
+    await firestore.doc("users/alice").set({ generationLock: { requestId: randomUUID(), expiresAt: Timestamp.fromMillis(Date.now() + 60_000) } }, { merge: true });
     await expect(
       handleGenerateRequest(createMocks().dependencies, ageVerifiedRequest({ uid: "alice", data: await uploadPhoto({ uid: "alice", photo: photoFixture("01") }) })),
     ).rejects.toMatchObject({ code: "failed-precondition" });
