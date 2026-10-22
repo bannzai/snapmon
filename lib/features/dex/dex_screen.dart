@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../domain/battle/battle_state.dart';
-import '../../sample/sample_data.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
@@ -17,14 +16,10 @@ class DexScreen extends StatelessWidget {
   /// 図鑑の画面を作る。
   const DexScreen({
     super.key,
-    required this.sampleData,
     required this.dexStore,
     required this.onSelectTab,
     required this.onOpenSettings,
   });
-
-  /// 見本データ (属性・技の定義を引く)。
-  final SampleData sampleData;
 
   /// 図鑑と手持ち。
   final DexStore dexStore;
@@ -42,9 +37,8 @@ class DexScreen extends StatelessWidget {
     MaterialPageRoute<ResultScreenAction>(
       builder: (context) => ResultScreen(
         monster: monster,
-        sampleData: sampleData,
         dexStore: dexStore,
-        isNewlyBorn: false,
+        origin: ResultScreenOrigin.dex,
       ),
     ),
   );
@@ -72,6 +66,22 @@ class DexScreen extends StatelessWidget {
                           '${dexStore.monsters.length} 体 · 手持ち ${party.length} 体',
                           style: SnapmonTextStyles.caption,
                         ),
+                        if (dexStore.serverError != null) ...[
+                          Text(
+                            dexStore.serverError.toString(),
+                            style: SnapmonTextStyles.small.copyWith(
+                              color: SnapmonColors.hitPointsLoss,
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () =>
+                                dexStore.refreshDefinitions().catchError(
+                                  (Object error) =>
+                                      dexStore.reportServerError(error: error),
+                                ),
+                            child: const Text('もう一度読み込む'),
+                          ),
+                        ],
                       ],
                     ),
                   ),
@@ -225,8 +235,8 @@ class _MonsterTile extends StatelessWidget {
                 child: Center(
                   child: AspectRatio(
                     aspectRatio: 1,
-                    child: PlaceholderMonsterArt(
-                      definition: monster.definition,
+                    child: MonsterArt(
+                      monster: monster,
                       backgroundColor: isInParty
                           ? SnapmonColors.cardSubtle
                           : SnapmonColors.artBackground,

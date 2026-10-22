@@ -44,6 +44,11 @@ dependencies:
   firebase_analytics: ^13.0.0
   firebase_crashlytics: ^6.0.0
   firebase_app_check: ^0.5.0
+  firebase_storage: ^14.0.0
+  camera: ^0.12.0+2
+  image_picker: ^1.2.4
+  image: ^4.12.0
+  uuid: ^4.6.0
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +76,7 @@ flutter:
   # master (assets/master/master.json) はアプリに同梱しない (ADR 0001「master に無い属性・技」) ため assets に入れない
   assets:
     - assets/samples/
+    - assets/samples/photos/
     - assets/fonts/dela_gothic_one/OFL.txt
     - assets/fonts/zen_kaku_gothic_new/OFL.txt
 

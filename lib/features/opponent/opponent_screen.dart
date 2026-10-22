@@ -15,7 +15,7 @@ import '../home/home_shell.dart';
 import 'cpu_party.dart';
 
 /// 対戦相手を選ぶ画面 (モックの Pvp.dc.html)。PvP の相手の取得 (#16) までは見本の対戦相手を並べる。
-class OpponentScreen extends StatelessWidget {
+class OpponentScreen extends StatefulWidget {
   /// 対戦相手の画面を作る。
   const OpponentScreen({
     super.key,
@@ -41,17 +41,56 @@ class OpponentScreen extends StatelessWidget {
   /// バトルの記録と計測。
   final BattleRecorder battleRecorder;
 
-  Future<void> _challenge({
-    required BuildContext context,
+  @override
+  State<OpponentScreen> createState() => _OpponentScreenState();
+}
+
+class _OpponentScreenState extends State<OpponentScreen> {
+  /// 挑む準備 (定義の読み直し) から対戦の画面を閉じるまでの間か。間は挑む操作を受け付けない
+  /// (連打で対戦の画面とバトルの記録が重なるため)。
+  bool _isChallenging = false;
+
+  /// [opponent] に挑む。挑んでいる間に呼ばれた時は何もしない。
+  Future<void> _challenge({required SampleOpponent opponent}) async {
+    if (_isChallenging) {
+      return;
+    }
+    setState(() => _isChallenging = true);
+    try {
+      await _prepareAndStartBattle(opponent: opponent);
+    } finally {
+      if (mounted) {
+        setState(() => _isChallenging = false);
+      }
+    }
+  }
+
+  /// 定義を読み直してから [opponent] との対戦の画面を開き、閉じるまで待つ。
+  Future<void> _prepareAndStartBattle({
     required SampleOpponent opponent,
   }) async {
+    final dexStore = widget.dexStore;
+    // 相性表は対戦時点の最新の版を使う (documents/adr/0001-tech-stack.md)。読み直せない時は古い版で戦わせず、エラーをそのまま出す
+    try {
+      await dexStore.refreshDefinitions();
+    } catch (error) {
+      if (mounted) {
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(SnackBar(content: Text(error.toString())));
+      }
+      return;
+    }
+    if (!mounted) {
+      return;
+    }
     // 挑むたびに別の展開にするため、seed は毎回作る。値の範囲は DeterministicRandom の状態 (32 bit) に合わせた。
     // Web (JavaScript) ではシフトが 32 bit に切り詰められ `1 << 32` が 0 になるため、上限は整数リテラルで書く
     final randomSeed = math.Random().nextInt(0x100000000);
     final playerParty = dexStore.party;
     final opponentMonsters = [
       for (final monsterId in opponent.monsterIds)
-        sampleData.monsterById(monsterId: monsterId),
+        widget.sampleData.monsterById(monsterId: monsterId),
     ];
     final action = await Navigator.of(context).push(
       MaterialPageRoute<BattleScreenAction>(
@@ -64,23 +103,25 @@ class OpponentScreen extends StatelessWidget {
                   randomSeed: randomSeed,
                 )
               : opponentMonsters,
-          definitions: sampleData.definitions,
+          // 見本の対戦相手の属性・技は master と同じ ID・同じ値のため (test/sample/sample_data_test.dart)、
+          // 図鑑の定義 (サーバーの master と図鑑が参照する定義) から両者を引ける
+          definitions: dexStore.definitions,
           randomSeed: randomSeed,
-          battleRecorder: battleRecorder,
+          battleRecorder: widget.battleRecorder,
           onPlayerLevelsChanged: dexStore.updateLevels,
         ),
       ),
     );
     if (action == BattleScreenAction.openDex) {
-      onSelectTab(tab: HomeTab.dex);
+      widget.onSelectTab(tab: HomeTab.dex);
     }
   }
 
   @override
   Widget build(BuildContext context) => ListenableBuilder(
-    listenable: dexStore,
+    listenable: widget.dexStore,
     builder: (context, _) {
-      final party = dexStore.party;
+      final party = widget.dexStore.party;
       return ListView(
         padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
         children: [
@@ -100,7 +141,7 @@ class OpponentScreen extends StatelessWidget {
               SquareIconButton(
                 icon: Icons.settings_outlined,
                 tooltip: '設定',
-                onPressed: onOpenSettings,
+                onPressed: widget.onOpenSettings,
                 size: 44,
               ),
             ],
@@ -129,7 +170,7 @@ class OpponentScreen extends StatelessWidget {
                 borderRadius: SnapmonRadii.button,
                 child: InkWell(
                   borderRadius: SnapmonRadii.button,
-                  onTap: () => onSelectTab(tab: HomeTab.dex),
+                  onTap: () => widget.onSelectTab(tab: HomeTab.dex),
                   child: const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                     child: Text('入替', style: SnapmonTextStyles.caption),
@@ -145,14 +186,14 @@ class OpponentScreen extends StatelessWidget {
           const SizedBox(height: 20),
           const Text('相手をえらぶ', style: SnapmonTextStyles.caption),
           const SizedBox(height: 10),
-          for (final opponent in sampleData.opponents) ...[
+          for (final opponent in widget.sampleData.opponents) ...[
             _OpponentCard(
               opponent: opponent,
-              sampleData: sampleData,
+              sampleData: widget.sampleData,
               playerParty: party,
-              onChallenge: party.isEmpty
+              onChallenge: party.isEmpty || _isChallenging
                   ? null
-                  : () => _challenge(context: context, opponent: opponent),
+                  : () => _challenge(opponent: opponent),
             ),
             const SizedBox(height: 10),
           ],

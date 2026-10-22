@@ -1,18 +1,24 @@
+import 'package:camera/camera.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:uuid/uuid.dart';
 
 import 'package:snapmon/analytics/analytics_events.dart';
 import 'package:snapmon/app.dart';
 import 'package:snapmon/features/age_gate/age_confirmation.dart';
 import 'package:snapmon/features/age_gate/age_verified_session_store.dart';
 import 'package:snapmon/features/battle/battle_recorder.dart';
+import 'package:snapmon/features/capture/monster_generator.dart';
+import 'package:snapmon/features/capture/photo_preparation.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
 import 'package:snapmon/firebase/age_verified_session.dart';
 import 'package:snapmon/firebase/battle_record.dart';
+import 'package:snapmon/firebase/dex_firestore.dart';
+import 'package:snapmon/firebase/monster_generation.dart';
 import 'package:snapmon/firebase_options.dart';
 import 'package:snapmon/sample/sample_data.dart';
 
@@ -50,24 +56,41 @@ Future<void> main() async {
     // 再開に失敗しても起動は止めない (ログインしていない時と同じく、年齢の確認の後のログインからやり直す)。
     debugPrint(error.toString());
   }
+  final sampleData = await loadSampleData(bundle: rootBundle);
+  // サーバーの master を読むまで (と、ログインを飛ばした DEBUG ビルド) は見本の定義で属性・技を引く
+  final dexStore = DexStore(definitions: sampleData.definitions);
+  final ageVerifiedSessionStore = AgeVerifiedSessionStore(
+    startSession: startAgeVerifiedSessionWithFirebase,
+    endSession: endAgeVerifiedSessionWithFirebase,
+    resumedUid: resumedUid,
+  );
+  connectDexToFirestoreWhileSignedIn(
+    sessionStore: ageVerifiedSessionStore,
+    dexStore: dexStore,
+    localDefinitions: sampleData.definitions,
+  );
   runApp(
     SnapmonApp(
-      sampleData: await loadSampleData(bundle: rootBundle),
-      dexStore: DexStore(),
+      sampleData: sampleData,
+      dexStore: dexStore,
       ageConfirmationStore: ageConfirmationStore,
-      ageVerifiedSessionStore: AgeVerifiedSessionStore(
-        startSession: startAgeVerifiedSessionWithFirebase,
-        endSession: endAgeVerifiedSessionWithFirebase,
-        resumedUid: resumedUid,
-      ),
+      ageVerifiedSessionStore: ageVerifiedSessionStore,
       openUrl: ({required uri}) =>
           launchUrl(uri, mode: LaunchMode.externalApplication),
       isDeveloperMenuEnabled: kDebugMode,
-      battleRecorder: BattleRecorder(
-        // 図鑑を Firestore に繋ぐ (#14) までは、サーバーにモンスターが無く startBattle が not-found で拒否するため、
-        // 記録を始めない (端末の計算のレベルを反映する)。#14 で startBattleRecordWithFirebase に戻す
-        startBattleRecord: ({required partyMonsterIds}) async => null,
+      battleRecorder: const BattleRecorder(
+        startBattleRecord: startBattleRecordWithFirebase,
         completeBattleRecord: completeBattleRecordWithFirebase,
+        logEvent: logAnalyticsEvent,
+      ),
+      monsterGenerator: MonsterGenerator(
+        listCameras: availableCameras,
+        pickAlbumPhoto: pickAlbumPhoto,
+        preparePhoto: prepareGenerationPhotoInBackground,
+        createRequestId: const Uuid().v4,
+        uploadPhoto: uploadGenerationPhotoWithFirebase,
+        requestGeneration: requestGenerationWithFirebase,
+        fetchGeneration: fetchGenerationWithFirebase,
         logEvent: logAnalyticsEvent,
       ),
     ),

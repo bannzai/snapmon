@@ -1,6 +1,8 @@
+import 'dart:typed_data';
+
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
-import '../../sample/sample_data.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
@@ -8,25 +10,26 @@ import '../../widgets/square_icon_button.dart';
 import '../dex/dex_store.dart';
 import '../home/home_shell.dart';
 import '../result/result_screen.dart';
-import 'sample_generation.dart';
+import 'generation_screen.dart';
+import 'monster_generator.dart';
 
-/// 撮る画面 (モックの Main.dc.html)。カメラ・アルバムの読み込みと生成 (#13・#14) を繋ぐまでは、
-/// シャッターとアルバムのボタンで見本のモンスターが生まれる。
-class CaptureScreen extends StatelessWidget {
+/// 撮る画面 (モックの Main.dc.html)。ファインダーにカメラの映像を出し、シャッターで撮るかアルバムから選んだ写真から生成する。
+/// カメラが無い端末 (Simulator) と使えない時は、ファインダーにそのことを出してアルバムから選ぶ経路だけを残す。
+class CaptureScreen extends StatefulWidget {
   /// 撮る画面を作る。
   const CaptureScreen({
     super.key,
-    required this.sampleData,
     required this.dexStore,
+    required this.monsterGenerator,
     required this.onSelectTab,
     required this.onOpenSettings,
   });
 
-  /// 見本データ。
-  final SampleData sampleData;
-
   /// 図鑑と手持ち。
   final DexStore dexStore;
+
+  /// 生成の呼び出しと計測。
+  final MonsterGenerator monsterGenerator;
 
   /// 下タブを切り替える。
   final void Function({required HomeTab tab}) onSelectTab;
@@ -34,24 +37,170 @@ class CaptureScreen extends StatelessWidget {
   /// 設定画面を開く。
   final VoidCallback onOpenSettings;
 
-  Future<void> _generate({required BuildContext context}) async {
-    // builder は再び呼ばれることがあるため、生成は push の前に 1 回だけ行う
-    final monster = generateSampleMonster(
-      sampleData: sampleData,
-      dexStore: dexStore,
-    );
+  @override
+  State<CaptureScreen> createState() => _CaptureScreenState();
+}
+
+class _CaptureScreenState extends State<CaptureScreen>
+    with WidgetsBindingObserver {
+  CameraController? _cameraController;
+  Object? _cameraError;
+  bool _isTakingPicture = false;
+
+  /// カメラを開く試みの番号。開いている途中にアプリが裏に回る・開き直すと進み、古い試みの結果を捨てる目印にする。
+  int _cameraStartGeneration = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    _startCamera();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _cameraController?.dispose();
+    super.dispose();
+  }
+
+  // アプリが裏に回る間はカメラを離し、戻ったら開き直す (camera パッケージの README の扱い)
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.inactive:
+        // 開いている途中の試みも、裏に回った後に開き終えたカメラを持たないよう無効にする
+        _cameraStartGeneration++;
+        final cameraController = _cameraController;
+        setState(() => _cameraController = null);
+        cameraController?.dispose();
+      case AppLifecycleState.resumed:
+        if (_cameraController == null) {
+          _startCamera();
+        }
+      case AppLifecycleState.detached ||
+          AppLifecycleState.hidden ||
+          AppLifecycleState.paused:
+        break;
+    }
+  }
+
+  /// 背面のカメラ (無ければ最初のカメラ) を開く。カメラが無い・開けない時は [_cameraError] に残す。
+  /// 開き終える前に次の試みが始まった・アプリが裏に回った時は、開いたカメラを捨てて結果を反映しない。
+  Future<void> _startCamera() async {
+    final generation = ++_cameraStartGeneration;
+    bool isCurrent() => mounted && generation == _cameraStartGeneration;
+    try {
+      final cameras = await widget.monsterGenerator.listCameras();
+      if (cameras.isEmpty) {
+        throw StateError('カメラが見つかりません');
+      }
+      final cameraController = CameraController(
+        cameras.firstWhere(
+          (camera) => camera.lensDirection == CameraLensDirection.back,
+          orElse: () => cameras.first,
+        ),
+        // 生成に送る写真は長辺 1024px に縮めるため (photo_preparation.dart)、それを下回らない解像度にした
+        ResolutionPreset.high,
+        enableAudio: false,
+        imageFormatGroup: ImageFormatGroup.jpeg,
+      );
+      try {
+        await cameraController.initialize();
+      } catch (_) {
+        // 開けなかったカメラも、開く途中で始めた端末の向きの購読等を残さないよう捨てる
+        await cameraController.dispose();
+        rethrow;
+      }
+      if (!isCurrent()) {
+        await cameraController.dispose();
+        return;
+      }
+      final previousCameraController = _cameraController;
+      setState(() {
+        _cameraController = cameraController;
+        _cameraError = null;
+      });
+      await previousCameraController?.dispose();
+    } catch (error) {
+      if (isCurrent()) {
+        setState(() => _cameraError = error);
+      }
+    }
+  }
+
+  /// カメラで撮って生成する。
+  Future<void> _takePicture() async {
+    final cameraController = _cameraController;
+    if (_isTakingPicture) {
+      return;
+    }
+    if (cameraController == null) {
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          const SnackBar(content: Text('カメラが使えません\nアルバムから選んでください')),
+        );
+      return;
+    }
+    setState(() => _isTakingPicture = true);
+    try {
+      final picture = await cameraController.takePicture();
+      await _generate(
+        sourcePhoto: await picture.readAsBytes(),
+        photoSource: GenerationPhotoSource.camera,
+      );
+    } catch (error) {
+      if (mounted) {
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(SnackBar(content: Text(error.toString())));
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isTakingPicture = false);
+      }
+    }
+  }
+
+  /// アルバムから選んで生成する。選ばずに閉じた時は何もしない。
+  Future<void> _pickAlbumPhoto() async {
+    try {
+      final photo = await widget.monsterGenerator.pickAlbumPhoto();
+      if (photo != null) {
+        await _generate(
+          sourcePhoto: photo,
+          photoSource: GenerationPhotoSource.album,
+        );
+      }
+    } catch (error) {
+      if (mounted) {
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(SnackBar(content: Text(error.toString())));
+      }
+    }
+  }
+
+  Future<void> _generate({
+    required Uint8List sourcePhoto,
+    required GenerationPhotoSource photoSource,
+  }) async {
+    if (!mounted) {
+      return;
+    }
     final action = await Navigator.of(context).push(
       MaterialPageRoute<ResultScreenAction>(
-        builder: (context) => ResultScreen(
-          monster: monster,
-          sampleData: sampleData,
-          dexStore: dexStore,
-          isNewlyBorn: true,
+        builder: (context) => GenerationScreen(
+          sourcePhoto: sourcePhoto,
+          photoSource: photoSource,
+          monsterGenerator: widget.monsterGenerator,
+          dexStore: widget.dexStore,
         ),
       ),
     );
     if (action == ResultScreenAction.openDex) {
-      onSelectTab(tab: HomeTab.dex);
+      widget.onSelectTab(tab: HomeTab.dex);
     }
   }
 
@@ -84,13 +233,13 @@ class CaptureScreen extends StatelessWidget {
               ),
             ),
             ListenableBuilder(
-              listenable: dexStore,
+              listenable: widget.dexStore,
               builder: (context, _) => Material(
                 color: SnapmonColors.surface,
                 borderRadius: SnapmonRadii.button,
                 child: InkWell(
                   borderRadius: SnapmonRadii.button,
-                  onTap: () => onSelectTab(tab: HomeTab.dex),
+                  onTap: () => widget.onSelectTab(tab: HomeTab.dex),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 14,
@@ -105,7 +254,7 @@ class CaptureScreen extends StatelessWidget {
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          '図鑑 ${dexStore.monsters.length}',
+                          '図鑑 ${widget.dexStore.monsters.length}',
                           style: SnapmonTextStyles.label,
                         ),
                       ],
@@ -118,7 +267,7 @@ class CaptureScreen extends StatelessWidget {
             SquareIconButton(
               icon: Icons.settings_outlined,
               tooltip: '設定',
-              onPressed: onOpenSettings,
+              onPressed: widget.onOpenSettings,
               size: 44,
             ),
           ],
@@ -129,7 +278,10 @@ class CaptureScreen extends StatelessWidget {
           constraints: const BoxConstraints(
             minHeight: _minimumViewfinderHeight,
           ),
-          child: const _Viewfinder(),
+          child: _Viewfinder(
+            cameraController: _cameraController,
+            cameraError: _cameraError,
+          ),
         ),
       ),
       const Padding(
@@ -148,25 +300,29 @@ class CaptureScreen extends StatelessWidget {
             SquareIconButton(
               icon: Icons.photo_library_outlined,
               tooltip: 'アルバムから選ぶ',
-              onPressed: () => _generate(context: context),
+              onPressed: _pickAlbumPhoto,
               size: 56,
             ),
             const SizedBox(width: 28),
             Tooltip(
               message: '撮る',
               child: Material(
-                color: SnapmonColors.accent,
+                color: _cameraController == null
+                    ? SnapmonColors.surfaceRaised
+                    : SnapmonColors.accent,
                 shape: const CircleBorder(
                   side: BorderSide(color: SnapmonColors.background, width: 6),
                 ),
                 child: InkWell(
                   customBorder: const CircleBorder(),
-                  onTap: () => _generate(context: context),
-                  child: const SizedBox.square(
+                  onTap: _takePicture,
+                  child: SizedBox.square(
                     dimension: 84,
                     child: Icon(
                       Icons.photo_camera_outlined,
-                      color: SnapmonColors.textOnCard,
+                      color: _cameraController == null
+                          ? SnapmonColors.textMuted
+                          : SnapmonColors.textOnCard,
                       size: 34,
                     ),
                   ),
@@ -177,7 +333,7 @@ class CaptureScreen extends StatelessWidget {
             SquareIconButton(
               icon: Icons.sports_martial_arts,
               tooltip: '対戦する',
-              onPressed: () => onSelectTab(tab: HomeTab.opponent),
+              onPressed: () => widget.onSelectTab(tab: HomeTab.opponent),
               size: 56,
             ),
           ],
@@ -190,56 +346,93 @@ class CaptureScreen extends StatelessWidget {
 /// 高さが足りない画面でのファインダーの高さ。四隅の鉤形 (36 + 余白 24) 2 つと案内の札が重ならない高さにした。
 const double _minimumViewfinderHeight = 200;
 
-/// ファインダー。カメラの映像 (#14) を繋ぐまでは枠と案内だけを描く。
+/// ファインダー。カメラの映像の上に枠と案内を重ねる。カメラが使えない時は、映像の代わりにその理由を出す。
 class _Viewfinder extends StatelessWidget {
-  const _Viewfinder();
+  const _Viewfinder({
+    required this.cameraController,
+    required this.cameraError,
+  });
+
+  /// 開いたカメラ。開くまでと使えない時は null。
+  final CameraController? cameraController;
+
+  /// カメラを開けなかった理由。開けた時と開いている途中は null。
+  final Object? cameraError;
 
   @override
-  Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 16),
-    child: ClipRRect(
-      borderRadius: SnapmonRadii.panel,
-      child: ColoredBox(
-        color: SnapmonColors.surfaceRaised,
-        child: Stack(
-          children: [
-            for (final alignment in [
-              Alignment.topLeft,
-              Alignment.topRight,
-              Alignment.bottomLeft,
-              Alignment.bottomRight,
-            ])
-              Align(
-                alignment: alignment,
-                child: Padding(
-                  padding: const EdgeInsets.all(24),
-                  child: _ViewfinderCorner(alignment: alignment),
-                ),
-              ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 28),
-                child: DecoratedBox(
-                  decoration: const BoxDecoration(
-                    color: SnapmonColors.scrim,
-                    borderRadius: SnapmonRadii.button,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 14,
-                      vertical: 8,
+  Widget build(BuildContext context) {
+    final openedCameraController = cameraController;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: ClipRRect(
+        borderRadius: SnapmonRadii.panel,
+        child: ColoredBox(
+          color: SnapmonColors.surfaceRaised,
+          child: Stack(
+            children: [
+              if (openedCameraController != null)
+                // 枠いっぱいに映像を広げ、はみ出た分は切る (撮れる範囲は映像の全体)。
+                // aspectRatio はセンサーの向き (横長) の幅 / 高さで、縦持ちの映像は高さ / 幅がこの値になる
+                Positioned.fill(
+                  child: FittedBox(
+                    fit: BoxFit.cover,
+                    clipBehavior: Clip.hardEdge,
+                    child: SizedBox(
+                      width: 1,
+                      height: openedCameraController.value.aspectRatio,
+                      child: CameraPreview(openedCameraController),
                     ),
-                    child: Text('被写体を枠に入れる', style: SnapmonTextStyles.body),
+                  ),
+                ),
+              if (cameraError != null)
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 48),
+                    child: Text(
+                      'カメラが使えません\nアルバムから選んでください\n\n$cameraError',
+                      textAlign: TextAlign.center,
+                      style: SnapmonTextStyles.small,
+                    ),
+                  ),
+                ),
+              for (final alignment in [
+                Alignment.topLeft,
+                Alignment.topRight,
+                Alignment.bottomLeft,
+                Alignment.bottomRight,
+              ])
+                Align(
+                  alignment: alignment,
+                  child: Padding(
+                    padding: const EdgeInsets.all(24),
+                    child: _ViewfinderCorner(alignment: alignment),
+                  ),
+                ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 28),
+                  child: DecoratedBox(
+                    decoration: const BoxDecoration(
+                      color: SnapmonColors.scrim,
+                      borderRadius: SnapmonRadii.button,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 14,
+                        vertical: 8,
+                      ),
+                      child: Text('被写体を枠に入れる', style: SnapmonTextStyles.body),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-    ),
-  );
+    );
+  }
 }
 
 /// ファインダーの四隅の鉤形。

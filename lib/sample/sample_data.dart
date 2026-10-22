@@ -6,7 +6,7 @@ import '../domain/master/master_data.dart';
 import '../domain/monster/monster_definition.dart';
 import '../features/dex/owned_monster.dart';
 
-/// 見本データのファイル。撮影・生成・Firestore に繋ぐまで (#13・#14・#16) の画面の確認に使う。
+/// 見本データのファイル。CPU 対戦の相手、PvP の相手の取得 (#16) までの代わり、開発者メニューの見本の投入に使う。
 const String sampleDataAssetPath = 'assets/samples/sample_monsters.json';
 
 /// 見本の対戦相手のうち、CPU 対戦の相手 (「CPU トレーナー」) の識別子。手持ちのレベルは挑む時に自分の手持ちに合わせる。
@@ -66,6 +66,8 @@ class SampleData {
                         as Map<String, dynamic>,
               ),
               level: monsterJson['level'] as int,
+              artPath: null,
+              definitionIds: const [],
             ),
         ],
         opponents: [
