@@ -78,4 +78,14 @@ void main() {
     expect(generated.definition.id, monsters[0].definition.id);
     expect(dexStore.monsters, hasLength(monsters.length));
   });
+
+  test('レベルを置き換えると図鑑と手持ちに反映され、図鑑にいない ID は無視する', () {
+    final dexStore = DexStore()..replaceAll(monsters: monsters);
+    dexStore.updateLevels(
+      levelsByMonsterId: {monsters[0].definition.id: 42, 'not-in-dex': 5},
+    );
+    expect(dexStore.party.first.level, 42);
+    expect(dexStore.monsters[1].level, monsters[1].level);
+    expect(dexStore.monsters, hasLength(monsters.length));
+  });
 }

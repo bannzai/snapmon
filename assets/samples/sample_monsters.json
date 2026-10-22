@@ -238,6 +238,62 @@
         "learnableLevelMinimum": 15,
         "learnableLevelMaximum": 200
       }
+    ],
+    "effects": [
+      {
+        "id": "metal_particle",
+        "displayName": "金属のパーティクル",
+        "kind": "particle",
+        "colorHex": "#9AA5B1"
+      },
+      {
+        "id": "plant_particle",
+        "displayName": "植物のパーティクル",
+        "kind": "particle",
+        "colorHex": "#4CAF50"
+      },
+      {
+        "id": "water_particle",
+        "displayName": "水のパーティクル",
+        "kind": "particle",
+        "colorHex": "#2196F3"
+      },
+      {
+        "id": "heat_particle",
+        "displayName": "熱のパーティクル",
+        "kind": "particle",
+        "colorHex": "#F4511E"
+      },
+      {
+        "id": "paper_particle",
+        "displayName": "紙のパーティクル",
+        "kind": "particle",
+        "colorHex": "#F5F0E1"
+      },
+      {
+        "id": "cloth_particle",
+        "displayName": "布のパーティクル",
+        "kind": "particle",
+        "colorHex": "#AB47BC"
+      },
+      {
+        "id": "plastic_particle",
+        "displayName": "樹脂のパーティクル",
+        "kind": "particle",
+        "colorHex": "#FFCA28"
+      },
+      {
+        "id": "electric_particle",
+        "displayName": "電気のパーティクル",
+        "kind": "particle",
+        "colorHex": "#FFEB3B"
+      },
+      {
+        "id": "food_particle",
+        "displayName": "食べ物のパーティクル",
+        "kind": "particle",
+        "colorHex": "#FF8A65"
+      }
     ]
   },
   "monsters": [
@@ -518,7 +574,8 @@
       "name": "CPU トレーナー",
       "monsterIds": [
         "sample-keybon",
-        "sample-ringora"
+        "sample-ringora",
+        "sample-noton"
       ]
     }
   ]

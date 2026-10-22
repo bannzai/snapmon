@@ -12,8 +12,8 @@ import 'package:snapmon/analytics/analytics_events.dart';
 // Firebase のうち識別子を作る機能はこのファイルの関数からだけ始める (documents/adr/0001-tech-stack.md の対象年齢の行)。
 // Analytics と Crashlytics の自動収集は ios/Runner/Info.plist と android/app/src/main/AndroidManifest.xml で既定を無効にしている。
 
-/// Functions の confirmAge と同じリージョン (functions/src/index.ts の setGlobalOptions)。
-const _functionsRegion = 'asia-northeast1';
+/// Functions のリージョン (functions/src/index.ts の setGlobalOptions)。
+const functionsRegion = 'asia-northeast1';
 
 /// Web の App Check に使う reCAPTCHA Enterprise のサイトキー。公開値のため `--dart-define` で渡す (deploy-hosting.yml)。
 const _recaptchaEnterpriseSiteKey = String.fromEnvironment(
@@ -63,7 +63,7 @@ Future<String> startAgeVerifiedSessionWithFirebase({
     signInAnonymously: () async =>
         (await FirebaseAuth.instance.signInAnonymously()).user!.uid,
     confirmAge: ({required birthYear, required birthMonth}) =>
-        FirebaseFunctions.instanceFor(region: _functionsRegion)
+        FirebaseFunctions.instanceFor(region: functionsRegion)
             .httpsCallable('confirmAge')
             .call<Object?>({'birthYear': birthYear, 'birthMonth': birthMonth}),
     refreshAgeVerifiedClaim: () => hasAgeVerifiedClaim(

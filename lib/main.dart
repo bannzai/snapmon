@@ -5,10 +5,13 @@ import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'package:snapmon/analytics/analytics_events.dart';
 import 'package:snapmon/app.dart';
 import 'package:snapmon/features/age_gate/age_confirmation.dart';
+import 'package:snapmon/features/battle/battle_recorder.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
 import 'package:snapmon/firebase/age_verified_session.dart';
+import 'package:snapmon/firebase/battle_record.dart';
 import 'package:snapmon/firebase_options.dart';
 import 'package:snapmon/sample/sample_data.dart';
 
@@ -47,6 +50,11 @@ Future<void> main() async {
       openUrl: ({required uri}) =>
           launchUrl(uri, mode: LaunchMode.externalApplication),
       isDeveloperMenuEnabled: kDebugMode,
+      battleRecorder: const BattleRecorder(
+        startBattleRecord: startBattleRecordWithFirebase,
+        completeBattleRecord: completeBattleRecordWithFirebase,
+        logEvent: logAnalyticsEvent,
+      ),
     ),
   );
 }

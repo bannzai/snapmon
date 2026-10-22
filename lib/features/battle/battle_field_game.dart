@@ -1,14 +1,42 @@
+import 'dart:math' as math;
 import 'dart:ui';
 
 import 'package:flame/components.dart';
+import 'package:flame/effects.dart';
 import 'package:flame/game.dart';
+import 'package:flame/particles.dart';
 
+import '../../domain/battle/battle_state.dart';
+import '../../domain/master/move_effect.dart';
 import '../../domain/monster/monster_definition.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../widgets/placeholder_monster_painting.dart';
 
-/// バトルのフィールド。相手のモンスターを右上、自分のモンスターを左下に描く
-/// (DIRECTION.md「デザインの方向」の「相手が上・自分が下」)。技のエフェクト (#15) もこのゲームに足す。
+/// 攻撃の前進にかける時間 (秒)。往復でこの 2 倍になる。技の演出 1 回を 1 秒前後に収め、ターンの待ちを短くするため。
+const double attackLungeSeconds = 0.15;
+
+/// 被弾の点滅とパーティクルを出している時間 (秒)。HP バーが減りきる時間 (battle_screen.dart) と揃える。
+const double hitReactionSeconds = 0.5;
+
+/// 1 回の被弾で出すパーティクルの数。属性の色が見分けられる量で、低い性能の端末でも重くならない数にした。
+const int _hitParticleCount = 24;
+
+/// パーティクルが飛び散る速さの上限 (論理 px / 秒)。モンスターの絵 (画面の幅の約 4 割) の外に少しはみ出す程度にした。
+const double _hitParticleMaximumSpeed = 180;
+
+/// パーティクルが落ちる加速度 (論理 px / 秒²)。飛び散った後に下へ流れて消える見え方にするため。
+const double _hitParticleGravity = 240;
+
+/// 点滅の速さ (1 秒あたりの表示と非表示の切り替えの回数)。被弾の間に 5 回ほど点滅させるため。
+const double _blinkTogglesPerSecond = 20;
+
+/// [effect] の主色 (`#RRGGBB`) を返す。
+Color moveEffectColor({required MoveEffect effect}) =>
+    Color(0xFF000000 | int.parse(effect.colorHex.substring(1), radix: 16));
+
+/// バトルのフィールド。相手のモンスターを右上、自分のモンスターを左下に描き (DIRECTION.md「デザインの方向」の「相手が上・自分が下」)、
+/// 攻撃の前進・被弾の点滅・技のエフェクト (属性ごとのパーティクル)・倒れる・交代を見せる。
+/// いつ何を見せるかはバトル画面 (battle_screen.dart) がバトルのログから決め、このゲームはバトルの計算を持たない。
 class BattleFieldGame extends FlameGame {
   /// [playerMonster] と [opponentMonster] を場に出したフィールドを作る。
   BattleFieldGame({
@@ -21,11 +49,14 @@ class BattleFieldGame extends FlameGame {
          definition: opponentMonster,
        );
 
-  /// 自分の場のモンスター。
-  final PlaceholderMonsterComponent playerMonsterComponent;
+  /// 自分の場のモンスター。交代 ([switchIn]) で入れ替わる。
+  PlaceholderMonsterComponent playerMonsterComponent;
 
-  /// 相手の場のモンスター。
-  final PlaceholderMonsterComponent opponentMonsterComponent;
+  /// 相手の場のモンスター。交代 ([switchIn]) で入れ替わる。
+  PlaceholderMonsterComponent opponentMonsterComponent;
+
+  /// パーティクルの飛ぶ向きと速さの乱数。見た目だけに使い、バトルの結果に効かないため seed を固定しない。
+  final math.Random _particleRandom = math.Random();
 
   @override
   Color backgroundColor() => SnapmonColors.surfaceRaised;
@@ -46,6 +77,82 @@ class BattleFieldGame extends FlameGame {
     }
   }
 
+  /// [side] の場のモンスター。
+  PlaceholderMonsterComponent monsterComponentOf({required BattleSideId side}) =>
+      switch (side) {
+        BattleSideId.player => playerMonsterComponent,
+        BattleSideId.opponent => opponentMonsterComponent,
+      };
+
+  /// [attackerSide] のモンスターを相手の方へ前進させて戻す ([attackLungeSeconds] の往復)。
+  void lunge({required BattleSideId attackerSide}) {
+    final attacker = monsterComponentOf(side: attackerSide);
+    final defender = monsterComponentOf(side: _otherSide(side: attackerSide));
+    attacker.add(
+      MoveEffect.by(
+        (defender.center - attacker.center)..scale(0.15),
+        EffectController(
+          duration: attackLungeSeconds,
+          reverseDuration: attackLungeSeconds,
+        ),
+      ),
+    );
+  }
+
+  /// [defenderSide] のモンスターを [hitReactionSeconds] の間点滅させ、[effect] があればその色のパーティクルを散らす。
+  /// わるあがき (属性の無い攻撃) は [effect] を null にして点滅だけにする。
+  void hit({required BattleSideId defenderSide, required MoveEffect? effect}) {
+    final defender = monsterComponentOf(side: defenderSide)
+      ..blink(seconds: hitReactionSeconds);
+    if (effect == null) {
+      return;
+    }
+    final paint = Paint()..color = moveEffectColor(effect: effect);
+    add(
+      ParticleSystemComponent(
+        position: defender.center,
+        particle: Particle.generate(
+          count: _hitParticleCount,
+          lifespan: hitReactionSeconds,
+          generator: (_) => AcceleratedParticle(
+            speed:
+                Vector2(
+                  _particleRandom.nextDouble() * 2 - 1,
+                  _particleRandom.nextDouble() * 2 - 1,
+                )..scale(_hitParticleMaximumSpeed),
+            acceleration: Vector2(0, _hitParticleGravity),
+            child: CircleParticle(
+              radius: 3 + _particleRandom.nextDouble() * 3,
+              paint: paint,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// [side] のモンスターを倒れた (描かない) 状態にする。
+  void faint({required BattleSideId side}) {
+    monsterComponentOf(side: side).isVisible = false;
+  }
+
+  /// [side] の場のモンスターを [definition] に入れ替える。
+  void switchIn({
+    required BattleSideId side,
+    required MonsterDefinition definition,
+  }) {
+    final replacement = PlaceholderMonsterComponent(definition: definition);
+    monsterComponentOf(side: side).removeFromParent();
+    switch (side) {
+      case BattleSideId.player:
+        playerMonsterComponent = replacement;
+      case BattleSideId.opponent:
+        opponentMonsterComponent = replacement;
+    }
+    add(replacement);
+    _layout();
+  }
+
   /// 画面の大きさに合わせて 2 体の位置と大きさを決める。比率はモック (Battle.dc.html) の配置から取った。
   void _layout() {
     final monsterSize = size.x * 0.4;
@@ -61,6 +168,12 @@ class BattleFieldGame extends FlameGame {
   }
 }
 
+/// [side] の相手の陣営を返す。
+BattleSideId _otherSide({required BattleSideId side}) => switch (side) {
+  BattleSideId.player => BattleSideId.opponent,
+  BattleSideId.opponent => BattleSideId.player,
+};
+
 /// 地面 (フィールドの下 46%)。
 class _GroundComponent extends Component with HasGameReference<FlameGame> {
   static final Paint _paint = Paint()..color = SnapmonColors.battleGround;
@@ -75,18 +188,51 @@ class _GroundComponent extends Component with HasGameReference<FlameGame> {
   }
 }
 
-/// モンスターの仮の絵を描く部品。AI 生成のイラスト (#13) が入ったら画像の部品に差し替える。
-class PlaceholderMonsterComponent extends PositionComponent {
+/// モンスターの仮の絵を描く部品。写真から切り出した絵 (#13) が入ったら画像の部品に差し替える。
+class PlaceholderMonsterComponent extends PositionComponent with HasVisibility {
   /// [definition] のモンスターを描く部品を作る。
   PlaceholderMonsterComponent({required this.definition});
 
   /// 描くモンスター。
   final MonsterDefinition definition;
 
+  /// 点滅の残り時間 (秒)。0 なら点滅していない。
+  double _blinkRemainingSeconds = 0;
+
+  /// 点滅しているか。
+  bool get isBlinking => _blinkRemainingSeconds > 0;
+
+  /// [seconds] の間、表示と非表示を切り替えて点滅させる。倒れて非表示のモンスターは点滅させない。
+  void blink({required double seconds}) {
+    if (isVisible) {
+      _blinkRemainingSeconds = seconds;
+    }
+  }
+
   @override
-  void render(Canvas canvas) => paintPlaceholderMonster(
-    canvas: canvas,
-    size: Size(size.x, size.y),
-    definition: definition,
-  );
+  void update(double dt) {
+    super.update(dt);
+    if (!isBlinking) {
+      return;
+    }
+    _blinkRemainingSeconds = math.max(0, _blinkRemainingSeconds - dt);
+    _isHiddenByBlink =
+        isBlinking &&
+        (_blinkRemainingSeconds * _blinkTogglesPerSecond).floor().isOdd;
+  }
+
+  /// 点滅で今のフレームを描かないか。倒れた時の非表示 ([isVisible]) とは別に持ち、点滅の後に表示へ戻す。
+  bool _isHiddenByBlink = false;
+
+  @override
+  void render(Canvas canvas) {
+    if (_isHiddenByBlink) {
+      return;
+    }
+    paintPlaceholderMonster(
+      canvas: canvas,
+      size: Size(size.x, size.y),
+      definition: definition,
+    );
+  }
 }

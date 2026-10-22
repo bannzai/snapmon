@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
 import '../../sample/sample_data.dart';
@@ -5,9 +7,12 @@ import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
 import '../../widgets/square_icon_button.dart';
+import '../battle/battle_recorder.dart';
 import '../battle/battle_screen.dart';
 import '../dex/dex_store.dart';
+import '../dex/owned_monster.dart';
 import '../home/home_shell.dart';
+import 'cpu_party.dart';
 
 /// 対戦相手を選ぶ画面 (モックの Pvp.dc.html)。PvP の相手の取得 (#16) までは見本の対戦相手を並べる。
 class OpponentScreen extends StatelessWidget {
@@ -18,6 +23,7 @@ class OpponentScreen extends StatelessWidget {
     required this.dexStore,
     required this.onSelectTab,
     required this.onOpenSettings,
+    required this.battleRecorder,
   });
 
   /// 見本データ (見本の対戦相手)。
@@ -32,19 +38,35 @@ class OpponentScreen extends StatelessWidget {
   /// 設定画面を開く。
   final VoidCallback onOpenSettings;
 
+  /// バトルの記録と計測。
+  final BattleRecorder battleRecorder;
+
   Future<void> _challenge({
     required BuildContext context,
     required SampleOpponent opponent,
   }) async {
+    // 挑むたびに別の展開にするため、seed は毎回作る。値の範囲は DeterministicRandom の状態 (32 bit) に合わせた
+    final randomSeed = math.Random().nextInt(1 << 32);
+    final playerParty = dexStore.party;
+    final opponentMonsters = [
+      for (final monsterId in opponent.monsterIds)
+        sampleData.monsterById(monsterId: monsterId),
+    ];
     final action = await Navigator.of(context).push(
       MaterialPageRoute<BattleScreenAction>(
         builder: (context) => BattleScreen(
-          playerParty: dexStore.party,
-          opponentParty: [
-            for (final monsterId in opponent.monsterIds)
-              sampleData.monsterById(monsterId: monsterId),
-          ],
+          playerParty: playerParty,
+          opponentParty: opponent.id == cpuOpponentId
+              ? buildCpuParty(
+                  monsters: opponentMonsters,
+                  playerParty: playerParty,
+                  randomSeed: randomSeed,
+                )
+              : opponentMonsters,
           definitions: sampleData.definitions,
+          randomSeed: randomSeed,
+          battleRecorder: battleRecorder,
+          onPlayerLevelsChanged: dexStore.updateLevels,
         ),
       ),
     );
@@ -126,6 +148,7 @@ class OpponentScreen extends StatelessWidget {
             _OpponentCard(
               opponent: opponent,
               sampleData: sampleData,
+              playerParty: party,
               onChallenge: party.isEmpty
                   ? null
                   : () => _challenge(context: context, opponent: opponent),
@@ -163,11 +186,15 @@ class _OpponentCard extends StatelessWidget {
   const _OpponentCard({
     required this.opponent,
     required this.sampleData,
+    required this.playerParty,
     required this.onChallenge,
   });
 
   final SampleOpponent opponent;
   final SampleData sampleData;
+
+  /// 自分の手持ち。CPU の手持ちのレベルはこの平均に合わせる ([buildCpuParty])。
+  final List<OwnedMonster> playerParty;
 
   /// 挑む。手持ちがいない時は null で、挑むボタンを押せなくする。
   final VoidCallback? onChallenge;
@@ -178,9 +205,6 @@ class _OpponentCard extends StatelessWidget {
       for (final monsterId in opponent.monsterIds)
         sampleData.monsterById(monsterId: monsterId),
     ];
-    final averageLevel =
-        monsters.fold<int>(0, (sum, monster) => sum + monster.level) ~/
-        monsters.length;
     return DecoratedBox(
       decoration: const BoxDecoration(
         color: SnapmonColors.surface,
@@ -199,7 +223,11 @@ class _OpponentCard extends StatelessWidget {
                     children: [
                       Text(opponent.name, style: SnapmonTextStyles.label),
                       Text(
-                        '平均 Lv. $averageLevel',
+                        opponent.id == cpuOpponentId
+                            ? playerParty.isEmpty
+                                  ? '手持ちのレベルに合わせる'
+                                  : '平均 Lv. ${averagePartyLevel(party: playerParty)} 前後'
+                            : '平均 Lv. ${averagePartyLevel(party: monsters)}',
                         style: SnapmonTextStyles.small,
                       ),
                     ],

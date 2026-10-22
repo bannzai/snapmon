@@ -9,7 +9,10 @@ import '../features/dex/owned_monster.dart';
 /// 見本データのファイル。撮影・生成・Firestore に繋ぐまで (#13・#14・#16) の画面の確認に使う。
 const String sampleDataAssetPath = 'assets/samples/sample_monsters.json';
 
-/// 見本の対戦相手。PvP の相手の取得 (#16) までの代わり。
+/// 見本の対戦相手のうち、CPU 対戦の相手 (「CPU トレーナー」) の識別子。手持ちのレベルは挑む時に自分の手持ちに合わせる。
+const String cpuOpponentId = 'sample-cpu';
+
+/// 見本の対戦相手。CPU 対戦の相手 ([cpuOpponentId]) と、PvP の相手の取得 (#16) までの代わり。
 class SampleOpponent {
   /// 見本の対戦相手を作る。
   const SampleOpponent({
