@@ -38,6 +38,8 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>身の回りの物を撮ってモンスターを生み出すためにカメラを使います</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>共有するカード画像を写真に保存するために使います</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>アルバムの写真からモンスターを生み出すために写真を読み込みます</string>
 	<key>UIApplicationSceneManifest</key>

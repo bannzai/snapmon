@@ -8,12 +8,16 @@ import '../age_gate/age_verified_session_store.dart';
 import '../capture/monster_generator.dart';
 import '../developer_menu/developer_menu_screen.dart';
 import '../dex/dex_store.dart';
+import '../share/card_sharer.dart';
 
 /// [uri] を外部のアプリ (ブラウザ・メール) で開き、開けたかを返す。
 typedef OpenUrl = Future<bool> Function({required Uri uri});
 
 /// お問い合わせの宛先 (docs/index.html のサポートの連絡先と同じ)。
 final Uri contactUri = Uri.parse('mailto:bannzai.app@gmail.com');
+
+/// 紹介ページ (docs/index.html を GitHub Pages で公開したページ)。共有するカード画像と文章に入れる。
+final Uri landingPageUri = Uri.parse('https://bannzai.github.io/snapmon/');
 
 /// 利用規約 (docs/Terms.md を GitHub Pages で公開したページ)。
 final Uri termsUri = Uri.parse('https://bannzai.github.io/snapmon/Terms');
@@ -38,6 +42,7 @@ class SettingsScreen extends StatelessWidget {
     required this.ageConfirmationStore,
     required this.ageVerifiedSessionStore,
     required this.monsterGenerator,
+    required this.cardSharer,
     required this.openUrl,
     required this.isDeveloperMenuEnabled,
   });
@@ -56,6 +61,9 @@ class SettingsScreen extends StatelessWidget {
 
   /// 生成の呼び出しと計測 (開発者メニューが使う)。
   final MonsterGenerator monsterGenerator;
+
+  /// 図鑑のカードの共有に使う関数の組 (開発者メニューが使う)。
+  final CardSharer cardSharer;
 
   /// リンクを開く。
   final OpenUrl openUrl;
@@ -132,6 +140,7 @@ class SettingsScreen extends StatelessWidget {
                   ageConfirmationStore: ageConfirmationStore,
                   ageVerifiedSessionStore: ageVerifiedSessionStore,
                   monsterGenerator: monsterGenerator,
+                  cardSharer: cardSharer,
                 ),
               ),
             ),
