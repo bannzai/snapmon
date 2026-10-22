@@ -15,9 +15,11 @@ permalink: /AccountDeletion
 
 削除を実行すると、アカウントの削除がすぐに始まります。再度アプリを開くと、年齢の確認から始まり、新しい匿名アカウントで始まります。
 
-サインインしてから時間が経っている場合、セキュリティのため再ログインを求められることがあります。その場合は画面の案内に従って再度サインインしてから、もう一度削除操作を行ってください。[^reauth]
+iPhone・iPad で「データを引き継ぐ」から Apple ID と連携している場合は、Apple ID との連携を取り消すため、削除の途中で Apple のサインインを求められます。画面の案内に従ってサインインすると、そのまま削除が進みます。[^reauth]
 
-[^reauth]: 出典: https://firebase.google.com/docs/auth/web/manage-users 「To delete a user, the user must have signed in recently.」「If you perform one of these actions, and the user signed in too long ago, the action fails with an error.」（2026-10-21 に確認）
+モンスターを生成している途中は削除できません。生成が終わってから、もう一度削除操作を行ってください。削除の途中で通信に失敗した場合は画面にその内容が表示されるので、もう一度削除操作を行ってください。
+
+[^reauth]: 出典: https://firebase.google.com/docs/auth/flutter/federated-auth 「Apple sign-in on Apple platforms returns an authorization code that can be used to revoke the Apple auth token」（2026-10-22 に確認）。この認可コードはサインインの結果にだけ含まれるため、削除の時にもう一度 Apple のサインインを行う（アプリの実装: `lib/firebase/account.dart` の `deleteAccountWithFirebase`）。
 
 ## 削除されるデータ
 
