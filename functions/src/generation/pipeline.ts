@@ -118,7 +118,7 @@ const MAXIMUM_ATTEMPT_COUNT = 4;
 const RETRYABLE_REJECTION_REASONS: RejectionReason[] = ["person_detected", "inappropriate_text", "refused"];
 
 /** 段階が予期しないエラーで落ちた時に、再試行を始めるまでの秒数。一時的なエラー (API の 5xx・通信の切断) が収まる時間として置いた。 */
-const FAILED_STAGE_RETRY_DELAY_SECONDS = 60;
+export const FAILED_STAGE_RETRY_DELAY_SECONDS = 60;
 
 /**
  * 手で決めた範囲が写真に占める割合の上限。95%: 写真の縁を少し残しただけの範囲を切り出しとみなさない値として置いた
@@ -530,15 +530,19 @@ async function advanceGeneration(
       if (error instanceof InputChangedError) {
         return finishGeneration(dependencies, { uid, requestId, leaseToken, update: { status: "failed", failureMessage: error.message } });
       }
-      // それ以外 (Claude・Vision・Storage の一時的なエラー) は、予約を今すぐ切れた扱いにしてロックを外し、少し後の再試行に引き継ぐ。
-      // 予約を取る回数の上限 (MAXIMUM_ATTEMPT_COUNT) で、直らない失敗は failed になる。
-      logger.error("生成の段階が失敗しました。再試行に回します", { uid, requestId, stage: nextStage, error });
-      await releaseLock(dependencies, { uid, requestId, leaseToken, update: { leaseExpiresAt: Timestamp.fromDate(dependencies.now()) } });
-      await dependencies.enqueueResume({ uid, requestId, purpose: "lease", delaySeconds: FAILED_STAGE_RETRY_DELAY_SECONDS });
-      throw new StageRetryScheduledError(error);
+      // それ以外 (Claude・Vision・Storage の一時的なエラー) は再試行に回す
+      return scheduleStageRetry(dependencies, { uid, requestId, leaseToken, stage: nextStage, error });
     }
     if (outcome.kind === "finish") {
-      return finishGeneration(dependencies, { uid, requestId, leaseToken, update: outcome.update, monster: outcome.monster });
+      try {
+        return await finishGeneration(dependencies, { uid, requestId, leaseToken, update: outcome.update, monster: outcome.monster });
+      } catch (error) {
+        // 保存の段階はモンスターの作成を終了状態と同じトランザクションで書くため、その一時的なエラーもほかの段階と同じく再試行に回す
+        if (!outcome.monster) {
+          throw error;
+        }
+        return scheduleStageRetry(dependencies, { uid, requestId, leaseToken, stage: nextStage, error });
+      }
     }
     const written = await firestore.runTransaction(async (transaction) => {
       const current = (await transaction.get(document)).data() as GenerationRecord;
@@ -588,6 +592,20 @@ async function releaseLock(
     transaction.update(document, { ...update, updatedAt: Timestamp.fromDate(dependencies.now()) });
     return { ...current, ...update };
   });
+}
+
+/**
+ * 一時的なエラーで落ちた段階を、予約を今すぐ切れた扱いにしてロックを外し、少し後の再試行に引き継ぐ。積み終えたら
+ * StageRetryScheduledError を投げる (戻らない)。予約を取る回数の上限 (MAXIMUM_ATTEMPT_COUNT) で、直らない失敗は failed になる。
+ */
+async function scheduleStageRetry(
+  dependencies: GenerationDependencies,
+  { uid, requestId, leaseToken, stage, error }: { uid: string; requestId: string; leaseToken: string; stage: GenerationStage; error: unknown },
+): Promise<never> {
+  logger.error("生成の段階が失敗しました。再試行に回します", { uid, requestId, stage, error });
+  await releaseLock(dependencies, { uid, requestId, leaseToken, update: { leaseExpiresAt: Timestamp.fromDate(dependencies.now()) } });
+  await dependencies.enqueueResume({ uid, requestId, purpose: "lease", delaySeconds: FAILED_STAGE_RETRY_DELAY_SECONDS });
+  throw new StageRetryScheduledError(error);
 }
 
 /** 終了状態にし、ロックを外し、拒否・重複なら元の写真と中間のファイルを消す (ADR 0001「画像ストレージ」)。 */
