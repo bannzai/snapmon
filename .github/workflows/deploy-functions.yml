@@ -7,6 +7,7 @@ name: deploy-functions
 # Secret FIREBASE_SERVICE_ACCOUNT_BASE64 を Application Default Credentials として復元する。
 # サービスアカウントの IAM は /firebase-functions-deploy-iam-setup skill で揃える。
 # master の投入 (master_file) には、同じサービスアカウントに Firestore への書き込み (roles/datastore.user) が要る。
+# Functions は実行サービスアカウント snapmon-functions で動く (functions/src/index.ts) ため、同じサービスアカウントに snapmon-functions の actAs (roles/iam.serviceAccountUser) が要る。
 
 on:
   workflow_dispatch:
