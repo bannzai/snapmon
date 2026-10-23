@@ -1,8 +1,10 @@
+import { getAuth } from "firebase-admin/auth";
 import { FieldValue, getFirestore, type DocumentData, type DocumentSnapshot, type Firestore } from "firebase-admin/firestore";
 import { onDocumentCreated } from "firebase-functions/v2/firestore";
 import { HttpsError, onCall } from "firebase-functions/v2/https";
 
-import { requireAgeVerifiedUid } from "./battle";
+import { authUserExists } from "./account";
+import { requireSignedInUid } from "./battle";
 import type { MonsterDocument } from "./generation/records";
 import {
   OPPONENT_CANDIDATE_SCAN_LIMIT,
@@ -28,10 +30,12 @@ import { NOTIFICATION_CHANNEL, postSlackMessage, type SendSlackMessage } from ".
 /**
  * 書き込みと同じトランザクションで読んだ本人の `users/{uid}` [userSnapshot] が、削除の途中でも削除済みでもないことを確かめる
  * (battle.ts の startBattle と同じ条件)。アカウントの削除 (account.ts) の後も別の端末の ID トークンは期限まで通るため、
- * 確かめずに書くと、削除が消し終えた後に本人の通報・ブロック・表示名が残る。満たさない時は failed-precondition を投げる。
+ * 確かめずに書くと、削除が消し終えた後に本人の通報・ブロックが残る。満たさない時は failed-precondition を投げる。
+ * 通報・ブロックは相手を探す (手持ちのモンスターが要る) 後にしか呼ばれず、モンスターを生成した時に `users/{uid}` ができているため、
+ * `users/{uid}` が無いことを消し終えた印として扱う。
  */
 function requireActiveAccount({ userSnapshot }: { userSnapshot: DocumentSnapshot }): void {
-  if (userSnapshot.get("accountDeletionStartedAt") !== undefined || userSnapshot.get("ageAccepted") !== true) {
+  if (!userSnapshot.exists || userSnapshot.get("accountDeletionStartedAt") !== undefined) {
     throw new HttpsError("failed-precondition", "アカウントの削除が進んでいるか、アカウントが見つかりません");
   }
 }
@@ -99,7 +103,7 @@ async function ownersHiddenByReports({ firestore, ownerUids }: { firestore: Fire
  * 自分の手持ちが空の時は failed-precondition を投げる (平均レベルを決められないため)。読み取りだけで冪等。
  */
 export const fetchOpponents = onCall({ enforceAppCheck: true }, async (request) => {
-  const uid = requireAgeVerifiedUid({ request });
+  const uid = requireSignedInUid({ request });
   const firestore = getFirestore();
   const [playerParty, blockedByPlayer, blockingPlayer, reportedByPlayer, candidateParties] = await Promise.all([
     firestore.doc(`users/${uid}/party/current`).get(),
@@ -132,12 +136,8 @@ export const fetchOpponents = onCall({ enforceAppCheck: true }, async (request) 
   const partyMonsterIdsByUid = new Map<string, string[]>([[uid, partyMonsterIdsOf(playerParty.data())]]);
   for (const [candidateUid, partyData] of candidatePartyDataByUid) {
     const candidateUser = candidateUserByUid.get(candidateUid)!;
-    // 削除の途中 (絵は消え、通報は reportMonster が断る) と年齢の確認を通っていない持ち主は、通報できない相手になるため出さない
-    if (
-      hiddenOwnerUids.has(candidateUid) ||
-      candidateUser.get("accountDeletionStartedAt") !== undefined ||
-      candidateUser.get("ageAccepted") !== true
-    ) {
+    // 削除の途中 (絵は消え、通報は reportMonster が断る) と消し終えた (users/{uid} が無い) 持ち主は、通報できない相手になるため出さない
+    if (hiddenOwnerUids.has(candidateUid) || !candidateUser.exists || candidateUser.get("accountDeletionStartedAt") !== undefined) {
       continue;
     }
     partyMonsterIdsByUid.set(candidateUid, partyMonsterIdsOf(partyData));
@@ -172,7 +172,7 @@ export const fetchOpponents = onCall({ enforceAppCheck: true }, async (request) 
  * 自分のモンスターは通報できない (invalid-argument)。モンスターが無い時は not-found。
  */
 export const reportMonster = onCall({ enforceAppCheck: true }, async (request) => {
-  const uid = requireAgeVerifiedUid({ request });
+  const uid = requireSignedInUid({ request });
   const { monsterOwnerUid, monsterId, reason } = (request.data ?? {}) as {
     monsterOwnerUid?: unknown;
     monsterId?: unknown;
@@ -232,7 +232,7 @@ export const reportMonster = onCall({ enforceAppCheck: true }, async (request) =
  * fetchOpponents の候補に出ない。同じ相手をブロックし直しても 1 件のまま (冪等)。自分はブロックできない (invalid-argument)。
  */
 export const blockUser = onCall({ enforceAppCheck: true }, async (request) => {
-  const uid = requireAgeVerifiedUid({ request });
+  const uid = requireSignedInUid({ request });
   const { blockedUid } = (request.data ?? {}) as { blockedUid?: unknown };
   if (!isDocumentId(blockedUid)) {
     throw new HttpsError("invalid-argument", "blockedUid を渡してください");
@@ -259,7 +259,7 @@ export const blockUser = onCall({ enforceAppCheck: true }, async (request) => {
  * 既定の名前はサーバーだけが決め、クライアントは返った値を出す。読み取りだけで冪等。
  */
 export const getDisplayName = onCall({ enforceAppCheck: true }, async (request) => {
-  const uid = requireAgeVerifiedUid({ request });
+  const uid = requireSignedInUid({ request });
   const user = await getFirestore().doc(`users/${uid}`).get();
   return { displayName: displayNameOf({ uid, storedDisplayName: user.get("displayName") }) };
 });
@@ -272,7 +272,7 @@ export const getDisplayName = onCall({ enforceAppCheck: true }, async (request) 
  * `users/{uid}` の displayName はクライアントから書けない (Rules) ため、検査を通った名前だけが他のユーザーに見える。同じ名前で呼び直しても同じ (冪等)。
  */
 export const setDisplayName = onCall({ enforceAppCheck: true }, async (request) => {
-  const uid = requireAgeVerifiedUid({ request });
+  const uid = requireSignedInUid({ request });
   const validation = validateDisplayName(((request.data ?? {}) as { displayName?: unknown }).displayName);
   if ("error" in validation) {
     throw new HttpsError("invalid-argument", validation.error);
@@ -280,7 +280,13 @@ export const setDisplayName = onCall({ enforceAppCheck: true }, async (request) 
   const firestore = getFirestore();
   const userDocument = firestore.doc(`users/${uid}`);
   await firestore.runTransaction(async (transaction) => {
-    requireActiveAccount({ userSnapshot: await transaction.get(userDocument) });
+    const userSnapshot = await transaction.get(userDocument);
+    // まだモンスターを生成していない新しいユーザーには users/{uid} が無いため、Auth のユーザーで削除を消し終えたかを見分ける。
+    // users/{uid} を読んだ後に確かめる: 削除は始まりに users/{uid} へ印を書くため、読んだ後に削除が始まればこのトランザクションがやり直しになり、
+    // 読む前に消し終えていれば Auth のユーザーが無い
+    if (userSnapshot.get("accountDeletionStartedAt") !== undefined || (!userSnapshot.exists && !(await authUserExists({ auth: getAuth(), uid })))) {
+      throw new HttpsError("failed-precondition", "アカウントの削除が進んでいるか、アカウントが見つかりません");
+    }
     transaction.set(userDocument, { displayName: validation.displayName }, { merge: true });
   });
   return { displayName: validation.displayName };

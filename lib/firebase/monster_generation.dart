@@ -7,7 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 import '../features/capture/monster_generator.dart';
-import 'age_verified_session.dart';
+import 'session.dart';
 
 // 生成の呼び出し (functions/src/generation/generate.ts の generate) と、その途中の段階の読み出し。
 // 写真の置き場と要求 ID の形は generate.ts の handleGenerateRequest が検査する。

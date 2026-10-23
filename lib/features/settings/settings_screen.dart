@@ -5,12 +5,11 @@ import 'package:flutter/material.dart';
 
 import '../../sample/sample_data.dart';
 import '../../theme/snapmon_text_styles.dart';
-import '../age_gate/age_confirmation.dart';
-import '../age_gate/age_verified_session_store.dart';
 import '../capture/monster_generator.dart';
 import '../developer_menu/developer_menu_screen.dart';
 import '../dex/dex_store.dart';
 import '../opponent/pvp_client.dart';
+import '../session/session_store.dart';
 import '../share/card_sharer.dart';
 import 'account_store.dart';
 
@@ -43,8 +42,7 @@ class SettingsScreen extends StatelessWidget {
     super.key,
     required this.sampleData,
     required this.dexStore,
-    required this.ageConfirmationStore,
-    required this.ageVerifiedSessionStore,
+    required this.sessionStore,
     required this.monsterGenerator,
     required this.pvpClient,
     required this.cardSharer,
@@ -62,11 +60,8 @@ class SettingsScreen extends StatelessWidget {
   /// 図鑑と手持ち (開発者メニューと、連携済みのアカウントへの切り替えの確認で消える数の表示が使う)。
   final DexStore dexStore;
 
-  /// 年齢の確認 (開発者メニューが使う)。
-  final AgeConfirmationStore ageConfirmationStore;
-
-  /// 年齢の確認の後のログイン (開発者メニューが使う)。
-  final AgeVerifiedSessionStore ageVerifiedSessionStore;
+  /// ログイン (開発者メニューが使う)。
+  final SessionStore sessionStore;
 
   /// 生成の呼び出しと計測 (開発者メニューが使う)。
   final MonsterGenerator monsterGenerator;
@@ -148,7 +143,7 @@ class SettingsScreen extends StatelessWidget {
     }
   }
 
-  /// 「アカウントを削除」。確かめてから消し、消せたら年齢の確認の画面 (アプリのルート) に戻す。
+  /// 「アカウントを削除」。確かめてから消し、消せたらタイトル画面 (アプリのルート) に戻す。
   Future<void> _delete({required BuildContext context}) async {
     final confirmed = await showDialog<bool>(
       context: context,
@@ -156,7 +151,7 @@ class SettingsScreen extends StatelessWidget {
         title: const Text('アカウントを削除しますか'),
         content: const Text(
           'モンスター・図鑑・元の写真・バトルの記録が消え、元に戻せません。'
-          '削除した後は、年齢の確認から新しいアカウントで始まります。',
+          '削除した後は、新しいアカウントで始まります。',
         ),
         actions: [
           TextButton(
@@ -286,8 +281,7 @@ class SettingsScreen extends StatelessWidget {
                 builder: (context) => DeveloperMenuScreen(
                   sampleData: sampleData,
                   dexStore: dexStore,
-                  ageConfirmationStore: ageConfirmationStore,
-                  ageVerifiedSessionStore: ageVerifiedSessionStore,
+                  sessionStore: sessionStore,
                   monsterGenerator: monsterGenerator,
                   cardSharer: cardSharer,
                 ),

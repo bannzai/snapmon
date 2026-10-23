@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'analytics/analytics_events.dart';
-import 'features/age_gate/age_confirmation.dart';
-import 'features/age_gate/age_verified_session_store.dart';
 import 'features/battle/battle_recorder.dart';
 import 'features/capture/monster_generator.dart';
 import 'features/dex/dex_store.dart';
 import 'features/home/home_shell.dart';
 import 'features/opponent/pvp_client.dart';
+import 'features/session/session_store.dart';
 import 'features/settings/account_store.dart';
 import 'features/settings/settings_screen.dart';
 import 'features/share/card_sharer.dart';
@@ -23,8 +22,7 @@ class SnapmonApp extends StatefulWidget {
     super.key,
     required this.sampleData,
     required this.dexStore,
-    required this.ageConfirmationStore,
-    required this.ageVerifiedSessionStore,
+    required this.sessionStore,
     required this.openUrl,
     required this.isDeveloperMenuEnabled,
     required this.battleRecorder,
@@ -44,11 +42,8 @@ class SnapmonApp extends StatefulWidget {
   /// 図鑑と手持ち。
   final DexStore dexStore;
 
-  /// 年齢の確認。
-  final AgeConfirmationStore ageConfirmationStore;
-
-  /// 年齢の確認の後のログイン。
-  final AgeVerifiedSessionStore ageVerifiedSessionStore;
+  /// ログイン。
+  final SessionStore sessionStore;
 
   /// 設定画面・タイトル画面のリンクを開く。
   final OpenUrl openUrl;
@@ -86,18 +81,18 @@ class _SnapmonAppState extends State<SnapmonApp> {
   @override
   void initState() {
     super.initState();
-    widget.ageVerifiedSessionStore.addListener(_onSessionChanged);
+    widget.sessionStore.addListener(_onSessionChanged);
   }
 
   @override
   void dispose() {
-    widget.ageVerifiedSessionStore.removeListener(_onSessionChanged);
+    widget.sessionStore.removeListener(_onSessionChanged);
     super.dispose();
   }
 
   /// ログインを終えたら、次にログインした時に下タブへ飛ばずタイトルから始めるようにする。
   void _onSessionChanged() {
-    if (!widget.ageVerifiedSessionStore.canEnterApp && _homeTab != null) {
+    if (!widget.sessionStore.canEnterApp && _homeTab != null) {
       setState(() => _homeTab = null);
     }
   }
@@ -107,15 +102,14 @@ class _SnapmonAppState extends State<SnapmonApp> {
     title: 'snapmon',
     theme: snapmonThemeData(),
     home: ListenableBuilder(
-      listenable: widget.ageVerifiedSessionStore,
+      listenable: widget.sessionStore,
       builder: (context, _) {
         final homeTab = _homeTab;
-        if (homeTab == null || !widget.ageVerifiedSessionStore.canEnterApp) {
+        if (homeTab == null || !widget.sessionStore.canEnterApp) {
           return TitleScreen(
             sampleData: widget.sampleData,
             dexStore: widget.dexStore,
-            ageConfirmationStore: widget.ageConfirmationStore,
-            ageVerifiedSessionStore: widget.ageVerifiedSessionStore,
+            sessionStore: widget.sessionStore,
             monsterGenerator: widget.monsterGenerator,
             pvpClient: widget.pvpClient,
             cardSharer: widget.cardSharer,
@@ -130,8 +124,7 @@ class _SnapmonAppState extends State<SnapmonApp> {
           initialTab: homeTab,
           sampleData: widget.sampleData,
           dexStore: widget.dexStore,
-          ageConfirmationStore: widget.ageConfirmationStore,
-          ageVerifiedSessionStore: widget.ageVerifiedSessionStore,
+          sessionStore: widget.sessionStore,
           openUrl: widget.openUrl,
           isDeveloperMenuEnabled: widget.isDeveloperMenuEnabled,
           battleRecorder: widget.battleRecorder,

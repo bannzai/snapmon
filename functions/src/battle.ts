@@ -9,16 +9,10 @@ import {
   levelAfterBattle,
 } from "./battle_rules";
 
-/**
- * 年齢の確認を通ったログイン (confirmAge が付けるカスタムクレーム ageVerified) の uid を返す。無ければ HttpsError を投げる。
- * バトル結果と PvP の Functions はクレームを必須にする (documents/adr/0001-tech-stack.md の対象年齢の行)。
- */
-export function requireAgeVerifiedUid({ request }: { request: CallableRequest }): string {
+/** ログイン (匿名ログインを含む) の uid を返す。ログインしていなければ HttpsError を投げる。 */
+export function requireSignedInUid({ request }: { request: CallableRequest }): string {
   if (!request.auth) {
     throw new HttpsError("unauthenticated", "匿名ログインの後に呼んでください");
-  }
-  if (request.auth.token.ageVerified !== true) {
-    throw new HttpsError("permission-denied", "年齢の確認の後に呼んでください");
   }
   return request.auth.uid;
 }
@@ -32,21 +26,22 @@ export function requireAgeVerifiedUid({ request }: { request: CallableRequest })
  * 完了しなかったバトル (にげた等) はレベルにも 1 日の上限の数にも効かない。
  */
 export const startBattle = onCall({ enforceAppCheck: true }, async (request) => {
-  const uid = requireAgeVerifiedUid({ request });
+  const uid = requireSignedInUid({ request });
   const { partyMonsterIds } = (request.data ?? {}) as { partyMonsterIds?: unknown };
   if (!isMonsterIdList(partyMonsterIds)) {
     throw new HttpsError("invalid-argument", "partyMonsterIds にモンスターの ID を重複なく 1〜3 件渡してください");
   }
   const firestore = getFirestore();
   const battleDocument = firestore.collection(`users/${uid}/battles`).doc();
-  // 確認と作成を 1 つのトランザクションにする。アカウントの削除 (account.ts) が始まった後と消し終えた後 (confirmAge が付けた
-  // ageAccepted ごと users/{uid} が消える) にバトルの記録を作ると、消し終えた後に残るため
+  // 確認と作成を 1 つのトランザクションにする。アカウントの削除 (account.ts) が始まった後と消し終えた後 (users/{uid} ごと消える) に
+  // バトルの記録を作ると、消し終えた後に残るため。図鑑のモンスターがあるユーザーは、生成 (pipeline.ts の startGeneration) が
+  // users/{uid} を作っているため、users/{uid} が無いことを消し終えた印として扱える
   await firestore.runTransaction(async (transaction) => {
     const [userSnapshot, ...monsterSnapshots] = await transaction.getAll(
       firestore.doc(`users/${uid}`),
       ...partyMonsterIds.map((monsterId) => firestore.doc(`users/${uid}/monsters/${monsterId}`)),
     );
-    if (userSnapshot.get("accountDeletionStartedAt") !== undefined || userSnapshot.get("ageAccepted") !== true) {
+    if (!userSnapshot.exists || userSnapshot.get("accountDeletionStartedAt") !== undefined) {
       throw new HttpsError("failed-precondition", "アカウントの削除が進んでいるか、アカウントが見つかりません");
     }
     if (monsterSnapshots.some((snapshot) => !snapshot.exists)) {
@@ -72,7 +67,7 @@ export const startBattle = onCall({ enforceAppCheck: true }, async (request) => 
  * レベル・経験の加算、1 日の数、完了の記録を同時に書く。完了済みの battleId の再送は加算せず、記録済みの levels を返す (冪等)。
  */
 export const recordBattle = onCall({ enforceAppCheck: true }, async (request) => {
-  const uid = requireAgeVerifiedUid({ request });
+  const uid = requireSignedInUid({ request });
   const { battleId, participantMonsterIds, winner, turnCount } = (request.data ?? {}) as {
     battleId?: unknown;
     participantMonsterIds?: unknown;

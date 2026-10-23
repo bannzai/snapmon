@@ -5,10 +5,12 @@
 
 import { createHash, randomUUID } from "node:crypto";
 
+import type { Auth } from "firebase-admin/auth";
 import { FieldValue, type Firestore, Timestamp, type Transaction } from "firebase-admin/firestore";
 import type { getStorage } from "firebase-admin/storage";
 import { logger } from "firebase-functions";
 
+import { authUserExists } from "../account";
 import { ClaudeRefusalError, type DescribeSubject, type ProposeElement } from "./claude";
 import { applyMask, downscalePhoto, flattenCutoutForDescription, type SegmentSubject } from "./cutout";
 import {
@@ -56,6 +58,8 @@ export type StorageBucket = ReturnType<ReturnType<typeof getStorage>["bucket"]>;
 export interface GenerationDependencies {
   /** Firestore。 */
   firestore: Firestore;
+  /** Firebase Authentication (削除を消し終えたユーザーの見分けに使う)。 */
+  auth: Auth;
   /** 写真・切り出し・絵を置くバケット。 */
   bucket: StorageBucket;
   /** Cloud Vision。 */
@@ -258,12 +262,15 @@ export async function startGeneration(
   const reservation = await firestore.runTransaction(async (transaction): Promise<GenerationResult | "reserved"> => {
     const userDocument = firestore.doc(`users/${uid}`);
     const userSnapshot = await transaction.get(userDocument);
-    // アカウントの削除 (account.ts) が始まった後と消し終えた後 (confirmAge が付けた ageAccepted ごと users/{uid} が消える) は、
-    // 使い回しの記録も含めて何も書かない。書くと、消し終えた後に生成のレコードやモンスターが残るため
+    // アカウントの削除 (account.ts) が始まった後と消し終えた後は、使い回しの記録も含めて何も書かない。書くと、消し終えた後に
+    // 生成のレコードやモンスターが残るため
     if (userSnapshot.get("accountDeletionStartedAt") !== undefined) {
       throw new GenerationRequestError("account_deletion_in_progress", "アカウントの削除が進んでいます");
     }
-    if (userSnapshot.get("ageAccepted") !== true) {
+    // 初めて生成するユーザーには users/{uid} が無いため、Auth のユーザーで削除を消し終えたかを見分ける。users/{uid} を読んだ後に
+    // 確かめる: 削除は始まりに users/{uid} へ印を書くため、読んだ後に削除が始まればこのトランザクションがやり直しになり、
+    // 読む前に消し終えていれば Auth のユーザーが無い
+    if (!userSnapshot.exists && !(await authUserExists({ auth: dependencies.auth, uid }))) {
       throw new GenerationRequestError("account_not_found", "アカウントが見つかりません");
     }
     // failed と、Claude の応答で結果が揺れる拒否は使い回さない (撮り直さずに同じ写真で再挑戦できるように)。
@@ -405,9 +412,9 @@ async function acquireLease(
     const record = snapshot.data() as GenerationRecord;
     const userDocument = firestore.doc(`users/${uid}`);
     const userSnapshot = await transaction.get(userDocument);
-    // アカウントの削除 (account.ts) が始まった後・消し終えた後 (confirmAge が付けた ageAccepted ごと users/{uid} が消える) は再開しない。
+    // アカウントの削除 (account.ts) が始まった後・消し終えた後 (生成のレコードと users/{uid} が消える) は再開しない。
     // 再開すると、消した後に切り出し画像やモンスターを書いて残すため
-    if (!snapshot.exists || userSnapshot.get("accountDeletionStartedAt") !== undefined || userSnapshot.get("ageAccepted") !== true) {
+    if (!snapshot.exists || !userSnapshot.exists || userSnapshot.get("accountDeletionStartedAt") !== undefined) {
       return { requestId, status: "failed" };
     }
     // 同じ回の judge のタスクが同時に 2 つ届いても、回数が一致する方の 1 つだけが予約を取る

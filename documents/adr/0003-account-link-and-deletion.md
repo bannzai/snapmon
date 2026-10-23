@@ -27,7 +27,7 @@ Accepted
 | --- | --- | --- |
 | 連携先 | iOS は Sign in with Apple (`linkWithProvider(AppleAuthProvider())`)、Android は Google (google_sign_in の ID トークンを `linkWithCredential`)、Web は Google (`linkWithPopup`) | issue の指定。ネイティブで Google にサインインするには google_sign_in のような外部のライブラリが要る (https://firebase.google.com/docs/auth/flutter/federated-auth "On native platforms, a 3rd party library is required to trigger the authentication flow")。iOS で Google を使うには Info.plist の URL scheme に OAuth のクライアント ID (Firebase で Google のサインインを有効にすると発行される) が要り、まだ無いため iOS では出さない |
 | 別の端末で連携済みの時 | 端末の匿名アカウントを捨てて、連携済みのアカウントに切り替える。切り替える前に、消える図鑑の数を示して確かめる。credential を受け取れなかった時は何も消さずにエラーを出す | 上の比較。合流は不整合の起き方が多く、引き継ぎの用途 (機種変更した人が前の図鑑に戻る) では新しい端末の図鑑は少ない |
-| 捨てた後のサインインの失敗 | ログインを終え、保存した生年月で新しい匿名アカウントから始め直す | 連携済みのアカウントはサーバーに残るため、もう一度「データを引き継ぐ」を選べば切り替えられる |
+| 捨てた後のサインインの失敗 | ログインを終え、新しい匿名アカウントから始め直す | 連携済みのアカウントはサーバーに残るため、もう一度「データを引き継ぐ」を選べば切り替えられる |
 | 削除の主体 | Functions `deleteAccount` が Admin SDK で消す。クライアントは最近のログインを求められない | クライアントの `User.delete()` は最近のログインを求める (https://firebase.google.com/docs/auth/web/manage-users "To delete a user, the user must have signed in recently")。Admin SDK にこの制約は無く、Firestore・Storage のデータと一緒に消せる |
 | 削除の順 | Storage → 本人の通報・ブロック → `users/{uid}` のサブコレクション → Auth → `users/{uid}`。始める時に `users/{uid}` に `accountDeletionStartedAt` を付け、付いている間は生成を受け付けない。生成中ロックが期限内の時は断る | Auth を消すまでに失敗しても、もう一度呼べば続きから消せる (冪等)。印を最後まで残し、削除の途中に生成がモンスターを書いて残さない |
 | Storage の消し残し | 消すのに失敗したら、消すパス (`users/{uid}/` と、Firestore を消すと引けなくなる絵のパス) を持つタスク (`deleteAccountFiles`) を Cloud Tasks に積んでから先へ進む | ADR 0001「画像ストレージ」の「消せなかった分は Cloud Tasks の再試行で消す」と、docs/AccountDeletion.md の「一部の写真は、削除に失敗した場合に再試行する」 |

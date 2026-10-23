@@ -1,28 +1,18 @@
 import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:snapmon/features/age_gate/age_confirmation.dart';
-import 'package:snapmon/features/age_gate/age_verified_session_store.dart';
+import 'package:snapmon/features/session/session_store.dart';
 import 'package:snapmon/features/settings/account_store.dart';
 
 void main() {
   late List<String> calls;
-  late AgeVerifiedSessionStore sessionStore;
-  late AgeConfirmationStore ageConfirmationStore;
+  late SessionStore sessionStore;
 
-  setUp(() async {
+  setUp(() {
     calls = [];
-    SharedPreferences.setMockInitialValues({});
-    ageConfirmationStore = AgeConfirmationStore(
-      preferences: await SharedPreferences.getInstance(),
-      today: () => DateTime(2026, 10, 22),
-    );
-    await ageConfirmationStore.answer(birthYear: 2000, birthMonth: 1);
-    sessionStore = AgeVerifiedSessionStore(
-      startSession: ({required birthYear, required birthMonth}) async =>
-          'uid-new',
+    sessionStore = SessionStore(
+      startSession: () async => 'uid-new',
       endSession: () async => calls.add('endSession'),
       resumedUid: 'uid-anonymous',
     );
@@ -34,7 +24,6 @@ void main() {
     required Future<void> Function() deleteAccount,
   }) => AccountStore(
     sessionStore: sessionStore,
-    ageConfirmationStore: ageConfirmationStore,
     linkProviderName: 'Apple',
     readLinkedProviderNames: () => const [],
     linkAccount: () {
@@ -82,36 +71,24 @@ void main() {
 
       expect(calls, ['discard', 'endSession']);
       expect(sessionStore.uid, isNull);
-      // 生年月は残し、年齢の確認の後のログインから始め直す
-      expect(ageConfirmationStore.status, AgeConfirmationStatus.allowed);
       expect(store.isWorking, isFalse);
     });
   });
 
   group('delete', () {
-    test('消した後に保存した生年月を消してからログインを終える', () async {
+    test('消した後にログインを終える', () async {
       final store = accountStore(
         linkAccount: () async => null,
         deleteAccount: () async {},
       );
-      // ログインを終えた時点で生年月が残っていると、年齢の確認の後のログインの画面が新しい匿名アカウントを作り始める
-      AgeConfirmationStatus? statusWhenSessionEnded;
-      sessionStore.addListener(() {
-        if (sessionStore.uid == null) {
-          statusWhenSessionEnded ??= ageConfirmationStore.status;
-        }
-      });
 
       await store.delete();
 
-      expect(statusWhenSessionEnded, AgeConfirmationStatus.unanswered);
-
       expect(calls, ['delete', 'endSession']);
       expect(sessionStore.uid, isNull);
-      expect(ageConfirmationStore.status, AgeConfirmationStatus.unanswered);
     });
 
-    test('削除に失敗したら、ログインと生年月を残したまま投げる', () async {
+    test('削除に失敗したら、ログインを残したまま投げる', () async {
       final store = accountStore(
         linkAccount: () async => null,
         deleteAccount: () async => throw Exception('deadline-exceeded'),
@@ -121,7 +98,6 @@ void main() {
 
       expect(calls, ['delete']);
       expect(sessionStore.uid, 'uid-anonymous');
-      expect(ageConfirmationStore.status, AgeConfirmationStatus.allowed);
       expect(store.isWorking, isFalse);
     });
   });

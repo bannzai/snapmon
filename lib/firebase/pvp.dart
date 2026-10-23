@@ -6,20 +6,13 @@ import '../domain/master/master_data.dart';
 import '../features/opponent/pvp_opponent.dart';
 import '../features/opponent/report_reason.dart';
 import '../master/master_repository.dart';
-import 'age_verified_session.dart';
+import 'session.dart';
 
 // 非同期 PvP の Functions (functions/src/pvp.ts) の呼び出しと、自分の戦績の読み込み。
 
-/// 年齢の確認を通ったログイン (ID トークンに ageVerified のクレーム) があれば、その uid を返す。無ければ null
-/// (Functions と Rules がクレームの無い呼び出しを拒否するため。DEBUG ビルドでログインを飛ばした時に当たる)。
-Future<String?> _ageVerifiedUid() async {
-  final user = FirebaseAuth.instance.currentUser;
-  if (user == null ||
-      !await hasAgeVerifiedClaim(user: user, forceRefresh: false)) {
-    return null;
-  }
-  return user.uid;
-}
+/// ログインしていれば、その uid を返す。無ければ null
+/// (Functions と Rules がログインの無い呼び出しを拒否するため。DEBUG ビルドでログインを飛ばした時に当たる)。
+String? _signedInUid() => FirebaseAuth.instance.currentUser?.uid;
 
 /// Functions の callable [name] を [data] で呼び、返った値を返す。
 Future<Map<Object?, Object?>> _call({
@@ -33,7 +26,7 @@ Future<Map<Object?, Object?>> _call({
 
 /// Functions の fetchOpponents を呼び、相手の候補を返す。ログインが無い時は呼ばずに null を返す。
 Future<List<PvpOpponent>?> fetchPvpOpponentsWithFirebase() async {
-  if (await _ageVerifiedUid() == null) {
+  if (_signedInUid() == null) {
     return null;
   }
   final result = await _call(name: 'fetchOpponents', data: null);
@@ -99,7 +92,7 @@ Future<void> blockUserWithFirebase({required String blockedUid}) =>
 /// 自分の `users/{uid}/battles` のうち、勝った・負けた記録の数を数えて返す (集計を Firestore に持たないため、数えるクエリで読む。
 /// .claude/rules/firestore.md)。ログインが無い時は null を返す。
 Future<({int wins, int losses})?> fetchBattleRecordWithFirebase() async {
-  final uid = await _ageVerifiedUid();
+  final uid = _signedInUid();
   if (uid == null) {
     return null;
   }
@@ -115,7 +108,7 @@ Future<({int wins, int losses})?> fetchBattleRecordWithFirebase() async {
 
 /// Functions の getDisplayName を呼び、自分の表示名を返す。ログインが無い時は呼ばずに null を返す。
 Future<String?> fetchDisplayNameWithFirebase() async {
-  if (await _ageVerifiedUid() == null) {
+  if (_signedInUid() == null) {
     return null;
   }
   return (await _call(name: 'getDisplayName', data: null))['displayName']!

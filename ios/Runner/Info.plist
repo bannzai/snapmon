@@ -2,14 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<!-- 年齢の確認より前に識別子を取らないため、Analytics と Crashlytics の自動収集を既定で無効にする。
-	     確認を通った後に lib/firebase/age_verified_session.dart が有効にする (documents/adr/0001-tech-stack.md の対象年齢の行) -->
+	<!-- ログインと同時に計測を始め、DEBUG ビルドでログインを飛ばした時は計測しないため、Analytics と Crashlytics の自動収集を既定で無効にする。
+	     ログインの後に lib/firebase/session.dart が有効にする -->
 	<key>FIREBASE_ANALYTICS_COLLECTION_ENABLED</key>
 	<false/>
 	<key>FirebaseCrashlyticsCollectionEnabled</key>
 	<false/>
 	<!-- App Check の iOS プラグインは Firebase の初期化だけで DeviceCheck の provider を置くため、トークンの自動取得を既定で止める。
-	     年齢の確認を通った後に activateAppCheck が有効にする -->
+	     ログインの前に lib/firebase/session.dart の activateAppCheck が有効にする -->
 	<key>FirebaseAppCheckTokenAutoRefreshEnabled</key>
 	<false/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>

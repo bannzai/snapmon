@@ -15,7 +15,7 @@ permissions:
   contents: read
 
 jobs:
-  # Functions のビルドと単体テスト、Emulator 上の Security Rules と匿名ログイン → confirmAge・generate のテスト
+  # Functions のビルドと単体テスト、Emulator 上の Security Rules と匿名ログイン → generate のテスト
   functions:
     runs-on: ubuntu-latest
     defaults:

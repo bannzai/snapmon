@@ -1,5 +1,6 @@
 // 本番 (と Emulator) の生成が使う外部の資源をまとめる。テストはここを通らず、pipeline.ts の GenerationDependencies にモックを渡す。
 
+import { getAuth } from "firebase-admin/auth";
 import { getFirestore } from "firebase-admin/firestore";
 import { getFunctions } from "firebase-admin/functions";
 import { getStorage } from "firebase-admin/storage";
@@ -36,6 +37,7 @@ export function createProductionDependencies(): GenerationDependencies {
   const getAnthropicClient = () => (anthropicClient ??= createAnthropicClient({ env: process.env, fetchFunction: fetch }));
   return {
     firestore: getFirestore(),
+    auth: getAuth(),
     bucket: getStorage().bucket(STORAGE_BUCKET_NAME),
     annotateImage: createAnnotateImage({
       getAccessToken: async () => {

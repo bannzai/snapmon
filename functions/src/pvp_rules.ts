@@ -131,7 +131,7 @@ export interface PublicMonster {
   definition: Omit<MonsterDocument["definition"], "sourcePhotoReference">;
   /** レベル。 */
   level: number;
-  /** 切り出した被写体の画像の Storage のパス (年齢の確認済みの全員が読める)。 */
+  /** 切り出した被写体の画像の Storage のパス (ログインした全員が読める)。 */
   artPath: string;
   /** 参照するその場で作った定義の ID (クライアントが `definitions/` から属性・技を引く)。 */
   definitionIds: string[];

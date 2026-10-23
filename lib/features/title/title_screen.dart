@@ -8,20 +8,23 @@ import '../../analytics/analytics_events.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
-import '../age_gate/age_confirmation.dart';
-import '../age_gate/age_gate_screen.dart';
-import '../age_gate/age_verified_session_store.dart';
 import '../capture/generation_screen.dart';
 import '../capture/monster_generator.dart';
 import '../dex/dex_store.dart';
 import '../home/home_shell.dart';
 import '../opponent/pvp_client.dart';
 import '../result/result_screen.dart';
+import '../session/session_screen.dart';
+import '../session/session_store.dart';
 import '../settings/account_store.dart';
 import '../settings/settings_screen.dart';
 import '../share/card_sharer.dart';
 import '../../sample/sample_data.dart';
 import '../../widgets/square_icon_button.dart';
+
+/// 対象年齢の下限。アプリ内で年齢は確認せず、タイトルの表示と利用規約 (docs/Terms.md) とストアの年齢区分で示す
+/// (DIRECTION.md「決めたこと」2026-10-23 の年齢の確認の行)。
+const int minimumAge = 13;
 
 /// タイトル画面のボタン (計測の `title_action` の `action`)。
 enum TitleAction {
@@ -38,17 +41,15 @@ enum TitleAction {
 /// 起動後の最初の画面 (モックの documents/design/mock-2026-10-23/Title.dc.html)。世界観を 1 枚で見せ、
 /// 写真から選ぶかカメラで撮るかで体験を始める。図鑑に 1 体以上いれば「つづきから」で下タブの画面に入る。
 ///
-/// ログインが済んでいない時は、ボタンを押してから下タブ・生成に進む前にログインを済ませる。年齢の確認が済んでいれば
-/// 画面を開いた時に裏でログインを始め、失敗はボタンを押した時に「つながりませんでした」と再試行で出す
-/// (年齢の確認がまだなら、ボタンを押した時に年齢の確認から進める。年齢の確認は #44 で消える)。
+/// ログインが済んでいない時は、ボタンを押してから下タブ・生成に進む前にログインを済ませる。画面を開いた時に裏でログインを始め、
+/// 失敗はボタンを押した時に「つながりませんでした」と再試行で出す。
 class TitleScreen extends StatefulWidget {
   /// タイトル画面を作る。
   const TitleScreen({
     super.key,
     required this.sampleData,
     required this.dexStore,
-    required this.ageConfirmationStore,
-    required this.ageVerifiedSessionStore,
+    required this.sessionStore,
     required this.monsterGenerator,
     required this.pvpClient,
     required this.cardSharer,
@@ -71,11 +72,8 @@ class TitleScreen extends StatefulWidget {
   /// 設定画面のアカウントの連携と削除。写真を選ばなくても、機種変更した人がデータを引き継げるようにタイトルから設定を開く。
   final AccountStore accountStore;
 
-  /// 年齢の確認。
-  final AgeConfirmationStore ageConfirmationStore;
-
   /// ログインの状態。
-  final AgeVerifiedSessionStore ageVerifiedSessionStore;
+  final SessionStore sessionStore;
 
   /// 撮る・選ぶ・生成の呼び出しと計測。
   final MonsterGenerator monsterGenerator;
@@ -86,7 +84,7 @@ class TitleScreen extends StatefulWidget {
   /// 利用規約・プライバシーポリシーを開く。
   final OpenUrl openUrl;
 
-  /// ログインの失敗の画面に「ログインせずに進む (DEBUG)」を出すか ([AgeVerifiedSessionScreen.isDebugSkipEnabled])。
+  /// ログインの失敗の画面に「ログインせずに進む (DEBUG)」を出すか ([SessionScreen.isDebugSkipEnabled])。
   final bool isDeveloperMenuEnabled;
 
   /// Analytics にイベントを送る ([logAnalyticsEvent] と同じ形)。
@@ -110,9 +108,9 @@ class _TitleScreenState extends State<TitleScreen> {
   /// ボタンの処理 (写真を選ぶ・ログイン・生成) の途中か。途中の二重押しを受け付けない。
   bool _isBusy = false;
 
-  /// ログイン (計測の収集の開始) より前に起きたイベント。初回起動ではタイトルの表示とボタンの操作が年齢の確認・ログインより前に
+  /// ログイン (計測の収集の開始) より前に起きたイベント。初回起動ではタイトルの表示とボタンの操作がログインより前に
   /// 起きるため、その場で送ると収集が始まっていなくて落ちる。ログインが済んだ時に順に送る (ログインに至らなければ送らない。
-  /// 年齢の確認より前に識別子を使わない方針のため)。
+  /// 計測はログインと同時に始めるため)。
   final List<({AnalyticsEvent event, Map<String, Object>? parameters})>
   _eventsBeforeSession = [];
 
@@ -124,8 +122,8 @@ class _TitleScreenState extends State<TitleScreen> {
   @override
   void initState() {
     super.initState();
-    _couldEnterApp = widget.ageVerifiedSessionStore.canEnterApp;
-    widget.ageVerifiedSessionStore.addListener(_onSessionChanged);
+    _couldEnterApp = widget.sessionStore.canEnterApp;
+    widget.sessionStore.addListener(_onSessionChanged);
     unawaited(_detectCamera());
     // ログインの状態を変えるため、親の ListenableBuilder が build の途中にならない最初のフレームの後に始める
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -136,7 +134,7 @@ class _TitleScreenState extends State<TitleScreen> {
 
   @override
   void dispose() {
-    widget.ageVerifiedSessionStore.removeListener(_onSessionChanged);
+    widget.sessionStore.removeListener(_onSessionChanged);
     super.dispose();
   }
 
@@ -145,7 +143,7 @@ class _TitleScreenState extends State<TitleScreen> {
     required AnalyticsEvent event,
     required Map<String, Object>? parameters,
   }) async {
-    if (!widget.ageVerifiedSessionStore.canEnterApp) {
+    if (!widget.sessionStore.canEnterApp) {
       _eventsBeforeSession.add((event: event, parameters: parameters));
       return;
     }
@@ -156,9 +154,9 @@ class _TitleScreenState extends State<TitleScreen> {
     }
   }
 
-  /// ログインを終えた時は次のログインまで `title_shown` を溜め、ログインが済んだ時は溜めたイベントを順に送る。
+  /// ログインを終えた時は次のログインまで `title_shown` を溜めて裏のログインを始め直し、ログインが済んだ時は溜めたイベントを順に送る。
   void _onSessionChanged() {
-    final canEnterApp = widget.ageVerifiedSessionStore.canEnterApp;
+    final canEnterApp = widget.sessionStore.canEnterApp;
     final couldEnterApp = _couldEnterApp;
     _couldEnterApp = canEnterApp;
     if (couldEnterApp && !canEnterApp) {
@@ -166,6 +164,11 @@ class _TitleScreenState extends State<TitleScreen> {
         event: AnalyticsEvent.titleShown,
         parameters: null,
       ));
+      // タイトルの設定からアカウントを消した時はこの画面が作り直されず initState が走らないため、ここで始め直す。
+      // 最初のフレームの後にするのは、開発者メニューの「ログインせずに使う」が reset の直後にログインを飛ばした状態にするのを待つため
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => unawaited(_startSessionInBackground()),
+      );
     }
     if (!canEnterApp) {
       return;
@@ -194,16 +197,12 @@ class _TitleScreenState extends State<TitleScreen> {
     }
   }
 
-  /// 年齢の確認が済んでいれば、タイトルを見ている間に裏でログインを進める。失敗はここでは出さず、ボタンを押した時に出す。
+  /// タイトルを見ている間に裏でログインを進める。失敗はここでは出さず、ボタンを押した時に出す。
   Future<void> _startSessionInBackground() async {
-    if (widget.ageConfirmationStore.status != AgeConfirmationStatus.allowed ||
-        widget.ageVerifiedSessionStore.canEnterApp) {
+    if (widget.sessionStore.canEnterApp) {
       return;
     }
-    await widget.ageVerifiedSessionStore.start(
-      birthYear: widget.ageConfirmationStore.birthYear!,
-      birthMonth: widget.ageConfirmationStore.birthMonth!,
-    );
+    await widget.sessionStore.start();
   }
 
   Future<void> _logAction({required TitleAction action}) => _logEvent(
@@ -238,20 +237,19 @@ class _TitleScreenState extends State<TitleScreen> {
     }
   }
 
-  /// 下タブ・生成に進める状態 (ログイン済みか DEBUG で飛ばした) にする。済んでいなければ年齢の確認とログインの画面
+  /// 下タブ・生成に進める状態 (ログイン済みか DEBUG で飛ばした) にする。済んでいなければログインの画面
   /// (裏のログインが途中なら「じゅんびしています」) を開いて済むまで待つ。戻るで閉じられた時は false。
   Future<bool> _ensureCanEnterApp() async {
-    final sessionStore = widget.ageVerifiedSessionStore;
+    final sessionStore = widget.sessionStore;
     if (sessionStore.canEnterApp || !mounted) {
       return sessionStore.canEnterApp;
     }
     // 裏のログインが途中でも、通信が遅い時にタイトルで黙って待たせないよう、すぐ「じゅんびしています」の画面を出す
-    // (ログインの画面が start を呼び直しても、途中なら AgeVerifiedSessionStore.start が何もしない)
+    // (ログインの画面が start を呼び直しても、途中なら SessionStore.start が何もしない)
     await Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (context) => _SessionGateScreen(
-          ageConfirmationStore: widget.ageConfirmationStore,
-          ageVerifiedSessionStore: sessionStore,
+          sessionStore: sessionStore,
           isDebugSkipEnabled: widget.isDeveloperMenuEnabled,
         ),
       ),
@@ -317,8 +315,7 @@ class _TitleScreenState extends State<TitleScreen> {
           builder: (context) => SettingsScreen(
             sampleData: widget.sampleData,
             dexStore: widget.dexStore,
-            ageConfirmationStore: widget.ageConfirmationStore,
-            ageVerifiedSessionStore: widget.ageVerifiedSessionStore,
+            sessionStore: widget.sessionStore,
             monsterGenerator: widget.monsterGenerator,
             pvpClient: widget.pvpClient,
             cardSharer: widget.cardSharer,
@@ -955,17 +952,15 @@ class _HeroPainter extends CustomPainter {
       oldDelegate.progress != progress;
 }
 
-/// タイトルのボタンを押した後、下タブ・生成に進める状態になるまで出す画面。年齢の確認の状態とログインの状態に応じて
-/// 年齢の確認・使えない・ログイン (失敗なら「つながりませんでした」と再試行) の画面を出し、進める状態になったら閉じる。
+/// タイトルのボタンを押した後、下タブ・生成に進める状態になるまで出す画面。ログインの画面 (失敗なら「つながりませんでした」と
+/// 再試行) を出し、進める状態になったら閉じる。
 class _SessionGateScreen extends StatefulWidget {
   const _SessionGateScreen({
-    required this.ageConfirmationStore,
-    required this.ageVerifiedSessionStore,
+    required this.sessionStore,
     required this.isDebugSkipEnabled,
   });
 
-  final AgeConfirmationStore ageConfirmationStore;
-  final AgeVerifiedSessionStore ageVerifiedSessionStore;
+  final SessionStore sessionStore;
   final bool isDebugSkipEnabled;
 
   @override
@@ -977,12 +972,9 @@ class _SessionGateScreenState extends State<_SessionGateScreen> {
 
   @override
   Widget build(BuildContext context) => ListenableBuilder(
-    listenable: Listenable.merge([
-      widget.ageConfirmationStore,
-      widget.ageVerifiedSessionStore,
-    ]),
+    listenable: widget.sessionStore,
     builder: (context, _) {
-      if (widget.ageVerifiedSessionStore.canEnterApp) {
+      if (widget.sessionStore.canEnterApp) {
         if (!_hasPopped) {
           _hasPopped = true;
           // build の途中に閉じないため、このフレームの後に閉じる。閉じるボタンで閉じている途中 (アニメーション中は
@@ -1000,17 +992,10 @@ class _SessionGateScreenState extends State<_SessionGateScreen> {
       // 通信が失敗した時にタイトルへ戻れるよう閉じるボタンを右上に重ねる (左上は各画面のロゴと重なる)
       return Stack(
         children: [
-          switch (widget.ageConfirmationStore.status) {
-            AgeConfirmationStatus.unanswered => AgeGateScreen(
-              ageConfirmationStore: widget.ageConfirmationStore,
-            ),
-            AgeConfirmationStatus.restricted => const AgeRestrictedScreen(),
-            AgeConfirmationStatus.allowed => AgeVerifiedSessionScreen(
-              ageConfirmationStore: widget.ageConfirmationStore,
-              ageVerifiedSessionStore: widget.ageVerifiedSessionStore,
-              isDebugSkipEnabled: widget.isDebugSkipEnabled,
-            ),
-          },
+          SessionScreen(
+            sessionStore: widget.sessionStore,
+            isDebugSkipEnabled: widget.isDebugSkipEnabled,
+          ),
           SafeArea(
             child: Align(
               alignment: Alignment.topRight,

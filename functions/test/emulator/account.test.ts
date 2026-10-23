@@ -67,13 +67,9 @@ async function callFunction({ name, idToken, data }: { name: string; idToken: st
   });
 }
 
-/** 匿名ログインし、confirmAge でクレームを付けたユーザーを返す。 */
-async function signInAgeVerifiedUser(): Promise<User> {
-  const credential = await signInAnonymously(auth);
-  const response = await callFunction({ name: "confirmAge", idToken: await credential.user.getIdToken(), data: { birthYear: 2000, birthMonth: 1 } });
-  expect(response.status).toBe(200);
-  await credential.user.getIdToken(true);
-  return credential.user;
+/** 匿名ログインしたユーザー (カスタムクレーム無し) を返す。 */
+async function signInUser(): Promise<User> {
+  return (await signInAnonymously(auth)).user;
 }
 
 /**
@@ -86,7 +82,7 @@ function fakeGoogleCredential({ googleUserId }: { googleUserId: string }) {
 
 /** [uid] の図鑑・生成・バトル・手持ち・Storage のファイルと、本人と他人の通報・ブロックを Rules を通さずに置く。 */
 async function seedAccount({ uid }: { uid: string }): Promise<void> {
-  await adminFirestore.doc(`users/${uid}`).set({ ageAccepted: true }, { merge: true });
+  await adminFirestore.doc(`users/${uid}`).set({ dailyGeneration: { date: "2000-01-01", count: 1 } }, { merge: true });
   await adminFirestore.doc(`users/${uid}/monsters/monster-${uid}`).set({ artPath: `monsters/monster-${uid}/art.png`, level: 1 });
   await adminFirestore.doc(`users/${uid}/generations/request-saved`).set({ status: "saved", monsterId: `monster-${uid}` });
   // 保存の段階で絵を置いた後に failed になった生成 (図鑑にはモンスターが無い)
@@ -145,7 +141,7 @@ function accountDeletionDependencies({ enqueued, bucketOverride }: { enqueued: A
 
 describe("匿名アカウントへの連携 (引き継ぎ)", () => {
   it("匿名ユーザーに Google の credential を連携した後も、同じ uid で図鑑が残る", async () => {
-    const user = await signInAgeVerifiedUser();
+    const user = await signInUser();
     const anonymousUid = user.uid;
     await adminFirestore.doc(`users/${anonymousUid}/monsters/monster1`).set({ name: "マグカップン", level: 3 });
 
@@ -154,19 +150,18 @@ describe("匿名アカウントへの連携 (引き継ぎ)", () => {
     expect(linked.user.uid).toBe(anonymousUid);
     expect(linked.user.isAnonymous).toBe(false);
     expect(linked.user.providerData.map((provider) => provider.providerId)).toEqual(["google.com"]);
-    // 連携の後も confirmAge のクレームが残り、Rules を通って本人の図鑑を読める
-    expect((await linked.user.getIdTokenResult(true)).claims.ageVerified).toBe(true);
+    // 連携の後も Rules を通って本人の図鑑を読める
     expect((await getDoc(doc(clientFirestore, `users/${anonymousUid}/monsters/monster1`))).data()).toEqual({ name: "マグカップン", level: 3 });
   });
 
   it("別の端末で連携済みの Google で連携すると credential-already-in-use になり、その Google の credential で連携済みのアカウントに切り替えられる", async () => {
     const googleUserId = randomUUID();
-    const firstDevice = await signInAgeVerifiedUser();
+    const firstDevice = await signInUser();
     await linkWithCredential(firstDevice, fakeGoogleCredential({ googleUserId }));
     await adminFirestore.doc(`users/${firstDevice.uid}/monsters/monster1`).set({ name: "サボテンダ", level: 5 });
     await signOut(auth);
 
-    const secondDevice = await signInAgeVerifiedUser();
+    const secondDevice = await signInUser();
     const error = await linkWithCredential(secondDevice, fakeGoogleCredential({ googleUserId })).then(
       () => null,
       (linkError: unknown) => linkError,
@@ -178,17 +173,16 @@ describe("匿名アカウントへの連携 (引き継ぎ)", () => {
     // credential を持ち続ける) と同じく、連携に使った credential でサインインする
     const switched = await signInWithCredential(auth, fakeGoogleCredential({ googleUserId }));
     expect(switched.user.uid).toBe(firstDevice.uid);
-    expect((await switched.user.getIdTokenResult(true)).claims.ageVerified).toBe(true);
     expect((await getDoc(doc(clientFirestore, `users/${firstDevice.uid}/monsters/monster1`))).data()).toEqual({ name: "サボテンダ", level: 5 });
   });
 });
 
 describe("アカウントの削除 (deleteAccount)", () => {
   it("users/{uid} 配下・Storage の写真と絵・本人の通報とブロック・Auth のユーザーを消し、他人のデータは残す", async () => {
-    const otherUser = await signInAgeVerifiedUser();
+    const otherUser = await signInUser();
     await seedAccount({ uid: otherUser.uid });
     await signOut(auth);
-    const user = await signInAgeVerifiedUser();
+    const user = await signInUser();
     await seedAccount({ uid: user.uid });
     expect(await remainingAccountData({ uid: user.uid })).toHaveLength(14);
 
@@ -203,7 +197,7 @@ describe("アカウントの削除 (deleteAccount)", () => {
   });
 
   it("生成の途中 (生成中ロックが期限内) は断り、何も消さない", async () => {
-    const user = await signInAgeVerifiedUser();
+    const user = await signInUser();
     await seedAccount({ uid: user.uid });
     await adminFirestore.doc(`users/${user.uid}`).set(
       { generationLock: { requestId: "request-processing", expiresAt: Timestamp.fromMillis(Date.now() + 60_000) } },
@@ -219,7 +213,7 @@ describe("アカウントの削除 (deleteAccount)", () => {
   });
 
   it("Storage を消すのに失敗したら、消すタスクを積んでから Firestore と Auth を消す", async () => {
-    const user = await signInAgeVerifiedUser();
+    const user = await signInUser();
     await seedAccount({ uid: user.uid });
     const enqueued: AccountFileDeletionTask[] = [];
     const failingBucket = new Proxy(bucket, {
@@ -246,7 +240,7 @@ describe("アカウントの削除 (deleteAccount)", () => {
   });
 
   it("Auth を消した後に users/{uid} を消すのに失敗したら、タスクを積み、そのタスクで消し切る", async () => {
-    const user = await signInAgeVerifiedUser();
+    const user = await signInUser();
     await seedAccount({ uid: user.uid });
     const enqueued: AccountFileDeletionTask[] = [];
     const userDocumentPath = `users/${user.uid}`;
@@ -289,7 +283,7 @@ describe("アカウントの削除 (deleteAccount)", () => {
 
   it("削除の途中に積んだ消し残しのタスクは、ファイルだけを消し、削除の印のある users/{uid} を残す", async () => {
     const uid = randomUUID();
-    await adminFirestore.doc(`users/${uid}`).set({ ageAccepted: true, accountDeletionStartedAt: Timestamp.now() });
+    await adminFirestore.doc(`users/${uid}`).set({ accountDeletionStartedAt: Timestamp.now() });
     await bucket.file(`users/${uid}/photos/request1`).save(Buffer.from([0xff, 0xd8, 0xff, 0xe0]));
 
     await deleteAccountLeftovers({ firestore: adminFirestore, bucket }, { uid, artPaths: [], deleteUserDocument: false });
@@ -299,7 +293,7 @@ describe("アカウントの削除 (deleteAccount)", () => {
   });
 
   it("消し終えたアカウントにもう一度呼んでも成功する (冪等)", async () => {
-    const user = await signInAgeVerifiedUser();
+    const user = await signInUser();
     await seedAccount({ uid: user.uid });
     const enqueued: AccountFileDeletionTask[] = [];
 
@@ -311,7 +305,7 @@ describe("アカウントの削除 (deleteAccount)", () => {
   });
 
   it("削除の後に、別の端末に残った ID トークンで写真を置いて generate を呼んでも断り、置いた写真を消す", async () => {
-    const user = await signInAgeVerifiedUser();
+    const user = await signInUser();
     const staleIdToken = await user.getIdToken();
     const deleted = await callFunction({ name: "deleteAccount", idToken: staleIdToken, data: null });
     expect(deleted.status).toBe(200);
@@ -348,6 +342,7 @@ describe("アカウントの削除 (deleteAccount)", () => {
     const result = await resumeGeneration(
       {
         firestore: adminFirestore,
+        auth: adminAuth,
         bucket,
         annotateImage: unused,
         segmentSubject: unused,
@@ -368,7 +363,7 @@ describe("アカウントの削除 (deleteAccount)", () => {
   });
 
   it("削除が始まった後は、バトルを始められない", async () => {
-    const user = await signInAgeVerifiedUser();
+    const user = await signInUser();
     await adminFirestore.doc(`users/${user.uid}/monsters/m1`).set({ name: "m1", level: 1 });
     await adminFirestore.doc(`users/${user.uid}`).set({ accountDeletionStartedAt: Timestamp.now() }, { merge: true });
 
@@ -379,7 +374,7 @@ describe("アカウントの削除 (deleteAccount)", () => {
     expect((await adminFirestore.collection(`users/${user.uid}/battles`).get()).empty).toBe(true);
   });
 
-  it("消し終えた後 (users/{uid} が無い) は、同じ写真の使い回しの記録も書かずに生成を断る", async () => {
+  it("消し終えた後 (Auth のユーザーも users/{uid} も無い) は、同じ写真の使い回しの記録も書かずに生成を断る", async () => {
     const uid = randomUUID();
     const requestId = randomUUID();
     const photo = Buffer.from([0xff, 0xd8, 0xff, 0xe0]);
@@ -394,6 +389,7 @@ describe("アカウントの削除 (deleteAccount)", () => {
       handleGenerateRequest(
         {
           firestore: adminFirestore,
+          auth: adminAuth,
           bucket,
           annotateImage: unused,
           segmentSubject: unused,
@@ -403,7 +399,7 @@ describe("アカウントの削除 (deleteAccount)", () => {
           enqueueResume: async () => {},
           now: () => new Date(),
         },
-        { auth: { uid, token: { ageVerified: true } } as never, data: { requestId, photoPath: `users/${uid}/photos/${requestId}` } },
+        { auth: { uid, token: {} } as never, data: { requestId, photoPath: `users/${uid}/photos/${requestId}` } },
       ),
     ).rejects.toMatchObject({ code: "failed-precondition", details: { reason: "account_not_found" } });
     expect((await adminFirestore.doc(`users/${uid}/generationAliases/${requestId}`).get()).exists).toBe(false);
@@ -420,6 +416,7 @@ describe("アカウントの削除 (deleteAccount)", () => {
     };
     const dependencies: GenerationDependencies = {
       firestore: adminFirestore,
+      auth: adminAuth,
       bucket,
       annotateImage: unused,
       segmentSubject: unused,
@@ -431,7 +428,7 @@ describe("アカウントの削除 (deleteAccount)", () => {
     };
 
     await expect(
-      handleGenerateRequest(dependencies, { auth: { uid, token: { ageVerified: true } } as never, data: { requestId, photoPath: `users/${uid}/photos/${requestId}` } }),
+      handleGenerateRequest(dependencies, { auth: { uid, token: {} } as never, data: { requestId, photoPath: `users/${uid}/photos/${requestId}` } }),
     ).rejects.toMatchObject({ code: "failed-precondition", details: { reason: "account_deletion_in_progress" } });
     expect((await adminFirestore.collection(`users/${uid}/generations`).get()).empty).toBe(true);
   });

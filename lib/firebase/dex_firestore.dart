@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../domain/master/master_data.dart';
-import '../features/age_gate/age_verified_session_store.dart';
 import '../features/dex/dex_store.dart';
 import '../features/dex/owned_monster.dart';
+import '../features/session/session_store.dart';
 import '../master/master_repository.dart';
 
 // 図鑑 (users/{uid}/monsters) と手持ち (users/{uid}/party/current) を Firestore から読み続け、DexStore に反映する。
@@ -13,10 +13,10 @@ import '../master/master_repository.dart';
 
 /// [sessionStore] のログインが続く間、その uid の図鑑に [dexStore] を繋ぐ。
 /// ログインした時 (起動時に済んでいれば今) に繋ぎ、uid が変わった・ログインを終えた時は前の uid の購読をやめて
-/// [dexStore] を空の端末の図鑑 (定義は [localDefinitions]) に戻す (開発者メニューの年齢の確認のやり直しで uid が変わるため)。
+/// [dexStore] を空の端末の図鑑 (定義は [localDefinitions]) に戻す (開発者メニューの始め直しとアカウントの削除で uid が変わるため)。
 /// 同じ uid の間は繋ぎ直さない (同じ購読を二重に作らないため)。
 void connectDexToFirestoreWhileSignedIn({
-  required AgeVerifiedSessionStore sessionStore,
+  required SessionStore sessionStore,
   required DexStore dexStore,
   required MasterData localDefinitions,
 }) {

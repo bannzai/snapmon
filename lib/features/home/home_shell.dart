@@ -4,8 +4,6 @@ import '../../sample/sample_data.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
-import '../age_gate/age_confirmation.dart';
-import '../age_gate/age_verified_session_store.dart';
 import '../battle/battle_recorder.dart';
 import '../capture/capture_screen.dart';
 import '../capture/monster_generator.dart';
@@ -13,6 +11,7 @@ import '../dex/dex_screen.dart';
 import '../dex/dex_store.dart';
 import '../opponent/opponent_screen.dart';
 import '../opponent/pvp_client.dart';
+import '../session/session_store.dart';
 import '../settings/account_store.dart';
 import '../settings/settings_screen.dart';
 import '../share/card_sharer.dart';
@@ -37,8 +36,7 @@ class HomeShell extends StatefulWidget {
     required this.initialTab,
     required this.sampleData,
     required this.dexStore,
-    required this.ageConfirmationStore,
-    required this.ageVerifiedSessionStore,
+    required this.sessionStore,
     required this.openUrl,
     required this.isDeveloperMenuEnabled,
     required this.battleRecorder,
@@ -60,11 +58,8 @@ class HomeShell extends StatefulWidget {
   /// 図鑑と手持ち。
   final DexStore dexStore;
 
-  /// 年齢の確認 (開発者メニューのやり直しに使う)。
-  final AgeConfirmationStore ageConfirmationStore;
-
-  /// 年齢の確認の後のログイン (開発者メニューのログイン状態に使う)。
-  final AgeVerifiedSessionStore ageVerifiedSessionStore;
+  /// ログイン (開発者メニューのログイン状態と始め直し、対戦の画面の作り直しに使う)。
+  final SessionStore sessionStore;
 
   /// 設定画面のリンクを開く。
   final OpenUrl openUrl;
@@ -98,8 +93,7 @@ class _HomeShellState extends State<HomeShell> {
       builder: (context) => SettingsScreen(
         sampleData: widget.sampleData,
         dexStore: widget.dexStore,
-        ageConfirmationStore: widget.ageConfirmationStore,
-        ageVerifiedSessionStore: widget.ageVerifiedSessionStore,
+        sessionStore: widget.sessionStore,
         monsterGenerator: widget.monsterGenerator,
         pvpClient: widget.pvpClient,
         cardSharer: widget.cardSharer,
@@ -131,9 +125,9 @@ class _HomeShellState extends State<HomeShell> {
         // 設定の「データを引き継ぐ」で別のアカウントに切り替わると uid が変わるため、uid ごとに作り直して
         // 前のアカウントの相手・戦績・外した相手を持ち越さない
         HomeTab.opponent => ListenableBuilder(
-          listenable: widget.ageVerifiedSessionStore,
+          listenable: widget.sessionStore,
           builder: (context, _) => OpponentScreen(
-            key: ValueKey(widget.ageVerifiedSessionStore.uid),
+            key: ValueKey(widget.sessionStore.uid),
             sampleData: widget.sampleData,
             dexStore: widget.dexStore,
             onSelectTab: _selectTab,
