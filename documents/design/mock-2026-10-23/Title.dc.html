@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>タイトル</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+body{margin:0;font-family:'Zen Kaku Gothic New',system-ui,sans-serif;color:#F4F1EA}
+a{color:#C6F432}a:hover{color:#DDFF6A}
+@keyframes snapmon-float{0%,100%{transform:translate(-50%,-50%) translateY(0)}50%{transform:translate(-50%,-50%) translateY(-10px)}}
+@keyframes snapmon-aura{0%,100%{opacity:.55;transform:translate(-50%,-50%) scale(1)}50%{opacity:.9;transform:translate(-50%,-50%) scale(1.06)}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #15121C; display: flex; flex-direction: column; position: relative; overflow: hidden">
+  <!-- 世界観: 暗い地に黄緑の電気のような粒。被写体 (マグカップ) が切り出されてモンスターになる途中を 1 枚で見せる -->
+  <div aria-hidden="true" style="position: absolute; inset: 0; background: radial-gradient(circle at 50% 42%, rgba(198,244,50,0.14) 0, rgba(198,244,50,0) 48%)"></div>
+  <div aria-hidden="true" style="position: absolute; left: 36px; top: 150px; width: 6px; height: 6px; border-radius: 3px; background: #C6F432; opacity: .8"></div>
+  <div aria-hidden="true" style="position: absolute; left: 318px; top: 196px; width: 4px; height: 4px; border-radius: 2px; background: #C6F432; opacity: .6"></div>
+  <div aria-hidden="true" style="position: absolute; left: 300px; top: 470px; width: 8px; height: 8px; border-radius: 4px; background: #C6F432; opacity: .5"></div>
+  <div aria-hidden="true" style="position: absolute; left: 62px; top: 500px; width: 5px; height: 5px; border-radius: 3px; background: #C6F432; opacity: .7"></div>
+  <div aria-hidden="true" style="position: absolute; left: 180px; top: 120px; width: 3px; height: 3px; border-radius: 2px; background: #F4F1EA; opacity: .5"></div>
+
+  <!-- ロゴ -->
+  <div style="padding: 84px 24px 0 24px; text-align: center; position: relative">
+    <div style="font-family: 'Dela Gothic One', sans-serif; font-size: 44px; letter-spacing: 0.02em; line-height: 1; color: #F4F1EA">snapmon</div>
+    <div style="margin-top: 10px; font-size: 13px; font-weight: 500; letter-spacing: 0.18em; color: #C6F432">SNAP IT  FIGHT IT</div>
+  </div>
+
+  <!-- ヒーロー: 写真の枠 → 切り出された被写体に目とオーラが付いたモンスター -->
+  <div style="flex: 1 1 auto; position: relative; margin: 18px 24px 0 24px">
+    <!-- 元の写真を示す薄い枠 (斜めに置いた紙) -->
+    <div aria-hidden="true" style="position: absolute; left: 50%; top: 50%; width: 236px; height: 236px; transform: translate(-50%, -50%) rotate(-6deg); border-radius: 20px; background: #231E30; border: 1px solid #2F293F"></div>
+    <div aria-hidden="true" style="position: absolute; left: 50%; top: 50%; width: 236px; height: 236px; transform: translate(-50%, -50%) rotate(-6deg); border-radius: 20px; background: repeating-linear-gradient(135deg, rgba(244,241,234,0.04) 0 8px, rgba(244,241,234,0) 8px 16px)"></div>
+    <!-- ファインダーの角 -->
+    <div aria-hidden="true" style="position: absolute; left: 18px; top: 22px; width: 30px; height: 30px; border-left: 4px solid #C6F432; border-top: 4px solid #C6F432; border-radius: 8px 0 0 0"></div>
+    <div aria-hidden="true" style="position: absolute; right: 18px; top: 22px; width: 30px; height: 30px; border-right: 4px solid #C6F432; border-top: 4px solid #C6F432; border-radius: 0 8px 0 0"></div>
+    <div aria-hidden="true" style="position: absolute; left: 18px; bottom: 22px; width: 30px; height: 30px; border-left: 4px solid #C6F432; border-bottom: 4px solid #C6F432; border-radius: 0 0 0 8px"></div>
+    <div aria-hidden="true" style="position: absolute; right: 18px; bottom: 22px; width: 30px; height: 30px; border-right: 4px solid #C6F432; border-bottom: 4px solid #C6F432; border-radius: 0 0 8px 0"></div>
+    <!-- 属性のオーラ -->
+    <div aria-hidden="true" style="position: absolute; left: 50%; top: 50%; width: 230px; height: 230px; border-radius: 115px; background: radial-gradient(circle, rgba(198,244,50,0.35) 0, rgba(198,244,50,0) 70%); animation: snapmon-aura 3.2s ease-in-out infinite"></div>
+    <!-- 切り出されたマグカップ (被写体) -->
+    <div aria-hidden="true" style="position: absolute; left: 50%; top: 50%; width: 170px; height: 170px; transform: translate(-50%, -50%); animation: snapmon-float 3.2s ease-in-out infinite">
+      <div style="position: absolute; left: 10px; top: 30px; width: 112px; height: 120px; border-radius: 16px 16px 44px 44px; background: #6D7B8A; box-shadow: inset -16px -18px 0 #55606E, 0 0 0 3px #15121C, 0 0 0 6px #C6F432"></div>
+      <div style="position: absolute; left: 112px; top: 54px; width: 52px; height: 58px; border-radius: 28px; border: 14px solid #6D7B8A; border-left-color: transparent; box-shadow: 0 0 0 3px #15121C"></div>
+      <!-- 目 (装飾のパラメータ) -->
+      <div style="position: absolute; left: 36px; top: 66px; width: 22px; height: 26px; border-radius: 11px; background: #F4F1EA"></div>
+      <div style="position: absolute; left: 70px; top: 66px; width: 22px; height: 26px; border-radius: 11px; background: #F4F1EA"></div>
+      <div style="position: absolute; left: 46px; top: 76px; width: 9px; height: 11px; border-radius: 5px; background: #15121C"></div>
+      <div style="position: absolute; left: 80px; top: 76px; width: 9px; height: 11px; border-radius: 5px; background: #15121C"></div>
+      <!-- 電気の属性の飾り -->
+      <svg aria-hidden="true" style="position: absolute; left: 118px; top: -6px" width="40" height="48" viewBox="0 0 24 28" fill="#C6F432"><path d="M13 1 3 16h8l-2 11 12-17h-8z"></path></svg>
+    </div>
+    <!-- 写真の下の説明 -->
+    <div style="position: absolute; left: 0; right: 0; bottom: 0; text-align: center">
+      <div style="font-family: 'Dela Gothic One', sans-serif; font-size: 24px; line-height: 1.35; color: #F4F1EA">身の回りの物が<br>モンスターになって戦う</div>
+    </div>
+  </div>
+
+  <!-- 体験の入口: 写真アプリから選ぶ (主) とカメラで撮る。Web とカメラの無い端末はカメラのボタンを出さず、写真を選ぶだけにする -->
+  <div style="padding: 24px 20px 0 20px; display: flex; flex-direction: column; gap: 12px">
+    <a href="../mock-2026-10-21/Result.dc.html" aria-label="写真から選んではじめる" style="display: flex; align-items: center; justify-content: center; gap: 10px; height: 60px; border-radius: 16px; background: #C6F432; color: #15121C; text-decoration: none; font-size: 17px; font-weight: 700">
+      <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#15121C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"></rect><circle cx="9" cy="9" r="2"></circle><path d="M21 15l-5-5L5 21"></path></svg>
+      <span>写真から選んではじめる</span>
+    </a>
+    <a href="../mock-2026-10-21/Main.dc.html" aria-label="カメラで撮ってはじめる" style="display: flex; align-items: center; justify-content: center; gap: 10px; height: 56px; border-radius: 16px; background: #231E30; border: 1px solid #3A3350; color: #F4F1EA; text-decoration: none; font-size: 16px; font-weight: 700">
+      <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F4F1EA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8a2 2 0 0 1 2-2h2l1.5-2h5L16 6h2a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>
+      <span>カメラで撮ってはじめる</span>
+    </a>
+  </div>
+
+  <!-- 2 回目以降の入口と規約。初回は図鑑が空なので「つづきから」は出さない -->
+  <div style="padding: 14px 20px 36px 20px; text-align: center; font-size: 12px; color: #9A94A8; line-height: 1.8">
+    <a href="../mock-2026-10-21/Dex.dc.html" style="color: #C6F432; text-decoration: none; font-weight: 700">つづきから (図鑑 12)</a><br>
+    13 歳以上が対象 · <a href="#" style="color: #9A94A8">利用規約</a> · <a href="#" style="color: #9A94A8">プライバシー</a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>
