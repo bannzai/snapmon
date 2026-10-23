@@ -22,7 +22,7 @@
 - 動作確認 (Web の UI・挙動): `/webtunnel` skill で、GitHub Actions の Linux Runner 上の Chromium に Web 版を開いて行う。ローカルのブラウザ (agent-browser) は既定にしない
   - 手順: 検証対象のブランチを push してから `WEBTUNNEL_REPO=bannzai/snapmon bash ~/.claude/skills/webtunnel/scripts/webtunnel-cli.sh up <セッション名> --ref <ブランチ> --wait` で起動する。caller workflow は `.github/workflows/browser-session.yml` で、runner 上で Flutter を取得して `flutter build web` した成果物を `http://localhost:8080/` で配信する。Flutter Web の描画は WebGL を使うため、caller workflow はソフトウェア WebGL を既定で有効にしている。操作・スクリーンショット・終了と録画の取得は `/webtunnel` skill の Phase 3・4 に従う
 - 動作確認 (Android): Android の UI 確認の外部経路は未整備で、当面は CI の `flutter build apk --debug` が通ることまでを確認する。UI の確認が要る変更は、iOS と Web の確認結果と、Android で確認していない事実を PR に書く
-- 手元で触る (人が確認する時): `make` (既定 target は `ios`。sim-boot で起動したプロジェクト固有の simulator へ `flutter run` する)。Android Emulator は `make android`
+- 手元で触る (人が確認する時): `make` (既定 target は `ios`。sim-boot で起動したプロジェクト固有の simulator へ `flutter run` する)。繋いだ iPhone の実機は `make ios-device`、手元の Chrome で Web 版は `make web`、Android Emulator は `make android`
 
 <!-- ai-review-config begin -->
 <!--
