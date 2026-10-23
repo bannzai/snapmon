@@ -30,6 +30,16 @@ on:
         required: false
         # Flutter Web の描画 (CanvasKit) は WebGL を使うため、runner の Chromium では既定で有効にする
         default: "true"
+      flutter_build_mode:
+        # 開発者メニュー (DEBUG ビルド限定) の「ログインせずに使う」と見本の生成で確かめる時は debug にする。
+        # local/webtunnel の up はこの input を送らないため、debug は gh workflow run -f flutter_build_mode=debug で起動する
+        description: "flutter build web のモード (release / debug)"
+        required: false
+        type: choice
+        options:
+          - release
+          - debug
+        default: release
 jobs:
   session:
     permissions:
@@ -56,7 +66,7 @@ jobs:
         [ "$(git -C "$RUNNER_TEMP/flutter" rev-parse '3.41.9^{commit}')" = 00b0c91f06209d9e4a41f71b7a512d6eb3b9c694 ] &&
         git -C "$RUNNER_TEMP/flutter" checkout -q --detach 3.41.9 &&
         "$RUNNER_TEMP/flutter/bin/flutter" pub get &&
-        "$RUNNER_TEMP/flutter/bin/flutter" build web --release
+        "$RUNNER_TEMP/flutter/bin/flutter" build web --${{ inputs.flutter_build_mode }}
       # webtunnel は dev サーバが 127.0.0.1 で listen していることを検証するため loopback に束縛する
       start_command: python3 -m http.server "$PORT" --bind 127.0.0.1 --directory build/web
       port: "8080"
