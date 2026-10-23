@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'analytics/analytics_events.dart';
 import 'features/age_gate/age_confirmation.dart';
-import 'features/age_gate/age_gate_screen.dart';
 import 'features/age_gate/age_verified_session_store.dart';
 import 'features/battle/battle_recorder.dart';
 import 'features/capture/monster_generator.dart';
@@ -11,11 +11,13 @@ import 'features/opponent/pvp_client.dart';
 import 'features/settings/account_store.dart';
 import 'features/settings/settings_screen.dart';
 import 'features/share/card_sharer.dart';
+import 'features/title/title_screen.dart';
 import 'sample/sample_data.dart';
 import 'theme/snapmon_theme.dart';
 
-/// アプリのルート。年齢の確認とその後のログインが済むまでは年齢の確認の画面だけを出し、済んだら下タブの画面を出す。
-class SnapmonApp extends StatelessWidget {
+/// アプリのルート。起動するとタイトル画面を出し、タイトルのボタンでログインを済ませてから下タブの画面に入る。
+/// ログインを終えた (アカウントの削除・開発者メニューのやり直し) 時はタイトルに戻る。
+class SnapmonApp extends StatefulWidget {
   /// アプリのルートを作る。
   const SnapmonApp({
     super.key,
@@ -30,6 +32,7 @@ class SnapmonApp extends StatelessWidget {
     required this.pvpClient,
     required this.cardSharer,
     required this.accountStore,
+    required this.logEvent,
   });
 
   /// 非同期 PvP の相手の取得・通報・ブロック・戦績・表示名。
@@ -47,7 +50,7 @@ class SnapmonApp extends StatelessWidget {
   /// 年齢の確認の後のログイン。
   final AgeVerifiedSessionStore ageVerifiedSessionStore;
 
-  /// 設定画面のリンクを開く。
+  /// 設定画面・タイトル画面のリンクを開く。
   final OpenUrl openUrl;
 
   /// 設定画面に開発者メニューを出すか ([SettingsScreen.isDeveloperMenuEnabled])。
@@ -65,40 +68,78 @@ class SnapmonApp extends StatelessWidget {
   /// 設定画面のアカウントの連携と削除。
   final AccountStore accountStore;
 
+  /// タイトル画面の計測 ([logAnalyticsEvent] と同じ形)。
+  final Future<void> Function({
+    required AnalyticsEvent event,
+    required Map<String, Object>? parameters,
+  })
+  logEvent;
+
+  @override
+  State<SnapmonApp> createState() => _SnapmonAppState();
+}
+
+class _SnapmonAppState extends State<SnapmonApp> {
+  /// 下タブの画面に入った時の最初のタブ。タイトルを出している間は null。
+  HomeTab? _homeTab;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.ageVerifiedSessionStore.addListener(_onSessionChanged);
+  }
+
+  @override
+  void dispose() {
+    widget.ageVerifiedSessionStore.removeListener(_onSessionChanged);
+    super.dispose();
+  }
+
+  /// ログインを終えたら、次にログインした時に下タブへ飛ばずタイトルから始めるようにする。
+  void _onSessionChanged() {
+    if (!widget.ageVerifiedSessionStore.canEnterApp && _homeTab != null) {
+      setState(() => _homeTab = null);
+    }
+  }
+
   @override
   Widget build(BuildContext context) => MaterialApp(
     title: 'snapmon',
     theme: snapmonThemeData(),
     home: ListenableBuilder(
-      listenable: Listenable.merge([
-        ageConfirmationStore,
-        ageVerifiedSessionStore,
-      ]),
-      builder: (context, _) => switch (ageConfirmationStore.status) {
-        AgeConfirmationStatus.unanswered => AgeGateScreen(
-          ageConfirmationStore: ageConfirmationStore,
-        ),
-        AgeConfirmationStatus.restricted => const AgeRestrictedScreen(),
-        AgeConfirmationStatus.allowed
-            when !ageVerifiedSessionStore.canEnterApp =>
-          AgeVerifiedSessionScreen(
-            ageConfirmationStore: ageConfirmationStore,
-            ageVerifiedSessionStore: ageVerifiedSessionStore,
-            isDebugSkipEnabled: isDeveloperMenuEnabled,
-          ),
-        AgeConfirmationStatus.allowed => HomeShell(
-          sampleData: sampleData,
-          dexStore: dexStore,
-          ageConfirmationStore: ageConfirmationStore,
-          ageVerifiedSessionStore: ageVerifiedSessionStore,
-          openUrl: openUrl,
-          isDeveloperMenuEnabled: isDeveloperMenuEnabled,
-          battleRecorder: battleRecorder,
-          monsterGenerator: monsterGenerator,
-          pvpClient: pvpClient,
-          cardSharer: cardSharer,
-          accountStore: accountStore,
-        ),
+      listenable: widget.ageVerifiedSessionStore,
+      builder: (context, _) {
+        final homeTab = _homeTab;
+        if (homeTab == null || !widget.ageVerifiedSessionStore.canEnterApp) {
+          return TitleScreen(
+            sampleData: widget.sampleData,
+            dexStore: widget.dexStore,
+            ageConfirmationStore: widget.ageConfirmationStore,
+            ageVerifiedSessionStore: widget.ageVerifiedSessionStore,
+            monsterGenerator: widget.monsterGenerator,
+            pvpClient: widget.pvpClient,
+            cardSharer: widget.cardSharer,
+            openUrl: widget.openUrl,
+            isDeveloperMenuEnabled: widget.isDeveloperMenuEnabled,
+            accountStore: widget.accountStore,
+            logEvent: widget.logEvent,
+            onEnterHome: ({required tab}) => setState(() => _homeTab = tab),
+          );
+        }
+        return HomeShell(
+          initialTab: homeTab,
+          sampleData: widget.sampleData,
+          dexStore: widget.dexStore,
+          ageConfirmationStore: widget.ageConfirmationStore,
+          ageVerifiedSessionStore: widget.ageVerifiedSessionStore,
+          openUrl: widget.openUrl,
+          isDeveloperMenuEnabled: widget.isDeveloperMenuEnabled,
+          battleRecorder: widget.battleRecorder,
+          monsterGenerator: widget.monsterGenerator,
+          pvpClient: widget.pvpClient,
+          cardSharer: widget.cardSharer,
+          accountStore: widget.accountStore,
+        );
       },
     ),
   );

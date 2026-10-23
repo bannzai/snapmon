@@ -29,11 +29,12 @@ enum HomeTab {
   opponent,
 }
 
-/// 下タブ (図鑑・撮る・対戦) を持つ、年齢の確認の後の画面。
+/// 下タブ (図鑑・撮る・対戦) を持つ、タイトル画面からログインを済ませて入る画面。
 class HomeShell extends StatefulWidget {
   /// 下タブの画面を作る。
   const HomeShell({
     super.key,
+    required this.initialTab,
     required this.sampleData,
     required this.dexStore,
     required this.ageConfirmationStore,
@@ -46,6 +47,9 @@ class HomeShell extends StatefulWidget {
     required this.cardSharer,
     required this.accountStore,
   });
+
+  /// 最初に見せるタブ (タイトル画面のどのボタンから入ったかで決まる)。
+  final HomeTab initialTab;
 
   /// 非同期 PvP の相手の取得・通報・ブロック・戦績・表示名。
   final PvpClient pvpClient;
@@ -85,8 +89,7 @@ class HomeShell extends StatefulWidget {
 }
 
 class _HomeShellState extends State<HomeShell> {
-  // 起動して最初に見せるのは撮る画面 (モックの起点の画面。documents/design/mock-2026-10-21/Main.dc.html)
-  HomeTab _selectedTab = HomeTab.capture;
+  late HomeTab _selectedTab = widget.initialTab;
 
   void _selectTab({required HomeTab tab}) => setState(() => _selectedTab = tab);
 
