@@ -95,6 +95,7 @@ async function seedAccount({ uid }: { uid: string }): Promise<void> {
   await adminFirestore.doc(`users/${uid}/party/current`).set({ monsterIds: [`monster-${uid}`] });
   await adminFirestore.doc(`reports/report-by-${uid}`).set({ reporterUid: uid });
   await adminFirestore.doc(`blocks/block-by-${uid}`).set({ blockerUid: uid });
+  await adminFirestore.doc(`reportedMonsters/monster-${uid}`).set({ monsterOwnerUid: uid, reporterCount: 1 });
   for (const path of [
     `users/${uid}/photos/request-saved`,
     `users/${uid}/masks/request-saved`,
@@ -117,6 +118,7 @@ async function remainingAccountData({ uid }: { uid: string }): Promise<string[]>
     `users/${uid}/party/current`,
     `reports/report-by-${uid}`,
     `blocks/block-by-${uid}`,
+    `reportedMonsters/monster-${uid}`,
   ];
   const remainingDocuments = (await Promise.all(documentPaths.map(async (path) => ((await adminFirestore.doc(path).get()).exists ? path : null)))).filter(
     (path): path is string => path !== null,
