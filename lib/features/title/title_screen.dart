@@ -472,8 +472,9 @@ class _TitleScreenState extends State<TitleScreen> {
   );
 }
 
-/// 高さが足りない画面でのヒーローの高さ。斜めの写真の枠 (236) が見出しと重ならない高さにした。
-const double _minimumHeroHeight = 300;
+/// 高さが足りない画面でのヒーローの高さ。6 度傾けた写真の枠 (236 → 外接で約 260) と見出し 2 行 (72) が重ならない高さにした
+/// (webtunnel の 844×390 のスクリーンショットで、300 では枠の下端が見出しに重なった)。
+const double _minimumHeroHeight = 350;
 
 /// タイトル画面だけで使う文字の大きさ (モックの Title.dc.html から取った)。
 abstract final class _TitleTextStyles {
