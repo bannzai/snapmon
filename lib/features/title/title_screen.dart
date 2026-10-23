@@ -298,12 +298,13 @@ class _TitleScreenState extends State<TitleScreen> {
       const Text('snapmon', style: _TitleTextStyles.logo),
       const SizedBox(height: 10),
       const Text('SNAP IT  FIGHT IT', style: _TitleTextStyles.tagline),
-      const Expanded(
+      Expanded(
         child: Padding(
-          padding: EdgeInsets.fromLTRB(24, 18, 24, 0),
+          padding: const EdgeInsets.fromLTRB(24, 18, 24, 0),
+          // ConstrainedBox のコンストラクタは const でない (assert を持つ)
           child: ConstrainedBox(
-            constraints: BoxConstraints(minHeight: _minimumHeroHeight),
-            child: _Hero(),
+            constraints: const BoxConstraints(minHeight: _minimumHeroHeight),
+            child: const _Hero(),
           ),
         ),
       ),
