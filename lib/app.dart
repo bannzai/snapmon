@@ -112,13 +112,16 @@ class _SnapmonAppState extends State<SnapmonApp> {
         final homeTab = _homeTab;
         if (homeTab == null || !widget.ageVerifiedSessionStore.canEnterApp) {
           return TitleScreen(
+            sampleData: widget.sampleData,
             dexStore: widget.dexStore,
             ageConfirmationStore: widget.ageConfirmationStore,
             ageVerifiedSessionStore: widget.ageVerifiedSessionStore,
             monsterGenerator: widget.monsterGenerator,
+            pvpClient: widget.pvpClient,
             cardSharer: widget.cardSharer,
             openUrl: widget.openUrl,
             isDeveloperMenuEnabled: widget.isDeveloperMenuEnabled,
+            accountStore: widget.accountStore,
             logEvent: widget.logEvent,
             onEnterHome: ({required tab}) => setState(() => _homeTab = tab),
           );

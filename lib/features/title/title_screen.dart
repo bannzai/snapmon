@@ -15,9 +15,13 @@ import '../capture/generation_screen.dart';
 import '../capture/monster_generator.dart';
 import '../dex/dex_store.dart';
 import '../home/home_shell.dart';
+import '../opponent/pvp_client.dart';
 import '../result/result_screen.dart';
+import '../settings/account_store.dart';
 import '../settings/settings_screen.dart';
 import '../share/card_sharer.dart';
+import '../../sample/sample_data.dart';
+import '../../widgets/square_icon_button.dart';
 
 /// タイトル画面のボタン (計測の `title_action` の `action`)。
 enum TitleAction {
@@ -41,19 +45,31 @@ class TitleScreen extends StatefulWidget {
   /// タイトル画面を作る。
   const TitleScreen({
     super.key,
+    required this.sampleData,
     required this.dexStore,
     required this.ageConfirmationStore,
     required this.ageVerifiedSessionStore,
     required this.monsterGenerator,
+    required this.pvpClient,
     required this.cardSharer,
     required this.openUrl,
     required this.isDeveloperMenuEnabled,
+    required this.accountStore,
     required this.logEvent,
     required this.onEnterHome,
   });
 
+  /// 見本データ (設定画面に渡す)。
+  final SampleData sampleData;
+
   /// 図鑑と手持ち (「つづきから」の表示と数)。
   final DexStore dexStore;
+
+  /// 非同期 PvP の相手の取得・通報・ブロック・戦績・表示名 (設定画面に渡す)。
+  final PvpClient pvpClient;
+
+  /// 設定画面のアカウントの連携と削除。写真を選ばなくても、機種変更した人がデータを引き継げるようにタイトルから設定を開く。
+  final AccountStore accountStore;
 
   /// 年齢の確認。
   final AgeConfirmationStore ageConfirmationStore;
@@ -286,6 +302,32 @@ class _TitleScreenState extends State<TitleScreen> {
     },
   );
 
+  /// 設定を開く。図鑑が空でカメラも無い (Web の初回等) 人が、写真を選ばずにデータの引き継ぎ・アカウントの削除に行けるようにする。
+  /// 設定もログイン済みが前提のため、ログインを済ませてから開く。
+  Future<void> _openSettings() => _run(
+    work: () async {
+      if (!await _ensureCanEnterApp() || !mounted) {
+        return;
+      }
+      await Navigator.of(context).push(
+        MaterialPageRoute<void>(
+          builder: (context) => SettingsScreen(
+            sampleData: widget.sampleData,
+            dexStore: widget.dexStore,
+            ageConfirmationStore: widget.ageConfirmationStore,
+            ageVerifiedSessionStore: widget.ageVerifiedSessionStore,
+            monsterGenerator: widget.monsterGenerator,
+            pvpClient: widget.pvpClient,
+            cardSharer: widget.cardSharer,
+            openUrl: widget.openUrl,
+            isDeveloperMenuEnabled: widget.isDeveloperMenuEnabled,
+            accountStore: widget.accountStore,
+          ),
+        ),
+      );
+    },
+  );
+
   Future<void> _openUrl({required Uri uri}) async {
     try {
       if (!await widget.openUrl(uri: uri) && mounted) {
@@ -315,6 +357,21 @@ class _TitleScreenState extends State<TitleScreen> {
               child: ConstrainedBox(
                 constraints: BoxConstraints(minHeight: constraints.maxHeight),
                 child: IntrinsicHeight(child: _buildContent()),
+              ),
+            ),
+          ),
+        ),
+        // 撮る画面と同じ位置・大きさの設定ボタン
+        SafeArea(
+          child: Align(
+            alignment: Alignment.topRight,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 12, 20, 0),
+              child: SquareIconButton(
+                icon: Icons.settings_outlined,
+                tooltip: '設定',
+                onPressed: _openSettings,
+                size: 44,
               ),
             ),
           ),

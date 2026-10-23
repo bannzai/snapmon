@@ -486,6 +486,29 @@ void main() {
       expect(titleEvents.last.parameters, {'action': 'continue'});
     });
 
+    testWidgets('図鑑が空でも、タイトルの設定から写真を選ばずにデータの引き継ぎとアカウントの削除に行ける', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      expect(find.byKey(const Key('title-continue')), findsNothing);
+      await tester.tap(find.byTooltip('設定'));
+      await tester.pumpAndSettle();
+      expect(find.text('設定'), findsOneWidget);
+      expect(find.text('データを引き継ぐ'), findsOneWidget);
+      expect(find.text('アカウントを削除'), findsOneWidget);
+      expect(generationCalls.uploadedRequestIds, isEmpty);
+
+      // 戻るとタイトルに戻る (下タブには入らない)
+      await tester.pageBack();
+      await tester.pumpAndSettle();
+      expect(find.text('写真から選んではじめる'), findsOneWidget);
+      expect(find.byKey(const Key('tab-dex')), findsNothing);
+    });
+
     testWidgets('利用規約とプライバシーは設定画面と同じ URL を開く', (tester) async {
       await pumpApp(
         tester: tester,
