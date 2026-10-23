@@ -134,6 +134,16 @@ class _GenerationScreenState extends State<GenerationScreen> {
   /// 初回のバトルの画面を開いたか (「○○ があらわれた」の演出の終わりで 1 回だけ開くため)。
   bool _hasOpenedFirstBattle = false;
 
+  /// 「○○ があらわれた」を出してからバトルの画面を開くまでの待ち。演出の進捗バーは ListView の中にあり、
+  /// 端末の文字が大きいと画面外で作られず終わりを知らせないため、バトルを開くきっかけは State に持つ。
+  Timer? _openFirstBattleTimer;
+
+  @override
+  void dispose() {
+    _openFirstBattleTimer?.cancel();
+    super.dispose();
+  }
+
   /// 初回のバトルの乱数の seed (CPU トレーナーのレベルとバトルの展開)。値の範囲は DeterministicRandom の状態 (32 bit) に合わせた。
   /// Web (JavaScript) ではシフトが 32 bit に切り詰められ `1 << 32` が 0 になるため、上限は整数リテラルで書く
   final int _firstBattleRandomSeed = math.Random().nextInt(0x100000000);
@@ -241,6 +251,8 @@ class _GenerationScreenState extends State<GenerationScreen> {
         _firstBattleOpponent = opponent;
         _phase = _GenerationPhase.opponentFound;
       });
+      _openFirstBattleTimer?.cancel();
+      _openFirstBattleTimer = Timer(_opponentRevealDuration, _openFirstBattle);
     } catch (error) {
       if (mounted) {
         setState(() {
@@ -481,11 +493,10 @@ class _GenerationScreenState extends State<GenerationScreen> {
         style: SnapmonTextStyles.body,
       ),
       const SizedBox(height: 24),
-      // 時間が決まった演出にして、終わった時にバトルの画面を開く (繰り返すアニメーションにしない)
+      // バトルの画面を開くまでの待ち (_openFirstBattleTimer) を見せる。繰り返すアニメーションにしない
       TweenAnimationBuilder<double>(
         tween: Tween(begin: 0, end: 1),
         duration: _opponentRevealDuration,
-        onEnd: _openFirstBattle,
         builder: (context, value, _) => ClipRRect(
           borderRadius: SnapmonRadii.tag,
           child: LinearProgressIndicator(
