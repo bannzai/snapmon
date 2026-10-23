@@ -549,7 +549,7 @@ void main() {
       expect(find.byKey(const Key('tab-dex')), findsNothing);
     });
 
-    testWidgets('タイトルの設定からアカウントを削除した後は、裏で新しい匿名アカウントにログインし、済んだ時に title_shown を送り直す', (
+    testWidgets('タイトルの設定からアカウントを削除した後は、裏でログインし直して title_shown を送り直す', (
       tester,
     ) async {
       await pumpApp(

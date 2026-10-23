@@ -37,10 +37,13 @@ Future<String> startSession({
 }
 
 /// [startSession] を Firebase の実体で実行する。タイトル画面の裏のログインと、ログインの画面 (lib/features/session/session_screen.dart) が呼ぶ。
+/// Auth のユーザーが残っている時 (起動時の [resumeSession] が App Check や収集の開始で失敗した時) は、そのユーザーを使い続ける
+/// (匿名ログインし直すと、Apple / Google と連携したユーザーがサインアウトされて図鑑に届かなくなるため)。
 Future<String> startSessionWithFirebase() {
   return startSession(
     activateAppCheck: activateAppCheck,
     signInAnonymously: () async =>
+        FirebaseAuth.instance.currentUser?.uid ??
         (await FirebaseAuth.instance.signInAnonymously()).user!.uid,
     enableCollection: enableAnalyticsAndCrashlyticsCollection,
   );
