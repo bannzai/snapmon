@@ -16,6 +16,7 @@ import '../dex/owned_monster.dart';
 import '../home/home_shell.dart';
 import '../settings/settings_screen.dart';
 import '../share/card_sharer.dart';
+import 'battle_definitions.dart';
 import 'cpu_party.dart';
 import 'pvp_client.dart';
 import 'pvp_opponent.dart';
@@ -359,22 +360,16 @@ class _OpponentScreenState extends State<OpponentScreen> {
   Future<void> _prepareAndStartBattle({required _Challenger opponent}) async {
     final dexStore = widget.dexStore;
     final MasterData definitions;
-    // 相性表は対戦時点の最新の版を使う (documents/adr/0001-tech-stack.md)。読み直せない時は古い版で戦わせず、エラーをそのまま出す
+    // 読み直せない時はエラーをそのまま出す
     try {
-      await dexStore.refreshDefinitions();
-      definitions = switch (opponent) {
-        // 見本の対戦相手の属性・技は master と同じ ID・同じ値のため (test/sample/sample_data_test.dart)、
-        // 図鑑の定義 (サーバーの master と図鑑が参照する定義) から両者を引ける
-        _CpuChallenger() => dexStore.definitions,
-        _PvpChallenger(:final pvpOpponent) =>
-          await widget.pvpClient.fetchDefinitions(
-            base: dexStore.definitions,
-            definitionIds: [
-              for (final monster in pvpOpponent.monsters)
-                ...monster.definitionIds,
-            ],
-          ),
-      };
+      definitions = await prepareBattleDefinitions(
+        dexStore: dexStore,
+        pvpClient: widget.pvpClient,
+        pvpOpponentMonsters: switch (opponent) {
+          _CpuChallenger() => null,
+          _PvpChallenger(:final pvpOpponent) => pvpOpponent.monsters,
+        },
+      );
     } catch (error) {
       if (mounted) {
         _showMessage(message: error.toString());
@@ -412,6 +407,7 @@ class _OpponentScreenState extends State<OpponentScreen> {
           battleRecorder: widget.battleRecorder,
           onPlayerLevelsChanged: dexStore.updateLevels,
           cardSharer: widget.cardSharer,
+          firstBattleBornMonster: null,
         ),
       ),
     );
