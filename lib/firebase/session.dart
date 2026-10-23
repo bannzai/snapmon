@@ -36,7 +36,7 @@ Future<String> startSession({
   return uid;
 }
 
-/// [startSession] を Firebase の実体で実行する。アプリのルートのログインの画面が開いた時に呼ぶ。
+/// [startSession] を Firebase の実体で実行する。タイトル画面の裏のログインと、ログインの画面 (lib/features/session/session_screen.dart) が呼ぶ。
 Future<String> startSessionWithFirebase() {
   return startSession(
     activateAppCheck: activateAppCheck,

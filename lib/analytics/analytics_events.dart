@@ -12,7 +12,14 @@ enum AnalyticsEvent {
   battleCompleted('battle_completed'),
 
   /// 図鑑のカードかバトルの結果を共有した (目的「バズらせる」の共有数。判定基準へ足す候補)。
-  contentShared('content_shared');
+  contentShared('content_shared'),
+
+  /// タイトル画面を表示した (タイトルから写真を選んだ割合の分母。ログインより前の分はログインが済んだ時に送るため、
+  /// ログインまで進んだ人の表示数になる。扱いは documents/DIRECTION.md「決めたこと」の #46 の行)。
+  titleShown('title_shown'),
+
+  /// タイトル画面のボタンを押した (パラメータ `action`: album / camera / continue)。
+  titleAction('title_action');
 
   const AnalyticsEvent(this.eventName);
 

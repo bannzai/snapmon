@@ -82,7 +82,7 @@ class AccountStore extends ChangeNotifier {
     sessionStore.switchUid(uid: uid);
   });
 
-  /// いまのアカウントを消し、ログインを終える (アプリのルートがログインの画面に戻り、新しい匿名アカウントで始まる。docs/AccountDeletion.md)。
+  /// いまのアカウントを消し、ログインを終える (アプリのルートがタイトル画面に戻り、裏で新しい匿名アカウントにログインする。docs/AccountDeletion.md)。
   /// 削除に失敗した時は、ログインを続けたまま投げる (もう一度削除を選べば続きから消せる)。
   Future<void> delete() => _work(() async {
     await deleteAccount();

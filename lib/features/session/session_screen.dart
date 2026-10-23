@@ -5,8 +5,8 @@ import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_text_styles.dart';
 import 'session_store.dart';
 
-/// Firebase へのログインが済むまで出す画面。開くとログインを始め、
-/// 失敗したらエラーの文言と「もう一度試す」を出してこの画面で止める (ログインせずにアプリに入れない)。
+/// Firebase へのログインが済むまで出す画面。タイトル画面のボタンを押した時にログインが済んでいなければ開く。
+/// 開くとログインを始め、失敗したらエラーの文言と「もう一度試す」を出してこの画面で止める (ログインせずにアプリに入れない)。
 class SessionScreen extends StatefulWidget {
   /// ログインを待つ画面を作る。
   const SessionScreen({
@@ -27,13 +27,22 @@ class SessionScreen extends StatefulWidget {
 }
 
 class _SessionScreenState extends State<SessionScreen> {
+  /// この画面が自分でログインを始めたか。始める前は、タイトルの裏のログインが残した前回のエラーを出さずに
+  /// 「じゅんびしています」を出す (最初の 1 フレームだけ前回のエラーが見えるちらつきを防ぐ)。
+  bool _hasStartedHere = false;
+
   @override
   void initState() {
     super.initState();
     // build の途中で状態を変えて親の ListenableBuilder を作り直させないため、最初のフレームの後に始める
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) => widget.sessionStore.start(),
-    );
+    WidgetsBinding.instance.addPostFrameCallback((_) => _start());
+  }
+
+  Future<void> _start() {
+    if (!_hasStartedHere) {
+      setState(() => _hasStartedHere = true);
+    }
+    return widget.sessionStore.start();
   }
 
   @override
@@ -42,7 +51,7 @@ class _SessionScreenState extends State<SessionScreen> {
       child: ListenableBuilder(
         listenable: widget.sessionStore,
         builder: (context, _) {
-          final error = widget.sessionStore.error;
+          final error = _hasStartedHere ? widget.sessionStore.error : null;
           return ListView(
             padding: const EdgeInsets.fromLTRB(20, 56, 20, 40),
             children: [
@@ -62,10 +71,7 @@ class _SessionScreenState extends State<SessionScreen> {
                   ),
                 ),
                 const SizedBox(height: 32),
-                FilledButton(
-                  onPressed: widget.sessionStore.start,
-                  child: const Text('もう一度試す'),
-                ),
+                FilledButton(onPressed: _start, child: const Text('もう一度試す')),
                 if (kDebugMode && widget.isDebugSkipEnabled) ...[
                   const SizedBox(height: 12),
                   OutlinedButton(

@@ -61,6 +61,14 @@ describe("users/{uid}", () => {
     await assertFails(getDoc(doc(firestore, "users/alice")));
   });
 
+  it("まだ生成していない (users/{uid} の無い) 新しいユーザーも、ログインだけで自分の図鑑と master・definitions を読める", async () => {
+    const firestore = signedInFirestore("dave");
+    await assertSucceeds(getDoc(doc(firestore, "users/dave")));
+    await assertSucceeds(getDoc(doc(firestore, "users/dave/monsters/none")));
+    await assertSucceeds(getDoc(doc(firestore, "master/1")));
+    await assertSucceeds(getDoc(doc(firestore, "definitions/d1")));
+  });
+
   it("monsters・generations・battles と users 自体はクライアントから書けない", async () => {
     const firestore = signedInFirestore("alice");
     await assertFails(setDoc(doc(firestore, "users/alice"), { createdAt: 1 }));

@@ -143,7 +143,7 @@ class SettingsScreen extends StatelessWidget {
     }
   }
 
-  /// 「アカウントを削除」。確かめてから消し、消せたらログインの画面 (アプリのルート) に戻す。
+  /// 「アカウントを削除」。確かめてから消し、消せたらタイトル画面 (アプリのルート) に戻す。
   Future<void> _delete({required BuildContext context}) async {
     final confirmed = await showDialog<bool>(
       context: context,

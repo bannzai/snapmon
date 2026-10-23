@@ -133,7 +133,7 @@ class DeveloperMenuScreen extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.restart_alt),
             title: const Text('新しいアカウントで始め直す'),
-            subtitle: const Text('ログインを終えて最初の画面に戻り 新しい匿名アカウントでログインする'),
+            subtitle: const Text('ログインを終えてタイトルに戻り 新しい匿名アカウントでログインする'),
             onTap: () async {
               Navigator.of(context).popUntil((route) => route.isFirst);
               await sessionStore.reset();

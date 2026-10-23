@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -11,6 +12,7 @@ import 'package:snapmon/domain/master/master_data.dart';
 import 'package:snapmon/features/battle/battle_screen.dart';
 import 'package:snapmon/features/capture/monster_generator.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
+import 'package:snapmon/features/home/home_shell.dart';
 import 'package:snapmon/features/opponent/pvp_client.dart';
 import 'package:snapmon/features/opponent/pvp_opponent.dart';
 import 'package:snapmon/features/session/session_store.dart';
@@ -18,6 +20,7 @@ import 'package:snapmon/features/settings/account_store.dart';
 import 'package:snapmon/features/settings/settings_screen.dart';
 import 'package:snapmon/features/share/card_sharer.dart';
 import 'package:snapmon/features/share/share_cards.dart';
+import 'package:snapmon/features/title/title_screen.dart';
 import 'package:snapmon/sample/sample_data.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
 
@@ -38,6 +41,16 @@ void main() {
   late List<Uri> openedUris;
   late RecordedBattleCalls battleCalls;
   late RecordedGenerationCalls generationCalls;
+
+  /// タイトル画面が Analytics に送ったイベント (呼ばれた順)。
+  late List<({AnalyticsEvent event, Map<String, Object>? parameters})>
+  titleEvents;
+
+  /// [pumpApp]・[pumpHome] のアルバムが返す写真。既定は選んだ。選ばずに閉じた (null) にするテストは [pumpApp] の前に変える。
+  late Uint8List? albumPhoto;
+
+  /// ログインの通信が遅い状態を作る。null 以外なら、ログインは complete するまで終わらない。
+  Completer<void>? startSessionGate;
 
   /// [pumpApp] のバトルの記録の開始が返す battleId と、記録の完了が返すレベル。
   /// 既定はログインしていない時の振る舞い (記録しない)。テストが [pumpApp] の前に変える。
@@ -62,6 +75,8 @@ void main() {
   late Future<void> Function() deleteAccount;
 
   setUp(() {
+    albumPhoto = testPhotoBytes;
+    startSessionGate = null;
     startBattleRecord = () async => null;
     recordedLevels = const {};
     pvpCalls = RecordedPvpCalls();
@@ -79,7 +94,7 @@ void main() {
   /// [sessionStore] に繋いだ、Firebase を呼ばない [AccountStore]。
   AccountStore fakeAccountStore({required SessionStore sessionStore}) =>
       AccountStore(
-    sessionStore: sessionStore,
+        sessionStore: sessionStore,
     linkProviderName: 'Google',
     readLinkedProviderNames: () => linkedProviderNames,
     linkAccount: () {
@@ -96,7 +111,7 @@ void main() {
   /// アルバムから選ぶと、要求 ID ごとに見本のモンスター ([generatedWaxMonster]) をサーバーが保存して図鑑に届けたことにする生成。
   MonsterGenerator appMonsterGenerator() => fakeMonsterGenerator(
     calls: generationCalls,
-    albumPhoto: testPhotoBytes,
+    albumPhoto: albumPhoto,
     uploadError: null,
     requestGeneration: ({required requestId}) async {
       dexStore.applyServerSnapshot(
@@ -128,6 +143,7 @@ void main() {
     return SessionStore(
       startSession: () async {
         startSessionCallCount++;
+        await startSessionGate?.future;
         if (remainingFailureCount > 0) {
           remainingFailureCount--;
           throw Exception('network-request-failed');
@@ -139,13 +155,12 @@ void main() {
     );
   }
 
-  /// iPhone の画面の大きさ (モックの 390 × 844) で [SnapmonApp] を起動する。
-  /// [hasStartedSession] が true なら、前回の起動で済ませたログインを再開した状態で起動する。ログインは先頭から [startSessionFailureCount] 回失敗する。
-  Future<void> pumpApp({
+  /// [pumpApp]・[pumpHome] が使う状態を、iPhone の画面の大きさ (モックの 390 × 844) で作る。
+  /// [hasStartedSession] が true なら、前回の起動で済ませたログインを再開した状態にする。ログインは先頭から [startSessionFailureCount] 回失敗する。
+  Future<void> prepareStores({
     required WidgetTester tester,
     required bool hasStartedSession,
     required int startSessionFailureCount,
-    required bool isDeveloperMenuEnabled,
   }) async {
     tester.view
       ..physicalSize = const Size(390, 844)
@@ -153,6 +168,7 @@ void main() {
     addTearDown(tester.view.reset);
     dexStore = DexStore(definitions: sampleData.definitions);
     generationCalls = RecordedGenerationCalls();
+    titleEvents = [];
     startSessionCallCount = 0;
     sessionStore = fakeSessionStore(
       resumedUid: hasStartedSession ? 'uid-resumed' : null,
@@ -162,6 +178,24 @@ void main() {
     battleCalls = RecordedBattleCalls();
     shareCalls = RecordedShareCalls();
     accountStore = fakeAccountStore(sessionStore: sessionStore);
+  }
+
+  /// [prepareStores] の状態で [SnapmonApp] を起動する (最初の画面はタイトル)。
+  /// タイトルの浮遊・オーラのアニメーションは繰り返して止まらないため、端末の「視差効果を減らす」を有効にして pumpAndSettle を使えるようにする。
+  Future<void> pumpApp({
+    required WidgetTester tester,
+    required bool hasStartedSession,
+    required int startSessionFailureCount,
+    required bool isDeveloperMenuEnabled,
+  }) async {
+    await prepareStores(
+      tester: tester,
+      hasStartedSession: hasStartedSession,
+      startSessionFailureCount: startSessionFailureCount,
+    );
+    tester.platformDispatcher.accessibilityFeaturesTestValue =
+        const FakeAccessibilityFeatures(disableAnimations: true);
+    addTearDown(tester.platformDispatcher.clearAccessibilityFeaturesTestValue);
     await tester.pumpWidget(
       SnapmonApp(
         sampleData: sampleData,
@@ -185,13 +219,463 @@ void main() {
           shareResultStatus: shareResultStatus,
         ),
         accountStore: accountStore,
+        logEvent: ({required event, required parameters}) async =>
+            titleEvents.add((event: event, parameters: parameters)),
       ),
     );
     await tester.pumpAndSettle();
   }
 
-  group('ログイン', () {
-    testWidgets('初回起動は年齢などを聞かずに匿名ログインし、撮る画面に進む', (tester) async {
+  /// [prepareStores] の状態で、タイトル画面からログインを済ませて入った後の下タブの画面 ([HomeShell]) を撮るタブから開く。
+  /// タイトルから入る経路はタイトル画面のテストが固定するため、下タブより先の画面のテストはここから始める。
+  Future<void> pumpHome({
+    required WidgetTester tester,
+    required bool hasStartedSession,
+    required int startSessionFailureCount,
+    required bool isDeveloperMenuEnabled,
+  }) async {
+    await prepareStores(
+      tester: tester,
+      hasStartedSession: hasStartedSession,
+      startSessionFailureCount: startSessionFailureCount,
+    );
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: snapmonThemeData(),
+        home: HomeShell(
+          initialTab: HomeTab.capture,
+          sampleData: sampleData,
+          dexStore: dexStore,
+          sessionStore: sessionStore,
+          openUrl: ({required uri}) async {
+            openedUris.add(uri);
+            return true;
+          },
+          isDeveloperMenuEnabled: isDeveloperMenuEnabled,
+          battleRecorder: fakeBattleRecorder(
+            calls: battleCalls,
+            startBattleRecord: startBattleRecord,
+            recordedLevels: recordedLevels,
+          ),
+          monsterGenerator: appMonsterGenerator(),
+          pvpClient: pvpClient,
+          cardSharer: fakeCardSharer(
+            calls: shareCalls,
+            artImage: null,
+            shareResultStatus: shareResultStatus,
+          ),
+          accountStore: accountStore,
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+  }
+
+  /// タイトル画面の「写真から選んではじめる」を押す。
+  Future<void> tapStartFromAlbum({required WidgetTester tester}) async {
+    await tester.tap(find.byKey(const Key('title-album')));
+    await tester.pumpAndSettle();
+  }
+
+  /// 図鑑に見本を入れて、タイトル画面の「つづきから」で下タブの画面に入る。
+  Future<void> enterHomeFromTitle({required WidgetTester tester}) async {
+    dexStore.replaceAll(monsters: sampleData.monsters);
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('title-continue')));
+    await tester.pumpAndSettle();
+  }
+
+  group('タイトル画面', () {
+    testWidgets('起動直後にタイトル画面が出て、年齢などの入力を挟まずに裏で匿名ログインする', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: false,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      expect(find.text('snapmon'), findsOneWidget);
+      expect(find.text('身の回りの物が\nモンスターになって戦う'), findsOneWidget);
+      expect(find.text('写真から選んではじめる'), findsOneWidget);
+      expect(find.text('$minimumAge 歳以上が対象 · '), findsOneWidget);
+      expect(find.byType(TextField), findsNothing);
+      expect(find.byKey(const Key('tab-dex')), findsNothing);
+      // タイトルを見ている間に裏でログインし、ログインより前に溜めたタイトルの表示をログインの後に送る
+      expect(startSessionCallCount, 1);
+      expect(sessionStore.uid, 'uid-1');
+      expect(titleEvents.map((logged) => logged.event), [
+        AnalyticsEvent.titleShown,
+      ]);
+    });
+
+    testWidgets('図鑑が空なら「つづきから」が無く、図鑑に 1 体入ると「つづきから (図鑑 1)」が出る', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      expect(find.byKey(const Key('title-continue')), findsNothing);
+
+      // 図鑑は Firestore から後から届く
+      dexStore.applyServerSnapshot(
+        monsters: [generatedWaxMonster(monsterId: 'm1')],
+        partyMonsterIds: null,
+        definitions: definitionsWithWax(base: sampleData.definitions),
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('つづきから (図鑑 1)'), findsOneWidget);
+    });
+
+    testWidgets('図鑑の読み込みに失敗した時は数なしの「つづきから」が出て、図鑑の「もう一度読み込む」に行ける', (
+      tester,
+    ) async {
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      expect(find.byKey(const Key('title-continue')), findsNothing);
+      dexStore
+        ..connectServer(
+          savePartyMonsterIds: ({required monsterIds}) async {},
+          refreshDefinitions: () async => dexStore.applyServerSnapshot(
+            monsters: sampleData.monsters,
+            partyMonsterIds: null,
+            definitions: sampleData.definitions,
+          ),
+        )
+        ..reportServerError(error: StateError('通信できません'));
+      await tester.pumpAndSettle();
+      expect(find.text('つづきから'), findsOneWidget);
+
+      await tester.tap(find.byKey(const Key('title-continue')));
+      await tester.pumpAndSettle();
+      expect(find.text('Bad state: 通信できません'), findsOneWidget);
+      await tester.tap(find.text('もう一度読み込む'));
+      await tester.pumpAndSettle();
+      expect(
+        find.text('${sampleData.monsters.length} 体 · 手持ち 0 体'),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('カメラが無い時は「カメラで撮ってはじめる」が無い', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      // fakeMonsterGenerator のカメラの一覧は空
+      expect(find.text('カメラで撮ってはじめる'), findsNothing);
+      expect(find.byKey(const Key('title-album')), findsOneWidget);
+    });
+
+    testWidgets('「写真から選んではじめる」で写真を選ぶと生成の画面に進み、生まれたカードが出て、手持ちに入れると図鑑に入る', (
+      tester,
+    ) async {
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      await tapStartFromAlbum(tester: tester);
+      final bornMonster = generatedWaxMonster(
+        monsterId: 'generated-request-1',
+      ).definition;
+      expect(find.text('あたらしい なかま'), findsOneWidget);
+      expect(find.text(bornMonster.name), findsOneWidget);
+      expect(generationCalls.uploadedRequestIds, ['request-1']);
+      expect(
+        generationCalls.loggedEvents.single.event,
+        AnalyticsEvent.monsterGenerated,
+      );
+      expect(titleEvents.map((logged) => logged.event), [
+        AnalyticsEvent.titleShown,
+        AnalyticsEvent.titleAction,
+      ]);
+      expect(titleEvents.last.parameters, {'action': 'album'});
+
+      await tester.tap(find.text('手持ちに入れる'));
+      await tester.pumpAndSettle();
+      expect(find.text('1 体 · 手持ち 1 体'), findsOneWidget);
+      expect(find.byKey(const Key('tab-capture')), findsOneWidget);
+    });
+
+    testWidgets('生まれた画面の「もう 1 体撮る」でタイトルではなく撮る画面に進む', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      await tapStartFromAlbum(tester: tester);
+      await tester.tap(find.text('もう 1 体撮る'));
+      await tester.pumpAndSettle();
+      expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
+      expect(find.text('図鑑 1'), findsOneWidget);
+    });
+
+    testWidgets('「写真から選んではじめる」で選ばずに閉じた時はタイトルに留まる', (tester) async {
+      albumPhoto = null;
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      await tapStartFromAlbum(tester: tester);
+      expect(find.text('写真から選んではじめる'), findsOneWidget);
+      expect(find.text('あたらしい なかま'), findsNothing);
+      expect(generationCalls.uploadedRequestIds, isEmpty);
+      // 押したことは選ばなくても数える (押した数に対する生成の数を見るため)
+      expect(titleEvents.last.event, AnalyticsEvent.titleAction);
+      expect(titleEvents.last.parameters, {'action': 'album'});
+    });
+
+    testWidgets('写真を選んだ後にログインが失敗している時は「つながりませんでした」と再試行が出て、再試行で成功すると生成に進む', (
+      tester,
+    ) async {
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: false,
+        // タイトルの裏のログインと、ボタンを押した時のログイン (閉じて押し直すので 2 回) の計 3 回失敗する
+        startSessionFailureCount: 3,
+        isDeveloperMenuEnabled: false,
+      );
+      // タイトルを見ている間に裏でログインを始める。失敗はタイトルに出さない
+      expect(startSessionCallCount, 1);
+      expect(find.text('つながりませんでした'), findsNothing);
+      expect(find.text('写真から選んではじめる'), findsOneWidget);
+
+      // ボタンを押した時のログインが終わるまで、ログインの画面は前回 (裏のログイン) のエラーではなく「じゅんびしています」を出す
+      startSessionGate = Completer<void>();
+      await tester.tap(find.byKey(const Key('title-album')));
+      await tester.pump();
+      await tester.pump();
+      expect(startSessionCallCount, 2);
+      expect(find.text('じゅんびしています'), findsOneWidget);
+      expect(find.text('つながりませんでした'), findsNothing);
+      startSessionGate!.complete();
+      startSessionGate = null;
+      await tester.pumpAndSettle();
+      expect(find.text('つながりませんでした'), findsOneWidget);
+      expect(find.text('Exception: network-request-failed'), findsOneWidget);
+      expect(find.text('ログインせずに進む (DEBUG)'), findsNothing);
+      expect(find.text('あたらしい なかま'), findsNothing);
+      expect(sessionStore.uid, isNull);
+
+      // 閉じるでタイトルに戻れる (Web には OS の戻る操作が無いため)。写真の選択は無かったことになり、生成には進まない
+      await tester.tap(find.byTooltip('閉じる'));
+      await tester.pumpAndSettle();
+      expect(find.text('写真から選んではじめる'), findsOneWidget);
+      expect(find.text('つながりませんでした'), findsNothing);
+      expect(generationCalls.uploadedRequestIds, isEmpty);
+
+      await tester.tap(find.byKey(const Key('title-album')));
+      await tester.pumpAndSettle();
+      expect(find.text('つながりませんでした'), findsOneWidget);
+      await tester.tap(find.text('もう一度試す'));
+      await tester.pumpAndSettle();
+      expect(startSessionCallCount, 4);
+      expect(sessionStore.uid, 'uid-1');
+      expect(find.text('あたらしい なかま'), findsOneWidget);
+    });
+
+    testWidgets('裏のログインが終わる前に写真を選ぶと「じゅんびしています」を出し、ログインが終わると生成に進む', (
+      tester,
+    ) async {
+      startSessionGate = Completer<void>();
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: false,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      expect(startSessionCallCount, 1);
+      await tester.tap(find.byKey(const Key('title-album')));
+      // ログインの画面の進捗の表示は止まらないため、pumpAndSettle を使わず 1 フレームずつ進める
+      await tester.pump();
+      await tester.pump();
+      expect(find.text('じゅんびしています'), findsOneWidget);
+      // 裏のログインが途中なので、ログインの画面が start を呼んでも 2 回目のログインは始まらない
+      expect(startSessionCallCount, 1);
+
+      startSessionGate!.complete();
+      await tester.pumpAndSettle();
+      expect(sessionStore.uid, 'uid-1');
+      expect(find.text('あたらしい なかま'), findsOneWidget);
+    });
+
+    testWidgets('「つづきから」を押すと下タブの画面 (撮る・図鑑・対戦のタブ) が図鑑から出る', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      await enterHomeFromTitle(tester: tester);
+      expect(find.byKey(const Key('tab-dex')), findsOneWidget);
+      expect(find.byKey(const Key('tab-capture')), findsOneWidget);
+      expect(find.byKey(const Key('tab-opponent')), findsOneWidget);
+      expect(
+        find.text('${sampleData.monsters.length} 体 · 手持ち 3 体'),
+        findsOneWidget,
+      );
+      expect(titleEvents.last.parameters, {'action': 'continue'});
+    });
+
+    testWidgets('図鑑が空でも、タイトルの設定から写真を選ばずにデータの引き継ぎとアカウントの削除に行ける', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      expect(find.byKey(const Key('title-continue')), findsNothing);
+      await tester.tap(find.byTooltip('設定'));
+      await tester.pumpAndSettle();
+      expect(find.text('設定'), findsOneWidget);
+      expect(find.text('データを引き継ぐ'), findsOneWidget);
+      expect(find.text('アカウントを削除'), findsOneWidget);
+      expect(generationCalls.uploadedRequestIds, isEmpty);
+
+      // 戻るとタイトルに戻る (下タブには入らない)
+      await tester.pageBack();
+      await tester.pumpAndSettle();
+      expect(find.text('写真から選んではじめる'), findsOneWidget);
+      expect(find.byKey(const Key('tab-dex')), findsNothing);
+    });
+
+    testWidgets('タイトルの設定からアカウントを削除した後は、次のログインが済んだ時に title_shown を送り直す', (
+      tester,
+    ) async {
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      expect(titleEvents.map((logged) => logged.event), [
+        AnalyticsEvent.titleShown,
+      ]);
+      await tester.tap(find.byTooltip('設定'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('アカウントを削除'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('削除する'));
+      await tester.pumpAndSettle();
+      expect(accountCalls, ['delete']);
+      expect(sessionStore.uid, isNull);
+      // タイトルは作り直されないが、開き直したのと同じに数える。ログインが済むまでは送らない
+      expect(find.text('写真から選んではじめる'), findsOneWidget);
+      expect(titleEvents, hasLength(1));
+
+      await tapStartFromAlbum(tester: tester);
+      expect(sessionStore.uid, 'uid-1');
+      expect(titleEvents.map((logged) => logged.event), [
+        AnalyticsEvent.titleShown,
+        AnalyticsEvent.titleShown,
+        AnalyticsEvent.titleAction,
+      ]);
+    });
+
+    testWidgets('利用規約とプライバシーは設定画面と同じ URL を開く', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      await tester.tap(find.text('利用規約'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('プライバシー'));
+      await tester.pumpAndSettle();
+      expect(openedUris, [termsUri, privacyPolicyUri]);
+    });
+
+    testWidgets('前回の起動でログインを済ませた時は、タイトルでログインを始めない', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      expect(startSessionCallCount, 0);
+      expect(find.text('写真から選んではじめる'), findsOneWidget);
+    });
+
+    testWidgets('端末の文字を 2 倍にしてもタイトルのボタンがはみ出さず、写真から選べる', (tester) async {
+      tester.platformDispatcher.textScaleFactorTestValue = 2;
+      addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      // はみ出しは RenderFlex のエラーとして報告されるため、例外が無いことで確かめる
+      expect(tester.takeException(), isNull);
+      expect(find.text('写真から選んではじめる'), findsOneWidget);
+
+      await tester.scrollUntilVisible(
+        find.byKey(const Key('title-album')),
+        100,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tapStartFromAlbum(tester: tester);
+      expect(find.text('あたらしい なかま'), findsOneWidget);
+    });
+
+    testWidgets('高さの低い画面でもタイトルがはみ出さず、スクロールして写真から選べる', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      tester.view.physicalSize = const Size(844, 390);
+      await tester.pumpAndSettle();
+      // はみ出しは RenderFlex のエラーとして報告されるため、例外が無いことで確かめる
+      expect(tester.takeException(), isNull);
+
+      await tester.scrollUntilVisible(
+        find.byKey(const Key('title-album')),
+        100,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tapStartFromAlbum(tester: tester);
+      expect(find.text('あたらしい なかま'), findsOneWidget);
+    });
+  });
+
+  group('ログイン (タイトルのボタンを押した時)', () {
+    testWidgets('開発者メニューが有効な時だけ、ログインに失敗した画面からログインせずに進める', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: false,
+        // タイトルの裏のログインと、ボタンを押した時のログインの 2 回失敗する
+        startSessionFailureCount: 2,
+        isDeveloperMenuEnabled: true,
+      );
+      await tapStartFromAlbum(tester: tester);
+      expect(find.text('つながりませんでした'), findsOneWidget);
+      await tester.tap(find.text('ログインせずに進む (DEBUG)'));
+      await tester.pumpAndSettle();
+      expect(find.text('あたらしい なかま'), findsOneWidget);
+
+      await tester.tap(find.text('手持ちに入れる'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byTooltip('設定'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('開発者メニュー'));
+      await tester.pumpAndSettle();
+      expect(find.text('未ログイン (ログインを DEBUG で飛ばした)'), findsOneWidget);
+    });
+
+    testWidgets('ログインが済んでいない時は、タイトルを開くと裏でログインを始める', (tester) async {
       await pumpApp(
         tester: tester,
         hasStartedSession: false,
@@ -200,108 +684,19 @@ void main() {
       );
       expect(startSessionCallCount, 1);
       expect(sessionStore.uid, 'uid-1');
-      expect(find.byType(TextField), findsNothing);
-      expect(find.byKey(const Key('tab-capture')), findsOneWidget);
-      expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
-    });
+      // ログインが済んでもタイトルに留まり、ボタンを押すまで下タブに入らない
+      expect(find.text('写真から選んではじめる'), findsOneWidget);
+      expect(find.byKey(const Key('tab-dex')), findsNothing);
 
-    testWidgets('ログインの途中は読み込み中を出し、下タブの画面に入らない', (tester) async {
-      final signingIn = Completer<String>();
-      tester.view
-        ..physicalSize = const Size(390, 844)
-        ..devicePixelRatio = 1;
-      addTearDown(tester.view.reset);
-      final pendingSessionStore = SessionStore(
-        startSession: () => signingIn.future,
-        endSession: () async {},
-        resumedUid: null,
-      );
-      await tester.pumpWidget(
-        SnapmonApp(
-          sampleData: sampleData,
-          dexStore: DexStore(definitions: sampleData.definitions),
-          sessionStore: pendingSessionStore,
-          openUrl: ({required uri}) async => true,
-          isDeveloperMenuEnabled: false,
-          battleRecorder: fakeBattleRecorder(
-            calls: RecordedBattleCalls(),
-            startBattleRecord: () async => null,
-            recordedLevels: const {},
-          ),
-          monsterGenerator: appMonsterGenerator(),
-          pvpClient: signedOutPvpClient(calls: RecordedPvpCalls()),
-          cardSharer: fakeCardSharer(
-            calls: RecordedShareCalls(),
-            artImage: null,
-            shareResultStatus: ShareResultStatus.success,
-          ),
-          accountStore: fakeAccountStore(sessionStore: pendingSessionStore),
-        ),
-      );
-      await tester.pump();
-      expect(find.text('じゅんびしています'), findsOneWidget);
-      expect(find.byKey(const Key('tab-capture')), findsNothing);
-
-      signingIn.complete('uid-1');
-      await tester.pumpAndSettle();
-      expect(find.byKey(const Key('tab-capture')), findsOneWidget);
-    });
-
-    testWidgets('ログインに失敗したらエラーと「もう一度試す」を出して止まり、やり直して成功したら撮る画面に進む', (
-      tester,
-    ) async {
-      await pumpApp(
-        tester: tester,
-        hasStartedSession: false,
-        startSessionFailureCount: 1,
-        isDeveloperMenuEnabled: false,
-      );
-      expect(find.text('つながりませんでした'), findsOneWidget);
-      expect(find.text('Exception: network-request-failed'), findsOneWidget);
-      expect(find.byKey(const Key('tab-capture')), findsNothing);
-      expect(find.text('ログインせずに進む (DEBUG)'), findsNothing);
-      expect(sessionStore.uid, isNull);
-
-      await tester.tap(find.text('もう一度試す'));
-      await tester.pumpAndSettle();
-      expect(startSessionCallCount, 2);
-      expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
-    });
-
-    testWidgets('開発者メニューが有効な時だけ、ログインに失敗した画面からログインせずに進める', (tester) async {
-      await pumpApp(
-        tester: tester,
-        hasStartedSession: false,
-        startSessionFailureCount: 1,
-        isDeveloperMenuEnabled: true,
-      );
-      expect(find.text('つながりませんでした'), findsOneWidget);
-      await tester.tap(find.text('ログインせずに進む (DEBUG)'));
-      await tester.pumpAndSettle();
-      expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
-
-      await tester.tap(find.byTooltip('設定'));
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('開発者メニュー'));
-      await tester.pumpAndSettle();
-      expect(find.text('未ログイン (ログインを DEBUG で飛ばした)'), findsOneWidget);
-    });
-
-    testWidgets('前回の起動でログインを済ませた時は、ログインせずに撮る画面から始まる', (tester) async {
-      await pumpApp(
-        tester: tester,
-        hasStartedSession: true,
-        startSessionFailureCount: 0,
-        isDeveloperMenuEnabled: false,
-      );
-      expect(startSessionCallCount, 0);
-      expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
+      await tapStartFromAlbum(tester: tester);
+      expect(startSessionCallCount, 1);
+      expect(find.text('あたらしい なかま'), findsOneWidget);
     });
   });
 
   group('下タブと画面の遷移', () {
     testWidgets('下タブで図鑑・撮る・対戦を切り替える', (tester) async {
-      await pumpApp(
+      await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
@@ -324,7 +719,7 @@ void main() {
     });
 
     testWidgets('アルバムから選ぶと生成して生まれた画面が開き、手持ちに入れると図鑑に戻る', (tester) async {
-      await pumpApp(
+      await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
@@ -355,7 +750,7 @@ void main() {
     });
 
     testWidgets('生まれた画面の「もう 1 体撮る」で撮る画面に戻る', (tester) async {
-      await pumpApp(
+      await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
@@ -370,7 +765,7 @@ void main() {
     });
 
     testWidgets('生まれた画面から図鑑のカードを形を選んで共有し、共有イベントを送る', (tester) async {
-      await pumpApp(
+      await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
@@ -413,7 +808,7 @@ void main() {
 
     testWidgets('図鑑の詳細から共有シートを閉じただけの時は共有イベントを送らない', (tester) async {
       shareResultStatus = ShareResultStatus.dismissed;
-      await pumpApp(
+      await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
@@ -438,7 +833,7 @@ void main() {
     });
 
     testWidgets('描いた画像を見せた後に「やめる」を押した時は共有しない', (tester) async {
-      await pumpApp(
+      await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
@@ -467,7 +862,7 @@ void main() {
     });
 
     testWidgets('図鑑の詳細の共有で形を選ばずに閉じた時は共有しない', (tester) async {
-      await pumpApp(
+      await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
@@ -491,7 +886,7 @@ void main() {
     });
 
     testWidgets('図鑑のモンスターを押すとカードが開く', (tester) async {
-      await pumpApp(
+      await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
@@ -512,7 +907,7 @@ void main() {
     testWidgets('端末の文字を 2 倍にしても図鑑のカードがはみ出さない', (tester) async {
       tester.platformDispatcher.textScaleFactorTestValue = 2;
       addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
-      await pumpApp(
+      await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
@@ -530,7 +925,7 @@ void main() {
     });
 
     testWidgets('高さの低い画面でも撮る画面がはみ出さず、スクロールしてアルバムから選べる', (tester) async {
-      await pumpApp(
+      await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
@@ -552,7 +947,7 @@ void main() {
     });
 
     testWidgets('カメラが無い時はファインダーにそのことを出し、シャッターはアルバムへ案内する', (tester) async {
-      await pumpApp(
+      await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
@@ -567,7 +962,7 @@ void main() {
     });
 
     testWidgets('手持ちが 3 体の時に手持ちに入れようとすると、選んだ手持ちと入れ替わる', (tester) async {
-      await pumpApp(
+      await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
@@ -600,7 +995,7 @@ void main() {
     });
 
     testWidgets('サーバーの図鑑では挑む前に定義を読み直し、読み直した定義で戦う', (tester) async {
-      await pumpApp(
+      await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
@@ -644,7 +1039,7 @@ void main() {
     });
 
     testWidgets('挑む前の定義の読み直しを待っている間は、挑む操作を受け付けない', (tester) async {
-      await pumpApp(
+      await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
@@ -679,7 +1074,7 @@ void main() {
     });
 
     testWidgets('図鑑の読み込みに失敗した時は、もう一度読み込むで読み直して図鑑を反映する', (tester) async {
-      await pumpApp(
+      await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
@@ -708,7 +1103,7 @@ void main() {
     });
 
     testWidgets('挑む前の定義の読み直しに失敗したら、エラーをそのまま出してバトルを始めない', (tester) async {
-      await pumpApp(
+      await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
@@ -736,7 +1131,7 @@ void main() {
     });
 
     testWidgets('見本の定義に無い属性・技を持つ生成したモンスターも、カードを開けて CPU と戦える', (tester) async {
-      await pumpApp(
+      await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
@@ -776,7 +1171,7 @@ void main() {
     });
 
     testWidgets('手持ちが 3 体の時も、カードから外して別のモンスターを入れられる', (tester) async {
-      await pumpApp(
+      await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
@@ -804,7 +1199,7 @@ void main() {
     });
 
     testWidgets('手持ちがいない時は挑めない', (tester) async {
-      await pumpApp(
+      await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
@@ -826,7 +1221,7 @@ void main() {
     });
 
     testWidgets('挑むとバトル画面が開き、にげると対戦相手の画面、交代で図鑑に戻る', (tester) async {
-      await pumpApp(
+      await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
@@ -873,7 +1268,7 @@ void main() {
   });
 
   testWidgets('CPU トレーナーに挑むと技を選んで決着まで戦え、戦ったモンスターのレベルが上がる', (tester) async {
-    await pumpApp(
+    await pumpHome(
       tester: tester,
       hasStartedSession: true,
       startSessionFailureCount: 0,
@@ -939,7 +1334,7 @@ void main() {
       for (final monster in sampleData.monsters.take(3))
         monster.definition.id: 50,
     };
-    await pumpApp(
+    await pumpHome(
       tester: tester,
       hasStartedSession: true,
       startSessionFailureCount: 0,
@@ -994,7 +1389,7 @@ void main() {
         blockUser: () async {},
         updateDisplayName: ({required displayName}) async => displayName,
       );
-      await pumpApp(
+      await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
@@ -1053,7 +1448,7 @@ void main() {
   testWidgets('端末の文字を 2 倍にしてもバトル画面の技のボタンがはみ出さない', (tester) async {
     tester.platformDispatcher.textScaleFactorTestValue = 2;
     addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
-    await pumpApp(
+    await pumpHome(
       tester: tester,
       hasStartedSession: true,
       startSessionFailureCount: 0,
@@ -1123,7 +1518,7 @@ void main() {
 
   group('設定画面', () {
     testWidgets('お問い合わせと法務ドキュメントのリンクを開く', (tester) async {
-      await pumpApp(
+      await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
@@ -1201,7 +1596,7 @@ void main() {
           return displayName.trim();
         },
       );
-      await pumpApp(
+      await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
@@ -1238,7 +1633,7 @@ void main() {
     });
 
     testWidgets('ログインが無い時は表示名の項目を出さない', (tester) async {
-      await pumpApp(
+      await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
@@ -1252,7 +1647,7 @@ void main() {
 
     /// ログインを済ませた状態で起動し、設定画面を開く。
     Future<void> openSettings({required WidgetTester tester}) async {
-      await pumpApp(
+      await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
@@ -1263,9 +1658,17 @@ void main() {
     }
 
     testWidgets(
-      'アカウントを削除は、確認ダイアログで「削除する」を選ぶと消してから新しい匿名アカウントで始まる (docs/AccountDeletion.md の手順)',
+      'アカウントを削除は、確認ダイアログで「削除する」を選ぶと消してからタイトルに戻り、裏で新しい匿名アカウントにログインする (docs/AccountDeletion.md の手順)',
       (tester) async {
-        await openSettings(tester: tester);
+        await pumpApp(
+          tester: tester,
+          hasStartedSession: true,
+          startSessionFailureCount: 0,
+          isDeveloperMenuEnabled: false,
+        );
+        await enterHomeFromTitle(tester: tester);
+        await tester.tap(find.byTooltip('設定'));
+        await tester.pumpAndSettle();
         final endSessionCallCountBeforeDeletion = endSessionCallCount;
         await tester.tap(find.text('アカウントを削除'));
         await tester.pumpAndSettle();
@@ -1276,9 +1679,12 @@ void main() {
 
         expect(accountCalls, ['delete']);
         expect(endSessionCallCount, endSessionCallCountBeforeDeletion + 1);
+        expect(find.text('写真から選んではじめる'), findsOneWidget);
+        expect(find.byKey(const Key('tab-dex')), findsNothing);
         expect(startSessionCallCount, 1);
         expect(sessionStore.uid, 'uid-1');
-        expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
+        await tapStartFromAlbum(tester: tester);
+        expect(find.text('あたらしい なかま'), findsOneWidget);
       },
     );
 
@@ -1402,7 +1808,7 @@ void main() {
         fetchDisplayName: signedInPvpClient.fetchDisplayName,
         updateDisplayName: signedInPvpClient.updateDisplayName,
       );
-      await pumpApp(
+      await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
@@ -1439,14 +1845,14 @@ void main() {
     });
 
     testWidgets('ログインを飛ばした時 (DEBUG) は、データを引き継ぐとアカウントを削除を押せない', (tester) async {
-      await pumpApp(
+      await pumpHome(
         tester: tester,
         hasStartedSession: false,
-        startSessionFailureCount: 1,
+        startSessionFailureCount: 0,
         isDeveloperMenuEnabled: true,
       );
-      await tester.tap(find.text('ログインせずに進む (DEBUG)'));
-      await tester.pumpAndSettle();
+      // タイトルのログインの失敗の画面で「ログインせずに進む (DEBUG)」を押した状態
+      sessionStore.skipForDebug();
       await tester.tap(find.byTooltip('設定'));
       await tester.pumpAndSettle();
 
@@ -1459,7 +1865,7 @@ void main() {
     });
 
     testWidgets('開発者メニューは無効の時に出ない', (tester) async {
-      await pumpApp(
+      await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
@@ -1471,7 +1877,7 @@ void main() {
     });
 
     testWidgets('開発者メニューで見本の投入と図鑑のクリアができる', (tester) async {
-      await pumpApp(
+      await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
@@ -1494,7 +1900,7 @@ void main() {
     });
 
     testWidgets('サーバーの図鑑に繋いでいる時は、開発者メニューの見本の投入と図鑑のクリアを使えない', (tester) async {
-      await pumpApp(
+      await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
@@ -1515,7 +1921,7 @@ void main() {
     });
 
     testWidgets('開発者メニューの見本の写真から生成すると、生まれた画面が開く', (tester) async {
-      await pumpApp(
+      await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
@@ -1533,26 +1939,31 @@ void main() {
       });
     });
 
-    testWidgets('開発者メニューで新しいアカウントで始め直すと、ログインを終えて初回起動と同じくログインからやり直す', (
-      tester,
-    ) async {
-      endSessionCallCount = 0;
-      await pumpApp(
-        tester: tester,
-        hasStartedSession: true,
-        startSessionFailureCount: 0,
-        isDeveloperMenuEnabled: true,
-      );
-      await tester.tap(find.byTooltip('設定'));
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('開発者メニュー'));
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('新しいアカウントで始め直す'));
-      await tester.pumpAndSettle();
-      expect(endSessionCallCount, 1);
-      expect(startSessionCallCount, 1);
-      expect(sessionStore.uid, 'uid-1');
-      expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
-    });
+    testWidgets(
+      '開発者メニューで新しいアカウントで始め直すと、ログインを終えてタイトルに戻り、初回起動と同じく裏でログインする',
+      (tester) async {
+        endSessionCallCount = 0;
+        await pumpApp(
+          tester: tester,
+          hasStartedSession: true,
+          startSessionFailureCount: 0,
+          isDeveloperMenuEnabled: true,
+        );
+        await enterHomeFromTitle(tester: tester);
+        await tester.tap(find.byTooltip('設定'));
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('開発者メニュー'));
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('新しいアカウントで始め直す'));
+        await tester.pumpAndSettle();
+        expect(find.text('写真から選んではじめる'), findsOneWidget);
+        expect(endSessionCallCount, 1);
+        expect(startSessionCallCount, 1);
+        expect(sessionStore.uid, 'uid-1');
+
+        await tapStartFromAlbum(tester: tester);
+        expect(find.text('あたらしい なかま'), findsOneWidget);
+      },
+    );
   });
 }
