@@ -139,6 +139,19 @@ class DeveloperMenuScreen extends StatelessWidget {
               await sessionStore.reset();
             },
           ),
+          // ログインに成功しても App Check の debug token が未登録だと Functions に拒否されるため、
+          // サーバーに繋がずに見本の図鑑・バトルを確かめる経路を残す
+          ListTile(
+            leading: const Icon(Icons.cloud_off_outlined),
+            title: const Text('ログインせずに使う'),
+            subtitle: const Text('ログインを終えてタイトルに戻り サーバーに繋がずに見本で動作を確かめる'),
+            onTap: () async {
+              Navigator.of(context).popUntil((route) => route.isFirst);
+              await sessionStore.reset();
+              // タイトルが裏のログインを始める前に、ログインを飛ばした状態にする
+              sessionStore.skipForDebug();
+            },
+          ),
           const Padding(
             padding: EdgeInsets.fromLTRB(20, 16, 20, 24),
             child: Text(

@@ -52,7 +52,7 @@ class SessionStore extends ChangeNotifier {
     }
   }
 
-  /// ログインせずに下タブの画面へ入る。DEBUG ビルドの失敗の画面だけが使う
+  /// ログインせずに下タブの画面へ入る。DEBUG ビルドのログインの失敗の画面と開発者メニューの「ログインせずに使う」だけが使う
   /// (Functions のデプロイや App Check の登録が済んでいない検証環境でも、ほかの画面の動作確認を止めないため)。
   void skipForDebug() {
     _isSkippedForDebug = true;

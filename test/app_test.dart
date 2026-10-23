@@ -95,18 +95,18 @@ void main() {
   AccountStore fakeAccountStore({required SessionStore sessionStore}) =>
       AccountStore(
         sessionStore: sessionStore,
-    linkProviderName: 'Google',
-    readLinkedProviderNames: () => linkedProviderNames,
-    linkAccount: () {
-      accountCalls.add('link');
-      return linkAccount();
-    },
-    discardCurrentAccount: () async => accountCalls.add('discard'),
-    deleteAccount: () {
-      accountCalls.add('delete');
-      return deleteAccount();
-    },
-  );
+        linkProviderName: 'Google',
+        readLinkedProviderNames: () => linkedProviderNames,
+        linkAccount: () {
+          accountCalls.add('link');
+          return linkAccount();
+        },
+        discardCurrentAccount: () async => accountCalls.add('discard'),
+        deleteAccount: () {
+          accountCalls.add('delete');
+          return deleteAccount();
+        },
+      );
 
   /// アルバムから選ぶと、要求 ID ごとに見本のモンスター ([generatedWaxMonster]) をサーバーが保存して図鑑に届けたことにする生成。
   MonsterGenerator appMonsterGenerator() => fakeMonsterGenerator(
@@ -1562,7 +1562,9 @@ void main() {
               ),
               openUrl: openUrl,
               isDeveloperMenuEnabled: false,
-              accountStore: fakeAccountStore(sessionStore: settingsSessionStore),
+              accountStore: fakeAccountStore(
+                sessionStore: settingsSessionStore,
+              ),
             ),
           ),
         );
@@ -1939,31 +1941,54 @@ void main() {
       });
     });
 
-    testWidgets(
-      '開発者メニューで新しいアカウントで始め直すと、ログインを終えてタイトルに戻り、初回起動と同じく裏でログインする',
-      (tester) async {
-        endSessionCallCount = 0;
-        await pumpApp(
-          tester: tester,
-          hasStartedSession: true,
-          startSessionFailureCount: 0,
-          isDeveloperMenuEnabled: true,
-        );
-        await enterHomeFromTitle(tester: tester);
-        await tester.tap(find.byTooltip('設定'));
-        await tester.pumpAndSettle();
-        await tester.tap(find.text('開発者メニュー'));
-        await tester.pumpAndSettle();
-        await tester.tap(find.text('新しいアカウントで始め直す'));
-        await tester.pumpAndSettle();
-        expect(find.text('写真から選んではじめる'), findsOneWidget);
-        expect(endSessionCallCount, 1);
-        expect(startSessionCallCount, 1);
-        expect(sessionStore.uid, 'uid-1');
+    testWidgets('開発者メニューで新しいアカウントで始め直すと、ログインを終えてタイトルに戻り、初回起動と同じく裏でログインする', (
+      tester,
+    ) async {
+      endSessionCallCount = 0;
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: true,
+      );
+      await enterHomeFromTitle(tester: tester);
+      await tester.tap(find.byTooltip('設定'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('開発者メニュー'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('新しいアカウントで始め直す'));
+      await tester.pumpAndSettle();
+      expect(find.text('写真から選んではじめる'), findsOneWidget);
+      expect(endSessionCallCount, 1);
+      expect(startSessionCallCount, 1);
+      expect(sessionStore.uid, 'uid-1');
 
-        await tapStartFromAlbum(tester: tester);
-        expect(find.text('あたらしい なかま'), findsOneWidget);
-      },
-    );
+      await tapStartFromAlbum(tester: tester);
+      expect(find.text('あたらしい なかま'), findsOneWidget);
+    });
+
+    testWidgets('開発者メニューでログインせずに使うと、ログインを終えてタイトルに戻り、ログインし直さずに見本の図鑑を使える', (
+      tester,
+    ) async {
+      endSessionCallCount = 0;
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: true,
+      );
+      await enterHomeFromTitle(tester: tester);
+      await tester.tap(find.byTooltip('設定'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('開発者メニュー'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('ログインせずに使う'));
+      await tester.pumpAndSettle();
+      expect(find.text('写真から選んではじめる'), findsOneWidget);
+      expect(endSessionCallCount, 1);
+      expect(startSessionCallCount, 0);
+      expect(sessionStore.uid, isNull);
+      expect(sessionStore.canEnterApp, isTrue);
+    });
   });
 }
