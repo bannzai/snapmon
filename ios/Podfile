@@ -41,9 +41,12 @@ post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
     # Xcode 27 は iOS 15.0 未満の deployment target をエラーにする (Xcode 26 までは警告)。
-    # pod が自分の podspec で宣言する古い値 (9.0〜13.0) を、アプリと同じ 15.0 に揃える
+    # pod が自分の podspec で宣言する古い値 (9.0〜13.0) を、アプリと同じ 15.0 に上げる。
+    # 15.0 より高い値を要求する pod は、下げると壊れるためそのままにする
     target.build_configurations.each do |config|
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+      if config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'].to_f < 15.0
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+      end
     end
   end
 end
