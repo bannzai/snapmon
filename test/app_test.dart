@@ -484,8 +484,8 @@ void main() {
         tester: tester,
         hasConfirmedAge: true,
         hasStartedSession: false,
-        // タイトルの裏のログインと、ボタンを押した時のログインの 2 回失敗する
-        startSessionFailureCount: 2,
+        // タイトルの裏のログインと、ボタンを押した時のログイン (閉じて押し直すので 2 回) の計 3 回失敗する
+        startSessionFailureCount: 3,
         isDeveloperMenuEnabled: false,
       );
       // 年齢の確認が済んでいるので、タイトルを見ている間に裏でログインを始める。失敗はタイトルに出さない
@@ -493,12 +493,16 @@ void main() {
       expect(find.text('つながりませんでした'), findsNothing);
       expect(find.text('写真から選んではじめる'), findsOneWidget);
 
+      // ボタンを押した時のログインが終わるまで、ログインの画面は前回 (裏のログイン) のエラーではなく「じゅんびしています」を出す
+      startSessionGate = Completer<void>();
       await tester.tap(find.byKey(const Key('title-album')));
-      // ログインの画面の最初のフレームは、裏のログインが残した前回のエラーではなく「じゅんびしています」を出す
       await tester.pump();
       await tester.pump();
+      expect(startSessionCalls, hasLength(2));
       expect(find.text('じゅんびしています'), findsOneWidget);
       expect(find.text('つながりませんでした'), findsNothing);
+      startSessionGate!.complete();
+      startSessionGate = null;
       await tester.pumpAndSettle();
       expect(find.text('つながりませんでした'), findsOneWidget);
       expect(find.text('Exception: network-request-failed'), findsOneWidget);
@@ -506,9 +510,19 @@ void main() {
       expect(find.text('あたらしい なかま'), findsNothing);
       expect(ageVerifiedSessionStore.uid, isNull);
 
+      // 閉じるでタイトルに戻れる (Web には OS の戻る操作が無いため)。写真の選択は無かったことになり、生成には進まない
+      await tester.tap(find.byTooltip('閉じる'));
+      await tester.pumpAndSettle();
+      expect(find.text('写真から選んではじめる'), findsOneWidget);
+      expect(find.text('つながりませんでした'), findsNothing);
+      expect(generationCalls.uploadedRequestIds, isEmpty);
+
+      await tester.tap(find.byKey(const Key('title-album')));
+      await tester.pumpAndSettle();
+      expect(find.text('つながりませんでした'), findsOneWidget);
       await tester.tap(find.text('もう一度試す'));
       await tester.pumpAndSettle();
-      expect(startSessionCalls, hasLength(3));
+      expect(startSessionCalls, hasLength(4));
       expect(ageVerifiedSessionStore.uid, 'uid-1');
       expect(find.text('あたらしい なかま'), findsOneWidget);
     });

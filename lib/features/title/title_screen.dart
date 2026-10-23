@@ -978,17 +978,37 @@ class _SessionGateScreenState extends State<_SessionGateScreen> {
         }
         return const Scaffold(body: SizedBox.shrink());
       }
-      return switch (widget.ageConfirmationStore.status) {
-        AgeConfirmationStatus.unanswered => AgeGateScreen(
-          ageConfirmationStore: widget.ageConfirmationStore,
-        ),
-        AgeConfirmationStatus.restricted => const AgeRestrictedScreen(),
-        AgeConfirmationStatus.allowed => AgeVerifiedSessionScreen(
-          ageConfirmationStore: widget.ageConfirmationStore,
-          ageVerifiedSessionStore: widget.ageVerifiedSessionStore,
-          isDebugSkipEnabled: widget.isDebugSkipEnabled,
-        ),
-      };
+      // 起動の最初の画面だった頃の画面を使い回すため戻るボタンが無い。Web には OS の戻る操作が無いので、
+      // 通信が失敗した時にタイトルへ戻れるよう閉じるボタンを右上に重ねる (左上は各画面のロゴと重なる)
+      return Stack(
+        children: [
+          switch (widget.ageConfirmationStore.status) {
+            AgeConfirmationStatus.unanswered => AgeGateScreen(
+              ageConfirmationStore: widget.ageConfirmationStore,
+            ),
+            AgeConfirmationStatus.restricted => const AgeRestrictedScreen(),
+            AgeConfirmationStatus.allowed => AgeVerifiedSessionScreen(
+              ageConfirmationStore: widget.ageConfirmationStore,
+              ageVerifiedSessionStore: widget.ageVerifiedSessionStore,
+              isDebugSkipEnabled: widget.isDebugSkipEnabled,
+            ),
+          },
+          SafeArea(
+            child: Align(
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 12, 20, 0),
+                child: SquareIconButton(
+                  icon: Icons.close,
+                  tooltip: '閉じる',
+                  onPressed: () => Navigator.of(context).pop(),
+                  size: 44,
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
     },
   );
 }
