@@ -27,6 +27,7 @@ import 'package:snapmon/firebase/session.dart';
 import 'package:snapmon/firebase/share_art.dart';
 import 'package:snapmon/firebase_options.dart';
 import 'package:snapmon/sample/sample_data.dart';
+import 'package:snapmon/sample/sample_generation.dart';
 
 /// 同梱したフォントの OFL のライセンス本文 (pubspec.yaml の assets) と、そのフォントの名前。
 const Map<String, String> _fontLicenseAssetPaths = {
@@ -93,8 +94,31 @@ Future<void> main() async {
         pickAlbumPhoto: pickAlbumPhoto,
         preparePhoto: prepareGenerationPhotoInBackground,
         createRequestId: const Uuid().v4,
-        uploadPhoto: uploadGenerationPhotoWithFirebase,
-        requestGeneration: requestGenerationWithFirebase,
+        // DEBUG ビルドでログインを飛ばした (「ログインせずに使う」) 時は、写真を送らず見本のモンスターで生成を置き換える
+        // (lib/sample/sample_generation.dart)。release ビルドでは kDebugMode が const の false のため、この経路はビルドから除かれる
+        uploadPhoto: ({required requestId, required photo}) async {
+          if (kDebugMode && sessionStore.uid == null) {
+            return;
+          }
+          await uploadGenerationPhotoWithFirebase(
+            requestId: requestId,
+            photo: photo,
+          );
+        },
+        requestGeneration:
+            ({required requestId, required onCompletedStage}) async {
+              if (kDebugMode && sessionStore.uid == null) {
+                return generateSampleMonster(
+                  dexStore: dexStore,
+                  sampleData: sampleData,
+                  requestId: requestId,
+                );
+              }
+              return requestGenerationWithFirebase(
+                requestId: requestId,
+                onCompletedStage: onCompletedStage,
+              );
+            },
         fetchGeneration: fetchGenerationWithFirebase,
         logEvent: logAnalyticsEvent,
       ),
