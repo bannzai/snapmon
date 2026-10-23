@@ -212,7 +212,15 @@ class SettingsScreen extends StatelessWidget {
     appBar: AppBar(title: const Text('設定')),
     body: ListView(
       children: [
-        _DisplayNameTile(pvpClient: pvpClient),
+        // 「データを引き継ぐ」で別のアカウントに切り替わると uid が変わるため、uid ごとに作り直して表示名を読み直す
+        // (前の uid の表示名を出したまま保存させないため)
+        ListenableBuilder(
+          listenable: accountStore.sessionStore,
+          builder: (context, _) => _DisplayNameTile(
+            key: ValueKey(accountStore.sessionStore.uid),
+            pvpClient: pvpClient,
+          ),
+        ),
         const _SectionTitle(title: 'サポート'),
         ListTile(
           leading: const Icon(Icons.mail_outline),
@@ -295,7 +303,7 @@ class SettingsScreen extends StatelessWidget {
 /// 対戦の相手に見える表示名の節。名前はサーバー (Functions の getDisplayName) が決めた値を出し、押すと変えられる。
 /// ログインが無い時 (DEBUG ビルドでログインを飛ばした時) は名前が無いため節を出さない。
 class _DisplayNameTile extends StatefulWidget {
-  const _DisplayNameTile({required this.pvpClient});
+  const _DisplayNameTile({required super.key, required this.pvpClient});
 
   final PvpClient pvpClient;
 

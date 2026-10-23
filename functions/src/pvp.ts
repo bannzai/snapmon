@@ -155,13 +155,15 @@ export const reportMonster = onCall({ enforceAppCheck: true }, async (request) =
   const monsterDocument = firestore.doc(`users/${monsterOwnerUid}/monsters/${monsterId}`);
   const reportDocument = firestore.doc(`reports/${reportDocumentId({ reporterUid: uid, monsterId })}`);
   await firestore.runTransaction(async (transaction) => {
-    const [userSnapshot, monsterSnapshot, reportSnapshot] = await transaction.getAll(
+    const [userSnapshot, ownerSnapshot, monsterSnapshot, reportSnapshot] = await transaction.getAll(
       firestore.doc(`users/${uid}`),
+      firestore.doc(`users/${monsterOwnerUid}`),
       monsterDocument,
       reportDocument,
     );
     requireActiveAccount({ userSnapshot });
-    if (!monsterSnapshot.exists) {
+    // 持ち主の削除が reportedMonsters を消した後に通報が通ると、数が作り直されて残るため、削除の途中の持ち主のモンスターは無いものとして扱う
+    if (!monsterSnapshot.exists || ownerSnapshot.get("accountDeletionStartedAt") !== undefined) {
       throw new HttpsError("not-found", "通報するモンスターが見つかりません");
     }
     if (reportSnapshot.exists) {

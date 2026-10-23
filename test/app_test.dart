@@ -1459,6 +1459,44 @@ void main() {
       expect(find.text('連携済みのアカウントに切り替えました'), findsOneWidget);
     });
 
+    testWidgets('連携済みのアカウントに切り替えると、表示名を切り替え先の名前に読み直す', (tester) async {
+      linkAccount = () async =>
+          () async => 'uid-linked';
+      final signedInPvpClient = fakePvpClient(
+        calls: pvpCalls,
+        fetchOpponents: () async => [],
+        extraDefinitions: null,
+        battleRecord: (wins: 0, losses: 0),
+        displayName: null,
+        reportMonster: () async {},
+        blockUser: () async {},
+        updateDisplayName: ({required displayName}) async => displayName,
+      );
+      pvpClient = PvpClient(
+        fetchOpponents: signedInPvpClient.fetchOpponents,
+        fetchDefinitions: signedInPvpClient.fetchDefinitions,
+        reportMonster: signedInPvpClient.reportMonster,
+        blockUser: signedInPvpClient.blockUser,
+        fetchBattleRecord: signedInPvpClient.fetchBattleRecord,
+        fetchDisplayName: () async => switch (ageVerifiedSessionStore.uid) {
+          'uid-linked' => '切り替え先の名前',
+          _ => '匿名の名前',
+        },
+        updateDisplayName: signedInPvpClient.updateDisplayName,
+      );
+      await openSettings(tester: tester);
+      expect(find.text('匿名の名前'), findsOneWidget);
+
+      await tester.tap(find.text('データを引き継ぐ'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('切り替える'));
+      await tester.pumpAndSettle();
+
+      expect(ageVerifiedSessionStore.uid, 'uid-linked');
+      expect(find.text('匿名の名前'), findsNothing);
+      expect(find.text('切り替え先の名前'), findsOneWidget);
+    });
+
     testWidgets('別の端末で連携済みの確認で「やめる」を選ぶと、匿名アカウントを捨てない', (tester) async {
       linkAccount = () async =>
           () async => 'uid-linked';

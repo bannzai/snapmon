@@ -367,6 +367,26 @@ describe("アカウントの削除の途中", () => {
   });
 });
 
+describe("持ち主のアカウントの削除の途中", () => {
+  it("そのモンスターへの通報は無いものとして断り、通報の数を作らない", async () => {
+    const reporter = await signInUser({ ageVerified: true });
+    const [monsterId] = await seedParty({ uid: "owner", levels: [5], updatedAtMillis: 1 });
+    await testEnvironment.withSecurityRulesDisabled(async (context) => {
+      await setDoc(doc(context.firestore(), "users/owner"), { accountDeletionStartedAt: Timestamp.fromMillis(0) }, { merge: true });
+    });
+    const response = await callFunction({
+      name: "reportMonster",
+      user: reporter,
+      appCheckToken: fakeAppCheckToken,
+      data: { monsterOwnerUid: "owner", monsterId, reason: "other" },
+    });
+    expect(response.status).toBe(404);
+    await testEnvironment.withSecurityRulesDisabled(async (context) => {
+      expect((await getDoc(doc(context.firestore(), `reportedMonsters/${monsterId}`))).exists()).toBe(false);
+    });
+  });
+});
+
 describe("blockUser", () => {
   it("自分・空・パスを含む uid はブロックできない", async () => {
     const user = await signInUser({ ageVerified: true });
