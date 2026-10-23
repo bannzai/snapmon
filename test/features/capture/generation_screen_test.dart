@@ -3,25 +3,33 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:share_plus/share_plus.dart';
 
 import 'package:snapmon/analytics/analytics_events.dart';
+import 'package:snapmon/features/battle/battle_screen.dart';
 import 'package:snapmon/features/capture/generation_screen.dart';
 import 'package:snapmon/features/capture/monster_generator.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
 import 'package:snapmon/features/result/result_screen.dart';
+import 'package:snapmon/sample/sample_data.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
 
+import '../../battle_recorder_fixture.dart';
 import '../../card_sharer_fixture.dart';
 import '../../monster_generator_fixture.dart';
+import '../../pvp_client_fixture.dart';
 import '../../sample_data_fixture.dart';
 
 void main() {
   final sampleData = loadSampleDataFixture();
   late DexStore dexStore;
   late RecordedGenerationCalls calls;
+  late RecordedBattleCalls battleCalls;
 
   /// [generator] の生成の画面を、閉じた時の [ResultScreenAction] を [closedActions] に残す画面から開く。
+  /// [startsFirstBattle] が true なら初回の導線 (生まれたらそのまま戦う) にする。初回の導線は相手を探す表示が止まらないため、
+  /// 開いた後は pumpAndSettle ではなく時間を指定して進める。
   Future<List<ResultScreenAction?>> pumpGenerationScreen({
     required WidgetTester tester,
     required MonsterGenerator generator,
+    required bool startsFirstBattle,
   }) async {
     tester.view
       ..physicalSize = const Size(390, 844)
@@ -48,6 +56,16 @@ void main() {
                           artImage: null,
                           shareResultStatus: ShareResultStatus.success,
                         ),
+                        startsFirstBattle: startsFirstBattle,
+                        sampleData: sampleData,
+                        pvpClient: signedOutPvpClient(
+                          calls: RecordedPvpCalls(),
+                        ),
+                        battleRecorder: fakeBattleRecorder(
+                          calls: battleCalls,
+                          startBattleRecord: () async => null,
+                          recordedLevels: const {},
+                        ),
                       ),
                     ),
                   ),
@@ -60,9 +78,21 @@ void main() {
       ),
     );
     await tester.tap(find.text('開く'));
-    await tester.pumpAndSettle();
+    if (startsFirstBattle) {
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 100));
+    } else {
+      await tester.pumpAndSettle();
+    }
     return closedActions;
   }
+
+  /// 計測の `first_experience` の `step` (送った順)。
+  List<Object?> firstExperienceSteps() => [
+    for (final logged in [...calls.loggedEvents, ...battleCalls.loggedEvents])
+      if (logged.event == AnalyticsEvent.firstExperience)
+        logged.parameters?['step'],
+  ];
 
   /// サーバーが [monsterId] のモンスターを保存して図鑑に届けた後に、[result] を返す生成。
   Future<GenerationResult> Function({required String requestId})
@@ -90,11 +120,13 @@ void main() {
   setUp(() {
     dexStore = DexStore(definitions: sampleData.definitions);
     calls = RecordedGenerationCalls();
+    battleCalls = RecordedBattleCalls();
   });
 
   testWidgets('新しく保存された時は生まれた画面を開き、生成完了のイベントを 1 回送る', (tester) async {
     await pumpGenerationScreen(
       tester: tester,
+      startsFirstBattle: false,
       generator: fakeMonsterGenerator(
         calls: calls,
         albumPhoto: null,
@@ -121,6 +153,7 @@ void main() {
   testWidgets('同じ写真の別の要求の結果を使い回した時は、図鑑にいるモンスターを開きイベントを送らない', (tester) async {
     await pumpGenerationScreen(
       tester: tester,
+      startsFirstBattle: false,
       generator: fakeMonsterGenerator(
         calls: calls,
         albumPhoto: null,
@@ -141,6 +174,7 @@ void main() {
   testWidgets('同じ被写体 (duplicate) の時は、二重に登録せず図鑑にいるモンスターを開く', (tester) async {
     final closedActions = await pumpGenerationScreen(
       tester: tester,
+      startsFirstBattle: false,
       generator: fakeMonsterGenerator(
         calls: calls,
         albumPhoto: null,
@@ -169,6 +203,7 @@ void main() {
   ) async {
     await pumpGenerationScreen(
       tester: tester,
+      startsFirstBattle: false,
       generator: fakeMonsterGenerator(
         calls: calls,
         albumPhoto: null,
@@ -197,6 +232,7 @@ void main() {
   testWidgets('使い回した別の要求が判定待ちの時は、使い回し先の要求 ID で読み直す', (tester) async {
     await pumpGenerationScreen(
       tester: tester,
+      startsFirstBattle: false,
       generator: fakeMonsterGenerator(
         calls: calls,
         albumPhoto: null,
@@ -226,6 +262,7 @@ void main() {
   testWidgets('生成しなかった時は理由を出す', (tester) async {
     await pumpGenerationScreen(
       tester: tester,
+      startsFirstBattle: false,
       generator: fakeMonsterGenerator(
         calls: calls,
         albumPhoto: null,
@@ -247,6 +284,7 @@ void main() {
   testWidgets('失敗した時は失敗を出す', (tester) async {
     await pumpGenerationScreen(
       tester: tester,
+      startsFirstBattle: false,
       generator: fakeMonsterGenerator(
         calls: calls,
         albumPhoto: null,
@@ -269,6 +307,7 @@ void main() {
     var remainingFailureCount = 1;
     await pumpGenerationScreen(
       tester: tester,
+      startsFirstBattle: false,
       generator: fakeMonsterGenerator(
         calls: calls,
         albumPhoto: null,
@@ -299,6 +338,7 @@ void main() {
     var remainingFailureCount = 1;
     await pumpGenerationScreen(
       tester: tester,
+      startsFirstBattle: false,
       generator: fakeMonsterGenerator(
         calls: calls,
         albumPhoto: null,
@@ -332,6 +372,7 @@ void main() {
   ) async {
     await pumpGenerationScreen(
       tester: tester,
+      startsFirstBattle: false,
       generator: fakeMonsterGenerator(
         calls: calls,
         albumPhoto: null,
@@ -349,6 +390,7 @@ void main() {
   testWidgets('生まれた画面で手持ちに入れると、図鑑を開くよう閉じる', (tester) async {
     final closedActions = await pumpGenerationScreen(
       tester: tester,
+      startsFirstBattle: false,
       generator: fakeMonsterGenerator(
         calls: calls,
         albumPhoto: null,
@@ -365,5 +407,141 @@ void main() {
     await tester.pumpAndSettle();
     expect(closedActions, [ResultScreenAction.openDex]);
     expect(dexStore.isInParty(monsterId: 'm1'), isTrue);
+  });
+
+  group('初回の導線 (手持ちが空の時)', () {
+    /// 生成の結果の表示まで進める (相手を探す表示の進捗は止まらないため、時間を指定して進める)。
+    Future<void> pumpUntilResult({required WidgetTester tester}) async {
+      await tester.pump(const Duration(seconds: 1));
+    }
+
+    testWidgets('生成しなかった時 (rejected) は相手を探す表示をやめ、初回でない時と同じ理由を出す', (
+      tester,
+    ) async {
+      await pumpGenerationScreen(
+        tester: tester,
+        startsFirstBattle: true,
+        generator: fakeMonsterGenerator(
+          calls: calls,
+          albumPhoto: null,
+          uploadError: null,
+          requestGeneration: ({required requestId}) async => GenerationResult(
+            requestId: requestId,
+            status: GenerationStatus.rejected,
+            monsterId: null,
+            rejectionReason: GenerationRejectionReason.noSubject,
+          ),
+          fetchGeneration: unexpectedFetch,
+        ),
+      );
+      await pumpUntilResult(tester: tester);
+      expect(find.text('相手を探しています'), findsNothing);
+      expect(find.text('生まれませんでした'), findsOneWidget);
+      expect(find.text('被写体が見つかりませんでした\n物を大きく写して撮ってください'), findsOneWidget);
+      expect(find.byType(BattleScreen), findsNothing);
+      expect(dexStore.party, isEmpty);
+      expect(firstExperienceSteps(), ['photo_selected', 'generation_failed']);
+    });
+
+    testWidgets('判定待ち (pending_judge) の時は「もう少し待ってね」に戻す', (tester) async {
+      await pumpGenerationScreen(
+        tester: tester,
+        startsFirstBattle: true,
+        generator: fakeMonsterGenerator(
+          calls: calls,
+          albumPhoto: null,
+          uploadError: null,
+          requestGeneration: ({required requestId}) async => GenerationResult(
+            requestId: requestId,
+            status: GenerationStatus.pendingJudge,
+            monsterId: null,
+            rejectionReason: null,
+          ),
+          fetchGeneration: unexpectedFetch,
+        ),
+      );
+      await pumpUntilResult(tester: tester);
+      expect(find.text('相手を探しています'), findsNothing);
+      expect(find.text('もう少し待ってね'), findsOneWidget);
+      expect(find.text('もう一度確かめる'), findsOneWidget);
+      expect(find.byType(BattleScreen), findsNothing);
+      expect(firstExperienceSteps(), ['photo_selected', 'generation_failed']);
+    });
+
+    testWidgets('呼び出しが例外で終わった時はエラーを出し、generation_failed を送る', (tester) async {
+      await pumpGenerationScreen(
+        tester: tester,
+        startsFirstBattle: true,
+        generator: fakeMonsterGenerator(
+          calls: calls,
+          albumPhoto: null,
+          uploadError: null,
+          requestGeneration: ({required requestId}) async =>
+              throw Exception('deadline-exceeded'),
+          fetchGeneration: unexpectedFetch,
+        ),
+      );
+      await pumpUntilResult(tester: tester);
+      expect(find.text('生成できませんでした'), findsOneWidget);
+      expect(find.text('Exception: deadline-exceeded'), findsOneWidget);
+      expect(firstExperienceSteps(), ['photo_selected', 'generation_failed']);
+    });
+
+    testWidgets(
+      '同じ被写体 (duplicate) の時は「もう図鑑にいます」を出し、「このモンスターで戦う」でそのモンスターを手持ちに入れてバトルに進む',
+      (tester) async {
+        await pumpGenerationScreen(
+          tester: tester,
+          startsFirstBattle: true,
+          generator: fakeMonsterGenerator(
+            calls: calls,
+            albumPhoto: null,
+            uploadError: null,
+            requestGeneration: savedGeneration(
+              monsterId: 'm1',
+              status: GenerationStatus.duplicate,
+              resultRequestId: null,
+            ),
+            fetchGeneration: unexpectedFetch,
+          ),
+        );
+        await pumpUntilResult(tester: tester);
+        expect(find.text('相手を探しています'), findsNothing);
+        expect(find.text('もう図鑑にいます'), findsOneWidget);
+        expect(
+          find.text('この被写体は ロウソクン として図鑑にいます\nこのモンスターで戦えます'),
+          findsOneWidget,
+        );
+        expect(dexStore.monsters, hasLength(1));
+        // 新しく生まれていないため、生成完了のイベントは送らない
+        expect(
+          calls.loggedEvents.map((logged) => logged.event),
+          isNot(contains(AnalyticsEvent.monsterGenerated)),
+        );
+        expect(firstExperienceSteps(), ['photo_selected', 'generation_failed']);
+
+        await tester.tap(find.text('このモンスターで戦う'));
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 100));
+        expect(dexStore.isInParty(monsterId: 'm1'), isTrue);
+        // ログインが無い時の PvP の候補は null のため、CPU トレーナーが相手になる
+        expect(
+          find.text(
+            '${sampleData.opponents.firstWhere((opponent) => opponent.id == cpuOpponentId).name} があらわれた',
+          ),
+          findsOneWidget,
+        );
+        await tester.pump(const Duration(seconds: 2));
+        await tester.pump(const Duration(seconds: 1));
+        expect(find.byType(BattleScreen), findsOneWidget);
+        expect(find.byKey(const Key('first-battle-hint')), findsOneWidget);
+        expect(firstExperienceSteps(), [
+          'photo_selected',
+          'generation_failed',
+          'matchmaking',
+          'battle_started',
+        ]);
+      },
+    );
   });
 }

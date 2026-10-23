@@ -3,12 +3,15 @@ import 'dart:typed_data';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
+import '../../sample/sample_data.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
 import '../../widgets/square_icon_button.dart';
+import '../battle/battle_recorder.dart';
 import '../dex/dex_store.dart';
 import '../home/home_shell.dart';
+import '../opponent/pvp_client.dart';
 import '../result/result_screen.dart';
 import '../share/card_sharer.dart';
 import 'generation_screen.dart';
@@ -25,7 +28,19 @@ class CaptureScreen extends StatefulWidget {
     required this.onSelectTab,
     required this.onOpenSettings,
     required this.cardSharer,
+    required this.sampleData,
+    required this.pvpClient,
+    required this.battleRecorder,
   });
+
+  /// 見本データ (手持ちが空の時の初回のバトルの CPU トレーナー)。
+  final SampleData sampleData;
+
+  /// 手持ちが空の時の初回のバトルの相手の取得。
+  final PvpClient pvpClient;
+
+  /// 手持ちが空の時の初回のバトルの記録と計測。
+  final BattleRecorder battleRecorder;
 
   /// 図鑑と手持ち。
   final DexStore dexStore;
@@ -202,6 +217,10 @@ class _CaptureScreenState extends State<CaptureScreen>
           monsterGenerator: widget.monsterGenerator,
           dexStore: widget.dexStore,
           cardSharer: widget.cardSharer,
+          startsFirstBattle: widget.dexStore.party.isEmpty,
+          sampleData: widget.sampleData,
+          pvpClient: widget.pvpClient,
+          battleRecorder: widget.battleRecorder,
         ),
       ),
     );
@@ -278,6 +297,25 @@ class _CaptureScreenState extends State<CaptureScreen>
             ),
           ],
         ),
+      ),
+      // 手持ちが空の (初回の) 人に、最初の操作を 1 行で示す。撮った後はそのまま戦う導線になる
+      ListenableBuilder(
+        listenable: widget.dexStore,
+        builder: (context, _) => widget.dexStore.party.isEmpty
+            ? Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
+                child: Text(
+                  _cameraController == null
+                      ? '身の回りの物の写真を 1 枚選ぼう'
+                      : '身の回りの物を 1 つ撮ろう',
+                  key: const Key('capture-first-hint'),
+                  textAlign: TextAlign.center,
+                  style: SnapmonTextStyles.label.copyWith(
+                    color: SnapmonColors.accent,
+                  ),
+                ),
+              )
+            : const SizedBox.shrink(),
       ),
       Expanded(
         child: ConstrainedBox(

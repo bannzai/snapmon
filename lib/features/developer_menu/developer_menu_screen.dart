@@ -3,9 +3,11 @@ import 'package:flutter/services.dart';
 
 import '../../sample/sample_data.dart';
 import '../../theme/snapmon_text_styles.dart';
+import '../battle/battle_recorder.dart';
 import '../capture/generation_screen.dart';
 import '../capture/monster_generator.dart';
 import '../dex/dex_store.dart';
+import '../opponent/pvp_client.dart';
 import '../result/result_screen.dart';
 import '../session/session_store.dart';
 import '../share/card_sharer.dart';
@@ -30,7 +32,15 @@ class DeveloperMenuScreen extends StatelessWidget {
     required this.sessionStore,
     required this.monsterGenerator,
     required this.cardSharer,
+    required this.pvpClient,
+    required this.battleRecorder,
   });
+
+  /// 見本の写真から始めた初回のバトル (手持ちが空の時) の相手の取得。
+  final PvpClient pvpClient;
+
+  /// 見本の写真から始めた初回のバトル (手持ちが空の時) の記録と計測。
+  final BattleRecorder battleRecorder;
 
   /// 見本データ。
   final SampleData sampleData;
@@ -69,6 +79,10 @@ class DeveloperMenuScreen extends StatelessWidget {
           monsterGenerator: monsterGenerator,
           dexStore: dexStore,
           cardSharer: cardSharer,
+          startsFirstBattle: dexStore.party.isEmpty,
+          sampleData: sampleData,
+          pvpClient: pvpClient,
+          battleRecorder: battleRecorder,
         ),
       ),
     );
@@ -144,7 +158,9 @@ class DeveloperMenuScreen extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.cloud_off_outlined),
             title: const Text('ログインせずに使う'),
-            subtitle: const Text('ログインを終えてタイトルに戻り サーバーに繋がずに見本で動作を確かめる'),
+            subtitle: const Text(
+              'ログインを終えてタイトルに戻り サーバーに繋がずに見本で動作を確かめる\n生成は見本のモンスターで置き換える',
+            ),
             onTap: () async {
               Navigator.of(context).popUntil((route) => route.isFirst);
               await sessionStore.reset();

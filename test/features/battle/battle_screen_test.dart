@@ -63,6 +63,7 @@ void main() {
             artImage: artImage,
             shareResultStatus: ShareResultStatus.success,
           ),
+          firstBattleBornMonster: null,
         ),
       ),
     );

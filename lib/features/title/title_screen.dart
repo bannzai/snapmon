@@ -8,6 +8,7 @@ import '../../analytics/analytics_events.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
+import '../battle/battle_recorder.dart';
 import '../capture/generation_screen.dart';
 import '../capture/monster_generator.dart';
 import '../dex/dex_store.dart';
@@ -58,15 +59,19 @@ class TitleScreen extends StatefulWidget {
     required this.accountStore,
     required this.logEvent,
     required this.onEnterHome,
+    required this.battleRecorder,
   });
 
-  /// 見本データ (設定画面に渡す)。
+  /// 写真から選んで始めた初回のバトル (手持ちが空の時) の記録と計測。設定画面 (開発者メニュー) にも渡す。
+  final BattleRecorder battleRecorder;
+
+  /// 見本データ (初回のバトルの CPU トレーナーと、設定画面に渡す)。
   final SampleData sampleData;
 
   /// 図鑑と手持ち (「つづきから」の表示と数)。
   final DexStore dexStore;
 
-  /// 非同期 PvP の相手の取得・通報・ブロック・戦績・表示名 (設定画面に渡す)。
+  /// 非同期 PvP の相手の取得・通報・ブロック・戦績・表示名 (初回のバトルの相手の取得と、設定画面に渡す)。
   final PvpClient pvpClient;
 
   /// 設定画面のアカウントの連携と削除。写真を選ばなくても、機種変更した人がデータを引き継げるようにタイトルから設定を開く。
@@ -257,8 +262,9 @@ class _TitleScreenState extends State<TitleScreen> {
     return sessionStore.canEnterApp;
   }
 
-  /// 写真から選んではじめる。選ばずに閉じた時はタイトルに留まる。生成の画面を閉じた後は、結果にかかわらず下タブの画面に進む
-  /// (生まれたカードから手持ちに入れた時は図鑑、それ以外は撮る。撮る画面からの生成と同じ)。
+  /// 写真から選んではじめる。選ばずに閉じた時はタイトルに留まる。手持ちが空なら生成の画面は初回の導線になり、
+  /// 生まれたらそのまま戦う ([GenerationScreen.startsFirstBattle])。生成の画面を閉じた後は、結果にかかわらず下タブの画面に進む
+  /// (生まれたカードから手持ちに入れた時と初回のバトルの「図鑑を見る」は図鑑、それ以外は撮る。撮る画面からの生成と同じ)。
   Future<void> _startFromAlbum() => _run(
     work: () async {
       await _logAction(action: TitleAction.album);
@@ -277,6 +283,10 @@ class _TitleScreenState extends State<TitleScreen> {
             monsterGenerator: widget.monsterGenerator,
             dexStore: widget.dexStore,
             cardSharer: widget.cardSharer,
+            startsFirstBattle: widget.dexStore.party.isEmpty,
+            sampleData: widget.sampleData,
+            pvpClient: widget.pvpClient,
+            battleRecorder: widget.battleRecorder,
           ),
         ),
       );
@@ -322,6 +332,7 @@ class _TitleScreenState extends State<TitleScreen> {
             openUrl: widget.openUrl,
             isDeveloperMenuEnabled: widget.isDeveloperMenuEnabled,
             accountStore: widget.accountStore,
+            battleRecorder: widget.battleRecorder,
           ),
         ),
       );

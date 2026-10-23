@@ -10,8 +10,10 @@ import 'package:snapmon/features/capture/monster_generator.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
 
+import '../../battle_recorder_fixture.dart';
 import '../../card_sharer_fixture.dart';
 import '../../monster_generator_fixture.dart';
+import '../../pvp_client_fixture.dart';
 import '../../sample_data_fixture.dart';
 
 void main() {
@@ -57,6 +59,13 @@ void main() {
             ),
             onSelectTab: ({required tab}) {},
             onOpenSettings: () {},
+            sampleData: loadSampleDataFixture(),
+            pvpClient: signedOutPvpClient(calls: RecordedPvpCalls()),
+            battleRecorder: fakeBattleRecorder(
+              calls: RecordedBattleCalls(),
+              startBattleRecord: () async => null,
+              recordedLevels: const {},
+            ),
           ),
         ),
       ),
