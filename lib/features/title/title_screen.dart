@@ -495,21 +495,28 @@ class _StartButton extends StatelessWidget {
       child: InkWell(
         borderRadius: SnapmonRadii.card,
         onTap: onPressed,
-        child: SizedBox(
-          height: isPrimary ? 60 : 56,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, color: foreground, size: 22),
-              const SizedBox(width: 10),
-              Text(
-                label,
-                style: SnapmonTextStyles.buttonLarge.copyWith(
-                  fontSize: isPrimary ? 17 : 16,
-                  color: foreground,
+        // 高さは最小値にし、文字サイズの拡大でラベルが折り返した時はボタンが縦に伸びる
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minHeight: isPrimary ? 60 : 56),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(icon, color: foreground, size: 22),
+                const SizedBox(width: 10),
+                Flexible(
+                  child: Text(
+                    label,
+                    textAlign: TextAlign.center,
+                    style: SnapmonTextStyles.buttonLarge.copyWith(
+                      fontSize: isPrimary ? 17 : 16,
+                      color: foreground,
+                    ),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

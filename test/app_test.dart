@@ -513,6 +513,29 @@ void main() {
       expect(find.text('写真から選んではじめる'), findsOneWidget);
     });
 
+    testWidgets('端末の文字を 2 倍にしてもタイトルのボタンがはみ出さず、写真から選べる', (tester) async {
+      tester.platformDispatcher.textScaleFactorTestValue = 2;
+      addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      // はみ出しは RenderFlex のエラーとして報告されるため、例外が無いことで確かめる
+      expect(tester.takeException(), isNull);
+      expect(find.text('写真から選んではじめる'), findsOneWidget);
+
+      await tester.scrollUntilVisible(
+        find.byKey(const Key('title-album')),
+        100,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tapStartFromAlbum(tester: tester);
+      expect(find.text('あたらしい なかま'), findsOneWidget);
+    });
+
     testWidgets('高さの低い画面でもタイトルがはみ出さず、スクロールして写真から選べる', (tester) async {
       await pumpApp(
         tester: tester,
