@@ -67,6 +67,27 @@ async function partyMonstersOf({
 }
 
 /**
+ * [ownerUids] のうち、[REPORT_HIDE_THRESHOLD] 人以上から通報されたモンスターを持つ uid を返す。
+ * 読むのは候補の持ち主の分だけにする (全体の通報の数を読むと、対戦の画面を開くたびの読み取りが通報の蓄積に比例して増えるため)。
+ * Firestore の `in` は 1 回に 30 個までの値しか受け付けないため ( https://firebase.google.com/docs/firestore/query-data/queries の
+ * "up to 30 equality (==) clauses on the same field with a logical OR" )、30 人ずつに分けて読む。
+ * `in` と `reporterCount` の範囲の条件の組み合わせは複合インデックスを使う (firebase/firestore.indexes.json)。
+ */
+async function ownersHiddenByReports({ firestore, ownerUids }: { firestore: Firestore; ownerUids: string[] }): Promise<Set<string>> {
+  const chunks = Array.from({ length: Math.ceil(ownerUids.length / 30) }, (_, index) => ownerUids.slice(index * 30, index * 30 + 30));
+  const snapshots = await Promise.all(
+    chunks.map((chunk) =>
+      firestore
+        .collection("reportedMonsters")
+        .where("monsterOwnerUid", "in", chunk)
+        .where("reporterCount", ">=", REPORT_HIDE_THRESHOLD)
+        .get(),
+    ),
+  );
+  return new Set(snapshots.flatMap((snapshot) => snapshot.docs.map((document) => document.get("monsterOwnerUid") as string)));
+}
+
+/**
  * 非同期 PvP の相手の候補を返す callable。
  *
  * 受け取る data: なし。
@@ -80,12 +101,11 @@ async function partyMonstersOf({
 export const fetchOpponents = onCall({ enforceAppCheck: true }, async (request) => {
   const uid = requireAgeVerifiedUid({ request });
   const firestore = getFirestore();
-  const [playerParty, blockedByPlayer, blockingPlayer, reportedByPlayer, hiddenByReports, candidateParties] = await Promise.all([
+  const [playerParty, blockedByPlayer, blockingPlayer, reportedByPlayer, candidateParties] = await Promise.all([
     firestore.doc(`users/${uid}/party/current`).get(),
     firestore.collection("blocks").where("blockerUid", "==", uid).get(),
     firestore.collection("blocks").where("blockedUid", "==", uid).get(),
     firestore.collection("reports").where("reporterUid", "==", uid).get(),
-    firestore.collection("reportedMonsters").where("reporterCount", ">=", REPORT_HIDE_THRESHOLD).get(),
     firestore.collectionGroup("party").orderBy("updatedAt", "desc").limit(OPPONENT_CANDIDATE_SCAN_LIMIT).get(),
   ]);
   const excludedUids = new Set<unknown>([
@@ -93,16 +113,22 @@ export const fetchOpponents = onCall({ enforceAppCheck: true }, async (request) 
     ...blockedByPlayer.docs.map((snapshot) => snapshot.get("blockedUid")),
     ...blockingPlayer.docs.map((snapshot) => snapshot.get("blockerUid")),
     ...reportedByPlayer.docs.map((snapshot) => snapshot.get("monsterOwnerUid")),
-    ...hiddenByReports.docs.map((snapshot) => snapshot.get("monsterOwnerUid")),
   ]);
-  const partyMonsterIdsByUid = new Map<string, string[]>([[uid, partyMonsterIdsOf(playerParty.data())]]);
+  const candidatePartyDataByUid = new Map<string, DocumentData | undefined>();
   for (const party of candidateParties.docs) {
     // コレクショングループは users/{uid}/party/current 以外の party という名前のコレクションも拾うため、パスで絞る
     const owner = party.ref.parent.parent;
     if (party.id !== "current" || owner === null || owner.parent.id !== "users" || excludedUids.has(owner.id)) {
       continue;
     }
-    partyMonsterIdsByUid.set(owner.id, partyMonsterIdsOf(party.data()));
+    candidatePartyDataByUid.set(owner.id, party.data());
+  }
+  const hiddenOwnerUids = await ownersHiddenByReports({ firestore, ownerUids: [...candidatePartyDataByUid.keys()] });
+  const partyMonsterIdsByUid = new Map<string, string[]>([[uid, partyMonsterIdsOf(playerParty.data())]]);
+  for (const [candidateUid, partyData] of candidatePartyDataByUid) {
+    if (!hiddenOwnerUids.has(candidateUid)) {
+      partyMonsterIdsByUid.set(candidateUid, partyMonsterIdsOf(partyData));
+    }
   }
   const partyMonstersByUid = await partyMonstersOf({ firestore, partyMonsterIdsByUid });
   const playerPartyMonsters = partyMonstersByUid.get(uid)!;

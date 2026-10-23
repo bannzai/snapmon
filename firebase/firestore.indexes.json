@@ -1,5 +1,14 @@
 {
-  "indexes": [],
+  "indexes": [
+    {
+      "collectionGroup": "reportedMonsters",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "monsterOwnerUid", "order": "ASCENDING" },
+        { "fieldPath": "reporterCount", "order": "ASCENDING" }
+      ]
+    }
+  ],
   "fieldOverrides": [
     {
       "collectionGroup": "party",
