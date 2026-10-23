@@ -118,11 +118,13 @@ class _TitleScreenState extends State<TitleScreen> {
 
   /// 直前に見たログインの状態。ログインを終えてタイトルに留まった (タイトルから開いた設定でアカウントを削除した) 時を
   /// 見分け、タイトルを開き直したのと同じに `title_shown` を数えるため。
-  late bool _couldEnterApp = widget.ageVerifiedSessionStore.canEnterApp;
+  // late の初期化は最初に読んだ時 (状態が変わった後のリスナーの中) になるため、initState で今の状態を入れる
+  bool _couldEnterApp = false;
 
   @override
   void initState() {
     super.initState();
+    _couldEnterApp = widget.ageVerifiedSessionStore.canEnterApp;
     widget.ageVerifiedSessionStore.addListener(_onSessionChanged);
     unawaited(_detectCamera());
     // ログインの状態を変えるため、親の ListenableBuilder が build の途中にならない最初のフレームの後に始める
@@ -983,9 +985,11 @@ class _SessionGateScreenState extends State<_SessionGateScreen> {
       if (widget.ageVerifiedSessionStore.canEnterApp) {
         if (!_hasPopped) {
           _hasPopped = true;
-          // build の途中に閉じないため、このフレームの後に閉じる
+          // build の途中に閉じないため、このフレームの後に閉じる。閉じるボタンで閉じている途中 (アニメーション中は
+          // まだ mounted で、この画面はもう一番上ではない) にログインが済んだ時は、重ねて pop するとタイトルまで
+          // 閉じてしまうため何もしない
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (mounted) {
+            if (mounted && (ModalRoute.of(context)?.isCurrent ?? false)) {
               Navigator.of(context).pop();
             }
           });
