@@ -3,12 +3,11 @@ import 'package:flutter/services.dart';
 
 import '../../sample/sample_data.dart';
 import '../../theme/snapmon_text_styles.dart';
-import '../age_gate/age_confirmation.dart';
-import '../age_gate/age_verified_session_store.dart';
 import '../capture/generation_screen.dart';
 import '../capture/monster_generator.dart';
 import '../dex/dex_store.dart';
 import '../result/result_screen.dart';
+import '../session/session_store.dart';
 import '../share/card_sharer.dart';
 
 /// 開発者メニューから生成に送る見本の写真の名前とファイル。Simulator にはカメラが無いため、撮影の代わりに使う
@@ -19,7 +18,7 @@ const Map<String, String> _samplePhotoAssetPaths = {
   'アヒルのおもちゃ': 'assets/samples/photos/rubber_duck.jpg',
 };
 
-/// DEBUG ビルド限定の開発者メニュー。到達困難な状態 (図鑑の数・手持ち・年齢の確認のやり直し) をここで作る
+/// DEBUG ビルド限定の開発者メニュー。到達困難な状態 (図鑑の数・手持ち・新しいアカウントでの始め直し) をここで作る
 /// (AGENTS.md「ビルド・テスト・検証方法」。リモートの simulator では起動引数を渡しにくいため)。
 /// 入口は設定画面にあり、release ビルドでは入口ごと除かれる ([SettingsScreen.isDeveloperMenuEnabled])。
 class DeveloperMenuScreen extends StatelessWidget {
@@ -28,8 +27,7 @@ class DeveloperMenuScreen extends StatelessWidget {
     super.key,
     required this.sampleData,
     required this.dexStore,
-    required this.ageConfirmationStore,
-    required this.ageVerifiedSessionStore,
+    required this.sessionStore,
     required this.monsterGenerator,
     required this.cardSharer,
   });
@@ -40,11 +38,8 @@ class DeveloperMenuScreen extends StatelessWidget {
   /// 図鑑と手持ち。
   final DexStore dexStore;
 
-  /// 年齢の確認。
-  final AgeConfirmationStore ageConfirmationStore;
-
-  /// 年齢の確認の後のログイン。
-  final AgeVerifiedSessionStore ageVerifiedSessionStore;
+  /// ログイン。
+  final SessionStore sessionStore;
 
   /// 生成の呼び出しと計測 (見本の写真からの生成に使う)。
   final MonsterGenerator monsterGenerator;
@@ -130,19 +125,18 @@ class DeveloperMenuScreen extends StatelessWidget {
             leading: const Icon(Icons.person_outline),
             title: const Text('ログイン状態'),
             subtitle: Text(
-              ageVerifiedSessionStore.uid == null
-                  ? '未ログイン (年齢の確認の後のログインを DEBUG で飛ばした)'
-                  : '匿名ログイン (年齢の確認済み) uid: ${ageVerifiedSessionStore.uid}',
+              sessionStore.uid == null
+                  ? '未ログイン (ログインを DEBUG で飛ばした)'
+                  : '匿名ログイン uid: ${sessionStore.uid}',
             ),
           ),
           ListTile(
             leading: const Icon(Icons.restart_alt),
-            title: const Text('年齢の確認をやり直す'),
-            subtitle: const Text('ログインを終え 保存した生年月を消して最初の画面に戻る'),
+            title: const Text('新しいアカウントで始め直す'),
+            subtitle: const Text('ログインを終えて最初の画面に戻り 新しい匿名アカウントでログインする'),
             onTap: () async {
               Navigator.of(context).popUntil((route) => route.isFirst);
-              await ageVerifiedSessionStore.reset();
-              await ageConfirmationStore.reset();
+              await sessionStore.reset();
             },
           ),
           const Padding(

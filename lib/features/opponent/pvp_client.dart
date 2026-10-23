@@ -4,7 +4,7 @@ import 'report_reason.dart';
 
 /// 非同期 PvP の相手の取得・通報・ブロック・戦績・表示名を呼ぶ関数の組。
 /// 対戦相手と設定の画面を Firebase と切り離してテストするため、実体 (lib/firebase/pvp.dart) は main.dart から渡す。
-/// 年齢の確認を通ったログインが無い時 (DEBUG ビルドでログインを飛ばした時) に null を返す関数は、その旨を各関数に書く。
+/// ログインが無い時 (DEBUG ビルドでログインを飛ばした時) に null を返す関数は、その旨を各関数に書く。
 class PvpClient {
   /// 関数の組を作る。
   const PvpClient({

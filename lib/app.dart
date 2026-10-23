@@ -1,28 +1,26 @@
 import 'package:flutter/material.dart';
 
-import 'features/age_gate/age_confirmation.dart';
-import 'features/age_gate/age_gate_screen.dart';
-import 'features/age_gate/age_verified_session_store.dart';
 import 'features/battle/battle_recorder.dart';
 import 'features/capture/monster_generator.dart';
 import 'features/dex/dex_store.dart';
 import 'features/home/home_shell.dart';
 import 'features/opponent/pvp_client.dart';
+import 'features/session/session_screen.dart';
+import 'features/session/session_store.dart';
 import 'features/settings/account_store.dart';
 import 'features/settings/settings_screen.dart';
 import 'features/share/card_sharer.dart';
 import 'sample/sample_data.dart';
 import 'theme/snapmon_theme.dart';
 
-/// アプリのルート。年齢の確認とその後のログインが済むまでは年齢の確認の画面だけを出し、済んだら下タブの画面を出す。
+/// アプリのルート。ログインが済むまではログインの画面 (読み込み中・失敗と再試行) だけを出し、済んだら下タブの画面を出す。
 class SnapmonApp extends StatelessWidget {
   /// アプリのルートを作る。
   const SnapmonApp({
     super.key,
     required this.sampleData,
     required this.dexStore,
-    required this.ageConfirmationStore,
-    required this.ageVerifiedSessionStore,
+    required this.sessionStore,
     required this.openUrl,
     required this.isDeveloperMenuEnabled,
     required this.battleRecorder,
@@ -41,11 +39,8 @@ class SnapmonApp extends StatelessWidget {
   /// 図鑑と手持ち。
   final DexStore dexStore;
 
-  /// 年齢の確認。
-  final AgeConfirmationStore ageConfirmationStore;
-
-  /// 年齢の確認の後のログイン。
-  final AgeVerifiedSessionStore ageVerifiedSessionStore;
+  /// ログイン。
+  final SessionStore sessionStore;
 
   /// 設定画面のリンクを開く。
   final OpenUrl openUrl;
@@ -70,36 +65,24 @@ class SnapmonApp extends StatelessWidget {
     title: 'snapmon',
     theme: snapmonThemeData(),
     home: ListenableBuilder(
-      listenable: Listenable.merge([
-        ageConfirmationStore,
-        ageVerifiedSessionStore,
-      ]),
-      builder: (context, _) => switch (ageConfirmationStore.status) {
-        AgeConfirmationStatus.unanswered => AgeGateScreen(
-          ageConfirmationStore: ageConfirmationStore,
-        ),
-        AgeConfirmationStatus.restricted => const AgeRestrictedScreen(),
-        AgeConfirmationStatus.allowed
-            when !ageVerifiedSessionStore.canEnterApp =>
-          AgeVerifiedSessionScreen(
-            ageConfirmationStore: ageConfirmationStore,
-            ageVerifiedSessionStore: ageVerifiedSessionStore,
-            isDebugSkipEnabled: isDeveloperMenuEnabled,
-          ),
-        AgeConfirmationStatus.allowed => HomeShell(
-          sampleData: sampleData,
-          dexStore: dexStore,
-          ageConfirmationStore: ageConfirmationStore,
-          ageVerifiedSessionStore: ageVerifiedSessionStore,
-          openUrl: openUrl,
-          isDeveloperMenuEnabled: isDeveloperMenuEnabled,
-          battleRecorder: battleRecorder,
-          monsterGenerator: monsterGenerator,
-          pvpClient: pvpClient,
-          cardSharer: cardSharer,
-          accountStore: accountStore,
-        ),
-      },
+      listenable: sessionStore,
+      builder: (context, _) => sessionStore.canEnterApp
+          ? HomeShell(
+              sampleData: sampleData,
+              dexStore: dexStore,
+              sessionStore: sessionStore,
+              openUrl: openUrl,
+              isDeveloperMenuEnabled: isDeveloperMenuEnabled,
+              battleRecorder: battleRecorder,
+              monsterGenerator: monsterGenerator,
+              pvpClient: pvpClient,
+              cardSharer: cardSharer,
+              accountStore: accountStore,
+            )
+          : SessionScreen(
+              sessionStore: sessionStore,
+              isDebugSkipEnabled: isDeveloperMenuEnabled,
+            ),
     ),
   );
 }

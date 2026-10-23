@@ -23,9 +23,6 @@ export async function handleGenerateRequest(dependencies: GenerationDependencies
   if (!request.auth) {
     throw new HttpsError("unauthenticated", "匿名ログインの後に呼んでください");
   }
-  if (request.auth.token.ageVerified !== true) {
-    throw new HttpsError("permission-denied", "年齢の確認の後に呼んでください");
-  }
   const uid = request.auth.uid;
   const { requestId, photoPath, maskPath } = (request.data ?? {}) as { requestId?: unknown; photoPath?: unknown; maskPath?: unknown };
   if (typeof requestId !== "string" || !REQUEST_ID_PATTERN.test(requestId)) {

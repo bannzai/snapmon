@@ -126,16 +126,27 @@ export async function deleteAccountData(dependencies: AccountDeletionDependencie
  * 消えていなければ何もしない。生成のようにアカウントのデータを新しく書く callable の最初に呼ぶ。
  */
 export async function rejectDeletedAccount({ auth, bucket, uid }: { auth: Auth; bucket: StorageBucket; uid: string }): Promise<void> {
+  if (await authUserExists({ auth, uid })) {
+    return;
+  }
+  await deleteAccountFiles(bucket, { uid, artPaths: [] });
+  throw new HttpsError("unauthenticated", "このアカウントは削除されています");
+}
+
+/**
+ * [uid] の Auth のユーザーが残っているか。アカウントの削除 ([deleteAccountData]) は Auth のユーザーを `users/{uid}` より先に消すため、
+ * `users/{uid}` が無い uid が、まだ何も書いていない新しいユーザーか、削除を消し終えたユーザーかを見分けるのに使う。
+ */
+export async function authUserExists({ auth, uid }: { auth: Auth; uid: string }): Promise<boolean> {
   try {
     await auth.getUser(uid);
-    return;
+    return true;
   } catch (error) {
     if ((error as { code?: string }).code !== "auth/user-not-found") {
       throw error;
     }
+    return false;
   }
-  await deleteAccountFiles(bucket, { uid, artPaths: [] });
-  throw new HttpsError("unauthenticated", "このアカウントは削除されています");
 }
 
 /** [uid] の `users/{uid}/` の配下のファイルと [artPaths] の絵を消す。無いファイルは無視する (何度呼んでもよい)。 */
@@ -146,7 +157,6 @@ export async function deleteAccountFiles(bucket: StorageBucket, { uid, artPaths 
 
 /**
  * 本人のアカウントを消す callable (App Check 必須)。受け取る data は無い。返す値: `{ deleted: true }`。
- * 年齢の確認のクレームは求めない (確認を通らなかった人も、残ったデータを消せるようにするため)。
  * Admin SDK で消すため、クライアントの最近のログインは要らない。Sign in with Apple の連携の取り消し (Apple のトークンの revoke) は、
  * クライアントが呼ぶ前に行う (lib/firebase/account.dart)。
  */

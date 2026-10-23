@@ -31,35 +31,36 @@ afterAll(async () => {
 });
 
 /** callable のプロトコル (POST の JSON `{ data }`) で関数を呼ぶ。 */
-function callFunction({ name, idToken, data }: { name: string; idToken: string; data: unknown }): Promise<Response> {
+function callFunction({ name, idToken, data }: { name: string; idToken: string | null; data: unknown }): Promise<Response> {
   return fetch(`${functionsOrigin}/${name}`, {
     method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${idToken}`, "X-Firebase-AppCheck": fakeAppCheckToken },
+    headers: {
+      "Content-Type": "application/json",
+      ...(idToken ? { Authorization: `Bearer ${idToken}` } : {}),
+      "X-Firebase-AppCheck": fakeAppCheckToken,
+    },
     body: JSON.stringify({ data }),
   });
 }
 
 describe("generate (Functions の Emulator)", () => {
-  it("年齢の確認の前は permission-denied を返す", async () => {
+  it("ログインしていない呼び出しは unauthenticated を返す", async () => {
+    const requestId = randomUUID();
+    const response = await callFunction({
+      name: "generate",
+      idToken: null,
+      data: { requestId, photoPath: `users/someone/photos/${requestId}` },
+    });
+    expect(response.status).toBe(401);
+    expect((await response.json()).error.status).toBe("UNAUTHENTICATED");
+  });
+
+  it("匿名ログインだけ (カスタムクレーム無し) で呼べ、他人の写真のパスは invalid-argument を返す", async () => {
     const credential = await signInAnonymously(auth);
     const requestId = randomUUID();
     const response = await callFunction({
       name: "generate",
       idToken: await credential.user.getIdToken(),
-      data: { requestId, photoPath: `users/${credential.user.uid}/photos/${requestId}` },
-    });
-    expect(response.status).toBe(403);
-    expect((await response.json()).error.status).toBe("PERMISSION_DENIED");
-  });
-
-  it("年齢の確認の後、他人の写真のパスは invalid-argument を返す", async () => {
-    const credential = await signInAnonymously(auth);
-    const confirmed = await callFunction({ name: "confirmAge", idToken: await credential.user.getIdToken(), data: { birthYear: 2000, birthMonth: 1 } });
-    expect(confirmed.status).toBe(200);
-    const requestId = randomUUID();
-    const response = await callFunction({
-      name: "generate",
-      idToken: await credential.user.getIdToken(true),
       data: { requestId, photoPath: `users/someone-else/photos/${requestId}` },
     });
     expect(response.status).toBe(400);

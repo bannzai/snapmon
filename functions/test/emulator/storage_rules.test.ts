@@ -42,14 +42,14 @@ async function listAllRecursively(folder: StorageReference): Promise<StorageRefe
   return [...items, ...nestedItems.flat()];
 }
 
-/** 年齢の確認を通ったユーザー (カスタムクレーム ageVerified 付き) の Storage。 */
-function ageVerifiedStorage(uid: string) {
-  return testEnvironment.authenticatedContext(uid, { ageVerified: true }).storage(bucketUrl);
+/** 匿名ログインしたユーザー (カスタムクレーム無し) の Storage。 */
+function signedInStorage(uid: string) {
+  return testEnvironment.authenticatedContext(uid).storage(bucketUrl);
 }
 
 describe("users/{uid}/photos", () => {
   it("本人は 4 MB 以下の JPEG・PNG を置ける", async () => {
-    const storage = ageVerifiedStorage("alice");
+    const storage = signedInStorage("alice");
     await assertSucceeds(
       uploadBytes(ref(storage, "users/alice/photos/request1"), smallImage, { contentType: "image/jpeg" }),
     );
@@ -59,7 +59,7 @@ describe("users/{uid}/photos", () => {
   });
 
   it("4 MB を超える写真と JPEG・PNG 以外は置けない", async () => {
-    const storage = ageVerifiedStorage("alice");
+    const storage = signedInStorage("alice");
     await assertFails(
       uploadBytes(ref(storage, "users/alice/photos/large"), new Uint8Array(4 * 1024 * 1024 + 1), {
         contentType: "image/jpeg",
@@ -71,15 +71,15 @@ describe("users/{uid}/photos", () => {
   });
 
   it("他人の写真は読めず、他人の場所には置けない", async () => {
-    const storage = ageVerifiedStorage("alice");
+    const storage = signedInStorage("alice");
     await assertFails(getBytes(ref(storage, "users/bob/photos/request1")));
     await assertFails(
       uploadBytes(ref(storage, "users/bob/photos/request2"), smallImage, { contentType: "image/jpeg" }),
     );
   });
 
-  it("年齢の確認を通っていない本人は置けない", async () => {
-    const storage = testEnvironment.authenticatedContext("alice").storage(bucketUrl);
+  it("未ログインは置けない", async () => {
+    const storage = testEnvironment.unauthenticatedContext().storage(bucketUrl);
     await assertFails(
       uploadBytes(ref(storage, "users/alice/photos/request1"), smallImage, { contentType: "image/jpeg" }),
     );
@@ -88,7 +88,7 @@ describe("users/{uid}/photos", () => {
 
 describe("users/{uid}/masks", () => {
   it("本人は 1 MB 以下の PNG のマスクを置け、他人の場所と PNG 以外には置けない", async () => {
-    const storage = ageVerifiedStorage("alice");
+    const storage = signedInStorage("alice");
     await assertSucceeds(uploadBytes(ref(storage, "users/alice/masks/request1"), smallImage, { contentType: "image/png" }));
     await assertFails(uploadBytes(ref(storage, "users/alice/masks/request2"), smallImage, { contentType: "image/jpeg" }));
     await assertFails(
@@ -100,17 +100,17 @@ describe("users/{uid}/masks", () => {
 
 describe("users/{uid}/generations/{requestId}/cutout.png", () => {
   it("本人だけが読め、本人も書けない", async () => {
-    await assertSucceeds(getBytes(ref(ageVerifiedStorage("alice"), "users/alice/generations/request1/cutout.png")));
-    await assertFails(getBytes(ref(ageVerifiedStorage("bob"), "users/alice/generations/request1/cutout.png")));
+    await assertSucceeds(getBytes(ref(signedInStorage("alice"), "users/alice/generations/request1/cutout.png")));
+    await assertFails(getBytes(ref(signedInStorage("bob"), "users/alice/generations/request1/cutout.png")));
     await assertFails(
-      uploadBytes(ref(ageVerifiedStorage("alice"), "users/alice/generations/request2/cutout.png"), smallImage, { contentType: "image/png" }),
+      uploadBytes(ref(signedInStorage("alice"), "users/alice/generations/request2/cutout.png"), smallImage, { contentType: "image/png" }),
     );
   });
 });
 
 describe("monsters/{monsterId}/art.png", () => {
-  it("年齢の確認を通ったユーザーは他人のモンスターの絵も読めるが、書けない", async () => {
-    const storage = ageVerifiedStorage("alice");
+  it("ログインしたユーザーは他人のモンスターの絵も読めるが、書けない", async () => {
+    const storage = signedInStorage("alice");
     await assertSucceeds(getBytes(ref(storage, "monsters/monster1/art.png")));
     await assertFails(
       uploadBytes(ref(storage, "monsters/monster2/art.png"), smallImage, { contentType: "image/png" }),

@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import 'age_verified_session.dart';
+import 'session.dart';
 
 // 匿名アカウントへの Apple / Google の連携 (引き継ぎ) と、アカウントの削除の Firebase の実体。
 // 連携先はプラットフォームごとに 1 つ (iOS は Sign in with Apple、Android と Web は Google)。
@@ -70,18 +70,10 @@ Future<Future<String> Function()?> linkAccountWithFirebase() async {
 }
 
 /// [credential] で連携済みのアカウントにサインインし、その uid を返す。
-/// 連携済みのアカウントは、連携した端末で年齢の確認 (confirmAge) を通っているため、ID トークンのクレームを確かめてから返す。
 Future<String> _signInToLinkedAccount({
   required AuthCredential credential,
-}) async {
-  final user = (await FirebaseAuth.instance.signInWithCredential(
-    credential,
-  )).user!;
-  if (!await hasAgeVerifiedClaim(user: user, forceRefresh: true)) {
-    throw StateError('連携済みのアカウントに ageVerified のクレームがありません');
-  }
-  return user.uid;
-}
+}) async =>
+    (await FirebaseAuth.instance.signInWithCredential(credential)).user!.uid;
 
 /// Functions の deleteAccount で、いまのアカウントのサーバーのデータと Auth のユーザーを消す。
 /// 呼び出しが失敗しても、サーバーで消し終えていた (応答を受け取れなかった) 時は成功として返す
@@ -107,7 +99,7 @@ Future<void> deleteCurrentAccountOnServerWithFirebase() async {
 /// その後に [deleteCurrentAccountOnServerWithFirebase] を呼ぶ。サインアウトは呼び出し側が行う。
 ///
 /// 前の削除がサーバーで終わっていた (応答を受け取れなかった) 時は、何もせずに返す。再認証は消えたユーザーでは失敗し、
-/// 削除をやり直しても年齢の確認の画面に戻れなくなるため。
+/// 削除をやり直してもログインの画面に戻れなくなるため。
 Future<void> deleteAccountWithFirebase() async {
   if (await _isCurrentUserDeletedOnServer()) {
     return;

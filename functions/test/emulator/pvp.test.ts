@@ -1,6 +1,6 @@
 import { initializeTestEnvironment, type RulesTestEnvironment } from "@firebase/rules-unit-testing";
 import { deleteApp, initializeApp } from "firebase/app";
-import { connectAuthEmulator, getAuth, signInAnonymously, signOut } from "firebase/auth";
+import { connectAuthEmulator, deleteUser, getAuth, signInAnonymously, signOut } from "firebase/auth";
 import { Timestamp, doc, getDoc, setDoc } from "firebase/firestore";
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 
@@ -77,18 +77,22 @@ async function callOk<Result>({ name, user, data }: { name: string; user: TestUs
 }
 
 /**
- * 匿名ログインし、[ageVerified] が true なら confirmAge でクレームを付けたユーザーを返す。
+ * 匿名ログインし (カスタムクレーム無し)、モンスターを生成した後のユーザーと同じく `users/{uid}` を Rules を通さずに作って返す
+ * (通報・ブロックは相手を探した後にしか呼ばれず、相手を探すには生成で生まれた手持ちが要るため)。
  * 1 つの Auth で次々にログインし直すため、ログインした時点の ID トークンを持って返す (トークンの期限 1 時間はテストより長い)。
  */
-async function signInUser({ ageVerified }: { ageVerified: boolean }): Promise<TestUser> {
+async function signInUser(): Promise<TestUser> {
   await signOut(auth);
   const credential = await signInAnonymously(auth);
-  const signedInUser = { uid: credential.user.uid, idToken: await credential.user.getIdToken() };
-  if (!ageVerified) {
-    return signedInUser;
-  }
-  await callOk({ name: "confirmAge", user: signedInUser, data: { birthYear: 2000, birthMonth: 1 } });
-  return { uid: credential.user.uid, idToken: await credential.user.getIdToken(true) };
+  await markGenerated({ uid: credential.user.uid });
+  return { uid: credential.user.uid, idToken: await credential.user.getIdToken() };
+}
+
+/** [uid] に、モンスターを生成した時と同じく `users/{uid}` を Rules を通さずに作る。 */
+async function markGenerated({ uid }: { uid: string }): Promise<void> {
+  await testEnvironment.withSecurityRulesDisabled(async (context) => {
+    await setDoc(doc(context.firestore(), `users/${uid}`), { dailyGeneration: { date: "2000-01-01", count: 1 } }, { merge: true });
+  });
 }
 
 /** 他人に返してはいけない元の写真の参照。応答に含まれないことを確かめるため、uid と monsterId から見分けられる値にする。 */
@@ -142,9 +146,9 @@ async function seedParty({
       monsterIds,
       updatedAt: Timestamp.fromMillis(updatedAtMillis),
     });
-    // confirmAge が年齢の確認を通した印 (fetchOpponents は印の無い持ち主を候補に出さない)
-    await setDoc(doc(firestore, `users/${uid}`), { ageAccepted: true }, { merge: true });
   });
+  // fetchOpponents は users/{uid} の無い持ち主を、アカウントの削除を消し終えたものとして候補に出さない
+  await markGenerated({ uid });
   return monsterIds;
 }
 
@@ -162,7 +166,7 @@ async function fetchOpponents({ user }: { user: TestUser }): Promise<Opponent[]>
 
 describe("fetchOpponents", () => {
   it("他のユーザーの手持ちを、平均レベルが近い 3 人まで返し、自分は入らない", async () => {
-    const player = await signInUser({ ageVerified: true });
+    const player = await signInUser();
     await seedParty({ uid: player.uid, levels: [10, 10], updatedAtMillis: 1 });
     await seedParty({ uid: "near", levels: [9, 11], updatedAtMillis: 2 });
     await seedParty({ uid: "middle", levels: [14], updatedAtMillis: 3 });
@@ -183,7 +187,7 @@ describe("fetchOpponents", () => {
   });
 
   it("元の写真の参照・被写体の説明・分類・生成の要求 ID を他のユーザーに返さない", async () => {
-    const player = await signInUser({ ageVerified: true });
+    const player = await signInUser();
     await seedParty({ uid: player.uid, levels: [5], updatedAtMillis: 1 });
     const monsterIds = await seedParty({ uid: "other", levels: [5, 6], updatedAtMillis: 2 });
 
@@ -205,7 +209,7 @@ describe("fetchOpponents", () => {
   });
 
   it("図鑑に無いモンスターは手持ちから落とし、全部無い相手は候補から外す", async () => {
-    const player = await signInUser({ ageVerified: true });
+    const player = await signInUser();
     await seedParty({ uid: player.uid, levels: [5], updatedAtMillis: 1 });
     await seedParty({ uid: "partial", levels: [5], updatedAtMillis: 2 });
     await testEnvironment.withSecurityRulesDisabled(async (context) => {
@@ -215,7 +219,7 @@ describe("fetchOpponents", () => {
         updatedAt: Timestamp.fromMillis(2),
       });
       await setDoc(doc(firestore, "users/ghost/party/current"), { monsterIds: ["deleted-monster"], updatedAt: Timestamp.fromMillis(3) });
-      await setDoc(doc(firestore, "users/ghost"), { ageAccepted: true });
+      await setDoc(doc(firestore, "users/ghost"), { dailyGeneration: { date: "2000-01-01", count: 1 } });
     });
 
     const opponents = await fetchOpponents({ user: player });
@@ -224,7 +228,7 @@ describe("fetchOpponents", () => {
   });
 
   it("自分の手持ちが空なら相手を探せない", async () => {
-    const player = await signInUser({ ageVerified: true });
+    const player = await signInUser();
     await seedParty({ uid: "other", levels: [5], updatedAtMillis: 2 });
     const response = await callFunction({ name: "fetchOpponents", user: player, appCheckToken: fakeAppCheckToken, data: null });
     expect(response.status).toBe(400);
@@ -232,9 +236,9 @@ describe("fetchOpponents", () => {
   });
 
   it("ブロックした相手とブロックされた相手は、互いの候補から消える", async () => {
-    const blocker = await signInUser({ ageVerified: true });
+    const blocker = await signInUser();
     await seedParty({ uid: blocker.uid, levels: [5], updatedAtMillis: 1 });
-    const blocked = await signInUser({ ageVerified: true });
+    const blocked = await signInUser();
     await seedParty({ uid: blocked.uid, levels: [5], updatedAtMillis: 2 });
     await seedParty({ uid: "bystander", levels: [5], updatedAtMillis: 3 });
 
@@ -248,7 +252,7 @@ describe("fetchOpponents", () => {
   });
 
   it("自分が通報したモンスターの持ち主は、自分の候補から消える", async () => {
-    const reporter = await signInUser({ ageVerified: true });
+    const reporter = await signInUser();
     await seedParty({ uid: reporter.uid, levels: [5], updatedAtMillis: 1 });
     const [reportedMonsterId] = await seedParty({ uid: "reported", levels: [5], updatedAtMillis: 2 });
     await seedParty({ uid: "bystander", levels: [5], updatedAtMillis: 3 });
@@ -265,11 +269,11 @@ describe("fetchOpponents", () => {
 
   it(`${REPORT_HIDE_THRESHOLD} 人から通報されたモンスターの持ち主は全員の候補から消え、それより少なければ残る`, async () => {
     const [reportedMonsterId] = await seedParty({ uid: "reported", levels: [5], updatedAtMillis: 1 });
-    const viewer = await signInUser({ ageVerified: true });
+    const viewer = await signInUser();
     await seedParty({ uid: viewer.uid, levels: [5], updatedAtMillis: 2 });
     for (let count = 0; count < REPORT_HIDE_THRESHOLD; count++) {
       expect((await fetchOpponents({ user: viewer })).map((opponent) => opponent.opponentUid)).toContain("reported");
-      const reporter = await signInUser({ ageVerified: true });
+      const reporter = await signInUser();
       await callOk({
         name: "reportMonster",
         user: reporter,
@@ -279,15 +283,10 @@ describe("fetchOpponents", () => {
     expect((await fetchOpponents({ user: viewer })).map((opponent) => opponent.opponentUid)).not.toContain("reported");
   });
 
-  it("年齢の確認を通っていないユーザーと、App Check のトークンが無い呼び出しは弾く", async () => {
-    const unverified = await signInUser({ ageVerified: false });
+  it("App Check のトークンが無い呼び出しは弾く", async () => {
+    const user = await signInUser();
     for (const name of ["fetchOpponents", "reportMonster", "blockUser", "getDisplayName", "setDisplayName"]) {
-      const response = await callFunction({ name, user: unverified, appCheckToken: fakeAppCheckToken, data: {} });
-      expect(response.status, name).toBe(403);
-    }
-    const verified = await signInUser({ ageVerified: true });
-    for (const name of ["fetchOpponents", "reportMonster", "blockUser", "getDisplayName", "setDisplayName"]) {
-      const response = await callFunction({ name, user: verified, appCheckToken: null, data: {} });
+      const response = await callFunction({ name, user, appCheckToken: null, data: {} });
       expect(response.status, name).toBe(401);
     }
   });
@@ -311,7 +310,7 @@ describe("reportMonster", () => {
   }
 
   it("通報を残し、同じユーザーが通報し直しても数を増やさない", async () => {
-    const reporter = await signInUser({ ageVerified: true });
+    const reporter = await signInUser();
     const [monsterId] = await seedParty({ uid: "owner", levels: [5], updatedAtMillis: 1 });
     for (const reason of ["inappropriate_text", "other"]) {
       await callOk({ name: "reportMonster", user: reporter, data: { monsterOwnerUid: "owner", monsterId, reason } });
@@ -329,7 +328,7 @@ describe("reportMonster", () => {
   });
 
   it("自分のモンスター・無いモンスター・決めていない理由は通報できない", async () => {
-    const reporter = await signInUser({ ageVerified: true });
+    const reporter = await signInUser();
     const [ownMonsterId] = await seedParty({ uid: reporter.uid, levels: [5], updatedAtMillis: 1 });
     const [otherMonsterId] = await seedParty({ uid: "owner", levels: [5], updatedAtMillis: 2 });
     const cases: { data: unknown; status: number }[] = [
@@ -347,7 +346,7 @@ describe("reportMonster", () => {
 
 describe("アカウントの削除の途中", () => {
   it("通報・ブロック・表示名の変更を断り、本人のデータを書かない", async () => {
-    const user = await signInUser({ ageVerified: true });
+    const user = await signInUser();
     const [monsterId] = await seedParty({ uid: "owner", levels: [5], updatedAtMillis: 1 });
     await testEnvironment.withSecurityRulesDisabled(async (context) => {
       await setDoc(doc(context.firestore(), `users/${user.uid}`), { accountDeletionStartedAt: Timestamp.fromMillis(0) }, { merge: true });
@@ -370,9 +369,35 @@ describe("アカウントの削除の途中", () => {
   });
 });
 
+describe("アカウントの削除を消し終えた後 (別の端末の ID トークンは期限まで通る)", () => {
+  it("通報・ブロック・表示名の変更を断り、本人のデータを作り直さない", async () => {
+    await signOut(auth);
+    const credential = await signInAnonymously(auth);
+    const user = { uid: credential.user.uid, idToken: await credential.user.getIdToken() };
+    const [monsterId] = await seedParty({ uid: "owner", levels: [5], updatedAtMillis: 1 });
+    // 削除は Auth のユーザーを users/{uid} より先に消す (account.ts の deleteAccountData)。users/{uid} はまだ無い
+    await deleteUser(credential.user);
+    for (const [name, data] of [
+      ["reportMonster", { monsterOwnerUid: "owner", monsterId, reason: "other" }],
+      ["blockUser", { blockedUid: "owner" }],
+      ["setDisplayName", { displayName: "ばんざい" }],
+    ] as const) {
+      const response = await callFunction({ name, user, appCheckToken: fakeAppCheckToken, data });
+      expect(response.status, name).toBe(400);
+      expect(await response.text(), name).toContain("FAILED_PRECONDITION");
+    }
+    await testEnvironment.withSecurityRulesDisabled(async (context) => {
+      const firestore = context.firestore();
+      expect((await getDoc(doc(firestore, `users/${user.uid}`))).exists()).toBe(false);
+      expect((await getDoc(doc(firestore, `reports/${user.uid}_${monsterId}`))).exists()).toBe(false);
+      expect((await getDoc(doc(firestore, `blocks/${user.uid}_owner`))).exists()).toBe(false);
+    });
+  });
+});
+
 describe("持ち主のアカウントの削除の途中", () => {
   it("その持ち主は候補に出さない (絵は消え、通報もできないため)", async () => {
-    const viewer = await signInUser({ ageVerified: true });
+    const viewer = await signInUser();
     await seedParty({ uid: viewer.uid, levels: [5], updatedAtMillis: 1 });
     await seedParty({ uid: "deleting", levels: [5], updatedAtMillis: 2 });
     await seedParty({ uid: "bystander", levels: [5], updatedAtMillis: 3 });
@@ -383,7 +408,7 @@ describe("持ち主のアカウントの削除の途中", () => {
   });
 
   it("そのモンスターへの通報は無いものとして断り、通報の数を作らない", async () => {
-    const reporter = await signInUser({ ageVerified: true });
+    const reporter = await signInUser();
     const [monsterId] = await seedParty({ uid: "owner", levels: [5], updatedAtMillis: 1 });
     await testEnvironment.withSecurityRulesDisabled(async (context) => {
       await setDoc(doc(context.firestore(), "users/owner"), { accountDeletionStartedAt: Timestamp.fromMillis(0) }, { merge: true });
@@ -403,7 +428,7 @@ describe("持ち主のアカウントの削除の途中", () => {
 
 describe("blockUser", () => {
   it("自分・空・パスを含む uid はブロックできない", async () => {
-    const user = await signInUser({ ageVerified: true });
+    const user = await signInUser();
     for (const blockedUid of [user.uid, "", "a/b", undefined]) {
       const response = await callFunction({ name: "blockUser", user, appCheckToken: fakeAppCheckToken, data: { blockedUid } });
       expect(response.status, String(blockedUid)).toBe(400);
@@ -413,7 +438,7 @@ describe("blockUser", () => {
 
 describe("表示名", () => {
   it("設定していなければ既定の名前を返し、変えると本人と相手の候補の両方に出る", async () => {
-    const owner = await signInUser({ ageVerified: true });
+    const owner = await signInUser();
     await seedParty({ uid: owner.uid, levels: [5], updatedAtMillis: 1 });
     expect(await callOk({ name: "getDisplayName", user: owner, data: null })).toEqual({
       displayName: defaultDisplayName(owner.uid),
@@ -423,13 +448,13 @@ describe("表示名", () => {
     });
     expect(await callOk({ name: "getDisplayName", user: owner, data: null })).toEqual({ displayName: "ばんざい" });
 
-    const viewer = await signInUser({ ageVerified: true });
+    const viewer = await signInUser();
     await seedParty({ uid: viewer.uid, levels: [5], updatedAtMillis: 2 });
     expect(await fetchOpponents({ user: viewer })).toMatchObject([{ opponentUid: owner.uid, displayName: "ばんざい" }]);
   });
 
   it("禁止語・長すぎる名前は受け付けず、理由を返して保存しない", async () => {
-    const user = await signInUser({ ageVerified: true });
+    const user = await signInUser();
     for (const displayName of ["ピカチュウ", "あ".repeat(13), ""]) {
       const response = await callFunction({
         name: "setDisplayName",

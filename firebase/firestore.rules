@@ -4,25 +4,24 @@ rules_version = '2';
 // 構造を変える時は、このファイル・Rules のテスト (functions/test/emulator/firestore_rules.test.ts)・.claude/rules/firestore.md を同時に直す。
 service cloud.firestore {
   match /databases/{database}/documents {
-    // 年齢の確認を通ったユーザー (Functions の confirmAge がカスタムクレーム ageVerified を付ける) か。
-    function isAgeVerified() {
-      return request.auth != null && request.auth.token.get("ageVerified", false) == true;
+    // ログイン (匿名ログインを含む) したユーザーか。
+    function isSignedIn() {
+      return request.auth != null;
     }
 
-    // 年齢の確認を通った本人か。
-    function isAgeVerifiedOwner(uid) {
-      return isAgeVerified() && request.auth.uid == uid;
+    // ログインした本人か。
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
     }
 
-    // 年齢の確認を通った本人で、アカウントが残っていて削除の途中でもないか (confirmAge が users/{uid} に ageAccepted を付け、
-    // deleteAccount が削除の始まりに accountDeletionStartedAt を付けて最後に users/{uid} ごと消す)。クライアントが書く時に確かめる。
+    // ログインした本人で、アカウントが残っていて削除の途中でもないか (生成が users/{uid} を作り、deleteAccount が削除の始まりに
+    // accountDeletionStartedAt を付けて最後に users/{uid} ごと消す)。クライアントが書く時に確かめる。
     // 削除の後も別の端末の ID トークンは期限まで通るため、消し終えた uid の配下に書かせない。
-    function isActiveAgeVerifiedOwner(uid) {
-      let user = get(/databases/$(database)/documents/users/$(uid));
-      return isAgeVerifiedOwner(uid)
-        && user != null
-        && user.data.get("ageAccepted", false) == true
-        && !("accountDeletionStartedAt" in user.data);
+    // 手持ちに入れるモンスターは生成で生まれるため、手持ちを書くユーザーには users/{uid} がある。
+    function isActiveOwner(uid) {
+      return isOwner(uid)
+        && exists(/databases/$(database)/documents/users/$(uid))
+        && !("accountDeletionStartedAt" in get(/databases/$(database)/documents/users/$(uid)).data);
     }
 
     // 本人の図鑑にあるモンスターか。
@@ -44,13 +43,13 @@ service cloud.firestore {
 
     // master (属性・技・相性表・分類) の版。投入は Functions のデプロイ時のスクリプトだけが行う。
     match /master/{version} {
-      allow read: if isAgeVerified();
+      allow read: if isSignedIn();
       allow write: if false;
     }
 
-    // 生成時にその場で作った属性・技の定義。他人のモンスターが参照する定義を端末で解決するため、年齢の確認を通った全員が読める。
+    // 生成時にその場で作った属性・技の定義。他人のモンスターが参照する定義を端末で解決するため、ログインした全員が読める。
     match /definitions/{definitionId} {
-      allow read: if isAgeVerified();
+      allow read: if isSignedIn();
       allow write: if false;
     }
 
@@ -68,28 +67,28 @@ service cloud.firestore {
 
     match /users/{uid} {
       // ユーザーのドキュメントには Functions が生成中ロック等を書く。
-      allow read: if isAgeVerifiedOwner(uid);
+      allow read: if isOwner(uid);
       allow write: if false;
 
       match /monsters/{monsterId} {
-        allow read: if isAgeVerifiedOwner(uid);
+        allow read: if isOwner(uid);
         allow write: if false;
       }
 
       match /generations/{requestId} {
-        allow read: if isAgeVerifiedOwner(uid);
+        allow read: if isOwner(uid);
         allow write: if false;
       }
 
       match /battles/{battleId} {
-        allow read: if isAgeVerifiedOwner(uid);
+        allow read: if isOwner(uid);
         allow write: if false;
       }
 
       // 手持ち。クライアントが書ける 2 つのうちの 1 つ。
       match /party/current {
-        allow read, delete: if isAgeVerifiedOwner(uid);
-        allow create, update: if isActiveAgeVerifiedOwner(uid)
+        allow read, delete: if isOwner(uid);
+        allow create, update: if isActiveOwner(uid)
           && request.resource.data.keys().hasOnly(['monsterIds', 'updatedAt'])
           && request.resource.data.updatedAt == request.time
           && isValidParty(uid, request.resource.data.monsterIds);
@@ -97,8 +96,8 @@ service cloud.firestore {
 
       // 端末の設定。クライアントが書ける 2 つのうちの 1 つ。
       match /settings/current {
-        allow read, delete: if isAgeVerifiedOwner(uid);
-        allow create, update: if isActiveAgeVerifiedOwner(uid);
+        allow read, delete: if isOwner(uid);
+        allow create, update: if isActiveOwner(uid);
       }
     }
   }

@@ -93,7 +93,7 @@ class BattleScreen extends StatefulWidget {
   final BattleRecorder battleRecorder;
 
   /// 決着の後、自分のモンスターのレベルが変わった時に monsterId ごとのレベルで呼ぶ。
-  /// 記録しない対戦 (年齢の確認を通ったログインが無い) では端末の計算で上がったレベルで、
+  /// 記録しない対戦 (ログインが無い) では端末の計算で上がったレベルで、
   /// 記録する対戦では Functions が返したレベルで 1 回呼ぶ。記録に失敗した時は呼ばない。
   final void Function({required Map<String, int> levelsByMonsterId})
   onPlayerLevelsChanged;

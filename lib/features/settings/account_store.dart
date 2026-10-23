@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-import '../age_gate/age_confirmation.dart';
-import '../age_gate/age_verified_session_store.dart';
+import '../session/session_store.dart';
 
 /// 設定画面の「データを引き継ぐ」(匿名アカウントへの Apple / Google の連携) と「アカウントを削除」の状態と操作。
 /// Firebase の実体 (lib/firebase/account.dart) は引数で受け取る (Firebase と切り離して単体テストするため)。
@@ -9,7 +8,6 @@ class AccountStore extends ChangeNotifier {
   /// 連携と削除の状態を作る。
   AccountStore({
     required this.sessionStore,
-    required this.ageConfirmationStore,
     required this.linkProviderName,
     required this.readLinkedProviderNames,
     required this.linkAccount,
@@ -17,11 +15,8 @@ class AccountStore extends ChangeNotifier {
     required this.deleteAccount,
   });
 
-  /// 年齢の確認の後のログイン。切り替え・削除の後に uid を差し替える・ログインを終える。
-  final AgeVerifiedSessionStore sessionStore;
-
-  /// 年齢の確認。削除の後に保存した生年月を消す。
-  final AgeConfirmationStore ageConfirmationStore;
+  /// ログイン。切り替え・削除の後に uid を差し替える・ログインを終える。
+  final SessionStore sessionStore;
 
   /// このプラットフォームで連携に使うサインインの名前 (`accountLinkProviderNameForPlatform`)。
   final String linkProviderName;
@@ -87,13 +82,10 @@ class AccountStore extends ChangeNotifier {
     sessionStore.switchUid(uid: uid);
   });
 
-  /// いまのアカウントを消し、ログインを終えて保存した生年月を消す (次は年齢の確認から始まる。docs/AccountDeletion.md)。
+  /// いまのアカウントを消し、ログインを終える (アプリのルートがログインの画面に戻り、新しい匿名アカウントで始まる。docs/AccountDeletion.md)。
   /// 削除に失敗した時は、ログインを続けたまま投げる (もう一度削除を選べば続きから消せる)。
   Future<void> delete() => _work(() async {
     await deleteAccount();
-    // 生年月を先に消す。ログインを先に終えると、年齢の確認の後のログインの画面が保存した生年月で新しい匿名アカウントを
-    // 作り始め、年齢の確認より前にログインすることになるため
-    await ageConfirmationStore.reset();
     await sessionStore.reset();
   });
 }

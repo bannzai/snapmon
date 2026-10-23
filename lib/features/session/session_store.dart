@@ -1,26 +1,20 @@
 import 'package:flutter/foundation.dart';
 
-/// 年齢の確認を通った後の Firebase へのログイン (匿名ログイン・confirmAge・計測の開始) の状態。
-/// ログインが済むまでアプリに入れない (Firestore・Storage の Rules と Functions が ageVerified のクレームを必須にしているため)。
-class AgeVerifiedSessionStore extends ChangeNotifier {
+/// Firebase へのログイン (App Check・匿名ログイン・計測の開始) の状態。
+/// ログインが済むまでアプリに入れない (Firestore・Storage の Rules と Functions がログインを必須にしているため)。
+class SessionStore extends ChangeNotifier {
   /// [startSession] でログインする。前回の起動で済ませたログインを再開できた時は、その uid を [resumedUid] に渡す。
-  AgeVerifiedSessionStore({
+  SessionStore({
     required this.startSession,
     required this.endSession,
     required String? resumedUid,
   }) : _uid = resumedUid;
 
-  /// 収集を止めてサインアウトする (lib/firebase/age_verified_session.dart の
-  /// `endAgeVerifiedSessionWithFirebase` と同じ形。テストで差し替える)。
+  /// 収集を止めてサインアウトする (lib/firebase/session.dart の `endSessionWithFirebase` と同じ形。テストで差し替える)。
   final Future<void> Function() endSession;
 
-  /// 生年月を渡してログインし、uid を返す (lib/firebase/age_verified_session.dart の
-  /// `startAgeVerifiedSessionWithFirebase` と同じ形。テストで差し替える)。
-  final Future<String> Function({
-    required int birthYear,
-    required int birthMonth,
-  })
-  startSession;
+  /// ログインし、uid を返す (lib/firebase/session.dart の `startSessionWithFirebase` と同じ形。テストで差し替える)。
+  final Future<String> Function() startSession;
 
   String? _uid;
   bool _isStarting = false;
@@ -39,9 +33,9 @@ class AgeVerifiedSessionStore extends ChangeNotifier {
   /// 最後のログインの失敗。成功した時と、やり直している間は null。
   Object? get error => _error;
 
-  /// 生年月 [birthYear]・[birthMonth] でログインする。済んでいる時と途中の時は何もしない (二重にログインしないため)。
+  /// ログインする。済んでいる時と途中の時は何もしない (二重にログインしないため)。
   /// 失敗は [error] に残し、例外として投げない。
-  Future<void> start({required int birthYear, required int birthMonth}) async {
+  Future<void> start() async {
     if (_uid != null || _isStarting) {
       return;
     }
@@ -49,7 +43,7 @@ class AgeVerifiedSessionStore extends ChangeNotifier {
     _error = null;
     notifyListeners();
     try {
-      _uid = await startSession(birthYear: birthYear, birthMonth: birthMonth);
+      _uid = await startSession();
     } catch (error) {
       _error = error;
     } finally {
@@ -72,7 +66,7 @@ class AgeVerifiedSessionStore extends ChangeNotifier {
   }
 
   /// ログインを終えて、ログインしていない状態に戻す。アカウントを削除した後と、連携済みのアカウントへの切り替えに失敗した後と、
-  /// 開発者メニューの「年齢の確認をやり直す」が使う (初回起動と同じくログインと confirmAge を通して新しい匿名アカウントで始めるため)。
+  /// 開発者メニューの「新しいアカウントで始め直す」が使う (アプリのルートがログインの画面に戻り、新しい匿名アカウントで始まる)。
   /// 何度呼んでも同じ (冪等)。
   Future<void> reset() async {
     await endSession();

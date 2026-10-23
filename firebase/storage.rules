@@ -4,43 +4,43 @@ rules_version = '2';
 // 構造を変える時は、このファイルと Rules のテスト (functions/test/emulator/storage_rules.test.ts) を同時に直す。
 service firebase.storage {
   match /b/{bucket}/o {
-    // 年齢の確認を通ったユーザー (Functions の confirmAge がカスタムクレーム ageVerified を付ける) か。
-    function isAgeVerified() {
-      return request.auth != null && request.auth.token.get("ageVerified", false) == true;
+    // ログイン (匿名ログインを含む) したユーザーか。
+    function isSignedIn() {
+      return request.auth != null;
     }
 
-    // 年齢の確認を通った本人か。
-    function isAgeVerifiedOwner(uid) {
-      return isAgeVerified() && request.auth.uid == uid;
+    // ログインした本人か。
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
     }
 
     // 元の写真。本人だけが読み書きでき、他人には見せない。
     match /users/{uid}/photos/{requestId} {
-      allow read, delete: if isAgeVerifiedOwner(uid);
+      allow read, delete: if isOwner(uid);
       // 4 MB と JPEG / PNG は ADR 0001 の画像ストレージの行の制限。
-      allow create, update: if isAgeVerifiedOwner(uid)
+      allow create, update: if isOwner(uid)
         && request.resource.size <= 4 * 1024 * 1024
         && request.resource.contentType.matches('image/(jpeg|png)');
     }
 
     // 手で決めた切り出しの範囲 (被写体が白・背景が黒のマスク)。本人だけが置ける。generate が元の写真に適用する (ADR 0002)。
     match /users/{uid}/masks/{requestId} {
-      allow read, delete: if isAgeVerifiedOwner(uid);
+      allow read, delete: if isOwner(uid);
       // 1 MB と PNG: マスクは 2 値の画像で、写真と同じ大きさでも PNG ならこれに収まるため。
-      allow create, update: if isAgeVerifiedOwner(uid)
+      allow create, update: if isOwner(uid)
         && request.resource.size <= 1 * 1024 * 1024
         && request.resource.contentType == 'image/png';
     }
 
     // 生成の途中の切り出し画像。本人だけが読め、書き込みは Functions だけ。保存したら monsters/{monsterId}/art.png に移して消す。
     match /users/{uid}/generations/{requestId}/cutout.png {
-      allow read: if isAgeVerifiedOwner(uid);
+      allow read: if isOwner(uid);
       allow write: if false;
     }
 
     // 写真から切り出した被写体の画像。PvP と共有カードで他人にも見せる。書き込みは Functions (Admin SDK) だけ。
     match /monsters/{monsterId}/art.png {
-      allow read: if isAgeVerified();
+      allow read: if isSignedIn();
       allow write: if false;
     }
   }
