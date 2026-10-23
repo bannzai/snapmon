@@ -177,6 +177,10 @@ class AgeVerifiedSessionScreen extends StatefulWidget {
 }
 
 class _AgeVerifiedSessionScreenState extends State<AgeVerifiedSessionScreen> {
+  /// この画面が自分でログインを始めたか。始める前は、タイトルの裏のログインが残した前回のエラーを出さずに
+  /// 「じゅんびしています」を出す (最初の 1 フレームだけ前回のエラーが見えるちらつきを防ぐ)。
+  bool _hasStartedHere = false;
+
   @override
   void initState() {
     super.initState();
@@ -184,10 +188,15 @@ class _AgeVerifiedSessionScreenState extends State<AgeVerifiedSessionScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) => _start());
   }
 
-  Future<void> _start() => widget.ageVerifiedSessionStore.start(
-    birthYear: widget.ageConfirmationStore.birthYear!,
-    birthMonth: widget.ageConfirmationStore.birthMonth!,
-  );
+  Future<void> _start() {
+    if (!_hasStartedHere) {
+      setState(() => _hasStartedHere = true);
+    }
+    return widget.ageVerifiedSessionStore.start(
+      birthYear: widget.ageConfirmationStore.birthYear!,
+      birthMonth: widget.ageConfirmationStore.birthMonth!,
+    );
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -195,7 +204,9 @@ class _AgeVerifiedSessionScreenState extends State<AgeVerifiedSessionScreen> {
       child: ListenableBuilder(
         listenable: widget.ageVerifiedSessionStore,
         builder: (context, _) {
-          final error = widget.ageVerifiedSessionStore.error;
+          final error = _hasStartedHere
+              ? widget.ageVerifiedSessionStore.error
+              : null;
           return ListView(
             padding: const EdgeInsets.fromLTRB(20, 56, 20, 40),
             children: [

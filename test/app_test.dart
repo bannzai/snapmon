@@ -493,7 +493,13 @@ void main() {
       expect(find.text('つながりませんでした'), findsNothing);
       expect(find.text('写真から選んではじめる'), findsOneWidget);
 
-      await tapStartFromAlbum(tester: tester);
+      await tester.tap(find.byKey(const Key('title-album')));
+      // ログインの画面の最初のフレームは、裏のログインが残した前回のエラーではなく「じゅんびしています」を出す
+      await tester.pump();
+      await tester.pump();
+      expect(find.text('じゅんびしています'), findsOneWidget);
+      expect(find.text('つながりませんでした'), findsNothing);
+      await tester.pumpAndSettle();
       expect(find.text('つながりませんでした'), findsOneWidget);
       expect(find.text('Exception: network-request-failed'), findsOneWidget);
       expect(find.text('ログインせずに進む (DEBUG)'), findsNothing);
