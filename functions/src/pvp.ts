@@ -93,7 +93,7 @@ async function ownersHiddenByReports({ firestore, ownerUids }: { firestore: Fire
  * 受け取る data: なし。
  * 返す値: `{ opponents: [{ opponentUid, displayName, monsters: PublicMonster[] }] }` (最大 3 人。手持ちの平均レベルが自分に近い順)。
  * 候補は手持ちを最近変えたユーザー [OPPONENT_CANDIDATE_SCAN_LIMIT] 人から選び、自分・ブロックした / された相手・
- * 自分が通報したモンスターの持ち主・[REPORT_HIDE_THRESHOLD] 人から通報されたモンスターの持ち主を除く。
+ * 自分が通報したモンスターの持ち主・[REPORT_HIDE_THRESHOLD] 人から通報されたモンスターの持ち主・アカウントの削除の途中の持ち主を除く。
  * モンスターは他人に見せてよい項目だけを返し (pvp_rules.ts の publicMonster)、元の写真の参照は返さない。
  * opponentUid は通報・ブロックの宛先に要るため返す。
  * 自分の手持ちが空の時は failed-precondition を投げる (平均レベルを決められないため)。読み取りだけで冪等。
@@ -123,12 +123,24 @@ export const fetchOpponents = onCall({ enforceAppCheck: true }, async (request) 
     }
     candidatePartyDataByUid.set(owner.id, party.data());
   }
-  const hiddenOwnerUids = await ownersHiddenByReports({ firestore, ownerUids: [...candidatePartyDataByUid.keys()] });
+  const candidateUids = [...candidatePartyDataByUid.keys()];
+  const [hiddenOwnerUids, candidateUsers] = await Promise.all([
+    ownersHiddenByReports({ firestore, ownerUids: candidateUids }),
+    candidateUids.length === 0 ? [] : firestore.getAll(...candidateUids.map((candidateUid) => firestore.doc(`users/${candidateUid}`))),
+  ]);
+  const candidateUserByUid = new Map(candidateUsers.map((candidateUser) => [candidateUser.id, candidateUser]));
   const partyMonsterIdsByUid = new Map<string, string[]>([[uid, partyMonsterIdsOf(playerParty.data())]]);
   for (const [candidateUid, partyData] of candidatePartyDataByUid) {
-    if (!hiddenOwnerUids.has(candidateUid)) {
-      partyMonsterIdsByUid.set(candidateUid, partyMonsterIdsOf(partyData));
+    const candidateUser = candidateUserByUid.get(candidateUid)!;
+    // 削除の途中 (絵は消え、通報は reportMonster が断る) と年齢の確認を通っていない持ち主は、通報できない相手になるため出さない
+    if (
+      hiddenOwnerUids.has(candidateUid) ||
+      candidateUser.get("accountDeletionStartedAt") !== undefined ||
+      candidateUser.get("ageAccepted") !== true
+    ) {
+      continue;
     }
+    partyMonsterIdsByUid.set(candidateUid, partyMonsterIdsOf(partyData));
   }
   const partyMonstersByUid = await partyMonstersOf({ firestore, partyMonsterIdsByUid });
   const playerPartyMonsters = partyMonstersByUid.get(uid)!;
@@ -141,12 +153,10 @@ export const fetchOpponents = onCall({ enforceAppCheck: true }, async (request) 
       .map(([candidateUid, monsters]) => ({ uid: candidateUid, partyLevels: monsters.map((monster) => monster.level) })),
     playerAverageLevel: averageLevel(playerPartyMonsters.map((monster) => monster.level)),
   });
-  const opponentUsers =
-    opponentUids.length === 0 ? [] : await firestore.getAll(...opponentUids.map((opponentUid) => firestore.doc(`users/${opponentUid}`)));
   return {
-    opponents: opponentUids.map((opponentUid, index) => ({
+    opponents: opponentUids.map((opponentUid) => ({
       opponentUid,
-      displayName: displayNameOf({ uid: opponentUid, storedDisplayName: opponentUsers[index].get("displayName") }),
+      displayName: displayNameOf({ uid: opponentUid, storedDisplayName: candidateUserByUid.get(opponentUid)!.get("displayName") }),
       monsters: partyMonstersByUid.get(opponentUid)!.map(publicMonster),
     })),
   };

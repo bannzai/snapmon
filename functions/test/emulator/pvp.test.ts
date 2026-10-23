@@ -142,6 +142,8 @@ async function seedParty({
       monsterIds,
       updatedAt: Timestamp.fromMillis(updatedAtMillis),
     });
+    // confirmAge が年齢の確認を通した印 (fetchOpponents は印の無い持ち主を候補に出さない)
+    await setDoc(doc(firestore, `users/${uid}`), { ageAccepted: true }, { merge: true });
   });
   return monsterIds;
 }
@@ -213,6 +215,7 @@ describe("fetchOpponents", () => {
         updatedAt: Timestamp.fromMillis(2),
       });
       await setDoc(doc(firestore, "users/ghost/party/current"), { monsterIds: ["deleted-monster"], updatedAt: Timestamp.fromMillis(3) });
+      await setDoc(doc(firestore, "users/ghost"), { ageAccepted: true });
     });
 
     const opponents = await fetchOpponents({ user: player });
@@ -368,6 +371,17 @@ describe("アカウントの削除の途中", () => {
 });
 
 describe("持ち主のアカウントの削除の途中", () => {
+  it("その持ち主は候補に出さない (絵は消え、通報もできないため)", async () => {
+    const viewer = await signInUser({ ageVerified: true });
+    await seedParty({ uid: viewer.uid, levels: [5], updatedAtMillis: 1 });
+    await seedParty({ uid: "deleting", levels: [5], updatedAtMillis: 2 });
+    await seedParty({ uid: "bystander", levels: [5], updatedAtMillis: 3 });
+    await testEnvironment.withSecurityRulesDisabled(async (context) => {
+      await setDoc(doc(context.firestore(), "users/deleting"), { accountDeletionStartedAt: Timestamp.fromMillis(0) }, { merge: true });
+    });
+    expect((await fetchOpponents({ user: viewer })).map((opponent) => opponent.opponentUid)).toEqual(["bystander"]);
+  });
+
   it("そのモンスターへの通報は無いものとして断り、通報の数を作らない", async () => {
     const reporter = await signInUser({ ageVerified: true });
     const [monsterId] = await seedParty({ uid: "owner", levels: [5], updatedAtMillis: 1 });
