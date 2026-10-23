@@ -27,6 +27,15 @@ enum BattleScreenAction {
   openDex,
 }
 
+/// 対戦の相手の種類。バトル完了の計測の `opponent` に名前 (`cpu` / `pvp`) をそのまま送る。
+enum BattleOpponentKind {
+  /// CPU トレーナー。
+  cpu,
+
+  /// 他のユーザーの手持ち (非同期 PvP。相手の行動は CPU の規則で決める)。
+  pvp,
+}
+
 /// 1 画面に並べる技のボタンの数 (モックの Battle.dc.html の「技 4 つ」)。
 const int _moveButtonCount = 4;
 
@@ -57,6 +66,7 @@ class BattleScreen extends StatefulWidget {
     super.key,
     required this.playerParty,
     required this.opponentParty,
+    required this.opponentKind,
     required this.definitions,
     required this.randomSeed,
     required this.battleRecorder,
@@ -69,6 +79,9 @@ class BattleScreen extends StatefulWidget {
 
   /// 相手の手持ち。
   final List<OwnedMonster> opponentParty;
+
+  /// 相手の種類 (バトル完了の計測に付ける)。
+  final BattleOpponentKind opponentKind;
 
   /// 属性・技・エフェクトの定義。
   final MasterData definitions;
@@ -279,6 +292,7 @@ class _BattleScreenState extends State<BattleScreen> {
                   ? 'win'
                   : 'lose',
               'turn_count': finishedEvent.turnNumber,
+              'opponent': widget.opponentKind.name,
             },
           )
           // 計測の失敗はバトルの記録と画面に影響させない (未処理の非同期の例外として報告させないため)

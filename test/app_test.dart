@@ -8,11 +8,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:snapmon/analytics/analytics_events.dart';
 import 'package:snapmon/app.dart';
+import 'package:snapmon/domain/master/master_data.dart';
 import 'package:snapmon/features/age_gate/age_confirmation.dart';
 import 'package:snapmon/features/age_gate/age_verified_session_store.dart';
 import 'package:snapmon/features/battle/battle_screen.dart';
 import 'package:snapmon/features/capture/monster_generator.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
+import 'package:snapmon/features/opponent/pvp_client.dart';
+import 'package:snapmon/features/opponent/pvp_opponent.dart';
 import 'package:snapmon/features/settings/account_store.dart';
 import 'package:snapmon/features/settings/settings_screen.dart';
 import 'package:snapmon/features/share/card_sharer.dart';
@@ -23,6 +26,7 @@ import 'package:snapmon/theme/snapmon_theme.dart';
 import 'battle_recorder_fixture.dart';
 import 'card_sharer_fixture.dart';
 import 'monster_generator_fixture.dart';
+import 'pvp_client_fixture.dart';
 import 'sample_data_fixture.dart';
 
 void main() {
@@ -46,6 +50,11 @@ void main() {
   late Future<String?> Function() startBattleRecord;
   late Map<String, int> recordedLevels;
 
+  /// [pumpApp] の PvP の呼び出しと、それが受け取った呼び出し。既定はログインしていない時の振る舞い (見本の対戦相手を出す)。
+  /// テストが [pumpApp] の前に変える。
+  late RecordedPvpCalls pvpCalls;
+  late PvpClient pvpClient;
+
   /// [pumpApp] の共有シートが返す結果。既定は共有した。テストが [pumpApp] の前に変える。
   late ShareResultStatus shareResultStatus;
   late RecordedShareCalls shareCalls;
@@ -61,6 +70,8 @@ void main() {
   setUp(() {
     startBattleRecord = () async => null;
     recordedLevels = const {};
+    pvpCalls = RecordedPvpCalls();
+    pvpClient = signedOutPvpClient(calls: pvpCalls);
     shareResultStatus = ShareResultStatus.success;
     accountCalls = [];
     linkedProviderNames = [];
@@ -190,6 +201,7 @@ void main() {
           recordedLevels: recordedLevels,
         ),
         monsterGenerator: appMonsterGenerator(),
+        pvpClient: pvpClient,
         cardSharer: fakeCardSharer(
           calls: shareCalls,
           artImage: null,
@@ -273,6 +285,7 @@ void main() {
             recordedLevels: const {},
           ),
           monsterGenerator: appMonsterGenerator(),
+          pvpClient: signedOutPvpClient(calls: RecordedPvpCalls()),
           cardSharer: fakeCardSharer(
             calls: RecordedShareCalls(),
             artImage: null,
@@ -904,13 +917,16 @@ void main() {
       await tester.tap(find.byKey(const Key('tab-opponent')));
       await tester.pumpAndSettle();
       expect(find.text('手持ちを入れると挑めます'), findsOneWidget);
-      final opponentId = sampleData.opponents.first.id;
       expect(
         tester
-            .widget<FilledButton>(find.byKey(Key('challenge-$opponentId')))
+            .widget<FilledButton>(
+              find.byKey(const Key('challenge-$cpuOpponentId')),
+            )
             .onPressed,
         isNull,
       );
+      // 他のユーザーの相手は自分の手持ちの平均レベルから選ぶため、手持ちが入るまで探さない
+      expect(pvpCalls.fetchOpponentsCount, 0);
     });
 
     testWidgets('挑むとバトル画面が開き、にげると対戦相手の画面、交代で図鑑に戻る', (tester) async {
@@ -1011,6 +1027,7 @@ void main() {
       [for (final monster in partyBefore) monster.definition.id],
     ]);
     expect(battleCalls.loggedEvents.single.event.eventName, 'battle_completed');
+    expect(battleCalls.loggedEvents.single.parameters?['opponent'], 'cpu');
     // 先頭の手持ちは必ず場に出るため、勝敗に関係なくレベルが 1 上がる
     expect(dexStore.party.first.level, partyBefore.first.level + 1);
 
@@ -1064,6 +1081,83 @@ void main() {
     expect(dexStore.party.first.level, 50);
   });
 
+  testWidgets(
+    '他のユーザーの手持ちに挑むと、相手のその場で作った定義を読んでから決着まで戦え、計測に opponent: pvp を付ける',
+    (tester) async {
+      pvpClient = fakePvpClient(
+        calls: pvpCalls,
+        fetchOpponents: () async => [
+          PvpOpponent(
+            opponentUid: 'opponent-uid-1',
+            displayName: 'ろうそくや',
+            monsters: [generatedWaxMonster(monsterId: 'opponent-wax-1')],
+          ),
+        ],
+        // 相手のモンスターの属性・技 (dynamic-wax) は自分の図鑑の定義に無く、相手の定義を読んで初めて引ける
+        extraDefinitions: MasterData.fromJson(json: waxDefinitionJson),
+        battleRecord: (wins: 8, losses: 3),
+        displayName: 'トレーナー 0001',
+        reportMonster: () async {},
+        blockUser: () async {},
+        updateDisplayName: ({required displayName}) async => displayName,
+      );
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      dexStore.replaceAll(monsters: sampleData.monsters);
+      expect(
+        sampleData.definitions.elementTypes.map((element) => element.id),
+        isNot(contains('dynamic-wax')),
+      );
+      await tester.tap(find.byKey(const Key('tab-opponent')));
+      await tester.pumpAndSettle();
+      expect(find.text('ろうそくや'), findsOneWidget);
+      expect(find.text('平均 Lv. 1'), findsOneWidget);
+      expect(find.text('8 勝 3 敗'), findsOneWidget);
+      // 見本の対戦相手は、ログインして他のユーザーを読めた時は出さない
+      expect(find.text(sampleData.opponents.first.name), findsNothing);
+
+      final challengeButton = find.byKey(const Key('challenge-opponent-uid-1'));
+      await tester.ensureVisible(challengeButton);
+      await tester.pumpAndSettle();
+      await tester.tap(challengeButton);
+      // バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
+      expect(pvpCalls.fetchedDefinitionIds, [
+        [waxDefinitionId],
+      ]);
+      expect(find.text('ロウソクン が 勝負をしかけてきた'), findsOneWidget);
+      expect(find.text('ろう'), findsOneWidget);
+
+      // 100 ターン: 見本の手持ちとレベル 1 の相手なら数ターンで決着するため、決着しない不具合でテストが止まらない上限として十分な数
+      for (
+        var turn = 0;
+        turn < 100 && find.text('もどる').evaluate().isEmpty;
+        turn++
+      ) {
+        await tester.tap(
+          find.text('わるあがき').evaluate().isEmpty
+              ? find.byKey(const Key('move-slot-0'))
+              : find.text('わるあがき'),
+        );
+        await tester.pump();
+        await tester.pump(const Duration(seconds: 5));
+      }
+      expect(find.text('もどる'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+      expect(
+        battleCalls.loggedEvents.single.event,
+        AnalyticsEvent.battleCompleted,
+      );
+      expect(battleCalls.loggedEvents.single.parameters?['opponent'], 'pvp');
+    },
+  );
+
   testWidgets('端末の文字を 2 倍にしてもバトル画面の技のボタンがはみ出さない', (tester) async {
     tester.platformDispatcher.textScaleFactorTestValue = 2;
     addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
@@ -1103,6 +1197,7 @@ void main() {
         home: BattleScreen(
           playerParty: sampleData.monsters.take(3).toList(),
           opponentParty: sampleData.monsters.skip(3).toList(),
+          opponentKind: BattleOpponentKind.cpu,
           definitions: sampleData.definitions,
           randomSeed: 1,
           battleRecorder: fakeBattleRecorder(
@@ -1181,6 +1276,7 @@ void main() {
               ageConfirmationStore: settingsAgeConfirmationStore,
               ageVerifiedSessionStore: settingsSessionStore,
               monsterGenerator: appMonsterGenerator(),
+              pvpClient: signedOutPvpClient(calls: RecordedPvpCalls()),
               cardSharer: fakeCardSharer(
                 calls: RecordedShareCalls(),
                 artImage: null,
@@ -1207,6 +1303,73 @@ void main() {
             throw Exception('ACTIVITY_NOT_FOUND'),
       );
       expect(find.text('Exception: ACTIVITY_NOT_FOUND'), findsOneWidget);
+    });
+
+    testWidgets('表示名はサーバーが返した名前を出し、変えると保存した名前に変わる', (tester) async {
+      pvpClient = fakePvpClient(
+        calls: pvpCalls,
+        fetchOpponents: () async => [],
+        extraDefinitions: null,
+        battleRecord: (wins: 0, losses: 0),
+        displayName: 'トレーナー 0042',
+        reportMonster: () async {},
+        blockUser: () async {},
+        updateDisplayName: ({required displayName}) async {
+          if (displayName.contains('ピカチュウ')) {
+            throw Exception('この表示名は使えません');
+          }
+          return displayName.trim();
+        },
+      );
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      await tester.tap(find.byTooltip('設定'));
+      await tester.pumpAndSettle();
+      expect(find.text('トレーナー 0042'), findsOneWidget);
+
+      await tester.tap(find.byKey(const Key('display-name')));
+      await tester.pumpAndSettle();
+      // 外を押しても閉じない (保存の途中に閉じて、保存できた名前を反映しそこねないため)
+      await tester.tapAt(const Offset(10, 10));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('display-name-field')), findsOneWidget);
+      await tester.enterText(
+        find.byKey(const Key('display-name-field')),
+        'ピカチュウ',
+      );
+      await tester.tap(find.byKey(const Key('display-name-save')));
+      await tester.pumpAndSettle();
+      // 使えない名前はダイアログに理由をそのまま出して閉じない
+      expect(find.text('Exception: この表示名は使えません'), findsOneWidget);
+
+      await tester.enterText(
+        find.byKey(const Key('display-name-field')),
+        ' ばんざい ',
+      );
+      await tester.tap(find.byKey(const Key('display-name-save')));
+      await tester.pumpAndSettle();
+      expect(pvpCalls.updatedDisplayNames, ['ピカチュウ', ' ばんざい ']);
+      expect(find.byKey(const Key('display-name-field')), findsNothing);
+      expect(find.text('ばんざい'), findsOneWidget);
+    });
+
+    testWidgets('ログインが無い時は表示名の項目を出さない', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      await tester.tap(find.byTooltip('設定'));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('display-name')), findsNothing);
+      expect(find.text('お問い合わせ'), findsOneWidget);
     });
 
     /// 年齢の確認とログインを済ませた状態で起動し、設定画面を開く。
@@ -1298,6 +1461,93 @@ void main() {
       expect(accountCalls, ['link', 'discard', 'signInToLinkedAccount']);
       expect(ageVerifiedSessionStore.uid, 'uid-linked');
       expect(find.text('連携済みのアカウントに切り替えました'), findsOneWidget);
+    });
+
+    testWidgets('連携済みのアカウントに切り替えると、表示名を切り替え先の名前に読み直す', (tester) async {
+      linkAccount = () async =>
+          () async => 'uid-linked';
+      final signedInPvpClient = fakePvpClient(
+        calls: pvpCalls,
+        fetchOpponents: () async => [],
+        extraDefinitions: null,
+        battleRecord: (wins: 0, losses: 0),
+        displayName: null,
+        reportMonster: () async {},
+        blockUser: () async {},
+        updateDisplayName: ({required displayName}) async => displayName,
+      );
+      pvpClient = PvpClient(
+        fetchOpponents: signedInPvpClient.fetchOpponents,
+        fetchDefinitions: signedInPvpClient.fetchDefinitions,
+        reportMonster: signedInPvpClient.reportMonster,
+        blockUser: signedInPvpClient.blockUser,
+        fetchBattleRecord: signedInPvpClient.fetchBattleRecord,
+        fetchDisplayName: () async => switch (ageVerifiedSessionStore.uid) {
+          'uid-linked' => '切り替え先の名前',
+          _ => '匿名の名前',
+        },
+        updateDisplayName: signedInPvpClient.updateDisplayName,
+      );
+      await openSettings(tester: tester);
+      expect(find.text('匿名の名前'), findsOneWidget);
+
+      await tester.tap(find.text('データを引き継ぐ'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('切り替える'));
+      await tester.pumpAndSettle();
+
+      expect(ageVerifiedSessionStore.uid, 'uid-linked');
+      expect(find.text('匿名の名前'), findsNothing);
+      expect(find.text('切り替え先の名前'), findsOneWidget);
+    });
+
+    testWidgets('対戦の画面から連携済みのアカウントに切り替えると、戦績を切り替え先の分に読み直す', (tester) async {
+      linkAccount = () async =>
+          () async => 'uid-linked';
+      final signedInPvpClient = fakePvpClient(
+        calls: pvpCalls,
+        fetchOpponents: () async => [],
+        extraDefinitions: null,
+        battleRecord: null,
+        displayName: null,
+        reportMonster: () async {},
+        blockUser: () async {},
+        updateDisplayName: ({required displayName}) async => displayName,
+      );
+      pvpClient = PvpClient(
+        fetchOpponents: signedInPvpClient.fetchOpponents,
+        fetchDefinitions: signedInPvpClient.fetchDefinitions,
+        reportMonster: signedInPvpClient.reportMonster,
+        blockUser: signedInPvpClient.blockUser,
+        fetchBattleRecord: () async => switch (ageVerifiedSessionStore.uid) {
+          'uid-linked' => (wins: 9, losses: 1),
+          _ => (wins: 1, losses: 2),
+        },
+        fetchDisplayName: signedInPvpClient.fetchDisplayName,
+        updateDisplayName: signedInPvpClient.updateDisplayName,
+      );
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      await tester.tap(find.byKey(const Key('tab-opponent')));
+      await tester.pumpAndSettle();
+      expect(find.text('1 勝 2 敗'), findsOneWidget);
+
+      await tester.tap(find.byTooltip('設定'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('データを引き継ぐ'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('切り替える'));
+      await tester.pumpAndSettle();
+      await tester.pageBack();
+      await tester.pumpAndSettle();
+
+      expect(find.text('1 勝 2 敗'), findsNothing);
+      expect(find.text('9 勝 1 敗'), findsOneWidget);
     });
 
     testWidgets('別の端末で連携済みの確認で「やめる」を選ぶと、匿名アカウントを捨てない', (tester) async {

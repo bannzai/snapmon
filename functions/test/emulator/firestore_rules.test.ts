@@ -4,7 +4,7 @@ import {
   initializeTestEnvironment,
   type RulesTestEnvironment,
 } from "@firebase/rules-unit-testing";
-import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
+import { doc, getDoc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import { afterAll, beforeAll, beforeEach, describe, it } from "vitest";
 
 // firebase emulators:exec (package.json の test:emulator) の中で実行する。
@@ -73,6 +73,12 @@ describe("users/{uid}", () => {
     await assertFails(setDoc(doc(firestore, "users/alice/monsters/new"), { name: "z" }));
     await assertFails(setDoc(doc(firestore, "users/alice/generations/subject"), { state: "saved" }));
     await assertFails(setDoc(doc(firestore, "users/alice/battles/battle"), { completed: true }));
+  });
+
+  it("本人も表示名を直接書けない (Functions の setDisplayName の禁止語の検査を通らない名前を他人に見せないため)", async () => {
+    const firestore = ageVerifiedFirestore("alice");
+    await assertFails(setDoc(doc(firestore, "users/alice"), { displayName: "なまえ" }, { merge: true }));
+    await assertFails(updateDoc(doc(firestore, "users/alice"), { displayName: "なまえ" }));
   });
 });
 
@@ -166,12 +172,15 @@ describe("master と definitions", () => {
   });
 });
 
-describe("reports と blocks", () => {
+describe("reports と blocks と reportedMonsters", () => {
   it("クライアントから読み書きできない", async () => {
     const firestore = ageVerifiedFirestore("alice");
     await assertFails(setDoc(doc(firestore, "reports/r1"), { monsterId: "b1" }));
     await assertFails(setDoc(doc(firestore, "blocks/k1"), { blockedUid: "bob" }));
     await assertFails(getDoc(doc(firestore, "reports/r1")));
+    await assertFails(getDoc(doc(firestore, "blocks/k1")));
+    await assertFails(getDoc(doc(firestore, "reportedMonsters/b1")));
+    await assertFails(setDoc(doc(firestore, "reportedMonsters/b1"), { reporterCount: 0 }));
   });
 });
 

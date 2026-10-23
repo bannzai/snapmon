@@ -11,9 +11,9 @@ import {
 
 /**
  * 年齢の確認を通ったログイン (confirmAge が付けるカスタムクレーム ageVerified) の uid を返す。無ければ HttpsError を投げる。
- * バトル結果の Functions はクレームを必須にする (documents/adr/0001-tech-stack.md の対象年齢の行)。
+ * バトル結果と PvP の Functions はクレームを必須にする (documents/adr/0001-tech-stack.md の対象年齢の行)。
  */
-function requireAgeVerifiedUid({ request }: { request: CallableRequest }): string {
+export function requireAgeVerifiedUid({ request }: { request: CallableRequest }): string {
   if (!request.auth) {
     throw new HttpsError("unauthenticated", "匿名ログインの後に呼んでください");
   }

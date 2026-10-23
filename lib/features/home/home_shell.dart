@@ -12,6 +12,7 @@ import '../capture/monster_generator.dart';
 import '../dex/dex_screen.dart';
 import '../dex/dex_store.dart';
 import '../opponent/opponent_screen.dart';
+import '../opponent/pvp_client.dart';
 import '../settings/account_store.dart';
 import '../settings/settings_screen.dart';
 import '../share/card_sharer.dart';
@@ -41,9 +42,13 @@ class HomeShell extends StatefulWidget {
     required this.isDeveloperMenuEnabled,
     required this.battleRecorder,
     required this.monsterGenerator,
+    required this.pvpClient,
     required this.cardSharer,
     required this.accountStore,
   });
+
+  /// 非同期 PvP の相手の取得・通報・ブロック・戦績・表示名。
+  final PvpClient pvpClient;
 
   /// 見本データ。
   final SampleData sampleData;
@@ -93,6 +98,7 @@ class _HomeShellState extends State<HomeShell> {
         ageConfirmationStore: widget.ageConfirmationStore,
         ageVerifiedSessionStore: widget.ageVerifiedSessionStore,
         monsterGenerator: widget.monsterGenerator,
+        pvpClient: widget.pvpClient,
         cardSharer: widget.cardSharer,
         openUrl: widget.openUrl,
         isDeveloperMenuEnabled: widget.isDeveloperMenuEnabled,
@@ -119,13 +125,21 @@ class _HomeShellState extends State<HomeShell> {
           onOpenSettings: _openSettings,
           cardSharer: widget.cardSharer,
         ),
-        HomeTab.opponent => OpponentScreen(
-          sampleData: widget.sampleData,
-          dexStore: widget.dexStore,
-          onSelectTab: _selectTab,
-          onOpenSettings: _openSettings,
-          battleRecorder: widget.battleRecorder,
-          cardSharer: widget.cardSharer,
+        // 設定の「データを引き継ぐ」で別のアカウントに切り替わると uid が変わるため、uid ごとに作り直して
+        // 前のアカウントの相手・戦績・外した相手を持ち越さない
+        HomeTab.opponent => ListenableBuilder(
+          listenable: widget.ageVerifiedSessionStore,
+          builder: (context, _) => OpponentScreen(
+            key: ValueKey(widget.ageVerifiedSessionStore.uid),
+            sampleData: widget.sampleData,
+            dexStore: widget.dexStore,
+            onSelectTab: _selectTab,
+            onOpenSettings: _openSettings,
+            battleRecorder: widget.battleRecorder,
+            pvpClient: widget.pvpClient,
+            openUrl: widget.openUrl,
+            cardSharer: widget.cardSharer,
+          ),
         ),
       },
     ),

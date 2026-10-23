@@ -93,6 +93,8 @@ export async function deleteAccountData(dependencies: AccountDeletionDependencie
     [
       firestore.collection("reports").where("reporterUid", "==", uid),
       firestore.collection("blocks").where("blockerUid", "==", uid),
+      // 本人のモンスターへの通報の数 (pvp.ts の reportMonster)。本人のモンスターは消えるため数も残さない
+      firestore.collection("reportedMonsters").where("monsterOwnerUid", "==", uid),
     ].map(async (query) => {
       const snapshot = await query.get();
       await Promise.all(snapshot.docs.map((document) => document.ref.delete()));

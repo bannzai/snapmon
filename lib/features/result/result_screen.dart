@@ -217,11 +217,14 @@ class ResultScreen extends StatelessWidget {
                                     // 見本のモンスターは写真も切り出した画像も持たないため、印だけを出す
                                     child: ColoredBox(
                                       color: SnapmonColors.surfaceRaised,
-                                      child: monster.artPath == null
+                                      child:
+                                          monster.artPath == null ||
+                                              definition.sourcePhotoReference ==
+                                                  null
                                           ? const _NoPhotoIcon()
                                           : StorageImage(
                                               storagePath: definition
-                                                  .sourcePhotoReference,
+                                                  .sourcePhotoReference!,
                                               fit: BoxFit.cover,
                                               placeholder: const _NoPhotoIcon(),
                                             ),

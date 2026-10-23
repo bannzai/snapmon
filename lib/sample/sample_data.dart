@@ -6,13 +6,13 @@ import '../domain/master/master_data.dart';
 import '../domain/monster/monster_definition.dart';
 import '../features/dex/owned_monster.dart';
 
-/// 見本データのファイル。CPU 対戦の相手、PvP の相手の取得 (#16) までの代わり、開発者メニューの見本の投入に使う。
+/// 見本データのファイル。CPU 対戦の相手、年齢の確認を通ったログインが無い時 (DEBUG ビルド) の PvP の相手の代わり、開発者メニューの見本の投入に使う。
 const String sampleDataAssetPath = 'assets/samples/sample_monsters.json';
 
 /// 見本の対戦相手のうち、CPU 対戦の相手 (「CPU トレーナー」) の識別子。手持ちのレベルは挑む時に自分の手持ちに合わせる。
 const String cpuOpponentId = 'sample-cpu';
 
-/// 見本の対戦相手。CPU 対戦の相手 ([cpuOpponentId]) と、PvP の相手の取得 (#16) までの代わり。
+/// 見本の対戦相手。CPU 対戦の相手 ([cpuOpponentId]) と、年齢の確認を通ったログインが無い時 (DEBUG ビルド) の PvP の相手の代わり (lib/features/opponent/opponent_screen.dart)。
 class SampleOpponent {
   /// 見本の対戦相手を作る。
   const SampleOpponent({

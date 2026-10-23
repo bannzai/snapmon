@@ -95,6 +95,7 @@ async function seedAccount({ uid }: { uid: string }): Promise<void> {
   await adminFirestore.doc(`users/${uid}/party/current`).set({ monsterIds: [`monster-${uid}`] });
   await adminFirestore.doc(`reports/report-by-${uid}`).set({ reporterUid: uid });
   await adminFirestore.doc(`blocks/block-by-${uid}`).set({ blockerUid: uid });
+  await adminFirestore.doc(`reportedMonsters/monster-${uid}`).set({ monsterOwnerUid: uid, reporterCount: 1 });
   for (const path of [
     `users/${uid}/photos/request-saved`,
     `users/${uid}/masks/request-saved`,
@@ -117,6 +118,7 @@ async function remainingAccountData({ uid }: { uid: string }): Promise<string[]>
     `users/${uid}/party/current`,
     `reports/report-by-${uid}`,
     `blocks/block-by-${uid}`,
+    `reportedMonsters/monster-${uid}`,
   ];
   const remainingDocuments = (await Promise.all(documentPaths.map(async (path) => ((await adminFirestore.doc(path).get()).exists ? path : null)))).filter(
     (path): path is string => path !== null,
@@ -188,7 +190,7 @@ describe("アカウントの削除 (deleteAccount)", () => {
     await signOut(auth);
     const user = await signInAgeVerifiedUser();
     await seedAccount({ uid: user.uid });
-    expect(await remainingAccountData({ uid: user.uid })).toHaveLength(13);
+    expect(await remainingAccountData({ uid: user.uid })).toHaveLength(14);
 
     const response = await callFunction({ name: "deleteAccount", idToken: await user.getIdToken(), data: null });
 
@@ -196,7 +198,7 @@ describe("アカウントの削除 (deleteAccount)", () => {
     expect(await response.json()).toEqual({ result: { deleted: true } });
     expect(await remainingAccountData({ uid: user.uid })).toEqual([]);
     await expect(adminAuth.getUser(user.uid)).rejects.toMatchObject({ code: "auth/user-not-found" });
-    expect(await remainingAccountData({ uid: otherUser.uid })).toHaveLength(13);
+    expect(await remainingAccountData({ uid: otherUser.uid })).toHaveLength(14);
     expect((await adminAuth.getUser(otherUser.uid)).uid).toBe(otherUser.uid);
   });
 
@@ -212,7 +214,7 @@ describe("アカウントの削除 (deleteAccount)", () => {
 
     expect(response.status).toBe(400);
     expect((await response.json()).error.status).toBe("FAILED_PRECONDITION");
-    expect(await remainingAccountData({ uid: user.uid })).toHaveLength(13);
+    expect(await remainingAccountData({ uid: user.uid })).toHaveLength(14);
     expect((await adminAuth.getUser(user.uid)).uid).toBe(user.uid);
   });
 

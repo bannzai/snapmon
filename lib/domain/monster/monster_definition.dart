@@ -40,7 +40,7 @@ class MonsterDefinition {
   factory MonsterDefinition.fromJson({required Map<String, dynamic> json}) =>
       MonsterDefinition(
         id: json['id'] as String,
-        sourcePhotoReference: json['sourcePhotoReference'] as String,
+        sourcePhotoReference: json['sourcePhotoReference'] as String?,
         name: json['name'] as String,
         encyclopediaText: json['encyclopediaText'] as String,
         elementTypeIds: [
@@ -66,8 +66,8 @@ class MonsterDefinition {
   /// モンスターの一意な識別子。
   final String id;
 
-  /// 元の写真の参照 (Cloud Storage のパス)。
-  final String sourcePhotoReference;
+  /// 元の写真の参照 (Cloud Storage のパス)。他のユーザーのモンスター (PvP の相手) は元の写真を返さない (fetchOpponents) ため null。
+  final String? sourcePhotoReference;
 
   /// LLM が付けた名前。
   final String name;
