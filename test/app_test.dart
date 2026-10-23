@@ -1497,6 +1497,55 @@ void main() {
       expect(find.text('切り替え先の名前'), findsOneWidget);
     });
 
+    testWidgets('対戦の画面から連携済みのアカウントに切り替えると、戦績を切り替え先の分に読み直す', (tester) async {
+      linkAccount = () async =>
+          () async => 'uid-linked';
+      final signedInPvpClient = fakePvpClient(
+        calls: pvpCalls,
+        fetchOpponents: () async => [],
+        extraDefinitions: null,
+        battleRecord: null,
+        displayName: null,
+        reportMonster: () async {},
+        blockUser: () async {},
+        updateDisplayName: ({required displayName}) async => displayName,
+      );
+      pvpClient = PvpClient(
+        fetchOpponents: signedInPvpClient.fetchOpponents,
+        fetchDefinitions: signedInPvpClient.fetchDefinitions,
+        reportMonster: signedInPvpClient.reportMonster,
+        blockUser: signedInPvpClient.blockUser,
+        fetchBattleRecord: () async => switch (ageVerifiedSessionStore.uid) {
+          'uid-linked' => (wins: 9, losses: 1),
+          _ => (wins: 1, losses: 2),
+        },
+        fetchDisplayName: signedInPvpClient.fetchDisplayName,
+        updateDisplayName: signedInPvpClient.updateDisplayName,
+      );
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      await tester.tap(find.byKey(const Key('tab-opponent')));
+      await tester.pumpAndSettle();
+      expect(find.text('1 勝 2 敗'), findsOneWidget);
+
+      await tester.tap(find.byTooltip('設定'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('データを引き継ぐ'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('切り替える'));
+      await tester.pumpAndSettle();
+      await tester.pageBack();
+      await tester.pumpAndSettle();
+
+      expect(find.text('1 勝 2 敗'), findsNothing);
+      expect(find.text('9 勝 1 敗'), findsOneWidget);
+    });
+
     testWidgets('別の端末で連携済みの確認で「やめる」を選ぶと、匿名アカウントを捨てない', (tester) async {
       linkAccount = () async =>
           () async => 'uid-linked';
