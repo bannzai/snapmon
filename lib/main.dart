@@ -48,7 +48,7 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   String? resumedUid;
   try {
-    resumedUid = await resumeSession();
+    resumedUid = await resumeSessionWithFirebase();
   } catch (error) {
     // 再開に失敗しても起動は止めない (ログインしていない時と同じく、ログインの画面からやり直す)。
     debugPrint(error.toString());

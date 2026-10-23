@@ -74,24 +74,30 @@ const _invalidCredentialErrorCodes = {
   'invalid-user-token',
 };
 
-/// 前回の起動でログインしたユーザーなら、App Check と収集を再開して uid を返す。アプリの起動時に呼ぶ。
+/// 前回の起動でログインしたユーザー ([currentUid]) なら、App Check と収集を再開して uid を返す。
 /// Auth のユーザーがいない時 (初回起動) は何も始めずに null を返し、ログインの画面へ進ませる。
 /// 認証情報が無効な時 (別の端末でアカウントを削除した等) はサインアウトして null を返し、新しい匿名アカウントでログインさせる。
 /// 確かめるのが一時的な失敗で済まなかった時 (通信できない時を除く) は投げる。
-Future<String?> resumeSession() async {
-  final user = FirebaseAuth.instance.currentUser;
-  if (user == null) {
+/// 各段の実体は引数で受け取る (Firebase と切り離して分岐を単体テストするため)。アプリからは [resumeSessionWithFirebase] を使う。
+Future<String?> resumeSession({
+  required String? currentUid,
+  required Future<void> Function() refreshIdToken,
+  required Future<void> Function() signOut,
+  required Future<void> Function() activateAppCheck,
+  required Future<void> Function() enableCollection,
+}) async {
+  if (currentUid == null) {
     return null;
   }
   try {
     // 期限の切れた ID トークンを取り直し、別の端末でアカウントを削除した後などの無効な認証情報を見つける
-    await user.getIdToken();
+    await refreshIdToken();
   } on FirebaseAuthException catch (error) {
     // 認証情報が無効だと分かるエラーだけでサインアウトする。無効な認証情報で再開すると、Firebase との通信がすべて失敗するのに
     // ログインし直せないため。通信できない・混み合っている等の一時的な失敗でサインアウトすると、連携していない匿名の
     // ユーザーが図鑑に戻れなくなるため、再開はせずに投げる (タイトル画面のログインが残っている Auth のユーザーで始め直す)
     if (_invalidCredentialErrorCodes.contains(error.code)) {
-      await FirebaseAuth.instance.signOut();
+      await signOut();
       return null;
     }
     // 通信できない時は確かめられないだけなので再開する (ログイン済みの人がオフラインで使えなくならないように)
@@ -100,8 +106,20 @@ Future<String?> resumeSession() async {
     }
   }
   await activateAppCheck();
-  await enableAnalyticsAndCrashlyticsCollection();
-  return user.uid;
+  await enableCollection();
+  return currentUid;
+}
+
+/// [resumeSession] を Firebase の実体で実行する。アプリの起動時に呼ぶ。
+Future<String?> resumeSessionWithFirebase() {
+  final user = FirebaseAuth.instance.currentUser;
+  return resumeSession(
+    currentUid: user?.uid,
+    refreshIdToken: () async => await user!.getIdToken(),
+    signOut: FirebaseAuth.instance.signOut,
+    activateAppCheck: activateAppCheck,
+    enableCollection: enableAnalyticsAndCrashlyticsCollection,
+  );
 }
 
 /// App Check を始める。リリースビルドは各プラットフォームの証明 (iOS: App Attest、Android: Play Integrity、Web: reCAPTCHA Enterprise)、
