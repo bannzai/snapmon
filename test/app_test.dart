@@ -549,7 +549,7 @@ void main() {
       expect(find.byKey(const Key('tab-dex')), findsNothing);
     });
 
-    testWidgets('タイトルの設定からアカウントを削除した後は、次のログインが済んだ時に title_shown を送り直す', (
+    testWidgets('タイトルの設定からアカウントを削除した後は、裏で新しい匿名アカウントにログインし、済んだ時に title_shown を送り直す', (
       tester,
     ) async {
       await pumpApp(
@@ -568,17 +568,13 @@ void main() {
       await tester.tap(find.text('削除する'));
       await tester.pumpAndSettle();
       expect(accountCalls, ['delete']);
-      expect(sessionStore.uid, isNull);
-      // タイトルは作り直されないが、開き直したのと同じに数える。ログインが済むまでは送らない
+      // タイトルは作り直されないが、開き直したのと同じく裏でログインし直し、済んだ時に title_shown を送る
       expect(find.text('写真から選んではじめる'), findsOneWidget);
-      expect(titleEvents, hasLength(1));
-
-      await tapStartFromAlbum(tester: tester);
+      expect(startSessionCallCount, 1);
       expect(sessionStore.uid, 'uid-1');
       expect(titleEvents.map((logged) => logged.event), [
         AnalyticsEvent.titleShown,
         AnalyticsEvent.titleShown,
-        AnalyticsEvent.titleAction,
       ]);
     });
 

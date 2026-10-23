@@ -154,7 +154,7 @@ class _TitleScreenState extends State<TitleScreen> {
     }
   }
 
-  /// ログインを終えた時は次のログインまで `title_shown` を溜め、ログインが済んだ時は溜めたイベントを順に送る。
+  /// ログインを終えた時は次のログインまで `title_shown` を溜めて裏のログインを始め直し、ログインが済んだ時は溜めたイベントを順に送る。
   void _onSessionChanged() {
     final canEnterApp = widget.sessionStore.canEnterApp;
     final couldEnterApp = _couldEnterApp;
@@ -164,6 +164,11 @@ class _TitleScreenState extends State<TitleScreen> {
         event: AnalyticsEvent.titleShown,
         parameters: null,
       ));
+      // タイトルの設定からアカウントを消した時はこの画面が作り直されず initState が走らないため、ここで始め直す。
+      // 最初のフレームの後にするのは、開発者メニューの「ログインせずに使う」が reset の直後にログインを飛ばした状態にするのを待つため
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => unawaited(_startSessionInBackground()),
+      );
     }
     if (!canEnterApp) {
       return;
