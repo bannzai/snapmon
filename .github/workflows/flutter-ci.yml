@@ -52,6 +52,7 @@ jobs:
     - run: flutter pub get
     - run: flutter test
     - run: bash scripts/test/test-set-webtunnel-setup-env-secret.sh
+    - run: bash scripts/test/test-makefile-targets.sh
 
   build-web:
     runs-on: ubuntu-latest
