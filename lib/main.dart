@@ -125,6 +125,7 @@ Future<void> main() async {
         discardCurrentAccount: deleteCurrentAccountOnServerWithFirebase,
         deleteAccount: deleteAccountWithFirebase,
       ),
+      logEvent: logAnalyticsEvent,
     ),
   );
 }
