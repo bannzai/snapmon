@@ -13,12 +13,13 @@ ios:
 	flutter run --debug -d "$$simulator_udid"
 
 # USB か Wi-Fi で繋いだ iPhone / iPad の実機へ flutter run する (署名は Runner.xcodeproj の Automatic + DEVELOPMENT_TEAM)。
-# DEVICE=<デバイス ID> で対象を指定でき、未指定なら flutter devices から実機 (iOS で emulator でないもの) を自動解決する
+# DEVICE=<デバイス ID> で対象を指定でき、未指定なら flutter devices から実機 (iOS で emulator でなく、この環境で使える isSupported のもの) を自動解決する。
+# テストは scripts/test/test-makefile-targets.sh (flutter を差し替えて選択・失敗・引数を確かめる)
 .PHONY: ios-device
 ios-device:
 	@device="$(DEVICE)"; \
 	if [ -z "$$device" ]; then \
-		device=$$(flutter devices --machine | jq -r '[.[] | select((.targetPlatform | startswith("ios")) and .emulator == false)][0].id // empty'); \
+		device=$$(flutter devices --machine | jq -r '[.[] | select((.targetPlatform | startswith("ios")) and .emulator == false and .isSupported == true)][0].id // empty'); \
 	fi; \
 	[ -n "$$device" ] || { echo "Error: 繋がっている iOS の実機が見つかりません (Xcode で信頼済みか確認するか、DEVICE=<デバイス ID> を指定してください)" >&2; exit 1; }; \
 	flutter run --debug -d "$$device"
@@ -53,6 +54,7 @@ verify:
 	dart format --set-exit-if-changed lib test
 	flutter test
 	bash scripts/test/test-set-webtunnel-setup-env-secret.sh
+	bash scripts/test/test-makefile-targets.sh
 
 .PHONY: clean
 clean:
