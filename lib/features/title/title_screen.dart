@@ -418,14 +418,18 @@ class _TitleScreenState extends State<TitleScreen> {
               listenable: widget.dexStore,
               builder: (context, _) {
                 final monsterCount = widget.dexStore.monsters.length;
-                if (monsterCount == 0) {
+                // 図鑑の読み込みに失敗した時は数が分からないが、図鑑の「もう一度読み込む」に行けるよう数なしで出す
+                final hasLoadError = widget.dexStore.serverError != null;
+                if (monsterCount == 0 && !hasLoadError) {
                   return const SizedBox.shrink();
                 }
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 4),
                   child: _FooterLink(
                     key: const Key('title-continue'),
-                    label: 'つづきから (図鑑 $monsterCount)',
+                    label: monsterCount == 0
+                        ? 'つづきから'
+                        : 'つづきから (図鑑 $monsterCount)',
                     style: _TitleTextStyles.continueLink,
                     onTap: () => _enterHome(
                       action: TitleAction.continueFromDex,

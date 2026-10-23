@@ -363,6 +363,41 @@ void main() {
       expect(find.text('つづきから (図鑑 1)'), findsOneWidget);
     });
 
+    testWidgets('図鑑の読み込みに失敗した時は数なしの「つづきから」が出て、図鑑の「もう一度読み込む」に行ける', (
+      tester,
+    ) async {
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      expect(find.byKey(const Key('title-continue')), findsNothing);
+      dexStore
+        ..connectServer(
+          savePartyMonsterIds: ({required monsterIds}) async {},
+          refreshDefinitions: () async => dexStore.applyServerSnapshot(
+            monsters: sampleData.monsters,
+            partyMonsterIds: null,
+            definitions: sampleData.definitions,
+          ),
+        )
+        ..reportServerError(error: StateError('通信できません'));
+      await tester.pumpAndSettle();
+      expect(find.text('つづきから'), findsOneWidget);
+
+      await tester.tap(find.byKey(const Key('title-continue')));
+      await tester.pumpAndSettle();
+      expect(find.text('Bad state: 通信できません'), findsOneWidget);
+      await tester.tap(find.text('もう一度読み込む'));
+      await tester.pumpAndSettle();
+      expect(
+        find.text('${sampleData.monsters.length} 体 · 手持ち 0 体'),
+        findsOneWidget,
+      );
+    });
+
     testWidgets('カメラが無い時は「カメラで撮ってはじめる」が無い', (tester) async {
       await pumpApp(
         tester: tester,
