@@ -51,6 +51,7 @@ jobs:
     - run: scripts/restore-firebase-config.sh dart
     - run: flutter pub get
     - run: flutter test
+    - run: bash scripts/test/test-set-webtunnel-setup-env-secret.sh
 
   build-web:
     runs-on: ubuntu-latest
