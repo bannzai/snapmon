@@ -333,9 +333,9 @@ void main() {
       expect(find.text('$minimumAge 歳以上が対象 · '), findsOneWidget);
       expect(find.byKey(const Key('birthYearField')), findsNothing);
       expect(find.byKey(const Key('tab-dex')), findsNothing);
-      expect(titleEvents.single.event, AnalyticsEvent.titleShown);
-      // 年齢の確認がまだなので、タイトルを見ている間はログインを始めない
+      // 年齢の確認がまだなので、タイトルを見ている間はログインを始めず、計測 (収集の開始より前) も送らない
       expect(startSessionCalls, isEmpty);
+      expect(titleEvents, isEmpty);
     });
 
     testWidgets('図鑑が空なら「つづきから」が無く、図鑑に 1 体入ると「つづきから (図鑑 1)」が出る', (tester) async {
@@ -612,10 +612,18 @@ void main() {
         isDeveloperMenuEnabled: false,
       );
       await tapStartFromAlbum(tester: tester);
+      // 年齢の確認が開いた時点では、ログインより前のイベントはまだ送らない
+      expect(titleEvents, isEmpty);
       await enterBirth(tester: tester, year: '2000', month: '1');
       expect(startSessionCalls, [(birthYear: 2000, birthMonth: 1)]);
       expect(ageVerifiedSessionStore.uid, 'uid-1');
       expect(find.text('あたらしい なかま'), findsOneWidget);
+      // ログインより前に起きたタイトルの表示と操作は、ログインが済んだ後に起きた順で送る
+      expect(titleEvents.map((logged) => logged.event), [
+        AnalyticsEvent.titleShown,
+        AnalyticsEvent.titleAction,
+      ]);
+      expect(titleEvents.last.parameters, {'action': 'album'});
     });
 
     testWidgets('年齢の確認の後のログインに失敗したらエラーと「もう一度試す」を出して止まり、やり直して成功したら生成に進む', (

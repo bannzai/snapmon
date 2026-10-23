@@ -94,23 +94,57 @@ class _TitleScreenState extends State<TitleScreen> {
   /// ボタンの処理 (写真を選ぶ・ログイン・生成) の途中か。途中の二重押しを受け付けない。
   bool _isBusy = false;
 
+  /// ログイン (計測の収集の開始) より前に起きたイベント。初回起動ではタイトルの表示とボタンの操作が年齢の確認・ログインより前に
+  /// 起きるため、その場で送ると収集が始まっていなくて落ちる。ログインが済んだ時に順に送る (ログインに至らなければ送らない。
+  /// 年齢の確認より前に識別子を使わない方針のため)。
+  final List<({AnalyticsEvent event, Map<String, Object>? parameters})>
+  _eventsBeforeSession = [];
+
   @override
   void initState() {
     super.initState();
+    widget.ageVerifiedSessionStore.addListener(_flushEventsIfSessionStarted);
     unawaited(_detectCamera());
     // ログインの状態を変えるため、親の ListenableBuilder が build の途中にならない最初のフレームの後に始める
     WidgetsBinding.instance.addPostFrameCallback((_) {
       unawaited(_startSessionInBackground());
-      unawaited(
-        widget
-            .logEvent(
-              event: AnalyticsEvent.titleShown,
-              parameters: null,
-              // 計測の失敗はタイトルの表示に影響させない
-            )
-            .catchError((Object _) {}),
-      );
+      unawaited(_logEvent(event: AnalyticsEvent.titleShown, parameters: null));
     });
+  }
+
+  @override
+  void dispose() {
+    widget.ageVerifiedSessionStore.removeListener(_flushEventsIfSessionStarted);
+    super.dispose();
+  }
+
+  /// イベントを送る。ログインが済んでいなければ [_eventsBeforeSession] に溜める。計測の失敗はタイトルの表示・体験の開始に影響させない。
+  Future<void> _logEvent({
+    required AnalyticsEvent event,
+    required Map<String, Object>? parameters,
+  }) async {
+    if (!widget.ageVerifiedSessionStore.canEnterApp) {
+      _eventsBeforeSession.add((event: event, parameters: parameters));
+      return;
+    }
+    try {
+      await widget.logEvent(event: event, parameters: parameters);
+    } catch (_) {
+      // 計測の失敗は無視する
+    }
+  }
+
+  void _flushEventsIfSessionStarted() {
+    if (!widget.ageVerifiedSessionStore.canEnterApp) {
+      return;
+    }
+    final events = List.of(_eventsBeforeSession);
+    _eventsBeforeSession.clear();
+    unawaited(() async {
+      for (final logged in events) {
+        await _logEvent(event: logged.event, parameters: logged.parameters);
+      }
+    }());
   }
 
   Future<void> _detectCamera() async {
@@ -140,19 +174,16 @@ class _TitleScreenState extends State<TitleScreen> {
     );
   }
 
-  Future<void> _logAction({required TitleAction action}) => widget
-      .logEvent(
-        event: AnalyticsEvent.titleAction,
-        parameters: {
-          'action': switch (action) {
-            TitleAction.album => 'album',
-            TitleAction.camera => 'camera',
-            TitleAction.continueFromDex => 'continue',
-          },
-        },
-        // 計測の失敗は体験の開始に影響させない
-      )
-      .catchError((Object _) {});
+  Future<void> _logAction({required TitleAction action}) => _logEvent(
+    event: AnalyticsEvent.titleAction,
+    parameters: {
+      'action': switch (action) {
+        TitleAction.album => 'album',
+        TitleAction.camera => 'camera',
+        TitleAction.continueFromDex => 'continue',
+      },
+    },
+  );
 
   /// ボタンの処理 [work] を、途中の二重押しを受け付けずに実行する。例外はそのまま SnackBar に出す。
   Future<void> _run({required Future<void> Function() work}) async {
