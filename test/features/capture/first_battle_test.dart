@@ -16,8 +16,15 @@ void main() {
   test(
     '候補の先頭の相手の定義を読めない時は、例外にせず CPU トレーナーと戦う (もう一度試しても同じ相手で止まり続けないため)',
     () async {
+      // 本番と同じく、生まれたモンスターを手持ちに入れた後の図鑑で相手を決める (CPU の手持ちのレベルを自分の手持ちに合わせるため)
+      final dexStore = DexStore(definitions: sampleData.definitions)
+        ..applyServerSnapshot(
+          monsters: [sampleData.monsterById(monsterId: 'sample-mugmon')],
+          partyMonsterIds: ['sample-mugmon'],
+          definitions: null,
+        );
       final opponent = await prepareFirstBattleOpponent(
-        dexStore: DexStore(definitions: sampleData.definitions),
+        dexStore: dexStore,
         pvpClient: PvpClient(
           fetchOpponents: () async => [
             PvpOpponent(
