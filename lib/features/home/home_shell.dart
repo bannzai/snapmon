@@ -13,7 +13,9 @@ import '../dex/dex_screen.dart';
 import '../dex/dex_store.dart';
 import '../opponent/opponent_screen.dart';
 import '../opponent/pvp_client.dart';
+import '../settings/account_store.dart';
 import '../settings/settings_screen.dart';
+import '../share/card_sharer.dart';
 
 /// 下タブの項目。並びは DIRECTION.md「デザインの方向」の「下タブは図鑑・撮る・対戦」。
 enum HomeTab {
@@ -41,6 +43,8 @@ class HomeShell extends StatefulWidget {
     required this.battleRecorder,
     required this.monsterGenerator,
     required this.pvpClient,
+    required this.cardSharer,
+    required this.accountStore,
   });
 
   /// 非同期 PvP の相手の取得・通報・ブロック・戦績・表示名。
@@ -70,6 +74,12 @@ class HomeShell extends StatefulWidget {
   /// 撮る・選ぶ・生成の呼び出しと計測。
   final MonsterGenerator monsterGenerator;
 
+  /// 図鑑のカードとバトルの結果の共有に使う関数の組。
+  final CardSharer cardSharer;
+
+  /// 設定画面のアカウントの連携と削除。
+  final AccountStore accountStore;
+
   @override
   State<HomeShell> createState() => _HomeShellState();
 }
@@ -89,8 +99,10 @@ class _HomeShellState extends State<HomeShell> {
         ageVerifiedSessionStore: widget.ageVerifiedSessionStore,
         monsterGenerator: widget.monsterGenerator,
         pvpClient: widget.pvpClient,
+        cardSharer: widget.cardSharer,
         openUrl: widget.openUrl,
         isDeveloperMenuEnabled: widget.isDeveloperMenuEnabled,
+        accountStore: widget.accountStore,
       ),
     ),
   );
@@ -104,12 +116,14 @@ class _HomeShellState extends State<HomeShell> {
           dexStore: widget.dexStore,
           onSelectTab: _selectTab,
           onOpenSettings: _openSettings,
+          cardSharer: widget.cardSharer,
         ),
         HomeTab.capture => CaptureScreen(
           dexStore: widget.dexStore,
           monsterGenerator: widget.monsterGenerator,
           onSelectTab: _selectTab,
           onOpenSettings: _openSettings,
+          cardSharer: widget.cardSharer,
         ),
         HomeTab.opponent => OpponentScreen(
           sampleData: widget.sampleData,
@@ -119,6 +133,7 @@ class _HomeShellState extends State<HomeShell> {
           battleRecorder: widget.battleRecorder,
           pvpClient: widget.pvpClient,
           openUrl: widget.openUrl,
+          cardSharer: widget.cardSharer,
         ),
       },
     ),

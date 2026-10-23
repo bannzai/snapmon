@@ -15,6 +15,7 @@ import '../dex/dex_store.dart';
 import '../dex/owned_monster.dart';
 import '../home/home_shell.dart';
 import '../settings/settings_screen.dart';
+import '../share/card_sharer.dart';
 import 'cpu_party.dart';
 import 'pvp_client.dart';
 import 'pvp_opponent.dart';
@@ -35,6 +36,7 @@ class OpponentScreen extends StatefulWidget {
     required this.battleRecorder,
     required this.pvpClient,
     required this.openUrl,
+    required this.cardSharer,
   });
 
   /// 見本データ (CPU トレーナーと、ログインが無い時の他のユーザーの代わり)。
@@ -57,6 +59,9 @@ class OpponentScreen extends StatefulWidget {
 
   /// お問い合わせを開く。
   final OpenUrl openUrl;
+
+  /// バトルの結果の共有に使う関数の組。
+  final CardSharer cardSharer;
 
   @override
   State<OpponentScreen> createState() => _OpponentScreenState();
@@ -406,6 +411,7 @@ class _OpponentScreenState extends State<OpponentScreen> {
           randomSeed: randomSeed,
           battleRecorder: widget.battleRecorder,
           onPlayerLevelsChanged: dexStore.updateLevels,
+          cardSharer: widget.cardSharer,
         ),
       ),
     );

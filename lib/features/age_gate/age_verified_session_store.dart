@@ -65,9 +65,16 @@ class AgeVerifiedSessionStore extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// ログインを終えて、ログインしていない状態に戻す。開発者メニューの「年齢の確認をやり直す」だけが使う
-  /// (やり直した後に初回起動と同じくログインと confirmAge を通すため)。何度呼んでも同じ (冪等)。
-  Future<void> resetForDebug() async {
+  /// 連携済みのアカウントに切り替えた後に、ログインした uid を [uid] にする (設定画面の「データを引き継ぐ」)。
+  void switchUid({required String uid}) {
+    _uid = uid;
+    notifyListeners();
+  }
+
+  /// ログインを終えて、ログインしていない状態に戻す。アカウントを削除した後と、連携済みのアカウントへの切り替えに失敗した後と、
+  /// 開発者メニューの「年齢の確認をやり直す」が使う (初回起動と同じくログインと confirmAge を通して新しい匿名アカウントで始めるため)。
+  /// 何度呼んでも同じ (冪等)。
+  Future<void> reset() async {
     await endSession();
     _uid = null;
     _error = null;

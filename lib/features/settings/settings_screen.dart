@@ -11,12 +11,17 @@ import '../capture/monster_generator.dart';
 import '../developer_menu/developer_menu_screen.dart';
 import '../dex/dex_store.dart';
 import '../opponent/pvp_client.dart';
+import '../share/card_sharer.dart';
+import 'account_store.dart';
 
 /// [uri] を外部のアプリ (ブラウザ・メール) で開き、開けたかを返す。
 typedef OpenUrl = Future<bool> Function({required Uri uri});
 
 /// お問い合わせの宛先 (docs/index.html のサポートの連絡先と同じ)。
 final Uri contactUri = Uri.parse('mailto:bannzai.app@gmail.com');
+
+/// 紹介ページ (docs/index.html を GitHub Pages で公開したページ)。共有するカード画像と文章に入れる。
+final Uri landingPageUri = Uri.parse('https://bannzai.github.io/snapmon/');
 
 /// 利用規約 (docs/Terms.md を GitHub Pages で公開したページ)。
 final Uri termsUri = Uri.parse('https://bannzai.github.io/snapmon/Terms');
@@ -42,8 +47,10 @@ class SettingsScreen extends StatelessWidget {
     required this.ageVerifiedSessionStore,
     required this.monsterGenerator,
     required this.pvpClient,
+    required this.cardSharer,
     required this.openUrl,
     required this.isDeveloperMenuEnabled,
+    required this.accountStore,
   });
 
   /// 表示名の読み込みと変更。
@@ -52,7 +59,7 @@ class SettingsScreen extends StatelessWidget {
   /// 見本データ (開発者メニューが使う)。
   final SampleData sampleData;
 
-  /// 図鑑と手持ち (開発者メニューが使う)。
+  /// 図鑑と手持ち (開発者メニューと、連携済みのアカウントへの切り替えの確認で消える数の表示が使う)。
   final DexStore dexStore;
 
   /// 年齢の確認 (開発者メニューが使う)。
@@ -64,12 +71,120 @@ class SettingsScreen extends StatelessWidget {
   /// 生成の呼び出しと計測 (開発者メニューが使う)。
   final MonsterGenerator monsterGenerator;
 
+  /// 図鑑のカードの共有に使う関数の組 (開発者メニューが使う)。
+  final CardSharer cardSharer;
+
   /// リンクを開く。
   final OpenUrl openUrl;
 
   /// 開発者メニューの入口を出すか。release ビルドでは [kDebugMode] が const の false のため、
   /// この値に関係なく入口と開発者メニューのコードがビルドから除かれる。widget test は false を渡して出ないことを確かめる。
   final bool isDeveloperMenuEnabled;
+
+  /// アカウントの連携 (データを引き継ぐ) と削除。
+  final AccountStore accountStore;
+
+  void _showMessage({required BuildContext context, required String message}) =>
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(content: Text(message)));
+
+  /// 「データを引き継ぐ」。いまの匿名アカウントに連携し、別の端末で連携済みなら切り替えてよいかを確かめてから切り替える。
+  Future<void> _link({required BuildContext context}) async {
+    final Future<String> Function()? signInToLinkedAccount;
+    try {
+      signInToLinkedAccount = await accountStore.link();
+    } catch (error) {
+      if (context.mounted) {
+        _showMessage(context: context, message: error.toString());
+      }
+      return;
+    }
+    if (!context.mounted) {
+      return;
+    }
+    if (signInToLinkedAccount == null) {
+      _showMessage(
+        context: context,
+        message: '${accountStore.linkProviderName} と連携しました',
+      );
+      return;
+    }
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('連携済みのアカウントに切り替えますか'),
+        content: Text(
+          'この ${accountStore.linkProviderName} アカウントは別の端末で連携済みです。'
+          '切り替えると、この端末の図鑑 (${dexStore.monsters.length} 体) は消え、連携済みのアカウントの図鑑に切り替わります。',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('やめる'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text('切り替える'),
+          ),
+        ],
+      ),
+    );
+    if (confirmed != true) {
+      return;
+    }
+    try {
+      await accountStore.switchToLinkedAccount(
+        signInToLinkedAccount: signInToLinkedAccount,
+      );
+    } catch (error) {
+      if (context.mounted) {
+        _showMessage(context: context, message: error.toString());
+      }
+      return;
+    }
+    if (context.mounted) {
+      _showMessage(context: context, message: '連携済みのアカウントに切り替えました');
+    }
+  }
+
+  /// 「アカウントを削除」。確かめてから消し、消せたら年齢の確認の画面 (アプリのルート) に戻す。
+  Future<void> _delete({required BuildContext context}) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('アカウントを削除しますか'),
+        content: const Text(
+          'モンスター・図鑑・元の写真・バトルの記録が消え、元に戻せません。'
+          '削除した後は、年齢の確認から新しいアカウントで始まります。',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('やめる'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text('削除する'),
+          ),
+        ],
+      ),
+    );
+    if (confirmed != true) {
+      return;
+    }
+    try {
+      await accountStore.delete();
+    } catch (error) {
+      if (context.mounted) {
+        _showMessage(context: context, message: error.toString());
+      }
+      return;
+    }
+    if (context.mounted) {
+      Navigator.of(context).popUntil((route) => route.isFirst);
+    }
+  }
 
   /// [uri] を開き、開けなかった時 (メールのアプリが無い simulator など) はそのことを伝える。
   /// 開くアプリが無い Android では false ではなく例外になるため、例外の時はその内容を出す。
@@ -120,12 +235,38 @@ class SettingsScreen extends StatelessWidget {
           title: const Text('アカウントの削除について'),
           onTap: () => _open(context: context, uri: accountDeletionUri),
         ),
-        // アカウントの削除はアカウント連携 (#17) で実装する。それまでは入口だけを出す
-        const ListTile(
-          leading: Icon(Icons.delete_outline),
-          title: Text('アカウントを削除'),
-          subtitle: Text('準備中'),
-          enabled: false,
+        // DEBUG でログインを飛ばした時は、連携・削除するアカウントが無いため押せなくする
+        ListenableBuilder(
+          listenable: Listenable.merge([
+            accountStore,
+            accountStore.sessionStore,
+          ]),
+          builder: (context, _) {
+            final linkedProviderNames = accountStore.linkedProviderNames;
+            final canOperate =
+                accountStore.isSignedIn && !accountStore.isWorking;
+            return Column(
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.sync_outlined),
+                  title: const Text('データを引き継ぐ'),
+                  subtitle: Text(
+                    linkedProviderNames.isEmpty
+                        ? '${accountStore.linkProviderName} でサインインして\n機種変更しても図鑑を残す'
+                        : '${linkedProviderNames.join(' と ')} で連携済み',
+                  ),
+                  enabled: canOperate && linkedProviderNames.isEmpty,
+                  onTap: () => _link(context: context),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.delete_outline),
+                  title: const Text('アカウントを削除'),
+                  enabled: canOperate,
+                  onTap: () => _delete(context: context),
+                ),
+              ],
+            );
+          },
         ),
         if (kDebugMode && isDeveloperMenuEnabled) ...[
           const _SectionTitle(title: '開発'),
@@ -140,6 +281,7 @@ class SettingsScreen extends StatelessWidget {
                   ageConfirmationStore: ageConfirmationStore,
                   ageVerifiedSessionStore: ageVerifiedSessionStore,
                   monsterGenerator: monsterGenerator,
+                  cardSharer: cardSharer,
                 ),
               ),
             ),

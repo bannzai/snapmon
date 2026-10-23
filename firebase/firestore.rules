@@ -14,6 +14,17 @@ service cloud.firestore {
       return isAgeVerified() && request.auth.uid == uid;
     }
 
+    // 年齢の確認を通った本人で、アカウントが残っていて削除の途中でもないか (confirmAge が users/{uid} に ageAccepted を付け、
+    // deleteAccount が削除の始まりに accountDeletionStartedAt を付けて最後に users/{uid} ごと消す)。クライアントが書く時に確かめる。
+    // 削除の後も別の端末の ID トークンは期限まで通るため、消し終えた uid の配下に書かせない。
+    function isActiveAgeVerifiedOwner(uid) {
+      let user = get(/databases/$(database)/documents/users/$(uid));
+      return isAgeVerifiedOwner(uid)
+        && user != null
+        && user.data.get("ageAccepted", false) == true
+        && !("accountDeletionStartedAt" in user.data);
+    }
+
     // 本人の図鑑にあるモンスターか。
     function ownsMonster(uid, monsterId) {
       return monsterId is string
@@ -78,7 +89,7 @@ service cloud.firestore {
       // 手持ち。クライアントが書ける 2 つのうちの 1 つ。
       match /party/current {
         allow read, delete: if isAgeVerifiedOwner(uid);
-        allow create, update: if isAgeVerifiedOwner(uid)
+        allow create, update: if isActiveAgeVerifiedOwner(uid)
           && request.resource.data.keys().hasOnly(['monsterIds', 'updatedAt'])
           && request.resource.data.updatedAt == request.time
           && isValidParty(uid, request.resource.data.monsterIds);
@@ -86,7 +97,8 @@ service cloud.firestore {
 
       // 端末の設定。クライアントが書ける 2 つのうちの 1 つ。
       match /settings/current {
-        allow read, write: if isAgeVerifiedOwner(uid);
+        allow read, delete: if isAgeVerifiedOwner(uid);
+        allow create, update: if isActiveAgeVerifiedOwner(uid);
       }
     }
   }

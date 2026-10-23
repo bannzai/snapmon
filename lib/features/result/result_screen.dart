@@ -10,6 +10,10 @@ import '../../widgets/square_icon_button.dart';
 import '../../widgets/storage_image.dart';
 import '../dex/dex_store.dart';
 import '../dex/owned_monster.dart';
+import '../settings/settings_screen.dart';
+import '../share/card_sharer.dart';
+import '../share/share_card_button.dart';
+import '../share/share_cards.dart';
 
 /// 生まれた画面 (モックの Result.dc.html) を閉じた後に、呼び出し元にしてほしいこと。
 enum ResultScreenAction {
@@ -37,6 +41,7 @@ class ResultScreen extends StatelessWidget {
     required this.monster,
     required this.dexStore,
     required this.origin,
+    required this.cardSharer,
   });
 
   /// カードに出すモンスター。
@@ -47,6 +52,9 @@ class ResultScreen extends StatelessWidget {
 
   /// どこから開いたか。撮る画面から開いた時は「もう 1 体撮る」を出し、図鑑から開いた時は出さない。
   final ResultScreenOrigin origin;
+
+  /// 図鑑のカードの共有に使う関数の組。
+  final CardSharer cardSharer;
 
   /// 手持ちの変更 [change] を待ち、保存に失敗したらエラーをそのまま出す。成功したら true を返す。
   static Future<bool> _changeParty({
@@ -376,12 +384,31 @@ class ResultScreen extends StatelessWidget {
                         const SizedBox(width: 10),
                       ],
                       Expanded(
-                        child: _SecondaryButton(
-                          label: 'カードを共有',
-                          // 共有は #18 で実装する
-                          onPressed: () =>
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('共有は準備中です')),
+                        child: ShareCardButton(
+                          cardSharer: cardSharer,
+                          screen: switch (origin) {
+                            ResultScreenOrigin.newlyBorn =>
+                              ShareScreen.resultNewlyBorn,
+                            ResultScreenOrigin.alreadyInDex =>
+                              ShareScreen.resultAlreadyInDex,
+                            ResultScreenOrigin.dex => ShareScreen.dexDetail,
+                          },
+                          artPaths: [?monster.artPath],
+                          buildCard:
+                              ({required format, required artImagesByPath}) =>
+                                  MonsterShareCard(
+                                    monster: monster,
+                                    artImagesByPath: artImagesByPath,
+                                    definitions: dexStore.definitions,
+                                    format: format,
+                                  ),
+                          shareText:
+                              'snapmon で ${definition.name} が生まれた\n#snapmon\n$landingPageUri',
+                          fileNamePrefix: 'snapmon-${definition.id}',
+                          buttonBuilder: ({required onPressed}) =>
+                              _SecondaryButton(
+                                label: 'カードを共有',
+                                onPressed: onPressed,
                               ),
                         ),
                       ),
@@ -474,7 +501,9 @@ class _SecondaryButton extends StatelessWidget {
   const _SecondaryButton({required this.label, required this.onPressed});
 
   final String label;
-  final VoidCallback onPressed;
+
+  /// 押した時の処理。null の間は押せない。
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) => Material(

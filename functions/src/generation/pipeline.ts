@@ -118,7 +118,7 @@ const MAXIMUM_ATTEMPT_COUNT = 4;
 const RETRYABLE_REJECTION_REASONS: RejectionReason[] = ["person_detected", "inappropriate_text", "refused"];
 
 /** 段階が予期しないエラーで落ちた時に、再試行を始めるまでの秒数。一時的なエラー (API の 5xx・通信の切断) が収まる時間として置いた。 */
-const FAILED_STAGE_RETRY_DELAY_SECONDS = 60;
+export const FAILED_STAGE_RETRY_DELAY_SECONDS = 60;
 
 /**
  * 手で決めた範囲が写真に占める割合の上限。95%: 写真の縁を少し残しただけの範囲を切り出しとみなさない値として置いた
@@ -156,7 +156,7 @@ const MOVE_LIMIT = 2_000;
 /** 生成の要求を受け付けられない理由。callable は HttpsError に、それ以外はログに出す。 */
 export class GenerationRequestError extends Error {
   /** 理由の種類。 */
-  readonly code: "daily_limit_per_user" | "daily_limit_total" | "another_generation_in_progress" | "photo_not_found";
+  readonly code: "daily_limit_per_user" | "daily_limit_total" | "another_generation_in_progress" | "photo_not_found" | "account_deletion_in_progress" | "account_not_found";
 
   constructor(code: GenerationRequestError["code"], message: string) {
     super(message);
@@ -256,6 +256,16 @@ export async function startGeneration(
   await enqueueLeaseRecovery(dependencies, { uid, requestId });
   const leaseToken = randomUUID();
   const reservation = await firestore.runTransaction(async (transaction): Promise<GenerationResult | "reserved"> => {
+    const userDocument = firestore.doc(`users/${uid}`);
+    const userSnapshot = await transaction.get(userDocument);
+    // アカウントの削除 (account.ts) が始まった後と消し終えた後 (confirmAge が付けた ageAccepted ごと users/{uid} が消える) は、
+    // 使い回しの記録も含めて何も書かない。書くと、消し終えた後に生成のレコードやモンスターが残るため
+    if (userSnapshot.get("accountDeletionStartedAt") !== undefined) {
+      throw new GenerationRequestError("account_deletion_in_progress", "アカウントの削除が進んでいます");
+    }
+    if (userSnapshot.get("ageAccepted") !== true) {
+      throw new GenerationRequestError("account_not_found", "アカウントが見つかりません");
+    }
     // failed と、Claude の応答で結果が揺れる拒否は使い回さない (撮り直さずに同じ写真で再挑戦できるように)。
     // 状態は複合インデックスを増やさないようコードで絞る。
     const sameInput = (await transaction.get(firestore.collection(`users/${uid}/generations`).where("inputKey", "==", inputKey))).docs.find((document) => {
@@ -271,9 +281,8 @@ export async function startGeneration(
     if (current.exists) {
       return generationResult({ requestId, record: current.data() as GenerationRecord });
     }
-    const userDocument = firestore.doc(`users/${uid}`);
     const totalCounterDocument = firestore.doc(`generationDailyCounts/${today}`);
-    const [userSnapshot, totalCounterSnapshot] = await Promise.all([transaction.get(userDocument), transaction.get(totalCounterDocument)]);
+    const totalCounterSnapshot = await transaction.get(totalCounterDocument);
     assertGenerationLockAvailable({ lock: userSnapshot.get("generationLock"), requestId, now });
     const userCount = userSnapshot.get("dailyGeneration.date") === today ? (userSnapshot.get("dailyGeneration.count") as number) : 0;
     if (userCount >= DAILY_GENERATION_LIMIT_PER_USER) {
@@ -396,6 +405,11 @@ async function acquireLease(
     const record = snapshot.data() as GenerationRecord;
     const userDocument = firestore.doc(`users/${uid}`);
     const userSnapshot = await transaction.get(userDocument);
+    // アカウントの削除 (account.ts) が始まった後・消し終えた後 (confirmAge が付けた ageAccepted ごと users/{uid} が消える) は再開しない。
+    // 再開すると、消した後に切り出し画像やモンスターを書いて残すため
+    if (!snapshot.exists || userSnapshot.get("accountDeletionStartedAt") !== undefined || userSnapshot.get("ageAccepted") !== true) {
+      return { requestId, status: "failed" };
+    }
     // 同じ回の judge のタスクが同時に 2 つ届いても、回数が一致する方の 1 つだけが予約を取る
     const isWaitingJudge = record.status === "pending_judge" && record.judgeRetryCount === judgeAttempt;
     const isExpiredProcessing = record.status === "processing" && record.leaseExpiresAt.toMillis() <= now.getTime();
@@ -481,10 +495,13 @@ export async function resumeGeneration(dependencies: GenerationDependencies, { u
   return advanceGenerationForCaller(dependencies, { uid, requestId, leaseToken: acquired.leaseToken });
 }
 
-/** 段階の処理が返す、レコードへの書き込みと次の行き先。 */
+/**
+ * 段階の処理が返す、レコードへの書き込みと次の行き先。finish の `monster` は、終了状態と同じトランザクションで作る図鑑のモンスター
+ * (保存の段階だけが返す)。
+ */
 type StageOutcome =
   | { kind: "next"; update: Partial<GenerationRecord> }
-  | { kind: "finish"; update: Partial<GenerationRecord> & { status: GenerationRecord["status"] } };
+  | { kind: "finish"; update: Partial<GenerationRecord> & { status: GenerationRecord["status"] }; monster?: MonsterDocument };
 
 /**
  * 予約を取った生成を、終了状態か判定待ちになるまで段階ごとに進める。`leaseToken` は予約を取った時のトークンで、
@@ -527,15 +544,19 @@ async function advanceGeneration(
       if (error instanceof InputChangedError) {
         return finishGeneration(dependencies, { uid, requestId, leaseToken, update: { status: "failed", failureMessage: error.message } });
       }
-      // それ以外 (Claude・Vision・Storage の一時的なエラー) は、予約を今すぐ切れた扱いにしてロックを外し、少し後の再試行に引き継ぐ。
-      // 予約を取る回数の上限 (MAXIMUM_ATTEMPT_COUNT) で、直らない失敗は failed になる。
-      logger.error("生成の段階が失敗しました。再試行に回します", { uid, requestId, stage: nextStage, error });
-      await releaseLock(dependencies, { uid, requestId, leaseToken, update: { leaseExpiresAt: Timestamp.fromDate(dependencies.now()) } });
-      await dependencies.enqueueResume({ uid, requestId, purpose: "lease", delaySeconds: FAILED_STAGE_RETRY_DELAY_SECONDS });
-      throw new StageRetryScheduledError(error);
+      // それ以外 (Claude・Vision・Storage の一時的なエラー) は再試行に回す
+      return scheduleStageRetry(dependencies, { uid, requestId, leaseToken, stage: nextStage, error });
     }
     if (outcome.kind === "finish") {
-      return finishGeneration(dependencies, { uid, requestId, leaseToken, update: outcome.update });
+      try {
+        return await finishGeneration(dependencies, { uid, requestId, leaseToken, update: outcome.update, monster: outcome.monster });
+      } catch (error) {
+        // 保存の段階はモンスターの作成を終了状態と同じトランザクションで書くため、その一時的なエラーもほかの段階と同じく再試行に回す
+        if (!outcome.monster) {
+          throw error;
+        }
+        return scheduleStageRetry(dependencies, { uid, requestId, leaseToken, stage: nextStage, error });
+      }
     }
     const written = await firestore.runTransaction(async (transaction) => {
       const current = (await transaction.get(document)).data() as GenerationRecord;
@@ -553,21 +574,37 @@ async function advanceGeneration(
 
 /**
  * uid の生成中ロックを、自分の要求 ID のものなら外し、レコードに書く。`leaseToken` を渡した時は、レコードが処理中でそのトークンの
- * 予約のままの時だけ書く (予約の期限を過ぎて引き継がれた後に、古い実行が結果を上書きしないため)。書いた後か、書かなかった時は今の
- * レコードを返す。
+ * 予約のままの時だけ書く (予約の期限を過ぎて引き継がれた後に、古い実行が結果を上書きしないため)。渡さない時は、レコードが終了状態
+ * でない時だけ書く。`monster` を渡した時は、図鑑の
+ * モンスターが無ければ同じトランザクションで作る (図鑑のモンスターと saved のレコードが片方だけ残らないように)。書いた後か、書かなかった
+ * 時は今のレコードを返す。
  */
 async function releaseLock(
   dependencies: GenerationDependencies,
-  { uid, requestId, leaseToken, update }: { uid: string; requestId: string; leaseToken?: string; update: Partial<GenerationRecord> },
+  { uid, requestId, leaseToken, update, monster }: { uid: string; requestId: string; leaseToken?: string; update: Partial<GenerationRecord>; monster?: MonsterDocument },
 ): Promise<GenerationRecord> {
   const { firestore } = dependencies;
   const document = generationDocument({ firestore, uid, requestId });
+  const monsterDocument = monster && firestore.doc(`users/${uid}/monsters/${monster.definition.id}`);
   return firestore.runTransaction(async (transaction) => {
     const userDocument = firestore.doc(`users/${uid}`);
-    const [userSnapshot, snapshot] = await Promise.all([transaction.get(userDocument), transaction.get(document)]);
+    const [userSnapshot, snapshot, monsterSnapshot] = await Promise.all([
+      transaction.get(userDocument),
+      transaction.get(document),
+      monsterDocument && transaction.get(monsterDocument),
+    ]);
     const current = snapshot.data() as GenerationRecord;
     if (leaseToken !== undefined && (current.status !== "processing" || current.leaseToken !== leaseToken)) {
       return current;
+    }
+    // 予約を持たない書き込み (予約の回数の上限・Jev の再試行の上限で failed にする) は、判定した後に予約を持つ古い実行が saved に
+    // した結果を上書きしない
+    if (leaseToken === undefined && TERMINAL_GENERATION_STATUSES.includes(current.status)) {
+      return current;
+    }
+    // モンスターの作成と saved を別々のトランザクションで書いていた版が残した、モンスターだけがある処理中のレコードの再試行では作らない
+    if (monster && monsterDocument && !monsterSnapshot?.exists) {
+      transaction.create(monsterDocument, monster);
     }
     if (userSnapshot.get("generationLock.requestId") === requestId) {
       transaction.update(userDocument, { generationLock: FieldValue.delete() });
@@ -575,6 +612,20 @@ async function releaseLock(
     transaction.update(document, { ...update, updatedAt: Timestamp.fromDate(dependencies.now()) });
     return { ...current, ...update };
   });
+}
+
+/**
+ * 一時的なエラーで落ちた段階を、予約を今すぐ切れた扱いにしてロックを外し、少し後の再試行に引き継ぐ。積み終えたら
+ * StageRetryScheduledError を投げる (戻らない)。予約を取る回数の上限 (MAXIMUM_ATTEMPT_COUNT) で、直らない失敗は failed になる。
+ */
+async function scheduleStageRetry(
+  dependencies: GenerationDependencies,
+  { uid, requestId, leaseToken, stage, error }: { uid: string; requestId: string; leaseToken: string; stage: GenerationStage; error: unknown },
+): Promise<never> {
+  logger.error("生成の段階が失敗しました。再試行に回します", { uid, requestId, stage, error });
+  await releaseLock(dependencies, { uid, requestId, leaseToken, update: { leaseExpiresAt: Timestamp.fromDate(dependencies.now()) } });
+  await dependencies.enqueueResume({ uid, requestId, purpose: "lease", delaySeconds: FAILED_STAGE_RETRY_DELAY_SECONDS });
+  throw new StageRetryScheduledError(error);
 }
 
 /** 終了状態にし、ロックを外し、拒否・重複なら元の写真と中間のファイルを消す (ADR 0001「画像ストレージ」)。 */
@@ -585,9 +636,16 @@ async function finishGeneration(
     requestId,
     leaseToken,
     update,
-  }: { uid: string; requestId: string; leaseToken?: string; update: Partial<GenerationRecord> & { status: GenerationRecord["status"] } },
+    monster,
+  }: {
+    uid: string;
+    requestId: string;
+    leaseToken?: string;
+    update: Partial<GenerationRecord> & { status: GenerationRecord["status"] };
+    monster?: MonsterDocument;
+  },
 ): Promise<GenerationResult> {
-  const record = await releaseLock(dependencies, { uid, requestId, leaseToken, update });
+  const record = await releaseLock(dependencies, { uid, requestId, leaseToken, update, monster });
   logger.info("生成を終えました", { uid, requestId, status: record.status, rejectionReason: record.rejectionReason, failureMessage: record.failureMessage });
   try {
     await deleteDiscardedFiles(dependencies, { uid, requestId, record });
@@ -602,7 +660,7 @@ async function finishGeneration(
 /**
  * 終わった生成の要らなくなったファイルを消し、消し終えたことを `filesDeleted` に記録する。rejected・duplicate・failed は元の写真・
  * マスク・中間の切り出し画像を、saved はマスクと中間の切り出し画像を消す (元の写真は本人の図鑑のために残す。failed の写真は検査を
- * 通っていないことがあり、再挑戦は新しい要求 ID で上げ直すため残さない)。
+ * 通っていないことがあり、再挑戦は新しい要求 ID で上げ直すため残さない。モンスターの文書がある failed は saved と同じに扱う)。
  * 消し終えている生成と、終わっていない生成には何もしない (何度呼んでもよい)。
  */
 async function deleteDiscardedFiles(
@@ -612,12 +670,17 @@ async function deleteDiscardedFiles(
   if (!TERMINAL_GENERATION_STATUSES.includes(record.status) || record.filesDeleted) {
     return;
   }
+  // モンスターの作成と saved を別々のトランザクションで書いていた版は、モンスターだけがある failed のレコードを残し得る。
+  // そのモンスターは図鑑に出ていて元の写真と絵を使うため、saved と同じく消さない
+  const keepsMonsterFiles =
+    record.status === "saved" ||
+    (record.status === "failed" && !!record.monsterId && (await dependencies.firestore.doc(`users/${uid}/monsters/${record.monsterId}`).get()).exists);
   await deleteFiles(dependencies.bucket, [
-    record.status === "saved" ? undefined : record.photoPath,
+    keepsMonsterFiles ? undefined : record.photoPath,
     record.maskPath,
     record.cutoutPath,
-    // 保存の段階で絵を置いた後に failed になった生成の絵 (モンスターは保存されていない)。duplicate の monsterId は既存のモンスターなので消さない
-    record.status === "failed" && record.monsterId ? `monsters/${record.monsterId}/art.png` : undefined,
+    // 保存の段階で絵を置いた後に failed になった生成の絵。duplicate の monsterId は既存のモンスターなので消さない
+    record.status === "failed" && record.monsterId && !keepsMonsterFiles ? `monsters/${record.monsterId}/art.png` : undefined,
   ]);
   await generationDocument({ firestore: dependencies.firestore, uid, requestId }).update({ filesDeleted: true });
 }
@@ -641,7 +704,7 @@ async function runStage(
     case "judge":
       return runJudgeStage(dependencies, { uid, requestId, record });
     case "saved":
-      return runSaveStage(dependencies, { uid, requestId, record });
+      return runSaveStage(dependencies, { requestId, record });
     case "uploaded":
       throw new Error("uploaded は予約の時に済む段階で、ここには来ない");
   }
@@ -938,12 +1001,13 @@ async function resolveNewElementType(
 
 async function runSaveStage(
   dependencies: GenerationDependencies,
-  { uid, requestId, record }: { uid: string; requestId: string; record: GenerationRecord },
+  { requestId, record }: { requestId: string; record: GenerationRecord },
 ): Promise<StageOutcome> {
-  const { firestore, bucket } = dependencies;
+  const { bucket } = dependencies;
   const monsterId = record.monsterId!;
   const artPath = `monsters/${monsterId}/art.png`;
   // 絵を先に置く。保存のトランザクションの前に落ちても、再試行が同じ ID で置き直す (同じ中身の上書きで冪等)。
+  // 置いたまま失敗が続いて failed になった時は、モンスターの文書が無いため deleteDiscardedFiles が消す。
   if (!(await bucket.file(artPath).exists())[0]) {
     await bucket.file(record.cutoutPath!).copy(bucket.file(artPath));
   }
@@ -973,12 +1037,7 @@ async function runSaveStage(
     generationRequestId: requestId,
     createdAt: Timestamp.fromDate(dependencies.now()),
   };
-  const monsterDocument = firestore.doc(`users/${uid}/monsters/${monsterId}`);
-  await firestore.runTransaction(async (transaction) => {
-    if (!(await transaction.get(monsterDocument)).exists) {
-      transaction.create(monsterDocument, monster);
-    }
-  });
-  // 中間のファイルは saved を記録した後に finishGeneration が消す (消すのに失敗しても保存の成功を失敗にしないため)。
-  return { kind: "finish", update: { status: "saved", completedStage: "saved" } };
+  // モンスターの文書は saved と同じトランザクションで finishGeneration が作る。中間のファイルは saved を記録した後に消す
+  // (消すのに失敗しても保存の成功を失敗にしないため)。
+  return { kind: "finish", update: { status: "saved", completedStage: "saved" }, monster };
 }

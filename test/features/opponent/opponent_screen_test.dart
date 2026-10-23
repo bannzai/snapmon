@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:share_plus/share_plus.dart';
 
 import 'package:snapmon/features/dex/dex_store.dart';
 import 'package:snapmon/features/dex/owned_monster.dart';
@@ -14,6 +15,7 @@ import 'package:snapmon/sample/sample_data.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
 
 import '../../battle_recorder_fixture.dart';
+import '../../card_sharer_fixture.dart';
 import '../../pvp_client_fixture.dart';
 import '../../sample_data_fixture.dart';
 
@@ -84,6 +86,11 @@ void main() {
               recordedLevels: const {},
             ),
             pvpClient: pvpClient,
+            cardSharer: fakeCardSharer(
+              calls: RecordedShareCalls(),
+              artImage: null,
+              shareResultStatus: ShareResultStatus.success,
+            ),
             openUrl: ({required uri}) async {
               openedUris.add(uri);
               return true;

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:snapmon/analytics/analytics_events.dart';
@@ -15,11 +16,15 @@ import 'package:snapmon/features/capture/monster_generator.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
 import 'package:snapmon/features/opponent/pvp_client.dart';
 import 'package:snapmon/features/opponent/pvp_opponent.dart';
+import 'package:snapmon/features/settings/account_store.dart';
 import 'package:snapmon/features/settings/settings_screen.dart';
+import 'package:snapmon/features/share/card_sharer.dart';
+import 'package:snapmon/features/share/share_cards.dart';
 import 'package:snapmon/sample/sample_data.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
 
 import 'battle_recorder_fixture.dart';
+import 'card_sharer_fixture.dart';
 import 'monster_generator_fixture.dart';
 import 'pvp_client_fixture.dart';
 import 'sample_data_fixture.dart';
@@ -50,12 +55,52 @@ void main() {
   late RecordedPvpCalls pvpCalls;
   late PvpClient pvpClient;
 
+  /// [pumpApp] の共有シートが返す結果。既定は共有した。テストが [pumpApp] の前に変える。
+  late ShareResultStatus shareResultStatus;
+  late RecordedShareCalls shareCalls;
+
+  /// [pumpApp] の設定画面のアカウントの連携と削除。呼ばれた操作を [accountCalls] に順に残す。
+  /// 連携と削除の振る舞いは、テストが [pumpApp] の前に変える。既定は連携でき、削除できる。
+  late AccountStore accountStore;
+  late List<String> accountCalls;
+  late List<String> linkedProviderNames;
+  late Future<Future<String> Function()?> Function() linkAccount;
+  late Future<void> Function() deleteAccount;
+
   setUp(() {
     startBattleRecord = () async => null;
     recordedLevels = const {};
     pvpCalls = RecordedPvpCalls();
     pvpClient = signedOutPvpClient(calls: pvpCalls);
+    shareResultStatus = ShareResultStatus.success;
+    accountCalls = [];
+    linkedProviderNames = [];
+    linkAccount = () async {
+      linkedProviderNames = ['Google'];
+      return null;
+    };
+    deleteAccount = () async {};
   });
+
+  /// [sessionStore] と [ageConfirmationStore] に繋いだ、Firebase を呼ばない [AccountStore]。
+  AccountStore fakeAccountStore({
+    required AgeVerifiedSessionStore sessionStore,
+    required AgeConfirmationStore ageConfirmationStore,
+  }) => AccountStore(
+    sessionStore: sessionStore,
+    ageConfirmationStore: ageConfirmationStore,
+    linkProviderName: 'Google',
+    readLinkedProviderNames: () => linkedProviderNames,
+    linkAccount: () {
+      accountCalls.add('link');
+      return linkAccount();
+    },
+    discardCurrentAccount: () async => accountCalls.add('discard'),
+    deleteAccount: () {
+      accountCalls.add('delete');
+      return deleteAccount();
+    },
+  );
 
   /// アルバムから選ぶと、要求 ID ごとに見本のモンスター ([generatedWaxMonster]) をサーバーが保存して図鑑に届けたことにする生成。
   MonsterGenerator appMonsterGenerator() => fakeMonsterGenerator(
@@ -134,6 +179,11 @@ void main() {
     );
     openedUris = [];
     battleCalls = RecordedBattleCalls();
+    shareCalls = RecordedShareCalls();
+    accountStore = fakeAccountStore(
+      sessionStore: ageVerifiedSessionStore,
+      ageConfirmationStore: ageConfirmationStore,
+    );
     await tester.pumpWidget(
       SnapmonApp(
         sampleData: sampleData,
@@ -152,6 +202,12 @@ void main() {
         ),
         monsterGenerator: appMonsterGenerator(),
         pvpClient: pvpClient,
+        cardSharer: fakeCardSharer(
+          calls: shareCalls,
+          artImage: null,
+          shareResultStatus: shareResultStatus,
+        ),
+        accountStore: accountStore,
       ),
     );
     await tester.pumpAndSettle();
@@ -230,6 +286,12 @@ void main() {
           ),
           monsterGenerator: appMonsterGenerator(),
           pvpClient: signedOutPvpClient(calls: RecordedPvpCalls()),
+          cardSharer: fakeCardSharer(
+            calls: RecordedShareCalls(),
+            artImage: null,
+            shareResultStatus: ShareResultStatus.success,
+          ),
+          accountStore: accountStore,
         ),
       );
       await tester.pumpAndSettle();
@@ -393,6 +455,131 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
       expect(find.text('図鑑 1'), findsOneWidget);
+    });
+
+    testWidgets('生まれた画面から図鑑のカードを形を選んで共有し、共有イベントを送る', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      await tester.tap(find.byTooltip('アルバムから選ぶ'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('カードを共有'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('share-format-portrait')));
+      await tester.pumpAndSettle();
+      // 描いた画像を見せている間は、まだ共有シートを開かない
+      expect(shareCalls.renderedCards, hasLength(1));
+      expect(shareCalls.sharedImages, isEmpty);
+      await tester.tap(find.byKey(const Key('share-confirm')));
+      await tester.pumpAndSettle();
+
+      final bornMonster = generatedWaxMonster(
+        monsterId: 'generated-request-1',
+      ).definition;
+      final rendered = shareCalls.renderedCards.single;
+      expect(rendered.format, ShareCardFormat.portrait);
+      expect(
+        (rendered.card as MonsterShareCard).monster.definition.id,
+        bornMonster.id,
+      );
+      // 切り出した画像を持たない見本のモンスターは Storage を読まない
+      expect(shareCalls.loadedArtPaths, isEmpty);
+      final shared = shareCalls.sharedImages.single;
+      expect(shared.fileName, 'snapmon-${bornMonster.id}-portrait.png');
+      expect(shared.text, contains(bornMonster.name));
+      expect(shared.text, contains(landingPageUri.toString()));
+      final logged = shareCalls.loggedEvents.single;
+      expect(logged.event, AnalyticsEvent.contentShared);
+      expect(logged.parameters, {
+        'screen': 'result_newly_born',
+        'format': 'portrait',
+      });
+    });
+
+    testWidgets('図鑑の詳細から共有シートを閉じただけの時は共有イベントを送らない', (tester) async {
+      shareResultStatus = ShareResultStatus.dismissed;
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      dexStore.replaceAll(monsters: sampleData.monsters);
+      await tester.tap(find.byKey(const Key('tab-dex')));
+      await tester.pumpAndSettle();
+      // 手持ちにいない (図鑑の一覧にだけ名前が出る) 最後のモンスターを開く
+      await tester.tap(find.text(sampleData.monsters.last.definition.name));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('カードを共有'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('share-format-landscape')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('share-confirm')));
+      await tester.pumpAndSettle();
+
+      expect(shareCalls.renderedCards.single.format, ShareCardFormat.landscape);
+      expect(shareCalls.sharedImages, hasLength(1));
+      expect(shareCalls.loggedEvents, isEmpty);
+    });
+
+    testWidgets('描いた画像を見せた後に「やめる」を押した時は共有しない', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      dexStore.replaceAll(monsters: sampleData.monsters);
+      await tester.tap(find.byKey(const Key('tab-dex')));
+      await tester.pumpAndSettle();
+      // 手持ちにいない (図鑑の一覧にだけ名前が出る) 最後のモンスターを開く
+      await tester.tap(find.text(sampleData.monsters.last.definition.name));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('カードを共有'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('share-format-portrait')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('やめる'));
+      await tester.pumpAndSettle();
+
+      expect(shareCalls.renderedCards, hasLength(1));
+      expect(shareCalls.sharedImages, isEmpty);
+      expect(shareCalls.loggedEvents, isEmpty);
+      // ボタンは再び押せる
+      await tester.tap(find.text('カードを共有'));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('share-format-portrait')), findsOneWidget);
+    });
+
+    testWidgets('図鑑の詳細の共有で形を選ばずに閉じた時は共有しない', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      dexStore.replaceAll(monsters: sampleData.monsters);
+      await tester.tap(find.byKey(const Key('tab-dex')));
+      await tester.pumpAndSettle();
+      // 手持ちにいない (図鑑の一覧にだけ名前が出る) 最後のモンスターを開く
+      await tester.tap(find.text(sampleData.monsters.last.definition.name));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('カードを共有'));
+      await tester.pumpAndSettle();
+      // 形を選ぶシートの外 (画面の上端) を押して閉じる
+      await tester.tapAt(const Offset(195, 20));
+      await tester.pumpAndSettle();
+
+      expect(shareCalls.renderedCards, isEmpty);
+      expect(shareCalls.sharedImages, isEmpty);
+      expect(shareCalls.loggedEvents, isEmpty);
     });
 
     testWidgets('図鑑のモンスターを押すとカードが開く', (tester) async {
@@ -1019,6 +1206,11 @@ void main() {
             recordedLevels: const {},
           ),
           onPlayerLevelsChanged: ({required levelsByMonsterId}) {},
+          cardSharer: fakeCardSharer(
+            calls: RecordedShareCalls(),
+            artImage: null,
+            shareResultStatus: ShareResultStatus.success,
+          ),
         ),
       ),
     );
@@ -1067,24 +1259,35 @@ void main() {
       SharedPreferences.setMockInitialValues({});
       final preferences = await SharedPreferences.getInstance();
       Future<void> pumpSettings({required OpenUrl openUrl}) async {
+        final settingsAgeConfirmationStore = AgeConfirmationStore(
+          preferences: preferences,
+          today: () => today,
+        );
+        final settingsSessionStore = fakeAgeVerifiedSessionStore(
+          resumedUid: 'uid-resumed',
+          failureCount: 0,
+        );
         await tester.pumpWidget(
           MaterialApp(
             key: UniqueKey(),
             home: SettingsScreen(
               sampleData: sampleData,
               dexStore: DexStore(definitions: sampleData.definitions),
-              ageConfirmationStore: AgeConfirmationStore(
-                preferences: preferences,
-                today: () => today,
-              ),
-              ageVerifiedSessionStore: fakeAgeVerifiedSessionStore(
-                resumedUid: 'uid-resumed',
-                failureCount: 0,
-              ),
+              ageConfirmationStore: settingsAgeConfirmationStore,
+              ageVerifiedSessionStore: settingsSessionStore,
               monsterGenerator: appMonsterGenerator(),
               pvpClient: signedOutPvpClient(calls: RecordedPvpCalls()),
+              cardSharer: fakeCardSharer(
+                calls: RecordedShareCalls(),
+                artImage: null,
+                shareResultStatus: ShareResultStatus.success,
+              ),
               openUrl: openUrl,
               isDeveloperMenuEnabled: false,
+              accountStore: fakeAccountStore(
+                sessionStore: settingsSessionStore,
+                ageConfirmationStore: settingsAgeConfirmationStore,
+              ),
             ),
           ),
         );
@@ -1163,6 +1366,131 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.byKey(const Key('display-name')), findsNothing);
       expect(find.text('お問い合わせ'), findsOneWidget);
+    });
+
+    /// 年齢の確認とログインを済ませた状態で起動し、設定画面を開く。
+    Future<void> openSettings({required WidgetTester tester}) async {
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      await tester.tap(find.byTooltip('設定'));
+      await tester.pumpAndSettle();
+    }
+
+    testWidgets(
+      'アカウントを削除は、確認ダイアログで「削除する」を選ぶと消してから年齢の確認の画面に戻る (docs/AccountDeletion.md の手順)',
+      (tester) async {
+        await openSettings(tester: tester);
+        final endSessionCallCountBeforeDeletion = endSessionCallCount;
+        await tester.tap(find.text('アカウントを削除'));
+        await tester.pumpAndSettle();
+        expect(find.text('アカウントを削除しますか'), findsOneWidget);
+
+        await tester.tap(find.text('削除する'));
+        await tester.pumpAndSettle();
+
+        expect(accountCalls, ['delete']);
+        expect(endSessionCallCount, endSessionCallCountBeforeDeletion + 1);
+        expect(ageVerifiedSessionStore.uid, isNull);
+        expect(ageConfirmationStore.status, AgeConfirmationStatus.unanswered);
+        expect(find.text('生まれた年と月を\n入力してください'), findsOneWidget);
+      },
+    );
+
+    testWidgets('アカウントを削除の確認で「やめる」を選ぶと消さない', (tester) async {
+      await openSettings(tester: tester);
+      await tester.tap(find.text('アカウントを削除'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('やめる'));
+      await tester.pumpAndSettle();
+
+      expect(accountCalls, isEmpty);
+      expect(ageVerifiedSessionStore.uid, 'uid-resumed');
+      expect(find.text('アカウントを削除'), findsOneWidget);
+    });
+
+    testWidgets('アカウントの削除に失敗したら理由をそのまま出し、ログインを続ける', (tester) async {
+      deleteAccount = () async => throw Exception('deadline-exceeded');
+      await openSettings(tester: tester);
+      await tester.tap(find.text('アカウントを削除'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('削除する'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Exception: deadline-exceeded'), findsOneWidget);
+      expect(ageVerifiedSessionStore.uid, 'uid-resumed');
+      expect(ageConfirmationStore.status, AgeConfirmationStatus.allowed);
+    });
+
+    testWidgets('データを引き継ぐで連携すると、連携済みの表示になり押せなくなる', (tester) async {
+      await openSettings(tester: tester);
+      expect(find.text('Google でサインインして\n機種変更しても図鑑を残す'), findsOneWidget);
+
+      await tester.tap(find.text('データを引き継ぐ'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Google と連携しました'), findsOneWidget);
+      expect(find.text('Google で連携済み'), findsOneWidget);
+      expect(ageVerifiedSessionStore.uid, 'uid-resumed');
+      await tester.tap(find.text('データを引き継ぐ'));
+      await tester.pumpAndSettle();
+      expect(accountCalls, ['link']);
+    });
+
+    testWidgets('別の端末で連携済みなら、確認してからこの端末の匿名アカウントを捨てて切り替える', (tester) async {
+      linkAccount = () async => () async {
+        accountCalls.add('signInToLinkedAccount');
+        return 'uid-linked';
+      };
+      await openSettings(tester: tester);
+      await tester.tap(find.text('データを引き継ぐ'));
+      await tester.pumpAndSettle();
+      expect(find.text('連携済みのアカウントに切り替えますか'), findsOneWidget);
+
+      await tester.tap(find.text('切り替える'));
+      await tester.pumpAndSettle();
+
+      expect(accountCalls, ['link', 'discard', 'signInToLinkedAccount']);
+      expect(ageVerifiedSessionStore.uid, 'uid-linked');
+      expect(find.text('連携済みのアカウントに切り替えました'), findsOneWidget);
+    });
+
+    testWidgets('別の端末で連携済みの確認で「やめる」を選ぶと、匿名アカウントを捨てない', (tester) async {
+      linkAccount = () async =>
+          () async => 'uid-linked';
+      await openSettings(tester: tester);
+      await tester.tap(find.text('データを引き継ぐ'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('やめる'));
+      await tester.pumpAndSettle();
+
+      expect(accountCalls, ['link']);
+      expect(ageVerifiedSessionStore.uid, 'uid-resumed');
+    });
+
+    testWidgets('ログインを飛ばした時 (DEBUG) は、データを引き継ぐとアカウントを削除を押せない', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        hasStartedSession: false,
+        startSessionFailureCount: 1,
+        isDeveloperMenuEnabled: true,
+      );
+      await tester.tap(find.text('ログインせずに進む (DEBUG)'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byTooltip('設定'));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('データを引き継ぐ'));
+      await tester.tap(find.text('アカウントを削除'));
+      await tester.pumpAndSettle();
+
+      expect(accountCalls, isEmpty);
+      expect(find.text('アカウントを削除しますか'), findsNothing);
     });
 
     testWidgets('開発者メニューは無効の時に出ない', (tester) async {

@@ -8,6 +8,7 @@ import '../../widgets/monster_parts.dart';
 import '../../widgets/square_icon_button.dart';
 import '../home/home_shell.dart';
 import '../result/result_screen.dart';
+import '../share/card_sharer.dart';
 import 'dex_store.dart';
 import 'owned_monster.dart';
 
@@ -19,6 +20,7 @@ class DexScreen extends StatelessWidget {
     required this.dexStore,
     required this.onSelectTab,
     required this.onOpenSettings,
+    required this.cardSharer,
   });
 
   /// 図鑑と手持ち。
@@ -30,6 +32,9 @@ class DexScreen extends StatelessWidget {
   /// 設定画面を開く。
   final VoidCallback onOpenSettings;
 
+  /// 図鑑のカードの共有に使う関数の組。
+  final CardSharer cardSharer;
+
   Future<void> _openMonster({
     required BuildContext context,
     required OwnedMonster monster,
@@ -39,6 +44,7 @@ class DexScreen extends StatelessWidget {
         monster: monster,
         dexStore: dexStore,
         origin: ResultScreenOrigin.dex,
+        cardSharer: cardSharer,
       ),
     ),
   );

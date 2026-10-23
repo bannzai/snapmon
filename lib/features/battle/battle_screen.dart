@@ -14,6 +14,10 @@ import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
 import '../../widgets/monster_parts.dart';
 import '../dex/owned_monster.dart';
+import '../settings/settings_screen.dart';
+import '../share/card_sharer.dart';
+import '../share/share_card_button.dart';
+import '../share/share_cards.dart';
 import 'battle_field_game.dart';
 import 'battle_recorder.dart';
 
@@ -67,6 +71,7 @@ class BattleScreen extends StatefulWidget {
     required this.randomSeed,
     required this.battleRecorder,
     required this.onPlayerLevelsChanged,
+    required this.cardSharer,
   });
 
   /// 自分の手持ち。
@@ -92,6 +97,9 @@ class BattleScreen extends StatefulWidget {
   /// 記録する対戦では Functions が返したレベルで 1 回呼ぶ。記録に失敗した時は呼ばない。
   final void Function({required Map<String, int> levelsByMonsterId})
   onPlayerLevelsChanged;
+
+  /// 勝敗の画面からバトルの結果を共有する関数の組。
+  final CardSharer cardSharer;
 
   @override
   State<BattleScreen> createState() => _BattleScreenState();
@@ -410,6 +418,9 @@ class _BattleScreenState extends State<BattleScreen> {
                       appliedLevels: _appliedLevels,
                       playerParty: widget.playerParty,
                       recordStatusText: _recordStatusText,
+                      opponentParty: widget.opponentParty,
+                      definitions: widget.definitions,
+                      cardSharer: widget.cardSharer,
                     )
                   : _buildCommands(
                       context: context,
@@ -534,6 +545,9 @@ class _BattleResultPanel extends StatelessWidget {
     required this.appliedLevels,
     required this.playerParty,
     required this.recordStatusText,
+    required this.opponentParty,
+    required this.definitions,
+    required this.cardSharer,
   });
 
   final BattleSideId winner;
@@ -546,6 +560,15 @@ class _BattleResultPanel extends StatelessWidget {
 
   /// バトルの記録の状態の文言。記録を始める前は null。
   final String? recordStatusText;
+
+  /// 相手の手持ち (共有するカードに名前を出す)。
+  final List<OwnedMonster> opponentParty;
+
+  /// 属性・技の定義。
+  final MasterData definitions;
+
+  /// バトルの結果の共有に使う関数の組。
+  final CardSharer cardSharer;
 
   @override
   Widget build(BuildContext context) => Column(
@@ -600,6 +623,27 @@ class _BattleResultPanel extends StatelessWidget {
         ),
       ],
       const SizedBox(height: 12),
+      ShareCardButton(
+        cardSharer: cardSharer,
+        screen: ShareScreen.battleResult,
+        artPaths: [for (final monster in playerParty) ?monster.artPath],
+        buildCard: ({required format, required artImagesByPath}) =>
+            BattleResultShareCard(
+              winner: winner,
+              playerParty: playerParty,
+              appliedLevels: appliedLevels,
+              opponentParty: opponentParty,
+              artImagesByPath: artImagesByPath,
+              definitions: definitions,
+              format: format,
+            ),
+        shareText:
+            '${winner == BattleSideId.player ? 'snapmon のバトルにかった' : 'snapmon のバトルにまけた'}\n#snapmon\n$landingPageUri',
+        fileNamePrefix: 'snapmon-battle',
+        buttonBuilder: ({required onPressed}) =>
+            _BattleCommandButton(label: '結果を共有', onPressed: onPressed),
+      ),
+      const SizedBox(height: 10),
       FilledButton(
         onPressed: () => Navigator.of(context).pop(),
         child: const Text('もどる'),
