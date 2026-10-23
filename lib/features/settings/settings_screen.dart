@@ -349,6 +349,8 @@ class _DisplayNameTileState extends State<_DisplayNameTile> {
   Future<void> _edit({required String currentDisplayName}) async {
     final savedDisplayName = await showDialog<String>(
       context: context,
+      // 保存の途中に外を押して閉じると、保存できた名前が画面に反映されないため、閉じるのは「やめる」だけにする
+      barrierDismissible: false,
       builder: (context) => _DisplayNameDialog(
         initialDisplayName: currentDisplayName,
         updateDisplayName: widget.pvpClient.updateDisplayName,
@@ -435,30 +437,34 @@ class _DisplayNameDialogState extends State<_DisplayNameDialog> {
   }
 
   @override
-  Widget build(BuildContext context) => AlertDialog(
-    title: const Text('表示名'),
-    content: TextField(
-      key: const Key('display-name-field'),
-      controller: _controller,
-      autofocus: true,
-      enabled: !_isSaving,
-      decoration: InputDecoration(
-        helperText: '対戦の相手に見える名前',
-        errorText: _errorText,
-        errorMaxLines: 4,
+  // 保存の途中は戻る操作でも閉じさせない (保存できた名前を画面に反映できなくなるため)
+  Widget build(BuildContext context) => PopScope(
+    canPop: !_isSaving,
+    child: AlertDialog(
+      title: const Text('表示名'),
+      content: TextField(
+        key: const Key('display-name-field'),
+        controller: _controller,
+        autofocus: true,
+        enabled: !_isSaving,
+        decoration: InputDecoration(
+          helperText: '対戦の相手に見える名前',
+          errorText: _errorText,
+          errorMaxLines: 4,
+        ),
       ),
+      actions: [
+        TextButton(
+          onPressed: _isSaving ? null : () => Navigator.of(context).pop(),
+          child: const Text('やめる'),
+        ),
+        TextButton(
+          key: const Key('display-name-save'),
+          onPressed: _isSaving ? null : _save,
+          child: const Text('保存'),
+        ),
+      ],
     ),
-    actions: [
-      TextButton(
-        onPressed: _isSaving ? null : () => Navigator.of(context).pop(),
-        child: const Text('やめる'),
-      ),
-      TextButton(
-        key: const Key('display-name-save'),
-        onPressed: _isSaving ? null : _save,
-        child: const Text('保存'),
-      ),
-    ],
   );
 }
 

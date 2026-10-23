@@ -1334,6 +1334,10 @@ void main() {
 
       await tester.tap(find.byKey(const Key('display-name')));
       await tester.pumpAndSettle();
+      // 外を押しても閉じない (保存の途中に閉じて、保存できた名前を反映しそこねないため)
+      await tester.tapAt(const Offset(10, 10));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('display-name-field')), findsOneWidget);
       await tester.enterText(
         find.byKey(const Key('display-name-field')),
         'ピカチュウ',
