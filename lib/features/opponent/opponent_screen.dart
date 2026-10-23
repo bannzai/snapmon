@@ -18,9 +18,9 @@ import '../settings/settings_screen.dart';
 import '../share/card_sharer.dart';
 import 'battle_definitions.dart';
 import 'cpu_party.dart';
+import 'opponent_safety_actions.dart';
 import 'pvp_client.dart';
 import 'pvp_opponent.dart';
-import 'report_sheet.dart';
 
 /// 対戦相手を選ぶ画面 (モックの Pvp.dc.html)。他のユーザーの手持ち (非同期 PvP。Functions の fetchOpponents が選ぶ最大 3 人) と
 /// CPU トレーナーを並べ、自分の戦績を出す。相手のモンスターの長押しで通報、カードのメニューで通報とブロックができる。
@@ -224,88 +224,6 @@ class _OpponentScreenState extends State<OpponentScreen> {
       ..showSnackBar(SnackBar(content: Text(message)));
   }
 
-  /// お問い合わせを開く。開けなかった時はそのことを出す。
-  Future<void> _openContact() async {
-    try {
-      if (!await widget.openUrl(uri: contactUri) && mounted) {
-        _showMessage(message: '$contactUri を開けませんでした');
-      }
-    } on Exception catch (error) {
-      if (mounted) {
-        _showMessage(message: error.toString());
-      }
-    }
-  }
-
-  /// [opponent] のモンスター [monster] を通報するシートを開き、送れたら候補から消す。
-  /// 送っている間にシートを閉じられても通報は届くため、候補から消すのはシートの結果ではなく送れた時に行う。
-  Future<void> _report({
-    required PvpOpponent opponent,
-    required OwnedMonster monster,
-  }) async {
-    await showModalBottomSheet<bool>(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: SnapmonColors.surface,
-      builder: (context) => ReportSheet(
-        monsterName: monster.definition.name,
-        onSubmit: ({required reason}) async {
-          if (!_isShowingSampleOpponents) {
-            await widget.pvpClient.reportMonster(
-              monsterOwnerUid: opponent.opponentUid,
-              monsterId: monster.definition.id,
-              reason: reason,
-            );
-          }
-          if (mounted) {
-            _removeOpponent(opponentUid: opponent.opponentUid);
-            _showMessage(message: '通報しました');
-          }
-        },
-        onOpenContact: _openContact,
-      ),
-    );
-  }
-
-  /// [opponent] をブロックするかを確かめ、ブロックしたら候補から消す。失敗した時はエラーをそのまま出す。
-  Future<void> _block({required PvpOpponent opponent}) async {
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        // 表示名は最大 12 文字で、タイトルの大きな文字に入れると 1 行に収まらないため本文に置く
-        title: const Text('ブロック'),
-        content: Text('${opponent.displayName} と互いに対戦の相手に出なくなります'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('やめる'),
-          ),
-          TextButton(
-            key: const Key('block-confirm'),
-            onPressed: () => Navigator.of(context).pop(true),
-            child: const Text('ブロックする'),
-          ),
-        ],
-      ),
-    );
-    if (confirmed != true || !mounted) {
-      return;
-    }
-    try {
-      if (!_isShowingSampleOpponents) {
-        await widget.pvpClient.blockUser(blockedUid: opponent.opponentUid);
-      }
-      if (mounted) {
-        _removeOpponent(opponentUid: opponent.opponentUid);
-        _showMessage(message: 'ブロックしました');
-      }
-    } catch (error) {
-      if (mounted) {
-        _showMessage(message: error.toString());
-      }
-    }
-  }
-
   /// 通報とブロックのやり方と、お問い合わせの入口を出す。
   Future<void> _showReportHelp() => showModalBottomSheet<void>(
     context: context,
@@ -331,7 +249,8 @@ class _OpponentScreenState extends State<OpponentScreen> {
             const SizedBox(height: 8),
             TextButton(
               key: const Key('report-help-contact'),
-              onPressed: _openContact,
+              onPressed: () =>
+                  openContact(context: context, openUrl: widget.openUrl),
               child: const Text('お問い合わせ'),
             ),
           ],
@@ -408,6 +327,7 @@ class _OpponentScreenState extends State<OpponentScreen> {
           onPlayerLevelsChanged: dexStore.updateLevels,
           cardSharer: widget.cardSharer,
           firstBattleBornMonster: null,
+          opponentSafetyMenu: null,
         ),
       ),
     );
@@ -584,86 +504,84 @@ class _OpponentScreenState extends State<OpponentScreen> {
   );
 
   /// 他のユーザーの相手のカード (読み込みの状態に応じて、読み込み中・失敗・候補が無い時の文言)。
-  List<Widget> _buildPvpOpponents({
-    required bool canChallenge,
-  }) => switch (_pvpOpponentsState) {
-    null => const [],
-    _PvpOpponentsLoading() => const [
-      Padding(
-        padding: EdgeInsets.only(bottom: 10),
-        child: Text(
-          'トレーナーをさがしています',
-          key: Key('opponents-loading'),
-          style: SnapmonTextStyles.small,
-        ),
-      ),
-    ],
-    _PvpOpponentsFailed(:final error) => [
-      Text(
-        error.toString(),
-        key: const Key('opponents-error'),
-        style: SnapmonTextStyles.small.copyWith(
-          color: SnapmonColors.hitPointsLoss,
-        ),
-      ),
-      Align(
-        alignment: Alignment.centerLeft,
-        child: TextButton(
-          key: const Key('retry-opponents'),
-          onPressed: _loadOpponents,
-          child: const Text('もう一度さがす'),
-        ),
-      ),
-      const SizedBox(height: 10),
-    ],
-    _PvpOpponentsLoaded(:final opponents) when opponents.isEmpty => const [
-      Padding(
-        padding: EdgeInsets.only(bottom: 10),
-        child: Text(
-          'いま戦えるトレーナーがいません\nCPU トレーナーと戦えます',
-          key: Key('opponents-empty'),
-          style: SnapmonTextStyles.small,
-        ),
-      ),
-    ],
-    _PvpOpponentsLoaded(:final opponents) => [
-      for (final opponent in opponents) ...[
-        _OpponentCard(
-          key: Key('opponent-card-${opponent.opponentUid}'),
-          opponentId: opponent.opponentUid,
-          title: opponent.displayName,
-          subtitle: '平均 Lv. ${averagePartyLevel(party: opponent.monsters)}',
-          monsters: opponent.monsters,
-          showsMonsterLevels: true,
-          onChallenge: canChallenge
-              ? () =>
-                    _challenge(opponent: _PvpChallenger(pvpOpponent: opponent))
-              : null,
-          onLongPressMonster: ({required monster}) =>
-              _report(opponent: opponent, monster: monster),
-          menu: PopupMenuButton<VoidCallback>(
-            key: Key('opponent-menu-${opponent.opponentUid}'),
-            tooltip: '通報 · ブロック',
-            icon: const Icon(Icons.more_horiz, color: SnapmonColors.textMuted),
-            onSelected: (action) => action(),
-            itemBuilder: (context) => [
-              for (final monster in opponent.monsters)
-                PopupMenuItem(
-                  value: () => _report(opponent: opponent, monster: monster),
-                  child: Text('${monster.definition.name} を通報'),
-                ),
-              PopupMenuItem(
-                key: Key('block-${opponent.opponentUid}'),
-                value: () => _block(opponent: opponent),
-                child: const Text('このトレーナーをブロック'),
-              ),
-            ],
+  List<Widget> _buildPvpOpponents({required bool canChallenge}) =>
+      switch (_pvpOpponentsState) {
+        null => const [],
+        _PvpOpponentsLoading() => const [
+          Padding(
+            padding: EdgeInsets.only(bottom: 10),
+            child: Text(
+              'トレーナーをさがしています',
+              key: Key('opponents-loading'),
+              style: SnapmonTextStyles.small,
+            ),
           ),
-        ),
-        const SizedBox(height: 10),
-      ],
-    ],
-  };
+        ],
+        _PvpOpponentsFailed(:final error) => [
+          Text(
+            error.toString(),
+            key: const Key('opponents-error'),
+            style: SnapmonTextStyles.small.copyWith(
+              color: SnapmonColors.hitPointsLoss,
+            ),
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: TextButton(
+              key: const Key('retry-opponents'),
+              onPressed: _loadOpponents,
+              child: const Text('もう一度さがす'),
+            ),
+          ),
+          const SizedBox(height: 10),
+        ],
+        _PvpOpponentsLoaded(:final opponents) when opponents.isEmpty => const [
+          Padding(
+            padding: EdgeInsets.only(bottom: 10),
+            child: Text(
+              'いま戦えるトレーナーがいません\nCPU トレーナーと戦えます',
+              key: Key('opponents-empty'),
+              style: SnapmonTextStyles.small,
+            ),
+          ),
+        ],
+        _PvpOpponentsLoaded(:final opponents) => [
+          for (final opponent in opponents) ...[
+            _OpponentCard(
+              key: Key('opponent-card-${opponent.opponentUid}'),
+              opponentId: opponent.opponentUid,
+              title: opponent.displayName,
+              subtitle: '平均 Lv. ${averagePartyLevel(party: opponent.monsters)}',
+              monsters: opponent.monsters,
+              showsMonsterLevels: true,
+              onChallenge: canChallenge
+                  ? () => _challenge(
+                      opponent: _PvpChallenger(pvpOpponent: opponent),
+                    )
+                  : null,
+              onLongPressMonster: ({required monster}) => reportOpponentMonster(
+                context: context,
+                pvpClient: widget.pvpClient,
+                opponent: opponent,
+                monster: monster,
+                sendsToServer: !_isShowingSampleOpponents,
+                openUrl: widget.openUrl,
+                onReported: () =>
+                    _removeOpponent(opponentUid: opponent.opponentUid),
+              ),
+              menu: OpponentSafetyMenuButton(
+                opponent: opponent,
+                pvpClient: widget.pvpClient,
+                sendsToServer: !_isShowingSampleOpponents,
+                openUrl: widget.openUrl,
+                onOpponentRemoved: () =>
+                    _removeOpponent(opponentUid: opponent.opponentUid),
+              ),
+            ),
+            const SizedBox(height: 10),
+          ],
+        ],
+      };
 }
 
 /// 挑む相手。CPU トレーナーか、他のユーザーの手持ち。

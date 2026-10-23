@@ -287,6 +287,7 @@ class _TitleScreenState extends State<TitleScreen> {
             sampleData: widget.sampleData,
             pvpClient: widget.pvpClient,
             battleRecorder: widget.battleRecorder,
+            openUrl: widget.openUrl,
           ),
         ),
       );

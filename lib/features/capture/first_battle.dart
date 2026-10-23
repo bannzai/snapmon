@@ -9,10 +9,12 @@ import '../opponent/pvp_client.dart';
 import '../opponent/pvp_opponent.dart';
 
 /// 初回の導線 (手持ちが空の時に写真を選んでそのまま戦う 1 戦目) の対戦相手と、その対戦に使う定義。
+/// `pvpOpponent` は相手が他のユーザーの時の候補そのもの (バトルの画面の通報・ブロックの宛先)。CPU トレーナーの時は null。
 typedef FirstBattleOpponent = ({
   String opponentName,
   List<OwnedMonster> opponentParty,
   BattleOpponentKind opponentKind,
+  PvpOpponent? pvpOpponent,
   MasterData definitions,
 });
 
@@ -38,6 +40,7 @@ Future<FirstBattleOpponent> prepareFirstBattleOpponent({
       opponentName: pvpOpponent.displayName,
       opponentParty: pvpOpponent.monsters,
       opponentKind: BattleOpponentKind.pvp,
+      pvpOpponent: pvpOpponent,
       definitions: await prepareBattleDefinitions(
         dexStore: dexStore,
         pvpClient: pvpClient,
@@ -60,6 +63,7 @@ Future<FirstBattleOpponent> prepareFirstBattleOpponent({
       randomSeed: randomSeed,
     ),
     opponentKind: BattleOpponentKind.cpu,
+    pvpOpponent: null,
     definitions: await prepareBattleDefinitions(
       dexStore: dexStore,
       pvpClient: pvpClient,

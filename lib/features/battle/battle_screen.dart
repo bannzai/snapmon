@@ -73,7 +73,12 @@ class BattleScreen extends StatefulWidget {
     required this.onPlayerLevelsChanged,
     required this.cardSharer,
     required this.firstBattleBornMonster,
+    required this.opponentSafetyMenu,
   });
+
+  /// 相手の通報・ブロックのメニュー (OpponentSafetyMenuButton)。相手のカードの横に、戦っている間も決着の後も出す。
+  /// 初回の導線の PvP だけが渡す (対戦相手の画面から挑む PvP は、挑む前の相手のカードで通報・ブロックできるため null)。
+  final Widget? opponentSafetyMenu;
 
   /// 初回の導線 (手持ちが空の時に写真を選んでそのまま戦う 1 戦目) で生まれたモンスター。それ以外の対戦は null。
   /// null 以外の時は、技のボタンの上に技の選び方を 1 行で出し、勝敗の画面に生まれたカードと「もう 1 体撮る」「図鑑を見る」を
@@ -413,6 +418,18 @@ class _BattleScreenState extends State<BattleScreen> {
                     showsHitPointsNumber: false,
                   ),
                 ),
+                if (widget.opponentSafetyMenu case final opponentSafetyMenu?)
+                  Positioned(
+                    right: 20,
+                    top: MediaQuery.paddingOf(context).top + 96,
+                    child: DecoratedBox(
+                      decoration: const BoxDecoration(
+                        color: SnapmonColors.scrim,
+                        borderRadius: SnapmonRadii.button,
+                      ),
+                      child: opponentSafetyMenu,
+                    ),
+                  ),
                 Positioned(
                   right: 20,
                   bottom: 24,

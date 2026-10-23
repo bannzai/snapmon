@@ -10,6 +10,7 @@ import '../dex/dex_store.dart';
 import '../opponent/pvp_client.dart';
 import '../result/result_screen.dart';
 import '../session/session_store.dart';
+import '../settings/settings_screen.dart';
 import '../share/card_sharer.dart';
 
 /// 開発者メニューから生成に送る見本の写真の名前とファイル。Simulator にはカメラが無いため、撮影の代わりに使う
@@ -34,7 +35,11 @@ class DeveloperMenuScreen extends StatelessWidget {
     required this.cardSharer,
     required this.pvpClient,
     required this.battleRecorder,
+    required this.openUrl,
   });
+
+  /// 見本の写真から始めた初回のバトル (手持ちが空の時) の相手を通報する時に、お問い合わせを開く。
+  final OpenUrl openUrl;
 
   /// 見本の写真から始めた初回のバトル (手持ちが空の時) の相手の取得。
   final PvpClient pvpClient;
@@ -83,6 +88,7 @@ class DeveloperMenuScreen extends StatelessWidget {
           sampleData: sampleData,
           pvpClient: pvpClient,
           battleRecorder: battleRecorder,
+          openUrl: openUrl,
         ),
       ),
     );

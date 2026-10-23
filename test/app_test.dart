@@ -13,6 +13,7 @@ import 'package:snapmon/features/battle/battle_screen.dart';
 import 'package:snapmon/features/capture/monster_generator.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
 import 'package:snapmon/features/home/home_shell.dart';
+import 'package:snapmon/features/opponent/opponent_safety_actions.dart';
 import 'package:snapmon/features/opponent/pvp_client.dart';
 import 'package:snapmon/features/opponent/pvp_opponent.dart';
 import 'package:snapmon/features/session/session_store.dart';
@@ -793,7 +794,53 @@ void main() {
         expect(find.byKey(const Key('first-battle-hint')), findsOneWidget);
         expect(find.text('ロウソクン が 勝負をしかけてきた'), findsOneWidget);
 
+        // 初回の相手は対戦相手の画面を通らずに当たるため、バトルの画面から通報とブロックができ、した後もバトルは続く
+        Future<void> openOpponentSafetyMenu() async {
+          await tester.tap(
+            find.byKey(const Key('opponent-menu-opponent-uid-1')),
+          );
+          await tester.pump();
+          await tester.pump(const Duration(milliseconds: 500));
+        }
+
+        await openOpponentSafetyMenu();
+        await tester.tap(find.text('ロウソクン を通報'));
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 500));
+        await tester.tap(find.byKey(const Key('report-reason-other')));
+        await tester.pump();
+        await tester.tap(find.byKey(const Key('report-submit')));
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 500));
+        expect(
+          [
+            for (final report in pvpCalls.reports)
+              (report.monsterOwnerUid, report.monsterId),
+          ],
+          [('opponent-uid-1', 'opponent-wax-1')],
+        );
+        expect(find.text('通報しました'), findsOneWidget);
+
+        await openOpponentSafetyMenu();
+        await tester.tap(find.text('このトレーナーをブロック'));
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 500));
+        await tester.tap(find.byKey(const Key('block-confirm')));
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 500));
+        expect(pvpCalls.blockedUids, ['opponent-uid-1']);
+        expect(find.text('ブロックしました'), findsOneWidget);
+        expect(find.byType(BattleScreen), findsOneWidget);
+        // 技のボタンを押す前に、ボタンに重なるスナックバーが消えるまで進める
+        await tester.pump(const Duration(seconds: 5));
+        await tester.pump(const Duration(seconds: 1));
+
         await playFirstBattleUntilFinished(tester: tester);
+        // 決着の後も通報・ブロックできる
+        expect(
+          find.byKey(const Key('opponent-menu-opponent-uid-1')),
+          findsOneWidget,
+        );
         final bornMonster = generatedWaxMonster(
           monsterId: bornMonsterId,
         ).definition;
@@ -877,6 +924,8 @@ void main() {
         await tester.pump(const Duration(seconds: 2));
         await tester.pump(const Duration(seconds: 1));
         expect(find.byType(BattleScreen), findsOneWidget);
+        // CPU トレーナーは他のユーザーではないため、通報・ブロックのメニューを出さない
+        expect(find.byType(OpponentSafetyMenuButton), findsNothing);
         await playFirstBattleUntilFinished(tester: tester);
         expect(battleCalls.loggedEvents.first.parameters?['opponent'], 'cpu');
 
@@ -1699,6 +1748,7 @@ void main() {
             shareResultStatus: ShareResultStatus.success,
           ),
           firstBattleBornMonster: null,
+          opponentSafetyMenu: null,
         ),
       ),
     );

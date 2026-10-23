@@ -64,6 +64,7 @@ void main() {
             shareResultStatus: ShareResultStatus.success,
           ),
           firstBattleBornMonster: null,
+          opponentSafetyMenu: null,
         ),
       ),
     );

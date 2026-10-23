@@ -14,8 +14,10 @@ import '../battle/battle_recorder.dart';
 import '../battle/battle_screen.dart';
 import '../dex/dex_store.dart';
 import '../dex/owned_monster.dart';
+import '../opponent/opponent_safety_actions.dart';
 import '../opponent/pvp_client.dart';
 import '../result/result_screen.dart';
+import '../settings/settings_screen.dart';
 import '../share/card_sharer.dart';
 import 'first_battle.dart';
 import 'monster_generator.dart';
@@ -46,7 +48,11 @@ class GenerationScreen extends StatefulWidget {
     required this.sampleData,
     required this.pvpClient,
     required this.battleRecorder,
+    required this.openUrl,
   });
+
+  /// 初回のバトルの相手が他のユーザーの時の、通報のシートからお問い合わせを開く。
+  final OpenUrl openUrl;
 
   /// 初回の導線 (生まれたらそのまま戦う) にするか。呼び出し元が写真を選んだ時点の手持ちが空か ([DexStore.party]) で決める。
   /// 生まれた時に手持ちが空でなくなっていた (Firestore の手持ちが後から届いた) 時は、初回でない時と同じく生まれた画面を開く。
@@ -263,6 +269,18 @@ class _GenerationScreenState extends State<GenerationScreen> {
           onPlayerLevelsChanged: dexStore.updateLevels,
           cardSharer: widget.cardSharer,
           firstBattleBornMonster: monster,
+          // 初回の相手には対戦相手の画面を通らずに当たるため、バトルの画面で通報・ブロックできるようにする (ストアの UGC 要件)。
+          // ログインが無い時は相手が CPU トレーナーになるため、ここに来る他のユーザーは常にサーバーから読んだ相手
+          opponentSafetyMenu: switch (opponent.pvpOpponent) {
+            final pvpOpponent? => OpponentSafetyMenuButton(
+              opponent: pvpOpponent,
+              pvpClient: widget.pvpClient,
+              sendsToServer: true,
+              openUrl: widget.openUrl,
+              onOpponentRemoved: null,
+            ),
+            null => null,
+          },
         ),
       ),
     );
