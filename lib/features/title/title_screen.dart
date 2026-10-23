@@ -116,10 +116,14 @@ class _TitleScreenState extends State<TitleScreen> {
   final List<({AnalyticsEvent event, Map<String, Object>? parameters})>
   _eventsBeforeSession = [];
 
+  /// 直前に見たログインの状態。ログインを終えてタイトルに留まった (タイトルから開いた設定でアカウントを削除した) 時を
+  /// 見分け、タイトルを開き直したのと同じに `title_shown` を数えるため。
+  late bool _couldEnterApp = widget.ageVerifiedSessionStore.canEnterApp;
+
   @override
   void initState() {
     super.initState();
-    widget.ageVerifiedSessionStore.addListener(_flushEventsIfSessionStarted);
+    widget.ageVerifiedSessionStore.addListener(_onSessionChanged);
     unawaited(_detectCamera());
     // ログインの状態を変えるため、親の ListenableBuilder が build の途中にならない最初のフレームの後に始める
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -130,7 +134,7 @@ class _TitleScreenState extends State<TitleScreen> {
 
   @override
   void dispose() {
-    widget.ageVerifiedSessionStore.removeListener(_flushEventsIfSessionStarted);
+    widget.ageVerifiedSessionStore.removeListener(_onSessionChanged);
     super.dispose();
   }
 
@@ -150,8 +154,18 @@ class _TitleScreenState extends State<TitleScreen> {
     }
   }
 
-  void _flushEventsIfSessionStarted() {
-    if (!widget.ageVerifiedSessionStore.canEnterApp) {
+  /// ログインを終えた時は次のログインまで `title_shown` を溜め、ログインが済んだ時は溜めたイベントを順に送る。
+  void _onSessionChanged() {
+    final canEnterApp = widget.ageVerifiedSessionStore.canEnterApp;
+    final couldEnterApp = _couldEnterApp;
+    _couldEnterApp = canEnterApp;
+    if (couldEnterApp && !canEnterApp) {
+      _eventsBeforeSession.add((
+        event: AnalyticsEvent.titleShown,
+        parameters: null,
+      ));
+    }
+    if (!canEnterApp) {
       return;
     }
     final events = List.of(_eventsBeforeSession);

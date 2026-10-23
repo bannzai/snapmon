@@ -595,6 +595,41 @@ void main() {
       expect(find.byKey(const Key('tab-dex')), findsNothing);
     });
 
+    testWidgets('タイトルの設定からアカウントを削除した後は、次のログインが済んだ時に title_shown を送り直す', (
+      tester,
+    ) async {
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      expect(titleEvents.map((logged) => logged.event), [
+        AnalyticsEvent.titleShown,
+      ]);
+      await tester.tap(find.byTooltip('設定'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('アカウントを削除'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('削除する'));
+      await tester.pumpAndSettle();
+      expect(accountCalls, ['delete']);
+      expect(ageVerifiedSessionStore.uid, isNull);
+      // タイトルは作り直されないが、開き直したのと同じに数える。ログインが済むまでは送らない
+      expect(find.text('写真から選んではじめる'), findsOneWidget);
+      expect(titleEvents, hasLength(1));
+
+      await tapStartFromAlbum(tester: tester);
+      await enterBirth(tester: tester, year: '2000', month: '1');
+      expect(ageVerifiedSessionStore.uid, 'uid-1');
+      expect(titleEvents.map((logged) => logged.event), [
+        AnalyticsEvent.titleShown,
+        AnalyticsEvent.titleShown,
+        AnalyticsEvent.titleAction,
+      ]);
+    });
+
     testWidgets('利用規約とプライバシーは設定画面と同じ URL を開く', (tester) async {
       await pumpApp(
         tester: tester,
