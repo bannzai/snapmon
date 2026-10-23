@@ -222,28 +222,15 @@ class _TitleScreenState extends State<TitleScreen> {
     }
   }
 
-  /// 下タブ・生成に進める状態 (ログイン済みか DEBUG で飛ばした) にする。裏のログインが途中なら終わるのを待ち、
-  /// 済んでいなければ年齢の確認とログインの画面を開いて済むまで待つ。戻るで閉じられた時は false。
+  /// 下タブ・生成に進める状態 (ログイン済みか DEBUG で飛ばした) にする。済んでいなければ年齢の確認とログインの画面
+  /// (裏のログインが途中なら「じゅんびしています」) を開いて済むまで待つ。戻るで閉じられた時は false。
   Future<bool> _ensureCanEnterApp() async {
     final sessionStore = widget.ageVerifiedSessionStore;
-    if (sessionStore.isStarting) {
-      final completer = Completer<void>();
-      void onChanged() {
-        if (!sessionStore.isStarting && !completer.isCompleted) {
-          completer.complete();
-        }
-      }
-
-      sessionStore.addListener(onChanged);
-      try {
-        await completer.future;
-      } finally {
-        sessionStore.removeListener(onChanged);
-      }
-    }
     if (sessionStore.canEnterApp || !mounted) {
       return sessionStore.canEnterApp;
     }
+    // 裏のログインが途中でも、通信が遅い時にタイトルで黙って待たせないよう、すぐ「じゅんびしています」の画面を出す
+    // (ログインの画面が start を呼び直しても、途中なら AgeVerifiedSessionStore.start が何もしない)
     await Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (context) => _SessionGateScreen(

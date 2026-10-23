@@ -54,6 +54,9 @@ void main() {
   /// [pumpApp]・[pumpHome] のアルバムが返す写真。既定は選んだ。選ばずに閉じた (null) にするテストは [pumpApp] の前に変える。
   late Uint8List? albumPhoto;
 
+  /// ログインの通信が遅い状態を作る。null 以外なら、ログインは complete するまで終わらない。
+  Completer<void>? startSessionGate;
+
   /// [pumpApp] のバトルの記録の開始が返す battleId と、記録の完了が返すレベル。
   /// 既定はログインしていない時の振る舞い (記録しない)。テストが [pumpApp] の前に変える。
   late Future<String?> Function() startBattleRecord;
@@ -78,6 +81,7 @@ void main() {
 
   setUp(() {
     albumPhoto = testPhotoBytes;
+    startSessionGate = null;
     startBattleRecord = () async => null;
     recordedLevels = const {};
     pvpCalls = RecordedPvpCalls();
@@ -147,6 +151,7 @@ void main() {
     return AgeVerifiedSessionStore(
       startSession: ({required birthYear, required birthMonth}) async {
         startSessionCalls.add((birthYear: birthYear, birthMonth: birthMonth));
+        await startSessionGate?.future;
         if (remainingFailureCount > 0) {
           remainingFailureCount--;
           throw Exception('network-request-failed');
@@ -463,6 +468,32 @@ void main() {
       await tester.tap(find.text('もう一度試す'));
       await tester.pumpAndSettle();
       expect(startSessionCalls, hasLength(3));
+      expect(ageVerifiedSessionStore.uid, 'uid-1');
+      expect(find.text('あたらしい なかま'), findsOneWidget);
+    });
+
+    testWidgets('裏のログインが終わる前に写真を選ぶと「じゅんびしています」を出し、ログインが終わると生成に進む', (
+      tester,
+    ) async {
+      startSessionGate = Completer<void>();
+      await pumpApp(
+        tester: tester,
+        hasConfirmedAge: true,
+        hasStartedSession: false,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      expect(startSessionCalls, hasLength(1));
+      await tester.tap(find.byKey(const Key('title-album')));
+      // ログインの画面の進捗の表示は止まらないため、pumpAndSettle を使わず 1 フレームずつ進める
+      await tester.pump();
+      await tester.pump();
+      expect(find.text('じゅんびしています'), findsOneWidget);
+      // 裏のログインが途中なので、ログインの画面が start を呼んでも 2 回目のログインは始まらない
+      expect(startSessionCalls, hasLength(1));
+
+      startSessionGate!.complete();
+      await tester.pumpAndSettle();
       expect(ageVerifiedSessionStore.uid, 'uid-1');
       expect(find.text('あたらしい なかま'), findsOneWidget);
     });
