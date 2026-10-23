@@ -73,8 +73,13 @@ class BattleScreen extends StatefulWidget {
     required this.onPlayerLevelsChanged,
     required this.cardSharer,
     required this.firstBattleBornMonster,
+    required this.firstBattleMonsterIsNewlyBorn,
     required this.opponentSafetyMenu,
   });
+
+  /// [firstBattleBornMonster] がこの導線で新しく生まれたか。同じ被写体でもう図鑑にいたモンスターで戦う時は false で、
+  /// 勝敗の画面のカードに「あたらしい なかま」と出さない。初回の導線以外の対戦では使わない。
+  final bool firstBattleMonsterIsNewlyBorn;
 
   /// 相手の通報・ブロックのメニュー (OpponentSafetyMenuButton)。相手のカードの横に、戦っている間も決着の後も出す。
   /// 初回の導線の PvP だけが渡す (対戦相手の画面から挑む PvP は、挑む前の相手のカードで通報・ブロックできるため null)。
@@ -464,6 +469,8 @@ class _BattleScreenState extends State<BattleScreen> {
                           definitions: widget.definitions,
                           cardSharer: widget.cardSharer,
                           firstBattleBornMonster: widget.firstBattleBornMonster,
+                          firstBattleMonsterIsNewlyBorn:
+                              widget.firstBattleMonsterIsNewlyBorn,
                         ),
                       ),
                     )
@@ -602,12 +609,16 @@ class _BattleResultPanel extends StatelessWidget {
     required this.definitions,
     required this.cardSharer,
     required this.firstBattleBornMonster,
+    required this.firstBattleMonsterIsNewlyBorn,
   });
 
   final BattleSideId winner;
 
   /// 初回の 1 戦で生まれたモンスター ([BattleScreen.firstBattleBornMonster])。それ以外の対戦は null。
   final OwnedMonster? firstBattleBornMonster;
+
+  /// [BattleScreen.firstBattleMonsterIsNewlyBorn]。
+  final bool firstBattleMonsterIsNewlyBorn;
 
   /// 確定した自分のモンスターのレベル (monsterId ごと)。確定していない間は空。
   final Map<String, int> appliedLevels;
@@ -634,7 +645,10 @@ class _BattleResultPanel extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         if (bornMonster != null) ...[
-          _BornMonsterCard(monster: bornMonster),
+          _BornMonsterCard(
+            monster: bornMonster,
+            isNewlyBorn: firstBattleMonsterIsNewlyBorn,
+          ),
           const SizedBox(height: 12),
         ],
         Text(
@@ -739,9 +753,12 @@ class _BattleResultPanel extends StatelessWidget {
 
 /// 初回の 1 戦の勝敗の画面に出す、生まれたモンスターのカード (名前・図鑑の文章・AI の生成であることの表示)。
 class _BornMonsterCard extends StatelessWidget {
-  const _BornMonsterCard({required this.monster});
+  const _BornMonsterCard({required this.monster, required this.isNewlyBorn});
 
   final OwnedMonster monster;
+
+  /// [monster] がこの導線で新しく生まれたか ([BattleScreen.firstBattleMonsterIsNewlyBorn])。
+  final bool isNewlyBorn;
 
   @override
   Widget build(BuildContext context) => DecoratedBox(
@@ -770,7 +787,7 @@ class _BornMonsterCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'あたらしい なかま',
+                  isNewlyBorn ? 'あたらしい なかま' : 'きみの なかま',
                   style: SnapmonTextStyles.small.copyWith(
                     color: SnapmonColors.textOnCardMuted,
                   ),

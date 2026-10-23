@@ -1748,6 +1748,7 @@ void main() {
             shareResultStatus: ShareResultStatus.success,
           ),
           firstBattleBornMonster: null,
+          firstBattleMonsterIsNewlyBorn: false,
           opponentSafetyMenu: null,
         ),
       ),

@@ -118,6 +118,10 @@ class _GenerationScreenState extends State<GenerationScreen> {
   GenerationResult? _result;
   Object? _error;
 
+  /// 画面を開いた時の [GenerationScreen.startsFirstBattle]。呼び出し元は手持ちの有無から決めて渡し、経路が作り直されると
+  /// 手持ちに入れた後の値で渡し直されるため、開いた時の値で固定する。
+  late final bool _startsFirstBattle = widget.startsFirstBattle;
+
   /// 初回の導線で、写真の被写体のモンスターがもう図鑑にいた時のそのモンスター ([_GenerationPhase.alreadyInDex])。
   OwnedMonster? _alreadyInDexMonster;
 
@@ -137,7 +141,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
   @override
   void initState() {
     super.initState();
-    if (widget.startsFirstBattle) {
+    if (_startsFirstBattle) {
       _logFirstExperience(step: FirstExperienceStep.photoSelected);
     }
     // 画面に入る前に setState を呼ばないため、最初のフレームの後に始める
@@ -204,7 +208,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
 
   /// 初回の導線で、戦うモンスターが決まる前に生成が終わらなかった時に `generation_failed` を送る。
   void _logFirstExperienceFailureIfNeeded() {
-    if (widget.startsFirstBattle && _firstBattleMonster == null) {
+    if (_startsFirstBattle && _firstBattleMonster == null) {
       _logFirstExperience(step: FirstExperienceStep.generationFailed);
     }
   }
@@ -251,16 +255,23 @@ class _GenerationScreenState extends State<GenerationScreen> {
   Future<void> _openFirstBattle() async {
     final opponent = _firstBattleOpponent;
     final monster = _firstBattleMonster;
-    if (_hasOpenedFirstBattle || opponent == null || monster == null) {
+    // 演出の終わりまでに閉じられた (閉じている途中の) 画面からはバトルを開かない
+    if (_hasOpenedFirstBattle ||
+        opponent == null ||
+        monster == null ||
+        !mounted ||
+        !(ModalRoute.of(context)?.isCurrent ?? false)) {
       return;
     }
     _hasOpenedFirstBattle = true;
     _logFirstExperience(step: FirstExperienceStep.battleStarted);
     final dexStore = widget.dexStore;
+    // 経路が作り直されると builder が呼び直されるため、決着の後にレベルが上がった手持ちを渡し直さないよう、開く時の手持ちで固定する
+    final playerParty = List.of(dexStore.party);
     final action = await Navigator.of(context).push(
       MaterialPageRoute<BattleScreenAction>(
         builder: (context) => BattleScreen(
-          playerParty: dexStore.party,
+          playerParty: playerParty,
           opponentParty: opponent.opponentParty,
           opponentKind: opponent.opponentKind,
           definitions: opponent.definitions,
@@ -269,6 +280,8 @@ class _GenerationScreenState extends State<GenerationScreen> {
           onPlayerLevelsChanged: dexStore.updateLevels,
           cardSharer: widget.cardSharer,
           firstBattleBornMonster: monster,
+          firstBattleMonsterIsNewlyBorn:
+              monster.definition.id != _alreadyInDexMonster?.definition.id,
           // 初回の相手には対戦相手の画面を通らずに当たるため、バトルの画面で通報・ブロックできるようにする (ストアの UGC 要件)。
           // ログインが無い時は相手が CPU トレーナーになるため、ここに来る他のユーザーは常にサーバーから読んだ相手
           opponentSafetyMenu: switch (opponent.pvpOpponent) {
@@ -348,7 +361,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
           return;
         }
         final dexStore = widget.dexStore;
-        if (widget.startsFirstBattle &&
+        if (_startsFirstBattle &&
             dexStore.party.isEmpty &&
             dexStore.hasPartyVacancy) {
           if (isNewlyBorn) {
@@ -428,7 +441,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
 
   List<Widget> _buildPhaseContent() => switch (_phase) {
     // 初回の導線は生成を待つ間も相手を探している見せ方にし、生成の段階は小さく添える
-    _GenerationPhase.inProgress when widget.startsFirstBattle => [
+    _GenerationPhase.inProgress when _startsFirstBattle => [
       const Text(
         '相手を探しています',
         textAlign: TextAlign.center,

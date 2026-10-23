@@ -327,6 +327,7 @@ class _OpponentScreenState extends State<OpponentScreen> {
           onPlayerLevelsChanged: dexStore.updateLevels,
           cardSharer: widget.cardSharer,
           firstBattleBornMonster: null,
+          firstBattleMonsterIsNewlyBorn: false,
           opponentSafetyMenu: null,
         ),
       ),

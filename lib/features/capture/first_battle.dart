@@ -21,7 +21,8 @@ typedef FirstBattleOpponent = ({
 /// 生まれたモンスターを手持ちに入れた後の [dexStore] の手持ちと戦う、初回のバトルの相手を決める。
 /// 他のユーザーの候補 ([PvpClient.fetchOpponents]。手持ちの平均レベルが近い順) の先頭の 1 人と戦う。
 /// 候補を取れない時 (ログインが無い・候補が 0 人・呼び出しの失敗) は、見本の CPU トレーナーの手持ちのレベルを
-/// [randomSeed] で自分の手持ちに合わせて戦う ([buildCpuParty])。定義を読み直せない時は例外を投げる ([prepareBattleDefinitions])。
+/// [randomSeed] で自分の手持ちに合わせて戦う ([buildCpuParty])。候補の相手の定義を読めない時も CPU トレーナーにする。
+/// 図鑑の定義を読み直せない時は例外を投げる ([prepareBattleDefinitions])。
 Future<FirstBattleOpponent> prepareFirstBattleOpponent({
   required DexStore dexStore,
   required PvpClient pvpClient,
@@ -36,17 +37,22 @@ Future<FirstBattleOpponent> prepareFirstBattleOpponent({
   }
   final pvpOpponent = pvpOpponents?.firstOrNull;
   if (pvpOpponent != null) {
-    return (
-      opponentName: pvpOpponent.displayName,
-      opponentParty: pvpOpponent.monsters,
-      opponentKind: BattleOpponentKind.pvp,
-      pvpOpponent: pvpOpponent,
-      definitions: await prepareBattleDefinitions(
-        dexStore: dexStore,
-        pvpClient: pvpClient,
-        pvpOpponentMonsters: pvpOpponent.monsters,
-      ),
-    );
+    try {
+      return (
+        opponentName: pvpOpponent.displayName,
+        opponentParty: pvpOpponent.monsters,
+        opponentKind: BattleOpponentKind.pvp,
+        pvpOpponent: pvpOpponent,
+        definitions: await prepareBattleDefinitions(
+          dexStore: dexStore,
+          pvpClient: pvpClient,
+          pvpOpponentMonsters: pvpOpponent.monsters,
+        ),
+      );
+    } catch (_) {
+      // 候補の先頭は「もう一度試す」でも同じ相手になるため、その相手の定義を読めない時は止めずに CPU トレーナーと戦わせる。
+      // 図鑑の定義を読み直せないのが原因なら、下の CPU トレーナーの準備でも同じく例外になる
+    }
   }
   final cpuOpponent = sampleData.opponents.firstWhere(
     (opponent) => opponent.id == cpuOpponentId,
