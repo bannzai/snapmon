@@ -342,6 +342,31 @@ describe("reportMonster", () => {
   });
 });
 
+describe("アカウントの削除の途中", () => {
+  it("通報・ブロック・表示名の変更を断り、本人のデータを書かない", async () => {
+    const user = await signInUser({ ageVerified: true });
+    const [monsterId] = await seedParty({ uid: "owner", levels: [5], updatedAtMillis: 1 });
+    await testEnvironment.withSecurityRulesDisabled(async (context) => {
+      await setDoc(doc(context.firestore(), `users/${user.uid}`), { accountDeletionStartedAt: Timestamp.fromMillis(0) }, { merge: true });
+    });
+    for (const [name, data] of [
+      ["reportMonster", { monsterOwnerUid: "owner", monsterId, reason: "other" }],
+      ["blockUser", { blockedUid: "owner" }],
+      ["setDisplayName", { displayName: "ばんざい" }],
+    ] as const) {
+      const response = await callFunction({ name, user, appCheckToken: fakeAppCheckToken, data });
+      expect(response.status, name).toBe(400);
+      expect(await response.text(), name).toContain("FAILED_PRECONDITION");
+    }
+    await testEnvironment.withSecurityRulesDisabled(async (context) => {
+      const firestore = context.firestore();
+      expect((await getDoc(doc(firestore, `reports/${user.uid}_${monsterId}`))).exists()).toBe(false);
+      expect((await getDoc(doc(firestore, `blocks/${user.uid}_owner`))).exists()).toBe(false);
+      expect((await getDoc(doc(firestore, `users/${user.uid}`))).get("displayName")).toBeUndefined();
+    });
+  });
+});
+
 describe("blockUser", () => {
   it("自分・空・パスを含む uid はブロックできない", async () => {
     const user = await signInUser({ ageVerified: true });

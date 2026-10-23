@@ -1,4 +1,4 @@
-import { FieldValue, getFirestore, type DocumentData, type Firestore } from "firebase-admin/firestore";
+import { FieldValue, getFirestore, type DocumentData, type DocumentSnapshot, type Firestore } from "firebase-admin/firestore";
 import { onDocumentCreated } from "firebase-functions/v2/firestore";
 import { HttpsError, onCall } from "firebase-functions/v2/https";
 
@@ -24,6 +24,17 @@ import { NOTIFICATION_CHANNEL, postSlackMessage, type SendSlackMessage } from ".
 
 // 非同期 PvP の相手の取得と、ストアの UGC 要件 (通報・ブロック) と表示名の Functions。
 // 構造と書き込みの主体は .claude/rules/firestore.md、他人に見せる項目は documents/adr/0001-tech-stack.md の画像ストレージの行。
+
+/**
+ * 書き込みと同じトランザクションで読んだ本人の `users/{uid}` [userSnapshot] が、削除の途中でも削除済みでもないことを確かめる
+ * (battle.ts の startBattle と同じ条件)。アカウントの削除 (account.ts) の後も別の端末の ID トークンは期限まで通るため、
+ * 確かめずに書くと、削除が消し終えた後に本人の通報・ブロック・表示名が残る。満たさない時は failed-precondition を投げる。
+ */
+function requireActiveAccount({ userSnapshot }: { userSnapshot: DocumentSnapshot }): void {
+  if (userSnapshot.get("accountDeletionStartedAt") !== undefined || userSnapshot.get("ageAccepted") !== true) {
+    throw new HttpsError("failed-precondition", "アカウントの削除が進んでいるか、アカウントが見つかりません");
+  }
+}
 
 /** `users/{uid}/party/current` の monsterIds のうち、文字列の ID だけを返す (無ければ空)。 */
 function partyMonsterIdsOf(partyData: DocumentData | undefined): string[] {
@@ -144,7 +155,12 @@ export const reportMonster = onCall({ enforceAppCheck: true }, async (request) =
   const monsterDocument = firestore.doc(`users/${monsterOwnerUid}/monsters/${monsterId}`);
   const reportDocument = firestore.doc(`reports/${reportDocumentId({ reporterUid: uid, monsterId })}`);
   await firestore.runTransaction(async (transaction) => {
-    const [monsterSnapshot, reportSnapshot] = await transaction.getAll(monsterDocument, reportDocument);
+    const [userSnapshot, monsterSnapshot, reportSnapshot] = await transaction.getAll(
+      firestore.doc(`users/${uid}`),
+      monsterDocument,
+      reportDocument,
+    );
+    requireActiveAccount({ userSnapshot });
     if (!monsterSnapshot.exists) {
       throw new HttpsError("not-found", "通報するモンスターが見つかりません");
     }
@@ -189,7 +205,9 @@ export const blockUser = onCall({ enforceAppCheck: true }, async (request) => {
   const firestore = getFirestore();
   const blockDocument = firestore.doc(`blocks/${blockDocumentId({ blockerUid: uid, blockedUid })}`);
   await firestore.runTransaction(async (transaction) => {
-    if (!(await transaction.get(blockDocument)).exists) {
+    const [userSnapshot, blockSnapshot] = await transaction.getAll(firestore.doc(`users/${uid}`), blockDocument);
+    requireActiveAccount({ userSnapshot });
+    if (!blockSnapshot.exists) {
       transaction.create(blockDocument, { blockerUid: uid, blockedUid, createdAt: FieldValue.serverTimestamp() });
     }
   });
@@ -221,7 +239,12 @@ export const setDisplayName = onCall({ enforceAppCheck: true }, async (request) 
   if ("error" in validation) {
     throw new HttpsError("invalid-argument", validation.error);
   }
-  await getFirestore().doc(`users/${uid}`).set({ displayName: validation.displayName }, { merge: true });
+  const firestore = getFirestore();
+  const userDocument = firestore.doc(`users/${uid}`);
+  await firestore.runTransaction(async (transaction) => {
+    requireActiveAccount({ userSnapshot: await transaction.get(userDocument) });
+    transaction.set(userDocument, { displayName: validation.displayName }, { merge: true });
+  });
   return { displayName: validation.displayName };
 });
 
