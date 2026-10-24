@@ -4,6 +4,7 @@ import { connectAuthEmulator, getAuth, signInAnonymously, signOut, type User } f
 import { deleteDoc, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 
+import { ENFORCE_APP_CHECK } from "../../src/app_check";
 import { DAILY_BATTLE_LIMIT, MAXIMUM_LEVEL, battleDayKey } from "../../src/battle_rules";
 
 // firebase emulators:exec (package.json の test:emulator) の中で実行する。
@@ -237,7 +238,7 @@ describe("startBattle と recordBattle", () => {
     expect((await response.json()).error.status).toBe("FAILED_PRECONDITION");
   });
 
-  it("App Check のトークンが無い呼び出しは弾く", async () => {
+  it("App Check のトークンが無い呼び出しは、強制している時 (src/app_check.ts) だけ弾く", async () => {
     const user = await signInUser();
     await seedMonsters({ uid: user.uid, levels: { m1: 5 } });
     for (const name of ["startBattle", "recordBattle"]) {
@@ -247,7 +248,12 @@ describe("startBattle と recordBattle", () => {
         appCheckToken: null,
         data: { partyMonsterIds: ["m1"] },
       });
-      expect(response.status, name).toBe(401);
+      if (ENFORCE_APP_CHECK) {
+        expect(response.status, name).toBe(401);
+      } else {
+        // 強制していない時は本体まで届く (startBattle は 200、recordBattle は battleId が無いため 400)
+        expect(response.status, name).not.toBe(401);
+      }
     }
   });
 });

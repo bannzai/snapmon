@@ -2,6 +2,8 @@ import { deleteApp, initializeApp } from "firebase/app";
 import { connectAuthEmulator, getAuth, signInAnonymously, signOut } from "firebase/auth";
 import { afterAll, beforeEach, describe, expect, it } from "vitest";
 
+import { ENFORCE_APP_CHECK } from "../../src/app_check";
+
 // firebase emulators:exec (package.json の test:emulator) の中で実行する。
 // 匿名ログインだけ (カスタムクレーム無し) で Functions を呼べることを、Auth と Functions の Emulator で確かめる。
 
@@ -79,7 +81,7 @@ describe("匿名ログイン", () => {
     expect((await response.json()).error.status).toBe("UNAUTHENTICATED");
   });
 
-  it("App Check のトークンが無い呼び出しは弾く", async () => {
+  it("App Check のトークンが無い呼び出しは、強制している時 (src/app_check.ts) だけ弾く", async () => {
     const credential = await signInAnonymously(auth);
     const response = await callFunction({
       name: "getDisplayName",
@@ -87,6 +89,6 @@ describe("匿名ログイン", () => {
       appCheckToken: null,
       data: null,
     });
-    expect(response.status).toBe(401);
+    expect(response.status).toBe(ENFORCE_APP_CHECK ? 401 : 200);
   });
 });
