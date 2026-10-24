@@ -291,7 +291,7 @@ describe("fetchOpponents", () => {
       if (ENFORCE_APP_CHECK) {
         expect(response.status, name).toBe(401);
       } else {
-        // 強制していない時は本体まで届く (getDisplayName は 200、ほかは data が足りないため 400)
+        // 強制していない時は本体まで届く (getDisplayName は 200、fetchOpponents は手持ちが空のため 400、ほかは data が足りないため 400)
         expect(response.status, name).not.toBe(401);
       }
     }
