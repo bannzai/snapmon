@@ -4,6 +4,7 @@ import { connectAuthEmulator, deleteUser, getAuth, signInAnonymously, signOut } 
 import { Timestamp, doc, getDoc, setDoc } from "firebase/firestore";
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 
+import { ENFORCE_APP_CHECK } from "../../src/app_check";
 import { REPORT_HIDE_THRESHOLD, defaultDisplayName } from "../../src/pvp_rules";
 
 // firebase emulators:exec (package.json の test:emulator) の中で実行する。
@@ -283,11 +284,16 @@ describe("fetchOpponents", () => {
     expect((await fetchOpponents({ user: viewer })).map((opponent) => opponent.opponentUid)).not.toContain("reported");
   });
 
-  it("App Check のトークンが無い呼び出しは弾く", async () => {
+  it("App Check のトークンが無い呼び出しは、強制している時 (src/app_check.ts) だけ弾く", async () => {
     const user = await signInUser();
     for (const name of ["fetchOpponents", "reportMonster", "blockUser", "getDisplayName", "setDisplayName"]) {
       const response = await callFunction({ name, user, appCheckToken: null, data: {} });
-      expect(response.status, name).toBe(401);
+      if (ENFORCE_APP_CHECK) {
+        expect(response.status, name).toBe(401);
+      } else {
+        // 強制していない時は本体まで届く (getDisplayName は 200、fetchOpponents は手持ちが空のため 400、ほかは data が足りないため 400)
+        expect(response.status, name).not.toBe(401);
+      }
     }
   });
 });

@@ -1,6 +1,7 @@
 import { FieldValue, getFirestore } from "firebase-admin/firestore";
 import { CallableRequest, HttpsError, onCall } from "firebase-functions/v2/https";
 
+import { ENFORCE_APP_CHECK } from "./app_check";
 import {
   DAILY_BATTLE_LIMIT,
   battleDayKey,
@@ -25,7 +26,7 @@ export function requireSignedInUid({ request }: { request: CallableRequest }): s
  * 冪等ではない: 呼ぶたびに別のバトルとして新しい battleId を作る (1 回の挑戦が 1 回の呼び出しに当たるため)。
  * 完了しなかったバトル (にげた等) はレベルにも 1 日の上限の数にも効かない。
  */
-export const startBattle = onCall({ enforceAppCheck: true }, async (request) => {
+export const startBattle = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async (request) => {
   const uid = requireSignedInUid({ request });
   const { partyMonsterIds } = (request.data ?? {}) as { partyMonsterIds?: unknown };
   if (!isMonsterIdList(partyMonsterIds)) {
@@ -66,7 +67,7 @@ export const startBattle = onCall({ enforceAppCheck: true }, async (request) => 
  * トランザクションでバトルの完了状態を確かめ、未完了の時だけ、1 日 (日本時間) の上限 [DAILY_BATTLE_LIMIT] 戦を検証して
  * レベル・経験の加算、1 日の数、完了の記録を同時に書く。完了済みの battleId の再送は加算せず、記録済みの levels を返す (冪等)。
  */
-export const recordBattle = onCall({ enforceAppCheck: true }, async (request) => {
+export const recordBattle = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async (request) => {
   const uid = requireSignedInUid({ request });
   const { battleId, participantMonsterIds, winner, turnCount } = (request.data ?? {}) as {
     battleId?: unknown;

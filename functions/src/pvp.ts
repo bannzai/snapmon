@@ -4,6 +4,7 @@ import { onDocumentCreated } from "firebase-functions/v2/firestore";
 import { HttpsError, onCall } from "firebase-functions/v2/https";
 
 import { authUserExists } from "./account";
+import { ENFORCE_APP_CHECK } from "./app_check";
 import { requireSignedInUid } from "./battle";
 import type { MonsterDocument } from "./generation/records";
 import {
@@ -102,7 +103,7 @@ async function ownersHiddenByReports({ firestore, ownerUids }: { firestore: Fire
  * opponentUid は通報・ブロックの宛先に要るため返す。
  * 自分の手持ちが空の時は failed-precondition を投げる (平均レベルを決められないため)。読み取りだけで冪等。
  */
-export const fetchOpponents = onCall({ enforceAppCheck: true }, async (request) => {
+export const fetchOpponents = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async (request) => {
   const uid = requireSignedInUid({ request });
   const firestore = getFirestore();
   const [playerParty, blockedByPlayer, blockingPlayer, reportedByPlayer, candidateParties] = await Promise.all([
@@ -171,7 +172,7 @@ export const fetchOpponents = onCall({ enforceAppCheck: true }, async (request) 
  * 同じユーザーが同じモンスターを通報し直しても、通報もユーザー数も増やさない (冪等)。
  * 自分のモンスターは通報できない (invalid-argument)。モンスターが無い時は not-found。
  */
-export const reportMonster = onCall({ enforceAppCheck: true }, async (request) => {
+export const reportMonster = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async (request) => {
   const uid = requireSignedInUid({ request });
   const { monsterOwnerUid, monsterId, reason } = (request.data ?? {}) as {
     monsterOwnerUid?: unknown;
@@ -231,7 +232,7 @@ export const reportMonster = onCall({ enforceAppCheck: true }, async (request) =
  * 返す値: `{ blocked: true }`。`blocks/{blockerUid}_{blockedUid}` を作る。ブロックした相手とブロックされた相手は、互いの
  * fetchOpponents の候補に出ない。同じ相手をブロックし直しても 1 件のまま (冪等)。自分はブロックできない (invalid-argument)。
  */
-export const blockUser = onCall({ enforceAppCheck: true }, async (request) => {
+export const blockUser = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async (request) => {
   const uid = requireSignedInUid({ request });
   const { blockedUid } = (request.data ?? {}) as { blockedUid?: unknown };
   if (!isDocumentId(blockedUid)) {
@@ -258,7 +259,7 @@ export const blockUser = onCall({ enforceAppCheck: true }, async (request) => {
  * 受け取る data: なし。返す値: `{ displayName: string }` (設定していなければ「トレーナー」+ uid から決まる 4 桁)。
  * 既定の名前はサーバーだけが決め、クライアントは返った値を出す。読み取りだけで冪等。
  */
-export const getDisplayName = onCall({ enforceAppCheck: true }, async (request) => {
+export const getDisplayName = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async (request) => {
   const uid = requireSignedInUid({ request });
   const user = await getFirestore().doc(`users/${uid}`).get();
   return { displayName: displayNameOf({ uid, storedDisplayName: user.get("displayName") }) };
@@ -271,7 +272,7 @@ export const getDisplayName = onCall({ enforceAppCheck: true }, async (request) 
  * 空・長すぎる・制御文字・禁止語 (pvp_rules.ts の validateDisplayName) は invalid-argument で、利用者に出す文言を返す。
  * `users/{uid}` の displayName はクライアントから書けない (Rules) ため、検査を通った名前だけが他のユーザーに見える。同じ名前で呼び直しても同じ (冪等)。
  */
-export const setDisplayName = onCall({ enforceAppCheck: true }, async (request) => {
+export const setDisplayName = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async (request) => {
   const uid = requireSignedInUid({ request });
   const validation = validateDisplayName(((request.data ?? {}) as { displayName?: unknown }).displayName);
   if ("error" in validation) {

@@ -3,6 +3,7 @@ import { CallableRequest, HttpsError, onCall } from "firebase-functions/v2/https
 import { onTaskDispatched } from "firebase-functions/v2/tasks";
 
 import { rejectDeletedAccount } from "../account";
+import { ENFORCE_APP_CHECK } from "../app_check";
 import { typesafeApiKey } from "../secrets";
 import { createProductionDependencies } from "./dependencies";
 import { type GenerationDependencies, GenerationRequestError, resumeGeneration, type ResumeTask, startGeneration } from "./pipeline";
@@ -53,8 +54,8 @@ export async function handleGenerateRequest(dependencies: GenerationDependencies
  */
 const GENERATION_FUNCTION_OPTIONS = { timeoutSeconds: 300, memory: "4GiB" as const, concurrency: 1, cpu: 2, secrets: [typesafeApiKey] };
 
-/** 写真からモンスターを生成する callable (App Check 必須)。設計は pipeline.ts の冒頭。 */
-export const generate = onCall({ ...GENERATION_FUNCTION_OPTIONS, enforceAppCheck: true }, async (request) => {
+/** 写真からモンスターを生成する callable (App Check の強制は app_check.ts)。設計は pipeline.ts の冒頭。 */
+export const generate = onCall({ ...GENERATION_FUNCTION_OPTIONS, enforceAppCheck: ENFORCE_APP_CHECK }, async (request) => {
   const dependencies = createProductionDependencies();
   if (request.auth) {
     await rejectDeletedAccount({ auth: getAuth(), bucket: dependencies.bucket, uid: request.auth.uid });
