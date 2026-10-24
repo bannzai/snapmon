@@ -72,7 +72,23 @@ class BattleScreen extends StatefulWidget {
     required this.battleRecorder,
     required this.onPlayerLevelsChanged,
     required this.cardSharer,
+    required this.firstBattleBornMonster,
+    required this.firstBattleMonsterIsNewlyBorn,
+    required this.opponentSafetyMenu,
   });
+
+  /// [firstBattleBornMonster] がこの導線で新しく生まれたか。同じ被写体でもう図鑑にいたモンスターで戦う時は false で、
+  /// 勝敗の画面のカードに「あたらしい なかま」と出さない。初回の導線以外の対戦では使わない。
+  final bool firstBattleMonsterIsNewlyBorn;
+
+  /// 相手の通報・ブロックのメニュー (OpponentSafetyMenuButton)。相手のカードの横に、戦っている間も決着の後も出す。
+  /// 初回の導線の PvP だけが渡す (対戦相手の画面から挑む PvP は、挑む前の相手のカードで通報・ブロックできるため null)。
+  final Widget? opponentSafetyMenu;
+
+  /// 初回の導線 (手持ちが空の時に写真を選んでそのまま戦う 1 戦目) で生まれたモンスター。それ以外の対戦は null。
+  /// null 以外の時は、技のボタンの上に技の選び方を 1 行で出し、勝敗の画面に生まれたカードと「もう 1 体撮る」「図鑑を見る」を
+  /// 「もどる」の代わりに出し、決着で計測の `first_experience` (`battle_completed`) を送る。
+  final OwnedMonster? firstBattleBornMonster;
 
   /// 自分の手持ち。
   final List<OwnedMonster> playerParty;
@@ -298,6 +314,18 @@ class _BattleScreenState extends State<BattleScreen> {
           // 計測の失敗はバトルの記録と画面に影響させない (未処理の非同期の例外として報告させないため)
           .catchError((Object _) {}),
     );
+    if (widget.firstBattleBornMonster != null) {
+      unawaited(
+        widget.battleRecorder
+            .logEvent(
+              event: AnalyticsEvent.firstExperience,
+              parameters: {
+                'step': FirstExperienceStep.battleCompleted.stepName,
+              },
+            )
+            .catchError((Object _) {}),
+      );
+    }
     try {
       final battleId = await _battleRecordStart;
       if (battleId == null) {
@@ -395,6 +423,18 @@ class _BattleScreenState extends State<BattleScreen> {
                     showsHitPointsNumber: false,
                   ),
                 ),
+                if (widget.opponentSafetyMenu case final opponentSafetyMenu?)
+                  Positioned(
+                    right: 20,
+                    top: MediaQuery.paddingOf(context).top + 96,
+                    child: DecoratedBox(
+                      decoration: const BoxDecoration(
+                        color: SnapmonColors.scrim,
+                        borderRadius: SnapmonRadii.button,
+                      ),
+                      child: opponentSafetyMenu,
+                    ),
+                  ),
                 Positioned(
                   right: 20,
                   bottom: 24,
@@ -413,14 +453,26 @@ class _BattleScreenState extends State<BattleScreen> {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
               child: isFinished
-                  ? _BattleResultPanel(
-                      winner: _battleState.winner!,
-                      appliedLevels: _appliedLevels,
-                      playerParty: widget.playerParty,
-                      recordStatusText: _recordStatusText,
-                      opponentParty: widget.opponentParty,
-                      definitions: widget.definitions,
-                      cardSharer: widget.cardSharer,
+                  // 初回の 1 戦は生まれたカードも並べて高さが増えるため、低い画面・大きい文字でもフィールドを残してスクロールさせる。
+                  // 0.6 は 390×844 で勝敗・カード・ボタンが全部収まり、フィールドの相手のカードが隠れない割合にした
+                  ? ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxHeight: MediaQuery.sizeOf(context).height * 0.6,
+                      ),
+                      child: SingleChildScrollView(
+                        child: _BattleResultPanel(
+                          winner: _battleState.winner!,
+                          appliedLevels: _appliedLevels,
+                          playerParty: widget.playerParty,
+                          recordStatusText: _recordStatusText,
+                          opponentParty: widget.opponentParty,
+                          definitions: widget.definitions,
+                          cardSharer: widget.cardSharer,
+                          firstBattleBornMonster: widget.firstBattleBornMonster,
+                          firstBattleMonsterIsNewlyBorn:
+                              widget.firstBattleMonsterIsNewlyBorn,
+                        ),
+                      ),
                     )
                   : _buildCommands(
                       context: context,
@@ -451,6 +503,14 @@ class _BattleScreenState extends State<BattleScreen> {
     );
     return Column(
       children: [
+        if (widget.firstBattleBornMonster != null) ...[
+          const Text(
+            '技を選ぶと素早い方から行動する  相性のいい属性ほど大きく効く',
+            key: Key('first-battle-hint'),
+            style: SnapmonTextStyles.small,
+          ),
+          const SizedBox(height: 6),
+        ],
         Row(
           children: [
             Expanded(
@@ -548,9 +608,17 @@ class _BattleResultPanel extends StatelessWidget {
     required this.opponentParty,
     required this.definitions,
     required this.cardSharer,
+    required this.firstBattleBornMonster,
+    required this.firstBattleMonsterIsNewlyBorn,
   });
 
   final BattleSideId winner;
+
+  /// 初回の 1 戦で生まれたモンスター ([BattleScreen.firstBattleBornMonster])。それ以外の対戦は null。
+  final OwnedMonster? firstBattleBornMonster;
+
+  /// [BattleScreen.firstBattleMonsterIsNewlyBorn]。
+  final bool firstBattleMonsterIsNewlyBorn;
 
   /// 確定した自分のモンスターのレベル (monsterId ごと)。確定していない間は空。
   final Map<String, int> appliedLevels;
@@ -571,84 +639,186 @@ class _BattleResultPanel extends StatelessWidget {
   final CardSharer cardSharer;
 
   @override
-  Widget build(BuildContext context) => Column(
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: [
-      Text(
-        winner == BattleSideId.player ? 'かった' : 'まけた',
-        style: SnapmonTextStyles.screenTitle.copyWith(
-          color: winner == BattleSideId.player
-              ? SnapmonColors.accent
-              : SnapmonColors.hitPointsLoss,
+  Widget build(BuildContext context) {
+    final bornMonster = firstBattleBornMonster;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        if (bornMonster != null) ...[
+          _BornMonsterCard(
+            monster: bornMonster,
+            isNewlyBorn: firstBattleMonsterIsNewlyBorn,
+          ),
+          const SizedBox(height: 12),
+        ],
+        Text(
+          winner == BattleSideId.player ? 'かった' : 'まけた',
+          style: SnapmonTextStyles.screenTitle.copyWith(
+            color: winner == BattleSideId.player
+                ? SnapmonColors.accent
+                : SnapmonColors.hitPointsLoss,
+          ),
         ),
-      ),
-      // レベルが確定するまで (記録の待ち・失敗) は、上がったと読める説明を出さない
-      if (appliedLevels.isNotEmpty) ...[
-        const SizedBox(height: 4),
-        const Text(
-          '勝ち負けに関係なく 戦ったモンスターのレベルが上がる',
-          style: SnapmonTextStyles.caption,
-        ),
-      ],
-      const SizedBox(height: 12),
-      for (final monster in playerParty)
-        if (appliedLevels[monster.definition.id] case final newLevel?)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: DecoratedBox(
-              decoration: const BoxDecoration(
-                color: SnapmonColors.card,
-                borderRadius: SnapmonRadii.button,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 14,
-                  vertical: 10,
+        // レベルが確定するまで (記録の待ち・失敗) は、上がったと読める説明を出さない
+        if (appliedLevels.isNotEmpty) ...[
+          const SizedBox(height: 4),
+          const Text(
+            '勝ち負けに関係なく 戦ったモンスターのレベルが上がる',
+            style: SnapmonTextStyles.caption,
+          ),
+        ],
+        const SizedBox(height: 12),
+        for (final monster in playerParty)
+          if (appliedLevels[monster.definition.id] case final newLevel?)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: DecoratedBox(
+                decoration: const BoxDecoration(
+                  color: SnapmonColors.card,
+                  borderRadius: SnapmonRadii.button,
                 ),
-                child: Text(
-                  '${monster.definition.name}  Lv. ${monster.level} → $newLevel',
-                  style: SnapmonTextStyles.label.copyWith(
-                    color: SnapmonColors.textOnCard,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 10,
+                  ),
+                  child: Text(
+                    '${monster.definition.name}  Lv. ${monster.level} → $newLevel',
+                    style: SnapmonTextStyles.label.copyWith(
+                      color: SnapmonColors.textOnCard,
+                    ),
                   ),
                 ),
               ),
             ),
+        if (recordStatusText != null) ...[
+          const SizedBox(height: 4),
+          Text(
+            recordStatusText!,
+            key: const Key('battle-record-status'),
+            style: SnapmonTextStyles.small,
           ),
-      if (recordStatusText != null) ...[
-        const SizedBox(height: 4),
-        Text(
-          recordStatusText!,
-          key: const Key('battle-record-status'),
-          style: SnapmonTextStyles.small,
+        ],
+        const SizedBox(height: 12),
+        ShareCardButton(
+          cardSharer: cardSharer,
+          screen: ShareScreen.battleResult,
+          artPaths: [for (final monster in playerParty) ?monster.artPath],
+          buildCard: ({required format, required artImagesByPath}) =>
+              BattleResultShareCard(
+                winner: winner,
+                playerParty: playerParty,
+                appliedLevels: appliedLevels,
+                opponentParty: opponentParty,
+                artImagesByPath: artImagesByPath,
+                definitions: definitions,
+                format: format,
+              ),
+          shareText:
+              '${winner == BattleSideId.player ? 'snapmon のバトルにかった' : 'snapmon のバトルにまけた'}\n#snapmon\n$landingPageUri',
+          fileNamePrefix: 'snapmon-battle',
+          buttonBuilder: ({required onPressed}) =>
+              _BattleCommandButton(label: '結果を共有', onPressed: onPressed),
         ),
+        const SizedBox(height: 10),
+        if (bornMonster == null)
+          FilledButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('もどる'),
+          )
+        else
+          Row(
+            children: [
+              Expanded(
+                child: _BattleCommandButton(
+                  label: '図鑑を見る',
+                  onPressed: () =>
+                      Navigator.of(context).pop(BattleScreenAction.openDex),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: FilledButton(
+                  key: const Key('first-battle-capture-again'),
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('もう 1 体撮る'),
+                ),
+              ),
+            ],
+          ),
       ],
-      const SizedBox(height: 12),
-      ShareCardButton(
-        cardSharer: cardSharer,
-        screen: ShareScreen.battleResult,
-        artPaths: [for (final monster in playerParty) ?monster.artPath],
-        buildCard: ({required format, required artImagesByPath}) =>
-            BattleResultShareCard(
-              winner: winner,
-              playerParty: playerParty,
-              appliedLevels: appliedLevels,
-              opponentParty: opponentParty,
-              artImagesByPath: artImagesByPath,
-              definitions: definitions,
-              format: format,
+    );
+  }
+}
+
+/// 初回の 1 戦の勝敗の画面に出す、生まれたモンスターのカード (名前・図鑑の文章・AI の生成であることの表示)。
+class _BornMonsterCard extends StatelessWidget {
+  const _BornMonsterCard({required this.monster, required this.isNewlyBorn});
+
+  final OwnedMonster monster;
+
+  /// [monster] がこの導線で新しく生まれたか ([BattleScreen.firstBattleMonsterIsNewlyBorn])。
+  final bool isNewlyBorn;
+
+  @override
+  Widget build(BuildContext context) => DecoratedBox(
+    decoration: const BoxDecoration(
+      color: SnapmonColors.card,
+      borderRadius: SnapmonRadii.card,
+    ),
+    child: Padding(
+      padding: const EdgeInsets.all(12),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox.square(
+            dimension: 72,
+            child: ClipRRect(
+              borderRadius: SnapmonRadii.button,
+              child: MonsterArt(
+                monster: monster,
+                backgroundColor: SnapmonColors.cardSubtle,
+              ),
             ),
-        shareText:
-            '${winner == BattleSideId.player ? 'snapmon のバトルにかった' : 'snapmon のバトルにまけた'}\n#snapmon\n$landingPageUri',
-        fileNamePrefix: 'snapmon-battle',
-        buttonBuilder: ({required onPressed}) =>
-            _BattleCommandButton(label: '結果を共有', onPressed: onPressed),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  isNewlyBorn ? 'あたらしい なかま' : 'きみの なかま',
+                  style: SnapmonTextStyles.small.copyWith(
+                    color: SnapmonColors.textOnCardMuted,
+                  ),
+                ),
+                Text(
+                  monster.definition.name,
+                  style: SnapmonTextStyles.label.copyWith(
+                    color: SnapmonColors.textOnCard,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  monster.definition.encyclopediaText,
+                  style: SnapmonTextStyles.small.copyWith(
+                    color: SnapmonColors.textOnCardBody,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                // 名前と図鑑の文章が AI の生成であることの表示 (DIRECTION.md「必要な機能」の未成年向けの安全策)
+                Text(
+                  '名前と図鑑の文章は AI が作りました',
+                  style: SnapmonTextStyles.small.copyWith(
+                    color: SnapmonColors.textOnCardMuted,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
-      const SizedBox(height: 10),
-      FilledButton(
-        onPressed: () => Navigator.of(context).pop(),
-        child: const Text('もどる'),
-      ),
-    ],
+    ),
   );
 }
 

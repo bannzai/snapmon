@@ -118,6 +118,7 @@ class _SnapmonAppState extends State<SnapmonApp> {
             accountStore: widget.accountStore,
             logEvent: widget.logEvent,
             onEnterHome: ({required tab}) => setState(() => _homeTab = tab),
+            battleRecorder: widget.battleRecorder,
           );
         }
         return HomeShell(

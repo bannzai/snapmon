@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../sample/sample_data.dart';
 import '../../theme/snapmon_text_styles.dart';
+import '../battle/battle_recorder.dart';
 import '../capture/monster_generator.dart';
 import '../developer_menu/developer_menu_screen.dart';
 import '../dex/dex_store.dart';
@@ -49,9 +50,13 @@ class SettingsScreen extends StatelessWidget {
     required this.openUrl,
     required this.isDeveloperMenuEnabled,
     required this.accountStore,
+    required this.battleRecorder,
   });
 
-  /// 表示名の読み込みと変更。
+  /// バトルの記録と計測 (開発者メニューの見本の写真から始めた初回のバトルが使う)。
+  final BattleRecorder battleRecorder;
+
+  /// 表示名の読み込みと変更 (開発者メニューの見本の写真から始めた初回のバトルの相手の取得にも使う)。
   final PvpClient pvpClient;
 
   /// 見本データ (開発者メニューが使う)。
@@ -284,6 +289,9 @@ class SettingsScreen extends StatelessWidget {
                   sessionStore: sessionStore,
                   monsterGenerator: monsterGenerator,
                   cardSharer: cardSharer,
+                  pvpClient: pvpClient,
+                  battleRecorder: battleRecorder,
+                  openUrl: openUrl,
                 ),
               ),
             ),

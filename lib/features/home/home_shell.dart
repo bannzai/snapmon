@@ -100,6 +100,7 @@ class _HomeShellState extends State<HomeShell> {
         openUrl: widget.openUrl,
         isDeveloperMenuEnabled: widget.isDeveloperMenuEnabled,
         accountStore: widget.accountStore,
+        battleRecorder: widget.battleRecorder,
       ),
     ),
   );
@@ -121,6 +122,10 @@ class _HomeShellState extends State<HomeShell> {
           onSelectTab: _selectTab,
           onOpenSettings: _openSettings,
           cardSharer: widget.cardSharer,
+          sampleData: widget.sampleData,
+          pvpClient: widget.pvpClient,
+          battleRecorder: widget.battleRecorder,
+          openUrl: widget.openUrl,
         ),
         // 設定の「データを引き継ぐ」で別のアカウントに切り替わると uid が変わるため、uid ごとに作り直して
         // 前のアカウントの相手・戦績・外した相手を持ち越さない

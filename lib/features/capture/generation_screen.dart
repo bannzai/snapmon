@@ -1,22 +1,40 @@
+import 'dart:async';
+import 'dart:math' as math;
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 
 import '../../analytics/analytics_events.dart';
+import '../../sample/sample_data.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
 import '../../widgets/square_icon_button.dart';
+import '../battle/battle_recorder.dart';
+import '../battle/battle_screen.dart';
 import '../dex/dex_store.dart';
+import '../dex/owned_monster.dart';
+import '../opponent/opponent_safety_actions.dart';
+import '../opponent/pvp_client.dart';
 import '../result/result_screen.dart';
+import '../settings/settings_screen.dart';
 import '../share/card_sharer.dart';
+import 'first_battle.dart';
 import 'monster_generator.dart';
 
 /// 生成の直後に図鑑の反映を待つ時間。Firestore のスナップショットは保存から 1 秒前後で届くため、通信が遅い時の余裕を見た値。
 const Duration _monsterArrivalTimeout = Duration(seconds: 30);
 
+/// 初回の導線で「○○ があらわれた」を出してからバトルの画面を開くまでの時間。
+/// 相手の名前 (表示名は 12 文字まで) を読み切れ、待たされたと感じない長さにした。
+const Duration _opponentRevealDuration = Duration(milliseconds: 1500);
+
 /// 写真 1 枚から生成する画面。写真を整えて送り、段階ごとの待ち時間を出し、結果に応じて生まれた画面を開くか、
 /// 判定待ち・生成しなかった理由・エラーを出す。生まれた画面を閉じたら、その画面の [ResultScreenAction] を返して閉じる。
+///
+/// 初回の導線 ([startsFirstBattle]) では、生成を待つ間は「相手を探しています」を出し、生まれたら手持ちに入れて相手を決め、
+/// 「○○ があらわれた」の後にバトルの画面を開く。バトルの画面を閉じたら、図鑑を見る時は [ResultScreenAction.openDex]、
+/// それ以外 (もう 1 体撮る・にげる) は null を返して閉じる。生まれなかった時は初回でない時と同じ理由の表示に戻る。
 class GenerationScreen extends StatefulWidget {
   /// 生成の画面を作る。
   const GenerationScreen({
@@ -26,7 +44,28 @@ class GenerationScreen extends StatefulWidget {
     required this.monsterGenerator,
     required this.dexStore,
     required this.cardSharer,
+    required this.startsFirstBattle,
+    required this.sampleData,
+    required this.pvpClient,
+    required this.battleRecorder,
+    required this.openUrl,
   });
+
+  /// 初回のバトルの相手が他のユーザーの時の、通報のシートからお問い合わせを開く。
+  final OpenUrl openUrl;
+
+  /// 初回の導線 (生まれたらそのまま戦う) にするか。呼び出し元が写真を選んだ時点の手持ちが空か ([DexStore.party]) で決める。
+  /// 生まれた時に手持ちが空でなくなっていた (Firestore の手持ちが後から届いた) 時は、初回でない時と同じく生まれた画面を開く。
+  final bool startsFirstBattle;
+
+  /// 見本データ (初回のバトルの CPU トレーナー)。
+  final SampleData sampleData;
+
+  /// 初回のバトルの相手の取得と、相手のその場で作った定義の読み込み。
+  final PvpClient pvpClient;
+
+  /// 初回のバトルの記録と計測。
+  final BattleRecorder battleRecorder;
 
   /// 撮った・選んだ写真の中身。
   final Uint8List sourcePhoto;
@@ -60,6 +99,12 @@ enum _GenerationPhase {
 
   /// 呼び出しが例外で終わった。
   error,
+
+  /// 初回の導線で、写真の被写体のモンスターがもう図鑑にいた (同じ被写体・同じ写真の撮り直し)。
+  alreadyInDex,
+
+  /// 初回の導線で、対戦相手が決まった (「○○ があらわれた」)。
+  opponentFound,
 }
 
 class _GenerationScreenState extends State<GenerationScreen> {
@@ -73,12 +118,55 @@ class _GenerationScreenState extends State<GenerationScreen> {
   GenerationResult? _result;
   Object? _error;
 
+  /// 画面を開いた時の [GenerationScreen.startsFirstBattle]。呼び出し元は手持ちの有無から決めて渡し、経路が作り直されると
+  /// 手持ちに入れた後の値で渡し直されるため、開いた時の値で固定する。
+  late final bool _startsFirstBattle = widget.startsFirstBattle;
+
+  /// 初回の導線で、写真の被写体のモンスターがもう図鑑にいた時のそのモンスター ([_GenerationPhase.alreadyInDex])。
+  OwnedMonster? _alreadyInDexMonster;
+
+  /// 初回の導線で戦うと決めたモンスター。決まるまでは null (例外の後の「もう一度試す」を、生成ではなく対戦の準備のやり直しにする目印)。
+  OwnedMonster? _firstBattleMonster;
+
+  /// 初回の導線の対戦相手。決まるまでは null。
+  FirstBattleOpponent? _firstBattleOpponent;
+
+  /// 初回のバトルの画面を開いたか (「○○ があらわれた」の演出の終わりで 1 回だけ開くため)。
+  bool _hasOpenedFirstBattle = false;
+
+  /// 「○○ があらわれた」を出してからバトルの画面を開くまでの待ち。演出の進捗バーは ListView の中にあり、
+  /// 端末の文字が大きいと画面外で作られず終わりを知らせないため、バトルを開くきっかけは State に持つ。
+  Timer? _openFirstBattleTimer;
+
+  @override
+  void dispose() {
+    _openFirstBattleTimer?.cancel();
+    super.dispose();
+  }
+
+  /// 初回のバトルの乱数の seed (CPU トレーナーのレベルとバトルの展開)。値の範囲は DeterministicRandom の状態 (32 bit) に合わせた。
+  /// Web (JavaScript) ではシフトが 32 bit に切り詰められ `1 << 32` が 0 になるため、上限は整数リテラルで書く
+  final int _firstBattleRandomSeed = math.Random().nextInt(0x100000000);
+
   @override
   void initState() {
     super.initState();
+    if (_startsFirstBattle) {
+      _logFirstExperience(step: FirstExperienceStep.photoSelected);
+    }
     // 画面に入る前に setState を呼ばないため、最初のフレームの後に始める
     WidgetsBinding.instance.addPostFrameCallback((_) => _generate());
   }
+
+  /// 初回の導線の段階 [step] を送る。計測の失敗は画面の進み方に影響させない。
+  void _logFirstExperience({required FirstExperienceStep step}) => unawaited(
+    widget.monsterGenerator
+        .logEvent(
+          event: AnalyticsEvent.firstExperience,
+          parameters: {'step': step.stepName},
+        )
+        .catchError((Object _) {}),
+  );
 
   /// 済んでいない手順 (写真を整える・送る) から生成を進める。もう一度試す時も同じ要求 ID で呼び直す。
   Future<void> _generate() async {
@@ -115,6 +203,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
       );
     } catch (error) {
       if (mounted) {
+        _logFirstExperienceFailureIfNeeded();
         setState(() {
           _phase = _GenerationPhase.error;
           _error = error;
@@ -124,6 +213,108 @@ class _GenerationScreenState extends State<GenerationScreen> {
           }
         });
       }
+    }
+  }
+
+  /// 初回の導線で、戦うモンスターが決まる前に生成が終わらなかった時に `generation_failed` を送る。
+  void _logFirstExperienceFailureIfNeeded() {
+    if (_startsFirstBattle && _firstBattleMonster == null) {
+      _logFirstExperience(step: FirstExperienceStep.generationFailed);
+    }
+  }
+
+  /// 初回の導線で [monster] を手持ちに入れ、対戦相手を決めて「○○ があらわれた」を出す。
+  /// 例外の後の「もう一度試す」もここからやり直す (生成は済んでいるため呼び直さない)。
+  Future<void> _prepareFirstBattle({required OwnedMonster monster}) async {
+    setState(() {
+      _firstBattleMonster = monster;
+      _phase = _GenerationPhase.inProgress;
+      _error = null;
+    });
+    try {
+      await widget.dexStore.addToParty(monsterId: monster.definition.id);
+      // 手持ちの保存が済んでから相手を探す (Functions の fetchOpponents は保存した手持ちの平均レベルで相手を選ぶため)
+      if (!widget.dexStore.isInParty(monsterId: monster.definition.id)) {
+        throw StateError('${monster.definition.name} を手持ちに入れられませんでした');
+      }
+      final opponent = await prepareFirstBattleOpponent(
+        dexStore: widget.dexStore,
+        pvpClient: widget.pvpClient,
+        sampleData: widget.sampleData,
+        randomSeed: _firstBattleRandomSeed,
+      );
+      if (!mounted) {
+        return;
+      }
+      _logFirstExperience(step: FirstExperienceStep.matchmaking);
+      setState(() {
+        _firstBattleOpponent = opponent;
+        _phase = _GenerationPhase.opponentFound;
+      });
+      _openFirstBattleTimer?.cancel();
+      _openFirstBattleTimer = Timer(_opponentRevealDuration, _openFirstBattle);
+    } catch (error) {
+      if (mounted) {
+        setState(() {
+          _phase = _GenerationPhase.error;
+          _error = error;
+        });
+      }
+    }
+  }
+
+  /// 決まった相手との初回のバトルの画面を開き、閉じたらこの画面も閉じる。
+  Future<void> _openFirstBattle() async {
+    final opponent = _firstBattleOpponent;
+    final monster = _firstBattleMonster;
+    // 演出の終わりまでに閉じられた (閉じている途中の) 画面からはバトルを開かない
+    if (_hasOpenedFirstBattle ||
+        opponent == null ||
+        monster == null ||
+        !mounted ||
+        !(ModalRoute.of(context)?.isCurrent ?? false)) {
+      return;
+    }
+    _hasOpenedFirstBattle = true;
+    _logFirstExperience(step: FirstExperienceStep.battleStarted);
+    final dexStore = widget.dexStore;
+    // 経路が作り直されると builder が呼び直されるため、決着の後にレベルが上がった手持ちを渡し直さないよう、開く時の手持ちで固定する
+    final playerParty = List.of(dexStore.party);
+    final action = await Navigator.of(context).push(
+      MaterialPageRoute<BattleScreenAction>(
+        builder: (context) => BattleScreen(
+          playerParty: playerParty,
+          opponentParty: opponent.opponentParty,
+          opponentKind: opponent.opponentKind,
+          definitions: opponent.definitions,
+          randomSeed: _firstBattleRandomSeed,
+          battleRecorder: widget.battleRecorder,
+          onPlayerLevelsChanged: dexStore.updateLevels,
+          cardSharer: widget.cardSharer,
+          firstBattleBornMonster: monster,
+          firstBattleMonsterIsNewlyBorn:
+              monster.definition.id != _alreadyInDexMonster?.definition.id,
+          // 初回の相手には対戦相手の画面を通らずに当たるため、バトルの画面で通報・ブロックできるようにする (ストアの UGC 要件)。
+          // ログインが無い時は相手が CPU トレーナーになるため、ここに来る他のユーザーは常にサーバーから読んだ相手
+          opponentSafetyMenu: switch (opponent.pvpOpponent) {
+            final pvpOpponent? => OpponentSafetyMenuButton(
+              opponent: pvpOpponent,
+              pvpClient: widget.pvpClient,
+              sendsToServer: true,
+              openUrl: widget.openUrl,
+              onOpponentRemoved: null,
+            ),
+            null => null,
+          },
+        ),
+      ),
+    );
+    if (mounted) {
+      Navigator.of(context).pop(
+        action == BattleScreenAction.openDex
+            ? ResultScreenAction.openDex
+            : null,
+      );
     }
   }
 
@@ -142,6 +333,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
       );
     } catch (error) {
       if (mounted) {
+        _logFirstExperienceFailureIfNeeded();
         setState(() {
           _phase = _GenerationPhase.error;
           _error = error;
@@ -151,6 +343,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
   }
 
   /// [result] に応じて、生まれた画面を開くか、判定待ち・生成しなかった理由を出す。
+  /// 初回の導線では、新しく生まれたらそのまま初回のバトルの準備に進み、もう図鑑にいた時はそのことと戦う操作を出す。
   Future<void> _handleResult({required GenerationResult result}) async {
     if (!mounted) {
       return;
@@ -179,6 +372,21 @@ class _GenerationScreenState extends State<GenerationScreen> {
         if (!mounted) {
           return;
         }
+        final dexStore = widget.dexStore;
+        if (_startsFirstBattle &&
+            dexStore.party.isEmpty &&
+            dexStore.hasPartyVacancy) {
+          if (isNewlyBorn) {
+            await _prepareFirstBattle(monster: monster);
+          } else {
+            _logFirstExperience(step: FirstExperienceStep.generationFailed);
+            setState(() {
+              _alreadyInDexMonster = monster;
+              _phase = _GenerationPhase.alreadyInDex;
+            });
+          }
+          return;
+        }
         final action = await Navigator.of(context).push(
           MaterialPageRoute<ResultScreenAction>(
             builder: (context) => ResultScreen(
@@ -195,8 +403,10 @@ class _GenerationScreenState extends State<GenerationScreen> {
           Navigator.of(context).pop(action);
         }
       case GenerationStatus.processing || GenerationStatus.pendingJudge:
+        _logFirstExperienceFailureIfNeeded();
         setState(() => _phase = _GenerationPhase.waiting);
       case GenerationStatus.rejected || GenerationStatus.failed:
+        _logFirstExperienceFailureIfNeeded();
         setState(() => _phase = _GenerationPhase.notGenerated);
     }
   }
@@ -242,6 +452,25 @@ class _GenerationScreenState extends State<GenerationScreen> {
   );
 
   List<Widget> _buildPhaseContent() => switch (_phase) {
+    // 初回の導線は生成を待つ間も相手を探している見せ方にし、生成の段階は小さく添える
+    _GenerationPhase.inProgress when _startsFirstBattle => [
+      const Text(
+        '相手を探しています',
+        textAlign: TextAlign.center,
+        style: SnapmonTextStyles.hero,
+      ),
+      const SizedBox(height: 12),
+      Text(
+        _firstBattleMonster == null
+            ? _inProgressText()
+            : '${_firstBattleMonster!.definition.name} で戦います',
+        key: const Key('matchmaking-stage'),
+        textAlign: TextAlign.center,
+        style: SnapmonTextStyles.body,
+      ),
+      const SizedBox(height: 24),
+      const Center(child: CircularProgressIndicator()),
+    ],
     _GenerationPhase.inProgress => [
       Text(
         _inProgressText(),
@@ -250,6 +479,57 @@ class _GenerationScreenState extends State<GenerationScreen> {
       ),
       const SizedBox(height: 24),
       const Center(child: CircularProgressIndicator()),
+    ],
+    _GenerationPhase.opponentFound => [
+      Text(
+        '${_firstBattleOpponent!.opponentName} があらわれた',
+        textAlign: TextAlign.center,
+        style: SnapmonTextStyles.hero,
+      ),
+      const SizedBox(height: 12),
+      Text(
+        '${_firstBattleMonster!.definition.name} で戦おう',
+        textAlign: TextAlign.center,
+        style: SnapmonTextStyles.body,
+      ),
+      const SizedBox(height: 24),
+      // バトルの画面を開くまでの待ち (_openFirstBattleTimer) を見せる。繰り返すアニメーションにしない
+      TweenAnimationBuilder<double>(
+        tween: Tween(begin: 0, end: 1),
+        duration: _opponentRevealDuration,
+        builder: (context, value, _) => ClipRRect(
+          borderRadius: SnapmonRadii.tag,
+          child: LinearProgressIndicator(
+            value: value,
+            minHeight: 6,
+            color: SnapmonColors.accent,
+            backgroundColor: SnapmonColors.surface,
+          ),
+        ),
+      ),
+    ],
+    _GenerationPhase.alreadyInDex => [
+      const Text(
+        'もう図鑑にいます',
+        textAlign: TextAlign.center,
+        style: SnapmonTextStyles.hero,
+      ),
+      const SizedBox(height: 12),
+      Text(
+        'この被写体は ${_alreadyInDexMonster!.definition.name} として図鑑にいます\nこのモンスターで戦えます',
+        textAlign: TextAlign.center,
+        style: SnapmonTextStyles.body,
+      ),
+      const SizedBox(height: 28),
+      FilledButton(
+        onPressed: () => _prepareFirstBattle(monster: _alreadyInDexMonster!),
+        child: const Text('このモンスターで戦う'),
+      ),
+      const SizedBox(height: 12),
+      OutlinedButton(
+        onPressed: () => Navigator.of(context).pop(),
+        child: const Text('撮り直す'),
+      ),
     ],
     _GenerationPhase.waiting => [
       const Text(
@@ -290,8 +570,8 @@ class _GenerationScreenState extends State<GenerationScreen> {
       ),
     ],
     _GenerationPhase.error => [
-      const Text(
-        '生成できませんでした',
+      Text(
+        _firstBattleMonster == null ? '生成できませんでした' : '対戦の準備ができませんでした',
         textAlign: TextAlign.center,
         style: SnapmonTextStyles.hero,
       ),
@@ -304,7 +584,12 @@ class _GenerationScreenState extends State<GenerationScreen> {
         ),
       ),
       const SizedBox(height: 28),
-      FilledButton(onPressed: _generate, child: const Text('もう一度試す')),
+      FilledButton(
+        onPressed: _firstBattleMonster == null
+            ? _generate
+            : () => _prepareFirstBattle(monster: _firstBattleMonster!),
+        child: const Text('もう一度試す'),
+      ),
       const SizedBox(height: 12),
       OutlinedButton(
         onPressed: () => Navigator.of(context).pop(),

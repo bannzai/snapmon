@@ -19,12 +19,39 @@ enum AnalyticsEvent {
   titleShown('title_shown'),
 
   /// タイトル画面のボタンを押した (パラメータ `action`: album / camera / continue)。
-  titleAction('title_action');
+  titleAction('title_action'),
+
+  /// 初回の導線 (手持ちが空の時に写真を選んでそのまま戦う) の段階 (パラメータ `step`: [FirstExperienceStep] の名前。
+  /// 送る時点は documents/DIRECTION.md「決めたこと」の #45 の行)。
+  firstExperience('first_experience');
 
   const AnalyticsEvent(this.eventName);
 
   /// Analytics に送るイベント名。
   final String eventName;
+}
+
+/// 初回の導線の段階 (計測の `first_experience` の `step`)。
+enum FirstExperienceStep {
+  /// 写真を選んで生成の画面に入った。
+  photoSelected('photo_selected'),
+
+  /// モンスターが生まれ、対戦相手が決まった (「○○ があらわれた」)。
+  matchmaking('matchmaking'),
+
+  /// 初回のバトルの画面を開いた。
+  battleStarted('battle_started'),
+
+  /// 初回のバトルが決着した。
+  battleCompleted('battle_completed'),
+
+  /// 新しいモンスターが生まれなかった (生成しなかった・失敗・判定待ち・同じ被写体・呼び出しの例外)。
+  generationFailed('generation_failed');
+
+  const FirstExperienceStep(this.stepName);
+
+  /// Analytics に送る `step` の値。
+  final String stepName;
 }
 
 /// ログインして Analytics の収集を始めたか。

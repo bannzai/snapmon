@@ -63,6 +63,9 @@ void main() {
             artImage: artImage,
             shareResultStatus: ShareResultStatus.success,
           ),
+          firstBattleBornMonster: null,
+          firstBattleMonsterIsNewlyBorn: false,
+          opponentSafetyMenu: null,
         ),
       ),
     );
@@ -87,6 +90,63 @@ void main() {
       await tester.pump();
       await tester.pump(const Duration(seconds: 5));
     }
+  }
+
+  for (final (isNewlyBorn, label) in [
+    (true, 'あたらしい なかま'),
+    (false, 'きみの なかま'),
+  ]) {
+    testWidgets(
+      '初回の 1 戦の勝敗の画面のカードは、新しく生まれた時だけ「あたらしい なかま」と出す (isNewlyBorn: $isNewlyBorn)',
+      (tester) async {
+        tester.view
+          ..physicalSize = const Size(390, 844)
+          ..devicePixelRatio = 1;
+        addTearDown(tester.view.reset);
+        await tester.pumpWidget(
+          MaterialApp(
+            theme: snapmonThemeData(),
+            home: BattleScreen(
+              playerParty: [strongPlayer],
+              opponentParty: [weakOpponent],
+              opponentKind: BattleOpponentKind.cpu,
+              definitions: sampleData.definitions,
+              randomSeed: 1,
+              battleRecorder: fakeBattleRecorder(
+                calls: RecordedBattleCalls(),
+                startBattleRecord: () async => null,
+                recordedLevels: const {},
+              ),
+              onPlayerLevelsChanged: ({required levelsByMonsterId}) {},
+              cardSharer: fakeCardSharer(
+                calls: RecordedShareCalls(),
+                artImage: null,
+                shareResultStatus: ShareResultStatus.success,
+              ),
+              firstBattleBornMonster: strongPlayer,
+              firstBattleMonsterIsNewlyBorn: isNewlyBorn,
+              opponentSafetyMenu: null,
+            ),
+          ),
+        );
+        await tester.pump(const Duration(seconds: 1));
+        // 100 ターン: playUntilFinished と同じ上限。初回の 1 戦の勝敗の画面には「もどる」の代わりに「図鑑を見る」が出る
+        for (
+          var turn = 0;
+          turn < 100 && find.text('図鑑を見る').evaluate().isEmpty;
+          turn++
+        ) {
+          await tester.tap(
+            find.text('わるあがき').evaluate().isEmpty
+                ? find.byKey(const Key('move-slot-0'))
+                : find.text('わるあがき'),
+          );
+          await tester.pump();
+          await tester.pump(const Duration(seconds: 5));
+        }
+        expect(find.text(label), findsOneWidget);
+      },
+    );
   }
 
   testWidgets('技を選ぶと決着まで進み、勝敗とレベルの上がり方を出して記録と計測をする', (tester) async {

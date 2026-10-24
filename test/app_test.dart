@@ -13,6 +13,7 @@ import 'package:snapmon/features/battle/battle_screen.dart';
 import 'package:snapmon/features/capture/monster_generator.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
 import 'package:snapmon/features/home/home_shell.dart';
+import 'package:snapmon/features/opponent/opponent_safety_actions.dart';
 import 'package:snapmon/features/opponent/pvp_client.dart';
 import 'package:snapmon/features/opponent/pvp_opponent.dart';
 import 'package:snapmon/features/session/session_store.dart';
@@ -52,6 +53,9 @@ void main() {
   /// ログインの通信が遅い状態を作る。null 以外なら、ログインは complete するまで終わらない。
   Completer<void>? startSessionGate;
 
+  /// 生成に時間がかかる状態を作る。null 以外なら、[appMonsterGenerator] の生成は complete するまで終わらない。
+  Completer<void>? generationGate;
+
   /// [pumpApp] のバトルの記録の開始が返す battleId と、記録の完了が返すレベル。
   /// 既定はログインしていない時の振る舞い (記録しない)。テストが [pumpApp] の前に変える。
   late Future<String?> Function() startBattleRecord;
@@ -77,6 +81,7 @@ void main() {
   setUp(() {
     albumPhoto = testPhotoBytes;
     startSessionGate = null;
+    generationGate = null;
     startBattleRecord = () async => null;
     recordedLevels = const {};
     pvpCalls = RecordedPvpCalls();
@@ -114,6 +119,7 @@ void main() {
     albumPhoto: albumPhoto,
     uploadError: null,
     requestGeneration: ({required requestId}) async {
+      await generationGate?.future;
       dexStore.applyServerSnapshot(
         monsters: [
           ...dexStore.monsters,
@@ -277,6 +283,13 @@ void main() {
     await tester.pumpAndSettle();
   }
 
+  /// 図鑑と手持ちに見本のモンスターを 1 体入れる。写真を選んだ時に手持ちがあるため、初回の導線 (生まれたらそのまま戦う) ではなく
+  /// 2 回目以降の導線 (生まれたカードを出す) になる。
+  Future<void> seedPartyWithOneMonster({required WidgetTester tester}) async {
+    dexStore.replaceAll(monsters: [sampleData.monsters.first]);
+    await tester.pumpAndSettle();
+  }
+
   /// 図鑑に見本を入れて、タイトル画面の「つづきから」で下タブの画面に入る。
   Future<void> enterHomeFromTitle({required WidgetTester tester}) async {
     dexStore.replaceAll(monsters: sampleData.monsters);
@@ -372,37 +385,39 @@ void main() {
       expect(find.byKey(const Key('title-album')), findsOneWidget);
     });
 
-    testWidgets('「写真から選んではじめる」で写真を選ぶと生成の画面に進み、生まれたカードが出て、手持ちに入れると図鑑に入る', (
-      tester,
-    ) async {
-      await pumpApp(
-        tester: tester,
-        hasStartedSession: true,
-        startSessionFailureCount: 0,
-        isDeveloperMenuEnabled: false,
-      );
-      await tapStartFromAlbum(tester: tester);
-      final bornMonster = generatedWaxMonster(
-        monsterId: 'generated-request-1',
-      ).definition;
-      expect(find.text('あたらしい なかま'), findsOneWidget);
-      expect(find.text(bornMonster.name), findsOneWidget);
-      expect(generationCalls.uploadedRequestIds, ['request-1']);
-      expect(
-        generationCalls.loggedEvents.single.event,
-        AnalyticsEvent.monsterGenerated,
-      );
-      expect(titleEvents.map((logged) => logged.event), [
-        AnalyticsEvent.titleShown,
-        AnalyticsEvent.titleAction,
-      ]);
-      expect(titleEvents.last.parameters, {'action': 'album'});
+    testWidgets(
+      '手持ちがある時は「写真から選んではじめる」で写真を選ぶと生成の画面に進み、生まれたカードが出て、手持ちに入れると図鑑に入る',
+      (tester) async {
+        await pumpApp(
+          tester: tester,
+          hasStartedSession: true,
+          startSessionFailureCount: 0,
+          isDeveloperMenuEnabled: false,
+        );
+        await seedPartyWithOneMonster(tester: tester);
+        await tapStartFromAlbum(tester: tester);
+        final bornMonster = generatedWaxMonster(
+          monsterId: 'generated-request-1',
+        ).definition;
+        expect(find.text('あたらしい なかま'), findsOneWidget);
+        expect(find.text(bornMonster.name), findsOneWidget);
+        expect(generationCalls.uploadedRequestIds, ['request-1']);
+        expect(
+          generationCalls.loggedEvents.single.event,
+          AnalyticsEvent.monsterGenerated,
+        );
+        expect(titleEvents.map((logged) => logged.event), [
+          AnalyticsEvent.titleShown,
+          AnalyticsEvent.titleAction,
+        ]);
+        expect(titleEvents.last.parameters, {'action': 'album'});
 
-      await tester.tap(find.text('手持ちに入れる'));
-      await tester.pumpAndSettle();
-      expect(find.text('1 体 · 手持ち 1 体'), findsOneWidget);
-      expect(find.byKey(const Key('tab-capture')), findsOneWidget);
-    });
+        await tester.tap(find.text('手持ちに入れる'));
+        await tester.pumpAndSettle();
+        expect(find.text('2 体 · 手持ち 2 体'), findsOneWidget);
+        expect(find.byKey(const Key('tab-capture')), findsOneWidget);
+      },
+    );
 
     testWidgets('生まれた画面の「もう 1 体撮る」でタイトルではなく撮る画面に進む', (tester) async {
       await pumpApp(
@@ -411,11 +426,12 @@ void main() {
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
       );
+      await seedPartyWithOneMonster(tester: tester);
       await tapStartFromAlbum(tester: tester);
       await tester.tap(find.text('もう 1 体撮る'));
       await tester.pumpAndSettle();
       expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
-      expect(find.text('図鑑 1'), findsOneWidget);
+      expect(find.text('図鑑 2'), findsOneWidget);
     });
 
     testWidgets('「写真から選んではじめる」で選ばずに閉じた時はタイトルに留まる', (tester) async {
@@ -445,6 +461,7 @@ void main() {
         startSessionFailureCount: 3,
         isDeveloperMenuEnabled: false,
       );
+      await seedPartyWithOneMonster(tester: tester);
       // タイトルを見ている間に裏でログインを始める。失敗はタイトルに出さない
       expect(startSessionCallCount, 1);
       expect(find.text('つながりませんでした'), findsNothing);
@@ -495,6 +512,7 @@ void main() {
         isDeveloperMenuEnabled: false,
       );
       expect(startSessionCallCount, 1);
+      await seedPartyWithOneMonster(tester: tester);
       await tester.tap(find.byKey(const Key('title-album')));
       // ログインの画面の進捗の表示は止まらないため、pumpAndSettle を使わず 1 フレームずつ進める
       await tester.pump();
@@ -616,6 +634,7 @@ void main() {
       expect(tester.takeException(), isNull);
       expect(find.text('写真から選んではじめる'), findsOneWidget);
 
+      await seedPartyWithOneMonster(tester: tester);
       await tester.scrollUntilVisible(
         find.byKey(const Key('title-album')),
         100,
@@ -637,6 +656,7 @@ void main() {
       // はみ出しは RenderFlex のエラーとして報告されるため、例外が無いことで確かめる
       expect(tester.takeException(), isNull);
 
+      await seedPartyWithOneMonster(tester: tester);
       await tester.scrollUntilVisible(
         find.byKey(const Key('title-album')),
         100,
@@ -656,6 +676,7 @@ void main() {
         startSessionFailureCount: 2,
         isDeveloperMenuEnabled: true,
       );
+      await seedPartyWithOneMonster(tester: tester);
       await tapStartFromAlbum(tester: tester);
       expect(find.text('つながりませんでした'), findsOneWidget);
       await tester.tap(find.text('ログインせずに進む (DEBUG)'));
@@ -684,10 +705,236 @@ void main() {
       expect(find.text('写真から選んではじめる'), findsOneWidget);
       expect(find.byKey(const Key('tab-dex')), findsNothing);
 
+      await seedPartyWithOneMonster(tester: tester);
       await tapStartFromAlbum(tester: tester);
       expect(startSessionCallCount, 1);
       expect(find.text('あたらしい なかま'), findsOneWidget);
     });
+  });
+
+  group('初回の導線 (手持ちが空の時)', () {
+    /// 初回のバトルを決着まで進める (初回のバトルの勝敗の画面には「もどる」の代わりに「もう 1 体撮る」が出る)。
+    /// バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める。
+    Future<void> playFirstBattleUntilFinished({
+      required WidgetTester tester,
+    }) async {
+      // 100 ターン: レベル 1 同士なら数ターンで決着するため、決着しない不具合でテストが止まらない上限として十分な数
+      for (
+        var turn = 0;
+        turn < 100 &&
+            find
+                .byKey(const Key('first-battle-capture-again'))
+                .evaluate()
+                .isEmpty;
+        turn++
+      ) {
+        await tester.tap(
+          find.text('わるあがき').evaluate().isEmpty
+              ? find.byKey(const Key('move-slot-0'))
+              : find.text('わるあがき'),
+        );
+        await tester.pump();
+        await tester.pump(const Duration(seconds: 5));
+      }
+    }
+
+    testWidgets(
+      'タイトルで写真を選ぶと生成の完了を待たずに相手を探す画面に進み、生まれると手持ちに入れて PvP の相手とバトルし、決着で生まれたカードと勝敗が同じ画面に出る',
+      (tester) async {
+        generationGate = Completer<void>();
+        pvpClient = fakePvpClient(
+          calls: pvpCalls,
+          fetchOpponents: () async => [
+            PvpOpponent(
+              opponentUid: 'opponent-uid-1',
+              displayName: 'ろうそくや',
+              monsters: [generatedWaxMonster(monsterId: 'opponent-wax-1')],
+            ),
+          ],
+          extraDefinitions: MasterData.fromJson(json: waxDefinitionJson),
+          battleRecord: null,
+          displayName: null,
+          reportMonster: () async {},
+          blockUser: () async {},
+          updateDisplayName: ({required displayName}) async => displayName,
+        );
+        await pumpApp(
+          tester: tester,
+          hasStartedSession: true,
+          startSessionFailureCount: 0,
+          isDeveloperMenuEnabled: false,
+        );
+        await tester.tap(find.byKey(const Key('title-album')));
+        // 相手を探す表示の進捗は止まらないため、pumpAndSettle を使わず時間を指定して進める
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 500));
+        // 生成はまだ終わっていない
+        expect(generationCalls.requestedRequestIds, ['request-1']);
+        expect(find.text('相手を探しています'), findsOneWidget);
+        expect(find.text('あたらしい なかま'), findsNothing);
+        expect(find.byType(BattleScreen), findsNothing);
+        expect(pvpCalls.fetchOpponentsCount, 0);
+
+        generationGate!.complete();
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 100));
+        const bornMonsterId = 'generated-request-1';
+        expect(dexStore.party.map((monster) => monster.definition.id), [
+          bornMonsterId,
+        ]);
+        expect(find.text('ろうそくや があらわれた'), findsOneWidget);
+        expect(pvpCalls.fetchOpponentsCount, 1);
+        expect(pvpCalls.fetchedDefinitionIds, [
+          [waxDefinitionId],
+        ]);
+
+        await tester.pump(const Duration(seconds: 2));
+        await tester.pump(const Duration(seconds: 1));
+        expect(find.byType(BattleScreen), findsOneWidget);
+        expect(find.byKey(const Key('first-battle-hint')), findsOneWidget);
+        expect(find.text('ロウソクン が 勝負をしかけてきた'), findsOneWidget);
+
+        // 初回の相手は対戦相手の画面を通らずに当たるため、バトルの画面から通報とブロックができ、した後もバトルは続く
+        Future<void> openOpponentSafetyMenu() async {
+          await tester.tap(
+            find.byKey(const Key('opponent-menu-opponent-uid-1')),
+          );
+          await tester.pump();
+          await tester.pump(const Duration(milliseconds: 500));
+        }
+
+        await openOpponentSafetyMenu();
+        await tester.tap(find.text('ロウソクン を通報'));
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 500));
+        await tester.tap(find.byKey(const Key('report-reason-other')));
+        await tester.pump();
+        await tester.tap(find.byKey(const Key('report-submit')));
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 500));
+        expect(
+          [
+            for (final report in pvpCalls.reports)
+              (report.monsterOwnerUid, report.monsterId),
+          ],
+          [('opponent-uid-1', 'opponent-wax-1')],
+        );
+        expect(find.text('通報しました'), findsOneWidget);
+
+        await openOpponentSafetyMenu();
+        await tester.tap(find.text('このトレーナーをブロック'));
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 500));
+        await tester.tap(find.byKey(const Key('block-confirm')));
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 500));
+        expect(pvpCalls.blockedUids, ['opponent-uid-1']);
+        expect(find.text('ブロックしました'), findsOneWidget);
+        expect(find.byType(BattleScreen), findsOneWidget);
+        // 技のボタンを押す前に、ボタンに重なるスナックバーが消えるまで進める
+        await tester.pump(const Duration(seconds: 5));
+        await tester.pump(const Duration(seconds: 1));
+
+        await playFirstBattleUntilFinished(tester: tester);
+        // 決着の後も通報・ブロックできる
+        expect(
+          find.byKey(const Key('opponent-menu-opponent-uid-1')),
+          findsOneWidget,
+        );
+        final bornMonster = generatedWaxMonster(
+          monsterId: bornMonsterId,
+        ).definition;
+        // 生まれたカードと勝敗が同じ画面に出る
+        expect(find.text('あたらしい なかま'), findsOneWidget);
+        expect(find.text(bornMonster.encyclopediaText), findsOneWidget);
+        expect(find.text('名前と図鑑の文章は AI が作りました'), findsOneWidget);
+        expect(
+          find.text('かった').evaluate().length +
+              find.text('まけた').evaluate().length,
+          1,
+        );
+        expect(find.text('${bornMonster.name}  Lv. 1 → 2'), findsOneWidget);
+        expect(find.text('結果を共有'), findsOneWidget);
+        expect(find.text('図鑑を見る'), findsOneWidget);
+        expect(find.text('もどる'), findsNothing);
+        expect(tester.takeException(), isNull);
+
+        expect(
+          [
+            for (final logged in generationCalls.loggedEvents)
+              logged.event == AnalyticsEvent.firstExperience
+                  ? logged.parameters!['step']
+                  : logged.event.eventName,
+          ],
+          [
+            'photo_selected',
+            'monster_generated',
+            'matchmaking',
+            'battle_started',
+          ],
+        );
+        expect(
+          [
+            for (final logged in battleCalls.loggedEvents)
+              logged.event == AnalyticsEvent.firstExperience
+                  ? logged.parameters!['step']
+                  : logged.event.eventName,
+          ],
+          ['battle_completed', 'battle_completed'],
+        );
+        expect(battleCalls.loggedEvents.first.parameters?['opponent'], 'pvp');
+        expect(
+          battleCalls.loggedEvents.last.event,
+          AnalyticsEvent.firstExperience,
+        );
+
+        // 「もう 1 体撮る」で撮るタブに進む。手持ちがあるので、撮るタブの初回の案内はもう出ない
+        await tester.tap(find.byKey(const Key('first-battle-capture-again')));
+        await tester.pump();
+        await tester.pump(const Duration(seconds: 1));
+        expect(find.byType(BattleScreen), findsNothing);
+        expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
+        expect(find.text('図鑑 1'), findsOneWidget);
+        expect(find.byKey(const Key('capture-first-hint')), findsNothing);
+      },
+    );
+
+    testWidgets(
+      '撮るタブは手持ちが空の時に案内を出し、アルバムから選ぶと PvP の候補が無い時は CPU トレーナーと戦い、「図鑑を見る」で図鑑に入る',
+      (tester) async {
+        await pumpHome(
+          tester: tester,
+          hasStartedSession: true,
+          startSessionFailureCount: 0,
+          isDeveloperMenuEnabled: false,
+        );
+        // テストの環境にはカメラが無いため、選ぶ案内になる
+        expect(find.text('身の回りの物の写真を 1 枚選ぼう'), findsOneWidget);
+
+        await tester.tap(find.byTooltip('アルバムから選ぶ'));
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 500));
+        final cpuOpponent = sampleData.opponents.firstWhere(
+          (opponent) => opponent.id == cpuOpponentId,
+        );
+        expect(find.text('${cpuOpponent.name} があらわれた'), findsOneWidget);
+        // ログインが無い時の候補 (null) を読んだ上で CPU トレーナーにする
+        expect(pvpCalls.fetchOpponentsCount, 1);
+
+        await tester.pump(const Duration(seconds: 2));
+        await tester.pump(const Duration(seconds: 1));
+        expect(find.byType(BattleScreen), findsOneWidget);
+        // CPU トレーナーは他のユーザーではないため、通報・ブロックのメニューを出さない
+        expect(find.byType(OpponentSafetyMenuButton), findsNothing);
+        await playFirstBattleUntilFinished(tester: tester);
+        expect(battleCalls.loggedEvents.first.parameters?['opponent'], 'cpu');
+
+        await tester.tap(find.text('図鑑を見る'));
+        await tester.pump();
+        await tester.pump(const Duration(seconds: 1));
+        expect(find.text('1 体 · 手持ち 1 体'), findsOneWidget);
+      },
+    );
   });
 
   group('下タブと画面の遷移', () {
@@ -714,13 +961,14 @@ void main() {
       expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
     });
 
-    testWidgets('アルバムから選ぶと生成して生まれた画面が開き、手持ちに入れると図鑑に戻る', (tester) async {
+    testWidgets('手持ちがある時はアルバムから選ぶと生成して生まれた画面が開き、手持ちに入れると図鑑に戻る', (tester) async {
       await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
       );
+      await seedPartyWithOneMonster(tester: tester);
       await tester.tap(find.byTooltip('アルバムから選ぶ'));
       await tester.pumpAndSettle();
       final bornMonster = generatedWaxMonster(
@@ -735,12 +983,13 @@ void main() {
         AnalyticsEvent.monsterGenerated,
       );
       expect(dexStore.monsters.map((monster) => monster.definition.id), [
+        sampleData.monsters.first.definition.id,
         bornMonster.id,
       ]);
 
       await tester.tap(find.text('手持ちに入れる'));
       await tester.pumpAndSettle();
-      expect(find.text('1 体 · 手持ち 1 体'), findsOneWidget);
+      expect(find.text('2 体 · 手持ち 2 体'), findsOneWidget);
       // 手持ちの枠と「すべて」の両方に出る
       expect(find.text(bornMonster.name), findsNWidgets(2));
     });
@@ -752,12 +1001,13 @@ void main() {
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
       );
+      await seedPartyWithOneMonster(tester: tester);
       await tester.tap(find.byTooltip('アルバムから選ぶ'));
       await tester.pumpAndSettle();
       await tester.tap(find.text('もう 1 体撮る'));
       await tester.pumpAndSettle();
       expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
-      expect(find.text('図鑑 1'), findsOneWidget);
+      expect(find.text('図鑑 2'), findsOneWidget);
     });
 
     testWidgets('生まれた画面から図鑑のカードを形を選んで共有し、共有イベントを送る', (tester) async {
@@ -767,6 +1017,7 @@ void main() {
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
       );
+      await seedPartyWithOneMonster(tester: tester);
       await tester.tap(find.byTooltip('アルバムから選ぶ'));
       await tester.pumpAndSettle();
       await tester.tap(find.text('カードを共有'));
@@ -932,6 +1183,7 @@ void main() {
       // はみ出しは RenderFlex のエラーとして報告されるため、例外が無いことで確かめる
       expect(tester.takeException(), isNull);
 
+      await seedPartyWithOneMonster(tester: tester);
       await tester.scrollUntilVisible(
         find.byTooltip('アルバムから選ぶ'),
         100,
@@ -939,7 +1191,7 @@ void main() {
       );
       await tester.tap(find.byTooltip('アルバムから選ぶ'));
       await tester.pumpAndSettle();
-      expect(dexStore.monsters, hasLength(1));
+      expect(dexStore.monsters, hasLength(2));
     });
 
     testWidgets('カメラが無い時はファインダーにそのことを出し、シャッターはアルバムへ案内する', (tester) async {
@@ -1287,6 +1539,8 @@ void main() {
     // バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
+    // 技の選び方の案内は初回の導線の 1 戦目だけに出す
+    expect(find.byKey(const Key('first-battle-hint')), findsNothing);
 
     // 100 ターン: 見本の手持ち同士なら十数ターンで決着するため、決着しない不具合でテストが止まらない上限として十分な数
     for (
@@ -1493,6 +1747,9 @@ void main() {
             artImage: null,
             shareResultStatus: ShareResultStatus.success,
           ),
+          firstBattleBornMonster: null,
+          firstBattleMonsterIsNewlyBorn: false,
+          opponentSafetyMenu: null,
         ),
       ),
     );
@@ -1560,6 +1817,11 @@ void main() {
               isDeveloperMenuEnabled: false,
               accountStore: fakeAccountStore(
                 sessionStore: settingsSessionStore,
+              ),
+              battleRecorder: fakeBattleRecorder(
+                calls: RecordedBattleCalls(),
+                startBattleRecord: () async => null,
+                recordedLevels: const {},
               ),
             ),
           ),
@@ -1918,13 +2180,14 @@ void main() {
       expect(dexStore.monsters, isEmpty);
     });
 
-    testWidgets('開発者メニューの見本の写真から生成すると、生まれた画面が開く', (tester) async {
+    testWidgets('手持ちがある時は開発者メニューの見本の写真から生成すると、生まれた画面が開く', (tester) async {
       await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: true,
       );
+      await seedPartyWithOneMonster(tester: tester);
       await tester.tap(find.byTooltip('設定'));
       await tester.pumpAndSettle();
       await tester.tap(find.text('開発者メニュー'));
