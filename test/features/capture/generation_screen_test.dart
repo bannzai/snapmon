@@ -544,5 +544,81 @@ void main() {
         ]);
       },
     );
+
+    testWidgets('判定待ちから「もう一度確かめる」で生まれた時は、手持ちに入れてバトルに進む', (tester) async {
+      await pumpGenerationScreen(
+        tester: tester,
+        startsFirstBattle: true,
+        generator: fakeMonsterGenerator(
+          calls: calls,
+          albumPhoto: null,
+          uploadError: null,
+          requestGeneration: ({required requestId}) async => GenerationResult(
+            requestId: requestId,
+            status: GenerationStatus.pendingJudge,
+            monsterId: null,
+            rejectionReason: null,
+          ),
+          fetchGeneration: savedGeneration(
+            monsterId: 'm1',
+            status: GenerationStatus.saved,
+            resultRequestId: null,
+          ),
+        ),
+      );
+      await pumpUntilResult(tester: tester);
+      expect(find.text('もう少し待ってね'), findsOneWidget);
+
+      await tester.tap(find.text('もう一度確かめる'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 100));
+      expect(calls.fetchedRequestIds, ['request-1']);
+      expect(dexStore.isInParty(monsterId: 'm1'), isTrue);
+      await tester.pump(const Duration(seconds: 2));
+      await tester.pump(const Duration(seconds: 1));
+      expect(find.byType(BattleScreen), findsOneWidget);
+      expect(firstExperienceSteps(), [
+        'photo_selected',
+        'generation_failed',
+        'matchmaking',
+        'battle_started',
+      ]);
+    });
+
+    testWidgets('生成を待つ間に手持ちが届いて空でなくなった時は、バトルに進まず生まれた画面を開く', (tester) async {
+      await pumpGenerationScreen(
+        tester: tester,
+        startsFirstBattle: true,
+        generator: fakeMonsterGenerator(
+          calls: calls,
+          albumPhoto: null,
+          uploadError: null,
+          // Firestore の手持ち (前の端末で入れた m0) が、生成の結果より先に届く
+          requestGeneration: ({required requestId}) async {
+            dexStore.applyServerSnapshot(
+              monsters: [
+                generatedWaxMonster(monsterId: 'm0'),
+                generatedWaxMonster(monsterId: 'm1'),
+              ],
+              partyMonsterIds: ['m0'],
+              definitions: definitionsWithWax(base: sampleData.definitions),
+            );
+            return GenerationResult(
+              requestId: requestId,
+              status: GenerationStatus.saved,
+              monsterId: 'm1',
+              rejectionReason: null,
+            );
+          },
+          fetchGeneration: unexpectedFetch,
+        ),
+      );
+      await pumpUntilResult(tester: tester);
+      await tester.pump(const Duration(seconds: 1));
+      expect(find.text('あたらしい なかま'), findsOneWidget);
+      expect(find.byType(BattleScreen), findsNothing);
+      expect(dexStore.isInParty(monsterId: 'm1'), isFalse);
+      expect(firstExperienceSteps(), isNot(contains('matchmaking')));
+    });
   });
 }
