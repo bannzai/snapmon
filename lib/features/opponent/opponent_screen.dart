@@ -199,7 +199,8 @@ class _OpponentScreenState extends State<OpponentScreen> {
   void _removeOpponent({required String opponentUid}) {
     _removedOpponentUids.add(opponentUid);
     final state = _pvpOpponentsState;
-    if (state is! _PvpOpponentsLoaded) {
+    // 通報・ブロックを送っている間にこの画面が閉じられた時も呼ばれるため (reportOpponentMonster)、閉じた画面は描き直さない
+    if (!mounted || state is! _PvpOpponentsLoaded) {
       return;
     }
     setState(

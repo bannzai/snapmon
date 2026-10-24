@@ -3,9 +3,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:snapmon/features/battle/battle_screen.dart';
 import 'package:snapmon/features/capture/first_battle.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
-import 'package:snapmon/features/opponent/cpu_party.dart';
 import 'package:snapmon/features/opponent/pvp_client.dart';
 import 'package:snapmon/features/opponent/pvp_opponent.dart';
+import 'package:snapmon/sample/sample_data.dart';
 
 import '../../monster_generator_fixture.dart';
 import '../../sample_data_fixture.dart';

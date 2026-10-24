@@ -10,8 +10,19 @@ import 'report_sheet.dart';
 // 他のユーザーの相手への通報・ブロック (ストアの UGC 要件) の操作。対戦相手の画面と、初回の導線のバトルの画面から使う。
 
 /// [message] を [context] の画面の下に出す。
-void _showMessage({required BuildContext context, required String message}) {
-  ScaffoldMessenger.of(context)
+void _showMessage({required BuildContext context, required String message}) =>
+    _showMessageWithMessenger(
+      messenger: ScaffoldMessenger.of(context),
+      message: message,
+    );
+
+/// [message] を [messenger] の画面の下に出す。送っている間にメニューのボタン (相手のカード) が画面から外れても出せるよう、
+/// 送る前に取った [messenger] を使う。
+void _showMessageWithMessenger({
+  required ScaffoldMessengerState messenger,
+  required String message,
+}) {
+  messenger
     ..hideCurrentSnackBar()
     ..showSnackBar(SnackBar(content: Text(message)));
 }
@@ -35,6 +46,7 @@ Future<void> openContact({
 /// [opponent] のモンスター [monster] を通報するシートを開き、送れたら [onReported] を呼んで「通報しました」を出す。
 /// [sendsToServer] が false の時 (ログインが無く見本の相手を出している時) は送らずに送れた扱いにする (送り先のサーバーが無いため)。
 /// 送っている間にシートを閉じられても通報は届くため、[onReported] はシートの結果ではなく送れた時に呼ぶ。
+/// 送っている間に [context] (相手のカード) が画面から外れても (候補の読み直し等) 呼ぶため、[onReported] の側で画面が閉じていないかを確かめる。
 Future<void> reportOpponentMonster({
   required BuildContext context,
   required PvpClient pvpClient,
@@ -44,6 +56,7 @@ Future<void> reportOpponentMonster({
   required OpenUrl openUrl,
   required VoidCallback? onReported,
 }) async {
+  final messenger = ScaffoldMessenger.of(context);
   await showModalBottomSheet<bool>(
     context: context,
     isScrollControlled: true,
@@ -58,10 +71,8 @@ Future<void> reportOpponentMonster({
             reason: reason,
           );
         }
-        if (context.mounted) {
-          onReported?.call();
-          _showMessage(context: context, message: '通報しました');
-        }
+        onReported?.call();
+        _showMessageWithMessenger(messenger: messenger, message: '通報しました');
       },
       onOpenContact: () => openContact(context: context, openUrl: openUrl),
     ),
@@ -69,7 +80,7 @@ Future<void> reportOpponentMonster({
 }
 
 /// [opponent] をブロックするかを確かめ、ブロックしたら [onBlocked] を呼んで「ブロックしました」を出す。失敗した時はエラーをそのまま出す。
-/// [sendsToServer] の扱いは [reportOpponentMonster] と同じ。
+/// [sendsToServer] と、[context] が外れた時の [onBlocked] の扱いは [reportOpponentMonster] と同じ。
 Future<void> blockOpponent({
   required BuildContext context,
   required PvpClient pvpClient,
@@ -77,6 +88,7 @@ Future<void> blockOpponent({
   required bool sendsToServer,
   required VoidCallback? onBlocked,
 }) async {
+  final messenger = ScaffoldMessenger.of(context);
   final confirmed = await showDialog<bool>(
     context: context,
     builder: (dialogContext) => AlertDialog(
@@ -96,21 +108,17 @@ Future<void> blockOpponent({
       ],
     ),
   );
-  if (confirmed != true || !context.mounted) {
+  if (confirmed != true) {
     return;
   }
   try {
     if (sendsToServer) {
       await pvpClient.blockUser(blockedUid: opponent.opponentUid);
     }
-    if (context.mounted) {
-      onBlocked?.call();
-      _showMessage(context: context, message: 'ブロックしました');
-    }
+    onBlocked?.call();
+    _showMessageWithMessenger(messenger: messenger, message: 'ブロックしました');
   } catch (error) {
-    if (context.mounted) {
-      _showMessage(context: context, message: error.toString());
-    }
+    _showMessageWithMessenger(messenger: messenger, message: error.toString());
   }
 }
 
