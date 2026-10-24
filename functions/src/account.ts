@@ -8,6 +8,7 @@ import { logger } from "firebase-functions";
 import { HttpsError, onCall } from "firebase-functions/v2/https";
 import { onTaskDispatched } from "firebase-functions/v2/tasks";
 
+import { ENFORCE_APP_CHECK } from "./app_check";
 import { STORAGE_BUCKET_NAME } from "./generation/dependencies";
 import type { StorageBucket } from "./generation/pipeline";
 
@@ -160,7 +161,7 @@ export async function deleteAccountFiles(bucket: StorageBucket, { uid, artPaths 
  * Admin SDK で消すため、クライアントの最近のログインは要らない。Sign in with Apple の連携の取り消し (Apple のトークンの revoke) は、
  * クライアントが呼ぶ前に行う (lib/firebase/account.dart)。
  */
-export const deleteAccount = onCall({ enforceAppCheck: true }, async (request) => {
+export const deleteAccount = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async (request) => {
   if (!request.auth) {
     throw new HttpsError("unauthenticated", "ログインの後に呼んでください");
   }
