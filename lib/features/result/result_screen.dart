@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../domain/master/move.dart';
 import '../../domain/monster/stat_calculation.dart';
+import '../../l10n/l10n.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
@@ -78,14 +79,14 @@ class ResultScreen extends StatelessWidget {
     final outgoingMonster = await showDialog<OwnedMonster>(
       context: context,
       builder: (context) => SimpleDialog(
-        title: Text('${monster.definition.name} と入れ替える'),
+        title: Text(context.l10n.resultReplaceTitle(monster.definition.name)),
         children: [
           for (final partyMonster in dexStore.party)
             SimpleDialogOption(
               key: Key('replace-${partyMonster.definition.id}'),
               onPressed: () => Navigator.of(context).pop(partyMonster),
               child: Text(
-                '${partyMonster.definition.name}  Lv. ${partyMonster.level}',
+                '${partyMonster.definition.name}  ${context.l10n.commonLevel(partyMonster.level)}',
               ),
             ),
         ],
@@ -136,16 +137,18 @@ class ResultScreen extends StatelessWidget {
                 children: [
                   SquareIconButton(
                     icon: Icons.chevron_left,
-                    tooltip: '戻る',
+                    tooltip: context.l10n.commonBack,
                     onPressed: () => Navigator.of(context).pop(),
                     size: 44,
                   ),
                   Expanded(
                     child: Text(
                       switch (origin) {
-                        ResultScreenOrigin.newlyBorn => 'あたらしい なかま',
-                        ResultScreenOrigin.alreadyInDex => 'もう図鑑にいます',
-                        ResultScreenOrigin.dex => '図鑑',
+                        ResultScreenOrigin.newlyBorn =>
+                          context.l10n.resultNewlyBorn,
+                        ResultScreenOrigin.alreadyInDex =>
+                          context.l10n.generationAlreadyInDexTitle,
+                        ResultScreenOrigin.dex => context.l10n.tabDex,
                       },
                       textAlign: TextAlign.center,
                       style: SnapmonTextStyles.label.copyWith(
@@ -184,7 +187,7 @@ class ResultScreen extends StatelessWidget {
                                     ),
                                     const SizedBox(height: 4),
                                     Text(
-                                      'Lv. ${monster.level}',
+                                      context.l10n.commonLevel(monster.level),
                                       style: SnapmonTextStyles.caption.copyWith(
                                         color: SnapmonColors.textOnCardMuted,
                                       ),
@@ -212,7 +215,7 @@ class ResultScreen extends StatelessWidget {
                                 child: AspectRatio(
                                   aspectRatio: 1,
                                   child: _LabeledPanel(
-                                    label: '写真',
+                                    label: context.l10n.resultPhoto,
                                     // 元の写真は本人の図鑑だけに出す (Storage の Rules で本人だけが読める)。
                                     // 見本のモンスターは写真も切り出した画像も持たないため、印だけを出す
                                     child: ColoredBox(
@@ -237,7 +240,7 @@ class ResultScreen extends StatelessWidget {
                                 child: AspectRatio(
                                   aspectRatio: 1,
                                   child: _LabeledPanel(
-                                    label: 'モンスター',
+                                    label: context.l10n.resultMonster,
                                     child: MonsterArt(
                                       monster: monster,
                                       backgroundColor: SnapmonColors.cardSubtle,
@@ -257,7 +260,7 @@ class ResultScreen extends StatelessWidget {
                           const SizedBox(height: 6),
                           // 名前と図鑑の文章が AI の生成であることの表示 (DIRECTION.md「必要な機能」の未成年向けの安全策)
                           Text(
-                            '名前と図鑑の文章は AI が作りました',
+                            context.l10n.commonAiGeneratedNotice,
                             style: SnapmonTextStyles.small.copyWith(
                               color: SnapmonColors.textOnCardMuted,
                             ),
@@ -266,10 +269,10 @@ class ResultScreen extends StatelessWidget {
                           Row(
                             children: [
                               for (final (label, value) in [
-                                ('HP', stats.hitPoints),
-                                ('攻撃', stats.attack),
-                                ('防御', stats.defense),
-                                ('素早さ', stats.speed),
+                                (context.l10n.statHitPoints, stats.hitPoints),
+                                (context.l10n.statAttack, stats.attack),
+                                (context.l10n.statDefense, stats.defense),
+                                (context.l10n.statSpeed, stats.speed),
                               ])
                                 Expanded(
                                   child: Padding(
@@ -310,7 +313,7 @@ class ResultScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 14),
                           Text(
-                            'おぼえている技',
+                            context.l10n.resultLearnedMoves,
                             style: SnapmonTextStyles.caption.copyWith(
                               color: SnapmonColors.textOnCardMuted,
                             ),
@@ -363,10 +366,10 @@ class ResultScreen extends StatelessWidget {
                             : () => _replacePartyMember(context: context),
                         child: Text(
                           isInParty
-                              ? '手持ちから外す'
+                              ? context.l10n.resultRemoveFromParty
                               : dexStore.hasPartyVacancy
-                              ? '手持ちに入れる'
-                              : '手持ちと入れ替える',
+                              ? context.l10n.resultAddToParty
+                              : context.l10n.resultReplaceInParty,
                         ),
                       );
                     },
@@ -377,7 +380,7 @@ class ResultScreen extends StatelessWidget {
                       if (origin != ResultScreenOrigin.dex) ...[
                         Expanded(
                           child: _SecondaryButton(
-                            label: 'もう 1 体撮る',
+                            label: context.l10n.resultCaptureAnother,
                             onPressed: () => Navigator.of(context).pop(),
                           ),
                         ),
@@ -402,12 +405,14 @@ class ResultScreen extends StatelessWidget {
                                     definitions: dexStore.definitions,
                                     format: format,
                                   ),
-                          shareText:
-                              'snapmon で ${definition.name} が生まれた\n#snapmon\n$landingPageUri',
+                          shareText: context.l10n.resultShareText(
+                            definition.name,
+                            landingPageUri.toString(),
+                          ),
                           fileNamePrefix: 'snapmon-${definition.id}',
                           buttonBuilder: ({required onPressed}) =>
                               _SecondaryButton(
-                                label: 'カードを共有',
+                                label: context.l10n.resultShareCard,
                                 onPressed: onPressed,
                               ),
                         ),

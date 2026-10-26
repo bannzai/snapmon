@@ -8,6 +8,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:snapmon/features/capture/capture_screen.dart';
 import 'package:snapmon/features/capture/monster_generator.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
+import 'package:snapmon/l10n/l10n.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
 
 import '../../battle_recorder_fixture.dart';
@@ -32,6 +33,9 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         theme: snapmonThemeData(),
+        locale: const Locale('ja'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: Scaffold(
           body: CaptureScreen(
             dexStore: DexStore(

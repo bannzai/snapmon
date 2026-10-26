@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 
 import '../../analytics/analytics_events.dart';
+import '../../l10n/l10n.dart';
 import '../../sample/sample_data.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
@@ -226,6 +227,8 @@ class _GenerationScreenState extends State<GenerationScreen> {
   /// 初回の導線で [monster] を手持ちに入れ、対戦相手を決めて「○○ があらわれた」を出す。
   /// 例外の後の「もう一度試す」もここからやり直す (生成は済んでいるため呼び直さない)。
   Future<void> _prepareFirstBattle({required OwnedMonster monster}) async {
+    // 下の await の後は context を使えないため、相手の名前に使う文言を先に取っておく
+    final cpuTrainerName = context.l10n.cpuTrainerName;
     setState(() {
       _firstBattleMonster = monster;
       _phase = _GenerationPhase.inProgress;
@@ -242,6 +245,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
         pvpClient: widget.pvpClient,
         sampleData: widget.sampleData,
         randomSeed: _firstBattleRandomSeed,
+        cpuTrainerName: cpuTrainerName,
       );
       if (!mounted) {
         return;
@@ -421,7 +425,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
             children: [
               SquareIconButton(
                 icon: Icons.close,
-                tooltip: '閉じる',
+                tooltip: context.l10n.commonClose,
                 onPressed: () => Navigator.of(context).pop(),
                 size: 44,
               ),
@@ -445,25 +449,27 @@ class _GenerationScreenState extends State<GenerationScreen> {
             ),
           ),
           const SizedBox(height: 28),
-          ..._buildPhaseContent(),
+          ..._buildPhaseContent(l10n: context.l10n),
         ],
       ),
     ),
   );
 
-  List<Widget> _buildPhaseContent() => switch (_phase) {
+  List<Widget> _buildPhaseContent({
+    required AppLocalizations l10n,
+  }) => switch (_phase) {
     // 初回の導線は生成を待つ間も相手を探している見せ方にし、生成の段階は小さく添える
     _GenerationPhase.inProgress when _startsFirstBattle => [
-      const Text(
-        '相手を探しています',
+      Text(
+        l10n.generationSearchingOpponent,
         textAlign: TextAlign.center,
         style: SnapmonTextStyles.hero,
       ),
       const SizedBox(height: 12),
       Text(
         _firstBattleMonster == null
-            ? _inProgressText()
-            : '${_firstBattleMonster!.definition.name} で戦います',
+            ? _inProgressText(l10n: l10n)
+            : l10n.generationBattleWith(_firstBattleMonster!.definition.name),
         key: const Key('matchmaking-stage'),
         textAlign: TextAlign.center,
         style: SnapmonTextStyles.body,
@@ -473,7 +479,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
     ],
     _GenerationPhase.inProgress => [
       Text(
-        _inProgressText(),
+        _inProgressText(l10n: l10n),
         textAlign: TextAlign.center,
         style: SnapmonTextStyles.hero,
       ),
@@ -482,13 +488,13 @@ class _GenerationScreenState extends State<GenerationScreen> {
     ],
     _GenerationPhase.opponentFound => [
       Text(
-        '${_firstBattleOpponent!.opponentName} があらわれた',
+        l10n.generationOpponentAppeared(_firstBattleOpponent!.opponentName),
         textAlign: TextAlign.center,
         style: SnapmonTextStyles.hero,
       ),
       const SizedBox(height: 12),
       Text(
-        '${_firstBattleMonster!.definition.name} で戦おう',
+        l10n.generationLetsBattleWith(_firstBattleMonster!.definition.name),
         textAlign: TextAlign.center,
         style: SnapmonTextStyles.body,
       ),
@@ -509,69 +515,76 @@ class _GenerationScreenState extends State<GenerationScreen> {
       ),
     ],
     _GenerationPhase.alreadyInDex => [
-      const Text(
-        'もう図鑑にいます',
+      Text(
+        l10n.generationAlreadyInDexTitle,
         textAlign: TextAlign.center,
         style: SnapmonTextStyles.hero,
       ),
       const SizedBox(height: 12),
       Text(
-        'この被写体は ${_alreadyInDexMonster!.definition.name} として図鑑にいます\nこのモンスターで戦えます',
+        l10n.generationAlreadyInDexMessage(
+          _alreadyInDexMonster!.definition.name,
+        ),
         textAlign: TextAlign.center,
         style: SnapmonTextStyles.body,
       ),
       const SizedBox(height: 28),
       FilledButton(
         onPressed: () => _prepareFirstBattle(monster: _alreadyInDexMonster!),
-        child: const Text('このモンスターで戦う'),
+        child: Text(l10n.generationBattleWithThisMonster),
       ),
       const SizedBox(height: 12),
       OutlinedButton(
         onPressed: () => Navigator.of(context).pop(),
-        child: const Text('撮り直す'),
+        child: Text(l10n.generationRetake),
       ),
     ],
     _GenerationPhase.waiting => [
-      const Text(
-        'もう少し待ってね',
-        textAlign: TextAlign.center,
-        style: SnapmonTextStyles.hero,
-      ),
-      const SizedBox(height: 12),
-      const Text(
-        'モンスターの属性を決めるのに時間がかかっています\n生まれたら図鑑に入ります',
-        textAlign: TextAlign.center,
-        style: SnapmonTextStyles.body,
-      ),
-      const SizedBox(height: 28),
-      FilledButton(onPressed: _fetchAgain, child: const Text('もう一度確かめる')),
-      const SizedBox(height: 12),
-      OutlinedButton(
-        onPressed: () => Navigator.of(context).pop(),
-        child: const Text('あとで見る'),
-      ),
-    ],
-    _GenerationPhase.notGenerated => [
-      const Text(
-        '生まれませんでした',
+      Text(
+        l10n.generationWaitingTitle,
         textAlign: TextAlign.center,
         style: SnapmonTextStyles.hero,
       ),
       const SizedBox(height: 12),
       Text(
-        _notGeneratedText(result: _result!),
+        l10n.generationWaitingMessage,
+        textAlign: TextAlign.center,
+        style: SnapmonTextStyles.body,
+      ),
+      const SizedBox(height: 28),
+      FilledButton(
+        onPressed: _fetchAgain,
+        child: Text(l10n.generationCheckAgain),
+      ),
+      const SizedBox(height: 12),
+      OutlinedButton(
+        onPressed: () => Navigator.of(context).pop(),
+        child: Text(l10n.generationSeeLater),
+      ),
+    ],
+    _GenerationPhase.notGenerated => [
+      Text(
+        l10n.generationNotBornTitle,
+        textAlign: TextAlign.center,
+        style: SnapmonTextStyles.hero,
+      ),
+      const SizedBox(height: 12),
+      Text(
+        _notGeneratedText(l10n: l10n, result: _result!),
         textAlign: TextAlign.center,
         style: SnapmonTextStyles.body,
       ),
       const SizedBox(height: 28),
       FilledButton(
         onPressed: () => Navigator.of(context).pop(),
-        child: const Text('撮り直す'),
+        child: Text(l10n.generationRetake),
       ),
     ],
     _GenerationPhase.error => [
       Text(
-        _firstBattleMonster == null ? '生成できませんでした' : '対戦の準備ができませんでした',
+        _firstBattleMonster == null
+            ? l10n.generationFailedTitle
+            : l10n.generationBattlePreparationFailedTitle,
         textAlign: TextAlign.center,
         style: SnapmonTextStyles.hero,
       ),
@@ -588,46 +601,49 @@ class _GenerationScreenState extends State<GenerationScreen> {
         onPressed: _firstBattleMonster == null
             ? _generate
             : () => _prepareFirstBattle(monster: _firstBattleMonster!),
-        child: const Text('もう一度試す'),
+        child: Text(l10n.commonRetry),
       ),
       const SizedBox(height: 12),
       OutlinedButton(
         onPressed: () => Navigator.of(context).pop(),
-        child: const Text('もどる'),
+        child: Text(l10n.commonBack),
       ),
     ],
   };
 
   /// 進めている手順の文言。サーバーの段階は最後に済んだ段階 ([_completedStage]) の次の手順を出す。
-  String _inProgressText() {
+  String _inProgressText({required AppLocalizations l10n}) {
     if (_preparedPhoto == null) {
-      return '写真を整えています';
+      return l10n.generationStagePreparingPhoto;
     }
     if (!_isUploaded) {
-      return '写真を送っています';
+      return l10n.generationStageUploadingPhoto;
     }
     return switch (_completedStage) {
-      null || GenerationStage.uploaded => '写真を確かめています',
-      GenerationStage.safesearch => '被写体を切り出しています',
-      GenerationStage.cutout => '名前と図鑑の文章を考えています',
+      null || GenerationStage.uploaded => l10n.generationStageCheckingPhoto,
+      GenerationStage.safesearch => l10n.generationStageCuttingOut,
+      GenerationStage.cutout => l10n.generationStageWritingName,
       GenerationStage.claude ||
       GenerationStage.classify ||
-      GenerationStage.dedupe => '属性と技を決めています',
-      GenerationStage.judge || GenerationStage.saved => 'モンスターが生まれます',
+      GenerationStage.dedupe => l10n.generationStageDecidingElements,
+      GenerationStage.judge ||
+      GenerationStage.saved => l10n.generationStageBeingBorn,
     };
   }
 
   /// 生成しなかった・失敗した [result] の理由の文言。
-  static String _notGeneratedText({required GenerationResult result}) =>
-      switch (result.rejectionReason) {
-        GenerationRejectionReason.explicitContent => 'この写真からはモンスターを作れません',
-        GenerationRejectionReason.faceDetected ||
-        GenerationRejectionReason.personDetected =>
-          '人が写っている写真からは作れません\n物だけを撮ってください',
-        GenerationRejectionReason.noSubject =>
-          '被写体が見つかりませんでした\n物を大きく写して撮ってください',
-        GenerationRejectionReason.inappropriateText ||
-        GenerationRejectionReason.refused => 'うまく作れませんでした\nもう一度撮ってみてください',
-        null => '生成に失敗しました\nもう一度撮ってみてください',
-      };
+  static String _notGeneratedText({
+    required AppLocalizations l10n,
+    required GenerationResult result,
+  }) => switch (result.rejectionReason) {
+    GenerationRejectionReason.explicitContent =>
+      l10n.generationRejectedExplicitContent,
+    GenerationRejectionReason.faceDetected ||
+    GenerationRejectionReason.personDetected =>
+      l10n.generationRejectedPerson,
+    GenerationRejectionReason.noSubject => l10n.generationRejectedNoSubject,
+    GenerationRejectionReason.inappropriateText ||
+    GenerationRejectionReason.refused => l10n.generationRejectedRefused,
+    null => l10n.generationFailedMessage,
+  };
 }

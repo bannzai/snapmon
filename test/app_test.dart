@@ -22,6 +22,7 @@ import 'package:snapmon/features/settings/settings_screen.dart';
 import 'package:snapmon/features/share/card_sharer.dart';
 import 'package:snapmon/features/share/share_cards.dart';
 import 'package:snapmon/features/title/title_screen.dart';
+import 'package:snapmon/l10n/l10n.dart';
 import 'package:snapmon/sample/sample_data.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
 
@@ -202,6 +203,9 @@ void main() {
     tester.platformDispatcher.accessibilityFeaturesTestValue =
         const FakeAccessibilityFeatures(disableAnimations: true);
     addTearDown(tester.platformDispatcher.clearAccessibilityFeaturesTestValue);
+    // SnapmonApp は端末の言語で文言を選ぶ。テストは原文 (日本語) の文言で画面を探すため、端末の言語を日本語にする
+    tester.platformDispatcher.localesTestValue = const [Locale('ja')];
+    addTearDown(tester.platformDispatcher.clearLocalesTestValue);
     await tester.pumpWidget(
       SnapmonApp(
         sampleData: sampleData,
@@ -248,6 +252,9 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         theme: snapmonThemeData(),
+        locale: const Locale('ja'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: HomeShell(
           initialTab: HomeTab.capture,
           sampleData: sampleData,
@@ -1730,6 +1737,9 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         theme: snapmonThemeData(),
+        locale: const Locale('ja'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: BattleScreen(
           playerParty: sampleData.monsters.take(3).toList(),
           opponentParty: sampleData.monsters.skip(3).toList(),
@@ -1802,6 +1812,9 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             key: UniqueKey(),
+            locale: const Locale('ja'),
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
             home: SettingsScreen(
               sampleData: sampleData,
               dexStore: DexStore(definitions: sampleData.definitions),

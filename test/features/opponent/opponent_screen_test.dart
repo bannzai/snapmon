@@ -11,6 +11,7 @@ import 'package:snapmon/features/opponent/pvp_client.dart';
 import 'package:snapmon/features/opponent/pvp_opponent.dart';
 import 'package:snapmon/features/opponent/report_reason.dart';
 import 'package:snapmon/features/settings/settings_screen.dart';
+import 'package:snapmon/l10n/l10n.dart';
 import 'package:snapmon/sample/sample_data.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
 
@@ -74,6 +75,9 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         theme: snapmonThemeData(),
+        locale: const Locale('ja'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: Scaffold(
           body: OpponentScreen(
             sampleData: sampleData,

@@ -14,6 +14,7 @@ import 'package:snapmon/features/battle/battle_screen.dart';
 import 'package:snapmon/features/dex/owned_monster.dart';
 import 'package:snapmon/features/share/card_sharer.dart';
 import 'package:snapmon/features/share/share_cards.dart';
+import 'package:snapmon/l10n/l10n.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
 
 import '../../battle_recorder_fixture.dart';
@@ -49,6 +50,9 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         theme: snapmonThemeData(),
+        locale: const Locale('ja'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: BattleScreen(
           playerParty: [playerMonster],
           opponentParty: [weakOpponent],
@@ -106,6 +110,9 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             theme: snapmonThemeData(),
+            locale: const Locale('ja'),
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
             home: BattleScreen(
               playerParty: [strongPlayer],
               opponentParty: [weakOpponent],

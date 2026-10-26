@@ -38,6 +38,9 @@ migrate_working_dir/
 /ios/Runner/GoogleService-Info.plist
 /android/app/google-services.json
 
+# flutter gen-l10n が lib/l10n/app_*.arb から生成するファイル (l10n.yaml)。CI と flutter run・build が生成する
+/lib/l10n/app_localizations*.dart
+
 # Symbolication related
 app.*.symbols
 

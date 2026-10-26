@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../analytics/analytics_events.dart';
+import '../../l10n/l10n.dart';
 import '../../theme/snapmon_text_styles.dart';
 import 'card_sharer.dart';
 
@@ -71,20 +72,26 @@ class _ShareCardButtonState extends State<ShareCardButton> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Padding(
-              padding: EdgeInsets.fromLTRB(20, 20, 20, 8),
-              child: Text('カード画像の形をえらぶ', style: SnapmonTextStyles.label),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
+              child: Text(
+                context.l10n.shareChooseFormat,
+                style: SnapmonTextStyles.label,
+              ),
             ),
             for (final format in ShareCardFormat.values)
               ListTile(
                 key: Key('share-format-${format.analyticsValue}'),
                 title: Text(switch (format) {
-                  ShareCardFormat.portrait => '縦長',
-                  ShareCardFormat.landscape => '横長',
+                  ShareCardFormat.portrait => context.l10n.shareFormatPortrait,
+                  ShareCardFormat.landscape =>
+                    context.l10n.shareFormatLandscape,
                 }, style: SnapmonTextStyles.label),
                 subtitle: Text(switch (format) {
-                  ShareCardFormat.portrait => 'ストーリーズ向け 1080×1920',
-                  ShareCardFormat.landscape => '投稿向け 1200×630',
+                  ShareCardFormat.portrait =>
+                    context.l10n.shareFormatPortraitDescription,
+                  ShareCardFormat.landscape =>
+                    context.l10n.shareFormatLandscapeDescription,
                 }, style: SnapmonTextStyles.caption),
                 onTap: () => Navigator.of(context).pop(format),
               ),
@@ -101,6 +108,8 @@ class _ShareCardButtonState extends State<ShareCardButton> {
     }
     final view = View.of(context);
     final messenger = ScaffoldMessenger.of(context);
+    // カードは画面の木の外 (Localizations が無い描画の木) で描くため、画面と同じ言語の文言を渡す
+    final locale = Localizations.localeOf(context);
     final artImagesByPath = <String, ui.Image>{};
     try {
       for (final artPath in widget.artPaths.toSet()) {
@@ -110,9 +119,14 @@ class _ShareCardButtonState extends State<ShareCardButton> {
       }
       final pngBytes = await widget.cardSharer.renderPng(
         view: view,
-        card: widget.buildCard(
-          format: format,
-          artImagesByPath: artImagesByPath,
+        // AppLocalizations の読み込みは同期で済む (gen-l10n の load は SynchronousFuture を返す) ため、1 回きりの描画でも文言が入る
+        card: Localizations(
+          locale: locale,
+          delegates: const [AppLocalizations.delegate],
+          child: widget.buildCard(
+            format: format,
+            artImagesByPath: artImagesByPath,
+          ),
         ),
         format: format,
       );
@@ -133,12 +147,12 @@ class _ShareCardButtonState extends State<ShareCardButton> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: const Text('やめる'),
+              child: Text(context.l10n.commonCancel),
             ),
             FilledButton(
               key: const Key('share-confirm'),
               onPressed: () => Navigator.of(context).pop(true),
-              child: const Text('共有する'),
+              child: Text(context.l10n.shareConfirm),
             ),
           ],
         ),

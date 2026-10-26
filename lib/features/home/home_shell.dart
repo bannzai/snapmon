@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../l10n/l10n.dart';
 import '../../sample/sample_data.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
@@ -206,9 +207,9 @@ class _TabButton extends StatelessWidget {
               ),
               const SizedBox(height: 4),
               Text(switch (tab) {
-                HomeTab.dex => '図鑑',
-                HomeTab.capture => '撮る',
-                HomeTab.opponent => '対戦',
+                HomeTab.dex => context.l10n.tabDex,
+                HomeTab.capture => context.l10n.tabCapture,
+                HomeTab.opponent => context.l10n.tabOpponent,
               }, style: SnapmonTextStyles.small.copyWith(color: color)),
             ],
           ),

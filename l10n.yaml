@@ -1,0 +1,11 @@
+# UI の文言の多言語化 (flutter gen-l10n)。原文は日本語 (app_ja.arb)、英語 (app_en.arb) は translate-app-arb skill で翻訳する
+arb-dir: lib/l10n
+template-arb-file: app_ja.arb
+output-localization-file: app_localizations.dart
+output-class: AppLocalizations
+# 生成したファイル (lib/l10n/app_localizations*.dart) は git に入れず、CI と flutter run・build が生成する。
+# CI の dart format の検査 (lib 配下) を通すため整形して書き出す
+format: true
+nullable-getter: false
+# 日本語・英語のどちらでもない端末の言語では英語で出す (supportedLocales の先頭が、合う言語が無い時に選ばれるため)
+preferred-supported-locales: [en]

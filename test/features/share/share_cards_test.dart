@@ -11,6 +11,7 @@ import 'package:snapmon/features/dex/owned_monster.dart';
 import 'package:snapmon/features/share/card_sharer.dart';
 import 'package:snapmon/features/share/render_widget_png.dart';
 import 'package:snapmon/features/share/share_cards.dart';
+import 'package:snapmon/l10n/l10n.dart';
 import 'package:snapmon/widgets/storage_image.dart';
 
 import '../../card_sharer_fixture.dart';
@@ -56,6 +57,9 @@ void main() {
     addTearDown(tester.view.reset);
     await tester.pumpWidget(
       MaterialApp(
+        locale: const Locale('ja'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: Center(
           child: SizedBox.fromSize(size: format.logicalSize, child: card),
         ),
@@ -189,60 +193,76 @@ void main() {
       expect(tester.takeException(), isNull);
     });
 
-    for (final format in ShareCardFormat.values) {
-      final expectedSize = (
-        (format.logicalSize.width * format.pixelRatio).round(),
-        (format.logicalSize.height * format.pixelRatio).round(),
-      );
+    /// [card] を [locale] の文言で描けるようにする (ShareCardButton がカードを描く時と同じ包み方)。
+    Widget localizedCard({required Locale locale, required Widget card}) =>
+        Localizations(
+          locale: locale,
+          delegates: const [AppLocalizations.delegate],
+          child: card,
+        );
 
-      testWidgets(
-        '図鑑のカードが ${expectedSize.$1}×${expectedSize.$2} の PNG になり、はみ出さない',
-        (tester) async {
-          final pngBytes = await tester.runAsync(
-            () => renderWidgetToPng(
-              view: tester.view,
-              card: MonsterShareCard(
-                monster: longestNamedMonsters().first,
-                artImagesByPath: const {},
-                definitions: sampleData.definitions,
-                format: format,
-              ),
-              format: format,
-            ),
-          );
-          expect(_pngSize(pngBytes: pngBytes!), expectedSize);
-          // はみ出しは RenderFlex のエラーとして報告されるため、例外が無いことで確かめる
-          expect(tester.takeException(), isNull);
-        },
-      );
+    for (final locale in AppLocalizations.supportedLocales) {
+      for (final format in ShareCardFormat.values) {
+        final expectedSize = (
+          (format.logicalSize.width * format.pixelRatio).round(),
+          (format.logicalSize.height * format.pixelRatio).round(),
+        );
 
-      for (final winner in BattleSideId.values) {
         testWidgets(
-          'バトルの結果のカード (${winner.name}) が ${expectedSize.$1}×${expectedSize.$2} の PNG になり、はみ出さない',
+          '図鑑のカード ($locale) が ${expectedSize.$1}×${expectedSize.$2} の PNG になり、はみ出さない',
           (tester) async {
-            final playerParty = longestNamedMonsters();
             final pngBytes = await tester.runAsync(
               () => renderWidgetToPng(
                 view: tester.view,
-                card: BattleResultShareCard(
-                  winner: winner,
-                  playerParty: playerParty,
-                  appliedLevels: {
-                    for (final monster in playerParty)
-                      monster.definition.id: monster.level + 1,
-                  },
-                  opponentParty: playerParty,
-                  artImagesByPath: const {},
-                  definitions: sampleData.definitions,
-                  format: format,
+                card: localizedCard(
+                  locale: locale,
+                  card: MonsterShareCard(
+                    monster: longestNamedMonsters().first,
+                    artImagesByPath: const {},
+                    definitions: sampleData.definitions,
+                    format: format,
+                  ),
                 ),
                 format: format,
               ),
             );
             expect(_pngSize(pngBytes: pngBytes!), expectedSize);
+            // はみ出しは RenderFlex のエラーとして報告されるため、例外が無いことで確かめる
             expect(tester.takeException(), isNull);
           },
         );
+
+        for (final winner in BattleSideId.values) {
+          testWidgets(
+            'バトルの結果のカード (${winner.name}・$locale) が ${expectedSize.$1}×${expectedSize.$2} の PNG になり、はみ出さない',
+            (tester) async {
+              final playerParty = longestNamedMonsters();
+              final pngBytes = await tester.runAsync(
+                () => renderWidgetToPng(
+                  view: tester.view,
+                  card: localizedCard(
+                    locale: locale,
+                    card: BattleResultShareCard(
+                      winner: winner,
+                      playerParty: playerParty,
+                      appliedLevels: {
+                        for (final monster in playerParty)
+                          monster.definition.id: monster.level + 1,
+                      },
+                      opponentParty: playerParty,
+                      artImagesByPath: const {},
+                      definitions: sampleData.definitions,
+                      format: format,
+                    ),
+                  ),
+                  format: format,
+                ),
+              );
+              expect(_pngSize(pngBytes: pngBytes!), expectedSize);
+              expect(tester.takeException(), isNull);
+            },
+          );
+        }
       }
     }
   });

@@ -50,8 +50,9 @@ build-web:
 .PHONY: verify
 verify:
 	flutter pub get
+	flutter gen-l10n
 	flutter analyze --no-pub --no-fatal-infos --fatal-warnings
-	dart format --set-exit-if-changed lib test
+	dart format --set-exit-if-changed lib test store_screenshots
 	flutter test
 	bash scripts/test/test-set-webtunnel-setup-env-secret.sh
 	bash scripts/test/test-makefile-targets.sh
@@ -62,6 +63,20 @@ PYTHON ?= python3
 .PHONY: app-icons
 app-icons:
 	$(PYTHON) scripts/app_icon/generate_app_icons.py
+
+# App Store のスクリーンショットを fastlane/screenshots/{ja,en-US}/ に書き出す (store_screenshots/generate_store_screenshots_test.dart)。
+# STORE_SCREENSHOT_LANGUAGES=ja STORE_SCREENSHOT_DEVICES=iphone69 STORE_SCREENSHOT_PAGES=capture のように絞れる。
+# 開発用の Mac では実行せず、.github/workflows/store-screenshots.yml が GitHub Actions で実行して成果物に残す
+.PHONY: screenshots
+screenshots:
+	flutter pub get
+	flutter gen-l10n
+	flutter test store_screenshots
+
+# スクリーンショットのモンスターの絵 (store_screenshots/fixtures/cutouts/) を本番の生成と同じ切り出しで作る (Node.js 22 と約 180 MB のモデルの取得が要る)
+.PHONY: screenshot-cutouts
+screenshot-cutouts:
+	cd functions && npm ci && npm run build && npm run fetch-model && node scripts/cutout-store-screenshot-photos.mjs
 
 # fastlane/metadata の App Store のメタデータが App Store Connect の文字数の上限に収まっているかを検査する
 .PHONY: metadata-check

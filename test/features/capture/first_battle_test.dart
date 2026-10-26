@@ -49,13 +49,11 @@ void main() {
         ),
         sampleData: sampleData,
         randomSeed: 1,
+        cpuTrainerName: 'CPU トレーナー',
       );
       expect(opponent.opponentKind, BattleOpponentKind.cpu);
       expect(opponent.pvpOpponent, isNull);
-      expect(
-        opponent.opponentName,
-        sampleData.opponents.firstWhere((cpu) => cpu.id == cpuOpponentId).name,
-      );
+      expect(opponent.opponentName, 'CPU トレーナー');
     },
   );
 }

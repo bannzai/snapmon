@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../analytics/analytics_events.dart';
+import '../../l10n/l10n.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
@@ -345,7 +346,11 @@ class _TitleScreenState extends State<TitleScreen> {
       if (!await widget.openUrl(uri: uri) && mounted) {
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
-          ..showSnackBar(SnackBar(content: Text('$uri を開けませんでした')));
+          ..showSnackBar(
+            SnackBar(
+              content: Text(context.l10n.commonCouldNotOpenUrl(uri.toString())),
+            ),
+          );
       }
     } catch (error) {
       if (mounted) {
@@ -381,7 +386,7 @@ class _TitleScreenState extends State<TitleScreen> {
               padding: const EdgeInsets.fromLTRB(0, 12, 20, 0),
               child: SquareIconButton(
                 icon: Icons.settings_outlined,
-                tooltip: '設定',
+                tooltip: context.l10n.settingsTitle,
                 onPressed: _openSettings,
                 size: 44,
               ),
@@ -414,7 +419,7 @@ class _TitleScreenState extends State<TitleScreen> {
           children: [
             _StartButton(
               key: const Key('title-album'),
-              label: '写真から選んではじめる',
+              label: context.l10n.titleStartFromAlbum,
               icon: Icons.image_outlined,
               isPrimary: true,
               onPressed: _startFromAlbum,
@@ -423,7 +428,7 @@ class _TitleScreenState extends State<TitleScreen> {
               const SizedBox(height: 12),
               _StartButton(
                 key: const Key('title-camera'),
-                label: 'カメラで撮ってはじめる',
+                label: context.l10n.titleStartFromCamera,
                 icon: Icons.photo_camera_outlined,
                 isPrimary: false,
                 onPressed: () => _enterHome(
@@ -453,8 +458,8 @@ class _TitleScreenState extends State<TitleScreen> {
                   child: _FooterLink(
                     key: const Key('title-continue'),
                     label: monsterCount == 0
-                        ? 'つづきから'
-                        : 'つづきから (図鑑 $monsterCount)',
+                        ? context.l10n.titleContinue
+                        : context.l10n.titleContinueWithCount(monsterCount),
                     style: _TitleTextStyles.continueLink,
                     onTap: () => _enterHome(
                       action: TitleAction.continueFromDex,
@@ -467,15 +472,18 @@ class _TitleScreenState extends State<TitleScreen> {
             Wrap(
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
-                Text('$minimumAge 歳以上が対象 · ', style: _TitleTextStyles.footer),
+                Text(
+                  '${context.l10n.titleMinimumAge(minimumAge)} · ',
+                  style: _TitleTextStyles.footer,
+                ),
                 _FooterLink(
-                  label: '利用規約',
+                  label: context.l10n.settingsTerms,
                   style: _TitleTextStyles.footer,
                   onTap: () => _openUrl(uri: termsUri),
                 ),
                 const Text(' · ', style: _TitleTextStyles.footer),
                 _FooterLink(
-                  label: 'プライバシー',
+                  label: context.l10n.titlePrivacy,
                   style: _TitleTextStyles.footer,
                   onTap: () => _openUrl(uri: privacyPolicyUri),
                 ),
@@ -753,10 +761,10 @@ class _HeroState extends State<_Hero> with SingleTickerProviderStateMixin {
               CustomPaint(painter: _HeroPainter(progress: _progress.value)),
         ),
       ),
-      const Align(
+      Align(
         alignment: Alignment.bottomCenter,
         child: Text(
-          '身の回りの物が\nモンスターになって戦う',
+          context.l10n.titleHeading,
           textAlign: TextAlign.center,
           style: _TitleTextStyles.heading,
         ),
@@ -1015,7 +1023,7 @@ class _SessionGateScreenState extends State<_SessionGateScreen> {
                 padding: const EdgeInsets.fromLTRB(0, 12, 20, 0),
                 child: SquareIconButton(
                   icon: Icons.close,
-                  tooltip: '閉じる',
+                  tooltip: context.l10n.commonClose,
                   onPressed: () => Navigator.of(context).pop(),
                   size: 44,
                 ),

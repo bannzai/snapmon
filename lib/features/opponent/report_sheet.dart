@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../l10n/l10n.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_text_styles.dart';
 import 'report_reason.dart';
@@ -65,14 +66,14 @@ class _ReportSheetState extends State<ReportSheet> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              '${widget.monsterName} を通報',
+              context.l10n.reportSheetTitle(widget.monsterName),
               style: SnapmonTextStyles.cardTitle.copyWith(
                 color: SnapmonColors.textOnBackground,
               ),
             ),
             const SizedBox(height: 4),
-            const Text(
-              '通報したトレーナーは対戦の相手に出なくなります',
+            Text(
+              context.l10n.reportSheetDescription,
               style: SnapmonTextStyles.small,
             ),
             const SizedBox(height: 8),
@@ -91,7 +92,10 @@ class _ReportSheetState extends State<ReportSheet> {
                       key: Key('report-reason-${reason.value}'),
                       value: reason,
                       contentPadding: EdgeInsets.zero,
-                      title: Text(reason.label, style: SnapmonTextStyles.body),
+                      title: Text(
+                        reportReasonLabel(l10n: context.l10n, reason: reason),
+                        style: SnapmonTextStyles.body,
+                      ),
                     ),
                 ],
               ),
@@ -111,18 +115,25 @@ class _ReportSheetState extends State<ReportSheet> {
               onPressed: selectedReason == null || _isSubmitting
                   ? null
                   : () => _submit(reason: selectedReason),
-              child: Text(_isSubmitting ? '送っています' : '通報する'),
+              child: Text(
+                _isSubmitting
+                    ? context.l10n.reportSheetSubmitting
+                    : context.l10n.reportSheetSubmit,
+              ),
             ),
             const SizedBox(height: 4),
             Row(
               children: [
-                const Expanded(
-                  child: Text('ほかに困ったことがあれば', style: SnapmonTextStyles.small),
+                Expanded(
+                  child: Text(
+                    context.l10n.reportSheetOtherTrouble,
+                    style: SnapmonTextStyles.small,
+                  ),
                 ),
                 TextButton(
                   key: const Key('report-contact'),
                   onPressed: widget.onOpenContact,
-                  child: const Text('お問い合わせ'),
+                  child: Text(context.l10n.commonContact),
                 ),
               ],
             ),
