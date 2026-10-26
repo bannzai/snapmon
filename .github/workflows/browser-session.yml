@@ -66,7 +66,7 @@ jobs:
         [ "$(git -C "$RUNNER_TEMP/flutter" rev-parse '3.41.9^{commit}')" = 00b0c91f06209d9e4a41f71b7a512d6eb3b9c694 ] &&
         git -C "$RUNNER_TEMP/flutter" checkout -q --detach 3.41.9 &&
         "$RUNNER_TEMP/flutter/bin/flutter" pub get &&
-        "$RUNNER_TEMP/flutter/bin/flutter" build web --${{ inputs.flutter_build_mode }}
+        "$RUNNER_TEMP/flutter/bin/flutter" build web --${{ inputs.flutter_build_mode }} --dart-define=RECAPTCHA_ENTERPRISE_SITE_KEY=${{ vars.RECAPTCHA_ENTERPRISE_SITE_KEY }}
       # webtunnel は dev サーバが 127.0.0.1 で listen していることを検証するため loopback に束縛する
       start_command: python3 -m http.server "$PORT" --bind 127.0.0.1 --directory build/web
       port: "8080"
