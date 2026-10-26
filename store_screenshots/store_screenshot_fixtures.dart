@@ -279,10 +279,10 @@ class StoreScreenshotCameraPlatform extends CameraPlatform {
 /// アプリに同梱したフォントとアイコンのフォント (FontManifest.json の全部) を読み込む。
 /// widget test の既定のフォントは文字を四角で描くため、スクリーンショットの前に本物のフォントを読む。
 Future<void> loadStoreScreenshotFonts() async {
-  final fontManifest =
-      jsonDecode(await rootBundle.loadString('FontManifest.json'))
-          as List<dynamic>;
-  for (final fontFamily in fontManifest.cast<Map<String, dynamic>>()) {
+  for (final fontFamily
+      in (jsonDecode(await rootBundle.loadString('FontManifest.json'))
+              as List<dynamic>)
+          .cast<Map<String, dynamic>>()) {
     final fontLoader = FontLoader(fontFamily['family'] as String);
     for (final font
         in (fontFamily['fonts'] as List<dynamic>)

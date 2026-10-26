@@ -117,9 +117,8 @@ void main() {
     tester,
   ) async {
     await tester.runAsync(loadStoreScreenshotFonts);
-    final viewfinderPhoto = storeScreenshotViewfinderPhoto();
     CameraPlatform.instance = StoreScreenshotCameraPlatform(
-      viewfinderPhoto: viewfinderPhoto,
+      viewfinderPhoto: storeScreenshotViewfinderPhoto(),
     );
     addTearDown(tester.view.reset);
     // 端末とカードの影を描く (flutter_test は既定で影を描かない)。flutter_test はテストの本体の後に既定のままかを
