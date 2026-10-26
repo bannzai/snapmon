@@ -106,25 +106,73 @@ test_ios_device_uses_device_variable() {
   pass "ios-device: DEVICE= の指定をそのまま使う"
 }
 
+# 引数: 作業ディレクトリ、gh variable get が返すサイトキー (空なら未登録として exit 1)。Makefile が呼ぶ gh の差し替えを置く
+prepare_gh_stub() {
+  local work=$1 site_key=$2
+  cat > "$work/bin/gh" <<EOF
+#!/usr/bin/env bash
+if [ "\$1 \$2 \$3" = "variable get RECAPTCHA_ENTERPRISE_SITE_KEY" ]; then
+  [ -n "$site_key" ] || exit 1
+  printf '%s\n' "$site_key"
+fi
+EOF
+  chmod +x "$work/bin/gh"
+}
+
 test_web_enables_web_then_runs_chrome() {
   local work
   work="$(mktemp -d)"
   prepare_workspace "$work"
+  prepare_gh_stub "$work" "site-key-from-gh"
   if ! run_make "$work" '[]' web; then
     fail "web: 失敗した ($(cat "$work/stdout"))"
     return
   fi
-  if [ "$(cat "$work/flutter-args")" != $'config --enable-web\nrun --debug -d chrome' ]; then
-    fail "web: config --enable-web の後に run --debug -d chrome を呼んでいない ($(cat "$work/flutter-args"))"
+  if [ "$(cat "$work/flutter-args")" != $'config --enable-web\nrun --debug -d chrome --dart-define=RECAPTCHA_ENTERPRISE_SITE_KEY=site-key-from-gh' ]; then
+    fail "web: config --enable-web の後に、gh の Variable のサイトキーを付けて run --debug -d chrome を呼んでいない ($(cat "$work/flutter-args"))"
     return
   fi
-  pass "web: enable-web を有効にしてから Chrome で起動する"
+  pass "web: enable-web を有効にしてから gh の Variable のサイトキーを付けて Chrome で起動する"
+}
+
+test_web_prefers_environment_site_key() {
+  local work
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  prepare_gh_stub "$work" "site-key-from-gh"
+  if ! RECAPTCHA_ENTERPRISE_SITE_KEY=site-key-from-env run_make "$work" '[]' web; then
+    fail "web: 環境変数のサイトキー指定で失敗した ($(cat "$work/stdout"))"
+    return
+  fi
+  if [ "$(recorded_run "$work")" != "run --debug -d chrome --dart-define=RECAPTCHA_ENTERPRISE_SITE_KEY=site-key-from-env" ]; then
+    fail "web: 環境変数 RECAPTCHA_ENTERPRISE_SITE_KEY を gh の Variable より優先していない ($(recorded_run "$work"))"
+    return
+  fi
+  pass "web: 環境変数のサイトキーを gh の Variable より優先する"
+}
+
+test_web_runs_without_site_key() {
+  local work
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  prepare_gh_stub "$work" ""
+  if ! run_make "$work" '[]' web; then
+    fail "web: サイトキー未設定で失敗した ($(cat "$work/stdout"))"
+    return
+  fi
+  if [ "$(recorded_run "$work")" != "run --debug -d chrome --dart-define=RECAPTCHA_ENTERPRISE_SITE_KEY=" ]; then
+    fail "web: サイトキーが無い時に空の --dart-define で起動していない ($(recorded_run "$work"))"
+    return
+  fi
+  pass "web: サイトキーが無くても空の --dart-define で起動する"
 }
 
 test_ios_device_selects_supported_physical_device
 test_ios_device_fails_without_physical_device
 test_ios_device_uses_device_variable
 test_web_enables_web_then_runs_chrome
+test_web_prefers_environment_site_key
+test_web_runs_without_site_key
 
 if [ "$failures" -ne 0 ]; then
   echo "$failures 件失敗"
