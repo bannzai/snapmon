@@ -71,8 +71,9 @@ for locale in "${locales[@]}"; do
   fi
   # name・description・keywords・privacy_url・support_url は App Store Connect の提出に要るため、無ければ失敗にする
   for required in name description keywords privacy_url support_url; do
-    if [[ ! -s "$locale_dir/$required.txt" ]]; then
-      echo "NG: $locale_dir/$required.txt がありません" >&2
+    # 空白・改行だけのファイルも中身が無いものとして扱う
+    if [[ ! -f "$locale_dir/$required.txt" ]] || [[ -z "$(tr -d '[:space:]' < "$locale_dir/$required.txt")" ]]; then
+      echo "NG: $locale_dir/$required.txt が無いか中身が空です" >&2
       failures=$((failures + 1))
     fi
   done

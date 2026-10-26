@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 # scripts/metadata_check/check_all_metadata.sh のテスト。一時ディレクトリに locale のメタデータを作り、METADATA_DIR で検査先を差し替えて
-# 日本語の文字数の数え方・keywords のバイト数・上限超え・必須ファイルの欠け・リポジトリの fastlane/metadata を確かめる。
+# 日本語の文字数の数え方・keywords のバイト数・上限超え・必須ファイルの欠けと空白だけの中身・リポジトリの fastlane/metadata を確かめる。
 set -euo pipefail
 
 repo_root="$(cd "$(dirname "$0")/../.." && pwd)"
 check="$repo_root/scripts/metadata_check/check_all_metadata.sh"
 failures=0
+# 各テストの作業ディレクトリと出力はこの下に作り、成功・失敗・途中終了のどれでも終わる時に消す
+test_root="$(mktemp -d)"
+trap 'rm -rf "$test_root"' EXIT
 
 fail() {
   echo "FAIL: $1"
@@ -34,7 +37,7 @@ run_check() {
 
 test_japanese_counts_characters_not_bytes() {
   local work
-  work="$(mktemp -d)"
+  work="$(mktemp -d "$test_root/work.XXXXXX")"
   prepare_locale "$work" ja
   # 30 文字 (UTF-8 で 90 バイト)。バイト数で数えると上限を超える
   printf '%s\n' "$(printf 'あ%.0s' $(seq 1 30))" > "$work/ja/subtitle.txt"
@@ -47,7 +50,7 @@ test_japanese_counts_characters_not_bytes() {
 
 test_japanese_over_limit_fails() {
   local work
-  work="$(mktemp -d)"
+  work="$(mktemp -d "$test_root/work.XXXXXX")"
   prepare_locale "$work" ja
   printf '%s\n' "$(printf 'あ%.0s' $(seq 1 31))" > "$work/ja/subtitle.txt"
   if run_check "$work"; then
@@ -59,7 +62,7 @@ test_japanese_over_limit_fails() {
 
 test_keywords_count_bytes() {
   local work
-  work="$(mktemp -d)"
+  work="$(mktemp -d "$test_root/work.XXXXXX")"
   prepare_locale "$work" ja
   # 34 文字 (102 バイト)。文字数では 100 以内だがバイト数で上限を超える
   printf '%s\n' "$(printf 'あ%.0s' $(seq 1 34))" > "$work/ja/keywords.txt"
@@ -72,7 +75,7 @@ test_keywords_count_bytes() {
 
 test_newlines_inside_text_are_counted() {
   local work
-  work="$(mktemp -d)"
+  work="$(mktemp -d "$test_root/work.XXXXXX")"
   prepare_locale "$work" ja
   # 2000 文字・改行・2000 文字 (4001 文字)。途中の改行を数えないと上限 (4000) 以内に見える
   printf '%s\n%s\n' "$(printf 'あ%.0s' $(seq 1 2000))" "$(printf 'あ%.0s' $(seq 1 2000))" > "$work/ja/description.txt"
@@ -85,18 +88,30 @@ test_newlines_inside_text_are_counted() {
 
 test_missing_required_file_fails() {
   local work
-  work="$(mktemp -d)"
+  work="$(mktemp -d "$test_root/work.XXXXXX")"
   prepare_locale "$work" en-US
   mv "$work/en-US/privacy_url.txt" "$work/privacy_url.txt.bak"
   if run_check "$work"; then
     fail "privacy_url.txt が無いのに通した"
     return
   fi
-  if ! grep -q 'privacy_url.txt がありません' "$work.stdout"; then
+  if ! grep -q 'privacy_url.txt が無いか中身が空です' "$work.stdout"; then
     fail "privacy_url.txt が無い時のメッセージが出ていない ($(cat "$work.stdout"))"
     return
   fi
   pass "必須のファイルが無ければ失敗する"
+}
+
+test_blank_required_file_fails() {
+  local work
+  work="$(mktemp -d "$test_root/work.XXXXXX")"
+  prepare_locale "$work" en-US
+  printf '  \n\n' > "$work/en-US/support_url.txt"
+  if run_check "$work"; then
+    fail "空白と改行だけの support_url.txt を通した"
+    return
+  fi
+  pass "必須のファイルが空白と改行だけなら失敗する"
 }
 
 test_repository_metadata_passes() {
@@ -112,6 +127,7 @@ test_japanese_over_limit_fails
 test_keywords_count_bytes
 test_newlines_inside_text_are_counted
 test_missing_required_file_fails
+test_blank_required_file_fails
 test_repository_metadata_passes
 
 if [ "$failures" -ne 0 ]; then
