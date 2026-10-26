@@ -55,6 +55,12 @@ verify:
 	flutter test
 	bash scripts/test/test-set-webtunnel-setup-env-secret.sh
 	bash scripts/test/test-makefile-targets.sh
+	bash scripts/test/test-metadata-check.sh
+
+# fastlane/metadata の App Store のメタデータが App Store Connect の文字数の上限に収まっているかを検査する
+.PHONY: metadata-check
+metadata-check:
+	bash scripts/metadata_check/check_all_metadata.sh
 
 .PHONY: clean
 clean:
