@@ -81,7 +81,7 @@ storeScreenshotCopy = {
       subline: 'Mugs and cacti\nturn into monsters',
     ),
     StoreScreenshotPage.born: (
-      headline: 'A monster that looks\njust like your photo',
+      headline: 'A monster just\nlike your photo',
       subline: 'Its name, moves, and stats\ncome from what you snapped',
     ),
     StoreScreenshotPage.dex: (

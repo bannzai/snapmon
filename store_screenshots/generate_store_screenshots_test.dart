@@ -421,7 +421,8 @@ class _StoreScreenshotCanvas extends StatelessWidget {
         locale: language.appLocale,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
-        home: ColoredBox(
+        // Material で包み、文字が MaterialApp のエラー用の文字の形 (太さ w900・黄色の二重下線) を受け継がないようにする
+        home: Material(
           color: SnapmonColors.background,
           child: Padding(
             padding: EdgeInsets.fromLTRB(
@@ -440,7 +441,6 @@ class _StoreScreenshotCanvas extends StatelessWidget {
                     fontSize: 32 * scale,
                     height: 1.3,
                     color: SnapmonColors.accent,
-                    decoration: TextDecoration.none,
                   ),
                 ),
                 SizedBox(height: 14 * scale),
@@ -451,7 +451,6 @@ class _StoreScreenshotCanvas extends StatelessWidget {
                     fontSize: 17 * scale,
                     height: 1.5,
                     color: SnapmonColors.textOnBackground,
-                    decoration: TextDecoration.none,
                   ),
                 ),
                 SizedBox(height: 32 * scale),

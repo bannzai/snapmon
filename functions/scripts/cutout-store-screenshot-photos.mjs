@@ -17,7 +17,7 @@ const outputDirectory = path.join(root, "..", "store_screenshots", "fixtures", "
 /** 書き出す PNG の名前と、元の写真のファイル名。名前は store_screenshots/ のモンスターの絵のパスと揃える。 */
 const PHOTOS = {
   mug: "01.jpg",
-  alarm_clock: "03.jpg",
+  scissors: "15.jpg",
   cactus: "04.jpg",
   rubber_duck: "08.jpg",
   kettle: "11.jpg",

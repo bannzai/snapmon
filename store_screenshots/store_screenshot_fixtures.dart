@@ -34,7 +34,7 @@ final Map<String, String> _filePathsByStoragePath = {
 /// 絵の名前と元の写真のファイル名 (cutout-store-screenshot-photos.mjs の PHOTOS と同じ組)。
 const List<(String, String)> _photoFileNames = [
   ('mug', '01.jpg'),
-  ('alarm_clock', '03.jpg'),
+  ('scissors', '15.jpg'),
   ('cactus', '04.jpg'),
   ('rubber_duck', '08.jpg'),
   ('kettle', '11.jpg'),
@@ -102,10 +102,10 @@ List<OwnedMonster> storeScreenshotMonsters() => [
     ),
   ),
   _monster(
-    name: 'alarm_clock',
-    monsterName: 'ジリリン',
-    encyclopediaText: '決まった時間になると頭のベルを鳴らして仲間を起こす。止めようと手を伸ばすと、するりと逃げる。',
-    elementTypeIds: const ['metal', 'electric'],
+    name: 'scissors',
+    monsterName: 'チョッキン',
+    encyclopediaText: '2 本の刃を交差させて、目の前の物を何でも切ろうとする。持ち手の輪に指を入れられると、おとなしくなる。',
+    elementTypeIds: const ['metal', 'plastic'],
     level: 5,
     baseStats: const MonsterStats(
       hitPoints: 70,
@@ -264,9 +264,13 @@ class StoreScreenshotCameraPlatform extends CameraPlatform {
   Stream<DeviceOrientationChangedEvent> onDeviceOrientationChanged() =>
       StreamController<DeviceOrientationChangedEvent>().stream;
 
+  // マグカップは写真の右寄りに写っているため、縦長のファインダーで切れないよう右に寄せて切り取る
   @override
-  Widget buildPreview(int cameraId) =>
-      Image.memory(viewfinderPhoto, fit: BoxFit.cover);
+  Widget buildPreview(int cameraId) => Image.memory(
+    viewfinderPhoto,
+    fit: BoxFit.cover,
+    alignment: const Alignment(0.6, 0),
+  );
 
   @override
   Future<void> dispose(int cameraId) async {}
