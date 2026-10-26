@@ -53,6 +53,7 @@ class _StorageImageState extends State<StorageImage> {
   // 最初の build で読み始める (読む関数を上の StorageImageLoaderScope から引くため、initState では読まない)
   late Future<Uint8List?> _imageBytes = _load();
 
+  /// [StorageImage.storagePath] の画像の中身を読む。上に [StorageImageLoaderScope] があればその関数で、無ければ Storage から読む。
   Future<Uint8List?> _load() {
     final loadBytes = context
         .getInheritedWidgetOfExactType<StorageImageLoaderScope>()

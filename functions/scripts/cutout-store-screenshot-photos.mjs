@@ -12,17 +12,11 @@ import cutout from "../lib/generation/cutout.js";
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 const photoDirectory = path.join(root, "test", "fixtures", "calibration", "photos");
-const outputDirectory = path.join(root, "..", "store_screenshots", "fixtures", "cutouts");
+const fixtureDirectory = path.join(root, "..", "store_screenshots", "fixtures");
+const outputDirectory = path.join(fixtureDirectory, "cutouts");
 
-/** 書き出す PNG の名前と、元の写真のファイル名。名前は store_screenshots/ のモンスターの絵のパスと揃える。 */
-const PHOTOS = {
-  mug: "01.jpg",
-  scissors: "15.jpg",
-  cactus: "04.jpg",
-  rubber_duck: "08.jpg",
-  kettle: "11.jpg",
-  candle: "18.jpg",
-};
+/** 書き出す PNG の名前と、元の写真のファイル名。スクリーンショットの生成 (store_screenshot_fixtures.dart) と同じファイルを読む。 */
+const PHOTOS = JSON.parse(readFileSync(path.join(fixtureDirectory, "photos.json"), "utf8"));
 
 const segmentSubject = cutout.createSegmentSubject({ modelPath: cutout.SEGMENTATION_MODEL_PATH });
 mkdirSync(outputDirectory, { recursive: true });

@@ -22,23 +22,22 @@ const String _cutoutDirectory = 'store_screenshots/fixtures/cutouts';
 /// 絵の元の写真 (CC0 / Public domain。出典は同ディレクトリの LICENSES.md)。
 const String _photoDirectory = 'functions/test/fixtures/calibration/photos';
 
+/// 絵の名前から元の写真のファイル名を引く表。絵を切り出す functions/scripts/cutout-store-screenshot-photos.mjs と同じファイルを読む。
+final Map<String, String> _photoFileNamesByName =
+    (jsonDecode(
+              File('store_screenshots/fixtures/photos.json').readAsStringSync(),
+            )
+            as Map<String, dynamic>)
+        .cast<String, String>();
+
 /// スクリーンショットのモンスターの写真と絵の Storage のパスから、手元のファイルのパスを引く表。
 final Map<String, String> _filePathsByStoragePath = {
-  for (final (name, photoFileName) in _photoFileNames) ...{
+  for (final MapEntry(key: name, value: photoFileName)
+      in _photoFileNamesByName.entries) ...{
     _artPath(name: name): '$_cutoutDirectory/$name.png',
     _photoPath(name: name): '$_photoDirectory/$photoFileName',
   },
 };
-
-/// 絵の名前と元の写真のファイル名 (cutout-store-screenshot-photos.mjs の PHOTOS と同じ組)。
-const List<(String, String)> _photoFileNames = [
-  ('mug', '01.jpg'),
-  ('scissors', '15.jpg'),
-  ('cactus', '04.jpg'),
-  ('rubber_duck', '08.jpg'),
-  ('kettle', '11.jpg'),
-  ('candle', '18.jpg'),
-];
 
 /// 名前が [name] のスクリーンショットのモンスターの、切り出した絵の Storage のパス (本番の `monsters/{monsterId}/art.png` と同じ形)。
 String _artPath({required String name}) =>
@@ -58,7 +57,7 @@ Future<Uint8List?> loadStoreScreenshotStorageImage({
 
 /// 撮る画面のファインダーに映す写真 (生まれた画面のマグカップと同じ写真)。
 Uint8List storeScreenshotViewfinderPhoto() =>
-    File('$_photoDirectory/01.jpg').readAsBytesSync();
+    File('$_photoDirectory/${_photoFileNamesByName['mug']}').readAsBytesSync();
 
 /// スクリーンショットの図鑑のモンスター。先頭の 3 体が手持ち。
 /// 名前・図鑑の文章・技は、本番の生成の形 (名前はカタカナ、図鑑の文章は日本語で 2 文) に合わせて書いた見本。

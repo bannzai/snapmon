@@ -400,8 +400,13 @@ class _StoreScreenshotCanvas extends StatelessWidget {
     required this.content,
   });
 
+  /// キャッチコピーとアプリの画面の言語。
   final StoreScreenshotLanguage language;
+
+  /// 描く端末 (画面の大きさと、iPad なら文字と余白を大きくする)。
   final StoreScreenshotDevice device;
+
+  /// 描くページ (キャッチコピーと、共有のページだけ端末の枠ではなくカードの枠にする)。
   final StoreScreenshotPage page;
 
   /// 端末の枠 (共有のページはカードの枠) の中に描く画面。
@@ -467,7 +472,10 @@ class _StoreScreenshotCanvas extends StatelessWidget {
 class _DeviceFrame extends StatelessWidget {
   const _DeviceFrame({required this.device, required this.screen});
 
+  /// 枠の形と、アプリの画面の論理の大きさ・倍率・安全域を決める端末。
   final StoreScreenshotDevice device;
+
+  /// 枠の中に描くアプリの画面。
   final Widget screen;
 
   @override
@@ -529,7 +537,10 @@ class _DeviceFrame extends StatelessWidget {
 class _ShareCardFrame extends StatelessWidget {
   const _ShareCardFrame({required this.card, required this.scale});
 
+  /// 枠の中に描く共有のカード。
   final Widget card;
+
+  /// 下の余白の倍率 (_StoreScreenshotCanvas の文字と余白の倍率と同じ。iPad で大きくする)。
   final double scale;
 
   @override
