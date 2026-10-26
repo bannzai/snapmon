@@ -11,9 +11,9 @@ Map<String, String> _readMessages({required String path}) => {
     if (!entry.key.startsWith('@')) entry.key: entry.value as String,
 };
 
-/// [message] に含まれるプレースホルダー (`{name}`) の名前。
+/// [message] に含まれるプレースホルダー (`{name}` と、ICU の plural の `{name, plural, ...}`) の名前。
 Set<String> _placeholders({required String message}) => {
-  for (final match in RegExp(r'\{(\w+)\}').allMatches(message)) match[1]!,
+  for (final match in RegExp(r'\{(\w+)[,}]').allMatches(message)) match[1]!,
 };
 
 void main() {

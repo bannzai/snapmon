@@ -9,8 +9,13 @@ concurrency:
   cancel-in-progress: true
 
 on:
+  # 画面・文言・素材を変えた PR でも撮り直し、fastlane/screenshots/ が実際の画面と食い違ったことに気づけるようにする
   pull_request:
     paths:
+      - lib/**
+      - assets/**
+      - pubspec.yaml
+      - l10n.yaml
       - store_screenshots/**
       - functions/scripts/cutout-store-screenshot-photos.mjs
       - .github/workflows/store-screenshots.yml
