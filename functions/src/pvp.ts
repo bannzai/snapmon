@@ -23,7 +23,7 @@ import {
   validateDisplayName,
 } from "./pvp_rules";
 import { slackBotToken } from "./secrets";
-import { NOTIFICATION_CHANNEL, postSlackMessage, type SendSlackMessage } from "./slack";
+import { functionsProjectId, notificationChannel, postSlackMessage, type SendSlackMessage } from "./slack";
 
 // 非同期 PvP の相手の取得と、ストアの UGC 要件 (通報・ブロック) と表示名の Functions。
 // 構造と書き込みの主体は .claude/rules/firestore.md、他人に見せる項目は documents/adr/0001-tech-stack.md の画像ストレージの行。
@@ -307,7 +307,7 @@ export async function handleReportCreated({
 }
 
 /**
- * 通報 (`reports/{reportId}`) が作られたら #snapmon-notification に知らせる (ストアの UGC 要件の「懸念へのすみやかな対応」のため)。
+ * 通報 (`reports/{reportId}`) が作られたら #snapmon-notification (本番以外は #snapmon-notification-qa) に知らせる (ストアの UGC 要件の「懸念へのすみやかな対応」のため)。
  * 送れなかった時は例外をログに残す (再試行はしない。通報そのものは Firestore に残っている)。
  */
 export const notifyReport = onDocumentCreated({ document: "reports/{reportId}", secrets: [slackBotToken] }, async (event) => {
@@ -318,6 +318,11 @@ export const notifyReport = onDocumentCreated({ document: "reports/{reportId}", 
     reportId: event.params.reportId,
     report: event.data.data() as ReportDocument,
     sendMessage: ({ text }) =>
-      postSlackMessage({ token: slackBotToken.value(), channel: NOTIFICATION_CHANNEL, text, fetchFunction: fetch }),
+      postSlackMessage({
+        token: slackBotToken.value(),
+        channel: notificationChannel(functionsProjectId(process.env)),
+        text,
+        fetchFunction: fetch,
+      }),
   });
 });
