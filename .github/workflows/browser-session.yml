@@ -59,6 +59,8 @@ jobs:
       # タグは書き換えられ得るため、3.41.9 タグが指す commit (git ls-remote で確認) の SHA と一致する時だけ使う。
       # flutter_tools はタグから自分のバージョンを求め、タグが無いと 0.0.0-unknown になって pubspec の SDK 制約を満たせないため、タグごと取得する
       # lib/firebase_options.dart は git の管理外のため、secret WEBTUNNEL_SETUP_ENV が運ぶ FIREBASE_OPTIONS_DART_B64 から書き出す (.claude/rules/firebase-config-files.md)
+      # App Check の Web の debug token (同じ secret の FIREBASE_APPCHECK_DEBUG_TOKEN_WEB) は debug ビルドにだけ渡す
+      # (runner の Chromium は reCAPTCHA Enterprise のスコアが低く証明が通らないため。release の成果物に token を埋め込まない)
       setup_command: >-
         bash scripts/restore-firebase-config.sh dart &&
         git init -q "$RUNNER_TEMP/flutter" &&
@@ -67,6 +69,7 @@ jobs:
         git -C "$RUNNER_TEMP/flutter" checkout -q --detach 3.41.9 &&
         "$RUNNER_TEMP/flutter/bin/flutter" pub get &&
         "$RUNNER_TEMP/flutter/bin/flutter" build web --${{ inputs.flutter_build_mode }} --dart-define=RECAPTCHA_ENTERPRISE_SITE_KEY=${{ vars.RECAPTCHA_ENTERPRISE_SITE_KEY }}
+        --dart-define=FIREBASE_APPCHECK_DEBUG_TOKEN_WEB="$([ "${{ inputs.flutter_build_mode }}" = debug ] && printf '%s' "${FIREBASE_APPCHECK_DEBUG_TOKEN_WEB:-}")"
       # webtunnel は dev サーバが 127.0.0.1 で listen していることを検証するため loopback に束縛する
       start_command: python3 -m http.server "$PORT" --bind 127.0.0.1 --directory build/web
       port: "8080"
