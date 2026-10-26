@@ -70,6 +70,19 @@ test_keywords_count_bytes() {
   pass "keywords はバイト数で数える"
 }
 
+test_newlines_inside_text_are_counted() {
+  local work
+  work="$(mktemp -d)"
+  prepare_locale "$work" ja
+  # 2000 文字・改行・2000 文字 (4001 文字)。途中の改行を数えないと上限 (4000) 以内に見える
+  printf '%s\n%s\n' "$(printf 'あ%.0s' $(seq 1 2000))" "$(printf 'あ%.0s' $(seq 1 2000))" > "$work/ja/description.txt"
+  if run_check "$work"; then
+    fail "途中に改行のある 4001 文字の description を通した"
+    return
+  fi
+  pass "本文の途中の改行は 1 文字に数える"
+}
+
 test_missing_required_file_fails() {
   local work
   work="$(mktemp -d)"
@@ -97,6 +110,7 @@ test_repository_metadata_passes() {
 test_japanese_counts_characters_not_bytes
 test_japanese_over_limit_fails
 test_keywords_count_bytes
+test_newlines_inside_text_are_counted
 test_missing_required_file_fails
 test_repository_metadata_passes
 

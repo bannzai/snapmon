@@ -36,13 +36,14 @@ if [[ ! -d "$metadata_dir" ]]; then
   exit 2
 fi
 
-# 引数: ファイル、上限、単位 (chars = 文字数、bytes = バイト数)。末尾の改行を除いた長さが上限以内なら 0、超えたら 1 を返す
+# 引数: ファイル、上限、単位 (chars = 文字数、bytes = バイト数)。末尾の改行を除いた長さが上限以内なら 0、超えたら 1 を返す。
+# 本文の途中の改行は App Store Connect でも 1 文字に数えるため残し、ファイルの末尾の改行だけを除く ($(<file) が末尾の改行を落とす)
 check_length() {
   local file=$1 maximum=$2 unit=$3 count
   if [[ "$unit" == bytes ]]; then
-    count=$(tr -d '\n' < "$file" | wc -c | tr -d ' ')
+    count=$(printf '%s' "$(<"$file")" | wc -c | tr -d ' ')
   else
-    count=$(tr -d '\n' < "$file" | wc -m | tr -d ' ')
+    count=$(printf '%s' "$(<"$file")" | wc -m | tr -d ' ')
   fi
   if [[ "$count" -le "$maximum" ]]; then
     echo "OK: $file ($count / $maximum $unit)"
