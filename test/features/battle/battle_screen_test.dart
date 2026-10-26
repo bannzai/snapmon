@@ -309,7 +309,10 @@ void main() {
     expect(shareCalls.loadedArtPaths, [artPath]);
     final rendered = shareCalls.renderedCards.single;
     expect(rendered.format, ShareCardFormat.portrait);
-    final card = rendered.card as BattleResultShareCard;
+    // カードは画面の木の外で描くため、画面と同じ言語の Localizations で包んで渡す
+    final localizedCard = rendered.card as Localizations;
+    expect(localizedCard.locale, const Locale('ja'));
+    final card = localizedCard.child! as BattleResultShareCard;
     expect(card.winner, BattleSideId.player);
     // 勝敗の画面と同じく、Functions が返した確定したレベルを描く
     expect(card.appliedLevels, {strongPlayer.definition.id: 9});

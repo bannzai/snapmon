@@ -455,161 +455,163 @@ class _GenerationScreenState extends State<GenerationScreen> {
     ),
   );
 
-  List<Widget> _buildPhaseContent({
-    required AppLocalizations l10n,
-  }) => switch (_phase) {
-    // 初回の導線は生成を待つ間も相手を探している見せ方にし、生成の段階は小さく添える
-    _GenerationPhase.inProgress when _startsFirstBattle => [
-      Text(
-        l10n.generationSearchingOpponent,
-        textAlign: TextAlign.center,
-        style: SnapmonTextStyles.hero,
-      ),
-      const SizedBox(height: 12),
-      Text(
-        _firstBattleMonster == null
-            ? _inProgressText(l10n: l10n)
-            : l10n.generationBattleWith(_firstBattleMonster!.definition.name),
-        key: const Key('matchmaking-stage'),
-        textAlign: TextAlign.center,
-        style: SnapmonTextStyles.body,
-      ),
-      const SizedBox(height: 24),
-      const Center(child: CircularProgressIndicator()),
-    ],
-    _GenerationPhase.inProgress => [
-      Text(
-        _inProgressText(l10n: l10n),
-        textAlign: TextAlign.center,
-        style: SnapmonTextStyles.hero,
-      ),
-      const SizedBox(height: 24),
-      const Center(child: CircularProgressIndicator()),
-    ],
-    _GenerationPhase.opponentFound => [
-      Text(
-        l10n.generationOpponentAppeared(_firstBattleOpponent!.opponentName),
-        textAlign: TextAlign.center,
-        style: SnapmonTextStyles.hero,
-      ),
-      const SizedBox(height: 12),
-      Text(
-        l10n.generationLetsBattleWith(_firstBattleMonster!.definition.name),
-        textAlign: TextAlign.center,
-        style: SnapmonTextStyles.body,
-      ),
-      const SizedBox(height: 24),
-      // バトルの画面を開くまでの待ち (_openFirstBattleTimer) を見せる。繰り返すアニメーションにしない
-      TweenAnimationBuilder<double>(
-        tween: Tween(begin: 0, end: 1),
-        duration: _opponentRevealDuration,
-        builder: (context, value, _) => ClipRRect(
-          borderRadius: SnapmonRadii.tag,
-          child: LinearProgressIndicator(
-            value: value,
-            minHeight: 6,
-            color: SnapmonColors.accent,
-            backgroundColor: SnapmonColors.surface,
+  List<Widget> _buildPhaseContent({required AppLocalizations l10n}) =>
+      switch (_phase) {
+        // 初回の導線は生成を待つ間も相手を探している見せ方にし、生成の段階は小さく添える
+        _GenerationPhase.inProgress when _startsFirstBattle => [
+          Text(
+            l10n.generationSearchingOpponent,
+            textAlign: TextAlign.center,
+            style: SnapmonTextStyles.hero,
           ),
-        ),
-      ),
-    ],
-    _GenerationPhase.alreadyInDex => [
-      Text(
-        l10n.generationAlreadyInDexTitle,
-        textAlign: TextAlign.center,
-        style: SnapmonTextStyles.hero,
-      ),
-      const SizedBox(height: 12),
-      Text(
-        l10n.generationAlreadyInDexMessage(
-          _alreadyInDexMonster!.definition.name,
-        ),
-        textAlign: TextAlign.center,
-        style: SnapmonTextStyles.body,
-      ),
-      const SizedBox(height: 28),
-      FilledButton(
-        onPressed: () => _prepareFirstBattle(monster: _alreadyInDexMonster!),
-        child: Text(l10n.generationBattleWithThisMonster),
-      ),
-      const SizedBox(height: 12),
-      OutlinedButton(
-        onPressed: () => Navigator.of(context).pop(),
-        child: Text(l10n.generationRetake),
-      ),
-    ],
-    _GenerationPhase.waiting => [
-      Text(
-        l10n.generationWaitingTitle,
-        textAlign: TextAlign.center,
-        style: SnapmonTextStyles.hero,
-      ),
-      const SizedBox(height: 12),
-      Text(
-        l10n.generationWaitingMessage,
-        textAlign: TextAlign.center,
-        style: SnapmonTextStyles.body,
-      ),
-      const SizedBox(height: 28),
-      FilledButton(
-        onPressed: _fetchAgain,
-        child: Text(l10n.generationCheckAgain),
-      ),
-      const SizedBox(height: 12),
-      OutlinedButton(
-        onPressed: () => Navigator.of(context).pop(),
-        child: Text(l10n.generationSeeLater),
-      ),
-    ],
-    _GenerationPhase.notGenerated => [
-      Text(
-        l10n.generationNotBornTitle,
-        textAlign: TextAlign.center,
-        style: SnapmonTextStyles.hero,
-      ),
-      const SizedBox(height: 12),
-      Text(
-        _notGeneratedText(l10n: l10n, result: _result!),
-        textAlign: TextAlign.center,
-        style: SnapmonTextStyles.body,
-      ),
-      const SizedBox(height: 28),
-      FilledButton(
-        onPressed: () => Navigator.of(context).pop(),
-        child: Text(l10n.generationRetake),
-      ),
-    ],
-    _GenerationPhase.error => [
-      Text(
-        _firstBattleMonster == null
-            ? l10n.generationFailedTitle
-            : l10n.generationBattlePreparationFailedTitle,
-        textAlign: TextAlign.center,
-        style: SnapmonTextStyles.hero,
-      ),
-      const SizedBox(height: 12),
-      Text(
-        _error.toString(),
-        textAlign: TextAlign.center,
-        style: SnapmonTextStyles.body.copyWith(
-          color: SnapmonColors.hitPointsLoss,
-        ),
-      ),
-      const SizedBox(height: 28),
-      FilledButton(
-        onPressed: _firstBattleMonster == null
-            ? _generate
-            : () => _prepareFirstBattle(monster: _firstBattleMonster!),
-        child: Text(l10n.commonRetry),
-      ),
-      const SizedBox(height: 12),
-      OutlinedButton(
-        onPressed: () => Navigator.of(context).pop(),
-        child: Text(l10n.commonBack),
-      ),
-    ],
-  };
+          const SizedBox(height: 12),
+          Text(
+            _firstBattleMonster == null
+                ? _inProgressText(l10n: l10n)
+                : l10n.generationBattleWith(
+                    _firstBattleMonster!.definition.name,
+                  ),
+            key: const Key('matchmaking-stage'),
+            textAlign: TextAlign.center,
+            style: SnapmonTextStyles.body,
+          ),
+          const SizedBox(height: 24),
+          const Center(child: CircularProgressIndicator()),
+        ],
+        _GenerationPhase.inProgress => [
+          Text(
+            _inProgressText(l10n: l10n),
+            textAlign: TextAlign.center,
+            style: SnapmonTextStyles.hero,
+          ),
+          const SizedBox(height: 24),
+          const Center(child: CircularProgressIndicator()),
+        ],
+        _GenerationPhase.opponentFound => [
+          Text(
+            l10n.generationOpponentAppeared(_firstBattleOpponent!.opponentName),
+            textAlign: TextAlign.center,
+            style: SnapmonTextStyles.hero,
+          ),
+          const SizedBox(height: 12),
+          Text(
+            l10n.generationLetsBattleWith(_firstBattleMonster!.definition.name),
+            textAlign: TextAlign.center,
+            style: SnapmonTextStyles.body,
+          ),
+          const SizedBox(height: 24),
+          // バトルの画面を開くまでの待ち (_openFirstBattleTimer) を見せる。繰り返すアニメーションにしない
+          TweenAnimationBuilder<double>(
+            tween: Tween(begin: 0, end: 1),
+            duration: _opponentRevealDuration,
+            builder: (context, value, _) => ClipRRect(
+              borderRadius: SnapmonRadii.tag,
+              child: LinearProgressIndicator(
+                value: value,
+                minHeight: 6,
+                color: SnapmonColors.accent,
+                backgroundColor: SnapmonColors.surface,
+              ),
+            ),
+          ),
+        ],
+        _GenerationPhase.alreadyInDex => [
+          Text(
+            l10n.generationAlreadyInDexTitle,
+            textAlign: TextAlign.center,
+            style: SnapmonTextStyles.hero,
+          ),
+          const SizedBox(height: 12),
+          Text(
+            l10n.generationAlreadyInDexMessage(
+              _alreadyInDexMonster!.definition.name,
+            ),
+            textAlign: TextAlign.center,
+            style: SnapmonTextStyles.body,
+          ),
+          const SizedBox(height: 28),
+          FilledButton(
+            onPressed: () =>
+                _prepareFirstBattle(monster: _alreadyInDexMonster!),
+            child: Text(l10n.generationBattleWithThisMonster),
+          ),
+          const SizedBox(height: 12),
+          OutlinedButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(l10n.generationRetake),
+          ),
+        ],
+        _GenerationPhase.waiting => [
+          Text(
+            l10n.generationWaitingTitle,
+            textAlign: TextAlign.center,
+            style: SnapmonTextStyles.hero,
+          ),
+          const SizedBox(height: 12),
+          Text(
+            l10n.generationWaitingMessage,
+            textAlign: TextAlign.center,
+            style: SnapmonTextStyles.body,
+          ),
+          const SizedBox(height: 28),
+          FilledButton(
+            onPressed: _fetchAgain,
+            child: Text(l10n.generationCheckAgain),
+          ),
+          const SizedBox(height: 12),
+          OutlinedButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(l10n.generationSeeLater),
+          ),
+        ],
+        _GenerationPhase.notGenerated => [
+          Text(
+            l10n.generationNotBornTitle,
+            textAlign: TextAlign.center,
+            style: SnapmonTextStyles.hero,
+          ),
+          const SizedBox(height: 12),
+          Text(
+            _notGeneratedText(l10n: l10n, result: _result!),
+            textAlign: TextAlign.center,
+            style: SnapmonTextStyles.body,
+          ),
+          const SizedBox(height: 28),
+          FilledButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(l10n.generationRetake),
+          ),
+        ],
+        _GenerationPhase.error => [
+          Text(
+            _firstBattleMonster == null
+                ? l10n.generationFailedTitle
+                : l10n.generationBattlePreparationFailedTitle,
+            textAlign: TextAlign.center,
+            style: SnapmonTextStyles.hero,
+          ),
+          const SizedBox(height: 12),
+          Text(
+            _error.toString(),
+            textAlign: TextAlign.center,
+            style: SnapmonTextStyles.body.copyWith(
+              color: SnapmonColors.hitPointsLoss,
+            ),
+          ),
+          const SizedBox(height: 28),
+          FilledButton(
+            onPressed: _firstBattleMonster == null
+                ? _generate
+                : () => _prepareFirstBattle(monster: _firstBattleMonster!),
+            child: Text(l10n.commonRetry),
+          ),
+          const SizedBox(height: 12),
+          OutlinedButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(l10n.commonBack),
+          ),
+        ],
+      };
 
   /// 進めている手順の文言。サーバーの段階は最後に済んだ段階 ([_completedStage]) の次の手順を出す。
   String _inProgressText({required AppLocalizations l10n}) {
@@ -639,8 +641,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
     GenerationRejectionReason.explicitContent =>
       l10n.generationRejectedExplicitContent,
     GenerationRejectionReason.faceDetected ||
-    GenerationRejectionReason.personDetected =>
-      l10n.generationRejectedPerson,
+    GenerationRejectionReason.personDetected => l10n.generationRejectedPerson,
     GenerationRejectionReason.noSubject => l10n.generationRejectedNoSubject,
     GenerationRejectionReason.inappropriateText ||
     GenerationRejectionReason.refused => l10n.generationRejectedRefused,

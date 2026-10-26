@@ -105,7 +105,9 @@ Future<void> blockOpponent({
     builder: (dialogContext) => AlertDialog(
       // 表示名は最大 12 文字で、タイトルの大きな文字に入れると 1 行に収まらないため本文に置く
       title: Text(dialogContext.l10n.blockDialogTitle),
-      content: Text(dialogContext.l10n.blockDialogMessage(opponent.displayName)),
+      content: Text(
+        dialogContext.l10n.blockDialogMessage(opponent.displayName),
+      ),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(dialogContext).pop(false),

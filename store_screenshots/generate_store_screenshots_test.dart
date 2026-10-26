@@ -425,12 +425,7 @@ class _StoreScreenshotCanvas extends StatelessWidget {
         home: Material(
           color: SnapmonColors.background,
           child: Padding(
-            padding: EdgeInsets.fromLTRB(
-              24 * scale,
-              56 * scale,
-              24 * scale,
-              0,
-            ),
+            padding: EdgeInsets.fromLTRB(24 * scale, 56 * scale, 24 * scale, 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [

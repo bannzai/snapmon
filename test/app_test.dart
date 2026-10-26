@@ -1043,7 +1043,11 @@ void main() {
       final rendered = shareCalls.renderedCards.single;
       expect(rendered.format, ShareCardFormat.portrait);
       expect(
-        (rendered.card as MonsterShareCard).monster.definition.id,
+        // カードは画面の木の外で描くため、Localizations で包んで渡す
+        ((rendered.card as Localizations).child! as MonsterShareCard)
+            .monster
+            .definition
+            .id,
         bornMonster.id,
       );
       // 切り出した画像を持たない見本のモンスターは Storage を読まない

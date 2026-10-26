@@ -161,7 +161,8 @@ class _BattleScreenState extends State<BattleScreen> {
       randomSeed: widget.randomSeed,
     );
     _displayedActiveMembers = _activeMembersOf(state: _battleState);
-    final firstOpponentName = _battleState.opponent.activeMember.definition.name;
+    final firstOpponentName =
+        _battleState.opponent.activeMember.definition.name;
     _logText = (l10n) => l10n.battleLogChallenged(firstOpponentName);
     _game = BattleFieldGame(
       playerMonster: _battleState.player.activeMember.definition,
@@ -269,9 +270,7 @@ class _BattleScreenState extends State<BattleScreen> {
       case MonsterFaintedEvent():
         final faintedName =
             _displayedActiveMembers[event.side]!.definition.name;
-        setState(
-          () => _logText = (l10n) => l10n.battleLogFainted(faintedName),
-        );
+        setState(() => _logText = (l10n) => l10n.battleLogFainted(faintedName));
         _game.faint(side: event.side);
         await Future<void>.delayed(_messageDuration);
       case MonsterSwitchedInEvent():

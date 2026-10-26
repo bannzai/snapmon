@@ -24,11 +24,10 @@ const String _photoDirectory = 'functions/test/fixtures/calibration/photos';
 
 /// スクリーンショットのモンスターの写真と絵の Storage のパスから、手元のファイルのパスを引く表。
 final Map<String, String> _filePathsByStoragePath = {
-  for (final (name, photoFileName) in _photoFileNames)
-    ...{
-      _artPath(name: name): '$_cutoutDirectory/$name.png',
-      _photoPath(name: name): '$_photoDirectory/$photoFileName',
-    },
+  for (final (name, photoFileName) in _photoFileNames) ...{
+    _artPath(name: name): '$_cutoutDirectory/$name.png',
+    _photoPath(name: name): '$_photoDirectory/$photoFileName',
+  },
 };
 
 /// 絵の名前と元の写真のファイル名 (cutout-store-screenshot-photos.mjs の PHOTOS と同じ組)。
@@ -285,7 +284,8 @@ Future<void> loadStoreScreenshotFonts() async {
   for (final fontFamily in fontManifest.cast<Map<String, dynamic>>()) {
     final fontLoader = FontLoader(fontFamily['family'] as String);
     for (final font
-        in (fontFamily['fonts'] as List<dynamic>).cast<Map<String, dynamic>>()) {
+        in (fontFamily['fonts'] as List<dynamic>)
+            .cast<Map<String, dynamic>>()) {
       fontLoader.addFont(rootBundle.load(font['asset'] as String));
     }
     await fontLoader.load();
