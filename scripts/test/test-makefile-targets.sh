@@ -6,6 +6,8 @@ set -euo pipefail
 
 repo_root="$(cd "$(dirname "$0")/../.." && pwd)"
 failures=0
+# 手元のシェルで export したサイトキーが Makefile の ?= に効き、gh の差し替えを使うテストの期待値を変えるため外す
+unset RECAPTCHA_ENTERPRISE_SITE_KEY
 
 fail() {
   echo "FAIL: $1"
