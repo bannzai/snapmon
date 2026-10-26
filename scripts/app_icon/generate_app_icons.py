@@ -48,9 +48,11 @@ def draw_mark(size: int, ring_radius_ratio: float, background) -> Image.Image:
     center_y = canvas_size / 2 + MARK_VERTICAL_SHIFT * radius
 
     def point(x: float, y: float):
+        """輪の中心を原点・輪の外の半径を 1 とした座標 (x, y) の、画像の上の画素の位置を返す。"""
         return (center_x + x * radius, center_y + y * radius)
 
     def circle(x: float, y: float, circle_radius: float, color):
+        """輪の半径を 1 とした座標 (x, y) を中心に、半径 circle_radius の円を color で塗る。"""
         left, top = point(x - circle_radius, y - circle_radius)
         right, bottom = point(x + circle_radius, y + circle_radius)
         draw.ellipse((left, top, right, bottom), fill=color)
@@ -81,6 +83,7 @@ def save_opaque(image: Image.Image, path: Path):
 
 
 def save_transparent(image: Image.Image, path: Path):
+    """透明を残したまま path に保存する (Android の adaptive icon の前景は、背景の色の上に重ねるため透明が要る)。"""
     path.parent.mkdir(parents=True, exist_ok=True)
     image.save(path, optimize=True)
 
@@ -101,6 +104,7 @@ ANDROID_FOREGROUND_SIZES = {density: size * 108 // 48 for density, size in ANDRO
 
 
 def write_ios():
+    """iOS の AppIcon.appiconset を、1024px の 1 枚 (single-size 形式) と Contents.json に置き換える。以前の大きさ別の PNG は消す。"""
     appiconset = REPOSITORY_ROOT / "ios/Runner/Assets.xcassets/AppIcon.appiconset"
     for old_icon in appiconset.glob("Icon-App-*.png"):
         old_icon.unlink()
@@ -113,6 +117,7 @@ def write_ios():
 
 
 def write_android():
+    """Android の密度ごとの従来のアイコン (ic_launcher) と adaptive icon の前景 (ic_launcher_foreground) を書き出す。"""
     resources = REPOSITORY_ROOT / "android/app/src/main/res"
     for density, size in ANDROID_LEGACY_SIZES.items():
         save_opaque(draw_mark(size, FULL_BLEED_RATIO, BACKGROUND), resources / f"mipmap-{density}/ic_launcher.png")
@@ -124,6 +129,7 @@ def write_android():
 
 
 def write_web():
+    """Web の favicon と、PWA の通常のアイコン・maskable のアイコン (192px・512px) を書き出す。"""
     web = REPOSITORY_ROOT / "web"
     save_opaque(draw_mark(16, FAVICON_RATIO, BACKGROUND), web / "favicon.png")
     for size in (192, 512):

@@ -113,50 +113,48 @@ List<T> _selected<T>({
 void main() {
   final sampleData = loadSampleDataFixture();
 
-  testWidgets(
-    'App Store のスクリーンショットを fastlane/screenshots に書き出す',
-    (tester) async {
-      await tester.runAsync(loadStoreScreenshotFonts);
-      final viewfinderPhoto = storeScreenshotViewfinderPhoto();
-      CameraPlatform.instance = StoreScreenshotCameraPlatform(
-        viewfinderPhoto: viewfinderPhoto,
-      );
-      addTearDown(tester.view.reset);
-      // 端末とカードの影を描く (flutter_test は既定で影を描かない)。flutter_test はテストの本体の後に既定のままかを
-      // 確かめるため、本体の中で既定に戻す
-      debugDisableShadows = false;
-      try {
-        for (final language in _selected(
-          name: 'STORE_SCREENSHOT_LANGUAGES',
-          values: StoreScreenshotLanguage.values,
-          keyOf: (language) => language.fastlaneLocale,
+  testWidgets('App Store のスクリーンショットを fastlane/screenshots に書き出す', (
+    tester,
+  ) async {
+    await tester.runAsync(loadStoreScreenshotFonts);
+    final viewfinderPhoto = storeScreenshotViewfinderPhoto();
+    CameraPlatform.instance = StoreScreenshotCameraPlatform(
+      viewfinderPhoto: viewfinderPhoto,
+    );
+    addTearDown(tester.view.reset);
+    // 端末とカードの影を描く (flutter_test は既定で影を描かない)。flutter_test はテストの本体の後に既定のままかを
+    // 確かめるため、本体の中で既定に戻す
+    debugDisableShadows = false;
+    try {
+      for (final language in _selected(
+        name: 'STORE_SCREENSHOT_LANGUAGES',
+        values: StoreScreenshotLanguage.values,
+        keyOf: (language) => language.fastlaneLocale,
+      )) {
+        for (final device in _selected(
+          name: 'STORE_SCREENSHOT_DEVICES',
+          values: StoreScreenshotDevice.values,
+          keyOf: (device) => device.fileNamePrefix,
         )) {
-          for (final device in _selected(
-            name: 'STORE_SCREENSHOT_DEVICES',
-            values: StoreScreenshotDevice.values,
-            keyOf: (device) => device.fileNamePrefix,
+          for (final page in _selected(
+            name: 'STORE_SCREENSHOT_PAGES',
+            values: StoreScreenshotPage.values,
+            keyOf: (page) => page.name,
           )) {
-            for (final page in _selected(
-              name: 'STORE_SCREENSHOT_PAGES',
-              values: StoreScreenshotPage.values,
-              keyOf: (page) => page.name,
-            )) {
-              await _writeScreenshot(
-                tester: tester,
-                sampleData: sampleData,
-                language: language,
-                device: device,
-                page: page,
-              );
-            }
+            await _writeScreenshot(
+              tester: tester,
+              sampleData: sampleData,
+              language: language,
+              device: device,
+              page: page,
+            );
           }
         }
-      } finally {
-        debugDisableShadows = true;
       }
-    },
-    timeout: const Timeout(Duration(minutes: 30)),
-  );
+    } finally {
+      debugDisableShadows = true;
+    }
+  });
 }
 
 /// 1 枚を描いて fastlane/screenshots/<locale>/<端末>_<番号>_<ページ>.png に書き出す。
@@ -412,7 +410,9 @@ class _StoreScreenshotCanvas extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final copy = storeScreenshotCopy[language]![page]!;
-    // iPad は画面が広いため、文字と余白を端末の幅に合わせて大きくする
+    // iPad は画面が広いため、文字と余白を大きくする。論理の幅の比 (iPad 13 の 1032 / iPhone 6.9 の 440 = 2.35) より小さい
+    // 1.9 にし、見出しの長い行にも左右の余白を残した (2026-10-26 の run 40325860131 の ipad13 の画像で、見出しが 2 行に
+    // 収まり左右に余白があることを目視で確かめた。2.35 では描いて確かめていない)
     final scale = device.isTablet ? 1.9 : 1.0;
     return RepaintBoundary(
       child: MaterialApp(

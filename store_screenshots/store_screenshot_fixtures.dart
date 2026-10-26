@@ -40,9 +40,11 @@ const List<(String, String)> _photoFileNames = [
   ('candle', '18.jpg'),
 ];
 
+/// 名前が [name] のスクリーンショットのモンスターの、切り出した絵の Storage のパス (本番の `monsters/{monsterId}/art.png` と同じ形)。
 String _artPath({required String name}) =>
     'monsters/store-screenshot-$name/art.png';
 
+/// 名前が [name] のスクリーンショットのモンスターの、元の写真の Storage のパス (本番の `users/{uid}/photos/{requestId}` と同じ形)。
 String _photoPath({required String name}) =>
     'users/store-screenshot/photos/$name';
 
