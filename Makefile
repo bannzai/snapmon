@@ -57,6 +57,12 @@ verify:
 	bash scripts/test/test-makefile-targets.sh
 	bash scripts/test/test-metadata-check.sh
 
+# アプリアイコンを描き直して iOS・Android・Web に書き出す (Pillow の入った python3 が要る。PYTHON=<python3 のパス> で差し替えられる)
+PYTHON ?= python3
+.PHONY: app-icons
+app-icons:
+	$(PYTHON) scripts/app_icon/generate_app_icons.py
+
 # fastlane/metadata の App Store のメタデータが App Store Connect の文字数の上限に収まっているかを検査する
 .PHONY: metadata-check
 metadata-check:

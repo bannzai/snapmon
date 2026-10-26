@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 画面の地の色 (lib/theme/snapmon_colors.dart の background) -->
+    <color name="ic_launcher_background">#15121C</color>
+</resources>
