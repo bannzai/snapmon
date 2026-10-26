@@ -197,7 +197,7 @@ void main() {
     Widget localizedCard({required Locale locale, required Widget card}) =>
         Localizations(
           locale: locale,
-          delegates: const [AppLocalizations.delegate],
+          delegates: AppLocalizations.localizationsDelegates,
           child: card,
         );
 

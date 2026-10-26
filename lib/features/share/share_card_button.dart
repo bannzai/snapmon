@@ -119,10 +119,11 @@ class _ShareCardButtonState extends State<ShareCardButton> {
       }
       final pngBytes = await widget.cardSharer.renderPng(
         view: view,
-        // AppLocalizations の読み込みは同期で済む (gen-l10n の load は SynchronousFuture を返す) ため、1 回きりの描画でも文言が入る
+        // 文言の読み込みは同期で済む (gen-l10n と Global*Localizations の load は SynchronousFuture を返す) ため、
+        // 1 回きりの描画でも文言が入る。Localizations は WidgetsLocalizations の delegate を必須にするため、アプリと同じ一式を渡す
         card: Localizations(
           locale: locale,
-          delegates: const [AppLocalizations.delegate],
+          delegates: AppLocalizations.localizationsDelegates,
           child: widget.buildCard(
             format: format,
             artImagesByPath: artImagesByPath,

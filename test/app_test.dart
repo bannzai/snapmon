@@ -567,8 +567,8 @@ void main() {
       expect(find.text('アカウントを削除'), findsOneWidget);
       expect(generationCalls.uploadedRequestIds, isEmpty);
 
-      // 戻るとタイトルに戻る (下タブには入らない)
-      await tester.pageBack();
+      // 戻るとタイトルに戻る (下タブには入らない)。pageBack は英語の tooltip (Back) で探すため型で探す
+      await tester.tap(find.byType(BackButton));
       await tester.pumpAndSettle();
       expect(find.text('写真から選んではじめる'), findsOneWidget);
       expect(find.byKey(const Key('tab-dex')), findsNothing);
@@ -2097,7 +2097,8 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.text('切り替える'));
       await tester.pumpAndSettle();
-      await tester.pageBack();
+      // pageBack は英語の tooltip (Back) で探すため、日本語の画面では戻るボタンを型で探す
+      await tester.tap(find.byType(BackButton));
       await tester.pumpAndSettle();
 
       expect(find.text('1 勝 2 敗'), findsNothing);

@@ -137,7 +137,10 @@ class ResultScreen extends StatelessWidget {
                 children: [
                   SquareIconButton(
                     icon: Icons.chevron_left,
-                    tooltip: context.l10n.commonBack,
+                    // AppBar の戻るボタンと同じ文言 (Material の各言語の訳) にする
+                    tooltip: MaterialLocalizations.of(
+                      context,
+                    ).backButtonTooltip,
                     onPressed: () => Navigator.of(context).pop(),
                     size: 44,
                   ),

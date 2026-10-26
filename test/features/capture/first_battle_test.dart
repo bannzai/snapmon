@@ -5,7 +5,6 @@ import 'package:snapmon/features/capture/first_battle.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
 import 'package:snapmon/features/opponent/pvp_client.dart';
 import 'package:snapmon/features/opponent/pvp_opponent.dart';
-import 'package:snapmon/sample/sample_data.dart';
 
 import '../../monster_generator_fixture.dart';
 import '../../sample_data_fixture.dart';
