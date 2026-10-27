@@ -8,6 +8,8 @@ import 'package:share_plus/share_plus.dart';
 
 import 'package:snapmon/analytics/analytics_events.dart';
 import 'package:snapmon/domain/battle/battle_state.dart';
+import 'package:snapmon/domain/monster/monster_stats.dart';
+import 'package:snapmon/domain/monster/stat_calculation.dart';
 import 'package:snapmon/features/battle/battle_field_game.dart';
 import 'package:snapmon/features/battle/battle_recorder.dart';
 import 'package:snapmon/features/battle/battle_screen.dart';
@@ -148,6 +150,50 @@ void main() {
       },
     );
   }
+
+  testWidgets('技の枠に特殊効果の短い説明を出し、効果が働いた技はログに説明文を出す', (tester) async {
+    MonsterStats statsOf({required OwnedMonster monster}) => calculateStats(
+      baseStats: monster.definition.baseStats,
+      individualValues: monster.definition.individualValues,
+      level: monster.level,
+      statCalculationVersion: monster.definition.statCalculationVersion,
+    );
+    // 「先に動くと強い」(ゆげのもや) が 1 ターン目に働く前提: マグモンの方が速く、同速の乱数に頼らない
+    expect(
+      statsOf(monster: strongPlayer).speed,
+      greaterThan(statsOf(monster: weakOpponent).speed),
+    );
+    await pumpBattleScreen(
+      tester: tester,
+      playerMonster: strongPlayer,
+      artImage: null,
+      battleRecorder: fakeBattleRecorder(
+        calls: RecordedBattleCalls(),
+        startBattleRecord: () async => null,
+        recordedLevels: const {},
+      ),
+    );
+    // マグモンの覚える技の一覧の 3 番目が ゆげのもや (heat_1b。先に動くと 1.3 倍)
+    final moveSlot = find.byKey(const Key('move-slot-2'));
+    expect(
+      find.descendant(of: moveSlot, matching: find.text('ゆげのもや')),
+      findsOneWidget,
+    );
+    expect(
+      find.descendant(of: moveSlot, matching: find.text('先に動くと強い')),
+      findsOneWidget,
+    );
+
+    await tester.tap(moveSlot);
+    await tester.pump();
+    expect(
+      tester.widget<Text>(find.byKey(const Key('battle-log'))).data,
+      // 熱はリンゴラの食べ物・植物の両方に 2 倍のため、相性の行も続く
+      '${strongPlayer.definition.name} の ゆげのもや\n先に行動すると威力が上がる (今回は 1.3 倍)\nこうかは ばつぐんだ',
+    );
+    // 演出の待ち (Future.delayed) をテストの終わりに残さない
+    await tester.pump(const Duration(seconds: 5));
+  });
 
   testWidgets('技を選ぶと決着まで進み、勝敗とレベルの上がり方を出して記録と計測をする', (tester) async {
     final calls = RecordedBattleCalls();
