@@ -417,7 +417,7 @@ void main() {
 
     // 元の写真は読まず、切り出した画像だけを読む
     expect(shareCalls.loadedArtPaths, [artPath]);
-    expect(game.playerMonsterComponent.artPath, artPath);
+    expect(game.playerMonsterComponent.monster.artPath, artPath);
     expect(game.playerMonsterComponent.artSprite, isNotNull);
     expect(game.opponentMonsterComponent.artSprite, isNull);
     await playUntilFinished(tester: tester);

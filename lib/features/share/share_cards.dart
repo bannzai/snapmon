@@ -506,8 +506,8 @@ class _LandingPageAddress extends StatelessWidget {
   );
 }
 
-/// カードの中のモンスターの絵。切り出した被写体の画像があれば [artImagesByPath] から引いて描き、
-/// 無ければ (見本のモンスター) 仮の絵を描く。
+/// カードの中のモンスターの絵。切り出した被写体の画像があれば [artImagesByPath] から引き、装飾を重ねて描き
+/// (図鑑のカードと同じ [DecoratedMonsterArt])、無ければ (見本のモンスター) 仮の絵を描く。
 class _ShareCardMonsterArt extends StatelessWidget {
   const _ShareCardMonsterArt({
     required this.monster,
@@ -527,17 +527,12 @@ class _ShareCardMonsterArt extends StatelessWidget {
             definition: monster.definition,
             backgroundColor: backgroundColor,
           )
-        : ClipRRect(
-            borderRadius: SnapmonRadii.button,
-            child: ColoredBox(
-              color: backgroundColor,
-              child: RawImage(
-                image:
-                    artImagesByPath[artPath] ??
-                    (throw StateError('$artPath の画像を読み込んでいない')),
-                fit: BoxFit.contain,
-              ),
-            ),
+        : DecoratedMonsterArt(
+            monster: monster,
+            artImage:
+                artImagesByPath[artPath] ??
+                (throw StateError('$artPath の画像を読み込んでいない')),
+            backgroundColor: backgroundColor,
           );
   }
 }

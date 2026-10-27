@@ -9,9 +9,10 @@ import 'package:flame/particles.dart';
 
 import '../../domain/battle/battle_state.dart';
 import '../../domain/master/move_effect.dart';
-import '../../domain/monster/monster_definition.dart';
 import '../../theme/snapmon_colors.dart';
+import '../../widgets/monster_art_painting.dart';
 import '../../widgets/placeholder_monster_painting.dart';
+import '../dex/owned_monster.dart';
 
 /// 攻撃の前進にかける時間 (秒)。往復でこの 2 倍になる。技の演出 1 回を 1 秒前後に収め、ターンの待ちを短くするため。
 const double attackLungeSeconds = 0.15;
@@ -40,20 +41,15 @@ Color moveEffectColor({required MoveEffect effect}) =>
 /// いつ何を見せるかはバトル画面 (battle_screen.dart) がバトルのログから決め、このゲームはバトルの計算を持たない。
 class BattleFieldGame extends FlameGame {
   /// [playerMonster] と [opponentMonster] を場に出したフィールドを作る。
-  /// [playerArtPath]・[opponentArtPath] はそれぞれの切り出した被写体の画像の Storage のパス (見本のモンスターは null)。
   BattleFieldGame({
-    required MonsterDefinition playerMonster,
-    required String? playerArtPath,
-    required MonsterDefinition opponentMonster,
-    required String? opponentArtPath,
+    required OwnedMonster playerMonster,
+    required OwnedMonster opponentMonster,
   }) : playerMonsterComponent = MonsterComponent(
-         definition: playerMonster,
-         artPath: playerArtPath,
+         monster: playerMonster,
          artSprite: null,
        ),
        opponentMonsterComponent = MonsterComponent(
-         definition: opponentMonster,
-         artPath: opponentArtPath,
+         monster: opponentMonster,
          artSprite: null,
        );
 
@@ -97,7 +93,7 @@ class BattleFieldGame extends FlameGame {
       playerMonsterComponent,
       opponentMonsterComponent,
     ]) {
-      if (component.artPath == artPath) {
+      if (component.monster.artPath == artPath) {
         component.artSprite = artSprite;
       }
     }
@@ -161,16 +157,11 @@ class BattleFieldGame extends FlameGame {
     monsterComponentOf(side: side).isVisible = false;
   }
 
-  /// [side] の場のモンスターを [definition] (切り出した被写体の画像は [artPath]。見本のモンスターは null) に入れ替える。
-  void switchIn({
-    required BattleSideId side,
-    required MonsterDefinition definition,
-    required String? artPath,
-  }) {
+  /// [side] の場のモンスターを [monster] に入れ替える。
+  void switchIn({required BattleSideId side, required OwnedMonster monster}) {
     final replacement = MonsterComponent(
-      definition: definition,
-      artPath: artPath,
-      artSprite: _artSpritesByPath[artPath],
+      monster: monster,
+      artSprite: _artSpritesByPath[monster.artPath],
     );
     monsterComponentOf(side: side).removeFromParent();
     switch (side) {
@@ -218,24 +209,16 @@ class _GroundComponent extends Component with HasGameReference<FlameGame> {
   }
 }
 
-/// 場のモンスターを描く部品。切り出した被写体の画像 ([artImage]) があれば縦横比を保って枠に収めて描き、
-/// 無ければ (見本のモンスター・読み込み中・読み込みの失敗) 仮の絵を描く。
-/// 装飾 (目・手足・オーラ・輪郭線) は図鑑のカード (MonsterArt) と同じくまだ描かない。
+/// 場のモンスターを描く部品。切り出した被写体の画像 ([artSprite]) があれば図鑑のカードと同じく装飾を重ねて描き
+/// ([paintMonsterArt])、無ければ (見本のモンスター・読み込み中・読み込みの失敗) 仮の絵を描く。
 class MonsterComponent extends PositionComponent with HasVisibility {
-  /// [definition] のモンスターを描く部品を作る。
-  MonsterComponent({
-    required this.definition,
-    required this.artPath,
-    required this.artSprite,
-  });
+  /// [monster] を描く部品を作る。
+  MonsterComponent({required this.monster, required this.artSprite});
 
   /// 描くモンスター。
-  final MonsterDefinition definition;
+  final OwnedMonster monster;
 
-  /// 切り出した被写体の画像の Storage のパス。見本のモンスターは null。
-  final String? artPath;
-
-  /// [artPath] の画像の Sprite。null の間は仮の絵を描く。
+  /// [OwnedMonster.artPath] の画像の Sprite。null の間は仮の絵を描く。
   Sprite? artSprite;
 
   /// 点滅の残り時間 (秒)。0 なら点滅していない。
@@ -276,14 +259,15 @@ class MonsterComponent extends PositionComponent with HasVisibility {
       paintPlaceholderMonster(
         canvas: canvas,
         size: Size(size.x, size.y),
-        definition: definition,
+        definition: monster.definition,
       );
       return;
     }
-    // 切り出した画像は被写体ごとに縦横比が違うため、引き伸ばさずに枠に収めて中央に置く (図鑑のカードの BoxFit.contain と同じ)
-    final drawSize =
-        sprite.srcSize *
-        math.min(size.x / sprite.srcSize.x, size.y / sprite.srcSize.y);
-    sprite.render(canvas, position: (size - drawSize) / 2, size: drawSize);
+    paintMonsterArt(
+      canvas: canvas,
+      size: Size(size.x, size.y),
+      monster: monster,
+      artImage: sprite.image,
+    );
   }
 }

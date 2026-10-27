@@ -34,6 +34,8 @@ GenerationResult generateSampleMonster({
         level: 1,
         artPath: sampleMonster.artPath,
         definitionIds: sampleMonster.definitionIds,
+        decoration: sampleMonster.decoration,
+        decorationVersion: sampleMonster.decorationVersion,
       ),
     ],
     partyMonsterIds: null,

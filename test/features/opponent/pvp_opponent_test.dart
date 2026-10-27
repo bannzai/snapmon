@@ -1,9 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:snapmon/domain/monster/monster_decoration.dart';
 import 'package:snapmon/features/opponent/pvp_opponent.dart';
 
 void main() {
-  test('fetchOpponents が返す 1 件を読み、元の写真の参照は持たない', () {
+  test('fetchOpponents が返す 1 件を装飾ごと読み、元の写真の参照は持たない', () {
     final opponent = PvpOpponent.fromJson(
       json: {
         'opponentUid': 'uid-a',
@@ -36,7 +37,16 @@ void main() {
             'level': 7,
             'artPath': 'monsters/monster-1/art.png',
             'definitionIds': ['definition-1'],
-            'decoration': {'eyes': 'round'},
+            'decoration': {
+              'eyeStyle': 'round',
+              'mouthStyle': 'smile',
+              'limbStyle': 'stubby',
+              'auraStyle': 'soft',
+              'eyeCenterX': 0.5,
+              'eyeCenterY': 0,
+              'eyeScale': 0.12,
+              'outlineColorHex': '#FFFFFF',
+            },
             'decorationVersion': 1,
           },
         ],
@@ -50,5 +60,10 @@ void main() {
     expect(monster.level, 7);
     expect(monster.artPath, 'monsters/monster-1/art.png');
     expect(monster.definitionIds, ['definition-1']);
+    expect(monster.decorationVersion, 1);
+    expect(monster.decoration?.eyeStyle, MonsterEyeStyle.round);
+    expect(monster.decoration?.limbStyle, MonsterLimbStyle.stubby);
+    expect(monster.decoration?.eyeCenterY, 0.0);
+    expect(monster.decoration?.outlineColorHex, '#FFFFFF');
   });
 }

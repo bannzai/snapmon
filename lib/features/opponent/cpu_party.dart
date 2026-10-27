@@ -37,6 +37,8 @@ List<OwnedMonster> buildCpuParty({
         ),
         artPath: monster.artPath,
         definitionIds: monster.definitionIds,
+        decoration: monster.decoration,
+        decorationVersion: monster.decorationVersion,
       ),
   ];
 }
