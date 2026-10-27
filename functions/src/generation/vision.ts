@@ -66,7 +66,6 @@ export type RejectionReason =
   | "explicit_content"
   | "face_detected"
   | "person_detected"
-  | "no_subject"
   | "inappropriate_text"
   | "refused";
 

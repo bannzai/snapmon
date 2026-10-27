@@ -2,4 +2,5 @@ node_modules/
 lib/
 secret/
 *.log
+# 2026-10-28 まで使っていた被写体の切り出しのモデル (178 MB) の置き場。取得をやめた後も手元に残ったものを commit しないため
 models/
