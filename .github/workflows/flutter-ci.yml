@@ -66,7 +66,17 @@ jobs:
         flutter-version: ${{ env.FLUTTER_VERSION }}
     - run: scripts/restore-firebase-config.sh dart
     - run: flutter pub get
-    - run: flutter build web --release
+    # サイトキー (公開値) を付けて、本番の Hosting と同じ App Check の設定の成果物にする (deploy-hosting.yml と同じ)
+    - run: flutter build web --release --dart-define=RECAPTCHA_ENTERPRISE_SITE_KEY="$RECAPTCHA_ENTERPRISE_SITE_KEY"
+      env:
+        RECAPTCHA_ENTERPRISE_SITE_KEY: ${{ vars.RECAPTCHA_ENTERPRISE_SITE_KEY }}
+    # 手元のブラウザで release ビルドを試すための成果物 (gh run download <run ID> -n web-build -D tmp/web-build →
+    # python3 -m http.server 8080 --bind 127.0.0.1 --directory tmp/web-build)。この Mac で flutter build を実行しないため (CLAUDE.md「ビルド・テスト・検証方法」)
+    - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      with:
+        name: web-build
+        path: build/web
+        retention-days: 7
 
   build-android:
     runs-on: ubuntu-latest
