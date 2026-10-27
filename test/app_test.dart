@@ -239,6 +239,7 @@ void main() {
     required bool hasStartedSession,
     required int startSessionFailureCount,
     required bool isDeveloperMenuEnabled,
+    required bool startsCameraOnCaptureOpen,
   }) async {
     await prepareStores(
       tester: tester,
@@ -250,7 +251,7 @@ void main() {
         theme: snapmonThemeData(),
         home: HomeShell(
           initialTab: HomeTab.capture,
-          startsCameraOnCaptureOpen: false,
+          startsCameraOnCaptureOpen: startsCameraOnCaptureOpen,
           sampleData: sampleData,
           dexStore: dexStore,
           sessionStore: sessionStore,
@@ -908,6 +909,7 @@ void main() {
           hasStartedSession: true,
           startSessionFailureCount: 0,
           isDeveloperMenuEnabled: false,
+          startsCameraOnCaptureOpen: false,
         );
         // テストの環境にはカメラが無いため、選ぶ案内になる
         expect(find.text('身の回りの物の写真を 1 枚選ぼう'), findsOneWidget);
@@ -945,6 +947,7 @@ void main() {
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
       );
       expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
 
@@ -968,6 +971,7 @@ void main() {
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
       );
       await seedPartyWithOneMonster(tester: tester);
       await tester.tap(find.byTooltip('アルバムから選ぶ'));
@@ -1001,6 +1005,7 @@ void main() {
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
       );
       await seedPartyWithOneMonster(tester: tester);
       await tester.tap(find.byTooltip('アルバムから選ぶ'));
@@ -1017,6 +1022,7 @@ void main() {
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
       );
       await seedPartyWithOneMonster(tester: tester);
       await tester.tap(find.byTooltip('アルバムから選ぶ'));
@@ -1061,6 +1067,7 @@ void main() {
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
       );
       dexStore.replaceAll(monsters: sampleData.monsters);
       await tester.tap(find.byKey(const Key('tab-dex')));
@@ -1086,6 +1093,7 @@ void main() {
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
       );
       dexStore.replaceAll(monsters: sampleData.monsters);
       await tester.tap(find.byKey(const Key('tab-dex')));
@@ -1115,6 +1123,7 @@ void main() {
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
       );
       dexStore.replaceAll(monsters: sampleData.monsters);
       await tester.tap(find.byKey(const Key('tab-dex')));
@@ -1139,6 +1148,7 @@ void main() {
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
       );
       dexStore.replaceAll(monsters: sampleData.monsters);
       await tester.tap(find.byKey(const Key('tab-dex')));
@@ -1160,6 +1170,7 @@ void main() {
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
       );
       dexStore.replaceAll(monsters: sampleData.monsters);
       await tester.tap(find.byKey(const Key('tab-dex')));
@@ -1178,6 +1189,7 @@ void main() {
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
       );
       tester.view.physicalSize = const Size(844, 390);
       await tester.pumpAndSettle();
@@ -1201,6 +1213,7 @@ void main() {
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
       );
       // 開いただけではカメラを求めない
       expect(find.textContaining('カメラが使えません'), findsNothing);
@@ -1212,12 +1225,36 @@ void main() {
       expect(generationCalls.uploadedRequestIds, isEmpty);
     });
 
+    testWidgets(
+      'タイトルの「カメラで撮ってはじめる」から来た時は撮るタブですぐカメラを求め、開けないままタブを切り替えて戻ると求め直さない',
+      (tester) async {
+        await pumpHome(
+          tester: tester,
+          hasStartedSession: true,
+          startSessionFailureCount: 0,
+          isDeveloperMenuEnabled: false,
+          startsCameraOnCaptureOpen: true,
+        );
+        // fakeMonsterGenerator のカメラの一覧は空のため、開こうとして開けない
+        expect(find.textContaining('カメラが使えません'), findsOneWidget);
+        expect(find.byKey(const Key('capture-use-camera')), findsNothing);
+
+        await tester.tap(find.byKey(const Key('tab-dex')));
+        await tester.pumpAndSettle();
+        await tester.tap(find.byKey(const Key('tab-capture')));
+        await tester.pumpAndSettle();
+        expect(find.textContaining('カメラが使えません'), findsNothing);
+        expect(find.byKey(const Key('capture-use-camera')), findsOneWidget);
+      },
+    );
+
     testWidgets('手持ちが 3 体の時に手持ちに入れようとすると、選んだ手持ちと入れ替わる', (tester) async {
       await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
       );
       dexStore.replaceAll(monsters: sampleData.monsters);
       final partyBefore = dexStore.party;
@@ -1251,6 +1288,7 @@ void main() {
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
       );
       final waxMonster = generatedWaxMonster(monsterId: 'm1');
       var refreshCount = 0;
@@ -1295,6 +1333,7 @@ void main() {
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
       );
       final pendingRefresh = Completer<void>();
       var refreshCount = 0;
@@ -1330,6 +1369,7 @@ void main() {
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
       );
       dexStore
         ..connectServer(
@@ -1359,6 +1399,7 @@ void main() {
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
       );
       dexStore
         ..replaceAll(monsters: sampleData.monsters)
@@ -1387,6 +1428,7 @@ void main() {
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
       );
       final waxMonster = generatedWaxMonster(monsterId: 'm1');
       dexStore.applyServerSnapshot(
@@ -1427,6 +1469,7 @@ void main() {
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
       );
       dexStore.replaceAll(monsters: sampleData.monsters);
       await tester.tap(find.byKey(const Key('tab-dex')));
@@ -1455,6 +1498,7 @@ void main() {
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
       );
       await tester.tap(find.byKey(const Key('tab-opponent')));
       await tester.pumpAndSettle();
@@ -1477,6 +1521,7 @@ void main() {
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
       );
       dexStore.replaceAll(monsters: sampleData.monsters);
       await tester.tap(find.byKey(const Key('tab-opponent')));
@@ -1524,6 +1569,7 @@ void main() {
       hasStartedSession: true,
       startSessionFailureCount: 0,
       isDeveloperMenuEnabled: false,
+      startsCameraOnCaptureOpen: false,
     );
     dexStore.replaceAll(monsters: sampleData.monsters);
     final partyBefore = dexStore.party;
@@ -1592,6 +1638,7 @@ void main() {
       hasStartedSession: true,
       startSessionFailureCount: 0,
       isDeveloperMenuEnabled: false,
+      startsCameraOnCaptureOpen: false,
     );
     dexStore.replaceAll(monsters: sampleData.monsters);
     await tester.tap(find.byKey(const Key('tab-opponent')));
@@ -1647,6 +1694,7 @@ void main() {
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
       );
       dexStore.replaceAll(monsters: sampleData.monsters);
       expect(
@@ -1706,6 +1754,7 @@ void main() {
       hasStartedSession: true,
       startSessionFailureCount: 0,
       isDeveloperMenuEnabled: false,
+      startsCameraOnCaptureOpen: false,
     );
     dexStore.replaceAll(monsters: sampleData.monsters);
     await tester.tap(find.byKey(const Key('tab-opponent')));
@@ -1779,6 +1828,7 @@ void main() {
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
       );
       await tester.tap(find.byTooltip('設定'));
       await tester.pumpAndSettle();
@@ -1864,6 +1914,7 @@ void main() {
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
       );
       await tester.tap(find.byTooltip('設定'));
       await tester.pumpAndSettle();
@@ -1901,6 +1952,7 @@ void main() {
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
       );
       await tester.tap(find.byTooltip('設定'));
       await tester.pumpAndSettle();
@@ -1915,6 +1967,7 @@ void main() {
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
       );
       await tester.tap(find.byTooltip('設定'));
       await tester.pumpAndSettle();
@@ -2076,6 +2129,7 @@ void main() {
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
       );
       await tester.tap(find.byKey(const Key('tab-opponent')));
       await tester.pumpAndSettle();
@@ -2113,6 +2167,7 @@ void main() {
         hasStartedSession: false,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: true,
+        startsCameraOnCaptureOpen: false,
       );
       // タイトルのログインの失敗の画面で「ログインせずに進む (DEBUG)」を押した状態
       sessionStore.skipForDebug();
@@ -2133,6 +2188,7 @@ void main() {
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
       );
       await tester.tap(find.byTooltip('設定'));
       await tester.pumpAndSettle();
@@ -2145,6 +2201,7 @@ void main() {
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: true,
+        startsCameraOnCaptureOpen: false,
       );
       await tester.tap(find.byTooltip('設定'));
       await tester.pumpAndSettle();
@@ -2168,6 +2225,7 @@ void main() {
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: true,
+        startsCameraOnCaptureOpen: false,
       );
       dexStore.connectServer(
         savePartyMonsterIds: ({required monsterIds}) async {},
@@ -2189,6 +2247,7 @@ void main() {
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: true,
+        startsCameraOnCaptureOpen: false,
       );
       await seedPartyWithOneMonster(tester: tester);
       await tester.tap(find.byTooltip('設定'));
