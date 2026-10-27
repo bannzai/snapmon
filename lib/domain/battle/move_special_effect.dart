@@ -25,7 +25,8 @@ import 'battle_state.dart';
   }
   final maximumPowerPercent = specialEffect.maximumPowerPercent;
 
-  /// [numerator] / [denominator] の割合に比例して、100% から [maximumPowerPercent] まで上がる倍率。
+  /// [numerator] / [denominator] の割合に比例して、100% (1 倍。効果なし) から [maximumPowerPercent] まで上がる倍率。
+  /// [denominator] が 0 以下 (最大 PP が 1 の技など、割合を決められない時) は効果なしの 100% にする。
   int percentByRatio({required int numerator, required int denominator}) =>
       denominator <= 0
       ? 100
@@ -50,11 +51,11 @@ import 'battle_state.dart';
     MoveSpecialEffectKind.tougherOpponent => percentByCondition(
       condition: defenderStats.defense > attackerStats.attack,
     ),
-    // 最初に使う時 (残りが最大) は 100%、最後の 1 回 (残り 1) で最大にする
+    // 最初に使う時 (残りが最大) は 100%、最後の 1 回 (残り 1) で最大にする。
+    // 使える技は残り PP が 1 以上ある技だけのため (battle_engine.dart の PP の消費と同じ前提)、残り PP は必ずある
     MoveSpecialEffectKind.powerPointsLow => percentByRatio(
       numerator:
-          move.powerPoints -
-          (attacker.state.remainingPowerPoints[move.id] ?? move.powerPoints),
+          move.powerPoints - attacker.state.remainingPowerPoints[move.id]!,
       denominator: move.powerPoints - 1,
     ),
     MoveSpecialEffectKind.sameElementAsOpponent => percentByCondition(

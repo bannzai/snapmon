@@ -271,6 +271,7 @@ BattleState advanceTurn({
             attackerLevel: attacker.state.level,
             power: move == null
                 ? strugglePower
+                // 特殊効果の無い技は威力をそのまま使うため、倍率 100% (1 倍) とみなす
                 : move.power * (specialEffect?.powerPercent ?? 100) ~/ 100,
             attack: attackerStats.attack,
             defense: defenderStats.defense,

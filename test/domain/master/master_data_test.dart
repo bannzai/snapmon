@@ -65,13 +65,10 @@ void main() {
 
   test('技の特殊効果はアプリが知っている種類で、威力を上げる倍率を持つ', () {
     // 知らない種類は読む時に null になり見落とすため、元の JSON の種類の名前で確かめる
-    final knownKindNames = {
-      for (final kind in MoveSpecialEffectKind.values) kind.name,
-    };
-    final masterJson =
-        jsonDecode(File('assets/master/master.json').readAsStringSync())
-            as Map<String, dynamic>;
-    for (final moveJson in masterJson['moves'] as List<dynamic>) {
+    for (final moveJson
+        in (jsonDecode(File('assets/master/master.json').readAsStringSync())
+                as Map<String, dynamic>)['moves']
+            as List<dynamic>) {
       final specialEffectJson =
           (moveJson as Map<String, dynamic>)['specialEffect']
               as Map<String, dynamic>?;
@@ -79,7 +76,7 @@ void main() {
         continue;
       }
       expect(
-        knownKindNames,
+        MoveSpecialEffectKind.values.asNameMap().keys,
         contains(specialEffectJson['kind']),
         reason: moveJson['id'] as String,
       );

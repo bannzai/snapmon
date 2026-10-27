@@ -22,10 +22,7 @@ Move testMove({
   learnableLevelMaximum: 999,
   specialEffect: kind == null
       ? null
-      : MoveSpecialEffect(
-          kind: kind,
-          maximumPowerPercent: maximumPowerPercent,
-        ),
+      : MoveSpecialEffect(kind: kind, maximumPowerPercent: maximumPowerPercent),
 );
 
 /// 属性 [elementTypeIds]・HP [currentHitPoints]・テストの技の残り PP [remainingPowerPoints] のバトル中のモンスターを返す。
@@ -65,12 +62,8 @@ BattleMonster testMonster({
 );
 
 /// HP 100・攻撃と防御が [attack]・[defense] のステータスを返す。
-MonsterStats testStats({int attack = 50, int defense = 50}) => MonsterStats(
-  hitPoints: 100,
-  attack: attack,
-  defense: defense,
-  speed: 50,
-);
+MonsterStats testStats({int attack = 50, int defense = 50}) =>
+    MonsterStats(hitPoints: 100, attack: attack, defense: defense, speed: 50);
 
 /// 既定の状況 (両者の HP 満タン・同じ属性・技の PP 満タン・先に行動) を引数で変えて、[move] の効果を計算する。
 ({int powerPercent, String description})? calculate({
@@ -103,10 +96,7 @@ void main() {
       defender: testMonster(currentHitPoints: 50),
     )!;
     expect(halfHitPoints.powerPercent, 150);
-    expect(
-      halfHitPoints.description,
-      '相手の HP が減っているほど威力が上がる (今回は 1.5 倍)',
-    );
+    expect(halfHitPoints.description, '相手の HP が減っているほど威力が上がる (今回は 1.5 倍)');
     expect(
       calculate(
         move: move,
@@ -220,10 +210,7 @@ void main() {
       maximumPowerPercent: 130,
     );
     expect(calculate(move: move)!.powerPercent, 130);
-    expect(
-      calculate(move: move, attackerMovesFirst: false)!.powerPercent,
-      100,
-    );
+    expect(calculate(move: move, attackerMovesFirst: false)!.powerPercent, 100);
   });
 
   test('後に動くと: 後に行動した時だけ最大', () {
@@ -231,10 +218,7 @@ void main() {
       kind: MoveSpecialEffectKind.movesLast,
       maximumPowerPercent: 140,
     );
-    expect(
-      calculate(move: move, attackerMovesFirst: false)!.powerPercent,
-      140,
-    );
+    expect(calculate(move: move, attackerMovesFirst: false)!.powerPercent, 140);
     expect(calculate(move: move)!.powerPercent, 100);
   });
 

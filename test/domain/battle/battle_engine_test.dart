@@ -654,13 +654,12 @@ void main() {
       required String playerMoveId,
       required String opponentMoveId,
     }) => {
-      for (final event
-          in advanceTurn(
-            state: state,
-            playerAction: UseMoveAction(moveId: playerMoveId),
-            opponentAction: UseMoveAction(moveId: opponentMoveId),
-            master: testMaster,
-          ).events.skip(state.events.length).whereType<MoveUsedEvent>())
+      for (final event in advanceTurn(
+        state: state,
+        playerAction: UseMoveAction(moveId: playerMoveId),
+        opponentAction: UseMoveAction(moveId: opponentMoveId),
+        master: testMaster,
+      ).events.skip(state.events.length).whereType<MoveUsedEvent>())
         event.attackerSide: event,
     };
 
@@ -691,24 +690,27 @@ void main() {
         playerSpeed: 100,
         opponentSpeed: 50,
       );
-      final firstEvent = playTurn(
-        state: firstState,
-        playerMoveId: 'fire_last_resort',
-        opponentMoveId: 'fire_strong',
-      )[BattleSideId.player]!;
-      expect(firstEvent.specialEffect!.powerPercent, 100);
-      final secondState = advanceTurn(
-        state: firstState,
-        playerAction: const UseMoveAction(moveId: 'fire_last_resort'),
-        opponentAction: const UseMoveAction(moveId: 'fire_strong'),
-        master: testMaster,
+      expect(
+        playTurn(
+          state: firstState,
+          playerMoveId: 'fire_last_resort',
+          opponentMoveId: 'fire_strong',
+        )[BattleSideId.player]!.specialEffect!.powerPercent,
+        100,
       );
-      final secondEvent = playTurn(
-        state: secondState,
-        playerMoveId: 'fire_last_resort',
-        opponentMoveId: 'fire_strong',
-      )[BattleSideId.player]!;
-      expect(secondEvent.specialEffect!.powerPercent, 200);
+      expect(
+        playTurn(
+          state: advanceTurn(
+            state: firstState,
+            playerAction: const UseMoveAction(moveId: 'fire_last_resort'),
+            opponentAction: const UseMoveAction(moveId: 'fire_strong'),
+            master: testMaster,
+          ),
+          playerMoveId: 'fire_last_resort',
+          opponentMoveId: 'fire_strong',
+        )[BattleSideId.player]!.specialEffect!.powerPercent,
+        200,
+      );
     });
 
     test('自分の HP が減っているほど強い技は、同じターンに先に受けたダメージを倍率に入れる', () {
