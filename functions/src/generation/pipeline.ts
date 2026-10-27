@@ -190,7 +190,7 @@ function generationAliasDocument({ firestore, uid, requestId }: { firestore: Fir
 /**
  * Storage から 1 回読む時の、応答の stream の listener の上限。
  * @google-cloud/storage 8.4.0 の createReadStream と teeny-request 11.1.1 が node-fetch の応答の body (PassThrough) にそれぞれ
- * pipeline を付け、node-fetch 自身の分と合わせて 1 回の読み込みで error・close の listener が 11〜12 個付き、Node の既定の上限 10 を超える
+ * pipeline を付け、node-fetch 自身の分と合わせて 1 回の読み込みで error・close の listener が最大 12 個付き、一部の読み込みで Node の既定の上限 10 を超える
  * (Emulator での実測。#73)。どちらもライブラリの中で付き呼び出し方では減らせず、応答ごとの stream で読み終えれば外れるためリークではない。
  * 実測の 12 に、ライブラリの更新で数個増えても警告に戻らない余裕を足した。
  */
