@@ -209,11 +209,9 @@ class _BattleScreenState extends State<BattleScreen> {
   /// 見本同士の対戦では同じ monsterId が両陣営にいるため、陣営の手持ちから引く。
   String? _artPathOf({required BattleSideId side, required String monsterId}) =>
       switch (side) {
-            BattleSideId.player => widget.playerParty,
-            BattleSideId.opponent => widget.opponentParty,
-          }
-          .firstWhere((monster) => monster.definition.id == monsterId)
-          .artPath;
+        BattleSideId.player => widget.playerParty,
+        BattleSideId.opponent => widget.opponentParty,
+      }.firstWhere((monster) => monster.definition.id == monsterId).artPath;
 
   /// [artPath] の切り出した被写体の画像を読み、フィールドのモンスターを画像で描くようにする。
   /// 読めない時はフィールドの仮の絵のままバトルを続ける (絵のためにバトルを止めないため)。

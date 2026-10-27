@@ -93,7 +93,10 @@ class BattleFieldGame extends FlameGame {
   /// 読み込みはバトル画面が非同期に行うため、届くまでと読めなかった時は仮の絵のまま描く。
   void applyArtImage({required String artPath, required Image artImage}) {
     final artSprite = _artSpritesByPath[artPath] = Sprite(artImage);
-    for (final component in [playerMonsterComponent, opponentMonsterComponent]) {
+    for (final component in [
+      playerMonsterComponent,
+      opponentMonsterComponent,
+    ]) {
       if (component.artPath == artPath) {
         component.artSprite = artSprite;
       }
@@ -101,12 +104,11 @@ class BattleFieldGame extends FlameGame {
   }
 
   /// [side] の場のモンスター。
-  MonsterComponent monsterComponentOf({
-    required BattleSideId side,
-  }) => switch (side) {
-    BattleSideId.player => playerMonsterComponent,
-    BattleSideId.opponent => opponentMonsterComponent,
-  };
+  MonsterComponent monsterComponentOf({required BattleSideId side}) =>
+      switch (side) {
+        BattleSideId.player => playerMonsterComponent,
+        BattleSideId.opponent => opponentMonsterComponent,
+      };
 
   /// [attackerSide] のモンスターを相手の方へ前進させて戻す ([attackLungeSeconds] の往復)。
   void lunge({required BattleSideId attackerSide}) {
