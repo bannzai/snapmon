@@ -11,7 +11,7 @@ import { afterAll, beforeEach, describe, expect, it } from "vitest";
 
 import { listProbePhotos, probeGenerationPaths, readExpectations } from "../../scripts/probe-generation-paths.mjs";
 import { handleGenerateRequest } from "../../src/generation/generate";
-import type { AskJev, JevQuestion, JevResponse } from "../../src/generation/jev";
+import type { JevQuestion, JevResponse } from "../../src/generation/jev";
 import type { Master } from "../../src/generation/master";
 import type { GenerationDependencies } from "../../src/generation/pipeline";
 import type { DescribeSubjectOutput } from "../../src/generation/prompts/describe_subject";
@@ -82,60 +82,65 @@ const auth = {
  * 写真ごとに答えを決めたモックの依存。`currentPhotoName` は生成中の写真で、generatePhoto が呼ぶ前に入れる。
  * `jevSaysDifferentForAll` は、Jev が同じ被写体の判定にいつも「別の物」と答える (同じ被写体の経路を壊した時に FAIL になるかを見るため)。
  */
-function createDependencies({ jevSaysDifferentForAll = false }: { jevSaysDifferentForAll?: boolean } = {}) {
+function createDependencies({ jevSaysDifferentForAll = false }: { jevSaysDifferentForAll?: boolean } = {}): {
+  state: { currentPhotoName: string };
+  dependencies: GenerationDependencies;
+} {
   const state = { currentPhotoName: "" };
-  const askJev: AskJev = async (request) => {
-    const subjectId = calibrationIdByDescriptionText.get(canonicalDescriptionText((request.state as { subject: DescribeSubjectOutput["description"] }).subject));
-    const answers: JevResponse["answers"] = {};
-    for (const [name, question] of Object.entries(request.questions) as [string, JevQuestion][]) {
-      if (question.type === "choice") {
-        const choices = Object.keys(question.criteria);
-        answers[name] = { type: "choice", choice: choices[0], confidence: 0.9, probabilities: Object.fromEntries(choices.map((choice) => [choice, choice === "tableware" ? 0.8 : 0.01])) };
-      } else if (question.type === "score") {
-        answers[name] = { type: "score", score: 2, confidence: 0.8, probabilities: Object.fromEntries(question.criteria.map((level) => [level, level === "ふつう" ? 0.8 : 0.05])) };
-      } else if (name.startsWith("same__") || name.startsWith("different__")) {
-        const same =
-          !jevSaysDifferentForAll &&
-          isSameSubject(subjectId, calibrationIdByDescriptionText.get(canonicalDescriptionText((question.instructions as { candidate: DescribeSubjectOutput["description"] }).candidate)));
-        answers[name] = { type: "noul", noul: name.startsWith("same__") === same ? 0.95 : 0.05 };
-      } else if (name.startsWith("element__")) {
-        answers[name] = { type: "noul", noul: name === "element__metal" ? 0.9 : 0.05 };
-      } else {
-        answers[name] = { type: "noul", noul: 0.05 };
-      }
-    }
-    return { model: "jev-1.13.0", answers, usage: { input_tokens: 1000, output_tokens: 10 } };
+  return {
+    state,
+    dependencies: {
+      firestore,
+      auth,
+      bucket,
+      annotateImage: async (): Promise<VisionAnnotation> => ({
+        safeSearchAnnotation: { adult: "VERY_UNLIKELY", violence: "VERY_UNLIKELY", racy: "VERY_UNLIKELY" },
+        faceAnnotations: faceDetectedPhotoNames.has(state.currentPhotoName) ? [{ detectionConfidence: 0.95 }] : [],
+        labelAnnotations: [{ description: "Object", score: 0.9 }],
+      }),
+      // 写真の中央の 1/2 四方を被写体とするマスク (被写体を切り出す段階の中身はこのテストの対象外)
+      segmentSubject: async (photo) => {
+        const { width, height } = await sharp(photo).metadata();
+        return sharp({ create: { width: width!, height: height!, channels: 3, background: "#000000" } })
+          .composite([{ input: { create: { width: Math.round(width! / 2), height: Math.round(height! / 2), channels: 3, background: "#ffffff" } }, left: Math.round(width! / 4), top: Math.round(height! / 4) }])
+          .png()
+          .toBuffer();
+      },
+      describeSubject: async () => {
+        const calibrationId = calibrationIdByPhotoName[state.currentPhotoName];
+        const output = calibrationId ? calibrationDescriptions[calibrationId] : backgroundDescription(state.currentPhotoName);
+        return { output: { ...output, containsPerson: containsPersonPhotoNames.has(state.currentPhotoName) }, usage: { inputTokens: 1500, outputTokens: 700 } };
+      },
+      proposeElement: async () => {
+        throw new Error("属性はモックの Jev が metal と答えるため、新しい属性の提案は呼ばれない");
+      },
+      // 物の分類は tableware、ステータスはふつう、属性は metal と答え、同じ被写体かは較正のラベルで答える
+      askJev: async (request) => {
+        const subjectId = calibrationIdByDescriptionText.get(canonicalDescriptionText((request.state as { subject: DescribeSubjectOutput["description"] }).subject));
+        const answers: JevResponse["answers"] = {};
+        for (const [name, question] of Object.entries(request.questions) as [string, JevQuestion][]) {
+          if (question.type === "choice") {
+            const choices = Object.keys(question.criteria);
+            answers[name] = { type: "choice", choice: choices[0], confidence: 0.9, probabilities: Object.fromEntries(choices.map((choice) => [choice, choice === "tableware" ? 0.8 : 0.01])) };
+          } else if (question.type === "score") {
+            answers[name] = { type: "score", score: 2, confidence: 0.8, probabilities: Object.fromEntries(question.criteria.map((level) => [level, level === "ふつう" ? 0.8 : 0.05])) };
+          } else if (name.startsWith("same__") || name.startsWith("different__")) {
+            const same =
+              !jevSaysDifferentForAll &&
+              isSameSubject(subjectId, calibrationIdByDescriptionText.get(canonicalDescriptionText((question.instructions as { candidate: DescribeSubjectOutput["description"] }).candidate)));
+            answers[name] = { type: "noul", noul: name.startsWith("same__") === same ? 0.95 : 0.05 };
+          } else if (name.startsWith("element__")) {
+            answers[name] = { type: "noul", noul: name === "element__metal" ? 0.9 : 0.05 };
+          } else {
+            answers[name] = { type: "noul", noul: 0.05 };
+          }
+        }
+        return { model: "jev-1.13.0", answers, usage: { input_tokens: 1000, output_tokens: 10 } };
+      },
+      enqueueResume: async () => {},
+      now: () => new Date(),
+    },
   };
-  const dependencies: GenerationDependencies = {
-    firestore,
-    auth,
-    bucket,
-    annotateImage: async (): Promise<VisionAnnotation> => ({
-      safeSearchAnnotation: { adult: "VERY_UNLIKELY", violence: "VERY_UNLIKELY", racy: "VERY_UNLIKELY" },
-      faceAnnotations: faceDetectedPhotoNames.has(state.currentPhotoName) ? [{ detectionConfidence: 0.95 }] : [],
-      labelAnnotations: [{ description: "Object", score: 0.9 }],
-    }),
-    // 写真の中央の 1/2 四方を被写体とするマスク (被写体を切り出す段階の中身はこのテストの対象外)
-    segmentSubject: async (photo) => {
-      const { width, height } = await sharp(photo).metadata();
-      return sharp({ create: { width: width!, height: height!, channels: 3, background: "#000000" } })
-        .composite([{ input: { create: { width: Math.round(width! / 2), height: Math.round(height! / 2), channels: 3, background: "#ffffff" } }, left: Math.round(width! / 4), top: Math.round(height! / 4) }])
-        .png()
-        .toBuffer();
-    },
-    describeSubject: async () => {
-      const calibrationId = calibrationIdByPhotoName[state.currentPhotoName];
-      const output = calibrationId ? calibrationDescriptions[calibrationId] : backgroundDescription(state.currentPhotoName);
-      return { output: { ...output, containsPerson: containsPersonPhotoNames.has(state.currentPhotoName) }, usage: { inputTokens: 1500, outputTokens: 700 } };
-    },
-    proposeElement: async () => {
-      throw new Error("属性はモックの Jev が metal と答えるため、新しい属性の提案は呼ばれない");
-    },
-    askJev,
-    enqueueResume: async () => {},
-    now: () => new Date(),
-  };
-  return { state, dependencies };
 }
 
 /** probeGenerationPaths に渡す、uid `prober` で 1 枚を生成して結果を読む関数。 */

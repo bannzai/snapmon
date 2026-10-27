@@ -286,11 +286,11 @@ async function createHttpGenerationSession({ projectId, apiKey }) {
     return decodeFirestoreValue({ mapValue: { fields: (await response.json()).fields } });
   };
   /** onCall の Function を呼び、`{ result }` か、Function が返したエラーを `{ error }` で返す。通信の失敗は reject。 */
-  const callFunction = async ({ name, data }) => {
-    const response = await fetch(`${endpoints.functions}/${name}`, {
+  const callFunction = async ({ functionName, requestData }) => {
+    const response = await fetch(`${endpoints.functions}/${functionName}`, {
       method: "POST",
       headers: { Authorization: `Bearer ${idToken}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ data }),
+      body: JSON.stringify({ data: requestData }),
     });
     const body = await response.json();
     if (body.error) {
@@ -314,7 +314,7 @@ async function createHttpGenerationSession({ projectId, apiKey }) {
     }
     const deadline = Date.now() + GENERATION_DEADLINE_MILLISECONDS;
     // 応答を待つ間に接続が切れても (fetch の既定のヘッダー待ちは 300 秒で、generate の上限と同じ)、生成はサーバーで続くため、レコードを読みに行く
-    const called = await callFunction({ name: "generate", data: { requestId, photoPath } }).catch((error) => ({ connectionError: error }));
+    const called = await callFunction({ functionName: "generate", requestData: { requestId, photoPath } }).catch((error) => ({ connectionError: error }));
     if (called.error) {
       return { status: `error:${called.error.status}`, failureMessage: [called.error.message, called.error.details?.reason].filter(Boolean).join(" ") };
     }
@@ -342,7 +342,7 @@ async function createHttpGenerationSession({ projectId, apiKey }) {
   /** 匿名ユーザーを deleteAccount で消す。失敗は throw。 */
   const deleteUser = async () => {
     await refreshIdToken();
-    const deleted = await callFunction({ name: "deleteAccount", data: {} });
+    const deleted = await callFunction({ functionName: "deleteAccount", requestData: {} });
     if (deleted.error) {
       throw new Error(`deleteAccount に失敗しました: ${JSON.stringify(deleted.error)}`);
     }
