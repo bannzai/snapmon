@@ -308,8 +308,9 @@ describe("generate", () => {
     };
     process.on("warning", onWarning);
     try {
-      const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
-      expect((await handleGenerateRequest(createMocks().dependencies, signedInRequest({ uid: "alice", data }))).status).toBe("saved");
+      expect(
+        (await handleGenerateRequest(createMocks().dependencies, signedInRequest({ uid: "alice", data: await uploadPhoto({ uid: "alice", photo: photoFixture("01") }) }))).status,
+      ).toBe("saved");
       // 警告は process.nextTick で届くため、1 周待ってから数える
       await new Promise(setImmediate);
     } finally {
