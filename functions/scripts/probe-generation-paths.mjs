@@ -23,6 +23,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { parseArgs } from "node:util";
 import { randomUUID } from "node:crypto";
 
+/** functions/ ディレクトリの絶対パス。 */
 const functionsRoot = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 /** テスト写真のディレクトリ。 */
@@ -166,12 +167,12 @@ export function rowCostUsd(row) {
 
 /** 結果の行を markdown の表にする (PR と issue のコメントに貼る形)。 */
 export function formatResultTable(rows) {
-  const tableRow = (cells) => `| ${cells.map((value) => String(value ?? "").replaceAll("|", "\\|").replaceAll("\n", " ")).join(" | ")} |`;
   return [
     "| 写真 | 期待 | 結果 | 判定 | 名前 | 属性 | 同じ被写体の相手 | Claude 入力 / 出力 | Jev 入力 | 費用 (ドル) |",
     "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
-    ...rows.map((row) =>
-      tableRow([
+    ...rows.map(
+      (row) =>
+        `| ${[
         row.photoName,
         row.expected,
         [row.status, row.rejectionReason, row.failureMessage].filter(Boolean).join(" "),
@@ -182,7 +183,9 @@ export function formatResultTable(rows) {
         row.claudeUsages?.length ? row.claudeUsages.map((usage) => `${usage.inputTokens} / ${usage.outputTokens}`).join(", ") : "",
         row.jevInputTokens ?? "",
         rowCostUsd(row).toFixed(4),
-      ]),
+      ]
+          .map((value) => String(value ?? "").replaceAll("|", "\\|").replaceAll("\n", " "))
+          .join(" | ")} |`,
     ),
     "",
     `PASS ${rows.filter((row) => row.verdict === "PASS").length} / FAIL ${rows.filter((row) => row.verdict === "FAIL").length}。` +
@@ -255,7 +258,10 @@ async function createHttpGenerationSession({ projectId, apiKey }) {
   const uid = signUp.localId;
   let idToken = signUp.idToken;
   let refreshToken = signUp.refreshToken;
-  // ID トークンは 1 時間で切れるため、1 枚ごとに更新する (全経路で 1 時間を超えうるため)
+  /**
+   * refresh token で ID トークンを取り直し、`idToken`・`refreshToken` を書き換える。失敗は throw。
+   * ID トークンは 1 時間で切れ、全経路を流すと 1 時間を超えうるため、1 枚ごとと後始末の前に呼ぶ。
+   */
   const refreshIdToken = async () => {
     const response = await fetch(
       projectId === EMULATOR_PROJECT_ID ? `http://127.0.0.1:9099/securetoken.googleapis.com/v1/token?key=${apiKey}` : `https://securetoken.googleapis.com/v1/token?key=${apiKey}`,
@@ -268,6 +274,7 @@ async function createHttpGenerationSession({ projectId, apiKey }) {
     idToken = refreshed.id_token;
     refreshToken = refreshed.refresh_token;
   };
+  /** Firestore のドキュメントを匿名ユーザーの権限で読み、JavaScript の値で返す。無ければ undefined、読めなければ throw。 */
   const readDocument = async (documentPath) => {
     const response = await fetch(`${endpoints.firestore}/${documentPath}`, { headers: { Authorization: `Bearer ${idToken}` } });
     if (response.status === 404) {
@@ -278,6 +285,7 @@ async function createHttpGenerationSession({ projectId, apiKey }) {
     }
     return decodeFirestoreValue({ mapValue: { fields: (await response.json()).fields } });
   };
+  /** onCall の Function を呼び、`{ result }` か、Function が返したエラーを `{ error }` で返す。通信の失敗は reject。 */
   const callFunction = async ({ name, data }) => {
     const response = await fetch(`${endpoints.functions}/${name}`, {
       method: "POST",
@@ -291,6 +299,7 @@ async function createHttpGenerationSession({ projectId, apiKey }) {
     return { result: body.result };
   };
 
+  /** probeGenerationPaths に渡す、1 枚を Storage に置いて generate を呼び、待つのをやめる状態か期限まで待って結果を返す関数。 */
   const generatePhoto = async ({ photo, photoName }) => {
     await refreshIdToken();
     const requestId = randomUUID();
@@ -330,6 +339,7 @@ async function createHttpGenerationSession({ projectId, apiKey }) {
     };
   };
 
+  /** 匿名ユーザーを deleteAccount で消す。失敗は throw。 */
   const deleteUser = async () => {
     await refreshIdToken();
     const deleted = await callFunction({ name: "deleteAccount", data: {} });
@@ -341,6 +351,7 @@ async function createHttpGenerationSession({ projectId, apiKey }) {
   return { uid, generatePhoto, deleteUser };
 }
 
+/** コマンドラインから実行した時の入口。引数はファイル先頭の使い方。FAIL があれば exit 1、引数の誤りと --yes 無しは exit 2。 */
 async function main() {
   const { values } = parseArgs({
     options: {
@@ -365,8 +376,11 @@ async function main() {
     console.log("--yes を付けると実行します。");
     process.exit(2);
   }
-  const apiKey = values.project === EMULATOR_PROJECT_ID ? "demo-api-key" : (process.env.FIREBASE_WEB_API_KEY || readWebApiKey(values["firebase-options"]));
-  const session = await createHttpGenerationSession({ projectId: values.project, apiKey });
+  // Auth の Emulator は API キーを検証せず、demo- のプロジェクトには本物のキーが無いため、任意の文字列を渡す
+  const session = await createHttpGenerationSession({
+    projectId: values.project,
+    apiKey: values.project === EMULATOR_PROJECT_ID ? "demo-api-key" : process.env.FIREBASE_WEB_API_KEY || readWebApiKey(values["firebase-options"]),
+  });
   console.log(`匿名ユーザー uid=${session.uid.slice(0, 6)}… で送ります`);
   let rows;
   try {

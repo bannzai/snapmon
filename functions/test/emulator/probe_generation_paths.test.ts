@@ -68,6 +68,7 @@ function isSameSubject(leftId: string | undefined, rightId: string | undefined):
 /** Auth のユーザーが残っている uid。 */
 const authUserUids = new Set(["prober"]);
 
+/** generate がアカウントの削除の確認に使う Auth のモック。`authUserUids` にある uid だけがいる。 */
 const auth = {
   getUser: async (uid: string) => {
     if (!authUserUids.has(uid)) {
@@ -93,8 +94,9 @@ function createDependencies({ jevSaysDifferentForAll = false }: { jevSaysDiffere
       } else if (question.type === "score") {
         answers[name] = { type: "score", score: 2, confidence: 0.8, probabilities: Object.fromEntries(question.criteria.map((level) => [level, level === "ふつう" ? 0.8 : 0.05])) };
       } else if (name.startsWith("same__") || name.startsWith("different__")) {
-        const candidate = (question.instructions as { candidate: DescribeSubjectOutput["description"] }).candidate;
-        const same = !jevSaysDifferentForAll && isSameSubject(subjectId, calibrationIdByDescriptionText.get(canonicalDescriptionText(candidate)));
+        const same =
+          !jevSaysDifferentForAll &&
+          isSameSubject(subjectId, calibrationIdByDescriptionText.get(canonicalDescriptionText((question.instructions as { candidate: DescribeSubjectOutput["description"] }).candidate)));
         answers[name] = { type: "noul", noul: name.startsWith("same__") === same ? 0.95 : 0.05 };
       } else if (name.startsWith("element__")) {
         answers[name] = { type: "noul", noul: name === "element__metal" ? 0.9 : 0.05 };
