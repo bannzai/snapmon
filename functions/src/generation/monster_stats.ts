@@ -143,14 +143,20 @@ export function buildLearnset({
   moves: MasterMove[];
   fallbackMoves: MasterMove[];
 }): LearnsetEntry[] {
+  /** [candidates] のうち [elementTypeId] の段階 1 の技を、Jev の技の確率が高い順 (同じなら [candidates] の順) で返す。 */
   const startingMovesByProbability = ({ elementTypeId, candidates }: { elementTypeId: string; candidates: MasterMove[] }) => {
     const probabilities = moveProbabilitiesByElement[elementTypeId] ?? {};
     return candidates
       .filter((move) => move.elementTypeId === elementTypeId && move.learnableLevelMinimum === STARTING_LEVEL)
       .sort((left, right) => (probabilities[right.id] ?? 0) - (probabilities[left.id] ?? 0));
   };
+  /** Lv.1 で覚える技の ID。選んだ順に並び、`STARTING_MOVE_COUNT` 個を超えず、重複しない。 */
   const startingMoveIds: string[] = [];
-  const takeInTurns = (movesByElement: MasterMove[][]) => {
+  /**
+   * 属性ごとの技の列 [movesByElement] から、各列の先頭から 1 つずつ交互に取って `startingMoveIds` の後ろに足す (副作用)。
+   * `startingMoveIds` が `STARTING_MOVE_COUNT` 個に達した後と、すでに入っている技は足さない。
+   */
+  const takeInTurns = ({ movesByElement }: { movesByElement: MasterMove[][] }) => {
     for (let round = 0; movesByElement.some((elementMoves) => round < elementMoves.length); round++) {
       for (const move of movesByElement.map((elementMoves) => elementMoves[round])) {
         if (move && startingMoveIds.length < STARTING_MOVE_COUNT && !startingMoveIds.includes(move.id)) {
@@ -159,13 +165,13 @@ export function buildLearnset({
       }
     }
   };
-  takeInTurns(elementTypeIds.map((elementTypeId) => startingMovesByProbability({ elementTypeId, candidates: moves })));
-  takeInTurns(
-    [...new Set(fallbackMoves.map((move) => move.elementTypeId))]
+  takeInTurns({ movesByElement: elementTypeIds.map((elementTypeId) => startingMovesByProbability({ elementTypeId, candidates: moves })) });
+  takeInTurns({
+    movesByElement: [...new Set(fallbackMoves.map((move) => move.elementTypeId))]
       .filter((elementTypeId) => !elementTypeIds.includes(elementTypeId))
       .sort((leftId, rightId) => (elementProbabilities[rightId] ?? 0) - (elementProbabilities[leftId] ?? 0) || leftId.localeCompare(rightId))
       .map((elementTypeId) => startingMovesByProbability({ elementTypeId, candidates: fallbackMoves })),
-  );
+  });
 
   const laterLearnset: (LearnsetEntry & { elementOrder: number })[] = [];
   for (const [elementOrder, elementTypeId] of elementTypeIds.entries()) {
