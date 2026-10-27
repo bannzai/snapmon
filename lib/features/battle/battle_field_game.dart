@@ -281,11 +281,9 @@ class MonsterComponent extends PositionComponent with HasVisibility {
       return;
     }
     // 切り出した画像は被写体ごとに縦横比が違うため、引き伸ばさずに枠に収めて中央に置く (図鑑のカードの BoxFit.contain と同じ)
-    final scale = math.min(
-      size.x / sprite.srcSize.x,
-      size.y / sprite.srcSize.y,
-    );
-    final drawSize = sprite.srcSize * scale;
+    final drawSize =
+        sprite.srcSize *
+        math.min(size.x / sprite.srcSize.x, size.y / sprite.srcSize.y);
     sprite.render(canvas, position: (size - drawSize) / 2, size: drawSize);
   }
 }

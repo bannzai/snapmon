@@ -168,11 +168,10 @@ void main() {
     addTearDown(artImage.dispose);
     game.applyArtImage(artPath: playerArtPath, artImage: artImage);
 
-    final drawImageRect = renderInvocations(
-      component: player,
-    ).singleWhere((call) => call.memberName == #drawImageRect);
     expect(
-      drawImageRect.positionalArguments[2],
+      renderInvocations(component: player)
+          .singleWhere((call) => call.memberName == #drawImageRect)
+          .positionalArguments[2],
       const Rect.fromLTWH(25, 0, 50, 100),
     );
   });
