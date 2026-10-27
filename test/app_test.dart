@@ -250,6 +250,7 @@ void main() {
         theme: snapmonThemeData(),
         home: HomeShell(
           initialTab: HomeTab.capture,
+          startsCameraOnCaptureOpen: false,
           sampleData: sampleData,
           dexStore: dexStore,
           sessionStore: sessionStore,
@@ -1194,18 +1195,20 @@ void main() {
       expect(dexStore.monsters, hasLength(2));
     });
 
-    testWidgets('カメラが無い時はファインダーにそのことを出し、シャッターはアルバムへ案内する', (tester) async {
+    testWidgets('カメラが無い時は、シャッターでカメラを求めた後にファインダーでアルバムへ案内する', (tester) async {
       await pumpHome(
         tester: tester,
         hasStartedSession: true,
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
       );
-      // fakeMonsterGenerator のカメラの一覧は空
-      expect(find.textContaining('カメラが使えません'), findsOneWidget);
+      // 開いただけではカメラを求めない
+      expect(find.textContaining('カメラが使えません'), findsNothing);
+      expect(find.byKey(const Key('capture-use-camera')), findsOneWidget);
       await tester.tap(find.byTooltip('撮る'));
-      await tester.pump();
-      expect(find.text('カメラが使えません\nアルバムから選んでください'), findsOneWidget);
+      await tester.pumpAndSettle();
+      // fakeMonsterGenerator のカメラの一覧は空
+      expect(find.textContaining('カメラが使えません\nアルバムから選んでください'), findsOneWidget);
       expect(generationCalls.uploadedRequestIds, isEmpty);
     });
 

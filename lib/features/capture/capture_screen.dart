@@ -1,8 +1,11 @@
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:camera/camera.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../../analytics/analytics_events.dart';
 import '../../sample/sample_data.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
@@ -19,11 +22,15 @@ import 'generation_screen.dart';
 import 'monster_generator.dart';
 
 /// 撮る画面 (モックの Main.dc.html)。ファインダーにカメラの映像を出し、シャッターで撮るかアルバムから選んだ写真から生成する。
+/// カメラの権限は、撮るボタンか「カメラを使う」を押すまで求めない (開いただけで権限を聞かないため。#64)。
+/// 権限が無い時は、ファインダーに設定を開く・もう一度試す導線を出す。
 /// カメラが無い端末 (Simulator) と使えない時は、ファインダーにそのことを出してアルバムから選ぶ経路だけを残す。
 class CaptureScreen extends StatefulWidget {
   /// 撮る画面を作る。
   const CaptureScreen({
     super.key,
+    required this.startsCameraOnOpen,
+    required this.onCameraOpened,
     required this.dexStore,
     required this.monsterGenerator,
     required this.onSelectTab,
@@ -34,6 +41,13 @@ class CaptureScreen extends StatefulWidget {
     required this.battleRecorder,
     required this.openUrl,
   });
+
+  /// 画面を開いた時に、押すのを待たずにカメラを開くか (このアプリを起動してから一度カメラを開けた後と、
+  /// タイトルの「カメラで撮ってはじめる」から来た時)。
+  final bool startsCameraOnOpen;
+
+  /// カメラを開けた時に呼ぶ (次に画面を開いた時に [startsCameraOnOpen] にするため)。
+  final VoidCallback onCameraOpened;
 
   /// 手持ちが空の時の初回のバトルの相手を通報する時に、お問い合わせを開く。
   final OpenUrl openUrl;
@@ -72,14 +86,25 @@ class _CaptureScreenState extends State<CaptureScreen>
   Object? _cameraError;
   bool _isTakingPicture = false;
 
-  /// カメラを開く試みの番号。開いている途中にアプリが裏に回る・開き直すと進み、古い試みの結果を捨てる目印にする。
-  int _cameraStartGeneration = 0;
+  /// この画面でカメラを求めたか。求める前は、アプリが前に戻ってもカメラを開かない (権限をいきなり聞かないため)。
+  late bool _isCameraRequested = widget.startsCameraOnOpen;
+
+  /// カメラを開く試みが走っているか。走っている間は新しい試みを始めない (権限の要求を重ねないため)。
+  bool _isStartingCamera = false;
+
+  /// 権限が無い時に「設定を開く」を押したか。押した後にアプリが前に戻った時だけ、権限が無かったカメラを開き直す。
+  bool _hasOpenedAppSettings = false;
+
+  /// 次に結果が出た試みの許可・拒否を計測に送るか。カメラを求めた時と設定を開いた時に立て、結果を送ったら下ろす。
+  bool _logsCameraPermissionOutcome = false;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    _startCamera();
+    if (_isCameraRequested) {
+      _startCamera();
+    }
   }
 
   @override
@@ -94,15 +119,28 @@ class _CaptureScreenState extends State<CaptureScreen>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch (state) {
       case AppLifecycleState.inactive:
-        // 開いている途中の試みも、裏に回った後に開き終えたカメラを持たないよう無効にする
-        _cameraStartGeneration++;
+        // 開いている途中の試みは止めない。iOS・Android の権限のダイアログもアプリを inactive にするため、
+        // 止めるとダイアログの答えを受け取れず、戻るたびに権限を聞き直すことになる
         final cameraController = _cameraController;
-        setState(() => _cameraController = null);
-        cameraController?.dispose();
-      case AppLifecycleState.resumed:
-        if (_cameraController == null) {
-          _startCamera();
+        if (cameraController != null) {
+          setState(() => _cameraController = null);
+          cameraController.dispose();
         }
+      case AppLifecycleState.resumed:
+        if (!_isCameraRequested ||
+            _cameraController != null ||
+            _isStartingCamera) {
+          return;
+        }
+        // 権限が無かった後は、設定を開いて戻った時だけ開き直す (Android は拒否の後にもう一度ダイアログを出せるため、
+        // 戻るたびに開き直すと聞き続けることになる)。Web は設定を開くボタンが無く、拒否済みの時は聞かずに失敗するため開き直す
+        if (_isCameraAccessDenied(error: _cameraError) &&
+            !_hasOpenedAppSettings &&
+            !kIsWeb) {
+          return;
+        }
+        setState(() => _hasOpenedAppSettings = false);
+        _startCamera();
       case AppLifecycleState.detached ||
           AppLifecycleState.hidden ||
           AppLifecycleState.paused:
@@ -111,10 +149,10 @@ class _CaptureScreenState extends State<CaptureScreen>
   }
 
   /// 背面のカメラ (無ければ最初のカメラ) を開く。カメラが無い・開けない時は [_cameraError] に残す。
-  /// 開き終える前に次の試みが始まった・アプリが裏に回った時は、開いたカメラを捨てて結果を反映しない。
+  /// 開き終えた時にアプリが前に出ていなければ (権限のダイアログの間に許可された時)、カメラを持たずに捨て、
+  /// 前に戻った時 (resumed) に開き直す。
   Future<void> _startCamera() async {
-    final generation = ++_cameraStartGeneration;
-    bool isCurrent() => mounted && generation == _cameraStartGeneration;
+    _isStartingCamera = true;
     try {
       final cameras = await widget.monsterGenerator.listCameras();
       if (cameras.isEmpty) {
@@ -137,35 +175,94 @@ class _CaptureScreenState extends State<CaptureScreen>
         await cameraController.dispose();
         rethrow;
       }
-      if (!isCurrent()) {
+      if (!mounted) {
         await cameraController.dispose();
         return;
       }
-      final previousCameraController = _cameraController;
+      if (_logsCameraPermissionOutcome) {
+        _logCameraPermission(step: CameraPermissionStep.granted);
+        _logsCameraPermissionOutcome = false;
+      }
+      widget.onCameraOpened();
+      // テストの環境では lifecycleState が null のことがあり、その時は前に出ているものとして扱う
+      final lifecycleState = WidgetsBinding.instance.lifecycleState;
+      final isInForeground =
+          lifecycleState == null || lifecycleState == AppLifecycleState.resumed;
       setState(() {
-        _cameraController = cameraController;
+        _isStartingCamera = false;
         _cameraError = null;
+        if (isInForeground) {
+          _cameraController = cameraController;
+        }
       });
-      await previousCameraController?.dispose();
+      if (!isInForeground) {
+        await cameraController.dispose();
+      }
     } catch (error) {
-      if (isCurrent()) {
-        setState(() => _cameraError = error);
+      if (!mounted) {
+        return;
+      }
+      if (_logsCameraPermissionOutcome) {
+        if (_isCameraAccessDenied(error: error)) {
+          _logCameraPermission(step: CameraPermissionStep.denied);
+        }
+        _logsCameraPermissionOutcome = false;
+      }
+      setState(() {
+        _isStartingCamera = false;
+        _cameraError = error;
+      });
+    }
+  }
+
+  /// 押されてカメラを求める (権限を聞くのはここから)。開いている途中は何もしない (連打で要求を重ねないため)。
+  void _requestCamera() {
+    if (_isStartingCamera) {
+      return;
+    }
+    _logCameraPermission(step: CameraPermissionStep.requested);
+    _logsCameraPermissionOutcome = true;
+    setState(() {
+      _isCameraRequested = true;
+      _cameraError = null;
+    });
+    _startCamera();
+  }
+
+  /// 権限が無い時に、OS の設定アプリでこのアプリの設定を開く。戻った時は resumed で開き直す。
+  Future<void> _openAppSettings() async {
+    _logCameraPermission(step: CameraPermissionStep.openSettings);
+    _logsCameraPermissionOutcome = true;
+    _hasOpenedAppSettings = true;
+    try {
+      await widget.monsterGenerator.openAppSettings();
+    } catch (error) {
+      if (mounted) {
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(SnackBar(content: Text(error.toString())));
       }
     }
   }
 
-  /// カメラで撮って生成する。
+  /// カメラの権限の段階 [step] を送る。計測の失敗は画面の進み方に影響させない。
+  void _logCameraPermission({required CameraPermissionStep step}) => unawaited(
+    widget.monsterGenerator
+        .logEvent(
+          event: AnalyticsEvent.cameraPermission,
+          parameters: {'step': step.stepName},
+        )
+        .catchError((Object _) {}),
+  );
+
+  /// カメラで撮って生成する。カメラを開いていない時は、撮る代わりにカメラを求める。
   Future<void> _takePicture() async {
     final cameraController = _cameraController;
     if (_isTakingPicture) {
       return;
     }
     if (cameraController == null) {
-      ScaffoldMessenger.of(context)
-        ..hideCurrentSnackBar()
-        ..showSnackBar(
-          const SnackBar(content: Text('カメラが使えません\nアルバムから選んでください')),
-        );
+      _requestCamera();
       return;
     }
     setState(() => _isTakingPicture = true);
@@ -331,6 +428,9 @@ class _CaptureScreenState extends State<CaptureScreen>
           child: _Viewfinder(
             cameraController: _cameraController,
             cameraError: _cameraError,
+            isCameraRequested: _isCameraRequested,
+            onRequestCamera: _requestCamera,
+            onOpenAppSettings: _openAppSettings,
           ),
         ),
       ),
@@ -393,14 +493,28 @@ class _CaptureScreenState extends State<CaptureScreen>
   );
 }
 
+/// [error] がカメラの権限が無いことを表すか (利用者が設定で直せる時だけ。直せない時は他のエラーと同じく生の文言を出す)。
+/// コードは camera_avfoundation の CameraPermissionManager.swift (iOS の初回の拒否は `CameraAccessDenied`、
+/// 拒否済みは `CameraAccessDeniedWithoutPrompt`)、camera_android_camerax の CameraPermissionsManager.java と
+/// camera_web の CameraErrorCode.permissionDenied (どちらも `CameraAccessDenied`) による。
+/// iOS の `CameraAccessRestricted` (スクリーンタイム等の制限) は本人が設定で直せるとは限らないため含めない。
+bool _isCameraAccessDenied({required Object? error}) =>
+    error is CameraException &&
+    (error.code == 'CameraAccessDenied' ||
+        error.code == 'CameraAccessDeniedWithoutPrompt');
+
 /// 高さが足りない画面でのファインダーの高さ。四隅の鉤形 (36 + 余白 24) 2 つと案内の札が重ならない高さにした。
 const double _minimumViewfinderHeight = 200;
 
-/// ファインダー。カメラの映像の上に枠と案内を重ねる。カメラが使えない時は、映像の代わりにその理由を出す。
+/// ファインダー。カメラの映像の上に枠と案内を重ねる。カメラを求める前は「カメラを使う」を、
+/// 権限が無い時は設定を開く・もう一度試す導線を、それ以外で使えない時は映像の代わりにその理由を出す。
 class _Viewfinder extends StatelessWidget {
   const _Viewfinder({
     required this.cameraController,
     required this.cameraError,
+    required this.isCameraRequested,
+    required this.onRequestCamera,
+    required this.onOpenAppSettings,
   });
 
   /// 開いたカメラ。開くまでと使えない時は null。
@@ -409,9 +523,19 @@ class _Viewfinder extends StatelessWidget {
   /// カメラを開けなかった理由。開けた時と開いている途中は null。
   final Object? cameraError;
 
+  /// カメラを求めたか。求める前は「カメラを使う」を出す。
+  final bool isCameraRequested;
+
+  /// カメラを求める (「カメラを使う」と「もう一度試す」)。
+  final VoidCallback onRequestCamera;
+
+  /// OS の設定アプリでこのアプリの設定を開く (iOS・Android の「設定を開く」)。
+  final VoidCallback onOpenAppSettings;
+
   @override
   Widget build(BuildContext context) {
     final openedCameraController = cameraController;
+    final error = cameraError;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: ClipRRect(
@@ -434,17 +558,71 @@ class _Viewfinder extends StatelessWidget {
                     ),
                   ),
                 ),
-              if (cameraError != null)
+              if (_isCameraAccessDenied(error: error))
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 48),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Text(
+                          'カメラの許可が必要です',
+                          key: Key('capture-camera-permission-denied'),
+                          textAlign: TextAlign.center,
+                          style: SnapmonTextStyles.label,
+                        ),
+                        const SizedBox(height: 4),
+                        // Web はアプリから設定を開けないため、ブラウザで許可する場所を案内する
+                        Text(
+                          kIsWeb
+                              ? 'アドレスバーのサイトの設定から\nカメラを許可してください'
+                              : '設定でカメラを許可してください',
+                          textAlign: TextAlign.center,
+                          style: SnapmonTextStyles.small,
+                        ),
+                        const SizedBox(height: 12),
+                        Wrap(
+                          alignment: WrapAlignment.center,
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: [
+                            if (!kIsWeb)
+                              FilledButton(
+                                onPressed: onOpenAppSettings,
+                                child: const Text('設定を開く'),
+                              ),
+                            OutlinedButton(
+                              onPressed: onRequestCamera,
+                              child: const Text('もう一度試す'),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              else if (error != null)
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 48),
                     child: Text(
-                      'カメラが使えません\nアルバムから選んでください\n\n$cameraError',
+                      'カメラが使えません\nアルバムから選んでください\n\n$error',
                       textAlign: TextAlign.center,
                       style: SnapmonTextStyles.small,
                     ),
                   ),
-                ),
+                )
+              else if (!isCameraRequested)
+                Center(
+                  child: FilledButton.icon(
+                    key: const Key('capture-use-camera'),
+                    onPressed: onRequestCamera,
+                    icon: const Icon(Icons.photo_camera_outlined),
+                    label: const Text('カメラを使う'),
+                  ),
+                )
+              else if (openedCameraController == null)
+                const Center(child: CircularProgressIndicator()),
               for (final alignment in [
                 Alignment.topLeft,
                 Alignment.topRight,
