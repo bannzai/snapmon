@@ -82,18 +82,32 @@ class _SquareCropEditorState extends State<SquareCropEditor> {
                 child: SizedBox(
                   width: widget.photoWidth * displayScale,
                   height: widget.photoHeight * displayScale,
-                  child: GestureDetector(
+                  // 写真の上の操作は、外側の画面のスクロールより先に枠の操作として受け取る (写真の外ではスクロールできる)
+                  child: RawGestureDetector(
                     key: const Key('square-crop-area'),
-                    onScaleStart: (_) => _appliedScale = 1,
-                    onScaleUpdate: (details) {
-                      _update(
-                        centerDelta: (
-                          dx: details.focalPointDelta.dx / displayScale,
-                          dy: details.focalPointDelta.dy / displayScale,
-                        ),
-                        scaleChange: details.scale / _appliedScale,
-                      );
-                      _appliedScale = details.scale;
+                    gestures: {
+                      _EagerScaleGestureRecognizer:
+                          GestureRecognizerFactoryWithHandlers<
+                            _EagerScaleGestureRecognizer
+                          >(
+                            _EagerScaleGestureRecognizer.new,
+                            (recognizer) => recognizer
+                              ..onStart = (_) => _appliedScale = 1
+                                ..onUpdate = (details) {
+                                  _update(
+                                    centerDelta: (
+                                      dx:
+                                          details.focalPointDelta.dx /
+                                          displayScale,
+                                      dy:
+                                          details.focalPointDelta.dy /
+                                          displayScale,
+                                    ),
+                                    scaleChange: details.scale / _appliedScale,
+                                  );
+                                  _appliedScale = details.scale;
+                                },
+                          ),
                     },
                     child: Stack(
                       fit: StackFit.expand,
@@ -135,6 +149,15 @@ class _SquareCropEditorState extends State<SquareCropEditor> {
         ),
       ],
     );
+  }
+}
+
+/// 指が触れた時点で操作を自分のものにする [ScaleGestureRecognizer]。外側の ListView の縦のスクロールに、枠を縦に動かす操作を取られないため。
+class _EagerScaleGestureRecognizer extends ScaleGestureRecognizer {
+  @override
+  void addAllowedPointer(PointerDownEvent event) {
+    super.addAllowedPointer(event);
+    resolve(GestureDisposition.accepted);
   }
 }
 

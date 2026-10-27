@@ -543,10 +543,6 @@ class _GenerationScreenState extends State<GenerationScreen> {
     body: SafeArea(
       child: ListView(
         padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
-        // 範囲を決める間は、枠を縦にドラッグする操作をスクロールに取られないよう止める
-        physics: _phase == _GenerationPhase.choosingRange
-            ? const NeverScrollableScrollPhysics()
-            : null,
         children: [
           Row(
             children: [
