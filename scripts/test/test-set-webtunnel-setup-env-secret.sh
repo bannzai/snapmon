@@ -90,6 +90,40 @@ test_round_trip() {
   fi
 }
 
+test_debug_token_is_added_as_second_line() {
+  local work
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  fixture_content > "$work/lib/firebase_options.dart"
+
+  if ! PATH="$work/bin:$PATH" GH_ARGS_FILE="$work/gh-args" GH_STDIN_FILE="$work/gh-stdin" \
+    FIREBASE_APPCHECK_DEBUG_TOKEN_WEB="debug-token-for-test" \
+    bash "$work/scripts/set-webtunnel-setup-env-secret.sh" > "$work/stdout" 2>&1; then
+    fail "debug token: スクリプトが失敗した ($(cat "$work/stdout"))"
+    return
+  fi
+  if grep -qF 'debug-token-for-test' "$work/stdout"; then
+    fail "debug token: 標準出力に値が出ている"
+    return
+  fi
+
+  local decoded
+  decoded="$(base64 --decode < "$work/gh-stdin")"
+  if [ "$(printf '%s\n' "$decoded" | wc -l | tr -d ' ')" != 2 ]; then
+    fail "debug token: 復号した KEY=VALUE 列が 2 行でない"
+    return
+  fi
+  if [ "$(printf '%s\n' "$decoded" | sed -n 1p | cut -d= -f1)" != FIREBASE_OPTIONS_DART_B64 ]; then
+    fail "debug token: 1 行目が FIREBASE_OPTIONS_DART_B64 でない"
+    return
+  fi
+  if [ "$(printf '%s\n' "$decoded" | sed -n 2p)" != "FIREBASE_APPCHECK_DEBUG_TOKEN_WEB=debug-token-for-test" ]; then
+    fail "debug token: 2 行目が FIREBASE_APPCHECK_DEBUG_TOKEN_WEB=<token> でない"
+    return
+  fi
+  pass "debug token: 環境変数があれば 2 行目に FIREBASE_APPCHECK_DEBUG_TOKEN_WEB を足す"
+}
+
 test_missing_file_does_not_call_gh() {
   local work status=0
   work="$(mktemp -d)"
@@ -122,6 +156,7 @@ test_empty_file_does_not_call_gh() {
 }
 
 test_round_trip
+test_debug_token_is_added_as_second_line
 test_missing_file_does_not_call_gh
 test_empty_file_does_not_call_gh
 

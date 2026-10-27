@@ -24,12 +24,21 @@ ios-device:
 	[ -n "$$device" ] || { echo "Error: 繋がっている iOS の実機が見つかりません (Xcode で信頼済みか確認するか、DEVICE=<デバイス ID> を指定してください)" >&2; exit 1; }; \
 	flutter run --debug -d "$$device"
 
+# Web の App Check に使う reCAPTCHA Enterprise のサイトキー (公開値。lib/firebase/session.dart が --dart-define で受ける)。
+# 環境変数 RECAPTCHA_ENTERPRISE_SITE_KEY が無ければ gh の Variable (deploy-hosting.yml と同じ値) から取る。
+# どちらも無ければ空のまま渡し、Web の App Check は始まらない (Functions が App Check を強制している間は呼び出しが 401 になる)
+RECAPTCHA_ENTERPRISE_SITE_KEY ?= $(shell gh variable get RECAPTCHA_ENTERPRISE_SITE_KEY 2>/dev/null)
+web_dart_defines = --dart-define=RECAPTCHA_ENTERPRISE_SITE_KEY=$(RECAPTCHA_ENTERPRISE_SITE_KEY)
+# debug ビルドだけ、環境変数 FIREBASE_APPCHECK_DEBUG_TOKEN_WEB (App Check の Web の debug token。発行は
+# scripts/set-webtunnel-setup-env-secret.sh のヘッダー) があれば reCAPTCHA の代わりに debug provider で App Check を通す
+web_debug_dart_defines = $(web_dart_defines) --dart-define=FIREBASE_APPCHECK_DEBUG_TOKEN_WEB=$(FIREBASE_APPCHECK_DEBUG_TOKEN_WEB)
+
 # Web 版を手元の Chrome で起動する (flutter run が開発サーバーを立てて Chrome を開く。r でホットリロード、q で終了)。
 # flutter config の enable-web が false の環境でも動くよう、先に有効にする (設定は ~/.flutter に残る)
 .PHONY: web
 web:
 	flutter config --enable-web >/dev/null
-	flutter run --debug -d chrome
+	flutter run --debug -d chrome $(web_debug_dart_defines)
 
 # 起動中の Android Emulator へ flutter run する。DEVICE=<デバイス ID> で対象を指定でき、未指定なら flutter devices から emulator を自動解決する
 .PHONY: android
@@ -44,7 +53,7 @@ android:
 # Web 版のビルドだけを行う (成果物は build/web)。flutter config の enable-web が false の環境では失敗する
 .PHONY: build-web
 build-web:
-	flutter build web --release
+	flutter build web --release $(web_dart_defines)
 
 # CI (.github/workflows/flutter-ci.yml) の lint・test と同じ検査をまとめて実行する
 .PHONY: verify
