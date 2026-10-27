@@ -9,13 +9,16 @@
 # GitHub Secrets は値を読み出せないため、Secret FIREBASE_OPTIONS_DART_B64 の元と同じ手元の lib/firebase_options.dart から作る。
 # 値は画面に出さず、gh secret set の標準入力にだけ流す。同じ入力から何度実行しても同じ値になる (冪等)。
 #
-# debug token の発行 (Firebase の App Check の Web アプリに登録する。Firebase App Check API。値は登録した時にしか見られないため、
-# 失くした時は新しく発行して登録し直す):
-#   token=$(uuidgen | tr 'A-Z' 'a-z')
+# debug token の正は 1Password (vault snapmon、item FIREBASE_APPCHECK_DEBUG_TOKEN_WEB。参照は .env.1password)。
+# 発行し直す時 (Firebase の App Check の Web アプリへの登録は Firebase App Check API。値は画面に出さない):
+#   export FIREBASE_APPCHECK_DEBUG_TOKEN_WEB=$(uuidgen | tr 'A-Z' 'a-z')
+#   python3 ~/.agents/skills/env-secret-registry/scripts/op-item-template-from-env.py FIREBASE_APPCHECK_DEBUG_TOKEN_WEB FIREBASE_APPCHECK_DEBUG_TOKEN_WEB \
+#     | op item create --vault snapmon - > /dev/null          # 既にあれば op item edit で password を更新する
 #   curl -s -X POST -H "Authorization: Bearer $(gcloud auth print-access-token)" -H "x-goog-user-project: snapmon-prod" \
-#     -H 'Content-Type: application/json' -d "{\"displayName\":\"webtunnel\",\"token\":\"$token\"}" \
+#     -H 'Content-Type: application/json' -d "{\"displayName\":\"webtunnel\",\"token\":\"$FIREBASE_APPCHECK_DEBUG_TOKEN_WEB\"}" \
 #     "https://firebaseappcheck.googleapis.com/v1beta/projects/snapmon-prod/apps/<Web アプリの appId>/debugTokens"
-#   FIREBASE_APPCHECK_DEBUG_TOKEN_WEB="$token" bash scripts/set-webtunnel-setup-env-secret.sh
+#   bash scripts/set-webtunnel-setup-env-secret.sh
+# 1Password にある token を使って登録し直すだけなら: op run --env-file .env.1password -- bash scripts/set-webtunnel-setup-env-secret.sh
 #
 # 環境変数: SNAPMON_REPO (既定 bannzai/snapmon) — 登録先のリポジトリ
 #           FIREBASE_APPCHECK_DEBUG_TOKEN_WEB — 上の debug token (任意。無ければ FIREBASE_OPTIONS_DART_B64 の行だけ登録する)
