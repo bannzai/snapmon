@@ -4,6 +4,7 @@
 // 有料の API (Vision・Claude・Jev) を同じ段階で 2 回呼ばない。例外は、段階の途中で落ちた時 (結果を書く前) の 1 回分。
 
 import { createHash, randomUUID } from "node:crypto";
+import type { EventEmitter } from "node:events";
 
 import type { Auth } from "firebase-admin/auth";
 import { FieldValue, type Firestore, Timestamp, type Transaction } from "firebase-admin/firestore";
@@ -186,9 +187,28 @@ function generationAliasDocument({ firestore, uid, requestId }: { firestore: Fir
   return firestore.doc(`users/${uid}/generationAliases/${requestId}`);
 }
 
+/**
+ * Storage から 1 回読む時の、応答の stream の listener の上限。
+ * @google-cloud/storage 8.4.0 の createReadStream と teeny-request 11.1.1 が node-fetch の応答の body (PassThrough) にそれぞれ
+ * pipeline を付け、node-fetch 自身の分と合わせて 1 回の読み込みで error・close の listener が最大 12 個付き、一部の読み込みで Node の既定の上限 10 を超える
+ * (Emulator での実測。#73)。どちらもライブラリの中で付き呼び出し方では減らせず、応答ごとの stream で読み終えれば外れるためリークではない。
+ * 実測の 12 に、ライブラリの更新で数個増えても警告に戻らない余裕を足した。
+ */
+const DOWNLOAD_RESPONSE_MAX_LISTENERS = 20;
+
+/**
+ * Storage のファイルを読み切って返す。`file.download()` と同じく createReadStream を読むが、
+ * 応答の stream (createReadStream が 'response' で渡す node-fetch の body) の listener の上限を上げてから読む。
+ */
 async function downloadFile(bucket: StorageBucket, path: string): Promise<Buffer> {
-  const [contents] = await bucket.file(path).download();
-  return contents;
+  const chunks: Buffer[] = [];
+  for await (const chunk of bucket
+    .file(path)
+    .createReadStream()
+    .on("response", (response: EventEmitter) => response.setMaxListeners(DOWNLOAD_RESPONSE_MAX_LISTENERS))) {
+    chunks.push(chunk);
+  }
+  return Buffer.concat(chunks);
 }
 
 /** 段階が一時的なエラーで失敗し、再試行のタスクを積み終えたことを表す。元のエラーを `cause` に持つ。 */
