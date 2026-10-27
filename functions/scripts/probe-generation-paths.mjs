@@ -4,7 +4,7 @@
 //
 // 使い方: node scripts/probe-generation-paths.mjs --project <snapmon-prod | demo-snapmon> [--yes] [--paths ordinary,person] [--keep]
 //   --yes: 費用の概算を出した後に実行する (無ければ概算だけを出して止まる)
-//   --paths: 流す経路をカンマ区切りで絞る (既定は全経路。same_subject は比べる元の ordinary と一緒に流す)
+//   --paths: 流す経路をカンマ区切りで絞る (既定は全経路。same_subject・same_kind は expectations.json の requires の ordinary と一緒に流す)
 //   --keep: 終わった後に匿名ユーザーを消さない (結果のモンスターを Firestore で確かめる時)
 //
 // snapmon-prod: Web の API キー (公開値) を環境変数 FIREBASE_WEB_API_KEY か --firebase-options の lib/firebase_options.dart
@@ -50,10 +50,11 @@ const CLAUDE_PRICE_PER_MILLION_TOKENS_USD = { input: 4, output: 20 };
 const JEV_PRICE_PER_BILLION_INPUT_TOKENS_USD = 42;
 
 /**
- * 終了状態を待つ時間。generate の timeoutSeconds (300 秒。functions/src/generation/generate.ts) に、
- * 予約が切れた生成を再試行のタスクが引き継ぐまでの余裕を足した。
+ * 終了状態を待つ時間。generate が途中で止まった時に、再試行のタスクが引き継いで終えるまでを待つ。
+ * 引き継ぎのタスクは予約の 600 秒 + 60 秒後に動き (functions/src/generation/pipeline.ts の LEASE_DURATION_SECONDS と enqueueResume)、
+ * その実行も最長 300 秒かかる (functions/src/generation/generate.ts の timeoutSeconds)。合計 960 秒に 1 分の余裕を足した。
  */
-const GENERATION_DEADLINE_MILLISECONDS = 8 * 60 * 1000;
+const GENERATION_DEADLINE_MILLISECONDS = 17 * 60 * 1000;
 
 /** 生成のレコードを読み直す間隔。1 枚の生成が 15 秒前後 (ADR 0002 の Functions の行) のため、その 1/3 にした。 */
 const GENERATION_POLL_INTERVAL_MILLISECONDS = 5_000;
@@ -68,7 +69,7 @@ export function readExpectations(fixturesDirectory = PHOTOS_FIXTURES_DIRECTORY) 
 
 /**
  * 流す写真を、expectations.json の paths の順と、経路の中のファイル名の順に並べて返す。
- * `pathNames` で経路を絞る。絞った経路の duplicateOf が指す写真の経路は、比べる元が無いと判定できないため足す。
+ * `pathNames` で経路を絞る。絞った経路の `requires` (比べる元の写真の経路) は、比べる元が無いと判定の確認にならないため足す。
  * 返す値: `{ photoName: "<経路>/<ファイル名>", pathExpectation, photoExpectation }` の配列。
  */
 export function listProbePhotos({ fixturesDirectory = PHOTOS_FIXTURES_DIRECTORY, expectations, pathNames }) {
@@ -79,8 +80,8 @@ export function listProbePhotos({ fixturesDirectory = PHOTOS_FIXTURES_DIRECTORY,
   }
   const selectedPathNames = new Set(pathNames ?? knownPathNames);
   for (const pathExpectation of expectations.paths.filter((candidate) => selectedPathNames.has(candidate.path))) {
-    for (const photoExpectation of Object.values(pathExpectation.photos ?? {})) {
-      selectedPathNames.add(photoExpectation.duplicateOf.split("/")[0]);
+    for (const requiredPathName of pathExpectation.requires ?? []) {
+      selectedPathNames.add(requiredPathName);
     }
   }
   return expectations.paths

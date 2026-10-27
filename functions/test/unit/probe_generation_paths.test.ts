@@ -60,6 +60,12 @@ describe("listProbePhotos", () => {
     expect(photoNames.slice(5)).toEqual(["same_subject/mug_another_shot.jpg", "same_subject/scissors_another_shot.jpg"]);
   });
 
+  it("same_kind に絞っても、比べる元の ordinary を先に流す", () => {
+    const photoNames = listProbePhotos({ expectations: readExpectations(), pathNames: ["same_kind"] }).map((photo: { photoName: string }) => photo.photoName);
+    expect(photoNames.slice(0, 5).every((photoName: string) => photoName.startsWith("ordinary/"))).toBe(true);
+    expect(photoNames.slice(5)).toEqual(["same_kind/another_mug.jpg", "same_kind/another_rubber_duck.jpg"]);
+  });
+
   it("expectations.json に無い経路はエラーにする", () => {
     expect(() => listProbePhotos({ expectations: readExpectations(), pathNames: ["unknown"] })).toThrow("expectations.json に無い経路です: unknown");
   });

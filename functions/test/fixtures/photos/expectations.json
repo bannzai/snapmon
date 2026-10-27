@@ -1,5 +1,5 @@
 {
-  "$comment": "生成の経路ごとに期待する結果。functions/scripts/probe-generation-paths.mjs が paths の順に、1 人の匿名ユーザーで写真を送って突き合わせる (同じ被写体の判定はユーザー単位のため、比べる元の写真を先に送る)。status は生成の終了状態 (functions/src/generation/records.ts の GenerationStatus)、rejectionReasons はどれかに当たれば PASS、photos の duplicateOf は duplicate の時に返るモンスターがその写真から生まれたものであること。写真の出典は LICENSES.md。",
+  "$comment": "生成の経路ごとに期待する結果。functions/scripts/probe-generation-paths.mjs が paths の順に、1 人の匿名ユーザーで写真を送って突き合わせる (同じ被写体の判定はユーザー単位のため、比べる元の写真を先に送る。requires は比べる元の経路で、--paths で絞っても一緒に送る)。status は生成の終了状態 (functions/src/generation/records.ts の GenerationStatus)、rejectionReasons はどれかに当たれば PASS、photos の duplicateOf は duplicate の時に返るモンスターがその写真から生まれたものであること。写真の出典は LICENSES.md。",
   "paths": [
     {
       "path": "ordinary",
@@ -9,6 +9,7 @@
     {
       "path": "same_subject",
       "description": "ordinary の写真と同じ個体を別の写り方で撮った写真",
+      "requires": ["ordinary"],
       "expected": { "status": "duplicate" },
       "photos": {
         "mug_another_shot.jpg": { "duplicateOf": "ordinary/mug.jpg" },
@@ -18,6 +19,7 @@
     {
       "path": "same_kind",
       "description": "ordinary の写真と同じ種類の別の物 (another_mug は mug、another_rubber_duck は rubber_duck と同じ種類)",
+      "requires": ["ordinary"],
       "expected": { "status": "saved" }
     },
     {
