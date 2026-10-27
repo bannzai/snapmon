@@ -51,7 +51,9 @@ dependencies:
   uuid: ^4.6.0
   share_plus: ^13.3.1
   google_sign_in: ^7.2.0
-  permission_handler: ^13.0.2
+  # 13 系の permission_handler_android 14 は build.gradle.kts がこのプロジェクトの Kotlin Gradle プラグインで
+  # コンパイルできない (`kotlin { compilerOptions }` が解決されない) ため、Groovy の build.gradle の 12 系に留める
+  permission_handler: ">=12.0.1 <13.0.0"
 
 dev_dependencies:
   flutter_test:

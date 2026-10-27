@@ -51,7 +51,9 @@ class _FakeCameraPlatform extends CameraPlatform {
       );
 
   @override
-  Stream<CameraErrorEvent> onCameraError(int cameraId) => const Stream.empty();
+  // 空のストリームだと CameraController が `.first` で待つ所で StateError になるため、何も流さず閉じないストリームにする
+  Stream<CameraErrorEvent> onCameraError(int cameraId) =>
+      StreamController<CameraErrorEvent>().stream;
 
   @override
   Future<void> initializeCamera(
@@ -228,48 +230,45 @@ void main() {
     expect(loggedCameraPermissionSteps(), isEmpty);
   });
 
-  testWidgets(
-    '権限を拒否すると生の例外ではなく設定を開く・もう一度試すを出し、設定で許可して戻ると開き直す',
-    (tester) async {
-      cameraPlatform.initializeError = _accessDenied;
-      await pumpCaptureScreen(
-        tester: tester,
-        startsCameraOnOpen: false,
-        listCameras: () async => const [_backCamera],
-      );
-      await tester.tap(find.byKey(const Key('capture-use-camera')));
-      await tester.pumpAndSettle();
-      expect(
-        find.byKey(const Key('capture-camera-permission-denied')),
-        findsOneWidget,
-      );
-      expect(find.text('設定でカメラを許可してください'), findsOneWidget);
-      expect(find.textContaining('CameraAccessDenied'), findsNothing);
-      expect(find.textContaining('CameraException'), findsNothing);
-      expect(cameraOpenedCallCount, 0);
+  testWidgets('権限を拒否すると生の例外ではなく設定を開く・もう一度試すを出し、設定で許可して戻ると開き直す', (tester) async {
+    cameraPlatform.initializeError = _accessDenied;
+    await pumpCaptureScreen(
+      tester: tester,
+      startsCameraOnOpen: false,
+      listCameras: () async => const [_backCamera],
+    );
+    await tester.tap(find.byKey(const Key('capture-use-camera')));
+    await tester.pumpAndSettle();
+    expect(
+      find.byKey(const Key('capture-camera-permission-denied')),
+      findsOneWidget,
+    );
+    expect(find.text('設定でカメラを許可してください'), findsOneWidget);
+    expect(find.textContaining('CameraAccessDenied'), findsNothing);
+    expect(find.textContaining('CameraException'), findsNothing);
+    expect(cameraOpenedCallCount, 0);
 
-      await tester.tap(find.text('設定を開く'));
-      await tester.pumpAndSettle();
-      expect(generationCalls.openAppSettingsCallCount, 1);
+    await tester.tap(find.text('設定を開く'));
+    await tester.pumpAndSettle();
+    expect(generationCalls.openAppSettingsCallCount, 1);
 
-      // 設定で許可して戻る
-      cameraPlatform.initializeError = null;
-      await goToBackgroundAndReturn(tester: tester);
-      expect(cameraPlatform.initializeCallCount, 2);
-      expect(find.byKey(const Key('fake-camera-preview')), findsOneWidget);
-      expect(
-        find.byKey(const Key('capture-camera-permission-denied')),
-        findsNothing,
-      );
-      expect(cameraOpenedCallCount, 1);
-      expect(loggedCameraPermissionSteps(), [
-        'requested',
-        'denied',
-        'open_settings',
-        'granted',
-      ]);
-    },
-  );
+    // 設定で許可して戻る
+    cameraPlatform.initializeError = null;
+    await goToBackgroundAndReturn(tester: tester);
+    expect(cameraPlatform.initializeCallCount, 2);
+    expect(find.byKey(const Key('fake-camera-preview')), findsOneWidget);
+    expect(
+      find.byKey(const Key('capture-camera-permission-denied')),
+      findsNothing,
+    );
+    expect(cameraOpenedCallCount, 1);
+    expect(loggedCameraPermissionSteps(), [
+      'requested',
+      'denied',
+      'open_settings',
+      'granted',
+    ]);
+  });
 
   testWidgets('拒否した後に「もう一度試す」を押すと、カメラを求め直す', (tester) async {
     cameraPlatform.initializeError = CameraException(
