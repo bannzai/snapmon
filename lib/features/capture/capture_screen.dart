@@ -503,6 +503,13 @@ bool _isCameraAccessDenied({required Object? error}) =>
     (error.code == 'CameraAccessDenied' ||
         error.code == 'CameraAccessDeniedWithoutPrompt');
 
+/// ファインダーの上に重ねるボタンの形。テーマの FilledButton は横幅いっぱい (`Size.fromHeight(56)`) で、
+/// ファインダーの枠を横切る帯になり「設定を開く」と「もう一度試す」も横に並ばないため、文言の幅に縮める。
+/// 高さ 48 は Material の最小のタップ領域。
+final ButtonStyle _viewfinderFilledButtonStyle = FilledButton.styleFrom(
+  minimumSize: const Size(0, 48),
+);
+
 /// 高さが足りない画面でのファインダーの高さ。四隅の鉤形 (36 + 余白 24) 2 つと案内の札が重ならない高さにした。
 const double _minimumViewfinderHeight = 200;
 
@@ -588,6 +595,7 @@ class _Viewfinder extends StatelessWidget {
                           children: [
                             if (!kIsWeb)
                               FilledButton(
+                                style: _viewfinderFilledButtonStyle,
                                 onPressed: onOpenAppSettings,
                                 child: const Text('設定を開く'),
                               ),
@@ -616,6 +624,7 @@ class _Viewfinder extends StatelessWidget {
                 Center(
                   child: FilledButton.icon(
                     key: const Key('capture-use-camera'),
+                    style: _viewfinderFilledButtonStyle,
                     onPressed: onRequestCamera,
                     icon: const Icon(Icons.photo_camera_outlined),
                     label: const Text('カメラを使う'),
