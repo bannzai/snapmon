@@ -269,6 +269,28 @@ void main() {
     ]);
   });
 
+  testWidgets('ファインダーが低い (横向き) 時も、拒否の後は下の札を出さず「もう一度試す」を押せる', (tester) async {
+    tester.view.physicalSize = const Size(844, 390);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    cameraPlatform.initializeError = _accessDenied;
+    await pumpCaptureScreen(
+      tester: tester,
+      startsCameraOnOpen: false,
+      listCameras: () async => const [_backCamera],
+    );
+    expect(find.text('被写体を枠に入れる'), findsOneWidget);
+    await tester.tap(find.byKey(const Key('capture-use-camera')));
+    await tester.pumpAndSettle();
+    expect(find.text('被写体を枠に入れる'), findsNothing);
+
+    cameraPlatform.initializeError = null;
+    await tester.tap(find.text('もう一度試す'));
+    await tester.pumpAndSettle();
+    expect(cameraPlatform.initializeCallCount, 2);
+    expect(find.byKey(const Key('fake-camera-preview')), findsOneWidget);
+  });
+
   testWidgets('拒否した後に「もう一度試す」を押すと、カメラを求め直す', (tester) async {
     cameraPlatform.initializeError = CameraException(
       'CameraAccessDeniedWithoutPrompt',

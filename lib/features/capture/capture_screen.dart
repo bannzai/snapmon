@@ -644,25 +644,28 @@ class _Viewfinder extends StatelessWidget {
                     child: _ViewfinderCorner(alignment: alignment),
                   ),
                 ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 28),
-                  child: DecoratedBox(
-                    decoration: const BoxDecoration(
-                      color: SnapmonColors.scrim,
-                      borderRadius: SnapmonRadii.button,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 14,
-                        vertical: 8,
+              // 権限が無い時の案内とボタンは、ファインダーが低い時 (最小の高さ) にこの札と重なり、
+              // 後から描くこの札がボタンへのタップを受けてしまうため出さない
+              if (!_isCameraAccessDenied(error: error))
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 28),
+                    child: DecoratedBox(
+                      decoration: const BoxDecoration(
+                        color: SnapmonColors.scrim,
+                        borderRadius: SnapmonRadii.button,
                       ),
-                      child: Text('被写体を枠に入れる', style: SnapmonTextStyles.body),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 14,
+                          vertical: 8,
+                        ),
+                        child: Text('被写体を枠に入れる', style: SnapmonTextStyles.body),
+                      ),
                     ),
                   ),
                 ),
-              ),
             ],
           ),
         ),
