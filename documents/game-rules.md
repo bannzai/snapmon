@@ -79,7 +79,7 @@ Jev が HP・攻撃・防御・素早さごとに 5 段階で判定し、段階�
 ### 測り方 (2026-10-22)
 
 - 見本: Wikimedia Commons の CC0 / Public domain の物の写真 20 枚と、そのうち 4 枚を反転・切り抜きして作った同じ物の別の写り方 4 枚 (`functions/test/fixtures/calibration/photos/`)
-- 説明: 見本を本番と同じモデル (isnet-general-use) で切り出し、本番と同じシステムプロンプトと schema を **`claude -p` (Claude Code の CLI、`--model claude-opus-5-5 --effort low --safe-mode`) に通して書かせた** もの (`descriptions.json`)。本番の Functions は Claude API を WIF で直接呼ぶため、Claude Code の CLI を通した説明とは書き方が少し違う可能性がある。本番の説明が溜まったら測り直す
+- 説明: 見本を当時の本番と同じモデル (isnet-general-use) で切り出し、当時の本番と同じシステムプロンプトと schema を **`claude -p` (Claude Code の CLI、`--model claude-opus-5-5 --effort low --safe-mode`) に通して書かせた** もの (`descriptions.json`)。本番の Functions は Claude API を WIF で直接呼ぶため、Claude Code の CLI を通した説明とは書き方が少し違う可能性がある。本番の説明が溜まったら測り直す。2026-10-28 に切り出しを端末で決めるマスク (iOS の OS の切り出し・crop・マスク無しの写真全体) に変え、プロンプトに背景の写った画像の扱いを足した (DIRECTION.md「決めたこと」2026-10-28)。この入力では測っていないため、測り直す時は crop と写真全体の説明も見本に入れる
 - 正解: 見本ごとに、当てはまるべき属性・どちらでもよい属性・当てはまるべきでない属性と、同じ物・同じ種類の別の物・別の種類の物の対を agent が付けた (`labels.json`)
 - 本番と同じ問いの組み立てで、同じ入力を 2 回ずつ送った。結果の全体は `functions/test/fixtures/calibration/result-2026-10-22.json`
 

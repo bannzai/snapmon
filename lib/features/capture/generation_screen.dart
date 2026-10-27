@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../analytics/analytics_events.dart';
 import '../../sample/sample_data.dart';
@@ -21,6 +22,8 @@ import '../settings/settings_screen.dart';
 import '../share/card_sharer.dart';
 import 'first_battle.dart';
 import 'monster_generator.dart';
+import 'square_crop_editor.dart';
+import 'subject_mask.dart';
 
 /// 生成の直後に図鑑の反映を待つ時間。Firestore のスナップショットは保存から 1 秒前後で届くため、通信が遅い時の余裕を見た値。
 const Duration _monsterArrivalTimeout = Duration(seconds: 30);
@@ -32,6 +35,10 @@ const Duration _opponentRevealDuration = Duration(milliseconds: 1500);
 /// 写真 1 枚から生成する画面。写真を整えて送り、段階ごとの待ち時間を出し、結果に応じて生まれた画面を開くか、
 /// 判定待ち・生成しなかった理由・エラーを出す。生まれた画面を閉じたら、その画面の [ResultScreenAction] を返して閉じる。
 ///
+/// 送る前に被写体の範囲を決める: OS の切り出し ([MonsterGenerator.createSubjectMask]) が被写体を見つけたらそのマスクで切り出した絵を
+/// 出して送り、見つからない・使えない時は [cropsWhenSubjectNotFound] なら正方形の枠で範囲を決めてもらい、そうでなければマスク無し
+/// (写真全体) で送る。
+///
 /// 初回の導線 ([startsFirstBattle]) では、生成を待つ間は「相手を探しています」を出し、生まれたら手持ちに入れて相手を決め、
 /// 「○○ があらわれた」の後にバトルの画面を開く。バトルの画面を閉じたら、図鑑を見る時は [ResultScreenAction.openDex]、
 /// それ以外 (もう 1 体撮る・にげる) は null を返して閉じる。生まれなかった時は初回でない時と同じ理由の表示に戻る。
@@ -41,6 +48,7 @@ class GenerationScreen extends StatefulWidget {
     super.key,
     required this.sourcePhoto,
     required this.photoSource,
+    required this.cropsWhenSubjectNotFound,
     required this.monsterGenerator,
     required this.dexStore,
     required this.cardSharer,
@@ -73,6 +81,10 @@ class GenerationScreen extends StatefulWidget {
   /// 写真がどこから来たか。
   final GenerationPhotoSource photoSource;
 
+  /// OS の切り出しが被写体を見つけられない・使えない時に、正方形の枠で範囲を決めてもらうか。false ならマスク無し (写真全体) で送る
+  /// (開発者メニューの見本の写真は、操作を挟まずに生成まで通すため false にする)。
+  final bool cropsWhenSubjectNotFound;
+
   /// 生成の呼び出しと計測。
   final MonsterGenerator monsterGenerator;
 
@@ -88,8 +100,11 @@ class GenerationScreen extends StatefulWidget {
 
 /// 生成の画面の状態。
 enum _GenerationPhase {
-  /// 写真を整えている・送っている・サーバーが処理している。
+  /// 写真を整えている・被写体を探している・送っている・サーバーが処理している。
   inProgress,
+
+  /// OS の切り出しが被写体を見つけられず、正方形の枠で範囲を決めてもらっている。
+  choosingRange,
 
   /// サーバーが判定を待っている (pending_judge) か、まだ処理している。
   waiting,
@@ -112,6 +127,24 @@ class _GenerationScreenState extends State<GenerationScreen> {
   late final String _requestId = widget.monsterGenerator.createRequestId();
 
   Uint8List? _preparedPhoto;
+
+  /// 決めたマスクの出どころ。決まるまでは null (もう一度試す時に、範囲を決め直させないための目印)。
+  GenerationMaskSource? _maskSource;
+
+  /// 送るマスク。[GenerationMaskSource.none] の時は null。
+  Uint8List? _mask;
+
+  /// マスクで切り出した絵のプレビュー。マスクが無い時は null (写真をそのまま出す)。
+  Uint8List? _cutoutPreview;
+
+  /// 範囲を決めている写真の画素の大きさと、今の枠 ([_GenerationPhase.choosingRange] の間だけ使う)。
+  ({int width, int height})? _photoSize;
+  SquareCrop? _crop;
+
+  /// OS の切り出しが失敗した時のエラー。範囲を決める画面に出す。
+  Object? _subjectMaskError;
+
+  /// 写真とマスクを送り終えたか。
   bool _isUploaded = false;
   GenerationStage? _completedStage;
   _GenerationPhase _phase = _GenerationPhase.inProgress;
@@ -168,7 +201,8 @@ class _GenerationScreenState extends State<GenerationScreen> {
         .catchError((Object _) {}),
   );
 
-  /// 済んでいない手順 (写真を整える・送る) から生成を進める。もう一度試す時も同じ要求 ID で呼び直す。
+  /// 済んでいない手順 (写真を整える・範囲を決める・送る) から生成を進める。もう一度試す時も同じ要求 ID で呼び直す。
+  /// 範囲を決めてもらう時は [_GenerationPhase.choosingRange] にして止まり、決まったら [_confirmCrop] から呼び直される。
   Future<void> _generate() async {
     setState(() {
       _phase = _GenerationPhase.inProgress;
@@ -184,16 +218,29 @@ class _GenerationScreenState extends State<GenerationScreen> {
         return;
       }
       setState(() => _preparedPhoto = preparedPhoto);
+      if (_maskSource == null && !await _decideMask(photo: preparedPhoto)) {
+        return;
+      }
+      if (!mounted) {
+        return;
+      }
       if (!_isUploaded) {
         await widget.monsterGenerator.uploadPhoto(
           requestId: _requestId,
           photo: preparedPhoto,
         );
+        if (_mask case final mask?) {
+          await widget.monsterGenerator.uploadMask(
+            requestId: _requestId,
+            mask: mask,
+          );
+        }
         _isUploaded = true;
       }
       await _handleResult(
         result: await widget.monsterGenerator.requestGeneration(
           requestId: _requestId,
+          maskSource: _maskSource!,
           onCompletedStage: ({required completedStage}) {
             if (mounted) {
               setState(() => _completedStage = completedStage);
@@ -214,6 +261,86 @@ class _GenerationScreenState extends State<GenerationScreen> {
         });
       }
     }
+  }
+
+  /// OS の切り出しで [photo] のマスクを決める。決まった (被写体が見つかった・範囲を決めずにマスク無しにした) 時は true、
+  /// 範囲を決めてもらう画面にした時は false を返す。
+  Future<bool> _decideMask({required Uint8List photo}) async {
+    Uint8List? subjectMask;
+    Object? subjectMaskError;
+    try {
+      subjectMask = await widget.monsterGenerator.createSubjectMask(
+        photo: photo,
+      );
+    } on PlatformException catch (error) {
+      subjectMaskError = error;
+    } on MissingPluginException catch (error) {
+      subjectMaskError = error;
+    }
+    if (subjectMask != null) {
+      final cutoutPreview = await widget.monsterGenerator.createCutoutPreview(
+        photo: photo,
+        mask: subjectMask,
+      );
+      if (mounted) {
+        setState(() {
+          _maskSource = GenerationMaskSource.iosSubject;
+          _mask = subjectMask;
+          _cutoutPreview = cutoutPreview;
+        });
+      }
+      return true;
+    }
+    if (!widget.cropsWhenSubjectNotFound) {
+      setState(() => _maskSource = GenerationMaskSource.none);
+      return true;
+    }
+    final photoSize = photoPixelSize(photo: photo);
+    if (mounted) {
+      setState(() {
+        _photoSize = photoSize;
+        _crop = initialSquareCrop(
+          photoWidth: photoSize.width,
+          photoHeight: photoSize.height,
+        );
+        _subjectMaskError = subjectMaskError;
+        _phase = _GenerationPhase.choosingRange;
+      });
+    }
+    return false;
+  }
+
+  /// 決めた枠 ([_crop]) をマスクにして、生成を続ける。
+  Future<void> _confirmCrop() async {
+    final photo = _preparedPhoto!;
+    setState(() => _phase = _GenerationPhase.inProgress);
+    try {
+      final mask = await widget.monsterGenerator.createSquareMask(
+        photo: photo,
+        crop: _crop!,
+      );
+      final cutoutPreview = await widget.monsterGenerator.createCutoutPreview(
+        photo: photo,
+        mask: mask,
+      );
+      if (!mounted) {
+        return;
+      }
+      setState(() {
+        _maskSource = GenerationMaskSource.crop;
+        _mask = mask;
+        _cutoutPreview = cutoutPreview;
+      });
+    } catch (error) {
+      if (mounted) {
+        setState(() {
+          _phase = _GenerationPhase.error;
+          _error = error;
+        });
+      }
+      return;
+    }
+    await _generate();
   }
 
   /// 初回の導線で、戦うモンスターが決まる前に生成が終わらなかった時に `generation_failed` を送る。
@@ -416,6 +543,10 @@ class _GenerationScreenState extends State<GenerationScreen> {
     body: SafeArea(
       child: ListView(
         padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
+        // 範囲を決める間は、枠を縦にドラッグする操作をスクロールに取られないよう止める
+        physics: _phase == _GenerationPhase.choosingRange
+            ? const NeverScrollableScrollPhysics()
+            : null,
         children: [
           Row(
             children: [
@@ -428,22 +559,45 @@ class _GenerationScreenState extends State<GenerationScreen> {
             ],
           ),
           const SizedBox(height: 16),
-          Center(
-            child: SizedBox.square(
-              dimension: 200,
-              child: ClipRRect(
-                borderRadius: SnapmonRadii.card,
-                child: Image.memory(
-                  _preparedPhoto ?? widget.sourcePhoto,
-                  fit: BoxFit.cover,
-                  gaplessPlayback: true,
-                  // 整える前の写真が読めない形式 (HEIC 等) でも、画面は壊さず枠だけを出す
-                  errorBuilder: (context, error, stackTrace) =>
-                      const ColoredBox(color: SnapmonColors.surfaceRaised),
+          if (_phase == _GenerationPhase.choosingRange)
+            SquareCropEditor(
+              photo: _preparedPhoto!,
+              photoWidth: _photoSize!.width,
+              photoHeight: _photoSize!.height,
+              crop: _crop!,
+              onCropChanged: ({required crop}) => setState(() => _crop = crop),
+            )
+          else
+            Center(
+              child: SizedBox.square(
+                dimension: 200,
+                child: ClipRRect(
+                  borderRadius: SnapmonRadii.card,
+                  child: switch (_cutoutPreview) {
+                    // 切り出した絵は形を崩さず、透明な背景を地の色で見せる
+                    final cutoutPreview? => ColoredBox(
+                      key: const Key('cutout-preview'),
+                      color: SnapmonColors.artBackground,
+                      child: Image.memory(
+                        cutoutPreview,
+                        fit: BoxFit.contain,
+                        gaplessPlayback: true,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const SizedBox.shrink(),
+                      ),
+                    ),
+                    null => Image.memory(
+                      _preparedPhoto ?? widget.sourcePhoto,
+                      fit: BoxFit.cover,
+                      gaplessPlayback: true,
+                      // 整える前の写真が読めない形式 (HEIC 等) でも、画面は壊さず枠だけを出す
+                      errorBuilder: (context, error, stackTrace) =>
+                          const ColoredBox(color: SnapmonColors.surfaceRaised),
+                    ),
+                  },
                 ),
               ),
             ),
-          ),
           const SizedBox(height: 28),
           ..._buildPhaseContent(),
         ],
@@ -479,6 +633,34 @@ class _GenerationScreenState extends State<GenerationScreen> {
       ),
       const SizedBox(height: 24),
       const Center(child: CircularProgressIndicator()),
+    ],
+    _GenerationPhase.choosingRange => [
+      const Text(
+        'モンスターにする範囲',
+        textAlign: TextAlign.center,
+        style: SnapmonTextStyles.hero,
+      ),
+      const SizedBox(height: 12),
+      const Text(
+        '枠をドラッグして被写体を囲んでください\n大きさは下のつまみか 2 本の指で変えられます',
+        textAlign: TextAlign.center,
+        style: SnapmonTextStyles.body,
+      ),
+      if (_subjectMaskError != null) ...[
+        const SizedBox(height: 12),
+        Text(
+          '自動の切り出しを使えませんでした\n$_subjectMaskError',
+          textAlign: TextAlign.center,
+          style: SnapmonTextStyles.small,
+        ),
+      ],
+      const SizedBox(height: 28),
+      FilledButton(onPressed: _confirmCrop, child: const Text('この範囲で作る')),
+      const SizedBox(height: 12),
+      OutlinedButton(
+        onPressed: () => Navigator.of(context).pop(),
+        child: const Text('撮り直す'),
+      ),
     ],
     _GenerationPhase.opponentFound => [
       Text(
@@ -603,6 +785,9 @@ class _GenerationScreenState extends State<GenerationScreen> {
     if (_preparedPhoto == null) {
       return '写真を整えています';
     }
+    if (_maskSource == null) {
+      return _crop == null ? '被写体を探しています' : '範囲を切り出しています';
+    }
     if (!_isUploaded) {
       return '写真を送っています';
     }
@@ -624,8 +809,6 @@ class _GenerationScreenState extends State<GenerationScreen> {
         GenerationRejectionReason.faceDetected ||
         GenerationRejectionReason.personDetected =>
           '人が写っている写真からは作れません\n物だけを撮ってください',
-        GenerationRejectionReason.noSubject =>
-          '被写体が見つかりませんでした\n物を大きく写して撮ってください',
         GenerationRejectionReason.inappropriateText ||
         GenerationRejectionReason.refused => 'うまく作れませんでした\nもう一度撮ってみてください',
         null => '生成に失敗しました\nもう一度撮ってみてください',

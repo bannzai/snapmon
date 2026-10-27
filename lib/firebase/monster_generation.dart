@@ -48,10 +48,22 @@ Future<void> uploadGenerationPhotoWithFirebase({
       .putData(photo, SettableMetadata(contentType: 'image/jpeg'));
 }
 
-/// generate を呼んで結果を返す ([MonsterGenerator.requestGeneration])。呼んでいる間は生成のレコードの段階を
+/// [mask] (PNG) を Storage の `users/{uid}/masks/{requestId}` に置く ([MonsterGenerator.uploadMask])。
+Future<void> uploadGenerationMaskWithFirebase({
+  required String requestId,
+  required Uint8List mask,
+}) async {
+  await FirebaseStorage.instance
+      .ref('users/${_signedInUid()}/masks/$requestId')
+      .putData(mask, SettableMetadata(contentType: 'image/png'));
+}
+
+/// generate を呼んで結果を返す ([MonsterGenerator.requestGeneration])。[maskSource] が [GenerationMaskSource.none] でなければ、
+/// [uploadGenerationMaskWithFirebase] で置いたマスクのパスも渡す。呼んでいる間は生成のレコードの段階を
 /// [onCompletedStage] に渡す。callable が待ち時間を過ぎたら、生成のレコードが処理中でなくなるのを待って、その結果を返す。
 Future<GenerationResult> requestGenerationWithFirebase({
   required String requestId,
+  required GenerationMaskSource maskSource,
   required void Function({required GenerationStage completedStage})
   onCompletedStage,
 }) async {
@@ -77,6 +89,9 @@ Future<GenerationResult> requestGenerationWithFirebase({
         .call<Object?>({
           'requestId': requestId,
           'photoPath': 'users/$uid/photos/$requestId',
+          if (maskSource != GenerationMaskSource.none)
+            'maskPath': 'users/$uid/masks/$requestId',
+          'maskSource': maskSource.sourceName,
         });
     return GenerationResult.fromJson(
       json: Map<String, dynamic>.from(result.data! as Map<Object?, Object?>),

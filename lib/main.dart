@@ -11,6 +11,7 @@ import 'package:snapmon/app.dart';
 import 'package:snapmon/features/battle/battle_recorder.dart';
 import 'package:snapmon/features/capture/monster_generator.dart';
 import 'package:snapmon/features/capture/photo_preparation.dart';
+import 'package:snapmon/features/capture/subject_mask.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
 import 'package:snapmon/features/opponent/pvp_client.dart';
 import 'package:snapmon/features/session/session_store.dart';
@@ -93,6 +94,9 @@ Future<void> main() async {
         listCameras: availableCameras,
         pickAlbumPhoto: pickAlbumPhoto,
         preparePhoto: prepareGenerationPhotoInBackground,
+        createSubjectMask: createSubjectMaskWithOs,
+        createSquareMask: createSquareMaskInBackground,
+        createCutoutPreview: createCutoutPreviewInBackground,
         createRequestId: const Uuid().v4,
         // DEBUG ビルドでログインを飛ばした (「ログインせずに使う」) 時は、写真を送らず見本のモンスターで生成を置き換える
         // (lib/sample/sample_generation.dart)。release ビルドでは kDebugMode が const の false のため、この経路はビルドから除かれる
@@ -105,8 +109,21 @@ Future<void> main() async {
             photo: photo,
           );
         },
+        uploadMask: ({required requestId, required mask}) async {
+          if (kDebugMode && sessionStore.uid == null) {
+            return;
+          }
+          await uploadGenerationMaskWithFirebase(
+            requestId: requestId,
+            mask: mask,
+          );
+        },
         requestGeneration:
-            ({required requestId, required onCompletedStage}) async {
+            ({
+              required requestId,
+              required maskSource,
+              required onCompletedStage,
+            }) async {
               if (kDebugMode && sessionStore.uid == null) {
                 return generateSampleMonster(
                   dexStore: dexStore,
@@ -116,6 +133,7 @@ Future<void> main() async {
               }
               return requestGenerationWithFirebase(
                 requestId: requestId,
+                maskSource: maskSource,
                 onCompletedStage: onCompletedStage,
               );
             },

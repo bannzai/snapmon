@@ -1,8 +1,8 @@
-# 0002. 被写体の切り出しはサーバーの IS-Net で行い、生成の原価を見積もる
+# 0002. 被写体の切り出しの範囲は端末で決め、生成の原価を見積もる
 
 ## Status
 
-Accepted
+Accepted (2026-10-22)。2026-10-28 に、自動のマスクをサーバーの IS-Net で作る決定を、端末で決める形 (iOS の OS の切り出しと crop) に改めた (下の「改訂 (2026-10-28)」)
 
 ## Context
 
@@ -25,6 +25,8 @@ Accepted
 
 ## Decision
 
+2026-10-22 の決定。「自動のマスクを作る場所」「モデル」「モデルの配り方」「推論の後処理」「手で範囲を決める経路」の 5 行は、下の「改訂 (2026-10-28)」で置き換えた (経緯のため残す)。
+
 | 項目 | 決定 | 根拠 |
 | --- | --- | --- |
 | 自動のマスクを作る場所 | サーバー (`generate` の cutout の段階)。Web を含む 3 つの配信先が同じ経路になり、外部サービスに写真を送らない | 上の比較 |
@@ -38,7 +40,23 @@ Accepted
 | Jev のモデル | `jev-1.13.0` に固定する (2026-10-22 に API が受け付けることを確認) | `jev-latest` は版が予告なく変わり、閾値の実測 ([game-rules.md](../game-rules.md)「Jev の閾値」) が無効になるため |
 | 新しい属性と技 | どの属性も閾値に届かない時だけ、Claude に属性 1 つと、その属性の技 3 つ (master の 3 段階に合わせた威力・PP の範囲) を 1 件の定義として提案させる。技だけを新しく作る経路は置かない | 属性ごとの技の選択は Jev の Choice で、Choice は「当てはまらない」を返さない (`~/.claude/skills/jev/references/question-design-findings.md`「Choice は必ず何かを選ぶ」)。master の属性は 3 段階の技をすべて持つため、属性が決まれば技は必ずある |
 
+## 改訂 (2026-10-28)
+
+bannzai が、切り出しをクライアントでできるところまでにし、iPhone は写真の長押しで被写体を切り出す OS の機能の API をそのまま使い、それ以外は crop でよいと決めた ([DIRECTION.md](../DIRECTION.md)「決めたこと」2026-10-28、 https://github.com/bannzai/snapmon/issues/68 )。本番の通しの確認で生成に 25 秒かかり (Functions のインスタンスの起動と推論)、切り出せない写真のエラーが生成数を減らすため。上の比較の表の「端末内の OS の機能」の行の短所 (Web に同等の機能が無い) は、Web を crop にすることで受け入れた。
+
+| 項目 | 決定 | 根拠 |
+| --- | --- | --- |
+| マスクを作る場所 | 端末だけ。サーバーはマスクを作らず、送られたマスクを検査済みの元の写真に当てる (切り出しの適用をサーバーが行う点は変えない) | bannzai の決定 |
+| iOS 17 以降 | Vision の `VNGenerateForegroundInstanceMaskRequest` で前景のマスクを作り、`VNInstanceMaskObservation.generateScaledMaskForImage(forInstances:from:)` に全部の前景 (`allInstances`) を渡して、写真と同じ大きさのマスクにする。8 bit グレースケールの PNG にして `maskPath` で送る (`ios/Runner/AppDelegate.swift` の platform channel `snapmon/subject_mask`)。前景が無ければ crop に倒す | 公式ドキュメント: https://developer.apple.com/documentation/vision/vngenerateforegroundinstancemaskrequest (Availability: iOS 17.0+。"A request that generates an instance mask of noticable objects to separate from the background.")、 https://developer.apple.com/documentation/vision/vninstancemaskobservation/generatescaledmaskforimage(forinstances:from:) (iOS 17.0+。"Creates a high-resolution mask where everything becomes transparent black, except for the instances you specify.")。2026-10-28 に確認 |
+| iOS 16 以前・Android・Web と、前景が見つからない・Vision が失敗した時 | ユーザーが写真の上で正方形の枠を動かして範囲を決め、その内側を白にした矩形のマスクを送る (`lib/features/capture/square_crop_editor.dart`・`subject_mask.dart`)。Android の ML Kit の Subject Segmentation は使わない (bannzai の決定は「iPhone は OS の機能、それ以外は crop」) | bannzai の決定 |
+| マスクの無い生成 | 写真全体を絵にする (開発者メニューの見本の写真で、OS の切り出しが使えない時)。マスクに被写体の画素が 1 つも無い時も写真全体にする | 切り出せない写真をエラーにしないため |
+| 被写体なしの拒否 | やめる (`no_subject` を拒否の理由から外し、被写体の面積の下限 1% と手の範囲の上限 95% も外した) | crop は写真全体になり得るため。上限を外したことで、写真全体に近い絵を他人が見る (DIRECTION.md「決めたこと」2026-10-28 で受け入れた) |
+| マスクの出どころの記録 | `generate` の data の `maskSource` (`ios_subject` / `crop`。マスク無しは省くか `none`) を、受け付けた時に生成のレコードの `maskSource` に書く | 経路ごとの生成の結果を後から比べるため |
+| Functions の設定 | `generate` と再試行のタスクのメモリを 4 GiB から 1 GiB にし、CPU 2・同時に処理する要求 1 の指定を外した (firebase-functions の既定の CPU 1・同時に 80 要求)。onnxruntime-node・モデルの取得 (`fetch-segmentation-model.mjs`・firebase.json の predeploy・firebase-ci.yml)・`functions/models/` を消した | 推論が無くなり、常駐メモリの 2.6 GB (下の実測) が要らなくなった。1 GiB での本番のメモリの使用量は未実測で、デプロイ後に Cloud Run のメトリクスで見直す |
+
 ## 実測 (2026-10-22、開発用の Mac。M シリーズの CPU で onnxruntime-node 1.30.0・CPU の実行)
+
+この節は改訂 (2026-10-28) より前の IS-Net の選定の記録で、今のコードは使わない。
 
 見本は Wikimedia Commons の CC0 / Public domain の写真を幅 640px にしたもの (出典の一覧は `functions/test/fixtures/calibration/photos/LICENSES.md`) と、単色の画像。
 
@@ -59,14 +77,14 @@ Accepted
 | Claude (被写体の説明) | 約 0.022 ドル (上限の目安 0.04 ドル) | **未実測**。手元に Claude API のキーが無く (本番は WIF で Functions からだけ呼べる。#24)、本番と同じシステムプロンプト・schema を `claude -p --safe-mode --model claude-opus-5-5 --effort low` で 17 枚に通した実測で、出力 559〜639 トークン (思考を含む)、入力は Claude Code の道具の定義を含めて約 6,000 トークン・`total_cost_usd` 平均 0.041 ドルだった。API で直接呼ぶ時の入力は、システムプロンプト (約 1,500 トークン) と画像 (640 × 427 の切り出しで約 360 トークン。 https://platform.claude.com/docs/en/build-with-claude/vision の「tokens = (width px * height px)/750」) で 2,000〜3,000 トークンと見て、Claude Opus 5.5 の単価 (入力 4 ドル・出力 20 ドル / 100 万トークン。claude-api skill のモデル表、2026-10-06 時点) から計算した |
 | Jev (分類・同じ被写体の判定・属性とステータスの判定) | 約 0.0003 ドル | 較正の実測で 108 リクエストの入力が 248,993 トークン (1 リクエスト平均 約 2,300 トークン)。1 体で 2〜3 リクエスト × jev-1.13.0 の 42 ドル / 10 億トークン ( https://docs.typesafe.ai/models.md ) |
 | Cloud Vision (SafeSearch・Face・Label) | 約 0.003 ドル (月 1,000 ユニットまでは無料) | Label と Face が 1,000 ユニットあたり 1.50 ドルずつ、SafeSearch は Label と同じリクエストなら無料 (ADR 0001「不適切な画像・人物」) |
-| Functions の実行時間 | 約 0.001 ドル | 1 回 15 秒・2 vCPU・4 GiB と見て、request-based billing の CPU 0.000024 ドル / vCPU 秒・メモリ 0.0000025 ドル / GiB 秒 ( https://cloud.google.com/functions/pricing-overview の us-central1 の値。asia-northeast1 の値は未確認) |
+| Functions の実行時間 | 約 0.001 ドル | 1 回 15 秒・2 vCPU・4 GiB と見て、request-based billing の CPU 0.000024 ドル / vCPU 秒・メモリ 0.0000025 ドル / GiB 秒 ( https://cloud.google.com/functions/pricing-overview の us-central1 の値。asia-northeast1 の値は未確認)。改訂 (2026-10-28) の後は 1 vCPU・1 GiB で、同じ単価と 15 秒なら約 0.0004 ドルになる (実行時間は未実測) |
 | 合計 | **約 0.03 ドル** | Claude が大半を占める |
 
 1 日の上限 (uid ごとに 20 回、全体で 1,000 回。`functions/src/generation/pipeline.ts`) は、この見積もりで全体の原価を 1 日 30 ドル前後に抑える値にした。本番の生成レコードは Claude と Jev の使用量 (`claudeUsages`・`jevInputTokens`) を残すため、公開後の最初の判定日にこの表を実測で置き換える。
 
 ## Consequences
 
-- Functions のデプロイが、178 MB のモデルを含むソースを上げるようになる。Cloud Run functions のソースの大きさの上限は、公式の上限表 ( https://cloud.google.com/functions/quotas ) で 2nd gen の行が N/A のため、デプロイで通るかは初回のデプロイで確かめる
-- 生成の待ち時間に、切り出しの推論 (手元で約 1 秒) とモデルの読み込み (インスタンスの最初の 1 回) が加わる
-- 端末内の OS の機能は使わない。iOS・Android で自動のマスクの方が良いと分かった時は、手で範囲を決める経路と同じ `maskPath` で端末のマスクを送れば、サーバーの変更無しで切り替えられる
+- (改訂 (2026-10-28) で無効) Functions のデプロイが、178 MB のモデルを含むソースを上げるようになる。生成の待ち時間に、切り出しの推論とモデルの読み込みが加わる
+- 改訂 (2026-10-28) の後: Functions のソースからモデルが無くなり、生成の待ち時間から推論が消える。代わりに iOS は端末で Vision を動かす時間、それ以外はユーザーが範囲を決める操作が生成の前に入る。Android で ML Kit の Subject Segmentation の方が良いと分かった時は、同じ `maskPath` で端末のマスクを送れば、サーバーの変更無しで足せる
+- 改訂 (2026-10-28) の後: crop の範囲とマスク無しの絵には背景が写り、PvP と共有カードで元の写真の一部 (写真全体のこともある) を他人が見る
 - master に「物の分類」(`subjectCategories`) と属性の説明 (`elementTypes[].description`) を足した。master の版 1 はまだ投入していない (deploy-functions.yml の実行が 0 件) ため、版を上げずに版 1 に足した

@@ -68,9 +68,6 @@ enum GenerationRejectionReason {
   /// 人が写っている (Claude の判定)。
   personDetected('person_detected'),
 
-  /// 被写体が無い。
-  noSubject('no_subject'),
-
   /// 名前・図鑑の文章が禁止語の検査を通らなかった。
   inappropriateText('inappropriate_text'),
 
@@ -150,6 +147,26 @@ enum GenerationPhotoSource {
   sample,
 }
 
+/// 生成に送るマスクの出どころ (functions/src/generation/records.ts の `MaskSource`)。
+enum GenerationMaskSource {
+  /// iOS の OS の切り出し (写真の長押しで被写体を持ち上げる機能と同じ Vision の前景のマスク)。
+  iosSubject('ios_subject'),
+
+  /// ユーザーが crop で決めた正方形の範囲。
+  crop('crop'),
+
+  /// マスクを送らない (サーバーが写真全体を絵にする)。
+  none('none');
+
+  const GenerationMaskSource(this.sourceName);
+
+  /// サーバーに送る出どころの名前。
+  final String sourceName;
+}
+
+/// 写真の上で決めた正方形の範囲 (写真の画素の座標)。
+typedef SquareCrop = ({double left, double top, double side});
+
 /// 撮る・選ぶ・生成の呼び出し・計測の関数の組。
 /// 画面を Firebase と端末の機能から切り離してテストするため、実体 (lib/firebase/monster_generation.dart と
 /// lib/features/capture/photo_preparation.dart) は main.dart から渡す。
@@ -159,8 +176,12 @@ class MonsterGenerator {
     required this.listCameras,
     required this.pickAlbumPhoto,
     required this.preparePhoto,
+    required this.createSubjectMask,
+    required this.createSquareMask,
+    required this.createCutoutPreview,
     required this.createRequestId,
     required this.uploadPhoto,
+    required this.uploadMask,
     required this.requestGeneration,
     required this.fetchGeneration,
     required this.logEvent,
@@ -177,6 +198,28 @@ class MonsterGenerator {
   final Future<Uint8List> Function({required Uint8List sourceBytes})
   preparePhoto;
 
+  /// 生成に送る写真 [photo] から OS の切り出しのマスク (被写体が白・背景が黒の PNG。大きさは写真と同じ) を作る
+  /// (lib/features/capture/subject_mask.dart の [createSubjectMaskWithOs] と同じ形)。OS の切り出しが無い環境 (iOS 16 以前・Android・Web) と、
+  /// 被写体が見つからなかった時は null。OS の切り出しが失敗した時は例外を投げる。
+  final Future<Uint8List?> Function({required Uint8List photo})
+  createSubjectMask;
+
+  /// 写真 [photo] の上の正方形の範囲 [crop] を、写真と同じ大きさのマスクの PNG にする
+  /// (lib/features/capture/subject_mask.dart の [createSquareMaskInBackground] と同じ形)。
+  final Future<Uint8List> Function({
+    required Uint8List photo,
+    required SquareCrop crop,
+  })
+  createSquareMask;
+
+  /// 写真 [photo] にマスク [mask] を当てて背景を透明にした、プレビュー用の PNG を作る
+  /// (lib/features/capture/subject_mask.dart の [createCutoutPreviewInBackground] と同じ形)。
+  final Future<Uint8List> Function({
+    required Uint8List photo,
+    required Uint8List mask,
+  })
+  createCutoutPreview;
+
   /// 生成の要求 ID (UUID) を作る。写真 1 枚につき 1 回だけ作り、送り直しにも同じ ID を使う
   /// (サーバーは同じ ID の再送に保存済みの結果を返すため)。
   final String Function() createRequestId;
@@ -188,9 +231,18 @@ class MonsterGenerator {
   })
   uploadPhoto;
 
-  /// [requestId] の写真から生成し、結果を返す。サーバーが段階を済ませるたびに [onCompletedStage] を呼ぶ。
+  /// 生成に送るマスク [mask] (PNG) を [requestId] の置き場 (Storage の `users/{uid}/masks/{requestId}`) に置く。
+  final Future<void> Function({
+    required String requestId,
+    required Uint8List mask,
+  })
+  uploadMask;
+
+  /// [requestId] の写真から生成し、結果を返す。マスクを置いた時は [maskSource] にその出どころを、置いていない時は
+  /// [GenerationMaskSource.none] を渡す。サーバーが段階を済ませるたびに [onCompletedStage] を呼ぶ。
   final Future<GenerationResult> Function({
     required String requestId,
+    required GenerationMaskSource maskSource,
     required void Function({required GenerationStage completedStage})
     onCompletedStage,
   })
