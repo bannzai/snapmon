@@ -157,6 +157,7 @@ class MonsterGenerator {
   /// 関数の組を作る。
   const MonsterGenerator({
     required this.listCameras,
+    required this.openAppSettings,
     required this.pickAlbumPhoto,
     required this.preparePhoto,
     required this.createRequestId,
@@ -168,6 +169,10 @@ class MonsterGenerator {
 
   /// 端末のカメラの一覧を返す (camera パッケージの `availableCameras` と同じ形)。
   final Future<List<CameraDescription>> Function() listCameras;
+
+  /// OS の設定アプリでこのアプリの設定 (カメラの権限) を開き、開けたかを返す
+  /// (permission_handler の `openAppSettings` と同じ形。Web では開けず false を返す)。
+  final Future<bool> Function() openAppSettings;
 
   /// アルバムから写真を 1 枚選んでもらい、その中身を返す。選ばずに閉じた時は null。
   final Future<Uint8List?> Function() pickAlbumPhoto;

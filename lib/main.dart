@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
 
@@ -91,6 +92,7 @@ Future<void> main() async {
       ),
       monsterGenerator: MonsterGenerator(
         listCameras: availableCameras,
+        openAppSettings: openAppSettings,
         pickAlbumPhoto: pickAlbumPhoto,
         preparePhoto: prepareGenerationPhotoInBackground,
         createRequestId: const Uuid().v4,
