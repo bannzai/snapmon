@@ -110,6 +110,7 @@ Future<Uint8List> createSquareMaskInBackground({
   required SquareCrop crop,
 }) => compute(_squareMaskPngFromPhoto, (photo: photo, crop: crop));
 
+/// [createSquareMaskInBackground] の isolate で動く本体。写真の大きさを読み、[squareMaskPng] を返す。
 Uint8List _squareMaskPngFromPhoto(({Uint8List photo, SquareCrop crop}) input) {
   final size = photoPixelSize(photo: input.photo);
   return squareMaskPng(
@@ -148,6 +149,7 @@ Future<Uint8List> createCutoutPreviewInBackground({
   required Uint8List mask,
 }) => compute(_cutoutPreviewPngFromInput, (photo: photo, mask: mask));
 
+/// [createCutoutPreviewInBackground] の isolate で動く本体。[cutoutPreviewPng] を返す。
 Uint8List _cutoutPreviewPngFromInput(
   ({Uint8List photo, Uint8List mask}) input,
 ) => cutoutPreviewPng(photo: input.photo, mask: input.mask);

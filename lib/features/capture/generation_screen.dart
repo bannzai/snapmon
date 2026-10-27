@@ -137,8 +137,10 @@ class _GenerationScreenState extends State<GenerationScreen> {
   /// マスクで切り出した絵のプレビュー。マスクが無い時は null (写真をそのまま出す)。
   Uint8List? _cutoutPreview;
 
-  /// 範囲を決めている写真の画素の大きさと、今の枠 ([_GenerationPhase.choosingRange] の間だけ使う)。
+  /// 範囲を決めている写真の画素の大きさ ([_GenerationPhase.choosingRange] の間だけ使う)。
   ({int width, int height})? _photoSize;
+
+  /// 範囲を決める画面の今の枠。範囲を決める画面を出す前は null。
   SquareCrop? _crop;
 
   /// OS の切り出しが失敗した時のエラー。範囲を決める画面に出す。

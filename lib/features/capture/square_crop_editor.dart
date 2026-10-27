@@ -44,10 +44,12 @@ class SquareCropEditor extends StatefulWidget {
 /// 写真を表示する枠の高さの上限。生成の画面で写真の下に説明とボタンを置ける高さとして置いた。
 const double _maximumEditorHeight = 360;
 
+/// [SquareCropEditor] の状態。ピンチの途中の倍率を持つ。
 class _SquareCropEditorState extends State<SquareCropEditor> {
   /// ピンチの始まりからの倍率のうち、前の更新までに枠へ反映した分 (ScaleUpdateDetails.scale は始まりからの累計のため)。
   double _appliedScale = 1;
 
+  /// 今の枠を [centerDelta] (写真の画素) 動かし [scaleChange] 倍にした枠を、[SquareCropEditor.onCropChanged] に渡す。
   void _update({
     required ({double dx, double dy}) centerDelta,
     required double scaleChange,

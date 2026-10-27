@@ -38,8 +38,8 @@ import Vision
     }
     DispatchQueue.global(qos: .userInitiated).async {
       do {
-        let mask = try createSubjectMaskPng(photo: photo.data)
-        DispatchQueue.main.async { result(mask.map { FlutterStandardTypedData(bytes: $0) }) }
+        let maskData = try createSubjectMaskPng(photo: photo.data).map { FlutterStandardTypedData(bytes: $0) }
+        DispatchQueue.main.async { result(maskData) }
       } catch {
         DispatchQueue.main.async {
           result(FlutterError(code: "subject_mask_failed", message: error.localizedDescription, details: nil))
