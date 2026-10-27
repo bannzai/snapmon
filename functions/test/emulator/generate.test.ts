@@ -299,6 +299,25 @@ describe("generate", () => {
     expect((await firestore.doc("users/alice").get()).get("generationLock")).toBeUndefined();
   });
 
+  it("写真から保存までの間に MaxListenersExceededWarning を出さない (#73)", async () => {
+    const warnings: Error[] = [];
+    const onWarning = (warning: Error) => {
+      if (warning.name === "MaxListenersExceededWarning") {
+        warnings.push(warning);
+      }
+    };
+    process.on("warning", onWarning);
+    try {
+      const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
+      expect((await handleGenerateRequest(createMocks().dependencies, signedInRequest({ uid: "alice", data }))).status).toBe("saved");
+      // 警告は process.nextTick で届くため、1 周待ってから数える
+      await new Promise(setImmediate);
+    } finally {
+      process.off("warning", onWarning);
+    }
+    expect(warnings.map((warning) => warning.message)).toEqual([]);
+  });
+
   it("同じ写真を別の requestId で送ると、新しいレコードを作らず先の結果を返す", async () => {
     const mocks = createMocks();
     const firstData = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
