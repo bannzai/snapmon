@@ -14,9 +14,11 @@
 #   export FIREBASE_APPCHECK_DEBUG_TOKEN_WEB=$(uuidgen | tr 'A-Z' 'a-z')
 #   python3 ~/.agents/skills/env-secret-registry/scripts/op-item-template-from-env.py FIREBASE_APPCHECK_DEBUG_TOKEN_WEB FIREBASE_APPCHECK_DEBUG_TOKEN_WEB \
 #     | op item create --vault snapmon - > /dev/null          # 既にあれば op item edit で password を更新する
-#   curl -s -X POST -H "Authorization: Bearer $(gcloud auth print-access-token)" -H "x-goog-user-project: snapmon-prod" \
-#     -H 'Content-Type: application/json' -d "{\"displayName\":\"webtunnel\",\"token\":\"$FIREBASE_APPCHECK_DEBUG_TOKEN_WEB\"}" \
-#     "https://firebaseappcheck.googleapis.com/v1beta/projects/snapmon-prod/apps/<Web アプリの appId>/debugTokens"
+#   printf '{"displayName":"webtunnel","token":"%s"}' "$FIREBASE_APPCHECK_DEBUG_TOKEN_WEB" \
+#     | curl -s -X POST -H "Authorization: Bearer $(gcloud auth print-access-token)" -H "x-goog-user-project: snapmon-prod" \
+#       -H 'Content-Type: application/json' --data-binary @- \
+#       "https://firebaseappcheck.googleapis.com/v1beta/projects/snapmon-prod/apps/<Web アプリの appId>/debugTokens"
+#   (token は curl の引数に展開せず標準入力で渡す。引数はプロセス一覧から読めるため。printf は shell の組み込みで引数が外に出ない)
 #   bash scripts/set-webtunnel-setup-env-secret.sh
 # 1Password にある token を使って登録し直すだけなら: op run --env-file .env.1password -- bash scripts/set-webtunnel-setup-env-secret.sh
 #
