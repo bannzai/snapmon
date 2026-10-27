@@ -1,6 +1,6 @@
 {
   "definitions": {
-    "version": 2,
+    "version": 3,
     "elementTypes": [
       {
         "id": "metal",
@@ -239,7 +239,11 @@
         "category": "attack",
         "effectId": "metal_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "specialEffect": {
+          "kind": "tougherOpponent",
+          "maximumPowerPercent": 150
+        }
       },
       {
         "id": "metal_1c",
@@ -250,7 +254,11 @@
         "category": "attack",
         "effectId": "metal_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "specialEffect": {
+          "kind": "movesLast",
+          "maximumPowerPercent": 140
+        }
       },
       {
         "id": "metal_1d",
@@ -294,7 +302,11 @@
         "category": "attack",
         "effectId": "plant_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "specialEffect": {
+          "kind": "differentElementFromOpponent",
+          "maximumPowerPercent": 120
+        }
       },
       {
         "id": "plant_1c",
@@ -305,7 +317,11 @@
         "category": "attack",
         "effectId": "plant_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "specialEffect": {
+          "kind": "tougherOpponent",
+          "maximumPowerPercent": 150
+        }
       },
       {
         "id": "plant_1d",
@@ -349,7 +365,11 @@
         "category": "attack",
         "effectId": "water_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "specialEffect": {
+          "kind": "sameElementAsOpponent",
+          "maximumPowerPercent": 150
+        }
       },
       {
         "id": "water_1c",
@@ -360,7 +380,11 @@
         "category": "attack",
         "effectId": "water_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "specialEffect": {
+          "kind": "movesFirst",
+          "maximumPowerPercent": 130
+        }
       },
       {
         "id": "water_1d",
@@ -404,7 +428,11 @@
         "category": "attack",
         "effectId": "heat_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "specialEffect": {
+          "kind": "movesFirst",
+          "maximumPowerPercent": 130
+        }
       },
       {
         "id": "heat_1c",
@@ -415,7 +443,11 @@
         "category": "attack",
         "effectId": "heat_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "specialEffect": {
+          "kind": "opponentHitPointsLow",
+          "maximumPowerPercent": 200
+        }
       },
       {
         "id": "heat_1d",
@@ -459,7 +491,11 @@
         "category": "attack",
         "effectId": "paper_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "specialEffect": {
+          "kind": "powerPointsLow",
+          "maximumPowerPercent": 200
+        }
       },
       {
         "id": "paper_1c",
@@ -470,7 +506,11 @@
         "category": "attack",
         "effectId": "paper_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "specialEffect": {
+          "kind": "sameElementAsOpponent",
+          "maximumPowerPercent": 150
+        }
       },
       {
         "id": "paper_1d",
@@ -514,7 +554,11 @@
         "category": "attack",
         "effectId": "cloth_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "specialEffect": {
+          "kind": "ownHitPointsLow",
+          "maximumPowerPercent": 200
+        }
       },
       {
         "id": "cloth_1c",
@@ -525,7 +569,11 @@
         "category": "attack",
         "effectId": "cloth_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "specialEffect": {
+          "kind": "movesFirst",
+          "maximumPowerPercent": 130
+        }
       },
       {
         "id": "cloth_1d",
@@ -569,7 +617,11 @@
         "category": "attack",
         "effectId": "plastic_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "specialEffect": {
+          "kind": "movesLast",
+          "maximumPowerPercent": 140
+        }
       },
       {
         "id": "plastic_1c",
@@ -580,7 +632,11 @@
         "category": "attack",
         "effectId": "plastic_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "specialEffect": {
+          "kind": "opponentHitPointsLow",
+          "maximumPowerPercent": 200
+        }
       },
       {
         "id": "plastic_1d",
@@ -624,7 +680,11 @@
         "category": "attack",
         "effectId": "electric_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "specialEffect": {
+          "kind": "movesFirst",
+          "maximumPowerPercent": 130
+        }
       },
       {
         "id": "electric_1c",
@@ -635,7 +695,11 @@
         "category": "attack",
         "effectId": "electric_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "specialEffect": {
+          "kind": "differentElementFromOpponent",
+          "maximumPowerPercent": 120
+        }
       },
       {
         "id": "electric_1d",
@@ -679,7 +743,11 @@
         "category": "attack",
         "effectId": "food_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "specialEffect": {
+          "kind": "sameElementAsOpponent",
+          "maximumPowerPercent": 150
+        }
       },
       {
         "id": "food_1c",
@@ -690,7 +758,11 @@
         "category": "attack",
         "effectId": "food_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "specialEffect": {
+          "kind": "ownHitPointsLow",
+          "maximumPowerPercent": 200
+        }
       },
       {
         "id": "food_1d",
