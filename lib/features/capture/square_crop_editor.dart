@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 import 'dart:typed_data';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import '../../theme/snapmon_colors.dart';
@@ -92,21 +93,23 @@ class _SquareCropEditorState extends State<SquareCropEditor> {
                           >(
                             _EagerScaleGestureRecognizer.new,
                             (recognizer) => recognizer
-                              ..onStart = (_) => _appliedScale = 1
-                                ..onUpdate = (details) {
-                                  _update(
-                                    centerDelta: (
-                                      dx:
-                                          details.focalPointDelta.dx /
-                                          displayScale,
-                                      dy:
-                                          details.focalPointDelta.dy /
-                                          displayScale,
-                                    ),
-                                    scaleChange: details.scale / _appliedScale,
-                                  );
-                                  _appliedScale = details.scale;
-                                },
+                              ..onStart = (_) {
+                                _appliedScale = 1;
+                              }
+                              ..onUpdate = (details) {
+                                _update(
+                                  centerDelta: (
+                                    dx:
+                                        details.focalPointDelta.dx /
+                                        displayScale,
+                                    dy:
+                                        details.focalPointDelta.dy /
+                                        displayScale,
+                                  ),
+                                  scaleChange: details.scale / _appliedScale,
+                                );
+                                _appliedScale = details.scale;
+                              },
                           ),
                     },
                     child: Stack(

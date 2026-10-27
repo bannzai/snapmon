@@ -68,11 +68,11 @@ void main() {
         updateSquareCrop(
           crop: crop,
           centerDelta: (dx: 0, dy: 0),
-          scaleChange: 0.5,
+          scaleChange: 0.8,
           photoWidth: 400,
           photoHeight: 300,
         ),
-        (left: 125.0, top: 125.0, side: 50.0),
+        (left: 110.0, top: 110.0, side: 80.0),
       );
       expect(
         updateSquareCrop(
