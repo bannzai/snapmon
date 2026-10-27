@@ -40,21 +40,32 @@ Color moveEffectColor({required MoveEffect effect}) =>
 /// いつ何を見せるかはバトル画面 (battle_screen.dart) がバトルのログから決め、このゲームはバトルの計算を持たない。
 class BattleFieldGame extends FlameGame {
   /// [playerMonster] と [opponentMonster] を場に出したフィールドを作る。
+  /// [playerArtPath]・[opponentArtPath] はそれぞれの切り出した被写体の画像の Storage のパス (見本のモンスターは null)。
   BattleFieldGame({
     required MonsterDefinition playerMonster,
+    required String? playerArtPath,
     required MonsterDefinition opponentMonster,
-  }) : playerMonsterComponent = PlaceholderMonsterComponent(
+    required String? opponentArtPath,
+  }) : playerMonsterComponent = MonsterComponent(
          definition: playerMonster,
+         artPath: playerArtPath,
+         artSprite: null,
        ),
-       opponentMonsterComponent = PlaceholderMonsterComponent(
+       opponentMonsterComponent = MonsterComponent(
          definition: opponentMonster,
+         artPath: opponentArtPath,
+         artSprite: null,
        );
 
   /// 自分の場のモンスター。交代 ([switchIn]) で入れ替わる。
-  PlaceholderMonsterComponent playerMonsterComponent;
+  MonsterComponent playerMonsterComponent;
 
   /// 相手の場のモンスター。交代 ([switchIn]) で入れ替わる。
-  PlaceholderMonsterComponent opponentMonsterComponent;
+  MonsterComponent opponentMonsterComponent;
+
+  /// 読み込めた切り出した被写体の画像の Sprite (Storage のパスごと)。後から場に出るモンスター ([switchIn]) にも使う。
+  /// 画像の持ち主 (dispose する側) はバトル画面で、このゲームは参照するだけ。
+  final Map<String, Sprite> _artSpritesByPath = {};
 
   /// パーティクルの飛ぶ向きと速さの乱数。見た目だけに使い、バトルの結果に効かないため seed を固定しない。
   final math.Random _particleRandom = math.Random();
@@ -78,8 +89,19 @@ class BattleFieldGame extends FlameGame {
     }
   }
 
+  /// [artPath] の切り出した被写体の画像 [artImage] を受け取り、そのパスのモンスターを画像で描くようにする。
+  /// 読み込みはバトル画面が非同期に行うため、届くまでと読めなかった時は仮の絵のまま描く。
+  void applyArtImage({required String artPath, required Image artImage}) {
+    final artSprite = _artSpritesByPath[artPath] = Sprite(artImage);
+    for (final component in [playerMonsterComponent, opponentMonsterComponent]) {
+      if (component.artPath == artPath) {
+        component.artSprite = artSprite;
+      }
+    }
+  }
+
   /// [side] の場のモンスター。
-  PlaceholderMonsterComponent monsterComponentOf({
+  MonsterComponent monsterComponentOf({
     required BattleSideId side,
   }) => switch (side) {
     BattleSideId.player => playerMonsterComponent,
@@ -137,12 +159,17 @@ class BattleFieldGame extends FlameGame {
     monsterComponentOf(side: side).isVisible = false;
   }
 
-  /// [side] の場のモンスターを [definition] に入れ替える。
+  /// [side] の場のモンスターを [definition] (切り出した被写体の画像は [artPath]。見本のモンスターは null) に入れ替える。
   void switchIn({
     required BattleSideId side,
     required MonsterDefinition definition,
+    required String? artPath,
   }) {
-    final replacement = PlaceholderMonsterComponent(definition: definition);
+    final replacement = MonsterComponent(
+      definition: definition,
+      artPath: artPath,
+      artSprite: _artSpritesByPath[artPath],
+    );
     monsterComponentOf(side: side).removeFromParent();
     switch (side) {
       case BattleSideId.player:
@@ -189,13 +216,25 @@ class _GroundComponent extends Component with HasGameReference<FlameGame> {
   }
 }
 
-/// モンスターの仮の絵を描く部品。写真から切り出した絵 (#13) が入ったら画像の部品に差し替える。
-class PlaceholderMonsterComponent extends PositionComponent with HasVisibility {
+/// 場のモンスターを描く部品。切り出した被写体の画像 ([artImage]) があれば縦横比を保って枠に収めて描き、
+/// 無ければ (見本のモンスター・読み込み中・読み込みの失敗) 仮の絵を描く。
+/// 装飾 (目・手足・オーラ・輪郭線) は図鑑のカード (MonsterArt) と同じくまだ描かない。
+class MonsterComponent extends PositionComponent with HasVisibility {
   /// [definition] のモンスターを描く部品を作る。
-  PlaceholderMonsterComponent({required this.definition});
+  MonsterComponent({
+    required this.definition,
+    required this.artPath,
+    required this.artSprite,
+  });
 
   /// 描くモンスター。
   final MonsterDefinition definition;
+
+  /// 切り出した被写体の画像の Storage のパス。見本のモンスターは null。
+  final String? artPath;
+
+  /// [artPath] の画像の Sprite。null の間は仮の絵を描く。
+  Sprite? artSprite;
 
   /// 点滅の残り時間 (秒)。0 なら点滅していない。
   double _blinkRemainingSeconds = 0;
@@ -230,10 +269,21 @@ class PlaceholderMonsterComponent extends PositionComponent with HasVisibility {
     if (_isHiddenByBlink) {
       return;
     }
-    paintPlaceholderMonster(
-      canvas: canvas,
-      size: Size(size.x, size.y),
-      definition: definition,
+    final sprite = artSprite;
+    if (sprite == null) {
+      paintPlaceholderMonster(
+        canvas: canvas,
+        size: Size(size.x, size.y),
+        definition: definition,
+      );
+      return;
+    }
+    // 切り出した画像は被写体ごとに縦横比が違うため、引き伸ばさずに枠に収めて中央に置く (図鑑のカードの BoxFit.contain と同じ)
+    final scale = math.min(
+      size.x / sprite.srcSize.x,
+      size.y / sprite.srcSize.y,
     );
+    final drawSize = sprite.srcSize * scale;
+    sprite.render(canvas, position: (size - drawSize) / 2, size: drawSize);
   }
 }

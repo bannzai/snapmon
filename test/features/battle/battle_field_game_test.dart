@@ -12,10 +12,33 @@ import '../../sample_data_fixture.dart';
 
 void main() {
   final sampleData = loadSampleDataFixture();
+
+  /// 自分の場のモンスターの切り出した被写体の画像のパス。相手 (見本のモンスター) は画像を持たない。
+  const playerArtPath = 'monsters/player-monster/art.png';
+
   BattleFieldGame createGame() => BattleFieldGame(
     playerMonster: sampleData.monsters[0].definition,
+    playerArtPath: playerArtPath,
     opponentMonster: sampleData.monsters[1].definition,
+    opponentArtPath: null,
   );
+
+  /// 横 [width] × 縦 [height] の画像。切り出した被写体の画像の代わりに使う。
+  Future<Image> createArtImage({required int width, required int height}) {
+    final recorder = PictureRecorder();
+    Canvas(recorder).drawRect(
+      Rect.fromLTWH(0, 0, width.toDouble(), height.toDouble()),
+      Paint()..color = const Color(0xFFC6F432),
+    );
+    return recorder.endRecording().toImage(width, height);
+  }
+
+  /// [component] を描いた時の Canvas の呼び出しを記録して返す。
+  List<Invocation> renderInvocations({required MonsterComponent component}) {
+    final canvas = _RecordingCanvas();
+    component.render(canvas);
+    return canvas.invocations;
+  }
 
   testWithGame<BattleFieldGame>('相手のモンスターを右上、自分のモンスターを左下に置く', createGame, (
     game,
@@ -95,14 +118,96 @@ void main() {
     expect(game.opponentMonsterComponent.isVisible, isFalse);
 
     final nextMonster = sampleData.monsters[2].definition;
-    game.switchIn(side: BattleSideId.opponent, definition: nextMonster);
+    game.switchIn(
+      side: BattleSideId.opponent,
+      definition: nextMonster,
+      artPath: null,
+    );
     await game.ready();
     expect(game.opponentMonsterComponent.definition.id, nextMonster.id);
     expect(game.opponentMonsterComponent.isVisible, isTrue);
     expect(game.opponentMonsterComponent.position, positionBefore);
+    expect(game.children.whereType<MonsterComponent>(), hasLength(2));
+  });
+
+  testWithGame<BattleFieldGame>(
+    '切り出した画像が届くまでは四角の仮の絵で描き、届いたらそのパスのモンスターだけを Sprite で描く',
+    createGame,
+    (game) async {
+      final player = game.playerMonsterComponent;
+      final opponent = game.opponentMonsterComponent;
+      expect(player.artSprite, isNull);
+      expect(
+        renderInvocations(component: player).map((call) => call.memberName),
+        isNot(contains(#drawImageRect)),
+      );
+
+      final artImage = await createArtImage(width: 8, height: 8);
+      addTearDown(artImage.dispose);
+      game.applyArtImage(artPath: playerArtPath, artImage: artImage);
+
+      expect(player.artSprite?.image, artImage);
+      expect(
+        renderInvocations(component: player).map((call) => call.memberName),
+        contains(#drawImageRect),
+      );
+      // 画像を持たない相手 (見本のモンスター) は仮の絵のまま
+      expect(opponent.artSprite, isNull);
+      expect(
+        renderInvocations(component: opponent).map((call) => call.memberName),
+        isNot(contains(#drawImageRect)),
+      );
+    },
+  );
+
+  testWithGame<BattleFieldGame>('縦長の画像は引き伸ばさず、枠の中央に縦横比を保って描く', createGame, (
+    game,
+  ) async {
+    final player = game.playerMonsterComponent..size = Vector2(100, 100);
+    final artImage = await createArtImage(width: 10, height: 20);
+    addTearDown(artImage.dispose);
+    game.applyArtImage(artPath: playerArtPath, artImage: artImage);
+
+    final drawImageRect = renderInvocations(
+      component: player,
+    ).singleWhere((call) => call.memberName == #drawImageRect);
     expect(
-      game.children.whereType<PlaceholderMonsterComponent>(),
-      hasLength(2),
+      drawImageRect.positionalArguments[2],
+      const Rect.fromLTWH(25, 0, 50, 100),
     );
   });
+
+  testWithGame<BattleFieldGame>('画像が届いた後に交代で出たモンスターも、同じパスなら画像で描く', createGame, (
+    game,
+  ) async {
+    final artImage = await createArtImage(width: 8, height: 8);
+    addTearDown(artImage.dispose);
+    game.applyArtImage(artPath: playerArtPath, artImage: artImage);
+
+    game.switchIn(
+      side: BattleSideId.player,
+      definition: sampleData.monsters[2].definition,
+      artPath: playerArtPath,
+    );
+    expect(game.playerMonsterComponent.artSprite?.image, artImage);
+
+    game.switchIn(
+      side: BattleSideId.player,
+      definition: sampleData.monsters[3].definition,
+      artPath: 'monsters/not-loaded/art.png',
+    );
+    expect(game.playerMonsterComponent.artSprite, isNull);
+  });
+}
+
+/// 受け取った描画の呼び出しを [invocations] に残す Canvas。部品がどちらの描き方 (画像・仮の絵) をしたかを確かめるため。
+class _RecordingCanvas implements Canvas {
+  /// 受け取った呼び出し (呼ばれた順)。
+  final List<Invocation> invocations = [];
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) {
+    invocations.add(invocation);
+    return null;
+  }
 }
