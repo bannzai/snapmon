@@ -85,6 +85,7 @@ class MoveUsedEvent extends BattleEvent {
     required this.typeMultiplier,
     required this.damage,
     required this.defenderRemainingHitPoints,
+    required this.specialEffect,
   });
 
   /// 技を使った陣営。
@@ -104,6 +105,9 @@ class MoveUsedEvent extends BattleEvent {
 
   /// 技を受けた側の残りの HP。
   final int defenderRemainingHitPoints;
+
+  /// 技の特殊効果の威力の倍率 (%) とログの説明文 (`calculateMoveSpecialEffect` の結果)。特殊効果の無い技とわるあがきは null。
+  final ({int powerPercent, String description})? specialEffect;
 }
 
 /// モンスターが倒れた。
@@ -177,6 +181,7 @@ class BattleState {
     required this.randomState,
     required this.events,
     required this.winner,
+    required this.battleDate,
   });
 
   /// 利用者の陣営。
@@ -196,6 +201,9 @@ class BattleState {
 
   /// 勝った陣営。決着前は null。
   final BattleSideId? winner;
+
+  /// 対戦日 (バトルを始めた日時)。技の特殊効果の入力に渡す (外部要因の効果を足す時の枠)。
+  final DateTime battleDate;
 
   /// [side] の陣営を返す。
   BattleParty partyOf({required BattleSideId side}) => switch (side) {
