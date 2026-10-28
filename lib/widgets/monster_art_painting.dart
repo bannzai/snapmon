@@ -1,6 +1,8 @@
 import 'dart:math' as math;
+import 'dart:typed_data';
 import 'dart:ui' as ui;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/painting.dart';
 
 import '../domain/monster/monster_decoration.dart';
@@ -46,11 +48,17 @@ final Expando<Rect> _subjectBoundsByArtImage = Expando();
 
 /// [artImage] の不透明な画素 (被写体) を囲む範囲を測って覚え、以後の [paintMonsterArt] が手足・目・口を被写体の縁に合わせて置く。
 /// 写真の端に接する被写体は切り出しの余白が切り詰められ、画像の枠から余白を見積もれないため、実際の画素から測る。
-/// 不透明な画素が無い時と画素を読めない時は覚えない (余白からの見積もりのまま描く)。同じ画像に何度呼んでも結果は同じ。
+/// 不透明な画素が無い時と画素を読めない時は覚えない (余白からの見積もりのまま描く)。失敗しても投げないため、画像の読み込みを失敗させない。
+/// 同じ画像に何度呼んでも結果は同じ。
 Future<void> measureArtSubjectBounds({required ui.Image artImage}) async {
-  final byteData = await artImage.toByteData(
-    format: ui.ImageByteFormat.rawRgba,
-  );
+  // 画素を読めなくても画像は描けるため、読み取りの失敗は投げずに余白からの見積もりに任せる
+  final ByteData? byteData;
+  try {
+    byteData = await artImage.toByteData(format: ui.ImageByteFormat.rawRgba);
+  } catch (error) {
+    debugPrint('measureArtSubjectBounds: $error');
+    return;
+  }
   if (byteData == null) {
     return;
   }
