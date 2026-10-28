@@ -57,6 +57,16 @@ describe("sameSubjectCandidateIds", () => {
       }),
     ).toEqual(["a", "d"]);
   });
+
+  it("較正 (2026-10-28) の同じ物の境目 (本番で撮り直したマグカップ) は同じ個体とし、同じ種類の別の物の境目は別の物とする", () => {
+    expect(
+      sameSubjectCandidateIds({
+        responses: [response([[0.66, 0.35], [0.71, 0.37], [0.49, 0.54], [0.4, 0.52]])],
+        candidates,
+        thresholds: DEDUPE_THRESHOLDS,
+      }),
+    ).toEqual(["b", "a"]);
+  });
 });
 
 describe("buildJudgeRequest / readJudgeResponse", () => {
