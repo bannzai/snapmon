@@ -56,7 +56,7 @@ bannzai が、切り出しをクライアントでできるところまでにし
 
 ## 実測 (2026-10-22、開発用の Mac。M シリーズの CPU で onnxruntime-node 1.30.0・CPU の実行)
 
-この節は改訂 (2026-10-28) より前の IS-Net の選定の記録で、今のコードは使わない。
+この節は改訂 (2026-10-28) より前の IS-Net の選定の記録で、IS-Net の比較と Functions の設定は今のコードでは使わない。長辺 1024px への縮小 (`downscalePhoto`) の決定だけは今も生きていて、Vision と `applyMask` の前に使う。
 
 見本は Wikimedia Commons の CC0 / Public domain の写真を幅 640px にしたもの (出典の一覧は `functions/test/fixtures/calibration/photos/LICENSES.md`) と、単色の画像。
 
