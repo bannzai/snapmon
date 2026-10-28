@@ -29,6 +29,7 @@ const testMaster = MasterData(
       effectId: 'none',
       learnableLevelMinimum: 1,
       learnableLevelMaximum: 999,
+      specialEffect: null,
     ),
     Move(
       id: 'grass_strong',
@@ -40,6 +41,7 @@ const testMaster = MasterData(
       effectId: 'none',
       learnableLevelMinimum: 1,
       learnableLevelMaximum: 999,
+      specialEffect: null,
     ),
     Move(
       id: 'grass_weak',
@@ -51,12 +53,61 @@ const testMaster = MasterData(
       effectId: 'none',
       learnableLevelMinimum: 1,
       learnableLevelMaximum: 999,
+      specialEffect: null,
+    ),
+    Move(
+      id: 'fire_last',
+      displayName: 'あとだしほのお',
+      elementTypeId: 'fire',
+      power: 60,
+      powerPoints: 10,
+      category: MoveCategory.attack,
+      effectId: 'none',
+      learnableLevelMinimum: 1,
+      learnableLevelMaximum: 999,
+      specialEffect: MoveSpecialEffect(
+        kind: MoveSpecialEffectKind.movesLast,
+        maximumPowerPercent: 200,
+      ),
+    ),
+    Move(
+      id: 'fire_last_resort',
+      displayName: 'のこりびほのお',
+      elementTypeId: 'fire',
+      power: 60,
+      powerPoints: 2,
+      category: MoveCategory.attack,
+      effectId: 'none',
+      learnableLevelMinimum: 1,
+      learnableLevelMaximum: 999,
+      specialEffect: MoveSpecialEffect(
+        kind: MoveSpecialEffectKind.powerPointsLow,
+        maximumPowerPercent: 200,
+      ),
+    ),
+    Move(
+      id: 'fire_desperate',
+      displayName: 'やけっぱちほのお',
+      elementTypeId: 'fire',
+      power: 60,
+      powerPoints: 10,
+      category: MoveCategory.attack,
+      effectId: 'none',
+      learnableLevelMinimum: 1,
+      learnableLevelMaximum: 999,
+      specialEffect: MoveSpecialEffect(
+        kind: MoveSpecialEffectKind.ownHitPointsLow,
+        maximumPowerPercent: 200,
+      ),
     ),
   ],
   effects: [],
   statGrades: [],
   elementSelection: null,
 );
+
+/// テストのバトルの対戦日。今の特殊効果はどれも対戦日を使わないため、値は結果に効かない。
+final testBattleDate = DateTime.utc(2026, 10, 28);
 
 /// 種族値・個体値を揃えた、テスト用のモンスターの定義を返す。
 MonsterDefinition testDefinition({
@@ -167,6 +218,7 @@ void main() {
         ),
       ],
       randomSeed: 1,
+      battleDate: testBattleDate,
     );
     final grassTarget = startBattle(
       playerMembers: state.player.members,
@@ -182,6 +234,7 @@ void main() {
         ),
       ],
       randomSeed: 1,
+      battleDate: testBattleDate,
     );
     MoveUsedEvent firstHit(BattleState battleState) => advanceTurn(
       state: battleState,
@@ -216,6 +269,7 @@ void main() {
         ),
       ],
       randomSeed: 1,
+      battleDate: testBattleDate,
     );
     final playerAction = chooseCpuAction(
       state: state,
@@ -258,6 +312,7 @@ void main() {
           ),
         ],
         randomSeed: 1,
+        battleDate: testBattleDate,
       ),
       playerAction: const UseMoveAction(moveId: 'fire_strong'),
       opponentAction: const UseMoveAction(moveId: 'fire_strong'),
@@ -299,6 +354,7 @@ void main() {
         ),
       ],
       randomSeed: 1,
+      battleDate: testBattleDate,
     );
     expect(
       () => advanceTurn(
@@ -384,6 +440,7 @@ void main() {
           ),
       ],
       randomSeed: randomSeed,
+      battleDate: testBattleDate,
     );
 
     test('3 体すべて倒れた側が負け、勝敗を問わず場に出た手持ちのレベルが 1 上がる (上限 999)', () {
@@ -475,6 +532,7 @@ void main() {
           ),
         ],
         randomSeed: randomSeed,
+        battleDate: testBattleDate,
       ),
       playerAction: const UseMoveAction(moveId: 'fire_strong'),
       opponentAction: const UseMoveAction(moveId: 'fire_strong'),
@@ -510,6 +568,7 @@ void main() {
             effectId: 'none',
             learnableLevelMinimum: 1,
             learnableLevelMaximum: 999,
+            specialEffect: null,
           ),
         ],
         effects: [],
@@ -533,6 +592,7 @@ void main() {
       playerMembers: [supportOnlyMonster(id: 'player')],
       opponentMembers: [supportOnlyMonster(id: 'opponent')],
       randomSeed: 1,
+      battleDate: testBattleDate,
     );
     while (state.winner == null) {
       state = advanceTurn(
@@ -554,6 +614,138 @@ void main() {
     expect(state.winner, isNotNull);
   });
 
+  group('技の特殊効果', () {
+    /// 速さ [playerSpeed] の自分と速さ [opponentSpeed] の相手が、それぞれ [playerMoveId]・[opponentMoveId] だけを持つバトル。
+    BattleState startDuel({
+      required String playerMoveId,
+      required String opponentMoveId,
+      required int playerSpeed,
+      required int opponentSpeed,
+    }) => startBattle(
+      playerMembers: [
+        prepare(
+          definition: testDefinition(
+            id: 'player',
+            elementTypeId: 'fire',
+            moveIds: [playerMoveId],
+            speed: playerSpeed,
+            hitPoints: 250,
+          ),
+        ),
+      ],
+      opponentMembers: [
+        prepare(
+          definition: testDefinition(
+            id: 'opponent',
+            elementTypeId: 'fire',
+            moveIds: [opponentMoveId],
+            speed: opponentSpeed,
+            hitPoints: 250,
+          ),
+        ),
+      ],
+      randomSeed: 1,
+      battleDate: testBattleDate,
+    );
+
+    /// [state] から両陣営が [playerMoveId]・[opponentMoveId] を使って 1 ターン進め、陣営ごとの技のログを返す。
+    Map<BattleSideId, MoveUsedEvent> playTurn({
+      required BattleState state,
+      required String playerMoveId,
+      required String opponentMoveId,
+    }) => {
+      for (final event in advanceTurn(
+        state: state,
+        playerAction: UseMoveAction(moveId: playerMoveId),
+        opponentAction: UseMoveAction(moveId: opponentMoveId),
+        master: testMaster,
+      ).events.skip(state.events.length).whereType<MoveUsedEvent>())
+        event.attackerSide: event,
+    };
+
+    test('後に動くと強い技は、そのターンに後に行動した側だけ倍率が最大になり、ダメージが増える', () {
+      final events = playTurn(
+        state: startDuel(
+          playerMoveId: 'fire_last',
+          opponentMoveId: 'fire_last',
+          playerSpeed: 50,
+          opponentSpeed: 100,
+        ),
+        playerMoveId: 'fire_last',
+        opponentMoveId: 'fire_last',
+      );
+      expect(events[BattleSideId.opponent]!.specialEffect!.powerPercent, 100);
+      expect(events[BattleSideId.player]!.specialEffect!.powerPercent, 200);
+      // 威力 2 倍は乱数幅 (85〜100%) より大きいため、同じ条件の相手より必ず多く与える
+      expect(
+        events[BattleSideId.player]!.damage,
+        greaterThan(events[BattleSideId.opponent]!.damage),
+      );
+    });
+
+    test('残り PP が少ないほど強い技は、使う前の残りで計算する (PP 2 の技の 2 回目で最大)', () {
+      final firstState = startDuel(
+        playerMoveId: 'fire_last_resort',
+        opponentMoveId: 'fire_strong',
+        playerSpeed: 100,
+        opponentSpeed: 50,
+      );
+      expect(
+        playTurn(
+          state: firstState,
+          playerMoveId: 'fire_last_resort',
+          opponentMoveId: 'fire_strong',
+        )[BattleSideId.player]!.specialEffect!.powerPercent,
+        100,
+      );
+      expect(
+        playTurn(
+          state: advanceTurn(
+            state: firstState,
+            playerAction: const UseMoveAction(moveId: 'fire_last_resort'),
+            opponentAction: const UseMoveAction(moveId: 'fire_strong'),
+            master: testMaster,
+          ),
+          playerMoveId: 'fire_last_resort',
+          opponentMoveId: 'fire_strong',
+        )[BattleSideId.player]!.specialEffect!.powerPercent,
+        200,
+      );
+    });
+
+    test('自分の HP が減っているほど強い技は、同じターンに先に受けたダメージを倍率に入れる', () {
+      final events = playTurn(
+        state: startDuel(
+          playerMoveId: 'fire_desperate',
+          opponentMoveId: 'fire_strong',
+          playerSpeed: 50,
+          opponentSpeed: 100,
+        ),
+        playerMoveId: 'fire_desperate',
+        opponentMoveId: 'fire_strong',
+      );
+      expect(events[BattleSideId.opponent]!.damage, greaterThan(0));
+      expect(
+        events[BattleSideId.player]!.specialEffect!.powerPercent,
+        greaterThan(100),
+      );
+    });
+
+    test('特殊効果の無い技のログは特殊効果を持たない', () {
+      final events = playTurn(
+        state: startDuel(
+          playerMoveId: 'fire_strong',
+          opponentMoveId: 'fire_strong',
+          playerSpeed: 100,
+          opponentSpeed: 50,
+        ),
+        playerMoveId: 'fire_strong',
+        opponentMoveId: 'fire_strong',
+      );
+      expect(events[BattleSideId.player]!.specialEffect, isNull);
+    });
+  });
+
   test('手持ちが 0 体・4 体以上ではバトルを始められない', () {
     final member = prepare(
       definition: testDefinition(
@@ -568,6 +760,7 @@ void main() {
         playerMembers: const [],
         opponentMembers: [member],
         randomSeed: 1,
+        battleDate: testBattleDate,
       ),
       throwsArgumentError,
     );
@@ -576,6 +769,7 @@ void main() {
         playerMembers: [member, member, member, member],
         opponentMembers: [member],
         randomSeed: 1,
+        battleDate: testBattleDate,
       ),
       throwsArgumentError,
     );

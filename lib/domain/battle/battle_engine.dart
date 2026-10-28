@@ -7,6 +7,7 @@ import '../monster/monster_state.dart';
 import '../monster/stat_calculation.dart';
 import '../random/deterministic_random.dart';
 import 'battle_state.dart';
+import 'move_special_effect.dart';
 
 /// わるあがきの威力。技を使い切った方が得にならないよう、master の版 1 で最も弱い攻撃技の威力 (40) と同じにした。
 /// 版 2 で足した威力 35 の技より強いが、わるあがきは攻撃技をすべて使い切った後にしか選べず、
@@ -46,10 +47,12 @@ BattleMonster prepareBattleMonster({
 
 /// 両陣営の手持ち ([prepareBattleMonster] で用意した 1〜3 体) でバトルを始める。
 /// [randomSeed] は行動順の同速判定とダメージの乱数幅に使い、同じ seed と同じ行動からは同じ結果になる。
+/// [battleDate] は対戦日で、技の特殊効果の入力に渡す。
 BattleState startBattle({
   required List<BattleMonster> playerMembers,
   required List<BattleMonster> opponentMembers,
   required int randomSeed,
+  required DateTime battleDate,
 }) {
   for (final members in [playerMembers, opponentMembers]) {
     if (members.isEmpty || members.length > maximumPartySize) {
@@ -65,6 +68,7 @@ BattleState startBattle({
     randomState: DeterministicRandom(seed: randomSeed).state,
     events: const [],
     winner: null,
+    battleDate: battleDate,
   );
 }
 
@@ -168,6 +172,7 @@ BattleAction chooseCpuAction({
 
 /// 両陣営の行動 [playerAction]・[opponentAction] で 1 ターンを解決し、次の状態を返す。
 /// 場のモンスターの素早さが高い順に行動し (同じなら乱数)、倒れたモンスターはそのターンの行動を失う。
+/// 技の威力には特殊効果の倍率 ([calculateMoveSpecialEffect]) を掛ける (小数点以下は切り捨て)。
 /// ターンの終わりに倒れたモンスターを手持ちの次のモンスターと交代し、手持ちがすべて倒れた側が負ける。
 /// 決着がついたら勝敗を問わず両陣営の、場に出たことがある手持ちのレベルを 1 上げる (上限 [maximumLevel]。
 /// DIRECTION.md「必要な機能」の「1 戦ごとに、戦闘に出た手持ちのレベルが勝敗に関係なく 1 上がる」)。
@@ -249,11 +254,25 @@ BattleState advanceTurn({
       defenderElementTypeIds: defender.definition.elementTypeIds,
       master: master,
     );
+    final specialEffect = move == null
+        ? null
+        : calculateMoveSpecialEffect(
+            move: move,
+            attacker: attacker,
+            defender: defender,
+            attackerStats: attackerStats,
+            defenderStats: defenderStats,
+            attackerMovesFirst: attackerSide == order.first,
+            battleDate: state.battleDate,
+          );
     final damage = move != null && move.category == MoveCategory.support
         ? 0
         : calculateDamage(
             attackerLevel: attacker.state.level,
-            power: move?.power ?? strugglePower,
+            power: move == null
+                ? strugglePower
+                // 特殊効果の無い技は威力をそのまま使うため、倍率 100% (1 倍) とみなす
+                : move.power * (specialEffect?.powerPercent ?? 100) ~/ 100,
             attack: attackerStats.attack,
             defense: defenderStats.defense,
             typeMultiplier: typeMultiplier,
@@ -293,6 +312,7 @@ BattleState advanceTurn({
         typeMultiplier: typeMultiplier,
         damage: damage,
         defenderRemainingHitPoints: defenderRemainingHitPoints,
+        specialEffect: specialEffect,
       ),
     );
     if (defenderRemainingHitPoints == 0) {
@@ -377,6 +397,7 @@ BattleState advanceTurn({
     randomState: random.state,
     events: events,
     winner: winner,
+    battleDate: state.battleDate,
   );
 }
 

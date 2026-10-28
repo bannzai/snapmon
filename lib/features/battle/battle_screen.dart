@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../../analytics/analytics_events.dart';
 import '../../domain/battle/battle_engine.dart';
 import '../../domain/battle/battle_state.dart';
+import '../../domain/battle/move_special_effect.dart';
 import '../../domain/master/master_data.dart';
 import '../../domain/master/move.dart';
 import '../../domain/monster/stat_calculation.dart';
@@ -160,6 +161,7 @@ class _BattleScreenState extends State<BattleScreen> {
       playerMembers: prepare(party: widget.playerParty),
       opponentMembers: prepare(party: widget.opponentParty),
       randomSeed: widget.randomSeed,
+      battleDate: DateTime.now(),
     );
     _displayedActiveMembers = _activeMembersOf(state: _battleState);
     final firstOpponentName =
@@ -291,6 +293,13 @@ class _BattleScreenState extends State<BattleScreen> {
               attacker.definition.name,
               move?.displayName ?? l10n.battleStruggle,
             ),
+            // 効果が働かなかった (倍率 100%) 時は、起きていないことを出さない。
+            // 説明文は技の名前と同じく master の定義の文言のため、ARB には移さない
+            if (event.specialEffect case (
+              :final powerPercent,
+              :final description,
+            ) when powerPercent > 100)
+              description,
             if (event.typeMultiplier > 1) l10n.battleLogSuperEffective,
             if (event.typeMultiplier < 1) l10n.battleLogNotVeryEffective,
           ].join('\n'),
@@ -1061,6 +1070,15 @@ class _MoveButton extends StatelessWidget {
                         color: SnapmonColors.textOnCardMuted,
                       ),
                     ),
+                    if (move.specialEffect case final specialEffect?)
+                      Text(
+                        moveSpecialEffectSummary(kind: specialEffect.kind),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: SnapmonTextStyles.small.copyWith(
+                          color: SnapmonColors.textOnCard,
+                        ),
+                      ),
                   ],
                 ),
         ),
