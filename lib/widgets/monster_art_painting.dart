@@ -129,9 +129,7 @@ void _paintDecorationVersion1({
     canvas.drawImageRect(
       artImage,
       _imageSourceRect(image: artImage),
-      artRect.shift(
-        Offset(math.cos(angle), math.sin(angle)) * outlineWidth,
-      ),
+      artRect.shift(Offset(math.cos(angle), math.sin(angle)) * outlineWidth),
       outlinePaint,
     );
   }
@@ -429,11 +427,7 @@ void _paintEye({
         );
     case MonsterEyeStyle.sleepy:
       final lowerHalf = Path()
-        ..addArc(
-          Rect.fromCircle(center: center, radius: radius),
-          0,
-          math.pi,
-        )
+        ..addArc(Rect.fromCircle(center: center, radius: radius), 0, math.pi)
         ..close();
       canvas
         ..drawPath(lowerHalf, whitePaint)

@@ -88,7 +88,12 @@ void main() {
         'learnset': [
           {'moveId': 'metal_1', 'unlockLevel': 1},
         ],
-        'baseStats': {'hitPoints': 80, 'attack': 80, 'defense': 80, 'speed': 80},
+        'baseStats': {
+          'hitPoints': 80,
+          'attack': 80,
+          'defense': 80,
+          'speed': 80,
+        },
         'individualValues': {
           'hitPoints': 1,
           'attack': 2,

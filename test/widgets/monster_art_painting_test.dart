@@ -66,9 +66,7 @@ void main() {
       _canvasSide,
       _canvasSide,
     );
-    final byteData = await image.toByteData(
-      format: ui.ImageByteFormat.rawRgba,
-    );
+    final byteData = await image.toByteData(format: ui.ImageByteFormat.rawRgba);
     image.dispose();
     return byteData!.buffer.asUint8List();
   }
@@ -198,9 +196,7 @@ void main() {
       monster: monsterWith(decoration: testDecoration(), decorationVersion: 2),
       artImage: artImage,
     );
-    expect(canvas.invocations.map((call) => call.memberName), [
-      #drawImageRect,
-    ]);
+    expect(canvas.invocations.map((call) => call.memberName), [#drawImageRect]);
     expect(
       canvas.invocations.single.positionalArguments[2],
       const Rect.fromLTWH(0, 0, _canvasSide + 0.0, _canvasSide + 0.0),

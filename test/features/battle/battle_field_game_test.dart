@@ -182,33 +182,31 @@ void main() {
     );
   });
 
-  testWithGame<BattleFieldGame>(
-    '装飾を持つモンスターは、画像に輪郭線・目などの装飾を重ねて描く',
-    createGame,
-    (game) async {
-      final artImage = await createArtImage(width: 8, height: 8);
-      addTearDown(artImage.dispose);
-      game.applyArtImage(artPath: playerArtPath, artImage: artImage);
-      game.switchIn(
-        side: BattleSideId.player,
-        monster: decoratedMonster(
-          monster: sampleData.monsters[0],
-          artPath: playerArtPath,
-          decoration: testDecoration(),
-          decorationVersion: 1,
-        ),
-      );
-      final memberNames = renderInvocations(
-        component: game.playerMonsterComponent..size = Vector2(100, 100),
-      ).map((call) => call.memberName);
-      // 輪郭線は画像を周りにずらして重ねて描くため、画像を描く呼び出しが 1 回より多い
-      expect(
-        memberNames.where((name) => name == #drawImageRect).length,
-        greaterThan(1),
-      );
-      expect(memberNames, contains(#drawCircle));
-    },
-  );
+  testWithGame<BattleFieldGame>('装飾を持つモンスターは、画像に輪郭線・目などの装飾を重ねて描く', createGame, (
+    game,
+  ) async {
+    final artImage = await createArtImage(width: 8, height: 8);
+    addTearDown(artImage.dispose);
+    game.applyArtImage(artPath: playerArtPath, artImage: artImage);
+    game.switchIn(
+      side: BattleSideId.player,
+      monster: decoratedMonster(
+        monster: sampleData.monsters[0],
+        artPath: playerArtPath,
+        decoration: testDecoration(),
+        decorationVersion: 1,
+      ),
+    );
+    final memberNames = renderInvocations(
+      component: game.playerMonsterComponent..size = Vector2(100, 100),
+    ).map((call) => call.memberName);
+    // 輪郭線は画像を周りにずらして重ねて描くため、画像を描く呼び出しが 1 回より多い
+    expect(
+      memberNames.where((name) => name == #drawImageRect).length,
+      greaterThan(1),
+    );
+    expect(memberNames, contains(#drawCircle));
+  });
 
   testWithGame<BattleFieldGame>('画像が届いた後に交代で出たモンスターも、同じパスなら画像で描く', createGame, (
     game,
