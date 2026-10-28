@@ -28,6 +28,10 @@ const double _outlineWidthRatio = 0.025;
 /// 両目の中心の間隔 (目の直径に対する割合)。2 つの目が触れずに並んで 1 つの顔に見える間隔にした。
 const double _eyeSpacingRatio = 1.4;
 
+/// 目が中心から届く最も外の長さ (目の半径に対する割合)。最も外まで描くのは、黒の目 (sparkle) の白い縁。
+/// 暗い被写体の上でも縁が 1 本の線として見える太さにした (サボテンの見本の写真で確認)。目を被写体の枠に収める計算もこの長さを使う。
+const double _eyeOuterRadiusRatio = 1.35;
+
 /// 目の半径の下限 (絵の枠の短い辺に対する割合)。横に広い被写体で eyeScale が小さいと、カードやバトルの小さな絵
 /// (100 px 前後) で目が数 px になり見えなくなったため (サボテンの見本の写真で確認)。切り出した画像の範囲ではなく枠に対して決めるのは、
 /// 横に広い被写体では画像の範囲の短い辺が枠より大きく縮み、下限も一緒に小さくなってしまうため。
@@ -208,15 +212,18 @@ void _paintDecorationVersion1({
     artRect,
     Paint()..filterQuality = FilterQuality.medium,
   );
-  // 両目の外端は中心から (間隔 + 1) 個分の半径、口の下端は目の中心から半径の 3 倍下にある。
+  // 両目の外端は中心から (間隔 + 目の外径) 個分の半径、口の下端は目の中心から半径の 3 倍下にある。
   // 細長い被写体で下限の大きさの目が被写体からはみ出さないよう、両目と口が被写体の枠に収まる大きさと位置に抑える
-  final eyeReach = _eyeSpacingRatio + 1;
+  final eyeReach = _eyeSpacingRatio + _eyeOuterRadiusRatio;
   final eyeRadius = math.min(
     math.max(
       subjectRect.width * decoration.eyeScale / 2,
       size.shortestSide * _minEyeRadiusRatio,
     ),
-    math.min(subjectRect.width / (eyeReach * 2), subjectRect.height / 4),
+    math.min(
+      subjectRect.width / (eyeReach * 2),
+      subjectRect.height / (_eyeOuterRadiusRatio + 3),
+    ),
   );
   // 上限が効いた時は下端と上端が等しくなり、浮動小数の丸めで下端が上端を上回り得るため、
   // 下端 > 上端で例外を投げる num.clamp ではなく min・max で抑える
@@ -231,7 +238,7 @@ void _paintDecorationVersion1({
     math.min(
       math.max(
         artRect.top + artRect.height * decoration.eyeCenterY,
-        subjectRect.top + eyeRadius,
+        subjectRect.top + eyeRadius * _eyeOuterRadiusRatio,
       ),
       subjectRect.bottom - eyeRadius * 3,
     ),
@@ -545,7 +552,7 @@ void _paintEye({
     // 黒で塗る目は、暗い被写体の上でも見えるよう白い縁を付ける
     case MonsterEyeStyle.sparkle:
       canvas
-        ..drawCircle(center, radius * 1.35, whitePaint)
+        ..drawCircle(center, radius * _eyeOuterRadiusRatio, whitePaint)
         ..drawCircle(center, radius, inkPaint)
         ..drawCircle(
           center + Offset(-radius * 0.3, -radius * 0.3),

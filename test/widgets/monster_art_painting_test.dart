@@ -155,11 +155,11 @@ void main() {
         ).length;
 
     final small = await eyePixelCount(eyeScale: 0.25);
-    final large = await eyePixelCount(eyeScale: 0.4);
+    final large = await eyePixelCount(eyeScale: 0.35);
     expect(small, greaterThan(0));
-    // 目の面積は大きさの 2 乗に比例するため、1.6 倍の大きさなら面積は 2.5 倍近くになる
-    // (0.25 は目の大きさの下限 (枠の 7%) より大きく、0.4 は両目が被写体の幅に収まる上限より小さい値にした)
-    expect(large, greaterThan(small * 2));
+    // 目の面積は大きさの 2 乗に比例するため、1.4 倍の大きさなら面積は 2 倍近くになる
+    // (0.25 は目の大きさの下限 (枠の 7%) より大きく、0.35 は両目が被写体の幅に収まる上限より小さい値にした)
+    expect(large, greaterThan(small * 1.5));
   });
 
   test('黒で塗る目 (sparkle・dot) は、暗い被写体の上でも見えるよう白い縁を付けて描く', () async {
