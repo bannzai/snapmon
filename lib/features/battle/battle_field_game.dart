@@ -59,7 +59,7 @@ class BattleFieldGame extends FlameGame {
   /// 相手の場のモンスター。交代 ([switchIn]) で入れ替わる。
   MonsterComponent opponentMonsterComponent;
 
-  /// 読み込めた切り出した被写体の画像の Sprite (Storage のパスごと)。後から場に出るモンスター ([switchIn]) にも使う。
+  /// 読み込めた切り出した被写体の画像の Sprite (画像のパスごと)。後から場に出るモンスター ([switchIn]) にも使う。
   /// 画像の持ち主 (dispose する側) はバトル画面で、このゲームは参照するだけ。
   final Map<String, Sprite> _artSpritesByPath = {};
 
@@ -210,7 +210,7 @@ class _GroundComponent extends Component with HasGameReference<FlameGame> {
 }
 
 /// 場のモンスターを描く部品。切り出した被写体の画像 ([artSprite]) があれば図鑑のカードと同じく装飾を重ねて描き
-/// ([paintMonsterArt])、無ければ (見本のモンスター・読み込み中・読み込みの失敗) 仮の絵を描く。
+/// ([paintMonsterArt])、無ければ (画像を持たない・読み込み中・読み込みの失敗) 仮の絵を描く。
 class MonsterComponent extends PositionComponent with HasVisibility {
   /// [monster] を描く部品を作る。
   MonsterComponent({required this.monster, required this.artSprite});

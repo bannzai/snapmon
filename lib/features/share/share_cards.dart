@@ -507,7 +507,7 @@ class _LandingPageAddress extends StatelessWidget {
 }
 
 /// カードの中のモンスターの絵。切り出した被写体の画像があれば [artImagesByPath] から引き、装飾を重ねて描き
-/// (図鑑のカードと同じ [DecoratedMonsterArt])、無ければ (見本のモンスター) 仮の絵を描く。
+/// (図鑑のカードと同じ [DecoratedMonsterArt])、無ければ仮の絵を描く。
 class _ShareCardMonsterArt extends StatelessWidget {
   const _ShareCardMonsterArt({
     required this.monster,

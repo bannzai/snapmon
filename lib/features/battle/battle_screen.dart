@@ -216,9 +216,7 @@ class _BattleScreenState extends State<BattleScreen> {
   /// 読めない時はフィールドの仮の絵のままバトルを続ける (絵のためにバトルを止めないため)。
   Future<void> _loadArtImage({required String artPath}) async {
     try {
-      final artImage = await widget.cardSharer.loadArtImage(
-        storagePath: artPath,
-      );
+      final artImage = await widget.cardSharer.loadArtImage(artPath: artPath);
       if (!mounted) {
         artImage.dispose();
         return;

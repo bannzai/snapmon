@@ -12,9 +12,9 @@ import '../theme/snapmon_text_styles.dart';
 import 'monster_art_painting.dart';
 import 'placeholder_monster_painting.dart';
 
-/// 図鑑の 1 体の絵。写真から切り出した被写体の画像 ([OwnedMonster.artPath]) があれば Storage から読み、
+/// 図鑑の 1 体の絵。写真から切り出した被写体の画像 ([OwnedMonster.artPath]。見本のモンスターは同梱の asset) があれば読み、
 /// 装飾 (目・手足・オーラ・輪郭線。DIRECTION.md「デザインの方向」) を重ねて ([paintMonsterArt]) [backgroundColor] の地に描く。
-/// 画像を読む前と読めなかった時は地だけを描き、画像を持たない見本のモンスターは仮の絵を描く。
+/// 画像を読む前と読めなかった時は地だけを描き、画像を持たないモンスターは仮の絵を描く。
 class MonsterArt extends StatefulWidget {
   /// [monster] の絵を作る。
   const MonsterArt({
@@ -68,7 +68,7 @@ class _MonsterArtState extends State<MonsterArt> {
       return;
     }
     try {
-      final artImage = await loadArtImageWithFirebase(storagePath: artPath);
+      final artImage = await loadArtImageWithFirebase(artPath: artPath);
       if (!mounted || widget.monster.artPath != artPath) {
         artImage.dispose();
         return;
@@ -169,7 +169,7 @@ class _DecoratedMonsterArtPainter extends CustomPainter {
       oldDelegate.monster.definition.id != monster.definition.id;
 }
 
-/// 見本のモンスターの仮の絵。
+/// 切り出した画像 ([OwnedMonster.artPath]) を持たないモンスターの仮の絵。
 class PlaceholderMonsterArt extends StatelessWidget {
   /// [definition] のモンスターの絵を [backgroundColor] の地に描く。
   const PlaceholderMonsterArt({

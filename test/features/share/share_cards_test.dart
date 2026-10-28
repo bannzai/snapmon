@@ -179,6 +179,15 @@ void main() {
             )
             .toList();
 
+    /// [monsters] の切り出した画像のパスごとに、[createArtImage] の画像を引けるようにしたもの (見本のモンスターは同梱の画像を持つため)。
+    Future<Map<String, ui.Image>> createArtImagesByPath({
+      required WidgetTester tester,
+      required List<OwnedMonster> monsters,
+    }) async {
+      final artImage = await createArtImage(tester: tester);
+      return {for (final monster in monsters) monster.artPath!: artImage};
+    }
+
     testWidgets('描く間のエラーを握りつぶさず、PNG にせずに投げる', (tester) async {
       Object? renderError;
       await tester.runAsync(() async {
@@ -205,12 +214,17 @@ void main() {
       testWidgets(
         '図鑑のカードが ${expectedSize.$1}×${expectedSize.$2} の PNG になり、はみ出さない',
         (tester) async {
+          final monster = longestNamedMonsters().first;
+          final artImagesByPath = await createArtImagesByPath(
+            tester: tester,
+            monsters: [monster],
+          );
           final pngBytes = await tester.runAsync(
             () => renderWidgetToPng(
               view: tester.view,
               card: MonsterShareCard(
-                monster: longestNamedMonsters().first,
-                artImagesByPath: const {},
+                monster: monster,
+                artImagesByPath: artImagesByPath,
                 definitions: sampleData.definitions,
                 format: format,
               ),
@@ -228,6 +242,10 @@ void main() {
           'バトルの結果のカード (${winner.name}) が ${expectedSize.$1}×${expectedSize.$2} の PNG になり、はみ出さない',
           (tester) async {
             final playerParty = longestNamedMonsters();
+            final artImagesByPath = await createArtImagesByPath(
+              tester: tester,
+              monsters: playerParty,
+            );
             final pngBytes = await tester.runAsync(
               () => renderWidgetToPng(
                 view: tester.view,
@@ -239,7 +257,7 @@ void main() {
                       monster.definition.id: monster.level + 1,
                   },
                   opponentParty: playerParty,
-                  artImagesByPath: const {},
+                  artImagesByPath: artImagesByPath,
                   definitions: sampleData.definitions,
                   format: format,
                 ),

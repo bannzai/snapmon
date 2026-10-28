@@ -18,6 +18,9 @@ class RecordedGenerationCalls {
   /// fetchGeneration に渡された要求 ID (呼ばれた順)。
   final List<String> fetchedRequestIds = [];
 
+  /// openAppSettings が呼ばれた回数。
+  int openAppSettingsCallCount = 0;
+
   /// logEvent に渡されたイベントとパラメータ (呼ばれた順)。
   final List<({AnalyticsEvent event, Map<String, Object>? parameters})>
   loggedEvents = [];
@@ -43,6 +46,10 @@ MonsterGenerator fakeMonsterGenerator({
   return MonsterGenerator(
     // テストの環境にはカメラが無い (Simulator と同じ)
     listCameras: () async => const [],
+    openAppSettings: () async {
+      calls.openAppSettingsCallCount++;
+      return true;
+    },
     pickAlbumPhoto: () async => albumPhoto,
     preparePhoto: ({required sourceBytes}) async => sourceBytes,
     createRequestId: () => 'request-${++requestIdCount}',
