@@ -83,14 +83,15 @@ async function cropPhoto({ photo, crop }) {
   if (!crop) {
     return photo;
   }
-  const { width, height } = await sharp(photo).rotate().metadata();
-  return sharp(photo)
-    .rotate()
+  // metadata() の幅・高さは EXIF の向きを直す前の値のため、向きを直した画像の大きさから範囲を決める
+  // raw で受け渡すのは、途中で JPEG に符号化し直して画質を落とさないため
+  const { data, info } = await sharp(photo).rotate().raw().toBuffer({ resolveWithObject: true });
+  return sharp(data, { raw: { width: info.width, height: info.height, channels: info.channels } })
     .extract({
-      left: Math.round(width * crop.left),
-      top: Math.round(height * crop.top),
-      width: Math.round(width * crop.width),
-      height: Math.round(height * crop.height),
+      left: Math.round(info.width * crop.left),
+      top: Math.round(info.height * crop.top),
+      width: Math.round(info.width * crop.width),
+      height: Math.round(info.height * crop.height),
     })
     .jpeg({ quality: 95 })
     .toBuffer();
