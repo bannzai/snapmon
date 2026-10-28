@@ -121,6 +121,7 @@ void _paintDecorationVersion1({
     limbStyle: decoration.limbStyle,
     limbColor: outlineColor,
   );
+  // 線の太さの下限 (1〜2 px) は、小さな絵でも線が途切れず 1 本の線に見える最小の太さとして置いた (以下の線も同じ)
   final outlineWidth = math.max(1.5, artRect.shortestSide * _outlineWidthRatio);
   // 被写体の形を輪郭線の色で塗った画像を周りにずらして重ね、上に元の画像を描くと、はみ出た分が輪郭線になる
   final outlinePaint = Paint()
@@ -184,6 +185,7 @@ void _paintAura({
         math.sin(angle) * radiusY * (1 + reach),
       );
 
+  // オーラは被写体の後ろの光なので半透明にし、地の色が透けて被写体より目立たない濃さにした
   final fillPaint = Paint()..color = auraColor.withValues(alpha: 0.55);
   switch (auraStyle) {
     case MonsterAuraStyle.soft:
@@ -201,6 +203,7 @@ void _paintAura({
           ),
       );
     case MonsterAuraStyle.flame:
+      // 炎・稲妻・泡・葉の数は、被写体の周りを途切れずに囲み、1 つずつの形がつぶれずに見分けられる数にした
       const flameCount = 12;
       for (var index = 0; index < flameCount; index++) {
         final angle = index * 2 * math.pi / flameCount - math.pi / 2;
