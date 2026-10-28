@@ -2,7 +2,9 @@ name: deploy-hosting
 
 # Web 版をビルドして snapmon-prod の Firebase Hosting へデプロイする。
 # 本番への配布は、触れる版を見て公開に進むと決めてもらうまで手動実行 (workflow_dispatch) だけにする (ADR 0001 の Web 版のホスティングの行)。
-# 認証はデプロイ専用サービスアカウントの鍵 (Secret FIREBASE_SERVICE_ACCOUNT_BASE64)。deploy-functions.yml は OIDC に移した (.claude/rules/firebase-deploy.md)。
+# 認証: deploy-functions.yml と同じく鍵を持たず、GitHub の OIDC トークンを Workload Identity Federation でデプロイ専用サービスアカウント
+# (github-firebase-deployer@snapmon-prod.iam.gserviceaccount.com) の短命なトークンに交換する。Hosting のデプロイの権限は同じサービスアカウントの roles/firebase.admin が持つ。
+# GCP 側の前提と environment firebase-prod を付ける理由は .claude/rules/firebase-deploy.md。
 # Web の App Check に使う reCAPTCHA Enterprise のサイトキーは公開値のため、リポジトリの Variable RECAPTCHA_ENTERPRISE_SITE_KEY から渡す。
 
 on:
@@ -12,9 +14,10 @@ concurrency:
   group: deploy-firebase
   cancel-in-progress: false
 
-# リポジトリの読み取りだけ。デプロイの認証はサービスアカウントの鍵で行う
+# id-token は Workload Identity Federation に渡す OIDC トークンの発行に要る
 permissions:
   contents: read
+  id-token: write
 
 # flutter-ci.yml の FLUTTER_VERSION と同じ版にする
 env:
@@ -24,6 +27,7 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: firebase-prod
     steps:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
@@ -47,20 +51,20 @@ jobs:
       env:
         RECAPTCHA_ENTERPRISE_SITE_KEY: ${{ vars.RECAPTCHA_ENTERPRISE_SITE_KEY }}
       run: flutter build web --release --dart-define=RECAPTCHA_ENTERPRISE_SITE_KEY="$RECAPTCHA_ENTERPRISE_SITE_KEY"
+    # --ignore-scripts: id-token: write は job 全体に効き、依存の lifecycle script が OIDC トークンを発行できるため、install script を実行しない。
+    # functions/package-lock.json で install script を持つのは @firebase/util・fsevents・onnxruntime-node・protobufjs・re2 で、firebase-tools 自身は持たない (re2 は superstatic の optionalDependencies)
     - name: Install firebase-tools
       working-directory: functions
-      run: npm ci
-    - name: Restore service account key
-      env:
-        FIREBASE_SERVICE_ACCOUNT_BASE64: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BASE64 }}
-      run: |
-        if [ -z "$FIREBASE_SERVICE_ACCOUNT_BASE64" ]; then
-          echo "::error::Secret FIREBASE_SERVICE_ACCOUNT_BASE64 が未登録です"
-          exit 1
-        fi
-        key_path="$RUNNER_TEMP/firebase-deployer.json"
-        echo "$FIREBASE_SERVICE_ACCOUNT_BASE64" | base64 --decode > "$key_path"
-        echo "GOOGLE_APPLICATION_CREDENTIALS=$key_path" >> "$GITHUB_ENV"
+      run: npm ci --ignore-scripts
+    # npm ci の後に置く。資格情報のファイルを依存のコードに読ませないため (deploy-functions.yml と同じ)
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3.0.0
+      with:
+        project_id: ${{ env.PROJECT_ID }}
+        workload_identity_provider: projects/1032186168570/locations/global/workloadIdentityPools/github/providers/snapmon
+        service_account: github-firebase-deployer@snapmon-prod.iam.gserviceaccount.com
+        create_credentials_file: true
+        export_environment_variables: true
     - name: Deploy
       working-directory: functions
       run: npx firebase deploy --only hosting --project "$PROJECT_ID" --non-interactive

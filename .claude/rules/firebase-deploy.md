@@ -4,4 +4,4 @@
 
 - GCP 側の前提 (workflow が指す Workload Identity pool・provider、デプロイ用サービスアカウントへの `roles/iam.workloadIdentityUser`、workflow のヘッダーに書いたデプロイに要るロールと actAs) は owner 権限が要り、bannzai が `with-gcloud-owner` で /firebase-functions-deploy-iam-setup skill の手順に沿って整える
 - provider の attribute condition がリポジトリ ID と environment `firebase-prod` を要求するため、OIDC で認証する job には `environment: firebase-prod` と `permissions: id-token: write` を付ける
-- `.github/workflows/deploy-hosting.yml` は、まだ鍵 (Secret `FIREBASE_SERVICE_ACCOUNT_BASE64`) で認証している
+- `.github/workflows/deploy-hosting.yml` も同じ provider・サービスアカウントで認証する (鍵の Secret `FIREBASE_SERVICE_ACCOUNT_BASE64` は一度も登録されず、鍵での実行は失敗していた。2026-10-28)
