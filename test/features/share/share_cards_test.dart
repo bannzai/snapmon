@@ -195,35 +195,34 @@ void main() {
 
     for (final name in ['プカプック', 'ハーブポット']) {
       testWidgets('縦長の図鑑のカードで、属性が 2 つの $name の名前を省略しない', (tester) async {
-        final monster = OwnedMonster(
-          definition: MonsterDefinition(
-            id: monsterWithArt.definition.id,
-            sourcePhotoReference:
-                monsterWithArt.definition.sourcePhotoReference,
-            name: name,
-            encyclopediaText: monsterWithArt.definition.encyclopediaText,
-            elementTypeIds: [
-              for (final elementType
-                  in sampleData.definitions.elementTypes.take(2))
-                elementType.id,
-            ],
-            learnset: monsterWithArt.definition.learnset,
-            baseStats: monsterWithArt.definition.baseStats,
-            individualValues: monsterWithArt.definition.individualValues,
-            statCalculationVersion:
-                monsterWithArt.definition.statCalculationVersion,
-            masterVersion: monsterWithArt.definition.masterVersion,
-          ),
-          level: monsterWithArt.level,
-          artPath: monsterWithArt.artPath,
-          definitionIds: monsterWithArt.definitionIds,
-          decoration: monsterWithArt.decoration,
-          decorationVersion: monsterWithArt.decorationVersion,
-        );
         await pumpCard(
           tester: tester,
           card: MonsterShareCard(
-            monster: monster,
+            monster: OwnedMonster(
+              definition: MonsterDefinition(
+                id: monsterWithArt.definition.id,
+                sourcePhotoReference:
+                    monsterWithArt.definition.sourcePhotoReference,
+                name: name,
+                encyclopediaText: monsterWithArt.definition.encyclopediaText,
+                elementTypeIds: [
+                  for (final elementType
+                      in sampleData.definitions.elementTypes.take(2))
+                    elementType.id,
+                ],
+                learnset: monsterWithArt.definition.learnset,
+                baseStats: monsterWithArt.definition.baseStats,
+                individualValues: monsterWithArt.definition.individualValues,
+                statCalculationVersion:
+                    monsterWithArt.definition.statCalculationVersion,
+                masterVersion: monsterWithArt.definition.masterVersion,
+              ),
+              level: monsterWithArt.level,
+              artPath: monsterWithArt.artPath,
+              definitionIds: monsterWithArt.definitionIds,
+              decoration: monsterWithArt.decoration,
+              decorationVersion: monsterWithArt.decorationVersion,
+            ),
             artImagesByPath: {artPath: await createArtImage(tester: tester)},
             definitions: sampleData.definitions,
             format: ShareCardFormat.portrait,
