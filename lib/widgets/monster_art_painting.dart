@@ -11,9 +11,10 @@ import '../theme/snapmon_colors.dart';
 /// 被写体の大きさの 1/4 ほどはみ出すオーラ (後述の [_auraReachRatio]) が収まる値にした。
 const double _decorationPaddingRatio = 0.12;
 
-/// 切り出した画像の縁にある、被写体の外の余白の割合 (画像の幅・高さに対する)。
-/// functions/src/generation/cutout.ts の `CUTOUT_MARGIN_RATIO` (0.04) を被写体の両側に足した画像の幅で割った値。
-/// 手足を被写体の縁から生やすため、画像の枠から被写体の枠を見積もるのに使う。
+/// 切り出した画像の縁にある、被写体の外の余白の割合 (画像の長い辺に対する。4 辺とも同じ幅)。
+/// functions/src/generation/cutout.ts の `applyMask` は被写体の長い辺の `CUTOUT_MARGIN_RATIO` (0.04) を 4 辺に同じ幅で足すため、
+/// 画像の長い辺 (被写体の長い辺の 1.08 倍) で割った値になる。手足を被写体の縁から生やすため、画像の枠から被写体の枠を見積もるのに使う。
+/// 写真の端で余白が切り詰められた辺は、見積もった被写体の枠が実際より内側になり、手足が被写体の裏に少し隠れる (宙に浮かない)。
 const double _cutoutMarginRatio = 0.04 / 1.08;
 
 /// オーラが被写体の縁からはみ出す長さ (被写体の幅・高さの半分に対する割合)。被写体を包む光に見え、隣の絵と重ならない長さにした。
@@ -103,12 +104,7 @@ void _paintDecorationVersion1({
       size.shortestSide * _decorationPaddingRatio,
     ),
   );
-  final subjectRect = Rect.fromLTRB(
-    artRect.left + artRect.width * _cutoutMarginRatio,
-    artRect.top + artRect.height * _cutoutMarginRatio,
-    artRect.right - artRect.width * _cutoutMarginRatio,
-    artRect.bottom - artRect.height * _cutoutMarginRatio,
-  );
+  final subjectRect = artRect.deflate(artRect.longestSide * _cutoutMarginRatio);
   final outlineColor = _colorFromHex(colorHex: decoration.outlineColorHex);
   _paintAura(
     canvas: canvas,
