@@ -9,7 +9,6 @@ import { GoogleAuth } from "google-auth-library";
 import { createAnthropicClient } from "../anthropic";
 import { typesafeApiKey } from "../secrets";
 import { createDescribeSubject, createProposeElement } from "./claude";
-import { createSegmentSubject, SEGMENTATION_MODEL_PATH } from "./cutout";
 import { createAskJev } from "./jev";
 import type { GenerationDependencies } from "./pipeline";
 import { createAnnotateImage } from "./vision";
@@ -24,15 +23,13 @@ export const STORAGE_BUCKET_NAME = "snapmon-prod-storage";
 const RESUME_QUEUE_FUNCTION_NAME = "locations/asia-northeast1/functions/resumeGeneration";
 
 let anthropicClient: ReturnType<typeof createAnthropicClient> | undefined;
-let segmentSubject: ReturnType<typeof createSegmentSubject> | undefined;
 let accessTokenClient: GoogleAuth | undefined;
 
 /**
- * 本番の資源で生成の依存を作る。Claude のクライアントと切り出しのモデルは、最初に使う時に作る
- * (どちらも作るのに時間がかかり、インスタンスの中で使い回すため)。
+ * 本番の資源で生成の依存を作る。Claude のクライアントは最初に使う時に作る
+ * (作るのに時間がかかり、インスタンスの中で使い回すため)。
  */
 export function createProductionDependencies(): GenerationDependencies {
-  segmentSubject ??= createSegmentSubject({ modelPath: SEGMENTATION_MODEL_PATH });
   accessTokenClient ??= new GoogleAuth({ scopes: ["https://www.googleapis.com/auth/cloud-platform"] });
   const getAnthropicClient = () => (anthropicClient ??= createAnthropicClient({ env: process.env, fetchFunction: fetch }));
   return {
@@ -49,7 +46,6 @@ export function createProductionDependencies(): GenerationDependencies {
       },
       fetchFunction: fetch,
     }),
-    segmentSubject,
     describeSubject: createDescribeSubject(getAnthropicClient),
     proposeElement: createProposeElement(getAnthropicClient),
     // Secret は使う時に読む (入力の検査で弾く呼び出しと、Secret の無い Emulator で読まないため)。

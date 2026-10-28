@@ -6,7 +6,6 @@ import { deleteApp, getApps, initializeApp } from "firebase-admin/app";
 import type { Auth } from "firebase-admin/auth";
 import { getFirestore } from "firebase-admin/firestore";
 import { getStorage } from "firebase-admin/storage";
-import sharp from "sharp";
 import { afterAll, beforeEach, describe, expect, it } from "vitest";
 
 import { listProbePhotos, probeGenerationPaths, readExpectations } from "../../scripts/probe-generation-paths.mjs";
@@ -98,14 +97,6 @@ function createDependencies({ jevSaysDifferentForAll = false }: { jevSaysDiffere
         faceAnnotations: faceDetectedPhotoNames.has(state.currentPhotoName) ? [{ detectionConfidence: 0.95 }] : [],
         labelAnnotations: [{ description: "Object", score: 0.9 }],
       }),
-      // 写真の中央の 1/2 四方を被写体とするマスク (被写体を切り出す段階の中身はこのテストの対象外)
-      segmentSubject: async (photo) => {
-        const { width, height } = await sharp(photo).metadata();
-        return sharp({ create: { width: width!, height: height!, channels: 3, background: "#000000" } })
-          .composite([{ input: { create: { width: Math.round(width! / 2), height: Math.round(height! / 2), channels: 3, background: "#ffffff" } }, left: Math.round(width! / 4), top: Math.round(height! / 4) }])
-          .png()
-          .toBuffer();
-      },
       describeSubject: async () => {
         const calibrationId = calibrationIdByPhotoName[state.currentPhotoName];
         const output = calibrationId ? calibrationDescriptions[calibrationId] : backgroundDescription(state.currentPhotoName);

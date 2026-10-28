@@ -67,10 +67,11 @@ class DeveloperMenuScreen extends StatelessWidget {
         ..hideCurrentSnackBar()
         ..showSnackBar(SnackBar(content: Text(message)));
 
-  /// [assetPath] の見本の写真から生成する。
+  /// [assetPath] の見本の写真から生成する。[cropsWhenSubjectNotFound] は [GenerationScreen.cropsWhenSubjectNotFound] に渡す。
   Future<void> _generateFromSamplePhoto({
     required BuildContext context,
     required String assetPath,
+    required bool cropsWhenSubjectNotFound,
   }) async {
     final sourcePhoto = (await rootBundle.load(assetPath)).buffer.asUint8List();
     if (!context.mounted) {
@@ -81,6 +82,7 @@ class DeveloperMenuScreen extends StatelessWidget {
         builder: (context) => GenerationScreen(
           sourcePhoto: sourcePhoto,
           photoSource: GenerationPhotoSource.sample,
+          cropsWhenSubjectNotFound: cropsWhenSubjectNotFound,
           monsterGenerator: monsterGenerator,
           dexStore: dexStore,
           cardSharer: cardSharer,
@@ -121,12 +123,28 @@ class DeveloperMenuScreen extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.auto_awesome_outlined),
               title: Text('見本の写真から生成: $samplePhotoName'),
-              subtitle: const Text('同梱した写真を生成に送る (カメラの無い Simulator 向け)'),
+              subtitle: const Text(
+                '同梱した写真を生成に送る (カメラの無い Simulator 向け)\n自動の切り出しが使えない時は写真全体で送る',
+              ),
               onTap: () => _generateFromSamplePhoto(
                 context: context,
                 assetPath: assetPath,
+                cropsWhenSubjectNotFound: false,
               ),
             ),
+          // アルバムのファイル選択を自動の操作で通しにくい Web (webtunnel) で、範囲を決める画面を確かめるため
+          ListTile(
+            leading: const Icon(Icons.crop_outlined),
+            title: Text(
+              '見本の写真から範囲を決めて生成: ${_samplePhotoAssetPaths.keys.first}',
+            ),
+            subtitle: const Text('自動の切り出しが使えない時は アルバムから選んだ時と同じく範囲を決める画面を出す'),
+            onTap: () => _generateFromSamplePhoto(
+              context: context,
+              assetPath: _samplePhotoAssetPaths.values.first,
+              cropsWhenSubjectNotFound: true,
+            ),
+          ),
           ListTile(
             leading: const Icon(Icons.delete_sweep_outlined),
             title: const Text('図鑑をクリア'),

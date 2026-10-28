@@ -1,11 +1,14 @@
 // 見本のモンスター (assets/samples/sample_monsters.json) の切り出した絵を、Wikimedia Commons の CC0 / Public domain の写真から作り、
-// assets/samples/art/{見本のモンスターの id}.png に書く。切り出しは本番の generate と同じ順 (functions/src/generation/pipeline.ts の
-// downscalePhoto → 自動のマスク → applyMask) で、同じモデル (lib/generation/cutout.js) を使う。
+// assets/samples/art/{見本のモンスターの id}.png に書く。切り出しは本番と同じ順 (アプリの iOS が Vision の前景のマスクを作り、
+// functions/src/generation/pipeline.ts が downscalePhoto → applyMask する) で、マスクはアプリの iOS と同じ Vision の API
+// (scripts/subject-mask.swift) で作る。そのため macOS (14 以降) で実行する。
 // 出典とライセンスは assets/samples/art/LICENSES.md に書く。写真を変えたらそちらも直す。
-// 同じ写真からは同じ画像を書き直す (Commons の縮小版の画素が変わらない限り)。
+// 同じ写真からは同じ画像を書き直す (Commons の縮小版の画素と Vision の版が変わらない限り)。
 //
-// 使い方: npm run build && npm run fetch-model && node scripts/build-sample-art.mjs
-import { mkdirSync, writeFileSync } from "node:fs";
+// 使い方: npm run build && node scripts/build-sample-art.mjs
+import { execFileSync } from "node:child_process";
+import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -99,14 +102,25 @@ async function cropPhoto({ photo, crop }) {
     .toBuffer();
 }
 
-/** 写真から被写体のマスクを作る関数。本番の generate と同じモデル (IS-Net) を読み込む。 */
-const segmentSubject = cutout.createSegmentSubject({ modelPath: cutout.SEGMENTATION_MODEL_PATH });
+/** 作業用の写真とマスクを置く一時ディレクトリ。 */
+const workDirectory = mkdtempSync(path.join(tmpdir(), "snapmon-sample-art-"));
+
+/** [photo] の前景の被写体のマスクの PNG を、scripts/subject-mask.swift (アプリの iOS と同じ Vision の API) で作る。前景が無ければ throw する。 */
+function createSubjectMask({ monsterId, photo }) {
+  const photoPath = path.join(workDirectory, `${monsterId}.jpg`);
+  const maskPath = path.join(workDirectory, `${monsterId}-mask.png`);
+  writeFileSync(photoPath, photo);
+  execFileSync("swift", [path.join(root, "scripts", "subject-mask.swift"), photoPath, maskPath], { stdio: "inherit" });
+  return readFileSync(maskPath);
+}
+
 mkdirSync(artDirectory, { recursive: true });
 for (const { monsterId, commonsFile, crop } of SAMPLE_PHOTOS) {
   const photo = await cutout.downscalePhoto(await cropPhoto({ photo: await fetchCommonsPhoto(commonsFile), crop }));
-  const { cutoutPng, coverage } = await cutout.applyMask({ photo, mask: await segmentSubject(photo) });
-  if (!cutoutPng) {
-    console.error(`${monsterId}: 被写体を切り出せませんでした (被写体の割合 ${coverage})`);
+  // 被写体の画素が無いマスクは applyMask が写真全体を返すため、見本の絵として使わずに止める
+  const { cutoutPng, coverage } = await cutout.applyMask({ photo, mask: createSubjectMask({ monsterId, photo }) });
+  if (coverage === 1) {
+    console.error(`${monsterId}: 被写体を切り出せませんでした (マスクが写真全体)`);
     process.exit(1);
   }
   writeFileSync(path.join(artDirectory, `${monsterId}.png`), cutoutPng);

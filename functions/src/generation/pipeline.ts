@@ -13,7 +13,7 @@ import { logger } from "firebase-functions";
 
 import { authUserExists } from "../account";
 import { ClaudeRefusalError, type DescribeSubject, type ProposeElement } from "./claude";
-import { applyMask, downscalePhoto, flattenCutoutForDescription, type SegmentSubject } from "./cutout";
+import { applyMask, downscalePhoto, flattenCutoutForDescription } from "./cutout";
 import {
   type AskJev,
   buildClassifyRequest,
@@ -47,6 +47,7 @@ import {
   generationResult,
   GENERATION_STAGES,
   type GenerationStage,
+  type MaskSource,
   type MonsterDocument,
   TERMINAL_GENERATION_STATUSES,
 } from "./records";
@@ -65,8 +66,6 @@ export interface GenerationDependencies {
   bucket: StorageBucket;
   /** Cloud Vision。 */
   annotateImage: AnnotateImage;
-  /** 自動のマスク。 */
-  segmentSubject: SegmentSubject;
   /** Claude の被写体の説明。 */
   describeSubject: DescribeSubject;
   /** Claude の新しい属性の提案。 */
@@ -118,18 +117,12 @@ const MAXIMUM_ATTEMPT_COUNT = 4;
 
 /**
  * 同じ写真・マスクの組でも使い回さない拒否の理由。Claude の応答で結果が揺れるため、送り直せば通ることがある
- * (決定的な検査の拒否 — SafeSearch・顔・被写体なし — は使い回す)。
+ * (決定的な検査の拒否 — SafeSearch・顔 — は使い回す)。
  */
 const RETRYABLE_REJECTION_REASONS: RejectionReason[] = ["person_detected", "inappropriate_text", "refused"];
 
 /** 段階が予期しないエラーで落ちた時に、再試行を始めるまでの秒数。一時的なエラー (API の 5xx・通信の切断) が収まる時間として置いた。 */
 export const FAILED_STAGE_RETRY_DELAY_SECONDS = 60;
-
-/**
- * 手で決めた範囲が写真に占める割合の上限。95%: 写真の縁を少し残しただけの範囲を切り出しとみなさない値として置いた
- * (見本の物の写真の自動のマスクは最大 49%。ADR 0002 の実測)。
- */
-const MAXIMUM_CLIENT_MASK_COVERAGE = 0.95;
 
 /** Claude の文章が禁止語の検査を通らなかった時に、作り直させる回数の上限 (最初の 1 回を含む)。 */
 const DESCRIBE_SUBJECT_MAXIMUM_ATTEMPTS = 2;
@@ -227,12 +220,13 @@ class InputChangedError extends Error {}
 /**
  * 写真 (とマスク) を読み、受付時のハッシュ (`inputKey`) と同じ中身であることを確かめて返す。
  * クライアントは同じパスを上書きできる (Storage の Rules) ため、検査した写真と切り出す写真を同じ中身に固定する。
+ * マスクの無い生成はマスクを読まないため、マスクの部分 (`none`、2026-10-28 より前に受け付けた生成は `auto`) は照合しない。
  */
 async function downloadVerifiedInput(bucket: StorageBucket, record: GenerationRecord): Promise<{ photo: Buffer; mask: Buffer | undefined }> {
   const [photoHash, maskHash] = record.inputKey.split(":");
   const photo = await downloadFile(bucket, record.photoPath);
   const mask = record.maskPath ? await downloadFile(bucket, record.maskPath) : undefined;
-  if (sha256(photo) !== photoHash || (mask ? sha256(mask) : "auto") !== maskHash) {
+  if (sha256(photo) !== photoHash || (mask && sha256(mask) !== maskHash)) {
     throw new InputChangedError("受け付けた後に写真かマスクが差し替えられました");
   }
   return { photo, mask };
@@ -250,7 +244,13 @@ async function deleteFiles(bucket: StorageBucket, paths: (string | null | undefi
  */
 export async function startGeneration(
   dependencies: GenerationDependencies,
-  { uid, requestId, photoPath, maskPath }: { uid: string; requestId: string; photoPath: string; maskPath: string | null },
+  {
+    uid,
+    requestId,
+    photoPath,
+    maskPath,
+    maskSource,
+  }: { uid: string; requestId: string; photoPath: string; maskPath: string | null; maskSource: MaskSource },
 ): Promise<GenerationResult> {
   const { firestore, bucket } = dependencies;
   const document = generationDocument({ firestore, uid, requestId });
@@ -271,7 +271,9 @@ export async function startGeneration(
   }
   const photo = await downloadFile(bucket, photoPath);
   const mask = maskPath ? await downloadFile(bucket, maskPath) : undefined;
-  const inputKey = `${sha256(photo)}:${mask ? sha256(mask) : "auto"}`;
+  // マスク無しの印を、サーバーで自動のマスクを作っていた頃の `auto` と変える (`auto` の生成は切り出し方が違い、被写体なしで
+  // 拒否した結果もあるため、同じ写真を送り直した時に使い回さない)
+  const inputKey = `${sha256(photo)}:${mask ? sha256(mask) : "none"}`;
   const now = dependencies.now();
   const today = tokyoDate(now);
 
@@ -330,6 +332,7 @@ export async function startGeneration(
       completedStage: "uploaded",
       photoPath,
       maskPath,
+      maskSource,
       inputKey,
       leaseExpiresAt,
       leaseToken,
@@ -761,17 +764,12 @@ async function runCutoutStage(
   { uid, requestId, record }: { uid: string; requestId: string; record: GenerationRecord },
 ): Promise<StageOutcome> {
   const input = await downloadVerifiedInput(dependencies.bucket, record);
-  const photo = await downscalePhoto(input.photo);
-  const mask = input.mask ?? (await dependencies.segmentSubject(photo));
-  const { cutoutPng, coverage } = await applyMask({ photo, mask });
-  // 手で決めた範囲が写真のほぼ全体なら切り出しにならず、元の写真がそのまま他人も読める絵になるため拒否する。
-  // 自動のマスクには上限を置かない (物を大写しにした写真は、正しく切り出しても全体に近くなるため)。
-  if (!cutoutPng || (input.mask && coverage > MAXIMUM_CLIENT_MASK_COVERAGE)) {
-    return { kind: "finish", update: { status: "rejected", rejectionReason: "no_subject", cutoutCoverage: coverage } };
-  }
+  // マスクが無い (crop しなかった) 写真と、写真のほぼ全体を crop した範囲は、元の写真に近い絵になり他人も読む (DIRECTION.md「決めたこと」
+  // 2026-10-28 で受け入れた)。被写体が無い写真も拒否せずに進める
+  const { cutoutPng, coverage } = await applyMask({ photo: await downscalePhoto(input.photo), mask: input.mask });
   const cutoutPath = `users/${uid}/generations/${requestId}/cutout.png`;
   await dependencies.bucket.file(cutoutPath).save(cutoutPng, { contentType: "image/png", resumable: false });
-  return { kind: "next", update: { cutoutPath, cutoutCoverage: coverage, maskSource: record.maskPath ? "client" : "server" } };
+  return { kind: "next", update: { cutoutPath, cutoutCoverage: coverage } };
 }
 
 async function runClaudeStage(dependencies: GenerationDependencies, record: GenerationRecord): Promise<StageOutcome> {

@@ -12,8 +12,17 @@ class RecordedGenerationCalls {
   /// uploadPhoto に渡された要求 ID (呼ばれた順)。
   final List<String> uploadedRequestIds = [];
 
+  /// uploadMask に渡された要求 ID とマスク (呼ばれた順)。
+  final List<({String requestId, Uint8List mask})> uploadedMasks = [];
+
   /// requestGeneration に渡された要求 ID (呼ばれた順)。
   final List<String> requestedRequestIds = [];
+
+  /// requestGeneration に渡されたマスクの出どころ (呼ばれた順)。
+  final List<GenerationMaskSource> requestedMaskSources = [];
+
+  /// createSquareMask に渡された枠 (呼ばれた順)。
+  final List<SquareCrop> squareMaskCrops = [];
 
   /// fetchGeneration に渡された要求 ID (呼ばれた順)。
   final List<String> fetchedRequestIds = [];
@@ -29,8 +38,16 @@ class RecordedGenerationCalls {
 /// テストの写真の中身 (preparePhoto はそのまま返すため、画像として読める必要はない)。
 final Uint8List testPhotoBytes = Uint8List.fromList([1, 2, 3]);
 
+/// テストの OS の切り出しのマスクの中身 (createCutoutPreview は写真をそのまま返すため、画像として読める必要はない)。
+final Uint8List testSubjectMaskBytes = Uint8List.fromList([4, 5, 6]);
+
+/// テストの crop のマスクの中身。
+final Uint8List testSquareMaskBytes = Uint8List.fromList([7, 8, 9]);
+
 /// Firebase と端末の機能を呼ばずに [calls] へ呼び出しを残す [MonsterGenerator] を返す。
 /// アルバムは [albumPhoto] を返し、要求 ID は `request-1`・`request-2`… の順に作る。
+/// OS の切り出しは [createSubjectMask] の結果を返す (省くと、被写体を見つけて [testSubjectMaskBytes] を返す)。
+/// crop のマスクは [createSquareMask] の結果 (省くと [testSquareMaskBytes])、プレビューは写真をそのまま返す。
 /// uploadPhoto は [uploadError] があればそれを投げる (ログインしていない時の lib/firebase/monster_generation.dart と同じ)。
 /// requestGeneration・fetchGeneration は [requestGeneration]・[fetchGeneration] の結果を返す。
 MonsterGenerator fakeMonsterGenerator({
@@ -41,6 +58,12 @@ MonsterGenerator fakeMonsterGenerator({
   requestGeneration,
   required Future<GenerationResult> Function({required String requestId})
   fetchGeneration,
+  Future<Uint8List?> Function({required Uint8List photo})? createSubjectMask,
+  Future<Uint8List> Function({
+    required Uint8List photo,
+    required SquareCrop crop,
+  })?
+  createSquareMask,
 }) {
   var requestIdCount = 0;
   return MonsterGenerator(
@@ -52,6 +75,15 @@ MonsterGenerator fakeMonsterGenerator({
     },
     pickAlbumPhoto: () async => albumPhoto,
     preparePhoto: ({required sourceBytes}) async => sourceBytes,
+    createSubjectMask:
+        createSubjectMask ?? ({required photo}) async => testSubjectMaskBytes,
+    createSquareMask: ({required photo, required crop}) async {
+      calls.squareMaskCrops.add(crop);
+      return createSquareMask == null
+          ? testSquareMaskBytes
+          : createSquareMask(photo: photo, crop: crop);
+    },
+    createCutoutPreview: ({required photo, required mask}) async => photo,
     createRequestId: () => 'request-${++requestIdCount}',
     uploadPhoto: ({required requestId, required photo}) async {
       if (uploadError != null) {
@@ -59,11 +91,15 @@ MonsterGenerator fakeMonsterGenerator({
       }
       calls.uploadedRequestIds.add(requestId);
     },
-    requestGeneration: ({required requestId, required onCompletedStage}) {
-      calls.requestedRequestIds.add(requestId);
-      onCompletedStage(completedStage: GenerationStage.cutout);
-      return requestGeneration(requestId: requestId);
-    },
+    uploadMask: ({required requestId, required mask}) async =>
+        calls.uploadedMasks.add((requestId: requestId, mask: mask)),
+    requestGeneration:
+        ({required requestId, required maskSource, required onCompletedStage}) {
+          calls.requestedRequestIds.add(requestId);
+          calls.requestedMaskSources.add(maskSource);
+          onCompletedStage(completedStage: GenerationStage.cutout);
+          return requestGeneration(requestId: requestId);
+        },
     fetchGeneration: ({required requestId}) {
       calls.fetchedRequestIds.add(requestId);
       return fetchGeneration(requestId: requestId);

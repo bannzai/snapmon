@@ -15,6 +15,12 @@ export const GENERATION_STAGES = ["uploaded", "safesearch", "cutout", "claude", 
 /** 生成の段階。 */
 export type GenerationStage = (typeof GENERATION_STAGES)[number];
 
+/** クライアントが送るマスクの出どころ (`generate` の data の `maskSource`) と、マスクを送らなかった時の `none`。 */
+export const MASK_SOURCES = ["ios_subject", "crop", "none"] as const;
+
+/** マスクの出どころ。 */
+export type MaskSource = (typeof MASK_SOURCES)[number];
+
 /** 生成の状態。processing と pending_judge 以外は終了状態で、以後変わらない。 */
 export type GenerationStatus = "processing" | "pending_judge" | "saved" | "duplicate" | "rejected" | "failed";
 
@@ -29,9 +35,15 @@ export interface GenerationRecord {
   completedStage: GenerationStage;
   /** 元の写真の Storage のパス。 */
   photoPath: string;
-  /** クライアントが送ったマスクの Storage のパス。無ければ null (サーバーで自動のマスクを作る)。 */
+  /** クライアントが送ったマスクの Storage のパス。無ければ null (写真全体を切り出した絵にする)。 */
   maskPath: string | null;
-  /** 画像のハッシュとマスクのハッシュの組 (補助キー)。同じ組の生成は結果を使い回す。 */
+  /**
+   * マスクの出どころ。ios_subject: iOS の OS の切り出し、crop: ユーザーが crop で決めた範囲、none: マスク無し (写真全体)。
+   * 受け付けた時に記録する。server (サーバーの IS-Net の自動のマスク) は 2026-10-28 より前の生成のレコードにだけあり、
+   * 受け付けた時ではなく cutout の段階で記録していたため、その前に止まったレコードには無い。
+   */
+  maskSource?: MaskSource | "server";
+  /** 画像のハッシュとマスクのハッシュ (マスク無しは `none`。2026-10-28 より前のサーバーの自動のマスクは `auto`) の組 (補助キー)。同じ組の生成は結果を使い回す。 */
   inputKey: string;
   /** 処理の予約の期限。期限までは別の実行が同じレコードを処理しない。 */
   leaseExpiresAt: Timestamp;
@@ -53,8 +65,6 @@ export interface GenerationRecord {
   cutoutPath?: string;
   /** 被写体の面積が写真に占める割合。 */
   cutoutCoverage?: number;
-  /** マスクを作った場所。 */
-  maskSource?: "client" | "server";
   /** Claude が返した説明・名前・文章・装飾。 */
   subject?: DescribeSubjectOutput;
   /** 説明を正規化した JSON 文字列。個体値の seed と同じ被写体の判定に使う。 */
