@@ -55,6 +55,11 @@ describe("applyMask", () => {
     expect(await sharp(result.cutoutPng).metadata()).toMatchObject({ width: 320, height: 240 });
   });
 
+  it("展開すると大きすぎるマスク (1024 × 1024 の 4 倍を超える画素数) は展開せずに失敗する", async () => {
+    const hugeMask = await sharp({ create: { width: 4096, height: 1025, channels: 3, background: "#ffffff" } }).png().toBuffer();
+    await expect(applyMask({ photo: await uniformPhoto(), mask: hugeMask })).rejects.toThrow();
+  });
+
   it("マスクが無い時は写真全体を絵にする", async () => {
     const result = await applyMask({ photo: await uniformPhoto(), mask: undefined });
     expect(result.coverage).toBe(1);

@@ -19,6 +19,14 @@ export function downscalePhoto(photo: Buffer): Promise<Buffer> {
     .toBuffer();
 }
 
+/**
+ * マスクを展開してよい画素数の上限。端末が送るマスクは送った写真と同じ大きさ (長辺 1024px、
+ * lib/features/capture/subject_mask.dart と ios/Runner/AppDelegate.swift) で、正方形でも 1024 × 1024 のため、その 4 倍を上限にした。
+ * Storage の 1 MB の制限は圧縮後の大きさで、展開後の画素数を抑えない (sharp の既定の上限は約 2.7 億画素で、RGBA で約 1 GiB になり
+ * Functions のメモリを使い切る) ため。超えるマスクは展開せずに失敗させる。
+ */
+const MASK_INPUT_PIXEL_LIMIT = 1024 * 1024 * 4;
+
 /** 被写体とみなすマスクの値 (0〜255 の半分。OS の切り出しの境界のぼかしの中ほど)。 */
 const SUBJECT_ALPHA_THRESHOLD = 128;
 
@@ -48,7 +56,7 @@ export async function applyMask({ photo, mask }: { photo: Buffer; mask: Buffer |
   if (!mask) {
     return wholePhoto();
   }
-  const alpha = await sharp(mask).rotate().removeAlpha().resize(width, height, { fit: "fill" }).extractChannel(0).raw().toBuffer();
+  const alpha = await sharp(mask, { limitInputPixels: MASK_INPUT_PIXEL_LIMIT }).rotate().removeAlpha().resize(width, height, { fit: "fill" }).extractChannel(0).raw().toBuffer();
   let subjectPixels = 0;
   let left = width;
   let top = height;
