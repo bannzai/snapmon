@@ -33,6 +33,7 @@ class MonsterArt extends StatefulWidget {
   State<MonsterArt> createState() => _MonsterArtState();
 }
 
+/// [MonsterArt] の、読み込んだ切り出した被写体の画像を持つ状態。
 class _MonsterArtState extends State<MonsterArt> {
   /// 読み込めた切り出した被写体の画像。読む前・読めなかった時は null。この State が持ち主で、外す時に dispose する。
   ui.Image? _artImage;
@@ -141,10 +142,15 @@ class DecoratedMonsterArt extends StatelessWidget {
   );
 }
 
+/// [DecoratedMonsterArt] の絵を描く painter。
 class _DecoratedMonsterArtPainter extends CustomPainter {
+  /// [monster] の [artImage] に装飾を重ねて描く painter を作る。
   _DecoratedMonsterArtPainter({required this.monster, required this.artImage});
 
+  /// 描くモンスター。
   final OwnedMonster monster;
+
+  /// [OwnedMonster.artPath] の画像。持ち主 (dispose する側) は [DecoratedMonsterArt] の呼び出し元。
   final ui.Image artImage;
 
   @override
