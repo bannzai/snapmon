@@ -168,7 +168,7 @@ function createGeneratePhoto({ state, dependencies }: ReturnType<typeof createDe
 
 beforeEach(async () => {
   await fetch(`http://127.0.0.1:8080/emulator/v1/projects/${projectId}/databases/(default)/documents`, { method: "DELETE" });
-  await firestore.doc("master/1").set(master);
+  await firestore.doc(`master/${master.version}`).set(master);
   const [files] = await bucket.getFiles();
   await Promise.all(files.map((file) => file.delete({ ignoreNotFound: true })));
 });

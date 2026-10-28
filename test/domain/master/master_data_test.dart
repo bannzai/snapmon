@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:snapmon/domain/master/master_data.dart';
+import 'package:snapmon/domain/master/move.dart';
 
 void main() {
   final master = MasterData.fromJson(
@@ -60,6 +61,41 @@ void main() {
         reason: move.id,
       );
     }
+  });
+
+  test('技の特殊効果はアプリが知っている種類で、威力を上げる倍率を持つ', () {
+    // 知らない種類は読む時に null になり見落とすため、元の JSON の種類の名前で確かめる
+    for (final moveJson
+        in (jsonDecode(File('assets/master/master.json').readAsStringSync())
+                as Map<String, dynamic>)['moves']
+            as List<dynamic>) {
+      final specialEffectJson =
+          (moveJson as Map<String, dynamic>)['specialEffect']
+              as Map<String, dynamic>?;
+      if (specialEffectJson == null) {
+        continue;
+      }
+      expect(
+        MoveSpecialEffectKind.values.asNameMap().keys,
+        contains(specialEffectJson['kind']),
+        reason: moveJson['id'] as String,
+      );
+      expect(
+        specialEffectJson['maximumPowerPercent'] as int,
+        greaterThan(100),
+        reason: moveJson['id'] as String,
+      );
+    }
+  });
+
+  test('Lv.1 で覚えられる技の半分以上に特殊効果が付いている (#65 の完了条件)', () {
+    final levelOneMoves = master.moves.where(
+      (move) => move.learnableLevelMinimum == 1,
+    );
+    expect(
+      levelOneMoves.where((move) => move.specialEffect != null).length * 2,
+      greaterThanOrEqualTo(levelOneMoves.length),
+    );
   });
 
   test('その場で作った定義を同じ形の JSON から読み、master に足すと相性は既存の全属性と等倍になる', () {
