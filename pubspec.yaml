@@ -37,14 +37,16 @@ dependencies:
   flame: ^1.38.2
   shared_preferences: ^2.5.6
   url_launcher: ^6.3.3
-  firebase_core: ^5.0.0
-  firebase_auth: ^7.0.0
-  cloud_firestore: ^7.0.0
-  cloud_functions: ^7.0.0
-  firebase_analytics: ^13.0.0
-  firebase_crashlytics: ^6.0.0
-  firebase_app_check: ^0.5.0
-  firebase_storage: ^14.0.0
+  # cloud_firestore 7.1.0 は eMudhra の中間 CA の失効に対応した FirebaseFirestore 13.1.1 (SwiftPM) / 12.19.3 (CocoaPods) を使う。
+  # 他の FlutterFire も同じ BoM 5.1.0 に揃える (https://firebase.google.com/support/guides/compromised-emudhra-intermediate-ca)
+  firebase_core: ^5.1.0
+  firebase_auth: ^7.0.1
+  cloud_firestore: ^7.1.0
+  cloud_functions: ^7.0.1
+  firebase_analytics: ^13.0.1
+  firebase_crashlytics: ^6.0.1
+  firebase_app_check: ^0.5.1
+  firebase_storage: ^14.0.1
   camera: ^0.12.0+2
   image_picker: ^1.2.4
   image: ^4.12.0

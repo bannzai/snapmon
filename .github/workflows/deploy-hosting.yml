@@ -18,7 +18,7 @@ permissions:
 
 # flutter-ci.yml の FLUTTER_VERSION と同じ版にする
 env:
-  FLUTTER_VERSION: '3.41.9'
+  FLUTTER_VERSION: '3.47.8'
   PROJECT_ID: snapmon-prod
 
 jobs:

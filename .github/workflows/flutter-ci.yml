@@ -14,10 +14,10 @@ on:
 permissions:
   contents: read
 
-# ローカル開発の Flutter (3.41.9) と揃える。上げる時は simulator-session.yml / browser-session.yml (タグが指す commit SHA) も同じ版にする
+# ローカル開発の Flutter (3.47.8) と揃える。上げる時は simulator-session.yml / browser-session.yml (タグが指す commit SHA) も同じ版にする
 # Firebase の設定ファイルは git の管理外のため、各 job はビルドの前に scripts/restore-firebase-config.sh で Secrets から書き出す
 env:
-  FLUTTER_VERSION: '3.41.9'
+  FLUTTER_VERSION: '3.47.8'
   FIREBASE_OPTIONS_DART_B64: ${{ secrets.FIREBASE_OPTIONS_DART_B64 }}
   GOOGLE_SERVICE_INFO_PLIST_B64: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST_B64 }}
   GOOGLE_SERVICES_JSON_B64: ${{ secrets.GOOGLE_SERVICES_JSON_B64 }}
