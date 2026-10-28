@@ -479,7 +479,7 @@
     {
       "definition": {
         "id": "sample-mugmon",
-        "sourcePhotoReference": "",
+        "sourcePhotoReference": null,
         "name": "マグモン",
         "encyclopediaText": "朝いちばんのコーヒーの熱を体にためこむ。取っ手を振り回して戦うが、中身をこぼすと急に弱気になる。",
         "elementTypeIds": [
@@ -519,12 +519,13 @@
         "statCalculationVersion": 1,
         "masterVersion": 1
       },
-      "level": 7
+      "level": 7,
+      "artPath": "assets/samples/art/sample-mugmon.png"
     },
     {
       "definition": {
         "id": "sample-petbottler",
-        "sourcePhotoReference": "",
+        "sourcePhotoReference": null,
         "name": "ペットボトラ",
         "encyclopediaText": "中の水をゆらして相手の目をくらませる。空っぽになると軽くなって素早く動く。",
         "elementTypeIds": [
@@ -564,12 +565,13 @@
         "statCalculationVersion": 1,
         "masterVersion": 1
       },
-      "level": 12
+      "level": 12,
+      "artPath": "assets/samples/art/sample-petbottler.png"
     },
     {
       "definition": {
         "id": "sample-keybon",
-        "sourcePhotoReference": "",
+        "sourcePhotoReference": null,
         "name": "キーボン",
         "encyclopediaText": "たくさんのキーを鳴らして仲間を呼ぶ。夜中に光るのは充電が足りない合図。",
         "elementTypeIds": [
@@ -609,12 +611,13 @@
         "statCalculationVersion": 1,
         "masterVersion": 1
       },
-      "level": 3
+      "level": 3,
+      "artPath": "assets/samples/art/sample-keybon.png"
     },
     {
       "definition": {
         "id": "sample-ringora",
-        "sourcePhotoReference": "",
+        "sourcePhotoReference": null,
         "name": "リンゴラ",
         "encyclopediaText": "甘い香りで相手を油断させる。日に当たるほど赤く丈夫になる。",
         "elementTypeIds": [
@@ -654,12 +657,13 @@
         "statCalculationVersion": 1,
         "masterVersion": 1
       },
-      "level": 1
+      "level": 1,
+      "artPath": "assets/samples/art/sample-ringora.png"
     },
     {
       "definition": {
         "id": "sample-noton",
-        "sourcePhotoReference": "",
+        "sourcePhotoReference": null,
         "name": "ノートン",
         "encyclopediaText": "書きかけのページをめくって技を思い出す。雨の日は少し元気がない。",
         "elementTypeIds": [
@@ -690,12 +694,13 @@
         "statCalculationVersion": 1,
         "masterVersion": 1
       },
-      "level": 2
+      "level": 2,
+      "artPath": "assets/samples/art/sample-noton.png"
     },
     {
       "definition": {
         "id": "sample-slippan",
-        "sourcePhotoReference": "",
+        "sourcePhotoReference": null,
         "name": "スリッパン",
         "encyclopediaText": "ぱたぱたと音を立てて床を走り回る。片方をなくすとずっと探している。",
         "elementTypeIds": [
@@ -726,7 +731,8 @@
         "statCalculationVersion": 1,
         "masterVersion": 1
       },
-      "level": 5
+      "level": 5,
+      "artPath": "assets/samples/art/sample-slippan.png"
     }
   ],
   "opponents": [

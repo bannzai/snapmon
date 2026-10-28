@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:snapmon/domain/battle/battle_state.dart';
+import 'package:snapmon/features/dex/owned_monster.dart';
 import 'package:snapmon/sample/sample_data.dart';
 
 import '../sample_data_fixture.dart';
@@ -57,6 +58,20 @@ void main() {
           returnsNormally,
         );
       }
+    }
+  });
+
+  test('見本のモンスターは同梱した切り出し画像を持ち、出典が LICENSES.md にある', () {
+    final licenses = File(
+      '${sampleArtAssetDirectory}LICENSES.md',
+    ).readAsStringSync();
+    for (final monster in sampleData.monsters) {
+      final artPath = monster.artPath!;
+      expect(isBundledArtPath(artPath: artPath), isTrue, reason: artPath);
+      expect(File(artPath).existsSync(), isTrue, reason: artPath);
+      expect(licenses, contains('| ${artPath.split('/').last} |'));
+      // 見本のモンスターは元の写真を持たない (結果の画面が Storage の写真を読まないため)
+      expect(monster.definition.sourcePhotoReference, isNull);
     }
   });
 

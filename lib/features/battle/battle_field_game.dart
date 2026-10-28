@@ -40,7 +40,7 @@ Color moveEffectColor({required MoveEffect effect}) =>
 /// いつ何を見せるかはバトル画面 (battle_screen.dart) がバトルのログから決め、このゲームはバトルの計算を持たない。
 class BattleFieldGame extends FlameGame {
   /// [playerMonster] と [opponentMonster] を場に出したフィールドを作る。
-  /// [playerArtPath]・[opponentArtPath] はそれぞれの切り出した被写体の画像の Storage のパス (見本のモンスターは null)。
+  /// [playerArtPath]・[opponentArtPath] はそれぞれの切り出した被写体の画像のパス (`OwnedMonster.artPath`。無ければ null)。
   BattleFieldGame({
     required MonsterDefinition playerMonster,
     required String? playerArtPath,
@@ -63,7 +63,7 @@ class BattleFieldGame extends FlameGame {
   /// 相手の場のモンスター。交代 ([switchIn]) で入れ替わる。
   MonsterComponent opponentMonsterComponent;
 
-  /// 読み込めた切り出した被写体の画像の Sprite (Storage のパスごと)。後から場に出るモンスター ([switchIn]) にも使う。
+  /// 読み込めた切り出した被写体の画像の Sprite (画像のパスごと)。後から場に出るモンスター ([switchIn]) にも使う。
   /// 画像の持ち主 (dispose する側) はバトル画面で、このゲームは参照するだけ。
   final Map<String, Sprite> _artSpritesByPath = {};
 
@@ -161,7 +161,7 @@ class BattleFieldGame extends FlameGame {
     monsterComponentOf(side: side).isVisible = false;
   }
 
-  /// [side] の場のモンスターを [definition] (切り出した被写体の画像は [artPath]。見本のモンスターは null) に入れ替える。
+  /// [side] の場のモンスターを [definition] (切り出した被写体の画像は [artPath]。無ければ null) に入れ替える。
   void switchIn({
     required BattleSideId side,
     required MonsterDefinition definition,
@@ -219,7 +219,7 @@ class _GroundComponent extends Component with HasGameReference<FlameGame> {
 }
 
 /// 場のモンスターを描く部品。切り出した被写体の画像 ([artImage]) があれば縦横比を保って枠に収めて描き、
-/// 無ければ (見本のモンスター・読み込み中・読み込みの失敗) 仮の絵を描く。
+/// 無ければ (画像を持たない・読み込み中・読み込みの失敗) 仮の絵を描く。
 /// 装飾 (目・手足・オーラ・輪郭線) は図鑑のカード (MonsterArt) と同じくまだ描かない。
 class MonsterComponent extends PositionComponent with HasVisibility {
   /// [definition] のモンスターを描く部品を作る。
@@ -232,7 +232,7 @@ class MonsterComponent extends PositionComponent with HasVisibility {
   /// 描くモンスター。
   final MonsterDefinition definition;
 
-  /// 切り出した被写体の画像の Storage のパス。見本のモンスターは null。
+  /// 切り出した被写体の画像のパス (`OwnedMonster.artPath`)。無ければ null。
   final String? artPath;
 
   /// [artPath] の画像の Sprite。null の間は仮の絵を描く。

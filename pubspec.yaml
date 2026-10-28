@@ -79,6 +79,7 @@ flutter:
   assets:
     - assets/samples/
     - assets/samples/photos/
+    - assets/samples/art/
     - assets/fonts/dela_gothic_one/OFL.txt
     - assets/fonts/zen_kaku_gothic_new/OFL.txt
 
