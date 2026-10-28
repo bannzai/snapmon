@@ -342,6 +342,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
       });
     } catch (error) {
       if (mounted) {
+        _logFirstExperienceFailureIfNeeded();
         setState(() {
           _phase = _GenerationPhase.error;
           _error = error;
