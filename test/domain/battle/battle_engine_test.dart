@@ -580,4 +580,64 @@ void main() {
       throwsArgumentError,
     );
   });
+
+  group('equippedLearnsetEntries', () {
+    const learnset = [
+      LearnsetEntry(moveId: 'a', unlockLevel: 1),
+      LearnsetEntry(moveId: 'b', unlockLevel: 1),
+      LearnsetEntry(moveId: 'c', unlockLevel: 1),
+      LearnsetEntry(moveId: 'd', unlockLevel: 1),
+      LearnsetEntry(moveId: 'e', unlockLevel: 15),
+      LearnsetEntry(moveId: 'f', unlockLevel: 15),
+      LearnsetEntry(moveId: 'g', unlockLevel: 100),
+    ];
+    List<String> equippedMoveIds({required int level}) => [
+      for (final learnsetEntry in equippedLearnsetEntries(
+        learnset: learnset,
+        level: level,
+      ))
+        learnsetEntry.moveId,
+    ];
+
+    test('開放済みの技が枠の数までなら、開放済みの技をすべて一覧の順で返す', () {
+      expect(equippedMoveIds(level: 14), ['a', 'b', 'c', 'd']);
+    });
+
+    test('開放済みの技が枠より多い時は、新しく覚えた技が一番古い技と入れ替わる', () {
+      expect(equippedMoveIds(level: 15), ['c', 'd', 'e', 'f']);
+      expect(equippedMoveIds(level: 100), ['d', 'e', 'f', 'g']);
+    });
+
+    test('覚える技が枠より少ない (前の規則で生まれた) モンスターも、開放済みの技をすべて返す', () {
+      expect(
+        equippedLearnsetEntries(
+          learnset: const [
+            LearnsetEntry(moveId: 'paper_1', unlockLevel: 1),
+            LearnsetEntry(moveId: 'paper_2', unlockLevel: 15),
+          ],
+          level: 1,
+        ).map((learnsetEntry) => learnsetEntry.moveId),
+        ['paper_1'],
+      );
+    });
+
+    test('バトルで選べる技は枠に入った技だけ', () {
+      final monster = prepare(
+        definition: testDefinition(
+          id: 'player',
+          elementTypeId: 'fire',
+          moveIds: ['fire_strong', 'grass_strong'],
+          speed: 50,
+        ),
+        level: 1,
+      );
+      expect(
+        selectableMoves(
+          monster: monster,
+          master: testMaster,
+        ).map((move) => move.id),
+        ['fire_strong', 'grass_strong'],
+      );
+    });
+  });
 }

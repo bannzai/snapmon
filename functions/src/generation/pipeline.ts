@@ -906,7 +906,13 @@ async function runJudgeStage(
       ...update,
       judgement: {
         elementTypeIds,
-        learnset: buildLearnset({ elementTypeIds, moveProbabilitiesByElement: judged.moveProbabilitiesByElement, moves: judgedMoves }),
+        learnset: buildLearnset({
+          elementTypeIds,
+          elementProbabilities: judged.elementProbabilities,
+          moveProbabilitiesByElement: judged.moveProbabilitiesByElement,
+          moves: judgedMoves,
+          fallbackMoves: master.moves,
+        }),
         baseStats: baseStatsFromStatGrades({ statGradeIds: judged.statGradeIds, master }),
         individualValues: individualValuesFromDescription(record.subjectDescriptionText!),
         // その場で作った定義のうち、このモンスターの属性を持つものだけを参照として残す (定義の ID は属性の ID と同じ)。
