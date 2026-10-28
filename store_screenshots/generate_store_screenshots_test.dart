@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:image/image.dart' as image_codec;
-import 'package:share_plus/share_plus.dart';
 import 'package:snapmon/features/battle/battle_screen.dart';
 import 'package:snapmon/features/capture/monster_generator.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
@@ -30,7 +29,6 @@ import 'package:snapmon/theme/snapmon_theme.dart';
 import 'package:snapmon/widgets/storage_image.dart';
 
 import '../test/battle_recorder_fixture.dart';
-import '../test/card_sharer_fixture.dart';
 import '../test/pvp_client_fixture.dart';
 import '../test/sample_data_fixture.dart';
 import 'store_screenshot_copy.dart';
@@ -120,6 +118,23 @@ void main() {
     CameraPlatform.instance = StoreScreenshotCameraPlatform(
       viewfinderPhoto: storeScreenshotViewfinderPhoto(),
     );
+    // 切り出した絵は先にデコードしておく。バトル画面は initState で絵を読み始め、widget test の偽の時間の中では
+    // 画像のデコードが終わらないため、デコード済みの画像をすぐ返す (_cardSharer)
+    final artImagesByPath = (await tester.runAsync(
+      () async => {
+        for (final monster in storeScreenshotMonsters())
+          monster.artPath!: await decodeImageFromList(
+            (await loadStoreScreenshotStorageImage(
+              storagePath: monster.artPath!,
+            ))!,
+          ),
+      },
+    ))!;
+    addTearDown(() {
+      for (final artImage in artImagesByPath.values) {
+        artImage.dispose();
+      }
+    });
     addTearDown(tester.view.reset);
     // 端末とカードの影を描く (flutter_test は既定で影を描かない)。flutter_test はテストの本体の後に既定のままかを
     // 確かめるため、本体の中で既定に戻す
@@ -143,6 +158,7 @@ void main() {
             await _writeScreenshot(
               tester: tester,
               sampleData: sampleData,
+              artImagesByPath: artImagesByPath,
               language: language,
               device: device,
               page: page,
@@ -157,9 +173,11 @@ void main() {
 }
 
 /// 1 枚を描いて fastlane/screenshots/<locale>/<端末>_<番号>_<ページ>.png に書き出す。
+/// [artImagesByPath] はスクリーンショットのモンスターの切り出した絵の Storage のパスと、デコード済みの画像。
 Future<void> _writeScreenshot({
   required WidgetTester tester,
   required SampleData sampleData,
+  required Map<String, ui.Image> artImagesByPath,
   required StoreScreenshotLanguage language,
   required StoreScreenshotDevice device,
   required StoreScreenshotPage page,
@@ -176,17 +194,7 @@ Future<void> _writeScreenshot({
       ],
       definitions: null,
     );
-  // 共有のカードは切り出した絵をデコード済みの画像で受け取る
   final shareMonster = monsters[1];
-  final shareArtImage = page == StoreScreenshotPage.share
-      ? await tester.runAsync(
-          () async => decodeImageFromList(
-            (await loadStoreScreenshotStorageImage(
-              storagePath: shareMonster.artPath!,
-            ))!,
-          ),
-        )
-      : null;
   const canvasKey = Key('store-screenshot-canvas');
   await tester.pumpWidget(
     _StoreScreenshotCanvas(
@@ -199,30 +207,26 @@ Future<void> _writeScreenshot({
           sampleData: sampleData,
           dexStore: dexStore,
           initialTab: HomeTab.capture,
+          artImagesByPath: artImagesByPath,
         ),
         StoreScreenshotPage.born => ResultScreen(
           monster: monsters.first,
           dexStore: dexStore,
           origin: ResultScreenOrigin.newlyBorn,
-          cardSharer: _cardSharer(),
+          cardSharer: _cardSharer(artImagesByPath: artImagesByPath),
         ),
         StoreScreenshotPage.dex => _homeShell(
           sampleData: sampleData,
           dexStore: dexStore,
           initialTab: HomeTab.dex,
+          artImagesByPath: artImagesByPath,
         ),
         StoreScreenshotPage.battle => BattleScreen(
           playerParty: monsters.take(3).toList(),
+          // 相手も切り出した絵のあるモンスターにする (見本のモンスターは絵が無く、仮の図形で描かれるため)
           opponentParty: [
-            for (final monsterId in [
-              'sample-keybon',
-              'sample-ringora',
-              'sample-noton',
-            ])
-              _withLevel(
-                monster: sampleData.monsterById(monsterId: monsterId),
-                level: 10,
-              ),
+            for (final monster in monsters.skip(3))
+              _withLevel(monster: monster, level: 10),
           ],
           opponentKind: BattleOpponentKind.pvp,
           definitions: sampleData.definitions,
@@ -234,7 +238,7 @@ Future<void> _writeScreenshot({
             recordedLevels: const {},
           ),
           onPlayerLevelsChanged: ({required levelsByMonsterId}) {},
-          cardSharer: _cardSharer(),
+          cardSharer: _cardSharer(artImagesByPath: artImagesByPath),
           firstBattleBornMonster: null,
           firstBattleMonsterIsNewlyBorn: false,
           opponentSafetyMenu: null,
@@ -243,10 +247,13 @@ Future<void> _writeScreenshot({
           sampleData: sampleData,
           dexStore: dexStore,
           initialTab: HomeTab.opponent,
+          artImagesByPath: artImagesByPath,
         ),
         StoreScreenshotPage.share => MonsterShareCard(
           monster: shareMonster,
-          artImagesByPath: {shareMonster.artPath!: shareArtImage!},
+          artImagesByPath: {
+            shareMonster.artPath!: artImagesByPath[shareMonster.artPath!]!,
+          },
           definitions: sampleData.definitions,
           format: ShareCardFormat.portrait,
         ),
@@ -291,10 +298,9 @@ Future<void> _writeScreenshot({
     )
     ..parent.createSync(recursive: true)
     ..writeAsBytesSync(pngBytes!);
-  // 次の 1 枚の前に、この画面 (カメラ・バトルの演出) を閉じてから、共有のカードに渡した画像を手放す
+  // 次の 1 枚の前に、この画面 (カメラ・バトルの演出) を閉じる
   await tester.pumpWidget(const SizedBox.shrink());
   await tester.pump(const Duration(seconds: 1));
-  shareArtImage?.dispose();
 }
 
 /// 画像 (写真・切り出した絵・ファインダーの写真) を読み終えるまで描き進める。
@@ -322,18 +328,32 @@ OwnedMonster _withLevel({required OwnedMonster monster, required int level}) =>
       definitionIds: monster.definitionIds,
     );
 
-/// 共有の操作をしない画面に渡す [CardSharer]。
-CardSharer _cardSharer() => fakeCardSharer(
-  calls: RecordedShareCalls(),
-  artImage: null,
-  shareResultStatus: ShareResultStatus.dismissed,
-);
+/// 共有の操作をしない画面に渡す [CardSharer]。loadArtImage は [artImagesByPath] のデコード済みの画像の複製を返す
+/// (受け取った側が使い終わった画像を dispose するため)。
+CardSharer _cardSharer({required Map<String, ui.Image> artImagesByPath}) =>
+    CardSharer(
+      loadArtImage: ({required storagePath}) async =>
+          artImagesByPath[storagePath]?.clone() ??
+          (throw StateError('$storagePath の絵はスクリーンショットに用意していない')),
+      renderPng: ({required view, required card, required format}) =>
+          throw StateError('スクリーンショットでは共有しない'),
+      shareImage:
+          ({
+            required pngBytes,
+            required fileName,
+            required text,
+            required sharePositionOrigin,
+          }) => throw StateError('スクリーンショットでは共有しない'),
+      logEvent: ({required event, required parameters}) async {},
+    );
 
 /// ログイン済みで、図鑑・撮る・対戦のタブを持つ画面。対戦の相手と戦績は見本を返す。
+/// [artImagesByPath] は切り出した絵の Storage のパスとデコード済みの画像 (_cardSharer に渡す)。
 Widget _homeShell({
   required SampleData sampleData,
   required DexStore dexStore,
   required HomeTab initialTab,
+  required Map<String, ui.Image> artImagesByPath,
 }) {
   final sessionStore = SessionStore(
     startSession: () async => 'store-screenshot-uid',
@@ -376,7 +396,7 @@ Widget _homeShell({
       logEvent: ({required event, required parameters}) async {},
     ),
     pvpClient: pvpClient,
-    cardSharer: _cardSharer(),
+    cardSharer: _cardSharer(artImagesByPath: artImagesByPath),
     accountStore: AccountStore(
       sessionStore: sessionStore,
       linkProviderName: 'Apple',

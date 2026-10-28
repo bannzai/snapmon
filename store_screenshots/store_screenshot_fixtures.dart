@@ -157,12 +157,13 @@ OwnedMonster _monster({
     name: monsterName,
     encyclopediaText: encyclopediaText,
     elementTypeIds: elementTypeIds,
+    // 本番の生成と同じく、生まれた時点で Lv.1 の技を 4 つ持つ (属性の順に 1 つずつ交互に取る。
+    // functions の master の版 2 と #63 の「決めたこと」の行)。見本の定義の Lv.1 の技は属性ごとに _1・_1b・_1c・_1d
     learnset: [
-      for (final elementTypeId in elementTypeIds) ...[
-        LearnsetEntry(moveId: '${elementTypeId}_1', unlockLevel: 1),
-        LearnsetEntry(moveId: '${elementTypeId}_2', unlockLevel: 5),
-      ],
-    ],
+      for (final suffix in const ['1', '1b', '1c', '1d'])
+        for (final elementTypeId in elementTypeIds)
+          LearnsetEntry(moveId: '${elementTypeId}_$suffix', unlockLevel: 1),
+    ].take(4).toList(),
     baseStats: baseStats,
     individualValues: const MonsterStats(
       hitPoints: 18,
