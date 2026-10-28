@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -190,6 +191,49 @@ void main() {
     }) async {
       final artImage = await createArtImage(tester: tester);
       return {for (final monster in monsters) monster.artPath!: artImage};
+    }
+
+    for (final name in ['プカプック', 'ハーブポット']) {
+      testWidgets('縦長の図鑑のカードで、属性が 2 つの $name の名前を省略しない', (tester) async {
+        final monster = OwnedMonster(
+          definition: MonsterDefinition(
+            id: monsterWithArt.definition.id,
+            sourcePhotoReference: monsterWithArt.definition.sourcePhotoReference,
+            name: name,
+            encyclopediaText: monsterWithArt.definition.encyclopediaText,
+            elementTypeIds: [
+              for (final elementType
+                  in sampleData.definitions.elementTypes.take(2))
+                elementType.id,
+            ],
+            learnset: monsterWithArt.definition.learnset,
+            baseStats: monsterWithArt.definition.baseStats,
+            individualValues: monsterWithArt.definition.individualValues,
+            statCalculationVersion:
+                monsterWithArt.definition.statCalculationVersion,
+            masterVersion: monsterWithArt.definition.masterVersion,
+          ),
+          level: monsterWithArt.level,
+          artPath: monsterWithArt.artPath,
+          definitionIds: monsterWithArt.definitionIds,
+          decoration: monsterWithArt.decoration,
+          decorationVersion: monsterWithArt.decorationVersion,
+        );
+        await pumpCard(
+          tester: tester,
+          card: MonsterShareCard(
+            monster: monster,
+            artImagesByPath: {artPath: await createArtImage(tester: tester)},
+            definitions: sampleData.definitions,
+            format: ShareCardFormat.portrait,
+          ),
+          format: ShareCardFormat.portrait,
+        );
+        expect(
+          tester.renderObject<RenderParagraph>(find.text(name)).didExceedMaxLines,
+          isFalse,
+        );
+      });
     }
 
     testWidgets('描く間のエラーを握りつぶさず、PNG にせずに投げる', (tester) async {
