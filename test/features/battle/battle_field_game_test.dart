@@ -54,6 +54,31 @@ void main() {
     expect(player.center.y, greaterThan(game.size.y / 2));
   });
 
+  /// 横長 (PC のブラウザ・タブレットの横向き) と縦長 (スマホ) の画面。
+  /// 1280×350 は 1280×656 の画面から技のパネルを除いた、実際のフィールドに近い高さ。
+  for (final fieldSize in [
+    Vector2(1280, 656),
+    Vector2(1280, 350),
+    Vector2(390, 844),
+  ]) {
+    testWithGame<BattleFieldGame>(
+      '${fieldSize.x.toInt()}×${fieldSize.y.toInt()} の画面でも 2 体がフィールドに収まり重ならない',
+      createGame,
+      (game) async {
+        game.onGameResize(fieldSize);
+        final field = Rect.fromLTWH(0, 0, fieldSize.x, fieldSize.y);
+        final opponentRect = game.opponentMonsterComponent.toRect();
+        final playerRect = game.playerMonsterComponent.toRect();
+        for (final monsterRect in [opponentRect, playerRect]) {
+          expect(field.intersect(monsterRect), monsterRect);
+        }
+        expect(opponentRect.overlaps(playerRect), isFalse);
+        expect(opponentRect.center.dx, greaterThan(fieldSize.x / 2));
+        expect(playerRect.center.dx, lessThan(fieldSize.x / 2));
+      },
+    );
+  }
+
   testWithGame<BattleFieldGame>('画面の大きさが変わると 2 体を置き直す', createGame, (
     game,
   ) async {
