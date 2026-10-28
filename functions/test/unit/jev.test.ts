@@ -58,6 +58,8 @@ describe("sameSubjectCandidateIds", () => {
     ).toEqual(["a", "d"]);
   });
 
+  // 下の 2 件は閾値と較正の値の対応を固定するだけで、Jev の答えそのものは見ない。問いの文言・閾値を変えた時は
+  // functions/scripts/calibrate-jev.mjs で測り直す (documents/game-rules.md「Jev の閾値」)
   it("較正 (2026-10-28) の同じ物の境目 (本番で撮り直したマグカップ) は同じ個体とし、同じ種類の別の物の境目は別の物とする", () => {
     expect(
       sameSubjectCandidateIds({
