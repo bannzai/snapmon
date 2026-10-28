@@ -100,6 +100,15 @@ void main() {
     },
   );
 
+  testWithGame<BattleFieldGame>('相手の情報カードより低いフィールドでもモンスターの絵を消さない', createGame, (
+    game,
+  ) async {
+    game.onGameResize(Vector2(1280, 180));
+    game.updateOpponentStatusCardBottom(bottom: 181);
+    expect(game.opponentMonsterComponent.size.x, greaterThan(0));
+    expect(game.playerMonsterComponent.size.x, greaterThan(0));
+  });
+
   testWithGame<BattleFieldGame>('画面の大きさが変わると 2 体を置き直す', createGame, (
     game,
   ) async {

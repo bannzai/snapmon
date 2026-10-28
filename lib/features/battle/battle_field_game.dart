@@ -202,12 +202,16 @@ class BattleFieldGame extends FlameGame {
   void _layout() {
     // 高さの 0.3 は、相手の下端 (0.28h + m) が自分の上端 (0.94h - 1.15m) を越えない上限 m ≤ 0.66h / 2.15 ≈ 0.307h から取った。
     // 縦長のスマホでは幅の 0.4 の方が小さく、モックの大きさのまま描く。
-    // 決着の後の勝敗のパネルでフィールドが低くなった時は、自分の上端 (0.94h - 1.15m) が相手の情報カードの下端を越えない大きさに抑える
+    // 決着の後の勝敗のパネルでフィールドが低くなった時は、自分の上端 (0.94h - 1.15m) が相手の情報カードの下端を越えない大きさに抑える。
+    // ただしカードで抑えるのは高さの 0.15 (高さで決まる上限の半分) までにする。それより低いフィールドでは絵を消すより、カードに一部が隠れても描く方を選ぶ
     final monsterSize = [
       size.x * 0.4,
       size.y * 0.3,
-      (size.y * 0.94 - _opponentStatusCardBottom) / 1.15,
-    ].reduce(math.min).clamp(0.0, double.infinity);
+      math.max(
+        (size.y * 0.94 - _opponentStatusCardBottom) / 1.15,
+        size.y * 0.15,
+      ),
+    ].reduce(math.min);
     opponentMonsterComponent
       ..size = Vector2.all(monsterSize)
       ..position = Vector2(size.x * 0.88 - monsterSize, size.y * 0.28);
