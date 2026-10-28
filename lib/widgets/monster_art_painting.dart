@@ -26,8 +26,9 @@ const double _outlineWidthRatio = 0.025;
 /// 両目の中心の間隔 (目の直径に対する割合)。2 つの目が触れずに並んで 1 つの顔に見える間隔にした。
 const double _eyeSpacingRatio = 1.4;
 
-/// 目の半径の下限 (切り出した画像を描いた範囲の短い辺に対する割合)。横に広い被写体で eyeScale が小さいと、
-/// カードの小さな絵 (100 px 前後) で目が数 px になり見えなくなったため (サボテンの見本の写真で確認)。
+/// 目の半径の下限 (絵の枠の短い辺に対する割合)。横に広い被写体で eyeScale が小さいと、カードやバトルの小さな絵
+/// (100 px 前後) で目が数 px になり見えなくなったため (サボテンの見本の写真で確認)。切り出した画像の範囲ではなく枠に対して決めるのは、
+/// 横に広い被写体では画像の範囲の短い辺が枠より大きく縮み、下限も一緒に小さくなってしまうため。
 const double _minEyeRadiusRatio = 0.07;
 
 /// 目と口の黒。画面の地の色と同じにして、モックの色の数を増やさない。
@@ -145,7 +146,7 @@ void _paintDecorationVersion1({
   );
   final eyeRadius = math.max(
     subjectRect.width * decoration.eyeScale / 2,
-    artRect.shortestSide * _minEyeRadiusRatio,
+    size.shortestSide * _minEyeRadiusRatio,
   );
   for (final side in [-1.0, 1.0]) {
     _paintEye(

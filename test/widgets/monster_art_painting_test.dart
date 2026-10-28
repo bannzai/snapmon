@@ -154,10 +154,10 @@ void main() {
           color: SnapmonColors.background,
         ).length;
 
-    final small = await eyePixelCount(eyeScale: 0.2);
-    final large = await eyePixelCount(eyeScale: 0.6);
+    final small = await eyePixelCount(eyeScale: 0.25);
+    final large = await eyePixelCount(eyeScale: 0.7);
     expect(small, greaterThan(0));
-    // 目の面積は大きさの 2 乗に比例するため、3 倍の大きさなら面積は 9 倍近くになる (0.2 は目の大きさの下限より大きい値にした)
+    // 目の面積は大きさの 2 乗に比例するため、2.8 倍の大きさなら面積は 8 倍近くになる (0.25 は目の大きさの下限 (枠の 7%) より大きい値にした)
     expect(large, greaterThan(small * 6));
   });
 
