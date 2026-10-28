@@ -1,6 +1,7 @@
-import CoreImage
 import Flutter
+import ImageIO
 import UIKit
+import UniformTypeIdentifiers
 import Vision
 
 @main
@@ -80,15 +81,55 @@ func createSubjectMaskPng(photo: Data) throws -> Data? {
   guard let observation = request.results?.first, !observation.allInstances.isEmpty else {
     return nil
   }
-  let maskBuffer = try observation.generateScaledMaskForImage(forInstances: observation.allInstances, from: handler)
+  return try grayscalePng(mask: observation.generateScaledMaskForImage(forInstances: observation.allInstances, from: handler))
+}
+
+/// Vision のマスク [mask] (1 成分の float。0 が背景・1 が被写体) を、値を 0〜255 にそのまま写した 8 bit グレースケールの PNG にする。
+/// Core Image で書き出すと色空間の変換で白が 255 にならないおそれがあり、サーバーは 128 以上を被写体とみなすため
+/// (functions/src/generation/cutout.ts の SUBJECT_ALPHA_THRESHOLD)、画素の値を自分で写す。形式が 1 成分の float でなければ失敗にする。
+func grayscalePng(mask: CVPixelBuffer) throws -> Data {
+  guard CVPixelBufferGetPixelFormatType(mask) == kCVPixelFormatType_OneComponent32Float else {
+    throw SubjectMaskError.maskEncodingFailed
+  }
+  CVPixelBufferLockBaseAddress(mask, .readOnly)
+  defer { CVPixelBufferUnlockBaseAddress(mask, .readOnly) }
+  guard let baseAddress = CVPixelBufferGetBaseAddress(mask) else {
+    throw SubjectMaskError.maskEncodingFailed
+  }
+  let width = CVPixelBufferGetWidth(mask)
+  let height = CVPixelBufferGetHeight(mask)
+  let bytesPerRow = CVPixelBufferGetBytesPerRow(mask)
+  var grayPixels = [UInt8](repeating: 0, count: width * height)
+  for y in 0..<height {
+    let row = baseAddress.advanced(by: y * bytesPerRow).assumingMemoryBound(to: Float32.self)
+    for x in 0..<width {
+      let value = row[x].isNaN ? 0 : min(max(row[x], 0), 1)
+      grayPixels[y * width + x] = UInt8((value * 255).rounded())
+    }
+  }
+  let pngData = NSMutableData()
   guard
-    let png = CIContext().pngRepresentation(
-      of: CIImage(cvPixelBuffer: maskBuffer),
-      format: .L8,
-      colorSpace: CGColorSpaceCreateDeviceGray()
-    )
+    let provider = CGDataProvider(data: Data(grayPixels) as CFData),
+    let image = CGImage(
+      width: width,
+      height: height,
+      bitsPerComponent: 8,
+      bitsPerPixel: 8,
+      bytesPerRow: width,
+      space: CGColorSpaceCreateDeviceGray(),
+      bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.none.rawValue),
+      provider: provider,
+      decode: nil,
+      shouldInterpolate: false,
+      intent: .defaultIntent
+    ),
+    let destination = CGImageDestinationCreateWithData(pngData, UTType.png.identifier as CFString, 1, nil)
   else {
     throw SubjectMaskError.maskEncodingFailed
   }
-  return png
+  CGImageDestinationAddImage(destination, image, nil)
+  guard CGImageDestinationFinalize(destination) else {
+    throw SubjectMaskError.maskEncodingFailed
+  }
+  return pngData as Data
 }

@@ -268,6 +268,11 @@ class _GenerationScreenState extends State<GenerationScreen> {
   /// OS の切り出しで [photo] のマスクを決める。決まった (被写体が見つかった・範囲を決めずにマスク無しにした) 時は true、
   /// 範囲を決めてもらう画面にした時は false を返す。
   Future<bool> _decideMask({required Uint8List photo}) async {
+    // 範囲を決めた後の失敗 (crop のマスクを作れなかった) からもう一度試す時は、OS の切り出しをやり直さず決めた枠のまま範囲を決める画面に戻す
+    if (_crop != null) {
+      setState(() => _phase = _GenerationPhase.choosingRange);
+      return false;
+    }
     Uint8List? subjectMask;
     Object? subjectMaskError;
     try {
@@ -294,7 +299,9 @@ class _GenerationScreenState extends State<GenerationScreen> {
       return true;
     }
     if (!widget.cropsWhenSubjectNotFound) {
-      setState(() => _maskSource = GenerationMaskSource.none);
+      if (mounted) {
+        setState(() => _maskSource = GenerationMaskSource.none);
+      }
       return true;
     }
     final photoSize = photoPixelSize(photo: photo);

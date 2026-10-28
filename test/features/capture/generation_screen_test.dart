@@ -230,6 +230,59 @@ void main() {
       expect(find.text('あたらしい なかま'), findsOneWidget);
     });
 
+    testWidgets('crop のマスクを作れずにもう一度試す時は、OS の切り出しをやり直さず決めた枠のまま範囲を決める画面に戻す', (
+      tester,
+    ) async {
+      var subjectMaskCount = 0;
+      var squareMaskCount = 0;
+      await pumpGenerationScreen(
+        tester: tester,
+        startsFirstBattle: false,
+        sourcePhoto: readablePhoto,
+        generator: fakeMonsterGenerator(
+          calls: calls,
+          albumPhoto: null,
+          uploadError: null,
+          createSubjectMask: ({required photo}) async {
+            subjectMaskCount++;
+            return null;
+          },
+          createSquareMask: ({required photo, required crop}) async {
+            if (++squareMaskCount == 1) {
+              throw const FormatException('マスクを作れません');
+            }
+            return testSquareMaskBytes;
+          },
+          requestGeneration: savedGeneration(
+            monsterId: 'm1',
+            status: GenerationStatus.saved,
+            resultRequestId: null,
+          ),
+          fetchGeneration: unexpectedFetch,
+        ),
+      );
+      await tester.drag(
+        find.byKey(const Key('square-crop-area')),
+        const Offset(-200, 0),
+      );
+      await tester.pump();
+      await tester.tap(find.text('この範囲で作る'));
+      await tester.pumpAndSettle();
+      expect(find.textContaining('マスクを作れません'), findsOneWidget);
+      await tester.tap(find.text('もう一度試す'));
+      await tester.pumpAndSettle();
+      expect(find.text('モンスターにする範囲'), findsOneWidget);
+      expect(subjectMaskCount, 1);
+      await tester.tap(find.text('この範囲で作る'));
+      await tester.pumpAndSettle();
+      expect(calls.squareMaskCrops, [
+        (left: 0.0, top: 0.0, side: 30.0),
+        (left: 0.0, top: 0.0, side: 30.0),
+      ]);
+      expect(calls.requestedMaskSources, [GenerationMaskSource.crop]);
+      expect(find.text('あたらしい なかま'), findsOneWidget);
+    });
+
     testWidgets('OS の切り出しが失敗した時は、そのエラーを出して範囲を決める画面にする', (tester) async {
       await pumpGenerationScreen(
         tester: tester,
