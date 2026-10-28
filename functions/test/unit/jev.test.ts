@@ -60,10 +60,17 @@ describe("sameSubjectCandidateIds", () => {
 });
 
 describe("buildJudgeRequest / readJudgeResponse", () => {
-  it("属性ごとの Noul とステータスの Score を 1 リクエストに入れ、技が 1 帯 1 件の属性には Choice を付けない", () => {
+  it("属性ごとの Noul とステータスの Score を 1 リクエストに入れ、同じ帯に技が 2 つ以上ある属性に Choice を付ける", () => {
     const request = buildJudgeRequest({ description, elementTypes: master.elementTypes, moves: master.moves, statGrades: master.statGrades });
     expect(Object.keys(request.questions).filter((name) => name.startsWith("element__"))).toHaveLength(master.elementTypes.length);
     expect(Object.keys(request.questions).filter((name) => name.startsWith("stat__"))).toHaveLength(4);
+    // master は全属性が Lv.1 の帯に技を 4 つ持つ
+    expect(Object.keys(request.questions).filter((name) => name.startsWith("move__"))).toHaveLength(master.elementTypes.length);
+  });
+
+  it("技が 1 帯 1 件の属性には Choice を付けない", () => {
+    const oneMovePerBand = master.moves.filter((move) => /_\d$/.test(move.id));
+    const request = buildJudgeRequest({ description, elementTypes: master.elementTypes, moves: oneMovePerBand, statGrades: master.statGrades });
     expect(Object.keys(request.questions).filter((name) => name.startsWith("move__"))).toHaveLength(0);
   });
 

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../../analytics/analytics_events.dart';
 import '../../domain/battle/battle_engine.dart';
 import '../../domain/battle/battle_state.dart';
+import '../../domain/battle/move_special_effect.dart';
 import '../../domain/master/master_data.dart';
 import '../../domain/master/move.dart';
 import '../../domain/monster/stat_calculation.dart';
@@ -36,9 +37,6 @@ enum BattleOpponentKind {
   /// 他のユーザーの手持ち (非同期 PvP。相手の行動は CPU の規則で決める)。
   pvp,
 }
-
-/// 1 画面に並べる技のボタンの数 (モックの Battle.dc.html の「技 4 つ」)。
-const int _moveButtonCount = 4;
 
 /// 攻撃の前進の往復にかける時間。フィールドの演出 ([attackLungeSeconds]) と揃える。
 const Duration _lungeDuration = Duration(
@@ -166,6 +164,7 @@ class _BattleScreenState extends State<BattleScreen> {
       playerMembers: prepare(party: widget.playerParty),
       opponentMembers: prepare(party: widget.opponentParty),
       randomSeed: widget.randomSeed,
+      battleDate: DateTime.now(),
     );
     _displayedActiveMembers = _activeMembersOf(state: _battleState);
     _logText =
@@ -291,6 +290,12 @@ class _BattleScreenState extends State<BattleScreen> {
         setState(
           () => _logText = [
             '${attacker.definition.name} の ${move?.displayName ?? 'わるあがき'}',
+            // 効果が働かなかった (倍率 100%) 時は、起きていないことを出さない
+            if (event.specialEffect case (
+              :final powerPercent,
+              :final description,
+            ) when powerPercent > 100)
+              description,
             if (event.typeMultiplier > 1) 'こうかは ばつぐんだ',
             if (event.typeMultiplier < 1) 'こうかは いまひとつ',
           ].join('\n'),
@@ -548,8 +553,9 @@ class _BattleScreenState extends State<BattleScreen> {
       monster: playerMonster,
       master: widget.definitions,
     );
+    // 技のボタンは同時に使える技の数だけ並べる (モックの Battle.dc.html の「技 4 つ」)
     final moveSlots = [
-      for (var index = 0; index < _moveButtonCount; index++)
+      for (var index = 0; index < maximumEquippedMoveCount; index++)
         index < moves.length ? moves[index] : null,
     ];
     final canStruggle = !moves.any(
@@ -1036,6 +1042,15 @@ class _MoveButton extends StatelessWidget {
                         color: SnapmonColors.textOnCardMuted,
                       ),
                     ),
+                    if (move.specialEffect case final specialEffect?)
+                      Text(
+                        moveSpecialEffectSummary(kind: specialEffect.kind),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: SnapmonTextStyles.small.copyWith(
+                          color: SnapmonColors.textOnCard,
+                        ),
+                      ),
                   ],
                 ),
         ),
