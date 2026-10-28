@@ -42,7 +42,11 @@ bannzai（以下「提供者」といいます。）は、提供者の提供す�
 - ユーザーの元の写真のファイルは、そのユーザー本人の図鑑にだけ表示します。他のユーザーには表示せず、共有カードにも入れません。ただし、下のとおりモンスターの画像は元の写真の一部または全体であることがあります。
 - 生成したモンスターの画像・名前・属性・技・ステータスは、認証済みの他のユーザーが閲覧でき、対戦（PvP）と共有で表示されます。対戦では、手持ちのモンスターのレベルとユーザーの表示名も相手に表示されます。
 - モンスターの画像は、写真から被写体を切り出したもの（iPhone の被写体の切り出しの機能を使います）か、ユーザーが写真の上で選んだ範囲を切り取ったものです。範囲を選んだ場合は、その範囲に写る背景や周りの物も画像に含まれ、写真全体が画像になることもあります。被写体を切り出せず範囲も選ばなかった場合は、写真全体を画像にします。
-- 写真は、モンスターの生成の前に Google Cloud Vision API で、露骨な内容・暴力的な内容・顔の検出・ラベル（写っている物の種類）の判定を受けます。露骨な内容または暴力的な内容を含むと判定された写真と、顔が写る写真からは、モンスターを生成しません。顔が検出された写真は Anthropic の Claude API に送信しません。生成したイラストにも露骨な内容の判定をかけ、該当する場合は仮の絵に差し替えます。
+- モンスターの画像は、端末が決めた範囲を本サービスのサーバー（Cloud Functions for Firebase）が元の写真に当てはめて作ります。AI で絵を生成せず、画像生成の外部サービスに写真を送信しません。
+  <!-- source: functions/src/generation/cutout.ts: 端末が送ったマスク (iOS の OS の切り出しか crop) を検査済みの元の写真に sharp で適用し、マスクが無ければ写真全体を絵にする。サーバーではマスクを作らない。functions/src/generation/records.ts の GENERATION_STAGES: 段階は uploaded → safesearch → cutout → claude → classify → dedupe → judge → saved。functions/src/generation/pipeline.ts: 画像を外部へ送るのは safesearch の Cloud Vision (annotateImage に元の写真) と claude の Claude API (describeSubject に切り出した画像) だけで、classify 以降の Jev (askJev) と Claude (proposeElement) には被写体の説明の文字列だけを送る -->
+- 写真は、モンスターの生成の前に Google Cloud Vision API で、露骨な内容・暴力的な内容・顔の検出・ラベル（写っている物の種類）の判定を受けます。露骨な内容または暴力的な内容を含むと判定された写真と、顔が写る写真からは、モンスターを生成しません。顔が検出された写真は Anthropic の Claude API に送信しません。
+  <!-- source: functions/src/generation/pipeline.ts: Cloud Vision の annotateImage を呼ぶのは runSafeSearchStage の 1 か所で、切り出しの前の元の写真 (downscalePhoto で縮めたもの) にだけかける -->
+
 - 不適切と判定された写真と、同じ被写体の重複と判定された写真は、その時点で削除します。
 - 他人が写っている写真、他人の権利を侵害する写真を送信しないでください（利用規約を参照してください）。
 
@@ -72,8 +76,7 @@ bannzai（以下「提供者」といいます。）は、提供者の提供す�
   - BigQuery エクスポート: Google Analytics for Firebase の利用状況のイベントを、提供者の BigQuery に保存して集計します（保存期間は「保存期間」を参照してください）
   - Firebase Crashlytics: クラッシュ情報の収集
 - **Anthropic, PBC (Claude API)**: ユーザーが撮影・選択した写真のうち、顔が検出されなかったものは、Cloud Functions を経由して Anthropic の Claude API に送信され、被写体の説明、モンスターの名前、図鑑の文章の生成に利用されます。顔が検出された写真は送信しません。 https://www.anthropic.com/legal/privacy [^anthropic]
-- **Google Cloud Vision API (Google LLC)**: ユーザーが撮影・選択した写真は、露骨な内容・暴力的な内容の判定（SafeSearch）、顔の検出、写っている物のラベルの検出のために Cloud Vision API に送信されます。生成したイラストも、露骨な内容の判定（SafeSearch）のために送信されます。 https://policies.google.com/privacy?hl=ja [^vision]
-- **画像生成 API**: モンスターのイラストの生成に利用する予定です。サービスは選定後にこのポリシーに追記します
+- **Google Cloud Vision API (Google LLC)**: ユーザーが撮影・選択した写真は、露骨な内容・暴力的な内容の判定（SafeSearch）、顔の検出、写っている物のラベルの検出のために Cloud Vision API に送信されます。 https://policies.google.com/privacy?hl=ja [^vision]
 - **TypeSafe の Jev (TypeSafe)**: Claude API が作成した被写体の説明文（文字列）が、モンスターの属性・技・ステータスの判定のために Jev に送信されます。写真そのものは送信しません。 https://docs.typesafe.ai/models.md [^jev]
 
 [^anthropic]: 出典: https://privacy.claude.com/en/articles/7996868-is-my-data-used-for-model-training 「By default, we will not use your inputs or outputs from our commercial products ... to train our models.」（2026-10-21 に確認。API の利用が「commercial products」に当たるかは同ページの定義に従い、提供者が確かめた範囲では上記の記載のとおりです。Anthropic 側の保存期間は同社のポリシーに従います）
@@ -124,4 +127,4 @@ bannzai.app@gmail.com
 提供者は、必要に応じて、本ポリシーを変更します。ただし、法令上ユーザーの同意が必要となるような本ポリシーの変更を行う場合、変更後の本ポリシーは、提供者所定の方法で変更に同意したユーザーに対してのみ適用されるものとします。なお、提供者は、本ポリシーを変更する場合には、変更後の本ポリシーの施行時期および内容をアプリ上での表示その他の適切な方法により周知し、またはユーザーに通知します。
 
 【2026年10月21日制定】
-【2026年10月26日改定】
+【2026年10月28日改定】

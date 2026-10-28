@@ -86,32 +86,41 @@ class MonsterShareCard extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    definition.name,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: SnapmonTextStyles.cardTitle,
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    context.l10n.commonLevel(monster.level),
-                                    style: SnapmonTextStyles.caption.copyWith(
-                                      color: SnapmonColors.textOnCardMuted,
+                        LayoutBuilder(
+                          builder: (context, constraints) => Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      definition.name,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: SnapmonTextStyles.cardTitle,
                                     ),
-                                  ),
-                                ],
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      context.l10n.commonLevel(monster.level),
+                                      style: SnapmonTextStyles.caption.copyWith(
+                                        color: SnapmonColors.textOnCardMuted,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                            const SizedBox(width: 8),
-                            Flexible(child: elementTypeTags),
-                          ],
+                              const SizedBox(width: 8),
+                              // 属性のタグは自分の幅だけを取り、残りを名前に渡す。上限の半分は、直す前の Flexible が
+                              // 名前と分け合っていた幅で、属性が多い時はその幅の中で折り返す
+                              ConstrainedBox(
+                                constraints: BoxConstraints(
+                                  maxWidth: constraints.maxWidth / 2,
+                                ),
+                                child: elementTypeTags,
+                              ),
+                            ],
+                          ),
                         ),
                         const SizedBox(height: 14),
                         Expanded(
