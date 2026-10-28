@@ -58,15 +58,17 @@ const USER_AGENT = "snapmon-build-sample-art/1.0 (https://github.com/bannzai/sna
 
 /** Commons の [commonsFile] の、幅 COMMONS_THUMBNAIL_WIDTH の縮小版を読む。 */
 async function fetchCommonsPhoto(commonsFile) {
-  const query = new URLSearchParams({
-    action: "query",
-    format: "json",
-    titles: `File:${commonsFile}`,
-    prop: "imageinfo",
-    iiprop: "url",
-    iiurlwidth: String(COMMONS_THUMBNAIL_WIDTH),
-  });
-  const response = await fetch(`https://commons.wikimedia.org/w/api.php?${query}`, { headers: { "User-Agent": USER_AGENT } });
+  const response = await fetch(
+    `https://commons.wikimedia.org/w/api.php?${new URLSearchParams({
+      action: "query",
+      format: "json",
+      titles: `File:${commonsFile}`,
+      prop: "imageinfo",
+      iiprop: "url",
+      iiurlwidth: String(COMMONS_THUMBNAIL_WIDTH),
+    })}`,
+    { headers: { "User-Agent": USER_AGENT } },
+  );
   if (!response.ok) {
     throw new Error(`${commonsFile} の情報を取得できませんでした: HTTP ${response.status}`);
   }
@@ -97,6 +99,7 @@ async function cropPhoto({ photo, crop }) {
     .toBuffer();
 }
 
+/** 写真から被写体のマスクを作る関数。本番の generate と同じモデル (IS-Net) を読み込む。 */
 const segmentSubject = cutout.createSegmentSubject({ modelPath: cutout.SEGMENTATION_MODEL_PATH });
 mkdirSync(artDirectory, { recursive: true });
 for (const { monsterId, commonsFile, crop } of SAMPLE_PHOTOS) {
