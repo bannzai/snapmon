@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:snapmon/domain/battle/battle_engine.dart';
 import 'package:snapmon/domain/battle/battle_state.dart';
 import 'package:snapmon/sample/sample_data.dart';
 
@@ -57,6 +58,18 @@ void main() {
           returnsNormally,
         );
       }
+    }
+  });
+
+  test('見本のモンスターは生まれた時の技 (Lv.1) を技の枠の数だけ持つ', () {
+    for (final monster in sampleData.monsters) {
+      expect(
+        monster.definition.learnset.where(
+          (learnsetEntry) => learnsetEntry.unlockLevel == 1,
+        ),
+        hasLength(maximumEquippedMoveCount),
+        reason: monster.definition.id,
+      );
     }
   });
 
