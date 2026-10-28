@@ -199,7 +199,7 @@ export interface DedupeThresholds {
  * 同じ被写体の判定の閾値 (documents/game-rules.md「Jev の閾値」の実測で決めた値)。
  * 肯定が `thresholdYes` 以上かつ否定が `thresholdNo` 以下の時だけ同じ個体とする (揺れは別の物として扱い、登録を止めない)。
  */
-export const DEDUPE_THRESHOLDS: DedupeThresholds = { thresholdYes: 0.58, thresholdNo: 0.45 };
+export const DEDUPE_THRESHOLDS: DedupeThresholds = { thresholdYes: 0.55, thresholdNo: 0.45 };
 
 /** 同じ個体と判定された候補の識別子を、肯定側の確率の高い順に返す。 */
 export function sameSubjectCandidateIds({

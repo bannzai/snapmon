@@ -61,11 +61,21 @@ describe("sameSubjectCandidateIds", () => {
   it("較正 (2026-10-28) の同じ物の境目 (本番で撮り直したマグカップ) は同じ個体とし、同じ種類の別の物の境目は別の物とする", () => {
     expect(
       sameSubjectCandidateIds({
-        responses: [response([[0.66, 0.35], [0.71, 0.37], [0.49, 0.54], [0.4, 0.52]])],
+        responses: [response([[0.59, 0.36], [0.71, 0.37], [0.49, 0.54], [0.4, 0.52]])],
         candidates,
         thresholds: DEDUPE_THRESHOLDS,
       }),
     ).toEqual(["b", "a"]);
+  });
+
+  it("既知の限界: 同じ色・素材・位置の絵柄の題材を説明が読み分けられない別の物 (較正の 30 と 01) は同じ個体になる (documents/game-rules.md「見分けられない対」)", () => {
+    expect(
+      sameSubjectCandidateIds({
+        responses: [response([[0.82, 0.18], [0.71, 0.41]])],
+        candidates: candidates.slice(0, 2),
+        thresholds: DEDUPE_THRESHOLDS,
+      }),
+    ).toEqual(["a", "b"]);
   });
 });
 
