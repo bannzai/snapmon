@@ -154,11 +154,26 @@ void main() {
           color: SnapmonColors.background,
         ).length;
 
-    final small = await eyePixelCount(eyeScale: 0.1);
-    final large = await eyePixelCount(eyeScale: 0.3);
+    final small = await eyePixelCount(eyeScale: 0.2);
+    final large = await eyePixelCount(eyeScale: 0.6);
     expect(small, greaterThan(0));
-    // 目の面積は大きさの 2 乗に比例するため、3 倍の大きさなら面積は 9 倍近くになる
+    // 目の面積は大きさの 2 乗に比例するため、3 倍の大きさなら面積は 9 倍近くになる (0.2 は目の大きさの下限より大きい値にした)
     expect(large, greaterThan(small * 6));
+  });
+
+  test('黒で塗る目 (sparkle・dot) は、暗い被写体の上でも見えるよう白い縁を付けて描く', () async {
+    for (final eyeStyle in [MonsterEyeStyle.sparkle, MonsterEyeStyle.dot]) {
+      final eyeWhitePixels = pixelsOfColor(
+        pixels: await paintPixels(
+          monster: monsterWith(
+            decoration: testDecoration(eyeStyle: eyeStyle),
+            decorationVersion: 1,
+          ),
+        ),
+        color: SnapmonColors.card,
+      );
+      expect(eyeWhitePixels, isNotEmpty, reason: eyeStyle.name);
+    }
   });
 
   test('すべての形の組み合わせを描ける', () async {

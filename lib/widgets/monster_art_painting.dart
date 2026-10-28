@@ -28,7 +28,7 @@ const double _eyeSpacingRatio = 1.4;
 
 /// 目の半径の下限 (切り出した画像を描いた範囲の短い辺に対する割合)。横に広い被写体で eyeScale が小さいと、
 /// カードの小さな絵 (100 px 前後) で目が数 px になり見えなくなったため (サボテンの見本の写真で確認)。
-const double _minEyeRadiusRatio = 0.05;
+const double _minEyeRadiusRatio = 0.07;
 
 /// 目と口の黒。画面の地の色と同じにして、モックの色の数を増やさない。
 const Color _inkColor = SnapmonColors.background;
@@ -454,7 +454,7 @@ void _paintEye({
     // 黒で塗る目は、暗い被写体の上でも見えるよう白い縁を付ける
     case MonsterEyeStyle.sparkle:
       canvas
-        ..drawCircle(center, radius * 1.18, whitePaint)
+        ..drawCircle(center, radius * 1.35, whitePaint)
         ..drawCircle(center, radius, inkPaint)
         ..drawCircle(
           center + Offset(-radius * 0.3, -radius * 0.3),
@@ -468,7 +468,7 @@ void _paintEye({
         );
     case MonsterEyeStyle.dot:
       canvas
-        ..drawCircle(center, radius * 0.68, whitePaint)
+        ..drawCircle(center, radius * 0.85, whitePaint)
         ..drawCircle(center, radius * 0.5, inkPaint);
   }
 }
