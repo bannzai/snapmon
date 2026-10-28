@@ -39,7 +39,7 @@ const master = JSON.parse(readFileSync(path.join(__dirname, "..", "..", "..", "a
 const descriptions = JSON.parse(readFileSync(path.join(__dirname, "..", "fixtures", "calibration", "descriptions.json"), "utf8")) as Record<string, DescribeSubjectOutput>;
 
 beforeAll(async () => {
-  await firestore.doc("master/1").set(master);
+  await firestore.doc(`master/${master.version}`).set(master);
 });
 
 afterAll(async () => {
@@ -48,7 +48,7 @@ afterAll(async () => {
 
 beforeEach(async () => {
   await fetch(`http://127.0.0.1:8080/emulator/v1/projects/${projectId}/databases/(default)/documents`, { method: "DELETE" });
-  await firestore.doc("master/1").set(master);
+  await firestore.doc(`master/${master.version}`).set(master);
   const [files] = await bucket.getFiles();
   await Promise.all(files.map((file) => file.delete({ ignoreNotFound: true })));
 });
@@ -288,6 +288,7 @@ describe("generate", () => {
     const monster = (await firestore.doc(`users/alice/monsters/${first.monsterId}`).get()).data() as MonsterDocument;
     expect(monster.definition.name).toBe(descriptions["01"].name);
     expect(monster.definition.elementTypeIds).toEqual(["metal"]);
+    expect(monster.definition.learnset.filter((entry) => entry.unlockLevel === 1).map((entry) => entry.moveId)).toEqual(["metal_1", "metal_1b", "metal_1c", "metal_1d"]);
     expect(monster.definition.baseStats).toEqual({ hitPoints: 80, attack: 80, defense: 80, speed: 80 });
     expect(monster.categoryIds[0]).toBe("tableware");
     const [artExists] = await bucket.file(`monsters/${first.monsterId}/art.png`).exists();
@@ -297,6 +298,26 @@ describe("generate", () => {
     expect((await bucket.file(data.photoPath).exists())[0]).toBe(true);
     // ロックは外れている
     expect((await firestore.doc("users/alice").get()).get("generationLock")).toBeUndefined();
+  });
+
+  it("写真から保存までの間に MaxListenersExceededWarning を出さない (#73)", async () => {
+    const warnings: Error[] = [];
+    const onWarning = (warning: Error) => {
+      if (warning.name === "MaxListenersExceededWarning") {
+        warnings.push(warning);
+      }
+    };
+    process.on("warning", onWarning);
+    try {
+      expect(
+        (await handleGenerateRequest(createMocks().dependencies, signedInRequest({ uid: "alice", data: await uploadPhoto({ uid: "alice", photo: photoFixture("01") }) }))).status,
+      ).toBe("saved");
+      // 警告は process.nextTick で届くため、1 周待ってから数える
+      await new Promise(setImmediate);
+    } finally {
+      process.off("warning", onWarning);
+    }
+    expect(warnings.map((warning) => warning.message)).toEqual([]);
   });
 
   it("同じ写真を別の requestId で送ると、新しいレコードを作らず先の結果を返す", async () => {
@@ -721,7 +742,15 @@ describe("generate", () => {
     expect(monster.definitionIds).toEqual([elementTypeId]);
     const definition = (await firestore.doc(`definitions/${elementTypeId}`).get()).data()!;
     expect(definition).toMatchObject({ version: 1, elementTypes: [{ id: elementTypeId, displayName: "ろう" }] });
-    expect(monster.definition.learnset.map((entry) => entry.moveId)).toEqual([`${elementTypeId}_1`, `${elementTypeId}_2`, `${elementTypeId}_3`]);
+    // その場で作った属性は段階 1 の技を 1 つしか持たないため、Lv.1 の残りを master の別の属性 (当てはまりが同じ 0.05 なので ID 順) で埋める
+    expect(monster.definition.learnset).toEqual([
+      { moveId: `${elementTypeId}_1`, unlockLevel: 1 },
+      { moveId: "cloth_1", unlockLevel: 1 },
+      { moveId: "electric_1", unlockLevel: 1 },
+      { moveId: "food_1", unlockLevel: 1 },
+      { moveId: `${elementTypeId}_2`, unlockLevel: 15 },
+      { moveId: `${elementTypeId}_3`, unlockLevel: 100 },
+    ]);
     expect((await firestore.doc("definitionCounters/global").get()).data()).toEqual({ elementCount: 1, moveCount: 3 });
   });
 });
