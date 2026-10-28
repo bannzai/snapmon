@@ -120,8 +120,16 @@ Uint8List _squareMaskPngFromPhoto(({Uint8List photo, SquareCrop crop}) input) {
   );
 }
 
-/// [photo] に [mask] を当て、マスクの値を透明度にした PNG (プレビュー用。サーバーの切り出しと同じく、マスクは写真の大きさに引き伸ばす)。
-/// 読めない形式は [FormatException] を投げる。
+/// 被写体とみなすマスクの値。サーバーの切り出し (functions/src/generation/cutout.ts の SUBJECT_ALPHA_THRESHOLD) と同じ値にし、
+/// プレビューと生成される絵を揃える。
+const int _subjectAlphaThreshold = 128;
+
+/// 切り出した絵の周りに残す余白 (被写体の外接矩形の長辺に対する割合)。サーバーの CUTOUT_MARGIN_RATIO と同じ値。
+const double _cutoutMarginRatio = 0.04;
+
+/// [photo] に [mask] を当てたプレビューの PNG。サーバーの切り出し (functions/src/generation/cutout.ts の applyMask) と同じく、
+/// マスクを写真の大きさに引き伸ばし、値が [_subjectAlphaThreshold] 以上の画素だけをその値の透明度で残し、被写体の外接矩形と余白で切り詰める。
+/// 被写体の画素が無い時は写真全体を返す (サーバーも写真全体を絵にする)。読めない形式は [FormatException] を投げる。
 Uint8List cutoutPreviewPng({
   required Uint8List photo,
   required Uint8List mask,
@@ -137,10 +145,39 @@ Uint8List cutoutPreviewPng({
     height: decodedPhoto.height,
   );
   final preview = decodedPhoto.convert(numChannels: 4);
+  var left = preview.width;
+  var top = preview.height;
+  var right = -1;
+  var bottom = -1;
   for (final pixel in preview) {
-    pixel.a = resizedMask.getPixel(pixel.x, pixel.y).r;
+    final alpha = resizedMask.getPixel(pixel.x, pixel.y).r.toInt();
+    if (alpha < _subjectAlphaThreshold) {
+      pixel.a = 0;
+      continue;
+    }
+    pixel.a = alpha;
+    left = math.min(left, pixel.x);
+    top = math.min(top, pixel.y);
+    right = math.max(right, pixel.x);
+    bottom = math.max(bottom, pixel.y);
   }
-  return img.encodePng(preview);
+  if (right < 0) {
+    return img.encodePng(decodedPhoto);
+  }
+  final margin =
+      (math.max(right - left + 1, bottom - top + 1) * _cutoutMarginRatio)
+          .round();
+  final cropLeft = math.max(0, left - margin);
+  final cropTop = math.max(0, top - margin);
+  return img.encodePng(
+    img.copyCrop(
+      preview,
+      x: cropLeft,
+      y: cropTop,
+      width: math.min(preview.width, right + margin + 1) - cropLeft,
+      height: math.min(preview.height, bottom + margin + 1) - cropTop,
+    ),
+  );
 }
 
 /// [cutoutPreviewPng] を別の isolate で実行する ([MonsterGenerator.createCutoutPreview]。Web では同じスレッドで動く)。

@@ -113,20 +113,33 @@ void main() {
     expect(mask.getPixel(10, 25).r, 0);
   });
 
-  test('cutoutPreviewPng はマスクの値を透明度にし、写真の色を残す', () {
+  test('cutoutPreviewPng はサーバーと同じく被写体の外接矩形と余白で切り詰め、写真の色を残す', () {
     final preview = img.decodePng(
       cutoutPreviewPng(
-        photo: redPhoto(width: 40, height: 30),
+        photo: redPhoto(width: 400, height: 300),
         mask: squareMaskPng(
-          photoWidth: 40,
-          photoHeight: 30,
-          crop: (left: 10, top: 5, side: 20),
+          photoWidth: 400,
+          photoHeight: 300,
+          crop: (left: 100, top: 50, side: 100),
         ),
       ),
     )!;
-    expect((preview.width, preview.height), (40, 30));
-    expect(preview.getPixel(20, 15).a, 255);
-    expect(preview.getPixel(20, 15).r, greaterThan(200));
+    // 一辺 100 の被写体に、長辺の 4% (4px) の余白を四方に足した大きさ
+    expect((preview.width, preview.height), (108, 108));
+    expect(preview.getPixel(54, 54).a, 255);
+    expect(preview.getPixel(54, 54).r, greaterThan(200));
     expect(preview.getPixel(0, 0).a, 0);
+  });
+
+  test('cutoutPreviewPng はマスクの値が 128 未満の画素を透明にし、被写体の画素が無い時は写真全体を返す', () {
+    final faintMask = img.encodePng(
+      img.Image(width: 40, height: 30, numChannels: 1)
+        ..clear(img.ColorUint8.rgb(100, 100, 100)),
+    );
+    final preview = img.decodePng(
+      cutoutPreviewPng(photo: redPhoto(width: 40, height: 30), mask: faintMask),
+    )!;
+    expect((preview.width, preview.height), (40, 30));
+    expect(preview.getPixel(20, 15).r, greaterThan(200));
   });
 }
