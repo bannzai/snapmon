@@ -33,6 +33,8 @@ export interface MasterMove {
   learnableLevelMinimum: number;
   /** 覚えさせてよいレベル帯の上限。 */
   learnableLevelMaximum: number;
+  /** 技の特殊効果 (種類と威力の倍率の最大 %)。生成では使わず、計算は端末のバトル (lib/domain/battle/move_special_effect.dart) が行う。 */
+  specialEffect?: { kind: string; maximumPowerPercent: number };
 }
 
 /** ステータスの段階と種族値の対応。 */

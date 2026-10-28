@@ -32,10 +32,19 @@ class OwnedMonster {
   /// 今のレベル。
   final int level;
 
-  /// 写真から切り出した被写体の画像の Storage のパス (`monsters/{monsterId}/art.png`)。
-  /// 見本のモンスターは切り出した画像を持たず null で、仮の絵を描く。
+  /// 写真から切り出した被写体の画像のパス。図鑑・PvP の相手のモンスターは Storage のパス (`monsters/{monsterId}/art.png`)、
+  /// 見本のモンスターはアプリに同梱した asset のパス (`assets/samples/art/{monsterId}.png`。[isBundledArtPath])。
+  /// null の時は仮の絵を描く。
   final String? artPath;
 
   /// 参照するその場で作った属性・技の定義 (`definitions/{definitionId}`) の ID。見本のモンスターは空。
   final List<String> definitionIds;
 }
+
+/// 見本のモンスターの切り出した画像を同梱した asset のディレクトリ (functions/scripts/build-sample-art.mjs が書く)。
+const String sampleArtAssetDirectory = 'assets/samples/art/';
+
+/// [artPath] ([OwnedMonster.artPath]) が、Storage ではなくアプリに同梱した見本の画像か。
+/// 見本の画像は Storage に無く、ログインせずに使う時 (DEBUG ビルド) も読めるよう asset から読むため、読む側がこれで分ける。
+bool isBundledArtPath({required String artPath}) =>
+    artPath.startsWith(sampleArtAssetDirectory);

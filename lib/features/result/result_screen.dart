@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../domain/battle/battle_engine.dart';
 import '../../domain/master/move.dart';
 import '../../domain/monster/stat_calculation.dart';
 import '../../theme/snapmon_colors.dart';
@@ -214,7 +215,7 @@ class ResultScreen extends StatelessWidget {
                                   child: _LabeledPanel(
                                     label: '写真',
                                     // 元の写真は本人の図鑑だけに出す (Storage の Rules で本人だけが読める)。
-                                    // 見本のモンスターは写真も切り出した画像も持たないため、印だけを出す
+                                    // 見本のモンスターは元の写真を持たない (sourcePhotoReference が null) ため、印だけを出す
                                     child: ColoredBox(
                                       color: SnapmonColors.surfaceRaised,
                                       child:
@@ -320,13 +321,16 @@ class ResultScreen extends StatelessWidget {
                             spacing: 6,
                             runSpacing: 6,
                             children: [
-                              for (final learnsetEntry in definition.learnset)
-                                if (learnsetEntry.unlockLevel <= monster.level)
-                                  _MoveChip(
-                                    move: dexStore.definitions.moveById(
-                                      moveId: learnsetEntry.moveId,
-                                    ),
+                              for (final learnsetEntry
+                                  in equippedLearnsetEntries(
+                                    learnset: definition.learnset,
+                                    level: monster.level,
+                                  ))
+                                _MoveChip(
+                                  move: dexStore.definitions.moveById(
+                                    moveId: learnsetEntry.moveId,
                                   ),
+                                ),
                             ],
                           ),
                         ],

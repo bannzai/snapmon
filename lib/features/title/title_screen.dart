@@ -99,8 +99,10 @@ class TitleScreen extends StatefulWidget {
   })
   logEvent;
 
-  /// 下タブの画面を [tab] から開く。
-  final void Function({required HomeTab tab}) onEnterHome;
+  /// 下タブの画面を [tab] から開く。[startsCamera] は撮る画面を開いた時に押すのを待たずにカメラを開くか
+  /// (「カメラで撮ってはじめる」を押した時だけ true)。
+  final void Function({required HomeTab tab, required bool startsCamera})
+  onEnterHome;
 
   @override
   State<TitleScreen> createState() => _TitleScreenState();
@@ -297,6 +299,7 @@ class _TitleScreenState extends State<TitleScreen> {
           tab: action == ResultScreenAction.openDex
               ? HomeTab.dex
               : HomeTab.capture,
+          startsCamera: false,
         );
       }
     },
@@ -310,7 +313,10 @@ class _TitleScreenState extends State<TitleScreen> {
     work: () async {
       await _logAction(action: action);
       if (await _ensureCanEnterApp() && mounted) {
-        widget.onEnterHome(tab: tab);
+        widget.onEnterHome(
+          tab: tab,
+          startsCamera: action == TitleAction.camera,
+        );
       }
     },
   );

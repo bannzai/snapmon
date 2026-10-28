@@ -78,6 +78,9 @@ class _SnapmonAppState extends State<SnapmonApp> {
   /// 下タブの画面に入った時の最初のタブ。タイトルを出している間は null。
   HomeTab? _homeTab;
 
+  /// 下タブの画面に入った時に、撮る画面で押すのを待たずにカメラを開くか (タイトルの「カメラで撮ってはじめる」から来た時)。
+  bool _startsCameraOnHomeOpen = false;
+
   @override
   void initState() {
     super.initState();
@@ -117,12 +120,17 @@ class _SnapmonAppState extends State<SnapmonApp> {
             isDeveloperMenuEnabled: widget.isDeveloperMenuEnabled,
             accountStore: widget.accountStore,
             logEvent: widget.logEvent,
-            onEnterHome: ({required tab}) => setState(() => _homeTab = tab),
+            onEnterHome: ({required tab, required startsCamera}) =>
+                setState(() {
+                  _homeTab = tab;
+                  _startsCameraOnHomeOpen = startsCamera;
+                }),
             battleRecorder: widget.battleRecorder,
           );
         }
         return HomeShell(
           initialTab: homeTab,
+          startsCameraOnCaptureOpen: _startsCameraOnHomeOpen,
           sampleData: widget.sampleData,
           dexStore: widget.dexStore,
           sessionStore: widget.sessionStore,

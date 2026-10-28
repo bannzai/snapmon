@@ -57,13 +57,42 @@ describe("sameSubjectCandidateIds", () => {
       }),
     ).toEqual(["a", "d"]);
   });
+
+  // 下の 2 件は閾値と較正の値の対応を固定するだけで、Jev の答えそのものは見ない。問いの文言・閾値を変えた時は
+  // functions/scripts/calibrate-jev.mjs で測り直す (documents/game-rules.md「Jev の閾値」)
+  it("較正 (2026-10-28) の同じ物の境目 (本番で撮り直したマグカップ) は同じ個体とし、同じ種類の別の物の境目は別の物とする", () => {
+    expect(
+      sameSubjectCandidateIds({
+        responses: [response([[0.59, 0.36], [0.71, 0.37], [0.49, 0.54], [0.4, 0.52]])],
+        candidates,
+        thresholds: DEDUPE_THRESHOLDS,
+      }),
+    ).toEqual(["b", "a"]);
+  });
+
+  it("既知の限界: 同じ色・素材・位置の絵柄の題材を説明が読み分けられない別の物 (較正の 30 と 01) は同じ個体になる (documents/game-rules.md「見分けられない対」)", () => {
+    expect(
+      sameSubjectCandidateIds({
+        responses: [response([[0.82, 0.18], [0.71, 0.41]])],
+        candidates: candidates.slice(0, 2),
+        thresholds: DEDUPE_THRESHOLDS,
+      }),
+    ).toEqual(["a", "b"]);
+  });
 });
 
 describe("buildJudgeRequest / readJudgeResponse", () => {
-  it("属性ごとの Noul とステータスの Score を 1 リクエストに入れ、技が 1 帯 1 件の属性には Choice を付けない", () => {
+  it("属性ごとの Noul とステータスの Score を 1 リクエストに入れ、同じ帯に技が 2 つ以上ある属性に Choice を付ける", () => {
     const request = buildJudgeRequest({ description, elementTypes: master.elementTypes, moves: master.moves, statGrades: master.statGrades });
     expect(Object.keys(request.questions).filter((name) => name.startsWith("element__"))).toHaveLength(master.elementTypes.length);
     expect(Object.keys(request.questions).filter((name) => name.startsWith("stat__"))).toHaveLength(4);
+    // master は全属性が Lv.1 の帯に技を 4 つ持つ
+    expect(Object.keys(request.questions).filter((name) => name.startsWith("move__"))).toHaveLength(master.elementTypes.length);
+  });
+
+  it("技が 1 帯 1 件の属性には Choice を付けない", () => {
+    const oneMovePerBand = master.moves.filter((move) => /_\d$/.test(move.id));
+    const request = buildJudgeRequest({ description, elementTypes: master.elementTypes, moves: oneMovePerBand, statGrades: master.statGrades });
     expect(Object.keys(request.questions).filter((name) => name.startsWith("move__"))).toHaveLength(0);
   });
 

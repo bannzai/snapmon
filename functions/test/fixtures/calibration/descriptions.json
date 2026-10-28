@@ -569,6 +569,62 @@
       "outlineColorHex": "#5A3A1E"
     }
   },
+  "30": {
+    "description": {
+      "what": "白いホーローのマグカップ",
+      "colors": [
+        "白",
+        "黒"
+      ],
+      "materials": [
+        "金属"
+      ],
+      "size": "small",
+      "hardness": "hard",
+      "temperature": "neutral",
+      "uses": [
+        "飲み物を飲む"
+      ],
+      "impression": [
+        "シンプル",
+        "レトロ"
+      ],
+      "distinctiveMarks": [
+        "側面に黒い猫の絵柄",
+        "黒い縁取りの飲み口",
+        "猫の下に小さな黒い文字"
+      ]
+    },
+    "name": "(手で書いた見本)"
+  },
+  "31": {
+    "description": {
+      "what": "白いホーローのマグカップ",
+      "colors": [
+        "白",
+        "黒"
+      ],
+      "materials": [
+        "金属"
+      ],
+      "size": "small",
+      "hardness": "hard",
+      "temperature": "neutral",
+      "uses": [
+        "飲み物を飲む"
+      ],
+      "impression": [
+        "シンプル",
+        "レトロ"
+      ],
+      "distinctiveMarks": [
+        "側面に黒い山並みの絵柄",
+        "黒い縁取りの飲み口",
+        "山の上に小さな黒い星の模様"
+      ]
+    },
+    "name": "(手で書いた見本)"
+  },
   "01": {
     "description": {
       "what": "白いホーローのマグカップ",
@@ -1036,5 +1092,65 @@
       "outlineColorHex": "#5A3A22"
     },
     "containsPerson": false
+  },
+  "01p": {
+    "description": {
+      "what": "白いホーローのマグカップ",
+      "colors": [
+        "白",
+        "黒"
+      ],
+      "materials": [
+        "金属"
+      ],
+      "size": "small",
+      "hardness": "hard",
+      "temperature": "neutral",
+      "uses": [
+        "飲み物を飲む"
+      ],
+      "impression": [
+        "シンプル",
+        "レトロ",
+        "すっきり"
+      ],
+      "distinctiveMarks": [
+        "側面に黒いドクロの絵柄",
+        "絵柄の中に白い文字",
+        "縁が黒いふち取り",
+        "左側に小さな放射状の模様"
+      ]
+    },
+    "name": "ホーローマグン"
+  },
+  "01bp": {
+    "description": {
+      "what": "白いホーローのマグカップ",
+      "colors": [
+        "白",
+        "黒"
+      ],
+      "materials": [
+        "金属"
+      ],
+      "size": "small",
+      "hardness": "hard",
+      "temperature": "cold",
+      "uses": [
+        "飲み物を飲む",
+        "飲み物を入れる"
+      ],
+      "impression": [
+        "シンプル",
+        "クール",
+        "すっきり"
+      ],
+      "distinctiveMarks": [
+        "黒い縁取り",
+        "側面の大きな黒い横顔の絵柄",
+        "小さな黒い放射状の模様"
+      ]
+    },
+    "name": "ホーロマグン"
   }
 }

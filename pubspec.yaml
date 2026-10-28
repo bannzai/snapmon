@@ -51,6 +51,9 @@ dependencies:
   uuid: ^4.6.0
   share_plus: ^13.3.1
   google_sign_in: ^7.2.0
+  # 13 系の permission_handler_android 14 は build.gradle.kts がこのプロジェクトの Kotlin Gradle プラグインで
+  # コンパイルできない (`kotlin { compilerOptions }` が解決されない) ため、Groovy の build.gradle の 12 系に留める
+  permission_handler: ">=12.0.1 <13.0.0"
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +66,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
   flame_test: ^2.3.1
+  camera_platform_interface: ^2.15.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -79,6 +83,7 @@ flutter:
   assets:
     - assets/samples/
     - assets/samples/photos/
+    - assets/samples/art/
     - assets/fonts/dela_gothic_one/OFL.txt
     - assets/fonts/zen_kaku_gothic_new/OFL.txt
 
