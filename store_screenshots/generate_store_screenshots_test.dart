@@ -332,9 +332,9 @@ OwnedMonster _withLevel({required OwnedMonster monster, required int level}) =>
 /// (受け取った側が使い終わった画像を dispose するため)。
 CardSharer _cardSharer({required Map<String, ui.Image> artImagesByPath}) =>
     CardSharer(
-      loadArtImage: ({required storagePath}) async =>
-          artImagesByPath[storagePath]?.clone() ??
-          (throw StateError('$storagePath の絵はスクリーンショットに用意していない')),
+      loadArtImage: ({required artPath}) async =>
+          artImagesByPath[artPath]?.clone() ??
+          (throw StateError('$artPath の絵はスクリーンショットに用意していない')),
       renderPng: ({required view, required card, required format}) =>
           throw StateError('スクリーンショットでは共有しない'),
       shareImage:
@@ -373,6 +373,8 @@ Widget _homeShell({
   );
   return HomeShell(
     initialTab: initialTab,
+    // 撮るページはファインダーに写真を映すため、押すのを待たずにカメラを開いた状態で描く
+    startsCameraOnCaptureOpen: initialTab == HomeTab.capture,
     sampleData: sampleData,
     dexStore: dexStore,
     sessionStore: sessionStore,
@@ -385,6 +387,7 @@ Widget _homeShell({
     ),
     monsterGenerator: MonsterGenerator(
       listCameras: () async => const [StoreScreenshotCameraPlatform.backCamera],
+      openAppSettings: () async => false,
       pickAlbumPhoto: () async => null,
       preparePhoto: ({required sourceBytes}) async => sourceBytes,
       createRequestId: () => 'store-screenshot-request',
