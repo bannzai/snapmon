@@ -37,9 +37,6 @@ enum BattleOpponentKind {
   pvp,
 }
 
-/// 1 画面に並べる技のボタンの数 (モックの Battle.dc.html の「技 4 つ」)。
-const int _moveButtonCount = 4;
-
 /// 攻撃の前進の往復にかける時間。フィールドの演出 ([attackLungeSeconds]) と揃える。
 const Duration _lungeDuration = Duration(
   milliseconds: (attackLungeSeconds * 2 * 1000) ~/ 1,
@@ -552,8 +549,9 @@ class _BattleScreenState extends State<BattleScreen> {
       monster: playerMonster,
       master: widget.definitions,
     );
+    // 技のボタンは同時に使える技の数だけ並べる (モックの Battle.dc.html の「技 4 つ」)
     final moveSlots = [
-      for (var index = 0; index < _moveButtonCount; index++)
+      for (var index = 0; index < maximumEquippedMoveCount; index++)
         index < moves.length ? moves[index] : null,
     ];
     final canStruggle = !moves.any(
