@@ -12,6 +12,7 @@ import 'package:snapmon/features/share/card_sharer.dart';
 import 'package:snapmon/features/share/render_widget_png.dart';
 import 'package:snapmon/features/share/share_cards.dart';
 import 'package:snapmon/l10n/l10n.dart';
+import 'package:snapmon/widgets/monster_parts.dart';
 import 'package:snapmon/widgets/storage_image.dart';
 
 import '../../card_sharer_fixture.dart';
@@ -73,9 +74,13 @@ void main() {
     required ui.Image artImage,
   }) {
     expect(find.byType(StorageImage), findsNothing);
-    final rawImages = find.byType(RawImage);
-    expect(rawImages, findsOneWidget);
-    expect(tester.widget<RawImage>(rawImages).image, same(artImage));
+    expect(find.byType(RawImage), findsNothing);
+    final decoratedArts = find.byType(DecoratedMonsterArt);
+    expect(decoratedArts, findsOneWidget);
+    expect(
+      tester.widget<DecoratedMonsterArt>(decoratedArts).artImage,
+      same(artImage),
+    );
   }
 
   /// 8×8 の切り出した画像の代わり。テストの終わりに dispose する。
@@ -172,6 +177,8 @@ void main() {
                 level: monster.level,
                 artPath: monster.artPath,
                 definitionIds: monster.definitionIds,
+                decoration: monster.decoration,
+                decorationVersion: monster.decorationVersion,
               ),
             )
             .toList();

@@ -34,6 +34,8 @@ void main() {
       level: level,
       artPath: null,
       definitionIds: const [],
+      decoration: null,
+      decorationVersion: null,
     );
   }
 

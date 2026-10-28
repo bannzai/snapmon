@@ -325,6 +325,8 @@ OwnedMonster _withLevel({required OwnedMonster monster, required int level}) =>
       definition: monster.definition,
       level: level,
       artPath: monster.artPath,
+      decoration: monster.decoration,
+      decorationVersion: monster.decorationVersion,
       definitionIds: monster.definitionIds,
     );
 
@@ -390,10 +392,22 @@ Widget _homeShell({
       openAppSettings: () async => false,
       pickAlbumPhoto: () async => null,
       preparePhoto: ({required sourceBytes}) async => sourceBytes,
+      createSubjectMask: ({required photo}) =>
+          throw StateError('スクリーンショットでは生成しない'),
+      createSquareMask: ({required photo, required crop}) =>
+          throw StateError('スクリーンショットでは生成しない'),
+      createCutoutPreview: ({required photo, required mask}) =>
+          throw StateError('スクリーンショットでは生成しない'),
       createRequestId: () => 'store-screenshot-request',
       uploadPhoto: ({required requestId, required photo}) async {},
-      requestGeneration: ({required requestId, required onCompletedStage}) =>
+      uploadMask: ({required requestId, required mask}) =>
           throw StateError('スクリーンショットでは生成しない'),
+      requestGeneration:
+          ({
+            required requestId,
+            required maskSource,
+            required onCompletedStage,
+          }) => throw StateError('スクリーンショットでは生成しない'),
       fetchGeneration: ({required requestId}) =>
           throw StateError('スクリーンショットでは生成しない'),
       logEvent: ({required event, required parameters}) async {},

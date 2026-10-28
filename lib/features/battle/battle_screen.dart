@@ -168,13 +168,11 @@ class _BattleScreenState extends State<BattleScreen> {
         _battleState.opponent.activeMember.definition.name;
     _logText = (l10n) => l10n.battleLogChallenged(firstOpponentName);
     _game = BattleFieldGame(
-      playerMonster: _battleState.player.activeMember.definition,
-      playerArtPath: _artPathOf(
+      playerMonster: _ownedMonsterOf(
         side: BattleSideId.player,
         monsterId: _battleState.player.activeMember.definition.id,
       ),
-      opponentMonster: _battleState.opponent.activeMember.definition,
-      opponentArtPath: _artPathOf(
+      opponentMonster: _ownedMonsterOf(
         side: BattleSideId.opponent,
         monsterId: _battleState.opponent.activeMember.definition.id,
       ),
@@ -202,13 +200,15 @@ class _BattleScreenState extends State<BattleScreen> {
     super.dispose();
   }
 
-  /// [side] の手持ちの [monsterId] の切り出した被写体の画像のパス ([OwnedMonster.artPath])。
+  /// [side] の手持ちの [monsterId] のモンスター (切り出した被写体の画像と装飾を持つ)。
   /// 見本同士の対戦では同じ monsterId が両陣営にいるため、陣営の手持ちから引く。
-  String? _artPathOf({required BattleSideId side, required String monsterId}) =>
-      switch (side) {
-        BattleSideId.player => widget.playerParty,
-        BattleSideId.opponent => widget.opponentParty,
-      }.firstWhere((monster) => monster.definition.id == monsterId).artPath;
+  OwnedMonster _ownedMonsterOf({
+    required BattleSideId side,
+    required String monsterId,
+  }) => switch (side) {
+    BattleSideId.player => widget.playerParty,
+    BattleSideId.opponent => widget.opponentParty,
+  }.firstWhere((monster) => monster.definition.id == monsterId);
 
   /// [artPath] の切り出した被写体の画像を読み、フィールドのモンスターを画像で描くようにする。
   /// 読めない時はフィールドの仮の絵のままバトルを続ける (絵のためにバトルを止めないため)。
@@ -340,8 +340,10 @@ class _BattleScreenState extends State<BattleScreen> {
         });
         _game.switchIn(
           side: event.side,
-          definition: member.definition,
-          artPath: _artPathOf(side: event.side, monsterId: event.monsterId),
+          monster: _ownedMonsterOf(
+            side: event.side,
+            monsterId: event.monsterId,
+          ),
         );
         await Future<void>.delayed(_messageDuration);
       case LevelUpEvent():

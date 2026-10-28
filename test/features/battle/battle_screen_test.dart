@@ -474,10 +474,10 @@ void main() {
 
     // 元の写真は読まず、切り出した画像だけを読む
     expect(shareCalls.loadedArtPaths, [artPath, weakOpponent.artPath]);
-    expect(game.playerMonsterComponent.artPath, artPath);
+    expect(game.playerMonsterComponent.monster.artPath, artPath);
     expect(game.playerMonsterComponent.artSprite, isNotNull);
     expect(
-      game.opponentMonsterComponent.artPath,
+      game.opponentMonsterComponent.monster.artPath,
       'assets/samples/art/sample-ringora.png',
     );
     expect(game.opponentMonsterComponent.artSprite, isNotNull);

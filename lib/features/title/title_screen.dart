@@ -283,6 +283,7 @@ class _TitleScreenState extends State<TitleScreen> {
           builder: (context) => GenerationScreen(
             sourcePhoto: photo,
             photoSource: GenerationPhotoSource.album,
+            cropsWhenSubjectNotFound: true,
             monsterGenerator: widget.monsterGenerator,
             dexStore: widget.dexStore,
             cardSharer: widget.cardSharer,

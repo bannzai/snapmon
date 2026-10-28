@@ -13,8 +13,8 @@
     {
       "source": "functions",
       "codebase": "default",
-      "ignore": ["node_modules", ".git", "test", "*.log"],
-      "predeploy": ["npm --prefix \"$RESOURCE_DIR\" run build", "npm --prefix \"$RESOURCE_DIR\" run fetch-model"]
+      "ignore": ["node_modules", ".git", "test", "*.log", "models"],
+      "predeploy": ["npm --prefix \"$RESOURCE_DIR\" run build"]
     }
   ],
   "hosting": {

@@ -68,6 +68,8 @@ class SampleData {
               level: monsterJson['level'] as int,
               artPath: monsterJson['artPath'] as String,
               definitionIds: const [],
+              decoration: null,
+              decorationVersion: null,
             ),
         ],
         opponents: [

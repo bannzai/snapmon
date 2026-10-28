@@ -1,6 +1,6 @@
 # スクリーンショットのモンスターの絵の出典
 
-`functions/scripts/cutout-store-screenshot-photos.mjs` が、本番の生成と同じ切り出し (`functions/src/generation/cutout.ts`) で次の写真から被写体を切り出した PNG。元の写真の出典とライセンスは `functions/test/fixtures/calibration/photos/LICENSES.md` と同じ。改変は被写体の切り出し (背景を透明にした) と縮小。
+2026-10-26 時点の本番の生成と同じ切り出し (Functions の被写体の切り出しのモデル。その後 main で端末で作るマスクに改められ、切り出しのスクリプトは消した) で、次の写真から被写体を切り出した PNG。元の写真の出典とライセンスは `functions/test/fixtures/calibration/photos/LICENSES.md` と同じ。改変は被写体の切り出し (背景を透明にした) と縮小。
 
 | ファイル | 元の写真 | 元の作品 | ライセンス |
 | --- | --- | --- | --- |

@@ -2,7 +2,7 @@ name: store-screenshots
 
 # App Store のスクリーンショット (fastlane/screenshots/{ja,en-US}/) を `make screenshots` で書き出し、成果物 (artifact) に残す。
 # 開発用の Mac ではビルドしない (CLAUDE.md「ビルド・テスト・検証方法」) ため、ここで生成して成果物をダウンロードし、リポジトリに入れる。
-# スクリーンショットのモンスターの絵 (store_screenshots/fixtures/cutouts/) がまだ無い時は、本番の生成と同じ切り出しで作り、これも成果物に残す。
+# スクリーンショットのモンスターの絵はリポジトリの store_screenshots/fixtures/cutouts/ を使う (出典は同ディレクトリの LICENSES.md)。
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -17,7 +17,6 @@ on:
       - pubspec.yaml
       - l10n.yaml
       - store_screenshots/**
-      - functions/scripts/cutout-store-screenshot-photos.mjs
       - .github/workflows/store-screenshots.yml
   workflow_dispatch:
 
@@ -37,34 +36,6 @@ jobs:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         persist-credentials: false
-    - id: cutouts
-      run: |
-        if [ -d store_screenshots/fixtures/cutouts ]; then
-          echo "missing=false" >> "$GITHUB_OUTPUT"
-        else
-          echo "missing=true" >> "$GITHUB_OUTPUT"
-        fi
-    - if: steps.cutouts.outputs.missing == 'true'
-      uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
-      with:
-        # functions/package.json の engines.node に合わせる
-        node-version: '22'
-        cache: npm
-        cache-dependency-path: functions/package-lock.json
-    # 被写体の切り出しのモデル (178 MB) を firebase-ci.yml と同じキーで使い回す
-    - if: steps.cutouts.outputs.missing == 'true'
-      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-      with:
-        path: functions/models
-        key: segmentation-model-${{ hashFiles('functions/scripts/fetch-segmentation-model.mjs') }}
-    - if: steps.cutouts.outputs.missing == 'true'
-      run: make screenshot-cutouts
-    - if: steps.cutouts.outputs.missing == 'true'
-      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-      with:
-        name: store-screenshot-cutouts
-        path: store_screenshots/fixtures/cutouts/
-        if-no-files-found: error
     - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
       with:
         channel: stable

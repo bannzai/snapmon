@@ -82,11 +82,6 @@ screenshots:
 	flutter gen-l10n
 	flutter test store_screenshots
 
-# スクリーンショットのモンスターの絵 (store_screenshots/fixtures/cutouts/) を本番の生成と同じ切り出しで作る (Node.js 22 と約 180 MB のモデルの取得が要る)
-.PHONY: screenshot-cutouts
-screenshot-cutouts:
-	cd functions && npm ci && npm run build && npm run fetch-model && node scripts/cutout-store-screenshot-photos.mjs
-
 # fastlane/metadata の App Store のメタデータが App Store Connect の文字数の上限に収まっているかを検査する
 .PHONY: metadata-check
 metadata-check:

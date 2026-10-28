@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { existsSync, readFileSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { deleteApp, getApps, initializeApp } from "firebase-admin/app";
@@ -10,7 +10,6 @@ import sharp from "sharp";
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 
 import type { DescribeSubject, ProposeElement } from "../../src/generation/claude";
-import { createSegmentSubject, SEGMENTATION_MODEL_PATH, type SegmentSubject } from "../../src/generation/cutout";
 import { handleGenerateRequest } from "../../src/generation/generate";
 import { type AskJev, type JevQuestion, type JevResponse, JevUnavailableError } from "../../src/generation/jev";
 import type { Master } from "../../src/generation/master";
@@ -68,7 +67,7 @@ const auth = {
 
 /** 外部の API のモックと呼び出し回数。 */
 interface Mocks {
-  calls: { vision: number; segment: number; describe: number; propose: number; jev: Record<string, number> };
+  calls: { vision: number; describe: number; propose: number; jev: Record<string, number> };
   dependencies: GenerationDependencies;
   enqueued: (ResumeTask & { delaySeconds: number })[];
 }
@@ -87,13 +86,11 @@ function createMocks({
   vision = { safeSearchAnnotation: { adult: "VERY_UNLIKELY", violence: "VERY_UNLIKELY", racy: "VERY_UNLIKELY" }, labelAnnotations: [{ description: "Mug", score: 0.9 }] },
   description = descriptions["01"],
   jev = {},
-  segmentSubject,
   describeFailureCount = 0,
 }: {
   vision?: VisionAnnotation;
   description?: DescribeSubjectOutput;
   jev?: Partial<JevBehavior>;
-  segmentSubject?: SegmentSubject;
   /** Claude のモックが最初の何回を一時的なエラーで落とすか。 */
   describeFailureCount?: number;
 } = {}): Mocks & { jevBehavior: JevBehavior } {
@@ -103,22 +100,12 @@ function createMocks({
     unavailableFor: new Set(),
     ...jev,
   };
-  const calls: Mocks["calls"] = { vision: 0, segment: 0, describe: 0, propose: 0, jev: {} };
+  const calls: Mocks["calls"] = { vision: 0, describe: 0, propose: 0, jev: {} };
   const enqueued: Mocks["enqueued"] = [];
   const annotateImage: AnnotateImage = async () => {
     calls.vision++;
     return vision;
   };
-  const segment: SegmentSubject =
-    segmentSubject ??
-    (async (photo) => {
-      calls.segment++;
-      const { width, height } = await sharp(photo).metadata();
-      return sharp({ create: { width: width!, height: height!, channels: 3, background: "#000000" } })
-        .composite([{ input: { create: { width: Math.round(width! / 2), height: Math.round(height! / 2), channels: 3, background: "#ffffff" } }, left: Math.round(width! / 4), top: Math.round(height! / 4) }])
-        .png()
-        .toBuffer();
-    });
   const describeSubject: DescribeSubject = async () => {
     calls.describe++;
     if (calls.describe <= describeFailureCount) {
@@ -175,12 +162,6 @@ function createMocks({
       auth,
       bucket,
       annotateImage,
-      segmentSubject: async (photo) => {
-        if (segmentSubject) {
-          calls.segment++;
-        }
-        return segment(photo);
-      },
       describeSubject,
       proposeElement,
       askJev,
@@ -283,7 +264,7 @@ describe("generate", () => {
     expect(first.status).toBe("saved");
     const second = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data }));
     expect(second).toEqual(first);
-    expect(mocks.calls).toEqual({ vision: 1, segment: 1, describe: 1, propose: 0, jev: { classify: 1, judge: 1 } });
+    expect(mocks.calls).toEqual({ vision: 1, describe: 1, propose: 0, jev: { classify: 1, judge: 1 } });
 
     const monster = (await firestore.doc(`users/alice/monsters/${first.monsterId}`).get()).data() as MonsterDocument;
     expect(monster.definition.name).toBe(descriptions["01"].name);
@@ -376,7 +357,7 @@ describe("generate", () => {
     const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
     const result = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data }));
     expect(result).toMatchObject({ status: "rejected", rejectionReason: "explicit_content" });
-    expect(mocks.calls).toMatchObject({ segment: 0, describe: 0, jev: {} });
+    expect(mocks.calls).toMatchObject({ describe: 0, jev: {} });
     expect((await bucket.file(data.photoPath).exists())[0]).toBe(false);
   });
 
@@ -405,39 +386,52 @@ describe("generate", () => {
     ).rejects.toMatchObject({ code: "failed-precondition" });
   });
 
-  // 単色の写真を実際のモデルで切り出す。CI は firebase-ci.yml で `npm run fetch-model` してから実行し、手元でモデルが無い時だけ飛ばす。
-  it.skipIf(!existsSync(SEGMENTATION_MODEL_PATH) && !process.env.CI)(
-    "被写体を切り出せない画像 (単色の画像) は rejected になり理由を返し、Claude を呼ばない",
-    async () => {
-      const mocks = createMocks({ segmentSubject: createSegmentSubject({ modelPath: SEGMENTATION_MODEL_PATH }) });
-      const uniform = await sharp({ create: { width: 640, height: 480, channels: 3, background: { r: 200, g: 180, b: 150 } } }).jpeg().toBuffer();
-      const result = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data: await uploadPhoto({ uid: "alice", photo: uniform }) }));
-      expect(result).toMatchObject({ status: "rejected", rejectionReason: "no_subject" });
-      expect(mocks.calls.describe).toBe(0);
-    },
-    60_000,
-  );
-
-  it("手で決めた範囲のマスクを送ると、自動のマスクを作らずにそのマスクで切り出す", async () => {
+  it("マスクの無い写真 (単色の写真を含む) は拒否せず、写真全体を絵にして保存し、マスクの出どころを none と記録する", async () => {
     const mocks = createMocks();
-    const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
-    const maskPath = `users/alice/masks/${data.requestId}`;
-    const emptyMask = await sharp({ create: { width: 64, height: 48, channels: 3, background: "#000000" } }).png().toBuffer();
-    await bucket.file(maskPath).save(emptyMask, { contentType: "image/png", resumable: false });
-    const result = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data: { ...data, maskPath } }));
-    expect(result).toMatchObject({ status: "rejected", rejectionReason: "no_subject" });
-    expect(mocks.calls.segment).toBe(0);
+    const uniform = await sharp({ create: { width: 640, height: 480, channels: 3, background: { r: 200, g: 180, b: 150 } } }).jpeg().toBuffer();
+    const data = await uploadPhoto({ uid: "alice", photo: uniform });
+    const result = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data }));
+    expect(result.status).toBe("saved");
+    expect(await generationRecord({ uid: "alice", requestId: data.requestId })).toMatchObject({ maskPath: null, maskSource: "none", cutoutCoverage: 1 });
+    const [art] = await bucket.file(`monsters/${result.monsterId}/art.png`).download();
+    expect(await sharp(art).metadata()).toMatchObject({ width: 640, height: 480 });
   });
 
-  it("手で決めた範囲が写真のほぼ全体なら、元の写真をそのまま絵にしないよう拒否する", async () => {
+  it("crop で決めた範囲のマスクはその範囲で切り出し、写真全体を範囲にしても拒否しない", async () => {
     const mocks = createMocks();
     const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
     const maskPath = `users/alice/masks/${data.requestId}`;
     const fullMask = await sharp({ create: { width: 64, height: 48, channels: 3, background: "#ffffff" } }).png().toBuffer();
     await bucket.file(maskPath).save(fullMask, { contentType: "image/png", resumable: false });
-    const result = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data: { ...data, maskPath } }));
-    expect(result).toMatchObject({ status: "rejected", rejectionReason: "no_subject" });
-    expect(mocks.calls.describe).toBe(0);
+    const result = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data: { ...data, maskPath, maskSource: "crop" } }));
+    expect(result.status).toBe("saved");
+    expect(await generationRecord({ uid: "alice", requestId: data.requestId })).toMatchObject({ maskPath, maskSource: "crop", cutoutCoverage: 1 });
+  });
+
+  it("iOS の OS の切り出しのマスクは被写体の部分だけを絵にし、マスクの出どころを ios_subject と記録する", async () => {
+    const mocks = createMocks();
+    const photo = photoFixture("01");
+    const { width, height } = await sharp(photo).metadata();
+    const data = await uploadPhoto({ uid: "alice", photo });
+    const maskPath = `users/alice/masks/${data.requestId}`;
+    const mask = await sharp({ create: { width: width!, height: height!, channels: 3, background: "#000000" } })
+      .composite([{ input: { create: { width: Math.round(width! / 2), height: Math.round(height! / 2), channels: 3, background: "#ffffff" } }, left: Math.round(width! / 4), top: Math.round(height! / 4) }])
+      .png()
+      .toBuffer();
+    await bucket.file(maskPath).save(mask, { contentType: "image/png", resumable: false });
+    const result = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data: { ...data, maskPath, maskSource: "ios_subject" } }));
+    expect(result.status).toBe("saved");
+    const record = await generationRecord({ uid: "alice", requestId: data.requestId });
+    expect(record).toMatchObject({ maskSource: "ios_subject" });
+    expect(record.cutoutCoverage).toBeCloseTo(0.25, 1);
+  });
+
+  it("maskSource がマスクの有無と合わない呼び出しは invalid-argument にする", async () => {
+    const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
+    const maskPath = `users/alice/masks/${data.requestId}`;
+    for (const invalid of [{ ...data, maskPath }, { ...data, maskPath, maskSource: "none" }, { ...data, maskSource: "crop" }, { ...data, maskSource: "server" }]) {
+      await expect(handleGenerateRequest(createMocks().dependencies, signedInRequest({ uid: "alice", data: invalid }))).rejects.toMatchObject({ code: "invalid-argument" });
+    }
   });
 
   it("Jev が答えない時は pending_judge で保存し、再試行で続きから完了する (Claude を呼び直さない)", async () => {
@@ -468,7 +462,7 @@ describe("generate", () => {
     expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "lease" })).status).toBe("pending_judge");
     const resumed = await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "judge", judgeAttempt: 1 });
     expect(resumed.status).toBe("saved");
-    expect(mocks.calls).toMatchObject({ vision: 1, segment: 1, describe: 1, jev: { classify: 1, judge: 3 } });
+    expect(mocks.calls).toMatchObject({ vision: 1, describe: 1, jev: { classify: 1, judge: 3 } });
     expect((await generationRecord({ uid: "alice", requestId: data.requestId })).judgeRetryCount).toBe(2);
   });
 
@@ -482,7 +476,7 @@ describe("generate", () => {
 
     const resumed = await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "lease" });
     expect(resumed.status).toBe("saved");
-    expect(mocks.calls).toMatchObject({ vision: 1, segment: 1, describe: 2 });
+    expect(mocks.calls).toMatchObject({ vision: 1, describe: 2 });
     // 引き継いだ実行にも、予約切れを引き継ぐタスクを積む
     expect(mocks.enqueued.filter((task) => task.purpose === "lease" && task.delaySeconds > 600)).toHaveLength(2);
   });
@@ -692,7 +686,7 @@ describe("generate", () => {
     };
     const result = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data }));
     expect(result.status).toBe("failed");
-    expect(mocks.calls).toMatchObject({ segment: 0, describe: 0 });
+    expect(mocks.calls).toMatchObject({ describe: 0 });
     // failed の写真 (検査を通っていない) も消す
     expect((await bucket.file(data.photoPath).exists())[0]).toBe(false);
   });

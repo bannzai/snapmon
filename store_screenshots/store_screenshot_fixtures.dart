@@ -16,13 +16,13 @@ import 'package:snapmon/sample/sample_data.dart';
 // App Store のスクリーンショットに出すモンスター・対戦相手・写真と、それを Firebase と端末の機能を通さずに画面へ渡す部品。
 // 名前・図鑑の文章・属性・技は本番の生成と同じく日本語のまま (生成の文章は日本語だけで作るため、英語のスクリーンショットでも同じものが出る)。
 
-/// 本番の生成と同じ切り出しで作ったモンスターの絵 (functions/scripts/cutout-store-screenshot-photos.mjs が書き出す)。
+/// 写真から被写体を切り出したモンスターの絵 (作り方と出典は同ディレクトリの LICENSES.md)。
 const String _cutoutDirectory = 'store_screenshots/fixtures/cutouts';
 
 /// 絵の元の写真 (CC0 / Public domain。出典は同ディレクトリの LICENSES.md)。
 const String _photoDirectory = 'functions/test/fixtures/calibration/photos';
 
-/// 絵の名前から元の写真のファイル名を引く表。絵を切り出す functions/scripts/cutout-store-screenshot-photos.mjs と同じファイルを読む。
+/// 絵の名前から元の写真のファイル名を引く表 (store_screenshots/fixtures/photos.json)。
 final Map<String, String> _photoFileNamesByName =
     (jsonDecode(
               File('store_screenshots/fixtures/photos.json').readAsStringSync(),
@@ -176,6 +176,9 @@ OwnedMonster _monster({
   ),
   level: level,
   artPath: _artPath(name: name),
+  // 装飾 (#77) は Claude が生成時に返すパラメータで、スクリーンショットの見本には持たせない (切り出した絵だけを描く)
+  decoration: null,
+  decorationVersion: null,
   definitionIds: const [],
 );
 

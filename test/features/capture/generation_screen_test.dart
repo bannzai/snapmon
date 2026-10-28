@@ -1,5 +1,9 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:image/image.dart' as img;
 import 'package:share_plus/share_plus.dart';
 
 import 'package:snapmon/analytics/analytics_events.dart';
@@ -26,11 +30,15 @@ void main() {
 
   /// [generator] の生成の画面を、閉じた時の [ResultScreenAction] を [closedActions] に残す画面から開く。
   /// [startsFirstBattle] が true なら初回の導線 (生まれたらそのまま戦う) にする。初回の導線は相手を探す表示が止まらないため、
-  /// 開いた後は pumpAndSettle ではなく時間を指定して進める。
+  /// 開いた後は pumpAndSettle ではなく時間を指定して進める。[sourcePhoto]・[photoSource]・[cropsWhenSubjectNotFound] は
+  /// 生成の画面にそのまま渡す (範囲を決める画面を確かめるテストだけが、画像として読める写真を渡す)。
   Future<List<ResultScreenAction?>> pumpGenerationScreen({
     required WidgetTester tester,
     required MonsterGenerator generator,
     required bool startsFirstBattle,
+    Uint8List? sourcePhoto,
+    GenerationPhotoSource photoSource = GenerationPhotoSource.album,
+    bool cropsWhenSubjectNotFound = true,
   }) async {
     tester.view
       ..physicalSize = const Size(390, 844)
@@ -51,8 +59,9 @@ void main() {
                   await Navigator.of(context).push(
                     MaterialPageRoute<ResultScreenAction>(
                       builder: (context) => GenerationScreen(
-                        sourcePhoto: testPhotoBytes,
-                        photoSource: GenerationPhotoSource.album,
+                        sourcePhoto: sourcePhoto ?? testPhotoBytes,
+                        photoSource: photoSource,
+                        cropsWhenSubjectNotFound: cropsWhenSubjectNotFound,
                         monsterGenerator: generator,
                         dexStore: dexStore,
                         cardSharer: fakeCardSharer(
@@ -153,6 +162,207 @@ void main() {
     expect(calls.loggedEvents, hasLength(1));
     expect(calls.loggedEvents.single.event, AnalyticsEvent.monsterGenerated);
     expect(calls.loggedEvents.single.parameters, {'source': 'album'});
+  });
+
+  group('被写体の範囲', () {
+    /// 幅 40・高さ 30 の画像として読める写真 (範囲を決める画面は写真の大きさを読むため)。
+    final readablePhoto = Uint8List.fromList(
+      img.encodePng(img.Image(width: 40, height: 30)),
+    );
+
+    MonsterGenerator generatorWithSubjectMask({
+      required Future<Uint8List?> Function({required Uint8List photo})
+      createSubjectMask,
+    }) => fakeMonsterGenerator(
+      calls: calls,
+      albumPhoto: null,
+      uploadError: null,
+      createSubjectMask: createSubjectMask,
+      requestGeneration: savedGeneration(
+        monsterId: 'm1',
+        status: GenerationStatus.saved,
+        resultRequestId: null,
+      ),
+      fetchGeneration: unexpectedFetch,
+    );
+
+    testWidgets('OS の切り出しが被写体を見つけたら、そのマスクを置いて ios_subject で生成する', (
+      tester,
+    ) async {
+      await pumpGenerationScreen(
+        tester: tester,
+        startsFirstBattle: false,
+        generator: generatorWithSubjectMask(
+          createSubjectMask: ({required photo}) async => testSubjectMaskBytes,
+        ),
+      );
+      expect(find.text('あたらしい なかま'), findsOneWidget);
+      expect(calls.uploadedMasks, [
+        (requestId: 'request-1', mask: testSubjectMaskBytes),
+      ]);
+      expect(calls.requestedMaskSources, [GenerationMaskSource.iosSubject]);
+    });
+
+    testWidgets('OS の切り出しが被写体を見つけない時は範囲を決める画面を出し、決めた枠をマスクにして crop で生成する', (
+      tester,
+    ) async {
+      await pumpGenerationScreen(
+        tester: tester,
+        startsFirstBattle: false,
+        sourcePhoto: readablePhoto,
+        generator: generatorWithSubjectMask(
+          createSubjectMask: ({required photo}) async => null,
+        ),
+      );
+      expect(find.text('モンスターにする範囲'), findsOneWidget);
+      expect(find.textContaining('自動の切り出しを使えませんでした'), findsNothing);
+      expect(calls.uploadedRequestIds, isEmpty);
+
+      // 枠 (初めは中央の 30 × 30) を左へ動かすと、写真の左端で止まる
+      await tester.drag(
+        find.byKey(const Key('square-crop-area')),
+        const Offset(-200, 0),
+      );
+      await tester.pump();
+      await tester.tap(find.text('この範囲で作る'));
+      await tester.pumpAndSettle();
+      expect(calls.squareMaskCrops, [(left: 0.0, top: 0.0, side: 30.0)]);
+      expect(calls.uploadedMasks, [
+        (requestId: 'request-1', mask: testSquareMaskBytes),
+      ]);
+      expect(calls.requestedMaskSources, [GenerationMaskSource.crop]);
+      expect(find.text('あたらしい なかま'), findsOneWidget);
+    });
+
+    testWidgets('crop のマスクを作れずにもう一度試す時は、OS の切り出しをやり直さず決めた枠のまま範囲を決める画面に戻す', (
+      tester,
+    ) async {
+      var subjectMaskCount = 0;
+      var squareMaskCount = 0;
+      await pumpGenerationScreen(
+        tester: tester,
+        startsFirstBattle: false,
+        sourcePhoto: readablePhoto,
+        generator: fakeMonsterGenerator(
+          calls: calls,
+          albumPhoto: null,
+          uploadError: null,
+          createSubjectMask: ({required photo}) async {
+            subjectMaskCount++;
+            return null;
+          },
+          createSquareMask: ({required photo, required crop}) async {
+            if (++squareMaskCount == 1) {
+              throw const FormatException('マスクを作れません');
+            }
+            return testSquareMaskBytes;
+          },
+          requestGeneration: savedGeneration(
+            monsterId: 'm1',
+            status: GenerationStatus.saved,
+            resultRequestId: null,
+          ),
+          fetchGeneration: unexpectedFetch,
+        ),
+      );
+      await tester.drag(
+        find.byKey(const Key('square-crop-area')),
+        const Offset(-200, 0),
+      );
+      await tester.pump();
+      await tester.tap(find.text('この範囲で作る'));
+      await tester.pumpAndSettle();
+      expect(find.textContaining('マスクを作れません'), findsOneWidget);
+      await tester.tap(find.text('もう一度試す'));
+      await tester.pumpAndSettle();
+      expect(find.text('モンスターにする範囲'), findsOneWidget);
+      expect(subjectMaskCount, 1);
+      await tester.tap(find.text('この範囲で作る'));
+      await tester.pumpAndSettle();
+      expect(calls.squareMaskCrops, [
+        (left: 0.0, top: 0.0, side: 30.0),
+        (left: 0.0, top: 0.0, side: 30.0),
+      ]);
+      expect(calls.requestedMaskSources, [GenerationMaskSource.crop]);
+      expect(find.text('あたらしい なかま'), findsOneWidget);
+    });
+
+    testWidgets('OS の切り出しが失敗した時は、そのエラーを出して範囲を決める画面にする', (tester) async {
+      await pumpGenerationScreen(
+        tester: tester,
+        startsFirstBattle: false,
+        sourcePhoto: readablePhoto,
+        generator: generatorWithSubjectMask(
+          createSubjectMask: ({required photo}) async =>
+              throw PlatformException(
+                code: 'subject_mask_failed',
+                message: 'Vision のエラー',
+              ),
+        ),
+      );
+      expect(find.text('モンスターにする範囲'), findsOneWidget);
+      expect(find.textContaining('Vision のエラー'), findsOneWidget);
+    });
+
+    testWidgets('範囲を決めない設定 (開発者メニューの見本の写真) で被写体が無い時は、マスクを置かずに none で生成する', (
+      tester,
+    ) async {
+      await pumpGenerationScreen(
+        tester: tester,
+        startsFirstBattle: false,
+        photoSource: GenerationPhotoSource.sample,
+        cropsWhenSubjectNotFound: false,
+        generator: generatorWithSubjectMask(
+          createSubjectMask: ({required photo}) async => null,
+        ),
+      );
+      expect(find.text('モンスターにする範囲'), findsNothing);
+      expect(calls.uploadedMasks, isEmpty);
+      expect(calls.requestedMaskSources, [GenerationMaskSource.none]);
+      expect(find.text('あたらしい なかま'), findsOneWidget);
+    });
+
+    testWidgets('写真が見つからず置き直す時は、マスクも置き直し、範囲は決め直させない', (tester) async {
+      var requestCount = 0;
+      await pumpGenerationScreen(
+        tester: tester,
+        startsFirstBattle: false,
+        sourcePhoto: readablePhoto,
+        generator: fakeMonsterGenerator(
+          calls: calls,
+          albumPhoto: null,
+          uploadError: null,
+          createSubjectMask: ({required photo}) async => null,
+          requestGeneration: ({required requestId}) async {
+            if (++requestCount == 1) {
+              throw const GenerationPhotoMissingException(
+                message: '写真が見つかりません',
+              );
+            }
+            return savedGeneration(
+              monsterId: 'm1',
+              status: GenerationStatus.saved,
+              resultRequestId: null,
+            )(requestId: requestId);
+          },
+          fetchGeneration: unexpectedFetch,
+        ),
+      );
+      await tester.tap(find.text('この範囲で作る'));
+      await tester.pumpAndSettle();
+      expect(find.text('写真が見つかりません'), findsOneWidget);
+      await tester.tap(find.text('もう一度試す'));
+      await tester.pumpAndSettle();
+      expect(find.text('モンスターにする範囲'), findsNothing);
+      expect(calls.squareMaskCrops, hasLength(1));
+      expect(calls.uploadedRequestIds, ['request-1', 'request-1']);
+      expect(calls.uploadedMasks, hasLength(2));
+      expect(calls.requestedMaskSources, [
+        GenerationMaskSource.crop,
+        GenerationMaskSource.crop,
+      ]);
+      expect(find.text('あたらしい なかま'), findsOneWidget);
+    });
   });
 
   testWidgets('同じ写真の別の要求の結果を使い回した時は、図鑑にいるモンスターを開きイベントを送らない', (tester) async {
@@ -434,7 +644,7 @@ void main() {
             requestId: requestId,
             status: GenerationStatus.rejected,
             monsterId: null,
-            rejectionReason: GenerationRejectionReason.noSubject,
+            rejectionReason: GenerationRejectionReason.explicitContent,
           ),
           fetchGeneration: unexpectedFetch,
         ),
@@ -442,7 +652,7 @@ void main() {
       await pumpUntilResult(tester: tester);
       expect(find.text('相手を探しています'), findsNothing);
       expect(find.text('生まれませんでした'), findsOneWidget);
-      expect(find.text('被写体が見つかりませんでした\n物を大きく写して撮ってください'), findsOneWidget);
+      expect(find.text('この写真からはモンスターを作れません'), findsOneWidget);
       expect(find.byType(BattleScreen), findsNothing);
       expect(dexStore.party, isEmpty);
       expect(firstExperienceSteps(), ['photo_selected', 'generation_failed']);
