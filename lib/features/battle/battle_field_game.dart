@@ -22,7 +22,7 @@ const double hitReactionSeconds = 0.5;
 /// 1 回の被弾で出すパーティクルの数。属性の色が見分けられる量で、低い性能の端末でも重くならない数にした。
 const int _hitParticleCount = 24;
 
-/// パーティクルが飛び散る速さの上限 (論理 px / 秒)。モンスターの絵 (画面の幅の約 4 割) の外に少しはみ出す程度にした。
+/// パーティクルが飛び散る速さの上限 (論理 px / 秒)。モンスターの絵 (縦長の画面で幅の約 4 割) の外に少しはみ出す程度にした。
 const double _hitParticleMaximumSpeed = 180;
 
 /// パーティクルが落ちる加速度 (論理 px / 秒²)。飛び散った後に下へ流れて消える見え方にするため。
@@ -185,7 +185,9 @@ class BattleFieldGame extends FlameGame {
 
   /// 画面の大きさに合わせて 2 体の位置と大きさを決める。比率はモック (Battle.dc.html) の配置から取った。
   void _layout() {
-    final monsterSize = size.x * 0.4;
+    // 高さの 0.3 は、相手の下端 (0.28h + m) が自分の上端 (0.94h - 1.15m) を越えない上限 m ≤ 0.66h / 2.15 ≈ 0.307h から取った。
+    // 縦長のスマホでは幅の 0.4 の方が小さく、モックの大きさのまま描く
+    final monsterSize = math.min(size.x * 0.4, size.y * 0.3);
     opponentMonsterComponent
       ..size = Vector2.all(monsterSize)
       ..position = Vector2(size.x * 0.88 - monsterSize, size.y * 0.28);
