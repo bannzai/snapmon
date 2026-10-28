@@ -51,11 +51,12 @@ jobs:
       env:
         RECAPTCHA_ENTERPRISE_SITE_KEY: ${{ vars.RECAPTCHA_ENTERPRISE_SITE_KEY }}
       run: flutter build web --release --dart-define=RECAPTCHA_ENTERPRISE_SITE_KEY="$RECAPTCHA_ENTERPRISE_SITE_KEY"
+    # --ignore-scripts: id-token: write は job 全体に効き、依存の lifecycle script が OIDC トークンを発行できるため、install script を実行しない。
+    # functions/package-lock.json で install script を持つのは @firebase/util・fsevents・onnxruntime-node・protobufjs・re2 で、firebase-tools 自身は持たない (re2 は superstatic の optionalDependencies)
     - name: Install firebase-tools
       working-directory: functions
-      run: npm ci
-    # npm ci の後に置く。依存の lifecycle script に資格情報のファイルを読ませないため (deploy-functions.yml と同じ)。
-    # id-token: write は job 全体に効くため、前の step のコードが OIDC トークンを自分で発行することまでは防げない
+      run: npm ci --ignore-scripts
+    # npm ci の後に置く。資格情報のファイルを依存のコードに読ませないため (deploy-functions.yml と同じ)
     - name: Authenticate to Google Cloud
       uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3.0.0
       with:
