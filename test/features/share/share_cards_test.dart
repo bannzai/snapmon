@@ -198,7 +198,8 @@ void main() {
         final monster = OwnedMonster(
           definition: MonsterDefinition(
             id: monsterWithArt.definition.id,
-            sourcePhotoReference: monsterWithArt.definition.sourcePhotoReference,
+            sourcePhotoReference:
+                monsterWithArt.definition.sourcePhotoReference,
             name: name,
             encyclopediaText: monsterWithArt.definition.encyclopediaText,
             elementTypeIds: [
@@ -230,7 +231,9 @@ void main() {
           format: ShareCardFormat.portrait,
         );
         expect(
-          tester.renderObject<RenderParagraph>(find.text(name)).didExceedMaxLines,
+          tester
+              .renderObject<RenderParagraph>(find.text(name))
+              .didExceedMaxLines,
           isFalse,
         );
       });
