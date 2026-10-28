@@ -221,7 +221,7 @@ class ResultScreen extends StatelessWidget {
                                   child: _LabeledPanel(
                                     label: context.l10n.resultPhoto,
                                     // 元の写真は本人の図鑑だけに出す (Storage の Rules で本人だけが読める)。
-                                    // 見本のモンスターは写真も切り出した画像も持たないため、印だけを出す
+                                    // 見本のモンスターは元の写真を持たない (sourcePhotoReference が null) ため、印だけを出す
                                     child: ColoredBox(
                                       color: SnapmonColors.surfaceRaised,
                                       child:

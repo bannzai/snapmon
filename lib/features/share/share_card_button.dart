@@ -31,7 +31,7 @@ class ShareCardButton extends StatefulWidget {
   /// どの画面から共有するか (共有イベントの `screen`)。
   final ShareScreen screen;
 
-  /// カードに描く、写真から切り出した被写体の画像の Storage のパス。元の写真のパスは渡さない。
+  /// カードに描く、写真から切り出した被写体の画像のパス (`OwnedMonster.artPath`)。元の写真のパスは渡さない。
   final List<String> artPaths;
 
   /// [format] のカードを作る。[artImagesByPath] は [artPaths] を読んでデコードした画像。
@@ -114,7 +114,7 @@ class _ShareCardButtonState extends State<ShareCardButton> {
     try {
       for (final artPath in widget.artPaths.toSet()) {
         artImagesByPath[artPath] = await widget.cardSharer.loadArtImage(
-          storagePath: artPath,
+          artPath: artPath,
         );
       }
       final pngBytes = await widget.cardSharer.renderPng(

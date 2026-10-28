@@ -1,5 +1,5 @@
 {
-  "$comment": "Jev の閾値の較正に使う正解のラベル。elements の expected は当てはまるべき属性、acceptable はどちらでもよい属性 (偽のセルにも真のセルにも数えない)、それ以外の属性は当てはまるべきでない。dedupe の same は同じ個体、different は別の物 (sameKind は同じ種類の別の物)。ラベルは各見本の説明 (descriptions.json) の what・materials から agent が付けた。",
+  "$comment": "Jev の閾値の較正に使う正解のラベル。elements の expected は当てはまるべき属性、acceptable はどちらでもよい属性 (偽のセルにも真のセルにも数えない)、それ以外の属性は当てはまるべきでない。dedupe の same は同じ個体、different は別の物 (sameKind は同じ種類の別の物)。ラベルは各見本の説明 (descriptions.json) の what・materials から agent が付けた。01p・01bp は本番の Functions が同じマグカップの 2 枚 (photos/01.jpg と 01b.jpg と同じファイル) から書いた説明、30・31 は 01 と同じ白いホーローのマグカップで絵柄だけが違う別の物として agent が手で書いた説明 (写真は無い)。",
   "elements": {
     "01": { "expected": ["metal"], "acceptable": ["stone", "water", "heat"] },
     "01b": { "expected": ["metal"], "acceptable": ["stone", "water", "heat"] },
@@ -27,8 +27,8 @@
     "28b": { "expected": ["stone"], "acceptable": ["food", "heat", "water"] }
   },
   "dedupe": {
-    "same": [["01", "01b"], ["08", "08b"], ["15", "15b"], ["28", "28b"]],
-    "differentSameKind": [["01", "02"], ["01", "28"], ["02", "28"], ["08", "09"], ["08b", "09"], ["22", "05"], ["22", "23"], ["13", "14"], ["12", "03"]],
+    "same": [["01", "01b"], ["08", "08b"], ["15", "15b"], ["28", "28b"], ["01bp", "01p"]],
+    "differentSameKind": [["01", "02"], ["01", "28"], ["02", "28"], ["08", "09"], ["08b", "09"], ["22", "05"], ["22", "23"], ["13", "14"], ["12", "03"], ["30", "01p"], ["30", "01bp"], ["31", "01p"], ["31", "01bp"], ["30", "01"], ["30", "31"]],
     "differentKind": [["01", "15"], ["08", "21"], ["12", "26"], ["19", "11"], ["04", "18"]]
   }
 }

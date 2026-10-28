@@ -35,6 +35,7 @@ class HomeShell extends StatefulWidget {
   const HomeShell({
     super.key,
     required this.initialTab,
+    required this.startsCameraOnCaptureOpen,
     required this.sampleData,
     required this.dexStore,
     required this.sessionStore,
@@ -49,6 +50,9 @@ class HomeShell extends StatefulWidget {
 
   /// 最初に見せるタブ (タイトル画面のどのボタンから入ったかで決まる)。
   final HomeTab initialTab;
+
+  /// 最初に撮る画面を開いた時に、押すのを待たずにカメラを開くか (タイトルの「カメラで撮ってはじめる」から来た時)。
+  final bool startsCameraOnCaptureOpen;
 
   /// 非同期 PvP の相手の取得・通報・ブロック・戦績・表示名。
   final PvpClient pvpClient;
@@ -87,7 +91,19 @@ class HomeShell extends StatefulWidget {
 class _HomeShellState extends State<HomeShell> {
   late HomeTab _selectedTab = widget.initialTab;
 
-  void _selectTab({required HomeTab tab}) => setState(() => _selectedTab = tab);
+  /// 一度カメラを開けた (権限を許可された) か。撮る画面はタブを切り替えるたびに作り直されるため、ここで覚え、
+  /// 次からはタブを開いた時に映像を出す。覚えるのはこの画面がある間 (アプリを起動し直すと、もう一度押してもらう) で、
+  /// 端末に保存しない (#64 の DIRECTION.md の行)
+  bool _hasOpenedCamera = false;
+
+  /// タイトルの「カメラで撮ってはじめる」で求めたカメラを、最初に開いた撮る画面でまだ使っていないか。
+  /// タブを切り替えたら下ろす (拒否された後に撮る画面へ戻るたびに権限を聞き直さないため)
+  late bool _isTitleCameraRequestPending = widget.startsCameraOnCaptureOpen;
+
+  void _selectTab({required HomeTab tab}) => setState(() {
+    _selectedTab = tab;
+    _isTitleCameraRequestPending = false;
+  });
 
   void _openSettings() => Navigator.of(context).push(
     MaterialPageRoute<void>(
@@ -118,6 +134,8 @@ class _HomeShellState extends State<HomeShell> {
           cardSharer: widget.cardSharer,
         ),
         HomeTab.capture => CaptureScreen(
+          startsCameraOnOpen: _hasOpenedCamera || _isTitleCameraRequestPending,
+          onCameraOpened: () => _hasOpenedCamera = true,
           dexStore: widget.dexStore,
           monsterGenerator: widget.monsterGenerator,
           onSelectTab: _selectTab,

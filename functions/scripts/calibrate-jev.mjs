@@ -54,10 +54,11 @@ for (const [sampleId, label] of Object.entries(labels.elements)) {
   }
 }
 
-// 同じ被写体: 対ごとに肯定・否定の問いを送る
+// 同じ被写体: 対ごとに肯定・否定の問いを送る。どちらの写真が先に撮られても本番に届くため、新しい説明 (state) と候補を入れ替えた両方の向きで送る
+// (向きで否定が 0.2 ほど変わったため。https://github.com/bannzai/snapmon/issues/74 )
 const dedupeRows = [];
 for (const [kind, pairs] of [["same", labels.dedupe.same], ["differentSameKind", labels.dedupe.differentSameKind], ["differentKind", labels.dedupe.differentKind]]) {
-  for (const [leftId, rightId] of pairs) {
+  for (const [leftId, rightId] of pairs.flatMap(([left, right]) => [[left, right], [right, left]])) {
     for (let round = 0; round < REPEAT_COUNT; round++) {
       const [response] = await Promise.all(
         jev.buildDedupeRequests({ description: descriptions[leftId].description, candidates: [{ candidateId: rightId, description: descriptions[rightId].description }] }).map(ask),

@@ -9,8 +9,8 @@ import '../theme/snapmon_text_styles.dart';
 import 'placeholder_monster_painting.dart';
 import 'storage_image.dart';
 
-/// 図鑑の 1 体の絵。写真から切り出した被写体の画像 ([OwnedMonster.artPath]) があればそれを、
-/// 無ければ (見本のモンスター) 仮の絵を [backgroundColor] の地に描く。
+/// 図鑑の 1 体の絵。写真から切り出した被写体の画像 ([OwnedMonster.artPath]。見本のモンスターは同梱の asset) があればそれを、
+/// 無ければ仮の絵を [backgroundColor] の地に描く。
 /// 切り出した画像に重ねる装飾 (目・手足・オーラ・輪郭線。DIRECTION.md「デザインの方向」) はまだ描かない。
 class MonsterArt extends StatelessWidget {
   /// [monster] の絵を作る。
@@ -38,17 +38,19 @@ class MonsterArt extends StatelessWidget {
             borderRadius: SnapmonRadii.button,
             child: ColoredBox(
               color: backgroundColor,
-              child: StorageImage(
-                storagePath: artPath,
-                fit: BoxFit.contain,
-                placeholder: const SizedBox.expand(),
-              ),
+              child: isBundledArtPath(artPath: artPath)
+                  ? Image.asset(artPath, fit: BoxFit.contain)
+                  : StorageImage(
+                      storagePath: artPath,
+                      fit: BoxFit.contain,
+                      placeholder: const SizedBox.expand(),
+                    ),
             ),
           );
   }
 }
 
-/// 見本のモンスターの仮の絵。
+/// 切り出した画像 ([OwnedMonster.artPath]) を持たないモンスターの仮の絵。
 class PlaceholderMonsterArt extends StatelessWidget {
   /// [definition] のモンスターの絵を [backgroundColor] の地に描く。
   const PlaceholderMonsterArt({

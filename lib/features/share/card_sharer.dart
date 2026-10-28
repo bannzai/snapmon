@@ -71,10 +71,10 @@ class CardSharer {
     required this.logEvent,
   });
 
-  /// 写真から切り出した被写体の画像 (Storage の [storagePath]。`monsters/{monsterId}/art.png`) を読んでデコードする。
+  /// 写真から切り出した被写体の画像 ([artPath]。`OwnedMonster.artPath`) を読んでデコードする。
   /// 読めない時は throw する。元の写真のパスは渡さない (カードに元の写真を入れないため)。
   /// バトル画面もフィールドのモンスターを描くために使う。
-  final Future<ui.Image> Function({required String storagePath}) loadArtImage;
+  final Future<ui.Image> Function({required String artPath}) loadArtImage;
 
   /// [card] を [format] の大きさで画面に出さずに描き、PNG を返す。[view] は描画に使う端末の画面。
   final Future<Uint8List> Function({

@@ -11,7 +11,7 @@ import 'package:snapmon/features/share/card_sharer.dart';
 
 /// テスト用の [CardSharer] が受け取った呼び出し。
 class RecordedShareCalls {
-  /// loadArtImage に渡された Storage のパス (呼ばれた順)。
+  /// loadArtImage に渡された画像のパス (呼ばれた順)。
   final List<String> loadedArtPaths = [];
 
   /// renderPng に渡されたカードと形 (呼ばれた順)。
@@ -31,7 +31,7 @@ final Uint8List _onePixelPng = base64Decode(
 );
 
 /// [monster] を、写真から切り出した画像 [artPath] と元の写真 [sourcePhotoReference] を持つ 1 体にしたもの。
-/// 見本のモンスターは切り出した画像を持たないため、共有のカードが元の写真を読まないことの確認に使う。
+/// 見本のモンスターは元の写真を持たないため、共有のカードが元の写真を読まないことの確認に使う。
 OwnedMonster ownedMonsterWithArt({
   required OwnedMonster monster,
   required String artPath,
@@ -65,10 +65,10 @@ CardSharer fakeCardSharer({
   required ui.Image? artImage,
   required ShareResultStatus shareResultStatus,
 }) => CardSharer(
-  loadArtImage: ({required storagePath}) async {
-    calls.loadedArtPaths.add(storagePath);
+  loadArtImage: ({required artPath}) async {
+    calls.loadedArtPaths.add(artPath);
     // 共有のボタンは使い終わった画像を dispose するため、呼ばれるたびに複製を渡す
-    return artImage?.clone() ?? (throw StateError('$storagePath を読めない'));
+    return artImage?.clone() ?? (throw StateError('$artPath を読めない'));
   },
   renderPng: ({required view, required card, required format}) async {
     calls.renderedCards.add((card: card, format: format));

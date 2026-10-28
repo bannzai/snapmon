@@ -351,8 +351,9 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
 
-    // 元の写真のパスは読まず、切り出した画像だけを読む (1 回目はバトルのフィールド、2 回目は共有のカード)
-    expect(shareCalls.loadedArtPaths, [artPath, artPath]);
+    // 元の写真のパスは読まず、切り出した画像だけを読む
+    // (1・2 回目はバトルのフィールドの自分と相手の見本のモンスター、3 回目は共有のカード)
+    expect(shareCalls.loadedArtPaths, [artPath, weakOpponent.artPath, artPath]);
     final rendered = shareCalls.renderedCards.single;
     expect(rendered.format, ShareCardFormat.portrait);
     // カードは画面の木の外で描くため、画面と同じ言語の Localizations で包んで渡す
@@ -443,7 +444,7 @@ void main() {
     await playUntilFinished(tester: tester);
   });
 
-  testWidgets('自分の手持ちの切り出した画像を読み、フィールドのモンスターを画像で描く (画像の無い相手は仮の絵のまま)', (
+  testWidgets('両陣営の手持ちの切り出した画像 (見本のモンスターは同梱の画像) を読み、フィールドのモンスターを画像で描く', (
     tester,
   ) async {
     final artImage = (await tester.runAsync(
@@ -472,10 +473,14 @@ void main() {
         .game!;
 
     // 元の写真は読まず、切り出した画像だけを読む
-    expect(shareCalls.loadedArtPaths, [artPath]);
+    expect(shareCalls.loadedArtPaths, [artPath, weakOpponent.artPath]);
     expect(game.playerMonsterComponent.artPath, artPath);
     expect(game.playerMonsterComponent.artSprite, isNotNull);
-    expect(game.opponentMonsterComponent.artSprite, isNull);
+    expect(
+      game.opponentMonsterComponent.artPath,
+      'assets/samples/art/sample-ringora.png',
+    );
+    expect(game.opponentMonsterComponent.artSprite, isNotNull);
     await playUntilFinished(tester: tester);
   });
 
