@@ -13,8 +13,8 @@ const double _decorationPaddingRatio = 0.12;
 
 /// 切り出した画像の縁にある、被写体の外の余白の割合 (画像の長い辺に対する。4 辺とも同じ幅)。
 /// functions/src/generation/cutout.ts の `applyMask` は被写体の長い辺の `CUTOUT_MARGIN_RATIO` (0.04) を 4 辺に同じ幅で足すため、
-/// 画像の長い辺 (被写体の長い辺の 1.08 倍) で割った値になる。手足を被写体の縁から生やすため、画像の枠から被写体の枠を見積もるのに使う。
-/// 写真の端で余白が切り詰められた辺は、見積もった被写体の枠が実際より内側になり、手足が被写体の裏に少し隠れる (宙に浮かない)。
+/// 画像の長い辺 (被写体の長い辺の 1.08 倍) で割った値になる。被写体の範囲を測っていない画像 ([measureArtSubjectBounds] を通らない、
+/// テストの画像など) で、画像の枠から被写体の枠を見積もるのに使う。
 const double _cutoutMarginRatio = 0.04 / 1.08;
 
 /// オーラが被写体の縁からはみ出す長さ (被写体の幅・高さの半分に対する割合)。被写体を包む光に見え、隣の絵と重ならない長さにした。
@@ -36,6 +36,49 @@ const Color _inkColor = SnapmonColors.background;
 
 /// 目の白。カードの生成りの白と同じにする。
 const Color _eyeWhiteColor = SnapmonColors.card;
+
+/// 被写体の画素とみなす不透明度の下限 (0〜255)。切り出しの縁のなめらかにした半透明の画素を被写体の外に数えるため、半分にした。
+const int _subjectAlphaThreshold = 128;
+
+/// 切り出した画像ごとの、被写体の画素を囲む範囲 (画像の画素の座標)。[measureArtSubjectBounds] が書き、
+/// 画像が捨てられると一緒に消える。測っていない画像は、切り出しの余白から見積もる。
+final Expando<Rect> _subjectBoundsByArtImage = Expando();
+
+/// [artImage] の不透明な画素 (被写体) を囲む範囲を測って覚え、以後の [paintMonsterArt] が手足・目・口を被写体の縁に合わせて置く。
+/// 写真の端に接する被写体は切り出しの余白が切り詰められ、画像の枠から余白を見積もれないため、実際の画素から測る。
+/// 不透明な画素が無い時と画素を読めない時は覚えない (余白からの見積もりのまま描く)。同じ画像に何度呼んでも結果は同じ。
+Future<void> measureArtSubjectBounds({required ui.Image artImage}) async {
+  final byteData = await artImage.toByteData(
+    format: ui.ImageByteFormat.rawRgba,
+  );
+  if (byteData == null) {
+    return;
+  }
+  final pixels = byteData.buffer.asUint8List();
+  var left = artImage.width;
+  var top = artImage.height;
+  var right = -1;
+  var bottom = -1;
+  for (var y = 0; y < artImage.height; y++) {
+    for (var x = 0; x < artImage.width; x++) {
+      if (pixels[(y * artImage.width + x) * 4 + 3] >= _subjectAlphaThreshold) {
+        left = math.min(left, x);
+        right = math.max(right, x);
+        top = math.min(top, y);
+        bottom = math.max(bottom, y);
+      }
+    }
+  }
+  if (right < 0) {
+    return;
+  }
+  _subjectBoundsByArtImage[artImage] = Rect.fromLTRB(
+    left.toDouble(),
+    top.toDouble(),
+    right + 1.0,
+    bottom + 1.0,
+  );
+}
 
 /// [monster] の切り出した被写体の画像 [artImage] を、[canvas] の [size] の範囲に縦横比を保って収めて描き、
 /// [OwnedMonster.decoration] があれば装飾 (属性のオーラ・手足・輪郭線・目・口) を重ねる。
@@ -105,14 +148,23 @@ void _paintDecorationVersion1({
       size.shortestSide * _decorationPaddingRatio,
     ),
   );
-  // 写真の端で余白が切り詰められた細い画像では、長い辺の余白が短い辺の半分を超えて枠の幅が負になり、
-  // 手足の角丸 (負の半径を assert で拒む) と目の大きさが壊れるため、短い辺の半分までに抑える
-  final subjectRect = artRect.deflate(
-    math.min(
-      artRect.longestSide * _cutoutMarginRatio,
-      artRect.shortestSide / 2,
-    ),
-  );
+  final subjectBounds = _subjectBoundsByArtImage[artImage];
+  final artScale = artRect.width / artImage.width;
+  final subjectRect = subjectBounds == null
+      // 測っていない画像は余白から見積もる。写真の端で余白が切り詰められた細い画像では、長い辺の余白が短い辺の半分を超えて
+      // 枠の幅が負になり、手足の角丸 (負の半径を assert で拒む) と目の大きさが壊れるため、短い辺の半分までに抑える
+      ? artRect.deflate(
+          math.min(
+            artRect.longestSide * _cutoutMarginRatio,
+            artRect.shortestSide / 2,
+          ),
+        )
+      : Rect.fromLTRB(
+          artRect.left + subjectBounds.left * artScale,
+          artRect.top + subjectBounds.top * artScale,
+          artRect.left + subjectBounds.right * artScale,
+          artRect.top + subjectBounds.bottom * artScale,
+        );
   final outlineColor = _colorFromHex(colorHex: decoration.outlineColorHex);
   _paintAura(
     canvas: canvas,

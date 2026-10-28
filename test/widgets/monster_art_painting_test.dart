@@ -248,6 +248,43 @@ void main() {
     }
   });
 
+  test('被写体の範囲を測った画像は、余白からの見積もりではなく測った範囲の中に目を描く', () async {
+    // 写真の左端に接して余白が切り詰められた被写体: 画像の左 40% だけが不透明
+    final recorder = ui.PictureRecorder();
+    Canvas(recorder).drawRect(
+      const Rect.fromLTWH(0, 0, _artSide * 0.4, _artSide + 0.0),
+      Paint()..color = _subjectColor,
+    );
+    final edgeImage = await recorder.endRecording().toImage(_artSide, _artSide);
+    addTearDown(edgeImage.dispose);
+    await measureArtSubjectBounds(artImage: edgeImage);
+    final paintRecorder = ui.PictureRecorder();
+    paintMonsterArt(
+      canvas: Canvas(paintRecorder),
+      size: const Size(_canvasSide + 0.0, _canvasSide + 0.0),
+      monster: monsterWith(
+        decoration: testDecoration(eyeCenterX: 0.5),
+        decorationVersion: 1,
+      ),
+      artImage: edgeImage,
+    );
+    final image = await paintRecorder.endRecording().toImage(
+      _canvasSide,
+      _canvasSide,
+    );
+    final byteData = await image.toByteData(format: ui.ImageByteFormat.rawRgba);
+    image.dispose();
+    final inkPositions = pixelsOfColor(
+      pixels: byteData!.buffer.asUint8List(),
+      color: SnapmonColors.background,
+    );
+    expect(inkPositions, isNotEmpty);
+    // 画像は枠の余白 (12%) を除いた 152 の正方形に描くため、被写体は x が 24〜24 + 152 × 0.4 の範囲になる
+    for (final position in inkPositions) {
+      expect(position.dx, lessThanOrEqualTo(24 + 152 * 0.4));
+    }
+  });
+
   test('細長い被写体でも、目と口は被写体の幅の中に描く', () async {
     // 被写体 22×100 に、切り出しと同じく長い辺の 4% の余白を 4 辺に付けた画像
     const thinWidth = 30;
