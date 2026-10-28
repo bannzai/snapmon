@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "elementTypes": [
     {
       "id": "metal",
@@ -245,6 +245,39 @@
       "learnableLevelMaximum": 30
     },
     {
+      "id": "metal_1b",
+      "displayName": "ねじこみ",
+      "elementTypeId": "metal",
+      "power": 35,
+      "powerPoints": 35,
+      "category": "attack",
+      "effectId": "metal_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "metal_1c",
+      "displayName": "スプーンはじき",
+      "elementTypeId": "metal",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "metal_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "metal_1d",
+      "displayName": "かんづめアタック",
+      "elementTypeId": "metal",
+      "power": 50,
+      "powerPoints": 20,
+      "category": "attack",
+      "effectId": "metal_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
       "id": "metal_2",
       "displayName": "スチールプレス",
       "elementTypeId": "metal",
@@ -272,6 +305,39 @@
       "elementTypeId": "wood",
       "power": 40,
       "powerPoints": 30,
+      "category": "attack",
+      "effectId": "wood_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "wood_1b",
+      "displayName": "つみきおとし",
+      "elementTypeId": "wood",
+      "power": 35,
+      "powerPoints": 35,
+      "category": "attack",
+      "effectId": "wood_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "wood_1c",
+      "displayName": "えだはらい",
+      "elementTypeId": "wood",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "wood_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "wood_1d",
+      "displayName": "どんぐりつぶて",
+      "elementTypeId": "wood",
+      "power": 50,
+      "powerPoints": 20,
       "category": "attack",
       "effectId": "wood_particle",
       "learnableLevelMinimum": 1,
@@ -311,6 +377,39 @@
       "learnableLevelMaximum": 30
     },
     {
+      "id": "plant_1b",
+      "displayName": "わたげとばし",
+      "elementTypeId": "plant",
+      "power": 35,
+      "powerPoints": 35,
+      "category": "attack",
+      "effectId": "plant_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "plant_1c",
+      "displayName": "サボテンつつき",
+      "elementTypeId": "plant",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "plant_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "plant_1d",
+      "displayName": "ふたばキック",
+      "elementTypeId": "plant",
+      "power": 50,
+      "powerPoints": 20,
+      "category": "attack",
+      "effectId": "plant_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
       "id": "plant_2",
       "displayName": "つるしめつけ",
       "elementTypeId": "plant",
@@ -338,6 +437,39 @@
       "elementTypeId": "water",
       "power": 40,
       "powerPoints": 30,
+      "category": "attack",
+      "effectId": "water_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "water_1b",
+      "displayName": "じょうろシャワー",
+      "elementTypeId": "water",
+      "power": 35,
+      "powerPoints": 35,
+      "category": "attack",
+      "effectId": "water_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "water_1c",
+      "displayName": "みずたまりスリップ",
+      "elementTypeId": "water",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "water_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "water_1d",
+      "displayName": "かさのしぶき",
+      "elementTypeId": "water",
+      "power": 50,
+      "powerPoints": 20,
       "category": "attack",
       "effectId": "water_particle",
       "learnableLevelMinimum": 1,
@@ -377,6 +509,39 @@
       "learnableLevelMaximum": 30
     },
     {
+      "id": "heat_1b",
+      "displayName": "ゆげのもや",
+      "elementTypeId": "heat",
+      "power": 35,
+      "powerPoints": 35,
+      "category": "attack",
+      "effectId": "heat_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "heat_1c",
+      "displayName": "アイロンがけ",
+      "elementTypeId": "heat",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "heat_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "heat_1d",
+      "displayName": "マッチのひばな",
+      "elementTypeId": "heat",
+      "power": 50,
+      "powerPoints": 20,
+      "category": "attack",
+      "effectId": "heat_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
       "id": "heat_2",
       "displayName": "ねつふうしゃ",
       "elementTypeId": "heat",
@@ -404,6 +569,39 @@
       "elementTypeId": "stone",
       "power": 40,
       "powerPoints": 30,
+      "category": "attack",
+      "effectId": "stone_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "stone_1b",
+      "displayName": "じゃりまき",
+      "elementTypeId": "stone",
+      "power": 35,
+      "powerPoints": 35,
+      "category": "attack",
+      "effectId": "stone_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "stone_1c",
+      "displayName": "ちゃわんわり",
+      "elementTypeId": "stone",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "stone_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "stone_1d",
+      "displayName": "せとものドン",
+      "elementTypeId": "stone",
+      "power": 50,
+      "powerPoints": 20,
       "category": "attack",
       "effectId": "stone_particle",
       "learnableLevelMinimum": 1,
@@ -443,6 +641,39 @@
       "learnableLevelMaximum": 30
     },
     {
+      "id": "paper_1b",
+      "displayName": "ページめくり",
+      "elementTypeId": "paper",
+      "power": 35,
+      "powerPoints": 35,
+      "category": "attack",
+      "effectId": "paper_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "paper_1c",
+      "displayName": "ふせんはり",
+      "elementTypeId": "paper",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "paper_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "paper_1d",
+      "displayName": "ハリセンはたき",
+      "elementTypeId": "paper",
+      "power": 50,
+      "powerPoints": 20,
+      "category": "attack",
+      "effectId": "paper_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
       "id": "paper_2",
       "displayName": "おりがみカッター",
       "elementTypeId": "paper",
@@ -470,6 +701,39 @@
       "elementTypeId": "cloth",
       "power": 40,
       "powerPoints": 30,
+      "category": "attack",
+      "effectId": "cloth_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "cloth_1b",
+      "displayName": "くつしたなげ",
+      "elementTypeId": "cloth",
+      "power": 35,
+      "powerPoints": 35,
+      "category": "attack",
+      "effectId": "cloth_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "cloth_1c",
+      "displayName": "タオルスナップ",
+      "elementTypeId": "cloth",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "cloth_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "cloth_1d",
+      "displayName": "ボタンはじき",
+      "elementTypeId": "cloth",
+      "power": 50,
+      "powerPoints": 20,
       "category": "attack",
       "effectId": "cloth_particle",
       "learnableLevelMinimum": 1,
@@ -509,6 +773,39 @@
       "learnableLevelMaximum": 30
     },
     {
+      "id": "glass_1b",
+      "displayName": "ビーだまころがし",
+      "elementTypeId": "glass",
+      "power": 35,
+      "powerPoints": 35,
+      "category": "attack",
+      "effectId": "glass_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "glass_1c",
+      "displayName": "レンズのひかり",
+      "elementTypeId": "glass",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "glass_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "glass_1d",
+      "displayName": "コップのひびき",
+      "elementTypeId": "glass",
+      "power": 50,
+      "powerPoints": 20,
+      "category": "attack",
+      "effectId": "glass_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
       "id": "glass_2",
       "displayName": "プリズムビーム",
       "elementTypeId": "glass",
@@ -536,6 +833,39 @@
       "elementTypeId": "plastic",
       "power": 40,
       "powerPoints": 30,
+      "category": "attack",
+      "effectId": "plastic_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "plastic_1b",
+      "displayName": "ゴムパッチン",
+      "elementTypeId": "plastic",
+      "power": 35,
+      "powerPoints": 35,
+      "category": "attack",
+      "effectId": "plastic_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "plastic_1c",
+      "displayName": "ラップぐるぐる",
+      "elementTypeId": "plastic",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "plastic_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "plastic_1d",
+      "displayName": "バケツかぶせ",
+      "elementTypeId": "plastic",
+      "power": 50,
+      "powerPoints": 20,
       "category": "attack",
       "effectId": "plastic_particle",
       "learnableLevelMinimum": 1,
@@ -575,6 +905,39 @@
       "learnableLevelMaximum": 30
     },
     {
+      "id": "electric_1b",
+      "displayName": "ちかちかライト",
+      "elementTypeId": "electric",
+      "power": 35,
+      "powerPoints": 35,
+      "category": "attack",
+      "effectId": "electric_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "electric_1c",
+      "displayName": "コードしばり",
+      "elementTypeId": "electric",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "electric_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "electric_1d",
+      "displayName": "リモコンビーム",
+      "elementTypeId": "electric",
+      "power": 50,
+      "powerPoints": 20,
+      "category": "attack",
+      "effectId": "electric_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
       "id": "electric_2",
       "displayName": "でんちショック",
       "elementTypeId": "electric",
@@ -602,6 +965,39 @@
       "elementTypeId": "food",
       "power": 40,
       "powerPoints": 30,
+      "category": "attack",
+      "effectId": "food_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "food_1b",
+      "displayName": "あめだまころがし",
+      "elementTypeId": "food",
+      "power": 35,
+      "powerPoints": 35,
+      "category": "attack",
+      "effectId": "food_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "food_1c",
+      "displayName": "おにぎりタックル",
+      "elementTypeId": "food",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "food_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30
+    },
+    {
+      "id": "food_1d",
+      "displayName": "わさびツーン",
+      "elementTypeId": "food",
+      "power": 50,
+      "powerPoints": 20,
       "category": "attack",
       "effectId": "food_particle",
       "learnableLevelMinimum": 1,

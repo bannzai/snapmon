@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../domain/battle/battle_engine.dart';
 import '../../domain/master/move.dart';
 import '../../domain/monster/stat_calculation.dart';
 import '../../l10n/l10n.dart';
@@ -326,13 +327,16 @@ class ResultScreen extends StatelessWidget {
                             spacing: 6,
                             runSpacing: 6,
                             children: [
-                              for (final learnsetEntry in definition.learnset)
-                                if (learnsetEntry.unlockLevel <= monster.level)
-                                  _MoveChip(
-                                    move: dexStore.definitions.moveById(
-                                      moveId: learnsetEntry.moveId,
-                                    ),
+                              for (final learnsetEntry
+                                  in equippedLearnsetEntries(
+                                    learnset: definition.learnset,
+                                    level: monster.level,
+                                  ))
+                                _MoveChip(
+                                  move: dexStore.definitions.moveById(
+                                    moveId: learnsetEntry.moveId,
                                   ),
+                                ),
                             ],
                           ),
                         ],

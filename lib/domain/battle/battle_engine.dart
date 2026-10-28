@@ -9,6 +9,8 @@ import '../random/deterministic_random.dart';
 import 'battle_state.dart';
 
 /// わるあがきの威力。技を使い切った方が得にならないよう、master の版 1 で最も弱い攻撃技の威力 (40) と同じにした。
+/// 版 2 で足した威力 35 の技より強いが、わるあがきは攻撃技をすべて使い切った後にしか選べず、
+/// 同時に持つ他の技 (威力 40〜50) より強くはならないため据え置いた。
 const int strugglePower = 40;
 
 /// ダメージの乱数幅の下限 (%)。上限は 100%。同じ組み合わせでも結果が揺れる程度にしつつ、
@@ -66,15 +68,36 @@ BattleState startBattle({
   );
 }
 
-/// [monster] が今使える技 (レベルで開放済みで PP が残っている技) を、覚える技の一覧の順で返す。
+/// 1 体が同時に使える技の数。バトル画面の技の枠の数で、生まれた時に Lv.1 でそろう技の数
+/// (functions/src/generation/monster_stats.ts の `STARTING_MOVE_COUNT`) と同じ値。
+const int maximumEquippedMoveCount = 4;
+
+/// [learnset] のうち、[level] で使える技 (開放済みの技のうち、覚える技の一覧で後ろの [maximumEquippedMoveCount] 個) を一覧の順で返す。
+/// 開放済みの技が枠より多い時は、新しく覚えた技が一番古い技と入れ替わる (documents/game-rules.md「技」)。
+List<LearnsetEntry> equippedLearnsetEntries({
+  required List<LearnsetEntry> learnset,
+  required int level,
+}) {
+  final unlockedEntries = [
+    for (final learnsetEntry in learnset)
+      if (learnsetEntry.unlockLevel <= level) learnsetEntry,
+  ];
+  return unlockedEntries.sublist(
+    math.max(0, unlockedEntries.length - maximumEquippedMoveCount),
+  );
+}
+
+/// [monster] が今使える技 ([equippedLearnsetEntries] のうち PP が残っている技) を、覚える技の一覧の順で返す。
 /// 攻撃技が 1 つも無ければわるあがき ([StruggleAction]) も選べる (補助技だけが残って決着しなくなるのを防ぐため)。
 List<Move> selectableMoves({
   required BattleMonster monster,
   required MasterData master,
 }) => [
-  for (final learnsetEntry in monster.definition.learnset)
-    if (learnsetEntry.unlockLevel <= monster.state.level &&
-        (monster.state.remainingPowerPoints[learnsetEntry.moveId] ?? 0) > 0)
+  for (final learnsetEntry in equippedLearnsetEntries(
+    learnset: monster.definition.learnset,
+    level: monster.state.level,
+  ))
+    if ((monster.state.remainingPowerPoints[learnsetEntry.moveId] ?? 0) > 0)
       master.moveById(moveId: learnsetEntry.moveId),
 ];
 

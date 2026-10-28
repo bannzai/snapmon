@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui' as ui;
 
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
@@ -36,9 +37,6 @@ enum BattleOpponentKind {
   /// 他のユーザーの手持ち (非同期 PvP。相手の行動は CPU の規則で決める)。
   pvp,
 }
-
-/// 1 画面に並べる技のボタンの数 (モックの Battle.dc.html の「技 4 つ」)。
-const int _moveButtonCount = 4;
 
 /// 攻撃の前進の往復にかける時間。フィールドの演出 ([attackLungeSeconds]) と揃える。
 const Duration _lungeDuration = Duration(
@@ -143,6 +141,9 @@ class _BattleScreenState extends State<BattleScreen> {
   /// 記録の待ち・失敗の間は空のまま (勝敗の画面に確定していないレベルアップを出さないため)。
   Map<String, int> _appliedLevels = const {};
 
+  /// フィールドに描くために読んだ切り出した被写体の画像。画面を閉じる時に dispose する。
+  final List<ui.Image> _loadedArtImages = [];
+
   @override
   void initState() {
     super.initState();
@@ -166,8 +167,22 @@ class _BattleScreenState extends State<BattleScreen> {
     _logText = (l10n) => l10n.battleLogChallenged(firstOpponentName);
     _game = BattleFieldGame(
       playerMonster: _battleState.player.activeMember.definition,
+      playerArtPath: _artPathOf(
+        side: BattleSideId.player,
+        monsterId: _battleState.player.activeMember.definition.id,
+      ),
       opponentMonster: _battleState.opponent.activeMember.definition,
+      opponentArtPath: _artPathOf(
+        side: BattleSideId.opponent,
+        monsterId: _battleState.opponent.activeMember.definition.id,
+      ),
     );
+    for (final artPath in {
+      for (final monster in [...widget.playerParty, ...widget.opponentParty])
+        ?monster.artPath,
+    }) {
+      unawaited(_loadArtImage(artPath: artPath));
+    }
     _battleRecordStart = widget.battleRecorder.startBattleRecord(
       partyMonsterIds: [
         for (final monster in widget.playerParty) monster.definition.id,
@@ -175,6 +190,40 @@ class _BattleScreenState extends State<BattleScreen> {
     );
     // 決着の前に失敗しても、ここでは扱わず決着の後に出す (未処理の例外として報告させないため)
     _battleRecordStart.ignore();
+  }
+
+  @override
+  void dispose() {
+    for (final artImage in _loadedArtImages) {
+      artImage.dispose();
+    }
+    super.dispose();
+  }
+
+  /// [side] の手持ちの [monsterId] の切り出した被写体の画像の Storage のパス。見本のモンスターは null。
+  /// 見本同士の対戦では同じ monsterId が両陣営にいるため、陣営の手持ちから引く。
+  String? _artPathOf({required BattleSideId side, required String monsterId}) =>
+      switch (side) {
+        BattleSideId.player => widget.playerParty,
+        BattleSideId.opponent => widget.opponentParty,
+      }.firstWhere((monster) => monster.definition.id == monsterId).artPath;
+
+  /// [artPath] の切り出した被写体の画像を読み、フィールドのモンスターを画像で描くようにする。
+  /// 読めない時はフィールドの仮の絵のままバトルを続ける (絵のためにバトルを止めないため)。
+  Future<void> _loadArtImage({required String artPath}) async {
+    try {
+      final artImage = await widget.cardSharer.loadArtImage(
+        storagePath: artPath,
+      );
+      if (!mounted) {
+        artImage.dispose();
+        return;
+      }
+      _loadedArtImages.add(artImage);
+      _game.applyArtImage(artPath: artPath, artImage: artImage);
+    } catch (error) {
+      debugPrint('$artPath: $error');
+    }
   }
 
   /// [state] の両陣営の場のモンスター。
@@ -282,7 +331,11 @@ class _BattleScreenState extends State<BattleScreen> {
           _displayedActiveMembers[event.side] = member;
           _logText = (l10n) => l10n.battleLogSwitchedIn(member.definition.name);
         });
-        _game.switchIn(side: event.side, definition: member.definition);
+        _game.switchIn(
+          side: event.side,
+          definition: member.definition,
+          artPath: _artPathOf(side: event.side, monsterId: event.monsterId),
+        );
         await Future<void>.delayed(_messageDuration);
       case LevelUpEvent():
       case BattleFinishedEvent():
@@ -496,8 +549,9 @@ class _BattleScreenState extends State<BattleScreen> {
       monster: playerMonster,
       master: widget.definitions,
     );
+    // 技のボタンは同時に使える技の数だけ並べる (モックの Battle.dc.html の「技 4 つ」)
     final moveSlots = [
-      for (var index = 0; index < _moveButtonCount; index++)
+      for (var index = 0; index < maximumEquippedMoveCount; index++)
         index < moves.length ? moves[index] : null,
     ];
     final canStruggle = !moves.any(

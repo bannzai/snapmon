@@ -19,6 +19,21 @@ const _recaptchaEnterpriseSiteKey = String.fromEnvironment(
   'RECAPTCHA_ENTERPRISE_SITE_KEY',
 );
 
+/// Web の DEBUG ビルドで App Check の debug provider に使う debug token (Firebase の App Check に登録済みのもの)。
+/// 自動操作のブラウザ (webtunnel の Chromium) は reCAPTCHA Enterprise のスコアが低く証明が通らないため、DEBUG ビルドだけ
+/// `--dart-define` で渡した token で代える (発行と登録は scripts/set-webtunnel-setup-env-secret.sh のヘッダー)。
+/// リリースビルドでは値があっても使わない。
+const _appCheckDebugTokenWeb = String.fromEnvironment(
+  'FIREBASE_APPCHECK_DEBUG_TOKEN_WEB',
+);
+
+/// Web の DEBUG ビルドで debug token を使うか (token が渡されている時だけ)。
+const _usesWebDebugProvider = kDebugMode && _appCheckDebugTokenWeb != '';
+
+/// Web で [activateAppCheck] が App Check を始めるか。サイトキーも debug token も無い時は始めない。
+const _isWebAppCheckConfigured =
+    _recaptchaEnterpriseSiteKey != '' || _usesWebDebugProvider;
+
 /// ログインの手順を、識別子を取る順に実行する。
 ///
 /// 順序: App Check の開始 → 匿名ログイン → Analytics・Crashlytics の収集の開始。ログインに失敗した時は収集を始めない。
@@ -53,8 +68,8 @@ Future<String> startSessionWithFirebase() {
 /// アカウントの削除の後と、開発者メニュー (DEBUG ビルド) の「新しいアカウントで始め直す」が使う。
 /// 何度呼んでも同じ (冪等)。App Check は止める API が無いため、トークンの自動更新だけを止める。
 Future<void> endSessionWithFirebase() async {
-  // activateAppCheck が始めなかった時 (Web でサイトキーが無い) は止めるものが無い
-  if (!kIsWeb || _recaptchaEnterpriseSiteKey.isNotEmpty) {
+  // activateAppCheck が始めなかった時 (Web でサイトキーも debug token も無い) は止めるものが無い
+  if (!kIsWeb || _isWebAppCheckConfigured) {
     await FirebaseAppCheck.instance.setTokenAutoRefreshEnabled(false);
   }
   markAnalyticsCollectionStopped();
@@ -123,15 +138,20 @@ Future<String?> resumeSessionWithFirebase() {
 }
 
 /// App Check を始める。リリースビルドは各プラットフォームの証明 (iOS: App Attest、Android: Play Integrity、Web: reCAPTCHA Enterprise)、
-/// デバッグビルドは debug provider を使う (simulator・emulator では証明が通らないため。debug token は Firebase コンソールに登録する)。
-/// Web でサイトキーが渡されていない時は始めない (App Check を必須にした Functions の呼び出しは失敗する)。
+/// デバッグビルドは debug provider を使う (simulator・emulator・自動操作のブラウザでは証明が通らないため。debug token は
+/// Firebase の App Check に登録する。Web は token が `--dart-define` で渡された時だけ debug provider にし、無ければ reCAPTCHA Enterprise)。
+/// Web でサイトキーも debug token も渡されていない時は始めない (App Check を必須にした Functions の呼び出しは失敗する)。
 Future<void> activateAppCheck() async {
-  if (kIsWeb && _recaptchaEnterpriseSiteKey.isEmpty) {
-    debugPrint('RECAPTCHA_ENTERPRISE_SITE_KEY が未設定のため Web の App Check を始めません');
+  if (kIsWeb && !_isWebAppCheckConfigured) {
+    debugPrint(
+      'RECAPTCHA_ENTERPRISE_SITE_KEY も FIREBASE_APPCHECK_DEBUG_TOKEN_WEB も未設定のため Web の App Check を始めません',
+    );
     return;
   }
   await FirebaseAppCheck.instance.activate(
-    providerWeb: ReCaptchaEnterpriseProvider(_recaptchaEnterpriseSiteKey),
+    providerWeb: _usesWebDebugProvider
+        ? WebDebugProvider(debugToken: _appCheckDebugTokenWeb)
+        : ReCaptchaEnterpriseProvider(_recaptchaEnterpriseSiteKey),
     providerAndroid: kDebugMode
         ? const AndroidDebugProvider()
         : const AndroidPlayIntegrityProvider(),

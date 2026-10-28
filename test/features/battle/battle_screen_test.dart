@@ -305,8 +305,8 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
 
-    // 元の写真のパスは読まず、切り出した画像だけを読む
-    expect(shareCalls.loadedArtPaths, [artPath]);
+    // 元の写真のパスは読まず、切り出した画像だけを読む (1 回目はバトルのフィールド、2 回目は共有のカード)
+    expect(shareCalls.loadedArtPaths, [artPath, artPath]);
     final rendered = shareCalls.renderedCards.single;
     expect(rendered.format, ShareCardFormat.portrait);
     // カードは画面の木の外で描くため、画面と同じ言語の Localizations で包んで渡す
@@ -395,5 +395,70 @@ void main() {
       isNull,
     );
     await playUntilFinished(tester: tester);
+  });
+
+  testWidgets('自分の手持ちの切り出した画像を読み、フィールドのモンスターを画像で描く (画像の無い相手は仮の絵のまま)', (
+    tester,
+  ) async {
+    final artImage = (await tester.runAsync(
+      () => createTestImage(width: 8, height: 8),
+    ))!;
+    addTearDown(artImage.dispose);
+    const artPath = 'monsters/sample-mugmon/art.png';
+    await pumpBattleScreen(
+      tester: tester,
+      playerMonster: ownedMonsterWithArt(
+        monster: strongPlayer,
+        artPath: artPath,
+        sourcePhotoReference: 'users/uid-1/photos/original-photo',
+      ),
+      artImage: artImage,
+      battleRecorder: fakeBattleRecorder(
+        calls: RecordedBattleCalls(),
+        startBattleRecord: () async => null,
+        recordedLevels: const {},
+      ),
+    );
+    final game = tester
+        .widget<GameWidget<BattleFieldGame>>(
+          find.byType(GameWidget<BattleFieldGame>),
+        )
+        .game!;
+
+    // 元の写真は読まず、切り出した画像だけを読む
+    expect(shareCalls.loadedArtPaths, [artPath]);
+    expect(game.playerMonsterComponent.artPath, artPath);
+    expect(game.playerMonsterComponent.artSprite, isNotNull);
+    expect(game.opponentMonsterComponent.artSprite, isNull);
+    await playUntilFinished(tester: tester);
+  });
+
+  testWidgets('切り出した画像を読めない時は仮の絵のまま、エラーを出さずに最後まで戦える', (tester) async {
+    final calls = RecordedBattleCalls();
+    await pumpBattleScreen(
+      tester: tester,
+      playerMonster: ownedMonsterWithArt(
+        monster: strongPlayer,
+        artPath: 'monsters/sample-mugmon/art.png',
+        sourcePhotoReference: 'users/uid-1/photos/original-photo',
+      ),
+      artImage: null,
+      battleRecorder: fakeBattleRecorder(
+        calls: calls,
+        startBattleRecord: () async => 'battle-1',
+        recordedLevels: const {},
+      ),
+    );
+    final game = tester
+        .widget<GameWidget<BattleFieldGame>>(
+          find.byType(GameWidget<BattleFieldGame>),
+        )
+        .game!;
+
+    expect(game.playerMonsterComponent.artSprite, isNull);
+    expect(find.byType(SnackBar), findsNothing);
+    await playUntilFinished(tester: tester);
+    expect(find.text('もどる'), findsOneWidget);
+    expect(calls.completedBattles, hasLength(1));
   });
 }
