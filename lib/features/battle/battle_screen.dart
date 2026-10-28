@@ -445,6 +445,8 @@ class _BattleScreenState extends State<BattleScreen> {
     final opponentMonster = _displayedActiveMembers[BattleSideId.opponent]!;
     final isFinished = _battleState.winner != null && !_isPlaying;
     final opponentStatusCardTop = MediaQuery.paddingOf(context).top + 96;
+    // 文字の拡大率が変わるとカードの高さも変わるため、拡大率の変更でも build し直してカードを測り直す
+    MediaQuery.textScalerOf(context);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_opponentStatusCardKey.currentContext?.size case final cardSize?) {
         _game.updateOpponentStatusCardBottom(
