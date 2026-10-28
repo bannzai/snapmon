@@ -155,10 +155,11 @@ void main() {
         ).length;
 
     final small = await eyePixelCount(eyeScale: 0.25);
-    final large = await eyePixelCount(eyeScale: 0.7);
+    final large = await eyePixelCount(eyeScale: 0.4);
     expect(small, greaterThan(0));
-    // 目の面積は大きさの 2 乗に比例するため、2.8 倍の大きさなら面積は 8 倍近くになる (0.25 は目の大きさの下限 (枠の 7%) より大きい値にした)
-    expect(large, greaterThan(small * 6));
+    // 目の面積は大きさの 2 乗に比例するため、1.6 倍の大きさなら面積は 2.5 倍近くになる
+    // (0.25 は目の大きさの下限 (枠の 7%) より大きく、0.4 は両目が被写体の幅に収まる上限より小さい値にした)
+    expect(large, greaterThan(small * 2));
   });
 
   test('黒で塗る目 (sparkle・dot) は、暗い被写体の上でも見えるよう白い縁を付けて描く', () async {
@@ -200,6 +201,55 @@ void main() {
           }
         }
       }
+    }
+  });
+
+  test('細長い被写体でも、目と口は被写体の幅の中に描く', () async {
+    // 被写体 22×100 に、切り出しと同じく長い辺の 4% の余白を 4 辺に付けた画像
+    const thinWidth = 30;
+    const thinHeight = 108;
+    final recorder = ui.PictureRecorder();
+    Canvas(recorder).drawRect(
+      const Rect.fromLTWH(4, 4, thinWidth - 8.0, thinHeight - 8.0),
+      Paint()..color = _subjectColor,
+    );
+    final thinImage = await recorder.endRecording().toImage(
+      thinWidth,
+      thinHeight,
+    );
+    addTearDown(thinImage.dispose);
+    final paintRecorder = ui.PictureRecorder();
+    paintMonsterArt(
+      canvas: Canvas(paintRecorder),
+      size: const Size(_canvasSide + 0.0, _canvasSide + 0.0),
+      monster: monsterWith(
+        decoration: testDecoration(
+          eyeStyle: MonsterEyeStyle.round,
+          mouthStyle: MonsterMouthStyle.open,
+          eyeCenterY: 0.95,
+        ),
+        decorationVersion: 1,
+      ),
+      artImage: thinImage,
+    );
+    final image = await paintRecorder.endRecording().toImage(
+      _canvasSide,
+      _canvasSide,
+    );
+    final byteData = await image.toByteData(format: ui.ImageByteFormat.rawRgba);
+    image.dispose();
+    final inkPositions = pixelsOfColor(
+      pixels: byteData!.buffer.asUint8List(),
+      color: SnapmonColors.background,
+    );
+    expect(inkPositions, isNotEmpty);
+    // 画像は枠の余白 (12%) を除いた高さ 152 に合わせて縦横比を保って描くため、幅は 152 × 30 / 108 で中央に置かれる
+    const drawnWidth = 152 * thinWidth / thinHeight;
+    const drawnLeft = (_canvasSide - drawnWidth) / 2;
+    const drawnTop = 24.0;
+    for (final position in inkPositions) {
+      expect(position.dx, inInclusiveRange(drawnLeft, drawnLeft + drawnWidth));
+      expect(position.dy, inInclusiveRange(drawnTop, drawnTop + 152));
     }
   });
 

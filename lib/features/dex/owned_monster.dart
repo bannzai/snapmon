@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 import '../../domain/monster/monster_decoration.dart';
 import '../../domain/monster/monster_definition.dart';
 
@@ -19,7 +21,6 @@ class OwnedMonster {
   /// Firestore の `users/{uid}/monsters/{monsterId}` のドキュメントか fetchOpponents の応答のモンスター [json] から 1 体を読む。
   factory OwnedMonster.fromJson({required Map<String, dynamic> json}) {
     final decorationVersion = json['decorationVersion'] as int?;
-    final decorationJson = json['decoration'] as Map<String, dynamic>?;
     return OwnedMonster(
       definition: MonsterDefinition.fromJson(
         json: json['definition'] as Map<String, dynamic>,
@@ -30,13 +31,30 @@ class OwnedMonster {
         for (final definitionId in json['definitionIds'] as List<dynamic>)
           definitionId as String,
       ],
-      decoration:
-          decorationJson == null ||
-              !supportedDecorationVersions.contains(decorationVersion)
-          ? null
-          : MonsterDecoration.fromJson(json: decorationJson),
+      decoration: _readDecoration(
+        decorationJson: json['decoration'],
+        decorationVersion: decorationVersion,
+      ),
       decorationVersion: decorationVersion,
     );
+  }
+
+  /// [decorationJson] を、このクライアントが描ける [decorationVersion] の装飾として読む。描けない版・装飾が無い・形が違う時は null
+  /// (装飾を重ねず画像だけを描く)。形の違う 1 件で図鑑や対戦相手の一覧ごと読めなくならないよう、読み取りの失敗は投げない。
+  static MonsterDecoration? _readDecoration({
+    required Object? decorationJson,
+    required int? decorationVersion,
+  }) {
+    if (decorationJson is! Map<String, dynamic> ||
+        !supportedDecorationVersions.contains(decorationVersion)) {
+      return null;
+    }
+    try {
+      return MonsterDecoration.fromJson(json: decorationJson);
+    } catch (error) {
+      debugPrint('decoration (version $decorationVersion): $error');
+      return null;
+    }
   }
 
   /// 生まれた時に決まる部分。

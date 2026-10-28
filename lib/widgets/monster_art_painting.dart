@@ -141,13 +141,25 @@ void _paintDecorationVersion1({
     artRect,
     Paint()..filterQuality = FilterQuality.medium,
   );
-  final eyeCenter = Offset(
-    artRect.left + artRect.width * decoration.eyeCenterX,
-    artRect.top + artRect.height * decoration.eyeCenterY,
+  // 両目の外端は中心から (間隔 + 1) 個分の半径、口の下端は目の中心から半径の 3 倍下にある。
+  // 細長い被写体で下限の大きさの目が被写体からはみ出さないよう、両目と口が被写体の枠に収まる大きさと位置に抑える
+  final eyeReach = _eyeSpacingRatio + 1;
+  final eyeRadius = math.min(
+    math.max(
+      subjectRect.width * decoration.eyeScale / 2,
+      size.shortestSide * _minEyeRadiusRatio,
+    ),
+    math.min(subjectRect.width / (eyeReach * 2), subjectRect.height / 4),
   );
-  final eyeRadius = math.max(
-    subjectRect.width * decoration.eyeScale / 2,
-    size.shortestSide * _minEyeRadiusRatio,
+  final eyeCenter = Offset(
+    (artRect.left + artRect.width * decoration.eyeCenterX).clamp(
+      subjectRect.left + eyeRadius * eyeReach,
+      subjectRect.right - eyeRadius * eyeReach,
+    ),
+    (artRect.top + artRect.height * decoration.eyeCenterY).clamp(
+      subjectRect.top + eyeRadius,
+      subjectRect.bottom - eyeRadius * 3,
+    ),
   );
   for (final side in [-1.0, 1.0]) {
     _paintEye(

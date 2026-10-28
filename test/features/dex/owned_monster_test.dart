@@ -121,6 +121,18 @@ void main() {
       expect(monster.decorationVersion, 2);
     });
 
+    test('描ける版でも形の違う装飾は、モンスターごと読めなくせず装飾無しで読む', () {
+      final monster = OwnedMonster.fromJson(
+        json: monsterJson(
+          decoration: {'eyeStyle': 'unknown-style'},
+          decorationVersion: 1,
+        ),
+      );
+      expect(monster.decoration, isNull);
+      expect(monster.decorationVersion, 1);
+      expect(monster.artPath, 'monsters/m1/art.png');
+    });
+
     test('装飾を持たないドキュメントは装飾無しで読む', () {
       final monster = OwnedMonster.fromJson(
         json: monsterJson(decoration: null, decorationVersion: null),
