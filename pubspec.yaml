@@ -66,6 +66,14 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   flame_test: ^2.3.1
 
+dependency_overrides:
+  # google_sign_in_ios 6.3.8 は GoogleSignIn-iOS 9.x (App Check 11.x) に固定していて、App Check 12.x を要る
+  # firebase-ios-sdk 13.1.1 と SwiftPM で解決できない (https://github.com/google/GoogleSignIn-iOS/issues/655)。
+  # 6.3.8 の公式アーカイブに GoogleSignIn-iOS 10 を許す差分 (https://github.com/flutter/packages/pull/13306) だけを当てたもの。
+  # 同じ変更を含む google_sign_in_ios が pub.dev に出たら、この override と third_party/google_sign_in_ios を消す
+  google_sign_in_ios:
+    path: third_party/google_sign_in_ios
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
