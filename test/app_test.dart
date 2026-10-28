@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:typed_data';
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -69,6 +70,9 @@ void main() {
   /// [pumpApp] の共有シートが返す結果。既定は共有した。テストが [pumpApp] の前に変える。
   late ShareResultStatus shareResultStatus;
   late RecordedShareCalls shareCalls;
+
+  /// [pumpApp]・[pumpHome] の切り出した画像の読み込みが返す画像。見本のモンスターは同梱の画像を持つため、共有のカードを描けるよう読めることにする。
+  late ui.Image artImage;
 
   /// [pumpApp] の設定画面のアカウントの連携と削除。呼ばれた操作を [accountCalls] に順に残す。
   /// 連携と削除の振る舞いは、テストが [pumpApp] の前に変える。既定は連携でき、削除できる。
@@ -183,6 +187,10 @@ void main() {
     openedUris = [];
     battleCalls = RecordedBattleCalls();
     shareCalls = RecordedShareCalls();
+    artImage = (await tester.runAsync(
+      () => createTestImage(width: 8, height: 8),
+    ))!;
+    addTearDown(artImage.dispose);
     accountStore = fakeAccountStore(sessionStore: sessionStore);
   }
 
@@ -221,7 +229,7 @@ void main() {
         pvpClient: pvpClient,
         cardSharer: fakeCardSharer(
           calls: shareCalls,
-          artImage: null,
+          artImage: artImage,
           shareResultStatus: shareResultStatus,
         ),
         accountStore: accountStore,
@@ -267,7 +275,7 @@ void main() {
           pvpClient: pvpClient,
           cardSharer: fakeCardSharer(
             calls: shareCalls,
-            artImage: null,
+            artImage: artImage,
             shareResultStatus: shareResultStatus,
           ),
           accountStore: accountStore,
@@ -1039,7 +1047,7 @@ void main() {
         (rendered.card as MonsterShareCard).monster.definition.id,
         bornMonster.id,
       );
-      // 切り出した画像を持たない見本のモンスターは Storage を読まない
+      // 切り出した画像を持たないモンスターは画像を読まない
       expect(shareCalls.loadedArtPaths, isEmpty);
       final shared = shareCalls.sharedImages.single;
       expect(shared.fileName, 'snapmon-${bornMonster.id}-portrait.png');

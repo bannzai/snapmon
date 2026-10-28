@@ -151,7 +151,7 @@ void main() {
         renderInvocations(component: player).map((call) => call.memberName),
         contains(#drawImageRect),
       );
-      // 画像を持たない相手 (見本のモンスター) は仮の絵のまま
+      // 画像を持たない相手は仮の絵のまま
       expect(opponent.artSprite, isNull);
       expect(
         renderInvocations(component: opponent).map((call) => call.memberName),

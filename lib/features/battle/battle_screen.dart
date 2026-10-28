@@ -204,7 +204,7 @@ class _BattleScreenState extends State<BattleScreen> {
     super.dispose();
   }
 
-  /// [side] の手持ちの [monsterId] の切り出した被写体の画像の Storage のパス。見本のモンスターは null。
+  /// [side] の手持ちの [monsterId] の切り出した被写体の画像のパス ([OwnedMonster.artPath])。
   /// 見本同士の対戦では同じ monsterId が両陣営にいるため、陣営の手持ちから引く。
   String? _artPathOf({required BattleSideId side, required String monsterId}) =>
       switch (side) {
@@ -216,9 +216,7 @@ class _BattleScreenState extends State<BattleScreen> {
   /// 読めない時はフィールドの仮の絵のままバトルを続ける (絵のためにバトルを止めないため)。
   Future<void> _loadArtImage({required String artPath}) async {
     try {
-      final artImage = await widget.cardSharer.loadArtImage(
-        storagePath: artPath,
-      );
+      final artImage = await widget.cardSharer.loadArtImage(artPath: artPath);
       if (!mounted) {
         artImage.dispose();
         return;
