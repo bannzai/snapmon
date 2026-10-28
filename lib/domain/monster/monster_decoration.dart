@@ -42,8 +42,17 @@ class MonsterDecoration {
         eyeCenterX: (json['eyeCenterX'] as num).toDouble(),
         eyeCenterY: (json['eyeCenterY'] as num).toDouble(),
         eyeScale: (json['eyeScale'] as num).toDouble(),
-        outlineColorHex: json['outlineColorHex'] as String,
+        outlineColorHex: _validOutlineColorHex(
+          outlineColorHex: json['outlineColorHex'] as String,
+        ),
       );
+
+  /// [outlineColorHex] が `#RRGGBB` (functions/src/generation/prompts/describe_subject.ts の検査と同じ形) ならそのまま返し、違えば FormatException を投げる。
+  /// 描く時に色を読めずに例外になるのを避け、読む時に失敗させて装飾無しに倒すため。
+  static String _validOutlineColorHex({required String outlineColorHex}) =>
+      RegExp(r'^#[0-9A-Fa-f]{6}$').hasMatch(outlineColorHex)
+      ? outlineColorHex
+      : throw FormatException('outlineColorHex', outlineColorHex);
 
   /// 目の形。
   final MonsterEyeStyle eyeStyle;

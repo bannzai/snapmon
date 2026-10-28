@@ -133,6 +133,16 @@ void main() {
       expect(monster.artPath, 'monsters/m1/art.png');
     });
 
+    test('輪郭線の色が #RRGGBB でない装飾は、描く時に失敗させず読む時に装飾無しにする', () {
+      final monster = OwnedMonster.fromJson(
+        json: monsterJson(
+          decoration: {...decorationJson, 'outlineColorHex': 'red'},
+          decorationVersion: 1,
+        ),
+      );
+      expect(monster.decoration, isNull);
+    });
+
     test('装飾を持たないドキュメントは装飾無しで読む', () {
       final monster = OwnedMonster.fromJson(
         json: monsterJson(decoration: null, decorationVersion: null),

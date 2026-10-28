@@ -177,7 +177,7 @@ void main() {
     }
   });
 
-  test('どの縦横比の被写体とどの大きさの枠でも、目と口の位置を抑える計算で例外を出さずに描ける', () async {
+  test('どの縦横比の被写体とどの大きさの枠でも、どの形の装飾も例外 (assert を含む) を出さずに描ける', () async {
     for (final (imageWidth, imageHeight) in [
       for (final side in [1, 3, 7, 30, 61, 108, 199])
         for (final pair in [(side, 108), (108, side)]) pair,
@@ -192,22 +192,29 @@ void main() {
         imageHeight,
       );
       for (final frameSide in [50.0, 100.0, 137.0, 200.0, 333.0]) {
-        for (final eyeCenterY in [0.0, 0.5, 1.0]) {
-          final paintRecorder = ui.PictureRecorder();
-          paintMonsterArt(
-            canvas: Canvas(paintRecorder),
-            size: Size(frameSide, frameSide),
-            monster: monsterWith(
-              decoration: testDecoration(
-                eyeCenterX: eyeCenterY,
-                eyeCenterY: eyeCenterY,
-                eyeScale: 0.3,
+        for (final eyePosition in [0.0, 0.5, 1.0]) {
+          // 4 種類の形はどれも 5 つの値を持つため、同じ番号の値を組にして全部の値を 1 回ずつ通す
+          for (var styleIndex = 0; styleIndex < 5; styleIndex++) {
+            final paintRecorder = ui.PictureRecorder();
+            paintMonsterArt(
+              canvas: Canvas(paintRecorder),
+              size: Size(frameSide, frameSide),
+              monster: monsterWith(
+                decoration: testDecoration(
+                  eyeStyle: MonsterEyeStyle.values[styleIndex],
+                  mouthStyle: MonsterMouthStyle.values[styleIndex],
+                  limbStyle: MonsterLimbStyle.values[styleIndex],
+                  auraStyle: MonsterAuraStyle.values[styleIndex],
+                  eyeCenterX: eyePosition,
+                  eyeCenterY: eyePosition,
+                  eyeScale: 0.3,
+                ),
+                decorationVersion: 1,
               ),
-              decorationVersion: 1,
-            ),
-            artImage: image,
-          );
-          paintRecorder.endRecording().dispose();
+              artImage: image,
+            );
+            paintRecorder.endRecording().dispose();
+          }
         }
       }
       image.dispose();

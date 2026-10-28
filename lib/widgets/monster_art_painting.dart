@@ -105,7 +105,14 @@ void _paintDecorationVersion1({
       size.shortestSide * _decorationPaddingRatio,
     ),
   );
-  final subjectRect = artRect.deflate(artRect.longestSide * _cutoutMarginRatio);
+  // 写真の端で余白が切り詰められた細い画像では、長い辺の余白が短い辺の半分を超えて枠の幅が負になり、
+  // 手足の角丸 (負の半径を assert で拒む) と目の大きさが壊れるため、短い辺の半分までに抑える
+  final subjectRect = artRect.deflate(
+    math.min(
+      artRect.longestSide * _cutoutMarginRatio,
+      artRect.shortestSide / 2,
+    ),
+  );
   final outlineColor = _colorFromHex(colorHex: decoration.outlineColorHex);
   _paintAura(
     canvas: canvas,
