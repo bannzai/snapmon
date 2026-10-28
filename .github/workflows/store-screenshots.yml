@@ -1,0 +1,49 @@
+name: store-screenshots
+
+# App Store のスクリーンショット (fastlane/screenshots/{ja,en-US}/) を `make screenshots` で書き出し、成果物 (artifact) に残す。
+# 開発用の Mac ではビルドしない (CLAUDE.md「ビルド・テスト・検証方法」) ため、ここで生成して成果物をダウンロードし、リポジトリに入れる。
+# スクリーンショットのモンスターの絵はリポジトリの store_screenshots/fixtures/cutouts/ を使う (出典は同ディレクトリの LICENSES.md)。
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+on:
+  # 画面・文言・素材を変えた PR でも撮り直し、fastlane/screenshots/ が実際の画面と食い違ったことに気づけるようにする
+  pull_request:
+    paths:
+      - lib/**
+      - assets/**
+      - pubspec.yaml
+      - l10n.yaml
+      - store_screenshots/**
+      - .github/workflows/store-screenshots.yml
+  workflow_dispatch:
+
+# job が GITHUB_TOKEN を使うのは checkout だけのため、読み取り専用に絞る
+permissions:
+  contents: read
+
+# flutter-ci.yml と同じ Flutter の版と Firebase の設定ファイルの Secrets
+env:
+  FLUTTER_VERSION: '3.41.9'
+  FIREBASE_OPTIONS_DART_B64: ${{ secrets.FIREBASE_OPTIONS_DART_B64 }}
+
+jobs:
+  screenshots:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
+    - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+      with:
+        channel: stable
+        flutter-version: ${{ env.FLUTTER_VERSION }}
+    - run: scripts/restore-firebase-config.sh dart
+    - run: make screenshots
+    - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      with:
+        name: store-screenshots
+        path: fastlane/screenshots/
+        if-no-files-found: error

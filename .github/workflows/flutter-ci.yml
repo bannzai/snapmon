@@ -35,8 +35,10 @@ jobs:
         flutter-version: ${{ env.FLUTTER_VERSION }}
     - run: scripts/restore-firebase-config.sh dart
     - run: flutter pub get
+    # UI の文言 (lib/l10n/app_*.arb) から AppLocalizations を生成する。生成物は git に入れないため、analyze の前に作る
+    - run: flutter gen-l10n
     - run: flutter analyze --no-pub --no-fatal-infos --fatal-warnings
-    - run: dart format --set-exit-if-changed lib test
+    - run: dart format --set-exit-if-changed lib test store_screenshots
 
   test:
     runs-on: ubuntu-latest
@@ -50,9 +52,11 @@ jobs:
         flutter-version: ${{ env.FLUTTER_VERSION }}
     - run: scripts/restore-firebase-config.sh dart
     - run: flutter pub get
+    - run: flutter gen-l10n
     - run: flutter test
     - run: bash scripts/test/test-set-webtunnel-setup-env-secret.sh
     - run: bash scripts/test/test-makefile-targets.sh
+    - run: bash scripts/test/test-metadata-check.sh
 
   build-web:
     runs-on: ubuntu-latest

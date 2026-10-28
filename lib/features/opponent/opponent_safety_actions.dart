@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../l10n/l10n.dart';
 import '../../theme/snapmon_colors.dart';
 import '../dex/owned_monster.dart';
 import '../settings/settings_screen.dart';
@@ -34,7 +35,10 @@ Future<void> openContact({
 }) async {
   try {
     if (!await openUrl(uri: contactUri) && context.mounted) {
-      _showMessage(context: context, message: '$contactUri を開けませんでした');
+      _showMessage(
+        context: context,
+        message: context.l10n.commonCouldNotOpenUrl(contactUri.toString()),
+      );
     }
   } on Exception catch (error) {
     if (context.mounted) {
@@ -57,6 +61,8 @@ Future<void> reportOpponentMonster({
   required VoidCallback? onReported,
 }) async {
   final messenger = ScaffoldMessenger.of(context);
+  // 送れた時の文言は、シートを閉じた後 (context が画面から外れた後) にも出すため、先に取っておく
+  final reportedMessage = context.l10n.opponentReported;
   await showModalBottomSheet<bool>(
     context: context,
     isScrollControlled: true,
@@ -72,7 +78,10 @@ Future<void> reportOpponentMonster({
           );
         }
         onReported?.call();
-        _showMessageWithMessenger(messenger: messenger, message: '通報しました');
+        _showMessageWithMessenger(
+          messenger: messenger,
+          message: reportedMessage,
+        );
       },
       onOpenContact: () => openContact(context: context, openUrl: openUrl),
     ),
@@ -89,21 +98,25 @@ Future<void> blockOpponent({
   required VoidCallback? onBlocked,
 }) async {
   final messenger = ScaffoldMessenger.of(context);
+  // ブロックできた時の文言は、ダイアログを閉じた後 (context が画面から外れた後) にも出すため、先に取っておく
+  final blockedMessage = context.l10n.opponentBlocked;
   final confirmed = await showDialog<bool>(
     context: context,
     builder: (dialogContext) => AlertDialog(
       // 表示名は最大 12 文字で、タイトルの大きな文字に入れると 1 行に収まらないため本文に置く
-      title: const Text('ブロック'),
-      content: Text('${opponent.displayName} と互いに対戦の相手に出なくなります'),
+      title: Text(dialogContext.l10n.blockDialogTitle),
+      content: Text(
+        dialogContext.l10n.blockDialogMessage(opponent.displayName),
+      ),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(dialogContext).pop(false),
-          child: const Text('やめる'),
+          child: Text(dialogContext.l10n.commonCancel),
         ),
         TextButton(
           key: const Key('block-confirm'),
           onPressed: () => Navigator.of(dialogContext).pop(true),
-          child: const Text('ブロックする'),
+          child: Text(dialogContext.l10n.blockDialogConfirm),
         ),
       ],
     ),
@@ -116,7 +129,7 @@ Future<void> blockOpponent({
       await pvpClient.blockUser(blockedUid: opponent.opponentUid);
     }
     onBlocked?.call();
-    _showMessageWithMessenger(messenger: messenger, message: 'ブロックしました');
+    _showMessageWithMessenger(messenger: messenger, message: blockedMessage);
   } catch (error) {
     _showMessageWithMessenger(messenger: messenger, message: error.toString());
   }
@@ -153,7 +166,7 @@ class OpponentSafetyMenuButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) => PopupMenuButton<VoidCallback>(
     key: Key('opponent-menu-${opponent.opponentUid}'),
-    tooltip: '通報 · ブロック',
+    tooltip: context.l10n.opponentSafetyMenuTooltip,
     icon: const Icon(Icons.more_horiz, color: SnapmonColors.textMuted),
     onSelected: (action) => action(),
     itemBuilder: (menuContext) => [
@@ -168,7 +181,7 @@ class OpponentSafetyMenuButton extends StatelessWidget {
             openUrl: openUrl,
             onReported: onOpponentRemoved,
           ),
-          child: Text('${monster.definition.name} を通報'),
+          child: Text(context.l10n.reportSheetTitle(monster.definition.name)),
         ),
       PopupMenuItem(
         key: Key('block-${opponent.opponentUid}'),
@@ -179,7 +192,7 @@ class OpponentSafetyMenuButton extends StatelessWidget {
           sendsToServer: sendsToServer,
           onBlocked: onOpponentRemoved,
         ),
-        child: const Text('このトレーナーをブロック'),
+        child: Text(context.l10n.opponentBlockTrainer),
       ),
     ],
   );

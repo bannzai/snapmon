@@ -5,7 +5,6 @@ import 'package:snapmon/features/capture/first_battle.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
 import 'package:snapmon/features/opponent/pvp_client.dart';
 import 'package:snapmon/features/opponent/pvp_opponent.dart';
-import 'package:snapmon/sample/sample_data.dart';
 
 import '../../monster_generator_fixture.dart';
 import '../../sample_data_fixture.dart';
@@ -49,13 +48,11 @@ void main() {
         ),
         sampleData: sampleData,
         randomSeed: 1,
+        cpuTrainerName: 'CPU トレーナー',
       );
       expect(opponent.opponentKind, BattleOpponentKind.cpu);
       expect(opponent.pvpOpponent, isNull);
-      expect(
-        opponent.opponentName,
-        sampleData.opponents.firstWhere((cpu) => cpu.id == cpuOpponentId).name,
-      );
+      expect(opponent.opponentName, 'CPU トレーナー');
     },
   );
 }

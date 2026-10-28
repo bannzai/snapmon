@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../../l10n/l10n.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_text_styles.dart';
 import 'session_store.dart';
@@ -58,11 +59,17 @@ class _SessionScreenState extends State<SessionScreen> {
               const Text('snapmon', style: SnapmonTextStyles.logo),
               const SizedBox(height: 32),
               if (error == null) ...[
-                const Text('じゅんびしています', style: SnapmonTextStyles.hero),
+                Text(
+                  context.l10n.sessionPreparing,
+                  style: SnapmonTextStyles.hero,
+                ),
                 const SizedBox(height: 24),
                 const Center(child: CircularProgressIndicator()),
               ] else ...[
-                const Text('つながりませんでした', style: SnapmonTextStyles.hero),
+                Text(
+                  context.l10n.sessionConnectionFailed,
+                  style: SnapmonTextStyles.hero,
+                ),
                 const SizedBox(height: 16),
                 Text(
                   error.toString(),
@@ -71,7 +78,10 @@ class _SessionScreenState extends State<SessionScreen> {
                   ),
                 ),
                 const SizedBox(height: 32),
-                FilledButton(onPressed: _start, child: const Text('もう一度試す')),
+                FilledButton(
+                  onPressed: _start,
+                  child: Text(context.l10n.commonRetry),
+                ),
                 if (kDebugMode && widget.isDebugSkipEnabled) ...[
                   const SizedBox(height: 12),
                   OutlinedButton(

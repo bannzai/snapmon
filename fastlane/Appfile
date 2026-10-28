@@ -1,0 +1,3 @@
+# Apple ID・チーム ID は Appfile に書かず、fastlane の環境変数 FASTLANE_USER・FASTLANE_TEAM_ID・FASTLANE_ITC_TEAM_ID で渡す
+# (https://docs.fastlane.tools/advanced/#environment-variables)
+app_identifier("com.bannzai.snapmon")

@@ -16,6 +16,7 @@ import 'package:snapmon/features/battle/battle_screen.dart';
 import 'package:snapmon/features/dex/owned_monster.dart';
 import 'package:snapmon/features/share/card_sharer.dart';
 import 'package:snapmon/features/share/share_cards.dart';
+import 'package:snapmon/l10n/l10n.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
 
 import '../../battle_recorder_fixture.dart';
@@ -51,6 +52,9 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         theme: snapmonThemeData(),
+        locale: const Locale('ja'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: BattleScreen(
           playerParty: [playerMonster],
           opponentParty: [weakOpponent],
@@ -108,6 +112,9 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             theme: snapmonThemeData(),
+            locale: const Locale('ja'),
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
             home: BattleScreen(
               playerParty: [strongPlayer],
               opponentParty: [weakOpponent],
@@ -349,7 +356,10 @@ void main() {
     expect(shareCalls.loadedArtPaths, [artPath, weakOpponent.artPath, artPath]);
     final rendered = shareCalls.renderedCards.single;
     expect(rendered.format, ShareCardFormat.portrait);
-    final card = rendered.card as BattleResultShareCard;
+    // カードは画面の木の外で描くため、画面と同じ言語の Localizations で包んで渡す
+    final localizedCard = rendered.card as Localizations;
+    expect(localizedCard.locale, const Locale('ja'));
+    final card = localizedCard.child! as BattleResultShareCard;
     expect(card.winner, BattleSideId.player);
     // 勝敗の画面と同じく、Functions が返した確定したレベルを描く
     expect(card.appliedLevels, {strongPlayer.definition.id: 9});

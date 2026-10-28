@@ -11,6 +11,7 @@ import '../../domain/battle/move_special_effect.dart';
 import '../../domain/master/master_data.dart';
 import '../../domain/master/move.dart';
 import '../../domain/monster/stat_calculation.dart';
+import '../../l10n/l10n.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
@@ -50,11 +51,6 @@ const Duration _hitDuration = Duration(
 
 /// 倒れた・交代したのログを読ませる間。ログの帯の 1 行を読める長さにした。
 const Duration _messageDuration = Duration(milliseconds: 700);
-
-/// バトルの記録 (Functions) の状態を勝敗の画面に出す文言。
-const String _recordingText = '記録しています';
-const String _recordedText = '記録しました';
-const String _notRecordedText = 'ログインしていないため記録していません';
 
 /// バトル画面 (モックの Battle.dc.html)。フィールドは Flame の [BattleFieldGame]、名前・HP・技のボタン・ログの帯・勝敗は Flutter で描く。
 /// 技を選ぶと CPU の行動と合わせて 1 ターンを [advanceTurn] で解決し、増えたバトルのログを 1 件ずつ演出して見せる。
@@ -129,8 +125,9 @@ class _BattleScreenState extends State<BattleScreen> {
   /// 画面に出している場のモンスター (HP は演出に合わせて減らす)。演出が終わると [_battleState] の場のモンスターに揃える。
   late Map<BattleSideId, BattleMonster> _displayedActiveMembers;
 
-  /// ログの帯に出している文言。
-  late String _logText;
+  /// ログの帯に出している文言を、画面の言語の文言から作る。initState では文言 (Localizations) を引けないため、
+  /// 文言そのものではなく作り方を持つ。
+  late String Function(AppLocalizations l10n) _logText;
 
   /// 演出を再生しているか。再生中は技・交代・にげるを押せない。
   bool _isPlaying = false;
@@ -138,8 +135,8 @@ class _BattleScreenState extends State<BattleScreen> {
   /// startBattle の呼び出し。決着の後に battleId を受け取って recordBattle に使う。
   late final Future<String?> _battleRecordStart;
 
-  /// 勝敗の画面に出す、バトルの記録の状態の文言。決着前は null。
-  String? _recordStatusText;
+  /// 勝敗の画面に出す、バトルの記録の状態の文言の作り方 ([_logText] と同じく画面の言語の文言から作る)。決着前は null。
+  String Function(AppLocalizations l10n)? _recordStatusText;
 
   /// 決着の後に確定した自分のモンスターのレベル (monsterId ごと)。記録する対戦は Functions が返した値で、
   /// 記録の待ち・失敗の間は空のまま (勝敗の画面に確定していないレベルアップを出さないため)。
@@ -167,8 +164,9 @@ class _BattleScreenState extends State<BattleScreen> {
       battleDate: DateTime.now(),
     );
     _displayedActiveMembers = _activeMembersOf(state: _battleState);
-    _logText =
-        '${_battleState.opponent.activeMember.definition.name} が 勝負をしかけてきた';
+    final firstOpponentName =
+        _battleState.opponent.activeMember.definition.name;
+    _logText = (l10n) => l10n.battleLogChallenged(firstOpponentName);
     _game = BattleFieldGame(
       playerMonster: _ownedMonsterOf(
         side: BattleSideId.player,
@@ -288,16 +286,20 @@ class _BattleScreenState extends State<BattleScreen> {
             ? null
             : widget.definitions.moveById(moveId: event.moveId!);
         setState(
-          () => _logText = [
-            '${attacker.definition.name} の ${move?.displayName ?? 'わるあがき'}',
-            // 効果が働かなかった (倍率 100%) 時は、起きていないことを出さない
+          () => _logText = (l10n) => [
+            l10n.battleLogMoveUsed(
+              attacker.definition.name,
+              move?.displayName ?? l10n.battleStruggle,
+            ),
+            // 効果が働かなかった (倍率 100%) 時は、起きていないことを出さない。
+            // 説明文は技の名前と同じく master の定義の文言のため、ARB には移さない
             if (event.specialEffect case (
               :final powerPercent,
               :final description,
             ) when powerPercent > 100)
               description,
-            if (event.typeMultiplier > 1) 'こうかは ばつぐんだ',
-            if (event.typeMultiplier < 1) 'こうかは いまひとつ',
+            if (event.typeMultiplier > 1) l10n.battleLogSuperEffective,
+            if (event.typeMultiplier < 1) l10n.battleLogNotVeryEffective,
           ].join('\n'),
         );
         _game.lunge(attackerSide: event.attackerSide);
@@ -322,10 +324,9 @@ class _BattleScreenState extends State<BattleScreen> {
         );
         await Future<void>.delayed(_hitDuration);
       case MonsterFaintedEvent():
-        setState(
-          () => _logText =
-              '${_displayedActiveMembers[event.side]!.definition.name} は たおれた',
-        );
+        final faintedName =
+            _displayedActiveMembers[event.side]!.definition.name;
+        setState(() => _logText = (l10n) => l10n.battleLogFainted(faintedName));
         _game.faint(side: event.side);
         await Future<void>.delayed(_messageDuration);
       case MonsterSwitchedInEvent():
@@ -335,7 +336,7 @@ class _BattleScreenState extends State<BattleScreen> {
             .firstWhere((member) => member.definition.id == event.monsterId);
         setState(() {
           _displayedActiveMembers[event.side] = member;
-          _logText = '${member.definition.name} が でてきた';
+          _logText = (l10n) => l10n.battleLogSwitchedIn(member.definition.name);
         });
         _game.switchIn(
           side: event.side,
@@ -359,7 +360,7 @@ class _BattleScreenState extends State<BattleScreen> {
         .whereType<BattleFinishedEvent>()
         .single;
     final playerLevelUps = _playerLevelUpsOf(state: finishedState);
-    setState(() => _recordStatusText = _recordingText);
+    setState(() => _recordStatusText = (l10n) => l10n.battleRecording);
     unawaited(
       widget.battleRecorder
           .logEvent(
@@ -399,7 +400,7 @@ class _BattleScreenState extends State<BattleScreen> {
           },
         );
         if (mounted) {
-          setState(() => _recordStatusText = _notRecordedText);
+          setState(() => _recordStatusText = (l10n) => l10n.battleNotRecorded);
         }
         return;
       }
@@ -413,11 +414,11 @@ class _BattleScreenState extends State<BattleScreen> {
       );
       _applyPlayerLevels(levelsByMonsterId: recordedLevels);
       if (mounted) {
-        setState(() => _recordStatusText = _recordedText);
+        setState(() => _recordStatusText = (l10n) => l10n.battleRecorded);
       }
     } catch (error) {
       if (mounted) {
-        setState(() => _recordStatusText = error.toString());
+        setState(() => _recordStatusText = (_) => error.toString());
       }
     }
   }
@@ -465,7 +466,7 @@ class _BattleScreenState extends State<BattleScreen> {
                         child: SizedBox(
                           width: double.infinity,
                           child: Text(
-                            _logText,
+                            _logText(context.l10n),
                             key: const Key('battle-log'),
                             style: SnapmonTextStyles.body,
                           ),
@@ -525,7 +526,9 @@ class _BattleScreenState extends State<BattleScreen> {
                           winner: _battleState.winner!,
                           appliedLevels: _appliedLevels,
                           playerParty: widget.playerParty,
-                          recordStatusText: _recordStatusText,
+                          recordStatusText: _recordStatusText?.call(
+                            context.l10n,
+                          ),
                           opponentParty: widget.opponentParty,
                           definitions: widget.definitions,
                           cardSharer: widget.cardSharer,
@@ -566,9 +569,9 @@ class _BattleScreenState extends State<BattleScreen> {
     return Column(
       children: [
         if (widget.firstBattleBornMonster != null) ...[
-          const Text(
-            '技を選ぶと素早い方から行動する  相性のいい属性ほど大きく効く',
-            key: Key('first-battle-hint'),
+          Text(
+            context.l10n.battleFirstHint,
+            key: const Key('first-battle-hint'),
             style: SnapmonTextStyles.small,
           ),
           const SizedBox(height: 6),
@@ -577,14 +580,14 @@ class _BattleScreenState extends State<BattleScreen> {
           children: [
             Expanded(
               child: Text(
-                '${playerMonster.definition.name} の 技をえらぶ',
+                context.l10n.battleChooseMove(playerMonster.definition.name),
                 style: SnapmonTextStyles.caption.copyWith(
                   color: SnapmonColors.accent,
                 ),
               ),
             ),
             Text(
-              'ターン ${_battleState.turnNumber}',
+              context.l10n.battleTurn(_battleState.turnNumber),
               style: SnapmonTextStyles.caption,
             ),
           ],
@@ -627,7 +630,7 @@ class _BattleScreenState extends State<BattleScreen> {
           Padding(
             padding: const EdgeInsets.only(bottom: 10),
             child: _BattleCommandButton(
-              label: 'わるあがき',
+              label: context.l10n.battleStruggle,
               onPressed: _isPlaying
                   ? null
                   : () => _selectAction(playerAction: const StruggleAction()),
@@ -637,7 +640,7 @@ class _BattleScreenState extends State<BattleScreen> {
           children: [
             Expanded(
               child: _BattleCommandButton(
-                label: 'モンスターを交代',
+                label: context.l10n.battleSwitchMonster,
                 onPressed: _isPlaying
                     ? null
                     : () =>
@@ -647,7 +650,7 @@ class _BattleScreenState extends State<BattleScreen> {
             const SizedBox(width: 10),
             Expanded(
               child: _BattleCommandButton(
-                label: 'にげる',
+                label: context.l10n.battleRun,
                 onPressed: _isPlaying
                     ? null
                     : () => Navigator.of(context).pop(),
@@ -714,7 +717,9 @@ class _BattleResultPanel extends StatelessWidget {
           const SizedBox(height: 12),
         ],
         Text(
-          winner == BattleSideId.player ? 'かった' : 'まけた',
+          winner == BattleSideId.player
+              ? context.l10n.battleWon
+              : context.l10n.battleLost,
           style: SnapmonTextStyles.screenTitle.copyWith(
             color: winner == BattleSideId.player
                 ? SnapmonColors.accent
@@ -724,8 +729,8 @@ class _BattleResultPanel extends StatelessWidget {
         // レベルが確定するまで (記録の待ち・失敗) は、上がったと読める説明を出さない
         if (appliedLevels.isNotEmpty) ...[
           const SizedBox(height: 4),
-          const Text(
-            '勝ち負けに関係なく 戦ったモンスターのレベルが上がる',
+          Text(
+            context.l10n.battleLevelUpNote,
             style: SnapmonTextStyles.caption,
           ),
         ],
@@ -745,7 +750,7 @@ class _BattleResultPanel extends StatelessWidget {
                     vertical: 10,
                   ),
                   child: Text(
-                    '${monster.definition.name}  Lv. ${monster.level} → $newLevel',
+                    '${monster.definition.name}  ${context.l10n.commonLevelUp(monster.level, newLevel)}',
                     style: SnapmonTextStyles.label.copyWith(
                       color: SnapmonColors.textOnCard,
                     ),
@@ -776,24 +781,27 @@ class _BattleResultPanel extends StatelessWidget {
                 definitions: definitions,
                 format: format,
               ),
-          shareText:
-              '${winner == BattleSideId.player ? 'snapmon のバトルにかった' : 'snapmon のバトルにまけた'}\n#snapmon\n$landingPageUri',
+          shareText: winner == BattleSideId.player
+              ? context.l10n.battleShareTextWon(landingPageUri.toString())
+              : context.l10n.battleShareTextLost(landingPageUri.toString()),
           fileNamePrefix: 'snapmon-battle',
-          buttonBuilder: ({required onPressed}) =>
-              _BattleCommandButton(label: '結果を共有', onPressed: onPressed),
+          buttonBuilder: ({required onPressed}) => _BattleCommandButton(
+            label: context.l10n.battleShareResult,
+            onPressed: onPressed,
+          ),
         ),
         const SizedBox(height: 10),
         if (bornMonster == null)
           FilledButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('もどる'),
+            child: Text(context.l10n.commonBack),
           )
         else
           Row(
             children: [
               Expanded(
                 child: _BattleCommandButton(
-                  label: '図鑑を見る',
+                  label: context.l10n.battleOpenDex,
                   onPressed: () =>
                       Navigator.of(context).pop(BattleScreenAction.openDex),
                 ),
@@ -803,7 +811,7 @@ class _BattleResultPanel extends StatelessWidget {
                 child: FilledButton(
                   key: const Key('first-battle-capture-again'),
                   onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('もう 1 体撮る'),
+                  child: Text(context.l10n.resultCaptureAnother),
                 ),
               ),
             ],
@@ -849,7 +857,9 @@ class _BornMonsterCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  isNewlyBorn ? 'あたらしい なかま' : 'きみの なかま',
+                  isNewlyBorn
+                      ? context.l10n.resultNewlyBorn
+                      : context.l10n.battleYourMonster,
                   style: SnapmonTextStyles.small.copyWith(
                     color: SnapmonColors.textOnCardMuted,
                   ),
@@ -870,7 +880,7 @@ class _BornMonsterCard extends StatelessWidget {
                 const SizedBox(height: 4),
                 // 名前と図鑑の文章が AI の生成であることの表示 (DIRECTION.md「必要な機能」の未成年向けの安全策)
                 Text(
-                  '名前と図鑑の文章は AI が作りました',
+                  context.l10n.commonAiGeneratedNotice,
                   style: SnapmonTextStyles.small.copyWith(
                     color: SnapmonColors.textOnCardMuted,
                   ),
@@ -933,7 +943,7 @@ class _MonsterStatusCard extends StatelessWidget {
                 ),
               ),
               Text(
-                'Lv. ${monster.state.level}',
+                context.l10n.commonLevel(monster.state.level),
                 style: SnapmonTextStyles.small.copyWith(
                   color: SnapmonColors.textOnCardMuted,
                 ),
@@ -968,7 +978,10 @@ class _MonsterStatusCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(right: 4),
                   child: Text(
-                    'HP ${monster.state.currentHitPoints} / $maximumHitPoints',
+                    context.l10n.battleHitPoints(
+                      monster.state.currentHitPoints,
+                      maximumHitPoints,
+                    ),
                     style: SnapmonTextStyles.small.copyWith(
                       color: SnapmonColors.textOnCardMuted,
                     ),
@@ -1039,7 +1052,20 @@ class _MoveButton extends StatelessWidget {
                     Text(
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      '${definitions.elementTypes.firstWhere((elementType) => elementType.id == move.elementTypeId, orElse: () => throw StateError('属性 ${move.elementTypeId} が定義に無い')).displayName}  威力 ${move.power}  PP $remainingPowerPoints/${move.powerPoints}',
+                      context.l10n.battleMoveDetail(
+                        definitions.elementTypes
+                            .firstWhere(
+                              (elementType) =>
+                                  elementType.id == move.elementTypeId,
+                              orElse: () => throw StateError(
+                                '属性 ${move.elementTypeId} が定義に無い',
+                              ),
+                            )
+                            .displayName,
+                        move.power,
+                        remainingPowerPoints,
+                        move.powerPoints,
+                      ),
                       style: SnapmonTextStyles.small.copyWith(
                         color: SnapmonColors.textOnCardMuted,
                       ),

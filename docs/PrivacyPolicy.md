@@ -31,8 +31,12 @@ bannzai（以下「提供者」といいます。）は、提供者の提供す�
 ユーザーが本サービスを利用するにあたって、提供者が収集する情報。提供者は、本サービスへのアクセス状況やそのご利用方法に関する情報を収集することがあります。これには以下の情報が含まれます。
 - 端末の種類・OS のバージョン、アプリのバージョン
 - 生成・バトル・共有などの利用状況（Google Analytics for Firebase による）
+- アプリのインストールごとに割り当てられる識別子（Google Analytics for Firebase が自動で割り当てるアプリインスタンス ID。ユーザーのアカウントとは紐付けません）[^analytics]
+- IP アドレスから推定されるおおまかな地域（Google Analytics for Firebase による。端末の位置情報サービスは利用しません）[^analytics]
 - アプリが異常終了した際のクラッシュ情報（Firebase Crashlytics による）
 - IPアドレス、リファラ、サーバーアクセスログに関する情報
+
+[^analytics]: 出典: https://support.google.com/analytics/answer/10285841 「An app instance id is automatically assigned to each instance of an app」「By default, this identifier is not associated with a user identifier」「Google Analytics does not use Apple’s Location Services feature」「Analytics derives general location data from users’ masked IP addresses」（2026-10-26 に確認）。本サービスはアプリインスタンス ID にユーザー ID を設定しません（lib/firebase/session.dart は setUserId を呼びません）
 
 ## 写真の取扱い
 - ユーザーの元の写真のファイルは、そのユーザー本人の図鑑にだけ表示します。他のユーザーには表示せず、共有カードにも入れません。ただし、下のとおりモンスターの画像は元の写真の一部または全体であることがあります。
@@ -120,3 +124,4 @@ bannzai.app@gmail.com
 提供者は、必要に応じて、本ポリシーを変更します。ただし、法令上ユーザーの同意が必要となるような本ポリシーの変更を行う場合、変更後の本ポリシーは、提供者所定の方法で変更に同意したユーザーに対してのみ適用されるものとします。なお、提供者は、本ポリシーを変更する場合には、変更後の本ポリシーの施行時期および内容をアプリ上での表示その他の適切な方法により周知し、またはユーザーに通知します。
 
 【2026年10月21日制定】
+【2026年10月26日改定】

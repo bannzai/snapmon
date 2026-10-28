@@ -11,6 +11,7 @@ import 'features/settings/account_store.dart';
 import 'features/settings/settings_screen.dart';
 import 'features/share/card_sharer.dart';
 import 'features/title/title_screen.dart';
+import 'l10n/l10n.dart';
 import 'sample/sample_data.dart';
 import 'theme/snapmon_theme.dart';
 
@@ -104,6 +105,8 @@ class _SnapmonAppState extends State<SnapmonApp> {
   Widget build(BuildContext context) => MaterialApp(
     title: 'snapmon',
     theme: snapmonThemeData(),
+    localizationsDelegates: AppLocalizations.localizationsDelegates,
+    supportedLocales: AppLocalizations.supportedLocales,
     home: ListenableBuilder(
       listenable: widget.sessionStore,
       builder: (context, _) {

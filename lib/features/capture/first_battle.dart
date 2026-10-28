@@ -23,11 +23,13 @@ typedef FirstBattleOpponent = ({
 /// 候補を取れない時 (ログインが無い・候補が 0 人・呼び出しの失敗) は、見本の CPU トレーナーの手持ちのレベルを
 /// [randomSeed] で自分の手持ちに合わせて戦う ([buildCpuParty])。候補の相手の定義を読めない時も CPU トレーナーにする。
 /// 図鑑の定義を読み直せない時は例外を投げる ([prepareBattleDefinitions])。
+/// [cpuTrainerName] は CPU トレーナーと戦う時に画面に出す相手の名前 (画面の言語の文言)。
 Future<FirstBattleOpponent> prepareFirstBattleOpponent({
   required DexStore dexStore,
   required PvpClient pvpClient,
   required SampleData sampleData,
   required int randomSeed,
+  required String cpuTrainerName,
 }) async {
   List<PvpOpponent>? pvpOpponents;
   try {
@@ -59,7 +61,7 @@ Future<FirstBattleOpponent> prepareFirstBattleOpponent({
     orElse: () => throw StateError('見本データに CPU トレーナーが無い'),
   );
   return (
-    opponentName: cpuOpponent.name,
+    opponentName: cpuTrainerName,
     opponentParty: buildCpuParty(
       monsters: [
         for (final monsterId in cpuOpponent.monsterIds)

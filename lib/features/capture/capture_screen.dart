@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../analytics/analytics_events.dart';
+import '../../l10n/l10n.dart';
 import '../../sample/sample_data.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
@@ -382,7 +383,9 @@ class _CaptureScreenState extends State<CaptureScreen>
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          '図鑑 ${widget.dexStore.monsters.length}',
+                          context.l10n.captureDexCount(
+                            widget.dexStore.monsters.length,
+                          ),
                           style: SnapmonTextStyles.label,
                         ),
                       ],
@@ -394,7 +397,7 @@ class _CaptureScreenState extends State<CaptureScreen>
             const SizedBox(width: 8),
             SquareIconButton(
               icon: Icons.settings_outlined,
-              tooltip: '設定',
+              tooltip: context.l10n.settingsTitle,
               onPressed: widget.onOpenSettings,
               size: 44,
             ),
@@ -409,8 +412,8 @@ class _CaptureScreenState extends State<CaptureScreen>
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
                 child: Text(
                   _cameraController == null
-                      ? '身の回りの物の写真を 1 枚選ぼう'
-                      : '身の回りの物を 1 つ撮ろう',
+                      ? context.l10n.captureFirstHintAlbum
+                      : context.l10n.captureFirstHintCamera,
                   key: const Key('capture-first-hint'),
                   textAlign: TextAlign.center,
                   style: SnapmonTextStyles.label.copyWith(
@@ -434,10 +437,10 @@ class _CaptureScreenState extends State<CaptureScreen>
           ),
         ),
       ),
-      const Padding(
-        padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+      Padding(
+        padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
         child: Text(
-          '身の回りの物を撮る\nモンスターが生まれる',
+          context.l10n.captureHero,
           textAlign: TextAlign.center,
           style: SnapmonTextStyles.hero,
         ),
@@ -449,13 +452,13 @@ class _CaptureScreenState extends State<CaptureScreen>
           children: [
             SquareIconButton(
               icon: Icons.photo_library_outlined,
-              tooltip: 'アルバムから選ぶ',
+              tooltip: context.l10n.capturePickFromAlbum,
               onPressed: _pickAlbumPhoto,
               size: 56,
             ),
             const SizedBox(width: 28),
             Tooltip(
-              message: '撮る',
+              message: context.l10n.tabCapture,
               child: Material(
                 color: _cameraController == null
                     ? SnapmonColors.surfaceRaised
@@ -482,7 +485,7 @@ class _CaptureScreenState extends State<CaptureScreen>
             const SizedBox(width: 28),
             SquareIconButton(
               icon: Icons.sports_martial_arts,
-              tooltip: '対戦する',
+              tooltip: context.l10n.captureGoToBattle,
               onPressed: () => widget.onSelectTab(tab: HomeTab.opponent),
               size: 56,
             ),
@@ -572,9 +575,9 @@ class _Viewfinder extends StatelessWidget {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Text(
-                          'カメラの許可が必要です',
-                          key: Key('capture-camera-permission-denied'),
+                        Text(
+                          context.l10n.captureCameraPermissionRequired,
+                          key: const Key('capture-camera-permission-denied'),
                           textAlign: TextAlign.center,
                           style: SnapmonTextStyles.label,
                         ),
@@ -582,8 +585,8 @@ class _Viewfinder extends StatelessWidget {
                         // Web はアプリから設定を開けないため、ブラウザで許可する場所を案内する
                         Text(
                           kIsWeb
-                              ? 'アドレスバーのサイトの設定から\nカメラを許可してください'
-                              : '設定でカメラを許可してください',
+                              ? context.l10n.captureCameraPermissionHintWeb
+                              : context.l10n.captureCameraPermissionHint,
                           textAlign: TextAlign.center,
                           style: SnapmonTextStyles.small,
                         ),
@@ -597,11 +600,11 @@ class _Viewfinder extends StatelessWidget {
                               FilledButton(
                                 style: _viewfinderFilledButtonStyle,
                                 onPressed: onOpenAppSettings,
-                                child: const Text('設定を開く'),
+                                child: Text(context.l10n.captureOpenSettings),
                               ),
                             OutlinedButton(
                               onPressed: onRequestCamera,
-                              child: const Text('もう一度試す'),
+                              child: Text(context.l10n.commonRetry),
                             ),
                           ],
                         ),
@@ -614,7 +617,7 @@ class _Viewfinder extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 48),
                     child: Text(
-                      'カメラが使えません\nアルバムから選んでください\n\n$error',
+                      '${context.l10n.captureCameraUnavailable}\n\n$error',
                       textAlign: TextAlign.center,
                       style: SnapmonTextStyles.small,
                     ),
@@ -627,7 +630,7 @@ class _Viewfinder extends StatelessWidget {
                     style: _viewfinderFilledButtonStyle,
                     onPressed: onRequestCamera,
                     icon: const Icon(Icons.photo_camera_outlined),
-                    label: const Text('カメラを使う'),
+                    label: Text(context.l10n.captureUseCamera),
                   ),
                 )
               else if (openedCameraController == null)
@@ -662,7 +665,10 @@ class _Viewfinder extends StatelessWidget {
                           horizontal: 14,
                           vertical: 8,
                         ),
-                        child: Text('被写体を枠に入れる', style: SnapmonTextStyles.body),
+                        child: Text(
+                          context.l10n.captureViewfinderGuide,
+                          style: SnapmonTextStyles.body,
+                        ),
                       ),
                     ),
                   ),

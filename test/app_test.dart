@@ -23,6 +23,7 @@ import 'package:snapmon/features/settings/settings_screen.dart';
 import 'package:snapmon/features/share/card_sharer.dart';
 import 'package:snapmon/features/share/share_cards.dart';
 import 'package:snapmon/features/title/title_screen.dart';
+import 'package:snapmon/l10n/l10n.dart';
 import 'package:snapmon/sample/sample_data.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
 
@@ -210,6 +211,9 @@ void main() {
     tester.platformDispatcher.accessibilityFeaturesTestValue =
         const FakeAccessibilityFeatures(disableAnimations: true);
     addTearDown(tester.platformDispatcher.clearAccessibilityFeaturesTestValue);
+    // SnapmonApp は端末の言語で文言を選ぶ。テストは原文 (日本語) の文言で画面を探すため、端末の言語を日本語にする
+    tester.platformDispatcher.localesTestValue = const [Locale('ja')];
+    addTearDown(tester.platformDispatcher.clearLocalesTestValue);
     await tester.pumpWidget(
       SnapmonApp(
         sampleData: sampleData,
@@ -257,6 +261,9 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         theme: snapmonThemeData(),
+        locale: const Locale('ja'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: HomeShell(
           initialTab: HomeTab.capture,
           startsCameraOnCaptureOpen: startsCameraOnCaptureOpen,
@@ -570,8 +577,8 @@ void main() {
       expect(find.text('アカウントを削除'), findsOneWidget);
       expect(generationCalls.uploadedRequestIds, isEmpty);
 
-      // 戻るとタイトルに戻る (下タブには入らない)
-      await tester.pageBack();
+      // 戻るとタイトルに戻る (下タブには入らない)。pageBack は英語の tooltip (Back) で探すため型で探す
+      await tester.tap(find.byType(BackButton));
       await tester.pumpAndSettle();
       expect(find.text('写真から選んではじめる'), findsOneWidget);
       expect(find.byKey(const Key('tab-dex')), findsNothing);
@@ -1051,7 +1058,11 @@ void main() {
       final rendered = shareCalls.renderedCards.single;
       expect(rendered.format, ShareCardFormat.portrait);
       expect(
-        (rendered.card as MonsterShareCard).monster.definition.id,
+        // カードは画面の木の外で描くため、Localizations で包んで渡す
+        ((rendered.card as Localizations).child! as MonsterShareCard)
+            .monster
+            .definition
+            .id,
         bornMonster.id,
       );
       // 切り出した画像を持たないモンスターは画像を読まない
@@ -1790,6 +1801,9 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         theme: snapmonThemeData(),
+        locale: const Locale('ja'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: BattleScreen(
           playerParty: sampleData.monsters.take(3).toList(),
           opponentParty: sampleData.monsters.skip(3).toList(),
@@ -1863,6 +1877,9 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             key: UniqueKey(),
+            locale: const Locale('ja'),
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
             home: SettingsScreen(
               sampleData: sampleData,
               dexStore: DexStore(definitions: sampleData.definitions),
@@ -2149,7 +2166,8 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.text('切り替える'));
       await tester.pumpAndSettle();
-      await tester.pageBack();
+      // pageBack は英語の tooltip (Back) で探すため、日本語の画面では戻るボタンを型で探す
+      await tester.tap(find.byType(BackButton));
       await tester.pumpAndSettle();
 
       expect(find.text('1 勝 2 敗'), findsNothing);

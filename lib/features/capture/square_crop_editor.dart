@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+import '../../l10n/l10n.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
 import 'monster_generator.dart';
@@ -146,7 +147,7 @@ class _SquareCropEditorState extends State<SquareCropEditor> {
           value: widget.crop.side,
           min: sideRange.minimum,
           max: sideRange.maximum,
-          label: '枠の大きさ',
+          label: context.l10n.generationCropSizeLabel,
           onChanged: (side) => _update(
             centerDelta: (dx: 0, dy: 0),
             scaleChange: side / widget.crop.side,

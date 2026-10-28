@@ -1,0 +1,22 @@
+{
+  "format": "arb",
+  "path": "lib/l10n",
+  "file_pattern": "app_{lang}.arb",
+  "source_language": "ja",
+  "target_languages": ["en"],
+  "context": "snapmon is a mobile game (iOS / Android / Web) for ages 13 and up. Players take a photo of an everyday object, the subject is cut out of the photo and becomes a monster, and players collect monsters in a dex and fight turn-based battles against a CPU trainer or other players' parties (asynchronous PvP). The Japanese source uses a playful, casual tone inspired by monster-collecting RPGs (hiragana-heavy battle messages such as 'こうかは ばつぐんだ'). Keep the same playful, concise tone in English. UI labels are short: do not add trailing periods to short labels, buttons, or headings. Keep 'snapmon', 'HP', 'PP', 'Lv.', 'CPU', 'Apple', 'Google', and '#snapmon' as is. Placeholders like {monsterName} must be kept.",
+  "source_dirs": ["lib"],
+  "glossary": {
+    "図鑑": { "en": "Dex" },
+    "手持ち": { "en": "party" },
+    "技": { "en": "move" },
+    "属性": { "en": "element" },
+    "トレーナー": { "en": "trainer" },
+    "通報": { "en": "report" },
+    "ブロック": { "en": "block" },
+    "表示名": { "en": "display name" }
+  },
+  "style": {
+    "en": "Use casual, friendly American English addressed to 'you'. Use sentence case for buttons and headings. Battle log lines read like classic monster RPG messages (e.g. 'It's super effective!' style is fine, but without trailing punctuation unless the source has it)."
+  }
+}

@@ -1,0 +1,5 @@
+/* 権限の確認の文言 (日本語)。Info.plist の同じキーの値を言語ごとに置き換える。
+   ja.lproj と en.lproj があることで、App Store にアプリの対応言語 (lib/l10n/app_*.arb と同じ日本語・英語) が出る */
+"NSCameraUsageDescription" = "身の回りの物を撮ってモンスターを生み出すためにカメラを使います";
+"NSPhotoLibraryAddUsageDescription" = "共有するカード画像を写真に保存するために使います";
+"NSPhotoLibraryUsageDescription" = "アルバムの写真からモンスターを生み出すために写真を読み込みます";

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../../l10n/l10n.dart';
 import '../../sample/sample_data.dart';
 import '../../theme/snapmon_text_styles.dart';
 import '../battle/battle_recorder.dart';
@@ -106,26 +107,28 @@ class SettingsScreen extends StatelessWidget {
     if (signInToLinkedAccount == null) {
       _showMessage(
         context: context,
-        message: '${accountStore.linkProviderName} と連携しました',
+        message: context.l10n.settingsLinked(accountStore.linkProviderName),
       );
       return;
     }
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('連携済みのアカウントに切り替えますか'),
+        title: Text(context.l10n.settingsSwitchAccountTitle),
         content: Text(
-          'この ${accountStore.linkProviderName} アカウントは別の端末で連携済みです。'
-          '切り替えると、この端末の図鑑 (${dexStore.monsters.length} 体) は消え、連携済みのアカウントの図鑑に切り替わります。',
+          context.l10n.settingsSwitchAccountMessage(
+            accountStore.linkProviderName,
+            dexStore.monsters.length,
+          ),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('やめる'),
+            child: Text(context.l10n.commonCancel),
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
-            child: const Text('切り替える'),
+            child: Text(context.l10n.settingsSwitchAccountConfirm),
           ),
         ],
       ),
@@ -144,7 +147,10 @@ class SettingsScreen extends StatelessWidget {
       return;
     }
     if (context.mounted) {
-      _showMessage(context: context, message: '連携済みのアカウントに切り替えました');
+      _showMessage(
+        context: context,
+        message: context.l10n.settingsSwitchedAccount,
+      );
     }
   }
 
@@ -153,19 +159,16 @@ class SettingsScreen extends StatelessWidget {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('アカウントを削除しますか'),
-        content: const Text(
-          'モンスター・図鑑・元の写真・バトルの記録が消え、元に戻せません。'
-          '削除した後は、新しいアカウントで始まります。',
-        ),
+        title: Text(context.l10n.settingsDeleteAccountTitle),
+        content: Text(context.l10n.settingsDeleteAccountMessage),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('やめる'),
+            child: Text(context.l10n.commonCancel),
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
-            child: const Text('削除する'),
+            child: Text(context.l10n.settingsDeleteAccountConfirm),
           ),
         ],
       ),
@@ -189,7 +192,10 @@ class SettingsScreen extends StatelessWidget {
   /// [uri] を開き、開けなかった時 (メールのアプリが無い simulator など) はそのことを伝える。
   /// 開くアプリが無い Android では false ではなく例外になるため、例外の時はその内容を出す。
   Future<void> _open({required BuildContext context, required Uri uri}) async {
-    final message = await _openAndDescribeFailure(uri: uri);
+    final message = await _openAndDescribeFailure(
+      uri: uri,
+      couldNotOpenMessage: context.l10n.commonCouldNotOpenUrl(uri.toString()),
+    );
     if (message == null || !context.mounted) {
       return;
     }
@@ -198,10 +204,13 @@ class SettingsScreen extends StatelessWidget {
     ).showSnackBar(SnackBar(content: Text(message)));
   }
 
-  /// [uri] を開く。開けた時は null、開けなかった時は利用者に出す文言を返す。
-  Future<String?> _openAndDescribeFailure({required Uri uri}) async {
+  /// [uri] を開く。開けた時は null、開けなかった時は利用者に出す文言 (false が返った時は [couldNotOpenMessage]) を返す。
+  Future<String?> _openAndDescribeFailure({
+    required Uri uri,
+    required String couldNotOpenMessage,
+  }) async {
     try {
-      return await openUrl(uri: uri) ? null : '$uri を開けませんでした';
+      return await openUrl(uri: uri) ? null : couldNotOpenMessage;
     } on Exception catch (error) {
       return error.toString();
     }
@@ -209,7 +218,7 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: const Text('設定')),
+    appBar: AppBar(title: Text(context.l10n.settingsTitle)),
     body: ListView(
       children: [
         // 「データを引き継ぐ」で別のアカウントに切り替わると uid が変わるため、uid ごとに作り直して表示名を読み直す
@@ -221,26 +230,26 @@ class SettingsScreen extends StatelessWidget {
             pvpClient: pvpClient,
           ),
         ),
-        const _SectionTitle(title: 'サポート'),
+        _SectionTitle(title: context.l10n.settingsSupportSection),
         ListTile(
           leading: const Icon(Icons.mail_outline),
-          title: const Text('お問い合わせ'),
+          title: Text(context.l10n.commonContact),
           onTap: () => _open(context: context, uri: contactUri),
         ),
         ListTile(
           leading: const Icon(Icons.description_outlined),
-          title: const Text('利用規約'),
+          title: Text(context.l10n.settingsTerms),
           onTap: () => _open(context: context, uri: termsUri),
         ),
         ListTile(
           leading: const Icon(Icons.privacy_tip_outlined),
-          title: const Text('プライバシーポリシー'),
+          title: Text(context.l10n.settingsPrivacyPolicy),
           onTap: () => _open(context: context, uri: privacyPolicyUri),
         ),
-        const _SectionTitle(title: 'アカウント'),
+        _SectionTitle(title: context.l10n.settingsAccountSection),
         ListTile(
           leading: const Icon(Icons.help_outline),
-          title: const Text('アカウントの削除について'),
+          title: Text(context.l10n.settingsAboutAccountDeletion),
           onTap: () => _open(context: context, uri: accountDeletionUri),
         ),
         // DEBUG でログインを飛ばした時は、連携・削除するアカウントが無いため押せなくする
@@ -257,18 +266,24 @@ class SettingsScreen extends StatelessWidget {
               children: [
                 ListTile(
                   leading: const Icon(Icons.sync_outlined),
-                  title: const Text('データを引き継ぐ'),
+                  title: Text(context.l10n.settingsTransferData),
                   subtitle: Text(
                     linkedProviderNames.isEmpty
-                        ? '${accountStore.linkProviderName} でサインインして\n機種変更しても図鑑を残す'
-                        : '${linkedProviderNames.join(' と ')} で連携済み',
+                        ? context.l10n.settingsTransferDataDescription(
+                            accountStore.linkProviderName,
+                          )
+                        : context.l10n.settingsLinkedWith(
+                            linkedProviderNames.join(
+                              context.l10n.settingsProviderSeparator,
+                            ),
+                          ),
                   ),
                   enabled: canOperate && linkedProviderNames.isEmpty,
                   onTap: () => _link(context: context),
                 ),
                 ListTile(
                   leading: const Icon(Icons.delete_outline),
-                  title: const Text('アカウントを削除'),
+                  title: Text(context.l10n.settingsDeleteAccount),
                   enabled: canOperate,
                   onTap: () => _delete(context: context),
                 ),
@@ -372,12 +387,16 @@ class _DisplayNameTileState extends State<_DisplayNameTile> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const _SectionTitle(title: 'プロフィール'),
+        _SectionTitle(title: context.l10n.settingsProfileSection),
         ListTile(
           key: const Key('display-name'),
           leading: const Icon(Icons.badge_outlined),
-          title: const Text('表示名'),
-          subtitle: Text(displayName ?? _loadError?.toString() ?? '読み込んでいます'),
+          title: Text(context.l10n.settingsDisplayName),
+          subtitle: Text(
+            displayName ??
+                _loadError?.toString() ??
+                context.l10n.settingsDisplayNameLoading,
+          ),
           trailing: displayName == null ? null : const Icon(Icons.edit),
           onTap: displayName == null
               ? (_loadError == null ? null : _load)
@@ -443,14 +462,14 @@ class _DisplayNameDialogState extends State<_DisplayNameDialog> {
   Widget build(BuildContext context) => PopScope(
     canPop: !_isSaving,
     child: AlertDialog(
-      title: const Text('表示名'),
+      title: Text(context.l10n.settingsDisplayName),
       content: TextField(
         key: const Key('display-name-field'),
         controller: _controller,
         autofocus: true,
         enabled: !_isSaving,
         decoration: InputDecoration(
-          helperText: '対戦の相手に見える名前',
+          helperText: context.l10n.settingsDisplayNameHelper,
           errorText: _errorText,
           errorMaxLines: 4,
         ),
@@ -458,12 +477,12 @@ class _DisplayNameDialogState extends State<_DisplayNameDialog> {
       actions: [
         TextButton(
           onPressed: _isSaving ? null : () => Navigator.of(context).pop(),
-          child: const Text('やめる'),
+          child: Text(context.l10n.commonCancel),
         ),
         TextButton(
           key: const Key('display-name-save'),
           onPressed: _isSaving ? null : _save,
-          child: const Text('保存'),
+          child: Text(context.l10n.settingsDisplayNameSave),
         ),
       ],
     ),

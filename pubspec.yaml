@@ -30,6 +30,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  # flutter_localizations が固定する版に合わせる (gen-l10n の生成コードが使う)
+  intl: any
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -66,6 +70,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
   flame_test: ^2.3.1
+  # テストと App Store のスクリーンショット (store_screenshots/) で撮る画面のカメラを差し替える。camera が使う版に合わせる
   camera_platform_interface: ^2.15.0
 
 # For information on the generic Dart part of this file, see the
@@ -78,6 +83,9 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  # UI の文言 (lib/l10n/app_*.arb) から AppLocalizations を生成する。設定は l10n.yaml
+  generate: true
 
   # master (assets/master/master.json) はアプリに同梱しない (ADR 0001「master に無い属性・技」) ため assets に入れない
   assets:

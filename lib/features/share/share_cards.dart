@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../domain/battle/battle_state.dart';
 import '../../domain/master/master_data.dart';
 import '../../domain/monster/stat_calculation.dart';
+import '../../l10n/l10n.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
@@ -59,10 +60,10 @@ class MonsterShareCard extends StatelessWidget {
       ],
     );
     final statValues = [
-      ('HP', stats.hitPoints),
-      ('攻撃', stats.attack),
-      ('防御', stats.defense),
-      ('素早さ', stats.speed),
+      (context.l10n.statHitPoints, stats.hitPoints),
+      (context.l10n.statAttack, stats.attack),
+      (context.l10n.statDefense, stats.defense),
+      (context.l10n.statSpeed, stats.speed),
     ];
     return ColoredBox(
       color: SnapmonColors.background,
@@ -100,7 +101,7 @@ class MonsterShareCard extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 4),
                                   Text(
-                                    'Lv. ${monster.level}',
+                                    context.l10n.commonLevel(monster.level),
                                     style: SnapmonTextStyles.caption.copyWith(
                                       color: SnapmonColors.textOnCardMuted,
                                     ),
@@ -144,7 +145,7 @@ class MonsterShareCard extends StatelessWidget {
                         const SizedBox(height: 6),
                         // 名前と図鑑の文章が AI の生成であることの表示 (DIRECTION.md「必要な機能」の未成年向けの安全策)
                         Text(
-                          '名前と図鑑の文章は AI が作りました',
+                          context.l10n.commonAiGeneratedNotice,
                           style: SnapmonTextStyles.small.copyWith(
                             color: SnapmonColors.textOnCardMuted,
                           ),
@@ -200,7 +201,7 @@ class MonsterShareCard extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          'Lv. ${monster.level}',
+                          context.l10n.commonLevel(monster.level),
                           style: SnapmonTextStyles.caption,
                         ),
                         const SizedBox(width: 10),
@@ -267,16 +268,20 @@ class BattleResultShareCard extends StatelessWidget {
   final ShareCardFormat format;
 
   /// [monster] のレベルの表示。確定したレベルがあれば上がり方を出す。
-  String _levelText({required OwnedMonster monster}) =>
-      switch (appliedLevels[monster.definition.id]) {
-        final newLevel? => 'Lv. ${monster.level} → $newLevel',
-        null => 'Lv. ${monster.level}',
-      };
+  String _levelText({
+    required AppLocalizations l10n,
+    required OwnedMonster monster,
+  }) => switch (appliedLevels[monster.definition.id]) {
+    final newLevel? => l10n.commonLevelUp(monster.level, newLevel),
+    null => l10n.commonLevel(monster.level),
+  };
 
   @override
   Widget build(BuildContext context) {
     final resultText = Text(
-      winner == BattleSideId.player ? 'かった' : 'まけた',
+      winner == BattleSideId.player
+          ? context.l10n.battleWon
+          : context.l10n.battleLost,
       style: SnapmonTextStyles.screenTitle.copyWith(
         fontSize: switch (format) {
           ShareCardFormat.portrait => 56,
@@ -288,7 +293,11 @@ class BattleResultShareCard extends StatelessWidget {
       ),
     );
     final opponentText = Text(
-      'VS ${opponentParty.map((monster) => monster.definition.name).join('・')}',
+      context.l10n.shareVersusOpponents(
+        opponentParty
+            .map((monster) => monster.definition.name)
+            .join(context.l10n.shareOpponentSeparator),
+      ),
       maxLines: switch (format) {
         ShareCardFormat.portrait => 2,
         ShareCardFormat.landscape => 1,
@@ -346,7 +355,10 @@ class BattleResultShareCard extends StatelessWidget {
                               ),
                               const SizedBox(height: 4),
                               Text(
-                                _levelText(monster: monster),
+                                _levelText(
+                                  l10n: context.l10n,
+                                  monster: monster,
+                                ),
                                 style: SnapmonTextStyles.caption.copyWith(
                                   color: SnapmonColors.textOnCardMuted,
                                 ),
@@ -441,7 +453,10 @@ class BattleResultShareCard extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  _levelText(monster: monster),
+                                  _levelText(
+                                    l10n: context.l10n,
+                                    monster: monster,
+                                  ),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: SnapmonTextStyles.small.copyWith(
@@ -475,7 +490,7 @@ class _AiNameNotice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Text(
-    'モンスターの名前は AI が作りました',
+    context.l10n.shareAiNameNotice,
     textAlign: textAlign,
     style: SnapmonTextStyles.small,
   );

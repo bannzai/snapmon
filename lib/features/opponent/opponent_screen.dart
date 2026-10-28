@@ -4,6 +4,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../../domain/master/master_data.dart';
+import '../../l10n/l10n.dart';
 import '../../sample/sample_data.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
@@ -237,14 +238,14 @@ class _OpponentScreenState extends State<OpponentScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              '通報 · ブロック',
+              context.l10n.opponentSafetyMenuTooltip,
               style: SnapmonTextStyles.cardTitle.copyWith(
                 color: SnapmonColors.textOnBackground,
               ),
             ),
             const SizedBox(height: 8),
-            const Text(
-              '相手のモンスターを長押しすると通報できます\nカードの右上のボタンから通報とブロックができます',
+            Text(
+              context.l10n.opponentReportHelpBody,
               style: SnapmonTextStyles.body,
             ),
             const SizedBox(height: 8),
@@ -252,7 +253,7 @@ class _OpponentScreenState extends State<OpponentScreen> {
               key: const Key('report-help-contact'),
               onPressed: () =>
                   openContact(context: context, openUrl: widget.openUrl),
-              child: const Text('お問い合わせ'),
+              child: Text(context.l10n.commonContact),
             ),
           ],
         ),
@@ -356,19 +357,25 @@ class _OpponentScreenState extends State<OpponentScreen> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              const Expanded(
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('対戦', style: SnapmonTextStyles.screenTitle),
-                    SizedBox(height: 2),
-                    Text('1 戦ごとにレベルが 1 上がる', style: SnapmonTextStyles.caption),
+                    Text(
+                      context.l10n.tabOpponent,
+                      style: SnapmonTextStyles.screenTitle,
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      context.l10n.opponentLevelUpNote,
+                      style: SnapmonTextStyles.caption,
+                    ),
                   ],
                 ),
               ),
               SquareIconButton(
                 icon: Icons.settings_outlined,
-                tooltip: '設定',
+                tooltip: context.l10n.settingsTitle,
                 onPressed: widget.onOpenSettings,
                 size: 44,
               ),
@@ -388,13 +395,19 @@ class _OpponentScreenState extends State<OpponentScreen> {
                 ),
                 child: Row(
                   children: [
-                    const Text('戦績', style: SnapmonTextStyles.caption),
+                    Text(
+                      context.l10n.opponentBattleRecordLabel,
+                      style: SnapmonTextStyles.caption,
+                    ),
                     const SizedBox(width: 12),
                     Expanded(
                       child: Text(
                         battleRecord == null
                             ? _battleRecordError.toString()
-                            : '${battleRecord.wins} 勝 ${battleRecord.losses} 敗',
+                            : context.l10n.opponentBattleRecord(
+                                battleRecord.wins,
+                                battleRecord.losses,
+                              ),
                         key: const Key('battle-record'),
                         style: battleRecord == null
                             ? SnapmonTextStyles.small
@@ -408,7 +421,7 @@ class _OpponentScreenState extends State<OpponentScreen> {
           ],
           const SizedBox(height: 16),
           Text(
-            'じぶんの手持ち',
+            context.l10n.opponentMyParty,
             style: SnapmonTextStyles.caption.copyWith(
               color: SnapmonColors.accent,
             ),
@@ -422,7 +435,7 @@ class _OpponentScreenState extends State<OpponentScreen> {
                 _MonsterChip(
                   key: null,
                   name: monster.definition.name,
-                  detail: 'Lv. ${monster.level}',
+                  detail: context.l10n.commonLevel(monster.level),
                   color: SnapmonColors.card,
                   textColor: SnapmonColors.textOnCard,
                   onLongPress: null,
@@ -433,9 +446,15 @@ class _OpponentScreenState extends State<OpponentScreen> {
                 child: InkWell(
                   borderRadius: SnapmonRadii.button,
                   onTap: () => widget.onSelectTab(tab: HomeTab.dex),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-                    child: Text('入替', style: SnapmonTextStyles.caption),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 10,
+                    ),
+                    child: Text(
+                      context.l10n.opponentSwapParty,
+                      style: SnapmonTextStyles.caption,
+                    ),
                   ),
                 ),
               ),
@@ -443,19 +462,25 @@ class _OpponentScreenState extends State<OpponentScreen> {
           ),
           if (party.isEmpty) ...[
             const SizedBox(height: 8),
-            const Text('手持ちを入れると挑めます', style: SnapmonTextStyles.body),
+            Text(
+              context.l10n.opponentEmptyPartyNote,
+              style: SnapmonTextStyles.body,
+            ),
           ],
           const SizedBox(height: 20),
           Row(
             children: [
-              const Expanded(
-                child: Text('相手をえらぶ', style: SnapmonTextStyles.caption),
+              Expanded(
+                child: Text(
+                  context.l10n.opponentChooseOpponent,
+                  style: SnapmonTextStyles.caption,
+                ),
               ),
               if (_pvpOpponentsState is _PvpOpponentsLoaded)
                 TextButton(
                   key: const Key('reload-opponents'),
                   onPressed: _isChallenging ? null : _loadOpponents,
-                  child: const Text('ほかの相手をさがす'),
+                  child: Text(context.l10n.opponentFindOthers),
                 ),
             ],
           ),
@@ -464,10 +489,12 @@ class _OpponentScreenState extends State<OpponentScreen> {
           _OpponentCard(
             key: const Key('opponent-card-$cpuOpponentId'),
             opponentId: cpuOpponentId,
-            title: cpuOpponent.name,
+            title: context.l10n.cpuTrainerName,
             subtitle: party.isEmpty
-                ? '手持ちのレベルに合わせる'
-                : '平均 Lv. ${averagePartyLevel(party: party)} 前後',
+                ? context.l10n.opponentCpuMatchesPartyLevel
+                : context.l10n.opponentCpuAverageLevel(
+                    averagePartyLevel(party: party),
+                  ),
             monsters: [
               for (final monsterId in cpuOpponent.monsterIds)
                 widget.sampleData.monsterById(monsterId: monsterId),
@@ -484,14 +511,17 @@ class _OpponentScreenState extends State<OpponentScreen> {
           const SizedBox(height: 10),
           Row(
             children: [
-              const Expanded(
-                child: Text('相手のモンスターに問題があれば', style: SnapmonTextStyles.small),
+              Expanded(
+                child: Text(
+                  context.l10n.opponentReportHelpPrompt,
+                  style: SnapmonTextStyles.small,
+                ),
               ),
               TextButton(
                 key: const Key('report-help'),
                 onPressed: _showReportHelp,
                 child: Text(
-                  '通報 · ブロック',
+                  context.l10n.opponentSafetyMenuTooltip,
                   style: SnapmonTextStyles.small.copyWith(
                     decoration: TextDecoration.underline,
                     decorationColor: SnapmonColors.textMuted,
@@ -509,12 +539,12 @@ class _OpponentScreenState extends State<OpponentScreen> {
   List<Widget> _buildPvpOpponents({required bool canChallenge}) =>
       switch (_pvpOpponentsState) {
         null => const [],
-        _PvpOpponentsLoading() => const [
+        _PvpOpponentsLoading() => [
           Padding(
-            padding: EdgeInsets.only(bottom: 10),
+            padding: const EdgeInsets.only(bottom: 10),
             child: Text(
-              'トレーナーをさがしています',
-              key: Key('opponents-loading'),
+              context.l10n.opponentSearching,
+              key: const Key('opponents-loading'),
               style: SnapmonTextStyles.small,
             ),
           ),
@@ -532,17 +562,17 @@ class _OpponentScreenState extends State<OpponentScreen> {
             child: TextButton(
               key: const Key('retry-opponents'),
               onPressed: _loadOpponents,
-              child: const Text('もう一度さがす'),
+              child: Text(context.l10n.opponentSearchAgain),
             ),
           ),
           const SizedBox(height: 10),
         ],
-        _PvpOpponentsLoaded(:final opponents) when opponents.isEmpty => const [
+        _PvpOpponentsLoaded(:final opponents) when opponents.isEmpty => [
           Padding(
-            padding: EdgeInsets.only(bottom: 10),
+            padding: const EdgeInsets.only(bottom: 10),
             child: Text(
-              'いま戦えるトレーナーがいません\nCPU トレーナーと戦えます',
-              key: Key('opponents-empty'),
+              context.l10n.opponentNoneAvailable,
+              key: const Key('opponents-empty'),
               style: SnapmonTextStyles.small,
             ),
           ),
@@ -553,7 +583,9 @@ class _OpponentScreenState extends State<OpponentScreen> {
               key: Key('opponent-card-${opponent.opponentUid}'),
               opponentId: opponent.opponentUid,
               title: opponent.displayName,
-              subtitle: '平均 Lv. ${averagePartyLevel(party: opponent.monsters)}',
+              subtitle: context.l10n.opponentAverageLevel(
+                averagePartyLevel(party: opponent.monsters),
+              ),
               monsters: opponent.monsters,
               showsMonsterLevels: true,
               onChallenge: canChallenge
@@ -679,7 +711,7 @@ class _OpponentCard extends StatelessWidget {
                     textStyle: SnapmonTextStyles.caption,
                   ),
                   onPressed: onChallenge,
-                  child: const Text('挑む'),
+                  child: Text(context.l10n.opponentChallenge),
                 ),
               ],
             ),
@@ -694,7 +726,9 @@ class _OpponentCard extends StatelessWidget {
                       'opponent-monster-$opponentId-${monster.definition.id}',
                     ),
                     name: monster.definition.name,
-                    detail: showsMonsterLevels ? 'Lv. ${monster.level}' : null,
+                    detail: showsMonsterLevels
+                        ? context.l10n.commonLevel(monster.level)
+                        : null,
                     color: SnapmonColors.surfaceRaised,
                     textColor: SnapmonColors.textOnBackground,
                     onLongPress: onLongPressMonster == null

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../domain/battle/battle_state.dart';
+import '../../l10n/l10n.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
@@ -66,10 +67,16 @@ class DexScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('図鑑', style: SnapmonTextStyles.screenTitle),
+                        Text(
+                          context.l10n.tabDex,
+                          style: SnapmonTextStyles.screenTitle,
+                        ),
                         const SizedBox(height: 2),
                         Text(
-                          '${dexStore.monsters.length} 体 · 手持ち ${party.length} 体',
+                          context.l10n.dexSummary(
+                            dexStore.monsters.length,
+                            party.length,
+                          ),
                           style: SnapmonTextStyles.caption,
                         ),
                         if (dexStore.serverError != null) ...[
@@ -85,7 +92,7 @@ class DexScreen extends StatelessWidget {
                                   (Object error) =>
                                       dexStore.reportServerError(error: error),
                                 ),
-                            child: const Text('もう一度読み込む'),
+                            child: Text(context.l10n.dexReload),
                           ),
                         ],
                       ],
@@ -101,12 +108,12 @@ class DexScreen extends StatelessWidget {
                     ),
                     onPressed: () => onSelectTab(tab: HomeTab.capture),
                     icon: const Icon(Icons.photo_camera_outlined, size: 18),
-                    label: const Text('撮る'),
+                    label: Text(context.l10n.tabCapture),
                   ),
                   const SizedBox(width: 8),
                   SquareIconButton(
                     icon: Icons.settings_outlined,
-                    tooltip: '設定',
+                    tooltip: context.l10n.settingsTitle,
                     onPressed: onOpenSettings,
                     size: 44,
                   ),
@@ -121,7 +128,7 @@ class DexScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '手持ち',
+                    context.l10n.dexParty,
                     style: SnapmonTextStyles.caption.copyWith(
                       color: SnapmonColors.accent,
                     ),
@@ -161,15 +168,18 @@ class DexScreen extends StatelessWidget {
           SliverPadding(
             padding: const EdgeInsets.fromLTRB(20, 4, 20, 8),
             sliver: SliverToBoxAdapter(
-              child: Text('すべて', style: SnapmonTextStyles.caption),
+              child: Text(
+                context.l10n.dexAll,
+                style: SnapmonTextStyles.caption,
+              ),
             ),
           ),
           if (dexStore.monsters.isEmpty)
-            const SliverPadding(
-              padding: EdgeInsets.fromLTRB(20, 24, 20, 24),
+            SliverPadding(
+              padding: const EdgeInsets.fromLTRB(20, 24, 20, 24),
               sliver: SliverToBoxAdapter(
                 child: Text(
-                  'まだモンスターがいません\n撮る画面から身の回りの物を撮ってみよう',
+                  context.l10n.dexEmpty,
                   textAlign: TextAlign.center,
                   style: SnapmonTextStyles.body,
                 ),
@@ -258,7 +268,7 @@ class _MonsterTile extends StatelessWidget {
                 style: SnapmonTextStyles.caption.copyWith(color: textColor),
               ),
               Text(
-                'Lv. ${monster.level}',
+                context.l10n.commonLevel(monster.level),
                 style: SnapmonTextStyles.small.copyWith(
                   color: isInParty
                       ? SnapmonColors.textOnCardMuted
@@ -283,6 +293,8 @@ class _EmptyPartySlot extends StatelessWidget {
       borderRadius: SnapmonRadii.card,
       border: Border.all(color: SnapmonColors.surface, width: 2),
     ),
-    child: Center(child: Text('あき', style: SnapmonTextStyles.small)),
+    child: Center(
+      child: Text(context.l10n.dexEmptySlot, style: SnapmonTextStyles.small),
+    ),
   );
 }
