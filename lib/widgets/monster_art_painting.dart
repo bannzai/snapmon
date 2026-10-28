@@ -25,6 +25,10 @@ const double _outlineWidthRatio = 0.025;
 /// 両目の中心の間隔 (目の直径に対する割合)。2 つの目が触れずに並んで 1 つの顔に見える間隔にした。
 const double _eyeSpacingRatio = 1.4;
 
+/// 目の半径の下限 (切り出した画像を描いた範囲の短い辺に対する割合)。横に広い被写体で eyeScale が小さいと、
+/// カードの小さな絵 (100 px 前後) で目が数 px になり見えなくなったため (サボテンの見本の写真で確認)。
+const double _minEyeRadiusRatio = 0.05;
+
 /// 目と口の黒。画面の地の色と同じにして、モックの色の数を増やさない。
 const Color _inkColor = SnapmonColors.background;
 
@@ -143,7 +147,10 @@ void _paintDecorationVersion1({
     artRect.left + artRect.width * decoration.eyeCenterX,
     artRect.top + artRect.height * decoration.eyeCenterY,
   );
-  final eyeRadius = subjectRect.width * decoration.eyeScale / 2;
+  final eyeRadius = math.max(
+    subjectRect.width * decoration.eyeScale / 2,
+    artRect.shortestSide * _minEyeRadiusRatio,
+  );
   for (final side in [-1.0, 1.0]) {
     _paintEye(
       canvas: canvas,
@@ -448,8 +455,10 @@ void _paintEye({
         ..drawPath(eyeShape, whitePaint)
         ..drawPath(eyeShape, rimPaint)
         ..drawCircle(center + Offset(0, radius * 0.3), radius * 0.4, inkPaint);
+    // 黒で塗る目は、暗い被写体の上でも見えるよう白い縁を付ける
     case MonsterEyeStyle.sparkle:
       canvas
+        ..drawCircle(center, radius * 1.18, whitePaint)
         ..drawCircle(center, radius, inkPaint)
         ..drawCircle(
           center + Offset(-radius * 0.3, -radius * 0.3),
@@ -462,7 +471,9 @@ void _paintEye({
           whitePaint,
         );
     case MonsterEyeStyle.dot:
-      canvas.drawCircle(center, radius * 0.5, inkPaint);
+      canvas
+        ..drawCircle(center, radius * 0.68, whitePaint)
+        ..drawCircle(center, radius * 0.5, inkPaint);
   }
 }
 
