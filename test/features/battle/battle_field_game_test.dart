@@ -79,6 +79,27 @@ void main() {
     );
   }
 
+  /// 1280×263 は、初回の導線の決着の後に勝敗のパネルと生まれたカードが並んだ時のフィールドの高さ (QA の実測)。
+  /// 181 は相手の情報カードの下端 (上から 96 + カードの高さ約 85)。
+  testWithGame<BattleFieldGame>(
+    '低いフィールドでは自分の絵の上端を相手の情報カードの下端より下に置く',
+    createGame,
+    (game) async {
+      game.onGameResize(Vector2(1280, 263));
+      game.updateOpponentStatusCardBottom(bottom: 181);
+      expect(
+        game.playerMonsterComponent.toRect().top,
+        greaterThanOrEqualTo(181 - 0.001),
+      );
+      expect(
+        game.opponentMonsterComponent.toRect().overlaps(
+          game.playerMonsterComponent.toRect(),
+        ),
+        isFalse,
+      );
+    },
+  );
+
   testWithGame<BattleFieldGame>('画面の大きさが変わると 2 体を置き直す', createGame, (
     game,
   ) async {

@@ -70,6 +70,21 @@ class BattleFieldGame extends FlameGame {
   /// パーティクルの飛ぶ向きと速さの乱数。見た目だけに使い、バトルの結果に効かないため seed を固定しない。
   final math.Random _particleRandom = math.Random();
 
+  /// フィールドの上端から相手の情報カード (バトル画面が Flutter で重ねる) の下端までの高さ。
+  /// 自分のモンスターの絵の上端をこれより下に置く。バトル画面が測って渡すまでは 0 (カードを考えない)
+  double _opponentStatusCardBottom = 0;
+
+  /// 相手の情報カードの下端の高さ [bottom] を受け取り、変わっていれば 2 体を置き直す。同じ値なら何もしない。
+  void updateOpponentStatusCardBottom({required double bottom}) {
+    if (bottom == _opponentStatusCardBottom) {
+      return;
+    }
+    _opponentStatusCardBottom = bottom;
+    if (isLoaded) {
+      _layout();
+    }
+  }
+
   @override
   Color backgroundColor() => SnapmonColors.surfaceRaised;
 
@@ -186,8 +201,13 @@ class BattleFieldGame extends FlameGame {
   /// 画面の大きさに合わせて 2 体の位置と大きさを決める。比率はモック (Battle.dc.html) の配置から取った。
   void _layout() {
     // 高さの 0.3 は、相手の下端 (0.28h + m) が自分の上端 (0.94h - 1.15m) を越えない上限 m ≤ 0.66h / 2.15 ≈ 0.307h から取った。
-    // 縦長のスマホでは幅の 0.4 の方が小さく、モックの大きさのまま描く
-    final monsterSize = math.min(size.x * 0.4, size.y * 0.3);
+    // 縦長のスマホでは幅の 0.4 の方が小さく、モックの大きさのまま描く。
+    // 決着の後の勝敗のパネルでフィールドが低くなった時は、自分の上端 (0.94h - 1.15m) が相手の情報カードの下端を越えない大きさに抑える
+    final monsterSize = [
+      size.x * 0.4,
+      size.y * 0.3,
+      (size.y * 0.94 - _opponentStatusCardBottom) / 1.15,
+    ].reduce(math.min).clamp(0.0, double.infinity);
     opponentMonsterComponent
       ..size = Vector2.all(monsterSize)
       ..position = Vector2(size.x * 0.88 - monsterSize, size.y * 0.28);

@@ -126,6 +126,9 @@ class _BattleScreenState extends State<BattleScreen> {
 
   late final BattleFieldGame _game;
 
+  /// フィールドに重ねる相手の情報カード。高さを測り、自分のモンスターの絵がカードに隠れないようフィールドに渡す。
+  final GlobalKey _opponentStatusCardKey = GlobalKey();
+
   /// 画面に出している場のモンスター (HP は演出に合わせて減らす)。演出が終わると [_battleState] の場のモンスターに揃える。
   late Map<BattleSideId, BattleMonster> _displayedActiveMembers;
 
@@ -441,6 +444,14 @@ class _BattleScreenState extends State<BattleScreen> {
     final playerMonster = _displayedActiveMembers[BattleSideId.player]!;
     final opponentMonster = _displayedActiveMembers[BattleSideId.opponent]!;
     final isFinished = _battleState.winner != null && !_isPlaying;
+    final opponentStatusCardTop = MediaQuery.paddingOf(context).top + 96;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_opponentStatusCardKey.currentContext?.size case final cardSize?) {
+        _game.updateOpponentStatusCardBottom(
+          bottom: opponentStatusCardTop + cardSize.height,
+        );
+      }
+    });
     return Scaffold(
       body: Column(
         children: [
@@ -476,8 +487,9 @@ class _BattleScreenState extends State<BattleScreen> {
                 ),
                 Positioned(
                   left: 20,
-                  top: MediaQuery.paddingOf(context).top + 96,
+                  top: opponentStatusCardTop,
                   child: _MonsterStatusCard(
+                    key: _opponentStatusCardKey,
                     monster: opponentMonster,
                     definitions: widget.definitions,
                     hitPointsColor: SnapmonColors.hitPointsLoss,
@@ -487,7 +499,7 @@ class _BattleScreenState extends State<BattleScreen> {
                 if (widget.opponentSafetyMenu case final opponentSafetyMenu?)
                   Positioned(
                     right: 20,
-                    top: MediaQuery.paddingOf(context).top + 96,
+                    top: opponentStatusCardTop,
                     child: DecoratedBox(
                       decoration: const BoxDecoration(
                         color: SnapmonColors.scrim,
@@ -887,6 +899,7 @@ class _BornMonsterCard extends StatelessWidget {
 /// 場のモンスターの名前・レベル・HP・属性のカード。
 class _MonsterStatusCard extends StatelessWidget {
   const _MonsterStatusCard({
+    super.key,
     required this.monster,
     required this.definitions,
     required this.hitPointsColor,
