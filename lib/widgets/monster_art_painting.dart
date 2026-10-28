@@ -151,13 +151,21 @@ void _paintDecorationVersion1({
     ),
     math.min(subjectRect.width / (eyeReach * 2), subjectRect.height / 4),
   );
+  // 上限が効いた時は下端と上端が等しくなり、浮動小数の丸めで下端が上端を上回り得るため、
+  // 下端 > 上端で例外を投げる num.clamp ではなく min・max で抑える
   final eyeCenter = Offset(
-    (artRect.left + artRect.width * decoration.eyeCenterX).clamp(
-      subjectRect.left + eyeRadius * eyeReach,
+    math.min(
+      math.max(
+        artRect.left + artRect.width * decoration.eyeCenterX,
+        subjectRect.left + eyeRadius * eyeReach,
+      ),
       subjectRect.right - eyeRadius * eyeReach,
     ),
-    (artRect.top + artRect.height * decoration.eyeCenterY).clamp(
-      subjectRect.top + eyeRadius,
+    math.min(
+      math.max(
+        artRect.top + artRect.height * decoration.eyeCenterY,
+        subjectRect.top + eyeRadius,
+      ),
       subjectRect.bottom - eyeRadius * 3,
     ),
   );

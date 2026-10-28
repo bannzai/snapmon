@@ -177,6 +177,43 @@ void main() {
     }
   });
 
+  test('どの縦横比の被写体とどの大きさの枠でも、目と口の位置を抑える計算で例外を出さずに描ける', () async {
+    for (final (imageWidth, imageHeight) in [
+      for (final side in [1, 3, 7, 30, 61, 108, 199])
+        for (final pair in [(side, 108), (108, side)]) pair,
+    ]) {
+      final recorder = ui.PictureRecorder();
+      Canvas(recorder).drawRect(
+        Rect.fromLTWH(0, 0, imageWidth.toDouble(), imageHeight.toDouble()),
+        Paint()..color = _subjectColor,
+      );
+      final image = await recorder.endRecording().toImage(
+        imageWidth,
+        imageHeight,
+      );
+      for (final frameSide in [50.0, 100.0, 137.0, 200.0, 333.0]) {
+        for (final eyeCenterY in [0.0, 0.5, 1.0]) {
+          final paintRecorder = ui.PictureRecorder();
+          paintMonsterArt(
+            canvas: Canvas(paintRecorder),
+            size: Size(frameSide, frameSide),
+            monster: monsterWith(
+              decoration: testDecoration(
+                eyeCenterX: eyeCenterY,
+                eyeCenterY: eyeCenterY,
+                eyeScale: 0.3,
+              ),
+              decorationVersion: 1,
+            ),
+            artImage: image,
+          );
+          paintRecorder.endRecording().dispose();
+        }
+      }
+      image.dispose();
+    }
+  });
+
   test('すべての形の組み合わせを描ける', () async {
     for (final eyeStyle in MonsterEyeStyle.values) {
       for (final mouthStyle in MonsterMouthStyle.values) {
