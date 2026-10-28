@@ -42,21 +42,28 @@ do {
   fail(message: "マスクを写真の大きさにできませんでした: \(error)", code: 1)
 }
 // 値の写し方はアプリの grayscalePng と同じ (Core Image を通すと色空間の変換で白が 255 にならないおそれがあるため)
-guard CVPixelBufferGetPixelFormatType(mask) == kCVPixelFormatType_OneComponent32Float else {
-  fail(message: "マスクの画素の形式が 1 成分の float ではありません", code: 1)
+let pixelFormat = CVPixelBufferGetPixelFormatType(mask)
+guard pixelFormat == kCVPixelFormatType_OneComponent32Float || pixelFormat == kCVPixelFormatType_OneComponent8 else {
+  fail(message: "マスクの画素の形式 \(pixelFormat) を読めません", code: 1)
 }
 CVPixelBufferLockBaseAddress(mask, .readOnly)
+guard let baseAddress = CVPixelBufferGetBaseAddress(mask) else {
+  fail(message: "マスクの画素を読めませんでした", code: 1)
+}
 let width = CVPixelBufferGetWidth(mask)
 let height = CVPixelBufferGetHeight(mask)
 let bytesPerRow = CVPixelBufferGetBytesPerRow(mask)
 var grayPixels = [UInt8](repeating: 0, count: width * height)
-if let baseAddress = CVPixelBufferGetBaseAddress(mask) {
-  for y in 0..<height {
-    let row = baseAddress.advanced(by: y * bytesPerRow).assumingMemoryBound(to: Float32.self)
-    for x in 0..<width {
-      let value = row[x].isNaN ? 0 : min(max(row[x], 0), 1)
-      grayPixels[y * width + x] = UInt8((value * 255).rounded())
+for y in 0..<height {
+  let rowAddress = baseAddress.advanced(by: y * bytesPerRow)
+  for x in 0..<width {
+    if pixelFormat == kCVPixelFormatType_OneComponent8 {
+      grayPixels[y * width + x] = rowAddress.assumingMemoryBound(to: UInt8.self)[x]
+      continue
     }
+    let floatValue = rowAddress.assumingMemoryBound(to: Float32.self)[x]
+    let value = floatValue.isNaN ? 0 : min(max(floatValue, 0), 1)
+    grayPixels[y * width + x] = UInt8((value * 255).rounded())
   }
 }
 CVPixelBufferUnlockBaseAddress(mask, .readOnly)

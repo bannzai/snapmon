@@ -56,11 +56,14 @@ enum SubjectMaskError: LocalizedError {
   case unreadablePhoto
   /// マスクを PNG にできなかった。
   case maskEncodingFailed
+  /// Vision が返したマスクの画素の形式 (CVPixelBuffer の pixel format type) を読めない。
+  case unsupportedMaskPixelFormat(OSType)
 
   var errorDescription: String? {
     switch self {
     case .unreadablePhoto: return "写真を読めませんでした"
     case .maskEncodingFailed: return "切り出しのマスクを画像にできませんでした"
+    case .unsupportedMaskPixelFormat(let pixelFormat): return "切り出しのマスクの画素の形式 \(pixelFormat) を読めません"
     }
   }
 }
@@ -84,12 +87,14 @@ func createSubjectMaskPng(photo: Data) throws -> Data? {
   return try grayscalePng(mask: observation.generateScaledMaskForImage(forInstances: observation.allInstances, from: handler))
 }
 
-/// Vision のマスク [mask] (1 成分の float。0 が背景・1 が被写体) を、値を 0〜255 にそのまま写した 8 bit グレースケールの PNG にする。
-/// Core Image で書き出すと色空間の変換で白が 255 にならないおそれがあり、サーバーは 128 以上を被写体とみなすため
-/// (functions/src/generation/cutout.ts の SUBJECT_ALPHA_THRESHOLD)、画素の値を自分で写す。形式が 1 成分の float でなければ失敗にする。
+/// Vision のマスク [mask] (1 成分の float で 0 が背景・1 が被写体、または 1 成分の 8 bit で 0〜255) を、値を 0〜255 にそのまま写した
+/// 8 bit グレースケールの PNG にする。Core Image で書き出すと色空間の変換で白が 255 にならないおそれがあり、サーバーは 128 以上を
+/// 被写体とみなすため (functions/src/generation/cutout.ts の SUBJECT_ALPHA_THRESHOLD)、画素の値を自分で写す。
+/// 2026-10-28 に macOS の同じ API (functions/scripts/subject-mask.swift) で 1 成分の float が返ることを確かめた。それ以外の形式は失敗にする。
 func grayscalePng(mask: CVPixelBuffer) throws -> Data {
-  guard CVPixelBufferGetPixelFormatType(mask) == kCVPixelFormatType_OneComponent32Float else {
-    throw SubjectMaskError.maskEncodingFailed
+  let pixelFormat = CVPixelBufferGetPixelFormatType(mask)
+  guard pixelFormat == kCVPixelFormatType_OneComponent32Float || pixelFormat == kCVPixelFormatType_OneComponent8 else {
+    throw SubjectMaskError.unsupportedMaskPixelFormat(pixelFormat)
   }
   CVPixelBufferLockBaseAddress(mask, .readOnly)
   defer { CVPixelBufferUnlockBaseAddress(mask, .readOnly) }
@@ -101,9 +106,14 @@ func grayscalePng(mask: CVPixelBuffer) throws -> Data {
   let bytesPerRow = CVPixelBufferGetBytesPerRow(mask)
   var grayPixels = [UInt8](repeating: 0, count: width * height)
   for y in 0..<height {
-    let row = baseAddress.advanced(by: y * bytesPerRow).assumingMemoryBound(to: Float32.self)
+    let rowAddress = baseAddress.advanced(by: y * bytesPerRow)
     for x in 0..<width {
-      let value = row[x].isNaN ? 0 : min(max(row[x], 0), 1)
+      if pixelFormat == kCVPixelFormatType_OneComponent8 {
+        grayPixels[y * width + x] = rowAddress.assumingMemoryBound(to: UInt8.self)[x]
+        continue
+      }
+      let floatValue = rowAddress.assumingMemoryBound(to: Float32.self)[x]
+      let value = floatValue.isNaN ? 0 : min(max(floatValue, 0), 1)
       grayPixels[y * width + x] = UInt8((value * 255).rounded())
     }
   }
