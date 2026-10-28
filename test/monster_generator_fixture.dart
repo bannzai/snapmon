@@ -134,4 +134,6 @@ OwnedMonster generatedWaxMonster({required String monsterId}) => OwnedMonster(
   level: 1,
   artPath: null,
   definitionIds: const [waxDefinitionId],
+  decoration: null,
+  decorationVersion: null,
 );

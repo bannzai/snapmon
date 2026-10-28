@@ -8,6 +8,8 @@ import 'package:snapmon/domain/battle/battle_state.dart';
 import 'package:snapmon/domain/master/move_effect.dart';
 import 'package:snapmon/features/battle/battle_field_game.dart';
 
+import '../../card_sharer_fixture.dart';
+import '../../decorated_monster_fixture.dart';
 import '../../sample_data_fixture.dart';
 
 void main() {
@@ -17,10 +19,12 @@ void main() {
   const playerArtPath = 'monsters/player-monster/art.png';
 
   BattleFieldGame createGame() => BattleFieldGame(
-    playerMonster: sampleData.monsters[0].definition,
-    playerArtPath: playerArtPath,
-    opponentMonster: sampleData.monsters[1].definition,
-    opponentArtPath: null,
+    playerMonster: ownedMonsterWithArt(
+      monster: sampleData.monsters[0],
+      artPath: playerArtPath,
+      sourcePhotoReference: 'users/uid-1/photos/request-1',
+    ),
+    opponentMonster: sampleData.monsters[1],
   );
 
   /// 横 [width] × 縦 [height] の画像。切り出した被写体の画像の代わりに使う。
@@ -46,8 +50,11 @@ void main() {
     game.onGameResize(Vector2(390, 500));
     final opponent = game.opponentMonsterComponent;
     final player = game.playerMonsterComponent;
-    expect(opponent.definition.id, sampleData.monsters[1].definition.id);
-    expect(player.definition.id, sampleData.monsters[0].definition.id);
+    expect(
+      opponent.monster.definition.id,
+      sampleData.monsters[1].definition.id,
+    );
+    expect(player.monster.definition.id, sampleData.monsters[0].definition.id);
     expect(opponent.center.x, greaterThan(game.size.x / 2));
     expect(opponent.center.y, lessThan(game.size.y / 2));
     expect(player.center.x, lessThan(game.size.x / 2));
@@ -117,14 +124,13 @@ void main() {
     game.faint(side: BattleSideId.opponent);
     expect(game.opponentMonsterComponent.isVisible, isFalse);
 
-    final nextMonster = sampleData.monsters[2].definition;
-    game.switchIn(
-      side: BattleSideId.opponent,
-      definition: nextMonster,
-      artPath: null,
-    );
+    final nextMonster = sampleData.monsters[2];
+    game.switchIn(side: BattleSideId.opponent, monster: nextMonster);
     await game.ready();
-    expect(game.opponentMonsterComponent.definition.id, nextMonster.id);
+    expect(
+      game.opponentMonsterComponent.monster.definition.id,
+      nextMonster.definition.id,
+    );
     expect(game.opponentMonsterComponent.isVisible, isTrue);
     expect(game.opponentMonsterComponent.position, positionBefore);
     expect(game.children.whereType<MonsterComponent>(), hasLength(2));
@@ -176,6 +182,32 @@ void main() {
     );
   });
 
+  testWithGame<BattleFieldGame>('装飾を持つモンスターは、画像に輪郭線・目などの装飾を重ねて描く', createGame, (
+    game,
+  ) async {
+    final artImage = await createArtImage(width: 8, height: 8);
+    addTearDown(artImage.dispose);
+    game.applyArtImage(artPath: playerArtPath, artImage: artImage);
+    game.switchIn(
+      side: BattleSideId.player,
+      monster: decoratedMonster(
+        monster: sampleData.monsters[0],
+        artPath: playerArtPath,
+        decoration: testDecoration(),
+        decorationVersion: 1,
+      ),
+    );
+    final memberNames = renderInvocations(
+      component: game.playerMonsterComponent..size = Vector2(100, 100),
+    ).map((call) => call.memberName);
+    // 輪郭線は画像を周りにずらして重ねて描くため、画像を描く呼び出しが 1 回より多い
+    expect(
+      memberNames.where((name) => name == #drawImageRect).length,
+      greaterThan(1),
+    );
+    expect(memberNames, contains(#drawCircle));
+  });
+
   testWithGame<BattleFieldGame>('画像が届いた後に交代で出たモンスターも、同じパスなら画像で描く', createGame, (
     game,
   ) async {
@@ -185,15 +217,21 @@ void main() {
 
     game.switchIn(
       side: BattleSideId.player,
-      definition: sampleData.monsters[2].definition,
-      artPath: playerArtPath,
+      monster: ownedMonsterWithArt(
+        monster: sampleData.monsters[2],
+        artPath: playerArtPath,
+        sourcePhotoReference: 'users/uid-1/photos/request-2',
+      ),
     );
     expect(game.playerMonsterComponent.artSprite?.image, artImage);
 
     game.switchIn(
       side: BattleSideId.player,
-      definition: sampleData.monsters[3].definition,
-      artPath: 'monsters/not-loaded/art.png',
+      monster: ownedMonsterWithArt(
+        monster: sampleData.monsters[3],
+        artPath: 'monsters/not-loaded/art.png',
+        sourcePhotoReference: 'users/uid-1/photos/request-3',
+      ),
     );
     expect(game.playerMonsterComponent.artSprite, isNull);
   });

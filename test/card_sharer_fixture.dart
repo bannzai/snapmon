@@ -54,6 +54,8 @@ OwnedMonster ownedMonsterWithArt({
     level: monster.level,
     artPath: artPath,
     definitionIds: monster.definitionIds,
+    decoration: monster.decoration,
+    decorationVersion: monster.decorationVersion,
   );
 }
 

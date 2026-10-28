@@ -222,6 +222,8 @@ class DexStore extends ChangeNotifier {
                 level: levelsByMonsterId[monster.definition.id]!,
                 artPath: monster.artPath,
                 definitionIds: monster.definitionIds,
+                decoration: monster.decoration,
+                decorationVersion: monster.decorationVersion,
               ),
     ];
     notifyListeners();
