@@ -61,6 +61,61 @@ void main() {
     expect(player.center.y, greaterThan(game.size.y / 2));
   });
 
+  /// 横長 (PC のブラウザ・タブレットの横向き) と縦長 (スマホ) の画面。
+  /// 1280×350 は 1280×656 の画面から技のパネルを除いた、実際のフィールドに近い高さ。
+  for (final fieldSize in [
+    Vector2(1280, 656),
+    Vector2(1280, 350),
+    Vector2(390, 844),
+  ]) {
+    testWithGame<BattleFieldGame>(
+      '${fieldSize.x.toInt()}×${fieldSize.y.toInt()} の画面でも 2 体がフィールドに収まり重ならない',
+      createGame,
+      (game) async {
+        game.onGameResize(fieldSize);
+        final field = Rect.fromLTWH(0, 0, fieldSize.x, fieldSize.y);
+        final opponentRect = game.opponentMonsterComponent.toRect();
+        final playerRect = game.playerMonsterComponent.toRect();
+        for (final monsterRect in [opponentRect, playerRect]) {
+          expect(field.intersect(monsterRect), monsterRect);
+        }
+        expect(opponentRect.overlaps(playerRect), isFalse);
+        expect(opponentRect.center.dx, greaterThan(fieldSize.x / 2));
+        expect(playerRect.center.dx, lessThan(fieldSize.x / 2));
+      },
+    );
+  }
+
+  /// 1280×263 は、初回の導線の決着の後に勝敗のパネルと生まれたカードが並んだ時のフィールドの高さ (QA の実測)。
+  /// 181 は相手の情報カードの下端 (上から 96 + カードの高さ約 85)。
+  testWithGame<BattleFieldGame>(
+    '低いフィールドでは自分の絵の上端を相手の情報カードの下端より下に置く',
+    createGame,
+    (game) async {
+      game.onGameResize(Vector2(1280, 263));
+      game.updateOpponentStatusCardBottom(bottom: 181);
+      expect(
+        game.playerMonsterComponent.toRect().top,
+        greaterThanOrEqualTo(181 - 0.001),
+      );
+      expect(
+        game.opponentMonsterComponent.toRect().overlaps(
+          game.playerMonsterComponent.toRect(),
+        ),
+        isFalse,
+      );
+    },
+  );
+
+  testWithGame<BattleFieldGame>('相手の情報カードより低いフィールドでもモンスターの絵を消さない', createGame, (
+    game,
+  ) async {
+    game.onGameResize(Vector2(1280, 180));
+    game.updateOpponentStatusCardBottom(bottom: 181);
+    expect(game.opponentMonsterComponent.size.x, greaterThan(0));
+    expect(game.playerMonsterComponent.size.x, greaterThan(0));
+  });
+
   testWithGame<BattleFieldGame>('画面の大きさが変わると 2 体を置き直す', createGame, (
     game,
   ) async {
