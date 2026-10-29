@@ -23,7 +23,7 @@ import {
   validateDisplayName,
 } from "./pvp_rules";
 import { slackBotToken } from "./secrets";
-import { functionsProjectId, notificationChannel, postSlackMessage, type SendSlackMessage } from "./slack";
+import { PRODUCTION_NOTIFICATION_CHANNEL, postSlackMessage, type SendSlackMessage } from "./slack";
 
 // 非同期 PvP の相手の取得と、ストアの UGC 要件 (通報・ブロック) と表示名の Functions。
 // 構造と書き込みの主体は .claude/rules/firestore.md、他人に見せる項目は documents/adr/0001-tech-stack.md の画像ストレージの行。
@@ -293,7 +293,7 @@ export const setDisplayName = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, asy
   return { displayName: validation.displayName };
 });
 
-/** 作られた通報 [report] ([reportId]) を [sendMessage] で知らせる。 */
+/** 作られた通報 [report] ([reportId]) を [sendMessage] で本番の通知チャンネルに知らせる (Firestore のトリガーはテスト用の引数を受け取れないため)。 */
 export async function handleReportCreated({
   reportId,
   report,
@@ -303,11 +303,11 @@ export async function handleReportCreated({
   report: ReportDocument;
   sendMessage: SendSlackMessage;
 }): Promise<void> {
-  await sendMessage({ text: reportNotificationText({ reportId, report }) });
+  await sendMessage({ channel: PRODUCTION_NOTIFICATION_CHANNEL, text: reportNotificationText({ reportId, report }) });
 }
 
 /**
- * 通報 (`reports/{reportId}`) が作られたら #snapmon-notification (本番以外は #snapmon-notification-qa) に知らせる (ストアの UGC 要件の「懸念へのすみやかな対応」のため)。
+ * 通報 (`reports/{reportId}`) が作られたら、プロジェクトを問わず #snapmon-notification に知らせる (ストアの UGC 要件の「懸念へのすみやかな対応」のため)。
  * 送れなかった時は例外をログに残す (再試行はしない。通報そのものは Firestore に残っている)。
  */
 export const notifyReport = onDocumentCreated({ document: "reports/{reportId}", secrets: [slackBotToken] }, async (event) => {
@@ -317,10 +317,10 @@ export const notifyReport = onDocumentCreated({ document: "reports/{reportId}", 
   await handleReportCreated({
     reportId: event.params.reportId,
     report: event.data.data() as ReportDocument,
-    sendMessage: ({ text }) =>
+    sendMessage: ({ channel, text }) =>
       postSlackMessage({
         token: slackBotToken.value(),
-        channel: notificationChannel(functionsProjectId(process.env)),
+        channel,
         text,
         fetchFunction: fetch,
       }),
