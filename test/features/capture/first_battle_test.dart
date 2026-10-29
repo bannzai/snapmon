@@ -152,10 +152,9 @@ void main() {
   });
 
   test('自分の手持ちと同じ見本のモンスターを持つ CPU トレーナーを除き、全員が除かれる時は全員を残す', () {
-    final mugmon = sampleData.monsterById(monsterId: 'sample-mugmon');
     final cpuTrainerIds = excludeCpuTrainersWithSameArt(
       sampleData: sampleData,
-      playerParty: [mugmon],
+      playerParty: [sampleData.monsterById(monsterId: 'sample-mugmon')],
     ).map((cpuTrainer) => cpuTrainer.opponent.id);
     expect(cpuTrainerIds, hasLength(sampleData.cpuTrainers.length - 1));
     for (final cpuTrainer in sampleData.cpuTrainers) {
@@ -197,17 +196,20 @@ void main() {
     });
 
     test('候補が 0 人の時は、seed によって別の CPU トレーナーになる', () {
-      final chosenCpuTrainerIds = {
-        for (var randomSeed = 1; randomSeed <= 50; randomSeed++)
-          chooseFirstBattleOpponent(
-            candidates: const [],
-            cpuTrainers: sampleData.cpuTrainers,
-            randomSeed: randomSeed,
-          ).cpuTrainer.opponent.id,
-      };
-      expect(chosenCpuTrainerIds, {
-        for (final cpuTrainer in sampleData.cpuTrainers) cpuTrainer.opponent.id,
-      });
+      expect(
+        {
+          for (var randomSeed = 1; randomSeed <= 50; randomSeed++)
+            chooseFirstBattleOpponent(
+              candidates: const [],
+              cpuTrainers: sampleData.cpuTrainers,
+              randomSeed: randomSeed,
+            ).cpuTrainer.opponent.id,
+        },
+        {
+          for (final cpuTrainer in sampleData.cpuTrainers)
+            cpuTrainer.opponent.id,
+        },
+      );
       expect(
         chooseFirstBattleOpponent(
           candidates: const [],
@@ -223,18 +225,17 @@ void main() {
     });
 
     test('候補が 1 人の時は、seed によってその候補か CPU トレーナーになる', () {
-      final chosen = [
-        for (var randomSeed = 1; randomSeed <= 50; randomSeed++)
-          chooseFirstBattleOpponent(
-            candidates: candidates.take(1).toList(),
-            cpuTrainers: sampleData.cpuTrainers,
-            randomSeed: randomSeed,
-          ),
-      ];
-      expect(chosen.map((choice) => choice.pvpOpponent?.opponentUid).toSet(), {
-        'uid-1',
-        null,
-      });
+      expect(
+        {
+          for (var randomSeed = 1; randomSeed <= 50; randomSeed++)
+            chooseFirstBattleOpponent(
+              candidates: candidates.take(1).toList(),
+              cpuTrainers: sampleData.cpuTrainers,
+              randomSeed: randomSeed,
+            ).pvpOpponent?.opponentUid,
+        },
+        {'uid-1', null},
+      );
     });
   });
 }
