@@ -261,14 +261,6 @@ class ResultScreen extends StatelessWidget {
                               color: SnapmonColors.textOnCardBody,
                             ),
                           ),
-                          const SizedBox(height: 6),
-                          // 名前と図鑑の文章が AI の生成であることの表示 (DIRECTION.md「必要な機能」の未成年向けの安全策)
-                          Text(
-                            context.l10n.commonAiGeneratedNotice,
-                            style: SnapmonTextStyles.small.copyWith(
-                              color: SnapmonColors.textOnCardMuted,
-                            ),
-                          ),
                           const SizedBox(height: 14),
                           Row(
                             children: [
