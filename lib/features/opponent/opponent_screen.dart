@@ -24,7 +24,7 @@ import 'pvp_client.dart';
 import 'pvp_opponent.dart';
 
 /// 対戦相手を選ぶ画面 (モックの Pvp.dc.html)。他のユーザーの手持ち (非同期 PvP。Functions の fetchOpponents が選ぶ最大 3 人) と
-/// CPU トレーナーを並べ、自分の戦績を出す。相手のモンスターの長押しで通報、カードのメニューで通報とブロックができる。
+/// CPU トレーナー (他のユーザーが 3 人に満たない分を埋め、最低 1 人) を並べ、自分の戦績を出す。相手のモンスターの長押しで通報、カードのメニューで通報とブロックができる。
 /// ログインが無い時 (DEBUG ビルドでログインを飛ばした時) は、見本の対戦相手を他のユーザーの代わりに出し、
 /// 通報・ブロックはこの画面から消すだけにする (送り先のサーバーが無いため)。
 class OpponentScreen extends StatefulWidget {
@@ -68,6 +68,10 @@ class OpponentScreen extends StatefulWidget {
   @override
   State<OpponentScreen> createState() => _OpponentScreenState();
 }
+
+/// 対戦相手の画面に並べる相手の数。fetchOpponents が返す他のユーザーの上限 (functions/src/pvp_rules.ts の `OPPONENT_COUNT`) に合わせ、
+/// 他のユーザーが少ない間も同じ数の相手から選べるようにする (issue #105 の「常に 3 人出す」)。
+const int _opponentSlotCount = 3;
 
 /// 他のユーザーの相手の読み込みの状態。
 sealed class _PvpOpponentsState {
@@ -165,19 +169,34 @@ class _OpponentScreenState extends State<OpponentScreen> {
     }
   }
 
-  /// ログインが無い時に他のユーザーの代わりに出す見本の対戦相手 (CPU トレーナー以外)。
+  /// ログインが無い時に他のユーザーの代わりに出す見本の対戦相手。
   List<PvpOpponent> _sampleOpponents() => [
     for (final opponent in widget.sampleData.opponents)
-      if (opponent.id != cpuOpponentId)
-        PvpOpponent(
-          opponentUid: opponent.id,
-          displayName: opponent.name,
-          monsters: [
-            for (final monsterId in opponent.monsterIds)
-              widget.sampleData.monsterById(monsterId: monsterId),
-          ],
-        ),
+      PvpOpponent(
+        opponentUid: opponent.id,
+        displayName: opponent.name,
+        monsters: [
+          for (final monsterId in opponent.monsterIds)
+            widget.sampleData.monsterById(monsterId: monsterId),
+        ],
+      ),
   ];
+
+  /// 並べる CPU トレーナー。他のユーザー (ログインが無い時は見本の代わり) と合わせて [_opponentSlotCount] 人になるよう
+  /// 見本データの先頭から埋め、他のユーザーがそれ以上いても 1 人は出す (今までどおり CPU とはいつでも戦えるようにするため)。
+  /// 他のユーザーを読み込み中・読めなかった・手持ちが空で読んでいない時は、他のユーザーを 0 人として埋める。
+  List<SampleCpuTrainer> get _cpuTrainers => widget.sampleData.cpuTrainers
+      .take(
+        math.max(
+          1,
+          _opponentSlotCount -
+              switch (_pvpOpponentsState) {
+                _PvpOpponentsLoaded(:final opponents) => opponents.length,
+                _ => 0,
+              },
+        ),
+      )
+      .toList();
 
   /// 自分の戦績を読む。
   Future<void> _loadBattleRecord() async {
@@ -309,12 +328,13 @@ class _OpponentScreenState extends State<OpponentScreen> {
         builder: (context) => BattleScreen(
           playerParty: playerParty,
           opponentParty: switch (opponent) {
-            _CpuChallenger(:final sampleOpponent) => buildCpuParty(
+            _CpuChallenger(:final cpuTrainer) => buildCpuParty(
               monsters: [
-                for (final monsterId in sampleOpponent.monsterIds)
+                for (final monsterId in cpuTrainer.monsterIds)
                   widget.sampleData.monsterById(monsterId: monsterId),
               ],
               playerParty: playerParty,
+              levelOffset: cpuTrainer.levelOffset,
               randomSeed: randomSeed,
             ),
             _PvpChallenger(:final pvpOpponent) => pvpOpponent.monsters,
@@ -346,10 +366,6 @@ class _OpponentScreenState extends State<OpponentScreen> {
     builder: (context, _) {
       final party = widget.dexStore.party;
       final canChallenge = party.isNotEmpty && !_isChallenging;
-      final cpuOpponent = widget.sampleData.opponents.firstWhere(
-        (opponent) => opponent.id == cpuOpponentId,
-        orElse: () => throw StateError('見本データに CPU トレーナーが無い'),
-      );
       final battleRecord = _battleRecord;
       return ListView(
         padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
@@ -486,29 +502,34 @@ class _OpponentScreenState extends State<OpponentScreen> {
           ),
           const SizedBox(height: 10),
           ..._buildPvpOpponents(canChallenge: canChallenge),
-          _OpponentCard(
-            key: const Key('opponent-card-$cpuOpponentId'),
-            opponentId: cpuOpponentId,
-            title: context.l10n.cpuTrainerName,
-            subtitle: party.isEmpty
-                ? context.l10n.opponentCpuMatchesPartyLevel
-                : context.l10n.opponentCpuAverageLevel(
-                    averagePartyLevel(party: party),
-                  ),
-            monsters: [
-              for (final monsterId in cpuOpponent.monsterIds)
-                widget.sampleData.monsterById(monsterId: monsterId),
-            ],
-            showsMonsterLevels: false,
-            onChallenge: canChallenge
-                ? () => _challenge(
-                    opponent: _CpuChallenger(sampleOpponent: cpuOpponent),
-                  )
-                : null,
-            onLongPressMonster: null,
-            menu: null,
-          ),
-          const SizedBox(height: 10),
+          for (final cpuTrainer in _cpuTrainers) ...[
+            _OpponentCard(
+              key: Key('opponent-card-${cpuTrainer.id}'),
+              opponentId: cpuTrainer.id,
+              title: cpuTrainer.name,
+              subtitle: party.isEmpty
+                  ? context.l10n.opponentCpuMatchesPartyLevel
+                  : context.l10n.opponentCpuAverageLevel(
+                      cpuCenterLevel(
+                        playerParty: party,
+                        levelOffset: cpuTrainer.levelOffset,
+                      ),
+                    ),
+              monsters: [
+                for (final monsterId in cpuTrainer.monsterIds)
+                  widget.sampleData.monsterById(monsterId: monsterId),
+              ],
+              showsMonsterLevels: false,
+              onChallenge: canChallenge
+                  ? () => _challenge(
+                      opponent: _CpuChallenger(cpuTrainer: cpuTrainer),
+                    )
+                  : null,
+              onLongPressMonster: null,
+              menu: null,
+            ),
+            const SizedBox(height: 10),
+          ],
           Row(
             children: [
               Expanded(
@@ -625,9 +646,9 @@ sealed class _Challenger {
 
 /// CPU トレーナー (手持ちのレベルは挑む時に自分の手持ちに合わせる)。
 class _CpuChallenger extends _Challenger {
-  const _CpuChallenger({required this.sampleOpponent});
+  const _CpuChallenger({required this.cpuTrainer});
 
-  final SampleOpponent sampleOpponent;
+  final SampleCpuTrainer cpuTrainer;
 }
 
 /// 他のユーザーの手持ち (相手の今のレベルのまま戦う)。
