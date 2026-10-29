@@ -180,22 +180,22 @@ void main() {
             candidates: const [],
             cpuTrainers: sampleData.cpuTrainers,
             randomSeed: randomSeed,
-          ).cpuTrainer.id,
+          ).cpuTrainer.opponent.id,
       };
       expect(chosenCpuTrainerIds, {
-        for (final cpuTrainer in sampleData.cpuTrainers) cpuTrainer.id,
+        for (final cpuTrainer in sampleData.cpuTrainers) cpuTrainer.opponent.id,
       });
       expect(
         chooseFirstBattleOpponent(
           candidates: const [],
           cpuTrainers: sampleData.cpuTrainers,
           randomSeed: 7,
-        ).cpuTrainer.id,
+        ).cpuTrainer.opponent.id,
         chooseFirstBattleOpponent(
           candidates: const [],
           cpuTrainers: sampleData.cpuTrainers,
           randomSeed: 7,
-        ).cpuTrainer.id,
+        ).cpuTrainer.opponent.id,
       );
     });
 

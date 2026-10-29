@@ -9,7 +9,7 @@ import '../../sample_data_fixture.dart';
 void main() {
   final sampleData = loadSampleDataFixture();
   final cpuMonsters = [
-    for (final monsterId in sampleData.cpuTrainers.first.monsterIds)
+    for (final monsterId in sampleData.cpuTrainers.first.opponent.monsterIds)
       sampleData.monsterById(monsterId: monsterId),
   ];
 

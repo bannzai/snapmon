@@ -92,18 +92,20 @@ void main() {
     expect(sampleData.cpuTrainers.length, greaterThanOrEqualTo(4));
     final artPaths = <String>[];
     for (final cpuTrainer in sampleData.cpuTrainers) {
-      expect(cpuTrainer.name, startsWith('CPU '));
+      expect(cpuTrainer.opponent.name, startsWith('CPU '));
       expect(
-        cpuTrainer.monsterIds.length,
+        cpuTrainer.opponent.monsterIds.length,
         inInclusiveRange(1, maximumPartySize),
       );
-      for (final monsterId in cpuTrainer.monsterIds) {
+      for (final monsterId in cpuTrainer.opponent.monsterIds) {
         artPaths.add(sampleData.monsterById(monsterId: monsterId).artPath!);
       }
     }
     expect(artPaths.toSet(), hasLength(artPaths.length));
     expect(
-      sampleData.cpuTrainers.map((cpuTrainer) => cpuTrainer.id).toSet(),
+      sampleData.cpuTrainers
+          .map((cpuTrainer) => cpuTrainer.opponent.id)
+          .toSet(),
       hasLength(sampleData.cpuTrainers.length),
     );
   });

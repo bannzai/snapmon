@@ -330,7 +330,7 @@ class _OpponentScreenState extends State<OpponentScreen> {
           opponentParty: switch (opponent) {
             _CpuChallenger(:final cpuTrainer) => buildCpuParty(
               monsters: [
-                for (final monsterId in cpuTrainer.monsterIds)
+                for (final monsterId in cpuTrainer.opponent.monsterIds)
                   widget.sampleData.monsterById(monsterId: monsterId),
               ],
               playerParty: playerParty,
@@ -504,9 +504,9 @@ class _OpponentScreenState extends State<OpponentScreen> {
           ..._buildPvpOpponents(canChallenge: canChallenge),
           for (final cpuTrainer in _cpuTrainers) ...[
             _OpponentCard(
-              key: Key('opponent-card-${cpuTrainer.id}'),
-              opponentId: cpuTrainer.id,
-              title: cpuTrainer.name,
+              key: Key('opponent-card-${cpuTrainer.opponent.id}'),
+              opponentId: cpuTrainer.opponent.id,
+              title: cpuTrainer.opponent.name,
               subtitle: party.isEmpty
                   ? context.l10n.opponentCpuMatchesPartyLevel
                   : context.l10n.opponentCpuAverageLevel(
@@ -516,7 +516,7 @@ class _OpponentScreenState extends State<OpponentScreen> {
                       ),
                     ),
               monsters: [
-                for (final monsterId in cpuTrainer.monsterIds)
+                for (final monsterId in cpuTrainer.opponent.monsterIds)
                   widget.sampleData.monsterById(monsterId: monsterId),
               ],
               showsMonsterLevels: false,

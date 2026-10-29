@@ -149,9 +149,12 @@ void main() {
     // 他のユーザーが 3 人いても CPU トレーナーは 1 人出す
     for (final (index, cpuTrainer) in sampleData.cpuTrainers.indexed) {
       expect(
-        find.byKey(Key('challenge-${cpuTrainer.id}'), skipOffstage: false),
+        find.byKey(
+          Key('challenge-${cpuTrainer.opponent.id}'),
+          skipOffstage: false,
+        ),
         index == 0 ? findsOneWidget : findsNothing,
-        reason: cpuTrainer.id,
+        reason: cpuTrainer.opponent.id,
       );
     }
     // 見本の他のユーザーの代わりは、ログインして読めた時は出さない
@@ -173,7 +176,9 @@ void main() {
     expect(
       tester
           .widget<FilledButton>(
-            find.byKey(Key('challenge-${sampleData.cpuTrainers.first.id}')),
+            find.byKey(
+              Key('challenge-${sampleData.cpuTrainers.first.opponent.id}'),
+            ),
           )
           .onPressed,
       isNotNull,
@@ -208,21 +213,21 @@ void main() {
         for (final (index, cpuTrainer) in sampleData.cpuTrainers.indexed) {
           expect(
             find.byKey(
-              Key('opponent-card-${cpuTrainer.id}'),
+              Key('opponent-card-${cpuTrainer.opponent.id}'),
               skipOffstage: false,
             ),
             index < cpuTrainerCount ? findsOneWidget : findsNothing,
-            reason: cpuTrainer.id,
+            reason: cpuTrainer.opponent.id,
           );
           if (index < cpuTrainerCount) {
             expect(
-              find.text(cpuTrainer.name, skipOffstage: false),
+              find.text(cpuTrainer.opponent.name, skipOffstage: false),
               findsOneWidget,
             );
-            expect(cpuTrainer.name, startsWith('CPU '));
+            expect(cpuTrainer.opponent.name, startsWith('CPU '));
             expect(
               find.byKey(
-                Key('opponent-menu-${cpuTrainer.id}'),
+                Key('opponent-menu-${cpuTrainer.opponent.id}'),
                 skipOffstage: false,
               ),
               findsNothing,

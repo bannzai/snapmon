@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:flutter/foundation.dart';
@@ -80,10 +79,10 @@ Future<FirstBattleOpponent> prepareFirstBattleOpponent({
   }
   final cpuTrainer = choice.cpuTrainer;
   return (
-    opponentName: cpuTrainer.name,
+    opponentName: cpuTrainer.opponent.name,
     opponentParty: buildCpuParty(
       monsters: [
-        for (final monsterId in cpuTrainer.monsterIds)
+        for (final monsterId in cpuTrainer.opponent.monsterIds)
           sampleData.monsterById(monsterId: monsterId),
       ],
       playerParty: dexStore.party,
@@ -146,32 +145,38 @@ Future<List<PvpOpponent>> excludeOpponentsWithSameArt({
     return const [];
   }
   final playerArtPaths = {for (final monster in playerParty) ?monster.artPath};
-  final playerArtPixels = [
+  final playerArtImages = [
     for (final artPath in playerArtPaths)
-      ?await _loadArtPixels(artPath: artPath, loadArtImage: loadArtImage),
+      ?await _tryLoadArtImage(artPath: artPath, loadArtImage: loadArtImage),
   ];
-  final candidates = <PvpOpponent>[];
-  for (final pvpOpponent in pvpOpponents) {
-    if (candidates.length >= _firstBattleCandidateCountWithoutCpu) {
-      break;
+  try {
+    final candidates = <PvpOpponent>[];
+    for (final pvpOpponent in pvpOpponents) {
+      if (candidates.length >= _firstBattleCandidateCountWithoutCpu) {
+        break;
+      }
+      if (!await _hasSameArt(
+        monsters: pvpOpponent.monsters,
+        playerArtPaths: playerArtPaths,
+        playerArtImages: playerArtImages,
+        loadArtImage: loadArtImage,
+      )) {
+        candidates.add(pvpOpponent);
+      }
     }
-    if (!await _hasSameArt(
-      monsters: pvpOpponent.monsters,
-      playerArtPaths: playerArtPaths,
-      playerArtPixels: playerArtPixels,
-      loadArtImage: loadArtImage,
-    )) {
-      candidates.add(pvpOpponent);
+    return candidates;
+  } finally {
+    for (final image in playerArtImages) {
+      image.dispose();
     }
   }
-  return candidates;
 }
 
-/// [monsters] のどれかが、[playerArtPaths] と同じパスか [playerArtPixels] と同じ画素の絵を持つか。
+/// [monsters] のどれかが、[playerArtPaths] と同じパスか [playerArtImages] と同じ画素の絵を持つか。
 Future<bool> _hasSameArt({
   required List<OwnedMonster> monsters,
   required Set<String> playerArtPaths,
-  required List<_ArtPixels> playerArtPixels,
+  required List<ui.Image> playerArtImages,
   required LoadArtImage loadArtImage,
 }) async {
   for (final monster in monsters) {
@@ -182,50 +187,56 @@ Future<bool> _hasSameArt({
     if (playerArtPaths.contains(artPath)) {
       return true;
     }
-    if (playerArtPixels.isEmpty) {
+    if (playerArtImages.isEmpty) {
       continue;
     }
-    final artPixels = await _loadArtPixels(
+    final image = await _tryLoadArtImage(
       artPath: artPath,
       loadArtImage: loadArtImage,
     );
-    if (artPixels != null &&
-        playerArtPixels.any(
-          (playerPixels) =>
-              playerPixels.width == artPixels.width &&
-              playerPixels.height == artPixels.height &&
-              listEquals(playerPixels.rgba, artPixels.rgba),
-        )) {
-      return true;
+    if (image == null) {
+      continue;
+    }
+    try {
+      for (final playerArtImage in playerArtImages) {
+        if (await _hasSamePixels(image: image, otherImage: playerArtImage)) {
+          return true;
+        }
+      }
+    } finally {
+      image.dispose();
     }
   }
   return false;
 }
 
-/// 画像の大きさと RGBA の画素。
-typedef _ArtPixels = ({int width, int height, Uint8List rgba});
+/// [image] と [otherImage] の大きさと RGBA の画素がすべて同じか。画素を読めない時は同じと見なさない。
+Future<bool> _hasSamePixels({
+  required ui.Image image,
+  required ui.Image otherImage,
+}) async {
+  if (image.width != otherImage.width || image.height != otherImage.height) {
+    return false;
+  }
+  final byteData = await image.toByteData();
+  final otherByteData = await otherImage.toByteData();
+  return byteData != null &&
+      otherByteData != null &&
+      listEquals(
+        byteData.buffer.asUint8List(),
+        otherByteData.buffer.asUint8List(),
+      );
+}
 
-/// [artPath] の画像を [loadArtImage] で読んで画素にする。読めない時は null。
-Future<_ArtPixels?> _loadArtPixels({
+/// [artPath] の画像を [loadArtImage] で読む。読めない時は null (読めない画像は比べず、同じ絵とは見なさない。
+/// [excludeOpponentsWithSameArt] の document コメント)。返した画像は呼び出し元が dispose する。
+Future<ui.Image?> _tryLoadArtImage({
   required String artPath,
   required LoadArtImage loadArtImage,
 }) async {
   try {
-    final image = await loadArtImage(artPath: artPath);
-    try {
-      final byteData = await image.toByteData();
-      return byteData == null
-          ? null
-          : (
-              width: image.width,
-              height: image.height,
-              rgba: byteData.buffer.asUint8List(),
-            );
-    } finally {
-      image.dispose();
-    }
+    return await loadArtImage(artPath: artPath);
   } catch (_) {
-    // 読めない画像は比べず、同じ絵とは見なさない (呼び出し元の document コメント)
     return null;
   }
 }
