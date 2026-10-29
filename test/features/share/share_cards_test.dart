@@ -93,7 +93,18 @@ void main() {
     return artImage;
   }
 
-  group('カードに元の写真を描かない', () {
+  /// 描いたカードに、名前と図鑑の文章が AI の生成である表示が無いことを確かめる (アプリ内の画面だけに出すため)。
+  void expectNoAiGeneratedNotice() {
+    expect(
+      find.text(
+        lookupAppLocalizations(const Locale('ja')).commonAiGeneratedNotice,
+      ),
+      findsNothing,
+    );
+    expect(find.textContaining('AI が作りました'), findsNothing);
+  }
+
+  group('カードの絵は渡した切り出した画像だけで描き、AI の生成の表示を描かない', () {
     for (final format in ShareCardFormat.values) {
       testWidgets('図鑑のカード (${format.name})', (tester) async {
         final artImage = await createArtImage(tester: tester);
@@ -109,6 +120,7 @@ void main() {
         );
         expectOnlyArtImage(tester: tester, artImage: artImage);
         expect(find.textContaining(sourcePhotoReference), findsNothing);
+        expectNoAiGeneratedNotice();
       });
 
       testWidgets('バトルの結果のカード (${format.name})', (tester) async {
@@ -130,6 +142,7 @@ void main() {
         );
         expectOnlyArtImage(tester: tester, artImage: artImage);
         expect(find.textContaining(sourcePhotoReference), findsNothing);
+        expectNoAiGeneratedNotice();
         expect(find.text('Lv. 7 → 8'), findsOneWidget);
       });
     }
