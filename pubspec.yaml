@@ -41,14 +41,16 @@ dependencies:
   flame: ^1.38.2
   shared_preferences: ^2.5.6
   url_launcher: ^6.3.3
-  firebase_core: ^5.0.0
-  firebase_auth: ^7.0.0
-  cloud_firestore: ^7.0.0
-  cloud_functions: ^7.0.0
-  firebase_analytics: ^13.0.0
-  firebase_crashlytics: ^6.0.0
-  firebase_app_check: ^0.5.0
-  firebase_storage: ^14.0.0
+  # cloud_firestore 7.1.0 は eMudhra の中間 CA の失効に対応した FirebaseFirestore 13.1.1 (SwiftPM) / 12.19.3 (CocoaPods) を使う。
+  # 他の FlutterFire も同じ BoM 5.1.0 に揃える (https://firebase.google.com/support/guides/compromised-emudhra-intermediate-ca)
+  firebase_core: ^5.1.0
+  firebase_auth: ^7.0.1
+  cloud_firestore: ^7.1.0
+  cloud_functions: ^7.0.1
+  firebase_analytics: ^13.0.1
+  firebase_crashlytics: ^6.0.1
+  firebase_app_check: ^0.5.1
+  firebase_storage: ^14.0.1
   camera: ^0.12.0+2
   image_picker: ^1.2.4
   image: ^4.12.0
@@ -72,6 +74,14 @@ dev_dependencies:
   flame_test: ^2.3.1
   # テストと App Store のスクリーンショット (store_screenshots/) で撮る画面のカメラを差し替える。camera が使う版に合わせる
   camera_platform_interface: ^2.15.0
+
+dependency_overrides:
+  # google_sign_in_ios 6.3.8 は GoogleSignIn-iOS 9.x (App Check 11.x) に固定していて、App Check 12.x を要る
+  # firebase-ios-sdk 13.1.1 と SwiftPM で解決できない (https://github.com/google/GoogleSignIn-iOS/issues/655)。
+  # 6.3.8 の公式アーカイブに GoogleSignIn-iOS 10 を許す差分 (https://github.com/flutter/packages/pull/13306) だけを当てたもの。
+  # 同じ変更を含む google_sign_in_ios が pub.dev に出たら、この override と third_party/google_sign_in_ios を消す
+  google_sign_in_ios:
+    path: third_party/google_sign_in_ios
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
