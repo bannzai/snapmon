@@ -115,10 +115,13 @@ describe("通報の通知", () => {
     reason: "inappropriate_picture",
   };
 
-  it("理由・モンスター・持ち主・通報した人を書いた文章を送る", async () => {
+  it("理由・モンスター・持ち主・通報した人を書いた文章を #snapmon-notification に送る", async () => {
     const sendMessage = vi.fn(async () => {});
     await handleReportCreated({ reportId: "reporter-1_monster-1", report, sendMessage });
-    expect(sendMessage).toHaveBeenCalledWith({ text: reportNotificationText({ reportId: "reporter-1_monster-1", report }) });
+    expect(sendMessage).toHaveBeenCalledWith({
+      channel: "#snapmon-notification",
+      text: reportNotificationText({ reportId: "reporter-1_monster-1", report }),
+    });
     const text = reportNotificationText({ reportId: "reporter-1_monster-1", report });
     for (const expected of [
       "不適切な絵",
@@ -130,6 +133,18 @@ describe("通報の通知", () => {
       "reportedMonsters/monster-1 を消す",
     ]) {
       expect(text).toContain(expected);
+    }
+  });
+
+  it("本番以外のプロジェクトで動いても #snapmon-notification に送る", async () => {
+    vi.stubEnv("GCLOUD_PROJECT", "demo-snapmon");
+    vi.stubEnv("FIREBASE_CONFIG", JSON.stringify({ projectId: "demo-snapmon" }));
+    try {
+      const sendMessage = vi.fn(async () => {});
+      await handleReportCreated({ reportId: "reporter-1_monster-1", report, sendMessage });
+      expect(sendMessage).toHaveBeenCalledWith(expect.objectContaining({ channel: "#snapmon-notification" }));
+    } finally {
+      vi.unstubAllEnvs();
     }
   });
 });
