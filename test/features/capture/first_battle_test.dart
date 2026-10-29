@@ -1,16 +1,49 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:snapmon/features/battle/battle_screen.dart';
 import 'package:snapmon/features/capture/first_battle.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
+import 'package:snapmon/features/dex/owned_monster.dart';
 import 'package:snapmon/features/opponent/pvp_client.dart';
 import 'package:snapmon/features/opponent/pvp_opponent.dart';
 
+import '../../card_sharer_fixture.dart';
 import '../../monster_generator_fixture.dart';
 import '../../sample_data_fixture.dart';
 
 void main() {
   final sampleData = loadSampleDataFixture();
+
+  /// 見本のモンスター [monsterId] に、切り出した画像 [artPath] を持たせた 1 体。
+  OwnedMonster monsterWithArt({
+    required String monsterId,
+    required String artPath,
+  }) => ownedMonsterWithArt(
+    monster: sampleData.monsterById(monsterId: monsterId),
+    artPath: artPath,
+    sourcePhotoReference: 'users/uid-1/photos/$monsterId',
+  );
+
+  /// 手持ちが [monster] 1 体の他のユーザー [opponentUid]。
+  PvpOpponent pvpOpponentWith({
+    required String opponentUid,
+    required OwnedMonster monster,
+  }) => PvpOpponent(
+    opponentUid: opponentUid,
+    displayName: opponentUid,
+    monsters: [monster],
+  );
+
+  /// 2 × 2 の [color] 一色の画像。切り出した画像の代わりに使う。
+  Future<ui.Image> solidImage({required ui.Color color}) {
+    final recorder = ui.PictureRecorder();
+    ui.Canvas(
+      recorder,
+    ).drawRect(const ui.Rect.fromLTWH(0, 0, 2, 2), ui.Paint()..color = color);
+    return recorder.endRecording().toImage(2, 2);
+  }
 
   test(
     '候補の先頭の相手の定義を読めない時は、例外にせず CPU トレーナーと戦う (もう一度試しても同じ相手で止まり続けないため)',
@@ -25,12 +58,16 @@ void main() {
       final opponent = await prepareFirstBattleOpponent(
         dexStore: dexStore,
         pvpClient: PvpClient(
+          // 候補が 2 人いると先頭を選ぶ (chooseFirstBattleOpponent)
           fetchOpponents: () async => [
-            PvpOpponent(
-              opponentUid: 'opponent-uid-1',
-              displayName: 'ろうそくや',
-              monsters: [generatedWaxMonster(monsterId: 'opponent-wax-1')],
-            ),
+            for (final index in [1, 2])
+              PvpOpponent(
+                opponentUid: 'opponent-uid-$index',
+                displayName: 'ろうそくや $index',
+                monsters: [
+                  generatedWaxMonster(monsterId: 'opponent-wax-$index'),
+                ],
+              ),
           ],
           fetchDefinitions: ({required base, required definitionIds}) =>
               throw Exception('permission-denied'),
@@ -48,11 +85,133 @@ void main() {
         ),
         sampleData: sampleData,
         randomSeed: 1,
-        cpuTrainerName: 'CPU トレーナー',
+        loadArtImage: ({required artPath}) =>
+            throw StateError('$artPath を読めない'),
       );
       expect(opponent.opponentKind, BattleOpponentKind.cpu);
       expect(opponent.pvpOpponent, isNull);
-      expect(opponent.opponentName, 'CPU トレーナー');
+      expect(opponent.opponentName, startsWith('CPU '));
     },
   );
+
+  test('自分の手持ちと同じ絵 (同じパスか同じ画素) のモンスターを持つ候補を飛ばし、読めない絵は同じと見なさない', () async {
+    final colorsByArtPath = {
+      'monsters/mine/art.png': const ui.Color(0xFFC6F432),
+      // 別のアカウントで同じ写真から生まれたモンスター (パスは違うが画素が同じ)
+      'monsters/same-photo/art.png': const ui.Color(0xFFC6F432),
+      'monsters/other/art.png': const ui.Color(0xFFFF6B6B),
+    };
+    final candidates = await excludeOpponentsWithSameArt(
+      pvpOpponents: [
+        pvpOpponentWith(
+          opponentUid: 'uid-same-pixels',
+          monster: monsterWithArt(
+            monsterId: 'sample-keybon',
+            artPath: 'monsters/same-photo/art.png',
+          ),
+        ),
+        pvpOpponentWith(
+          opponentUid: 'uid-same-path',
+          monster: monsterWithArt(
+            monsterId: 'sample-noton',
+            artPath: 'monsters/mine/art.png',
+          ),
+        ),
+        pvpOpponentWith(
+          opponentUid: 'uid-unreadable',
+          monster: monsterWithArt(
+            monsterId: 'sample-ringora',
+            artPath: 'monsters/unreadable/art.png',
+          ),
+        ),
+        pvpOpponentWith(
+          opponentUid: 'uid-other',
+          monster: monsterWithArt(
+            monsterId: 'sample-slippan',
+            artPath: 'monsters/other/art.png',
+          ),
+        ),
+      ],
+      playerParty: [
+        monsterWithArt(
+          monsterId: 'sample-mugmon',
+          artPath: 'monsters/mine/art.png',
+        ),
+      ],
+      loadArtImage: ({required artPath}) async {
+        final color = colorsByArtPath[artPath];
+        return color == null
+            ? throw StateError('$artPath を読めない')
+            : solidImage(color: color);
+      },
+    );
+    expect(candidates.map((candidate) => candidate.opponentUid), [
+      'uid-unreadable',
+      'uid-other',
+    ]);
+  });
+
+  group('chooseFirstBattleOpponent', () {
+    final candidates = [
+      for (final index in [1, 2])
+        pvpOpponentWith(
+          opponentUid: 'uid-$index',
+          monster: sampleData.monsterById(monsterId: 'sample-keybon'),
+        ),
+    ];
+
+    test('候補が 2 人以上の時は、どの seed でも先頭の候補 (平均レベルが最も近い) と戦う', () {
+      for (var randomSeed = 1; randomSeed <= 50; randomSeed++) {
+        expect(
+          chooseFirstBattleOpponent(
+            candidates: candidates,
+            cpuTrainers: sampleData.cpuTrainers,
+            randomSeed: randomSeed,
+          ).pvpOpponent?.opponentUid,
+          'uid-1',
+        );
+      }
+    });
+
+    test('候補が 0 人の時は、seed によって別の CPU トレーナーになる', () {
+      final chosenCpuTrainerIds = {
+        for (var randomSeed = 1; randomSeed <= 50; randomSeed++)
+          chooseFirstBattleOpponent(
+            candidates: const [],
+            cpuTrainers: sampleData.cpuTrainers,
+            randomSeed: randomSeed,
+          ).cpuTrainer.id,
+      };
+      expect(chosenCpuTrainerIds, {
+        for (final cpuTrainer in sampleData.cpuTrainers) cpuTrainer.id,
+      });
+      expect(
+        chooseFirstBattleOpponent(
+          candidates: const [],
+          cpuTrainers: sampleData.cpuTrainers,
+          randomSeed: 7,
+        ).cpuTrainer.id,
+        chooseFirstBattleOpponent(
+          candidates: const [],
+          cpuTrainers: sampleData.cpuTrainers,
+          randomSeed: 7,
+        ).cpuTrainer.id,
+      );
+    });
+
+    test('候補が 1 人の時は、seed によってその候補か CPU トレーナーになる', () {
+      final chosen = [
+        for (var randomSeed = 1; randomSeed <= 50; randomSeed++)
+          chooseFirstBattleOpponent(
+            candidates: candidates.take(1).toList(),
+            cpuTrainers: sampleData.cpuTrainers,
+            randomSeed: randomSeed,
+          ),
+      ];
+      expect(chosen.map((choice) => choice.pvpOpponent?.opponentUid).toSet(), {
+        'uid-1',
+        null,
+      });
+    });
+  });
 }

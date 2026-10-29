@@ -24,7 +24,6 @@ import 'package:snapmon/features/share/card_sharer.dart';
 import 'package:snapmon/features/share/share_cards.dart';
 import 'package:snapmon/features/title/title_screen.dart';
 import 'package:snapmon/l10n/l10n.dart';
-import 'package:snapmon/sample/sample_data.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
 
 import 'battle_recorder_fixture.dart';
@@ -761,12 +760,16 @@ void main() {
         generationGate = Completer<void>();
         pvpClient = fakePvpClient(
           calls: pvpCalls,
+          // 候補が 1 人以下だと CPU トレーナーと混ぜて選ぶため、2 人返して先頭 (平均レベルが最も近い) と戦わせる
           fetchOpponents: () async => [
-            PvpOpponent(
-              opponentUid: 'opponent-uid-1',
-              displayName: 'ろうそくや',
-              monsters: [generatedWaxMonster(monsterId: 'opponent-wax-1')],
-            ),
+            for (final index in [1, 2])
+              PvpOpponent(
+                opponentUid: 'opponent-uid-$index',
+                displayName: index == 1 ? 'ろうそくや' : 'ろうそくや $index',
+                monsters: [
+                  generatedWaxMonster(monsterId: 'opponent-wax-$index'),
+                ],
+              ),
           ],
           extraDefinitions: MasterData.fromJson(json: waxDefinitionJson),
           battleRecord: null,
@@ -932,10 +935,8 @@ void main() {
         await tester.tap(find.byTooltip('アルバムから選ぶ'));
         await tester.pump();
         await tester.pump(const Duration(milliseconds: 500));
-        final cpuOpponent = sampleData.opponents.firstWhere(
-          (opponent) => opponent.id == cpuOpponentId,
-        );
-        expect(find.text('${cpuOpponent.name} があらわれた'), findsOneWidget);
+        // 相手は CPU トレーナーのどれか (seed で選ぶ)
+        expect(find.textContaining(RegExp(r'^CPU .+ があらわれた$')), findsOneWidget);
         // ログインが無い時の候補 (null) を読んだ上で CPU トレーナーにする
         expect(pvpCalls.fetchOpponentsCount, 1);
 
@@ -1331,7 +1332,9 @@ void main() {
         );
       await tester.tap(find.byKey(const Key('tab-opponent')));
       await tester.pumpAndSettle();
-      final challengeButton = find.byKey(const Key('challenge-$cpuOpponentId'));
+      final challengeButton = find.byKey(
+        Key('challenge-${sampleData.cpuTrainers.first.id}'),
+      );
       await tester.ensureVisible(challengeButton);
       await tester.pumpAndSettle();
       await tester.tap(challengeButton);
@@ -1367,7 +1370,9 @@ void main() {
         );
       await tester.tap(find.byKey(const Key('tab-opponent')));
       await tester.pumpAndSettle();
-      final challengeButton = find.byKey(const Key('challenge-$cpuOpponentId'));
+      final challengeButton = find.byKey(
+        Key('challenge-${sampleData.cpuTrainers.first.id}'),
+      );
       await tester.ensureVisible(challengeButton);
       await tester.pumpAndSettle();
       await tester.tap(challengeButton);
@@ -1429,7 +1434,9 @@ void main() {
         );
       await tester.tap(find.byKey(const Key('tab-opponent')));
       await tester.pumpAndSettle();
-      final challengeButton = find.byKey(const Key('challenge-$cpuOpponentId'));
+      final challengeButton = find.byKey(
+        Key('challenge-${sampleData.cpuTrainers.first.id}'),
+      );
       await tester.ensureVisible(challengeButton);
       await tester.pumpAndSettle();
       await tester.tap(challengeButton);
@@ -1465,7 +1472,9 @@ void main() {
 
       await tester.tap(find.byKey(const Key('tab-opponent')));
       await tester.pumpAndSettle();
-      final challengeButton = find.byKey(const Key('challenge-$cpuOpponentId'));
+      final challengeButton = find.byKey(
+        Key('challenge-${sampleData.cpuTrainers.first.id}'),
+      );
       await tester.ensureVisible(challengeButton);
       await tester.pumpAndSettle();
       await tester.tap(challengeButton);
@@ -1525,7 +1534,7 @@ void main() {
       expect(
         tester
             .widget<FilledButton>(
-              find.byKey(const Key('challenge-$cpuOpponentId')),
+              find.byKey(Key('challenge-${sampleData.cpuTrainers.first.id}')),
             )
             .onPressed,
         isNull,
@@ -1600,7 +1609,9 @@ void main() {
       ),
       findsOneWidget,
     );
-    final challengeButton = find.byKey(const Key('challenge-$cpuOpponentId'));
+    final challengeButton = find.byKey(
+      Key('challenge-${sampleData.cpuTrainers.first.id}'),
+    );
     await tester.ensureVisible(challengeButton);
     await tester.pumpAndSettle();
     await tester.tap(challengeButton);
@@ -1662,7 +1673,9 @@ void main() {
     dexStore.replaceAll(monsters: sampleData.monsters);
     await tester.tap(find.byKey(const Key('tab-opponent')));
     await tester.pumpAndSettle();
-    final challengeButton = find.byKey(const Key('challenge-$cpuOpponentId'));
+    final challengeButton = find.byKey(
+      Key('challenge-${sampleData.cpuTrainers.first.id}'),
+    );
     await tester.ensureVisible(challengeButton);
     await tester.pumpAndSettle();
     await tester.tap(challengeButton);

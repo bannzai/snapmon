@@ -364,8 +364,6 @@ class _GenerationScreenState extends State<GenerationScreen> {
   /// 初回の導線で [monster] を手持ちに入れ、対戦相手を決めて「○○ があらわれた」を出す。
   /// 例外の後の「もう一度試す」もここからやり直す (生成は済んでいるため呼び直さない)。
   Future<void> _prepareFirstBattle({required OwnedMonster monster}) async {
-    // 下の await の後は context を使えないため、相手の名前に使う文言を先に取っておく
-    final cpuTrainerName = context.l10n.cpuTrainerName;
     setState(() {
       _firstBattleMonster = monster;
       _phase = _GenerationPhase.inProgress;
@@ -382,7 +380,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
         pvpClient: widget.pvpClient,
         sampleData: widget.sampleData,
         randomSeed: _firstBattleRandomSeed,
-        cpuTrainerName: cpuTrainerName,
+        loadArtImage: widget.cardSharer.loadArtImage,
       );
       if (!mounted) {
         return;
