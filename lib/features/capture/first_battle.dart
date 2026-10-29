@@ -242,14 +242,19 @@ Future<bool> _hasSamePixels({
   if (image.width != otherImage.width || image.height != otherImage.height) {
     return false;
   }
-  final byteData = await image.toByteData();
-  final otherByteData = await otherImage.toByteData();
-  return byteData != null &&
-      otherByteData != null &&
-      listEquals(
-        byteData.buffer.asUint8List(),
-        otherByteData.buffer.asUint8List(),
-      );
+  try {
+    final byteData = await image.toByteData();
+    final otherByteData = await otherImage.toByteData();
+    return byteData != null &&
+        otherByteData != null &&
+        listEquals(
+          byteData.buffer.asUint8List(),
+          otherByteData.buffer.asUint8List(),
+        );
+  } catch (_) {
+    // 画素を読めない画像は比べず、同じ絵とは見なさない (excludeOpponentsWithSameArt の document コメント)
+    return false;
+  }
 }
 
 /// [artPath] の画像を [loadArtImage] で読む。読めない時は null (読めない画像は比べず、同じ絵とは見なさない。
