@@ -151,6 +151,29 @@ void main() {
     ]);
   });
 
+  test('自分の手持ちと同じ見本のモンスターを持つ CPU トレーナーを除き、全員が除かれる時は全員を残す', () {
+    final mugmon = sampleData.monsterById(monsterId: 'sample-mugmon');
+    final cpuTrainerIds = excludeCpuTrainersWithSameArt(
+      sampleData: sampleData,
+      playerParty: [mugmon],
+    ).map((cpuTrainer) => cpuTrainer.opponent.id);
+    expect(cpuTrainerIds, hasLength(sampleData.cpuTrainers.length - 1));
+    for (final cpuTrainer in sampleData.cpuTrainers) {
+      expect(
+        cpuTrainerIds.contains(cpuTrainer.opponent.id),
+        !cpuTrainer.opponent.monsterIds.contains('sample-mugmon'),
+        reason: cpuTrainer.opponent.id,
+      );
+    }
+    expect(
+      excludeCpuTrainersWithSameArt(
+        sampleData: sampleData,
+        playerParty: sampleData.monsters,
+      ),
+      sampleData.cpuTrainers,
+    );
+  });
+
   group('chooseFirstBattleOpponent', () {
     final candidates = [
       for (final index in [1, 2])

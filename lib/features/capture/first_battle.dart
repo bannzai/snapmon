@@ -32,7 +32,8 @@ const int _firstBattleCandidateCountWithoutCpu = 2;
 
 /// 生まれたモンスターを手持ちに入れた後の [dexStore] の手持ちと戦う、初回のバトルの相手を決める。
 /// 他のユーザーの候補 ([PvpClient.fetchOpponents]。手持ちの平均レベルが近い順) から自分の手持ちと同じ絵のモンスターを持つ候補を除き
-/// ([excludeOpponentsWithSameArt]。絵は [loadArtImage] で読む)、残りと CPU トレーナーから [chooseFirstBattleOpponent] で選ぶ。
+/// ([excludeOpponentsWithSameArt]。絵は [loadArtImage] で読む)、残りと CPU トレーナー ([excludeCpuTrainersWithSameArt]) から
+/// [chooseFirstBattleOpponent] で選ぶ。
 /// 候補を取れない時 (ログインが無い・呼び出しの失敗) は候補 0 人として扱う。CPU トレーナーの手持ちのレベルは
 /// [randomSeed] で自分の手持ちに合わせる ([buildCpuParty])。選んだ候補の相手の定義を読めない時も CPU トレーナーにする。
 /// 図鑑の定義を読み直せない時は例外を投げる ([prepareBattleDefinitions])。
@@ -55,7 +56,10 @@ Future<FirstBattleOpponent> prepareFirstBattleOpponent({
       playerParty: dexStore.party,
       loadArtImage: loadArtImage,
     ),
-    cpuTrainers: sampleData.cpuTrainers,
+    cpuTrainers: excludeCpuTrainersWithSameArt(
+      sampleData: sampleData,
+      playerParty: dexStore.party,
+    ),
     randomSeed: randomSeed,
   );
   final pvpOpponent = choice.pvpOpponent;
@@ -97,6 +101,26 @@ Future<FirstBattleOpponent> prepareFirstBattleOpponent({
       pvpOpponentMonsters: null,
     ),
   );
+}
+
+/// [sampleData] の CPU トレーナーから、[playerParty] のどれかと同じ絵 (同じ画像のパス) の見本のモンスターを持つトレーナーを除いて返す。
+/// 自分の手持ちに見本のモンスターがいるのは DEBUG ビルドの見本の生成・投入の時で、それ以外の手持ちの絵は Storage にあり見本と重ならない。
+/// 全員が除かれる時は全員を返す (相手がいないよりは同じ絵の方がよいため)。
+List<SampleCpuTrainer> excludeCpuTrainersWithSameArt({
+  required SampleData sampleData,
+  required List<OwnedMonster> playerParty,
+}) {
+  final playerArtPaths = {for (final monster in playerParty) ?monster.artPath};
+  final cpuTrainers = [
+    for (final cpuTrainer in sampleData.cpuTrainers)
+      if (!cpuTrainer.opponent.monsterIds.any(
+        (monsterId) => playerArtPaths.contains(
+          sampleData.monsterById(monsterId: monsterId).artPath,
+        ),
+      ))
+        cpuTrainer,
+  ];
+  return cpuTrainers.isEmpty ? sampleData.cpuTrainers : cpuTrainers;
 }
 
 /// 初回のバトルの相手を [candidates] (同じ絵の候補を除いた他のユーザー。平均レベルが近い順) と [cpuTrainers] (1 人以上) から選ぶ。
