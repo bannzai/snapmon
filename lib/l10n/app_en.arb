@@ -140,7 +140,6 @@
   "battleWon": "You won",
   "battleLost": "You lost",
   "shareVersusOpponents": "VS {opponentNames}",
-  "shareAiNameNotice": "Monster names are created by AI",
   "battleLogChallenged": "{monsterName} challenged you to a battle",
   "battleLogMoveUsed": "{monsterName}'s {moveName}",
   "battleStruggle": "Struggle",

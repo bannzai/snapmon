@@ -72,7 +72,7 @@ class CardSharer {
   });
 
   /// 写真から切り出した被写体の画像 ([artPath]。`OwnedMonster.artPath`) を読んでデコードする。
-  /// 読めない時は throw する。元の写真のパスは渡さない (カードに元の写真を入れないため)。
+  /// 読めない時は throw する。元の写真のパスは渡さない (カードの絵は装飾を重ねる切り出した画像で描くため)。
   /// バトル画面もフィールドのモンスターを描くために使う。
   final Future<ui.Image> Function({required String artPath}) loadArtImage;
 
