@@ -1178,15 +1178,42 @@
         "sample-keybon",
         "sample-mugmon"
       ]
+    }
+  ],
+  "cpuTrainers": [
+    {
+      "id": "sample-cpu-minato",
+      "name": "CPU ミナト",
+      "monsterIds": [
+        "sample-mugmon",
+        "sample-petbottler"
+      ],
+      "levelOffset": 0
     },
     {
-      "id": "sample-cpu",
-      "name": "CPU トレーナー",
+      "id": "sample-cpu-sora",
+      "name": "CPU ソラ",
       "monsterIds": [
         "sample-keybon",
-        "sample-ringora",
+        "sample-ringora"
+      ],
+      "levelOffset": 1
+    },
+    {
+      "id": "sample-cpu-haru",
+      "name": "CPU ハル",
+      "monsterIds": [
         "sample-noton"
-      ]
+      ],
+      "levelOffset": 3
+    },
+    {
+      "id": "sample-cpu-riku",
+      "name": "CPU リク",
+      "monsterIds": [
+        "sample-slippan"
+      ],
+      "levelOffset": 3
     }
   ]
 }

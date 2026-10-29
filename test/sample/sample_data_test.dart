@@ -88,6 +88,26 @@ void main() {
     }
   });
 
+  test('CPU トレーナーは 4 人以上いて、名前に CPU を含み、手持ちの絵が互いに重ならない', () {
+    expect(sampleData.cpuTrainers.length, greaterThanOrEqualTo(4));
+    final artPaths = <String>[];
+    for (final cpuTrainer in sampleData.cpuTrainers) {
+      expect(cpuTrainer.name, startsWith('CPU '));
+      expect(
+        cpuTrainer.monsterIds.length,
+        inInclusiveRange(1, maximumPartySize),
+      );
+      for (final monsterId in cpuTrainer.monsterIds) {
+        artPaths.add(sampleData.monsterById(monsterId: monsterId).artPath!);
+      }
+    }
+    expect(artPaths.toSet(), hasLength(artPaths.length));
+    expect(
+      sampleData.cpuTrainers.map((cpuTrainer) => cpuTrainer.id).toSet(),
+      hasLength(sampleData.cpuTrainers.length),
+    );
+  });
+
   test('見本の対戦相手は見本のモンスターを 1〜3 体持つ', () {
     expect(sampleData.opponents, isNotEmpty);
     for (final opponent in sampleData.opponents) {

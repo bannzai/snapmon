@@ -9,10 +9,7 @@ import '../features/dex/owned_monster.dart';
 /// 見本データのファイル。CPU 対戦の相手、ログインが無い時 (DEBUG ビルド) の PvP の相手の代わり、開発者メニューの見本の投入に使う。
 const String sampleDataAssetPath = 'assets/samples/sample_monsters.json';
 
-/// 見本の対戦相手のうち、CPU 対戦の相手 (「CPU トレーナー」) の識別子。手持ちのレベルは挑む時に自分の手持ちに合わせる。
-const String cpuOpponentId = 'sample-cpu';
-
-/// 見本の対戦相手。CPU 対戦の相手 ([cpuOpponentId]) と、ログインが無い時 (DEBUG ビルド) の PvP の相手の代わり (lib/features/opponent/opponent_screen.dart)。
+/// 見本の対戦相手。ログインが無い時 (DEBUG ビルド) の PvP の相手の代わり (lib/features/opponent/opponent_screen.dart)。
 class SampleOpponent {
   /// 見本の対戦相手を作る。
   const SampleOpponent({
@@ -42,6 +39,44 @@ class SampleOpponent {
   final List<String> monsterIds;
 }
 
+/// CPU トレーナー (CPU 対戦の相手)。他のユーザーが少ない間も対戦の相手がいるよう、対戦相手の画面と初回のバトルで
+/// 他のユーザーの候補が足りない分を埋める (2026-10-29 の DIRECTION.md「決めたこと」)。手持ちのレベルは挑む時に自分の手持ちに合わせる。
+class SampleCpuTrainer {
+  /// CPU トレーナーを作る。
+  const SampleCpuTrainer({
+    required this.id,
+    required this.name,
+    required this.monsterIds,
+    required this.levelOffset,
+  });
+
+  /// JSON から CPU トレーナーを読む。
+  factory SampleCpuTrainer.fromJson({required Map<String, dynamic> json}) =>
+      SampleCpuTrainer(
+        id: json['id'] as String,
+        name: json['name'] as String,
+        monsterIds: [
+          for (final monsterId in json['monsterIds'] as List<dynamic>)
+            monsterId as String,
+        ],
+        levelOffset: json['levelOffset'] as int,
+      );
+
+  /// CPU トレーナーの識別子。
+  final String id;
+
+  /// 画面に出す名前。他のユーザーと見分けられるよう「CPU」を含める (どの画面の言語でも同じ印にするため、文言ではなく見本データに持つ)。
+  final String name;
+
+  /// 手持ちの見本のモンスターの識別子 ([SampleData.monsters] の定義の `id`)。CPU トレーナー同士で重ならない
+  /// (対戦相手の画面に並べた時に同じ絵が出ないため。test/sample/sample_data_test.dart で検査する)。
+  final List<String> monsterIds;
+
+  /// 手持ちのレベルの中心を、自分の手持ちの平均からいくつずらすか ([buildCpuParty])。
+  /// 手持ちの数が少ないトレーナーほど大きくし、数の差をレベルで埋める (値は実測ではなく最初の版の目安)。
+  final int levelOffset;
+}
+
 /// 見本データ (`assets/samples/sample_monsters.json`) の中身。
 class SampleData {
   /// 見本データを作る。
@@ -49,6 +84,7 @@ class SampleData {
     required this.definitions,
     required this.monsters,
     required this.opponents,
+    required this.cpuTrainers,
   });
 
   /// JSON から見本データを読む。
@@ -76,6 +112,12 @@ class SampleData {
           for (final opponentJson in json['opponents'] as List<dynamic>)
             SampleOpponent.fromJson(json: opponentJson as Map<String, dynamic>),
         ],
+        cpuTrainers: [
+          for (final cpuTrainerJson in json['cpuTrainers'] as List<dynamic>)
+            SampleCpuTrainer.fromJson(
+              json: cpuTrainerJson as Map<String, dynamic>,
+            ),
+        ],
       );
 
   /// 見本のモンスターが使う属性・技の定義。master はアプリに同梱しない (ADR 0001) ため、
@@ -86,8 +128,11 @@ class SampleData {
   /// 見本のモンスター。
   final List<OwnedMonster> monsters;
 
-  /// 見本の対戦相手。
+  /// 見本の対戦相手 (ログインが無い時の他のユーザーの代わり)。
   final List<SampleOpponent> opponents;
+
+  /// CPU トレーナー。対戦相手の画面は先頭から必要な数だけ並べる。
+  final List<SampleCpuTrainer> cpuTrainers;
 
   /// [monsterId] の見本のモンスターを返す。無ければ [StateError] を投げる。
   OwnedMonster monsterById({required String monsterId}) => monsters.firstWhere(
