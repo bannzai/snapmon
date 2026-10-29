@@ -203,7 +203,7 @@ class _BattleScreenState extends State<BattleScreen> {
     super.dispose();
   }
 
-  /// [side] の手持ちの [monsterId] のモンスター (切り出した被写体の画像と装飾を持つ)。
+  /// [side] の手持ちの [monsterId] のモンスター (切り出した被写体の画像を持つ)。
   /// 見本同士の対戦では同じ monsterId が両陣営にいるため、陣営の手持ちから引く。
   OwnedMonster _ownedMonsterOf({
     required BattleSideId side,

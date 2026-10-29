@@ -237,7 +237,7 @@ void main() {
     );
   });
 
-  testWithGame<BattleFieldGame>('装飾を持つモンスターは、画像に輪郭線・目などの装飾を重ねて描く', createGame, (
+  testWithGame<BattleFieldGame>('装飾を保存しているモンスターも、装飾を重ねず画像だけを描く', createGame, (
     game,
   ) async {
     final artImage = await createArtImage(width: 8, height: 8);
@@ -252,15 +252,14 @@ void main() {
         decorationVersion: 1,
       ),
     );
-    final memberNames = renderInvocations(
+    final invocations = renderInvocations(
       component: game.playerMonsterComponent..size = Vector2(100, 100),
-    ).map((call) => call.memberName);
-    // 輪郭線は画像を周りにずらして重ねて描くため、画像を描く呼び出しが 1 回より多い
-    expect(
-      memberNames.where((name) => name == #drawImageRect).length,
-      greaterThan(1),
     );
-    expect(memberNames, contains(#drawCircle));
+    expect(invocations.map((call) => call.memberName), [#drawImageRect]);
+    expect(
+      invocations.single.positionalArguments[2],
+      const Rect.fromLTWH(0, 0, 100, 100),
+    );
   });
 
   testWithGame<BattleFieldGame>('画像が届いた後に交代で出たモンスターも、同じパスなら画像で描く', createGame, (

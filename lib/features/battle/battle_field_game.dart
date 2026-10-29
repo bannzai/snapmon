@@ -235,7 +235,7 @@ class _GroundComponent extends Component with HasGameReference<FlameGame> {
   }
 }
 
-/// 場のモンスターを描く部品。切り出した被写体の画像 ([artSprite]) があれば図鑑のカードと同じく装飾を重ねて描き
+/// 場のモンスターを描く部品。切り出した被写体の画像 ([artSprite]) があれば図鑑のカードと同じく描き
 /// ([paintMonsterArt])、無ければ (画像を持たない・読み込み中・読み込みの失敗) 仮の絵を描く。
 class MonsterComponent extends PositionComponent with HasVisibility {
   /// [monster] を描く部品を作る。
@@ -292,7 +292,6 @@ class MonsterComponent extends PositionComponent with HasVisibility {
     paintMonsterArt(
       canvas: canvas,
       size: Size(size.x, size.y),
-      monster: monster,
       artImage: sprite.image,
     );
   }

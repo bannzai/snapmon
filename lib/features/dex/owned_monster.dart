@@ -39,8 +39,8 @@ class OwnedMonster {
     );
   }
 
-  /// [decorationJson] を、このクライアントが描ける [decorationVersion] の装飾として読む。描けない版・装飾が無い・形が違う時は null
-  /// (装飾を重ねず画像だけを描く)。形の違う 1 件で図鑑や対戦相手の一覧ごと読めなくならないよう、読み取りの失敗は投げない。
+  /// [decorationJson] を、このクライアントが読める [decorationVersion] の装飾として読む。読めない版・装飾が無い・形が違う時は null。
+  /// 形の違う 1 件で図鑑や対戦相手の一覧ごと読めなくならないよう、読み取りの失敗は投げない。
   static MonsterDecoration? _readDecoration({
     required Object? decorationJson,
     required int? decorationVersion,
@@ -71,10 +71,11 @@ class OwnedMonster {
   /// 参照するその場で作った属性・技の定義 (`definitions/{definitionId}`) の ID。見本のモンスターは空。
   final List<String> definitionIds;
 
-  /// 切り出した画像に重ねる装飾のパラメータ。見本のモンスターと、[decorationVersion] がこのクライアントの描けない版の時は null。
+  /// 生成の時に保存された装飾のパラメータ。絵には描かない (DIRECTION.md「決めたこと」2026-10-29)。
+  /// 見本のモンスターと、[decorationVersion] がこのクライアントの読めない版の時は null。
   final MonsterDecoration? decoration;
 
-  /// 装飾の描画の版 (生まれた時の見た目を変えないため、版ごとに描き分ける)。見本のモンスターは null。
+  /// 生成の時に保存された装飾の描画の版。見本のモンスターは null。
   final int? decorationVersion;
 }
 

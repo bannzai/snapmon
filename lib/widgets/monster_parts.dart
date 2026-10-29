@@ -13,7 +13,7 @@ import 'monster_art_painting.dart';
 import 'placeholder_monster_painting.dart';
 
 /// 図鑑の 1 体の絵。写真から切り出した被写体の画像 ([OwnedMonster.artPath]。見本のモンスターは同梱の asset) があれば読み、
-/// 装飾 (目・手足・オーラ・輪郭線。DIRECTION.md「デザインの方向」) を重ねて ([paintMonsterArt]) [backgroundColor] の地に描く。
+/// そのまま ([paintMonsterArt]) [backgroundColor] の地に描く。
 /// 画像を読む前と読めなかった時は地だけを描き、画像を持たないモンスターは仮の絵を描く。
 class MonsterArt extends StatefulWidget {
   /// [monster] の絵を作る。
@@ -98,27 +98,22 @@ class _MonsterArtState extends State<MonsterArt> {
               child: const SizedBox.expand(),
             ),
           )
-        : DecoratedMonsterArt(
-            monster: widget.monster,
+        : MonsterArtImage(
             artImage: artImage,
             backgroundColor: widget.backgroundColor,
           );
   }
 }
 
-/// 読み込み済みの切り出した被写体の画像 [artImage] に [monster] の装飾を重ねた絵 ([paintMonsterArt])。
+/// 読み込み済みの切り出した被写体の画像 [artImage] の絵 ([paintMonsterArt])。
 /// 図鑑のカード ([MonsterArt]) と共有カードが使う。
-class DecoratedMonsterArt extends StatelessWidget {
-  /// [monster] の絵を作る。
-  const DecoratedMonsterArt({
+class MonsterArtImage extends StatelessWidget {
+  /// [artImage] の絵を作る。
+  const MonsterArtImage({
     super.key,
-    required this.monster,
     required this.artImage,
     required this.backgroundColor,
   });
-
-  /// 描くモンスター。
-  final OwnedMonster monster;
 
   /// [OwnedMonster.artPath] の画像。持ち主 (dispose する側) は呼び出し元。
   final ui.Image artImage;
@@ -132,41 +127,28 @@ class DecoratedMonsterArt extends StatelessWidget {
     child: ColoredBox(
       color: backgroundColor,
       child: CustomPaint(
-        painter: _DecoratedMonsterArtPainter(
-          monster: monster,
-          artImage: artImage,
-        ),
+        painter: _MonsterArtImagePainter(artImage: artImage),
         child: const SizedBox.expand(),
       ),
     ),
   );
 }
 
-/// [DecoratedMonsterArt] の絵を描く painter。
-class _DecoratedMonsterArtPainter extends CustomPainter {
-  /// [monster] の [artImage] に装飾を重ねて描く painter を作る。
-  _DecoratedMonsterArtPainter({required this.monster, required this.artImage});
+/// [MonsterArtImage] の絵を描く painter。
+class _MonsterArtImagePainter extends CustomPainter {
+  /// [artImage] を描く painter を作る。
+  _MonsterArtImagePainter({required this.artImage});
 
-  /// 描くモンスター。
-  final OwnedMonster monster;
-
-  /// [OwnedMonster.artPath] の画像。持ち主 (dispose する側) は [DecoratedMonsterArt] の呼び出し元。
+  /// [OwnedMonster.artPath] の画像。持ち主 (dispose する側) は [MonsterArtImage] の呼び出し元。
   final ui.Image artImage;
 
   @override
-  void paint(Canvas canvas, Size size) => paintMonsterArt(
-    canvas: canvas,
-    size: size,
-    monster: monster,
-    artImage: artImage,
-  );
+  void paint(Canvas canvas, Size size) =>
+      paintMonsterArt(canvas: canvas, size: size, artImage: artImage);
 
   @override
-  bool shouldRepaint(_DecoratedMonsterArtPainter oldDelegate) =>
-      oldDelegate.artImage != artImage ||
-      oldDelegate.monster.decoration != monster.decoration ||
-      oldDelegate.monster.decorationVersion != monster.decorationVersion ||
-      oldDelegate.monster.definition.id != monster.definition.id;
+  bool shouldRepaint(_MonsterArtImagePainter oldDelegate) =>
+      oldDelegate.artImage != artImage;
 }
 
 /// 切り出した画像 ([OwnedMonster.artPath]) を持たないモンスターの仮の絵。
