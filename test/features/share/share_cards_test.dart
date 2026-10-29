@@ -93,15 +93,9 @@ void main() {
     return artImage;
   }
 
-  /// 描いたカードに、名前と図鑑の文章が AI の生成である表示が無いことを確かめる (アプリ内の画面だけに出すため)。
-  void expectNoAiGeneratedNotice() {
-    expect(
-      find.text(
-        lookupAppLocalizations(const Locale('ja')).commonAiGeneratedNotice,
-      ),
-      findsNothing,
-    );
-    expect(find.textContaining('AI が作りました'), findsNothing);
+  /// 描いたカードに、名前と図鑑の文章が AI の生成である表示が無いことを確かめる (開示は利用規約とストアの説明文で行うため)。
+  void expectNoGeneratedByAiText() {
+    expect(find.textContaining('AI'), findsNothing);
   }
 
   group('カードの絵は渡した切り出した画像だけで描き、AI の生成の表示を描かない', () {
@@ -120,7 +114,7 @@ void main() {
         );
         expectOnlyArtImage(tester: tester, artImage: artImage);
         expect(find.textContaining(sourcePhotoReference), findsNothing);
-        expectNoAiGeneratedNotice();
+        expectNoGeneratedByAiText();
       });
 
       testWidgets('バトルの結果のカード (${format.name})', (tester) async {
@@ -142,7 +136,7 @@ void main() {
         );
         expectOnlyArtImage(tester: tester, artImage: artImage);
         expect(find.textContaining(sourcePhotoReference), findsNothing);
-        expectNoAiGeneratedNotice();
+        expectNoGeneratedByAiText();
         expect(find.text('Lv. 7 → 8'), findsOneWidget);
       });
     }
