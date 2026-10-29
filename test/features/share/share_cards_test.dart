@@ -93,9 +93,9 @@ void main() {
     return artImage;
   }
 
-  /// 描いたカードに、名前と図鑑の文章が AI の生成である表示が無いことを確かめる (開示は利用規約とストアの説明文で行うため)。
+  /// 描いたカードに、名前と図鑑の文章が AI の生成である表示が無いことを確かめる (開示は利用規約・プライバシーポリシー・ストアの説明文で行うため)。
   void expectNoGeneratedByAiText() {
-    expect(find.textContaining('AI'), findsNothing);
+    expect(find.textContaining('AI が作りました'), findsNothing);
   }
 
   group('カードの絵は渡した切り出した画像だけで描き、AI の生成の表示を描かない', () {

@@ -17,7 +17,7 @@ import 'card_sharer.dart';
 /// 共有する図鑑のカード。モンスターの絵・名前・レベル・属性・ステータスと、snapmon のロゴ・紹介ページの URL を描く。
 /// 絵は [artImagesByPath] の切り出した被写体の画像 (元の写真の一部または全体のこともある) を使い、Storage から読む部品
 /// (StorageImage) を使わない (画面に出さずに PNG に描くため、読み込み済みの画像だけで描く)。名前と図鑑の文章が AI の生成である表示は描かない
-/// (アプリのどの画面にも出さず、開示は利用規約とストアの説明文で行うため。DIRECTION.md「決めたこと」2026-10-29・2026-10-30)。
+/// (アプリのどの画面にも出さず、開示は利用規約・プライバシーポリシー・ストアの説明文で行うため。DIRECTION.md「決めたこと」2026-10-29・2026-10-30)。
 class MonsterShareCard extends StatelessWidget {
   /// [monster] の共有するカードを作る。
   const MonsterShareCard({

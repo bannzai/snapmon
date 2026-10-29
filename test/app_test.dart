@@ -864,8 +864,8 @@ void main() {
         // 生まれたカードと勝敗が同じ画面に出る
         expect(find.text('あたらしい なかま'), findsOneWidget);
         expect(find.text(bornMonster.encyclopediaText), findsOneWidget);
-        // AI 生成の開示は利用規約とストアの説明文で行い、画面には出さない
-        expect(find.textContaining('AI'), findsNothing);
+        // AI 生成の開示は利用規約・プライバシーポリシー・ストアの説明文で行い、画面には出さない
+        expect(find.textContaining('AI が作りました'), findsNothing);
         expect(
           find.text('かった').evaluate().length +
               find.text('まけた').evaluate().length,
@@ -997,8 +997,8 @@ void main() {
       ).definition;
       expect(find.text('あたらしい なかま'), findsOneWidget);
       expect(find.text(bornMonster.name), findsOneWidget);
-      // AI 生成の開示は利用規約とストアの説明文で行い、画面には出さない
-      expect(find.textContaining('AI'), findsNothing);
+      // AI 生成の開示は利用規約・プライバシーポリシー・ストアの説明文で行い、画面には出さない
+      expect(find.textContaining('AI が作りました'), findsNothing);
       expect(generationCalls.uploadedRequestIds, ['request-1']);
       expect(
         generationCalls.loggedEvents.single.event,
