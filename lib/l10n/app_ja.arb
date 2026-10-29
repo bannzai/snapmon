@@ -193,7 +193,6 @@
   "@shareVersusOpponents": {"placeholders": {"opponentNames": {"type": "String"}}},
   "shareOpponentSeparator": "・",
   "@shareOpponentSeparator": {"description": "相手のモンスターの名前を並べる時の区切り"},
-  "shareAiNameNotice": "モンスターの名前は AI が作りました",
   "battleLogChallenged": "{monsterName} が 勝負をしかけてきた",
   "@battleLogChallenged": {"description": "バトルの始まりのログ", "placeholders": {"monsterName": {"type": "String"}}},
   "battleLogMoveUsed": "{monsterName} の {moveName}",

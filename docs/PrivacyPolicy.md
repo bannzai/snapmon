@@ -39,7 +39,8 @@ bannzai（以下「提供者」といいます。）は、提供者の提供す�
 [^analytics]: 出典: https://support.google.com/analytics/answer/10285841 「An app instance id is automatically assigned to each instance of an app」「By default, this identifier is not associated with a user identifier」「Google Analytics does not use Apple’s Location Services feature」「Analytics derives general location data from users’ masked IP addresses」（2026-10-26 に確認）。本サービスはアプリインスタンス ID にユーザー ID を設定しません（lib/firebase/session.dart は setUserId を呼びません）
 
 ## 写真の取扱い
-- ユーザーの元の写真のファイルは、そのユーザー本人の図鑑にだけ表示します。他のユーザーには表示せず、共有カードにも入れません。ただし、下のとおりモンスターの画像は元の写真の一部または全体であることがあります。
+- ユーザーの元の写真のファイルは、そのユーザー本人の図鑑にだけ表示し、他のユーザーには表示しません。ただし、下のとおりモンスターの画像は元の写真の一部または全体であることがあります。共有カードに描くのはモンスターの画像で、ユーザーが共有を選んだ時だけ SNS などに出ます。
+  <!-- source: lib/features/share/share_cards.dart: MonsterShareCard・BattleResultShareCard が描く絵は OwnedMonster.artPath (monsters/{monsterId}/art.png) の画像だけで、元の写真 (sourcePhotoReference) は読まない。lib/features/share/share_card_button.dart: 共有シートを開くのは利用者が「共有する」を押した時 -->
 - 生成したモンスターの画像・名前・属性・技・ステータスは、認証済みの他のユーザーが閲覧でき、対戦（PvP）と共有で表示されます。対戦では、手持ちのモンスターのレベルとユーザーの表示名も相手に表示されます。
 - モンスターの画像は、写真から被写体を切り出したもの（iPhone の被写体の切り出しの機能を使います）か、ユーザーが写真の上で選んだ範囲を切り取ったものです。範囲を選んだ場合は、その範囲に写る背景や周りの物も画像に含まれ、写真全体が画像になることもあります。被写体を切り出せず範囲も選ばなかった場合は、写真全体を画像にします。
 - モンスターの画像は、端末が決めた範囲を本サービスのサーバー（Cloud Functions for Firebase）が元の写真に当てはめて作ります。AI で絵を生成せず、画像生成の外部サービスに写真を送信しません。
@@ -128,3 +129,4 @@ bannzai.app@gmail.com
 
 【2026年10月21日制定】
 【2026年10月28日改定】
+【2026年10月29日改定】

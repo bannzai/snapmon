@@ -15,8 +15,9 @@ import '../settings/settings_screen.dart';
 import 'card_sharer.dart';
 
 /// 共有する図鑑のカード。モンスターの絵・名前・レベル・属性・ステータスと、snapmon のロゴ・紹介ページの URL を描く。
-/// 元の写真は描かない (他人の写真が写る事故を防ぐため。DIRECTION.md「必要な機能」の共有)。絵は [artImagesByPath] の
-/// 切り出した被写体の画像だけを使い、Storage から読む部品 (StorageImage) を使わない。
+/// 絵は [artImagesByPath] の切り出した被写体の画像 (元の写真の一部または全体のこともある) を使い、Storage から読む部品
+/// (StorageImage) を使わない (画面に出さずに PNG に描くため、読み込み済みの画像だけで描く)。名前と図鑑の文章が AI の生成である表示は描かない
+/// (SNS で見る人は本サービスの利用者ではないため。DIRECTION.md「決めたこと」2026-10-29)。
 class MonsterShareCard extends StatelessWidget {
   /// [monster] の共有するカードを作る。
   const MonsterShareCard({
@@ -151,14 +152,6 @@ class MonsterShareCard extends StatelessWidget {
                             color: SnapmonColors.textOnCardBody,
                           ),
                         ),
-                        const SizedBox(height: 6),
-                        // 名前と図鑑の文章が AI の生成であることの表示 (DIRECTION.md「必要な機能」の未成年向けの安全策)
-                        Text(
-                          context.l10n.commonAiGeneratedNotice,
-                          style: SnapmonTextStyles.small.copyWith(
-                            color: SnapmonColors.textOnCardMuted,
-                          ),
-                        ),
                       ],
                     ),
                   ),
@@ -225,8 +218,6 @@ class MonsterShareCard extends StatelessWidget {
                       valueColor: SnapmonColors.textOnBackground,
                     ),
                     const Spacer(),
-                    const _AiNameNotice(textAlign: TextAlign.start),
-                    const SizedBox(height: 4),
                     const _LandingPageAddress(textAlign: TextAlign.start),
                   ],
                 ),
@@ -240,7 +231,7 @@ class MonsterShareCard extends StatelessWidget {
 }
 
 /// 共有するバトルの結果のカード。勝ち負け・相手の手持ちの名前・自分の手持ちの絵と名前とレベルと、
-/// snapmon のロゴ・紹介ページの URL を描く。元の写真は描かない ([MonsterShareCard] と同じ)。
+/// snapmon のロゴ・紹介ページの URL を描く。絵と AI の生成の表示の扱いは [MonsterShareCard] と同じ。
 class BattleResultShareCard extends StatelessWidget {
   /// バトルの結果の共有するカードを作る。
   const BattleResultShareCard({
@@ -394,8 +385,6 @@ class BattleResultShareCard extends StatelessWidget {
                 ),
               ],
               const Spacer(),
-              const _AiNameNotice(textAlign: TextAlign.center),
-              const SizedBox(height: 4),
               const _LandingPageAddress(textAlign: TextAlign.center),
             ],
           ),
@@ -481,28 +470,12 @@ class BattleResultShareCard extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 6),
-              const _AiNameNotice(textAlign: TextAlign.start),
             ],
           ),
         ),
       },
     );
   }
-}
-
-/// モンスターの名前が AI の生成であることの表示 (DIRECTION.md「必要な機能」の未成年向けの安全策)。
-class _AiNameNotice extends StatelessWidget {
-  const _AiNameNotice({required this.textAlign});
-
-  final TextAlign textAlign;
-
-  @override
-  Widget build(BuildContext context) => Text(
-    context.l10n.shareAiNameNotice,
-    textAlign: textAlign,
-    style: SnapmonTextStyles.small,
-  );
 }
 
 /// カードの左上の snapmon のロゴ。
