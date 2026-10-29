@@ -12,6 +12,30 @@ import '../theme/snapmon_text_styles.dart';
 import 'monster_art_painting.dart';
 import 'placeholder_monster_painting.dart';
 
+/// 写真から切り出した被写体の画像 [artPath] を読んでデコードする関数。読めない時は throw する。
+/// 返した画像の持ち主 (dispose する側) は受け取った側。
+typedef LoadMonsterArtImage =
+    Future<ui.Image> Function({required String artPath});
+
+/// 子の木の [MonsterArt] が切り出した被写体の画像を読む関数を差し替える。無い時は [loadArtImageWithFirebase] で読む。
+/// ストアのスクリーンショットの生成 (store_screenshots/) が、先にデコードした絵を Firebase を通さずに描くために使う
+/// (widget test の偽の時間の中では画像のデコードが終わらないため)。
+class MonsterArtImageLoaderScope extends InheritedWidget {
+  /// [loadArtImage] で読む範囲を作る。
+  const MonsterArtImageLoaderScope({
+    super.key,
+    required this.loadArtImage,
+    required super.child,
+  });
+
+  /// 切り出した被写体の画像を読む関数。
+  final LoadMonsterArtImage loadArtImage;
+
+  @override
+  bool updateShouldNotify(MonsterArtImageLoaderScope oldWidget) =>
+      loadArtImage != oldWidget.loadArtImage;
+}
+
 /// 図鑑の 1 体の絵。写真から切り出した被写体の画像 ([OwnedMonster.artPath]。見本のモンスターは同梱の asset) があれば読み、
 /// そのまま ([paintMonsterArt]) [backgroundColor] の地に描く。
 /// 画像を読む前と読めなかった時は地だけを描き、画像を持たないモンスターは仮の絵を描く。
@@ -61,14 +85,20 @@ class _MonsterArtState extends State<MonsterArt> {
     super.dispose();
   }
 
-  /// 今の [MonsterArt.monster] の切り出した被写体の画像を読む。読み終わる前に別の画像に変わった時と外された時は捨てる。
+  /// 今の [MonsterArt.monster] の切り出した被写体の画像を、上に [MonsterArtImageLoaderScope] があればその関数で、
+  /// 無ければ [loadArtImageWithFirebase] で読む。読み終わる前に別の画像に変わった時と外された時は捨てる。
   Future<void> _loadArtImage() async {
     final artPath = widget.monster.artPath;
     if (artPath == null) {
       return;
     }
     try {
-      final artImage = await loadArtImageWithFirebase(artPath: artPath);
+      // getInheritedWidgetOfExactType は依存を登録しないため initState からも呼べる (scope が変わっても読み直さない)
+      final artImage =
+          await (context
+                  .getInheritedWidgetOfExactType<MonsterArtImageLoaderScope>()
+                  ?.loadArtImage ??
+              loadArtImageWithFirebase)(artPath: artPath);
       if (!mounted || widget.monster.artPath != artPath) {
         artImage.dispose();
         return;
