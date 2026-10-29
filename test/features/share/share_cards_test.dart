@@ -76,10 +76,10 @@ void main() {
   }) {
     expect(find.byType(StorageImage), findsNothing);
     expect(find.byType(RawImage), findsNothing);
-    final decoratedArts = find.byType(DecoratedMonsterArt);
-    expect(decoratedArts, findsOneWidget);
+    final monsterArtImages = find.byType(MonsterArtImage);
+    expect(monsterArtImages, findsOneWidget);
     expect(
-      tester.widget<DecoratedMonsterArt>(decoratedArts).artImage,
+      tester.widget<MonsterArtImage>(monsterArtImages).artImage,
       same(artImage),
     );
   }

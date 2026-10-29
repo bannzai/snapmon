@@ -10,12 +10,13 @@ enum MonsterLimbStyle { none, stubby, long, wings, tentacles }
 /// 装飾の属性のオーラの形。値の名前は `AURA_STYLES` と同じ。色は属性から決める。
 enum MonsterAuraStyle { soft, flame, spark, bubble, leaf }
 
-/// クライアントが描き分けられる装飾の描画の版 (functions の `DECORATION_VERSION`)。
-/// これに無い版のモンスターは装飾を読まず、切り出した画像だけを描く (新しい版の形を古いクライアントが読み違えないため)。
+/// クライアントが読める装飾の描画の版 (functions の `DECORATION_VERSION`)。
+/// これに無い版のモンスターは装飾を読まない (新しい版の形を古いクライアントが読み違えないため)。
 const Set<int> supportedDecorationVersions = {1};
 
-/// 切り出した被写体の画像に重ねる装飾のパラメータ。生成の時に Claude が決め、モンスターと一緒に保存される
+/// 生成の時に Claude が決め、モンスターと一緒に保存される装飾のパラメータ
 /// (形は functions/src/generation/prompts/describe_subject.ts の `MonsterDecoration`)。
+/// 絵には描かない (DIRECTION.md「決めたこと」2026-10-29)。
 class MonsterDecoration {
   /// 装飾のパラメータを作る。
   const MonsterDecoration({
