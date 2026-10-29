@@ -35,7 +35,6 @@
   "opponentEmptyPartyNote": "Add monsters to your party to battle",
   "opponentChooseOpponent": "Choose an opponent",
   "opponentFindOthers": "Find other opponents",
-  "cpuTrainerName": "CPU trainer",
   "opponentCpuMatchesPartyLevel": "Match your party's level",
   "opponentCpuAverageLevel": "Around Lv. {level}",
   "opponentAverageLevel": "Average Lv. {level}",

@@ -13,7 +13,6 @@ import 'package:snapmon/features/capture/monster_generator.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
 import 'package:snapmon/features/result/result_screen.dart';
 import 'package:snapmon/l10n/l10n.dart';
-import 'package:snapmon/sample/sample_data.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
 
 import '../../battle_recorder_fixture.dart';
@@ -740,12 +739,7 @@ void main() {
         await tester.pump(const Duration(milliseconds: 100));
         expect(dexStore.isInParty(monsterId: 'm1'), isTrue);
         // ログインが無い時の PvP の候補は null のため、CPU トレーナーが相手になる
-        expect(
-          find.text(
-            '${sampleData.opponents.firstWhere((opponent) => opponent.id == cpuOpponentId).name} があらわれた',
-          ),
-          findsOneWidget,
-        );
+        expect(find.textContaining(RegExp(r'^CPU .+ があらわれた$')), findsOneWidget);
         await tester.pump(const Duration(seconds: 2));
         await tester.pump(const Duration(seconds: 1));
         expect(find.byType(BattleScreen), findsOneWidget);

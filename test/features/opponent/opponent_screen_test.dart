@@ -12,7 +12,6 @@ import 'package:snapmon/features/opponent/pvp_opponent.dart';
 import 'package:snapmon/features/opponent/report_reason.dart';
 import 'package:snapmon/features/settings/settings_screen.dart';
 import 'package:snapmon/l10n/l10n.dart';
-import 'package:snapmon/sample/sample_data.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
 
 import '../../battle_recorder_fixture.dart';
@@ -147,7 +146,17 @@ void main() {
       expect(find.text(text), findsOneWidget, reason: text);
     }
     expect(find.text('マグモン  Lv. 6'), findsOneWidget);
-    expect(find.byKey(const Key('challenge-$cpuOpponentId')), findsOneWidget);
+    // 他のユーザーが 3 人いても CPU トレーナーは 1 人出す
+    for (final (index, cpuTrainer) in sampleData.cpuTrainers.indexed) {
+      expect(
+        find.byKey(
+          Key('challenge-${cpuTrainer.opponent.id}'),
+          skipOffstage: false,
+        ),
+        index == 0 ? findsOneWidget : findsNothing,
+        reason: cpuTrainer.opponent.id,
+      );
+    }
     // 見本の他のユーザーの代わりは、ログインして読めた時は出さない
     expect(find.text(sampleData.opponents.first.name), findsNothing);
     expect(calls.fetchOpponentsCount, 1);
@@ -167,12 +176,67 @@ void main() {
     expect(
       tester
           .widget<FilledButton>(
-            find.byKey(const Key('challenge-$cpuOpponentId')),
+            find.byKey(
+              Key('challenge-${sampleData.cpuTrainers.first.opponent.id}'),
+            ),
           )
           .onPressed,
       isNotNull,
     );
   });
+
+  for (final pvpOpponentCount in [0, 1, 2]) {
+    testWidgets(
+      '他のユーザーが $pvpOpponentCount 人の時は CPU トレーナーで埋めて 3 人並べ、CPU トレーナーには CPU の名前を出して通報・ブロックのメニューを出さない',
+      (tester) async {
+        await pumpOpponentScreen(
+          tester: tester,
+          pvpClient: signedInPvpClient(
+            calls: RecordedPvpCalls(),
+            fetchOpponents: () async =>
+                opponents.take(pvpOpponentCount).toList(),
+            reportMonster: () async {},
+            blockUser: () async {},
+          ),
+        );
+        for (final opponent in opponents.take(pvpOpponentCount)) {
+          expect(
+            find.byKey(
+              Key('opponent-menu-${opponent.opponentUid}'),
+              skipOffstage: false,
+            ),
+            findsOneWidget,
+            reason: opponent.opponentUid,
+          );
+        }
+        final cpuTrainerCount = 3 - pvpOpponentCount;
+        for (final (index, cpuTrainer) in sampleData.cpuTrainers.indexed) {
+          expect(
+            find.byKey(
+              Key('opponent-card-${cpuTrainer.opponent.id}'),
+              skipOffstage: false,
+            ),
+            index < cpuTrainerCount ? findsOneWidget : findsNothing,
+            reason: cpuTrainer.opponent.id,
+          );
+          if (index < cpuTrainerCount) {
+            expect(
+              find.text(cpuTrainer.opponent.name, skipOffstage: false),
+              findsOneWidget,
+            );
+            expect(cpuTrainer.opponent.name, startsWith('CPU '));
+            expect(
+              find.byKey(
+                Key('opponent-menu-${cpuTrainer.opponent.id}'),
+                skipOffstage: false,
+              ),
+              findsNothing,
+            );
+          }
+        }
+      },
+    );
+  }
 
   testWidgets('相手を読めなかった時はエラーをそのまま出し、もう一度さがせる', (tester) async {
     final calls = RecordedPvpCalls();

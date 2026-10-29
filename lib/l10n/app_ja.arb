@@ -51,7 +51,6 @@
   "opponentEmptyPartyNote": "手持ちを入れると挑めます",
   "opponentChooseOpponent": "相手をえらぶ",
   "opponentFindOthers": "ほかの相手をさがす",
-  "cpuTrainerName": "CPU トレーナー",
   "opponentCpuMatchesPartyLevel": "手持ちのレベルに合わせる",
   "opponentCpuAverageLevel": "平均 Lv. {level} 前後",
   "@opponentCpuAverageLevel": {"placeholders": {"level": {"type": "int"}}},
