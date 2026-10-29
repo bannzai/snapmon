@@ -165,7 +165,6 @@
   "@resultNewlyBorn": {"description": "モンスターが新しく生まれた時の画面の見出し"},
   "resultPhoto": "写真",
   "resultMonster": "モンスター",
-  "commonAiGeneratedNotice": "名前と図鑑の文章は AI が作りました",
   "statHitPoints": "HP",
   "statAttack": "攻撃",
   "statDefense": "防御",

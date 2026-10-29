@@ -835,7 +835,7 @@ class _BattleResultPanel extends StatelessWidget {
   }
 }
 
-/// 初回の 1 戦の勝敗の画面に出す、生まれたモンスターのカード (名前・図鑑の文章・AI の生成であることの表示)。
+/// 初回の 1 戦の勝敗の画面に出す、生まれたモンスターのカード (名前・図鑑の文章)。
 class _BornMonsterCard extends StatelessWidget {
   const _BornMonsterCard({required this.monster, required this.isNewlyBorn});
 
@@ -889,14 +889,6 @@ class _BornMonsterCard extends StatelessWidget {
                   monster.definition.encyclopediaText,
                   style: SnapmonTextStyles.small.copyWith(
                     color: SnapmonColors.textOnCardBody,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                // 名前と図鑑の文章が AI の生成であることの表示 (DIRECTION.md「必要な機能」の未成年向けの安全策)
-                Text(
-                  context.l10n.commonAiGeneratedNotice,
-                  style: SnapmonTextStyles.small.copyWith(
-                    color: SnapmonColors.textOnCardMuted,
                   ),
                 ),
               ],
