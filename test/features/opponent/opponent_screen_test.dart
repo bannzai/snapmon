@@ -249,14 +249,12 @@ void main() {
         blockUser: () async {},
       ),
     );
-    final playerAverageLevel = averagePartyLevel(
-      party: (DexStore(
-        definitions: sampleData.definitions,
-      )..replaceAll(monsters: sampleData.monsters)).party,
-    );
     // 他のユーザーがいない時は CPU トレーナーを 3 人並べる (手持ち 2 体のミナト・ソラと 1 体のハル)
     expect(
-      find.text('平均 Lv. $playerAverageLevel 前後', skipOffstage: false),
+      find.text(
+        '平均 Lv. ${averagePartyLevel(party: (DexStore(definitions: sampleData.definitions)..replaceAll(monsters: sampleData.monsters)).party)} 前後',
+        skipOffstage: false,
+      ),
       findsNWidgets(3),
     );
   });
