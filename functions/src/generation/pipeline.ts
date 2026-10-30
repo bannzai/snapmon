@@ -51,7 +51,7 @@ import {
   type MonsterDocument,
   TERMINAL_GENERATION_STATUSES,
 } from "./records";
-import { type AnnotateImage, type RejectionReason, visionRejectionReason } from "./vision";
+import { type AnnotateImage, type RejectionReason, visionRejectionLogFields, visionRejectionReason } from "./vision";
 
 /** Cloud Storage のバケット。 */
 export type StorageBucket = ReturnType<ReturnType<typeof getStorage>["bucket"]>;
@@ -722,11 +722,11 @@ async function runStage(
 ): Promise<StageOutcome> {
   switch (stage) {
     case "safesearch":
-      return runSafeSearchStage(dependencies, record);
+      return runSafeSearchStage(dependencies, { uid, requestId, record });
     case "cutout":
       return runCutoutStage(dependencies, { uid, requestId, record });
     case "claude":
-      return runClaudeStage(dependencies, record);
+      return runClaudeStage(dependencies, { uid, requestId, record });
     case "classify":
       return runClassifyStage(dependencies, record);
     case "dedupe":
@@ -744,11 +744,16 @@ function rejected(rejectionReason: RejectionReason): StageOutcome {
   return { kind: "finish", update: { status: "rejected", rejectionReason } };
 }
 
-async function runSafeSearchStage(dependencies: GenerationDependencies, record: GenerationRecord): Promise<StageOutcome> {
+async function runSafeSearchStage(
+  dependencies: GenerationDependencies,
+  { uid, requestId, record }: { uid: string; requestId: string; record: GenerationRecord },
+): Promise<StageOutcome> {
   // Vision にも縮めた写真を送る (顔・露骨な内容の判定は長辺 1024px で足り、送る量を抑えるため)。
   const annotation = await dependencies.annotateImage(await downscalePhoto((await downloadVerifiedInput(dependencies.bucket, record)).photo));
   const rejectionReason = visionRejectionReason(annotation);
   if (rejectionReason) {
+    // 閾値の妥当性を後から見直すため、どの区分・顔で拒否したかを残す (https://github.com/bannzai/snapmon/issues/118 )
+    logger.info("Vision の判定で生成しません", { uid, requestId, rejectionReason, ...visionRejectionLogFields(annotation) });
     return rejected(rejectionReason);
   }
   return {
@@ -772,13 +777,17 @@ async function runCutoutStage(
   return { kind: "next", update: { cutoutPath, cutoutCoverage: coverage } };
 }
 
-async function runClaudeStage(dependencies: GenerationDependencies, record: GenerationRecord): Promise<StageOutcome> {
+async function runClaudeStage(
+  dependencies: GenerationDependencies,
+  { uid, requestId, record }: { uid: string; requestId: string; record: GenerationRecord },
+): Promise<StageOutcome> {
   const cutoutJpeg = await flattenCutoutForDescription(await downloadFile(dependencies.bucket, record.cutoutPath!));
   const claudeUsages = [...(record.claudeUsages ?? [])];
   for (let attempt = 1; attempt <= DESCRIBE_SUBJECT_MAXIMUM_ATTEMPTS; attempt++) {
     const { output, usage } = await dependencies.describeSubject(cutoutJpeg);
     claudeUsages.push(usage);
     if (output.containsPerson) {
+      logger.info("Claude が人が写っていると判断したため生成しません", { uid, requestId, rejectionReason: "person_detected", containsPerson: true, attempt });
       return { kind: "finish", update: { status: "rejected", rejectionReason: "person_detected", claudeUsages } };
     }
     // 照らすのは利用者に見せる名前と図鑑の文章だけ (被写体の説明は画面に出さず、ワイングラスのような被写体の名前で止めないため)
