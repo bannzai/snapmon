@@ -36,7 +36,7 @@ const int _firstBattleCandidateCountWithoutCpu = 2;
 /// ([excludeOpponentsWithSameArt]。絵は [loadArtImage] で読む)、残りと CPU トレーナー ([excludeCpuTrainersWithSameArt]) から
 /// [chooseFirstBattleOpponent] で選ぶ。
 /// 候補を取れない時 (ログインが無い・呼び出しの失敗) は候補 0 人として扱う。CPU トレーナーの手持ちのレベルは
-/// [randomSeed] で自分の手持ちに合わせる ([buildCpuParty])。選んだ候補の相手の定義を読めない時も CPU トレーナーにする。
+/// 自分の手持ちに合わせる ([buildCpuParty])。選んだ候補の相手の定義を読めない時も CPU トレーナーにする。
 /// 図鑑の定義を読み直せない時は例外を投げる ([prepareBattleDefinitions])。
 Future<FirstBattleOpponent> prepareFirstBattleOpponent({
   required DexStore dexStore,
@@ -91,7 +91,6 @@ Future<FirstBattleOpponent> prepareFirstBattleOpponent({
           sampleData.monsterById(monsterId: monsterId),
       ],
       playerParty: dexStore.party,
-      randomSeed: randomSeed,
     ),
     opponentKind: BattleOpponentKind.cpu,
     pvpOpponent: null,

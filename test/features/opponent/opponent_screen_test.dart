@@ -234,7 +234,9 @@ void main() {
     );
   }
 
-  testWidgets('CPU トレーナーのカードの平均レベルは、どのトレーナーも自分の手持ちの平均になる', (tester) async {
+  testWidgets('CPU トレーナーのカードのレベルは、どのトレーナーも自分の手持ちの平均と同じ「Lv. N」になる', (
+    tester,
+  ) async {
     await pumpOpponentScreen(
       tester: tester,
       pvpClient: signedInPvpClient(
@@ -244,16 +246,26 @@ void main() {
         blockUser: () async {},
       ),
     );
-    // 他のユーザーがいない時は CPU トレーナーを 3 人並べる (手持ち 2 体のミナト・ソラと 1 体のハル)
-    expect(
-      find.text(
-        '平均 Lv. ${averagePartyLevel(
-          party: (DexStore(definitions: sampleData.definitions)..replaceAll(monsters: sampleData.monsters)).party,
-        )} 前後',
-        skipOffstage: false,
-      ),
-      findsNWidgets(3),
-    );
+    // 他のユーザーがいない時は CPU トレーナーを 3 人並べる (手持ち 2 体のミナト・ソラと 1 体のハル)。
+    // 自分の手持ちのカードにも「Lv. N」が出るため、CPU トレーナーのカードの中だけを探す
+    for (final cpuTrainer in sampleData.cpuTrainers.take(3)) {
+      expect(
+        find.descendant(
+          of: find.byKey(
+            Key('opponent-card-${cpuTrainer.id}'),
+            skipOffstage: false,
+          ),
+          matching: find.text(
+            'Lv. ${averagePartyLevel(
+              party: (DexStore(definitions: sampleData.definitions)..replaceAll(monsters: sampleData.monsters)).party,
+            )}',
+            skipOffstage: false,
+          ),
+        ),
+        findsOneWidget,
+        reason: cpuTrainer.id,
+      );
+    }
   });
 
   testWidgets('相手を読めなかった時はエラーをそのまま出し、もう一度さがせる', (tester) async {

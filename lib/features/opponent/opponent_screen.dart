@@ -334,7 +334,6 @@ class _OpponentScreenState extends State<OpponentScreen> {
                   widget.sampleData.monsterById(monsterId: monsterId),
               ],
               playerParty: playerParty,
-              randomSeed: randomSeed,
             ),
             _PvpChallenger(:final pvpOpponent) => pvpOpponent.monsters,
           },
@@ -508,9 +507,7 @@ class _OpponentScreenState extends State<OpponentScreen> {
               title: cpuTrainer.name,
               subtitle: party.isEmpty
                   ? context.l10n.opponentCpuMatchesPartyLevel
-                  : context.l10n.opponentCpuAverageLevel(
-                      averagePartyLevel(party: party),
-                    ),
+                  : context.l10n.commonLevel(averagePartyLevel(party: party)),
               monsters: [
                 for (final monsterId in cpuTrainer.monsterIds)
                   widget.sampleData.monsterById(monsterId: monsterId),

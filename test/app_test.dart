@@ -1606,8 +1606,11 @@ void main() {
     await tester.tap(find.byKey(const Key('tab-opponent')));
     await tester.pumpAndSettle();
     expect(
-      find.text(
-        '平均 Lv. ${partyBefore.fold<int>(0, (sum, monster) => sum + monster.level) ~/ partyBefore.length} 前後',
+      find.descendant(
+        of: find.byKey(Key('opponent-card-${sampleData.cpuTrainers.first.id}')),
+        matching: find.text(
+          'Lv. ${partyBefore.fold<int>(0, (sum, monster) => sum + monster.level) ~/ partyBefore.length}',
+        ),
       ),
       findsOneWidget,
     );

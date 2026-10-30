@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:snapmon/domain/monster/monster_state.dart';
 import 'package:snapmon/features/dex/owned_monster.dart';
 import 'package:snapmon/features/opponent/cpu_party.dart';
 
@@ -8,10 +7,6 @@ import '../../sample_data_fixture.dart';
 
 void main() {
   final sampleData = loadSampleDataFixture();
-  final cpuMonsters = [
-    for (final monsterId in sampleData.cpuTrainers.first.monsterIds)
-      sampleData.monsterById(monsterId: monsterId),
-  ];
 
   /// 見本のモンスターを [levels] のレベルにした手持ち。
   List<OwnedMonster> partyWithLevels({required List<int> levels}) => [
@@ -26,62 +21,61 @@ void main() {
       ),
   ];
 
-  test('CPU の手持ちのレベルは自分の手持ちの平均 ±2 に収まり、同じ seed からは同じになる', () {
-    final playerParty = partyWithLevels(levels: [10, 20, 31]);
-    expect(averagePartyLevel(party: playerParty), 20);
-    for (var randomSeed = 1; randomSeed <= 50; randomSeed++) {
-      final cpuParty = buildCpuParty(
-        monsters: cpuMonsters,
-        playerParty: playerParty,
-        randomSeed: randomSeed,
-      );
-      expect(
-        cpuParty.map((monster) => monster.definition.id),
-        cpuMonsters.map((monster) => monster.definition.id),
-      );
-      for (final monster in cpuParty) {
-        expect(monster.level, inInclusiveRange(18, 22));
-      }
-      expect(
-        buildCpuParty(
-          monsters: cpuMonsters,
-          playerParty: playerParty,
-          randomSeed: randomSeed,
-        ).map((monster) => monster.level),
-        cpuParty.map((monster) => monster.level),
-      );
-    }
-  });
+  /// [cpuTrainerMonsterIds] の CPU トレーナーの手持ちを、[playerLevels] の自分の手持ちに合わせて作ったもののレベル。
+  List<int> cpuPartyLevels({
+    required List<String> cpuTrainerMonsterIds,
+    required List<int> playerLevels,
+  }) => [
+    for (final monster in buildCpuParty(
+      monsters: [
+        for (final monsterId in cpuTrainerMonsterIds)
+          sampleData.monsterById(monsterId: monsterId),
+      ],
+      playerParty: partyWithLevels(levels: playerLevels),
+    ))
+      monster.level,
+  ];
 
-  test('Lv.1 の手持ち 1 体に対して、どの CPU トレーナーの手持ちも Lv.1〜3 に収まる', () {
+  test('Lv.1 の手持ち 1 体に対して、どの CPU トレーナーの手持ちも Lv.1 になる', () {
     for (final cpuTrainer in sampleData.cpuTrainers) {
-      for (var randomSeed = 1; randomSeed <= 50; randomSeed++) {
-        for (final monster in buildCpuParty(
-          monsters: [
-            for (final monsterId in cpuTrainer.monsterIds)
-              sampleData.monsterById(monsterId: monsterId),
-          ],
-          playerParty: partyWithLevels(levels: [1]),
-          randomSeed: randomSeed,
-        )) {
-          expect(monster.level, inInclusiveRange(1, 3), reason: cpuTrainer.id);
-        }
-      }
+      expect(
+        cpuPartyLevels(
+          cpuTrainerMonsterIds: cpuTrainer.monsterIds,
+          playerLevels: [1],
+        ),
+        everyElement(1),
+        reason: cpuTrainer.id,
+      );
     }
   });
 
-  test('自分の手持ちが上限のレベルでも CPU のレベルは上限を超えない', () {
-    for (var randomSeed = 1; randomSeed <= 50; randomSeed++) {
-      for (final monster in buildCpuParty(
-        monsters: cpuMonsters,
-        playerParty: partyWithLevels(levels: [maximumLevel]),
-        randomSeed: randomSeed,
-      )) {
-        expect(
-          monster.level,
-          inInclusiveRange(maximumLevel - cpuLevelSpread, maximumLevel),
-        );
-      }
+  test('Lv.5 と Lv.6 の手持ちに対して、どの CPU トレーナーの手持ちも平均 (切り捨て) の Lv.5 になる', () {
+    for (final cpuTrainer in sampleData.cpuTrainers) {
+      expect(
+        cpuPartyLevels(
+          cpuTrainerMonsterIds: cpuTrainer.monsterIds,
+          playerLevels: [5, 6],
+        ),
+        everyElement(5),
+        reason: cpuTrainer.id,
+      );
     }
+  });
+
+  test('CPU の手持ちは見本のモンスターの並びのまま', () {
+    final cpuTrainer = sampleData.cpuTrainers.first;
+    expect(
+      buildCpuParty(
+        monsters: [
+          for (final monsterId in cpuTrainer.monsterIds)
+            sampleData.monsterById(monsterId: monsterId),
+        ],
+        playerParty: partyWithLevels(levels: [10, 20, 31]),
+      ).map((monster) => monster.definition.id),
+      cpuTrainer.monsterIds.map(
+        (monsterId) =>
+            sampleData.monsterById(monsterId: monsterId).definition.id,
+      ),
+    );
   });
 }
