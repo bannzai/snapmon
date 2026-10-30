@@ -180,7 +180,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
     super.dispose();
   }
 
-  /// 初回のバトルの乱数の seed (CPU トレーナーのレベルとバトルの展開)。値の範囲は DeterministicRandom の状態 (32 bit) に合わせた。
+  /// 初回のバトルの乱数の seed (相手の選び方とバトルの展開)。値の範囲は DeterministicRandom の状態 (32 bit) に合わせた。
   /// Web (JavaScript) ではシフトが 32 bit に切り詰められ `1 << 32` が 0 になるため、上限は整数リテラルで書く
   final int _firstBattleRandomSeed = math.Random().nextInt(0x100000000);
 

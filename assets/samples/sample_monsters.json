@@ -1187,8 +1187,7 @@
       "monsterIds": [
         "sample-mugmon",
         "sample-petbottler"
-      ],
-      "levelOffset": 0
+      ]
     },
     {
       "id": "sample-cpu-sora",
@@ -1196,24 +1195,21 @@
       "monsterIds": [
         "sample-keybon",
         "sample-ringora"
-      ],
-      "levelOffset": 1
+      ]
     },
     {
       "id": "sample-cpu-haru",
       "name": "CPU ハル",
       "monsterIds": [
         "sample-noton"
-      ],
-      "levelOffset": 3
+      ]
     },
     {
       "id": "sample-cpu-riku",
       "name": "CPU リク",
       "monsterIds": [
         "sample-slippan"
-      ],
-      "levelOffset": 3
+      ]
     }
   ]
 }

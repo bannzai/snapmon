@@ -10,7 +10,7 @@ import '../features/dex/owned_monster.dart';
 const String sampleDataAssetPath = 'assets/samples/sample_monsters.json';
 
 /// 見本の対戦相手。ログインが無い時 (DEBUG ビルド) の PvP の相手の代わり (lib/features/opponent/opponent_screen.dart) と、
-/// CPU トレーナー ([SampleCpuTrainer.opponent]) の識別子・名前・手持ち。
+/// CPU トレーナー ([SampleData.cpuTrainers]) の識別子・名前・手持ち。
 class SampleOpponent {
   /// 見本の対戦相手を作る。
   const SampleOpponent({
@@ -38,29 +38,6 @@ class SampleOpponent {
 
   /// 手持ちの見本のモンスターの識別子 ([SampleData.monsters] の定義の `id`)。
   final List<String> monsterIds;
-}
-
-/// CPU トレーナー (CPU 対戦の相手)。他のユーザーが少ない間も対戦の相手がいるよう、対戦相手の画面と初回のバトルで
-/// 他のユーザーの候補が足りない分を埋める (2026-10-29 の DIRECTION.md「決めたこと」)。手持ちのレベルは挑む時に自分の手持ちに合わせる。
-class SampleCpuTrainer {
-  /// CPU トレーナーを作る。
-  const SampleCpuTrainer({required this.opponent, required this.levelOffset});
-
-  /// JSON から CPU トレーナーを読む (対戦相手の項目に `levelOffset` を足した形)。
-  factory SampleCpuTrainer.fromJson({required Map<String, dynamic> json}) =>
-      SampleCpuTrainer(
-        opponent: SampleOpponent.fromJson(json: json),
-        levelOffset: json['levelOffset'] as int,
-      );
-
-  /// 識別子・名前・手持ち。名前は他のユーザーと見分けられるよう「CPU」を含める (どの画面の言語でも同じ印にするため、
-  /// 文言ではなく見本データに持つ)。手持ちは CPU トレーナー同士で重ならない (対戦相手の画面に並べた時に同じ絵が出ないため。
-  /// test/sample/sample_data_test.dart で検査する)。
-  final SampleOpponent opponent;
-
-  /// 手持ちのレベルの中心を、自分の手持ちの平均からいくつずらすか ([buildCpuParty])。
-  /// 手持ちの数が少ないトレーナーほど大きくし、数の差をレベルで埋める (値は実測ではなく最初の版の目安)。
-  final int levelOffset;
 }
 
 /// 見本データ (`assets/samples/sample_monsters.json`) の中身。
@@ -100,7 +77,7 @@ class SampleData {
         ],
         cpuTrainers: [
           for (final cpuTrainerJson in json['cpuTrainers'] as List<dynamic>)
-            SampleCpuTrainer.fromJson(
+            SampleOpponent.fromJson(
               json: cpuTrainerJson as Map<String, dynamic>,
             ),
         ],
@@ -117,8 +94,12 @@ class SampleData {
   /// 見本の対戦相手 (ログインが無い時の他のユーザーの代わり)。
   final List<SampleOpponent> opponents;
 
-  /// CPU トレーナー。対戦相手の画面は先頭から必要な数だけ並べる。
-  final List<SampleCpuTrainer> cpuTrainers;
+  /// CPU トレーナー (CPU 対戦の相手)。他のユーザーが少ない間も対戦の相手がいるよう、対戦相手の画面と初回のバトルで
+  /// 他のユーザーの候補が足りない分を埋める (2026-10-29 の DIRECTION.md「決めたこと」)。対戦相手の画面は先頭から必要な数だけ並べる。
+  /// 手持ちのレベルは挑む時に自分の手持ちに合わせる。名前は他のユーザーと見分けられるよう「CPU」を含める
+  /// (どの画面の言語でも同じ印にするため、文言ではなく見本データに持つ)。手持ちは CPU トレーナー同士で重ならない
+  /// (対戦相手の画面に並べた時に同じ絵が出ないため。test/sample/sample_data_test.dart で検査する)。
+  final List<SampleOpponent> cpuTrainers;
 
   /// [monsterId] の見本のモンスターを返す。無ければ [StateError] を投げる。
   OwnedMonster monsterById({required String monsterId}) => monsters.firstWhere(

@@ -6,6 +6,7 @@ import 'package:share_plus/share_plus.dart';
 
 import 'package:snapmon/features/dex/dex_store.dart';
 import 'package:snapmon/features/dex/owned_monster.dart';
+import 'package:snapmon/features/opponent/cpu_party.dart';
 import 'package:snapmon/features/opponent/opponent_screen.dart';
 import 'package:snapmon/features/opponent/pvp_client.dart';
 import 'package:snapmon/features/opponent/pvp_opponent.dart';
@@ -149,12 +150,9 @@ void main() {
     // 他のユーザーが 3 人いても CPU トレーナーは 1 人出す
     for (final (index, cpuTrainer) in sampleData.cpuTrainers.indexed) {
       expect(
-        find.byKey(
-          Key('challenge-${cpuTrainer.opponent.id}'),
-          skipOffstage: false,
-        ),
+        find.byKey(Key('challenge-${cpuTrainer.id}'), skipOffstage: false),
         index == 0 ? findsOneWidget : findsNothing,
-        reason: cpuTrainer.opponent.id,
+        reason: cpuTrainer.id,
       );
     }
     // 見本の他のユーザーの代わりは、ログインして読めた時は出さない
@@ -176,9 +174,7 @@ void main() {
     expect(
       tester
           .widget<FilledButton>(
-            find.byKey(
-              Key('challenge-${sampleData.cpuTrainers.first.opponent.id}'),
-            ),
+            find.byKey(Key('challenge-${sampleData.cpuTrainers.first.id}')),
           )
           .onPressed,
       isNotNull,
@@ -213,21 +209,21 @@ void main() {
         for (final (index, cpuTrainer) in sampleData.cpuTrainers.indexed) {
           expect(
             find.byKey(
-              Key('opponent-card-${cpuTrainer.opponent.id}'),
+              Key('opponent-card-${cpuTrainer.id}'),
               skipOffstage: false,
             ),
             index < cpuTrainerCount ? findsOneWidget : findsNothing,
-            reason: cpuTrainer.opponent.id,
+            reason: cpuTrainer.id,
           );
           if (index < cpuTrainerCount) {
             expect(
-              find.text(cpuTrainer.opponent.name, skipOffstage: false),
+              find.text(cpuTrainer.name, skipOffstage: false),
               findsOneWidget,
             );
-            expect(cpuTrainer.opponent.name, startsWith('CPU '));
+            expect(cpuTrainer.name, startsWith('CPU '));
             expect(
               find.byKey(
-                Key('opponent-menu-${cpuTrainer.opponent.id}'),
+                Key('opponent-menu-${cpuTrainer.id}'),
                 skipOffstage: false,
               ),
               findsNothing,
@@ -237,6 +233,40 @@ void main() {
       },
     );
   }
+
+  testWidgets('CPU トレーナーのカードのレベルは、どのトレーナーも自分の手持ちの平均と同じ「Lv. N」になる', (
+    tester,
+  ) async {
+    await pumpOpponentScreen(
+      tester: tester,
+      pvpClient: signedInPvpClient(
+        calls: RecordedPvpCalls(),
+        fetchOpponents: () async => [],
+        reportMonster: () async {},
+        blockUser: () async {},
+      ),
+    );
+    // 他のユーザーがいない時は CPU トレーナーを 3 人並べる (手持ち 2 体のミナト・ソラと 1 体のハル)。
+    // 自分の手持ちのカードにも「Lv. N」が出るため、CPU トレーナーのカードの中だけを探す
+    for (final cpuTrainer in sampleData.cpuTrainers.take(3)) {
+      expect(
+        find.descendant(
+          of: find.byKey(
+            Key('opponent-card-${cpuTrainer.id}'),
+            skipOffstage: false,
+          ),
+          matching: find.text(
+            'Lv. ${averagePartyLevel(
+              party: (DexStore(definitions: sampleData.definitions)..replaceAll(monsters: sampleData.monsters)).party,
+            )}',
+            skipOffstage: false,
+          ),
+        ),
+        findsOneWidget,
+        reason: cpuTrainer.id,
+      );
+    }
+  });
 
   testWidgets('相手を読めなかった時はエラーをそのまま出し、もう一度さがせる', (tester) async {
     final calls = RecordedPvpCalls();

@@ -52,8 +52,6 @@
   "opponentChooseOpponent": "相手をえらぶ",
   "opponentFindOthers": "ほかの相手をさがす",
   "opponentCpuMatchesPartyLevel": "手持ちのレベルに合わせる",
-  "opponentCpuAverageLevel": "平均 Lv. {level} 前後",
-  "@opponentCpuAverageLevel": {"placeholders": {"level": {"type": "int"}}},
   "opponentAverageLevel": "平均 Lv. {level}",
   "@opponentAverageLevel": {"placeholders": {"level": {"type": "int"}}},
   "opponentReportHelpPrompt": "相手のモンスターに問題があれば",

@@ -36,7 +36,6 @@
   "opponentChooseOpponent": "Choose an opponent",
   "opponentFindOthers": "Find other opponents",
   "opponentCpuMatchesPartyLevel": "Match your party's level",
-  "opponentCpuAverageLevel": "Around Lv. {level}",
   "opponentAverageLevel": "Average Lv. {level}",
   "opponentSearchAgain": "Search again",
   "opponentNoneAvailable": "No trainers available to battle right now\nYou can battle a CPU trainer",
