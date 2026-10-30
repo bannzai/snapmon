@@ -9,7 +9,7 @@ import '../../sample_data_fixture.dart';
 void main() {
   final sampleData = loadSampleDataFixture();
   final cpuMonsters = [
-    for (final monsterId in sampleData.cpuTrainers.first.opponent.monsterIds)
+    for (final monsterId in sampleData.cpuTrainers.first.monsterIds)
       sampleData.monsterById(monsterId: monsterId),
   ];
 
@@ -58,17 +58,13 @@ void main() {
       for (var randomSeed = 1; randomSeed <= 50; randomSeed++) {
         for (final monster in buildCpuParty(
           monsters: [
-            for (final monsterId in cpuTrainer.opponent.monsterIds)
+            for (final monsterId in cpuTrainer.monsterIds)
               sampleData.monsterById(monsterId: monsterId),
           ],
           playerParty: partyWithLevels(levels: [1]),
           randomSeed: randomSeed,
         )) {
-          expect(
-            monster.level,
-            inInclusiveRange(1, 3),
-            reason: cpuTrainer.opponent.id,
-          );
+          expect(monster.level, inInclusiveRange(1, 3), reason: cpuTrainer.id);
         }
       }
     }

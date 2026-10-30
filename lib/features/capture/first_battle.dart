@@ -84,10 +84,10 @@ Future<FirstBattleOpponent> prepareFirstBattleOpponent({
   }
   final cpuTrainer = choice.cpuTrainer;
   return (
-    opponentName: cpuTrainer.opponent.name,
+    opponentName: cpuTrainer.name,
     opponentParty: buildCpuParty(
       monsters: [
-        for (final monsterId in cpuTrainer.opponent.monsterIds)
+        for (final monsterId in cpuTrainer.monsterIds)
           sampleData.monsterById(monsterId: monsterId),
       ],
       playerParty: dexStore.party,
@@ -106,14 +106,14 @@ Future<FirstBattleOpponent> prepareFirstBattleOpponent({
 /// [sampleData] の CPU トレーナーから、[playerParty] のどれかと同じ絵 (同じ画像のパス) の見本のモンスターを持つトレーナーを除いて返す。
 /// 自分の手持ちに見本のモンスターがいるのは DEBUG ビルドの見本の生成・投入の時で、それ以外の手持ちの絵は Storage にあり見本と重ならない。
 /// 全員が除かれる時は全員を返す (相手がいないよりは同じ絵の方がよいため)。
-List<SampleCpuTrainer> excludeCpuTrainersWithSameArt({
+List<SampleOpponent> excludeCpuTrainersWithSameArt({
   required SampleData sampleData,
   required List<OwnedMonster> playerParty,
 }) {
   final playerArtPaths = {for (final monster in playerParty) ?monster.artPath};
   final cpuTrainers = [
     for (final cpuTrainer in sampleData.cpuTrainers)
-      if (!cpuTrainer.opponent.monsterIds.any(
+      if (!cpuTrainer.monsterIds.any(
         (monsterId) => playerArtPaths.contains(
           sampleData.monsterById(monsterId: monsterId).artPath,
         ),
@@ -127,10 +127,10 @@ List<SampleCpuTrainer> excludeCpuTrainersWithSameArt({
 /// 候補が [_firstBattleCandidateCountWithoutCpu] 人以上なら先頭の候補、それより少なければ候補と CPU トレーナーを合わせた中から
 /// [randomSeed] で 1 人を選ぶ。`pvpOpponent` が null なら `cpuTrainer` と戦う。`cpuTrainer` は候補を選んだ時も、
 /// その候補の定義を読めなかった時の代わりとして [randomSeed] で決めて返す。同じ引数からは同じ相手になる。
-({PvpOpponent? pvpOpponent, SampleCpuTrainer cpuTrainer})
+({PvpOpponent? pvpOpponent, SampleOpponent cpuTrainer})
 chooseFirstBattleOpponent({
   required List<PvpOpponent> candidates,
-  required List<SampleCpuTrainer> cpuTrainers,
+  required List<SampleOpponent> cpuTrainers,
   required int randomSeed,
 }) {
   final random = DeterministicRandom(seed: randomSeed);

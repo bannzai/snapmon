@@ -185,7 +185,7 @@ class _OpponentScreenState extends State<OpponentScreen> {
   /// 並べる CPU トレーナー。他のユーザー (ログインが無い時は見本の代わり) と合わせて [_opponentSlotCount] 人になるよう
   /// 見本データの先頭から埋め、他のユーザーがそれ以上いても 1 人は出す (今までどおり CPU とはいつでも戦えるようにするため)。
   /// 他のユーザーを読み込み中・読めなかった・手持ちが空で読んでいない時は、他のユーザーを 0 人として埋める。
-  List<SampleCpuTrainer> get _cpuTrainers => widget.sampleData.cpuTrainers
+  List<SampleOpponent> get _cpuTrainers => widget.sampleData.cpuTrainers
       .take(
         math.max(
           1,
@@ -330,7 +330,7 @@ class _OpponentScreenState extends State<OpponentScreen> {
           opponentParty: switch (opponent) {
             _CpuChallenger(:final cpuTrainer) => buildCpuParty(
               monsters: [
-                for (final monsterId in cpuTrainer.opponent.monsterIds)
+                for (final monsterId in cpuTrainer.monsterIds)
                   widget.sampleData.monsterById(monsterId: monsterId),
               ],
               playerParty: playerParty,
@@ -503,16 +503,16 @@ class _OpponentScreenState extends State<OpponentScreen> {
           ..._buildPvpOpponents(canChallenge: canChallenge),
           for (final cpuTrainer in _cpuTrainers) ...[
             _OpponentCard(
-              key: Key('opponent-card-${cpuTrainer.opponent.id}'),
-              opponentId: cpuTrainer.opponent.id,
-              title: cpuTrainer.opponent.name,
+              key: Key('opponent-card-${cpuTrainer.id}'),
+              opponentId: cpuTrainer.id,
+              title: cpuTrainer.name,
               subtitle: party.isEmpty
                   ? context.l10n.opponentCpuMatchesPartyLevel
                   : context.l10n.opponentCpuAverageLevel(
                       averagePartyLevel(party: party),
                     ),
               monsters: [
-                for (final monsterId in cpuTrainer.opponent.monsterIds)
+                for (final monsterId in cpuTrainer.monsterIds)
                   widget.sampleData.monsterById(monsterId: monsterId),
               ],
               showsMonsterLevels: false,
@@ -644,7 +644,7 @@ sealed class _Challenger {
 class _CpuChallenger extends _Challenger {
   const _CpuChallenger({required this.cpuTrainer});
 
-  final SampleCpuTrainer cpuTrainer;
+  final SampleOpponent cpuTrainer;
 }
 
 /// 他のユーザーの手持ち (相手の今のレベルのまま戦う)。

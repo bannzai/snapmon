@@ -1335,7 +1335,7 @@ void main() {
       await tester.tap(find.byKey(const Key('tab-opponent')));
       await tester.pumpAndSettle();
       final challengeButton = find.byKey(
-        Key('challenge-${sampleData.cpuTrainers.first.opponent.id}'),
+        Key('challenge-${sampleData.cpuTrainers.first.id}'),
       );
       await tester.ensureVisible(challengeButton);
       await tester.pumpAndSettle();
@@ -1373,7 +1373,7 @@ void main() {
       await tester.tap(find.byKey(const Key('tab-opponent')));
       await tester.pumpAndSettle();
       final challengeButton = find.byKey(
-        Key('challenge-${sampleData.cpuTrainers.first.opponent.id}'),
+        Key('challenge-${sampleData.cpuTrainers.first.id}'),
       );
       await tester.ensureVisible(challengeButton);
       await tester.pumpAndSettle();
@@ -1437,7 +1437,7 @@ void main() {
       await tester.tap(find.byKey(const Key('tab-opponent')));
       await tester.pumpAndSettle();
       final challengeButton = find.byKey(
-        Key('challenge-${sampleData.cpuTrainers.first.opponent.id}'),
+        Key('challenge-${sampleData.cpuTrainers.first.id}'),
       );
       await tester.ensureVisible(challengeButton);
       await tester.pumpAndSettle();
@@ -1475,7 +1475,7 @@ void main() {
       await tester.tap(find.byKey(const Key('tab-opponent')));
       await tester.pumpAndSettle();
       final challengeButton = find.byKey(
-        Key('challenge-${sampleData.cpuTrainers.first.opponent.id}'),
+        Key('challenge-${sampleData.cpuTrainers.first.id}'),
       );
       await tester.ensureVisible(challengeButton);
       await tester.pumpAndSettle();
@@ -1536,9 +1536,7 @@ void main() {
       expect(
         tester
             .widget<FilledButton>(
-              find.byKey(
-                Key('challenge-${sampleData.cpuTrainers.first.opponent.id}'),
-              ),
+              find.byKey(Key('challenge-${sampleData.cpuTrainers.first.id}')),
             )
             .onPressed,
         isNull,
@@ -1614,7 +1612,7 @@ void main() {
       findsOneWidget,
     );
     final challengeButton = find.byKey(
-      Key('challenge-${sampleData.cpuTrainers.first.opponent.id}'),
+      Key('challenge-${sampleData.cpuTrainers.first.id}'),
     );
     await tester.ensureVisible(challengeButton);
     await tester.pumpAndSettle();
@@ -1678,7 +1676,7 @@ void main() {
     await tester.tap(find.byKey(const Key('tab-opponent')));
     await tester.pumpAndSettle();
     final challengeButton = find.byKey(
-      Key('challenge-${sampleData.cpuTrainers.first.opponent.id}'),
+      Key('challenge-${sampleData.cpuTrainers.first.id}'),
     );
     await tester.ensureVisible(challengeButton);
     await tester.pumpAndSettle();

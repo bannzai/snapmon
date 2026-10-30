@@ -220,13 +220,13 @@ void main() {
     final cpuTrainerIds = excludeCpuTrainersWithSameArt(
       sampleData: sampleData,
       playerParty: [sampleData.monsterById(monsterId: 'sample-mugmon')],
-    ).map((cpuTrainer) => cpuTrainer.opponent.id);
+    ).map((cpuTrainer) => cpuTrainer.id);
     expect(cpuTrainerIds, hasLength(sampleData.cpuTrainers.length - 1));
     for (final cpuTrainer in sampleData.cpuTrainers) {
       expect(
-        cpuTrainerIds.contains(cpuTrainer.opponent.id),
-        !cpuTrainer.opponent.monsterIds.contains('sample-mugmon'),
-        reason: cpuTrainer.opponent.id,
+        cpuTrainerIds.contains(cpuTrainer.id),
+        !cpuTrainer.monsterIds.contains('sample-mugmon'),
+        reason: cpuTrainer.id,
       );
     }
     expect(
@@ -268,24 +268,21 @@ void main() {
               candidates: const [],
               cpuTrainers: sampleData.cpuTrainers,
               randomSeed: randomSeed,
-            ).cpuTrainer.opponent.id,
+            ).cpuTrainer.id,
         },
-        {
-          for (final cpuTrainer in sampleData.cpuTrainers)
-            cpuTrainer.opponent.id,
-        },
+        {for (final cpuTrainer in sampleData.cpuTrainers) cpuTrainer.id},
       );
       expect(
         chooseFirstBattleOpponent(
           candidates: const [],
           cpuTrainers: sampleData.cpuTrainers,
           randomSeed: 7,
-        ).cpuTrainer.opponent.id,
+        ).cpuTrainer.id,
         chooseFirstBattleOpponent(
           candidates: const [],
           cpuTrainers: sampleData.cpuTrainers,
           randomSeed: 7,
-        ).cpuTrainer.opponent.id,
+        ).cpuTrainer.id,
       );
     });
 
