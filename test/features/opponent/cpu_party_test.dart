@@ -33,7 +33,6 @@ void main() {
       final cpuParty = buildCpuParty(
         monsters: cpuMonsters,
         playerParty: playerParty,
-        levelOffset: 0,
         randomSeed: randomSeed,
       );
       expect(
@@ -47,7 +46,6 @@ void main() {
         buildCpuParty(
           monsters: cpuMonsters,
           playerParty: playerParty,
-          levelOffset: 0,
           randomSeed: randomSeed,
         ).map((monster) => monster.level),
         cpuParty.map((monster) => monster.level),
@@ -55,44 +53,39 @@ void main() {
     }
   });
 
-  test('自分の手持ちのレベルが低くても CPU のレベルは 1 を下回らない', () {
-    for (var randomSeed = 1; randomSeed <= 50; randomSeed++) {
-      for (final monster in buildCpuParty(
-        monsters: cpuMonsters,
-        playerParty: partyWithLevels(levels: [1]),
-        levelOffset: 0,
-        randomSeed: randomSeed,
-      )) {
-        expect(monster.level, inInclusiveRange(1, 3));
+  test('Lv.1 の手持ち 1 体に対して、どの CPU トレーナーの手持ちも Lv.1〜3 に収まる', () {
+    for (final cpuTrainer in sampleData.cpuTrainers) {
+      for (var randomSeed = 1; randomSeed <= 50; randomSeed++) {
+        for (final monster in buildCpuParty(
+          monsters: [
+            for (final monsterId in cpuTrainer.opponent.monsterIds)
+              sampleData.monsterById(monsterId: monsterId),
+          ],
+          playerParty: partyWithLevels(levels: [1]),
+          randomSeed: randomSeed,
+        )) {
+          expect(
+            monster.level,
+            inInclusiveRange(1, 3),
+            reason: cpuTrainer.opponent.id,
+          );
+        }
       }
     }
   });
 
-  test('levelOffset だけ CPU の手持ちのレベルの中心をずらし、上限・下限に収める', () {
-    final playerParty = partyWithLevels(levels: [10, 20, 31]);
+  test('自分の手持ちが上限のレベルでも CPU のレベルは上限を超えない', () {
     for (var randomSeed = 1; randomSeed <= 50; randomSeed++) {
       for (final monster in buildCpuParty(
         monsters: cpuMonsters,
-        playerParty: playerParty,
-        levelOffset: 3,
+        playerParty: partyWithLevels(levels: [maximumLevel]),
         randomSeed: randomSeed,
       )) {
-        expect(monster.level, inInclusiveRange(21, 25));
+        expect(
+          monster.level,
+          inInclusiveRange(maximumLevel - cpuLevelSpread, maximumLevel),
+        );
       }
     }
-    expect(
-      cpuCenterLevel(
-        playerParty: partyWithLevels(levels: [1]),
-        levelOffset: -3,
-      ),
-      1,
-    );
-    expect(
-      cpuCenterLevel(
-        playerParty: partyWithLevels(levels: [maximumLevel]),
-        levelOffset: 3,
-      ),
-      maximumLevel,
-    );
   });
 }

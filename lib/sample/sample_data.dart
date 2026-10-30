@@ -44,23 +44,16 @@ class SampleOpponent {
 /// 他のユーザーの候補が足りない分を埋める (2026-10-29 の DIRECTION.md「決めたこと」)。手持ちのレベルは挑む時に自分の手持ちに合わせる。
 class SampleCpuTrainer {
   /// CPU トレーナーを作る。
-  const SampleCpuTrainer({required this.opponent, required this.levelOffset});
+  const SampleCpuTrainer({required this.opponent});
 
-  /// JSON から CPU トレーナーを読む (対戦相手の項目に `levelOffset` を足した形)。
+  /// JSON から CPU トレーナーを読む (対戦相手の項目と同じ形)。
   factory SampleCpuTrainer.fromJson({required Map<String, dynamic> json}) =>
-      SampleCpuTrainer(
-        opponent: SampleOpponent.fromJson(json: json),
-        levelOffset: json['levelOffset'] as int,
-      );
+      SampleCpuTrainer(opponent: SampleOpponent.fromJson(json: json));
 
   /// 識別子・名前・手持ち。名前は他のユーザーと見分けられるよう「CPU」を含める (どの画面の言語でも同じ印にするため、
   /// 文言ではなく見本データに持つ)。手持ちは CPU トレーナー同士で重ならない (対戦相手の画面に並べた時に同じ絵が出ないため。
   /// test/sample/sample_data_test.dart で検査する)。
   final SampleOpponent opponent;
-
-  /// 手持ちのレベルの中心を、自分の手持ちの平均からいくつずらすか ([buildCpuParty])。
-  /// 手持ちの数が少ないトレーナーほど大きくし、数の差をレベルで埋める (値は実測ではなく最初の版の目安)。
-  final int levelOffset;
 }
 
 /// 見本データ (`assets/samples/sample_monsters.json`) の中身。

@@ -91,7 +91,6 @@ Future<FirstBattleOpponent> prepareFirstBattleOpponent({
           sampleData.monsterById(monsterId: monsterId),
       ],
       playerParty: dexStore.party,
-      levelOffset: cpuTrainer.levelOffset,
       randomSeed: randomSeed,
     ),
     opponentKind: BattleOpponentKind.cpu,

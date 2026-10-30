@@ -6,6 +6,7 @@ import 'package:share_plus/share_plus.dart';
 
 import 'package:snapmon/features/dex/dex_store.dart';
 import 'package:snapmon/features/dex/owned_monster.dart';
+import 'package:snapmon/features/opponent/cpu_party.dart';
 import 'package:snapmon/features/opponent/opponent_screen.dart';
 import 'package:snapmon/features/opponent/pvp_client.dart';
 import 'package:snapmon/features/opponent/pvp_opponent.dart';
@@ -237,6 +238,28 @@ void main() {
       },
     );
   }
+
+  testWidgets('CPU トレーナーのカードの平均レベルは、どのトレーナーも自分の手持ちの平均になる', (tester) async {
+    await pumpOpponentScreen(
+      tester: tester,
+      pvpClient: signedInPvpClient(
+        calls: RecordedPvpCalls(),
+        fetchOpponents: () async => [],
+        reportMonster: () async {},
+        blockUser: () async {},
+      ),
+    );
+    final playerAverageLevel = averagePartyLevel(
+      party: (DexStore(
+        definitions: sampleData.definitions,
+      )..replaceAll(monsters: sampleData.monsters)).party,
+    );
+    // 他のユーザーがいない時は CPU トレーナーを 3 人並べる (手持ち 2 体のミナト・ソラと 1 体のハル)
+    expect(
+      find.text('平均 Lv. $playerAverageLevel 前後', skipOffstage: false),
+      findsNWidgets(3),
+    );
+  });
 
   testWidgets('相手を読めなかった時はエラーをそのまま出し、もう一度さがせる', (tester) async {
     final calls = RecordedPvpCalls();
