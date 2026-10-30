@@ -100,17 +100,6 @@ jobs:
     - run: flutter pub get
     - run: flutter build apk --debug
 
-  # public リポジトリのため GitHub-hosted の macOS ランナーは無料 (create-new-app skill Phase 6)
-  build-ios:
-    runs-on: macos-26
-    steps:
-    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      with:
-        persist-credentials: false
-    - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
-      with:
-        channel: stable
-        flutter-version: ${{ env.FLUTTER_VERSION }}
-    - run: scripts/restore-firebase-config.sh dart ios
-    - run: flutter pub get
-    - run: flutter build ios --simulator --debug
+  # iOS のビルド (build-ios) は PR の CI では行わない。macOS ランナーの同時実行数の上限をアカウント内の他のリポジトリと
+  # 共有していて、何時間も QUEUED のまま進まずマージを止めたため (2026-10-30 の bannzai の判断。CLAUDE.md「ビルド・テスト・検証方法」)。
+  # iOS のビルドは simtunnel (simulator-session.yml) での動作確認とリリースの作業で確かめる
