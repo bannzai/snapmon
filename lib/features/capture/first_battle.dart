@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui' as ui;
 
 import 'package:flutter/foundation.dart';
@@ -257,14 +258,29 @@ Future<bool> _hasSamePixels({
   }
 }
 
-/// [artPath] の画像を [loadArtImage] で読む。読めない時は null (読めない画像は比べず、同じ絵とは見なさない。
-/// [excludeOpponentsWithSameArt] の document コメント)。返した画像は呼び出し元が dispose する。
+/// 切り出した画像 1 枚の読み込み ([LoadArtImage]。本番は Storage の読み出しとデコード) を待つ上限。
+/// 初回の利用者は生成を待った後に「相手を探しています」でさらにこの読み込みを待ち、読み込みは 1 枚ずつ続くため、
+/// 1 枚が止まっても数秒で CPU トレーナーを含む相手選びに進めるようにする。本番の Storage の `monsters/*/art.png` は
+/// 81 KB〜923 KB (2026-10-30 に 38 件を `gcloud storage ls -l` で確認) で、最大の 923 KB も 1.5 Mbps の遅い回線で
+/// 約 5 秒で読み終わるため 5 秒にした。
+const Duration _artImageLoadTimeout = Duration(seconds: 5);
+
+/// [artPath] の画像を [loadArtImage] で読む。読めない時と [_artImageLoadTimeout] までに読み終わらない時は null
+/// (読めない画像は比べず、同じ絵とは見なさない。[excludeOpponentsWithSameArt] の document コメント)。
+/// 返した画像は呼び出し元が dispose する。上限の後に届いた画像はここで dispose する。
 Future<ui.Image?> _tryLoadArtImage({
   required String artPath,
   required LoadArtImage loadArtImage,
 }) async {
+  Future<ui.Image>? loading;
   try {
-    return await loadArtImage(artPath: artPath);
+    loading = loadArtImage(artPath: artPath);
+    return await loading.timeout(_artImageLoadTimeout);
+  } on TimeoutException {
+    unawaited(
+      loading?.then<void>((image) => image.dispose(), onError: (Object _) {}),
+    );
+    return null;
   } catch (_) {
     return null;
   }

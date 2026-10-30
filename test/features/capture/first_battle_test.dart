@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui' as ui;
 
 import 'package:flutter_test/flutter_test.dart';
@@ -150,6 +151,70 @@ void main() {
       'uid-other',
     ]);
   });
+
+  testWidgets(
+    '絵の読み込みが終わらない時は、1 枚ごとに 5 秒の上限の後に読めない絵と同じく扱って候補を返し、遅れて届いた絵を dispose する',
+    (tester) async {
+      final playerArtImage = (await tester.runAsync(
+        () => solidImage(color: const ui.Color(0xFFC6F432)),
+      ))!;
+      final lateArtImages = (await tester.runAsync(
+        () => Future.wait([
+          solidImage(color: const ui.Color(0xFFC6F432)),
+          solidImage(color: const ui.Color(0xFFC6F432)),
+        ]),
+      ))!;
+      final hangingLoads = <String, Completer<ui.Image>>{};
+      List<PvpOpponent>? candidates;
+      unawaited(
+        excludeOpponentsWithSameArt(
+          pvpOpponents: [
+            pvpOpponentWith(
+              opponentUid: 'uid-hanging',
+              monster: monsterWithArt(
+                monsterId: 'sample-keybon',
+                artPath: 'monsters/opponent-hanging/art.png',
+              ),
+            ),
+          ],
+          playerParty: [
+            monsterWithArt(
+              monsterId: 'sample-mugmon',
+              artPath: 'monsters/mine/art.png',
+            ),
+            monsterWithArt(
+              monsterId: 'sample-noton',
+              artPath: 'monsters/mine-hanging/art.png',
+            ),
+          ],
+          loadArtImage: ({required artPath}) =>
+              artPath == 'monsters/mine/art.png'
+              ? Future.value(playerArtImage)
+              : (hangingLoads[artPath] = Completer<ui.Image>()).future,
+        ).then((value) => candidates = value),
+      );
+      // 自分の 2 枚目と候補の絵が 1 枚ずつ順に上限まで待つため、10 秒で返る
+      await tester.pump(const Duration(seconds: 9));
+      expect(candidates, isNull);
+      await tester.pump(const Duration(seconds: 1));
+      expect(candidates?.map((candidate) => candidate.opponentUid), [
+        'uid-hanging',
+      ]);
+      expect(hangingLoads.keys, [
+        'monsters/mine-hanging/art.png',
+        'monsters/opponent-hanging/art.png',
+      ]);
+      expect(playerArtImage.debugDisposed, isTrue);
+
+      for (final (index, hangingLoad) in hangingLoads.values.indexed) {
+        hangingLoad.complete(lateArtImages[index]);
+      }
+      await tester.pump();
+      for (final lateArtImage in lateArtImages) {
+        expect(lateArtImage.debugDisposed, isTrue);
+      }
+    },
+  );
 
   test('自分の手持ちと同じ見本のモンスターを持つ CPU トレーナーを除き、全員が除かれる時は全員を残す', () {
     final cpuTrainerIds = excludeCpuTrainersWithSameArt(
