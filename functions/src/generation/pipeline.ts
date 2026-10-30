@@ -116,10 +116,12 @@ export const JUDGE_RETRY_MAXIMUM_COUNT = 24;
 const MAXIMUM_ATTEMPT_COUNT = 4;
 
 /**
- * 同じ写真・マスクの組でも使い回さない拒否の理由。Claude の応答で結果が揺れるため、送り直せば通ることがある
- * (決定的な検査の拒否 — SafeSearch・顔 — は使い回す)。
+ * 同じ写真・マスクの組でも使い回さない拒否の理由。Claude の応答で結果が揺れるため、送り直せば通ることがある。
+ * explicit_content は Vision の判定は決定的だが、拒否の閾値を変えた時に前の閾値で拒否した写真を送り直しても通らなくなるため
+ * 使い回さない (閾値を LIKELY 以上から VERY_LIKELY だけに緩めた https://github.com/bannzai/snapmon/issues/118 。送り直しの
+ * 費用は Vision の 1 回分で、uid ごとの 1 日の生成の上限が抑える)。顔の拒否は使い回す。
  */
-const RETRYABLE_REJECTION_REASONS: RejectionReason[] = ["person_detected", "inappropriate_text", "refused"];
+const RETRYABLE_REJECTION_REASONS: RejectionReason[] = ["explicit_content", "person_detected", "inappropriate_text", "refused"];
 
 /** 段階が予期しないエラーで落ちた時に、再試行を始めるまでの秒数。一時的なエラー (API の 5xx・通信の切断) が収まる時間として置いた。 */
 export const FAILED_STAGE_RETRY_DELAY_SECONDS = 60;
