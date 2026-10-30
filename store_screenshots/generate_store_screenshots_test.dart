@@ -26,6 +26,7 @@ import 'package:snapmon/sample/sample_data.dart';
 import 'package:snapmon/theme/snapmon_colors.dart';
 import 'package:snapmon/theme/snapmon_text_styles.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
+import 'package:snapmon/widgets/monster_parts.dart';
 import 'package:snapmon/widgets/storage_image.dart';
 
 import '../test/battle_recorder_fixture.dart';
@@ -202,6 +203,7 @@ Future<void> _writeScreenshot({
       language: language,
       device: device,
       page: page,
+      artImagesByPath: artImagesByPath,
       content: switch (page) {
         StoreScreenshotPage.capture => _homeShell(
           sampleData: sampleData,
@@ -330,13 +332,19 @@ OwnedMonster _withLevel({required OwnedMonster monster, required int level}) =>
       definitionIds: monster.definitionIds,
     );
 
-/// 共有の操作をしない画面に渡す [CardSharer]。loadArtImage は [artImagesByPath] のデコード済みの画像の複製を返す
-/// (受け取った側が使い終わった画像を dispose するため)。
+/// 切り出した絵を [artImagesByPath] のデコード済みの画像の複製で返す関数 (受け取った側が使い終わった画像を dispose するため)。
+/// バトル画面 (_cardSharer) と図鑑・生まれたカード (MonsterArtImageLoaderScope) が使う。
+LoadMonsterArtImage _loadArtImage({
+  required Map<String, ui.Image> artImagesByPath,
+}) =>
+    ({required artPath}) async =>
+        artImagesByPath[artPath]?.clone() ??
+        (throw StateError('$artPath の絵はスクリーンショットに用意していない'));
+
+/// 共有の操作をしない画面に渡す [CardSharer]。loadArtImage は [_loadArtImage]。
 CardSharer _cardSharer({required Map<String, ui.Image> artImagesByPath}) =>
     CardSharer(
-      loadArtImage: ({required artPath}) async =>
-          artImagesByPath[artPath]?.clone() ??
-          (throw StateError('$artPath の絵はスクリーンショットに用意していない')),
+      loadArtImage: _loadArtImage(artImagesByPath: artImagesByPath),
       renderPng: ({required view, required card, required format}) =>
           throw StateError('スクリーンショットでは共有しない'),
       shareImage:
@@ -434,6 +442,7 @@ class _StoreScreenshotCanvas extends StatelessWidget {
     required this.device,
     required this.page,
     required this.content,
+    required this.artImagesByPath,
   });
 
   /// キャッチコピーとアプリの画面の言語。
@@ -447,6 +456,9 @@ class _StoreScreenshotCanvas extends StatelessWidget {
 
   /// 端末の枠 (共有のページはカードの枠) の中に描く画面。
   final Widget content;
+
+  /// 切り出した絵の Storage のパスとデコード済みの画像 (_DeviceFrame に渡す)。
+  final Map<String, ui.Image> artImagesByPath;
 
   @override
   Widget build(BuildContext context) {
@@ -493,7 +505,11 @@ class _StoreScreenshotCanvas extends StatelessWidget {
                 Expanded(
                   child: page == StoreScreenshotPage.share
                       ? _ShareCardFrame(card: content, scale: scale)
-                      : _DeviceFrame(device: device, screen: content),
+                      : _DeviceFrame(
+                          device: device,
+                          screen: content,
+                          artImagesByPath: artImagesByPath,
+                        ),
                 ),
               ],
             ),
@@ -506,13 +522,20 @@ class _StoreScreenshotCanvas extends StatelessWidget {
 
 /// アプリの画面を端末の論理の大きさで描き、角の丸い端末の枠に収める。枠は余りの高さに収まる大きさにする。
 class _DeviceFrame extends StatelessWidget {
-  const _DeviceFrame({required this.device, required this.screen});
+  const _DeviceFrame({
+    required this.device,
+    required this.screen,
+    required this.artImagesByPath,
+  });
 
   /// 枠の形と、アプリの画面の論理の大きさ・倍率・安全域を決める端末。
   final StoreScreenshotDevice device;
 
   /// 枠の中に描くアプリの画面。
   final Widget screen;
+
+  /// 切り出した絵の Storage のパスとデコード済みの画像 (画面の中の MonsterArt が読む)。
+  final Map<String, ui.Image> artImagesByPath;
 
   @override
   Widget build(BuildContext context) {
@@ -549,14 +572,19 @@ class _DeviceFrame extends StatelessWidget {
                   ),
                   child: StorageImageLoaderScope(
                     loadBytes: loadStoreScreenshotStorageImage,
-                    child: MaterialApp(
-                      debugShowCheckedModeBanner: false,
-                      theme: snapmonThemeData(),
-                      locale: Localizations.localeOf(context),
-                      localizationsDelegates:
-                          AppLocalizations.localizationsDelegates,
-                      supportedLocales: AppLocalizations.supportedLocales,
-                      home: screen,
+                    child: MonsterArtImageLoaderScope(
+                      loadArtImage: _loadArtImage(
+                        artImagesByPath: artImagesByPath,
+                      ),
+                      child: MaterialApp(
+                        debugShowCheckedModeBanner: false,
+                        theme: snapmonThemeData(),
+                        locale: Localizations.localeOf(context),
+                        localizationsDelegates:
+                            AppLocalizations.localizationsDelegates,
+                        supportedLocales: AppLocalizations.supportedLocales,
+                        home: screen,
+                      ),
                     ),
                   ),
                 ),
