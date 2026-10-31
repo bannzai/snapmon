@@ -51,7 +51,7 @@ import {
   type MonsterDocument,
   TERMINAL_GENERATION_STATUSES,
 } from "./records";
-import { type AnnotateImage, type RejectionReason, visionRejectionReason } from "./vision";
+import { type AnnotateImage, type RejectionReason, visionRejectionLogFields, visionRejectionReason } from "./vision";
 
 /** Cloud Storage のバケット。 */
 export type StorageBucket = ReturnType<ReturnType<typeof getStorage>["bucket"]>;
@@ -116,10 +116,12 @@ export const JUDGE_RETRY_MAXIMUM_COUNT = 24;
 const MAXIMUM_ATTEMPT_COUNT = 4;
 
 /**
- * 同じ写真・マスクの組でも使い回さない拒否の理由。Claude の応答で結果が揺れるため、送り直せば通ることがある
- * (決定的な検査の拒否 — SafeSearch・顔 — は使い回す)。
+ * 同じ写真・マスクの組でも使い回さない拒否の理由。Claude の応答で結果が揺れるため、送り直せば通ることがある。
+ * explicit_content は Vision の判定は決定的だが、拒否の閾値を変えた時に前の閾値で拒否した写真を送り直しても通らなくなるため
+ * 使い回さない (閾値を LIKELY 以上から VERY_LIKELY だけに緩めた https://github.com/bannzai/snapmon/issues/118 。送り直しの
+ * 費用は Vision の 1 回分で、uid ごとの 1 日の生成の上限が抑える)。顔の拒否は使い回す。
  */
-const RETRYABLE_REJECTION_REASONS: RejectionReason[] = ["person_detected", "inappropriate_text", "refused"];
+const RETRYABLE_REJECTION_REASONS: RejectionReason[] = ["explicit_content", "person_detected", "inappropriate_text", "refused"];
 
 /** 段階が予期しないエラーで落ちた時に、再試行を始めるまでの秒数。一時的なエラー (API の 5xx・通信の切断) が収まる時間として置いた。 */
 export const FAILED_STAGE_RETRY_DELAY_SECONDS = 60;
@@ -722,11 +724,11 @@ async function runStage(
 ): Promise<StageOutcome> {
   switch (stage) {
     case "safesearch":
-      return runSafeSearchStage(dependencies, record);
+      return runSafeSearchStage(dependencies, { uid, requestId, record });
     case "cutout":
       return runCutoutStage(dependencies, { uid, requestId, record });
     case "claude":
-      return runClaudeStage(dependencies, record);
+      return runClaudeStage(dependencies, { uid, requestId, record });
     case "classify":
       return runClassifyStage(dependencies, record);
     case "dedupe":
@@ -744,11 +746,16 @@ function rejected(rejectionReason: RejectionReason): StageOutcome {
   return { kind: "finish", update: { status: "rejected", rejectionReason } };
 }
 
-async function runSafeSearchStage(dependencies: GenerationDependencies, record: GenerationRecord): Promise<StageOutcome> {
+async function runSafeSearchStage(
+  dependencies: GenerationDependencies,
+  { uid, requestId, record }: { uid: string; requestId: string; record: GenerationRecord },
+): Promise<StageOutcome> {
   // Vision にも縮めた写真を送る (顔・露骨な内容の判定は長辺 1024px で足り、送る量を抑えるため)。
   const annotation = await dependencies.annotateImage(await downscalePhoto((await downloadVerifiedInput(dependencies.bucket, record)).photo));
   const rejectionReason = visionRejectionReason(annotation);
   if (rejectionReason) {
+    // 閾値の妥当性を後から見直すため、どの区分・顔で拒否したかを残す (https://github.com/bannzai/snapmon/issues/118 )
+    logger.info("Vision の判定で生成しません", { uid, requestId, rejectionReason, ...visionRejectionLogFields(annotation) });
     return rejected(rejectionReason);
   }
   return {
@@ -772,13 +779,17 @@ async function runCutoutStage(
   return { kind: "next", update: { cutoutPath, cutoutCoverage: coverage } };
 }
 
-async function runClaudeStage(dependencies: GenerationDependencies, record: GenerationRecord): Promise<StageOutcome> {
+async function runClaudeStage(
+  dependencies: GenerationDependencies,
+  { uid, requestId, record }: { uid: string; requestId: string; record: GenerationRecord },
+): Promise<StageOutcome> {
   const cutoutJpeg = await flattenCutoutForDescription(await downloadFile(dependencies.bucket, record.cutoutPath!));
   const claudeUsages = [...(record.claudeUsages ?? [])];
   for (let attempt = 1; attempt <= DESCRIBE_SUBJECT_MAXIMUM_ATTEMPTS; attempt++) {
     const { output, usage } = await dependencies.describeSubject(cutoutJpeg);
     claudeUsages.push(usage);
     if (output.containsPerson) {
+      logger.info("Claude が人が写っていると判断したため生成しません", { uid, requestId, rejectionReason: "person_detected", containsPerson: true, attempt });
       return { kind: "finish", update: { status: "rejected", rejectionReason: "person_detected", claudeUsages } };
     }
     // 照らすのは利用者に見せる名前と図鑑の文章だけ (被写体の説明は画面に出さず、ワイングラスのような被写体の名前で止めないため)

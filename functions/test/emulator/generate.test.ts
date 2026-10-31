@@ -361,6 +361,17 @@ describe("generate", () => {
     expect((await bucket.file(data.photoPath).exists())[0]).toBe(false);
   });
 
+  it("SafeSearch で拒否した写真の送り直しは使い回さずに Vision に聞き直す (拒否の閾値を変えた後に通るように)", async () => {
+    const mocks = createMocks({ vision: { safeSearchAnnotation: { adult: "VERY_LIKELY" } } });
+    const result = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data: await uploadPhoto({ uid: "alice", photo: photoFixture("01") }) }));
+    expect(result).toMatchObject({ status: "rejected", rejectionReason: "explicit_content" });
+
+    const retryMocks = createMocks({ vision: { safeSearchAnnotation: { adult: "LIKELY", violence: "LIKELY", racy: "LIKELY" } } });
+    const retried = await handleGenerateRequest(retryMocks.dependencies, signedInRequest({ uid: "alice", data: await uploadPhoto({ uid: "alice", photo: photoFixture("01") }) }));
+    expect(retried.status).toBe("saved");
+    expect(retryMocks.calls.vision).toBe(1);
+  });
+
   it("顔が写る画像は生成せず理由を返す", async () => {
     const mocks = createMocks({ vision: { safeSearchAnnotation: { adult: "VERY_UNLIKELY" }, faceAnnotations: [{ detectionConfidence: 0.95 }] } });
     const result = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data: await uploadPhoto({ uid: "alice", photo: photoFixture("01") }) }));

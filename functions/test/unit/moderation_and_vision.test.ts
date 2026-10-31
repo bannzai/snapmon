@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { findModerationViolation } from "../../src/generation/moderation";
 import { parseDescribeSubjectOutput } from "../../src/generation/prompts/describe_subject";
 import { proposalRangeViolation } from "../../src/generation/prompts/propose_element";
-import { visionRejectionReason } from "../../src/generation/vision";
+import { visionRejectionLogFields, visionRejectionReason } from "../../src/generation/vision";
 
 describe("findModerationViolation", () => {
   it("禁止語と他社の名称を、ひらがな・カタカナ・全角半角の揺れを越えて見つける", () => {
@@ -27,9 +27,31 @@ describe("findModerationViolation", () => {
 describe("visionRejectionReason", () => {
   it("露骨な画像と顔が写る画像を拒否し、それ以外は通す", () => {
     expect(visionRejectionReason({ safeSearchAnnotation: { adult: "VERY_LIKELY" } })).toBe("explicit_content");
-    expect(visionRejectionReason({ safeSearchAnnotation: { violence: "LIKELY" } })).toBe("explicit_content");
+    expect(visionRejectionReason({ safeSearchAnnotation: { violence: "VERY_LIKELY" } })).toBe("explicit_content");
+    expect(visionRejectionReason({ safeSearchAnnotation: { racy: "VERY_LIKELY" } })).toBe("explicit_content");
     expect(visionRejectionReason({ safeSearchAnnotation: { adult: "POSSIBLE" }, faceAnnotations: [{ detectionConfidence: 0.3 }] })).toBe("face_detected");
     expect(visionRejectionReason({ safeSearchAnnotation: { adult: "VERY_UNLIKELY" }, labelAnnotations: [{ description: "Mug", score: 0.9 }] })).toBeUndefined();
+  });
+
+  it("adult・violence・racy が LIKELY でも拒否しない (イラストが LIKELY になる誤検知を通すため)", () => {
+    expect(visionRejectionReason({ safeSearchAnnotation: { adult: "LIKELY", violence: "LIKELY", racy: "LIKELY" } })).toBeUndefined();
+  });
+});
+
+describe("visionRejectionLogFields", () => {
+  it("SafeSearch の各区分の尤度と、顔の数・確信度を返す", () => {
+    expect(
+      visionRejectionLogFields({
+        safeSearchAnnotation: { adult: "VERY_LIKELY", violence: "UNLIKELY", racy: "LIKELY", medical: "VERY_UNLIKELY", spoof: "POSSIBLE" },
+        faceAnnotations: [{ detectionConfidence: 0.9 }, { detectionConfidence: 0.4 }],
+        labelAnnotations: [{ description: "Mug", score: 0.9 }],
+      }),
+    ).toEqual({
+      safeSearch: { adult: "VERY_LIKELY", violence: "UNLIKELY", racy: "LIKELY", medical: "VERY_UNLIKELY", spoof: "POSSIBLE" },
+      faceCount: 2,
+      faceDetectionConfidences: [0.9, 0.4],
+    });
+    expect(visionRejectionLogFields({})).toEqual({ safeSearch: {}, faceCount: 0, faceDetectionConfidences: [] });
   });
 });
 
