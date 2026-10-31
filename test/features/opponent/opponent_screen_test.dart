@@ -136,10 +136,7 @@ void main() {
           findsOneWidget,
           reason: cpuTrainer.id,
         );
-        expect(
-          find.text(cpuTrainer.name, skipOffstage: false),
-          findsOneWidget,
-        );
+        expect(find.text(cpuTrainer.name, skipOffstage: false), findsOneWidget);
         expect(cpuTrainer.name, startsWith('CPU '));
         expect(
           find.byKey(

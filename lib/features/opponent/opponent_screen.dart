@@ -350,61 +350,61 @@ class _OpponentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => DecoratedBox(
-      decoration: const BoxDecoration(
-        color: SnapmonColors.surface,
-        borderRadius: SnapmonRadii.card,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(14),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(title, style: SnapmonTextStyles.label),
-                      Text(subtitle, style: SnapmonTextStyles.small),
-                    ],
-                  ),
+    decoration: const BoxDecoration(
+      color: SnapmonColors.surface,
+      borderRadius: SnapmonRadii.card,
+    ),
+    child: Padding(
+      padding: const EdgeInsets.all(14),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(title, style: SnapmonTextStyles.label),
+                    Text(subtitle, style: SnapmonTextStyles.small),
+                  ],
                 ),
-                FilledButton(
-                  key: Key('challenge-$opponentId'),
-                  style: FilledButton.styleFrom(
-                    minimumSize: const Size(0, 36),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: SnapmonRadii.tag,
-                    ),
-                    textStyle: SnapmonTextStyles.caption,
+              ),
+              FilledButton(
+                key: Key('challenge-$opponentId'),
+                style: FilledButton.styleFrom(
+                  minimumSize: const Size(0, 36),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: SnapmonRadii.tag,
                   ),
-                  onPressed: onChallenge,
-                  child: Text(context.l10n.opponentChallenge),
+                  textStyle: SnapmonTextStyles.caption,
                 ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: [
-                for (final monster in monsters)
-                  _MonsterChip(
-                    key: Key(
-                      'opponent-monster-$opponentId-${monster.definition.id}',
-                    ),
-                    name: monster.definition.name,
-                    detail: null,
-                    color: SnapmonColors.surfaceRaised,
-                    textColor: SnapmonColors.textOnBackground,
+                onPressed: onChallenge,
+                child: Text(context.l10n.opponentChallenge),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              for (final monster in monsters)
+                _MonsterChip(
+                  key: Key(
+                    'opponent-monster-$opponentId-${monster.definition.id}',
                   ),
-              ],
-            ),
-          ],
-        ),
+                  name: monster.definition.name,
+                  detail: null,
+                  color: SnapmonColors.surfaceRaised,
+                  textColor: SnapmonColors.textOnBackground,
+                ),
+            ],
+          ),
+        ],
       ),
-    );
+    ),
+  );
 }
 
 /// モンスターの名前の小さな札。

@@ -83,26 +83,29 @@ void main() {
     );
   });
 
-  test('chooseFirstBattleCpuTrainer は seed によって別の CPU トレーナーになり、同じ seed では同じトレーナーになる', () {
-    expect(
-      {
-        for (var randomSeed = 1; randomSeed <= 50; randomSeed++)
-          chooseFirstBattleCpuTrainer(
-            cpuTrainers: sampleData.cpuTrainers,
-            randomSeed: randomSeed,
-          ).id,
-      },
-      {for (final cpuTrainer in sampleData.cpuTrainers) cpuTrainer.id},
-    );
-    expect(
-      chooseFirstBattleCpuTrainer(
-        cpuTrainers: sampleData.cpuTrainers,
-        randomSeed: 7,
-      ).id,
-      chooseFirstBattleCpuTrainer(
-        cpuTrainers: sampleData.cpuTrainers,
-        randomSeed: 7,
-      ).id,
-    );
-  });
+  test(
+    'chooseFirstBattleCpuTrainer は seed によって別の CPU トレーナーになり、同じ seed では同じトレーナーになる',
+    () {
+      expect(
+        {
+          for (var randomSeed = 1; randomSeed <= 50; randomSeed++)
+            chooseFirstBattleCpuTrainer(
+              cpuTrainers: sampleData.cpuTrainers,
+              randomSeed: randomSeed,
+            ).id,
+        },
+        {for (final cpuTrainer in sampleData.cpuTrainers) cpuTrainer.id},
+      );
+      expect(
+        chooseFirstBattleCpuTrainer(
+          cpuTrainers: sampleData.cpuTrainers,
+          randomSeed: 7,
+        ).id,
+        chooseFirstBattleCpuTrainer(
+          cpuTrainers: sampleData.cpuTrainers,
+          randomSeed: 7,
+        ).id,
+      );
+    },
+  );
 }

@@ -810,7 +810,10 @@ void main() {
         expect(find.byType(BattleScreen), findsOneWidget);
         expect(find.byKey(const Key('first-battle-hint')), findsOneWidget);
         // CPU トレーナーは他のユーザーではないため、通報・ブロックのメニューを出さない
-        expect(find.byKey(const Key('opponent-menu-opponent-uid-1')), findsNothing);
+        expect(
+          find.byKey(const Key('opponent-menu-opponent-uid-1')),
+          findsNothing,
+        );
 
         await playFirstBattleUntilFinished(tester: tester);
         final bornMonster = generatedWaxMonster(
@@ -872,38 +875,37 @@ void main() {
       },
     );
 
-    testWidgets(
-      '撮るタブは手持ちが空の時に案内を出し、アルバムから選ぶと CPU トレーナーと戦い、「図鑑を見る」で図鑑に入る',
-      (tester) async {
-        await pumpHome(
-          tester: tester,
-          hasStartedSession: true,
-          startSessionFailureCount: 0,
-          isDeveloperMenuEnabled: false,
-          startsCameraOnCaptureOpen: false,
-        );
-        // テストの環境にはカメラが無いため、選ぶ案内になる
-        expect(find.text('身の回りの物の写真を 1 枚選ぼう'), findsOneWidget);
+    testWidgets('撮るタブは手持ちが空の時に案内を出し、アルバムから選ぶと CPU トレーナーと戦い、「図鑑を見る」で図鑑に入る', (
+      tester,
+    ) async {
+      await pumpHome(
+        tester: tester,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
+      );
+      // テストの環境にはカメラが無いため、選ぶ案内になる
+      expect(find.text('身の回りの物の写真を 1 枚選ぼう'), findsOneWidget);
 
-        await tester.tap(find.byTooltip('アルバムから選ぶ'));
-        await tester.pump();
-        await tester.pump(const Duration(milliseconds: 500));
-        // 相手は CPU トレーナーのどれか (seed で選ぶ)
-        expect(find.textContaining(RegExp(r'^CPU .+ があらわれた$')), findsOneWidget);
-        expect(pvpCalls.fetchOpponentsCount, 0);
+      await tester.tap(find.byTooltip('アルバムから選ぶ'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 500));
+      // 相手は CPU トレーナーのどれか (seed で選ぶ)
+      expect(find.textContaining(RegExp(r'^CPU .+ があらわれた$')), findsOneWidget);
+      expect(pvpCalls.fetchOpponentsCount, 0);
 
-        await tester.pump(const Duration(seconds: 2));
-        await tester.pump(const Duration(seconds: 1));
-        expect(find.byType(BattleScreen), findsOneWidget);
-        await playFirstBattleUntilFinished(tester: tester);
-        expect(battleCalls.loggedEvents.first.parameters?['opponent'], 'cpu');
+      await tester.pump(const Duration(seconds: 2));
+      await tester.pump(const Duration(seconds: 1));
+      expect(find.byType(BattleScreen), findsOneWidget);
+      await playFirstBattleUntilFinished(tester: tester);
+      expect(battleCalls.loggedEvents.first.parameters?['opponent'], 'cpu');
 
-        await tester.tap(find.text('図鑑を見る'));
-        await tester.pump();
-        await tester.pump(const Duration(seconds: 1));
-        expect(find.text('1 体 · 手持ち 1 体'), findsOneWidget);
-      },
-    );
+      await tester.tap(find.text('図鑑を見る'));
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
+      expect(find.text('1 体 · 手持ち 1 体'), findsOneWidget);
+    });
   });
 
   group('下タブと画面の遷移', () {
