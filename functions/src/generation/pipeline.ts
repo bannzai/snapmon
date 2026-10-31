@@ -1014,6 +1014,8 @@ async function resolveNewElementType(
       effectId: `${elementTypeId}_particle`,
       learnableLevelMinimum: PROPOSED_MOVE_TIERS[index].learnableLevelMinimum,
       learnableLevelMaximum: PROPOSED_MOVE_TIERS[index].learnableLevelMaximum,
+      // rationale を足す前に保存した提案を判定待ちの再試行で使う時は根拠が無く、undefined を Firestore に書くと失敗するため項目ごと省く。
+      ...(move.rationale === undefined ? {} : { rationale: move.rationale }),
     })),
     effects: [{ id: `${elementTypeId}_particle`, displayName: `${proposal.element.displayName}のパーティクル`, kind: "particle", colorHex: proposal.element.colorHex }],
   };

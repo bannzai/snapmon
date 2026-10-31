@@ -33,8 +33,16 @@ export interface MasterMove {
   learnableLevelMinimum: number;
   /** 覚えさせてよいレベル帯の上限。 */
   learnableLevelMaximum: number;
-  /** 技の特殊効果 (種類と威力の倍率の最大 %)。生成では使わず、計算は端末のバトル (lib/domain/battle/move_special_effect.dart) が行う。 */
-  specialEffect?: { kind: string; maximumPowerPercent: number };
+  /**
+   * 技の特殊効果 (種類と威力の倍率の最大 %)。生成では使わず、計算は端末のバトル (lib/domain/battle/move_special_effect.dart) が行う。
+   * `rationale` は、この技にこの効果を付けた根拠 (技の名前の物の性質と効果の働き方の結びつき)。
+   */
+  specialEffect?: { kind: string; maximumPowerPercent: number; rationale?: string };
+  /**
+   * この技がこの属性・この名前である根拠。技・効果を足す・見直す時に参照する保守のための値で、ユーザーには見せず、生成・バトルでも読まない
+   * (documents/game-rules.md「技の根拠」)。master の版 4 より前の版と、版 4 より前にその場で作った技は持たない。
+   */
+  rationale?: string;
 }
 
 /** ステータスの段階と種族値の対応。 */
