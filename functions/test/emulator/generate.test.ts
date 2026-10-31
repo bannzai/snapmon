@@ -808,8 +808,8 @@ describe("generate", () => {
     });
     const result = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data: await uploadPhoto({ uid: "alice", photo: photoFixture("18") }) }));
     expect(result.status).toBe("saved");
-    const [elementTypeId] = ((await firestore.doc(`users/alice/monsters/${result.monsterId}`).get()).data() as MonsterDocument).definition.elementTypeIds;
-    expect((await firestore.doc(`definitions/${elementTypeId}`).get()).data()!.moves.map((move: Record<string, unknown>) => "rationale" in move)).toEqual([false, false, false]);
+    expect(
+      (await firestore.doc(`definitions/${((await firestore.doc(`users/alice/monsters/${result.monsterId}`).get()).data() as MonsterDocument).definition.elementTypeIds[0]}`).get()).data()!.moves.map((move: Record<string, unknown>) => "rationale" in move)).toEqual([false, false, false]);
   });
 });
 
