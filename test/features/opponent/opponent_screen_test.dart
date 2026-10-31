@@ -8,6 +8,8 @@ import 'package:snapmon/features/opponent/cpu_party.dart';
 import 'package:snapmon/features/opponent/opponent_screen.dart';
 import 'package:snapmon/features/opponent/pvp_client.dart';
 import 'package:snapmon/features/opponent/pvp_opponent.dart';
+import 'package:snapmon/features/result/monster_detail_card.dart';
+import 'package:snapmon/features/result/result_screen.dart';
 import 'package:snapmon/l10n/l10n.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
 
@@ -195,6 +197,65 @@ void main() {
         reason: cpuTrainer.id,
       );
     }
+  });
+
+  testWidgets('CPU トレーナーの手持ちの札を押すと、挑む時と同じレベルのそのモンスターの詳細をボトムシートで出す', (
+    tester,
+  ) async {
+    await pumpOpponentScreen(
+      tester: tester,
+      pvpClient: signedInPvpClient(calls: RecordedPvpCalls()),
+    );
+    final cpuTrainer = sampleData.cpuTrainers.first;
+    final monster = sampleData.monsterById(
+      monsterId: cpuTrainer.monsterIds.first,
+    );
+    final detailKey = Key('opponent-monster-detail-${monster.definition.id}');
+    expect(find.byKey(detailKey), findsNothing);
+    await tester.tap(
+      find.byKey(
+        Key('opponent-monster-${cpuTrainer.id}-${monster.definition.id}'),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.byKey(detailKey), findsOneWidget);
+    final level = averagePartyLevel(
+      party: (DexStore(
+        definitions: sampleData.definitions,
+      )..replaceAll(monsters: sampleData.monsters)).party,
+    );
+    final detailCard = tester.widget<MonsterDetailCard>(
+      find.descendant(
+        of: find.byKey(detailKey),
+        matching: find.byType(MonsterDetailCard),
+      ),
+    );
+    expect(detailCard.monster.definition.id, monster.definition.id);
+    expect(detailCard.monster.level, level);
+    for (final text in [monster.definition.name, 'Lv. $level', '覚えている技']) {
+      expect(
+        find.descendant(of: find.byKey(detailKey), matching: find.text(text)),
+        findsOneWidget,
+        reason: text,
+      );
+    }
+  });
+
+  testWidgets('自分の手持ちの札を押すと、図鑑から開いた時と同じそのモンスターの画面を開く', (tester) async {
+    await pumpOpponentScreen(
+      tester: tester,
+      pvpClient: signedInPvpClient(calls: RecordedPvpCalls()),
+    );
+    final partyMonster = (DexStore(
+      definitions: sampleData.definitions,
+    )..replaceAll(monsters: sampleData.monsters)).party.first;
+    await tester.tap(
+      find.byKey(Key('party-monster-${partyMonster.definition.id}')),
+    );
+    await tester.pumpAndSettle();
+    final resultScreen = tester.widget<ResultScreen>(find.byType(ResultScreen));
+    expect(resultScreen.monster.definition.id, partyMonster.definition.id);
+    expect(resultScreen.origin, ResultScreenOrigin.dex);
   });
 
   testWidgets('ログインが無い時は戦績を出さず、見本の対戦相手を出さずに CPU トレーナーを出す', (tester) async {
