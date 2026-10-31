@@ -1,0 +1,908 @@
+{
+  "measuredAt": "2026-10-31",
+  "descriptions": {
+    "head-chocolate_cake-1": {
+      "what": "ろうそくの立った層のケーキを描いた紙の絵",
+      "colors": [
+        "クリーム色",
+        "茶色",
+        "紫",
+        "ピンク"
+      ],
+      "materials": [
+        "紙"
+      ],
+      "size": "medium",
+      "hardness": "soft",
+      "temperature": "neutral",
+      "uses": [
+        "飾る",
+        "眺める"
+      ],
+      "impression": [
+        "にぎやか",
+        "手描き風",
+        "かわいい"
+      ],
+      "distinctiveMarks": [
+        "3本のピンクのろうそくとオレンジの炎",
+        "上に並ぶ5つの紫の丸い飾り",
+        "茶色とピンクのしま模様の層",
+        "下に引かれた灰色の線"
+      ]
+    },
+    "head-chocolate_cake-2": {
+      "what": "ろうそくの立ったチョコレートケーキの絵が描かれた紙",
+      "colors": [
+        "クリーム色",
+        "茶色",
+        "紫",
+        "ピンク"
+      ],
+      "materials": [
+        "紙"
+      ],
+      "size": "medium",
+      "hardness": "soft",
+      "temperature": "neutral",
+      "uses": [
+        "絵を飾る",
+        "お祝いのカード"
+      ],
+      "impression": [
+        "にぎやか",
+        "かわいい",
+        "手描き風"
+      ],
+      "distinctiveMarks": [
+        "3本のピンクのろうそくとオレンジの炎",
+        "上に並んだ5つの紫の丸い飾り",
+        "茶色とピンクのしま模様の断面",
+        "少し傾いて置かれた紙"
+      ]
+    },
+    "head-ghost-1": {
+      "what": "おばけの絵が描かれた紙",
+      "colors": [
+        "クリーム色",
+        "白",
+        "紫",
+        "黄色"
+      ],
+      "materials": [
+        "紙"
+      ],
+      "size": "small",
+      "hardness": "soft",
+      "temperature": "neutral",
+      "uses": [
+        "飾る",
+        "見て楽しむ"
+      ],
+      "impression": [
+        "ゆるい",
+        "にこにこ",
+        "かわいい"
+      ],
+      "distinctiveMarks": [
+        "紫のふちどりのおばけの絵",
+        "赤いにっこり口",
+        "黄色の十字のきらきら模様"
+      ]
+    },
+    "head-ghost-2": {
+      "what": "おばけの絵が描かれた紙",
+      "colors": [
+        "クリーム色",
+        "白",
+        "紫",
+        "黄色"
+      ],
+      "materials": [
+        "紙"
+      ],
+      "size": "small",
+      "hardness": "soft",
+      "temperature": "neutral",
+      "uses": [
+        "飾る",
+        "眺める"
+      ],
+      "impression": [
+        "ゆかい",
+        "やさしい",
+        "ふんわり"
+      ],
+      "distinctiveMarks": [
+        "紫の輪郭のおばけ",
+        "赤いにっこり口",
+        "黄色い十字のきらきら4つ",
+        "ぎざぎざの裾"
+      ]
+    },
+    "head-mug-1": {
+      "what": "白いホーローのマグカップ",
+      "colors": [
+        "白",
+        "黒"
+      ],
+      "materials": [
+        "金属"
+      ],
+      "size": "small",
+      "hardness": "hard",
+      "temperature": "neutral",
+      "uses": [
+        "飲み物を飲む"
+      ],
+      "impression": [
+        "すっきり",
+        "レトロ"
+      ],
+      "distinctiveMarks": [
+        "縁が黒い",
+        "側面に黒い横顔のイラストと文字",
+        "左側に小さな線の模様"
+      ]
+    },
+    "head-mug-2": {
+      "what": "白いホーローのマグカップ",
+      "colors": [
+        "白",
+        "黒"
+      ],
+      "materials": [
+        "金属"
+      ],
+      "size": "small",
+      "hardness": "hard",
+      "temperature": "neutral",
+      "uses": [
+        "飲み物を飲む"
+      ],
+      "impression": [
+        "シンプル",
+        "すっきり"
+      ],
+      "distinctiveMarks": [
+        "黒い縁取り",
+        "側面の黒いイラスト柄",
+        "手書き風の文字",
+        "底の縁の小さな欠け"
+      ]
+    },
+    "head-rubber_duck-1": {
+      "what": "黄色いゴム製のアヒルのおもちゃ",
+      "colors": [
+        "黄色",
+        "オレンジ",
+        "黒"
+      ],
+      "materials": [
+        "ゴム"
+      ],
+      "size": "small",
+      "hardness": "soft",
+      "temperature": "neutral",
+      "uses": [
+        "お風呂遊び",
+        "水遊び"
+      ],
+      "impression": [
+        "かわいい",
+        "まるっこい",
+        "のんびり"
+      ],
+      "distinctiveMarks": [
+        "描かれた黒い目と眉",
+        "オレンジ色のくちばし"
+      ]
+    },
+    "head-rubber_duck-2": {
+      "what": "黄色いゴムのアヒルのおもちゃ",
+      "colors": [
+        "黄色",
+        "オレンジ",
+        "黒"
+      ],
+      "materials": [
+        "ゴム"
+      ],
+      "size": "small",
+      "hardness": "soft",
+      "temperature": "neutral",
+      "uses": [
+        "お風呂遊び",
+        "水に浮かべて遊ぶ"
+      ],
+      "impression": [
+        "まんまる",
+        "かわいい",
+        "のんびり"
+      ],
+      "distinctiveMarks": [
+        "黒い目と眉の模様",
+        "オレンジ色のくちばし"
+      ]
+    },
+    "head-strawberry_cake-1": {
+      "what": "ろうそくが3本立ったいちごのショートケーキの絵が描かれた紙",
+      "colors": [
+        "クリーム色",
+        "オレンジ",
+        "赤",
+        "水色"
+      ],
+      "materials": [
+        "紙"
+      ],
+      "size": "small",
+      "hardness": "soft",
+      "temperature": "neutral",
+      "uses": [
+        "飾る",
+        "お祝い"
+      ],
+      "impression": [
+        "にぎやか",
+        "かわいい",
+        "あたたか"
+      ],
+      "distinctiveMarks": [
+        "ろうそくが3本",
+        "上に赤い丸いいちごが5つ",
+        "スポンジが横じま模様",
+        "ケーキの下に灰色の線"
+      ]
+    },
+    "head-strawberry_cake-2": {
+      "what": "ろうそくが立ったいちごのケーキの絵",
+      "colors": [
+        "クリーム色",
+        "オレンジ",
+        "赤",
+        "青"
+      ],
+      "materials": [
+        "紙"
+      ],
+      "size": "medium",
+      "hardness": "soft",
+      "temperature": "neutral",
+      "uses": [
+        "お祝いのかざり",
+        "鑑賞"
+      ],
+      "impression": [
+        "にぎやか",
+        "ほのぼの"
+      ],
+      "distinctiveMarks": [
+        "ろうそくが3本",
+        "上にいちごが5つ並ぶ",
+        "スポンジとクリームのしま模様"
+      ]
+    },
+    "new-chocolate_cake-1": {
+      "what": "ろうそくの立ったチョコレートケーキ",
+      "colors": [
+        "茶色",
+        "ピンク",
+        "紫",
+        "オレンジ"
+      ],
+      "materials": [
+        "食べ物"
+      ],
+      "size": "medium",
+      "hardness": "soft",
+      "temperature": "neutral",
+      "uses": [
+        "お祝いに食べる",
+        "誕生日を祝う"
+      ],
+      "impression": [
+        "にぎやか",
+        "あまい",
+        "しましま"
+      ],
+      "distinctiveMarks": [
+        "クレヨンで描いたような絵",
+        "ろうそくが3本",
+        "上に紫の丸い飾りが5つ",
+        "ピンクのクリームの層が2段"
+      ]
+    },
+    "new-chocolate_cake-2": {
+      "what": "ろうそくが立ったチョコレートケーキ",
+      "colors": [
+        "茶色",
+        "ピンク",
+        "紫",
+        "オレンジ"
+      ],
+      "materials": [
+        "食べ物"
+      ],
+      "size": "medium",
+      "hardness": "soft",
+      "temperature": "neutral",
+      "uses": [
+        "お祝い",
+        "おやつ"
+      ],
+      "impression": [
+        "しましま",
+        "にぎやか",
+        "あまそう"
+      ],
+      "distinctiveMarks": [
+        "クレヨンで描いたような絵",
+        "ろうそくが3本",
+        "上に紫の丸い飾りが5つ",
+        "ピンクのクリームの層が2段"
+      ]
+    },
+    "new-ghost-1": {
+      "what": "にっこり笑うおばけ",
+      "colors": [
+        "白",
+        "紫",
+        "黒",
+        "赤"
+      ],
+      "materials": [
+        "布"
+      ],
+      "size": "medium",
+      "hardness": "soft",
+      "temperature": "cold",
+      "uses": [],
+      "impression": [
+        "ふわふわ",
+        "にこにこ",
+        "かわいい"
+      ],
+      "distinctiveMarks": [
+        "クレヨンで描いたような絵",
+        "紫色の太い輪郭線",
+        "すそがギザギザ",
+        "まわりに黄色いきらきら"
+      ]
+    },
+    "new-ghost-2": {
+      "what": "にっこり笑うおばけ",
+      "colors": [
+        "白",
+        "紺色",
+        "黒",
+        "赤"
+      ],
+      "materials": [
+        "布"
+      ],
+      "size": "medium",
+      "hardness": "soft",
+      "temperature": "cold",
+      "uses": [],
+      "impression": [
+        "ふわふわ",
+        "にこにこ",
+        "かわいい"
+      ],
+      "distinctiveMarks": [
+        "クレヨンで描いたような絵",
+        "紺色の太い輪郭線",
+        "すそがギザギザ",
+        "まわりに黄色いキラキラ"
+      ]
+    },
+    "new-ghost-3": {
+      "what": "にっこり笑うおばけ",
+      "colors": [
+        "白",
+        "紺色",
+        "黒",
+        "赤"
+      ],
+      "materials": [
+        "布"
+      ],
+      "size": "medium",
+      "hardness": "soft",
+      "temperature": "cold",
+      "uses": [],
+      "impression": [
+        "ふわふわ",
+        "にこにこ",
+        "かわいい"
+      ],
+      "distinctiveMarks": [
+        "クレヨンのような太い線で描いた絵",
+        "紺色の輪郭線",
+        "すそがギザギザ",
+        "まわりに黄色いキラキラ"
+      ]
+    },
+    "new-ghost-4": {
+      "what": "にっこり笑う白いおばけ",
+      "colors": [
+        "白",
+        "紺",
+        "黒",
+        "赤"
+      ],
+      "materials": [
+        "布"
+      ],
+      "size": "medium",
+      "hardness": "soft",
+      "temperature": "cold",
+      "uses": [],
+      "impression": [
+        "ふわふわ",
+        "にこにこ",
+        "かわいい"
+      ],
+      "distinctiveMarks": [
+        "クレヨンで描いたような手描きの絵",
+        "紺色の太い輪郭線",
+        "すそがギザギザ",
+        "まわりに黄色いキラキラの印"
+      ]
+    },
+    "new-mug-1": {
+      "what": "白いホーローのマグカップ",
+      "colors": [
+        "白",
+        "黒"
+      ],
+      "materials": [
+        "金属",
+        "ホーロー"
+      ],
+      "size": "small",
+      "hardness": "hard",
+      "temperature": "neutral",
+      "uses": [
+        "飲み物を飲む",
+        "キャンプで使う"
+      ],
+      "impression": [
+        "シンプル",
+        "レトロ",
+        "すっきり"
+      ],
+      "distinctiveMarks": [
+        "側面の黒い横顔のプリント",
+        "プリントの中の白い手書き風の文字",
+        "ふちの黒いライン",
+        "反対側の小さな黒い模様"
+      ]
+    },
+    "new-mug-2": {
+      "what": "白いホーローのマグカップ",
+      "colors": [
+        "白",
+        "黒"
+      ],
+      "materials": [
+        "金属"
+      ],
+      "size": "small",
+      "hardness": "hard",
+      "temperature": "neutral",
+      "uses": [
+        "飲み物を飲む"
+      ],
+      "impression": [
+        "すっきり",
+        "シンプル",
+        "かわいい"
+      ],
+      "distinctiveMarks": [
+        "黒いふちどり",
+        "側面の黒いがいこつ模様のプリント",
+        "プリントの中の手書き風の文字",
+        "底のふちの小さな欠け"
+      ]
+    },
+    "new-rubber_duck-1": {
+      "what": "黄色いゴムのアヒルのおもちゃ",
+      "colors": [
+        "黄色",
+        "オレンジ",
+        "黒"
+      ],
+      "materials": [
+        "ゴム"
+      ],
+      "size": "small",
+      "hardness": "soft",
+      "temperature": "neutral",
+      "uses": [
+        "お風呂遊び",
+        "水に浮かべて遊ぶ"
+      ],
+      "impression": [
+        "かわいい",
+        "まるっこい",
+        "のんびり"
+      ],
+      "distinctiveMarks": [
+        "オレンジ色の大きなくちばし",
+        "黒い目と眉毛のような線",
+        "水面に映る姿"
+      ]
+    },
+    "new-rubber_duck-2": {
+      "what": "黄色いゴムのアヒルのおもちゃ",
+      "colors": [
+        "黄色",
+        "オレンジ",
+        "黒"
+      ],
+      "materials": [
+        "ゴム"
+      ],
+      "size": "small",
+      "hardness": "soft",
+      "temperature": "neutral",
+      "uses": [
+        "お風呂遊び",
+        "水に浮かべて遊ぶ"
+      ],
+      "impression": [
+        "まるい",
+        "かわいい",
+        "のんびり"
+      ],
+      "distinctiveMarks": [
+        "オレンジ色の開いたくちばし",
+        "眉のある黒い目"
+      ]
+    },
+    "new-strawberry_cake-1": {
+      "what": "ろうそくが立ったいちごのショートケーキ",
+      "colors": [
+        "クリーム色",
+        "オレンジ",
+        "赤",
+        "青"
+      ],
+      "materials": [
+        "食べ物"
+      ],
+      "size": "medium",
+      "hardness": "soft",
+      "temperature": "neutral",
+      "uses": [
+        "お祝い",
+        "おやつ"
+      ],
+      "impression": [
+        "ふんわり",
+        "にぎやか",
+        "あまい"
+      ],
+      "distinctiveMarks": [
+        "クレヨンで描いたような絵",
+        "青いろうそくが3本",
+        "いちごが5つ並ぶ",
+        "焦げ茶色の太い輪郭線"
+      ]
+    },
+    "new-strawberry_cake-2": {
+      "what": "ろうそくが立ったいちごのショートケーキ",
+      "colors": [
+        "クリーム色",
+        "黄色",
+        "赤",
+        "青"
+      ],
+      "materials": [
+        "食べ物"
+      ],
+      "size": "medium",
+      "hardness": "soft",
+      "temperature": "neutral",
+      "uses": [
+        "お祝いに食べる",
+        "誕生日を祝う"
+      ],
+      "impression": [
+        "ふわふわ",
+        "にぎやか",
+        "あまい"
+      ],
+      "distinctiveMarks": [
+        "クレヨンで描いたような絵",
+        "いちごが5つ並んでいる",
+        "青いろうそくが3本立っている",
+        "こげ茶色の太い輪郭線"
+      ]
+    }
+  },
+  "jev": {
+    "elements": {
+      "head-rubber_duck-2": {
+        "paper": 0.02,
+        "selected": [
+          "plastic:0.78",
+          "water:0.61"
+        ]
+      },
+      "head-chocolate_cake-2": {
+        "paper": 0.97,
+        "selected": [
+          "paper:0.97",
+          "heat:0.57"
+        ]
+      },
+      "head-mug-1": {
+        "paper": 0.02,
+        "selected": [
+          "metal:0.89",
+          "water:0.63"
+        ]
+      },
+      "head-chocolate_cake-1": {
+        "paper": 0.96,
+        "selected": [
+          "paper:0.96",
+          "heat:0.65"
+        ]
+      },
+      "new-ghost-1": {
+        "paper": 0.03,
+        "selected": [
+          "cloth:0.96"
+        ]
+      },
+      "new-chocolate_cake-1": {
+        "paper": 0.02,
+        "selected": [
+          "food:0.99",
+          "heat:0.71"
+        ]
+      },
+      "head-ghost-1": {
+        "paper": 0.97,
+        "selected": [
+          "paper:0.97"
+        ]
+      },
+      "new-rubber_duck-1": {
+        "paper": 0.02,
+        "selected": [
+          "plastic:0.77",
+          "water:0.67"
+        ]
+      },
+      "new-mug-1": {
+        "paper": 0.02,
+        "selected": [
+          "metal:0.93",
+          "water:0.64"
+        ]
+      },
+      "head-rubber_duck-1": {
+        "paper": 0.01,
+        "selected": [
+          "plastic:0.77",
+          "water:0.62"
+        ]
+      },
+      "head-ghost-2": {
+        "paper": 0.97,
+        "selected": [
+          "paper:0.97"
+        ]
+      },
+      "new-ghost-2": {
+        "paper": 0.03,
+        "selected": [
+          "cloth:0.96"
+        ]
+      },
+      "new-mug-2": {
+        "paper": 0.02,
+        "selected": [
+          "metal:0.88",
+          "water:0.66"
+        ]
+      },
+      "new-strawberry_cake-2": {
+        "paper": 0.03,
+        "selected": [
+          "food:0.98",
+          "heat:0.67"
+        ]
+      },
+      "head-strawberry_cake-1": {
+        "paper": 0.97,
+        "selected": [
+          "paper:0.97",
+          "heat:0.58"
+        ]
+      },
+      "new-chocolate_cake-2": {
+        "paper": 0.02,
+        "selected": [
+          "food:0.98",
+          "heat:0.68"
+        ]
+      },
+      "head-mug-2": {
+        "paper": 0.02,
+        "selected": [
+          "metal:0.89",
+          "water:0.66"
+        ]
+      },
+      "new-strawberry_cake-1": {
+        "paper": 0.04,
+        "selected": [
+          "food:0.98",
+          "heat:0.66"
+        ]
+      },
+      "head-strawberry_cake-2": {
+        "paper": 0.75,
+        "selected": [
+          "heat:0.78",
+          "paper:0.75"
+        ]
+      },
+      "new-ghost-3": {
+        "paper": 0.03,
+        "selected": [
+          "cloth:0.96"
+        ]
+      },
+      "new-ghost-4": {
+        "paper": 0.03,
+        "selected": [
+          "cloth:0.96"
+        ]
+      },
+      "new-rubber_duck-2": {
+        "paper": 0.02,
+        "selected": [
+          "plastic:0.77",
+          "water:0.63"
+        ]
+      }
+    },
+    "dedupe": [
+      {
+        "kind": "same_drawing_head",
+        "left": "head-ghost-1",
+        "right": "head-ghost-2",
+        "same": 0.89,
+        "different": 0.08,
+        "judgedSame": true
+      },
+      {
+        "kind": "same_drawing_head",
+        "left": "head-ghost-2",
+        "right": "head-ghost-1",
+        "same": 0.91,
+        "different": 0.07,
+        "judgedSame": true
+      },
+      {
+        "kind": "same_drawing_head",
+        "left": "head-strawberry_cake-1",
+        "right": "head-strawberry_cake-2",
+        "same": 0.87,
+        "different": 0.13,
+        "judgedSame": true
+      },
+      {
+        "kind": "same_drawing_head",
+        "left": "head-strawberry_cake-2",
+        "right": "head-strawberry_cake-1",
+        "same": 0.75,
+        "different": 0.22,
+        "judgedSame": true
+      },
+      {
+        "kind": "same_drawing",
+        "left": "new-strawberry_cake-1",
+        "right": "new-strawberry_cake-2",
+        "same": 0.88,
+        "different": 0.22,
+        "judgedSame": true
+      },
+      {
+        "kind": "same_drawing",
+        "left": "new-strawberry_cake-2",
+        "right": "new-strawberry_cake-1",
+        "same": 0.88,
+        "different": 0.2,
+        "judgedSame": true
+      },
+      {
+        "kind": "same_drawing",
+        "left": "new-ghost-1",
+        "right": "new-ghost-2",
+        "same": 0.6,
+        "different": 0.53,
+        "judgedSame": false
+      },
+      {
+        "kind": "same_drawing",
+        "left": "new-ghost-2",
+        "right": "new-ghost-1",
+        "same": 0.51,
+        "different": 0.6,
+        "judgedSame": false
+      },
+      {
+        "kind": "same_drawing",
+        "left": "new-ghost-3",
+        "right": "new-ghost-1",
+        "same": 0.48,
+        "different": 0.59,
+        "judgedSame": false
+      },
+      {
+        "kind": "same_drawing",
+        "left": "new-ghost-4",
+        "right": "new-ghost-1",
+        "same": 0.49,
+        "different": 0.52,
+        "judgedSame": false
+      },
+      {
+        "kind": "same_drawing",
+        "left": "new-ghost-3",
+        "right": "new-ghost-2",
+        "same": 0.93,
+        "different": 0.05,
+        "judgedSame": true
+      },
+      {
+        "kind": "same_drawing",
+        "left": "new-ghost-4",
+        "right": "new-ghost-3",
+        "same": 0.94,
+        "different": 0.05,
+        "judgedSame": true
+      },
+      {
+        "kind": "different_cake_drawing",
+        "left": "new-strawberry_cake-1",
+        "right": "new-chocolate_cake-1",
+        "same": 0.07,
+        "different": 0.94,
+        "judgedSame": false
+      },
+      {
+        "kind": "different_cake_drawing",
+        "left": "new-chocolate_cake-1",
+        "right": "new-strawberry_cake-1",
+        "same": 0.08,
+        "different": 0.95,
+        "judgedSame": false
+      },
+      {
+        "kind": "different_cake_drawing",
+        "left": "new-strawberry_cake-2",
+        "right": "new-chocolate_cake-2",
+        "same": 0.04,
+        "different": 0.95,
+        "judgedSame": false
+      },
+      {
+        "kind": "different_cake_drawing",
+        "left": "new-chocolate_cake-2",
+        "right": "new-strawberry_cake-2",
+        "same": 0.04,
+        "different": 0.97,
+        "judgedSame": false
+      }
+    ]
+  }
+}
