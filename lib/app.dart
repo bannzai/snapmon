@@ -14,6 +14,7 @@ import 'features/title/title_screen.dart';
 import 'l10n/l10n.dart';
 import 'sample/sample_data.dart';
 import 'theme/snapmon_theme.dart';
+import 'widgets/app_content_width.dart';
 
 /// アプリのルート。起動するとタイトル画面を出し、タイトルのボタンでログインを済ませてから下タブの画面に入る。
 /// ログインを終えた (アカウントの削除・開発者メニューのやり直し) 時はタイトルに戻る。
@@ -107,6 +108,8 @@ class _SnapmonAppState extends State<SnapmonApp> {
     theme: snapmonThemeData(),
     localizationsDelegates: AppLocalizations.localizationsDelegates,
     supportedLocales: AppLocalizations.supportedLocales,
+    builder: (context, child) =>
+        constrainToAppContentWidth(child: child ?? const SizedBox.shrink()),
     home: ListenableBuilder(
       listenable: widget.sessionStore,
       builder: (context, _) {
