@@ -306,7 +306,6 @@ class SettingsScreen extends StatelessWidget {
                   cardSharer: cardSharer,
                   pvpClient: pvpClient,
                   battleRecorder: battleRecorder,
-                  openUrl: openUrl,
                 ),
               ),
             ),

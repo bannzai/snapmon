@@ -35,13 +35,9 @@ class DeveloperMenuScreen extends StatelessWidget {
     required this.cardSharer,
     required this.pvpClient,
     required this.battleRecorder,
-    required this.openUrl,
   });
 
-  /// 見本の写真から始めた初回のバトル (手持ちが空の時) の相手を通報する時に、お問い合わせを開く。
-  final OpenUrl openUrl;
-
-  /// 見本の写真から始めた初回のバトル (手持ちが空の時) の相手の取得。
+  /// 手持ちが空の時の初回のバトルの前の定義の読み直しに渡す。
   final PvpClient pvpClient;
 
   /// 見本の写真から始めた初回のバトル (手持ちが空の時) の記録と計測。
@@ -90,7 +86,6 @@ class DeveloperMenuScreen extends StatelessWidget {
           sampleData: sampleData,
           pvpClient: pvpClient,
           battleRecorder: battleRecorder,
-          openUrl: openUrl,
         ),
       ),
     );

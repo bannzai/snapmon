@@ -144,10 +144,9 @@ class _HomeShellState extends State<HomeShell> {
           sampleData: widget.sampleData,
           pvpClient: widget.pvpClient,
           battleRecorder: widget.battleRecorder,
-          openUrl: widget.openUrl,
         ),
         // 設定の「データを引き継ぐ」で別のアカウントに切り替わると uid が変わるため、uid ごとに作り直して
-        // 前のアカウントの相手・戦績・外した相手を持ち越さない
+        // 前のアカウントの戦績を持ち越さない
         HomeTab.opponent => ListenableBuilder(
           listenable: widget.sessionStore,
           builder: (context, _) => OpponentScreen(
@@ -158,7 +157,6 @@ class _HomeShellState extends State<HomeShell> {
             onOpenSettings: _openSettings,
             battleRecorder: widget.battleRecorder,
             pvpClient: widget.pvpClient,
-            openUrl: widget.openUrl,
             cardSharer: widget.cardSharer,
           ),
         ),

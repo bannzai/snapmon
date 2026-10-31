@@ -16,7 +16,6 @@ import '../dex/dex_store.dart';
 import '../home/home_shell.dart';
 import '../opponent/pvp_client.dart';
 import '../result/result_screen.dart';
-import '../settings/settings_screen.dart';
 import '../share/card_sharer.dart';
 import 'generation_screen.dart';
 import 'monster_generator.dart';
@@ -39,7 +38,6 @@ class CaptureScreen extends StatefulWidget {
     required this.sampleData,
     required this.pvpClient,
     required this.battleRecorder,
-    required this.openUrl,
   });
 
   /// 画面を開いた時に、押すのを待たずにカメラを開くか (このアプリを起動してから一度カメラを開けた後と、
@@ -49,13 +47,10 @@ class CaptureScreen extends StatefulWidget {
   /// カメラを開けた時に呼ぶ (次に画面を開いた時に [startsCameraOnOpen] にするため)。
   final VoidCallback onCameraOpened;
 
-  /// 手持ちが空の時の初回のバトルの相手を通報する時に、お問い合わせを開く。
-  final OpenUrl openUrl;
-
   /// 見本データ (手持ちが空の時の初回のバトルの CPU トレーナー)。
   final SampleData sampleData;
 
-  /// 手持ちが空の時の初回のバトルの相手の取得。
+  /// 手持ちが空の時の初回のバトルの前の定義の読み直しに渡す。
   final PvpClient pvpClient;
 
   /// 手持ちが空の時の初回のバトルの記録と計測。
@@ -324,7 +319,6 @@ class _CaptureScreenState extends State<CaptureScreen>
           sampleData: widget.sampleData,
           pvpClient: widget.pvpClient,
           battleRecorder: widget.battleRecorder,
-          openUrl: widget.openUrl,
         ),
       ),
     );

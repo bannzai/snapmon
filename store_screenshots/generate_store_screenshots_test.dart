@@ -230,7 +230,7 @@ Future<void> _writeScreenshot({
             for (final monster in monsters.skip(3))
               _withLevel(monster: monster, level: 10),
           ],
-          opponentKind: BattleOpponentKind.pvp,
+          opponentKind: BattleOpponentKind.cpu,
           definitions: sampleData.definitions,
           // 生成し直しても同じ場面になるよう、乱数の seed を固定する
           randomSeed: 7,
@@ -243,7 +243,6 @@ Future<void> _writeScreenshot({
           cardSharer: _cardSharer(artImagesByPath: artImagesByPath),
           firstBattleBornMonster: null,
           firstBattleMonsterIsNewlyBorn: false,
-          opponentSafetyMenu: null,
         ),
         StoreScreenshotPage.opponent => _homeShell(
           sampleData: sampleData,

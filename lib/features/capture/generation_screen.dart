@@ -16,10 +16,8 @@ import '../battle/battle_recorder.dart';
 import '../battle/battle_screen.dart';
 import '../dex/dex_store.dart';
 import '../dex/owned_monster.dart';
-import '../opponent/opponent_safety_actions.dart';
 import '../opponent/pvp_client.dart';
 import '../result/result_screen.dart';
-import '../settings/settings_screen.dart';
 import '../share/card_sharer.dart';
 import 'first_battle.dart';
 import 'monster_generator.dart';
@@ -57,11 +55,7 @@ class GenerationScreen extends StatefulWidget {
     required this.sampleData,
     required this.pvpClient,
     required this.battleRecorder,
-    required this.openUrl,
   });
-
-  /// 初回のバトルの相手が他のユーザーの時の、通報のシートからお問い合わせを開く。
-  final OpenUrl openUrl;
 
   /// 初回の導線 (生まれたらそのまま戦う) にするか。呼び出し元が写真を選んだ時点の手持ちが空か ([DexStore.party]) で決める。
   /// 生まれた時に手持ちが空でなくなっていた (Firestore の手持ちが後から届いた) 時は、初回でない時と同じく生まれた画面を開く。
@@ -70,7 +64,7 @@ class GenerationScreen extends StatefulWidget {
   /// 見本データ (初回のバトルの CPU トレーナー)。
   final SampleData sampleData;
 
-  /// 初回のバトルの相手の取得と、相手のその場で作った定義の読み込み。
+  /// 初回のバトルの前の定義の読み直しに渡す。
   final PvpClient pvpClient;
 
   /// 初回のバトルの記録と計測。
@@ -371,7 +365,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
     });
     try {
       await widget.dexStore.addToParty(monsterId: monster.definition.id);
-      // 手持ちの保存が済んでから相手を探す (Functions の fetchOpponents は保存した手持ちの平均レベルで相手を選ぶため)
+      // 手持ちの保存が済んでから相手を決める (CPU トレーナーの手持ちのレベルは手持ちに入れた後の平均に合わせるため)
       if (!widget.dexStore.isInParty(monsterId: monster.definition.id)) {
         throw StateError('${monster.definition.name} を手持ちに入れられませんでした');
       }
@@ -380,7 +374,6 @@ class _GenerationScreenState extends State<GenerationScreen> {
         pvpClient: widget.pvpClient,
         sampleData: widget.sampleData,
         randomSeed: _firstBattleRandomSeed,
-        loadArtImage: widget.cardSharer.loadArtImage,
       );
       if (!mounted) {
         return;
@@ -424,7 +417,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
         builder: (context) => BattleScreen(
           playerParty: playerParty,
           opponentParty: opponent.opponentParty,
-          opponentKind: opponent.opponentKind,
+          opponentKind: BattleOpponentKind.cpu,
           definitions: opponent.definitions,
           randomSeed: _firstBattleRandomSeed,
           battleRecorder: widget.battleRecorder,
@@ -433,18 +426,6 @@ class _GenerationScreenState extends State<GenerationScreen> {
           firstBattleBornMonster: monster,
           firstBattleMonsterIsNewlyBorn:
               monster.definition.id != _alreadyInDexMonster?.definition.id,
-          // 初回の相手には対戦相手の画面を通らずに当たるため、バトルの画面で通報・ブロックできるようにする (ストアの UGC 要件)。
-          // ログインが無い時は相手が CPU トレーナーになるため、ここに来る他のユーザーは常にサーバーから読んだ相手
-          opponentSafetyMenu: switch (opponent.pvpOpponent) {
-            final pvpOpponent? => OpponentSafetyMenuButton(
-              opponent: pvpOpponent,
-              pvpClient: widget.pvpClient,
-              sendsToServer: true,
-              openUrl: widget.openUrl,
-              onOpponentRemoved: null,
-            ),
-            null => null,
-          },
         ),
       ),
     );

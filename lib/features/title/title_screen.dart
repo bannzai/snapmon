@@ -72,7 +72,7 @@ class TitleScreen extends StatefulWidget {
   /// 図鑑と手持ち (「つづきから」の表示と数)。
   final DexStore dexStore;
 
-  /// 非同期 PvP の相手の取得・通報・ブロック・戦績・表示名 (初回のバトルの相手の取得と、設定画面に渡す)。
+  /// 非同期 PvP の相手の取得・通報・ブロック・戦績・表示名 (初回のバトルの前の定義の読み直しと、設定画面に渡す)。
   final PvpClient pvpClient;
 
   /// 設定画面のアカウントの連携と削除。写真を選ばなくても、機種変更した人がデータを引き継げるようにタイトルから設定を開く。
@@ -291,7 +291,6 @@ class _TitleScreenState extends State<TitleScreen> {
             sampleData: widget.sampleData,
             pvpClient: widget.pvpClient,
             battleRecorder: widget.battleRecorder,
-            openUrl: widget.openUrl,
           ),
         ),
       );
