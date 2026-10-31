@@ -69,8 +69,11 @@ export type RejectionReason =
   | "inappropriate_text"
   | "refused";
 
-/** 拒否とみなす SafeSearch の尤度。POSSIBLE までは通す (日用品の写真が POSSIBLE になる誤検知で遊べなくなるのを避けるため)。 */
-const REJECTED_LIKELIHOODS: Likelihood[] = ["LIKELY", "VERY_LIKELY"];
+/**
+ * 拒否とみなす SafeSearch の尤度。LIKELY までは通す (着ぐるみのイラストが LIKELY で拒否された誤検知を受け、owner が VERY_LIKELY だけに
+ * 緩めた。https://github.com/bannzai/snapmon/issues/118 )。
+ */
+const REJECTED_LIKELIHOODS: Likelihood[] = ["VERY_LIKELY"];
 
 /** Vision の判定から、生成しない理由を返す。生成してよければ undefined。顔は確信度を問わず 1 つでもあれば拒否する (人物の写真から作らないため)。 */
 export function visionRejectionReason(annotation: VisionAnnotation): RejectionReason | undefined {
@@ -82,4 +85,13 @@ export function visionRejectionReason(annotation: VisionAnnotation): RejectionRe
     return "face_detected";
   }
   return undefined;
+}
+
+/** 拒否の内訳としてログに残す Vision の判定結果 (SafeSearch の各区分の尤度と、検出した顔の数・確信度)。写真の中身は含めない。 */
+export function visionRejectionLogFields(annotation: VisionAnnotation) {
+  return {
+    safeSearch: annotation.safeSearchAnnotation ?? {},
+    faceCount: (annotation.faceAnnotations ?? []).length,
+    faceDetectionConfidences: (annotation.faceAnnotations ?? []).map((face) => face.detectionConfidence),
+  };
 }
