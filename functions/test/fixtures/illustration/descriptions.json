@@ -1,0 +1,134 @@
+{
+  "strawberry_cake": {
+    "description": {
+      "what": "ろうそくが立ったいちごのショートケーキ",
+      "colors": [
+        "クリーム色",
+        "オレンジ",
+        "赤",
+        "青"
+      ],
+      "materials": [
+        "食べ物"
+      ],
+      "size": "medium",
+      "hardness": "soft",
+      "temperature": "neutral",
+      "uses": [
+        "お祝い",
+        "おやつ"
+      ],
+      "impression": [
+        "ふんわり",
+        "にぎやか",
+        "あまい"
+      ],
+      "distinctiveMarks": [
+        "クレヨンで描いたような絵",
+        "青いろうそくが3本",
+        "いちごが5つ並ぶ",
+        "焦げ茶色の太い輪郭線"
+      ]
+    },
+    "name": "イチゴショーン",
+    "encyclopediaText": "頭に並んだ5つのいちごと3本のろうそくを自慢にしていて、お祝いの日になるとどこからともなく現れる。ふんわりした体はクリームとスポンジが何層にも重なっていて、そばにいるだけで甘い香りがただよう。",
+    "decoration": {
+      "eyeStyle": "sparkle",
+      "mouthStyle": "smile",
+      "limbStyle": "stubby",
+      "auraStyle": "spark",
+      "eyeCenterX": 0.5,
+      "eyeCenterY": 0.53,
+      "eyeScale": 0.15,
+      "outlineColorHex": "#5A2D82"
+    },
+    "containsPerson": false
+  },
+  "chocolate_cake": {
+    "description": {
+      "what": "ろうそくの立ったチョコレートケーキ",
+      "colors": [
+        "茶色",
+        "ピンク",
+        "紫",
+        "オレンジ"
+      ],
+      "materials": [
+        "食べ物"
+      ],
+      "size": "medium",
+      "hardness": "soft",
+      "temperature": "neutral",
+      "uses": [
+        "お祝いに食べる",
+        "誕生日を祝う"
+      ],
+      "impression": [
+        "にぎやか",
+        "あまい",
+        "しましま"
+      ],
+      "distinctiveMarks": [
+        "クレヨンで描いたような絵",
+        "ろうそくが3本",
+        "上に紫の丸い飾りが5つ",
+        "ピンクのクリームの層が2段"
+      ]
+    },
+    "name": "チョコロウソン",
+    "encyclopediaText": "しましまの体にあまいクリームの層をためこみ、頭のろうそくをゆらして仲間をお祝いに呼び集める。紫の丸い飾りを5つ並べるのが自慢で、ひとつでも転がると大あわてで探し回る。",
+    "decoration": {
+      "eyeStyle": "sparkle",
+      "mouthStyle": "smile",
+      "limbStyle": "stubby",
+      "auraStyle": "spark",
+      "eyeCenterX": 0.51,
+      "eyeCenterY": 0.53,
+      "eyeScale": 0.15,
+      "outlineColorHex": "#1E3A8A"
+    },
+    "containsPerson": false
+  },
+  "ghost": {
+    "description": {
+      "what": "にっこり笑うおばけ",
+      "colors": [
+        "白",
+        "紫",
+        "黒",
+        "赤"
+      ],
+      "materials": [
+        "布"
+      ],
+      "size": "medium",
+      "hardness": "soft",
+      "temperature": "cold",
+      "uses": [],
+      "impression": [
+        "ふわふわ",
+        "にこにこ",
+        "かわいい"
+      ],
+      "distinctiveMarks": [
+        "クレヨンで描いたような絵",
+        "紫色の太い輪郭線",
+        "すそがギザギザ",
+        "まわりに黄色いきらきら"
+      ]
+    },
+    "name": "フワオバケ",
+    "encyclopediaText": "ギザギザのすそをゆらしながら、夜の部屋をふわふわただよっている。目が合うとにっこり笑い、まわりに小さな星をきらきら光らせる。",
+    "decoration": {
+      "eyeStyle": "round",
+      "mouthStyle": "smile",
+      "limbStyle": "stubby",
+      "auraStyle": "spark",
+      "eyeCenterX": 0.5,
+      "eyeCenterY": 0.46,
+      "eyeScale": 0.15,
+      "outlineColorHex": "#4A3A8C"
+    },
+    "containsPerson": false
+  }
+}
