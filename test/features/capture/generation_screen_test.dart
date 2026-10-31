@@ -78,7 +78,6 @@ void main() {
                           startBattleRecord: () async => null,
                           recordedLevels: const {},
                         ),
-                        openUrl: ({required uri}) async => true,
                       ),
                     ),
                   ),
