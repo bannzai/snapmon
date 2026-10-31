@@ -214,13 +214,22 @@ class ResultScreen extends StatelessWidget {
                           const SizedBox(height: 14),
                           // 元の写真は並べない。モンスターの絵は元の写真の crop の範囲か写真全体か OS で切り出した被写体で、
                           // 並べると同じ絵が 2 枚になるため (DIRECTION.md 2026-10-31 の #120 の行)
-                          AspectRatio(
-                            aspectRatio: 1,
-                            child: ClipRRect(
-                              borderRadius: SnapmonRadii.card,
-                              child: MonsterArt(
-                                monster: monster,
-                                backgroundColor: SnapmonColors.cardSubtle,
+                          // 横長の画面 (Web のデスクトップ) で絵が画面の高さを超えて名前と能力値が見えなくならないよう、
+                          // 一辺を画面の高さの半分までにする
+                          Center(
+                            child: ConstrainedBox(
+                              constraints: BoxConstraints(
+                                maxWidth: MediaQuery.sizeOf(context).height / 2,
+                              ),
+                              child: AspectRatio(
+                                aspectRatio: 1,
+                                child: ClipRRect(
+                                  borderRadius: SnapmonRadii.card,
+                                  child: MonsterArt(
+                                    monster: monster,
+                                    backgroundColor: SnapmonColors.cardSubtle,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
