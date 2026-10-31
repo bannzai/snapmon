@@ -88,6 +88,60 @@ void main() {
     }
   });
 
+  test('全ての技と特殊効果に根拠 (rationale) が書いてある (#124 の完了条件)', () {
+    // 根拠はアプリが読まない値のため、元の JSON で確かめる
+    for (final moveJson
+        in (jsonDecode(File('assets/master/master.json').readAsStringSync())
+                as Map<String, dynamic>)['moves']
+            as List<dynamic>) {
+      final move = moveJson as Map<String, dynamic>;
+      expect(move['rationale'], isA<String>(), reason: move['id'] as String);
+      expect(
+        move['rationale'] as String,
+        isNotEmpty,
+        reason: move['id'] as String,
+      );
+      final specialEffectJson = move['specialEffect'] as Map<String, dynamic>?;
+      if (specialEffectJson != null) {
+        expect(
+          specialEffectJson['rationale'],
+          isA<String>(),
+          reason: move['id'] as String,
+        );
+        expect(
+          specialEffectJson['rationale'] as String,
+          isNotEmpty,
+          reason: move['id'] as String,
+        );
+      }
+    }
+  });
+
+  test('根拠 (rationale) を持つ技の JSON も読め、根拠は技と特殊効果の値に入らない', () {
+    final move = Move.fromJson(
+      json: {
+        'id': 'custom_rubber_1',
+        'displayName': 'ゴムだまはじき',
+        'elementTypeId': 'custom_rubber',
+        'power': 40,
+        'powerPoints': 30,
+        'category': 'attack',
+        'effectId': 'plastic_particle',
+        'learnableLevelMinimum': 1,
+        'learnableLevelMaximum': 30,
+        'rationale': 'ゴムの玉をはじく技',
+        'specialEffect': {
+          'kind': 'movesLast',
+          'maximumPowerPercent': 140,
+          'rationale': 'ゴムは引き絞ってから放つため',
+        },
+      },
+    );
+    expect(move.power, 40);
+    expect(move.specialEffect?.kind, MoveSpecialEffectKind.movesLast);
+    expect(move.specialEffect?.maximumPowerPercent, 140);
+  });
+
   test('Lv.1 で覚えられる技の半分以上に特殊効果が付いている (#65 の完了条件)', () {
     final levelOneMoves = master.moves.where(
       (move) => move.learnableLevelMinimum == 1,

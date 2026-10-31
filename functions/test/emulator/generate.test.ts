@@ -36,6 +36,8 @@ const firestore = getFirestore(app);
 const bucket = getStorage(app).bucket("snapmon-prod-storage");
 const master = JSON.parse(readFileSync(path.join(__dirname, "..", "..", "..", "assets", "master", "master.json"), "utf8")) as Master;
 const descriptions = JSON.parse(readFileSync(path.join(__dirname, "..", "fixtures", "calibration", "descriptions.json"), "utf8")) as Record<string, DescribeSubjectOutput>;
+/** 紙に描いた絵の画像に、本番と同じプロンプトで Claude が書いた説明 (fixtures/illustration/LICENSES.md)。 */
+const illustrationDescriptions = JSON.parse(readFileSync(path.join(__dirname, "..", "fixtures", "illustration", "descriptions.json"), "utf8")) as Record<string, DescribeSubjectOutput>;
 
 beforeAll(async () => {
   await firestore.doc(`master/${master.version}`).set(master);
@@ -119,9 +121,9 @@ function createMocks({
       output: {
         element: { displayName: "ろう", description: "ろうでできた物", colorHex: "#FFEEDD" },
         moves: [
-          { displayName: "ろうアタック", power: 40, powerPoints: 30 },
-          { displayName: "ろうプレス", power: 70, powerPoints: 15 },
-          { displayName: "ろうバースト", power: 110, powerPoints: 5 },
+          { displayName: "ろうアタック", power: 40, powerPoints: 30, rationale: "ろうの塊でぶつかる技" },
+          { displayName: "ろうプレス", power: 70, powerPoints: 15, rationale: "溶けたろうで押しつぶす技" },
+          { displayName: "ろうバースト", power: 110, powerPoints: 5, rationale: "ろうそくの炎ごとはじける技" },
         ],
       },
       usage: { inputTokens: 800, outputTokens: 200 },
@@ -183,6 +185,11 @@ async function uploadPhoto({ uid, photo }: { uid: string; photo: Buffer }) {
 
 function photoFixture(sampleId: string): Buffer {
   return readFileSync(path.join(__dirname, "..", "fixtures", "calibration", "photos", `${sampleId}.jpg`));
+}
+
+/** 紙に描いた絵の画像 (fixtures/illustration/)。 */
+function illustrationFixture(illustrationName: string): Buffer {
+  return readFileSync(path.join(__dirname, "..", "fixtures", "illustration", `${illustrationName}.jpg`));
 }
 
 /** 匿名ログインした [uid] の generate の呼び出し (カスタムクレーム無し)。 */
@@ -342,6 +349,31 @@ describe("generate", () => {
     const result = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data: await uploadPhoto({ uid: "alice", photo: photoFixture("28") }) }));
     expect(result.status).toBe("saved");
     expect(mocks.calls.jev).toEqual({ classify: 1, dedupe: 1, judge: 1 });
+  });
+
+  // Claude と Jev はモックで、答えは fixtures/illustration/result-2026-10-31.json の実測の値を写した。
+  // 実際の Claude が紙を素材にしないことはこのテストでは確かめられず、根拠は同じファイルの実測 (documents/game-rules.md「被写体の説明」)
+  it("紙に描いたケーキの絵は、紙ではなく描かれたケーキとして説明を保存し、属性もケーキで決まる (#129)", async () => {
+    const mocks = createMocks({ description: illustrationDescriptions.strawberry_cake, jev: { elementProbabilities: { food: 0.98, heat: 0.65, paper: 0.04 } } });
+    const result = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data: await uploadPhoto({ uid: "alice", photo: illustrationFixture("strawberry_cake") }) }));
+    expect(result.status).toBe("saved");
+
+    const monster = (await firestore.doc(`users/alice/monsters/${result.monsterId}`).get()).data() as MonsterDocument;
+    expect(monster.subjectDescription.what).not.toContain("紙");
+    expect(monster.subjectDescription.materials).not.toContain("紙");
+    expect(monster.subjectDescription.materials).toContain("食べ物");
+    expect(monster.definition.elementTypeIds).toEqual(["food", "heat"]);
+  });
+
+  it("同じ種類の別の絵 (いちごとチョコレートのケーキ) は別のモンスターとして保存する (#129)", async () => {
+    await handleGenerateRequest(
+      createMocks({ description: illustrationDescriptions.strawberry_cake }).dependencies,
+      signedInRequest({ uid: "alice", data: await uploadPhoto({ uid: "alice", photo: illustrationFixture("strawberry_cake") }) }),
+    );
+    const mocks = createMocks({ description: illustrationDescriptions.chocolate_cake, jev: { dedupe: { same: 0.07, different: 0.94 } } });
+    const result = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data: await uploadPhoto({ uid: "alice", photo: illustrationFixture("chocolate_cake") }) }));
+    expect(result.status).toBe("saved");
+    expect(mocks.calls.jev.dedupe).toBe(1);
   });
 
   it("別のユーザーの同じ被写体は重複にしない (二重登録の防止はユーザー単位)", async () => {
@@ -747,6 +779,7 @@ describe("generate", () => {
     expect(monster.definitionIds).toEqual([elementTypeId]);
     const definition = (await firestore.doc(`definitions/${elementTypeId}`).get()).data()!;
     expect(definition).toMatchObject({ version: 1, elementTypes: [{ id: elementTypeId, displayName: "ろう" }] });
+    expect(definition.moves.map((move: { rationale?: string }) => move.rationale)).toEqual(["ろうの塊でぶつかる技", "溶けたろうで押しつぶす技", "ろうそくの炎ごとはじける技"]);
     // その場で作った属性は段階 1 の技を 1 つしか持たないため、Lv.1 の残りを master の別の属性 (当てはまりが同じ 0.05 なので ID 順) で埋める
     expect(monster.definition.learnset).toEqual([
       { moveId: `${elementTypeId}_1`, unlockLevel: 1 },
@@ -757,6 +790,26 @@ describe("generate", () => {
       { moveId: `${elementTypeId}_3`, unlockLevel: 100 },
     ]);
     expect((await firestore.doc("definitionCounters/global").get()).data()).toEqual({ elementCount: 1, moveCount: 3 });
+  });
+
+  it("rationale を足す前に保存した提案 (技の根拠が無い) でも、根拠の項目を省いて definitions に保存する", async () => {
+    const mocks = createMocks({ jev: { elementProbabilities: {} } });
+    // 判定待ちの再試行は生成のレコードの elementProposal を読み直して使うため、根拠の無い提案を返すモックで同じ入力を作る
+    mocks.dependencies.proposeElement = async () => ({
+      output: {
+        element: { displayName: "ろう", description: "ろうでできた物", colorHex: "#FFEEDD" },
+        moves: [
+          { displayName: "ろうアタック", power: 40, powerPoints: 30 },
+          { displayName: "ろうプレス", power: 70, powerPoints: 15 },
+          { displayName: "ろうバースト", power: 110, powerPoints: 5 },
+        ],
+      },
+      usage: { inputTokens: 800, outputTokens: 200 },
+    });
+    const result = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data: await uploadPhoto({ uid: "alice", photo: photoFixture("18") }) }));
+    expect(result.status).toBe("saved");
+    expect(
+      (await firestore.doc(`definitions/${((await firestore.doc(`users/alice/monsters/${result.monsterId}`).get()).data() as MonsterDocument).definition.elementTypeIds[0]}`).get()).data()!.moves.map((move: Record<string, unknown>) => "rationale" in move)).toEqual([false, false, false]);
   });
 });
 

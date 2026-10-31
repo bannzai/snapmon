@@ -71,7 +71,6 @@ void main() {
           ),
           firstBattleBornMonster: null,
           firstBattleMonsterIsNewlyBorn: false,
-          opponentSafetyMenu: null,
         ),
       ),
     );
@@ -134,7 +133,6 @@ void main() {
               ),
               firstBattleBornMonster: strongPlayer,
               firstBattleMonsterIsNewlyBorn: isNewlyBorn,
-              opponentSafetyMenu: null,
             ),
           ),
         );

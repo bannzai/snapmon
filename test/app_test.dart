@@ -14,7 +14,6 @@ import 'package:snapmon/features/battle/battle_screen.dart';
 import 'package:snapmon/features/capture/monster_generator.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
 import 'package:snapmon/features/home/home_shell.dart';
-import 'package:snapmon/features/opponent/opponent_safety_actions.dart';
 import 'package:snapmon/features/opponent/pvp_client.dart';
 import 'package:snapmon/features/opponent/pvp_opponent.dart';
 import 'package:snapmon/features/session/session_store.dart';
@@ -755,17 +754,17 @@ void main() {
     }
 
     testWidgets(
-      'タイトルで写真を選ぶと生成の完了を待たずに相手を探す画面に進み、生まれると手持ちに入れて PvP の相手とバトルし、決着で生まれたカードと勝敗が同じ画面に出る',
+      'タイトルで写真を選ぶと生成の完了を待たずに相手を探す画面に進み、生まれると手持ちに入れて CPU トレーナーとバトルし、決着で生まれたカードと勝敗が同じ画面に出る',
       (tester) async {
         generationGate = Completer<void>();
         pvpClient = fakePvpClient(
           calls: pvpCalls,
-          // 候補が 1 人以下だと CPU トレーナーと混ぜて選ぶため、2 人返して先頭 (平均レベルが最も近い) と戦わせる
+          // 他のユーザーの候補があっても、本人の操作なしに他人の手持ちを相手にしない (issue #130)
           fetchOpponents: () async => [
             for (final index in [1, 2])
               PvpOpponent(
                 opponentUid: 'opponent-uid-$index',
-                displayName: index == 1 ? 'ろうそくや' : 'ろうそくや $index',
+                displayName: 'ろうそくや $index',
                 monsters: [
                   generatedWaxMonster(monsterId: 'opponent-wax-$index'),
                 ],
@@ -793,7 +792,6 @@ void main() {
         expect(find.text('相手を探しています'), findsOneWidget);
         expect(find.text('あたらしい なかま'), findsNothing);
         expect(find.byType(BattleScreen), findsNothing);
-        expect(pvpCalls.fetchOpponentsCount, 0);
 
         generationGate!.complete();
         await tester.pump();
@@ -802,65 +800,22 @@ void main() {
         expect(dexStore.party.map((monster) => monster.definition.id), [
           bornMonsterId,
         ]);
-        expect(find.text('ろうそくや があらわれた'), findsOneWidget);
-        expect(pvpCalls.fetchOpponentsCount, 1);
-        expect(pvpCalls.fetchedDefinitionIds, [
-          [waxDefinitionId],
-        ]);
+        // 相手は CPU トレーナーのどれか (seed で選ぶ)
+        expect(find.textContaining(RegExp(r'^CPU .+ があらわれた$')), findsOneWidget);
+        expect(pvpCalls.fetchOpponentsCount, 0);
+        expect(pvpCalls.fetchedDefinitionIds, isEmpty);
 
         await tester.pump(const Duration(seconds: 2));
         await tester.pump(const Duration(seconds: 1));
         expect(find.byType(BattleScreen), findsOneWidget);
         expect(find.byKey(const Key('first-battle-hint')), findsOneWidget);
-        expect(find.text('ロウソクン が 勝負をしかけてきた'), findsOneWidget);
-
-        // 初回の相手は対戦相手の画面を通らずに当たるため、バトルの画面から通報とブロックができ、した後もバトルは続く
-        Future<void> openOpponentSafetyMenu() async {
-          await tester.tap(
-            find.byKey(const Key('opponent-menu-opponent-uid-1')),
-          );
-          await tester.pump();
-          await tester.pump(const Duration(milliseconds: 500));
-        }
-
-        await openOpponentSafetyMenu();
-        await tester.tap(find.text('ロウソクン を通報'));
-        await tester.pump();
-        await tester.pump(const Duration(milliseconds: 500));
-        await tester.tap(find.byKey(const Key('report-reason-other')));
-        await tester.pump();
-        await tester.tap(find.byKey(const Key('report-submit')));
-        await tester.pump();
-        await tester.pump(const Duration(milliseconds: 500));
-        expect(
-          [
-            for (final report in pvpCalls.reports)
-              (report.monsterOwnerUid, report.monsterId),
-          ],
-          [('opponent-uid-1', 'opponent-wax-1')],
-        );
-        expect(find.text('通報しました'), findsOneWidget);
-
-        await openOpponentSafetyMenu();
-        await tester.tap(find.text('このトレーナーをブロック'));
-        await tester.pump();
-        await tester.pump(const Duration(milliseconds: 500));
-        await tester.tap(find.byKey(const Key('block-confirm')));
-        await tester.pump();
-        await tester.pump(const Duration(milliseconds: 500));
-        expect(pvpCalls.blockedUids, ['opponent-uid-1']);
-        expect(find.text('ブロックしました'), findsOneWidget);
-        expect(find.byType(BattleScreen), findsOneWidget);
-        // 技のボタンを押す前に、ボタンに重なるスナックバーが消えるまで進める
-        await tester.pump(const Duration(seconds: 5));
-        await tester.pump(const Duration(seconds: 1));
-
-        await playFirstBattleUntilFinished(tester: tester);
-        // 決着の後も通報・ブロックできる
+        // CPU トレーナーは他のユーザーではないため、通報・ブロックのメニューを出さない
         expect(
           find.byKey(const Key('opponent-menu-opponent-uid-1')),
-          findsOneWidget,
+          findsNothing,
         );
+
+        await playFirstBattleUntilFinished(tester: tester);
         final bornMonster = generatedWaxMonster(
           monsterId: bornMonsterId,
         ).definition;
@@ -903,7 +858,7 @@ void main() {
           ],
           ['battle_completed', 'battle_completed'],
         );
-        expect(battleCalls.loggedEvents.first.parameters?['opponent'], 'pvp');
+        expect(battleCalls.loggedEvents.first.parameters?['opponent'], 'cpu');
         expect(
           battleCalls.loggedEvents.last.event,
           AnalyticsEvent.firstExperience,
@@ -920,41 +875,37 @@ void main() {
       },
     );
 
-    testWidgets(
-      '撮るタブは手持ちが空の時に案内を出し、アルバムから選ぶと PvP の候補が無い時は CPU トレーナーと戦い、「図鑑を見る」で図鑑に入る',
-      (tester) async {
-        await pumpHome(
-          tester: tester,
-          hasStartedSession: true,
-          startSessionFailureCount: 0,
-          isDeveloperMenuEnabled: false,
-          startsCameraOnCaptureOpen: false,
-        );
-        // テストの環境にはカメラが無いため、選ぶ案内になる
-        expect(find.text('身の回りの物の写真を 1 枚選ぼう'), findsOneWidget);
+    testWidgets('撮るタブは手持ちが空の時に案内を出し、アルバムから選ぶと CPU トレーナーと戦い、「図鑑を見る」で図鑑に入る', (
+      tester,
+    ) async {
+      await pumpHome(
+        tester: tester,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
+      );
+      // テストの環境にはカメラが無いため、選ぶ案内になる
+      expect(find.text('身の回りの物の写真を 1 枚選ぼう'), findsOneWidget);
 
-        await tester.tap(find.byTooltip('アルバムから選ぶ'));
-        await tester.pump();
-        await tester.pump(const Duration(milliseconds: 500));
-        // 相手は CPU トレーナーのどれか (seed で選ぶ)
-        expect(find.textContaining(RegExp(r'^CPU .+ があらわれた$')), findsOneWidget);
-        // ログインが無い時の候補 (null) を読んだ上で CPU トレーナーにする
-        expect(pvpCalls.fetchOpponentsCount, 1);
+      await tester.tap(find.byTooltip('アルバムから選ぶ'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 500));
+      // 相手は CPU トレーナーのどれか (seed で選ぶ)
+      expect(find.textContaining(RegExp(r'^CPU .+ があらわれた$')), findsOneWidget);
+      expect(pvpCalls.fetchOpponentsCount, 0);
 
-        await tester.pump(const Duration(seconds: 2));
-        await tester.pump(const Duration(seconds: 1));
-        expect(find.byType(BattleScreen), findsOneWidget);
-        // CPU トレーナーは他のユーザーではないため、通報・ブロックのメニューを出さない
-        expect(find.byType(OpponentSafetyMenuButton), findsNothing);
-        await playFirstBattleUntilFinished(tester: tester);
-        expect(battleCalls.loggedEvents.first.parameters?['opponent'], 'cpu');
+      await tester.pump(const Duration(seconds: 2));
+      await tester.pump(const Duration(seconds: 1));
+      expect(find.byType(BattleScreen), findsOneWidget);
+      await playFirstBattleUntilFinished(tester: tester);
+      expect(battleCalls.loggedEvents.first.parameters?['opponent'], 'cpu');
 
-        await tester.tap(find.text('図鑑を見る'));
-        await tester.pump();
-        await tester.pump(const Duration(seconds: 1));
-        expect(find.text('1 体 · 手持ち 1 体'), findsOneWidget);
-      },
-    );
+      await tester.tap(find.text('図鑑を見る'));
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
+      expect(find.text('1 体 · 手持ち 1 体'), findsOneWidget);
+    });
   });
 
   group('下タブと画面の遷移', () {
@@ -1541,7 +1492,7 @@ void main() {
             .onPressed,
         isNull,
       );
-      // 他のユーザーの相手は自分の手持ちの平均レベルから選ぶため、手持ちが入るまで探さない
+      // 他のユーザーの手持ちは相手にしない (issue #130)
       expect(pvpCalls.fetchOpponentsCount, 0);
     });
 
@@ -1556,7 +1507,7 @@ void main() {
       dexStore.replaceAll(monsters: sampleData.monsters);
       await tester.tap(find.byKey(const Key('tab-opponent')));
       await tester.pumpAndSettle();
-      final opponent = sampleData.opponents.first;
+      final opponent = sampleData.cpuTrainers.first;
       final challengeButton = find.byKey(Key('challenge-${opponent.id}'));
 
       // バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める。
@@ -1706,83 +1657,6 @@ void main() {
     expect(dexStore.party.first.level, 50);
   });
 
-  testWidgets(
-    '他のユーザーの手持ちに挑むと、相手のその場で作った定義を読んでから決着まで戦え、計測に opponent: pvp を付ける',
-    (tester) async {
-      pvpClient = fakePvpClient(
-        calls: pvpCalls,
-        fetchOpponents: () async => [
-          PvpOpponent(
-            opponentUid: 'opponent-uid-1',
-            displayName: 'ろうそくや',
-            monsters: [generatedWaxMonster(monsterId: 'opponent-wax-1')],
-          ),
-        ],
-        // 相手のモンスターの属性・技 (dynamic-wax) は自分の図鑑の定義に無く、相手の定義を読んで初めて引ける
-        extraDefinitions: MasterData.fromJson(json: waxDefinitionJson),
-        battleRecord: (wins: 8, losses: 3),
-        displayName: 'トレーナー 0001',
-        reportMonster: () async {},
-        blockUser: () async {},
-        updateDisplayName: ({required displayName}) async => displayName,
-      );
-      await pumpHome(
-        tester: tester,
-        hasStartedSession: true,
-        startSessionFailureCount: 0,
-        isDeveloperMenuEnabled: false,
-        startsCameraOnCaptureOpen: false,
-      );
-      dexStore.replaceAll(monsters: sampleData.monsters);
-      expect(
-        sampleData.definitions.elementTypes.map((element) => element.id),
-        isNot(contains('dynamic-wax')),
-      );
-      await tester.tap(find.byKey(const Key('tab-opponent')));
-      await tester.pumpAndSettle();
-      expect(find.text('ろうそくや'), findsOneWidget);
-      expect(find.text('平均 Lv. 1'), findsOneWidget);
-      expect(find.text('8 勝 3 敗'), findsOneWidget);
-      // 見本の対戦相手は、ログインして他のユーザーを読めた時は出さない
-      expect(find.text(sampleData.opponents.first.name), findsNothing);
-
-      final challengeButton = find.byKey(const Key('challenge-opponent-uid-1'));
-      await tester.ensureVisible(challengeButton);
-      await tester.pumpAndSettle();
-      await tester.tap(challengeButton);
-      // バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める
-      await tester.pump();
-      await tester.pump(const Duration(seconds: 1));
-      expect(pvpCalls.fetchedDefinitionIds, [
-        [waxDefinitionId],
-      ]);
-      expect(find.text('ロウソクン が 勝負をしかけてきた'), findsOneWidget);
-      expect(find.text('ろう'), findsOneWidget);
-
-      // 100 ターン: 見本の手持ちとレベル 1 の相手なら数ターンで決着するため、決着しない不具合でテストが止まらない上限として十分な数
-      for (
-        var turn = 0;
-        turn < 100 && find.text('もどる').evaluate().isEmpty;
-        turn++
-      ) {
-        await tester.tap(
-          find.text('わるあがき').evaluate().isEmpty
-              ? find.byKey(const Key('move-slot-0'))
-              : find.text('わるあがき'),
-        );
-        await tester.pump();
-        await tester.pump(const Duration(seconds: 5));
-      }
-      expect(find.text('もどる'), findsOneWidget);
-      expect(tester.takeException(), isNull);
-      expect(
-        battleCalls.loggedEvents.single.event,
-        AnalyticsEvent.battleCompleted,
-      );
-      expect(battleCalls.loggedEvents.single.parameters?['opponent'], 'pvp');
-    },
-  );
-
   testWidgets('端末の文字を 2 倍にしてもバトル画面の技のボタンがはみ出さない', (tester) async {
     tester.platformDispatcher.textScaleFactorTestValue = 2;
     addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
@@ -1797,7 +1671,7 @@ void main() {
     await tester.tap(find.byKey(const Key('tab-opponent')));
     await tester.pumpAndSettle();
     await tester.tap(
-      find.byKey(Key('challenge-${sampleData.opponents.first.id}')),
+      find.byKey(Key('challenge-${sampleData.cpuTrainers.first.id}')),
     );
     // バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める
     await tester.pump();
@@ -1841,7 +1715,6 @@ void main() {
           ),
           firstBattleBornMonster: null,
           firstBattleMonsterIsNewlyBorn: false,
-          opponentSafetyMenu: null,
         ),
       ),
     );

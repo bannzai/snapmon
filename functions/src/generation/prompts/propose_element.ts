@@ -12,6 +12,7 @@ export const PROPOSE_ELEMENT_SYSTEM_PROMPT = `あなたは、写真に写った�
   - 1 つ目: power 30〜50、powerPoints 20〜35
   - 2 つ目: power 60〜80、powerPoints 10〜20
   - 3 つ目: power 90〜120、powerPoints 5〜10
+- moves[].rationale: その技がこの属性の技である根拠を 1 文で。技の名前に出てくる物・動きと、属性の特徴 (element.description) の結びつきが分かるように書く。ゲームの保守のための記録で、遊ぶ人には見せない
 
 守ること:
 - 読む人には子どもが含まれます。暴力・流血・死・性的な表現・差別的な表現・怖がらせる表現を名前に出さない
@@ -41,8 +42,9 @@ export const PROPOSE_ELEMENT_OUTPUT_SCHEMA = {
           displayName: { type: "string" },
           power: { type: "integer" },
           powerPoints: { type: "integer" },
+          rationale: { type: "string" },
         },
-        required: ["displayName", "power", "powerPoints"],
+        required: ["displayName", "power", "powerPoints", "rationale"],
         additionalProperties: false,
       },
     },
@@ -55,8 +57,11 @@ export const PROPOSE_ELEMENT_OUTPUT_SCHEMA = {
 export interface ProposeElementOutput {
   /** 属性。 */
   element: { displayName: string; description: string; colorHex: string };
-  /** 弱い順の 3 つの技。 */
-  moves: { displayName: string; power: number; powerPoints: number }[];
+  /**
+   * 弱い順の 3 つの技。`rationale` はその技がこの属性の技である根拠 (master の技の `rationale` と同じ意味)。
+   * この項目を足す前に保存した提案 (生成のレコードの `elementProposal`) は持たない。
+   */
+  moves: { displayName: string; power: number; powerPoints: number; rationale?: string }[];
 }
 
 /**

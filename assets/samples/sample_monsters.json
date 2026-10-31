@@ -1,6 +1,6 @@
 {
   "definitions": {
-    "version": 3,
+    "version": 4,
     "elementTypes": [
       {
         "id": "metal",
@@ -228,7 +228,8 @@
         "category": "attack",
         "effectId": "metal_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "rationale": "ブリキ (錫をめっきした鉄板) のおもちゃや缶で叩く技で、素材が金属のため金属の技にした"
       },
       {
         "id": "metal_1b",
@@ -242,8 +243,10 @@
         "learnableLevelMaximum": 30,
         "specialEffect": {
           "kind": "tougherOpponent",
-          "maximumPowerPercent": 150
-        }
+          "maximumPowerPercent": 150,
+          "rationale": "ねじは硬い物にほど力を込めてねじ込む道具のため、相手の防御が自分の攻撃より高い時に強くなる tougherOpponent にした"
+        },
+        "rationale": "ねじは金属の部品の代表で、回しながら押し込む動きを技にしたため金属の技にした"
       },
       {
         "id": "metal_1c",
@@ -257,8 +260,10 @@
         "learnableLevelMaximum": 30,
         "specialEffect": {
           "kind": "movesLast",
-          "maximumPowerPercent": 140
-        }
+          "maximumPowerPercent": 140,
+          "rationale": "スプーンは相手の動きを見てからはじき返す動きのため、後に動いた時に強くなる movesLast にした"
+        },
+        "rationale": "金属のスプーンの柄を指ではじく動きを技にしたため金属の技にした"
       },
       {
         "id": "metal_1d",
@@ -269,7 +274,8 @@
         "category": "attack",
         "effectId": "metal_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "rationale": "缶詰の缶 (ブリキ・アルミ) をぶつける技で、素材が金属のため金属の技にした"
       },
       {
         "id": "metal_2",
@@ -280,7 +286,8 @@
         "category": "attack",
         "effectId": "metal_particle",
         "learnableLevelMinimum": 15,
-        "learnableLevelMaximum": 200
+        "learnableLevelMaximum": 200,
+        "rationale": "鋼 (スチール) の板で挟んで押しつぶすプレス機の動きを技にしたため金属の技にした"
       },
       {
         "id": "plant_1",
@@ -291,7 +298,8 @@
         "category": "attack",
         "effectId": "plant_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "rationale": "生きた葉っぱを刃物のように飛ばす技のため植物の技にした"
       },
       {
         "id": "plant_1b",
@@ -305,8 +313,10 @@
         "learnableLevelMaximum": 30,
         "specialEffect": {
           "kind": "differentElementFromOpponent",
-          "maximumPowerPercent": 120
-        }
+          "maximumPowerPercent": 120,
+          "rationale": "綿毛は風に乗って遠くの別の土地へ飛んでいくため、自分と違う属性の相手に強くなる differentElementFromOpponent にした"
+        },
+        "rationale": "たんぽぽの綿毛を飛ばす技で、生きた草花の種のため植物の技にした"
       },
       {
         "id": "plant_1c",
@@ -320,8 +330,10 @@
         "learnableLevelMaximum": 30,
         "specialEffect": {
           "kind": "tougherOpponent",
-          "maximumPowerPercent": 150
-        }
+          "maximumPowerPercent": 150,
+          "rationale": "サボテンのとげは硬い殻の相手にも刺さるため、相手の防御が自分の攻撃より高い時に強くなる tougherOpponent にした"
+        },
+        "rationale": "サボテンのとげでつつく技のため植物の技にした"
       },
       {
         "id": "plant_1d",
@@ -332,7 +344,8 @@
         "category": "attack",
         "effectId": "plant_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "rationale": "芽を出したばかりの双葉で蹴る技で、生えたての植物のため植物の技にした"
       },
       {
         "id": "plant_2",
@@ -343,7 +356,8 @@
         "category": "attack",
         "effectId": "plant_particle",
         "learnableLevelMinimum": 15,
-        "learnableLevelMaximum": 200
+        "learnableLevelMaximum": 200,
+        "rationale": "伸びたつるで締めつける技のため植物の技にした"
       },
       {
         "id": "water_1",
@@ -354,7 +368,8 @@
         "category": "attack",
         "effectId": "water_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "rationale": "水のしずくを玉にしてぶつける技のため水の技にした"
       },
       {
         "id": "water_1b",
@@ -368,8 +383,10 @@
         "learnableLevelMaximum": 30,
         "specialEffect": {
           "kind": "sameElementAsOpponent",
-          "maximumPowerPercent": 150
-        }
+          "maximumPowerPercent": 150,
+          "rationale": "水を浴びせると同じ仲間 (同じ素材) ほどよく染み込むため、自分と同じ属性を持つ相手に強くなる sameElementAsOpponent にした。技の名前と効果の結びつきが弱く、次に効果を見直す時に入れ替えを検討する"
+        },
+        "rationale": "じょうろで水を浴びせる技で、水を運ぶ道具のため水の技にした"
       },
       {
         "id": "water_1c",
@@ -383,8 +400,10 @@
         "learnableLevelMaximum": 30,
         "specialEffect": {
           "kind": "movesFirst",
-          "maximumPowerPercent": 130
-        }
+          "maximumPowerPercent": 130,
+          "rationale": "水たまりは相手が動く前に足元に広げておくと滑らせられるため、先に動いた時に強くなる movesFirst にした"
+        },
+        "rationale": "水たまりで相手を滑らせる技のため水の技にした"
       },
       {
         "id": "water_1d",
@@ -395,7 +414,8 @@
         "category": "attack",
         "effectId": "water_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "rationale": "傘を振って雨のしぶきを飛ばす技で、雨具は水の属性に含めるため水の技にした"
       },
       {
         "id": "water_2",
@@ -406,7 +426,8 @@
         "category": "attack",
         "effectId": "water_particle",
         "learnableLevelMinimum": 15,
-        "learnableLevelMaximum": 200
+        "learnableLevelMaximum": 200,
+        "rationale": "水鉄砲で水を勢いよく撃つ技のため水の技にした"
       },
       {
         "id": "heat_1",
@@ -417,7 +438,8 @@
         "category": "attack",
         "effectId": "heat_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "rationale": "温かい手や湯たんぽでほかほか触れる技で、熱を伝えるため熱の技にした"
       },
       {
         "id": "heat_1b",
@@ -431,8 +453,10 @@
         "learnableLevelMaximum": 30,
         "specialEffect": {
           "kind": "movesFirst",
-          "maximumPowerPercent": 130
-        }
+          "maximumPowerPercent": 130,
+          "rationale": "湯気のもやは相手が動く前に視界を覆うため、先に動いた時に強くなる movesFirst にした"
+        },
+        "rationale": "湯気のもやで包む技で、熱い湯から出るため熱の技にした"
       },
       {
         "id": "heat_1c",
@@ -446,8 +470,10 @@
         "learnableLevelMaximum": 30,
         "specialEffect": {
           "kind": "opponentHitPointsLow",
-          "maximumPowerPercent": 200
-        }
+          "maximumPowerPercent": 200,
+          "rationale": "アイロンはしわを伸ばしきる仕上げに使う道具のため、相手の HP が減っているほど (仕上げの段階ほど) 強くなる opponentHitPointsLow にした"
+        },
+        "rationale": "熱いアイロンを押し当ててかける技のため熱の技にした"
       },
       {
         "id": "heat_1d",
@@ -458,7 +484,8 @@
         "category": "attack",
         "effectId": "heat_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "rationale": "マッチを擦った時の火花を飛ばす技で、火に関わるため熱の技にした"
       },
       {
         "id": "heat_2",
@@ -469,7 +496,8 @@
         "category": "attack",
         "effectId": "heat_particle",
         "learnableLevelMinimum": 15,
-        "learnableLevelMaximum": 200
+        "learnableLevelMaximum": 200,
+        "rationale": "暖房の熱風を吹きつける技のため熱の技にした"
       },
       {
         "id": "paper_1",
@@ -480,7 +508,8 @@
         "category": "attack",
         "effectId": "paper_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "rationale": "紙飛行機を飛ばしてぶつける技のため紙の技にした"
       },
       {
         "id": "paper_1b",
@@ -494,8 +523,10 @@
         "learnableLevelMaximum": 30,
         "specialEffect": {
           "kind": "powerPointsLow",
-          "maximumPowerPercent": 200
-        }
+          "maximumPowerPercent": 200,
+          "rationale": "ページをめくるほど物語の終わりに近づき盛り上がるため、この技の残り PP が少ないほど (使い込むほど) 強くなる powerPointsLow にした。技の名前と効果の結びつきが弱く、次に効果を見直す時に入れ替えを検討する"
+        },
+        "rationale": "本のページをめくる勢いで打つ技で、紙を束ねた本の動きのため紙の技にした"
       },
       {
         "id": "paper_1c",
@@ -509,8 +540,10 @@
         "learnableLevelMaximum": 30,
         "specialEffect": {
           "kind": "sameElementAsOpponent",
-          "maximumPowerPercent": 150
-        }
+          "maximumPowerPercent": 150,
+          "rationale": "付箋は同じ紙の上 (同じ素材の物) によく貼りつくため、自分と同じ属性を持つ相手に強くなる sameElementAsOpponent にした。技の名前と効果の結びつきが弱く、次に効果を見直す時に入れ替えを検討する"
+        },
+        "rationale": "付箋を貼りつける技で、紙の文房具のため紙の技にした"
       },
       {
         "id": "paper_1d",
@@ -521,7 +554,8 @@
         "category": "attack",
         "effectId": "paper_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "rationale": "紙を折って作るハリセンで叩く技のため紙の技にした"
       },
       {
         "id": "paper_2",
@@ -532,7 +566,8 @@
         "category": "attack",
         "effectId": "paper_particle",
         "learnableLevelMinimum": 15,
-        "learnableLevelMaximum": 200
+        "learnableLevelMaximum": 200,
+        "rationale": "折り紙の鋭い角で切りつける技のため紙の技にした"
       },
       {
         "id": "cloth_1",
@@ -543,7 +578,8 @@
         "category": "attack",
         "effectId": "cloth_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "rationale": "布のハンカチではたく技のため布の技にした"
       },
       {
         "id": "cloth_1b",
@@ -557,8 +593,10 @@
         "learnableLevelMaximum": 30,
         "specialEffect": {
           "kind": "ownHitPointsLow",
-          "maximumPowerPercent": 200
-        }
+          "maximumPowerPercent": 200,
+          "rationale": "靴下は脱いで投げるほど追い込まれた時の最後の手段のため、自分の HP が減っているほど強くなる ownHitPointsLow にした"
+        },
+        "rationale": "布の靴下を丸めて投げる技のため布の技にした"
       },
       {
         "id": "cloth_1c",
@@ -572,8 +610,10 @@
         "learnableLevelMaximum": 30,
         "specialEffect": {
           "kind": "movesFirst",
-          "maximumPowerPercent": 130
-        }
+          "maximumPowerPercent": 130,
+          "rationale": "タオルのスナップは相手が構える前の速さが命のため、先に動いた時に強くなる movesFirst にした"
+        },
+        "rationale": "タオルをねじって先をはじくように打つ技で、布の物のため布の技にした"
       },
       {
         "id": "cloth_1d",
@@ -584,7 +624,8 @@
         "category": "attack",
         "effectId": "cloth_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "rationale": "服のボタンを糸からはじき飛ばす技で、服 (布の物) の部品のため布の技にした"
       },
       {
         "id": "cloth_2",
@@ -595,7 +636,8 @@
         "category": "attack",
         "effectId": "cloth_particle",
         "learnableLevelMinimum": 15,
-        "learnableLevelMaximum": 200
+        "learnableLevelMaximum": 200,
+        "rationale": "毛糸のマフラーで巻きつく技のため布の技にした"
       },
       {
         "id": "plastic_1",
@@ -606,7 +648,8 @@
         "category": "attack",
         "effectId": "plastic_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "rationale": "プラスチックのストローで吹き矢のように撃つ技のため樹脂の技にした"
       },
       {
         "id": "plastic_1b",
@@ -620,8 +663,10 @@
         "learnableLevelMaximum": 30,
         "specialEffect": {
           "kind": "movesLast",
-          "maximumPowerPercent": 140
-        }
+          "maximumPowerPercent": 140,
+          "rationale": "ゴムは相手の動きを待って引き絞ってから放つため、後に動いた時に強くなる movesLast にした"
+        },
+        "rationale": "輪ゴムを引っ張って放つ技で、ゴムは樹脂の属性に含めるため樹脂の技にした"
       },
       {
         "id": "plastic_1c",
@@ -635,8 +680,10 @@
         "learnableLevelMaximum": 30,
         "specialEffect": {
           "kind": "opponentHitPointsLow",
-          "maximumPowerPercent": 200
-        }
+          "maximumPowerPercent": 200,
+          "rationale": "ラップは弱った相手ほどぐるぐる巻きにしやすいため、相手の HP が減っているほど強くなる opponentHitPointsLow にした"
+        },
+        "rationale": "食品用のラップでぐるぐる巻きにする技で、ラップは樹脂のフィルムのため樹脂の技にした"
       },
       {
         "id": "plastic_1d",
@@ -647,7 +694,8 @@
         "category": "attack",
         "effectId": "plastic_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "rationale": "プラスチックのバケツをかぶせる技のため樹脂の技にした"
       },
       {
         "id": "plastic_2",
@@ -658,7 +706,8 @@
         "category": "attack",
         "effectId": "plastic_particle",
         "learnableLevelMinimum": 15,
-        "learnableLevelMaximum": 200
+        "learnableLevelMaximum": 200,
+        "rationale": "ペットボトルのロケットを飛ばす技で、ボトルが樹脂のため樹脂の技にした"
       },
       {
         "id": "electric_1",
@@ -669,7 +718,8 @@
         "category": "attack",
         "effectId": "electric_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "rationale": "静電気でぱちっと触れる技のため電気の技にした"
       },
       {
         "id": "electric_1b",
@@ -683,8 +733,10 @@
         "learnableLevelMaximum": 30,
         "specialEffect": {
           "kind": "movesFirst",
-          "maximumPowerPercent": 130
-        }
+          "maximumPowerPercent": 130,
+          "rationale": "ライトの点滅は相手が動く前に目をくらませるため、先に動いた時に強くなる movesFirst にした"
+        },
+        "rationale": "電気のライトをちかちか点滅させる技で、光を出す物は電気の属性に含めるため電気の技にした"
       },
       {
         "id": "electric_1c",
@@ -698,8 +750,10 @@
         "learnableLevelMaximum": 30,
         "specialEffect": {
           "kind": "differentElementFromOpponent",
-          "maximumPowerPercent": 120
-        }
+          "maximumPowerPercent": 120,
+          "rationale": "電気のコードは自分と違う物 (電気を通さない物) に巻きついて縛るため、自分と違う属性の相手に強くなる differentElementFromOpponent にした"
+        },
+        "rationale": "電気のコードで縛る技で、ケーブルは電気の属性に含めるため電気の技にした"
       },
       {
         "id": "electric_1d",
@@ -710,7 +764,8 @@
         "category": "attack",
         "effectId": "electric_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "rationale": "電池で動くリモコンの赤外線を撃つ技のため電気の技にした"
       },
       {
         "id": "electric_2",
@@ -721,7 +776,8 @@
         "category": "attack",
         "effectId": "electric_particle",
         "learnableLevelMinimum": 15,
-        "learnableLevelMaximum": 200
+        "learnableLevelMaximum": 200,
+        "rationale": "電池の電気で痺れさせる技のため電気の技にした"
       },
       {
         "id": "food_1",
@@ -732,7 +788,8 @@
         "category": "attack",
         "effectId": "food_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "rationale": "パンくずを投げる技で、食べられる物のため食べ物の技にした"
       },
       {
         "id": "food_1b",
@@ -746,8 +803,10 @@
         "learnableLevelMaximum": 30,
         "specialEffect": {
           "kind": "sameElementAsOpponent",
-          "maximumPowerPercent": 150
-        }
+          "maximumPowerPercent": 150,
+          "rationale": "飴玉は同じ食べ物の仲間にくっつきやすいため、自分と同じ属性を持つ相手に強くなる sameElementAsOpponent にした。技の名前と効果の結びつきが弱く、次に効果を見直す時に入れ替えを検討する"
+        },
+        "rationale": "飴玉を転がしてぶつける技で、お菓子のため食べ物の技にした"
       },
       {
         "id": "food_1c",
@@ -761,8 +820,10 @@
         "learnableLevelMaximum": 30,
         "specialEffect": {
           "kind": "ownHitPointsLow",
-          "maximumPowerPercent": 200
-        }
+          "maximumPowerPercent": 200,
+          "rationale": "おにぎりはお腹が空いて (弱って) いる時ほど力が出るため、自分の HP が減っているほど強くなる ownHitPointsLow にした"
+        },
+        "rationale": "おにぎりで体当たりする技で、料理のため食べ物の技にした"
       },
       {
         "id": "food_1d",
@@ -773,7 +834,8 @@
         "category": "attack",
         "effectId": "food_particle",
         "learnableLevelMinimum": 1,
-        "learnableLevelMaximum": 30
+        "learnableLevelMaximum": 30,
+        "rationale": "わさびのツーンとくる辛さで攻める技で、食べ物の味のため食べ物の技にした"
       },
       {
         "id": "food_2",
@@ -784,7 +846,8 @@
         "category": "attack",
         "effectId": "food_particle",
         "learnableLevelMinimum": 15,
-        "learnableLevelMaximum": 200
+        "learnableLevelMaximum": 200,
+        "rationale": "ジャムを塗りつける技で、食べ物のため食べ物の技にした"
       }
     ],
     "effects": [

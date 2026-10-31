@@ -86,6 +86,7 @@ class Move {
   });
 
   /// JSON (master と Firestore の定義に共通の形) から技を読む。
+  /// 技と特殊効果の `rationale` (根拠) は保守のための値でユーザーに見せないため読まない (documents/game-rules.md「技の根拠」)。
   factory Move.fromJson({required Map<String, dynamic> json}) => Move(
     id: json['id'] as String,
     displayName: json['displayName'] as String,
