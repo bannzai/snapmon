@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { findModerationViolation } from "../../src/generation/moderation";
-import { parseDescribeSubjectOutput } from "../../src/generation/prompts/describe_subject";
+import { DESCRIBE_SUBJECT_SYSTEM_PROMPT, parseDescribeSubjectOutput } from "../../src/generation/prompts/describe_subject";
 import { proposalRangeViolation } from "../../src/generation/prompts/propose_element";
 import { visionRejectionLogFields, visionRejectionReason } from "../../src/generation/vision";
 
@@ -52,6 +52,20 @@ describe("visionRejectionLogFields", () => {
       faceDetectionConfidences: [0.9, 0.4],
     });
     expect(visionRejectionLogFields({})).toEqual({ safeSearch: {}, faceCount: 0, faceDetectionConfidences: [] });
+  });
+});
+
+describe("DESCRIBE_SUBJECT_SYSTEM_PROMPT", () => {
+  it("絵・画面の中の物・フィギュアは、媒体ではなく描かれた物として説明させる (#129)", () => {
+    expect(DESCRIBE_SUBJECT_SYSTEM_PROMPT).toContain("描かれた物 (かたどられた物) そのものを被写体とします");
+    expect(DESCRIBE_SUBJECT_SYSTEM_PROMPT).toContain("紙・画面・プラスチックなどの媒体ではなく、その物が実物ならどうかで what・materials・size・hardness・temperature・uses・impression を書いてください");
+    expect(DESCRIBE_SUBJECT_SYSTEM_PROMPT).toContain("materials は「紙」ではなく「食べ物」");
+    // 同じ物を描いた別の絵を同じ被写体にしないため、絵であることと描き方は見分ける手がかりに残させる
+    expect(DESCRIBE_SUBJECT_SYSTEM_PROMPT).toContain("同じ物を描いた別の絵と見分ける手がかりとして distinctiveMarks に書いてください");
+    // 手がかりに媒体の名前 (紙に描かれた) が残ると、Jev が紙の属性に寄せるため書かせない
+    expect(DESCRIBE_SUBJECT_SYSTEM_PROMPT).toContain("紙・画面などの媒体の名前はここにも書かない");
+    // 人の絵を人に含めない既存の指示は残す
+    expect(DESCRIBE_SUBJECT_SYSTEM_PROMPT).toContain("動物・人形・ぬいぐるみ・人の絵は人に含めない");
   });
 });
 
