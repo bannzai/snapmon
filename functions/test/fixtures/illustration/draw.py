@@ -19,7 +19,7 @@ def wobble(points, rng, amount):
     return [(x + rng.uniform(-amount, amount), y + rng.uniform(-amount, amount)) for x, y in points]
 
 
-# 線の既定の太さ 7 px・重ねる回数 3・揺れ 3 px と、塗りの線の太さ 5 px・行の間隔 6 px は、
+# 線の既定の太さ 7 px・重ねる回数 3・揺れ 3 px と、塗りの線の太さ 5 px・行の間隔 6 px・塗る確率の既定 0.9 (1 割の行を塗り残す) は、
 # 描いた画像を目で見て、900 x 700 の紙の上でクレヨンの太い線とかすれた塗りに見えた値にした。描いた画像は LICENSES.md の 3 枚
 def crayon_line(paper_draw, points, color, rng, width=7, passes=3):
     """points を結ぶ線を、少しずつずらして passes 回重ねて描く (クレヨンの線のかすれに見せるため)。"""
