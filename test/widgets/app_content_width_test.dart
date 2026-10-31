@@ -52,6 +52,28 @@ void main() {
     expect(find.text('390.0'), findsOneWidget);
   });
 
+  testWidgets('広い画面では左右の safe area から左右の余白の分を差し引く', (tester) async {
+    setSurfaceSize(tester: tester, size: const Size(1280, 800));
+    tester.view.padding = const FakeViewPadding(left: 700, right: 40, top: 20);
+    addTearDown(tester.view.resetPadding);
+    late EdgeInsets contentPadding;
+    await tester.pumpWidget(
+      MaterialApp(
+        builder: (context, child) =>
+            constrainToAppContentWidth(child: child ?? const SizedBox.shrink()),
+        home: Builder(
+          builder: (context) {
+            contentPadding = MediaQuery.paddingOf(context);
+            return const SizedBox.shrink();
+          },
+        ),
+      ),
+    );
+
+    // 左右の余白は (1280 - 600) / 2 = 340。
+    expect(contentPadding, const EdgeInsets.only(left: 360, top: 20));
+  });
+
   testWidgets('幅が上限を跨いで変わっても画面の状態を保つ', (tester) async {
     setSurfaceSize(tester: tester, size: const Size(390, 844));
     await tester.pumpWidget(
