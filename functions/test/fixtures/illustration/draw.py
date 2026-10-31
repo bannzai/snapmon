@@ -14,11 +14,13 @@ IMAGE_WIDTH, IMAGE_HEIGHT = 1200, 900
 PAPER_SIZE = (900, 700)
 
 
-def wobble(points, rng, amount=4.0):
+def wobble(points, rng, amount):
     """手描きの揺れとして、各点を ±amount px だけずらした点の列を返す。"""
     return [(x + rng.uniform(-amount, amount), y + rng.uniform(-amount, amount)) for x, y in points]
 
 
+# 線の既定の太さ 7 px・重ねる回数 3・揺れ 3 px と、塗りの線の太さ 5 px・行の間隔 6 px は、
+# 描いた画像を目で見て、900 x 700 の紙の上でクレヨンの太い線とかすれた塗りに見えた値にした。描いた画像は LICENSES.md の 3 枚
 def crayon_line(paper_draw, points, color, rng, width=7, passes=3):
     """points を結ぶ線を、少しずつずらして passes 回重ねて描く (クレヨンの線のかすれに見せるため)。"""
     for _ in range(passes):
@@ -36,7 +38,10 @@ def crayon_fill(paper_draw, box, color, rng, density=0.9):
 
 
 def ellipse_points(center_x, center_y, radius_x, radius_y, count=48, start=0.0, end=2 * math.pi):
-    """楕円の start から end までの角度の弧を、count 等分した点の列で返す。"""
+    """楕円の start から end までの角度の弧を、count 等分した点の列で返す。
+
+    count の既定 48 は、この画像で一番大きい楕円 (おばけの頭の半径 160 px) でも角が見えず、wobble の揺れが線のがたつきに見える細かさとして目で見て決めた。
+    """
     return [
         (center_x + radius_x * math.cos(start + (end - start) * i / count), center_y + radius_y * math.sin(start + (end - start) * i / count))
         for i in range(count + 1)
