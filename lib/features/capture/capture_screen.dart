@@ -50,7 +50,7 @@ class CaptureScreen extends StatefulWidget {
   /// 見本データ (手持ちが空の時の初回のバトルの CPU トレーナー)。
   final SampleData sampleData;
 
-  /// 手持ちが空の時の初回のバトルの相手の取得。
+  /// 手持ちが空の時の初回のバトルの前の定義の読み直しに渡す。
   final PvpClient pvpClient;
 
   /// 手持ちが空の時の初回のバトルの記録と計測。
