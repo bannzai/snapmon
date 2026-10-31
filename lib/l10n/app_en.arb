@@ -114,8 +114,6 @@
   "generationFailedMessage": "Something went wrong\nTry taking another photo",
   "resultReplaceTitle": "Replace {monsterName}",
   "resultNewlyBorn": "New buddy",
-  "resultPhoto": "Photo",
-  "resultMonster": "Monster",
   "statHitPoints": "HP",
   "statAttack": "Attack",
   "statDefense": "Defense",

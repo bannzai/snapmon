@@ -161,8 +161,6 @@
   "@resultReplaceTitle": {"description": "手持ちが満員の時に入れ替える相手を選ぶダイアログの見出し", "placeholders": {"monsterName": {"type": "String"}}},
   "resultNewlyBorn": "あたらしい なかま",
   "@resultNewlyBorn": {"description": "モンスターが新しく生まれた時の画面の見出し"},
-  "resultPhoto": "写真",
-  "resultMonster": "モンスター",
   "statHitPoints": "HP",
   "statAttack": "攻撃",
   "statDefense": "防御",
