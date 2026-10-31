@@ -20,7 +20,7 @@ import 'battle_definitions.dart';
 import 'cpu_party.dart';
 import 'pvp_client.dart';
 
-/// 対戦相手を選ぶ画面 (モックの Pvp.dc.html)。見本データの CPU トレーナーを全員並べ、自分の戦績を出す。
+/// 対戦相手を選ぶ画面 (モックの Pvp.dc.html)。見本データの CPU トレーナーを先頭から [_opponentSlotCount] 人並べ、自分の戦績を出す。
 /// 他のユーザーの手持ち (Functions の fetchOpponents) は相手に出さない (本人の操作なしに他人の手持ちを CPU に操作させないため。issue #130)。
 class OpponentScreen extends StatefulWidget {
   /// 対戦相手の画面を作る。
@@ -59,6 +59,9 @@ class OpponentScreen extends StatefulWidget {
   @override
   State<OpponentScreen> createState() => _OpponentScreenState();
 }
+
+/// 対戦相手の画面に並べる相手の数。issue #105 の「常に 3 人出す」(documents/DIRECTION.md の 2026-10-29 の #105 の行) のまま変えない。
+const int _opponentSlotCount = 3;
 
 class _OpponentScreenState extends State<OpponentScreen> {
   /// 挑む準備 (定義の読み直し) から対戦の画面を閉じるまでの間か。間は挑む操作を受け付けない
@@ -297,7 +300,9 @@ class _OpponentScreenState extends State<OpponentScreen> {
             style: SnapmonTextStyles.caption,
           ),
           const SizedBox(height: 10),
-          for (final cpuTrainer in widget.sampleData.cpuTrainers) ...[
+          for (final cpuTrainer in widget.sampleData.cpuTrainers.take(
+            _opponentSlotCount,
+          )) ...[
             _OpponentCard(
               key: Key('opponent-card-${cpuTrainer.id}'),
               opponentId: cpuTrainer.id,

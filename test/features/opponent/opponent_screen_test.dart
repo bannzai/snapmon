@@ -111,7 +111,7 @@ void main() {
       );
 
   testWidgets(
-    'ログインしていても他のユーザーの手持ちを読まず、CPU トレーナー全員と戦績だけを出し、「ほかの相手をさがす」と通報・ブロックを出さない',
+    'ログインしていても他のユーザーの手持ちを読まず、CPU トレーナー 3 人と戦績だけを出し、「ほかの相手をさがす」と通報・ブロックを出さない',
     (tester) async {
       final calls = RecordedPvpCalls();
       await pumpOpponentScreen(
@@ -127,15 +127,19 @@ void main() {
           reason: opponent.opponentUid,
         );
       }
-      for (final cpuTrainer in sampleData.cpuTrainers) {
+      // 他のユーザーがいた時と同じく 3 人並べる (issue #105 の「常に 3 人出す」)
+      for (final (index, cpuTrainer) in sampleData.cpuTrainers.indexed) {
         expect(
           find.byKey(
             Key('opponent-card-${cpuTrainer.id}'),
             skipOffstage: false,
           ),
-          findsOneWidget,
+          index < 3 ? findsOneWidget : findsNothing,
           reason: cpuTrainer.id,
         );
+        if (index >= 3) {
+          continue;
+        }
         expect(find.text(cpuTrainer.name, skipOffstage: false), findsOneWidget);
         expect(cpuTrainer.name, startsWith('CPU '));
         expect(
@@ -173,7 +177,7 @@ void main() {
       pvpClient: signedInPvpClient(calls: RecordedPvpCalls()),
     );
     // 自分の手持ちのカードにも「Lv. N」が出るため、CPU トレーナーのカードの中だけを探す
-    for (final cpuTrainer in sampleData.cpuTrainers) {
+    for (final cpuTrainer in sampleData.cpuTrainers.take(3)) {
       expect(
         find.descendant(
           of: find.byKey(
