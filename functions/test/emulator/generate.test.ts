@@ -121,9 +121,9 @@ function createMocks({
       output: {
         element: { displayName: "ろう", description: "ろうでできた物", colorHex: "#FFEEDD" },
         moves: [
-          { displayName: "ろうアタック", power: 40, powerPoints: 30 },
-          { displayName: "ろうプレス", power: 70, powerPoints: 15 },
-          { displayName: "ろうバースト", power: 110, powerPoints: 5 },
+          { displayName: "ろうアタック", power: 40, powerPoints: 30, rationale: "ろうの塊でぶつかる技" },
+          { displayName: "ろうプレス", power: 70, powerPoints: 15, rationale: "溶けたろうで押しつぶす技" },
+          { displayName: "ろうバースト", power: 110, powerPoints: 5, rationale: "ろうそくの炎ごとはじける技" },
         ],
       },
       usage: { inputTokens: 800, outputTokens: 200 },
@@ -779,6 +779,7 @@ describe("generate", () => {
     expect(monster.definitionIds).toEqual([elementTypeId]);
     const definition = (await firestore.doc(`definitions/${elementTypeId}`).get()).data()!;
     expect(definition).toMatchObject({ version: 1, elementTypes: [{ id: elementTypeId, displayName: "ろう" }] });
+    expect(definition.moves.map((move: { rationale?: string }) => move.rationale)).toEqual(["ろうの塊でぶつかる技", "溶けたろうで押しつぶす技", "ろうそくの炎ごとはじける技"]);
     // その場で作った属性は段階 1 の技を 1 つしか持たないため、Lv.1 の残りを master の別の属性 (当てはまりが同じ 0.05 なので ID 順) で埋める
     expect(monster.definition.learnset).toEqual([
       { moveId: `${elementTypeId}_1`, unlockLevel: 1 },
@@ -789,6 +790,27 @@ describe("generate", () => {
       { moveId: `${elementTypeId}_3`, unlockLevel: 100 },
     ]);
     expect((await firestore.doc("definitionCounters/global").get()).data()).toEqual({ elementCount: 1, moveCount: 3 });
+  });
+
+  it("rationale を足す前に保存した提案 (技の根拠が無い) でも、根拠の項目を省いて definitions に保存する", async () => {
+    const mocks = createMocks({ jev: { elementProbabilities: {} } });
+    // 判定待ちの再試行は生成のレコードの elementProposal を読み直して使うため、根拠の無い提案を返すモックで同じ入力を作る
+    mocks.dependencies.proposeElement = async () => ({
+      output: {
+        element: { displayName: "ろう", description: "ろうでできた物", colorHex: "#FFEEDD" },
+        moves: [
+          { displayName: "ろうアタック", power: 40, powerPoints: 30 },
+          { displayName: "ろうプレス", power: 70, powerPoints: 15 },
+          { displayName: "ろうバースト", power: 110, powerPoints: 5 },
+        ],
+      },
+      usage: { inputTokens: 800, outputTokens: 200 },
+    });
+    const result = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data: await uploadPhoto({ uid: "alice", photo: photoFixture("18") }) }));
+    expect(result.status).toBe("saved");
+    const monster = (await firestore.doc(`users/alice/monsters/${result.monsterId}`).get()).data() as MonsterDocument;
+    const definition = (await firestore.doc(`definitions/${monster.definition.elementTypeIds[0]}`).get()).data()!;
+    expect(definition.moves.map((move: Record<string, unknown>) => "rationale" in move)).toEqual([false, false, false]);
   });
 });
 
