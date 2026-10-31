@@ -9,7 +9,6 @@ import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
 import '../../widgets/monster_parts.dart';
 import '../../widgets/square_icon_button.dart';
-import '../../widgets/storage_image.dart';
 import '../dex/dex_store.dart';
 import '../dex/owned_monster.dart';
 import '../settings/settings_screen.dart';
@@ -213,46 +212,17 @@ class ResultScreen extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(height: 14),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: AspectRatio(
-                                  aspectRatio: 1,
-                                  child: _LabeledPanel(
-                                    label: context.l10n.resultPhoto,
-                                    // 元の写真は本人の図鑑だけに出す (Storage の Rules で本人だけが読める)。
-                                    // 見本のモンスターは元の写真を持たない (sourcePhotoReference が null) ため、印だけを出す
-                                    child: ColoredBox(
-                                      color: SnapmonColors.surfaceRaised,
-                                      child:
-                                          monster.artPath == null ||
-                                              definition.sourcePhotoReference ==
-                                                  null
-                                          ? const _NoPhotoIcon()
-                                          : StorageImage(
-                                              storagePath: definition
-                                                  .sourcePhotoReference!,
-                                              fit: BoxFit.cover,
-                                              placeholder: const _NoPhotoIcon(),
-                                            ),
-                                    ),
-                                  ),
-                                ),
+                          // 元の写真は並べない。モンスターの絵は元の写真の crop の範囲か写真全体か OS で切り出した被写体で、
+                          // 並べると同じ絵が 2 枚になるため (DIRECTION.md 2026-10-31 の #120 の行)
+                          AspectRatio(
+                            aspectRatio: 1,
+                            child: ClipRRect(
+                              borderRadius: SnapmonRadii.card,
+                              child: MonsterArt(
+                                monster: monster,
+                                backgroundColor: SnapmonColors.cardSubtle,
                               ),
-                              const SizedBox(width: 12),
-                              Expanded(
-                                child: AspectRatio(
-                                  aspectRatio: 1,
-                                  child: _LabeledPanel(
-                                    label: context.l10n.resultMonster,
-                                    child: MonsterArt(
-                                      monster: monster,
-                                      backgroundColor: SnapmonColors.cardSubtle,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
                           const SizedBox(height: 14),
                           Text(
@@ -426,54 +396,6 @@ class ResultScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-/// 左下にラベルを重ねた、角丸の絵の枠。
-class _LabeledPanel extends StatelessWidget {
-  const _LabeledPanel({required this.label, required this.child});
-
-  final String label;
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) => ClipRRect(
-    borderRadius: SnapmonRadii.card,
-    child: Stack(
-      fit: StackFit.expand,
-      children: [
-        child,
-        Positioned(
-          left: 8,
-          bottom: 8,
-          child: DecoratedBox(
-            decoration: const BoxDecoration(
-              color: SnapmonColors.scrim,
-              borderRadius: SnapmonRadii.tag,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              child: Text(
-                label,
-                style: SnapmonTextStyles.small.copyWith(
-                  color: SnapmonColors.textOnBackground,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-/// 写真の枠の、写真が無い・読めない時の印。
-class _NoPhotoIcon extends StatelessWidget {
-  const _NoPhotoIcon();
-
-  @override
-  Widget build(BuildContext context) => const Center(
-    child: Icon(Icons.image_outlined, color: SnapmonColors.textMuted, size: 40),
-  );
 }
 
 /// 覚えている技の札。
