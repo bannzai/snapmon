@@ -10,10 +10,8 @@ import 'package:flutter/widgets.dart';
 import 'package:snapmon/domain/monster/monster_definition.dart';
 import 'package:snapmon/domain/monster/monster_stats.dart';
 import 'package:snapmon/features/dex/owned_monster.dart';
-import 'package:snapmon/features/opponent/pvp_opponent.dart';
-import 'package:snapmon/sample/sample_data.dart';
 
-// App Store のスクリーンショットに出すモンスター・対戦相手・写真と、それを Firebase と端末の機能を通さずに画面へ渡す部品。
+// App Store のスクリーンショットに出すモンスター・写真と、それを Firebase と端末の機能を通さずに画面へ渡す部品。
 // 名前・図鑑の文章・属性・技は本番の生成と同じく日本語のまま (生成の文章は日本語だけで作るため、英語のスクリーンショットでも同じものが出る)。
 
 /// 写真から被写体を切り出したモンスターの絵 (作り方と出典は同ディレクトリの LICENSES.md)。
@@ -181,35 +179,6 @@ OwnedMonster _monster({
   decorationVersion: null,
   definitionIds: const [],
 );
-
-/// 対戦の画面に出す他のトレーナー。モンスターは見本のモンスター (名前だけを出す) を使う。
-List<PvpOpponent> storeScreenshotOpponents({required SampleData sampleData}) =>
-    [
-      PvpOpponent(
-        opponentUid: 'store-screenshot-trainer-1',
-        displayName: 'ゆうき',
-        monsters: [
-          for (final monsterId in [
-            'sample-slippan',
-            'sample-noton',
-            'sample-ringora',
-          ])
-            sampleData.monsterById(monsterId: monsterId),
-        ],
-      ),
-      PvpOpponent(
-        opponentUid: 'store-screenshot-trainer-2',
-        displayName: 'トレーナー 0417',
-        monsters: [
-          for (final monsterId in [
-            'sample-petbottler',
-            'sample-keybon',
-            'sample-mugmon',
-          ])
-            sampleData.monsterById(monsterId: monsterId),
-        ],
-      ),
-    ];
 
 /// 撮る画面のカメラ。ファインダーに [viewfinderPhoto] を映す (widget test にはカメラが無いため、camera の端末側の実装を差し替える)。
 /// CameraController の initialize・dispose と CameraPreview が呼ぶ分だけを実装する (camera 0.12.0+2 の camera_controller.dart)。

@@ -14,7 +14,7 @@ enum StoreScreenshotPage {
   /// バトル (ターン制のバトルの途中)。
   battle,
 
-  /// 対戦 (他のトレーナーと CPU トレーナーを選ぶ)。
+  /// 対戦 (CPU トレーナーを選ぶ)。
   opponent,
 
   /// 共有 (SNS に出す図鑑のカード)。
@@ -67,7 +67,7 @@ storeScreenshotCopy = {
       subline: '素早さも威力も弱点も\nターンごとに効く',
     ),
     StoreScreenshotPage.opponent: (
-      headline: 'ほかのトレーナーと\n対戦しよう',
+      headline: 'CPU トレーナーと\n対戦しよう',
       subline: '1 戦ごとにレベルが上がる',
     ),
     StoreScreenshotPage.share: (
@@ -93,7 +93,7 @@ storeScreenshotCopy = {
       subline: 'Speed, power, and weaknesses\nmatter every turn',
     ),
     StoreScreenshotPage.opponent: (
-      headline: 'Battle other\ntrainers',
+      headline: 'Battle CPU\ntrainers',
       subline: 'Level up after every battle',
     ),
     StoreScreenshotPage.share: (
