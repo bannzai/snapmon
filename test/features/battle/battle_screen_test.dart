@@ -14,10 +14,12 @@ import 'package:snapmon/features/battle/battle_field_game.dart';
 import 'package:snapmon/features/battle/battle_recorder.dart';
 import 'package:snapmon/features/battle/battle_screen.dart';
 import 'package:snapmon/features/dex/owned_monster.dart';
+import 'package:snapmon/features/reference/move_detail_screen.dart';
 import 'package:snapmon/features/share/card_sharer.dart';
 import 'package:snapmon/features/share/share_cards.dart';
 import 'package:snapmon/l10n/l10n.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
+import 'package:snapmon/widgets/monster_parts.dart';
 
 import '../../battle_recorder_fixture.dart';
 import '../../card_sharer_fixture.dart';
@@ -188,6 +190,25 @@ void main() {
       find.descendant(of: moveSlot, matching: find.text('先に動くと強い')),
       findsOneWidget,
     );
+    // 属性はモンスターの属性と同じ色の札で出し、威力と PP はラベル付きの数値で出す
+    expect(
+      tester
+          .widget<ElementTypeTag>(
+            find.descendant(
+              of: moveSlot,
+              matching: find.byType(ElementTypeTag),
+            ),
+          )
+          .elementTypeId,
+      'heat',
+    );
+    expect(
+      find.descendant(
+        of: moveSlot,
+        matching: find.text('PP 35/35', findRichText: true),
+      ),
+      findsOneWidget,
+    );
 
     await tester.tap(moveSlot);
     await tester.pump();
@@ -198,6 +219,52 @@ void main() {
     );
     // 演出の待ち (Future.delayed) をテストの終わりに残さない
     await tester.pump(const Duration(seconds: 5));
+  });
+
+  testWidgets('技のボタンを長押しすると、ターンを進めずにその技の詳細を開く', (tester) async {
+    await pumpBattleScreen(
+      tester: tester,
+      playerMonster: strongPlayer,
+      artImage: null,
+      battleRecorder: fakeBattleRecorder(
+        calls: RecordedBattleCalls(),
+        startBattleRecord: () async => null,
+        recordedLevels: const {},
+      ),
+    );
+    final logBeforeLongPress = tester
+        .widget<Text>(find.byKey(const Key('battle-log')))
+        .data;
+
+    // マグモンの覚える技の一覧の 3 番目が ゆげのもや (heat_1b。先に動くと 1.3 倍)
+    await tester.longPress(find.byKey(const Key('move-slot-2')));
+    // 画面の遷移の演出を終える (Flame のゲームループがあるため pumpAndSettle は使わない)
+    await tester.pump(const Duration(seconds: 1));
+
+    expect(find.byType(MoveDetailScreen), findsOneWidget);
+    expect(
+      tester.widget<MoveDetailScreen>(find.byType(MoveDetailScreen)).move.id,
+      'heat_1b',
+    );
+    expect(
+      tester
+          .widget<Text>(find.byKey(const Key('move-special-effect-formula')))
+          .data,
+      'そのターンに相手より先に行動した なら 1.3、それ以外は 1',
+    );
+
+    // バトルの画面は戻るボタンの無い AppBar で作られているため、tester.pageBack ではなく Navigator で閉じる
+    tester.state<NavigatorState>(find.byType(Navigator)).pop();
+    // 戻る演出を始める frame・終える frame・route を外す frame を進める (pumpAndSettle は上と同じ理由で使わない)
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
+    await tester.pump();
+    expect(find.byType(MoveDetailScreen), findsNothing);
+    expect(
+      tester.widget<Text>(find.byKey(const Key('battle-log'))).data,
+      logBeforeLongPress,
+    );
+    expect(find.text('ターン 1'), findsOneWidget);
   });
 
   testWidgets('技を選ぶと決着まで進み、勝敗とレベルの上がり方を出して記録と計測をする', (tester) async {
