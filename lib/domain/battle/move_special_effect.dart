@@ -74,7 +74,7 @@ import 'battle_state.dart';
   return (
     powerPercent: powerPercent,
     description:
-        '${_moveSpecialEffectRule(kind: specialEffect.kind)} (今回は ${formatPowerPercent(powerPercent: powerPercent)} 倍)',
+        '${moveSpecialEffectRule(kind: specialEffect.kind)} (今回は ${formatPowerPercent(powerPercent: powerPercent)} 倍)',
   );
 }
 
@@ -103,8 +103,48 @@ String formatPowerPercent({required int powerPercent}) {
       : '${powerPercent ~/ 100}.$fractionText';
 }
 
-/// バトルのログに出す、[kind] の効果の規則の説明。
-String _moveSpecialEffectRule({required MoveSpecialEffectKind kind}) =>
+/// [specialEffect] の威力の倍率の式を、技の詳細の画面に出す文言にする。式は [calculateMoveSpecialEffect] の計算と同じで、
+/// 倍率の最大はその技の値 ([MoveSpecialEffect.maximumPowerPercent]) を入れる。
+/// 説明文は技の名前と同じく master の定義に付く文言のため、[moveSpecialEffectRule] と同じく ARB には移さない。
+String moveSpecialEffectFormula({required MoveSpecialEffect specialEffect}) {
+  final maximumText = formatPowerPercent(
+    powerPercent: specialEffect.maximumPowerPercent,
+  );
+  final gainText = formatPowerPercent(
+    powerPercent: specialEffect.maximumPowerPercent - 100,
+  );
+
+  /// 条件の文 [condition] から、「条件を満たせば倍率の最大、それ以外は 1」の式の文言を作る。
+  String byCondition({required String condition}) =>
+      '$condition なら $maximumText、それ以外は 1';
+  return switch (specialEffect.kind) {
+    MoveSpecialEffectKind.opponentHitPointsLow =>
+      '1 + $gainText × 相手の減った HP ÷ 相手の最大 HP (相手の HP が少ないほど $maximumText に近づく)',
+    MoveSpecialEffectKind.ownHitPointsLow =>
+      '1 + $gainText × 自分の減った HP ÷ 自分の最大 HP (自分の HP が少ないほど $maximumText に近づく)',
+    MoveSpecialEffectKind.tougherOpponent => byCondition(
+      condition: '相手の防御 > 自分の攻撃',
+    ),
+    // 最大 PP が 1 の技は割合を決められず 1 のまま ([calculateMoveSpecialEffect] の percentByRatio) だが、master にそういう技は無い
+    MoveSpecialEffectKind.powerPointsLow =>
+      '1 + $gainText × (最大 PP − 使う前の残り PP) ÷ (最大 PP − 1) (最初の 1 回は 1、最後の 1 回で $maximumText)',
+    MoveSpecialEffectKind.sameElementAsOpponent => byCondition(
+      condition: '自分と相手が同じ属性を 1 つ以上持つ',
+    ),
+    MoveSpecialEffectKind.differentElementFromOpponent => byCondition(
+      condition: '自分と相手が同じ属性を 1 つも持たない',
+    ),
+    MoveSpecialEffectKind.movesFirst => byCondition(
+      condition: 'そのターンに相手より先に行動した',
+    ),
+    MoveSpecialEffectKind.movesLast => byCondition(
+      condition: 'そのターンに相手より後に行動した',
+    ),
+  };
+}
+
+/// [kind] の効果の規則の説明。バトルのログと技の詳細の画面に出す。
+String moveSpecialEffectRule({required MoveSpecialEffectKind kind}) =>
     switch (kind) {
       MoveSpecialEffectKind.opponentHitPointsLow => '相手の HP が減っているほど威力が上がる',
       MoveSpecialEffectKind.ownHitPointsLow => '自分の HP が減っているほど威力が上がる',

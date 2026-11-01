@@ -19,6 +19,7 @@ import '../../widgets/move_summary.dart';
 import '../../widgets/trainer_icon.dart';
 import '../dex/owned_monster.dart';
 import '../opponent/pvp_client.dart';
+import '../reference/move_detail_screen.dart';
 import '../settings/settings_screen.dart';
 import '../share/card_sharer.dart';
 import '../share/share_card_button.dart';
@@ -660,6 +661,14 @@ class _BattleScreenState extends State<BattleScreen> {
                             : () => _selectAction(
                                 playerAction: UseMoveAction(moveId: move.id),
                               ),
+                        // 詳細は読むだけでバトルを進めないため、演出の再生中も開ける
+                        onLongPress: move == null
+                            ? null
+                            : () => openMoveDetail(
+                                context: context,
+                                move: move,
+                                definitions: widget.definitions,
+                              ),
                       ),
                     ),
                   ],
@@ -1070,6 +1079,7 @@ class _MoveButton extends StatelessWidget {
     required this.remainingPowerPoints,
     required this.definitions,
     required this.onPressed,
+    required this.onLongPress,
   });
 
   final Move? move;
@@ -1078,6 +1088,9 @@ class _MoveButton extends StatelessWidget {
 
   /// 技を選ぶ。技が無い枠と演出の再生中は null で、押せなくする。
   final VoidCallback? onPressed;
+
+  /// 長押しで技の詳細を開く。技が無い枠は null。
+  final VoidCallback? onLongPress;
 
   @override
   Widget build(BuildContext context) {
@@ -1088,6 +1101,7 @@ class _MoveButton extends StatelessWidget {
       child: InkWell(
         borderRadius: SnapmonRadii.card,
         onTap: onPressed,
+        onLongPress: onLongPress,
         child: Container(
           constraints: const BoxConstraints(
             minHeight: _moveButtonMinimumHeight,
