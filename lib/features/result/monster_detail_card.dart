@@ -10,6 +10,7 @@ import '../../theme/snapmon_text_styles.dart';
 import '../../widgets/monster_parts.dart';
 import '../../widgets/move_summary.dart';
 import '../dex/owned_monster.dart';
+import '../reference/move_detail_screen.dart';
 
 /// モンスター 1 体のカード (名前・レベル・属性・絵・図鑑の文章・ステータス・覚えている技)。
 /// 生まれた画面と、対戦相手の画面の相手のモンスターの詳細で使う。
@@ -152,31 +153,40 @@ class MonsterDetailCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 6),
-            // バトルの技のボタンと同じ 3 段の構成で 1 技 1 行に並べる。地はステータスの枠と同じ色にし、属性の札の色を読めるようにする
-            for (final learnsetEntry in equippedLearnsetEntries(
-              learnset: definition.learnset,
-              level: monster.level,
-            ))
+            // バトルの技のボタンと同じ 3 段の構成で 1 技 1 行に並べる。地はステータスの枠と同じ色にし、属性の札の色を読めるようにする。
+            // 行をタップすると技の詳細 ([openMoveDetail]) を開く
+            for (final move in [
+              for (final learnsetEntry in equippedLearnsetEntries(
+                learnset: definition.learnset,
+                level: monster.level,
+              ))
+                definitions.moveById(moveId: learnsetEntry.moveId),
+            ])
               Padding(
                 padding: const EdgeInsets.only(bottom: 6),
-                child: DecoratedBox(
-                  decoration: const BoxDecoration(
-                    color: SnapmonColors.cardSubtle,
+                child: Material(
+                  color: SnapmonColors.cardSubtle,
+                  borderRadius: SnapmonRadii.button,
+                  child: InkWell(
+                    key: Key('move-chip-${move.id}'),
                     borderRadius: SnapmonRadii.button,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 8,
+                    onTap: () => openMoveDetail(
+                      context: context,
+                      move: move,
+                      definitions: definitions,
                     ),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: MoveSummary(
-                        move: definitions.moveById(
-                          moveId: learnsetEntry.moveId,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 8,
+                      ),
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: MoveSummary(
+                          move: move,
+                          remainingPowerPoints: null,
+                          definitions: definitions,
                         ),
-                        remainingPowerPoints: null,
-                        definitions: definitions,
                       ),
                     ),
                   ),
