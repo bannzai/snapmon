@@ -72,6 +72,11 @@ const double _monsterStatusCardWidth = 190;
 /// 相手の情報カードと同じ 3 段 (高さ 86) にした
 const double _playerStatusCardBesideLogWidth = 260;
 
+/// 自分の情報カードをログの帯の右に並べる時に、ログの帯に残す最小の幅。
+/// ログは本文 (13px、行の高さ 19.5) で折り返し、相手の情報カードの高さ 86 までなら 3 行入る。
+/// 160 は内側 132 (1 行 10 文字ほど) で、技を使った時の 1 文 (26 文字ほど) が 3 行に収まる幅にした
+const double _battleLogMinimumWidthBesideCards = 160;
+
 /// 低い画面で相手の情報カードの右に寄せたログの帯と、カードの間。
 /// 縦向きのカードと帯の間 (上から 56〜96 の 40) まで空けると横向きで帯が短くなるため、詰めた値にした
 const double _battleLogGapBesideCard = 8;
@@ -481,7 +486,9 @@ class _BattleScreenState extends State<BattleScreen> {
                 // 相手のカードをログの帯と同じ高さの左に上げ、自分のカードを幅を広げて帯と同じ高さの右に上げ、ログの帯を 2 枚の間に置く。
                 // 844×390 の実測でフィールドは 124 (下のセーフエリアのある実機は約 103)、ログの帯は上から 16〜56、相手のカードは 86 で、
                 // ログの帯の下には収まらず、帯と同じ高さ (16 + 86 = 102) なら収まるため。
-                // 自分のカードは幅 190 では高さ 115 で、右下 (下から 24) に置くと上端が -15 になりフィールドの外に出ていた
+                // 自分のカードは幅 190 では高さ 115 で、右下 (下から 24) に置くと上端が -15 になりフィールドの外に出ていた。
+                // 自分のカードを右に並べるのは、セーフエリアの内側の幅に 2 枚のカードとログの帯の最小の幅が入る時だけにする
+                // (低くて幅も狭い画面で並べると、ログの帯の幅が無くなり 2 枚のカードが重なるため。その時は今までどおり右下に置く)
                 final isFieldTooLowForCardBelowLog =
                     _opponentStatusCardHeight != null &&
                     safeAreaTop +
@@ -514,7 +521,16 @@ class _BattleScreenState extends State<BattleScreen> {
                   opponentMonster: opponentMonster,
                   safeAreaPadding: safeAreaPadding,
                   opponentStatusCardTop: opponentStatusCardTop,
-                  placesCardsBesideLog: isFieldTooLowForCardBelowLog,
+                  placesOpponentStatusCardBesideLog:
+                      isFieldTooLowForCardBelowLog,
+                  placesPlayerStatusCardBesideLog:
+                      isFieldTooLowForCardBelowLog &&
+                      constraints.maxWidth - safeAreaPadding.horizontal >=
+                          _fieldHorizontalMargin * 2 +
+                              _monsterStatusCardWidth +
+                              _playerStatusCardBesideLogWidth +
+                              _battleLogGapBesideCard * 2 +
+                              _battleLogMinimumWidthBesideCards,
                 );
               },
             ),
@@ -569,13 +585,15 @@ class _BattleScreenState extends State<BattleScreen> {
 
   /// フィールド (Flame のゲーム) と、その上に重ねるログの帯・2 体の情報カード。
   /// 相手の情報カードの上端を [opponentStatusCardTop] に置き、2 体の情報カードを左右の [safeAreaPadding] の内側に置く。
-  /// [placesCardsBesideLog] が true の時 (低い画面) は、自分の情報カードをログの帯と同じ高さの右に置き、ログの帯を 2 体の情報カードの間に置く。
+  /// [placesOpponentStatusCardBesideLog] が true の時はログの帯の左端を相手の情報カードの右に寄せ、
+  /// [placesPlayerStatusCardBesideLog] が true の時は自分の情報カードをログの帯と同じ高さの右に置き、ログの帯の右端をその左に寄せる。
   Widget _buildField({
     required BattleMonster playerMonster,
     required BattleMonster opponentMonster,
     required EdgeInsets safeAreaPadding,
     required double opponentStatusCardTop,
-    required bool placesCardsBesideLog,
+    required bool placesOpponentStatusCardBesideLog,
+    required bool placesPlayerStatusCardBesideLog,
   }) => Stack(
     children: [
       Positioned.fill(child: GameWidget(game: _game)),
@@ -583,13 +601,13 @@ class _BattleScreenState extends State<BattleScreen> {
         bottom: false,
         child: Padding(
           padding: EdgeInsets.fromLTRB(
-            placesCardsBesideLog
+            placesOpponentStatusCardBesideLog
                 ? _fieldHorizontalMargin +
                       _monsterStatusCardWidth +
                       _battleLogGapBesideCard
                 : _fieldHorizontalMargin,
             _battleLogTop,
-            placesCardsBesideLog
+            placesPlayerStatusCardBesideLog
                 ? _fieldHorizontalMargin +
                       _playerStatusCardBesideLogWidth +
                       _battleLogGapBesideCard
@@ -629,14 +647,16 @@ class _BattleScreenState extends State<BattleScreen> {
       ),
       Positioned(
         right: safeAreaPadding.right + _fieldHorizontalMargin,
-        top: placesCardsBesideLog ? safeAreaPadding.top + _battleLogTop : null,
-        bottom: placesCardsBesideLog ? null : 24,
+        top: placesPlayerStatusCardBesideLog
+            ? safeAreaPadding.top + _battleLogTop
+            : null,
+        bottom: placesPlayerStatusCardBesideLog ? null : 24,
         child: _MonsterStatusCard(
           monster: playerMonster,
           definitions: widget.definitions,
           hitPointsColor: SnapmonColors.accent,
           showsHitPointsNumber: true,
-          width: placesCardsBesideLog
+          width: placesPlayerStatusCardBesideLog
               ? _playerStatusCardBesideLogWidth
               : _monsterStatusCardWidth,
         ),

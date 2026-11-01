@@ -708,6 +708,20 @@ void main() {
       );
     }
 
+    testWidgets('低くて幅も狭い画面 (390×390) では、自分のカードをログの帯の右に並べず、ログの帯の幅を残す', (
+      tester,
+    ) async {
+      await pumpBattleScreenWithSize(
+        tester: tester,
+        size: const Size(390, 390),
+        bottomPadding: 0,
+        horizontalPadding: 0,
+      );
+
+      expect(battleLogRect(tester: tester).width, greaterThan(100));
+      expect(playerStatusCardRect(tester: tester).width, 190);
+    });
+
     // 左右のセーフエリア 47: ノッチのある iPhone を横向きにした時の左右のインセット
     testWidgets('横向きのスマホで左右のセーフエリアがある時は、両方のカードをセーフエリアの内側に置く', (tester) async {
       const horizontalPadding = 47.0;
