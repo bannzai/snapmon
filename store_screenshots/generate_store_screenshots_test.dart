@@ -356,7 +356,7 @@ CardSharer _cardSharer({required Map<String, ui.Image> artImagesByPath}) =>
       logEvent: ({required event, required parameters}) async {},
     );
 
-/// ログイン済みで、図鑑・撮る・対戦のタブを持つ画面。対戦の相手と戦績は見本を返す。
+/// ログイン済みで、図鑑・撮る・対戦のタブを持つ画面。戦績は見本を返す (対戦の相手は CPU トレーナーだけで、他のユーザーは読まない。issue #130)。
 /// [artImagesByPath] は切り出した絵の Storage のパスとデコード済みの画像 (_cardSharer に渡す)。
 Widget _homeShell({
   required SampleData sampleData,
@@ -371,8 +371,7 @@ Widget _homeShell({
   );
   final PvpClient pvpClient = fakePvpClient(
     calls: RecordedPvpCalls(),
-    fetchOpponents: () async =>
-        storeScreenshotOpponents(sampleData: sampleData),
+    fetchOpponents: () async => null,
     extraDefinitions: null,
     battleRecord: (wins: 14, losses: 6),
     displayName: 'snap',
