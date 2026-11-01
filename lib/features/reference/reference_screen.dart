@@ -25,6 +25,7 @@ class ReferenceScreen extends StatefulWidget {
   State<ReferenceScreen> createState() => _ReferenceScreenState();
 }
 
+/// [ReferenceScreen] の状態。開いた時の最新の master の読み直しを持つ。
 class _ReferenceScreenState extends State<ReferenceScreen> {
   /// 最新の master の読み直し。終わるまでは表を描かない (古い版の相性を最新と読ませないため)。
   late Future<void> _refreshDefinitions = widget.dexStore.refreshDefinitions();
@@ -101,6 +102,7 @@ const double _typeChartCellHeight = 40;
 class _TypeChart extends StatelessWidget {
   const _TypeChart({required this.definitions});
 
+  /// 行・列に並べる属性と、マスの倍率を引く定義。
   final MasterData definitions;
 
   @override
@@ -171,7 +173,10 @@ class _TypeChart extends StatelessWidget {
 class _TypeChartCell extends StatelessWidget {
   const _TypeChartCell({required this.color, required this.child});
 
+  /// マスの地の色。
   final Color color;
+
+  /// マスの中身。
   final Widget child;
 
   @override
@@ -191,7 +196,10 @@ class _TypeChartElementHeader extends StatelessWidget {
     required this.displayName,
   });
 
+  /// 見出しの属性の ID。地の色を決める。
   final String elementTypeId;
+
+  /// 見出しに出す属性の名前。
   final String displayName;
 
   @override
@@ -214,6 +222,7 @@ class _TypeChartElementHeader extends StatelessWidget {
 class _TypeChartMultiplierCell extends StatelessWidget {
   const _TypeChartMultiplierCell({super.key, required this.multiplier});
 
+  /// マスの相性の倍率 (相性表の値)。
   final double multiplier;
 
   @override
@@ -238,6 +247,7 @@ class _TypeChartMultiplierCell extends StatelessWidget {
 class _MoveList extends StatelessWidget {
   const _MoveList({required this.definitions});
 
+  /// 並べる属性と技、技の詳細で引く定義。
   final MasterData definitions;
 
   @override
@@ -272,7 +282,10 @@ class _MoveList extends StatelessWidget {
 class _MoveRow extends StatelessWidget {
   const _MoveRow({required this.move, required this.definitions});
 
+  /// 行に出す技。
   final Move move;
+
+  /// 技の詳細で属性の名前と相性を引く定義。
   final MasterData definitions;
 
   @override

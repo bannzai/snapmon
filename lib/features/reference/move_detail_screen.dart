@@ -240,6 +240,7 @@ String formatTypeMultiplier({required double multiplier}) =>
 class _SectionTitle extends StatelessWidget {
   const _SectionTitle({required this.title});
 
+  /// 見出しの文言。
   final String title;
 
   @override
