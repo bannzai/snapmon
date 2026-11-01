@@ -60,7 +60,7 @@ storeScreenshotCopy = {
     ),
     StoreScreenshotPage.dex: (
       headline: '集めて\n図鑑を埋めよう',
-      subline: '元の写真は自分だけに見える',
+      subline: '生まれた姿のまま\nずっと図鑑に残る',
     ),
     StoreScreenshotPage.battle: (
       headline: 'ステータスと相性で\n勝負が決まる',
@@ -86,7 +86,7 @@ storeScreenshotCopy = {
     ),
     StoreScreenshotPage.dex: (
       headline: 'Collect them\nand fill your Dex',
-      subline: 'Only you can see your original photos',
+      subline: 'They keep the look\nthey were born with',
     ),
     StoreScreenshotPage.battle: (
       headline: 'Stats and elements\ndecide the battle',
