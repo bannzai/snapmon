@@ -634,7 +634,7 @@ class _BattleScreenState extends State<BattleScreen> {
           definitions: widget.definitions,
           hitPointsColor: SnapmonColors.hitPointsLoss,
           showsHitPointsNumber: false,
-          keepsHitPointsAndElementTypesOnOneLine: false,
+          keepsEachRowOnOneLine: false,
         ),
       ),
       Positioned(
@@ -646,8 +646,7 @@ class _BattleScreenState extends State<BattleScreen> {
           definitions: widget.definitions,
           hitPointsColor: SnapmonColors.accent,
           showsHitPointsNumber: true,
-          keepsHitPointsAndElementTypesOnOneLine:
-              placesPlayerStatusCardBesideLog,
+          keepsEachRowOnOneLine: placesPlayerStatusCardBesideLog,
         ),
       ),
     ],
@@ -1006,7 +1005,7 @@ class _MonsterStatusCard extends StatelessWidget {
     required this.definitions,
     required this.hitPointsColor,
     required this.showsHitPointsNumber,
-    required this.keepsHitPointsAndElementTypesOnOneLine,
+    required this.keepsEachRowOnOneLine,
   });
 
   final BattleMonster monster;
@@ -1016,9 +1015,10 @@ class _MonsterStatusCard extends StatelessWidget {
   /// HP の数値を出すか (自分のモンスターだけ出す)。
   final bool showsHitPointsNumber;
 
-  /// HP の数値と属性の札の行を折り返さず、入りきらない時は縮めて 1 行に収めるか。
+  /// 名前とレベルの行、HP の数値と属性の札の行をそれぞれ折り返さずに 1 行に収めるか
+  /// (名前は省略記号で切り、HP の数値と属性の札は縮める)。
   /// 低い画面ではカードを 3 段の高さに保たないとフィールドに収まらないため、その時だけ true にする。
-  final bool keepsHitPointsAndElementTypesOnOneLine;
+  final bool keepsEachRowOnOneLine;
 
   @override
   Widget build(BuildContext context) {
@@ -1038,28 +1038,7 @@ class _MonsterStatusCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // 名前とレベルが 1 行に収まらない時 (端末の文字が大きい時) はレベルを次の行に回す
-          Wrap(
-            alignment: WrapAlignment.spaceBetween,
-            crossAxisAlignment: WrapCrossAlignment.center,
-            spacing: 8,
-            children: [
-              Text(
-                monster.definition.name,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: SnapmonTextStyles.label.copyWith(
-                  color: SnapmonColors.textOnCard,
-                ),
-              ),
-              Text(
-                context.l10n.commonLevel(monster.state.level),
-                style: SnapmonTextStyles.small.copyWith(
-                  color: SnapmonColors.textOnCardMuted,
-                ),
-              ),
-            ],
-          ),
+          _buildNameAndLevel(context: context),
           const SizedBox(height: 6),
           ClipRRect(
             borderRadius: SnapmonRadii.tag,
@@ -1087,6 +1066,39 @@ class _MonsterStatusCard extends StatelessWidget {
     );
   }
 
+  /// 名前とレベルの行。
+  Widget _buildNameAndLevel({required BuildContext context}) {
+    final nameText = Text(
+      monster.definition.name,
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+      style: SnapmonTextStyles.label.copyWith(color: SnapmonColors.textOnCard),
+    );
+    final levelText = Text(
+      context.l10n.commonLevel(monster.state.level),
+      style: SnapmonTextStyles.small.copyWith(
+        color: SnapmonColors.textOnCardMuted,
+      ),
+    );
+    if (keepsEachRowOnOneLine) {
+      // 名前が長い時は名前を省略記号で切り、レベルを同じ行に残す
+      return Row(
+        spacing: 8,
+        children: [
+          Flexible(child: nameText),
+          levelText,
+        ],
+      );
+    }
+    // 名前とレベルが 1 行に収まらない時 (端末の文字が大きい時) はレベルを次の行に回す
+    return Wrap(
+      alignment: WrapAlignment.spaceBetween,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      spacing: 8,
+      children: [nameText, levelText],
+    );
+  }
+
   /// HP の数値 ([showsHitPointsNumber] の時) と属性の札の行。最大 HP を [maximumHitPoints] で受け取る。
   Widget _buildHitPointsAndElementTypes({
     required BuildContext context,
@@ -1109,7 +1121,7 @@ class _MonsterStatusCard extends StatelessWidget {
       for (final elementTypeId in monster.definition.elementTypeIds)
         ElementTypeTag(elementTypeId: elementTypeId, definitions: definitions),
     ];
-    if (keepsHitPointsAndElementTypesOnOneLine) {
+    if (keepsEachRowOnOneLine) {
       return Align(
         alignment: Alignment.centerLeft,
         child: FittedBox(
