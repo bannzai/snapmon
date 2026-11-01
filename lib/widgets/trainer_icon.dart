@@ -28,6 +28,7 @@ class TrainerIcon extends StatelessWidget {
       color: SnapmonColors.artBackground,
       child: Center(
         child: Text(
+          // 表示名は Functions が必ず決めて返す (設定していなければ「トレーナー」+ 4 桁) が、空の名前を受け取っても落ちないよう、印を描かずに地だけ出す
           profile.displayName.characters.firstOrNull ?? '',
           // 印の文字は一辺の半分の大きさにし、どの大きさのアイコンでも枠に対して同じ割合で見せる
           style: SnapmonTextStyles.cardTitle.copyWith(

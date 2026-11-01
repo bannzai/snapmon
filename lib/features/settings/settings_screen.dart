@@ -328,6 +328,7 @@ class _ProfileTile extends StatefulWidget {
     required this.monsterGenerator,
   });
 
+  /// プロフィールの読み込みと保存。
   final PvpClient pvpClient;
 
   /// プロフィール画面がアイコンの写真を選んで送る形にするのに使う。
@@ -337,6 +338,7 @@ class _ProfileTile extends StatefulWidget {
   State<_ProfileTile> createState() => _ProfileTileState();
 }
 
+/// [_ProfileTile] の読み込みの状態。
 class _ProfileTileState extends State<_ProfileTile> {
   /// 今の表示名とアイコン。読み込み中・ログインが無い時は null。
   TrainerProfile? _profile;
@@ -344,6 +346,7 @@ class _ProfileTileState extends State<_ProfileTile> {
   /// 読み込みの失敗。
   Object? _loadError;
 
+  /// 最初の読み込みが終わる前か。
   bool _isLoading = true;
 
   @override
@@ -352,6 +355,7 @@ class _ProfileTileState extends State<_ProfileTile> {
     unawaited(_load());
   }
 
+  /// 自分のプロフィールを読み、読めた値か失敗を画面に出す。
   Future<void> _load() async {
     try {
       final profile = await widget.pvpClient.fetchProfile();
@@ -372,6 +376,7 @@ class _ProfileTileState extends State<_ProfileTile> {
     }
   }
 
+  /// [profile] から始めるプロフィール画面を開き、閉じたら変えた値を出すために読み直す。
   Future<void> _open({required TrainerProfile profile}) async {
     await Navigator.of(context).push(
       MaterialPageRoute<void>(

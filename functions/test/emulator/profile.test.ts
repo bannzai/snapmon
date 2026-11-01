@@ -60,6 +60,7 @@ async function uploadIconPhoto({ uid, uploadId }: { uid: string; uploadId: strin
   await bucket.file(profileIconUploadPath({ uid, uploadId })).save(photo, { contentType: "image/jpeg", resumable: false });
 }
 
+/** バケットに [path] のファイルがあるか。 */
 async function exists(path: string): Promise<boolean> {
   return (await bucket.file(path).exists())[0];
 }
