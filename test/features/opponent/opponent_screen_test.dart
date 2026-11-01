@@ -240,7 +240,7 @@ void main() {
       );
     }
     // シートは画面の高さの 85% までで、上に残る外側を押すと閉じる
-    await tester.tapAt(const Offset(400, 10));
+    await tester.tapAt(Offset(tester.view.physicalSize.width / 2, 10));
     await tester.pumpAndSettle();
     expect(find.byKey(detailKey), findsNothing);
   });
