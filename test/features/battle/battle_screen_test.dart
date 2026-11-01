@@ -13,6 +13,7 @@ import 'package:snapmon/domain/monster/stat_calculation.dart';
 import 'package:snapmon/features/battle/battle_field_game.dart';
 import 'package:snapmon/features/battle/battle_recorder.dart';
 import 'package:snapmon/features/battle/battle_screen.dart';
+import 'package:snapmon/domain/monster/monster_definition.dart';
 import 'package:snapmon/features/dex/owned_monster.dart';
 import 'package:snapmon/features/reference/move_detail_screen.dart';
 import 'package:snapmon/features/share/card_sharer.dart';
@@ -580,12 +581,13 @@ void main() {
   });
 
   group('情報カードの置き方', () {
-    /// 自分を [strongPlayer]、相手を [weakOpponent] にしたバトル画面を、[size] の画面で、下のセーフエリアを [bottomPadding] にして開く。
+    /// 自分を [playerMonster]、相手を [weakOpponent] にしたバトル画面を、[size] の画面で、下のセーフエリアを [bottomPadding] にして開く。
     /// アプリ (lib/app.dart) と同じく内容の幅の上限 (appContentMaxWidth) に収めて描く。
     Future<void> pumpBattleScreenWithSize({
       required WidgetTester tester,
       required Size size,
       required double bottomPadding,
+      required OwnedMonster playerMonster,
     }) async {
       tester.view
         ..physicalSize = size
@@ -602,7 +604,7 @@ void main() {
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           home: BattleScreen(
-            playerParty: [strongPlayer],
+            playerParty: [playerMonster],
             opponentParty: [weakOpponent],
             opponentKind: BattleOpponentKind.cpu,
             definitions: sampleData.definitions,
@@ -626,6 +628,27 @@ void main() {
       await tester.pump(const Duration(seconds: 1));
     }
 
+    /// [strongPlayer] の名前を、生成の名前の上限 9 文字 (functions/src/generation/prompts/describe_subject.ts の NAME_LENGTH_RANGE) にした 1 体。
+    final longNamedPlayer = OwnedMonster(
+      definition: MonsterDefinition(
+        id: strongPlayer.definition.id,
+        sourcePhotoReference: strongPlayer.definition.sourcePhotoReference,
+        name: 'ゆげたつマグカップ',
+        encyclopediaText: strongPlayer.definition.encyclopediaText,
+        elementTypeIds: strongPlayer.definition.elementTypeIds,
+        learnset: strongPlayer.definition.learnset,
+        baseStats: strongPlayer.definition.baseStats,
+        individualValues: strongPlayer.definition.individualValues,
+        statCalculationVersion: strongPlayer.definition.statCalculationVersion,
+        masterVersion: strongPlayer.definition.masterVersion,
+      ),
+      level: strongPlayer.level,
+      artPath: strongPlayer.artPath,
+      definitionIds: strongPlayer.definitionIds,
+      decoration: strongPlayer.decoration,
+      decorationVersion: strongPlayer.decorationVersion,
+    );
+
     /// フィールド (Flame のゲームとその上に重ねる帯・カード) の Stack の矩形。
     Rect fieldRect({required WidgetTester tester}) => tester.getRect(
       find
@@ -645,10 +668,10 @@ void main() {
           ),
         );
 
-    /// 自分の情報カード (自分のモンスターの名前を含む Positioned) の矩形。
+    /// 自分の情報カード (HP の数値を含む Positioned。HP の数値は自分のカードにだけ出る) の矩形。
     Rect playerStatusCardRect({required WidgetTester tester}) => tester.getRect(
       find.ancestor(
-        of: find.text(strongPlayer.definition.name),
+        of: find.textContaining('HP '),
         matching: find.byType(Positioned),
       ),
     );
@@ -672,6 +695,7 @@ void main() {
             tester: tester,
             size: const Size(844, 390),
             bottomPadding: bottomPadding,
+            playerMonster: strongPlayer,
           );
           final field = fieldRect(tester: tester);
           final card = opponentStatusCardRect(tester: tester);
@@ -689,6 +713,7 @@ void main() {
             tester: tester,
             size: const Size(844, 390),
             bottomPadding: bottomPadding,
+            playerMonster: strongPlayer,
           );
           final field = fieldRect(tester: tester);
           final card = playerStatusCardRect(tester: tester);
@@ -705,12 +730,30 @@ void main() {
       );
 
       testWidgets(
+        '横向きのスマホ (844×390、下のセーフエリア $bottomPadding) では、自分のモンスターの名前が 9 文字でもカード全体がフィールドに収まる',
+        (tester) async {
+          await pumpBattleScreenWithSize(
+            tester: tester,
+            size: const Size(844, 390),
+            bottomPadding: bottomPadding,
+            playerMonster: longNamedPlayer,
+          );
+
+          expect(
+            playerStatusCardRect(tester: tester).bottom,
+            lessThanOrEqualTo(fieldRect(tester: tester).bottom),
+          );
+        },
+      );
+
+      testWidgets(
         '横向きのスマホ (844×390、下のセーフエリア $bottomPadding) では、バトルの始まりのログの帯がフィールドに収まる',
         (tester) async {
           await pumpBattleScreenWithSize(
             tester: tester,
             size: const Size(844, 390),
             bottomPadding: bottomPadding,
+            playerMonster: strongPlayer,
           );
 
           expect(
@@ -728,6 +771,7 @@ void main() {
         tester: tester,
         size: const Size(390, 390),
         bottomPadding: 0,
+        playerMonster: strongPlayer,
       );
 
       expect(battleLogRect(tester: tester).width, greaterThan(100));
@@ -744,6 +788,7 @@ void main() {
           tester: tester,
           size: const Size(390, 844),
           bottomPadding: 0,
+          playerMonster: strongPlayer,
         );
 
         expect(
