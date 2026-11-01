@@ -407,6 +407,7 @@ class _ProfileTileState extends State<_ProfileTile> {
           key: const Key('profile'),
           leading: profile == null
               ? const Icon(Icons.badge_outlined)
+              // 32: ListTile の leading に置く他の項目のアイコン (24) の枠に近い大きさで、アイコンの写真を見分けられるため
               : TrainerIcon(profile: profile, dimension: 32),
           title: Text(context.l10n.settingsProfileSection),
           subtitle: Text(

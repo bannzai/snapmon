@@ -748,10 +748,18 @@ void main() {
         tester.getTopLeft(find.byKey(const Key('battle-opponent-trainer'))),
         const Offset(20, 96),
       );
-      // 札の高さ 40 と札とカードの間 6 の下
+      // カードは札の下に、札とカードの間 6 を空けて置く
       expect(
         opponentStatusCardRect(tester: tester).topLeft,
-        const Offset(20, 142),
+        Offset(
+          20,
+          tester
+                  .getBottomLeft(
+                    find.byKey(const Key('battle-opponent-trainer')),
+                  )
+                  .dy +
+              6,
+        ),
       );
       expect(battleLogRect(tester: tester).left, 20);
       expect(find.byKey(const Key('battle-player-trainer')), findsOneWidget);

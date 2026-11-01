@@ -69,6 +69,7 @@ class TrainerLabel extends StatelessWidget {
   Widget build(BuildContext context) => Row(
     mainAxisSize: MainAxisSize.min,
     children: [
+      // 28: 札の名前の文字 (SnapmonTextStyles.label) の 1 行より少し高く、名前の横で印の 1 文字を読める大きさ
       TrainerIcon(profile: profile, dimension: 28),
       const SizedBox(width: 8),
       Flexible(

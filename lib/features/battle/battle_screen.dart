@@ -71,9 +71,12 @@ const double _monsterStatusCardWidth = 190;
 /// トレーナーの札と情報カードの間。
 const double _trainerLabelGap = 6;
 
-/// トレーナーの札の高さ (アイコン 28 と上下の余白 6 ずつ)。札を出すとカードがフィールドに収まるかの判定に使う。
-/// 札を出すかの判定に札そのものを測ると、出すと収まらず消し、消すと収まり出す往復になるため、定数で見積もる
-const double _trainerLabelPlateHeight = 40;
+/// 札を一度も出していない時に見積もるトレーナーの札の高さ (アイコン 28 と上下の余白 6 ずつ)。
+/// 出した後は測った高さ ([_BattleScreenState._trainerLabelPlateMeasuredHeight]) を使う
+const double _trainerLabelPlateEstimatedHeight = 40;
+
+/// フィールドの下端から自分の情報カードの下端までの高さ (モックの Battle.dc.html の配置)。
+const double _playerStatusCardBottom = 24;
 
 /// 低い画面で相手の情報カードの右に寄せたログの帯と、カードの間。
 /// 縦向きのカードと帯の間 (上から 56〜96 の 40) まで空けると横向きで帯が短くなるため、詰めた値にした
@@ -158,6 +161,13 @@ class _BattleScreenState extends State<BattleScreen> {
 
   /// 最後に測った相手の情報カードの高さ。フィールドの低さの判定に使う。最初のフレームを描くまでは null。
   double? _opponentStatusCardHeight;
+
+  /// 相手のトレーナーの札。出した時に高さを測る (文字の拡大や名前の長さで見積もりの高さを超えるため)。
+  final GlobalKey _opponentTrainerLabelKey = GlobalKey();
+
+  /// 最後に札を出した時に測った札の高さ。札を出していない間は測らず前の値を使う
+  /// (札を出すかの判定に使うため、出していない間に測り直すと、出すと収まらず消し、消すと収まり出す往復になる)。
+  double? _trainerLabelPlateMeasuredHeight;
 
   /// 画面に出している場のモンスター (HP は演出に合わせて減らす)。演出が終わると [_battleState] の場のモンスターに揃える。
   late Map<BattleSideId, BattleMonster> _displayedActiveMembers;
@@ -498,16 +508,22 @@ class _BattleScreenState extends State<BattleScreen> {
                             _opponentStatusCardBelowLogTop +
                             _opponentStatusCardHeight! >
                         constraints.maxHeight;
-                // トレーナーの札は、札をカードの上に積んでもログの帯の下に収まる高さのフィールドの時だけ出す。
+                // トレーナーの札は、ログの帯の下に相手の札とカード、フィールドの下に自分の札とカードを積んでも、
+                // 上下の 2 組が重ならない高さのフィールドの時だけ出す (自分の札とカードは相手と同じ高さと見積もる)。
                 // 低い画面 (横向きのスマホ・小さい Web のウィンドウ) は、カードだけでもフィールドにやっと収まり、
                 // 札を積んでも横に並べても札やカードがフィールドの外で切れるかログの帯と重なるため、札を出さずにカードとログを優先する
+                final trainerLabelPlateHeight =
+                    _trainerLabelPlateMeasuredHeight ??
+                    _trainerLabelPlateEstimatedHeight;
                 final showsTrainerLabels =
                     _opponentStatusCardHeight != null &&
                     safeAreaTop +
                             _opponentStatusCardBelowLogTop +
-                            _trainerLabelPlateHeight +
-                            _trainerLabelGap +
-                            _opponentStatusCardHeight! <=
+                            2 *
+                                (trainerLabelPlateHeight +
+                                    _trainerLabelGap +
+                                    _opponentStatusCardHeight!) +
+                            _playerStatusCardBottom <=
                         constraints.maxHeight;
                 final opponentStatusCardTop =
                     safeAreaTop +
@@ -515,7 +531,7 @@ class _BattleScreenState extends State<BattleScreen> {
                         ? _battleLogTop
                         : _opponentStatusCardBelowLogTop) +
                     (showsTrainerLabels
-                        ? _trainerLabelPlateHeight + _trainerLabelGap
+                        ? trainerLabelPlateHeight + _trainerLabelGap
                         : 0);
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   if (!mounted) {
@@ -532,12 +548,20 @@ class _BattleScreenState extends State<BattleScreen> {
                       bottom: opponentStatusCardTop + cardSize.height,
                     );
                   }
+                  if (_opponentTrainerLabelKey.currentContext?.size?.height
+                      case final labelHeight?
+                      when labelHeight != _trainerLabelPlateMeasuredHeight) {
+                    setState(
+                      () => _trainerLabelPlateMeasuredHeight = labelHeight,
+                    );
+                  }
                 });
                 return _buildField(
                   playerMonster: playerMonster,
                   opponentMonster: opponentMonster,
                   opponentStatusCardTop: opponentStatusCardTop,
                   showsTrainerLabels: showsTrainerLabels,
+                  trainerLabelPlateHeight: trainerLabelPlateHeight,
                   battleLogLeft: isFieldTooLowForCardBelowLog
                       ? _fieldHorizontalMargin +
                             _monsterStatusCardWidth +
@@ -597,13 +621,14 @@ class _BattleScreenState extends State<BattleScreen> {
 
   /// フィールド (Flame のゲーム) と、その上に重ねるログの帯・2 体の情報カード。
   /// 相手の情報カードの上端を [opponentStatusCardTop]、ログの帯の左端を [battleLogLeft] に置く。
-  /// [showsTrainerLabels] の時は、相手と自分のトレーナーの札をそれぞれのカードの上に出す。
+  /// [showsTrainerLabels] の時は、相手と自分のトレーナーの札をそれぞれのカードの上に出す (相手の札の高さは [trainerLabelPlateHeight] と見積もる)。
   Widget _buildField({
     required BattleMonster playerMonster,
     required BattleMonster opponentMonster,
     required double opponentStatusCardTop,
     required double battleLogLeft,
     required bool showsTrainerLabels,
+    required double trainerLabelPlateHeight,
   }) => Stack(
     children: [
       Positioned.fill(child: GameWidget(game: _game)),
@@ -640,11 +665,14 @@ class _BattleScreenState extends State<BattleScreen> {
           left: _fieldHorizontalMargin,
           top:
               opponentStatusCardTop -
-              _trainerLabelPlateHeight -
+              trainerLabelPlateHeight -
               _trainerLabelGap,
-          child: _TrainerLabelPlate(
-            key: const Key('battle-opponent-trainer'),
-            profile: widget.opponentProfile,
+          child: KeyedSubtree(
+            key: _opponentTrainerLabelKey,
+            child: _TrainerLabelPlate(
+              key: const Key('battle-opponent-trainer'),
+              profile: widget.opponentProfile,
+            ),
           ),
         ),
       Positioned(
@@ -660,7 +688,7 @@ class _BattleScreenState extends State<BattleScreen> {
       ),
       Positioned(
         right: _fieldHorizontalMargin,
-        bottom: 24,
+        bottom: _playerStatusCardBottom,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [

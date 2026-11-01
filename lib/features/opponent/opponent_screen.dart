@@ -487,6 +487,7 @@ class _OpponentCard extends StatelessWidget {
         children: [
           Row(
             children: [
+              // 36: 対戦相手のカードの見出し (名前と手持ちの数の 2 行) と同じ高さで、見出しの左に並べるため
               TrainerIcon(
                 profile: (displayName: title, iconPath: null),
                 dimension: 36,
