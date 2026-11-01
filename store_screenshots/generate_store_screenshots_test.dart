@@ -15,7 +15,6 @@ import 'package:snapmon/features/capture/monster_generator.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
 import 'package:snapmon/features/dex/owned_monster.dart';
 import 'package:snapmon/features/home/home_shell.dart';
-import 'package:snapmon/features/opponent/pvp_client.dart';
 import 'package:snapmon/features/result/result_screen.dart';
 import 'package:snapmon/features/session/session_store.dart';
 import 'package:snapmon/features/settings/account_store.dart';
@@ -369,16 +368,6 @@ Widget _homeShell({
     endSession: () async {},
     resumedUid: 'store-screenshot-uid',
   );
-  final PvpClient pvpClient = fakePvpClient(
-    calls: RecordedPvpCalls(),
-    fetchOpponents: () async => null,
-    extraDefinitions: null,
-    battleRecord: (wins: 14, losses: 6),
-    displayName: 'snap',
-    reportMonster: () async {},
-    blockUser: () async {},
-    updateDisplayName: ({required displayName}) async => displayName,
-  );
   return HomeShell(
     initialTab: initialTab,
     // 撮るページはファインダーに写真を映すため、押すのを待たずにカメラを開いた状態で描く
@@ -418,7 +407,16 @@ Widget _homeShell({
           throw StateError('スクリーンショットでは生成しない'),
       logEvent: ({required event, required parameters}) async {},
     ),
-    pvpClient: pvpClient,
+    pvpClient: fakePvpClient(
+      calls: RecordedPvpCalls(),
+      fetchOpponents: () async => null,
+      extraDefinitions: null,
+      battleRecord: (wins: 14, losses: 6),
+      displayName: 'snap',
+      reportMonster: () async {},
+      blockUser: () async {},
+      updateDisplayName: ({required displayName}) async => displayName,
+    ),
     cardSharer: _cardSharer(artImagesByPath: artImagesByPath),
     accountStore: AccountStore(
       sessionStore: sessionStore,
