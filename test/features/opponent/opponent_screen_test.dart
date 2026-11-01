@@ -232,7 +232,7 @@ void main() {
     );
     expect(detailCard.monster.definition.id, monster.definition.id);
     expect(detailCard.monster.level, level);
-    for (final text in [monster.definition.name, 'Lv. $level', '覚えている技']) {
+    for (final text in [monster.definition.name, 'Lv. $level', 'おぼえている技']) {
       expect(
         find.descendant(of: find.byKey(detailKey), matching: find.text(text)),
         findsOneWidget,
