@@ -110,13 +110,20 @@ export async function setProfileIconData(
     await sharp(photo).rotate().resize({ width: PROFILE_ICON_SIDE, height: PROFILE_ICON_SIDE, fit: "cover" }).png().toBuffer(),
     { contentType: "image/png", resumable: false },
   );
-  const previousIconPath = await firestore.runTransaction(async (transaction) => {
-    const currentUserSnapshot = await transaction.get(userDocument);
-    // 検査の間に削除が始まった時に、消し終えた後へ iconPath だけが残らないよう、書く直前にもう一度確かめる
-    await requireActiveAccount({ auth, uid, userSnapshot: currentUserSnapshot });
-    transaction.set(userDocument, { iconPath }, { merge: true });
-    return currentUserSnapshot.get("iconPath") as unknown;
-  });
+  let previousIconPath: unknown;
+  try {
+    previousIconPath = await firestore.runTransaction(async (transaction) => {
+      const currentUserSnapshot = await transaction.get(userDocument);
+      // 検査の間に削除が始まった時に、消し終えた後へ iconPath だけが残らないよう、書く直前にもう一度確かめる
+      await requireActiveAccount({ auth, uid, userSnapshot: currentUserSnapshot });
+      transaction.set(userDocument, { iconPath }, { merge: true });
+      return currentUserSnapshot.get("iconPath") as unknown;
+    });
+  } catch (error) {
+    // 削除が Storage を消し終えた後に保存したアイコンと写真を、他人が読める画像として残さない
+    await Promise.all([bucket.file(iconPath).delete({ ignoreNotFound: true }), uploadFile.delete({ ignoreNotFound: true })]);
+    throw error;
+  }
   await Promise.all([
     uploadFile.delete({ ignoreNotFound: true }),
     ...(typeof previousIconPath === "string" && previousIconPath !== iconPath && previousIconPath.startsWith(`users/${uid}/icons/`)

@@ -98,48 +98,52 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: Text(context.l10n.settingsProfileSection)),
-    body: ListView(
-      padding: const EdgeInsets.symmetric(vertical: 24),
-      children: [
-        Center(
-          child: TrainerIcon(
-            key: const Key('profile-icon'),
-            profile: _profile,
-            dimension: 96,
+  // アイコンを保存し終えるまでは戻らせない (閉じた後に保存が終わると、開いた側が古いアイコンを読み直したままになるため)
+  Widget build(BuildContext context) => PopScope(
+    canPop: !_isUpdatingIcon,
+    child: Scaffold(
+      appBar: AppBar(title: Text(context.l10n.settingsProfileSection)),
+      body: ListView(
+        padding: const EdgeInsets.symmetric(vertical: 24),
+        children: [
+          Center(
+            child: TrainerIcon(
+              key: const Key('profile-icon'),
+              profile: _profile,
+              dimension: 96,
+            ),
           ),
-        ),
-        const SizedBox(height: 16),
-        Center(
-          child: OutlinedButton.icon(
-            key: const Key('profile-change-icon'),
-            onPressed: _isUpdatingIcon ? null : _changeIcon,
-            icon: _isUpdatingIcon
-                ? const SizedBox.square(
-                    dimension: 16,
-                    child: CircularProgressIndicator(strokeWidth: 2),
-                  )
-                : const Icon(Icons.photo_library_outlined),
-            label: Text(context.l10n.profileChangeIcon),
+          const SizedBox(height: 16),
+          Center(
+            child: OutlinedButton.icon(
+              key: const Key('profile-change-icon'),
+              onPressed: _isUpdatingIcon ? null : _changeIcon,
+              icon: _isUpdatingIcon
+                  ? const SizedBox.square(
+                      dimension: 16,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : const Icon(Icons.photo_library_outlined),
+              label: Text(context.l10n.profileChangeIcon),
+            ),
           ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          context.l10n.profileIconHelper,
-          textAlign: TextAlign.center,
-          style: SnapmonTextStyles.small,
-        ),
-        const SizedBox(height: 24),
-        ListTile(
-          key: const Key('display-name'),
-          leading: const Icon(Icons.badge_outlined),
-          title: Text(context.l10n.settingsDisplayName),
-          subtitle: Text(_profile.displayName),
-          trailing: const Icon(Icons.edit),
-          onTap: _editDisplayName,
-        ),
-      ],
+          const SizedBox(height: 8),
+          Text(
+            context.l10n.profileIconHelper,
+            textAlign: TextAlign.center,
+            style: SnapmonTextStyles.small,
+          ),
+          const SizedBox(height: 24),
+          ListTile(
+            key: const Key('display-name'),
+            leading: const Icon(Icons.badge_outlined),
+            title: Text(context.l10n.settingsDisplayName),
+            subtitle: Text(_profile.displayName),
+            trailing: const Icon(Icons.edit),
+            onTap: _editDisplayName,
+          ),
+        ],
+      ),
     ),
   );
 }

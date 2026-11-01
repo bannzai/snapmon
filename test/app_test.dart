@@ -1946,6 +1946,44 @@ void main() {
       );
     });
 
+    testWidgets('アイコンを保存し終えるまではプロフィール画面から戻れない', (tester) async {
+      final iconSaved = Completer<String>();
+      pvpClient = fakePvpClient(
+        calls: pvpCalls,
+        fetchOpponents: () async => [],
+        extraDefinitions: null,
+        battleRecord: (wins: 0, losses: 0),
+        profile: (displayName: 'トレーナー 0042', iconPath: null),
+        reportMonster: () async {},
+        blockUser: () async {},
+        updateDisplayName: ({required displayName}) async => displayName,
+        updateIcon: ({required photo}) => iconSaved.future,
+      );
+      await pumpHome(
+        tester: tester,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
+      );
+      await tester.tap(find.byTooltip('設定'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('profile')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('profile-change-icon')));
+      await tester.pump();
+
+      await tester.tap(find.byType(BackButton));
+      await tester.pumpAndSettle();
+      expect(find.byType(ProfileScreen), findsOneWidget);
+
+      iconSaved.complete('users/uid/icons/upload.png');
+      await tester.pumpAndSettle();
+      await tester.tap(find.byType(BackButton));
+      await tester.pumpAndSettle();
+      expect(find.byType(ProfileScreen), findsNothing);
+    });
+
     testWidgets('ログインが無い時はプロフィールの項目を出さない', (tester) async {
       await pumpHome(
         tester: tester,
