@@ -224,14 +224,25 @@ void main() {
             )
             .first;
         expect(tester.widget<Flex>(opponentColumn).direction, direction);
-        // 横向きでは札とカードが同じ高さから始まり、カードが札の分だけフィールドの下へ押し出されない
+        // カードの中の相手のモンスターの名前の上端が、札の下端より上 (横に並ぶ) か下 (上に積む) かで、
+        // 横向きではカードが札の分だけフィールドの下へ押し出されないことを確かめる
+        final opponentCardNameTop = tester
+            .getTopLeft(
+              find
+                  .descendant(
+                    of: opponentColumn,
+                    matching: find.textContaining(weakOpponent.definition.name),
+                  )
+                  .first,
+            )
+            .dy;
+        final trainerLabelBottom = tester
+            .getBottomLeft(find.byKey(const Key('battle-opponent-trainer')))
+            .dy;
         if (direction == Axis.horizontal) {
-          expect(
-            tester
-                .getTopLeft(find.byKey(const Key('battle-opponent-trainer')))
-                .dy,
-            tester.getTopLeft(opponentColumn).dy,
-          );
+          expect(opponentCardNameTop, lessThan(trainerLabelBottom));
+        } else {
+          expect(opponentCardNameTop, greaterThanOrEqualTo(trainerLabelBottom));
         }
       },
     );
