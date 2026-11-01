@@ -82,13 +82,13 @@ export function profileIconPath({ uid, uploadId }: { uid: string; uploadId: stri
 
 /** アイコンの登録が使う外部の資源。callable は本番の実装を、テストは Emulator の資源とモックの Vision を渡す。 */
 export interface ProfileIconDependencies {
-  /** Firestore。 */
+  /** `users/{uid}` (iconPath・dailyIconCheck・削除の印) と `iconCheckDailyCounts/{日付}` を読み書きする先。 */
   firestore: Firestore;
   /** Firebase Authentication (まだ `users/{uid}` が無い新しいユーザーと、削除を消し終えたユーザーを見分ける)。 */
   auth: Auth;
   /** 写真とアイコンを置くバケット。 */
   bucket: StorageBucket;
-  /** Cloud Vision。 */
+  /** 写真の露骨な内容・人の顔を判定する Cloud Vision の呼び出し (テストでは偽物に差し替え、呼ばれた回数を数える)。 */
   annotateImage: AnnotateImage;
 }
 
