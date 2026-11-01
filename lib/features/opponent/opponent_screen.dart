@@ -199,11 +199,17 @@ class _OpponentScreenState extends State<OpponentScreen> {
       showModalBottomSheet<void>(
         context: context,
         isScrollControlled: true,
+        showDragHandle: true,
         backgroundColor: SnapmonColors.background,
+        // カードは横長の画面 (Web のデスクトップ) では画面の高さを超え、シートが全面を覆うと閉じるために押す外側が無くなる。
+        // 上の 15% を押せる外側として残す (シートの上の余白で閉じられると分かる程度の幅として選んだ)
+        constraints: BoxConstraints(
+          maxHeight: MediaQuery.sizeOf(context).height * 0.85,
+        ),
         builder: (context) => SafeArea(
           child: SingleChildScrollView(
             key: Key('opponent-monster-detail-${monster.definition.id}'),
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 24),
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
             child: MonsterDetailCard(
               monster: monster,
               definitions: widget.dexStore.definitions,

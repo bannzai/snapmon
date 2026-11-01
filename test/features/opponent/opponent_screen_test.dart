@@ -239,6 +239,10 @@ void main() {
         reason: text,
       );
     }
+    // シートは画面の高さの 85% までで、上に残る外側を押すと閉じる
+    await tester.tapAt(const Offset(400, 10));
+    await tester.pumpAndSettle();
+    expect(find.byKey(detailKey), findsNothing);
   });
 
   testWidgets('自分の手持ちの札を押すと、図鑑から開いた時と同じそのモンスターの画面を開く', (tester) async {
