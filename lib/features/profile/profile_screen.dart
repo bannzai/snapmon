@@ -111,6 +111,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         padding: const EdgeInsets.symmetric(vertical: 24),
         children: [
           Center(
+            // 96: アイコンを変える画面で、選んだ写真の切り取った中身 (256px の PNG) を見て確かめられる大きさ
             child: TrainerIcon(
               key: const Key('profile-icon'),
               profile: _profile,

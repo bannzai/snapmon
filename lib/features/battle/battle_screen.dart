@@ -68,7 +68,7 @@ const double _opponentStatusCardBelowLogTop = 96;
 /// 情報カードの幅 (モックの Battle.dc.html の配置)。
 const double _monsterStatusCardWidth = 190;
 
-/// トレーナーの札と情報カードの間。
+/// トレーナーの札と情報カードの間。札がどちらのカードに付くかを近さで示しつつ、札の暗い地とカードの縁が接して見えない最小の間にした。
 const double _trainerLabelGap = 6;
 
 /// 札を一度も出していない時に見積もるトレーナーの札の高さ (アイコン 28 と上下の余白 6 ずつ)。
@@ -1071,6 +1071,8 @@ class _TrainerLabelPlate extends StatelessWidget {
       borderRadius: SnapmonRadii.button,
     ),
     child: Padding(
+      // 上下と左の 6: アイコンを札の縁から少し離す最小の余白 (札の高さの見積もり _trainerLabelPlateEstimatedHeight の前提)。
+      // 右の 12: 名前の文字の終わりを札の角丸 (SnapmonRadii.button) の内側に収めるため、左より広くした
       padding: const EdgeInsets.fromLTRB(6, 6, 12, 6),
       // 名前が長くても画面の半分を超えて相手と自分の札が重ならないよう、幅を画面の半分までにする
       child: ConstrainedBox(
