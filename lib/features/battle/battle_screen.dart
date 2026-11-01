@@ -66,16 +66,11 @@ const double _opponentStatusCardBelowLogTop = 96;
 /// 情報カードの幅 (モックの Battle.dc.html の配置)。
 const double _monsterStatusCardWidth = 190;
 
-/// 低い画面でログの帯の右に並べる自分の情報カードの幅。
-/// 幅 190 では HP の数値と属性の札が 1 行に収まらず札が次の行に回り、カードの高さが 115 になって
-/// 844×390 のフィールド (下のセーフエリアのある実機は約 103) に収まらない。HP の数値と属性の札 2 つが 1 行に並ぶ幅にし、
-/// 相手の情報カードと同じ 3 段 (高さ 86) にした
-const double _playerStatusCardBesideLogWidth = 260;
-
 /// 自分の情報カードをログの帯の右に並べる時に、ログの帯に残す最小の幅。
-/// ログは本文 (13px、行の高さ 19.5) で折り返し、相手の情報カードの高さ 86 までなら 3 行入る。
-/// 160 は内側 132 (1 行 10 文字ほど) で、技を使った時の 1 文 (26 文字ほど) が 3 行に収まる幅にした
-const double _battleLogMinimumWidthBesideCards = 160;
+/// ログは本文 (13px、行の高さ 19.5) で折り返し、情報カードの高さ 86 までなら 3 行入る。
+/// 120 は内側 92 (1 行 7 文字ほど) で、バトルの始まりの 1 文 (「{名前} が 勝負をしかけてきた」) が 3 行に収まる幅にした。
+/// 横向きのスマホは内容の幅の上限 600 (appContentMaxWidth) で描かれ、帯に 164 残るため並べられる
+const double _battleLogMinimumWidthBesideCards = 120;
 
 /// 低い画面で相手の情報カードの右に寄せたログの帯と、カードの間。
 /// 縦向きのカードと帯の間 (上から 56〜96 の 40) まで空けると横向きで帯が短くなるため、詰めた値にした
@@ -483,10 +478,10 @@ class _BattleScreenState extends State<BattleScreen> {
             child: LayoutBuilder(
               builder: (context, constraints) {
                 // ログの帯の下 (上から 96) に置くとカードがフィールドの下にはみ出す低い画面 (横向きのスマホ) では、
-                // 相手のカードをログの帯と同じ高さの左に上げ、自分のカードを幅を広げて帯と同じ高さの右に上げ、ログの帯を 2 枚の間に置く。
-                // 844×390 の実測でフィールドは 124 (下のセーフエリアのある実機は約 103)、ログの帯は上から 16〜56、相手のカードは 86 で、
+                // 相手のカードをログの帯と同じ高さの左に上げ、自分のカードも帯と同じ高さの右に上げ、ログの帯を 2 枚の間に置く。
+                // 844×390 の実測でフィールドは 124 (下のセーフエリアのある実機は約 103)、ログの帯は上から 16〜56、カードは 86 で、
                 // ログの帯の下には収まらず、帯と同じ高さ (16 + 86 = 102) なら収まるため。
-                // 自分のカードは幅 190 では高さ 115 で、右下 (下から 24) に置くと上端が -15 になりフィールドの外に出ていた。
+                // 自分のカードは右下 (下から 24) に置くと、HP の数値と属性の札の行が折り返した時に高さ 115 になり、上端がフィールドの外に出ていた。
                 // 自分のカードを右に並べるのは、セーフエリアの内側の幅に 2 枚のカードとログの帯の最小の幅が入る時だけにする
                 // (低くて幅も狭い画面で並べると、ログの帯の幅が無くなり 2 枚のカードが重なるため。その時は今までどおり右下に置く)
                 final isFieldTooLowForCardBelowLog =
@@ -519,7 +514,6 @@ class _BattleScreenState extends State<BattleScreen> {
                 return _buildField(
                   playerMonster: playerMonster,
                   opponentMonster: opponentMonster,
-                  safeAreaPadding: safeAreaPadding,
                   opponentStatusCardTop: opponentStatusCardTop,
                   placesOpponentStatusCardBesideLog:
                       isFieldTooLowForCardBelowLog,
@@ -527,8 +521,7 @@ class _BattleScreenState extends State<BattleScreen> {
                       isFieldTooLowForCardBelowLog &&
                       constraints.maxWidth - safeAreaPadding.horizontal >=
                           _fieldHorizontalMargin * 2 +
-                              _monsterStatusCardWidth +
-                              _playerStatusCardBesideLogWidth +
+                              _monsterStatusCardWidth * 2 +
                               _battleLogGapBesideCard * 2 +
                               _battleLogMinimumWidthBesideCards,
                 );
@@ -584,13 +577,12 @@ class _BattleScreenState extends State<BattleScreen> {
   }
 
   /// フィールド (Flame のゲーム) と、その上に重ねるログの帯・2 体の情報カード。
-  /// 相手の情報カードの上端を [opponentStatusCardTop] に置き、2 体の情報カードを左右の [safeAreaPadding] の内側に置く。
+  /// 相手の情報カードの上端を [opponentStatusCardTop] に置く。
   /// [placesOpponentStatusCardBesideLog] が true の時はログの帯の左端を相手の情報カードの右に寄せ、
-  /// [placesPlayerStatusCardBesideLog] が true の時は自分の情報カードをログの帯と同じ高さの右に置き、ログの帯の右端をその左に寄せる。
+  /// [placesPlayerStatusCardBesideLog] が true の時は自分の情報カードを相手の情報カードと同じ高さの右に置き、ログの帯の右端をその左に寄せる。
   Widget _buildField({
     required BattleMonster playerMonster,
     required BattleMonster opponentMonster,
-    required EdgeInsets safeAreaPadding,
     required double opponentStatusCardTop,
     required bool placesOpponentStatusCardBesideLog,
     required bool placesPlayerStatusCardBesideLog,
@@ -609,7 +601,7 @@ class _BattleScreenState extends State<BattleScreen> {
             _battleLogTop,
             placesPlayerStatusCardBesideLog
                 ? _fieldHorizontalMargin +
-                      _playerStatusCardBesideLogWidth +
+                      _monsterStatusCardWidth +
                       _battleLogGapBesideCard
                 : _fieldHorizontalMargin,
             0,
@@ -634,7 +626,7 @@ class _BattleScreenState extends State<BattleScreen> {
         ),
       ),
       Positioned(
-        left: safeAreaPadding.left + _fieldHorizontalMargin,
+        left: _fieldHorizontalMargin,
         top: opponentStatusCardTop,
         child: _MonsterStatusCard(
           key: _opponentStatusCardKey,
@@ -642,23 +634,20 @@ class _BattleScreenState extends State<BattleScreen> {
           definitions: widget.definitions,
           hitPointsColor: SnapmonColors.hitPointsLoss,
           showsHitPointsNumber: false,
-          width: _monsterStatusCardWidth,
+          keepsHitPointsAndElementTypesOnOneLine: false,
         ),
       ),
       Positioned(
-        right: safeAreaPadding.right + _fieldHorizontalMargin,
-        top: placesPlayerStatusCardBesideLog
-            ? safeAreaPadding.top + _battleLogTop
-            : null,
+        right: _fieldHorizontalMargin,
+        top: placesPlayerStatusCardBesideLog ? opponentStatusCardTop : null,
         bottom: placesPlayerStatusCardBesideLog ? null : 24,
         child: _MonsterStatusCard(
           monster: playerMonster,
           definitions: widget.definitions,
           hitPointsColor: SnapmonColors.accent,
           showsHitPointsNumber: true,
-          width: placesPlayerStatusCardBesideLog
-              ? _playerStatusCardBesideLogWidth
-              : _monsterStatusCardWidth,
+          keepsHitPointsAndElementTypesOnOneLine:
+              placesPlayerStatusCardBesideLog,
         ),
       ),
     ],
@@ -1017,7 +1006,7 @@ class _MonsterStatusCard extends StatelessWidget {
     required this.definitions,
     required this.hitPointsColor,
     required this.showsHitPointsNumber,
-    required this.width,
+    required this.keepsHitPointsAndElementTypesOnOneLine,
   });
 
   final BattleMonster monster;
@@ -1027,8 +1016,9 @@ class _MonsterStatusCard extends StatelessWidget {
   /// HP の数値を出すか (自分のモンスターだけ出す)。
   final bool showsHitPointsNumber;
 
-  /// カードの幅。
-  final double width;
+  /// HP の数値と属性の札の行を折り返さず、入りきらない時は縮めて 1 行に収めるか。
+  /// 低い画面ではカードを 3 段の高さに保たないとフィールドに収まらないため、その時だけ true にする。
+  final bool keepsHitPointsAndElementTypesOnOneLine;
 
   @override
   Widget build(BuildContext context) {
@@ -1039,7 +1029,7 @@ class _MonsterStatusCard extends StatelessWidget {
       statCalculationVersion: monster.definition.statCalculationVersion,
     ).hitPoints;
     return Container(
-      width: width,
+      width: _monsterStatusCardWidth,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: const BoxDecoration(
         color: SnapmonColors.card,
@@ -1088,34 +1078,57 @@ class _MonsterStatusCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 6),
-          // HP の数値と属性の札が 1 行に収まらない時は札を次の行に回す
-          Wrap(
-            spacing: 4,
-            runSpacing: 4,
-            crossAxisAlignment: WrapCrossAlignment.center,
-            children: [
-              if (showsHitPointsNumber)
-                Padding(
-                  padding: const EdgeInsets.only(right: 4),
-                  child: Text(
-                    context.l10n.battleHitPoints(
-                      monster.state.currentHitPoints,
-                      maximumHitPoints,
-                    ),
-                    style: SnapmonTextStyles.small.copyWith(
-                      color: SnapmonColors.textOnCardMuted,
-                    ),
-                  ),
-                ),
-              for (final elementTypeId in monster.definition.elementTypeIds)
-                ElementTypeTag(
-                  elementTypeId: elementTypeId,
-                  definitions: definitions,
-                ),
-            ],
+          _buildHitPointsAndElementTypes(
+            context: context,
+            maximumHitPoints: maximumHitPoints,
           ),
         ],
       ),
+    );
+  }
+
+  /// HP の数値 ([showsHitPointsNumber] の時) と属性の札の行。最大 HP を [maximumHitPoints] で受け取る。
+  Widget _buildHitPointsAndElementTypes({
+    required BuildContext context,
+    required int maximumHitPoints,
+  }) {
+    final children = [
+      if (showsHitPointsNumber)
+        Padding(
+          padding: const EdgeInsets.only(right: 4),
+          child: Text(
+            context.l10n.battleHitPoints(
+              monster.state.currentHitPoints,
+              maximumHitPoints,
+            ),
+            style: SnapmonTextStyles.small.copyWith(
+              color: SnapmonColors.textOnCardMuted,
+            ),
+          ),
+        ),
+      for (final elementTypeId in monster.definition.elementTypeIds)
+        ElementTypeTag(elementTypeId: elementTypeId, definitions: definitions),
+    ];
+    if (keepsHitPointsAndElementTypesOnOneLine) {
+      return Align(
+        alignment: Alignment.centerLeft,
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          alignment: Alignment.centerLeft,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            spacing: 4,
+            children: children,
+          ),
+        ),
+      );
+    }
+    // HP の数値と属性の札が 1 行に収まらない時は札を次の行に回す
+    return Wrap(
+      spacing: 4,
+      runSpacing: 4,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: children,
     );
   }
 }
