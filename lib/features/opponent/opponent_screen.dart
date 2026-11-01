@@ -140,17 +140,16 @@ class _OpponentScreenState extends State<OpponentScreen> {
 
   /// 自分の手持ちと同じ絵の見本のモンスターを持たない CPU トレーナーから乱数で選んで挑む
   /// (初回のバトルと同じ選び方。lib/features/capture/first_battle.dart)。
-  Future<void> _challengeAutomatically() {
-    final cpuTrainer = chooseFirstBattleCpuTrainer(
+  Future<void> _challengeAutomatically() => _challenge(
+    cpuTrainer: chooseFirstBattleCpuTrainer(
       cpuTrainers: excludeCpuTrainersWithSameArt(
         sampleData: widget.sampleData,
         playerParty: widget.dexStore.party,
       ),
       // 押すたびに別の相手になり得るよう、seed は毎回作る (範囲は挑む時の seed と同じ 32 bit)
       randomSeed: math.Random().nextInt(0x100000000),
-    );
-    return _challenge(cpuTrainer: cpuTrainer);
-  }
+    ),
+  );
 
   /// CPU トレーナー [cpuTrainer] に挑む。挑んでいる間に呼ばれた時は何もしない。
   Future<void> _challenge({required SampleOpponent cpuTrainer}) async {

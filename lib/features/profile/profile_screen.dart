@@ -37,11 +37,13 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  /// 画面に出している表示名とアイコン。保存できた値で置き換える。
   late TrainerProfile _profile = widget.initialProfile;
 
   /// アイコンを選んでから保存し終えるまでの間か。間は選び直させない (先に送った写真の結果で上書きされるため)。
   bool _isUpdatingIcon = false;
 
+  /// 画面の下に [message] を 1 つだけ出す (前の通知は消す)。
   void _showMessage({required String message}) => ScaffoldMessenger.of(context)
     ..hideCurrentSnackBar()
     ..showSnackBar(SnackBar(content: Text(message)));
@@ -77,6 +79,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
+  /// 表示名を入力するダイアログを開き、保存できた名前を画面に出す。
   Future<void> _editDisplayName() async {
     final savedDisplayName = await showDialog<String>(
       context: context,
@@ -155,7 +158,10 @@ class _DisplayNameDialog extends StatefulWidget {
     required this.updateDisplayName,
   });
 
+  /// 入力欄の最初の値 (今の表示名)。
   final String initialDisplayName;
+
+  /// 表示名を保存し、保存した名前を返す。使えない名前の時は理由を例外で投げる。
   final Future<String> Function({required String displayName})
   updateDisplayName;
 
@@ -164,10 +170,15 @@ class _DisplayNameDialog extends StatefulWidget {
 }
 
 class _DisplayNameDialogState extends State<_DisplayNameDialog> {
+  /// 表示名の入力欄の値。
   late final TextEditingController _controller = TextEditingController(
     text: widget.initialDisplayName,
   );
+
+  /// 保存を送ってから結果が返るまでの間か。
   bool _isSaving = false;
+
+  /// 保存できなかった理由。無ければ null。
   String? _errorText;
 
   @override
@@ -176,6 +187,7 @@ class _DisplayNameDialogState extends State<_DisplayNameDialog> {
     super.dispose();
   }
 
+  /// 入力した名前を保存し、保存できたらその名前でダイアログを閉じる。
   Future<void> _save() async {
     setState(() {
       _isSaving = true;

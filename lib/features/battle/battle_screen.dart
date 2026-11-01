@@ -931,6 +931,7 @@ class _BornMonsterCard extends StatelessWidget {
 class _TrainerLabelPlate extends StatelessWidget {
   const _TrainerLabelPlate({required super.key, required this.profile});
 
+  /// 札に出すトレーナー。
   final TrainerProfile profile;
 
   @override
