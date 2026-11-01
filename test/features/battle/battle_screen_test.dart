@@ -577,4 +577,113 @@ void main() {
     expect(find.text('もどる'), findsOneWidget);
     expect(calls.completedBattles, hasLength(1));
   });
+
+  group('相手の情報カードの置き方', () {
+    /// 自分を [strongPlayer]、相手を [weakOpponent] にしたバトル画面を、[size] の画面で、下のセーフエリアを [bottomPadding] にして開く。
+    Future<void> pumpBattleScreenWithSize({
+      required WidgetTester tester,
+      required Size size,
+      required double bottomPadding,
+    }) async {
+      tester.view
+        ..physicalSize = size
+        ..devicePixelRatio = 1
+        ..padding = FakeViewPadding(bottom: bottomPadding);
+      addTearDown(tester.view.reset);
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: snapmonThemeData(),
+          locale: const Locale('ja'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: BattleScreen(
+            playerParty: [strongPlayer],
+            opponentParty: [weakOpponent],
+            opponentKind: BattleOpponentKind.cpu,
+            definitions: sampleData.definitions,
+            randomSeed: 1,
+            battleRecorder: fakeBattleRecorder(
+              calls: RecordedBattleCalls(),
+              startBattleRecord: () async => null,
+              recordedLevels: const {},
+            ),
+            onPlayerLevelsChanged: ({required levelsByMonsterId}) {},
+            cardSharer: fakeCardSharer(
+              calls: RecordedShareCalls(),
+              artImage: null,
+              shareResultStatus: ShareResultStatus.success,
+            ),
+            firstBattleBornMonster: null,
+            firstBattleMonsterIsNewlyBorn: false,
+          ),
+        ),
+      );
+      await tester.pump(const Duration(seconds: 1));
+    }
+
+    /// フィールド (Flame のゲームとその上に重ねる帯・カード) の Stack の矩形。
+    Rect fieldRect({required WidgetTester tester}) => tester.getRect(
+      find
+          .ancestor(
+            of: find.byType(GameWidget<BattleFieldGame>),
+            matching: find.byType(Stack),
+          )
+          .first,
+    );
+
+    /// 相手の情報カード (相手のモンスターの名前を含む Positioned) の矩形。
+    Rect opponentStatusCardRect({required WidgetTester tester}) =>
+        tester.getRect(
+          find.ancestor(
+            of: find.text(weakOpponent.definition.name),
+            matching: find.byType(Positioned),
+          ),
+        );
+
+    /// ログの帯 (背景の箱) の矩形。
+    Rect battleLogRect({required WidgetTester tester}) => tester.getRect(
+      find
+          .ancestor(
+            of: find.byKey(const Key('battle-log')),
+            matching: find.byType(DecoratedBox),
+          )
+          .first,
+    );
+
+    // 下のセーフエリア 21: 横向きの iPhone (ホームインジケーターのある機種) の下のインセット
+    for (final bottomPadding in [0.0, 21.0]) {
+      testWidgets(
+        '横向きのスマホ (844×390、下のセーフエリア $bottomPadding) では、カード全体がフィールドに収まり、ログの帯と重ならない',
+        (tester) async {
+          await pumpBattleScreenWithSize(
+            tester: tester,
+            size: const Size(844, 390),
+            bottomPadding: bottomPadding,
+          );
+          final field = fieldRect(tester: tester);
+          final card = opponentStatusCardRect(tester: tester);
+
+          expect(card.top, greaterThanOrEqualTo(field.top));
+          expect(card.bottom, lessThanOrEqualTo(field.bottom));
+          expect(card.overlaps(battleLogRect(tester: tester)), isFalse);
+        },
+      );
+    }
+
+    testWidgets('縦向きのスマホ (390×844) では、今までどおりログの帯の下 (上から 96) に置く', (
+      tester,
+    ) async {
+      await pumpBattleScreenWithSize(
+        tester: tester,
+        size: const Size(390, 844),
+        bottomPadding: 0,
+      );
+
+      expect(
+        opponentStatusCardRect(tester: tester).topLeft,
+        const Offset(20, 96),
+      );
+      expect(battleLogRect(tester: tester).left, 20);
+    });
+  });
 }
