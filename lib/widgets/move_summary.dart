@@ -51,10 +51,7 @@ class MoveSummary extends StatelessWidget {
             elementTypeId: move.elementTypeId,
             definitions: definitions,
           ),
-          _MoveStatValue(
-            label: context.l10n.movePower,
-            value: '${move.power}',
-          ),
+          _MoveStatValue(label: context.l10n.movePower, value: '${move.power}'),
           _MoveStatValue(
             label: context.l10n.movePowerPoints,
             value: switch (remainingPowerPoints) {

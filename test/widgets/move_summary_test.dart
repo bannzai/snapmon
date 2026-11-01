@@ -51,12 +51,13 @@ void main() {
       headingFontFamily,
     );
     expect(
-      tester
-          .widget<ElementTypeTag>(find.byType(ElementTypeTag))
-          .elementTypeId,
+      tester.widget<ElementTypeTag>(find.byType(ElementTypeTag)).elementTypeId,
       effectMove.elementTypeId,
     );
-    expect(find.text('威力 ${effectMove.power}', findRichText: true), findsOneWidget);
+    expect(
+      find.text('威力 ${effectMove.power}', findRichText: true),
+      findsOneWidget,
+    );
     expect(
       find.text('PP 12/${effectMove.powerPoints}', findRichText: true),
       findsOneWidget,
@@ -66,12 +67,16 @@ void main() {
       bodyFontFamily,
     );
     // 名前・札と数値・説明の順に上から並ぶ
-    final nameBottom = tester.getBottomLeft(find.text('ゆげのもや')).dy;
-    final tagTop = tester.getTopLeft(find.byType(ElementTypeTag)).dy;
-    final tagBottom = tester.getBottomLeft(find.byType(ElementTypeTag)).dy;
-    final effectTop = tester.getTopLeft(find.text('先に動くと強い')).dy;
-    expect(tagTop, greaterThanOrEqualTo(nameBottom));
-    expect(effectTop, greaterThanOrEqualTo(tagBottom));
+    expect(
+      tester.getTopLeft(find.byType(ElementTypeTag)).dy,
+      greaterThanOrEqualTo(tester.getBottomLeft(find.text('ゆげのもや')).dy),
+    );
+    expect(
+      tester.getTopLeft(find.text('先に動くと強い')).dy,
+      greaterThanOrEqualTo(
+        tester.getBottomLeft(find.byType(ElementTypeTag)).dy,
+      ),
+    );
   });
 
   testWidgets('バトルの外 (残りの PP が null) では最大の PP だけを出し、特殊効果が無ければ説明を出さない', (
