@@ -312,40 +312,42 @@ class _OpponentScreenState extends State<OpponentScreen> {
                   horizontal: 14,
                   vertical: 10,
                 ),
-                child: Row(
+                // 自分の札と戦績を別の行に置き、英語の「Battle record」のような長い見出しでも名前を切らない (幅 390 の画面で確かめた)
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     if (_playerProfile case final playerProfile?)
-                      Expanded(
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: TrainerLabel(
-                            key: const Key('opponent-tab-player-trainer'),
-                            profile: playerProfile,
+                      TrainerLabel(
+                        key: const Key('opponent-tab-player-trainer'),
+                        profile: playerProfile,
+                      ),
+                    if (_playerProfile != null &&
+                        (battleRecord != null || _battleRecordError != null))
+                      const SizedBox(height: 8),
+                    if (battleRecord != null || _battleRecordError != null)
+                      Row(
+                        children: [
+                          Text(
+                            context.l10n.opponentBattleRecordLabel,
+                            style: SnapmonTextStyles.caption,
                           ),
-                        ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: Text(
+                              battleRecord == null
+                                  ? _battleRecordError.toString()
+                                  : context.l10n.opponentBattleRecord(
+                                      battleRecord.wins,
+                                      battleRecord.losses,
+                                    ),
+                              key: const Key('battle-record'),
+                              style: battleRecord == null
+                                  ? SnapmonTextStyles.small
+                                  : SnapmonTextStyles.label,
+                            ),
+                          ),
+                        ],
                       ),
-                    if (battleRecord != null || _battleRecordError != null) ...[
-                      if (_playerProfile != null) const SizedBox(width: 12),
-                      Text(
-                        context.l10n.opponentBattleRecordLabel,
-                        style: SnapmonTextStyles.caption,
-                      ),
-                      const SizedBox(width: 12),
-                      Flexible(
-                        child: Text(
-                          battleRecord == null
-                              ? _battleRecordError.toString()
-                              : context.l10n.opponentBattleRecord(
-                                  battleRecord.wins,
-                                  battleRecord.losses,
-                                ),
-                          key: const Key('battle-record'),
-                          style: battleRecord == null
-                              ? SnapmonTextStyles.small
-                              : SnapmonTextStyles.label,
-                        ),
-                      ),
-                    ],
                   ],
                 ),
               ),
