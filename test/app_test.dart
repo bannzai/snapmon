@@ -25,6 +25,7 @@ import 'package:snapmon/features/share/share_cards.dart';
 import 'package:snapmon/features/title/title_screen.dart';
 import 'package:snapmon/l10n/l10n.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
+import 'package:snapmon/widgets/storage_image.dart';
 import 'package:snapmon/widgets/trainer_icon.dart';
 
 import 'battle_recorder_fixture.dart';
@@ -259,35 +260,39 @@ void main() {
       startSessionFailureCount: startSessionFailureCount,
     );
     await tester.pumpWidget(
-      MaterialApp(
-        theme: snapmonThemeData(),
-        locale: const Locale('ja'),
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        home: HomeShell(
-          initialTab: HomeTab.capture,
-          startsCameraOnCaptureOpen: startsCameraOnCaptureOpen,
-          sampleData: sampleData,
-          dexStore: dexStore,
-          sessionStore: sessionStore,
-          openUrl: ({required uri}) async {
-            openedUris.add(uri);
-            return true;
-          },
-          isDeveloperMenuEnabled: isDeveloperMenuEnabled,
-          battleRecorder: fakeBattleRecorder(
-            calls: battleCalls,
-            startBattleRecord: startBattleRecord,
-            recordedLevels: recordedLevels,
+      // 登録したアイコン (StorageImage) を Firebase を通さずに描く。中身は読めない (null) ものとし、既定の印を描かせる
+      StorageImageLoaderScope(
+        loadBytes: ({required storagePath}) async => null,
+        child: MaterialApp(
+          theme: snapmonThemeData(),
+          locale: const Locale('ja'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: HomeShell(
+            initialTab: HomeTab.capture,
+            startsCameraOnCaptureOpen: startsCameraOnCaptureOpen,
+            sampleData: sampleData,
+            dexStore: dexStore,
+            sessionStore: sessionStore,
+            openUrl: ({required uri}) async {
+              openedUris.add(uri);
+              return true;
+            },
+            isDeveloperMenuEnabled: isDeveloperMenuEnabled,
+            battleRecorder: fakeBattleRecorder(
+              calls: battleCalls,
+              startBattleRecord: startBattleRecord,
+              recordedLevels: recordedLevels,
+            ),
+            monsterGenerator: appMonsterGenerator(),
+            pvpClient: pvpClient,
+            cardSharer: fakeCardSharer(
+              calls: shareCalls,
+              artImage: artImage,
+              shareResultStatus: shareResultStatus,
+            ),
+            accountStore: accountStore,
           ),
-          monsterGenerator: appMonsterGenerator(),
-          pvpClient: pvpClient,
-          cardSharer: fakeCardSharer(
-            calls: shareCalls,
-            artImage: artImage,
-            shareResultStatus: shareResultStatus,
-          ),
-          accountStore: accountStore,
         ),
       ),
     );

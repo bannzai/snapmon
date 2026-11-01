@@ -9,7 +9,7 @@ import { logger } from "firebase-functions";
 import { HttpsError, onCall } from "firebase-functions/v2/https";
 import sharp from "sharp";
 
-import { authUserExists } from "./account";
+import { authUserExists, rejectDeletedAccount } from "./account";
 import { ENFORCE_APP_CHECK } from "./app_check";
 import { requireSignedInUid } from "./battle";
 import { downscalePhoto } from "./generation/cutout";
@@ -79,12 +79,18 @@ export async function setProfileIconData(
   const { firestore, auth, bucket, annotateImage } = dependencies;
   const userDocument = firestore.doc(`users/${uid}`);
   const iconPath = profileIconPath({ uid, uploadId });
+  const uploadFile = bucket.file(profileIconUploadPath({ uid, uploadId }));
   const userSnapshot = await userDocument.get();
-  await requireActiveAccount({ auth, uid, userSnapshot });
+  try {
+    await requireActiveAccount({ auth, uid, userSnapshot });
+  } catch (error) {
+    // 削除の途中・削除の後に別の端末から置かれた写真を、アカウントのデータとして残さない
+    await uploadFile.delete({ ignoreNotFound: true });
+    throw error;
+  }
   if (userSnapshot.get("iconPath") === iconPath) {
     return { iconPath };
   }
-  const uploadFile = bucket.file(profileIconUploadPath({ uid, uploadId }));
   if (!(await uploadFile.exists())[0]) {
     throw new HttpsError("not-found", "アイコンにする写真が見つかりません");
   }
@@ -134,5 +140,7 @@ export const setProfileIcon = onCall({ enforceAppCheck: ENFORCE_APP_CHECK, memor
     throw new HttpsError("invalid-argument", "uploadId を渡してください");
   }
   const { firestore, bucket, annotateImage } = createProductionDependencies();
+  // 生成 (generate.ts) と同じく、削除を消し終えた uid が置いたファイル (users/{uid}/ の配下) を消して断る
+  await rejectDeletedAccount({ auth: getAuth(), bucket, uid });
   return setProfileIconData({ firestore, auth: getAuth(), bucket, annotateImage }, { uid, uploadId });
 });

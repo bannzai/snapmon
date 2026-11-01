@@ -142,5 +142,9 @@ describe("setProfileIconData", () => {
       ).rejects.toMatchObject({ code: "failed-precondition" });
     }
     expect(vision.calls.count).toBe(0);
+    // 断った時は置かれた写真を残さない
+    for (const uid of ["alice", "deleted"]) {
+      expect(await exists(profileIconUploadPath({ uid, uploadId: "upload1" })), uid).toBe(false);
+    }
   });
 });
