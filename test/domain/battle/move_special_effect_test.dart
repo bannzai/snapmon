@@ -252,6 +252,7 @@ void main() {
   });
 
   test('技の詳細の式は、その技の倍率の最大を入れて計算と同じ形で書く', () {
+    /// 種類 [kind] と倍率の最大 [maximumPowerPercent] の特殊効果の式の文言。
     String formulaOf({
       required MoveSpecialEffectKind kind,
       required int maximumPowerPercent,

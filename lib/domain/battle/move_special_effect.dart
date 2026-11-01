@@ -113,6 +113,8 @@ String moveSpecialEffectFormula({required MoveSpecialEffect specialEffect}) {
   final gainText = formatPowerPercent(
     powerPercent: specialEffect.maximumPowerPercent - 100,
   );
+
+  /// 条件の文 [condition] から、「条件を満たせば倍率の最大、それ以外は 1」の式の文言を作る。
   String byCondition({required String condition}) =>
       '$condition なら $maximumText、それ以外は 1';
   return switch (specialEffect.kind) {
