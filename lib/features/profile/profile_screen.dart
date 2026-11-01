@@ -36,6 +36,7 @@ class ProfileScreen extends StatefulWidget {
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
+/// [ProfileScreen] の表示中の値と保存の状態。
 class _ProfileScreenState extends State<ProfileScreen> {
   /// 画面に出している表示名とアイコン。保存できた値で置き換える。
   late TrainerProfile _profile = widget.initialProfile;
@@ -169,6 +170,7 @@ class _DisplayNameDialog extends StatefulWidget {
   State<_DisplayNameDialog> createState() => _DisplayNameDialogState();
 }
 
+/// [_DisplayNameDialog] の入力と保存の状態。
 class _DisplayNameDialogState extends State<_DisplayNameDialog> {
   /// 表示名の入力欄の値。
   late final TextEditingController _controller = TextEditingController(
