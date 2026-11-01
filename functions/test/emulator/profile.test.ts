@@ -6,7 +6,15 @@ import sharp from "sharp";
 import { afterAll, beforeEach, describe, expect, it } from "vitest";
 
 import type { AnnotateImage, VisionAnnotation } from "../../src/generation/vision";
-import { PROFILE_ICON_SIDE, profileIconPath, profileIconUploadPath, setProfileIconData } from "../../src/profile";
+import { tokyoDate } from "../../src/generation/pipeline";
+import {
+  DAILY_ICON_CHECK_LIMIT_PER_USER,
+  DAILY_ICON_CHECK_LIMIT_TOTAL,
+  PROFILE_ICON_SIDE,
+  profileIconPath,
+  profileIconUploadPath,
+  setProfileIconData,
+} from "../../src/profile";
 
 // firebase emulators:exec (package.json の test:emulator) の中で実行する。
 // アイコンの登録の本体 (setProfileIconData) を Firestore・Storage の Emulator に対して、Cloud Vision をモックにして呼ぶ。
@@ -123,6 +131,39 @@ describe("setProfileIconData", () => {
       setProfileIconData({ firestore, auth, bucket, annotateImage: vision.annotateImage }, { uid: "alice", uploadId: "upload1" }),
     ).rejects.toMatchObject({ code: "invalid-argument", message: "この写真はアイコンにできません" });
     expect((await firestore.doc("users/alice").get()).get("iconPath")).toBeUndefined();
+  });
+
+  it("uid ごとの 1 日の検査の上限に達すると、Vision を呼ばずに resource-exhausted を返す", async () => {
+    const vision = createVision(safeAnnotation);
+    await firestore
+      .doc("users/alice")
+      .set({ dailyIconCheck: { date: tokyoDate(new Date()), count: DAILY_ICON_CHECK_LIMIT_PER_USER } });
+    await uploadIconPhoto({ uid: "alice", uploadId: "upload1" });
+
+    await expect(
+      setProfileIconData({ firestore, auth, bucket, annotateImage: vision.annotateImage }, { uid: "alice", uploadId: "upload1" }),
+    ).rejects.toMatchObject({ code: "resource-exhausted" });
+    expect(vision.calls.count).toBe(0);
+  });
+
+  it("全体の 1 日の検査の上限に達すると、Vision を呼ばずに resource-exhausted を返す", async () => {
+    const vision = createVision(safeAnnotation);
+    await firestore.doc(`iconCheckDailyCounts/${tokyoDate(new Date())}`).set({ count: DAILY_ICON_CHECK_LIMIT_TOTAL });
+    await uploadIconPhoto({ uid: "alice", uploadId: "upload1" });
+
+    await expect(
+      setProfileIconData({ firestore, auth, bucket, annotateImage: vision.annotateImage }, { uid: "alice", uploadId: "upload1" }),
+    ).rejects.toMatchObject({ code: "resource-exhausted" });
+    expect(vision.calls.count).toBe(0);
+  });
+
+  it("検査のたびに uid ごとと全体の今日の数を 1 つ増やす", async () => {
+    await uploadIconPhoto({ uid: "alice", uploadId: "upload1" });
+    await setProfileIconData({ firestore, auth, bucket, annotateImage: createVision(safeAnnotation).annotateImage }, { uid: "alice", uploadId: "upload1" });
+
+    const today = tokyoDate(new Date());
+    expect((await firestore.doc("users/alice").get()).get("dailyIconCheck")).toEqual({ date: today, count: 1 });
+    expect((await firestore.doc(`iconCheckDailyCounts/${today}`).get()).get("count")).toBe(1);
   });
 
   it("写真が置かれていない時は not-found", async () => {

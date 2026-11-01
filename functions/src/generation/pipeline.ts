@@ -165,7 +165,7 @@ export class GenerationRequestError extends Error {
 }
 
 /** Asia/Tokyo の日付 (YYYY-MM-DD)。1 日の上限の区切りに使う (利用者の多くが日本にいる前提で、日付の変わり目を日本時間にした)。 */
-function tokyoDate(date: Date): string {
+export function tokyoDate(date: Date): string {
   return new Intl.DateTimeFormat("sv-SE", { timeZone: "Asia/Tokyo" }).format(date);
 }
 

@@ -4,7 +4,7 @@
 // 置き場は .claude/rules/firestore.md。`users/{uid}/` の配下のため、アカウントの削除 (account.ts) が自動で消す。
 
 import { type Auth, getAuth } from "firebase-admin/auth";
-import { type DocumentSnapshot, type Firestore } from "firebase-admin/firestore";
+import { type DocumentSnapshot, FieldValue, type Firestore } from "firebase-admin/firestore";
 import { logger } from "firebase-functions";
 import { HttpsError, onCall } from "firebase-functions/v2/https";
 import sharp from "sharp";
@@ -14,7 +14,7 @@ import { ENFORCE_APP_CHECK } from "./app_check";
 import { requireSignedInUid } from "./battle";
 import { downscalePhoto } from "./generation/cutout";
 import { createProductionDependencies } from "./generation/dependencies";
-import { downloadFile, type StorageBucket } from "./generation/pipeline";
+import { downloadFile, type StorageBucket, tokyoDate } from "./generation/pipeline";
 import { type AnnotateImage, visionRejectionLogFields, visionRejectionReason } from "./generation/vision";
 import { isDocumentId } from "./pvp_rules";
 
@@ -23,6 +23,39 @@ import { isDocumentId } from "./pvp_rules";
  * PNG が数十 KB に収まるため。
  */
 export const PROFILE_ICON_SIDE = 256;
+
+/**
+ * uid ごとの 1 日のアイコンの検査 (Cloud Vision の呼び出し) の上限。アイコンを選び直す回数として十分で、
+ * 断られた写真の選び直しも数える。生成の上限 (pipeline.ts の DAILY_GENERATION_LIMIT_PER_USER = 20) より少なくした (アイコンは 1 人 1 つのため)。
+ */
+export const DAILY_ICON_CHECK_LIMIT_PER_USER = 10;
+/**
+ * プロジェクト全体の 1 日のアイコンの検査の上限。Vision の SafeSearch と顔の検出は 1 枚 2 機能で、
+ * 単価 (1,000 枚あたり 1.5 ドル × 2。https://cloud.google.com/vision/pricing ) から 1 日 3 ドル前後に抑える値。
+ * App Check の強制を外している間 (DIRECTION.md 2026-10-25 の行) は匿名のアカウントを作り直せば uid ごとの上限を越えられるため、全体でも抑える。
+ */
+export const DAILY_ICON_CHECK_LIMIT_TOTAL = 1_000;
+
+/**
+ * [uid] の今日 ([today]、日本時間の日付) のアイコンの検査の枠を 1 つ取る。uid ごとか全体の上限に達していれば resource-exhausted を投げる。
+ * 数えるのは `users/{uid}.dailyIconCheck` と `iconCheckDailyCounts/{today}` (生成の `dailyGeneration`・`generationDailyCounts` と同じ形)。
+ */
+async function reserveDailyIconCheck({ firestore, uid, today }: { firestore: Firestore; uid: string; today: string }): Promise<void> {
+  const userDocument = firestore.doc(`users/${uid}`);
+  const totalCounterDocument = firestore.doc(`iconCheckDailyCounts/${today}`);
+  await firestore.runTransaction(async (transaction) => {
+    const [userSnapshot, totalCounterSnapshot] = await Promise.all([transaction.get(userDocument), transaction.get(totalCounterDocument)]);
+    const userCount = userSnapshot.get("dailyIconCheck.date") === today ? (userSnapshot.get("dailyIconCheck.count") as number) : 0;
+    if (userCount >= DAILY_ICON_CHECK_LIMIT_PER_USER) {
+      throw new HttpsError("resource-exhausted", `今日アイコンを変えられるのは ${DAILY_ICON_CHECK_LIMIT_PER_USER} 回までです`);
+    }
+    if (((totalCounterSnapshot.get("count") as number | undefined) ?? 0) >= DAILY_ICON_CHECK_LIMIT_TOTAL) {
+      throw new HttpsError("resource-exhausted", "今日はアイコンの変更が混み合っています。明日またためしてください");
+    }
+    transaction.set(userDocument, { dailyIconCheck: { date: today, count: userCount + 1 } }, { merge: true });
+    transaction.set(totalCounterDocument, { count: FieldValue.increment(1) }, { merge: true });
+  });
+}
 
 /** 端末がアイコンにする写真を置くパス (本人だけが置ける。firebase/storage.rules)。 */
 export function profileIconUploadPath({ uid, uploadId }: { uid: string; uploadId: string }): string {
@@ -94,6 +127,7 @@ export async function setProfileIconData(
   if (!(await uploadFile.exists())[0]) {
     throw new HttpsError("not-found", "アイコンにする写真が見つかりません");
   }
+  await reserveDailyIconCheck({ firestore, uid, today: tokyoDate(new Date()) });
   const photo = await downloadFile(bucket, uploadFile.name);
   // 生成と同じく縮めた写真を送る (顔・露骨な内容の判定は長辺 1024px で足りるため。pipeline.ts の runSafeSearchStage)
   const annotation = await annotateImage(await downscalePhoto(photo));
