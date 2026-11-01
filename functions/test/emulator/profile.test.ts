@@ -144,6 +144,27 @@ describe("setProfileIconData", () => {
       setProfileIconData({ firestore, auth, bucket, annotateImage: vision.annotateImage }, { uid: "alice", uploadId: "upload1" }),
     ).rejects.toMatchObject({ code: "resource-exhausted" });
     expect(vision.calls.count).toBe(0);
+    expect(await exists(profileIconUploadPath({ uid: "alice", uploadId: "upload1" }))).toBe(false);
+  });
+
+  it("Vision の呼び出しが失敗した時も、置かれた写真を残さない", async () => {
+    await uploadIconPhoto({ uid: "alice", uploadId: "upload1" });
+
+    await expect(
+      setProfileIconData(
+        {
+          firestore,
+          auth,
+          bucket,
+          annotateImage: async () => {
+            throw new Error("Vision の一時的な失敗");
+          },
+        },
+        { uid: "alice", uploadId: "upload1" },
+      ),
+    ).rejects.toThrow("Vision の一時的な失敗");
+    expect(await exists(profileIconUploadPath({ uid: "alice", uploadId: "upload1" }))).toBe(false);
+    expect((await firestore.doc("users/alice").get()).get("iconPath")).toBeUndefined();
   });
 
   it("全体の 1 日の検査の上限に達すると、Vision を呼ばずに resource-exhausted を返す", async () => {

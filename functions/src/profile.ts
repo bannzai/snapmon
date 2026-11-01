@@ -16,7 +16,6 @@ import { downscalePhoto } from "./generation/cutout";
 import { createProductionDependencies } from "./generation/dependencies";
 import { downloadFile, type StorageBucket, tokyoDate } from "./generation/pipeline";
 import { type AnnotateImage, visionRejectionLogFields, visionRejectionReason } from "./generation/vision";
-import { isDocumentId } from "./pvp_rules";
 
 /**
  * アイコンの一辺 (px)。画面に出す大きさ (対戦タブ・対戦画面・プロフィールの 32〜96 論理 px) を 3 倍の画面でも粗く見せない大きさにし、
@@ -141,18 +140,19 @@ export async function setProfileIconData(
   if (!(await uploadFile.exists())[0]) {
     throw new HttpsError("not-found", "アイコンにする写真が見つかりません");
   }
+  let photo: Buffer;
+  let annotation: Awaited<ReturnType<AnnotateImage>>;
   try {
     await reserveDailyIconCheck({ firestore, auth, uid, today: tokyoDate(new Date()) });
+    photo = await downloadFile(bucket, uploadFile.name);
+    // 生成と同じく縮めた写真を送る (顔・露骨な内容の判定は長辺 1024px で足りるため。pipeline.ts の runSafeSearchStage)
+    annotation = await annotateImage(await downscalePhoto(photo));
   } catch (error) {
-    // 最初の確認の後に削除が進んだ時も、最初の確認で断った時と同じく置かれた写真を残さない
-    if (error instanceof HttpsError && error.code === "failed-precondition") {
-      await uploadFile.delete({ ignoreNotFound: true });
-    }
+    // 上限・削除の進行で断った時も検査に失敗した時も、置かれた写真を残さない
+    // (端末は試すたびに新しい uploadId で写真を置き直すため、同じ写真を使った再試行は無い。lib/firebase/pvp.dart の setProfileIcon)
+    await uploadFile.delete({ ignoreNotFound: true });
     throw error;
   }
-  const photo = await downloadFile(bucket, uploadFile.name);
-  // 生成と同じく縮めた写真を送る (顔・露骨な内容の判定は長辺 1024px で足りるため。pipeline.ts の runSafeSearchStage)
-  const annotation = await annotateImage(await downscalePhoto(photo));
   const rejectionReason = visionRejectionReason(annotation);
   if (rejectionReason) {
     logger.info("Vision の判定でアイコンにしません", { uid, uploadId, rejectionReason, ...visionRejectionLogFields(annotation) });
@@ -190,6 +190,13 @@ export async function setProfileIconData(
 }
 
 /**
+ * setProfileIcon が受け付ける uploadId の形 (UUID)。端末は呼ぶたびに UUID v4 を作って送る (lib/firebase/pvp.dart)。
+ * uploadId はアイコンのパスとして通報の通知 (Slack の本文。pvp_rules.ts の reportNotificationText) に入るため、
+ * mrkdwn の記号 (`<` `>` `&` 等) や長い文字列を入れさせない。
+ */
+const PROFILE_ICON_UPLOAD_ID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+/**
  * プロフィールのアイコンを登録する callable (App Check の強制は app_check.ts)。
  *
  * 受け取る data: `{ uploadId: string }` (先に `users/{uid}/iconUploads/{uploadId}` に写真を置く)。返す値: `{ iconPath: string }`。
@@ -199,7 +206,7 @@ export async function setProfileIconData(
 export const setProfileIcon = onCall({ enforceAppCheck: ENFORCE_APP_CHECK, memory: "1GiB" }, async (request) => {
   const uid = requireSignedInUid({ request });
   const { uploadId } = (request.data ?? {}) as { uploadId?: unknown };
-  if (!isDocumentId(uploadId)) {
+  if (typeof uploadId !== "string" || !PROFILE_ICON_UPLOAD_ID_PATTERN.test(uploadId)) {
     throw new HttpsError("invalid-argument", "uploadId を渡してください");
   }
   const { firestore, bucket, annotateImage } = createProductionDependencies();
