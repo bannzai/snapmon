@@ -15,6 +15,8 @@ import '../battle/battle_screen.dart';
 import '../dex/dex_store.dart';
 import '../dex/owned_monster.dart';
 import '../home/home_shell.dart';
+import '../result/monster_detail_card.dart';
+import '../result/result_screen.dart';
 import '../share/card_sharer.dart';
 import 'battle_definitions.dart';
 import 'cpu_party.dart';
@@ -103,6 +105,12 @@ class _OpponentScreenState extends State<OpponentScreen> {
       ..showSnackBar(SnackBar(content: Text(message)));
   }
 
+  /// CPU トレーナー [cpuTrainer] の手持ちの見本のモンスター (レベルは見本のまま)。
+  List<OwnedMonster> _sampleMonsters({required SampleOpponent cpuTrainer}) => [
+    for (final monsterId in cpuTrainer.monsterIds)
+      widget.sampleData.monsterById(monsterId: monsterId),
+  ];
+
   /// CPU トレーナー [cpuTrainer] に挑む。挑んでいる間に呼ばれた時は何もしない。
   Future<void> _challenge({required SampleOpponent cpuTrainer}) async {
     if (_isChallenging) {
@@ -149,10 +157,7 @@ class _OpponentScreenState extends State<OpponentScreen> {
         builder: (context) => BattleScreen(
           playerParty: playerParty,
           opponentParty: buildCpuParty(
-            monsters: [
-              for (final monsterId in cpuTrainer.monsterIds)
-                widget.sampleData.monsterById(monsterId: monsterId),
-            ],
+            monsters: _sampleMonsters(cpuTrainer: cpuTrainer),
             playerParty: playerParty,
           ),
           opponentKind: BattleOpponentKind.cpu,
@@ -171,6 +176,47 @@ class _OpponentScreenState extends State<OpponentScreen> {
       widget.onSelectTab(tab: HomeTab.dex);
     }
   }
+
+  /// 自分の手持ちの [monster] を図鑑から開いた時と同じ画面で開く。手持ちに入れた・入れ替えた時は図鑑のタブを開く。
+  Future<void> _openPartyMonster({required OwnedMonster monster}) async {
+    final action = await Navigator.of(context).push(
+      MaterialPageRoute<ResultScreenAction>(
+        builder: (context) => ResultScreen(
+          monster: monster,
+          dexStore: widget.dexStore,
+          origin: ResultScreenOrigin.dex,
+          cardSharer: widget.cardSharer,
+        ),
+      ),
+    );
+    if (action == ResultScreenAction.openDex) {
+      widget.onSelectTab(tab: HomeTab.dex);
+    }
+  }
+
+  /// CPU トレーナーの手持ちの [monster] の詳細をボトムシートで出す。
+  Future<void> _showOpponentMonster({required OwnedMonster monster}) =>
+      showModalBottomSheet<void>(
+        context: context,
+        isScrollControlled: true,
+        showDragHandle: true,
+        backgroundColor: SnapmonColors.background,
+        // カードは横長の画面 (Web のデスクトップ) では画面の高さを超え、シートが全面を覆うと閉じるために押す外側が無くなる。
+        // 上の 15% を押せる外側として残す (シートの上の余白で閉じられると分かる程度の幅として選んだ)
+        constraints: BoxConstraints(
+          maxHeight: MediaQuery.sizeOf(context).height * 0.85,
+        ),
+        builder: (context) => SafeArea(
+          child: SingleChildScrollView(
+            key: Key('opponent-monster-detail-${monster.definition.id}'),
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
+            child: MonsterDetailCard(
+              monster: monster,
+              definitions: widget.dexStore.definitions,
+            ),
+          ),
+        ),
+      );
 
   @override
   Widget build(BuildContext context) => ListenableBuilder(
@@ -261,11 +307,12 @@ class _OpponentScreenState extends State<OpponentScreen> {
             children: [
               for (final monster in party)
                 _MonsterChip(
-                  key: null,
+                  key: Key('party-monster-${monster.definition.id}'),
                   name: monster.definition.name,
                   detail: context.l10n.commonLevel(monster.level),
                   color: SnapmonColors.card,
                   textColor: SnapmonColors.textOnCard,
+                  onTap: () => _openPartyMonster(monster: monster),
                 ),
               Material(
                 color: SnapmonColors.surface,
@@ -310,10 +357,14 @@ class _OpponentScreenState extends State<OpponentScreen> {
               subtitle: party.isEmpty
                   ? context.l10n.opponentCpuMatchesPartyLevel
                   : context.l10n.commonLevel(averagePartyLevel(party: party)),
-              monsters: [
-                for (final monsterId in cpuTrainer.monsterIds)
-                  widget.sampleData.monsterById(monsterId: monsterId),
-              ],
+              // 詳細には挑む時と同じレベル (自分の手持ちの平均) を出す。手持ちが空の時は挑めないため、見本のレベルのまま出す
+              monsters: party.isEmpty
+                  ? _sampleMonsters(cpuTrainer: cpuTrainer)
+                  : buildCpuParty(
+                      monsters: _sampleMonsters(cpuTrainer: cpuTrainer),
+                      playerParty: party,
+                    ),
+              onMonsterTap: _showOpponentMonster,
               onChallenge: canChallenge
                   ? () => _challenge(cpuTrainer: cpuTrainer)
                   : null,
@@ -334,6 +385,7 @@ class _OpponentCard extends StatelessWidget {
     required this.title,
     required this.subtitle,
     required this.monsters,
+    required this.onMonsterTap,
     required this.onChallenge,
   });
 
@@ -349,6 +401,9 @@ class _OpponentCard extends StatelessWidget {
 
   /// 相手の手持ち (札にレベルを出さない。挑む時に自分の手持ちに合わせて決めるため)。
   final List<OwnedMonster> monsters;
+
+  /// 手持ちの札を押した時に、押したモンスターを受け取る。
+  final void Function({required OwnedMonster monster}) onMonsterTap;
 
   /// 挑む。手持ちがいない・挑む準備の間は null で、挑むボタンを押せなくする。
   final VoidCallback? onChallenge;
@@ -403,6 +458,7 @@ class _OpponentCard extends StatelessWidget {
                   detail: null,
                   color: SnapmonColors.surfaceRaised,
                   textColor: SnapmonColors.textOnBackground,
+                  onTap: () => onMonsterTap(monster: monster),
                 ),
             ],
           ),
@@ -412,7 +468,7 @@ class _OpponentCard extends StatelessWidget {
   );
 }
 
-/// モンスターの名前の小さな札。
+/// モンスターの名前の小さな札。押すとそのモンスターの詳細を開く。
 class _MonsterChip extends StatelessWidget {
   const _MonsterChip({
     required super.key,
@@ -420,6 +476,7 @@ class _MonsterChip extends StatelessWidget {
     required this.detail,
     required this.color,
     required this.textColor,
+    required this.onTap,
   });
 
   final String name;
@@ -429,15 +486,22 @@ class _MonsterChip extends StatelessWidget {
   final Color color;
   final Color textColor;
 
+  /// 押した時の処理。
+  final VoidCallback onTap;
+
   @override
   Widget build(BuildContext context) => Material(
     color: color,
     borderRadius: SnapmonRadii.button,
-    child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-      child: Text(
-        detail == null ? name : '$name  $detail',
-        style: SnapmonTextStyles.small.copyWith(color: textColor),
+    child: InkWell(
+      borderRadius: SnapmonRadii.button,
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+        child: Text(
+          detail == null ? name : '$name  $detail',
+          style: SnapmonTextStyles.small.copyWith(color: textColor),
+        ),
       ),
     ),
   );
