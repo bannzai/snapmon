@@ -190,8 +190,11 @@ class _MoveChip extends StatelessWidget {
     child: InkWell(
       key: Key('move-chip-${move.id}'),
       borderRadius: SnapmonRadii.tag,
-      onTap: () =>
-          openMoveDetail(context: context, move: move, definitions: definitions),
+      onTap: () => openMoveDetail(
+        context: context,
+        move: move,
+        definitions: definitions,
+      ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
         child: Text(

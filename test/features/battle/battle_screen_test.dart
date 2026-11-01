@@ -233,7 +233,8 @@ void main() {
       'そのターンに相手より先に行動した なら 1.3、それ以外は 1',
     );
 
-    await tester.pageBack();
+    // バトルの画面は戻るボタンの無い AppBar で作られているため、tester.pageBack ではなく Navigator で閉じる
+    tester.state<NavigatorState>(find.byType(Navigator)).pop();
     await tester.pump(const Duration(seconds: 1));
     expect(find.byType(MoveDetailScreen), findsNothing);
     expect(

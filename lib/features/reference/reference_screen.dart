@@ -62,10 +62,10 @@ class _ReferenceScreenState extends State<ReferenceScreen> {
                     ),
                   ),
                   TextButton(
-                    onPressed: () => setState(
-                      () => _refreshDefinitions = widget.dexStore
-                          .refreshDefinitions(),
-                    ),
+                    onPressed: () => setState(() {
+                      _refreshDefinitions = widget.dexStore
+                          .refreshDefinitions();
+                    }),
                     child: Text(context.l10n.dexReload),
                   ),
                 ],
@@ -109,7 +109,10 @@ class _TypeChart extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
       children: [
-        Text(context.l10n.referenceTypeChartNote, style: SnapmonTextStyles.small),
+        Text(
+          context.l10n.referenceTypeChartNote,
+          style: SnapmonTextStyles.small,
+        ),
         const SizedBox(height: 12),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -279,8 +282,11 @@ class _MoveRow extends StatelessWidget {
     child: InkWell(
       key: Key('reference-move-${move.id}'),
       borderRadius: SnapmonRadii.button,
-      onTap: () =>
-          openMoveDetail(context: context, move: move, definitions: definitions),
+      onTap: () => openMoveDetail(
+        context: context,
+        move: move,
+        definitions: definitions,
+      ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
         child: Row(
@@ -315,7 +321,10 @@ class _MoveRow extends StatelessWidget {
                 ],
               ),
             ),
-            const Icon(Icons.chevron_right, color: SnapmonColors.textOnCardMuted),
+            const Icon(
+              Icons.chevron_right,
+              color: SnapmonColors.textOnCardMuted,
+            ),
           ],
         ),
       ),

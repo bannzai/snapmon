@@ -134,8 +134,7 @@ class DexScreen extends StatelessWidget {
                   borderRadius: SnapmonRadii.button,
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute<void>(
-                      builder: (context) =>
-                          ReferenceScreen(dexStore: dexStore),
+                      builder: (context) => ReferenceScreen(dexStore: dexStore),
                     ),
                   ),
                   child: Padding(

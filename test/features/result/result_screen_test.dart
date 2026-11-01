@@ -112,9 +112,7 @@ void main() {
       moveId,
     );
     expect(
-      find.text(
-        sampleData.definitions.moveById(moveId: moveId).displayName,
-      ),
+      find.text(sampleData.definitions.moveById(moveId: moveId).displayName),
       findsOneWidget,
     );
   });
