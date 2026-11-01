@@ -502,10 +502,14 @@ class _BattleScreenState extends State<BattleScreen> {
                   // トレーナーの札も含めて測り、自分のモンスターの絵が札とカードの両方に隠れないようにする。
                   // 低い画面 (横向きのスマホ) では、札をカードの上に積むとカードがフィールドの下にはみ出して隠れるため、
                   // 札をカードの横に並べてカードの位置を札が無い時と同じにする。
-                  // 500: 横向きの iPhone (高さ 390〜440) を含み、縦向きのスマホ・iPad・Web のデスクトップ (高さ 600 以上) を含まない値
+                  // 高さ 500: 横向きの iPhone (高さ 390〜440) を含み、縦向きのスマホ・iPad・Web のデスクトップ (高さ 600 以上) を含まない値。
+                  // 幅 508: 左右の余白 20 ずつ・札 (名前の幅の上限が画面の半分 + 札の左右の余白 18)・間隔 6・カード 190 が 1 行に収まる最小の幅
+                  // (20 + width / 2 + 18 + 6 + 190 + 20 <= width)。幅の狭い低い画面 (小さい Web のウィンドウ) で横に並べてはみ出さないため
                   child: Flex(
                     key: _opponentStatusCardKey,
-                    direction: MediaQuery.sizeOf(context).height < 500
+                    direction:
+                        MediaQuery.sizeOf(context).height < 500 &&
+                            MediaQuery.sizeOf(context).width >= 508
                         ? Axis.horizontal
                         : Axis.vertical,
                     mainAxisSize: MainAxisSize.min,

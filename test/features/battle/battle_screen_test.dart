@@ -199,6 +199,8 @@ void main() {
   for (final (size, direction) in [
     (const Size(390, 844), Axis.vertical),
     (const Size(844, 390), Axis.horizontal),
+    // 低くても幅が狭い画面は、札とカードが 1 行に収まらないためカードの上に積む
+    (const Size(390, 480), Axis.vertical),
   ]) {
     testWidgets(
       '相手のトレーナーの札は、縦向きではカードの上、横向きのスマホではカードの横に並べ、カードの位置を下げない ($size)',
