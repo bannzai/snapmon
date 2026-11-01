@@ -364,7 +364,7 @@ class _OpponentScreenState extends State<OpponentScreen> {
                       monsters: _sampleMonsters(cpuTrainer: cpuTrainer),
                       playerParty: party,
                     ),
-              onMonsterTap: (monster) => _showOpponentMonster(monster: monster),
+              onMonsterTap: _showOpponentMonster,
               onChallenge: canChallenge
                   ? () => _challenge(cpuTrainer: cpuTrainer)
                   : null,
@@ -403,7 +403,7 @@ class _OpponentCard extends StatelessWidget {
   final List<OwnedMonster> monsters;
 
   /// 手持ちの札を押した時に、押したモンスターを受け取る。
-  final void Function(OwnedMonster monster) onMonsterTap;
+  final void Function({required OwnedMonster monster}) onMonsterTap;
 
   /// 挑む。手持ちがいない・挑む準備の間は null で、挑むボタンを押せなくする。
   final VoidCallback? onChallenge;
@@ -458,7 +458,7 @@ class _OpponentCard extends StatelessWidget {
                   detail: null,
                   color: SnapmonColors.surfaceRaised,
                   textColor: SnapmonColors.textOnBackground,
-                  onTap: () => onMonsterTap(monster),
+                  onTap: () => onMonsterTap(monster: monster),
                 ),
             ],
           ),
