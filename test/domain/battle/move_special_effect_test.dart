@@ -250,4 +250,51 @@ void main() {
       expect(moveSpecialEffectSummary(kind: kind), isNotEmpty);
     }
   });
+
+  test('技の詳細の式は、その技の倍率の最大を入れて計算と同じ形で書く', () {
+    String formulaOf({
+      required MoveSpecialEffectKind kind,
+      required int maximumPowerPercent,
+    }) => moveSpecialEffectFormula(
+      specialEffect: MoveSpecialEffect(
+        kind: kind,
+        maximumPowerPercent: maximumPowerPercent,
+      ),
+    );
+    expect(
+      {
+        for (final kind in MoveSpecialEffectKind.values)
+          kind: formulaOf(kind: kind, maximumPowerPercent: 150),
+      },
+      {
+        MoveSpecialEffectKind.opponentHitPointsLow:
+            '1 + 0.5 × 相手の減った HP ÷ 相手の最大 HP (相手の HP が少ないほど 1.5 に近づく)',
+        MoveSpecialEffectKind.ownHitPointsLow:
+            '1 + 0.5 × 自分の減った HP ÷ 自分の最大 HP (自分の HP が少ないほど 1.5 に近づく)',
+        MoveSpecialEffectKind.tougherOpponent: '相手の防御 > 自分の攻撃 なら 1.5、それ以外は 1',
+        MoveSpecialEffectKind.powerPointsLow:
+            '1 + 0.5 × (最大 PP − 使う前の残り PP) ÷ (最大 PP − 1) (最初の 1 回は 1、最後の 1 回で 1.5)',
+        MoveSpecialEffectKind.sameElementAsOpponent:
+            '自分と相手が同じ属性を 1 つ以上持つ なら 1.5、それ以外は 1',
+        MoveSpecialEffectKind.differentElementFromOpponent:
+            '自分と相手が同じ属性を 1 つも持たない なら 1.5、それ以外は 1',
+        MoveSpecialEffectKind.movesFirst: 'そのターンに相手より先に行動した なら 1.5、それ以外は 1',
+        MoveSpecialEffectKind.movesLast: 'そのターンに相手より後に行動した なら 1.5、それ以外は 1',
+      },
+    );
+    // 倍率の最大が 2 倍の技は、増える分を 1 と書く
+    expect(
+      formulaOf(
+        kind: MoveSpecialEffectKind.opponentHitPointsLow,
+        maximumPowerPercent: 200,
+      ),
+      '1 + 1 × 相手の減った HP ÷ 相手の最大 HP (相手の HP が少ないほど 2 に近づく)',
+    );
+  });
+
+  test('すべての種類に規則の説明がある', () {
+    for (final kind in MoveSpecialEffectKind.values) {
+      expect(moveSpecialEffectRule(kind: kind), isNotEmpty);
+    }
+  });
 }
