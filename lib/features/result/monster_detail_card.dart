@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 import '../../domain/battle/battle_engine.dart';
 import '../../domain/master/master_data.dart';
-import '../../domain/master/move.dart';
 import '../../domain/monster/stat_calculation.dart';
 import '../../l10n/l10n.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
 import '../../widgets/monster_parts.dart';
+import '../../widgets/move_summary.dart';
 import '../dex/owned_monster.dart';
 import '../reference/move_detail_screen.dart';
 
@@ -153,57 +153,48 @@ class MonsterDetailCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 6),
-            Wrap(
-              spacing: 6,
-              runSpacing: 6,
-              children: [
-                for (final learnsetEntry in equippedLearnsetEntries(
-                  learnset: definition.learnset,
-                  level: monster.level,
-                ))
-                  _MoveChip(
-                    move: definitions.moveById(moveId: learnsetEntry.moveId),
-                    definitions: definitions,
+            // バトルの技のボタンと同じ 3 段の構成で 1 技 1 行に並べる。地はステータスの枠と同じ色にし、属性の札の色を読めるようにする。
+            // 行をタップすると技の詳細 ([openMoveDetail]) を開く
+            for (final move in [
+              for (final learnsetEntry in equippedLearnsetEntries(
+                learnset: definition.learnset,
+                level: monster.level,
+              ))
+                definitions.moveById(moveId: learnsetEntry.moveId),
+            ])
+              Padding(
+                padding: const EdgeInsets.only(bottom: 6),
+                child: Material(
+                  color: SnapmonColors.cardSubtle,
+                  borderRadius: SnapmonRadii.button,
+                  child: InkWell(
+                    key: Key('move-chip-${move.id}'),
+                    borderRadius: SnapmonRadii.button,
+                    onTap: () => openMoveDetail(
+                      context: context,
+                      move: move,
+                      definitions: definitions,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 8,
+                      ),
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: MoveSummary(
+                          move: move,
+                          remainingPowerPoints: null,
+                          definitions: definitions,
+                        ),
+                      ),
+                    ),
                   ),
-              ],
-            ),
+                ),
+              ),
           ],
         ),
       ),
     );
   }
-}
-
-/// 覚えている技の札。タップで技の詳細 ([openMoveDetail]) を開く。
-class _MoveChip extends StatelessWidget {
-  const _MoveChip({required this.move, required this.definitions});
-
-  final Move move;
-
-  /// 技の詳細で属性の名前と相性を引く定義。
-  final MasterData definitions;
-
-  @override
-  Widget build(BuildContext context) => Material(
-    color: SnapmonColors.textOnCard,
-    borderRadius: SnapmonRadii.tag,
-    child: InkWell(
-      key: Key('move-chip-${move.id}'),
-      borderRadius: SnapmonRadii.tag,
-      onTap: () => openMoveDetail(
-        context: context,
-        move: move,
-        definitions: definitions,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
-        child: Text(
-          '${move.displayName} PP ${move.powerPoints}',
-          style: SnapmonTextStyles.caption.copyWith(
-            color: SnapmonColors.textOnBackground,
-          ),
-        ),
-      ),
-    ),
-  );
 }

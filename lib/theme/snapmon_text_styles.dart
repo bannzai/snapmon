@@ -42,6 +42,15 @@ abstract final class SnapmonTextStyles {
     color: SnapmonColors.textOnCard,
   );
 
+  /// 技の名前 (技のボタン・カードの覚えている技)。属性・威力・PP の段と書体を分け、名前だと読めるようにする。
+  /// 大きさは 2 列の技のボタンの幅 (390 の画面で約 140) に 9 文字ほど収まる 15 にした。
+  static const TextStyle moveName = TextStyle(
+    fontFamily: headingFontFamily,
+    fontSize: 15,
+    height: 1.2,
+    color: SnapmonColors.textOnCard,
+  );
+
   /// ステータスの数値。
   static const TextStyle statValue = TextStyle(
     fontFamily: headingFontFamily,

@@ -19,6 +19,7 @@ import 'package:snapmon/features/share/card_sharer.dart';
 import 'package:snapmon/features/share/share_cards.dart';
 import 'package:snapmon/l10n/l10n.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
+import 'package:snapmon/widgets/monster_parts.dart';
 
 import '../../battle_recorder_fixture.dart';
 import '../../card_sharer_fixture.dart';
@@ -187,6 +188,25 @@ void main() {
     );
     expect(
       find.descendant(of: moveSlot, matching: find.text('先に動くと強い')),
+      findsOneWidget,
+    );
+    // 属性はモンスターの属性と同じ色の札で出し、威力と PP はラベル付きの数値で出す
+    expect(
+      tester
+          .widget<ElementTypeTag>(
+            find.descendant(
+              of: moveSlot,
+              matching: find.byType(ElementTypeTag),
+            ),
+          )
+          .elementTypeId,
+      'heat',
+    );
+    expect(
+      find.descendant(
+        of: moveSlot,
+        matching: find.text('PP 35/35', findRichText: true),
+      ),
       findsOneWidget,
     );
 

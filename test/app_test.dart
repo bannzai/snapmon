@@ -1419,7 +1419,7 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.text(waxMonster.definition.name).first);
       await tester.pumpAndSettle();
-      expect(find.text('ろうアタック PP 30'), findsOneWidget);
+      expect(find.text('ろうアタック'), findsOneWidget);
       await tester.tap(find.byTooltip('戻る'));
       await tester.pumpAndSettle();
 

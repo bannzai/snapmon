@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import '../../analytics/analytics_events.dart';
 import '../../domain/battle/battle_engine.dart';
 import '../../domain/battle/battle_state.dart';
-import '../../domain/battle/move_special_effect.dart';
 import '../../domain/master/master_data.dart';
 import '../../domain/master/move.dart';
 import '../../domain/monster/stat_calculation.dart';
@@ -16,6 +15,7 @@ import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
 import '../../widgets/monster_parts.dart';
+import '../../widgets/move_summary.dart';
 import '../dex/owned_monster.dart';
 import '../reference/move_detail_screen.dart';
 import '../settings/settings_screen.dart';
@@ -537,9 +537,18 @@ class _BattleScreenState extends State<BattleScreen> {
                         ),
                       ),
                     )
-                  : _buildCommands(
-                      context: context,
-                      playerMonster: playerMonster,
+                  // 技のボタンは名前・属性の札と数値・効果の説明の 3 段で、大きい文字では段が折り返して高さが増えるため、
+                  // 勝敗の画面と同じ割合でフィールドを残してスクロールさせる
+                  : ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxHeight: MediaQuery.sizeOf(context).height * 0.6,
+                      ),
+                      child: SingleChildScrollView(
+                        child: _buildCommands(
+                          context: context,
+                          playerMonster: playerMonster,
+                        ),
+                      ),
                     ),
             ),
           ),
@@ -1041,50 +1050,13 @@ class _MoveButton extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
           child: move == null
               ? const Center(child: Text('—', style: SnapmonTextStyles.caption))
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      move.displayName,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: SnapmonTextStyles.label.copyWith(
-                        color: SnapmonColors.textOnCard,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      context.l10n.battleMoveDetail(
-                        definitions.elementTypes
-                            .firstWhere(
-                              (elementType) =>
-                                  elementType.id == move.elementTypeId,
-                              orElse: () => throw StateError(
-                                '属性 ${move.elementTypeId} が定義に無い',
-                              ),
-                            )
-                            .displayName,
-                        move.power,
-                        remainingPowerPoints,
-                        move.powerPoints,
-                      ),
-                      style: SnapmonTextStyles.small.copyWith(
-                        color: SnapmonColors.textOnCardMuted,
-                      ),
-                    ),
-                    if (move.specialEffect case final specialEffect?)
-                      Text(
-                        moveSpecialEffectSummary(kind: specialEffect.kind),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: SnapmonTextStyles.small.copyWith(
-                          color: SnapmonColors.textOnCard,
-                        ),
-                      ),
-                  ],
+              : Align(
+                  alignment: Alignment.centerLeft,
+                  child: MoveSummary(
+                    move: move,
+                    remainingPowerPoints: remainingPowerPoints,
+                    definitions: definitions,
+                  ),
                 ),
         ),
       ),
