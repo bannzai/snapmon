@@ -235,7 +235,10 @@ void main() {
 
     // バトルの画面は戻るボタンの無い AppBar で作られているため、tester.pageBack ではなく Navigator で閉じる
     tester.state<NavigatorState>(find.byType(Navigator)).pop();
+    // 戻る演出を始める frame・終える frame・route を外す frame を進める (pumpAndSettle は上と同じ理由で使わない)
+    await tester.pump();
     await tester.pump(const Duration(seconds: 1));
+    await tester.pump();
     expect(find.byType(MoveDetailScreen), findsNothing);
     expect(
       tester.widget<Text>(find.byKey(const Key('battle-log'))).data,
