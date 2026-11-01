@@ -56,6 +56,22 @@ const Duration _hitDuration = Duration(
 /// 倒れた・交代したのログを読ませる間。ログの帯の 1 行を読める長さにした。
 const Duration _messageDuration = Duration(milliseconds: 700);
 
+/// フィールドの左右の端からログの帯・情報カードまでの間 (モックの Battle.dc.html の左右の余白)。
+const double _fieldHorizontalMargin = 20;
+
+/// セーフエリアの上端からログの帯の上端までの高さ (モックの Battle.dc.html の配置)。
+const double _battleLogTop = 16;
+
+/// セーフエリアの上端から、ログの帯の下に置く相手の情報カードの上端までの高さ (モックの Battle.dc.html の配置)。
+const double _opponentStatusCardBelowLogTop = 96;
+
+/// 情報カードの幅 (モックの Battle.dc.html の配置)。
+const double _monsterStatusCardWidth = 190;
+
+/// 低い画面で相手の情報カードの右に寄せたログの帯と、カードの間。
+/// 縦向きのカードと帯の間 (上から 56〜96 の 40) まで空けると横向きで帯が短くなるため、詰めた値にした
+const double _battleLogGapBesideCard = 8;
+
 /// バトル画面 (モックの Battle.dc.html)。フィールドは Flame の [BattleFieldGame]、名前・HP・技のボタン・ログの帯・勝敗は Flutter で描く。
 /// 技を選ぶと CPU の行動と合わせて 1 ターンを [advanceTurn] で解決し、増えたバトルのログを 1 件ずつ演出して見せる。
 /// 決着がつくと勝敗と、戦闘に出た自分のモンスターのレベルの上がり方を出し、Functions に結果を記録して Analytics にバトル完了を送る。
@@ -130,8 +146,12 @@ class _BattleScreenState extends State<BattleScreen> {
 
   late final BattleFieldGame _game;
 
-  /// フィールドに重ねる相手の情報カード。高さを測り、自分のモンスターの絵がカードに隠れないようフィールドに渡す。
+  /// フィールドに重ねる相手のトレーナーの札と情報カードのまとまり。大きさを測り、自分のモンスターの絵が隠れないようフィールドに渡す。
   final GlobalKey _opponentStatusCardKey = GlobalKey();
+
+  /// 最後に測った相手のトレーナーの札と情報カードのまとまりの大きさ。高さはフィールドの低さの判定に、
+  /// 幅は低い画面でログの帯を右に寄せる幅に使う。最初のフレームを描くまでは null。
+  Size? _opponentStatusCardSize;
 
   /// 画面に出している場のモンスター (HP は演出に合わせて減らす)。演出が終わると [_battleState] の場のモンスターに揃える。
   late Map<BattleSideId, BattleMonster> _displayedActiveMembers;
@@ -453,105 +473,56 @@ class _BattleScreenState extends State<BattleScreen> {
     final playerMonster = _displayedActiveMembers[BattleSideId.player]!;
     final opponentMonster = _displayedActiveMembers[BattleSideId.opponent]!;
     final isFinished = _battleState.winner != null && !_isPlaying;
-    final opponentStatusCardTop = MediaQuery.paddingOf(context).top + 96;
+    final safeAreaTop = MediaQuery.paddingOf(context).top;
     // 文字の拡大率が変わるとカードの高さも変わるため、拡大率の変更でも build し直してカードを測り直す
     MediaQuery.textScalerOf(context);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (_opponentStatusCardKey.currentContext?.size case final cardSize?) {
-        _game.updateOpponentStatusCardBottom(
-          bottom: opponentStatusCardTop + cardSize.height,
-        );
-      }
-    });
     return Scaffold(
       body: Column(
         children: [
           Expanded(
-            child: Stack(
-              children: [
-                Positioned.fill(child: GameWidget(game: _game)),
-                SafeArea(
-                  bottom: false,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
-                    child: DecoratedBox(
-                      decoration: const BoxDecoration(
-                        color: SnapmonColors.scrim,
-                        borderRadius: SnapmonRadii.button,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 14,
-                          vertical: 10,
-                        ),
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: Text(
-                            _logText(context.l10n),
-                            key: const Key('battle-log'),
-                            style: SnapmonTextStyles.body,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 20,
-                  top: opponentStatusCardTop,
-                  // トレーナーの札も含めて測り、自分のモンスターの絵が札とカードの両方に隠れないようにする。
-                  // 低い画面 (横向きのスマホ) では、札をカードの上に積むとカードがフィールドの下にはみ出して隠れるため、
-                  // 札をカードの横に並べてカードの位置を札が無い時と同じにする。
-                  // 高さ 500: 横向きの iPhone (高さ 390〜440) を含み、縦向きのスマホ・iPad・Web のデスクトップ (高さ 600 以上) を含まない値。
-                  // 幅 508: 左右の余白 20 ずつ・札 (名前の幅の上限が画面の半分 + 札の左右の余白 18)・間隔 6・カード 190 が 1 行に収まる最小の幅
-                  // (20 + width / 2 + 18 + 6 + 190 + 20 <= width)。幅の狭い低い画面 (小さい Web のウィンドウ) で横に並べてはみ出さないため
-                  child: Flex(
-                    key: _opponentStatusCardKey,
-                    direction:
-                        MediaQuery.sizeOf(context).height < 500 &&
-                            MediaQuery.sizeOf(context).width >= 508
-                        ? Axis.horizontal
-                        : Axis.vertical,
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _TrainerLabelPlate(
-                        key: const Key('battle-opponent-trainer'),
-                        profile: widget.opponentProfile,
-                      ),
-                      const SizedBox(height: 6, width: 6),
-                      _MonsterStatusCard(
-                        monster: opponentMonster,
-                        definitions: widget.definitions,
-                        hitPointsColor: SnapmonColors.hitPointsLoss,
-                        showsHitPointsNumber: false,
-                      ),
-                    ],
-                  ),
-                ),
-                Positioned(
-                  right: 20,
-                  bottom: 24,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      if (widget.playerProfile case final playerProfile?) ...[
-                        _TrainerLabelPlate(
-                          key: const Key('battle-player-trainer'),
-                          profile: playerProfile,
-                        ),
-                        const SizedBox(height: 6),
-                      ],
-                      _MonsterStatusCard(
-                        monster: playerMonster,
-                        definitions: widget.definitions,
-                        hitPointsColor: SnapmonColors.accent,
-                        showsHitPointsNumber: true,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                // ログの帯の下 (上から 96) に置くとカードがフィールドの下にはみ出す低い画面 (横向きのスマホ) では、
+                // カードをログの帯と同じ高さの左に上げ、ログの帯をカードの右に寄せる。
+                // 844×390 の実測でフィールドは 124 (下のセーフエリアのある実機は約 103)、ログの帯は上から 16〜56、カードは 86 で、
+                // ログの帯の下には収まらず、帯と同じ高さ (16 + 86 = 102) なら収まるため
+                final isFieldTooLowForCardBelowLog =
+                    _opponentStatusCardSize != null &&
+                    safeAreaTop +
+                            _opponentStatusCardBelowLogTop +
+                            _opponentStatusCardSize!.height >
+                        constraints.maxHeight;
+                final opponentStatusCardTop =
+                    safeAreaTop +
+                    (isFieldTooLowForCardBelowLog
+                        ? _battleLogTop
+                        : _opponentStatusCardBelowLogTop);
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  if (!mounted) {
+                    return;
+                  }
+                  if (_opponentStatusCardKey.currentContext?.size
+                      case final cardSize?) {
+                    if (cardSize != _opponentStatusCardSize) {
+                      setState(() => _opponentStatusCardSize = cardSize);
+                    }
+                    _game.updateOpponentStatusCardBottom(
+                      bottom: opponentStatusCardTop + cardSize.height,
+                    );
+                  }
+                });
+                return _buildField(
+                  playerMonster: playerMonster,
+                  opponentMonster: opponentMonster,
+                  opponentStatusCardTop: opponentStatusCardTop,
+                  // 札とカードを横に並べた時は札の幅も足すため、測った幅で寄せる
+                  battleLogLeft: isFieldTooLowForCardBelowLog
+                      ? _fieldHorizontalMargin +
+                            _opponentStatusCardSize!.width +
+                            _battleLogGapBesideCard
+                      : _fieldHorizontalMargin,
+                );
+              },
             ),
           ),
           SafeArea(
@@ -601,6 +572,101 @@ class _BattleScreenState extends State<BattleScreen> {
       ),
     );
   }
+
+  /// フィールド (Flame のゲーム) と、その上に重ねるログの帯・2 体の情報カード。
+  /// 相手の情報カードの上端を [opponentStatusCardTop]、ログの帯の左端を [battleLogLeft] に置く。
+  Widget _buildField({
+    required BattleMonster playerMonster,
+    required BattleMonster opponentMonster,
+    required double opponentStatusCardTop,
+    required double battleLogLeft,
+  }) => Stack(
+    children: [
+      Positioned.fill(child: GameWidget(game: _game)),
+      SafeArea(
+        bottom: false,
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(
+            battleLogLeft,
+            _battleLogTop,
+            _fieldHorizontalMargin,
+            0,
+          ),
+          child: DecoratedBox(
+            decoration: const BoxDecoration(
+              color: SnapmonColors.scrim,
+              borderRadius: SnapmonRadii.button,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+              child: SizedBox(
+                width: double.infinity,
+                child: Text(
+                  _logText(context.l10n),
+                  key: const Key('battle-log'),
+                  style: SnapmonTextStyles.body,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+      Positioned(
+        left: _fieldHorizontalMargin,
+        top: opponentStatusCardTop,
+        // トレーナーの札も含めて測り、自分のモンスターの絵が札とカードの両方に隠れないようにする。
+        // 低い画面 (横向きのスマホ) では、札をカードの上に積むとまとまりが高くなりフィールドに収まらないため、札をカードの横に並べる。
+        // 高さ 500: 横向きの iPhone (高さ 390〜440) を含み、縦向きのスマホ・iPad・Web のデスクトップ (高さ 600 以上) を含まない値。
+        // 幅 508: 左右の余白 20 ずつ・札 (名前の幅の上限が画面の半分 + 札の左右の余白 18)・間隔 6・カード 190 が 1 行に収まる最小の幅
+        // (20 + width / 2 + 18 + 6 + 190 + 20 <= width)。幅の狭い低い画面 (小さい Web のウィンドウ) で横に並べてはみ出さないため
+        child: Flex(
+          key: _opponentStatusCardKey,
+          direction:
+              MediaQuery.sizeOf(context).height < 500 &&
+                  MediaQuery.sizeOf(context).width >= 508
+              ? Axis.horizontal
+              : Axis.vertical,
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _TrainerLabelPlate(
+              key: const Key('battle-opponent-trainer'),
+              profile: widget.opponentProfile,
+            ),
+            const SizedBox(height: 6, width: 6),
+            _MonsterStatusCard(
+              monster: opponentMonster,
+              definitions: widget.definitions,
+              hitPointsColor: SnapmonColors.hitPointsLoss,
+              showsHitPointsNumber: false,
+            ),
+          ],
+        ),
+      ),
+      Positioned(
+        right: _fieldHorizontalMargin,
+        bottom: 24,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            if (widget.playerProfile case final playerProfile?) ...[
+              _TrainerLabelPlate(
+                key: const Key('battle-player-trainer'),
+                profile: playerProfile,
+              ),
+              const SizedBox(height: 6),
+            ],
+            _MonsterStatusCard(
+              monster: playerMonster,
+              definitions: widget.definitions,
+              hitPointsColor: SnapmonColors.accent,
+              showsHitPointsNumber: true,
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
 
   /// 技のボタンと、交代・にげるのボタン。
   Widget _buildCommands({
@@ -998,7 +1064,7 @@ class _MonsterStatusCard extends StatelessWidget {
       statCalculationVersion: monster.definition.statCalculationVersion,
     ).hitPoints;
     return Container(
-      width: 190,
+      width: _monsterStatusCardWidth,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: const BoxDecoration(
         color: SnapmonColors.card,
