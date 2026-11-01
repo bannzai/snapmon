@@ -39,12 +39,26 @@ export const DAILY_ICON_CHECK_LIMIT_TOTAL = 1_000;
 /**
  * [uid] の今日 ([today]、日本時間の日付) のアイコンの検査の枠を 1 つ取る。uid ごとか全体の上限に達していれば resource-exhausted を投げる。
  * 数えるのは `users/{uid}.dailyIconCheck` と `iconCheckDailyCounts/{today}` (生成の `dailyGeneration`・`generationDailyCounts` と同じ形)。
+ * 削除の途中か削除済みなら failed-precondition を投げ、`users/{uid}` を書かない。
  */
-async function reserveDailyIconCheck({ firestore, uid, today }: { firestore: Firestore; uid: string; today: string }): Promise<void> {
+async function reserveDailyIconCheck({
+  firestore,
+  auth,
+  uid,
+  today,
+}: {
+  firestore: Firestore;
+  auth: Auth;
+  uid: string;
+  today: string;
+}): Promise<void> {
   const userDocument = firestore.doc(`users/${uid}`);
   const totalCounterDocument = firestore.doc(`iconCheckDailyCounts/${today}`);
   await firestore.runTransaction(async (transaction) => {
     const [userSnapshot, totalCounterSnapshot] = await Promise.all([transaction.get(userDocument), transaction.get(totalCounterDocument)]);
+    // 呼び出し側の最初の確認の後に削除を消し終えていた時に、merge の書き込みで users/{uid} を作り直さない
+    // (作り直すと、書く直前の確認が users/{uid} があるため Auth を見ずに通り、削除済みのアカウントにアイコンが残る)
+    await requireActiveAccount({ auth, uid, userSnapshot });
     const userCount = userSnapshot.get("dailyIconCheck.date") === today ? (userSnapshot.get("dailyIconCheck.count") as number) : 0;
     if (userCount >= DAILY_ICON_CHECK_LIMIT_PER_USER) {
       throw new HttpsError("resource-exhausted", `今日アイコンを変えられるのは ${DAILY_ICON_CHECK_LIMIT_PER_USER} 回までです`);
@@ -127,7 +141,15 @@ export async function setProfileIconData(
   if (!(await uploadFile.exists())[0]) {
     throw new HttpsError("not-found", "アイコンにする写真が見つかりません");
   }
-  await reserveDailyIconCheck({ firestore, uid, today: tokyoDate(new Date()) });
+  try {
+    await reserveDailyIconCheck({ firestore, auth, uid, today: tokyoDate(new Date()) });
+  } catch (error) {
+    // 最初の確認の後に削除が進んだ時も、最初の確認で断った時と同じく置かれた写真を残さない
+    if (error instanceof HttpsError && error.code === "failed-precondition") {
+      await uploadFile.delete({ ignoreNotFound: true });
+    }
+    throw error;
+  }
   const photo = await downloadFile(bucket, uploadFile.name);
   // 生成と同じく縮めた写真を送る (顔・露骨な内容の判定は長辺 1024px で足りるため。pipeline.ts の runSafeSearchStage)
   const annotation = await annotateImage(await downscalePhoto(photo));

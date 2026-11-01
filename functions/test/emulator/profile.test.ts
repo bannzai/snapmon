@@ -189,4 +189,28 @@ describe("setProfileIconData", () => {
       expect(await exists(profileIconUploadPath({ uid, uploadId: "upload1" })), uid).toBe(false);
     }
   });
+
+  it("最初の確認の後に削除を消し終えた時は、users/{uid} を作り直さずに断る", async () => {
+    // users/{uid} がまだ無いユーザーで、最初の確認で Auth のユーザーを見た直後に削除が Auth のユーザーを消し終えた状態を作る
+    let racerAuthUserExists = true;
+    const racingAuth = {
+      getUser: async (uid: string) => {
+        if (!racerAuthUserExists) {
+          throw Object.assign(new Error("ユーザーが見つかりません"), { code: "auth/user-not-found" });
+        }
+        racerAuthUserExists = false;
+        return { uid };
+      },
+    } as unknown as Auth;
+    const vision = createVision(safeAnnotation);
+    await uploadIconPhoto({ uid: "racer", uploadId: "upload1" });
+
+    await expect(
+      setProfileIconData({ firestore, auth: racingAuth, bucket, annotateImage: vision.annotateImage }, { uid: "racer", uploadId: "upload1" }),
+    ).rejects.toMatchObject({ code: "failed-precondition" });
+    expect((await firestore.doc("users/racer").get()).exists).toBe(false);
+    expect(vision.calls.count).toBe(0);
+    expect(await exists(profileIconUploadPath({ uid: "racer", uploadId: "upload1" }))).toBe(false);
+    expect(await exists(profileIconPath({ uid: "racer", uploadId: "upload1" }))).toBe(false);
+  });
 });
