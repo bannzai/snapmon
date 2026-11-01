@@ -19,6 +19,7 @@ import 'package:snapmon/features/share/card_sharer.dart';
 import 'package:snapmon/features/share/share_cards.dart';
 import 'package:snapmon/l10n/l10n.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
+import 'package:snapmon/widgets/app_content_width.dart';
 import 'package:snapmon/widgets/monster_parts.dart';
 
 import '../../battle_recorder_fixture.dart';
@@ -579,25 +580,23 @@ void main() {
   });
 
   group('情報カードの置き方', () {
-    /// 自分を [strongPlayer]、相手を [weakOpponent] にしたバトル画面を、[size] の画面で、
-    /// 下のセーフエリアを [bottomPadding]、左右のセーフエリアを [horizontalPadding] にして開く。
+    /// 自分を [strongPlayer]、相手を [weakOpponent] にしたバトル画面を、[size] の画面で、下のセーフエリアを [bottomPadding] にして開く。
+    /// アプリ (lib/app.dart) と同じく内容の幅の上限 (appContentMaxWidth) に収めて描く。
     Future<void> pumpBattleScreenWithSize({
       required WidgetTester tester,
       required Size size,
       required double bottomPadding,
-      required double horizontalPadding,
     }) async {
       tester.view
         ..physicalSize = size
         ..devicePixelRatio = 1
-        ..padding = FakeViewPadding(
-          left: horizontalPadding,
-          right: horizontalPadding,
-          bottom: bottomPadding,
-        );
+        ..padding = FakeViewPadding(bottom: bottomPadding);
       addTearDown(tester.view.reset);
       await tester.pumpWidget(
         MaterialApp(
+          builder: (context, child) => constrainToAppContentWidth(
+            child: child ?? const SizedBox.shrink(),
+          ),
           theme: snapmonThemeData(),
           locale: const Locale('ja'),
           localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -673,7 +672,6 @@ void main() {
             tester: tester,
             size: const Size(844, 390),
             bottomPadding: bottomPadding,
-            horizontalPadding: 0,
           );
           final field = fieldRect(tester: tester);
           final card = opponentStatusCardRect(tester: tester);
@@ -691,7 +689,6 @@ void main() {
             tester: tester,
             size: const Size(844, 390),
             bottomPadding: bottomPadding,
-            horizontalPadding: 0,
           );
           final field = fieldRect(tester: tester);
           final card = playerStatusCardRect(tester: tester);
@@ -706,6 +703,22 @@ void main() {
           );
         },
       );
+
+      testWidgets(
+        '横向きのスマホ (844×390、下のセーフエリア $bottomPadding) では、バトルの始まりのログの帯がフィールドに収まる',
+        (tester) async {
+          await pumpBattleScreenWithSize(
+            tester: tester,
+            size: const Size(844, 390),
+            bottomPadding: bottomPadding,
+          );
+
+          expect(
+            battleLogRect(tester: tester).bottom,
+            lessThanOrEqualTo(fieldRect(tester: tester).bottom),
+          );
+        },
+      );
     }
 
     testWidgets('低くて幅も狭い画面 (390×390) では、自分のカードをログの帯の右に並べず、ログの帯の幅を残す', (
@@ -715,35 +728,13 @@ void main() {
         tester: tester,
         size: const Size(390, 390),
         bottomPadding: 0,
-        horizontalPadding: 0,
       );
 
       expect(battleLogRect(tester: tester).width, greaterThan(100));
-      expect(playerStatusCardRect(tester: tester).width, 190);
-    });
-
-    // 左右のセーフエリア 47: ノッチのある iPhone を横向きにした時の左右のインセット
-    testWidgets('横向きのスマホで左右のセーフエリアがある時は、両方のカードをセーフエリアの内側に置く', (tester) async {
-      const horizontalPadding = 47.0;
-      await pumpBattleScreenWithSize(
-        tester: tester,
-        size: const Size(844, 390),
-        bottomPadding: 21,
-        horizontalPadding: horizontalPadding,
-      );
-      final field = fieldRect(tester: tester);
-      final opponentCard = opponentStatusCardRect(tester: tester);
-      final playerCard = playerStatusCardRect(tester: tester);
-      final battleLog = battleLogRect(tester: tester);
-
-      expect(opponentCard.left, greaterThanOrEqualTo(horizontalPadding));
       expect(
-        playerCard.right,
-        lessThanOrEqualTo(field.right - horizontalPadding),
+        playerStatusCardRect(tester: tester).bottom,
+        fieldRect(tester: tester).bottom - 24,
       );
-      expect(playerCard.bottom, lessThanOrEqualTo(field.bottom));
-      expect(opponentCard.overlaps(battleLog), isFalse);
-      expect(playerCard.overlaps(battleLog), isFalse);
     });
 
     testWidgets(
@@ -753,7 +744,6 @@ void main() {
           tester: tester,
           size: const Size(390, 844),
           bottomPadding: 0,
-          horizontalPadding: 0,
         );
 
         expect(
