@@ -8,12 +8,14 @@ import '../../theme/snapmon_text_styles.dart';
 import '../../widgets/monster_parts.dart';
 import '../../widgets/square_icon_button.dart';
 import '../home/home_shell.dart';
+import '../reference/reference_screen.dart';
 import '../result/result_screen.dart';
 import '../share/card_sharer.dart';
 import 'dex_store.dart';
 import 'owned_monster.dart';
 
 /// 図鑑の画面 (モックの Dex.dc.html)。上に手持ち、下に図鑑のすべてのモンスターを 3 列で並べる。
+/// 見出しと手持ちの間に、属性の相性表と技の一覧の画面 ([ReferenceScreen]) を開く入口を置く (モックに無い入口で、置き場所は agent が決めた)。
 class DexScreen extends StatelessWidget {
   /// 図鑑の画面を作る。
   const DexScreen({
@@ -118,6 +120,51 @@ class DexScreen extends StatelessWidget {
                     size: 44,
                   ),
                 ],
+              ),
+            ),
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
+            sliver: SliverToBoxAdapter(
+              child: Material(
+                color: SnapmonColors.surface,
+                borderRadius: SnapmonRadii.button,
+                child: InkWell(
+                  key: const Key('dex-open-reference'),
+                  borderRadius: SnapmonRadii.button,
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (context) =>
+                          ReferenceScreen(dexStore: dexStore),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 12,
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.menu_book_outlined,
+                          size: 18,
+                          color: SnapmonColors.accent,
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Text(
+                            context.l10n.referenceOpen,
+                            style: SnapmonTextStyles.label,
+                          ),
+                        ),
+                        const Icon(
+                          Icons.chevron_right,
+                          color: SnapmonColors.textMuted,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ),
           ),

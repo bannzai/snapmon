@@ -10,6 +10,7 @@ import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
 import '../../widgets/monster_parts.dart';
 import '../dex/owned_monster.dart';
+import '../reference/move_detail_screen.dart';
 
 /// モンスター 1 体のカード (名前・レベル・属性・絵・図鑑の文章・ステータス・覚えている技)。
 /// 生まれた画面と、対戦相手の画面の相手のモンスターの詳細で使う。
@@ -162,6 +163,7 @@ class MonsterDetailCard extends StatelessWidget {
                 ))
                   _MoveChip(
                     move: definitions.moveById(moveId: learnsetEntry.moveId),
+                    definitions: definitions,
                   ),
               ],
             ),
@@ -172,24 +174,31 @@ class MonsterDetailCard extends StatelessWidget {
   }
 }
 
-/// 覚えている技の札。
+/// 覚えている技の札。タップで技の詳細 ([openMoveDetail]) を開く。
 class _MoveChip extends StatelessWidget {
-  const _MoveChip({required this.move});
+  const _MoveChip({required this.move, required this.definitions});
 
   final Move move;
 
+  /// 技の詳細で属性の名前と相性を引く定義。
+  final MasterData definitions;
+
   @override
-  Widget build(BuildContext context) => DecoratedBox(
-    decoration: const BoxDecoration(
-      color: SnapmonColors.textOnCard,
+  Widget build(BuildContext context) => Material(
+    color: SnapmonColors.textOnCard,
+    borderRadius: SnapmonRadii.tag,
+    child: InkWell(
+      key: Key('move-chip-${move.id}'),
       borderRadius: SnapmonRadii.tag,
-    ),
-    child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
-      child: Text(
-        '${move.displayName} PP ${move.powerPoints}',
-        style: SnapmonTextStyles.caption.copyWith(
-          color: SnapmonColors.textOnBackground,
+      onTap: () =>
+          openMoveDetail(context: context, move: move, definitions: definitions),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+        child: Text(
+          '${move.displayName} PP ${move.powerPoints}',
+          style: SnapmonTextStyles.caption.copyWith(
+            color: SnapmonColors.textOnBackground,
+          ),
         ),
       ),
     ),
