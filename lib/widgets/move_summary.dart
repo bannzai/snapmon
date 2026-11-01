@@ -34,10 +34,7 @@ class MoveSummary extends StatelessWidget {
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text(
-        move.displayName,
-        style: SnapmonTextStyles.moveName,
-      ),
+      Text(move.displayName, style: SnapmonTextStyles.moveName),
       const SizedBox(height: 4),
       // 2 列の技のボタンの幅では札と 2 つの数値が 1 行に収まらないことがあるため、収まらない分は次の行に回す
       Wrap(
