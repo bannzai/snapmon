@@ -12,6 +12,9 @@ enum ReportReason {
   /// 人が写っている。
   personInPicture('person_in_picture'),
 
+  /// 持ち主のアイコンが不適切。
+  inappropriateIcon('inappropriate_icon'),
+
   /// その他。
   other('other');
 
@@ -29,5 +32,6 @@ String reportReasonLabel({
   ReportReason.inappropriatePicture => l10n.reportReasonInappropriatePicture,
   ReportReason.inappropriateText => l10n.reportReasonInappropriateText,
   ReportReason.personInPicture => l10n.reportReasonPersonInPicture,
+  ReportReason.inappropriateIcon => l10n.reportReasonInappropriateIcon,
   ReportReason.other => l10n.reportReasonOther,
 };

@@ -243,6 +243,12 @@ Future<void> _writeScreenshot({
           cardSharer: _cardSharer(artImagesByPath: artImagesByPath),
           firstBattleBornMonster: null,
           firstBattleMonsterIsNewlyBorn: false,
+          // 対戦タブ (_homeShell) の表示名と同じにする
+          playerProfile: (displayName: 'snap', iconPath: null),
+          opponentProfile: (
+            displayName: sampleData.cpuTrainers.first.name,
+            iconPath: null,
+          ),
         ),
         StoreScreenshotPage.opponent => _homeShell(
           sampleData: sampleData,
@@ -374,10 +380,11 @@ Widget _homeShell({
     fetchOpponents: () async => null,
     extraDefinitions: null,
     battleRecord: (wins: 14, losses: 6),
-    displayName: 'snap',
+    profile: (displayName: 'snap', iconPath: null),
     reportMonster: () async {},
     blockUser: () async {},
     updateDisplayName: ({required displayName}) async => displayName,
+    updateIcon: ({required photo}) async => throw StateError('使わない'),
   );
   return HomeShell(
     initialTab: initialTab,

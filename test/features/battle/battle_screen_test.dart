@@ -72,6 +72,8 @@ void main() {
           ),
           firstBattleBornMonster: null,
           firstBattleMonsterIsNewlyBorn: false,
+          playerProfile: (displayName: 'ばんざい', iconPath: null),
+          opponentProfile: (displayName: 'CPU リク', iconPath: null),
         ),
       ),
     );
@@ -134,6 +136,8 @@ void main() {
               ),
               firstBattleBornMonster: strongPlayer,
               firstBattleMonsterIsNewlyBorn: isNewlyBorn,
+              playerProfile: null,
+              opponentProfile: (displayName: 'CPU リク', iconPath: null),
             ),
           ),
         );
@@ -156,6 +160,40 @@ void main() {
       },
     );
   }
+
+  testWidgets('相手と自分のトレーナーのアイコン (未登録は既定の印) と名前を、それぞれの情報カードの上に出す', (
+    tester,
+  ) async {
+    await pumpBattleScreen(
+      tester: tester,
+      battleRecorder: fakeBattleRecorder(
+        calls: RecordedBattleCalls(),
+        startBattleRecord: () async => null,
+        recordedLevels: const {},
+      ),
+      playerMonster: strongPlayer,
+      artImage: null,
+    );
+    for (final (key, displayName, mark) in [
+      ('battle-opponent-trainer', 'CPU リク', 'C'),
+      ('battle-player-trainer', 'ばんざい', 'ば'),
+    ]) {
+      for (final text in [displayName, mark]) {
+        expect(
+          find.descendant(of: find.byKey(Key(key)), matching: find.text(text)),
+          findsOneWidget,
+          reason: '$key: $text',
+        );
+      }
+    }
+    // 相手の札は上、自分の札は下に出る
+    expect(
+      tester.getTopLeft(find.byKey(const Key('battle-opponent-trainer'))).dy,
+      lessThan(
+        tester.getTopLeft(find.byKey(const Key('battle-player-trainer'))).dy,
+      ),
+    );
+  });
 
   testWidgets('技の枠に特殊効果の短い説明を出し、効果が働いた技はログに説明文を出す', (tester) async {
     MonsterStats statsOf({required OwnedMonster monster}) => calculateStats(

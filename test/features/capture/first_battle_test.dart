@@ -29,6 +29,7 @@ void main() {
             PvpOpponent(
               opponentUid: 'opponent-uid-1',
               displayName: 'ろうそくや',
+              iconPath: null,
               monsters: [generatedWaxMonster(monsterId: 'opponent-wax-1')],
             ),
           ];
@@ -41,8 +42,9 @@ void main() {
         blockUser: ({required blockedUid}) =>
             throw StateError('blockUser は呼ばない'),
         fetchBattleRecord: () async => null,
-        fetchDisplayName: () async => null,
+        fetchProfile: () async => null,
         updateDisplayName: ({required displayName}) async => displayName,
+        updateIcon: ({required photo}) => throw StateError('updateIcon は呼ばない'),
       );
       final cpuTrainerNames = {
         for (var randomSeed = 1; randomSeed <= 50; randomSeed++)

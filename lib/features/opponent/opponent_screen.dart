@@ -9,9 +9,12 @@ import '../../sample/sample_data.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
+import '../../widgets/monster_parts.dart';
 import '../../widgets/square_icon_button.dart';
+import '../../widgets/trainer_icon.dart';
 import '../battle/battle_recorder.dart';
 import '../battle/battle_screen.dart';
+import '../capture/first_battle.dart';
 import '../dex/dex_store.dart';
 import '../dex/owned_monster.dart';
 import '../home/home_shell.dart';
@@ -22,7 +25,8 @@ import 'battle_definitions.dart';
 import 'cpu_party.dart';
 import 'pvp_client.dart';
 
-/// 対戦相手を選ぶ画面 (モックの Pvp.dc.html)。見本データの CPU トレーナーを先頭から [_opponentSlotCount] 人並べ、自分の戦績を出す。
+/// 対戦相手を選ぶ画面 (モックの Pvp.dc.html)。見本データの CPU トレーナーを先頭から [_opponentSlotCount] 人並べ、自分のアイコン・表示名と戦績を出す。
+/// 「自動で相手を決めて戦う」は、初回のバトルと同じ選び方で CPU トレーナーを決めて挑む。
 /// 他のユーザーの手持ち (Functions の fetchOpponents) は相手に出さない (本人の操作なしに他人の手持ちを CPU に操作させないため。issue #130)。
 class OpponentScreen extends StatefulWidget {
   /// 対戦相手の画面を作る。
@@ -46,13 +50,13 @@ class OpponentScreen extends StatefulWidget {
   /// 下タブを切り替える。
   final void Function({required HomeTab tab}) onSelectTab;
 
-  /// 設定画面を開く。
-  final VoidCallback onOpenSettings;
+  /// 設定画面を開き、閉じるまで待つ (閉じた後にプロフィールを読み直すため)。
+  final Future<void> Function() onOpenSettings;
 
   /// バトルの記録と計測。
   final BattleRecorder battleRecorder;
 
-  /// 戦績の読み込み。
+  /// 戦績とプロフィールの読み込み。
   final PvpClient pvpClient;
 
   /// バトルの結果の共有に使う関数の組。
@@ -76,10 +80,33 @@ class _OpponentScreenState extends State<OpponentScreen> {
   /// 戦績の読み込みの失敗。
   Object? _battleRecordError;
 
+  /// 自分のアイコンと表示名。読み込み中・ログインが無い時・読めなかった時は null で、自分の札を出さない
+  /// (読めなくても挑めるようにするため。読めなかった理由はプロフィール画面の入口 (設定) に出る)。
+  TrainerProfile? _playerProfile;
+
   @override
   void initState() {
     super.initState();
     unawaited(_loadBattleRecord());
+    unawaited(_loadPlayerProfile());
+  }
+
+  /// 自分のアイコンと表示名を読む。
+  Future<void> _loadPlayerProfile() async {
+    try {
+      final profile = await widget.pvpClient.fetchProfile();
+      if (mounted) {
+        setState(() => _playerProfile = profile);
+      }
+    } catch (error) {
+      debugPrint('プロフィールを読めませんでした: $error');
+    }
+  }
+
+  /// 設定画面を開き、閉じたらプロフィールを読み直す (設定のプロフィール画面で変えた値を出すため)。
+  Future<void> _openSettings() async {
+    await widget.onOpenSettings();
+    unawaited(_loadPlayerProfile());
   }
 
   /// 自分の戦績を読む。
@@ -110,6 +137,20 @@ class _OpponentScreenState extends State<OpponentScreen> {
     for (final monsterId in cpuTrainer.monsterIds)
       widget.sampleData.monsterById(monsterId: monsterId),
   ];
+
+  /// 自分の手持ちと同じ絵の見本のモンスターを持たない CPU トレーナーから乱数で選んで挑む
+  /// (初回のバトルと同じ選び方。lib/features/capture/first_battle.dart)。
+  Future<void> _challengeAutomatically() {
+    final cpuTrainer = chooseFirstBattleCpuTrainer(
+      cpuTrainers: excludeCpuTrainersWithSameArt(
+        sampleData: widget.sampleData,
+        playerParty: widget.dexStore.party,
+      ),
+      // 押すたびに別の相手になり得るよう、seed は毎回作る (範囲は挑む時の seed と同じ 32 bit)
+      randomSeed: math.Random().nextInt(0x100000000),
+    );
+    return _challenge(cpuTrainer: cpuTrainer);
+  }
 
   /// CPU トレーナー [cpuTrainer] に挑む。挑んでいる間に呼ばれた時は何もしない。
   Future<void> _challenge({required SampleOpponent cpuTrainer}) async {
@@ -168,6 +209,8 @@ class _OpponentScreenState extends State<OpponentScreen> {
           cardSharer: widget.cardSharer,
           firstBattleBornMonster: null,
           firstBattleMonsterIsNewlyBorn: false,
+          playerProfile: _playerProfile,
+          opponentProfile: (displayName: cpuTrainer.name, iconPath: null),
         ),
       ),
     );
@@ -250,12 +293,14 @@ class _OpponentScreenState extends State<OpponentScreen> {
               SquareIconButton(
                 icon: Icons.settings_outlined,
                 tooltip: context.l10n.settingsTitle,
-                onPressed: widget.onOpenSettings,
+                onPressed: _openSettings,
                 size: 44,
               ),
             ],
           ),
-          if (battleRecord != null || _battleRecordError != null) ...[
+          if (_playerProfile != null ||
+              battleRecord != null ||
+              _battleRecordError != null) ...[
             const SizedBox(height: 12),
             DecoratedBox(
               decoration: const BoxDecoration(
@@ -269,25 +314,38 @@ class _OpponentScreenState extends State<OpponentScreen> {
                 ),
                 child: Row(
                   children: [
-                    Text(
-                      context.l10n.opponentBattleRecordLabel,
-                      style: SnapmonTextStyles.caption,
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Text(
-                        battleRecord == null
-                            ? _battleRecordError.toString()
-                            : context.l10n.opponentBattleRecord(
-                                battleRecord.wins,
-                                battleRecord.losses,
-                              ),
-                        key: const Key('battle-record'),
-                        style: battleRecord == null
-                            ? SnapmonTextStyles.small
-                            : SnapmonTextStyles.label,
+                    if (_playerProfile case final playerProfile?)
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: TrainerLabel(
+                            key: const Key('opponent-tab-player-trainer'),
+                            profile: playerProfile,
+                          ),
+                        ),
                       ),
-                    ),
+                    if (battleRecord != null || _battleRecordError != null) ...[
+                      if (_playerProfile != null) const SizedBox(width: 12),
+                      Text(
+                        context.l10n.opponentBattleRecordLabel,
+                        style: SnapmonTextStyles.caption,
+                      ),
+                      const SizedBox(width: 12),
+                      Flexible(
+                        child: Text(
+                          battleRecord == null
+                              ? _battleRecordError.toString()
+                              : context.l10n.opponentBattleRecord(
+                                  battleRecord.wins,
+                                  battleRecord.losses,
+                                ),
+                          key: const Key('battle-record'),
+                          style: battleRecord == null
+                              ? SnapmonTextStyles.small
+                              : SnapmonTextStyles.label,
+                        ),
+                      ),
+                    ],
                   ],
                 ),
               ),
@@ -308,7 +366,7 @@ class _OpponentScreenState extends State<OpponentScreen> {
               for (final monster in party)
                 _MonsterChip(
                   key: Key('party-monster-${monster.definition.id}'),
-                  name: monster.definition.name,
+                  monster: monster,
                   detail: context.l10n.commonLevel(monster.level),
                   color: SnapmonColors.card,
                   textColor: SnapmonColors.textOnCard,
@@ -345,6 +403,13 @@ class _OpponentScreenState extends State<OpponentScreen> {
           Text(
             context.l10n.opponentChooseOpponent,
             style: SnapmonTextStyles.caption,
+          ),
+          const SizedBox(height: 10),
+          FilledButton.icon(
+            key: const Key('auto-match'),
+            onPressed: canChallenge ? _challengeAutomatically : null,
+            icon: const Icon(Icons.shuffle),
+            label: Text(context.l10n.opponentAutoMatch),
           ),
           const SizedBox(height: 10),
           for (final cpuTrainer in widget.sampleData.cpuTrainers.take(
@@ -393,7 +458,7 @@ class _OpponentCard extends StatelessWidget {
   /// (テストと検証で押す相手を見分けるため)。
   final String opponentId;
 
-  /// 相手の名前。
+  /// 相手の名前。CPU トレーナーはアイコンを持たないため、アイコンにはこの名前から既定の印を描く。
   final String title;
 
   /// 名前の下の補足 (挑む時の手持ちのレベル)。
@@ -421,6 +486,11 @@ class _OpponentCard extends StatelessWidget {
         children: [
           Row(
             children: [
+              TrainerIcon(
+                profile: (displayName: title, iconPath: null),
+                dimension: 36,
+              ),
+              const SizedBox(width: 10),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -454,7 +524,7 @@ class _OpponentCard extends StatelessWidget {
                   key: Key(
                     'opponent-monster-$opponentId-${monster.definition.id}',
                   ),
-                  name: monster.definition.name,
+                  monster: monster,
                   detail: null,
                   color: SnapmonColors.surfaceRaised,
                   textColor: SnapmonColors.textOnBackground,
@@ -468,18 +538,19 @@ class _OpponentCard extends StatelessWidget {
   );
 }
 
-/// モンスターの名前の小さな札。押すとそのモンスターの詳細を開く。
+/// モンスターの絵と名前の小さな札。押すとそのモンスターの詳細を開く。
 class _MonsterChip extends StatelessWidget {
   const _MonsterChip({
     required super.key,
-    required this.name,
+    required this.monster,
     required this.detail,
     required this.color,
     required this.textColor,
     required this.onTap,
   });
 
-  final String name;
+  /// 絵と名前を出すモンスター。
+  final OwnedMonster monster;
 
   /// 名前の後ろに添える補足 (レベル)。無ければ null。
   final String? detail;
@@ -497,10 +568,31 @@ class _MonsterChip extends StatelessWidget {
       borderRadius: SnapmonRadii.button,
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-        child: Text(
-          detail == null ? name : '$name  $detail',
-          style: SnapmonTextStyles.small.copyWith(color: textColor),
+        padding: const EdgeInsets.fromLTRB(6, 6, 10, 6),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // 絵は名前の 2 行分ほどの大きさにし、札を 3 つ並べても 1 行 (幅 390 の画面) に収まるようにした
+            SizedBox.square(
+              dimension: 32,
+              child: ClipRRect(
+                borderRadius: SnapmonRadii.tag,
+                child: MonsterArt(
+                  monster: monster,
+                  backgroundColor: SnapmonColors.artBackground,
+                ),
+              ),
+            ),
+            const SizedBox(width: 8),
+            Flexible(
+              child: Text(
+                detail == null
+                    ? monster.definition.name
+                    : '${monster.definition.name}  $detail',
+                style: SnapmonTextStyles.small.copyWith(color: textColor),
+              ),
+            ),
+          ],
         ),
       ),
     ),

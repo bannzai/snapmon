@@ -16,7 +16,9 @@ import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
 import '../../widgets/monster_parts.dart';
 import '../../widgets/move_summary.dart';
+import '../../widgets/trainer_icon.dart';
 import '../dex/owned_monster.dart';
+import '../opponent/pvp_client.dart';
 import '../settings/settings_screen.dart';
 import '../share/card_sharer.dart';
 import '../share/share_card_button.dart';
@@ -70,7 +72,16 @@ class BattleScreen extends StatefulWidget {
     required this.cardSharer,
     required this.firstBattleBornMonster,
     required this.firstBattleMonsterIsNewlyBorn,
+    required this.playerProfile,
+    required this.opponentProfile,
   });
+
+  /// 自分のアイコンと表示名。相手の情報カードと向かい合う自分の情報カードの上に出す。
+  /// ログインが無い時 (DEBUG ビルドでログインを飛ばした時) と読めなかった時は null で、出さない (バトルは止めない)。
+  final TrainerProfile? playerProfile;
+
+  /// 相手のアイコンと表示名。相手の情報カードの上に出す。CPU トレーナーはアイコンが無く、既定の印を描く。
+  final TrainerProfile opponentProfile;
 
   /// [firstBattleBornMonster] がこの導線で新しく生まれたか。同じ被写体でもう図鑑にいたモンスターで戦う時は false で、
   /// 勝敗の画面のカードに「あたらしい なかま」と出さない。初回の導線以外の対戦では使わない。
@@ -487,22 +498,45 @@ class _BattleScreenState extends State<BattleScreen> {
                 Positioned(
                   left: 20,
                   top: opponentStatusCardTop,
-                  child: _MonsterStatusCard(
+                  // トレーナーの札も含めて測り、自分のモンスターの絵が札とカードの両方に隠れないようにする
+                  child: Column(
                     key: _opponentStatusCardKey,
-                    monster: opponentMonster,
-                    definitions: widget.definitions,
-                    hitPointsColor: SnapmonColors.hitPointsLoss,
-                    showsHitPointsNumber: false,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _TrainerLabelPlate(
+                        key: const Key('battle-opponent-trainer'),
+                        profile: widget.opponentProfile,
+                      ),
+                      const SizedBox(height: 6),
+                      _MonsterStatusCard(
+                        monster: opponentMonster,
+                        definitions: widget.definitions,
+                        hitPointsColor: SnapmonColors.hitPointsLoss,
+                        showsHitPointsNumber: false,
+                      ),
+                    ],
                   ),
                 ),
                 Positioned(
                   right: 20,
                   bottom: 24,
-                  child: _MonsterStatusCard(
-                    monster: playerMonster,
-                    definitions: widget.definitions,
-                    hitPointsColor: SnapmonColors.accent,
-                    showsHitPointsNumber: true,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      if (widget.playerProfile case final playerProfile?) ...[
+                        _TrainerLabelPlate(
+                          key: const Key('battle-player-trainer'),
+                          profile: playerProfile,
+                        ),
+                        const SizedBox(height: 6),
+                      ],
+                      _MonsterStatusCard(
+                        monster: playerMonster,
+                        definitions: widget.definitions,
+                        hitPointsColor: SnapmonColors.accent,
+                        showsHitPointsNumber: true,
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -893,10 +927,34 @@ class _BornMonsterCard extends StatelessWidget {
   );
 }
 
+/// フィールドの上に重ねるトレーナーの札 ([TrainerLabel])。フィールドの絵の上でも読めるよう、ログの帯と同じ暗い地に置く。
+class _TrainerLabelPlate extends StatelessWidget {
+  const _TrainerLabelPlate({required super.key, required this.profile});
+
+  final TrainerProfile profile;
+
+  @override
+  Widget build(BuildContext context) => DecoratedBox(
+    decoration: const BoxDecoration(
+      color: SnapmonColors.scrim,
+      borderRadius: SnapmonRadii.button,
+    ),
+    child: Padding(
+      padding: const EdgeInsets.fromLTRB(6, 6, 12, 6),
+      // 名前が長くても画面の半分を超えて相手と自分の札が重ならないよう、幅を画面の半分までにする
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxWidth: MediaQuery.sizeOf(context).width / 2,
+        ),
+        child: TrainerLabel(profile: profile),
+      ),
+    ),
+  );
+}
+
 /// 場のモンスターの名前・レベル・HP・属性のカード。
 class _MonsterStatusCard extends StatelessWidget {
   const _MonsterStatusCard({
-    super.key,
     required this.monster,
     required this.definitions,
     required this.hitPointsColor,
