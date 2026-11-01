@@ -758,6 +758,16 @@ void main() {
           expect(card.top, greaterThanOrEqualTo(field.top));
           expect(card.bottom, lessThanOrEqualTo(field.bottom));
           expect(card.overlaps(battleLogRect(tester: tester)), isFalse);
+          // 自分の札もカードの横に並び、フィールドの上に切れない
+          expect(
+            tester.getRect(find.byKey(const Key('battle-player-trainer'))).top,
+            greaterThanOrEqualTo(field.top),
+          );
+          // ログの帯に読める幅が残る (札の幅の上限 160 で横に並べるため)
+          expect(
+            battleLogRect(tester: tester).width,
+            greaterThanOrEqualTo(200),
+          );
         },
       );
     }

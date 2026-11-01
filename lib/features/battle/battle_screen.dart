@@ -68,6 +68,31 @@ const double _opponentStatusCardBelowLogTop = 96;
 /// 情報カードの幅 (モックの Battle.dc.html の配置)。
 const double _monsterStatusCardWidth = 190;
 
+/// トレーナーの札の左右の余白の合計 (左 6・右 12)。
+const double _trainerLabelPlateHorizontalPadding = 18;
+
+/// 低い画面で情報カードの横に並べるトレーナーの札の、アイコンと名前の幅の上限。
+/// 表示名は 12 文字までのため、多くの名前が省略されずに収まり、横に並べてもログの帯に [_battleLogMinimumWidth] を残せる幅にした
+const double _trainerLabelWidthBesideCard = 160;
+
+/// 低い画面で相手の札とカードの右に寄せたログの帯に残す幅の下限。ログの 1 行 (「○○ の △△」) を折り返しながら読める幅にした
+const double _battleLogMinimumWidth = 200;
+
+/// 低い画面で札をカードの横に並べる画面の幅の下限。左右の余白・札・間隔・カード・帯との間・帯の下限の合計
+/// (20 + 160 + 18 + 6 + 190 + 8 + 200 + 20 = 622)。横向きの iPhone SE (幅 667) を含み、幅の狭い Web のウィンドウを含まない
+const double _trainerLabelBesideCardMinimumScreenWidth =
+    _fieldHorizontalMargin +
+    _trainerLabelWidthBesideCard +
+    _trainerLabelPlateHorizontalPadding +
+    _trainerLabelGap +
+    _monsterStatusCardWidth +
+    _battleLogGapBesideCard +
+    _battleLogMinimumWidth +
+    _fieldHorizontalMargin;
+
+/// トレーナーの札と情報カードの間。
+const double _trainerLabelGap = 6;
+
 /// 低い画面で相手の情報カードの右に寄せたログの帯と、カードの間。
 /// 縦向きのカードと帯の間 (上から 56〜96 の 40) まで空けると横向きで帯が短くなるため、詰めた値にした
 const double _battleLogGapBesideCard = 8;
@@ -515,6 +540,12 @@ class _BattleScreenState extends State<BattleScreen> {
                   playerMonster: playerMonster,
                   opponentMonster: opponentMonster,
                   opponentStatusCardTop: opponentStatusCardTop,
+                  // 高さ 500: 横向きの iPhone (高さ 375〜440) を含み、縦向きのスマホ・iPad・Web のデスクトップ (高さ 600 以上) を含まない値。
+                  // 札をカードの上に積むと、低い画面ではまとまりが高くなりフィールドに収まらないため
+                  placesTrainerLabelsBesideCards:
+                      MediaQuery.sizeOf(context).height < 500 &&
+                      MediaQuery.sizeOf(context).width >=
+                          _trainerLabelBesideCardMinimumScreenWidth,
                   // 札とカードを横に並べた時は札の幅も足すため、測った幅で寄せる
                   battleLogLeft: isFieldTooLowForCardBelowLog
                       ? _fieldHorizontalMargin +
@@ -575,11 +606,13 @@ class _BattleScreenState extends State<BattleScreen> {
 
   /// フィールド (Flame のゲーム) と、その上に重ねるログの帯・2 体の情報カード。
   /// 相手の情報カードの上端を [opponentStatusCardTop]、ログの帯の左端を [battleLogLeft] に置く。
+  /// [placesTrainerLabelsBesideCards] の時は、トレーナーの札をカードの上に積まず横に並べる (低い画面で札とカードをフィールドに収めるため)。
   Widget _buildField({
     required BattleMonster playerMonster,
     required BattleMonster opponentMonster,
     required double opponentStatusCardTop,
     required double battleLogLeft,
+    required bool placesTrainerLabelsBesideCards,
   }) => Stack(
     children: [
       Positioned.fill(child: GameWidget(game: _game)),
@@ -614,16 +647,10 @@ class _BattleScreenState extends State<BattleScreen> {
       Positioned(
         left: _fieldHorizontalMargin,
         top: opponentStatusCardTop,
-        // トレーナーの札も含めて測り、自分のモンスターの絵が札とカードの両方に隠れないようにする。
-        // 低い画面 (横向きのスマホ) では、札をカードの上に積むとまとまりが高くなりフィールドに収まらないため、札をカードの横に並べる。
-        // 高さ 500: 横向きの iPhone (高さ 390〜440) を含み、縦向きのスマホ・iPad・Web のデスクトップ (高さ 600 以上) を含まない値。
-        // 幅 508: 左右の余白 20 ずつ・札 (名前の幅の上限が画面の半分 + 札の左右の余白 18)・間隔 6・カード 190 が 1 行に収まる最小の幅
-        // (20 + width / 2 + 18 + 6 + 190 + 20 <= width)。幅の狭い低い画面 (小さい Web のウィンドウ) で横に並べてはみ出さないため
+        // トレーナーの札も含めて測り、自分のモンスターの絵が札とカードの両方に隠れないようにする
         child: Flex(
           key: _opponentStatusCardKey,
-          direction:
-              MediaQuery.sizeOf(context).height < 500 &&
-                  MediaQuery.sizeOf(context).width >= 508
+          direction: placesTrainerLabelsBesideCards
               ? Axis.horizontal
               : Axis.vertical,
           mainAxisSize: MainAxisSize.min,
@@ -632,8 +659,9 @@ class _BattleScreenState extends State<BattleScreen> {
             _TrainerLabelPlate(
               key: const Key('battle-opponent-trainer'),
               profile: widget.opponentProfile,
+              isBesideCard: placesTrainerLabelsBesideCards,
             ),
-            const SizedBox(height: 6, width: 6),
+            const SizedBox(height: _trainerLabelGap, width: _trainerLabelGap),
             _MonsterStatusCard(
               monster: opponentMonster,
               definitions: widget.definitions,
@@ -646,15 +674,20 @@ class _BattleScreenState extends State<BattleScreen> {
       Positioned(
         right: _fieldHorizontalMargin,
         bottom: 24,
-        child: Column(
+        child: Flex(
+          direction: placesTrainerLabelsBesideCards
+              ? Axis.horizontal
+              : Axis.vertical,
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             if (widget.playerProfile case final playerProfile?) ...[
               _TrainerLabelPlate(
                 key: const Key('battle-player-trainer'),
                 profile: playerProfile,
+                isBesideCard: placesTrainerLabelsBesideCards,
               ),
-              const SizedBox(height: 6),
+              const SizedBox(height: _trainerLabelGap, width: _trainerLabelGap),
             ],
             _MonsterStatusCard(
               monster: playerMonster,
@@ -1015,10 +1048,17 @@ class _BornMonsterCard extends StatelessWidget {
 
 /// フィールドの上に重ねるトレーナーの札 ([TrainerLabel])。フィールドの絵の上でも読めるよう、ログの帯と同じ暗い地に置く。
 class _TrainerLabelPlate extends StatelessWidget {
-  const _TrainerLabelPlate({required super.key, required this.profile});
+  const _TrainerLabelPlate({
+    required super.key,
+    required this.profile,
+    required this.isBesideCard,
+  });
 
   /// 札に出すトレーナー。
   final TrainerProfile profile;
+
+  /// 札を情報カードの横に並べるか (低い画面)。並べる時は幅を [_trainerLabelWidthBesideCard] までにする。
+  final bool isBesideCard;
 
   @override
   Widget build(BuildContext context) => DecoratedBox(
@@ -1027,11 +1067,18 @@ class _TrainerLabelPlate extends StatelessWidget {
       borderRadius: SnapmonRadii.button,
     ),
     child: Padding(
-      padding: const EdgeInsets.fromLTRB(6, 6, 12, 6),
-      // 名前が長くても画面の半分を超えて相手と自分の札が重ならないよう、幅を画面の半分までにする
+      padding: const EdgeInsets.fromLTRB(
+        6,
+        6,
+        _trainerLabelPlateHorizontalPadding - 6,
+        6,
+      ),
+      // カードの上に積む時は、名前が長くても画面の半分を超えて相手と自分の札が重ならないよう、幅を画面の半分までにする
       child: ConstrainedBox(
         constraints: BoxConstraints(
-          maxWidth: MediaQuery.sizeOf(context).width / 2,
+          maxWidth: isBesideCard
+              ? _trainerLabelWidthBesideCard
+              : MediaQuery.sizeOf(context).width / 2,
         ),
         child: TrainerLabel(profile: profile),
       ),
