@@ -42,7 +42,10 @@ service firebase.storage {
     match /users/{uid}/iconUploads/{uploadId} {
       allow read, delete: if isOwner(uid);
       // 4 MB と JPEG / PNG: 端末は生成に送る写真と同じ形 (長辺 1024px の JPEG) で置くため、元の写真と同じ制限にした。
+      // uploadId は UUID の形だけ: setProfileIcon が UUID 以外を断るため (functions/src/profile.ts の PROFILE_ICON_UPLOAD_ID_PATTERN)、
+      // 断られて消されない写真を置かせない。
       allow create, update: if isOwner(uid)
+        && uploadId.matches('^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$')
         && request.resource.size <= 4 * 1024 * 1024
         && request.resource.contentType.matches('image/(jpeg|png)');
     }

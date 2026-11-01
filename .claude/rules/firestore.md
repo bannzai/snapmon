@@ -29,7 +29,7 @@ paths:
 | `reportedMonsters/{monsterId}` | 通報されたモンスターの持ち主 (`monsterOwnerUid`) と通報したユーザー数 (`reporterCount`)。fetchOpponents が候補から外す判定に使う。deleteAccount が `monsterOwnerUid` で本人の分を探して消す | 読み書きしない | 書く |
 | `blocks/{blockerUid}_{blockedUid}` | PvP のブロック (`blockerUid`・`blockedUid`・`createdAt`)。fetchOpponents は両方向で候補から外す。deleteAccount が `blockerUid` で本人の分を探して消す | 読み書きしない | 書く |
 
-Storage: `users/{uid}/photos/{requestId}` (元の写真。本人だけ読み書き、4 MB 以下の JPEG・PNG)、`users/{uid}/masks/{requestId}` (端末で決めた切り出しの範囲。iOS の OS の切り出しか crop。本人だけ読み書き、1 MB 以下の PNG)、`users/{uid}/generations/{requestId}/cutout.png` (生成の途中の切り出し画像。本人だけ読み、書くのは Functions だけ)、`monsters/{monsterId}/art.png` (写真から切り出した被写体の画像。ログインした全員が読み、書くのは Functions だけ)、`users/{uid}/iconUploads/{uploadId}` (プロフィールのアイコンにする写真。本人だけ読み書き、4 MB 以下の JPEG・PNG。setProfileIcon が検査の後に消す)、`users/{uid}/icons/{uploadId}.png` (検査を通したアイコン。ログインした全員が読み、書くのは Functions だけ。`users/{uid}/` の配下のため、アカウントの削除で自動で消える)。
+Storage: `users/{uid}/photos/{requestId}` (元の写真。本人だけ読み書き、4 MB 以下の JPEG・PNG)、`users/{uid}/masks/{requestId}` (端末で決めた切り出しの範囲。iOS の OS の切り出しか crop。本人だけ読み書き、1 MB 以下の PNG)、`users/{uid}/generations/{requestId}/cutout.png` (生成の途中の切り出し画像。本人だけ読み、書くのは Functions だけ)、`monsters/{monsterId}/art.png` (写真から切り出した被写体の画像。ログインした全員が読み、書くのは Functions だけ)、`users/{uid}/iconUploads/{uploadId}` (プロフィールのアイコンにする写真。本人だけ読み書き、名前は UUID の形、4 MB 以下の JPEG・PNG。setProfileIcon が検査の後に消す)、`users/{uid}/icons/{uploadId}.png` (検査を通したアイコン。ログインした全員が読み、書くのは Functions だけ。`users/{uid}/` の配下のため、アカウントの削除で自動で消える)。
 
 ## ルール
 
