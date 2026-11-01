@@ -7,6 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:share_plus/share_plus.dart';
 
 import 'package:snapmon/features/dex/dex_store.dart';
+import 'package:snapmon/features/reference/move_detail_screen.dart';
 import 'package:snapmon/features/result/result_screen.dart';
 import 'package:snapmon/l10n/l10n.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
@@ -72,5 +73,49 @@ void main() {
     expect(artSize.width, artSize.height);
     // 画面の幅 390 から外側の余白 (左右 20) とカードの内側の余白 (左右 18) を除いた幅いっぱいに出す
     expect(artSize.width, 390 - 20 * 2 - 18 * 2);
+  });
+
+  testWidgets('カードの覚えている技の札をタップすると、その技の詳細を開く', (tester) async {
+    tester.view
+      ..physicalSize = const Size(390, 844)
+      ..devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    final monster = sampleData.monsterById(monsterId: 'sample-mugmon');
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: snapmonThemeData(),
+        locale: const Locale('ja'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: ResultScreen(
+          monster: monster,
+          dexStore: DexStore(definitions: sampleData.definitions),
+          origin: ResultScreenOrigin.dex,
+          cardSharer: fakeCardSharer(
+            calls: RecordedShareCalls(),
+            artImage: null,
+            shareResultStatus: ShareResultStatus.success,
+          ),
+        ),
+      ),
+    );
+    final moveId = monster.definition.learnset.first.moveId;
+    final moveChip = find.byKey(Key('move-chip-$moveId'));
+    await tester.scrollUntilVisible(moveChip, 200);
+
+    await tester.tap(moveChip);
+    await tester.pumpAndSettle();
+
+    expect(find.byType(MoveDetailScreen), findsOneWidget);
+    expect(
+      tester.widget<MoveDetailScreen>(find.byType(MoveDetailScreen)).move.id,
+      moveId,
+    );
+    expect(
+      find.text(
+        sampleData.definitions.moveById(moveId: moveId).displayName,
+      ),
+      findsOneWidget,
+    );
   });
 }
