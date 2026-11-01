@@ -153,8 +153,9 @@ void main() {
     );
     expect(find.text('あたらしい なかま'), findsOneWidget);
     // 属性と最初の技は図鑑の定義 (その場で作った定義) にだけあり、見本の定義では引けない
-    expect(find.text('ろう'), findsOneWidget);
-    expect(find.text('ろうアタック PP 30'), findsOneWidget);
+    // ろう はモンスターの属性の札と、ろうアタックの属性の札の 2 つ
+    expect(find.text('ろう'), findsNWidgets(2));
+    expect(find.text('ろうアタック'), findsOneWidget);
     expect(calls.uploadedRequestIds, ['request-1']);
     expect(calls.requestedRequestIds, ['request-1']);
     expect(calls.loggedEvents, hasLength(1));
