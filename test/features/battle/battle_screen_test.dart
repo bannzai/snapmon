@@ -196,58 +196,6 @@ void main() {
     );
   });
 
-  for (final (size, direction) in [
-    (const Size(390, 844), Axis.vertical),
-    (const Size(844, 390), Axis.horizontal),
-    // 低くても幅が狭い画面は、札とカードが 1 行に収まらないためカードの上に積む
-    (const Size(390, 480), Axis.vertical),
-  ]) {
-    testWidgets(
-      '相手のトレーナーの札は、縦向きではカードの上、横向きのスマホではカードの横に並べ、カードの位置を下げない ($size)',
-      (tester) async {
-        await pumpBattleScreen(
-          tester: tester,
-          battleRecorder: fakeBattleRecorder(
-            calls: RecordedBattleCalls(),
-            startBattleRecord: () async => null,
-            recordedLevels: const {},
-          ),
-          playerMonster: strongPlayer,
-          artImage: null,
-        );
-        tester.view.physicalSize = size;
-        await tester.pump(const Duration(seconds: 1));
-        final opponentColumn = find
-            .ancestor(
-              of: find.byKey(const Key('battle-opponent-trainer')),
-              matching: find.byType(Flex),
-            )
-            .first;
-        expect(tester.widget<Flex>(opponentColumn).direction, direction);
-        // カードの中の相手のモンスターの名前の上端が、札の下端より上 (横に並ぶ) か下 (上に積む) かで、
-        // 横向きではカードが札の分だけフィールドの下へ押し出されないことを確かめる
-        final opponentCardNameTop = tester
-            .getTopLeft(
-              find
-                  .descendant(
-                    of: opponentColumn,
-                    matching: find.textContaining(weakOpponent.definition.name),
-                  )
-                  .first,
-            )
-            .dy;
-        final trainerLabelBottom = tester
-            .getBottomLeft(find.byKey(const Key('battle-opponent-trainer')))
-            .dy;
-        if (direction == Axis.horizontal) {
-          expect(opponentCardNameTop, lessThan(trainerLabelBottom));
-        } else {
-          expect(opponentCardNameTop, greaterThanOrEqualTo(trainerLabelBottom));
-        }
-      },
-    );
-  }
-
   testWidgets('技の枠に特殊効果の短い説明を出し、効果が働いた技はログに説明文を出す', (tester) async {
     MonsterStats statsOf({required OwnedMonster monster}) => calculateStats(
       baseStats: monster.definition.baseStats,
@@ -758,22 +706,18 @@ void main() {
           expect(card.top, greaterThanOrEqualTo(field.top));
           expect(card.bottom, lessThanOrEqualTo(field.bottom));
           expect(card.overlaps(battleLogRect(tester: tester)), isFalse);
-          // 自分の札もカードの横に並び、フィールドの上に切れない
+          // 札を出すとカードかログの帯と重なる低さのため、相手と自分のトレーナーの札は出さない
           expect(
-            tester.getRect(find.byKey(const Key('battle-player-trainer'))).top,
-            greaterThanOrEqualTo(field.top),
+            find.byKey(const Key('battle-opponent-trainer')),
+            findsNothing,
           );
-          // ログの帯に読める幅が残る (札の幅の上限 160 で横に並べるため)
-          expect(
-            battleLogRect(tester: tester).width,
-            greaterThanOrEqualTo(200),
-          );
+          expect(find.byKey(const Key('battle-player-trainer')), findsNothing);
         },
       );
     }
 
     testWidgets(
-      '幅の狭い低い画面 (390×480) では、トレーナーの札をカードの上に積んだまとまり全体がフィールドに収まり、ログの帯と重ならない',
+      '幅の狭い低い画面 (390×480) では、トレーナーの札を出さず、カード全体がフィールドに収まり、ログの帯と重ならない',
       (tester) async {
         await pumpBattleScreenWithSize(
           tester: tester,
@@ -786,10 +730,12 @@ void main() {
         expect(card.top, greaterThanOrEqualTo(field.top));
         expect(card.bottom, lessThanOrEqualTo(field.bottom));
         expect(card.overlaps(battleLogRect(tester: tester)), isFalse);
+        expect(find.byKey(const Key('battle-opponent-trainer')), findsNothing);
+        expect(find.byKey(const Key('battle-player-trainer')), findsNothing);
       },
     );
 
-    testWidgets('縦向きのスマホ (390×844) では、今までどおりログの帯の下 (上から 96) に置く', (
+    testWidgets('縦向きのスマホ (390×844) では、ログの帯の下 (上から 96) に相手のトレーナーの札、その下にカードを置く', (
       tester,
     ) async {
       await pumpBattleScreenWithSize(
@@ -799,10 +745,16 @@ void main() {
       );
 
       expect(
-        opponentStatusCardRect(tester: tester).topLeft,
+        tester.getTopLeft(find.byKey(const Key('battle-opponent-trainer'))),
         const Offset(20, 96),
       );
+      // 札の高さ 40 と札とカードの間 6 の下
+      expect(
+        opponentStatusCardRect(tester: tester).topLeft,
+        const Offset(20, 142),
+      );
       expect(battleLogRect(tester: tester).left, 20);
+      expect(find.byKey(const Key('battle-player-trainer')), findsOneWidget);
     });
   });
 }
