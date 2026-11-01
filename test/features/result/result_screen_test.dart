@@ -101,7 +101,10 @@ void main() {
     );
     final moveId = monster.definition.learnset.first.moveId;
     final moveChip = find.byKey(Key('move-chip-$moveId'));
-    await tester.scrollUntilVisible(moveChip, 200);
+    // scrollUntilVisible は行の端が一覧に入った所で止まり、行の中心が一覧の外 (下のボタンの領域) に残るため、
+    // 行を一覧の上端まで送ってからタップする
+    await tester.ensureVisible(moveChip);
+    await tester.pumpAndSettle();
 
     await tester.tap(moveChip);
     await tester.pumpAndSettle();
