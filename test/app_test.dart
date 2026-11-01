@@ -1974,7 +1974,8 @@ void main() {
       await tester.pump();
 
       await tester.tap(find.byType(BackButton));
-      await tester.pumpAndSettle();
+      // 保存中の進捗の表示が回り続けるため、pumpAndSettle を使わず画面の遷移の時間だけ進める
+      await tester.pump(const Duration(seconds: 1));
       expect(find.byType(ProfileScreen), findsOneWidget);
 
       iconSaved.complete('users/uid/icons/upload.png');
