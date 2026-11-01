@@ -112,8 +112,22 @@ describe("通報の通知", () => {
     monsterId: "monster-1",
     monsterName: "マグモン",
     monsterArtPath: "monsters/monster-1/art.png",
+    monsterOwnerIconPath: null,
     reason: "inappropriate_picture",
   };
+
+  it("アイコンが不適切の通報は、理由と持ち主のアイコンのパスを書く", () => {
+    const text = reportNotificationText({
+      reportId: "reporter-1_monster-1",
+      report: { ...report, reason: "inappropriate_icon", monsterOwnerIconPath: "users/owner-1/icons/upload1.png" },
+    });
+    expect(text).toContain("不適切なアイコン");
+    expect(text).toContain("持ち主のアイコン: users/owner-1/icons/upload1.png");
+  });
+
+  it("アイコンの無い持ち主の通報は、アイコンを「なし」と書く", () => {
+    expect(reportNotificationText({ reportId: "reporter-1_monster-1", report })).toContain("持ち主のアイコン: なし");
+  });
 
   it("理由・モンスター・持ち主・通報した人を書いた文章を #snapmon-notification に送る", async () => {
     const sendMessage = vi.fn(async () => {});

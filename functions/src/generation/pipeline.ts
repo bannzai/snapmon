@@ -195,7 +195,7 @@ const DOWNLOAD_RESPONSE_MAX_LISTENERS = 20;
  * Storage のファイルを読み切って返す。`file.download()` と同じく createReadStream を読むが、
  * 応答の stream (createReadStream が 'response' で渡す node-fetch の body) の listener の上限を上げてから読む。
  */
-async function downloadFile(bucket: StorageBucket, path: string): Promise<Buffer> {
+export async function downloadFile(bucket: StorageBucket, path: string): Promise<Buffer> {
   const chunks: Buffer[] = [];
   for await (const chunk of bucket
     .file(path)

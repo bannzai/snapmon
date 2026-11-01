@@ -16,6 +16,7 @@ import {
   displayNameOf,
   isDocumentId,
   isReportReason,
+  profileIconOf,
   publicMonster,
   reportDocumentId,
   reportNotificationText,
@@ -96,7 +97,8 @@ async function ownersHiddenByReports({ firestore, ownerUids }: { firestore: Fire
  * 非同期 PvP の相手の候補を返す callable。
  *
  * 受け取る data: なし。
- * 返す値: `{ opponents: [{ opponentUid, displayName, monsters: PublicMonster[] }] }` (最大 3 人。手持ちの平均レベルが自分に近い順)。
+ * 返す値: `{ opponents: [{ opponentUid, displayName, iconPath, monsters: PublicMonster[] }] }` (最大 3 人。手持ちの平均レベルが自分に近い順。
+ * iconPath は検査を通したアイコンの Storage のパスで、登録していない相手は null)。
  * 候補は手持ちを最近変えたユーザー [OPPONENT_CANDIDATE_SCAN_LIMIT] 人から選び、自分・ブロックした / された相手・
  * 自分が通報したモンスターの持ち主・[REPORT_HIDE_THRESHOLD] 人から通報されたモンスターの持ち主・アカウントの削除の途中の持ち主を除く。
  * モンスターは他人に見せてよい項目だけを返し (pvp_rules.ts の publicMonster)、元の写真の参照は返さない。
@@ -158,6 +160,7 @@ export const fetchOpponents = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, asy
     opponents: opponentUids.map((opponentUid) => ({
       opponentUid,
       displayName: displayNameOf({ uid: opponentUid, storedDisplayName: candidateUserByUid.get(opponentUid)!.get("displayName") }),
+      iconPath: profileIconOf({ storedIconPath: candidateUserByUid.get(opponentUid)!.get("iconPath") }),
       monsters: partyMonstersByUid.get(opponentUid)!.map(publicMonster),
     })),
   };
@@ -213,6 +216,8 @@ export const reportMonster = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, asyn
       monsterId,
       monsterName: monster.definition.name,
       monsterArtPath: monster.artPath,
+      // 通報の理由が「アイコンが不適切」の時に見る絵。通報の後に差し替えられても通報した時のアイコンを確かめられるよう、パスを写す
+      monsterOwnerIconPath: profileIconOf({ storedIconPath: ownerSnapshot.get("iconPath") }),
       reason,
     };
     transaction.create(reportDocument, { ...report, createdAt: FieldValue.serverTimestamp() });
@@ -254,15 +259,19 @@ export const blockUser = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async (r
 });
 
 /**
- * 自分の表示名を返す callable。
+ * 自分の表示名とアイコンを返す callable。
  *
- * 受け取る data: なし。返す値: `{ displayName: string }` (設定していなければ「トレーナー」+ uid から決まる 4 桁)。
+ * 受け取る data: なし。返す値: `{ displayName: string, iconPath: string | null }` (表示名は設定していなければ「トレーナー」+ uid から決まる 4 桁、
+ * iconPath は profile.ts の setProfileIcon が保存したアイコンの Storage のパスで、登録していなければ null)。
  * 既定の名前はサーバーだけが決め、クライアントは返った値を出す。読み取りだけで冪等。
  */
 export const getDisplayName = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async (request) => {
   const uid = requireSignedInUid({ request });
   const user = await getFirestore().doc(`users/${uid}`).get();
-  return { displayName: displayNameOf({ uid, storedDisplayName: user.get("displayName") }) };
+  return {
+    displayName: displayNameOf({ uid, storedDisplayName: user.get("displayName") }),
+    iconPath: profileIconOf({ storedIconPath: user.get("iconPath") }),
+  };
 });
 
 /**

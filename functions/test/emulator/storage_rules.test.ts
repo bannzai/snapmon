@@ -32,6 +32,8 @@ beforeEach(async () => {
     await uploadBytes(ref(storage, "users/bob/photos/request1"), smallImage, { contentType: "image/jpeg" });
     await uploadBytes(ref(storage, "monsters/monster1/art.png"), smallImage, { contentType: "image/png" });
     await uploadBytes(ref(storage, "users/alice/generations/request1/cutout.png"), smallImage, { contentType: "image/png" });
+    await uploadBytes(ref(storage, "users/bob/iconUploads/upload1"), smallImage, { contentType: "image/jpeg" });
+    await uploadBytes(ref(storage, "users/bob/icons/upload1.png"), smallImage, { contentType: "image/png" });
   });
 });
 
@@ -105,6 +107,34 @@ describe("users/{uid}/generations/{requestId}/cutout.png", () => {
     await assertFails(
       uploadBytes(ref(signedInStorage("alice"), "users/alice/generations/request2/cutout.png"), smallImage, { contentType: "image/png" }),
     );
+  });
+});
+
+describe("users/{uid}/iconUploads", () => {
+  it("本人は 4 MB 以下の JPEG・PNG を置け、4 MB を超える写真と他人の場所には置けない", async () => {
+    const storage = signedInStorage("alice");
+    await assertSucceeds(uploadBytes(ref(storage, "users/alice/iconUploads/upload1"), smallImage, { contentType: "image/jpeg" }));
+    await assertFails(
+      uploadBytes(ref(storage, "users/alice/iconUploads/large"), new Uint8Array(4 * 1024 * 1024 + 1), { contentType: "image/jpeg" }),
+    );
+    await assertFails(uploadBytes(ref(storage, "users/alice/iconUploads/gif"), smallImage, { contentType: "image/gif" }));
+    await assertFails(uploadBytes(ref(storage, "users/bob/iconUploads/upload2"), smallImage, { contentType: "image/jpeg" }));
+  });
+
+  it("他人の置いた写真は読めない", async () => {
+    await assertFails(getBytes(ref(signedInStorage("alice"), "users/bob/iconUploads/upload1")));
+  });
+});
+
+describe("users/{uid}/icons", () => {
+  it("ログインしたユーザーは他人のアイコンも読めるが、本人も書けない", async () => {
+    await assertSucceeds(getBytes(ref(signedInStorage("alice"), "users/bob/icons/upload1.png")));
+    await assertFails(uploadBytes(ref(signedInStorage("bob"), "users/bob/icons/upload2.png"), smallImage, { contentType: "image/png" }));
+  });
+
+  it("未ログインは読めない", async () => {
+    const storage = testEnvironment.unauthenticatedContext().storage(bucketUrl);
+    await assertFails(getBytes(ref(storage, "users/bob/icons/upload1.png")));
   });
 });
 
