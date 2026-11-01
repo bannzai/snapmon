@@ -184,7 +184,7 @@
   "moveDetailPower": "Power",
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "Learned at",
-  "moveDetailUnlockLevelValue": "From Lv. {level}",
+  "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "Special effect",
   "moveDetailNoSpecialEffect": "None",
   "moveDetailFormula": "Power multiplier",

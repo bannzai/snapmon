@@ -244,7 +244,7 @@
   "moveDetailPower": "威力",
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "覚えるレベル",
-  "moveDetailUnlockLevelValue": "Lv. {level} から",
+  "moveDetailUnlockLevelValue": "Lv. {level}",
   "@moveDetailUnlockLevelValue": {"placeholders": {"level": {"type": "int"}}},
   "moveDetailSpecialEffect": "特殊効果",
   "moveDetailNoSpecialEffect": "なし",

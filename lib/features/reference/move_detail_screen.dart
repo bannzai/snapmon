@@ -62,54 +62,59 @@ class MoveDetailScreen extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 14),
-          Row(
-            children: [
-              for (final (label, value) in [
-                (context.l10n.moveDetailPower, '${move.power}'),
-                (context.l10n.moveDetailPowerPoints, '${move.powerPoints}'),
-                (
-                  context.l10n.moveDetailUnlockLevel,
-                  // 覚える技の一覧の開放レベルはレベル帯の下限 (functions/src/generation/monster_stats.ts の buildLearnset)。
-                  // 上限は生成時に選べる帯の端で、そのレベルで忘れるわけではないため出さない
-                  context.l10n.moveDetailUnlockLevelValue(
-                    move.learnableLevelMinimum,
+          // 3 つの枠の高さを揃える (ラベルが長い言語で 1 つだけ折り返しても枠の下端が揃うように)
+          IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                for (final (label, value) in [
+                  (context.l10n.moveDetailPower, '${move.power}'),
+                  (context.l10n.moveDetailPowerPoints, '${move.powerPoints}'),
+                  (
+                    context.l10n.moveDetailUnlockLevel,
+                    // 覚える技の一覧の開放レベルはレベル帯の下限 (functions/src/generation/monster_stats.ts の buildLearnset)。
+                    // 上限は生成時に選べる帯の端で、そのレベルで忘れるわけではないため出さない
+                    context.l10n.moveDetailUnlockLevelValue(
+                      move.learnableLevelMinimum,
+                    ),
                   ),
-                ),
-              ])
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                    child: DecoratedBox(
-                      decoration: const BoxDecoration(
-                        color: SnapmonColors.card,
-                        borderRadius: SnapmonRadii.button,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 6,
-                          vertical: 10,
+                ])
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      child: DecoratedBox(
+                        decoration: const BoxDecoration(
+                          color: SnapmonColors.card,
+                          borderRadius: SnapmonRadii.button,
                         ),
-                        child: Column(
-                          children: [
-                            Text(
-                              label,
-                              textAlign: TextAlign.center,
-                              style: SnapmonTextStyles.small.copyWith(
-                                color: SnapmonColors.textOnCardMuted,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 6,
+                            vertical: 10,
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                label,
+                                textAlign: TextAlign.center,
+                                style: SnapmonTextStyles.small.copyWith(
+                                  color: SnapmonColors.textOnCardMuted,
+                                ),
                               ),
-                            ),
-                            Text(
-                              value,
-                              textAlign: TextAlign.center,
-                              style: SnapmonTextStyles.statValue,
-                            ),
-                          ],
+                              Text(
+                                value,
+                                textAlign: TextAlign.center,
+                                style: SnapmonTextStyles.statValue,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-            ],
+              ],
+            ),
           ),
           const SizedBox(height: 20),
           _SectionTitle(title: context.l10n.moveDetailSpecialEffect),
