@@ -196,6 +196,45 @@ void main() {
     );
   });
 
+  for (final (size, direction) in [
+    (const Size(390, 844), Axis.vertical),
+    (const Size(844, 390), Axis.horizontal),
+  ]) {
+    testWidgets(
+      '相手のトレーナーの札は、縦向きではカードの上、横向きのスマホではカードの横に並べ、カードの位置を下げない ($size)',
+      (tester) async {
+        await pumpBattleScreen(
+          tester: tester,
+          battleRecorder: fakeBattleRecorder(
+            calls: RecordedBattleCalls(),
+            startBattleRecord: () async => null,
+            recordedLevels: const {},
+          ),
+          playerMonster: strongPlayer,
+          artImage: null,
+        );
+        tester.view.physicalSize = size;
+        await tester.pump(const Duration(seconds: 1));
+        final opponentColumn = find
+            .ancestor(
+              of: find.byKey(const Key('battle-opponent-trainer')),
+              matching: find.byType(Flex),
+            )
+            .first;
+        expect(tester.widget<Flex>(opponentColumn).direction, direction);
+        // 横向きでは札とカードが同じ高さから始まり、カードが札の分だけフィールドの下へ押し出されない
+        if (direction == Axis.horizontal) {
+          expect(
+            tester
+                .getTopLeft(find.byKey(const Key('battle-opponent-trainer')))
+                .dy,
+            tester.getTopLeft(opponentColumn).dy,
+          );
+        }
+      },
+    );
+  }
+
   testWidgets('技の枠に特殊効果の短い説明を出し、効果が働いた技はログに説明文を出す', (tester) async {
     MonsterStats statsOf({required OwnedMonster monster}) => calculateStats(
       baseStats: monster.definition.baseStats,

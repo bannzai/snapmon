@@ -499,16 +499,23 @@ class _BattleScreenState extends State<BattleScreen> {
                 Positioned(
                   left: 20,
                   top: opponentStatusCardTop,
-                  // トレーナーの札も含めて測り、自分のモンスターの絵が札とカードの両方に隠れないようにする
-                  child: Column(
+                  // トレーナーの札も含めて測り、自分のモンスターの絵が札とカードの両方に隠れないようにする。
+                  // 低い画面 (横向きのスマホ) では、札をカードの上に積むとカードがフィールドの下にはみ出して隠れるため、
+                  // 札をカードの横に並べてカードの位置を札が無い時と同じにする。
+                  // 500: 横向きの iPhone (高さ 390〜440) を含み、縦向きのスマホ・iPad・Web のデスクトップ (高さ 600 以上) を含まない値
+                  child: Flex(
                     key: _opponentStatusCardKey,
+                    direction: MediaQuery.sizeOf(context).height < 500
+                        ? Axis.horizontal
+                        : Axis.vertical,
+                    mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       _TrainerLabelPlate(
                         key: const Key('battle-opponent-trainer'),
                         profile: widget.opponentProfile,
                       ),
-                      const SizedBox(height: 6),
+                      const SizedBox(height: 6, width: 6),
                       _MonsterStatusCard(
                         monster: opponentMonster,
                         definitions: widget.definitions,
