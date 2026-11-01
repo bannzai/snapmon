@@ -36,8 +36,6 @@ class MoveSummary extends StatelessWidget {
     children: [
       Text(
         move.displayName,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
         style: SnapmonTextStyles.moveName,
       ),
       const SizedBox(height: 4),
