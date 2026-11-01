@@ -66,6 +66,12 @@ const double _opponentStatusCardBelowLogTop = 96;
 /// 情報カードの幅 (モックの Battle.dc.html の配置)。
 const double _monsterStatusCardWidth = 190;
 
+/// 低い画面でログの帯の右に並べる自分の情報カードの幅。
+/// 幅 190 では HP の数値と属性の札が 1 行に収まらず札が次の行に回り、カードの高さが 115 になって
+/// 844×390 のフィールド (下のセーフエリアのある実機は約 103) に収まらない。HP の数値と属性の札 2 つが 1 行に並ぶ幅にし、
+/// 相手の情報カードと同じ 3 段 (高さ 86) にした
+const double _playerStatusCardBesideLogWidth = 260;
+
 /// 低い画面で相手の情報カードの右に寄せたログの帯と、カードの間。
 /// 縦向きのカードと帯の間 (上から 56〜96 の 40) まで空けると横向きで帯が短くなるため、詰めた値にした
 const double _battleLogGapBesideCard = 8;
@@ -461,7 +467,8 @@ class _BattleScreenState extends State<BattleScreen> {
     final playerMonster = _displayedActiveMembers[BattleSideId.player]!;
     final opponentMonster = _displayedActiveMembers[BattleSideId.opponent]!;
     final isFinished = _battleState.winner != null && !_isPlaying;
-    final safeAreaTop = MediaQuery.paddingOf(context).top;
+    final safeAreaPadding = MediaQuery.paddingOf(context);
+    final safeAreaTop = safeAreaPadding.top;
     // 文字の拡大率が変わるとカードの高さも変わるため、拡大率の変更でも build し直してカードを測り直す
     MediaQuery.textScalerOf(context);
     return Scaffold(
@@ -471,9 +478,10 @@ class _BattleScreenState extends State<BattleScreen> {
             child: LayoutBuilder(
               builder: (context, constraints) {
                 // ログの帯の下 (上から 96) に置くとカードがフィールドの下にはみ出す低い画面 (横向きのスマホ) では、
-                // カードをログの帯と同じ高さの左に上げ、ログの帯をカードの右に寄せる。
-                // 844×390 の実測でフィールドは 124 (下のセーフエリアのある実機は約 103)、ログの帯は上から 16〜56、カードは 86 で、
-                // ログの帯の下には収まらず、帯と同じ高さ (16 + 86 = 102) なら収まるため
+                // 相手のカードをログの帯と同じ高さの左に上げ、自分のカードを幅を広げて帯と同じ高さの右に上げ、ログの帯を 2 枚の間に置く。
+                // 844×390 の実測でフィールドは 124 (下のセーフエリアのある実機は約 103)、ログの帯は上から 16〜56、相手のカードは 86 で、
+                // ログの帯の下には収まらず、帯と同じ高さ (16 + 86 = 102) なら収まるため。
+                // 自分のカードは幅 190 では高さ 115 で、右下 (下から 24) に置くと上端が -15 になりフィールドの外に出ていた
                 final isFieldTooLowForCardBelowLog =
                     _opponentStatusCardHeight != null &&
                     safeAreaTop +
@@ -504,12 +512,9 @@ class _BattleScreenState extends State<BattleScreen> {
                 return _buildField(
                   playerMonster: playerMonster,
                   opponentMonster: opponentMonster,
+                  safeAreaPadding: safeAreaPadding,
                   opponentStatusCardTop: opponentStatusCardTop,
-                  battleLogLeft: isFieldTooLowForCardBelowLog
-                      ? _fieldHorizontalMargin +
-                            _monsterStatusCardWidth +
-                            _battleLogGapBesideCard
-                      : _fieldHorizontalMargin,
+                  placesCardsBesideLog: isFieldTooLowForCardBelowLog,
                 );
               },
             ),
@@ -563,12 +568,14 @@ class _BattleScreenState extends State<BattleScreen> {
   }
 
   /// フィールド (Flame のゲーム) と、その上に重ねるログの帯・2 体の情報カード。
-  /// 相手の情報カードの上端を [opponentStatusCardTop]、ログの帯の左端を [battleLogLeft] に置く。
+  /// 相手の情報カードの上端を [opponentStatusCardTop] に置き、2 体の情報カードを左右の [safeAreaPadding] の内側に置く。
+  /// [placesCardsBesideLog] が true の時 (低い画面) は、自分の情報カードをログの帯と同じ高さの右に置き、ログの帯を 2 体の情報カードの間に置く。
   Widget _buildField({
     required BattleMonster playerMonster,
     required BattleMonster opponentMonster,
+    required EdgeInsets safeAreaPadding,
     required double opponentStatusCardTop,
-    required double battleLogLeft,
+    required bool placesCardsBesideLog,
   }) => Stack(
     children: [
       Positioned.fill(child: GameWidget(game: _game)),
@@ -576,9 +583,17 @@ class _BattleScreenState extends State<BattleScreen> {
         bottom: false,
         child: Padding(
           padding: EdgeInsets.fromLTRB(
-            battleLogLeft,
+            placesCardsBesideLog
+                ? _fieldHorizontalMargin +
+                      _monsterStatusCardWidth +
+                      _battleLogGapBesideCard
+                : _fieldHorizontalMargin,
             _battleLogTop,
-            _fieldHorizontalMargin,
+            placesCardsBesideLog
+                ? _fieldHorizontalMargin +
+                      _playerStatusCardBesideLogWidth +
+                      _battleLogGapBesideCard
+                : _fieldHorizontalMargin,
             0,
           ),
           child: DecoratedBox(
@@ -601,7 +616,7 @@ class _BattleScreenState extends State<BattleScreen> {
         ),
       ),
       Positioned(
-        left: _fieldHorizontalMargin,
+        left: safeAreaPadding.left + _fieldHorizontalMargin,
         top: opponentStatusCardTop,
         child: _MonsterStatusCard(
           key: _opponentStatusCardKey,
@@ -609,16 +624,21 @@ class _BattleScreenState extends State<BattleScreen> {
           definitions: widget.definitions,
           hitPointsColor: SnapmonColors.hitPointsLoss,
           showsHitPointsNumber: false,
+          width: _monsterStatusCardWidth,
         ),
       ),
       Positioned(
-        right: _fieldHorizontalMargin,
-        bottom: 24,
+        right: safeAreaPadding.right + _fieldHorizontalMargin,
+        top: placesCardsBesideLog ? safeAreaPadding.top + _battleLogTop : null,
+        bottom: placesCardsBesideLog ? null : 24,
         child: _MonsterStatusCard(
           monster: playerMonster,
           definitions: widget.definitions,
           hitPointsColor: SnapmonColors.accent,
           showsHitPointsNumber: true,
+          width: placesCardsBesideLog
+              ? _playerStatusCardBesideLogWidth
+              : _monsterStatusCardWidth,
         ),
       ),
     ],
@@ -977,6 +997,7 @@ class _MonsterStatusCard extends StatelessWidget {
     required this.definitions,
     required this.hitPointsColor,
     required this.showsHitPointsNumber,
+    required this.width,
   });
 
   final BattleMonster monster;
@@ -985,6 +1006,9 @@ class _MonsterStatusCard extends StatelessWidget {
 
   /// HP の数値を出すか (自分のモンスターだけ出す)。
   final bool showsHitPointsNumber;
+
+  /// カードの幅。
+  final double width;
 
   @override
   Widget build(BuildContext context) {
@@ -995,7 +1019,7 @@ class _MonsterStatusCard extends StatelessWidget {
       statCalculationVersion: monster.definition.statCalculationVersion,
     ).hitPoints;
     return Container(
-      width: _monsterStatusCardWidth,
+      width: width,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: const BoxDecoration(
         color: SnapmonColors.card,
