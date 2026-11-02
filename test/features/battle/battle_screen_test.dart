@@ -620,18 +620,20 @@ void main() {
   });
 
   group('情報カードの置き方', () {
-    /// 自分を [playerMonster]、相手を [weakOpponent] にしたバトル画面を、[size] の画面で、下のセーフエリアを [bottomPadding] にして開く。
+    /// 自分を [playerMonster]、相手を [weakOpponent] にしたバトル画面を、[size] の画面で、
+    /// 下のセーフエリアを [bottomPadding]、右のセーフエリアを [rightPadding] にして開く。
     /// アプリ (lib/app.dart) と同じく内容の幅の上限 (appContentMaxWidth) に収めて描く。
     Future<void> pumpBattleScreenWithSize({
       required WidgetTester tester,
       required Size size,
       required double bottomPadding,
+      required double rightPadding,
       required OwnedMonster playerMonster,
     }) async {
       tester.view
         ..physicalSize = size
         ..devicePixelRatio = 1
-        ..padding = FakeViewPadding(bottom: bottomPadding);
+        ..padding = FakeViewPadding(right: rightPadding, bottom: bottomPadding);
       addTearDown(tester.view.reset);
       await tester.pumpWidget(
         MaterialApp(
@@ -800,6 +802,7 @@ void main() {
             tester: tester,
             size: const Size(844, 390),
             bottomPadding: bottomPadding,
+            rightPadding: 0,
             playerMonster: strongPlayer,
           );
           final field = fieldRect(tester: tester);
@@ -824,6 +827,7 @@ void main() {
             tester: tester,
             size: const Size(844, 390),
             bottomPadding: bottomPadding,
+            rightPadding: 0,
             playerMonster: strongPlayer,
           );
           final field = fieldRect(tester: tester);
@@ -847,6 +851,7 @@ void main() {
             tester: tester,
             size: const Size(844, 390),
             bottomPadding: bottomPadding,
+            rightPadding: 0,
             playerMonster: longNamedPlayer,
           );
 
@@ -864,6 +869,7 @@ void main() {
             tester: tester,
             size: const Size(844, 390),
             bottomPadding: bottomPadding,
+            rightPadding: 0,
             playerMonster: strongPlayer,
           );
 
@@ -920,6 +926,7 @@ void main() {
           tester: tester,
           size: const Size(390, 480),
           bottomPadding: 0,
+          rightPadding: 0,
           playerMonster: strongPlayer,
         );
         final field = fieldRect(tester: tester);
@@ -940,6 +947,7 @@ void main() {
         tester: tester,
         size: const Size(390, 390),
         bottomPadding: 0,
+        rightPadding: 0,
         playerMonster: strongPlayer,
       );
 
@@ -950,6 +958,25 @@ void main() {
       );
     });
 
+    // 幅 600 は内容の幅の上限と同じで、両脇の余白で右のセーフエリアが差し引かれずに残る
+    testWidgets('低い画面で右のセーフエリアがある時 (600×390、右 30) は、横に並べた自分のカードをセーフエリアの内側に置く', (
+      tester,
+    ) async {
+      await pumpBattleScreenWithSize(
+        tester: tester,
+        size: const Size(600, 390),
+        bottomPadding: 0,
+        rightPadding: 30,
+        playerMonster: strongPlayer,
+      );
+      final field = fieldRect(tester: tester);
+      final card = playerStatusCardRect(tester: tester);
+
+      expect(card.right, lessThanOrEqualTo(field.right - 30));
+      expect(card.top, greaterThanOrEqualTo(field.top));
+      expect(card.overlaps(battleLogRect(tester: tester)), isFalse);
+    });
+
     testWidgets('縦向きのスマホ (390×844) では、ログの帯の下 (上から 96) に相手のトレーナーの札、その下にカードを置く', (
       tester,
     ) async {
@@ -957,6 +984,7 @@ void main() {
         tester: tester,
         size: const Size(390, 844),
         bottomPadding: 0,
+        rightPadding: 0,
         playerMonster: strongPlayer,
       );
 
@@ -988,6 +1016,7 @@ void main() {
         tester: tester,
         size: const Size(390, 844),
         bottomPadding: 0,
+        rightPadding: 0,
         playerMonster: strongPlayer,
       );
 
