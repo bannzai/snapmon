@@ -102,8 +102,8 @@ const double _commandsPanelMaxHeightRatio = 0.6;
 /// 0.25 (97.5) はそれを妨げない。端末の文字が大きくカードが高い時に、欄が無くなり技を選べなくなるのを防ぐ下限にした
 const double _commandsPanelMinHeightRatio = 0.25;
 
-/// 技のボタンの欄の上下の余白の合計 (16 ずつ)。
-const double _commandsPanelVerticalPadding = 32;
+/// 技のボタンの欄の上と下の余白 (フィールドの下端と欄の間、欄と画面の下端の間)。フィールドの高さの計算と欄の Padding の両方で使う。
+const double _commandsPanelVerticalPadding = 16;
 
 /// バトル画面 (モックの Battle.dc.html)。フィールドは Flame の [BattleFieldGame]、名前・HP・技のボタン・ログの帯・勝敗は Flutter で描く。
 /// 技を選ぶと CPU の行動と合わせて 1 ターンを [advanceTurn] で解決し、増えたバトルのログを 1 件ずつ演出して見せる。
@@ -544,20 +544,33 @@ class _BattleScreenState extends State<BattleScreen> {
                 _commandsPanelContentHeight ?? commandsPanelNaturalMaxHeight,
                 commandsPanelNaturalMaxHeight,
               ) -
-              _commandsPanelVerticalPadding -
+              2 * _commandsPanelVerticalPadding -
               safeAreaPadding.bottom;
+          // 自分のカードは測るまで相手のカードと同じ高さと見積もる
+          final playerStatusCardHeight =
+              _playerStatusCardHeight ?? _opponentStatusCardHeight;
+          // 幅の狭い画面では、左の相手のカードと右下の自分のカードが横に重なる (幅 390 では 20 + 190 + 190 + 20 = 420 に足りない)
+          final statusCardsOverlapHorizontally =
+              bodyConstraints.maxWidth - safeAreaPadding.horizontal <
+              _fieldHorizontalMargin * 2 + _monsterStatusCardWidth * 2;
           // ログの帯の下 (上から 96) に置くとカードがフィールドの下にはみ出す低い画面 (横向きのスマホ) では、
           // 相手のカードをログの帯と同じ高さの左に上げ、自分のカードも帯と同じ高さの右に上げ、ログの帯を 2 枚の間に置く。
           // 844×390 の実測でフィールドは 124 (下のセーフエリアのある実機は約 103)、ログの帯は上から 16〜56、カードは 86 で、
           // ログの帯の下には収まらず、帯と同じ高さ (16 + 86 = 102) なら収まるため。
-          // 自分のカードは右下 (下から 24) に置くと、HP の数値と属性の札の行が折り返した時に高さ 115 になり、上端がフィールドの外に出ていた。
+          // 2 枚のカードが横に重なる幅では、右下の自分のカードまでログの帯の下の相手のカードの下に収まらない時も低い画面とする
+          // (自分のカードは HP の数値と属性の札の行が折り返すと高さ 115 になり、390×560 ではログの帯の下の相手のカードと重なっていた)。
           // 自分のカードを右に並べるのは、セーフエリアの内側の幅に 2 枚のカードとログの帯の最小の幅が入る時だけにする
           // (低くて幅も狭い画面で並べると、ログの帯の幅が無くなり 2 枚のカードが重なるため。その時は右下に置き、下の技のボタンの欄を詰める)
           final isFieldTooLowForCardBelowLog =
               _opponentStatusCardHeight != null &&
               safeAreaTop +
                       _opponentStatusCardBelowLogTop +
-                      _opponentStatusCardHeight! >
+                      _opponentStatusCardHeight! +
+                      (statusCardsOverlapHorizontally
+                          ? _stackedStatusCardGap +
+                                playerStatusCardHeight! +
+                                _playerStatusCardBottom
+                          : 0) >
                   naturalFieldHeight;
           final placesPlayerStatusCardBesideLog =
               isFieldTooLowForCardBelowLog &&
@@ -566,9 +579,6 @@ class _BattleScreenState extends State<BattleScreen> {
                       _monsterStatusCardWidth * 2 +
                       _battleLogGapBesideCard * 2 +
                       _battleLogMinimumWidthBesideCards;
-          // 自分のカードは測るまで相手のカードと同じ高さと見積もる
-          final playerStatusCardHeight =
-              _playerStatusCardHeight ?? _opponentStatusCardHeight;
           // トレーナーの札は、ログの帯の下に相手の札とカード、フィールドの下に自分の札とカードを積んでも、
           // 上下の 2 組が重ならない高さのフィールドの時だけ出す (自分のカードは測った高さを使う。HP の数値と属性の札の行が折り返すと相手より高いため)。
           // 低い画面 (横向きのスマホ・小さい Web のウィンドウ) は、カードだけでもフィールドにやっと収まり、
@@ -588,27 +598,6 @@ class _BattleScreenState extends State<BattleScreen> {
                       playerStatusCardHeight! +
                       _playerStatusCardBottom <=
                   naturalFieldHeight;
-          // 低くて幅も狭い画面 (390×390 のような小さい Web のウィンドウ) は、2 枚のカードを横にも縦にも重ねずに置くには
-          // フィールドが足りないため、技のボタンの欄を詰め、相手のカードの下に自分のカードを置ける高さをフィールドに残す (欄はスクロールする)
-          final commandsPanelMaxHeight =
-              isFieldTooLowForCardBelowLog && !placesPlayerStatusCardBesideLog
-              ? math.max(
-                  MediaQuery.sizeOf(context).height *
-                      _commandsPanelMinHeightRatio,
-                  math.min(
-                    commandsPanelNaturalMaxHeight,
-                    bodyConstraints.maxHeight -
-                        (safeAreaTop +
-                            _battleLogTop +
-                            _opponentStatusCardHeight! +
-                            _stackedStatusCardGap +
-                            playerStatusCardHeight! +
-                            _playerStatusCardBottom) -
-                        _commandsPanelVerticalPadding -
-                        safeAreaPadding.bottom,
-                  ),
-                )
-              : commandsPanelNaturalMaxHeight;
           final opponentStatusCardTop =
               safeAreaTop +
               (isFieldTooLowForCardBelowLog
@@ -666,10 +655,36 @@ class _BattleScreenState extends State<BattleScreen> {
               SafeArea(
                 top: false,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
+                  padding: const EdgeInsets.fromLTRB(
+                    20,
+                    _commandsPanelVerticalPadding,
+                    20,
+                    _commandsPanelVerticalPadding,
+                  ),
                   child: ConstrainedBox(
+                    // 低くて幅も狭い画面 (390×390 のような小さい Web のウィンドウ) は、2 枚のカードを横にも縦にも重ねずに置くには
+                    // フィールドが足りないため、技のボタンの欄を詰め、相手のカードの下に自分のカードを置ける高さをフィールドに残す (欄はスクロールする)
                     constraints: BoxConstraints(
-                      maxHeight: commandsPanelMaxHeight,
+                      maxHeight:
+                          isFieldTooLowForCardBelowLog &&
+                              !placesPlayerStatusCardBesideLog
+                          ? math.max(
+                              MediaQuery.sizeOf(context).height *
+                                  _commandsPanelMinHeightRatio,
+                              math.min(
+                                commandsPanelNaturalMaxHeight,
+                                bodyConstraints.maxHeight -
+                                    (safeAreaTop +
+                                        _battleLogTop +
+                                        _opponentStatusCardHeight! +
+                                        _stackedStatusCardGap +
+                                        playerStatusCardHeight! +
+                                        _playerStatusCardBottom) -
+                                    2 * _commandsPanelVerticalPadding -
+                                    safeAreaPadding.bottom,
+                              ),
+                            )
+                          : commandsPanelNaturalMaxHeight,
                     ),
                     child: SingleChildScrollView(
                       child: KeyedSubtree(

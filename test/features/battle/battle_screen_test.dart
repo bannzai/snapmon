@@ -955,12 +955,13 @@ void main() {
       },
     );
 
-    // 札を出すかの境界の高さは技のボタンの欄の高さで決まり、手元で狙って作れないため、画面の高さを刻んで境界をまたぐ
+    // 配置の種類と札を出すかの境界の高さは技のボタンの欄の高さで決まり、手元で狙って作れないため、画面の高さを刻んで境界をまたぐ
     testWidgets(
-      '幅 390 で画面の高さを変えても、トレーナーの札を出す時は、HP の行が折り返す自分のカードと札が相手の札・カード・ログの帯と重ならない',
+      '幅 390 で画面の高さを変えても、HP の行が折り返す自分のカード (札を出す時は札も) が相手の札・カード・ログの帯と重ならない',
       (tester) async {
         var showsTrainerLabelsCount = 0;
-        for (var height = 560.0; height <= 900; height += 10) {
+        var hidesTrainerLabelsCount = 0;
+        for (var height = 390.0; height <= 900; height += 10) {
           await tester.pumpWidget(const SizedBox.shrink());
           await pumpBattleScreenWithSize(
             tester: tester,
@@ -971,18 +972,18 @@ void main() {
             playerMonster: strongPlayer,
           );
           final playerTrainer = find.byKey(const Key('battle-player-trainer'));
-          if (playerTrainer.evaluate().isEmpty) {
-            continue;
+          final opponentTrainer = find.byKey(
+            const Key('battle-opponent-trainer'),
+          );
+          final showsTrainerLabels = playerTrainer.evaluate().isNotEmpty;
+          if (showsTrainerLabels) {
+            showsTrainerLabelsCount++;
+          } else {
+            hidesTrainerLabelsCount++;
           }
-          showsTrainerLabelsCount++;
           final field = fieldRect(tester: tester);
           final playerCard = playerStatusCardRect(tester: tester);
-          final playerTrainerRect = tester.getRect(playerTrainer);
           final opponentCard = opponentStatusCardRect(tester: tester);
-          final opponentTrainerRect = tester.getRect(
-            find.byKey(const Key('battle-opponent-trainer')),
-          );
-          final battleLog = battleLogRect(tester: tester);
 
           // 境界をまたいだ検査にするため、自分のカードは HP の行が折り返して相手のカードより高いことを確かめる
           expect(
@@ -990,11 +991,14 @@ void main() {
             greaterThan(opponentCard.height),
             reason: '高さ $height',
           );
-          for (final playerRect in [playerCard, playerTrainerRect]) {
+          for (final playerRect in [
+            playerCard,
+            if (showsTrainerLabels) tester.getRect(playerTrainer),
+          ]) {
             for (final upperRect in [
               opponentCard,
-              opponentTrainerRect,
-              battleLog,
+              if (showsTrainerLabels) tester.getRect(opponentTrainer),
+              battleLogRect(tester: tester),
             ]) {
               expect(
                 playerRect.overlaps(upperRect),
@@ -1007,9 +1011,16 @@ void main() {
               greaterThanOrEqualTo(field.top),
               reason: '高さ $height',
             );
+            expect(
+              playerRect.bottom,
+              lessThanOrEqualTo(field.bottom),
+              reason: '高さ $height',
+            );
           }
         }
+        // 札を出す高さと出さない高さの両方を検査に含める
         expect(showsTrainerLabelsCount, greaterThan(0));
+        expect(hidesTrainerLabelsCount, greaterThan(0));
       },
     );
 
