@@ -88,8 +88,9 @@ Future<void> main() async {
         reportMonster: reportMonsterWithFirebase,
         blockUser: blockUserWithFirebase,
         fetchBattleRecord: fetchBattleRecordWithFirebase,
-        fetchDisplayName: fetchDisplayNameWithFirebase,
+        fetchProfile: fetchProfileWithFirebase,
         updateDisplayName: updateDisplayNameWithFirebase,
+        updateIcon: updateProfileIconWithFirebase,
       ),
       monsterGenerator: MonsterGenerator(
         listCameras: availableCameras,

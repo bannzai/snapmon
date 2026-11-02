@@ -27,7 +27,7 @@ export const REPORT_HIDE_THRESHOLD = 3;
 export const DISPLAY_NAME_MAX_LENGTH = 12;
 
 /** 通報の理由。クライアントの選択肢 (lib/features/opponent/report_reason.dart) と同じ値。 */
-export const REPORT_REASONS = ["inappropriate_picture", "inappropriate_text", "person_in_picture", "other"] as const;
+export const REPORT_REASONS = ["inappropriate_picture", "inappropriate_text", "person_in_picture", "inappropriate_icon", "other"] as const;
 
 /** 通報の理由。 */
 export type ReportReason = (typeof REPORT_REASONS)[number];
@@ -37,6 +37,7 @@ const REPORT_REASON_LABELS: Record<ReportReason, string> = {
   inappropriate_picture: "不適切な絵",
   inappropriate_text: "不適切な名前・文章",
   person_in_picture: "人が写っている",
+  inappropriate_icon: "不適切なアイコン",
   other: "その他",
 };
 
@@ -98,6 +99,14 @@ export function defaultDisplayName(uid: string): string {
 /** 保存した表示名 [storedDisplayName] があればそれを、無ければ [defaultDisplayName] を返す。 */
 export function displayNameOf({ uid, storedDisplayName }: { uid: string; storedDisplayName: unknown }): string {
   return typeof storedDisplayName === "string" ? storedDisplayName : defaultDisplayName(uid);
+}
+
+/**
+ * `users/{uid}` の `iconPath` [storedIconPath] (profile.ts の setProfileIcon が検査を通して書く) が文字列ならそれを、無ければ null を返す。
+ * アイコンを登録していないユーザーは null で、クライアントは既定の印を描く。
+ */
+export function profileIconOf({ storedIconPath }: { storedIconPath: unknown }): string | null {
+  return typeof storedIconPath === "string" ? storedIconPath : null;
 }
 
 /**
@@ -180,6 +189,8 @@ export interface ReportDocument {
   monsterName: string;
   /** 通報されたモンスターの切り出した画像の Storage のパス。 */
   monsterArtPath: string;
+  /** 通報した時点の持ち主のアイコンの Storage のパス ([profileIconOf])。アイコンを登録していない持ち主は null。 */
+  monsterOwnerIconPath: string | null;
   /** 理由。 */
   reason: ReportReason;
 }
@@ -202,6 +213,8 @@ export function reportNotificationText({ reportId, report }: { reportId: string;
     `持ち主: ${report.monsterOwnerUid}`,
     `通報した人: ${report.reporterUid}`,
     `絵: ${report.monsterArtPath}`,
+    // アイコンの無い持ち主と、この項目を足す前に作られた通報 (項目を持たない) は「なし」と書く
+    `持ち主のアイコン: ${report.monsterOwnerIconPath ?? "なし"}`,
     `通報: reports/${reportId}`,
     `${REPORT_HIDE_THRESHOLD} 人から通報されると、持ち主は対戦の相手の候補から外れる`,
     // 通報者の数は匿名ログインの uid で数えるため、1 人が複数のアカウントで数を作れる。外れた持ち主を戻す手順を通知に添える

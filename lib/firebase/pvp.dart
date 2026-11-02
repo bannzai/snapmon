@@ -1,8 +1,13 @@
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:uuid/uuid.dart';
 
 import '../domain/master/master_data.dart';
+import '../features/opponent/pvp_client.dart';
 import '../features/opponent/pvp_opponent.dart';
 import '../features/opponent/report_reason.dart';
 import '../master/master_repository.dart';
@@ -106,12 +111,34 @@ Future<({int wins, int losses})?> fetchBattleRecordWithFirebase() async {
   return (wins: wins, losses: losses);
 }
 
-/// Functions の getDisplayName を呼び、自分の表示名を返す。ログインが無い時は呼ばずに null を返す。
-Future<String?> fetchDisplayNameWithFirebase() async {
+/// Functions の getDisplayName を呼び、自分の表示名とアイコンを返す。ログインが無い時は呼ばずに null を返す。
+/// iconPath を返さない古い Functions (アイコンを足す前の版) の応答は、アイコンの無いプロフィールとして読む。
+Future<TrainerProfile?> fetchProfileWithFirebase() async {
   if (_signedInUid() == null) {
     return null;
   }
-  return (await _call(name: 'getDisplayName', data: null))['displayName']!
+  final result = await _call(name: 'getDisplayName', data: null);
+  return (
+    displayName: result['displayName']! as String,
+    iconPath: result['iconPath'] as String?,
+  );
+}
+
+/// [photo] (JPEG) を Storage の `users/{uid}/iconUploads/{uploadId}` に置いてから Functions の setProfileIcon を呼び、
+/// 保存したアイコンのパスを返す。uploadId は呼ぶたびに作る (同じ写真を選び直しても、別のアイコンとして検査し直すため)。
+Future<String> updateProfileIconWithFirebase({required Uint8List photo}) async {
+  final uid = _signedInUid();
+  if (uid == null) {
+    throw StateError('ログインしていないためアイコンを変えられません');
+  }
+  final uploadId = const Uuid().v4();
+  await FirebaseStorage.instance
+      .ref('users/$uid/iconUploads/$uploadId')
+      .putData(photo, SettableMetadata(contentType: 'image/jpeg'));
+  return (await _call(
+        name: 'setProfileIcon',
+        data: {'uploadId': uploadId},
+      ))['iconPath']!
       as String;
 }
 

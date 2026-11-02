@@ -16,4 +16,5 @@ export { deleteAccount, deleteAccountFilesTask as deleteAccountFiles } from "./a
 export { recordBattle, startBattle } from "./battle";
 export { generate, resumeGenerationTask as resumeGeneration } from "./generation/generate";
 export { healthCheck } from "./health_check";
+export { setProfileIcon } from "./profile";
 export { blockUser, fetchOpponents, getDisplayName, notifyReport, reportMonster, setDisplayName } from "./pvp";

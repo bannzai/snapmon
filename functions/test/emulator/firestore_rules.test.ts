@@ -82,6 +82,12 @@ describe("users/{uid}", () => {
     await assertFails(setDoc(doc(firestore, "users/alice"), { displayName: "なまえ" }, { merge: true }));
     await assertFails(updateDoc(doc(firestore, "users/alice"), { displayName: "なまえ" }));
   });
+
+  it("本人もアイコンのパスを直接書けない (Functions の setProfileIcon の検査を通らない画像を他人に見せないため)", async () => {
+    const firestore = signedInFirestore("alice");
+    await assertFails(setDoc(doc(firestore, "users/alice"), { iconPath: "users/alice/iconUploads/upload1" }, { merge: true }));
+    await assertFails(updateDoc(doc(firestore, "users/alice"), { iconPath: "users/alice/iconUploads/upload1" }));
+  });
 });
 
 describe("users/{uid}/party/current", () => {

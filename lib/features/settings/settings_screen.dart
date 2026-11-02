@@ -6,11 +6,13 @@ import 'package:flutter/material.dart';
 import '../../l10n/l10n.dart';
 import '../../sample/sample_data.dart';
 import '../../theme/snapmon_text_styles.dart';
+import '../../widgets/trainer_icon.dart';
 import '../battle/battle_recorder.dart';
 import '../capture/monster_generator.dart';
 import '../developer_menu/developer_menu_screen.dart';
 import '../dex/dex_store.dart';
 import '../opponent/pvp_client.dart';
+import '../profile/profile_screen.dart';
 import '../session/session_store.dart';
 import '../share/card_sharer.dart';
 import 'account_store.dart';
@@ -57,7 +59,7 @@ class SettingsScreen extends StatelessWidget {
   /// バトルの記録と計測 (開発者メニューの見本の写真から始めた初回のバトルが使う)。
   final BattleRecorder battleRecorder;
 
-  /// 表示名の読み込みと変更 (開発者メニューの見本の写真から始めた初回のバトルの相手の取得にも使う)。
+  /// プロフィールの読み込みと変更 (開発者メニューの見本の写真から始めた初回のバトルの相手の取得にも使う)。
   final PvpClient pvpClient;
 
   /// 見本データ (開発者メニューが使う)。
@@ -69,7 +71,7 @@ class SettingsScreen extends StatelessWidget {
   /// ログイン (開発者メニューが使う)。
   final SessionStore sessionStore;
 
-  /// 生成の呼び出しと計測 (開発者メニューが使う)。
+  /// 生成の呼び出しと計測 (開発者メニューと、プロフィール画面のアイコンの写真を選ぶのに使う)。
   final MonsterGenerator monsterGenerator;
 
   /// 図鑑のカードの共有に使う関数の組 (開発者メニューが使う)。
@@ -222,12 +224,13 @@ class SettingsScreen extends StatelessWidget {
     body: ListView(
       children: [
         // 「データを引き継ぐ」で別のアカウントに切り替わると uid が変わるため、uid ごとに作り直して表示名を読み直す
-        // (前の uid の表示名を出したまま保存させないため)
+        // (前の uid のプロフィールを出したまま保存させないため)
         ListenableBuilder(
           listenable: accountStore.sessionStore,
-          builder: (context, _) => _DisplayNameTile(
+          builder: (context, _) => _ProfileTile(
             key: ValueKey(accountStore.sessionStore.uid),
             pvpClient: pvpClient,
+            monsterGenerator: monsterGenerator,
           ),
         ),
         _SectionTitle(title: context.l10n.settingsSupportSection),
@@ -316,24 +319,34 @@ class SettingsScreen extends StatelessWidget {
   );
 }
 
-/// 対戦の相手に見える表示名の節。名前はサーバー (Functions の getDisplayName) が決めた値を出し、押すと変えられる。
-/// ログインが無い時 (DEBUG ビルドでログインを飛ばした時) は名前が無いため節を出さない。
-class _DisplayNameTile extends StatefulWidget {
-  const _DisplayNameTile({required super.key, required this.pvpClient});
+/// プロフィールの節。表示名とアイコンはサーバー (Functions の getDisplayName) が返した値を出し、押すとプロフィール画面を開く。
+/// プロフィール画面を閉じたら読み直す (変えた値を出すため)。ログインが無い時 (DEBUG ビルドでログインを飛ばした時) は値が無いため節を出さない。
+class _ProfileTile extends StatefulWidget {
+  const _ProfileTile({
+    required super.key,
+    required this.pvpClient,
+    required this.monsterGenerator,
+  });
 
+  /// プロフィールの読み込みと保存。
   final PvpClient pvpClient;
 
+  /// プロフィール画面がアイコンの写真を選んで送る形にするのに使う。
+  final MonsterGenerator monsterGenerator;
+
   @override
-  State<_DisplayNameTile> createState() => _DisplayNameTileState();
+  State<_ProfileTile> createState() => _ProfileTileState();
 }
 
-class _DisplayNameTileState extends State<_DisplayNameTile> {
-  /// 今の表示名。読み込み中・ログインが無い時は null。
-  String? _displayName;
+/// [_ProfileTile] の読み込みの状態。
+class _ProfileTileState extends State<_ProfileTile> {
+  /// 今の表示名とアイコン。読み込み中・ログインが無い時は null。
+  TrainerProfile? _profile;
 
   /// 読み込みの失敗。
   Object? _loadError;
 
+  /// 最初の読み込みが終わる前か。
   bool _isLoading = true;
 
   @override
@@ -342,12 +355,13 @@ class _DisplayNameTileState extends State<_DisplayNameTile> {
     unawaited(_load());
   }
 
+  /// 自分のプロフィールを読み、読めた値か失敗を画面に出す。
   Future<void> _load() async {
     try {
-      final displayName = await widget.pvpClient.fetchDisplayName();
+      final profile = await widget.pvpClient.fetchProfile();
       if (mounted) {
         setState(() {
-          _displayName = displayName;
+          _profile = profile;
           _loadError = null;
           _isLoading = false;
         });
@@ -362,25 +376,27 @@ class _DisplayNameTileState extends State<_DisplayNameTile> {
     }
   }
 
-  Future<void> _edit({required String currentDisplayName}) async {
-    final savedDisplayName = await showDialog<String>(
-      context: context,
-      // 保存の途中に外を押して閉じると、保存できた名前が画面に反映されないため、閉じるのは「やめる」だけにする
-      barrierDismissible: false,
-      builder: (context) => _DisplayNameDialog(
-        initialDisplayName: currentDisplayName,
-        updateDisplayName: widget.pvpClient.updateDisplayName,
+  /// [profile] から始めるプロフィール画面を開き、閉じたら変えた値を出すために読み直す。
+  Future<void> _open({required TrainerProfile profile}) async {
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (context) => ProfileScreen(
+          initialProfile: profile,
+          pvpClient: widget.pvpClient,
+          pickPhoto: widget.monsterGenerator.pickAlbumPhoto,
+          preparePhoto: widget.monsterGenerator.preparePhoto,
+        ),
       ),
     );
-    if (savedDisplayName != null && mounted) {
-      setState(() => _displayName = savedDisplayName);
+    if (mounted) {
+      await _load();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final displayName = _displayName;
-    if (!_isLoading && displayName == null && _loadError == null) {
+    final profile = _profile;
+    if (!_isLoading && profile == null && _loadError == null) {
       return const SizedBox.shrink();
     }
     return Column(
@@ -388,104 +404,25 @@ class _DisplayNameTileState extends State<_DisplayNameTile> {
       children: [
         _SectionTitle(title: context.l10n.settingsProfileSection),
         ListTile(
-          key: const Key('display-name'),
-          leading: const Icon(Icons.badge_outlined),
-          title: Text(context.l10n.settingsDisplayName),
+          key: const Key('profile'),
+          leading: profile == null
+              ? const Icon(Icons.badge_outlined)
+              // 32: ListTile の leading に置く他の項目のアイコン (24) の枠に近い大きさで、アイコンの写真を見分けられるため
+              : TrainerIcon(profile: profile, dimension: 32),
+          title: Text(context.l10n.settingsProfileSection),
           subtitle: Text(
-            displayName ??
+            profile?.displayName ??
                 _loadError?.toString() ??
                 context.l10n.settingsDisplayNameLoading,
           ),
-          trailing: displayName == null ? null : const Icon(Icons.edit),
-          onTap: displayName == null
+          trailing: profile == null ? null : const Icon(Icons.chevron_right),
+          onTap: profile == null
               ? (_loadError == null ? null : _load)
-              : () => _edit(currentDisplayName: displayName),
+              : () => _open(profile: profile),
         ),
       ],
     );
   }
-}
-
-/// 表示名を入力するダイアログ。保存できたら保存した名前で閉じ、できなければ理由をそのまま出して閉じない。
-class _DisplayNameDialog extends StatefulWidget {
-  const _DisplayNameDialog({
-    required this.initialDisplayName,
-    required this.updateDisplayName,
-  });
-
-  final String initialDisplayName;
-  final Future<String> Function({required String displayName})
-  updateDisplayName;
-
-  @override
-  State<_DisplayNameDialog> createState() => _DisplayNameDialogState();
-}
-
-class _DisplayNameDialogState extends State<_DisplayNameDialog> {
-  late final TextEditingController _controller = TextEditingController(
-    text: widget.initialDisplayName,
-  );
-  bool _isSaving = false;
-  String? _errorText;
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  Future<void> _save() async {
-    setState(() {
-      _isSaving = true;
-      _errorText = null;
-    });
-    try {
-      final savedDisplayName = await widget.updateDisplayName(
-        displayName: _controller.text,
-      );
-      if (mounted) {
-        Navigator.of(context).pop(savedDisplayName);
-      }
-    } catch (error) {
-      if (mounted) {
-        setState(() {
-          _isSaving = false;
-          _errorText = error.toString();
-        });
-      }
-    }
-  }
-
-  @override
-  // 保存の途中は戻る操作でも閉じさせない (保存できた名前を画面に反映できなくなるため)
-  Widget build(BuildContext context) => PopScope(
-    canPop: !_isSaving,
-    child: AlertDialog(
-      title: Text(context.l10n.settingsDisplayName),
-      content: TextField(
-        key: const Key('display-name-field'),
-        controller: _controller,
-        autofocus: true,
-        enabled: !_isSaving,
-        decoration: InputDecoration(
-          helperText: context.l10n.settingsDisplayNameHelper,
-          errorText: _errorText,
-          errorMaxLines: 4,
-        ),
-      ),
-      actions: [
-        TextButton(
-          onPressed: _isSaving ? null : () => Navigator.of(context).pop(),
-          child: Text(context.l10n.commonCancel),
-        ),
-        TextButton(
-          key: const Key('display-name-save'),
-          onPressed: _isSaving ? null : _save,
-          child: Text(context.l10n.settingsDisplayNameSave),
-        ),
-      ],
-    ),
-  );
 }
 
 /// 設定の節の見出し。

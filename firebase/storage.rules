@@ -38,6 +38,24 @@ service firebase.storage {
       allow write: if false;
     }
 
+    // プロフィールのアイコンにする写真。本人だけが置ける。setProfileIcon (functions/src/profile.ts) が検査してから消す。
+    match /users/{uid}/iconUploads/{uploadId} {
+      allow read, delete: if isOwner(uid);
+      // 4 MB と JPEG / PNG: 端末は生成に送る写真と同じ形 (長辺 1024px の JPEG) で置くため、元の写真と同じ制限にした。
+      // uploadId は UUID の形だけ: setProfileIcon が UUID 以外を断るため (functions/src/profile.ts の PROFILE_ICON_UPLOAD_ID_PATTERN)、
+      // 断られて消されない写真を置かせない。
+      allow create, update: if isOwner(uid)
+        && uploadId.matches('^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$')
+        && request.resource.size <= 4 * 1024 * 1024
+        && request.resource.contentType.matches('image/(jpeg|png)');
+    }
+
+    // 検査を通ったプロフィールのアイコン。対戦の相手にも見せるため、ログインした全員が読める。書き込みは Functions だけ。
+    match /users/{uid}/icons/{iconFile} {
+      allow read: if isSignedIn();
+      allow write: if false;
+    }
+
     // 写真から切り出した被写体の画像。PvP と共有カードで他人にも見せる。書き込みは Functions (Admin SDK) だけ。
     match /monsters/{monsterId}/art.png {
       allow read: if isSignedIn();

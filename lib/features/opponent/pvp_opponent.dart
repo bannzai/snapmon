@@ -7,6 +7,7 @@ class PvpOpponent {
   const PvpOpponent({
     required this.opponentUid,
     required this.displayName,
+    required this.iconPath,
     required this.monsters,
   });
 
@@ -16,6 +17,7 @@ class PvpOpponent {
       PvpOpponent(
         opponentUid: json['opponentUid'] as String,
         displayName: json['displayName'] as String,
+        iconPath: json['iconPath'] as String?,
         monsters: [
           for (final monsterJson in json['monsters'] as List<dynamic>)
             OwnedMonster.fromJson(json: monsterJson as Map<String, dynamic>),
@@ -27,6 +29,9 @@ class PvpOpponent {
 
   /// 相手の表示名。
   final String displayName;
+
+  /// 相手のアイコンの Storage のパス。登録していない相手と、アイコンを返さない古い Functions の応答は null。
+  final String? iconPath;
 
   /// 相手の手持ち (1〜3 体。レベルは相手の今のレベル)。
   final List<OwnedMonster> monsters;
