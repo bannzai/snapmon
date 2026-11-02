@@ -143,6 +143,19 @@ void main() {
     },
   );
 
+  testWithGame<BattleFieldGame>(
+    '高さが 0 以下の矩形を受け取った時は、比率の配置のままにして絵の大きさを負にしない',
+    createGame,
+    (game) async {
+      game.onGameResize(Vector2(600, 10));
+      final opponentRectBefore = game.opponentMonsterComponent.toRect();
+      game.updateMonsterArtArea(area: const Rect.fromLTRB(218, 16, 382, 10));
+
+      expect(game.opponentMonsterComponent.toRect(), opponentRectBefore);
+      expect(game.playerMonsterComponent.size.x, greaterThan(0));
+    },
+  );
+
   testWithGame<BattleFieldGame>('画面の大きさが変わると 2 体を置き直す', createGame, (
     game,
   ) async {

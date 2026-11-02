@@ -207,7 +207,10 @@ class BattleFieldGame extends FlameGame {
 
   /// 画面の大きさに合わせて 2 体の位置と大きさを決める。比率はモック (Battle.dc.html) の配置から取った。
   void _layout() {
-    if (_monsterArtArea case final area?) {
+    // フィールドが相手のカードの上端より低い (幅の広い Web のウィンドウを高さ 120 ほどまで縮めた) 時は矩形の高さが 0 以下になり、
+    // 絵の一辺が負になるため、比率の配置に戻す
+    if (_monsterArtArea case final area?
+        when area.width > 0 && area.height > 0) {
       // 情報カードが左 (相手)・右 (自分) にあるため、相手を左上、自分を右下に置き、それぞれのカードの側に寄せる。
       // 自分を相手の 1.15 倍に描くのは比率で置く時と同じで、横に並べた 2 体 (m + 1.15m) と自分の高さ (1.15m) が矩形に収まる大きさにする
       final areaMonsterSize = math.min(area.width / 2.15, area.height / 1.15);
