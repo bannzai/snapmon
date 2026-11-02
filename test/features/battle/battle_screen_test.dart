@@ -630,6 +630,8 @@ void main() {
       required double leftPadding,
       required double rightPadding,
       required OwnedMonster playerMonster,
+      // 既定は初回の導線ではない対戦。初回の 1 戦は勝敗の画面に生まれたカードも並べて高くなるため、決着の後の配置を確かめる時に渡す
+      OwnedMonster? firstBattleBornMonster,
     }) async {
       tester.view
         ..physicalSize = size
@@ -666,8 +668,8 @@ void main() {
               artImage: null,
               shareResultStatus: ShareResultStatus.success,
             ),
-            firstBattleBornMonster: null,
-            firstBattleMonsterIsNewlyBorn: false,
+            firstBattleBornMonster: firstBattleBornMonster,
+            firstBattleMonsterIsNewlyBorn: firstBattleBornMonster != null,
             // 自分の札は右に寄せて名前の長さだけの幅になるため、表示名の上限 12 文字 (functions/src/pvp_rules.ts の DISPLAY_NAME_MAX_LENGTH) にして、
             // 札が相手のカードと横に重なる幅で配置を確かめる
             playerProfile: (displayName: 'ながいなまえのトレーナー', iconPath: null),
@@ -1191,6 +1193,76 @@ void main() {
         },
       );
     }
+
+    // 初回の 1 戦の決着の後は、技のボタンの欄が生まれたカードも並べた勝敗の画面に変わって高くなり、フィールドが縮む。
+    // 配置と札を出すかを決着の前のまま残すと、縮んだフィールドの上で札とカードが重なるため、札の境界をまたぐ高さで決着の後を確かめる
+    testWidgets('幅 390 で画面の高さを変えても、初回の 1 戦の決着の後に自分のカード・札が相手のカード・札・ログの帯と重ならない', (
+      tester,
+    ) async {
+      for (var height = 600.0; height <= 900; height += 30) {
+        await tester.pumpWidget(const SizedBox.shrink());
+        await pumpBattleScreenWithSize(
+          tester: tester,
+          size: Size(390, height),
+          bottomPadding: 0,
+          leftPadding: 0,
+          rightPadding: 0,
+          playerMonster: strongPlayer,
+          firstBattleBornMonster: strongPlayer,
+        );
+        // 初回の 1 戦の勝敗の画面は「もどる」の代わりに「もう 1 体撮る」を出す
+        final finishedButton = find.byKey(
+          const Key('first-battle-capture-again'),
+        );
+        // 100 ターン: 見本の手持ち同士なら数ターンで決着するため、決着しない不具合でテストが止まらない上限として十分な数
+        for (
+          var turn = 0;
+          turn < 100 && finishedButton.evaluate().isEmpty;
+          turn++
+        ) {
+          final move = find.text('わるあがき').evaluate().isEmpty
+              ? find.byKey(const Key('move-slot-0'))
+              : find.text('わるあがき');
+          await tester.ensureVisible(move);
+          await tester.tap(move);
+          await tester.pump();
+          await tester.pump(const Duration(seconds: 5));
+        }
+        expect(finishedButton, findsOneWidget, reason: '高さ $height');
+        // 勝敗の画面を測った次のフレームで配置を決め直すため
+        await tester.pump();
+        await tester.pump();
+
+        final field = fieldRect(tester: tester);
+        final playerTrainer = find.byKey(const Key('battle-player-trainer'));
+        final opponentTrainer = find.byKey(
+          const Key('battle-opponent-trainer'),
+        );
+        for (final playerRect in [
+          playerStatusCardRect(tester: tester),
+          if (playerTrainer.evaluate().isNotEmpty)
+            tester.getRect(playerTrainer),
+        ]) {
+          for (final upperRect in [
+            opponentStatusCardRect(tester: tester),
+            if (opponentTrainer.evaluate().isNotEmpty)
+              tester.getRect(opponentTrainer),
+            visibleBattleLogRect(tester: tester),
+          ]) {
+            expect(
+              playerRect.overlaps(upperRect),
+              isFalse,
+              reason: '高さ $height',
+            );
+          }
+          expect(
+            playerRect.top,
+            greaterThanOrEqualTo(field.top),
+            reason: '高さ $height',
+          );
+        }
+      }
+    });
 
     // 配置の種類と札を出すかの境界の高さは技のボタンの欄の高さで決まり、手元で狙って作れないため、画面の高さを刻んで境界をまたぐ
     testWidgets(

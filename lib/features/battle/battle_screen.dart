@@ -625,12 +625,12 @@ class _BattleScreenState extends State<BattleScreen> {
                 when cardHeight > (_playerStatusCardHeight ?? 0)) {
               setState(() => _playerStatusCardHeight = cardHeight);
             }
-            // 技のボタンの欄は決着の前だけ測る。決着の後は勝敗の画面に変わって中身の高さが変わり、
-            // 測り直すと配置が決着の後に切り替わるため (勝敗の画面は欄の中でスクロールする)
+            // 技のボタンの欄 (決着の後は勝敗の画面) も、高くなった時だけ測り直す。
+            // 欄が低くなる時 (技の説明の行数が少ないモンスターに交代した等) に測り直すと配置がバトルの途中で切り替わり、
+            // 高くなる時 (わるあがきの行が増えた・勝敗の画面に変わった) に測り直さないと、縮んだフィールドの上で札とカードが重なるため
             if (_commandsPanelContentKey.currentContext?.size?.height
                 case final contentHeight?
-                when !isFinished &&
-                    contentHeight != _commandsPanelContentHeight) {
+                when contentHeight > (_commandsPanelContentHeight ?? 0)) {
               setState(() => _commandsPanelContentHeight = contentHeight);
             }
             if (_opponentTrainerLabelKey.currentContext?.size?.height
