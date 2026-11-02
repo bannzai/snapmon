@@ -729,6 +729,55 @@ void main() {
           .first,
     );
 
+    /// フィールドに描いた 2 体 (相手・自分) の絵の、画面の座標での矩形。
+    List<Rect> monsterArtRects({required WidgetTester tester}) {
+      final gameWidget = find.byType(GameWidget<BattleFieldGame>);
+      final game = tester.widget<GameWidget<BattleFieldGame>>(gameWidget).game!;
+      final gameTopLeft = tester.getTopLeft(gameWidget);
+      return [
+        game.opponentMonsterComponent.toRect().shift(gameTopLeft),
+        game.playerMonsterComponent.toRect().shift(gameTopLeft),
+      ];
+    }
+
+    /// 2 体の絵がフィールドに収まり、2 枚の情報カードとログの帯に重ならず、見分けられる大きさで描かれていることを確かめる。
+    void expectMonsterArtsVisible({required WidgetTester tester}) {
+      final field = fieldRect(tester: tester);
+      for (final artRect in monsterArtRects(tester: tester)) {
+        expect(field.intersect(artRect), artRect);
+        for (final coveringRect in [
+          opponentStatusCardRect(tester: tester),
+          playerStatusCardRect(tester: tester),
+          battleLogRect(tester: tester),
+        ]) {
+          expect(artRect.overlaps(coveringRect), isFalse);
+        }
+        // 絵の大きさの下限 (フィールドの高さの 0.15。battle_field_game.dart の _layout) に張り付いた絵 (844×390 で 18.6) は
+        // 被写体を見分けられないため、フィールドの高さの半分以上を求める
+        expect(artRect.height, greaterThanOrEqualTo(field.height / 2));
+      }
+    }
+
+    /// ログの帯が、フィールドに重ねるならフィールドの中に収まり (フィールドの外は切れて見えないため)、
+    /// フィールドの外に置くならフィールドに掛からず、どちらでも下のセーフエリア [bottomPadding] より上の画面に収まることを確かめる。
+    void expectBattleLogNotCut({
+      required WidgetTester tester,
+      required double bottomPadding,
+    }) {
+      final field = fieldRect(tester: tester);
+      final log = battleLogRect(tester: tester);
+      expect(
+        field.intersect(log) == log || !field.overlaps(log),
+        isTrue,
+        reason: 'ログの帯 $log がフィールド $field の端に掛かって切れている',
+      );
+      expect(log.top, greaterThanOrEqualTo(0));
+      expect(
+        log.bottom,
+        lessThanOrEqualTo(tester.view.physicalSize.height - bottomPadding),
+      );
+    }
+
     // 下のセーフエリア 21: 横向きの iPhone (ホームインジケーターのある機種) の下のインセット
     for (final bottomPadding in [0.0, 21.0]) {
       testWidgets(
@@ -796,7 +845,7 @@ void main() {
       );
 
       testWidgets(
-        '横向きのスマホ (844×390、下のセーフエリア $bottomPadding) では、バトルの始まりのログの帯がフィールドに収まる',
+        '横向きのスマホ (844×390、下のセーフエリア $bottomPadding) では、バトルの始まりのログの帯が切れずに画面に収まる',
         (tester) async {
           await pumpBattleScreenWithSize(
             tester: tester,
@@ -805,10 +854,48 @@ void main() {
             playerMonster: strongPlayer,
           );
 
-          expect(
-            battleLogRect(tester: tester).bottom,
-            lessThanOrEqualTo(fieldRect(tester: tester).bottom),
+          expectBattleLogNotCut(tester: tester, bottomPadding: bottomPadding);
+        },
+      );
+
+      testWidgets(
+        '横向きのスマホ (844×390、下のセーフエリア $bottomPadding) では、2 体の絵がフィールドに収まり、2 枚のカードとログの帯に隠れない',
+        (tester) async {
+          await pumpBattleScreenWithSize(
+            tester: tester,
+            size: const Size(844, 390),
+            bottomPadding: bottomPadding,
+            playerMonster: strongPlayer,
           );
+
+          expectMonsterArtsVisible(tester: tester);
+        },
+      );
+
+      testWidgets(
+        '横向きのスマホ (844×390、下のセーフエリア $bottomPadding) では、技の特殊効果の説明が付いたログの帯も切れずに画面に収まり、2 体の絵と重ならない',
+        (tester) async {
+          await pumpBattleScreenWithSize(
+            tester: tester,
+            size: const Size(844, 390),
+            bottomPadding: bottomPadding,
+            playerMonster: strongPlayer,
+          );
+          // マグモンの覚える技の一覧の 3 番目が ゆげのもや (heat_1b)。1 ターン目に先に動き、説明と相性の行が続いて 3 行になる
+          // (「技の枠に特殊効果の短い説明を出し、効果が働いた技はログに説明文を出す」のテスト)
+          final moveSlot = find.byKey(const Key('move-slot-2'));
+          await tester.ensureVisible(moveSlot);
+          await tester.tap(moveSlot);
+          await tester.pump();
+          expect(
+            tester.widget<Text>(find.byKey(const Key('battle-log'))).data,
+            contains('先に行動すると威力が上がる'),
+          );
+
+          expectBattleLogNotCut(tester: tester, bottomPadding: bottomPadding);
+          expectMonsterArtsVisible(tester: tester);
+          // 演出の待ち (Future.delayed) をテストの終わりに残さない
+          await tester.pump(const Duration(seconds: 5));
         },
       );
     }
