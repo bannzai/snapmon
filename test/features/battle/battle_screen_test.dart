@@ -667,7 +667,9 @@ void main() {
             ),
             firstBattleBornMonster: null,
             firstBattleMonsterIsNewlyBorn: false,
-            playerProfile: (displayName: 'ばんざい', iconPath: null),
+            // 自分の札は右に寄せて名前の長さだけの幅になるため、表示名の上限 12 文字 (functions/src/pvp_rules.ts の DISPLAY_NAME_MAX_LENGTH) にして、
+            // 札が相手のカードと横に重なる幅で配置を確かめる
+            playerProfile: (displayName: 'ながいなまえのトレーナー', iconPath: null),
             opponentProfile: (displayName: 'CPU リク', iconPath: null),
           ),
         ),
@@ -918,96 +920,98 @@ void main() {
 
     // 幅 600 は内容の幅の上限と同じで、両脇の余白で左右のセーフエリアが差し引かれずに残る。
     // セーフエリアの内側の幅 540 は 2 枚のカードとログの帯を横に並べる幅 (556) に足りず、自分のカードを右下に置く経路を通る
-    testWidgets('低い画面で左右のセーフエリアがある時 (600×390、左右 30) は、2 枚のカードと札をセーフエリアの内側に置き、互いに重ねない', (
-      tester,
-    ) async {
-      await pumpBattleScreenWithSize(
-        tester: tester,
-        size: const Size(600, 390),
-        bottomPadding: 0,
-        leftPadding: 30,
-        rightPadding: 30,
-        playerMonster: strongPlayer,
-      );
-      final field = fieldRect(tester: tester);
-      final playerCard = playerStatusCardRect(tester: tester);
-      final opponentCard = opponentStatusCardRect(tester: tester);
-      for (final rect in [
-        playerCard,
-        opponentCard,
-        for (final trainerLabelKey in const [
-          Key('battle-opponent-trainer'),
-          Key('battle-player-trainer'),
-        ])
-          if (find.byKey(trainerLabelKey).evaluate().isNotEmpty)
-            tester.getRect(find.byKey(trainerLabelKey)),
-      ]) {
-        expect(rect.left, greaterThanOrEqualTo(field.left + 30));
-        expect(rect.right, lessThanOrEqualTo(field.right - 30));
-        expect(rect.top, greaterThanOrEqualTo(field.top));
-        expect(rect.bottom, lessThanOrEqualTo(field.bottom));
-      }
-      expect(playerCard.overlaps(opponentCard), isFalse);
-      expect(playerCard.overlaps(battleLogRect(tester: tester)), isFalse);
-      expect(opponentCard.overlaps(battleLogRect(tester: tester)), isFalse);
-    });
-
-    // 札を出すかの境界の高さは技のボタンの欄の高さで決まり、手元で狙って作れないため、画面の高さを刻んで境界をまたぐ
-    testWidgets('幅 390 で画面の高さを変えても、トレーナーの札を出す時は、HP の行が折り返す自分のカードと札が相手の札・カード・ログの帯と重ならない', (
-      tester,
-    ) async {
-      var showsTrainerLabelsCount = 0;
-      for (var height = 560.0; height <= 900; height += 10) {
-        await tester.pumpWidget(const SizedBox.shrink());
+    testWidgets(
+      '低い画面で左右のセーフエリアがある時 (600×390、左右 30) は、2 枚のカードと札をセーフエリアの内側に置き、互いに重ねない',
+      (tester) async {
         await pumpBattleScreenWithSize(
           tester: tester,
-          size: Size(390, height),
+          size: const Size(600, 390),
           bottomPadding: 0,
-          leftPadding: 0,
-          rightPadding: 0,
+          leftPadding: 30,
+          rightPadding: 30,
           playerMonster: strongPlayer,
         );
-        final playerTrainer = find.byKey(const Key('battle-player-trainer'));
-        if (playerTrainer.evaluate().isEmpty) {
-          continue;
-        }
-        showsTrainerLabelsCount++;
         final field = fieldRect(tester: tester);
         final playerCard = playerStatusCardRect(tester: tester);
-        final playerTrainerRect = tester.getRect(playerTrainer);
         final opponentCard = opponentStatusCardRect(tester: tester);
-        final opponentTrainerRect = tester.getRect(
-          find.byKey(const Key('battle-opponent-trainer')),
-        );
-        final battleLog = battleLogRect(tester: tester);
+        for (final rect in [
+          playerCard,
+          opponentCard,
+          for (final trainerLabelKey in const [
+            Key('battle-opponent-trainer'),
+            Key('battle-player-trainer'),
+          ])
+            if (find.byKey(trainerLabelKey).evaluate().isNotEmpty)
+              tester.getRect(find.byKey(trainerLabelKey)),
+        ]) {
+          expect(rect.left, greaterThanOrEqualTo(field.left + 30));
+          expect(rect.right, lessThanOrEqualTo(field.right - 30));
+          expect(rect.top, greaterThanOrEqualTo(field.top));
+          expect(rect.bottom, lessThanOrEqualTo(field.bottom));
+        }
+        expect(playerCard.overlaps(opponentCard), isFalse);
+        expect(playerCard.overlaps(battleLogRect(tester: tester)), isFalse);
+        expect(opponentCard.overlaps(battleLogRect(tester: tester)), isFalse);
+      },
+    );
 
-        // 境界をまたいだ検査にするため、自分のカードは HP の行が折り返して相手のカードより高いことを確かめる
-        expect(
-          playerCard.height,
-          greaterThan(opponentCard.height),
-          reason: '高さ $height',
-        );
-        for (final playerRect in [playerCard, playerTrainerRect]) {
-          for (final upperRect in [
-            opponentCard,
-            opponentTrainerRect,
-            battleLog,
-          ]) {
+    // 札を出すかの境界の高さは技のボタンの欄の高さで決まり、手元で狙って作れないため、画面の高さを刻んで境界をまたぐ
+    testWidgets(
+      '幅 390 で画面の高さを変えても、トレーナーの札を出す時は、HP の行が折り返す自分のカードと札が相手の札・カード・ログの帯と重ならない',
+      (tester) async {
+        var showsTrainerLabelsCount = 0;
+        for (var height = 560.0; height <= 900; height += 10) {
+          await tester.pumpWidget(const SizedBox.shrink());
+          await pumpBattleScreenWithSize(
+            tester: tester,
+            size: Size(390, height),
+            bottomPadding: 0,
+            leftPadding: 0,
+            rightPadding: 0,
+            playerMonster: strongPlayer,
+          );
+          final playerTrainer = find.byKey(const Key('battle-player-trainer'));
+          if (playerTrainer.evaluate().isEmpty) {
+            continue;
+          }
+          showsTrainerLabelsCount++;
+          final field = fieldRect(tester: tester);
+          final playerCard = playerStatusCardRect(tester: tester);
+          final playerTrainerRect = tester.getRect(playerTrainer);
+          final opponentCard = opponentStatusCardRect(tester: tester);
+          final opponentTrainerRect = tester.getRect(
+            find.byKey(const Key('battle-opponent-trainer')),
+          );
+          final battleLog = battleLogRect(tester: tester);
+
+          // 境界をまたいだ検査にするため、自分のカードは HP の行が折り返して相手のカードより高いことを確かめる
+          expect(
+            playerCard.height,
+            greaterThan(opponentCard.height),
+            reason: '高さ $height',
+          );
+          for (final playerRect in [playerCard, playerTrainerRect]) {
+            for (final upperRect in [
+              opponentCard,
+              opponentTrainerRect,
+              battleLog,
+            ]) {
+              expect(
+                playerRect.overlaps(upperRect),
+                isFalse,
+                reason: '高さ $height',
+              );
+            }
             expect(
-              playerRect.overlaps(upperRect),
-              isFalse,
+              playerRect.top,
+              greaterThanOrEqualTo(field.top),
               reason: '高さ $height',
             );
           }
-          expect(
-            playerRect.top,
-            greaterThanOrEqualTo(field.top),
-            reason: '高さ $height',
-          );
         }
-      }
-      expect(showsTrainerLabelsCount, greaterThan(0));
-    });
+        expect(showsTrainerLabelsCount, greaterThan(0));
+      },
+    );
 
     testWidgets('縦向きのスマホ (390×844) では、ログの帯の下 (上から 96) に相手のトレーナーの札、その下にカードを置く', (
       tester,
