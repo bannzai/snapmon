@@ -105,7 +105,8 @@ class _HomeShellState extends State<HomeShell> {
     _isTitleCameraRequestPending = false;
   });
 
-  void _openSettings() => Navigator.of(context).push(
+  /// 設定画面を開き、閉じるまで待つ (対戦の画面が閉じた後にプロフィールを読み直すため)。
+  Future<void> _openSettings() => Navigator.of(context).push(
     MaterialPageRoute<void>(
       builder: (context) => SettingsScreen(
         sampleData: widget.sampleData,

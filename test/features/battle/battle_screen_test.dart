@@ -73,6 +73,8 @@ void main() {
           ),
           firstBattleBornMonster: null,
           firstBattleMonsterIsNewlyBorn: false,
+          playerProfile: (displayName: 'ばんざい', iconPath: null),
+          opponentProfile: (displayName: 'CPU リク', iconPath: null),
         ),
       ),
     );
@@ -135,6 +137,8 @@ void main() {
               ),
               firstBattleBornMonster: strongPlayer,
               firstBattleMonsterIsNewlyBorn: isNewlyBorn,
+              playerProfile: null,
+              opponentProfile: (displayName: 'CPU リク', iconPath: null),
             ),
           ),
         );
@@ -157,6 +161,40 @@ void main() {
       },
     );
   }
+
+  testWidgets('相手と自分のトレーナーのアイコン (未登録は既定の印) と名前を、それぞれの情報カードの上に出す', (
+    tester,
+  ) async {
+    await pumpBattleScreen(
+      tester: tester,
+      battleRecorder: fakeBattleRecorder(
+        calls: RecordedBattleCalls(),
+        startBattleRecord: () async => null,
+        recordedLevels: const {},
+      ),
+      playerMonster: strongPlayer,
+      artImage: null,
+    );
+    for (final (key, displayName, mark) in [
+      ('battle-opponent-trainer', 'CPU リク', 'C'),
+      ('battle-player-trainer', 'ばんざい', 'ば'),
+    ]) {
+      for (final text in [displayName, mark]) {
+        expect(
+          find.descendant(of: find.byKey(Key(key)), matching: find.text(text)),
+          findsOneWidget,
+          reason: '$key: $text',
+        );
+      }
+    }
+    // 相手の札は上、自分の札は下に出る
+    expect(
+      tester.getTopLeft(find.byKey(const Key('battle-opponent-trainer'))).dy,
+      lessThan(
+        tester.getTopLeft(find.byKey(const Key('battle-player-trainer'))).dy,
+      ),
+    );
+  });
 
   testWidgets('技の枠に特殊効果の短い説明を出し、効果が働いた技はログに説明文を出す', (tester) async {
     MonsterStats statsOf({required OwnedMonster monster}) => calculateStats(
@@ -615,6 +653,8 @@ void main() {
             ),
             firstBattleBornMonster: null,
             firstBattleMonsterIsNewlyBorn: false,
+            playerProfile: (displayName: 'ばんざい', iconPath: null),
+            opponentProfile: (displayName: 'CPU リク', iconPath: null),
           ),
         ),
       );
@@ -666,11 +706,36 @@ void main() {
           expect(card.top, greaterThanOrEqualTo(field.top));
           expect(card.bottom, lessThanOrEqualTo(field.bottom));
           expect(card.overlaps(battleLogRect(tester: tester)), isFalse);
+          // 札を出すとカードかログの帯と重なる低さのため、相手と自分のトレーナーの札は出さない
+          expect(
+            find.byKey(const Key('battle-opponent-trainer')),
+            findsNothing,
+          );
+          expect(find.byKey(const Key('battle-player-trainer')), findsNothing);
         },
       );
     }
 
-    testWidgets('縦向きのスマホ (390×844) では、今までどおりログの帯の下 (上から 96) に置く', (
+    testWidgets(
+      '幅の狭い低い画面 (390×480) では、トレーナーの札を出さず、カード全体がフィールドに収まり、ログの帯と重ならない',
+      (tester) async {
+        await pumpBattleScreenWithSize(
+          tester: tester,
+          size: const Size(390, 480),
+          bottomPadding: 0,
+        );
+        final field = fieldRect(tester: tester);
+        final card = opponentStatusCardRect(tester: tester);
+
+        expect(card.top, greaterThanOrEqualTo(field.top));
+        expect(card.bottom, lessThanOrEqualTo(field.bottom));
+        expect(card.overlaps(battleLogRect(tester: tester)), isFalse);
+        expect(find.byKey(const Key('battle-opponent-trainer')), findsNothing);
+        expect(find.byKey(const Key('battle-player-trainer')), findsNothing);
+      },
+    );
+
+    testWidgets('縦向きのスマホ (390×844) では、ログの帯の下 (上から 96) に相手のトレーナーの札、その下にカードを置く', (
       tester,
     ) async {
       await pumpBattleScreenWithSize(
@@ -680,10 +745,24 @@ void main() {
       );
 
       expect(
-        opponentStatusCardRect(tester: tester).topLeft,
+        tester.getTopLeft(find.byKey(const Key('battle-opponent-trainer'))),
         const Offset(20, 96),
       );
+      // カードは札の下に、札とカードの間 6 を空けて置く
+      expect(
+        opponentStatusCardRect(tester: tester).topLeft,
+        Offset(
+          20,
+          tester
+                  .getBottomLeft(
+                    find.byKey(const Key('battle-opponent-trainer')),
+                  )
+                  .dy +
+              6,
+        ),
+      );
       expect(battleLogRect(tester: tester).left, 20);
+      expect(find.byKey(const Key('battle-player-trainer')), findsOneWidget);
     });
   });
 }

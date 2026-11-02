@@ -153,10 +153,18 @@ async function seedParty({
   return monsterIds;
 }
 
+/** [uid] の `users/{uid}` に、setProfileIcon が書いた後と同じく iconPath を Rules を通さずに書く。 */
+async function setIconPath({ uid, iconPath }: { uid: string; iconPath: string }): Promise<void> {
+  await testEnvironment.withSecurityRulesDisabled(async (context) => {
+    await setDoc(doc(context.firestore(), `users/${uid}`), { iconPath }, { merge: true });
+  });
+}
+
 /** fetchOpponents が返す相手 1 人。 */
 interface Opponent {
   opponentUid: string;
   displayName: string;
+  iconPath: string | null;
   monsters: { definition: Record<string, unknown>; level: number; artPath: string; definitionIds: string[] }[];
 }
 
@@ -185,6 +193,17 @@ describe("fetchOpponents", () => {
       ],
     });
     expect(opponents[1].monsters[0].definition).toMatchObject({ id: "near-monster-0", name: "near のモンスター 0" });
+  });
+
+  it("相手のアイコンのパスを返し、登録していない相手は null", async () => {
+    const player = await signInUser();
+    await seedParty({ uid: player.uid, levels: [5], updatedAtMillis: 1 });
+    await seedParty({ uid: "withIcon", levels: [5], updatedAtMillis: 2 });
+    await seedParty({ uid: "withoutIcon", levels: [5], updatedAtMillis: 3 });
+    await setIconPath({ uid: "withIcon", iconPath: "users/withIcon/icons/upload1.png" });
+
+    const iconPathByUid = Object.fromEntries((await fetchOpponents({ user: player })).map((opponent) => [opponent.opponentUid, opponent.iconPath]));
+    expect(iconPathByUid).toEqual({ withIcon: "users/withIcon/icons/upload1.png", withoutIcon: null });
   });
 
   it("元の写真の参照・被写体の説明・分類・生成の要求 ID を他のユーザーに返さない", async () => {
@@ -286,7 +305,7 @@ describe("fetchOpponents", () => {
 
   it("App Check のトークンが無い呼び出しは、強制している時 (src/app_check.ts) だけ弾く", async () => {
     const user = await signInUser();
-    for (const name of ["fetchOpponents", "reportMonster", "blockUser", "getDisplayName", "setDisplayName"]) {
+    for (const name of ["fetchOpponents", "reportMonster", "blockUser", "getDisplayName", "setDisplayName", "setProfileIcon"]) {
       const response = await callFunction({ name, user, appCheckToken: null, data: {} });
       if (ENFORCE_APP_CHECK) {
         expect(response.status, name).toBe(401);
@@ -331,6 +350,23 @@ describe("reportMonster", () => {
       reason: "inappropriate_text",
     });
     expect(counter).toMatchObject({ monsterOwnerUid: "owner", reporterCount: 1 });
+  });
+
+  it("アイコンが不適切の理由で通報でき、通報した時点の持ち主のアイコンのパスを残す", async () => {
+    const reporter = await signInUser();
+    const [monsterId] = await seedParty({ uid: "owner", levels: [5], updatedAtMillis: 1 });
+    await setIconPath({ uid: "owner", iconPath: "users/owner/icons/upload1.png" });
+    await callOk({ name: "reportMonster", user: reporter, data: { monsterOwnerUid: "owner", monsterId, reason: "inappropriate_icon" } });
+    const { report } = await readReportState({ reportId: `${reporter.uid}_${monsterId}`, monsterId });
+    expect(report).toMatchObject({ reason: "inappropriate_icon", monsterOwnerIconPath: "users/owner/icons/upload1.png" });
+  });
+
+  it("アイコンを登録していない持ち主の通報は、アイコンのパスを null で残す", async () => {
+    const reporter = await signInUser();
+    const [monsterId] = await seedParty({ uid: "owner", levels: [5], updatedAtMillis: 1 });
+    await callOk({ name: "reportMonster", user: reporter, data: { monsterOwnerUid: "owner", monsterId, reason: "other" } });
+    const { report } = await readReportState({ reportId: `${reporter.uid}_${monsterId}`, monsterId });
+    expect(report).toMatchObject({ monsterOwnerIconPath: null });
   });
 
   it("自分のモンスター・無いモンスター・決めていない理由は通報できない", async () => {
@@ -448,11 +484,12 @@ describe("表示名", () => {
     await seedParty({ uid: owner.uid, levels: [5], updatedAtMillis: 1 });
     expect(await callOk({ name: "getDisplayName", user: owner, data: null })).toEqual({
       displayName: defaultDisplayName(owner.uid),
+      iconPath: null,
     });
     expect(await callOk({ name: "setDisplayName", user: owner, data: { displayName: "  ばんざい " } })).toEqual({
       displayName: "ばんざい",
     });
-    expect(await callOk({ name: "getDisplayName", user: owner, data: null })).toEqual({ displayName: "ばんざい" });
+    expect(await callOk({ name: "getDisplayName", user: owner, data: null })).toEqual({ displayName: "ばんざい", iconPath: null });
 
     const viewer = await signInUser();
     await seedParty({ uid: viewer.uid, levels: [5], updatedAtMillis: 2 });
@@ -470,6 +507,15 @@ describe("表示名", () => {
       });
       expect(response.status, displayName).toBe(400);
     }
-    expect(await callOk({ name: "getDisplayName", user, data: null })).toEqual({ displayName: defaultDisplayName(user.uid) });
+    expect(await callOk({ name: "getDisplayName", user, data: null })).toEqual({ displayName: defaultDisplayName(user.uid), iconPath: null });
+  });
+
+  it("登録したアイコンのパスを返す", async () => {
+    const user = await signInUser();
+    await setIconPath({ uid: user.uid, iconPath: `users/${user.uid}/icons/upload1.png` });
+    expect(await callOk({ name: "getDisplayName", user, data: null })).toEqual({
+      displayName: defaultDisplayName(user.uid),
+      iconPath: `users/${user.uid}/icons/upload1.png`,
+    });
   });
 });

@@ -16,6 +16,7 @@ import 'package:snapmon/features/dex/dex_store.dart';
 import 'package:snapmon/features/home/home_shell.dart';
 import 'package:snapmon/features/opponent/pvp_client.dart';
 import 'package:snapmon/features/opponent/pvp_opponent.dart';
+import 'package:snapmon/features/profile/profile_screen.dart';
 import 'package:snapmon/features/session/session_store.dart';
 import 'package:snapmon/features/settings/account_store.dart';
 import 'package:snapmon/features/settings/settings_screen.dart';
@@ -24,6 +25,8 @@ import 'package:snapmon/features/share/share_cards.dart';
 import 'package:snapmon/features/title/title_screen.dart';
 import 'package:snapmon/l10n/l10n.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
+import 'package:snapmon/widgets/storage_image.dart';
+import 'package:snapmon/widgets/trainer_icon.dart';
 
 import 'battle_recorder_fixture.dart';
 import 'card_sharer_fixture.dart';
@@ -257,35 +260,39 @@ void main() {
       startSessionFailureCount: startSessionFailureCount,
     );
     await tester.pumpWidget(
-      MaterialApp(
-        theme: snapmonThemeData(),
-        locale: const Locale('ja'),
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        home: HomeShell(
-          initialTab: HomeTab.capture,
-          startsCameraOnCaptureOpen: startsCameraOnCaptureOpen,
-          sampleData: sampleData,
-          dexStore: dexStore,
-          sessionStore: sessionStore,
-          openUrl: ({required uri}) async {
-            openedUris.add(uri);
-            return true;
-          },
-          isDeveloperMenuEnabled: isDeveloperMenuEnabled,
-          battleRecorder: fakeBattleRecorder(
-            calls: battleCalls,
-            startBattleRecord: startBattleRecord,
-            recordedLevels: recordedLevels,
+      // 登録したアイコン (StorageImage) を Firebase を通さずに描く。中身は読めない (null) ものとし、既定の印を描かせる
+      StorageImageLoaderScope(
+        loadBytes: ({required storagePath}) async => null,
+        child: MaterialApp(
+          theme: snapmonThemeData(),
+          locale: const Locale('ja'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: HomeShell(
+            initialTab: HomeTab.capture,
+            startsCameraOnCaptureOpen: startsCameraOnCaptureOpen,
+            sampleData: sampleData,
+            dexStore: dexStore,
+            sessionStore: sessionStore,
+            openUrl: ({required uri}) async {
+              openedUris.add(uri);
+              return true;
+            },
+            isDeveloperMenuEnabled: isDeveloperMenuEnabled,
+            battleRecorder: fakeBattleRecorder(
+              calls: battleCalls,
+              startBattleRecord: startBattleRecord,
+              recordedLevels: recordedLevels,
+            ),
+            monsterGenerator: appMonsterGenerator(),
+            pvpClient: pvpClient,
+            cardSharer: fakeCardSharer(
+              calls: shareCalls,
+              artImage: artImage,
+              shareResultStatus: shareResultStatus,
+            ),
+            accountStore: accountStore,
           ),
-          monsterGenerator: appMonsterGenerator(),
-          pvpClient: pvpClient,
-          cardSharer: fakeCardSharer(
-            calls: shareCalls,
-            artImage: artImage,
-            shareResultStatus: shareResultStatus,
-          ),
-          accountStore: accountStore,
         ),
       ),
     );
@@ -765,6 +772,7 @@ void main() {
               PvpOpponent(
                 opponentUid: 'opponent-uid-$index',
                 displayName: 'ろうそくや $index',
+                iconPath: null,
                 monsters: [
                   generatedWaxMonster(monsterId: 'opponent-wax-$index'),
                 ],
@@ -772,10 +780,11 @@ void main() {
           ],
           extraDefinitions: MasterData.fromJson(json: waxDefinitionJson),
           battleRecord: null,
-          displayName: null,
+          profile: null,
           reportMonster: () async {},
           blockUser: () async {},
           updateDisplayName: ({required displayName}) async => displayName,
+          updateIcon: ({required photo}) async => 'users/uid/icons/upload.png',
         );
         await pumpApp(
           tester: tester,
@@ -1715,6 +1724,8 @@ void main() {
           ),
           firstBattleBornMonster: null,
           firstBattleMonsterIsNewlyBorn: false,
+          playerProfile: (displayName: 'トレーナー 0042', iconPath: null),
+          opponentProfile: (displayName: 'CPU リク', iconPath: null),
         ),
       ),
     );
@@ -1809,13 +1820,15 @@ void main() {
       expect(find.text('Exception: ACTIVITY_NOT_FOUND'), findsOneWidget);
     });
 
-    testWidgets('表示名はサーバーが返した名前を出し、変えると保存した名前に変わる', (tester) async {
+    testWidgets('設定のプロフィールはサーバーが返した名前を出し、プロフィール画面で変えると保存した名前に変わる', (
+      tester,
+    ) async {
       pvpClient = fakePvpClient(
         calls: pvpCalls,
         fetchOpponents: () async => [],
         extraDefinitions: null,
         battleRecord: (wins: 0, losses: 0),
-        displayName: 'トレーナー 0042',
+        profile: (displayName: 'トレーナー 0042', iconPath: null),
         reportMonster: () async {},
         blockUser: () async {},
         updateDisplayName: ({required displayName}) async {
@@ -1824,6 +1837,7 @@ void main() {
           }
           return displayName.trim();
         },
+        updateIcon: ({required photo}) async => 'users/uid/icons/upload.png',
       );
       await pumpHome(
         tester: tester,
@@ -1835,7 +1849,12 @@ void main() {
       await tester.tap(find.byTooltip('設定'));
       await tester.pumpAndSettle();
       expect(find.text('トレーナー 0042'), findsOneWidget);
+      // 設定の表示名の項目はプロフィール画面への入口に置き換えた
+      expect(find.byKey(const Key('display-name')), findsNothing);
 
+      await tester.tap(find.byKey(const Key('profile')));
+      await tester.pumpAndSettle();
+      expect(find.byType(ProfileScreen), findsOneWidget);
       await tester.tap(find.byKey(const Key('display-name')));
       await tester.pumpAndSettle();
       // 外を押しても閉じない (保存の途中に閉じて、保存できた名前を反映しそこねないため)
@@ -1862,7 +1881,26 @@ void main() {
       expect(find.text('ばんざい'), findsOneWidget);
     });
 
-    testWidgets('ログインが無い時は表示名の項目を出さない', (tester) async {
+    testWidgets('プロフィール画面でアルバムから写真を選ぶと、送る形にしてアイコンを変え、断られた時は理由をそのまま出す', (
+      tester,
+    ) async {
+      var iconRejected = true;
+      pvpClient = fakePvpClient(
+        calls: pvpCalls,
+        fetchOpponents: () async => [],
+        extraDefinitions: null,
+        battleRecord: (wins: 0, losses: 0),
+        profile: (displayName: 'トレーナー 0042', iconPath: null),
+        reportMonster: () async {},
+        blockUser: () async {},
+        updateDisplayName: ({required displayName}) async => displayName,
+        updateIcon: ({required photo}) async {
+          if (iconRejected) {
+            throw Exception('人の顔が写っている写真はアイコンにできません');
+          }
+          return 'users/uid/icons/upload.png';
+        },
+      );
       await pumpHome(
         tester: tester,
         hasStartedSession: true,
@@ -1872,7 +1910,92 @@ void main() {
       );
       await tester.tap(find.byTooltip('設定'));
       await tester.pumpAndSettle();
-      expect(find.byKey(const Key('display-name')), findsNothing);
+      await tester.tap(find.byKey(const Key('profile')));
+      await tester.pumpAndSettle();
+      // 未登録の間は既定の印 (表示名の最初の 1 文字) を出す
+      expect(
+        find.descendant(
+          of: find.byKey(const Key('profile-icon')),
+          matching: find.text('ト'),
+        ),
+        findsOneWidget,
+      );
+
+      await tester.tap(find.byKey(const Key('profile-change-icon')));
+      await tester.pumpAndSettle();
+      expect(find.text('Exception: 人の顔が写っている写真はアイコンにできません'), findsOneWidget);
+      expect(
+        tester
+            .widget<TrainerIcon>(find.byKey(const Key('profile-icon')))
+            .profile
+            .iconPath,
+        isNull,
+      );
+
+      iconRejected = false;
+      await tester.tap(find.byKey(const Key('profile-change-icon')));
+      await tester.pumpAndSettle();
+      expect(pvpCalls.updatedIconPhotos, [testPhotoBytes, testPhotoBytes]);
+      expect(find.text('アイコンを変えました'), findsOneWidget);
+      expect(
+        tester
+            .widget<TrainerIcon>(find.byKey(const Key('profile-icon')))
+            .profile
+            .iconPath,
+        'users/uid/icons/upload.png',
+      );
+    });
+
+    testWidgets('アイコンを保存し終えるまではプロフィール画面から戻れない', (tester) async {
+      final iconSaved = Completer<String>();
+      pvpClient = fakePvpClient(
+        calls: pvpCalls,
+        fetchOpponents: () async => [],
+        extraDefinitions: null,
+        battleRecord: (wins: 0, losses: 0),
+        profile: (displayName: 'トレーナー 0042', iconPath: null),
+        reportMonster: () async {},
+        blockUser: () async {},
+        updateDisplayName: ({required displayName}) async => displayName,
+        updateIcon: ({required photo}) => iconSaved.future,
+      );
+      await pumpHome(
+        tester: tester,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
+      );
+      await tester.tap(find.byTooltip('設定'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('profile')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('profile-change-icon')));
+      await tester.pump();
+
+      await tester.tap(find.byType(BackButton));
+      // 保存中の進捗の表示が回り続けるため、pumpAndSettle を使わず画面の遷移の時間だけ進める
+      await tester.pump(const Duration(seconds: 1));
+      expect(find.byType(ProfileScreen), findsOneWidget);
+
+      iconSaved.complete('users/uid/icons/upload.png');
+      await tester.pumpAndSettle();
+      await tester.tap(find.byType(BackButton));
+      await tester.pumpAndSettle();
+      expect(find.byType(ProfileScreen), findsNothing);
+    });
+
+    testWidgets('ログインが無い時はプロフィールの項目を出さない', (tester) async {
+      await pumpHome(
+        tester: tester,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
+      );
+      await tester.tap(find.byTooltip('設定'));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('profile')), findsNothing);
       expect(find.text('お問い合わせ'), findsOneWidget);
     });
 
@@ -1977,7 +2100,7 @@ void main() {
       expect(find.text('連携済みのアカウントに切り替えました'), findsOneWidget);
     });
 
-    testWidgets('連携済みのアカウントに切り替えると、表示名を切り替え先の名前に読み直す', (tester) async {
+    testWidgets('連携済みのアカウントに切り替えると、プロフィールを切り替え先の名前に読み直す', (tester) async {
       linkAccount = () async =>
           () async => 'uid-linked';
       final signedInPvpClient = fakePvpClient(
@@ -1985,10 +2108,11 @@ void main() {
         fetchOpponents: () async => [],
         extraDefinitions: null,
         battleRecord: (wins: 0, losses: 0),
-        displayName: null,
+        profile: null,
         reportMonster: () async {},
         blockUser: () async {},
         updateDisplayName: ({required displayName}) async => displayName,
+        updateIcon: ({required photo}) async => 'users/uid/icons/upload.png',
       );
       pvpClient = PvpClient(
         fetchOpponents: signedInPvpClient.fetchOpponents,
@@ -1996,11 +2120,15 @@ void main() {
         reportMonster: signedInPvpClient.reportMonster,
         blockUser: signedInPvpClient.blockUser,
         fetchBattleRecord: signedInPvpClient.fetchBattleRecord,
-        fetchDisplayName: () async => switch (sessionStore.uid) {
-          'uid-linked' => '切り替え先の名前',
-          _ => '匿名の名前',
-        },
+        fetchProfile: () async => (
+          displayName: switch (sessionStore.uid) {
+            'uid-linked' => '切り替え先の名前',
+            _ => '匿名の名前',
+          },
+          iconPath: null,
+        ),
         updateDisplayName: signedInPvpClient.updateDisplayName,
+        updateIcon: signedInPvpClient.updateIcon,
       );
       await openSettings(tester: tester);
       expect(find.text('匿名の名前'), findsOneWidget);
@@ -2023,10 +2151,11 @@ void main() {
         fetchOpponents: () async => [],
         extraDefinitions: null,
         battleRecord: null,
-        displayName: null,
+        profile: null,
         reportMonster: () async {},
         blockUser: () async {},
         updateDisplayName: ({required displayName}) async => displayName,
+        updateIcon: ({required photo}) async => 'users/uid/icons/upload.png',
       );
       pvpClient = PvpClient(
         fetchOpponents: signedInPvpClient.fetchOpponents,
@@ -2037,8 +2166,9 @@ void main() {
           'uid-linked' => (wins: 9, losses: 1),
           _ => (wins: 1, losses: 2),
         },
-        fetchDisplayName: signedInPvpClient.fetchDisplayName,
+        fetchProfile: signedInPvpClient.fetchProfile,
         updateDisplayName: signedInPvpClient.updateDisplayName,
+        updateIcon: signedInPvpClient.updateIcon,
       );
       await pumpHome(
         tester: tester,

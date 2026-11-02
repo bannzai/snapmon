@@ -16,6 +16,7 @@ bannzai（以下「提供者」といいます。）は、提供者の提供す�
 - 手持ちの編成、バトルの結果その他本サービスの利用の記録
 - 不適切なコンテンツの通報の内容、ユーザーのブロックの記録
 - 対戦（PvP）で他のユーザーに表示する表示名（ユーザーが設定画面で設定したもの。設定していない場合は「トレーナー」と 4 桁の数字）
+- 対戦（PvP）で他のユーザーに表示するアイコン（ユーザーがプロフィール画面でアルバムから選んだ写真を正方形に切り取ったもの。設定は任意です）
 
 ### 他のサービスからご提供いただく情報
 ユーザーが、データの引き継ぎのために Apple ID・Google アカウントとの連携を許可した場合には、その許可の際にご同意いただいた内容に基づき、以下の情報を当該外部サービスから収集します。
@@ -47,6 +48,8 @@ bannzai（以下「提供者」といいます。）は、提供者の提供す�
   <!-- source: functions/src/generation/cutout.ts: 端末が送ったマスク (iOS の OS の切り出しか crop) を検査済みの元の写真に sharp で適用し、マスクが無ければ写真全体を絵にする。サーバーではマスクを作らない。functions/src/generation/records.ts の GENERATION_STAGES: 段階は uploaded → safesearch → cutout → claude → classify → dedupe → judge → saved。functions/src/generation/pipeline.ts: 画像を外部へ送るのは safesearch の Cloud Vision (annotateImage に元の写真) と claude の Claude API (describeSubject に切り出した画像) だけで、classify 以降の Jev (askJev) と Claude (proposeElement) には被写体の説明の文字列だけを送る -->
 - 写真は、モンスターの生成の前に Google Cloud Vision API で、露骨な内容・暴力的な内容・顔の検出・ラベル（写っている物の種類）の判定を受けます。露骨な内容または暴力的な内容を含むと判定された写真と、顔が写る写真からは、モンスターを生成しません。顔が検出された写真は Anthropic の Claude API に送信しません。
   <!-- source: functions/src/generation/pipeline.ts: Cloud Vision の annotateImage を呼ぶのは runSafeSearchStage の 1 か所で、切り出しの前の元の写真 (downscalePhoto で縮めたもの) にだけかける -->
+- アイコンにする写真は、モンスターの生成と同じく Google Cloud Vision API で判定を受け、露骨な内容・暴力的な内容を含む写真と顔が写る写真はアイコンにせず、その時点で削除します。判定を通った写真は正方形に切り取った画像だけを保存し、認証済みの他のユーザーが閲覧できます（対戦で表示されます）。アイコンにする写真は Anthropic の Claude API に送信しません。アイコンを変えると、前のアイコンは削除します。
+  <!-- source: functions/src/profile.ts: setProfileIconData が users/{uid}/iconUploads/{uploadId} の写真を annotateImage (Cloud Vision) にかけ、visionRejectionReason で断る時は写真を消す。通った写真は sharp で 256px の正方形の PNG にして users/{uid}/icons/{uploadId}.png に置き、置いた写真と前のアイコンを消す。Claude API のクライアントは使わない。firebase/storage.rules: users/{uid}/icons はログインした全員が読める -->
 
 - 不適切と判定された写真と、同じ被写体の重複と判定された写真は、その時点で削除します。
 - 他人が写っている写真、他人の権利を侵害する写真を送信しないでください（利用規約を参照してください）。
@@ -70,14 +73,14 @@ bannzai（以下「提供者」といいます。）は、提供者の提供す�
   - Firebase Authentication: 匿名ログインと Apple / Google アカウントとの連携によるユーザーの識別
   - Firebase App Check: 正規のアプリ以外からの呼び出しを防ぐための検証。Apple では App Attest / DeviceCheck、Android では Play Integrity、Web では reCAPTCHA Enterprise を利用します
   - Cloud Firestore: 図鑑・手持ち・PvP で相手に見せるデータ・通報とブロックの記録の保存
-  - Cloud Storage for Firebase: ユーザーの元の写真と生成したモンスターの画像の保存。元の写真は本人だけが読み出せるよう制限します
+  - Cloud Storage for Firebase: ユーザーの元の写真、生成したモンスターの画像、アイコンの保存。元の写真は本人だけが読み出せるよう制限します
   - Cloud Functions for Firebase: 下記の外部サービスを呼び出すサーバー処理（API キーを端末に置かないために使います）
   - Firebase Hosting: Web 版の配信
   - Google Analytics for Firebase: 利用状況の分析
   - BigQuery エクスポート: Google Analytics for Firebase の利用状況のイベントを、提供者の BigQuery に保存して集計します（保存期間は「保存期間」を参照してください）
   - Firebase Crashlytics: クラッシュ情報の収集
 - **Anthropic, PBC (Claude API)**: ユーザーが撮影・選択した写真のうち、顔が検出されなかったものは、Cloud Functions を経由して Anthropic の Claude API に送信され、被写体の説明、モンスターの名前、図鑑の文章の生成に利用されます。顔が検出された写真は送信しません。 https://www.anthropic.com/legal/privacy [^anthropic]
-- **Google Cloud Vision API (Google LLC)**: ユーザーが撮影・選択した写真は、露骨な内容・暴力的な内容の判定（SafeSearch）、顔の検出、写っている物のラベルの検出のために Cloud Vision API に送信されます。 https://policies.google.com/privacy?hl=ja [^vision]
+- **Google Cloud Vision API (Google LLC)**: ユーザーが撮影・選択した写真とアイコンにする写真は、露骨な内容・暴力的な内容の判定（SafeSearch）、顔の検出、写っている物のラベルの検出のために Cloud Vision API に送信されます。 https://policies.google.com/privacy?hl=ja [^vision]
 - **TypeSafe の Jev (TypeSafe)**: Claude API が作成した被写体の説明文（文字列）が、モンスターの属性・技・ステータスの判定のために Jev に送信されます。写真そのものは送信しません。 https://docs.typesafe.ai/models.md [^jev]
 
 [^anthropic]: 出典: https://privacy.claude.com/en/articles/7996868-is-my-data-used-for-model-training 「By default, we will not use your inputs or outputs from our commercial products ... to train our models.」（2026-10-21 に確認。API の利用が「commercial products」に当たるかは同ページの定義に従い、提供者が確かめた範囲では上記の記載のとおりです。Anthropic 側の保存期間は同社のポリシーに従います）
@@ -88,7 +91,7 @@ bannzai（以下「提供者」といいます。）は、提供者の提供す�
 本サービスは、現在、広告を表示せず、広告配信を目的とした SDK や広告 ID を利用しません。
 
 ## 保存期間
-ユーザーの利用者情報（写真、生成したモンスター、図鑑、手持ち、バトルの記録、通報・ブロックの記録）は、ユーザーがアカウントを削除するまで保存します。アカウントは、アプリの「設定」画面の「アカウントを削除」から、いつでも削除できます（アプリを操作できない場合は bannzai.app@gmail.com へご連絡ください）。アカウントを削除すると、上記のデータはすみやかに削除され（一部の写真は再試行のため時間がかかることがあります）、復元できません。手順の詳細と削除されるデータは[アカウントの削除について](AccountDeletion)を参照してください。利用状況のイベント（Google Analytics for Firebase）は、提供者の BigQuery に最大 90 日間保存します。Google Analytics for Firebase 側とクラッシュ情報（Crashlytics）は、Google の定める期間に従って保存されます。不適切または重複と判定された写真は、判定の時点で削除します。
+ユーザーの利用者情報（写真、生成したモンスター、図鑑、手持ち、バトルの記録、通報・ブロックの記録、表示名とアイコン）は、ユーザーがアカウントを削除するまで保存します。アカウントは、アプリの「設定」画面の「アカウントを削除」から、いつでも削除できます（アプリを操作できない場合は bannzai.app@gmail.com へご連絡ください）。アカウントを削除すると、上記のデータはすみやかに削除され（一部の写真は再試行のため時間がかかることがあります）、復元できません。手順の詳細と削除されるデータは[アカウントの削除について](AccountDeletion)を参照してください。利用状況のイベント（Google Analytics for Firebase）は、提供者の BigQuery に最大 90 日間保存します。Google Analytics for Firebase 側とクラッシュ情報（Crashlytics）は、Google の定める期間に従って保存されます。不適切または重複と判定された写真は、判定の時点で削除します。
 
 ## 対象年齢と子どもの個人情報（COPPA 等の順守の方針）
 - 本サービスの対象は 13 歳以上です。13 歳未満の方は利用できません。本サービスはアプリ内で年齢確認を行わず、対象年齢は利用規約とアプリストアの年齢区分（App Store の 12+、Google Play の対象年齢 13 歳以上）で示します。
@@ -130,3 +133,4 @@ bannzai.app@gmail.com
 【2026年10月21日制定】
 【2026年10月28日改定】
 【2026年10月29日改定】
+【2026年11月1日改定】

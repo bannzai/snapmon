@@ -8,9 +8,9 @@ App Store の App Privacy (`fastlane/app_privacy_details.json`) と Google Play 
 
 | データ | 出どころ (実装) | App Store の種別 | 用途 | ユーザーに紐付くか |
 | --- | --- | --- | --- | --- |
-| 撮影・選択した写真 | `lib/firebase/monster_generation.dart` が Storage の `users/{uid}/photos/{requestId}` に送る | Photos or Videos | App Functionality | 紐付く (uid のパスに置く) |
+| 撮影・選択した写真 | `lib/firebase/monster_generation.dart` が Storage の `users/{uid}/photos/{requestId}` に、アイコンにする写真は `lib/firebase/pvp.dart` が `users/{uid}/iconUploads/{uploadId}` に送る | Photos or Videos | App Functionality | 紐付く (uid のパスに置く) |
 | 生成したモンスター・手持ち・バトルの記録 | Firestore の `users/{uid}/monsters`・`party/current`・`battles` (`.claude/rules/firestore.md`) | Gameplay Content | App Functionality | 紐付く |
-| 表示名・通報の内容 | Functions の setDisplayName が `users/{uid}.displayName` に、reportMonster が `reports/{reporterUid}_{monsterId}` に書く | Other User Content | App Functionality | 紐付く |
+| 表示名・アイコン・通報の内容 | Functions の setDisplayName が `users/{uid}.displayName` に、setProfileIcon が `users/{uid}.iconPath` (検査を通した写真を正方形にした `users/{uid}/icons/`) に、reportMonster が `reports/{reporterUid}_{monsterId}` に書く | Other User Content | App Functionality | 紐付く |
 | Firebase Authentication の uid | 匿名ログイン (`lib/firebase/session.dart`)。PvP の通報・ブロックの宛先にも使う | User ID | App Functionality | 紐付く |
 | メールアドレス・名前 | Apple / Google の連携 (`lib/firebase/account.dart`) で、プロバイダが渡した値を Firebase Authentication がユーザーに保存する | Email Address・Name | App Functionality | 紐付く |
 | 利用状況のイベント | Google Analytics for Firebase (`lib/analytics/analytics_events.dart`) | Product Interaction | Analytics | 紐付かない |
@@ -54,7 +54,7 @@ Play の「収集」は端末の外に送ることを指し、「共有」は第
 | 個人情報: ユーザー ID | する | いいえ | 必須 | アプリの機能、アカウント管理、不正行為の防止とセキュリティ (通報・ブロック) |
 | 写真と動画: 写真 | する | いいえ | 必須 (モンスターの生成に要る) | アプリの機能 |
 | アプリのアクティビティ: アプリの操作 | する | いいえ | 必須 | 分析 |
-| アプリのアクティビティ: その他のユーザー作成コンテンツ (モンスター・表示名・通報) | する | いいえ | 必須 | アプリの機能、不正行為の防止とセキュリティ |
+| アプリのアクティビティ: その他のユーザー作成コンテンツ (モンスター・表示名・アイコン・通報) | する | いいえ | 必須 | アプリの機能、不正行為の防止とセキュリティ |
 | アプリの情報とパフォーマンス: クラッシュログ | する | いいえ | 必須 | 分析 |
 | アプリの情報とパフォーマンス: 診断 (端末の種類・OS のバージョン) | する | いいえ | 必須 | 分析 |
 | デバイスやその他の ID | する | いいえ | 必須 | 分析 |

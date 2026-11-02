@@ -72,7 +72,7 @@ describe("匿名ログイン", () => {
 
     const fetched = await callFunction({ name: "getDisplayName", idToken, appCheckToken: fakeAppCheckToken, data: null });
     expect(fetched.status).toBe(200);
-    expect(await fetched.json()).toEqual({ result: { displayName: "ばんざい" } });
+    expect(await fetched.json()).toEqual({ result: { displayName: "ばんざい", iconPath: null } });
   });
 
   it("ログインしていない呼び出しは弾く", async () => {

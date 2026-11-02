@@ -161,6 +161,9 @@ class _GenerationScreenState extends State<GenerationScreen> {
   /// 初回の導線の対戦相手。決まるまでは null。
   FirstBattleOpponent? _firstBattleOpponent;
 
+  /// 初回のバトルの画面に出す自分のアイコンと表示名。読む前・ログインが無い時・読めなかった時は null で、バトルの画面に出さない。
+  TrainerProfile? _playerProfile;
+
   /// 初回のバトルの画面を開いたか (「○○ があらわれた」の演出の終わりで 1 回だけ開くため)。
   bool _hasOpenedFirstBattle = false;
 
@@ -369,18 +372,30 @@ class _GenerationScreenState extends State<GenerationScreen> {
       if (!widget.dexStore.isInParty(monsterId: monster.definition.id)) {
         throw StateError('${monster.definition.name} を手持ちに入れられませんでした');
       }
+      // プロフィールはバトルの画面の札にだけ使うため、読めなくてもバトルに進む。相手を決める間に並べて読む
+      final playerProfileFuture = widget.pvpClient
+          .fetchProfile()
+          .then<TrainerProfile?>(
+            (profile) => profile,
+            onError: (Object error) {
+              debugPrint('プロフィールを読めませんでした: $error');
+              return null;
+            },
+          );
       final opponent = await prepareFirstBattleOpponent(
         dexStore: widget.dexStore,
         pvpClient: widget.pvpClient,
         sampleData: widget.sampleData,
         randomSeed: _firstBattleRandomSeed,
       );
+      final playerProfile = await playerProfileFuture;
       if (!mounted) {
         return;
       }
       _logFirstExperience(step: FirstExperienceStep.matchmaking);
       setState(() {
         _firstBattleOpponent = opponent;
+        _playerProfile = playerProfile;
         _phase = _GenerationPhase.opponentFound;
       });
       _openFirstBattleTimer?.cancel();
@@ -426,6 +441,8 @@ class _GenerationScreenState extends State<GenerationScreen> {
           firstBattleBornMonster: monster,
           firstBattleMonsterIsNewlyBorn:
               monster.definition.id != _alreadyInDexMonster?.definition.id,
+          playerProfile: _playerProfile,
+          opponentProfile: (displayName: opponent.opponentName, iconPath: null),
         ),
       ),
     );

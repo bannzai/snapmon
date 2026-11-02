@@ -165,7 +165,7 @@ export class GenerationRequestError extends Error {
 }
 
 /** Asia/Tokyo の日付 (YYYY-MM-DD)。1 日の上限の区切りに使う (利用者の多くが日本にいる前提で、日付の変わり目を日本時間にした)。 */
-function tokyoDate(date: Date): string {
+export function tokyoDate(date: Date): string {
   return new Intl.DateTimeFormat("sv-SE", { timeZone: "Asia/Tokyo" }).format(date);
 }
 
@@ -195,7 +195,7 @@ const DOWNLOAD_RESPONSE_MAX_LISTENERS = 20;
  * Storage のファイルを読み切って返す。`file.download()` と同じく createReadStream を読むが、
  * 応答の stream (createReadStream が 'response' で渡す node-fetch の body) の listener の上限を上げてから読む。
  */
-async function downloadFile(bucket: StorageBucket, path: string): Promise<Buffer> {
+export async function downloadFile(bucket: StorageBucket, path: string): Promise<Buffer> {
   const chunks: Buffer[] = [];
   for await (const chunk of bucket
     .file(path)

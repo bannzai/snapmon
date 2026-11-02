@@ -16,7 +16,9 @@ import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
 import '../../widgets/monster_parts.dart';
 import '../../widgets/move_summary.dart';
+import '../../widgets/trainer_icon.dart';
 import '../dex/owned_monster.dart';
+import '../opponent/pvp_client.dart';
 import '../reference/move_detail_screen.dart';
 import '../settings/settings_screen.dart';
 import '../share/card_sharer.dart';
@@ -66,6 +68,16 @@ const double _opponentStatusCardBelowLogTop = 96;
 /// 情報カードの幅 (モックの Battle.dc.html の配置)。
 const double _monsterStatusCardWidth = 190;
 
+/// トレーナーの札と情報カードの間。札がどちらのカードに付くかを近さで示しつつ、札の暗い地とカードの縁が接して見えない最小の間にした。
+const double _trainerLabelGap = 6;
+
+/// 札を一度も出していない時に見積もるトレーナーの札の高さ (アイコン 28 と上下の余白 6 ずつ)。
+/// 出した後は測った高さ ([_BattleScreenState._trainerLabelPlateMeasuredHeight]) を使う
+const double _trainerLabelPlateEstimatedHeight = 40;
+
+/// フィールドの下端から自分の情報カードの下端までの高さ (モックの Battle.dc.html の配置)。
+const double _playerStatusCardBottom = 24;
+
 /// 低い画面で相手の情報カードの右に寄せたログの帯と、カードの間。
 /// 縦向きのカードと帯の間 (上から 56〜96 の 40) まで空けると横向きで帯が短くなるため、詰めた値にした
 const double _battleLogGapBesideCard = 8;
@@ -87,7 +99,16 @@ class BattleScreen extends StatefulWidget {
     required this.cardSharer,
     required this.firstBattleBornMonster,
     required this.firstBattleMonsterIsNewlyBorn,
+    required this.playerProfile,
+    required this.opponentProfile,
   });
+
+  /// 自分のアイコンと表示名。相手の情報カードと向かい合う自分の情報カードの上に出す。
+  /// ログインが無い時 (DEBUG ビルドでログインを飛ばした時) と読めなかった時は null で、出さない (バトルは止めない)。
+  final TrainerProfile? playerProfile;
+
+  /// 相手のアイコンと表示名。相手の情報カードの上に出す。CPU トレーナーはアイコンが無く、既定の印を描く。
+  final TrainerProfile opponentProfile;
 
   /// [firstBattleBornMonster] がこの導線で新しく生まれたか。同じ被写体でもう図鑑にいたモンスターで戦う時は false で、
   /// 勝敗の画面のカードに「あたらしい なかま」と出さない。初回の導線以外の対戦では使わない。
@@ -140,6 +161,13 @@ class _BattleScreenState extends State<BattleScreen> {
 
   /// 最後に測った相手の情報カードの高さ。フィールドの低さの判定に使う。最初のフレームを描くまでは null。
   double? _opponentStatusCardHeight;
+
+  /// 相手のトレーナーの札。出した時に高さを測る (文字の拡大や名前の長さで見積もりの高さを超えるため)。
+  final GlobalKey _opponentTrainerLabelKey = GlobalKey();
+
+  /// 最後に札を出した時に測った札の高さ。札を出していない間は測らず前の値を使う
+  /// (札を出すかの判定に使うため、出していない間に測り直すと、出すと収まらず消し、消すと収まり出す往復になる)。
+  double? _trainerLabelPlateMeasuredHeight;
 
   /// 画面に出している場のモンスター (HP は演出に合わせて減らす)。演出が終わると [_battleState] の場のモンスターに揃える。
   late Map<BattleSideId, BattleMonster> _displayedActiveMembers;
@@ -480,11 +508,31 @@ class _BattleScreenState extends State<BattleScreen> {
                             _opponentStatusCardBelowLogTop +
                             _opponentStatusCardHeight! >
                         constraints.maxHeight;
+                // トレーナーの札は、ログの帯の下に相手の札とカード、フィールドの下に自分の札とカードを積んでも、
+                // 上下の 2 組が重ならない高さのフィールドの時だけ出す (自分の札とカードは相手と同じ高さと見積もる)。
+                // 低い画面 (横向きのスマホ・小さい Web のウィンドウ) は、カードだけでもフィールドにやっと収まり、
+                // 札を積んでも横に並べても札やカードがフィールドの外で切れるかログの帯と重なるため、札を出さずにカードとログを優先する
+                final trainerLabelPlateHeight =
+                    _trainerLabelPlateMeasuredHeight ??
+                    _trainerLabelPlateEstimatedHeight;
+                final showsTrainerLabels =
+                    _opponentStatusCardHeight != null &&
+                    safeAreaTop +
+                            _opponentStatusCardBelowLogTop +
+                            2 *
+                                (trainerLabelPlateHeight +
+                                    _trainerLabelGap +
+                                    _opponentStatusCardHeight!) +
+                            _playerStatusCardBottom <=
+                        constraints.maxHeight;
                 final opponentStatusCardTop =
                     safeAreaTop +
                     (isFieldTooLowForCardBelowLog
                         ? _battleLogTop
-                        : _opponentStatusCardBelowLogTop);
+                        : _opponentStatusCardBelowLogTop) +
+                    (showsTrainerLabels
+                        ? trainerLabelPlateHeight + _trainerLabelGap
+                        : 0);
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   if (!mounted) {
                     return;
@@ -500,11 +548,20 @@ class _BattleScreenState extends State<BattleScreen> {
                       bottom: opponentStatusCardTop + cardSize.height,
                     );
                   }
+                  if (_opponentTrainerLabelKey.currentContext?.size?.height
+                      case final labelHeight?
+                      when labelHeight != _trainerLabelPlateMeasuredHeight) {
+                    setState(
+                      () => _trainerLabelPlateMeasuredHeight = labelHeight,
+                    );
+                  }
                 });
                 return _buildField(
                   playerMonster: playerMonster,
                   opponentMonster: opponentMonster,
                   opponentStatusCardTop: opponentStatusCardTop,
+                  showsTrainerLabels: showsTrainerLabels,
+                  trainerLabelPlateHeight: trainerLabelPlateHeight,
                   battleLogLeft: isFieldTooLowForCardBelowLog
                       ? _fieldHorizontalMargin +
                             _monsterStatusCardWidth +
@@ -564,11 +621,14 @@ class _BattleScreenState extends State<BattleScreen> {
 
   /// フィールド (Flame のゲーム) と、その上に重ねるログの帯・2 体の情報カード。
   /// 相手の情報カードの上端を [opponentStatusCardTop]、ログの帯の左端を [battleLogLeft] に置く。
+  /// [showsTrainerLabels] の時は、相手と自分のトレーナーの札をそれぞれのカードの上に出す (相手の札の高さは [trainerLabelPlateHeight] と見積もる)。
   Widget _buildField({
     required BattleMonster playerMonster,
     required BattleMonster opponentMonster,
     required double opponentStatusCardTop,
     required double battleLogLeft,
+    required bool showsTrainerLabels,
+    required double trainerLabelPlateHeight,
   }) => Stack(
     children: [
       Positioned.fill(child: GameWidget(game: _game)),
@@ -600,6 +660,21 @@ class _BattleScreenState extends State<BattleScreen> {
           ),
         ),
       ),
+      if (showsTrainerLabels)
+        Positioned(
+          left: _fieldHorizontalMargin,
+          top:
+              opponentStatusCardTop -
+              trainerLabelPlateHeight -
+              _trainerLabelGap,
+          child: KeyedSubtree(
+            key: _opponentTrainerLabelKey,
+            child: _TrainerLabelPlate(
+              key: const Key('battle-opponent-trainer'),
+              profile: widget.opponentProfile,
+            ),
+          ),
+        ),
       Positioned(
         left: _fieldHorizontalMargin,
         top: opponentStatusCardTop,
@@ -613,12 +688,25 @@ class _BattleScreenState extends State<BattleScreen> {
       ),
       Positioned(
         right: _fieldHorizontalMargin,
-        bottom: 24,
-        child: _MonsterStatusCard(
-          monster: playerMonster,
-          definitions: widget.definitions,
-          hitPointsColor: SnapmonColors.accent,
-          showsHitPointsNumber: true,
+        bottom: _playerStatusCardBottom,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            if (widget.playerProfile case final playerProfile?
+                when showsTrainerLabels) ...[
+              _TrainerLabelPlate(
+                key: const Key('battle-player-trainer'),
+                profile: playerProfile,
+              ),
+              const SizedBox(height: _trainerLabelGap),
+            ],
+            _MonsterStatusCard(
+              monster: playerMonster,
+              definitions: widget.definitions,
+              hitPointsColor: SnapmonColors.accent,
+              showsHitPointsNumber: true,
+            ),
+          ],
         ),
       ),
     ],
@@ -964,6 +1052,34 @@ class _BornMonsterCard extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    ),
+  );
+}
+
+/// フィールドの上に重ねるトレーナーの札 ([TrainerLabel])。フィールドの絵の上でも読めるよう、ログの帯と同じ暗い地に置く。
+class _TrainerLabelPlate extends StatelessWidget {
+  const _TrainerLabelPlate({required super.key, required this.profile});
+
+  /// 札に出すトレーナー。
+  final TrainerProfile profile;
+
+  @override
+  Widget build(BuildContext context) => DecoratedBox(
+    decoration: const BoxDecoration(
+      color: SnapmonColors.scrim,
+      borderRadius: SnapmonRadii.button,
+    ),
+    child: Padding(
+      // 上下と左の 6: アイコンを札の縁から少し離す最小の余白 (札の高さの見積もり _trainerLabelPlateEstimatedHeight の前提)。
+      // 右の 12: 名前の文字の終わりを札の角丸 (SnapmonRadii.button) の内側に収めるため、左より広くした
+      padding: const EdgeInsets.fromLTRB(6, 6, 12, 6),
+      // 名前が長くても画面の半分を超えて相手と自分の札が重ならないよう、幅を画面の半分までにする
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxWidth: MediaQuery.sizeOf(context).width / 2,
+        ),
+        child: TrainerLabel(profile: profile),
       ),
     ),
   );
