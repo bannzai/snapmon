@@ -116,6 +116,33 @@ void main() {
     expect(game.playerMonsterComponent.size.x, greaterThan(0));
   });
 
+  /// 600×103 は横向きのスマホ (844×390、下のセーフエリア 21) のフィールド。
+  /// 218〜382・16〜102 は、左右に上げた 2 枚の情報カード (幅 190・高さ 86) の間 (battle_screen.dart の _monsterArtAreaMinimumWidthBetweenCards)。
+  testWithGame<BattleFieldGame>(
+    '絵を収める矩形を受け取ると、相手を左上・自分を右下にして 2 体をその中に重ねずに置き、null に戻すと比率の配置に戻す',
+    createGame,
+    (game) async {
+      game.onGameResize(Vector2(600, 103));
+      final opponentRectBefore = game.opponentMonsterComponent.toRect();
+      const area = Rect.fromLTRB(218, 16, 382, 102);
+      game.updateMonsterArtArea(area: area);
+      final opponentRect = game.opponentMonsterComponent.toRect();
+      final playerRect = game.playerMonsterComponent.toRect();
+      // 自分の絵は矩形の右下の角に接するため、浮動小数の誤差の分だけ広げた矩形に収まるかを見る
+      for (final monsterRect in [opponentRect, playerRect]) {
+        expect(area.inflate(0.001).intersect(monsterRect), monsterRect);
+      }
+      expect(opponentRect.overlaps(playerRect), isFalse);
+      expect(opponentRect.topLeft, area.topLeft);
+      expect(playerRect.right, closeTo(area.right, 0.001));
+      expect(playerRect.bottom, closeTo(area.bottom, 0.001));
+      expect(playerRect.width, closeTo(opponentRect.width * 1.15, 0.001));
+
+      game.updateMonsterArtArea(area: null);
+      expect(game.opponentMonsterComponent.toRect(), opponentRectBefore);
+    },
+  );
+
   testWithGame<BattleFieldGame>('画面の大きさが変わると 2 体を置き直す', createGame, (
     game,
   ) async {

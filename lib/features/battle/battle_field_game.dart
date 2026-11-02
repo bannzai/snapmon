@@ -70,12 +70,28 @@ class BattleFieldGame extends FlameGame {
   /// 自分のモンスターの絵の上端をこれより下に置く。バトル画面が測って渡すまでは 0 (カードを考えない)
   double _opponentStatusCardBottom = 0;
 
+  /// 2 体の絵を収めるフィールドの中の矩形 (バトル画面が Flutter で重ねる情報カードとログの帯の無い所)。
+  /// 低い画面 (横向きのスマホ) で 2 枚の情報カードをフィールドの左右に上げた時だけバトル画面が渡し、
+  /// それ以外は null で、画面の大きさの比率で置く
+  Rect? _monsterArtArea;
+
   /// 相手の情報カードの下端の高さ [bottom] を受け取り、変わっていれば 2 体を置き直す。同じ値なら何もしない。
   void updateOpponentStatusCardBottom({required double bottom}) {
     if (bottom == _opponentStatusCardBottom) {
       return;
     }
     _opponentStatusCardBottom = bottom;
+    if (isLoaded) {
+      _layout();
+    }
+  }
+
+  /// 2 体の絵を収める矩形 [area] (null なら画面の大きさの比率で置く) を受け取り、変わっていれば 2 体を置き直す。同じ値なら何もしない。
+  void updateMonsterArtArea({required Rect? area}) {
+    if (area == _monsterArtArea) {
+      return;
+    }
+    _monsterArtArea = area;
     if (isLoaded) {
       _layout();
     }
@@ -191,6 +207,21 @@ class BattleFieldGame extends FlameGame {
 
   /// 画面の大きさに合わせて 2 体の位置と大きさを決める。比率はモック (Battle.dc.html) の配置から取った。
   void _layout() {
+    if (_monsterArtArea case final area?) {
+      // 情報カードが左 (相手)・右 (自分) にあるため、相手を左上、自分を右下に置き、それぞれのカードの側に寄せる。
+      // 自分を相手の 1.15 倍に描くのは比率で置く時と同じで、横に並べた 2 体 (m + 1.15m) と自分の高さ (1.15m) が矩形に収まる大きさにする
+      final areaMonsterSize = math.min(area.width / 2.15, area.height / 1.15);
+      opponentMonsterComponent
+        ..size = Vector2.all(areaMonsterSize)
+        ..position = Vector2(area.left, area.top);
+      playerMonsterComponent
+        ..size = Vector2.all(areaMonsterSize * 1.15)
+        ..position = Vector2(
+          area.right - areaMonsterSize * 1.15,
+          area.bottom - areaMonsterSize * 1.15,
+        );
+      return;
+    }
     // 高さの 0.3 は、相手の下端 (0.28h + m) が自分の上端 (0.94h - 1.15m) を越えない上限 m ≤ 0.66h / 2.15 ≈ 0.307h から取った。
     // 縦長のスマホでは幅の 0.4 の方が小さく、モックの大きさのまま描く。
     // 決着の後の勝敗のパネルでフィールドが低くなった時は、自分の上端 (0.94h - 1.15m) が相手の情報カードの下端を越えない大きさに抑える。
