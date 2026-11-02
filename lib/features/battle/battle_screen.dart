@@ -1199,9 +1199,8 @@ class _MonsterStatusCard extends StatelessWidget {
       ),
     );
     if (keepsEachRowOnOneLine) {
-      // 名前が長い時は名前を省略記号で切り、レベルを同じ行に残す (レベルは折り返す時と同じく右端に寄せる)
+      // 名前が長い時は名前を省略記号で切り、レベルを同じ行に残す
       return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         spacing: 8,
         children: [
           Flexible(child: nameText),
