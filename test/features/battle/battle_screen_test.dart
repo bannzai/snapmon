@@ -758,12 +758,24 @@ void main() {
       }
     }
 
-    /// ログの帯が、フィールドに重ねるならフィールドの中に収まり (フィールドの外は切れて見えないため)、
+    /// ログの文が帯の中で切れず、ログの帯が、フィールドに重ねるならフィールドの中に収まり (フィールドの外は切れて見えないため)、
     /// フィールドの外に置くならフィールドに掛からず、どちらでも下のセーフエリア [bottomPadding] より上の画面に収まることを確かめる。
     void expectBattleLogNotCut({
       required WidgetTester tester,
       required double bottomPadding,
     }) {
+      // フィールドに重ねた帯は Stack の高さまでに抑えられ、文が収まらない時は帯の矩形ではなく文の段落が帯の中で切れるため、
+      // 段落の幅で全文を描くのに要る高さと、実際の段落の高さを比べる
+      final logParagraph = tester.renderObject<RenderParagraph>(
+        find.byKey(const Key('battle-log')),
+      );
+      expect(
+        logParagraph.size.height,
+        greaterThanOrEqualTo(
+          logParagraph.getMaxIntrinsicHeight(logParagraph.size.width),
+        ),
+        reason: 'ログの文が帯の中で切れている',
+      );
       final field = fieldRect(tester: tester);
       final log = battleLogRect(tester: tester);
       expect(
