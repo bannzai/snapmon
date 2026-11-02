@@ -519,6 +519,7 @@ class _BattleScreenState extends State<BattleScreen> {
                 // 並べた時は、2 枚の間 (164 × 86) に 2 体の絵を置き、ログの帯をフィールドの下 (技のボタンの上) に出す。
                 // 帯を 2 枚の間に残すと、絵の置き場が無く (絵が大きさの下限 18.6 に縮んでカードの下に隠れていた)、
                 // 幅 164 の帯は技の特殊効果の説明が付くと 4 行を越えて高さ 103 のフィールドの下で切れていたため
+                /// 高さ [cardHeight] の相手の情報カードをログの帯の下に置くと、フィールドの下端を越えるかを返す。
                 bool isFieldTooLowForCardBelowLogOf({
                   required double cardHeight,
                 }) =>
