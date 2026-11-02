@@ -569,6 +569,7 @@ class _BattleScreenState extends State<BattleScreen> {
                 return _buildField(
                   playerMonster: playerMonster,
                   opponentMonster: opponentMonster,
+                  safeAreaRight: safeAreaPadding.right,
                   opponentStatusCardTop: opponentStatusCardTop,
                   placesOpponentStatusCardBesideLog:
                       isFieldTooLowForCardBelowLog,
@@ -636,11 +637,13 @@ class _BattleScreenState extends State<BattleScreen> {
   /// フィールド (Flame のゲーム) と、その上に重ねるログの帯・2 体の情報カード。
   /// 相手の情報カードの上端を [opponentStatusCardTop] に置く。
   /// [placesOpponentStatusCardBesideLog] が true の時はログの帯の左端を相手の情報カードの右に寄せ、
-  /// [placesPlayerStatusCardBesideLog] が true の時は自分の情報カードを相手の情報カードと同じ高さの右に置き、ログの帯の右端をその左に寄せる。
+  /// [placesPlayerStatusCardBesideLog] が true の時は自分の情報カードを相手の情報カードと同じ高さの右 (右のセーフエリア [safeAreaRight] の内側) に置き、
+  /// ログの帯の右端をその左に寄せる。
   /// [showsTrainerLabels] の時は、相手と自分のトレーナーの札をそれぞれのカードの上に出す (相手の札の高さは [trainerLabelPlateHeight] と見積もる)。
   Widget _buildField({
     required BattleMonster playerMonster,
     required BattleMonster opponentMonster,
+    required double safeAreaRight,
     required double opponentStatusCardTop,
     required bool placesOpponentStatusCardBesideLog,
     required bool placesPlayerStatusCardBesideLog,
@@ -713,7 +716,11 @@ class _BattleScreenState extends State<BattleScreen> {
         ),
       ),
       Positioned(
-        right: _fieldHorizontalMargin,
+        // 横に並べる時はログの帯 (SafeArea の内側) と同じく右のセーフエリアの内側に置く。
+        // 右下に置く時は main の配置のまま (縦向きでは右のセーフエリアは 0)
+        right: placesPlayerStatusCardBesideLog
+            ? _fieldHorizontalMargin + safeAreaRight
+            : _fieldHorizontalMargin,
         top: placesPlayerStatusCardBesideLog ? opponentStatusCardTop : null,
         bottom: placesPlayerStatusCardBesideLog
             ? null
