@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' as math;
 import 'dart:ui' as ui;
 
 import 'package:flame/game.dart';
@@ -602,7 +603,11 @@ class _BattleScreenState extends State<BattleScreen> {
                                     _fieldHorizontalMargin -
                                     _monsterStatusCardWidth -
                                     _battleLogGapBesideCard,
-                                opponentStatusCardTop + cardSize.height,
+                                // 下のパネルが高くフィールドがカードより低い時も、絵がフィールドの外で切れないようにフィールドの高さで抑える
+                                math.min(
+                                  opponentStatusCardTop + cardSize.height,
+                                  constraints.maxHeight,
+                                ),
                               )
                             : null,
                       );
@@ -639,7 +644,8 @@ class _BattleScreenState extends State<BattleScreen> {
               // 技のボタンは名前・属性の札と数値・効果の説明の 3 段で、大きい文字では段が折り返して高さが増えるため、
               // 勝敗の画面と同じ割合でフィールドを残してスクロールさせる。
               // ログの帯をフィールドの下に置く時は、帯を同じ割合の中のスクロールの外に置く
-              // (スクロールの中に置くと、下の技を押すためにスクロールした時に帯が隠れるため。割合を変えないのはフィールドを低くしないため)
+              // (スクロールの中に置くと、下の技を押すためにスクロールした時に帯が隠れるため。割合を変えないのはフィールドを低くしないため)。
+              // 帯は割合の半分までにして、大きい文字で帯が伸びた時は帯の中をスクロールさせ、技のボタン・勝敗の画面の場所を残す
               child: ConstrainedBox(
                 constraints: BoxConstraints(
                   maxHeight: MediaQuery.sizeOf(context).height * 0.6,
@@ -648,7 +654,14 @@ class _BattleScreenState extends State<BattleScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     if (_placesBattleLogBelowField) ...[
-                      _buildBattleLog(context: context),
+                      ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxHeight: MediaQuery.sizeOf(context).height * 0.3,
+                        ),
+                        child: SingleChildScrollView(
+                          child: _buildBattleLog(context: context),
+                        ),
+                      ),
                       const SizedBox(height: 10),
                     ],
                     Flexible(

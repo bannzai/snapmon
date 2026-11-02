@@ -960,6 +960,62 @@ void main() {
       );
     });
 
+    // 高さ 375・下のセーフエリア 21 は、下のパネルが上限 (高さの 0.6) まで伸び、フィールド (97) が 2 枚のカードの下端 (102) より低くなる画面
+    testWidgets(
+      '横向きのスマホでフィールドがカードより低い時 (844×375、下のセーフエリア 21) も、2 体の絵がフィールドに収まる',
+      (tester) async {
+        await pumpBattleScreenWithSize(
+          tester: tester,
+          size: const Size(844, 375),
+          bottomPadding: 21,
+          rightPadding: 0,
+          playerMonster: strongPlayer,
+        );
+        final field = fieldRect(tester: tester);
+
+        for (final artRect in monsterArtRects(tester: tester)) {
+          expect(field.inflate(0.001).intersect(artRect), artRect);
+        }
+      },
+    );
+
+    testWidgets('横向きのスマホで文字を 2 倍にしても、ログの帯は高さの 0.3 までに収まり、技のボタンを押せる', (
+      tester,
+    ) async {
+      tester.platformDispatcher.textScaleFactorTestValue = 2;
+      addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+      await pumpBattleScreenWithSize(
+        tester: tester,
+        size: const Size(844, 390),
+        bottomPadding: 21,
+        rightPadding: 0,
+        playerMonster: strongPlayer,
+      );
+      final moveSlot = find.byKey(const Key('move-slot-2'));
+      await tester.ensureVisible(moveSlot);
+      await tester.tap(moveSlot);
+      await tester.pump();
+
+      // 帯 (DecoratedBox) はスクロールの中で文の高さまで伸びるため、見えている範囲としてスクロールの矩形を測る
+      expect(
+        tester
+            .getRect(
+              find
+                  .ancestor(
+                    of: find.byKey(const Key('battle-log')),
+                    matching: find.byType(SingleChildScrollView),
+                  )
+                  .first,
+            )
+            .height,
+        lessThanOrEqualTo(390 * 0.3),
+      );
+      final nextMoveSlot = find.byKey(const Key('move-slot-0'));
+      await tester.ensureVisible(nextMoveSlot);
+      expect(nextMoveSlot.hitTestable(), findsOneWidget);
+      await tester.pump(const Duration(seconds: 5));
+    });
+
     // 幅 600 は内容の幅の上限と同じで、両脇の余白で右のセーフエリアが差し引かれずに残る
     testWidgets('低い画面で右のセーフエリアがある時 (600×390、右 30) は、横に並べた自分のカードをセーフエリアの内側に置く', (
       tester,
