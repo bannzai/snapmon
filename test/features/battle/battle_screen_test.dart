@@ -820,6 +820,33 @@ void main() {
 
     // 下のセーフエリア 21: 横向きの iPhone (ホームインジケーターのある機種) の下のインセット
     for (final bottomPadding in [0.0, 21.0]) {
+      for (final sidePadding in [0.0, 47.0]) {
+        testWidgets(
+          '横向きではフィールドが左、操作が右で、自分が左下・相手が右上になる ($bottomPadding / $sidePadding)',
+          (tester) async {
+            await pumpBattleScreenWithSize(
+              tester: tester,
+              size: const Size(844, 390),
+              bottomPadding: bottomPadding,
+              leftPadding: sidePadding,
+              rightPadding: sidePadding,
+              playerMonster: strongPlayer,
+            );
+            final field = fieldRect(tester: tester);
+            final arts = monsterArtRects(tester: tester);
+            expect(
+              field.right,
+              lessThanOrEqualTo(
+                tester.getRect(find.byKey(const Key('move-slot-0'))).left,
+              ),
+            );
+            expect(arts[1].center.dx, lessThan(arts[0].center.dx));
+            expect(arts[1].center.dy, greaterThan(arts[0].center.dy));
+            expect(field.overlaps(battleLogRect(tester: tester)), isFalse);
+            expect(tester.takeException(), isNull);
+          },
+        );
+      }
       testWidgets(
         '横向きのスマホ (844×390、下のセーフエリア $bottomPadding) では、相手のカード全体がフィールドに収まり、ログの帯と重ならない',
         (tester) async {
