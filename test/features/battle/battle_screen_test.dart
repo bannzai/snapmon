@@ -898,6 +898,7 @@ void main() {
             tester: tester,
             size: const Size(844, 390),
             bottomPadding: bottomPadding,
+            leftPadding: 0,
             rightPadding: 0,
             playerMonster: strongPlayer,
           );
@@ -913,6 +914,7 @@ void main() {
             tester: tester,
             size: const Size(844, 390),
             bottomPadding: bottomPadding,
+            leftPadding: 0,
             rightPadding: 0,
             playerMonster: strongPlayer,
           );
@@ -984,6 +986,7 @@ void main() {
           tester: tester,
           size: const Size(844, 375),
           bottomPadding: 21,
+          leftPadding: 0,
           rightPadding: 0,
           playerMonster: strongPlayer,
         );
@@ -1004,6 +1007,7 @@ void main() {
         tester: tester,
         size: const Size(844, 390),
         bottomPadding: 21,
+        leftPadding: 0,
         rightPadding: 0,
         playerMonster: strongPlayer,
       );
