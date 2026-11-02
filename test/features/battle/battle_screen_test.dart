@@ -742,6 +742,19 @@ void main() {
           .first,
     );
 
+    /// ログの帯のうち画面に見えている部分の矩形。帯の高さを抑えて帯の中をスクロールさせる時は、スクロールの枠の中だけを返す。
+    Rect visibleBattleLogRect({required WidgetTester tester}) {
+      final scrollable = find.ancestor(
+        of: find.byKey(const Key('battle-log')),
+        matching: find.byType(Scrollable),
+      );
+      return scrollable.evaluate().isEmpty
+          ? battleLogRect(tester: tester)
+          : battleLogRect(
+              tester: tester,
+            ).intersect(tester.getRect(scrollable.first));
+    }
+
     /// フィールドに描いた 2 体 (相手・自分) の絵の、画面の座標での矩形。
     List<Rect> monsterArtRects({required WidgetTester tester}) {
       final gameWidget = find.byType(GameWidget<BattleFieldGame>);
@@ -1082,8 +1095,9 @@ void main() {
 
     // 幅 600 は内容の幅の上限と同じで、両脇の余白で左右のセーフエリアが差し引かれずに残る。
     // セーフエリアの内側の幅 540 は 2 枚のカードと間の 2 体の絵を横に並べる幅 (556) に足りず、自分のカードを右下に置く経路を通る
+    // 低い画面ではフィールドが札を積む高さ (少なくとも 413) に足りず札を出さないため、札は下の 600×900 のテストで確かめる
     testWidgets(
-      '低い画面で左右のセーフエリアがある時 (600×390、左右 30) は、2 枚のカードと札をセーフエリアの内側に置き、互いに重ねない',
+      '低い画面で左右のセーフエリアがある時 (600×390、左右 30) は、2 枚のカードをセーフエリアの内側に置き、互いに重ねない',
       (tester) async {
         await pumpBattleScreenWithSize(
           tester: tester,
@@ -1096,16 +1110,8 @@ void main() {
         final field = fieldRect(tester: tester);
         final playerCard = playerStatusCardRect(tester: tester);
         final opponentCard = opponentStatusCardRect(tester: tester);
-        for (final rect in [
-          playerCard,
-          opponentCard,
-          for (final trainerLabelKey in const [
-            Key('battle-opponent-trainer'),
-            Key('battle-player-trainer'),
-          ])
-            if (find.byKey(trainerLabelKey).evaluate().isNotEmpty)
-              tester.getRect(find.byKey(trainerLabelKey)),
-        ]) {
+        expect(find.byKey(const Key('battle-opponent-trainer')), findsNothing);
+        for (final rect in [playerCard, opponentCard]) {
           expect(rect.left, greaterThanOrEqualTo(field.left + 30));
           expect(rect.right, lessThanOrEqualTo(field.right - 30));
           expect(rect.top, greaterThanOrEqualTo(field.top));
@@ -1116,6 +1122,75 @@ void main() {
         expect(opponentCard.overlaps(battleLogRect(tester: tester)), isFalse);
       },
     );
+
+    testWidgets(
+      '札を出す高さで左右のセーフエリアがある時 (600×900、左右 30) は、2 枚のカードと 2 つの札をセーフエリアの内側に置く',
+      (tester) async {
+        await pumpBattleScreenWithSize(
+          tester: tester,
+          size: const Size(600, 900),
+          bottomPadding: 0,
+          leftPadding: 30,
+          rightPadding: 30,
+          playerMonster: strongPlayer,
+        );
+        final field = fieldRect(tester: tester);
+        final opponentTrainer = find.byKey(
+          const Key('battle-opponent-trainer'),
+        );
+        final playerTrainer = find.byKey(const Key('battle-player-trainer'));
+        expect(opponentTrainer, findsOneWidget);
+        expect(playerTrainer, findsOneWidget);
+        for (final rect in [
+          playerStatusCardRect(tester: tester),
+          opponentStatusCardRect(tester: tester),
+          tester.getRect(opponentTrainer),
+          tester.getRect(playerTrainer),
+        ]) {
+          expect(rect.left, greaterThanOrEqualTo(field.left + 30));
+          expect(rect.right, lessThanOrEqualTo(field.right - 30));
+        }
+      },
+    );
+
+    // ゆげのもや (マグモンの覚える技の一覧の 3 番目、heat_1b) は 1 ターン目に先に動き、ログが「技を使った」「特殊効果の説明」「相性」の 3 行になる。
+    // 幅 390 では相手のカードの右に寄せた帯 (幅 152) で折り返して高くなり、右下の自分のカードと横に重なる位置にある
+    for (final height in const [390.0, 560.0]) {
+      testWidgets(
+        '低くて幅も狭い画面 (390×$height) で技の特殊効果の説明が付いて伸びたログの帯も、見えている部分が自分のカードと重ならない',
+        (tester) async {
+          await pumpBattleScreenWithSize(
+            tester: tester,
+            size: Size(390, height),
+            bottomPadding: 0,
+            leftPadding: 0,
+            rightPadding: 0,
+            playerMonster: strongPlayer,
+          );
+          final moveSlot = find.byKey(const Key('move-slot-2'));
+          await tester.ensureVisible(moveSlot);
+          await tester.tap(moveSlot);
+          await tester.pump();
+          expect(
+            tester.widget<Text>(find.byKey(const Key('battle-log'))).data,
+            contains('先に行動すると威力が上がる'),
+          );
+
+          final visibleBattleLog = visibleBattleLogRect(tester: tester);
+          expect(visibleBattleLog.height, greaterThan(0));
+          expect(
+            visibleBattleLog.overlaps(playerStatusCardRect(tester: tester)),
+            isFalse,
+          );
+          expect(
+            visibleBattleLog.overlaps(opponentStatusCardRect(tester: tester)),
+            isFalse,
+          );
+          // 演出の待ち (Future.delayed) をテストの終わりに残さない
+          await tester.pump(const Duration(seconds: 5));
+        },
+      );
+    }
 
     // 配置の種類と札を出すかの境界の高さは技のボタンの欄の高さで決まり、手元で狙って作れないため、画面の高さを刻んで境界をまたぐ
     testWidgets(

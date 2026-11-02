@@ -618,14 +618,19 @@ class _BattleScreenState extends State<BattleScreen> {
                 when cardHeight != _opponentStatusCardHeight) {
               setState(() => _opponentStatusCardHeight = cardHeight);
             }
+            // 自分のカードは高くなった時だけ測り直す。HP の桁が減って行の折り返しが消えるとカードが低くなり、
+            // 境界の高さでは配置がバトルの途中で切り替わるため、判定には一度測った一番高い値を使う
             if (_playerStatusCardKey.currentContext?.size?.height
                 case final cardHeight?
-                when cardHeight != _playerStatusCardHeight) {
+                when cardHeight > (_playerStatusCardHeight ?? 0)) {
               setState(() => _playerStatusCardHeight = cardHeight);
             }
+            // 技のボタンの欄は決着の前だけ測る。決着の後は勝敗の画面に変わって中身の高さが変わり、
+            // 測り直すと配置が決着の後に切り替わるため (勝敗の画面は欄の中でスクロールする)
             if (_commandsPanelContentKey.currentContext?.size?.height
                 case final contentHeight?
-                when contentHeight != _commandsPanelContentHeight) {
+                when !isFinished &&
+                    contentHeight != _commandsPanelContentHeight) {
               setState(() => _commandsPanelContentHeight = contentHeight);
             }
             if (_opponentTrainerLabelKey.currentContext?.size?.height
@@ -686,6 +691,21 @@ class _BattleScreenState extends State<BattleScreen> {
                           placesPlayerStatusCardBesideOpponentCard,
                       showsTrainerLabels: showsTrainerLabels,
                       trainerLabelPlateHeight: trainerLabelPlateHeight,
+                      // 低くて幅も狭い画面では、相手のカードの右に寄せたログの帯が右下の自分のカードと横に重なるため、
+                      // 帯の高さを自分のカードの上端の手前までにして、技の特殊効果の説明が付いて伸びた時は帯の中をスクロールさせる
+                      battleLogMaxHeight:
+                          isFieldTooLowForCardBelowLog &&
+                              !placesPlayerStatusCardBesideOpponentCard
+                          ? math.max(
+                              0.0,
+                              fieldConstraints.maxHeight -
+                                  _playerStatusCardBottom -
+                                  playerStatusCardHeight! -
+                                  _stackedStatusCardGap -
+                                  safeAreaTop -
+                                  _battleLogTop,
+                            )
+                          : null,
                     );
                   },
                 ),
@@ -806,6 +826,7 @@ class _BattleScreenState extends State<BattleScreen> {
   /// [placesPlayerStatusCardBesideOpponentCard] が true の時は自分の情報カードを相手の情報カードと同じ高さの右に置く。false の時は右下に置く。
   /// 情報カードとトレーナーの札は、ログの帯 (SafeArea の内側) と同じく左右のセーフエリア ([safeAreaLeft]・[safeAreaRight]) の内側に置く。
   /// [showsTrainerLabels] の時は、相手と自分のトレーナーの札をそれぞれのカードの上に出す (相手の札の高さは [trainerLabelPlateHeight] と見積もる)。
+  /// [battleLogMaxHeight] が null 以外の時は、フィールドに重ねるログの帯をその高さまでにし、越えた分は帯の中をスクロールさせる。
   Widget _buildField({
     required BattleMonster playerMonster,
     required BattleMonster opponentMonster,
@@ -816,6 +837,7 @@ class _BattleScreenState extends State<BattleScreen> {
     required bool placesPlayerStatusCardBesideOpponentCard,
     required bool showsTrainerLabels,
     required double trainerLabelPlateHeight,
+    required double? battleLogMaxHeight,
   }) => Stack(
     children: [
       Positioned.fill(child: GameWidget(game: _game)),
@@ -833,7 +855,14 @@ class _BattleScreenState extends State<BattleScreen> {
               _fieldHorizontalMargin,
               0,
             ),
-            child: _buildBattleLog(context: context),
+            child: battleLogMaxHeight == null
+                ? _buildBattleLog(context: context)
+                : ConstrainedBox(
+                    constraints: BoxConstraints(maxHeight: battleLogMaxHeight),
+                    child: SingleChildScrollView(
+                      child: _buildBattleLog(context: context),
+                    ),
+                  ),
           ),
         ),
       if (showsTrainerLabels)
