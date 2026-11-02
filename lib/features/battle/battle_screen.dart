@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' as math;
 import 'dart:ui' as ui;
 
 import 'package:flame/game.dart';
@@ -68,11 +69,10 @@ const double _opponentStatusCardBelowLogTop = 96;
 /// 情報カードの幅 (モックの Battle.dc.html の配置)。
 const double _monsterStatusCardWidth = 190;
 
-/// 自分の情報カードをログの帯の右に並べる時に、ログの帯に残す最小の幅。
-/// ログは本文 (13px、行の高さ 19.5) で折り返し、情報カードの高さ 86 までなら 3 行入る。
-/// 120 は内側 92 (1 行 7 文字ほど) で、バトルの始まりの 1 文 (「{名前} が 勝負をしかけてきた」) が 3 行に収まる幅にした。
-/// 横向きのスマホは内容の幅の上限 600 (appContentMaxWidth) で描かれ、帯に 164 残るため並べられる
-const double _battleLogMinimumWidthBesideCards = 120;
+/// 自分の情報カードを相手の情報カードと同じ高さの右に並べる時に、2 枚の間に残す最小の幅。2 枚の間には 2 体の絵を並べる。
+/// 120 は、相手の絵 (一辺 m) と 1.15 倍の自分の絵を横に並べ (2.15m)、m が 55 (下のセーフエリアのある横向きのスマホのフィールドの高さ 103 の約半分) になる幅にした。
+/// 横向きのスマホは内容の幅の上限 600 (appContentMaxWidth) で描かれ、2 枚の間に 164 残るため並べられる
+const double _monsterArtAreaMinimumWidthBetweenCards = 120;
 
 /// トレーナーの札と情報カードの間。札がどちらのカードに付くかを近さで示しつつ、札の暗い地とカードの縁が接して見えない最小の間にした。
 const double _trainerLabelGap = 6;
@@ -167,6 +167,10 @@ class _BattleScreenState extends State<BattleScreen> {
 
   /// 最後に測った相手の情報カードの高さ。フィールドの低さの判定に使う。最初のフレームを描くまでは null。
   double? _opponentStatusCardHeight;
+
+  /// ログの帯をフィールドの下 (技のボタン・勝敗の画面の上) に置くか。
+  /// 2 枚の情報カードをフィールドの左右に上げる低い画面 (横向きのスマホ) で true になる。フィールドを測った後のフレームで決まる
+  bool _placesBattleLogBelowField = false;
 
   /// 相手のトレーナーの札。出した時に高さを測る (文字の拡大や名前の長さで見積もりの高さを超えるため)。
   final GlobalKey _opponentTrainerLabelKey = GlobalKey();
@@ -510,14 +514,28 @@ class _BattleScreenState extends State<BattleScreen> {
                 // 844×390 の実測でフィールドは 124 (下のセーフエリアのある実機は約 103)、ログの帯は上から 16〜56、カードは 86 で、
                 // ログの帯の下には収まらず、帯と同じ高さ (16 + 86 = 102) なら収まるため。
                 // 自分のカードは右下 (下から 24) に置くと、HP の数値と属性の札の行が折り返した時に高さ 115 になり、上端がフィールドの外に出ていた。
-                // 自分のカードを右に並べるのは、セーフエリアの内側の幅に 2 枚のカードとログの帯の最小の幅が入る時だけにする
-                // (低くて幅も狭い画面で並べると、ログの帯の幅が無くなり 2 枚のカードが重なるため。その時は今までどおり右下に置く)
+                // 自分のカードを相手のカードと同じ高さの右に並べるのは、セーフエリアの内側の幅に 2 枚のカードと 2 枚の間の最小の幅が入る時だけにする
+                // (低くて幅も狭い画面で並べると、2 枚のカードが重なるため。その時は今までどおり右下に置く)。
+                // 並べた時は、2 枚の間 (164 × 86) に 2 体の絵を置き、ログの帯をフィールドの下 (技のボタンの上) に出す。
+                // 帯を 2 枚の間に残すと、絵の置き場が無く (絵が大きさの下限 18.6 に縮んでカードの下に隠れていた)、
+                // 幅 164 の帯は技の特殊効果の説明が付くと 4 行を越えて高さ 103 のフィールドの下で切れていたため
+                /// 高さ [cardHeight] の相手の情報カードをログの帯の下に置くと、フィールドの下端を越えるかを返す。
+                bool isFieldTooLowForCardBelowLogOf({
+                  required double cardHeight,
+                }) =>
+                    safeAreaTop + _opponentStatusCardBelowLogTop + cardHeight >
+                    constraints.maxHeight;
                 final isFieldTooLowForCardBelowLog =
                     _opponentStatusCardHeight != null &&
-                    safeAreaTop +
-                            _opponentStatusCardBelowLogTop +
-                            _opponentStatusCardHeight! >
-                        constraints.maxHeight;
+                    isFieldTooLowForCardBelowLogOf(
+                      cardHeight: _opponentStatusCardHeight!,
+                    );
+                final fitsStatusCardsSideBySide =
+                    constraints.maxWidth - safeAreaPadding.horizontal >=
+                    _fieldHorizontalMargin * 2 +
+                        _monsterStatusCardWidth * 2 +
+                        _battleLogGapBesideCard * 2 +
+                        _monsterArtAreaMinimumWidthBetweenCards;
                 // トレーナーの札は、ログの帯の下に相手の札とカード、フィールドの下に自分の札とカードを積んでも、
                 // 上下の 2 組が重ならない高さのフィールドの時だけ出す (自分の札とカードは相手と同じ高さと見積もる)。
                 // 低い画面 (横向きのスマホ・小さい Web のウィンドウ) は、カードだけでもフィールドにやっと収まり、
@@ -543,6 +561,8 @@ class _BattleScreenState extends State<BattleScreen> {
                     (showsTrainerLabels
                         ? trainerLabelPlateHeight + _trainerLabelGap
                         : 0);
+                final placesPlayerStatusCardBesideOpponentCard =
+                    isFieldTooLowForCardBelowLog && fitsStatusCardsSideBySide;
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   if (!mounted) {
                     return;
@@ -554,9 +574,44 @@ class _BattleScreenState extends State<BattleScreen> {
                         () => _opponentStatusCardHeight = cardSize.height,
                       );
                     }
-                    _game.updateOpponentStatusCardBottom(
-                      bottom: opponentStatusCardTop + cardSize.height,
-                    );
+                    // 測った高さから、カードの置き方と同じフレームで帯の置き場も決める (技のボタンの側は、このフィールドより先に組み立てるため)
+                    final placesBattleLogBelowField =
+                        isFieldTooLowForCardBelowLogOf(
+                          cardHeight: cardSize.height,
+                        ) &&
+                        fitsStatusCardsSideBySide;
+                    if (placesBattleLogBelowField !=
+                        _placesBattleLogBelowField) {
+                      setState(
+                        () => _placesBattleLogBelowField =
+                            placesBattleLogBelowField,
+                      );
+                    }
+                    _game
+                      ..updateOpponentStatusCardBottom(
+                        bottom: opponentStatusCardTop + cardSize.height,
+                      )
+                      // 2 枚のカードの間を、カードと同じ高さの範囲で絵に使う (自分のカードも相手のカードと同じ高さの 3 段に保つため)
+                      ..updateMonsterArtArea(
+                        area: placesPlayerStatusCardBesideOpponentCard
+                            ? Rect.fromLTRB(
+                                _fieldHorizontalMargin +
+                                    _monsterStatusCardWidth +
+                                    _battleLogGapBesideCard,
+                                opponentStatusCardTop,
+                                constraints.maxWidth -
+                                    safeAreaPadding.right -
+                                    _fieldHorizontalMargin -
+                                    _monsterStatusCardWidth -
+                                    _battleLogGapBesideCard,
+                                // 下のパネルが高くフィールドがカードより低い時も、絵がフィールドの外で切れないようにフィールドの高さで抑える
+                                math.min(
+                                  opponentStatusCardTop + cardSize.height,
+                                  constraints.maxHeight,
+                                ),
+                              )
+                            : null,
+                      );
                   }
                   if (_opponentTrainerLabelKey.currentContext?.size?.height
                       case final labelHeight?
@@ -573,13 +628,8 @@ class _BattleScreenState extends State<BattleScreen> {
                   opponentStatusCardTop: opponentStatusCardTop,
                   placesOpponentStatusCardBesideLog:
                       isFieldTooLowForCardBelowLog,
-                  placesPlayerStatusCardBesideLog:
-                      isFieldTooLowForCardBelowLog &&
-                      constraints.maxWidth - safeAreaPadding.horizontal >=
-                          _fieldHorizontalMargin * 2 +
-                              _monsterStatusCardWidth * 2 +
-                              _battleLogGapBesideCard * 2 +
-                              _battleLogMinimumWidthBesideCards,
+                  placesPlayerStatusCardBesideOpponentCard:
+                      placesPlayerStatusCardBesideOpponentCard,
                   showsTrainerLabels: showsTrainerLabels,
                   trainerLabelPlateHeight: trainerLabelPlateHeight,
                 );
@@ -590,43 +640,58 @@ class _BattleScreenState extends State<BattleScreen> {
             top: false,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
-              child: isFinished
-                  // 初回の 1 戦は生まれたカードも並べて高さが増えるため、低い画面・大きい文字でもフィールドを残してスクロールさせる。
-                  // 0.6 は 390×844 で勝敗・カード・ボタンが全部収まり、フィールドの相手のカードが隠れない割合にした
-                  ? ConstrainedBox(
-                      constraints: BoxConstraints(
-                        maxHeight: MediaQuery.sizeOf(context).height * 0.6,
-                      ),
-                      child: SingleChildScrollView(
-                        child: _BattleResultPanel(
-                          winner: _battleState.winner!,
-                          appliedLevels: _appliedLevels,
-                          playerParty: widget.playerParty,
-                          recordStatusText: _recordStatusText?.call(
-                            context.l10n,
-                          ),
-                          opponentParty: widget.opponentParty,
-                          definitions: widget.definitions,
-                          cardSharer: widget.cardSharer,
-                          firstBattleBornMonster: widget.firstBattleBornMonster,
-                          firstBattleMonsterIsNewlyBorn:
-                              widget.firstBattleMonsterIsNewlyBorn,
+              // 初回の 1 戦は生まれたカードも並べて高さが増えるため、低い画面・大きい文字でもフィールドを残してスクロールさせる。
+              // 0.6 は 390×844 で勝敗・カード・ボタンが全部収まり、フィールドの相手のカードが隠れない割合にした。
+              // 技のボタンは名前・属性の札と数値・効果の説明の 3 段で、大きい文字では段が折り返して高さが増えるため、
+              // 勝敗の画面と同じ割合でフィールドを残してスクロールさせる。
+              // ログの帯をフィールドの下に置く時は、帯を同じ割合の中のスクロールの外に置く
+              // (スクロールの中に置くと、下の技を押すためにスクロールした時に帯が隠れるため。割合を変えないのはフィールドを低くしないため)。
+              // 帯は割合の半分までにして、大きい文字で帯が伸びた時は帯の中をスクロールさせ、技のボタン・勝敗の画面の場所を残す
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxHeight: MediaQuery.sizeOf(context).height * 0.6,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (_placesBattleLogBelowField) ...[
+                      ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxHeight: MediaQuery.sizeOf(context).height * 0.3,
+                        ),
+                        child: SingleChildScrollView(
+                          child: _buildBattleLog(context: context),
                         ),
                       ),
-                    )
-                  // 技のボタンは名前・属性の札と数値・効果の説明の 3 段で、大きい文字では段が折り返して高さが増えるため、
-                  // 勝敗の画面と同じ割合でフィールドを残してスクロールさせる
-                  : ConstrainedBox(
-                      constraints: BoxConstraints(
-                        maxHeight: MediaQuery.sizeOf(context).height * 0.6,
-                      ),
+                      const SizedBox(height: 10),
+                    ],
+                    Flexible(
                       child: SingleChildScrollView(
-                        child: _buildCommands(
-                          context: context,
-                          playerMonster: playerMonster,
-                        ),
+                        child: isFinished
+                            ? _BattleResultPanel(
+                                winner: _battleState.winner!,
+                                appliedLevels: _appliedLevels,
+                                playerParty: widget.playerParty,
+                                recordStatusText: _recordStatusText?.call(
+                                  context.l10n,
+                                ),
+                                opponentParty: widget.opponentParty,
+                                definitions: widget.definitions,
+                                cardSharer: widget.cardSharer,
+                                firstBattleBornMonster:
+                                    widget.firstBattleBornMonster,
+                                firstBattleMonsterIsNewlyBorn:
+                                    widget.firstBattleMonsterIsNewlyBorn,
+                              )
+                            : _buildCommands(
+                                context: context,
+                                playerMonster: playerMonster,
+                              ),
                       ),
                     ),
+                  ],
+                ),
+              ),
             ),
           ),
         ],
@@ -634,11 +699,29 @@ class _BattleScreenState extends State<BattleScreen> {
     );
   }
 
-  /// フィールド (Flame のゲーム) と、その上に重ねるログの帯・2 体の情報カード。
+  /// ログの帯 (今のログの文言を出す暗い地の帯)。幅は親の幅いっぱいにする。
+  Widget _buildBattleLog({required BuildContext context}) => DecoratedBox(
+    decoration: const BoxDecoration(
+      color: SnapmonColors.scrim,
+      borderRadius: SnapmonRadii.button,
+    ),
+    child: Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+      child: SizedBox(
+        width: double.infinity,
+        child: Text(
+          _logText(context.l10n),
+          key: const Key('battle-log'),
+          style: SnapmonTextStyles.body,
+        ),
+      ),
+    ),
+  );
+
+  /// フィールド (Flame のゲーム) と、その上に重ねるログの帯 ([_placesBattleLogBelowField] の時は重ねない)・2 体の情報カード。
   /// 相手の情報カードの上端を [opponentStatusCardTop] に置く。
   /// [placesOpponentStatusCardBesideLog] が true の時はログの帯の左端を相手の情報カードの右に寄せ、
-  /// [placesPlayerStatusCardBesideLog] が true の時は自分の情報カードを相手の情報カードと同じ高さの右 (右のセーフエリア [safeAreaRight] の内側) に置き、
-  /// ログの帯の右端をその左に寄せる。
+  /// [placesPlayerStatusCardBesideOpponentCard] が true の時は自分の情報カードを相手の情報カードと同じ高さの右 (右のセーフエリア [safeAreaRight] の内側) に置く。
   /// [showsTrainerLabels] の時は、相手と自分のトレーナーの札をそれぞれのカードの上に出す (相手の札の高さは [trainerLabelPlateHeight] と見積もる)。
   Widget _buildField({
     required BattleMonster playerMonster,
@@ -646,48 +729,29 @@ class _BattleScreenState extends State<BattleScreen> {
     required double safeAreaRight,
     required double opponentStatusCardTop,
     required bool placesOpponentStatusCardBesideLog,
-    required bool placesPlayerStatusCardBesideLog,
+    required bool placesPlayerStatusCardBesideOpponentCard,
     required bool showsTrainerLabels,
     required double trainerLabelPlateHeight,
   }) => Stack(
     children: [
       Positioned.fill(child: GameWidget(game: _game)),
-      SafeArea(
-        bottom: false,
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(
-            placesOpponentStatusCardBesideLog
-                ? _fieldHorizontalMargin +
-                      _monsterStatusCardWidth +
-                      _battleLogGapBesideCard
-                : _fieldHorizontalMargin,
-            _battleLogTop,
-            placesPlayerStatusCardBesideLog
-                ? _fieldHorizontalMargin +
-                      _monsterStatusCardWidth +
-                      _battleLogGapBesideCard
-                : _fieldHorizontalMargin,
-            0,
-          ),
-          child: DecoratedBox(
-            decoration: const BoxDecoration(
-              color: SnapmonColors.scrim,
-              borderRadius: SnapmonRadii.button,
+      if (!_placesBattleLogBelowField)
+        SafeArea(
+          bottom: false,
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(
+              placesOpponentStatusCardBesideLog
+                  ? _fieldHorizontalMargin +
+                        _monsterStatusCardWidth +
+                        _battleLogGapBesideCard
+                  : _fieldHorizontalMargin,
+              _battleLogTop,
+              _fieldHorizontalMargin,
+              0,
             ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-              child: SizedBox(
-                width: double.infinity,
-                child: Text(
-                  _logText(context.l10n),
-                  key: const Key('battle-log'),
-                  style: SnapmonTextStyles.body,
-                ),
-              ),
-            ),
+            child: _buildBattleLog(context: context),
           ),
         ),
-      ),
       if (showsTrainerLabels)
         Positioned(
           left: _fieldHorizontalMargin,
@@ -716,13 +780,15 @@ class _BattleScreenState extends State<BattleScreen> {
         ),
       ),
       Positioned(
-        // 横に並べる時はログの帯 (SafeArea の内側) と同じく右のセーフエリアの内側に置く。
+        // 横に並べる時は右のセーフエリアの内側に置く (横向きの iPhone では右にノッチ・カメラが来るため)。
         // 右下に置く時は main の配置のまま (縦向きでは右のセーフエリアは 0)
-        right: placesPlayerStatusCardBesideLog
+        right: placesPlayerStatusCardBesideOpponentCard
             ? _fieldHorizontalMargin + safeAreaRight
             : _fieldHorizontalMargin,
-        top: placesPlayerStatusCardBesideLog ? opponentStatusCardTop : null,
-        bottom: placesPlayerStatusCardBesideLog
+        top: placesPlayerStatusCardBesideOpponentCard
+            ? opponentStatusCardTop
+            : null,
+        bottom: placesPlayerStatusCardBesideOpponentCard
             ? null
             : _playerStatusCardBottom,
         child: Column(
@@ -741,7 +807,7 @@ class _BattleScreenState extends State<BattleScreen> {
               definitions: widget.definitions,
               hitPointsColor: SnapmonColors.accent,
               showsHitPointsNumber: true,
-              keepsEachRowOnOneLine: placesPlayerStatusCardBesideLog,
+              keepsEachRowOnOneLine: placesPlayerStatusCardBesideOpponentCard,
             ),
           ],
         ),

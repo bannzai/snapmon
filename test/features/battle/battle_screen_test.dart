@@ -3,6 +3,7 @@ import 'dart:ui' as ui;
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -731,6 +732,67 @@ void main() {
           .first,
     );
 
+    /// フィールドに描いた 2 体 (相手・自分) の絵の、画面の座標での矩形。
+    List<Rect> monsterArtRects({required WidgetTester tester}) {
+      final gameWidget = find.byType(GameWidget<BattleFieldGame>);
+      final game = tester.widget<GameWidget<BattleFieldGame>>(gameWidget).game!;
+      final gameTopLeft = tester.getTopLeft(gameWidget);
+      return [
+        game.opponentMonsterComponent.toRect().shift(gameTopLeft),
+        game.playerMonsterComponent.toRect().shift(gameTopLeft),
+      ];
+    }
+
+    /// 2 体の絵がフィールドに収まり、2 枚の情報カードとログの帯に重ならず、見分けられる大きさで描かれていることを確かめる。
+    void expectMonsterArtsVisible({required WidgetTester tester}) {
+      final field = fieldRect(tester: tester);
+      for (final artRect in monsterArtRects(tester: tester)) {
+        expect(field.intersect(artRect), artRect);
+        for (final coveringRect in [
+          opponentStatusCardRect(tester: tester),
+          playerStatusCardRect(tester: tester),
+          battleLogRect(tester: tester),
+        ]) {
+          expect(artRect.overlaps(coveringRect), isFalse);
+        }
+        // 絵の大きさの下限 (フィールドの高さの 0.15。battle_field_game.dart の _layout) に張り付いた絵 (844×390 で 18.6) は
+        // 被写体を見分けられないため、フィールドの高さの半分以上を求める
+        expect(artRect.height, greaterThanOrEqualTo(field.height / 2));
+      }
+    }
+
+    /// ログの文が帯の中で切れず、ログの帯が、フィールドに重ねるならフィールドの中に収まり (フィールドの外は切れて見えないため)、
+    /// フィールドの外に置くならフィールドに掛からず、どちらでも下のセーフエリア [bottomPadding] より上の画面に収まることを確かめる。
+    void expectBattleLogNotCut({
+      required WidgetTester tester,
+      required double bottomPadding,
+    }) {
+      // フィールドに重ねた帯は Stack の高さまでに抑えられ、文が収まらない時は帯の矩形ではなく文の段落が帯の中で切れるため、
+      // 段落の幅で全文を描くのに要る高さと、実際の段落の高さを比べる
+      final logParagraph = tester.renderObject<RenderParagraph>(
+        find.byKey(const Key('battle-log')),
+      );
+      expect(
+        logParagraph.size.height,
+        greaterThanOrEqualTo(
+          logParagraph.getMaxIntrinsicHeight(logParagraph.size.width),
+        ),
+        reason: 'ログの文が帯の中で切れている',
+      );
+      final field = fieldRect(tester: tester);
+      final log = battleLogRect(tester: tester);
+      expect(
+        field.intersect(log) == log || !field.overlaps(log),
+        isTrue,
+        reason: 'ログの帯 $log がフィールド $field の端に掛かって切れている',
+      );
+      expect(log.top, greaterThanOrEqualTo(0));
+      expect(
+        log.bottom,
+        lessThanOrEqualTo(tester.view.physicalSize.height - bottomPadding),
+      );
+    }
+
     // 下のセーフエリア 21: 横向きの iPhone (ホームインジケーターのある機種) の下のインセット
     for (final bottomPadding in [0.0, 21.0]) {
       testWidgets(
@@ -801,7 +863,7 @@ void main() {
       );
 
       testWidgets(
-        '横向きのスマホ (844×390、下のセーフエリア $bottomPadding) では、バトルの始まりのログの帯がフィールドに収まる',
+        '横向きのスマホ (844×390、下のセーフエリア $bottomPadding) では、バトルの始まりのログの帯が切れずに画面に収まる',
         (tester) async {
           await pumpBattleScreenWithSize(
             tester: tester,
@@ -811,10 +873,50 @@ void main() {
             playerMonster: strongPlayer,
           );
 
-          expect(
-            battleLogRect(tester: tester).bottom,
-            lessThanOrEqualTo(fieldRect(tester: tester).bottom),
+          expectBattleLogNotCut(tester: tester, bottomPadding: bottomPadding);
+        },
+      );
+
+      testWidgets(
+        '横向きのスマホ (844×390、下のセーフエリア $bottomPadding) では、2 体の絵がフィールドに収まり、2 枚のカードとログの帯に隠れない',
+        (tester) async {
+          await pumpBattleScreenWithSize(
+            tester: tester,
+            size: const Size(844, 390),
+            bottomPadding: bottomPadding,
+            rightPadding: 0,
+            playerMonster: strongPlayer,
           );
+
+          expectMonsterArtsVisible(tester: tester);
+        },
+      );
+
+      testWidgets(
+        '横向きのスマホ (844×390、下のセーフエリア $bottomPadding) では、技の特殊効果の説明が付いたログの帯も切れずに画面に収まり、2 体の絵と重ならない',
+        (tester) async {
+          await pumpBattleScreenWithSize(
+            tester: tester,
+            size: const Size(844, 390),
+            bottomPadding: bottomPadding,
+            rightPadding: 0,
+            playerMonster: strongPlayer,
+          );
+          // マグモンの覚える技の一覧の 3 番目が ゆげのもや (heat_1b)。1 ターン目に先に動き、説明と相性の行が続いて 3 行になる
+          // (「技の枠に特殊効果の短い説明を出し、効果が働いた技はログに説明文を出す」のテスト)
+          final moveSlot = find.byKey(const Key('move-slot-2'));
+          await tester.ensureVisible(moveSlot);
+          await tester.tap(moveSlot);
+          await tester.pump();
+          expect(
+            tester.widget<Text>(find.byKey(const Key('battle-log'))).data,
+            contains('先に行動すると威力が上がる'),
+          );
+
+          expectBattleLogNotCut(tester: tester, bottomPadding: bottomPadding);
+          expectMonsterArtsVisible(tester: tester);
+          // 演出の待ち (Future.delayed) をテストの終わりに残さない
+          await tester.pump(const Duration(seconds: 5));
         },
       );
     }
@@ -856,6 +958,62 @@ void main() {
         playerStatusCardRect(tester: tester).bottom,
         fieldRect(tester: tester).bottom - 24,
       );
+    });
+
+    // 高さ 375・下のセーフエリア 21 は、下のパネルが上限 (高さの 0.6) まで伸び、フィールド (97) が 2 枚のカードの下端 (102) より低くなる画面
+    testWidgets(
+      '横向きのスマホでフィールドがカードより低い時 (844×375、下のセーフエリア 21) も、2 体の絵がフィールドに収まる',
+      (tester) async {
+        await pumpBattleScreenWithSize(
+          tester: tester,
+          size: const Size(844, 375),
+          bottomPadding: 21,
+          rightPadding: 0,
+          playerMonster: strongPlayer,
+        );
+        final field = fieldRect(tester: tester);
+
+        for (final artRect in monsterArtRects(tester: tester)) {
+          expect(field.inflate(0.001).intersect(artRect), artRect);
+        }
+      },
+    );
+
+    testWidgets('横向きのスマホで文字を 2 倍にしても、ログの帯は高さの 0.3 までに収まり、技のボタンを押せる', (
+      tester,
+    ) async {
+      tester.platformDispatcher.textScaleFactorTestValue = 2;
+      addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+      await pumpBattleScreenWithSize(
+        tester: tester,
+        size: const Size(844, 390),
+        bottomPadding: 21,
+        rightPadding: 0,
+        playerMonster: strongPlayer,
+      );
+      final moveSlot = find.byKey(const Key('move-slot-2'));
+      await tester.ensureVisible(moveSlot);
+      await tester.tap(moveSlot);
+      await tester.pump();
+
+      // 帯 (DecoratedBox) はスクロールの中で文の高さまで伸びるため、見えている範囲としてスクロールの矩形を測る
+      expect(
+        tester
+            .getRect(
+              find
+                  .ancestor(
+                    of: find.byKey(const Key('battle-log')),
+                    matching: find.byType(SingleChildScrollView),
+                  )
+                  .first,
+            )
+            .height,
+        lessThanOrEqualTo(390 * 0.3),
+      );
+      final nextMoveSlot = find.byKey(const Key('move-slot-0'));
+      await tester.ensureVisible(nextMoveSlot);
+      expect(nextMoveSlot.hitTestable(), findsOneWidget);
+      await tester.pump(const Duration(seconds: 5));
     });
 
     // 幅 600 は内容の幅の上限と同じで、両脇の余白で右のセーフエリアが差し引かれずに残る
