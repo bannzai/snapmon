@@ -884,6 +884,7 @@ void main() {
             tester: tester,
             size: const Size(844, 390),
             bottomPadding: bottomPadding,
+            rightPadding: 0,
             playerMonster: strongPlayer,
           );
 
@@ -898,6 +899,7 @@ void main() {
             tester: tester,
             size: const Size(844, 390),
             bottomPadding: bottomPadding,
+            rightPadding: 0,
             playerMonster: strongPlayer,
           );
           // マグモンの覚える技の一覧の 3 番目が ゆげのもや (heat_1b)。1 ターン目に先に動き、説明と相性の行が続いて 3 行になる
