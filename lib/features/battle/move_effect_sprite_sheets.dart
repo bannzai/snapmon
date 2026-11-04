@@ -45,11 +45,10 @@ Future<void> loadMoveEffectSpriteSheets({
       in spriteSheetsByEffectId.entries)
     () async {
       try {
+        // JSON を先に読む (引数は書いた順に評価される)。Flame の images.load は読めない画像のエラーを catch できても
+        // 内部の then からゾーンの未処理のエラーとしても報告するため、JSON ごと無いシートでは呼ばない
         game.applyMoveEffectSpriteSheet(
           effectId: effectId,
-          spriteSheetImage: await game.images.load(
-            'move_effects/${spriteSheet.assetName}.png',
-          ),
           spriteSheetJson:
               jsonDecode(
                     await assetBundle.loadString(
@@ -57,6 +56,9 @@ Future<void> loadMoveEffectSpriteSheets({
                     ),
                   )
                   as Map<String, dynamic>,
+          spriteSheetImage: await game.images.load(
+            'move_effects/${spriteSheet.assetName}.png',
+          ),
           visibleCenterAnchor: spriteSheet.visibleCenterAnchor,
         );
       } catch (error) {

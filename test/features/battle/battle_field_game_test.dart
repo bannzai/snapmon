@@ -362,6 +362,8 @@ void main() {
       '同梱のシートをすべて読み、読めないシートは飛ばして残りを描く',
       createGame,
       (game) async {
+        // testWithGame は binding を初期化せず、rootBundle からアセットを読むのに要るため
+        TestWidgetsFlutterBinding.ensureInitialized();
         await loadMoveEffectSpriteSheets(
           game: game,
           spriteSheetsByEffectId: {
