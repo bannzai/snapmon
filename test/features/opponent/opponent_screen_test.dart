@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:share_plus/share_plus.dart';
@@ -358,6 +360,104 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('ばんざい'), findsOneWidget);
     expect(find.text('トレーナー 0001'), findsNothing);
+  });
+
+  /// プロフィールの読み込みを [fetchProfile] に差し替えた、ログインしている時の相手の取得。
+  PvpClient pvpClientWithFetchProfile({
+    required Future<TrainerProfile?> Function() fetchProfile,
+  }) {
+    final pvpClient = signedInPvpClient(calls: RecordedPvpCalls());
+    return PvpClient(
+      fetchOpponents: pvpClient.fetchOpponents,
+      fetchDefinitions: pvpClient.fetchDefinitions,
+      reportMonster: pvpClient.reportMonster,
+      blockUser: pvpClient.blockUser,
+      fetchBattleRecord: pvpClient.fetchBattleRecord,
+      fetchProfile: fetchProfile,
+      updateDisplayName: pvpClient.updateDisplayName,
+      updateIcon: pvpClient.updateIcon,
+    );
+  }
+
+  testWidgets('設定を閉じた後の読み直しに失敗したら、古いプロフィールの札を消し、バトルにも渡さない', (tester) async {
+    var fetchProfileFails = false;
+    await pumpOpponentScreen(
+      tester: tester,
+      pvpClient: pvpClientWithFetchProfile(
+        fetchProfile: () async {
+          if (fetchProfileFails) {
+            throw StateError('プロフィールを読めません');
+          }
+          return (displayName: 'トレーナー 0001', iconPath: null);
+        },
+      ),
+      onOpenSettings: () async => fetchProfileFails = true,
+    );
+    expect(
+      find.byKey(const Key('opponent-tab-player-trainer')),
+      findsOneWidget,
+    );
+    await tester.tap(find.byTooltip('設定'));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('opponent-tab-player-trainer')), findsNothing);
+    expect(find.text('トレーナー 0001'), findsNothing);
+    await tester.tap(find.byKey(const Key('auto-match')));
+    // バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
+    expect(
+      tester.widget<BattleScreen>(find.byType(BattleScreen)).playerProfile,
+      isNull,
+    );
+  });
+
+  testWidgets('読み直しの後に前の読み込みの結果が届いても、読み直した値を上書きしない', (tester) async {
+    final fetchProfileReplies = <Completer<TrainerProfile?>>[];
+    await pumpOpponentScreen(
+      tester: tester,
+      pvpClient: pvpClientWithFetchProfile(
+        fetchProfile: () {
+          final reply = Completer<TrainerProfile?>();
+          fetchProfileReplies.add(reply);
+          return reply.future;
+        },
+      ),
+      onOpenSettings: () async {},
+    );
+    await tester.tap(find.byTooltip('設定'));
+    await tester.pumpAndSettle();
+    expect(fetchProfileReplies, hasLength(2));
+    fetchProfileReplies[1].complete((displayName: 'ばんざい', iconPath: null));
+    await tester.pump();
+    fetchProfileReplies[0].complete((
+      displayName: 'トレーナー 0001',
+      iconPath: null,
+    ));
+    await tester.pump();
+    expect(find.text('ばんざい'), findsOneWidget);
+    expect(find.text('トレーナー 0001'), findsNothing);
+  });
+
+  testWidgets('読み直しの後に前の読み込みが失敗しても、読み直した値の札を消さない', (tester) async {
+    final fetchProfileReplies = <Completer<TrainerProfile?>>[];
+    await pumpOpponentScreen(
+      tester: tester,
+      pvpClient: pvpClientWithFetchProfile(
+        fetchProfile: () {
+          final reply = Completer<TrainerProfile?>();
+          fetchProfileReplies.add(reply);
+          return reply.future;
+        },
+      ),
+      onOpenSettings: () async {},
+    );
+    await tester.tap(find.byTooltip('設定'));
+    await tester.pumpAndSettle();
+    fetchProfileReplies[1].complete((displayName: 'ばんざい', iconPath: null));
+    await tester.pump();
+    fetchProfileReplies[0].completeError(StateError('プロフィールを読めません'));
+    await tester.pump();
+    expect(find.text('ばんざい'), findsOneWidget);
   });
 
   testWidgets(
