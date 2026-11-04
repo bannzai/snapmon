@@ -599,6 +599,53 @@ void main() {
     expect(game.children.whereType<SpriteAnimationComponent>(), isEmpty);
   });
 
+  testWidgets('スプライトシートのエフェクトの再生中に画面を閉じても例外が出ない', (tester) async {
+    final spriteSheetImage = (await tester.runAsync(
+      () => createTestImage(width: 20, height: 16),
+    ))!;
+    addTearDown(spriteSheetImage.dispose);
+    await pumpBattleScreen(
+      tester: tester,
+      playerMonster: strongPlayer,
+      artImage: null,
+      battleRecorder: fakeBattleRecorder(
+        calls: RecordedBattleCalls(),
+        startBattleRecord: () async => 'battle-1',
+        recordedLevels: const {},
+      ),
+    );
+    final game = tester
+        .widget<GameWidget<BattleFieldGame>>(
+          find.byType(GameWidget<BattleFieldGame>),
+        )
+        .game!;
+    for (final effect in sampleData.definitions.effects) {
+      game.applyMoveEffectSpriteSheet(
+        effectId: effect.id,
+        spriteSheetImage: spriteSheetImage,
+        spriteSheetJson: const {
+          'meta': {
+            'pixelfx': {
+              'frames': 4,
+              'frameSize': [10, 8],
+              'columns': 2,
+            },
+          },
+        },
+        visibleCenterAnchor: Anchor.center,
+      );
+    }
+
+    await tester.tap(find.byKey(const Key('move-slot-0')));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 450));
+    expect(game.children.whereType<SpriteAnimationComponent>(), hasLength(1));
+
+    await tester.pumpWidget(const SizedBox());
+    await tester.pump(const Duration(seconds: 2));
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('技を使うと被弾した側に属性のパーティクルが出て、演出の間は技を選べない', (tester) async {
     final calls = RecordedBattleCalls();
     await pumpBattleScreen(
