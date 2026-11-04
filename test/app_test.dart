@@ -1725,7 +1725,7 @@ void main() {
           firstBattleBornMonster: null,
           firstBattleMonsterIsNewlyBorn: false,
           playerProfile: (displayName: 'トレーナー 0042', iconPath: null),
-          opponentProfile: (displayName: 'CPU リク', iconPath: null),
+          opponentDisplayName: 'CPU リク',
         ),
       ),
     );
@@ -1927,7 +1927,6 @@ void main() {
       expect(
         tester
             .widget<TrainerIcon>(find.byKey(const Key('profile-icon')))
-            .profile
             .iconPath,
         isNull,
       );
@@ -1940,7 +1939,6 @@ void main() {
       expect(
         tester
             .widget<TrainerIcon>(find.byKey(const Key('profile-icon')))
-            .profile
             .iconPath,
         'users/uid/icons/upload.png',
       );

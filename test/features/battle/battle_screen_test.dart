@@ -77,7 +77,7 @@ void main() {
           firstBattleBornMonster: null,
           firstBattleMonsterIsNewlyBorn: false,
           playerProfile: (displayName: 'ばんざい', iconPath: null),
-          opponentProfile: (displayName: 'CPU リク', iconPath: null),
+          opponentDisplayName: 'CPU リク',
         ),
       ),
     );
@@ -141,7 +141,7 @@ void main() {
               firstBattleBornMonster: strongPlayer,
               firstBattleMonsterIsNewlyBorn: isNewlyBorn,
               playerProfile: null,
-              opponentProfile: (displayName: 'CPU リク', iconPath: null),
+              opponentDisplayName: 'CPU リク',
             ),
           ),
         );
@@ -806,7 +806,7 @@ void main() {
             // 自分の札は右に寄せて名前の長さだけの幅になるため、表示名の上限 12 文字 (functions/src/pvp_rules.ts の DISPLAY_NAME_MAX_LENGTH) にして、
             // 札が相手のカードと横に重なる幅で配置を確かめる
             playerProfile: (displayName: 'ながいなまえのトレーナー', iconPath: null),
-            opponentProfile: (displayName: 'CPU リク', iconPath: null),
+            opponentDisplayName: 'CPU リク',
           ),
         ),
       );

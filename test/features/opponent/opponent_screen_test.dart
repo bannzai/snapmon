@@ -364,7 +364,7 @@ void main() {
 
   /// プロフィールの読み込みを [fetchProfile] に差し替えた、ログインしている時の相手の取得。
   PvpClient pvpClientWithFetchProfile({
-    required Future<TrainerProfile?> Function() fetchProfile,
+    required Future<PlayerProfile?> Function() fetchProfile,
   }) {
     final pvpClient = signedInPvpClient(calls: RecordedPvpCalls());
     return PvpClient(
@@ -412,12 +412,12 @@ void main() {
   });
 
   testWidgets('読み直しの後に前の読み込みの結果が届いても、読み直した値を上書きしない', (tester) async {
-    final fetchProfileReplies = <Completer<TrainerProfile?>>[];
+    final fetchProfileReplies = <Completer<PlayerProfile?>>[];
     await pumpOpponentScreen(
       tester: tester,
       pvpClient: pvpClientWithFetchProfile(
         fetchProfile: () {
-          final reply = Completer<TrainerProfile?>();
+          final reply = Completer<PlayerProfile?>();
           fetchProfileReplies.add(reply);
           return reply.future;
         },
@@ -439,12 +439,12 @@ void main() {
   });
 
   testWidgets('読み直しの後に前の読み込みが失敗しても、読み直した値の札を消さない', (tester) async {
-    final fetchProfileReplies = <Completer<TrainerProfile?>>[];
+    final fetchProfileReplies = <Completer<PlayerProfile?>>[];
     await pumpOpponentScreen(
       tester: tester,
       pvpClient: pvpClientWithFetchProfile(
         fetchProfile: () {
-          final reply = Completer<TrainerProfile?>();
+          final reply = Completer<PlayerProfile?>();
           fetchProfileReplies.add(reply);
           return reply.future;
         },
@@ -479,7 +479,6 @@ void main() {
         displayName: 'トレーナー 0001',
         iconPath: null,
       ));
-      expect(battleScreen.opponentProfile.iconPath, isNull);
       expect(battleScreen.opponentKind, BattleOpponentKind.cpu);
       // 見本の手持ち (sampleData.monsters の先頭 3 体) と同じ絵を持たない CPU トレーナーの中から選ぶ (lib/features/capture/first_battle.dart)
       final party = (DexStore(
@@ -490,8 +489,7 @@ void main() {
         playerParty: party,
       );
       final chosenTrainer = allowedTrainers.firstWhere(
-        (cpuTrainer) =>
-            cpuTrainer.name == battleScreen.opponentProfile.displayName,
+        (cpuTrainer) => cpuTrainer.name == battleScreen.opponentDisplayName,
       );
       expect(
         battleScreen.opponentParty.map((monster) => monster.definition.id),

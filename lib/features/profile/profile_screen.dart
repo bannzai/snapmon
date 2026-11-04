@@ -20,7 +20,7 @@ class ProfileScreen extends StatefulWidget {
   });
 
   /// 開いた時の表示名とアイコン。
-  final TrainerProfile initialProfile;
+  final PlayerProfile initialProfile;
 
   /// 表示名とアイコンの保存。
   final PvpClient pvpClient;
@@ -38,8 +38,11 @@ class ProfileScreen extends StatefulWidget {
 
 /// [ProfileScreen] の表示中の値と保存の状態。
 class _ProfileScreenState extends State<ProfileScreen> {
-  /// 画面に出している表示名とアイコン。保存できた値で置き換える。
-  late TrainerProfile _profile = widget.initialProfile;
+  /// 画面に出している表示名。保存できた値で置き換える。
+  late String _displayName = widget.initialProfile.displayName;
+
+  /// 画面に出しているアイコンの Storage のパス。保存できた値で置き換える。
+  late String? _iconPath = widget.initialProfile.iconPath;
 
   /// アイコンを選んでから保存し終えるまでの間か。間は選び直させない (先に送った写真の結果で上書きされるため)。
   bool _isUpdatingIcon = false;
@@ -61,12 +64,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         photo: await widget.preparePhoto(sourceBytes: sourceBytes),
       );
       if (mounted) {
-        setState(
-          () => _profile = (
-            displayName: _profile.displayName,
-            iconPath: iconPath,
-          ),
-        );
+        setState(() => _iconPath = iconPath);
         _showMessage(message: context.l10n.profileIconUpdated);
       }
     } catch (error) {
@@ -87,17 +85,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
       // 保存の途中に外を押して閉じると、保存できた名前が画面に反映されないため、閉じるのは「やめる」だけにする
       barrierDismissible: false,
       builder: (context) => _DisplayNameDialog(
-        initialDisplayName: _profile.displayName,
+        initialDisplayName: _displayName,
         updateDisplayName: widget.pvpClient.updateDisplayName,
       ),
     );
     if (savedDisplayName != null && mounted) {
-      setState(
-        () => _profile = (
-          displayName: savedDisplayName,
-          iconPath: _profile.iconPath,
-        ),
-      );
+      setState(() => _displayName = savedDisplayName);
     }
   }
 
@@ -114,7 +107,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             // 96: アイコンを変える画面で、選んだ写真の切り取った中身 (256px の PNG) を見て確かめられる大きさ
             child: TrainerIcon(
               key: const Key('profile-icon'),
-              profile: _profile,
+              displayName: _displayName,
+              iconPath: _iconPath,
               dimension: 96,
             ),
           ),
@@ -124,6 +118,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               key: const Key('profile-change-icon'),
               onPressed: _isUpdatingIcon ? null : _changeIcon,
               icon: _isUpdatingIcon
+                  // 16: 読み込みの間に置き換わるアイコンの枠 (OutlinedButton.icon の既定の 18) に収める。
+                  // strokeWidth 2: 既定の 4 は一辺 16 の輪には太く、輪の内側がほとんど残らないため
                   ? const SizedBox.square(
                       dimension: 16,
                       child: CircularProgressIndicator(strokeWidth: 2),
@@ -143,7 +139,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             key: const Key('display-name'),
             leading: const Icon(Icons.badge_outlined),
             title: Text(context.l10n.settingsDisplayName),
-            subtitle: Text(_profile.displayName),
+            subtitle: Text(_displayName),
             trailing: const Icon(Icons.edit),
             onTap: _editDisplayName,
           ),

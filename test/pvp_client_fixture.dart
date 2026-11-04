@@ -36,7 +36,7 @@ PvpClient fakePvpClient({
   required Future<List<PvpOpponent>?> Function() fetchOpponents,
   required MasterData? extraDefinitions,
   required ({int wins, int losses})? battleRecord,
-  required TrainerProfile? profile,
+  required PlayerProfile? profile,
   required Future<void> Function() reportMonster,
   required Future<void> Function() blockUser,
   required Future<String> Function({required String displayName})

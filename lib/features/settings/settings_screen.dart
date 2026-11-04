@@ -341,7 +341,7 @@ class _ProfileTile extends StatefulWidget {
 /// [_ProfileTile] の読み込みの状態。
 class _ProfileTileState extends State<_ProfileTile> {
   /// 今の表示名とアイコン。読み込み中・ログインが無い時は null。
-  TrainerProfile? _profile;
+  PlayerProfile? _profile;
 
   /// 読み込みの失敗。
   Object? _loadError;
@@ -377,7 +377,7 @@ class _ProfileTileState extends State<_ProfileTile> {
   }
 
   /// [profile] から始めるプロフィール画面を開き、閉じたら変えた値を出すために読み直す。
-  Future<void> _open({required TrainerProfile profile}) async {
+  Future<void> _open({required PlayerProfile profile}) async {
     await Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (context) => ProfileScreen(
@@ -408,7 +408,11 @@ class _ProfileTileState extends State<_ProfileTile> {
           leading: profile == null
               ? const Icon(Icons.badge_outlined)
               // 32: ListTile の leading に置く他の項目のアイコン (24) の枠に近い大きさで、アイコンの写真を見分けられるため
-              : TrainerIcon(profile: profile, dimension: 32),
+              : TrainerIcon(
+                  displayName: profile.displayName,
+                  iconPath: profile.iconPath,
+                  dimension: 32,
+                ),
           title: Text(context.l10n.settingsProfileSection),
           subtitle: Text(
             profile?.displayName ??
