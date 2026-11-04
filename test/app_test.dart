@@ -1983,6 +1983,84 @@ void main() {
       expect(find.byType(ProfileScreen), findsNothing);
     });
 
+    testWidgets('保存の後にプロフィールの読み直しに失敗しても、設定の項目と次に開くプロフィール画面は保存した値を出す', (
+      tester,
+    ) async {
+      var fetchProfileFails = false;
+      final base = fakePvpClient(
+        calls: pvpCalls,
+        fetchOpponents: () async => [],
+        extraDefinitions: null,
+        battleRecord: (wins: 0, losses: 0),
+        profile: (displayName: 'トレーナー 0042', iconPath: null),
+        reportMonster: () async {},
+        blockUser: () async {},
+        updateDisplayName: ({required displayName}) async => displayName,
+        updateIcon: ({required photo}) async => 'users/uid/icons/upload.png',
+      );
+      pvpClient = PvpClient(
+        fetchOpponents: base.fetchOpponents,
+        fetchDefinitions: base.fetchDefinitions,
+        reportMonster: base.reportMonster,
+        blockUser: base.blockUser,
+        fetchBattleRecord: base.fetchBattleRecord,
+        fetchProfile: () async {
+          if (fetchProfileFails) {
+            throw Exception('通信に失敗しました');
+          }
+          return base.fetchProfile();
+        },
+        updateDisplayName: base.updateDisplayName,
+        updateIcon: base.updateIcon,
+      );
+      await pumpHome(
+        tester: tester,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
+      );
+      await tester.tap(find.byTooltip('設定'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('profile')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('profile-change-icon')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('display-name')));
+      await tester.pumpAndSettle();
+      await tester.enterText(find.byKey(const Key('display-name-field')), 'ばんざい');
+      await tester.tap(find.byKey(const Key('display-name-save')));
+      await tester.pumpAndSettle();
+
+      fetchProfileFails = true;
+      await tester.tap(find.byType(BackButton));
+      await tester.pumpAndSettle();
+      expect(find.byType(ProfileScreen), findsNothing);
+      expect(find.text('ばんざい'), findsOneWidget);
+      expect(find.text('トレーナー 0042'), findsNothing);
+      expect(
+        tester
+            .widget<TrainerIcon>(
+              find.descendant(
+                of: find.byKey(const Key('profile')),
+                matching: find.byType(TrainerIcon),
+              ),
+            )
+            .iconPath,
+        'users/uid/icons/upload.png',
+      );
+
+      await tester.tap(find.byKey(const Key('profile')));
+      await tester.pumpAndSettle();
+      expect(find.text('ばんざい'), findsOneWidget);
+      expect(
+        tester
+            .widget<TrainerIcon>(find.byKey(const Key('profile-icon')))
+            .iconPath,
+        'users/uid/icons/upload.png',
+      );
+    });
+
     testWidgets('ログインが無い時はプロフィールの項目を出さない', (tester) async {
       await pumpHome(
         tester: tester,
