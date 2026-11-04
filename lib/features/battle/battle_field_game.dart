@@ -32,12 +32,16 @@ const double _hitParticleGravity = 240;
 /// 点滅の速さ (1 秒あたりの表示と非表示の切り替えの回数)。被弾の間に 5 回ほど点滅させるため。
 const double _blinkTogglesPerSecond = 20;
 
+/// スプライトシートのエフェクトの 1 コマの幅 (被弾したモンスターの絵の一辺に対する比)。
+/// PixelFX のコマは見える範囲の外に余白があるため、見える範囲が絵に重なって少しはみ出す大きさにした。
+const double _moveEffectFrameWidthPerMonsterSize = 1.3;
+
 /// [effect] の主色 (`#RRGGBB`) を返す。
 Color moveEffectColor({required MoveEffect effect}) =>
     Color(0xFF000000 | int.parse(effect.colorHex.substring(1), radix: 16));
 
 /// バトルのフィールド。相手のモンスターを右上、自分のモンスターを左下に描き (DIRECTION.md「デザインの方向」の「相手が上・自分が下」)、
-/// 攻撃の前進・被弾の点滅・技のエフェクト (属性ごとのパーティクル)・倒れる・交代を見せる。
+/// 攻撃の前進・被弾の点滅・技のエフェクト (スプライトシートか、属性の色のパーティクル)・倒れる・交代を見せる。
 /// いつ何を見せるかはバトル画面 (battle_screen.dart) がバトルのログから決め、このゲームはバトルの計算を持たない。
 class BattleFieldGame extends FlameGame {
   /// [playerMonster] と [opponentMonster] を場に出したフィールドを作る。
@@ -65,6 +69,10 @@ class BattleFieldGame extends FlameGame {
 
   /// パーティクルの飛ぶ向きと速さの乱数。見た目だけに使い、バトルの結果に効かないため seed を固定しない。
   final math.Random _particleRandom = math.Random();
+
+  /// 読み込めた技のエフェクトのスプライトシート (エフェクトの id ごと)。ここに無いエフェクトはパーティクルで描く。
+  final Map<String, ({SpriteAnimation animation, Anchor visibleCenterAnchor})>
+  _moveEffectAnimationsByEffectId = {};
 
   /// フィールドの上端から相手の情報カード (バトル画面が Flutter で重ねる) の下端までの高さ。
   /// 自分のモンスターの絵の上端をこれより下に置く。バトル画面が測って渡すまでは 0 (カードを考えない)
@@ -130,6 +138,38 @@ class BattleFieldGame extends FlameGame {
     }
   }
 
+  /// [effectId] のエフェクトを、PixelFX が書き出したシートの画像 [spriteSheetImage] と JSON [spriteSheetJson] で描くようにする。
+  /// [visibleCenterAnchor] はコマの中で被弾したモンスターの中心に合わせる点。
+  /// 1 回の被弾の時間 ([hitReactionSeconds]) で全コマを再生して消える。素材の時間 (528〜924 ms) のまま再生すると次の攻撃・交代に残るため。
+  void applyMoveEffectSpriteSheet({
+    required String effectId,
+    required Image spriteSheetImage,
+    required Map<String, dynamic> spriteSheetJson,
+    required Anchor visibleCenterAnchor,
+  }) {
+    final pixelfxMetadata =
+        (spriteSheetJson['meta'] as Map<String, dynamic>)['pixelfx']
+            as Map<String, dynamic>;
+    final frameCount = pixelfxMetadata['frames'] as int;
+    final frameSize = pixelfxMetadata['frameSize'] as List<dynamic>;
+    _moveEffectAnimationsByEffectId[effectId] = (
+      animation: SpriteAnimation.fromFrameData(
+        spriteSheetImage,
+        SpriteAnimationData.sequenced(
+          amount: frameCount,
+          amountPerRow: pixelfxMetadata['columns'] as int,
+          stepTime: hitReactionSeconds / frameCount,
+          textureSize: Vector2(
+            (frameSize[0] as num).toDouble(),
+            (frameSize[1] as num).toDouble(),
+          ),
+          loop: false,
+        ),
+      ),
+      visibleCenterAnchor: visibleCenterAnchor,
+    );
+  }
+
   /// [side] の場のモンスター。
   MonsterComponent monsterComponentOf({required BattleSideId side}) =>
       switch (side) {
@@ -152,12 +192,38 @@ class BattleFieldGame extends FlameGame {
     );
   }
 
-  /// [defenderSide] のモンスターを [hitReactionSeconds] の間点滅させ、[effect] があればその色のパーティクルを散らす。
+  /// [defenderSide] のモンスターを [hitReactionSeconds] の間点滅させ、[effect] があればそのエフェクトを出す。
+  /// スプライトシートが読み込めているエフェクトはシートを 1 回再生し、それ以外 (読み込み中・読めなかった・対応が無い) はその色のパーティクルを散らす。
   /// わるあがき (属性の無い攻撃) は [effect] を null にして点滅だけにする。
   void hit({required BattleSideId defenderSide, required MoveEffect? effect}) {
     final defender = monsterComponentOf(side: defenderSide)
       ..blink(seconds: hitReactionSeconds);
     if (effect == null) {
+      return;
+    }
+    if (_moveEffectAnimationsByEffectId[effect.id] case (
+      :final animation,
+      :final visibleCenterAnchor,
+    )) {
+      final frameSize = animation.frames.first.sprite.srcSize;
+      final attacker = monsterComponentOf(side: _otherSide(side: defenderSide));
+      add(
+        SpriteAnimationComponent(
+          animation: animation,
+          removeOnFinish: true,
+          position: defender.center,
+          anchor: visibleCenterAnchor,
+          size:
+              frameSize *
+              (defender.size.x *
+                  _moveEffectFrameWidthPerMonsterSize /
+                  frameSize.x),
+          // 素材は左から右へ向かって描かれている。低い画面では相手と自分の左右が入れ替わるため、陣営ではなく画面の位置で向きを決める
+          scale: Vector2(attacker.center.x > defender.center.x ? -1 : 1, 1),
+          // 拡大してもピクセルの絵がにじまないようにする
+          paint: Paint()..filterQuality = FilterQuality.none,
+        ),
+      );
       return;
     }
     final paint = Paint()..color = moveEffectColor(effect: effect);

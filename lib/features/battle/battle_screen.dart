@@ -4,6 +4,7 @@ import 'dart:ui' as ui;
 
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../analytics/analytics_events.dart';
 import '../../domain/battle/battle_engine.dart';
@@ -27,6 +28,7 @@ import '../share/share_card_button.dart';
 import '../share/share_cards.dart';
 import 'battle_field_game.dart';
 import 'battle_recorder.dart';
+import 'move_effect_sprite_sheets.dart';
 
 /// バトル画面を閉じた後に、呼び出し元にしてほしいこと。
 enum BattleScreenAction {
@@ -264,6 +266,14 @@ class _BattleScreenState extends State<BattleScreen> {
     }) {
       unawaited(_loadArtImage(artPath: artPath));
     }
+    // 読み込みが済むまでの被弾はパーティクルで描くため、待たずにバトルを始める
+    unawaited(
+      loadMoveEffectSpriteSheets(
+        game: _game,
+        spriteSheetsByEffectId: moveEffectSpriteSheetsByEffectId,
+        assetBundle: rootBundle,
+      ),
+    );
     _battleRecordStart = widget.battleRecorder.startBattleRecord(
       partyMonsterIds: [
         for (final monster in widget.playerParty) monster.definition.id,
