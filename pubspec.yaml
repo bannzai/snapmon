@@ -102,6 +102,8 @@ flutter:
     - assets/samples/
     - assets/samples/photos/
     - assets/samples/art/
+    # 技のエフェクト (PixelFX)。MIT の著作権表示と許諾文 (LICENSE) を含めて配布する
+    - assets/images/move_effects/
     - assets/fonts/dela_gothic_one/OFL.txt
     - assets/fonts/zen_kaku_gothic_new/OFL.txt
 

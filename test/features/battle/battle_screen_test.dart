@@ -514,11 +514,144 @@ void main() {
     expect(shareCalls.loggedEvents, isEmpty);
   });
 
+  testWidgets('スプライトシートのエフェクトは被弾の間だけ出て、HP の更新と揃い、次の攻撃・決着に残らない', (tester) async {
+    final spriteSheetImage = (await tester.runAsync(
+      () => createTestImage(width: 20, height: 16),
+    ))!;
+    addTearDown(spriteSheetImage.dispose);
+    await pumpBattleScreen(
+      tester: tester,
+      playerMonster: strongPlayer,
+      artImage: null,
+      battleRecorder: fakeBattleRecorder(
+        calls: RecordedBattleCalls(),
+        startBattleRecord: () async => 'battle-1',
+        recordedLevels: const {},
+      ),
+    );
+    final game = tester
+        .widget<GameWidget<BattleFieldGame>>(
+          find.byType(GameWidget<BattleFieldGame>),
+        )
+        .game!;
+    // マグモンと相手の技のエフェクトをすべて、合成した画像のシートで描く
+    for (final effect in sampleData.definitions.effects) {
+      game.applyMoveEffectSpriteSheet(
+        effectId: effect.id,
+        spriteSheetImage: spriteSheetImage,
+        spriteSheetJson: const {
+          'meta': {
+            'pixelfx': {
+              'frames': 4,
+              'frameSize': [10, 8],
+              'columns': 2,
+            },
+          },
+        },
+        visibleCenterAnchor: Anchor.center,
+      );
+    }
+
+    /// 両陣営の HP バーの今の値。
+    List<double?> hitPointBarValues() => [
+      for (final indicator in tester.widgetList<LinearProgressIndicator>(
+        find.byType(LinearProgressIndicator),
+      ))
+        indicator.value,
+    ];
+    final hitPointBarValuesBefore = hitPointBarValues();
+
+    await tester.tap(find.byKey(const Key('move-slot-0')));
+    await tester.pump();
+    // 攻撃の前進の間はエフェクトも HP の変化もない
+    await tester.pump(const Duration(milliseconds: 200));
+    expect(game.children.whereType<SpriteAnimationComponent>(), isEmpty);
+    expect(hitPointBarValues(), hitPointBarValuesBefore);
+    // 前進の往復 (0.3 秒) が終わり、被弾の演出の途中: エフェクトと同時に HP が減り始めている
+    await tester.pump(const Duration(milliseconds: 200));
+    await tester.pump(const Duration(milliseconds: 50));
+    expect(game.children.whereType<SpriteAnimationComponent>(), hasLength(1));
+    expect(game.children.whereType<ParticleSystemComponent>(), isEmpty);
+    expect(hitPointBarValues(), isNot(hitPointBarValuesBefore));
+
+    // 決着まで 50 ms ずつ進め、前のエフェクトが次の攻撃に重ならないことを毎コマ確かめる
+    // 2400 回 (120 秒): 見本の手持ち同士は数ターンで決着するため、決着しない不具合でテストが止まらない上限として十分な長さ
+    for (
+      var step = 0;
+      step < 2400 && find.text('もどる').evaluate().isEmpty;
+      step++
+    ) {
+      final moveButton = find.descendant(
+        of: find.byKey(const Key('move-slot-0')),
+        matching: find.byType(InkWell),
+      );
+      if (moveButton.evaluate().isNotEmpty &&
+          tester.widget<InkWell>(moveButton).onTap != null) {
+        await tester.tap(moveButton);
+      }
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(
+        game.children.whereType<SpriteAnimationComponent>().length,
+        lessThanOrEqualTo(1),
+      );
+    }
+    expect(find.text('もどる'), findsOneWidget);
+    expect(game.children.whereType<SpriteAnimationComponent>(), isEmpty);
+  });
+
+  testWidgets('スプライトシートのエフェクトの再生中に画面を閉じても例外が出ない', (tester) async {
+    final spriteSheetImage = (await tester.runAsync(
+      () => createTestImage(width: 20, height: 16),
+    ))!;
+    addTearDown(spriteSheetImage.dispose);
+    await pumpBattleScreen(
+      tester: tester,
+      playerMonster: strongPlayer,
+      artImage: null,
+      battleRecorder: fakeBattleRecorder(
+        calls: RecordedBattleCalls(),
+        startBattleRecord: () async => 'battle-1',
+        recordedLevels: const {},
+      ),
+    );
+    final game = tester
+        .widget<GameWidget<BattleFieldGame>>(
+          find.byType(GameWidget<BattleFieldGame>),
+        )
+        .game!;
+    for (final effect in sampleData.definitions.effects) {
+      game.applyMoveEffectSpriteSheet(
+        effectId: effect.id,
+        spriteSheetImage: spriteSheetImage,
+        spriteSheetJson: const {
+          'meta': {
+            'pixelfx': {
+              'frames': 4,
+              'frameSize': [10, 8],
+              'columns': 2,
+            },
+          },
+        },
+        visibleCenterAnchor: Anchor.center,
+      );
+    }
+
+    await tester.tap(find.byKey(const Key('move-slot-0')));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 450));
+    expect(game.children.whereType<SpriteAnimationComponent>(), hasLength(1));
+
+    await tester.pumpWidget(const SizedBox());
+    await tester.pump(const Duration(seconds: 2));
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('技を使うと被弾した側に属性のパーティクルが出て、演出の間は技を選べない', (tester) async {
     final calls = RecordedBattleCalls();
     await pumpBattleScreen(
       tester: tester,
-      playerMonster: strongPlayer,
+      // キーボンの 1 番目の技 (樹脂) はスプライトシートの対応が無く、シートの読み込みのタイミングに関係なくパーティクルで描く
+      playerMonster: sampleData.monsterById(monsterId: 'sample-keybon'),
       artImage: null,
       battleRecorder: fakeBattleRecorder(
         calls: calls,

@@ -45,6 +45,13 @@ Future<void> main() async {
         entry.key,
       ], await rootBundle.loadString(entry.value));
     }
+    yield LicenseEntryWithLineBreaks(
+      ['PixelFX'],
+      [
+        await rootBundle.loadString('assets/images/move_effects/LICENSE'),
+        await rootBundle.loadString('assets/images/move_effects/NOTICE.md'),
+      ].join('\n\n'),
+    );
   });
   // initializeApp だけでは識別子を作らない (Analytics・Crashlytics の自動収集は既定で無効、App Check と匿名ログインは未開始)。
   // 識別子を作る機能は、ログインと同時に lib/firebase/session.dart から始める。
