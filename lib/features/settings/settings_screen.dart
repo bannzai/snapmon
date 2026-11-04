@@ -320,7 +320,7 @@ class SettingsScreen extends StatelessWidget {
 }
 
 /// プロフィールの節。表示名とアイコンはサーバー (Functions の getDisplayName) が返した値を出し、押すとプロフィール画面を開く。
-/// プロフィール画面を閉じたら読み直す (変えた値を出すため)。ログインが無い時 (DEBUG ビルドでログインを飛ばした時) は値が無いため節を出さない。
+/// プロフィール画面で保存できた値はその場で出し、閉じたら読み直す (読み直しに失敗しても保存できた値を出し続けるため、エラーは出さない)。ログインが無い時 (DEBUG ビルドでログインを飛ばした時) は値が無いため節を出さない。
 class _ProfileTile extends StatefulWidget {
   const _ProfileTile({
     required super.key,
@@ -376,12 +376,14 @@ class _ProfileTileState extends State<_ProfileTile> {
     }
   }
 
-  /// [profile] から始めるプロフィール画面を開き、閉じたら変えた値を出すために読み直す。
+  /// [profile] から始めるプロフィール画面を開き、閉じたら読み直す。保存できた値は読み直しを待たずに出す。
   Future<void> _open({required PlayerProfile profile}) async {
     await Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (context) => ProfileScreen(
           initialProfile: profile,
+          onProfileChanged: ({required profile}) =>
+              setState(() => _profile = profile),
           pvpClient: widget.pvpClient,
           pickPhoto: widget.monsterGenerator.pickAlbumPhoto,
           preparePhoto: widget.monsterGenerator.preparePhoto,

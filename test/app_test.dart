@@ -2028,7 +2028,10 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key('display-name')));
       await tester.pumpAndSettle();
-      await tester.enterText(find.byKey(const Key('display-name-field')), 'ばんざい');
+      await tester.enterText(
+        find.byKey(const Key('display-name-field')),
+        'ばんざい',
+      );
       await tester.tap(find.byKey(const Key('display-name-save')));
       await tester.pumpAndSettle();
 
