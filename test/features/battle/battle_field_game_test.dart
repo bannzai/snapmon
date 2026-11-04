@@ -628,7 +628,6 @@ void main() {
   });
 }
 
-/// 受け取った描画の呼び出しを [invocations] に残す Canvas。部品がどちらの描き方 (画像・仮の絵) をしたかを確かめるため。
 /// JSON は正しく読めて、PNG は画像として decode できない中身を返すアセットの読み先。
 class _BrokenPngAssetBundle extends CachingAssetBundle {
   @override
@@ -641,6 +640,7 @@ class _BrokenPngAssetBundle extends CachingAssetBundle {
   );
 }
 
+/// 受け取った描画の呼び出しを [invocations] に残す Canvas。部品がどちらの描き方 (画像・仮の絵) をしたかを確かめるため。
 class _RecordingCanvas implements Canvas {
   /// 受け取った呼び出し (呼ばれた順)。
   final List<Invocation> invocations = [];
