@@ -71,9 +71,12 @@ class BattleFieldGame extends FlameGame {
   double _opponentStatusCardBottom = 0;
 
   /// 2 体の絵を収めるフィールドの中の矩形 (バトル画面が Flutter で重ねる情報カードとログの帯の無い所)。
-  /// 低い画面 (横向きのスマホ) で 2 枚の情報カードをフィールドの左右に上げた時だけバトル画面が渡し、
-  /// それ以外は null で、画面の大きさの比率で置く
+  /// 左右配置のバトルでは上下のカードの間、低い画面でカードを横に並べる時は左右のカードの間を渡す。
+  /// null の時は画面の大きさの比率で置く
   Rect? _monsterArtArea;
+
+  /// 指定された絵の領域で自分を左下・相手を右上に置くか。既存のカード間の配置では false。
+  bool _placesPlayerOnLeft = false;
 
   /// 相手の情報カードの下端の高さ [bottom] を受け取り、変わっていれば 2 体を置き直す。同じ値なら何もしない。
   void updateOpponentStatusCardBottom({required double bottom}) {
@@ -86,12 +89,18 @@ class BattleFieldGame extends FlameGame {
     }
   }
 
-  /// 2 体の絵を収める矩形 [area] (null なら画面の大きさの比率で置く) を受け取り、変わっていれば 2 体を置き直す。同じ値なら何もしない。
-  void updateMonsterArtArea({required Rect? area}) {
-    if (area == _monsterArtArea) {
+  /// 2 体の絵を収める矩形 [area] と左右の向きを受け取り、変わっていれば置き直す。同じ値なら何もしない。
+  /// [area] が null なら画面の比率で置き、[placesPlayerOnLeft] の時は自分を左下に置く。
+  void updateMonsterArtArea({
+    required Rect? area,
+    // 既存の低くて幅の狭い画面では、左右のカードと絵の対応を維持する。
+    bool placesPlayerOnLeft = false,
+  }) {
+    if (area == _monsterArtArea && placesPlayerOnLeft == _placesPlayerOnLeft) {
       return;
     }
     _monsterArtArea = area;
+    _placesPlayerOnLeft = placesPlayerOnLeft;
     if (isLoaded) {
       _layout();
     }
@@ -211,16 +220,25 @@ class BattleFieldGame extends FlameGame {
     // 絵の一辺が負になるため、比率の配置に戻す
     if (_monsterArtArea case final area?
         when area.width > 0 && area.height > 0) {
-      // 情報カードが左 (相手)・右 (自分) にあるため、相手を左上、自分を右下に置き、それぞれのカードの側に寄せる。
-      // 自分を相手の 1.15 倍に描くのは比率で置く時と同じで、横に並べた 2 体 (m + 1.15m) と自分の高さ (1.15m) が矩形に収まる大きさにする
-      final areaMonsterSize = math.min(area.width / 2.15, area.height / 1.15);
+      // 自分を相手の 1.15 倍に描くのは比率で置く時と同じで、横に並べた 2 体が矩形に収まる大きさにする。
+      // 既存のカード間の配置では相手を左に、左右配置のバトルでは自分を左にして、それぞれのカードに寄せる。
+      final areaMonsterSize = math.min(
+        area.width / 2.15,
+        // 左右配置では高さの余白を残し、2 体の中心が上下にも離れて対角に向き合うようにする。
+        area.height / (_placesPlayerOnLeft ? 1.75 : 1.15),
+      );
       opponentMonsterComponent
         ..size = Vector2.all(areaMonsterSize)
-        ..position = Vector2(area.left, area.top);
+        ..position = Vector2(
+          _placesPlayerOnLeft ? area.right - areaMonsterSize : area.left,
+          area.top,
+        );
       playerMonsterComponent
         ..size = Vector2.all(areaMonsterSize * 1.15)
         ..position = Vector2(
-          area.right - areaMonsterSize * 1.15,
+          _placesPlayerOnLeft
+              ? area.left
+              : area.right - areaMonsterSize * 1.15,
           area.bottom - areaMonsterSize * 1.15,
         );
       return;

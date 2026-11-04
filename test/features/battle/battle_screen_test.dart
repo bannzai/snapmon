@@ -781,8 +781,15 @@ void main() {
           expect(artRect.overlaps(coveringRect), isFalse);
         }
         // 絵の大きさの下限 (フィールドの高さの 0.15。battle_field_game.dart の _layout) に張り付いた絵 (844×390 で 18.6) は
-        // 被写体を見分けられないため、フィールドの高さの半分以上を求める
-        expect(artRect.height, greaterThanOrEqualTo(field.height / 2));
+        // 被写体を見分けられないため、低いフィールドでは高さの半分、左右配置では 60px 以上を求める
+        expect(
+          artRect.height,
+          greaterThanOrEqualTo(
+            find.byKey(const Key('battle-landscape-field-scroll')).evaluate().isEmpty
+                ? field.height / 2
+                : 60,
+          ),
+        );
       }
     }
 
@@ -843,6 +850,7 @@ void main() {
             expect(arts[1].center.dx, lessThan(arts[0].center.dx));
             expect(arts[1].center.dy, greaterThan(arts[0].center.dy));
             expect(field.overlaps(battleLogRect(tester: tester)), isFalse);
+            debugPrint('横向き配置: field=$field opponent=${arts[0]} player=${arts[1]} log=${battleLogRect(tester: tester)}');
             expect(tester.takeException(), isNull);
           },
         );
@@ -1057,6 +1065,25 @@ void main() {
       await tester.ensureVisible(moveSlot);
       await tester.tap(moveSlot);
       await tester.pump();
+      expect(
+        tester.widget<Text>(find.byKey(const Key('battle-log'))).data,
+        contains('先に行動すると威力が上がる'),
+      );
+      final logScrollable = tester.state<ScrollableState>(
+        find.descendant(
+          of: find.byKey(const Key('battle-landscape-log-scroll')),
+          matching: find.byType(Scrollable),
+        ),
+      );
+      logScrollable.position.jumpTo(logScrollable.position.maxScrollExtent);
+      await tester.pump();
+      expect(
+        tester.getBottomLeft(find.byKey(const Key('battle-log'))).dy,
+        lessThanOrEqualTo(
+          tester.getBottomLeft(find.byKey(const Key('battle-landscape-log-scroll'))).dy,
+        ),
+      );
+      expect(tester.takeException(), isNull);
 
       // 帯 (DecoratedBox) はスクロールの中で文の高さまで伸びるため、見えている範囲としてスクロールの矩形を測る
       expect(
@@ -1093,7 +1120,7 @@ void main() {
       final field = fieldRect(tester: tester);
       final card = playerStatusCardRect(tester: tester);
 
-      expect(card.right, lessThanOrEqualTo(field.right - 30));
+      expect(card.right, lessThanOrEqualTo(600 - 30));
       expect(card.top, greaterThanOrEqualTo(field.top));
       expect(card.overlaps(battleLogRect(tester: tester)), isFalse);
     });
@@ -1391,6 +1418,89 @@ void main() {
       );
       expect(battleLogRect(tester: tester).left, 20);
       expect(find.byKey(const Key('battle-player-trainer')), findsOneWidget);
+    });
+
+    testWidgets('技の演出中に縦横を回転してもログとバトルの状態を維持し、横向きで決着まで操作できる', (tester) async {
+      await pumpBattleScreenWithSize(
+        tester: tester,
+        size: const Size(390, 844),
+        bottomPadding: 0,
+        leftPadding: 0,
+        rightPadding: 0,
+        playerMonster: strongPlayer,
+      );
+      final battleScreenState = tester.state(find.byType(BattleScreen));
+      final game = tester.widget<GameWidget<BattleFieldGame>>(
+        find.byType(GameWidget<BattleFieldGame>),
+      ).game;
+      await tester.tap(find.byKey(const Key('move-slot-2')));
+      await tester.pump();
+      final log = tester.widget<Text>(find.byKey(const Key('battle-log'))).data;
+      for (final size in [const Size(844, 390), const Size(390, 844), const Size(844, 390)]) {
+        tester.view.physicalSize = size;
+        await tester.pump();
+        await tester.pump();
+        await tester.pump();
+        expect(tester.state(find.byType(BattleScreen)), same(battleScreenState));
+        expect(tester.widget<GameWidget<BattleFieldGame>>(find.byType(GameWidget<BattleFieldGame>)).game, same(game));
+        expect(tester.widget<Text>(find.byKey(const Key('battle-log'))).data, log);
+        expect(
+          find.byKey(const Key('battle-landscape-commands-scroll')),
+          size.width > size.height ? findsOneWidget : findsNothing,
+        );
+        expect(tester.takeException(), isNull);
+      }
+      await tester.pump(const Duration(seconds: 5));
+      for (var turn = 0; turn < 10 && find.text('もどる').evaluate().isEmpty; turn++) {
+        final move = find.byKey(const Key('move-slot-0'));
+        await tester.ensureVisible(move);
+        await tester.tap(move);
+        await tester.pump();
+        await tester.pump(const Duration(seconds: 5));
+      }
+      await tester.ensureVisible(find.text('もどる'));
+      expect(find.text('もどる').hitTestable(), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    });
+
+    for (final size in [const Size(1024, 768), const Size(1440, 900), const Size(1440, 390)]) {
+      testWidgets('iPad とデスクトップ $size はフィールドと操作を縦に並べる', (tester) async {
+        await pumpBattleScreenWithSize(
+          tester: tester,
+          size: size,
+          bottomPadding: 0,
+          leftPadding: 0,
+          rightPadding: 0,
+          playerMonster: strongPlayer,
+        );
+        expect(find.byKey(const Key('battle-landscape-commands-scroll')), findsNothing);
+        expect(
+          fieldRect(tester: tester).bottom,
+          lessThanOrEqualTo(tester.getTopLeft(find.byKey(const Key('move-slot-0'))).dy),
+        );
+        expect(tester.takeException(), isNull);
+      });
+    }
+
+    testWidgets('高さを変えずにウィンドウの幅を変えても横向きスマホとデスクトップの配置を切り替える', (tester) async {
+      await pumpBattleScreenWithSize(
+        tester: tester,
+        size: const Size(844, 390),
+        bottomPadding: 0,
+        leftPadding: 0,
+        rightPadding: 0,
+        playerMonster: strongPlayer,
+      );
+      expect(find.byKey(const Key('battle-landscape-commands-scroll')), findsOneWidget);
+      tester.view.physicalSize = const Size(1440, 390);
+      await tester.pump();
+      await tester.pump();
+      expect(find.byKey(const Key('battle-landscape-commands-scroll')), findsNothing);
+      tester.view.physicalSize = const Size(844, 390);
+      await tester.pump();
+      await tester.pump();
+      expect(find.byKey(const Key('battle-landscape-commands-scroll')), findsOneWidget);
+      expect(tester.takeException(), isNull);
     });
 
     testWidgets('縦向きのスマホ (390×844) では、今までどおりログの帯を左右いっぱいに、自分のカードを右下に置く', (

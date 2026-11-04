@@ -156,6 +156,29 @@ void main() {
     },
   );
 
+  testWithGame<BattleFieldGame>(
+    '横向きの絵の領域では自分を左下・相手を右上に置き、同じ指定では位置を変えない',
+    createGame,
+    (game) async {
+      game.onGameResize(Vector2(300, 390));
+      const area = Rect.fromLTRB(8, 102, 292, 288);
+      game.updateMonsterArtArea(area: area, placesPlayerOnLeft: true);
+      final playerRect = game.playerMonsterComponent.toRect();
+      final opponentRect = game.opponentMonsterComponent.toRect();
+      expect(playerRect.center.dx, lessThan(opponentRect.center.dx));
+      expect(playerRect.center.dy, greaterThan(opponentRect.center.dy));
+      expect(playerRect.overlaps(opponentRect), isFalse);
+      for (final rect in [playerRect, opponentRect]) {
+        expect(area.inflate(0.001).intersect(rect), rect);
+      }
+      game.updateMonsterArtArea(area: area, placesPlayerOnLeft: true);
+      expect(game.playerMonsterComponent.toRect(), playerRect);
+      expect(game.opponentMonsterComponent.toRect(), opponentRect);
+      game.updateMonsterArtArea(area: area);
+      expect(game.playerMonsterComponent.center.x, greaterThan(game.opponentMonsterComponent.center.x));
+    },
+  );
+
   testWithGame<BattleFieldGame>('画面の大きさが変わると 2 体を置き直す', createGame, (
     game,
   ) async {
