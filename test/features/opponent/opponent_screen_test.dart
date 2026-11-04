@@ -460,6 +460,104 @@ void main() {
     expect(find.text('ばんざい'), findsOneWidget);
   });
 
+  /// 戦績の読み込みを [fetchBattleRecord] に差し替えた、ログインしている時の相手の取得。
+  PvpClient pvpClientWithFetchBattleRecord({
+    required Future<({int wins, int losses})?> Function() fetchBattleRecord,
+  }) {
+    final pvpClient = signedInPvpClient(calls: RecordedPvpCalls());
+    return PvpClient(
+      fetchOpponents: pvpClient.fetchOpponents,
+      fetchDefinitions: pvpClient.fetchDefinitions,
+      reportMonster: pvpClient.reportMonster,
+      blockUser: pvpClient.blockUser,
+      fetchBattleRecord: fetchBattleRecord,
+      fetchProfile: pvpClient.fetchProfile,
+      updateDisplayName: pvpClient.updateDisplayName,
+      updateIcon: pvpClient.updateIcon,
+    );
+  }
+
+  /// 「自動で相手を決めて戦う」でバトルに入り、対戦の画面を閉じて対戦タブに戻る (閉じると戦績を読み直す)。
+  Future<void> battleAndReturn({required WidgetTester tester}) async {
+    await tester.tap(find.byKey(const Key('auto-match')));
+    // バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
+    Navigator.of(tester.element(find.byType(BattleScreen))).pop();
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
+  }
+
+  testWidgets('バトルの後の戦績の読み直しに失敗したら、古い勝敗を出さずにエラーを出す', (tester) async {
+    var fetchBattleRecordFails = false;
+    await pumpOpponentScreen(
+      tester: tester,
+      pvpClient: pvpClientWithFetchBattleRecord(
+        fetchBattleRecord: () async {
+          if (fetchBattleRecordFails) {
+            throw StateError('戦績を読めません');
+          }
+          return (wins: 8, losses: 3);
+        },
+      ),
+      onOpenSettings: () async {},
+    );
+    expect(find.text('8 勝 3 敗'), findsOneWidget);
+    fetchBattleRecordFails = true;
+    await battleAndReturn(tester: tester);
+    expect(find.byType(BattleScreen), findsNothing);
+    expect(find.text('8 勝 3 敗'), findsNothing);
+    expect(
+      tester.widget<Text>(find.byKey(const Key('battle-record'))).data,
+      StateError('戦績を読めません').toString(),
+    );
+  });
+
+  testWidgets('バトルの後の読み直しの後に前の読み込みの結果が届いても、読み直した戦績を上書きしない', (tester) async {
+    final fetchBattleRecordReplies = <Completer<({int wins, int losses})?>>[];
+    await pumpOpponentScreen(
+      tester: tester,
+      pvpClient: pvpClientWithFetchBattleRecord(
+        fetchBattleRecord: () {
+          final reply = Completer<({int wins, int losses})?>();
+          fetchBattleRecordReplies.add(reply);
+          return reply.future;
+        },
+      ),
+      onOpenSettings: () async {},
+    );
+    await battleAndReturn(tester: tester);
+    expect(fetchBattleRecordReplies, hasLength(2));
+    fetchBattleRecordReplies[1].complete((wins: 9, losses: 3));
+    await tester.pump();
+    fetchBattleRecordReplies[0].complete((wins: 8, losses: 3));
+    await tester.pump();
+    expect(find.text('9 勝 3 敗'), findsOneWidget);
+    expect(find.text('8 勝 3 敗'), findsNothing);
+  });
+
+  testWidgets('バトルの後の読み直しの後に前の読み込みが失敗しても、読み直した戦績を消さない', (tester) async {
+    final fetchBattleRecordReplies = <Completer<({int wins, int losses})?>>[];
+    await pumpOpponentScreen(
+      tester: tester,
+      pvpClient: pvpClientWithFetchBattleRecord(
+        fetchBattleRecord: () {
+          final reply = Completer<({int wins, int losses})?>();
+          fetchBattleRecordReplies.add(reply);
+          return reply.future;
+        },
+      ),
+      onOpenSettings: () async {},
+    );
+    await battleAndReturn(tester: tester);
+    expect(fetchBattleRecordReplies, hasLength(2));
+    fetchBattleRecordReplies[1].complete((wins: 9, losses: 3));
+    await tester.pump();
+    fetchBattleRecordReplies[0].completeError(StateError('戦績を読めません'));
+    await tester.pump();
+    expect(find.text('9 勝 3 敗'), findsOneWidget);
+  });
+
   testWidgets(
     '「自動で相手を決めて戦う」は、自分の手持ちと同じ絵の見本のモンスターを持たない CPU トレーナーを選んでバトルに入り、自分と相手の名前を渡す',
     (tester) async {

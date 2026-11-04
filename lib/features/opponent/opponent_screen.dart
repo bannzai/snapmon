@@ -74,11 +74,16 @@ class _OpponentScreenState extends State<OpponentScreen> {
   /// (連打で対戦の画面とバトルの記録が重なるため)。
   bool _isChallenging = false;
 
-  /// 自分の戦績 (勝ち数と負け数)。読み込み中・ログインが無い時は null。
+  /// 自分の戦績 (勝ち数と負け数)。最初の読み込みの途中・ログインが無い時・読めなかった時は null
+  /// (読めなかった時は古い勝敗を今の値として出さないため)。
+  /// 読み直しの途中は前の値のままで、結果が届いた時に置き換える (プロフィールの札と同じく、バトルのたびに行が消えて出ないように)。
   ({int wins, int losses})? _battleRecord;
 
-  /// 戦績の読み込みの失敗。
+  /// 最後の戦績の読み込みの失敗。読めた時は null。
   Object? _battleRecordError;
+
+  /// 最後に始めた戦績の読み込みの番号。前の読み込みの結果が後から届いても反映しないために持つ。
+  int _latestBattleRecordLoadNumber = 0;
 
   /// 自分のアイコンと表示名。最初の読み込みの途中・ログインが無い時・読めなかった時は null で、自分の札を出さない
   /// (読めなくても挑めるようにするため。読めなかった理由はプロフィール画面の入口 (設定) に出る)。
@@ -117,19 +122,23 @@ class _OpponentScreenState extends State<OpponentScreen> {
     unawaited(_loadPlayerProfile());
   }
 
-  /// 自分の戦績を読む。
+  /// 自分の戦績を読む。最後に始めた読み込みの結果だけを [_battleRecord] と [_battleRecordError] に反映する。
   Future<void> _loadBattleRecord() async {
+    final loadNumber = ++_latestBattleRecordLoadNumber;
     try {
       final battleRecord = await widget.pvpClient.fetchBattleRecord();
-      if (mounted) {
+      if (mounted && loadNumber == _latestBattleRecordLoadNumber) {
         setState(() {
           _battleRecord = battleRecord;
           _battleRecordError = null;
         });
       }
     } catch (error) {
-      if (mounted) {
-        setState(() => _battleRecordError = error);
+      if (mounted && loadNumber == _latestBattleRecordLoadNumber) {
+        setState(() {
+          _battleRecord = null;
+          _battleRecordError = error;
+        });
       }
     }
   }
