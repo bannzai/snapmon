@@ -1,12 +1,15 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flame/components.dart';
 import 'package:flame_test/flame_test.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:snapmon/domain/battle/battle_state.dart';
 import 'package:snapmon/domain/master/move_effect.dart';
 import 'package:snapmon/features/battle/battle_field_game.dart';
+import 'package:snapmon/features/battle/move_effect_sprite_sheets.dart';
 
 import '../../card_sharer_fixture.dart';
 import '../../decorated_monster_fixture.dart';
@@ -237,6 +240,274 @@ void main() {
     expect(game.playerMonsterComponent.isBlinking, isTrue);
   });
 
+  group('スプライトシートのエフェクト', () {
+    const metalEffect = MoveEffect(
+      id: 'metal_particle',
+      displayName: '金属のパーティクル',
+      kind: 'particle',
+      colorHex: '#9AA5B1',
+    );
+
+    /// [metalEffect] を 4 コマ (横 2 × 縦 2、1 コマ 10 × 8) の合成した画像で描くようにする。
+    Future<void> applyMetalSpriteSheet({required BattleFieldGame game}) async {
+      final spriteSheetImage = await createArtImage(width: 20, height: 16);
+      addTearDown(spriteSheetImage.dispose);
+      game.applyMoveEffectSpriteSheet(
+        effectId: metalEffect.id,
+        spriteSheetImage: spriteSheetImage,
+        spriteSheetJson: const {
+          'meta': {
+            'pixelfx': {
+              'frames': 4,
+              'frameSize': [10, 8],
+              'columns': 2,
+            },
+          },
+        },
+        visibleCenterAnchor: const Anchor(0.25, 0.5),
+      );
+    }
+
+    testWithGame<BattleFieldGame>('シートを読み込む前の被弾はパーティクルで描く', createGame, (
+      game,
+    ) async {
+      game.hit(defenderSide: BattleSideId.opponent, effect: metalEffect);
+      await game.ready();
+      expect(game.children.whereType<ParticleSystemComponent>(), hasLength(1));
+      expect(game.children.whereType<SpriteAnimationComponent>(), isEmpty);
+    });
+
+    testWithGame<BattleFieldGame>(
+      '被弾すると、被弾した絵の中心に合わせて単発で再生し、被弾の時間で消える',
+      createGame,
+      (game) async {
+        game.onGameResize(Vector2(390, 500));
+        await applyMetalSpriteSheet(game: game);
+        game.hit(defenderSide: BattleSideId.opponent, effect: metalEffect);
+        await game.ready();
+        expect(game.children.whereType<ParticleSystemComponent>(), isEmpty);
+        final component = game.children
+            .whereType<SpriteAnimationComponent>()
+            .single;
+        expect(component.position, game.opponentMonsterComponent.center);
+        expect(component.anchor, const Anchor(0.25, 0.5));
+        expect(component.animation!.loop, isFalse);
+        expect(component.animation!.frames, hasLength(4));
+        expect(
+          component.animation!.frames.last.sprite.srcPosition,
+          Vector2(10, 8),
+        );
+        expect(
+          component.size.x,
+          closeTo(game.opponentMonsterComponent.size.x * 1.3, 0.001),
+        );
+        expect(component.size.y / component.size.x, closeTo(0.8, 0.001));
+
+        // 再生の途中では残り、被弾の時間が過ぎると消える
+        game.update(hitReactionSeconds * 0.9);
+        await game.ready();
+        expect(
+          game.children.whereType<SpriteAnimationComponent>(),
+          hasLength(1),
+        );
+        game.update(hitReactionSeconds * 0.2);
+        await game.ready();
+        game.update(0);
+        await game.ready();
+        expect(game.children.whereType<SpriteAnimationComponent>(), isEmpty);
+      },
+    );
+
+    testWithGame<BattleFieldGame>(
+      '素材は左から右へ描かれているため、攻撃する側が被弾する側より右にいる時だけ左右を反転する',
+      createGame,
+      (game) async {
+        game.onGameResize(Vector2(390, 500));
+        await applyMetalSpriteSheet(game: game);
+        Future<double> horizontalScaleOfNewEffect({
+          required BattleSideId defenderSide,
+        }) async {
+          game.hit(defenderSide: defenderSide, effect: metalEffect);
+          await game.ready();
+          return game.children
+              .whereType<SpriteAnimationComponent>()
+              .last
+              .scale
+              .x;
+        }
+
+        // 比率の配置: 自分が左、相手が右
+        expect(
+          await horizontalScaleOfNewEffect(defenderSide: BattleSideId.opponent),
+          1,
+        );
+        expect(
+          await horizontalScaleOfNewEffect(defenderSide: BattleSideId.player),
+          -1,
+        );
+
+        // 低くて幅の狭い画面の配置: 相手が左、自分が右
+        game.onGameResize(Vector2(600, 103));
+        game.updateMonsterArtArea(area: const Rect.fromLTRB(218, 16, 382, 102));
+        expect(
+          await horizontalScaleOfNewEffect(defenderSide: BattleSideId.opponent),
+          -1,
+        );
+        expect(
+          await horizontalScaleOfNewEffect(defenderSide: BattleSideId.player),
+          1,
+        );
+
+        // 左右配置のバトル: 自分が左、相手が右
+        game.updateMonsterArtArea(
+          area: const Rect.fromLTRB(16, 16, 500, 102),
+          placesPlayerOnLeft: true,
+        );
+        expect(
+          await horizontalScaleOfNewEffect(defenderSide: BattleSideId.opponent),
+          1,
+        );
+        expect(
+          await horizontalScaleOfNewEffect(defenderSide: BattleSideId.player),
+          -1,
+        );
+      },
+    );
+
+    testWithGame<BattleFieldGame>(
+      '対応の無いエフェクトとわるあがきは、シートがあっても今までどおり描く',
+      createGame,
+      (game) async {
+        await applyMetalSpriteSheet(game: game);
+        game.hit(
+          defenderSide: BattleSideId.opponent,
+          effect: const MoveEffect(
+            id: 'generated_effect',
+            displayName: 'その場で作ったエフェクト',
+            kind: 'particle',
+            colorHex: '#2196F3',
+          ),
+        );
+        game.hit(defenderSide: BattleSideId.player, effect: null);
+        await game.ready();
+        expect(
+          game.children.whereType<ParticleSystemComponent>(),
+          hasLength(1),
+        );
+        expect(game.children.whereType<SpriteAnimationComponent>(), isEmpty);
+        expect(game.playerMonsterComponent.isBlinking, isTrue);
+      },
+    );
+
+    testWithGame<BattleFieldGame>(
+      '同梱のシートをすべて読み、読めないシートは飛ばして残りを描く',
+      createGame,
+      (game) async {
+        // testWithGame は binding を初期化せず、rootBundle からアセットを読むのに要るため
+        TestWidgetsFlutterBinding.ensureInitialized();
+        await loadMoveEffectSpriteSheets(
+          game: game,
+          spriteSheetsByEffectId: {
+            ...moveEffectSpriteSheetsByEffectId,
+            'water_particle': (
+              assetName: 'not-bundled',
+              visibleCenterAnchor: Anchor.center,
+            ),
+          },
+          assetBundle: rootBundle,
+        );
+        for (final MapEntry(key: effectId, value: spriteSheet)
+            in moveEffectSpriteSheetsByEffectId.entries) {
+          game.hit(
+            defenderSide: BattleSideId.opponent,
+            effect: MoveEffect(
+              id: effectId,
+              displayName: spriteSheet.assetName,
+              kind: 'particle',
+              colorHex: '#FFFFFF',
+            ),
+          );
+        }
+        game.hit(
+          defenderSide: BattleSideId.opponent,
+          effect: const MoveEffect(
+            id: 'water_particle',
+            displayName: '水のパーティクル',
+            kind: 'particle',
+            colorHex: '#2196F3',
+          ),
+        );
+        await game.ready();
+        final components = game.children.whereType<SpriteAnimationComponent>();
+        expect(components, hasLength(moveEffectSpriteSheetsByEffectId.length));
+        // JSON のコマの矩形が PNG の中に収まる (JSON と PNG が別の書き出しで食い違っていない)
+        for (final component in components) {
+          final image = component.animation!.frames.last.sprite.image;
+          final lastFrame = component.animation!.frames.last.sprite;
+          expect(
+            lastFrame.srcPosition.x + lastFrame.srcSize.x,
+            lessThanOrEqualTo(image.width),
+          );
+          expect(
+            lastFrame.srcPosition.y + lastFrame.srcSize.y,
+            lessThanOrEqualTo(image.height),
+          );
+        }
+        expect(
+          game.children.whereType<ParticleSystemComponent>(),
+          hasLength(1),
+        );
+      },
+    );
+
+    testWithGame<BattleFieldGame>(
+      'JSON は読めて PNG を decode できないシートは、未処理のエラーを出さずキャッシュにも残さずパーティクルのままにする',
+      createGame,
+      (game) async {
+        // testWithGame は binding を初期化せず、画像の decode に要るため
+        TestWidgetsFlutterBinding.ensureInitialized();
+        await loadMoveEffectSpriteSheets(
+          game: game,
+          spriteSheetsByEffectId: const {
+            'water_particle': (
+              assetName: 'broken-png',
+              visibleCenterAnchor: Anchor.center,
+            ),
+          },
+          assetBundle: _BrokenPngAssetBundle(),
+        );
+        expect(game.images.containsKey('move_effects/broken-png.png'), isFalse);
+        game.hit(
+          defenderSide: BattleSideId.opponent,
+          effect: const MoveEffect(
+            id: 'water_particle',
+            displayName: '水のパーティクル',
+            kind: 'particle',
+            colorHex: '#2196F3',
+          ),
+        );
+        await game.ready();
+        expect(game.children.whereType<SpriteAnimationComponent>(), isEmpty);
+        expect(
+          game.children.whereType<ParticleSystemComponent>(),
+          hasLength(1),
+        );
+      },
+    );
+
+    test('同梱の素材は MIT の許諾文と由来の記載を持つ', () async {
+      TestWidgetsFlutterBinding.ensureInitialized();
+      expect(
+        await rootBundle.loadString('assets/images/move_effects/LICENSE'),
+        contains('MIT License'),
+      );
+      expect(
+        await rootBundle.loadString('assets/images/move_effects/NOTICE.md'),
+        contains('Hugo Duprez'),
+      );
+    });
+  });
+
   testWithGame<BattleFieldGame>('倒れると描かなくなり、交代すると次のモンスターを同じ場所に置く', createGame, (
     game,
   ) async {
@@ -355,6 +626,18 @@ void main() {
     );
     expect(game.playerMonsterComponent.artSprite, isNull);
   });
+}
+
+/// JSON は正しく読めて、PNG は画像として decode できない中身を返すアセットの読み先。
+class _BrokenPngAssetBundle extends CachingAssetBundle {
+  @override
+  Future<ByteData> load(String key) async => ByteData.sublistView(
+    utf8.encode(
+      key.endsWith('.json')
+          ? '{"meta":{"pixelfx":{"frames":1,"frameSize":[1,1],"columns":1}}}'
+          : 'not a png',
+    ),
+  );
 }
 
 /// 受け取った描画の呼び出しを [invocations] に残す Canvas。部品がどちらの描き方 (画像・仮の絵) をしたかを確かめるため。

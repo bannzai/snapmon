@@ -1,6 +1,7 @@
 /// 技のエフェクトの定義。master (`assets/master/master.json`) の `effects` と、
 /// 登録時にその場で作って Firestore に保存した定義が同じ形を持つ。
-/// 描画は画面側 (Flame) が `kind` と `colorHex` を読んで行う。
+/// 描画は画面側 (Flame) が行い、`id` に対応するスプライトシート
+/// (lib/features/battle/move_effect_sprite_sheets.dart) が無ければ `colorHex` の色のパーティクルで描く。
 class MoveEffect {
   /// エフェクトの定義を作る。
   const MoveEffect({
