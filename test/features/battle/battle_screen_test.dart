@@ -1114,8 +1114,10 @@ void main() {
       await tester.pump(const Duration(seconds: 5));
     });
 
-    // 幅 600 は内容の幅の上限と同じで、両脇の余白で右のセーフエリアが差し引かれずに残る
-    testWidgets('低い画面で右のセーフエリアがある時 (600×390、右 30) は、横に並べた自分のカードをセーフエリアの内側に置く', (
+    // 幅 600 は内容の幅の上限と同じで、両脇の余白で右のセーフエリアが差し引かれずに残る。
+    // 右 42 で使える幅は 558 になり、左右配置の下限 560 を下回って従来の配置に戻る一方、
+    // 自分のカードを相手のカードの横に並べる下限 556 (余白 20×2 + カード 190×2 + 隙間 8×2 + 絵の置き場 120) は満たす
+    testWidgets('低い画面で右のセーフエリアがある時 (600×390、右 42) は、横に並べた自分のカードをセーフエリアの内側に置く', (
       tester,
     ) async {
       await pumpBattleScreenWithSize(
@@ -1123,16 +1125,46 @@ void main() {
         size: const Size(600, 390),
         bottomPadding: 0,
         leftPadding: 0,
-        rightPadding: 30,
+        rightPadding: 42,
         playerMonster: strongPlayer,
       );
       final field = fieldRect(tester: tester);
       final card = playerStatusCardRect(tester: tester);
 
-      expect(card.right, lessThanOrEqualTo(600 - 30));
+      expect(
+        find.byKey(const Key('battle-landscape-field-scroll')),
+        findsNothing,
+      );
+      expect(card.right, lessThanOrEqualTo(field.right - 42));
       expect(card.top, greaterThanOrEqualTo(field.top));
       expect(card.overlaps(battleLogRect(tester: tester)), isFalse);
     });
+
+    // 長辺 1000 以上の低いウィンドウは左右配置にせず、内容幅 600 の中で 2 枚のカードを横に並べる従来の配置を使う。
+    // #150 で 844×390 が確かめていた、並べた 2 枚のカードの間の 2 体の絵が隠れないことをこの大きさで残す
+    testWidgets(
+      '低くて広いウィンドウ (1440×390) では、横に並べた 2 枚のカードの間の 2 体の絵がフィールドに収まり、カードとログの帯に隠れない',
+      (tester) async {
+        await pumpBattleScreenWithSize(
+          tester: tester,
+          size: const Size(1440, 390),
+          bottomPadding: 0,
+          leftPadding: 0,
+          rightPadding: 0,
+          playerMonster: strongPlayer,
+        );
+
+        expect(
+          find.byKey(const Key('battle-landscape-field-scroll')),
+          findsNothing,
+        );
+        expect(
+          playerStatusCardRect(tester: tester).left,
+          greaterThan(opponentStatusCardRect(tester: tester).right),
+        );
+        expectMonsterArtsVisible(tester: tester);
+      },
+    );
 
     testWidgets('低くて幅も狭い画面 (390×390) では、自分のカード全体がフィールドに収まり、相手のカード・ログの帯と重ならない', (
       tester,
