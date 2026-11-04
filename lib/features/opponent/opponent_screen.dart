@@ -80,9 +80,13 @@ class _OpponentScreenState extends State<OpponentScreen> {
   /// 戦績の読み込みの失敗。
   Object? _battleRecordError;
 
-  /// 自分のアイコンと表示名。読み込み中・ログインが無い時・読めなかった時は null で、自分の札を出さない
+  /// 自分のアイコンと表示名。最初の読み込みの途中・ログインが無い時・読めなかった時は null で、自分の札を出さない
   /// (読めなくても挑めるようにするため。読めなかった理由はプロフィール画面の入口 (設定) に出る)。
+  /// 読み直しの途中は前の値のままで、結果が届いた時に置き換える (設定を閉じるたびに札が消えて戦績の行が動かないように)。
   TrainerProfile? _playerProfile;
+
+  /// 最後に始めたプロフィールの読み込みの番号。前の読み込みの結果が後から届いても反映しないために持つ。
+  int _latestPlayerProfileLoadNumber = 0;
 
   @override
   void initState() {
@@ -91,15 +95,19 @@ class _OpponentScreenState extends State<OpponentScreen> {
     unawaited(_loadPlayerProfile());
   }
 
-  /// 自分のアイコンと表示名を読む。
+  /// 自分のアイコンと表示名を読む。最後に始めた読み込みの結果だけを [_playerProfile] に反映する。
   Future<void> _loadPlayerProfile() async {
+    final loadNumber = ++_latestPlayerProfileLoadNumber;
     try {
       final profile = await widget.pvpClient.fetchProfile();
-      if (mounted) {
+      if (mounted && loadNumber == _latestPlayerProfileLoadNumber) {
         setState(() => _playerProfile = profile);
       }
     } catch (error) {
       debugPrint('プロフィールを読めませんでした: $error');
+      if (mounted && loadNumber == _latestPlayerProfileLoadNumber) {
+        setState(() => _playerProfile = null);
+      }
     }
   }
 
