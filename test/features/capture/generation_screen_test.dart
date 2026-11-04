@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import 'package:snapmon/features/battle/battle_screen.dart';
 import 'package:snapmon/features/capture/generation_screen.dart';
 import 'package:snapmon/features/capture/monster_generator.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
+import 'package:snapmon/features/opponent/pvp_client.dart';
 import 'package:snapmon/features/result/result_screen.dart';
 import 'package:snapmon/l10n/l10n.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
@@ -31,10 +33,12 @@ void main() {
   /// [startsFirstBattle] が true なら初回の導線 (生まれたらそのまま戦う) にする。初回の導線は相手を探す表示が止まらないため、
   /// 開いた後は pumpAndSettle ではなく時間を指定して進める。[sourcePhoto]・[photoSource]・[cropsWhenSubjectNotFound] は
   /// 生成の画面にそのまま渡す (範囲を決める画面を確かめるテストだけが、画像として読める写真を渡す)。
+  /// [pvpClient] が null ならログインが無い時の [PvpClient] を渡す (プロフィールを確かめるテストだけが渡す)。
   Future<List<ResultScreenAction?>> pumpGenerationScreen({
     required WidgetTester tester,
     required MonsterGenerator generator,
     required bool startsFirstBattle,
+    PvpClient? pvpClient,
     Uint8List? sourcePhoto,
     GenerationPhotoSource photoSource = GenerationPhotoSource.album,
     bool cropsWhenSubjectNotFound = true,
@@ -70,9 +74,9 @@ void main() {
                         ),
                         startsFirstBattle: startsFirstBattle,
                         sampleData: sampleData,
-                        pvpClient: signedOutPvpClient(
-                          calls: RecordedPvpCalls(),
-                        ),
+                        pvpClient:
+                            pvpClient ??
+                            signedOutPvpClient(calls: RecordedPvpCalls()),
                         battleRecorder: fakeBattleRecorder(
                           calls: battleCalls,
                           startBattleRecord: () async => null,
@@ -827,6 +831,107 @@ void main() {
       expect(find.byType(BattleScreen), findsNothing);
       expect(dexStore.isInParty(monsterId: 'm1'), isFalse);
       expect(firstExperienceSteps(), isNot(contains('matchmaking')));
+    });
+
+    /// [fetchProfile] だけを差し替えた、ログインが無い時の [PvpClient]。
+    PvpClient pvpClientFetchingProfile({
+      required Future<PlayerProfile?> Function() fetchProfile,
+    }) {
+      final signedOutClient = signedOutPvpClient(calls: RecordedPvpCalls());
+      return PvpClient(
+        fetchOpponents: signedOutClient.fetchOpponents,
+        fetchDefinitions: signedOutClient.fetchDefinitions,
+        reportMonster: signedOutClient.reportMonster,
+        blockUser: signedOutClient.blockUser,
+        fetchBattleRecord: signedOutClient.fetchBattleRecord,
+        fetchProfile: fetchProfile,
+        updateDisplayName: signedOutClient.updateDisplayName,
+        updateIcon: signedOutClient.updateIcon,
+      );
+    }
+
+    /// サーバーが m1 を保存して返す生成。
+    MonsterGenerator savedM1Generator() => fakeMonsterGenerator(
+      calls: calls,
+      albumPhoto: null,
+      uploadError: null,
+      requestGeneration: savedGeneration(
+        monsterId: 'm1',
+        status: GenerationStatus.saved,
+        resultRequestId: null,
+      ),
+      fetchGeneration: unexpectedFetch,
+    );
+
+    testWidgets('プロフィールは相手を決める間に並べて読み、読めたらバトルの画面に自分と CPU トレーナーの名前を渡す', (
+      tester,
+    ) async {
+      final profileReply = Completer<PlayerProfile?>();
+      var refreshedDefinitionsCount = 0;
+      dexStore.connectServer(
+        savePartyMonsterIds: ({required monsterIds}) async {},
+        refreshDefinitions: () async => refreshedDefinitionsCount++,
+      );
+      await pumpGenerationScreen(
+        tester: tester,
+        startsFirstBattle: true,
+        pvpClient: pvpClientFetchingProfile(
+          fetchProfile: () => profileReply.future,
+        ),
+        generator: savedM1Generator(),
+      );
+      await pumpUntilResult(tester: tester);
+      // プロフィールの応答を待たずに定義の読み直しが済み、両方そろうまでは相手を出さない
+      expect(refreshedDefinitionsCount, 1);
+      expect(find.textContaining(RegExp(r'あらわれた$')), findsNothing);
+
+      profileReply.complete((displayName: 'ばんざい', iconPath: null));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 100));
+      expect(find.textContaining(RegExp(r'^CPU .+ があらわれた$')), findsOneWidget);
+      await tester.pump(const Duration(seconds: 2));
+      await tester.pump(const Duration(seconds: 1));
+      final battleScreen = tester.widget<BattleScreen>(
+        find.byType(BattleScreen),
+      );
+      expect(battleScreen.playerProfile, (
+        displayName: 'ばんざい',
+        iconPath: null,
+      ));
+      expect(battleScreen.opponentDisplayName, startsWith('CPU '));
+    });
+
+    testWidgets('プロフィールを読めない時は札を出さずにバトルに進む', (tester) async {
+      await pumpGenerationScreen(
+        tester: tester,
+        startsFirstBattle: true,
+        pvpClient: pvpClientFetchingProfile(
+          fetchProfile: () async => throw Exception('unavailable'),
+        ),
+        generator: savedM1Generator(),
+      );
+      await pumpUntilResult(tester: tester);
+      await tester.pump(const Duration(seconds: 2));
+      await tester.pump(const Duration(seconds: 1));
+      expect(
+        tester.widget<BattleScreen>(find.byType(BattleScreen)).playerProfile,
+        isNull,
+      );
+    });
+
+    testWidgets('相手を決められない時は元の例外の文言をそのまま出す', (tester) async {
+      dexStore.connectServer(
+        savePartyMonsterIds: ({required monsterIds}) async {},
+        refreshDefinitions: () async => throw Exception('master-unavailable'),
+      );
+      await pumpGenerationScreen(
+        tester: tester,
+        startsFirstBattle: true,
+        generator: savedM1Generator(),
+      );
+      await pumpUntilResult(tester: tester);
+      expect(find.text('Exception: master-unavailable'), findsOneWidget);
+      expect(find.byType(BattleScreen), findsNothing);
     });
   });
 }
