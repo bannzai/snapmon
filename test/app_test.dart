@@ -2131,7 +2131,7 @@ void main() {
       expect(find.text('トレーナー 0042'), findsNothing);
     });
 
-    testWidgets('アカウントの切り替えの間に開いたプロフィール画面でも、切り替えの後に保存できる', (tester) async {
+    testWidgets('アカウントの切り替えの間はプロフィール画面を開けず、切り替えの後は開ける', (tester) async {
       final linkedAccountSignIn = Completer<String>();
       linkAccount = () async =>
           () => linkedAccountSignIn.future;
@@ -2162,22 +2162,14 @@ void main() {
       await tester.pump(const Duration(seconds: 1));
       await tester.tap(find.byKey(const Key('profile')));
       await tester.pump(const Duration(seconds: 1));
+      expect(find.byType(ProfileScreen), findsNothing);
+
       linkedAccountSignIn.complete('uid-linked');
       await tester.pumpAndSettle();
       expect(sessionStore.uid, 'uid-linked');
-
-      await tester.tap(find.byKey(const Key('profile-change-icon')));
+      await tester.tap(find.byKey(const Key('profile')));
       await tester.pumpAndSettle();
-      expect(find.text('アイコンを変えました'), findsOneWidget);
-      await tester.tap(find.byKey(const Key('display-name')));
-      await tester.pumpAndSettle();
-      await tester.enterText(
-        find.byKey(const Key('display-name-field')),
-        'ばんざい',
-      );
-      await tester.tap(find.byKey(const Key('display-name-save')));
-      await tester.pumpAndSettle();
-      expect(find.text('ばんざい'), findsOneWidget);
+      expect(find.byType(ProfileScreen), findsOneWidget);
     });
 
     testWidgets('ログインが無い時はプロフィールの項目を出さない', (tester) async {

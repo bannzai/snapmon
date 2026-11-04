@@ -226,9 +226,13 @@ class SettingsScreen extends StatelessWidget {
         // 「データを引き継ぐ」で別のアカウントに切り替わると uid が変わるため、uid ごとに作り直して表示名を読み直す
         // (前の uid のプロフィールを出したまま保存させないため)
         ListenableBuilder(
-          listenable: accountStore.sessionStore,
+          listenable: Listenable.merge([
+            accountStore,
+            accountStore.sessionStore,
+          ]),
           builder: (context, _) => _ProfileTile(
             key: ValueKey(accountStore.sessionStore.uid),
+            isAccountWorking: accountStore.isWorking,
             pvpClient: pvpClient,
             monsterGenerator: monsterGenerator,
           ),
@@ -324,9 +328,13 @@ class SettingsScreen extends StatelessWidget {
 class _ProfileTile extends StatefulWidget {
   const _ProfileTile({
     required super.key,
+    required this.isAccountWorking,
     required this.pvpClient,
     required this.monsterGenerator,
   });
+
+  /// アカウントの連携・切り替え・削除の途中か。途中は押せなくする (切り替わった後も前の uid の値を持つプロフィール画面を開かせないため)。
+  final bool isAccountWorking;
 
   /// プロフィールの読み込みと保存。
   final PvpClient pvpClient;
@@ -380,12 +388,10 @@ class _ProfileTileState extends State<_ProfileTile> {
     }
   }
 
-  /// プロフィール画面で保存できた [profile] を項目に出す。アカウントの切り替えでこの項目が作り直された後は何もしない (切り替えの間に開いた画面は残るため、ここが呼ばれ得る)。
+  /// プロフィール画面で保存できた [profile] を項目に出す。
   void _applySavedProfile({required PlayerProfile profile}) {
-    if (mounted) {
-      _profileRevision++;
-      setState(() => _profile = profile);
-    }
+    _profileRevision++;
+    setState(() => _profile = profile);
   }
 
   /// [profile] から始めるプロフィール画面を開き、閉じたら読み直す。保存できた値は読み直しを待たずに出す。
@@ -418,6 +424,7 @@ class _ProfileTileState extends State<_ProfileTile> {
         _SectionTitle(title: context.l10n.settingsProfileSection),
         ListTile(
           key: const Key('profile'),
+          enabled: !widget.isAccountWorking,
           leading: profile == null
               ? const Icon(Icons.badge_outlined)
               // 32: ListTile の leading に置く他の項目のアイコン (24) の枠に近い大きさで、アイコンの写真を見分けられるため
