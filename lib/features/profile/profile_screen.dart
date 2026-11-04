@@ -8,12 +8,13 @@ import '../../widgets/trainer_icon.dart';
 import '../opponent/pvp_client.dart';
 
 /// プロフィール画面。対戦の相手と対戦画面に出るアイコン (端末の写真から選ぶ) と表示名を変える。設定の「プロフィール」から開く。
-/// 画面を開く前に読んだ [initialProfile] から始め、変えた値は画面に残す (閉じた後は開いた側がサーバーから読み直す)。
+/// 画面を開く前に読んだ [initialProfile] から始め、保存できた値は画面に残して [onProfileChanged] で開いた側へ渡す。
 class ProfileScreen extends StatefulWidget {
   /// プロフィール画面を作る。
   const ProfileScreen({
     super.key,
     required this.initialProfile,
+    required this.onProfileChanged,
     required this.pvpClient,
     required this.pickPhoto,
     required this.preparePhoto,
@@ -21,6 +22,9 @@ class ProfileScreen extends StatefulWidget {
 
   /// 開いた時の表示名とアイコン。
   final PlayerProfile initialProfile;
+
+  /// 表示名かアイコンを保存できるたびに、保存後の表示名とアイコンを受け取る。
+  final void Function({required PlayerProfile profile}) onProfileChanged;
 
   /// 表示名とアイコンの保存。
   final PvpClient pvpClient;
@@ -52,6 +56,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
     ..hideCurrentSnackBar()
     ..showSnackBar(SnackBar(content: Text(message)));
 
+  /// 保存できた [profile] を画面に出し、開いた側へ渡す。
+  void _applySavedProfile({required PlayerProfile profile}) {
+    setState(() {
+      _displayName = profile.displayName;
+      _iconPath = profile.iconPath;
+    });
+    widget.onProfileChanged(profile: profile);
+  }
+
   /// 写真を選んでもらい、アイコンにする。検査で断られた時と失敗した時は、その理由をそのまま出す。
   Future<void> _changeIcon() async {
     setState(() => _isUpdatingIcon = true);
@@ -64,7 +77,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         photo: await widget.preparePhoto(sourceBytes: sourceBytes),
       );
       if (mounted) {
-        setState(() => _iconPath = iconPath);
+        _applySavedProfile(
+          profile: (displayName: _displayName, iconPath: iconPath),
+        );
         _showMessage(message: context.l10n.profileIconUpdated);
       }
     } catch (error) {
@@ -90,12 +105,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     );
     if (savedDisplayName != null && mounted) {
-      setState(() => _displayName = savedDisplayName);
+      _applySavedProfile(
+        profile: (displayName: savedDisplayName, iconPath: _iconPath),
+      );
     }
   }
 
   @override
-  // アイコンを保存し終えるまでは戻らせない (閉じた後に保存が終わると、開いた側が古いアイコンを読み直したままになるため)
+  // アイコンを保存し終えるまでは戻らせない (閉じた後に保存が終わると、保存できたアイコンを開いた側へ渡せないため)
   Widget build(BuildContext context) => PopScope(
     canPop: !_isUpdatingIcon,
     child: Scaffold(

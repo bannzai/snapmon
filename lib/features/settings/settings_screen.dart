@@ -226,9 +226,13 @@ class SettingsScreen extends StatelessWidget {
         // 「データを引き継ぐ」で別のアカウントに切り替わると uid が変わるため、uid ごとに作り直して表示名を読み直す
         // (前の uid のプロフィールを出したまま保存させないため)
         ListenableBuilder(
-          listenable: accountStore.sessionStore,
+          listenable: Listenable.merge([
+            accountStore,
+            accountStore.sessionStore,
+          ]),
           builder: (context, _) => _ProfileTile(
             key: ValueKey(accountStore.sessionStore.uid),
+            isAccountWorking: accountStore.isWorking,
             pvpClient: pvpClient,
             monsterGenerator: monsterGenerator,
           ),
@@ -320,13 +324,17 @@ class SettingsScreen extends StatelessWidget {
 }
 
 /// プロフィールの節。表示名とアイコンはサーバー (Functions の getDisplayName) が返した値を出し、押すとプロフィール画面を開く。
-/// プロフィール画面を閉じたら読み直す (変えた値を出すため)。ログインが無い時 (DEBUG ビルドでログインを飛ばした時) は値が無いため節を出さない。
+/// プロフィール画面で保存できた値はその場で出し、閉じたら読み直す (読み直しに失敗しても保存できた値を出し続けるため、エラーは出さない)。ログインが無い時 (DEBUG ビルドでログインを飛ばした時) は値が無いため節を出さない。
 class _ProfileTile extends StatefulWidget {
   const _ProfileTile({
     required super.key,
+    required this.isAccountWorking,
     required this.pvpClient,
     required this.monsterGenerator,
   });
+
+  /// アカウントの連携・切り替え・削除の途中か。途中は押せなくする (切り替わった後も前の uid の値を持つプロフィール画面を開かせないため)。
+  final bool isAccountWorking;
 
   /// プロフィールの読み込みと保存。
   final PvpClient pvpClient;
@@ -349,17 +357,21 @@ class _ProfileTileState extends State<_ProfileTile> {
   /// 最初の読み込みが終わる前か。
   bool _isLoading = true;
 
+  /// 読み込みを始めるか保存できた値を受け取るたびに増える番号。読み込みの結果は、始めた時の番号のままの時だけ反映する (遅れて返った古い読み込みで、保存できた値や新しい読み込みの結果を戻さないため)。
+  int _profileRevision = 0;
+
   @override
   void initState() {
     super.initState();
     unawaited(_load());
   }
 
-  /// 自分のプロフィールを読み、読めた値か失敗を画面に出す。
+  /// 自分のプロフィールを読み、読めた値か失敗を画面に出す。結果が返るまでに新しい読み込みか保存があった時は何も変えない。
   Future<void> _load() async {
+    final loadRevision = ++_profileRevision;
     try {
       final profile = await widget.pvpClient.fetchProfile();
-      if (mounted) {
+      if (mounted && loadRevision == _profileRevision) {
         setState(() {
           _profile = profile;
           _loadError = null;
@@ -367,7 +379,7 @@ class _ProfileTileState extends State<_ProfileTile> {
         });
       }
     } catch (error) {
-      if (mounted) {
+      if (mounted && loadRevision == _profileRevision) {
         setState(() {
           _loadError = error;
           _isLoading = false;
@@ -376,12 +388,19 @@ class _ProfileTileState extends State<_ProfileTile> {
     }
   }
 
-  /// [profile] から始めるプロフィール画面を開き、閉じたら変えた値を出すために読み直す。
+  /// プロフィール画面で保存できた [profile] を項目に出す。
+  void _applySavedProfile({required PlayerProfile profile}) {
+    _profileRevision++;
+    setState(() => _profile = profile);
+  }
+
+  /// [profile] から始めるプロフィール画面を開き、閉じたら読み直す。保存できた値は読み直しを待たずに出す。
   Future<void> _open({required PlayerProfile profile}) async {
     await Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (context) => ProfileScreen(
           initialProfile: profile,
+          onProfileChanged: _applySavedProfile,
           pvpClient: widget.pvpClient,
           pickPhoto: widget.monsterGenerator.pickAlbumPhoto,
           preparePhoto: widget.monsterGenerator.preparePhoto,
@@ -405,6 +424,7 @@ class _ProfileTileState extends State<_ProfileTile> {
         _SectionTitle(title: context.l10n.settingsProfileSection),
         ListTile(
           key: const Key('profile'),
+          enabled: !widget.isAccountWorking,
           leading: profile == null
               ? const Icon(Icons.badge_outlined)
               // 32: ListTile の leading に置く他の項目のアイコン (24) の枠に近い大きさで、アイコンの写真を見分けられるため
