@@ -919,6 +919,49 @@ void main() {
       );
     });
 
+    testWidgets('もう一度試した後に前の準備のプロフィールの失敗が届いても、読めたプロフィールをバトルの画面に渡す', (
+      tester,
+    ) async {
+      final staleProfileReply = Completer<PlayerProfile?>();
+      var fetchProfileCount = 0;
+      var refreshDefinitionsCount = 0;
+      dexStore.connectServer(
+        savePartyMonsterIds: ({required monsterIds}) async {},
+        refreshDefinitions: () async {
+          refreshDefinitionsCount += 1;
+          if (refreshDefinitionsCount == 1) {
+            throw Exception('master-unavailable');
+          }
+        },
+      );
+      await pumpGenerationScreen(
+        tester: tester,
+        startsFirstBattle: true,
+        pvpClient: pvpClientFetchingProfile(
+          fetchProfile: () {
+            fetchProfileCount += 1;
+            return fetchProfileCount == 1
+                ? staleProfileReply.future
+                : Future.value((displayName: 'ばんざい', iconPath: null));
+          },
+        ),
+        generator: savedM1Generator(),
+      );
+      await pumpUntilResult(tester: tester);
+      await tester.tap(find.text('もう一度試す'));
+      await pumpUntilResult(tester: tester);
+      expect(find.textContaining(RegExp(r'^CPU .+ があらわれた$')), findsOneWidget);
+
+      staleProfileReply.completeError(Exception('late'));
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 2));
+      await tester.pump(const Duration(seconds: 1));
+      expect(
+        tester.widget<BattleScreen>(find.byType(BattleScreen)).playerProfile,
+        (displayName: 'ばんざい', iconPath: null),
+      );
+    });
+
     testWidgets('相手を決められない時はプロフィールの応答を待たずに元の例外の文言をそのまま出す', (tester) async {
       final profileReply = Completer<PlayerProfile?>();
       dexStore.connectServer(
