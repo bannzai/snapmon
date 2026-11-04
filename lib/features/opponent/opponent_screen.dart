@@ -498,7 +498,7 @@ class _OpponentCard extends StatelessWidget {
             children: [
               // 36: 対戦相手のカードの見出し (名前と手持ちの数の 2 行) と同じ高さで、見出しの左に並べるため
               TrainerIcon(displayName: title, iconPath: null, dimension: 36),
-              // 10: モック (documents/design/mock-2026-10-21/Dex.dc.html の手持ちの格子) の要素の間隔に揃える
+              // 10: モック (documents/design/mock-2026-10-21/Pvp.dc.html の CPU トレーナーの行) のアイコンと見出しの間隔に揃える
               const SizedBox(width: 10),
               Expanded(
                 child: Column(
@@ -592,7 +592,7 @@ class _MonsterChip extends StatelessWidget {
                 ),
               ),
             ),
-            // 8: モック (documents/design/mock-2026-10-21/Dex.dc.html の撮るボタン) の印と文字の間隔に揃える
+            // 8: モック (documents/design/mock-2026-10-21/Pvp.dc.html の手持ちの札) の絵と文字の間隔に揃える
             const SizedBox(width: 8),
             Flexible(
               child: Text(

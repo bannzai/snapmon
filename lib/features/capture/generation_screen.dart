@@ -373,7 +373,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
         throw StateError('${monster.definition.name} を手持ちに入れられませんでした');
       }
       // 相手を決める間に並べて読む。レコードの .wait は例外を ParallelWaitError に包み、画面に出す文言が変わるため、
-      // 元の例外をそのまま投げる Future.wait を使う
+      // 元の例外をそのまま投げる Future.wait を使う。eagerError: 札にだけ使うプロフィールの応答を待たずにエラーを出すため
       await Future.wait<void>([
         _loadPlayerProfile(),
         prepareFirstBattleOpponent(
@@ -382,7 +382,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
           sampleData: widget.sampleData,
           randomSeed: _firstBattleRandomSeed,
         ).then((opponent) => _firstBattleOpponent = opponent),
-      ]);
+      ], eagerError: true);
       if (!mounted) {
         return;
       }

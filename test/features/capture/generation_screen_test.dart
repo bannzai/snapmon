@@ -919,7 +919,8 @@ void main() {
       );
     });
 
-    testWidgets('相手を決められない時は元の例外の文言をそのまま出す', (tester) async {
+    testWidgets('相手を決められない時はプロフィールの応答を待たずに元の例外の文言をそのまま出す', (tester) async {
+      final profileReply = Completer<PlayerProfile?>();
       dexStore.connectServer(
         savePartyMonsterIds: ({required monsterIds}) async {},
         refreshDefinitions: () async => throw Exception('master-unavailable'),
@@ -927,6 +928,9 @@ void main() {
       await pumpGenerationScreen(
         tester: tester,
         startsFirstBattle: true,
+        pvpClient: pvpClientFetchingProfile(
+          fetchProfile: () => profileReply.future,
+        ),
         generator: savedM1Generator(),
       );
       await pumpUntilResult(tester: tester);

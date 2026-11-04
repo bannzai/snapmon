@@ -81,7 +81,7 @@ class TrainerLabel extends StatelessWidget {
     children: [
       // 28: 札の名前の文字 (SnapmonTextStyles.label) の 1 行より少し高く、名前の横で印の 1 文字を読める大きさ
       TrainerIcon(displayName: displayName, iconPath: iconPath, dimension: 28),
-      // 8: モック (documents/design/mock-2026-10-21/Dex.dc.html の撮るボタン) の印と文字の間隔に揃える
+      // 8: モック (documents/design/mock-2026-10-21/Pvp.dc.html の手持ちの札) の一辺 28 の印と文字の間隔に揃える
       const SizedBox(width: 8),
       Flexible(
         child: Text(
