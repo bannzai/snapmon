@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flame/components.dart';
@@ -459,6 +460,41 @@ void main() {
       },
     );
 
+    testWithGame<BattleFieldGame>(
+      'JSON は読めて PNG を decode できないシートは、未処理のエラーを出さずキャッシュにも残さずパーティクルのままにする',
+      createGame,
+      (game) async {
+        // testWithGame は binding を初期化せず、画像の decode に要るため
+        TestWidgetsFlutterBinding.ensureInitialized();
+        await loadMoveEffectSpriteSheets(
+          game: game,
+          spriteSheetsByEffectId: const {
+            'water_particle': (
+              assetName: 'broken-png',
+              visibleCenterAnchor: Anchor.center,
+            ),
+          },
+          assetBundle: _BrokenPngAssetBundle(),
+        );
+        expect(game.images.containsKey('move_effects/broken-png.png'), isFalse);
+        game.hit(
+          defenderSide: BattleSideId.opponent,
+          effect: const MoveEffect(
+            id: 'water_particle',
+            displayName: '水のパーティクル',
+            kind: 'particle',
+            colorHex: '#2196F3',
+          ),
+        );
+        await game.ready();
+        expect(game.children.whereType<SpriteAnimationComponent>(), isEmpty);
+        expect(
+          game.children.whereType<ParticleSystemComponent>(),
+          hasLength(1),
+        );
+      },
+    );
+
     test('同梱の素材は MIT の許諾文と由来の記載を持つ', () async {
       TestWidgetsFlutterBinding.ensureInitialized();
       expect(
@@ -593,6 +629,18 @@ void main() {
 }
 
 /// 受け取った描画の呼び出しを [invocations] に残す Canvas。部品がどちらの描き方 (画像・仮の絵) をしたかを確かめるため。
+/// JSON は正しく読めて、PNG は画像として decode できない中身を返すアセットの読み先。
+class _BrokenPngAssetBundle extends CachingAssetBundle {
+  @override
+  Future<ByteData> load(String key) async => ByteData.sublistView(
+    utf8.encode(
+      key.endsWith('.json')
+          ? '{"meta":{"pixelfx":{"frames":1,"frameSize":[1,1],"columns":1}}}'
+          : 'not a png',
+    ),
+  );
+}
+
 class _RecordingCanvas implements Canvas {
   /// 受け取った呼び出し (呼ばれた順)。
   final List<Invocation> invocations = [];

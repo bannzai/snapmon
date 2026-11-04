@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:ui';
 
 import 'package:flame/components.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/painting.dart' show decodeImageFromList;
 import 'package:flutter/services.dart';
 
 import 'battle_field_game.dart';
@@ -35,7 +37,7 @@ const Map<String, MoveEffectSpriteSheet> moveEffectSpriteSheetsByEffectId = {
 
 /// [spriteSheetsByEffectId] のシートを読み、[game] がエフェクトを描けるようにする。
 /// 読めないシートはログに残して飛ばし、そのエフェクトはパーティクルのままにする (絵のためにバトルを止めないため)。
-/// 画像は Flame の全体のキャッシュ ([BattleFieldGame.images]) に残り、次のバトルでは読み直さない。
+/// 読めた画像は Flame の全体のキャッシュ ([BattleFieldGame.images]) に残り、次のバトルでは読み直さない。読めなかった画像は残さず、次のバトルで読み直す。
 Future<void> loadMoveEffectSpriteSheets({
   required BattleFieldGame game,
   required Map<String, MoveEffectSpriteSheet> spriteSheetsByEffectId,
@@ -45,8 +47,6 @@ Future<void> loadMoveEffectSpriteSheets({
       in spriteSheetsByEffectId.entries)
     () async {
       try {
-        // JSON を先に読む (引数は書いた順に評価される)。Flame の images.load は読めない画像のエラーを catch できても
-        // 内部の then からゾーンの未処理のエラーとしても報告するため、JSON ごと無いシートでは呼ばない
         game.applyMoveEffectSpriteSheet(
           effectId: effectId,
           spriteSheetJson:
@@ -56,8 +56,10 @@ Future<void> loadMoveEffectSpriteSheets({
                     ),
                   )
                   as Map<String, dynamic>,
-          spriteSheetImage: await game.images.load(
-            'move_effects/${spriteSheet.assetName}.png',
+          spriteSheetImage: await _loadSpriteSheetImage(
+            game: game,
+            assetName: spriteSheet.assetName,
+            assetBundle: assetBundle,
           ),
           visibleCenterAnchor: spriteSheet.visibleCenterAnchor,
         );
@@ -66,3 +68,29 @@ Future<void> loadMoveEffectSpriteSheets({
       }
     }(),
 ]);
+
+/// `assets/images/move_effects/[assetName].png` の画像を返す。キャッシュに無ければ [assetBundle] から読んでキャッシュに足す。
+/// 読み込みか decode に失敗すると throw し、キャッシュには何も足さない。
+/// Flame の images.load を使わないのは、失敗した読み込みをキャッシュに残し、catch してもゾーンの未処理のエラーとしても報告するため。
+Future<Image> _loadSpriteSheetImage({
+  required BattleFieldGame game,
+  required String assetName,
+  required AssetBundle assetBundle,
+}) async {
+  final cacheKey = 'move_effects/$assetName.png';
+  if (game.images.containsKey(cacheKey)) {
+    return game.images.fromCache(cacheKey);
+  }
+  final image = await decodeImageFromList(
+    (await assetBundle.load(
+      'assets/images/move_effects/$assetName.png',
+    )).buffer.asUint8List(),
+  );
+  // decode の間に別のバトルの読み込みが同じ画像を足していたら、そちらを使う (add は前の画像を dispose し、使っている画像が壊れるため)
+  if (game.images.containsKey(cacheKey)) {
+    image.dispose();
+    return game.images.fromCache(cacheKey);
+  }
+  game.images.add(cacheKey, image);
+  return image;
+}
