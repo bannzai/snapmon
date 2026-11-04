@@ -345,7 +345,7 @@ void main() {
           -1,
         );
 
-        // 低い画面の配置: 相手が左、自分が右
+        // 低くて幅の狭い画面の配置: 相手が左、自分が右
         game.onGameResize(Vector2(600, 103));
         game.updateMonsterArtArea(area: const Rect.fromLTRB(218, 16, 382, 102));
         expect(
@@ -355,6 +355,20 @@ void main() {
         expect(
           await horizontalScaleOfNewEffect(defenderSide: BattleSideId.player),
           1,
+        );
+
+        // 左右配置のバトル: 自分が左、相手が右
+        game.updateMonsterArtArea(
+          area: const Rect.fromLTRB(16, 16, 500, 102),
+          placesPlayerOnLeft: true,
+        );
+        expect(
+          await horizontalScaleOfNewEffect(defenderSide: BattleSideId.opponent),
+          1,
+        );
+        expect(
+          await horizontalScaleOfNewEffect(defenderSide: BattleSideId.player),
+          -1,
         );
       },
     );

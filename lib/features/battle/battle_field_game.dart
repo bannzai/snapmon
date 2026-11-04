@@ -226,7 +226,7 @@ class BattleFieldGame extends FlameGame {
               (defender.size.x *
                   _moveEffectFrameWidthPerMonsterSize /
                   frameSize.x),
-          // 素材は左から右へ向かって描かれている。低い画面では相手と自分の左右が入れ替わるため、陣営ではなく画面の位置で向きを決める
+          // 素材は左から右へ向かって描かれている。低くて幅の狭い画面では相手と自分の左右が入れ替わるため、陣営ではなく画面の位置で向きを決める
           scale: Vector2(
             monsterComponentOf(side: _otherSide(side: defenderSide)).center.x >
                     defender.center.x
