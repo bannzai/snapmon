@@ -113,7 +113,7 @@ Future<({int wins, int losses})?> fetchBattleRecordWithFirebase() async {
 
 /// Functions の getDisplayName を呼び、自分の表示名とアイコンを返す。ログインが無い時は呼ばずに null を返す。
 /// iconPath を返さない古い Functions (アイコンを足す前の版) の応答は、アイコンの無いプロフィールとして読む。
-Future<TrainerProfile?> fetchProfileWithFirebase() async {
+Future<PlayerProfile?> fetchProfileWithFirebase() async {
   if (_signedInUid() == null) {
     return null;
   }

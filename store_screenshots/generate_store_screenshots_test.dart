@@ -244,10 +244,7 @@ Future<void> _writeScreenshot({
           firstBattleMonsterIsNewlyBorn: false,
           // 対戦タブ (_homeShell) の表示名と同じにする
           playerProfile: (displayName: 'snap', iconPath: null),
-          opponentProfile: (
-            displayName: sampleData.cpuTrainers.first.name,
-            iconPath: null,
-          ),
+          opponentDisplayName: sampleData.cpuTrainers.first.name,
         ),
         StoreScreenshotPage.opponent => _homeShell(
           sampleData: sampleData,

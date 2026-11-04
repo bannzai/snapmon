@@ -162,7 +162,10 @@ class _GenerationScreenState extends State<GenerationScreen> {
   FirstBattleOpponent? _firstBattleOpponent;
 
   /// 初回のバトルの画面に出す自分のアイコンと表示名。読む前・ログインが無い時・読めなかった時は null で、バトルの画面に出さない。
-  TrainerProfile? _playerProfile;
+  PlayerProfile? _playerProfile;
+
+  /// 最新の初回のバトルの準備の番号。「もう一度試す」の前の準備のプロフィールが後から届いても反映しないために照合する。
+  int _latestFirstBattlePreparationNumber = 0;
 
   /// 初回のバトルの画面を開いたか (「○○ があらわれた」の演出の終わりで 1 回だけ開くため)。
   bool _hasOpenedFirstBattle = false;
@@ -361,6 +364,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
   /// 初回の導線で [monster] を手持ちに入れ、対戦相手を決めて「○○ があらわれた」を出す。
   /// 例外の後の「もう一度試す」もここからやり直す (生成は済んでいるため呼び直さない)。
   Future<void> _prepareFirstBattle({required OwnedMonster monster}) async {
+    _latestFirstBattlePreparationNumber += 1;
     setState(() {
       _firstBattleMonster = monster;
       _phase = _GenerationPhase.inProgress;
@@ -372,32 +376,24 @@ class _GenerationScreenState extends State<GenerationScreen> {
       if (!widget.dexStore.isInParty(monsterId: monster.definition.id)) {
         throw StateError('${monster.definition.name} を手持ちに入れられませんでした');
       }
-      // プロフィールはバトルの画面の札にだけ使うため、読めなくてもバトルに進む。相手を決める間に並べて読む
-      final playerProfileFuture = widget.pvpClient
-          .fetchProfile()
-          .then<TrainerProfile?>(
-            (profile) => profile,
-            onError: (Object error) {
-              debugPrint('プロフィールを読めませんでした: $error');
-              return null;
-            },
-          );
-      final opponent = await prepareFirstBattleOpponent(
-        dexStore: widget.dexStore,
-        pvpClient: widget.pvpClient,
-        sampleData: widget.sampleData,
-        randomSeed: _firstBattleRandomSeed,
-      );
-      final playerProfile = await playerProfileFuture;
+      // 相手を決める間に並べて読む。レコードの .wait は例外を ParallelWaitError に包み、画面に出す文言が変わるため、
+      // 元の例外をそのまま投げる Future.wait を使う。eagerError: 札にだけ使うプロフィールの応答を待たずにエラーを出すため
+      await Future.wait<void>([
+        _loadPlayerProfile(
+          preparationNumber: _latestFirstBattlePreparationNumber,
+        ),
+        prepareFirstBattleOpponent(
+          dexStore: widget.dexStore,
+          pvpClient: widget.pvpClient,
+          sampleData: widget.sampleData,
+          randomSeed: _firstBattleRandomSeed,
+        ).then((opponent) => _firstBattleOpponent = opponent),
+      ], eagerError: true);
       if (!mounted) {
         return;
       }
       _logFirstExperience(step: FirstExperienceStep.matchmaking);
-      setState(() {
-        _firstBattleOpponent = opponent;
-        _playerProfile = playerProfile;
-        _phase = _GenerationPhase.opponentFound;
-      });
+      setState(() => _phase = _GenerationPhase.opponentFound);
       _openFirstBattleTimer?.cancel();
       _openFirstBattleTimer = Timer(_opponentRevealDuration, _openFirstBattle);
     } catch (error) {
@@ -407,6 +403,20 @@ class _GenerationScreenState extends State<GenerationScreen> {
           _error = error;
         });
       }
+    }
+  }
+
+  /// 自分のプロフィールを読んで [_playerProfile] に置く。バトルの画面の札にだけ使うため、読めない時は例外を投げずに null を置く
+  /// (バトルは止めない)。[preparationNumber] が最新の準備でなくなった後に届いた結果は置かない。
+  Future<void> _loadPlayerProfile({required int preparationNumber}) async {
+    PlayerProfile? playerProfile;
+    try {
+      playerProfile = await widget.pvpClient.fetchProfile();
+    } catch (error) {
+      debugPrint('プロフィールを読めませんでした: $error');
+    }
+    if (preparationNumber == _latestFirstBattlePreparationNumber) {
+      _playerProfile = playerProfile;
     }
   }
 
@@ -442,7 +452,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
           firstBattleMonsterIsNewlyBorn:
               monster.definition.id != _alreadyInDexMonster?.definition.id,
           playerProfile: _playerProfile,
-          opponentProfile: (displayName: opponent.opponentName, iconPath: null),
+          opponentDisplayName: opponent.opponentName,
         ),
       ),
     );

@@ -124,15 +124,15 @@ class BattleScreen extends StatefulWidget {
     required this.firstBattleBornMonster,
     required this.firstBattleMonsterIsNewlyBorn,
     required this.playerProfile,
-    required this.opponentProfile,
+    required this.opponentDisplayName,
   });
 
   /// 自分のアイコンと表示名。相手の情報カードと向かい合う自分の情報カードの上に出す。
   /// ログインが無い時 (DEBUG ビルドでログインを飛ばした時) と読めなかった時は null で、出さない (バトルは止めない)。
-  final TrainerProfile? playerProfile;
+  final PlayerProfile? playerProfile;
 
-  /// 相手のアイコンと表示名。相手の情報カードの上に出す。CPU トレーナーはアイコンが無く、既定の印を描く。
-  final TrainerProfile opponentProfile;
+  /// 相手の表示名。相手の情報カードの上に出す。相手は CPU トレーナーだけでアイコンが無く、既定の印を描く。
+  final String opponentDisplayName;
 
   /// [firstBattleBornMonster] がこの導線で新しく生まれたか。同じ被写体でもう図鑑にいたモンスターで戦う時は false で、
   /// 勝敗の画面のカードに「あたらしい なかま」と出さない。初回の導線以外の対戦では使わない。
@@ -1030,7 +1030,8 @@ class _BattleScreenState extends State<BattleScreen>
             key: _opponentTrainerLabelKey,
             child: _TrainerLabelPlate(
               key: const Key('battle-opponent-trainer'),
-              profile: widget.opponentProfile,
+              displayName: widget.opponentDisplayName,
+              iconPath: null,
             ),
           ),
         ),
@@ -1061,7 +1062,8 @@ class _BattleScreenState extends State<BattleScreen>
                 when showsTrainerLabels) ...[
               _TrainerLabelPlate(
                 key: const Key('battle-player-trainer'),
-                profile: playerProfile,
+                displayName: playerProfile.displayName,
+                iconPath: playerProfile.iconPath,
               ),
               const SizedBox(height: _trainerLabelGap),
             ],
@@ -1426,10 +1428,17 @@ class _BornMonsterCard extends StatelessWidget {
 
 /// フィールドの上に重ねるトレーナーの札 ([TrainerLabel])。フィールドの絵の上でも読めるよう、ログの帯と同じ暗い地に置く。
 class _TrainerLabelPlate extends StatelessWidget {
-  const _TrainerLabelPlate({required super.key, required this.profile});
+  const _TrainerLabelPlate({
+    required super.key,
+    required this.displayName,
+    required this.iconPath,
+  });
 
-  /// 札に出すトレーナー。
-  final TrainerProfile profile;
+  /// 札に出すトレーナーの表示名。
+  final String displayName;
+
+  /// 札に出すトレーナーのアイコンの Storage のパス。登録していない時は null。
+  final String? iconPath;
 
   @override
   Widget build(BuildContext context) => DecoratedBox(
@@ -1446,7 +1455,7 @@ class _TrainerLabelPlate extends StatelessWidget {
         constraints: BoxConstraints(
           maxWidth: MediaQuery.sizeOf(context).width / 2,
         ),
-        child: TrainerLabel(profile: profile),
+        child: TrainerLabel(displayName: displayName, iconPath: iconPath),
       ),
     ),
   );

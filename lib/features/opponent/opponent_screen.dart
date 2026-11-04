@@ -88,7 +88,7 @@ class _OpponentScreenState extends State<OpponentScreen> {
   /// 自分のアイコンと表示名。最初の読み込みの途中・ログインが無い時・読めなかった時は null で、自分の札を出さない
   /// (読めなくても挑めるようにするため。読めなかった理由はプロフィール画面の入口 (設定) に出る)。
   /// 読み直しの途中は前の値のままで、結果が届いた時に置き換える (設定を閉じるたびに札が消えて戦績の行が動かないように)。
-  TrainerProfile? _playerProfile;
+  PlayerProfile? _playerProfile;
 
   /// 最後に始めたプロフィールの読み込みの番号。前の読み込みの結果が後から届いても反映しないために持つ。
   int _latestPlayerProfileLoadNumber = 0;
@@ -226,7 +226,7 @@ class _OpponentScreenState extends State<OpponentScreen> {
           firstBattleBornMonster: null,
           firstBattleMonsterIsNewlyBorn: false,
           playerProfile: _playerProfile,
-          opponentProfile: (displayName: cpuTrainer.name, iconPath: null),
+          opponentDisplayName: cpuTrainer.name,
         ),
       ),
     );
@@ -335,7 +335,8 @@ class _OpponentScreenState extends State<OpponentScreen> {
                     if (_playerProfile case final playerProfile?)
                       TrainerLabel(
                         key: const Key('opponent-tab-player-trainer'),
-                        profile: playerProfile,
+                        displayName: playerProfile.displayName,
+                        iconPath: playerProfile.iconPath,
                       ),
                     if (_playerProfile != null &&
                         (battleRecord != null || _battleRecordError != null))
@@ -505,10 +506,8 @@ class _OpponentCard extends StatelessWidget {
           Row(
             children: [
               // 36: 対戦相手のカードの見出し (名前と手持ちの数の 2 行) と同じ高さで、見出しの左に並べるため
-              TrainerIcon(
-                profile: (displayName: title, iconPath: null),
-                dimension: 36,
-              ),
+              TrainerIcon(displayName: title, iconPath: null, dimension: 36),
+              // 10: モック (documents/design/mock-2026-10-21/Pvp.dc.html の CPU トレーナーの行) のアイコンと見出しの間隔に揃える
               const SizedBox(width: 10),
               Expanded(
                 child: Column(
@@ -602,6 +601,7 @@ class _MonsterChip extends StatelessWidget {
                 ),
               ),
             ),
+            // 8: モック (documents/design/mock-2026-10-21/Pvp.dc.html の手持ちの札) の絵と文字の間隔に揃える
             const SizedBox(width: 8),
             Flexible(
               child: Text(

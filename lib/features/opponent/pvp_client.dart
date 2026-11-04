@@ -4,9 +4,8 @@ import '../../domain/master/master_data.dart';
 import 'pvp_opponent.dart';
 import 'report_reason.dart';
 
-/// トレーナー (自分か対戦の相手) の見え方。自分の分は Functions の getDisplayName が返す形 (functions/src/pvp.ts) で、
-/// CPU トレーナーは見本データの名前とアイコン無し (null) で作る。
-typedef TrainerProfile = ({
+/// 自分のプロフィール。Functions の getDisplayName の応答 (functions/src/pvp.ts) の形。
+typedef PlayerProfile = ({
   /// 表示名。
   String displayName,
 
@@ -55,7 +54,7 @@ class PvpClient {
   final Future<({int wins, int losses})?> Function() fetchBattleRecord;
 
   /// 自分の表示名とアイコンを返す。ログインが無い時は null。
-  final Future<TrainerProfile?> Function() fetchProfile;
+  final Future<PlayerProfile?> Function() fetchProfile;
 
   /// 自分の表示名を [displayName] に変え、保存した名前を返す。使えない名前の時は Functions の理由を例外で投げる。
   final Future<String> Function({required String displayName})

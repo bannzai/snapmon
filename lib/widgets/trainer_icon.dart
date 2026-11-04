@@ -1,35 +1,38 @@
 import 'package:flutter/material.dart';
 
-import '../features/opponent/pvp_client.dart';
 import '../theme/snapmon_colors.dart';
 import '../theme/snapmon_text_styles.dart';
 import 'storage_image.dart';
 
-/// トレーナー [profile] のアイコンを一辺 [dimension] の角丸の正方形で描く。
+/// 表示名が [displayName] のトレーナーのアイコンを一辺 [dimension] の角丸の正方形で描く。
 /// アイコンを登録していない (CPU トレーナーを含む) 時と読む前・読めなかった時は、既定の印 (表示名の最初の 1 文字) を描く。
 class TrainerIcon extends StatelessWidget {
-  /// [profile] のアイコンを作る。
+  /// トレーナーのアイコンを作る。
   const TrainerIcon({
     super.key,
-    required this.profile,
+    required this.displayName,
+    required this.iconPath,
     required this.dimension,
   });
 
-  /// 描くトレーナー。
-  final TrainerProfile profile;
+  /// トレーナーの表示名。
+  final String displayName;
+
+  /// 検査を通したアイコンの Storage のパス。登録していない時は null。
+  final String? iconPath;
 
   /// 一辺の論理 px。
   final double dimension;
 
   @override
   Widget build(BuildContext context) {
-    final iconPath = profile.iconPath;
+    final iconPath = this.iconPath;
     final defaultMark = ColoredBox(
       color: SnapmonColors.artBackground,
       child: Center(
         child: Text(
           // 表示名は Functions が必ず決めて返す (設定していなければ「トレーナー」+ 4 桁) が、空の名前を受け取っても落ちないよう、印を描かずに地だけ出す
-          profile.displayName.characters.firstOrNull ?? '',
+          displayName.characters.firstOrNull ?? '',
           // 印の文字は一辺の半分の大きさにし、どの大きさのアイコンでも枠に対して同じ割合で見せる
           style: SnapmonTextStyles.cardTitle.copyWith(
             color: SnapmonColors.accent,
@@ -57,24 +60,32 @@ class TrainerIcon extends StatelessWidget {
   }
 }
 
-/// トレーナー [profile] のアイコンと表示名を横に並べた札。対戦タブと対戦画面で、戦うトレーナーを示す。
+/// トレーナーのアイコンと表示名を横に並べた札。対戦タブと対戦画面で、戦うトレーナーを示す。
 class TrainerLabel extends StatelessWidget {
-  /// [profile] の札を作る。
-  const TrainerLabel({super.key, required this.profile});
+  /// トレーナーの札を作る。
+  const TrainerLabel({
+    super.key,
+    required this.displayName,
+    required this.iconPath,
+  });
 
-  /// 示すトレーナー。
-  final TrainerProfile profile;
+  /// トレーナーの表示名。
+  final String displayName;
+
+  /// 検査を通したアイコンの Storage のパス。登録していない時は null。
+  final String? iconPath;
 
   @override
   Widget build(BuildContext context) => Row(
     mainAxisSize: MainAxisSize.min,
     children: [
       // 28: 札の名前の文字 (SnapmonTextStyles.label) の 1 行より少し高く、名前の横で印の 1 文字を読める大きさ
-      TrainerIcon(profile: profile, dimension: 28),
+      TrainerIcon(displayName: displayName, iconPath: iconPath, dimension: 28),
+      // 8: モック (documents/design/mock-2026-10-21/Pvp.dc.html の手持ちの札) の一辺 28 の印と文字の間隔に揃える
       const SizedBox(width: 8),
       Flexible(
         child: Text(
-          profile.displayName,
+          displayName,
           style: SnapmonTextStyles.label,
           overflow: TextOverflow.ellipsis,
         ),
