@@ -2064,6 +2064,122 @@ void main() {
       );
     });
 
+    testWidgets('保存の前に始めた読み直しが保存の後に返っても、保存した値を保存前の値に戻さない', (tester) async {
+      Completer<PlayerProfile>? heldFetchProfile;
+      var fetchProfileFails = false;
+      final base = fakePvpClient(
+        calls: pvpCalls,
+        fetchOpponents: () async => [],
+        extraDefinitions: null,
+        battleRecord: (wins: 0, losses: 0),
+        profile: (displayName: 'トレーナー 0042', iconPath: null),
+        reportMonster: () async {},
+        blockUser: () async {},
+        updateDisplayName: ({required displayName}) async => displayName,
+        updateIcon: ({required photo}) async => 'users/uid/icons/upload.png',
+      );
+      pvpClient = PvpClient(
+        fetchOpponents: base.fetchOpponents,
+        fetchDefinitions: base.fetchDefinitions,
+        reportMonster: base.reportMonster,
+        blockUser: base.blockUser,
+        fetchBattleRecord: base.fetchBattleRecord,
+        fetchProfile: () async {
+          if (fetchProfileFails) {
+            throw Exception('通信に失敗しました');
+          }
+          return heldFetchProfile?.future ?? base.fetchProfile();
+        },
+        updateDisplayName: base.updateDisplayName,
+        updateIcon: base.updateIcon,
+      );
+      await pumpHome(
+        tester: tester,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
+      );
+      await tester.tap(find.byTooltip('設定'));
+      await tester.pumpAndSettle();
+
+      final staleFetchProfile = Completer<PlayerProfile>();
+      heldFetchProfile = staleFetchProfile;
+      await tester.tap(find.byKey(const Key('profile')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byType(BackButton));
+      await tester.pumpAndSettle();
+      heldFetchProfile = null;
+
+      await tester.tap(find.byKey(const Key('profile')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('display-name')));
+      await tester.pumpAndSettle();
+      await tester.enterText(
+        find.byKey(const Key('display-name-field')),
+        'ばんざい',
+      );
+      await tester.tap(find.byKey(const Key('display-name-save')));
+      await tester.pumpAndSettle();
+      staleFetchProfile.complete((displayName: 'トレーナー 0042', iconPath: null));
+      await tester.pumpAndSettle();
+
+      fetchProfileFails = true;
+      await tester.tap(find.byType(BackButton));
+      await tester.pumpAndSettle();
+      expect(find.text('ばんざい'), findsOneWidget);
+      expect(find.text('トレーナー 0042'), findsNothing);
+    });
+
+    testWidgets('アカウントの切り替えの間に開いたプロフィール画面でも、切り替えの後に保存できる', (tester) async {
+      final linkedAccountSignIn = Completer<String>();
+      linkAccount = () async =>
+          () => linkedAccountSignIn.future;
+      pvpClient = fakePvpClient(
+        calls: pvpCalls,
+        fetchOpponents: () async => [],
+        extraDefinitions: null,
+        battleRecord: (wins: 0, losses: 0),
+        profile: (displayName: 'トレーナー 0042', iconPath: null),
+        reportMonster: () async {},
+        blockUser: () async {},
+        updateDisplayName: ({required displayName}) async => displayName,
+        updateIcon: ({required photo}) async => 'users/uid/icons/upload.png',
+      );
+      await pumpHome(
+        tester: tester,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
+      );
+      await tester.tap(find.byTooltip('設定'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('データを引き継ぐ'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('切り替える'));
+      // 1 秒: ダイアログと画面の遷移 (Material の既定で 300ms 前後) が終わる長さ。切り替えの待ちの表示が動いていても pumpAndSettle のように止まらないため固定の時間にする
+      await tester.pump(const Duration(seconds: 1));
+      await tester.tap(find.byKey(const Key('profile')));
+      await tester.pump(const Duration(seconds: 1));
+      linkedAccountSignIn.complete('uid-linked');
+      await tester.pumpAndSettle();
+      expect(sessionStore.uid, 'uid-linked');
+
+      await tester.tap(find.byKey(const Key('profile-change-icon')));
+      await tester.pumpAndSettle();
+      expect(find.text('アイコンを変えました'), findsOneWidget);
+      await tester.tap(find.byKey(const Key('display-name')));
+      await tester.pumpAndSettle();
+      await tester.enterText(
+        find.byKey(const Key('display-name-field')),
+        'ばんざい',
+      );
+      await tester.tap(find.byKey(const Key('display-name-save')));
+      await tester.pumpAndSettle();
+      expect(find.text('ばんざい'), findsOneWidget);
+    });
+
     testWidgets('ログインが無い時はプロフィールの項目を出さない', (tester) async {
       await pumpHome(
         tester: tester,
