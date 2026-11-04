@@ -174,11 +174,15 @@ class BattleScreen extends StatefulWidget {
   State<BattleScreen> createState() => _BattleScreenState();
 }
 
-class _BattleScreenState extends State<BattleScreen> {
+class _BattleScreenState extends State<BattleScreen>
+    with WidgetsBindingObserver {
   /// バトルの計算の最新の状態。演出の途中は画面に出ている状態より先に進んでいる。
   late BattleState _battleState;
 
   late final BattleFieldGame _game;
+
+  /// 回転でフィールドの親が変わっても、演出中のゲームの widget を維持する。
+  final GlobalKey _gameWidgetKey = GlobalKey();
 
   /// フィールドに重ねる相手の情報カード。高さを測り、自分のモンスターの絵がカードに隠れないようフィールドに渡す。
   final GlobalKey _opponentStatusCardKey = GlobalKey();
@@ -231,6 +235,7 @@ class _BattleScreenState extends State<BattleScreen> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     List<BattleMonster> prepare({required List<OwnedMonster> party}) => [
       for (final monster in party)
         prepareBattleMonster(
@@ -283,8 +288,15 @@ class _BattleScreenState extends State<BattleScreen> {
     _battleRecordStart.ignore();
   }
 
+  /// 幅の上限の内側では MediaQuery が変わらないリサイズでも、元のウィンドウで配置を判定し直す。
+  @override
+  void didChangeMetrics() {
+    setState(() {});
+  }
+
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     for (final artImage in _loadedArtImages) {
       artImage.dispose();
     }
@@ -649,6 +661,22 @@ class _BattleScreenState extends State<BattleScreen> {
               setState(() => _trainerLabelPlateMeasuredHeight = labelHeight);
             }
           });
+          // 短辺 600 以上はタブレット、長辺 1000 以上は広いウィンドウとして従来の配置を残す。
+          // 内容幅が 600 に制限されても区別できるよう元のウィンドウを見て、
+          // 実際の使用可能な幅が 560 (各欄 280) 未満なら、狭い画面の既存の配置に戻す。
+          final windowSize = MediaQueryData.fromView(View.of(context)).size;
+          if (windowSize.shortestSide < 600 &&
+              windowSize.longestSide < 1000 &&
+              bodyConstraints.maxWidth - safeAreaPadding.horizontal >= 560 &&
+              bodyConstraints.maxWidth - safeAreaPadding.horizontal >
+                  bodyConstraints.maxHeight - safeAreaPadding.vertical) {
+            return _buildLandscapeBattle(
+              context: context,
+              playerMonster: playerMonster,
+              opponentMonster: opponentMonster,
+              isFinished: isFinished,
+            );
+          }
           return Column(
             children: [
               Expanded(
@@ -776,26 +804,11 @@ class _BattleScreenState extends State<BattleScreen> {
                           child: SingleChildScrollView(
                             child: KeyedSubtree(
                               key: _commandsPanelContentKey,
-                              child: isFinished
-                                  ? _BattleResultPanel(
-                                      winner: _battleState.winner!,
-                                      appliedLevels: _appliedLevels,
-                                      playerParty: widget.playerParty,
-                                      recordStatusText: _recordStatusText?.call(
-                                        context.l10n,
-                                      ),
-                                      opponentParty: widget.opponentParty,
-                                      definitions: widget.definitions,
-                                      cardSharer: widget.cardSharer,
-                                      firstBattleBornMonster:
-                                          widget.firstBattleBornMonster,
-                                      firstBattleMonsterIsNewlyBorn:
-                                          widget.firstBattleMonsterIsNewlyBorn,
-                                    )
-                                  : _buildCommands(
-                                      context: context,
-                                      playerMonster: playerMonster,
-                                    ),
+                              child: _buildCommandsOrResult(
+                                context: context,
+                                playerMonster: playerMonster,
+                                isFinished: isFinished,
+                              ),
                             ),
                           ),
                         ),
@@ -810,6 +823,135 @@ class _BattleScreenState extends State<BattleScreen> {
       ),
     );
   }
+
+  /// 横向きスマホのフィールドと操作。カードの文字が大きい時はフィールドもスクロールし、絵とカードを重ねない。
+  Widget _buildLandscapeBattle({
+    required BuildContext context,
+    required BattleMonster playerMonster,
+    required BattleMonster opponentMonster,
+    required bool isFinished,
+  }) => SafeArea(
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              // 2 枚のカードと絵の帯を分ける。未計測の初回は 0 とし、既存の測定で次のフレームに高さを確定する。
+              final opponentCardHeight = _opponentStatusCardHeight ?? 0;
+              final playerCardHeight = _playerStatusCardHeight ?? 0;
+              // 120 は相手の絵を約 68px、自分を約 79px より小さくしないための高さ。
+              // 大きい文字でカードが伸びてもこの帯を残し、スクロールで両方のカードを読めるようにする。
+              final fieldHeight = math.max(
+                constraints.maxHeight,
+                opponentCardHeight + playerCardHeight + 120 + 32,
+              );
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                if (!mounted) {
+                  return;
+                }
+                _game.updateMonsterArtArea(
+                  area: Rect.fromLTRB(
+                    8,
+                    opponentCardHeight + 16,
+                    constraints.maxWidth - 8,
+                    fieldHeight - playerCardHeight - 16,
+                  ),
+                  placesPlayerOnLeft: true,
+                );
+              });
+              return SingleChildScrollView(
+                key: const Key('battle-landscape-field-scroll'),
+                child: SizedBox(
+                  height: fieldHeight,
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                        child: GameWidget(key: _gameWidgetKey, game: _game),
+                      ),
+                      Positioned(
+                        top: 8,
+                        right: 8,
+                        child: _MonsterStatusCard(
+                          key: _opponentStatusCardKey,
+                          monster: opponentMonster,
+                          definitions: widget.definitions,
+                          hitPointsColor: SnapmonColors.hitPointsLoss,
+                          showsHitPointsNumber: false,
+                          keepsEachRowOnOneLine: false,
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 8,
+                        left: 8,
+                        child: _MonsterStatusCard(
+                          key: _playerStatusCardKey,
+                          monster: playerMonster,
+                          definitions: widget.definitions,
+                          hitPointsColor: SnapmonColors.accent,
+                          showsHitPointsNumber: true,
+                          keepsEachRowOnOneLine: false,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+        Expanded(
+          child: Padding(
+            // 600px の内容幅を半分ずつ使い、ボタンの内側の余白と合わせて文字の幅を残す。
+            padding: const EdgeInsets.all(8),
+            child: Column(
+              children: [
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxHeight: MediaQuery.sizeOf(context).height * 0.3,
+                  ),
+                  child: SingleChildScrollView(
+                    key: const Key('battle-landscape-log-scroll'),
+                    child: _buildBattleLog(context: context),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Expanded(
+                  child: SingleChildScrollView(
+                    key: const Key('battle-landscape-commands-scroll'),
+                    child: _buildCommandsOrResult(
+                      context: context,
+                      playerMonster: playerMonster,
+                      isFinished: isFinished,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+
+  /// 決着前は技の選択、決着後は既存の勝敗・共有・初回バトルの案内を返す。
+  Widget _buildCommandsOrResult({
+    required BuildContext context,
+    required BattleMonster playerMonster,
+    required bool isFinished,
+  }) => isFinished
+      ? _BattleResultPanel(
+          winner: _battleState.winner!,
+          appliedLevels: _appliedLevels,
+          playerParty: widget.playerParty,
+          recordStatusText: _recordStatusText?.call(context.l10n),
+          opponentParty: widget.opponentParty,
+          definitions: widget.definitions,
+          cardSharer: widget.cardSharer,
+          firstBattleBornMonster: widget.firstBattleBornMonster,
+          firstBattleMonsterIsNewlyBorn: widget.firstBattleMonsterIsNewlyBorn,
+        )
+      : _buildCommands(context: context, playerMonster: playerMonster);
 
   /// ログの帯 (今のログの文言を出す暗い地の帯)。幅は親の幅いっぱいにする。
   Widget _buildBattleLog({required BuildContext context}) => DecoratedBox(
@@ -850,7 +992,9 @@ class _BattleScreenState extends State<BattleScreen> {
     required double? battleLogMaxHeight,
   }) => Stack(
     children: [
-      Positioned.fill(child: GameWidget(game: _game)),
+      Positioned.fill(
+        child: GameWidget(key: _gameWidgetKey, game: _game),
+      ),
       if (!placesPlayerStatusCardBesideOpponentCard)
         SafeArea(
           bottom: false,

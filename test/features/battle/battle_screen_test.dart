@@ -914,8 +914,18 @@ void main() {
           expect(artRect.overlaps(coveringRect), isFalse);
         }
         // 絵の大きさの下限 (フィールドの高さの 0.15。battle_field_game.dart の _layout) に張り付いた絵 (844×390 で 18.6) は
-        // 被写体を見分けられないため、フィールドの高さの半分以上を求める
-        expect(artRect.height, greaterThanOrEqualTo(field.height / 2));
+        // 被写体を見分けられないため、低いフィールドでは高さの半分、左右配置では 60px 以上を求める
+        expect(
+          artRect.height,
+          greaterThanOrEqualTo(
+            find
+                    .byKey(const Key('battle-landscape-field-scroll'))
+                    .evaluate()
+                    .isEmpty
+                ? field.height / 2
+                : 60,
+          ),
+        );
       }
     }
 
@@ -953,6 +963,36 @@ void main() {
 
     // 下のセーフエリア 21: 横向きの iPhone (ホームインジケーターのある機種) の下のインセット
     for (final bottomPadding in [0.0, 21.0]) {
+      for (final sidePadding in [0.0, 47.0]) {
+        testWidgets(
+          '横向きではフィールドが左、操作が右で、自分が左下・相手が右上になる ($bottomPadding / $sidePadding)',
+          (tester) async {
+            await pumpBattleScreenWithSize(
+              tester: tester,
+              size: const Size(844, 390),
+              bottomPadding: bottomPadding,
+              leftPadding: sidePadding,
+              rightPadding: sidePadding,
+              playerMonster: strongPlayer,
+            );
+            final field = fieldRect(tester: tester);
+            final arts = monsterArtRects(tester: tester);
+            expect(
+              field.right,
+              lessThanOrEqualTo(
+                tester.getRect(find.byKey(const Key('move-slot-0'))).left,
+              ),
+            );
+            expect(arts[1].center.dx, lessThan(arts[0].center.dx));
+            expect(arts[1].center.dy, greaterThan(arts[0].center.dy));
+            expect(field.overlaps(battleLogRect(tester: tester)), isFalse);
+            debugPrint(
+              '横向き配置: field=$field opponent=${arts[0]} player=${arts[1]} log=${battleLogRect(tester: tester)}',
+            );
+            expect(tester.takeException(), isNull);
+          },
+        );
+      }
       testWidgets(
         '横向きのスマホ (844×390、下のセーフエリア $bottomPadding) では、相手のカード全体がフィールドに収まり、ログの帯と重ならない',
         (tester) async {
@@ -1163,6 +1203,29 @@ void main() {
       await tester.ensureVisible(moveSlot);
       await tester.tap(moveSlot);
       await tester.pump();
+      expect(
+        tester.widget<Text>(find.byKey(const Key('battle-log'))).data,
+        contains('先に行動すると威力が上がる'),
+      );
+      final logScrollable = tester.state<ScrollableState>(
+        find.descendant(
+          of: find.byKey(const Key('battle-landscape-log-scroll')),
+          matching: find.byType(Scrollable),
+        ),
+      );
+      logScrollable.position.jumpTo(logScrollable.position.maxScrollExtent);
+      await tester.pump();
+      expect(
+        tester.getBottomLeft(find.byKey(const Key('battle-log'))).dy,
+        lessThanOrEqualTo(
+          tester
+              .getBottomLeft(
+                find.byKey(const Key('battle-landscape-log-scroll')),
+              )
+              .dy,
+        ),
+      );
+      expect(tester.takeException(), isNull);
 
       // 帯 (DecoratedBox) はスクロールの中で文の高さまで伸びるため、見えている範囲としてスクロールの矩形を測る
       expect(
@@ -1184,8 +1247,10 @@ void main() {
       await tester.pump(const Duration(seconds: 5));
     });
 
-    // 幅 600 は内容の幅の上限と同じで、両脇の余白で右のセーフエリアが差し引かれずに残る
-    testWidgets('低い画面で右のセーフエリアがある時 (600×390、右 30) は、横に並べた自分のカードをセーフエリアの内側に置く', (
+    // 幅 600 は内容の幅の上限と同じで、両脇の余白で右のセーフエリアが差し引かれずに残る。
+    // 右 42 で使える幅は 558 になり、左右配置の下限 560 を下回って従来の配置に戻る一方、
+    // 自分のカードを相手のカードの横に並べる下限 556 (余白 20×2 + カード 190×2 + 隙間 8×2 + 絵の置き場 120) は満たす
+    testWidgets('低い画面で右のセーフエリアがある時 (600×390、右 42) は、横に並べた自分のカードをセーフエリアの内側に置く', (
       tester,
     ) async {
       await pumpBattleScreenWithSize(
@@ -1193,16 +1258,46 @@ void main() {
         size: const Size(600, 390),
         bottomPadding: 0,
         leftPadding: 0,
-        rightPadding: 30,
+        rightPadding: 42,
         playerMonster: strongPlayer,
       );
       final field = fieldRect(tester: tester);
       final card = playerStatusCardRect(tester: tester);
 
-      expect(card.right, lessThanOrEqualTo(field.right - 30));
+      expect(
+        find.byKey(const Key('battle-landscape-field-scroll')),
+        findsNothing,
+      );
+      expect(card.right, lessThanOrEqualTo(field.right - 42));
       expect(card.top, greaterThanOrEqualTo(field.top));
       expect(card.overlaps(battleLogRect(tester: tester)), isFalse);
     });
+
+    // 長辺 1000 以上の低いウィンドウは左右配置にせず、内容幅 600 の中で 2 枚のカードを横に並べる従来の配置を使う。
+    // #150 で 844×390 が確かめていた、並べた 2 枚のカードの間の 2 体の絵が隠れないことをこの大きさで残す
+    testWidgets(
+      '低くて広いウィンドウ (1440×390) では、横に並べた 2 枚のカードの間の 2 体の絵がフィールドに収まり、カードとログの帯に隠れない',
+      (tester) async {
+        await pumpBattleScreenWithSize(
+          tester: tester,
+          size: const Size(1440, 390),
+          bottomPadding: 0,
+          leftPadding: 0,
+          rightPadding: 0,
+          playerMonster: strongPlayer,
+        );
+
+        expect(
+          find.byKey(const Key('battle-landscape-field-scroll')),
+          findsNothing,
+        );
+        expect(
+          playerStatusCardRect(tester: tester).left,
+          greaterThan(opponentStatusCardRect(tester: tester).right),
+        );
+        expectMonsterArtsVisible(tester: tester);
+      },
+    );
 
     testWidgets('低くて幅も狭い画面 (390×390) では、自分のカード全体がフィールドに収まり、相手のカード・ログの帯と重ならない', (
       tester,
@@ -1497,6 +1592,130 @@ void main() {
       );
       expect(battleLogRect(tester: tester).left, 20);
       expect(find.byKey(const Key('battle-player-trainer')), findsOneWidget);
+    });
+
+    testWidgets('技の演出中に縦横を回転してもログとバトルの状態を維持し、横向きで決着まで操作できる', (tester) async {
+      await pumpBattleScreenWithSize(
+        tester: tester,
+        size: const Size(390, 844),
+        bottomPadding: 0,
+        leftPadding: 0,
+        rightPadding: 0,
+        playerMonster: strongPlayer,
+      );
+      final battleScreenState = tester.state(find.byType(BattleScreen));
+      final game = tester
+          .widget<GameWidget<BattleFieldGame>>(
+            find.byType(GameWidget<BattleFieldGame>),
+          )
+          .game;
+      await tester.tap(find.byKey(const Key('move-slot-2')));
+      await tester.pump();
+      final log = tester.widget<Text>(find.byKey(const Key('battle-log'))).data;
+      for (final size in [
+        const Size(844, 390),
+        const Size(390, 844),
+        const Size(844, 390),
+      ]) {
+        tester.view.physicalSize = size;
+        await tester.pump();
+        await tester.pump();
+        await tester.pump();
+        expect(
+          tester.state(find.byType(BattleScreen)),
+          same(battleScreenState),
+        );
+        expect(
+          tester
+              .widget<GameWidget<BattleFieldGame>>(
+                find.byType(GameWidget<BattleFieldGame>),
+              )
+              .game,
+          same(game),
+        );
+        expect(
+          tester.widget<Text>(find.byKey(const Key('battle-log'))).data,
+          log,
+        );
+        expect(
+          find.byKey(const Key('battle-landscape-commands-scroll')),
+          size.width > size.height ? findsOneWidget : findsNothing,
+        );
+        expect(tester.takeException(), isNull);
+      }
+      await tester.pump(const Duration(seconds: 5));
+      for (
+        var turn = 0;
+        turn < 10 && find.text('もどる').evaluate().isEmpty;
+        turn++
+      ) {
+        final move = find.byKey(const Key('move-slot-0'));
+        await tester.ensureVisible(move);
+        await tester.tap(move);
+        await tester.pump();
+        await tester.pump(const Duration(seconds: 5));
+      }
+      await tester.ensureVisible(find.text('もどる'));
+      expect(find.text('もどる').hitTestable(), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    });
+
+    for (final size in [
+      const Size(1024, 768),
+      const Size(1440, 900),
+      const Size(1440, 390),
+    ]) {
+      testWidgets('iPad とデスクトップ $size はフィールドと操作を縦に並べる', (tester) async {
+        await pumpBattleScreenWithSize(
+          tester: tester,
+          size: size,
+          bottomPadding: 0,
+          leftPadding: 0,
+          rightPadding: 0,
+          playerMonster: strongPlayer,
+        );
+        expect(
+          find.byKey(const Key('battle-landscape-commands-scroll')),
+          findsNothing,
+        );
+        expect(
+          fieldRect(tester: tester).bottom,
+          lessThanOrEqualTo(
+            tester.getTopLeft(find.byKey(const Key('move-slot-0'))).dy,
+          ),
+        );
+        expect(tester.takeException(), isNull);
+      });
+    }
+
+    testWidgets('高さを変えずにウィンドウの幅を変えても横向きスマホとデスクトップの配置を切り替える', (tester) async {
+      await pumpBattleScreenWithSize(
+        tester: tester,
+        size: const Size(844, 390),
+        bottomPadding: 0,
+        leftPadding: 0,
+        rightPadding: 0,
+        playerMonster: strongPlayer,
+      );
+      expect(
+        find.byKey(const Key('battle-landscape-commands-scroll')),
+        findsOneWidget,
+      );
+      tester.view.physicalSize = const Size(1440, 390);
+      await tester.pump();
+      await tester.pump();
+      expect(
+        find.byKey(const Key('battle-landscape-commands-scroll')),
+        findsNothing,
+      );
+      tester.view.physicalSize = const Size(844, 390);
+      await tester.pump();
+      await tester.pump();
+      expect(
+        find.byKey(const Key('battle-landscape-commands-scroll')),
+        findsOneWidget,
+      );
+      expect(tester.takeException(), isNull);
     });
 
     testWidgets('縦向きのスマホ (390×844) では、今までどおりログの帯を左右いっぱいに、自分のカードを右下に置く', (
