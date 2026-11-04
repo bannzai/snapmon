@@ -172,7 +172,8 @@ class BattleScreen extends StatefulWidget {
   State<BattleScreen> createState() => _BattleScreenState();
 }
 
-class _BattleScreenState extends State<BattleScreen> {
+class _BattleScreenState extends State<BattleScreen>
+    with WidgetsBindingObserver {
   /// バトルの計算の最新の状態。演出の途中は画面に出ている状態より先に進んでいる。
   late BattleState _battleState;
 
@@ -232,6 +233,7 @@ class _BattleScreenState extends State<BattleScreen> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     List<BattleMonster> prepare({required List<OwnedMonster> party}) => [
       for (final monster in party)
         prepareBattleMonster(
@@ -276,8 +278,15 @@ class _BattleScreenState extends State<BattleScreen> {
     _battleRecordStart.ignore();
   }
 
+  /// 幅の上限の内側では MediaQuery が変わらないリサイズでも、元のウィンドウで配置を判定し直す。
+  @override
+  void didChangeMetrics() {
+    setState(() {});
+  }
+
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     for (final artImage in _loadedArtImages) {
       artImage.dispose();
     }
@@ -973,7 +982,9 @@ class _BattleScreenState extends State<BattleScreen> {
     required double? battleLogMaxHeight,
   }) => Stack(
     children: [
-      Positioned.fill(child: GameWidget(key: _gameWidgetKey, game: _game)),
+      Positioned.fill(
+        child: GameWidget(key: _gameWidgetKey, game: _game),
+      ),
       if (!placesPlayerStatusCardBesideOpponentCard)
         SafeArea(
           bottom: false,

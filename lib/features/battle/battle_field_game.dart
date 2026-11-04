@@ -236,9 +236,7 @@ class BattleFieldGame extends FlameGame {
       playerMonsterComponent
         ..size = Vector2.all(areaMonsterSize * 1.15)
         ..position = Vector2(
-          _placesPlayerOnLeft
-              ? area.left
-              : area.right - areaMonsterSize * 1.15,
+          _placesPlayerOnLeft ? area.left : area.right - areaMonsterSize * 1.15,
           area.bottom - areaMonsterSize * 1.15,
         );
       return;

@@ -785,7 +785,10 @@ void main() {
         expect(
           artRect.height,
           greaterThanOrEqualTo(
-            find.byKey(const Key('battle-landscape-field-scroll')).evaluate().isEmpty
+            find
+                    .byKey(const Key('battle-landscape-field-scroll'))
+                    .evaluate()
+                    .isEmpty
                 ? field.height / 2
                 : 60,
           ),
@@ -850,7 +853,9 @@ void main() {
             expect(arts[1].center.dx, lessThan(arts[0].center.dx));
             expect(arts[1].center.dy, greaterThan(arts[0].center.dy));
             expect(field.overlaps(battleLogRect(tester: tester)), isFalse);
-            debugPrint('横向き配置: field=$field opponent=${arts[0]} player=${arts[1]} log=${battleLogRect(tester: tester)}');
+            debugPrint(
+              '横向き配置: field=$field opponent=${arts[0]} player=${arts[1]} log=${battleLogRect(tester: tester)}',
+            );
             expect(tester.takeException(), isNull);
           },
         );
@@ -1080,7 +1085,11 @@ void main() {
       expect(
         tester.getBottomLeft(find.byKey(const Key('battle-log'))).dy,
         lessThanOrEqualTo(
-          tester.getBottomLeft(find.byKey(const Key('battle-landscape-log-scroll'))).dy,
+          tester
+              .getBottomLeft(
+                find.byKey(const Key('battle-landscape-log-scroll')),
+              )
+              .dy,
         ),
       );
       expect(tester.takeException(), isNull);
@@ -1430,20 +1439,39 @@ void main() {
         playerMonster: strongPlayer,
       );
       final battleScreenState = tester.state(find.byType(BattleScreen));
-      final game = tester.widget<GameWidget<BattleFieldGame>>(
-        find.byType(GameWidget<BattleFieldGame>),
-      ).game;
+      final game = tester
+          .widget<GameWidget<BattleFieldGame>>(
+            find.byType(GameWidget<BattleFieldGame>),
+          )
+          .game;
       await tester.tap(find.byKey(const Key('move-slot-2')));
       await tester.pump();
       final log = tester.widget<Text>(find.byKey(const Key('battle-log'))).data;
-      for (final size in [const Size(844, 390), const Size(390, 844), const Size(844, 390)]) {
+      for (final size in [
+        const Size(844, 390),
+        const Size(390, 844),
+        const Size(844, 390),
+      ]) {
         tester.view.physicalSize = size;
         await tester.pump();
         await tester.pump();
         await tester.pump();
-        expect(tester.state(find.byType(BattleScreen)), same(battleScreenState));
-        expect(tester.widget<GameWidget<BattleFieldGame>>(find.byType(GameWidget<BattleFieldGame>)).game, same(game));
-        expect(tester.widget<Text>(find.byKey(const Key('battle-log'))).data, log);
+        expect(
+          tester.state(find.byType(BattleScreen)),
+          same(battleScreenState),
+        );
+        expect(
+          tester
+              .widget<GameWidget<BattleFieldGame>>(
+                find.byType(GameWidget<BattleFieldGame>),
+              )
+              .game,
+          same(game),
+        );
+        expect(
+          tester.widget<Text>(find.byKey(const Key('battle-log'))).data,
+          log,
+        );
         expect(
           find.byKey(const Key('battle-landscape-commands-scroll')),
           size.width > size.height ? findsOneWidget : findsNothing,
@@ -1451,7 +1479,11 @@ void main() {
         expect(tester.takeException(), isNull);
       }
       await tester.pump(const Duration(seconds: 5));
-      for (var turn = 0; turn < 10 && find.text('もどる').evaluate().isEmpty; turn++) {
+      for (
+        var turn = 0;
+        turn < 10 && find.text('もどる').evaluate().isEmpty;
+        turn++
+      ) {
         final move = find.byKey(const Key('move-slot-0'));
         await tester.ensureVisible(move);
         await tester.tap(move);
@@ -1463,7 +1495,11 @@ void main() {
       expect(tester.takeException(), isNull);
     });
 
-    for (final size in [const Size(1024, 768), const Size(1440, 900), const Size(1440, 390)]) {
+    for (final size in [
+      const Size(1024, 768),
+      const Size(1440, 900),
+      const Size(1440, 390),
+    ]) {
       testWidgets('iPad とデスクトップ $size はフィールドと操作を縦に並べる', (tester) async {
         await pumpBattleScreenWithSize(
           tester: tester,
@@ -1473,10 +1509,15 @@ void main() {
           rightPadding: 0,
           playerMonster: strongPlayer,
         );
-        expect(find.byKey(const Key('battle-landscape-commands-scroll')), findsNothing);
+        expect(
+          find.byKey(const Key('battle-landscape-commands-scroll')),
+          findsNothing,
+        );
         expect(
           fieldRect(tester: tester).bottom,
-          lessThanOrEqualTo(tester.getTopLeft(find.byKey(const Key('move-slot-0'))).dy),
+          lessThanOrEqualTo(
+            tester.getTopLeft(find.byKey(const Key('move-slot-0'))).dy,
+          ),
         );
         expect(tester.takeException(), isNull);
       });
@@ -1491,15 +1532,24 @@ void main() {
         rightPadding: 0,
         playerMonster: strongPlayer,
       );
-      expect(find.byKey(const Key('battle-landscape-commands-scroll')), findsOneWidget);
+      expect(
+        find.byKey(const Key('battle-landscape-commands-scroll')),
+        findsOneWidget,
+      );
       tester.view.physicalSize = const Size(1440, 390);
       await tester.pump();
       await tester.pump();
-      expect(find.byKey(const Key('battle-landscape-commands-scroll')), findsNothing);
+      expect(
+        find.byKey(const Key('battle-landscape-commands-scroll')),
+        findsNothing,
+      );
       tester.view.physicalSize = const Size(844, 390);
       await tester.pump();
       await tester.pump();
-      expect(find.byKey(const Key('battle-landscape-commands-scroll')), findsOneWidget);
+      expect(
+        find.byKey(const Key('battle-landscape-commands-scroll')),
+        findsOneWidget,
+      );
       expect(tester.takeException(), isNull);
     });
 

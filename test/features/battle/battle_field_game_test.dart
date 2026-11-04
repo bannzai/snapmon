@@ -175,7 +175,10 @@ void main() {
       expect(game.playerMonsterComponent.toRect(), playerRect);
       expect(game.opponentMonsterComponent.toRect(), opponentRect);
       game.updateMonsterArtArea(area: area);
-      expect(game.playerMonsterComponent.center.x, greaterThan(game.opponentMonsterComponent.center.x));
+      expect(
+        game.playerMonsterComponent.center.x,
+        greaterThan(game.opponentMonsterComponent.center.x),
+      );
     },
   );
 
