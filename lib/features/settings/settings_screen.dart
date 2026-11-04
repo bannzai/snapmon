@@ -349,17 +349,21 @@ class _ProfileTileState extends State<_ProfileTile> {
   /// 最初の読み込みが終わる前か。
   bool _isLoading = true;
 
+  /// 読み込みを始めるか保存できた値を受け取るたびに増える番号。読み込みの結果は、始めた時の番号のままの時だけ反映する (遅れて返った古い読み込みで、保存できた値や新しい読み込みの結果を戻さないため)。
+  int _profileRevision = 0;
+
   @override
   void initState() {
     super.initState();
     unawaited(_load());
   }
 
-  /// 自分のプロフィールを読み、読めた値か失敗を画面に出す。
+  /// 自分のプロフィールを読み、読めた値か失敗を画面に出す。結果が返るまでに新しい読み込みか保存があった時は何も変えない。
   Future<void> _load() async {
+    final loadRevision = ++_profileRevision;
     try {
       final profile = await widget.pvpClient.fetchProfile();
-      if (mounted) {
+      if (mounted && loadRevision == _profileRevision) {
         setState(() {
           _profile = profile;
           _loadError = null;
@@ -367,12 +371,20 @@ class _ProfileTileState extends State<_ProfileTile> {
         });
       }
     } catch (error) {
-      if (mounted) {
+      if (mounted && loadRevision == _profileRevision) {
         setState(() {
           _loadError = error;
           _isLoading = false;
         });
       }
+    }
+  }
+
+  /// プロフィール画面で保存できた [profile] を項目に出す。アカウントの切り替えでこの項目が作り直された後は何もしない (切り替えの間に開いた画面は残るため、ここが呼ばれ得る)。
+  void _applySavedProfile({required PlayerProfile profile}) {
+    if (mounted) {
+      _profileRevision++;
+      setState(() => _profile = profile);
     }
   }
 
@@ -382,8 +394,7 @@ class _ProfileTileState extends State<_ProfileTile> {
       MaterialPageRoute<void>(
         builder: (context) => ProfileScreen(
           initialProfile: profile,
-          onProfileChanged: ({required profile}) =>
-              setState(() => _profile = profile),
+          onProfileChanged: _applySavedProfile,
           pvpClient: widget.pvpClient,
           pickPhoto: widget.monsterGenerator.pickAlbumPhoto,
           preparePhoto: widget.monsterGenerator.preparePhoto,
