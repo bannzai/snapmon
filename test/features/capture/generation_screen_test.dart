@@ -894,10 +894,7 @@ void main() {
       final battleScreen = tester.widget<BattleScreen>(
         find.byType(BattleScreen),
       );
-      expect(battleScreen.playerProfile, (
-        displayName: 'ばんざい',
-        iconPath: null,
-      ));
+      expect(battleScreen.playerProfile, (displayName: 'ばんざい', iconPath: null));
       expect(battleScreen.opponentDisplayName, startsWith('CPU '));
     });
 
