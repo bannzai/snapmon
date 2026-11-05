@@ -106,6 +106,23 @@ const double _commandsPanelMinHeightRatio = 0.25;
 /// 技のボタンの欄の上と下の余白 (フィールドの下端と欄の間、欄と画面の下端の間)。フィールドの高さの計算と欄の Padding の両方で使う。
 const double _commandsPanelVerticalPadding = 16;
 
+/// ログの帯をフィールドの外 (技のボタンの欄の上) に置く時の、画面の高さに対する帯の高さの上限の割合。大きい文字で超えた分は帯の中でスクロールする。
+/// フィールドの下に積む配置では、技のボタン・勝敗の欄の上限 [_commandsPanelMaxHeightRatio] の半分にして、帯が伸びても欄の半分を技のボタンに残す。
+/// 左右配置のバトルでは右の欄が画面の高さいっぱいで、844×390 なら帯の下に 390 − 8 × 2 − 117 − 10 = 247 (下のセーフエリア 21 では 226) が残り、
+/// 見出しと技のボタン 2 行 (各 [_moveButtonMinimumHeight] 以上と行の間 10 で 148) が入る
+const double _battleLogOutsideFieldMaxHeightRatio =
+    _commandsPanelMaxHeightRatio / 2;
+
+/// ログの帯をフィールドの外に置く時の、帯と技のボタン・勝敗の欄の間。
+/// 欄の中の見出しと技のボタン、技のボタンの行同士の間 (10) とそろえ、帯を欄の 1 段として並べて見せる
+const double _battleLogCommandsGap = 10;
+
+/// 左右配置のバトルで、フィールドの端と情報カード、情報カードと絵の領域、フィールドの左右の端と絵の領域の間。
+/// 高さ 390 のフィールドでは上下に 4 か所空くため、縦向きの余白 [_fieldHorizontalMargin] (20) にすると
+/// 絵の一辺が (20 − 8) × 4 / [landscapeMonsterArtAreaHeightDivisor] ≈ 27 縮み、844×390 の相手の絵 (約 90) が約 63 になって
+/// battle_screen_test.dart の下限 60 に迫る。低い画面で詰めた他の間 ([_battleLogGapBesideCard]・[_stackedStatusCardGap]) と同じ 8 にした
+const double _landscapeBattleFieldGap = 8;
+
 /// バトル画面 (モックの Battle.dc.html)。フィールドは Flame の [BattleFieldGame]、名前・HP・技のボタン・ログの帯・勝敗は Flutter で描く。
 /// 技を選ぶと CPU の行動と合わせて 1 ターンを [advanceTurn] で解決し、増えたバトルのログを 1 件ずつ演出して見せる。
 /// 決着がつくと勝敗と、戦闘に出た自分のモンスターのレベルの上がり方を出し、Functions に結果を記録して Analytics にバトル完了を送る。
@@ -571,9 +588,11 @@ class _BattleScreenState extends State<BattleScreen>
           // 自分のカードは測るまで相手のカードと同じ高さと見積もる
           final playerStatusCardHeight =
               _playerStatusCardHeight ?? _opponentStatusCardHeight;
+          final safeAreaInnerWidth =
+              bodyConstraints.maxWidth - safeAreaPadding.horizontal;
           // 幅の狭い画面では、左の相手のカードと右下の自分のカードが横に重なる (幅 390 では 20 + 190 + 190 + 20 = 420 に足りない)
           final statusCardsOverlapHorizontally =
-              bodyConstraints.maxWidth - safeAreaPadding.horizontal <
+              safeAreaInnerWidth <
               _fieldHorizontalMargin * 2 + _monsterStatusCardWidth * 2;
           // ログの帯の下 (上から 96) に置くとカードがフィールドの下にはみ出す低い画面 (横向きのスマホ) では、
           // 相手のカードをログの帯と同じ高さの左に上げ、自分のカードも帯と同じ高さの右に上げる。
@@ -599,7 +618,7 @@ class _BattleScreenState extends State<BattleScreen>
                   naturalFieldHeight;
           final placesPlayerStatusCardBesideOpponentCard =
               isFieldTooLowForCardBelowLog &&
-              bodyConstraints.maxWidth - safeAreaPadding.horizontal >=
+              safeAreaInnerWidth >=
                   _fieldHorizontalMargin * 2 +
                       _monsterStatusCardWidth * 2 +
                       _battleLogGapBesideCard * 2 +
@@ -667,8 +686,8 @@ class _BattleScreenState extends State<BattleScreen>
           final windowSize = MediaQueryData.fromView(View.of(context)).size;
           if (windowSize.shortestSide < 600 &&
               windowSize.longestSide < 1000 &&
-              bodyConstraints.maxWidth - safeAreaPadding.horizontal >= 560 &&
-              bodyConstraints.maxWidth - safeAreaPadding.horizontal >
+              safeAreaInnerWidth >= 560 &&
+              safeAreaInnerWidth >
                   bodyConstraints.maxHeight - safeAreaPadding.vertical) {
             return _buildLandscapeBattle(
               context: context,
@@ -758,8 +777,7 @@ class _BattleScreenState extends State<BattleScreen>
                     _commandsPanelVerticalPadding,
                   ),
                   // ログの帯をフィールドの下に置く時は、帯を技のボタンの欄の上限の中のスクロールの外に置く
-                  // (スクロールの中に置くと、下の技を押すためにスクロールした時に帯が隠れるため。上限を変えないのはフィールドを低くしないため)。
-                  // 帯は画面の高さの 0.3 (欄の上限の半分) までにして、大きい文字で帯が伸びた時は帯の中をスクロールさせ、技のボタン・勝敗の画面の場所を残す
+                  // (スクロールの中に置くと、下の技を押すためにスクロールした時に帯が隠れるため。上限を変えないのはフィールドを低くしないため)
                   child: ConstrainedBox(
                     // 低くて幅も狭い画面 (390×390 のような小さい Web のウィンドウ) は、2 枚のカードを横にも縦にも重ねずに置くには
                     // フィールドが足りないため、技のボタンの欄を詰め、相手のカードの下に自分のカードを置ける高さをフィールドに残す (欄はスクロールする)
@@ -792,13 +810,14 @@ class _BattleScreenState extends State<BattleScreen>
                           ConstrainedBox(
                             constraints: BoxConstraints(
                               maxHeight:
-                                  MediaQuery.sizeOf(context).height * 0.3,
+                                  MediaQuery.sizeOf(context).height *
+                                  _battleLogOutsideFieldMaxHeightRatio,
                             ),
                             child: SingleChildScrollView(
                               child: _buildBattleLog(context: context),
                             ),
                           ),
-                          const SizedBox(height: 10),
+                          const SizedBox(height: _battleLogCommandsGap),
                         ],
                         Flexible(
                           child: SingleChildScrollView(
@@ -837,14 +856,19 @@ class _BattleScreenState extends State<BattleScreen>
         Expanded(
           child: LayoutBuilder(
             builder: (context, constraints) {
-              // 2 枚のカードと絵の帯を分ける。未計測の初回は 0 とし、既存の測定で次のフレームに高さを確定する。
+              // カードの高さは描いた後にしか測れないため、測る前の最初のフレームだけ 0 とする。
+              // build の測定 (addPostFrameCallback) が測った高さを setState し、次のフレームで絵の領域を置き直す
               final opponentCardHeight = _opponentStatusCardHeight ?? 0;
               final playerCardHeight = _playerStatusCardHeight ?? 0;
-              // 120 は相手の絵を約 68px、自分を約 79px より小さくしないための高さ。
+              // 120 は絵の領域の高さの下限で、相手の絵を約 68px (120 / landscapeMonsterArtAreaHeightDivisor)、
+              // 自分を約 79px (その 1.15 倍) より小さくしないための高さ。
               // 大きい文字でカードが伸びてもこの帯を残し、スクロールで両方のカードを読めるようにする。
               final fieldHeight = math.max(
                 constraints.maxHeight,
-                opponentCardHeight + playerCardHeight + 120 + 32,
+                opponentCardHeight +
+                    playerCardHeight +
+                    120 +
+                    _landscapeBattleFieldGap * 4,
               );
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 if (!mounted) {
@@ -852,10 +876,12 @@ class _BattleScreenState extends State<BattleScreen>
                 }
                 _game.updateMonsterArtArea(
                   area: Rect.fromLTRB(
-                    8,
-                    opponentCardHeight + 16,
-                    constraints.maxWidth - 8,
-                    fieldHeight - playerCardHeight - 16,
+                    _landscapeBattleFieldGap,
+                    opponentCardHeight + _landscapeBattleFieldGap * 2,
+                    constraints.maxWidth - _landscapeBattleFieldGap,
+                    fieldHeight -
+                        playerCardHeight -
+                        _landscapeBattleFieldGap * 2,
                   ),
                   placesPlayerOnLeft: true,
                 );
@@ -870,8 +896,8 @@ class _BattleScreenState extends State<BattleScreen>
                         child: GameWidget(key: _gameWidgetKey, game: _game),
                       ),
                       Positioned(
-                        top: 8,
-                        right: 8,
+                        top: _landscapeBattleFieldGap,
+                        right: _landscapeBattleFieldGap,
                         child: _MonsterStatusCard(
                           key: _opponentStatusCardKey,
                           monster: opponentMonster,
@@ -882,8 +908,8 @@ class _BattleScreenState extends State<BattleScreen>
                         ),
                       ),
                       Positioned(
-                        bottom: 8,
-                        left: 8,
+                        bottom: _landscapeBattleFieldGap,
+                        left: _landscapeBattleFieldGap,
                         child: _MonsterStatusCard(
                           key: _playerStatusCardKey,
                           monster: playerMonster,
@@ -908,14 +934,16 @@ class _BattleScreenState extends State<BattleScreen>
               children: [
                 ConstrainedBox(
                   constraints: BoxConstraints(
-                    maxHeight: MediaQuery.sizeOf(context).height * 0.3,
+                    maxHeight:
+                        MediaQuery.sizeOf(context).height *
+                        _battleLogOutsideFieldMaxHeightRatio,
                   ),
                   child: SingleChildScrollView(
                     key: const Key('battle-landscape-log-scroll'),
                     child: _buildBattleLog(context: context),
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: _battleLogCommandsGap),
                 Expanded(
                   child: SingleChildScrollView(
                     key: const Key('battle-landscape-commands-scroll'),
