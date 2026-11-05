@@ -324,6 +324,10 @@ void main() {
       (game) async {
         game.onGameResize(Vector2(390, 500));
         await applyMetalSpriteSheet(game: game);
+
+        /// [defenderSide] の側に [metalEffect] の被弾を発行し、新しく出たエフェクトの水平方向の scale を返す。
+        /// 1 なら素材の向きのまま、-1 なら左右を反転して描く。
+        /// 呼ぶたびにエフェクトが [game] に 1 つ足される。
         Future<double> horizontalScaleOfNewEffect({
           required BattleSideId defenderSide,
         }) async {
