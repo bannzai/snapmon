@@ -36,6 +36,13 @@ const double _blinkTogglesPerSecond = 20;
 /// PixelFX のコマは見える範囲の外に余白があるため、見える範囲が絵に重なって少しはみ出す大きさにした。
 const double _moveEffectFrameWidthPerMonsterSize = 1.3;
 
+/// 左右配置のバトル (横向きのスマホ) で、絵の領域の高さを割って相手の絵の一辺 m の上限にする数。
+/// 2 体の高さの合計は 2.15m (自分は 1.15 倍) で、2.15 なら上下に重ならず、1.15 なら横一列になる。
+/// 1.75 では上下の重なりが 0.4m、2 体の中心の上下の差が 0.675m になって対角に向き合い、2.15 より絵を約 1.23 倍 (2.15 / 1.75) 大きく描ける。
+/// 844×390 で相手の絵は約 90px (下のセーフエリア 21 では約 78px。PR #159 の実測) で、
+/// battle_screen_test.dart の左右配置の絵の大きさの下限 60px を満たす
+const double landscapeMonsterArtAreaHeightDivisor = 1.75;
+
 /// [effect] の主色 (`#RRGGBB`) を返す。
 Color moveEffectColor({required MoveEffect effect}) =>
     Color(0xFF000000 | int.parse(effect.colorHex.substring(1), radix: 16));
@@ -292,11 +299,12 @@ class BattleFieldGame extends FlameGame {
     if (_monsterArtArea case final area?
         when area.width > 0 && area.height > 0) {
       // 自分を相手の 1.15 倍に描くのは比率で置く時と同じで、横に並べた 2 体が矩形に収まる大きさにする。
-      // 既存のカード間の配置では相手を左に、左右配置のバトルでは自分を左にして、それぞれのカードに寄せる。
+      // 2 体の左右はそれぞれの情報カードのある側にそろえ、どの絵がどのカードのモンスターかを近さで示す
+      // (既存のカード間の配置では相手のカードが左、左右配置のバトルでは自分のカードが左にある)。
       final areaMonsterSize = math.min(
         area.width / 2.15,
-        // 左右配置では高さの余白を残し、2 体の中心が上下にも離れて対角に向き合うようにする。
-        area.height / (_placesPlayerOnLeft ? 1.75 : 1.15),
+        area.height /
+            (_placesPlayerOnLeft ? landscapeMonsterArtAreaHeightDivisor : 1.15),
       );
       opponentMonsterComponent
         ..size = Vector2.all(areaMonsterSize)
