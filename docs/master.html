@@ -166,7 +166,7 @@ async function copyText(text) {
     await navigator.clipboard.writeText(text);
     status.textContent = 'クリップボードに写しました';
   } catch {
-    status.textContent = 'クリップボードに書けませんでした。この欄から写してください';
+    status.textContent = 'クリップボードに書けないのでこの欄から写してください';
   }
 }
 
@@ -366,7 +366,7 @@ function render() {
     ...unrenderedKeys(master).map((key) =>
       element('section', { id: key },
         element('h2', {}, element('code', {}, key)),
-        element('p', { className: 'error' }, 'このページがまだ表にしていないキーです。master-viewer.js の MASTER_SECTIONS と master.html の renderers に足してください'),
+        element('p', { className: 'error' }, 'このページがまだ表にしていないキーなので master-viewer.js の MASTER_SECTIONS と master.html の renderers に足してください'),
         element('div', { className: 'panel' }, element('pre', {}, JSON.stringify(master[key], null, 2))),
       )),
   );

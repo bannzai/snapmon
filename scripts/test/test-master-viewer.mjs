@@ -63,10 +63,9 @@ test('倍率の区分', () => {
 
 test('技の 1 行は ID・表示名・属性の表示名・威力・PP・覚えるレベルを含む', () => {
   const move = master.moves.find((candidate) => !candidate.specialEffect);
-  const elementType = master.elementTypes.find((candidate) => candidate.id === move.elementTypeId);
   assert.equal(
     moveFeedbackLine(master, move),
-    `${move.id} ${move.displayName} ${elementType.displayName} 威力 ${move.power} PP ${move.powerPoints} Lv ${move.learnableLevelMinimum}-${move.learnableLevelMaximum}`,
+    `${move.id} ${move.displayName} ${master.elementTypes.find((candidate) => candidate.id === move.elementTypeId).displayName} 威力 ${move.power} PP ${move.powerPoints} Lv ${move.learnableLevelMinimum}-${move.learnableLevelMaximum}`,
   );
 });
 

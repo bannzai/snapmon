@@ -49,7 +49,8 @@ export function multiplierKind(multiplier) {
   return 'neutral';
 }
 
-/** 属性の ID (elementTypeId) の表示名を master.elementTypes から返す。見つからなければ ID をそのまま返す */
+/** 属性の ID (elementTypeId) の表示名を master.elementTypes から返す。見つからなければ ID をそのまま返す。
+ * elementTypes に無い属性を技が指す master でも表を落とさず、どの属性 ID が抜けているかを表で見つけられるようにするため */
 export function elementTypeDisplayName(master, elementTypeId) {
   return master.elementTypes.find((elementType) => elementType.id === elementTypeId)?.displayName ?? elementTypeId;
 }
