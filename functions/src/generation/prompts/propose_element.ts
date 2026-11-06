@@ -168,6 +168,10 @@ export function proposedSpecialEffectViolation({
     return `式を使えません (${expressionViolation}): ${specialEffect.power}`;
   }
   const node = parseMoveExpression(specialEffect.power);
+  // 見本の値は、master の効果が分かれ目にする状況の両側を作るために選んだ。HP は満タン・半分・残り 1 (最大 HP 100 に対して)、
+  // 残り PP は最大・半分・最後の 1 回、攻撃と防御は大小が逆の 2 組と同じ値の組 (硬い相手の判定の両側と境目)、
+  // 行動順と属性の共有は 0 と 1 の全組み合わせ。レベル 10・威力 40・対戦日の年 2026 は、どれも効果の分かれ目にしない値で、
+  // 威力 40 は段階 1 の技の威力の範囲 (30〜50) の中にある。対戦日の月・日は見本ごとに変えて、日付で分かれる式も両側を通す。
   for (const hitPoints of [100, 50, 1]) {
     for (const remainingPowerPoints of [powerPoints, Math.ceil(powerPoints / 2), 1]) {
       for (const [attack, defense] of [
@@ -175,7 +179,12 @@ export function proposedSpecialEffectViolation({
         [50, 150],
         [100, 100],
       ]) {
-        for (const flag of [0, 1]) {
+        for (const [movesFirst, sharesElementType] of [
+          [0, 0],
+          [0, 1],
+          [1, 0],
+          [1, 1],
+        ]) {
           const variables: Record<string, number> = {
             "self.hitPoints": hitPoints,
             "self.maximumHitPoints": 100,
@@ -192,11 +201,11 @@ export function proposedSpecialEffectViolation({
             "move.power": 40,
             "move.remainingPowerPoints": remainingPowerPoints,
             "move.maximumPowerPoints": powerPoints,
-            movesFirst: flag,
-            sharesElementType: 1 - flag,
+            movesFirst,
+            sharesElementType,
             "battleDate.year": 2026,
             "battleDate.month": 1 + ((hitPoints + remainingPowerPoints) % 12),
-            "battleDate.day": 1 + ((attack + flag) % 28),
+            "battleDate.day": 1 + ((attack + movesFirst + sharesElementType) % 28),
           };
           let value: number;
           try {

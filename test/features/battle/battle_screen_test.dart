@@ -291,7 +291,7 @@ void main() {
       tester
           .widget<Text>(find.byKey(const Key('move-special-effect-formula')))
           .data,
-      'そのターンに相手より先に行動した なら 1.3、それ以外は 1',
+      '相手より先に行動した なら 130、それ以外は 100',
     );
 
     // バトルの画面は戻るボタンの無い AppBar で作られているため、tester.pageBack ではなく Navigator で閉じる

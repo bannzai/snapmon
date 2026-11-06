@@ -117,8 +117,10 @@ MoveExpressionNode parseMoveExpression({required String source}) {
   final tokens = _tokenize(source: source);
   var position = 0;
 
+  /// 次に読む字句を返す (読み進めない)。式の終わりなら null。
   String? peek() => position < tokens.length ? tokens[position] : null;
 
+  /// 次の字句を読み進めて返す。式の終わりなら [MoveExpressionException] を投げる。
   String next() {
     final token = peek();
     if (token == null) {
@@ -128,6 +130,7 @@ MoveExpressionNode parseMoveExpression({required String source}) {
     return token;
   }
 
+  /// 次の字句が [token] であることを確かめて読み進める。違えば [MoveExpressionException] を投げる。
   void expect({required String token}) {
     final actual = next();
     if (actual != token) {
@@ -135,8 +138,10 @@ MoveExpressionNode parseMoveExpression({required String source}) {
     }
   }
 
+  /// `or` で結んだ式を読む (式の全体の読み手。括弧と引数の中から呼ぶため先に宣言する)。
   late MoveExpressionNode Function() parseOr;
 
+  /// 括弧・整数のリテラル・関数の呼び出し・変数のどれか 1 つを読む。
   MoveExpressionNode parsePrimary() {
     final token = next();
     if (token == '(') {
@@ -181,6 +186,7 @@ MoveExpressionNode parseMoveExpression({required String source}) {
     throw MoveExpressionException(message: '値が要る所に $token がある');
   }
 
+  /// 単項の `-` (連ねてよい) と、その対象を読む。
   MoveExpressionNode parseUnaryMinus() {
     if (peek() == '-') {
       next();
@@ -189,6 +195,7 @@ MoveExpressionNode parseMoveExpression({required String source}) {
     return parsePrimary();
   }
 
+  /// `*`・`/` で結んだ項を左から読む。
   MoveExpressionNode parseMultiplicative() {
     var node = parseUnaryMinus();
     while (peek() == '*' || peek() == '/') {
@@ -202,6 +209,7 @@ MoveExpressionNode parseMoveExpression({required String source}) {
     return node;
   }
 
+  /// `+`・`-` で結んだ項を左から読む。
   MoveExpressionNode parseAdditive() {
     var node = parseMultiplicative();
     while (peek() == '+' || peek() == '-') {
@@ -215,6 +223,7 @@ MoveExpressionNode parseMoveExpression({required String source}) {
     return node;
   }
 
+  /// 比較を 1 つまで読む。比較を連ねていれば [MoveExpressionException] を投げる。
   MoveExpressionNode parseComparison() {
     final left = parseAdditive();
     if (!_comparisonOperators.contains(peek())) {
@@ -232,6 +241,7 @@ MoveExpressionNode parseMoveExpression({required String source}) {
     return node;
   }
 
+  /// `not` (連ねてよい) と、その対象の比較を読む。
   MoveExpressionNode parseNot() {
     if (peek() == 'not') {
       next();
@@ -240,6 +250,7 @@ MoveExpressionNode parseMoveExpression({required String source}) {
     return parseComparison();
   }
 
+  /// `and` で結んだ項を左から読む。
   MoveExpressionNode parseAnd() {
     var node = parseNot();
     while (peek() == 'and') {
@@ -308,6 +319,7 @@ int evaluateMoveExpression({
   required MoveExpressionNode node,
   required Map<String, int> variables,
 }) {
+  /// [value] の絶対値が上限以内なら返し、超えていれば [MoveExpressionException] を投げる。
   int checked({required int value}) {
     if (value.abs() > moveExpressionValueLimit) {
       throw MoveExpressionException(message: '途中の値 $value が上限を超えている');
@@ -315,6 +327,7 @@ int evaluateMoveExpression({
     return value;
   }
 
+  /// [node] の値を評価する。
   int evaluate(MoveExpressionNode node) => switch (node) {
     MoveExpressionLiteral(:final value) => value,
     MoveExpressionVariable(:final name) => checked(
@@ -460,6 +473,7 @@ String _formatNode({
   required MoveExpressionNode node,
   required int precedence,
 }) {
+  /// [text] の演算の強さ [ownPrecedence] が外側より弱ければ括弧で囲む。
   String wrap({required String text, required int ownPrecedence}) =>
       ownPrecedence < precedence ? '($text)' : text;
   return switch (node) {

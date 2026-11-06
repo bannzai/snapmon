@@ -78,7 +78,9 @@ function isIdentifier(token: string): boolean {
 export function parseMoveExpression(source: string): MoveExpressionNode {
   const tokens = tokenize(source);
   let position = 0;
+  /** 次に読む字句を返す (読み進めない)。式の終わりなら undefined。 */
   const peek = (): string | undefined => tokens[position];
+  /** 次の字句を読み進めて返す。式の終わりなら MoveExpressionError を投げる。 */
   const next = (): string => {
     const token = peek();
     if (token === undefined) {
@@ -87,6 +89,7 @@ export function parseMoveExpression(source: string): MoveExpressionNode {
     position++;
     return token;
   };
+  /** 次の字句が `token` であることを確かめて読み進める。違えば MoveExpressionError を投げる。 */
   const expect = (token: string): void => {
     const actual = next();
     if (actual !== token) {
@@ -94,6 +97,7 @@ export function parseMoveExpression(source: string): MoveExpressionNode {
     }
   };
 
+  /** 括弧・整数のリテラル・関数の呼び出し・変数のどれか 1 つを読む。 */
   const parsePrimary = (): MoveExpressionNode => {
     const token = next();
     if (token === "(") {
@@ -135,6 +139,7 @@ export function parseMoveExpression(source: string): MoveExpressionNode {
     throw new MoveExpressionError(`値が要る所に ${token} がある`);
   };
 
+  /** 単項の `-` (連ねてよい) と、その対象を読む。 */
   const parseUnaryMinus = (): MoveExpressionNode => {
     if (peek() === "-") {
       next();
@@ -143,6 +148,7 @@ export function parseMoveExpression(source: string): MoveExpressionNode {
     return parsePrimary();
   };
 
+  /** `operators` の二項の演算子で `parseOperand` の項を左から結ぶ読み手を返す。 */
   const parseLeftAssociative = (operators: string[], parseOperand: () => MoveExpressionNode) => (): MoveExpressionNode => {
     let node = parseOperand();
     while (operators.includes(peek() ?? "")) {
@@ -155,6 +161,7 @@ export function parseMoveExpression(source: string): MoveExpressionNode {
   const parseMultiplicative = parseLeftAssociative(["*", "/"], parseUnaryMinus);
   const parseAdditive = parseLeftAssociative(["+", "-"], parseMultiplicative);
 
+  /** 比較を 1 つまで読む。比較を連ねていれば MoveExpressionError を投げる。 */
   const parseComparison = (): MoveExpressionNode => {
     const left = parseAdditive();
     if (!COMPARISON_OPERATORS.has(peek() ?? "")) {
@@ -168,6 +175,7 @@ export function parseMoveExpression(source: string): MoveExpressionNode {
     return node;
   };
 
+  /** `not` (連ねてよい) と、その対象の比較を読む。 */
   const parseNot = (): MoveExpressionNode => {
     if (peek() === "not") {
       next();
@@ -201,6 +209,7 @@ function checked(value: number): number {
  * 未知の変数・0 での割り算・絶対値が MOVE_EXPRESSION_VALUE_LIMIT を超える値は MoveExpressionError を投げる。
  */
 export function evaluateMoveExpression({ node, variables }: { node: MoveExpressionNode; variables: Record<string, number> }): number {
+  /** `current` の値を評価する。 */
   const evaluate = (current: MoveExpressionNode): number => {
     switch (current.type) {
       case "literal":
