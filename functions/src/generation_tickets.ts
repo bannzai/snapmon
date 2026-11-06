@@ -26,6 +26,8 @@ export const GENERATION_TICKET_COUNT_BY_PRODUCT_ID: Readonly<Record<string, numb
 /**
  * RevenueCat の `app_user_id` のうち、Firebase の uid として受け付ける形。アプリは `Purchases.logIn(uid)` で uid を渡す。
  * `logIn` していない購入の匿名の ID (`$RCAnonymousID:...`) と、Firestore のパスを壊す文字 (`/`) を含む値はこの形に合わない。
+ * 長さの上限 128 は Firebase Authentication の uid の上限 (Admin SDK の `createUser` は 128 文字を超える uid を拒否する)。
+ * 文字種は、このアプリが使う匿名ログインと Firebase が自動で振る uid (英数字) が収まる範囲にした。
  */
 const FIREBASE_UID_PATTERN = /^[A-Za-z0-9_-]{1,128}$/;
 
@@ -170,15 +172,14 @@ export async function handleGenerationTicketWebhook(
     if (userSnapshot.get("accountDeletionStartedAt") !== undefined || (!userSnapshot.exists && !(await authUserExists({ auth: dependencies.auth, uid: appUserId })))) {
       return "account_missing";
     }
-    const purchase: TicketPurchaseDocument = {
+    transaction.create(purchaseDocument, {
       productId: productId!,
       ticketCount,
       transactionId: optionalString(event.transaction_id),
       environment,
       store: optionalString(event.store),
       createdAt: Timestamp.fromDate(dependencies.now()),
-    };
-    transaction.create(purchaseDocument, purchase);
+    } satisfies TicketPurchaseDocument);
     transaction.set(userDocument, { generationTickets: FieldValue.increment(ticketCount) }, { merge: true });
     return "added";
   });
