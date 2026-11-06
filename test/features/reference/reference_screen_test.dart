@@ -197,6 +197,9 @@ void main() {
       -500,
       scrollable: moveListScrollable,
     );
+    // scrollUntilVisible は要素が作られた (画面の外の cache の範囲でも) 時点で止まるため、タップの前に画面の中へ入れる
+    await tester.ensureVisible(steamMove);
+    await tester.pumpAndSettle();
     await tester.tap(steamMove);
     await tester.pumpAndSettle();
 
