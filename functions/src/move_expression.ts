@@ -158,7 +158,9 @@ export function parseMoveExpression(source: string): MoveExpressionNode {
     return node;
   };
 
+  /** `*`・`/` で結んだ項を左から読む。 */
   const parseMultiplicative = parseLeftAssociative(["*", "/"], parseUnaryMinus);
+  /** `+`・`-` で結んだ項を左から読む。 */
   const parseAdditive = parseLeftAssociative(["+", "-"], parseMultiplicative);
 
   /** 比較を 1 つまで読む。比較を連ねていれば MoveExpressionError を投げる。 */
@@ -184,7 +186,9 @@ export function parseMoveExpression(source: string): MoveExpressionNode {
     return parseComparison();
   };
 
+  /** `and` で結んだ項を左から読む。 */
   const parseAnd = parseLeftAssociative(["and"], parseNot);
+  /** `or` で結んだ式を読む (式の全体の読み手。括弧と引数の中から呼ぶ)。 */
   const parseOr: () => MoveExpressionNode = parseLeftAssociative(["or"], parseAnd);
 
   const root = parseOr();

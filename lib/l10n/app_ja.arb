@@ -257,7 +257,7 @@
   "moveDetailSpecialEffect": "特殊効果",
   "moveDetailNoSpecialEffect": "なし",
   "moveDetailFormula": "威力の倍率 (%)",
-  "moveDetailFormulaNote": "100 で 1 倍。威力 × 倍率 ÷ 100 (小数は切り捨て) がダメージの計算に入る",
+  "moveDetailFormulaNote": "100 で 1 倍\n威力 × 倍率 ÷ 100 (小数は切り捨て) がダメージの計算に入る",
   "moveDetailEffectiveness": "相性",
   "moveDetailSuperEffective": "よく効く",
   "moveDetailNotVeryEffective": "効きにくい",
