@@ -1,6 +1,6 @@
 {
   "definitions": {
-    "version": 4,
+    "version": 5,
     "elementTypes": [
       {
         "id": "metal",
