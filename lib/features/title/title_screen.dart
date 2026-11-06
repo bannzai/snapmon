@@ -415,7 +415,7 @@ class _TitleScreenState extends State<TitleScreen> {
           // ConstrainedBox のコンストラクタは const でない (assert を持つ)
           child: ConstrainedBox(
             constraints: const BoxConstraints(minHeight: _minimumHeroHeight),
-            child: const _Hero(),
+            child: const TitleHero(),
           ),
         ),
       ),
@@ -718,16 +718,81 @@ class _ParticlesPainter extends CustomPainter {
   bool shouldRepaint(_ParticlesPainter oldDelegate) => false;
 }
 
-/// ヒーロー: 元の写真を示す斜めの枠とファインダーの角の中で、切り出されたマグカップに目とオーラが付いたモンスターが浮かぶ。
-/// 下に見出し。動くのは浮遊とオーラの 2 つだけで、端末の「視差効果を減らす」が有効な時は動かさない。
-class _Hero extends StatefulWidget {
-  const _Hero();
+/// マグカップの目の動き (瞬きと黒目の動き) の 1 周期。この中に瞬き 4 回と、左・右・上を見て戻る視線の動きを 1 巡置く
+/// (周期を浮遊の 3.2 秒の倍数にせず、浮遊と目の動きの組み合わせが 8 秒ごとより短く繰り返して見えないようにした)。
+const Duration titleHeroEyeCycle = Duration(milliseconds: 8000);
 
-  @override
-  State<_Hero> createState() => _HeroState();
+/// 瞬きを始める時刻 ([titleHeroEyeCycle] の始まりからのミリ秒)。間隔を 2.8・0.3・2.3・2.6 秒とばらつかせ、
+/// 2 回続けての瞬きも入れて、決まった拍子に見えないようにした (issue #176 の「数秒に 1 回 (不規則でよい)」)。
+const List<int> _blinkStartMilliseconds = [1800, 4600, 4900, 7200];
+
+/// 1 回の瞬きで閉じて開くまでの時間。人の瞬き (約 100〜150 ms) に近く、60fps で閉じかけの形が数コマ見える長さにした。
+const int _blinkMilliseconds = 160;
+
+/// 黒目の位置の節目 ([titleHeroEyeCycle] の始まりからのミリ秒と、今の絵の黒目の位置からのずらし (ヒーローの 170×170 の箱の座標))。
+/// 節目の間は easeInOut で 0.4〜0.5 秒かけてゆっくり動き、同じ位置の節目の間は止まる。左へ 8・右へ 2・上へ 6 は、
+/// 黒目 (9×11) が白目 (22×26) の縁にかかる手前までの幅 (今の黒目は白目の右寄りに描いているため、左右の幅が違う)。
+const List<({int milliseconds, Offset pupilOffset})> _gazeKeyframes = [
+  (milliseconds: 0, pupilOffset: Offset.zero),
+  (milliseconds: 1000, pupilOffset: Offset.zero),
+  (milliseconds: 1500, pupilOffset: Offset(-8, 0)),
+  (milliseconds: 2800, pupilOffset: Offset(-8, 0)),
+  (milliseconds: 3300, pupilOffset: Offset(2, 0)),
+  (milliseconds: 4300, pupilOffset: Offset(2, 0)),
+  (milliseconds: 4700, pupilOffset: Offset(-3, -6)),
+  (milliseconds: 5600, pupilOffset: Offset(-3, -6)),
+  (milliseconds: 6000, pupilOffset: Offset.zero),
+  (milliseconds: 8000, pupilOffset: Offset.zero),
+];
+
+/// [elapsed] (動き始めてからの時間) の時のマグカップの目の状態を返す。`eyeLidClosure` はまぶたの閉じ具合 (0 が開いている、1 が閉じている)、
+/// `pupilOffset` は今の絵の黒目の位置からのずらし。[elapsed] が [Duration.zero] (と [titleHeroEyeCycle] の倍数) の時は、
+/// 目を開いて黒目を今の絵の位置に置く (「視差効果を減らす」で止めた時の形)。
+({double eyeLidClosure, Offset pupilOffset}) titleHeroEyePose({
+  required Duration elapsed,
+}) {
+  final milliseconds =
+      elapsed.inMilliseconds % titleHeroEyeCycle.inMilliseconds;
+  var eyeLidClosure = 0.0;
+  for (final blinkStart in _blinkStartMilliseconds) {
+    final blinkProgress = (milliseconds - blinkStart) / _blinkMilliseconds;
+    if (blinkProgress >= 0 && blinkProgress <= 1) {
+      eyeLidClosure = 1 - (2 * blinkProgress - 1).abs();
+    }
+  }
+  for (var index = 1; index < _gazeKeyframes.length; index++) {
+    final from = _gazeKeyframes[index - 1];
+    final to = _gazeKeyframes[index];
+    if (milliseconds <= to.milliseconds) {
+      final eased = Curves.easeInOut.transform(
+        (milliseconds - from.milliseconds) /
+            (to.milliseconds - from.milliseconds),
+      );
+      return (
+        eyeLidClosure: eyeLidClosure,
+        pupilOffset:
+            from.pupilOffset + (to.pupilOffset - from.pupilOffset) * eased,
+      );
+    }
+  }
+  return (
+    eyeLidClosure: eyeLidClosure,
+    pupilOffset: _gazeKeyframes.last.pupilOffset,
+  );
 }
 
-class _HeroState extends State<_Hero> with SingleTickerProviderStateMixin {
+/// ヒーロー: 元の写真を示す斜めの枠とファインダーの角の中で、切り出されたマグカップに目とオーラが付いたモンスターが浮かぶ。
+/// 下に見出し。動くのは浮遊・オーラと、目の瞬き・黒目の動きで、端末の「視差効果を減らす」が有効な時はどれも動かさない
+/// (目は開いて黒目を今の絵の位置に置く)。
+class TitleHero extends StatefulWidget {
+  /// タイトル画面のヒーローを作る。
+  const TitleHero({super.key});
+
+  @override
+  State<TitleHero> createState() => _TitleHeroState();
+}
+
+class _TitleHeroState extends State<TitleHero> with TickerProviderStateMixin {
   /// 浮遊とオーラの 1 往復の時間 (モックの 3.2s)。
   static const Duration _cycle = Duration(milliseconds: 3200);
 
@@ -741,19 +806,32 @@ class _HeroState extends State<_Hero> with SingleTickerProviderStateMixin {
     curve: Curves.easeInOut,
   );
 
+  /// 目の動きの周期の中の位置 (0〜1)。
+  late final AnimationController _eyeController = AnimationController(
+    vsync: this,
+    duration: titleHeroEyeCycle,
+  );
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (MediaQuery.disableAnimationsOf(context)) {
       _controller.stop();
-    } else if (!_controller.isAnimating) {
-      _controller.repeat(reverse: true);
+      _eyeController.stop();
+    } else {
+      if (!_controller.isAnimating) {
+        _controller.repeat(reverse: true);
+      }
+      if (!_eyeController.isAnimating) {
+        _eyeController.repeat();
+      }
     }
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    _eyeController.dispose();
     super.dispose();
   }
 
@@ -762,9 +840,22 @@ class _HeroState extends State<_Hero> with SingleTickerProviderStateMixin {
     children: [
       Positioned.fill(
         child: AnimatedBuilder(
-          animation: _progress,
-          builder: (context, _) =>
-              CustomPaint(painter: _HeroPainter(progress: _progress.value)),
+          animation: Listenable.merge([_progress, _eyeController]),
+          builder: (context, _) {
+            // 動きを止めた時は、止めた瞬間の閉じかけの目・ずれた黒目のまま残さず、開いた目にする
+            final eyePose = titleHeroEyePose(
+              elapsed: MediaQuery.disableAnimationsOf(context)
+                  ? Duration.zero
+                  : titleHeroEyeCycle * _eyeController.value,
+            );
+            return CustomPaint(
+              painter: TitleHeroPainter(
+                progress: _progress.value,
+                eyeLidClosure: eyePose.eyeLidClosure,
+                pupilOffset: eyePose.pupilOffset,
+              ),
+            );
+          },
         ),
       ),
       Align(
@@ -779,11 +870,25 @@ class _HeroState extends State<_Hero> with SingleTickerProviderStateMixin {
   );
 }
 
-/// ヒーローの絵。[progress] (0〜1) で浮遊の高さとオーラの強さが変わる。寸法はモックの値 (390px 幅) をそのまま使う。
-class _HeroPainter extends CustomPainter {
-  const _HeroPainter({required this.progress});
+/// ヒーローの絵。[progress] (0〜1) で浮遊の高さとオーラの強さが、[eyeLidClosure]・[pupilOffset] で目が変わる。
+/// 寸法はモックの値 (390px 幅) をそのまま使う。アプリアイコン (scripts/app_icon/generate_app_icons.py) は
+/// [_paintMonster] のマグカップと同じ形を描くため、形・色を変える時は揃える。
+class TitleHeroPainter extends CustomPainter {
+  /// ヒーローの絵を作る。
+  const TitleHeroPainter({
+    required this.progress,
+    required this.eyeLidClosure,
+    required this.pupilOffset,
+  });
 
+  /// 浮遊とオーラの往復の位置 (0〜1)。
   final double progress;
+
+  /// まぶたの閉じ具合 (0 が開いている、1 が閉じている。[titleHeroEyePose])。
+  final double eyeLidClosure;
+
+  /// 今の絵の黒目の位置からのずらし (170×170 の箱の座標。[titleHeroEyePose])。
+  final Offset pupilOffset;
 
   /// マグカップの色 (モックは metal の属性の色)。
   static const Color _mugColor = Color(0xFF6D7B8A);
@@ -944,16 +1049,25 @@ class _HeroPainter extends CustomPainter {
           ..strokeWidth = width,
       );
     }
-    // 目
+    // 目: 白目は縦の中心を保って閉じ具合だけ低くし、閉じきった時も高さ 2 の線を残す (目が消えて見えないように)。
+    // 黒目は白目の中だけに描く
     for (final left in [36.0, 70.0]) {
+      final eyeWhite = Rect.fromCenter(
+        center: Offset(left + 11, 79),
+        width: 22,
+        height: math.max(26 * (1 - eyeLidClosure), 2),
+      );
       canvas.drawOval(
-        Rect.fromLTWH(left, 66, 22, 26),
+        eyeWhite,
         Paint()..color = SnapmonColors.textOnBackground,
       );
+      canvas.save();
+      canvas.clipPath(Path()..addOval(eyeWhite));
       canvas.drawOval(
-        Rect.fromLTWH(left + 10, 76, 9, 11),
+        Rect.fromLTWH(left + 10, 76, 9, 11).shift(pupilOffset),
         Paint()..color = SnapmonColors.background,
       );
+      canvas.restore();
     }
     // 電気の属性の飾り (モックの 24×28 の稲妻を 40×48 に)
     canvas.save();
@@ -974,8 +1088,10 @@ class _HeroPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_HeroPainter oldDelegate) =>
-      oldDelegate.progress != progress;
+  bool shouldRepaint(TitleHeroPainter oldDelegate) =>
+      oldDelegate.progress != progress ||
+      oldDelegate.eyeLidClosure != eyeLidClosure ||
+      oldDelegate.pupilOffset != pupilOffset;
 }
 
 /// タイトルのボタンを押した後、下タブ・生成に進める状態になるまで出す画面。ログインの画面 (失敗なら「つながりませんでした」と
