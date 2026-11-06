@@ -26,7 +26,7 @@ void main() {
   });
 
   test('同じ ID の定義は master を優先する', () {
-    final masterMetalMove = buildDexDefinitions(
+    final masterSteelMove = buildDexDefinitions(
       latestMasterJson: masterJson,
       definitionJsons: const [],
     ).moveById(moveId: 'steel_1');
@@ -49,7 +49,7 @@ void main() {
     );
     expect(
       definitions.moveById(moveId: 'steel_1').displayName,
-      masterMetalMove.displayName,
+      masterSteelMove.displayName,
     );
   });
 

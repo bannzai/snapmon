@@ -162,21 +162,22 @@ void main() {
     await tester.tap(find.text('技の一覧'));
     await tester.pumpAndSettle();
 
-    // 鋼の 2 番目の技 ねじこみ (steel_1b) は「硬い相手に強い」(倍率の最大 1.5 倍)
-    final screwMove = find.byKey(const Key('reference-move-steel_1b'));
+    // 炎の 2 番目の技 ゆげのもや (fire_1b) は「先に動くと強い」(倍率の最大 1.3 倍)。炎は一覧の先頭の属性で、
+    // 24 属性 144 件の一覧でも最初の画面に描かれる
+    final steamMove = find.byKey(const Key('reference-move-fire_1b'));
     expect(
-      find.descendant(of: screwMove, matching: find.text('ねじこみ')),
+      find.descendant(of: steamMove, matching: find.text('ゆげのもや')),
       findsOneWidget,
     );
     expect(
       find.descendant(
-        of: screwMove,
+        of: steamMove,
         matching: find.text('威力 35  PP 35  Lv. 1 から'),
       ),
       findsOneWidget,
     );
     expect(
-      find.descendant(of: screwMove, matching: find.text('硬い相手に強い')),
+      find.descendant(of: steamMove, matching: find.text('先に動くと強い')),
       findsOneWidget,
     );
 
@@ -192,27 +193,27 @@ void main() {
     expect(find.text('ゴムだまはじき'), findsOneWidget);
 
     await tester.scrollUntilVisible(
-      screwMove,
+      steamMove,
       -500,
       scrollable: moveListScrollable,
     );
-    await tester.tap(screwMove);
+    await tester.tap(steamMove);
     await tester.pumpAndSettle();
 
     expect(find.byType(MoveDetailScreen), findsOneWidget);
-    expect(find.text('ねじこみ'), findsOneWidget);
-    expect(find.text('相手の防御が自分の攻撃より高いと威力が上がる'), findsOneWidget);
+    expect(find.text('ゆげのもや'), findsOneWidget);
+    expect(find.text('先に行動すると威力が上がる'), findsOneWidget);
     expect(
       tester
           .widget<Text>(find.byKey(const Key('move-special-effect-formula')))
           .data,
-      '相手の防御 > 自分の攻撃 なら 150、それ以外は 100',
+      '相手より先に行動した なら 130、それ以外は 100',
     );
-    // 金属は木・紙・ガラスに 2 倍、金属・熱・石に 0.5 倍 (assets/master/master.json の typeChart)
+    // 炎は草・木・虫・氷・菓子・紙に 2 倍、水・土・魚・竜に 0.5 倍 (assets/master/master.json の typeChart)
     expect(find.text('よく効く'), findsOneWidget);
     expect(find.text('効きにくい'), findsOneWidget);
-    expect(find.text('× 2'), findsNWidgets(3));
-    expect(find.text('× 0.5'), findsNWidgets(3));
+    expect(find.text('× 2'), findsNWidgets(6));
+    expect(find.text('× 0.5'), findsNWidgets(4));
     expect(tester.takeException(), isNull);
   });
 

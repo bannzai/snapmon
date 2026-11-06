@@ -249,7 +249,7 @@ void main() {
     );
 
     /// [steelEffect] を 4 コマ (横 2 × 縦 2、1 コマ 10 × 8) の合成した画像で描くようにする。
-    Future<void> applyMetalSpriteSheet({required BattleFieldGame game}) async {
+    Future<void> applySteelSpriteSheet({required BattleFieldGame game}) async {
       final spriteSheetImage = await createArtImage(width: 20, height: 16);
       addTearDown(spriteSheetImage.dispose);
       game.applyMoveEffectSpriteSheet(
@@ -282,7 +282,7 @@ void main() {
       createGame,
       (game) async {
         game.onGameResize(Vector2(390, 500));
-        await applyMetalSpriteSheet(game: game);
+        await applySteelSpriteSheet(game: game);
         game.hit(defenderSide: BattleSideId.opponent, effect: steelEffect);
         await game.ready();
         expect(game.children.whereType<ParticleSystemComponent>(), isEmpty);
@@ -323,7 +323,7 @@ void main() {
       createGame,
       (game) async {
         game.onGameResize(Vector2(390, 500));
-        await applyMetalSpriteSheet(game: game);
+        await applySteelSpriteSheet(game: game);
 
         /// [defenderSide] の側に [steelEffect] の被弾を発行し、新しく出たエフェクトの水平方向の scale を返す。
         /// 1 なら素材の向きのまま、-1 なら左右を反転して描く。
@@ -382,7 +382,7 @@ void main() {
       '対応の無いエフェクトとわるあがきは、シートがあっても今までどおり描く',
       createGame,
       (game) async {
-        await applyMetalSpriteSheet(game: game);
+        await applySteelSpriteSheet(game: game);
         game.hit(
           defenderSide: BattleSideId.opponent,
           effect: const MoveEffect(

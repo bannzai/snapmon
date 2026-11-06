@@ -785,7 +785,7 @@ describe("generate", () => {
       { moveId: `${elementTypeId}_1`, unlockLevel: 1 },
       { moveId: "beast_1", unlockLevel: 1 },
       { moveId: "bird_1", unlockLevel: 1 },
-      { moveId: "food_1", unlockLevel: 1 },
+      { moveId: "bug_1", unlockLevel: 1 },
       { moveId: `${elementTypeId}_2`, unlockLevel: 15 },
       { moveId: `${elementTypeId}_3`, unlockLevel: 100 },
     ]);
