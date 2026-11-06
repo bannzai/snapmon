@@ -39,7 +39,7 @@ import {
   selectElementTypeIds,
 } from "./monster_stats";
 import { DECORATION_VERSION } from "./prompts/describe_subject";
-import { PROPOSED_MOVE_TIERS, proposalRangeViolation } from "./prompts/propose_element";
+import { boundedProposedSpecialEffectPower, PROPOSED_MOVE_TIERS, proposalRangeViolation } from "./prompts/propose_element";
 import {
   canonicalDescriptionText,
   type GenerationRecord,
@@ -976,7 +976,7 @@ async function resolveNewElementType(
   const baseUpdate: Partial<GenerationRecord> = { elementProposal: proposal, claudeUsages };
   const violation =
     proposalRangeViolation(proposal) ??
-    findModerationViolation([proposal.element.displayName, proposal.element.description, ...proposal.moves.map((move) => move.displayName)].join("\n"));
+    findModerationViolation([proposal.element.displayName, proposal.element.description, ...proposal.moves.flatMap((move) => [move.displayName, ...(move.specialEffect ? [move.specialEffect.summary, move.specialEffect.rule] : [])])].join("\n"));
   if (violation) {
     logger.warn("新しい属性の提案を使いません", { violation });
     return fallback(baseUpdate);
@@ -1016,6 +1016,8 @@ async function resolveNewElementType(
       learnableLevelMaximum: PROPOSED_MOVE_TIERS[index].learnableLevelMaximum,
       // rationale を足す前に保存した提案を判定待ちの再試行で使う時は根拠が無く、undefined を Firestore に書くと失敗するため項目ごと省く。
       ...(move.rationale === undefined ? {} : { rationale: move.rationale }),
+      // 特殊効果を足す前に保存した提案は specialEffect を持たず (undefined)、効果の無い技は null のため、どちらも項目ごと省く。
+      ...(move.specialEffect ? { specialEffect: { ...move.specialEffect, power: boundedProposedSpecialEffectPower(move.specialEffect.power) } } : {}),
     })),
     effects: [{ id: `${elementTypeId}_particle`, displayName: `${proposal.element.displayName}のパーティクル`, kind: "particle", colorHex: proposal.element.colorHex }],
   };
