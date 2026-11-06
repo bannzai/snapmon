@@ -1,77 +1,153 @@
 """snapmon のアプリアイコンを描き、iOS・Android・Web の置き場所に書き出す。
 
-絵は紹介ページの画像 (docs/og.png) の印と同じ形 (黄緑の耳付きの輪に、生成りの顔) を、
-documents/DIRECTION.md「デザインの方向」の色で描く。同じ入力から同じ画像を作るため、何度実行しても結果は変わらない。
+絵はタイトル画面のヒーロー (lib/features/title/title_screen.dart の TitleHeroPainter) のマグカップ
+(切り出しの縁取り・目・稲妻付き) と同じ形を、同じ寸法 (170×170 の箱の座標) で描く。斜めの写真の枠・オーラは入れない
+(小さいサイズで潰れるため)。同じ入力から同じ画像を作るため、何度実行しても結果は変わらない。
+マグカップの形・色を変える時は TitleHeroPainter._paintMonster と揃える。
 
-使い方: リポジトリのルートで Pillow の入った python3 から実行する
+使い方: リポジトリのルートで Pillow の入った python3 から実行する (make app-icons でも同じ)
     python3 scripts/app_icon/generate_app_icons.py
 iOS は ios/Runner/Assets.xcassets/AppIcon.appiconset/ に 1024px の 1 枚 (single-size 形式) を置く。
 """
 
 import json
+import math
 from pathlib import Path
 
-from PIL import Image, ImageDraw
+from PIL import Image, ImageChops, ImageDraw
 
-# 色は lib/theme/snapmon_colors.dart の background・accent・card と同じ値
+# 色は lib/theme/snapmon_colors.dart の background・accent・textOnBackground と、TitleHeroPainter のマグカップの色と同じ値
 BACKGROUND = (0x15, 0x12, 0x1C)
 ACCENT = (0xC6, 0xF4, 0x32)
-CARD = (0xF4, 0xF1, 0xEA)
+TEXT_ON_BACKGROUND = (0xF4, 0xF1, 0xEA)
+MUG = (0x6D, 0x7B, 0x8A)
+MUG_SHADE = (0x55, 0x60, 0x6E)
 
-# 輪の外の半径を 1 とした時の印の各部の位置。docs/og.png の印 (輪の外の半径 170px) を測って割った値
-INNER_RADIUS = 0.706
-FACE_RADIUS = 0.5
-EYE_OFFSET_X = 0.206
-EYE_OFFSET_Y = -0.059
-EYE_RADIUS = 0.1
-# 左の耳の三角形 (先端・付け根の 2 点)。付け根は輪の帯 (半径 0.706〜1) の中に置き、輪から耳だけが突き出す形にする。右の耳は x を反転する
-LEFT_EAR = [(-0.70, -1.15), (-0.80, -0.50), (-0.30, -0.80)]
-# 印の上端 (耳の先) は輪の中心から -1.15、下端は +1.0 のため、輪の中心を印の縦の中央より 0.075 下げる
-MARK_VERTICAL_SHIFT = 0.075
+# 以下の座標は TitleHeroPainter._paintMonster の 170×170 の箱の座標 (左上が原点)
+# 胴体の角丸の四角 (左, 上, 幅, 高さ) と、上・下の角の半径
+BODY = (10, 30, 112, 120)
+BODY_TOP_RADIUS = 16
+BODY_BOTTOM_RADIUS = 44
+# 胴体の外側の縁取り: 黄緑が胴体から 9 (線の幅 18 の半分)、その内側の地の色が 3 (線の幅 6 の半分)
+ACCENT_OUTLINE_OFFSET = 9
+BACKGROUND_OUTLINE_OFFSET = 3
+# 胴体の右下の陰 (胴体をこれだけずらした形を胴体で切り抜く)
+SHADE_SHIFT = (16, 18)
+# 取っ手の半円の輪 (楕円の外接の四角 (左, 上, 幅, 高さ))。地の色の線 20 の上にマグカップの色の線 14 を重ねる
+HANDLE = (119, 61, 38, 44)
+HANDLE_STROKES = ((BACKGROUND, 20), (MUG, 14))
+# 白目 (左, 上, 幅, 高さ) と、白目の左上に対する黒目の位置と大きさ
+EYE_LEFTS = (36, 70)
+EYE_TOP = 66
+EYE_SIZE = (22, 26)
+PUPIL = (10, 10, 9, 11)
+# 稲妻 (モックの 24×28 の座標) と、箱の座標への移動・拡大
+LIGHTNING = [(13, 1), (3, 16), (11, 16), (9, 27), (21, 10), (13, 10)]
+LIGHTNING_TRANSLATE = (118, -6)
+LIGHTNING_SCALE = (40 / 24, 48 / 28)
+
+# 絵全体 (縁取り・取っ手の線・稲妻を含む) の箱の座標での外接の四角。上の値から求めた
+# 左右は縁取りの左端 10-9=1 と取っ手の線の右端 119+38+10=167、上下は稲妻の先 -6+1×48/28≈-4.3 と縁取りの下端 150+9=159
+ART_LEFT = 1
+ART_RIGHT = 167
+ART_TOP = LIGHTNING_TRANSLATE[1] + min(y for _, y in LIGHTNING) * LIGHTNING_SCALE[1]
+ART_BOTTOM = BODY[1] + BODY[3] + ACCENT_OUTLINE_OFFSET
+ART_WIDTH = ART_RIGHT - ART_LEFT
+ART_HEIGHT = ART_BOTTOM - ART_TOP
+# 外接の四角の中心から角までの距離 (丸く切り抜かれるアイコンで、この円が安全域に収まる大きさにする)
+ART_HALF_DIAGONAL = math.hypot(ART_WIDTH, ART_HEIGHT) / 2
 
 # 滑らかな縁にするため、この倍率で大きく描いてから縮める
 SUPERSAMPLING = 4
+# 角丸を折れ線で近似する時の 1 つの角の分割数 (1024px を 4 倍で描いても折れ目が見えない数)
+CORNER_SEGMENTS = 32
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 
 
-def draw_mark(size: int, ring_radius_ratio: float, background) -> Image.Image:
-    """size 四方の画像に印を描いて返す。
+def rounded_rect_points(left: float, top: float, right: float, bottom: float, top_radius: float, bottom_radius: float):
+    """上の 2 つの角の半径が top_radius、下の 2 つが bottom_radius の角丸の四角の輪郭の点を返す。"""
+    points = []
+    for corner_x, corner_y, radius, start_degree in (
+        (right - top_radius, top + top_radius, top_radius, -90),
+        (right - bottom_radius, bottom - bottom_radius, bottom_radius, 0),
+        (left + bottom_radius, bottom - bottom_radius, bottom_radius, 90),
+        (left + top_radius, top + top_radius, top_radius, 180),
+    ):
+        for step in range(CORNER_SEGMENTS + 1):
+            angle = math.radians(start_degree + 90 * step / CORNER_SEGMENTS)
+            points.append((corner_x + radius * math.cos(angle), corner_y + radius * math.sin(angle)))
+    return points
 
-    ring_radius_ratio は画像の一辺に対する輪の外の半径の比。background が None なら背景を透明にする (Android の adaptive icon の前景)。
+
+def draw_mug(size: int, art_width_ratio: float, background) -> Image.Image:
+    """size 四方の画像の中央に、幅が一辺の art_width_ratio 倍のマグカップを描いて返す。
+
+    background が None なら背景を透明にする (Android の adaptive icon の前景)。
     """
     canvas_size = size * SUPERSAMPLING
     image = Image.new("RGBA", (canvas_size, canvas_size), (0, 0, 0, 0) if background is None else background + (255,))
     draw = ImageDraw.Draw(image)
-    radius = canvas_size * ring_radius_ratio
-    center_x = canvas_size / 2
-    center_y = canvas_size / 2 + MARK_VERTICAL_SHIFT * radius
+    scale = canvas_size * art_width_ratio / ART_WIDTH
+    origin_x = canvas_size / 2 - (ART_LEFT + ART_WIDTH / 2) * scale
+    origin_y = canvas_size / 2 - (ART_TOP + ART_HEIGHT / 2) * scale
 
     def point(x: float, y: float):
-        """輪の中心を原点・輪の外の半径を 1 とした座標 (x, y) の、画像の上の画素の位置を返す。"""
-        return (center_x + x * radius, center_y + y * radius)
+        """箱の座標 (x, y) の、画像の上の画素の位置を返す。"""
+        return (origin_x + x * scale, origin_y + y * scale)
 
-    def circle(x: float, y: float, circle_radius: float, color):
-        """輪の半径を 1 とした座標 (x, y) を中心に、半径 circle_radius の円を color で塗る。"""
-        left, top = point(x - circle_radius, y - circle_radius)
-        right, bottom = point(x + circle_radius, y + circle_radius)
-        draw.ellipse((left, top, right, bottom), fill=color)
+    def body_polygon(offset: float, shift=(0, 0)):
+        """胴体を外側に offset だけ広げ、shift だけずらした形の、画像の上の輪郭の点を返す。"""
+        left, top, width, height = BODY
+        return [
+            point(x + shift[0], y + shift[1])
+            for x, y in rounded_rect_points(
+                left - offset,
+                top - offset,
+                left + width + offset,
+                top + height + offset,
+                BODY_TOP_RADIUS + offset,
+                BODY_BOTTOM_RADIUS + offset,
+            )
+        ]
 
-    draw.polygon([point(x, y) for x, y in LEFT_EAR], fill=ACCENT)
-    draw.polygon([point(-x, y) for x, y in LEFT_EAR], fill=ACCENT)
-    circle(0, 0, 1.0, ACCENT)
-    circle(0, 0, INNER_RADIUS, BACKGROUND)
-    circle(0, 0, FACE_RADIUS, CARD)
-    circle(-EYE_OFFSET_X, EYE_OFFSET_Y, EYE_RADIUS, BACKGROUND)
-    circle(EYE_OFFSET_X, EYE_OFFSET_Y, EYE_RADIUS, BACKGROUND)
-    smile_left, smile_top = point(-0.24, -0.02)
-    smile_right, smile_bottom = point(0.24, 0.3)
-    draw.arc(
-        (smile_left, smile_top, smile_right, smile_bottom),
-        start=25,
-        end=155,
-        fill=BACKGROUND,
-        width=round(0.06 * radius),
+    def oval(left: float, top: float, width: float, height: float, color):
+        """箱の座標の外接の四角 (left, top, width, height) の楕円を color で塗る。"""
+        draw.ellipse((*point(left, top), *point(left + width, top + height)), fill=color)
+
+    draw.polygon(body_polygon(ACCENT_OUTLINE_OFFSET), fill=ACCENT)
+    draw.polygon(body_polygon(BACKGROUND_OUTLINE_OFFSET), fill=BACKGROUND)
+    draw.polygon(body_polygon(0), fill=MUG)
+    # 陰は胴体とずらした胴体の重なりだけを塗る
+    body_mask = Image.new("L", image.size, 0)
+    ImageDraw.Draw(body_mask).polygon(body_polygon(0), fill=255)
+    shade_mask = Image.new("L", image.size, 0)
+    ImageDraw.Draw(shade_mask).polygon(body_polygon(0, shift=SHADE_SHIFT), fill=255)
+    image.paste(MUG_SHADE + (255,), (0, 0), ImageChops.multiply(body_mask, shade_mask))
+    # Pillow の arc の線は外接の四角の内側に太るため、線の幅の半分だけ広げた四角で、線の中心を元の楕円に合わせる
+    handle_left, handle_top, handle_width, handle_height = HANDLE
+    for color, stroke_width in HANDLE_STROKES:
+        half = stroke_width / 2
+        draw.arc(
+            (
+                *point(handle_left - half, handle_top - half),
+                *point(handle_left + handle_width + half, handle_top + handle_height + half),
+            ),
+            start=-90,
+            end=90,
+            fill=color,
+            width=round(stroke_width * scale),
+        )
+    pupil_x, pupil_y, pupil_width, pupil_height = PUPIL
+    for eye_left in EYE_LEFTS:
+        oval(eye_left, EYE_TOP, *EYE_SIZE, TEXT_ON_BACKGROUND)
+        oval(eye_left + pupil_x, EYE_TOP + pupil_y, pupil_width, pupil_height, BACKGROUND)
+    draw.polygon(
+        [
+            point(LIGHTNING_TRANSLATE[0] + x * LIGHTNING_SCALE[0], LIGHTNING_TRANSLATE[1] + y * LIGHTNING_SCALE[1])
+            for x, y in LIGHTNING
+        ],
+        fill=ACCENT,
     )
     return image.resize((size, size), Image.LANCZOS)
 
@@ -88,15 +164,21 @@ def save_transparent(image: Image.Image, path: Path):
     image.save(path, optimize=True)
 
 
-# 輪の外の半径の比。全面に出すアイコンは 0.3 (印の縦が一辺の約 64%。docs/og.png の高さに対する印の比に近い)。
-# 丸などで切り抜かれるアイコンは、印の端 (耳の先は画像の中心から約 1.29) が安全域の円に収まる比にする。
+def safe_zone_width_ratio(safe_radius_ratio: float) -> float:
+    """絵の外接の四角の角が、画像の中心から一辺の safe_radius_ratio 倍の円に収まる時の、絵の幅の比を返す。"""
+    return safe_radius_ratio * ART_WIDTH / ART_HALF_DIAGONAL
+
+
+# 絵の幅の比。全面に出すアイコンは 0.72 (iOS の角丸の切り抜きでも、外接の四角の角にある取っ手・稲妻が欠けない大きさ。
+# 1024px で角の空きは約 143px で、iOS のアイコンの角の半径の約 22% (225px) の円弧に掛かるのは絵の無い外接の四角の角だけ)。
+# 丸などで切り抜かれるアイコンは、外接の四角の角が安全域の円に収まる比にする。
 # Web の maskable の安全域は半径 40% (https://w3c.github.io/manifest/#icon-masks)、Android の adaptive icon の前景は
 # 108dp のうち中央の直径 66dp (https://developer.android.com/develop/ui/views/launch/icon_design_adaptive) で半径 30.5%
-FULL_BLEED_RATIO = 0.3
-MASKABLE_RATIO = 0.3
-ADAPTIVE_FOREGROUND_RATIO = 0.23
-# 16px では細部が潰れるため印を大きくする (耳の先が端に触れない範囲)
-FAVICON_RATIO = 0.36
+FULL_BLEED_RATIO = 0.72
+MASKABLE_RATIO = safe_zone_width_ratio(0.4)
+ADAPTIVE_FOREGROUND_RATIO = safe_zone_width_ratio(0.305)
+# 16px では細部が潰れるため絵を大きくする (取っ手の端が画像の端に触れない範囲)
+FAVICON_RATIO = 0.9
 
 ANDROID_LEGACY_SIZES = {"mdpi": 48, "hdpi": 72, "xhdpi": 96, "xxhdpi": 144, "xxxhdpi": 192}
 # adaptive icon の前景は 108dp
@@ -108,7 +190,7 @@ def write_ios():
     appiconset = REPOSITORY_ROOT / "ios/Runner/Assets.xcassets/AppIcon.appiconset"
     for old_icon in appiconset.glob("Icon-App-*.png"):
         old_icon.unlink()
-    save_opaque(draw_mark(1024, FULL_BLEED_RATIO, BACKGROUND), appiconset / "AppIcon.png")
+    save_opaque(draw_mug(1024, FULL_BLEED_RATIO, BACKGROUND), appiconset / "AppIcon.png")
     contents = {
         "images": [{"filename": "AppIcon.png", "idiom": "universal", "platform": "ios", "size": "1024x1024"}],
         "info": {"author": "xcode", "version": 1},
@@ -120,10 +202,10 @@ def write_android():
     """Android の密度ごとの従来のアイコン (ic_launcher) と adaptive icon の前景 (ic_launcher_foreground) を書き出す。"""
     resources = REPOSITORY_ROOT / "android/app/src/main/res"
     for density, size in ANDROID_LEGACY_SIZES.items():
-        save_opaque(draw_mark(size, FULL_BLEED_RATIO, BACKGROUND), resources / f"mipmap-{density}/ic_launcher.png")
+        save_opaque(draw_mug(size, FULL_BLEED_RATIO, BACKGROUND), resources / f"mipmap-{density}/ic_launcher.png")
     for density, size in ANDROID_FOREGROUND_SIZES.items():
         save_transparent(
-            draw_mark(size, ADAPTIVE_FOREGROUND_RATIO, None),
+            draw_mug(size, ADAPTIVE_FOREGROUND_RATIO, None),
             resources / f"mipmap-{density}/ic_launcher_foreground.png",
         )
 
@@ -131,10 +213,10 @@ def write_android():
 def write_web():
     """Web の favicon と、PWA の通常のアイコン・maskable のアイコン (192px・512px) を書き出す。"""
     web = REPOSITORY_ROOT / "web"
-    save_opaque(draw_mark(16, FAVICON_RATIO, BACKGROUND), web / "favicon.png")
+    save_opaque(draw_mug(16, FAVICON_RATIO, BACKGROUND), web / "favicon.png")
     for size in (192, 512):
-        save_opaque(draw_mark(size, FULL_BLEED_RATIO, BACKGROUND), web / f"icons/Icon-{size}.png")
-        save_opaque(draw_mark(size, MASKABLE_RATIO, BACKGROUND), web / f"icons/Icon-maskable-{size}.png")
+        save_opaque(draw_mug(size, FULL_BLEED_RATIO, BACKGROUND), web / f"icons/Icon-{size}.png")
+        save_opaque(draw_mug(size, MASKABLE_RATIO, BACKGROUND), web / f"icons/Icon-maskable-{size}.png")
 
 
 if __name__ == "__main__":
