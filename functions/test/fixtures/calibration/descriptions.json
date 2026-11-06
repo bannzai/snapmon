@@ -1152,5 +1152,521 @@
       ]
     },
     "name": "ホーロマグン"
+  },
+  "40": {
+    "description": {
+      "what": "茶色い犬のぬいぐるみ",
+      "colors": [
+        "茶色",
+        "黒"
+      ],
+      "materials": [
+        "布",
+        "綿"
+      ],
+      "size": "medium",
+      "hardness": "soft",
+      "temperature": "warm",
+      "uses": [
+        "抱いて遊ぶ",
+        "飾る"
+      ],
+      "impression": [
+        "ふわふわ",
+        "かわいい"
+      ],
+      "distinctiveMarks": [
+        "垂れた耳",
+        "首に赤いリボン"
+      ]
+    },
+    "name": "(手で書いた見本)"
+  },
+  "41": {
+    "description": {
+      "what": "黒いカブトムシ",
+      "colors": [
+        "黒",
+        "茶色"
+      ],
+      "materials": [
+        "虫の殻"
+      ],
+      "size": "small",
+      "hardness": "hard",
+      "temperature": "neutral",
+      "uses": [
+        "観察する",
+        "飼う"
+      ],
+      "impression": [
+        "つやつや",
+        "力強い"
+      ],
+      "distinctiveMarks": [
+        "大きな角",
+        "6 本の脚"
+      ]
+    },
+    "name": "(手で書いた見本)"
+  },
+  "42": {
+    "description": {
+      "what": "枝に止まった茶色いスズメ",
+      "colors": [
+        "茶色",
+        "白",
+        "黒"
+      ],
+      "materials": [
+        "羽毛"
+      ],
+      "size": "small",
+      "hardness": "soft",
+      "temperature": "warm",
+      "uses": [
+        "観察する"
+      ],
+      "impression": [
+        "ふくふく",
+        "すばやい"
+      ],
+      "distinctiveMarks": [
+        "ほおの黒い模様",
+        "短いくちばし"
+      ]
+    },
+    "name": "(手で書いた見本)"
+  },
+  "43": {
+    "description": {
+      "what": "水槽の中を泳ぐ赤い金魚",
+      "colors": [
+        "赤",
+        "白",
+        "透明"
+      ],
+      "materials": [
+        "魚のひれ",
+        "ガラス",
+        "水"
+      ],
+      "size": "small",
+      "hardness": "soft",
+      "temperature": "cold",
+      "uses": [
+        "飼う",
+        "眺める"
+      ],
+      "impression": [
+        "ゆらゆら",
+        "きれい"
+      ],
+      "distinctiveMarks": [
+        "長い尾びれ",
+        "水槽の底の白い砂"
+      ]
+    },
+    "name": "(手で書いた見本)"
+  },
+  "44": {
+    "description": {
+      "what": "ガラスの器に盛られたいちごシロップのかき氷",
+      "colors": [
+        "白",
+        "赤",
+        "透明"
+      ],
+      "materials": [
+        "氷",
+        "シロップ",
+        "ガラス"
+      ],
+      "size": "small",
+      "hardness": "soft",
+      "temperature": "cold",
+      "uses": [
+        "食べる"
+      ],
+      "impression": [
+        "冷たい",
+        "さっぱり"
+      ],
+      "distinctiveMarks": [
+        "山の形に盛られている",
+        "てっぺんにいちご"
+      ]
+    },
+    "name": "(手で書いた見本)"
+  },
+  "45": {
+    "description": {
+      "what": "白い羽の卓上の扇風機",
+      "colors": [
+        "白",
+        "水色"
+      ],
+      "materials": [
+        "プラスチック",
+        "金属"
+      ],
+      "size": "medium",
+      "hardness": "hard",
+      "temperature": "neutral",
+      "uses": [
+        "風を送る",
+        "涼む"
+      ],
+      "impression": [
+        "涼しい",
+        "軽やか"
+      ],
+      "distinctiveMarks": [
+        "3 枚の羽",
+        "丸い格子のカバー"
+      ]
+    },
+    "name": "(手で書いた見本)"
+  },
+  "46": {
+    "description": {
+      "what": "赤と黄色のチューリップの花束",
+      "colors": [
+        "赤",
+        "黄色",
+        "緑"
+      ],
+      "materials": [
+        "花",
+        "葉",
+        "紙"
+      ],
+      "size": "medium",
+      "hardness": "soft",
+      "temperature": "neutral",
+      "uses": [
+        "飾る",
+        "贈る"
+      ],
+      "impression": [
+        "華やか",
+        "春らしい"
+      ],
+      "distinctiveMarks": [
+        "茶色い紙で包まれている",
+        "リボンで結ばれている"
+      ]
+    },
+    "name": "(手で書いた見本)"
+  },
+  "47": {
+    "description": {
+      "what": "銀色のロボットのおもちゃ",
+      "colors": [
+        "銀色",
+        "赤"
+      ],
+      "materials": [
+        "金属",
+        "プラスチック"
+      ],
+      "size": "small",
+      "hardness": "hard",
+      "temperature": "neutral",
+      "uses": [
+        "ねじを巻いて歩かせる",
+        "飾る"
+      ],
+      "impression": [
+        "レトロ",
+        "かっこいい"
+      ],
+      "distinctiveMarks": [
+        "背中にねじ巻き",
+        "胸に赤いボタン"
+      ]
+    },
+    "name": "(手で書いた見本)"
+  },
+  "48": {
+    "description": {
+      "what": "いちごのショートケーキ",
+      "colors": [
+        "白",
+        "赤"
+      ],
+      "materials": [
+        "クリーム",
+        "スポンジ",
+        "いちご"
+      ],
+      "size": "small",
+      "hardness": "soft",
+      "temperature": "cold",
+      "uses": [
+        "食べる"
+      ],
+      "impression": [
+        "甘い",
+        "ふわふわ"
+      ],
+      "distinctiveMarks": [
+        "てっぺんに大きないちご",
+        "側面に塗られたクリーム"
+      ]
+    },
+    "name": "(手で書いた見本)"
+  },
+  "49": {
+    "description": {
+      "what": "白い布のおばけのハロウィンの飾り",
+      "colors": [
+        "白",
+        "黒"
+      ],
+      "materials": [
+        "布"
+      ],
+      "size": "medium",
+      "hardness": "soft",
+      "temperature": "neutral",
+      "uses": [
+        "飾る",
+        "驚かせる"
+      ],
+      "impression": [
+        "不気味",
+        "ゆらゆら"
+      ],
+      "distinctiveMarks": [
+        "黒い糸で縫った目と口",
+        "頭から吊るすひも"
+      ]
+    },
+    "name": "(手で書いた見本)"
+  },
+  "50": {
+    "description": {
+      "what": "緑色のティラノサウルスのおもちゃ",
+      "colors": [
+        "緑",
+        "白"
+      ],
+      "materials": [
+        "プラスチック"
+      ],
+      "size": "medium",
+      "hardness": "hard",
+      "temperature": "neutral",
+      "uses": [
+        "遊ぶ",
+        "飾る"
+      ],
+      "impression": [
+        "強そう",
+        "ごつごつ"
+      ],
+      "distinctiveMarks": [
+        "口を開けて白い牙が見える",
+        "太い尾"
+      ]
+    },
+    "name": "(手で書いた見本)"
+  },
+  "51": {
+    "description": {
+      "what": "黒いナイロンのリュックサック",
+      "colors": [
+        "黒"
+      ],
+      "materials": [
+        "ナイロン",
+        "金属"
+      ],
+      "size": "medium",
+      "hardness": "soft",
+      "temperature": "neutral",
+      "uses": [
+        "物を入れて持ち歩く",
+        "通学"
+      ],
+      "impression": [
+        "シンプル",
+        "丈夫"
+      ],
+      "distinctiveMarks": [
+        "前に小さなポケット",
+        "銀色のファスナー"
+      ]
+    },
+    "name": "(手で書いた見本)"
+  },
+  "52": {
+    "description": {
+      "what": "緑色の食器用洗剤のボトル",
+      "colors": [
+        "緑",
+        "白"
+      ],
+      "materials": [
+        "プラスチック",
+        "洗剤"
+      ],
+      "size": "small",
+      "hardness": "soft",
+      "temperature": "neutral",
+      "uses": [
+        "食器を洗う"
+      ],
+      "impression": [
+        "さわやか",
+        "清潔"
+      ],
+      "distinctiveMarks": [
+        "押すと出るノズル",
+        "白いラベル"
+      ]
+    },
+    "name": "(手で書いた見本)"
+  },
+  "53": {
+    "description": {
+      "what": "黒いヘッドホン",
+      "colors": [
+        "黒",
+        "銀色"
+      ],
+      "materials": [
+        "プラスチック",
+        "金属",
+        "合成皮革"
+      ],
+      "size": "medium",
+      "hardness": "hard",
+      "temperature": "neutral",
+      "uses": [
+        "音楽を聴く"
+      ],
+      "impression": [
+        "落ち着いた",
+        "重厚"
+      ],
+      "distinctiveMarks": [
+        "耳当てのクッション",
+        "太いコード"
+      ]
+    },
+    "name": "(手で書いた見本)"
+  },
+  "54": {
+    "description": {
+      "what": "ガラスのシェードの白いデスクランプ",
+      "colors": [
+        "白",
+        "透明",
+        "黄色"
+      ],
+      "materials": [
+        "ガラス",
+        "金属"
+      ],
+      "size": "medium",
+      "hardness": "hard",
+      "temperature": "warm",
+      "uses": [
+        "明かりをつける",
+        "机を照らす"
+      ],
+      "impression": [
+        "明るい",
+        "やさしい"
+      ],
+      "distinctiveMarks": [
+        "丸いガラスのシェード",
+        "曲がったアーム"
+      ]
+    },
+    "name": "(手で書いた見本)"
+  },
+  "55": {
+    "description": {
+      "what": "青い表紙の文庫本",
+      "colors": [
+        "青",
+        "白"
+      ],
+      "materials": [
+        "紙"
+      ],
+      "size": "small",
+      "hardness": "soft",
+      "temperature": "neutral",
+      "uses": [
+        "読む"
+      ],
+      "impression": [
+        "静か",
+        "知的"
+      ],
+      "distinctiveMarks": [
+        "背表紙に白い題名",
+        "角が少し折れている"
+      ]
+    },
+    "name": "(手で書いた見本)"
+  },
+  "56": {
+    "description": {
+      "what": "水色のふわふわしたタオル",
+      "colors": [
+        "水色"
+      ],
+      "materials": [
+        "布",
+        "綿"
+      ],
+      "size": "medium",
+      "hardness": "soft",
+      "temperature": "neutral",
+      "uses": [
+        "体をふく",
+        "手をふく"
+      ],
+      "impression": [
+        "ふわふわ",
+        "やわらかい"
+      ],
+      "distinctiveMarks": [
+        "端に白い縁取り",
+        "小さなタグ"
+      ]
+    },
+    "name": "(手で書いた見本)"
+  },
+  "57": {
+    "description": {
+      "what": "木のまな板",
+      "colors": [
+        "茶色"
+      ],
+      "materials": [
+        "木"
+      ],
+      "size": "medium",
+      "hardness": "hard",
+      "temperature": "neutral",
+      "uses": [
+        "料理で食材を切る"
+      ],
+      "impression": [
+        "素朴",
+        "あたたか"
+      ],
+      "distinctiveMarks": [
+        "持ち手の穴",
+        "包丁の跡"
+      ]
+    },
+    "name": "(手で書いた見本)"
   }
 }
