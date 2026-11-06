@@ -149,6 +149,15 @@ export function proposalRangeViolation(output: ProposeElementOutput): string | u
 const PROPOSED_SPECIAL_EFFECT_MAXIMUM_POWER_PERCENT = 200;
 
 /**
+ * 提案した特殊効果の式 `power` を、どの状況でも倍率が PROPOSED_SPECIAL_EFFECT_MAXIMUM_POWER_PERCENT を超えない式にして返す。
+ * 見本の状況の検査 (proposedSpecialEffectViolation) は、見本に無い値 (高いレベル・大きいステータス) での値を保証できないため、
+ * 保存する式そのものに上限を入れる。負の値は端末が倍率 100 にする (lib/domain/battle/move_special_effect.dart)。
+ */
+export function boundedProposedSpecialEffectPower(power: string): string {
+  return `min(${power}, ${PROPOSED_SPECIAL_EFFECT_MAXIMUM_POWER_PERCENT})`;
+}
+
+/**
  * 提案した特殊効果の短い説明 (`summary`) の文字数の範囲。上限の 12 は master の説明の最長 (「違う属性の相手に強い」の 10 文字) に余裕を持たせた値で、
  * 390pt 幅の画面で 2 列に並べた技の枠に 1 行で収まる長さ (documents/game-rules.md「技の特殊効果」)。下限の 2 は 1 文字では効果を言い表せないため。
  * プロンプトの「2〜12 文字」と同じ値にする。

@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 
 import { describe, expect, it } from "vitest";
 
-import { proposedSpecialEffectViolation } from "../../src/generation/prompts/propose_element";
+import { boundedProposedSpecialEffectPower, proposedSpecialEffectViolation } from "../../src/generation/prompts/propose_element";
 import { MOVE_EXPRESSION_VARIABLE_NAMES, evaluateMoveExpression, moveExpressionViolation, parseMoveExpression } from "../../src/move_expression";
 
 /** Dart の評価器のテスト (test/domain/battle/move_expression_test.dart) と共通のテストケース。 */
@@ -60,5 +60,15 @@ describe("proposedSpecialEffectViolation", () => {
     expect(proposedSpecialEffectViolation({ specialEffect: { power: "100", summary: "とても長い説明の文言になっています", rule: "条件を満たすと威力が上がる" }, powerPoints: 25 })).toContain("説明");
     expect(proposedSpecialEffectViolation({ specialEffect: { power: "100", summary: "先に動くと強い", rule: "あ".repeat(41) }, powerPoints: 25 })).toContain("規則");
     expect(proposedSpecialEffectViolation({ specialEffect: { power: "100", summary: "先に動くと強い", rule: "あ".repeat(40) }, powerPoints: 25 })).toBeUndefined();
+  });
+});
+
+describe("boundedProposedSpecialEffectPower", () => {
+  it("見本の状況の検査を通った式も、見本に無い高いレベルで 200 を超えない", () => {
+    const power = "100 + 10 * self.level";
+    expect(proposedSpecialEffectViolation({ specialEffect: { power, summary: "育つほど強い", rule: "レベルが高いほど威力が上がる" }, powerPoints: 25 })).toBeUndefined();
+    const node = parseMoveExpression(boundedProposedSpecialEffectPower(power));
+    expect(evaluateMoveExpression({ node, variables: { ...fixture.variables, "self.level": 20 } })).toBe(200);
+    expect(evaluateMoveExpression({ node, variables: { ...fixture.variables, "self.level": 5 } })).toBe(150);
   });
 });
