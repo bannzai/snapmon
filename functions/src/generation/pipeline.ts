@@ -149,8 +149,12 @@ const VISION_LABEL_MINIMUM_SCORE = 0.6;
  */
 const SAME_DEFINITION_PROBABILITY_THRESHOLD = 0.8;
 
-/** 属性と技の数の上限 (ADR 0001 の属性 24 種・技 2,000 件)。 */
-const ELEMENT_TYPE_LIMIT = 24;
+/**
+ * 属性と技の数の上限 (master とその場で作った定義の合計)。ADR 0001 は属性 24 種・技 2,000 件としたが、master の版 6 で master の属性が
+ * 12 から 24 になった (#180) ため、その場で作れる属性の余地を版 5 までと同じ 12 残して 36 にした。Jev の判定の問いは属性 36 で 76 件
+ * (属性 36 + ステータス 4 + 技 36) になり、API に問いの件数の上限は無い (ADR 0001「属性・技・ステータスの判定」)。
+ */
+const ELEMENT_TYPE_LIMIT = 36;
 const MOVE_LIMIT = 2_000;
 
 /** 生成の要求を受け付けられない理由。callable は HttpsError に、それ以外はログに出す。 */

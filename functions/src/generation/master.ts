@@ -9,7 +9,7 @@ export interface MasterElementType {
   id: string;
   /** 画面に出す属性の名前。 */
   displayName: string;
-  /** その場で作った属性の説明 (Jev の問いに使う)。master の属性は持たない。 */
+  /** 属性に当てはまる物の基準 (Jev の問いの criteria に入る)。master の属性は版 1 から持ち、その場で作った属性は Claude の提案から入る。 */
   description?: string;
 }
 
@@ -114,7 +114,7 @@ export async function fetchMaster({ firestore, version }: { firestore: Firestore
   return snapshot.data() as Master;
 }
 
-/** その場で作った定義をすべて読む。件数は属性の上限 (ADR 0001 の 24 種) までに収まるため、全件を読む。 */
+/** その場で作った定義をすべて読む。件数は属性の上限 (pipeline.ts の `ELEMENT_TYPE_LIMIT`) までに収まるため、全件を読む。 */
 export async function fetchDynamicDefinitions(firestore: Firestore): Promise<{ id: string; definition: DynamicDefinition }[]> {
   const snapshot = await firestore.collection("definitions").get();
   return snapshot.docs.map((document) => ({ id: document.id, definition: document.data() as DynamicDefinition }));

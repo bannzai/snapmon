@@ -23,7 +23,7 @@ function monsterDocument(): MonsterDocument {
       sourcePhotoReference: "users/owner-1/photos/secret-photo-request",
       name: "マグモン",
       encyclopediaText: "まいにち あたたかい のみものを はこぶ",
-      elementTypeIds: ["heat"],
+      elementTypeIds: ["fire"],
       learnset: [{ moveId: "warm-touch", unlockLevel: 1 }],
       baseStats: { hitPoints: 50, attack: 50, defense: 50, speed: 50 },
       individualValues: { hitPoints: 1, attack: 2, defense: 3, speed: 4 },
@@ -101,7 +101,7 @@ describe("publicMonster", () => {
     }
     expect(shown.definition).not.toHaveProperty("sourcePhotoReference");
     expect(shown).toMatchObject({ level: 7, artPath: "monsters/monster-1/art.png", definitionIds: ["definition-1"] });
-    expect(shown.definition).toMatchObject({ id: "monster-1", name: "マグモン", elementTypeIds: ["heat"] });
+    expect(shown.definition).toMatchObject({ id: "monster-1", name: "マグモン", elementTypeIds: ["fire"] });
   });
 });
 

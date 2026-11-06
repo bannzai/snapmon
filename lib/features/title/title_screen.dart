@@ -893,7 +893,7 @@ class TitleHeroPainter extends CustomPainter {
   /// 今の絵の黒目の位置からのずらし (170×170 の箱の座標。[titleHeroEyePose])。
   final Offset pupilOffset;
 
-  /// マグカップの色 (モックは metal の属性の色)。
+  /// マグカップの色 (モックは鋼 (steel) の属性の色)。
   static const Color _mugColor = Color(0xFF6D7B8A);
 
   /// マグカップの陰の色。

@@ -136,7 +136,7 @@ void main() {
         'power': 40,
         'powerPoints': 30,
         'category': 'attack',
-        'effectId': 'plastic_particle',
+        'effectId': 'machine_particle',
         'learnableLevelMinimum': 1,
         'learnableLevelMaximum': 30,
         'rationale': 'ゴムの玉をはじく技',
@@ -173,8 +173,8 @@ void main() {
         ],
         // その場で作った定義が相性を持っていても取り込まれず、等倍に固定されることを確かめる
         'typeChart': {
-          'custom_rubber': {'electric': 2},
-          'heat': {'custom_rubber': 2},
+          'custom_rubber': {'thunder': 2},
+          'fire': {'custom_rubber': 2},
         },
         'moves': [
           {
@@ -184,7 +184,7 @@ void main() {
             'power': 40,
             'powerPoints': 30,
             'category': 'attack',
-            'effectId': 'plastic_particle',
+            'effectId': 'machine_particle',
             'learnableLevelMinimum': 1,
             'learnableLevelMaximum': 30,
           },
@@ -198,13 +198,13 @@ void main() {
     expect(
       merged.typeMultiplier(
         attackerElementTypeId: 'custom_rubber',
-        defenderElementTypeId: 'metal',
+        defenderElementTypeId: 'steel',
       ),
       1,
     );
     expect(
       merged.typeMultiplier(
-        attackerElementTypeId: 'heat',
+        attackerElementTypeId: 'fire',
         defenderElementTypeId: 'custom_rubber',
       ),
       1,

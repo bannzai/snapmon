@@ -94,36 +94,61 @@ MonsterStats testStats({
   battleDate: battleDate ?? DateTime.utc(2026, 10, 28),
 );
 
-/// master の版 4 の特殊効果 (技の識別子と、種類・倍率の最大 %)。版 5 で式に書き直した効果が同じ倍率を返すことを
-/// 確かめるために、版 4 の assets/master/master.json から写した。
+/// 版 4 までの 8 種類の特殊効果 (技の識別子と、種類・倍率の最大 %)。版 5 で式に書き直した効果と、版 6 で足した技の効果
+/// (同じ 8 種類の式を使う) が、版 4 のアプリと同じ倍率を返すことを確かめる。版 5 から残した技は版 4 の同じ技の種類、
+/// 版 6 で足した技はその技の式に当たる種類を書いた。
 const _version4SpecialEffects = {
-  'metal_1b': (kind: 'tougherOpponent', maximumPowerPercent: 150),
-  'metal_1c': (kind: 'movesLast', maximumPowerPercent: 140),
-  'wood_1b': (kind: 'opponentHitPointsLow', maximumPowerPercent: 200),
-  'wood_1c': (kind: 'ownHitPointsLow', maximumPowerPercent: 200),
-  'plant_1b': (kind: 'differentElementFromOpponent', maximumPowerPercent: 120),
-  'plant_1c': (kind: 'tougherOpponent', maximumPowerPercent: 150),
+  'fire_1b': (kind: 'movesFirst', maximumPowerPercent: 130),
+  'fire_1c': (kind: 'opponentHitPointsLow', maximumPowerPercent: 200),
   'water_1b': (kind: 'sameElementAsOpponent', maximumPowerPercent: 150),
   'water_1c': (kind: 'movesFirst', maximumPowerPercent: 130),
-  'heat_1b': (kind: 'movesFirst', maximumPowerPercent: 130),
-  'heat_1c': (kind: 'opponentHitPointsLow', maximumPowerPercent: 200),
-  'stone_1b': (kind: 'movesLast', maximumPowerPercent: 140),
-  'stone_1c': (kind: 'tougherOpponent', maximumPowerPercent: 150),
-  'paper_1b': (kind: 'powerPointsLow', maximumPowerPercent: 200),
-  'paper_1c': (kind: 'sameElementAsOpponent', maximumPowerPercent: 150),
-  'cloth_1b': (kind: 'ownHitPointsLow', maximumPowerPercent: 200),
-  'cloth_1c': (kind: 'movesFirst', maximumPowerPercent: 130),
-  'glass_1b': (kind: 'differentElementFromOpponent', maximumPowerPercent: 120),
-  'glass_1c': (kind: 'powerPointsLow', maximumPowerPercent: 200),
-  'plastic_1b': (kind: 'movesLast', maximumPowerPercent: 140),
-  'plastic_1c': (kind: 'opponentHitPointsLow', maximumPowerPercent: 200),
-  'electric_1b': (kind: 'movesFirst', maximumPowerPercent: 130),
-  'electric_1c': (
+  'grass_1b': (kind: 'differentElementFromOpponent', maximumPowerPercent: 120),
+  'grass_1c': (kind: 'tougherOpponent', maximumPowerPercent: 150),
+  'thunder_1b': (kind: 'movesFirst', maximumPowerPercent: 130),
+  'thunder_1c': (
     kind: 'differentElementFromOpponent',
     maximumPowerPercent: 120,
   ),
-  'food_1b': (kind: 'sameElementAsOpponent', maximumPowerPercent: 150),
-  'food_1c': (kind: 'ownHitPointsLow', maximumPowerPercent: 200),
+  'earth_1b': (kind: 'movesLast', maximumPowerPercent: 140),
+  'earth_1c': (kind: 'tougherOpponent', maximumPowerPercent: 150),
+  'steel_1b': (kind: 'tougherOpponent', maximumPowerPercent: 150),
+  'steel_1c': (kind: 'movesLast', maximumPowerPercent: 140),
+  'wood_1b': (kind: 'opponentHitPointsLow', maximumPowerPercent: 200),
+  'wood_1c': (kind: 'ownHitPointsLow', maximumPowerPercent: 200),
+  'light_1b': (kind: 'movesFirst', maximumPowerPercent: 130),
+  'light_1c': (kind: 'powerPointsLow', maximumPowerPercent: 200),
+  'dark_1b': (kind: 'movesFirst', maximumPowerPercent: 130),
+  'dark_1c': (kind: 'ownHitPointsLow', maximumPowerPercent: 200),
+  'poison_1b': (kind: 'differentElementFromOpponent', maximumPowerPercent: 120),
+  'poison_1c': (kind: 'opponentHitPointsLow', maximumPowerPercent: 200),
+  'sound_1b': (kind: 'movesFirst', maximumPowerPercent: 130),
+  'sound_1c': (kind: 'powerPointsLow', maximumPowerPercent: 200),
+  'beast_1b': (kind: 'movesLast', maximumPowerPercent: 140),
+  'beast_1c': (kind: 'tougherOpponent', maximumPowerPercent: 150),
+  'bug_1b': (kind: 'movesLast', maximumPowerPercent: 140),
+  'bug_1c': (kind: 'sameElementAsOpponent', maximumPowerPercent: 150),
+  'bird_1b': (kind: 'movesFirst', maximumPowerPercent: 130),
+  'bird_1c': (kind: 'tougherOpponent', maximumPowerPercent: 150),
+  'fish_1b': (kind: 'movesFirst', maximumPowerPercent: 130),
+  'fish_1c': (kind: 'tougherOpponent', maximumPowerPercent: 150),
+  'ice_1b': (kind: 'opponentHitPointsLow', maximumPowerPercent: 200),
+  'ice_1c': (kind: 'tougherOpponent', maximumPowerPercent: 150),
+  'wind_1b': (kind: 'movesFirst', maximumPowerPercent: 130),
+  'wind_1c': (kind: 'powerPointsLow', maximumPowerPercent: 200),
+  'flower_1b': (kind: 'differentElementFromOpponent', maximumPowerPercent: 120),
+  'flower_1c': (kind: 'tougherOpponent', maximumPowerPercent: 150),
+  'machine_1b': (kind: 'powerPointsLow', maximumPowerPercent: 200),
+  'machine_1c': (kind: 'movesFirst', maximumPowerPercent: 130),
+  'sweets_1b': (kind: 'sameElementAsOpponent', maximumPowerPercent: 150),
+  'sweets_1c': (kind: 'ownHitPointsLow', maximumPowerPercent: 200),
+  'ghost_1b': (kind: 'movesLast', maximumPowerPercent: 140),
+  'ghost_1c': (kind: 'ownHitPointsLow', maximumPowerPercent: 200),
+  'dragon_1b': (kind: 'tougherOpponent', maximumPowerPercent: 150),
+  'dragon_1c': (kind: 'opponentHitPointsLow', maximumPowerPercent: 200),
+  'cloth_1b': (kind: 'ownHitPointsLow', maximumPowerPercent: 200),
+  'cloth_1c': (kind: 'movesFirst', maximumPowerPercent: 130),
+  'paper_1b': (kind: 'powerPointsLow', maximumPowerPercent: 200),
+  'paper_1c': (kind: 'sameElementAsOpponent', maximumPowerPercent: 150),
 };
 
 /// 版 4 のアプリ (`calculateMoveSpecialEffect` の種類ごとの計算) が返した倍率 (%)。版 4 の実装から写した。
@@ -236,7 +261,7 @@ void main() {
     expect(calculate(move: testMove(power: '0'))!.powerPercent, 0);
   });
 
-  test('master の版 5 の特殊効果は、版 4 の同じ技と同じ倍率を返す', () {
+  test('master の特殊効果の式は、版 4 までの同じ種類の効果と同じ倍率を返す', () {
     final master = MasterData.fromJson(
       json:
           jsonDecode(File('assets/master/master.json').readAsStringSync())

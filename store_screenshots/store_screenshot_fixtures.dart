@@ -64,7 +64,7 @@ List<OwnedMonster> storeScreenshotMonsters() => [
     name: 'mug',
     monsterName: 'マグモン',
     encyclopediaText: '朝いちばんのコーヒーの熱を体にためこむ。取っ手を振り回して戦うが、中身をこぼすと急に弱気になる。',
-    elementTypeIds: const ['heat', 'metal'],
+    elementTypeIds: const ['fire', 'steel'],
     level: 12,
     baseStats: const MonsterStats(
       hitPoints: 80,
@@ -77,7 +77,7 @@ List<OwnedMonster> storeScreenshotMonsters() => [
     name: 'rubber_duck',
     monsterName: 'プカプック',
     encyclopediaText: 'お風呂に浮かんで水面を見張っている。押されると高い声で鳴いて仲間を呼ぶ。',
-    elementTypeIds: const ['plastic', 'water'],
+    elementTypeIds: const ['bird', 'water'],
     level: 9,
     baseStats: const MonsterStats(
       hitPoints: 90,
@@ -90,7 +90,7 @@ List<OwnedMonster> storeScreenshotMonsters() => [
     name: 'cactus',
     monsterName: 'トゲボウ',
     encyclopediaText: '日なたでじっと動かず、トゲの先に光をためる。水をもらうと少しだけ背がのびる。',
-    elementTypeIds: const ['plant'],
+    elementTypeIds: const ['grass'],
     level: 7,
     baseStats: const MonsterStats(
       hitPoints: 110,
@@ -103,7 +103,7 @@ List<OwnedMonster> storeScreenshotMonsters() => [
     name: 'scissors',
     monsterName: 'チョッキン',
     encyclopediaText: '2 本の刃を交差させて、目の前の物を何でも切ろうとする。持ち手の輪に指を入れられると、おとなしくなる。',
-    elementTypeIds: const ['metal', 'plastic'],
+    elementTypeIds: const ['steel', 'dark'],
     level: 5,
     baseStats: const MonsterStats(
       hitPoints: 70,
@@ -116,7 +116,7 @@ List<OwnedMonster> storeScreenshotMonsters() => [
     name: 'kettle',
     monsterName: 'ハーブポット',
     encyclopediaText: '体の中でハーブを育てている。湯気といっしょに香りを広げて、相手の気持ちを落ちつかせる。',
-    elementTypeIds: const ['metal', 'plant'],
+    elementTypeIds: const ['steel', 'grass'],
     level: 4,
     baseStats: const MonsterStats(
       hitPoints: 100,
@@ -129,7 +129,7 @@ List<OwnedMonster> storeScreenshotMonsters() => [
     name: 'candle',
     monsterName: 'ロウソクン',
     encyclopediaText: '頭の火がゆれていると機嫌がいい。風の強い日はじっと動かず、火を守っている。',
-    elementTypeIds: const ['heat'],
+    elementTypeIds: const ['fire'],
     level: 3,
     baseStats: const MonsterStats(
       hitPoints: 60,

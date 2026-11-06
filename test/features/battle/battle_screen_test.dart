@@ -221,7 +221,7 @@ void main() {
         recordedLevels: const {},
       ),
     );
-    // マグモンの覚える技の一覧の 3 番目が ゆげのもや (heat_1b。先に動くと 1.3 倍)
+    // マグモンの覚える技の一覧の 3 番目が ゆげのもや (fire_1b。先に動くと 1.3 倍)
     final moveSlot = find.byKey(const Key('move-slot-2'));
     expect(
       find.descendant(of: moveSlot, matching: find.text('ゆげのもや')),
@@ -241,7 +241,7 @@ void main() {
             ),
           )
           .elementTypeId,
-      'heat',
+      'fire',
     );
     expect(
       find.descendant(
@@ -255,7 +255,7 @@ void main() {
     await tester.pump();
     expect(
       tester.widget<Text>(find.byKey(const Key('battle-log'))).data,
-      // 熱はリンゴラの食べ物・植物の両方に 2 倍のため、相性の行も続く
+      // 炎はリンゴラの菓子・草の両方に 2 倍のため、相性の行も続く
       '${strongPlayer.definition.name} の ゆげのもや\n先に行動すると威力が上がる (今回は 1.3 倍)\nこうかは ばつぐんだ',
     );
     // 演出の待ち (Future.delayed) をテストの終わりに残さない
@@ -277,7 +277,7 @@ void main() {
         .widget<Text>(find.byKey(const Key('battle-log')))
         .data;
 
-    // マグモンの覚える技の一覧の 3 番目が ゆげのもや (heat_1b。先に動くと 1.3 倍)
+    // マグモンの覚える技の一覧の 3 番目が ゆげのもや (fire_1b。先に動くと 1.3 倍)
     await tester.longPress(find.byKey(const Key('move-slot-2')));
     // 画面の遷移の演出を終える (Flame のゲームループがあるため pumpAndSettle は使わない)
     await tester.pump(const Duration(seconds: 1));
@@ -285,7 +285,7 @@ void main() {
     expect(find.byType(MoveDetailScreen), findsOneWidget);
     expect(
       tester.widget<MoveDetailScreen>(find.byType(MoveDetailScreen)).move.id,
-      'heat_1b',
+      'fire_1b',
     );
     expect(
       tester
@@ -650,8 +650,8 @@ void main() {
     final calls = RecordedBattleCalls();
     await pumpBattleScreen(
       tester: tester,
-      // キーボンの 1 番目の技 (樹脂) はスプライトシートの対応が無く、シートの読み込みのタイミングに関係なくパーティクルで描く
-      playerMonster: sampleData.monsterById(monsterId: 'sample-keybon'),
+      // ペットボトラの 1 番目の技 (水) はスプライトシートの対応が無く、シートの読み込みのタイミングに関係なくパーティクルで描く
+      playerMonster: sampleData.monsterById(monsterId: 'sample-petbottler'),
       artImage: null,
       battleRecorder: fakeBattleRecorder(
         calls: calls,
@@ -1106,7 +1106,7 @@ void main() {
             rightPadding: 0,
             playerMonster: strongPlayer,
           );
-          // マグモンの覚える技の一覧の 3 番目が ゆげのもや (heat_1b)。1 ターン目に先に動き、説明と相性の行が続いて 3 行になる
+          // マグモンの覚える技の一覧の 3 番目が ゆげのもや (fire_1b)。1 ターン目に先に動き、説明と相性の行が続いて 3 行になる
           // (「技の枠に特殊効果の短い説明を出し、効果が働いた技はログに説明文を出す」のテスト)
           final moveSlot = find.byKey(const Key('move-slot-2'));
           await tester.ensureVisible(moveSlot);
@@ -1383,7 +1383,7 @@ void main() {
       },
     );
 
-    // ゆげのもや (マグモンの覚える技の一覧の 3 番目、heat_1b) は 1 ターン目に先に動き、ログが「技を使った」「特殊効果の説明」「相性」の 3 行になる。
+    // ゆげのもや (マグモンの覚える技の一覧の 3 番目、fire_1b) は 1 ターン目に先に動き、ログが「技を使った」「特殊効果の説明」「相性」の 3 行になる。
     // 幅 390 では相手のカードの右に寄せた帯 (幅 152) で折り返して高くなり、右下の自分のカードと横に重なる位置にある
     for (final height in const [390.0, 560.0]) {
       testWidgets(

@@ -26,9 +26,9 @@ void main() {
             'sourcePhotoReference': 'users/uid-1/photos/request-1',
             'name': 'マグモン',
             'encyclopediaText': '朝のコーヒーの熱をためこむ',
-            'elementTypeIds': ['metal', 'dynamic-wax'],
+            'elementTypeIds': ['steel', 'dynamic-wax'],
             'learnset': [
-              {'moveId': 'metal_1', 'unlockLevel': 1},
+              {'moveId': 'steel_1', 'unlockLevel': 1},
             ],
             'baseStats': {
               'hitPoints': 80,
@@ -84,9 +84,9 @@ void main() {
         'id': 'm1',
         'name': 'マグモン',
         'encyclopediaText': '朝のコーヒーの熱をためこむ',
-        'elementTypeIds': ['metal'],
+        'elementTypeIds': ['steel'],
         'learnset': [
-          {'moveId': 'metal_1', 'unlockLevel': 1},
+          {'moveId': 'steel_1', 'unlockLevel': 1},
         ],
         'baseStats': {
           'hitPoints': 80,

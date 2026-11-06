@@ -123,7 +123,7 @@ const Map<String, dynamic> waxDefinitionJson = {
       'power': 40,
       'powerPoints': 30,
       'category': 'attack',
-      'effectId': 'metal_particle',
+      'effectId': 'steel_particle',
       'learnableLevelMinimum': 1,
       'learnableLevelMaximum': 30,
     },
@@ -150,7 +150,7 @@ OwnedMonster generatedWaxMonster({required String monsterId}) => OwnedMonster(
     elementTypeIds: const ['dynamic-wax'],
     learnset: const [
       LearnsetEntry(moveId: 'dynamic-wax-1', unlockLevel: 1),
-      LearnsetEntry(moveId: 'metal_1', unlockLevel: 1),
+      LearnsetEntry(moveId: 'steel_1', unlockLevel: 1),
     ],
     baseStats: const MonsterStats(
       hitPoints: 80,

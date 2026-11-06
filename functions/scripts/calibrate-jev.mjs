@@ -9,6 +9,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import jev from "../lib/generation/jev.js";
+import monsterStats from "../lib/generation/monster_stats.js";
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 const fixtures = path.join(root, "test", "fixtures", "calibration");
@@ -37,12 +38,21 @@ async function ask(request) {
 const elementTrue = [];
 const elementFalse = [];
 const statGrades = {};
+/** 見本ごと・回ごとに、本番の規則 (master の elementSelection) で選ばれる属性と、確率 0.1 以上の属性。属性の受け皿を目で確かめるための記録 */
+const elementSelections = {};
 for (const [sampleId, label] of Object.entries(labels.elements)) {
   for (let round = 0; round < REPEAT_COUNT; round++) {
     const response = await ask(
       jev.buildJudgeRequest({ description: descriptions[sampleId].description, elementTypes: master.elementTypes, moves: master.moves, statGrades: master.statGrades }),
     );
     const judged = jev.readJudgeResponse({ response, statGrades: master.statGrades });
+    elementSelections[sampleId] = [
+      ...(elementSelections[sampleId] ?? []),
+      {
+        selected: monsterStats.selectElementTypeIds({ elementProbabilities: judged.elementProbabilities, master }),
+        probabilities: Object.fromEntries(Object.entries(judged.elementProbabilities).filter(([, probability]) => probability >= 0.1)),
+      },
+    ];
     for (const [elementTypeId, probability] of Object.entries(judged.elementProbabilities)) {
       if (label.expected.includes(elementTypeId)) {
         elementTrue.push({ sampleId, round, elementTypeId, probability });
@@ -92,6 +102,9 @@ console.log(
         falseMaximum: maximum(elementFalse, "probability"),
         trueBelowHalf: elementTrue.filter((row) => row.probability < 0.5),
         falseAtLeastHalf: elementFalse.filter((row) => row.probability >= 0.5),
+        // 閾値の近く (0.3 以上) に来た偽のセル。閾値の余裕を見るために残す
+        falseAtLeastThirty: elementFalse.filter((row) => row.probability >= 0.3),
+        selections: elementSelections,
       },
       dedupe: {
         sameMinimumOfSame: minimum(sameRows, "same"),
