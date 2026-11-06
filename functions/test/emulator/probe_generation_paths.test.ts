@@ -103,9 +103,9 @@ function createDependencies({ jevSaysDifferentForAll = false }: { jevSaysDiffere
         return { output: { ...output, containsPerson: containsPersonPhotoNames.has(state.currentPhotoName) }, usage: { inputTokens: 1500, outputTokens: 700 } };
       },
       proposeElement: async () => {
-        throw new Error("属性はモックの Jev が metal と答えるため、新しい属性の提案は呼ばれない");
+        throw new Error("属性はモックの Jev が steel と答えるため、新しい属性の提案は呼ばれない");
       },
-      // 物の分類は tableware、ステータスはふつう、属性は metal と答え、同じ被写体かは較正のラベルで答える
+      // 物の分類は tableware、ステータスはふつう、属性は steel と答え、同じ被写体かは較正のラベルで答える
       askJev: async (request) => {
         const subjectId = calibrationIdByDescriptionText.get(canonicalDescriptionText((request.state as { subject: DescribeSubjectOutput["description"] }).subject));
         const answers: JevResponse["answers"] = {};
@@ -121,7 +121,7 @@ function createDependencies({ jevSaysDifferentForAll = false }: { jevSaysDiffere
               isSameSubject(subjectId, calibrationIdByDescriptionText.get(canonicalDescriptionText((question.instructions as { candidate: DescribeSubjectOutput["description"] }).candidate)));
             answers[name] = { type: "noul", noul: name.startsWith("same__") === same ? 0.95 : 0.05 };
           } else if (name.startsWith("element__")) {
-            answers[name] = { type: "noul", noul: name === "element__metal" ? 0.9 : 0.05 };
+            answers[name] = { type: "noul", noul: name === "element__steel" ? 0.9 : 0.05 };
           } else {
             answers[name] = { type: "noul", noul: 0.05 };
           }

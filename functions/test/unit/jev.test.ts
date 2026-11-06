@@ -109,7 +109,7 @@ describe("buildJudgeRequest / readJudgeResponse", () => {
         model: "jev-1.13.0",
         usage: { input_tokens: 0, output_tokens: 0 },
         answers: {
-          element__metal: { type: "noul", noul: 0.8 },
+          element__steel: { type: "noul", noul: 0.8 },
           stat__hitPoints: score("とても低い"),
           stat__attack: score("とても高い"),
           stat__defense: score("ふつう"),
@@ -117,7 +117,7 @@ describe("buildJudgeRequest / readJudgeResponse", () => {
         },
       },
     });
-    expect(judged.elementProbabilities).toEqual({ metal: 0.8 });
+    expect(judged.elementProbabilities).toEqual({ steel: 0.8 });
     // 属性の答えが 1 つも無い応答は判定待ちに回す
     expect(() =>
       readJudgeResponse({ statGrades: master.statGrades, response: { model: "jev-1.13.0", usage: { input_tokens: 0, output_tokens: 0 }, answers: {} } }),

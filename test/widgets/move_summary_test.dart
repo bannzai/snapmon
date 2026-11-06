@@ -13,10 +13,10 @@ void main() {
   final sampleData = loadSampleDataFixture();
 
   /// ゆげのもや (熱・威力 35・PP 35・先に動くと強い)。特殊効果を持つ技として使う。
-  final effectMove = sampleData.definitions.moveById(moveId: 'heat_1b');
+  final effectMove = sampleData.definitions.moveById(moveId: 'fire_1b');
 
   /// ブリキパンチ (金属・威力 40・PP 30)。特殊効果を持たない技として使う。
-  final plainMove = sampleData.definitions.moveById(moveId: 'metal_1');
+  final plainMove = sampleData.definitions.moveById(moveId: 'steel_1');
 
   /// [remainingPowerPoints] を渡した [MoveSummary] を [move] で描く。
   Future<void> pumpMoveSummary({

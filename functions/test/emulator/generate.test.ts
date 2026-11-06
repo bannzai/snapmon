@@ -98,7 +98,7 @@ function createMocks({
 } = {}): Mocks & { jevBehavior: JevBehavior } {
   const jevBehavior: JevBehavior = {
     dedupe: { same: 0.05, different: 0.95 },
-    elementProbabilities: { metal: 0.9 },
+    elementProbabilities: { steel: 0.9 },
     unavailableFor: new Set(),
     ...jev,
   };
@@ -275,8 +275,8 @@ describe("generate", () => {
 
     const monster = (await firestore.doc(`users/alice/monsters/${first.monsterId}`).get()).data() as MonsterDocument;
     expect(monster.definition.name).toBe(descriptions["01"].name);
-    expect(monster.definition.elementTypeIds).toEqual(["metal"]);
-    expect(monster.definition.learnset.filter((entry) => entry.unlockLevel === 1).map((entry) => entry.moveId)).toEqual(["metal_1", "metal_1b", "metal_1c", "metal_1d"]);
+    expect(monster.definition.elementTypeIds).toEqual(["steel"]);
+    expect(monster.definition.learnset.filter((entry) => entry.unlockLevel === 1).map((entry) => entry.moveId)).toEqual(["steel_1", "steel_1b", "steel_1c", "steel_1d"]);
     expect(monster.definition.baseStats).toEqual({ hitPoints: 80, attack: 80, defense: 80, speed: 80 });
     expect(monster.categoryIds[0]).toBe("tableware");
     const [artExists] = await bucket.file(`monsters/${first.monsterId}/art.png`).exists();
@@ -354,7 +354,7 @@ describe("generate", () => {
   // Claude と Jev はモックで、答えは fixtures/illustration/result-2026-10-31.json の実測の値を写した。
   // 実際の Claude が紙を素材にしないことはこのテストでは確かめられず、根拠は同じファイルの実測 (documents/game-rules.md「被写体の説明」)
   it("紙に描いたケーキの絵は、紙ではなく描かれたケーキとして説明を保存し、属性もケーキで決まる (#129)", async () => {
-    const mocks = createMocks({ description: illustrationDescriptions.strawberry_cake, jev: { elementProbabilities: { food: 0.98, heat: 0.65, paper: 0.04 } } });
+    const mocks = createMocks({ description: illustrationDescriptions.strawberry_cake, jev: { elementProbabilities: { sweets: 0.98, fire: 0.65, paper: 0.04 } } });
     const result = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data: await uploadPhoto({ uid: "alice", photo: illustrationFixture("strawberry_cake") }) }));
     expect(result.status).toBe("saved");
 
@@ -362,7 +362,7 @@ describe("generate", () => {
     expect(monster.subjectDescription.what).not.toContain("紙");
     expect(monster.subjectDescription.materials).not.toContain("紙");
     expect(monster.subjectDescription.materials).toContain("食べ物");
-    expect(monster.definition.elementTypeIds).toEqual(["food", "heat"]);
+    expect(monster.definition.elementTypeIds).toEqual(["sweets", "fire"]);
   });
 
   it("同じ種類の別の絵 (いちごとチョコレートのケーキ) は別のモンスターとして保存する (#129)", async () => {
@@ -783,8 +783,8 @@ describe("generate", () => {
     // その場で作った属性は段階 1 の技を 1 つしか持たないため、Lv.1 の残りを master の別の属性 (当てはまりが同じ 0.05 なので ID 順) で埋める
     expect(monster.definition.learnset).toEqual([
       { moveId: `${elementTypeId}_1`, unlockLevel: 1 },
-      { moveId: "cloth_1", unlockLevel: 1 },
-      { moveId: "electric_1", unlockLevel: 1 },
+      { moveId: "beast_1", unlockLevel: 1 },
+      { moveId: "bird_1", unlockLevel: 1 },
       { moveId: "food_1", unlockLevel: 1 },
       { moveId: `${elementTypeId}_2`, unlockLevel: 15 },
       { moveId: `${elementTypeId}_3`, unlockLevel: 100 },

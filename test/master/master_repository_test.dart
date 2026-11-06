@@ -22,14 +22,14 @@ void main() {
       contains('dynamic-wax'),
     );
     expect(definitions.moveById(moveId: 'dynamic-wax-1').displayName, 'ろうアタック');
-    expect(definitions.moveById(moveId: 'metal_1').displayName, isNotEmpty);
+    expect(definitions.moveById(moveId: 'steel_1').displayName, isNotEmpty);
   });
 
   test('同じ ID の定義は master を優先する', () {
     final masterMetalMove = buildDexDefinitions(
       latestMasterJson: masterJson,
       definitionJsons: const [],
-    ).moveById(moveId: 'metal_1');
+    ).moveById(moveId: 'steel_1');
     final definitions = buildDexDefinitions(
       latestMasterJson: masterJson,
       definitionJsons: [
@@ -40,7 +40,7 @@ void main() {
             {
               ...(waxDefinitionJson['moves'] as List).first
                   as Map<String, dynamic>,
-              'id': 'metal_1',
+              'id': 'steel_1',
               'displayName': '上書きしようとした技',
             },
           ],
@@ -48,7 +48,7 @@ void main() {
       ],
     );
     expect(
-      definitions.moveById(moveId: 'metal_1').displayName,
+      definitions.moveById(moveId: 'steel_1').displayName,
       masterMetalMove.displayName,
     );
   });

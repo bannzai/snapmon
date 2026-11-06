@@ -39,7 +39,7 @@ void main() {
             'power': 40,
             'powerPoints': 30,
             'category': 'attack',
-            'effectId': 'plastic_particle',
+            'effectId': 'machine_particle',
             'learnableLevelMinimum': 1,
             'learnableLevelMaximum': 30,
           },
@@ -109,24 +109,24 @@ void main() {
     expect(
       typeChartCellText(
         tester: tester,
-        attackerElementTypeId: 'metal',
-        defenderElementTypeId: 'wood',
+        attackerElementTypeId: 'steel',
+        defenderElementTypeId: 'ice',
       ),
       '2',
     );
     expect(
       typeChartCellText(
         tester: tester,
-        attackerElementTypeId: 'metal',
-        defenderElementTypeId: 'metal',
+        attackerElementTypeId: 'steel',
+        defenderElementTypeId: 'water',
       ),
       '0.5',
     );
     expect(
       typeChartCellText(
         tester: tester,
-        attackerElementTypeId: 'metal',
-        defenderElementTypeId: 'plant',
+        attackerElementTypeId: 'steel',
+        defenderElementTypeId: 'grass',
       ),
       '1',
     );
@@ -162,8 +162,8 @@ void main() {
     await tester.tap(find.text('技の一覧'));
     await tester.pumpAndSettle();
 
-    // 金属の 2 番目の技 ねじこみ (metal_1b) は「硬い相手に強い」(倍率の最大 1.5 倍)
-    final screwMove = find.byKey(const Key('reference-move-metal_1b'));
+    // 鋼の 2 番目の技 ねじこみ (steel_1b) は「硬い相手に強い」(倍率の最大 1.5 倍)
+    final screwMove = find.byKey(const Key('reference-move-steel_1b'));
     expect(
       find.descendant(of: screwMove, matching: find.text('ねじこみ')),
       findsOneWidget,
@@ -234,7 +234,7 @@ void main() {
 
     expect(refreshCount, 1);
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
-    expect(find.byKey(const Key('type-chart-metal-wood')), findsNothing);
+    expect(find.byKey(const Key('type-chart-steel-ice')), findsNothing);
 
     firstRefresh.completeError(StateError('Firestore に master が投入されていません'));
     await tester.pumpAndSettle();
@@ -242,12 +242,12 @@ void main() {
       tester.widget<Text>(find.byKey(const Key('reference-error'))).data,
       'Bad state: Firestore に master が投入されていません',
     );
-    expect(find.byKey(const Key('type-chart-metal-wood')), findsNothing);
+    expect(find.byKey(const Key('type-chart-steel-ice')), findsNothing);
 
     await tester.tap(find.text('もう一度読み込む'));
     await tester.pumpAndSettle();
     expect(refreshCount, 2);
     expect(find.byKey(const Key('reference-error')), findsNothing);
-    expect(find.byKey(const Key('type-chart-metal-wood')), findsOneWidget);
+    expect(find.byKey(const Key('type-chart-steel-ice')), findsOneWidget);
   });
 }

@@ -21,15 +21,15 @@ typedef MoveEffectSpriteSheet = ({
 /// 素材は assets/CREDITS.md、割り当ての理由は documents/DIRECTION.md「決めたこと」(2026-11-04)。
 /// [MoveEffectSpriteSheet.visibleCenterAnchor] はアルファ 32 以上の画素の範囲を測った値。
 const Map<String, MoveEffectSpriteSheet> moveEffectSpriteSheetsByEffectId = {
-  'heat_particle': (
+  'fire_particle': (
     assetName: 'hit-spark',
     visibleCenterAnchor: Anchor(0.581, 0.5),
   ),
-  'metal_particle': (
+  'steel_particle': (
     assetName: 'sword-slash',
     visibleCenterAnchor: Anchor(0.482, 0.466),
   ),
-  'electric_particle': (
+  'thunder_particle': (
     assetName: 'zap-hit',
     visibleCenterAnchor: Anchor(0.413, 0.5),
   ),

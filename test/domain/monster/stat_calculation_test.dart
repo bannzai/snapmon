@@ -87,19 +87,19 @@ void main() {
     expect(
       selectElementTypeIds(
         elementProbabilities: {
-          'metal': 0.6,
-          'glass': 0.9,
-          'heat': 0.7,
+          'steel': 0.6,
+          'light': 0.9,
+          'fire': 0.7,
           'water': 0.2,
         },
         master: master,
       ),
-      ['glass', 'heat'],
+      ['light', 'fire'],
     );
     expect(
       selectElementTypeIds(
-        // 閾値 (master の elementSelection.probabilityThreshold = 0.4) のすぐ下
-        elementProbabilities: {'metal': 0.39, 'water': 0.1},
+        // 閾値 (master の elementSelection.probabilityThreshold = 0.5) より下
+        elementProbabilities: {'steel': 0.49, 'water': 0.1},
         master: master,
       ),
       isEmpty,

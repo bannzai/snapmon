@@ -15,9 +15,9 @@ void main() {
               'id': 'monster-1',
               'name': 'マグモン',
               'encyclopediaText': 'まいにち あたたかい のみものを はこぶ',
-              'elementTypeIds': ['heat'],
+              'elementTypeIds': ['fire'],
               'learnset': [
-                {'moveId': 'heat_1', 'unlockLevel': 1},
+                {'moveId': 'fire_1', 'unlockLevel': 1},
               ],
               'baseStats': {
                 'hitPoints': 50,
