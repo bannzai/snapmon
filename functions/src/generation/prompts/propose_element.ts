@@ -19,6 +19,7 @@ export const PROPOSE_ELEMENT_SYSTEM_PROMPT = `あなたは、写真に写った�
   - power: 威力の倍率 (%。100 が 1 倍) を返す式。使えるのは整数、+ - * / (割り算は切り捨て)、比較 (< <= == != >= >)、and or not、if(条件, 真の時の値, 偽の時の値)、min(...)、max(...)、括弧と次の変数だけ: ${MOVE_EXPRESSION_VARIABLE_NAMES.join(" ")}。self は技を使う側、opponent は相手、hitPoints は残りの HP、movesFirst と sharesElementType (相手と同じ属性を 1 つ以上持つか) は 1 か 0
   - power の値は、条件を満たさない時は 100、満たした時でも 200 以下にする。例: if(opponent.defense > self.attack, 150, 100)、100 + 100 * (opponent.maximumHitPoints - opponent.hitPoints) / opponent.maximumHitPoints
   - summary: 効果の短い説明。2〜12 文字 (例: 硬い相手に強い)
+  - rule: 効果の規則の説明。いつ威力が上がるかを 1 文で、40 文字以内 (例: 相手の防御が自分の攻撃より高いと威力が上がる)
   - rationale: その技にその効果を付けた根拠を 1 文で。技の名前の物の性質と効果の働き方の結びつきが分かるように書く
 
 守ること:
@@ -57,9 +58,10 @@ export const PROPOSE_ELEMENT_OUTPUT_SCHEMA = {
                 properties: {
                   power: { type: "string" },
                   summary: { type: "string" },
+                  rule: { type: "string" },
                   rationale: { type: "string" },
                 },
-                required: ["power", "summary", "rationale"],
+                required: ["power", "summary", "rule", "rationale"],
                 additionalProperties: false,
               },
               { type: "null" },
@@ -89,7 +91,7 @@ export interface ProposeElementOutput {
     power: number;
     powerPoints: number;
     rationale?: string;
-    specialEffect?: { power: string; summary: string; rationale: string } | null;
+    specialEffect?: { power: string; summary: string; rule: string; rationale: string } | null;
   }[];
 }
 
@@ -147,6 +149,19 @@ export function proposalRangeViolation(output: ProposeElementOutput): string | u
 const PROPOSED_SPECIAL_EFFECT_MAXIMUM_POWER_PERCENT = 200;
 
 /**
+ * 提案した特殊効果の短い説明 (`summary`) の文字数の範囲。上限の 12 は master の説明の最長 (「違う属性の相手に強い」の 10 文字) に余裕を持たせた値で、
+ * 390pt 幅の画面で 2 列に並べた技の枠に 1 行で収まる長さ (documents/game-rules.md「技の特殊効果」)。下限の 2 は 1 文字では効果を言い表せないため。
+ * プロンプトの「2〜12 文字」と同じ値にする。
+ */
+const PROPOSED_SPECIAL_EFFECT_SUMMARY_LENGTH = { minimum: 2, maximum: 12 };
+
+/**
+ * 提案した特殊効果の規則の説明 (`rule`) の文字数の上限。master の規則の最長 (「相手の防御が自分の攻撃より高いと威力が上がる」の 22 文字) に
+ * 余裕を持たせた値で、技の詳細とバトルのログで 2 行に収まる長さ。プロンプトの「40 文字以内」と同じ値にする。
+ */
+const PROPOSED_SPECIAL_EFFECT_RULE_MAXIMUM_LENGTH = 40;
+
+/**
  * 提案した特殊効果を検査し、問題があれば理由を返す。問題が無ければ undefined。
  * 式の文法と変数の名前に加えて、見本の状況 (HP・PP・行動順・属性の共有・攻撃と防御の大小の組み合わせ) で評価した値が
  * 0 以上 PROPOSED_SPECIAL_EFFECT_MAXIMUM_POWER_PERCENT 以下に収まることを確かめる。
@@ -156,12 +171,16 @@ export function proposedSpecialEffectViolation({
   specialEffect,
   powerPoints,
 }: {
-  specialEffect: { power: string; summary: string };
+  specialEffect: { power: string; summary: string; rule: string };
   powerPoints: number;
 }): string | undefined {
   const summaryLength = [...specialEffect.summary].length;
-  if (summaryLength < 2 || summaryLength > 12) {
+  if (summaryLength < PROPOSED_SPECIAL_EFFECT_SUMMARY_LENGTH.minimum || summaryLength > PROPOSED_SPECIAL_EFFECT_SUMMARY_LENGTH.maximum) {
     return `説明の長さが範囲外です: ${specialEffect.summary}`;
+  }
+  const ruleLength = [...specialEffect.rule].length;
+  if (ruleLength < 1 || ruleLength > PROPOSED_SPECIAL_EFFECT_RULE_MAXIMUM_LENGTH) {
+    return `規則の説明の長さが範囲外です: ${specialEffect.rule}`;
   }
   const expressionViolation = moveExpressionViolation(specialEffect.power);
   if (expressionViolation) {

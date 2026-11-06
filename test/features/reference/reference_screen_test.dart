@@ -201,6 +201,7 @@ void main() {
 
     expect(find.byType(MoveDetailScreen), findsOneWidget);
     expect(find.text('ねじこみ'), findsOneWidget);
+    expect(find.text('相手の防御が自分の攻撃より高いと威力が上がる'), findsOneWidget);
     expect(
       tester
           .widget<Text>(find.byKey(const Key('move-special-effect-formula')))

@@ -35,10 +35,10 @@ export interface MasterMove {
   learnableLevelMaximum: number;
   /**
    * 技の特殊効果。`power` は威力の倍率 (%) を返す式 (文法は documents/game-rules.md「技の式」、検査は src/move_expression.ts)、
-   * `summary` は技の枠に出す短い説明。計算は端末のバトル (lib/domain/battle/move_special_effect.dart) が行う。
+   * `summary` は技の枠に出す短い説明、`rule` はバトルのログと技の詳細に出す効果の規則の説明。計算は端末のバトル (lib/domain/battle/move_special_effect.dart) が行う。
    * `rationale` は、この技にこの効果を付けた根拠 (技の名前の物の性質と効果の働き方の結びつき)。
    */
-  specialEffect?: { power: string; summary: string; rationale?: string };
+  specialEffect?: { power: string; summary: string; rule: string; rationale?: string };
   /**
    * この技がこの属性・この名前である根拠。技・効果を足す・見直す時に参照する保守のための値で、ユーザーには見せず、生成・バトルでも読まない
    * (documents/game-rules.md「技の根拠」)。master の版 4 より前の版と、版 4 より前にその場で作った技は持たない。

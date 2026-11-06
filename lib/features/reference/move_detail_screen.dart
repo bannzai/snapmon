@@ -126,6 +126,8 @@ class MoveDetailScreen extends StatelessWidget {
             )
           else ...[
             Text(specialEffect.summary, style: SnapmonTextStyles.label),
+            const SizedBox(height: 2),
+            Text(specialEffect.rule, style: SnapmonTextStyles.body),
             const SizedBox(height: 10),
             DecoratedBox(
               decoration: const BoxDecoration(

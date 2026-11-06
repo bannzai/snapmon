@@ -68,6 +68,7 @@ const testMaster = MasterData(
       specialEffect: MoveSpecialEffect(
         power: 'if(not movesFirst, 200, 100)',
         summary: '後に動くと強い',
+        rule: '後に行動すると威力が上がる',
       ),
     ),
     Move(
@@ -84,6 +85,7 @@ const testMaster = MasterData(
         power:
             '100 + 100 * (move.maximumPowerPoints - move.remainingPowerPoints) / (move.maximumPowerPoints - 1)',
         summary: 'PP が減るほど強い',
+        rule: 'この技の残り PP が少ないほど威力が上がる',
       ),
     ),
     Move(
@@ -100,6 +102,7 @@ const testMaster = MasterData(
         power:
             '100 + 100 * (self.maximumHitPoints - self.hitPoints) / self.maximumHitPoints',
         summary: '自分が弱るほど強い',
+        rule: '自分の HP が減っているほど威力が上がる',
       ),
     ),
   ],

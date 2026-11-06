@@ -23,7 +23,7 @@ Move testMove({required String? power, int powerPoints = 10}) => Move(
   learnableLevelMaximum: 999,
   specialEffect: power == null
       ? null
-      : MoveSpecialEffect(power: power, summary: 'テストの効果'),
+      : MoveSpecialEffect(power: power, summary: 'テストの効果', rule: 'テストの規則'),
 );
 
 /// 属性 [elementTypeIds]・HP [currentHitPoints]・技 [moveId] の残り PP [remainingPowerPoints] のバトル中のモンスターを返す。
@@ -177,7 +177,7 @@ void main() {
     expect(calculate(move: testMove(power: null)), isNull);
   });
 
-  test('式の値を倍率にし、説明は効果の説明と今回の倍率', () {
+  test('式の値を倍率にし、説明は効果の規則と今回の倍率', () {
     final result = calculate(
       move: testMove(
         power:
@@ -186,7 +186,7 @@ void main() {
       defender: testMonster(currentHitPoints: 50),
     )!;
     expect(result.powerPercent, 150);
-    expect(result.description, 'テストの効果 (今回は 1.5 倍)');
+    expect(result.description, 'テストの規則 (今回は 1.5 倍)');
   });
 
   test('変数は技を使う側・相手・技・行動順・属性の共有・対戦日の値', () {
@@ -231,7 +231,7 @@ void main() {
     ]) {
       final result = calculate(move: testMove(power: power))!;
       expect(result.powerPercent, 100, reason: power);
-      expect(result.description, 'テストの効果 (今回は 1 倍)', reason: power);
+      expect(result.description, 'テストの規則 (今回は 1 倍)', reason: power);
     }
     expect(calculate(move: testMove(power: '0'))!.powerPercent, 0);
   });
@@ -328,11 +328,13 @@ void main() {
       json: {
         'power': 'if(movesFirst, 130, 100)',
         'summary': '先に動くと強い',
+        'rule': '先に行動すると威力が上がる',
         'rationale': '根拠',
       },
     )!;
     expect(specialEffect.power, 'if(movesFirst, 130, 100)');
     expect(specialEffect.summary, '先に動くと強い');
+    expect(specialEffect.rule, '先に行動すると威力が上がる');
     expect(
       moveSpecialEffectFromJson(
         json: {'kind': 'movesFirst', 'maximumPowerPercent': 130},

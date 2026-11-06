@@ -244,6 +244,7 @@
         "specialEffect": {
           "power": "if(opponent.defense > self.attack, 150, 100)",
           "summary": "硬い相手に強い",
+          "rule": "相手の防御が自分の攻撃より高いと威力が上がる",
           "rationale": "ねじは硬い物にほど力を込めてねじ込む道具のため、相手の防御が自分の攻撃より高い時に強くなる効果にした"
         },
         "rationale": "ねじは金属の部品の代表で、回しながら押し込む動きを技にしたため金属の技にした"
@@ -261,6 +262,7 @@
         "specialEffect": {
           "power": "if(not movesFirst, 140, 100)",
           "summary": "後に動くと強い",
+          "rule": "後に行動すると威力が上がる",
           "rationale": "スプーンは相手の動きを見てからはじき返す動きのため、後に動いた時に強くなる効果にした"
         },
         "rationale": "金属のスプーンの柄を指ではじく動きを技にしたため金属の技にした"
@@ -314,6 +316,7 @@
         "specialEffect": {
           "power": "if(not sharesElementType, 120, 100)",
           "summary": "違う属性の相手に強い",
+          "rule": "相手と同じ属性を持たないと威力が上がる",
           "rationale": "綿毛は風に乗って遠くの別の土地へ飛んでいくため、自分と違う属性の相手に強くなる効果にした"
         },
         "rationale": "たんぽぽの綿毛を飛ばす技で、生きた草花の種のため植物の技にした"
@@ -331,6 +334,7 @@
         "specialEffect": {
           "power": "if(opponent.defense > self.attack, 150, 100)",
           "summary": "硬い相手に強い",
+          "rule": "相手の防御が自分の攻撃より高いと威力が上がる",
           "rationale": "サボテンのとげは硬い殻の相手にも刺さるため、相手の防御が自分の攻撃より高い時に強くなる効果にした"
         },
         "rationale": "サボテンのとげでつつく技のため植物の技にした"
@@ -384,6 +388,7 @@
         "specialEffect": {
           "power": "if(sharesElementType, 150, 100)",
           "summary": "同じ属性の相手に強い",
+          "rule": "相手と同じ属性を持つと威力が上がる",
           "rationale": "水を浴びせると同じ仲間 (同じ素材) ほどよく染み込むため、自分と同じ属性を持つ相手に強くなる効果にした。技の名前と効果の結びつきが弱く、次に効果を見直す時に入れ替えを検討する"
         },
         "rationale": "じょうろで水を浴びせる技で、水を運ぶ道具のため水の技にした"
@@ -401,6 +406,7 @@
         "specialEffect": {
           "power": "if(movesFirst, 130, 100)",
           "summary": "先に動くと強い",
+          "rule": "先に行動すると威力が上がる",
           "rationale": "水たまりは相手が動く前に足元に広げておくと滑らせられるため、先に動いた時に強くなる効果にした"
         },
         "rationale": "水たまりで相手を滑らせる技のため水の技にした"
@@ -454,6 +460,7 @@
         "specialEffect": {
           "power": "if(movesFirst, 130, 100)",
           "summary": "先に動くと強い",
+          "rule": "先に行動すると威力が上がる",
           "rationale": "湯気のもやは相手が動く前に視界を覆うため、先に動いた時に強くなる効果にした"
         },
         "rationale": "湯気のもやで包む技で、熱い湯から出るため熱の技にした"
@@ -471,6 +478,7 @@
         "specialEffect": {
           "power": "100 + 100 * (opponent.maximumHitPoints - opponent.hitPoints) / opponent.maximumHitPoints",
           "summary": "相手が弱るほど強い",
+          "rule": "相手の HP が減っているほど威力が上がる",
           "rationale": "アイロンはしわを伸ばしきる仕上げに使う道具のため、相手の HP が減っているほど (仕上げの段階ほど) 強くなる効果にした"
         },
         "rationale": "熱いアイロンを押し当ててかける技のため熱の技にした"
@@ -524,6 +532,7 @@
         "specialEffect": {
           "power": "100 + 100 * (move.maximumPowerPoints - move.remainingPowerPoints) / (move.maximumPowerPoints - 1)",
           "summary": "PP が減るほど強い",
+          "rule": "この技の残り PP が少ないほど威力が上がる",
           "rationale": "ページをめくるほど物語の終わりに近づき盛り上がるため、この技の残り PP が少ないほど (使い込むほど) 強くなる効果にした。技の名前と効果の結びつきが弱く、次に効果を見直す時に入れ替えを検討する"
         },
         "rationale": "本のページをめくる勢いで打つ技で、紙を束ねた本の動きのため紙の技にした"
@@ -541,6 +550,7 @@
         "specialEffect": {
           "power": "if(sharesElementType, 150, 100)",
           "summary": "同じ属性の相手に強い",
+          "rule": "相手と同じ属性を持つと威力が上がる",
           "rationale": "付箋は同じ紙の上 (同じ素材の物) によく貼りつくため、自分と同じ属性を持つ相手に強くなる効果にした。技の名前と効果の結びつきが弱く、次に効果を見直す時に入れ替えを検討する"
         },
         "rationale": "付箋を貼りつける技で、紙の文房具のため紙の技にした"
@@ -594,6 +604,7 @@
         "specialEffect": {
           "power": "100 + 100 * (self.maximumHitPoints - self.hitPoints) / self.maximumHitPoints",
           "summary": "自分が弱るほど強い",
+          "rule": "自分の HP が減っているほど威力が上がる",
           "rationale": "靴下は脱いで投げるほど追い込まれた時の最後の手段のため、自分の HP が減っているほど強くなる効果にした"
         },
         "rationale": "布の靴下を丸めて投げる技のため布の技にした"
@@ -611,6 +622,7 @@
         "specialEffect": {
           "power": "if(movesFirst, 130, 100)",
           "summary": "先に動くと強い",
+          "rule": "先に行動すると威力が上がる",
           "rationale": "タオルのスナップは相手が構える前の速さが命のため、先に動いた時に強くなる効果にした"
         },
         "rationale": "タオルをねじって先をはじくように打つ技で、布の物のため布の技にした"
@@ -664,6 +676,7 @@
         "specialEffect": {
           "power": "if(not movesFirst, 140, 100)",
           "summary": "後に動くと強い",
+          "rule": "後に行動すると威力が上がる",
           "rationale": "ゴムは相手の動きを待って引き絞ってから放つため、後に動いた時に強くなる効果にした"
         },
         "rationale": "輪ゴムを引っ張って放つ技で、ゴムは樹脂の属性に含めるため樹脂の技にした"
@@ -681,6 +694,7 @@
         "specialEffect": {
           "power": "100 + 100 * (opponent.maximumHitPoints - opponent.hitPoints) / opponent.maximumHitPoints",
           "summary": "相手が弱るほど強い",
+          "rule": "相手の HP が減っているほど威力が上がる",
           "rationale": "ラップは弱った相手ほどぐるぐる巻きにしやすいため、相手の HP が減っているほど強くなる効果にした"
         },
         "rationale": "食品用のラップでぐるぐる巻きにする技で、ラップは樹脂のフィルムのため樹脂の技にした"
@@ -734,6 +748,7 @@
         "specialEffect": {
           "power": "if(movesFirst, 130, 100)",
           "summary": "先に動くと強い",
+          "rule": "先に行動すると威力が上がる",
           "rationale": "ライトの点滅は相手が動く前に目をくらませるため、先に動いた時に強くなる効果にした"
         },
         "rationale": "電気のライトをちかちか点滅させる技で、光を出す物は電気の属性に含めるため電気の技にした"
@@ -751,6 +766,7 @@
         "specialEffect": {
           "power": "if(not sharesElementType, 120, 100)",
           "summary": "違う属性の相手に強い",
+          "rule": "相手と同じ属性を持たないと威力が上がる",
           "rationale": "電気のコードは自分と違う物 (電気を通さない物) に巻きついて縛るため、自分と違う属性の相手に強くなる効果にした"
         },
         "rationale": "電気のコードで縛る技で、ケーブルは電気の属性に含めるため電気の技にした"
@@ -804,6 +820,7 @@
         "specialEffect": {
           "power": "if(sharesElementType, 150, 100)",
           "summary": "同じ属性の相手に強い",
+          "rule": "相手と同じ属性を持つと威力が上がる",
           "rationale": "飴玉は同じ食べ物の仲間にくっつきやすいため、自分と同じ属性を持つ相手に強くなる効果にした。技の名前と効果の結びつきが弱く、次に効果を見直す時に入れ替えを検討する"
         },
         "rationale": "飴玉を転がしてぶつける技で、お菓子のため食べ物の技にした"
@@ -821,6 +838,7 @@
         "specialEffect": {
           "power": "100 + 100 * (self.maximumHitPoints - self.hitPoints) / self.maximumHitPoints",
           "summary": "自分が弱るほど強い",
+          "rule": "自分の HP が減っているほど威力が上がる",
           "rationale": "おにぎりはお腹が空いて (弱って) いる時ほど力が出るため、自分の HP が減っているほど強くなる効果にした"
         },
         "rationale": "おにぎりで体当たりする技で、料理のため食べ物の技にした"

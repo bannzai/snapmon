@@ -27,39 +27,39 @@ import 'move_expression.dart';
   if (specialEffect == null) {
     return null;
   }
-  final variables = {
-    'self.hitPoints': attacker.state.currentHitPoints,
-    'self.maximumHitPoints': attackerStats.hitPoints,
-    'self.attack': attackerStats.attack,
-    'self.defense': attackerStats.defense,
-    'self.speed': attackerStats.speed,
-    'self.level': attacker.state.level,
-    'opponent.hitPoints': defender.state.currentHitPoints,
-    'opponent.maximumHitPoints': defenderStats.hitPoints,
-    'opponent.attack': defenderStats.attack,
-    'opponent.defense': defenderStats.defense,
-    'opponent.speed': defenderStats.speed,
-    'opponent.level': defender.state.level,
-    'move.power': move.power,
-    // 使える技は残り PP が 1 以上ある技だけのため (battle_engine.dart の PP の消費と同じ前提)、残り PP は必ずある
-    'move.remainingPowerPoints': attacker.state.remainingPowerPoints[move.id]!,
-    'move.maximumPowerPoints': move.powerPoints,
-    'movesFirst': attackerMovesFirst ? 1 : 0,
-    'sharesElementType':
-        attacker.definition.elementTypeIds.any(
-          defender.definition.elementTypeIds.contains,
-        )
-        ? 1
-        : 0,
-    'battleDate.year': battleDate.year,
-    'battleDate.month': battleDate.month,
-    'battleDate.day': battleDate.day,
-  };
   final powerPercent = () {
     try {
       final value = evaluateMoveExpression(
         node: parseMoveExpression(source: specialEffect.power),
-        variables: variables,
+        variables: {
+          'self.hitPoints': attacker.state.currentHitPoints,
+          'self.maximumHitPoints': attackerStats.hitPoints,
+          'self.attack': attackerStats.attack,
+          'self.defense': attackerStats.defense,
+          'self.speed': attackerStats.speed,
+          'self.level': attacker.state.level,
+          'opponent.hitPoints': defender.state.currentHitPoints,
+          'opponent.maximumHitPoints': defenderStats.hitPoints,
+          'opponent.attack': defenderStats.attack,
+          'opponent.defense': defenderStats.defense,
+          'opponent.speed': defenderStats.speed,
+          'opponent.level': defender.state.level,
+          'move.power': move.power,
+          // 使える技は残り PP が 1 以上ある技だけのため (battle_engine.dart の PP の消費と同じ前提)、残り PP は必ずある
+          'move.remainingPowerPoints':
+              attacker.state.remainingPowerPoints[move.id]!,
+          'move.maximumPowerPoints': move.powerPoints,
+          'movesFirst': attackerMovesFirst ? 1 : 0,
+          'sharesElementType':
+              attacker.definition.elementTypeIds.any(
+                defender.definition.elementTypeIds.contains,
+              )
+              ? 1
+              : 0,
+          'battleDate.year': battleDate.year,
+          'battleDate.month': battleDate.month,
+          'battleDate.day': battleDate.day,
+        },
       );
       if (value >= 0) {
         return value;
@@ -73,7 +73,7 @@ import 'move_expression.dart';
   return (
     powerPercent: powerPercent,
     description:
-        '${specialEffect.summary} (今回は ${formatPowerPercent(powerPercent: powerPercent)} 倍)',
+        '${specialEffect.rule} (今回は ${formatPowerPercent(powerPercent: powerPercent)} 倍)',
   );
 }
 

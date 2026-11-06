@@ -256,7 +256,7 @@ void main() {
     expect(
       tester.widget<Text>(find.byKey(const Key('battle-log'))).data,
       // 熱はリンゴラの食べ物・植物の両方に 2 倍のため、相性の行も続く
-      '${strongPlayer.definition.name} の ゆげのもや\n先に動くと強い (今回は 1.3 倍)\nこうかは ばつぐんだ',
+      '${strongPlayer.definition.name} の ゆげのもや\n先に行動すると威力が上がる (今回は 1.3 倍)\nこうかは ばつぐんだ',
     );
     // 演出の待ち (Future.delayed) をテストの終わりに残さない
     await tester.pump(const Duration(seconds: 5));
@@ -1114,7 +1114,7 @@ void main() {
           await tester.pump();
           expect(
             tester.widget<Text>(find.byKey(const Key('battle-log'))).data,
-            contains('先に動くと強い'),
+            contains('先に行動すると威力が上がる'),
           );
 
           expectBattleLogNotCut(tester: tester, bottomPadding: bottomPadding);
@@ -1205,7 +1205,7 @@ void main() {
       await tester.pump();
       expect(
         tester.widget<Text>(find.byKey(const Key('battle-log'))).data,
-        contains('先に動くと強い'),
+        contains('先に行動すると威力が上がる'),
       );
       final logScrollable = tester.state<ScrollableState>(
         find.descendant(
@@ -1403,7 +1403,7 @@ void main() {
           await tester.pump();
           expect(
             tester.widget<Text>(find.byKey(const Key('battle-log'))).data,
-            contains('先に動くと強い'),
+            contains('先に行動すると威力が上がる'),
           );
 
           final visibleBattleLog = visibleBattleLogRect(tester: tester);

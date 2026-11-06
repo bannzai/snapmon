@@ -12,14 +12,21 @@ enum MoveCategory {
 /// 今は威力の倍率 ([power]) だけを持つ。補助技のための別の出力 (相手の防御を書き換える式等) は同じ形に項目を足す。
 class MoveSpecialEffect {
   /// 特殊効果を作る。
-  const MoveSpecialEffect({required this.power, required this.summary});
+  const MoveSpecialEffect({
+    required this.power,
+    required this.summary,
+    required this.rule,
+  });
 
   /// 威力の倍率 (%。100 が 1 倍) を返す式。評価できない時は 100 にする
   /// (lib/domain/battle/move_special_effect.dart の `calculateMoveSpecialEffect`)。
   final String power;
 
-  /// 技の枠とバトルのログに出す、効果の短い説明。
+  /// 技の枠に出す、効果の短い説明。
   final String summary;
+
+  /// バトルのログと技の詳細の画面に出す、効果の規則の説明 (例: 先に行動すると威力が上がる)。
+  final String rule;
 }
 
 /// [json] (master の技の `specialEffect`) から特殊効果を読む。null か、式 (`power`) を持たない形 (master の版 4 までの
@@ -28,8 +35,12 @@ class MoveSpecialEffect {
 MoveSpecialEffect? moveSpecialEffectFromJson({
   required Map<String, dynamic>? json,
 }) => switch (json) {
-  {'power': final String power, 'summary': final String summary} =>
-    MoveSpecialEffect(power: power, summary: summary),
+  {
+    'power': final String power,
+    'summary': final String summary,
+    'rule': final String rule,
+  } =>
+    MoveSpecialEffect(power: power, summary: summary, rule: rule),
   _ => null,
 };
 

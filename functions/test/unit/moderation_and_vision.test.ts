@@ -104,7 +104,7 @@ describe("proposalRangeViolation", () => {
   });
 
   it("特殊効果は 1 つ目の技にだけ付けられ、式を検査する", () => {
-    const specialEffect = { power: "if(movesFirst, 130, 100)", summary: "先に動くと強い", rationale: "ろうは溶ける前に動くと強いため" };
+    const specialEffect = { power: "if(movesFirst, 130, 100)", summary: "先に動くと強い", rule: "先に行動すると威力が上がる", rationale: "ろうは溶ける前に動くと強いため" };
     expect(proposalRangeViolation({ ...proposal, moves: [{ ...proposal.moves[0], specialEffect }, { ...proposal.moves[1], specialEffect: null }, proposal.moves[2]] })).toBeUndefined();
     expect(proposalRangeViolation({ ...proposal, moves: [proposal.moves[0], { ...proposal.moves[1], specialEffect }, proposal.moves[2]] })).toContain("2 つ目の技に特殊効果");
     expect(proposalRangeViolation({ ...proposal, moves: [{ ...proposal.moves[0], specialEffect: { ...specialEffect, power: "if(fast, 130, 100)" } }, proposal.moves[1], proposal.moves[2]] })).toContain("fast");

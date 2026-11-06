@@ -43,20 +43,22 @@ describe("moveExpressionViolation", () => {
 
 describe("proposedSpecialEffectViolation", () => {
   it("見本の状況で 0〜200 に収まる式を通す", () => {
-    expect(proposedSpecialEffectViolation({ specialEffect: { power: "if(opponent.defense > self.attack, 150, 100)", summary: "硬い相手に強い" }, powerPoints: 25 })).toBeUndefined();
+    expect(proposedSpecialEffectViolation({ specialEffect: { power: "if(opponent.defense > self.attack, 150, 100)", summary: "硬い相手に強い", rule: "条件を満たすと威力が上がる" }, powerPoints: 25 })).toBeUndefined();
     expect(
       proposedSpecialEffectViolation({
-        specialEffect: { power: "100 + 100 * (move.maximumPowerPoints - move.remainingPowerPoints) / (move.maximumPowerPoints - 1)", summary: "PP が減るほど強い" },
+        specialEffect: { power: "100 + 100 * (move.maximumPowerPoints - move.remainingPowerPoints) / (move.maximumPowerPoints - 1)", summary: "PP が減るほど強い", rule: "条件を満たすと威力が上がる" },
         powerPoints: 25,
       }),
     ).toBeUndefined();
   });
 
-  it("上限を超える・負になる・評価できない状況がある式と、長すぎる説明を断る", () => {
-    expect(proposedSpecialEffectViolation({ specialEffect: { power: "if(movesFirst, 201, 100)", summary: "先に動くと強い" }, powerPoints: 25 })).toContain("201");
-    expect(proposedSpecialEffectViolation({ specialEffect: { power: "if(movesFirst, -1, 100)", summary: "先に動くと強い" }, powerPoints: 25 })).toContain("-1");
-    expect(proposedSpecialEffectViolation({ specialEffect: { power: "100 / (self.hitPoints - 1)", summary: "先に動くと強い" }, powerPoints: 25 })).toContain("評価できない");
-    expect(proposedSpecialEffectViolation({ specialEffect: { power: "hp", summary: "先に動くと強い" }, powerPoints: 25 })).toContain("hp");
-    expect(proposedSpecialEffectViolation({ specialEffect: { power: "100", summary: "とても長い説明の文言になっています" }, powerPoints: 25 })).toContain("説明");
+  it("上限を超える・負になる・評価できない状況がある式と、長すぎる説明・規則を断る", () => {
+    expect(proposedSpecialEffectViolation({ specialEffect: { power: "if(movesFirst, 201, 100)", summary: "先に動くと強い", rule: "条件を満たすと威力が上がる" }, powerPoints: 25 })).toContain("201");
+    expect(proposedSpecialEffectViolation({ specialEffect: { power: "if(movesFirst, -1, 100)", summary: "先に動くと強い", rule: "条件を満たすと威力が上がる" }, powerPoints: 25 })).toContain("-1");
+    expect(proposedSpecialEffectViolation({ specialEffect: { power: "100 / (self.hitPoints - 1)", summary: "先に動くと強い", rule: "条件を満たすと威力が上がる" }, powerPoints: 25 })).toContain("評価できない");
+    expect(proposedSpecialEffectViolation({ specialEffect: { power: "hp", summary: "先に動くと強い", rule: "条件を満たすと威力が上がる" }, powerPoints: 25 })).toContain("hp");
+    expect(proposedSpecialEffectViolation({ specialEffect: { power: "100", summary: "とても長い説明の文言になっています", rule: "条件を満たすと威力が上がる" }, powerPoints: 25 })).toContain("説明");
+    expect(proposedSpecialEffectViolation({ specialEffect: { power: "100", summary: "先に動くと強い", rule: "あ".repeat(41) }, powerPoints: 25 })).toContain("規則");
+    expect(proposedSpecialEffectViolation({ specialEffect: { power: "100", summary: "先に動くと強い", rule: "あ".repeat(40) }, powerPoints: 25 })).toBeUndefined();
   });
 });

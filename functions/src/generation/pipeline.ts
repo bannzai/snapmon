@@ -976,7 +976,7 @@ async function resolveNewElementType(
   const baseUpdate: Partial<GenerationRecord> = { elementProposal: proposal, claudeUsages };
   const violation =
     proposalRangeViolation(proposal) ??
-    findModerationViolation([proposal.element.displayName, proposal.element.description, ...proposal.moves.flatMap((move) => [move.displayName, ...(move.specialEffect ? [move.specialEffect.summary] : [])])].join("\n"));
+    findModerationViolation([proposal.element.displayName, proposal.element.description, ...proposal.moves.flatMap((move) => [move.displayName, ...(move.specialEffect ? [move.specialEffect.summary, move.specialEffect.rule] : [])])].join("\n"));
   if (violation) {
     logger.warn("新しい属性の提案を使いません", { violation });
     return fallback(baseUpdate);

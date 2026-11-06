@@ -64,7 +64,7 @@ void main() {
     }
   });
 
-  test('master と見本のモンスターの全ての特殊効果は、式が文法どおりで一覧の変数だけを使い、説明を持つ', () {
+  test('master と見本のモンスターの全ての特殊効果は、式が文法どおりで一覧の変数だけを使い、説明と規則を持つ', () {
     // 式 (power) を持たない形は読む時に null になり見落とすため、元の JSON で確かめる
     for (final path in [
       'assets/master/master.json',
@@ -92,6 +92,7 @@ void main() {
           reason: '$path: $json',
         );
         expect(json['summary'], isA<String>(), reason: '$path: $json');
+        expect(json['rule'], isA<String>(), reason: '$path: $json');
         expect(json.containsKey('kind'), isFalse, reason: '$path: $json');
       }
     }
@@ -142,6 +143,7 @@ void main() {
         'specialEffect': {
           'power': 'if(not movesFirst, 140, 100)',
           'summary': '後に動くと強い',
+          'rule': '後に行動すると威力が上がる',
           'rationale': 'ゴムは引き絞ってから放つため',
         },
       },
@@ -149,6 +151,7 @@ void main() {
     expect(move.power, 40);
     expect(move.specialEffect?.power, 'if(not movesFirst, 140, 100)');
     expect(move.specialEffect?.summary, '後に動くと強い');
+    expect(move.specialEffect?.rule, '後に行動すると威力が上がる');
   });
 
   test('Lv.1 で覚えられる技の半分以上に特殊効果が付いている (#65 の完了条件)', () {
