@@ -69,6 +69,7 @@ function webhookBody(event: Record<string, unknown> = {}) {
   };
 }
 
+/** [uid] の生成チケットの残高 (`users/{uid}.generationTickets`)。文書かフィールドが無ければ undefined。 */
 async function generationTickets(uid: string): Promise<unknown> {
   return (await firestore.doc(`users/${uid}`).get()).get("generationTickets");
 }

@@ -170,6 +170,10 @@ export class GenerationRequestError extends Error {
   /** クライアントへ返す付帯の情報 (daily_limit_per_user の時だけ)。 */
   readonly details?: DailyLimitPerUserDetails;
 
+  /**
+   * [code] の理由で受け付けない要求のエラーを作る。[message] は利用者に見せる文。
+   * [details] は daily_limit_per_user の時だけ渡し、callable がエラーの details に入れてクライアントへ返す。
+   */
   constructor(code: GenerationRequestError["code"], message: string, details?: DailyLimitPerUserDetails) {
     super(message);
     this.code = code;
