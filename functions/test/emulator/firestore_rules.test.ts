@@ -203,3 +203,28 @@ describe("生成のカウンタと使い回しの記録", () => {
     await assertFails(setDoc(doc(firestore, "definitionCounters/global"), { elementCount: 0 }));
   });
 });
+
+describe("生成チケットの残高と購入の記録", () => {
+  beforeEach(async () => {
+    await testEnvironment.withSecurityRulesDisabled(async (context) => {
+      const firestore = context.firestore();
+      await setDoc(doc(firestore, "users/alice/ticketPurchases/event1"), { productId: "snapmon_generationticket10_200yen", ticketCount: 10 });
+      await setDoc(doc(firestore, "users/bob/ticketPurchases/event2"), { productId: "snapmon_generationticket10_200yen", ticketCount: 10 });
+    });
+  });
+
+  it("本人は自分の購入の記録を読める", async () => {
+    await assertSucceeds(getDoc(doc(signedInFirestore("alice"), "users/alice/ticketPurchases/event1")));
+  });
+
+  it("他人の購入の記録は読めない", async () => {
+    await assertFails(getDoc(doc(signedInFirestore("alice"), "users/bob/ticketPurchases/event2")));
+  });
+
+  it("本人も購入の記録と残高を書けない (残高を改ざんさせないため)", async () => {
+    const firestore = signedInFirestore("alice");
+    await assertFails(setDoc(doc(firestore, "users/alice/ticketPurchases/event3"), { productId: "snapmon_generationticket30_500yen", ticketCount: 30 }));
+    await assertFails(updateDoc(doc(firestore, "users/alice/ticketPurchases/event1"), { ticketCount: 30 }));
+    await assertFails(setDoc(doc(firestore, "users/alice"), { generationTickets: 100 }, { merge: true }));
+  });
+});
