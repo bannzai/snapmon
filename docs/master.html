@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 開発用の道具で、利用者向けの紹介ページではないため検索に載せない -->
+<meta name="robots" content="noindex">
+<title>snapmon | master の一覧</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap">
+<style>
+/* 色と文字は docs/index.html と同じ (documents/DIRECTION.md「デザインの方向」) */
+:root {
+  --color-bg: #15121c;
+  --color-surface: #f4f1ea;
+  --color-text: #f4f1ea;
+  --color-muted: #cfc9bd;
+  --color-card-text: #15121c;
+  --color-card-muted: #4a4452;
+  --color-accent: #c6f432;
+  --color-on-accent: #15121c;
+  --color-coral: #ff6b6b;
+  --color-border: #3a3347;
+  --radius: 16px;
+  --font-heading: "Dela Gothic One", "Zen Kaku Gothic New", sans-serif;
+  --font-body: "Zen Kaku Gothic New", "Hiragino Sans", "Noto Sans JP", sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+h1, h2, header.site strong { font-family: var(--font-heading); font-weight: 400; }
+a { color: var(--color-accent); }
+.wrap { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+header.site { border-bottom: 1px solid var(--color-border); position: sticky; top: 0; background: var(--color-bg); z-index: 2; }
+header.site .wrap { display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; padding-top: 12px; padding-bottom: 12px; }
+header.site strong { font-size: 1.25rem; color: var(--color-accent); margin-right: auto; }
+header.site nav a { color: var(--color-muted); margin-left: 14px; text-decoration: none; font-size: 0.9rem; }
+header.site nav a:hover { color: var(--color-accent); }
+h1 { font-size: 1.8rem; margin: 32px 0 8px; }
+.source { color: var(--color-muted); font-size: 0.9rem; word-break: break-all; }
+/* scroll-margin-top は上に固定したヘッダーの高さ。ページ内リンクで飛んだ見出しがヘッダーに隠れないようにする */
+section { padding: 28px 0; border-top: 1px solid var(--color-border); scroll-margin-top: 64px; }
+section h2 { font-size: 1.6rem; margin: 0 0 16px; }
+.panel { background: var(--color-surface); color: var(--color-card-text); border-radius: var(--radius); padding: 16px; overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.88rem; }
+th, td { border-bottom: 1px solid #dcd6ca; padding: 6px 8px; text-align: left; vertical-align: top; }
+th { font-weight: 700; white-space: nowrap; }
+td.number, th.number { text-align: right; white-space: nowrap; }
+td.note { color: var(--color-card-muted); min-width: 240px; }
+td.name { white-space: nowrap; }
+code { font-family: ui-monospace, Menlo, monospace; font-size: 0.85em; }
+button {
+  font: inherit; font-size: 0.8rem; font-weight: 700; cursor: pointer;
+  padding: 4px 10px; border-radius: 8px; border: 2px solid var(--color-card-text);
+  background: transparent; color: var(--color-card-text); white-space: nowrap;
+}
+button.primary { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-on-accent); }
+button:focus-visible, select:focus-visible, input:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 2px; }
+.toolbar { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; margin: 16px 0; }
+.toolbar label { display: inline-flex; gap: 8px; align-items: center; }
+select, input[type="number"] { font: inherit; font-size: 0.85rem; padding: 2px 6px; border-radius: 6px; border: 1px solid var(--color-card-muted); }
+input[type="number"] { width: 5.5em; text-align: right; }
+.chart td, .chart th { text-align: center; min-width: 52px; }
+.chart th { padding: 6px 4px; }
+.chart td { padding: 0; font-weight: 700; }
+.chart td input { margin: 6px 4px; }
+/* 押せる範囲をセル全体にし、見た目は数字だけのセルのままにする。セルの背景を透かして塗り分けを見せる */
+.chart td button { display: block; width: 100%; padding: 6px 4px; border: 0; border-radius: 0; background: transparent; color: inherit; font: inherit; }
+/* 全体の outline は黄緑で、黄緑のセルの上では見えないため本文の色にする */
+.chart td button:focus-visible { outline: 3px solid var(--color-card-text); outline-offset: -3px; }
+.chart td.strong { background: var(--color-accent); }
+.chart td.weak { background: var(--color-coral); }
+.chart td.neutral { color: var(--color-card-muted); font-weight: 400; }
+.chart th.attacker { text-align: right; }
+.legend { display: flex; gap: 16px; margin: 0 0 12px; font-size: 0.85rem; }
+.legend span::before { content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+.legend .strong::before { background: var(--color-accent); }
+.legend .weak::before { background: var(--color-coral); }
+.legend .neutral::before { background: var(--color-surface); border: 1px solid var(--color-card-muted); }
+.edited { outline: 3px solid #7a4cff; outline-offset: -3px; }
+.swatch { display: inline-block; width: 16px; height: 16px; border-radius: 4px; border: 1px solid var(--color-card-muted); vertical-align: -3px; margin-right: 6px; }
+.actions { display: flex; gap: 6px; }
+.dock { position: sticky; bottom: 0; background: var(--color-bg); border-top: 1px solid var(--color-border); padding: 12px 0; z-index: 2; }
+.dock .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+/* Dela Gothic One は小さい字では潰れて読めないため、下の欄の見出しとボタンは本文の太字にする */
+.dock h2 { font-family: var(--font-body); font-weight: 700; font-size: 0.95rem; margin: 0 0 6px; display: flex; gap: 10px; align-items: center; }
+.dock h2 button { color: var(--color-text); border-color: var(--color-text); }
+.dock h2 button.primary { color: var(--color-on-accent); border-color: var(--color-accent); }
+.dock pre { margin: 0; background: #221d2c; border-radius: 10px; padding: 8px 10px; font-size: 0.8rem; max-height: 120px; overflow: auto; white-space: pre-wrap; word-break: break-all; color: var(--color-muted); }
+.status { font-size: 0.8rem; color: var(--color-accent); font-weight: 400; font-family: var(--font-body); }
+.error { color: var(--color-coral); }
+@media (max-width: 720px) {
+  .dock .wrap { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <strong>snapmon</strong>
+    <nav id="nav" aria-label="ページ内リンク"></nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <h1>master の一覧</h1>
+  <p class="source">読み込み元: <a id="source-url"></a></p>
+  <p id="load-error" class="error" hidden></p>
+  <div class="toolbar">
+    <label><input type="checkbox" id="edit-mode"> 威力・PP・倍率を書き換える</label>
+  </div>
+  <div id="sections"></div>
+</main>
+
+<div class="dock">
+  <div class="wrap">
+    <div>
+      <h2>コピーした内容 <span id="copy-status" class="status" role="status"></span></h2>
+      <pre id="copied">表の行の「1 行」「JSON」か相性表のセルを押すと、ここに出てクリップボードに写ります</pre>
+    </div>
+    <div>
+      <h2>書き換えた差分 <button type="button" class="primary" id="copy-diff">差分をコピー</button> <button type="button" id="reset-edits">元に戻す</button></h2>
+      <pre id="diff">書き換えた値はありません</pre>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import {
+  MASTER_SECTIONS,
+  resolveMasterUrl,
+  unrenderedKeys,
+  elementTypeDisplayName,
+  multiplierKind,
+  isColorHex,
+  moveFeedbackLine,
+  elementTypeFeedbackLine,
+  typeChartCellFeedbackLine,
+  buildDiff,
+} from './master-viewer.js';
+
+
+/** ページの状態。master は読み込んだ master.json、edits は buildDiff の edits の形の書き換え、moveFilter は技を絞る属性の ID ('' は全件) */
+const state = { master: null, edits: { moves: {}, typeChart: {} }, editMode: false, moveFilter: '' };
+
+/** タグ名 (tagName) と属性 (attributes)・子 (children) から要素を作る。文字列の子は textContent として入れ、HTML として解釈しない */
+function element(tagName, attributes = {}, ...children) {
+  const node = document.createElement(tagName);
+  for (const [name, value] of Object.entries(attributes)) {
+    if (name.startsWith('on')) node.addEventListener(name.slice(2), value);
+    else if (name === 'className') node.className = value;
+    else node.setAttribute(name, value);
+  }
+  for (const child of children.flat()) {
+    if (child === null || child === undefined) continue;
+    node.append(child instanceof Node ? child : document.createTextNode(String(child)));
+  }
+  return node;
+}
+
+/** text をページ下の欄に出し、クリップボードに写す。自動操作のブラウザ等でクリップボードに書けない時は欄から写せる旨を出す */
+async function copyText(text) {
+  document.getElementById('copied').textContent = text;
+  const status = document.getElementById('copy-status');
+  try {
+    await navigator.clipboard.writeText(text);
+    status.textContent = 'クリップボードに写しました';
+  } catch {
+    status.textContent = 'クリップボードに書けないのでこの欄から写してください';
+  }
+}
+
+/** 書き換えを反映した技 (move) を返す */
+function editedMove(move) {
+  return { ...move, ...state.edits.moves[move.id] };
+}
+
+/** 書き換えを反映した相性表の倍率を返す */
+function editedMultiplier(attackerId, defenderId) {
+  return state.edits.typeChart[attackerId]?.[defenderId] ?? state.master.typeChart[attackerId][defenderId];
+}
+
+/** 書き換えた差分を下の欄に描き直す */
+function renderDiff() {
+  const diff = buildDiff(state.master, state.edits);
+  document.getElementById('diff').textContent = diff ? JSON.stringify(diff, null, 2) : '書き換えた値はありません';
+}
+
+/**
+ * 数値の入力欄を作る。値を変えると onValue に数値を渡し、差分を描き直す。
+ * step は上下の矢印の刻みで、呼び出し側が master.json の値の刻みに合わせて渡す (威力・PP は整数、倍率は 0.5 と 2 があるため 0.5)。
+ * min: 0 は、威力・PP・倍率のどれも負の値を持たないため
+ */
+function numberInput(value, step, label, onValue) {
+  return element('input', {
+    type: 'number', value, step, min: 0, 'aria-label': label,
+    oninput: (event) => {
+      if (event.target.value === '') return;
+      onValue(Number(event.target.value));
+      renderDiff();
+    },
+  });
+}
+
+/** 行のコピーのボタン 2 つを作る。押した時点の書き換えを反映するため、写す値は makeLine・makeJson を押した時に呼んで作る */
+function copyButtons(makeLine, makeJson) {
+  return element('div', { className: 'actions' },
+    element('button', { type: 'button', onclick: () => copyText(makeLine()) }, '1 行'),
+    element('button', { type: 'button', onclick: () => copyText(JSON.stringify(makeJson(), null, 2)) }, 'JSON'),
+  );
+}
+
+/** エフェクトの色 (colorHex) の見本を作る。`#RRGGBB` の形でない時は色を塗らない (値そのものは隣の文字で読める) */
+function colorSwatch(colorHex) {
+  const swatch = element('span', { className: 'swatch' });
+  if (isColorHex(colorHex)) swatch.style.backgroundColor = colorHex;
+  return swatch;
+}
+
+/** 見出し (headers) と行 (rows) から表を作る */
+function table(headers, rows) {
+  return element('div', { className: 'panel' },
+    element('table', {},
+      element('thead', {}, element('tr', {}, headers.map((header) => element('th', {}, header)))),
+      element('tbody', {}, rows),
+    ),
+  );
+}
+
+/** master.json のトップレベルのキーごとの描画。キーは MASTER_SECTIONS と同じ */
+const renderers = {
+  version: (master) => element('p', {}, `version ${master.version}`),
+
+  elementTypes: (master) => table(['ID', '表示名', '説明', 'コピー'], master.elementTypes.map((elementType) =>
+    element('tr', {},
+      element('td', {}, element('code', {}, elementType.id)),
+      element('td', {}, elementType.displayName),
+      element('td', { className: 'note' }, elementType.description),
+      element('td', {}, copyButtons(() => elementTypeFeedbackLine(elementType), () => elementType)),
+    ))),
+
+  typeChart: (master) => {
+    const elementTypeIds = master.elementTypes.map((elementType) => elementType.id);
+    return element('div', {},
+      element('p', {}, '行が攻撃する技の属性、列が受けるモンスターの属性。セルを押すとその 1 行をコピーする'),
+      element('div', { className: 'legend' },
+        element('span', { className: 'strong' }, '1 倍より大きい'),
+        element('span', { className: 'weak' }, '1 倍より小さい'),
+        element('span', { className: 'neutral' }, '1 倍'),
+      ),
+      element('div', { className: 'panel' },
+        element('table', { className: 'chart' },
+          element('thead', {}, element('tr', {}, element('th', {}, '攻撃 \\ 防御'), elementTypeIds.map((id) => element('th', {}, elementTypeDisplayName(master, id))))),
+          element('tbody', {}, elementTypeIds.map((attackerId) =>
+            element('tr', {},
+              element('th', { className: 'attacker' }, elementTypeDisplayName(master, attackerId)),
+              elementTypeIds.map((defenderId) => typeChartCell(master, attackerId, defenderId)),
+            ))),
+        ),
+      ),
+    );
+  },
+
+  moves: (master) => {
+    const moves = master.moves.filter((move) => state.moveFilter === '' || move.elementTypeId === state.moveFilter);
+    return element('div', {},
+      element('div', { className: 'toolbar' },
+        element('label', {}, '属性で絞る',
+          element('select', {
+            onchange: (event) => { state.moveFilter = event.target.value; render(); },
+          },
+          element('option', { value: '' }, 'すべて'),
+          master.elementTypes.map((elementType) => {
+            const option = element('option', { value: elementType.id }, elementType.displayName);
+            option.selected = elementType.id === state.moveFilter;
+            return option;
+          })),
+        ),
+        element('span', {}, `${moves.length} 件 / 全 ${master.moves.length} 件`),
+      ),
+      table(['ID', '表示名', '属性', '威力', 'PP', '区分', 'エフェクト', '覚えるレベル', '特殊効果', '根拠', 'コピー'], moves.map((move) =>
+        element('tr', {},
+          element('td', {}, element('code', {}, move.id)),
+          element('td', { className: 'name' }, move.displayName),
+          element('td', {}, elementTypeDisplayName(master, move.elementTypeId)),
+          moveNumberCell(move, 'power', '威力'),
+          moveNumberCell(move, 'powerPoints', 'PP'),
+          element('td', {}, move.category),
+          element('td', {}, element('code', {}, move.effectId)),
+          element('td', { className: 'number' }, `${move.learnableLevelMinimum}–${move.learnableLevelMaximum}`),
+          element('td', { className: 'note' }, move.specialEffect
+            ? [element('code', {}, move.specialEffect.kind), ` 最大 ${move.specialEffect.maximumPowerPercent}%`, element('br'), move.specialEffect.rationale]
+            : 'なし'),
+          element('td', { className: 'note' }, move.rationale),
+          element('td', {}, copyButtons(() => moveFeedbackLine(master, editedMove(move)), () => editedMove(move))),
+        ))),
+    );
+  },
+
+  effects: (master) => table(['ID', '表示名', '種類', '色'], master.effects.map((effect) =>
+    element('tr', {},
+      element('td', {}, element('code', {}, effect.id)),
+      element('td', {}, effect.displayName),
+      element('td', {}, effect.kind),
+      element('td', {}, colorSwatch(effect.colorHex), element('code', {}, effect.colorHex)),
+    ))),
+
+  statGrades: (master) => table(['ID', '表示名', '基礎値'], master.statGrades.map((statGrade) =>
+    element('tr', {},
+      element('td', {}, element('code', {}, statGrade.id)),
+      element('td', {}, statGrade.displayName),
+      element('td', { className: 'number' }, statGrade.baseStat),
+    ))),
+
+  elementSelection: (master) => table(['キー', '値'], Object.entries(master.elementSelection).map(([key, value]) =>
+    element('tr', {}, element('td', {}, element('code', {}, key)), element('td', { className: 'number' }, value)))),
+
+  subjectCategories: (master) => table(['ID', '表示名', '説明'], master.subjectCategories.map((subjectCategory) =>
+    element('tr', {},
+      element('td', {}, element('code', {}, subjectCategory.id)),
+      element('td', {}, subjectCategory.displayName),
+      element('td', { className: 'note' }, subjectCategory.description),
+    ))),
+};
+
+/** 相性表のセルを作る。書き換える時は入力欄、それ以外は押すとその 1 行をコピーするボタン (キーボードでも押せるよう td ではなく button に持たせる) */
+function typeChartCell(master, attackerId, defenderId) {
+  const multiplier = editedMultiplier(attackerId, defenderId);
+  const feedbackLine = typeChartCellFeedbackLine(master, attackerId, defenderId, multiplier);
+  const cell = element('td', { title: feedbackLine });
+  const paint = (value) => {
+    cell.className = multiplierKind(value);
+    cell.classList.toggle('edited', value !== master.typeChart[attackerId][defenderId]);
+  };
+  paint(multiplier);
+  if (state.editMode) {
+    cell.append(numberInput(multiplier, 0.5, `${attackerId} → ${defenderId} の倍率`, (value) => {
+      (state.edits.typeChart[attackerId] ??= {})[defenderId] = value;
+      paint(value);
+    }));
+  } else {
+    cell.append(element('button', { type: 'button', 'aria-label': feedbackLine, onclick: () => copyText(feedbackLine) }, multiplier));
+  }
+  return cell;
+}
+
+/** 技の数値 (field は 'power' か 'powerPoints'、label は表示名) のセルを作る。書き換える時は入力欄 */
+function moveNumberCell(move, field, label) {
+  const value = editedMove(move)[field];
+  const cell = element('td', { className: 'number' });
+  cell.classList.toggle('edited', value !== move[field]);
+  if (state.editMode) {
+    cell.append(numberInput(value, 1, `${move.id} の${label}`, (newValue) => {
+      (state.edits.moves[move.id] ??= {})[field] = newValue;
+      cell.classList.toggle('edited', newValue !== move[field]);
+    }));
+  } else {
+    cell.textContent = value;
+  }
+  return cell;
+}
+
+/** state から全セクションを描き直す。スクロールの位置は保つ */
+function render() {
+  const master = state.master;
+  const scrollY = window.scrollY;
+  document.getElementById('sections').replaceChildren(
+    ...MASTER_SECTIONS.map((section) =>
+      element('section', { id: section.key },
+        element('h2', {}, `${section.title} `, element('code', {}, section.key)),
+        renderers[section.key](master),
+      )),
+    ...unrenderedKeys(master).map((key) =>
+      element('section', { id: key },
+        element('h2', {}, element('code', {}, key)),
+        element('p', { className: 'error' }, 'このページがまだ表にしていないキーなので master-viewer.js の MASTER_SECTIONS と master.html の renderers に足してください'),
+        element('div', { className: 'panel' }, element('pre', {}, JSON.stringify(master[key], null, 2))),
+      )),
+  );
+  window.scrollTo(0, scrollY);
+  renderDiff();
+}
+
+document.getElementById('nav').replaceChildren(...MASTER_SECTIONS.map((section) => element('a', { href: `#${section.key}` }, section.title)));
+document.getElementById('edit-mode').addEventListener('change', (event) => { state.editMode = event.target.checked; render(); });
+document.getElementById('copy-diff').addEventListener('click', () => {
+  const diff = buildDiff(state.master, state.edits);
+  if (diff) copyText(JSON.stringify(diff, null, 2));
+});
+document.getElementById('reset-edits').addEventListener('click', () => { state.edits = { moves: {}, typeChart: {} }; render(); });
+
+try {
+  const masterUrl = resolveMasterUrl(location.href);
+  const sourceLink = document.getElementById('source-url');
+  sourceLink.href = masterUrl;
+  sourceLink.textContent = masterUrl;
+  const response = await fetch(masterUrl);
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  state.master = await response.json();
+  render();
+} catch (error) {
+  const loadError = document.getElementById('load-error');
+  loadError.hidden = false;
+  loadError.textContent = `master.json を読み込めませんでした (${error.message})`;
+}
+</script>
+</body>
+</html>

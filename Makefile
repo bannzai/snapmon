@@ -66,6 +66,7 @@ verify:
 	bash scripts/test/test-set-webtunnel-setup-env-secret.sh
 	bash scripts/test/test-makefile-targets.sh
 	bash scripts/test/test-metadata-check.sh
+	node --test scripts/test/test-master-viewer.mjs
 
 # アプリアイコンを描き直して iOS・Android・Web に書き出す (Pillow の入った python3 が要る。PYTHON=<python3 のパス> で差し替えられる)
 PYTHON ?= python3

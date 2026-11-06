@@ -2,6 +2,11 @@
 
 属性・相性・ステータス・バトルの計算の規則。値の正は `assets/master/master.json` (master の最新の版) と `lib/domain/` のコードで、この文書はそれを人が読むために写したもの。master や式を変えた時はこの文書も直す。
 
+master.json の全キー (属性・相性表・技・エフェクト・ステータスの段階・属性の選び方・被写体のカテゴリ) は https://bannzai.github.io/snapmon/master.html で表として見られる。行のコピーと、威力・PP・倍率を書き換えた差分の JSON の書き出しができる (書き出した差分は人が master.json に当てて PR にする)。
+
+- ページ (`docs/master.html`) は値を持たず、main の master.json を raw URL ( https://raw.githubusercontent.com/bannzai/snapmon/main/assets/master/master.json ) から読む。master.json を変えた PR を main にマージすれば反映され、ページ側の作業は要らない。raw URL は `access-control-allow-origin: *` (Pages から読める) と `cache-control: max-age=300` を返す (2026-11-06 に `curl -sI` で確認) ため、マージの直後はブラウザが前の版を見せることがある
+- 手元で編集した master.json は、リポジトリのルートで `python3 -m http.server 8000` を実行し、 http://localhost:8000/docs/master.html?src=../assets/master/master.json を開いて見る (`src` はページからの相対の URL)
+
 ## 属性
 
 身の回りの物を撮る遊びのため、被写体の素材・性質から 12 種にした: 金属・木・植物・水・熱・石・紙・布・ガラス・樹脂・電気・食べ物。
