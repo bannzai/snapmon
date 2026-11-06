@@ -828,6 +828,44 @@ describe("generate の上限と検査", () => {
     expect((await bucket.file(data.photoPath).exists())[0]).toBe(false);
   });
 
+  it("uid ごとの上限に当たった時は details に無料の上限の値とチケットの残高を返す", async () => {
+    await firestore.doc("users/alice").set({ dailyGeneration: { date: today, count: DAILY_GENERATION_LIMIT_PER_USER }, generationTickets: 0 }, { merge: true });
+    await expect(
+      handleGenerateRequest(createMocks().dependencies, signedInRequest({ uid: "alice", data: await uploadPhoto({ uid: "alice", photo: photoFixture("01") }) })),
+    ).rejects.toMatchObject({
+      code: "resource-exhausted",
+      details: { reason: "daily_limit_per_user", freeDailyGenerationLimit: DAILY_GENERATION_LIMIT_PER_USER, generationTickets: 0 },
+    });
+  });
+
+  it("uid ごとの上限の後もチケットがあれば 1 枚使って生成し、使ったことをレコードに残す", async () => {
+    await firestore.doc("users/alice").set({ dailyGeneration: { date: today, count: DAILY_GENERATION_LIMIT_PER_USER }, generationTickets: 2 }, { merge: true });
+    const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
+    const result = await handleGenerateRequest(createMocks().dependencies, signedInRequest({ uid: "alice", data }));
+    expect(result.status).toBe("saved");
+    const user = (await firestore.doc("users/alice").get()).data()!;
+    expect(user.generationTickets).toBe(1);
+    expect(user.dailyGeneration).toEqual({ date: today, count: DAILY_GENERATION_LIMIT_PER_USER + 1 });
+    expect((await generationRecord({ uid: "alice", requestId: data.requestId })).usedGenerationTicket).toBe(true);
+  });
+
+  it("無料の回数が残っている間はチケットを使わない", async () => {
+    await firestore.doc("users/alice").set({ dailyGeneration: { date: today, count: DAILY_GENERATION_LIMIT_PER_USER - 1 }, generationTickets: 2 }, { merge: true });
+    const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
+    expect((await handleGenerateRequest(createMocks().dependencies, signedInRequest({ uid: "alice", data }))).status).toBe("saved");
+    expect((await firestore.doc("users/alice").get()).get("generationTickets")).toBe(2);
+    expect((await generationRecord({ uid: "alice", requestId: data.requestId })).usedGenerationTicket).toBeUndefined();
+  });
+
+  it("全体の上限に達した時はチケットがあっても生成せず、チケットも減らさない", async () => {
+    await firestore.doc("users/alice").set({ dailyGeneration: { date: today, count: DAILY_GENERATION_LIMIT_PER_USER }, generationTickets: 2 }, { merge: true });
+    await firestore.doc(`generationDailyCounts/${today}`).set({ count: DAILY_GENERATION_LIMIT_TOTAL });
+    await expect(
+      handleGenerateRequest(createMocks().dependencies, signedInRequest({ uid: "alice", data: await uploadPhoto({ uid: "alice", photo: photoFixture("01") }) })),
+    ).rejects.toMatchObject({ code: "resource-exhausted", details: { reason: "daily_limit_total" } });
+    expect((await firestore.doc("users/alice").get()).get("generationTickets")).toBe(2);
+  });
+
   it("前日の回数は数えない", async () => {
     await firestore.doc("users/alice").set({ dailyGeneration: { date: "2000-01-01", count: DAILY_GENERATION_LIMIT_PER_USER } }, { merge: true });
     const result = await handleGenerateRequest(createMocks().dependencies, signedInRequest({ uid: "alice", data: await uploadPhoto({ uid: "alice", photo: photoFixture("01") }) }));

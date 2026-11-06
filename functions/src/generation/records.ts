@@ -53,6 +53,11 @@ export interface GenerationRecord {
   attemptCount: number;
   /** 判定待ちから再試行した回数。 */
   judgeRetryCount: number;
+  /**
+   * 1 日の無料の回数を使い切った後に、生成チケットを 1 枚使って受け付けた生成か。受け付けた時に記録する。
+   * 生成が拒否・失敗・重複で終わってもチケットは戻さない (無料の回数と同じ扱い。DIRECTION.md「決めたこと」2026-11-07 の行)。
+   */
+  usedGenerationTicket?: boolean;
   /** 終わった生成の要らなくなったファイル (pipeline.ts の deleteDiscardedFiles) を消し終えたか。消し残しは再試行のタスクが消す。 */
   filesDeleted?: boolean;
   /** rejected の理由。 */
