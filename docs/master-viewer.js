@@ -49,6 +49,14 @@ export function multiplierKind(multiplier) {
   return 'neutral';
 }
 
+/**
+ * エフェクトの色 (colorHex) が master.json の形 `#RRGGBB` なら true を返す。
+ * `?src=` で他人の JSON も読めるため、この形でない値を CSS に渡さない
+ */
+export function isColorHex(colorHex) {
+  return /^#[0-9a-fA-F]{6}$/.test(colorHex);
+}
+
 /** 属性の ID (elementTypeId) の表示名を master.elementTypes から返す。見つからなければ ID をそのまま返す。
  * elementTypes に無い属性を技が指す master でも表を落とさず、どの属性 ID が抜けているかを表で見つけられるようにするため */
 export function elementTypeDisplayName(master, elementTypeId) {

@@ -9,6 +9,7 @@ import {
   resolveMasterUrl,
   unrenderedKeys,
   multiplierKind,
+  isColorHex,
   moveFeedbackLine,
   elementTypeFeedbackLine,
   typeChartCellFeedbackLine,
@@ -26,6 +27,21 @@ test('MASTER_SECTIONS の各キーに master.html の描画がある', () => {
   for (const section of MASTER_SECTIONS) {
     assert.match(masterHtml, new RegExp(`\\n  ${section.key}: \\(master\\) =>`), section.key);
   }
+});
+
+test('master.json のエフェクトの色はすべて isColorHex を通る', () => {
+  for (const effect of master.effects) {
+    assert.equal(isColorHex(effect.colorHex), true, effect.id);
+  }
+});
+
+test('#RRGGBB に似ているが違う形は isColorHex を通らない', () => {
+  const [effect] = master.effects;
+  assert.equal(isColorHex(`${effect.colorHex};background:url(https://example.com/x)`), false);
+  assert.equal(isColorHex(effect.colorHex.slice(1)), false);
+  assert.equal(isColorHex(effect.colorHex.slice(0, 4)), false);
+  assert.equal(isColorHex(`${effect.colorHex}\n`), false);
+  assert.equal(isColorHex('#GGGGGG'), false);
 });
 
 test('MASTER_SECTIONS に無いキーは unrenderedKeys が返す', () => {

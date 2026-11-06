@@ -67,8 +67,14 @@ button:focus-visible, select:focus-visible, input:focus-visible { outline: 3px s
 .toolbar label { display: inline-flex; gap: 8px; align-items: center; }
 select, input[type="number"] { font: inherit; font-size: 0.85rem; padding: 2px 6px; border-radius: 6px; border: 1px solid var(--color-card-muted); }
 input[type="number"] { width: 5.5em; text-align: right; }
-.chart td, .chart th { text-align: center; padding: 6px 4px; min-width: 52px; }
-.chart td { cursor: pointer; font-weight: 700; }
+.chart td, .chart th { text-align: center; min-width: 52px; }
+.chart th { padding: 6px 4px; }
+.chart td { padding: 0; font-weight: 700; }
+.chart td input { margin: 6px 4px; }
+/* 押せる範囲をセル全体にし、見た目は数字だけのセルのままにする。セルの背景を透かして塗り分けを見せる */
+.chart td button { display: block; width: 100%; padding: 6px 4px; border: 0; border-radius: 0; background: transparent; color: inherit; font: inherit; }
+/* 全体の outline は黄緑で、黄緑のセルの上では見えないため本文の色にする */
+.chart td button:focus-visible { outline: 3px solid var(--color-card-text); outline-offset: -3px; }
 .chart td.strong { background: var(--color-accent); }
 .chart td.weak { background: var(--color-coral); }
 .chart td.neutral { color: var(--color-card-muted); font-weight: 400; }
@@ -133,6 +139,7 @@ import {
   unrenderedKeys,
   elementTypeDisplayName,
   multiplierKind,
+  isColorHex,
   moveFeedbackLine,
   elementTypeFeedbackLine,
   typeChartCellFeedbackLine,
@@ -208,6 +215,13 @@ function copyButtons(makeLine, makeJson) {
     element('button', { type: 'button', onclick: () => copyText(makeLine()) }, '1 行'),
     element('button', { type: 'button', onclick: () => copyText(JSON.stringify(makeJson(), null, 2)) }, 'JSON'),
   );
+}
+
+/** エフェクトの色 (colorHex) の見本を作る。`#RRGGBB` の形でない時は色を塗らない (値そのものは隣の文字で読める) */
+function colorSwatch(colorHex) {
+  const swatch = element('span', { className: 'swatch' });
+  if (isColorHex(colorHex)) swatch.style.backgroundColor = colorHex;
+  return swatch;
 }
 
 /** 見出し (headers) と行 (rows) から表を作る */
@@ -295,7 +309,7 @@ const renderers = {
       element('td', {}, element('code', {}, effect.id)),
       element('td', {}, effect.displayName),
       element('td', {}, effect.kind),
-      element('td', {}, element('span', { className: 'swatch', style: `background:${effect.colorHex}` }), element('code', {}, effect.colorHex)),
+      element('td', {}, colorSwatch(effect.colorHex), element('code', {}, effect.colorHex)),
     ))),
 
   statGrades: (master) => table(['ID', '表示名', '基礎値'], master.statGrades.map((statGrade) =>
@@ -316,10 +330,11 @@ const renderers = {
     ))),
 };
 
-/** 相性表のセルを作る。書き換える時は入力欄、それ以外は押すとその 1 行をコピーするセル */
+/** 相性表のセルを作る。書き換える時は入力欄、それ以外は押すとその 1 行をコピーするボタン (キーボードでも押せるよう td ではなく button に持たせる) */
 function typeChartCell(master, attackerId, defenderId) {
   const multiplier = editedMultiplier(attackerId, defenderId);
-  const cell = element('td', { title: typeChartCellFeedbackLine(master, attackerId, defenderId, multiplier) });
+  const feedbackLine = typeChartCellFeedbackLine(master, attackerId, defenderId, multiplier);
+  const cell = element('td', { title: feedbackLine });
   const paint = (value) => {
     cell.className = multiplierKind(value);
     cell.classList.toggle('edited', value !== master.typeChart[attackerId][defenderId]);
@@ -331,8 +346,7 @@ function typeChartCell(master, attackerId, defenderId) {
       paint(value);
     }));
   } else {
-    cell.textContent = multiplier;
-    cell.addEventListener('click', () => copyText(typeChartCellFeedbackLine(master, attackerId, defenderId, multiplier)));
+    cell.append(element('button', { type: 'button', 'aria-label': feedbackLine, onclick: () => copyText(feedbackLine) }, multiplier));
   }
   return cell;
 }
