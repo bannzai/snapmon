@@ -46,10 +46,9 @@ LIGHTNING = [(13, 1), (3, 16), (11, 16), (9, 27), (21, 10), (13, 10)]
 LIGHTNING_TRANSLATE = (118, -6)
 LIGHTNING_SCALE = (40 / 24, 48 / 28)
 
-# 絵全体 (縁取り・取っ手の線・稲妻を含む) の箱の座標での外接の四角。上の値から求めた
-# 左右は縁取りの左端 10-9=1 と取っ手の線の右端 119+38+10=167、上下は稲妻の先 -6+1×48/28≈-4.3 と縁取りの下端 150+9=159
-ART_LEFT = 1
-ART_RIGHT = 167
+# 絵全体 (縁取り・取っ手の線・稲妻を含む) の箱の座標での外接の四角。左は縁取り、右は取っ手の太い方の線、上は稲妻の先、下は縁取りで決まる
+ART_LEFT = BODY[0] - ACCENT_OUTLINE_OFFSET
+ART_RIGHT = HANDLE[0] + HANDLE[2] + max(width for _, width in HANDLE_STROKES) / 2
 ART_TOP = LIGHTNING_TRANSLATE[1] + min(y for _, y in LIGHTNING) * LIGHTNING_SCALE[1]
 ART_BOTTOM = BODY[1] + BODY[3] + ACCENT_OUTLINE_OFFSET
 ART_WIDTH = ART_RIGHT - ART_LEFT

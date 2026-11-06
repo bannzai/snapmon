@@ -722,16 +722,17 @@ class _ParticlesPainter extends CustomPainter {
 /// (周期を浮遊の 3.2 秒の倍数にせず、浮遊と目の動きの組み合わせが 8 秒ごとより短く繰り返して見えないようにした)。
 const Duration titleHeroEyeCycle = Duration(milliseconds: 8000);
 
-/// 瞬きを始める時刻 ([titleHeroEyeCycle] の始まりからのミリ秒)。間隔を 2.8・0.3・2.3・2.6 秒とばらつかせ、
-/// 2 回続けての瞬きも入れて、決まった拍子に見えないようにした (issue #176 の「数秒に 1 回 (不規則でよい)」)。
+/// 瞬きを始める時刻 ([titleHeroEyeCycle] の始まりからのミリ秒)。間隔をばらつかせ、2 回続けての瞬きも入れて、
+/// 決まった拍子に見えないようにした (issue #176 の「数秒に 1 回 (不規則でよい)」)。
 const List<int> _blinkStartMilliseconds = [1800, 4600, 4900, 7200];
 
 /// 1 回の瞬きで閉じて開くまでの時間。人の瞬き (約 100〜150 ms) に近く、60fps で閉じかけの形が数コマ見える長さにした。
 const int _blinkMilliseconds = 160;
 
 /// 黒目の位置の節目 ([titleHeroEyeCycle] の始まりからのミリ秒と、今の絵の黒目の位置からのずらし (ヒーローの 170×170 の箱の座標))。
-/// 節目の間は easeInOut で 0.4〜0.5 秒かけてゆっくり動き、同じ位置の節目の間は止まる。左へ 8・右へ 2・上へ 6 は、
-/// 黒目 (9×11) が白目 (22×26) の縁にかかる手前までの幅 (今の黒目は白目の右寄りに描いているため、左右の幅が違う)。
+/// 節目の間は easeInOut でゆっくり動き、同じ位置の節目の間は止まる。各方向のずらしは、黒目 (9×11) が白目 (22×26) の
+/// 縁にかかる手前までの幅 (今の黒目は白目の右寄りに描いているため、左右の幅が違う)。上を見る時は x も負にして黒目を
+/// 白目の左右の中央に寄せ、白目の上の丸い縁の真下を見るようにした。
 const List<({int milliseconds, Offset pupilOffset})> _gazeKeyframes = [
   (milliseconds: 0, pupilOffset: Offset.zero),
   (milliseconds: 1000, pupilOffset: Offset.zero),
