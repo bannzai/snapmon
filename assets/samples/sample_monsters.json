@@ -1,6 +1,6 @@
 {
   "definitions": {
-    "version": 5,
+    "version": 6,
     "elementTypes": [
       {
         "id": "fire",
@@ -829,8 +829,9 @@
         "learnableLevelMinimum": 1,
         "learnableLevelMaximum": 30,
         "specialEffect": {
-          "kind": "movesFirst",
-          "maximumPowerPercent": 130,
+          "power": "if(movesFirst, 130, 100)",
+          "summary": "先に動くと強い",
+          "rule": "先に行動すると威力が上がる",
           "rationale": "差し込んだ瞬間に電気が流れるため、相手より先に動いた時に強くした"
         },
         "rationale": "電源プラグをコンセントに差し込む動きを技にした。電気を通す物のため雷の技にした"
@@ -954,8 +955,9 @@
         "learnableLevelMinimum": 1,
         "learnableLevelMaximum": 30,
         "specialEffect": {
-          "kind": "powerPointsLow",
-          "maximumPowerPercent": 200,
+          "power": "100 + 100 * (move.maximumPowerPoints - move.remainingPowerPoints) / (move.maximumPowerPoints - 1)",
+          "summary": "PP が減るほど強い",
+          "rule": "この技の残り PP が少ないほど威力が上がる",
           "rationale": "ぜんまいは巻き切った最後ほど強く動くため、残り PP が少ないほど強くした"
         },
         "rationale": "ぜんまいを巻いて放つ技で、動く仕組みのある物のため機械の技にした"
@@ -1272,7 +1274,7 @@
           "speed": 18
         },
         "statCalculationVersion": 1,
-        "masterVersion": 5
+        "masterVersion": 6
       },
       "level": 7,
       "artPath": "assets/samples/art/sample-mugmon.png"
@@ -1326,7 +1328,7 @@
           "speed": 29
         },
         "statCalculationVersion": 1,
-        "masterVersion": 5
+        "masterVersion": 6
       },
       "level": 12,
       "artPath": "assets/samples/art/sample-petbottler.png"
@@ -1380,7 +1382,7 @@
           "speed": 22
         },
         "statCalculationVersion": 1,
-        "masterVersion": 5
+        "masterVersion": 6
       },
       "level": 3,
       "artPath": "assets/samples/art/sample-keybon.png"
@@ -1434,7 +1436,7 @@
           "speed": 2
         },
         "statCalculationVersion": 1,
-        "masterVersion": 5
+        "masterVersion": 6
       },
       "level": 1,
       "artPath": "assets/samples/art/sample-ringora.png"
@@ -1483,7 +1485,7 @@
           "speed": 13
         },
         "statCalculationVersion": 1,
-        "masterVersion": 5
+        "masterVersion": 6
       },
       "level": 2,
       "artPath": "assets/samples/art/sample-noton.png"
@@ -1532,7 +1534,7 @@
           "speed": 6
         },
         "statCalculationVersion": 1,
-        "masterVersion": 5
+        "masterVersion": 6
       },
       "level": 5,
       "artPath": "assets/samples/art/sample-slippan.png"

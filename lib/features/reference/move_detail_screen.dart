@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../domain/battle/move_expression.dart';
 import '../../domain/battle/move_special_effect.dart';
 import '../../domain/master/master_data.dart';
 import '../../domain/master/move.dart';
@@ -124,15 +125,9 @@ class MoveDetailScreen extends StatelessWidget {
               style: SnapmonTextStyles.body,
             )
           else ...[
-            Text(
-              moveSpecialEffectSummary(kind: specialEffect.kind),
-              style: SnapmonTextStyles.label,
-            ),
+            Text(specialEffect.summary, style: SnapmonTextStyles.label),
             const SizedBox(height: 2),
-            Text(
-              moveSpecialEffectRule(kind: specialEffect.kind),
-              style: SnapmonTextStyles.body,
-            ),
+            Text(specialEffect.rule, style: SnapmonTextStyles.body),
             const SizedBox(height: 10),
             DecoratedBox(
               decoration: const BoxDecoration(
@@ -152,7 +147,7 @@ class MoveDetailScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      moveSpecialEffectFormula(specialEffect: specialEffect),
+                      formatMoveExpression(source: specialEffect.power),
                       key: const Key('move-special-effect-formula'),
                       style: SnapmonTextStyles.body,
                     ),

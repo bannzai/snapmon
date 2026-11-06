@@ -74,7 +74,7 @@ export function moveFeedbackLine(master, move) {
     `Lv ${move.learnableLevelMinimum}-${move.learnableLevelMaximum}`,
   ];
   if (move.specialEffect) {
-    parts.push(`特殊効果 ${move.specialEffect.kind} 最大 ${move.specialEffect.maximumPowerPercent}%`);
+    parts.push(`特殊効果 ${move.specialEffect.summary} 倍率(%) = ${move.specialEffect.power}`);
   }
   return parts.join(' ');
 }

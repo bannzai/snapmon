@@ -1,5 +1,5 @@
 {
-  "version": 5,
+  "version": 6,
   "elementTypes": [
     {
       "id": "fire",
@@ -1024,8 +1024,9 @@
       "learnableLevelMinimum": 1,
       "learnableLevelMaximum": 30,
       "specialEffect": {
-        "kind": "movesFirst",
-        "maximumPowerPercent": 130,
+        "power": "if(movesFirst, 130, 100)",
+        "summary": "先に動くと強い",
+        "rule": "先に行動すると威力が上がる",
         "rationale": "差し込んだ瞬間に電気が流れるため、相手より先に動いた時に強くした"
       },
       "rationale": "電源プラグをコンセントに差し込む動きを技にした。電気を通す物のため雷の技にした"
@@ -1443,8 +1444,9 @@
       "learnableLevelMinimum": 1,
       "learnableLevelMaximum": 30,
       "specialEffect": {
-        "kind": "movesFirst",
-        "maximumPowerPercent": 130,
+        "power": "if(movesFirst, 130, 100)",
+        "summary": "先に動くと強い",
+        "rule": "先に行動すると威力が上がる",
         "rationale": "睨みは殴る前に効くため、相手より先に動いた時に強くした"
       },
       "rationale": "黒いサングラスの奥から睨む技で、黒い物のため闇の技にした"
@@ -1460,8 +1462,9 @@
       "learnableLevelMinimum": 1,
       "learnableLevelMaximum": 30,
       "specialEffect": {
-        "kind": "ownHitPointsLow",
-        "maximumPowerPercent": 200,
+        "power": "100 + 100 * (self.maximumHitPoints - self.hitPoints) / self.maximumHitPoints",
+        "summary": "自分が弱るほど強い",
+        "rule": "自分の HP が減っているほど威力が上がる",
         "rationale": "夜更かしで疲れるほど夜の力が増すため、自分の HP が減っているほど強くした"
       },
       "rationale": "夜更かしして夜の力で攻める技で、夜に強くなるため闇の技にした"
@@ -1525,8 +1528,9 @@
       "learnableLevelMinimum": 1,
       "learnableLevelMaximum": 30,
       "specialEffect": {
-        "kind": "differentElementFromOpponent",
-        "maximumPowerPercent": 120,
+        "power": "if(not sharesElementType, 120, 100)",
+        "summary": "違う属性の相手に強い",
+        "rule": "相手と同じ属性を持たないと威力が上がる",
         "rationale": "消毒は自分と違う物ほどよく効くとして、属性を 1 つも共有しない相手に強くした"
       },
       "rationale": "消毒スプレーを吹きかける技で、薬品のため毒の技にした"
@@ -1542,8 +1546,9 @@
       "learnableLevelMinimum": 1,
       "learnableLevelMaximum": 30,
       "specialEffect": {
-        "kind": "opponentHitPointsLow",
-        "maximumPowerPercent": 200,
+        "power": "100 + 100 * (opponent.maximumHitPoints - opponent.hitPoints) / opponent.maximumHitPoints",
+        "summary": "相手が弱るほど強い",
+        "rule": "相手の HP が減っているほど威力が上がる",
         "rationale": "薬は弱っている相手ほどよく効くため、相手の HP が減っているほど強くした"
       },
       "rationale": "苦い薬を飲ませる技で、薬のため毒の技にした"
@@ -1607,8 +1612,9 @@
       "learnableLevelMinimum": 1,
       "learnableLevelMaximum": 30,
       "specialEffect": {
-        "kind": "movesFirst",
-        "maximumPowerPercent": 130,
+        "power": "if(movesFirst, 130, 100)",
+        "summary": "先に動くと強い",
+        "rule": "先に行動すると威力が上がる",
         "rationale": "目覚ましは相手が動く前に鳴らすものなので、相手より先に動いた時に強くした"
       },
       "rationale": "目覚まし時計のベルを鳴らす技で、音を出す物のため音の技にした"
@@ -1624,8 +1630,9 @@
       "learnableLevelMinimum": 1,
       "learnableLevelMaximum": 30,
       "specialEffect": {
-        "kind": "powerPointsLow",
-        "maximumPowerPercent": 200,
+        "power": "100 + 100 * (move.maximumPowerPoints - move.remainingPowerPoints) / (move.maximumPowerPoints - 1)",
+        "summary": "PP が減るほど強い",
+        "rule": "この技の残り PP が少ないほど威力が上がる",
         "rationale": "連打は叩き続けた終わりほど盛り上がるため、残り PP が少ないほど強くした"
       },
       "rationale": "ドラムを連打する技で、楽器のため音の技にした"
@@ -1689,8 +1696,9 @@
       "learnableLevelMinimum": 1,
       "learnableLevelMaximum": 30,
       "specialEffect": {
-        "kind": "movesLast",
-        "maximumPowerPercent": 140,
+        "power": "if(not movesFirst, 140, 100)",
+        "summary": "後に動くと強い",
+        "rule": "後に行動すると威力が上がる",
         "rationale": "尾は振り向いた後に当たるため、相手より後に動いた時に強くした"
       },
       "rationale": "尾でビンタする技で、尾のある哺乳類のため獣の技にした"
@@ -1706,8 +1714,9 @@
       "learnableLevelMinimum": 1,
       "learnableLevelMaximum": 30,
       "specialEffect": {
-        "kind": "tougherOpponent",
-        "maximumPowerPercent": 150,
+        "power": "if(opponent.defense > self.attack, 150, 100)",
+        "summary": "硬い相手に強い",
+        "rule": "相手の防御が自分の攻撃より高いと威力が上がる",
         "rationale": "踏みつけは硬い物を踏み割る動きのため、防御が自分の攻撃より高い相手に強くした"
       },
       "rationale": "前足で踏みつける技で、哺乳類のため獣の技にした"
@@ -1771,8 +1780,9 @@
       "learnableLevelMinimum": 1,
       "learnableLevelMaximum": 30,
       "specialEffect": {
-        "kind": "movesLast",
-        "maximumPowerPercent": 140,
+        "power": "if(not movesFirst, 140, 100)",
+        "summary": "後に動くと強い",
+        "rule": "後に行動すると威力が上がる",
         "rationale": "糸は相手が動いた後に絡めると抜けにくいため、相手より後に動いた時に強くした"
       },
       "rationale": "クモの糸で絡める技で、虫のため虫の技にした"
@@ -1788,8 +1798,9 @@
       "learnableLevelMinimum": 1,
       "learnableLevelMaximum": 30,
       "specialEffect": {
-        "kind": "sameElementAsOpponent",
-        "maximumPowerPercent": 150,
+        "power": "if(sharesElementType, 150, 100)",
+        "summary": "同じ属性の相手に強い",
+        "rule": "相手と同じ属性を持つと威力が上がる",
         "rationale": "アリは仲間の匂いに群がるとして、属性を共有する相手に強くした"
       },
       "rationale": "アリの群れでたかる技で、昆虫のため虫の技にした"
@@ -1853,8 +1864,9 @@
       "learnableLevelMinimum": 1,
       "learnableLevelMaximum": 30,
       "specialEffect": {
-        "kind": "movesFirst",
-        "maximumPowerPercent": 130,
+        "power": "if(movesFirst, 130, 100)",
+        "summary": "先に動くと強い",
+        "rule": "先に行動すると威力が上がる",
         "rationale": "羽ばたきは飛び立つ最初の動きのため、相手より先に動いた時に強くした"
       },
       "rationale": "翼を羽ばたいて風を起こす技で、鳥のため鳥の技にした"
@@ -1870,8 +1882,9 @@
       "learnableLevelMinimum": 1,
       "learnableLevelMaximum": 30,
       "specialEffect": {
-        "kind": "tougherOpponent",
-        "maximumPowerPercent": 150,
+        "power": "if(opponent.defense > self.attack, 150, 100)",
+        "summary": "硬い相手に強い",
+        "rule": "相手の防御が自分の攻撃より高いと威力が上がる",
         "rationale": "殻の硬い卵は硬い物に当てて割れるとして、防御が自分の攻撃より高い相手に強くした"
       },
       "rationale": "卵を上から落とす技で、鳥の物のため鳥の技にした"
@@ -1935,8 +1948,9 @@
       "learnableLevelMinimum": 1,
       "learnableLevelMaximum": 30,
       "specialEffect": {
-        "kind": "movesFirst",
-        "maximumPowerPercent": 130,
+        "power": "if(movesFirst, 130, 100)",
+        "summary": "先に動くと強い",
+        "rule": "先に行動すると威力が上がる",
         "rationale": "泡は相手が動く前に広げると当たりやすいため、相手より先に動いた時に強くした"
       },
       "rationale": "泡をぶくぶく吐いて包む技で、水の中の生き物のため魚の技にした"
@@ -1952,8 +1966,9 @@
       "learnableLevelMinimum": 1,
       "learnableLevelMaximum": 30,
       "specialEffect": {
-        "kind": "tougherOpponent",
-        "maximumPowerPercent": 150,
+        "power": "if(opponent.defense > self.attack, 150, 100)",
+        "summary": "硬い相手に強い",
+        "rule": "相手の防御が自分の攻撃より高いと威力が上がる",
         "rationale": "はさみは硬い殻を割る道具のため、防御が自分の攻撃より高い相手に強くした"
       },
       "rationale": "カニのはさみで挟む技で、水の中の生き物のため魚の技にした"
@@ -2017,8 +2032,9 @@
       "learnableLevelMinimum": 1,
       "learnableLevelMaximum": 30,
       "specialEffect": {
-        "kind": "opponentHitPointsLow",
-        "maximumPowerPercent": 200,
+        "power": "100 + 100 * (opponent.maximumHitPoints - opponent.hitPoints) / opponent.maximumHitPoints",
+        "summary": "相手が弱るほど強い",
+        "rule": "相手の HP が減っているほど威力が上がる",
         "rationale": "弱った相手ほど冷気で動けなくなるため、相手の HP が減っているほど強くした"
       },
       "rationale": "冷蔵庫の冷気を浴びせる技で、冷やす物のため氷の技にした"
@@ -2034,8 +2050,9 @@
       "learnableLevelMinimum": 1,
       "learnableLevelMaximum": 30,
       "specialEffect": {
-        "kind": "tougherOpponent",
-        "maximumPowerPercent": 150,
+        "power": "if(opponent.defense > self.attack, 150, 100)",
+        "summary": "硬い相手に強い",
+        "rule": "相手の防御が自分の攻撃より高いと威力が上がる",
         "rationale": "つららは硬い物に刺して割る形のため、防御が自分の攻撃より高い相手に強くした"
       },
       "rationale": "つららで突く技で、氷のため氷の技にした"
@@ -2099,8 +2116,9 @@
       "learnableLevelMinimum": 1,
       "learnableLevelMaximum": 30,
       "specialEffect": {
-        "kind": "movesFirst",
-        "maximumPowerPercent": 130,
+        "power": "if(movesFirst, 130, 100)",
+        "summary": "先に動くと強い",
+        "rule": "先に行動すると威力が上がる",
         "rationale": "扇風機は回り始めが勢いよく感じられるため、相手より先に動いた時に強くした"
       },
       "rationale": "扇風機の風を当てる技で、風を起こす物のため風の技にした"
@@ -2116,8 +2134,9 @@
       "learnableLevelMinimum": 1,
       "learnableLevelMaximum": 30,
       "specialEffect": {
-        "kind": "powerPointsLow",
-        "maximumPowerPercent": 200,
+        "power": "100 + 100 * (move.maximumPowerPoints - move.remainingPowerPoints) / (move.maximumPowerPoints - 1)",
+        "summary": "PP が減るほど強い",
+        "rule": "この技の残り PP が少ないほど威力が上がる",
         "rationale": "風車は回し続けるほど勢いがつくため、残り PP が少ないほど強くした"
       },
       "rationale": "風車を回して風を集める技で、風で動く物のため風の技にした"
@@ -2181,8 +2200,9 @@
       "learnableLevelMinimum": 1,
       "learnableLevelMaximum": 30,
       "specialEffect": {
-        "kind": "differentElementFromOpponent",
-        "maximumPowerPercent": 120,
+        "power": "if(not sharesElementType, 120, 100)",
+        "summary": "違う属性の相手に強い",
+        "rule": "相手と同じ属性を持たないと威力が上がる",
         "rationale": "花粉は花と縁の無い相手ほどくしゃみするとして、属性を 1 つも共有しない相手に強くした"
       },
       "rationale": "花粉を振りまいてくしゃみさせる技で、花のため花の技にした"
@@ -2198,8 +2218,9 @@
       "learnableLevelMinimum": 1,
       "learnableLevelMaximum": 30,
       "specialEffect": {
-        "kind": "tougherOpponent",
-        "maximumPowerPercent": 150,
+        "power": "if(opponent.defense > self.attack, 150, 100)",
+        "summary": "硬い相手に強い",
+        "rule": "相手の防御が自分の攻撃より高いと威力が上がる",
         "rationale": "とげは硬い物にも刺さる形のため、防御が自分の攻撃より高い相手に強くした"
       },
       "rationale": "バラのとげで刺す技で、花のため花の技にした"
@@ -2263,8 +2284,9 @@
       "learnableLevelMinimum": 1,
       "learnableLevelMaximum": 30,
       "specialEffect": {
-        "kind": "powerPointsLow",
-        "maximumPowerPercent": 200,
+        "power": "100 + 100 * (move.maximumPowerPoints - move.remainingPowerPoints) / (move.maximumPowerPoints - 1)",
+        "summary": "PP が減るほど強い",
+        "rule": "この技の残り PP が少ないほど威力が上がる",
         "rationale": "ぜんまいは巻き切った最後ほど強く動くため、残り PP が少ないほど強くした"
       },
       "rationale": "ぜんまいを巻いて放つ技で、動く仕組みのある物のため機械の技にした"
@@ -2280,8 +2302,9 @@
       "learnableLevelMinimum": 1,
       "learnableLevelMaximum": 30,
       "specialEffect": {
-        "kind": "movesFirst",
-        "maximumPowerPercent": 130,
+        "power": "if(movesFirst, 130, 100)",
+        "summary": "先に動くと強い",
+        "rule": "先に行動すると威力が上がる",
         "rationale": "空転は走り出しに起きるため、相手より先に動いた時に強くした"
       },
       "rationale": "タイヤを空転させてぶつける技で、車輪のある物のため機械の技にした"
@@ -2363,8 +2386,9 @@
       "learnableLevelMinimum": 1,
       "learnableLevelMaximum": 30,
       "specialEffect": {
-        "kind": "ownHitPointsLow",
-        "maximumPowerPercent": 200,
+        "power": "100 + 100 * (self.maximumHitPoints - self.hitPoints) / self.maximumHitPoints",
+        "summary": "自分が弱るほど強い",
+        "rule": "自分の HP が減っているほど威力が上がる",
         "rationale": "チョコレートは体が熱くなる (消耗する) ほど溶けるため、自分の HP が減っているほど強くした"
       },
       "rationale": "溶けたチョコレートを垂らす技で、お菓子のため菓子の技にした"
@@ -2428,8 +2452,9 @@
       "learnableLevelMinimum": 1,
       "learnableLevelMaximum": 30,
       "specialEffect": {
-        "kind": "movesLast",
-        "maximumPowerPercent": 140,
+        "power": "if(not movesFirst, 140, 100)",
+        "summary": "後に動くと強い",
+        "rule": "後に行動すると威力が上がる",
         "rationale": "ガイコツは背後からゆっくり迫るため、相手より後に動いた時に強くした"
       },
       "rationale": "ガイコツが骨を鳴らして迫る技で、怖い物の形のため霊の技にした"
@@ -2445,8 +2470,9 @@
       "learnableLevelMinimum": 1,
       "learnableLevelMaximum": 30,
       "specialEffect": {
-        "kind": "ownHitPointsLow",
-        "maximumPowerPercent": 200,
+        "power": "100 + 100 * (self.maximumHitPoints - self.hitPoints) / self.maximumHitPoints",
+        "summary": "自分が弱るほど強い",
+        "rule": "自分の HP が減っているほど威力が上がる",
         "rationale": "弱って動かなくなるほどお面の顔が不気味に見えるため、自分の HP が減っているほど強くした"
       },
       "rationale": "お面の顔で睨む技で、お面のため霊の技にした"
@@ -2510,8 +2536,9 @@
       "learnableLevelMinimum": 1,
       "learnableLevelMaximum": 30,
       "specialEffect": {
-        "kind": "tougherOpponent",
-        "maximumPowerPercent": 150,
+        "power": "if(opponent.defense > self.attack, 150, 100)",
+        "summary": "硬い相手に強い",
+        "rule": "相手の防御が自分の攻撃より高いと威力が上がる",
         "rationale": "甲羅は硬い物同士をぶつける技のため、防御が自分の攻撃より高い相手に強くした"
       },
       "rationale": "カメの甲羅で体当たりする技で、爬虫類のため竜の技にした"
@@ -2527,8 +2554,9 @@
       "learnableLevelMinimum": 1,
       "learnableLevelMaximum": 30,
       "specialEffect": {
-        "kind": "opponentHitPointsLow",
-        "maximumPowerPercent": 200,
+        "power": "100 + 100 * (opponent.maximumHitPoints - opponent.hitPoints) / opponent.maximumHitPoints",
+        "summary": "相手が弱るほど強い",
+        "rule": "相手の HP が減っているほど威力が上がる",
         "rationale": "ヘビは弱った獲物ほど強く締めるため、相手の HP が減っているほど強くした"
       },
       "rationale": "ヘビが巻きついて締める技で、爬虫類のため竜の技にした"

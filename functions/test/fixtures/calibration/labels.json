@@ -1,5 +1,5 @@
 {
-  "$comment": "Jev の閾値の較正に使う正解のラベル。elements の expected は当てはまるべき属性、acceptable はどちらでもよい属性 (偽のセルにも真のセルにも数えない)、それ以外の属性は当てはまるべきでない。dedupe の same は同じ個体、different は別の物 (sameKind は同じ種類の別の物)。ラベルは各見本の説明 (descriptions.json) の what・materials・colors から agent が付けた (属性は master の版 5 の 24 属性。#180)。01p・01bp は本番の Functions が同じマグカップの 2 枚 (photos/01.jpg と 01b.jpg と同じファイル) から書いた説明、30・31 は 01 と同じ白いホーローのマグカップで絵柄だけが違う別の物として agent が手で書いた説明 (写真は無い)。40〜57 は版 5 で足した属性 (獣・虫・鳥・魚・氷・風・花・機械・菓子・霊・竜・闇・毒・音・光・紙・布・木) の受け皿を測るために agent が手で書いた説明 (写真は無い)。",
+  "$comment": "Jev の閾値の較正に使う正解のラベル。elements の expected は当てはまるべき属性、acceptable はどちらでもよい属性 (偽のセルにも真のセルにも数えない)、それ以外の属性は当てはまるべきでない。dedupe の same は同じ個体、different は別の物 (sameKind は同じ種類の別の物)。ラベルは各見本の説明 (descriptions.json) の what・materials・colors から agent が付けた (属性は master の版 6 の 24 属性。#180)。01p・01bp は本番の Functions が同じマグカップの 2 枚 (photos/01.jpg と 01b.jpg と同じファイル) から書いた説明、30・31 は 01 と同じ白いホーローのマグカップで絵柄だけが違う別の物として agent が手で書いた説明 (写真は無い)。40〜57 は版 6 で足した属性 (獣・虫・鳥・魚・氷・風・花・機械・菓子・霊・竜・闇・毒・音・光・紙・布・木) の受け皿を測るために agent が手で書いた説明 (写真は無い)。",
   "elements": {
     "01": {"expected": ["steel"], "acceptable": ["earth", "water", "fire", "light"]},
     "01b": {"expected": ["steel"], "acceptable": ["earth", "water", "fire", "light"]},
