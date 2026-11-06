@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../domain/battle/move_special_effect.dart';
 import '../domain/master/master_data.dart';
 import '../domain/master/move.dart';
 import '../l10n/l10n.dart';
@@ -60,7 +59,7 @@ class MoveSummary extends StatelessWidget {
       if (move.specialEffect case final specialEffect?) ...[
         const SizedBox(height: 4),
         Text(
-          moveSpecialEffectSummary(kind: specialEffect.kind),
+          specialEffect.summary,
           style: SnapmonTextStyles.small.copyWith(
             fontWeight: FontWeight.w400,
             color: SnapmonColors.textOnCardMuted,

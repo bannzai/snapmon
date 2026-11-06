@@ -66,8 +66,8 @@ const testMaster = MasterData(
       learnableLevelMinimum: 1,
       learnableLevelMaximum: 999,
       specialEffect: MoveSpecialEffect(
-        kind: MoveSpecialEffectKind.movesLast,
-        maximumPowerPercent: 200,
+        power: 'if(not movesFirst, 200, 100)',
+        summary: '後に動くと強い',
       ),
     ),
     Move(
@@ -81,8 +81,9 @@ const testMaster = MasterData(
       learnableLevelMinimum: 1,
       learnableLevelMaximum: 999,
       specialEffect: MoveSpecialEffect(
-        kind: MoveSpecialEffectKind.powerPointsLow,
-        maximumPowerPercent: 200,
+        power:
+            '100 + 100 * (move.maximumPowerPoints - move.remainingPowerPoints) / (move.maximumPowerPoints - 1)',
+        summary: 'PP が減るほど強い',
       ),
     ),
     Move(
@@ -96,8 +97,9 @@ const testMaster = MasterData(
       learnableLevelMinimum: 1,
       learnableLevelMaximum: 999,
       specialEffect: MoveSpecialEffect(
-        kind: MoveSpecialEffectKind.ownHitPointsLow,
-        maximumPowerPercent: 200,
+        power:
+            '100 + 100 * (self.maximumHitPoints - self.hitPoints) / self.maximumHitPoints',
+        summary: '自分が弱るほど強い',
       ),
     ),
   ],

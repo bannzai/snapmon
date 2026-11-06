@@ -201,12 +201,11 @@ void main() {
 
     expect(find.byType(MoveDetailScreen), findsOneWidget);
     expect(find.text('ねじこみ'), findsOneWidget);
-    expect(find.text('相手の防御が自分の攻撃より高いと威力が上がる'), findsOneWidget);
     expect(
       tester
           .widget<Text>(find.byKey(const Key('move-special-effect-formula')))
           .data,
-      '相手の防御 > 自分の攻撃 なら 1.5、それ以外は 1',
+      '相手の防御 > 自分の攻撃 なら 150、それ以外は 100',
     );
     // 金属は木・紙・ガラスに 2 倍、金属・熱・石に 0.5 倍 (assets/master/master.json の typeChart)
     expect(find.text('よく効く'), findsOneWidget);

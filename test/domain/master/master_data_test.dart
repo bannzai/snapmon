@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:snapmon/domain/battle/move_expression.dart';
 import 'package:snapmon/domain/master/master_data.dart';
 import 'package:snapmon/domain/master/move.dart';
 
@@ -63,28 +64,36 @@ void main() {
     }
   });
 
-  test('技の特殊効果はアプリが知っている種類で、威力を上げる倍率を持つ', () {
-    // 知らない種類は読む時に null になり見落とすため、元の JSON の種類の名前で確かめる
-    for (final moveJson
-        in (jsonDecode(File('assets/master/master.json').readAsStringSync())
-                as Map<String, dynamic>)['moves']
-            as List<dynamic>) {
-      final specialEffectJson =
-          (moveJson as Map<String, dynamic>)['specialEffect']
-              as Map<String, dynamic>?;
-      if (specialEffectJson == null) {
-        continue;
+  test('master と見本のモンスターの全ての特殊効果は、式が文法どおりで一覧の変数だけを使い、説明を持つ', () {
+    // 式 (power) を持たない形は読む時に null になり見落とすため、元の JSON で確かめる
+    for (final path in [
+      'assets/master/master.json',
+      'assets/samples/sample_monsters.json',
+    ]) {
+      final specialEffectJsons = <Map<String, dynamic>>[];
+      void collect(Object? node) {
+        if (node is Map<String, dynamic>) {
+          if (node['specialEffect'] case final Map<String, dynamic> json) {
+            specialEffectJsons.add(json);
+          }
+          node.values.forEach(collect);
+        } else if (node is List<dynamic>) {
+          node.forEach(collect);
+        }
       }
-      expect(
-        MoveSpecialEffectKind.values.asNameMap().keys,
-        contains(specialEffectJson['kind']),
-        reason: moveJson['id'] as String,
-      );
-      expect(
-        specialEffectJson['maximumPowerPercent'] as int,
-        greaterThan(100),
-        reason: moveJson['id'] as String,
-      );
+
+      collect(jsonDecode(File(path).readAsStringSync()));
+      expect(specialEffectJsons, isNotEmpty, reason: path);
+      for (final json in specialEffectJsons) {
+        expect(json['power'], isA<String>(), reason: '$path: $json');
+        expect(
+          moveExpressionViolation(source: json['power'] as String),
+          isNull,
+          reason: '$path: $json',
+        );
+        expect(json['summary'], isA<String>(), reason: '$path: $json');
+        expect(json.containsKey('kind'), isFalse, reason: '$path: $json');
+      }
     }
   });
 
@@ -131,15 +140,15 @@ void main() {
         'learnableLevelMaximum': 30,
         'rationale': 'ゴムの玉をはじく技',
         'specialEffect': {
-          'kind': 'movesLast',
-          'maximumPowerPercent': 140,
+          'power': 'if(not movesFirst, 140, 100)',
+          'summary': '後に動くと強い',
           'rationale': 'ゴムは引き絞ってから放つため',
         },
       },
     );
     expect(move.power, 40);
-    expect(move.specialEffect?.kind, MoveSpecialEffectKind.movesLast);
-    expect(move.specialEffect?.maximumPowerPercent, 140);
+    expect(move.specialEffect?.power, 'if(not movesFirst, 140, 100)');
+    expect(move.specialEffect?.summary, '後に動くと強い');
   });
 
   test('Lv.1 で覚えられる技の半分以上に特殊効果が付いている (#65 の完了条件)', () {
