@@ -43,6 +43,18 @@ test('src はページからの相対で解決する', () => {
   );
 });
 
+test('src の http・https の絶対 URL はそのまま使う', () => {
+  assert.equal(
+    resolveMasterUrl('https://bannzai.github.io/snapmon/master.html?src=https://example.com/master.json'),
+    'https://example.com/master.json',
+  );
+});
+
+test('src の javascript: と data: は拒否する', () => {
+  assert.throws(() => resolveMasterUrl('https://bannzai.github.io/snapmon/master.html?src=javascript:alert(1)'), /javascript:/);
+  assert.throws(() => resolveMasterUrl('https://bannzai.github.io/snapmon/master.html?src=data:application/json,{}'), /data:/);
+});
+
 test('倍率の区分', () => {
   assert.equal(multiplierKind(2), 'strong');
   assert.equal(multiplierKind(0.5), 'weak');

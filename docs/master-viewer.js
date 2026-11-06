@@ -22,18 +22,24 @@ export const MASTER_SECTIONS = [
 /**
  * ページの URL (pageHref) から master.json の読み込み元の URL を返す。
  * `src` クエリがあればページからの相対で解決した URL、無ければ DEFAULT_MASTER_URL。
- * 手元で編集した master.json は、リポジトリのルートで配信して `?src=../assets/master/master.json` で開く
+ * 手元で編集した master.json は、リポジトリのルートで配信して `?src=../assets/master/master.json` で開く。
+ * 解決した URL が http・https 以外 (`javascript:` 等) の時は throw する。ページは URL をリンクに出すため、
+ * 他人が作った `?src=javascript:...` の URL を開いてリンクを押すとページのオリジンでスクリプトが動くのを防ぐ
  */
 export function resolveMasterUrl(pageHref) {
   const pageUrl = new URL(pageHref);
   const src = pageUrl.searchParams.get('src');
-  return src ? new URL(src, pageUrl).href : DEFAULT_MASTER_URL;
+  if (!src) return DEFAULT_MASTER_URL;
+  const masterUrl = new URL(src, pageUrl);
+  if (masterUrl.protocol !== 'http:' && masterUrl.protocol !== 'https:') {
+    throw new Error(`src に http・https 以外の URL は使えません (${masterUrl.protocol})`);
+  }
+  return masterUrl.href;
 }
 
 /** master.json にあるのに MASTER_SECTIONS に無いキーを返す。ページはこれを警告として出し、黙って落とさない */
 export function unrenderedKeys(master) {
-  const renderedKeys = new Set(MASTER_SECTIONS.map((section) => section.key));
-  return Object.keys(master).filter((key) => !renderedKeys.has(key));
+  return Object.keys(master).filter((key) => !MASTER_SECTIONS.some((section) => section.key === key));
 }
 
 /** 相性表の倍率 (multiplier) を色分けの区分 'strong' (1 より大きい)・'weak' (1 より小さい)・'neutral' にして返す */
@@ -44,7 +50,7 @@ export function multiplierKind(multiplier) {
 }
 
 /** 属性の ID (elementTypeId) の表示名を master.elementTypes から返す。見つからなければ ID をそのまま返す */
-function elementTypeDisplayName(master, elementTypeId) {
+export function elementTypeDisplayName(master, elementTypeId) {
   return master.elementTypes.find((elementType) => elementType.id === elementTypeId)?.displayName ?? elementTypeId;
 }
 

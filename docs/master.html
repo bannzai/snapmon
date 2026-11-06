@@ -131,6 +131,7 @@ import {
   MASTER_SECTIONS,
   resolveMasterUrl,
   unrenderedKeys,
+  elementTypeDisplayName,
   multiplierKind,
   moveFeedbackLine,
   elementTypeFeedbackLine,
@@ -138,10 +139,6 @@ import {
   buildDiff,
 } from './master-viewer.js';
 
-const masterUrl = resolveMasterUrl(location.href);
-const sourceLink = document.getElementById('source-url');
-sourceLink.href = masterUrl;
-sourceLink.textContent = masterUrl;
 
 /** ページの状態。master は読み込んだ master.json、edits は buildDiff の edits の形の書き換え、moveFilter は技を絞る属性の ID ('' は全件) */
 const state = { master: null, edits: { moves: {}, typeChart: {} }, editMode: false, moveFilter: '' };
@@ -189,7 +186,11 @@ function renderDiff() {
   document.getElementById('diff').textContent = diff ? JSON.stringify(diff, null, 2) : '書き換えた値はありません';
 }
 
-/** 数値の入力欄を作る。値を変えると onValue に数値を渡し、差分を描き直す */
+/**
+ * 数値の入力欄を作る。値を変えると onValue に数値を渡し、差分を描き直す。
+ * step は上下の矢印の刻みで、呼び出し側が master.json の値の刻みに合わせて渡す (威力・PP は整数、倍率は 0.5 と 2 があるため 0.5)。
+ * min: 0 は、威力・PP・倍率のどれも負の値を持たないため
+ */
 function numberInput(value, step, label, onValue) {
   return element('input', {
     type: 'number', value, step, min: 0, 'aria-label': label,
@@ -233,7 +234,6 @@ const renderers = {
 
   typeChart: (master) => {
     const elementTypeIds = master.elementTypes.map((elementType) => elementType.id);
-    const displayName = (id) => master.elementTypes.find((elementType) => elementType.id === id).displayName;
     return element('div', {},
       element('p', {}, '行が攻撃する技の属性、列が受けるモンスターの属性。セルを押すとその 1 行をコピーする'),
       element('div', { className: 'legend' },
@@ -243,10 +243,10 @@ const renderers = {
       ),
       element('div', { className: 'panel' },
         element('table', { className: 'chart' },
-          element('thead', {}, element('tr', {}, element('th', {}, '攻撃 \\ 防御'), elementTypeIds.map((id) => element('th', {}, displayName(id))))),
+          element('thead', {}, element('tr', {}, element('th', {}, '攻撃 \\ 防御'), elementTypeIds.map((id) => element('th', {}, elementTypeDisplayName(master, id))))),
           element('tbody', {}, elementTypeIds.map((attackerId) =>
             element('tr', {},
-              element('th', { className: 'attacker' }, displayName(attackerId)),
+              element('th', { className: 'attacker' }, elementTypeDisplayName(master, attackerId)),
               elementTypeIds.map((defenderId) => typeChartCell(master, attackerId, defenderId)),
             ))),
         ),
@@ -275,7 +275,7 @@ const renderers = {
         element('tr', {},
           element('td', {}, element('code', {}, move.id)),
           element('td', { className: 'name' }, move.displayName),
-          element('td', {}, master.elementTypes.find((elementType) => elementType.id === move.elementTypeId)?.displayName ?? move.elementTypeId),
+          element('td', {}, elementTypeDisplayName(master, move.elementTypeId)),
           moveNumberCell(move, 'power', '威力'),
           moveNumberCell(move, 'powerPoints', 'PP'),
           element('td', {}, move.category),
@@ -383,6 +383,10 @@ document.getElementById('copy-diff').addEventListener('click', () => {
 document.getElementById('reset-edits').addEventListener('click', () => { state.edits = { moves: {}, typeChart: {} }; render(); });
 
 try {
+  const masterUrl = resolveMasterUrl(location.href);
+  const sourceLink = document.getElementById('source-url');
+  sourceLink.href = masterUrl;
+  sourceLink.textContent = masterUrl;
   const response = await fetch(masterUrl);
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
   state.master = await response.json();
