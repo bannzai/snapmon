@@ -296,7 +296,7 @@ const renderers = {
           element('td', {}, element('code', {}, move.effectId)),
           element('td', { className: 'number' }, `${move.learnableLevelMinimum}–${move.learnableLevelMaximum}`),
           element('td', { className: 'note' }, move.specialEffect
-            ? [element('code', {}, move.specialEffect.kind), ` 最大 ${move.specialEffect.maximumPowerPercent}%`, element('br'), move.specialEffect.rationale]
+            ? [move.specialEffect.summary, element('br'), '倍率 (%) = ', element('code', {}, move.specialEffect.power), element('br'), move.specialEffect.rationale]
             : 'なし'),
           element('td', { className: 'note' }, move.rationale),
           element('td', {}, copyButtons(() => moveFeedbackLine(master, editedMove(move)), () => editedMove(move))),

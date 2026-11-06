@@ -85,9 +85,9 @@ test('技の 1 行は ID・表示名・属性の表示名・威力・PP・覚え
   );
 });
 
-test('特殊効果のある技の 1 行は種類と最大の威力の割合を含む', () => {
+test('特殊効果のある技の 1 行は効果の説明と倍率の式を含む', () => {
   const move = master.moves.find((candidate) => candidate.specialEffect);
-  assert.ok(moveFeedbackLine(master, move).endsWith(`特殊効果 ${move.specialEffect.kind} 最大 ${move.specialEffect.maximumPowerPercent}%`));
+  assert.ok(moveFeedbackLine(master, move).endsWith(`特殊効果 ${move.specialEffect.summary} 倍率(%) = ${move.specialEffect.power}`));
 });
 
 test('属性の 1 行', () => {
