@@ -765,14 +765,16 @@ const List<({int milliseconds, Offset pupilOffset})> _gazeKeyframes = [
     final from = _gazeKeyframes[index - 1];
     final to = _gazeKeyframes[index];
     if (milliseconds <= to.milliseconds) {
-      final eased = Curves.easeInOut.transform(
-        (milliseconds - from.milliseconds) /
-            (to.milliseconds - from.milliseconds),
-      );
       return (
         eyeLidClosure: eyeLidClosure,
-        pupilOffset:
-            from.pupilOffset + (to.pupilOffset - from.pupilOffset) * eased,
+        pupilOffset: Offset.lerp(
+          from.pupilOffset,
+          to.pupilOffset,
+          Curves.easeInOut.transform(
+            (milliseconds - from.milliseconds) /
+                (to.milliseconds - from.milliseconds),
+          ),
+        )!,
       );
     }
   }
