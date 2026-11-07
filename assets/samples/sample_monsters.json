@@ -2767,104 +2767,6 @@
         "rationale": "紙吹雪で包み込む技で、紙の量が最も多いため紙の最も強い技にした"
       },
       {
-        "id": "fire_s1",
-        "displayName": "あつあつスープ",
-        "elementTypeId": "fire",
-        "power": 0,
-        "powerPoints": 10,
-        "category": "support",
-        "effectId": "fire_particle",
-        "learnableLevelMinimum": 5,
-        "learnableLevelMaximum": 999,
-        "specialEffect": {
-          "selfStatChanges": {
-            "attack": "25"
-          },
-          "summary": "自分の攻撃を上げる",
-          "rule": "自分の攻撃の倍率を 25 上げる (200 で止まる)",
-          "rationale": "体が温まると力が出るため、自分の攻撃を上げる効果にした"
-        },
-        "rationale": "温かいスープを飲んで力を出す技で、温かい料理のため炎の技にした"
-      },
-      {
-        "id": "water_s1",
-        "displayName": "どろみずぬかるみ",
-        "elementTypeId": "water",
-        "power": 0,
-        "powerPoints": 10,
-        "category": "support",
-        "effectId": "water_particle",
-        "learnableLevelMinimum": 5,
-        "learnableLevelMaximum": 999,
-        "specialEffect": {
-          "opponentStatChanges": {
-            "speed": "-25"
-          },
-          "summary": "相手の素早さを下げる",
-          "rule": "相手の素早さの倍率を 25 下げる (50 で止まる)",
-          "rationale": "ぬかるみで足を取られて動きが鈍るため、相手の素早さを下げる効果にした"
-        },
-        "rationale": "足元を泥水でぬかるませる技で、水が土を緩めるため水の技にした"
-      },
-      {
-        "id": "thunder_s1",
-        "displayName": "じゅうでんちゅう",
-        "elementTypeId": "thunder",
-        "power": 0,
-        "powerPoints": 10,
-        "category": "support",
-        "effectId": "thunder_particle",
-        "learnableLevelMinimum": 5,
-        "learnableLevelMaximum": 999,
-        "specialEffect": {
-          "selfStatChanges": {
-            "attack": "25"
-          },
-          "summary": "自分の攻撃を上げる",
-          "rule": "自分の攻撃の倍率を 25 上げる (200 で止まる)",
-          "rationale": "電気がたまると強く動けるため、自分の攻撃を上げる効果にした"
-        },
-        "rationale": "電池を充電して力をためる技で、電気をためるため雷の技にした"
-      },
-      {
-        "id": "sweets_s1",
-        "displayName": "おやつタイム",
-        "elementTypeId": "sweets",
-        "power": 0,
-        "powerPoints": 5,
-        "category": "support",
-        "effectId": "sweets_particle",
-        "learnableLevelMinimum": 5,
-        "learnableLevelMaximum": 999,
-        "specialEffect": {
-          "selfHitPointsRecovery": "self.maximumHitPoints / 4",
-          "summary": "HP を回復する",
-          "rule": "最大 HP の 4 分の 1 を回復する",
-          "rationale": "おやつを食べると元気が戻るため、HP を回復する効果にした"
-        },
-        "rationale": "おやつを食べて休む技で、お菓子のため菓子の技にした"
-      },
-      {
-        "id": "paper_s1",
-        "displayName": "しわくちゃ",
-        "elementTypeId": "paper",
-        "power": 0,
-        "powerPoints": 10,
-        "category": "support",
-        "effectId": "paper_particle",
-        "learnableLevelMinimum": 5,
-        "learnableLevelMaximum": 999,
-        "specialEffect": {
-          "opponentStatChanges": {
-            "defense": "-25"
-          },
-          "summary": "相手の防御を下げる",
-          "rule": "相手の防御の倍率を 25 下げる (50 で止まる)",
-          "rationale": "しわくちゃになると張りがなくなるため、相手の防御を下げる効果にした"
-        },
-        "rationale": "紙をしわくちゃにする技で、紙のため紙の技にした"
-      },
-      {
         "id": "cloth_s1",
         "displayName": "もうふかけ",
         "elementTypeId": "cloth",
@@ -3061,10 +2963,6 @@
             "unlockLevel": 1
           },
           {
-            "moveId": "fire_s1",
-            "unlockLevel": 5
-          },
-          {
             "moveId": "fire_2",
             "unlockLevel": 15
           },
@@ -3117,10 +3015,6 @@
           {
             "moveId": "light_1b",
             "unlockLevel": 1
-          },
-          {
-            "moveId": "water_s1",
-            "unlockLevel": 5
           },
           {
             "moveId": "water_2",
@@ -3177,10 +3071,6 @@
             "unlockLevel": 1
           },
           {
-            "moveId": "thunder_s1",
-            "unlockLevel": 5
-          },
-          {
             "moveId": "thunder_2",
             "unlockLevel": 15
           },
@@ -3235,10 +3125,6 @@
             "unlockLevel": 1
           },
           {
-            "moveId": "sweets_s1",
-            "unlockLevel": 5
-          },
-          {
             "moveId": "sweets_2",
             "unlockLevel": 15
           },
@@ -3290,10 +3176,6 @@
           {
             "moveId": "paper_1d",
             "unlockLevel": 1
-          },
-          {
-            "moveId": "paper_s1",
-            "unlockLevel": 5
           },
           {
             "moveId": "paper_2",

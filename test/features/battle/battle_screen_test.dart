@@ -262,6 +262,50 @@ void main() {
     await tester.pump(const Duration(seconds: 5));
   });
 
+  testWidgets('補助技は相手のステータスを下げたことをログに出し、変わった倍率を相手のカードに出す', (tester) async {
+    await pumpBattleScreen(
+      tester: tester,
+      // Lv.5 のスリッパンは 4 番目の技の枠に もうふかけ (相手の素早さを 25 下げる補助技) を持つ
+      playerMonster: sampleData.monsterById(monsterId: 'sample-slippan'),
+      artImage: null,
+      battleRecorder: fakeBattleRecorder(
+        calls: RecordedBattleCalls(),
+        startBattleRecord: () async => null,
+        recordedLevels: const {},
+      ),
+    );
+    final moveSlot = find.byKey(const Key('move-slot-3'));
+    expect(
+      find.descendant(of: moveSlot, matching: find.text('もうふかけ')),
+      findsOneWidget,
+    );
+    expect(
+      find.descendant(of: moveSlot, matching: find.text('相手の素早さを下げる')),
+      findsOneWidget,
+    );
+    expect(find.byKey(const Key('battle-stat-modifier-speed')), findsNothing);
+
+    await tester.tap(moveSlot);
+    // 行動順は素早さで決まるため、1 ターンの演出の間のログをすべて集めて確かめる
+    final logTexts = <String?>{};
+    for (var elapsed = 0; elapsed < 5000; elapsed += 100) {
+      await tester.pump(const Duration(milliseconds: 100));
+      logTexts.add(
+        tester.widget<Text>(find.byKey(const Key('battle-log'))).data,
+      );
+    }
+    expect(
+      logTexts,
+      contains('スリッパン の もうふかけ\n${weakOpponent.definition.name} の 素早さ が さがった'),
+    );
+    expect(
+      tester
+          .widget<Text>(find.byKey(const Key('battle-stat-modifier-speed')))
+          .data,
+      '素早さ ×0.75',
+    );
+  });
+
   testWidgets('技のボタンを長押しすると、ターンを進めずにその技の詳細を開く', (tester) async {
     await pumpBattleScreen(
       tester: tester,
