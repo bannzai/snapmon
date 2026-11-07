@@ -240,6 +240,37 @@ void main() {
     expect(find.text('この写真で生成する'), findsOneWidget);
   });
 
+  testWidgets('購入の結果より先に残高が届いても 購入が終わるまで続けるボタンを押せない', (tester) async {
+    final generationTickets = StreamController<int>.broadcast();
+    addTearDown(generationTickets.close);
+    final purchase = Completer<TicketPurchaseResult>();
+    await pumpUntilDailyLimit(
+      tester: tester,
+      generator: limitedGenerator(
+        ticketPackages: const [testTicketPackage],
+        purchaseTicketPackage: ({required package}) => purchase.future,
+        generationTickets: generationTickets.stream,
+      ),
+    );
+
+    await tester.tap(find.textContaining('¥200'));
+    await tester.pump();
+    generationTickets.add(10);
+    await tester.pump();
+
+    final continueButton = find.widgetWithText(FilledButton, 'この写真で生成する');
+    expect(tester.widget<FilledButton>(continueButton).onPressed, isNull);
+
+    purchase.complete(TicketPurchaseResult.purchased);
+    await tester.pump();
+    await tester.pump();
+
+    expect(tester.widget<FilledButton>(continueButton).onPressed, isNotNull);
+    expect(ticketPurchaseSteps(), ['shown', 'purchased']);
+    // 反映の案内のタイマーを終わらせる
+    await tester.pump(const Duration(seconds: 30));
+  });
+
   testWidgets('支払いが保留になったら 買うボタンを消して待つ案内を出し 届いたら続けられる', (tester) async {
     final generationTickets = StreamController<int>.broadcast();
     addTearDown(generationTickets.close);

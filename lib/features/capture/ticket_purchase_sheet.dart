@@ -283,7 +283,10 @@ class _TicketPurchaseSheetState extends State<_TicketPurchaseSheet> {
           ),
           const SizedBox(height: 16),
           FilledButton(
-            onPressed: () => Navigator.of(context).pop(true),
+            // pop は PopScope で止まらないため、購入の途中は押せないようにする (結果を受ける画面を残すため)
+            onPressed: _isPurchasing
+                ? null
+                : () => Navigator.of(context).pop(true),
             child: Text(l10n.ticketPurchaseContinue),
           ),
         ]
