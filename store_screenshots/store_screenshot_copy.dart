@@ -21,25 +21,36 @@ enum StoreScreenshotPage {
   share,
 }
 
-/// スクリーンショットを作る言語。fastlane の locale のディレクトリの名前と、アプリの文言の言語の組。
+/// スクリーンショットを作る言語。fastlane の locale のディレクトリの名前 (App Store と Google Play で違う) と、アプリの文言の言語の組。
 enum StoreScreenshotLanguage {
   /// 日本語。
-  japanese(fastlaneLocale: 'ja', appLocale: Locale('ja')),
+  japanese(fastlaneLocale: 'ja', playLocale: 'ja-JP', appLocale: Locale('ja')),
 
   /// 英語 (米国)。
-  english(fastlaneLocale: 'en-US', appLocale: Locale('en'));
+  english(fastlaneLocale: 'en-US', playLocale: 'en-US', appLocale: Locale('en'));
 
   const StoreScreenshotLanguage({
     required this.fastlaneLocale,
+    required this.playLocale,
     required this.appLocale,
   });
 
-  /// fastlane/screenshots/ の下のディレクトリの名前。
+  /// fastlane/screenshots/ (App Store。deliver) の下のディレクトリの名前。
   final String fastlaneLocale;
+
+  /// fastlane/metadata/android/ (Google Play。supply) の下のディレクトリの名前。
+  final String playLocale;
 
   /// 画面の文言 (lib/l10n/app_*.arb) の言語。
   final Locale appLocale;
 }
+
+/// Google Play のフィーチャーグラフィック (1024×500) に置く文言。アプリ名のロゴの横に置く 1 行の訴求で、
+/// App Store の subtitle (fastlane/metadata/<locale>/subtitle.txt) と同じ文にする。
+const Map<StoreScreenshotLanguage, String> storeFeatureGraphicTagline = {
+  StoreScreenshotLanguage.japanese: '撮った写真が\nモンスターになる',
+  StoreScreenshotLanguage.english: 'Your photos\nbecome monsters',
+};
 
 /// スクリーンショットの上に置くキャッチコピー (見出しと補足)。アプリの文言ではなくストアの訴求のため、ARB ではなくここに置く。
 /// 何ができるかより先に、使うと何が起きるかを書く (appstore-screenshot-builder skill のキャッチコピーの訴求方針)。
