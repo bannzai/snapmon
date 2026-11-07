@@ -24,6 +24,7 @@ GenerationResult generateSampleMonster({
       status: GenerationStatus.duplicate,
       monsterId: sampleData.monsters.first.definition.id,
       rejectionReason: null,
+      personDetected: false,
     );
   }
   dexStore.applyServerSnapshot(
@@ -46,5 +47,6 @@ GenerationResult generateSampleMonster({
     status: GenerationStatus.saved,
     monsterId: sampleMonster.definition.id,
     rejectionReason: null,
+    personDetected: false,
   );
 }

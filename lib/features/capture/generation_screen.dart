@@ -465,6 +465,23 @@ class _GenerationScreenState extends State<GenerationScreen> {
     }
   }
 
+  /// 人が写っている写真から生まれた時の注意 (モンスターの画像は対戦で他の人にも見える・他人が写る時は同意を得る) を出し、閉じるまで待つ。
+  /// 人が写る写真は拒否せず注意で許容する (documents/DIRECTION.md「決めたこと」2026-11-07 の #198 の行)。
+  Future<void> _showPersonNotice() => showDialog<void>(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text(context.l10n.generationPersonNoticeTitle),
+      content: Text(context.l10n.generationPersonNoticeMessage),
+      actions: [
+        FilledButton(
+          key: const Key('person-notice-close'),
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text(context.l10n.commonClose),
+        ),
+      ],
+    ),
+  );
+
   /// 判定待ちの生成の結果を読み直す。
   Future<void> _fetchAgain() async {
     setState(() {
@@ -515,6 +532,13 @@ class _GenerationScreenState extends State<GenerationScreen> {
               )
               // 計測の失敗は生まれた画面の表示に影響させない
               .catchError((Object _) {});
+        }
+        if (!mounted) {
+          return;
+        }
+        // duplicate で開くのは前に生まれたモンスターで、今回の写真の画像は他の人に見えないため注意は出さない
+        if (result.status == GenerationStatus.saved && result.personDetected) {
+          await _showPersonNotice();
         }
         if (!mounted) {
           return;

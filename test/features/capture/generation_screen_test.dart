@@ -34,10 +34,12 @@ void main() {
   /// 開いた後は pumpAndSettle ではなく時間を指定して進める。[sourcePhoto]・[photoSource]・[cropsWhenSubjectNotFound] は
   /// 生成の画面にそのまま渡す (範囲を決める画面を確かめるテストだけが、画像として読める写真を渡す)。
   /// [pvpClient] が null ならログインが無い時の [PvpClient] を渡す (プロフィールを確かめるテストだけが渡す)。
+  /// [stopsAtPersonNotice] が true なら、人が写っている注意のダイアログが出た状態 (裏の生成中の表示が動き続けて settle しない) で止める。
   Future<List<ResultScreenAction?>> pumpGenerationScreen({
     required WidgetTester tester,
     required MonsterGenerator generator,
     required bool startsFirstBattle,
+    bool stopsAtPersonNotice = false,
     PvpClient? pvpClient,
     Uint8List? sourcePhoto,
     GenerationPhotoSource photoSource = GenerationPhotoSource.album,
@@ -94,7 +96,7 @@ void main() {
       ),
     );
     await tester.tap(find.text('開く'));
-    if (startsFirstBattle) {
+    if (startsFirstBattle || stopsAtPersonNotice) {
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 100));
     } else {
@@ -127,6 +129,7 @@ void main() {
       status: status,
       monsterId: monsterId,
       rejectionReason: null,
+      personDetected: false,
     );
   };
 
@@ -165,6 +168,94 @@ void main() {
     expect(calls.loggedEvents, hasLength(1));
     expect(calls.loggedEvents.single.event, AnalyticsEvent.monsterGenerated);
     expect(calls.loggedEvents.single.parameters, {'source': 'album'});
+  });
+
+  testWidgets('人が写っている写真から生まれた時は、注意を出してから生まれた画面を開く', (tester) async {
+    await pumpGenerationScreen(
+      tester: tester,
+      startsFirstBattle: false,
+      stopsAtPersonNotice: true,
+      generator: fakeMonsterGenerator(
+        calls: calls,
+        albumPhoto: null,
+        uploadError: null,
+        requestGeneration: ({required requestId}) async {
+          dexStore.applyServerSnapshot(
+            monsters: [generatedWaxMonster(monsterId: 'm1')],
+            partyMonsterIds: null,
+            definitions: definitionsWithWax(base: sampleData.definitions),
+          );
+          return GenerationResult(
+            requestId: requestId,
+            status: GenerationStatus.saved,
+            monsterId: 'm1',
+            rejectionReason: null,
+            personDetected: true,
+          );
+        },
+        fetchGeneration: unexpectedFetch,
+      ),
+    );
+    expect(find.text('人が写っています'), findsOneWidget);
+    expect(
+      find.text('モンスターの画像は対戦で他の人にも見えます\n自分以外の人が写っている時は\nその人の同意を得てから使ってください'),
+      findsOneWidget,
+    );
+    expect(find.text('あたらしい なかま'), findsNothing);
+    await tester.tap(find.byKey(const Key('person-notice-close')));
+    await tester.pumpAndSettle();
+    expect(find.text('人が写っています'), findsNothing);
+    expect(find.text('あたらしい なかま'), findsOneWidget);
+    expect(calls.loggedEvents, hasLength(1));
+  });
+
+  testWidgets('同じ被写体 (duplicate) で終わった時は、人が写っていても注意を出さない', (tester) async {
+    await pumpGenerationScreen(
+      tester: tester,
+      startsFirstBattle: false,
+      generator: fakeMonsterGenerator(
+        calls: calls,
+        albumPhoto: null,
+        uploadError: null,
+        requestGeneration: ({required requestId}) async {
+          dexStore.applyServerSnapshot(
+            monsters: [generatedWaxMonster(monsterId: 'm1')],
+            partyMonsterIds: null,
+            definitions: definitionsWithWax(base: sampleData.definitions),
+          );
+          return GenerationResult(
+            requestId: requestId,
+            status: GenerationStatus.duplicate,
+            monsterId: 'm1',
+            rejectionReason: null,
+            personDetected: true,
+          );
+        },
+        fetchGeneration: unexpectedFetch,
+      ),
+    );
+    expect(find.text('人が写っています'), findsNothing);
+    expect(find.text('もう図鑑にいます'), findsOneWidget);
+  });
+
+  testWidgets('人が写っていない写真から生まれた時は注意を出さない', (tester) async {
+    await pumpGenerationScreen(
+      tester: tester,
+      startsFirstBattle: false,
+      generator: fakeMonsterGenerator(
+        calls: calls,
+        albumPhoto: null,
+        uploadError: null,
+        requestGeneration: savedGeneration(
+          monsterId: 'm1',
+          status: GenerationStatus.saved,
+          resultRequestId: null,
+        ),
+        fetchGeneration: unexpectedFetch,
+      ),
+    );
+    expect(find.text('人が写っています'), findsNothing);
+    expect(find.text('あたらしい なかま'), findsOneWidget);
   });
 
   group('被写体の範囲', () {
@@ -431,6 +522,7 @@ void main() {
           status: GenerationStatus.pendingJudge,
           monsterId: null,
           rejectionReason: null,
+          personDetected: false,
         ),
         fetchGeneration: savedGeneration(
           monsterId: 'm1',
@@ -461,6 +553,7 @@ void main() {
               status: GenerationStatus.pendingJudge,
               monsterId: null,
               rejectionReason: null,
+              personDetected: false,
             ),
         fetchGeneration: savedGeneration(
           monsterId: 'm1',
@@ -490,6 +583,7 @@ void main() {
           status: GenerationStatus.rejected,
           monsterId: null,
           rejectionReason: GenerationRejectionReason.faceDetected,
+          personDetected: false,
         ),
         fetchGeneration: unexpectedFetch,
       ),
@@ -512,6 +606,7 @@ void main() {
           status: GenerationStatus.failed,
           monsterId: null,
           rejectionReason: null,
+          personDetected: false,
         ),
         fetchGeneration: unexpectedFetch,
       ),
@@ -648,6 +743,7 @@ void main() {
             status: GenerationStatus.rejected,
             monsterId: null,
             rejectionReason: GenerationRejectionReason.explicitContent,
+            personDetected: false,
           ),
           fetchGeneration: unexpectedFetch,
         ),
@@ -674,6 +770,7 @@ void main() {
             status: GenerationStatus.pendingJudge,
             monsterId: null,
             rejectionReason: null,
+            personDetected: false,
           ),
           fetchGeneration: unexpectedFetch,
         ),
@@ -770,6 +867,7 @@ void main() {
             status: GenerationStatus.pendingJudge,
             monsterId: null,
             rejectionReason: null,
+            personDetected: false,
           ),
           fetchGeneration: savedGeneration(
             monsterId: 'm1',
@@ -820,6 +918,7 @@ void main() {
               status: GenerationStatus.saved,
               monsterId: 'm1',
               rejectionReason: null,
+              personDetected: false,
             );
           },
           fetchGeneration: unexpectedFetch,

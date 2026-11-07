@@ -1,5 +1,5 @@
 {
-  "$comment": "生成の経路ごとに期待する結果。functions/scripts/probe-generation-paths.mjs が paths の順に、1 人の匿名ユーザーで写真を送って突き合わせる (同じ被写体の判定はユーザー単位のため、比べる元の写真を先に送る。requires は比べる元の経路で、--paths で絞っても一緒に送る)。status は生成の終了状態 (functions/src/generation/records.ts の GenerationStatus)、rejectionReasons はどれかに当たれば PASS、photos の duplicateOf は duplicate の時に返るモンスターがその写真から生まれたものであること。写真の出典は LICENSES.md。",
+  "$comment": "生成の経路ごとに期待する結果。functions/scripts/probe-generation-paths.mjs が paths の順に、1 人の匿名ユーザーで写真を送って突き合わせる (同じ被写体の判定はユーザー単位のため、比べる元の写真を先に送る。requires は比べる元の経路で、--paths で絞っても一緒に送る)。status は生成の終了状態 (functions/src/generation/records.ts の GenerationStatus)、rejectionReasons はどれかに当たれば PASS、personDetected は生成のレコードの人が写っている印 (無い時は false)、photos の duplicateOf は duplicate の時に返るモンスターがその写真から生まれたものであること。写真の出典は LICENSES.md。",
   "paths": [
     {
       "path": "ordinary",
@@ -24,8 +24,8 @@
     },
     {
       "path": "person",
-      "description": "人が写る写真 (顔が主役の 2 枚と、顔が写らず体と手が写る 1 枚)",
-      "expected": { "status": "rejected", "rejectionReasons": ["face_detected", "person_detected"] }
+      "description": "人が写る写真 (顔が主役の 2 枚と、顔が写らず体と手が写る 1 枚)。#198 から拒否せず、人が写っている印を付けて生成する",
+      "expected": { "status": "saved", "personDetected": true }
     },
     {
       "path": "no_subject",

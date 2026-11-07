@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { findModerationViolation } from "../../src/generation/moderation";
 import { DESCRIBE_SUBJECT_SYSTEM_PROMPT, parseDescribeSubjectOutput } from "../../src/generation/prompts/describe_subject";
 import { proposalRangeViolation } from "../../src/generation/prompts/propose_element";
-import { visionRejectionLogFields, visionRejectionReason } from "../../src/generation/vision";
+import { visionDetectsFace, visionRejectionLogFields, visionRejectionReason } from "../../src/generation/vision";
 
 describe("findModerationViolation", () => {
   it("禁止語と他社の名称を、ひらがな・カタカナ・全角半角の揺れを越えて見つける", () => {
@@ -25,16 +25,27 @@ describe("findModerationViolation", () => {
 });
 
 describe("visionRejectionReason", () => {
-  it("露骨な画像と顔が写る画像を拒否し、それ以外は通す", () => {
+  it("露骨な画像を拒否し、それ以外は通す", () => {
     expect(visionRejectionReason({ safeSearchAnnotation: { adult: "VERY_LIKELY" } })).toBe("explicit_content");
     expect(visionRejectionReason({ safeSearchAnnotation: { violence: "VERY_LIKELY" } })).toBe("explicit_content");
     expect(visionRejectionReason({ safeSearchAnnotation: { racy: "VERY_LIKELY" } })).toBe("explicit_content");
-    expect(visionRejectionReason({ safeSearchAnnotation: { adult: "POSSIBLE" }, faceAnnotations: [{ detectionConfidence: 0.3 }] })).toBe("face_detected");
     expect(visionRejectionReason({ safeSearchAnnotation: { adult: "VERY_UNLIKELY" }, labelAnnotations: [{ description: "Mug", score: 0.9 }] })).toBeUndefined();
+  });
+
+  it("顔が写る画像は拒否しない (人が写る写真からも生成する #198)", () => {
+    expect(visionRejectionReason({ safeSearchAnnotation: { adult: "POSSIBLE" }, faceAnnotations: [{ detectionConfidence: 0.3 }] })).toBeUndefined();
   });
 
   it("adult・violence・racy が LIKELY でも拒否しない (イラストが LIKELY になる誤検知を通すため)", () => {
     expect(visionRejectionReason({ safeSearchAnnotation: { adult: "LIKELY", violence: "LIKELY", racy: "LIKELY" } })).toBeUndefined();
+  });
+});
+
+describe("visionDetectsFace", () => {
+  it("確信度を問わず顔が 1 つでもあれば true、無ければ false", () => {
+    expect(visionDetectsFace({ faceAnnotations: [{ detectionConfidence: 0.3 }] })).toBe(true);
+    expect(visionDetectsFace({ faceAnnotations: [] })).toBe(false);
+    expect(visionDetectsFace({ labelAnnotations: [{ description: "Mug", score: 0.9 }] })).toBe(false);
   });
 });
 

@@ -51,7 +51,7 @@ import {
   type MonsterDocument,
   TERMINAL_GENERATION_STATUSES,
 } from "./records";
-import { type AnnotateImage, type RejectionReason, visionRejectionLogFields, visionRejectionReason } from "./vision";
+import { type AnnotateImage, type RejectionReason, visionDetectsFace, visionRejectionLogFields, visionRejectionReason } from "./vision";
 
 /** Cloud Storage のバケット。 */
 export type StorageBucket = ReturnType<ReturnType<typeof getStorage>["bucket"]>;
@@ -114,14 +114,6 @@ export const JUDGE_RETRY_MAXIMUM_COUNT = 24;
  * (~/.claude/documents/rules/retry-limit-and-failure-classification.md) に最初の 1 回を足した値。
  */
 const MAXIMUM_ATTEMPT_COUNT = 4;
-
-/**
- * 同じ写真・マスクの組でも使い回さない拒否の理由。Claude の応答で結果が揺れるため、送り直せば通ることがある。
- * explicit_content は Vision の判定は決定的だが、拒否の閾値を変えた時に前の閾値で拒否した写真を送り直しても通らなくなるため
- * 使い回さない (閾値を LIKELY 以上から VERY_LIKELY だけに緩めた https://github.com/bannzai/snapmon/issues/118 。送り直しの
- * 費用は Vision の 1 回分で、uid ごとの 1 日の生成の上限が抑える)。顔の拒否は使い回す。
- */
-const RETRYABLE_REJECTION_REASONS: RejectionReason[] = ["explicit_content", "person_detected", "inappropriate_text", "refused"];
 
 /** 段階が予期しないエラーで落ちた時に、再試行を始めるまでの秒数。一時的なエラー (API の 5xx・通信の切断) が収まる時間として置いた。 */
 export const FAILED_STAGE_RETRY_DELAY_SECONDS = 60;
@@ -318,11 +310,14 @@ export async function startGeneration(
     if (!userSnapshot.exists && !(await authUserExists({ auth: dependencies.auth, uid }))) {
       throw new GenerationRequestError("account_not_found", "アカウントが見つかりません");
     }
-    // failed と、Claude の応答で結果が揺れる拒否は使い回さない (撮り直さずに同じ写真で再挑戦できるように)。
-    // 状態は複合インデックスを増やさないようコードで絞る。
+    // failed と rejected は使い回さない (撮り直さずに同じ写真で再挑戦できるように)。Claude の応答で結果が揺れる拒否は送り直せば
+    // 通ることがあり、Vision の判定は決定的だが、拒否の基準を変えた時に前の基準で拒否した写真を送り直しても通らなくなるため
+    // (SafeSearch の閾値を LIKELY 以上から VERY_LIKELY だけに緩めた https://github.com/bannzai/snapmon/issues/118 、顔が写る写真を
+    // 拒否しなくした https://github.com/bannzai/snapmon/issues/198 。送り直しの費用は Vision の 1 回分で、uid ごとの 1 日の
+    // 生成の上限が抑える)。状態は複合インデックスを増やさないようコードで絞る。
     const sameInput = (await transaction.get(firestore.collection(`users/${uid}/generations`).where("inputKey", "==", inputKey))).docs.find((document) => {
       const generation = document.data() as GenerationRecord;
-      return generation.status !== "failed" && !(generation.rejectionReason && RETRYABLE_REJECTION_REASONS.includes(generation.rejectionReason));
+      return generation.status !== "failed" && generation.status !== "rejected";
     });
     if (sameInput) {
       // 写真を消す前に、この要求 ID と使い回し先の対応を残す (応答を受け取れずに同じ要求 ID で再送されても結果を返せるように)
@@ -788,13 +783,19 @@ async function runSafeSearchStage(
   const annotation = await dependencies.annotateImage(await downscalePhoto((await downloadVerifiedInput(dependencies.bucket, record)).photo));
   const rejectionReason = visionRejectionReason(annotation);
   if (rejectionReason) {
-    // 閾値の妥当性を後から見直すため、どの区分・顔で拒否したかを残す (https://github.com/bannzai/snapmon/issues/118 )
+    // 閾値の妥当性を後から見直すため、どの区分で拒否したかを残す (https://github.com/bannzai/snapmon/issues/118 )
     logger.info("Vision の判定で生成しません", { uid, requestId, rejectionReason, ...visionRejectionLogFields(annotation) });
     return rejected(rejectionReason);
+  }
+  const personDetected = visionDetectsFace(annotation);
+  if (personDetected) {
+    // 人が写る写真は拒否せず、生まれた時に注意を出す印を残す (https://github.com/bannzai/snapmon/issues/198 )
+    logger.info("Vision が顔を検出しました。生成は続けます", { uid, requestId, ...visionRejectionLogFields(annotation) });
   }
   return {
     kind: "next",
     update: {
+      personDetected,
       visionLabels: (annotation.labelAnnotations ?? []).filter((label) => label.score >= VISION_LABEL_MINIMUM_SCORE).map((label) => label.description),
     },
   };
@@ -822,14 +823,22 @@ async function runClaudeStage(
   for (let attempt = 1; attempt <= DESCRIBE_SUBJECT_MAXIMUM_ATTEMPTS; attempt++) {
     const { output, usage } = await dependencies.describeSubject(cutoutJpeg);
     claudeUsages.push(usage);
-    if (output.containsPerson) {
-      logger.info("Claude が人が写っていると判断したため生成しません", { uid, requestId, rejectionReason: "person_detected", containsPerson: true, attempt });
-      return { kind: "finish", update: { status: "rejected", rejectionReason: "person_detected", claudeUsages } };
-    }
     // 照らすのは利用者に見せる名前と図鑑の文章だけ (被写体の説明は画面に出さず、ワイングラスのような被写体の名前で止めないため)
     const violation = findModerationViolation(`${output.name}\n${output.encyclopediaText}`);
     if (!violation) {
-      return { kind: "next", update: { subject: output, subjectDescriptionText: canonicalDescriptionText(output.description), claudeUsages } };
+      if (output.containsPerson) {
+        // 顔が写らない人 (体・手) の写真も拒否せず、生まれた時に注意を出す印を残す (https://github.com/bannzai/snapmon/issues/198 )
+        logger.info("Claude が人が写っていると判断しました。生成は続けます", { uid, requestId, containsPerson: true, attempt });
+      }
+      return {
+        kind: "next",
+        update: {
+          subject: output,
+          subjectDescriptionText: canonicalDescriptionText(output.description),
+          claudeUsages,
+          personDetected: record.personDetected || output.containsPerson,
+        },
+      };
     }
     logger.warn("生成した文章が禁止語の検査を通りませんでした", { attempt, violation });
   }
