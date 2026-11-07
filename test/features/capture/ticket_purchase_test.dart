@@ -235,6 +235,7 @@ void main() {
 
     generationTickets.add(10);
     await tester.pump();
+    await tester.pump();
 
     expect(find.textContaining('¥200'), findsNothing);
     expect(find.text('この写真で生成する'), findsOneWidget);
