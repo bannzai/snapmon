@@ -536,7 +536,8 @@ class _GenerationScreenState extends State<GenerationScreen> {
         if (!mounted) {
           return;
         }
-        if (result.personDetected) {
+        // duplicate で開くのは前に生まれたモンスターで、今回の写真の画像は他の人に見えないため注意は出さない
+        if (result.status == GenerationStatus.saved && result.personDetected) {
           await _showPersonNotice();
         }
         if (!mounted) {

@@ -206,6 +206,35 @@ void main() {
     expect(calls.loggedEvents, hasLength(1));
   });
 
+  testWidgets('同じ被写体 (duplicate) で終わった時は、人が写っていても注意を出さない', (tester) async {
+    await pumpGenerationScreen(
+      tester: tester,
+      startsFirstBattle: false,
+      generator: fakeMonsterGenerator(
+        calls: calls,
+        albumPhoto: null,
+        uploadError: null,
+        requestGeneration: ({required requestId}) async {
+          dexStore.applyServerSnapshot(
+            monsters: [generatedWaxMonster(monsterId: 'm1')],
+            partyMonsterIds: null,
+            definitions: definitionsWithWax(base: sampleData.definitions),
+          );
+          return GenerationResult(
+            requestId: requestId,
+            status: GenerationStatus.duplicate,
+            monsterId: 'm1',
+            rejectionReason: null,
+            personDetected: true,
+          );
+        },
+        fetchGeneration: unexpectedFetch,
+      ),
+    );
+    expect(find.text('人が写っています'), findsNothing);
+    expect(find.text('もう図鑑にいます'), findsOneWidget);
+  });
+
   testWidgets('人が写っていない写真から生まれた時は注意を出さない', (tester) async {
     await pumpGenerationScreen(
       tester: tester,
