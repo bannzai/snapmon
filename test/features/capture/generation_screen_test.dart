@@ -34,10 +34,12 @@ void main() {
   /// 開いた後は pumpAndSettle ではなく時間を指定して進める。[sourcePhoto]・[photoSource]・[cropsWhenSubjectNotFound] は
   /// 生成の画面にそのまま渡す (範囲を決める画面を確かめるテストだけが、画像として読める写真を渡す)。
   /// [pvpClient] が null ならログインが無い時の [PvpClient] を渡す (プロフィールを確かめるテストだけが渡す)。
+  /// [stopsAtPersonNotice] が true なら、人が写っている注意のダイアログが出た状態 (裏の生成中の表示が動き続けて settle しない) で止める。
   Future<List<ResultScreenAction?>> pumpGenerationScreen({
     required WidgetTester tester,
     required MonsterGenerator generator,
     required bool startsFirstBattle,
+    bool stopsAtPersonNotice = false,
     PvpClient? pvpClient,
     Uint8List? sourcePhoto,
     GenerationPhotoSource photoSource = GenerationPhotoSource.album,
@@ -94,7 +96,7 @@ void main() {
       ),
     );
     await tester.tap(find.text('開く'));
-    if (startsFirstBattle) {
+    if (startsFirstBattle || stopsAtPersonNotice) {
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 100));
     } else {
@@ -172,6 +174,7 @@ void main() {
     await pumpGenerationScreen(
       tester: tester,
       startsFirstBattle: false,
+      stopsAtPersonNotice: true,
       generator: fakeMonsterGenerator(
         calls: calls,
         albumPhoto: null,
