@@ -406,6 +406,7 @@ class _BattleScreenState extends State<BattleScreen>
         final move = event.moveId == null
             ? null
             : widget.definitions.moveById(moveId: event.moveId!);
+        // ログの文言は言語の切り替えで後から組み立て直すため、技を受けた側の名前はこの時点の値で固定する (交代の後に別の名前にならないように)
         final defenderName =
             _displayedActiveMembers[defenderSide]!.definition.name;
         setState(

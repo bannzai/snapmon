@@ -376,12 +376,12 @@ BattleState advanceTurn({
       attackerStats.hitPoints,
       attacker.state.currentHitPoints + (statusEffect?.hitPointsRecovery ?? 0),
     );
-    final attackerStatModifiers = _applyStatChanges(
+    final attackerStatModifierChanges = _statModifierChanges(
       monster: attacker,
       side: attackerSide,
       changes: statusEffect?.selfStatChanges ?? const {},
     );
-    final defenderStatModifiers = _applyStatChanges(
+    final defenderStatModifierChanges = _statModifierChanges(
       monster: defender,
       side: defenderSide,
       changes: statusEffect?.opponentStatChanges ?? const {},
@@ -397,14 +397,20 @@ BattleState advanceTurn({
                 ...attacker.state.remainingPowerPoints,
                 move.id: attacker.state.remainingPowerPoints[move.id]! - 1,
               },
-        statModifierPercents: attackerStatModifiers.percents,
+        statModifierPercents: _appliedStatModifierPercents(
+          monster: attacker,
+          changes: attackerStatModifierChanges,
+        ),
       ),
     );
     parties[defenderSide] = _replaceActiveMemberState(
       party: parties[defenderSide]!,
       state: defender.state.copyWith(
         currentHitPoints: defenderRemainingHitPoints,
-        statModifierPercents: defenderStatModifiers.percents,
+        statModifierPercents: _appliedStatModifierPercents(
+          monster: defender,
+          changes: defenderStatModifierChanges,
+        ),
       ),
     );
     events.add(
@@ -418,8 +424,8 @@ BattleState advanceTurn({
         defenderRemainingHitPoints: defenderRemainingHitPoints,
         specialEffect: specialEffect,
         statModifierChanges: [
-          ...attackerStatModifiers.changes,
-          ...defenderStatModifiers.changes,
+          ...attackerStatModifierChanges,
+          ...defenderStatModifierChanges,
         ],
         recoveredHitPoints:
             attackerRemainingHitPoints - attacker.state.currentHitPoints,
@@ -538,39 +544,36 @@ void _validateAction({
 }
 
 /// [monster] ([side] の場のモンスター) のステータスの倍率に [changes] (倍率に足す値) を足し、重ねがけの上限
-/// ([statModifierPercentMinimum]〜[statModifierPercentMaximum]) で丸めた倍率と、変化の結果 (値が 0 の変化は除く) を返す。
-({Map<StatKind, int> percents, List<StatModifierChange> changes})
-_applyStatChanges({
+/// ([statModifierPercentMinimum]〜[statModifierPercentMaximum]) で丸めた変化の結果を返す。値が 0 の変化は除く。
+List<StatModifierChange> _statModifierChanges({
   required BattleMonster monster,
   required BattleSideId side,
   required Map<StatKind, int> changes,
-}) {
-  final percents = {...monster.state.statModifierPercents};
-  final statModifierChanges = <StatModifierChange>[];
-  for (final MapEntry(key: statKind, value: change) in changes.entries) {
-    if (change == 0) {
-      continue;
-    }
-    final previousPercent = statModifierPercentOf(
-      monster: monster,
-      statKind: statKind,
-    );
-    final newPercent = (previousPercent + change).clamp(
-      statModifierPercentMinimum,
-      statModifierPercentMaximum,
-    );
-    percents[statKind] = newPercent;
-    statModifierChanges.add(
+}) => [
+  for (final MapEntry(key: statKind, value: change) in changes.entries)
+    if (change != 0)
       StatModifierChange(
         side: side,
         statKind: statKind,
-        previousPercent: previousPercent,
-        newPercent: newPercent,
+        previousPercent: statModifierPercentOf(
+          monster: monster,
+          statKind: statKind,
+        ),
+        newPercent:
+            (statModifierPercentOf(monster: monster, statKind: statKind) +
+                    change)
+                .clamp(statModifierPercentMinimum, statModifierPercentMaximum),
       ),
-    );
-  }
-  return (percents: percents, changes: statModifierChanges);
-}
+];
+
+/// [monster] のステータスの倍率に [changes] の変わった後の倍率を反映した倍率の一覧を返す。
+Map<StatKind, int> _appliedStatModifierPercents({
+  required BattleMonster monster,
+  required List<StatModifierChange> changes,
+}) => {
+  ...monster.state.statModifierPercents,
+  for (final change in changes) change.statKind: change.newPercent,
+};
 
 /// [party] の場のモンスターの状態を [state] に置き換えた陣営を返す。
 BattleParty _replaceActiveMemberState({
