@@ -868,8 +868,7 @@ describe("generate の上限と検査", () => {
   it("uid ごとの上限の後もチケットがあれば 1 枚使って生成し、使ったことをレコードに残す", async () => {
     await firestore.doc("users/alice").set({ dailyGeneration: { date: today, count: DAILY_GENERATION_LIMIT_PER_USER }, generationTickets: 2 }, { merge: true });
     const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
-    const result = await handleGenerateRequest(createMocks().dependencies, signedInRequest({ uid: "alice", data }));
-    expect(result.status).toBe("saved");
+    expect((await handleGenerateRequest(createMocks().dependencies, signedInRequest({ uid: "alice", data }))).status).toBe("saved");
     const user = (await firestore.doc("users/alice").get()).data()!;
     expect(user.generationTickets).toBe(1);
     expect(user.dailyGeneration).toEqual({ date: today, count: DAILY_GENERATION_LIMIT_PER_USER + 1 });

@@ -77,8 +77,7 @@ async function generationTickets(uid: string): Promise<unknown> {
 describe("RevenueCat の webhook", () => {
   it("消耗型の購入で残高に 10 枚足し、購入の記録を残して Slack に知らせる", async () => {
     const { dependencies, slackTexts } = createDependencies();
-    const response = await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody() });
-    expect(response.status).toBe(200);
+    expect((await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody() })).status).toBe(200);
     expect(await generationTickets("alice")).toBe(10);
     expect((await firestore.doc("users/alice/ticketPurchases/event-1").get()).data()).toMatchObject({
       productId: "snapmon_generationticket10_200yen",
@@ -100,8 +99,7 @@ describe("RevenueCat の webhook", () => {
   it("同じイベントの ID を 2 回受けても 1 回しか足さない", async () => {
     const { dependencies, slackTexts } = createDependencies();
     await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody() });
-    const second = await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody() });
-    expect(second.status).toBe(200);
+    expect((await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody() })).status).toBe(200);
     expect(await generationTickets("alice")).toBe(10);
     expect(slackTexts).toHaveLength(1);
   });
@@ -128,24 +126,21 @@ describe("RevenueCat の webhook", () => {
 
   it("消耗型の購入以外のイベント (サブスクリプションの購入) は足さない", async () => {
     const { dependencies } = createDependencies();
-    const response = await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ type: "INITIAL_PURCHASE" }) });
-    expect(response.status).toBe(200);
+    expect((await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ type: "INITIAL_PURCHASE" }) })).status).toBe(200);
     expect((await firestore.doc("users/alice").get()).exists).toBe(false);
   });
 
   it("返金・取り消しは残高を減らさず Slack に知らせる", async () => {
     await firestore.doc("users/alice").set({ generationTickets: 10 });
     const { dependencies, slackTexts } = createDependencies();
-    const response = await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ type: "CANCELLATION", id: "event-3" }) });
-    expect(response.status).toBe(200);
+    expect((await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ type: "CANCELLATION", id: "event-3" }) })).status).toBe(200);
     expect(await generationTickets("alice")).toBe(10);
     expect(slackTexts).toHaveLength(1);
   });
 
   it("知らない商品の消耗型の購入は足さずに Slack に知らせる", async () => {
     const { dependencies, slackTexts } = createDependencies();
-    const response = await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ product_id: "snapmon_generationticket100_1500yen" }) });
-    expect(response.status).toBe(200);
+    expect((await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ product_id: "snapmon_generationticket100_1500yen" }) })).status).toBe(200);
     expect((await firestore.doc("users/alice").get()).exists).toBe(false);
     expect(slackTexts).toHaveLength(1);
   });
@@ -188,15 +183,13 @@ describe("RevenueCat の webhook", () => {
 
   it("UUID の形の event.id は受け付ける", async () => {
     const { dependencies } = createDependencies();
-    const response = await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ id: "CDD0A5C7-26F5-4D57-A4B2-1F2E5B0A9C11" }) });
-    expect(response.status).toBe(200);
+    expect((await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ id: "CDD0A5C7-26F5-4D57-A4B2-1F2E5B0A9C11" }) })).status).toBe(200);
     expect(await generationTickets("alice")).toBe(10);
   });
 
   it("継承したキーの商品 (constructor) は知らない商品として足さずに Slack に知らせる", async () => {
     const { dependencies, slackTexts } = createDependencies();
-    const response = await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ product_id: "constructor" }) });
-    expect(response.status).toBe(200);
+    expect((await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ product_id: "constructor" }) })).status).toBe(200);
     expect((await firestore.doc("users/alice").get()).exists).toBe(false);
     expect(slackTexts).toHaveLength(1);
   });
