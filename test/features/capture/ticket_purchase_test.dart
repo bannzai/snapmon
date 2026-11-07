@@ -144,6 +144,26 @@ void main() {
     expect(find.text('生成チケット'), findsOneWidget);
   });
 
+  testWidgets('package の取得中に再試行して 上限以外で終わったら 購入画面を被せない', (tester) async {
+    await pumpUntilDailyLimit(
+      tester: tester,
+      generator: limitedGenerator(
+        ticketPackages: const [],
+        fetchTicketPackages: () async {
+          await Future<void>.delayed(const Duration(seconds: 1));
+          return const [testTicketPackage];
+        },
+      ),
+    );
+
+    await tester.tap(find.text('もう一度試す'));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 2));
+    await tester.pumpAndSettle();
+
+    expect(find.text('生成チケット'), findsNothing);
+  });
+
   testWidgets('ストアの購入の途中は 購入画面をドラッグしても閉じない', (tester) async {
     final purchase = Completer<TicketPurchaseResult>();
     await pumpUntilDailyLimit(

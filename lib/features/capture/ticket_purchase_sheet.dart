@@ -15,14 +15,16 @@ const Duration _ticketArrivalNoticeDelay = Duration(seconds: 20);
 
 /// 売っている package があれば購入画面を出し、生成をやり直してよいかを返す。
 /// 売っていない間と package を読めない時は何も出さずに false を返す (今までの上限のエラーの表示のままにするため)。
+/// package の読み出しの後に [isDailyLimitShown] が false なら何も出さない (読み出しの間にやり直して別の結果になった時に被せないため)。
 Future<bool> offerTicketPurchase({
   required BuildContext context,
   required MonsterGenerator monsterGenerator,
+  required bool Function() isDailyLimitShown,
 }) async {
   final packages = await monsterGenerator.fetchTicketPackages().catchError(
     (Object _) => const <Package>[],
   );
-  if (packages.isEmpty || !context.mounted) {
+  if (packages.isEmpty || !context.mounted || !isDailyLimitShown()) {
     return false;
   }
   return showTicketPurchaseSheet(

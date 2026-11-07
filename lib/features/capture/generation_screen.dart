@@ -287,6 +287,9 @@ class _GenerationScreenState extends State<GenerationScreen> {
       continuesGeneration = await offerTicketPurchase(
         context: context,
         monsterGenerator: widget.monsterGenerator,
+        isDailyLimitShown: () =>
+            _phase == _GenerationPhase.error &&
+            _error is GenerationDailyLimitException,
       );
     } finally {
       _isOfferingTicketPurchase = false;
