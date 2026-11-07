@@ -139,6 +139,7 @@ void main() {
         status: GenerationStatus.saved,
         monsterId: 'generated-$requestId',
         rejectionReason: null,
+        personDetected: false,
       );
     },
     fetchGeneration: ({required requestId}) =>
