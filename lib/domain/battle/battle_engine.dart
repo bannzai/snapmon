@@ -4,6 +4,7 @@ import '../master/master_data.dart';
 import '../master/move.dart';
 import '../monster/monster_definition.dart';
 import '../monster/monster_state.dart';
+import '../monster/monster_stats.dart';
 import '../monster/stat_calculation.dart';
 import '../random/deterministic_random.dart';
 import 'battle_state.dart';
@@ -18,7 +19,23 @@ const int strugglePower = 40;
 /// 下限 (0.85) が相性 2 倍・0.5 倍の差を覆さない幅にした。
 const int damageRandomMinimumPercent = 85;
 
-/// [definition] のモンスターを、[level]・[experience] で HP・PP を満タンにした状態でバトルに出す。
+/// 補助技で変わるステータスの倍率 (%) の下限 (重ねがけの上限)。master の補助技は 1 回で 25 ずつ変えるため、下げる技を 2 回重ねた所で止まる。
+/// 半分より下げると、防御を下げられた側が 1〜2 ターンで倒れて相性と技の選択が勝敗に効かなくなるため半分にした。
+const int statModifierPercentMinimum = 50;
+
+/// 補助技で変わるステータスの倍率 (%) の上限 (重ねがけの上限)。上げる技を 4 回重ねた所で止まる。
+/// 攻撃技の特殊効果の倍率の上限 (その場で作る技の 200。documents/game-rules.md「技の特殊効果」) と揃え、1 つの効果で 2 倍を超えないようにした。
+const int statModifierPercentMaximum = 200;
+
+/// CPU が使える補助技を持つ時に、攻撃技の代わりに補助技を選ぶ確率の分母。1/4 は技の枠 4 つの 1 つ分で、
+/// 補助技ばかり選んで攻撃しない CPU にならず、1 戦 (数ターン) に 1 回は補助技を見せる割合にした。
+const int cpuSupportMoveChanceDenominator = 4;
+
+/// CPU の技選びの乱数の seed を、バトルの乱数の状態から作る時に混ぜる値 (黄金比の 32bit の定数 0x9E3779B9)。
+/// 同じターンの行動順・ダメージの乱数と同じ列を使わないため (同じ値の列だと、同じ速さの時の行動順と CPU の技選びが連動する)。
+const int _cpuRandomSeedSalt = 0x9E3779B9;
+
+/// [definition] のモンスターを、[level]・[experience] で HP・PP を満タンにし、ステータスの倍率を等倍にした状態でバトルに出す。
 /// PP は覚える技の一覧のすべての技について持つ (レベルで開放されていない技も、上がった後に使えるよう持っておく)。
 BattleMonster prepareBattleMonster({
   required MonsterDefinition definition,
@@ -42,8 +59,39 @@ BattleMonster prepareBattleMonster({
             .moveById(moveId: learnsetEntry.moveId)
             .powerPoints,
     },
+    statModifierPercents: const {},
   ),
 );
+
+/// [monster] の [statKind] の今の倍率 (%)。補助技で変わっていなければ 100。
+int statModifierPercentOf({
+  required BattleMonster monster,
+  required StatKind statKind,
+}) => monster.state.statModifierPercents[statKind] ?? 100;
+
+/// [monster] の今のレベルのステータスに、補助技で変わった倍率を掛けた値 (小数点以下は切り捨て、1 以上) を返す。HP は倍率を持たない。
+/// ダメージ・行動順・技の式の変数に使う。
+MonsterStats effectiveStats({required BattleMonster monster}) {
+  final stats = calculateStats(
+    baseStats: monster.definition.baseStats,
+    individualValues: monster.definition.individualValues,
+    level: monster.state.level,
+    statCalculationVersion: monster.definition.statCalculationVersion,
+  );
+  // 1 未満にしないのは、防御が 0 だとダメージ式が 0 で割るため
+  int modified({required StatKind statKind}) => math.max(
+    1,
+    stats.valueOf(statKind: statKind) *
+        statModifierPercentOf(monster: monster, statKind: statKind) ~/
+        100,
+  );
+  return MonsterStats(
+    hitPoints: stats.hitPoints,
+    attack: modified(statKind: StatKind.attack),
+    defense: modified(statKind: StatKind.defense),
+    speed: modified(statKind: StatKind.speed),
+  );
+}
 
 /// 両陣営の手持ち ([prepareBattleMonster] で用意した 1〜3 体) でバトルを始める。
 /// [randomSeed] は行動順の同速判定とダメージの乱数幅に使い、同じ seed と同じ行動からは同じ結果になる。
@@ -138,8 +186,12 @@ int calculateDamage({
   return math.max(1, (baseDamage * typeMultiplier * randomPercent ~/ 100));
 }
 
-/// CPU の行動を返す。相手の場のモンスターへの相性の倍率が最大の攻撃技を選び、
+/// CPU の行動を返す。効果のある補助技を持つ時は 1/[cpuSupportMoveChanceDenominator] の確率でその中から 1 つを選ぶ。
+/// それ以外は、相手の場のモンスターへの相性の倍率が最大の攻撃技を選び、
 /// 倍率が同じなら威力が高い技、それも同じなら覚える技の一覧で先の技を選ぶ。使える攻撃技が無ければわるあがき。
+/// 効果のある補助技は、HP の回復だけをする技なら HP が減っている時だけ、ステータスを変える技なら変える先のどれかが重ねがけの上限に達していない時だけ。
+/// 乱数は [state] の乱数の状態とターン数・陣営から作った別の列で引き、[state] の乱数の状態は進めない
+/// (同じ状態からは同じ行動を選び、プレイヤーの行動順・ダメージの乱数を変えないため)。
 BattleAction chooseCpuAction({
   required BattleState state,
   required BattleSideId side,
@@ -147,9 +199,52 @@ BattleAction chooseCpuAction({
 }) {
   final attacker = state.partyOf(side: side).activeMember;
   final defender = state.partyOf(side: _otherSide(side: side)).activeMember;
+  final moves = selectableMoves(monster: attacker, master: master);
+  bool canStillChange({
+    required BattleMonster monster,
+    required Map<StatKind, String> statChanges,
+  }) => statChanges.keys.any((statKind) {
+    final percent = statModifierPercentOf(monster: monster, statKind: statKind);
+    return percent > statModifierPercentMinimum &&
+        percent < statModifierPercentMaximum;
+  });
+  final effectiveSupportMoves = [
+    for (final move in moves)
+      if (move.category == MoveCategory.support &&
+          move.specialEffect != null &&
+          ((move.specialEffect!.selfHitPointsRecovery != null &&
+                  attacker.state.currentHitPoints <
+                      effectiveStats(monster: attacker).hitPoints) ||
+              canStillChange(
+                monster: attacker,
+                statChanges: move.specialEffect!.selfStatChanges,
+              ) ||
+              canStillChange(
+                monster: defender,
+                statChanges: move.specialEffect!.opponentStatChanges,
+              )))
+        move,
+  ];
+  if (effectiveSupportMoves.isNotEmpty) {
+    final cpuRandom = DeterministicRandom(
+      seed:
+          state.randomState ^
+          _cpuRandomSeedSalt ^
+          (state.turnNumber << 1) ^
+          side.index,
+    );
+    if (cpuRandom.nextUint32() % cpuSupportMoveChanceDenominator == 0) {
+      return UseMoveAction(
+        moveId:
+            effectiveSupportMoves[cpuRandom.nextUint32() %
+                    effectiveSupportMoves.length]
+                .id,
+      );
+    }
+  }
   Move? bestMove;
   var bestMultiplier = 0.0;
-  for (final move in selectableMoves(monster: attacker, master: master)) {
+  for (final move in moves) {
     if (move.category != MoveCategory.attack) {
       continue;
     }
@@ -173,6 +268,8 @@ BattleAction chooseCpuAction({
 /// 両陣営の行動 [playerAction]・[opponentAction] で 1 ターンを解決し、次の状態を返す。
 /// 場のモンスターの素早さが高い順に行動し (同じなら乱数)、倒れたモンスターはそのターンの行動を失う。
 /// 技の威力には特殊効果の倍率 ([calculateMoveSpecialEffect]) を掛ける (小数点以下は切り捨て)。
+/// 補助技はダメージを与えず、特殊効果の式 ([calculateMoveStatusEffect]) でステータスの倍率を変え、HP を回復する。
+/// ステータスの倍率は場のモンスターに付き、そのバトルの間 (倒れるまで) 続く。ダメージ・行動順・技の式の変数は倍率を掛けた値 ([effectiveStats]) を使う。
 /// ターンの終わりに倒れたモンスターを手持ちの次のモンスターと交代し、手持ちがすべて倒れた側が負ける。
 /// 決着がついたら勝敗を問わず両陣営の、場に出たことがある手持ちのレベルを 1 上げる (上限 [maximumLevel]。
 /// DIRECTION.md「必要な機能」の「1 戦ごとに、戦闘に出た手持ちのレベルが勝敗に関係なく 1 上がる」)。
@@ -205,18 +302,12 @@ BattleState advanceTurn({
   };
   final events = [...state.events];
 
-  int speedOf({required BattleSideId side}) {
-    final monster = parties[side]!.activeMember;
-    return calculateStats(
-      baseStats: monster.definition.baseStats,
-      individualValues: monster.definition.individualValues,
-      level: monster.state.level,
-      statCalculationVersion: monster.definition.statCalculationVersion,
-    ).speed;
-  }
-
-  final playerSpeed = speedOf(side: BattleSideId.player);
-  final opponentSpeed = speedOf(side: BattleSideId.opponent);
+  final playerSpeed = effectiveStats(
+    monster: parties[BattleSideId.player]!.activeMember,
+  ).speed;
+  final opponentSpeed = effectiveStats(
+    monster: parties[BattleSideId.opponent]!.activeMember,
+  ).speed;
   final playerMovesFirst = playerSpeed != opponentSpeed
       ? playerSpeed > opponentSpeed
       : random.nextUint32() % 2 == 0;
@@ -237,26 +328,16 @@ BattleState advanceTurn({
       StruggleAction() => null,
     };
 
-    final attackerStats = calculateStats(
-      baseStats: attacker.definition.baseStats,
-      individualValues: attacker.definition.individualValues,
-      level: attacker.state.level,
-      statCalculationVersion: attacker.definition.statCalculationVersion,
-    );
-    final defenderStats = calculateStats(
-      baseStats: defender.definition.baseStats,
-      individualValues: defender.definition.individualValues,
-      level: defender.state.level,
-      statCalculationVersion: defender.definition.statCalculationVersion,
-    );
+    final attackerStats = effectiveStats(monster: attacker);
+    final defenderStats = effectiveStats(monster: defender);
     final typeMultiplier = totalTypeMultiplier(
       moveElementTypeId: move?.elementTypeId,
       defenderElementTypeIds: defender.definition.elementTypeIds,
       master: master,
     );
-    final specialEffect = move == null
+    final variables = move == null
         ? null
-        : calculateMoveSpecialEffect(
+        : moveExpressionVariables(
             move: move,
             attacker: attacker,
             defender: defender,
@@ -265,6 +346,12 @@ BattleState advanceTurn({
             attackerMovesFirst: attackerSide == order.first,
             battleDate: state.battleDate,
           );
+    final specialEffect = move == null
+        ? null
+        : calculateMoveSpecialEffect(move: move, variables: variables!);
+    final statusEffect = move == null
+        ? null
+        : calculateMoveStatusEffect(move: move, variables: variables!);
     final damage = move != null && move.category == MoveCategory.support
         ? 0
         : calculateDamage(
@@ -285,22 +372,39 @@ BattleState advanceTurn({
       0,
       defender.state.currentHitPoints - damage,
     );
+    final attackerRemainingHitPoints = math.min(
+      attackerStats.hitPoints,
+      attacker.state.currentHitPoints + (statusEffect?.hitPointsRecovery ?? 0),
+    );
+    final attackerStatModifiers = _applyStatChanges(
+      monster: attacker,
+      side: attackerSide,
+      changes: statusEffect?.selfStatChanges ?? const {},
+    );
+    final defenderStatModifiers = _applyStatChanges(
+      monster: defender,
+      side: defenderSide,
+      changes: statusEffect?.opponentStatChanges ?? const {},
+    );
 
-    if (move != null) {
-      parties[attackerSide] = _replaceActiveMemberState(
-        party: parties[attackerSide]!,
-        state: attacker.state.copyWith(
-          remainingPowerPoints: {
-            ...attacker.state.remainingPowerPoints,
-            move.id: attacker.state.remainingPowerPoints[move.id]! - 1,
-          },
-        ),
-      );
-    }
+    parties[attackerSide] = _replaceActiveMemberState(
+      party: parties[attackerSide]!,
+      state: attacker.state.copyWith(
+        currentHitPoints: attackerRemainingHitPoints,
+        remainingPowerPoints: move == null
+            ? null
+            : {
+                ...attacker.state.remainingPowerPoints,
+                move.id: attacker.state.remainingPowerPoints[move.id]! - 1,
+              },
+        statModifierPercents: attackerStatModifiers.percents,
+      ),
+    );
     parties[defenderSide] = _replaceActiveMemberState(
       party: parties[defenderSide]!,
       state: defender.state.copyWith(
         currentHitPoints: defenderRemainingHitPoints,
+        statModifierPercents: defenderStatModifiers.percents,
       ),
     );
     events.add(
@@ -313,6 +417,13 @@ BattleState advanceTurn({
         damage: damage,
         defenderRemainingHitPoints: defenderRemainingHitPoints,
         specialEffect: specialEffect,
+        statModifierChanges: [
+          ...attackerStatModifiers.changes,
+          ...defenderStatModifiers.changes,
+        ],
+        recoveredHitPoints:
+            attackerRemainingHitPoints - attacker.state.currentHitPoints,
+        attackerRemainingHitPoints: attackerRemainingHitPoints,
       ),
     );
     if (defenderRemainingHitPoints == 0) {
@@ -424,6 +535,41 @@ void _validateAction({
         throw ArgumentError('使える攻撃技があるため、わるあがきは選べない');
       }
   }
+}
+
+/// [monster] ([side] の場のモンスター) のステータスの倍率に [changes] (倍率に足す値) を足し、重ねがけの上限
+/// ([statModifierPercentMinimum]〜[statModifierPercentMaximum]) で丸めた倍率と、変化の結果 (値が 0 の変化は除く) を返す。
+({Map<StatKind, int> percents, List<StatModifierChange> changes})
+_applyStatChanges({
+  required BattleMonster monster,
+  required BattleSideId side,
+  required Map<StatKind, int> changes,
+}) {
+  final percents = {...monster.state.statModifierPercents};
+  final statModifierChanges = <StatModifierChange>[];
+  for (final MapEntry(key: statKind, value: change) in changes.entries) {
+    if (change == 0) {
+      continue;
+    }
+    final previousPercent = statModifierPercentOf(
+      monster: monster,
+      statKind: statKind,
+    );
+    final newPercent = (previousPercent + change).clamp(
+      statModifierPercentMinimum,
+      statModifierPercentMaximum,
+    );
+    percents[statKind] = newPercent;
+    statModifierChanges.add(
+      StatModifierChange(
+        side: side,
+        statKind: statKind,
+        previousPercent: previousPercent,
+        newPercent: newPercent,
+      ),
+    );
+  }
+  return (percents: percents, changes: statModifierChanges);
 }
 
 /// [party] の場のモンスターの状態を [state] に置き換えた陣営を返す。

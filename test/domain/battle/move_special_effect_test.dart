@@ -23,7 +23,14 @@ Move testMove({required String? power, int powerPoints = 10}) => Move(
   learnableLevelMaximum: 999,
   specialEffect: power == null
       ? null
-      : MoveSpecialEffect(power: power, summary: 'テストの効果', rule: 'テストの規則'),
+      : MoveSpecialEffect(
+          power: power,
+          selfStatChanges: const {},
+          opponentStatChanges: const {},
+          selfHitPointsRecovery: null,
+          summary: 'テストの効果',
+          rule: 'テストの規則',
+        ),
 );
 
 /// 属性 [elementTypeIds]・HP [currentHitPoints]・技 [moveId] の残り PP [remainingPowerPoints] のバトル中のモンスターを返す。
@@ -60,6 +67,7 @@ BattleMonster testMonster({
     experience: 0,
     currentHitPoints: currentHitPoints,
     remainingPowerPoints: {moveId: remainingPowerPoints},
+    statModifierPercents: const {},
   ),
 );
 
@@ -75,7 +83,26 @@ MonsterStats testStats({
   speed: 50,
 );
 
-/// 既定の状況 (両者の HP 満タン・同じ属性・技の PP 満タン・先に行動) を引数で変えて、[move] の効果を計算する。
+/// 既定の状況 (両者の HP 満タン・同じ属性・技の PP 満タン・先に行動) を引数で変えた、[move] を使う時点の式の変数を返す。
+Map<String, int> testVariables({
+  required Move move,
+  BattleMonster? attacker,
+  BattleMonster? defender,
+  MonsterStats? attackerStats,
+  MonsterStats? defenderStats,
+  bool attackerMovesFirst = true,
+  DateTime? battleDate,
+}) => moveExpressionVariables(
+  move: move,
+  attacker: attacker ?? testMonster(),
+  defender: defender ?? testMonster(),
+  attackerStats: attackerStats ?? testStats(),
+  defenderStats: defenderStats ?? testStats(),
+  attackerMovesFirst: attackerMovesFirst,
+  battleDate: battleDate ?? DateTime.utc(2026, 10, 28),
+);
+
+/// 既定の状況を引数で変えて、[move] の威力の倍率の効果を計算する。
 ({int powerPercent, String description})? calculate({
   required Move move,
   BattleMonster? attacker,
@@ -86,12 +113,15 @@ MonsterStats testStats({
   DateTime? battleDate,
 }) => calculateMoveSpecialEffect(
   move: move,
-  attacker: attacker ?? testMonster(),
-  defender: defender ?? testMonster(),
-  attackerStats: attackerStats ?? testStats(),
-  defenderStats: defenderStats ?? testStats(),
-  attackerMovesFirst: attackerMovesFirst,
-  battleDate: battleDate ?? DateTime.utc(2026, 10, 28),
+  variables: testVariables(
+    move: move,
+    attacker: attacker,
+    defender: defender,
+    attackerStats: attackerStats,
+    defenderStats: defenderStats,
+    attackerMovesFirst: attackerMovesFirst,
+    battleDate: battleDate,
+  ),
 );
 
 /// 版 4 までの 8 種類の特殊効果 (技の識別子と、種類・倍率の最大 %)。版 5 で式に書き直した効果と、版 6 で足した技の効果
@@ -268,7 +298,7 @@ void main() {
               as Map<String, dynamic>,
     );
     final movesWithSpecialEffect = master.moves.where(
-      (move) => move.specialEffect != null,
+      (move) => _version4SpecialEffects.containsKey(move.id),
     );
     expect(
       movesWithSpecialEffect.map((move) => move.id).toSet(),
@@ -294,7 +324,7 @@ void main() {
                 ['fire'],
                 ['water'],
               ]) {
-                final actual = calculateMoveSpecialEffect(
+                final actual = calculate(
                   move: move,
                   attacker: testMonster(
                     currentHitPoints: attackerHitPoints,
@@ -367,5 +397,97 @@ void main() {
       isNull,
     );
     expect(moveSpecialEffectFromJson(json: null), isNull);
+  });
+
+  test('JSON から補助技の効果を読み、変えられないステータス (HP) のキーと式でない値は読まない', () {
+    final specialEffect = moveSpecialEffectFromJson(
+      json: {
+        'selfStatChanges': {'attack': '25', 'hitPoints': '25'},
+        'opponentStatChanges': {'defense': '-25', 'speed': 25},
+        'selfHitPointsRecovery': 'self.maximumHitPoints / 4',
+        'summary': '攻撃を上げる',
+        'rule': '自分の攻撃と相手の防御を変える',
+      },
+    )!;
+    expect(specialEffect.power, isNull);
+    expect(specialEffect.selfStatChanges, {StatKind.attack: '25'});
+    expect(specialEffect.opponentStatChanges, {StatKind.defense: '-25'});
+    expect(specialEffect.selfHitPointsRecovery, 'self.maximumHitPoints / 4');
+    expect(
+      moveSpecialEffectFromJson(
+        json: {
+          'selfStatChanges': {'hitPoints': '25'},
+          'summary': '何もしない',
+          'rule': '何もしない',
+        },
+      ),
+      isNull,
+    );
+  });
+
+  test('補助技の効果の式を評価し、評価できない式と負の回復は 0 にする', () {
+    Move supportMove({
+      Map<StatKind, String> selfStatChanges = const {},
+      Map<StatKind, String> opponentStatChanges = const {},
+      String? selfHitPointsRecovery,
+    }) => Move(
+      id: 'test_move',
+      displayName: 'テストのわざ',
+      elementTypeId: 'fire',
+      power: 0,
+      powerPoints: 10,
+      category: MoveCategory.support,
+      effectId: 'none',
+      learnableLevelMinimum: 1,
+      learnableLevelMaximum: 999,
+      specialEffect: MoveSpecialEffect(
+        power: null,
+        selfStatChanges: selfStatChanges,
+        opponentStatChanges: opponentStatChanges,
+        selfHitPointsRecovery: selfHitPointsRecovery,
+        summary: 'テストの効果',
+        rule: 'テストの規則',
+      ),
+    );
+    final move = supportMove(
+      selfStatChanges: {StatKind.attack: 'if(movesFirst, 50, 25)'},
+      opponentStatChanges: {
+        StatKind.defense: '-25',
+        StatKind.speed: 'opponent.armor',
+      },
+      selfHitPointsRecovery: 'self.maximumHitPoints / 4',
+    );
+    final result = calculateMoveStatusEffect(
+      move: move,
+      variables: testVariables(
+        move: move,
+        attackerStats: testStats(hitPoints: 120),
+      ),
+    );
+    expect(result.selfStatChanges, {StatKind.attack: 50});
+    expect(result.opponentStatChanges, {
+      StatKind.defense: -25,
+      StatKind.speed: 0,
+    });
+    expect(result.hitPointsRecovery, 30);
+    // 攻撃技 (威力の倍率だけを持つ) は変化も回復も無い
+    final attackMove = testMove(power: '150');
+    final attackResult = calculateMoveStatusEffect(
+      move: attackMove,
+      variables: testVariables(move: attackMove),
+    );
+    expect(attackResult.selfStatChanges, isEmpty);
+    expect(attackResult.opponentStatChanges, isEmpty);
+    expect(attackResult.hitPointsRecovery, 0);
+    final negativeRecovery = supportMove(selfHitPointsRecovery: '-10');
+    expect(
+      calculateMoveStatusEffect(
+        move: negativeRecovery,
+        variables: testVariables(move: negativeRecovery),
+      ).hitPointsRecovery,
+      0,
+    );
+    // 補助技は威力の倍率を持たない
+    expect(calculate(move: move), isNull);
   });
 }
