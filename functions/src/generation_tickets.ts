@@ -213,15 +213,21 @@ export const revenueCatWebhook = onRequest({ secrets: [revenueCatWebhookAuthoriz
     response.status(405).send("method not allowed");
     return;
   }
-  const result = await handleGenerationTicketWebhook(
-    {
-      firestore: getFirestore(),
-      auth: getAuth(),
-      sendMessage: ({ channel, text }) => postSlackMessage({ token: slackBotToken.value(), channel, text, fetchFunction: fetch }),
-      expectedAuthorization: revenueCatWebhookAuthorization.value(),
-      now: () => new Date(),
-    },
-    { authorization: request.get("Authorization"), body: request.body },
-  );
-  response.status(result.status).send(result.body);
+  try {
+    const result = await handleGenerationTicketWebhook(
+      {
+        firestore: getFirestore(),
+        auth: getAuth(),
+        sendMessage: ({ channel, text }) => postSlackMessage({ token: slackBotToken.value(), channel, text, fetchFunction: fetch }),
+        expectedAuthorization: revenueCatWebhookAuthorization.value(),
+        now: () => new Date(),
+      },
+      { authorization: request.get("Authorization"), body: request.body },
+    );
+    response.status(result.status).send(result.body);
+  } catch (error) {
+    // 失敗したトランザクションは何も書かないため、500 で RevenueCat に再送させても二重に足さない
+    logger.error("生成チケットの webhook の処理に失敗しました", { error });
+    response.status(500).send("internal error");
+  }
 });
