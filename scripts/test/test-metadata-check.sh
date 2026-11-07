@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # scripts/metadata_check/check_all_metadata.sh のテスト。一時ディレクトリに locale のメタデータを作り、METADATA_DIR で検査先を差し替えて
-# 日本語の文字数の数え方・keywords のバイト数・上限超え・必須ファイルの欠けと空白だけの中身・リポジトリの fastlane/metadata を確かめる。
+# 日本語の文字数の数え方・keywords のバイト数・上限超え・必須ファイルの欠けと空白だけの中身・Google Play (android/<locale>) の上限と
+# 必須ファイル・リポジトリの fastlane/metadata を確かめる。
 set -euo pipefail
 
 repo_root="$(cd "$(dirname "$0")/../.." && pwd)"
@@ -114,6 +115,67 @@ test_blank_required_file_fails() {
   pass "必須のファイルが空白と改行だけなら失敗する"
 }
 
+# 引数: 作業ディレクトリ、Google Play の locale。上限以内の必須ファイルを揃えた android/<locale> を作る
+prepare_play_locale() {
+  local locale_dir="$1/android/$2"
+  mkdir -p "$locale_dir"
+  printf 'snapmon\n' > "$locale_dir/title.txt"
+  printf '短い説明\n' > "$locale_dir/short_description.txt"
+  printf '詳しい説明\n' > "$locale_dir/full_description.txt"
+}
+
+test_play_short_description_counts_characters() {
+  local work
+  work="$(mktemp -d "$test_root/work.XXXXXX")"
+  prepare_play_locale "$work" ja-JP
+  # 80 文字 (UTF-8 で 240 バイト)。バイト数で数えると上限を超える
+  printf '%s\n' "$(printf 'あ%.0s' $(seq 1 80))" > "$work/android/ja-JP/short_description.txt"
+  if ! run_check "$work"; then
+    fail "Google Play の日本語 80 文字の short_description を上限超えにした ($(cat "$work.stdout"))"
+    return
+  fi
+  pass "Google Play の short_description は 80 文字まで通す"
+}
+
+test_play_short_description_over_limit_fails() {
+  local work
+  work="$(mktemp -d "$test_root/work.XXXXXX")"
+  prepare_play_locale "$work" ja-JP
+  printf '%s\n' "$(printf 'あ%.0s' $(seq 1 81))" > "$work/android/ja-JP/short_description.txt"
+  if run_check "$work"; then
+    fail "Google Play の 81 文字の short_description を通した"
+    return
+  fi
+  pass "Google Play の 81 文字の short_description は上限超えになる"
+}
+
+test_play_missing_required_file_fails() {
+  local work
+  work="$(mktemp -d "$test_root/work.XXXXXX")"
+  prepare_play_locale "$work" en-US
+  mv "$work/android/en-US/full_description.txt" "$work/full_description.txt.bak"
+  if run_check "$work"; then
+    fail "Google Play の full_description.txt が無いのに通した"
+    return
+  fi
+  if ! grep -q 'full_description.txt が無いか中身が空です' "$work.stdout"; then
+    fail "full_description.txt が無い時のメッセージが出ていない ($(cat "$work.stdout"))"
+    return
+  fi
+  pass "Google Play の必須のファイルが無ければ失敗する"
+}
+
+test_play_locale_is_not_checked_as_app_store() {
+  local work
+  work="$(mktemp -d "$test_root/work.XXXXXX")"
+  prepare_play_locale "$work" ja-JP
+  if ! run_check "$work"; then
+    fail "android/ の下を App Store の locale として検査した (name.txt 等を求めた) ($(cat "$work.stdout"))"
+    return
+  fi
+  pass "android/ の下は Google Play のファイルだけを求める"
+}
+
 test_repository_metadata_passes() {
   if ! bash "$check" > /dev/null 2>&1; then
     fail "リポジトリの fastlane/metadata が検査を通らない ($(bash "$check" 2>&1 || true))"
@@ -128,6 +190,10 @@ test_keywords_count_bytes
 test_newlines_inside_text_are_counted
 test_missing_required_file_fails
 test_blank_required_file_fails
+test_play_short_description_counts_characters
+test_play_short_description_over_limit_fails
+test_play_missing_required_file_fails
+test_play_locale_is_not_checked_as_app_store
 test_repository_metadata_passes
 
 if [ "$failures" -ne 0 ]; then
