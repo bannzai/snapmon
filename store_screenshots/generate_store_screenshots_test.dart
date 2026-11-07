@@ -274,16 +274,16 @@ Future<List<int>> _encodeOpaquePng({
   required Key key,
   required double pixelRatio,
 }) async {
-  final boundary = tester.renderObject<RenderRepaintBoundary>(find.byKey(key));
-  final capturedImage = await boundary.toImage(pixelRatio: pixelRatio);
-  final rgbaBytes = await capturedImage.toByteData(
-    format: ui.ImageByteFormat.rawRgba,
-  );
+  final capturedImage = await tester
+      .renderObject<RenderRepaintBoundary>(find.byKey(key))
+      .toImage(pixelRatio: pixelRatio);
   final png = image_codec.encodePng(
     image_codec.Image.fromBytes(
       width: capturedImage.width,
       height: capturedImage.height,
-      bytes: rgbaBytes!.buffer,
+      bytes: (await capturedImage.toByteData(
+        format: ui.ImageByteFormat.rawRgba,
+      ))!.buffer,
       numChannels: 4,
       order: image_codec.ChannelOrder.rgba,
     ).convert(numChannels: 3),
