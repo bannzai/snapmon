@@ -177,7 +177,11 @@ export function buildLearnset({
   for (const [elementOrder, elementTypeId] of elementTypeIds.entries()) {
     const probabilities = moveProbabilitiesByElement[elementTypeId] ?? {};
     const bestMoveByLevel = new Map<number, MasterMove>();
-    for (const move of moves.filter((candidate) => candidate.elementTypeId === elementTypeId && candidate.learnableLevelMinimum > STARTING_LEVEL)) {
+    // 補助技は第 1 属性の 1 件だけにする。技の枠は開放の新しい 4 つで、2 属性の補助技が両方入ると攻撃技が 2 つに減るため
+    for (const move of moves.filter(
+      (candidate) =>
+        candidate.elementTypeId === elementTypeId && candidate.learnableLevelMinimum > STARTING_LEVEL && (candidate.category !== "support" || elementOrder === 0),
+    )) {
       const current = bestMoveByLevel.get(move.learnableLevelMinimum);
       if (!current || (probabilities[move.id] ?? 0) > (probabilities[current.id] ?? 0)) {
         bestMoveByLevel.set(move.learnableLevelMinimum, move);

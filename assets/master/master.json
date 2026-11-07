@@ -1,5 +1,5 @@
 {
-  "version": 6,
+  "version": 7,
   "elementTypes": [
     {
       "id": "fire",
@@ -834,6 +834,106 @@
       "rationale": "鉄を溶かす溶鉱炉の熱で焼く技で、熱の量が最も大きいため炎の最も強い技にした"
     },
     {
+      "id": "fire_1e",
+      "displayName": "トースタージャンプ",
+      "elementTypeId": "fire",
+      "power": 40,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "fire_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "specialEffect": {
+        "power": "if(movesFirst, 130, 100)",
+        "summary": "先に動くと強い",
+        "rule": "先に行動すると威力が上がる",
+        "rationale": "トースターは焼き上がると勢いよく飛び出すため、先に動いた時に強くなる効果にした"
+      },
+      "rationale": "焼けたパンが跳ね上がるトースターの勢いで当たる技で、熱で焼く道具のため炎の技にした"
+    },
+    {
+      "id": "fire_1f",
+      "displayName": "コンロあぶり",
+      "elementTypeId": "fire",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "fire_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "rationale": "コンロの火であぶる技で、火を使う道具のため炎の技にした"
+    },
+    {
+      "id": "fire_2b",
+      "displayName": "ストーブのねつ",
+      "elementTypeId": "fire",
+      "power": 75,
+      "powerPoints": 10,
+      "category": "attack",
+      "effectId": "fire_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200,
+      "rationale": "ストーブの熱を当て続ける技で、暖房の熱のため炎の技にした"
+    },
+    {
+      "id": "fire_s1",
+      "displayName": "あつあつスープ",
+      "elementTypeId": "fire",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "fire_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "体が温まると力が出るため、自分の攻撃を上げる効果にした"
+      },
+      "rationale": "温かいスープを飲んで力を出す技で、温かい料理のため炎の技にした"
+    },
+    {
+      "id": "fire_s2",
+      "displayName": "ろうそくたらし",
+      "elementTypeId": "fire",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "fire_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "固い表面を溶けたろうで覆って柔らかくするため、相手の防御を下げる効果にした"
+      },
+      "rationale": "ろうそくの溶けたろうを垂らす技で、火で溶かすため炎の技にした"
+    },
+    {
+      "id": "fire_s3",
+      "displayName": "ゆたんぽぬくぬく",
+      "elementTypeId": "fire",
+      "power": 0,
+      "powerPoints": 5,
+      "category": "support",
+      "effectId": "fire_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfHitPointsRecovery": "self.maximumHitPoints / 4",
+        "summary": "HP を回復する",
+        "rule": "最大 HP の 4 分の 1 を回復する",
+        "rationale": "温まって疲れが取れるため、HP を回復する効果にした"
+      },
+      "rationale": "湯たんぽで温まって休む技で、温かい物のため炎の技にした"
+    },
+    {
       "id": "water_1",
       "displayName": "しずくだま",
       "elementTypeId": "water",
@@ -916,6 +1016,106 @@
       "learnableLevelMinimum": 100,
       "learnableLevelMaximum": 999,
       "rationale": "大きな津波で押し流す技で、水の量と勢いが最も大きいため水の最も強い技にした"
+    },
+    {
+      "id": "water_1e",
+      "displayName": "せんめんきバシャ",
+      "elementTypeId": "water",
+      "power": 40,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "water_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "specialEffect": {
+        "power": "100 + 100 * (opponent.maximumHitPoints - opponent.hitPoints) / opponent.maximumHitPoints",
+        "summary": "相手が弱るほど強い",
+        "rule": "相手の HP が減っているほど威力が上がる",
+        "rationale": "洗面器の水は弱った相手の体に染み込むため、相手の HP が減っているほど強くなる効果にした"
+      },
+      "rationale": "洗面器の水をかける技で、水をためる道具のため水の技にした"
+    },
+    {
+      "id": "water_1f",
+      "displayName": "すいとうアタック",
+      "elementTypeId": "water",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "water_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "rationale": "水筒をぶつける技で、水を入れて運ぶ物のため水の技にした"
+    },
+    {
+      "id": "water_2b",
+      "displayName": "ふろおけざぶん",
+      "elementTypeId": "water",
+      "power": 75,
+      "powerPoints": 10,
+      "category": "attack",
+      "effectId": "water_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200,
+      "rationale": "風呂桶いっぱいの湯を浴びせる技で、大量の水のため水の技にした"
+    },
+    {
+      "id": "water_s1",
+      "displayName": "どろみずぬかるみ",
+      "elementTypeId": "water",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "water_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "ぬかるみで足を取られて動きが鈍るため、相手の素早さを下げる効果にした"
+      },
+      "rationale": "足元を泥水でぬかるませる技で、水が土を緩めるため水の技にした"
+    },
+    {
+      "id": "water_s2",
+      "displayName": "コップいっぱいのみず",
+      "elementTypeId": "water",
+      "power": 0,
+      "powerPoints": 5,
+      "category": "support",
+      "effectId": "water_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfHitPointsRecovery": "self.maximumHitPoints / 4",
+        "summary": "HP を回復する",
+        "rule": "最大 HP の 4 分の 1 を回復する",
+        "rationale": "水を飲むと元気が戻るため、HP を回復する効果にした"
+      },
+      "rationale": "コップの水を飲んで休む技で、飲み水のため水の技にした"
+    },
+    {
+      "id": "water_s3",
+      "displayName": "みずびたし",
+      "elementTypeId": "water",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "water_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "水を吸った物はふやけて柔らかくなるため、相手の防御を下げる効果にした"
+      },
+      "rationale": "相手を水浸しにする技で、水をかけるため水の技にした"
     },
     {
       "id": "grass_1",
@@ -1002,6 +1202,106 @@
       "rationale": "地中に張った根っこが荒れ狂う技で、植物の土台ごと動かすため草の最も強い技にした"
     },
     {
+      "id": "grass_1e",
+      "displayName": "しばふスライド",
+      "elementTypeId": "grass",
+      "power": 40,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "grass_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "specialEffect": {
+        "power": "if(movesFirst, 130, 100)",
+        "summary": "先に動くと強い",
+        "rule": "先に行動すると威力が上がる",
+        "rationale": "芝生は滑りやすく相手より先に滑り込めるため、先に動いた時に強くなる効果にした"
+      },
+      "rationale": "芝生の上を滑って当たる技で、草が生えた地面のため草の技にした"
+    },
+    {
+      "id": "grass_1f",
+      "displayName": "くさぶえ",
+      "elementTypeId": "grass",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "grass_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "rationale": "草笛を吹いて音をぶつける技で、草の葉で鳴らすため草の技にした"
+    },
+    {
+      "id": "grass_2b",
+      "displayName": "くさかりがま",
+      "elementTypeId": "grass",
+      "power": 75,
+      "powerPoints": 10,
+      "category": "attack",
+      "effectId": "grass_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200,
+      "rationale": "伸びた草を刈る鎌の動きで払う技で、草を相手にする道具のため草の技にした"
+    },
+    {
+      "id": "grass_s1",
+      "displayName": "からみぐさ",
+      "elementTypeId": "grass",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "grass_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "絡んだ草で足が動かしにくくなるため、相手の素早さを下げる効果にした"
+      },
+      "rationale": "足に草を絡ませる技で、伸びる草のため草の技にした"
+    },
+    {
+      "id": "grass_s2",
+      "displayName": "ハーブティー",
+      "elementTypeId": "grass",
+      "power": 0,
+      "powerPoints": 5,
+      "category": "support",
+      "effectId": "grass_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfHitPointsRecovery": "self.maximumHitPoints / 4",
+        "summary": "HP を回復する",
+        "rule": "最大 HP の 4 分の 1 を回復する",
+        "rationale": "ハーブのお茶で体が休まるため、HP を回復する効果にした"
+      },
+      "rationale": "ハーブのお茶を飲んで休む技で、草の葉を使うため草の技にした"
+    },
+    {
+      "id": "grass_s3",
+      "displayName": "やさいのちから",
+      "elementTypeId": "grass",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "grass_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "野菜で栄養をとると力がつくため、自分の攻撃を上げる効果にした"
+      },
+      "rationale": "野菜を食べて力をつける技で、畑の草のため草の技にした"
+    },
+    {
       "id": "thunder_1",
       "displayName": "せいでんきタッチ",
       "elementTypeId": "thunder",
@@ -1084,6 +1384,108 @@
       "learnableLevelMinimum": 100,
       "learnableLevelMaximum": 999,
       "rationale": "高圧電流の火花を放つ技で、電気の量が最も大きいため雷の最も強い技にした"
+    },
+    {
+      "id": "thunder_1e",
+      "displayName": "フラッシュたき",
+      "elementTypeId": "thunder",
+      "power": 40,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "thunder_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "specialEffect": {
+        "power": "if(movesFirst, 130, 100)",
+        "summary": "先に動くと強い",
+        "rule": "先に行動すると威力が上がる",
+        "rationale": "フラッシュは一瞬で光るため、先に動いた時に強くなる効果にした"
+      },
+      "rationale": "カメラのフラッシュを焚く技で、電気で光らせるため雷の技にした"
+    },
+    {
+      "id": "thunder_1f",
+      "displayName": "でんきマッサージ",
+      "elementTypeId": "thunder",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "thunder_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "rationale": "電気のマッサージ器を押し当てる技で、電気で動く物のため雷の技にした"
+    },
+    {
+      "id": "thunder_2b",
+      "displayName": "たこあしはいせん",
+      "elementTypeId": "thunder",
+      "power": 75,
+      "powerPoints": 10,
+      "category": "attack",
+      "effectId": "thunder_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200,
+      "rationale": "たこ足配線から電気を流す技で、電気をまとめて流すため雷の技にした"
+    },
+    {
+      "id": "thunder_s1",
+      "displayName": "じゅうでんちゅう",
+      "elementTypeId": "thunder",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "thunder_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "電気がたまると強く動けるため、自分の攻撃を上げる効果にした"
+      },
+      "rationale": "電池を充電して力をためる技で、電気をためるため雷の技にした"
+    },
+    {
+      "id": "thunder_s2",
+      "displayName": "しびれびりびり",
+      "elementTypeId": "thunder",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "thunder_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "しびれて体が思うように動かないため、相手の素早さを下げる効果にした"
+      },
+      "rationale": "弱い電気でしびれさせる技で、電気を流すため雷の技にした"
+    },
+    {
+      "id": "thunder_s3",
+      "displayName": "ショートさせる",
+      "elementTypeId": "thunder",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "thunder_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "ショートした機械は守りの働きが止まるため、相手の防御を下げる効果にした"
+      },
+      "rationale": "回路をショートさせる技で、電気の故障のため雷の技にした"
     },
     {
       "id": "earth_1",
@@ -1170,6 +1572,106 @@
       "rationale": "岩盤を落とす技で、石の重さが最も大きいため土の最も強い技にした"
     },
     {
+      "id": "earth_1e",
+      "displayName": "うえきばちおとし",
+      "elementTypeId": "earth",
+      "power": 40,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "earth_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "specialEffect": {
+        "power": "if(opponent.defense > self.attack, 150, 100)",
+        "summary": "硬い相手に強い",
+        "rule": "相手の防御が自分の攻撃より高いと威力が上がる",
+        "rationale": "重い植木鉢は硬い物も割るため、硬い相手に強くなる効果にした"
+      },
+      "rationale": "植木鉢を落とす技で、土を入れた鉢のため土の技にした"
+    },
+    {
+      "id": "earth_1f",
+      "displayName": "すなばすべり",
+      "elementTypeId": "earth",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "earth_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "rationale": "砂場の砂で滑り込む技で、砂のため土の技にした"
+    },
+    {
+      "id": "earth_2b",
+      "displayName": "レンガつみおとし",
+      "elementTypeId": "earth",
+      "power": 75,
+      "powerPoints": 10,
+      "category": "attack",
+      "effectId": "earth_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200,
+      "rationale": "積んだレンガを崩して落とす技で、土を焼いた物のため土の技にした"
+    },
+    {
+      "id": "earth_s1",
+      "displayName": "すなぼこり",
+      "elementTypeId": "earth",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "earth_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "砂が入り込んで守りの隙間を作るため、相手の防御を下げる効果にした"
+      },
+      "rationale": "砂ぼこりを巻き上げて浴びせる技で、砂のため土の技にした"
+    },
+    {
+      "id": "earth_s2",
+      "displayName": "どろだんごこね",
+      "elementTypeId": "earth",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "earth_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "固い団子を作るほど打ち込む力が増すため、自分の攻撃を上げる効果にした"
+      },
+      "rationale": "泥団子を固く丸める技で、土をこねるため土の技にした"
+    },
+    {
+      "id": "earth_s3",
+      "displayName": "おんせんつかり",
+      "elementTypeId": "earth",
+      "power": 0,
+      "powerPoints": 5,
+      "category": "support",
+      "effectId": "earth_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfHitPointsRecovery": "self.maximumHitPoints / 4",
+        "summary": "HP を回復する",
+        "rule": "最大 HP の 4 分の 1 を回復する",
+        "rationale": "温泉につかると疲れが取れるため、HP を回復する効果にした"
+      },
+      "rationale": "温泉につかって休む技で、地面から湧く湯のため土の技にした"
+    },
+    {
       "id": "steel_1",
       "displayName": "ブリキパンチ",
       "elementTypeId": "steel",
@@ -1252,6 +1754,108 @@
       "learnableLevelMinimum": 100,
       "learnableLevelMaximum": 999,
       "rationale": "金属の頭のハンマーを大きく振って打つ技で、動く仕組みの無い金属の道具のため鋼の最も強い技にした"
+    },
+    {
+      "id": "steel_1e",
+      "displayName": "フライパンガード",
+      "elementTypeId": "steel",
+      "power": 40,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "steel_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "specialEffect": {
+        "power": "if(not movesFirst, 140, 100)",
+        "summary": "後に動くと強い",
+        "rule": "後に行動すると威力が上がる",
+        "rationale": "フライパンは相手の攻撃を受け止めた後に打ち返すため、後に動いた時に強くなる効果にした"
+      },
+      "rationale": "フライパンで受けてから打ち返す技で、鉄の調理器具のため鋼の技にした"
+    },
+    {
+      "id": "steel_1f",
+      "displayName": "くぎうち",
+      "elementTypeId": "steel",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "steel_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "rationale": "釘を打ち込む技で、鉄の釘のため鋼の技にした"
+    },
+    {
+      "id": "steel_2b",
+      "displayName": "てっぱんプレス",
+      "elementTypeId": "steel",
+      "power": 75,
+      "powerPoints": 10,
+      "category": "attack",
+      "effectId": "steel_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200,
+      "rationale": "鉄板で押しつぶす技で、厚い鉄のため鋼の技にした"
+    },
+    {
+      "id": "steel_s1",
+      "displayName": "やすりみがき",
+      "elementTypeId": "steel",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "steel_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "刃を研ぐと切れ味が増すため、自分の攻撃を上げる効果にした"
+      },
+      "rationale": "やすりで刃を研ぐ技で、金属を削る道具のため鋼の技にした"
+    },
+    {
+      "id": "steel_s2",
+      "displayName": "さびつかせ",
+      "elementTypeId": "steel",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "steel_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "さびた金属はもろくなるため、相手の防御を下げる効果にした"
+      },
+      "rationale": "相手の表面をさびさせる技で、金属が傷むため鋼の技にした"
+    },
+    {
+      "id": "steel_s3",
+      "displayName": "おもりのくさり",
+      "elementTypeId": "steel",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "steel_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "重い鎖で動きが鈍るため、相手の素早さを下げる効果にした"
+      },
+      "rationale": "重い鎖を巻きつける技で、鉄の鎖のため鋼の技にした"
     },
     {
       "id": "wood_1",
@@ -1338,6 +1942,106 @@
       "rationale": "大きな扇 (木や竹の骨) のしなりで打つ技で、木のしなやかさを生かすため木の最も強い技にした"
     },
     {
+      "id": "wood_1e",
+      "displayName": "けんだまパチン",
+      "elementTypeId": "wood",
+      "power": 40,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "wood_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "specialEffect": {
+        "power": "100 + 100 * (move.maximumPowerPoints - move.remainingPowerPoints) / (move.maximumPowerPoints - 1)",
+        "summary": "PP が減るほど強い",
+        "rule": "この技の残り PP が少ないほど威力が上がる",
+        "rationale": "けん玉は何度も振るうちに狙いが定まるため、この技の残り PP が少ないほど強くなる効果にした"
+      },
+      "rationale": "けん玉の玉を打ち当てる技で、木のおもちゃのため木の技にした"
+    },
+    {
+      "id": "wood_1f",
+      "displayName": "わりばしつつき",
+      "elementTypeId": "wood",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "wood_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "rationale": "割り箸でつつく技で、木を割った物のため木の技にした"
+    },
+    {
+      "id": "wood_2b",
+      "displayName": "たんすたおし",
+      "elementTypeId": "wood",
+      "power": 75,
+      "powerPoints": 10,
+      "category": "attack",
+      "effectId": "wood_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200,
+      "rationale": "木のたんすを倒して当てる技で、大きな木の家具のため木の技にした"
+    },
+    {
+      "id": "wood_s1",
+      "displayName": "かんなけずり",
+      "elementTypeId": "wood",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "wood_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "表面を削られると守りが薄くなるため、相手の防御を下げる効果にした"
+      },
+      "rationale": "かんなで表面を削る技で、木を削る道具のため木の技にした"
+    },
+    {
+      "id": "wood_s2",
+      "displayName": "もりのこかげ",
+      "elementTypeId": "wood",
+      "power": 0,
+      "powerPoints": 5,
+      "category": "support",
+      "effectId": "wood_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfHitPointsRecovery": "self.maximumHitPoints / 4",
+        "summary": "HP を回復する",
+        "rule": "最大 HP の 4 分の 1 を回復する",
+        "rationale": "木陰で休むと疲れが取れるため、HP を回復する効果にした"
+      },
+      "rationale": "森の木陰で休む技で、木が作る日陰のため木の技にした"
+    },
+    {
+      "id": "wood_s3",
+      "displayName": "まきわりじゅんび",
+      "elementTypeId": "wood",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "wood_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "構えて力をためるため、自分の攻撃を上げる効果にした"
+      },
+      "rationale": "薪を割る前に斧を構える技で、木を割る作業のため木の技にした"
+    },
+    {
       "id": "light_1",
       "displayName": "かがみのはんしゃ",
       "elementTypeId": "light",
@@ -1420,6 +2124,106 @@
       "learnableLevelMinimum": 100,
       "learnableLevelMaximum": 999,
       "rationale": "夜空を照らすサーチライトの強い光で押す技で、光の量が最も大きいため光の最も強い技にした"
+    },
+    {
+      "id": "light_1e",
+      "displayName": "ろうそくのあかり",
+      "elementTypeId": "light",
+      "power": 40,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "light_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "specialEffect": {
+        "power": "100 + 100 * (opponent.maximumHitPoints - opponent.hitPoints) / opponent.maximumHitPoints",
+        "summary": "相手が弱るほど強い",
+        "rule": "相手の HP が減っているほど威力が上がる",
+        "rationale": "弱った相手ほど明かりの中で姿がはっきり見えるため、相手の HP が減っているほど強くなる効果にした"
+      },
+      "rationale": "ろうそくの明かりで照らす技で、光を出す物のため光の技にした"
+    },
+    {
+      "id": "light_1f",
+      "displayName": "ほたるのひかり",
+      "elementTypeId": "light",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "light_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "rationale": "蛍のような小さな光を当てる技で、光る虫の光のため光の技にした"
+    },
+    {
+      "id": "light_2b",
+      "displayName": "スポットライト",
+      "elementTypeId": "light",
+      "power": 75,
+      "powerPoints": 10,
+      "category": "attack",
+      "effectId": "light_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200,
+      "rationale": "舞台のスポットライトを浴びせる技で、強い照明のため光の技にした"
+    },
+    {
+      "id": "light_s1",
+      "displayName": "まぶしいフラッシュ",
+      "elementTypeId": "light",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "light_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "目がくらんで動き出しが遅れるため、相手の素早さを下げる効果にした"
+      },
+      "rationale": "まぶしい光で目をくらませる技で、強い光のため光の技にした"
+    },
+    {
+      "id": "light_s2",
+      "displayName": "ひなたぼっこ",
+      "elementTypeId": "light",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "light_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "日を浴びて元気が出るため、自分の攻撃を上げる効果にした"
+      },
+      "rationale": "日なたで光を浴びて力をためる技で、日の光のため光の技にした"
+    },
+    {
+      "id": "light_s3",
+      "displayName": "あさひのめざめ",
+      "elementTypeId": "light",
+      "power": 0,
+      "powerPoints": 5,
+      "category": "support",
+      "effectId": "light_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfHitPointsRecovery": "self.maximumHitPoints / 4",
+        "summary": "HP を回復する",
+        "rule": "最大 HP の 4 分の 1 を回復する",
+        "rationale": "よく眠って朝日で目覚めると元気が戻るため、HP を回復する効果にした"
+      },
+      "rationale": "朝日を浴びて目覚める技で、朝の光のため光の技にした"
     },
     {
       "id": "dark_1",
@@ -1506,6 +2310,106 @@
       "rationale": "深夜の真っ暗な闇で押しつぶす技で、闇の深さが最も大きいため闇の最も強い技にした"
     },
     {
+      "id": "dark_1e",
+      "displayName": "ていでんのやみ",
+      "elementTypeId": "dark",
+      "power": 40,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "dark_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "specialEffect": {
+        "power": "if(not movesFirst, 140, 100)",
+        "summary": "後に動くと強い",
+        "rule": "後に行動すると威力が上がる",
+        "rationale": "暗闇で相手の動きを見てから当たるため、後に動いた時に強くなる効果にした"
+      },
+      "rationale": "停電で真っ暗にして当たる技で、明かりが消えるため闇の技にした"
+    },
+    {
+      "id": "dark_1f",
+      "displayName": "アイマスクかくし",
+      "elementTypeId": "dark",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "dark_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "rationale": "アイマスクで目を覆う技で、視界を暗くするため闇の技にした"
+    },
+    {
+      "id": "dark_2b",
+      "displayName": "あんまくおろし",
+      "elementTypeId": "dark",
+      "power": 75,
+      "powerPoints": 10,
+      "category": "attack",
+      "effectId": "dark_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200,
+      "rationale": "暗幕を下ろして包む技で、光を遮る布のため闇の技にした"
+    },
+    {
+      "id": "dark_s1",
+      "displayName": "まっくらまよい",
+      "elementTypeId": "dark",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "dark_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "暗くて道が分からず動きが遅れるため、相手の素早さを下げる効果にした"
+      },
+      "rationale": "真っ暗にして迷わせる技で、暗闇のため闇の技にした"
+    },
+    {
+      "id": "dark_s2",
+      "displayName": "こわいはなし",
+      "elementTypeId": "dark",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "dark_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "怖がって身構えが崩れるため、相手の防御を下げる効果にした"
+      },
+      "rationale": "怖い話を聞かせる技で、夜の暗さにまつわるため闇の技にした"
+    },
+    {
+      "id": "dark_s3",
+      "displayName": "ひるねのくらがり",
+      "elementTypeId": "dark",
+      "power": 0,
+      "powerPoints": 5,
+      "category": "support",
+      "effectId": "dark_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfHitPointsRecovery": "self.maximumHitPoints / 4",
+        "summary": "HP を回復する",
+        "rule": "最大 HP の 4 分の 1 を回復する",
+        "rationale": "眠ると疲れが取れるため、HP を回復する効果にした"
+      },
+      "rationale": "暗い部屋で昼寝をする技で、暗くして休むため闇の技にした"
+    },
+    {
       "id": "poison_1",
       "displayName": "せんざいのあわ",
       "elementTypeId": "poison",
@@ -1588,6 +2492,106 @@
       "learnableLevelMinimum": 100,
       "learnableLevelMaximum": 999,
       "rationale": "強い薬品の霧で包む技で、毒の濃さが最も大きいため毒の最も強い技にした"
+    },
+    {
+      "id": "poison_1e",
+      "displayName": "カビのほうし",
+      "elementTypeId": "poison",
+      "power": 40,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "poison_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "specialEffect": {
+        "power": "100 + 100 * (move.maximumPowerPoints - move.remainingPowerPoints) / (move.maximumPowerPoints - 1)",
+        "summary": "PP が減るほど強い",
+        "rule": "この技の残り PP が少ないほど威力が上がる",
+        "rationale": "カビは時間がたつほど広がるため、この技の残り PP が少ないほど強くなる効果にした"
+      },
+      "rationale": "カビの胞子を振りまく技で、体に悪い物のため毒の技にした"
+    },
+    {
+      "id": "poison_1f",
+      "displayName": "ひょうはくスプラッシュ",
+      "elementTypeId": "poison",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "poison_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "rationale": "漂白剤を飛ばす技で、強い薬品のため毒の技にした"
+    },
+    {
+      "id": "poison_2b",
+      "displayName": "ふりょうのかんづめ",
+      "elementTypeId": "poison",
+      "power": 75,
+      "powerPoints": 10,
+      "category": "attack",
+      "effectId": "poison_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200,
+      "rationale": "膨らんだ古い缶詰の中身を浴びせる技で、傷んだ食べ物のため毒の技にした"
+    },
+    {
+      "id": "poison_s1",
+      "displayName": "とかすくすり",
+      "elementTypeId": "poison",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "poison_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "表面が溶けて守りが弱くなるため、相手の防御を下げる効果にした"
+      },
+      "rationale": "物を溶かす薬をかける技で、強い薬品のため毒の技にした"
+    },
+    {
+      "id": "poison_s2",
+      "displayName": "ねむけのかおり",
+      "elementTypeId": "poison",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "poison_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "眠くなって動きが鈍るため、相手の素早さを下げる効果にした"
+      },
+      "rationale": "眠くなる匂いを漂わせる技で、体に効く薬のため毒の技にした"
+    },
+    {
+      "id": "poison_s3",
+      "displayName": "げどくのやくそう",
+      "elementTypeId": "poison",
+      "power": 0,
+      "powerPoints": 5,
+      "category": "support",
+      "effectId": "poison_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfHitPointsRecovery": "self.maximumHitPoints / 4",
+        "summary": "HP を回復する",
+        "rule": "最大 HP の 4 分の 1 を回復する",
+        "rationale": "薬草で体の調子が戻るため、HP を回復する効果にした"
+      },
+      "rationale": "毒消しの薬草をかむ技で、毒を扱う知恵のため毒の技にした"
     },
     {
       "id": "sound_1",
@@ -1674,6 +2678,108 @@
       "rationale": "スピーカーの大音響で吹き飛ばす技で、音の大きさが最も大きいため音の最も強い技にした"
     },
     {
+      "id": "sound_1e",
+      "displayName": "クラッカーパン",
+      "elementTypeId": "sound",
+      "power": 40,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "sound_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "specialEffect": {
+        "power": "if(movesFirst, 130, 100)",
+        "summary": "先に動くと強い",
+        "rule": "先に行動すると威力が上がる",
+        "rationale": "クラッカーの音は相手が動く前に驚かせるため、先に動いた時に強くなる効果にした"
+      },
+      "rationale": "クラッカーを鳴らす技で、大きな破裂音のため音の技にした"
+    },
+    {
+      "id": "sound_1f",
+      "displayName": "タンバリンうち",
+      "elementTypeId": "sound",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "sound_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "rationale": "タンバリンを打ち鳴らす技で、楽器の音のため音の技にした"
+    },
+    {
+      "id": "sound_2b",
+      "displayName": "スピーカーうなり",
+      "elementTypeId": "sound",
+      "power": 75,
+      "powerPoints": 10,
+      "category": "attack",
+      "effectId": "sound_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200,
+      "rationale": "スピーカーの大音量をぶつける技で、音を大きくする機械のため音の技にした"
+    },
+    {
+      "id": "sound_s1",
+      "displayName": "おうえんのうた",
+      "elementTypeId": "sound",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "sound_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "応援されると力が出るため、自分の攻撃を上げる効果にした"
+      },
+      "rationale": "応援の歌で気合いを入れる技で、歌声のため音の技にした"
+    },
+    {
+      "id": "sound_s2",
+      "displayName": "こもりうた",
+      "elementTypeId": "sound",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "sound_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "眠くなって動きが鈍るため、相手の素早さを下げる効果にした"
+      },
+      "rationale": "子守歌を聞かせる技で、穏やかな歌のため音の技にした"
+    },
+    {
+      "id": "sound_s3",
+      "displayName": "キーンとおと",
+      "elementTypeId": "sound",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "sound_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "耳をふさいで守りがおろそかになるため、相手の防御を下げる効果にした"
+      },
+      "rationale": "耳に響く高い音を出す技で、不快な音のため音の技にした"
+    },
+    {
       "id": "beast_1",
       "displayName": "ねこパンチ",
       "elementTypeId": "beast",
@@ -1756,6 +2862,106 @@
       "learnableLevelMinimum": 100,
       "learnableLevelMaximum": 999,
       "rationale": "獣の大きな咆哮で震わせる技で、獣の力が最も大きいため獣の最も強い技にした"
+    },
+    {
+      "id": "beast_1e",
+      "displayName": "いぬのかけより",
+      "elementTypeId": "beast",
+      "power": 40,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "beast_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "specialEffect": {
+        "power": "if(movesFirst, 130, 100)",
+        "summary": "先に動くと強い",
+        "rule": "先に行動すると威力が上がる",
+        "rationale": "犬は飛び出しが速いため、先に動いた時に強くなる効果にした"
+      },
+      "rationale": "犬が駆け寄ってぶつかる技で、動物の勢いのため獣の技にした"
+    },
+    {
+      "id": "beast_1f",
+      "displayName": "うさぎキック",
+      "elementTypeId": "beast",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "beast_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "rationale": "うさぎの後ろ足で蹴る技で、動物の足のため獣の技にした"
+    },
+    {
+      "id": "beast_2b",
+      "displayName": "くまのだきつき",
+      "elementTypeId": "beast",
+      "power": 75,
+      "powerPoints": 10,
+      "category": "attack",
+      "effectId": "beast_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200,
+      "rationale": "熊が力強く抱きつく技で、大きな動物の力のため獣の技にした"
+    },
+    {
+      "id": "beast_s1",
+      "displayName": "ねこのつめみがき",
+      "elementTypeId": "beast",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "beast_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "爪を研ぐと引っかく力が増すため、自分の攻撃を上げる効果にした"
+      },
+      "rationale": "猫が爪を磨く技で、動物の爪のため獣の技にした"
+    },
+    {
+      "id": "beast_s2",
+      "displayName": "うなりごえ",
+      "elementTypeId": "beast",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "beast_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "威嚇されて身構えが崩れるため、相手の防御を下げる効果にした"
+      },
+      "rationale": "低くうなって威嚇する技で、動物の威嚇のため獣の技にした"
+    },
+    {
+      "id": "beast_s3",
+      "displayName": "けづくろい",
+      "elementTypeId": "beast",
+      "power": 0,
+      "powerPoints": 5,
+      "category": "support",
+      "effectId": "beast_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfHitPointsRecovery": "self.maximumHitPoints / 4",
+        "summary": "HP を回復する",
+        "rule": "最大 HP の 4 分の 1 を回復する",
+        "rationale": "毛を整えて落ち着くと元気が戻るため、HP を回復する効果にした"
+      },
+      "rationale": "毛づくろいをして落ち着く技で、動物の習性のため獣の技にした"
     },
     {
       "id": "bug_1",
@@ -1842,6 +3048,108 @@
       "rationale": "セミの大合唱で耳を圧倒する技で、虫の数が最も多いため虫の最も強い技にした"
     },
     {
+      "id": "bug_1e",
+      "displayName": "テントウのとびたち",
+      "elementTypeId": "bug",
+      "power": 40,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "bug_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "specialEffect": {
+        "power": "if(movesFirst, 130, 100)",
+        "summary": "先に動くと強い",
+        "rule": "先に行動すると威力が上がる",
+        "rationale": "てんとう虫は危ないと素早く飛び立つため、先に動いた時に強くなる効果にした"
+      },
+      "rationale": "てんとう虫が飛び立ってぶつかる技で、虫の羽のため虫の技にした"
+    },
+    {
+      "id": "bug_1f",
+      "displayName": "ダンゴムシころがり",
+      "elementTypeId": "bug",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "bug_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "rationale": "丸まったダンゴムシが転がって当たる技で、虫のため虫の技にした"
+    },
+    {
+      "id": "bug_2b",
+      "displayName": "カマキリのかま",
+      "elementTypeId": "bug",
+      "power": 75,
+      "powerPoints": 10,
+      "category": "attack",
+      "effectId": "bug_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200,
+      "rationale": "カマキリの鎌で挟む技で、虫の前足のため虫の技にした"
+    },
+    {
+      "id": "bug_s1",
+      "displayName": "みのむしまき",
+      "elementTypeId": "bug",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "bug_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "包まれて身動きが取りにくくなるため、相手の素早さを下げる効果にした"
+      },
+      "rationale": "蓑で包み込む技で、虫の作る蓑のため虫の技にした"
+    },
+    {
+      "id": "bug_s2",
+      "displayName": "さなぎのめざめ",
+      "elementTypeId": "bug",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "bug_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "さなぎの間に力をためるため、自分の攻撃を上げる効果にした"
+      },
+      "rationale": "さなぎから力を蓄えて出てくる技で、虫の成長のため虫の技にした"
+    },
+    {
+      "id": "bug_s3",
+      "displayName": "シロアリかじり",
+      "elementTypeId": "bug",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "bug_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "中をかじられてもろくなるため、相手の防御を下げる効果にした"
+      },
+      "rationale": "シロアリが中身をかじる技で、木を食べる虫のため虫の技にした"
+    },
+    {
       "id": "bird_1",
       "displayName": "くちばしコツコツ",
       "elementTypeId": "bird",
@@ -1924,6 +3232,106 @@
       "learnableLevelMinimum": 100,
       "learnableLevelMaximum": 999,
       "rationale": "大鷲の爪で掴んで引き裂く技で、鳥の力が最も大きいため鳥の最も強い技にした"
+    },
+    {
+      "id": "bird_1e",
+      "displayName": "ツバメのせんかい",
+      "elementTypeId": "bird",
+      "power": 40,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "bird_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "specialEffect": {
+        "power": "if(not movesFirst, 140, 100)",
+        "summary": "後に動くと強い",
+        "rule": "後に行動すると威力が上がる",
+        "rationale": "ツバメは相手の動きを見てから向きを変えるため、後に動いた時に強くなる効果にした"
+      },
+      "rationale": "ツバメが急に向きを変えて当たる技で、鳥の飛び方のため鳥の技にした"
+    },
+    {
+      "id": "bird_1f",
+      "displayName": "はとのまめまき",
+      "elementTypeId": "bird",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "bird_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "rationale": "鳩がついばむ豆をまく技で、鳥のえさのため鳥の技にした"
+    },
+    {
+      "id": "bird_2b",
+      "displayName": "ペリカンのくちばし",
+      "elementTypeId": "bird",
+      "power": 75,
+      "powerPoints": 10,
+      "category": "attack",
+      "effectId": "bird_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200,
+      "rationale": "ペリカンの大きなくちばしで挟む技で、鳥のくちばしのため鳥の技にした"
+    },
+    {
+      "id": "bird_s1",
+      "displayName": "はねぶとん",
+      "elementTypeId": "bird",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "bird_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "ふかふかに包まれて動きが鈍るため、相手の素早さを下げる効果にした"
+      },
+      "rationale": "羽毛の布団でくるむ技で、鳥の羽毛のため鳥の技にした"
+    },
+    {
+      "id": "bird_s2",
+      "displayName": "すばこでやすむ",
+      "elementTypeId": "bird",
+      "power": 0,
+      "powerPoints": 5,
+      "category": "support",
+      "effectId": "bird_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfHitPointsRecovery": "self.maximumHitPoints / 4",
+        "summary": "HP を回復する",
+        "rule": "最大 HP の 4 分の 1 を回復する",
+        "rationale": "巣で休むと疲れが取れるため、HP を回復する効果にした"
+      },
+      "rationale": "巣箱に入って休む技で、鳥のすみかのため鳥の技にした"
+    },
+    {
+      "id": "bird_s3",
+      "displayName": "はねをひろげる",
+      "elementTypeId": "bird",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "bird_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "羽を広げて勢いをつけるため、自分の攻撃を上げる効果にした"
+      },
+      "rationale": "羽を大きく広げて構える技で、鳥の羽のため鳥の技にした"
     },
     {
       "id": "fish_1",
@@ -2010,6 +3418,106 @@
       "rationale": "クジラの潮吹きで吹き飛ばす技で、水の中の生き物の中で最も大きいため魚の最も強い技にした"
     },
     {
+      "id": "fish_1e",
+      "displayName": "イカのすみはき",
+      "elementTypeId": "fish",
+      "power": 40,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "fish_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "specialEffect": {
+        "power": "if(not sharesElementType, 120, 100)",
+        "summary": "違う属性の相手に強い",
+        "rule": "相手と同じ属性を持たないと威力が上がる",
+        "rationale": "墨は見慣れない相手ほど惑わせるため、違う属性の相手に強くなる効果にした"
+      },
+      "rationale": "イカが墨を吐く技で、海の生き物のため魚の技にした"
+    },
+    {
+      "id": "fish_1f",
+      "displayName": "きんぎょすくい",
+      "elementTypeId": "fish",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "fish_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "rationale": "金魚すくいのポイで払う技で、金魚のため魚の技にした"
+    },
+    {
+      "id": "fish_2b",
+      "displayName": "マグロのはやおよぎ",
+      "elementTypeId": "fish",
+      "power": 75,
+      "powerPoints": 10,
+      "category": "attack",
+      "effectId": "fish_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200,
+      "rationale": "マグロが速く泳いでぶつかる技で、大きな魚のため魚の技にした"
+    },
+    {
+      "id": "fish_s1",
+      "displayName": "クラゲのしびれ",
+      "elementTypeId": "fish",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "fish_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "しびれて動きが鈍るため、相手の素早さを下げる効果にした"
+      },
+      "rationale": "クラゲが触れてしびれさせる技で、海の生き物のため魚の技にした"
+    },
+    {
+      "id": "fish_s2",
+      "displayName": "ウツボのまきつき",
+      "elementTypeId": "fish",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "fish_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "巻きつかれて守りの形が崩れるため、相手の防御を下げる効果にした"
+      },
+      "rationale": "ウツボが巻きつく技で、海の魚のため魚の技にした"
+    },
+    {
+      "id": "fish_s3",
+      "displayName": "すいそうのみずかえ",
+      "elementTypeId": "fish",
+      "power": 0,
+      "powerPoints": 5,
+      "category": "support",
+      "effectId": "fish_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfHitPointsRecovery": "self.maximumHitPoints / 4",
+        "summary": "HP を回復する",
+        "rule": "最大 HP の 4 分の 1 を回復する",
+        "rationale": "きれいな水で元気が戻るため、HP を回復する効果にした"
+      },
+      "rationale": "水槽の水を替えてもらう技で、魚の住む水槽のため魚の技にした"
+    },
+    {
       "id": "ice_1",
       "displayName": "ゆきだまなげ",
       "elementTypeId": "ice",
@@ -2092,6 +3600,108 @@
       "learnableLevelMinimum": 100,
       "learnableLevelMaximum": 999,
       "rationale": "大雪のなだれで押し流す技で、雪の量が最も多いため氷の最も強い技にした"
+    },
+    {
+      "id": "ice_1e",
+      "displayName": "アイスクリームおとし",
+      "elementTypeId": "ice",
+      "power": 40,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "ice_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "specialEffect": {
+        "power": "if(sharesElementType, 150, 100)",
+        "summary": "同じ属性の相手に強い",
+        "rule": "相手と同じ属性を持つと威力が上がる",
+        "rationale": "冷たいアイスは同じ冷たさを持つ相手にくっつくため、同じ属性の相手に強くなる効果にした"
+      },
+      "rationale": "アイスクリームを落としてぶつける技で、冷たいお菓子のため氷の技にした"
+    },
+    {
+      "id": "ice_1f",
+      "displayName": "ほれいざいピタ",
+      "elementTypeId": "ice",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "ice_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "rationale": "保冷剤を押し当てる技で、冷やす物のため氷の技にした"
+    },
+    {
+      "id": "ice_2b",
+      "displayName": "れいとうこのいき",
+      "elementTypeId": "ice",
+      "power": 75,
+      "powerPoints": 10,
+      "category": "attack",
+      "effectId": "ice_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200,
+      "rationale": "冷凍庫の冷気を吹きつける技で、凍らせる機械のため氷の技にした"
+    },
+    {
+      "id": "ice_s1",
+      "displayName": "こおりのゆか",
+      "elementTypeId": "ice",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "ice_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "凍った床で足が滑って進めないため、相手の素早さを下げる効果にした"
+      },
+      "rationale": "床を凍らせて滑らせる技で、氷のため氷の技にした"
+    },
+    {
+      "id": "ice_s2",
+      "displayName": "しもやけ",
+      "elementTypeId": "ice",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "ice_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "冷えて体がこわばり守りが弱くなるため、相手の防御を下げる効果にした"
+      },
+      "rationale": "冷たさでしもやけにする技で、寒さのため氷の技にした"
+    },
+    {
+      "id": "ice_s3",
+      "displayName": "かんぷうまさつ",
+      "elementTypeId": "ice",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "ice_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "寒さで気合いが入るため、自分の攻撃を上げる効果にした"
+      },
+      "rationale": "寒風の中で体をこすって気合いを入れる技で、冷たい風のため氷の技にした"
     },
     {
       "id": "wind_1",
@@ -2178,6 +3788,106 @@
       "rationale": "嵐の突風で吹き飛ばす技で、風の強さが最も大きいため風の最も強い技にした"
     },
     {
+      "id": "wind_1e",
+      "displayName": "かざぐるまアタック",
+      "elementTypeId": "wind",
+      "power": 40,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "wind_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "specialEffect": {
+        "power": "100 + 100 * (move.maximumPowerPoints - move.remainingPowerPoints) / (move.maximumPowerPoints - 1)",
+        "summary": "PP が減るほど強い",
+        "rule": "この技の残り PP が少ないほど威力が上がる",
+        "rationale": "風車は回すほど速く回るため、この技の残り PP が少ないほど強くなる効果にした"
+      },
+      "rationale": "風車を回して当てる技で、風で回るおもちゃのため風の技にした"
+    },
+    {
+      "id": "wind_1f",
+      "displayName": "ドライヤーブロー",
+      "elementTypeId": "wind",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "wind_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "rationale": "ドライヤーの風を吹きつける技で、風を出す道具のため風の技にした"
+    },
+    {
+      "id": "wind_2b",
+      "displayName": "こいのぼりはためき",
+      "elementTypeId": "wind",
+      "power": 75,
+      "powerPoints": 10,
+      "category": "attack",
+      "effectId": "wind_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200,
+      "rationale": "こいのぼりを風ではためかせて打つ技で、風を受ける物のため風の技にした"
+    },
+    {
+      "id": "wind_s1",
+      "displayName": "せなかのかぜ",
+      "elementTypeId": "wind",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "wind_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "追い風で勢いが増すため、自分の攻撃を上げる効果にした"
+      },
+      "rationale": "背中に追い風を受けて勢いをつける技で、風のため風の技にした"
+    },
+    {
+      "id": "wind_s2",
+      "displayName": "むかいかぜ",
+      "elementTypeId": "wind",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "wind_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "向かい風で前に進みにくくなるため、相手の素早さを下げる効果にした"
+      },
+      "rationale": "向かい風を吹きつける技で、風のため風の技にした"
+    },
+    {
+      "id": "wind_s3",
+      "displayName": "そよかぜ",
+      "elementTypeId": "wind",
+      "power": 0,
+      "powerPoints": 5,
+      "category": "support",
+      "effectId": "wind_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfHitPointsRecovery": "self.maximumHitPoints / 4",
+        "summary": "HP を回復する",
+        "rule": "最大 HP の 4 分の 1 を回復する",
+        "rationale": "涼しい風で疲れが取れるため、HP を回復する効果にした"
+      },
+      "rationale": "そよ風に吹かれて休む技で、穏やかな風のため風の技にした"
+    },
+    {
       "id": "flower_1",
       "displayName": "はなびらなげ",
       "elementTypeId": "flower",
@@ -2260,6 +3970,106 @@
       "learnableLevelMinimum": 100,
       "learnableLevelMaximum": 999,
       "rationale": "満開の花が嵐のように降る技で、花の量が最も多いため花の最も強い技にした"
+    },
+    {
+      "id": "flower_1e",
+      "displayName": "たんぽぽわたぼうし",
+      "elementTypeId": "flower",
+      "power": 40,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "flower_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "specialEffect": {
+        "power": "100 + 100 * (self.maximumHitPoints - self.hitPoints) / self.maximumHitPoints",
+        "summary": "自分が弱るほど強い",
+        "rule": "自分の HP が減っているほど威力が上がる",
+        "rationale": "たんぽぽは踏まれても咲き直すため、自分の HP が減っているほど強くなる効果にした"
+      },
+      "rationale": "たんぽぽの綿毛の帽子をかぶせる技で、花のため花の技にした"
+    },
+    {
+      "id": "flower_1f",
+      "displayName": "チューリップポン",
+      "elementTypeId": "flower",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "flower_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "rationale": "チューリップの花をぽんと当てる技で、花のため花の技にした"
+    },
+    {
+      "id": "flower_2b",
+      "displayName": "あじさいのあめ",
+      "elementTypeId": "flower",
+      "power": 75,
+      "powerPoints": 10,
+      "category": "attack",
+      "effectId": "flower_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200,
+      "rationale": "あじさいの花から雨粒を降らせる技で、花のため花の技にした"
+    },
+    {
+      "id": "flower_s1",
+      "displayName": "はなのみつ",
+      "elementTypeId": "flower",
+      "power": 0,
+      "powerPoints": 5,
+      "category": "support",
+      "effectId": "flower_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfHitPointsRecovery": "self.maximumHitPoints / 4",
+        "summary": "HP を回復する",
+        "rule": "最大 HP の 4 分の 1 を回復する",
+        "rationale": "甘い蜜で元気が戻るため、HP を回復する効果にした"
+      },
+      "rationale": "花の蜜をなめる技で、花のため花の技にした"
+    },
+    {
+      "id": "flower_s2",
+      "displayName": "いいかおり",
+      "elementTypeId": "flower",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "flower_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "うっとりして動きが鈍るため、相手の素早さを下げる効果にした"
+      },
+      "rationale": "花のいい香りで和ませる技で、花の香りのため花の技にした"
+    },
+    {
+      "id": "flower_s3",
+      "displayName": "つぼみのちから",
+      "elementTypeId": "flower",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "flower_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "咲く前に力をためるため、自分の攻撃を上げる効果にした"
+      },
+      "rationale": "つぼみがふくらむ力を出す技で、花のつぼみのため花の技にした"
     },
     {
       "id": "machine_1",
@@ -2346,6 +4156,106 @@
       "rationale": "金属の歯車 (ギア) が噛み合って砕く技で、動く仕組みの部品の代表のため機械の最も強い技にした"
     },
     {
+      "id": "machine_1e",
+      "displayName": "ロボットそうじき",
+      "elementTypeId": "machine",
+      "power": 40,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "machine_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "specialEffect": {
+        "power": "if(not movesFirst, 140, 100)",
+        "summary": "後に動くと強い",
+        "rule": "後に行動すると威力が上がる",
+        "rationale": "ロボット掃除機は周りを見てから向きを変えるため、後に動いた時に強くなる効果にした"
+      },
+      "rationale": "ロボット掃除機が走って当たる技で、自動で動く機械のため機械の技にした"
+    },
+    {
+      "id": "machine_1f",
+      "displayName": "ミシンのはり",
+      "elementTypeId": "machine",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "machine_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "rationale": "ミシンの針で突く技で、縫う機械のため機械の技にした"
+    },
+    {
+      "id": "machine_2b",
+      "displayName": "ベルトコンベア",
+      "elementTypeId": "machine",
+      "power": 75,
+      "powerPoints": 10,
+      "category": "attack",
+      "effectId": "machine_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200,
+      "rationale": "ベルトコンベアで運んでぶつける技で、物を運ぶ機械のため機械の技にした"
+    },
+    {
+      "id": "machine_s1",
+      "displayName": "アップデート",
+      "elementTypeId": "machine",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "machine_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "性能が上がって力が増すため、自分の攻撃を上げる効果にした"
+      },
+      "rationale": "機械を新しくして性能を上げる技で、機械の更新のため機械の技にした"
+    },
+    {
+      "id": "machine_s2",
+      "displayName": "ぶんかい",
+      "elementTypeId": "machine",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "machine_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "部品を外されて守りが弱くなるため、相手の防御を下げる効果にした"
+      },
+      "rationale": "ねじを外して分解する技で、機械を扱う作業のため機械の技にした"
+    },
+    {
+      "id": "machine_s3",
+      "displayName": "オイルさし",
+      "elementTypeId": "machine",
+      "power": 0,
+      "powerPoints": 5,
+      "category": "support",
+      "effectId": "machine_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfHitPointsRecovery": "self.maximumHitPoints / 4",
+        "summary": "HP を回復する",
+        "rule": "最大 HP の 4 分の 1 を回復する",
+        "rationale": "油を差すと動きが戻るため、HP を回復する効果にした"
+      },
+      "rationale": "機械に油を差す技で、機械の手入れのため機械の技にした"
+    },
+    {
       "id": "sweets_1",
       "displayName": "クッキーなげ",
       "elementTypeId": "sweets",
@@ -2428,6 +4338,106 @@
       "learnableLevelMinimum": 100,
       "learnableLevelMaximum": 999,
       "rationale": "ホールケーキを丸ごと落とす技で、お菓子の大きさが最も大きいため菓子の最も強い技にした"
+    },
+    {
+      "id": "sweets_1e",
+      "displayName": "マシュマロバウンド",
+      "elementTypeId": "sweets",
+      "power": 40,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "sweets_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "specialEffect": {
+        "power": "100 + 100 * (self.maximumHitPoints - self.hitPoints) / self.maximumHitPoints",
+        "summary": "自分が弱るほど強い",
+        "rule": "自分の HP が減っているほど威力が上がる",
+        "rationale": "マシュマロは押されるほど強く跳ね返るため、自分の HP が減っているほど強くなる効果にした"
+      },
+      "rationale": "マシュマロで跳ねて当たる技で、ふわふわのお菓子のため菓子の技にした"
+    },
+    {
+      "id": "sweets_1f",
+      "displayName": "ポップコーンはじけ",
+      "elementTypeId": "sweets",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "sweets_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "rationale": "ポップコーンをはじけさせて当てる技で、お菓子のため菓子の技にした"
+    },
+    {
+      "id": "sweets_2b",
+      "displayName": "わたあめぐるぐる",
+      "elementTypeId": "sweets",
+      "power": 75,
+      "powerPoints": 10,
+      "category": "attack",
+      "effectId": "sweets_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200,
+      "rationale": "綿あめを巻きつける技で、お菓子のため菓子の技にした"
+    },
+    {
+      "id": "sweets_s1",
+      "displayName": "おやつタイム",
+      "elementTypeId": "sweets",
+      "power": 0,
+      "powerPoints": 5,
+      "category": "support",
+      "effectId": "sweets_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfHitPointsRecovery": "self.maximumHitPoints / 4",
+        "summary": "HP を回復する",
+        "rule": "最大 HP の 4 分の 1 を回復する",
+        "rationale": "おやつを食べると元気が戻るため、HP を回復する効果にした"
+      },
+      "rationale": "おやつを食べて休む技で、お菓子のため菓子の技にした"
+    },
+    {
+      "id": "sweets_s2",
+      "displayName": "ねばねばキャラメル",
+      "elementTypeId": "sweets",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "sweets_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "ねばねばで動きが鈍るため、相手の素早さを下げる効果にした"
+      },
+      "rationale": "ねばねばのキャラメルをくっつける技で、お菓子のため菓子の技にした"
+    },
+    {
+      "id": "sweets_s3",
+      "displayName": "あまいゆうわく",
+      "elementTypeId": "sweets",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "sweets_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "お菓子に気を取られて守りがおろそかになるため、相手の防御を下げる効果にした"
+      },
+      "rationale": "甘いお菓子で気を引く技で、お菓子のため菓子の技にした"
     },
     {
       "id": "ghost_1",
@@ -2514,6 +4524,108 @@
       "rationale": "古びた人形の呪いで苦しめる技で、古びた人形のため霊の最も強い技にした"
     },
     {
+      "id": "ghost_1e",
+      "displayName": "ひとだまゆらゆら",
+      "elementTypeId": "ghost",
+      "power": 40,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "ghost_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "specialEffect": {
+        "power": "100 + 100 * (opponent.maximumHitPoints - opponent.hitPoints) / opponent.maximumHitPoints",
+        "summary": "相手が弱るほど強い",
+        "rule": "相手の HP が減っているほど威力が上がる",
+        "rationale": "人魂は弱った相手に寄っていくため、相手の HP が減っているほど強くなる効果にした"
+      },
+      "rationale": "ゆらゆら漂う人魂で当たる技で、霊の火のため霊の技にした"
+    },
+    {
+      "id": "ghost_1f",
+      "displayName": "ちょうちんおばけ",
+      "elementTypeId": "ghost",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "ghost_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "rationale": "古いちょうちんのおばけで驚かせる技で、おばけのため霊の技にした"
+    },
+    {
+      "id": "ghost_2b",
+      "displayName": "ゆうれいのてまねき",
+      "elementTypeId": "ghost",
+      "power": 75,
+      "powerPoints": 10,
+      "category": "attack",
+      "effectId": "ghost_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200,
+      "rationale": "手招きして引き寄せてから当たる技で、幽霊の仕草のため霊の技にした"
+    },
+    {
+      "id": "ghost_s1",
+      "displayName": "うしろのけはい",
+      "elementTypeId": "ghost",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "ghost_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "振り返って動き出しが遅れるため、相手の素早さを下げる効果にした"
+      },
+      "rationale": "後ろに気配を感じさせる技で、霊の気配のため霊の技にした"
+    },
+    {
+      "id": "ghost_s2",
+      "displayName": "ぞくっとさむけ",
+      "elementTypeId": "ghost",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "ghost_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "寒気で縮み上がって守りが崩れるため、相手の防御を下げる効果にした"
+      },
+      "rationale": "背筋をぞくっとさせる技で、霊の寒気のため霊の技にした"
+    },
+    {
+      "id": "ghost_s3",
+      "displayName": "うらめしや",
+      "elementTypeId": "ghost",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "ghost_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "恨みをためるほど迫る力が増すため、自分の攻撃を上げる効果にした"
+      },
+      "rationale": "恨みをためて迫る技で、霊の恨みのため霊の技にした"
+    },
+    {
       "id": "dragon_1",
       "displayName": "トカゲのしっぽ",
       "elementTypeId": "dragon",
@@ -2596,6 +4708,106 @@
       "learnableLevelMinimum": 100,
       "learnableLevelMaximum": 999,
       "rationale": "ティラノサウルスの牙で噛み砕く技で、恐竜の中で最も強いため竜の最も強い技にした"
+    },
+    {
+      "id": "dragon_1e",
+      "displayName": "イグアナのむち",
+      "elementTypeId": "dragon",
+      "power": 40,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "dragon_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "specialEffect": {
+        "power": "if(opponent.defense > self.attack, 150, 100)",
+        "summary": "硬い相手に強い",
+        "rule": "相手の防御が自分の攻撃より高いと威力が上がる",
+        "rationale": "長い尾のむちは硬い相手にも響くため、硬い相手に強くなる効果にした"
+      },
+      "rationale": "イグアナの尾でむちのように打つ技で、竜に似た生き物のため竜の技にした"
+    },
+    {
+      "id": "dragon_1f",
+      "displayName": "ヤモリのはりつき",
+      "elementTypeId": "dragon",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "dragon_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "rationale": "ヤモリが張りついて当たる技で、竜に似た生き物のため竜の技にした"
+    },
+    {
+      "id": "dragon_2b",
+      "displayName": "こいのぼりのたき",
+      "elementTypeId": "dragon",
+      "power": 75,
+      "powerPoints": 10,
+      "category": "attack",
+      "effectId": "dragon_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200,
+      "rationale": "鯉が滝を登る勢いでぶつかる技で、竜になるとされる鯉のため竜の技にした"
+    },
+    {
+      "id": "dragon_s1",
+      "displayName": "うろこみがき",
+      "elementTypeId": "dragon",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "dragon_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "うろこを磨いて気合いを入れるため、自分の攻撃を上げる効果にした"
+      },
+      "rationale": "うろこを磨いて構える技で、竜のうろこのため竜の技にした"
+    },
+    {
+      "id": "dragon_s2",
+      "displayName": "りゅうのまなざし",
+      "elementTypeId": "dragon",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "dragon_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "にらまれて身構えが崩れるため、相手の防御を下げる効果にした"
+      },
+      "rationale": "竜の鋭いまなざしを向ける技で、竜の威圧のため竜の技にした"
+    },
+    {
+      "id": "dragon_s3",
+      "displayName": "かわのぬぎかえ",
+      "elementTypeId": "dragon",
+      "power": 0,
+      "powerPoints": 5,
+      "category": "support",
+      "effectId": "dragon_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfHitPointsRecovery": "self.maximumHitPoints / 4",
+        "summary": "HP を回復する",
+        "rule": "最大 HP の 4 分の 1 を回復する",
+        "rationale": "脱皮して傷んだ皮が新しくなるため、HP を回復する効果にした"
+      },
+      "rationale": "古い皮を脱いで新しくなる技で、竜に似た生き物の脱皮のため竜の技にした"
     },
     {
       "id": "cloth_1",
@@ -2682,6 +4894,106 @@
       "rationale": "大きな布のカーテンで包む技で、布の面積が最も大きいため布の最も強い技にした"
     },
     {
+      "id": "cloth_1e",
+      "displayName": "ふろしきつつみ",
+      "elementTypeId": "cloth",
+      "power": 40,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "cloth_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "specialEffect": {
+        "power": "if(not sharesElementType, 120, 100)",
+        "summary": "違う属性の相手に強い",
+        "rule": "相手と同じ属性を持たないと威力が上がる",
+        "rationale": "風呂敷は形の違う物ほどうまく包めるため、違う属性の相手に強くなる効果にした"
+      },
+      "rationale": "風呂敷で包んで投げる技で、布のため布の技にした"
+    },
+    {
+      "id": "cloth_1f",
+      "displayName": "エプロンはたき",
+      "elementTypeId": "cloth",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "cloth_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "rationale": "エプロンではたく技で、布のため布の技にした"
+    },
+    {
+      "id": "cloth_2b",
+      "displayName": "じゅうたんまき",
+      "elementTypeId": "cloth",
+      "power": 75,
+      "powerPoints": 10,
+      "category": "attack",
+      "effectId": "cloth_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200,
+      "rationale": "絨毯で巻き込む技で、大きな布のため布の技にした"
+    },
+    {
+      "id": "cloth_s1",
+      "displayName": "もうふかけ",
+      "elementTypeId": "cloth",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "cloth_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "毛布に包まれて動きにくくなるため、相手の素早さを下げる効果にした"
+      },
+      "rationale": "毛布をかけて包む技で、布のため布の技にした"
+    },
+    {
+      "id": "cloth_s2",
+      "displayName": "ふかふかまくら",
+      "elementTypeId": "cloth",
+      "power": 0,
+      "powerPoints": 5,
+      "category": "support",
+      "effectId": "cloth_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfHitPointsRecovery": "self.maximumHitPoints / 4",
+        "summary": "HP を回復する",
+        "rule": "最大 HP の 4 分の 1 を回復する",
+        "rationale": "枕で眠ると疲れが取れるため、HP を回復する効果にした"
+      },
+      "rationale": "柔らかい枕で休む技で、布の寝具のため布の技にした"
+    },
+    {
+      "id": "cloth_s3",
+      "displayName": "はちまきしめ",
+      "elementTypeId": "cloth",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "cloth_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "鉢巻きを締めると気合いが入るため、自分の攻撃を上げる効果にした"
+      },
+      "rationale": "鉢巻きを締めて気合いを入れる技で、布のため布の技にした"
+    },
+    {
       "id": "paper_1",
       "displayName": "かみひこうき",
       "elementTypeId": "paper",
@@ -2764,6 +5076,106 @@
       "learnableLevelMinimum": 100,
       "learnableLevelMaximum": 999,
       "rationale": "紙吹雪で包み込む技で、紙の量が最も多いため紙の最も強い技にした"
+    },
+    {
+      "id": "paper_1e",
+      "displayName": "しゅりけんおりがみ",
+      "elementTypeId": "paper",
+      "power": 40,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "paper_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "specialEffect": {
+        "power": "100 + 100 * (move.maximumPowerPoints - move.remainingPowerPoints) / (move.maximumPowerPoints - 1)",
+        "summary": "PP が減るほど強い",
+        "rule": "この技の残り PP が少ないほど威力が上がる",
+        "rationale": "手裏剣は投げるほど狙いが定まるため、この技の残り PP が少ないほど強くなる効果にした"
+      },
+      "rationale": "折り紙の手裏剣を投げる技で、紙のため紙の技にした"
+    },
+    {
+      "id": "paper_1f",
+      "displayName": "かみコップアタック",
+      "elementTypeId": "paper",
+      "power": 45,
+      "powerPoints": 25,
+      "category": "attack",
+      "effectId": "paper_particle",
+      "learnableLevelMinimum": 1,
+      "learnableLevelMaximum": 30,
+      "rationale": "紙コップをかぶせて当てる技で、紙のため紙の技にした"
+    },
+    {
+      "id": "paper_2b",
+      "displayName": "ダンボールプレス",
+      "elementTypeId": "paper",
+      "power": 75,
+      "powerPoints": 10,
+      "category": "attack",
+      "effectId": "paper_particle",
+      "learnableLevelMinimum": 15,
+      "learnableLevelMaximum": 200,
+      "rationale": "段ボールで押しつぶす技で、厚い紙のため紙の技にした"
+    },
+    {
+      "id": "paper_s1",
+      "displayName": "しわくちゃ",
+      "elementTypeId": "paper",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "paper_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "しわくちゃになると張りがなくなるため、相手の防御を下げる効果にした"
+      },
+      "rationale": "紙をしわくちゃにする技で、紙のため紙の技にした"
+    },
+    {
+      "id": "paper_s2",
+      "displayName": "セロハンテープ",
+      "elementTypeId": "paper",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "paper_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "貼りつけられて動きにくくなるため、相手の素早さを下げる効果にした"
+      },
+      "rationale": "セロハンテープで貼りつける技で、紙を貼る物のため紙の技にした"
+    },
+    {
+      "id": "paper_s3",
+      "displayName": "テープでなおす",
+      "elementTypeId": "paper",
+      "power": 0,
+      "powerPoints": 5,
+      "category": "support",
+      "effectId": "paper_particle",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfHitPointsRecovery": "self.maximumHitPoints / 4",
+        "summary": "HP を回復する",
+        "rule": "最大 HP の 4 分の 1 を回復する",
+        "rationale": "破れを直して元に戻るため、HP を回復する効果にした"
+      },
+      "rationale": "破れた所をテープで直す技で、紙の手当てのため紙の技にした"
     }
   ],
   "effects": [

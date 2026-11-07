@@ -1,6 +1,6 @@
 {
   "definitions": {
-    "version": 6,
+    "version": 7,
     "elementTypes": [
       {
         "id": "fire",
@@ -2765,6 +2765,26 @@
         "learnableLevelMinimum": 100,
         "learnableLevelMaximum": 999,
         "rationale": "紙吹雪で包み込む技で、紙の量が最も多いため紙の最も強い技にした"
+      },
+      {
+        "id": "cloth_s1",
+        "displayName": "もうふかけ",
+        "elementTypeId": "cloth",
+        "power": 0,
+        "powerPoints": 10,
+        "category": "support",
+        "effectId": "cloth_particle",
+        "learnableLevelMinimum": 5,
+        "learnableLevelMaximum": 999,
+        "specialEffect": {
+          "opponentStatChanges": {
+            "speed": "-25"
+          },
+          "summary": "相手の素早さを下げる",
+          "rule": "相手の素早さの倍率を 25 下げる (50 で止まる)",
+          "rationale": "毛布に包まれて動きにくくなるため、相手の素早さを下げる効果にした"
+        },
+        "rationale": "毛布をかけて包む技で、布のため布の技にした"
       }
     ],
     "effects": [
@@ -3205,6 +3225,10 @@
           {
             "moveId": "cloth_1d",
             "unlockLevel": 1
+          },
+          {
+            "moveId": "cloth_s1",
+            "unlockLevel": 5
           },
           {
             "moveId": "cloth_2",
