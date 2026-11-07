@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:snapmon/domain/battle/battle_engine.dart';
 import 'package:snapmon/domain/battle/battle_state.dart';
@@ -67,6 +69,9 @@ const testMaster = MasterData(
       learnableLevelMaximum: 999,
       specialEffect: MoveSpecialEffect(
         power: 'if(not movesFirst, 200, 100)',
+        selfStatChanges: {},
+        opponentStatChanges: {},
+        selfHitPointsRecovery: null,
         summary: '後に動くと強い',
         rule: '後に行動すると威力が上がる',
       ),
@@ -84,6 +89,9 @@ const testMaster = MasterData(
       specialEffect: MoveSpecialEffect(
         power:
             '100 + 100 * (move.maximumPowerPoints - move.remainingPowerPoints) / (move.maximumPowerPoints - 1)',
+        selfStatChanges: {},
+        opponentStatChanges: {},
+        selfHitPointsRecovery: null,
         summary: 'PP が減るほど強い',
         rule: 'この技の残り PP が少ないほど威力が上がる',
       ),
@@ -101,8 +109,87 @@ const testMaster = MasterData(
       specialEffect: MoveSpecialEffect(
         power:
             '100 + 100 * (self.maximumHitPoints - self.hitPoints) / self.maximumHitPoints',
+        selfStatChanges: {},
+        opponentStatChanges: {},
+        selfHitPointsRecovery: null,
         summary: '自分が弱るほど強い',
         rule: '自分の HP が減っているほど威力が上がる',
+      ),
+    ),
+    Move(
+      id: 'fire_lower_defense',
+      displayName: 'ぼうぎょさげ',
+      elementTypeId: 'fire',
+      power: 0,
+      powerPoints: 10,
+      category: MoveCategory.support,
+      effectId: 'none',
+      learnableLevelMinimum: 1,
+      learnableLevelMaximum: 999,
+      specialEffect: MoveSpecialEffect(
+        power: null,
+        selfStatChanges: {},
+        opponentStatChanges: {StatKind.defense: '-25'},
+        selfHitPointsRecovery: null,
+        summary: '相手の防御を下げる',
+        rule: '相手の防御を下げる',
+      ),
+    ),
+    Move(
+      id: 'fire_raise_attack',
+      displayName: 'こうげきあげ',
+      elementTypeId: 'fire',
+      power: 0,
+      powerPoints: 10,
+      category: MoveCategory.support,
+      effectId: 'none',
+      learnableLevelMinimum: 1,
+      learnableLevelMaximum: 999,
+      specialEffect: MoveSpecialEffect(
+        power: null,
+        selfStatChanges: {StatKind.attack: '25'},
+        opponentStatChanges: {},
+        selfHitPointsRecovery: null,
+        summary: '自分の攻撃を上げる',
+        rule: '自分の攻撃を上げる',
+      ),
+    ),
+    Move(
+      id: 'fire_lower_speed',
+      displayName: 'すばやさげ',
+      elementTypeId: 'fire',
+      power: 0,
+      powerPoints: 10,
+      category: MoveCategory.support,
+      effectId: 'none',
+      learnableLevelMinimum: 1,
+      learnableLevelMaximum: 999,
+      specialEffect: MoveSpecialEffect(
+        power: null,
+        selfStatChanges: {},
+        opponentStatChanges: {StatKind.speed: '-25'},
+        selfHitPointsRecovery: null,
+        summary: '相手の素早さを下げる',
+        rule: '相手の素早さを下げる',
+      ),
+    ),
+    Move(
+      id: 'fire_recover',
+      displayName: 'かいふく',
+      elementTypeId: 'fire',
+      power: 0,
+      powerPoints: 10,
+      category: MoveCategory.support,
+      effectId: 'none',
+      learnableLevelMinimum: 1,
+      learnableLevelMaximum: 999,
+      specialEffect: MoveSpecialEffect(
+        power: null,
+        selfStatChanges: {},
+        opponentStatChanges: {},
+        selfHitPointsRecovery: 'self.maximumHitPoints * 30 / 100',
+        summary: 'HP を回復する',
+        rule: '最大 HP の 3 割を回復する',
       ),
     ),
   ],
@@ -748,6 +835,380 @@ void main() {
         opponentMoveId: 'fire_strong',
       );
       expect(events[BattleSideId.player]!.specialEffect, isNull);
+    });
+  });
+
+  group('補助技', () {
+    /// 自分 (速さ [playerSpeed]、技 [playerMoveIds]) と相手 (速さ [opponentSpeed]、技 [opponentMoveIds]) の 1 対 1 のバトル。
+    BattleState startDuel({
+      required List<String> playerMoveIds,
+      required List<String> opponentMoveIds,
+      required int playerSpeed,
+      required int opponentSpeed,
+      int randomSeed = 1,
+    }) => startBattle(
+      playerMembers: [
+        prepare(
+          definition: testDefinition(
+            id: 'player',
+            elementTypeId: 'fire',
+            moveIds: playerMoveIds,
+            speed: playerSpeed,
+            hitPoints: 250,
+          ),
+        ),
+      ],
+      opponentMembers: [
+        prepare(
+          definition: testDefinition(
+            id: 'opponent',
+            elementTypeId: 'fire',
+            moveIds: opponentMoveIds,
+            speed: opponentSpeed,
+            hitPoints: 250,
+          ),
+        ),
+      ],
+      randomSeed: randomSeed,
+      battleDate: testBattleDate,
+    );
+
+    /// [state] から両陣営が [playerMoveId]・[opponentMoveId] を使って 1 ターン進めた状態を返す。
+    BattleState playTurn({
+      required BattleState state,
+      required String playerMoveId,
+      required String opponentMoveId,
+    }) => advanceTurn(
+      state: state,
+      playerAction: UseMoveAction(moveId: playerMoveId),
+      opponentAction: UseMoveAction(moveId: opponentMoveId),
+      master: testMaster,
+    );
+
+    /// [state] の最後のターンの、[side] が使った技のログ。
+    MoveUsedEvent lastMoveOf({
+      required BattleState state,
+      required BattleSideId side,
+    }) => state.events.whereType<MoveUsedEvent>().lastWhere(
+      (event) => event.attackerSide == side,
+    );
+
+    test('相手の防御を下げる技はダメージを与えず、倍率を 25 ずつ下げ、下限 50 で止まる', () {
+      var state = startDuel(
+        playerMoveIds: ['fire_lower_defense'],
+        opponentMoveIds: ['grass_weak'],
+        playerSpeed: 100,
+        opponentSpeed: 50,
+      );
+      // 相手の技 (grass_weak) は PP 2 のため、2 ターン使った後はわるあがきになる
+      for (final expectedPercent in [75, 50]) {
+        final previousPercent = statModifierPercentOf(
+          monster: state.opponent.activeMember,
+          statKind: StatKind.defense,
+        );
+        state = playTurn(
+          state: state,
+          playerMoveId: 'fire_lower_defense',
+          opponentMoveId: 'grass_weak',
+        );
+        final event = lastMoveOf(state: state, side: BattleSideId.player);
+        expect(event.damage, 0);
+        expect(event.statModifierChanges, hasLength(1));
+        expect(event.statModifierChanges.single.side, BattleSideId.opponent);
+        expect(event.statModifierChanges.single.statKind, StatKind.defense);
+        expect(
+          event.statModifierChanges.single.previousPercent,
+          previousPercent,
+        );
+        expect(event.statModifierChanges.single.newPercent, expectedPercent);
+        expect(
+          statModifierPercentOf(
+            monster: state.opponent.activeMember,
+            statKind: StatKind.defense,
+          ),
+          expectedPercent,
+        );
+      }
+      // 下限に達した後にもう一度使うと、倍率は変わらず、変化の前後が同じ値で残る
+      state = advanceTurn(
+        state: state,
+        playerAction: const UseMoveAction(moveId: 'fire_lower_defense'),
+        opponentAction: const StruggleAction(),
+        master: testMaster,
+      );
+      final capped = lastMoveOf(state: state, side: BattleSideId.player);
+      expect(capped.statModifierChanges.single.previousPercent, 50);
+      expect(capped.statModifierChanges.single.newPercent, 50);
+    });
+
+    test('下げた防御はダメージ式に入り、同じ乱数なら下げる前より多く与える', () {
+      final before = startDuel(
+        playerMoveIds: ['fire_strong', 'fire_lower_defense'],
+        opponentMoveIds: ['fire_strong'],
+        playerSpeed: 100,
+        opponentSpeed: 50,
+      );
+      final lowered = playTurn(
+        state: before,
+        playerMoveId: 'fire_lower_defense',
+        opponentMoveId: 'fire_strong',
+      );
+      // 乱数の状態を揃えて、防御の倍率だけが違う 2 つの状態から同じ攻撃をする
+      final loweredWithSameRandom = BattleState(
+        player: lowered.player,
+        opponent: lowered.opponent,
+        turnNumber: before.turnNumber,
+        randomState: before.randomState,
+        events: before.events,
+        winner: null,
+        battleDate: before.battleDate,
+      );
+      final beforeWithSameHitPoints = BattleState(
+        player: lowered.player,
+        opponent: BattleParty(
+          members: [
+            BattleMonster(
+              definition: lowered.opponent.activeMember.definition,
+              state: lowered.opponent.activeMember.state.copyWith(
+                statModifierPercents: const {},
+              ),
+            ),
+          ],
+          activeMemberIndex: 0,
+        ),
+        turnNumber: before.turnNumber,
+        randomState: before.randomState,
+        events: before.events,
+        winner: null,
+        battleDate: before.battleDate,
+      );
+      int damageOf({required BattleState state}) => lastMoveOf(
+        state: playTurn(
+          state: state,
+          playerMoveId: 'fire_strong',
+          opponentMoveId: 'fire_strong',
+        ),
+        side: BattleSideId.player,
+      ).damage;
+      expect(
+        damageOf(state: loweredWithSameRandom),
+        greaterThan(damageOf(state: beforeWithSameHitPoints)),
+      );
+    });
+
+    test('自分の攻撃を上げる技は、倍率を掛けた攻撃を返す', () {
+      final state = playTurn(
+        state: startDuel(
+          playerMoveIds: ['fire_raise_attack'],
+          opponentMoveIds: ['grass_weak'],
+          playerSpeed: 100,
+          opponentSpeed: 50,
+        ),
+        playerMoveId: 'fire_raise_attack',
+        opponentMoveId: 'grass_weak',
+      );
+      final player = state.player.activeMember;
+      final event = lastMoveOf(state: state, side: BattleSideId.player);
+      expect(event.statModifierChanges.single.side, BattleSideId.player);
+      expect(event.statModifierChanges.single.newPercent, 125);
+      final baseAttack = effectiveStats(
+        monster: BattleMonster(
+          definition: player.definition,
+          state: player.state.copyWith(statModifierPercents: const {}),
+        ),
+      ).attack;
+      expect(effectiveStats(monster: player).attack, baseAttack * 125 ~/ 100);
+    });
+
+    test('相手の素早さを下げると、次のターンから行動順が入れ替わる', () {
+      var state = startDuel(
+        playerMoveIds: ['fire_strong'],
+        opponentMoveIds: ['fire_lower_speed', 'fire_strong'],
+        playerSpeed: 100,
+        opponentSpeed: 90,
+      );
+      state = playTurn(
+        state: state,
+        playerMoveId: 'fire_strong',
+        opponentMoveId: 'fire_lower_speed',
+      );
+      final firstTurnEvents = state.events.whereType<MoveUsedEvent>().toList();
+      expect(firstTurnEvents.first.attackerSide, BattleSideId.player);
+      state = playTurn(
+        state: state,
+        playerMoveId: 'fire_strong',
+        opponentMoveId: 'fire_strong',
+      );
+      final secondTurnEvents = state.events
+          .whereType<MoveUsedEvent>()
+          .skip(firstTurnEvents.length)
+          .toList();
+      expect(secondTurnEvents.first.attackerSide, BattleSideId.opponent);
+    });
+
+    test('回復する技は最大 HP を超えず、満タンなら 0 回復', () {
+      final fullHitPoints = playTurn(
+        state: startDuel(
+          playerMoveIds: ['fire_recover'],
+          opponentMoveIds: ['grass_weak'],
+          playerSpeed: 100,
+          opponentSpeed: 50,
+        ),
+        playerMoveId: 'fire_recover',
+        opponentMoveId: 'grass_weak',
+      );
+      expect(
+        lastMoveOf(
+          state: fullHitPoints,
+          side: BattleSideId.player,
+        ).recoveredHitPoints,
+        0,
+      );
+
+      // 相手が先に攻撃して減った HP を、同じターンに回復する
+      final damaged = playTurn(
+        state: startDuel(
+          playerMoveIds: ['fire_recover'],
+          opponentMoveIds: ['fire_strong'],
+          playerSpeed: 50,
+          opponentSpeed: 100,
+        ),
+        playerMoveId: 'fire_recover',
+        opponentMoveId: 'fire_strong',
+      );
+      final damage = lastMoveOf(
+        state: damaged,
+        side: BattleSideId.opponent,
+      ).damage;
+      final recovery = lastMoveOf(state: damaged, side: BattleSideId.player);
+      final maximumHitPoints = effectiveStats(
+        monster: damaged.player.activeMember,
+      ).hitPoints;
+      expect(recovery.damage, 0);
+      expect(recovery.recoveredHitPoints, greaterThan(0));
+      expect(
+        recovery.recoveredHitPoints,
+        lessThanOrEqualTo(math.min(damage, maximumHitPoints * 30 ~/ 100)),
+      );
+      expect(
+        damaged.player.activeMember.state.currentHitPoints,
+        recovery.attackerRemainingHitPoints,
+      );
+    });
+
+    test('CPU は効果のある補助技をおよそ 1/4 の確率で選び、効果が無くなった補助技は選ばない', () {
+      var supportCount = 0;
+      const seedCount = 400;
+      for (var seed = 1; seed <= seedCount; seed++) {
+        final action = chooseCpuAction(
+          state: startDuel(
+            playerMoveIds: ['fire_strong', 'fire_lower_defense'],
+            opponentMoveIds: ['fire_strong'],
+            playerSpeed: 100,
+            opponentSpeed: 50,
+            randomSeed: seed,
+          ),
+          side: BattleSideId.player,
+          master: testMaster,
+        );
+        if (action case UseMoveAction(moveId: 'fire_lower_defense')) {
+          supportCount++;
+        }
+      }
+      // 1/4 の期待値は 100 回。xorshift の偏りを許す幅として ±40 にした
+      expect(supportCount, inInclusiveRange(60, 140));
+
+      final defenseAtMinimum = startDuel(
+        playerMoveIds: ['fire_strong', 'fire_lower_defense'],
+        opponentMoveIds: ['fire_strong'],
+        playerSpeed: 100,
+        opponentSpeed: 50,
+      );
+      for (var seed = 1; seed <= 50; seed++) {
+        final state = BattleState(
+          player: defenseAtMinimum.player,
+          opponent: BattleParty(
+            members: [
+              BattleMonster(
+                definition: defenseAtMinimum.opponent.activeMember.definition,
+                state: defenseAtMinimum.opponent.activeMember.state.copyWith(
+                  statModifierPercents: const {
+                    StatKind.defense: statModifierPercentMinimum,
+                  },
+                ),
+              ),
+            ],
+            activeMemberIndex: 0,
+          ),
+          turnNumber: 1,
+          randomState: seed,
+          events: const [],
+          winner: null,
+          battleDate: testBattleDate,
+        );
+        expect(
+          chooseCpuAction(
+            state: state,
+            side: BattleSideId.player,
+            master: testMaster,
+          ),
+          isA<UseMoveAction>().having(
+            (action) => action.moveId,
+            'moveId',
+            'fire_strong',
+          ),
+        );
+      }
+
+      // HP が満タンの時は回復だけの技を選ばない
+      for (var seed = 1; seed <= 50; seed++) {
+        expect(
+          chooseCpuAction(
+            state: startDuel(
+              playerMoveIds: ['fire_strong', 'fire_recover'],
+              opponentMoveIds: ['fire_strong'],
+              playerSpeed: 100,
+              opponentSpeed: 50,
+              randomSeed: seed,
+            ),
+            side: BattleSideId.player,
+            master: testMaster,
+          ),
+          isA<UseMoveAction>().having(
+            (action) => action.moveId,
+            'moveId',
+            'fire_strong',
+          ),
+        );
+      }
+    });
+
+    test('補助技を持つ CPU 同士のバトルも決着する', () {
+      final state = playUntilFinished(
+        state: startDuel(
+          playerMoveIds: [
+            'fire_strong',
+            'fire_lower_defense',
+            'fire_raise_attack',
+            'fire_recover',
+          ],
+          opponentMoveIds: [
+            'fire_strong',
+            'fire_lower_speed',
+            'fire_raise_attack',
+            'fire_recover',
+          ],
+          playerSpeed: 100,
+          opponentSpeed: 90,
+        ),
+      );
+      expect(state.winner, isNotNull);
+      expect(
+        state.events.whereType<MoveUsedEvent>().any(
+          (event) => event.statModifierChanges.isNotEmpty,
+        ),
+        isTrue,
+      );
     });
   });
 

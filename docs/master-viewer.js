@@ -74,7 +74,18 @@ export function moveFeedbackLine(master, move) {
     `Lv ${move.learnableLevelMinimum}-${move.learnableLevelMaximum}`,
   ];
   if (move.specialEffect) {
-    parts.push(`特殊効果 ${move.specialEffect.summary} 倍率(%) = ${move.specialEffect.power}`);
+    // 出力ごとの式 (lib/domain/master/move.dart の MoveSpecialEffect)。攻撃技は威力の倍率、補助技はステータスの変化と回復
+    const statNames = { attack: '攻撃', defense: '防御', speed: '素早さ' };
+    const { summary, power, selfStatChanges = {}, opponentStatChanges = {}, selfHitPointsRecovery } = move.specialEffect;
+    parts.push(
+      [
+        `特殊効果 ${summary}`,
+        ...(power === undefined ? [] : [`倍率(%) = ${power}`]),
+        ...Object.entries(selfStatChanges).map(([stat, expression]) => `自分の${statNames[stat] ?? stat}(%) += ${expression}`),
+        ...Object.entries(opponentStatChanges).map(([stat, expression]) => `相手の${statNames[stat] ?? stat}(%) += ${expression}`),
+        ...(selfHitPointsRecovery === undefined ? [] : [`回復 = ${selfHitPointsRecovery}`]),
+      ].join(' '),
+    );
   }
   return parts.join(' ');
 }

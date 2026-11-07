@@ -276,8 +276,11 @@ export function buildJudgeRequest({
     }
     questions[`move__${elementType.id}`] = {
       type: "choice",
-      instructions: "state の subject (写真の被写体) がモンスターになって使う技として、名前と威力が最も似合う技はどれか。",
-      criteria: Object.fromEntries(elementMoves.map((move) => [move.id, `${move.displayName} (威力 ${move.power})`])),
+      instructions: "state の subject (写真の被写体) がモンスターになって使う技として、名前と威力 (補助技は効果) が最も似合う技はどれか。",
+      // 補助技は威力 0 で威力が選ぶ手がかりにならないため、効果の説明を見せる
+      criteria: Object.fromEntries(
+        elementMoves.map((move) => [move.id, `${move.displayName} (${move.category === "support" ? `補助: ${move.specialEffect?.summary ?? ""}` : `威力 ${move.power}`})`]),
+      ),
     };
   }
   return { model: JEV_MODEL, state: subjectState(description), questions };

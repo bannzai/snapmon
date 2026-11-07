@@ -84,12 +84,13 @@ describe("buildLearnset", () => {
       { moveId: "paper_1b", unlockLevel: 1 },
       { moveId: "paper_1", unlockLevel: 1 },
       { moveId: "paper_1c", unlockLevel: 1 },
+      { moveId: "paper_s1", unlockLevel: 5 },
       { moveId: "paper_2", unlockLevel: 15 },
       { moveId: "paper_3", unlockLevel: 100 },
     ]);
   });
 
-  it("属性が 2 つなら、Lv.1 は属性の順に交互に 2 つずつ選び、Lv.2 以降は属性ごとにレベル帯ごとの技を開放レベル順に並べる", () => {
+  it("属性が 2 つなら、Lv.1 は属性の順に交互に 2 つずつ選び、Lv.2 以降は属性ごとにレベル帯ごとの技を開放レベル順に並べ、補助技は第 1 属性の 1 つだけにする", () => {
     expect(
       buildLearnset({ elementTypeIds: ["fire", "steel"], elementProbabilities: { fire: 0.9, steel: 0.6 }, moveProbabilitiesByElement: {}, moves: master.moves, fallbackMoves: master.moves }),
     ).toEqual([
@@ -97,6 +98,7 @@ describe("buildLearnset", () => {
       { moveId: "steel_1", unlockLevel: 1 },
       { moveId: "fire_1b", unlockLevel: 1 },
       { moveId: "steel_1b", unlockLevel: 1 },
+      { moveId: "fire_s1", unlockLevel: 5 },
       { moveId: "fire_2", unlockLevel: 15 },
       { moveId: "steel_2", unlockLevel: 15 },
       { moveId: "fire_3", unlockLevel: 100 },
@@ -157,7 +159,7 @@ describe("buildLearnset", () => {
         moveProbabilitiesByElement: { fire: { fire_2: 0.2, fire_extra: 0.7 } },
         moves: [...master.moves, extraMove],
         fallbackMoves: master.moves,
-      })[STARTING_MOVE_COUNT],
+      }).find((entry) => entry.unlockLevel === 15),
     ).toEqual({ moveId: "fire_extra", unlockLevel: 15 });
   });
 });

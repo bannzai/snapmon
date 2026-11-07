@@ -138,24 +138,47 @@ class MoveDetailScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 12,
                   children: [
-                    Text(
-                      context.l10n.moveDetailFormula,
-                      style: SnapmonTextStyles.caption.copyWith(
-                        color: SnapmonColors.accent,
+                    if (specialEffect.power case final power?)
+                      _FormulaSection(
+                        formulaKey: const Key('move-special-effect-formula'),
+                        label: context.l10n.moveDetailFormula,
+                        source: power,
+                        note: context.l10n.moveDetailFormulaNote,
                       ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      formatMoveExpression(source: specialEffect.power),
-                      key: const Key('move-special-effect-formula'),
-                      style: SnapmonTextStyles.body,
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      context.l10n.moveDetailFormulaNote,
-                      style: SnapmonTextStyles.small,
-                    ),
+                    for (final MapEntry(key: statKind, value: source)
+                        in specialEffect.selfStatChanges.entries)
+                      _FormulaSection(
+                        formulaKey: Key(
+                          'move-special-effect-self-${statKind.name}',
+                        ),
+                        label: context.l10n.moveDetailSelfStatFormula(
+                          statLabel(l10n: context.l10n, statKind: statKind),
+                        ),
+                        source: source,
+                        note: context.l10n.moveDetailStatFormulaNote,
+                      ),
+                    for (final MapEntry(key: statKind, value: source)
+                        in specialEffect.opponentStatChanges.entries)
+                      _FormulaSection(
+                        formulaKey: Key(
+                          'move-special-effect-opponent-${statKind.name}',
+                        ),
+                        label: context.l10n.moveDetailOpponentStatFormula(
+                          statLabel(l10n: context.l10n, statKind: statKind),
+                        ),
+                        source: source,
+                        note: context.l10n.moveDetailStatFormulaNote,
+                      ),
+                    if (specialEffect.selfHitPointsRecovery
+                        case final recovery?)
+                      _FormulaSection(
+                        formulaKey: const Key('move-special-effect-recovery'),
+                        label: context.l10n.moveDetailRecoveryFormula,
+                        source: recovery,
+                        note: context.l10n.moveDetailRecoveryFormulaNote,
+                      ),
                   ],
                 ),
               ),
@@ -230,6 +253,46 @@ class MoveDetailScreen extends StatelessWidget {
 /// 技の特殊効果の倍率と同じく整数の % から組み立てる ([formatPowerPercent]。端末で表示を食い違わせないため)。
 String formatTypeMultiplier({required double multiplier}) =>
     formatPowerPercent(powerPercent: (multiplier * 100).round());
+
+/// 特殊効果の出力 1 つ分の、見出し・式 (日本語にしたもの)・注記。
+class _FormulaSection extends StatelessWidget {
+  const _FormulaSection({
+    required this.formulaKey,
+    required this.label,
+    required this.source,
+    required this.note,
+  });
+
+  /// 式の文字列の Key (テストが出力ごとの式を見分けるため)。
+  final Key formulaKey;
+
+  /// 出力の見出し (例: 威力の倍率 (%))。
+  final String label;
+
+  /// master の式。
+  final String source;
+
+  /// 式の値の読み方の注記。
+  final String note;
+
+  @override
+  Widget build(BuildContext context) => Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    spacing: 4,
+    children: [
+      Text(
+        label,
+        style: SnapmonTextStyles.caption.copyWith(color: SnapmonColors.accent),
+      ),
+      Text(
+        formatMoveExpression(source: source),
+        key: formulaKey,
+        style: SnapmonTextStyles.body,
+      ),
+      Text(note, style: SnapmonTextStyles.small),
+    ],
+  );
+}
 
 /// 詳細の画面の節の見出し。
 class _SectionTitle extends StatelessWidget {
