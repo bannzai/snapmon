@@ -121,7 +121,8 @@ Future<void> syncTicketPurchasesWithRevenueCat() async {
 
 /// `users/{uid}.generationTickets` を流す ([MonsterGenerator.watchGenerationTickets])。uid が変わったら読み直す。
 /// フィールドが無いユーザーとログインしていない時は 0 (functions/src/generation/pipeline.ts と同じく、買ったことが無ければ 0 枚)。
-/// 読めない時は流さない (残高の表示は補助で、購入と生成の判定はサーバーが行うため)。
+/// uid が変わった時と読めない時も 0 を流す (流す値は uid を持たず、前のアカウントの枚数を今のアカウントのものとして残さないため)。
+/// 残高の表示は補助で、購入と生成の判定はサーバーが行うため、0 が一時的に流れても実害は無い。
 Stream<int> watchGenerationTicketsWithFirebase() {
   StreamSubscription<User?>? userSubscription;
   StreamSubscription<DocumentSnapshot<Map<String, dynamic>>>?
@@ -134,8 +135,8 @@ Stream<int> watchGenerationTicketsWithFirebase() {
       ) {
         unawaited(documentSubscription?.cancel());
         documentSubscription = null;
+        controller.add(0);
         if (user == null) {
-          controller.add(0);
           return;
         }
         documentSubscription = FirebaseFirestore.instance
@@ -146,7 +147,7 @@ Stream<int> watchGenerationTicketsWithFirebase() {
               (snapshot) => controller.add(
                 snapshot.data()?['generationTickets'] as int? ?? 0,
               ),
-              onError: (Object _) {},
+              onError: (Object _) => controller.add(0),
             );
       });
     },

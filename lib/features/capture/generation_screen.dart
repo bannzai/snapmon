@@ -144,6 +144,9 @@ class _GenerationScreenState extends State<GenerationScreen> {
 
   /// 写真とマスクを送り終えたか。
   bool _isUploaded = false;
+
+  /// 購入画面を出す処理の途中か (package の取得中と購入画面を出している間)。
+  bool _isOfferingTicketPurchase = false;
   GenerationStage? _completedStage;
   _GenerationPhase _phase = _GenerationPhase.inProgress;
   GenerationResult? _result;
@@ -274,11 +277,21 @@ class _GenerationScreenState extends State<GenerationScreen> {
   /// 上限に当たった時に、売っていれば購入画面を出し、利用者が続けると決めたら同じ写真で生成をやり直す。
   /// 売っていない間は何もしない (上限のエラーの表示のまま)。
   Future<void> _offerTicketPurchaseAndRetry() async {
-    if (await offerTicketPurchase(
-          context: context,
-          monsterGenerator: widget.monsterGenerator,
-        ) &&
-        mounted) {
+    // package の取得中に「もう一度試す」でまた上限に当たっても、購入画面を重ねない
+    if (_isOfferingTicketPurchase) {
+      return;
+    }
+    _isOfferingTicketPurchase = true;
+    final bool continuesGeneration;
+    try {
+      continuesGeneration = await offerTicketPurchase(
+        context: context,
+        monsterGenerator: widget.monsterGenerator,
+      );
+    } finally {
+      _isOfferingTicketPurchase = false;
+    }
+    if (continuesGeneration && mounted) {
       await _generate();
     }
   }

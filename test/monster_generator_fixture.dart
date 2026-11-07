@@ -84,6 +84,7 @@ MonsterGenerator fakeMonsterGenerator({
   })?
   createSquareMask,
   List<Package> ticketPackages = const [],
+  Future<List<Package>> Function()? fetchTicketPackages,
   Future<TicketPurchaseResult> Function({required Package package})?
   purchaseTicketPackage,
   Stream<int>? generationTickets,
@@ -127,7 +128,7 @@ MonsterGenerator fakeMonsterGenerator({
       calls.fetchedRequestIds.add(requestId);
       return fetchGeneration(requestId: requestId);
     },
-    fetchTicketPackages: () async => ticketPackages,
+    fetchTicketPackages: fetchTicketPackages ?? () async => ticketPackages,
     purchaseTicketPackage:
         purchaseTicketPackage ??
         ({required package}) async => TicketPurchaseResult.cancelled,

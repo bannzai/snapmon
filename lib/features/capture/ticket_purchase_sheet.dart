@@ -294,36 +294,69 @@ class GenerationTicketBalance extends StatefulWidget {
       _GenerationTicketBalanceState();
 }
 
-/// [GenerationTicketBalance] の読み出し。作り直しのたびに読み直さないため State に持つ。
-class _GenerationTicketBalanceState extends State<GenerationTicketBalance> {
-  /// 売っている package の読み出し。読めない時は売っていない時と同じく出さない。
-  late final Future<List<Package>> _packages = widget.monsterGenerator
-      .fetchTicketPackages()
-      .catchError((Object _) => const <Package>[]);
+/// [GenerationTicketBalance] の残高と、売っているかどうか。
+/// 売っているかは、開いた時・残高が増えた時・アプリに戻った時に読み直す
+/// (offering の切り替えはアプリの再リリース無しで行うため、1 回の読み出しの結果を持ち続けない)。
+class _GenerationTicketBalanceState extends State<GenerationTicketBalance>
+    with WidgetsBindingObserver {
+  /// 残高の購読。
+  StreamSubscription<int>? _generationTicketsSubscription;
 
-  /// 残高。
-  late final Stream<int> _generationTickets = widget.monsterGenerator
-      .watchGenerationTickets();
+  /// 最後に読めた残高。
+  int _generationTickets = 0;
+
+  /// 最後の読み出しで売っている package があったか。読めない時は売っていない時と同じく出さない。
+  bool _isSelling = false;
 
   @override
-  Widget build(BuildContext context) => FutureBuilder<List<Package>>(
-    future: _packages,
-    builder: (context, packagesSnapshot) =>
-        packagesSnapshot.data?.isNotEmpty ?? false
-        ? StreamBuilder<int>(
-            stream: _generationTickets,
-            builder: (context, snapshot) => (snapshot.data ?? 0) > 0
-                ? Padding(
-                    padding: const EdgeInsets.only(right: 8),
-                    child: Text(
-                      context.l10n.ticketBalance(snapshot.data!),
-                      style: SnapmonTextStyles.label,
-                    ),
-                  )
-                : const SizedBox.shrink(),
-          )
-        : const SizedBox.shrink(),
-  );
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    unawaited(_refreshIsSelling());
+    _generationTicketsSubscription = widget.monsterGenerator
+        .watchGenerationTickets()
+        .listen((generationTickets) {
+          setState(() => _generationTickets = generationTickets);
+          if (generationTickets > 0) {
+            unawaited(_refreshIsSelling());
+          }
+        });
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    unawaited(_generationTicketsSubscription?.cancel());
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      unawaited(_refreshIsSelling());
+    }
+  }
+
+  /// 売っている package を読み直して [_isSelling] を更新する。
+  Future<void> _refreshIsSelling() async {
+    final packages = await widget.monsterGenerator
+        .fetchTicketPackages()
+        .catchError((Object _) => const <Package>[]);
+    if (mounted) {
+      setState(() => _isSelling = packages.isNotEmpty);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) => _isSelling && _generationTickets > 0
+      ? Padding(
+          padding: const EdgeInsets.only(right: 8),
+          child: Text(
+            context.l10n.ticketBalance(_generationTickets),
+            style: SnapmonTextStyles.label,
+          ),
+        )
+      : const SizedBox.shrink();
 }
 
 /// 設定画面の「購入の状態を同期する」。売っている package がある時だけ出す (閉じている間の見え方を変えないため)。

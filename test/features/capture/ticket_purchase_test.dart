@@ -29,11 +29,14 @@ void main() {
   setUp(() => calls = RecordedGenerationCalls());
 
   /// 1 回目の生成を上限で断り、2 回目以降は生成に失敗した結果を返す [MonsterGenerator] を返す。
+  /// [isAlwaysLimited] が true なら毎回上限で断る。
   MonsterGenerator limitedGenerator({
     required List<Package> ticketPackages,
+    Future<List<Package>> Function()? fetchTicketPackages,
     Future<TicketPurchaseResult> Function({required Package package})?
     purchaseTicketPackage,
     Stream<int>? generationTickets,
+    bool isAlwaysLimited = false,
   }) {
     var requestCount = 0;
     return fakeMonsterGenerator(
@@ -41,7 +44,7 @@ void main() {
       albumPhoto: null,
       uploadError: null,
       requestGeneration: ({required requestId}) async {
-        if (++requestCount == 1) {
+        if (isAlwaysLimited || ++requestCount == 1) {
           throw const GenerationDailyLimitException(
             message: _dailyLimitMessage,
           );
@@ -56,6 +59,7 @@ void main() {
       fetchGeneration: ({required requestId}) =>
           throw StateError('fetchGeneration は呼ばない'),
       ticketPackages: ticketPackages,
+      fetchTicketPackages: fetchTicketPackages,
       purchaseTicketPackage: purchaseTicketPackage,
       generationTickets: generationTickets,
     );
@@ -117,6 +121,98 @@ void main() {
     expect(find.text(_dailyLimitMessage), findsOneWidget);
     expect(find.text('生成チケット'), findsNothing);
     expect(ticketPurchaseSteps(), isEmpty);
+  });
+
+  testWidgets('package の取得中に再試行して また上限に当たっても 購入画面を重ねない', (tester) async {
+    await pumpUntilDailyLimit(
+      tester: tester,
+      generator: limitedGenerator(
+        ticketPackages: const [],
+        fetchTicketPackages: () async {
+          await Future<void>.delayed(const Duration(seconds: 1));
+          return const [testTicketPackage];
+        },
+        isAlwaysLimited: true,
+      ),
+    );
+
+    await tester.tap(find.text('もう一度試す'));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 2));
+    await tester.pumpAndSettle();
+
+    expect(find.text('生成チケット'), findsOneWidget);
+  });
+
+  /// [generator] で撮るタブの残高の表示を開く。
+  Future<void> pumpGenerationTicketBalance({
+    required WidgetTester tester,
+    required MonsterGenerator generator,
+  }) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        locale: const Locale('ja'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: Scaffold(
+          body: GenerationTicketBalance(monsterGenerator: generator),
+        ),
+      ),
+    );
+    await tester.pump();
+  }
+
+  testWidgets('開いた時に package を読めなくても 残高が増えた時に読み直して残高を出す', (tester) async {
+    final generationTickets = StreamController<int>.broadcast();
+    addTearDown(generationTickets.close);
+    var fetchCount = 0;
+    await pumpGenerationTicketBalance(
+      tester: tester,
+      generator: limitedGenerator(
+        ticketPackages: const [],
+        fetchTicketPackages: () async {
+          if (++fetchCount == 1) {
+            throw StateError('読めない');
+          }
+          return const [testTicketPackage];
+        },
+        generationTickets: generationTickets.stream,
+      ),
+    );
+    expect(find.textContaining('チケット'), findsNothing);
+
+    generationTickets.add(10);
+    await tester.pump();
+    await tester.pump();
+
+    expect(find.text('チケット 10 枚'), findsOneWidget);
+  });
+
+  testWidgets('閉じ直した後は アプリに戻った時に残高を消す', (tester) async {
+    final generationTickets = StreamController<int>.broadcast();
+    addTearDown(generationTickets.close);
+    var isSelling = true;
+    await pumpGenerationTicketBalance(
+      tester: tester,
+      generator: limitedGenerator(
+        ticketPackages: const [],
+        fetchTicketPackages: () async =>
+            isSelling ? const [testTicketPackage] : const [],
+        generationTickets: generationTickets.stream,
+      ),
+    );
+    generationTickets.add(10);
+    await tester.pump();
+    await tester.pump();
+    expect(find.text('チケット 10 枚'), findsOneWidget);
+
+    isSelling = false;
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.inactive);
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+    await tester.pump();
+    await tester.pump();
+
+    expect(find.textContaining('チケット'), findsNothing);
   });
 
   testWidgets('package がある時は 上限の後に購入画面を出し ストアの価格を出す', (tester) async {
