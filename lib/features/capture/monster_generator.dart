@@ -92,25 +92,26 @@ class GenerationResult {
   });
 
   /// callable の戻り値か、生成のレコード (`users/{uid}/generations/{requestId}` に `requestId` を足したもの) から結果を読む。
-  factory GenerationResult.fromJson({required Map<String, dynamic> json}) =>
-      GenerationResult(
-        requestId: json['requestId'] as String,
-        status: GenerationStatus.values.firstWhere(
-          (status) => status.statusName == json['status'],
-          orElse: () => throw FormatException('生成の状態 ${json['status']} を知らない'),
-        ),
-        monsterId: json['monsterId'] as String?,
-        rejectionReason: json['rejectionReason'] == null
-            ? null
-            : GenerationRejectionReason.values.firstWhere(
-                (reason) => reason.reasonName == json['rejectionReason'],
-                orElse: () => throw FormatException(
-                  '生成しなかった理由 ${json['rejectionReason']} を知らない',
-                ),
-              ),
-        // サーバーは人が写っている時だけ true を付ける (functions/src/generation/records.ts の generationResult)
-        personDetected: json['personDetected'] == true,
-      );
+  factory GenerationResult.fromJson({
+    required Map<String, dynamic> json,
+  }) => GenerationResult(
+    requestId: json['requestId'] as String,
+    status: GenerationStatus.values.firstWhere(
+      (status) => status.statusName == json['status'],
+      orElse: () => throw FormatException('生成の状態 ${json['status']} を知らない'),
+    ),
+    monsterId: json['monsterId'] as String?,
+    rejectionReason: json['rejectionReason'] == null
+        ? null
+        : GenerationRejectionReason.values.firstWhere(
+            (reason) => reason.reasonName == json['rejectionReason'],
+            orElse: () => throw FormatException(
+              '生成しなかった理由 ${json['rejectionReason']} を知らない',
+            ),
+          ),
+    // サーバーは人が写っている時だけ true を付ける (functions/src/generation/records.ts の generationResult)
+    personDetected: json['personDetected'] == true,
+  );
 
   /// 結果を出した生成の要求 ID。同じ写真で別の要求の結果を使い回した時は、送った ID ではなく使い回し先の ID になる。
   final String requestId;
