@@ -144,6 +144,27 @@ void main() {
     expect(find.text('生成チケット'), findsOneWidget);
   });
 
+  testWidgets('ストアの購入の途中は 購入画面をドラッグしても閉じない', (tester) async {
+    final purchase = Completer<TicketPurchaseResult>();
+    await pumpUntilDailyLimit(
+      tester: tester,
+      generator: limitedGenerator(
+        ticketPackages: const [testTicketPackage],
+        purchaseTicketPackage: ({required package}) => purchase.future,
+      ),
+    );
+
+    await tester.tap(find.textContaining('¥200'));
+    await tester.pump();
+    await tester.drag(find.text('生成チケット'), const Offset(0, 600));
+    await tester.pump(const Duration(seconds: 1));
+    await tester.pump(const Duration(seconds: 1));
+
+    expect(find.text('生成チケット'), findsOneWidget);
+    purchase.complete(TicketPurchaseResult.cancelled);
+    await tester.pump(const Duration(seconds: 1));
+  });
+
   /// [generator] で撮るタブの残高の表示を開く。
   Future<void> pumpGenerationTicketBalance({
     required WidgetTester tester,

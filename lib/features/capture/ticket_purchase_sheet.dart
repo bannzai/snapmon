@@ -51,6 +51,8 @@ Future<bool> showTicketPurchaseSheet({
     await showModalBottomSheet<bool>(
       context: context,
       isScrollControlled: true,
+      // ドラッグの閉じ方は PopScope で止まらず、購入の途中に閉じると結果を受ける画面が無くなるため切る
+      enableDrag: false,
       builder: (context) => _TicketPurchaseSheet(
         packages: packages,
         purchaseTicketPackage: purchaseTicketPackage,
@@ -350,10 +352,13 @@ class _GenerationTicketBalanceState extends State<GenerationTicketBalance>
   @override
   Widget build(BuildContext context) => _isSelling && _generationTickets > 0
       ? Padding(
-          padding: const EdgeInsets.only(right: 8),
-          child: Text(
-            context.l10n.ticketBalance(_generationTickets),
-            style: SnapmonTextStyles.label,
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              context.l10n.ticketBalance(_generationTickets),
+              style: SnapmonTextStyles.label,
+            ),
           ),
         )
       : const SizedBox.shrink();

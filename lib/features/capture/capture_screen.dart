@@ -356,7 +356,6 @@ class _CaptureScreenState extends State<CaptureScreen>
                 ),
               ),
             ),
-            GenerationTicketBalance(monsterGenerator: widget.monsterGenerator),
             ListenableBuilder(
               listenable: widget.dexStore,
               builder: (context, _) => Material(
@@ -400,6 +399,8 @@ class _CaptureScreenState extends State<CaptureScreen>
           ],
         ),
       ),
+      // 上の行は小さい画面と大きい文字で余白が無いため、残高は別の行に出す (出さない時は高さを取らない)
+      GenerationTicketBalance(monsterGenerator: widget.monsterGenerator),
       // 手持ちが空の (初回の) 人に、最初の操作を 1 行で示す。撮った後はそのまま戦う導線になる
       ListenableBuilder(
         listenable: widget.dexStore,

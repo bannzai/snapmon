@@ -188,6 +188,26 @@ void main() {
     expect(find.text('チケット 7 枚'), findsOneWidget);
   });
 
+  testWidgets('小さい画面と大きい文字でも 残高を出して撮るタブがあふれない', (tester) async {
+    tester.view
+      ..physicalSize = const Size(320, 568)
+      ..devicePixelRatio = 1;
+    tester.platformDispatcher.textScaleFactorTestValue = 2;
+    addTearDown(tester.view.reset);
+    addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+
+    await pumpCaptureScreen(
+      tester: tester,
+      startsCameraOnOpen: false,
+      listCameras: () async => const [],
+      ticketPackages: const [testTicketPackage],
+      generationTickets: Stream.value(7),
+    );
+
+    expect(find.text('チケット 7 枚'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('売っている間でも残高が 0 の時は 撮るタブに何も出さない', (tester) async {
     await pumpCaptureScreen(
       tester: tester,
