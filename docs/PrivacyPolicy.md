@@ -46,7 +46,7 @@ bannzai（以下「提供者」といいます。）は、提供者の提供す�
 - モンスターの画像は、写真から被写体を切り出したもの（iPhone の被写体の切り出しの機能を使います）か、ユーザーが写真の上で選んだ範囲を切り取ったものです。範囲を選んだ場合は、その範囲に写る背景や周りの物も画像に含まれ、写真全体が画像になることもあります。被写体を切り出せず範囲も選ばなかった場合は、写真全体を画像にします。
 - モンスターの画像は、端末が決めた範囲を本サービスのサーバー（Cloud Functions for Firebase）が元の写真に当てはめて作ります。AI で絵を生成せず、画像生成の外部サービスに写真を送信しません。
   <!-- source: functions/src/generation/cutout.ts: 端末が送ったマスク (iOS の OS の切り出しか crop) を検査済みの元の写真に sharp で適用し、マスクが無ければ写真全体を絵にする。サーバーではマスクを作らない。functions/src/generation/records.ts の GENERATION_STAGES: 段階は uploaded → safesearch → cutout → claude → classify → dedupe → judge → saved。functions/src/generation/pipeline.ts: 画像を外部へ送るのは safesearch の Cloud Vision (annotateImage に元の写真) と claude の Claude API (describeSubject に切り出した画像) だけで、classify 以降の Jev (askJev) と Claude (proposeElement) には被写体の説明の文字列だけを送る -->
-- 写真は、モンスターの生成の前に Google Cloud Vision API で、露骨な内容・暴力的な内容・顔の検出・ラベル（写っている物の種類）の判定を受けます。露骨な内容または暴力的な内容を含むと判定された写真と、顔が写る写真からは、モンスターを生成しません。顔が検出された写真は Anthropic の Claude API に送信しません。
+- 写真は、モンスターの生成の前に Google Cloud Vision API で、露骨な内容・暴力的な内容・顔の検出・ラベル（写っている物の種類）の判定を受けます。露骨な内容または暴力的な内容を含むと判定された写真からは、モンスターを生成しません。顔が写る写真からもモンスターを生成しますが、顔の検出または Claude API の判定で人が写っていると判定した時は、生成したモンスターの画像が他のユーザーに表示されることと、ユーザー以外の人が写っている場合はその人の同意を得ることを、アプリ上で注意します。人が写っていると判定した事実は、生成の記録として保存します。
   <!-- source: functions/src/generation/pipeline.ts: Cloud Vision の annotateImage を呼ぶのは runSafeSearchStage の 1 か所で、切り出しの前の元の写真 (downscalePhoto で縮めたもの) にだけかける -->
 - アイコンにする写真は、モンスターの生成と同じく Google Cloud Vision API で判定を受け、露骨な内容・暴力的な内容を含む写真と顔が写る写真はアイコンにせず、その時点で削除します。判定を通った写真は正方形に切り取った画像だけを保存し、認証済みの他のユーザーが閲覧できます（対戦で表示されます）。アイコンにする写真は Anthropic の Claude API に送信しません。アイコンを変えると、前のアイコンは削除します。
   <!-- source: functions/src/profile.ts: setProfileIconData が users/{uid}/iconUploads/{uploadId} の写真を annotateImage (Cloud Vision) にかけ、visionRejectionReason で断る時は写真を消す。通った写真は sharp で 256px の正方形の PNG にして users/{uid}/icons/{uploadId}.png に置き、置いた写真と前のアイコンを消す。Claude API のクライアントは使わない。firebase/storage.rules: users/{uid}/icons はログインした全員が読める -->
@@ -79,7 +79,7 @@ bannzai（以下「提供者」といいます。）は、提供者の提供す�
   - Google Analytics for Firebase: 利用状況の分析
   - BigQuery エクスポート: Google Analytics for Firebase の利用状況のイベントを、提供者の BigQuery に保存して集計します（保存期間は「保存期間」を参照してください）
   - Firebase Crashlytics: クラッシュ情報の収集
-- **Anthropic, PBC (Claude API)**: ユーザーが撮影・選択した写真のうち、顔が検出されなかったものは、Cloud Functions を経由して Anthropic の Claude API に送信され、被写体の説明、モンスターの名前、図鑑の文章の生成に利用されます。顔が検出された写真は送信しません。 https://www.anthropic.com/legal/privacy [^anthropic]
+- **Anthropic, PBC (Claude API)**: ユーザーが撮影・選択した写真のうち、露骨な内容・暴力的な内容を含むと判定されなかったものは、Cloud Functions を経由して Anthropic の Claude API に送信され、被写体の説明、モンスターの名前、図鑑の文章の生成と、人が写っているかの判定に利用されます。 https://www.anthropic.com/legal/privacy [^anthropic]
 - **Google Cloud Vision API (Google LLC)**: ユーザーが撮影・選択した写真とアイコンにする写真は、露骨な内容・暴力的な内容の判定（SafeSearch）、顔の検出、写っている物のラベルの検出のために Cloud Vision API に送信されます。 https://policies.google.com/privacy?hl=ja [^vision]
 - **TypeSafe の Jev (TypeSafe)**: Claude API が作成した被写体の説明文（文字列）が、モンスターの属性・技・ステータスの判定のために Jev に送信されます。写真そのものは送信しません。 https://docs.typesafe.ai/models.md [^jev]
 
@@ -98,7 +98,7 @@ bannzai（以下「提供者」といいます。）は、提供者の提供す�
 - 提供者は、13 歳未満の子どもから、その保護者の検証可能な同意を得ずに個人情報を収集しません。13 歳未満であることが判明した場合は、そのアカウントとデータを削除します。ご連絡は bannzai.app@gmail.com までお願いします。
 - 提供者は、米国の児童オンラインプライバシー保護法（COPPA）をはじめ、適用される法令を順守します。
 - 13 歳以上の未成年のユーザーは、親権者など法定代理人の同意を得たうえで本サービスを利用してください。
-- 本サービスは、露骨な内容・暴力的な内容・顔が写る写真からモンスターを生成せず、通報とブロックの機能を備えています。モンスターの名前・図鑑の文章は AI が生成するものです。
+- 本サービスは、露骨な内容・暴力的な内容の写真からモンスターを生成せず、人が写る写真から生成した時はアプリ上で注意し、通報とブロックの機能を備えています。モンスターの名前・図鑑の文章は AI が生成するものです。
 
 ## 通報とブロック
 他のユーザーのモンスターを表示する対戦（PvP）で、不適切なコンテンツを通報する機能とユーザーをブロックする機能を提供します。通報の内容と対象のモンスターは、確認と対応のために提供者が確認します。通報されたモンスターは、対戦の相手の候補から外されることがあります。
@@ -134,3 +134,4 @@ bannzai.app@gmail.com
 【2026年10月28日改定】
 【2026年10月29日改定】
 【2026年11月1日改定】
+【2026年11月7日改定】
