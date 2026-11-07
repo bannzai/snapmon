@@ -1,5 +1,6 @@
 import '../monster/monster_definition.dart';
 import '../monster/monster_state.dart';
+import '../monster/monster_stats.dart';
 
 /// 手持ちの数の上限 (DIRECTION.md「ゲームの仕様」の「手持ちは 3 体まで」)。
 const int maximumPartySize = 3;
@@ -21,7 +22,7 @@ class BattleMonster {
   /// 生まれた時に決まる部分。
   final MonsterDefinition definition;
 
-  /// 変わる部分 (レベル・経験・HP・PP の残り)。
+  /// 変わる部分 (レベル・経験・HP・PP の残り・ステータスの倍率)。
   final MonsterState state;
 
   /// HP が 0 で倒れているか。
@@ -74,6 +75,29 @@ sealed class BattleEvent {
   final int turnNumber;
 }
 
+/// 補助技の効果で、場のモンスター 1 体のステータスの倍率が変わろうとした結果。
+class StatModifierChange {
+  /// ステータスの倍率の変化を作る。
+  const StatModifierChange({
+    required this.side,
+    required this.statKind,
+    required this.previousPercent,
+    required this.newPercent,
+  });
+
+  /// 倍率が変わったモンスターの陣営。
+  final BattleSideId side;
+
+  /// 変わったステータス (攻撃・防御・素早さ)。
+  final StatKind statKind;
+
+  /// 変わる前の倍率 (%)。
+  final int previousPercent;
+
+  /// 変わった後の倍率 (%)。重ねがけの上限に当たって変わらなかった時は [previousPercent] と同じ。
+  final int newPercent;
+}
+
 /// 技 (またはわるあがき) を使った。
 class MoveUsedEvent extends BattleEvent {
   /// 技を使ったログを作る。
@@ -86,6 +110,9 @@ class MoveUsedEvent extends BattleEvent {
     required this.damage,
     required this.defenderRemainingHitPoints,
     required this.specialEffect,
+    required this.statModifierChanges,
+    required this.recoveredHitPoints,
+    required this.attackerRemainingHitPoints,
   });
 
   /// 技を使った陣営。
@@ -108,6 +135,15 @@ class MoveUsedEvent extends BattleEvent {
 
   /// 技の特殊効果の威力の倍率 (%) とログの説明文 (`calculateMoveSpecialEffect` の結果)。特殊効果の無い技とわるあがきは null。
   final ({int powerPercent, String description})? specialEffect;
+
+  /// 技の効果でステータスの倍率が変わろうとした結果。変化の値が 0 の出力は入れない。効果の無い技とわるあがきは空。
+  final List<StatModifierChange> statModifierChanges;
+
+  /// 技の効果で技を使った側が回復した HP (最大 HP で丸めた後の値)。回復しない技は 0。
+  final int recoveredHitPoints;
+
+  /// 技を使った側の、回復の後の残りの HP。
+  final int attackerRemainingHitPoints;
 }
 
 /// モンスターが倒れた。

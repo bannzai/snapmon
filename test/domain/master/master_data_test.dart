@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:snapmon/domain/battle/move_expression.dart';
 import 'package:snapmon/domain/master/master_data.dart';
 import 'package:snapmon/domain/master/move.dart';
+import 'package:snapmon/domain/monster/monster_stats.dart';
 
 void main() {
   final master = MasterData.fromJson(
@@ -54,7 +55,23 @@ void main() {
     for (final move in master.moves) {
       expect(elementTypeIds, contains(move.elementTypeId), reason: move.id);
       expect(effectIds, contains(move.effectId), reason: move.id);
-      expect(move.power, greaterThan(0), reason: move.id);
+      switch (move.category) {
+        case MoveCategory.attack:
+          expect(move.power, greaterThan(0), reason: move.id);
+        case MoveCategory.support:
+          expect(move.power, 0, reason: move.id);
+          expect(move.specialEffect?.power, isNull, reason: move.id);
+          expect(
+            [
+              ...?move.specialEffect?.selfStatChanges.keys,
+              ...?move.specialEffect?.opponentStatChanges.keys,
+              if (move.specialEffect?.selfHitPointsRecovery != null)
+                StatKind.hitPoints,
+            ],
+            isNotEmpty,
+            reason: move.id,
+          );
+      }
       expect(move.powerPoints, greaterThan(0), reason: move.id);
       expect(
         move.learnableLevelMinimum,
@@ -65,7 +82,7 @@ void main() {
   });
 
   test('master と見本のモンスターの全ての特殊効果は、式が文法どおりで一覧の変数だけを使い、説明と規則を持つ', () {
-    // 式 (power) を持たない形は読む時に null になり見落とすため、元の JSON で確かめる
+    // 式を持たない形・変えられないステータスのキーは読む時に null や空になり見落とすため、元の JSON で確かめる
     for (final path in [
       'assets/master/master.json',
       'assets/samples/sample_monsters.json',
@@ -85,12 +102,32 @@ void main() {
       collect(jsonDecode(File(path).readAsStringSync()));
       expect(specialEffectJsons, isNotEmpty, reason: path);
       for (final json in specialEffectJsons) {
-        expect(json['power'], isA<String>(), reason: '$path: $json');
-        expect(
-          moveExpressionViolation(source: json['power'] as String),
-          isNull,
-          reason: '$path: $json',
-        );
+        final expressions = <Object?>[
+          if (json.containsKey('power')) json['power'],
+          if (json.containsKey('selfHitPointsRecovery'))
+            json['selfHitPointsRecovery'],
+          for (final key in ['selfStatChanges', 'opponentStatChanges'])
+            if (json[key] case final Map<String, dynamic> statChanges) ...[
+              for (final MapEntry(key: statName, value: expression)
+                  in statChanges.entries) ...[
+                expression,
+                // 変えられないステータスのキーは読む時に捨てられ、効果が黙って消えるため
+                if (!modifiableStatKinds.any(
+                  (statKind) => statKind.name == statName,
+                ))
+                  'unknown stat: $statName',
+              ],
+            ],
+        ];
+        expect(expressions, isNotEmpty, reason: '$path: $json');
+        for (final expression in expressions) {
+          expect(expression, isA<String>(), reason: '$path: $json');
+          expect(
+            moveExpressionViolation(source: expression! as String),
+            isNull,
+            reason: '$path: $json',
+          );
+        }
         expect(json['summary'], isA<String>(), reason: '$path: $json');
         expect(json['rule'], isA<String>(), reason: '$path: $json');
         expect(json.containsKey('kind'), isFalse, reason: '$path: $json');
@@ -152,6 +189,20 @@ void main() {
     expect(move.specialEffect?.power, 'if(not movesFirst, 140, 100)');
     expect(move.specialEffect?.summary, '後に動くと強い');
     expect(move.specialEffect?.rule, '後に行動すると威力が上がる');
+  });
+
+  test('全属性が補助技 (相手の防御・自分の攻撃・相手の素早さ・回復のどれか) を持つ (#181 の完了条件)', () {
+    for (final elementType in master.elementTypes) {
+      expect(
+        master.moves.where(
+          (move) =>
+              move.elementTypeId == elementType.id &&
+              move.category == MoveCategory.support,
+        ),
+        isNotEmpty,
+        reason: elementType.id,
+      );
+    }
   });
 
   test('Lv.1 で覚えられる技の半分以上に特殊効果が付いている (#65 の完了条件)', () {

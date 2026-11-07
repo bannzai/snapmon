@@ -25,7 +25,7 @@ export interface MasterMove {
   power: number;
   /** PP。 */
   powerPoints: number;
-  /** 技の分類 (現在は attack だけ)。 */
+  /** 技の分類。attack (ダメージを与える技) か support (威力 0 で、特殊効果でステータスを変えるか HP を回復する技。master の版 7 から)。 */
   category: string;
   /** 技のエフェクトの識別子。 */
   effectId: string;
@@ -34,11 +34,21 @@ export interface MasterMove {
   /** 覚えさせてよいレベル帯の上限。 */
   learnableLevelMaximum: number;
   /**
-   * 技の特殊効果。`power` は威力の倍率 (%) を返す式 (文法は documents/game-rules.md「技の式」、検査は src/move_expression.ts)、
+   * 技の特殊効果。出力ごとに式 (文法は documents/game-rules.md「技の式」、検査は src/move_expression.ts) を持つ。
+   * `power` は攻撃技の威力の倍率 (%)、`selfStatChanges`・`opponentStatChanges` は補助技が自分・相手のステータス (attack・defense・speed) の倍率 (%) に足す値、
+   * `selfHitPointsRecovery` は補助技が自分の HP を回復する量。
    * `summary` は技の枠に出す短い説明、`rule` はバトルのログと技の詳細に出す効果の規則の説明。計算は端末のバトル (lib/domain/battle/move_special_effect.dart) が行う。
    * `rationale` は、この技にこの効果を付けた根拠 (技の名前の物の性質と効果の働き方の結びつき)。
    */
-  specialEffect?: { power: string; summary: string; rule: string; rationale?: string };
+  specialEffect?: {
+    power?: string;
+    selfStatChanges?: Partial<Record<"attack" | "defense" | "speed", string>>;
+    opponentStatChanges?: Partial<Record<"attack" | "defense" | "speed", string>>;
+    selfHitPointsRecovery?: string;
+    summary: string;
+    rule: string;
+    rationale?: string;
+  };
   /**
    * この技がこの属性・この名前である根拠。技・効果を足す・見直す時に参照する保守のための値で、ユーザーには見せず、生成・バトルでも読まない
    * (documents/game-rules.md「技の根拠」)。master の版 4 より前の版と、版 4 より前にその場で作った技は持たない。
