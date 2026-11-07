@@ -109,6 +109,9 @@ class _TicketPurchaseSheetState extends State<_TicketPurchaseSheet> {
   /// ストアの購入が済んだか。
   bool _hasPurchased = false;
 
+  /// 支払いが保留になったか。もう一度買わせないため、買うボタンを出さない。
+  bool _isPaymentPending = false;
+
   /// 反映に時間がかかっている案内を出すか。
   bool _isTicketArrivalDelayed = false;
 
@@ -181,6 +184,15 @@ class _TicketPurchaseSheetState extends State<_TicketPurchaseSheet> {
             package: package,
           );
           setState(() => _isPurchasing = false);
+        case TicketPurchaseResult.pending:
+          _logTicketPurchase(
+            step: TicketPurchaseStep.pending,
+            package: package,
+          );
+          setState(() {
+            _isPurchasing = false;
+            _isPaymentPending = true;
+          });
       }
     } catch (error) {
       _logTicketPurchase(step: TicketPurchaseStep.failed, package: package);
@@ -205,7 +217,9 @@ class _TicketPurchaseSheetState extends State<_TicketPurchaseSheet> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: _hasPurchased
+            // 上限に当たって開くため開いた時の残高は 0 で、増えたら前に閉じた購入か保留の分が届いたので、もう買わせない
+            children:
+                _hasPurchased || _isPaymentPending || _generationTickets > 0
                 ? _purchasedChildren(l10n: l10n)
                 : [
                     Text(
@@ -277,7 +291,9 @@ class _TicketPurchaseSheetState extends State<_TicketPurchaseSheet> {
           const Center(child: CircularProgressIndicator()),
           const SizedBox(height: 16),
           Text(
-            _isTicketArrivalDelayed
+            _isPaymentPending
+                ? l10n.ticketPurchasePending
+                : _isTicketArrivalDelayed
                 ? l10n.ticketPurchaseArrivalDelayed
                 : l10n.ticketPurchaseWaiting,
             textAlign: TextAlign.center,

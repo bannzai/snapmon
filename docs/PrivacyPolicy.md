@@ -82,7 +82,7 @@ bannzai（以下「提供者」といいます。）は、提供者の提供す�
   - Firebase Crashlytics: クラッシュ情報の収集
 - **Anthropic, PBC (Claude API)**: ユーザーが撮影・選択した写真のうち、顔が検出されなかったものは、Cloud Functions を経由して Anthropic の Claude API に送信され、被写体の説明、モンスターの名前、図鑑の文章の生成に利用されます。顔が検出された写真は送信しません。 https://www.anthropic.com/legal/privacy [^anthropic]
 - **Google Cloud Vision API (Google LLC)**: ユーザーが撮影・選択した写真とアイコンにする写真は、露骨な内容・暴力的な内容の判定（SafeSearch）、顔の検出、写っている物のラベルの検出のために Cloud Vision API に送信されます。 https://policies.google.com/privacy?hl=ja [^vision]
-- **RevenueCat, Inc.**: iOS / Android のアプリ内課金（生成チケット）の決済の処理に利用します。アプリのユーザー ID（Firebase Authentication の uid）、ストアの購入の情報（Apple のレシート、Google の購入トークン）、端末に関する技術的な情報が RevenueCat に送信されます。写真は送信しません。Web 版では利用しません。 https://www.revenuecat.com/privacy [^revenuecat]
+- **RevenueCat, Inc.**: iOS / Android のアプリ内課金（生成チケット）の決済の処理に利用します。アプリのユーザー ID（Firebase Authentication の uid）、ストアの購入の情報（Apple のレシート、Google の購入トークン）、端末に関する技術的な情報が RevenueCat に送信されます。チケットを購入していない場合も、アプリのユーザー ID は送信されます。写真は送信しません。Web 版では利用しません。 https://www.revenuecat.com/privacy [^revenuecat]
 - **TypeSafe の Jev (TypeSafe)**: Claude API が作成した被写体の説明文（文字列）が、モンスターの属性・技・ステータスの判定のために Jev に送信されます。写真そのものは送信しません。 https://docs.typesafe.ai/models.md [^jev]
 
 [^anthropic]: 出典: https://privacy.claude.com/en/articles/7996868-is-my-data-used-for-model-training 「By default, we will not use your inputs or outputs from our commercial products ... to train our models.」（2026-10-21 に確認。API の利用が「commercial products」に当たるかは同ページの定義に従い、提供者が確かめた範囲では上記の記載のとおりです。Anthropic 側の保存期間は同社のポリシーに従います）

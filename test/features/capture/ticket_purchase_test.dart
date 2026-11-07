@@ -221,6 +221,51 @@ void main() {
     expect(purchasedPackage, lowerPackage);
   });
 
+  testWidgets('買っていない購入画面で残高が増えたら 買うボタンを消して続けるボタンを出す', (tester) async {
+    final generationTickets = StreamController<int>.broadcast();
+    addTearDown(generationTickets.close);
+    await pumpUntilDailyLimit(
+      tester: tester,
+      generator: limitedGenerator(
+        ticketPackages: const [testTicketPackage],
+        generationTickets: generationTickets.stream,
+      ),
+    );
+    expect(find.textContaining('¥200'), findsOneWidget);
+
+    generationTickets.add(10);
+    await tester.pump();
+
+    expect(find.textContaining('¥200'), findsNothing);
+    expect(find.text('この写真で生成する'), findsOneWidget);
+  });
+
+  testWidgets('支払いが保留になったら 買うボタンを消して待つ案内を出し 届いたら続けられる', (tester) async {
+    final generationTickets = StreamController<int>.broadcast();
+    addTearDown(generationTickets.close);
+    await pumpUntilDailyLimit(
+      tester: tester,
+      generator: limitedGenerator(
+        ticketPackages: const [testTicketPackage],
+        purchaseTicketPackage: ({required package}) async =>
+            TicketPurchaseResult.pending,
+        generationTickets: generationTickets.stream,
+      ),
+    );
+
+    await tester.tap(find.textContaining('¥200'));
+    await tester.pump();
+    await tester.pump();
+
+    expect(find.textContaining('¥200'), findsNothing);
+    expect(find.textContaining('支払いの完了を待っています'), findsOneWidget);
+    expect(ticketPurchaseSteps(), ['shown', 'pending']);
+
+    generationTickets.add(10);
+    await tester.pump();
+    expect(find.text('この写真で生成する'), findsOneWidget);
+  });
+
   testWidgets('ストアの購入の途中は 購入画面をドラッグしても閉じない', (tester) async {
     final purchase = Completer<TicketPurchaseResult>();
     await pumpUntilDailyLimit(

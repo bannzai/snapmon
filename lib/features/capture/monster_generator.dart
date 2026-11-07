@@ -156,6 +156,9 @@ enum TicketPurchaseResult {
 
   /// 利用者がストアの購入の画面を閉じた。
   cancelled,
+
+  /// 支払いが保留になった (保護者の承認待ち等)。承認されると webhook が残高を足す。
+  pending,
 }
 
 /// 写真がどこから来たか (計測の `monster_generated` の `source`)。

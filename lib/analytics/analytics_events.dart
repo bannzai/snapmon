@@ -30,7 +30,7 @@ enum AnalyticsEvent {
   cameraPermission('camera_permission'),
 
   /// 生成チケットの購入の段階 (パラメータ `step`: [TicketPurchaseStep] の名前。`product`: ストアの商品の識別子。
-  /// restored の時は `product` を送らない)。
+  /// shown と restored の時は `product` を送らない)。
   ticketPurchase('ticket_purchase');
 
   const AnalyticsEvent(this.eventName);
@@ -95,6 +95,9 @@ enum TicketPurchaseStep {
 
   /// ストアの購入が失敗した。
   failed('failed'),
+
+  /// 支払いが保留になった。
+  pending('pending'),
 
   /// 設定画面で購入の状態を同期した。
   restored('restored');

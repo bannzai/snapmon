@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
@@ -134,30 +136,38 @@ class DeveloperMenuScreen extends StatelessWidget {
             leading: const Icon(Icons.confirmation_number_outlined),
             title: const Text('生成チケットの購入画面の見本を開く'),
             subtitle: const Text('見本の価格を出す。買うと 3 秒後に残高が 10 枚になる'),
-            onTap: () => showTicketPurchaseSheet(
-              context: context,
-              packages: const [
-                Package(
-                  'ticket10',
-                  PackageType.custom,
-                  StoreProduct(
-                    'sample10',
-                    '',
-                    '生成チケット 10 回 (見本)',
-                    0,
-                    '見本の価格',
-                    '',
+            onTap: () {
+              final sampleGenerationTickets = StreamController<int>();
+              showTicketPurchaseSheet(
+                context: context,
+                packages: const [
+                  Package(
+                    'ticket10',
+                    PackageType.custom,
+                    StoreProduct(
+                      'sample10',
+                      '',
+                      '生成チケット 10 回 (見本)',
+                      0,
+                      '見本の価格',
+                      '',
+                    ),
+                    PresentedOfferingContext('sample', null, null),
                   ),
-                  PresentedOfferingContext('sample', null, null),
-                ),
-              ],
-              purchaseTicketPackage: ({required package}) async =>
-                  TicketPurchaseResult.purchased,
-              watchGenerationTickets: () => Stream.fromFuture(
-                Future.delayed(const Duration(seconds: 3), () => 10),
-              ),
-              logEvent: ({required event, required parameters}) async {},
-            ),
+                ],
+                // 買った時から数える (受け取りを待つ表示を見られるように)
+                purchaseTicketPackage: ({required package}) async {
+                  Timer(const Duration(seconds: 3), () {
+                    if (!sampleGenerationTickets.isClosed) {
+                      sampleGenerationTickets.add(10);
+                    }
+                  });
+                  return TicketPurchaseResult.purchased;
+                },
+                watchGenerationTickets: () => sampleGenerationTickets.stream,
+                logEvent: ({required event, required parameters}) async {},
+              ).whenComplete(sampleGenerationTickets.close);
+            },
           ),
           // アルバムのファイル選択を自動の操作で通しにくい Web (webtunnel) で、範囲を決める画面を確かめるため
           ListTile(

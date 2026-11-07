@@ -105,11 +105,12 @@ Future<TicketPurchaseResult> purchaseTicketPackageWithRevenueCat({
     await Purchases.purchase(PurchaseParams.package(package));
     return TicketPurchaseResult.purchased;
   } on PlatformException catch (error) {
-    if (PurchasesErrorHelper.getErrorCode(error) ==
-        PurchasesErrorCode.purchaseCancelledError) {
-      return TicketPurchaseResult.cancelled;
-    }
-    rethrow;
+    return switch (PurchasesErrorHelper.getErrorCode(error)) {
+      PurchasesErrorCode.purchaseCancelledError =>
+        TicketPurchaseResult.cancelled,
+      PurchasesErrorCode.paymentPendingError => TicketPurchaseResult.pending,
+      _ => throw error,
+    };
   }
 }
 

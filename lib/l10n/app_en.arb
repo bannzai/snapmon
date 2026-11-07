@@ -215,6 +215,7 @@
   "ticketPurchaseDescription": "One ticket creates one monster\nafter your free daily limit",
   "ticketPurchaseWaiting": "Receiving your tickets",
   "ticketPurchaseArrivalDelayed": "Still waiting for your tickets\nThey stay on your account even if you close this screen",
+  "ticketPurchasePending": "Waiting for your payment to complete\nYour tickets arrive once it does, even if you close this screen",
   "ticketPurchaseArrivedTitle": "Your tickets are here",
   "ticketPurchaseContinue": "Create from this photo",
   "ticketPurchaseSync": "Sync purchases",
