@@ -283,5 +283,22 @@
   "moveDetailEffectiveness": "相性",
   "moveDetailSuperEffective": "よく効く",
   "moveDetailNotVeryEffective": "効きにくい",
-  "moveDetailNeutralEverywhere": "どの属性にも 1 倍"
+  "moveDetailNeutralEverywhere": "どの属性にも 1 倍",
+  "ticketBalance": "チケット {count} 枚",
+  "@ticketBalance": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "ticketPurchaseTitle": "生成チケット",
+  "ticketPurchaseDescription": "今日の無料の生成を使い切った後も\n1 枚で 1 回生成できます",
+  "ticketPurchaseWaiting": "チケットを受け取っています",
+  "ticketPurchaseArrivalDelayed": "反映を待っています\nこの画面を閉じても届いたチケットは残ります",
+  "ticketPurchasePending": "支払いの完了を待っています\nこの画面を閉じても完了すればチケットが届きます",
+  "ticketPurchaseArrivedTitle": "チケットが届きました",
+  "ticketPurchaseContinue": "この写真で生成する",
+  "ticketPurchaseSync": "購入の状態を同期する",
+  "ticketPurchaseSynced": "購入の状態を同期しました"
 }

@@ -50,7 +50,9 @@ jobs:
           FIREBASE_OPTIONS_DART_B64: ${{ secrets.FIREBASE_OPTIONS_DART_B64 }}
           GOOGLE_SERVICE_INFO_PLIST_B64: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST_B64 }}
       - run: flutter pub get
-      - run: flutter build ios --simulator --debug
+      - run: flutter build ios --simulator --debug --dart-define=REVENUECAT_PUBLIC_API_KEY_IOS="$REVENUECAT_PUBLIC_API_KEY_IOS"
+        env:
+          REVENUECAT_PUBLIC_API_KEY_IOS: ${{ vars.REVENUECAT_PUBLIC_API_KEY_IOS }}
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: simulator-app

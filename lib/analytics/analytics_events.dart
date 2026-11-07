@@ -27,7 +27,11 @@ enum AnalyticsEvent {
 
   /// 撮る画面のカメラの権限の段階 (パラメータ `step`: [CameraPermissionStep] の名前。
   /// 送る時点は documents/DIRECTION.md「決めたこと」の #64 の行)。
-  cameraPermission('camera_permission');
+  cameraPermission('camera_permission'),
+
+  /// 生成チケットの購入の段階 (パラメータ `step`: [TicketPurchaseStep] の名前。`product`: ストアの商品の識別子。
+  /// shown と restored の時は `product` を送らない)。
+  ticketPurchase('ticket_purchase');
 
   const AnalyticsEvent(this.eventName);
 
@@ -73,6 +77,32 @@ enum CameraPermissionStep {
   openSettings('open_settings');
 
   const CameraPermissionStep(this.stepName);
+
+  /// Analytics に送る `step` の値。
+  final String stepName;
+}
+
+/// 生成チケットの購入の段階 (計測の `ticket_purchase` の `step`)。
+enum TicketPurchaseStep {
+  /// 購入画面を出した。
+  shown('shown'),
+
+  /// ストアの購入が済んだ。
+  purchased('purchased'),
+
+  /// ストアの購入の画面を閉じた。
+  cancelled('cancelled'),
+
+  /// ストアの購入が失敗した。
+  failed('failed'),
+
+  /// 支払いが保留になった。
+  pending('pending'),
+
+  /// 設定画面で購入の状態を同期した。
+  restored('restored');
+
+  const TicketPurchaseStep(this.stepName);
 
   /// Analytics に送る `step` の値。
   final String stepName;

@@ -19,6 +19,7 @@ import '../result/result_screen.dart';
 import '../share/card_sharer.dart';
 import 'generation_screen.dart';
 import 'monster_generator.dart';
+import 'ticket_purchase_sheet.dart';
 
 /// 撮る画面 (モックの Main.dc.html)。ファインダーにカメラの映像を出し、シャッターで撮るかアルバムから選んだ写真から生成する。
 /// カメラの権限は、撮るボタンか「カメラを使う」を押すまで求めない (開いただけで権限を聞かないため。#64)。
@@ -398,6 +399,8 @@ class _CaptureScreenState extends State<CaptureScreen>
           ],
         ),
       ),
+      // 上の行は小さい画面と大きい文字で余白が無いため、残高は別の行に出す (出さない時は高さを取らない)
+      GenerationTicketBalance(monsterGenerator: widget.monsterGenerator),
       // 手持ちが空の (初回の) 人に、最初の操作を 1 行で示す。撮った後はそのまま戦う導線になる
       ListenableBuilder(
         listenable: widget.dexStore,

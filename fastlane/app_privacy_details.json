@@ -16,7 +16,12 @@
   },
   {
     "category": "USER_ID",
-    "purposes": ["APP_FUNCTIONALITY"],
+    "purposes": ["ANALYTICS", "APP_FUNCTIONALITY"],
+    "data_protections": ["DATA_LINKED_TO_YOU"]
+  },
+  {
+    "category": "PURCHASE_HISTORY",
+    "purposes": ["ANALYTICS", "APP_FUNCTIONALITY"],
     "data_protections": ["DATA_LINKED_TO_YOU"]
   },
   {

@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:snapmon/analytics/analytics_events.dart';
 import 'package:snapmon/domain/master/master_data.dart';
 import 'package:snapmon/domain/monster/monster_definition.dart';
@@ -30,10 +31,28 @@ class RecordedGenerationCalls {
   /// openAppSettings が呼ばれた回数。
   int openAppSettingsCallCount = 0;
 
+  /// syncTicketPurchases が呼ばれた回数。
+  int syncTicketPurchasesCallCount = 0;
+
   /// logEvent に渡されたイベントとパラメータ (呼ばれた順)。
   final List<({AnalyticsEvent event, Map<String, Object>? parameters})>
   loggedEvents = [];
 }
+
+/// テストの package。価格はストアから来る値の見本で、画面がこの値をそのまま出すかを確かめる。
+const Package testTicketPackage = Package(
+  'ticket10',
+  PackageType.custom,
+  StoreProduct(
+    'snapmon_generationticket10_200yen',
+    '',
+    '生成チケット 10 回',
+    200,
+    '¥200',
+    'JPY',
+  ),
+  PresentedOfferingContext('generation_tickets', null, null),
+);
 
 /// テストの写真の中身 (preparePhoto はそのまま返すため、画像として読める必要はない)。
 final Uint8List testPhotoBytes = Uint8List.fromList([1, 2, 3]);
@@ -64,6 +83,11 @@ MonsterGenerator fakeMonsterGenerator({
     required SquareCrop crop,
   })?
   createSquareMask,
+  List<Package> ticketPackages = const [],
+  Future<List<Package>> Function()? fetchTicketPackages,
+  Future<TicketPurchaseResult> Function({required Package package})?
+  purchaseTicketPackage,
+  Stream<int>? generationTickets,
 }) {
   var requestIdCount = 0;
   return MonsterGenerator(
@@ -104,6 +128,12 @@ MonsterGenerator fakeMonsterGenerator({
       calls.fetchedRequestIds.add(requestId);
       return fetchGeneration(requestId: requestId);
     },
+    fetchTicketPackages: fetchTicketPackages ?? () async => ticketPackages,
+    purchaseTicketPackage:
+        purchaseTicketPackage ??
+        ({required package}) async => TicketPurchaseResult.cancelled,
+    syncTicketPurchases: () async => calls.syncTicketPurchasesCallCount++,
+    watchGenerationTickets: () => generationTickets ?? const Stream.empty(),
     logEvent: ({required event, required parameters}) async =>
         calls.loggedEvents.add((event: event, parameters: parameters)),
   );

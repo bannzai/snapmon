@@ -13,6 +13,7 @@ bannzai（以下「提供者」といいます。）は、提供者の提供す�
 - ユーザーが撮影またはアルバムから選択する写真（人物や、人物を特定できる情報が写ることがあります）
 - 写真から作成する被写体の説明文（何か・色・素材・大きさ・硬さなど。AI が作成し、モンスターの属性・技・ステータスの判定と同じ被写体の判定に使います）と、写真のハッシュ値（同じ写真の判定に使う値）
 - 写真から生成されたモンスターの情報（名前、図鑑の文章、属性、技、ステータス、レベル、生成したモンスターの画像）
+- 生成チケットの残高と購入の記録（商品、枚数、ストアの取引 ID、購入したストア）。クレジットカード番号などの支払い情報は各ストアが扱い、提供者は受け取りません
 - 手持ちの編成、バトルの結果その他本サービスの利用の記録
 - 不適切なコンテンツの通報の内容、ユーザーのブロックの記録
 - 対戦（PvP）で他のユーザーに表示する表示名（ユーザーが設定画面で設定したもの。設定していない場合は「トレーナー」と 4 桁の数字）
@@ -81,9 +82,11 @@ bannzai（以下「提供者」といいます。）は、提供者の提供す�
   - Firebase Crashlytics: クラッシュ情報の収集
 - **Anthropic, PBC (Claude API)**: ユーザーが撮影・選択した写真のうち、露骨な内容・暴力的な内容を含むと判定されなかったものは、Cloud Functions を経由して Anthropic の Claude API に送信され、被写体の説明、モンスターの名前、図鑑の文章の生成と、人が写っているかの判定に利用されます。 https://www.anthropic.com/legal/privacy [^anthropic]
 - **Google Cloud Vision API (Google LLC)**: ユーザーが撮影・選択した写真とアイコンにする写真は、露骨な内容・暴力的な内容の判定（SafeSearch）、顔の検出、写っている物のラベルの検出のために Cloud Vision API に送信されます。 https://policies.google.com/privacy?hl=ja [^vision]
+- **RevenueCat, Inc.**: iOS / Android のアプリ内課金（生成チケット）の決済の処理に利用します。アプリのユーザー ID（Firebase Authentication の uid）、ストアの購入の情報（Apple のレシート、Google の購入トークン）、端末に関する技術的な情報が RevenueCat に送信されます。チケットを購入していない場合も、アプリのユーザー ID は送信されます。写真は送信しません。Web 版では利用しません。 https://www.revenuecat.com/privacy [^revenuecat]
 - **TypeSafe の Jev (TypeSafe)**: Claude API が作成した被写体の説明文（文字列）が、モンスターの属性・技・ステータスの判定のために Jev に送信されます。写真そのものは送信しません。 https://docs.typesafe.ai/models.md [^jev]
 
 [^anthropic]: 出典: https://privacy.claude.com/en/articles/7996868-is-my-data-used-for-model-training 「By default, we will not use your inputs or outputs from our commercial products ... to train our models.」（2026-10-21 に確認。API の利用が「commercial products」に当たるかは同ページの定義に従い、提供者が確かめた範囲では上記の記載のとおりです。Anthropic 側の保存期間は同社のポリシーに従います）
+[^revenuecat]: 出典: https://www.revenuecat.com/privacy 「the following information regarding your end users may be received and processed by us」「User ID of the end user in your app or digital product」「Apple receipt file; and Google purchase token.」「This refers to technical information related to an end user’s mobile device or computer」「We are not the Data Controllers of this data and act as Data Processors.」、 https://www.revenuecat.com/docs/platform-resources/apple-platform-resources/apple-app-privacy 「RevenueCat collects purchase history from users」（2026-11-07 に確認）。RevenueCat 側の保存期間は同社のポリシーに従います
 [^vision]: 出典: https://docs.cloud.google.com/vision/docs/data-usage 「Google does not use the content you send to train and improve our Cloud Vision features」、オンラインのリクエストについて「the image data is processed in memory and not persisted to disk.」、「Google also temporarily logs some metadata about your Vision API requests」（2026-10-21 に確認）
 [^jev]: 出典: https://docs.typesafe.ai/models.md 入力は「Text」、「Jev is not trained on customer requests or responses.」（2026-10-21 に確認）
 
@@ -91,7 +94,7 @@ bannzai（以下「提供者」といいます。）は、提供者の提供す�
 本サービスは、現在、広告を表示せず、広告配信を目的とした SDK や広告 ID を利用しません。
 
 ## 保存期間
-ユーザーの利用者情報（写真、生成したモンスター、図鑑、手持ち、バトルの記録、通報・ブロックの記録、表示名とアイコン）は、ユーザーがアカウントを削除するまで保存します。アカウントは、アプリの「設定」画面の「アカウントを削除」から、いつでも削除できます（アプリを操作できない場合は bannzai.app@gmail.com へご連絡ください）。アカウントを削除すると、上記のデータはすみやかに削除され（一部の写真は再試行のため時間がかかることがあります）、復元できません。手順の詳細と削除されるデータは[アカウントの削除について](AccountDeletion)を参照してください。利用状況のイベント（Google Analytics for Firebase）は、提供者の BigQuery に最大 90 日間保存します。Google Analytics for Firebase 側とクラッシュ情報（Crashlytics）は、Google の定める期間に従って保存されます。不適切または重複と判定された写真は、判定の時点で削除します。
+ユーザーの利用者情報（写真、生成したモンスター、図鑑、手持ち、バトルの記録、通報・ブロックの記録、表示名とアイコン、生成チケットの残高と購入の記録）は、ユーザーがアカウントを削除するまで保存します。アカウントは、アプリの「設定」画面の「アカウントを削除」から、いつでも削除できます（アプリを操作できない場合は bannzai.app@gmail.com へご連絡ください）。アカウントを削除すると、上記のデータはすみやかに削除され（一部の写真は再試行のため時間がかかることがあります）、復元できません。手順の詳細と削除されるデータは[アカウントの削除について](AccountDeletion)を参照してください。利用状況のイベント（Google Analytics for Firebase）は、提供者の BigQuery に最大 90 日間保存します。Google Analytics for Firebase 側とクラッシュ情報（Crashlytics）は、Google の定める期間に従って保存されます。RevenueCat に送信した購入の情報はアカウントの削除では自動で削除されず、同社のポリシーに従って保存されます（削除を希望される場合は bannzai.app@gmail.com へご連絡ください）。不適切または重複と判定された写真は、判定の時点で削除します。
 
 ## 対象年齢と子どもの個人情報（COPPA 等の順守の方針）
 - 本サービスの対象は 13 歳以上です。13 歳未満の方は利用できません。本サービスはアプリ内で年齢確認を行わず、対象年齢は利用規約とアプリストアの年齢区分（App Store の 12+、Google Play の対象年齢 13 歳以上）で示します。
