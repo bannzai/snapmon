@@ -199,7 +199,8 @@ class _TicketPurchaseSheetState extends State<_TicketPurchaseSheet> {
     return PopScope(
       canPop: !_isPurchasing,
       child: SafeArea(
-        child: Padding(
+        // 横向きの小さい端末で文字を大きくすると画面に収まらないため、スクロールできるようにする
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(20),
           child: Column(
             mainAxisSize: MainAxisSize.min,

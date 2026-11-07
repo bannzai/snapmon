@@ -164,6 +164,63 @@ void main() {
     expect(find.text('生成チケット'), findsNothing);
   });
 
+  testWidgets('横向きの小さい画面と大きい文字でも 下の商品までスクロールして買える', (tester) async {
+    tester.view
+      ..physicalSize = const Size(568, 320)
+      ..devicePixelRatio = 1;
+    tester.platformDispatcher.textScaleFactorTestValue = 2;
+    addTearDown(tester.view.reset);
+    addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+    const lowerPackage = Package(
+      'ticket30',
+      PackageType.custom,
+      StoreProduct(
+        'snapmon_generationticket30_500yen',
+        '',
+        '生成チケット 30 回',
+        500,
+        '¥500',
+        'JPY',
+      ),
+      PresentedOfferingContext('generation_tickets', null, null),
+    );
+    Package? purchasedPackage;
+    await tester.pumpWidget(
+      MaterialApp(
+        locale: const Locale('ja'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: Builder(
+          builder: (context) => Scaffold(
+            body: TextButton(
+              onPressed: () => showTicketPurchaseSheet(
+                context: context,
+                packages: const [testTicketPackage, lowerPackage],
+                purchaseTicketPackage: ({required package}) async {
+                  purchasedPackage = package;
+                  return TicketPurchaseResult.cancelled;
+                },
+                watchGenerationTickets: () => const Stream.empty(),
+                logEvent: ({required event, required parameters}) async {},
+              ),
+              child: const Text('open'),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.tap(find.text('open'));
+    await tester.pumpAndSettle();
+    expect(tester.takeException(), isNull);
+
+    await tester.ensureVisible(find.textContaining('¥500'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.textContaining('¥500'));
+    await tester.pumpAndSettle();
+
+    expect(purchasedPackage, lowerPackage);
+  });
+
   testWidgets('ストアの購入の途中は 購入画面をドラッグしても閉じない', (tester) async {
     final purchase = Completer<TicketPurchaseResult>();
     await pumpUntilDailyLimit(
