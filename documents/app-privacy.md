@@ -11,7 +11,8 @@ App Store の App Privacy (`fastlane/app_privacy_details.json`) と Google Play 
 | 撮影・選択した写真 | `lib/firebase/monster_generation.dart` が Storage の `users/{uid}/photos/{requestId}` に、アイコンにする写真は `lib/firebase/pvp.dart` が `users/{uid}/iconUploads/{uploadId}` に送る | Photos or Videos | App Functionality | 紐付く (uid のパスに置く) |
 | 生成したモンスター・手持ち・バトルの記録 | Firestore の `users/{uid}/monsters`・`party/current`・`battles` (`.claude/rules/firestore.md`) | Gameplay Content | App Functionality | 紐付く |
 | 表示名・アイコン・通報の内容 | Functions の setDisplayName が `users/{uid}.displayName` に、setProfileIcon が `users/{uid}.iconPath` (検査を通した写真を正方形にした `users/{uid}/icons/`) に、reportMonster が `reports/{reporterUid}_{monsterId}` に書く | Other User Content | App Functionality | 紐付く |
-| Firebase Authentication の uid | 匿名ログイン (`lib/firebase/session.dart`)。PvP の通報・ブロックの宛先にも使う | User ID | App Functionality | 紐付く |
+| Firebase Authentication の uid | 匿名ログイン (`lib/firebase/session.dart`)。PvP の通報・ブロックの宛先にも使う。RevenueCat のアプリのユーザー ID にも使う (`lib/firebase/purchases.dart`) | User ID | App Functionality・Analytics | 紐付く |
+| 生成チケットの購入の履歴 | ストアの購入を RevenueCat の SDK が RevenueCat へ送り (`lib/firebase/purchases.dart`)、webhook が `users/{uid}/ticketPurchases/{eventId}` に書く (`functions/src/generation_tickets.ts`) | Purchase History | App Functionality・Analytics | 紐付く |
 | メールアドレス・名前 | Apple / Google の連携 (`lib/firebase/account.dart`) で、プロバイダが渡した値を Firebase Authentication がユーザーに保存する | Email Address・Name | App Functionality | 紐付く |
 | 利用状況のイベント | Google Analytics for Firebase (`lib/analytics/analytics_events.dart`) | Product Interaction | Analytics | 紐付かない |
 | アプリインスタンス ID | Google Analytics for Firebase が自動で割り当てる | Device ID | Analytics | 紐付かない |
@@ -27,11 +28,13 @@ App Store の App Privacy (`fastlane/app_privacy_details.json`) と Google Play 
 - Crash Data: Crashlytics は「Collects stack traces and relevant application state when an application crashes」「Collects device and OS information to assist with debugging crashes」 <!-- source: https://firebase.google.com/docs/ios/app-store-data-collection (2026-10-26 に確認) -->
 - User ID: Firebase Authentication は「Generates and stores identifiers for user authentication purposes」 <!-- source: https://firebase.google.com/docs/ios/app-store-data-collection (2026-10-26 に確認) -->
 - Email Address・Name: アプリはメールアドレスと名前を読まないが、連携のたびにプロバイダが渡した値を Firebase Authentication がユーザーに保存し得る。Apple は初回のサインインで表示名を渡し、転送用のメールアドレスを発行する (`docs/PrivacyPolicy.md` の脚注 authprovider の出典)。Google の提供範囲は未確認のため、渡されるものとして申告した
+- Purchase History: RevenueCat は「RevenueCat collects purchase history from users」とし、用途は「Selecting 'Analytics' ensures compliance for RevenueCat's dashboard features」「Selecting 'App Functionality' ensures compliance for RevenueCat's receipt validation」の 2 つを選ぶよう案内する <!-- source: https://www.revenuecat.com/docs/platform-resources/apple-platform-resources/apple-app-privacy (2026-11-07 に確認) -->。アプリのユーザー ID (uid) は連携したアカウントのメールアドレスと結び付き得るため、同じページの「can be tied to a user's email address or other contact information」に当たり「紐付く」とした
+- User ID に Analytics を足した理由: RevenueCat は「If you are identifying users with a custom app user ID, you will need to select 'User ID'」とし、用途は購入履歴と同様に示すよう案内する <!-- source: https://www.revenuecat.com/docs/platform-resources/apple-platform-resources/apple-app-privacy (2026-11-07 に確認) -->。RevenueCat の案内は「RevenueCat does not collect precise or coarse location data」「RevenueCat does not collect device diagnostic information」としており、Coarse Location と Crash Data の行は RevenueCat では増えない
 - App Check の DeviceCheck / App Attest のトークンは、正規のアプリからの呼び出しかの検証にだけ使い、保存しない (Firebase の説明は「collects both the attestation object and the assertion object」「collects the `DCDevice` token」)。Apple の Device ID の定義はアプリ・端末を識別する ID を指し、これらの検証用のトークンは当たらないと判断した (仮説。Apple の定義の文言で確かめていない)
 
 ## Google Play のデータセーフティ
 
-Play の「収集」は端末の外に送ることを指し、「共有」は第三者への移転を指す。サービス提供者 (処理を委託した先) への移転と、ユーザーの明示的な操作による移転は「共有」に当たらない <!-- source: https://support.google.com/googleplay/android-developer/answer/10787469 「"Sharing" refers to transferring user data collected from your app to a third party」、例外に service provider と「Transferring user data to a third party based on a specific user-initiated action」(2026-10-26 に確認) -->。写真を送る Cloud Vision API・Claude API・Jev は生成の処理の委託先のため、共有に当たらないと判断した。
+Play の「収集」は端末の外に送ることを指し、「共有」は第三者への移転を指す。サービス提供者 (処理を委託した先) への移転と、ユーザーの明示的な操作による移転は「共有」に当たらない <!-- source: https://support.google.com/googleplay/android-developer/answer/10787469 「"Sharing" refers to transferring user data collected from your app to a third party」、例外に service provider と「Transferring user data to a third party based on a specific user-initiated action」(2026-10-26 に確認) -->。写真を送る Cloud Vision API・Claude API・Jev は生成の処理の委託先のため、共有に当たらないと判断した。RevenueCat も「We are not the Data Controllers of this data and act as Data Processors」とする決済の処理の委託先のため、共有に当たらないと判断した <!-- source: https://www.revenuecat.com/privacy (2026-11-07 に確認) -->。
 
 ### 回答
 
@@ -53,6 +56,7 @@ Play の「収集」は端末の外に送ることを指し、「共有」は第
 | 個人情報: メールアドレス | する | いいえ | 任意 (連携した時だけ) | アカウント管理 |
 | 個人情報: ユーザー ID | する | いいえ | 必須 | アプリの機能、アカウント管理、不正行為の防止とセキュリティ (通報・ブロック) |
 | 写真と動画: 写真 | する | いいえ | 必須 (モンスターの生成に要る) | アプリの機能 |
+| 金融情報: 購入履歴 | する | いいえ | 任意 (生成チケットを買った時だけ) | アプリの機能、分析 |
 | アプリのアクティビティ: アプリの操作 | する | いいえ | 必須 | 分析 |
 | アプリのアクティビティ: その他のユーザー作成コンテンツ (モンスター・表示名・アイコン・通報) | する | いいえ | 必須 | アプリの機能、不正行為の防止とセキュリティ |
 | アプリの情報とパフォーマンス: クラッシュログ | する | いいえ | 必須 | 分析 |

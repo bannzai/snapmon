@@ -17,6 +17,7 @@ PLAY SAFELY
 • Monsters are not generated from photos with faces or inappropriate content
 • Link your Apple ID to keep your dex when you change devices
 • For ages 13 and up
+• Offers in-app purchases (generation tickets) to keep creating monsters after your free daily limit
 
 Contact: bannzai.app@gmail.com
 Terms of Use (Japanese): https://bannzai.github.io/snapmon/Terms
