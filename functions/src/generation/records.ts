@@ -64,6 +64,11 @@ export interface GenerationRecord {
   rejectionReason?: RejectionReason;
   /** failed の理由 (ログと調査のため)。 */
   failureMessage?: string;
+  /**
+   * 写真に人が写っていると判定したか (Vision が顔を検出したか、Claude が人が写っていると答えた)。生成は止めず、クライアントが
+   * 生まれた時に注意を出す (DIRECTION.md「決めたこと」2026-11-07 の #198 の行)。safesearch の段階で書き、claude の段階で足す。
+   */
+  personDetected?: boolean;
   /** Cloud Vision のラベル。 */
   visionLabels?: string[];
   /** 切り出した画像 (中間) の Storage のパス。saved の後は消す。 */
@@ -147,6 +152,8 @@ export interface GenerationResult {
   monsterId?: string;
   /** rejected の理由。 */
   rejectionReason?: RejectionReason;
+  /** 写真に人が写っていると判定したか ([GenerationRecord.personDetected])。true の時だけ付ける。 */
+  personDetected?: boolean;
 }
 
 /** レコードから、クライアントに返す結果を作る。 */
@@ -156,6 +163,7 @@ export function generationResult({ requestId, record }: { requestId: string; rec
     status: record.status,
     ...(record.monsterId ? { monsterId: record.monsterId } : {}),
     ...(record.rejectionReason ? { rejectionReason: record.rejectionReason } : {}),
+    ...(record.personDetected ? { personDetected: true } : {}),
   };
 }
 

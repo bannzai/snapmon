@@ -1,6 +1,7 @@
-// App Store のスクリーンショット (fastlane/screenshots/<locale>/) を、本番の画面を見本のデータで描いて書き出す。
+// App Store のスクリーンショット (fastlane/screenshots/<locale>/) と Google Play のスクリーンショット・フィーチャーグラフィック
+// (fastlane/metadata/android/<locale>/images/) を、本番の画面を見本のデータで描いて書き出す。
 // 実行は `make screenshots` (flutter test store_screenshots)。通常の flutter test (test/) には含めない。
-// 環境変数 STORE_SCREENSHOT_LANGUAGES (ja,en-US)・STORE_SCREENSHOT_DEVICES (iphone69,iphone63,ipad13)・
+// 環境変数 STORE_SCREENSHOT_LANGUAGES (ja,en-US)・STORE_SCREENSHOT_DEVICES (iphone69,iphone63,ipad13,playphone)・
 // STORE_SCREENSHOT_PAGES (capture,born,…) で、描く言語・端末・ページを絞れる (省略するとすべて)。
 import 'dart:io';
 import 'dart:ui' as ui;
@@ -20,6 +21,7 @@ import 'package:snapmon/features/session/session_store.dart';
 import 'package:snapmon/features/settings/account_store.dart';
 import 'package:snapmon/features/share/card_sharer.dart';
 import 'package:snapmon/features/share/share_cards.dart';
+import 'package:snapmon/features/title/title_screen.dart';
 import 'package:snapmon/l10n/l10n.dart';
 import 'package:snapmon/sample/sample_data.dart';
 import 'package:snapmon/theme/snapmon_colors.dart';
@@ -34,13 +36,26 @@ import '../test/sample_data_fixture.dart';
 import 'store_screenshot_copy.dart';
 import 'store_screenshot_fixtures.dart';
 
-/// スクリーンショットを作る端末。画素の大きさは App Store Connect が受け付ける大きさ
+/// スクリーンショットを出すストア。書き出す先のディレクトリとファイル名の付け方が違う。
+enum StoreScreenshotStore {
+  /// App Store (fastlane の deliver)。fastlane/screenshots/<locale>/<端末>_<番号>_<ページ>.png に書き出す。
+  appStore,
+
+  /// Google Play (fastlane の supply)。fastlane/metadata/android/<locale>/images/phoneScreenshots/<番号>_<ページ>.png に書き出す
+  /// (supply はファイル名の順に並べるため、端末の名前ではなく番号を先頭にする)。
+  googlePlay,
+}
+
+/// スクリーンショットを作る端末。App Store の画素の大きさは App Store Connect が受け付ける大きさ
 /// (https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications/ 。
 /// fastlane の deliver も同じ大きさで端末の種類を見分ける: deliver/lib/deliver/app_screenshot.rb の DEVICE_RESOLUTIONS)。
+/// Google Play の画素の大きさは Play Console の推奨 (9:16 で 1080×1920 以上。
+/// https://support.google.com/googleplay/android-developer/answer/9866151 「9:16 for portrait screenshots」「minimum 1080x1920px」)。
 /// 論理の大きさ (画素 / 倍率) は各端末の画面の論理の大きさで、アプリの画面もその大きさで描く。
 enum StoreScreenshotDevice {
   /// 6.9 インチの iPhone (iPhone 16 Pro Max 等)。
   iPhone69(
+    store: StoreScreenshotStore.appStore,
     fileNamePrefix: 'iphone69',
     pixelSize: Size(1320, 2868),
     devicePixelRatio: 3,
@@ -51,6 +66,7 @@ enum StoreScreenshotDevice {
 
   /// 6.3 インチの iPhone (iPhone 16 Pro 等)。App Store Connect の提出に必須の大きさ。
   iPhone63(
+    store: StoreScreenshotStore.appStore,
     fileNamePrefix: 'iphone63',
     pixelSize: Size(1206, 2622),
     devicePixelRatio: 3,
@@ -60,15 +76,28 @@ enum StoreScreenshotDevice {
 
   /// 13 インチの iPad (iPad Pro 13 インチ等)。iPad で動くアプリ (TARGETED_DEVICE_FAMILY に 2 を含む) の提出に必須の大きさ。
   iPad13(
+    store: StoreScreenshotStore.appStore,
     fileNamePrefix: 'ipad13',
     pixelSize: Size(2064, 2752),
     devicePixelRatio: 2,
     // ホームボタンの無い iPad の上下の安全域の高さ
     safeAreaPadding: EdgeInsets.only(top: 24, bottom: 20),
     isTablet: true,
+  ),
+
+  /// Google Play の電話 (9:16 の 1080×1920)。倍率 2.5 で論理の大きさを 432×768 にし、画素の大きさを整数で割り切る。
+  playPhone(
+    store: StoreScreenshotStore.googlePlay,
+    fileNamePrefix: 'playphone',
+    pixelSize: Size(1080, 1920),
+    devicePixelRatio: 2.5,
+    // ステータスバー (24dp) とジェスチャーナビゲーションのバー (16dp) の高さ
+    safeAreaPadding: EdgeInsets.only(top: 24, bottom: 16),
+    isTablet: false,
   );
 
   const StoreScreenshotDevice({
+    required this.store,
     required this.fileNamePrefix,
     required this.pixelSize,
     required this.devicePixelRatio,
@@ -76,7 +105,10 @@ enum StoreScreenshotDevice {
     required this.isTablet,
   });
 
-  /// 書き出すファイルの名前の先頭。
+  /// 書き出す先のストア。
+  final StoreScreenshotStore store;
+
+  /// 書き出すファイルの名前の先頭 (App Store) と、環境変数 STORE_SCREENSHOT_DEVICES で指す名前。
   final String fileNamePrefix;
 
   /// 書き出す画像の画素の大きさ。
@@ -93,7 +125,34 @@ enum StoreScreenshotDevice {
 
   /// 論理の大きさ (アプリの画面の大きさ)。
   Size get logicalSize => pixelSize / devicePixelRatio;
+
+  /// [language] の [page] の画像を書き出すファイル。
+  File screenshotFile({
+    required StoreScreenshotLanguage language,
+    required StoreScreenshotPage page,
+  }) {
+    final number = (page.index + 1).toString().padLeft(2, '0');
+    return switch (store) {
+      StoreScreenshotStore.appStore => File(
+        'fastlane/screenshots/${language.fastlaneLocale}/'
+        '${fileNamePrefix}_${number}_${page.name}.png',
+      ),
+      StoreScreenshotStore.googlePlay => File(
+        '${playImagesDirectory(language: language)}/phoneScreenshots/'
+        '${number}_${page.name}.png',
+      ),
+    };
+  }
 }
+
+/// Google Play の [language] の画像 (スクリーンショット・フィーチャーグラフィック・アイコン) のディレクトリ
+/// (supply が読む fastlane/metadata/android/<locale>/images/)。
+String playImagesDirectory({required StoreScreenshotLanguage language}) =>
+    'fastlane/metadata/android/${language.playLocale}/images';
+
+/// Google Play のフィーチャーグラフィックの画素の大きさ (Play Console の要件
+/// https://support.google.com/googleplay/android-developer/answer/9866151 「Dimensions: 1024px by 500px」)。
+const Size featureGraphicPixelSize = Size(1024, 500);
 
 /// 環境変数 [name] (カンマ区切り) で絞った [values]。環境変数が無ければすべて。
 List<T> _selected<T>({
@@ -170,9 +229,70 @@ void main() {
       debugDisableShadows = true;
     }
   });
+
+  testWidgets('Google Play のフィーチャーグラフィックを fastlane/metadata/android に書き出す', (
+    tester,
+  ) async {
+    await tester.runAsync(loadStoreScreenshotFonts);
+    addTearDown(tester.view.reset);
+    for (final language in _selected(
+      name: 'STORE_SCREENSHOT_LANGUAGES',
+      values: StoreScreenshotLanguage.values,
+      keyOf: (language) => language.fastlaneLocale,
+    )) {
+      await _writeFeatureGraphic(tester: tester, language: language);
+    }
+  });
 }
 
-/// 1 枚を描いて fastlane/screenshots/<locale>/<端末>_<番号>_<ページ>.png に書き出す。
+/// Google Play のフィーチャーグラフィック (1024×500) を 1 枚描いて書き出す。
+Future<void> _writeFeatureGraphic({
+  required WidgetTester tester,
+  required StoreScreenshotLanguage language,
+}) async {
+  tester.view
+    ..physicalSize = featureGraphicPixelSize
+    ..devicePixelRatio = 1;
+  const canvasKey = Key('store-feature-graphic-canvas');
+  await tester.pumpWidget(
+    _FeatureGraphicCanvas(key: canvasKey, language: language),
+  );
+  await tester.pump();
+  final pngBytes = await tester.runAsync(
+    () => _encodeOpaquePng(tester: tester, key: canvasKey, pixelRatio: 1),
+  );
+  File('${playImagesDirectory(language: language)}/featureGraphic.png')
+    ..parent.createSync(recursive: true)
+    ..writeAsBytesSync(pngBytes!);
+  await tester.pumpWidget(const SizedBox.shrink());
+}
+
+/// [key] の RepaintBoundary を [pixelRatio] 倍で画像にし、透明を含まない (アルファの無い RGB の) PNG にする。
+/// App Store のスクリーンショットと Google Play のスクリーンショット・フィーチャーグラフィックは透明を受け付けない。
+Future<List<int>> _encodeOpaquePng({
+  required WidgetTester tester,
+  required Key key,
+  required double pixelRatio,
+}) async {
+  final capturedImage = await tester
+      .renderObject<RenderRepaintBoundary>(find.byKey(key))
+      .toImage(pixelRatio: pixelRatio);
+  final png = image_codec.encodePng(
+    image_codec.Image.fromBytes(
+      width: capturedImage.width,
+      height: capturedImage.height,
+      bytes: (await capturedImage.toByteData(
+        format: ui.ImageByteFormat.rawRgba,
+      ))!.buffer,
+      numChannels: 4,
+      order: image_codec.ChannelOrder.rgba,
+    ).convert(numChannels: 3),
+  );
+  capturedImage.dispose();
+  return png;
+}
+
+/// 1 枚を描いて [StoreScreenshotDevice.screenshotFile] に書き出す。
 /// [artImagesByPath] はスクリーンショットのモンスターの切り出した絵の Storage のパスと、デコード済みの画像。
 Future<void> _writeScreenshot({
   required WidgetTester tester,
@@ -272,33 +392,14 @@ Future<void> _writeScreenshot({
     }
   }
   await _settleImages(tester: tester);
-  final pngBytes = await tester.runAsync(() async {
-    final boundary = tester.renderObject<RenderRepaintBoundary>(
-      find.byKey(canvasKey),
-    );
-    final capturedImage = await boundary.toImage(
+  final pngBytes = await tester.runAsync(
+    () => _encodeOpaquePng(
+      tester: tester,
+      key: canvasKey,
       pixelRatio: device.devicePixelRatio,
-    );
-    final rgbaBytes = await capturedImage.toByteData(
-      format: ui.ImageByteFormat.rawRgba,
-    );
-    final png = image_codec.encodePng(
-      // App Store のスクリーンショットは透明を含めない (アルファの無い RGB にする)
-      image_codec.Image.fromBytes(
-        width: capturedImage.width,
-        height: capturedImage.height,
-        bytes: rgbaBytes!.buffer,
-        numChannels: 4,
-        order: image_codec.ChannelOrder.rgba,
-      ).convert(numChannels: 3),
-    );
-    capturedImage.dispose();
-    return png;
-  });
-  File(
-      'fastlane/screenshots/${language.fastlaneLocale}/'
-      '${device.fileNamePrefix}_${(page.index + 1).toString().padLeft(2, '0')}_${page.name}.png',
-    )
+    ),
+  );
+  device.screenshotFile(language: language, page: page)
     ..parent.createSync(recursive: true)
     ..writeAsBytesSync(pngBytes!);
   // 次の 1 枚の前に、この画面 (カメラ・バトルの演出) を閉じる
@@ -523,6 +624,76 @@ class _StoreScreenshotCanvas extends StatelessWidget {
       ),
     );
   }
+}
+
+/// Google Play のフィーチャーグラフィック (横長 1024×500)。地の色の上に、左にタイトル画面のヒーロー (浮遊の途中の絵)、
+/// 右にアプリ名のロゴと訴求の文言を置く。ヒーローの絵はタイトル画面と同じ [TitleHeroPainter] で描く
+/// (アプリアイコンとも同じ形で、ストアの掲載とアプリの見た目を揃えるため)。
+class _FeatureGraphicCanvas extends StatelessWidget {
+  const _FeatureGraphicCanvas({required super.key, required this.language});
+
+  /// 訴求の文言の言語。
+  final StoreScreenshotLanguage language;
+
+  @override
+  Widget build(BuildContext context) => RepaintBoundary(
+    child: MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: snapmonThemeData(),
+      locale: language.appLocale,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      home: Material(
+        color: SnapmonColors.background,
+        child: Row(
+          children: [
+            // ヒーローは見出しの分 (72) を下に空けて中心を決めるため、その分だけ高く描いて絵の中心を画像の上下の中央に置く
+            // (はみ出す 72 は見出しの場所で、絵は無い)
+            SizedBox(
+              width: 440,
+              height: featureGraphicPixelSize.height,
+              child: OverflowBox(
+                alignment: Alignment.topCenter,
+                minHeight: featureGraphicPixelSize.height + 72,
+                maxHeight: featureGraphicPixelSize.height + 72,
+                child: const CustomPaint(
+                  painter: TitleHeroPainter(
+                    progress: 0.5,
+                    eyeLidClosure: 0,
+                    pupilOffset: Offset.zero,
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 56),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'snapmon',
+                      style: SnapmonTextStyles.logo.copyWith(fontSize: 56),
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      storeFeatureGraphicTagline[language]!,
+                      style: SnapmonTextStyles.hero.copyWith(
+                        fontSize: 40,
+                        height: 1.3,
+                        color: SnapmonColors.accent,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
 }
 
 /// アプリの画面を端末の論理の大きさで描き、角の丸い端末の枠に収める。枠は余りの高さに収まる大きさにする。

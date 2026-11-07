@@ -63,10 +63,10 @@ enum GenerationRejectionReason {
   /// 不適切な画像。
   explicitContent('explicit_content'),
 
-  /// 顔が写っている。
+  /// 顔が写っている。2026-11-07 (#198) より前の生成のレコードにだけ残る (今は人が写っていても生成する)。
   faceDetected('face_detected'),
 
-  /// 人が写っている (Claude の判定)。
+  /// 人が写っている (Claude の判定)。2026-11-07 (#198) より前の生成のレコードにだけ残る。
   personDetected('person_detected'),
 
   /// 名前・図鑑の文章が禁止語の検査を通らなかった。
@@ -89,26 +89,30 @@ class GenerationResult {
     required this.status,
     required this.monsterId,
     required this.rejectionReason,
+    required this.personDetected,
   });
 
   /// callable の戻り値か、生成のレコード (`users/{uid}/generations/{requestId}` に `requestId` を足したもの) から結果を読む。
-  factory GenerationResult.fromJson({required Map<String, dynamic> json}) =>
-      GenerationResult(
-        requestId: json['requestId'] as String,
-        status: GenerationStatus.values.firstWhere(
-          (status) => status.statusName == json['status'],
-          orElse: () => throw FormatException('生成の状態 ${json['status']} を知らない'),
-        ),
-        monsterId: json['monsterId'] as String?,
-        rejectionReason: json['rejectionReason'] == null
-            ? null
-            : GenerationRejectionReason.values.firstWhere(
-                (reason) => reason.reasonName == json['rejectionReason'],
-                orElse: () => throw FormatException(
-                  '生成しなかった理由 ${json['rejectionReason']} を知らない',
-                ),
-              ),
-      );
+  factory GenerationResult.fromJson({
+    required Map<String, dynamic> json,
+  }) => GenerationResult(
+    requestId: json['requestId'] as String,
+    status: GenerationStatus.values.firstWhere(
+      (status) => status.statusName == json['status'],
+      orElse: () => throw FormatException('生成の状態 ${json['status']} を知らない'),
+    ),
+    monsterId: json['monsterId'] as String?,
+    rejectionReason: json['rejectionReason'] == null
+        ? null
+        : GenerationRejectionReason.values.firstWhere(
+            (reason) => reason.reasonName == json['rejectionReason'],
+            orElse: () => throw FormatException(
+              '生成しなかった理由 ${json['rejectionReason']} を知らない',
+            ),
+          ),
+    // サーバーは人が写っている時だけ true を付ける (functions/src/generation/records.ts の generationResult)
+    personDetected: json['personDetected'] == true,
+  );
 
   /// 結果を出した生成の要求 ID。同じ写真で別の要求の結果を使い回した時は、送った ID ではなく使い回し先の ID になる。
   final String requestId;
@@ -121,6 +125,9 @@ class GenerationResult {
 
   /// rejected の理由。
   final GenerationRejectionReason? rejectionReason;
+
+  /// 写真に人が写っているとサーバーが判定したか。生成は止まらず、生まれた時に注意を出す (#198)。
+  final bool personDetected;
 }
 
 /// 生成を受け付ける前にサーバーが写真を見つけられなかった (functions/src/generation/pipeline.ts の `photo_not_found`)。

@@ -23,11 +23,26 @@ describe("findMismatch", () => {
   });
 
   it("rejected の理由が候補のどれかなら合う", () => {
-    const personExpectation = { path: "person", expected: { status: "rejected", rejectionReasons: ["face_detected", "person_detected"] } };
-    expect(findMismatch({ pathExpectation: personExpectation, photoExpectation: {}, outcome: { status: "rejected", rejectionReason: "person_detected" }, photoNamesByMonsterId: new Map() })).toBeUndefined();
-    expect(findMismatch({ pathExpectation: personExpectation, photoExpectation: {}, outcome: { status: "rejected", rejectionReason: "no_subject" }, photoNamesByMonsterId: new Map() })).toBe(
-      "rejectionReason が face_detected / person_detected のどれでもなく no_subject",
+    const explicitExpectation = { path: "explicit", expected: { status: "rejected", rejectionReasons: ["explicit_content", "refused"] } };
+    expect(findMismatch({ pathExpectation: explicitExpectation, photoExpectation: {}, outcome: { status: "rejected", rejectionReason: "refused" }, photoNamesByMonsterId: new Map() })).toBeUndefined();
+    expect(findMismatch({ pathExpectation: explicitExpectation, photoExpectation: {}, outcome: { status: "rejected", rejectionReason: "no_subject" }, photoNamesByMonsterId: new Map() })).toBe(
+      "rejectionReason が explicit_content / refused のどれでもなく no_subject",
     );
+  });
+
+  it("personDetected を期待する経路は、印の有無が合う時だけ合う (レコードに無い印は false)", () => {
+    const personExpectation = { path: "person", expected: { status: "saved", personDetected: true } };
+    expect(findMismatch({ pathExpectation: personExpectation, photoExpectation: {}, outcome: { status: "saved", personDetected: true }, photoNamesByMonsterId: new Map() })).toBeUndefined();
+    expect(findMismatch({ pathExpectation: personExpectation, photoExpectation: {}, outcome: { status: "saved", personDetected: false }, photoNamesByMonsterId: new Map() })).toBe(
+      "personDetected が true ではなく false",
+    );
+    const ordinaryExpectation = { path: "ordinary", expected: { status: "saved", personDetected: false } };
+    expect(findMismatch({ pathExpectation: ordinaryExpectation, photoExpectation: {}, outcome: { status: "saved" }, photoNamesByMonsterId: new Map() })).toBeUndefined();
+    expect(findMismatch({ pathExpectation: ordinaryExpectation, photoExpectation: {}, outcome: { status: "saved", personDetected: true }, photoNamesByMonsterId: new Map() })).toBe(
+      "personDetected が false ではなく true",
+    );
+    // 期待に personDetected が無い経路は印を見ない
+    expect(findMismatch({ pathExpectation: { path: "ordinary", expected: { status: "saved" } }, photoExpectation: {}, outcome: { status: "saved", personDetected: true }, photoNamesByMonsterId: new Map() })).toBeUndefined();
   });
 
   it("status が違えば合わない (判定待ちのまま止まった生成を含む)", () => {
@@ -75,11 +90,11 @@ describe("formatResultTable", () => {
   it("Claude と Jev の使用量から費用を足し、PASS / FAIL の数を書く", () => {
     const table = formatResultTable([
       { photoName: "ordinary/mug.jpg", expected: "saved", status: "saved", verdict: "PASS", claudeUsages: [{ inputTokens: 1_000_000, outputTokens: 100_000 }], jevInputTokens: 1_000_000 },
-      { photoName: "person/portrait.jpg", expected: "rejected", status: "saved", verdict: "FAIL", mismatch: "status が rejected ではなく saved" },
+      { photoName: "person/portrait.jpg", expected: "saved personDetected=true", status: "rejected", verdict: "FAIL", mismatch: "status が saved ではなく rejected" },
     ]);
     // Claude 4 + 2 ドル、Jev 0.042 ドル
     expect(table).toContain("| ordinary/mug.jpg | saved | saved | PASS |  |  |  | 1000000 / 100000 | 1000000 | 6.0420 |");
-    expect(table).toContain("| FAIL: status が rejected ではなく saved |");
+    expect(table).toContain("| FAIL: status が saved ではなく rejected |");
     expect(table).toContain("PASS 1 / FAIL 1。Claude 入力 1000000 / 出力 100000 トークン、Jev 入力 1000000 トークン、費用 6.0420 ドル");
   });
 });
