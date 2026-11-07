@@ -230,20 +230,19 @@ void main() {
     }
   });
 
-  testWidgets(
-    'Google Play のフィーチャーグラフィックを fastlane/metadata/android に書き出す',
-    (tester) async {
-      await tester.runAsync(loadStoreScreenshotFonts);
-      addTearDown(tester.view.reset);
-      for (final language in _selected(
-        name: 'STORE_SCREENSHOT_LANGUAGES',
-        values: StoreScreenshotLanguage.values,
-        keyOf: (language) => language.fastlaneLocale,
-      )) {
-        await _writeFeatureGraphic(tester: tester, language: language);
-      }
-    },
-  );
+  testWidgets('Google Play のフィーチャーグラフィックを fastlane/metadata/android に書き出す', (
+    tester,
+  ) async {
+    await tester.runAsync(loadStoreScreenshotFonts);
+    addTearDown(tester.view.reset);
+    for (final language in _selected(
+      name: 'STORE_SCREENSHOT_LANGUAGES',
+      values: StoreScreenshotLanguage.values,
+      keyOf: (language) => language.fastlaneLocale,
+    )) {
+      await _writeFeatureGraphic(tester: tester, language: language);
+    }
+  });
 }
 
 /// Google Play のフィーチャーグラフィック (1024×500) を 1 枚描いて書き出す。
@@ -645,14 +644,14 @@ class _FeatureGraphicCanvas extends StatelessWidget {
           children: [
             // ヒーローは見出しの分 (72) を下に空けて中心を決めるため、その分だけ高く描いて絵の中心を画像の上下の中央に置く
             // (はみ出す 72 は見出しの場所で、絵は無い)
-            const SizedBox(
+            SizedBox(
               width: 440,
               height: featureGraphicPixelSize.height,
               child: OverflowBox(
                 alignment: Alignment.topCenter,
                 minHeight: featureGraphicPixelSize.height + 72,
                 maxHeight: featureGraphicPixelSize.height + 72,
-                child: CustomPaint(
+                child: const CustomPaint(
                   painter: TitleHeroPainter(
                     progress: 0.5,
                     eyeLidClosure: 0,

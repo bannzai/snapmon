@@ -27,7 +27,11 @@ enum StoreScreenshotLanguage {
   japanese(fastlaneLocale: 'ja', playLocale: 'ja-JP', appLocale: Locale('ja')),
 
   /// 英語 (米国)。
-  english(fastlaneLocale: 'en-US', playLocale: 'en-US', appLocale: Locale('en'));
+  english(
+    fastlaneLocale: 'en-US',
+    playLocale: 'en-US',
+    appLocale: Locale('en'),
+  );
 
   const StoreScreenshotLanguage({
     required this.fastlaneLocale,
