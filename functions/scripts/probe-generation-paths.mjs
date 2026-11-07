@@ -40,7 +40,7 @@ const STORAGE_BUCKET_NAME = "snapmon-prod-storage";
 
 /**
  * 1 枚あたりの費用の概算 (ドル)。documents/adr/0002-subject-cutout-and-generation-cost.md「1 体あたりの原価の見積もり」の合計 約 0.03 ドル
- * (Claude が大半で未実測)。人物で Vision の段階で止まる写真は Claude を呼ばないため、概算は上に振れる。
+ * (Claude が大半で未実測)。露骨な内容で Vision の段階で止まる写真は Claude を呼ばないため、概算は上に振れる。
  */
 const ESTIMATED_COST_PER_PHOTO_USD = 0.03;
 
