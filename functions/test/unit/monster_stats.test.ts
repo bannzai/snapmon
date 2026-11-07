@@ -48,8 +48,8 @@ describe("Dart の計算 (lib/domain/) と同じ値", () => {
 
 describe("selectElementTypeIds", () => {
   it("閾値以上を確率の高い順に上限まで選び、無ければ空を返す", () => {
-    expect(selectElementTypeIds({ elementProbabilities: { metal: 0.6, glass: 0.9, heat: 0.7, water: 0.2 }, master })).toEqual(["glass", "heat"]);
-    expect(selectElementTypeIds({ elementProbabilities: { metal: 0.39, water: 0.1 }, master })).toEqual([]);
+    expect(selectElementTypeIds({ elementProbabilities: { steel: 0.6, light: 0.9, fire: 0.7, water: 0.2 }, master })).toEqual(["light", "fire"]);
+    expect(selectElementTypeIds({ elementProbabilities: { steel: 0.49, water: 0.1 }, master })).toEqual([]);
   });
 });
 
@@ -91,22 +91,22 @@ describe("buildLearnset", () => {
 
   it("属性が 2 つなら、Lv.1 は属性の順に交互に 2 つずつ選び、Lv.2 以降は属性ごとにレベル帯ごとの技を開放レベル順に並べる", () => {
     expect(
-      buildLearnset({ elementTypeIds: ["heat", "metal"], elementProbabilities: { heat: 0.9, metal: 0.6 }, moveProbabilitiesByElement: {}, moves: master.moves, fallbackMoves: master.moves }),
+      buildLearnset({ elementTypeIds: ["fire", "steel"], elementProbabilities: { fire: 0.9, steel: 0.6 }, moveProbabilitiesByElement: {}, moves: master.moves, fallbackMoves: master.moves }),
     ).toEqual([
-      { moveId: "heat_1", unlockLevel: 1 },
-      { moveId: "metal_1", unlockLevel: 1 },
-      { moveId: "heat_1b", unlockLevel: 1 },
-      { moveId: "metal_1b", unlockLevel: 1 },
-      { moveId: "heat_2", unlockLevel: 15 },
-      { moveId: "metal_2", unlockLevel: 15 },
-      { moveId: "heat_3", unlockLevel: 100 },
-      { moveId: "metal_3", unlockLevel: 100 },
+      { moveId: "fire_1", unlockLevel: 1 },
+      { moveId: "steel_1", unlockLevel: 1 },
+      { moveId: "fire_1b", unlockLevel: 1 },
+      { moveId: "steel_1b", unlockLevel: 1 },
+      { moveId: "fire_2", unlockLevel: 15 },
+      { moveId: "steel_2", unlockLevel: 15 },
+      { moveId: "fire_3", unlockLevel: 100 },
+      { moveId: "steel_3", unlockLevel: 100 },
     ]);
   });
 
   it("その場で作った属性で Lv.1 の技が足りない時は、master の別の属性から当てはまりが高い順に 1 つずつ足す", () => {
     const dynamicMoves = ["custom_wax_1", "custom_wax_2"].map((id, index) => ({
-      ...master.moves.find((move) => move.id === `heat_${index + 1}`)!,
+      ...master.moves.find((move) => move.id === `fire_${index + 1}`)!,
       id,
       elementTypeId: "custom_wax",
     }));
@@ -114,12 +114,12 @@ describe("buildLearnset", () => {
     const otherDynamicMove = { ...dynamicMoves[0], id: "custom_soap_1", elementTypeId: "custom_soap" };
     const learnset = buildLearnset({
       elementTypeIds: ["custom_wax"],
-      elementProbabilities: { custom_soap: 0.39, plastic: 0.3, heat: 0.3, paper: 0.1 },
-      moveProbabilitiesByElement: { heat: { heat_1c: 0.6 } },
+      elementProbabilities: { custom_soap: 0.39, machine: 0.3, fire: 0.3, paper: 0.1 },
+      moveProbabilitiesByElement: { fire: { fire_1c: 0.6 } },
       moves: [...master.moves, ...dynamicMoves, otherDynamicMove],
       fallbackMoves: master.moves,
     });
-    expect(startingMoveIds(learnset)).toEqual(["custom_wax_1", "heat_1c", "plastic_1", "paper_1"]);
+    expect(startingMoveIds(learnset)).toEqual(["custom_wax_1", "fire_1c", "machine_1", "paper_1"]);
     expect(learnset.slice(STARTING_MOVE_COUNT)).toEqual([{ moveId: "custom_wax_2", unlockLevel: 15 }]);
   });
 
@@ -132,7 +132,7 @@ describe("buildLearnset", () => {
       moves: oneMovePerBand,
       fallbackMoves: oneMovePerBand,
     });
-    expect(startingMoveIds(learnset)).toEqual(["paper_1", "water_1", "cloth_1", "electric_1"]);
+    expect(startingMoveIds(learnset)).toEqual(["paper_1", "water_1", "beast_1", "bird_1"]);
   });
 
   it("どの属性の組でも Lv.1 の技は 4 つで重複が無い", () => {
@@ -149,15 +149,15 @@ describe("buildLearnset", () => {
   });
 
   it("Lv.2 以降の同じレベル帯に技が 2 つ以上ある時は Jev の確率が高い技を選ぶ", () => {
-    const extraMove = { ...master.moves.find((move) => move.id === "heat_2")!, id: "heat_extra" };
+    const extraMove = { ...master.moves.find((move) => move.id === "fire_2")!, id: "fire_extra" };
     expect(
       buildLearnset({
-        elementTypeIds: ["heat"],
-        elementProbabilities: { heat: 0.9 },
-        moveProbabilitiesByElement: { heat: { heat_2: 0.2, heat_extra: 0.7 } },
+        elementTypeIds: ["fire"],
+        elementProbabilities: { fire: 0.9 },
+        moveProbabilitiesByElement: { fire: { fire_2: 0.2, fire_extra: 0.7 } },
         moves: [...master.moves, extraMove],
         fallbackMoves: master.moves,
       })[STARTING_MOVE_COUNT],
-    ).toEqual({ moveId: "heat_extra", unlockLevel: 15 });
+    ).toEqual({ moveId: "fire_extra", unlockLevel: 15 });
   });
 });

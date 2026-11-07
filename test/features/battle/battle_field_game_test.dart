@@ -241,19 +241,19 @@ void main() {
   });
 
   group('スプライトシートのエフェクト', () {
-    const metalEffect = MoveEffect(
-      id: 'metal_particle',
-      displayName: '金属のパーティクル',
+    const steelEffect = MoveEffect(
+      id: 'steel_particle',
+      displayName: '鋼のパーティクル',
       kind: 'particle',
       colorHex: '#9AA5B1',
     );
 
-    /// [metalEffect] を 4 コマ (横 2 × 縦 2、1 コマ 10 × 8) の合成した画像で描くようにする。
-    Future<void> applyMetalSpriteSheet({required BattleFieldGame game}) async {
+    /// [steelEffect] を 4 コマ (横 2 × 縦 2、1 コマ 10 × 8) の合成した画像で描くようにする。
+    Future<void> applySteelSpriteSheet({required BattleFieldGame game}) async {
       final spriteSheetImage = await createArtImage(width: 20, height: 16);
       addTearDown(spriteSheetImage.dispose);
       game.applyMoveEffectSpriteSheet(
-        effectId: metalEffect.id,
+        effectId: steelEffect.id,
         spriteSheetImage: spriteSheetImage,
         spriteSheetJson: const {
           'meta': {
@@ -271,7 +271,7 @@ void main() {
     testWithGame<BattleFieldGame>('シートを読み込む前の被弾はパーティクルで描く', createGame, (
       game,
     ) async {
-      game.hit(defenderSide: BattleSideId.opponent, effect: metalEffect);
+      game.hit(defenderSide: BattleSideId.opponent, effect: steelEffect);
       await game.ready();
       expect(game.children.whereType<ParticleSystemComponent>(), hasLength(1));
       expect(game.children.whereType<SpriteAnimationComponent>(), isEmpty);
@@ -282,8 +282,8 @@ void main() {
       createGame,
       (game) async {
         game.onGameResize(Vector2(390, 500));
-        await applyMetalSpriteSheet(game: game);
-        game.hit(defenderSide: BattleSideId.opponent, effect: metalEffect);
+        await applySteelSpriteSheet(game: game);
+        game.hit(defenderSide: BattleSideId.opponent, effect: steelEffect);
         await game.ready();
         expect(game.children.whereType<ParticleSystemComponent>(), isEmpty);
         final component = game.children
@@ -323,15 +323,15 @@ void main() {
       createGame,
       (game) async {
         game.onGameResize(Vector2(390, 500));
-        await applyMetalSpriteSheet(game: game);
+        await applySteelSpriteSheet(game: game);
 
-        /// [defenderSide] の側に [metalEffect] の被弾を発行し、新しく出たエフェクトの水平方向の scale を返す。
+        /// [defenderSide] の側に [steelEffect] の被弾を発行し、新しく出たエフェクトの水平方向の scale を返す。
         /// 1 なら素材の向きのまま、-1 なら左右を反転して描く。
         /// 呼ぶたびにエフェクトが [game] に 1 つ足される。
         Future<double> horizontalScaleOfNewEffect({
           required BattleSideId defenderSide,
         }) async {
-          game.hit(defenderSide: defenderSide, effect: metalEffect);
+          game.hit(defenderSide: defenderSide, effect: steelEffect);
           await game.ready();
           return game.children
               .whereType<SpriteAnimationComponent>()
@@ -382,7 +382,7 @@ void main() {
       '対応の無いエフェクトとわるあがきは、シートがあっても今までどおり描く',
       createGame,
       (game) async {
-        await applyMetalSpriteSheet(game: game);
+        await applySteelSpriteSheet(game: game);
         game.hit(
           defenderSide: BattleSideId.opponent,
           effect: const MoveEffect(

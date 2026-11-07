@@ -51,21 +51,33 @@ abstract final class SnapmonColors {
   /// 絵や写真の上に重ねる文字の下地 (地の色の 85%)。
   static const Color scrim = Color(0xD915121C);
 
-  /// 属性の札の色。仮の絵の主色にも使う。
-  /// master に無い属性 (その場で作った定義) は [elementFallback] で描く。
+  /// 属性の札の色。仮の絵の主色にも使う。master の版 6 の 24 属性 (documents/game-rules.md「属性」) で、
+  /// master の `effects` の `colorHex` と同じ値。master に無い属性 (その場で作った定義) は [elementFallback] で描く。
   static const Map<String, Color> elementTypes = {
-    'metal': Color(0xFF6D7B8A),
-    'wood': Color(0xFFB07A4A),
-    'plant': Color(0xFF3FA66B),
+    'fire': Color(0xFFE8734A),
     'water': Color(0xFF4A90D9),
-    'heat': Color(0xFFE8734A),
-    'stone': Color(0xFF8A7F72),
-    'paper': Color(0xFFC9B79A),
+    'grass': Color(0xFF3FA66B),
+    'thunder': Color(0xFFD9C531),
+    'earth': Color(0xFF8A7F72),
+    'steel': Color(0xFF6D7B8A),
+    'wood': Color(0xFFB07A4A),
+    'light': Color(0xFFEDE3A6),
+    'dark': Color(0xFF5E5577),
+    'poison': Color(0xFF8E44AD),
+    'sound': Color(0xFFB388FF),
+    'beast': Color(0xFFC49A6C),
+    'bug': Color(0xFF7CB342),
+    'bird': Color(0xFF7FB3D5),
+    'fish': Color(0xFF3BAFA5),
+    'ice': Color(0xFFA8E0F0),
+    'wind': Color(0xFFB8C9D9),
+    'flower': Color(0xFFF48FB1),
+    'machine': Color(0xFFB0BEC5),
+    'sweets': Color(0xFFE8A0D8),
+    'ghost': Color(0xFF9FA8DA),
+    'dragon': Color(0xFFC62828),
     'cloth': Color(0xFFC77DB5),
-    'glass': Color(0xFF7FC8D6),
-    'plastic': Color(0xFFE6B84A),
-    'electric': Color(0xFFD9C531),
-    'food': Color(0xFFD9675A),
+    'paper': Color(0xFFC9B79A),
   };
 
   /// [elementTypes] に無い属性の色。

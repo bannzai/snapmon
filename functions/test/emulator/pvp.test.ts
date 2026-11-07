@@ -124,7 +124,7 @@ async function seedParty({
           sourcePhotoReference: secretPhotoPath({ uid, monsterId }),
           name: `${uid} のモンスター ${index}`,
           encyclopediaText: "まいにち あたたかい のみものを はこぶ",
-          elementTypeIds: ["heat"],
+          elementTypeIds: ["fire"],
           learnset: [{ moveId: "warm-touch", unlockLevel: 1 }],
           baseStats: { hitPoints: 50, attack: 50, defense: 50, speed: 50 },
           individualValues: { hitPoints: 1, attack: 2, defense: 3, speed: 4 },
