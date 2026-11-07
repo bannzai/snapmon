@@ -1,0 +1,78 @@
+{
+  "project_id": "proj682b16be",
+  "apps": [
+    {
+      "key": "ios",
+      "type": "app_store",
+      "name": "snapmon (iOS)",
+      "bundle_id": "com.bannzai.snapmon"
+    },
+    {
+      "key": "android",
+      "type": "play_store",
+      "name": "snapmon (Android)",
+      "package_name": "com.bannzai.snapmon"
+    }
+  ],
+  "products": [
+    {
+      "key": "ticket10_ios",
+      "app": "ios",
+      "store_identifier": "snapmon_generationticket10_200yen",
+      "type": "consumable",
+      "display_name": "生成チケット 10 回 (iOS)"
+    },
+    {
+      "key": "ticket30_ios",
+      "app": "ios",
+      "store_identifier": "snapmon_generationticket30_500yen",
+      "type": "consumable",
+      "display_name": "生成チケット 30 回 (iOS)"
+    },
+    {
+      "key": "ticket10_android",
+      "app": "android",
+      "store_identifier": "snapmon_generationticket10_200yen",
+      "type": "one_time",
+      "display_name": "生成チケット 10 回 (Android)"
+    },
+    {
+      "key": "ticket30_android",
+      "app": "android",
+      "store_identifier": "snapmon_generationticket30_500yen",
+      "type": "one_time",
+      "display_name": "生成チケット 30 回 (Android)"
+    }
+  ],
+  "offerings": [
+    {
+      "lookup_key": "closed",
+      "display_name": "閉じている間 (package なし)",
+      "packages": []
+    },
+    {
+      "lookup_key": "generation_tickets",
+      "display_name": "生成チケット",
+      "packages": [
+        {
+          "lookup_key": "ticket10",
+          "display_name": "生成チケット 10 回",
+          "position": 1,
+          "products": [
+            { "key": "ticket10_ios", "eligibility_criteria": "all" },
+            { "key": "ticket10_android", "eligibility_criteria": "all" }
+          ]
+        },
+        {
+          "lookup_key": "ticket30",
+          "display_name": "生成チケット 30 回",
+          "position": 2,
+          "products": [
+            { "key": "ticket30_ios", "eligibility_criteria": "all" },
+            { "key": "ticket30_android", "eligibility_criteria": "all" }
+          ]
+        }
+      ]
+    }
+  ]
+}
