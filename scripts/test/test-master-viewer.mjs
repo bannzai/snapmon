@@ -86,8 +86,17 @@ test('技の 1 行は ID・表示名・属性の表示名・威力・PP・覚え
 });
 
 test('特殊効果のある技の 1 行は効果の説明と倍率の式を含む', () => {
-  const move = master.moves.find((candidate) => candidate.specialEffect);
+  const move = master.moves.find((candidate) => candidate.specialEffect?.power);
   assert.ok(moveFeedbackLine(master, move).endsWith(`特殊効果 ${move.specialEffect.summary} 倍率(%) = ${move.specialEffect.power}`));
+});
+
+test('補助技の 1 行はステータスの変化と回復の式を含み、倍率の式を含まない', () => {
+  const statChangeMove = master.moves.find((candidate) => candidate.specialEffect?.opponentStatChanges?.defense);
+  const statChangeLine = moveFeedbackLine(master, statChangeMove);
+  assert.ok(statChangeLine.endsWith(`特殊効果 ${statChangeMove.specialEffect.summary} 相手の防御(%) += ${statChangeMove.specialEffect.opponentStatChanges.defense}`));
+  assert.ok(!statChangeLine.includes('倍率(%)'));
+  const recoveryMove = master.moves.find((candidate) => candidate.specialEffect?.selfHitPointsRecovery);
+  assert.ok(moveFeedbackLine(master, recoveryMove).endsWith(`回復 = ${recoveryMove.specialEffect.selfHitPointsRecovery}`));
 });
 
 test('属性の 1 行', () => {
