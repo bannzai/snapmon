@@ -31,6 +31,17 @@ export const GENERATION_TICKET_COUNT_BY_PRODUCT_ID: Readonly<Record<string, numb
  */
 const FIREBASE_UID_PATTERN = /^[A-Za-z0-9_-]{1,128}$/;
 
+/**
+ * RevenueCat のイベントの ID のうち、`ticketPurchases` の文書 ID としてそのまま使う形。RevenueCat の ID は UUID (英数字と `-`) で、
+ * Firestore の文書 ID を壊す値 (`/` を含む・`.`・`..`・1,500 バイトを超える) はこの形に合わない。上限の 128 は UUID (36 文字) に余裕を持たせた値。
+ */
+const REVENUECAT_EVENT_ID_PATTERN = /^[A-Za-z0-9_-]{1,128}$/;
+
+/** [productId] が生成チケットの商品なら 1 回の購入で足す枚数、それ以外は undefined。継承したキー (`constructor` 等) を商品として扱わない。 */
+function generationTicketCount(productId: string | null): number | undefined {
+  return productId !== null && Object.hasOwn(GENERATION_TICKET_COUNT_BY_PRODUCT_ID, productId) ? GENERATION_TICKET_COUNT_BY_PRODUCT_ID[productId] : undefined;
+}
+
 /** RevenueCat の webhook の本文の `event` のうち、このファイルが読むフィールド。 */
 export interface RevenueCatWebhookEvent {
   /** イベントの一意な ID。同じイベントの再送で同じ値が届く。 */
@@ -131,8 +142,8 @@ export async function handleGenerationTicketWebhook(
     return { status: 401, body: "unauthorized" };
   }
   const event = ((body ?? {}) as { event?: RevenueCatWebhookEvent }).event;
-  if (!event || typeof event.id !== "string" || event.id === "" || typeof event.type !== "string") {
-    return { status: 400, body: "event.id と event.type がありません" };
+  if (!event || typeof event.id !== "string" || !REVENUECAT_EVENT_ID_PATTERN.test(event.id) || typeof event.type !== "string") {
+    return { status: 400, body: "event.id と event.type がないか、event.id の形が違います" };
   }
   const appUserId = event.app_user_id;
   const productId = optionalString(event.product_id);
@@ -140,7 +151,7 @@ export async function handleGenerationTicketWebhook(
   const summary = `イベント ${event.id}・ユーザー ${String(appUserId)}・商品 ${productId ?? "(なし)"}・環境 ${environment ?? "(なし)"}`;
 
   if (event.type === "CANCELLATION") {
-    if (productId !== null && productId in GENERATION_TICKET_COUNT_BY_PRODUCT_ID) {
+    if (generationTicketCount(productId) !== undefined) {
       await notify(dependencies.sendMessage, `生成チケットの返金・取り消しを受けました。残高は減らしていません (${summary})`);
     }
     return { status: 200, body: "ignored" };
@@ -148,7 +159,7 @@ export async function handleGenerationTicketWebhook(
   if (event.type !== "NON_RENEWING_PURCHASE") {
     return { status: 200, body: "ignored" };
   }
-  const ticketCount = productId === null ? undefined : GENERATION_TICKET_COUNT_BY_PRODUCT_ID[productId];
+  const ticketCount = generationTicketCount(productId);
   if (ticketCount === undefined) {
     // 生成チケット以外の消耗型の商品はまだ無いため、届いたら設定の誤りとして知らせる
     await notify(dependencies.sendMessage, `生成チケットとして知らない商品の購入を受けました。残高に足していません (${summary})`);

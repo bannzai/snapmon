@@ -178,4 +178,26 @@ describe("RevenueCat の webhook", () => {
     const { dependencies } = createDependencies();
     expect((await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ id: undefined }) })).status).toBe(400);
   });
+
+  it("文書 ID に使えない event.id (/ を含む・..) は 400 を返して何も書かない", async () => {
+    const { dependencies } = createDependencies();
+    expect((await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ id: "event/1" }) })).status).toBe(400);
+    expect((await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ id: ".." }) })).status).toBe(400);
+    expect((await firestore.doc("users/alice").get()).exists).toBe(false);
+  });
+
+  it("UUID の形の event.id は受け付ける", async () => {
+    const { dependencies } = createDependencies();
+    const response = await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ id: "CDD0A5C7-26F5-4D57-A4B2-1F2E5B0A9C11" }) });
+    expect(response.status).toBe(200);
+    expect(await generationTickets("alice")).toBe(10);
+  });
+
+  it("継承したキーの商品 (constructor) は知らない商品として足さずに Slack に知らせる", async () => {
+    const { dependencies, slackTexts } = createDependencies();
+    const response = await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ product_id: "constructor" }) });
+    expect(response.status).toBe(200);
+    expect((await firestore.doc("users/alice").get()).exists).toBe(false);
+    expect(slackTexts).toHaveLength(1);
+  });
 });
