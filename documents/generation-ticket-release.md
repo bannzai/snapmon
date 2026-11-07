@@ -20,19 +20,20 @@ RevenueCat の値は `revenuecat/config.json` が正で、生成チケットの 
 Apple は最初の消耗型の商品を新しいアプリのバージョンと一緒に提出するよう求める。出典: https://developer.apple.com/help/app-store-connect/manage-submissions-to-app-review/submit-an-in-app-purchase (2026-11-07 に確認)。そのため最初のアプリの提出に商品を含めて審査を通す。
 
 1. 提出の前に App Store Connect でリリースの方法を手動にする (自動だと、閉じ直す前に公開されて利用者に購入画面が出ることがあるため)。App Store Connect の選択肢は「Manually release this version.」。出典: https://developer.apple.com/help/app-store-connect/manage-your-apps-availability/select-an-app-store-version-release-option/ (2026-11-07 に確認)
-2. 審査の間だけ生成チケットの offering を current にする (審査の担当者が購入の経路を見られるようにするため)
+2. App Review の notes に購入画面への着き方を書く。購入画面は 1 日の無料の生成回数を使い切った後にしか出ず (今は 20 回。`functions/src/generation/pipeline.ts` の `DAILY_GENERATION_LIMIT_PER_USER`)、同じ写真の組の結果は使い回されるので回数が進まない (`users/{uid}/generationAliases`)。別々の写真が要ることを書く。審査の担当者の手間を減らすために先に無料の回数を減らすかは、提出の時に決める
+3. 審査の間だけ生成チケットの offering を current にする (審査の担当者が購入の経路を見られるようにするため)
 
    ```sh
    rc offerings set-current ofrng07ce9e2214 --project-id proj682b16be --yes --json --no-input
    ```
 
-3. 審査が通ったら、公開の前に閉じ直す。解放するまで次の操作でストアの利用者に購入画面を出さない
+4. 審査が通ったら、公開の前に閉じ直す。解放するまで次の操作でストアの利用者に購入画面を出さない
 
    ```sh
    rc offerings set-current ofrngd8f9737dda --project-id proj682b16be --yes --json --no-input
    ```
 
-4. 閉じ直した後にバージョンを手動で公開する
+5. 閉じ直した後にバージョンを手動で公開する
 
 ## 解放
 
