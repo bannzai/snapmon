@@ -159,7 +159,7 @@ describe("buildLearnset", () => {
         moveProbabilitiesByElement: { fire: { fire_2: 0.2, fire_extra: 0.7 } },
         moves: [...master.moves, extraMove],
         fallbackMoves: master.moves,
-      })[STARTING_MOVE_COUNT],
+      }).find((entry) => entry.unlockLevel === 15),
     ).toEqual({ moveId: "fire_extra", unlockLevel: 15 });
   });
 });
