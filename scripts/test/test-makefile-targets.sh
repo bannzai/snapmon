@@ -62,7 +62,7 @@ test_ios_device_selects_supported_physical_device() {
     fail "ios-device: 実機があるのに失敗した ($(cat "$work/stdout"))"
     return
   fi
-  if [ "$(recorded_run "$work")" != "run --debug -d my-phone" ]; then
+  if [ "$(recorded_run "$work")" != "run --debug -d my-phone --dart-define=REVENUECAT_PUBLIC_API_KEY_IOS= --dart-define=REVENUECAT_PUBLIC_API_KEY_ANDROID=" ]; then
     fail "ios-device: simulator・非対応の実機・Android を飛ばして対応している実機を選んでいない ($(cat "$work/flutter-args"))"
     return
   fi
@@ -97,7 +97,7 @@ test_ios_device_uses_device_variable() {
     fail "ios-device: DEVICE= 指定で失敗した ($(cat "$work/stdout"))"
     return
   fi
-  if [ "$(recorded_run "$work")" != "run --debug -d given-id" ]; then
+  if [ "$(recorded_run "$work")" != "run --debug -d given-id --dart-define=REVENUECAT_PUBLIC_API_KEY_IOS= --dart-define=REVENUECAT_PUBLIC_API_KEY_ANDROID=" ]; then
     fail "ios-device: DEVICE= の値を使っていない ($(cat "$work/flutter-args"))"
     return
   fi

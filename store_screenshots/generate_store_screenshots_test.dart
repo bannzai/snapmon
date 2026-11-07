@@ -408,6 +408,11 @@ Widget _homeShell({
           }) => throw StateError('スクリーンショットでは生成しない'),
       fetchGeneration: ({required requestId}) =>
           throw StateError('スクリーンショットでは生成しない'),
+      fetchTicketPackages: () async => const [],
+      purchaseTicketPackage: ({required package}) =>
+          throw StateError('スクリーンショットでは購入しない'),
+      syncTicketPurchases: () async {},
+      watchGenerationTickets: () => const Stream.empty(),
       logEvent: ({required event, required parameters}) async {},
     ),
     pvpClient: fakePvpClient(
