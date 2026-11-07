@@ -289,6 +289,18 @@ class _TicketPurchaseSheetState extends State<_TicketPurchaseSheet> {
                 : () => Navigator.of(context).pop(true),
             child: Text(l10n.ticketPurchaseContinue),
           ),
+          // 残高が先に届いた後にストアの購入が失敗した時も、エラーをそのまま出す
+          if (_purchaseError case final purchaseError?)
+            Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: Text(
+                purchaseError.toString(),
+                textAlign: TextAlign.center,
+                style: SnapmonTextStyles.body.copyWith(
+                  color: SnapmonColors.hitPointsLoss,
+                ),
+              ),
+            ),
         ]
       : [
           const Center(child: CircularProgressIndicator()),

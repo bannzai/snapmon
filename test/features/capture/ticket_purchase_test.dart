@@ -271,6 +271,31 @@ void main() {
     await tester.pump(const Duration(seconds: 30));
   });
 
+  testWidgets('残高が先に届いた後に購入が失敗しても エラーをそのまま出す', (tester) async {
+    final generationTickets = StreamController<int>.broadcast();
+    addTearDown(generationTickets.close);
+    final purchase = Completer<TicketPurchaseResult>();
+    await pumpUntilDailyLimit(
+      tester: tester,
+      generator: limitedGenerator(
+        ticketPackages: const [testTicketPackage],
+        purchaseTicketPackage: ({required package}) => purchase.future,
+        generationTickets: generationTickets.stream,
+      ),
+    );
+
+    await tester.tap(find.textContaining('¥200'));
+    await tester.pump();
+    generationTickets.add(10);
+    await tester.pump();
+    purchase.completeError(StateError('ストアの失敗'));
+    await tester.pump();
+    await tester.pump();
+
+    expect(find.textContaining('ストアの失敗'), findsOneWidget);
+    expect(find.text('この写真で生成する'), findsOneWidget);
+  });
+
   testWidgets('支払いが保留になったら 買うボタンを消して待つ案内を出し 届いたら続けられる', (tester) async {
     final generationTickets = StreamController<int>.broadcast();
     addTearDown(generationTickets.close);
