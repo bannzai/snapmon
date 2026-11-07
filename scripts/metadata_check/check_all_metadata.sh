@@ -1,18 +1,25 @@
 #!/usr/bin/env bash
-# fastlane/metadata/<locale>/ の App Store のメタデータが App Store Connect の文字数の上限に収まっているかを検査する。
+# fastlane/metadata/<locale>/ の App Store のメタデータと fastlane/metadata/android/<locale>/ の Google Play のメタデータが、
+# 各ストアの文字数の上限に収まっているかを検査する。
 # bannzai/Focus の scripts/metadata_check/ (commit 368eb5137fa3f25921a1cfefeeb7aa1231d03fa0) を写して 1 ファイルにまとめ、
 # description・promotional_text の上限、keywords のバイト数、必須のファイルの有無の検査を足した。
 #
-# 使い方: scripts/metadata_check/check_all_metadata.sh [locale...]   (省略すると全 locale)
+# 使い方: scripts/metadata_check/check_all_metadata.sh [locale...]   (省略すると全 locale。android は Google Play の locale をまとめて指す)
 # 環境変数 METADATA_DIR で検査するディレクトリを差し替えられる (既定は <リポジトリ>/fastlane/metadata。テストが使う)
 # exit code: 0 = すべて上限以内、1 = 上限を超えた・必須のファイルが無い、2 = 引数・ディレクトリの誤り
 #
-# 上限は App Store Connect の項目の上限で、2026-10-26 に次の 2 ページで確かめた。
+# App Store の上限は App Store Connect の項目の上限で、2026-10-26 に次の 2 ページで確かめた。
 # - https://developer.apple.com/help/app-store-connect/reference/app-information/app-information/
 #   name「no more than 30 characters」、subtitle「can't be longer than 30 characters」
 # - https://developer.apple.com/help/app-store-connect/reference/app-information/platform-version-information/
 #   description「Limited to 4000 characters」、keywords「up to 100 bytes」、promotional_text「can't be longer than 170 characters」
 # keywords だけは文字数ではなくバイト数 (UTF-8 で日本語 1 文字 = 3 バイト) で数える
+#
+# Google Play の上限は Play Console のストアの掲載情報の上限で、2026-11-07 に次のページで確かめた。
+# - https://support.google.com/googleplay/android-developer/answer/9859152
+#   アプリ名 (title) 30、簡単な説明 (short_description) 80、詳しい説明 (full_description) 4,000。
+#   「Character limits apply to both full-width and half-width characters」のため、どれも文字数で数える
+# ファイルの名前は fastlane の supply の形式 (https://docs.fastlane.tools/actions/supply/)
 set -euo pipefail
 
 # wc -m は C / POSIX のロケールではバイト数を数え、日本語を 3 倍に数えるため UTF-8 のロケールで数える。
@@ -53,6 +60,28 @@ check_length() {
   return 1
 }
 
+failures=0
+
+# 引数: locale のディレクトリ、必須のファイル (空白区切り)、ファイル:上限:単位 の並び (空白区切り)。
+# 必須のファイルが無い・中身が空、上限を超えたものを failures に数える
+check_locale() {
+  local locale_dir=$1 required_fields=$2 entries=$3 required entry field maximum unit file
+  for required in $required_fields; do
+    # 空白・改行だけのファイルも中身が無いものとして扱う
+    if [[ ! -f "$locale_dir/$required.txt" ]] || [[ -z "$(tr -d '[:space:]' < "$locale_dir/$required.txt")" ]]; then
+      echo "NG: $locale_dir/$required.txt が無いか中身が空です" >&2
+      failures=$((failures + 1))
+    fi
+  done
+  for entry in $entries; do
+    IFS=: read -r field maximum unit <<< "$entry"
+    file="$locale_dir/$field.txt"
+    if [[ -f "$file" ]] && ! check_length "$file" "$maximum" "$unit"; then
+      failures=$((failures + 1))
+    fi
+  done
+}
+
 locales=()
 if [[ $# -gt 0 ]]; then
   locales=("$@")
@@ -62,28 +91,25 @@ else
   done
 fi
 
-failures=0
 for locale in "${locales[@]}"; do
   locale_dir="$metadata_dir/$locale"
   if [[ ! -d "$locale_dir" ]]; then
     echo "エラー: locale のディレクトリがありません: $locale_dir" >&2
     exit 2
   fi
-  # name・description・keywords・privacy_url・support_url は App Store Connect の提出に要るため、無ければ失敗にする
-  for required in name description keywords privacy_url support_url; do
-    # 空白・改行だけのファイルも中身が無いものとして扱う
-    if [[ ! -f "$locale_dir/$required.txt" ]] || [[ -z "$(tr -d '[:space:]' < "$locale_dir/$required.txt")" ]]; then
-      echo "NG: $locale_dir/$required.txt が無いか中身が空です" >&2
-      failures=$((failures + 1))
-    fi
-  done
-  for entry in name:30:chars subtitle:30:chars keywords:100:bytes promotional_text:170:chars description:4000:chars; do
-    IFS=: read -r field maximum unit <<< "$entry"
-    file="$locale_dir/$field.txt"
-    if [[ -f "$file" ]] && ! check_length "$file" "$maximum" "$unit"; then
-      failures=$((failures + 1))
-    fi
-  done
+  if [[ "$locale" == android ]]; then
+    # Google Play (supply): title・short_description・full_description は Play Console の公開に要るため、無ければ失敗にする
+    for play_locale_dir in "$locale_dir"/*/; do
+      check_locale "${play_locale_dir%/}" \
+        "title short_description full_description" \
+        "title:30:chars short_description:80:chars full_description:4000:chars"
+    done
+    continue
+  fi
+  # App Store (deliver): name・description・keywords・privacy_url・support_url は App Store Connect の提出に要るため、無ければ失敗にする
+  check_locale "$locale_dir" \
+    "name description keywords privacy_url support_url" \
+    "name:30:chars subtitle:30:chars keywords:100:bytes promotional_text:170:chars description:4000:chars"
 done
 
 if [[ "$failures" -ne 0 ]]; then

@@ -1,6 +1,7 @@
 name: store-screenshots
 
-# App Store のスクリーンショット (fastlane/screenshots/{ja,en-US}/) を `make screenshots` で書き出し、成果物 (artifact) に残す。
+# App Store のスクリーンショット (fastlane/screenshots/{ja,en-US}/) と Google Play のスクリーンショット・フィーチャーグラフィック
+# (fastlane/metadata/android/{ja-JP,en-US}/images/) を `make screenshots` で書き出し、成果物 (artifact) に残す。
 # 開発用の Mac ではビルドしない (CLAUDE.md「ビルド・テスト・検証方法」) ため、ここで生成して成果物をダウンロードし、リポジトリに入れる。
 # スクリーンショットのモンスターの絵はリポジトリの store_screenshots/fixtures/cutouts/ を使う (出典は同ディレクトリの LICENSES.md)。
 
@@ -45,5 +46,8 @@ jobs:
     - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
       with:
         name: store-screenshots
-        path: fastlane/screenshots/
+        # icon.png は make app-icons が書くためリポジトリのものをそのまま含める (成果物をそのまま fastlane/ に重ねられるように)
+        path: |
+          fastlane/screenshots/
+          fastlane/metadata/android/*/images/
         if-no-files-found: error
