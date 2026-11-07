@@ -54,6 +54,7 @@ void main() {
           status: GenerationStatus.failed,
           monsterId: null,
           rejectionReason: null,
+          personDetected: false,
         );
       },
       fetchGeneration: ({required requestId}) =>
