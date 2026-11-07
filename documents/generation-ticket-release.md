@@ -54,4 +54,11 @@ Apple は最初の消耗型の商品を新しいアプリのバージョンと�
 
 ## 閉じ直す
 
-`ofrngd8f9737dda` を current に戻す。買ったチケットの残高は残り、生成に使える。
+解放の逆の順で戻す。先に上限を戻さないと、無料の 3 回を使い切った後に買えない時間ができる。
+
+1. 無料の生成を 1 日 20 回に戻す PR をマージしてデプロイする (`functions/src/generation/pipeline.ts` の `DAILY_GENERATION_LIMIT_PER_USER`。閉じている間は 20 回。DIRECTION.md 2026-11-07 の #182 の行)
+2. `ofrngd8f9737dda` を current に戻す。買ったチケットの残高は残り、生成に使える
+
+   ```sh
+   rc offerings set-current ofrngd8f9737dda --project-id proj682b16be --yes --json --no-input
+   ```
