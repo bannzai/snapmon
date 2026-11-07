@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import '../../analytics/analytics_events.dart';
 import '../../domain/battle/battle_engine.dart';
 import '../../domain/battle/battle_state.dart';
+import '../../domain/battle/move_special_effect.dart';
 import '../../domain/master/master_data.dart';
 import '../../domain/master/move.dart';
 import '../../domain/monster/stat_calculation.dart';
@@ -405,6 +406,8 @@ class _BattleScreenState extends State<BattleScreen>
         final move = event.moveId == null
             ? null
             : widget.definitions.moveById(moveId: event.moveId!);
+        final defenderName =
+            _displayedActiveMembers[defenderSide]!.definition.name;
         setState(
           () => _logText = (l10n) => [
             l10n.battleLogMoveUsed(
@@ -418,10 +421,55 @@ class _BattleScreenState extends State<BattleScreen>
               :final description,
             ) when powerPercent > 100)
               description,
-            if (event.typeMultiplier > 1) l10n.battleLogSuperEffective,
-            if (event.typeMultiplier < 1) l10n.battleLogNotVeryEffective,
+            if (move?.category != MoveCategory.support &&
+                event.typeMultiplier > 1)
+              l10n.battleLogSuperEffective,
+            if (move?.category != MoveCategory.support &&
+                event.typeMultiplier < 1)
+              l10n.battleLogNotVeryEffective,
+            for (final change in event.statModifierChanges)
+              _statModifierChangeLog(
+                l10n: l10n,
+                change: change,
+                monsterName: change.side == event.attackerSide
+                    ? attacker.definition.name
+                    : defenderName,
+              ),
+            if (event.recoveredHitPoints > 0)
+              l10n.battleLogRecovered(
+                attacker.definition.name,
+                event.recoveredHitPoints,
+              ),
+            if (move?.category == MoveCategory.support &&
+                event.statModifierChanges.isEmpty &&
+                event.recoveredHitPoints == 0)
+              l10n.battleLogNoEffect,
           ].join('\n'),
         );
+        if (move?.category == MoveCategory.support) {
+          // 補助技はダメージを与えないため、突進と被弾の演出をせず、HP とステータスの倍率だけを変える
+          setState(() {
+            for (final side in BattleSideId.values) {
+              final member = _displayedActiveMembers[side]!;
+              _displayedActiveMembers[side] = BattleMonster(
+                definition: member.definition,
+                state: member.state.copyWith(
+                  currentHitPoints: side == event.attackerSide
+                      ? event.attackerRemainingHitPoints
+                      : null,
+                  statModifierPercents: {
+                    ...member.state.statModifierPercents,
+                    for (final change in event.statModifierChanges)
+                      if (change.side == side)
+                        change.statKind: change.newPercent,
+                  },
+                ),
+              );
+            }
+          });
+          await Future<void>.delayed(_messageDuration);
+          return;
+        }
         _game.lunge(attackerSide: event.attackerSide);
         await Future<void>.delayed(_lungeDuration);
         if (!mounted) {
@@ -473,7 +521,21 @@ class _BattleScreenState extends State<BattleScreen>
     }
   }
 
-  /// 決着した [finishedState] の結果を反映する: バトル完了を Analytics に送り、Functions に結果を記録し、
+  /// ステータスの倍率の変化 [change] (変わったモンスターの名前 [monsterName]) のログの 1 行。
+  static String _statModifierChangeLog({
+    required AppLocalizations l10n,
+    required StatModifierChange change,
+    required String monsterName,
+  }) {
+    final statName = statLabel(l10n: l10n, statKind: change.statKind);
+    return change.newPercent > change.previousPercent
+        ? l10n.battleLogStatRose(monsterName, statName)
+        : change.newPercent < change.previousPercent
+        ? l10n.battleLogStatFell(monsterName, statName)
+        : l10n.battleLogStatUnchanged(monsterName, statName);
+  }
+
+  /// 決着した [finishedState] の結果を反映する:バトル完了を Analytics に送り、Functions に結果を記録し、
   /// 自分のモンスターのレベルを呼び出し元に渡す ([BattleScreen.onPlayerLevelsChanged])。記録の成否は勝敗の画面に出す。
   Future<void> _finishBattle({required BattleState finishedState}) async {
     final finishedEvent = finishedState.events
@@ -1612,6 +1674,22 @@ class _MonsterStatusCard extends StatelessWidget {
         ),
       for (final elementTypeId in monster.definition.elementTypeIds)
         ElementTypeTag(elementTypeId: elementTypeId, definitions: definitions),
+      // 補助技で変わったステータスの倍率 (等倍のステータスは出さない)
+      for (final statKind in modifiableStatKinds)
+        if (statModifierPercentOf(monster: monster, statKind: statKind)
+            case final percent when percent != 100)
+          Text(
+            context.l10n.battleStatModifier(
+              statLabel(l10n: context.l10n, statKind: statKind),
+              formatPowerPercent(powerPercent: percent),
+            ),
+            key: Key('battle-stat-modifier-${statKind.name}'),
+            style: SnapmonTextStyles.small.copyWith(
+              color: percent > 100
+                  ? SnapmonColors.accent
+                  : SnapmonColors.textOnCardMuted,
+            ),
+          ),
     ];
     if (keepsEachRowOnOneLine) {
       return Align(

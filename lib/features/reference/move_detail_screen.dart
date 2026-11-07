@@ -139,23 +139,68 @@ class MoveDetailScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      context.l10n.moveDetailFormula,
-                      style: SnapmonTextStyles.caption.copyWith(
-                        color: SnapmonColors.accent,
+                    for (final (index, (key, label, source, note))
+                        in <(Key, String, String, String)>[
+                          if (specialEffect.power case final power?)
+                            (
+                              const Key('move-special-effect-formula'),
+                              context.l10n.moveDetailFormula,
+                              power,
+                              context.l10n.moveDetailFormulaNote,
+                            ),
+                          for (final MapEntry(key: statKind, value: source)
+                              in specialEffect.selfStatChanges.entries)
+                            (
+                              Key('move-special-effect-self-${statKind.name}'),
+                              context.l10n.moveDetailSelfStatFormula(
+                                statLabel(
+                                  l10n: context.l10n,
+                                  statKind: statKind,
+                                ),
+                              ),
+                              source,
+                              context.l10n.moveDetailStatFormulaNote,
+                            ),
+                          for (final MapEntry(key: statKind, value: source)
+                              in specialEffect.opponentStatChanges.entries)
+                            (
+                              Key(
+                                'move-special-effect-opponent-${statKind.name}',
+                              ),
+                              context.l10n.moveDetailOpponentStatFormula(
+                                statLabel(
+                                  l10n: context.l10n,
+                                  statKind: statKind,
+                                ),
+                              ),
+                              source,
+                              context.l10n.moveDetailStatFormulaNote,
+                            ),
+                          if (specialEffect.selfHitPointsRecovery
+                              case final recovery?)
+                            (
+                              const Key('move-special-effect-recovery'),
+                              context.l10n.moveDetailRecoveryFormula,
+                              recovery,
+                              context.l10n.moveDetailRecoveryFormulaNote,
+                            ),
+                        ].indexed) ...[
+                      if (index > 0) const SizedBox(height: 12),
+                      Text(
+                        label,
+                        style: SnapmonTextStyles.caption.copyWith(
+                          color: SnapmonColors.accent,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      formatMoveExpression(source: specialEffect.power),
-                      key: const Key('move-special-effect-formula'),
-                      style: SnapmonTextStyles.body,
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      context.l10n.moveDetailFormulaNote,
-                      style: SnapmonTextStyles.small,
-                    ),
+                      const SizedBox(height: 4),
+                      Text(
+                        formatMoveExpression(source: source),
+                        key: key,
+                        style: SnapmonTextStyles.body,
+                      ),
+                      const SizedBox(height: 4),
+                      Text(note, style: SnapmonTextStyles.small),
+                    ],
                   ],
                 ),
               ),
