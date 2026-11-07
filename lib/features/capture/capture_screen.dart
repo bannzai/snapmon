@@ -19,6 +19,7 @@ import '../result/result_screen.dart';
 import '../share/card_sharer.dart';
 import 'generation_screen.dart';
 import 'monster_generator.dart';
+import 'ticket_purchase_sheet.dart';
 
 /// 撮る画面 (モックの Main.dc.html)。ファインダーにカメラの映像を出し、シャッターで撮るかアルバムから選んだ写真から生成する。
 /// カメラの権限は、撮るボタンか「カメラを使う」を押すまで求めない (開いただけで権限を聞かないため。#64)。
@@ -77,10 +78,6 @@ class CaptureScreen extends StatefulWidget {
 
 class _CaptureScreenState extends State<CaptureScreen>
     with WidgetsBindingObserver {
-  /// 生成チケットの残高。作り直しのたびに読み直さないため State に持つ。
-  late final Stream<int> _generationTickets = widget.monsterGenerator
-      .watchGenerationTickets();
-
   CameraController? _cameraController;
   Object? _cameraError;
   bool _isTakingPicture = false;
@@ -359,19 +356,7 @@ class _CaptureScreenState extends State<CaptureScreen>
                 ),
               ),
             ),
-            // 残高が無い人 (買ったことが無い人と、売っていない間) には何も出さない
-            StreamBuilder<int>(
-              stream: _generationTickets,
-              builder: (context, snapshot) => (snapshot.data ?? 0) > 0
-                  ? Padding(
-                      padding: const EdgeInsets.only(right: 8),
-                      child: Text(
-                        context.l10n.ticketBalance(snapshot.data!),
-                        style: SnapmonTextStyles.label,
-                      ),
-                    )
-                  : const SizedBox.shrink(),
-            ),
+            GenerationTicketBalance(monsterGenerator: widget.monsterGenerator),
             ListenableBuilder(
               listenable: widget.dexStore,
               builder: (context, _) => Material(

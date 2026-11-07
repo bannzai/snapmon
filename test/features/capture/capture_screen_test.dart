@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:camera_platform_interface/camera_platform_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 
 import 'package:snapmon/analytics/analytics_events.dart';
@@ -102,11 +103,13 @@ void main() {
     cameraOpenedCallCount = 0;
   });
 
-  /// 撮る画面を開く。カメラの一覧は [listCameras] が、生成チケットの残高は [generationTickets] が返す。
+  /// 撮る画面を開く。カメラの一覧は [listCameras] が、売っている package は [ticketPackages] が、
+  /// 生成チケットの残高は [generationTickets] が返す。
   Future<void> pumpCaptureScreen({
     required WidgetTester tester,
     required bool startsCameraOnOpen,
     required Future<List<CameraDescription>> Function() listCameras,
+    List<Package> ticketPackages = const [],
     Stream<int> generationTickets = const Stream.empty(),
   }) async {
     final generator = fakeMonsterGenerator(
@@ -152,7 +155,7 @@ void main() {
               uploadMask: generator.uploadMask,
               requestGeneration: generator.requestGeneration,
               fetchGeneration: generator.fetchGeneration,
-              fetchTicketPackages: generator.fetchTicketPackages,
+              fetchTicketPackages: () async => ticketPackages,
               purchaseTicketPackage: generator.purchaseTicketPackage,
               syncTicketPurchases: generator.syncTicketPurchases,
               watchGenerationTickets: () => generationTickets,
@@ -174,22 +177,35 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  testWidgets('生成チケットの残高が正の時だけ 撮るタブに枚数を出す', (tester) async {
+  testWidgets('売っている間で残高が正の時は 撮るタブに枚数を出す', (tester) async {
     await pumpCaptureScreen(
       tester: tester,
       startsCameraOnOpen: false,
       listCameras: () async => const [],
+      ticketPackages: const [testTicketPackage],
       generationTickets: Stream.value(7),
     );
     expect(find.text('チケット 7 枚'), findsOneWidget);
   });
 
-  testWidgets('生成チケットの残高が 0 の時は 撮るタブに何も出さない', (tester) async {
+  testWidgets('売っている間でも残高が 0 の時は 撮るタブに何も出さない', (tester) async {
     await pumpCaptureScreen(
       tester: tester,
       startsCameraOnOpen: false,
       listCameras: () async => const [],
+      ticketPackages: const [testTicketPackage],
       generationTickets: Stream.value(0),
+    );
+    expect(find.textContaining('チケット'), findsNothing);
+  });
+
+  testWidgets('売っていない間は残高が正でも 撮るタブに何も出さない', (tester) async {
+    await pumpCaptureScreen(
+      tester: tester,
+      startsCameraOnOpen: false,
+      listCameras: () async => const [],
+      ticketPackages: const [],
+      generationTickets: Stream.value(7),
     );
     expect(find.textContaining('チケット'), findsNothing);
   });

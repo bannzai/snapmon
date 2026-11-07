@@ -91,6 +91,7 @@ class _TicketPurchaseSheet extends StatefulWidget {
   State<_TicketPurchaseSheet> createState() => _TicketPurchaseSheetState();
 }
 
+/// [_TicketPurchaseSheet] の購入の進み具合と残高。
 class _TicketPurchaseSheetState extends State<_TicketPurchaseSheet> {
   /// 残高の購読。購入の前から持つ (購入と webhook の反映の順を問わず、増えたのを逃さないため)。
   StreamSubscription<int>? _generationTicketsSubscription;
@@ -280,6 +281,51 @@ class _TicketPurchaseSheetState extends State<_TicketPurchaseSheet> {
         ];
 }
 
+/// 撮るタブの生成チケットの残高。売っている package があり、残高が正の時だけ出す (閉じている間の見え方を変えないため。Web は売っていない)。
+class GenerationTicketBalance extends StatefulWidget {
+  /// 残高の表示を作る。
+  const GenerationTicketBalance({super.key, required this.monsterGenerator});
+
+  /// 売っている package と残高の読み出し。
+  final MonsterGenerator monsterGenerator;
+
+  @override
+  State<GenerationTicketBalance> createState() =>
+      _GenerationTicketBalanceState();
+}
+
+/// [GenerationTicketBalance] の読み出し。作り直しのたびに読み直さないため State に持つ。
+class _GenerationTicketBalanceState extends State<GenerationTicketBalance> {
+  /// 売っている package の読み出し。読めない時は売っていない時と同じく出さない。
+  late final Future<List<Package>> _packages = widget.monsterGenerator
+      .fetchTicketPackages()
+      .catchError((Object _) => const <Package>[]);
+
+  /// 残高。
+  late final Stream<int> _generationTickets = widget.monsterGenerator
+      .watchGenerationTickets();
+
+  @override
+  Widget build(BuildContext context) => FutureBuilder<List<Package>>(
+    future: _packages,
+    builder: (context, packagesSnapshot) =>
+        packagesSnapshot.data?.isNotEmpty ?? false
+        ? StreamBuilder<int>(
+            stream: _generationTickets,
+            builder: (context, snapshot) => (snapshot.data ?? 0) > 0
+                ? Padding(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: Text(
+                      context.l10n.ticketBalance(snapshot.data!),
+                      style: SnapmonTextStyles.label,
+                    ),
+                  )
+                : const SizedBox.shrink(),
+          )
+        : const SizedBox.shrink(),
+  );
+}
+
 /// 設定画面の「購入の状態を同期する」。売っている package がある時だけ出す (閉じている間の見え方を変えないため)。
 class TicketPurchaseSyncTile extends StatefulWidget {
   /// 項目を作る。
@@ -292,6 +338,7 @@ class TicketPurchaseSyncTile extends StatefulWidget {
   State<TicketPurchaseSyncTile> createState() => _TicketPurchaseSyncTileState();
 }
 
+/// [TicketPurchaseSyncTile] の売っている package と同期の途中かどうか。
 class _TicketPurchaseSyncTileState extends State<TicketPurchaseSyncTile> {
   /// 売っている package の読み出し。読めない時は売っていない時と同じく項目を出さない。
   late final Future<List<Package>> _packages = widget.monsterGenerator

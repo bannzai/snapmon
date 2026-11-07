@@ -39,6 +39,21 @@ class RecordedGenerationCalls {
   loggedEvents = [];
 }
 
+/// テストの package。価格はストアから来る値の見本で、画面がこの値をそのまま出すかを確かめる。
+const Package testTicketPackage = Package(
+  'ticket10',
+  PackageType.custom,
+  StoreProduct(
+    'snapmon_generationticket10_200yen',
+    '',
+    '生成チケット 10 回',
+    200,
+    '¥200',
+    'JPY',
+  ),
+  PresentedOfferingContext('generation_tickets', null, null),
+);
+
 /// テストの写真の中身 (preparePhoto はそのまま返すため、画像として読める必要はない)。
 final Uint8List testPhotoBytes = Uint8List.fromList([1, 2, 3]);
 

@@ -22,21 +22,6 @@ import '../../sample_data_fixture.dart';
 /// サーバーが上限で断った時の文言の見本。
 const String _dailyLimitMessage = '今日の生成は 20 回までです';
 
-/// テストの package。価格はストアから来る値の見本で、画面がこの値をそのまま出すかを確かめる。
-const Package _testPackage = Package(
-  'ticket10',
-  PackageType.custom,
-  StoreProduct(
-    'snapmon_generationticket10_200yen',
-    '',
-    '生成チケット 10 回',
-    200,
-    '¥200',
-    'JPY',
-  ),
-  PresentedOfferingContext('generation_tickets', null, null),
-);
-
 void main() {
   final sampleData = loadSampleDataFixture();
   late RecordedGenerationCalls calls;
@@ -137,7 +122,7 @@ void main() {
   testWidgets('package がある時は 上限の後に購入画面を出し ストアの価格を出す', (tester) async {
     await pumpUntilDailyLimit(
       tester: tester,
-      generator: limitedGenerator(ticketPackages: const [_testPackage]),
+      generator: limitedGenerator(ticketPackages: const [testTicketPackage]),
     );
 
     expect(find.text('生成チケット'), findsOneWidget);
@@ -151,7 +136,7 @@ void main() {
     await pumpUntilDailyLimit(
       tester: tester,
       generator: limitedGenerator(
-        ticketPackages: const [_testPackage],
+        ticketPackages: const [testTicketPackage],
         purchaseTicketPackage: ({required package}) async =>
             TicketPurchaseResult.purchased,
         generationTickets: generationTickets.stream,
@@ -181,7 +166,7 @@ void main() {
     await pumpUntilDailyLimit(
       tester: tester,
       generator: limitedGenerator(
-        ticketPackages: const [_testPackage],
+        ticketPackages: const [testTicketPackage],
         purchaseTicketPackage: ({required package}) async =>
             TicketPurchaseResult.purchased,
       ),
@@ -199,7 +184,7 @@ void main() {
     await pumpUntilDailyLimit(
       tester: tester,
       generator: limitedGenerator(
-        ticketPackages: const [_testPackage],
+        ticketPackages: const [testTicketPackage],
         purchaseTicketPackage: ({required package}) async =>
             TicketPurchaseResult.cancelled,
       ),
@@ -217,7 +202,7 @@ void main() {
     await pumpUntilDailyLimit(
       tester: tester,
       generator: limitedGenerator(
-        ticketPackages: const [_testPackage],
+        ticketPackages: const [testTicketPackage],
         purchaseTicketPackage: ({required package}) async =>
             throw StateError('ストアの失敗'),
       ),
@@ -251,7 +236,7 @@ void main() {
   testWidgets('売っている間は 同期の項目を出し 押すと同期する', (tester) async {
     await pumpSyncTile(
       tester: tester,
-      generator: limitedGenerator(ticketPackages: const [_testPackage]),
+      generator: limitedGenerator(ticketPackages: const [testTicketPackage]),
     );
 
     await tester.tap(find.text('購入の状態を同期する'));

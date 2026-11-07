@@ -44,6 +44,13 @@
       "display_name": "生成チケット 30 回 (Android)"
     }
   ],
+  "webhooks": [
+    {
+      "name": "snapmon-functions",
+      "url": "https://asia-northeast1-snapmon-prod.cloudfunctions.net/revenueCatWebhook",
+      "authorization_header_env": "REVENUECAT_WEBHOOK_AUTHORIZATION"
+    }
+  ],
   "offerings": [
     {
       "lookup_key": "closed",
