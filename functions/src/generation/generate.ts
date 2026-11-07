@@ -21,6 +21,8 @@ const REQUEST_ID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-
  * `maskSource` は `maskPath` を渡す時は `ios_subject` か `crop` を必ず渡し、渡さない時は省くか `none` にする
  * (2026-10-28 より前の端末は `maskPath` も `maskSource` も送らないため、どちらも無い呼び出しはマスク無しとして受け付ける)。
  * 返す値: `GenerationResult`。1 日の上限・生成中のロックに当たる時は `resource-exhausted` / `failed-precondition` を投げる。
+ * エラーの `details` は `{ reason }` (GenerationRequestError の code) で、uid ごとの上限 (`daily_limit_per_user`) の時は
+ * `freeDailyGenerationLimit`・`generationTickets` (pipeline.ts の DailyLimitPerUserDetails) も入る。
  */
 export async function handleGenerateRequest(dependencies: GenerationDependencies, request: Pick<CallableRequest, "auth" | "data">): Promise<GenerationResult> {
   if (!request.auth) {
@@ -56,7 +58,7 @@ export async function handleGenerateRequest(dependencies: GenerationDependencies
     });
   } catch (error) {
     if (error instanceof GenerationRequestError) {
-      throw new HttpsError(error.code.startsWith("daily_limit") ? "resource-exhausted" : "failed-precondition", error.message, { reason: error.code });
+      throw new HttpsError(error.code.startsWith("daily_limit") ? "resource-exhausted" : "failed-precondition", error.message, { reason: error.code, ...error.details });
     }
     throw error;
   }

@@ -157,14 +157,31 @@ const SAME_DEFINITION_PROBABILITY_THRESHOLD = 0.8;
 const ELEMENT_TYPE_LIMIT = 36;
 const MOVE_LIMIT = 2_000;
 
+/**
+ * uid ごとの 1 日の上限に当たった時に、クライアントへ返す付帯の情報。購入画面を出すかの判断に使わせ、上限の値をクライアントに持たせない。
+ */
+export interface DailyLimitPerUserDetails {
+  /** 1 日の無料の生成の上限 (`DAILY_GENERATION_LIMIT_PER_USER`)。 */
+  freeDailyGenerationLimit: number;
+  /** 生成チケットの残高 (`users/{uid}.generationTickets`)。 */
+  generationTickets: number;
+}
+
 /** 生成の要求を受け付けられない理由。callable は HttpsError に、それ以外はログに出す。 */
 export class GenerationRequestError extends Error {
   /** 理由の種類。 */
   readonly code: "daily_limit_per_user" | "daily_limit_total" | "another_generation_in_progress" | "photo_not_found" | "account_deletion_in_progress" | "account_not_found";
+  /** クライアントへ返す付帯の情報 (daily_limit_per_user の時だけ)。 */
+  readonly details?: DailyLimitPerUserDetails;
 
-  constructor(code: GenerationRequestError["code"], message: string) {
+  /**
+   * [code] の理由で受け付けない要求のエラーを作る。[message] は利用者に見せる文。
+   * [details] は daily_limit_per_user の時だけ渡し、callable がエラーの details に入れてクライアントへ返す。
+   */
+  constructor(code: GenerationRequestError["code"], message: string, details?: DailyLimitPerUserDetails) {
     super(message);
     this.code = code;
+    this.details = details;
   }
 }
 
@@ -320,16 +337,28 @@ export async function startGeneration(
     const totalCounterSnapshot = await transaction.get(totalCounterDocument);
     assertGenerationLockAvailable({ lock: userSnapshot.get("generationLock"), requestId, now });
     const userCount = userSnapshot.get("dailyGeneration.date") === today ? (userSnapshot.get("dailyGeneration.count") as number) : 0;
-    if (userCount >= DAILY_GENERATION_LIMIT_PER_USER) {
-      throw new GenerationRequestError("daily_limit_per_user", `今日の生成は ${DAILY_GENERATION_LIMIT_PER_USER} 回までです`);
+    // 残高が無いユーザー (チケットを買ったことが無い) はフィールドが無く、0 枚と同じ
+    const generationTickets = (userSnapshot.get("generationTickets") as number | undefined) ?? 0;
+    // 無料の回数を使い切った後は、チケットを 1 枚使って生成する (DIRECTION.md「決めたこと」2026-11-07 の行)
+    const usesGenerationTicket = userCount >= DAILY_GENERATION_LIMIT_PER_USER;
+    if (usesGenerationTicket && generationTickets <= 0) {
+      throw new GenerationRequestError("daily_limit_per_user", `今日の生成は ${DAILY_GENERATION_LIMIT_PER_USER} 回までです`, {
+        freeDailyGenerationLimit: DAILY_GENERATION_LIMIT_PER_USER,
+        generationTickets,
+      });
     }
+    // 全体の上限は原価の守りのため、チケットがあっても越えない (ADR 0001「原価の上限」)
     if (((totalCounterSnapshot.get("count") as number | undefined) ?? 0) >= DAILY_GENERATION_LIMIT_TOTAL) {
       throw new GenerationRequestError("daily_limit_total", "今日は生成が混み合っています。明日またためしてください");
     }
     const leaseExpiresAt = Timestamp.fromMillis(now.getTime() + LEASE_DURATION_SECONDS * 1000);
     transaction.set(
       userDocument,
-      { generationLock: { requestId, expiresAt: leaseExpiresAt }, dailyGeneration: { date: today, count: userCount + 1 } },
+      {
+        generationLock: { requestId, expiresAt: leaseExpiresAt },
+        dailyGeneration: { date: today, count: userCount + 1 },
+        ...(usesGenerationTicket ? { generationTickets: FieldValue.increment(-1) } : {}),
+      },
       { merge: true },
     );
     transaction.set(totalCounterDocument, { count: FieldValue.increment(1) }, { merge: true });
@@ -344,6 +373,7 @@ export async function startGeneration(
       leaseToken,
       attemptCount: 1,
       judgeRetryCount: 0,
+      ...(usesGenerationTicket ? { usedGenerationTicket: true } : {}),
       createdAt: Timestamp.fromDate(now),
       updatedAt: Timestamp.fromDate(now),
     };

@@ -8,5 +8,13 @@ import { defineSecret } from "firebase-functions/params";
 /** 属性・技・ステータスの判定に使う Jev (TypeSafe) の API キー。 */
 export const typesafeApiKey = defineSecret("TYPESAFE_API_KEY");
 
-/** PvP の通報を #snapmon-notification に知らせる Slack の bot token (slack.ts)。 */
+/** PvP の通報と生成チケットの購入を #snapmon-notification に知らせる Slack の bot token (slack.ts)。 */
 export const slackBotToken = defineSecret("SLACK_BOT_TOKEN");
+
+/**
+ * RevenueCat の webhook が `Authorization` ヘッダーに付ける値 (generation_tickets.ts)。値は RevenueCat のダッシュボードで webhook を
+ * 設定する時に owner が決め、同じ値を `firebase functions:secrets:set REVENUECAT_WEBHOOK_AUTHORIZATION` で登録する。
+ * このファイルは index.ts から読まれるため、登録されるまで Functions のデプロイ全体が失敗する (firebase-tools の
+ * lib/deploy/functions/params.js の ensureSecret は、非対話のデプロイで Secret が無いと throw する)。
+ */
+export const revenueCatWebhookAuthorization = defineSecret("REVENUECAT_WEBHOOK_AUTHORIZATION");
