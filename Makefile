@@ -68,13 +68,15 @@ verify:
 	bash scripts/test/test-metadata-check.sh
 	node --test scripts/test/test-master-viewer.mjs
 
-# アプリアイコンを描き直して iOS・Android・Web に書き出す (Pillow の入った python3 が要る。PYTHON=<python3 のパス> で差し替えられる)
+# アプリアイコンを描き直して iOS・Android・Web と Google Play のストア掲載 (fastlane/metadata/android/*/images/icon.png) に書き出す
+# (Pillow の入った python3 が要る。PYTHON=<python3 のパス> で差し替えられる)
 PYTHON ?= python3
 .PHONY: app-icons
 app-icons:
 	$(PYTHON) scripts/app_icon/generate_app_icons.py
 
-# App Store のスクリーンショットを fastlane/screenshots/{ja,en-US}/ に書き出す (store_screenshots/generate_store_screenshots_test.dart)。
+# App Store のスクリーンショットを fastlane/screenshots/{ja,en-US}/ に、Google Play のスクリーンショットとフィーチャーグラフィックを
+# fastlane/metadata/android/{ja-JP,en-US}/images/ に書き出す (store_screenshots/generate_store_screenshots_test.dart)。
 # STORE_SCREENSHOT_LANGUAGES=ja STORE_SCREENSHOT_DEVICES=iphone69 STORE_SCREENSHOT_PAGES=capture のように絞れる。
 # 開発用の Mac では実行せず、.github/workflows/store-screenshots.yml が GitHub Actions で実行して成果物に残す
 .PHONY: screenshots
@@ -83,7 +85,7 @@ screenshots:
 	flutter gen-l10n
 	flutter test store_screenshots
 
-# fastlane/metadata の App Store のメタデータが App Store Connect の文字数の上限に収まっているかを検査する
+# fastlane/metadata の App Store と Google Play (android/) のメタデータが各ストアの文字数の上限に収まっているかを検査する
 .PHONY: metadata-check
 metadata-check:
 	bash scripts/metadata_check/check_all_metadata.sh

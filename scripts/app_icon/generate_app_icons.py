@@ -1,4 +1,4 @@
-"""snapmon のアプリアイコンを描き、iOS・Android・Web の置き場所に書き出す。
+"""snapmon のアプリアイコンを描き、iOS・Android・Web・Google Play のストア掲載 (fastlane/metadata/android) の置き場所に書き出す。
 
 絵はタイトル画面のヒーロー (lib/features/title/title_screen.dart の TitleHeroPainter) のマグカップ
 (切り出しの縁取り・目・稲妻付き) と同じ形を、同じ寸法 (170×170 の箱の座標) で描く。斜めの写真の枠・オーラは入れない
@@ -218,7 +218,24 @@ def write_web():
         save_opaque(draw_mug(size, MASKABLE_RATIO, BACKGROUND), web / f"icons/Icon-maskable-{size}.png")
 
 
+# Google Play のストア掲載のアイコンの要件 (https://support.google.com/googleplay/android-developer/answer/9866151
+# 「32-bit PNG (with alpha)」「Dimensions: 512px by 512px」)。fastlane の supply が読む locale ごとの images/icon.png に置く
+GOOGLE_PLAY_ICON_SIZE = 512
+GOOGLE_PLAY_LOCALES = ("ja-JP", "en-US")
+
+
+def write_google_play():
+    """Google Play のストア掲載のアイコン (512px) を、fastlane/metadata/android/<locale>/images/icon.png に書き出す。
+    アルファを持つ PNG にし (Play の要件)、絵は全面に出す (Play はストアの表示で角を丸めるが、角に絵は無い)。"""
+    for locale in GOOGLE_PLAY_LOCALES:
+        save_transparent(
+            draw_mug(GOOGLE_PLAY_ICON_SIZE, FULL_BLEED_RATIO, BACKGROUND),
+            REPOSITORY_ROOT / f"fastlane/metadata/android/{locale}/images/icon.png",
+        )
+
+
 if __name__ == "__main__":
     write_ios()
     write_android()
     write_web()
+    write_google_play()
