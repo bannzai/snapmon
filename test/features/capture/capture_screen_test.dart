@@ -102,11 +102,12 @@ void main() {
     cameraOpenedCallCount = 0;
   });
 
-  /// 撮る画面を開く。カメラの一覧は [listCameras] が返す。
+  /// 撮る画面を開く。カメラの一覧は [listCameras] が、生成チケットの残高は [generationTickets] が返す。
   Future<void> pumpCaptureScreen({
     required WidgetTester tester,
     required bool startsCameraOnOpen,
     required Future<List<CameraDescription>> Function() listCameras,
+    Stream<int> generationTickets = const Stream.empty(),
   }) async {
     final generator = fakeMonsterGenerator(
       calls: generationCalls,
@@ -151,6 +152,10 @@ void main() {
               uploadMask: generator.uploadMask,
               requestGeneration: generator.requestGeneration,
               fetchGeneration: generator.fetchGeneration,
+              fetchTicketPackages: generator.fetchTicketPackages,
+              purchaseTicketPackage: generator.purchaseTicketPackage,
+              syncTicketPurchases: generator.syncTicketPurchases,
+              watchGenerationTickets: () => generationTickets,
               logEvent: generator.logEvent,
             ),
             onSelectTab: ({required tab}) {},
@@ -168,6 +173,26 @@ void main() {
     );
     await tester.pumpAndSettle();
   }
+
+  testWidgets('生成チケットの残高が正の時だけ 撮るタブに枚数を出す', (tester) async {
+    await pumpCaptureScreen(
+      tester: tester,
+      startsCameraOnOpen: false,
+      listCameras: () async => const [],
+      generationTickets: Stream.value(7),
+    );
+    expect(find.text('チケット 7 枚'), findsOneWidget);
+  });
+
+  testWidgets('生成チケットの残高が 0 の時は 撮るタブに何も出さない', (tester) async {
+    await pumpCaptureScreen(
+      tester: tester,
+      startsCameraOnOpen: false,
+      listCameras: () async => const [],
+      generationTickets: Stream.value(0),
+    );
+    expect(find.textContaining('チケット'), findsNothing);
+  });
 
   /// 送ったカメラの権限の段階 (送った順)。
   List<Object?> loggedCameraPermissionSteps() => [

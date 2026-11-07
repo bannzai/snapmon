@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 
 import '../../sample/sample_data.dart';
 import '../../theme/snapmon_text_styles.dart';
 import '../battle/battle_recorder.dart';
 import '../capture/generation_screen.dart';
 import '../capture/monster_generator.dart';
+import '../capture/ticket_purchase_sheet.dart';
 import '../dex/dex_store.dart';
 import '../opponent/pvp_client.dart';
 import '../result/result_screen.dart';
@@ -127,6 +129,36 @@ class DeveloperMenuScreen extends StatelessWidget {
                 cropsWhenSubjectNotFound: false,
               ),
             ),
+          // ストアに商品が無い間と Simulator で、購入画面の見た目と流れを確かめるため。見本の package と見本の購入を使い、ストアも RevenueCat も呼ばない
+          ListTile(
+            leading: const Icon(Icons.confirmation_number_outlined),
+            title: const Text('生成チケットの購入画面の見本を開く'),
+            subtitle: const Text('見本の価格を出す。買うと 3 秒後に残高が 10 枚になる'),
+            onTap: () => showTicketPurchaseSheet(
+              context: context,
+              packages: const [
+                Package(
+                  'ticket10',
+                  PackageType.custom,
+                  StoreProduct(
+                    'sample10',
+                    '',
+                    '生成チケット 10 回 (見本)',
+                    0,
+                    '見本の価格',
+                    '',
+                  ),
+                  PresentedOfferingContext('sample', null, null),
+                ),
+              ],
+              purchaseTicketPackage: ({required package}) async =>
+                  TicketPurchaseResult.purchased,
+              watchGenerationTickets: () => Stream.fromFuture(
+                Future.delayed(const Duration(seconds: 3), () => 10),
+              ),
+              logEvent: ({required event, required parameters}) async {},
+            ),
+          ),
           // アルバムのファイル選択を自動の操作で通しにくい Web (webtunnel) で、範囲を決める画面を確かめるため
           ListTile(
             leading: const Icon(Icons.crop_outlined),

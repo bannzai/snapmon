@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:camera/camera.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 
 import '../../analytics/analytics_events.dart';
 
@@ -135,6 +136,28 @@ class GenerationPhotoMissingException implements Exception {
   String toString() => message;
 }
 
+/// 1 日の無料の生成回数を使い切り、生成チケットも無い (functions/src/generation/pipeline.ts の `daily_limit_per_user`)。
+/// 受け付けを断られた写真はサーバーが後で消すため、同じ要求 ID で写真を置き直してから呼び直す目印にもする。
+class GenerationDailyLimitException implements Exception {
+  /// 例外を作る。[message] はサーバーが返したエラーの文言。
+  const GenerationDailyLimitException({required this.message});
+
+  /// サーバーが返したエラーの文言。
+  final String message;
+
+  @override
+  String toString() => message;
+}
+
+/// 生成チケットの購入の結果。失敗は例外で返す。
+enum TicketPurchaseResult {
+  /// ストアの購入が済んだ。残高に足すのは webhook で、この時点ではまだ増えていないことがある。
+  purchased,
+
+  /// 利用者がストアの購入の画面を閉じた。
+  cancelled,
+}
+
 /// 写真がどこから来たか (計測の `monster_generated` の `source`)。
 enum GenerationPhotoSource {
   /// カメラで撮った。
@@ -185,6 +208,10 @@ class MonsterGenerator {
     required this.uploadMask,
     required this.requestGeneration,
     required this.fetchGeneration,
+    required this.fetchTicketPackages,
+    required this.purchaseTicketPackage,
+    required this.syncTicketPurchases,
+    required this.watchGenerationTickets,
     required this.logEvent,
   });
 
@@ -256,6 +283,19 @@ class MonsterGenerator {
   /// [requestId] の生成の今の結果を読み直す (判定待ちの後に生まれたかを確かめる)。
   final Future<GenerationResult> Function({required String requestId})
   fetchGeneration;
+
+  /// 今売っている生成チケットの package を返す (lib/firebase/purchases.dart)。売っていない間・課金が無効なビルド・Web では空。
+  final Future<List<Package>> Function() fetchTicketPackages;
+
+  /// [package] をストアで購入する。失敗は例外で返す。
+  final Future<TicketPurchaseResult> Function({required Package package})
+  purchaseTicketPackage;
+
+  /// ストアの購入の状態を RevenueCat と同期する。
+  final Future<void> Function() syncTicketPurchases;
+
+  /// ログイン中のユーザーの生成チケットの残高 (`users/{uid}.generationTickets`) を流す。ログインしていない時は 0。
+  final Stream<int> Function() watchGenerationTickets;
 
   /// Analytics にイベントを送る ([logAnalyticsEvent] と同じ形)。
   final Future<void> Function({

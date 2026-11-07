@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:snapmon/analytics/analytics_events.dart';
 import 'package:snapmon/domain/master/master_data.dart';
 import 'package:snapmon/domain/monster/monster_definition.dart';
@@ -29,6 +30,9 @@ class RecordedGenerationCalls {
 
   /// openAppSettings が呼ばれた回数。
   int openAppSettingsCallCount = 0;
+
+  /// syncTicketPurchases が呼ばれた回数。
+  int syncTicketPurchasesCallCount = 0;
 
   /// logEvent に渡されたイベントとパラメータ (呼ばれた順)。
   final List<({AnalyticsEvent event, Map<String, Object>? parameters})>
@@ -64,6 +68,10 @@ MonsterGenerator fakeMonsterGenerator({
     required SquareCrop crop,
   })?
   createSquareMask,
+  List<Package> ticketPackages = const [],
+  Future<TicketPurchaseResult> Function({required Package package})?
+  purchaseTicketPackage,
+  Stream<int>? generationTickets,
 }) {
   var requestIdCount = 0;
   return MonsterGenerator(
@@ -104,6 +112,12 @@ MonsterGenerator fakeMonsterGenerator({
       calls.fetchedRequestIds.add(requestId);
       return fetchGeneration(requestId: requestId);
     },
+    fetchTicketPackages: () async => ticketPackages,
+    purchaseTicketPackage:
+        purchaseTicketPackage ??
+        ({required package}) async => TicketPurchaseResult.cancelled,
+    syncTicketPurchases: () async => calls.syncTicketPurchasesCallCount++,
+    watchGenerationTickets: () => generationTickets ?? const Stream.empty(),
     logEvent: ({required event, required parameters}) async =>
         calls.loggedEvents.add((event: event, parameters: parameters)),
   );

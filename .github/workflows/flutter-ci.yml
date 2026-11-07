@@ -104,7 +104,9 @@ jobs:
         flutter-version: ${{ env.FLUTTER_VERSION }}
     - run: scripts/restore-firebase-config.sh dart android
     - run: flutter pub get
-    - run: flutter build apk --debug
+    - run: flutter build apk --debug --dart-define=REVENUECAT_PUBLIC_API_KEY_ANDROID="$REVENUECAT_PUBLIC_API_KEY_ANDROID"
+      env:
+        REVENUECAT_PUBLIC_API_KEY_ANDROID: ${{ vars.REVENUECAT_PUBLIC_API_KEY_ANDROID }}
 
   # iOS のビルド (build-ios) は PR の CI では行わない。macOS ランナーの同時実行数の上限をアカウント内の他のリポジトリと
   # 共有していて、何時間も QUEUED のまま進まずマージを止めたため (2026-10-30 の bannzai の判断。CLAUDE.md「ビルド・テスト・検証方法」)。

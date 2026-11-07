@@ -103,6 +103,9 @@ Future<GenerationResult> requestGenerationWithFirebase({
         message: error.message ?? error.code,
       );
     }
+    if (details is Map && details['reason'] == 'daily_limit_per_user') {
+      throw GenerationDailyLimitException(message: error.message ?? error.code);
+    }
     if (error.code != 'deadline-exceeded') {
       rethrow;
     }

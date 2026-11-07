@@ -24,6 +24,7 @@ import 'package:snapmon/firebase/account.dart';
 import 'package:snapmon/firebase/battle_record.dart';
 import 'package:snapmon/firebase/dex_firestore.dart';
 import 'package:snapmon/firebase/monster_generation.dart';
+import 'package:snapmon/firebase/purchases.dart';
 import 'package:snapmon/firebase/pvp.dart';
 import 'package:snapmon/firebase/session.dart';
 import 'package:snapmon/firebase/share_art.dart';
@@ -76,6 +77,7 @@ Future<void> main() async {
     dexStore: dexStore,
     localDefinitions: sampleData.definitions,
   );
+  connectPurchasesWhileSignedIn(sessionStore: sessionStore);
   runApp(
     SnapmonApp(
       sampleData: sampleData,
@@ -148,6 +150,10 @@ Future<void> main() async {
               );
             },
         fetchGeneration: fetchGenerationWithFirebase,
+        fetchTicketPackages: fetchTicketPackagesWithRevenueCat,
+        purchaseTicketPackage: purchaseTicketPackageWithRevenueCat,
+        syncTicketPurchases: syncTicketPurchasesWithRevenueCat,
+        watchGenerationTickets: watchGenerationTicketsWithFirebase,
         logEvent: logAnalyticsEvent,
       ),
       cardSharer: const CardSharer(

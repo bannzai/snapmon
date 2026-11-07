@@ -198,5 +198,14 @@
   "moveDetailEffectiveness": "Matchups",
   "moveDetailSuperEffective": "Strong against",
   "moveDetailNotVeryEffective": "Weak against",
-  "moveDetailNeutralEverywhere": "1× against every type"
+  "moveDetailNeutralEverywhere": "1× against every type",
+  "ticketBalance": "Tickets: {count}",
+  "ticketPurchaseTitle": "Generation tickets",
+  "ticketPurchaseDescription": "One ticket creates one monster\nafter your free daily limit",
+  "ticketPurchaseWaiting": "Receiving your tickets",
+  "ticketPurchaseArrivalDelayed": "Still waiting for your tickets\nThey stay on your account even if you close this screen",
+  "ticketPurchaseArrivedTitle": "Your tickets are here",
+  "ticketPurchaseContinue": "Create from this photo",
+  "ticketPurchaseSync": "Sync purchases",
+  "ticketPurchaseSynced": "Purchases synced"
 }

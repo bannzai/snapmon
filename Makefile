@@ -4,13 +4,19 @@ SIMULATOR_UDID ?= $(shell SCRIPT_QUIET=1 sim-boot | sed -n 's/^DEVICE_UDID=//p' 
 # 引数なしの make で ios を実行する (人が手で動作確認するための入口。検査・テストは CI が行う)
 .DEFAULT_GOAL := ios
 
+# RevenueCat の public API key (公開値。lib/firebase/purchases.dart が --dart-define で受ける)。
+# 環境変数が無ければ gh の Variable から取る。どちらも無ければ空のまま渡し、課金が無効のビルドになる
+REVENUECAT_PUBLIC_API_KEY_IOS ?= $(shell gh variable get REVENUECAT_PUBLIC_API_KEY_IOS 2>/dev/null)
+REVENUECAT_PUBLIC_API_KEY_ANDROID ?= $(shell gh variable get REVENUECAT_PUBLIC_API_KEY_ANDROID 2>/dev/null)
+purchases_dart_defines = --dart-define=REVENUECAT_PUBLIC_API_KEY_IOS=$(REVENUECAT_PUBLIC_API_KEY_IOS) --dart-define=REVENUECAT_PUBLIC_API_KEY_ANDROID=$(REVENUECAT_PUBLIC_API_KEY_ANDROID)
+
 # プロジェクト固有の simulator (sim-boot で起動) へ flutter run する。SIMULATOR_UDID=<UDID> で対象を指定できる
 .PHONY: ios
 ios:
 	@set -e; \
 	simulator_udid="$(SIMULATOR_UDID)"; \
 	[ -n "$$simulator_udid" ] || { echo "Error: sim-boot で Simulator を解決できません (sim-boot が PATH にあるか確認するか、SIMULATOR_UDID=<UDID> を指定してください)" >&2; exit 1; }; \
-	flutter run --debug -d "$$simulator_udid"
+	flutter run --debug -d "$$simulator_udid" $(purchases_dart_defines)
 
 # USB か Wi-Fi で繋いだ iPhone / iPad の実機へ flutter run する (署名は Runner.xcodeproj の Automatic + DEVELOPMENT_TEAM)。
 # DEVICE=<デバイス ID> で対象を指定でき、未指定なら flutter devices から実機 (iOS で emulator でなく、この環境で使える isSupported のもの) を自動解決する。
@@ -22,7 +28,7 @@ ios-device:
 		device=$$(flutter devices --machine | jq -r '[.[] | select((.targetPlatform | startswith("ios")) and .emulator == false and .isSupported == true)][0].id // empty'); \
 	fi; \
 	[ -n "$$device" ] || { echo "Error: 繋がっている iOS の実機が見つかりません (Xcode で信頼済みか確認するか、DEVICE=<デバイス ID> を指定してください)" >&2; exit 1; }; \
-	flutter run --debug -d "$$device"
+	flutter run --debug -d "$$device" $(purchases_dart_defines)
 
 # Web の App Check に使う reCAPTCHA Enterprise のサイトキー (公開値。lib/firebase/session.dart が --dart-define で受ける)。
 # 環境変数 RECAPTCHA_ENTERPRISE_SITE_KEY が無ければ gh の Variable (deploy-hosting.yml と同じ値) から取る。
@@ -48,7 +54,7 @@ android:
 		device=$$(flutter devices --machine | jq -r '[.[] | select((.targetPlatform | startswith("android")) and .emulator == true)][0].id // empty'); \
 	fi; \
 	[ -n "$$device" ] || { echo "Error: 起動中の Android Emulator が見つかりません (DEVICE=<デバイス ID> で指定してください)" >&2; exit 1; }; \
-	flutter run --debug -d "$$device"
+	flutter run --debug -d "$$device" $(purchases_dart_defines)
 
 # Web 版のビルドだけを行う (成果物は build/web)。flutter config の enable-web が false の環境では失敗する
 .PHONY: build-web

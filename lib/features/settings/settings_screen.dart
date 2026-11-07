@@ -9,6 +9,7 @@ import '../../theme/snapmon_text_styles.dart';
 import '../../widgets/trainer_icon.dart';
 import '../battle/battle_recorder.dart';
 import '../capture/monster_generator.dart';
+import '../capture/ticket_purchase_sheet.dart';
 import '../developer_menu/developer_menu_screen.dart';
 import '../dex/dex_store.dart';
 import '../opponent/pvp_client.dart';
@@ -253,6 +254,7 @@ class SettingsScreen extends StatelessWidget {
           title: Text(context.l10n.settingsPrivacyPolicy),
           onTap: () => _open(context: context, uri: privacyPolicyUri),
         ),
+        TicketPurchaseSyncTile(monsterGenerator: monsterGenerator),
         _SectionTitle(title: context.l10n.settingsAccountSection),
         ListTile(
           leading: const Icon(Icons.help_outline),
