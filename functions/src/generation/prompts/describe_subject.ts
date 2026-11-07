@@ -154,7 +154,7 @@ export interface DescribeSubjectOutput {
   encyclopediaText: string;
   /** 装飾のパラメータ。 */
   decoration: MonsterDecoration;
-  /** 人が写っていると Claude が判断したか。true なら生成しない (顔の検出の取りこぼしへの備え)。 */
+  /** 人が写っていると Claude が判断したか。true でも生成し、生まれた時に注意を出す印にする (Vision の顔の検出が拾わない体・手の写真のため)。 */
   containsPerson: boolean;
 }
 

@@ -1,5 +1,5 @@
 // プロフィールのアイコン。端末が `users/{uid}/iconUploads/{uploadId}` に置いた写真を、生成と同じ Cloud Vision の検査
-// (露骨な内容・人の顔。generation/vision.ts の visionRejectionReason) に通し、通った写真だけを正方形に縮めて
+// (露骨な内容・人の顔。generation/vision.ts の visionRejectionReason と visionDetectsFace) に通し、通った写真だけを正方形に縮めて
 // `users/{uid}/icons/{uploadId}.png` (ログインした全員が読める) に置き、`users/{uid}.iconPath` に持つ。
 // 置き場は .claude/rules/firestore.md。`users/{uid}/` の配下のため、アカウントの削除 (account.ts) が自動で消す。
 
@@ -15,7 +15,7 @@ import { requireSignedInUid } from "./battle";
 import { downscalePhoto } from "./generation/cutout";
 import { createProductionDependencies } from "./generation/dependencies";
 import { downloadFile, type StorageBucket, tokyoDate } from "./generation/pipeline";
-import { type AnnotateImage, visionRejectionLogFields, visionRejectionReason } from "./generation/vision";
+import { type AnnotateImage, visionDetectsFace, visionRejectionLogFields, visionRejectionReason } from "./generation/vision";
 
 /**
  * アイコンの一辺 (px)。画面に出す大きさ (対戦タブ・対戦画面・プロフィールの 32〜96 論理 px) を 3 倍の画面でも粗く見せない大きさにし、
@@ -153,7 +153,8 @@ export async function setProfileIconData(
     await uploadFile.delete({ ignoreNotFound: true });
     throw error;
   }
-  const rejectionReason = visionRejectionReason(annotation);
+  // 生成と違い、顔が写る写真はアイコンにしない (DIRECTION.md「決めたこと」2026-11-07 の #198 の行)
+  const rejectionReason = visionRejectionReason(annotation) ?? (visionDetectsFace(annotation) ? "face_detected" : undefined);
   if (rejectionReason) {
     logger.info("Vision の判定でアイコンにしません", { uid, uploadId, rejectionReason, ...visionRejectionLogFields(annotation) });
     await uploadFile.delete({ ignoreNotFound: true });

@@ -147,6 +147,7 @@ function createGeneratePhoto({ state, dependencies }: ReturnType<typeof createDe
     return {
       status: record.status,
       rejectionReason: record.rejectionReason,
+      personDetected: record.personDetected,
       monsterId: record.monsterId,
       monsterName: monster?.definition.name,
       elementTypeIds: monster?.definition.elementTypeIds,

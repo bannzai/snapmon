@@ -1,4 +1,4 @@
-import { randomUUID } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
@@ -404,22 +404,49 @@ describe("generate", () => {
     expect(retryMocks.calls.vision).toBe(1);
   });
 
-  it("顔が写る画像は生成せず理由を返す", async () => {
+  it("顔が写る画像も生成し、人が写っている印を結果とレコードに残す (#198)", async () => {
     const mocks = createMocks({ vision: { safeSearchAnnotation: { adult: "VERY_UNLIKELY" }, faceAnnotations: [{ detectionConfidence: 0.95 }] } });
-    const result = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data: await uploadPhoto({ uid: "alice", photo: photoFixture("01") }) }));
-    expect(result).toMatchObject({ status: "rejected", rejectionReason: "face_detected" });
-    expect(mocks.calls.describe).toBe(0);
+    const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
+    const result = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data }));
+    expect(result).toMatchObject({ status: "saved", personDetected: true });
+    expect(mocks.calls.describe).toBe(1);
+    expect((await generationRecord({ uid: "alice", requestId: data.requestId })).personDetected).toBe(true);
   });
 
-  it("Claude が人が写っていると答えた画像は生成せず、同じ写真の送り直しは使い回さずに Claude に聞き直す", async () => {
+  it("Claude が人が写っていると答えた画像も生成し、人が写っている印を残す (#198)", async () => {
     const mocks = createMocks({ description: { ...descriptions["01"], containsPerson: true } });
     const result = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data: await uploadPhoto({ uid: "alice", photo: photoFixture("01") }) }));
-    expect(result).toMatchObject({ status: "rejected", rejectionReason: "person_detected" });
+    expect(result).toMatchObject({ status: "saved", personDetected: true });
+  });
 
-    const retryMocks = createMocks();
-    const retried = await handleGenerateRequest(retryMocks.dependencies, signedInRequest({ uid: "alice", data: await uploadPhoto({ uid: "alice", photo: photoFixture("01") }) }));
-    expect(retried.status).toBe("saved");
-    expect(retryMocks.calls.describe).toBe(1);
+  it("人が写っていない写真の結果には personDetected を付けない", async () => {
+    const mocks = createMocks();
+    const result = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data: await uploadPhoto({ uid: "alice", photo: photoFixture("01") }) }));
+    expect(result.status).toBe("saved");
+    expect(result).not.toHaveProperty("personDetected");
+  });
+
+  it("2026-11-07 より前に顔で拒否した同じ写真の送り直しは、使い回さずに生成する", async () => {
+    const mocks = createMocks();
+    const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
+    const now = Timestamp.fromDate(mocks.dependencies.now());
+    await firestore.doc("users/alice/generations/old-face-rejected").set({
+      status: "rejected",
+      completedStage: "uploaded",
+      photoPath: data.photoPath,
+      maskPath: null,
+      inputKey: `${createHash("sha256").update(photoFixture("01")).digest("hex")}:none`,
+      leaseExpiresAt: now,
+      leaseToken: "old",
+      attemptCount: 1,
+      judgeRetryCount: 0,
+      rejectionReason: "face_detected",
+      createdAt: now,
+      updatedAt: now,
+    });
+    const result = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data }));
+    expect(result).toMatchObject({ requestId: data.requestId, status: "saved" });
+    expect(mocks.calls.vision).toBe(1);
   });
 
   it("写真が無い要求は、理由の分かるエラー (failed-precondition) にする", async () => {

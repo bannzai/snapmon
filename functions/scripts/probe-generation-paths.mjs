@@ -100,6 +100,7 @@ function describeExpectation({ pathExpectation, photoExpectation }) {
   return [
     pathExpectation.expected.status,
     pathExpectation.expected.rejectionReasons ? `(${pathExpectation.expected.rejectionReasons.join(" / ")})` : "",
+    pathExpectation.expected.personDetected === undefined ? "" : `personDetected=${pathExpectation.expected.personDetected}`,
     photoExpectation.duplicateOf ? `of ${photoExpectation.duplicateOf}` : "",
   ]
     .filter(Boolean)
@@ -118,6 +119,10 @@ export function findMismatch({ pathExpectation, photoExpectation, outcome, photo
   if (expected.rejectionReasons && !expected.rejectionReasons.includes(outcome.rejectionReason)) {
     return `rejectionReason が ${expected.rejectionReasons.join(" / ")} のどれでもなく ${outcome.rejectionReason}`;
   }
+  // レコードに無い personDetected (人が写っていない時は false で書く) は false と同じに扱う
+  if (expected.personDetected !== undefined && (outcome.personDetected ?? false) !== expected.personDetected) {
+    return `personDetected が ${expected.personDetected} ではなく ${outcome.personDetected}`;
+  }
   if (photoExpectation.duplicateOf) {
     const duplicatePhotoName = photoNamesByMonsterId.get(outcome.monsterId);
     if (duplicatePhotoName !== photoExpectation.duplicateOf) {
@@ -130,7 +135,7 @@ export function findMismatch({ pathExpectation, photoExpectation, outcome, photo
 /**
  * 写真を順に `generatePhoto` に渡し、結果と判定の行を返す。
  * `generatePhoto({ photoName, photo })` は 1 枚を生成して待つ関数で、
- * `{ status, rejectionReason?, monsterId?, monsterName?, elementTypeIds?, claudeUsages?, jevInputTokens?, failureMessage? }` を返す。
+ * `{ status, rejectionReason?, personDetected?, monsterId?, monsterName?, elementTypeIds?, claudeUsages?, jevInputTokens?, failureMessage? }` を返す。
  * 同じ被写体の判定のため、すべての写真を同じユーザーで生成する関数を渡す。`onRow` は 1 枚が終わるたびに呼ぶ。
  */
 export async function probeGenerationPaths({ fixturesDirectory = PHOTOS_FIXTURES_DIRECTORY, expectations, pathNames, generatePhoto, onRow = () => {} }) {
@@ -330,6 +335,7 @@ async function createHttpGenerationSession({ projectId, apiKey }) {
     return {
       status: record.status,
       rejectionReason: record.rejectionReason,
+      personDetected: record.personDetected,
       monsterId: record.monsterId,
       monsterName: monster?.definition?.name,
       elementTypeIds: monster?.definition?.elementTypeIds,
