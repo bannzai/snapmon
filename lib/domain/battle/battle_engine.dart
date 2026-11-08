@@ -376,12 +376,9 @@ BattleAction chooseCpuAction({
   Move? bestMove;
   var bestMultiplier = 0.0;
   for (final move in moves) {
-    if (move.category != MoveCategory.attack ||
-        (move.specialEffect?.isOneHitKnockout ?? false) ||
-        (move.specialEffect?.selfDestructs ?? false)) {
+    if (!isOrdinaryAttackMove(move)) {
       continue;
     }
-    // 下の fallback より先に通常の攻撃技を優先するため、ここで比べる
     final multiplier = totalTypeMultiplier(
       moveElementTypeId: move.elementTypeId,
       defenderElementTypeIds: defender.definition.elementTypeIds,
