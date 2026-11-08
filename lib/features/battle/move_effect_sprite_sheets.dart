@@ -9,7 +9,7 @@ import 'package:flutter/services.dart';
 import '../../domain/master/move_effect.dart';
 import 'battle_field_game.dart';
 
-/// [effects] のうちスプライトシートで描くエフェクト (`spriteSheet` を持つ定義。master の版 8 から。#224) のシートを読み、
+/// [effects] のうちスプライトシートで描くエフェクト (`spriteSheet` を持つ定義。master の版 9 から。#224) のシートを読み、
 /// [game] がエフェクトを描けるようにする。パーティクルで描くエフェクトとその場で作った定義は読まない。
 /// 読めないシートはログに残して飛ばし、そのエフェクトはパーティクルのままにする (絵のためにバトルを止めないため)。
 /// 読めた画像は Flame の全体のキャッシュ ([BattleFieldGame.images]) に残り、次のバトルでは読み直さない。読めなかった画像は残さず、次のバトルで読み直す。

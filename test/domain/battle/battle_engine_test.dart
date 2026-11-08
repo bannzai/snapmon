@@ -193,7 +193,7 @@ final testMaster = MasterData(
         rule: '最大 HP の 3 割を回復する',
       ),
     ),
-    // 版 8 (#224) の効果を 1 つずつ持つ技
+    // 版 9 (#224) の効果を 1 つずつ持つ技
     for (final (id, kind) in [
       ('fire_paralyze', StatusConditionKind.paralysis),
       ('fire_stun', StatusConditionKind.stun),
@@ -1529,7 +1529,7 @@ void main() {
     });
   });
 
-  group('状態・フィールド・命中・先制 (版 8)', () {
+  group('状態・フィールド・命中・先制 (版 9)', () {
     /// 速い自分 (fire、技 [playerMoveIds]) と遅い相手 (fire、技 [opponentMoveIds]。HP は多め) の 1 対 1 を始める。
     BattleState duel({
       required List<String> playerMoveIds,

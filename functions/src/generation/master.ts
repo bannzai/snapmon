@@ -37,7 +37,7 @@ export interface MasterMove {
    * 技の特殊効果。数値の出力は式 (文法は documents/game-rules.md「技の式」、検査は src/move_expression.ts) を持つ。
    * `power` は攻撃技の威力の倍率 (%)、`selfStatChanges`・`opponentStatChanges` は補助技が自分・相手のステータス (attack・defense・speed) の倍率 (%) に足す値、
    * `selfHitPointsRecovery` は補助技が自分の HP を回復する量。
-   * 版 8 (#224) から、値で書く効果を持つ: `selfStatusConditions`・`opponentStatusConditions` (付ける状態と確率)、`curesSelfStatusConditions` (自分の状態の解除)、
+   * 版 9 (#224) から、値で書く効果を持つ: `selfStatusConditions`・`opponentStatusConditions` (付ける状態と確率)、`curesSelfStatusConditions` (自分の状態の解除)、
    * `fieldEffect` (フィールドの効果)、`selfDestructs` (自爆)、`oneHitKnockout` (一撃必殺)、`sureHit` (必中)。状態・フィールドの名前は端末の列挙 (lib/domain/battle/status_condition.dart) が正。
    * `summary` は技の枠に出す短い説明、`rule` はバトルのログと技の詳細に出す効果の規則の説明。計算は端末のバトル (lib/domain/battle/battle_engine.dart) が行う。
    * `rationale` は、この技にこの効果を付けた根拠 (技の名前の物の性質と効果の働き方の結びつき)。
@@ -58,7 +58,7 @@ export interface MasterMove {
     rule: string;
     rationale?: string;
   };
-  /** 命中率 (%)。無ければ 100 (版 7 までの技)。 */
+  /** 命中率 (%)。無ければ 100 (版 8 までの技)。 */
   accuracy?: number;
   /** 先制の度合い。大きい技が素早さに関係なく先に出る。無ければ 0。 */
   priority?: number;

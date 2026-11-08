@@ -4,7 +4,7 @@
 
 ## 技のエフェクト (`assets/images/move_effects/`)
 
-- 素材名: PixelFX の 168 素材。一覧は master (`assets/master/master.json`) の `effects` の `pixelfxId` (技ごとの割り当て) が正
+- 素材名: PixelFX の 167 素材。一覧は master (`assets/master/master.json`) の `effects` の `pixelfxId` (技ごとの割り当て) が正
 - 作者: Patch。ソースの先頭に書かれているとおり Sprite Fusion のオープンソースのエフェクト (Hugo Duprez、MIT) を元にしている
 - 入手先: https://github.com/patch-gg/pixelfx/tree/a84159688af3ca37a4be05a0d422b94451b2e24e
 - ライセンス: MIT。著作権表示と許諾文の同梱が必要で、同じディレクトリの `LICENSE`・`NOTICE.md` を配布物に含め、アプリのライセンスの一覧 (`LicenseRegistry`。`lib/main.dart`) にも登録している

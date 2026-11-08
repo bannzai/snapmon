@@ -163,7 +163,7 @@ void main() {
     await tester.pumpAndSettle();
 
     // 炎の 2 番目の技 ゆげのもや (fire_1b) は「先に動くと強い」(倍率の最大 1.3 倍)。炎は一覧の先頭の属性で、
-    // 24 属性 144 件の一覧でも最初の画面に描かれる
+    // 23 属性 276 件の一覧でも最初の画面に描かれる
     final steamMove = find.byKey(const Key('reference-move-fire_1b'));
     expect(
       find.descendant(of: steamMove, matching: find.text('ゆげのもや')),
@@ -185,7 +185,7 @@ void main() {
       of: find.byKey(const Key('reference-move-list')),
       matching: find.byType(Scrollable),
     );
-    // その場で作った技は 24 属性 480 件 (版 8) の後ろに出るため、既定の 50 回より多くスクロールする
+    // その場で作った技は 23 属性 460 件 (版 9) の後ろに出るため、既定の 50 回より多くスクロールする
     await tester.scrollUntilVisible(
       find.byKey(const Key('reference-move-custom_rubber_1')),
       500,

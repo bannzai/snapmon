@@ -176,8 +176,6 @@ const _version4SpecialEffects = {
   'ghost_1c': (kind: 'ownHitPointsLow', maximumPowerPercent: 200),
   'dragon_1b': (kind: 'tougherOpponent', maximumPowerPercent: 150),
   'dragon_1c': (kind: 'opponentHitPointsLow', maximumPowerPercent: 200),
-  'cloth_1b': (kind: 'ownHitPointsLow', maximumPowerPercent: 200),
-  'cloth_1c': (kind: 'movesFirst', maximumPowerPercent: 130),
   'paper_1b': (kind: 'powerPointsLow', maximumPowerPercent: 200),
   'paper_1c': (kind: 'sameElementAsOpponent', maximumPowerPercent: 150),
 };

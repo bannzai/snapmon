@@ -15,7 +15,7 @@ const modifiableStatKinds = [StatKind.attack, StatKind.defense, StatKind.speed];
 
 /// 技の特殊効果。master の技の `specialEffect` の形 (見た目のエフェクト `effectId` とは別物)。
 /// 数値の効果は式 (lib/domain/battle/move_expression.dart。文法は documents/game-rules.md「技の式」) で書き、
-/// 出力ごとに 1 つの式を持つ。状態・フィールド・自爆・一撃・必中は値で書く (master の版 8。#224)。
+/// 出力ごとに 1 つの式を持つ。状態・フィールド・自爆・一撃・必中は値で書く (master の版 9。#224)。
 class MoveSpecialEffect {
   /// 特殊効果を作る。
   const MoveSpecialEffect({
@@ -177,7 +177,7 @@ class Move {
 
   /// JSON (master と Firestore の定義に共通の形) から技を読む。
   /// 技と特殊効果の `rationale` (根拠) は保守のための値でユーザーに見せないため読まない (documents/game-rules.md「技の根拠」)。
-  /// `accuracy`・`priority` は版 7 までの技に無く、無ければ 100・0 (必ず当たり、先制も後攻もしない)。
+  /// `accuracy`・`priority` は版 8 までの技に無く、無ければ 100・0 (必ず当たり、先制も後攻もしない)。
   factory Move.fromJson({required Map<String, dynamic> json}) => Move(
     id: json['id'] as String,
     displayName: json['displayName'] as String,

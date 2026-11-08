@@ -12,7 +12,7 @@ class MoveEffect {
     this.spriteSheet,
   });
 
-  /// JSON (master と Firestore の定義に共通の形) からエフェクトを読む。`spriteSheet` は版 7 までの定義に無く、無ければ null。
+  /// JSON (master と Firestore の定義に共通の形) からエフェクトを読む。`spriteSheet` は版 8 までの定義に無く、無ければ null。
   factory MoveEffect.fromJson({required Map<String, dynamic> json}) =>
       MoveEffect(
         id: json['id'] as String,
