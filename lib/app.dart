@@ -1,4 +1,8 @@
+import 'dart:async';
+
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'analytics/analytics_events.dart';
 import 'audio/game_audio.dart';
@@ -16,6 +20,36 @@ import 'l10n/l10n.dart';
 import 'sample/sample_data.dart';
 import 'theme/snapmon_theme.dart';
 import 'widgets/app_content_width.dart';
+
+/// ブラウザがページの操作に数えないキー。Esc は HTML 仕様の activation triggering input event が除いていて
+/// ( https://html.spec.whatwg.org/multipage/interaction.html#tracking-user-activation )、修飾キーだけの押下は
+/// Chromium が数えない (`KeyboardEventManager` が `ui::KeycodeConverter::IsDomKeyForModifier` の true のキーを除く。
+/// 一覧は ACCEL・ALT・ALT_GRAPH・CAPS_LOCK・CONTROL・FN・FN_LOCK・HYPER・META・NUM_LOCK・SCROLL_LOCK・SHIFT・SUPER・
+/// SYMBOL・SYMBOL_LOCK・SHIFT_LEVEL5。 https://source.chromium.org/chromium/chromium/src/+/main:ui/events/keycodes/dom/keycode_converter.cc 。
+/// ACCEL・SHIFT_LEVEL5 は Flutter の LogicalKeyboardKey に無い)。
+/// これらで先に伝えると、ブラウザが再生を許す前に流そうとして待ち行列が止まる。
+/// LogicalKeyboardKey は `==` を上書きしているため const の集合にできない (const_set_element_not_primitive_equality)。
+final Set<LogicalKeyboardKey> keysNotCountedAsUserInteraction = {
+  LogicalKeyboardKey.escape,
+  LogicalKeyboardKey.shiftLeft,
+  LogicalKeyboardKey.shiftRight,
+  LogicalKeyboardKey.controlLeft,
+  LogicalKeyboardKey.controlRight,
+  LogicalKeyboardKey.altLeft,
+  LogicalKeyboardKey.altRight,
+  LogicalKeyboardKey.altGraph,
+  LogicalKeyboardKey.metaLeft,
+  LogicalKeyboardKey.metaRight,
+  LogicalKeyboardKey.capsLock,
+  LogicalKeyboardKey.numLock,
+  LogicalKeyboardKey.scrollLock,
+  LogicalKeyboardKey.fn,
+  LogicalKeyboardKey.fnLock,
+  LogicalKeyboardKey.hyper,
+  LogicalKeyboardKey.superKey,
+  LogicalKeyboardKey.symbol,
+  LogicalKeyboardKey.symbolLock,
+};
 
 /// アプリのルート。起動するとタイトル画面を出し、タイトルのボタンでログインを済ませてから下タブの画面に入る。
 /// ログインを終えた (アカウントの削除・開発者メニューのやり直し) 時はタイトルに戻る。
@@ -92,12 +126,37 @@ class _SnapmonAppState extends State<SnapmonApp> {
   void initState() {
     super.initState();
     widget.sessionStore.addListener(_onSessionChanged);
+    HardwareKeyboard.instance.addHandler(_onHardwareKeyEvent);
   }
 
   @override
   void dispose() {
+    HardwareKeyboard.instance.removeHandler(_onHardwareKeyEvent);
     widget.sessionStore.removeListener(_onSessionChanged);
     super.dispose();
+  }
+
+  /// キーボードだけで操作する時 (Web を Tab・Enter・Space で操作する時) も、最初のキーを BGM に伝える。
+  /// ブラウザはキーの押下もページの操作に数える ([keysNotCountedAsUserInteraction] を除く)。
+  /// フォーカスに依らず全てのキーを受けるため、Focus ではなくこちらで受ける。キーは消費しない (false) ので、画面の操作はそのまま届く。
+  bool _onHardwareKeyEvent(KeyEvent event) {
+    if (event is KeyDownEvent &&
+        !keysNotCountedAsUserInteraction.contains(event.logicalKey)) {
+      unawaited(widget.gameAudio.notifyUserInteraction());
+    }
+    return false;
+  }
+
+  /// ポインターの操作を最初の操作として BGM に伝える。ブラウザが操作に数えるのは、マウスは押した時 (pointerdown)、
+  /// タッチ・ペンは離した時 (pointerup) で、タッチの pointerdown は数えない (上の HTML 仕様)。
+  /// タッチで押した時点で伝えると、ブラウザが再生を許す前に流そうとして待ち行列が止まるため、種類で分ける。
+  void _notifyPointerInteraction({
+    required PointerEvent event,
+    required bool isDown,
+  }) {
+    if ((event.kind == PointerDeviceKind.mouse) == isDown) {
+      unawaited(widget.gameAudio.notifyUserInteraction());
+    }
   }
 
   /// ログインを終えたら、次にログインした時に下タブへ飛ばずタイトルから始めるようにする。
@@ -116,8 +175,15 @@ class _SnapmonAppState extends State<SnapmonApp> {
     // Navigator より外に置き、push したバトル画面・設定画面からも引けるようにする
     builder: (context, child) => GameAudioScope(
       gameAudio: widget.gameAudio,
-      child: constrainToAppContentWidth(
-        child: child ?? const SizedBox.shrink(),
+      // Web はユーザーが一度ページを操作するまで音を出せないため、最初のタップ・クリックを BGM に伝える (キーは _onHardwareKeyEvent)
+      child: Listener(
+        onPointerDown: (event) =>
+            _notifyPointerInteraction(event: event, isDown: true),
+        onPointerUp: (event) =>
+            _notifyPointerInteraction(event: event, isDown: false),
+        child: constrainToAppContentWidth(
+          child: child ?? const SizedBox.shrink(),
+        ),
       ),
     ),
     home: ListenableBuilder(

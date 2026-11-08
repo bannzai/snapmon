@@ -46,6 +46,7 @@ const double backgroundMusicVolume = 0.5;
 /// オン・オフを変えた時に通知し、設定画面のスイッチが追従する。
 class GameAudio extends ChangeNotifier {
   /// [isBackgroundMusicEnabled]・[isSoundEffectsEnabled] は起動時に端末から読んだ設定の値。
+  /// [waitsForUserInteractionBeforeBackgroundMusic] は Web で true にする (下の説明)。
   GameAudio({
     required this.playBackgroundMusicAsset,
     required this.stopBackgroundMusicAsset,
@@ -53,9 +54,11 @@ class GameAudio extends ChangeNotifier {
     required this.saveSetting,
     required bool isBackgroundMusicEnabled,
     required bool isSoundEffectsEnabled,
+    required bool waitsForUserInteractionBeforeBackgroundMusic,
   }) : _isBackgroundMusicEnabled = isBackgroundMusicEnabled,
        _appliedBackgroundMusicEnabled = isBackgroundMusicEnabled,
-       _isSoundEffectsEnabled = isSoundEffectsEnabled;
+       _isSoundEffectsEnabled = isSoundEffectsEnabled,
+       _hasUserInteracted = !waitsForUserInteractionBeforeBackgroundMusic;
 
   /// [assetPath] の BGM を [volume] で繰り返し流す。流れている BGM があれば差し替える。
   final Future<void> Function({
@@ -88,8 +91,14 @@ class GameAudio extends ChangeNotifier {
   /// オフからオンに戻した時に、この曲を流し直す。
   BackgroundMusic? _requestedBackgroundMusic;
 
-  /// 実際に流れている BGM。再生に失敗した時 (Web でユーザーの操作の前に流そうとした時) は null に戻し、次に求められた時に流し直す。
+  /// 実際に流れている BGM。再生に失敗した時は null に戻し、次に求められた時に流し直す。
   BackgroundMusic? _playingBackgroundMusic;
+
+  /// BGM を流してよい段階か。ブラウザはユーザーがページを一度も操作していない間の音の再生を禁じていて
+  /// (Chrome の autoplay policy)、その間に流そうとすると audioplayers の Web 実装が AudioContext の再開を待ち続け、
+  /// 後から求めた BGM も同じ待ち行列の後ろで止まる。Web では最初のタップ・クリック ([notifyUserInteraction]) まで
+  /// 流さず、求められた曲を [_requestedBackgroundMusic] に覚えておいて操作の後に流す。iOS・Android では最初から true。
+  bool _hasUserInteracted;
 
   /// BGM の再生・停止と設定の保存を 1 つずつ順に行うための、直前の操作の完了。
   /// 再生は読み込みに時間がかかるため、並行して呼ぶと先に始めた再生が後から完了して、止めた後に鳴り出す・
@@ -112,12 +121,13 @@ class GameAudio extends ChangeNotifier {
   }
 
   /// [music] を流す。同じ曲が流れている時は流し直さない (画面を行き来するたびに曲が頭に戻らないため)。
-  /// オフの間は流さず、オンに戻した時に流す曲として覚える。
+  /// オフの間と、Web でユーザーがまだページを操作していない間は流さず、オンに戻した時・最初の操作の時に流す曲として覚える。
   Future<void> playBackgroundMusic({required BackgroundMusic music}) {
     _requestedBackgroundMusic = music;
     return _runAfterPreviousBackgroundMusicOperation(() async {
       // 順番が回ってきた時点の最新の要求で判断する (待っている間に止める・別の曲・オフに変わっていることがある)
       if (!_isBackgroundMusicEnabled ||
+          !_hasUserInteracted ||
           _requestedBackgroundMusic != music ||
           _playingBackgroundMusic == music) {
         return;
@@ -134,6 +144,20 @@ class GameAudio extends ChangeNotifier {
         _playingBackgroundMusic = null;
       }
     });
+  }
+
+  /// ユーザーがページを操作した (タップ・クリック) ことを伝える。Web で最初の操作の後に、それまでに求められた BGM を流す。
+  /// 2 回目以降と、操作を待たない iOS・Android では何もしない。
+  Future<void> notifyUserInteraction() {
+    if (_hasUserInteracted) {
+      return Future.value();
+    }
+    _hasUserInteracted = true;
+    final requested = _requestedBackgroundMusic;
+    if (requested == null) {
+      return Future.value();
+    }
+    return playBackgroundMusic(music: requested);
   }
 
   /// 流れている BGM を止める。次に [playBackgroundMusic] が呼ばれるまで何も流れない。
@@ -174,7 +198,10 @@ class GameAudio extends ChangeNotifier {
       _appliedBackgroundMusicEnabled = enabled;
       final requested = _requestedBackgroundMusic;
       if (enabled) {
-        if (requested != null && _playingBackgroundMusic != requested) {
+        // 設定のスイッチはユーザーの操作だが、操作の通知より先に順番が回ることがあるため、通知を待つ
+        if (requested != null &&
+            _hasUserInteracted &&
+            _playingBackgroundMusic != requested) {
           _playingBackgroundMusic = requested;
           try {
             await playBackgroundMusicAsset(

@@ -36,12 +36,13 @@ void main() {
   /// 開いた後は pumpAndSettle ではなく時間を指定して進める。[sourcePhoto]・[photoSource]・[cropsWhenSubjectNotFound] は
   /// 生成の画面にそのまま渡す (範囲を決める画面を確かめるテストだけが、画像として読める写真を渡す)。
   /// [pvpClient] が null ならログインが無い時の [PvpClient] を渡す (プロフィールを確かめるテストだけが渡す)。
-  /// [stopsAtPersonNotice] が true なら、人が写っている注意のダイアログが出た状態 (裏の生成中の表示が動き続けて settle しない) で止める。
+  /// [settlesAfterOpening] が false なら、開いた直後で止める (人が写っている注意のダイアログや、途中の状態の結果を取り直している間の
+  /// 表示を確かめるテストが渡す。裏の生成中の表示が動き続けて settle しない・settle を待つと取り直しの 40 秒が過ぎるため)。
   Future<List<ResultScreenAction?>> pumpGenerationScreen({
     required WidgetTester tester,
     required MonsterGenerator generator,
     required bool startsFirstBattle,
-    bool stopsAtPersonNotice = false,
+    bool settlesAfterOpening = true,
     PvpClient? pvpClient,
     Uint8List? sourcePhoto,
     GenerationPhotoSource photoSource = GenerationPhotoSource.album,
@@ -58,6 +59,7 @@ void main() {
           calls: RecordedAudioCalls(),
           isBackgroundMusicEnabled: true,
           isSoundEffectsEnabled: true,
+          waitsForUserInteractionBeforeBackgroundMusic: false,
         ),
         child: MaterialApp(
           theme: snapmonThemeData(),
@@ -105,7 +107,7 @@ void main() {
       ),
     );
     await tester.tap(find.text('開く'));
-    if (startsFirstBattle || stopsAtPersonNotice) {
+    if (startsFirstBattle || !settlesAfterOpening) {
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 100));
     } else {
@@ -145,6 +147,43 @@ void main() {
   Future<GenerationResult> unexpectedFetch({required String requestId}) =>
       throw StateError('fetchGeneration は呼ばない');
 
+  /// サーバーが判定を待っている (途中の状態の) 生成。
+  Future<GenerationResult> pendingGeneration({
+    required String requestId,
+  }) async => GenerationResult(
+    requestId: requestId,
+    status: GenerationStatus.pendingJudge,
+    monsterId: null,
+    rejectionReason: null,
+    personDetected: false,
+  );
+
+  /// サーバーが段階をやり直している (途中の状態の) 生成。
+  Future<GenerationResult> processingGeneration({
+    required String requestId,
+  }) async => GenerationResult(
+    requestId: requestId,
+    status: GenerationStatus.processing,
+    monsterId: null,
+    rejectionReason: null,
+    personDetected: false,
+  );
+
+  /// 呼ばれるたびに [fetches] を順に呼び、使い切った後は最後のものを呼び続ける読み直し。
+  Future<GenerationResult> Function({required String requestId})
+  fetchesInOrder({
+    required List<
+      Future<GenerationResult> Function({required String requestId})
+    >
+    fetches,
+  }) {
+    var fetchCount = 0;
+    return ({required requestId}) =>
+        fetches[(fetchCount++).clamp(0, fetches.length - 1)](
+          requestId: requestId,
+        );
+  }
+
   setUp(() {
     dexStore = DexStore(definitions: sampleData.definitions);
     calls = RecordedGenerationCalls();
@@ -183,7 +222,7 @@ void main() {
     await pumpGenerationScreen(
       tester: tester,
       startsFirstBattle: false,
-      stopsAtPersonNotice: true,
+      settlesAfterOpening: false,
       generator: fakeMonsterGenerator(
         calls: calls,
         albumPhoto: null,
@@ -516,39 +555,119 @@ void main() {
     expect(closedActions, [null]);
   });
 
-  testWidgets('判定待ちの時はもう少し待ってねを出し、同じ要求 ID で読み直して生まれたら生まれた画面を開く', (
+  testWidgets(
+    '途中の状態が続いた時はローディングのまま 5 秒ごとに同じ要求 ID で読み直し、生まれたらボタンを押さずに生まれた画面を開く',
+    (tester) async {
+      await pumpGenerationScreen(
+        tester: tester,
+        startsFirstBattle: false,
+        settlesAfterOpening: false,
+        generator: fakeMonsterGenerator(
+          calls: calls,
+          albumPhoto: null,
+          uploadError: null,
+          requestGeneration: pendingGeneration,
+          fetchGeneration: fetchesInOrder(
+            fetches: [
+              pendingGeneration,
+              processingGeneration,
+              savedGeneration(
+                monsterId: 'm1',
+                status: GenerationStatus.saved,
+                resultRequestId: null,
+              ),
+            ],
+          ),
+        ),
+      );
+      await tester.pump(const Duration(seconds: 1));
+      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+      expect(find.text('もう少し待ってね'), findsNothing);
+      expect(calls.fetchedRequestIds, isEmpty);
+
+      await tester.pump(const Duration(seconds: 5));
+      expect(calls.fetchedRequestIds, ['request-1']);
+      await tester.pump(const Duration(seconds: 5));
+      expect(calls.fetchedRequestIds, ['request-1', 'request-1']);
+      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+      expect(find.text('もう少し待ってね'), findsNothing);
+
+      await tester.pump(const Duration(seconds: 5));
+      await tester.pumpAndSettle();
+      expect(calls.fetchedRequestIds, ['request-1', 'request-1', 'request-1']);
+      expect(find.text('あたらしい なかま'), findsOneWidget);
+      expect(calls.loggedEvents, hasLength(1));
+    },
+  );
+
+  testWidgets('途中の状態が 40 秒続いたらもう少し待ってねを出し、もう一度確かめると読み直してまたローディングで待つ', (
     tester,
   ) async {
     await pumpGenerationScreen(
       tester: tester,
       startsFirstBattle: false,
+      settlesAfterOpening: false,
       generator: fakeMonsterGenerator(
         calls: calls,
         albumPhoto: null,
         uploadError: null,
-        requestGeneration: ({required requestId}) async => GenerationResult(
-          requestId: requestId,
-          status: GenerationStatus.pendingJudge,
-          monsterId: null,
-          rejectionReason: null,
-          personDetected: false,
-        ),
-        fetchGeneration: savedGeneration(
-          monsterId: 'm1',
-          status: GenerationStatus.saved,
-          resultRequestId: null,
-        ),
+        requestGeneration: pendingGeneration,
+        fetchGeneration: pendingGeneration,
       ),
     );
+    await tester.pump(const Duration(seconds: 39));
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+    expect(find.text('もう少し待ってね'), findsNothing);
+    expect(calls.fetchedRequestIds, hasLength(7));
+
+    await tester.pump(const Duration(seconds: 1));
+    await tester.pump();
+    expect(calls.fetchedRequestIds, hasLength(8));
+    expect(find.byType(CircularProgressIndicator), findsNothing);
     expect(find.text('もう少し待ってね'), findsOneWidget);
+    expect(find.text('もう一度確かめる'), findsOneWidget);
+    expect(find.text('あとで見る'), findsOneWidget);
+
     await tester.tap(find.text('もう一度確かめる'));
+    await tester.pump();
+    await tester.pump();
+    expect(calls.fetchedRequestIds, hasLength(9));
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+    expect(find.text('もう少し待ってね'), findsNothing);
+    await tester.pump(const Duration(seconds: 5));
+    expect(calls.fetchedRequestIds, hasLength(10));
+    expect(calls.fetchedRequestIds, everyElement('request-1'));
+
+    await tester.pump(const Duration(seconds: 35));
+    await tester.pump();
+    expect(find.text('もう少し待ってね'), findsOneWidget);
+  });
+
+  testWidgets('読み直している間に画面を閉じたら、読み直しをやめる', (tester) async {
+    await pumpGenerationScreen(
+      tester: tester,
+      startsFirstBattle: false,
+      settlesAfterOpening: false,
+      generator: fakeMonsterGenerator(
+        calls: calls,
+        albumPhoto: null,
+        uploadError: null,
+        requestGeneration: pendingGeneration,
+        fetchGeneration: pendingGeneration,
+      ),
+    );
+    await tester.pump(const Duration(seconds: 6));
+    expect(calls.fetchedRequestIds, hasLength(1));
+
+    await tester.tap(find.byIcon(Icons.close));
     await tester.pumpAndSettle();
-    expect(calls.fetchedRequestIds, ['request-1']);
-    expect(find.text('あたらしい なかま'), findsOneWidget);
-    expect(calls.loggedEvents, hasLength(1));
+    expect(find.text('開く'), findsOneWidget);
+    await tester.pump(const Duration(seconds: 40));
+    expect(calls.fetchedRequestIds, hasLength(1));
   });
 
   testWidgets('使い回した別の要求が判定待ちの時は、使い回し先の要求 ID で読み直す', (tester) async {
+    // 開く時の pumpAndSettle が、読み直しで生まれた後の画面まで進める
     await pumpGenerationScreen(
       tester: tester,
       startsFirstBattle: false,
@@ -571,8 +690,6 @@ void main() {
         ),
       ),
     );
-    await tester.tap(find.text('もう一度確かめる'));
-    await tester.pumpAndSettle();
     expect(calls.fetchedRequestIds, ['earlier-request']);
     // 読み直した結果は使い回し先の要求のもので、この写真から新しく生まれたのではない
     expect(find.text('もう図鑑にいます'), findsOneWidget);
@@ -766,7 +883,9 @@ void main() {
       expect(firstExperienceSteps(), ['photo_selected', 'generation_failed']);
     });
 
-    testWidgets('判定待ち (pending_judge) の時は「もう少し待ってね」に戻す', (tester) async {
+    testWidgets('判定待ち (pending_judge) の間は相手を探す表示を続け、40 秒続いたら「もう少し待ってね」に戻す', (
+      tester,
+    ) async {
       await pumpGenerationScreen(
         tester: tester,
         startsFirstBattle: true,
@@ -774,17 +893,18 @@ void main() {
           calls: calls,
           albumPhoto: null,
           uploadError: null,
-          requestGeneration: ({required requestId}) async => GenerationResult(
-            requestId: requestId,
-            status: GenerationStatus.pendingJudge,
-            monsterId: null,
-            rejectionReason: null,
-            personDetected: false,
-          ),
-          fetchGeneration: unexpectedFetch,
+          requestGeneration: pendingGeneration,
+          fetchGeneration: pendingGeneration,
         ),
       );
       await pumpUntilResult(tester: tester);
+      expect(find.text('相手を探しています'), findsOneWidget);
+      expect(find.text('もう少し待ってね'), findsNothing);
+      // 読み直している間は、まだ生成に失敗していない
+      expect(firstExperienceSteps(), ['photo_selected']);
+
+      await tester.pump(const Duration(seconds: 40));
+      await tester.pump();
       expect(find.text('相手を探しています'), findsNothing);
       expect(find.text('もう少し待ってね'), findsOneWidget);
       expect(find.text('もう一度確かめる'), findsOneWidget);
@@ -871,27 +991,29 @@ void main() {
           calls: calls,
           albumPhoto: null,
           uploadError: null,
-          requestGeneration: ({required requestId}) async => GenerationResult(
-            requestId: requestId,
-            status: GenerationStatus.pendingJudge,
-            monsterId: null,
-            rejectionReason: null,
-            personDetected: false,
-          ),
-          fetchGeneration: savedGeneration(
-            monsterId: 'm1',
-            status: GenerationStatus.saved,
-            resultRequestId: null,
+          requestGeneration: pendingGeneration,
+          // 40 秒の読み直し (8 回) の間は判定待ちのまま、「もう一度確かめる」の読み直しで生まれる
+          fetchGeneration: fetchesInOrder(
+            fetches: [
+              ...List.filled(8, pendingGeneration),
+              savedGeneration(
+                monsterId: 'm1',
+                status: GenerationStatus.saved,
+                resultRequestId: null,
+              ),
+            ],
           ),
         ),
       );
       await pumpUntilResult(tester: tester);
+      await tester.pump(const Duration(seconds: 40));
+      await tester.pump();
       expect(find.text('もう少し待ってね'), findsOneWidget);
 
       await tester.tap(find.text('もう一度確かめる'));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 100));
-      expect(calls.fetchedRequestIds, ['request-1']);
+      expect(calls.fetchedRequestIds, hasLength(9));
       expect(dexStore.isInParty(monsterId: 'm1'), isTrue);
       await tester.pump(const Duration(seconds: 2));
       await tester.pump(const Duration(seconds: 1));

@@ -32,6 +32,16 @@ const Duration _monsterArrivalTimeout = Duration(seconds: 30);
 /// 相手の名前 (表示名は 12 文字まで) を読み切れ、待たされたと感じない長さにした。
 const Duration _opponentRevealDuration = Duration(milliseconds: 1500);
 
+/// 生成が途中の状態 (processing・pending_judge) で返った後に、結果を取り直し続ける長さ。
+/// owner の指定 (https://github.com/bannzai/snapmon/issues/218)。これを過ぎても終わらない時は「もう少し待ってね」を出す。
+/// 取り直した回数で数えるため、実際の経過は取り直しの通信の時間の分だけこれより長くなる。
+const Duration _pollingDuration = Duration(seconds: 40);
+
+/// 途中の状態の結果を取り直す間隔。取り直しは Functions の呼び出しではなく生成のレコード 1 件の Firestore の読み取り
+/// ([MonsterGenerator.fetchGeneration]) で、40 秒の間に 8 回の読み取りに収まる。サーバーの段階は数秒〜数十秒で進むため、
+/// 終わってから画面に出るまでの遅れが 5 秒以内なら待たされたと感じにくい。
+const Duration _pollingInterval = Duration(seconds: 5);
+
 /// 写真 1 枚から生成する画面。写真を整えて送り、段階ごとの待ち時間を出し、結果に応じて生まれた画面を開くか、
 /// 判定待ち・生成しなかった理由・エラーを出す。生まれた画面を閉じたら、その画面の [ResultScreenAction] を返して閉じる。
 ///
@@ -96,13 +106,13 @@ class GenerationScreen extends StatefulWidget {
 
 /// 生成の画面の状態。
 enum _GenerationPhase {
-  /// 写真を整えている・被写体を探している・送っている・サーバーが処理している。
+  /// 写真を整えている・被写体を探している・送っている・サーバーが処理している・途中の状態の結果を取り直している。
   inProgress,
 
   /// OS の切り出しが被写体を見つけられず、正方形の枠で範囲を決めてもらっている。
   choosingRange,
 
-  /// サーバーが判定を待っている (pending_judge) か、まだ処理している。
+  /// 結果を [_pollingDuration] の間取り直しても、サーバーが判定を待っている (pending_judge) か、まだ処理している。
   waiting,
 
   /// 写真から生成しなかった・生成に失敗した。
@@ -178,9 +188,13 @@ class _GenerationScreenState extends State<GenerationScreen> {
   /// 端末の文字が大きいと画面外で作られず終わりを知らせないため、バトルを開くきっかけは State に持つ。
   Timer? _openFirstBattleTimer;
 
+  /// 途中の状態の結果を取り直すまでの待ち。画面を閉じた時に止めるため State に持つ。
+  Timer? _pollingTimer;
+
   @override
   void dispose() {
     _openFirstBattleTimer?.cancel();
+    _pollingTimer?.cancel();
     super.dispose();
   }
 
@@ -474,7 +488,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
       MaterialPageRoute<BattleScreenAction>(
         builder: (context) => BattleScreen(
           playerParty: playerParty,
-          opponentParty: opponent.opponentParty,
+          opponentParty: opponent.cpuOpponent.opponentParty,
           opponentKind: BattleOpponentKind.cpu,
           definitions: opponent.definitions,
           randomSeed: _firstBattleRandomSeed,
@@ -485,7 +499,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
           firstBattleMonsterIsNewlyBorn:
               monster.definition.id != _alreadyInDexMonster?.definition.id,
           playerProfile: _playerProfile,
-          opponentDisplayName: opponent.opponentName,
+          opponentDisplayName: opponent.cpuOpponent.opponentName,
         ),
       ),
     );
@@ -515,7 +529,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
     ),
   );
 
-  /// 判定待ちの生成の結果を読み直す。
+  /// 判定待ちの生成の結果を読み直す。まだ途中の状態なら、もう一度 [_pollingDuration] の間取り直す。
   Future<void> _fetchAgain() async {
     setState(() {
       _phase = _GenerationPhase.inProgress;
@@ -537,6 +551,45 @@ class _GenerationScreenState extends State<GenerationScreen> {
         });
       }
     }
+  }
+
+  /// 途中の状態 ([_result]) を受け取った後、処理中の表示のまま [_pollingInterval] ごとに結果を取り直し、終了状態になったら
+  /// [_handleResult] に渡す。[_pollingDuration] の間に終わらなければ「もう少し待ってね」([_GenerationPhase.waiting]) にする。
+  /// 取り直しの例外はそのまま投げる (呼び出し元がエラーの表示にする)。画面を閉じたら取り直しをやめる。
+  Future<void> _pollUntilFinished() async {
+    setState(() => _phase = _GenerationPhase.inProgress);
+    for (
+      var pollingCount = 0;
+      pollingCount < _pollingDuration.inSeconds ~/ _pollingInterval.inSeconds;
+      pollingCount++
+    ) {
+      await _waitPollingInterval();
+      if (!mounted) {
+        return;
+      }
+      // 同じ写真の別の要求の結果を使い回した時は、送った ID のレコードは無く、使い回し先の ID のレコードを読む
+      final polledResult = await widget.monsterGenerator.fetchGeneration(
+        requestId: _result?.requestId ?? _requestId,
+      );
+      if (!mounted) {
+        return;
+      }
+      if (polledResult.status != GenerationStatus.processing &&
+          polledResult.status != GenerationStatus.pendingJudge) {
+        await _handleResult(result: polledResult);
+        return;
+      }
+      setState(() => _result = polledResult);
+    }
+    _logFirstExperienceFailureIfNeeded();
+    setState(() => _phase = _GenerationPhase.waiting);
+  }
+
+  /// [_pollingInterval] だけ待つ。画面を閉じて [_pollingTimer] を止めた時は完了しない (呼び出し元の取り直しはそこで止まる)。
+  Future<void> _waitPollingInterval() {
+    final completer = Completer<void>();
+    _pollingTimer = Timer(_pollingInterval, completer.complete);
+    return completer.future;
   }
 
   /// [result] に応じて、生まれた画面を開くか、判定待ち・生成しなかった理由を出す。
@@ -607,8 +660,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
           Navigator.of(context).pop(action);
         }
       case GenerationStatus.processing || GenerationStatus.pendingJudge:
-        _logFirstExperienceFailureIfNeeded();
-        setState(() => _phase = _GenerationPhase.waiting);
+        await _pollUntilFinished();
       case GenerationStatus.rejected || GenerationStatus.failed:
         _logFirstExperienceFailureIfNeeded();
         setState(() => _phase = _GenerationPhase.notGenerated);
@@ -743,7 +795,9 @@ class _GenerationScreenState extends State<GenerationScreen> {
         ],
         _GenerationPhase.opponentFound => [
           Text(
-            l10n.generationOpponentAppeared(_firstBattleOpponent!.opponentName),
+            l10n.generationOpponentAppeared(
+              _firstBattleOpponent!.cpuOpponent.opponentName,
+            ),
             textAlign: TextAlign.center,
             style: SnapmonTextStyles.hero,
           ),

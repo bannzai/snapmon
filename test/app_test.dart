@@ -2,8 +2,10 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -51,6 +53,9 @@ void main() {
   /// 画面が流した BGM・鳴らした効果音。[pumpApp]・[pumpHome] で作り直す。
   late RecordedAudioCalls audioCalls;
 
+  /// [pumpApp] の BGM が Web のように最初の操作を待つか。既定は待たない (iOS・Android)。待つテストは [pumpApp] の前に変える。
+  var audioWaitsForUserInteraction = false;
+
   /// タイトル画面が Analytics に送ったイベント (呼ばれた順)。
   late List<({AnalyticsEvent event, Map<String, Object>? parameters})>
   titleEvents;
@@ -91,6 +96,7 @@ void main() {
 
   setUp(() {
     albumPhoto = testPhotoBytes;
+    audioWaitsForUserInteraction = false;
     startSessionGate = null;
     generationGate = null;
     startBattleRecord = () async => null;
@@ -231,6 +237,8 @@ void main() {
           calls: audioCalls,
           isBackgroundMusicEnabled: true,
           isSoundEffectsEnabled: true,
+          waitsForUserInteractionBeforeBackgroundMusic:
+              audioWaitsForUserInteraction,
         ),
         openUrl: ({required uri}) async {
           openedUris.add(uri);
@@ -280,6 +288,7 @@ void main() {
             calls: audioCalls,
             isBackgroundMusicEnabled: true,
             isSoundEffectsEnabled: true,
+            waitsForUserInteractionBeforeBackgroundMusic: false,
           ),
           child: MaterialApp(
             theme: snapmonThemeData(),
@@ -364,6 +373,99 @@ void main() {
         AnalyticsEvent.titleShown,
       ]);
     });
+
+    testWidgets('Web のように最初の操作を待つ時、タイトルでは BGM を流さず、画面のどこかを押した時に流す', (
+      tester,
+    ) async {
+      audioWaitsForUserInteraction = true;
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: false,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      expect(audioCalls.playedBackgroundMusicAssetPaths, isEmpty);
+      // タッチは指を置いただけではブラウザが操作に数えないため、離すまで流さない
+      final gesture = await tester.startGesture(
+        tester.getCenter(find.text('snapmon')),
+        kind: PointerDeviceKind.touch,
+      );
+      await tester.pump();
+      expect(audioCalls.playedBackgroundMusicAssetPaths, isEmpty);
+      // ボタンではない場所 (見出し) から指を離しても、最初の操作として BGM が始まる
+      await gesture.up();
+      await tester.pumpAndSettle();
+      expect(audioCalls.playedBackgroundMusicAssetPaths, [
+        BackgroundMusic.home.assetPath,
+      ]);
+    });
+
+    testWidgets('Web のように最初の操作を待つ時、マウスは押した時点で BGM が始まる', (tester) async {
+      audioWaitsForUserInteraction = true;
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: false,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      final gesture = await tester.startGesture(
+        tester.getCenter(find.text('snapmon')),
+        kind: PointerDeviceKind.mouse,
+      );
+      await tester.pumpAndSettle();
+      expect(audioCalls.playedBackgroundMusicAssetPaths, [
+        BackgroundMusic.home.assetPath,
+      ]);
+      await gesture.up();
+      await tester.pumpAndSettle();
+      expect(audioCalls.playedBackgroundMusicAssetPaths, [
+        BackgroundMusic.home.assetPath,
+      ]);
+    });
+
+    testWidgets(
+      'Web のように最初の操作を待つ時、キーボードのキーを押しただけでも BGM が始まる。Esc と修飾キーだけの押下は操作に数えない',
+      (tester) async {
+        audioWaitsForUserInteraction = true;
+        await pumpApp(
+          tester: tester,
+          hasStartedSession: false,
+          startSessionFailureCount: 0,
+          isDeveloperMenuEnabled: false,
+        );
+        expect(audioCalls.playedBackgroundMusicAssetPaths, isEmpty);
+        // 数えないキーは 1 つずつ全部送り、どれでも流れないことを確かめる。
+        // tester.sendKeyEvent は flutter test の既定の platform (android) のキー表に無いキー (AltGraph 等) で
+        // assert に当たるため、HardwareKeyboard に押下・解放のイベントを直接入れる (物理キーは何でもよい)
+        for (final key in keysNotCountedAsUserInteraction) {
+          HardwareKeyboard.instance.handleKeyEvent(
+            KeyDownEvent(
+              physicalKey: PhysicalKeyboardKey.keyA,
+              logicalKey: key,
+              timeStamp: Duration.zero,
+            ),
+          );
+          HardwareKeyboard.instance.handleKeyEvent(
+            KeyUpEvent(
+              physicalKey: PhysicalKeyboardKey.keyA,
+              logicalKey: key,
+              timeStamp: Duration.zero,
+            ),
+          );
+          await tester.pumpAndSettle();
+          expect(
+            audioCalls.playedBackgroundMusicAssetPaths,
+            isEmpty,
+            reason: '${key.debugName} で BGM が始まった',
+          );
+        }
+        await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+        await tester.pumpAndSettle();
+        expect(audioCalls.playedBackgroundMusicAssetPaths, [
+          BackgroundMusic.home.assetPath,
+        ]);
+      },
+    );
 
     testWidgets('図鑑が空なら「つづきから」が無く、図鑑に 1 体入ると「つづきから (図鑑 1)」が出る', (tester) async {
       await pumpApp(
@@ -958,7 +1060,7 @@ void main() {
 
       await tester.tap(find.byKey(const Key('tab-opponent')));
       await tester.pumpAndSettle();
-      expect(find.text('相手をえらぶ'), findsOneWidget);
+      expect(find.text('ランダムな相手と戦う'), findsOneWidget);
 
       await tester.tap(find.byKey(const Key('tab-capture')));
       await tester.pumpAndSettle();
@@ -1317,9 +1419,7 @@ void main() {
         );
       await tester.tap(find.byKey(const Key('tab-opponent')));
       await tester.pumpAndSettle();
-      final challengeButton = find.byKey(
-        Key('challenge-${sampleData.cpuTrainers.first.id}'),
-      );
+      final challengeButton = find.byKey(const Key('random-battle'));
       await tester.ensureVisible(challengeButton);
       await tester.pumpAndSettle();
       await tester.tap(challengeButton);
@@ -1355,9 +1455,7 @@ void main() {
         );
       await tester.tap(find.byKey(const Key('tab-opponent')));
       await tester.pumpAndSettle();
-      final challengeButton = find.byKey(
-        Key('challenge-${sampleData.cpuTrainers.first.id}'),
-      );
+      final challengeButton = find.byKey(const Key('random-battle'));
       await tester.ensureVisible(challengeButton);
       await tester.pumpAndSettle();
       await tester.tap(challengeButton);
@@ -1419,9 +1517,7 @@ void main() {
         );
       await tester.tap(find.byKey(const Key('tab-opponent')));
       await tester.pumpAndSettle();
-      final challengeButton = find.byKey(
-        Key('challenge-${sampleData.cpuTrainers.first.id}'),
-      );
+      final challengeButton = find.byKey(const Key('random-battle'));
       await tester.ensureVisible(challengeButton);
       await tester.pumpAndSettle();
       await tester.tap(challengeButton);
@@ -1457,9 +1553,7 @@ void main() {
 
       await tester.tap(find.byKey(const Key('tab-opponent')));
       await tester.pumpAndSettle();
-      final challengeButton = find.byKey(
-        Key('challenge-${sampleData.cpuTrainers.first.id}'),
-      );
+      final challengeButton = find.byKey(const Key('random-battle'));
       await tester.ensureVisible(challengeButton);
       await tester.pumpAndSettle();
       await tester.tap(challengeButton);
@@ -1518,9 +1612,7 @@ void main() {
       expect(find.text('手持ちを入れると挑めます'), findsOneWidget);
       expect(
         tester
-            .widget<FilledButton>(
-              find.byKey(Key('challenge-${sampleData.cpuTrainers.first.id}')),
-            )
+            .widget<ButtonStyleButton>(find.byKey(const Key('random-battle')))
             .onPressed,
         isNull,
       );
@@ -1539,8 +1631,7 @@ void main() {
       dexStore.replaceAll(monsters: sampleData.monsters);
       await tester.tap(find.byKey(const Key('tab-opponent')));
       await tester.pumpAndSettle();
-      final opponent = sampleData.cpuTrainers.first;
-      final challengeButton = find.byKey(Key('challenge-${opponent.id}'));
+      final challengeButton = find.byKey(const Key('random-battle'));
 
       // バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める。
       // 押した直後のフレームは新しい画面が offstage で作られる (Hero の計測のため) ので、もう 1 フレーム進めてから遷移を終わらせる
@@ -1553,17 +1644,18 @@ void main() {
       await pumpTransition();
       final playerMonster = dexStore.party.first.definition;
       expect(find.text('${playerMonster.name} の 技をえらぶ'), findsOneWidget);
-      expect(
-        find.text(
-          '${sampleData.monsterById(monsterId: opponent.monsterIds.first).definition.name} が 勝負をしかけてきた',
-        ),
-        findsOneWidget,
-      );
+      // 相手は乱数で決まるため、開いたバトル画面に渡った相手の先頭から名前を取る
+      final opponentMonster = tester
+          .widget<BattleScreen>(find.byType(BattleScreen))
+          .opponentParty
+          .first
+          .definition;
+      expect(find.text('${opponentMonster.name} が 勝負をしかけてきた'), findsOneWidget);
       expect(find.text('ターン 1'), findsOneWidget);
 
       await tester.tap(find.text('にげる'));
       await pumpTransition();
-      expect(find.text('相手をえらぶ'), findsOneWidget);
+      expect(find.text('ランダムな相手と戦う'), findsOneWidget);
 
       await tester.tap(challengeButton);
       await pumpTransition();
@@ -1588,24 +1680,28 @@ void main() {
     final partyBefore = dexStore.party;
     await tester.tap(find.byKey(const Key('tab-opponent')));
     await tester.pumpAndSettle();
-    expect(
-      find.descendant(
-        of: find.byKey(Key('opponent-card-${sampleData.cpuTrainers.first.id}')),
-        matching: find.text(
-          'Lv. ${partyBefore.fold<int>(0, (sum, monster) => sum + monster.level) ~/ partyBefore.length}',
-        ),
-      ),
-      findsOneWidget,
-    );
-    final challengeButton = find.byKey(
-      Key('challenge-${sampleData.cpuTrainers.first.id}'),
-    );
+    final challengeButton = find.byKey(const Key('random-battle'));
     await tester.ensureVisible(challengeButton);
     await tester.pumpAndSettle();
     await tester.tap(challengeButton);
     // バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
+    // CPU の手持ちは自分の手持ちと同じ数で、レベルは自分の手持ちの平均 (lib/features/opponent/cpu_party.dart)
+    final opponentParty = tester
+        .widget<BattleScreen>(find.byType(BattleScreen))
+        .opponentParty;
+    expect(opponentParty, hasLength(partyBefore.length));
+    for (final opponentMonster in opponentParty) {
+      expect(
+        opponentMonster.level,
+        partyBefore.fold<int>(
+              0,
+              (sum, playerMonster) => sum + playerMonster.level,
+            ) ~/
+            partyBefore.length,
+      );
+    }
     // 技の選び方の案内は初回の導線の 1 戦目だけに出す
     expect(find.byKey(const Key('first-battle-hint')), findsNothing);
 
@@ -1640,7 +1736,7 @@ void main() {
     await tester.tap(find.text('もどる'));
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
-    expect(find.text('相手をえらぶ'), findsOneWidget);
+    expect(find.text('ランダムな相手と戦う'), findsOneWidget);
   });
 
   testWidgets('ログインして記録した対戦は勝敗の画面に記録しましたと出し、Functions が返したレベルを図鑑に反映する', (
@@ -1661,9 +1757,7 @@ void main() {
     dexStore.replaceAll(monsters: sampleData.monsters);
     await tester.tap(find.byKey(const Key('tab-opponent')));
     await tester.pumpAndSettle();
-    final challengeButton = find.byKey(
-      Key('challenge-${sampleData.cpuTrainers.first.id}'),
-    );
+    final challengeButton = find.byKey(const Key('random-battle'));
     await tester.ensureVisible(challengeButton);
     await tester.pumpAndSettle();
     await tester.tap(challengeButton);
@@ -1702,9 +1796,7 @@ void main() {
     dexStore.replaceAll(monsters: sampleData.monsters);
     await tester.tap(find.byKey(const Key('tab-opponent')));
     await tester.pumpAndSettle();
-    await tester.tap(
-      find.byKey(Key('challenge-${sampleData.cpuTrainers.first.id}')),
-    );
+    await tester.tap(find.byKey(const Key('random-battle')));
     // バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
@@ -1728,6 +1820,7 @@ void main() {
           calls: RecordedAudioCalls(),
           isBackgroundMusicEnabled: true,
           isSoundEffectsEnabled: true,
+          waitsForUserInteractionBeforeBackgroundMusic: false,
         ),
         child: MaterialApp(
           theme: snapmonThemeData(),
@@ -1812,6 +1905,7 @@ void main() {
               calls: RecordedAudioCalls(),
               isBackgroundMusicEnabled: true,
               isSoundEffectsEnabled: true,
+              waitsForUserInteractionBeforeBackgroundMusic: false,
             ),
             child: MaterialApp(
               key: UniqueKey(),
