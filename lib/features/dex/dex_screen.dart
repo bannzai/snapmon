@@ -99,201 +99,202 @@ class DexScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
     body: ListenableBuilder(
-    listenable: dexStore,
-    builder: (context, _) {
-      final party = dexStore.party;
-      return CustomScrollView(
-        slivers: [
-          SliverPadding(
-            padding: const EdgeInsets.fromLTRB(20, 16, 20, 12),
-            sliver: SliverToBoxAdapter(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          context.l10n.tabDex,
-                          style: SnapmonTextStyles.screenTitle,
-                        ),
-                        const SizedBox(height: 2),
-                        Text(
-                          context.l10n.dexSummary(
-                            dexStore.monsters.length,
-                            party.length,
-                          ),
-                          style: SnapmonTextStyles.caption,
-                        ),
-                        if (dexStore.serverError != null) ...[
+      listenable: dexStore,
+      builder: (context, _) {
+        final party = dexStore.party;
+        return CustomScrollView(
+          slivers: [
+            SliverPadding(
+              padding: const EdgeInsets.fromLTRB(20, 16, 20, 12),
+              sliver: SliverToBoxAdapter(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
                           Text(
-                            dexStore.serverError.toString(),
-                            style: SnapmonTextStyles.small.copyWith(
-                              color: SnapmonColors.hitPointsLoss,
+                            context.l10n.tabDex,
+                            style: SnapmonTextStyles.screenTitle,
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            context.l10n.dexSummary(
+                              dexStore.monsters.length,
+                              party.length,
+                            ),
+                            style: SnapmonTextStyles.caption,
+                          ),
+                          if (dexStore.serverError != null) ...[
+                            Text(
+                              dexStore.serverError.toString(),
+                              style: SnapmonTextStyles.small.copyWith(
+                                color: SnapmonColors.hitPointsLoss,
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () =>
+                                  dexStore.refreshDefinitions().catchError(
+                                    (Object error) => dexStore
+                                        .reportServerError(error: error),
+                                  ),
+                              child: Text(context.l10n.dexReload),
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
+                    SquareIconButton(
+                      icon: Icons.settings_outlined,
+                      tooltip: context.l10n.settingsTitle,
+                      onPressed: onOpenSettings,
+                      size: 44,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
+              sliver: SliverToBoxAdapter(
+                child: Material(
+                  color: SnapmonColors.surface,
+                  borderRadius: SnapmonRadii.button,
+                  child: InkWell(
+                    key: const Key('dex-open-reference'),
+                    borderRadius: SnapmonRadii.button,
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (context) =>
+                            ReferenceScreen(dexStore: dexStore),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 14,
+                        vertical: 12,
+                      ),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.menu_book_outlined,
+                            size: 18,
+                            color: SnapmonColors.accent,
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Text(
+                              context.l10n.referenceOpen,
+                              style: SnapmonTextStyles.label,
                             ),
                           ),
-                          TextButton(
-                            onPressed: () =>
-                                dexStore.refreshDefinitions().catchError(
-                                  (Object error) =>
-                                      dexStore.reportServerError(error: error),
-                                ),
-                            child: Text(context.l10n.dexReload),
+                          const Icon(
+                            Icons.chevron_right,
+                            color: SnapmonColors.textMuted,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
+              sliver: SliverToBoxAdapter(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      context.l10n.dexParty,
+                      style: SnapmonTextStyles.caption.copyWith(
+                        color: SnapmonColors.accent,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        // 枠の幅を揃えるため、間隔は枠の外に置く (下の「すべて」の 3 列と同じ幅になる)
+                        for (
+                          var index = 0;
+                          index < maximumPartySize;
+                          index++
+                        ) ...[
+                          if (index > 0) const SizedBox(width: 10),
+                          Expanded(
+                            child: AspectRatio(
+                              aspectRatio: _monsterTileAspectRatio,
+                              child: index < party.length
+                                  ? _MonsterTile(
+                                      monster: party[index],
+                                      isInParty: true,
+                                      onTap: () => _openMonster(
+                                        context: context,
+                                        monster: party[index],
+                                      ),
+                                    )
+                                  : _EmptyPartySlot(
+                                      // 手持ちの ID が図鑑より先に届いた間は、枠が空いて見えても手持ちに空きが無い
+                                      onTap:
+                                          dexStore.isSavingParty ||
+                                              !dexStore.hasPartyVacancy
+                                          ? null
+                                          : () => _addToParty(context: context),
+                                    ),
+                            ),
                           ),
                         ],
                       ],
                     ),
-                  ),
-                  SquareIconButton(
-                    icon: Icons.settings_outlined,
-                    tooltip: context.l10n.settingsTitle,
-                    onPressed: onOpenSettings,
-                    size: 44,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          SliverPadding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
-            sliver: SliverToBoxAdapter(
-              child: Material(
-                color: SnapmonColors.surface,
-                borderRadius: SnapmonRadii.button,
-                child: InkWell(
-                  key: const Key('dex-open-reference'),
-                  borderRadius: SnapmonRadii.button,
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute<void>(
-                      builder: (context) => ReferenceScreen(dexStore: dexStore),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 14,
-                      vertical: 12,
-                    ),
-                    child: Row(
-                      children: [
-                        const Icon(
-                          Icons.menu_book_outlined,
-                          size: 18,
-                          color: SnapmonColors.accent,
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: Text(
-                            context.l10n.referenceOpen,
-                            style: SnapmonTextStyles.label,
-                          ),
-                        ),
-                        const Icon(
-                          Icons.chevron_right,
-                          color: SnapmonColors.textMuted,
-                        ),
-                      ],
-                    ),
-                  ),
+                  ],
                 ),
               ),
             ),
-          ),
-          SliverPadding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
-            sliver: SliverToBoxAdapter(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    context.l10n.dexParty,
-                    style: SnapmonTextStyles.caption.copyWith(
-                      color: SnapmonColors.accent,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      // 枠の幅を揃えるため、間隔は枠の外に置く (下の「すべて」の 3 列と同じ幅になる)
-                      for (
-                        var index = 0;
-                        index < maximumPartySize;
-                        index++
-                      ) ...[
-                        if (index > 0) const SizedBox(width: 10),
-                        Expanded(
-                          child: AspectRatio(
-                            aspectRatio: _monsterTileAspectRatio,
-                            child: index < party.length
-                                ? _MonsterTile(
-                                    monster: party[index],
-                                    isInParty: true,
-                                    onTap: () => _openMonster(
-                                      context: context,
-                                      monster: party[index],
-                                    ),
-                                  )
-                                : _EmptyPartySlot(
-                                    // 手持ちの ID が図鑑より先に届いた間は、枠が空いて見えても手持ちに空きが無い
-                                    onTap:
-                                        dexStore.isSavingParty ||
-                                            !dexStore.hasPartyVacancy
-                                        ? null
-                                        : () => _addToParty(context: context),
-                                  ),
-                          ),
-                        ),
-                      ],
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-          SliverPadding(
-            padding: const EdgeInsets.fromLTRB(20, 4, 20, 8),
-            sliver: SliverToBoxAdapter(
-              child: Text(
-                context.l10n.dexAll,
-                style: SnapmonTextStyles.caption,
-              ),
-            ),
-          ),
-          if (dexStore.monsters.isEmpty)
             SliverPadding(
-              padding: const EdgeInsets.fromLTRB(20, 24, 20, 24),
+              padding: const EdgeInsets.fromLTRB(20, 4, 20, 8),
               sliver: SliverToBoxAdapter(
                 child: Text(
-                  context.l10n.dexEmpty,
-                  textAlign: TextAlign.center,
-                  style: SnapmonTextStyles.body,
+                  context.l10n.dexAll,
+                  style: SnapmonTextStyles.caption,
                 ),
               ),
-            )
-          else
-            SliverPadding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
-              sliver: SliverGrid.count(
-                crossAxisCount: 3,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                childAspectRatio: _monsterTileAspectRatio,
-                children: [
-                  for (final monster in dexStore.monsters)
-                    _MonsterTile(
-                      monster: monster,
-                      isInParty: false,
-                      onTap: () =>
-                          _openMonster(context: context, monster: monster),
-                    ),
-                ],
-              ),
             ),
-          // 最後の行が下の「追加する」ボタン (高さ 52 + 下の余白 16) に隠れないよう、その分だけ下に余白を足す
-          const SliverPadding(padding: EdgeInsets.only(bottom: 72)),
-        ],
-      );
-    },
+            if (dexStore.monsters.isEmpty)
+              SliverPadding(
+                padding: const EdgeInsets.fromLTRB(20, 24, 20, 24),
+                sliver: SliverToBoxAdapter(
+                  child: Text(
+                    context.l10n.dexEmpty,
+                    textAlign: TextAlign.center,
+                    style: SnapmonTextStyles.body,
+                  ),
+                ),
+              )
+            else
+              SliverPadding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
+                sliver: SliverGrid.count(
+                  crossAxisCount: 3,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  childAspectRatio: _monsterTileAspectRatio,
+                  children: [
+                    for (final monster in dexStore.monsters)
+                      _MonsterTile(
+                        monster: monster,
+                        isInParty: false,
+                        onTap: () =>
+                            _openMonster(context: context, monster: monster),
+                      ),
+                  ],
+                ),
+              ),
+            // 最後の行が下の「追加する」ボタン (高さ 52 + 下の余白 16) に隠れないよう、その分だけ下に余白を足す
+            const SliverPadding(padding: EdgeInsets.only(bottom: 72)),
+          ],
+        );
+      },
     ),
     floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     floatingActionButton: Padding(
@@ -338,52 +339,52 @@ class _MonsterTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Material(
-      color: SnapmonColors.surface,
-      shape: RoundedRectangleBorder(
-        borderRadius: SnapmonRadii.card,
-        side: isInParty
-            ? const BorderSide(color: SnapmonColors.accent, width: 3)
-            : BorderSide.none,
-      ),
-      child: InkWell(
-        borderRadius: SnapmonRadii.card,
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Center(
-                  child: AspectRatio(
-                    aspectRatio: 1,
-                    child: MonsterArt(
-                      monster: monster,
-                      backgroundColor: SnapmonColors.artBackground,
-                    ),
+    color: SnapmonColors.surface,
+    shape: RoundedRectangleBorder(
+      borderRadius: SnapmonRadii.card,
+      side: isInParty
+          ? const BorderSide(color: SnapmonColors.accent, width: 3)
+          : BorderSide.none,
+    ),
+    child: InkWell(
+      borderRadius: SnapmonRadii.card,
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Center(
+                child: AspectRatio(
+                  aspectRatio: 1,
+                  child: MonsterArt(
+                    monster: monster,
+                    backgroundColor: SnapmonColors.artBackground,
                   ),
                 ),
               ),
-              const SizedBox(height: 6),
-              Text(
-                monster.definition.name,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: SnapmonTextStyles.caption.copyWith(
-                  color: SnapmonColors.textOnBackground,
-                ),
+            ),
+            const SizedBox(height: 6),
+            Text(
+              monster.definition.name,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: SnapmonTextStyles.caption.copyWith(
+                color: SnapmonColors.textOnBackground,
               ),
-              Text(
-                context.l10n.commonLevel(monster.level),
-                style: SnapmonTextStyles.small.copyWith(
-                  color: SnapmonColors.textMuted,
-                ),
+            ),
+            Text(
+              context.l10n.commonLevel(monster.level),
+              style: SnapmonTextStyles.small.copyWith(
+                color: SnapmonColors.textMuted,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
-    );
+    ),
+  );
 }
 
 /// 手持ちの空いた枠。+ を出し、タップで手持ちに入れるモンスターを選ぶ。[onTap] が null の間 (手持ちの保存中・手持ちに空きが無い間) はタップを受け付けない。

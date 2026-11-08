@@ -55,26 +55,21 @@ void main() {
     required int index,
   }) => tester.widget<Material>(
     find
-        .ancestor(of: find.text(name).at(index), matching: find.byType(Material))
+        .ancestor(
+          of: find.text(name).at(index),
+          matching: find.byType(Material),
+        )
         .first,
   );
 
   testWidgets('手持ちと「すべて」のカードは同じ地の色で、手持ちにだけ黄緑の縁を付ける', (tester) async {
     final dexStore = DexStore(definitions: sampleData.definitions)
       ..replaceAll(monsters: sampleData.monsters.take(1).toList());
-    await pumpDexScreen(
-      tester: tester,
-      dexStore: dexStore,
-      selectedTabs: [],
-    );
+    await pumpDexScreen(tester: tester, dexStore: dexStore, selectedTabs: []);
 
     final name = sampleData.monsters.first.definition.name;
     expect(find.text(name), findsNWidgets(2));
-    final partyTile = monsterTileMaterial(
-      tester: tester,
-      name: name,
-      index: 0,
-    );
+    final partyTile = monsterTileMaterial(tester: tester, name: name, index: 0);
     final allTile = monsterTileMaterial(tester: tester, name: name, index: 1);
     expect(partyTile.color, SnapmonColors.surface);
     expect(allTile.color, SnapmonColors.surface);
@@ -82,25 +77,16 @@ void main() {
       (partyTile.shape! as RoundedRectangleBorder).side.color,
       SnapmonColors.accent,
     );
-    expect(
-      (allTile.shape! as RoundedRectangleBorder).side,
-      BorderSide.none,
-    );
+    expect((allTile.shape! as RoundedRectangleBorder).side, BorderSide.none);
   });
 
-  testWidgets('手持ちの空いた枠をタップすると手持ちに入っていないモンスターだけを出し、選ぶと手持ちに入れる', (
-    tester,
-  ) async {
+  testWidgets('手持ちの空いた枠をタップすると手持ちに入っていないモンスターだけを出し、選ぶと手持ちに入れる', (tester) async {
     final firstMonster = sampleData.monsters[0];
     final fourthMonster = sampleData.monsters[3];
     final dexStore = DexStore(definitions: sampleData.definitions)
       ..replaceAll(monsters: sampleData.monsters.take(4).toList());
     await dexStore.removeFromParty(monsterId: firstMonster.definition.id);
-    await pumpDexScreen(
-      tester: tester,
-      dexStore: dexStore,
-      selectedTabs: [],
-    );
+    await pumpDexScreen(tester: tester, dexStore: dexStore, selectedTabs: []);
 
     expect(find.byKey(const Key('dex-empty-party-slot')), findsOneWidget);
     await tester.tap(find.byKey(const Key('dex-empty-party-slot')));
@@ -135,11 +121,7 @@ void main() {
   testWidgets('手持ちに入れられるモンスターがいない時は、空いた枠をタップするとその旨を出す', (tester) async {
     final dexStore = DexStore(definitions: sampleData.definitions)
       ..replaceAll(monsters: sampleData.monsters.take(2).toList());
-    await pumpDexScreen(
-      tester: tester,
-      dexStore: dexStore,
-      selectedTabs: [],
-    );
+    await pumpDexScreen(tester: tester, dexStore: dexStore, selectedTabs: []);
 
     await tester.tap(find.byKey(const Key('dex-empty-party-slot')));
     await tester.pumpAndSettle();
@@ -161,11 +143,7 @@ void main() {
         ],
         definitions: null,
       );
-    await pumpDexScreen(
-      tester: tester,
-      dexStore: dexStore,
-      selectedTabs: [],
-    );
+    await pumpDexScreen(tester: tester, dexStore: dexStore, selectedTabs: []);
 
     expect(find.byKey(const Key('dex-empty-party-slot')), findsOneWidget);
     await tester.tap(find.byKey(const Key('dex-empty-party-slot')));
