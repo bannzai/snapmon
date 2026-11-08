@@ -760,6 +760,7 @@ class _DeviceFrame extends StatelessWidget {
                           calls: RecordedAudioCalls(),
                           isBackgroundMusicEnabled: false,
                           isSoundEffectsEnabled: false,
+                          waitsForUserInteractionBeforeBackgroundMusic: false,
                         ),
                         child: MaterialApp(
                           debugShowCheckedModeBanner: false,

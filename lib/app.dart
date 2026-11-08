@@ -28,7 +28,8 @@ import 'widgets/app_content_width.dart';
 /// SYMBOL・SYMBOL_LOCK・SHIFT_LEVEL5。 https://source.chromium.org/chromium/chromium/src/+/main:ui/events/keycodes/dom/keycode_converter.cc 。
 /// ACCEL・SHIFT_LEVEL5 は Flutter の LogicalKeyboardKey に無い)。
 /// これらで先に伝えると、ブラウザが再生を許す前に流そうとして待ち行列が止まる。
-const keysNotCountedAsUserInteraction = {
+/// LogicalKeyboardKey は `==` を上書きしているため const の集合にできない (const_set_element_not_primitive_equality)。
+final Set<LogicalKeyboardKey> keysNotCountedAsUserInteraction = {
   LogicalKeyboardKey.escape,
   LogicalKeyboardKey.shiftLeft,
   LogicalKeyboardKey.shiftRight,
