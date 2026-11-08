@@ -35,6 +35,9 @@ enum StatusConditionKind {
 
   /// 凍結。1〜3 ターンの間、全ての行動が失敗する。技のダメージを受けると解ける。
   frozen,
+
+  /// 交換不可。3 ターンの間、手持ちと自分から交代できない。倒れた時の交代は止めない。
+  switchBlocked,
 }
 
 /// 続く長さが決まっている状態 (ターン数で消える状態) と、そのターン数の範囲 (最小・最大)。
@@ -47,6 +50,8 @@ statusConditionDurationRanges = {
   StatusConditionKind.confusion: (minimum: 2, maximum: 4),
   StatusConditionKind.dizzy: (minimum: 3, maximum: 3),
   StatusConditionKind.frozen: (minimum: 1, maximum: 3),
+  // 眩暈と同じく固定の 3 ターン。封じる側が控えの相性を読んで攻める時間を、乱数でぶれさせずに見通せるようにするため
+  StatusConditionKind.switchBlocked: (minimum: 3, maximum: 3),
 };
 
 /// 重なりを持つ状態 (毒・やけど) の重なりの上限。毒は 4 (最大 HP の 1/4 のダメージ)、やけどは 5 (受けるダメージ 1.5 倍) で止める。
