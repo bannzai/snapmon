@@ -190,5 +190,81 @@ void main() {
         throwsArgumentError,
       );
     });
+
+    test('ステータスの目盛りは種族値と個体値の最大で 1、最小で (2 × 40) / (2 × 120 + 31)', () {
+      expect(
+        statStrengthRatio(
+          statKind: StatKind.attack,
+          baseStats: highest,
+          individualValues: maximum,
+          master: master,
+        ),
+        1,
+      );
+      expect(
+        statStrengthRatio(
+          statKind: StatKind.attack,
+          baseStats: lowest,
+          individualValues: zero,
+          master: master,
+        ),
+        closeTo(80 / 271, 1e-9),
+      );
+      // 段階の最大を超える種族値 (後から master の最大の段階が下がった時等) は 1 に収める。
+      // 収めた値が double であること (clamp の上限を int で渡すと int が返る) も確かめる
+      final clamped = statStrengthRatio(
+        statKind: StatKind.attack,
+        baseStats: const MonsterStats(
+          hitPoints: 130,
+          attack: 130,
+          defense: 130,
+          speed: 130,
+        ),
+        individualValues: maximum,
+        master: master,
+      );
+      expect(clamped, 1.0);
+      expect(clamped, isA<double>());
+      // レベルの項を含めないため、ステータスの種類ごとの種族値・個体値だけで決まる
+      expect(
+        statStrengthRatio(
+          statKind: StatKind.defense,
+          baseStats: const MonsterStats(
+            hitPoints: 40,
+            attack: 40,
+            defense: 120,
+            speed: 40,
+          ),
+          individualValues: const MonsterStats(
+            hitPoints: 0,
+            attack: 0,
+            defense: 31,
+            speed: 0,
+          ),
+          master: master,
+        ),
+        1,
+      );
+    });
+
+    test('ステータスの段階が無い定義では目盛りを計算できず例外にする', () {
+      expect(
+        () => statStrengthRatio(
+          statKind: StatKind.attack,
+          baseStats: lowest,
+          individualValues: zero,
+          master: const MasterData(
+            version: 1,
+            elementTypes: [],
+            typeChart: {},
+            moves: [],
+            effects: [],
+            statGrades: [],
+            elementSelection: null,
+          ),
+        ),
+        throwsStateError,
+      );
+    });
   });
 }
