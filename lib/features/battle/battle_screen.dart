@@ -305,7 +305,10 @@ class _BattleScreenState extends State<BattleScreen>
       loadMoveEffectSpriteSheets(
         game: _game,
         effects: {
-          for (final monster in [...widget.playerParty, ...widget.opponentParty])
+          for (final monster in [
+            ...widget.playerParty,
+            ...widget.opponentParty,
+          ])
             for (final learnsetEntry in monster.definition.learnset)
               widget.definitions.effectById(
                 effectId: widget.definitions
@@ -580,7 +583,8 @@ class _BattleScreenState extends State<BattleScreen>
         });
         await Future<void>.delayed(_hitDuration);
       case ActionFailedEvent():
-        final monsterName = _displayedActiveMembers[event.side]!.definition.name;
+        final monsterName =
+            _displayedActiveMembers[event.side]!.definition.name;
         final move = event.moveId == null
             ? null
             : widget.definitions.moveById(moveId: event.moveId!);
@@ -600,7 +604,8 @@ class _BattleScreenState extends State<BattleScreen>
         );
         await Future<void>.delayed(_messageDuration);
       case StatusConditionInflictedEvent():
-        final monsterName = _displayedActiveMembers[event.side]!.definition.name;
+        final monsterName =
+            _displayedActiveMembers[event.side]!.definition.name;
         setState(() {
           _updateDisplayedMember(
             side: event.side,
@@ -617,7 +622,10 @@ class _BattleScreenState extends State<BattleScreen>
             ),
           );
           _logText = (l10n) {
-            final statusName = statusConditionLabel(l10n: l10n, kind: event.kind);
+            final statusName = statusConditionLabel(
+              l10n: l10n,
+              kind: event.kind,
+            );
             if (event.replacedKind case final replacedKind?) {
               return l10n.battleLogStatusReplaced(
                 monsterName,
@@ -643,7 +651,8 @@ class _BattleScreenState extends State<BattleScreen>
         unawaited(_haptics.statusChanged());
         await Future<void>.delayed(_messageDuration);
       case StatusConditionCuredEvent():
-        final monsterName = _displayedActiveMembers[event.side]!.definition.name;
+        final monsterName =
+            _displayedActiveMembers[event.side]!.definition.name;
         setState(() {
           _updateDisplayedMember(
             side: event.side,
@@ -665,7 +674,8 @@ class _BattleScreenState extends State<BattleScreen>
         });
         await Future<void>.delayed(_messageDuration);
       case StatusConditionDamageEvent():
-        final monsterName = _displayedActiveMembers[event.side]!.definition.name;
+        final monsterName =
+            _displayedActiveMembers[event.side]!.definition.name;
         setState(() {
           _updateDisplayedMember(
             side: event.side,
@@ -682,7 +692,8 @@ class _BattleScreenState extends State<BattleScreen>
       case FieldEffectStartedEvent():
         setState(
           () => _logText = (l10n) => switch (event.kind) {
-            FieldEffectKind.statShuffle => l10n.battleLogFieldStatShuffleStarted,
+            FieldEffectKind.statShuffle =>
+              l10n.battleLogFieldStatShuffleStarted,
           },
         );
         await Future<void>.delayed(_messageDuration);

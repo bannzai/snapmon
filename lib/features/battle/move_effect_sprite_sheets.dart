@@ -51,8 +51,9 @@ Future<void> loadMoveEffectSpriteSheets({
 
 /// シートの JSON [spriteSheetJson] の `meta.snapmon.visibleCenter` を Anchor にして返す。無ければコマの中心。
 Anchor visibleCenterAnchorOf({required Map<String, dynamic> spriteSheetJson}) {
-  if ((spriteSheetJson['meta'] as Map<String, dynamic>?)?['snapmon']
-      case {'visibleCenter': [final num x, final num y]}) {
+  if ((spriteSheetJson['meta'] as Map<String, dynamic>?)?['snapmon'] case {
+    'visibleCenter': [final num x, final num y],
+  }) {
     return Anchor(x.toDouble(), y.toDouble());
   }
   return Anchor.center;

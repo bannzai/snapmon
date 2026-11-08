@@ -444,9 +444,7 @@ void main() {
         );
         game.hit(
           defenderSide: BattleSideId.opponent,
-          effect: sampleData.definitions.effectById(
-            effectId: 'water_particle',
-          ),
+          effect: sampleData.definitions.effectById(effectId: 'water_particle'),
         );
         await game.ready();
         final components = game.children.whereType<SpriteAnimationComponent>();
@@ -479,7 +477,9 @@ void main() {
         visibleCenterAnchorOf(
           spriteSheetJson: {
             'meta': {
-              'snapmon': {'visibleCenter': [0.25, 0.75]},
+              'snapmon': {
+                'visibleCenter': [0.25, 0.75],
+              },
             },
           },
         ),

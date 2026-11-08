@@ -151,7 +151,10 @@ void main() {
           'sureHit',
         ];
         // 状態の名前の誤りは読む時に捨てられ、効果が黙って消えるため元の JSON で確かめる
-        for (final key in ['selfStatusConditions', 'opponentStatusConditions']) {
+        for (final key in [
+          'selfStatusConditions',
+          'opponentStatusConditions',
+        ]) {
           if (json[key] case final List<dynamic> inflictions) {
             for (final infliction in inflictions) {
               expect(

@@ -238,7 +238,10 @@ int poisonDamage({required int maximumHitPoints, required int stackCount}) =>
     math.max(1, maximumHitPoints * stackCount ~/ poisonDamageDenominator);
 
 /// [move] (わるあがきは null) の今回の命中率 (%)。必中の技は 100。眩暈の時は [dizzyAccuracyPercent] を掛ける。
-int moveHitChancePercent({required Move? move, required BattleMonster attacker}) {
+int moveHitChancePercent({
+  required Move? move,
+  required BattleMonster attacker,
+}) {
   if (move?.specialEffect?.isSureHit ?? false) {
     return 100;
   }
@@ -260,8 +263,9 @@ bool canInflictStatusCondition({
     return current == null || current.stackCount < stackMaximum;
   }
   return switch (kind) {
-    StatusConditionKind.drowsy =>
-      !monster.state.statusConditions.containsKey(StatusConditionKind.sleep),
+    StatusConditionKind.drowsy => !monster.state.statusConditions.containsKey(
+      StatusConditionKind.sleep,
+    ),
     StatusConditionKind.curse || StatusConditionKind.excited => current == null,
     _ => true,
   };
@@ -316,12 +320,16 @@ BattleAction chooseCpuAction({
           statChanges: specialEffect.opponentStatChanges,
         ) ||
         specialEffect.selfStatusConditions.any(
-          (infliction) =>
-              canInflictStatusCondition(monster: attacker, kind: infliction.kind),
+          (infliction) => canInflictStatusCondition(
+            monster: attacker,
+            kind: infliction.kind,
+          ),
         ) ||
         specialEffect.opponentStatusConditions.any(
-          (infliction) =>
-              canInflictStatusCondition(monster: defender, kind: infliction.kind),
+          (infliction) => canInflictStatusCondition(
+            monster: defender,
+            kind: infliction.kind,
+          ),
         ) ||
         (specialEffect.curesSelfStatusConditions &&
             attacker.state.statusConditions.isNotEmpty) ||
@@ -458,10 +466,8 @@ BattleState advanceRound({
     UseMoveAction(:final moveId) => master.moveById(moveId: moveId),
     StruggleAction() => null,
   };
-  final playerPriority =
-      moveOf(action: playerAction)?.priority ?? 0;
-  final opponentPriority =
-      moveOf(action: opponentAction)?.priority ?? 0;
+  final playerPriority = moveOf(action: playerAction)?.priority ?? 0;
+  final opponentPriority = moveOf(action: opponentAction)?.priority ?? 0;
   final playerSpeed = effectiveStats(
     monster: parties[BattleSideId.player]!.activeMember,
     field: field,
@@ -718,9 +724,8 @@ BattleState advanceRound({
         replaceActiveState(
           side: defenderSide,
           monsterState: defenderAfterDamage.state.copyWith(
-            statusConditions: {
-              ...defenderAfterDamage.state.statusConditions,
-            }..remove(StatusConditionKind.frozen),
+            statusConditions: {...defenderAfterDamage.state.statusConditions}
+              ..remove(StatusConditionKind.frozen),
           ),
         );
         events.add(
@@ -893,9 +898,7 @@ BattleState advanceRound({
         );
       }
     }
-    events.add(
-      BattleFinishedEvent(turnNumber: lastTurnNumber, winner: winner),
-    );
+    events.add(BattleFinishedEvent(turnNumber: lastTurnNumber, winner: winner));
   }
 
   return BattleState(

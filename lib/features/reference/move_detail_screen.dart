@@ -139,60 +139,60 @@ class MoveDetailScreen extends StatelessWidget {
             const SizedBox(height: 10),
             // 式の無い効果 (状態・フィールド・自爆・一撃・必中だけの技) は規則の説明だけで足り、空の枠を出さない
             if (!specialEffect.hasNoExpressionEffect)
-            DecoratedBox(
-              decoration: const BoxDecoration(
-                color: SnapmonColors.surface,
-                borderRadius: SnapmonRadii.button,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: 12,
-                  children: [
-                    if (specialEffect.power case final power?)
-                      _FormulaSection(
-                        formulaKey: const Key('move-special-effect-formula'),
-                        label: context.l10n.moveDetailFormula,
-                        source: power,
-                        note: context.l10n.moveDetailFormulaNote,
-                      ),
-                    for (final MapEntry(key: statKind, value: source)
-                        in specialEffect.selfStatChanges.entries)
-                      _FormulaSection(
-                        formulaKey: Key(
-                          'move-special-effect-self-${statKind.name}',
+              DecoratedBox(
+                decoration: const BoxDecoration(
+                  color: SnapmonColors.surface,
+                  borderRadius: SnapmonRadii.button,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: 12,
+                    children: [
+                      if (specialEffect.power case final power?)
+                        _FormulaSection(
+                          formulaKey: const Key('move-special-effect-formula'),
+                          label: context.l10n.moveDetailFormula,
+                          source: power,
+                          note: context.l10n.moveDetailFormulaNote,
                         ),
-                        label: context.l10n.moveDetailSelfStatFormula(
-                          statLabel(l10n: context.l10n, statKind: statKind),
+                      for (final MapEntry(key: statKind, value: source)
+                          in specialEffect.selfStatChanges.entries)
+                        _FormulaSection(
+                          formulaKey: Key(
+                            'move-special-effect-self-${statKind.name}',
+                          ),
+                          label: context.l10n.moveDetailSelfStatFormula(
+                            statLabel(l10n: context.l10n, statKind: statKind),
+                          ),
+                          source: source,
+                          note: context.l10n.moveDetailStatFormulaNote,
                         ),
-                        source: source,
-                        note: context.l10n.moveDetailStatFormulaNote,
-                      ),
-                    for (final MapEntry(key: statKind, value: source)
-                        in specialEffect.opponentStatChanges.entries)
-                      _FormulaSection(
-                        formulaKey: Key(
-                          'move-special-effect-opponent-${statKind.name}',
+                      for (final MapEntry(key: statKind, value: source)
+                          in specialEffect.opponentStatChanges.entries)
+                        _FormulaSection(
+                          formulaKey: Key(
+                            'move-special-effect-opponent-${statKind.name}',
+                          ),
+                          label: context.l10n.moveDetailOpponentStatFormula(
+                            statLabel(l10n: context.l10n, statKind: statKind),
+                          ),
+                          source: source,
+                          note: context.l10n.moveDetailStatFormulaNote,
                         ),
-                        label: context.l10n.moveDetailOpponentStatFormula(
-                          statLabel(l10n: context.l10n, statKind: statKind),
+                      if (specialEffect.selfHitPointsRecovery
+                          case final recovery?)
+                        _FormulaSection(
+                          formulaKey: const Key('move-special-effect-recovery'),
+                          label: context.l10n.moveDetailRecoveryFormula,
+                          source: recovery,
+                          note: context.l10n.moveDetailRecoveryFormulaNote,
                         ),
-                        source: source,
-                        note: context.l10n.moveDetailStatFormulaNote,
-                      ),
-                    if (specialEffect.selfHitPointsRecovery
-                        case final recovery?)
-                      _FormulaSection(
-                        formulaKey: const Key('move-special-effect-recovery'),
-                        label: context.l10n.moveDetailRecoveryFormula,
-                        source: recovery,
-                        note: context.l10n.moveDetailRecoveryFormulaNote,
-                      ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
           ],
           const SizedBox(height: 20),
           _SectionTitle(title: context.l10n.moveDetailEffectiveness),

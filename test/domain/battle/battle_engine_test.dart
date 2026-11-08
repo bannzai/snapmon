@@ -1561,7 +1561,9 @@ void main() {
           ),
         ),
       ],
-      randomSeed: randomSeed,
+      // 小さい seed (1, 2, ...) は xorshift の最初の出力が seed × 270369 (3 の倍数) になり、1〜3 の乱数が
+      // どの seed でも同じ値になる。アプリの seed は Random の 32 bit の値のため、テストでも黄金比の定数を掛けて散らす
+      randomSeed: (randomSeed * 0x9E3779B9) & 0xFFFFFFFF,
       battleDate: testBattleDate,
     );
 
@@ -1597,7 +1599,9 @@ void main() {
       expect(after.turnNumber, 3);
       expect(after.roundNumber, 2);
       expect(
-        after.events.whereType<MoveUsedEvent>().map((event) => event.turnNumber),
+        after.events.whereType<MoveUsedEvent>().map(
+          (event) => event.turnNumber,
+        ),
         [1, 2],
       );
     });
@@ -1613,7 +1617,8 @@ void main() {
         opponentMoveId: 'fire_strong',
       );
       final opponent = state.opponent.activeMember;
-      final poison = opponent.state.statusConditions[StatusConditionKind.poison];
+      final poison =
+          opponent.state.statusConditions[StatusConditionKind.poison];
       expect(poison, isNotNull);
       expect(poison!.stackCount, 1);
       expect(poison.remainingTurns, isNull);
@@ -1741,7 +1746,9 @@ void main() {
       );
       // 解けた後の自分のターンには動ける
       expect(
-        roundEvents.whereType<MoveUsedEvent>().map((event) => event.attackerSide),
+        roundEvents.whereType<MoveUsedEvent>().map(
+          (event) => event.attackerSide,
+        ),
         [BattleSideId.player, BattleSideId.opponent],
       );
     });
@@ -1766,10 +1773,10 @@ void main() {
           opponentMoveId: 'fire_raise_attack',
         );
         expect(
-          lastRoundEvents(state: state, previous: beforeSleep)
-              .whereType<StatusConditionInflictedEvent>()
-              .single
-              .kind,
+          lastRoundEvents(
+            state: state,
+            previous: beforeSleep,
+          ).whereType<StatusConditionInflictedEvent>().single.kind,
           StatusConditionKind.sleep,
         );
         var failedCount = lastRoundEvents(state: state, previous: beforeSleep)
@@ -1850,9 +1857,10 @@ void main() {
       final cursedStatKind = curse.cursedStatKind!;
       // 相手は攻撃を上げる技を使うため、攻撃の倍率が変わっている
       final statsAfter = effectiveStats(monster: state.opponent.activeMember);
-      final expected = statsBefore.valueOf(statKind: cursedStatKind) *
-              (cursedStatKind == StatKind.attack ? 125 : 100) ~/
-              100 ~/
+      final expected =
+          statsBefore.valueOf(statKind: cursedStatKind) *
+          (cursedStatKind == StatKind.attack ? 125 : 100) ~/
+          100 ~/
           2;
       expect(statsAfter.valueOf(statKind: cursedStatKind), expected);
       final inflictedCount = state.events
@@ -2010,7 +2018,11 @@ void main() {
           expect(missed.single.moveId, 'fire_inaccurate');
         }
         expect(
-          state.player.activeMember.state.remainingPowerPoints['fire_inaccurate'],
+          state
+              .player
+              .activeMember
+              .state
+              .remainingPowerPoints['fire_inaccurate'],
           9,
         );
       }
@@ -2087,13 +2099,17 @@ void main() {
         playerMoveId: 'fire_self_destruct',
         opponentMoveId: 'fire_strong',
       );
-      final moveUsed = state.events.whereType<MoveUsedEvent>().single;
+      // 自分が速いため先に自爆し、相手は倒れていないので後から行動する (2 件目)
+      final moveUsed = state.events.whereType<MoveUsedEvent>().first;
+      expect(moveUsed.attackerSide, BattleSideId.player);
       expect(moveUsed.selfDestructed, isTrue);
       expect(moveUsed.damage, greaterThan(0));
       expect(moveUsed.attackerRemainingHitPoints, 0);
       expect(state.player.activeMember.isFainted, isTrue);
       expect(
-        state.events.whereType<MonsterFaintedEvent>().map((event) => event.side),
+        state.events.whereType<MonsterFaintedEvent>().map(
+          (event) => event.side,
+        ),
         contains(BattleSideId.player),
       );
       expect(state.winner, BattleSideId.opponent);
@@ -2122,7 +2138,9 @@ void main() {
         opponentMoveId: 'fire_priority',
       );
       expect(
-        state.events.whereType<MoveUsedEvent>().map((event) => event.attackerSide),
+        state.events.whereType<MoveUsedEvent>().map(
+          (event) => event.attackerSide,
+        ),
         [BattleSideId.opponent, BattleSideId.player],
       );
     });
@@ -2149,9 +2167,10 @@ void main() {
         playerMoveId: 'fire_burn',
         opponentMoveId: 'fire_cure',
       );
-      final cured = lastRoundEvents(state: state, previous: previous)
-          .whereType<StatusConditionCuredEvent>()
-          .single;
+      final cured = lastRoundEvents(
+        state: state,
+        previous: previous,
+      ).whereType<StatusConditionCuredEvent>().single;
       expect(cured.cause, StatusConditionCureCause.move);
       expect(
         cured.kinds,
@@ -2189,9 +2208,10 @@ void main() {
           playerMoveId: 'fire_raise_attack',
           opponentMoveId: 'fire_raise_attack',
         );
-        final shuffled = lastRoundEvents(state: state, previous: previous)
-            .whereType<FieldEffectShuffledEvent>()
-            .single;
+        final shuffled = lastRoundEvents(
+          state: state,
+          previous: previous,
+        ).whereType<FieldEffectShuffledEvent>().single;
         expect(shuffled.statKinds.$1, isNot(shuffled.statKinds.$2));
         expect(state.field?.remainingRounds, 2 - round);
         final swapped = state.field!.swappedStatKinds!;
@@ -2261,7 +2281,11 @@ void main() {
       for (var seed = 1; seed <= 100; seed++) {
         final action = chooseCpuAction(
           state: duel(
-            playerMoveIds: ['fire_one_hit', 'fire_self_destruct', 'fire_strong'],
+            playerMoveIds: [
+              'fire_one_hit',
+              'fire_self_destruct',
+              'fire_strong',
+            ],
             opponentMoveIds: ['fire_strong'],
             randomSeed: seed,
           ),
