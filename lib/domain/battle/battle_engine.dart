@@ -186,8 +186,15 @@ List<LearnsetEntry> equippedLearnsetEntries({
   );
 }
 
+/// [move] が通常の攻撃技 (自爆・一撃必殺を除く攻撃技) か。わるあがきを選べるのはこれが 1 つも残っていない時で、
+/// 自爆と一撃必殺だけが残った時に自爆か賭けしか選べなくならないようにする (version 9 の技の枠には自爆と一撃必殺だけが残るレベル帯がある)。
+bool isOrdinaryAttackMove(Move move) =>
+    move.category == MoveCategory.attack &&
+    !(move.specialEffect?.selfDestructs ?? false) &&
+    !(move.specialEffect?.isOneHitKnockout ?? false);
+
 /// [monster] が今使える技 ([equippedLearnsetEntries] のうち PP が残っている技) を、覚える技の一覧の順で返す。
-/// 攻撃技が 1 つも無ければわるあがき ([StruggleAction]) も選べる (補助技だけが残って決着しなくなるのを防ぐため)。
+/// 通常の攻撃技 ([isOrdinaryAttackMove]) が 1 つも無ければわるあがき ([StruggleAction]) も選べる (補助技だけが残って決着しなくなるのを防ぐため)。
 List<Move> selectableMoves({
   required BattleMonster monster,
   required MasterData master,
@@ -508,6 +515,17 @@ BattleState advanceRound({
       continue;
     }
     final defenderSide = _otherSide(side: attackerSide);
+    // 先に動いた側が自爆や毒で倒れていたら、後に動く側は技を使わない (倒れた相手に当てて PP を使い、倒れたログが重ならないため)。
+    // 状態の残りのターンと毒のダメージは、行動しないターンでも進める
+    if (parties[defenderSide]!.activeMember.isFainted) {
+      _endTurn(
+        parties: parties,
+        side: attackerSide,
+        turnNumber: turnNumber,
+        events: events,
+      );
+      continue;
+    }
     final action = actions[attackerSide]!;
     final selectedMove = moveOf(action: action);
     final attackerStatusConditions = attackerBeforeTurn.state.statusConditions;
@@ -1166,7 +1184,7 @@ void _validateAction({
         throw ArgumentError('技 $moveId は PP が 0 か、まだ使えない');
       }
     case StruggleAction():
-      if (moves.any((move) => move.category == MoveCategory.attack)) {
+      if (moves.any(isOrdinaryAttackMove)) {
         throw ArgumentError('使える攻撃技があるため、わるあがきは選べない');
       }
   }

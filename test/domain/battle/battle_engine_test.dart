@@ -2099,8 +2099,8 @@ void main() {
         playerMoveId: 'fire_self_destruct',
         opponentMoveId: 'fire_strong',
       );
-      // 自分が速いため先に自爆し、相手は倒れていないので後から行動する (2 件目)
-      final moveUsed = state.events.whereType<MoveUsedEvent>().first;
+      // 自分が速いため先に自爆する。倒れた相手には後に動く側も技を使わないため、技のログは自爆の 1 件だけ
+      final moveUsed = state.events.whereType<MoveUsedEvent>().single;
       expect(moveUsed.attackerSide, BattleSideId.player);
       expect(moveUsed.selfDestructed, isTrue);
       expect(moveUsed.damage, greaterThan(0));
@@ -2110,7 +2110,12 @@ void main() {
         state.events.whereType<MonsterFaintedEvent>().map(
           (event) => event.side,
         ),
-        contains(BattleSideId.player),
+        [BattleSideId.player],
+      );
+      // 相手は技を使っていないので PP も減らない
+      expect(
+        state.opponent.activeMember.state.remainingPowerPoints['fire_strong'],
+        10,
       );
       expect(state.winner, BattleSideId.opponent);
 
@@ -2126,6 +2131,99 @@ void main() {
       expect(mutual.player.isDefeated, isTrue);
       expect(mutual.opponent.isDefeated, isTrue);
       expect(mutual.winner, BattleSideId.player);
+      expect(mutual.events.whereType<MonsterFaintedEvent>(), hasLength(2));
+    });
+
+    test('先に動いた側が毒で倒れた時も、後に動く側は倒れた相手に技を使わず、倒れたログは 1 件', () {
+      // 毒の持ち主 (自分) を最大 HP が小さく毒 4 重ねで 1 ターンで倒れる状態にする
+      final before = duel(
+        playerMoveIds: ['fire_raise_attack'],
+        opponentMoveIds: ['fire_strong'],
+      );
+      final player = before.player.activeMember;
+      final maximumHitPoints = effectiveStats(monster: player).hitPoints;
+      final poisoned = BattleState(
+        player: BattleParty(
+          members: [
+            BattleMonster(
+              definition: player.definition,
+              state: player.state.copyWith(
+                currentHitPoints: 1,
+                statusConditions: const {
+                  StatusConditionKind.poison: StatusCondition(
+                    kind: StatusConditionKind.poison,
+                    remainingTurns: null,
+                    stackCount: 1,
+                    cursedStatKind: null,
+                  ),
+                },
+              ),
+            ),
+          ],
+          activeMemberIndex: 0,
+        ),
+        opponent: before.opponent,
+        turnNumber: before.turnNumber,
+        randomState: before.randomState,
+        events: const [],
+        winner: null,
+        battleDate: before.battleDate,
+        field: null,
+      );
+      expect(
+        poisonDamage(maximumHitPoints: maximumHitPoints, stackCount: 1),
+        greaterThanOrEqualTo(1),
+      );
+      final state = play(
+        state: poisoned,
+        playerMoveId: 'fire_raise_attack',
+        opponentMoveId: 'fire_strong',
+      );
+      expect(
+        state.events.whereType<MoveUsedEvent>().map(
+          (event) => event.attackerSide,
+        ),
+        [BattleSideId.player],
+      );
+      expect(
+        state.events.whereType<StatusConditionDamageEvent>(),
+        hasLength(1),
+      );
+      expect(
+        state.events.whereType<MonsterFaintedEvent>().map(
+          (event) => event.side,
+        ),
+        [BattleSideId.player],
+      );
+      expect(state.winner, BattleSideId.opponent);
+    });
+
+    test('自爆・一撃必殺だけが残った時はわるあがきも選べる', () {
+      final state = duel(
+        playerMoveIds: ['fire_one_hit', 'fire_self_destruct'],
+        opponentMoveIds: ['fire_strong'],
+      );
+      expect(
+        () => advanceRound(
+          state: state,
+          playerAction: const StruggleAction(),
+          opponentAction: const UseMoveAction(moveId: 'fire_strong'),
+          master: testMaster,
+        ),
+        returnsNormally,
+      );
+      expect(
+        () => advanceRound(
+          state: duel(
+            playerMoveIds: ['fire_one_hit', 'fire_strong'],
+            opponentMoveIds: ['fire_strong'],
+          ),
+          playerAction: const StruggleAction(),
+          opponentAction: const UseMoveAction(moveId: 'fire_strong'),
+          master: testMaster,
+        ),
+        throwsArgumentError,
+      );
     });
 
     test('先制の技は素早さに関係なく先に出る', () {

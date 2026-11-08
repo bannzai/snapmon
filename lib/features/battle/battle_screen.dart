@@ -672,6 +672,7 @@ class _BattleScreenState extends State<BattleScreen>
               ),
           ].join('\n');
         });
+        unawaited(_haptics.statusChanged());
         await Future<void>.delayed(_messageDuration);
       case StatusConditionDamageEvent():
         final monsterName =
@@ -1423,9 +1424,7 @@ class _BattleScreenState extends State<BattleScreen>
       for (var index = 0; index < maximumEquippedMoveCount; index++)
         index < moves.length ? moves[index] : null,
     ];
-    final canStruggle = !moves.any(
-      (move) => move.category == MoveCategory.attack,
-    );
+    final canStruggle = !moves.any(isOrdinaryAttackMove);
     return Column(
       children: [
         if (widget.firstBattleBornMonster != null) ...[
