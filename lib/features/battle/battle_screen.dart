@@ -1173,7 +1173,7 @@ class _BattleScreenState extends State<BattleScreen>
         !fieldBox.hasSize) {
       return null;
     }
-    // 位置の差分ではなく変形で直す。Android・Web の既定の画面遷移は拡大縮小を伴い、遷移の途中に測ると差分だけが縮尺倍になるため
+    // 位置の差分ではなく変形で直す。祖先に拡大縮小の変形が掛かる画面遷移の途中に測ると、位置の差分だけが縮尺倍になり矩形がずれるため
     return MatrixUtils.transformRect(
       widgetBox.getTransformTo(fieldBox),
       Offset.zero & widgetBox.size,
