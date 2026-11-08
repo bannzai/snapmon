@@ -19,9 +19,7 @@ permissions:
   contents: read
   id-token: write
 
-# flutter-ci.yml の FLUTTER_VERSION と同じ版にする
 env:
-  FLUTTER_VERSION: '3.47.8'
   PROJECT_ID: snapmon-prod
 
 jobs:
@@ -34,8 +32,8 @@ jobs:
         persist-credentials: false
     - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
       with:
+        flutter-version-file: pubspec.yaml
         channel: stable
-        flutter-version: ${{ env.FLUTTER_VERSION }}
     - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
       with:
         # functions/package.json の engines.node に合わせる (firebase-tools を functions の devDependencies から使うため)
