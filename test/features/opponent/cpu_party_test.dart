@@ -52,7 +52,6 @@ void main() {
   group('chooseRandomCpuOpponent', () {
     // 見本の手持ち 3 体 (先頭の 3 体) と同じ絵の見本のモンスターは相手に出ない
     final playerParty = sampleData.monsters.take(3).toList();
-    final playerArtPaths = {for (final monster in playerParty) monster.artPath};
     final opponents = [
       for (var randomSeed = 1; randomSeed <= 100; randomSeed++)
         chooseRandomCpuOpponent(
@@ -75,7 +74,10 @@ void main() {
           for (final monster in opponent.opponentParty) monster.definition.id,
         }, hasLength(playerParty.length));
         for (final monster in opponent.opponentParty) {
-          expect(playerArtPaths.contains(monster.artPath), isFalse);
+          expect(
+            playerParty.map((playerMonster) => playerMonster.artPath),
+            isNot(contains(monster.artPath)),
+          );
           expect(monster.level, averagePartyLevel(party: playerParty));
         }
       }

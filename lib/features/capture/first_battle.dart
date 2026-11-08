@@ -1,15 +1,13 @@
 import '../../domain/master/master_data.dart';
 import '../../sample/sample_data.dart';
 import '../dex/dex_store.dart';
-import '../dex/owned_monster.dart';
 import '../opponent/battle_definitions.dart';
 import '../opponent/cpu_party.dart';
 import '../opponent/pvp_client.dart';
 
-/// 初回の導線 (手持ちが空の時に写真を選んでそのまま戦う 1 戦目) の対戦相手 (CPU トレーナー) と、その対戦に使う定義。
+/// 初回の導線 (手持ちが空の時に写真を選んでそのまま戦う 1 戦目) の対戦相手 (乱数で決めた CPU の相手) と、その対戦に使う定義。
 typedef FirstBattleOpponent = ({
-  String opponentName,
-  List<OwnedMonster> opponentParty,
+  RandomCpuOpponent cpuOpponent,
   MasterData definitions,
 });
 
@@ -22,19 +20,15 @@ Future<FirstBattleOpponent> prepareFirstBattleOpponent({
   required PvpClient pvpClient,
   required SampleData sampleData,
   required int randomSeed,
-}) async {
-  final cpuOpponent = chooseRandomCpuOpponent(
+}) async => (
+  cpuOpponent: chooseRandomCpuOpponent(
     sampleData: sampleData,
     playerParty: dexStore.party,
     randomSeed: randomSeed,
-  );
-  return (
-    opponentName: cpuOpponent.opponentName,
-    opponentParty: cpuOpponent.opponentParty,
-    definitions: await prepareBattleDefinitions(
-      dexStore: dexStore,
-      pvpClient: pvpClient,
-      pvpOpponentMonsters: null,
-    ),
-  );
-}
+  ),
+  definitions: await prepareBattleDefinitions(
+    dexStore: dexStore,
+    pvpClient: pvpClient,
+    pvpOpponentMonsters: null,
+  ),
+);

@@ -40,10 +40,12 @@ RandomCpuOpponent chooseRandomCpuOpponent({
   required int randomSeed,
 }) {
   final random = DeterministicRandom(seed: randomSeed);
-  final playerArtPaths = {for (final monster in playerParty) ?monster.artPath};
   final candidates = [
     for (final monster in sampleData.monsters)
-      if (!playerArtPaths.contains(monster.artPath)) monster,
+      if (!playerParty.any(
+        (playerMonster) => playerMonster.artPath == monster.artPath,
+      ))
+        monster,
   ];
   return (
     opponentName:

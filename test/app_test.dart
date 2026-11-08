@@ -1590,10 +1590,13 @@ void main() {
         .widget<BattleScreen>(find.byType(BattleScreen))
         .opponentParty;
     expect(opponentParty, hasLength(partyBefore.length));
-    for (final monster in opponentParty) {
+    for (final opponentMonster in opponentParty) {
       expect(
-        monster.level,
-        partyBefore.fold<int>(0, (sum, monster) => sum + monster.level) ~/
+        opponentMonster.level,
+        partyBefore.fold<int>(
+              0,
+              (sum, playerMonster) => sum + playerMonster.level,
+            ) ~/
             partyBefore.length,
       );
     }
