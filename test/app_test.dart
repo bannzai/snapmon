@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -384,15 +385,22 @@ void main() {
         isDeveloperMenuEnabled: false,
       );
       expect(audioCalls.playedBackgroundMusicAssetPaths, isEmpty);
-      // ボタンではない場所 (見出し) を押しても、最初の操作として BGM が始まる
-      await tester.tap(find.text('snapmon'));
+      // タッチは指を置いただけではブラウザが操作に数えないため、離すまで流さない
+      final gesture = await tester.startGesture(
+        tester.getCenter(find.text('snapmon')),
+        kind: PointerDeviceKind.touch,
+      );
+      await tester.pump();
+      expect(audioCalls.playedBackgroundMusicAssetPaths, isEmpty);
+      // ボタンではない場所 (見出し) から指を離しても、最初の操作として BGM が始まる
+      await gesture.up();
       await tester.pumpAndSettle();
       expect(audioCalls.playedBackgroundMusicAssetPaths, [
         BackgroundMusic.home.assetPath,
       ]);
     });
 
-    testWidgets('Web のように最初の操作を待つ時、キーボードのキーを押しただけでも BGM が始まる', (tester) async {
+    testWidgets('Web のように最初の操作を待つ時、マウスは押した時点で BGM が始まる', (tester) async {
       audioWaitsForUserInteraction = true;
       await pumpApp(
         tester: tester,
@@ -400,6 +408,34 @@ void main() {
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
       );
+      final gesture = await tester.startGesture(
+        tester.getCenter(find.text('snapmon')),
+        kind: PointerDeviceKind.mouse,
+      );
+      await tester.pumpAndSettle();
+      expect(audioCalls.playedBackgroundMusicAssetPaths, [
+        BackgroundMusic.home.assetPath,
+      ]);
+      await gesture.up();
+      await tester.pumpAndSettle();
+      expect(audioCalls.playedBackgroundMusicAssetPaths, [
+        BackgroundMusic.home.assetPath,
+      ]);
+    });
+
+    testWidgets('Web のように最初の操作を待つ時、キーボードのキーを押しただけでも BGM が始まる。Esc は操作に数えない', (
+      tester,
+    ) async {
+      audioWaitsForUserInteraction = true;
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: false,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      expect(audioCalls.playedBackgroundMusicAssetPaths, isEmpty);
+      await tester.sendKeyEvent(LogicalKeyboardKey.escape);
+      await tester.pumpAndSettle();
       expect(audioCalls.playedBackgroundMusicAssetPaths, isEmpty);
       await tester.sendKeyEvent(LogicalKeyboardKey.tab);
       await tester.pumpAndSettle();

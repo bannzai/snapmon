@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -106,13 +107,28 @@ class _SnapmonAppState extends State<SnapmonApp> {
   }
 
   /// キーボードだけで操作する時 (Web を Tab・Enter・Space で操作する時) も、最初のキーを BGM に伝える。
-  /// ブラウザはキーの押下もページの操作に数える。フォーカスに依らず全てのキーを受けるため、Focus ではなくこちらで受ける。
-  /// キーは消費しない (false) ので、画面の操作はそのまま届く。
+  /// ブラウザはキーの押下もページの操作に数えるが、Esc は数えない (HTML 仕様の activation triggering input event。
+  /// https://html.spec.whatwg.org/multipage/interaction.html#tracking-user-activation )。Esc で先に伝えると、
+  /// ブラウザが再生を許す前に流そうとして待ち行列が止まるため除く。
+  /// フォーカスに依らず全てのキーを受けるため、Focus ではなくこちらで受ける。キーは消費しない (false) ので、画面の操作はそのまま届く。
   bool _onHardwareKeyEvent(KeyEvent event) {
-    if (event is KeyDownEvent) {
+    if (event is KeyDownEvent &&
+        event.logicalKey != LogicalKeyboardKey.escape) {
       unawaited(widget.gameAudio.notifyUserInteraction());
     }
     return false;
+  }
+
+  /// ポインターの操作を最初の操作として BGM に伝える。ブラウザが操作に数えるのは、マウスは押した時 (pointerdown)、
+  /// タッチ・ペンは離した時 (pointerup) で、タッチの pointerdown は数えない (上の HTML 仕様)。
+  /// タッチで押した時点で伝えると、ブラウザが再生を許す前に流そうとして待ち行列が止まるため、種類で分ける。
+  void _notifyPointerInteraction({
+    required PointerEvent event,
+    required bool isDown,
+  }) {
+    if ((event.kind == PointerDeviceKind.mouse) == isDown) {
+      unawaited(widget.gameAudio.notifyUserInteraction());
+    }
   }
 
   /// ログインを終えたら、次にログインした時に下タブへ飛ばずタイトルから始めるようにする。
@@ -133,8 +149,10 @@ class _SnapmonAppState extends State<SnapmonApp> {
       gameAudio: widget.gameAudio,
       // Web はユーザーが一度ページを操作するまで音を出せないため、最初のタップ・クリックを BGM に伝える (キーは _onHardwareKeyEvent)
       child: Listener(
-        onPointerDown: (_) =>
-            unawaited(widget.gameAudio.notifyUserInteraction()),
+        onPointerDown: (event) =>
+            _notifyPointerInteraction(event: event, isDown: true),
+        onPointerUp: (event) =>
+            _notifyPointerInteraction(event: event, isDown: false),
         child: constrainToAppContentWidth(
           child: child ?? const SizedBox.shrink(),
         ),
