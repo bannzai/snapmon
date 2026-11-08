@@ -12,7 +12,7 @@ purchases_dart_defines = --dart-define=REVENUECAT_PUBLIC_API_KEY_IOS=$(REVENUECA
 
 # プロジェクト固有の simulator (sim-boot で起動) へ flutter run する。SIMULATOR_UDID=<UDID> で対象を指定できる
 .PHONY: ios
-ios:
+ios: flutter-version-check
 	@set -e; \
 	simulator_udid="$(SIMULATOR_UDID)"; \
 	[ -n "$$simulator_udid" ] || { echo "Error: sim-boot で Simulator を解決できません (sim-boot が PATH にあるか確認するか、SIMULATOR_UDID=<UDID> を指定してください)" >&2; exit 1; }; \
@@ -22,7 +22,7 @@ ios:
 # DEVICE=<デバイス ID> で対象を指定でき、未指定なら flutter devices から実機 (iOS で emulator でなく、この環境で使える isSupported のもの) を自動解決する。
 # テストは scripts/test/test-makefile-targets.sh (flutter を差し替えて選択・失敗・引数を確かめる)
 .PHONY: ios-device
-ios-device:
+ios-device: flutter-version-check
 	@device="$(DEVICE)"; \
 	if [ -z "$$device" ]; then \
 		device=$$(flutter devices --machine | jq -r '[.[] | select((.targetPlatform | startswith("ios")) and .emulator == false and .isSupported == true)][0].id // empty'); \
@@ -42,13 +42,13 @@ web_debug_dart_defines = $(web_dart_defines) --dart-define=FIREBASE_APPCHECK_DEB
 # Web 版を手元の Chrome で起動する (flutter run が開発サーバーを立てて Chrome を開く。r でホットリロード、q で終了)。
 # flutter config の enable-web が false の環境でも動くよう、先に有効にする (設定は ~/.flutter に残る)
 .PHONY: web
-web:
+web: flutter-version-check
 	flutter config --enable-web >/dev/null
 	flutter run --debug -d chrome $(web_debug_dart_defines)
 
 # 起動中の Android Emulator へ flutter run する。DEVICE=<デバイス ID> で対象を指定でき、未指定なら flutter devices から emulator を自動解決する
 .PHONY: android
-android:
+android: flutter-version-check
 	@device="$(DEVICE)"; \
 	if [ -z "$$device" ]; then \
 		device=$$(flutter devices --machine | jq -r '[.[] | select((.targetPlatform | startswith("android")) and .emulator == true)][0].id // empty'); \
@@ -58,7 +58,7 @@ android:
 
 # Web 版のビルドだけを行う (成果物は build/web)。flutter config の enable-web が false の環境では失敗する
 .PHONY: build-web
-build-web:
+build-web: flutter-version-check
 	flutter build web --release $(web_dart_defines)
 
 # CI (.github/workflows/flutter-ci.yml) の lint・test と同じ検査をまとめて実行する
@@ -99,3 +99,9 @@ metadata-check:
 .PHONY: clean
 clean:
 	flutter clean
+
+# 手元の Flutter SDK の版が pubspec.yaml の environment: flutter: (CI も flutter-version-file で同じ値を読む) と
+# 一致するかを検査し、違えば揃えるコマンドを示して止まる (bannzai/castle の flutter-sdk-update skill が追加)
+.PHONY: flutter-version-check
+flutter-version-check:
+	@bash scripts/check-flutter-version.sh

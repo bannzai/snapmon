@@ -186,6 +186,48 @@ List<LearnsetEntry> equippedLearnsetEntries({
   );
 }
 
+/// [learnset] のモンスターが [previousLevel] から [newLevel] に上がった時の技の枠 ([equippedLearnsetEntries]) の変化を返す。
+/// `learnedEntries` は新しく枠に入った技、`forgottenEntries` は入れ替わりで枠から外れた技で、どちらも覚える技の一覧の順。
+/// 枠が変わらなければどちらも空 (バトルの後に覚えた技を知らせるため。#247)。
+({List<LearnsetEntry> learnedEntries, List<LearnsetEntry> forgottenEntries})
+equippedLearnsetChanges({
+  required List<LearnsetEntry> learnset,
+  required int previousLevel,
+  required int newLevel,
+}) {
+  final previousEntries = equippedLearnsetEntries(
+    learnset: learnset,
+    level: previousLevel,
+  );
+  final newEntries = equippedLearnsetEntries(
+    learnset: learnset,
+    level: newLevel,
+  );
+  return (
+    learnedEntries: [
+      for (final learnsetEntry in newEntries)
+        if (!previousEntries.contains(learnsetEntry)) learnsetEntry,
+    ],
+    forgottenEntries: [
+      for (final learnsetEntry in previousEntries)
+        if (!newEntries.contains(learnsetEntry)) learnsetEntry,
+    ],
+  );
+}
+
+/// [learnset] のうち [level] より後に開放される技の、最も低い開放レベル。もう覚える技が無ければ null。
+int? nextLearnsetUnlockLevel({
+  required List<LearnsetEntry> learnset,
+  required int level,
+}) => learnset
+    .map((learnsetEntry) => learnsetEntry.unlockLevel)
+    .where((unlockLevel) => unlockLevel > level)
+    .fold<int?>(
+      null,
+      (lowest, unlockLevel) =>
+          lowest == null ? unlockLevel : math.min(lowest, unlockLevel),
+    );
+
 /// [move] が通常の攻撃技 (自爆・一撃必殺を除く攻撃技) か。わるあがきを選べるのはこれが 1 つも残っていない時で、
 /// 自爆と一撃必殺だけが残った時に自爆か賭けしか選べなくならないようにする (version 9 の技の枠には自爆と一撃必殺だけが残るレベル帯がある)。
 bool isOrdinaryAttackMove(Move move) =>

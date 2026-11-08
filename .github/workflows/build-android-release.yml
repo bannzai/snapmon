@@ -17,9 +17,7 @@ on:
 permissions:
   contents: read
 
-# flutter-ci.yml と同じ版にする
 env:
-  FLUTTER_VERSION: '3.47.8'
   FIREBASE_OPTIONS_DART_B64: ${{ secrets.FIREBASE_OPTIONS_DART_B64 }}
   GOOGLE_SERVICES_JSON_B64: ${{ secrets.GOOGLE_SERVICES_JSON_B64 }}
 
@@ -36,8 +34,8 @@ jobs:
         java-version: '17'
     - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
       with:
+        flutter-version-file: pubspec.yaml
         channel: stable
-        flutter-version: ${{ env.FLUTTER_VERSION }}
     - run: scripts/restore-firebase-config.sh dart android
     - name: Restore signing files
       env:

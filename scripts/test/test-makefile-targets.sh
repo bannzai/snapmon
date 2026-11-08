@@ -18,13 +18,24 @@ pass() {
   echo "PASS: $1"
 }
 
-# 引数: 作業ディレクトリ。Makefile と、引数を $FLUTTER_ARGS_FILE に追記し devices --machine に $FLUTTER_DEVICES_JSON を返す flutter の差し替えを置く
+# 引数: 作業ディレクトリ。Makefile と、引数を $FLUTTER_ARGS_FILE に追記し devices --machine に $FLUTTER_DEVICES_JSON を返す flutter の差し替えを置く。
+# flutter-version-check (各 target の前提) が通るよう、pubspec.yaml と検査の script も置き、--version --machine には
+# pubspec の版を返す (この呼び出しは引数の記録に含めない)
 prepare_workspace() {
   local work=$1
-  mkdir -p "$work/bin"
+  mkdir -p "$work/bin" "$work/scripts"
   cp "$repo_root/Makefile" "$work/Makefile"
+  # 版の検査が読む pubspec は、リポジトリの版を読み直さずに済むよう、差し替えの flutter と同じ固定の版で置く
+  printf 'name: snapmon\nenvironment:\n  flutter: 9.9.9\n' > "$work/pubspec.yaml"
+  cp "$repo_root/scripts/check-flutter-version.sh" "$work/scripts/check-flutter-version.sh"
   cat > "$work/bin/flutter" <<'EOF'
 #!/usr/bin/env bash
+if [ "$1 $2" = "--version --machine" ]; then
+  printf '{"frameworkVersion": "9.9.9"}\n'
+  exit 0
+fi
+EOF
+  cat >> "$work/bin/flutter" <<'EOF'
 printf '%s\n' "$*" >> "$FLUTTER_ARGS_FILE"
 if [ "$1 $2" = "devices --machine" ]; then
   printf '%s' "$FLUTTER_DEVICES_JSON"
