@@ -37,8 +37,9 @@ enum SoundEffect {
   final String assetPath;
 }
 
-/// BGM の音量。効果音とログの文言を BGM より目立たせるため、効果音 (1.0) より下げた。
-const double backgroundMusicVolume = 0.5;
+/// BGM の音量。効果音とログの文言を BGM より目立たせるため、効果音 (1.0) より下げる。
+/// 0.5 では bannzai が遊んで「デカすぎる。もっと薄くして」(2026-11-08) だったため 0.2 にした。
+const double backgroundMusicVolume = 0.2;
 
 /// BGM・効果音の再生と、設定画面の「BGM」「効果音」のオン・オフ。
 /// 画面を音声のプラグイン (flame_audio) と端末の設定の保存 (shared_preferences) から切り離してテストするため、実体は main.dart から渡す
