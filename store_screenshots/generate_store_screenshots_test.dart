@@ -366,7 +366,7 @@ Future<void> _writeScreenshot({
           firstBattleMonsterIsNewlyBorn: false,
           // 対戦タブ (_homeShell) の表示名と同じにする
           playerProfile: (displayName: 'snap', iconPath: null),
-          opponentDisplayName: sampleData.cpuTrainers.first.name,
+          opponentDisplayName: sampleData.cpuTrainerNames.first,
         ),
         StoreScreenshotPage.opponent => _homeShell(
           sampleData: sampleData,
@@ -760,6 +760,7 @@ class _DeviceFrame extends StatelessWidget {
                           calls: RecordedAudioCalls(),
                           isBackgroundMusicEnabled: false,
                           isSoundEffectsEnabled: false,
+                          waitsForUserInteractionBeforeBackgroundMusic: false,
                         ),
                         child: MaterialApp(
                           debugShowCheckedModeBanner: false,

@@ -12,6 +12,7 @@ void main() {
       calls: calls,
       isBackgroundMusicEnabled: true,
       isSoundEffectsEnabled: true,
+      waitsForUserInteractionBeforeBackgroundMusic: false,
     );
     await gameAudio.playBackgroundMusic(music: BackgroundMusic.home);
     await gameAudio.playBackgroundMusic(music: BackgroundMusic.home);
@@ -20,6 +21,8 @@ void main() {
       BackgroundMusic.home.assetPath,
       BackgroundMusic.battle.assetPath,
     ]);
+    // BGM は効果音 (1.0) より薄く流す (値の根拠は backgroundMusicVolume のコメント)
+    expect(calls.playedBackgroundMusicVolumes, [0.2, 0.2]);
   });
 
   test('BGM を止めた後に同じ曲を求めると流し直す', () async {
@@ -28,6 +31,7 @@ void main() {
       calls: calls,
       isBackgroundMusicEnabled: true,
       isSoundEffectsEnabled: true,
+      waitsForUserInteractionBeforeBackgroundMusic: false,
     );
     await gameAudio.playBackgroundMusic(music: BackgroundMusic.battle);
     await gameAudio.stopBackgroundMusic();
@@ -45,6 +49,7 @@ void main() {
       calls: calls,
       isBackgroundMusicEnabled: false,
       isSoundEffectsEnabled: true,
+      waitsForUserInteractionBeforeBackgroundMusic: false,
     );
     await gameAudio.playBackgroundMusic(music: BackgroundMusic.home);
     await gameAudio.playBackgroundMusic(music: BackgroundMusic.battle);
@@ -58,6 +63,8 @@ void main() {
     expect(calls.playedBackgroundMusicAssetPaths, [
       BackgroundMusic.battle.assetPath,
     ]);
+    // オンに戻した時の再生も、通常の再生と同じ音量で流す
+    expect(calls.playedBackgroundMusicVolumes, [0.2]);
     expect(calls.savedSettings, [
       (key: AudioSettingKey.backgroundMusic, value: true),
     ]);
@@ -69,6 +76,7 @@ void main() {
       calls: calls,
       isBackgroundMusicEnabled: true,
       isSoundEffectsEnabled: true,
+      waitsForUserInteractionBeforeBackgroundMusic: false,
     );
     await gameAudio.playBackgroundMusic(music: BackgroundMusic.home);
     await gameAudio.setBackgroundMusicEnabled(enabled: false);
@@ -88,6 +96,7 @@ void main() {
       calls: calls,
       isBackgroundMusicEnabled: true,
       isSoundEffectsEnabled: true,
+      waitsForUserInteractionBeforeBackgroundMusic: false,
     );
     await gameAudio.playSoundEffect(effect: SoundEffect.hit);
     await gameAudio.setSoundEffectsEnabled(enabled: false);
@@ -114,6 +123,7 @@ void main() {
           savedValues.add(value),
       isBackgroundMusicEnabled: true,
       isSoundEffectsEnabled: true,
+      waitsForUserInteractionBeforeBackgroundMusic: false,
     );
     // 再生の完了は待ち行列が後ろの操作より先に待つため、ここでは待たない
     unawaited(gameAudio.playBackgroundMusic(music: BackgroundMusic.home));
@@ -134,6 +144,82 @@ void main() {
     expect(gameAudio.isBackgroundMusicEnabled, isFalse);
   });
 
+  test('Web では最初の操作まで BGM を流さず、操作の後に最後に求められた曲を流す。2 回目の操作では流し直さない', () async {
+    final calls = RecordedAudioCalls();
+    final gameAudio = GameAudio(
+      playBackgroundMusicAsset: ({required assetPath, required volume}) async =>
+          calls.playedBackgroundMusicAssetPaths.add(assetPath),
+      stopBackgroundMusicAsset: () async => calls.stopBackgroundMusicCount += 1,
+      playSoundEffectAsset: ({required assetPath}) async {},
+      saveSetting: ({required key, required value}) async {},
+      isBackgroundMusicEnabled: true,
+      isSoundEffectsEnabled: true,
+      waitsForUserInteractionBeforeBackgroundMusic: true,
+    );
+    await gameAudio.playBackgroundMusic(music: BackgroundMusic.home);
+    await gameAudio.playBackgroundMusic(music: BackgroundMusic.battle);
+    expect(calls.playedBackgroundMusicAssetPaths, isEmpty);
+
+    await gameAudio.notifyUserInteraction();
+    expect(calls.playedBackgroundMusicAssetPaths, [
+      BackgroundMusic.battle.assetPath,
+    ]);
+    await gameAudio.notifyUserInteraction();
+    expect(calls.playedBackgroundMusicAssetPaths, [
+      BackgroundMusic.battle.assetPath,
+    ]);
+    // 操作の後に求めた曲は待たずに流す
+    await gameAudio.playBackgroundMusic(music: BackgroundMusic.home);
+    expect(calls.playedBackgroundMusicAssetPaths, [
+      BackgroundMusic.battle.assetPath,
+      BackgroundMusic.home.assetPath,
+    ]);
+  });
+
+  test('Web で最初の操作の前に BGM をオンにしても流さず、操作の後に流す', () async {
+    final calls = RecordedAudioCalls();
+    final gameAudio = GameAudio(
+      playBackgroundMusicAsset: ({required assetPath, required volume}) async =>
+          calls.playedBackgroundMusicAssetPaths.add(assetPath),
+      stopBackgroundMusicAsset: () async => calls.stopBackgroundMusicCount += 1,
+      playSoundEffectAsset: ({required assetPath}) async {},
+      saveSetting: ({required key, required value}) async =>
+          calls.savedSettings.add((key: key, value: value)),
+      isBackgroundMusicEnabled: false,
+      isSoundEffectsEnabled: true,
+      waitsForUserInteractionBeforeBackgroundMusic: true,
+    );
+    await gameAudio.playBackgroundMusic(music: BackgroundMusic.home);
+    await gameAudio.setBackgroundMusicEnabled(enabled: true);
+    expect(calls.playedBackgroundMusicAssetPaths, isEmpty);
+    expect(calls.savedSettings, [
+      (key: AudioSettingKey.backgroundMusic, value: true),
+    ]);
+
+    await gameAudio.notifyUserInteraction();
+    expect(calls.playedBackgroundMusicAssetPaths, [
+      BackgroundMusic.home.assetPath,
+    ]);
+  });
+
+  test('操作を待たない (iOS・Android) 時は、操作の通知が無くても求められた BGM をすぐ流す', () async {
+    final calls = RecordedAudioCalls();
+    final gameAudio = fakeGameAudio(
+      calls: calls,
+      isBackgroundMusicEnabled: true,
+      isSoundEffectsEnabled: true,
+      waitsForUserInteractionBeforeBackgroundMusic: false,
+    );
+    await gameAudio.playBackgroundMusic(music: BackgroundMusic.home);
+    expect(calls.playedBackgroundMusicAssetPaths, [
+      BackgroundMusic.home.assetPath,
+    ]);
+    await gameAudio.notifyUserInteraction();
+    expect(calls.playedBackgroundMusicAssetPaths, [
+      BackgroundMusic.home.assetPath,
+    ]);
+  });
+
   test('再生に失敗しても throw せず、次に同じ曲を求めた時に流し直す', () async {
     var playCount = 0;
     final gameAudio = GameAudio(
@@ -149,6 +235,7 @@ void main() {
       saveSetting: ({required key, required value}) async {},
       isBackgroundMusicEnabled: true,
       isSoundEffectsEnabled: true,
+      waitsForUserInteractionBeforeBackgroundMusic: false,
     );
     await gameAudio.playBackgroundMusic(music: BackgroundMusic.home);
     await gameAudio.playBackgroundMusic(music: BackgroundMusic.home);

@@ -5,6 +5,9 @@ class RecordedAudioCalls {
   /// 流し始めた BGM のファイルのパス (呼ばれた順)。
   final List<String> playedBackgroundMusicAssetPaths = [];
 
+  /// 流し始めた BGM に渡した音量 (呼ばれた順。[playedBackgroundMusicAssetPaths] と同じ並び)。
+  final List<double> playedBackgroundMusicVolumes = [];
+
   /// BGM を止めた回数。
   int stopBackgroundMusicCount = 0;
 
@@ -17,13 +20,16 @@ class RecordedAudioCalls {
 
 /// 音声のプラグインと端末の設定を呼ばずに [calls] へ呼び出しを残す [GameAudio] を返す。
 /// [isBackgroundMusicEnabled]・[isSoundEffectsEnabled] は起動時に端末から読んだ設定の代わり。
+/// [waitsForUserInteractionBeforeBackgroundMusic] は Web の最初の操作を待つ振る舞い (main.dart の `kIsWeb`) の代わり。
 GameAudio fakeGameAudio({
   required RecordedAudioCalls calls,
   required bool isBackgroundMusicEnabled,
   required bool isSoundEffectsEnabled,
+  required bool waitsForUserInteractionBeforeBackgroundMusic,
 }) => GameAudio(
   playBackgroundMusicAsset: ({required assetPath, required volume}) async {
     calls.playedBackgroundMusicAssetPaths.add(assetPath);
+    calls.playedBackgroundMusicVolumes.add(volume);
   },
   stopBackgroundMusicAsset: () async {
     calls.stopBackgroundMusicCount += 1;
@@ -36,4 +42,6 @@ GameAudio fakeGameAudio({
   },
   isBackgroundMusicEnabled: isBackgroundMusicEnabled,
   isSoundEffectsEnabled: isSoundEffectsEnabled,
+  waitsForUserInteractionBeforeBackgroundMusic:
+      waitsForUserInteractionBeforeBackgroundMusic,
 );

@@ -414,7 +414,7 @@ void main() {
           game: game,
           spriteSheetsByEffectId: {
             ...moveEffectSpriteSheetsByEffectId,
-            // master の 24 属性はすべてシートを持つため、master に無い ID で読めないシートを作る
+            // master の属性はすべてシートを持つため、master に無い ID で読めないシートを作る
             'not_bundled_particle': (
               assetName: 'not-bundled',
               visibleCenterAnchor: Anchor.center,

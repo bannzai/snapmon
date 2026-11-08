@@ -51,7 +51,7 @@ abstract final class SnapmonColors {
   /// 絵や写真の上に重ねる文字の下地 (地の色の 85%)。
   static const Color scrim = Color(0xD915121C);
 
-  /// 属性の札の色。仮の絵の主色にも使う。master の版 6 の 24 属性 (documents/game-rules.md「属性」) で、
+  /// 属性の札の色。仮の絵の主色にも使う。master の版 8 の 23 属性 (documents/game-rules.md「属性」) で、
   /// master の `effects` の `colorHex` と同じ値。master に無い属性 (その場で作った定義) は [elementFallback] で描く。
   static const Map<String, Color> elementTypes = {
     'fire': Color(0xFFE8734A),
@@ -76,7 +76,6 @@ abstract final class SnapmonColors {
     'sweets': Color(0xFFE8A0D8),
     'ghost': Color(0xFF9FA8DA),
     'dragon': Color(0xFFC62828),
-    'cloth': Color(0xFFC77DB5),
     'paper': Color(0xFFC9B79A),
   };
 

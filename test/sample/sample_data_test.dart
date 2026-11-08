@@ -38,6 +38,8 @@ void main() {
     }
     // 相性表が無いと倍率が常に 1 になり、バトルで属性の相性が効かないため、master と同じ表を持つ
     expect(sampleDefinitions['typeChart'], masterJson['typeChart']);
+    // ステータスの段階が無いとカードのステータスの目盛り (種族値の上限) を描けないため、master と同じ段階を持つ
+    expect(sampleDefinitions['statGrades'], masterJson['statGrades']);
   });
 
   test('見本のモンスターの属性・技はすべて見本の定義にある', () {
@@ -88,25 +90,29 @@ void main() {
     }
   });
 
-  test('CPU トレーナーは 4 人以上いて、名前に CPU を含み、手持ちの絵が互いに重ならない', () {
-    expect(sampleData.cpuTrainers.length, greaterThanOrEqualTo(4));
-    final artPaths = <String>[];
-    for (final cpuTrainer in sampleData.cpuTrainers) {
-      expect(cpuTrainer.name, startsWith('CPU '));
-      expect(
-        cpuTrainer.monsterIds.length,
-        inInclusiveRange(1, maximumPartySize),
-      );
-      for (final monsterId in cpuTrainer.monsterIds) {
-        artPaths.add(sampleData.monsterById(monsterId: monsterId).artPath!);
-      }
-    }
-    expect(artPaths.toSet(), hasLength(artPaths.length));
+  test('CPU トレーナーの名前は 1 つ以上あり、重複せず、CPU で始まる', () {
+    expect(sampleData.cpuTrainerNames, isNotEmpty);
     expect(
-      sampleData.cpuTrainers.map((cpuTrainer) => cpuTrainer.id).toSet(),
-      hasLength(sampleData.cpuTrainers.length),
+      sampleData.cpuTrainerNames.toSet(),
+      hasLength(sampleData.cpuTrainerNames.length),
     );
+    for (final cpuTrainerName in sampleData.cpuTrainerNames) {
+      expect(cpuTrainerName, startsWith('CPU '));
+    }
   });
+
+  test(
+    '見本のモンスターは手持ちの上限の 2 倍以上いて、絵が互いに重ならない (自分の手持ちと同じ絵を除いても CPU の手持ちを組めるため)',
+    () {
+      expect(
+        sampleData.monsters.length,
+        greaterThanOrEqualTo(maximumPartySize * 2),
+      );
+      expect({
+        for (final monster in sampleData.monsters) monster.artPath,
+      }, hasLength(sampleData.monsters.length));
+    },
+  );
 
   test('見本の対戦相手は見本のモンスターを 1〜3 体持つ', () {
     expect(sampleData.opponents, isNotEmpty);

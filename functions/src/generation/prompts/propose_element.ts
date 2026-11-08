@@ -8,6 +8,7 @@ export const PROPOSE_ELEMENT_SYSTEM_PROMPT = `あなたは、写真に写った�
 渡される被写体の説明は、既にある属性のどれにも当てはまりませんでした。この被写体のための新しい属性を 1 つと、その属性の技を 3 つ提案し、JSON で返してください。
 
 - element.displayName: 属性の名前。漢字かカタカナで 1〜6 文字。既にある属性 (existingElementNames) と同じ意味の名前にしない
+- 布・糸・毛糸・綿・繊維のような布地の素材でまとめる属性は作らない (ゲームから外した属性のため)
 - element.description: その属性に当てはまる物の特徴を 1 文で。どんな素材・性質・使い道の物がこの属性かが分かるように書く
 - element.colorHex: 属性を表す色 (#RRGGBB)
 - moves: 弱い順に 3 つ。displayName は 2〜10 文字の技の名前。power と powerPoints は次の範囲から選ぶ
@@ -105,6 +106,17 @@ export const PROPOSED_MOVE_TIERS = [
   { power: { minimum: 90, maximum: 120 }, powerPoints: { minimum: 5, maximum: 10 }, learnableLevelMinimum: 100, learnableLevelMaximum: 999 },
 ] as const;
 
+/**
+ * master の版 8 で外した「布」(#226) と同じ受け皿になる属性の名前・説明に出る語。布だけが素材の物 (無地のくつした等) は
+ * master のどの属性にも当てはまらずこの提案に来るため、ここで止めないと、その場で作った布の属性が以後の判定の候補に入り
+ * (pipeline.ts の判定は master とその場で作った属性の両方を問う)、外した属性が戻る。当たった提案は使わず既存の属性に寄せる。
+ * 語の範囲は版 7 の「布」の判定の基準 (布・糸・毛糸・フェルト・革・綿が主な素材の物) に揃える。
+ * 「布」「糸」「綿」「革」は前後に漢字が無い単独の字だけを当てる。漢字と続く語は昆布・財布・布陣・湿布・綿菓子・皮革のように布地と
+ * 関係の無い語が多く、除外する語を並べても漏れるため、布地を指す熟語 (毛布・布地・布製・綿布・毛糸) だけを名指しで当てる。
+ * ひらがなの「ぬの」は「いぬの」の途中に当たるため入れない。
+ */
+const REMOVED_CLOTH_ELEMENT_PATTERN = /(?<!\p{Script=Han})[布糸綿革](?!\p{Script=Han})|毛布|布地|布製|綿布|毛糸|ヌノ|繊維|織物|ファブリック|フェルト|(?<![\p{Script=Katakana}ー])ニット/u;
+
 /** 提案の値が範囲内かを検査し、範囲外なら理由を返す。範囲内なら undefined。 */
 export function proposalRangeViolation(output: ProposeElementOutput): string | undefined {
   if (output.moves.length !== PROPOSED_MOVE_TIERS.length) {
@@ -113,6 +125,9 @@ export function proposalRangeViolation(output: ProposeElementOutput): string | u
   const nameLength = [...output.element.displayName].length;
   if (nameLength < 1 || nameLength > 6) {
     return `属性の名前の長さが範囲外です: ${output.element.displayName}`;
+  }
+  if (REMOVED_CLOTH_ELEMENT_PATTERN.test(`${output.element.displayName}\n${output.element.description}`)) {
+    return `master から外した布の属性に当たります: ${output.element.displayName}`;
   }
   if (!/^#[0-9A-Fa-f]{6}$/.test(output.element.colorHex)) {
     return `属性の色の形式が違います: ${output.element.colorHex}`;

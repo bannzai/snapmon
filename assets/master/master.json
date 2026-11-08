@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "elementTypes": [
     {
       "id": "fire",
@@ -112,11 +112,6 @@
       "description": "恐竜・ドラゴン・トカゲ・ヘビ・カメ・ワニなどの爬虫類と、その形や絵柄の物 (恐竜のおもちゃ・恐竜の絵)"
     },
     {
-      "id": "cloth",
-      "displayName": "布",
-      "description": "布・糸・毛糸・フェルト・革・綿が主な素材の物 (服・タオル・毛布・かばん・靴下・ぬいぐるみの生地)"
-    },
-    {
       "id": "paper",
       "displayName": "紙",
       "description": "紙・段ボールが主な素材の物 (本・ノート・手紙・カード・箱・折り紙・紙袋)"
@@ -146,7 +141,6 @@
       "sweets": 2,
       "ghost": 1,
       "dragon": 0.5,
-      "cloth": 1,
       "paper": 2
     },
     "water": {
@@ -172,7 +166,6 @@
       "sweets": 1,
       "ghost": 1,
       "dragon": 1,
-      "cloth": 1,
       "paper": 1
     },
     "grass": {
@@ -198,7 +191,6 @@
       "sweets": 1,
       "ghost": 1,
       "dragon": 1,
-      "cloth": 1,
       "paper": 1
     },
     "thunder": {
@@ -224,7 +216,6 @@
       "sweets": 1,
       "ghost": 1,
       "dragon": 1,
-      "cloth": 1,
       "paper": 1
     },
     "earth": {
@@ -250,7 +241,6 @@
       "sweets": 1,
       "ghost": 1,
       "dragon": 1,
-      "cloth": 1,
       "paper": 1
     },
     "steel": {
@@ -276,7 +266,6 @@
       "sweets": 1,
       "ghost": 1,
       "dragon": 2,
-      "cloth": 1,
       "paper": 1
     },
     "wood": {
@@ -302,13 +291,12 @@
       "sweets": 1,
       "ghost": 1,
       "dragon": 1,
-      "cloth": 1,
       "paper": 1
     },
     "light": {
       "fire": 1,
       "water": 1,
-      "grass": 1,
+      "grass": 0.5,
       "thunder": 1,
       "earth": 1,
       "steel": 0.5,
@@ -328,7 +316,6 @@
       "sweets": 1,
       "ghost": 2,
       "dragon": 1,
-      "cloth": 0.5,
       "paper": 0.5
     },
     "dark": {
@@ -354,7 +341,6 @@
       "sweets": 1,
       "ghost": 1,
       "dragon": 1,
-      "cloth": 1,
       "paper": 1
     },
     "poison": {
@@ -380,7 +366,6 @@
       "sweets": 1,
       "ghost": 0.5,
       "dragon": 1,
-      "cloth": 1,
       "paper": 1
     },
     "sound": {
@@ -388,7 +373,7 @@
       "water": 1,
       "grass": 1,
       "thunder": 1,
-      "earth": 1,
+      "earth": 0.5,
       "steel": 2,
       "wood": 1,
       "light": 1,
@@ -406,7 +391,6 @@
       "sweets": 1,
       "ghost": 2,
       "dragon": 1,
-      "cloth": 0.5,
       "paper": 0.5
     },
     "beast": {
@@ -432,7 +416,6 @@
       "sweets": 2,
       "ghost": 0.5,
       "dragon": 0.5,
-      "cloth": 1,
       "paper": 1
     },
     "bug": {
@@ -458,7 +441,6 @@
       "sweets": 1,
       "ghost": 1,
       "dragon": 1,
-      "cloth": 2,
       "paper": 2
     },
     "bird": {
@@ -484,7 +466,6 @@
       "sweets": 1,
       "ghost": 1,
       "dragon": 1,
-      "cloth": 1,
       "paper": 1
     },
     "fish": {
@@ -510,7 +491,6 @@
       "sweets": 1,
       "ghost": 1,
       "dragon": 2,
-      "cloth": 1,
       "paper": 1
     },
     "ice": {
@@ -536,7 +516,6 @@
       "sweets": 0.5,
       "ghost": 1,
       "dragon": 2,
-      "cloth": 1,
       "paper": 1
     },
     "wind": {
@@ -562,7 +541,6 @@
       "sweets": 1,
       "ghost": 1,
       "dragon": 1,
-      "cloth": 2,
       "paper": 2
     },
     "flower": {
@@ -588,7 +566,6 @@
       "sweets": 1,
       "ghost": 2,
       "dragon": 1,
-      "cloth": 1,
       "paper": 1
     },
     "machine": {
@@ -614,7 +591,6 @@
       "sweets": 1,
       "ghost": 1,
       "dragon": 2,
-      "cloth": 2,
       "paper": 2
     },
     "sweets": {
@@ -640,7 +616,6 @@
       "sweets": 1,
       "ghost": 2,
       "dragon": 1,
-      "cloth": 1,
       "paper": 1
     },
     "ghost": {
@@ -666,7 +641,6 @@
       "sweets": 0.5,
       "ghost": 1,
       "dragon": 1,
-      "cloth": 1,
       "paper": 1
     },
     "dragon": {
@@ -692,33 +666,6 @@
       "sweets": 1,
       "ghost": 1,
       "dragon": 0.5,
-      "cloth": 1,
-      "paper": 1
-    },
-    "cloth": {
-      "fire": 0.5,
-      "water": 0.5,
-      "grass": 1,
-      "thunder": 2,
-      "earth": 1,
-      "steel": 1,
-      "wood": 1,
-      "light": 1,
-      "dark": 1,
-      "poison": 0.5,
-      "sound": 2,
-      "beast": 1,
-      "bug": 0.5,
-      "bird": 1,
-      "fish": 1,
-      "ice": 2,
-      "wind": 2,
-      "flower": 1,
-      "machine": 1,
-      "sweets": 1,
-      "ghost": 1,
-      "dragon": 1,
-      "cloth": 1,
       "paper": 1
     },
     "paper": {
@@ -744,7 +691,6 @@
       "sweets": 2,
       "ghost": 2,
       "dragon": 1,
-      "cloth": 1,
       "paper": 1
     }
   },
@@ -4810,190 +4756,6 @@
       "rationale": "古い皮を脱いで新しくなる技で、竜に似た生き物の脱皮のため竜の技にした"
     },
     {
-      "id": "cloth_1",
-      "displayName": "ハンカチはたき",
-      "elementTypeId": "cloth",
-      "power": 40,
-      "powerPoints": 30,
-      "category": "attack",
-      "effectId": "cloth_particle",
-      "learnableLevelMinimum": 1,
-      "learnableLevelMaximum": 30,
-      "rationale": "布のハンカチではたく技のため布の技にした"
-    },
-    {
-      "id": "cloth_1b",
-      "displayName": "くつしたなげ",
-      "elementTypeId": "cloth",
-      "power": 35,
-      "powerPoints": 35,
-      "category": "attack",
-      "effectId": "cloth_particle",
-      "learnableLevelMinimum": 1,
-      "learnableLevelMaximum": 30,
-      "specialEffect": {
-        "power": "100 + 100 * (self.maximumHitPoints - self.hitPoints) / self.maximumHitPoints",
-        "summary": "自分が弱るほど強い",
-        "rule": "自分の HP が減っているほど威力が上がる",
-        "rationale": "靴下は脱いで投げるほど追い込まれた時の最後の手段のため、自分の HP が減っているほど強くなる効果にした"
-      },
-      "rationale": "布の靴下を丸めて投げる技のため布の技にした"
-    },
-    {
-      "id": "cloth_1c",
-      "displayName": "タオルスナップ",
-      "elementTypeId": "cloth",
-      "power": 45,
-      "powerPoints": 25,
-      "category": "attack",
-      "effectId": "cloth_particle",
-      "learnableLevelMinimum": 1,
-      "learnableLevelMaximum": 30,
-      "specialEffect": {
-        "power": "if(movesFirst, 130, 100)",
-        "summary": "先に動くと強い",
-        "rule": "先に行動すると威力が上がる",
-        "rationale": "タオルのスナップは相手が構える前の速さが命のため、先に動いた時に強くなる効果にした"
-      },
-      "rationale": "タオルをねじって先をはじくように打つ技で、布の物のため布の技にした"
-    },
-    {
-      "id": "cloth_1d",
-      "displayName": "ボタンはじき",
-      "elementTypeId": "cloth",
-      "power": 50,
-      "powerPoints": 20,
-      "category": "attack",
-      "effectId": "cloth_particle",
-      "learnableLevelMinimum": 1,
-      "learnableLevelMaximum": 30,
-      "rationale": "服のボタンを糸からはじき飛ばす技で、服 (布の物) の部品のため布の技にした"
-    },
-    {
-      "id": "cloth_2",
-      "displayName": "まきつきマフラー",
-      "elementTypeId": "cloth",
-      "power": 70,
-      "powerPoints": 15,
-      "category": "attack",
-      "effectId": "cloth_particle",
-      "learnableLevelMinimum": 15,
-      "learnableLevelMaximum": 200,
-      "rationale": "毛糸のマフラーで巻きつく技のため布の技にした"
-    },
-    {
-      "id": "cloth_3",
-      "displayName": "カーテンコール",
-      "elementTypeId": "cloth",
-      "power": 110,
-      "powerPoints": 5,
-      "category": "attack",
-      "effectId": "cloth_particle",
-      "learnableLevelMinimum": 100,
-      "learnableLevelMaximum": 999,
-      "rationale": "大きな布のカーテンで包む技で、布の面積が最も大きいため布の最も強い技にした"
-    },
-    {
-      "id": "cloth_1e",
-      "displayName": "ふろしきつつみ",
-      "elementTypeId": "cloth",
-      "power": 40,
-      "powerPoints": 25,
-      "category": "attack",
-      "effectId": "cloth_particle",
-      "learnableLevelMinimum": 1,
-      "learnableLevelMaximum": 30,
-      "specialEffect": {
-        "power": "if(not sharesElementType, 120, 100)",
-        "summary": "違う属性の相手に強い",
-        "rule": "相手と同じ属性を持たないと威力が上がる",
-        "rationale": "風呂敷は形の違う物ほどうまく包めるため、違う属性の相手に強くなる効果にした"
-      },
-      "rationale": "風呂敷で包んで投げる技で、布のため布の技にした"
-    },
-    {
-      "id": "cloth_1f",
-      "displayName": "エプロンはたき",
-      "elementTypeId": "cloth",
-      "power": 45,
-      "powerPoints": 25,
-      "category": "attack",
-      "effectId": "cloth_particle",
-      "learnableLevelMinimum": 1,
-      "learnableLevelMaximum": 30,
-      "rationale": "エプロンではたく技で、布のため布の技にした"
-    },
-    {
-      "id": "cloth_2b",
-      "displayName": "じゅうたんまき",
-      "elementTypeId": "cloth",
-      "power": 75,
-      "powerPoints": 10,
-      "category": "attack",
-      "effectId": "cloth_particle",
-      "learnableLevelMinimum": 15,
-      "learnableLevelMaximum": 200,
-      "rationale": "絨毯で巻き込む技で、大きな布のため布の技にした"
-    },
-    {
-      "id": "cloth_s1",
-      "displayName": "もうふかけ",
-      "elementTypeId": "cloth",
-      "power": 0,
-      "powerPoints": 10,
-      "category": "support",
-      "effectId": "cloth_particle",
-      "learnableLevelMinimum": 5,
-      "learnableLevelMaximum": 999,
-      "specialEffect": {
-        "opponentStatChanges": {
-          "speed": "-25"
-        },
-        "summary": "相手の素早さを下げる",
-        "rule": "相手の素早さの倍率を 25 下げる (50 で止まる)",
-        "rationale": "毛布に包まれて動きにくくなるため、相手の素早さを下げる効果にした"
-      },
-      "rationale": "毛布をかけて包む技で、布のため布の技にした"
-    },
-    {
-      "id": "cloth_s2",
-      "displayName": "ふかふかまくら",
-      "elementTypeId": "cloth",
-      "power": 0,
-      "powerPoints": 5,
-      "category": "support",
-      "effectId": "cloth_particle",
-      "learnableLevelMinimum": 5,
-      "learnableLevelMaximum": 999,
-      "specialEffect": {
-        "selfHitPointsRecovery": "self.maximumHitPoints / 4",
-        "summary": "HP を回復する",
-        "rule": "最大 HP の 4 分の 1 を回復する",
-        "rationale": "枕で眠ると疲れが取れるため、HP を回復する効果にした"
-      },
-      "rationale": "柔らかい枕で休む技で、布の寝具のため布の技にした"
-    },
-    {
-      "id": "cloth_s3",
-      "displayName": "はちまきしめ",
-      "elementTypeId": "cloth",
-      "power": 0,
-      "powerPoints": 10,
-      "category": "support",
-      "effectId": "cloth_particle",
-      "learnableLevelMinimum": 5,
-      "learnableLevelMaximum": 999,
-      "specialEffect": {
-        "selfStatChanges": {
-          "attack": "25"
-        },
-        "summary": "自分の攻撃を上げる",
-        "rule": "自分の攻撃の倍率を 25 上げる (200 で止まる)",
-        "rationale": "鉢巻きを締めると気合いが入るため、自分の攻撃を上げる効果にした"
-      },
-      "rationale": "鉢巻きを締めて気合いを入れる技で、布のため布の技にした"
-    },
-    {
       "id": "paper_1",
       "displayName": "かみひこうき",
       "elementTypeId": "paper",
@@ -5310,12 +5072,6 @@
       "displayName": "竜のパーティクル",
       "kind": "particle",
       "colorHex": "#C62828"
-    },
-    {
-      "id": "cloth_particle",
-      "displayName": "布のパーティクル",
-      "kind": "particle",
-      "colorHex": "#C77DB5"
     },
     {
       "id": "paper_particle",

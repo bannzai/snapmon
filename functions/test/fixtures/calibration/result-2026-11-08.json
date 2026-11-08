@@ -1,0 +1,2741 @@
+{
+  "model": "jev-1.13.0",
+  "measuredAt": "2026-11-08T08:04:41.465Z",
+  "repeatCount": 2,
+  "element": {
+    "trueCount": 84,
+    "falseCount": 1666,
+    "trueMinimum": {
+      "sampleId": "56",
+      "round": 1,
+      "elementTypeId": "water",
+      "probability": 0.58
+    },
+    "falseMaximum": {
+      "sampleId": "18",
+      "round": 1,
+      "elementTypeId": "dark",
+      "probability": 0.38
+    },
+    "trueBelowHalf": [],
+    "falseAtLeastHalf": [],
+    "falseAtLeastThirty": [
+      {
+        "sampleId": "18",
+        "round": 0,
+        "elementTypeId": "dark",
+        "probability": 0.37
+      },
+      {
+        "sampleId": "18",
+        "round": 1,
+        "elementTypeId": "dark",
+        "probability": 0.38
+      },
+      {
+        "sampleId": "45",
+        "round": 0,
+        "elementTypeId": "ice",
+        "probability": 0.35
+      },
+      {
+        "sampleId": "45",
+        "round": 1,
+        "elementTypeId": "ice",
+        "probability": 0.34
+      }
+    ],
+    "selections": {
+      "11": [
+        {
+          "selected": [
+            "steel",
+            "fire"
+          ],
+          "probabilities": {
+            "fire": 0.74,
+            "water": 0.61,
+            "grass": 0.14,
+            "steel": 0.87,
+            "dark": 0.41,
+            "flower": 0.14
+          }
+        },
+        {
+          "selected": [
+            "steel",
+            "fire"
+          ],
+          "probabilities": {
+            "fire": 0.75,
+            "water": 0.63,
+            "grass": 0.13,
+            "steel": 0.87,
+            "dark": 0.41,
+            "flower": 0.15
+          }
+        }
+      ],
+      "12": [
+        {
+          "selected": [
+            "machine",
+            "light"
+          ],
+          "probabilities": {
+            "thunder": 0.24,
+            "steel": 0.2,
+            "light": 0.8,
+            "dark": 0.65,
+            "machine": 0.95
+          }
+        },
+        {
+          "selected": [
+            "machine",
+            "light"
+          ],
+          "probabilities": {
+            "thunder": 0.22,
+            "steel": 0.18,
+            "light": 0.77,
+            "dark": 0.68,
+            "machine": 0.95
+          }
+        }
+      ],
+      "13": [
+        {
+          "selected": [
+            "earth"
+          ],
+          "probabilities": {
+            "earth": 0.75
+          }
+        },
+        {
+          "selected": [
+            "earth"
+          ],
+          "probabilities": {
+            "earth": 0.79
+          }
+        }
+      ],
+      "14": [
+        {
+          "selected": [
+            "light"
+          ],
+          "probabilities": {
+            "water": 0.13,
+            "grass": 0.14,
+            "wood": 0.1,
+            "light": 0.81,
+            "ghost": 0.15
+          }
+        },
+        {
+          "selected": [
+            "light"
+          ],
+          "probabilities": {
+            "water": 0.14,
+            "grass": 0.14,
+            "wood": 0.12,
+            "light": 0.79,
+            "ghost": 0.15
+          }
+        }
+      ],
+      "15": [
+        {
+          "selected": [
+            "steel"
+          ],
+          "probabilities": {
+            "steel": 0.9,
+            "dark": 0.48,
+            "machine": 0.36
+          }
+        },
+        {
+          "selected": [
+            "steel"
+          ],
+          "probabilities": {
+            "steel": 0.9,
+            "dark": 0.46,
+            "machine": 0.35,
+            "paper": 0.1
+          }
+        }
+      ],
+      "18": [
+        {
+          "selected": [
+            "fire",
+            "light"
+          ],
+          "probabilities": {
+            "fire": 0.93,
+            "light": 0.92,
+            "dark": 0.37,
+            "paper": 0.1
+          }
+        },
+        {
+          "selected": [
+            "fire",
+            "light"
+          ],
+          "probabilities": {
+            "fire": 0.94,
+            "light": 0.93,
+            "dark": 0.38,
+            "paper": 0.1
+          }
+        }
+      ],
+      "19": [
+        {
+          "selected": [
+            "machine"
+          ],
+          "probabilities": {
+            "steel": 0.48,
+            "light": 0.49,
+            "dark": 0.16,
+            "sound": 0.17,
+            "machine": 0.96
+          }
+        },
+        {
+          "selected": [
+            "machine"
+          ],
+          "probabilities": {
+            "steel": 0.47,
+            "light": 0.47,
+            "dark": 0.17,
+            "sound": 0.17,
+            "machine": 0.96
+          }
+        }
+      ],
+      "20": [
+        {
+          "selected": [
+            "dark"
+          ],
+          "probabilities": {
+            "water": 0.1,
+            "steel": 0.34,
+            "wood": 0.35,
+            "dark": 0.66
+          }
+        },
+        {
+          "selected": [
+            "dark"
+          ],
+          "probabilities": {
+            "water": 0.12,
+            "steel": 0.35,
+            "wood": 0.37,
+            "dark": 0.68
+          }
+        }
+      ],
+      "21": [
+        {
+          "selected": [
+            "machine"
+          ],
+          "probabilities": {
+            "steel": 0.46,
+            "dark": 0.17,
+            "machine": 0.96
+          }
+        },
+        {
+          "selected": [
+            "machine"
+          ],
+          "probabilities": {
+            "steel": 0.44,
+            "dark": 0.17,
+            "machine": 0.96
+          }
+        }
+      ],
+      "22": [
+        {
+          "selected": [
+            "grass"
+          ],
+          "probabilities": {
+            "grass": 0.86
+          }
+        },
+        {
+          "selected": [
+            "grass"
+          ],
+          "probabilities": {
+            "grass": 0.84
+          }
+        }
+      ],
+      "23": [
+        {
+          "selected": [
+            "grass",
+            "light"
+          ],
+          "probabilities": {
+            "grass": 0.78,
+            "earth": 0.27,
+            "wood": 0.16,
+            "light": 0.78
+          }
+        },
+        {
+          "selected": [
+            "light",
+            "grass"
+          ],
+          "probabilities": {
+            "grass": 0.73,
+            "earth": 0.29,
+            "wood": 0.17,
+            "light": 0.77
+          }
+        }
+      ],
+      "26": [
+        {
+          "selected": [
+            "thunder"
+          ],
+          "probabilities": {
+            "thunder": 0.86,
+            "steel": 0.19,
+            "wood": 0.38,
+            "light": 0.47,
+            "machine": 0.2
+          }
+        },
+        {
+          "selected": [
+            "thunder"
+          ],
+          "probabilities": {
+            "thunder": 0.85,
+            "steel": 0.19,
+            "wood": 0.36,
+            "light": 0.49,
+            "machine": 0.22
+          }
+        }
+      ],
+      "28": [
+        {
+          "selected": [
+            "earth",
+            "fire"
+          ],
+          "probabilities": {
+            "fire": 0.58,
+            "water": 0.58,
+            "earth": 0.73,
+            "light": 0.41,
+            "sweets": 0.4
+          }
+        },
+        {
+          "selected": [
+            "earth",
+            "water"
+          ],
+          "probabilities": {
+            "fire": 0.57,
+            "water": 0.59,
+            "earth": 0.72,
+            "light": 0.4,
+            "sweets": 0.38
+          }
+        }
+      ],
+      "40": [
+        {
+          "selected": [
+            "beast"
+          ],
+          "probabilities": {
+            "beast": 0.95
+          }
+        },
+        {
+          "selected": [
+            "beast"
+          ],
+          "probabilities": {
+            "beast": 0.94
+          }
+        }
+      ],
+      "41": [
+        {
+          "selected": [
+            "bug",
+            "dark"
+          ],
+          "probabilities": {
+            "light": 0.1,
+            "dark": 0.68,
+            "bug": 0.98
+          }
+        },
+        {
+          "selected": [
+            "bug",
+            "dark"
+          ],
+          "probabilities": {
+            "dark": 0.66,
+            "bug": 0.98
+          }
+        }
+      ],
+      "42": [
+        {
+          "selected": [
+            "bird"
+          ],
+          "probabilities": {
+            "bird": 0.98
+          }
+        },
+        {
+          "selected": [
+            "bird"
+          ],
+          "probabilities": {
+            "bird": 0.98,
+            "wind": 0.1
+          }
+        }
+      ],
+      "43": [
+        {
+          "selected": [
+            "fish",
+            "water"
+          ],
+          "probabilities": {
+            "water": 0.58,
+            "light": 0.41,
+            "fish": 0.98,
+            "ice": 0.11
+          }
+        },
+        {
+          "selected": [
+            "fish",
+            "water"
+          ],
+          "probabilities": {
+            "fire": 0.1,
+            "water": 0.59,
+            "light": 0.38,
+            "fish": 0.98,
+            "ice": 0.12
+          }
+        }
+      ],
+      "44": [
+        {
+          "selected": [
+            "ice",
+            "sweets"
+          ],
+          "probabilities": {
+            "water": 0.23,
+            "light": 0.64,
+            "ice": 0.97,
+            "sweets": 0.95
+          }
+        },
+        {
+          "selected": [
+            "ice",
+            "sweets"
+          ],
+          "probabilities": {
+            "water": 0.24,
+            "light": 0.63,
+            "ice": 0.97,
+            "sweets": 0.95
+          }
+        }
+      ],
+      "45": [
+        {
+          "selected": [
+            "wind",
+            "machine"
+          ],
+          "probabilities": {
+            "thunder": 0.63,
+            "steel": 0.15,
+            "light": 0.34,
+            "bird": 0.1,
+            "ice": 0.35,
+            "wind": 0.96,
+            "machine": 0.9
+          }
+        },
+        {
+          "selected": [
+            "wind",
+            "machine"
+          ],
+          "probabilities": {
+            "thunder": 0.61,
+            "steel": 0.15,
+            "light": 0.34,
+            "bird": 0.1,
+            "ice": 0.34,
+            "wind": 0.96,
+            "machine": 0.91
+          }
+        }
+      ],
+      "46": [
+        {
+          "selected": [
+            "flower"
+          ],
+          "probabilities": {
+            "grass": 0.24,
+            "flower": 0.98,
+            "paper": 0.11
+          }
+        },
+        {
+          "selected": [
+            "flower"
+          ],
+          "probabilities": {
+            "fire": 0.11,
+            "grass": 0.24,
+            "flower": 0.98,
+            "paper": 0.11
+          }
+        }
+      ],
+      "47": [
+        {
+          "selected": [
+            "machine",
+            "steel"
+          ],
+          "probabilities": {
+            "steel": 0.74,
+            "light": 0.18,
+            "machine": 0.96
+          }
+        },
+        {
+          "selected": [
+            "machine",
+            "steel"
+          ],
+          "probabilities": {
+            "thunder": 0.11,
+            "steel": 0.73,
+            "light": 0.19,
+            "machine": 0.96
+          }
+        }
+      ],
+      "48": [
+        {
+          "selected": [
+            "sweets"
+          ],
+          "probabilities": {
+            "light": 0.18,
+            "ice": 0.16,
+            "sweets": 0.99
+          }
+        },
+        {
+          "selected": [
+            "sweets"
+          ],
+          "probabilities": {
+            "light": 0.18,
+            "ice": 0.16,
+            "sweets": 0.98
+          }
+        }
+      ],
+      "49": [
+        {
+          "selected": [
+            "ghost"
+          ],
+          "probabilities": {
+            "light": 0.38,
+            "dark": 0.23,
+            "wind": 0.26,
+            "ghost": 0.94
+          }
+        },
+        {
+          "selected": [
+            "ghost"
+          ],
+          "probabilities": {
+            "light": 0.38,
+            "dark": 0.24,
+            "wind": 0.26,
+            "ghost": 0.94
+          }
+        }
+      ],
+      "50": [
+        {
+          "selected": [
+            "dragon"
+          ],
+          "probabilities": {
+            "grass": 0.15,
+            "beast": 0.11,
+            "dragon": 0.94
+          }
+        },
+        {
+          "selected": [
+            "dragon"
+          ],
+          "probabilities": {
+            "grass": 0.16,
+            "beast": 0.1,
+            "dragon": 0.94
+          }
+        }
+      ],
+      "51": [
+        {
+          "selected": [
+            "dark"
+          ],
+          "probabilities": {
+            "steel": 0.12,
+            "dark": 0.83
+          }
+        },
+        {
+          "selected": [
+            "dark"
+          ],
+          "probabilities": {
+            "steel": 0.12,
+            "dark": 0.82
+          }
+        }
+      ],
+      "52": [
+        {
+          "selected": [
+            "poison"
+          ],
+          "probabilities": {
+            "water": 0.31,
+            "grass": 0.16,
+            "light": 0.2,
+            "poison": 0.87
+          }
+        },
+        {
+          "selected": [
+            "poison"
+          ],
+          "probabilities": {
+            "water": 0.33,
+            "grass": 0.16,
+            "light": 0.2,
+            "poison": 0.85
+          }
+        }
+      ],
+      "53": [
+        {
+          "selected": [
+            "sound",
+            "dark"
+          ],
+          "probabilities": {
+            "thunder": 0.47,
+            "steel": 0.27,
+            "dark": 0.71,
+            "sound": 0.97,
+            "machine": 0.25
+          }
+        },
+        {
+          "selected": [
+            "sound",
+            "dark"
+          ],
+          "probabilities": {
+            "thunder": 0.44,
+            "steel": 0.25,
+            "dark": 0.67,
+            "sound": 0.97,
+            "machine": 0.24
+          }
+        }
+      ],
+      "54": [
+        {
+          "selected": [
+            "light",
+            "thunder"
+          ],
+          "probabilities": {
+            "thunder": 0.55,
+            "steel": 0.29,
+            "light": 0.96,
+            "dark": 0.15,
+            "machine": 0.1
+          }
+        },
+        {
+          "selected": [
+            "light",
+            "thunder"
+          ],
+          "probabilities": {
+            "thunder": 0.56,
+            "steel": 0.32,
+            "light": 0.97,
+            "dark": 0.15
+          }
+        }
+      ],
+      "55": [
+        {
+          "selected": [
+            "paper"
+          ],
+          "probabilities": {
+            "water": 0.2,
+            "ice": 0.11,
+            "paper": 0.96
+          }
+        },
+        {
+          "selected": [
+            "paper"
+          ],
+          "probabilities": {
+            "water": 0.2,
+            "light": 0.11,
+            "paper": 0.97
+          }
+        }
+      ],
+      "56": [
+        {
+          "selected": [
+            "water"
+          ],
+          "probabilities": {
+            "water": 0.62,
+            "ice": 0.35
+          }
+        },
+        {
+          "selected": [
+            "water"
+          ],
+          "probabilities": {
+            "water": 0.58,
+            "ice": 0.35
+          }
+        }
+      ],
+      "57": [
+        {
+          "selected": [
+            "wood"
+          ],
+          "probabilities": {
+            "wood": 0.98
+          }
+        },
+        {
+          "selected": [
+            "wood"
+          ],
+          "probabilities": {
+            "wood": 0.98
+          }
+        }
+      ],
+      "01": [
+        {
+          "selected": [
+            "steel",
+            "water"
+          ],
+          "probabilities": {
+            "fire": 0.1,
+            "water": 0.75,
+            "earth": 0.2,
+            "steel": 0.82,
+            "light": 0.52,
+            "dark": 0.1,
+            "ice": 0.11
+          }
+        },
+        {
+          "selected": [
+            "steel",
+            "water"
+          ],
+          "probabilities": {
+            "water": 0.74,
+            "earth": 0.19,
+            "steel": 0.82,
+            "light": 0.51,
+            "dark": 0.1,
+            "ice": 0.11
+          }
+        }
+      ],
+      "01b": [
+        {
+          "selected": [
+            "steel",
+            "water"
+          ],
+          "probabilities": {
+            "water": 0.67,
+            "earth": 0.17,
+            "steel": 0.85,
+            "light": 0.5,
+            "dark": 0.13,
+            "ice": 0.12
+          }
+        },
+        {
+          "selected": [
+            "steel",
+            "water"
+          ],
+          "probabilities": {
+            "water": 0.66,
+            "earth": 0.18,
+            "steel": 0.84,
+            "light": 0.5,
+            "dark": 0.12,
+            "ice": 0.12
+          }
+        }
+      ],
+      "02": [
+        {
+          "selected": [
+            "earth",
+            "water"
+          ],
+          "probabilities": {
+            "fire": 0.57,
+            "water": 0.66,
+            "thunder": 0.28,
+            "earth": 0.86,
+            "light": 0.14
+          }
+        },
+        {
+          "selected": [
+            "earth",
+            "water"
+          ],
+          "probabilities": {
+            "fire": 0.54,
+            "water": 0.62,
+            "thunder": 0.27,
+            "earth": 0.88,
+            "light": 0.14
+          }
+        }
+      ],
+      "03": [
+        {
+          "selected": [
+            "sound",
+            "thunder"
+          ],
+          "probabilities": {
+            "thunder": 0.64,
+            "steel": 0.54,
+            "light": 0.15,
+            "dark": 0.2,
+            "sound": 0.96,
+            "machine": 0.56
+          }
+        },
+        {
+          "selected": [
+            "sound",
+            "thunder"
+          ],
+          "probabilities": {
+            "thunder": 0.64,
+            "steel": 0.52,
+            "light": 0.13,
+            "dark": 0.19,
+            "sound": 0.96,
+            "machine": 0.59
+          }
+        }
+      ],
+      "04": [
+        {
+          "selected": [
+            "flower",
+            "grass"
+          ],
+          "probabilities": {
+            "grass": 0.52,
+            "flower": 0.86
+          }
+        },
+        {
+          "selected": [
+            "flower",
+            "grass"
+          ],
+          "probabilities": {
+            "grass": 0.56,
+            "flower": 0.85
+          }
+        }
+      ],
+      "05": [
+        {
+          "selected": [
+            "grass"
+          ],
+          "probabilities": {
+            "grass": 0.78,
+            "earth": 0.35,
+            "light": 0.24
+          }
+        },
+        {
+          "selected": [
+            "grass"
+          ],
+          "probabilities": {
+            "grass": 0.81,
+            "earth": 0.29,
+            "light": 0.24
+          }
+        }
+      ],
+      "08": [
+        {
+          "selected": [
+            "bird",
+            "water"
+          ],
+          "probabilities": {
+            "water": 0.72,
+            "thunder": 0.34,
+            "sound": 0.1,
+            "bird": 0.85
+          }
+        },
+        {
+          "selected": [
+            "bird",
+            "water"
+          ],
+          "probabilities": {
+            "water": 0.7,
+            "thunder": 0.34,
+            "bird": 0.85
+          }
+        }
+      ],
+      "08b": [
+        {
+          "selected": [
+            "bird",
+            "water"
+          ],
+          "probabilities": {
+            "water": 0.69,
+            "thunder": 0.32,
+            "bird": 0.86
+          }
+        },
+        {
+          "selected": [
+            "bird",
+            "water"
+          ],
+          "probabilities": {
+            "water": 0.72,
+            "thunder": 0.35,
+            "bird": 0.87
+          }
+        }
+      ],
+      "09": [
+        {
+          "selected": [
+            "bird",
+            "water"
+          ],
+          "probabilities": {
+            "water": 0.63,
+            "thunder": 0.4,
+            "light": 0.12,
+            "bird": 0.88
+          }
+        },
+        {
+          "selected": [
+            "bird",
+            "water"
+          ],
+          "probabilities": {
+            "water": 0.65,
+            "thunder": 0.41,
+            "light": 0.12,
+            "bird": 0.89
+          }
+        }
+      ],
+      "15b": [
+        {
+          "selected": [
+            "steel"
+          ],
+          "probabilities": {
+            "steel": 0.92,
+            "dark": 0.39,
+            "machine": 0.4,
+            "paper": 0.1
+          }
+        },
+        {
+          "selected": [
+            "steel"
+          ],
+          "probabilities": {
+            "steel": 0.92,
+            "dark": 0.42,
+            "machine": 0.37,
+            "paper": 0.1
+          }
+        }
+      ],
+      "28b": [
+        {
+          "selected": [
+            "earth",
+            "fire"
+          ],
+          "probabilities": {
+            "fire": 0.58,
+            "water": 0.56,
+            "earth": 0.63,
+            "light": 0.43,
+            "sweets": 0.41
+          }
+        },
+        {
+          "selected": [
+            "earth",
+            "water"
+          ],
+          "probabilities": {
+            "fire": 0.54,
+            "water": 0.57,
+            "earth": 0.66,
+            "light": 0.43,
+            "sweets": 0.44
+          }
+        }
+      ]
+    }
+  },
+  "dedupe": {
+    "sameMinimumOfSame": {
+      "kind": "same",
+      "leftId": "01p",
+      "rightId": "01bp",
+      "round": 1,
+      "same": 0.65,
+      "different": 0.3
+    },
+    "sameMaximumOfDifferent": {
+      "kind": "same",
+      "leftId": "01b",
+      "rightId": "01",
+      "round": 1,
+      "same": 0.72,
+      "different": 0.36
+    },
+    "differentMaximumOfSame": {
+      "kind": "differentSameKind",
+      "leftId": "30",
+      "rightId": "01",
+      "round": 0,
+      "same": 0.84,
+      "different": 0.18
+    },
+    "differentMinimumOfDifferent": {
+      "kind": "differentSameKind",
+      "leftId": "30",
+      "rightId": "01",
+      "round": 0,
+      "same": 0.84,
+      "different": 0.18
+    },
+    "rows": [
+      {
+        "kind": "same",
+        "leftId": "01",
+        "rightId": "01b",
+        "round": 0,
+        "same": 0.77,
+        "different": 0.15
+      },
+      {
+        "kind": "same",
+        "leftId": "01",
+        "rightId": "01b",
+        "round": 1,
+        "same": 0.77,
+        "different": 0.17
+      },
+      {
+        "kind": "same",
+        "leftId": "01b",
+        "rightId": "01",
+        "round": 0,
+        "same": 0.72,
+        "different": 0.34
+      },
+      {
+        "kind": "same",
+        "leftId": "01b",
+        "rightId": "01",
+        "round": 1,
+        "same": 0.72,
+        "different": 0.36
+      },
+      {
+        "kind": "same",
+        "leftId": "08",
+        "rightId": "08b",
+        "round": 0,
+        "same": 0.86,
+        "different": 0.08
+      },
+      {
+        "kind": "same",
+        "leftId": "08",
+        "rightId": "08b",
+        "round": 1,
+        "same": 0.86,
+        "different": 0.07
+      },
+      {
+        "kind": "same",
+        "leftId": "08b",
+        "rightId": "08",
+        "round": 0,
+        "same": 0.81,
+        "different": 0.08
+      },
+      {
+        "kind": "same",
+        "leftId": "08b",
+        "rightId": "08",
+        "round": 1,
+        "same": 0.81,
+        "different": 0.08
+      },
+      {
+        "kind": "same",
+        "leftId": "15",
+        "rightId": "15b",
+        "round": 0,
+        "same": 0.88,
+        "different": 0.08
+      },
+      {
+        "kind": "same",
+        "leftId": "15",
+        "rightId": "15b",
+        "round": 1,
+        "same": 0.89,
+        "different": 0.08
+      },
+      {
+        "kind": "same",
+        "leftId": "15b",
+        "rightId": "15",
+        "round": 0,
+        "same": 0.9,
+        "different": 0.09
+      },
+      {
+        "kind": "same",
+        "leftId": "15b",
+        "rightId": "15",
+        "round": 1,
+        "same": 0.91,
+        "different": 0.08
+      },
+      {
+        "kind": "same",
+        "leftId": "28",
+        "rightId": "28b",
+        "round": 0,
+        "same": 0.88,
+        "different": 0.11
+      },
+      {
+        "kind": "same",
+        "leftId": "28",
+        "rightId": "28b",
+        "round": 1,
+        "same": 0.88,
+        "different": 0.12
+      },
+      {
+        "kind": "same",
+        "leftId": "28b",
+        "rightId": "28",
+        "round": 0,
+        "same": 0.83,
+        "different": 0.19
+      },
+      {
+        "kind": "same",
+        "leftId": "28b",
+        "rightId": "28",
+        "round": 1,
+        "same": 0.84,
+        "different": 0.19
+      },
+      {
+        "kind": "same",
+        "leftId": "01bp",
+        "rightId": "01p",
+        "round": 0,
+        "same": 0.66,
+        "different": 0.31
+      },
+      {
+        "kind": "same",
+        "leftId": "01bp",
+        "rightId": "01p",
+        "round": 1,
+        "same": 0.69,
+        "different": 0.3
+      },
+      {
+        "kind": "same",
+        "leftId": "01p",
+        "rightId": "01bp",
+        "round": 0,
+        "same": 0.66,
+        "different": 0.27
+      },
+      {
+        "kind": "same",
+        "leftId": "01p",
+        "rightId": "01bp",
+        "round": 1,
+        "same": 0.65,
+        "different": 0.3
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "01",
+        "rightId": "02",
+        "round": 0,
+        "same": 0.01,
+        "different": 0.98
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "01",
+        "rightId": "02",
+        "round": 1,
+        "same": 0.01,
+        "different": 0.98
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "02",
+        "rightId": "01",
+        "round": 0,
+        "same": 0.02,
+        "different": 0.98
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "02",
+        "rightId": "01",
+        "round": 1,
+        "same": 0.02,
+        "different": 0.98
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "01",
+        "rightId": "28",
+        "round": 0,
+        "same": 0.05,
+        "different": 0.95
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "01",
+        "rightId": "28",
+        "round": 1,
+        "same": 0.05,
+        "different": 0.95
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "28",
+        "rightId": "01",
+        "round": 0,
+        "same": 0.03,
+        "different": 0.96
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "28",
+        "rightId": "01",
+        "round": 1,
+        "same": 0.03,
+        "different": 0.96
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "02",
+        "rightId": "28",
+        "round": 0,
+        "same": 0.05,
+        "different": 0.96
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "02",
+        "rightId": "28",
+        "round": 1,
+        "same": 0.04,
+        "different": 0.96
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "28",
+        "rightId": "02",
+        "round": 0,
+        "same": 0.03,
+        "different": 0.97
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "28",
+        "rightId": "02",
+        "round": 1,
+        "same": 0.03,
+        "different": 0.97
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "08",
+        "rightId": "09",
+        "round": 0,
+        "same": 0.07,
+        "different": 0.91
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "08",
+        "rightId": "09",
+        "round": 1,
+        "same": 0.08,
+        "different": 0.93
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "09",
+        "rightId": "08",
+        "round": 0,
+        "same": 0.29,
+        "different": 0.77
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "09",
+        "rightId": "08",
+        "round": 1,
+        "same": 0.29,
+        "different": 0.76
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "08b",
+        "rightId": "09",
+        "round": 0,
+        "same": 0.05,
+        "different": 0.93
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "08b",
+        "rightId": "09",
+        "round": 1,
+        "same": 0.06,
+        "different": 0.93
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "09",
+        "rightId": "08b",
+        "round": 0,
+        "same": 0.31,
+        "different": 0.79
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "09",
+        "rightId": "08b",
+        "round": 1,
+        "same": 0.3,
+        "different": 0.79
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "22",
+        "rightId": "05",
+        "round": 0,
+        "same": 0.44,
+        "different": 0.64
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "22",
+        "rightId": "05",
+        "round": 1,
+        "same": 0.41,
+        "different": 0.66
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "05",
+        "rightId": "22",
+        "round": 0,
+        "same": 0.49,
+        "different": 0.59
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "05",
+        "rightId": "22",
+        "round": 1,
+        "same": 0.46,
+        "different": 0.57
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "22",
+        "rightId": "23",
+        "round": 0,
+        "same": 0.17,
+        "different": 0.89
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "22",
+        "rightId": "23",
+        "round": 1,
+        "same": 0.19,
+        "different": 0.9
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "23",
+        "rightId": "22",
+        "round": 0,
+        "same": 0.19,
+        "different": 0.89
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "23",
+        "rightId": "22",
+        "round": 1,
+        "same": 0.17,
+        "different": 0.9
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "13",
+        "rightId": "14",
+        "round": 0,
+        "same": 0.04,
+        "different": 0.95
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "13",
+        "rightId": "14",
+        "round": 1,
+        "same": 0.03,
+        "different": 0.94
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "14",
+        "rightId": "13",
+        "round": 0,
+        "same": 0.03,
+        "different": 0.96
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "14",
+        "rightId": "13",
+        "round": 1,
+        "same": 0.03,
+        "different": 0.95
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "12",
+        "rightId": "03",
+        "round": 0,
+        "same": 0.01,
+        "different": 0.98
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "12",
+        "rightId": "03",
+        "round": 1,
+        "same": 0.01,
+        "different": 0.98
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "03",
+        "rightId": "12",
+        "round": 0,
+        "same": 0.01,
+        "different": 0.98
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "03",
+        "rightId": "12",
+        "round": 1,
+        "same": 0.01,
+        "different": 0.98
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "30",
+        "rightId": "01p",
+        "round": 0,
+        "same": 0.11,
+        "different": 0.94
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "30",
+        "rightId": "01p",
+        "round": 1,
+        "same": 0.1,
+        "different": 0.93
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "01p",
+        "rightId": "30",
+        "round": 0,
+        "same": 0.17,
+        "different": 0.91
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "01p",
+        "rightId": "30",
+        "round": 1,
+        "same": 0.17,
+        "different": 0.92
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "30",
+        "rightId": "01bp",
+        "round": 0,
+        "same": 0.42,
+        "different": 0.52
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "30",
+        "rightId": "01bp",
+        "round": 1,
+        "same": 0.4,
+        "different": 0.52
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "01bp",
+        "rightId": "30",
+        "round": 0,
+        "same": 0.36,
+        "different": 0.73
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "01bp",
+        "rightId": "30",
+        "round": 1,
+        "same": 0.35,
+        "different": 0.71
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "31",
+        "rightId": "01p",
+        "round": 0,
+        "same": 0.13,
+        "different": 0.92
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "31",
+        "rightId": "01p",
+        "round": 1,
+        "same": 0.13,
+        "different": 0.93
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "01p",
+        "rightId": "31",
+        "round": 0,
+        "same": 0.1,
+        "different": 0.92
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "01p",
+        "rightId": "31",
+        "round": 1,
+        "same": 0.11,
+        "different": 0.92
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "31",
+        "rightId": "01bp",
+        "round": 0,
+        "same": 0.22,
+        "different": 0.77
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "31",
+        "rightId": "01bp",
+        "round": 1,
+        "same": 0.21,
+        "different": 0.75
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "01bp",
+        "rightId": "31",
+        "round": 0,
+        "same": 0.25,
+        "different": 0.79
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "01bp",
+        "rightId": "31",
+        "round": 1,
+        "same": 0.21,
+        "different": 0.84
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "30",
+        "rightId": "01",
+        "round": 0,
+        "same": 0.84,
+        "different": 0.18
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "30",
+        "rightId": "01",
+        "round": 1,
+        "same": 0.83,
+        "different": 0.19
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "01",
+        "rightId": "30",
+        "round": 0,
+        "same": 0.69,
+        "different": 0.42
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "01",
+        "rightId": "30",
+        "round": 1,
+        "same": 0.68,
+        "different": 0.38
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "30",
+        "rightId": "31",
+        "round": 0,
+        "same": 0.08,
+        "different": 0.94
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "30",
+        "rightId": "31",
+        "round": 1,
+        "same": 0.07,
+        "different": 0.95
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "31",
+        "rightId": "30",
+        "round": 0,
+        "same": 0.1,
+        "different": 0.94
+      },
+      {
+        "kind": "differentSameKind",
+        "leftId": "31",
+        "rightId": "30",
+        "round": 1,
+        "same": 0.12,
+        "different": 0.95
+      },
+      {
+        "kind": "differentKind",
+        "leftId": "01",
+        "rightId": "15",
+        "round": 0,
+        "same": 0.01,
+        "different": 0.98
+      },
+      {
+        "kind": "differentKind",
+        "leftId": "01",
+        "rightId": "15",
+        "round": 1,
+        "same": 0.01,
+        "different": 0.99
+      },
+      {
+        "kind": "differentKind",
+        "leftId": "15",
+        "rightId": "01",
+        "round": 0,
+        "same": 0.01,
+        "different": 0.98
+      },
+      {
+        "kind": "differentKind",
+        "leftId": "15",
+        "rightId": "01",
+        "round": 1,
+        "same": 0.01,
+        "different": 0.98
+      },
+      {
+        "kind": "differentKind",
+        "leftId": "08",
+        "rightId": "21",
+        "round": 0,
+        "same": 0.01,
+        "different": 0.99
+      },
+      {
+        "kind": "differentKind",
+        "leftId": "08",
+        "rightId": "21",
+        "round": 1,
+        "same": 0.01,
+        "different": 0.99
+      },
+      {
+        "kind": "differentKind",
+        "leftId": "21",
+        "rightId": "08",
+        "round": 0,
+        "same": 0.01,
+        "different": 0.99
+      },
+      {
+        "kind": "differentKind",
+        "leftId": "21",
+        "rightId": "08",
+        "round": 1,
+        "same": 0.01,
+        "different": 0.99
+      },
+      {
+        "kind": "differentKind",
+        "leftId": "12",
+        "rightId": "26",
+        "round": 0,
+        "same": 0.01,
+        "different": 0.99
+      },
+      {
+        "kind": "differentKind",
+        "leftId": "12",
+        "rightId": "26",
+        "round": 1,
+        "same": 0.01,
+        "different": 0.99
+      },
+      {
+        "kind": "differentKind",
+        "leftId": "26",
+        "rightId": "12",
+        "round": 0,
+        "same": 0.01,
+        "different": 0.99
+      },
+      {
+        "kind": "differentKind",
+        "leftId": "26",
+        "rightId": "12",
+        "round": 1,
+        "same": 0.01,
+        "different": 0.99
+      },
+      {
+        "kind": "differentKind",
+        "leftId": "19",
+        "rightId": "11",
+        "round": 0,
+        "same": 0.01,
+        "different": 0.99
+      },
+      {
+        "kind": "differentKind",
+        "leftId": "19",
+        "rightId": "11",
+        "round": 1,
+        "same": 0.01,
+        "different": 0.99
+      },
+      {
+        "kind": "differentKind",
+        "leftId": "11",
+        "rightId": "19",
+        "round": 0,
+        "same": 0.01,
+        "different": 0.99
+      },
+      {
+        "kind": "differentKind",
+        "leftId": "11",
+        "rightId": "19",
+        "round": 1,
+        "same": 0.01,
+        "different": 0.99
+      },
+      {
+        "kind": "differentKind",
+        "leftId": "04",
+        "rightId": "18",
+        "round": 0,
+        "same": 0.01,
+        "different": 0.98
+      },
+      {
+        "kind": "differentKind",
+        "leftId": "04",
+        "rightId": "18",
+        "round": 1,
+        "same": 0.01,
+        "different": 0.98
+      },
+      {
+        "kind": "differentKind",
+        "leftId": "18",
+        "rightId": "04",
+        "round": 0,
+        "same": 0.01,
+        "different": 0.98
+      },
+      {
+        "kind": "differentKind",
+        "leftId": "18",
+        "rightId": "04",
+        "round": 1,
+        "same": 0.01,
+        "different": 0.98
+      }
+    ]
+  },
+  "statGrades": {
+    "11": [
+      {
+        "hitPoints": "high",
+        "attack": "medium",
+        "defense": "high",
+        "speed": "low"
+      },
+      {
+        "hitPoints": "high",
+        "attack": "medium",
+        "defense": "high",
+        "speed": "low"
+      }
+    ],
+    "12": [
+      {
+        "hitPoints": "high",
+        "attack": "medium",
+        "defense": "high",
+        "speed": "low"
+      },
+      {
+        "hitPoints": "high",
+        "attack": "medium",
+        "defense": "high",
+        "speed": "low"
+      }
+    ],
+    "13": [
+      {
+        "hitPoints": "high",
+        "attack": "high",
+        "defense": "high",
+        "speed": "veryLow"
+      },
+      {
+        "hitPoints": "high",
+        "attack": "high",
+        "defense": "high",
+        "speed": "veryLow"
+      }
+    ],
+    "14": [
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "medium",
+        "speed": "high"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "medium",
+        "speed": "high"
+      }
+    ],
+    "15": [
+      {
+        "hitPoints": "low",
+        "attack": "high",
+        "defense": "high",
+        "speed": "high"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "high",
+        "defense": "high",
+        "speed": "high"
+      }
+    ],
+    "18": [
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "low",
+        "speed": "low"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "low",
+        "speed": "low"
+      }
+    ],
+    "19": [
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "high",
+        "speed": "high"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "high",
+        "speed": "high"
+      }
+    ],
+    "20": [
+      {
+        "hitPoints": "high",
+        "attack": "medium",
+        "defense": "high",
+        "speed": "veryLow"
+      },
+      {
+        "hitPoints": "high",
+        "attack": "medium",
+        "defense": "high",
+        "speed": "veryLow"
+      }
+    ],
+    "21": [
+      {
+        "hitPoints": "medium",
+        "attack": "high",
+        "defense": "high",
+        "speed": "high"
+      },
+      {
+        "hitPoints": "medium",
+        "attack": "high",
+        "defense": "high",
+        "speed": "high"
+      }
+    ],
+    "22": [
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "low",
+        "speed": "low"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "low",
+        "speed": "low"
+      }
+    ],
+    "23": [
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "low",
+        "speed": "low"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "low",
+        "speed": "low"
+      }
+    ],
+    "26": [
+      {
+        "hitPoints": "medium",
+        "attack": "low",
+        "defense": "medium",
+        "speed": "low"
+      },
+      {
+        "hitPoints": "medium",
+        "attack": "low",
+        "defense": "high",
+        "speed": "low"
+      }
+    ],
+    "28": [
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "medium",
+        "speed": "low"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "medium",
+        "speed": "low"
+      }
+    ],
+    "40": [
+      {
+        "hitPoints": "low",
+        "attack": "veryLow",
+        "defense": "low",
+        "speed": "medium"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "veryLow",
+        "defense": "low",
+        "speed": "medium"
+      }
+    ],
+    "41": [
+      {
+        "hitPoints": "low",
+        "attack": "high",
+        "defense": "high",
+        "speed": "high"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "high",
+        "defense": "high",
+        "speed": "high"
+      }
+    ],
+    "42": [
+      {
+        "hitPoints": "veryLow",
+        "attack": "low",
+        "defense": "veryLow",
+        "speed": "veryHigh"
+      },
+      {
+        "hitPoints": "veryLow",
+        "attack": "veryLow",
+        "defense": "veryLow",
+        "speed": "veryHigh"
+      }
+    ],
+    "43": [
+      {
+        "hitPoints": "veryLow",
+        "attack": "veryLow",
+        "defense": "veryLow",
+        "speed": "high"
+      },
+      {
+        "hitPoints": "veryLow",
+        "attack": "veryLow",
+        "defense": "veryLow",
+        "speed": "high"
+      }
+    ],
+    "44": [
+      {
+        "hitPoints": "veryLow",
+        "attack": "veryLow",
+        "defense": "veryLow",
+        "speed": "low"
+      },
+      {
+        "hitPoints": "veryLow",
+        "attack": "veryLow",
+        "defense": "veryLow",
+        "speed": "high"
+      }
+    ],
+    "45": [
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "medium",
+        "speed": "medium"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "medium",
+        "speed": "medium"
+      }
+    ],
+    "46": [
+      {
+        "hitPoints": "low",
+        "attack": "veryLow",
+        "defense": "veryLow",
+        "speed": "medium"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "veryLow",
+        "defense": "veryLow",
+        "speed": "medium"
+      }
+    ],
+    "47": [
+      {
+        "hitPoints": "low",
+        "attack": "medium",
+        "defense": "high",
+        "speed": "high"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "medium",
+        "defense": "high",
+        "speed": "high"
+      }
+    ],
+    "48": [
+      {
+        "hitPoints": "veryLow",
+        "attack": "veryLow",
+        "defense": "veryLow",
+        "speed": "low"
+      },
+      {
+        "hitPoints": "veryLow",
+        "attack": "veryLow",
+        "defense": "veryLow",
+        "speed": "low"
+      }
+    ],
+    "49": [
+      {
+        "hitPoints": "low",
+        "attack": "veryLow",
+        "defense": "veryLow",
+        "speed": "high"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "veryLow",
+        "defense": "veryLow",
+        "speed": "high"
+      }
+    ],
+    "50": [
+      {
+        "hitPoints": "high",
+        "attack": "high",
+        "defense": "high",
+        "speed": "low"
+      },
+      {
+        "hitPoints": "high",
+        "attack": "high",
+        "defense": "high",
+        "speed": "low"
+      }
+    ],
+    "51": [
+      {
+        "hitPoints": "medium",
+        "attack": "low",
+        "defense": "low",
+        "speed": "medium"
+      },
+      {
+        "hitPoints": "medium",
+        "attack": "low",
+        "defense": "low",
+        "speed": "medium"
+      }
+    ],
+    "52": [
+      {
+        "hitPoints": "low",
+        "attack": "veryLow",
+        "defense": "low",
+        "speed": "high"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "low",
+        "speed": "high"
+      }
+    ],
+    "53": [
+      {
+        "hitPoints": "high",
+        "attack": "low",
+        "defense": "high",
+        "speed": "low"
+      },
+      {
+        "hitPoints": "medium",
+        "attack": "low",
+        "defense": "high",
+        "speed": "low"
+      }
+    ],
+    "54": [
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "low",
+        "speed": "low"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "low",
+        "speed": "low"
+      }
+    ],
+    "55": [
+      {
+        "hitPoints": "veryLow",
+        "attack": "veryLow",
+        "defense": "low",
+        "speed": "high"
+      },
+      {
+        "hitPoints": "veryLow",
+        "attack": "veryLow",
+        "defense": "low",
+        "speed": "high"
+      }
+    ],
+    "56": [
+      {
+        "hitPoints": "low",
+        "attack": "veryLow",
+        "defense": "veryLow",
+        "speed": "medium"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "veryLow",
+        "defense": "veryLow",
+        "speed": "medium"
+      }
+    ],
+    "57": [
+      {
+        "hitPoints": "medium",
+        "attack": "medium",
+        "defense": "high",
+        "speed": "low"
+      },
+      {
+        "hitPoints": "medium",
+        "attack": "medium",
+        "defense": "high",
+        "speed": "low"
+      }
+    ],
+    "01": [
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "high",
+        "speed": "high"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "high",
+        "speed": "high"
+      }
+    ],
+    "01b": [
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "high",
+        "speed": "medium"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "high",
+        "speed": "high"
+      }
+    ],
+    "02": [
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "medium",
+        "speed": "high"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "medium",
+        "speed": "high"
+      }
+    ],
+    "03": [
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "medium",
+        "speed": "high"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "medium",
+        "speed": "high"
+      }
+    ],
+    "04": [
+      {
+        "hitPoints": "low",
+        "attack": "medium",
+        "defense": "medium",
+        "speed": "low"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "medium",
+        "defense": "medium",
+        "speed": "low"
+      }
+    ],
+    "05": [
+      {
+        "hitPoints": "low",
+        "attack": "medium",
+        "defense": "medium",
+        "speed": "low"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "medium",
+        "defense": "medium",
+        "speed": "low"
+      }
+    ],
+    "08": [
+      {
+        "hitPoints": "low",
+        "attack": "veryLow",
+        "defense": "low",
+        "speed": "high"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "veryLow",
+        "defense": "low",
+        "speed": "high"
+      }
+    ],
+    "08b": [
+      {
+        "hitPoints": "low",
+        "attack": "veryLow",
+        "defense": "low",
+        "speed": "high"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "veryLow",
+        "defense": "low",
+        "speed": "high"
+      }
+    ],
+    "09": [
+      {
+        "hitPoints": "low",
+        "attack": "veryLow",
+        "defense": "low",
+        "speed": "high"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "veryLow",
+        "defense": "low",
+        "speed": "high"
+      }
+    ],
+    "15b": [
+      {
+        "hitPoints": "low",
+        "attack": "high",
+        "defense": "high",
+        "speed": "high"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "high",
+        "defense": "high",
+        "speed": "high"
+      }
+    ],
+    "28b": [
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "medium",
+        "speed": "low"
+      },
+      {
+        "hitPoints": "low",
+        "attack": "low",
+        "defense": "medium",
+        "speed": "medium"
+      }
+    ]
+  },
+  "categories": {
+    "11": [
+      "cookware",
+      "container",
+      "tableware"
+    ],
+    "12": [
+      "electronics",
+      "accessory",
+      "appliance"
+    ],
+    "13": [
+      "decoration",
+      "natural_object",
+      "accessory"
+    ],
+    "14": [
+      "container",
+      "decoration",
+      "accessory"
+    ],
+    "15": [
+      "stationery",
+      "tool",
+      "accessory"
+    ],
+    "18": [
+      "lighting",
+      "other",
+      "accessory"
+    ],
+    "19": [
+      "clock",
+      "other",
+      "accessory"
+    ],
+    "20": [
+      "furniture",
+      "accessory",
+      "appliance"
+    ],
+    "21": [
+      "vehicle",
+      "other",
+      "accessory"
+    ],
+    "22": [
+      "plant",
+      "accessory",
+      "appliance"
+    ],
+    "23": [
+      "decoration",
+      "plant",
+      "accessory"
+    ],
+    "26": [
+      "electronics",
+      "accessory",
+      "appliance"
+    ],
+    "28": [
+      "tableware",
+      "other",
+      "drink"
+    ],
+    "30": [
+      "tableware",
+      "other",
+      "accessory"
+    ],
+    "31": [
+      "tableware",
+      "other",
+      "accessory"
+    ],
+    "40": [
+      "toy",
+      "accessory",
+      "appliance"
+    ],
+    "41": [
+      "natural_object",
+      "other",
+      "accessory"
+    ],
+    "42": [
+      "natural_object",
+      "other",
+      "accessory"
+    ],
+    "43": [
+      "natural_object",
+      "decoration",
+      "other"
+    ],
+    "44": [
+      "food",
+      "other",
+      "accessory"
+    ],
+    "45": [
+      "appliance",
+      "other",
+      "accessory"
+    ],
+    "46": [
+      "plant",
+      "decoration",
+      "other"
+    ],
+    "47": [
+      "toy",
+      "accessory",
+      "appliance"
+    ],
+    "48": [
+      "food",
+      "other",
+      "accessory"
+    ],
+    "49": [
+      "decoration",
+      "accessory",
+      "appliance"
+    ],
+    "50": [
+      "toy",
+      "accessory",
+      "appliance"
+    ],
+    "51": [
+      "bag",
+      "other",
+      "accessory"
+    ],
+    "52": [
+      "cleaning",
+      "container",
+      "accessory"
+    ],
+    "53": [
+      "audio",
+      "other",
+      "accessory"
+    ],
+    "54": [
+      "lighting",
+      "other",
+      "accessory"
+    ],
+    "55": [
+      "book_paper",
+      "accessory",
+      "appliance"
+    ],
+    "56": [
+      "cleaning",
+      "accessory",
+      "appliance"
+    ],
+    "57": [
+      "cookware",
+      "other",
+      "accessory"
+    ],
+    "01": [
+      "tableware",
+      "other",
+      "accessory"
+    ],
+    "01b": [
+      "tableware",
+      "other",
+      "accessory"
+    ],
+    "02": [
+      "tableware",
+      "other",
+      "accessory"
+    ],
+    "03": [
+      "audio",
+      "electronics",
+      "accessory"
+    ],
+    "04": [
+      "plant",
+      "accessory",
+      "appliance"
+    ],
+    "05": [
+      "plant",
+      "other",
+      "accessory"
+    ],
+    "08": [
+      "toy",
+      "accessory",
+      "appliance"
+    ],
+    "08b": [
+      "toy",
+      "accessory",
+      "appliance"
+    ],
+    "09": [
+      "toy",
+      "accessory",
+      "appliance"
+    ],
+    "15b": [
+      "stationery",
+      "tool",
+      "accessory"
+    ],
+    "28b": [
+      "tableware",
+      "drink",
+      "other"
+    ],
+    "01p": [
+      "tableware",
+      "other",
+      "accessory"
+    ],
+    "01bp": [
+      "tableware",
+      "other",
+      "accessory"
+    ]
+  },
+  "inputTokens": 1561644
+}

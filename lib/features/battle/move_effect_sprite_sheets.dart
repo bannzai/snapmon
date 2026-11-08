@@ -109,10 +109,6 @@ const Map<String, MoveEffectSpriteSheet> moveEffectSpriteSheetsByEffectId = {
     assetName: 'fire-breath',
     visibleCenterAnchor: Anchor(0.466, 0.5),
   ),
-  'cloth_particle': (
-    assetName: 'whip-crack',
-    visibleCenterAnchor: Anchor(0.568, 0.494),
-  ),
   'paper_particle': (
     assetName: 'confetti',
     visibleCenterAnchor: Anchor(0.507, 0.646),

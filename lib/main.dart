@@ -80,6 +80,7 @@ Future<void> main() async {
     isSoundEffectsEnabled: await readAudioSettingFromPreferences(
       key: AudioSettingKey.soundEffects,
     ),
+    waitsForUserInteractionBeforeBackgroundMusic: kIsWeb,
   );
   // サーバーの master を読むまで (と、ログインを飛ばした DEBUG ビルド) は見本の定義で属性・技を引く
   final dexStore = DexStore(definitions: sampleData.definitions);

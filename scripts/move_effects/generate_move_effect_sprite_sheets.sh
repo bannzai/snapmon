@@ -11,7 +11,7 @@ RENDER_TARGETS=(
   "water/splash" "nature/vine-whip" "nature/earth-spike" "nature/thorns" "holy/smite" "shadow/shadow-tendrils" "nature/acid-splash"
   "explosions/cartoon-pow" "melee/claw-swipe" "critters/butterfly" "holy/feather-burst" "critters/fish-school" "ice/snowflake-burst"
   "nature/tornado" "nature/healing-bloom" "scifi/emp-blast" "explosions/firework-burst" "critters/ghost" "fire/fire-breath"
-  "melee/whip-crack" "ui/confetti"
+  "ui/confetti"
 )
 
 repository_root="$(git rev-parse --show-toplevel)"
