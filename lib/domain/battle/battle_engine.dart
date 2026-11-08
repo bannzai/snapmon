@@ -9,6 +9,7 @@ import '../monster/stat_calculation.dart';
 import '../random/deterministic_random.dart';
 import 'battle_state.dart';
 import 'move_special_effect.dart';
+import 'status_condition.dart';
 
 /// わるあがきの威力。技を使い切った方が得にならないよう、master の版 1 で最も弱い攻撃技の威力 (40) と同じにした。
 /// 版 2 で足した威力 35 の技より強いが、わるあがきは攻撃技をすべて使い切った後にしか選べず、
@@ -27,15 +28,28 @@ const int statModifierPercentMinimum = 50;
 /// 攻撃技の特殊効果の倍率の上限 (その場で作る技の 200。documents/game-rules.md「技の特殊効果」) と揃え、1 つの効果で 2 倍を超えないようにした。
 const int statModifierPercentMaximum = 200;
 
+/// 眩暈の時の命中率の倍率 (%)。命中率 100 の技が 7 割で当たる程度にし、3 ターンの間に 1 回は外れる体感になる値にした。
+const int dizzyAccuracyPercent = 70;
+
+/// 毒のダメージの分母。最大 HP × 重なり / この値のダメージを、持ち主のターンの終わりに受ける。
+/// 重なり 1 で 16 ターン、上限の重なり 4 で 4 ターンかけて倒れる速さにした。
+const int poisonDamageDenominator = 16;
+
 /// CPU が使える補助技を持つ時に、攻撃技の代わりに補助技を選ぶ確率の分母。1/4 は技の枠 4 つの 1 つ分で、
-/// 補助技ばかり選んで攻撃しない CPU にならず、1 戦 (数ターン) に 1 回は補助技を見せる割合にした。
+/// 補助技ばかり選んで攻撃しない CPU にならず、1 戦 (数ラウンド) に 1 回は補助技を見せる割合にした。
 const int cpuSupportMoveChanceDenominator = 4;
 
+/// CPU が一撃必殺の技を持つ時にそれを選ぶ確率の分母。命中率が低く外れると 1 ターンを失うため、補助技と同じ 1/4 にした。
+const int cpuOneHitKnockoutChanceDenominator = 4;
+
+/// CPU が自爆の技を選ぶ時の、自分の残り HP の最大 HP に対する割合の分母。残り HP がこの割合 (1/4) 以下の時だけ 1/2 の確率で選ぶ。
+const int cpuSelfDestructHitPointsDenominator = 4;
+
 /// CPU の技選びの乱数の seed を、バトルの乱数の状態から作る時に混ぜる値 (黄金比の 32bit の定数 0x9E3779B9)。
-/// 同じターンの行動順・ダメージの乱数と同じ列を使わないため (同じ値の列だと、同じ速さの時の行動順と CPU の技選びが連動する)。
+/// 同じラウンドの行動順・ダメージの乱数と同じ列を使わないため (同じ値の列だと、同じ速さの時の行動順と CPU の技選びが連動する)。
 const int _cpuRandomSeedSalt = 0x9E3779B9;
 
-/// [definition] のモンスターを、[level]・[experience] で HP・PP を満タンにし、ステータスの倍率を等倍にした状態でバトルに出す。
+/// [definition] のモンスターを、[level]・[experience] で HP・PP を満タンにし、ステータスの倍率を等倍、状態なしにしてバトルに出す。
 /// PP は覚える技の一覧のすべての技について持つ (レベルで開放されていない技も、上がった後に使えるよう持っておく)。
 BattleMonster prepareBattleMonster({
   required MonsterDefinition definition,
@@ -60,6 +74,7 @@ BattleMonster prepareBattleMonster({
             .powerPoints,
     },
     statModifierPercents: const {},
+    statusConditions: const {},
   ),
 );
 
@@ -69,32 +84,63 @@ int statModifierPercentOf({
   required StatKind statKind,
 }) => monster.state.statModifierPercents[statKind] ?? 100;
 
-/// [monster] の今のレベルのステータスに、補助技で変わった倍率を掛けた値 (小数点以下は切り捨て、1 以上) を返す。HP は倍率を持たない。
+/// [monster] の今のレベルのステータスに、補助技で変わった倍率と状態の効果 (眠気・呪い・興奮) を掛け、
+/// フィールドの入れ替え ([field]) を反映した値 (小数点以下は切り捨て、1 以上) を返す。HP は倍率を持たない。
 /// ダメージ・行動順・技の式の変数に使う。
-MonsterStats effectiveStats({required BattleMonster monster}) {
+MonsterStats effectiveStats({
+  required BattleMonster monster,
+  BattleField? field,
+}) {
   final stats = calculateStats(
     baseStats: monster.definition.baseStats,
     individualValues: monster.definition.individualValues,
     level: monster.state.level,
     statCalculationVersion: monster.definition.statCalculationVersion,
   );
+  final statusConditions = monster.state.statusConditions;
   // 1 未満にしないのは、防御が 0 だとダメージ式が 0 で割るため
-  int modified({required StatKind statKind}) => math.max(
-    1,
-    stats.valueOf(statKind: statKind) *
+  int modified({required StatKind statKind}) {
+    var value =
+        stats.valueOf(statKind: statKind) *
         statModifierPercentOf(monster: monster, statKind: statKind) ~/
-        100,
-  );
+        100;
+    if (statusConditions[StatusConditionKind.curse]?.cursedStatKind ==
+        statKind) {
+      value ~/= 2;
+    }
+    if (statKind == StatKind.speed &&
+        statusConditions.containsKey(StatusConditionKind.drowsy)) {
+      value ~/= 2;
+    }
+    if (statusConditions.containsKey(StatusConditionKind.excited)) {
+      value = switch (statKind) {
+        StatKind.attack => value * 3 ~/ 2,
+        StatKind.defense => value ~/ 2,
+        StatKind.hitPoints || StatKind.speed => value,
+      };
+    }
+    return math.max(1, value);
+  }
+
+  final modifiedStats = {
+    for (final statKind in modifiableStatKinds)
+      statKind: modified(statKind: statKind),
+  };
+  if (field?.swappedStatKinds case (final first, final second)) {
+    final firstValue = modifiedStats[first]!;
+    modifiedStats[first] = modifiedStats[second]!;
+    modifiedStats[second] = firstValue;
+  }
   return MonsterStats(
     hitPoints: stats.hitPoints,
-    attack: modified(statKind: StatKind.attack),
-    defense: modified(statKind: StatKind.defense),
-    speed: modified(statKind: StatKind.speed),
+    attack: modifiedStats[StatKind.attack]!,
+    defense: modifiedStats[StatKind.defense]!,
+    speed: modifiedStats[StatKind.speed]!,
   );
 }
 
 /// 両陣営の手持ち ([prepareBattleMonster] で用意した 1〜3 体) でバトルを始める。
-/// [randomSeed] は行動順の同速判定とダメージの乱数幅に使い、同じ seed と同じ行動からは同じ結果になる。
+/// [randomSeed] は行動順の同速判定・ダメージの乱数幅・命中・状態・混乱・入れ替えに使い、同じ seed と同じ行動からは同じ結果になる。
 /// [battleDate] は対戦日で、技の特殊効果の入力に渡す。
 BattleState startBattle({
   required List<BattleMonster> playerMembers,
@@ -117,6 +163,7 @@ BattleState startBattle({
     events: const [],
     winner: null,
     battleDate: battleDate,
+    field: null,
   );
 }
 
@@ -186,10 +233,47 @@ int calculateDamage({
   return math.max(1, (baseDamage * typeMultiplier * randomPercent ~/ 100));
 }
 
+/// 毒の重なり [stackCount] で、最大 HP [maximumHitPoints] のモンスターが 1 ターンに受けるダメージ (1 以上)。
+int poisonDamage({required int maximumHitPoints, required int stackCount}) =>
+    math.max(1, maximumHitPoints * stackCount ~/ poisonDamageDenominator);
+
+/// [move] (わるあがきは null) の今回の命中率 (%)。必中の技は 100。眩暈の時は [dizzyAccuracyPercent] を掛ける。
+int moveHitChancePercent({required Move? move, required BattleMonster attacker}) {
+  if (move?.specialEffect?.isSureHit ?? false) {
+    return 100;
+  }
+  final accuracy = move?.accuracy ?? defaultMoveAccuracyPercent;
+  return attacker.state.statusConditions.containsKey(StatusConditionKind.dizzy)
+      ? accuracy * dizzyAccuracyPercent ~/ 100
+      : accuracy;
+}
+
+/// [monster] に状態 [kind] を付けようとした時に、何かが変わるか (CPU が効果のある補助技を選ぶ判定に使う)。
+/// 重なる状態は上限まで、眠気は眠りになるまで、他は持っていなければ変わる。
+bool canInflictStatusCondition({
+  required BattleMonster monster,
+  required StatusConditionKind kind,
+}) {
+  final current = monster.state.statusConditions[kind];
+  final stackMaximum = statusConditionStackMaximums[kind];
+  if (stackMaximum != null) {
+    return current == null || current.stackCount < stackMaximum;
+  }
+  return switch (kind) {
+    StatusConditionKind.drowsy =>
+      !monster.state.statusConditions.containsKey(StatusConditionKind.sleep),
+    StatusConditionKind.curse || StatusConditionKind.excited => current == null,
+    _ => true,
+  };
+}
+
 /// CPU の行動を返す。効果のある補助技を持つ時は 1/[cpuSupportMoveChanceDenominator] の確率でその中から 1 つを選ぶ。
-/// それ以外は、相手の場のモンスターへの相性の倍率が最大の攻撃技を選び、
-/// 倍率が同じなら威力が高い技、それも同じなら覚える技の一覧で先の技を選ぶ。使える攻撃技が無ければわるあがき。
-/// 効果のある補助技は、HP の回復だけをする技なら HP が減っている時だけ、ステータスを変える技なら変える先のどれかが重ねがけの上限に達していない時だけ。
+/// 一撃必殺の技を持つ時は 1/[cpuOneHitKnockoutChanceDenominator] の確率で、自爆の技は残り HP が最大 HP の
+/// 1/[cpuSelfDestructHitPointsDenominator] 以下の時に 1/2 の確率で選ぶ。
+/// それ以外は、相手の場のモンスターへの相性の倍率が最大の攻撃技 (一撃必殺・自爆を除く) を選び、
+/// 倍率が同じなら威力 × 命中率が高い技、それも同じなら覚える技の一覧で先の技を選ぶ。使える攻撃技が無ければわるあがき。
+/// 効果のある補助技は、HP の回復だけをする技なら HP が減っている時だけ、ステータスを変える技なら変える先のどれかが重ねがけの上限に達していない時、
+/// 状態を付ける技なら付ける先に変化がある時、状態を解除する技なら自分に状態がある時、フィールドの技ならフィールドが無い時だけ。
 /// 乱数は [state] の乱数の状態とターン数・陣営から作った別の列で引き、[state] の乱数の状態は進めない
 /// (同じ状態からは同じ行動を選び、プレイヤーの行動順・ダメージの乱数を変えないため)。
 BattleAction chooseCpuAction({
@@ -200,6 +284,13 @@ BattleAction chooseCpuAction({
   final attacker = state.partyOf(side: side).activeMember;
   final defender = state.partyOf(side: _otherSide(side: side)).activeMember;
   final moves = selectableMoves(monster: attacker, master: master);
+  final cpuRandom = DeterministicRandom(
+    seed:
+        state.randomState ^
+        _cpuRandomSeedSalt ^
+        (state.turnNumber << 1) ^
+        side.index,
+  );
   bool canStillChange({
     required BattleMonster monster,
     required Map<StatKind, String> statChanges,
@@ -208,44 +299,70 @@ BattleAction chooseCpuAction({
     return percent > statModifierPercentMinimum &&
         percent < statModifierPercentMaximum;
   });
+  bool isEffectiveSupportMove({required Move move}) {
+    final specialEffect = move.specialEffect;
+    if (move.category != MoveCategory.support || specialEffect == null) {
+      return false;
+    }
+    return (specialEffect.selfHitPointsRecovery != null &&
+            attacker.state.currentHitPoints <
+                effectiveStats(monster: attacker).hitPoints) ||
+        canStillChange(
+          monster: attacker,
+          statChanges: specialEffect.selfStatChanges,
+        ) ||
+        canStillChange(
+          monster: defender,
+          statChanges: specialEffect.opponentStatChanges,
+        ) ||
+        specialEffect.selfStatusConditions.any(
+          (infliction) =>
+              canInflictStatusCondition(monster: attacker, kind: infliction.kind),
+        ) ||
+        specialEffect.opponentStatusConditions.any(
+          (infliction) =>
+              canInflictStatusCondition(monster: defender, kind: infliction.kind),
+        ) ||
+        (specialEffect.curesSelfStatusConditions &&
+            attacker.state.statusConditions.isNotEmpty) ||
+        (specialEffect.fieldEffect != null && state.field == null);
+  }
+
   final effectiveSupportMoves = [
     for (final move in moves)
-      if (move.category == MoveCategory.support &&
-          move.specialEffect != null &&
-          ((move.specialEffect!.selfHitPointsRecovery != null &&
-                  attacker.state.currentHitPoints <
-                      effectiveStats(monster: attacker).hitPoints) ||
-              canStillChange(
-                monster: attacker,
-                statChanges: move.specialEffect!.selfStatChanges,
-              ) ||
-              canStillChange(
-                monster: defender,
-                statChanges: move.specialEffect!.opponentStatChanges,
-              )))
-        move,
+      if (isEffectiveSupportMove(move: move)) move,
   ];
-  if (effectiveSupportMoves.isNotEmpty) {
-    final cpuRandom = DeterministicRandom(
-      seed:
-          state.randomState ^
-          _cpuRandomSeedSalt ^
-          (state.turnNumber << 1) ^
-          side.index,
+  if (effectiveSupportMoves.isNotEmpty &&
+      cpuRandom.nextUint32() % cpuSupportMoveChanceDenominator == 0) {
+    return UseMoveAction(
+      moveId:
+          effectiveSupportMoves[cpuRandom.nextUint32() %
+                  effectiveSupportMoves.length]
+              .id,
     );
-    if (cpuRandom.nextUint32() % cpuSupportMoveChanceDenominator == 0) {
-      return UseMoveAction(
-        moveId:
-            effectiveSupportMoves[cpuRandom.nextUint32() %
-                    effectiveSupportMoves.length]
-                .id,
-      );
-    }
+  }
+  final oneHitKnockoutMove = moves
+      .where((move) => move.specialEffect?.isOneHitKnockout ?? false)
+      .firstOrNull;
+  if (oneHitKnockoutMove != null &&
+      cpuRandom.nextUint32() % cpuOneHitKnockoutChanceDenominator == 0) {
+    return UseMoveAction(moveId: oneHitKnockoutMove.id);
+  }
+  final selfDestructMove = moves
+      .where((move) => move.specialEffect?.selfDestructs ?? false)
+      .firstOrNull;
+  if (selfDestructMove != null &&
+      attacker.state.currentHitPoints * cpuSelfDestructHitPointsDenominator <=
+          effectiveStats(monster: attacker).hitPoints &&
+      cpuRandom.nextUint32() % 2 == 0) {
+    return UseMoveAction(moveId: selfDestructMove.id);
   }
   Move? bestMove;
   var bestMultiplier = 0.0;
   for (final move in moves) {
-    if (move.category != MoveCategory.attack) {
+    if (move.category != MoveCategory.attack ||
+        (move.specialEffect?.isOneHitKnockout ?? false) ||
+        (move.specialEffect?.selfDestructs ?? false)) {
       continue;
     }
     final multiplier = totalTypeMultiplier(
@@ -255,7 +372,8 @@ BattleAction chooseCpuAction({
     );
     if (bestMove == null ||
         multiplier > bestMultiplier ||
-        (multiplier == bestMultiplier && move.power > bestMove.power)) {
+        (multiplier == bestMultiplier &&
+            move.power * move.accuracy > bestMove.power * bestMove.accuracy)) {
       bestMove = move;
       bestMultiplier = multiplier;
     }
@@ -265,16 +383,21 @@ BattleAction chooseCpuAction({
       : UseMoveAction(moveId: bestMove.id);
 }
 
-/// 両陣営の行動 [playerAction]・[opponentAction] で 1 ターンを解決し、次の状態を返す。
-/// 場のモンスターの素早さが高い順に行動し (同じなら乱数)、倒れたモンスターはそのターンの行動を失う。
-/// 技の威力には特殊効果の倍率 ([calculateMoveSpecialEffect]) を掛ける (小数点以下は切り捨て)。
-/// 補助技はダメージを与えず、特殊効果の式 ([calculateMoveStatusEffect]) でステータスの倍率を変え、HP を回復する。
-/// ステータスの倍率は場のモンスターに付き、そのバトルの間 (倒れるまで) 続く。ダメージ・行動順・技の式の変数は倍率を掛けた値 ([effectiveStats]) を使う。
-/// ターンの終わりに倒れたモンスターを手持ちの次のモンスターと交代し、手持ちがすべて倒れた側が負ける。
+/// 両陣営の行動 [playerAction]・[opponentAction] で 1 ラウンド (両陣営 1 ターンずつ) を解決し、次の状態を返す。
+///
+/// ラウンドの始めに入れ替えのフィールドがあれば、残りのラウンドが 0 なら終わり、あれば攻撃・防御・素早さから 2 つを乱数で選んで入れ替える。
+/// 先制の度合いが高い技が先、同じなら場のモンスターの素早さが高い順に行動し (同じなら乱数)、倒れたモンスターはそのターンの行動を失う。
+/// 各ターンは、気絶・眠り・凍結なら行動が失敗し (PP を使わない)、麻痺なら攻撃技とわるあがきが失敗し、混乱なら 1/2 の確率で選んだ技の代わりに
+/// 他の使える技が出て、命中率 (眩暈なら 70%) で外れる (PP を使う)。当たった技は、一撃必殺なら相手の HP を 0 にし、攻撃技なら威力に特殊効果の倍率
+/// ([calculateMoveSpecialEffect]) を掛けたダメージ (やけどなら与えるダメージが半分、受ける側がやけどなら (10 + 重なり) / 10 倍) を与える。
+/// 続けて特殊効果の式 ([calculateMoveStatusEffect]) でステータスの倍率を変え、HP を回復し、状態を付け・解除し、フィールドを始め、自爆する。
+/// ダメージを受けた凍結は解け、毒の技を受けた毒は重なりが増える。ターンの終わりに毒のダメージを受け、残りのターンを持つ状態が 1 減って 0 なら消える。
+/// ステータスの倍率と状態は場のモンスターに付き、そのバトルの間 (倒れるまで) 続く。ダメージ・行動順・技の式の変数は倍率と状態を反映した値 ([effectiveStats]) を使う。
+/// ラウンドの終わりに倒れたモンスターを手持ちの次のモンスターと交代し、手持ちがすべて倒れた側が負ける。
 /// 決着がついたら勝敗を問わず両陣営の、場に出たことがある手持ちのレベルを 1 上げる (上限 [maximumLevel]。
 /// DIRECTION.md「必要な機能」の「1 戦ごとに、戦闘に出た手持ちのレベルが勝敗に関係なく 1 上がる」)。
 /// 決着済みの状態・選べない行動 (PP が 0 か未開放の技、使える攻撃技があるのにわるあがき) には例外を投げる。
-BattleState advanceTurn({
+BattleState advanceRound({
   required BattleState state,
   required BattleAction playerAction,
   required BattleAction opponentAction,
@@ -301,35 +424,166 @@ BattleState advanceTurn({
     BattleSideId.opponent: state.opponent,
   };
   final events = [...state.events];
+  var field = state.field;
+  final lastTurnNumber = state.turnNumber + 1;
 
+  if (field != null) {
+    if (field.remainingRounds <= 0) {
+      events.add(
+        FieldEffectEndedEvent(turnNumber: state.turnNumber, kind: field.kind),
+      );
+      field = null;
+    } else {
+      // 攻撃・防御・素早さから 2 つを選ぶ組は 3 通り
+      final statKinds = switch (random.nextUint32() % 3) {
+        0 => (StatKind.attack, StatKind.defense),
+        1 => (StatKind.attack, StatKind.speed),
+        _ => (StatKind.defense, StatKind.speed),
+      };
+      field = BattleField(
+        kind: field.kind,
+        remainingRounds: field.remainingRounds - 1,
+        swappedStatKinds: statKinds,
+      );
+      events.add(
+        FieldEffectShuffledEvent(
+          turnNumber: state.turnNumber,
+          statKinds: statKinds,
+        ),
+      );
+    }
+  }
+
+  Move? moveOf({required BattleAction action}) => switch (action) {
+    UseMoveAction(:final moveId) => master.moveById(moveId: moveId),
+    StruggleAction() => null,
+  };
+  final playerPriority =
+      moveOf(action: playerAction)?.priority ?? 0;
+  final opponentPriority =
+      moveOf(action: opponentAction)?.priority ?? 0;
   final playerSpeed = effectiveStats(
     monster: parties[BattleSideId.player]!.activeMember,
+    field: field,
   ).speed;
   final opponentSpeed = effectiveStats(
     monster: parties[BattleSideId.opponent]!.activeMember,
+    field: field,
   ).speed;
-  final playerMovesFirst = playerSpeed != opponentSpeed
+  final playerMovesFirst = playerPriority != opponentPriority
+      ? playerPriority > opponentPriority
+      : playerSpeed != opponentSpeed
       ? playerSpeed > opponentSpeed
       : random.nextUint32() % 2 == 0;
   final order = playerMovesFirst
       ? [BattleSideId.player, BattleSideId.opponent]
       : [BattleSideId.opponent, BattleSideId.player];
 
-  for (final attackerSide in order) {
-    final attacker = parties[attackerSide]!.activeMember;
-    if (attacker.isFainted) {
+  void replaceActiveState({
+    required BattleSideId side,
+    required MonsterState monsterState,
+  }) {
+    parties[side] = _replaceActiveMemberState(
+      party: parties[side]!,
+      state: monsterState,
+    );
+  }
+
+  for (final (turnIndex, attackerSide) in order.indexed) {
+    final turnNumber = state.turnNumber + turnIndex;
+    final attackerBeforeTurn = parties[attackerSide]!.activeMember;
+    if (attackerBeforeTurn.isFainted) {
       continue;
     }
     final defenderSide = _otherSide(side: attackerSide);
-    final defender = parties[defenderSide]!.activeMember;
     final action = actions[attackerSide]!;
-    final move = switch (action) {
-      UseMoveAction(:final moveId) => master.moveById(moveId: moveId),
-      StruggleAction() => null,
-    };
+    final selectedMove = moveOf(action: action);
+    final attackerStatusConditions = attackerBeforeTurn.state.statusConditions;
 
-    final attackerStats = effectiveStats(monster: attacker);
-    final defenderStats = effectiveStats(monster: defender);
+    final incapacitatingKind = incapacitatingStatusConditionKinds
+        .where(attackerStatusConditions.containsKey)
+        .firstOrNull;
+    final isParalyzedAttack =
+        attackerStatusConditions.containsKey(StatusConditionKind.paralysis) &&
+        (selectedMove == null || selectedMove.category == MoveCategory.attack);
+    if (incapacitatingKind != null || isParalyzedAttack) {
+      events.add(
+        ActionFailedEvent(
+          turnNumber: turnNumber,
+          side: attackerSide,
+          monsterId: attackerBeforeTurn.definition.id,
+          moveId: selectedMove?.id,
+          reason: switch (incapacitatingKind) {
+            StatusConditionKind.stun => ActionFailureReason.stun,
+            StatusConditionKind.sleep => ActionFailureReason.sleep,
+            StatusConditionKind.frozen => ActionFailureReason.frozen,
+            _ => ActionFailureReason.paralysis,
+          },
+        ),
+      );
+      _endTurn(
+        parties: parties,
+        side: attackerSide,
+        turnNumber: turnNumber,
+        events: events,
+      );
+      continue;
+    }
+
+    var move = selectedMove;
+    String? replacedMoveId;
+    if (move != null &&
+        attackerStatusConditions.containsKey(StatusConditionKind.confusion)) {
+      final otherMoves = [
+        for (final candidate in selectableMoves(
+          monster: attackerBeforeTurn,
+          master: master,
+        ))
+          if (candidate.id != move.id) candidate,
+      ];
+      if (otherMoves.isNotEmpty && random.nextUint32() % 2 == 0) {
+        replacedMoveId = move.id;
+        move = otherMoves[random.nextUint32() % otherMoves.length];
+      }
+    }
+    final attacker = attackerBeforeTurn;
+    final remainingPowerPoints = move == null
+        ? attacker.state.remainingPowerPoints
+        : {
+            ...attacker.state.remainingPowerPoints,
+            move.id: attacker.state.remainingPowerPoints[move.id]! - 1,
+          };
+
+    final hitChance = moveHitChancePercent(move: move, attacker: attacker);
+    if (hitChance < 100 &&
+        random.nextIntInRange(minimum: 1, maximum: 100) > hitChance) {
+      replaceActiveState(
+        side: attackerSide,
+        monsterState: attacker.state.copyWith(
+          remainingPowerPoints: remainingPowerPoints,
+        ),
+      );
+      events.add(
+        ActionFailedEvent(
+          turnNumber: turnNumber,
+          side: attackerSide,
+          monsterId: attacker.definition.id,
+          moveId: move?.id,
+          reason: ActionFailureReason.missed,
+        ),
+      );
+      _endTurn(
+        parties: parties,
+        side: attackerSide,
+        turnNumber: turnNumber,
+        events: events,
+      );
+      continue;
+    }
+
+    final defender = parties[defenderSide]!.activeMember;
+    final attackerStats = effectiveStats(monster: attacker, field: field);
+    final defenderStats = effectiveStats(monster: defender, field: field);
     final typeMultiplier = totalTypeMultiplier(
       moveElementTypeId: move?.elementTypeId,
       defenderElementTypeIds: defender.definition.elementTypeIds,
@@ -352,30 +606,54 @@ BattleState advanceTurn({
     final statusEffect = move == null
         ? null
         : calculateMoveStatusEffect(move: move, variables: variables!);
-    final damage = move != null && move.category == MoveCategory.support
-        ? 0
-        : calculateDamage(
-            attackerLevel: attacker.state.level,
-            power: move == null
-                ? strugglePower
-                // 特殊効果の無い技は威力をそのまま使うため、倍率 100% (1 倍) とみなす
-                : move.power * (specialEffect?.powerPercent ?? 100) ~/ 100,
-            attack: attackerStats.attack,
-            defense: defenderStats.defense,
-            typeMultiplier: typeMultiplier,
-            randomPercent: random.nextIntInRange(
-              minimum: damageRandomMinimumPercent,
-              maximum: 100,
-            ),
-          );
+    final isOneHitKnockout = move?.specialEffect?.isOneHitKnockout ?? false;
+    final int damage;
+    if (isOneHitKnockout) {
+      damage = defender.state.currentHitPoints;
+    } else if (move != null && move.category == MoveCategory.support) {
+      damage = 0;
+    } else {
+      var calculated = calculateDamage(
+        attackerLevel: attacker.state.level,
+        power: move == null
+            ? strugglePower
+            // 特殊効果の無い技は威力をそのまま使うため、倍率 100% (1 倍) とみなす
+            : move.power * (specialEffect?.powerPercent ?? 100) ~/ 100,
+        attack: attackerStats.attack,
+        defense: defenderStats.defense,
+        typeMultiplier: typeMultiplier,
+        randomPercent: random.nextIntInRange(
+          minimum: damageRandomMinimumPercent,
+          maximum: 100,
+        ),
+      );
+      if (attacker.state.statusConditions.containsKey(
+        StatusConditionKind.burn,
+      )) {
+        calculated = math.max(1, calculated ~/ 2);
+      }
+      final defenderBurn =
+          defender.state.statusConditions[StatusConditionKind.burn];
+      if (defenderBurn != null) {
+        calculated = calculated * (10 + defenderBurn.stackCount) ~/ 10;
+      }
+      damage = calculated;
+    }
     final defenderRemainingHitPoints = math.max(
       0,
       defender.state.currentHitPoints - damage,
     );
-    final attackerRemainingHitPoints = math.min(
-      attackerStats.hitPoints,
-      attacker.state.currentHitPoints + (statusEffect?.hitPointsRecovery ?? 0),
-    );
+    final recoveredHitPoints =
+        math.min(
+          attackerStats.hitPoints,
+          attacker.state.currentHitPoints +
+              (statusEffect?.hitPointsRecovery ?? 0),
+        ) -
+        attacker.state.currentHitPoints;
+    final selfDestructs = move?.specialEffect?.selfDestructs ?? false;
+    final attackerRemainingHitPoints = selfDestructs
+        ? 0
+        : attacker.state.currentHitPoints + recoveredHitPoints;
     final attackerStatModifierChanges = _statModifierChanges(
       monster: attacker,
       side: attackerSide,
@@ -387,25 +665,20 @@ BattleState advanceTurn({
       changes: statusEffect?.opponentStatChanges ?? const {},
     );
 
-    parties[attackerSide] = _replaceActiveMemberState(
-      party: parties[attackerSide]!,
-      state: attacker.state.copyWith(
+    replaceActiveState(
+      side: attackerSide,
+      monsterState: attacker.state.copyWith(
         currentHitPoints: attackerRemainingHitPoints,
-        remainingPowerPoints: move == null
-            ? null
-            : {
-                ...attacker.state.remainingPowerPoints,
-                move.id: attacker.state.remainingPowerPoints[move.id]! - 1,
-              },
+        remainingPowerPoints: remainingPowerPoints,
         statModifierPercents: _appliedStatModifierPercents(
           monster: attacker,
           changes: attackerStatModifierChanges,
         ),
       ),
     );
-    parties[defenderSide] = _replaceActiveMemberState(
-      party: parties[defenderSide]!,
-      state: defender.state.copyWith(
+    replaceActiveState(
+      side: defenderSide,
+      monsterState: defender.state.copyWith(
         currentHitPoints: defenderRemainingHitPoints,
         statModifierPercents: _appliedStatModifierPercents(
           monster: defender,
@@ -415,7 +688,7 @@ BattleState advanceTurn({
     );
     events.add(
       MoveUsedEvent(
-        turnNumber: state.turnNumber,
+        turnNumber: turnNumber,
         attackerSide: attackerSide,
         attackerMonsterId: attacker.definition.id,
         moveId: move?.id,
@@ -427,30 +700,148 @@ BattleState advanceTurn({
           ...attackerStatModifierChanges,
           ...defenderStatModifierChanges,
         ],
-        recoveredHitPoints:
-            attackerRemainingHitPoints - attacker.state.currentHitPoints,
+        recoveredHitPoints: recoveredHitPoints,
         attackerRemainingHitPoints: attackerRemainingHitPoints,
+        replacedMoveId: replacedMoveId,
+        isOneHitKnockout: isOneHitKnockout,
+        selfDestructed: selfDestructs,
       ),
     );
+
+    // 状態の変化。ダメージの後に行い、倒れたモンスターには付けない
+    final moveSpecialEffect = move?.specialEffect;
+    if (damage > 0 && defenderRemainingHitPoints > 0) {
+      final defenderAfterDamage = parties[defenderSide]!.activeMember;
+      if (defenderAfterDamage.state.statusConditions.containsKey(
+        StatusConditionKind.frozen,
+      )) {
+        replaceActiveState(
+          side: defenderSide,
+          monsterState: defenderAfterDamage.state.copyWith(
+            statusConditions: {
+              ...defenderAfterDamage.state.statusConditions,
+            }..remove(StatusConditionKind.frozen),
+          ),
+        );
+        events.add(
+          StatusConditionCuredEvent(
+            turnNumber: turnNumber,
+            side: defenderSide,
+            monsterId: defenderAfterDamage.definition.id,
+            kinds: const [StatusConditionKind.frozen],
+            cause: StatusConditionCureCause.damaged,
+          ),
+        );
+      }
+      if (move != null &&
+          move.elementTypeId == poisonElementTypeId &&
+          move.category == MoveCategory.attack &&
+          parties[defenderSide]!.activeMember.state.statusConditions
+              .containsKey(StatusConditionKind.poison)) {
+        _inflictStatusCondition(
+          parties: parties,
+          side: defenderSide,
+          kind: StatusConditionKind.poison,
+          turnNumber: turnNumber,
+          events: events,
+          random: random,
+        );
+      }
+    }
+    if (moveSpecialEffect != null) {
+      for (final (side, inflictions) in [
+        (attackerSide, moveSpecialEffect.selfStatusConditions),
+        (defenderSide, moveSpecialEffect.opponentStatusConditions),
+      ]) {
+        for (final infliction in inflictions) {
+          if (parties[side]!.activeMember.isFainted) {
+            continue;
+          }
+          if (infliction.chancePercent < 100 &&
+              random.nextIntInRange(minimum: 1, maximum: 100) >
+                  infliction.chancePercent) {
+            continue;
+          }
+          _inflictStatusCondition(
+            parties: parties,
+            side: side,
+            kind: infliction.kind,
+            turnNumber: turnNumber,
+            events: events,
+            random: random,
+          );
+        }
+      }
+      final attackerAfterEffects = parties[attackerSide]!.activeMember;
+      if (moveSpecialEffect.curesSelfStatusConditions &&
+          !attackerAfterEffects.isFainted &&
+          attackerAfterEffects.state.statusConditions.isNotEmpty) {
+        events.add(
+          StatusConditionCuredEvent(
+            turnNumber: turnNumber,
+            side: attackerSide,
+            monsterId: attackerAfterEffects.definition.id,
+            kinds: attackerAfterEffects.state.statusConditions.keys.toList(),
+            cause: StatusConditionCureCause.move,
+          ),
+        );
+        replaceActiveState(
+          side: attackerSide,
+          monsterState: attackerAfterEffects.state.copyWith(
+            statusConditions: const {},
+          ),
+        );
+      }
+      if (moveSpecialEffect.fieldEffect case final fieldEffectKind?) {
+        field = BattleField(
+          kind: fieldEffectKind,
+          remainingRounds: fieldEffectDurationRounds,
+          swappedStatKinds: null,
+        );
+        events.add(
+          FieldEffectStartedEvent(
+            turnNumber: turnNumber,
+            side: attackerSide,
+            kind: fieldEffectKind,
+          ),
+        );
+      }
+    }
     if (defenderRemainingHitPoints == 0) {
       events.add(
         MonsterFaintedEvent(
-          turnNumber: state.turnNumber,
+          turnNumber: turnNumber,
           side: defenderSide,
           monsterId: defender.definition.id,
         ),
       );
     }
+    if (selfDestructs) {
+      events.add(
+        MonsterFaintedEvent(
+          turnNumber: turnNumber,
+          side: attackerSide,
+          monsterId: attacker.definition.id,
+        ),
+      );
+    }
+    _endTurn(
+      parties: parties,
+      side: attackerSide,
+      turnNumber: turnNumber,
+      events: events,
+    );
   }
 
-  BattleSideId? winner;
+  // 両陣営の手持ちがすべて倒れた時 (自爆で相打ち) は利用者の勝ちにする (documents/game-rules.md「勝敗」)
+  final winner = parties[BattleSideId.opponent]!.isDefeated
+      ? BattleSideId.player
+      : parties[BattleSideId.player]!.isDefeated
+      ? BattleSideId.opponent
+      : null;
   for (final side in BattleSideId.values) {
     final party = parties[side]!;
-    if (!party.activeMember.isFainted) {
-      continue;
-    }
-    if (party.isDefeated) {
-      winner = _otherSide(side: side);
+    if (!party.activeMember.isFainted || party.isDefeated) {
       continue;
     }
     final nextMemberIndex = party.members.indexWhere(
@@ -462,7 +853,7 @@ BattleState advanceTurn({
     );
     events.add(
       MonsterSwitchedInEvent(
-        turnNumber: state.turnNumber,
+        turnNumber: lastTurnNumber,
         side: side,
         monsterId: party.members[nextMemberIndex].definition.id,
       ),
@@ -494,7 +885,7 @@ BattleState advanceTurn({
       )) {
         events.add(
           LevelUpEvent(
-            turnNumber: state.turnNumber,
+            turnNumber: lastTurnNumber,
             side: side,
             monsterId: member.definition.id,
             newLevel: member.state.level,
@@ -503,19 +894,229 @@ BattleState advanceTurn({
       }
     }
     events.add(
-      BattleFinishedEvent(turnNumber: state.turnNumber, winner: winner),
+      BattleFinishedEvent(turnNumber: lastTurnNumber, winner: winner),
     );
   }
 
   return BattleState(
     player: parties[BattleSideId.player]!,
     opponent: parties[BattleSideId.opponent]!,
-    turnNumber: state.turnNumber + 1,
+    turnNumber: state.turnNumber + 2,
     randomState: random.state,
     events: events,
     winner: winner,
     battleDate: state.battleDate,
+    field: field,
   );
+}
+
+/// 毒の属性の識別子 (master の `elementTypes`)。この属性の攻撃技を受けた毒のモンスターは毒の重なりが増える。
+const String poisonElementTypeId = 'poison';
+
+/// [side] の場のモンスターに状態 [kind] を付け、変化があれば [events] に [StatusConditionInflictedEvent] を足す。
+/// 重なる状態 (毒・やけど) は上限まで重なりが増え、眠気は 2 回目で眠りに置き換わり、呪い・興奮は 2 回目は変わらない。
+/// 残りのターンを持つ状態は、既に持っていれば残りを引き直す。眠りを付ける時は眠気を消す。
+void _inflictStatusCondition({
+  required Map<BattleSideId, BattleParty> parties,
+  required BattleSideId side,
+  required StatusConditionKind kind,
+  required int turnNumber,
+  required List<BattleEvent> events,
+  required DeterministicRandom random,
+}) {
+  final monster = parties[side]!.activeMember;
+  final statusConditions = {...monster.state.statusConditions};
+  final current = statusConditions[kind];
+  StatusConditionKind? replacedKind;
+  StatusCondition? inflicted;
+  final stackMaximum = statusConditionStackMaximums[kind];
+  if (stackMaximum != null) {
+    if (current == null) {
+      inflicted = StatusCondition(
+        kind: kind,
+        remainingTurns: null,
+        stackCount: 1,
+        cursedStatKind: null,
+      );
+    } else if (current.stackCount < stackMaximum) {
+      inflicted = current.copyWith(stackCount: current.stackCount + 1);
+    }
+  } else {
+    switch (kind) {
+      case StatusConditionKind.drowsy:
+        if (statusConditions.containsKey(StatusConditionKind.sleep)) {
+          break;
+        }
+        if (current != null) {
+          replacedKind = StatusConditionKind.drowsy;
+          statusConditions.remove(StatusConditionKind.drowsy);
+          inflicted = StatusCondition(
+            kind: StatusConditionKind.sleep,
+            remainingTurns: _randomDuration(
+              kind: StatusConditionKind.sleep,
+              random: random,
+            ),
+            stackCount: 1,
+            cursedStatKind: null,
+          );
+        } else {
+          inflicted = const StatusCondition(
+            kind: StatusConditionKind.drowsy,
+            remainingTurns: null,
+            stackCount: 1,
+            cursedStatKind: null,
+          );
+        }
+      case StatusConditionKind.curse:
+        if (current == null) {
+          inflicted = StatusCondition(
+            kind: kind,
+            remainingTurns: null,
+            stackCount: 1,
+            cursedStatKind:
+                modifiableStatKinds[random.nextUint32() %
+                    modifiableStatKinds.length],
+          );
+        }
+      case StatusConditionKind.excited:
+        if (current == null) {
+          inflicted = StatusCondition(
+            kind: kind,
+            remainingTurns: null,
+            stackCount: 1,
+            cursedStatKind: null,
+          );
+        }
+      case StatusConditionKind.sleep:
+        if (statusConditions.remove(StatusConditionKind.drowsy) != null) {
+          replacedKind = StatusConditionKind.drowsy;
+        }
+        inflicted = StatusCondition(
+          kind: kind,
+          remainingTurns: _randomDuration(kind: kind, random: random),
+          stackCount: 1,
+          cursedStatKind: null,
+        );
+      case StatusConditionKind.paralysis ||
+          StatusConditionKind.stun ||
+          StatusConditionKind.confusion ||
+          StatusConditionKind.dizzy ||
+          StatusConditionKind.frozen:
+        inflicted = StatusCondition(
+          kind: kind,
+          remainingTurns: _randomDuration(kind: kind, random: random),
+          stackCount: 1,
+          cursedStatKind: null,
+        );
+      case StatusConditionKind.poison || StatusConditionKind.burn:
+        // 重なる状態は上で扱う
+        break;
+    }
+  }
+  if (inflicted == null) {
+    return;
+  }
+  statusConditions[inflicted.kind] = inflicted;
+  parties[side] = _replaceActiveMemberState(
+    party: parties[side]!,
+    state: monster.state.copyWith(statusConditions: statusConditions),
+  );
+  events.add(
+    StatusConditionInflictedEvent(
+      turnNumber: turnNumber,
+      side: side,
+      monsterId: monster.definition.id,
+      kind: inflicted.kind,
+      stackCount: inflicted.stackCount,
+      replacedKind: replacedKind,
+      cursedStatKind: inflicted.cursedStatKind,
+    ),
+  );
+}
+
+/// 残りのターンを持つ状態 [kind] の残りのターン数を引く。範囲の最小と最大が同じ状態は乱数を引かない。
+int _randomDuration({
+  required StatusConditionKind kind,
+  required DeterministicRandom random,
+}) {
+  final range = statusConditionDurationRanges[kind]!;
+  return range.minimum == range.maximum
+      ? range.minimum
+      : random.nextIntInRange(minimum: range.minimum, maximum: range.maximum);
+}
+
+/// [side] のターンの終わりの処理。場のモンスターが倒れていなければ毒のダメージを受け (0 になれば倒れる)、
+/// 残りのターンを持つ状態を 1 減らして 0 になった状態を消す。
+void _endTurn({
+  required Map<BattleSideId, BattleParty> parties,
+  required BattleSideId side,
+  required int turnNumber,
+  required List<BattleEvent> events,
+}) {
+  final monster = parties[side]!.activeMember;
+  if (monster.isFainted) {
+    return;
+  }
+  var currentHitPoints = monster.state.currentHitPoints;
+  final poison = monster.state.statusConditions[StatusConditionKind.poison];
+  if (poison != null) {
+    final damage = poisonDamage(
+      maximumHitPoints: effectiveStats(monster: monster).hitPoints,
+      stackCount: poison.stackCount,
+    );
+    currentHitPoints = math.max(0, currentHitPoints - damage);
+    events.add(
+      StatusConditionDamageEvent(
+        turnNumber: turnNumber,
+        side: side,
+        monsterId: monster.definition.id,
+        kind: StatusConditionKind.poison,
+        damage: damage,
+        remainingHitPoints: currentHitPoints,
+      ),
+    );
+  }
+  final statusConditions = <StatusConditionKind, StatusCondition>{};
+  final expiredKinds = <StatusConditionKind>[];
+  for (final MapEntry(key: kind, value: condition)
+      in monster.state.statusConditions.entries) {
+    final remainingTurns = condition.remainingTurns;
+    if (remainingTurns == null) {
+      statusConditions[kind] = condition;
+    } else if (remainingTurns - 1 <= 0) {
+      expiredKinds.add(kind);
+    } else {
+      statusConditions[kind] = condition.copyWith(
+        remainingTurns: remainingTurns - 1,
+      );
+    }
+  }
+  parties[side] = _replaceActiveMemberState(
+    party: parties[side]!,
+    state: monster.state.copyWith(
+      currentHitPoints: currentHitPoints,
+      statusConditions: statusConditions,
+    ),
+  );
+  if (currentHitPoints == 0) {
+    events.add(
+      MonsterFaintedEvent(
+        turnNumber: turnNumber,
+        side: side,
+        monsterId: monster.definition.id,
+      ),
+    );
+  } else if (expiredKinds.isNotEmpty) {
+    events.add(
+      StatusConditionCuredEvent(
+        turnNumber: turnNumber,
+        side: side,
+        monsterId: monster.definition.id,
+        kinds: expiredKinds,
+        cause: StatusConditionCureCause.expired,
+      ),
+    );
+  }
 }
 
 /// [side] の相手の陣営を返す。

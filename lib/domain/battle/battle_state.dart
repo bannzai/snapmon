@@ -1,6 +1,7 @@
 import '../monster/monster_definition.dart';
 import '../monster/monster_state.dart';
 import '../monster/monster_stats.dart';
+import 'status_condition.dart';
 
 /// 手持ちの数の上限 (DIRECTION.md「ゲームの仕様」の「手持ちは 3 体まで」)。
 const int maximumPartySize = 3;
@@ -22,7 +23,7 @@ class BattleMonster {
   /// 生まれた時に決まる部分。
   final MonsterDefinition definition;
 
-  /// 変わる部分 (レベル・経験・HP・PP の残り・ステータスの倍率)。
+  /// 変わる部分 (レベル・経験・HP・PP の残り・ステータスの倍率・状態)。
   final MonsterState state;
 
   /// HP が 0 で倒れているか。
@@ -47,7 +48,7 @@ class BattleParty {
   bool get isDefeated => members.every((member) => member.isFainted);
 }
 
-/// 1 ターンに陣営が選ぶ行動。
+/// 自分のターンに陣営が選ぶ行動。
 sealed class BattleAction {
   const BattleAction();
 }
@@ -71,7 +72,8 @@ class StruggleAction extends BattleAction {
 sealed class BattleEvent {
   const BattleEvent({required this.turnNumber});
 
-  /// 起きたターンの番号 (1 から)。
+  /// 起きたターンの番号 (1 から)。ターンは片方の陣営の 1 回の行動で、両陣営が 1 ターンずつ行動する区切りがラウンド
+  /// (documents/game-rules.md「用語」)。ラウンド r の先に動く側のターンが 2r-1、後に動く側が 2r。
   final int turnNumber;
 }
 
@@ -113,6 +115,9 @@ class MoveUsedEvent extends BattleEvent {
     required this.statModifierChanges,
     required this.recoveredHitPoints,
     required this.attackerRemainingHitPoints,
+    this.replacedMoveId,
+    this.isOneHitKnockout = false,
+    this.selfDestructed = false,
   });
 
   /// 技を使った陣営。
@@ -142,8 +147,192 @@ class MoveUsedEvent extends BattleEvent {
   /// 技の効果で技を使った側が回復した HP (最大 HP で丸めた後の値)。回復しない技は 0。
   final int recoveredHitPoints;
 
-  /// 技を使った側の、回復の後の残りの HP。
+  /// 技を使った側の、回復の後 (自爆なら自爆の後) の残りの HP。
   final int attackerRemainingHitPoints;
+
+  /// 混乱で選んだ技の代わりに [moveId] が出た時の、選んだ技の識別子。選んだ技がそのまま出た時は null。
+  final String? replacedMoveId;
+
+  /// 一撃必殺が当たり、威力に関係なく相手の HP を 0 にしたか。
+  final bool isOneHitKnockout;
+
+  /// 自爆で技を使った側の HP が 0 になったか。
+  final bool selfDestructed;
+}
+
+/// 行動が失敗した理由。
+enum ActionFailureReason {
+  /// 技が外れた (命中率・眩暈)。
+  missed,
+
+  /// 麻痺で攻撃技が出せなかった。
+  paralysis,
+
+  /// 気絶で動けなかった。
+  stun,
+
+  /// 眠っていて動けなかった。
+  sleep,
+
+  /// 凍っていて動けなかった。
+  frozen,
+}
+
+/// 選んだ行動が失敗した (外れた・状態で動けなかった)。外れた時は PP を使い、状態で動けなかった時は PP を使わない。
+class ActionFailedEvent extends BattleEvent {
+  /// 失敗のログを作る。
+  const ActionFailedEvent({
+    required super.turnNumber,
+    required this.side,
+    required this.monsterId,
+    required this.moveId,
+    required this.reason,
+  });
+
+  /// 失敗した陣営。
+  final BattleSideId side;
+
+  /// 失敗したモンスターの識別子。
+  final String monsterId;
+
+  /// 使おうとした技の識別子。わるあがきの時は null。
+  final String? moveId;
+
+  /// 失敗した理由。
+  final ActionFailureReason reason;
+}
+
+/// 状態が付いた (重なった・置き換わった時を含む)。
+class StatusConditionInflictedEvent extends BattleEvent {
+  /// 状態が付いたログを作る。
+  const StatusConditionInflictedEvent({
+    required super.turnNumber,
+    required this.side,
+    required this.monsterId,
+    required this.kind,
+    required this.stackCount,
+    required this.replacedKind,
+    required this.cursedStatKind,
+  });
+
+  /// 状態が付いたモンスターの陣営。
+  final BattleSideId side;
+
+  /// 状態が付いたモンスターの識別子。
+  final String monsterId;
+
+  /// 付いた状態。
+  final StatusConditionKind kind;
+
+  /// 付いた後の重なりの数 (毒・やけど)。重なりを持たない状態は 1。
+  final int stackCount;
+
+  /// この状態に置き換わって消えた状態 (眠気が眠りになった時の眠気)。無ければ null。
+  final StatusConditionKind? replacedKind;
+
+  /// 呪いで半分になるステータス。呪い以外は null。
+  final StatKind? cursedStatKind;
+}
+
+/// 状態が消えた理由。
+enum StatusConditionCureCause {
+  /// 技の効果で解除した。
+  move,
+
+  /// 残りのターンが 0 になった。
+  expired,
+
+  /// 技のダメージを受けて解けた (凍結)。
+  damaged,
+}
+
+/// 状態が消えた。
+class StatusConditionCuredEvent extends BattleEvent {
+  /// 状態が消えたログを作る。
+  const StatusConditionCuredEvent({
+    required super.turnNumber,
+    required this.side,
+    required this.monsterId,
+    required this.kinds,
+    required this.cause,
+  });
+
+  /// 状態が消えたモンスターの陣営。
+  final BattleSideId side;
+
+  /// 状態が消えたモンスターの識別子。
+  final String monsterId;
+
+  /// 消えた状態 (1 つ以上)。
+  final List<StatusConditionKind> kinds;
+
+  /// 消えた理由。
+  final StatusConditionCureCause cause;
+}
+
+/// 状態 (毒) でダメージを受けた。
+class StatusConditionDamageEvent extends BattleEvent {
+  /// 状態のダメージのログを作る。
+  const StatusConditionDamageEvent({
+    required super.turnNumber,
+    required this.side,
+    required this.monsterId,
+    required this.kind,
+    required this.damage,
+    required this.remainingHitPoints,
+  });
+
+  /// ダメージを受けたモンスターの陣営。
+  final BattleSideId side;
+
+  /// ダメージを受けたモンスターの識別子。
+  final String monsterId;
+
+  /// ダメージの元の状態。
+  final StatusConditionKind kind;
+
+  /// 受けたダメージ。
+  final int damage;
+
+  /// 受けた後の残りの HP。
+  final int remainingHitPoints;
+}
+
+/// フィールドの効果が始まった (続いている効果を同じ技で始め直した時を含む)。
+class FieldEffectStartedEvent extends BattleEvent {
+  /// フィールドの効果の開始のログを作る。
+  const FieldEffectStartedEvent({
+    required super.turnNumber,
+    required this.side,
+    required this.kind,
+  });
+
+  /// 技を使った陣営。
+  final BattleSideId side;
+
+  /// 始まった効果。
+  final FieldEffectKind kind;
+}
+
+/// 入れ替えのフィールドで、ラウンドの始めにステータスが入れ替わった。
+class FieldEffectShuffledEvent extends BattleEvent {
+  /// 入れ替えのログを作る。
+  const FieldEffectShuffledEvent({
+    required super.turnNumber,
+    required this.statKinds,
+  });
+
+  /// 入れ替わったステータスの組。
+  final (StatKind, StatKind) statKinds;
+}
+
+/// フィールドの効果が終わった。
+class FieldEffectEndedEvent extends BattleEvent {
+  /// フィールドの効果の終了のログを作る。
+  const FieldEffectEndedEvent({required super.turnNumber, required this.kind});
+
+  /// 終わった効果。
+  final FieldEffectKind kind;
 }
 
 /// モンスターが倒れた。
@@ -207,7 +396,7 @@ class BattleFinishedEvent extends BattleEvent {
   final BattleSideId winner;
 }
 
-/// バトルの状態。`advanceTurn` (battle_engine.dart) は状態を書き換えず、次の状態を返す。
+/// バトルの状態。`advanceRound` (battle_engine.dart) は状態を書き換えず、次の状態を返す。
 class BattleState {
   /// バトルの状態を作る。
   const BattleState({
@@ -218,6 +407,7 @@ class BattleState {
     required this.events,
     required this.winner,
     required this.battleDate,
+    required this.field,
   });
 
   /// 利用者の陣営。
@@ -226,10 +416,10 @@ class BattleState {
   /// 相手の陣営。
   final BattleParty opponent;
 
-  /// 次に解決するターンの番号 (1 から)。
+  /// 次に解決するラウンドの最初のターンの番号 (1 から。ラウンドごとに 2 進む)。
   final int turnNumber;
 
-  /// 乱数 (行動順の同速判定・ダメージの乱数幅) の内部状態。同じ状態と同じ行動からは同じ結果になる。
+  /// 乱数 (行動順の同速判定・ダメージの乱数幅・命中・状態の付与と長さ・混乱・入れ替え) の内部状態。同じ状態と同じ行動からは同じ結果になる。
   final int randomState;
 
   /// ここまでのログ。
@@ -240,6 +430,12 @@ class BattleState {
 
   /// 対戦日 (バトルを始めた日時)。技の特殊効果の入力に渡す (外部要因の効果を足す時の枠)。
   final DateTime battleDate;
+
+  /// 続いているフィールドの効果。無ければ null。
+  final BattleField? field;
+
+  /// 次に解決するラウンドの番号 (1 から)。
+  int get roundNumber => (turnNumber + 1) ~/ 2;
 
   /// [side] の陣営を返す。
   BattleParty partyOf({required BattleSideId side}) => switch (side) {

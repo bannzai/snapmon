@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 
+import '../domain/battle/status_condition.dart';
 import '../domain/monster/monster_stats.dart';
 import 'app_localizations.dart';
 
@@ -20,4 +21,22 @@ String statLabel({
   StatKind.attack => l10n.statAttack,
   StatKind.defense => l10n.statDefense,
   StatKind.speed => l10n.statSpeed,
+};
+
+/// 状態 [kind] の画面の名前 (どく・まひ 等) を、[l10n] の言語で返す。
+String statusConditionLabel({
+  required AppLocalizations l10n,
+  required StatusConditionKind kind,
+}) => switch (kind) {
+  StatusConditionKind.poison => l10n.statusConditionPoison,
+  StatusConditionKind.paralysis => l10n.statusConditionParalysis,
+  StatusConditionKind.stun => l10n.statusConditionStun,
+  StatusConditionKind.burn => l10n.statusConditionBurn,
+  StatusConditionKind.drowsy => l10n.statusConditionDrowsy,
+  StatusConditionKind.sleep => l10n.statusConditionSleep,
+  StatusConditionKind.curse => l10n.statusConditionCurse,
+  StatusConditionKind.confusion => l10n.statusConditionConfusion,
+  StatusConditionKind.dizzy => l10n.statusConditionDizzy,
+  StatusConditionKind.excited => l10n.statusConditionExcited,
+  StatusConditionKind.frozen => l10n.statusConditionFrozen,
 };

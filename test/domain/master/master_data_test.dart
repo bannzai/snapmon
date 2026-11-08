@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:snapmon/domain/battle/move_expression.dart';
+import 'package:snapmon/domain/battle/status_condition.dart';
 import 'package:snapmon/domain/master/master_data.dart';
 import 'package:snapmon/domain/master/move.dart';
 import 'package:snapmon/domain/monster/monster_stats.dart';
@@ -61,16 +62,34 @@ void main() {
         case MoveCategory.support:
           expect(move.power, 0, reason: move.id);
           expect(move.specialEffect?.power, isNull, reason: move.id);
+          // 補助技はステータスの変化・回復か、状態・解除・フィールドの効果を 1 つ以上持つ
           expect(
             [
               ...?move.specialEffect?.selfStatChanges.keys,
               ...?move.specialEffect?.opponentStatChanges.keys,
               if (move.specialEffect?.selfHitPointsRecovery != null)
                 StatKind.hitPoints,
+              if (!(move.specialEffect?.hasNoValueEffect ?? true)) 'value',
             ],
             isNotEmpty,
             reason: move.id,
           );
+          expect(
+            move.specialEffect?.selfDestructs ?? false,
+            isFalse,
+            reason: '${move.id}: 補助技は自爆しない',
+          );
+          expect(
+            move.specialEffect?.isOneHitKnockout ?? false,
+            isFalse,
+            reason: '${move.id}: 補助技は一撃必殺にしない',
+          );
+      }
+      expect(move.accuracy, inInclusiveRange(1, 100), reason: move.id);
+      if (move.specialEffect?.isOneHitKnockout ?? false) {
+        // 一撃必殺は 1 回しか使えず命中率が低い (#224)
+        expect(move.powerPoints, 1, reason: move.id);
+        expect(move.accuracy, lessThanOrEqualTo(30), reason: move.id);
       }
       expect(move.powerPoints, greaterThan(0), reason: move.id);
       expect(
@@ -119,7 +138,47 @@ void main() {
               ],
             ],
         ];
-        expect(expressions, isNotEmpty, reason: '$path: $json');
+        final statusConditionNames = {
+          for (final kind in StatusConditionKind.values) kind.name,
+        };
+        final valueEffectKeys = [
+          'selfStatusConditions',
+          'opponentStatusConditions',
+          'curesSelfStatusConditions',
+          'fieldEffect',
+          'selfDestructs',
+          'oneHitKnockout',
+          'sureHit',
+        ];
+        // 状態の名前の誤りは読む時に捨てられ、効果が黙って消えるため元の JSON で確かめる
+        for (final key in ['selfStatusConditions', 'opponentStatusConditions']) {
+          if (json[key] case final List<dynamic> inflictions) {
+            for (final infliction in inflictions) {
+              expect(
+                statusConditionNames,
+                contains((infliction as Map<String, dynamic>)['kind']),
+                reason: '$path: $json',
+              );
+              expect(
+                infliction['chancePercent'],
+                inInclusiveRange(1, 100),
+                reason: '$path: $json',
+              );
+            }
+          }
+        }
+        if (json['fieldEffect'] case final String fieldEffect) {
+          expect(
+            FieldEffectKind.values.map((kind) => kind.name),
+            contains(fieldEffect),
+            reason: '$path: $json',
+          );
+        }
+        expect(
+          [...expressions, ...valueEffectKeys.where(json.containsKey)],
+          isNotEmpty,
+          reason: '$path: $json',
+        );
         for (final expression in expressions) {
           expect(expression, isA<String>(), reason: '$path: $json');
           expect(
