@@ -1,0 +1,65 @@
+name: build-android-release
+
+# Google Play に上げる署名済みの AAB をビルドして artifact に置く。この Mac では flutter build を実行しないため (CLAUDE.md「ビルド・テスト・検証方法」)。
+# Play への初回のアップロードは Play Console で人が行う必要があり (新しいアプリは API でアップロードできない)、この workflow は
+# アップロードまで行わない。取り方: gh run download <run ID> -n android-aab -D tmp/android-aab-<run ID>
+# 署名の鍵 (upload key) は 1Password の vault snapmon が正で、.env.1password.github-actions に宣言した名前を GitHub Secrets に写している。
+# 鍵のファイルは $GITHUB_WORKSPACE の中に書き出すが、AAB (build/app/outputs/bundle/) には含まれない
+
+on:
+  workflow_dispatch:
+    inputs:
+      build_number:
+        description: 'versionCode (Play では上げるたびに前より大きい値が要る)。空なら pubspec.yaml の値'
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+# flutter-ci.yml と同じ版にする
+env:
+  FLUTTER_VERSION: '3.47.8'
+  FIREBASE_OPTIONS_DART_B64: ${{ secrets.FIREBASE_OPTIONS_DART_B64 }}
+  GOOGLE_SERVICES_JSON_B64: ${{ secrets.GOOGLE_SERVICES_JSON_B64 }}
+
+jobs:
+  build-aab:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
+    - uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+      with:
+        distribution: temurin
+        java-version: '17'
+    - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+      with:
+        channel: stable
+        flutter-version: ${{ env.FLUTTER_VERSION }}
+    - run: scripts/restore-firebase-config.sh dart android
+    - name: Restore signing files
+      env:
+        ANDROID_KEYSTORE_JKS_BASE64: ${{ secrets.ANDROID_KEYSTORE_JKS_BASE64 }}
+        ANDROID_KEY_PROPERTIES_BASE64: ${{ secrets.ANDROID_KEY_PROPERTIES_BASE64 }}
+      run: scripts/restore-android-signing.sh
+    - run: flutter pub get
+    - name: Build App Bundle
+      env:
+        BUILD_NUMBER: ${{ inputs.build_number }}
+        REVENUECAT_PUBLIC_API_KEY_ANDROID: ${{ vars.REVENUECAT_PUBLIC_API_KEY_ANDROID }}
+      run: |
+        if [ -z "$REVENUECAT_PUBLIC_API_KEY_ANDROID" ]; then
+          echo "::error::GitHub Variable REVENUECAT_PUBLIC_API_KEY_ANDROID が未設定です。鍵なしのビルドは購入画面が出ず再リリースが要るため止めます (documents/generation-ticket-release.md)"
+          exit 1
+        fi
+        flutter build appbundle --release \
+          ${BUILD_NUMBER:+--build-number="$BUILD_NUMBER"} \
+          --dart-define=REVENUECAT_PUBLIC_API_KEY_ANDROID="$REVENUECAT_PUBLIC_API_KEY_ANDROID"
+    - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      with:
+        name: android-aab
+        path: build/app/outputs/bundle/release/app-release.aab
+        retention-days: 14
+        if-no-files-found: error

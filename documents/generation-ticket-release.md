@@ -15,6 +15,8 @@ RevenueCat の値は `revenuecat/config.json` が正で、生成チケットの 
 
 `lib/firebase/purchases.dart` は鍵の `--dart-define` が空のビルドで SDK を初期化しないため、鍵なしのビルドを出すと offering を切り替えても購入画面が出ず、再リリースが要る。iOS は `--dart-define=REVENUECAT_PUBLIC_API_KEY_IOS=<GitHub Variable の値>`、Android は `--dart-define=REVENUECAT_PUBLIC_API_KEY_ANDROID=<GitHub Variable の値>` を付けてビルドする。
 
+Android の署名済みの AAB は `.github/workflows/build-android-release.yml` を `gh workflow run build-android-release.yml --ref main -f build_number=<versionCode>` で動かして artifact `android-aab` から取る (鍵を付けてビルドし、upload key で署名する。この Mac では flutter build を実行しない)。Play Console へのアップロードは人が行う。
+
 ## iOS の最初の提出
 
 current の offering は project に 1 つで、iOS と Android の両方に効く (`revenuecat/config.json` の 1 つの project に両方の app がある)。Android を鍵ありで先に公開して Play の商品も登録済みなら、審査の間は Android の一般の利用者にも購入画面が出る。Android の公開か商品の登録は、iOS の審査が通るまで待つ。
