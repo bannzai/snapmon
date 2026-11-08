@@ -28,7 +28,11 @@ if [ -z "$version" ]; then
 fi
 
 expected_commit="$(curl -fsSL https://storage.googleapis.com/flutter_infra_release/releases/releases_linux.json \
-  | python3 -c 'import json, sys; v = sys.argv[1]; print(next(r["hash"] for r in json.load(sys.stdin)["releases"] if r["channel"] == "stable" and r["version"] == v))' "$version")"
+  | python3 -c 'import json, sys; version = sys.argv[1]; print(next((release["hash"] for release in json.load(sys.stdin)["releases"] if release["channel"] == "stable" and release["version"] == version), ""))' "$version")"
+if [ -z "$expected_commit" ]; then
+  echo "Error: Flutter 公式のリリース一覧 (releases_linux.json) の stable に $version がありません" >&2
+  exit 1
+fi
 
 git init -q "$dest"
 git -C "$dest" fetch -q --depth 1 https://github.com/flutter/flutter.git "refs/tags/$version:refs/tags/$version"

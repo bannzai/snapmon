@@ -25,14 +25,13 @@ prepare_workspace() {
   local work=$1
   mkdir -p "$work/bin" "$work/scripts"
   cp "$repo_root/Makefile" "$work/Makefile"
-  cp "$repo_root/pubspec.yaml" "$work/pubspec.yaml"
+  # 版の検査が読む pubspec は、リポジトリの版を読み直さずに済むよう、差し替えの flutter と同じ固定の版で置く
+  printf 'name: snapmon\nenvironment:\n  flutter: 9.9.9\n' > "$work/pubspec.yaml"
   cp "$repo_root/scripts/check-flutter-version.sh" "$work/scripts/check-flutter-version.sh"
-  local pinned_version
-  pinned_version="$(awk '/^environment:/ { in_environment = 1; next } /^[^[:space:]]/ { in_environment = 0 } in_environment && /^[[:space:]]+flutter:/ { print $2; exit }' "$repo_root/pubspec.yaml")"
-  cat > "$work/bin/flutter" <<EOF
+  cat > "$work/bin/flutter" <<'EOF'
 #!/usr/bin/env bash
-if [ "\$1 \$2" = "--version --machine" ]; then
-  printf '{"frameworkVersion": "%s"}\n' "$pinned_version"
+if [ "$1 $2" = "--version --machine" ]; then
+  printf '{"frameworkVersion": "9.9.9"}\n'
   exit 0
 fi
 EOF
