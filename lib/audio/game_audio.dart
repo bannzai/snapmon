@@ -86,43 +86,60 @@ class GameAudio extends ChangeNotifier {
   /// 実際に流れている BGM。再生に失敗した時 (Web でユーザーの操作の前に流そうとした時) は null に戻し、次に求められた時に流し直す。
   BackgroundMusic? _playingBackgroundMusic;
 
+  /// BGM の再生・停止と設定の保存を 1 つずつ順に行うための、直前の操作の完了。
+  /// 再生は読み込みに時間がかかるため、並行して呼ぶと先に始めた再生が後から完了して、止めた後に鳴り出す・
+  /// 古い設定の保存が最後に残ることがある。順に行い、最後に求められた状態を音と保存の値に反映する。
+  Future<void> _lastBackgroundMusicOperation = Future.value();
+
   /// BGM を流すか (設定画面の「BGM」)。
   bool get isBackgroundMusicEnabled => _isBackgroundMusicEnabled;
 
   /// 効果音を鳴らすか (設定画面の「効果音」)。
   bool get isSoundEffectsEnabled => _isSoundEffectsEnabled;
 
+  /// [operation] を、前の BGM の操作が終わってから行う。失敗してもゲームは止めず、後の操作を妨げない。
+  Future<void> _runAfterPreviousBackgroundMusicOperation(
+    Future<void> Function() operation,
+  ) {
+    final completed = _lastBackgroundMusicOperation.then((_) => operation());
+    _lastBackgroundMusicOperation = completed.catchError(
+      (Object error) => debugPrint(error.toString()),
+    );
+    return _lastBackgroundMusicOperation;
+  }
+
   /// [music] を流す。同じ曲が流れている時は流し直さない (画面を行き来するたびに曲が頭に戻らないため)。
   /// オフの間は流さず、オンに戻した時に流す曲として覚える。
-  Future<void> playBackgroundMusic({required BackgroundMusic music}) async {
+  Future<void> playBackgroundMusic({required BackgroundMusic music}) {
     _requestedBackgroundMusic = music;
-    if (!_isBackgroundMusicEnabled || _playingBackgroundMusic == music) {
-      return;
-    }
-    _playingBackgroundMusic = music;
-    try {
-      await playBackgroundMusicAsset(
-        assetPath: music.assetPath,
-        volume: backgroundMusicVolume,
-      );
-    } catch (error) {
-      // 音が出なくてもゲームは止めない。流れていない曲を流れていることにしないため、次に求められた時に流し直す
-      debugPrint('${music.assetPath}: $error');
-      if (_playingBackgroundMusic == music) {
+    return _runAfterPreviousBackgroundMusicOperation(() async {
+      // 順番が回ってきた時点の最新の要求で判断する (待っている間に止める・別の曲・オフに変わっていることがある)
+      if (!_isBackgroundMusicEnabled ||
+          _requestedBackgroundMusic != music ||
+          _playingBackgroundMusic == music) {
+        return;
+      }
+      _playingBackgroundMusic = music;
+      try {
+        await playBackgroundMusicAsset(
+          assetPath: music.assetPath,
+          volume: backgroundMusicVolume,
+        );
+      } catch (error) {
+        // 音が出なくてもゲームは止めない。流れていない曲を流れていることにしないため、次に求められた時に流し直す
+        debugPrint('${music.assetPath}: $error');
         _playingBackgroundMusic = null;
       }
-    }
+    });
   }
 
   /// 流れている BGM を止める。次に [playBackgroundMusic] が呼ばれるまで何も流れない。
-  Future<void> stopBackgroundMusic() async {
+  Future<void> stopBackgroundMusic() {
     _requestedBackgroundMusic = null;
-    _playingBackgroundMusic = null;
-    try {
+    return _runAfterPreviousBackgroundMusicOperation(() async {
+      _playingBackgroundMusic = null;
       await stopBackgroundMusicAsset();
-    } catch (error) {
-      debugPrint(error.toString());
-    }
+    });
   }
 
   /// [effect] を 1 回鳴らす。オフの間は鳴らさない。
@@ -138,26 +155,41 @@ class GameAudio extends ChangeNotifier {
   }
 
   /// 「BGM」のオン・オフを変えて保存する。オフにすると流れている BGM を止め、オンにすると最後に求められた曲を流す。
-  Future<void> setBackgroundMusicEnabled({required bool enabled}) async {
+  Future<void> setBackgroundMusicEnabled({required bool enabled}) {
     if (_isBackgroundMusicEnabled == enabled) {
-      return;
+      return Future.value();
     }
     _isBackgroundMusicEnabled = enabled;
     notifyListeners();
-    final requested = _requestedBackgroundMusic;
-    if (enabled) {
-      if (requested != null) {
-        await playBackgroundMusic(music: requested);
+    return _runAfterPreviousBackgroundMusicOperation(() async {
+      // 順番が回ってきた時点の値で判断する (待っている間にもう一度切り替わっていれば、その切り替えの番で反映する)
+      if (_isBackgroundMusicEnabled != enabled) {
+        return;
       }
-    } else {
-      _playingBackgroundMusic = null;
-      try {
-        await stopBackgroundMusicAsset();
-      } catch (error) {
-        debugPrint(error.toString());
+      final requested = _requestedBackgroundMusic;
+      if (enabled) {
+        if (requested != null && _playingBackgroundMusic != requested) {
+          _playingBackgroundMusic = requested;
+          try {
+            await playBackgroundMusicAsset(
+              assetPath: requested.assetPath,
+              volume: backgroundMusicVolume,
+            );
+          } catch (error) {
+            debugPrint('${requested.assetPath}: $error');
+            _playingBackgroundMusic = null;
+          }
+        }
+      } else {
+        _playingBackgroundMusic = null;
+        try {
+          await stopBackgroundMusicAsset();
+        } catch (error) {
+          debugPrint(error.toString());
+        }
       }
-    }
-    await saveSetting(key: AudioSettingKey.backgroundMusic, value: enabled);
+      await saveSetting(key: AudioSettingKey.backgroundMusic, value: enabled);
+    });
   }
 
   /// 「効果音」のオン・オフを変えて保存する。

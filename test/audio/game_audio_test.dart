@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:snapmon/audio/game_audio.dart';
 
@@ -94,6 +96,40 @@ void main() {
     expect(calls.savedSettings, [
       (key: AudioSettingKey.soundEffects, value: false),
     ]);
+  });
+
+  test('BGM の読み込み中にオフにしても、読み込みが終わってから止めて、最後の設定を保存する', () async {
+    final playStarted = Completer<void>();
+    final playCompleter = Completer<void>();
+    var stopCount = 0;
+    final savedValues = <bool>[];
+    final gameAudio = GameAudio(
+      playBackgroundMusicAsset: ({required assetPath, required volume}) {
+        playStarted.complete();
+        return playCompleter.future;
+      },
+      stopBackgroundMusicAsset: () async => stopCount += 1,
+      playSoundEffectAsset: ({required assetPath}) async {},
+      saveSetting: ({required key, required value}) async =>
+          savedValues.add(value),
+      isBackgroundMusicEnabled: true,
+      isSoundEffectsEnabled: true,
+    );
+    final playing = gameAudio.playBackgroundMusic(music: BackgroundMusic.home);
+    await playStarted.future;
+    // 読み込み中にオフ → オン → オフと切り替える。保存は切り替えた順に、停止は読み込みが終わった後に行う
+    final toggling = Future.wait([
+      gameAudio.setBackgroundMusicEnabled(enabled: false),
+      gameAudio.setBackgroundMusicEnabled(enabled: true),
+      gameAudio.setBackgroundMusicEnabled(enabled: false),
+    ]);
+    expect(stopCount, 0);
+    playCompleter.complete();
+    await playing;
+    await toggling;
+    expect(stopCount, 1);
+    expect(savedValues, [false, true, false]);
+    expect(gameAudio.isBackgroundMusicEnabled, isFalse);
   });
 
   test('再生に失敗しても throw せず、次に同じ曲を求めた時に流し直す', () async {
