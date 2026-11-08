@@ -5,6 +5,9 @@ class RecordedAudioCalls {
   /// 流し始めた BGM のファイルのパス (呼ばれた順)。
   final List<String> playedBackgroundMusicAssetPaths = [];
 
+  /// 流し始めた BGM に渡した音量 (呼ばれた順。[playedBackgroundMusicAssetPaths] と同じ並び)。
+  final List<double> playedBackgroundMusicVolumes = [];
+
   /// BGM を止めた回数。
   int stopBackgroundMusicCount = 0;
 
@@ -26,6 +29,7 @@ GameAudio fakeGameAudio({
 }) => GameAudio(
   playBackgroundMusicAsset: ({required assetPath, required volume}) async {
     calls.playedBackgroundMusicAssetPaths.add(assetPath);
+    calls.playedBackgroundMusicVolumes.add(volume);
   },
   stopBackgroundMusicAsset: () async {
     calls.stopBackgroundMusicCount += 1;
