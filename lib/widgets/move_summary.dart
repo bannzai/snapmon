@@ -49,9 +49,12 @@ class MoveSummary extends StatelessWidget {
         runSpacing: 4,
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
-          // 属性の札と相性の倍率は「炎 ×2」と 1 まとまりで読ませるため、Wrap の 1 つの子にして別の行に分けない
-          Row(
-            mainAxisSize: MainAxisSize.min,
+          // 属性の札と相性の倍率は「炎 ×2」と 1 まとまりで読ませるため、外の Wrap の 1 つの子にして威力と PP より先に改行させる。
+          // 大きい文字で 2 つの札が技のボタンの幅に入らない時だけ、はみ出さずに札の間で折り返す
+          Wrap(
+            spacing: 4,
+            runSpacing: 4,
+            crossAxisAlignment: WrapCrossAlignment.center,
             children: [
               ElementTypeTag(
                 elementTypeId: move.elementTypeId,
@@ -59,10 +62,8 @@ class MoveSummary extends StatelessWidget {
               ),
               // 等倍は出さない (ログの「こうかは ばつぐんだ」「いまひとつ」と同じく、倍率が変わる時だけ知らせる。全部の技に出すと技の枠が埋まるため)
               if (typeMultiplier case final typeMultiplier?
-                  when typeMultiplier != 1) ...[
-                const SizedBox(width: 4),
+                  when typeMultiplier != 1)
                 _TypeMultiplierTag(typeMultiplier: typeMultiplier),
-              ],
             ],
           ),
           _MoveStatValue(label: context.l10n.movePower, value: '${move.power}'),
