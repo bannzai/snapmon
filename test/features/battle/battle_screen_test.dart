@@ -1698,36 +1698,35 @@ void main() {
       (const Size(393, 852), 59.0, 34.0),
       (const Size(390, 844), 47.0, 34.0),
     ]) {
-      testWidgets(
-        '縦向きのスマホ ($size) では、2 体の絵が 2 枚のカード・トレーナーの札・ログの帯に重ならない',
-        (tester) async {
-          await pumpBattleScreenWithSize(
-            tester: tester,
-            size: size,
-            topPadding: topPadding,
-            bottomPadding: bottomPadding,
-            leftPadding: 0,
-            rightPadding: 0,
-            playerMonster: strongPlayer,
-          );
+      testWidgets('縦向きのスマホ ($size) では、2 体の絵が 2 枚のカード・トレーナーの札・ログの帯に重ならない', (
+        tester,
+      ) async {
+        await pumpBattleScreenWithSize(
+          tester: tester,
+          size: size,
+          topPadding: topPadding,
+          bottomPadding: bottomPadding,
+          leftPadding: 0,
+          rightPadding: 0,
+          playerMonster: strongPlayer,
+        );
 
-          final field = fieldRect(tester: tester);
-          for (final artRect in monsterArtRects(tester: tester)) {
-            expect(field.intersect(artRect), artRect);
-            for (final coveringRect in [
-              opponentStatusCardRect(tester: tester),
-              playerStatusCardRect(tester: tester),
-              tester.getRect(find.byKey(const Key('battle-opponent-trainer'))),
-              tester.getRect(find.byKey(const Key('battle-player-trainer'))),
-              battleLogRect(tester: tester),
-            ]) {
-              expect(artRect.overlaps(coveringRect), isFalse);
-            }
-            // 被写体を見分けられる大きさ (左右配置の下限と同じ 60px。expectMonsterArtsVisible) を保つ
-            expect(artRect.height, greaterThanOrEqualTo(60));
+        final field = fieldRect(tester: tester);
+        for (final artRect in monsterArtRects(tester: tester)) {
+          expect(field.intersect(artRect), artRect);
+          for (final coveringRect in [
+            opponentStatusCardRect(tester: tester),
+            playerStatusCardRect(tester: tester),
+            tester.getRect(find.byKey(const Key('battle-opponent-trainer'))),
+            tester.getRect(find.byKey(const Key('battle-player-trainer'))),
+            battleLogRect(tester: tester),
+          ]) {
+            expect(artRect.overlaps(coveringRect), isFalse);
           }
-        },
-      );
+          // 被写体を見分けられる大きさ (左右配置の下限と同じ 60px。expectMonsterArtsVisible) を保つ
+          expect(artRect.height, greaterThanOrEqualTo(60));
+        }
+      });
     }
 
     testWidgets('技の演出中に縦横を回転してもログとバトルの状態を維持し、横向きで決着まで操作できる', (tester) async {

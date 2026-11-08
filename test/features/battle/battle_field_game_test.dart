@@ -97,7 +97,7 @@ void main() {
     createGame,
     (game) async {
       game.onGameResize(Vector2(1280, 263));
-      game.updateOpponentStatusCardBottom(bottom: 181);
+      game.updateOverlayRects(rects: [const Rect.fromLTRB(20, 96, 210, 181)]);
       expect(
         game.playerMonsterComponent.toRect().top,
         greaterThanOrEqualTo(181 - 0.001),
@@ -115,10 +115,62 @@ void main() {
     game,
   ) async {
     game.onGameResize(Vector2(1280, 180));
-    game.updateOpponentStatusCardBottom(bottom: 181);
+    game.updateOverlayRects(rects: [const Rect.fromLTRB(20, 96, 210, 181)]);
     expect(game.opponentMonsterComponent.size.x, greaterThan(0));
     expect(game.playerMonsterComponent.size.x, greaterThan(0));
   });
+
+  /// 393×532 は iPhone 15 Pro (393×852) の縦向きのバトルのフィールド (#243 のスクリーンショットの実測)。
+  /// 矩形は、左上の相手のトレーナーの札と情報カード、右下に積んだ自分のトレーナーの札と情報カード。
+  testWithGame<BattleFieldGame>(
+    '縦向きのスマホでは、2 体の絵を情報カードとトレーナーの札に重ならない大きさにし、相手を右上・自分を左下に置く',
+    createGame,
+    (game) async {
+      game.onGameResize(Vector2(393, 532));
+      const overlayRects = [
+        Rect.fromLTRB(20, 155, 130, 195),
+        Rect.fromLTRB(20, 201, 210, 284),
+        Rect.fromLTRB(183, 380, 373, 508),
+      ];
+      game.updateOverlayRects(rects: overlayRects);
+      final opponentRect = game.opponentMonsterComponent.toRect();
+      final playerRect = game.playerMonsterComponent.toRect();
+      for (final monsterRect in [opponentRect, playerRect]) {
+        for (final overlayRect in overlayRects) {
+          expect(monsterRect.overlaps(overlayRect), isFalse);
+        }
+      }
+      expect(opponentRect.overlaps(playerRect), isFalse);
+      expect(opponentRect.center.dx, greaterThan(game.size.x / 2));
+      expect(playerRect.center.dx, lessThan(game.size.x / 2));
+      // 被写体を見分けられる大きさ (battle_screen_test.dart の左右配置の下限 60px) を保つ
+      expect(opponentRect.width, greaterThanOrEqualTo(60));
+    },
+  );
+
+  testWithGame<BattleFieldGame>(
+    '絵の広がる向きと逆側にある矩形では絵を縮めず、同じ矩形の並びを受け取っても置き直さない',
+    createGame,
+    (game) async {
+      game.onGameResize(Vector2(393, 532));
+      final opponentRectBefore = game.opponentMonsterComponent.toRect();
+      final playerRectBefore = game.playerMonsterComponent.toRect();
+      // 相手の絵の右上の角 (右端 0.88w) より右の矩形と、自分の絵の左下の角 (下端 0.94h) より下の矩形
+      final overlayRects = [
+        const Rect.fromLTRB(360, 140, 393, 300),
+        const Rect.fromLTRB(0, 510, 200, 532),
+      ];
+      game.updateOverlayRects(rects: overlayRects);
+      expect(game.opponentMonsterComponent.toRect(), opponentRectBefore);
+      expect(game.playerMonsterComponent.toRect(), playerRectBefore);
+
+      // 攻撃の前進の途中のように位置を動かしても、同じ並びの矩形 (別のリスト) では元の位置に戻さない
+      game.opponentMonsterComponent.position += Vector2(10, 0);
+      final movedPosition = game.opponentMonsterComponent.position.clone();
+      game.updateOverlayRects(rects: [...overlayRects]);
+      expect(game.opponentMonsterComponent.position, movedPosition);
+    },
+  );
 
   /// 600×103 は横向きのスマホ (844×390、下のセーフエリア 21) のフィールド。
   /// 218〜382・16〜102 は、左右に上げた 2 枚の情報カード (幅 190・高さ 86) の間 (battle_screen.dart の _monsterArtAreaMinimumWidthBetweenCards)。
