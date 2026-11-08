@@ -204,6 +204,7 @@ final testMaster = MasterData(
       ('fire_dizzy', StatusConditionKind.dizzy),
       ('fire_freeze', StatusConditionKind.frozen),
       ('fire_poison_support', StatusConditionKind.poison),
+      ('fire_block_switch', StatusConditionKind.switchBlocked),
     ])
       Move(
         id: id,
@@ -2646,6 +2647,252 @@ void main() {
       // このラウンドの始めに選び直した組のまま (始め直しで消えない)
       expect(state.field?.swappedStatKinds, isNotNull);
       expect(state.events.whereType<FieldEffectShuffledEvent>().length, 2);
+    });
+  });
+
+  group('自分からの交代と交換不可 (#239)', () {
+    /// [member] の残りの HP を [hitPoints] にしたモンスター。null なら [member] のまま (満タン)。
+    BattleMonster withHitPoints({
+      required BattleMonster member,
+      required int? hitPoints,
+    }) => hitPoints == null
+        ? member
+        : BattleMonster(
+            definition: member.definition,
+            state: member.state.copyWith(currentHitPoints: hitPoints),
+          );
+
+    /// 利用者は素早さ 50 の 3 体 (player_1〜3)、相手は素早さ 100 の 1 体。[playerHitPoints] は手持ちの位置ごとの残りの HP (無ければ満タン)。
+    BattleState startSwitchBattle({
+      Map<int, int> playerHitPoints = const {},
+      int? opponentHitPoints,
+    }) => startBattle(
+      playerMembers: [
+        for (final index in [0, 1, 2])
+          withHitPoints(
+            member: prepare(
+              definition: testDefinition(
+                id: 'player_${index + 1}',
+                elementTypeId: 'fire',
+                moveIds: ['fire_strong', 'fire_raise_attack'],
+                speed: 50,
+              ),
+            ),
+            hitPoints: playerHitPoints[index],
+          ),
+      ],
+      opponentMembers: [
+        withHitPoints(
+          member: prepare(
+            definition: testDefinition(
+              id: 'opponent_1',
+              elementTypeId: 'grass',
+              moveIds: [
+                'grass_strong',
+                'fire_priority',
+                'fire_block_switch',
+                'fire_curse',
+              ],
+              speed: 100,
+            ),
+          ),
+          hitPoints: opponentHitPoints,
+        ),
+      ],
+      randomSeed: 1,
+      battleDate: testBattleDate,
+      opponentDamagePercent: 100,
+    );
+
+    test('交代は先制の技より先に行われ、交代して出たモンスターが相手の技を受ける', () {
+      final state = startSwitchBattle();
+      final next = advanceRound(
+        state: state,
+        playerAction: const SwitchMonsterAction(memberIndex: 1),
+        opponentAction: const UseMoveAction(moveId: 'fire_priority'),
+        master: testMaster,
+      );
+
+      final switched = next.events.first as MonsterSwitchedInEvent;
+      expect(switched.turnNumber, 1);
+      expect(switched.side, BattleSideId.player);
+      expect(switched.monsterId, 'player_2');
+      expect(switched.withdrawnMonsterId, 'player_1');
+      final moveUsed = next.events[1] as MoveUsedEvent;
+      expect(moveUsed.turnNumber, 2);
+      expect(moveUsed.attackerSide, BattleSideId.opponent);
+      expect(next.player.activeMemberIndex, 1);
+      expect(
+        next.player.members[1].state.currentHitPoints,
+        lessThan(state.player.members[1].state.currentHitPoints),
+      );
+      expect(
+        next.player.members[0].state.currentHitPoints,
+        state.player.members[0].state.currentHitPoints,
+      );
+    });
+
+    test('場にいる・倒れている・手持ちに無い位置への交代は拒まれ、倒れていない控えだけが候補になる', () {
+      final state = startSwitchBattle(playerHitPoints: {1: 0});
+      expect(switchableMemberIndices(party: state.player), [2]);
+      for (final memberIndex in [0, 1, 3]) {
+        expect(
+          () => advanceRound(
+            state: state,
+            playerAction: SwitchMonsterAction(memberIndex: memberIndex),
+            opponentAction: const UseMoveAction(moveId: 'grass_strong'),
+            master: testMaster,
+          ),
+          throwsArgumentError,
+          reason: 'memberIndex=$memberIndex',
+        );
+      }
+      expect(
+        () => advanceRound(
+          state: state,
+          playerAction: const SwitchMonsterAction(memberIndex: 2),
+          opponentAction: const UseMoveAction(moveId: 'grass_strong'),
+          master: testMaster,
+        ),
+        returnsNormally,
+      );
+    });
+
+    test('場を離れるとステータスの倍率は等倍に戻り、状態は残る', () {
+      var state = advanceRound(
+        state: startSwitchBattle(),
+        playerAction: const UseMoveAction(moveId: 'fire_raise_attack'),
+        opponentAction: const UseMoveAction(moveId: 'fire_curse'),
+        master: testMaster,
+      );
+      expect(
+        statModifierPercentOf(
+          monster: state.player.activeMember,
+          statKind: StatKind.attack,
+        ),
+        greaterThan(100),
+      );
+      expect(
+        state.player.activeMember.state.statusConditions,
+        contains(StatusConditionKind.curse),
+      );
+      state = advanceRound(
+        state: state,
+        playerAction: const SwitchMonsterAction(memberIndex: 1),
+        opponentAction: const UseMoveAction(moveId: 'fire_curse'),
+        master: testMaster,
+      );
+      final withdrawn = state.player.members[0];
+      expect(
+        statModifierPercentOf(monster: withdrawn, statKind: StatKind.attack),
+        100,
+      );
+      expect(
+        withdrawn.state.statusConditions,
+        contains(StatusConditionKind.curse),
+      );
+    });
+
+    test('交換不可の間は交代が拒まれ、残りのターンが 0 になって消えると交代できる', () {
+      var state = advanceRound(
+        state: startSwitchBattle(),
+        playerAction: const UseMoveAction(moveId: 'fire_raise_attack'),
+        opponentAction: const UseMoveAction(moveId: 'fire_block_switch'),
+        master: testMaster,
+      );
+      expect(
+        state.events.whereType<StatusConditionInflictedEvent>().single.kind,
+        StatusConditionKind.switchBlocked,
+      );
+      var blockedRounds = 0;
+      while (isSwitchBlocked(party: state.player)) {
+        final blockedState = state;
+        expect(
+          () => advanceRound(
+            state: blockedState,
+            playerAction: const SwitchMonsterAction(memberIndex: 1),
+            opponentAction: const UseMoveAction(moveId: 'fire_curse'),
+            master: testMaster,
+          ),
+          throwsArgumentError,
+        );
+        state = advanceRound(
+          state: state,
+          playerAction: const UseMoveAction(moveId: 'fire_raise_attack'),
+          opponentAction: const UseMoveAction(moveId: 'fire_curse'),
+          master: testMaster,
+        );
+        blockedRounds++;
+        expect(blockedRounds, lessThanOrEqualTo(3));
+      }
+      // 相手が先に動いて付けたため、付いたラウンドの自分のターンの終わりで 1 減り、残りの 2 ラウンドだけ封じる
+      expect(blockedRounds, 2);
+      expect(state.events.whereType<StatusConditionCuredEvent>().last.kinds, [
+        StatusConditionKind.switchBlocked,
+      ]);
+      final next = advanceRound(
+        state: state,
+        playerAction: const SwitchMonsterAction(memberIndex: 1),
+        opponentAction: const UseMoveAction(moveId: 'fire_curse'),
+        master: testMaster,
+      );
+      expect(next.player.activeMemberIndex, 1);
+    });
+
+    test('交換不可でも、倒れた時の交代は止まらない', () {
+      var state = advanceRound(
+        state: startSwitchBattle(playerHitPoints: {0: 1}),
+        playerAction: const UseMoveAction(moveId: 'fire_raise_attack'),
+        opponentAction: const UseMoveAction(moveId: 'fire_block_switch'),
+        master: testMaster,
+      );
+      expect(isSwitchBlocked(party: state.player), isTrue);
+      state = advanceRound(
+        state: state,
+        playerAction: const UseMoveAction(moveId: 'fire_raise_attack'),
+        opponentAction: const UseMoveAction(moveId: 'grass_strong'),
+        master: testMaster,
+      );
+      final switched = state.events.whereType<MonsterSwitchedInEvent>().single;
+      expect(switched.monsterId, 'player_2');
+      expect(switched.withdrawnMonsterId, isNull);
+      expect(state.player.activeMemberIndex, 1);
+    });
+
+    test('交代で場に出たモンスターだけがレベルアップの対象になる (先頭→3 体目→倒れて先頭に戻る)', () {
+      var state = advanceRound(
+        state: startSwitchBattle(playerHitPoints: {2: 1}, opponentHitPoints: 1),
+        playerAction: const SwitchMonsterAction(memberIndex: 2),
+        opponentAction: const UseMoveAction(moveId: 'grass_strong'),
+        master: testMaster,
+      );
+      // 3 体目は相手の技で倒れ、倒れていない最も前の先頭が戻る
+      expect(
+        state.events.whereType<MonsterSwitchedInEvent>().map(
+          (event) => (event.monsterId, event.withdrawnMonsterId),
+        ),
+        [('player_3', 'player_1'), ('player_1', null)],
+      );
+      expect(state.player.activeMemberIndex, 0);
+      state = advanceRound(
+        state: state,
+        playerAction: const UseMoveAction(moveId: 'fire_strong'),
+        opponentAction: const UseMoveAction(moveId: 'fire_curse'),
+        master: testMaster,
+      );
+      expect(state.winner, BattleSideId.player);
+      expect(state.player.members.map((member) => member.state.level), [
+        51,
+        50,
+        51,
+      ]);
+      expect(
+        state.events
+            .whereType<LevelUpEvent>()
+            .where((event) => event.side == BattleSideId.player)
+            .map((event) => event.monsterId),
+        ['player_1', 'player_3'],
+      );
     });
   });
 }

@@ -68,6 +68,15 @@ class StruggleAction extends BattleAction {
   const StruggleAction();
 }
 
+/// 場のモンスターを手持ちの別のモンスターと交代する行動。技より先に行う (documents/game-rules.md「1 ラウンドの流れ」)。
+class SwitchMonsterAction extends BattleAction {
+  /// 交代の行動を作る。
+  const SwitchMonsterAction({required this.memberIndex});
+
+  /// 交代して場に出すモンスターの手持ち ([BattleParty.members]) の位置。
+  final int memberIndex;
+}
+
 /// バトルのログの 1 件。画面はこの列を順に再生して演出する。
 sealed class BattleEvent {
   const BattleEvent({required this.turnNumber});
@@ -351,13 +360,14 @@ class MonsterFaintedEvent extends BattleEvent {
   final String monsterId;
 }
 
-/// 倒れたモンスターの代わりに次のモンスターが場に出た。
+/// 手持ちのモンスターが場に出た (倒れたモンスターの代わりか、[SwitchMonsterAction] の交代)。
 class MonsterSwitchedInEvent extends BattleEvent {
   /// 交代のログを作る。
   const MonsterSwitchedInEvent({
     required super.turnNumber,
     required this.side,
     required this.monsterId,
+    required this.withdrawnMonsterId,
   });
 
   /// 交代した陣営。
@@ -365,6 +375,9 @@ class MonsterSwitchedInEvent extends BattleEvent {
 
   /// 場に出たモンスターの識別子。
   final String monsterId;
+
+  /// [SwitchMonsterAction] の交代で引っ込めたモンスターの識別子。倒れたモンスターの代わりに出た時は null。
+  final String? withdrawnMonsterId;
 }
 
 /// 決着後にモンスターのレベルが上がった。上限に達していて上がらなかった時も、経験の加算として出す。

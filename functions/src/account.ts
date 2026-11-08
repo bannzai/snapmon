@@ -11,6 +11,7 @@ import { onTaskDispatched } from "firebase-functions/v2/tasks";
 import { ENFORCE_APP_CHECK } from "./app_check";
 import { STORAGE_BUCKET_NAME } from "./generation/dependencies";
 import type { StorageBucket } from "./generation/pipeline";
+import { FUNCTIONS_SERVICE_ACCOUNT } from "./service_account";
 
 /** 消し残したファイルと `users/{uid}` を消すタスクの中身。 */
 export interface AccountFileDeletionTask {
@@ -199,9 +200,10 @@ export async function deleteAccountLeftovers({ firestore, bucket }: { firestore:
 /**
  * [deleteAccountLeftovers] のタスク。失敗したら投げて、Cloud Tasks に再試行させる。
  * retryConfig: Storage・Firestore の障害が数時間続いても消し終えるよう、最大 1 時間の間隔で 24 回 (1 日分) にした。
+ * invoker: 理由は generate.ts の resumeGenerationTask と同じ。
  */
 export const deleteAccountFilesTask = onTaskDispatched<AccountFileDeletionTask>(
-  { retryConfig: { maxAttempts: 24, minBackoffSeconds: 60, maxBackoffSeconds: 3_600 } },
+  { retryConfig: { maxAttempts: 24, minBackoffSeconds: 60, maxBackoffSeconds: 3_600 }, invoker: [FUNCTIONS_SERVICE_ACCOUNT] },
   async (request) => {
     await deleteAccountLeftovers({ firestore: getFirestore(), bucket: getStorage().bucket(STORAGE_BUCKET_NAME) }, request.data);
   },

@@ -5,6 +5,7 @@ import { onTaskDispatched } from "firebase-functions/v2/tasks";
 import { rejectDeletedAccount } from "../account";
 import { ENFORCE_APP_CHECK } from "../app_check";
 import { typesafeApiKey } from "../secrets";
+import { FUNCTIONS_SERVICE_ACCOUNT } from "../service_account";
 import { createProductionDependencies } from "./dependencies";
 import { type GenerationDependencies, GenerationRequestError, resumeGeneration, type ResumeTask, startGeneration } from "./pipeline";
 import type { GenerationResult, MaskSource } from "./records";
@@ -90,10 +91,13 @@ export const generate = onCall({ ...GENERATION_FUNCTION_OPTIONS, enforceAppCheck
  * 予約を取る前の失敗 (Firestore・Cloud Tasks の障害、インスタンスの起動の失敗) だけを受け持つ。judge のタスクは次のタスクを自分で
  * 積むため、再試行を使い切ると判定待ちが進まなくなる。障害が数時間続いても使い切らないよう、10 回・最大 1 時間の間隔にした。
  * rateLimits: 同時に動く再試行を maxInstances (index.ts の 10) に収める。
+ * invoker: タスクの OIDC トークンの主体 (service_account.ts) に Cloud Run の run.invoker を付ける。省くとデプロイが誰にも付けず、
+ * Cloud Tasks からの呼び出しがすべて 403 になる (issue 255)。
  */
 export const resumeGenerationTask = onTaskDispatched<ResumeTask>(
   {
     ...GENERATION_FUNCTION_OPTIONS,
+    invoker: [FUNCTIONS_SERVICE_ACCOUNT],
     retryConfig: { maxAttempts: 10, minBackoffSeconds: 60, maxBackoffSeconds: 3_600 },
     rateLimits: { maxConcurrentDispatches: 10 },
   },
