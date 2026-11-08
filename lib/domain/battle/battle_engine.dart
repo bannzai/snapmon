@@ -46,7 +46,11 @@ const int cpuOneHitKnockoutChanceDenominator = 4;
 const int cpuSelfDestructHitPointsDenominator = 4;
 
 /// CPU との対戦で、CPU が与えるダメージに掛ける割合 (%)。根拠は documents/DIRECTION.md「決めたこと」の 2026-11-09 の行 (issue #240)。
-const int cpuDamagePercent = 75;
+/// 本番の種族値の利用者が技を乱数で選ぶ時の Lv.1 の勝率を 6 割以上にする値のうち、Lv.20 で相性の最善を選ぶ利用者の勝率が 75% を超えない値
+/// (test/domain/battle/cpu_strength_test.dart と同じ組み合わせの 900 戦で、100% は 38.1%、75% は 51.3%、60% は 60.0%、50% は 66.3%。
+/// 50% の時の Lv.20 の最善を選ぶ利用者は 52.1%)。60% は目標の境目で、乱数の幅 (約 ±3 ポイント) で下回るため 50% にした。
+/// Lv.1 はステータスの式の切り捨てでどのモンスターも HP 12〜13・攻撃 5〜7 にそろい、種族値を下げても勝率が 5 割前後で止まるため、ダメージで補正する。
+const int cpuDamagePercent = 50;
 
 /// CPU の技選びの乱数の seed を、バトルの乱数の状態から作る時に混ぜる値 (黄金比の 32bit の定数 0x9E3779B9)。
 /// 同じラウンドの行動順・ダメージの乱数と同じ列を使わないため (同じ値の列だと、同じ速さの時の行動順と CPU の技選びが連動する)。
