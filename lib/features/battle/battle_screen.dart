@@ -225,6 +225,9 @@ class _BattleScreenState extends State<BattleScreen>
   /// 最後に測った自分の情報カードの高さ。最初のフレームを描くまでは null。
   double? _playerStatusCardHeight;
 
+  /// 縦に並べた配置で、自分のトレーナーの札と情報カードを積んだ列。2 体の絵が重ならないよう矩形をフィールドに渡す。
+  final GlobalKey _playerStatusCardColumnKey = GlobalKey();
+
   /// 技のボタン (決着の後は勝敗) の欄の中身。スクロールの中で高さの制約を受けずに描かれるため、測った高さは欄を詰める前の高さになる。
   final GlobalKey _commandsPanelContentKey = GlobalKey();
 
@@ -1016,8 +1019,16 @@ class _BattleScreenState extends State<BattleScreen>
                         if (_opponentStatusCardKey.currentContext?.size?.height
                             case final cardHeight?) {
                           _game
-                            ..updateOpponentStatusCardBottom(
-                              bottom: opponentStatusCardTop + cardHeight,
+                            // 2 体の絵が情報カードとトレーナーの札に重ならないよう、重ねた部品の矩形を渡す (#243)
+                            ..updateOverlayRects(
+                              rects: [
+                                for (final overlayKey in [
+                                  _opponentTrainerLabelKey,
+                                  _opponentStatusCardKey,
+                                  _playerStatusCardColumnKey,
+                                ])
+                                  ?_rectInField(widgetKey: overlayKey),
+                              ],
                             )
                             // 2 枚のカードの間を、カードと同じ高さの範囲で絵に使う (自分のカードも相手のカードと同じ高さの 3 段に保つため)
                             ..updateMonsterArtArea(
@@ -1148,6 +1159,24 @@ class _BattleScreenState extends State<BattleScreen>
           },
         ),
       ),
+    );
+  }
+
+  /// [widgetKey] の widget の矩形を、フィールド (Flame のゲームの widget) の座標で返す。
+  /// widget を出していない (札を出さない画面等) か、まだ描いていない時は null。
+  Rect? _rectInField({required GlobalKey widgetKey}) {
+    final widgetBox = widgetKey.currentContext?.findRenderObject();
+    final fieldBox = _gameWidgetKey.currentContext?.findRenderObject();
+    if (widgetBox is! RenderBox ||
+        fieldBox is! RenderBox ||
+        !widgetBox.hasSize ||
+        !fieldBox.hasSize) {
+      return null;
+    }
+    // 位置の差分ではなく変形で直す。祖先に拡大縮小の変形が掛かる画面遷移の途中に測ると、位置の差分だけが縮尺倍になり矩形がずれるため
+    return MatrixUtils.transformRect(
+      widgetBox.getTransformTo(fieldBox),
+      Offset.zero & widgetBox.size,
     );
   }
 
@@ -1392,6 +1421,7 @@ class _BattleScreenState extends State<BattleScreen>
             ? null
             : _playerStatusCardBottom,
         child: Column(
+          key: _playerStatusCardColumnKey,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             if (widget.playerProfile case final playerProfile?

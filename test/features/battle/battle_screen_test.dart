@@ -982,7 +982,7 @@ void main() {
 
   group('情報カードの置き方', () {
     /// 自分を [playerMonster]、相手を [weakOpponent] にしたバトル画面を、[size] の画面で、
-    /// 下のセーフエリアを [bottomPadding]、左右のセーフエリアを [leftPadding]・[rightPadding] にして開く。
+    /// 上下のセーフエリアを [topPadding]・[bottomPadding]、左右のセーフエリアを [leftPadding]・[rightPadding] にして開く。
     /// アプリ (lib/app.dart) と同じく内容の幅の上限 (appContentMaxWidth) に収めて描く。
     Future<void> pumpBattleScreenWithSize({
       required WidgetTester tester,
@@ -991,6 +991,8 @@ void main() {
       required double leftPadding,
       required double rightPadding,
       required OwnedMonster playerMonster,
+      // 既定は上のセーフエリアの無い画面。実機の上のセーフエリア (iPhone のノッチ・Dynamic Island) でカードが下がった配置を確かめる時に渡す
+      double topPadding = 0,
       // 既定は初回の導線ではない対戦。初回の 1 戦は勝敗の画面に生まれたカードも並べて高くなるため、決着の後の配置を確かめる時に渡す
       OwnedMonster? firstBattleBornMonster,
     }) async {
@@ -999,6 +1001,7 @@ void main() {
         ..devicePixelRatio = 1
         ..padding = FakeViewPadding(
           left: leftPadding,
+          top: topPadding,
           right: rightPadding,
           bottom: bottomPadding,
         );
@@ -1829,6 +1832,42 @@ void main() {
       expect(battleLogRect(tester: tester).left, 20);
       expect(find.byKey(const Key('battle-player-trainer')), findsOneWidget);
     });
+
+    /// 縦向きのスマホの画面と上下のセーフエリア。393×852 (上 59・下 34) は #243 の報告の iPhone 15 Pro、
+    /// 390×844 (上 47・下 34) は iPhone 14 の画面。
+    for (final (size, topPadding, bottomPadding) in [
+      (const Size(393, 852), 59.0, 34.0),
+      (const Size(390, 844), 47.0, 34.0),
+    ]) {
+      testWidgets('縦向きのスマホ ($size) では、2 体の絵が 2 枚のカード・トレーナーの札・ログの帯に重ならない', (
+        tester,
+      ) async {
+        await pumpBattleScreenWithSize(
+          tester: tester,
+          size: size,
+          topPadding: topPadding,
+          bottomPadding: bottomPadding,
+          leftPadding: 0,
+          rightPadding: 0,
+          playerMonster: strongPlayer,
+        );
+
+        for (final artRect in monsterArtRects(tester: tester)) {
+          expect(fieldRect(tester: tester).intersect(artRect), artRect);
+          for (final coveringRect in [
+            opponentStatusCardRect(tester: tester),
+            playerStatusCardRect(tester: tester),
+            tester.getRect(find.byKey(const Key('battle-opponent-trainer'))),
+            tester.getRect(find.byKey(const Key('battle-player-trainer'))),
+            battleLogRect(tester: tester),
+          ]) {
+            expect(artRect.overlaps(coveringRect), isFalse);
+          }
+          // 被写体を見分けられる大きさ (左右配置の下限と同じ 60px。expectMonsterArtsVisible) を保つ
+          expect(artRect.height, greaterThanOrEqualTo(60));
+        }
+      });
+    }
 
     testWidgets('技の演出中に縦横を回転してもログとバトルの状態を維持し、横向きで決着まで操作できる', (tester) async {
       await pumpBattleScreenWithSize(
