@@ -68,6 +68,15 @@ class StruggleAction extends BattleAction {
   const StruggleAction();
 }
 
+/// 場のモンスターを手持ちの別のモンスターと交代する行動。技より先に行う (documents/game-rules.md「1 ラウンドの流れ」)。
+class SwitchMonsterAction extends BattleAction {
+  /// 交代の行動を作る。
+  const SwitchMonsterAction({required this.memberIndex});
+
+  /// 交代して場に出すモンスターの手持ち ([BattleParty.members]) の位置。
+  final int memberIndex;
+}
+
 /// バトルのログの 1 件。画面はこの列を順に再生して演出する。
 sealed class BattleEvent {
   const BattleEvent({required this.turnNumber});
@@ -351,13 +360,14 @@ class MonsterFaintedEvent extends BattleEvent {
   final String monsterId;
 }
 
-/// 倒れたモンスターの代わりに次のモンスターが場に出た。
+/// 手持ちのモンスターが場に出た (倒れたモンスターの代わりか、[SwitchMonsterAction] の交代)。
 class MonsterSwitchedInEvent extends BattleEvent {
   /// 交代のログを作る。
   const MonsterSwitchedInEvent({
     required super.turnNumber,
     required this.side,
     required this.monsterId,
+    required this.withdrawnMonsterId,
   });
 
   /// 交代した陣営。
@@ -365,6 +375,9 @@ class MonsterSwitchedInEvent extends BattleEvent {
 
   /// 場に出たモンスターの識別子。
   final String monsterId;
+
+  /// [SwitchMonsterAction] の交代で引っ込めたモンスターの識別子。倒れたモンスターの代わりに出た時は null。
+  final String? withdrawnMonsterId;
 }
 
 /// 決着後にモンスターのレベルが上がった。上限に達していて上がらなかった時も、経験の加算として出す。
@@ -408,6 +421,7 @@ class BattleState {
     required this.winner,
     required this.battleDate,
     required this.field,
+    required this.opponentDamagePercent,
   });
 
   /// 利用者の陣営。
@@ -433,6 +447,10 @@ class BattleState {
 
   /// 続いているフィールドの効果。無ければ null。
   final BattleField? field;
+
+  /// 相手の陣営が与えるダメージ式のダメージ (攻撃技・わるあがき) に掛ける割合 (%)。100 なら補正しない。
+  /// 一撃必殺と毒のダメージには掛けない (documents/game-rules.md「ダメージ式」)。CPU との対戦は [cpuDamagePercent] (battle_engine.dart)。
+  final int opponentDamagePercent;
 
   /// 次に解決するラウンドの番号 (1 から)。
   int get roundNumber => (turnNumber + 1) ~/ 2;

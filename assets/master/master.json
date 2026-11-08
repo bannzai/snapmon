@@ -1,5 +1,5 @@
 {
-  "version": 9,
+  "version": 10,
   "elementTypes": [
     {
       "id": "fire",
@@ -1034,6 +1034,29 @@
       "rationale": "あたたかいおふろは炎の性質で自分を整える技で、炎の技にした"
     },
     {
+      "id": "fire_s7",
+      "displayName": "ほのおのかこい",
+      "elementTypeId": "fire",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "fire_s7",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "ほのおのかこいは炎の物事の名前で、炎で周りを囲んで逃げ道をふさぐ効果として交換不可の状態を相手に付ける効果にした"
+      },
+      "rationale": "ほのおのかこいは炎の性質で相手の動きを封じる技で、炎の技にした"
+    },
+    {
       "id": "water_1",
       "displayName": "しずくだま",
       "elementTypeId": "water",
@@ -1369,6 +1392,29 @@
         "rationale": "うずまきフィールドは水の物事の名前で、場全体を乱す効果として入れ替えのフィールドにした"
       },
       "rationale": "うずまきフィールドは水の性質で場全体を変える技で、水の技にした"
+    },
+    {
+      "id": "water_s7",
+      "displayName": "うずしおしばり",
+      "elementTypeId": "water",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "water_s7",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "うずしおしばりは水の物事の名前で、渦の流れで相手をその場に留める効果として交換不可の状態を相手に付ける効果にした"
+      },
+      "rationale": "うずしおしばりは水の性質で相手の動きを封じる技で、水の技にした"
     },
     {
       "id": "grass_1",
@@ -1707,6 +1753,29 @@
         "rationale": "やくそうのにおいは草の物事の名前で、体を整える効果として状態の解除と少しの回復にした。回復の技と同じく PP は 5"
       },
       "rationale": "やくそうのにおいは草の性質で自分を整える技で、草の技にした"
+    },
+    {
+      "id": "grass_s7",
+      "displayName": "つるでぐるぐる",
+      "elementTypeId": "grass",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "grass_s7",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "つるでぐるぐるは草の物事の名前で、伸びたつるで相手を巻いてその場に留める効果として交換不可の状態を相手に付ける効果にした"
+      },
+      "rationale": "つるでぐるぐるは草の性質で相手の動きを封じる技で、草の技にした"
     },
     {
       "id": "thunder_1",
@@ -2048,6 +2117,29 @@
       "rationale": "じりょくのみだれは雷の性質で場全体を変える技で、雷の技にした"
     },
     {
+      "id": "thunder_s7",
+      "displayName": "でんきのおり",
+      "elementTypeId": "thunder",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "thunder_s7",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "でんきのおりは雷の物事の名前で、電気の柵で囲んで出られなくする効果として交換不可の状態を相手に付ける効果にした"
+      },
+      "rationale": "でんきのおりは雷の性質で相手の動きを封じる技で、雷の技にした"
+    },
+    {
       "id": "earth_1",
       "displayName": "こいしなげ",
       "elementTypeId": "earth",
@@ -2384,6 +2476,29 @@
         "rationale": "どろパックは土の物事の名前で、体を整える効果として状態の解除と少しの回復にした。回復の技と同じく PP は 5"
       },
       "rationale": "どろパックは土の性質で自分を整える技で、土の技にした"
+    },
+    {
+      "id": "earth_s7",
+      "displayName": "どろあしどめ",
+      "elementTypeId": "earth",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "earth_s7",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "どろあしどめは土の物事の名前で、ぬかるみに足を取らせてその場に留める効果として交換不可の状態を相手に付ける効果にした"
+      },
+      "rationale": "どろあしどめは土の性質で相手の動きを封じる技で、土の技にした"
     },
     {
       "id": "steel_1",
@@ -2725,6 +2840,29 @@
       "rationale": "じしゃくのみだれは鋼の性質で場全体を変える技で、鋼の技にした"
     },
     {
+      "id": "steel_s7",
+      "displayName": "かぎをかける",
+      "elementTypeId": "steel",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "steel_s7",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "かぎをかけるは鋼の物事の名前で、金属の鍵を掛けて出られなくする効果として交換不可の状態を相手に付ける効果にした"
+      },
+      "rationale": "かぎをかけるは鋼の性質で相手の動きを封じる技で、鋼の技にした"
+    },
+    {
       "id": "wood_1",
       "displayName": "こっぱとばし",
       "elementTypeId": "wood",
@@ -3063,6 +3201,29 @@
       "rationale": "もくのかおりは木の性質で自分を整える技で、木の技にした"
     },
     {
+      "id": "wood_s7",
+      "displayName": "きのさくでかこう",
+      "elementTypeId": "wood",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "wood_s7",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "きのさくでかこうは木の物事の名前で、木の柵で囲んで出られなくする効果として交換不可の状態を相手に付ける効果にした"
+      },
+      "rationale": "きのさくでかこうは木の性質で相手の動きを封じる技で、木の技にした"
+    },
+    {
       "id": "light_1",
       "displayName": "かがみのはんしゃ",
       "elementTypeId": "light",
@@ -3398,6 +3559,29 @@
         "rationale": "あさのひざしは光の物事の名前で、場全体を乱す効果として入れ替えのフィールドにした"
       },
       "rationale": "あさのひざしは光の性質で場全体を変える技で、光の技にした"
+    },
+    {
+      "id": "light_s7",
+      "displayName": "ひかりのおり",
+      "elementTypeId": "light",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "light_s7",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "ひかりのおりは光の物事の名前で、光の柱で囲んで出られなくする効果として交換不可の状態を相手に付ける効果にした"
+      },
+      "rationale": "ひかりのおりは光の性質で相手の動きを封じる技で、光の技にした"
     },
     {
       "id": "dark_1",
@@ -3738,6 +3922,29 @@
       "rationale": "くらやみフィールドは闇の性質で自分を整える技で、闇の技にした"
     },
     {
+      "id": "dark_s7",
+      "displayName": "やみのあしどめ",
+      "elementTypeId": "dark",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "dark_s7",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "やみのあしどめは闇の物事の名前で、暗がりで足元を見えなくしてその場に留める効果として交換不可の状態を相手に付ける効果にした"
+      },
+      "rationale": "やみのあしどめは闇の性質で相手の動きを封じる技で、闇の技にした"
+    },
+    {
       "id": "poison_1",
       "displayName": "せんざいのあわ",
       "elementTypeId": "poison",
@@ -4073,6 +4280,29 @@
         "rationale": "どくのぬまフィールドは毒の物事の名前で、場全体を乱す効果として入れ替えのフィールドにした"
       },
       "rationale": "どくのぬまフィールドは毒の性質で場全体を変える技で、毒の技にした"
+    },
+    {
+      "id": "poison_s7",
+      "displayName": "どくのあしかせ",
+      "elementTypeId": "poison",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "poison_s7",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "どくのあしかせは毒の物事の名前で、べたつく薬で足を止めてその場に留める効果として交換不可の状態を相手に付ける効果にした"
+      },
+      "rationale": "どくのあしかせは毒の性質で相手の動きを封じる技で、毒の技にした"
     },
     {
       "id": "sound_1",
@@ -4415,6 +4645,29 @@
       "rationale": "エコーフィールドは音の性質で自分を整える技で、音の技にした"
     },
     {
+      "id": "sound_s7",
+      "displayName": "ひきとめのうた",
+      "elementTypeId": "sound",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "sound_s7",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "ひきとめのうたは音の物事の名前で、耳に残る歌で引き止めてその場に留める効果として交換不可の状態を相手に付ける効果にした"
+      },
+      "rationale": "ひきとめのうたは音の性質で相手の動きを封じる技で、音の技にした"
+    },
+    {
       "id": "beast_1",
       "displayName": "ねこパンチ",
       "elementTypeId": "beast",
@@ -4750,6 +5003,29 @@
         "rationale": "ひなたでごろんは獣の物事の名前で、場全体を乱す効果として入れ替えのフィールドにした"
       },
       "rationale": "ひなたでごろんは獣の性質で場全体を変える技で、獣の技にした"
+    },
+    {
+      "id": "beast_s7",
+      "displayName": "しっぽでおさえる",
+      "elementTypeId": "beast",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "beast_s7",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "しっぽでおさえるは獣の物事の名前で、しっぽで押さえつけてその場に留める効果として交換不可の状態を相手に付ける効果にした"
+      },
+      "rationale": "しっぽでおさえるは獣の性質で相手の動きを封じる技で、獣の技にした"
     },
     {
       "id": "bug_1",
@@ -5092,6 +5368,29 @@
       "rationale": "むしのむれフィールドは虫の性質で自分を整える技で、虫の技にした"
     },
     {
+      "id": "bug_s7",
+      "displayName": "まゆでつつむ",
+      "elementTypeId": "bug",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "bug_s7",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "まゆでつつむは虫の物事の名前で、まゆで包んで出られなくする効果として交換不可の状態を相手に付ける効果にした"
+      },
+      "rationale": "まゆでつつむは虫の性質で相手の動きを封じる技で、虫の技にした"
+    },
+    {
       "id": "bird_1",
       "displayName": "くちばしコツコツ",
       "elementTypeId": "bird",
@@ -5427,6 +5726,29 @@
         "rationale": "はねづくろいは鳥の物事の名前で、場全体を乱す効果として入れ替えのフィールドにした"
       },
       "rationale": "はねづくろいは鳥の性質で場全体を変える技で、鳥の技にした"
+    },
+    {
+      "id": "bird_s7",
+      "displayName": "とりかごいれ",
+      "elementTypeId": "bird",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "bird_s7",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "とりかごいれは鳥の物事の名前で、鳥かごに入れて出られなくする効果として交換不可の状態を相手に付ける効果にした"
+      },
+      "rationale": "とりかごいれは鳥の性質で相手の動きを封じる技で、鳥の技にした"
     },
     {
       "id": "fish_1",
@@ -5765,6 +6087,29 @@
         "rationale": "しおのながれフィールドは魚の物事の名前で、体を整える効果として状態の解除と少しの回復にした。回復の技と同じく PP は 5"
       },
       "rationale": "しおのながれフィールドは魚の性質で自分を整える技で、魚の技にした"
+    },
+    {
+      "id": "fish_s7",
+      "displayName": "ぎょもうでかこむ",
+      "elementTypeId": "fish",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "fish_s7",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "ぎょもうでかこむは魚の物事の名前で、魚の網で囲んで出られなくする効果として交換不可の状態を相手に付ける効果にした"
+      },
+      "rationale": "ぎょもうでかこむは魚の性質で相手の動きを封じる技で、魚の技にした"
     },
     {
       "id": "ice_1",
@@ -6106,6 +6451,29 @@
       "rationale": "クールダウンは氷の性質で場全体を変える技で、氷の技にした"
     },
     {
+      "id": "ice_s7",
+      "displayName": "こおりのあしかせ",
+      "elementTypeId": "ice",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "ice_s7",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "こおりのあしかせは氷の物事の名前で、足元を凍らせてその場に留める効果として交換不可の状態を相手に付ける効果にした"
+      },
+      "rationale": "こおりのあしかせは氷の性質で相手の動きを封じる技で、氷の技にした"
+    },
+    {
       "id": "wind_1",
       "displayName": "うちわあおぎ",
       "elementTypeId": "wind",
@@ -6444,6 +6812,29 @@
       "rationale": "かぜむきフィールドは風の性質で自分を整える技で、風の技にした"
     },
     {
+      "id": "wind_s7",
+      "displayName": "かぜのかべ",
+      "elementTypeId": "wind",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "wind_s7",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "かぜのかべは風の物事の名前で、風の壁で囲んで出られなくする効果として交換不可の状態を相手に付ける効果にした"
+      },
+      "rationale": "かぜのかべは風の性質で相手の動きを封じる技で、風の技にした"
+    },
+    {
       "id": "flower_1",
       "displayName": "はなびらなげ",
       "elementTypeId": "flower",
@@ -6779,6 +7170,29 @@
         "rationale": "ハーブのかおりは花の物事の名前で、場全体を乱す効果として入れ替えのフィールドにした"
       },
       "rationale": "ハーブのかおりは花の性質で場全体を変える技で、花の技にした"
+    },
+    {
+      "id": "flower_s7",
+      "displayName": "いばらのかきね",
+      "elementTypeId": "flower",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "flower_s7",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "いばらのかきねは花の物事の名前で、いばらの垣根で囲んで出られなくする効果として交換不可の状態を相手に付ける効果にした"
+      },
+      "rationale": "いばらのかきねは花の性質で相手の動きを封じる技で、花の技にした"
     },
     {
       "id": "machine_1",
@@ -7119,6 +7533,29 @@
       "rationale": "バグったフィールドは機械の性質で自分を整える技で、機械の技にした"
     },
     {
+      "id": "machine_s7",
+      "displayName": "オートロック",
+      "elementTypeId": "machine",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "machine_s7",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "オートロックは機械の物事の名前で、扉に自動の鍵を掛けて出られなくする効果として交換不可の状態を相手に付ける効果にした"
+      },
+      "rationale": "オートロックは機械の性質で相手の動きを封じる技で、機械の技にした"
+    },
+    {
       "id": "sweets_1",
       "displayName": "クッキーなげ",
       "elementTypeId": "sweets",
@@ -7454,6 +7891,29 @@
         "rationale": "あまいごほうびは菓子の物事の名前で、場全体を乱す効果として入れ替えのフィールドにした"
       },
       "rationale": "あまいごほうびは菓子の性質で場全体を変える技で、菓子の技にした"
+    },
+    {
+      "id": "sweets_s7",
+      "displayName": "ねばねばガム",
+      "elementTypeId": "sweets",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "sweets_s7",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "ねばねばガムは菓子の物事の名前で、ガムで足を貼り付けてその場に留める効果として交換不可の状態を相手に付ける効果にした"
+      },
+      "rationale": "ねばねばガムは菓子の性質で相手の動きを封じる技で、菓子の技にした"
     },
     {
       "id": "ghost_1",
@@ -7796,6 +8256,29 @@
       "rationale": "ゆうれいやしきフィールドは霊の性質で自分を整える技で、霊の技にした"
     },
     {
+      "id": "ghost_s7",
+      "displayName": "おばけのてまねき",
+      "elementTypeId": "ghost",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "ghost_s7",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "おばけのてまねきは霊の物事の名前で、おばけの手で引き止めてその場に留める効果として交換不可の状態を相手に付ける効果にした"
+      },
+      "rationale": "おばけのてまねきは霊の性質で相手の動きを封じる技で、霊の技にした"
+    },
+    {
       "id": "dragon_1",
       "displayName": "トカゲのしっぽ",
       "elementTypeId": "dragon",
@@ -8131,6 +8614,29 @@
         "rationale": "りゅうのうずフィールドは竜の物事の名前で、場全体を乱す効果として入れ替えのフィールドにした"
       },
       "rationale": "りゅうのうずフィールドは竜の性質で場全体を変える技で、竜の技にした"
+    },
+    {
+      "id": "dragon_s7",
+      "displayName": "りゅうのしっぽまき",
+      "elementTypeId": "dragon",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "dragon_s7",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "りゅうのしっぽまきは竜の物事の名前で、竜のしっぽで巻き付けてその場に留める効果として交換不可の状態を相手に付ける効果にした"
+      },
+      "rationale": "りゅうのしっぽまきは竜の性質で相手の動きを封じる技で、竜の技にした"
     },
     {
       "id": "paper_1",
@@ -8469,6 +8975,29 @@
         "rationale": "シャッフルカードは紙の物事の名前で、体を整える効果として状態の解除と少しの回復にした。回復の技と同じく PP は 5"
       },
       "rationale": "シャッフルカードは紙の性質で自分を整える技で、紙の技にした"
+    },
+    {
+      "id": "paper_s7",
+      "displayName": "のりではりつけ",
+      "elementTypeId": "paper",
+      "power": 0,
+      "powerPoints": 10,
+      "category": "support",
+      "effectId": "paper_s7",
+      "learnableLevelMinimum": 100,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "のりではりつけは紙の物事の名前で、のりで貼り付けてその場に留める効果として交換不可の状態を相手に付ける効果にした"
+      },
+      "rationale": "のりではりつけは紙の性質で相手の動きを封じる技で、紙の技にした"
     }
   ],
   "effects": [
@@ -8771,6 +9300,14 @@
       "pixelfxId": "holy/halo"
     },
     {
+      "id": "fire_s7",
+      "displayName": "炎のほのおのかこい",
+      "kind": "spriteSheet",
+      "colorHex": "#E8734A",
+      "spriteSheet": "fire-ring",
+      "pixelfxId": "fire/fire-ring"
+    },
+    {
       "id": "water_1",
       "displayName": "水のしずくだま",
       "kind": "spriteSheet",
@@ -8929,6 +9466,14 @@
       "colorHex": "#4A90D9",
       "spriteSheet": "time-stop",
       "pixelfxId": "arcane/time-stop"
+    },
+    {
+      "id": "water_s7",
+      "displayName": "水のうずしおしばり",
+      "kind": "spriteSheet",
+      "colorHex": "#4A90D9",
+      "spriteSheet": "whirlpool",
+      "pixelfxId": "water/whirlpool"
     },
     {
       "id": "grass_1",
@@ -9091,6 +9636,14 @@
       "pixelfxId": "holy/halo"
     },
     {
+      "id": "grass_s7",
+      "displayName": "草のつるでぐるぐる",
+      "kind": "spriteSheet",
+      "colorHex": "#3FA66B",
+      "spriteSheet": "vine-whip",
+      "pixelfxId": "nature/vine-whip"
+    },
+    {
       "id": "thunder_1",
       "displayName": "雷のせいでんきタッチ",
       "kind": "spriteSheet",
@@ -9249,6 +9802,14 @@
       "colorHex": "#D9C531",
       "spriteSheet": "time-stop",
       "pixelfxId": "arcane/time-stop"
+    },
+    {
+      "id": "thunder_s7",
+      "displayName": "雷のでんきのおり",
+      "kind": "spriteSheet",
+      "colorHex": "#D9C531",
+      "spriteSheet": "tesla-coil",
+      "pixelfxId": "lightning/tesla-coil"
     },
     {
       "id": "earth_1",
@@ -9411,6 +9972,14 @@
       "pixelfxId": "holy/halo"
     },
     {
+      "id": "earth_s7",
+      "displayName": "土のどろあしどめ",
+      "kind": "spriteSheet",
+      "colorHex": "#8A7F72",
+      "spriteSheet": "quake",
+      "pixelfxId": "nature/quake"
+    },
+    {
       "id": "steel_1",
       "displayName": "鋼のブリキパンチ",
       "kind": "spriteSheet",
@@ -9569,6 +10138,14 @@
       "colorHex": "#6D7B8A",
       "spriteSheet": "time-stop",
       "pixelfxId": "arcane/time-stop"
+    },
+    {
+      "id": "steel_s7",
+      "displayName": "鋼のかぎをかける",
+      "kind": "spriteSheet",
+      "colorHex": "#6D7B8A",
+      "spriteSheet": "shield-block",
+      "pixelfxId": "impacts/shield-block"
     },
     {
       "id": "wood_1",
@@ -9731,6 +10308,14 @@
       "pixelfxId": "holy/halo"
     },
     {
+      "id": "wood_s7",
+      "displayName": "木のきのさくでかこう",
+      "kind": "spriteSheet",
+      "colorHex": "#B07A4A",
+      "spriteSheet": "root-snare",
+      "pixelfxId": "nature/root-snare"
+    },
+    {
       "id": "light_1",
       "displayName": "光のかがみのはんしゃ",
       "kind": "spriteSheet",
@@ -9889,6 +10474,14 @@
       "colorHex": "#EDE3A6",
       "spriteSheet": "time-stop",
       "pixelfxId": "arcane/time-stop"
+    },
+    {
+      "id": "light_s7",
+      "displayName": "光のひかりのおり",
+      "kind": "spriteSheet",
+      "colorHex": "#EDE3A6",
+      "spriteSheet": "holy-pillar",
+      "pixelfxId": "holy/holy-pillar"
     },
     {
       "id": "dark_1",
@@ -10051,6 +10644,14 @@
       "pixelfxId": "holy/halo"
     },
     {
+      "id": "dark_s7",
+      "displayName": "闇のやみのあしどめ",
+      "kind": "spriteSheet",
+      "colorHex": "#5E5577",
+      "spriteSheet": "shadow-tendrils",
+      "pixelfxId": "shadow/shadow-tendrils"
+    },
+    {
       "id": "poison_1",
       "displayName": "毒のせんざいのあわ",
       "kind": "spriteSheet",
@@ -10209,6 +10810,14 @@
       "colorHex": "#8E44AD",
       "spriteSheet": "time-stop",
       "pixelfxId": "arcane/time-stop"
+    },
+    {
+      "id": "poison_s7",
+      "displayName": "毒のどくのあしかせ",
+      "kind": "spriteSheet",
+      "colorHex": "#8E44AD",
+      "spriteSheet": "toxic-puddle",
+      "pixelfxId": "nature/toxic-puddle"
     },
     {
       "id": "sound_1",
@@ -10371,6 +10980,14 @@
       "pixelfxId": "holy/halo"
     },
     {
+      "id": "sound_s7",
+      "displayName": "音のひきとめのうた",
+      "kind": "spriteSheet",
+      "colorHex": "#B388FF",
+      "spriteSheet": "rune-circle",
+      "pixelfxId": "arcane/rune-circle"
+    },
+    {
       "id": "beast_1",
       "displayName": "獣のねこパンチ",
       "kind": "spriteSheet",
@@ -10529,6 +11146,14 @@
       "colorHex": "#C49A6C",
       "spriteSheet": "time-stop",
       "pixelfxId": "arcane/time-stop"
+    },
+    {
+      "id": "beast_s7",
+      "displayName": "獣のしっぽでおさえる",
+      "kind": "spriteSheet",
+      "colorHex": "#C49A6C",
+      "spriteSheet": "claw-swipe",
+      "pixelfxId": "melee/claw-swipe"
     },
     {
       "id": "bug_1",
@@ -10691,6 +11316,14 @@
       "pixelfxId": "holy/halo"
     },
     {
+      "id": "bug_s7",
+      "displayName": "虫のまゆでつつむ",
+      "kind": "spriteSheet",
+      "colorHex": "#7CB342",
+      "spriteSheet": "spore-burst",
+      "pixelfxId": "nature/spore-burst"
+    },
+    {
       "id": "bird_1",
       "displayName": "鳥のくちばしコツコツ",
       "kind": "spriteSheet",
@@ -10849,6 +11482,14 @@
       "colorHex": "#7FB3D5",
       "spriteSheet": "time-stop",
       "pixelfxId": "arcane/time-stop"
+    },
+    {
+      "id": "bird_s7",
+      "displayName": "鳥のとりかごいれ",
+      "kind": "spriteSheet",
+      "colorHex": "#7FB3D5",
+      "spriteSheet": "feather-burst",
+      "pixelfxId": "holy/feather-burst"
     },
     {
       "id": "fish_1",
@@ -11011,6 +11652,14 @@
       "pixelfxId": "holy/halo"
     },
     {
+      "id": "fish_s7",
+      "displayName": "魚のぎょもうでかこむ",
+      "kind": "spriteSheet",
+      "colorHex": "#3BAFA5",
+      "spriteSheet": "fish-school",
+      "pixelfxId": "critters/fish-school"
+    },
+    {
       "id": "ice_1",
       "displayName": "氷のゆきだまなげ",
       "kind": "spriteSheet",
@@ -11169,6 +11818,14 @@
       "colorHex": "#A8E0F0",
       "spriteSheet": "time-stop",
       "pixelfxId": "arcane/time-stop"
+    },
+    {
+      "id": "ice_s7",
+      "displayName": "氷のこおりのあしかせ",
+      "kind": "spriteSheet",
+      "colorHex": "#A8E0F0",
+      "spriteSheet": "ice-spikes",
+      "pixelfxId": "ice/ice-spikes"
     },
     {
       "id": "wind_1",
@@ -11331,6 +11988,14 @@
       "pixelfxId": "holy/halo"
     },
     {
+      "id": "wind_s7",
+      "displayName": "風のかぜのかべ",
+      "kind": "spriteSheet",
+      "colorHex": "#B8C9D9",
+      "spriteSheet": "tornado",
+      "pixelfxId": "nature/tornado"
+    },
+    {
       "id": "flower_1",
       "displayName": "花のはなびらなげ",
       "kind": "spriteSheet",
@@ -11489,6 +12154,14 @@
       "colorHex": "#F48FB1",
       "spriteSheet": "time-stop",
       "pixelfxId": "arcane/time-stop"
+    },
+    {
+      "id": "flower_s7",
+      "displayName": "花のいばらのかきね",
+      "kind": "spriteSheet",
+      "colorHex": "#F48FB1",
+      "spriteSheet": "thorns",
+      "pixelfxId": "nature/thorns"
     },
     {
       "id": "machine_1",
@@ -11651,6 +12324,14 @@
       "pixelfxId": "holy/halo"
     },
     {
+      "id": "machine_s7",
+      "displayName": "機械のオートロック",
+      "kind": "spriteSheet",
+      "colorHex": "#B0BEC5",
+      "spriteSheet": "tractor-beam",
+      "pixelfxId": "scifi/tractor-beam"
+    },
+    {
       "id": "sweets_1",
       "displayName": "菓子のクッキーなげ",
       "kind": "spriteSheet",
@@ -11809,6 +12490,14 @@
       "colorHex": "#E8A0D8",
       "spriteSheet": "time-stop",
       "pixelfxId": "arcane/time-stop"
+    },
+    {
+      "id": "sweets_s7",
+      "displayName": "菓子のねばねばガム",
+      "kind": "spriteSheet",
+      "colorHex": "#E8A0D8",
+      "spriteSheet": "slime",
+      "pixelfxId": "critters/slime"
     },
     {
       "id": "ghost_1",
@@ -11971,6 +12660,14 @@
       "pixelfxId": "holy/halo"
     },
     {
+      "id": "ghost_s7",
+      "displayName": "霊のおばけのてまねき",
+      "kind": "spriteSheet",
+      "colorHex": "#9FA8DA",
+      "spriteSheet": "grasping-hands",
+      "pixelfxId": "shadow/grasping-hands"
+    },
+    {
       "id": "dragon_1",
       "displayName": "竜のトカゲのしっぽ",
       "kind": "spriteSheet",
@@ -12131,6 +12828,14 @@
       "pixelfxId": "arcane/time-stop"
     },
     {
+      "id": "dragon_s7",
+      "displayName": "竜のりゅうのしっぽまき",
+      "kind": "spriteSheet",
+      "colorHex": "#C62828",
+      "spriteSheet": "black-hole",
+      "pixelfxId": "shadow/black-hole"
+    },
+    {
       "id": "paper_1",
       "displayName": "紙のかみひこうき",
       "kind": "spriteSheet",
@@ -12289,6 +12994,14 @@
       "colorHex": "#C9B79A",
       "spriteSheet": "halo",
       "pixelfxId": "holy/halo"
+    },
+    {
+      "id": "paper_s7",
+      "displayName": "紙ののりではりつけ",
+      "kind": "spriteSheet",
+      "colorHex": "#C9B79A",
+      "spriteSheet": "hex-sigil",
+      "pixelfxId": "shadow/hex-sigil"
     }
   ],
   "statGrades": [
