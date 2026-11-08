@@ -37,7 +37,7 @@ import 'move_effect_sprite_sheets.dart';
 
 /// バトル画面を閉じた後に、呼び出し元にしてほしいこと。
 enum BattleScreenAction {
-  /// 図鑑のタブを開く (モンスターを交代)。
+  /// 図鑑のタブを開く (勝敗の画面の「図鑑を見る」)。
   openDex,
 }
 
@@ -400,7 +400,11 @@ class _BattleScreenState extends State<BattleScreen>
       _isPlaying = true;
     });
     for (final event in nextState.events.skip(previousState.events.length)) {
-      await _playEvent(event: event, nextState: nextState);
+      await _playEvent(
+        event: event,
+        previousState: previousState,
+        nextState: nextState,
+      );
       if (!mounted) {
         return;
       }
@@ -427,6 +431,56 @@ class _BattleScreenState extends State<BattleScreen>
     }
   }
 
+  /// 手持ちの交代できるモンスター ([switchableMemberIndices]) をシートで選ばせ、選んだら交代の行動でラウンドを進める。
+  /// シートを閉じただけの時は何もしない。
+  Future<void> _chooseSwitchMonster() async {
+    final party = _battleState.player;
+    final memberIndex = await showModalBottomSheet<int>(
+      context: context,
+      backgroundColor: SnapmonColors.surface,
+      builder: (context) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                context.l10n.battleChooseSwitchMonster,
+                style: SnapmonTextStyles.caption,
+              ),
+              const SizedBox(height: 12),
+              Wrap(
+                spacing: 12,
+                runSpacing: 12,
+                alignment: WrapAlignment.center,
+                children: [
+                  for (final index in switchableMemberIndices(party: party))
+                    GestureDetector(
+                      key: Key('battle-switch-candidate-$index'),
+                      onTap: () => Navigator.of(context).pop(index),
+                      child: _MonsterStatusCard(
+                        monster: party.members[index],
+                        definitions: widget.definitions,
+                        hitPointsColor: SnapmonColors.accent,
+                        showsHitPointsNumber: true,
+                        keepsEachRowOnOneLine: false,
+                      ),
+                    ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+    if (memberIndex == null || !mounted) {
+      return;
+    }
+    await _selectAction(
+      playerAction: SwitchMonsterAction(memberIndex: memberIndex),
+    );
+  }
+
   /// [side] の相手の陣営。
   static BattleSideId _otherSideOf({required BattleSideId side}) =>
       switch (side) {
@@ -446,9 +500,10 @@ class _BattleScreenState extends State<BattleScreen>
     );
   }
 
-  /// バトルのログ [event] 1 件を演出する。[nextState] はこのラウンドを解決した後の状態。
+  /// バトルのログ [event] 1 件を演出する。[previousState] はこのラウンドを解決する前、[nextState] は解決した後の状態。
   Future<void> _playEvent({
     required BattleEvent event,
+    required BattleState previousState,
     required BattleState nextState,
   }) async {
     switch (event) {
@@ -726,14 +781,23 @@ class _BattleScreenState extends State<BattleScreen>
         unawaited(_gameAudio.playSoundEffect(effect: SoundEffect.faint));
         unawaited(_haptics.faint());
         await Future<void>.delayed(_messageDuration);
-      case MonsterSwitchedInEvent():
-        final member = nextState
+      case MonsterSwitchedInEvent(:final withdrawnMonsterId):
+        // 自分からの交代はラウンドの始めに起き、その後に相手の技を受けるため、控えにいたラウンドの始めの状態で出す。
+        // 倒れた時の交代はラウンドの終わりに起きるため、解決した後の状態で出す
+        final member = (withdrawnMonsterId == null ? nextState : previousState)
             .partyOf(side: event.side)
             .members
             .firstWhere((member) => member.definition.id == event.monsterId);
+        final withdrawnName =
+            _displayedActiveMembers[event.side]!.definition.name;
         setState(() {
           _displayedActiveMembers[event.side] = member;
-          _logText = (l10n) => l10n.battleLogSwitchedIn(member.definition.name);
+          _logText = (l10n) => withdrawnMonsterId == null
+              ? l10n.battleLogSwitchedIn(member.definition.name)
+              : l10n.battleLogSwitchedOut(
+                  withdrawnName,
+                  member.definition.name,
+                );
         });
         _game.switchIn(
           side: event.side,
@@ -871,7 +935,7 @@ class _BattleScreenState extends State<BattleScreen>
     // 文字の拡大率が変わるとカードの高さも変わるため、拡大率の変更でも build し直してカードを測り直す
     MediaQuery.textScalerOf(context);
     // 端のスワイプ (iOS) と戻るボタン・戻るジェスチャー (Android) でバトルを抜けると、決着の前に手が触れただけで閉じるため、
-    // 閉じるのは「にげる」「モンスターを交代」・勝敗の画面のボタンだけにする。ボタンの Navigator.pop は PopScope で止まらない。
+    // 閉じるのは「にげる」・勝敗の画面のボタンだけにする。ボタンの Navigator.pop は PopScope で止まらない。
     // pop を拒む route は端のスワイプも受け付けない (Flutter の ModalRoute.popGestureEnabled が popDisposition の doNotPop で false を返す)
     return PopScope(
       canPop: false,
@@ -1542,16 +1606,22 @@ class _BattleScreenState extends State<BattleScreen>
           ),
         Row(
           children: [
-            Expanded(
-              child: _BattleCommandButton(
-                label: context.l10n.battleSwitchMonster,
-                onPressed: _isPlaying
-                    ? null
-                    : () =>
-                          Navigator.of(context).pop(BattleScreenAction.openDex),
+            // 交代できる控えがいない時はボタンを出さない。交換不可の間は押せない
+            if (switchableMemberIndices(
+              party: _battleState.player,
+            ).isNotEmpty) ...[
+              Expanded(
+                child: _BattleCommandButton(
+                  key: const Key('battle-switch-monster'),
+                  label: context.l10n.battleSwitchMonster,
+                  onPressed:
+                      _isPlaying || isSwitchBlocked(party: _battleState.player)
+                      ? null
+                      : _chooseSwitchMonster,
+                ),
               ),
-            ),
-            const SizedBox(width: 10),
+              const SizedBox(width: 10),
+            ],
             Expanded(
               child: _BattleCommandButton(
                 label: context.l10n.battleRun,
@@ -2117,7 +2187,11 @@ class _MoveButton extends StatelessWidget {
 
 /// 交代・にげる・わるあがきのボタン。
 class _BattleCommandButton extends StatelessWidget {
-  const _BattleCommandButton({required this.label, required this.onPressed});
+  const _BattleCommandButton({
+    super.key,
+    required this.label,
+    required this.onPressed,
+  });
 
   final String label;
 

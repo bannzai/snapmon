@@ -1620,7 +1620,7 @@ void main() {
       expect(pvpCalls.fetchOpponentsCount, 0);
     });
 
-    testWidgets('挑むとバトル画面が開き、にげると対戦相手の画面、交代で図鑑に戻る', (tester) async {
+    testWidgets('挑むとバトル画面が開き、にげると対戦相手の画面に戻り、交代で手持ちの控えを場に出せる', (tester) async {
       await pumpHome(
         tester: tester,
         hasStartedSession: true,
@@ -1661,10 +1661,31 @@ void main() {
       await pumpTransition();
       await tester.tap(find.text('モンスターを交代'));
       await pumpTransition();
+      // 候補は場にいない 2 体目と 3 体目だけ
+      expect(find.text('場に出す モンスターを えらぶ'), findsOneWidget);
+      expect(find.byKey(const Key('battle-switch-candidate-0')), findsNothing);
       expect(
-        find.text('${sampleData.monsters.length} 体 · 手持ち 3 体'),
+        find.byKey(const Key('battle-switch-candidate-2')),
         findsOneWidget,
       );
+      await tester.tap(find.byKey(const Key('battle-switch-candidate-1')));
+      // 交代のログは次のログまで 0.7 秒だけ出るため、その間に確かめる
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 100));
+      final party = dexStore.party;
+      expect(
+        find.text(
+          '${party[0].definition.name} を ひっこめて ${party[1].definition.name} を だした',
+        ),
+        findsOneWidget,
+      );
+      // バトルを閉じず、図鑑には戻らない
+      expect(find.byType(BattleScreen), findsOneWidget);
+      // 相手の技の演出を最後まで進め、保留中のタイマーを残さない
+      for (var second = 0; second < 10; second++) {
+        await tester.pump(const Duration(seconds: 1));
+      }
+      expect(find.text('${party[1].definition.name} の 技をえらぶ'), findsOneWidget);
     });
   });
 
