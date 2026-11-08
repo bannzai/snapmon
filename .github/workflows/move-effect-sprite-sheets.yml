@@ -1,0 +1,38 @@
+name: move-effect-sprite-sheets
+
+# 技のエフェクトのスプライトシート (assets/images/move_effects/) を scripts/move_effects/generate_move_effect_sprite_sheets.sh で書き出し、
+# 成果物 (artifact) に残す。書き出しは PixelFX (外部のリポジトリ) のコードを node で実行するため、開発用の Mac では動かさずここで行う。
+# 成果物をダウンロードし、確認用の contact.png で人形が写っていないかを目で確かめてから、シートをリポジトリに入れる。
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+on:
+  pull_request:
+    paths:
+      - scripts/move_effects/**
+      - .github/workflows/move-effect-sprite-sheets.yml
+  workflow_dispatch:
+
+# job が GITHUB_TOKEN を使うのは checkout だけのため、読み取り専用に絞る
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
+    # PixelFX の書き出しは依存パッケージを使わず、runner に入っている node (package.json の engines は >=18) だけで動く
+    - run: bash scripts/move_effects/generate_move_effect_sprite_sheets.sh
+    - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      with:
+        name: move-effect-sprite-sheets
+        # records/ は書き出した全素材のシートと確認用の contact.png
+        path: |
+          assets/images/move_effects/
+          tmp/pixelfx-source/records/
+        if-no-files-found: error
