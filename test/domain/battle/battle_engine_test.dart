@@ -2402,9 +2402,11 @@ void main() {
       expect(oneHitCount, inInclusiveRange(10, 40));
     });
 
-    test('CPU は通常の攻撃技が無く一撃必殺・自爆だけが残った時にそれを使い、検証で拒否されるわるあがきを返さない', () {
+    test('CPU は通常の攻撃技が無く一撃必殺・自爆だけが残った時、確率で選ばなければわるあがきにし、HP が満タンなら自爆しない', () {
+      var oneHitCount = 0;
+      var struggleCount = 0;
       for (final moveIds in [
-        ['fire_one_hit'],
+        ['fire_one_hit', 'fire_self_destruct'],
         ['fire_self_destruct'],
         ['fire_one_hit', 'fire_raise_attack'],
       ]) {
@@ -2419,6 +2421,16 @@ void main() {
             side: BattleSideId.player,
             master: testMaster,
           );
+          switch (action) {
+            case UseMoveAction(moveId: 'fire_one_hit'):
+              oneHitCount++;
+            case UseMoveAction(moveId: 'fire_raise_attack'):
+              break;
+            case StruggleAction():
+              struggleCount++;
+            default:
+              fail('HP が満タンの時に自爆を選んだ: $moveIds seed=$seed: $action');
+          }
           // 選んだ行動は advanceRound の検証を通る
           expect(
             () => advanceRound(
@@ -2432,6 +2444,8 @@ void main() {
           );
         }
       }
+      expect(oneHitCount, greaterThan(0));
+      expect(struggleCount, greaterThan(0));
     });
 
     test('麻痺と混乱が重なり、補助技が攻撃技に置き換わった時も麻痺で失敗する', () {

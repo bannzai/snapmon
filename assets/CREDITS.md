@@ -5,7 +5,7 @@
 ## 技のエフェクト (`assets/images/move_effects/`)
 
 - 素材名: PixelFX の 167 素材。一覧は master (`assets/master/master.json`) の `effects` の `pixelfxId` (技ごとの割り当て) が正
-- 作者: Patch。ソースの先頭に書かれているとおり Sprite Fusion のオープンソースのエフェクト (Hugo Duprez、MIT) を元にしている
+- 作者: Patch。素材の一部 (hit-spark・sword-slash・zap-hit・splash・vine-whip・earth-spike・thorns・acid-splash・claw-swipe・fish-school・snowflake-burst・healing-bloom・emp-blast・firework-burst・fire-breath・confetti 等) は、ソースの先頭に書かれているとおり Sprite Fusion のオープンソースのエフェクト (Hugo Duprez、MIT) を元にしている
 - 入手先: https://github.com/patch-gg/pixelfx/tree/a84159688af3ca37a4be05a0d422b94451b2e24e
 - ライセンス: MIT。著作権表示と許諾文の同梱が必要で、同じディレクトリの `LICENSE`・`NOTICE.md` を配布物に含め、アプリのライセンスの一覧 (`LicenseRegistry`。`lib/main.dart`) にも登録している
 - 持ち込まない物: `gallery/fonts/PatchPixel-Regular.woff2` は MIT の対象外 (`NOTICE.md`)。見本の人形を描く素材 (`status/poisoned` 等) は使わない
