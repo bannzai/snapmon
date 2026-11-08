@@ -6,6 +6,7 @@ import 'package:flame/components.dart';
 import 'package:flame/effects.dart' as flame_effects;
 import 'package:flame/game.dart';
 import 'package:flame/particles.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../domain/battle/battle_state.dart';
 import '../../domain/master/move_effect.dart';
@@ -42,6 +43,10 @@ const double _moveEffectFrameWidthPerMonsterSize = 1.3;
 /// 844×390 で相手の絵は約 90px (下のセーフエリア 21 では約 78px。PR #159 の実測) で、
 /// battle_screen_test.dart の左右配置の絵の大きさの下限 60px を満たす
 const double landscapeMonsterArtAreaHeightDivisor = 1.75;
+
+/// 比率の配置で、モンスターの絵とフィールドに重ねる情報カード・トレーナーの札の間に空ける幅 (論理 px)。
+/// バトル画面で相手のカードとその横のログの帯の間に空ける幅 (battle_screen.dart の _battleLogGapBesideCard) と揃えた
+const double _monsterArtGapToOverlay = 8;
 
 /// [effect] の主色 (`#RRGGBB`) を返す。
 Color moveEffectColor({required MoveEffect effect}) =>
@@ -81,9 +86,9 @@ class BattleFieldGame extends FlameGame {
   final Map<String, ({SpriteAnimation animation, Anchor visibleCenterAnchor})>
   _moveEffectAnimationsByEffectId = {};
 
-  /// フィールドの上端から相手の情報カード (バトル画面が Flutter で重ねる) の下端までの高さ。
-  /// 自分のモンスターの絵の上端をこれより下に置く。バトル画面が測って渡すまでは 0 (カードを考えない)
-  double _opponentStatusCardBottom = 0;
+  /// バトル画面が Flutter でフィールドに重ねる情報カードとトレーナーの札の、フィールドの座標での矩形。
+  /// 比率の配置では 2 体の絵をこれらに重ならない大きさに抑える。バトル画面が測って渡すまでは空 (重ねる部品を考えない)
+  List<Rect> _overlayRects = const [];
 
   /// 2 体の絵を収めるフィールドの中の矩形 (バトル画面が Flutter で重ねる情報カードとログの帯の無い所)。
   /// 左右配置のバトルでは上下のカードの間、低い画面でカードを横に並べる時は左右のカードの間を渡す。
@@ -93,12 +98,13 @@ class BattleFieldGame extends FlameGame {
   /// 指定された絵の領域で自分を左下・相手を右上に置くか。既存のカード間の配置では false。
   bool _placesPlayerOnLeft = false;
 
-  /// 相手の情報カードの下端の高さ [bottom] を受け取り、変わっていれば 2 体を置き直す。同じ値なら何もしない。
-  void updateOpponentStatusCardBottom({required double bottom}) {
-    if (bottom == _opponentStatusCardBottom) {
+  /// フィールドに重ねる情報カードとトレーナーの札の矩形 [rects] (フィールドの座標) を受け取り、変わっていれば 2 体を置き直す。
+  /// 同じ矩形の並びなら何もしない (演出の途中に置き直すと、攻撃の前進の途中の位置が元に戻るため)。
+  void updateOverlayRects({required List<Rect> rects}) {
+    if (listEquals(rects, _overlayRects)) {
       return;
     }
-    _opponentStatusCardBottom = bottom;
+    _overlayRects = List.unmodifiable(rects);
     if (isLoaded) {
       _layout();
     }
@@ -321,27 +327,80 @@ class BattleFieldGame extends FlameGame {
       return;
     }
     // 高さの 0.3 は、相手の下端 (0.28h + m) が自分の上端 (0.94h - 1.15m) を越えない上限 m ≤ 0.66h / 2.15 ≈ 0.307h から取った。
-    // 縦長のスマホでは幅の 0.4 の方が小さく、モックの大きさのまま描く。
-    // 決着の後の勝敗のパネルでフィールドが低くなった時は、自分の上端 (0.94h - 1.15m) が相手の情報カードの下端を越えない大きさに抑える。
-    // ただしカードで抑えるのは高さの 0.15 (高さで決まる上限の半分) までにする。それより低いフィールドでは絵を消すより、カードに一部が隠れても描く方を選ぶ
+    // 縦長のスマホでは幅の 0.4 の方が小さい。
+    // 相手は右上の角 (右端 0.88w・上端 0.28h)、自分は左下の角 (左端 0.08w・下端 0.94h) を固定し、
+    // 情報カードとトレーナーの札 (_overlayRects) に重ならない大きさに抑える。
+    // 縦向きのスマホ (393×852) では幅の 0.4 の絵がカードに横から重なっていたため (#243)。
+    // 決着の後の勝敗のパネルでフィールドが低くなった時は、自分の上端が相手の情報カードの下端を越えない大きさになる。
+    // ただし重ねる部品で抑えるのは高さの 0.15 (高さで決まる上限の半分) までにする。それより低いフィールドでは絵を消すより、部品に一部が隠れても描く方を選ぶ
+    final opponentTopRight = Offset(size.x * 0.88, size.y * 0.28);
+    final playerBottomLeft = Offset(size.x * 0.08, size.y * 0.94);
     final monsterSize = [
       size.x * 0.4,
       size.y * 0.3,
       math.max(
-        (size.y * 0.94 - _opponentStatusCardBottom) / 1.15,
+        [
+          for (final overlayRect in _overlayRects) ...[
+            _maximumSizeBesideOverlay(
+              anchor: opponentTopRight,
+              growsLeft: true,
+              growsDown: true,
+              overlayRect: overlayRect,
+            ),
+            _maximumSizeBesideOverlay(
+                  anchor: playerBottomLeft,
+                  growsLeft: false,
+                  growsDown: false,
+                  overlayRect: overlayRect,
+                ) /
+                1.15,
+          ],
+        ].fold(double.infinity, math.min),
         size.y * 0.15,
       ),
     ].reduce(math.min);
     opponentMonsterComponent
       ..size = Vector2.all(monsterSize)
-      ..position = Vector2(size.x * 0.88 - monsterSize, size.y * 0.28);
+      ..position = Vector2(
+        opponentTopRight.dx - monsterSize,
+        opponentTopRight.dy,
+      );
     playerMonsterComponent
       ..size = Vector2.all(monsterSize * 1.15)
       ..position = Vector2(
-        size.x * 0.08,
-        size.y - monsterSize * 1.15 - size.y * 0.06,
+        playerBottomLeft.dx,
+        playerBottomLeft.dy - monsterSize * 1.15,
       );
   }
+}
+
+/// 角 [anchor] を固定し、[growsLeft] なら左へ (false なら右へ)、[growsDown] なら下へ (false なら上へ) 広がる正方形の絵が、
+/// [overlayRect] との間に [_monsterArtGapToOverlay] を空けて重ならない一辺の上限を返す。
+/// 横に離すか縦に離すかの大きい方で、どちらの向きでも離せない (角が矩形の中にある) 時は 0。
+/// 絵が広がる範囲に掛からない矩形では制限が無いため double.infinity。
+double _maximumSizeBesideOverlay({
+  required Offset anchor,
+  required bool growsLeft,
+  required bool growsDown,
+  required Rect overlayRect,
+}) {
+  final gappedRect = overlayRect.inflate(_monsterArtGapToOverlay);
+  // 絵の広がる向きと逆側にある矩形 (角より右にある矩形に左へ広がる絵、角より上にある矩形に下へ広がる絵等) には、どの大きさでも重ならない
+  if ((growsLeft
+          ? gappedRect.left >= anchor.dx
+          : gappedRect.right <= anchor.dx) ||
+      (growsDown
+          ? gappedRect.bottom <= anchor.dy
+          : gappedRect.top >= anchor.dy)) {
+    return double.infinity;
+  }
+  return math.max(
+    0.0,
+    math.max(
+      growsLeft ? anchor.dx - gappedRect.right : gappedRect.left - anchor.dx,
+      growsDown ? gappedRect.top - anchor.dy : anchor.dy - gappedRect.bottom,
+    ),
+  );
 }
 
 /// [side] の相手の陣営を返す。

@@ -408,6 +408,97 @@ void main() {
     expect(find.text('ターン 1'), findsOneWidget);
   });
 
+  testWidgets('端のスワイプと端末の戻るではバトルの画面を閉じず、上に開いた技の詳細は端のスワイプで閉じ、「にげる」で閉じる', (
+    tester,
+  ) async {
+    tester.view
+      ..physicalSize = const Size(390, 844)
+      ..devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    final navigatorKey = GlobalKey<NavigatorState>();
+    await tester.pumpWidget(
+      GameAudioScope(
+        gameAudio: fakeGameAudio(
+          calls: RecordedAudioCalls(),
+          isBackgroundMusicEnabled: true,
+          isSoundEffectsEnabled: true,
+          waitsForUserInteractionBeforeBackgroundMusic: false,
+        ),
+        child: MaterialApp(
+          navigatorKey: navigatorKey,
+          theme: snapmonThemeData(),
+          locale: const Locale('ja'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: const Scaffold(body: Text('バトルを開いた画面')),
+        ),
+      ),
+    );
+    // 端のスワイプで戻れるのは最初の route の上に開いた route だけのため、バトルの画面を home の上に開く
+    navigatorKey.currentState!.push(
+      MaterialPageRoute<BattleScreenAction>(
+        builder: (context) => BattleScreen(
+          playerParty: [strongPlayer],
+          opponentParty: [weakOpponent],
+          opponentKind: BattleOpponentKind.pvp,
+          definitions: sampleData.definitions,
+          randomSeed: 1,
+          battleRecorder: fakeBattleRecorder(
+            calls: RecordedBattleCalls(),
+            startBattleRecord: () async => null,
+            recordedLevels: const {},
+          ),
+          onPlayerLevelsChanged: ({required levelsByMonsterId}) {},
+          cardSharer: fakeCardSharer(
+            calls: RecordedShareCalls(),
+            artImage: null,
+            shareResultStatus: ShareResultStatus.success,
+          ),
+          firstBattleBornMonster: null,
+          firstBattleMonsterIsNewlyBorn: false,
+          playerProfile: null,
+          opponentDisplayName: 'CPU リク',
+        ),
+      ),
+    );
+    // 画面の遷移の演出を終える (Flame のゲームループがあるため pumpAndSettle は使わない)
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
+
+    /// 左端から画面の幅の大半まで指を滑らせ、戻る演出の分の時間を進める。
+    Future<void> swipeFromLeftEdge() async {
+      // x = 5: iOS の戻るスワイプを受け付ける左端の幅 (20) の内側
+      await tester.dragFrom(const Offset(5, 400), const Offset(300, 0));
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
+      await tester.pump();
+    }
+
+    // 似ているが閉じる側: バトルの画面の上に開いた技の詳細は、同じスワイプで閉じる (スワイプの操作が戻るとして効くことの確かめ)
+    await tester.longPress(find.byKey(const Key('move-slot-0')));
+    await tester.pump(const Duration(seconds: 1));
+    expect(find.byType(MoveDetailScreen), findsOneWidget);
+    await swipeFromLeftEdge();
+    expect(find.byType(MoveDetailScreen), findsNothing);
+    expect(find.byType(BattleScreen), findsOneWidget);
+
+    // 閉じない側: バトルの画面は端のスワイプでも端末の戻る (Android の戻るボタン・戻るジェスチャー) でも閉じない
+    await swipeFromLeftEdge();
+    expect(find.byType(BattleScreen), findsOneWidget);
+    await tester.binding.handlePopRoute();
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
+    expect(find.byType(BattleScreen), findsOneWidget);
+
+    // 「にげる」のボタンでは閉じる
+    await tester.tap(find.text('にげる'));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
+    await tester.pump();
+    expect(find.byType(BattleScreen), findsNothing);
+    expect(find.text('バトルを開いた画面'), findsOneWidget);
+  }, variant: TargetPlatformVariant.only(TargetPlatform.iOS));
+
   testWidgets('技を選ぶと決着まで進み、勝敗とレベルの上がり方を出して記録と計測をする', (tester) async {
     final calls = RecordedBattleCalls();
     await pumpBattleScreen(
@@ -431,6 +522,9 @@ void main() {
       find.text('${strongPlayer.definition.name}  Lv. 7 → 9'),
       findsOneWidget,
     );
+    // 見本のマグモンは Lv.9 までに技の枠が変わらないため、次に技を覚えるレベル (段階 2 の Lv.15) を出す
+    expect(find.text('Lv. 15 で新しい技をおぼえる'), findsOneWidget);
+    expect(find.textContaining('をおぼえた'), findsNothing);
     expect(find.text('記録しました'), findsOneWidget);
     // 開いた時にバトルの BGM を流し、決着で止めて勝ちの効果音を鳴らす。途中は技が当たるたびに被弾の音、倒れた時に倒れた音
     expect(audioCalls.playedBackgroundMusicAssetPaths, [
@@ -470,6 +564,53 @@ void main() {
       'turn_count': completed.turnCount,
       'opponent': 'pvp',
     });
+  });
+
+  testWidgets('レベルが上がって技を覚えた時は、覚えた技と入れ替わりで外れた技をレベルの行の下に出す', (tester) async {
+    final playerMonster = OwnedMonster(
+      definition: MonsterDefinition(
+        id: strongPlayer.definition.id,
+        sourcePhotoReference: strongPlayer.definition.sourcePhotoReference,
+        name: strongPlayer.definition.name,
+        encyclopediaText: strongPlayer.definition.encyclopediaText,
+        elementTypeIds: strongPlayer.definition.elementTypeIds,
+        learnset: [
+          ...strongPlayer.definition.learnset.where(
+            (learnsetEntry) => learnsetEntry.unlockLevel == 1,
+          ),
+          const LearnsetEntry(moveId: 'steel_2', unlockLevel: 8),
+        ],
+        baseStats: strongPlayer.definition.baseStats,
+        individualValues: strongPlayer.definition.individualValues,
+        statCalculationVersion: strongPlayer.definition.statCalculationVersion,
+        masterVersion: strongPlayer.definition.masterVersion,
+      ),
+      level: strongPlayer.level,
+      artPath: strongPlayer.artPath,
+      definitionIds: strongPlayer.definitionIds,
+      decoration: strongPlayer.decoration,
+      decorationVersion: strongPlayer.decorationVersion,
+    );
+    await pumpBattleScreen(
+      tester: tester,
+      playerMonster: playerMonster,
+      artImage: null,
+      battleRecorder: fakeBattleRecorder(
+        calls: RecordedBattleCalls(),
+        startBattleRecord: () async => 'battle-1',
+        recordedLevels: {strongPlayer.definition.id: 9},
+      ),
+    );
+    await playUntilFinished(tester: tester);
+    expect(
+      find.text('${strongPlayer.definition.name}  Lv. 7 → 9'),
+      findsOneWidget,
+    );
+    // Lv.1 の 4 つの枠のうち一覧で一番古い fire_1 (ほかほかタッチ) が、Lv.8 の steel_2 (スチールプレス) と入れ替わる
+    expect(find.text('スチールプレス をおぼえた'), findsOneWidget);
+    expect(find.text('ほかほかタッチ をわすれた'), findsOneWidget);
+    // 技を覚えた時は次に覚えるレベルを出さない
+    expect(find.textContaining('で新しい技をおぼえる'), findsNothing);
   });
 
   testWidgets('記録しない時は端末の計算のレベルを反映し、記録していないことを出す', (tester) async {
@@ -875,7 +1016,7 @@ void main() {
 
   group('情報カードの置き方', () {
     /// 自分を [playerMonster]、相手を [weakOpponent] にしたバトル画面を、[size] の画面で、
-    /// 下のセーフエリアを [bottomPadding]、左右のセーフエリアを [leftPadding]・[rightPadding] にして開く。
+    /// 上下のセーフエリアを [topPadding]・[bottomPadding]、左右のセーフエリアを [leftPadding]・[rightPadding] にして開く。
     /// アプリ (lib/app.dart) と同じく内容の幅の上限 (appContentMaxWidth) に収めて描く。
     Future<void> pumpBattleScreenWithSize({
       required WidgetTester tester,
@@ -884,6 +1025,8 @@ void main() {
       required double leftPadding,
       required double rightPadding,
       required OwnedMonster playerMonster,
+      // 既定は上のセーフエリアの無い画面。実機の上のセーフエリア (iPhone のノッチ・Dynamic Island) でカードが下がった配置を確かめる時に渡す
+      double topPadding = 0,
       // 既定は初回の導線ではない対戦。初回の 1 戦は勝敗の画面に生まれたカードも並べて高くなるため、決着の後の配置を確かめる時に渡す
       OwnedMonster? firstBattleBornMonster,
     }) async {
@@ -892,6 +1035,7 @@ void main() {
         ..devicePixelRatio = 1
         ..padding = FakeViewPadding(
           left: leftPadding,
+          top: topPadding,
           right: rightPadding,
           bottom: bottomPadding,
         );
@@ -1722,6 +1866,42 @@ void main() {
       expect(battleLogRect(tester: tester).left, 20);
       expect(find.byKey(const Key('battle-player-trainer')), findsOneWidget);
     });
+
+    /// 縦向きのスマホの画面と上下のセーフエリア。393×852 (上 59・下 34) は #243 の報告の iPhone 15 Pro、
+    /// 390×844 (上 47・下 34) は iPhone 14 の画面。
+    for (final (size, topPadding, bottomPadding) in [
+      (const Size(393, 852), 59.0, 34.0),
+      (const Size(390, 844), 47.0, 34.0),
+    ]) {
+      testWidgets('縦向きのスマホ ($size) では、2 体の絵が 2 枚のカード・トレーナーの札・ログの帯に重ならない', (
+        tester,
+      ) async {
+        await pumpBattleScreenWithSize(
+          tester: tester,
+          size: size,
+          topPadding: topPadding,
+          bottomPadding: bottomPadding,
+          leftPadding: 0,
+          rightPadding: 0,
+          playerMonster: strongPlayer,
+        );
+
+        for (final artRect in monsterArtRects(tester: tester)) {
+          expect(fieldRect(tester: tester).intersect(artRect), artRect);
+          for (final coveringRect in [
+            opponentStatusCardRect(tester: tester),
+            playerStatusCardRect(tester: tester),
+            tester.getRect(find.byKey(const Key('battle-opponent-trainer'))),
+            tester.getRect(find.byKey(const Key('battle-player-trainer'))),
+            battleLogRect(tester: tester),
+          ]) {
+            expect(artRect.overlaps(coveringRect), isFalse);
+          }
+          // 被写体を見分けられる大きさ (左右配置の下限と同じ 60px。expectMonsterArtsVisible) を保つ
+          expect(artRect.height, greaterThanOrEqualTo(60));
+        }
+      });
+    }
 
     testWidgets('技の演出中に縦横を回転してもログとバトルの状態を維持し、横向きで決着まで操作できる', (tester) async {
       await pumpBattleScreenWithSize(

@@ -1513,6 +1513,88 @@ void main() {
     );
   });
 
+  group('equippedLearnsetChanges と nextLearnsetUnlockLevel', () {
+    // 版 9 (#224) より前の規則で生まれたモンスターの一覧。Lv.1 の次は補助技の Lv.5、段階 2 の Lv.15
+    const previousRuleLearnset = [
+      LearnsetEntry(moveId: 'a', unlockLevel: 1),
+      LearnsetEntry(moveId: 'b', unlockLevel: 1),
+      LearnsetEntry(moveId: 'c', unlockLevel: 1),
+      LearnsetEntry(moveId: 'd', unlockLevel: 1),
+      LearnsetEntry(moveId: 's', unlockLevel: 5),
+      LearnsetEntry(moveId: 'e', unlockLevel: 15),
+    ];
+    // 版 9 の規則 (Lv.2・3・5・8… で 1 つずつ覚える) で生まれたモンスターの一覧
+    const currentRuleLearnset = [
+      LearnsetEntry(moveId: 'a', unlockLevel: 1),
+      LearnsetEntry(moveId: 'b', unlockLevel: 1),
+      LearnsetEntry(moveId: 'c', unlockLevel: 1),
+      LearnsetEntry(moveId: 'd', unlockLevel: 1),
+      LearnsetEntry(moveId: 'e', unlockLevel: 2),
+      LearnsetEntry(moveId: 'f', unlockLevel: 3),
+    ];
+    List<String> moveIdsOf(List<LearnsetEntry> learnsetEntries) => [
+      for (final learnsetEntry in learnsetEntries) learnsetEntry.moveId,
+    ];
+
+    test('技を覚えるレベルに上がった時は、覚えた技と入れ替わりで外れた技を返す', () {
+      final changes = equippedLearnsetChanges(
+        learnset: currentRuleLearnset,
+        previousLevel: 1,
+        newLevel: 2,
+      );
+      expect(moveIdsOf(changes.learnedEntries), ['e']);
+      expect(moveIdsOf(changes.forgottenEntries), ['a']);
+    });
+
+    test('前の規則で生まれたモンスターが Lv.2〜4 に上がっても技の枠は変わらず、次に覚えるのは Lv.5', () {
+      final changes = equippedLearnsetChanges(
+        learnset: previousRuleLearnset,
+        previousLevel: 2,
+        newLevel: 3,
+      );
+      expect(changes.learnedEntries, isEmpty);
+      expect(changes.forgottenEntries, isEmpty);
+      expect(
+        nextLearnsetUnlockLevel(learnset: previousRuleLearnset, level: 3),
+        5,
+      );
+    });
+
+    test('Lv.5 に上がると補助技を覚え、次に覚えるのは Lv.15', () {
+      final changes = equippedLearnsetChanges(
+        learnset: previousRuleLearnset,
+        previousLevel: 4,
+        newLevel: 5,
+      );
+      expect(moveIdsOf(changes.learnedEntries), ['s']);
+      expect(moveIdsOf(changes.forgottenEntries), ['a']);
+      expect(
+        nextLearnsetUnlockLevel(learnset: previousRuleLearnset, level: 5),
+        15,
+      );
+    });
+
+    test('枠に空きがある間は、覚えても外れる技は無い', () {
+      final changes = equippedLearnsetChanges(
+        learnset: const [
+          LearnsetEntry(moveId: 'paper_1', unlockLevel: 1),
+          LearnsetEntry(moveId: 'paper_2', unlockLevel: 15),
+        ],
+        previousLevel: 14,
+        newLevel: 15,
+      );
+      expect(moveIdsOf(changes.learnedEntries), ['paper_2']);
+      expect(changes.forgottenEntries, isEmpty);
+    });
+
+    test('もう覚える技が無ければ、次に覚えるレベルは null', () {
+      expect(
+        nextLearnsetUnlockLevel(learnset: currentRuleLearnset, level: 3),
+        isNull,
+      );
+    });
+  });
+
   group('equippedLearnsetEntries', () {
     const learnset = [
       LearnsetEntry(moveId: 'a', unlockLevel: 1),

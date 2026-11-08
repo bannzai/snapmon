@@ -25,9 +25,8 @@ on:
 permissions:
   contents: read
 
-# flutter-ci.yml と同じ Flutter の版と Firebase の設定ファイルの Secrets
+# flutter-ci.yml と同じ Firebase の設定ファイルの Secrets
 env:
-  FLUTTER_VERSION: '3.41.9'
   FIREBASE_OPTIONS_DART_B64: ${{ secrets.FIREBASE_OPTIONS_DART_B64 }}
 
 jobs:
@@ -39,8 +38,8 @@ jobs:
         persist-credentials: false
     - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
       with:
+        flutter-version-file: pubspec.yaml
         channel: stable
-        flutter-version: ${{ env.FLUTTER_VERSION }}
     - run: scripts/restore-firebase-config.sh dart
     - run: make screenshots
     - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

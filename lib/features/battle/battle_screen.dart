@@ -225,6 +225,9 @@ class _BattleScreenState extends State<BattleScreen>
   /// 最後に測った自分の情報カードの高さ。最初のフレームを描くまでは null。
   double? _playerStatusCardHeight;
 
+  /// 縦に並べた配置で、自分のトレーナーの札と情報カードを積んだ列。2 体の絵が重ならないよう矩形をフィールドに渡す。
+  final GlobalKey _playerStatusCardColumnKey = GlobalKey();
+
   /// 技のボタン (決着の後は勝敗) の欄の中身。スクロールの中で高さの制約を受けずに描かれるため、測った高さは欄を詰める前の高さになる。
   final GlobalKey _commandsPanelContentKey = GlobalKey();
 
@@ -867,281 +870,314 @@ class _BattleScreenState extends State<BattleScreen>
     final safeAreaTop = safeAreaPadding.top;
     // 文字の拡大率が変わるとカードの高さも変わるため、拡大率の変更でも build し直してカードを測り直す
     MediaQuery.textScalerOf(context);
-    return Scaffold(
-      body: LayoutBuilder(
-        builder: (context, bodyConstraints) {
-          // 初回の 1 戦は生まれたカードも並べて高さが増え、技のボタンは名前・属性の札と数値・効果の説明の 3 段で大きい文字では段が折り返すため、
-          // 低い画面・大きい文字でもフィールドを残してスクロールさせる
-          final commandsPanelNaturalMaxHeight =
-              MediaQuery.sizeOf(context).height * _commandsPanelMaxHeightRatio;
-          // 配置の種類は、技のボタンの欄を詰める前のフィールドの高さで決める
-          // (詰めて高くなったフィールドで決め直すと、ログの帯の下に相手のカードを戻して右下の自分のカードと重なるため)。
-          // 欄の中身を測る前は、中身が上限まであると見積もる。
-          // ログの帯をフィールドの下に出す時は欄がその分高く、フィールドは見積もりより低くなるが、帯を下に出すのは低い画面と決めた後だけのため、決め直しても変わらない
-          final naturalFieldHeight =
-              bodyConstraints.maxHeight -
-              math.min(
-                _commandsPanelContentHeight ?? commandsPanelNaturalMaxHeight,
-                commandsPanelNaturalMaxHeight,
-              ) -
-              2 * _commandsPanelVerticalPadding -
-              safeAreaPadding.bottom;
-          // 自分のカードは測るまで相手のカードと同じ高さと見積もる
-          final playerStatusCardHeight =
-              _playerStatusCardHeight ?? _opponentStatusCardHeight;
-          final safeAreaInnerWidth =
-              bodyConstraints.maxWidth - safeAreaPadding.horizontal;
-          // 幅の狭い画面では、左の相手のカードと右下の自分のカードが横に重なる (幅 390 では 20 + 190 + 190 + 20 = 420 に足りない)
-          final statusCardsOverlapHorizontally =
-              safeAreaInnerWidth <
-              _fieldHorizontalMargin * 2 + _monsterStatusCardWidth * 2;
-          // ログの帯の下 (上から 96) に置くとカードがフィールドの下にはみ出す低い画面 (横向きのスマホ) では、
-          // 相手のカードをログの帯と同じ高さの左に上げ、自分のカードも帯と同じ高さの右に上げる。
-          // 844×390 の実測でフィールドは 124 (下のセーフエリアのある実機は約 103)、ログの帯は上から 16〜56、カードは 86 で、
-          // ログの帯の下には収まらず、帯と同じ高さ (16 + 86 = 102) なら収まるため。
-          // 2 枚のカードが横に重なる幅では、右下の自分のカードまでログの帯の下の相手のカードの下に収まらない時も低い画面とする
-          // (自分のカードは HP の数値と属性の札の行が折り返すと高さ 115 になり、390×560 ではログの帯の下の相手のカードと重なっていた)。
-          // 自分のカードを相手のカードと同じ高さの右に並べるのは、セーフエリアの内側の幅に 2 枚のカードと 2 枚の間の最小の幅が入る時だけにする
-          // (低くて幅も狭い画面で並べると、2 枚のカードが重なるため。その時は右下に置き、下の技のボタンの欄を詰める)。
-          // 並べた時は、2 枚の間 (164 × 86) に 2 体の絵を置き、ログの帯をフィールドの下 (技のボタンの上) に出す。
-          // 帯を 2 枚の間に残すと、絵の置き場が無く (絵が大きさの下限 18.6 に縮んでカードの下に隠れていた)、
-          // 幅 164 の帯は技の特殊効果の説明が付くと 4 行を越えて高さ 103 のフィールドの下で切れていたため
-          final isFieldTooLowForCardBelowLog =
-              _opponentStatusCardHeight != null &&
-              safeAreaTop +
-                      _opponentStatusCardBelowLogTop +
-                      _opponentStatusCardHeight! +
-                      (statusCardsOverlapHorizontally
-                          ? _stackedStatusCardGap +
-                                playerStatusCardHeight! +
-                                _playerStatusCardBottom
-                          : 0) >
-                  naturalFieldHeight;
-          final placesPlayerStatusCardBesideOpponentCard =
-              isFieldTooLowForCardBelowLog &&
-              safeAreaInnerWidth >=
-                  _fieldHorizontalMargin * 2 +
-                      _monsterStatusCardWidth * 2 +
-                      _battleLogGapBesideCard * 2 +
-                      _monsterArtAreaMinimumWidthBetweenCards;
-          // トレーナーの札は、ログの帯の下に相手の札とカード、フィールドの下に自分の札とカードを積んでも、
-          // 上下の 2 組が重ならない高さのフィールドの時だけ出す (自分のカードは測った高さを使う。HP の数値と属性の札の行が折り返すと相手より高いため)。
-          // 低い画面 (横向きのスマホ・小さい Web のウィンドウ) は、カードだけでもフィールドにやっと収まり、
-          // 札を積んでも横に並べても札やカードがフィールドの外で切れるかログの帯と重なるため、札を出さずにカードとログを優先する
-          final trainerLabelPlateHeight =
-              _trainerLabelPlateMeasuredHeight ??
-              _trainerLabelPlateEstimatedHeight;
-          final showsTrainerLabels =
-              _opponentStatusCardHeight != null &&
-              safeAreaTop +
-                      _opponentStatusCardBelowLogTop +
-                      trainerLabelPlateHeight +
-                      _trainerLabelGap +
-                      _opponentStatusCardHeight! +
-                      trainerLabelPlateHeight +
-                      _trainerLabelGap +
-                      playerStatusCardHeight! +
-                      _playerStatusCardBottom <=
-                  naturalFieldHeight;
-          final opponentStatusCardTop =
-              safeAreaTop +
-              (isFieldTooLowForCardBelowLog
-                  ? _battleLogTop
-                  : _opponentStatusCardBelowLogTop) +
-              (showsTrainerLabels
-                  ? trainerLabelPlateHeight + _trainerLabelGap
-                  : 0);
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (!mounted) {
-              return;
+    // 端のスワイプ (iOS) と戻るボタン・戻るジェスチャー (Android) でバトルを抜けると、決着の前に手が触れただけで閉じるため、
+    // 閉じるのは「にげる」「モンスターを交代」・勝敗の画面のボタンだけにする。ボタンの Navigator.pop は PopScope で止まらない。
+    // pop を拒む route は端のスワイプも受け付けない (Flutter の ModalRoute.popGestureEnabled が popDisposition の doNotPop で false を返す)
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        body: LayoutBuilder(
+          builder: (context, bodyConstraints) {
+            // 初回の 1 戦は生まれたカードも並べて高さが増え、技のボタンは名前・属性の札と数値・効果の説明の 3 段で大きい文字では段が折り返すため、
+            // 低い画面・大きい文字でもフィールドを残してスクロールさせる
+            final commandsPanelNaturalMaxHeight =
+                MediaQuery.sizeOf(context).height *
+                _commandsPanelMaxHeightRatio;
+            // 配置の種類は、技のボタンの欄を詰める前のフィールドの高さで決める
+            // (詰めて高くなったフィールドで決め直すと、ログの帯の下に相手のカードを戻して右下の自分のカードと重なるため)。
+            // 欄の中身を測る前は、中身が上限まであると見積もる。
+            // ログの帯をフィールドの下に出す時は欄がその分高く、フィールドは見積もりより低くなるが、帯を下に出すのは低い画面と決めた後だけのため、決め直しても変わらない
+            final naturalFieldHeight =
+                bodyConstraints.maxHeight -
+                math.min(
+                  _commandsPanelContentHeight ?? commandsPanelNaturalMaxHeight,
+                  commandsPanelNaturalMaxHeight,
+                ) -
+                2 * _commandsPanelVerticalPadding -
+                safeAreaPadding.bottom;
+            // 自分のカードは測るまで相手のカードと同じ高さと見積もる
+            final playerStatusCardHeight =
+                _playerStatusCardHeight ?? _opponentStatusCardHeight;
+            final safeAreaInnerWidth =
+                bodyConstraints.maxWidth - safeAreaPadding.horizontal;
+            // 幅の狭い画面では、左の相手のカードと右下の自分のカードが横に重なる (幅 390 では 20 + 190 + 190 + 20 = 420 に足りない)
+            final statusCardsOverlapHorizontally =
+                safeAreaInnerWidth <
+                _fieldHorizontalMargin * 2 + _monsterStatusCardWidth * 2;
+            // ログの帯の下 (上から 96) に置くとカードがフィールドの下にはみ出す低い画面 (横向きのスマホ) では、
+            // 相手のカードをログの帯と同じ高さの左に上げ、自分のカードも帯と同じ高さの右に上げる。
+            // 844×390 の実測でフィールドは 124 (下のセーフエリアのある実機は約 103)、ログの帯は上から 16〜56、カードは 86 で、
+            // ログの帯の下には収まらず、帯と同じ高さ (16 + 86 = 102) なら収まるため。
+            // 2 枚のカードが横に重なる幅では、右下の自分のカードまでログの帯の下の相手のカードの下に収まらない時も低い画面とする
+            // (自分のカードは HP の数値と属性の札の行が折り返すと高さ 115 になり、390×560 ではログの帯の下の相手のカードと重なっていた)。
+            // 自分のカードを相手のカードと同じ高さの右に並べるのは、セーフエリアの内側の幅に 2 枚のカードと 2 枚の間の最小の幅が入る時だけにする
+            // (低くて幅も狭い画面で並べると、2 枚のカードが重なるため。その時は右下に置き、下の技のボタンの欄を詰める)。
+            // 並べた時は、2 枚の間 (164 × 86) に 2 体の絵を置き、ログの帯をフィールドの下 (技のボタンの上) に出す。
+            // 帯を 2 枚の間に残すと、絵の置き場が無く (絵が大きさの下限 18.6 に縮んでカードの下に隠れていた)、
+            // 幅 164 の帯は技の特殊効果の説明が付くと 4 行を越えて高さ 103 のフィールドの下で切れていたため
+            final isFieldTooLowForCardBelowLog =
+                _opponentStatusCardHeight != null &&
+                safeAreaTop +
+                        _opponentStatusCardBelowLogTop +
+                        _opponentStatusCardHeight! +
+                        (statusCardsOverlapHorizontally
+                            ? _stackedStatusCardGap +
+                                  playerStatusCardHeight! +
+                                  _playerStatusCardBottom
+                            : 0) >
+                    naturalFieldHeight;
+            final placesPlayerStatusCardBesideOpponentCard =
+                isFieldTooLowForCardBelowLog &&
+                safeAreaInnerWidth >=
+                    _fieldHorizontalMargin * 2 +
+                        _monsterStatusCardWidth * 2 +
+                        _battleLogGapBesideCard * 2 +
+                        _monsterArtAreaMinimumWidthBetweenCards;
+            // トレーナーの札は、ログの帯の下に相手の札とカード、フィールドの下に自分の札とカードを積んでも、
+            // 上下の 2 組が重ならない高さのフィールドの時だけ出す (自分のカードは測った高さを使う。HP の数値と属性の札の行が折り返すと相手より高いため)。
+            // 低い画面 (横向きのスマホ・小さい Web のウィンドウ) は、カードだけでもフィールドにやっと収まり、
+            // 札を積んでも横に並べても札やカードがフィールドの外で切れるかログの帯と重なるため、札を出さずにカードとログを優先する
+            final trainerLabelPlateHeight =
+                _trainerLabelPlateMeasuredHeight ??
+                _trainerLabelPlateEstimatedHeight;
+            final showsTrainerLabels =
+                _opponentStatusCardHeight != null &&
+                safeAreaTop +
+                        _opponentStatusCardBelowLogTop +
+                        trainerLabelPlateHeight +
+                        _trainerLabelGap +
+                        _opponentStatusCardHeight! +
+                        trainerLabelPlateHeight +
+                        _trainerLabelGap +
+                        playerStatusCardHeight! +
+                        _playerStatusCardBottom <=
+                    naturalFieldHeight;
+            final opponentStatusCardTop =
+                safeAreaTop +
+                (isFieldTooLowForCardBelowLog
+                    ? _battleLogTop
+                    : _opponentStatusCardBelowLogTop) +
+                (showsTrainerLabels
+                    ? trainerLabelPlateHeight + _trainerLabelGap
+                    : 0);
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (!mounted) {
+                return;
+              }
+              if (_opponentStatusCardKey.currentContext?.size?.height
+                  case final cardHeight?
+                  when cardHeight != _opponentStatusCardHeight) {
+                setState(() => _opponentStatusCardHeight = cardHeight);
+              }
+              // 自分のカードは高くなった時だけ測り直す。HP の桁が減って行の折り返しが消えるとカードが低くなり、
+              // 境界の高さでは配置がバトルの途中で切り替わるため、判定には一度測った一番高い値を使う
+              if (_playerStatusCardKey.currentContext?.size?.height
+                  case final cardHeight?
+                  when cardHeight > (_playerStatusCardHeight ?? 0)) {
+                setState(() => _playerStatusCardHeight = cardHeight);
+              }
+              // 技のボタンの欄 (決着の後は勝敗の画面) も、高くなった時だけ測り直す。
+              // 欄が低くなる時 (技の説明の行数が少ないモンスターに交代した等) に測り直すと配置がバトルの途中で切り替わり、
+              // 高くなる時 (わるあがきの行が増えた・勝敗の画面に変わった) に測り直さないと、縮んだフィールドの上で札とカードが重なるため
+              if (_commandsPanelContentKey.currentContext?.size?.height
+                  case final contentHeight?
+                  when contentHeight > (_commandsPanelContentHeight ?? 0)) {
+                setState(() => _commandsPanelContentHeight = contentHeight);
+              }
+              if (_opponentTrainerLabelKey.currentContext?.size?.height
+                  case final labelHeight?
+                  when labelHeight != _trainerLabelPlateMeasuredHeight) {
+                setState(() => _trainerLabelPlateMeasuredHeight = labelHeight);
+              }
+            });
+            // 短辺 600 以上はタブレット、長辺 1000 以上は広いウィンドウとして従来の配置を残す。
+            // 内容幅が 600 に制限されても区別できるよう元のウィンドウを見て、
+            // 実際の使用可能な幅が 560 (各欄 280) 未満なら、狭い画面の既存の配置に戻す。
+            final windowSize = MediaQueryData.fromView(View.of(context)).size;
+            if (windowSize.shortestSide < 600 &&
+                windowSize.longestSide < 1000 &&
+                safeAreaInnerWidth >= 560 &&
+                safeAreaInnerWidth >
+                    bodyConstraints.maxHeight - safeAreaPadding.vertical) {
+              return _buildLandscapeBattle(
+                context: context,
+                playerMonster: playerMonster,
+                opponentMonster: opponentMonster,
+                isFinished: isFinished,
+              );
             }
-            if (_opponentStatusCardKey.currentContext?.size?.height
-                case final cardHeight?
-                when cardHeight != _opponentStatusCardHeight) {
-              setState(() => _opponentStatusCardHeight = cardHeight);
-            }
-            // 自分のカードは高くなった時だけ測り直す。HP の桁が減って行の折り返しが消えるとカードが低くなり、
-            // 境界の高さでは配置がバトルの途中で切り替わるため、判定には一度測った一番高い値を使う
-            if (_playerStatusCardKey.currentContext?.size?.height
-                case final cardHeight?
-                when cardHeight > (_playerStatusCardHeight ?? 0)) {
-              setState(() => _playerStatusCardHeight = cardHeight);
-            }
-            // 技のボタンの欄 (決着の後は勝敗の画面) も、高くなった時だけ測り直す。
-            // 欄が低くなる時 (技の説明の行数が少ないモンスターに交代した等) に測り直すと配置がバトルの途中で切り替わり、
-            // 高くなる時 (わるあがきの行が増えた・勝敗の画面に変わった) に測り直さないと、縮んだフィールドの上で札とカードが重なるため
-            if (_commandsPanelContentKey.currentContext?.size?.height
-                case final contentHeight?
-                when contentHeight > (_commandsPanelContentHeight ?? 0)) {
-              setState(() => _commandsPanelContentHeight = contentHeight);
-            }
-            if (_opponentTrainerLabelKey.currentContext?.size?.height
-                case final labelHeight?
-                when labelHeight != _trainerLabelPlateMeasuredHeight) {
-              setState(() => _trainerLabelPlateMeasuredHeight = labelHeight);
-            }
-          });
-          // 短辺 600 以上はタブレット、長辺 1000 以上は広いウィンドウとして従来の配置を残す。
-          // 内容幅が 600 に制限されても区別できるよう元のウィンドウを見て、
-          // 実際の使用可能な幅が 560 (各欄 280) 未満なら、狭い画面の既存の配置に戻す。
-          final windowSize = MediaQueryData.fromView(View.of(context)).size;
-          if (windowSize.shortestSide < 600 &&
-              windowSize.longestSide < 1000 &&
-              safeAreaInnerWidth >= 560 &&
-              safeAreaInnerWidth >
-                  bodyConstraints.maxHeight - safeAreaPadding.vertical) {
-            return _buildLandscapeBattle(
-              context: context,
-              playerMonster: playerMonster,
-              opponentMonster: opponentMonster,
-              isFinished: isFinished,
-            );
-          }
-          return Column(
-            children: [
-              Expanded(
-                // 絵の置き場をフィールドの実際の高さで抑えるため、フィールドの大きさをここで受け取る
-                child: LayoutBuilder(
-                  builder: (context, fieldConstraints) {
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      if (!mounted) {
-                        return;
-                      }
-                      if (_opponentStatusCardKey.currentContext?.size?.height
-                          case final cardHeight?) {
-                        _game
-                          ..updateOpponentStatusCardBottom(
-                            bottom: opponentStatusCardTop + cardHeight,
-                          )
-                          // 2 枚のカードの間を、カードと同じ高さの範囲で絵に使う (自分のカードも相手のカードと同じ高さの 3 段に保つため)
-                          ..updateMonsterArtArea(
-                            area: placesPlayerStatusCardBesideOpponentCard
-                                ? Rect.fromLTRB(
-                                    safeAreaPadding.left +
-                                        _fieldHorizontalMargin +
-                                        _monsterStatusCardWidth +
-                                        _battleLogGapBesideCard,
-                                    opponentStatusCardTop,
-                                    fieldConstraints.maxWidth -
-                                        safeAreaPadding.right -
-                                        _fieldHorizontalMargin -
-                                        _monsterStatusCardWidth -
-                                        _battleLogGapBesideCard,
-                                    // 下のパネルが高くフィールドがカードより低い時も、絵がフィールドの外で切れないようにフィールドの高さで抑える
-                                    math.min(
-                                      opponentStatusCardTop + cardHeight,
-                                      fieldConstraints.maxHeight,
-                                    ),
-                                  )
-                                : null,
-                          );
-                      }
-                    });
-                    return _buildField(
-                      playerMonster: playerMonster,
-                      opponentMonster: opponentMonster,
-                      safeAreaLeft: safeAreaPadding.left,
-                      safeAreaRight: safeAreaPadding.right,
-                      opponentStatusCardTop: opponentStatusCardTop,
-                      placesOpponentStatusCardBesideLog:
-                          isFieldTooLowForCardBelowLog,
-                      placesPlayerStatusCardBesideOpponentCard:
-                          placesPlayerStatusCardBesideOpponentCard,
-                      showsTrainerLabels: showsTrainerLabels,
-                      trainerLabelPlateHeight: trainerLabelPlateHeight,
-                      // 低くて幅も狭い画面では、相手のカードの右に寄せたログの帯が右下の自分のカードと横に重なるため、
-                      // 帯の高さを自分のカードの上端の手前までにして、技の特殊効果の説明が付いて伸びた時は帯の中をスクロールさせる
-                      battleLogMaxHeight:
-                          isFieldTooLowForCardBelowLog &&
-                              !placesPlayerStatusCardBesideOpponentCard
-                          ? math.max(
-                              0.0,
-                              fieldConstraints.maxHeight -
-                                  _playerStatusCardBottom -
-                                  playerStatusCardHeight! -
-                                  _stackedStatusCardGap -
-                                  safeAreaTop -
-                                  _battleLogTop,
+            return Column(
+              children: [
+                Expanded(
+                  // 絵の置き場をフィールドの実際の高さで抑えるため、フィールドの大きさをここで受け取る
+                  child: LayoutBuilder(
+                    builder: (context, fieldConstraints) {
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        if (!mounted) {
+                          return;
+                        }
+                        if (_opponentStatusCardKey.currentContext?.size?.height
+                            case final cardHeight?) {
+                          _game
+                            // 2 体の絵が情報カードとトレーナーの札に重ならないよう、重ねた部品の矩形を渡す (#243)
+                            ..updateOverlayRects(
+                              rects: [
+                                for (final overlayKey in [
+                                  _opponentTrainerLabelKey,
+                                  _opponentStatusCardKey,
+                                  _playerStatusCardColumnKey,
+                                ])
+                                  ?_rectInField(widgetKey: overlayKey),
+                              ],
                             )
-                          : null,
-                    );
-                  },
-                ),
-              ),
-              SafeArea(
-                top: false,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                    20,
-                    _commandsPanelVerticalPadding,
-                    20,
-                    _commandsPanelVerticalPadding,
+                            // 2 枚のカードの間を、カードと同じ高さの範囲で絵に使う (自分のカードも相手のカードと同じ高さの 3 段に保つため)
+                            ..updateMonsterArtArea(
+                              area: placesPlayerStatusCardBesideOpponentCard
+                                  ? Rect.fromLTRB(
+                                      safeAreaPadding.left +
+                                          _fieldHorizontalMargin +
+                                          _monsterStatusCardWidth +
+                                          _battleLogGapBesideCard,
+                                      opponentStatusCardTop,
+                                      fieldConstraints.maxWidth -
+                                          safeAreaPadding.right -
+                                          _fieldHorizontalMargin -
+                                          _monsterStatusCardWidth -
+                                          _battleLogGapBesideCard,
+                                      // 下のパネルが高くフィールドがカードより低い時も、絵がフィールドの外で切れないようにフィールドの高さで抑える
+                                      math.min(
+                                        opponentStatusCardTop + cardHeight,
+                                        fieldConstraints.maxHeight,
+                                      ),
+                                    )
+                                  : null,
+                            );
+                        }
+                      });
+                      return _buildField(
+                        playerMonster: playerMonster,
+                        opponentMonster: opponentMonster,
+                        safeAreaLeft: safeAreaPadding.left,
+                        safeAreaRight: safeAreaPadding.right,
+                        opponentStatusCardTop: opponentStatusCardTop,
+                        placesOpponentStatusCardBesideLog:
+                            isFieldTooLowForCardBelowLog,
+                        placesPlayerStatusCardBesideOpponentCard:
+                            placesPlayerStatusCardBesideOpponentCard,
+                        showsTrainerLabels: showsTrainerLabels,
+                        trainerLabelPlateHeight: trainerLabelPlateHeight,
+                        // 低くて幅も狭い画面では、相手のカードの右に寄せたログの帯が右下の自分のカードと横に重なるため、
+                        // 帯の高さを自分のカードの上端の手前までにして、技の特殊効果の説明が付いて伸びた時は帯の中をスクロールさせる
+                        battleLogMaxHeight:
+                            isFieldTooLowForCardBelowLog &&
+                                !placesPlayerStatusCardBesideOpponentCard
+                            ? math.max(
+                                0.0,
+                                fieldConstraints.maxHeight -
+                                    _playerStatusCardBottom -
+                                    playerStatusCardHeight! -
+                                    _stackedStatusCardGap -
+                                    safeAreaTop -
+                                    _battleLogTop,
+                              )
+                            : null,
+                      );
+                    },
                   ),
-                  // ログの帯をフィールドの下に置く時は、帯を技のボタンの欄の上限の中のスクロールの外に置く
-                  // (スクロールの中に置くと、下の技を押すためにスクロールした時に帯が隠れるため。上限を変えないのはフィールドを低くしないため)
-                  child: ConstrainedBox(
-                    // 低くて幅も狭い画面 (390×390 のような小さい Web のウィンドウ) は、2 枚のカードを横にも縦にも重ねずに置くには
-                    // フィールドが足りないため、技のボタンの欄を詰め、相手のカードの下に自分のカードを置ける高さをフィールドに残す (欄はスクロールする)
-                    constraints: BoxConstraints(
-                      maxHeight:
-                          isFieldTooLowForCardBelowLog &&
-                              !placesPlayerStatusCardBesideOpponentCard
-                          ? math.max(
-                              MediaQuery.sizeOf(context).height *
-                                  _commandsPanelMinHeightRatio,
-                              math.min(
-                                commandsPanelNaturalMaxHeight,
-                                bodyConstraints.maxHeight -
-                                    (safeAreaTop +
-                                        _battleLogTop +
-                                        _opponentStatusCardHeight! +
-                                        _stackedStatusCardGap +
-                                        playerStatusCardHeight! +
-                                        _playerStatusCardBottom) -
-                                    2 * _commandsPanelVerticalPadding -
-                                    safeAreaPadding.bottom,
-                              ),
-                            )
-                          : commandsPanelNaturalMaxHeight,
+                ),
+                SafeArea(
+                  top: false,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(
+                      20,
+                      _commandsPanelVerticalPadding,
+                      20,
+                      _commandsPanelVerticalPadding,
                     ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        if (placesPlayerStatusCardBesideOpponentCard) ...[
-                          ConstrainedBox(
-                            constraints: BoxConstraints(
-                              maxHeight:
-                                  MediaQuery.sizeOf(context).height *
-                                  _battleLogOutsideFieldMaxHeightRatio,
+                    // ログの帯をフィールドの下に置く時は、帯を技のボタンの欄の上限の中のスクロールの外に置く
+                    // (スクロールの中に置くと、下の技を押すためにスクロールした時に帯が隠れるため。上限を変えないのはフィールドを低くしないため)
+                    child: ConstrainedBox(
+                      // 低くて幅も狭い画面 (390×390 のような小さい Web のウィンドウ) は、2 枚のカードを横にも縦にも重ねずに置くには
+                      // フィールドが足りないため、技のボタンの欄を詰め、相手のカードの下に自分のカードを置ける高さをフィールドに残す (欄はスクロールする)
+                      constraints: BoxConstraints(
+                        maxHeight:
+                            isFieldTooLowForCardBelowLog &&
+                                !placesPlayerStatusCardBesideOpponentCard
+                            ? math.max(
+                                MediaQuery.sizeOf(context).height *
+                                    _commandsPanelMinHeightRatio,
+                                math.min(
+                                  commandsPanelNaturalMaxHeight,
+                                  bodyConstraints.maxHeight -
+                                      (safeAreaTop +
+                                          _battleLogTop +
+                                          _opponentStatusCardHeight! +
+                                          _stackedStatusCardGap +
+                                          playerStatusCardHeight! +
+                                          _playerStatusCardBottom) -
+                                      2 * _commandsPanelVerticalPadding -
+                                      safeAreaPadding.bottom,
+                                ),
+                              )
+                            : commandsPanelNaturalMaxHeight,
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          if (placesPlayerStatusCardBesideOpponentCard) ...[
+                            ConstrainedBox(
+                              constraints: BoxConstraints(
+                                maxHeight:
+                                    MediaQuery.sizeOf(context).height *
+                                    _battleLogOutsideFieldMaxHeightRatio,
+                              ),
+                              child: SingleChildScrollView(
+                                child: _buildBattleLog(context: context),
+                              ),
                             ),
+                            const SizedBox(height: _battleLogCommandsGap),
+                          ],
+                          Flexible(
                             child: SingleChildScrollView(
-                              child: _buildBattleLog(context: context),
-                            ),
-                          ),
-                          const SizedBox(height: _battleLogCommandsGap),
-                        ],
-                        Flexible(
-                          child: SingleChildScrollView(
-                            child: KeyedSubtree(
-                              key: _commandsPanelContentKey,
-                              child: _buildCommandsOrResult(
-                                context: context,
-                                playerMonster: playerMonster,
-                                opponentMonster: opponentMonster,
-                                isFinished: isFinished,
+                              child: KeyedSubtree(
+                                key: _commandsPanelContentKey,
+                                child: _buildCommandsOrResult(
+                                  context: context,
+                                  playerMonster: playerMonster,
+                                  opponentMonster: opponentMonster,
+                                  isFinished: isFinished,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
-          );
-        },
+              ],
+            );
+          },
+        ),
       ),
+    );
+  }
+
+  /// [widgetKey] の widget の矩形を、フィールド (Flame のゲームの widget) の座標で返す。
+  /// widget を出していない (札を出さない画面等) か、まだ描いていない時は null。
+  Rect? _rectInField({required GlobalKey widgetKey}) {
+    final widgetBox = widgetKey.currentContext?.findRenderObject();
+    final fieldBox = _gameWidgetKey.currentContext?.findRenderObject();
+    if (widgetBox is! RenderBox ||
+        fieldBox is! RenderBox ||
+        !widgetBox.hasSize ||
+        !fieldBox.hasSize) {
+      return null;
+    }
+    // 位置の差分ではなく変形で直す。祖先に拡大縮小の変形が掛かる画面遷移の途中に測ると、位置の差分だけが縮尺倍になり矩形がずれるため
+    return MatrixUtils.transformRect(
+      widgetBox.getTransformTo(fieldBox),
+      Offset.zero & widgetBox.size,
     );
   }
 
@@ -1392,6 +1428,7 @@ class _BattleScreenState extends State<BattleScreen>
             ? null
             : _playerStatusCardBottom,
         child: Column(
+          key: _playerStatusCardColumnKey,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             if (widget.playerProfile case final playerProfile?
@@ -1586,6 +1623,52 @@ class _BattleResultPanel extends StatelessWidget {
   /// バトルの結果の共有に使う関数の組。
   final CardSharer cardSharer;
 
+  /// [monster] が [newLevel] に上がって覚えた技・入れ替わりで外れた技の行を返す。技の枠が変わらなかった時は、次に技を覚えるレベルの行
+  /// (もう覚える技が無ければ何も返さない)。入れ替えは自動で画面に出ないため、レベルアップの行で知らせる (#247)。
+  List<Widget> _learnsetChangeTexts({
+    required BuildContext context,
+    required OwnedMonster monster,
+    required int newLevel,
+  }) {
+    final changes = equippedLearnsetChanges(
+      learnset: monster.definition.learnset,
+      previousLevel: monster.level,
+      newLevel: newLevel,
+    );
+    final style = SnapmonTextStyles.small.copyWith(
+      color: SnapmonColors.textOnCard,
+    );
+    if (changes.learnedEntries.isEmpty) {
+      return [
+        if (nextLearnsetUnlockLevel(
+              learnset: monster.definition.learnset,
+              level: newLevel,
+            )
+            case final nextUnlockLevel?)
+          Text(
+            context.l10n.battleNextLearnLevel(nextUnlockLevel),
+            style: style,
+          ),
+      ];
+    }
+    return [
+      for (final learnsetEntry in changes.learnedEntries)
+        Text(
+          context.l10n.battleLearnedMove(
+            definitions.moveById(moveId: learnsetEntry.moveId).displayName,
+          ),
+          style: style,
+        ),
+      for (final learnsetEntry in changes.forgottenEntries)
+        Text(
+          context.l10n.battleForgotMove(
+            definitions.moveById(moveId: learnsetEntry.moveId).displayName,
+          ),
+          style: style,
+        ),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     final bornMonster = firstBattleBornMonster;
@@ -1632,11 +1715,21 @@ class _BattleResultPanel extends StatelessWidget {
                     horizontal: 14,
                     vertical: 10,
                   ),
-                  child: Text(
-                    '${monster.definition.name}  ${context.l10n.commonLevelUp(monster.level, newLevel)}',
-                    style: SnapmonTextStyles.label.copyWith(
-                      color: SnapmonColors.textOnCard,
-                    ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${monster.definition.name}  ${context.l10n.commonLevelUp(monster.level, newLevel)}',
+                        style: SnapmonTextStyles.label.copyWith(
+                          color: SnapmonColors.textOnCard,
+                        ),
+                      ),
+                      ..._learnsetChangeTexts(
+                        context: context,
+                        monster: monster,
+                        newLevel: newLevel,
+                      ),
+                    ],
                   ),
                 ),
               ),
