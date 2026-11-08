@@ -18,8 +18,8 @@ typedef MoveEffectSpriteSheet = ({
 });
 
 /// スプライトシートで描く技のエフェクト (master の effects の id ごと)。ここに無いエフェクトとその場で作った定義はパーティクルで描く。
-/// 素材は assets/CREDITS.md、割り当ての理由は documents/DIRECTION.md「決めたこと」(2026-11-04)。
-/// [MoveEffectSpriteSheet.visibleCenterAnchor] はアルファ 32 以上の画素の範囲を測った値。
+/// 素材は assets/CREDITS.md、割り当ての理由は documents/DIRECTION.md「決めたこと」(2026-11-04 と 2026-11-08 の #223)。
+/// [MoveEffectSpriteSheet.visibleCenterAnchor] は scripts/move_effects/measure_visible_center_anchor.py で測った値。
 const Map<String, MoveEffectSpriteSheet> moveEffectSpriteSheetsByEffectId = {
   'fire_particle': (
     assetName: 'hit-spark',
@@ -32,6 +32,90 @@ const Map<String, MoveEffectSpriteSheet> moveEffectSpriteSheetsByEffectId = {
   'thunder_particle': (
     assetName: 'zap-hit',
     visibleCenterAnchor: Anchor(0.413, 0.5),
+  ),
+  'water_particle': (
+    assetName: 'splash',
+    visibleCenterAnchor: Anchor(0.48, 0.48),
+  ),
+  'grass_particle': (
+    assetName: 'vine-whip',
+    visibleCenterAnchor: Anchor(0.343, 0.59),
+  ),
+  'earth_particle': (
+    assetName: 'earth-spike',
+    visibleCenterAnchor: Anchor(0.528, 0.507),
+  ),
+  'wood_particle': (
+    assetName: 'thorns',
+    visibleCenterAnchor: Anchor(0.541, 0.587),
+  ),
+  'light_particle': (
+    assetName: 'smite',
+    visibleCenterAnchor: Anchor(0.5, 0.503),
+  ),
+  'dark_particle': (
+    assetName: 'shadow-tendrils',
+    visibleCenterAnchor: Anchor(0.519, 0.623),
+  ),
+  'poison_particle': (
+    assetName: 'acid-splash',
+    visibleCenterAnchor: Anchor(0.505, 0.569),
+  ),
+  'sound_particle': (
+    assetName: 'cartoon-pow',
+    visibleCenterAnchor: Anchor(0.5, 0.497),
+  ),
+  'beast_particle': (
+    assetName: 'claw-swipe',
+    visibleCenterAnchor: Anchor(0.48, 0.672),
+  ),
+  'bug_particle': (
+    assetName: 'butterfly',
+    visibleCenterAnchor: Anchor(0.5, 0.534),
+  ),
+  'bird_particle': (
+    assetName: 'feather-burst',
+    visibleCenterAnchor: Anchor(0.522, 0.494),
+  ),
+  'fish_particle': (
+    assetName: 'fish-school',
+    visibleCenterAnchor: Anchor(0.441, 0.431),
+  ),
+  'ice_particle': (
+    assetName: 'snowflake-burst',
+    visibleCenterAnchor: Anchor(0.496, 0.504),
+  ),
+  'wind_particle': (
+    assetName: 'tornado',
+    visibleCenterAnchor: Anchor(0.492, 0.497),
+  ),
+  'flower_particle': (
+    assetName: 'healing-bloom',
+    visibleCenterAnchor: Anchor(0.552, 0.475),
+  ),
+  'machine_particle': (
+    assetName: 'emp-blast',
+    visibleCenterAnchor: Anchor(0.5, 0.539),
+  ),
+  'sweets_particle': (
+    assetName: 'firework-burst',
+    visibleCenterAnchor: Anchor(0.485, 0.556),
+  ),
+  'ghost_particle': (
+    assetName: 'ghost',
+    visibleCenterAnchor: Anchor(0.5, 0.68),
+  ),
+  'dragon_particle': (
+    assetName: 'fire-breath',
+    visibleCenterAnchor: Anchor(0.466, 0.5),
+  ),
+  'cloth_particle': (
+    assetName: 'whip-crack',
+    visibleCenterAnchor: Anchor(0.568, 0.494),
+  ),
+  'paper_particle': (
+    assetName: 'confetti',
+    visibleCenterAnchor: Anchor(0.507, 0.646),
   ),
 };
 

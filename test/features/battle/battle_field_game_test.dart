@@ -414,7 +414,8 @@ void main() {
           game: game,
           spriteSheetsByEffectId: {
             ...moveEffectSpriteSheetsByEffectId,
-            'water_particle': (
+            // master の 24 属性はすべてシートを持つため、master に無い ID で読めないシートを作る
+            'not_bundled_particle': (
               assetName: 'not-bundled',
               visibleCenterAnchor: Anchor.center,
             ),
@@ -436,8 +437,8 @@ void main() {
         game.hit(
           defenderSide: BattleSideId.opponent,
           effect: const MoveEffect(
-            id: 'water_particle',
-            displayName: '水のパーティクル',
+            id: 'not_bundled_particle',
+            displayName: '読めないシートのパーティクル',
             kind: 'particle',
             colorHex: '#2196F3',
           ),
