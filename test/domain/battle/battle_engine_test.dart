@@ -563,6 +563,50 @@ void main() {
     expect(firstHit(grassTarget).damage, greaterThan(firstHit(state).damage));
   });
 
+  test('技のボタンに出す相性の倍率は、攻撃技 (自爆を含む) だけ相手の属性で決まり、補助技と一撃必殺は null', () {
+    final grassDefender = prepare(
+      definition: testDefinition(
+        id: 'opponent',
+        elementTypeId: 'grass',
+        moveIds: ['grass_strong'],
+        speed: 50,
+      ),
+    );
+    final fireDefender = prepare(
+      definition: testDefinition(
+        id: 'opponent',
+        elementTypeId: 'fire',
+        moveIds: ['grass_strong'],
+        speed: 50,
+      ),
+    );
+    double? multiplierOf({
+      required String moveId,
+      required BattleMonster defender,
+    }) => moveTypeMultiplierAgainst(
+      move: testMaster.moveById(moveId: moveId),
+      defender: defender,
+      master: testMaster,
+    );
+    expect(multiplierOf(moveId: 'fire_strong', defender: grassDefender), 2);
+    expect(multiplierOf(moveId: 'grass_strong', defender: fireDefender), 0.5);
+    expect(multiplierOf(moveId: 'fire_strong', defender: fireDefender), 1);
+    // 自爆はダメージに相性が掛かるため出す
+    expect(
+      multiplierOf(moveId: 'fire_self_destruct', defender: grassDefender),
+      2,
+    );
+    // 同じ炎の技でも、ダメージの無い補助技と HP を 0 にする一撃必殺は相性が効かない
+    expect(
+      multiplierOf(moveId: 'fire_lower_defense', defender: grassDefender),
+      isNull,
+    );
+    expect(
+      multiplierOf(moveId: 'fire_one_hit', defender: grassDefender),
+      isNull,
+    );
+  });
+
   test('CPU は相性の倍率が最大の技を選ぶ (倍率が同じなら威力が高い技)', () {
     final state = startBattle(
       playerMembers: [
