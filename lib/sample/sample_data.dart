@@ -9,8 +9,7 @@ import '../features/dex/owned_monster.dart';
 /// 見本データのファイル。CPU 対戦の相手、ログインが無い時 (DEBUG ビルド) の PvP の相手の代わり、開発者メニューの見本の投入に使う。
 const String sampleDataAssetPath = 'assets/samples/sample_monsters.json';
 
-/// 見本の対戦相手。ログインが無い時 (DEBUG ビルド) の PvP の相手の代わり (lib/features/opponent/opponent_screen.dart) と、
-/// CPU トレーナー ([SampleData.cpuTrainers]) の識別子・名前・手持ち。
+/// 見本の対戦相手。ログインが無い時 (DEBUG ビルド) の PvP の相手の代わり (lib/features/opponent/opponent_screen.dart)。
 class SampleOpponent {
   /// 見本の対戦相手を作る。
   const SampleOpponent({
@@ -47,7 +46,7 @@ class SampleData {
     required this.definitions,
     required this.monsters,
     required this.opponents,
-    required this.cpuTrainers,
+    required this.cpuTrainerNames,
   });
 
   /// JSON から見本データを読む。
@@ -75,11 +74,9 @@ class SampleData {
           for (final opponentJson in json['opponents'] as List<dynamic>)
             SampleOpponent.fromJson(json: opponentJson as Map<String, dynamic>),
         ],
-        cpuTrainers: [
-          for (final cpuTrainerJson in json['cpuTrainers'] as List<dynamic>)
-            SampleOpponent.fromJson(
-              json: cpuTrainerJson as Map<String, dynamic>,
-            ),
+        cpuTrainerNames: [
+          for (final cpuTrainerName in json['cpuTrainerNames'] as List<dynamic>)
+            cpuTrainerName as String,
         ],
       );
 
@@ -94,12 +91,10 @@ class SampleData {
   /// 見本の対戦相手 (ログインが無い時の他のユーザーの代わり)。
   final List<SampleOpponent> opponents;
 
-  /// CPU トレーナー (CPU 対戦の相手)。他のユーザーが少ない間も対戦の相手がいるよう、対戦相手の画面と初回のバトルで
-  /// 他のユーザーの候補が足りない分を埋める (2026-10-29 の DIRECTION.md「決めたこと」)。対戦相手の画面は先頭から必要な数だけ並べる。
-  /// 手持ちのレベルは挑む時に自分の手持ちに合わせる。名前は他のユーザーと見分けられるよう「CPU」を含める
-  /// (どの画面の言語でも同じ印にするため、文言ではなく見本データに持つ)。手持ちは CPU トレーナー同士で重ならない
-  /// (対戦相手の画面に並べた時に同じ絵が出ないため。test/sample/sample_data_test.dart で検査する)。
-  final List<SampleOpponent> cpuTrainers;
+  /// CPU トレーナー (CPU 対戦の相手) の名前。対戦の相手はこの中から乱数で選んだ名前と、見本のモンスター ([monsters]) から
+  /// 乱数で選んだ手持ちで組む (lib/features/opponent/cpu_party.dart の `chooseRandomCpuOpponent`。2026-11-08 の DIRECTION.md「決めたこと」)。
+  /// 名前は他のユーザーと見分けられるよう「CPU」を含める (どの画面の言語でも同じ印にするため、文言ではなく見本データに持つ)。
+  final List<String> cpuTrainerNames;
 
   /// [monsterId] の見本のモンスターを返す。無ければ [StateError] を投げる。
   OwnedMonster monsterById({required String monsterId}) => monsters.firstWhere(

@@ -12,7 +12,7 @@ void main() {
   final sampleData = loadSampleDataFixture();
 
   test(
-    '他のユーザーの候補を読まず、自分の手持ちと同じ見本のモンスターを持たない CPU トレーナーと戦う (本人の操作なしに他人の手持ちを相手にしないため)',
+    '他のユーザーの候補を読まず、乱数で決めた CPU トレーナーの名前と、自分の手持ちと同じ数で同じ絵を含まない見本のモンスターと戦う (本人の操作なしに他人の手持ちを相手にしないため)',
     () async {
       // 本番と同じく、生まれたモンスターを手持ちに入れた後の図鑑で相手を決める (CPU の手持ちのレベルを自分の手持ちに合わせるため)
       final dexStore = DexStore(definitions: sampleData.definitions)
@@ -46,68 +46,25 @@ void main() {
         updateDisplayName: ({required displayName}) async => displayName,
         updateIcon: ({required photo}) => throw StateError('updateIcon は呼ばない'),
       );
-      final cpuTrainerNames = {
+      final opponents = [
         for (var randomSeed = 1; randomSeed <= 50; randomSeed++)
-          (await prepareFirstBattleOpponent(
+          await prepareFirstBattleOpponent(
             dexStore: dexStore,
             pvpClient: pvpClient,
             sampleData: sampleData,
             randomSeed: randomSeed,
-          )).opponentName,
-      };
+          ),
+      ];
       expect(fetchOpponentsCount, 0);
-      expect(cpuTrainerNames, {
-        for (final cpuTrainer in sampleData.cpuTrainers)
-          if (!cpuTrainer.monsterIds.contains('sample-mugmon')) cpuTrainer.name,
-      });
-    },
-  );
-
-  test('自分の手持ちと同じ見本のモンスターを持つ CPU トレーナーを除き、全員が除かれる時は全員を残す', () {
-    final cpuTrainerIds = excludeCpuTrainersWithSameArt(
-      sampleData: sampleData,
-      playerParty: [sampleData.monsterById(monsterId: 'sample-mugmon')],
-    ).map((cpuTrainer) => cpuTrainer.id);
-    expect(cpuTrainerIds, hasLength(sampleData.cpuTrainers.length - 1));
-    for (final cpuTrainer in sampleData.cpuTrainers) {
       expect(
-        cpuTrainerIds.contains(cpuTrainer.id),
-        !cpuTrainer.monsterIds.contains('sample-mugmon'),
-        reason: cpuTrainer.id,
+        {for (final opponent in opponents) opponent.opponentName},
+        sampleData.cpuTrainerNames.toSet(),
       );
-    }
-    expect(
-      excludeCpuTrainersWithSameArt(
-        sampleData: sampleData,
-        playerParty: sampleData.monsters,
-      ),
-      sampleData.cpuTrainers,
-    );
-  });
-
-  test(
-    'chooseFirstBattleCpuTrainer は seed によって別の CPU トレーナーになり、同じ seed では同じトレーナーになる',
-    () {
-      expect(
-        {
-          for (var randomSeed = 1; randomSeed <= 50; randomSeed++)
-            chooseFirstBattleCpuTrainer(
-              cpuTrainers: sampleData.cpuTrainers,
-              randomSeed: randomSeed,
-            ).id,
-        },
-        {for (final cpuTrainer in sampleData.cpuTrainers) cpuTrainer.id},
-      );
-      expect(
-        chooseFirstBattleCpuTrainer(
-          cpuTrainers: sampleData.cpuTrainers,
-          randomSeed: 7,
-        ).id,
-        chooseFirstBattleCpuTrainer(
-          cpuTrainers: sampleData.cpuTrainers,
-          randomSeed: 7,
-        ).id,
-      );
+      for (final opponent in opponents) {
+        expect(opponent.opponentParty.single.definition.id, isNot('sample-mugmon'));
+        expect(opponent.opponentParty.single.level, 1);
+        expect(opponent.definitions, dexStore.definitions);
+      }
     },
   );
 }

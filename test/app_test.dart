@@ -958,7 +958,7 @@ void main() {
 
       await tester.tap(find.byKey(const Key('tab-opponent')));
       await tester.pumpAndSettle();
-      expect(find.text('相手をえらぶ'), findsOneWidget);
+      expect(find.text('ランダムな相手と戦う'), findsOneWidget);
 
       await tester.tap(find.byKey(const Key('tab-capture')));
       await tester.pumpAndSettle();
@@ -1317,9 +1317,7 @@ void main() {
         );
       await tester.tap(find.byKey(const Key('tab-opponent')));
       await tester.pumpAndSettle();
-      final challengeButton = find.byKey(
-        Key('challenge-${sampleData.cpuTrainers.first.id}'),
-      );
+      final challengeButton = find.byKey(const Key('random-battle'));
       await tester.ensureVisible(challengeButton);
       await tester.pumpAndSettle();
       await tester.tap(challengeButton);
@@ -1355,9 +1353,7 @@ void main() {
         );
       await tester.tap(find.byKey(const Key('tab-opponent')));
       await tester.pumpAndSettle();
-      final challengeButton = find.byKey(
-        Key('challenge-${sampleData.cpuTrainers.first.id}'),
-      );
+      final challengeButton = find.byKey(const Key('random-battle'));
       await tester.ensureVisible(challengeButton);
       await tester.pumpAndSettle();
       await tester.tap(challengeButton);
@@ -1419,9 +1415,7 @@ void main() {
         );
       await tester.tap(find.byKey(const Key('tab-opponent')));
       await tester.pumpAndSettle();
-      final challengeButton = find.byKey(
-        Key('challenge-${sampleData.cpuTrainers.first.id}'),
-      );
+      final challengeButton = find.byKey(const Key('random-battle'));
       await tester.ensureVisible(challengeButton);
       await tester.pumpAndSettle();
       await tester.tap(challengeButton);
@@ -1457,9 +1451,7 @@ void main() {
 
       await tester.tap(find.byKey(const Key('tab-opponent')));
       await tester.pumpAndSettle();
-      final challengeButton = find.byKey(
-        Key('challenge-${sampleData.cpuTrainers.first.id}'),
-      );
+      final challengeButton = find.byKey(const Key('random-battle'));
       await tester.ensureVisible(challengeButton);
       await tester.pumpAndSettle();
       await tester.tap(challengeButton);
@@ -1518,9 +1510,7 @@ void main() {
       expect(find.text('手持ちを入れると挑めます'), findsOneWidget);
       expect(
         tester
-            .widget<FilledButton>(
-              find.byKey(Key('challenge-${sampleData.cpuTrainers.first.id}')),
-            )
+            .widget<ButtonStyleButton>(find.byKey(const Key('random-battle')))
             .onPressed,
         isNull,
       );
@@ -1539,8 +1529,7 @@ void main() {
       dexStore.replaceAll(monsters: sampleData.monsters);
       await tester.tap(find.byKey(const Key('tab-opponent')));
       await tester.pumpAndSettle();
-      final opponent = sampleData.cpuTrainers.first;
-      final challengeButton = find.byKey(Key('challenge-${opponent.id}'));
+      final challengeButton = find.byKey(const Key('random-battle'));
 
       // バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める。
       // 押した直後のフレームは新しい画面が offstage で作られる (Hero の計測のため) ので、もう 1 フレーム進めてから遷移を終わらせる
@@ -1553,17 +1542,21 @@ void main() {
       await pumpTransition();
       final playerMonster = dexStore.party.first.definition;
       expect(find.text('${playerMonster.name} の 技をえらぶ'), findsOneWidget);
+      // 相手は乱数で決まるため、開いたバトル画面に渡った相手の先頭から名前を取る
+      final opponentMonster = tester
+          .widget<BattleScreen>(find.byType(BattleScreen))
+          .opponentParty
+          .first
+          .definition;
       expect(
-        find.text(
-          '${sampleData.monsterById(monsterId: opponent.monsterIds.first).definition.name} が 勝負をしかけてきた',
-        ),
+        find.text('${opponentMonster.name} が 勝負をしかけてきた'),
         findsOneWidget,
       );
       expect(find.text('ターン 1'), findsOneWidget);
 
       await tester.tap(find.text('にげる'));
       await pumpTransition();
-      expect(find.text('相手をえらぶ'), findsOneWidget);
+      expect(find.text('ランダムな相手と戦う'), findsOneWidget);
 
       await tester.tap(challengeButton);
       await pumpTransition();
@@ -1588,24 +1581,25 @@ void main() {
     final partyBefore = dexStore.party;
     await tester.tap(find.byKey(const Key('tab-opponent')));
     await tester.pumpAndSettle();
-    expect(
-      find.descendant(
-        of: find.byKey(Key('opponent-card-${sampleData.cpuTrainers.first.id}')),
-        matching: find.text(
-          'Lv. ${partyBefore.fold<int>(0, (sum, monster) => sum + monster.level) ~/ partyBefore.length}',
-        ),
-      ),
-      findsOneWidget,
-    );
-    final challengeButton = find.byKey(
-      Key('challenge-${sampleData.cpuTrainers.first.id}'),
-    );
+    final challengeButton = find.byKey(const Key('random-battle'));
     await tester.ensureVisible(challengeButton);
     await tester.pumpAndSettle();
     await tester.tap(challengeButton);
     // バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
+    // CPU の手持ちは自分の手持ちと同じ数で、レベルは自分の手持ちの平均 (lib/features/opponent/cpu_party.dart)
+    final opponentParty = tester
+        .widget<BattleScreen>(find.byType(BattleScreen))
+        .opponentParty;
+    expect(opponentParty, hasLength(partyBefore.length));
+    for (final monster in opponentParty) {
+      expect(
+        monster.level,
+        partyBefore.fold<int>(0, (sum, monster) => sum + monster.level) ~/
+            partyBefore.length,
+      );
+    }
     // 技の選び方の案内は初回の導線の 1 戦目だけに出す
     expect(find.byKey(const Key('first-battle-hint')), findsNothing);
 
@@ -1640,7 +1634,7 @@ void main() {
     await tester.tap(find.text('もどる'));
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
-    expect(find.text('相手をえらぶ'), findsOneWidget);
+    expect(find.text('ランダムな相手と戦う'), findsOneWidget);
   });
 
   testWidgets('ログインして記録した対戦は勝敗の画面に記録しましたと出し、Functions が返したレベルを図鑑に反映する', (
@@ -1661,9 +1655,7 @@ void main() {
     dexStore.replaceAll(monsters: sampleData.monsters);
     await tester.tap(find.byKey(const Key('tab-opponent')));
     await tester.pumpAndSettle();
-    final challengeButton = find.byKey(
-      Key('challenge-${sampleData.cpuTrainers.first.id}'),
-    );
+    final challengeButton = find.byKey(const Key('random-battle'));
     await tester.ensureVisible(challengeButton);
     await tester.pumpAndSettle();
     await tester.tap(challengeButton);
@@ -1702,9 +1694,7 @@ void main() {
     dexStore.replaceAll(monsters: sampleData.monsters);
     await tester.tap(find.byKey(const Key('tab-opponent')));
     await tester.pumpAndSettle();
-    await tester.tap(
-      find.byKey(Key('challenge-${sampleData.cpuTrainers.first.id}')),
-    );
+    await tester.tap(find.byKey(const Key('random-battle')));
     // バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
