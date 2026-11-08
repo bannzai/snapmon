@@ -10,9 +10,7 @@ import '../../sample_data_fixture.dart';
 void main() {
   final sampleData = loadSampleDataFixture();
 
-  testWidgets('横向きのスマホ (844×390) でも属性の一覧が見え、選ぶとその属性が選ばれた状態になる', (
-    tester,
-  ) async {
+  testWidgets('横向きのスマホ (844×390) でも属性の一覧が見え、選ぶとその属性が選ばれた状態になる', (tester) async {
     tester.view
       ..physicalSize = const Size(844, 390)
       ..devicePixelRatio = 1;

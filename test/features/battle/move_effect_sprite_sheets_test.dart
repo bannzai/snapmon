@@ -10,12 +10,9 @@ void main() {
     final master =
         jsonDecode(File('assets/master/master.json').readAsStringSync())
             as Map<String, dynamic>;
-    expect(
-      moveEffectSpriteSheetsByEffectId.keys.toSet(),
-      {
-        for (final effect in master['effects'] as List<dynamic>)
-          (effect as Map<String, dynamic>)['id'] as String,
-      },
-    );
+    expect(moveEffectSpriteSheetsByEffectId.keys.toSet(), {
+      for (final effect in master['effects'] as List<dynamic>)
+        (effect as Map<String, dynamic>)['id'] as String,
+    });
   });
 }
