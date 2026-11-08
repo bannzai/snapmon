@@ -1,13 +1,10 @@
 import 'dart:typed_data';
 
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
-/// Storage の [storagePath] の画像の中身を読む関数。読めない時は null を返すか throw する。
-typedef LoadStorageImageBytes =
-    Future<Uint8List?> Function({required String storagePath});
+import '../firebase/storage_image_bytes.dart';
 
-/// 子の木の [StorageImage] が画像を読む関数を差し替える。無い時は Firebase の Storage から読む。
+/// 子の木の [StorageImage] が画像を読む関数を差し替える。無い時は Firebase の Storage から読む ([readStorageImageBytesWithFirebase])。
 /// ストアのスクリーンショットの生成 (store_screenshots/) が、見本の写真と切り出した絵を Firebase を通さずに描くために使う。
 class StorageImageLoaderScope extends InheritedWidget {
   /// [loadBytes] で読む範囲を作る。
@@ -18,7 +15,7 @@ class StorageImageLoaderScope extends InheritedWidget {
   });
 
   /// 画像の中身を読む関数。
-  final LoadStorageImageBytes loadBytes;
+  final ReadStorageImageBytes loadBytes;
 
   @override
   bool updateShouldNotify(StorageImageLoaderScope oldWidget) =>
@@ -27,6 +24,7 @@ class StorageImageLoaderScope extends InheritedWidget {
 
 /// Cloud Storage の [storagePath] の画像を描く。読む前と読めなかった時は [placeholder] を描く。
 /// URL ではなく中身を SDK で読む (読むたびに Storage の Rules を通し、元の写真を本人以外に見せないため)。
+/// 一度読んだ中身は [storageImageBytesCache] が持ち、同じパスは Storage から読み直さない。
 class StorageImage extends StatefulWidget {
   /// Storage の画像を作る。
   const StorageImage({
@@ -54,14 +52,11 @@ class _StorageImageState extends State<StorageImage> {
   late Future<Uint8List?> _imageBytes = _load();
 
   /// [StorageImage.storagePath] の画像の中身を読む。上に [StorageImageLoaderScope] があればその関数で、無ければ Storage から読む。
-  Future<Uint8List?> _load() {
-    final loadBytes = context
-        .getInheritedWidgetOfExactType<StorageImageLoaderScope>()
-        ?.loadBytes;
-    return loadBytes == null
-        ? FirebaseStorage.instance.ref(widget.storagePath).getData()
-        : loadBytes(storagePath: widget.storagePath);
-  }
+  Future<Uint8List?> _load() =>
+      (context
+          .getInheritedWidgetOfExactType<StorageImageLoaderScope>()
+          ?.loadBytes ??
+      readStorageImageBytesWithFirebase)(storagePath: widget.storagePath);
 
   @override
   void didUpdateWidget(StorageImage oldWidget) {
