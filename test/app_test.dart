@@ -9,6 +9,7 @@ import 'package:share_plus/share_plus.dart';
 
 import 'package:snapmon/analytics/analytics_events.dart';
 import 'package:snapmon/app.dart';
+import 'package:snapmon/audio/game_audio.dart';
 import 'package:snapmon/domain/master/master_data.dart';
 import 'package:snapmon/features/battle/battle_screen.dart';
 import 'package:snapmon/features/capture/monster_generator.dart';
@@ -30,6 +31,7 @@ import 'package:snapmon/widgets/trainer_icon.dart';
 
 import 'battle_recorder_fixture.dart';
 import 'card_sharer_fixture.dart';
+import 'game_audio_fixture.dart';
 import 'monster_generator_fixture.dart';
 import 'pvp_client_fixture.dart';
 import 'sample_data_fixture.dart';
@@ -45,6 +47,9 @@ void main() {
   late List<Uri> openedUris;
   late RecordedBattleCalls battleCalls;
   late RecordedGenerationCalls generationCalls;
+
+  /// 画面が流した BGM・鳴らした効果音。[pumpApp]・[pumpHome] で作り直す。
+  late RecordedAudioCalls audioCalls;
 
   /// タイトル画面が Analytics に送ったイベント (呼ばれた順)。
   late List<({AnalyticsEvent event, Map<String, Object>? parameters})>
@@ -189,6 +194,7 @@ void main() {
     );
     openedUris = [];
     battleCalls = RecordedBattleCalls();
+    audioCalls = RecordedAudioCalls();
     shareCalls = RecordedShareCalls();
     artImage = (await tester.runAsync(
       () => createTestImage(width: 8, height: 8),
@@ -221,6 +227,11 @@ void main() {
         sampleData: sampleData,
         dexStore: dexStore,
         sessionStore: sessionStore,
+        gameAudio: fakeGameAudio(
+          calls: audioCalls,
+          isBackgroundMusicEnabled: true,
+          isSoundEffectsEnabled: true,
+        ),
         openUrl: ({required uri}) async {
           openedUris.add(uri);
           return true;
@@ -264,35 +275,42 @@ void main() {
       // 登録したアイコン (StorageImage) を Firebase を通さずに描く。中身は読めない (null) ものとし、既定の印を描かせる
       StorageImageLoaderScope(
         loadBytes: ({required storagePath}) async => null,
-        child: MaterialApp(
-          theme: snapmonThemeData(),
-          locale: const Locale('ja'),
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          home: HomeShell(
-            initialTab: HomeTab.capture,
-            startsCameraOnCaptureOpen: startsCameraOnCaptureOpen,
-            sampleData: sampleData,
-            dexStore: dexStore,
-            sessionStore: sessionStore,
-            openUrl: ({required uri}) async {
-              openedUris.add(uri);
-              return true;
-            },
-            isDeveloperMenuEnabled: isDeveloperMenuEnabled,
-            battleRecorder: fakeBattleRecorder(
-              calls: battleCalls,
-              startBattleRecord: startBattleRecord,
-              recordedLevels: recordedLevels,
+        child: GameAudioScope(
+          gameAudio: fakeGameAudio(
+            calls: audioCalls,
+            isBackgroundMusicEnabled: true,
+            isSoundEffectsEnabled: true,
+          ),
+          child: MaterialApp(
+            theme: snapmonThemeData(),
+            locale: const Locale('ja'),
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            home: HomeShell(
+              initialTab: HomeTab.capture,
+              startsCameraOnCaptureOpen: startsCameraOnCaptureOpen,
+              sampleData: sampleData,
+              dexStore: dexStore,
+              sessionStore: sessionStore,
+              openUrl: ({required uri}) async {
+                openedUris.add(uri);
+                return true;
+              },
+              isDeveloperMenuEnabled: isDeveloperMenuEnabled,
+              battleRecorder: fakeBattleRecorder(
+                calls: battleCalls,
+                startBattleRecord: startBattleRecord,
+                recordedLevels: recordedLevels,
+              ),
+              monsterGenerator: appMonsterGenerator(),
+              pvpClient: pvpClient,
+              cardSharer: fakeCardSharer(
+                calls: shareCalls,
+                artImage: artImage,
+                shareResultStatus: shareResultStatus,
+              ),
+              accountStore: accountStore,
             ),
-            monsterGenerator: appMonsterGenerator(),
-            pvpClient: pvpClient,
-            cardSharer: fakeCardSharer(
-              calls: shareCalls,
-              artImage: artImage,
-              shareResultStatus: shareResultStatus,
-            ),
-            accountStore: accountStore,
           ),
         ),
       ),
@@ -335,6 +353,10 @@ void main() {
       expect(find.text('$minimumAge 歳以上が対象 · '), findsOneWidget);
       expect(find.byType(TextField), findsNothing);
       expect(find.byKey(const Key('tab-dex')), findsNothing);
+      // タイトルで下タブの画面と同じ BGM を流し始める
+      expect(audioCalls.playedBackgroundMusicAssetPaths, [
+        BackgroundMusic.home.assetPath,
+      ]);
       // タイトルを見ている間に裏でログインし、ログインより前に溜めたタイトルの表示をログインの後に送る
       expect(startSessionCallCount, 1);
       expect(sessionStore.uid, 'uid-1');
@@ -1701,32 +1723,39 @@ void main() {
       ..devicePixelRatio = 1;
     addTearDown(tester.view.reset);
     await tester.pumpWidget(
-      MaterialApp(
-        theme: snapmonThemeData(),
-        locale: const Locale('ja'),
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        home: BattleScreen(
-          playerParty: sampleData.monsters.take(3).toList(),
-          opponentParty: sampleData.monsters.skip(3).toList(),
-          opponentKind: BattleOpponentKind.cpu,
-          definitions: sampleData.definitions,
-          randomSeed: 1,
-          battleRecorder: fakeBattleRecorder(
-            calls: RecordedBattleCalls(),
-            startBattleRecord: () async => null,
-            recordedLevels: const {},
+      GameAudioScope(
+        gameAudio: fakeGameAudio(
+          calls: RecordedAudioCalls(),
+          isBackgroundMusicEnabled: true,
+          isSoundEffectsEnabled: true,
+        ),
+        child: MaterialApp(
+          theme: snapmonThemeData(),
+          locale: const Locale('ja'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: BattleScreen(
+            playerParty: sampleData.monsters.take(3).toList(),
+            opponentParty: sampleData.monsters.skip(3).toList(),
+            opponentKind: BattleOpponentKind.cpu,
+            definitions: sampleData.definitions,
+            randomSeed: 1,
+            battleRecorder: fakeBattleRecorder(
+              calls: RecordedBattleCalls(),
+              startBattleRecord: () async => null,
+              recordedLevels: const {},
+            ),
+            onPlayerLevelsChanged: ({required levelsByMonsterId}) {},
+            cardSharer: fakeCardSharer(
+              calls: RecordedShareCalls(),
+              artImage: null,
+              shareResultStatus: ShareResultStatus.success,
+            ),
+            firstBattleBornMonster: null,
+            firstBattleMonsterIsNewlyBorn: false,
+            playerProfile: (displayName: 'トレーナー 0042', iconPath: null),
+            opponentDisplayName: 'CPU リク',
           ),
-          onPlayerLevelsChanged: ({required levelsByMonsterId}) {},
-          cardSharer: fakeCardSharer(
-            calls: RecordedShareCalls(),
-            artImage: null,
-            shareResultStatus: ShareResultStatus.success,
-          ),
-          firstBattleBornMonster: null,
-          firstBattleMonsterIsNewlyBorn: false,
-          playerProfile: (displayName: 'トレーナー 0042', iconPath: null),
-          opponentDisplayName: 'CPU リク',
         ),
       ),
     );
@@ -1778,31 +1807,38 @@ void main() {
           failureCount: 0,
         );
         await tester.pumpWidget(
-          MaterialApp(
-            key: UniqueKey(),
-            locale: const Locale('ja'),
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
-            supportedLocales: AppLocalizations.supportedLocales,
-            home: SettingsScreen(
-              sampleData: sampleData,
-              dexStore: DexStore(definitions: sampleData.definitions),
-              sessionStore: settingsSessionStore,
-              monsterGenerator: appMonsterGenerator(),
-              pvpClient: signedOutPvpClient(calls: RecordedPvpCalls()),
-              cardSharer: fakeCardSharer(
-                calls: RecordedShareCalls(),
-                artImage: null,
-                shareResultStatus: ShareResultStatus.success,
-              ),
-              openUrl: openUrl,
-              isDeveloperMenuEnabled: false,
-              accountStore: fakeAccountStore(
+          GameAudioScope(
+            gameAudio: fakeGameAudio(
+              calls: RecordedAudioCalls(),
+              isBackgroundMusicEnabled: true,
+              isSoundEffectsEnabled: true,
+            ),
+            child: MaterialApp(
+              key: UniqueKey(),
+              locale: const Locale('ja'),
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              home: SettingsScreen(
+                sampleData: sampleData,
+                dexStore: DexStore(definitions: sampleData.definitions),
                 sessionStore: settingsSessionStore,
-              ),
-              battleRecorder: fakeBattleRecorder(
-                calls: RecordedBattleCalls(),
-                startBattleRecord: () async => null,
-                recordedLevels: const {},
+                monsterGenerator: appMonsterGenerator(),
+                pvpClient: signedOutPvpClient(calls: RecordedPvpCalls()),
+                cardSharer: fakeCardSharer(
+                  calls: RecordedShareCalls(),
+                  artImage: null,
+                  shareResultStatus: ShareResultStatus.success,
+                ),
+                openUrl: openUrl,
+                isDeveloperMenuEnabled: false,
+                accountStore: fakeAccountStore(
+                  sessionStore: settingsSessionStore,
+                ),
+                battleRecorder: fakeBattleRecorder(
+                  calls: RecordedBattleCalls(),
+                  startBattleRecord: () async => null,
+                  recordedLevels: const {},
+                ),
               ),
             ),
           ),
@@ -2415,6 +2451,51 @@ void main() {
 
       expect(accountCalls, isEmpty);
       expect(find.text('アカウントを削除しますか'), findsNothing);
+    });
+
+    testWidgets('下タブの画面は BGM を流し、設定の「BGM」「効果音」を切ると止めて保存し、戻すと流し直す', (
+      tester,
+    ) async {
+      await openSettings(tester: tester);
+      expect(audioCalls.playedBackgroundMusicAssetPaths, [
+        BackgroundMusic.home.assetPath,
+      ]);
+      expect(find.text('サウンド'), findsOneWidget);
+
+      await tester.tap(find.byKey(const Key('settings-background-music')));
+      await tester.pumpAndSettle();
+      expect(audioCalls.stopBackgroundMusicCount, 1);
+      expect(
+        tester
+            .widget<SwitchListTile>(
+              find.byKey(const Key('settings-background-music')),
+            )
+            .value,
+        isFalse,
+      );
+
+      await tester.tap(find.byKey(const Key('settings-sound-effects')));
+      await tester.pumpAndSettle();
+      expect(
+        tester
+            .widget<SwitchListTile>(
+              find.byKey(const Key('settings-sound-effects')),
+            )
+            .value,
+        isFalse,
+      );
+
+      await tester.tap(find.byKey(const Key('settings-background-music')));
+      await tester.pumpAndSettle();
+      expect(audioCalls.playedBackgroundMusicAssetPaths, [
+        BackgroundMusic.home.assetPath,
+        BackgroundMusic.home.assetPath,
+      ]);
+      expect(audioCalls.savedSettings, [
+        (key: AudioSettingKey.backgroundMusic, value: false),
+        (key: AudioSettingKey.soundEffects, value: false),
+        (key: AudioSettingKey.backgroundMusic, value: true),
+      ]);
     });
 
     testWidgets('開発者メニューは無効の時に出ない', (tester) async {

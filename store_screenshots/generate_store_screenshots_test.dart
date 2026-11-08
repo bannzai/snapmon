@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:image/image.dart' as image_codec;
+import 'package:snapmon/audio/game_audio.dart';
 import 'package:snapmon/features/battle/battle_screen.dart';
 import 'package:snapmon/features/capture/monster_generator.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
@@ -31,6 +32,7 @@ import 'package:snapmon/widgets/monster_parts.dart';
 import 'package:snapmon/widgets/storage_image.dart';
 
 import '../test/battle_recorder_fixture.dart';
+import '../test/game_audio_fixture.dart';
 import '../test/pvp_client_fixture.dart';
 import '../test/sample_data_fixture.dart';
 import 'store_screenshot_copy.dart';
@@ -752,14 +754,22 @@ class _DeviceFrame extends StatelessWidget {
                       loadArtImage: _loadArtImage(
                         artImagesByPath: artImagesByPath,
                       ),
-                      child: MaterialApp(
-                        debugShowCheckedModeBanner: false,
-                        theme: snapmonThemeData(),
-                        locale: Localizations.localeOf(context),
-                        localizationsDelegates:
-                            AppLocalizations.localizationsDelegates,
-                        supportedLocales: AppLocalizations.supportedLocales,
-                        home: screen,
+                      // 撮影では音を鳴らさない (バトル画面・下タブの画面が GameAudioScope を求めるため置く)
+                      child: GameAudioScope(
+                        gameAudio: fakeGameAudio(
+                          calls: RecordedAudioCalls(),
+                          isBackgroundMusicEnabled: false,
+                          isSoundEffectsEnabled: false,
+                        ),
+                        child: MaterialApp(
+                          debugShowCheckedModeBanner: false,
+                          theme: snapmonThemeData(),
+                          locale: Localizations.localeOf(context),
+                          localizationsDelegates:
+                              AppLocalizations.localizationsDelegates,
+                          supportedLocales: AppLocalizations.supportedLocales,
+                          home: screen,
+                        ),
                       ),
                     ),
                   ),
