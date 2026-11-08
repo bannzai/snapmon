@@ -2788,6 +2788,33 @@
         "kind": "particle",
         "colorHex": "#C9B79A"
       }
+    ],
+    "statGrades": [
+      {
+        "id": "veryLow",
+        "displayName": "とても低い",
+        "baseStat": 40
+      },
+      {
+        "id": "low",
+        "displayName": "低い",
+        "baseStat": 60
+      },
+      {
+        "id": "medium",
+        "displayName": "ふつう",
+        "baseStat": 80
+      },
+      {
+        "id": "high",
+        "displayName": "高い",
+        "baseStat": 100
+      },
+      {
+        "id": "veryHigh",
+        "displayName": "とても高い",
+        "baseStat": 120
+      }
     ]
   },
   "monsters": [
