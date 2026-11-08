@@ -42,8 +42,8 @@ jobs:
           persist-credentials: false
       - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
         with:
+          flutter-version-file: pubspec.yaml
           channel: stable
-          flutter-version: '3.47.8' # flutter-ci.yml の FLUTTER_VERSION と揃える
       # Firebase の設定ファイルは git の管理外のため、ビルドの前に Secrets から書き出す
       - run: scripts/restore-firebase-config.sh dart ios
         env:

@@ -18,13 +18,25 @@ pass() {
   echo "PASS: $1"
 }
 
-# 引数: 作業ディレクトリ。Makefile と、引数を $FLUTTER_ARGS_FILE に追記し devices --machine に $FLUTTER_DEVICES_JSON を返す flutter の差し替えを置く
+# 引数: 作業ディレクトリ。Makefile と、引数を $FLUTTER_ARGS_FILE に追記し devices --machine に $FLUTTER_DEVICES_JSON を返す flutter の差し替えを置く。
+# flutter-version-check (各 target の前提) が通るよう、pubspec.yaml と検査の script も置き、--version --machine には
+# pubspec の版を返す (この呼び出しは引数の記録に含めない)
 prepare_workspace() {
   local work=$1
-  mkdir -p "$work/bin"
+  mkdir -p "$work/bin" "$work/scripts"
   cp "$repo_root/Makefile" "$work/Makefile"
-  cat > "$work/bin/flutter" <<'EOF'
+  cp "$repo_root/pubspec.yaml" "$work/pubspec.yaml"
+  cp "$repo_root/scripts/check-flutter-version.sh" "$work/scripts/check-flutter-version.sh"
+  local pinned_version
+  pinned_version="$(awk '/^environment:/ { in_environment = 1; next } /^[^[:space:]]/ { in_environment = 0 } in_environment && /^[[:space:]]+flutter:/ { print $2; exit }' "$repo_root/pubspec.yaml")"
+  cat > "$work/bin/flutter" <<EOF
 #!/usr/bin/env bash
+if [ "\$1 \$2" = "--version --machine" ]; then
+  printf '{"frameworkVersion": "%s"}\n' "$pinned_version"
+  exit 0
+fi
+EOF
+  cat >> "$work/bin/flutter" <<'EOF'
 printf '%s\n' "$*" >> "$FLUTTER_ARGS_FILE"
 if [ "$1 $2" = "devices --machine" ]; then
   printf '%s' "$FLUTTER_DEVICES_JSON"
