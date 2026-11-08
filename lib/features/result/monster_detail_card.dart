@@ -112,31 +112,32 @@ class MonsterDetailCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 12),
+                // 高さを絵に固定しない。端末の文字を大きくした時は目盛りが絵より高くなってよい
+                // (固定すると RenderFlex がはみ出す)
                 Expanded(
-                  child: SizedBox(
-                    height: monsterDetailArtSize,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        for (final (label, statKind) in [
-                          (context.l10n.statHitPoints, StatKind.hitPoints),
-                          (context.l10n.statAttack, StatKind.attack),
-                          (context.l10n.statDefense, StatKind.defense),
-                          (context.l10n.statSpeed, StatKind.speed),
-                        ])
-                          _StatGauge(
-                            key: Key('stat-gauge-${statKind.name}'),
-                            label: label,
-                            value: stats.valueOf(statKind: statKind),
-                            ratio: statStrengthRatio(
-                              statKind: statKind,
-                              baseStats: definition.baseStats,
-                              individualValues: definition.individualValues,
-                              master: definitions,
-                            ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    // 標準の文字の大きさで 4 本の目盛りが絵の高さ (monsterDetailArtSize) に揃う間隔
+                    spacing: 4,
+                    children: [
+                      for (final (label, statKind) in [
+                        (context.l10n.statHitPoints, StatKind.hitPoints),
+                        (context.l10n.statAttack, StatKind.attack),
+                        (context.l10n.statDefense, StatKind.defense),
+                        (context.l10n.statSpeed, StatKind.speed),
+                      ])
+                        _StatGauge(
+                          key: Key('stat-gauge-${statKind.name}'),
+                          label: label,
+                          value: stats.valueOf(statKind: statKind),
+                          ratio: statStrengthRatio(
+                            statKind: statKind,
+                            baseStats: definition.baseStats,
+                            individualValues: definition.individualValues,
+                            master: definitions,
                           ),
-                      ],
-                    ),
+                        ),
+                    ],
                   ),
                 ),
               ],

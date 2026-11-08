@@ -106,8 +106,9 @@ void main() {
       ),
     );
 
-    // ステータスの目盛りは絵の右に 4 本並び、絵と同じ高さの中に収まる
+    // ステータスの目盛りは絵の右に、絵の上端から順に 4 本並ぶ
     final artRect = tester.getRect(find.byType(MonsterArt));
+    double previousGaugeBottom = artRect.top;
     final stats = calculateStats(
       baseStats: monster.definition.baseStats,
       individualValues: monster.definition.individualValues,
@@ -118,8 +119,8 @@ void main() {
       final gauge = find.byKey(Key('stat-gauge-${statKind.name}'));
       final gaugeRect = tester.getRect(gauge);
       expect(gaugeRect.left, greaterThan(artRect.right), reason: statKind.name);
-      expect(gaugeRect.top, greaterThanOrEqualTo(artRect.top));
-      expect(gaugeRect.bottom, lessThanOrEqualTo(artRect.bottom));
+      expect(gaugeRect.top, greaterThanOrEqualTo(previousGaugeBottom));
+      previousGaugeBottom = gaugeRect.bottom;
       expect(
         find.descendant(
           of: gauge,
@@ -163,6 +164,40 @@ void main() {
     expect(slotRects[2].top, slotRects[3].top);
     expect(slotRects[2].top, greaterThanOrEqualTo(slotRects[0].bottom));
     expect(slotRects[0].left, slotRects[2].left);
+  });
+
+  testWidgets('端末の文字を 2 倍にしてもステータスの目盛りがはみ出さない', (tester) async {
+    tester.view
+      ..physicalSize = const Size(390, 844)
+      ..devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    tester.platformDispatcher.textScaleFactorTestValue = 2;
+    addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: snapmonThemeData(),
+        locale: const Locale('ja'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: ResultScreen(
+          monster: sampleData.monsterById(monsterId: 'sample-mugmon'),
+          dexStore: DexStore(definitions: sampleData.definitions),
+          origin: ResultScreenOrigin.dex,
+          cardSharer: fakeCardSharer(
+            calls: RecordedShareCalls(),
+            artImage: null,
+            shareResultStatus: ShareResultStatus.success,
+          ),
+        ),
+      ),
+    );
+    // はみ出しは RenderFlex のエラーとして報告されるため、例外が無いことで確かめる
+    expect(tester.takeException(), isNull);
+    // 目盛りは絵より高くなってよい (高さを絵に固定しない)
+    expect(
+      tester.getRect(find.byKey(const Key('stat-gauge-speed'))).bottom,
+      greaterThan(tester.getRect(find.byType(MonsterArt)).bottom),
+    );
   });
 
   testWidgets('技が 4 つに満たないモンスターは、空の枠を「—」で埋めて 4 つの枠を保つ', (tester) async {
