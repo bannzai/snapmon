@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "tesla-coil 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 187,
+    "h": 111
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 187,
+    "h": 111
+   },
+   "sourceSize": {
+    "w": 187,
+    "h": 111
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tesla-coil 1",
+   "frame": {
+    "x": 187,
+    "y": 0,
+    "w": 187,
+    "h": 111
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 187,
+    "h": 111
+   },
+   "sourceSize": {
+    "w": 187,
+    "h": 111
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tesla-coil 2",
+   "frame": {
+    "x": 374,
+    "y": 0,
+    "w": 187,
+    "h": 111
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 187,
+    "h": 111
+   },
+   "sourceSize": {
+    "w": 187,
+    "h": 111
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tesla-coil 3",
+   "frame": {
+    "x": 0,
+    "y": 111,
+    "w": 187,
+    "h": 111
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 187,
+    "h": 111
+   },
+   "sourceSize": {
+    "w": 187,
+    "h": 111
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tesla-coil 4",
+   "frame": {
+    "x": 187,
+    "y": 111,
+    "w": 187,
+    "h": 111
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 187,
+    "h": 111
+   },
+   "sourceSize": {
+    "w": 187,
+    "h": 111
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tesla-coil 5",
+   "frame": {
+    "x": 374,
+    "y": 111,
+    "w": 187,
+    "h": 111
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 187,
+    "h": 111
+   },
+   "sourceSize": {
+    "w": 187,
+    "h": 111
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tesla-coil 6",
+   "frame": {
+    "x": 0,
+    "y": 222,
+    "w": 187,
+    "h": 111
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 187,
+    "h": 111
+   },
+   "sourceSize": {
+    "w": 187,
+    "h": 111
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tesla-coil 7",
+   "frame": {
+    "x": 187,
+    "y": 222,
+    "w": 187,
+    "h": 111
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 187,
+    "h": 111
+   },
+   "sourceSize": {
+    "w": 187,
+    "h": 111
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tesla-coil 8",
+   "frame": {
+    "x": 374,
+    "y": 222,
+    "w": 187,
+    "h": 111
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 187,
+    "h": 111
+   },
+   "sourceSize": {
+    "w": 187,
+    "h": 111
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tesla-coil 9",
+   "frame": {
+    "x": 0,
+    "y": 333,
+    "w": 187,
+    "h": 111
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 187,
+    "h": 111
+   },
+   "sourceSize": {
+    "w": 187,
+    "h": 111
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tesla-coil 10",
+   "frame": {
+    "x": 187,
+    "y": 333,
+    "w": 187,
+    "h": 111
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 187,
+    "h": 111
+   },
+   "sourceSize": {
+    "w": 187,
+    "h": 111
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tesla-coil 11",
+   "frame": {
+    "x": 374,
+    "y": 333,
+    "w": 187,
+    "h": 111
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 187,
+    "h": 111
+   },
+   "sourceSize": {
+    "w": 187,
+    "h": 111
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "tesla-coil.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 561,
+   "h": 444
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "tesla-coil",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "lightning/tesla-coil",
+   "name": "Tesla coil",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    187,
+    111
+   ],
+   "pivot": [
+    112,
+    120
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.503,
+    0.473
+   ],
+   "sourceFrames": 72,
+   "sourceFrameSize": [
+    224,
+    136
+   ]
+  }
+ }
+}

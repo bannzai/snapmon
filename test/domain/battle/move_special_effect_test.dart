@@ -68,6 +68,7 @@ BattleMonster testMonster({
     currentHitPoints: currentHitPoints,
     remainingPowerPoints: {moveId: remainingPowerPoints},
     statModifierPercents: const {},
+    statusConditions: const {},
   ),
 );
 

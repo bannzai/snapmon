@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "eyeball 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 86,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 86,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 86,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "eyeball 1",
+   "frame": {
+    "x": 86,
+    "y": 0,
+    "w": 86,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 86,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 86,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "eyeball 2",
+   "frame": {
+    "x": 172,
+    "y": 0,
+    "w": 86,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 86,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 86,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "eyeball 3",
+   "frame": {
+    "x": 258,
+    "y": 0,
+    "w": 86,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 86,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 86,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "eyeball 4",
+   "frame": {
+    "x": 0,
+    "y": 99,
+    "w": 86,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 86,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 86,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "eyeball 5",
+   "frame": {
+    "x": 86,
+    "y": 99,
+    "w": 86,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 86,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 86,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "eyeball 6",
+   "frame": {
+    "x": 172,
+    "y": 99,
+    "w": 86,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 86,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 86,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "eyeball 7",
+   "frame": {
+    "x": 258,
+    "y": 99,
+    "w": 86,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 86,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 86,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "eyeball 8",
+   "frame": {
+    "x": 0,
+    "y": 198,
+    "w": 86,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 86,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 86,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "eyeball 9",
+   "frame": {
+    "x": 86,
+    "y": 198,
+    "w": 86,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 86,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 86,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "eyeball 10",
+   "frame": {
+    "x": 172,
+    "y": 198,
+    "w": 86,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 86,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 86,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "eyeball 11",
+   "frame": {
+    "x": 258,
+    "y": 198,
+    "w": 86,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 86,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 86,
+    "h": 99
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "eyeball.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 344,
+   "h": 297
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "eyeball",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "critters/eyeball",
+   "name": "Eyeball",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    86,
+    99
+   ],
+   "pivot": [
+    48,
+    100
+   ],
+   "columns": 4
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.506,
+    0.606
+   ],
+   "sourceFrames": 96,
+   "sourceFrameSize": [
+    96,
+    108
+   ]
+  }
+ }
+}

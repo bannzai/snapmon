@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "poison-cloud 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 84
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 84
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 84
+   },
+   "duration": 33
+  },
+  {
+   "filename": "poison-cloud 1",
+   "frame": {
+    "x": 219,
+    "y": 0,
+    "w": 219,
+    "h": 84
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 84
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 84
+   },
+   "duration": 33
+  },
+  {
+   "filename": "poison-cloud 2",
+   "frame": {
+    "x": 0,
+    "y": 84,
+    "w": 219,
+    "h": 84
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 84
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 84
+   },
+   "duration": 33
+  },
+  {
+   "filename": "poison-cloud 3",
+   "frame": {
+    "x": 219,
+    "y": 84,
+    "w": 219,
+    "h": 84
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 84
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 84
+   },
+   "duration": 33
+  },
+  {
+   "filename": "poison-cloud 4",
+   "frame": {
+    "x": 0,
+    "y": 168,
+    "w": 219,
+    "h": 84
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 84
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 84
+   },
+   "duration": 33
+  },
+  {
+   "filename": "poison-cloud 5",
+   "frame": {
+    "x": 219,
+    "y": 168,
+    "w": 219,
+    "h": 84
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 84
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 84
+   },
+   "duration": 33
+  },
+  {
+   "filename": "poison-cloud 6",
+   "frame": {
+    "x": 0,
+    "y": 252,
+    "w": 219,
+    "h": 84
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 84
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 84
+   },
+   "duration": 33
+  },
+  {
+   "filename": "poison-cloud 7",
+   "frame": {
+    "x": 219,
+    "y": 252,
+    "w": 219,
+    "h": 84
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 84
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 84
+   },
+   "duration": 33
+  },
+  {
+   "filename": "poison-cloud 8",
+   "frame": {
+    "x": 0,
+    "y": 336,
+    "w": 219,
+    "h": 84
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 84
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 84
+   },
+   "duration": 33
+  },
+  {
+   "filename": "poison-cloud 9",
+   "frame": {
+    "x": 219,
+    "y": 336,
+    "w": 219,
+    "h": 84
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 84
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 84
+   },
+   "duration": 33
+  },
+  {
+   "filename": "poison-cloud 10",
+   "frame": {
+    "x": 0,
+    "y": 420,
+    "w": 219,
+    "h": 84
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 84
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 84
+   },
+   "duration": 33
+  },
+  {
+   "filename": "poison-cloud 11",
+   "frame": {
+    "x": 219,
+    "y": 420,
+    "w": 219,
+    "h": 84
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 84
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 84
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "poison-cloud.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 438,
+   "h": 504
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "poison-cloud",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "nature/poison-cloud",
+   "name": "Poison cloud",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    219,
+    84
+   ],
+   "pivot": [
+    128,
+    86
+   ],
+   "columns": 2
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.514,
+    0.661
+   ],
+   "sourceFrames": 120,
+   "sourceFrameSize": [
+    256,
+    100
+   ]
+  }
+ }
+}

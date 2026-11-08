@@ -1,0 +1,409 @@
+{
+ "frames": [
+  {
+   "filename": "exclamation 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 48,
+    "h": 53
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 48,
+    "h": 53
+   },
+   "sourceSize": {
+    "w": 48,
+    "h": 53
+   },
+   "duration": 33
+  },
+  {
+   "filename": "exclamation 1",
+   "frame": {
+    "x": 48,
+    "y": 0,
+    "w": 48,
+    "h": 53
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 48,
+    "h": 53
+   },
+   "sourceSize": {
+    "w": 48,
+    "h": 53
+   },
+   "duration": 33
+  },
+  {
+   "filename": "exclamation 2",
+   "frame": {
+    "x": 96,
+    "y": 0,
+    "w": 48,
+    "h": 53
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 48,
+    "h": 53
+   },
+   "sourceSize": {
+    "w": 48,
+    "h": 53
+   },
+   "duration": 33
+  },
+  {
+   "filename": "exclamation 3",
+   "frame": {
+    "x": 144,
+    "y": 0,
+    "w": 48,
+    "h": 53
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 48,
+    "h": 53
+   },
+   "sourceSize": {
+    "w": 48,
+    "h": 53
+   },
+   "duration": 33
+  },
+  {
+   "filename": "exclamation 4",
+   "frame": {
+    "x": 0,
+    "y": 53,
+    "w": 48,
+    "h": 53
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 48,
+    "h": 53
+   },
+   "sourceSize": {
+    "w": 48,
+    "h": 53
+   },
+   "duration": 33
+  },
+  {
+   "filename": "exclamation 5",
+   "frame": {
+    "x": 48,
+    "y": 53,
+    "w": 48,
+    "h": 53
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 48,
+    "h": 53
+   },
+   "sourceSize": {
+    "w": 48,
+    "h": 53
+   },
+   "duration": 33
+  },
+  {
+   "filename": "exclamation 6",
+   "frame": {
+    "x": 96,
+    "y": 53,
+    "w": 48,
+    "h": 53
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 48,
+    "h": 53
+   },
+   "sourceSize": {
+    "w": 48,
+    "h": 53
+   },
+   "duration": 33
+  },
+  {
+   "filename": "exclamation 7",
+   "frame": {
+    "x": 144,
+    "y": 53,
+    "w": 48,
+    "h": 53
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 48,
+    "h": 53
+   },
+   "sourceSize": {
+    "w": 48,
+    "h": 53
+   },
+   "duration": 33
+  },
+  {
+   "filename": "exclamation 8",
+   "frame": {
+    "x": 0,
+    "y": 106,
+    "w": 48,
+    "h": 53
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 48,
+    "h": 53
+   },
+   "sourceSize": {
+    "w": 48,
+    "h": 53
+   },
+   "duration": 33
+  },
+  {
+   "filename": "exclamation 9",
+   "frame": {
+    "x": 48,
+    "y": 106,
+    "w": 48,
+    "h": 53
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 48,
+    "h": 53
+   },
+   "sourceSize": {
+    "w": 48,
+    "h": 53
+   },
+   "duration": 33
+  },
+  {
+   "filename": "exclamation 10",
+   "frame": {
+    "x": 96,
+    "y": 106,
+    "w": 48,
+    "h": 53
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 48,
+    "h": 53
+   },
+   "sourceSize": {
+    "w": 48,
+    "h": 53
+   },
+   "duration": 33
+  },
+  {
+   "filename": "exclamation 11",
+   "frame": {
+    "x": 144,
+    "y": 106,
+    "w": 48,
+    "h": 53
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 48,
+    "h": 53
+   },
+   "sourceSize": {
+    "w": 48,
+    "h": 53
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "exclamation.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 192,
+   "h": 159
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "exclamation",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "ui/exclamation",
+   "name": "Exclamation",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    48,
+    53
+   ],
+   "pivot": [
+    42,
+    92
+   ],
+   "columns": 4,
+   "act": {
+    "windup": 0.08,
+    "recovery": 0,
+    "onBody": false,
+    "targets": [],
+    "hits": [],
+    "poses": [
+     {
+      "t": -0.08,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 11,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7
+      }
+     },
+     {
+      "t": 0,
+      "how": "snap",
+      "pose": {
+       "turn": 1,
+       "y": -5,
+       "crouch": -1,
+       "fx": -14,
+       "fy": -34,
+       "bx": 15,
+       "by": -34,
+       "ffx": -3,
+       "ffy": -6,
+       "fbx": 4,
+       "fby": -6
+      }
+     },
+     {
+      "t": 0.14,
+      "how": "in",
+      "pose": {
+       "turn": 1,
+       "y": 0,
+       "crouch": 4,
+       "fx": -14,
+       "fy": -26,
+       "bx": 15,
+       "by": -26,
+       "ffx": -3,
+       "ffy": -4,
+       "fbx": 4,
+       "fby": -4
+      }
+     },
+     {
+      "t": 0.3,
+      "how": "smooth",
+      "pose": {
+       "turn": 1,
+       "fx": -10,
+       "fy": -23,
+       "bx": 11,
+       "by": -23,
+       "ffx": -3,
+       "fbx": 4
+      }
+     },
+     {
+      "t": 1.1,
+      "how": "smooth",
+      "pose": {
+       "turn": 1,
+       "fx": -10,
+       "fy": -23,
+       "bx": 11,
+       "by": -23,
+       "ffx": -3,
+       "fbx": 4
+      }
+     },
+     {
+      "t": 1.4,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 11,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7
+      }
+     }
+    ]
+   }
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.377
+   ],
+   "sourceFrames": 43,
+   "sourceFrameSize": [
+    84,
+    104
+   ]
+  }
+ }
+}

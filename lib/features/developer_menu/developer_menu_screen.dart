@@ -187,13 +187,14 @@ class DeveloperMenuScreen extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.flare_outlined),
             title: const Text('技のエフェクトの見本'),
-            subtitle: const Text('選んだ属性のエフェクトを見本のモンスターに当て続ける'),
+            subtitle: const Text('選んだ技のエフェクトを見本のモンスターに当て続ける'),
             onTap: () => Navigator.of(context).push(
               MaterialPageRoute<void>(
                 builder: (context) => MoveEffectPreviewScreen(
                   playerMonster: sampleData.monsters[0],
                   opponentMonster: sampleData.monsters[1],
                   cardSharer: cardSharer,
+                  definitions: sampleData.definitions,
                 ),
               ),
             ),

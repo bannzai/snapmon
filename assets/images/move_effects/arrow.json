@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "arrow 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 86,
+    "h": 15
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 86,
+    "h": 15
+   },
+   "sourceSize": {
+    "w": 86,
+    "h": 15
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arrow 1",
+   "frame": {
+    "x": 0,
+    "y": 15,
+    "w": 86,
+    "h": 15
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 86,
+    "h": 15
+   },
+   "sourceSize": {
+    "w": 86,
+    "h": 15
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arrow 2",
+   "frame": {
+    "x": 0,
+    "y": 30,
+    "w": 86,
+    "h": 15
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 86,
+    "h": 15
+   },
+   "sourceSize": {
+    "w": 86,
+    "h": 15
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arrow 3",
+   "frame": {
+    "x": 0,
+    "y": 45,
+    "w": 86,
+    "h": 15
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 86,
+    "h": 15
+   },
+   "sourceSize": {
+    "w": 86,
+    "h": 15
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arrow 4",
+   "frame": {
+    "x": 0,
+    "y": 60,
+    "w": 86,
+    "h": 15
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 86,
+    "h": 15
+   },
+   "sourceSize": {
+    "w": 86,
+    "h": 15
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arrow 5",
+   "frame": {
+    "x": 0,
+    "y": 75,
+    "w": 86,
+    "h": 15
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 86,
+    "h": 15
+   },
+   "sourceSize": {
+    "w": 86,
+    "h": 15
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arrow 6",
+   "frame": {
+    "x": 0,
+    "y": 90,
+    "w": 86,
+    "h": 15
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 86,
+    "h": 15
+   },
+   "sourceSize": {
+    "w": 86,
+    "h": 15
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arrow 7",
+   "frame": {
+    "x": 0,
+    "y": 105,
+    "w": 86,
+    "h": 15
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 86,
+    "h": 15
+   },
+   "sourceSize": {
+    "w": 86,
+    "h": 15
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arrow 8",
+   "frame": {
+    "x": 0,
+    "y": 120,
+    "w": 86,
+    "h": 15
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 86,
+    "h": 15
+   },
+   "sourceSize": {
+    "w": 86,
+    "h": 15
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arrow 9",
+   "frame": {
+    "x": 0,
+    "y": 135,
+    "w": 86,
+    "h": 15
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 86,
+    "h": 15
+   },
+   "sourceSize": {
+    "w": 86,
+    "h": 15
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arrow 10",
+   "frame": {
+    "x": 0,
+    "y": 150,
+    "w": 86,
+    "h": 15
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 86,
+    "h": 15
+   },
+   "sourceSize": {
+    "w": 86,
+    "h": 15
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arrow 11",
+   "frame": {
+    "x": 0,
+    "y": 165,
+    "w": 86,
+    "h": 15
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 86,
+    "h": 15
+   },
+   "sourceSize": {
+    "w": 86,
+    "h": 15
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "arrow.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 86,
+   "h": 180
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "arrow",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "projectiles/arrow",
+   "name": "Arrow",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    86,
+    15
+   ],
+   "pivot": [
+    92,
+    16
+   ],
+   "columns": 1
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.471,
+    0.567
+   ],
+   "sourceFrames": 18,
+   "sourceFrameSize": [
+    112,
+    32
+   ]
+  }
+ }
+}

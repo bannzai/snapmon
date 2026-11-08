@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "implosion 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 165,
+    "h": 164
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 165,
+    "h": 164
+   },
+   "sourceSize": {
+    "w": 165,
+    "h": 164
+   },
+   "duration": 33
+  },
+  {
+   "filename": "implosion 1",
+   "frame": {
+    "x": 165,
+    "y": 0,
+    "w": 165,
+    "h": 164
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 165,
+    "h": 164
+   },
+   "sourceSize": {
+    "w": 165,
+    "h": 164
+   },
+   "duration": 33
+  },
+  {
+   "filename": "implosion 2",
+   "frame": {
+    "x": 330,
+    "y": 0,
+    "w": 165,
+    "h": 164
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 165,
+    "h": 164
+   },
+   "sourceSize": {
+    "w": 165,
+    "h": 164
+   },
+   "duration": 33
+  },
+  {
+   "filename": "implosion 3",
+   "frame": {
+    "x": 0,
+    "y": 164,
+    "w": 165,
+    "h": 164
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 165,
+    "h": 164
+   },
+   "sourceSize": {
+    "w": 165,
+    "h": 164
+   },
+   "duration": 33
+  },
+  {
+   "filename": "implosion 4",
+   "frame": {
+    "x": 165,
+    "y": 164,
+    "w": 165,
+    "h": 164
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 165,
+    "h": 164
+   },
+   "sourceSize": {
+    "w": 165,
+    "h": 164
+   },
+   "duration": 33
+  },
+  {
+   "filename": "implosion 5",
+   "frame": {
+    "x": 330,
+    "y": 164,
+    "w": 165,
+    "h": 164
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 165,
+    "h": 164
+   },
+   "sourceSize": {
+    "w": 165,
+    "h": 164
+   },
+   "duration": 33
+  },
+  {
+   "filename": "implosion 6",
+   "frame": {
+    "x": 0,
+    "y": 328,
+    "w": 165,
+    "h": 164
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 165,
+    "h": 164
+   },
+   "sourceSize": {
+    "w": 165,
+    "h": 164
+   },
+   "duration": 33
+  },
+  {
+   "filename": "implosion 7",
+   "frame": {
+    "x": 165,
+    "y": 328,
+    "w": 165,
+    "h": 164
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 165,
+    "h": 164
+   },
+   "sourceSize": {
+    "w": 165,
+    "h": 164
+   },
+   "duration": 33
+  },
+  {
+   "filename": "implosion 8",
+   "frame": {
+    "x": 330,
+    "y": 328,
+    "w": 165,
+    "h": 164
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 165,
+    "h": 164
+   },
+   "sourceSize": {
+    "w": 165,
+    "h": 164
+   },
+   "duration": 33
+  },
+  {
+   "filename": "implosion 9",
+   "frame": {
+    "x": 0,
+    "y": 492,
+    "w": 165,
+    "h": 164
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 165,
+    "h": 164
+   },
+   "sourceSize": {
+    "w": 165,
+    "h": 164
+   },
+   "duration": 33
+  },
+  {
+   "filename": "implosion 10",
+   "frame": {
+    "x": 165,
+    "y": 492,
+    "w": 165,
+    "h": 164
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 165,
+    "h": 164
+   },
+   "sourceSize": {
+    "w": 165,
+    "h": 164
+   },
+   "duration": 33
+  },
+  {
+   "filename": "implosion 11",
+   "frame": {
+    "x": 330,
+    "y": 492,
+    "w": 165,
+    "h": 164
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 165,
+    "h": 164
+   },
+   "sourceSize": {
+    "w": 165,
+    "h": 164
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "implosion.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 495,
+   "h": 656
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "implosion",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "explosions/implosion",
+   "name": "Implosion",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    165,
+    164
+   ],
+   "pivot": [
+    104,
+    92
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.494
+   ],
+   "sourceFrames": 51,
+   "sourceFrameSize": [
+    208,
+    184
+   ]
+  }
+ }
+}

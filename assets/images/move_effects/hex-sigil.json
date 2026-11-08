@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "hex-sigil 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 162,
+    "h": 126
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 162,
+    "h": 126
+   },
+   "sourceSize": {
+    "w": 162,
+    "h": 126
+   },
+   "duration": 33
+  },
+  {
+   "filename": "hex-sigil 1",
+   "frame": {
+    "x": 162,
+    "y": 0,
+    "w": 162,
+    "h": 126
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 162,
+    "h": 126
+   },
+   "sourceSize": {
+    "w": 162,
+    "h": 126
+   },
+   "duration": 33
+  },
+  {
+   "filename": "hex-sigil 2",
+   "frame": {
+    "x": 324,
+    "y": 0,
+    "w": 162,
+    "h": 126
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 162,
+    "h": 126
+   },
+   "sourceSize": {
+    "w": 162,
+    "h": 126
+   },
+   "duration": 33
+  },
+  {
+   "filename": "hex-sigil 3",
+   "frame": {
+    "x": 0,
+    "y": 126,
+    "w": 162,
+    "h": 126
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 162,
+    "h": 126
+   },
+   "sourceSize": {
+    "w": 162,
+    "h": 126
+   },
+   "duration": 33
+  },
+  {
+   "filename": "hex-sigil 4",
+   "frame": {
+    "x": 162,
+    "y": 126,
+    "w": 162,
+    "h": 126
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 162,
+    "h": 126
+   },
+   "sourceSize": {
+    "w": 162,
+    "h": 126
+   },
+   "duration": 33
+  },
+  {
+   "filename": "hex-sigil 5",
+   "frame": {
+    "x": 324,
+    "y": 126,
+    "w": 162,
+    "h": 126
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 162,
+    "h": 126
+   },
+   "sourceSize": {
+    "w": 162,
+    "h": 126
+   },
+   "duration": 33
+  },
+  {
+   "filename": "hex-sigil 6",
+   "frame": {
+    "x": 0,
+    "y": 252,
+    "w": 162,
+    "h": 126
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 162,
+    "h": 126
+   },
+   "sourceSize": {
+    "w": 162,
+    "h": 126
+   },
+   "duration": 33
+  },
+  {
+   "filename": "hex-sigil 7",
+   "frame": {
+    "x": 162,
+    "y": 252,
+    "w": 162,
+    "h": 126
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 162,
+    "h": 126
+   },
+   "sourceSize": {
+    "w": 162,
+    "h": 126
+   },
+   "duration": 33
+  },
+  {
+   "filename": "hex-sigil 8",
+   "frame": {
+    "x": 324,
+    "y": 252,
+    "w": 162,
+    "h": 126
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 162,
+    "h": 126
+   },
+   "sourceSize": {
+    "w": 162,
+    "h": 126
+   },
+   "duration": 33
+  },
+  {
+   "filename": "hex-sigil 9",
+   "frame": {
+    "x": 0,
+    "y": 378,
+    "w": 162,
+    "h": 126
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 162,
+    "h": 126
+   },
+   "sourceSize": {
+    "w": 162,
+    "h": 126
+   },
+   "duration": 33
+  },
+  {
+   "filename": "hex-sigil 10",
+   "frame": {
+    "x": 162,
+    "y": 378,
+    "w": 162,
+    "h": 126
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 162,
+    "h": 126
+   },
+   "sourceSize": {
+    "w": 162,
+    "h": 126
+   },
+   "duration": 33
+  },
+  {
+   "filename": "hex-sigil 11",
+   "frame": {
+    "x": 324,
+    "y": 378,
+    "w": 162,
+    "h": 126
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 162,
+    "h": 126
+   },
+   "sourceSize": {
+    "w": 162,
+    "h": 126
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "hex-sigil.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 486,
+   "h": 504
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "hex-sigil",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "shadow/hex-sigil",
+   "name": "Hex sigil",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    162,
+    126
+   ],
+   "pivot": [
+    84,
+    112
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.488
+   ],
+   "sourceFrames": 127,
+   "sourceFrameSize": [
+    168,
+    128
+   ]
+  }
+ }
+}

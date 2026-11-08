@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "power-star 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 74,
+    "h": 68
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 74,
+    "h": 68
+   },
+   "sourceSize": {
+    "w": 74,
+    "h": 68
+   },
+   "duration": 33
+  },
+  {
+   "filename": "power-star 1",
+   "frame": {
+    "x": 74,
+    "y": 0,
+    "w": 74,
+    "h": 68
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 74,
+    "h": 68
+   },
+   "sourceSize": {
+    "w": 74,
+    "h": 68
+   },
+   "duration": 33
+  },
+  {
+   "filename": "power-star 2",
+   "frame": {
+    "x": 148,
+    "y": 0,
+    "w": 74,
+    "h": 68
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 74,
+    "h": 68
+   },
+   "sourceSize": {
+    "w": 74,
+    "h": 68
+   },
+   "duration": 33
+  },
+  {
+   "filename": "power-star 3",
+   "frame": {
+    "x": 0,
+    "y": 68,
+    "w": 74,
+    "h": 68
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 74,
+    "h": 68
+   },
+   "sourceSize": {
+    "w": 74,
+    "h": 68
+   },
+   "duration": 33
+  },
+  {
+   "filename": "power-star 4",
+   "frame": {
+    "x": 74,
+    "y": 68,
+    "w": 74,
+    "h": 68
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 74,
+    "h": 68
+   },
+   "sourceSize": {
+    "w": 74,
+    "h": 68
+   },
+   "duration": 33
+  },
+  {
+   "filename": "power-star 5",
+   "frame": {
+    "x": 148,
+    "y": 68,
+    "w": 74,
+    "h": 68
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 74,
+    "h": 68
+   },
+   "sourceSize": {
+    "w": 74,
+    "h": 68
+   },
+   "duration": 33
+  },
+  {
+   "filename": "power-star 6",
+   "frame": {
+    "x": 0,
+    "y": 136,
+    "w": 74,
+    "h": 68
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 74,
+    "h": 68
+   },
+   "sourceSize": {
+    "w": 74,
+    "h": 68
+   },
+   "duration": 33
+  },
+  {
+   "filename": "power-star 7",
+   "frame": {
+    "x": 74,
+    "y": 136,
+    "w": 74,
+    "h": 68
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 74,
+    "h": 68
+   },
+   "sourceSize": {
+    "w": 74,
+    "h": 68
+   },
+   "duration": 33
+  },
+  {
+   "filename": "power-star 8",
+   "frame": {
+    "x": 148,
+    "y": 136,
+    "w": 74,
+    "h": 68
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 74,
+    "h": 68
+   },
+   "sourceSize": {
+    "w": 74,
+    "h": 68
+   },
+   "duration": 33
+  },
+  {
+   "filename": "power-star 9",
+   "frame": {
+    "x": 0,
+    "y": 204,
+    "w": 74,
+    "h": 68
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 74,
+    "h": 68
+   },
+   "sourceSize": {
+    "w": 74,
+    "h": 68
+   },
+   "duration": 33
+  },
+  {
+   "filename": "power-star 10",
+   "frame": {
+    "x": 74,
+    "y": 204,
+    "w": 74,
+    "h": 68
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 74,
+    "h": 68
+   },
+   "sourceSize": {
+    "w": 74,
+    "h": 68
+   },
+   "duration": 33
+  },
+  {
+   "filename": "power-star 11",
+   "frame": {
+    "x": 148,
+    "y": 204,
+    "w": 74,
+    "h": 68
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 74,
+    "h": 68
+   },
+   "sourceSize": {
+    "w": 74,
+    "h": 68
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "power-star.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 222,
+   "h": 272
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "power-star",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "pickups/power-star",
+   "name": "Power star",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    74,
+    68
+   ],
+   "pivot": [
+    44,
+    76
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.544
+   ],
+   "sourceFrames": 48,
+   "sourceFrameSize": [
+    88,
+    84
+   ]
+  }
+ }
+}

@@ -10,7 +10,9 @@ import '../../sample_data_fixture.dart';
 void main() {
   final sampleData = loadSampleDataFixture();
 
-  testWidgets('横向きのスマホ (844×390) でも属性の一覧が見え、選ぶとその属性が選ばれた状態になる', (tester) async {
+  testWidgets('横向きのスマホ (844×390) でも技の一覧が見え、選ぶとその技のエフェクトが選ばれた状態になる', (
+    tester,
+  ) async {
     tester.view
       ..physicalSize = const Size(844, 390)
       ..devicePixelRatio = 1;
@@ -26,19 +28,20 @@ void main() {
             artImage: null,
             shareResultStatus: ShareResultStatus.success,
           ),
+          definitions: sampleData.definitions,
         ),
       ),
     );
     await tester.pump();
 
-    await tester.tap(find.text('fire_particle'));
+    // 一覧の先頭は炎の段階 1 の技のエフェクト (master の effects の順)
+    const fireTile = Key('move-effect-preview-fire_1');
+    expect(find.byKey(fireTile), findsOneWidget);
+    await tester.tap(find.byKey(fireTile));
     await tester.pump(const Duration(milliseconds: 700));
 
     expect(tester.takeException(), isNull);
-    final fireTile = tester.widget<ListTile>(
-      find.widgetWithText(ListTile, 'fire_particle'),
-    );
-    expect(fireTile.selected, isTrue);
+    expect(tester.widget<ListTile>(find.byKey(fireTile)).selected, isTrue);
     // 当て続けるタイマーを画面を閉じて止める
     await tester.pumpWidget(const SizedBox.shrink());
   });

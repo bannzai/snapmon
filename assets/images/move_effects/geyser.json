@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "geyser 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 154
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 154
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 154
+   },
+   "duration": 33
+  },
+  {
+   "filename": "geyser 1",
+   "frame": {
+    "x": 152,
+    "y": 0,
+    "w": 152,
+    "h": 154
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 154
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 154
+   },
+   "duration": 33
+  },
+  {
+   "filename": "geyser 2",
+   "frame": {
+    "x": 304,
+    "y": 0,
+    "w": 152,
+    "h": 154
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 154
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 154
+   },
+   "duration": 33
+  },
+  {
+   "filename": "geyser 3",
+   "frame": {
+    "x": 0,
+    "y": 154,
+    "w": 152,
+    "h": 154
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 154
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 154
+   },
+   "duration": 33
+  },
+  {
+   "filename": "geyser 4",
+   "frame": {
+    "x": 152,
+    "y": 154,
+    "w": 152,
+    "h": 154
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 154
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 154
+   },
+   "duration": 33
+  },
+  {
+   "filename": "geyser 5",
+   "frame": {
+    "x": 304,
+    "y": 154,
+    "w": 152,
+    "h": 154
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 154
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 154
+   },
+   "duration": 33
+  },
+  {
+   "filename": "geyser 6",
+   "frame": {
+    "x": 0,
+    "y": 308,
+    "w": 152,
+    "h": 154
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 154
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 154
+   },
+   "duration": 33
+  },
+  {
+   "filename": "geyser 7",
+   "frame": {
+    "x": 152,
+    "y": 308,
+    "w": 152,
+    "h": 154
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 154
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 154
+   },
+   "duration": 33
+  },
+  {
+   "filename": "geyser 8",
+   "frame": {
+    "x": 304,
+    "y": 308,
+    "w": 152,
+    "h": 154
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 154
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 154
+   },
+   "duration": 33
+  },
+  {
+   "filename": "geyser 9",
+   "frame": {
+    "x": 0,
+    "y": 462,
+    "w": 152,
+    "h": 154
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 154
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 154
+   },
+   "duration": 33
+  },
+  {
+   "filename": "geyser 10",
+   "frame": {
+    "x": 152,
+    "y": 462,
+    "w": 152,
+    "h": 154
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 154
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 154
+   },
+   "duration": 33
+  },
+  {
+   "filename": "geyser 11",
+   "frame": {
+    "x": 304,
+    "y": 462,
+    "w": 152,
+    "h": 154
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 154
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 154
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "geyser.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 456,
+   "h": 616
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "geyser",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "water/geyser",
+   "name": "Geyser",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    152,
+    154
+   ],
+   "pivot": [
+    92,
+    146
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.545
+   ],
+   "sourceFrames": 151,
+   "sourceFrameSize": [
+    184,
+    168
+   ]
+  }
+ }
+}

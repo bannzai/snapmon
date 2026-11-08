@@ -1,0 +1,437 @@
+{
+ "frames": [
+  {
+   "filename": "earth-stomp 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 269,
+    "h": 135
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 269,
+    "h": 135
+   },
+   "sourceSize": {
+    "w": 269,
+    "h": 135
+   },
+   "duration": 33
+  },
+  {
+   "filename": "earth-stomp 1",
+   "frame": {
+    "x": 269,
+    "y": 0,
+    "w": 269,
+    "h": 135
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 269,
+    "h": 135
+   },
+   "sourceSize": {
+    "w": 269,
+    "h": 135
+   },
+   "duration": 33
+  },
+  {
+   "filename": "earth-stomp 2",
+   "frame": {
+    "x": 0,
+    "y": 135,
+    "w": 269,
+    "h": 135
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 269,
+    "h": 135
+   },
+   "sourceSize": {
+    "w": 269,
+    "h": 135
+   },
+   "duration": 33
+  },
+  {
+   "filename": "earth-stomp 3",
+   "frame": {
+    "x": 269,
+    "y": 135,
+    "w": 269,
+    "h": 135
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 269,
+    "h": 135
+   },
+   "sourceSize": {
+    "w": 269,
+    "h": 135
+   },
+   "duration": 33
+  },
+  {
+   "filename": "earth-stomp 4",
+   "frame": {
+    "x": 0,
+    "y": 270,
+    "w": 269,
+    "h": 135
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 269,
+    "h": 135
+   },
+   "sourceSize": {
+    "w": 269,
+    "h": 135
+   },
+   "duration": 33
+  },
+  {
+   "filename": "earth-stomp 5",
+   "frame": {
+    "x": 269,
+    "y": 270,
+    "w": 269,
+    "h": 135
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 269,
+    "h": 135
+   },
+   "sourceSize": {
+    "w": 269,
+    "h": 135
+   },
+   "duration": 33
+  },
+  {
+   "filename": "earth-stomp 6",
+   "frame": {
+    "x": 0,
+    "y": 405,
+    "w": 269,
+    "h": 135
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 269,
+    "h": 135
+   },
+   "sourceSize": {
+    "w": 269,
+    "h": 135
+   },
+   "duration": 33
+  },
+  {
+   "filename": "earth-stomp 7",
+   "frame": {
+    "x": 269,
+    "y": 405,
+    "w": 269,
+    "h": 135
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 269,
+    "h": 135
+   },
+   "sourceSize": {
+    "w": 269,
+    "h": 135
+   },
+   "duration": 33
+  },
+  {
+   "filename": "earth-stomp 8",
+   "frame": {
+    "x": 0,
+    "y": 540,
+    "w": 269,
+    "h": 135
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 269,
+    "h": 135
+   },
+   "sourceSize": {
+    "w": 269,
+    "h": 135
+   },
+   "duration": 33
+  },
+  {
+   "filename": "earth-stomp 9",
+   "frame": {
+    "x": 269,
+    "y": 540,
+    "w": 269,
+    "h": 135
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 269,
+    "h": 135
+   },
+   "sourceSize": {
+    "w": 269,
+    "h": 135
+   },
+   "duration": 33
+  },
+  {
+   "filename": "earth-stomp 10",
+   "frame": {
+    "x": 0,
+    "y": 675,
+    "w": 269,
+    "h": 135
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 269,
+    "h": 135
+   },
+   "sourceSize": {
+    "w": 269,
+    "h": 135
+   },
+   "duration": 33
+  },
+  {
+   "filename": "earth-stomp 11",
+   "frame": {
+    "x": 269,
+    "y": 675,
+    "w": 269,
+    "h": 135
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 269,
+    "h": 135
+   },
+   "sourceSize": {
+    "w": 269,
+    "h": 135
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "earth-stomp.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 538,
+   "h": 810
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "earth-stomp",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "moves/earth-stomp",
+   "name": "Earth stomp",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    269,
+    135
+   ],
+   "pivot": [
+    50,
+    128
+   ],
+   "columns": 2,
+   "act": {
+    "windup": 0.5,
+    "recovery": 0,
+    "onBody": false,
+    "targets": [
+     112
+    ],
+    "hits": [
+     {
+      "t": 0.06,
+      "freeze": 0.1,
+      "shake": 0.2,
+      "amp": 3,
+      "push": 0
+     },
+     {
+      "t": 0.49,
+      "freeze": 0.14,
+      "shake": 0.28,
+      "amp": 3,
+      "push": -3.2
+     }
+    ],
+    "poses": [
+     {
+      "t": -0.5,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 11,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7
+      }
+     },
+     {
+      "t": -0.14,
+      "how": "smooth",
+      "pose": {
+       "crouch": 1,
+       "fx": 3,
+       "fy": -34,
+       "bx": 11,
+       "by": -30,
+       "ffx": 9,
+       "fbx": -5,
+       "lean": -3,
+       "ffy": -15
+      }
+     },
+     {
+      "t": 0.055,
+      "how": "smooth",
+      "pose": {
+       "crouch": 1,
+       "fx": 3,
+       "fy": -34,
+       "bx": 11,
+       "by": -30,
+       "ffx": 9,
+       "fbx": -5,
+       "lean": -3,
+       "ffy": -17
+      }
+     },
+     {
+      "t": 0.06,
+      "how": "snap",
+      "pose": {
+       "crouch": 7,
+       "fx": 14,
+       "fy": -14,
+       "bx": -5,
+       "by": -18,
+       "ffx": 11,
+       "fbx": -9,
+       "lean": 3
+      }
+     },
+     {
+      "t": 0.99,
+      "how": "smooth",
+      "pose": {
+       "crouch": 5,
+       "fx": 14,
+       "fy": -14,
+       "bx": -5,
+       "by": -18,
+       "ffx": 11,
+       "fbx": -9,
+       "lean": 3
+      }
+     },
+     {
+      "t": 1.59,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 11,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7
+      }
+     },
+     {
+      "t": 3.46,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 11,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7
+      }
+     }
+    ]
+   }
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.485
+   ],
+   "sourceFrames": 105,
+   "sourceFrameSize": [
+    290,
+    142
+   ]
+  }
+ }
+}

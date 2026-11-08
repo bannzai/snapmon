@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "arcane-orb 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 106,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 106,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 106,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arcane-orb 1",
+   "frame": {
+    "x": 106,
+    "y": 0,
+    "w": 106,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 106,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 106,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arcane-orb 2",
+   "frame": {
+    "x": 212,
+    "y": 0,
+    "w": 106,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 106,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 106,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arcane-orb 3",
+   "frame": {
+    "x": 318,
+    "y": 0,
+    "w": 106,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 106,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 106,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arcane-orb 4",
+   "frame": {
+    "x": 0,
+    "y": 109,
+    "w": 106,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 106,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 106,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arcane-orb 5",
+   "frame": {
+    "x": 106,
+    "y": 109,
+    "w": 106,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 106,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 106,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arcane-orb 6",
+   "frame": {
+    "x": 212,
+    "y": 109,
+    "w": 106,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 106,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 106,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arcane-orb 7",
+   "frame": {
+    "x": 318,
+    "y": 109,
+    "w": 106,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 106,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 106,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arcane-orb 8",
+   "frame": {
+    "x": 0,
+    "y": 218,
+    "w": 106,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 106,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 106,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arcane-orb 9",
+   "frame": {
+    "x": 106,
+    "y": 218,
+    "w": 106,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 106,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 106,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arcane-orb 10",
+   "frame": {
+    "x": 212,
+    "y": 218,
+    "w": 106,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 106,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 106,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arcane-orb 11",
+   "frame": {
+    "x": 318,
+    "y": 218,
+    "w": 106,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 106,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 106,
+    "h": 109
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "arcane-orb.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 424,
+   "h": 327
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "arcane-orb",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "arcane/arcane-orb",
+   "name": "Arcane orb",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    106,
+    109
+   ],
+   "pivot": [
+    68,
+    104
+   ],
+   "columns": 4
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.495,
+    0.569
+   ],
+   "sourceFrames": 72,
+   "sourceFrameSize": [
+    136,
+    112
+   ]
+  }
+ }
+}

@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "waterfall 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 120,
+    "h": 133
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 120,
+    "h": 133
+   },
+   "sourceSize": {
+    "w": 120,
+    "h": 133
+   },
+   "duration": 33
+  },
+  {
+   "filename": "waterfall 1",
+   "frame": {
+    "x": 120,
+    "y": 0,
+    "w": 120,
+    "h": 133
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 120,
+    "h": 133
+   },
+   "sourceSize": {
+    "w": 120,
+    "h": 133
+   },
+   "duration": 33
+  },
+  {
+   "filename": "waterfall 2",
+   "frame": {
+    "x": 240,
+    "y": 0,
+    "w": 120,
+    "h": 133
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 120,
+    "h": 133
+   },
+   "sourceSize": {
+    "w": 120,
+    "h": 133
+   },
+   "duration": 33
+  },
+  {
+   "filename": "waterfall 3",
+   "frame": {
+    "x": 360,
+    "y": 0,
+    "w": 120,
+    "h": 133
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 120,
+    "h": 133
+   },
+   "sourceSize": {
+    "w": 120,
+    "h": 133
+   },
+   "duration": 33
+  },
+  {
+   "filename": "waterfall 4",
+   "frame": {
+    "x": 0,
+    "y": 133,
+    "w": 120,
+    "h": 133
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 120,
+    "h": 133
+   },
+   "sourceSize": {
+    "w": 120,
+    "h": 133
+   },
+   "duration": 33
+  },
+  {
+   "filename": "waterfall 5",
+   "frame": {
+    "x": 120,
+    "y": 133,
+    "w": 120,
+    "h": 133
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 120,
+    "h": 133
+   },
+   "sourceSize": {
+    "w": 120,
+    "h": 133
+   },
+   "duration": 33
+  },
+  {
+   "filename": "waterfall 6",
+   "frame": {
+    "x": 240,
+    "y": 133,
+    "w": 120,
+    "h": 133
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 120,
+    "h": 133
+   },
+   "sourceSize": {
+    "w": 120,
+    "h": 133
+   },
+   "duration": 33
+  },
+  {
+   "filename": "waterfall 7",
+   "frame": {
+    "x": 360,
+    "y": 133,
+    "w": 120,
+    "h": 133
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 120,
+    "h": 133
+   },
+   "sourceSize": {
+    "w": 120,
+    "h": 133
+   },
+   "duration": 33
+  },
+  {
+   "filename": "waterfall 8",
+   "frame": {
+    "x": 0,
+    "y": 266,
+    "w": 120,
+    "h": 133
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 120,
+    "h": 133
+   },
+   "sourceSize": {
+    "w": 120,
+    "h": 133
+   },
+   "duration": 33
+  },
+  {
+   "filename": "waterfall 9",
+   "frame": {
+    "x": 120,
+    "y": 266,
+    "w": 120,
+    "h": 133
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 120,
+    "h": 133
+   },
+   "sourceSize": {
+    "w": 120,
+    "h": 133
+   },
+   "duration": 33
+  },
+  {
+   "filename": "waterfall 10",
+   "frame": {
+    "x": 240,
+    "y": 266,
+    "w": 120,
+    "h": 133
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 120,
+    "h": 133
+   },
+   "sourceSize": {
+    "w": 120,
+    "h": 133
+   },
+   "duration": 33
+  },
+  {
+   "filename": "waterfall 11",
+   "frame": {
+    "x": 360,
+    "y": 266,
+    "w": 120,
+    "h": 133
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 120,
+    "h": 133
+   },
+   "sourceSize": {
+    "w": 120,
+    "h": 133
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "waterfall.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 480,
+   "h": 399
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "waterfall",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "water/waterfall",
+   "name": "Waterfall",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    120,
+    133
+   ],
+   "pivot": [
+    72,
+    118
+   ],
+   "columns": 4
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.533,
+    0.519
+   ],
+   "sourceFrames": 60,
+   "sourceFrameSize": [
+    144,
+    136
+   ]
+  }
+ }
+}

@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "meteor 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 249,
+    "h": 223
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 249,
+    "h": 223
+   },
+   "sourceSize": {
+    "w": 249,
+    "h": 223
+   },
+   "duration": 33
+  },
+  {
+   "filename": "meteor 1",
+   "frame": {
+    "x": 249,
+    "y": 0,
+    "w": 249,
+    "h": 223
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 249,
+    "h": 223
+   },
+   "sourceSize": {
+    "w": 249,
+    "h": 223
+   },
+   "duration": 33
+  },
+  {
+   "filename": "meteor 2",
+   "frame": {
+    "x": 498,
+    "y": 0,
+    "w": 249,
+    "h": 223
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 249,
+    "h": 223
+   },
+   "sourceSize": {
+    "w": 249,
+    "h": 223
+   },
+   "duration": 33
+  },
+  {
+   "filename": "meteor 3",
+   "frame": {
+    "x": 0,
+    "y": 223,
+    "w": 249,
+    "h": 223
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 249,
+    "h": 223
+   },
+   "sourceSize": {
+    "w": 249,
+    "h": 223
+   },
+   "duration": 33
+  },
+  {
+   "filename": "meteor 4",
+   "frame": {
+    "x": 249,
+    "y": 223,
+    "w": 249,
+    "h": 223
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 249,
+    "h": 223
+   },
+   "sourceSize": {
+    "w": 249,
+    "h": 223
+   },
+   "duration": 33
+  },
+  {
+   "filename": "meteor 5",
+   "frame": {
+    "x": 498,
+    "y": 223,
+    "w": 249,
+    "h": 223
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 249,
+    "h": 223
+   },
+   "sourceSize": {
+    "w": 249,
+    "h": 223
+   },
+   "duration": 33
+  },
+  {
+   "filename": "meteor 6",
+   "frame": {
+    "x": 0,
+    "y": 446,
+    "w": 249,
+    "h": 223
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 249,
+    "h": 223
+   },
+   "sourceSize": {
+    "w": 249,
+    "h": 223
+   },
+   "duration": 33
+  },
+  {
+   "filename": "meteor 7",
+   "frame": {
+    "x": 249,
+    "y": 446,
+    "w": 249,
+    "h": 223
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 249,
+    "h": 223
+   },
+   "sourceSize": {
+    "w": 249,
+    "h": 223
+   },
+   "duration": 33
+  },
+  {
+   "filename": "meteor 8",
+   "frame": {
+    "x": 498,
+    "y": 446,
+    "w": 249,
+    "h": 223
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 249,
+    "h": 223
+   },
+   "sourceSize": {
+    "w": 249,
+    "h": 223
+   },
+   "duration": 33
+  },
+  {
+   "filename": "meteor 9",
+   "frame": {
+    "x": 0,
+    "y": 669,
+    "w": 249,
+    "h": 223
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 249,
+    "h": 223
+   },
+   "sourceSize": {
+    "w": 249,
+    "h": 223
+   },
+   "duration": 33
+  },
+  {
+   "filename": "meteor 10",
+   "frame": {
+    "x": 249,
+    "y": 669,
+    "w": 249,
+    "h": 223
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 249,
+    "h": 223
+   },
+   "sourceSize": {
+    "w": 249,
+    "h": 223
+   },
+   "duration": 33
+  },
+  {
+   "filename": "meteor 11",
+   "frame": {
+    "x": 498,
+    "y": 669,
+    "w": 249,
+    "h": 223
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 249,
+    "h": 223
+   },
+   "sourceSize": {
+    "w": 249,
+    "h": 223
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "meteor.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 747,
+   "h": 892
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "meteor",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "fire/meteor",
+   "name": "Meteor",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    249,
+    223
+   ],
+   "pivot": [
+    150,
+    208
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.524,
+    0.52
+   ],
+   "sourceFrames": 151,
+   "sourceFrameSize": [
+    272,
+    232
+   ]
+  }
+ }
+}

@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "void-orb 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 129,
+    "h": 139
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 129,
+    "h": 139
+   },
+   "sourceSize": {
+    "w": 129,
+    "h": 139
+   },
+   "duration": 33
+  },
+  {
+   "filename": "void-orb 1",
+   "frame": {
+    "x": 129,
+    "y": 0,
+    "w": 129,
+    "h": 139
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 129,
+    "h": 139
+   },
+   "sourceSize": {
+    "w": 129,
+    "h": 139
+   },
+   "duration": 33
+  },
+  {
+   "filename": "void-orb 2",
+   "frame": {
+    "x": 258,
+    "y": 0,
+    "w": 129,
+    "h": 139
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 129,
+    "h": 139
+   },
+   "sourceSize": {
+    "w": 129,
+    "h": 139
+   },
+   "duration": 33
+  },
+  {
+   "filename": "void-orb 3",
+   "frame": {
+    "x": 387,
+    "y": 0,
+    "w": 129,
+    "h": 139
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 129,
+    "h": 139
+   },
+   "sourceSize": {
+    "w": 129,
+    "h": 139
+   },
+   "duration": 33
+  },
+  {
+   "filename": "void-orb 4",
+   "frame": {
+    "x": 0,
+    "y": 139,
+    "w": 129,
+    "h": 139
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 129,
+    "h": 139
+   },
+   "sourceSize": {
+    "w": 129,
+    "h": 139
+   },
+   "duration": 33
+  },
+  {
+   "filename": "void-orb 5",
+   "frame": {
+    "x": 129,
+    "y": 139,
+    "w": 129,
+    "h": 139
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 129,
+    "h": 139
+   },
+   "sourceSize": {
+    "w": 129,
+    "h": 139
+   },
+   "duration": 33
+  },
+  {
+   "filename": "void-orb 6",
+   "frame": {
+    "x": 258,
+    "y": 139,
+    "w": 129,
+    "h": 139
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 129,
+    "h": 139
+   },
+   "sourceSize": {
+    "w": 129,
+    "h": 139
+   },
+   "duration": 33
+  },
+  {
+   "filename": "void-orb 7",
+   "frame": {
+    "x": 387,
+    "y": 139,
+    "w": 129,
+    "h": 139
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 129,
+    "h": 139
+   },
+   "sourceSize": {
+    "w": 129,
+    "h": 139
+   },
+   "duration": 33
+  },
+  {
+   "filename": "void-orb 8",
+   "frame": {
+    "x": 0,
+    "y": 278,
+    "w": 129,
+    "h": 139
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 129,
+    "h": 139
+   },
+   "sourceSize": {
+    "w": 129,
+    "h": 139
+   },
+   "duration": 33
+  },
+  {
+   "filename": "void-orb 9",
+   "frame": {
+    "x": 129,
+    "y": 278,
+    "w": 129,
+    "h": 139
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 129,
+    "h": 139
+   },
+   "sourceSize": {
+    "w": 129,
+    "h": 139
+   },
+   "duration": 33
+  },
+  {
+   "filename": "void-orb 10",
+   "frame": {
+    "x": 258,
+    "y": 278,
+    "w": 129,
+    "h": 139
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 129,
+    "h": 139
+   },
+   "sourceSize": {
+    "w": 129,
+    "h": 139
+   },
+   "duration": 33
+  },
+  {
+   "filename": "void-orb 11",
+   "frame": {
+    "x": 387,
+    "y": 278,
+    "w": 129,
+    "h": 139
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 129,
+    "h": 139
+   },
+   "sourceSize": {
+    "w": 129,
+    "h": 139
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "void-orb.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 516,
+   "h": 417
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "void-orb",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "shadow/void-orb",
+   "name": "Void orb",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    129,
+    139
+   ],
+   "pivot": [
+    84,
+    150
+   ],
+   "columns": 4
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.489
+   ],
+   "sourceFrames": 96,
+   "sourceFrameSize": [
+    168,
+    160
+   ]
+  }
+ }
+}

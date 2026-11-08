@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "egg-hatch 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 64,
+    "h": 63
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 64,
+    "h": 63
+   },
+   "sourceSize": {
+    "w": 64,
+    "h": 63
+   },
+   "duration": 33
+  },
+  {
+   "filename": "egg-hatch 1",
+   "frame": {
+    "x": 64,
+    "y": 0,
+    "w": 64,
+    "h": 63
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 64,
+    "h": 63
+   },
+   "sourceSize": {
+    "w": 64,
+    "h": 63
+   },
+   "duration": 33
+  },
+  {
+   "filename": "egg-hatch 2",
+   "frame": {
+    "x": 128,
+    "y": 0,
+    "w": 64,
+    "h": 63
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 64,
+    "h": 63
+   },
+   "sourceSize": {
+    "w": 64,
+    "h": 63
+   },
+   "duration": 33
+  },
+  {
+   "filename": "egg-hatch 3",
+   "frame": {
+    "x": 0,
+    "y": 63,
+    "w": 64,
+    "h": 63
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 64,
+    "h": 63
+   },
+   "sourceSize": {
+    "w": 64,
+    "h": 63
+   },
+   "duration": 33
+  },
+  {
+   "filename": "egg-hatch 4",
+   "frame": {
+    "x": 64,
+    "y": 63,
+    "w": 64,
+    "h": 63
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 64,
+    "h": 63
+   },
+   "sourceSize": {
+    "w": 64,
+    "h": 63
+   },
+   "duration": 33
+  },
+  {
+   "filename": "egg-hatch 5",
+   "frame": {
+    "x": 128,
+    "y": 63,
+    "w": 64,
+    "h": 63
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 64,
+    "h": 63
+   },
+   "sourceSize": {
+    "w": 64,
+    "h": 63
+   },
+   "duration": 33
+  },
+  {
+   "filename": "egg-hatch 6",
+   "frame": {
+    "x": 0,
+    "y": 126,
+    "w": 64,
+    "h": 63
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 64,
+    "h": 63
+   },
+   "sourceSize": {
+    "w": 64,
+    "h": 63
+   },
+   "duration": 33
+  },
+  {
+   "filename": "egg-hatch 7",
+   "frame": {
+    "x": 64,
+    "y": 126,
+    "w": 64,
+    "h": 63
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 64,
+    "h": 63
+   },
+   "sourceSize": {
+    "w": 64,
+    "h": 63
+   },
+   "duration": 33
+  },
+  {
+   "filename": "egg-hatch 8",
+   "frame": {
+    "x": 128,
+    "y": 126,
+    "w": 64,
+    "h": 63
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 64,
+    "h": 63
+   },
+   "sourceSize": {
+    "w": 64,
+    "h": 63
+   },
+   "duration": 33
+  },
+  {
+   "filename": "egg-hatch 9",
+   "frame": {
+    "x": 0,
+    "y": 189,
+    "w": 64,
+    "h": 63
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 64,
+    "h": 63
+   },
+   "sourceSize": {
+    "w": 64,
+    "h": 63
+   },
+   "duration": 33
+  },
+  {
+   "filename": "egg-hatch 10",
+   "frame": {
+    "x": 64,
+    "y": 189,
+    "w": 64,
+    "h": 63
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 64,
+    "h": 63
+   },
+   "sourceSize": {
+    "w": 64,
+    "h": 63
+   },
+   "duration": 33
+  },
+  {
+   "filename": "egg-hatch 11",
+   "frame": {
+    "x": 128,
+    "y": 189,
+    "w": 64,
+    "h": 63
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 64,
+    "h": 63
+   },
+   "sourceSize": {
+    "w": 64,
+    "h": 63
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "egg-hatch.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 192,
+   "h": 252
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "egg-hatch",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "spawn/egg-hatch",
+   "name": "Egg hatch",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    64,
+    63
+   ],
+   "pivot": [
+    60,
+    84
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.516,
+    0.452
+   ],
+   "sourceFrames": 94,
+   "sourceFrameSize": [
+    120,
+    96
+   ]
+  }
+ }
+}

@@ -34,10 +34,12 @@ export interface MasterMove {
   /** 覚えさせてよいレベル帯の上限。 */
   learnableLevelMaximum: number;
   /**
-   * 技の特殊効果。出力ごとに式 (文法は documents/game-rules.md「技の式」、検査は src/move_expression.ts) を持つ。
+   * 技の特殊効果。数値の出力は式 (文法は documents/game-rules.md「技の式」、検査は src/move_expression.ts) を持つ。
    * `power` は攻撃技の威力の倍率 (%)、`selfStatChanges`・`opponentStatChanges` は補助技が自分・相手のステータス (attack・defense・speed) の倍率 (%) に足す値、
    * `selfHitPointsRecovery` は補助技が自分の HP を回復する量。
-   * `summary` は技の枠に出す短い説明、`rule` はバトルのログと技の詳細に出す効果の規則の説明。計算は端末のバトル (lib/domain/battle/move_special_effect.dart) が行う。
+   * 版 9 (#224) から、値で書く効果を持つ: `selfStatusConditions`・`opponentStatusConditions` (付ける状態と確率)、`curesSelfStatusConditions` (自分の状態の解除)、
+   * `fieldEffect` (フィールドの効果)、`selfDestructs` (自爆)、`oneHitKnockout` (一撃必殺)、`sureHit` (必中)。状態・フィールドの名前は端末の列挙 (lib/domain/battle/status_condition.dart) が正。
+   * `summary` は技の枠に出す短い説明、`rule` はバトルのログと技の詳細に出す効果の規則の説明。計算は端末のバトル (lib/domain/battle/battle_engine.dart) が行う。
    * `rationale` は、この技にこの効果を付けた根拠 (技の名前の物の性質と効果の働き方の結びつき)。
    */
   specialEffect?: {
@@ -45,10 +47,21 @@ export interface MasterMove {
     selfStatChanges?: Partial<Record<"attack" | "defense" | "speed", string>>;
     opponentStatChanges?: Partial<Record<"attack" | "defense" | "speed", string>>;
     selfHitPointsRecovery?: string;
+    selfStatusConditions?: { kind: string; chancePercent: number }[];
+    opponentStatusConditions?: { kind: string; chancePercent: number }[];
+    curesSelfStatusConditions?: boolean;
+    fieldEffect?: string;
+    selfDestructs?: boolean;
+    oneHitKnockout?: boolean;
+    sureHit?: boolean;
     summary: string;
     rule: string;
     rationale?: string;
   };
+  /** 命中率 (%)。無ければ 100 (版 8 までの技)。 */
+  accuracy?: number;
+  /** 先制の度合い。大きい技が素早さに関係なく先に出る。無ければ 0。 */
+  priority?: number;
   /**
    * この技がこの属性・この名前である根拠。技・効果を足す・見直す時に参照する保守のための値で、ユーザーには見せず、生成・バトルでも読まない
    * (documents/game-rules.md「技の根拠」)。master の版 4 より前の版と、版 4 より前にその場で作った技は持たない。
@@ -86,8 +99,11 @@ export interface Master {
   typeChart: Record<string, Record<string, number>>;
   /** 技の一覧。 */
   moves: MasterMove[];
-  /** 技のエフェクトの一覧。 */
-  effects: { id: string; displayName: string; kind: string; colorHex: string }[];
+  /**
+   * 技のエフェクトの一覧。`kind` が `spriteSheet` のエフェクトは `spriteSheet` (端末に同梱したシートの名前) と `pixelfxId` (素材の ID。
+   * scripts/move_effects/generate_move_effect_sprite_sheets.sh が書き出しに使う) を持つ。
+   */
+  effects: { id: string; displayName: string; kind: string; colorHex: string; spriteSheet?: string; pixelfxId?: string }[];
   /** ステータスの段階。 */
   statGrades: MasterStatGrade[];
   /** 属性を選ぶ規則。 */

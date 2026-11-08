@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "holy-pillar 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 218
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 218
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 218
+   },
+   "duration": 33
+  },
+  {
+   "filename": "holy-pillar 1",
+   "frame": {
+    "x": 192,
+    "y": 0,
+    "w": 192,
+    "h": 218
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 218
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 218
+   },
+   "duration": 33
+  },
+  {
+   "filename": "holy-pillar 2",
+   "frame": {
+    "x": 384,
+    "y": 0,
+    "w": 192,
+    "h": 218
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 218
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 218
+   },
+   "duration": 33
+  },
+  {
+   "filename": "holy-pillar 3",
+   "frame": {
+    "x": 576,
+    "y": 0,
+    "w": 192,
+    "h": 218
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 218
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 218
+   },
+   "duration": 33
+  },
+  {
+   "filename": "holy-pillar 4",
+   "frame": {
+    "x": 0,
+    "y": 218,
+    "w": 192,
+    "h": 218
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 218
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 218
+   },
+   "duration": 33
+  },
+  {
+   "filename": "holy-pillar 5",
+   "frame": {
+    "x": 192,
+    "y": 218,
+    "w": 192,
+    "h": 218
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 218
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 218
+   },
+   "duration": 33
+  },
+  {
+   "filename": "holy-pillar 6",
+   "frame": {
+    "x": 384,
+    "y": 218,
+    "w": 192,
+    "h": 218
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 218
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 218
+   },
+   "duration": 33
+  },
+  {
+   "filename": "holy-pillar 7",
+   "frame": {
+    "x": 576,
+    "y": 218,
+    "w": 192,
+    "h": 218
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 218
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 218
+   },
+   "duration": 33
+  },
+  {
+   "filename": "holy-pillar 8",
+   "frame": {
+    "x": 0,
+    "y": 436,
+    "w": 192,
+    "h": 218
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 218
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 218
+   },
+   "duration": 33
+  },
+  {
+   "filename": "holy-pillar 9",
+   "frame": {
+    "x": 192,
+    "y": 436,
+    "w": 192,
+    "h": 218
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 218
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 218
+   },
+   "duration": 33
+  },
+  {
+   "filename": "holy-pillar 10",
+   "frame": {
+    "x": 384,
+    "y": 436,
+    "w": 192,
+    "h": 218
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 218
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 218
+   },
+   "duration": 33
+  },
+  {
+   "filename": "holy-pillar 11",
+   "frame": {
+    "x": 576,
+    "y": 436,
+    "w": 192,
+    "h": 218
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 218
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 218
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "holy-pillar.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 768,
+   "h": 654
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "holy-pillar",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "holy/holy-pillar",
+   "name": "Holy pillar",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    192,
+    218
+   ],
+   "pivot": [
+    96,
+    204
+   ],
+   "columns": 4
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.505,
+    0.486
+   ],
+   "sourceFrames": 106,
+   "sourceFrameSize": [
+    192,
+    232
+   ]
+  }
+ }
+}

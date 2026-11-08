@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:snapmon/domain/battle/battle_engine.dart';
 import 'package:snapmon/domain/battle/battle_state.dart';
+import 'package:snapmon/domain/battle/status_condition.dart';
 import 'package:snapmon/domain/master/element_type.dart';
 import 'package:snapmon/domain/master/master_data.dart';
 import 'package:snapmon/domain/master/move.dart';
@@ -10,7 +11,7 @@ import 'package:snapmon/domain/monster/monster_definition.dart';
 import 'package:snapmon/domain/monster/monster_stats.dart';
 
 /// バトルの規則だけを確かめるための小さな master。fire は grass に 2 倍、grass は fire に 0.5 倍。
-const testMaster = MasterData(
+final testMaster = MasterData(
   version: 1,
   elementTypes: [
     ElementType(id: 'fire', displayName: 'ほのお'),
@@ -192,6 +193,230 @@ const testMaster = MasterData(
         rule: '最大 HP の 3 割を回復する',
       ),
     ),
+    // 版 9 (#224) の効果を 1 つずつ持つ技
+    for (final (id, kind) in [
+      ('fire_paralyze', StatusConditionKind.paralysis),
+      ('fire_stun', StatusConditionKind.stun),
+      ('fire_burn', StatusConditionKind.burn),
+      ('fire_drowsy', StatusConditionKind.drowsy),
+      ('fire_curse', StatusConditionKind.curse),
+      ('fire_confuse', StatusConditionKind.confusion),
+      ('fire_dizzy', StatusConditionKind.dizzy),
+      ('fire_freeze', StatusConditionKind.frozen),
+      ('fire_poison_support', StatusConditionKind.poison),
+    ])
+      Move(
+        id: id,
+        displayName: id,
+        elementTypeId: 'fire',
+        power: 0,
+        powerPoints: 10,
+        category: MoveCategory.support,
+        effectId: 'none',
+        learnableLevelMinimum: 1,
+        learnableLevelMaximum: 999,
+        specialEffect: MoveSpecialEffect(
+          power: null,
+          selfStatChanges: const {},
+          opponentStatChanges: const {},
+          selfHitPointsRecovery: null,
+          opponentStatusConditions: [
+            StatusConditionInfliction(kind: kind, chancePercent: 100),
+          ],
+          summary: '相手を ${kind.name} にする',
+          rule: '相手を ${kind.name} にする',
+        ),
+      ),
+    const Move(
+      id: 'fire_excite',
+      displayName: 'こうふん',
+      elementTypeId: 'fire',
+      power: 0,
+      powerPoints: 10,
+      category: MoveCategory.support,
+      effectId: 'none',
+      learnableLevelMinimum: 1,
+      learnableLevelMaximum: 999,
+      specialEffect: MoveSpecialEffect(
+        power: null,
+        selfStatChanges: {},
+        opponentStatChanges: {},
+        selfHitPointsRecovery: null,
+        selfStatusConditions: [
+          StatusConditionInfliction(
+            kind: StatusConditionKind.excited,
+            chancePercent: 100,
+          ),
+        ],
+        summary: '自分が興奮する',
+        rule: '自分が興奮する',
+      ),
+    ),
+    const Move(
+      id: 'fire_poison_attack',
+      displayName: 'どくのほのお',
+      elementTypeId: 'fire',
+      power: 40,
+      powerPoints: 10,
+      category: MoveCategory.attack,
+      effectId: 'none',
+      learnableLevelMinimum: 1,
+      learnableLevelMaximum: 999,
+      specialEffect: MoveSpecialEffect(
+        power: null,
+        selfStatChanges: {},
+        opponentStatChanges: {},
+        selfHitPointsRecovery: null,
+        opponentStatusConditions: [
+          StatusConditionInfliction(
+            kind: StatusConditionKind.poison,
+            chancePercent: 100,
+          ),
+        ],
+        summary: '相手を毒にする',
+        rule: '相手を毒にする',
+      ),
+    ),
+    const Move(
+      id: 'poison_strong',
+      displayName: 'つよいどく',
+      elementTypeId: 'poison',
+      power: 40,
+      powerPoints: 10,
+      category: MoveCategory.attack,
+      effectId: 'none',
+      learnableLevelMinimum: 1,
+      learnableLevelMaximum: 999,
+      specialEffect: null,
+    ),
+    const Move(
+      id: 'fire_cure',
+      displayName: 'かいじょ',
+      elementTypeId: 'fire',
+      power: 0,
+      powerPoints: 10,
+      category: MoveCategory.support,
+      effectId: 'none',
+      learnableLevelMinimum: 1,
+      learnableLevelMaximum: 999,
+      specialEffect: MoveSpecialEffect(
+        power: null,
+        selfStatChanges: {},
+        opponentStatChanges: {},
+        selfHitPointsRecovery: null,
+        curesSelfStatusConditions: true,
+        summary: '自分の状態を治す',
+        rule: '自分の状態を治す',
+      ),
+    ),
+    const Move(
+      id: 'fire_shuffle',
+      displayName: 'いれかえ',
+      elementTypeId: 'fire',
+      power: 0,
+      powerPoints: 10,
+      category: MoveCategory.support,
+      effectId: 'none',
+      learnableLevelMinimum: 1,
+      learnableLevelMaximum: 999,
+      specialEffect: MoveSpecialEffect(
+        power: null,
+        selfStatChanges: {},
+        opponentStatChanges: {},
+        selfHitPointsRecovery: null,
+        fieldEffect: FieldEffectKind.statShuffle,
+        summary: 'ステータスが入れ替わる',
+        rule: 'ステータスが入れ替わる',
+      ),
+    ),
+    const Move(
+      id: 'fire_self_destruct',
+      displayName: 'じばく',
+      elementTypeId: 'fire',
+      power: 200,
+      powerPoints: 5,
+      category: MoveCategory.attack,
+      effectId: 'none',
+      learnableLevelMinimum: 1,
+      learnableLevelMaximum: 999,
+      specialEffect: MoveSpecialEffect(
+        power: null,
+        selfStatChanges: {},
+        opponentStatChanges: {},
+        selfHitPointsRecovery: null,
+        selfDestructs: true,
+        summary: '自爆する',
+        rule: '自爆する',
+      ),
+    ),
+    const Move(
+      id: 'fire_one_hit',
+      displayName: 'いちげき',
+      elementTypeId: 'fire',
+      power: 0,
+      powerPoints: 1,
+      category: MoveCategory.attack,
+      effectId: 'none',
+      learnableLevelMinimum: 1,
+      learnableLevelMaximum: 999,
+      specialEffect: MoveSpecialEffect(
+        power: null,
+        selfStatChanges: {},
+        opponentStatChanges: {},
+        selfHitPointsRecovery: null,
+        isOneHitKnockout: true,
+        summary: '一撃必殺',
+        rule: '一撃必殺',
+      ),
+      accuracy: 30,
+    ),
+    const Move(
+      id: 'fire_sure_hit',
+      displayName: 'ひっちゅう',
+      elementTypeId: 'fire',
+      power: 40,
+      powerPoints: 10,
+      category: MoveCategory.attack,
+      effectId: 'none',
+      learnableLevelMinimum: 1,
+      learnableLevelMaximum: 999,
+      specialEffect: MoveSpecialEffect(
+        power: null,
+        selfStatChanges: {},
+        opponentStatChanges: {},
+        selfHitPointsRecovery: null,
+        isSureHit: true,
+        summary: '必ず当たる',
+        rule: '必ず当たる',
+      ),
+      accuracy: 50,
+    ),
+    const Move(
+      id: 'fire_priority',
+      displayName: 'せんせい',
+      elementTypeId: 'fire',
+      power: 40,
+      powerPoints: 10,
+      category: MoveCategory.attack,
+      effectId: 'none',
+      learnableLevelMinimum: 1,
+      learnableLevelMaximum: 999,
+      specialEffect: null,
+      priority: 1,
+    ),
+    const Move(
+      id: 'fire_inaccurate',
+      displayName: 'はずれやすい',
+      elementTypeId: 'fire',
+      power: 40,
+      powerPoints: 10,
+      category: MoveCategory.attack,
+      effectId: 'none',
+      learnableLevelMinimum: 1,
+      learnableLevelMaximum: 999,
+      specialEffect: null,
+      accuracy: 50,
+    ),
   ],
   effects: [],
   statGrades: [],
@@ -247,7 +472,7 @@ BattleMonster prepare({
 BattleState playUntilFinished({required BattleState state}) {
   var current = state;
   while (current.winner == null) {
-    current = advanceTurn(
+    current = advanceRound(
       state: current,
       playerAction: chooseCpuAction(
         state: current,
@@ -328,7 +553,7 @@ void main() {
       randomSeed: 1,
       battleDate: testBattleDate,
     );
-    MoveUsedEvent firstHit(BattleState battleState) => advanceTurn(
+    MoveUsedEvent firstHit(BattleState battleState) => advanceRound(
       state: battleState,
       playerAction: const UseMoveAction(moveId: 'fire_strong'),
       opponentAction: const UseMoveAction(moveId: 'grass_strong'),
@@ -381,7 +606,7 @@ void main() {
     BattleSideId firstAttacker({
       required int playerSpeed,
       required int opponentSpeed,
-    }) => advanceTurn(
+    }) => advanceRound(
       state: startBattle(
         playerMembers: [
           prepare(
@@ -449,7 +674,7 @@ void main() {
       battleDate: testBattleDate,
     );
     expect(
-      () => advanceTurn(
+      () => advanceRound(
         state: state,
         playerAction: const StruggleAction(),
         opponentAction: const UseMoveAction(moveId: 'grass_weak'),
@@ -458,7 +683,7 @@ void main() {
       throwsArgumentError,
     );
     for (var turn = 0; turn < 2; turn++) {
-      state = advanceTurn(
+      state = advanceRound(
         state: state,
         playerAction: const UseMoveAction(moveId: 'grass_weak'),
         opponentAction: const UseMoveAction(moveId: 'grass_weak'),
@@ -474,7 +699,7 @@ void main() {
       isEmpty,
     );
     expect(
-      () => advanceTurn(
+      () => advanceRound(
         state: state,
         playerAction: const UseMoveAction(moveId: 'grass_weak'),
         opponentAction: const StruggleAction(),
@@ -490,7 +715,7 @@ void main() {
       ),
       isA<StruggleAction>(),
     );
-    final afterStruggle = advanceTurn(
+    final afterStruggle = advanceRound(
       state: state,
       playerAction: const StruggleAction(),
       opponentAction: const StruggleAction(),
@@ -498,7 +723,7 @@ void main() {
     );
     final struggleEvents = afterStruggle.events
         .whereType<MoveUsedEvent>()
-        .where((event) => event.turnNumber == state.turnNumber);
+        .where((event) => event.turnNumber >= state.turnNumber);
     expect(struggleEvents.map((event) => event.moveId), [null, null]);
     expect(struggleEvents.every((event) => event.damage > 0), isTrue);
   });
@@ -570,7 +795,7 @@ void main() {
       );
       expect(finished.events.last, isA<BattleFinishedEvent>());
       expect(
-        () => advanceTurn(
+        () => advanceRound(
           state: finished,
           playerAction: const UseMoveAction(moveId: 'fire_strong'),
           opponentAction: const UseMoveAction(moveId: 'grass_strong'),
@@ -601,7 +826,7 @@ void main() {
   });
 
   test('素早さが同じ時の行動順は seed で決まる (同じ seed なら同じ、seed によって入れ替わる)', () {
-    BattleSideId firstAttacker({required int randomSeed}) => advanceTurn(
+    BattleSideId firstAttacker({required int randomSeed}) => advanceRound(
       state: startBattle(
         playerMembers: [
           prepare(
@@ -687,7 +912,7 @@ void main() {
       battleDate: testBattleDate,
     );
     while (state.winner == null) {
-      state = advanceTurn(
+      state = advanceRound(
         state: state,
         playerAction: chooseCpuAction(
           state: state,
@@ -746,7 +971,7 @@ void main() {
       required String playerMoveId,
       required String opponentMoveId,
     }) => {
-      for (final event in advanceTurn(
+      for (final event in advanceRound(
         state: state,
         playerAction: UseMoveAction(moveId: playerMoveId),
         opponentAction: UseMoveAction(moveId: opponentMoveId),
@@ -792,7 +1017,7 @@ void main() {
       );
       expect(
         playTurn(
-          state: advanceTurn(
+          state: advanceRound(
             state: firstState,
             playerAction: const UseMoveAction(moveId: 'fire_last_resort'),
             opponentAction: const UseMoveAction(moveId: 'fire_strong'),
@@ -878,7 +1103,7 @@ void main() {
       required BattleState state,
       required String playerMoveId,
       required String opponentMoveId,
-    }) => advanceTurn(
+    }) => advanceRound(
       state: state,
       playerAction: UseMoveAction(moveId: playerMoveId),
       opponentAction: UseMoveAction(moveId: opponentMoveId),
@@ -930,7 +1155,7 @@ void main() {
         );
       }
       // 下限に達した後にもう一度使うと、倍率は変わらず、変化の前後が同じ値で残る
-      state = advanceTurn(
+      state = advanceRound(
         state: state,
         playerAction: const UseMoveAction(moveId: 'fire_lower_defense'),
         opponentAction: const StruggleAction(),
@@ -962,6 +1187,7 @@ void main() {
         events: before.events,
         winner: null,
         battleDate: before.battleDate,
+        field: null,
       );
       final beforeWithSameHitPoints = BattleState(
         player: lowered.player,
@@ -981,6 +1207,7 @@ void main() {
         events: before.events,
         winner: null,
         battleDate: before.battleDate,
+        field: null,
       );
       int damageOf({required BattleState state}) => lastMoveOf(
         state: playTurn(
@@ -1145,6 +1372,7 @@ void main() {
           events: const [],
           winner: null,
           battleDate: testBattleDate,
+          field: null,
         );
         expect(
           chooseCpuAction(
@@ -1298,6 +1526,1025 @@ void main() {
         ).map((move) => move.id),
         ['fire_strong', 'grass_strong'],
       );
+    });
+  });
+
+  group('状態・フィールド・命中・先制 (版 9)', () {
+    /// 速い自分 (fire、技 [playerMoveIds]) と遅い相手 (fire、技 [opponentMoveIds]。HP は多め) の 1 対 1 を始める。
+    BattleState duel({
+      required List<String> playerMoveIds,
+      required List<String> opponentMoveIds,
+      int randomSeed = 1,
+      int playerSpeed = 100,
+      int opponentSpeed = 50,
+      int opponentHitPoints = 250,
+    }) => startBattle(
+      playerMembers: [
+        prepare(
+          definition: testDefinition(
+            id: 'player',
+            elementTypeId: 'fire',
+            moveIds: playerMoveIds,
+            speed: playerSpeed,
+            hitPoints: 250,
+          ),
+        ),
+      ],
+      opponentMembers: [
+        prepare(
+          definition: testDefinition(
+            id: 'opponent',
+            elementTypeId: 'fire',
+            moveIds: opponentMoveIds,
+            speed: opponentSpeed,
+            hitPoints: opponentHitPoints,
+          ),
+        ),
+      ],
+      // 小さい seed (1, 2, ...) は xorshift の最初の出力が seed × 270369 (3 の倍数) になり、1〜3 の乱数が
+      // どの seed でも同じ値になる。アプリの seed は Random の 32 bit の値のため、テストでも黄金比の定数を掛けて散らす
+      randomSeed: (randomSeed * 0x9E3779B9) & 0xFFFFFFFF,
+      battleDate: testBattleDate,
+    );
+
+    BattleState play({
+      required BattleState state,
+      required String playerMoveId,
+      required String opponentMoveId,
+    }) => advanceRound(
+      state: state,
+      playerAction: UseMoveAction(moveId: playerMoveId),
+      opponentAction: UseMoveAction(moveId: opponentMoveId),
+      master: testMaster,
+    );
+
+    /// [state] の最後のラウンドで増えたログ。
+    List<BattleEvent> lastRoundEvents({
+      required BattleState state,
+      required BattleState previous,
+    }) => state.events.skip(previous.events.length).toList();
+
+    test('1 ラウンドは両陣営のターン 2 つで、ログのターン番号は行動ごとに 1 増える', () {
+      final before = duel(
+        playerMoveIds: ['fire_strong'],
+        opponentMoveIds: ['fire_strong'],
+      );
+      final after = play(
+        state: before,
+        playerMoveId: 'fire_strong',
+        opponentMoveId: 'fire_strong',
+      );
+      expect(before.turnNumber, 1);
+      expect(before.roundNumber, 1);
+      expect(after.turnNumber, 3);
+      expect(after.roundNumber, 2);
+      expect(
+        after.events.whereType<MoveUsedEvent>().map(
+          (event) => event.turnNumber,
+        ),
+        [1, 2],
+      );
+    });
+
+    test('毒は持ち主のターンの終わりに最大 HP の 1/16 を削り、毒の技を受けると重なりが増える', () {
+      var state = duel(
+        playerMoveIds: ['fire_poison_attack', 'poison_strong'],
+        opponentMoveIds: ['fire_strong'],
+      );
+      state = play(
+        state: state,
+        playerMoveId: 'fire_poison_attack',
+        opponentMoveId: 'fire_strong',
+      );
+      final opponent = state.opponent.activeMember;
+      final poison =
+          opponent.state.statusConditions[StatusConditionKind.poison];
+      expect(poison, isNotNull);
+      expect(poison!.stackCount, 1);
+      expect(poison.remainingTurns, isNull);
+      final maximumHitPoints = effectiveStats(monster: opponent).hitPoints;
+      final poisonDamages = state.events
+          .whereType<StatusConditionDamageEvent>()
+          .toList();
+      expect(poisonDamages, hasLength(1));
+      expect(poisonDamages.single.side, BattleSideId.opponent);
+      expect(poisonDamages.single.damage, maximumHitPoints ~/ 16);
+      expect(poisonDamages.single.turnNumber, 2);
+
+      state = play(
+        state: state,
+        playerMoveId: 'poison_strong',
+        opponentMoveId: 'fire_strong',
+      );
+      expect(
+        state
+            .opponent
+            .activeMember
+            .state
+            .statusConditions[StatusConditionKind.poison]!
+            .stackCount,
+        2,
+      );
+      expect(
+        state.events.whereType<StatusConditionDamageEvent>().last.damage,
+        maximumHitPoints * 2 ~/ 16,
+      );
+      expect(
+        state.events.whereType<StatusConditionInflictedEvent>().last.stackCount,
+        2,
+      );
+    });
+
+    test('麻痺は次の自分のターンの攻撃技だけを失敗させ (PP は減らない)、そのターンの終わりに消える', () {
+      var state = duel(
+        playerMoveIds: ['fire_paralyze', 'fire_strong'],
+        opponentMoveIds: ['fire_strong', 'fire_raise_attack'],
+      );
+      state = play(
+        state: state,
+        playerMoveId: 'fire_paralyze',
+        opponentMoveId: 'fire_strong',
+      );
+      final failed = state.events.whereType<ActionFailedEvent>().single;
+      expect(failed.side, BattleSideId.opponent);
+      expect(failed.reason, ActionFailureReason.paralysis);
+      expect(failed.turnNumber, 2);
+      expect(
+        state.opponent.activeMember.state.remainingPowerPoints['fire_strong'],
+        10,
+      );
+      expect(
+        state.events.whereType<StatusConditionCuredEvent>().single.cause,
+        StatusConditionCureCause.expired,
+      );
+      expect(state.opponent.activeMember.state.statusConditions, isEmpty);
+      // 麻痺でも補助技は使える
+      state = play(
+        state: state,
+        playerMoveId: 'fire_paralyze',
+        opponentMoveId: 'fire_raise_attack',
+      );
+      expect(
+        state.events.whereType<MoveUsedEvent>().last.moveId,
+        'fire_raise_attack',
+      );
+    });
+
+    test('気絶・眠り・凍結は全ての行動を失敗させ、凍結は技のダメージを受けると解ける', () {
+      for (final (moveId, reason) in [
+        ('fire_stun', ActionFailureReason.stun),
+        ('fire_freeze', ActionFailureReason.frozen),
+      ]) {
+        final state = play(
+          state: duel(
+            playerMoveIds: [moveId, 'fire_strong'],
+            opponentMoveIds: ['fire_raise_attack'],
+          ),
+          playerMoveId: moveId,
+          opponentMoveId: 'fire_raise_attack',
+        );
+        expect(
+          state.events.whereType<ActionFailedEvent>().single.reason,
+          reason,
+        );
+      }
+      // 凍結は 1〜3 ターンで、1 ターンなら最初の自分のターンの終わりに解けるため、2 ターン以上残った seed で確かめる
+      var state = duel(
+        playerMoveIds: ['fire_freeze', 'fire_strong'],
+        opponentMoveIds: ['fire_strong'],
+      );
+      for (var seed = 1; seed <= 20; seed++) {
+        state = play(
+          state: duel(
+            playerMoveIds: ['fire_freeze', 'fire_strong'],
+            opponentMoveIds: ['fire_strong'],
+            randomSeed: seed,
+          ),
+          playerMoveId: 'fire_freeze',
+          opponentMoveId: 'fire_strong',
+        );
+        if (state.opponent.activeMember.state.statusConditions.containsKey(
+          StatusConditionKind.frozen,
+        )) {
+          break;
+        }
+      }
+      expect(
+        state.opponent.activeMember.state.statusConditions,
+        contains(StatusConditionKind.frozen),
+      );
+      final previous = state;
+      state = play(
+        state: state,
+        playerMoveId: 'fire_strong',
+        opponentMoveId: 'fire_strong',
+      );
+      final roundEvents = lastRoundEvents(state: state, previous: previous);
+      expect(
+        roundEvents.whereType<StatusConditionCuredEvent>().single.cause,
+        StatusConditionCureCause.damaged,
+      );
+      // 解けた後の自分のターンには動ける
+      expect(
+        roundEvents.whereType<MoveUsedEvent>().map(
+          (event) => event.attackerSide,
+        ),
+        [BattleSideId.player, BattleSideId.opponent],
+      );
+    });
+
+    test('眠りは 1〜3 ターン続き、その間は眠りの失敗になる', () {
+      for (var seed = 1; seed <= 20; seed++) {
+        var state = duel(
+          playerMoveIds: ['fire_drowsy', 'fire_raise_attack'],
+          opponentMoveIds: ['fire_raise_attack'],
+          randomSeed: seed,
+        );
+        state = play(
+          state: state,
+          playerMoveId: 'fire_drowsy',
+          opponentMoveId: 'fire_raise_attack',
+        );
+        // 2 回目の眠気で眠りになり、同じラウンドの相手のターンから失敗が始まる
+        final beforeSleep = state;
+        state = play(
+          state: state,
+          playerMoveId: 'fire_drowsy',
+          opponentMoveId: 'fire_raise_attack',
+        );
+        expect(
+          lastRoundEvents(
+            state: state,
+            previous: beforeSleep,
+          ).whereType<StatusConditionInflictedEvent>().single.kind,
+          StatusConditionKind.sleep,
+        );
+        var failedCount = lastRoundEvents(state: state, previous: beforeSleep)
+            .whereType<ActionFailedEvent>()
+            .where((event) => event.reason == ActionFailureReason.sleep)
+            .length;
+        expect(failedCount, 1);
+        for (var round = 0; round < 2; round++) {
+          final previous = state;
+          state = play(
+            state: state,
+            playerMoveId: 'fire_raise_attack',
+            opponentMoveId: 'fire_raise_attack',
+          );
+          failedCount += lastRoundEvents(state: state, previous: previous)
+              .whereType<ActionFailedEvent>()
+              .where((event) => event.reason == ActionFailureReason.sleep)
+              .length;
+        }
+        expect(failedCount, inInclusiveRange(1, 3));
+        expect(
+          state.opponent.activeMember.state.statusConditions,
+          isNot(contains(StatusConditionKind.sleep)),
+        );
+      }
+    });
+
+    test('眠気は素早さを半分にし、眠気の中でもう一度眠気を受けると眠りに置き換わる', () {
+      var state = duel(
+        playerMoveIds: ['fire_drowsy'],
+        opponentMoveIds: ['fire_raise_attack'],
+      );
+      final speedBefore = effectiveStats(
+        monster: state.opponent.activeMember,
+      ).speed;
+      state = play(
+        state: state,
+        playerMoveId: 'fire_drowsy',
+        opponentMoveId: 'fire_raise_attack',
+      );
+      expect(
+        effectiveStats(monster: state.opponent.activeMember).speed,
+        speedBefore ~/ 2,
+      );
+      state = play(
+        state: state,
+        playerMoveId: 'fire_drowsy',
+        opponentMoveId: 'fire_raise_attack',
+      );
+      final inflicted = state.events
+          .whereType<StatusConditionInflictedEvent>()
+          .last;
+      expect(inflicted.kind, StatusConditionKind.sleep);
+      expect(inflicted.replacedKind, StatusConditionKind.drowsy);
+      expect(
+        state.opponent.activeMember.state.statusConditions,
+        isNot(contains(StatusConditionKind.drowsy)),
+      );
+    });
+
+    test('呪いは攻撃・防御・素早さのどれか 1 つを半分にし、重ねられない', () {
+      var state = duel(
+        playerMoveIds: ['fire_curse'],
+        opponentMoveIds: ['fire_raise_attack'],
+        randomSeed: 3,
+      );
+      final statsBefore = effectiveStats(monster: state.opponent.activeMember);
+      state = play(
+        state: state,
+        playerMoveId: 'fire_curse',
+        opponentMoveId: 'fire_raise_attack',
+      );
+      final curse = state
+          .opponent
+          .activeMember
+          .state
+          .statusConditions[StatusConditionKind.curse]!;
+      final cursedStatKind = curse.cursedStatKind!;
+      // 相手は攻撃を上げる技を使うため、攻撃の倍率が変わっている
+      final statsAfter = effectiveStats(monster: state.opponent.activeMember);
+      final expected =
+          statsBefore.valueOf(statKind: cursedStatKind) *
+          (cursedStatKind == StatKind.attack ? 125 : 100) ~/
+          100 ~/
+          2;
+      expect(statsAfter.valueOf(statKind: cursedStatKind), expected);
+      final inflictedCount = state.events
+          .whereType<StatusConditionInflictedEvent>()
+          .length;
+      state = play(
+        state: state,
+        playerMoveId: 'fire_curse',
+        opponentMoveId: 'fire_raise_attack',
+      );
+      expect(
+        state.events.whereType<StatusConditionInflictedEvent>().length,
+        inflictedCount,
+      );
+    });
+
+    test('やけどは与える攻撃のダメージを半分にし、受けるダメージを 1.1 倍にする', () {
+      final before = duel(
+        playerMoveIds: ['fire_strong'],
+        opponentMoveIds: ['fire_strong'],
+      );
+      BattleState withBurn({required BattleSideId side, required int stack}) {
+        BattleParty withStatus(BattleParty party) => BattleParty(
+          members: [
+            BattleMonster(
+              definition: party.activeMember.definition,
+              state: party.activeMember.state.copyWith(
+                statusConditions: {
+                  StatusConditionKind.burn: StatusCondition(
+                    kind: StatusConditionKind.burn,
+                    remainingTurns: null,
+                    stackCount: stack,
+                    cursedStatKind: null,
+                  ),
+                },
+              ),
+            ),
+          ],
+          activeMemberIndex: 0,
+        );
+        return BattleState(
+          player: side == BattleSideId.player
+              ? withStatus(before.player)
+              : before.player,
+          opponent: side == BattleSideId.opponent
+              ? withStatus(before.opponent)
+              : before.opponent,
+          turnNumber: before.turnNumber,
+          randomState: before.randomState,
+          events: before.events,
+          winner: null,
+          battleDate: before.battleDate,
+          field: null,
+        );
+      }
+
+      int playerDamage(BattleState state) => play(
+        state: state,
+        playerMoveId: 'fire_strong',
+        opponentMoveId: 'fire_strong',
+      ).events.whereType<MoveUsedEvent>().first.damage;
+      final normal = playerDamage(before);
+      expect(
+        playerDamage(withBurn(side: BattleSideId.player, stack: 1)),
+        normal ~/ 2,
+      );
+      expect(
+        playerDamage(withBurn(side: BattleSideId.opponent, stack: 1)),
+        normal * 11 ~/ 10,
+      );
+      expect(
+        playerDamage(withBurn(side: BattleSideId.opponent, stack: 3)),
+        normal * 13 ~/ 10,
+      );
+    });
+
+    test('興奮は攻撃を 1.5 倍、防御を半分にする', () {
+      var state = duel(
+        playerMoveIds: ['fire_excite'],
+        opponentMoveIds: ['fire_raise_attack'],
+      );
+      final statsBefore = effectiveStats(monster: state.player.activeMember);
+      state = play(
+        state: state,
+        playerMoveId: 'fire_excite',
+        opponentMoveId: 'fire_raise_attack',
+      );
+      final statsAfter = effectiveStats(monster: state.player.activeMember);
+      expect(statsAfter.attack, statsBefore.attack * 3 ~/ 2);
+      expect(statsAfter.defense, statsBefore.defense ~/ 2);
+      expect(statsAfter.speed, statsBefore.speed);
+    });
+
+    test('混乱は 1/2 の確率で選んだ技の代わりに他の使える技を出す', () {
+      var replacedCount = 0;
+      const seedCount = 100;
+      for (var seed = 1; seed <= seedCount; seed++) {
+        var state = duel(
+          playerMoveIds: ['fire_confuse'],
+          opponentMoveIds: ['fire_raise_attack', 'fire_lower_speed'],
+          randomSeed: seed,
+        );
+        state = play(
+          state: state,
+          playerMoveId: 'fire_confuse',
+          opponentMoveId: 'fire_raise_attack',
+        );
+        final previous = state;
+        state = play(
+          state: state,
+          playerMoveId: 'fire_confuse',
+          opponentMoveId: 'fire_raise_attack',
+        );
+        final opponentMove = lastRoundEvents(state: state, previous: previous)
+            .whereType<MoveUsedEvent>()
+            .firstWhere((event) => event.attackerSide == BattleSideId.opponent);
+        if (opponentMove.replacedMoveId != null) {
+          replacedCount++;
+          expect(opponentMove.replacedMoveId, 'fire_raise_attack');
+          expect(opponentMove.moveId, 'fire_lower_speed');
+          // PP は実際に出た技から減る
+          expect(
+            state
+                .opponent
+                .activeMember
+                .state
+                .remainingPowerPoints['fire_lower_speed'],
+            lessThan(10),
+          );
+        }
+      }
+      // 1/2 の期待値は 50 回。xorshift の偏りを許す幅として ±25 にした
+      expect(replacedCount, inInclusiveRange(25, 75));
+    });
+
+    test('命中率 50 の技は外れることがあり (PP は使う)、必中の技は眩暈でも外れない', () {
+      var missedCount = 0;
+      const seedCount = 100;
+      for (var seed = 1; seed <= seedCount; seed++) {
+        final state = play(
+          state: duel(
+            playerMoveIds: ['fire_inaccurate'],
+            opponentMoveIds: ['fire_raise_attack'],
+            randomSeed: seed,
+          ),
+          playerMoveId: 'fire_inaccurate',
+          opponentMoveId: 'fire_raise_attack',
+        );
+        final missed = state.events.whereType<ActionFailedEvent>().where(
+          (event) => event.reason == ActionFailureReason.missed,
+        );
+        if (missed.isNotEmpty) {
+          missedCount++;
+          expect(missed.single.side, BattleSideId.player);
+          expect(missed.single.moveId, 'fire_inaccurate');
+        }
+        expect(
+          state
+              .player
+              .activeMember
+              .state
+              .remainingPowerPoints['fire_inaccurate'],
+          9,
+        );
+      }
+      expect(missedCount, inInclusiveRange(25, 75));
+
+      for (var seed = 1; seed <= 30; seed++) {
+        var state = duel(
+          playerMoveIds: ['fire_sure_hit', 'fire_inaccurate'],
+          opponentMoveIds: ['fire_dizzy'],
+          randomSeed: seed,
+        );
+        state = play(
+          state: state,
+          playerMoveId: 'fire_sure_hit',
+          opponentMoveId: 'fire_dizzy',
+        );
+        expect(
+          state.player.activeMember.state.statusConditions,
+          contains(StatusConditionKind.dizzy),
+        );
+        expect(
+          moveHitChancePercent(
+            move: testMaster.moveById(moveId: 'fire_inaccurate'),
+            attacker: state.player.activeMember,
+          ),
+          35,
+        );
+        state = play(
+          state: state,
+          playerMoveId: 'fire_sure_hit',
+          opponentMoveId: 'fire_dizzy',
+        );
+        expect(state.events.whereType<ActionFailedEvent>(), isEmpty);
+      }
+    });
+
+    test('一撃必殺は当たれば威力に関係なく相手の HP を 0 にし、PP 1 で外れやすい', () {
+      var hitCount = 0;
+      const seedCount = 100;
+      for (var seed = 1; seed <= seedCount; seed++) {
+        final state = play(
+          state: duel(
+            playerMoveIds: ['fire_one_hit', 'fire_strong'],
+            opponentMoveIds: ['fire_strong'],
+            randomSeed: seed,
+          ),
+          playerMoveId: 'fire_one_hit',
+          opponentMoveId: 'fire_strong',
+        );
+        final moveUsed = state.events.whereType<MoveUsedEvent>().where(
+          (event) => event.attackerSide == BattleSideId.player,
+        );
+        if (moveUsed.isNotEmpty) {
+          hitCount++;
+          expect(moveUsed.single.isOneHitKnockout, isTrue);
+          expect(moveUsed.single.defenderRemainingHitPoints, 0);
+          expect(state.winner, BattleSideId.player);
+        }
+        expect(
+          state.player.activeMember.state.remainingPowerPoints['fire_one_hit'],
+          0,
+        );
+      }
+      // 命中率 30 の期待値は 30 回
+      expect(hitCount, inInclusiveRange(12, 48));
+    });
+
+    test('自爆はダメージを与えた後に自分の HP を 0 にし、相打ちなら利用者の勝ち', () {
+      final state = play(
+        state: duel(
+          playerMoveIds: ['fire_self_destruct'],
+          opponentMoveIds: ['fire_strong'],
+        ),
+        playerMoveId: 'fire_self_destruct',
+        opponentMoveId: 'fire_strong',
+      );
+      // 自分が速いため先に自爆する。倒れた相手には後に動く側も技を使わないため、技のログは自爆の 1 件だけ
+      final moveUsed = state.events.whereType<MoveUsedEvent>().single;
+      expect(moveUsed.attackerSide, BattleSideId.player);
+      expect(moveUsed.selfDestructed, isTrue);
+      expect(moveUsed.damage, greaterThan(0));
+      expect(moveUsed.attackerRemainingHitPoints, 0);
+      expect(state.player.activeMember.isFainted, isTrue);
+      expect(
+        state.events.whereType<MonsterFaintedEvent>().map(
+          (event) => event.side,
+        ),
+        [BattleSideId.player],
+      );
+      // 相手は技を使っていないので PP も減らない
+      expect(
+        state.opponent.activeMember.state.remainingPowerPoints['fire_strong'],
+        10,
+      );
+      expect(state.winner, BattleSideId.opponent);
+
+      final mutual = play(
+        state: duel(
+          playerMoveIds: ['fire_self_destruct'],
+          opponentMoveIds: ['fire_strong'],
+          opponentHitPoints: 1,
+        ),
+        playerMoveId: 'fire_self_destruct',
+        opponentMoveId: 'fire_strong',
+      );
+      expect(mutual.player.isDefeated, isTrue);
+      expect(mutual.opponent.isDefeated, isTrue);
+      expect(mutual.winner, BattleSideId.player);
+      expect(mutual.events.whereType<MonsterFaintedEvent>(), hasLength(2));
+    });
+
+    test('先に動いた側が毒で倒れた時も、後に動く側は倒れた相手に技を使わず、倒れたログは 1 件', () {
+      // 毒の持ち主 (自分) を最大 HP が小さく毒 4 重ねで 1 ターンで倒れる状態にする
+      final before = duel(
+        playerMoveIds: ['fire_raise_attack'],
+        opponentMoveIds: ['fire_strong'],
+      );
+      final player = before.player.activeMember;
+      final maximumHitPoints = effectiveStats(monster: player).hitPoints;
+      final poisoned = BattleState(
+        player: BattleParty(
+          members: [
+            BattleMonster(
+              definition: player.definition,
+              state: player.state.copyWith(
+                currentHitPoints: 1,
+                statusConditions: const {
+                  StatusConditionKind.poison: StatusCondition(
+                    kind: StatusConditionKind.poison,
+                    remainingTurns: null,
+                    stackCount: 1,
+                    cursedStatKind: null,
+                  ),
+                },
+              ),
+            ),
+          ],
+          activeMemberIndex: 0,
+        ),
+        opponent: before.opponent,
+        turnNumber: before.turnNumber,
+        randomState: before.randomState,
+        events: const [],
+        winner: null,
+        battleDate: before.battleDate,
+        field: null,
+      );
+      expect(
+        poisonDamage(maximumHitPoints: maximumHitPoints, stackCount: 1),
+        greaterThanOrEqualTo(1),
+      );
+      final state = play(
+        state: poisoned,
+        playerMoveId: 'fire_raise_attack',
+        opponentMoveId: 'fire_strong',
+      );
+      expect(
+        state.events.whereType<MoveUsedEvent>().map(
+          (event) => event.attackerSide,
+        ),
+        [BattleSideId.player],
+      );
+      expect(
+        state.events.whereType<StatusConditionDamageEvent>(),
+        hasLength(1),
+      );
+      expect(
+        state.events.whereType<MonsterFaintedEvent>().map(
+          (event) => event.side,
+        ),
+        [BattleSideId.player],
+      );
+      expect(state.winner, BattleSideId.opponent);
+    });
+
+    test('自爆・一撃必殺だけが残った時はわるあがきも選べる', () {
+      final state = duel(
+        playerMoveIds: ['fire_one_hit', 'fire_self_destruct'],
+        opponentMoveIds: ['fire_strong'],
+      );
+      expect(
+        () => advanceRound(
+          state: state,
+          playerAction: const StruggleAction(),
+          opponentAction: const UseMoveAction(moveId: 'fire_strong'),
+          master: testMaster,
+        ),
+        returnsNormally,
+      );
+      expect(
+        () => advanceRound(
+          state: duel(
+            playerMoveIds: ['fire_one_hit', 'fire_strong'],
+            opponentMoveIds: ['fire_strong'],
+          ),
+          playerAction: const StruggleAction(),
+          opponentAction: const UseMoveAction(moveId: 'fire_strong'),
+          master: testMaster,
+        ),
+        throwsArgumentError,
+      );
+    });
+
+    test('先制の技は素早さに関係なく先に出る', () {
+      final state = play(
+        state: duel(
+          playerMoveIds: ['fire_strong'],
+          opponentMoveIds: ['fire_priority'],
+        ),
+        playerMoveId: 'fire_strong',
+        opponentMoveId: 'fire_priority',
+      );
+      expect(
+        state.events.whereType<MoveUsedEvent>().map(
+          (event) => event.attackerSide,
+        ),
+        [BattleSideId.opponent, BattleSideId.player],
+      );
+    });
+
+    test('状態を解除する技は自分の状態をすべて消す', () {
+      var state = duel(
+        playerMoveIds: ['fire_burn', 'fire_poison_support'],
+        opponentMoveIds: ['fire_cure', 'fire_raise_attack'],
+      );
+      state = play(
+        state: state,
+        playerMoveId: 'fire_burn',
+        opponentMoveId: 'fire_raise_attack',
+      );
+      state = play(
+        state: state,
+        playerMoveId: 'fire_poison_support',
+        opponentMoveId: 'fire_raise_attack',
+      );
+      expect(state.opponent.activeMember.state.statusConditions, hasLength(2));
+      final previous = state;
+      state = play(
+        state: state,
+        playerMoveId: 'fire_burn',
+        opponentMoveId: 'fire_cure',
+      );
+      final cured = lastRoundEvents(
+        state: state,
+        previous: previous,
+      ).whereType<StatusConditionCuredEvent>().single;
+      expect(cured.cause, StatusConditionCureCause.move);
+      expect(
+        cured.kinds,
+        unorderedEquals([StatusConditionKind.burn, StatusConditionKind.poison]),
+      );
+      expect(state.opponent.activeMember.state.statusConditions, isEmpty);
+      // 毒が消えた後のターンの終わりには毒のダメージを受けない
+      expect(
+        lastRoundEvents(
+          state: state,
+          previous: previous,
+        ).whereType<StatusConditionDamageEvent>(),
+        isEmpty,
+      );
+    });
+
+    test('入れ替えのフィールドは次のラウンドから 3 ラウンドの間、ラウンドの始めに 2 つのステータスを入れ替える', () {
+      var state = duel(
+        playerMoveIds: ['fire_shuffle', 'fire_raise_attack'],
+        opponentMoveIds: ['fire_raise_attack'],
+      );
+      state = play(
+        state: state,
+        playerMoveId: 'fire_shuffle',
+        opponentMoveId: 'fire_raise_attack',
+      );
+      expect(state.field?.kind, FieldEffectKind.statShuffle);
+      expect(state.field?.remainingRounds, 3);
+      expect(state.field?.swappedStatKinds, isNull);
+      expect(state.events.whereType<FieldEffectStartedEvent>(), hasLength(1));
+      for (var round = 0; round < 3; round++) {
+        final previous = state;
+        state = play(
+          state: state,
+          playerMoveId: 'fire_raise_attack',
+          opponentMoveId: 'fire_raise_attack',
+        );
+        final shuffled = lastRoundEvents(
+          state: state,
+          previous: previous,
+        ).whereType<FieldEffectShuffledEvent>().single;
+        expect(shuffled.statKinds.$1, isNot(shuffled.statKinds.$2));
+        expect(state.field?.remainingRounds, 2 - round);
+        final swapped = state.field!.swappedStatKinds!;
+        final plain = effectiveStats(monster: state.player.activeMember);
+        final onField = effectiveStats(
+          monster: state.player.activeMember,
+          field: state.field,
+        );
+        expect(
+          onField.valueOf(statKind: swapped.$1),
+          plain.valueOf(statKind: swapped.$2),
+        );
+        expect(
+          onField.valueOf(statKind: swapped.$2),
+          plain.valueOf(statKind: swapped.$1),
+        );
+      }
+      final previous = state;
+      state = play(
+        state: state,
+        playerMoveId: 'fire_raise_attack',
+        opponentMoveId: 'fire_raise_attack',
+      );
+      expect(
+        lastRoundEvents(
+          state: state,
+          previous: previous,
+        ).whereType<FieldEffectEndedEvent>(),
+        hasLength(1),
+      );
+      expect(state.field, isNull);
+    });
+
+    test('CPU は状態を付ける補助技を相手がその状態でない時だけ効果ありとみなし、一撃必殺・自爆を通常の攻撃に選ばない', () {
+      var state = duel(
+        playerMoveIds: ['fire_paralyze', 'fire_strong'],
+        opponentMoveIds: ['fire_strong'],
+      );
+      var supportCount = 0;
+      for (var seed = 1; seed <= 100; seed++) {
+        final action = chooseCpuAction(
+          state: duel(
+            playerMoveIds: ['fire_paralyze', 'fire_strong'],
+            opponentMoveIds: ['fire_strong'],
+            randomSeed: seed,
+          ),
+          side: BattleSideId.player,
+          master: testMaster,
+        );
+        if (action case UseMoveAction(moveId: 'fire_paralyze')) {
+          supportCount++;
+        }
+      }
+      expect(supportCount, inInclusiveRange(10, 40));
+      state = play(
+        state: state,
+        playerMoveId: 'fire_paralyze',
+        opponentMoveId: 'fire_strong',
+      );
+      // 相手が麻痺の間 (このラウンドの始め) は麻痺の技を選ばない
+      expect(
+        state.opponent.activeMember.state.statusConditions,
+        isNot(contains(StatusConditionKind.paralysis)),
+      );
+
+      var oneHitCount = 0;
+      for (var seed = 1; seed <= 100; seed++) {
+        final action = chooseCpuAction(
+          state: duel(
+            playerMoveIds: [
+              'fire_one_hit',
+              'fire_self_destruct',
+              'fire_strong',
+            ],
+            opponentMoveIds: ['fire_strong'],
+            randomSeed: seed,
+          ),
+          side: BattleSideId.player,
+          master: testMaster,
+        );
+        switch (action) {
+          case UseMoveAction(moveId: 'fire_one_hit'):
+            oneHitCount++;
+          case UseMoveAction(moveId: 'fire_strong'):
+            break;
+          default:
+            fail('HP が満タンの時に自爆・わるあがきを選んだ: $action');
+        }
+      }
+      expect(oneHitCount, inInclusiveRange(10, 40));
+    });
+
+    test('CPU は通常の攻撃技が無く一撃必殺・自爆だけが残った時、確率で選ばなければわるあがきにし、HP が満タンなら自爆しない', () {
+      var oneHitCount = 0;
+      var struggleCount = 0;
+      for (final moveIds in [
+        ['fire_one_hit', 'fire_self_destruct'],
+        ['fire_self_destruct'],
+        ['fire_one_hit', 'fire_raise_attack'],
+      ]) {
+        for (var seed = 1; seed <= 30; seed++) {
+          final state = duel(
+            playerMoveIds: moveIds,
+            opponentMoveIds: ['fire_strong'],
+            randomSeed: seed,
+          );
+          final action = chooseCpuAction(
+            state: state,
+            side: BattleSideId.player,
+            master: testMaster,
+          );
+          switch (action) {
+            case UseMoveAction(moveId: 'fire_one_hit'):
+              oneHitCount++;
+            case UseMoveAction(moveId: 'fire_raise_attack'):
+              break;
+            case StruggleAction():
+              struggleCount++;
+            default:
+              fail('HP が満タンの時に自爆を選んだ: $moveIds seed=$seed: $action');
+          }
+          // 選んだ行動は advanceRound の検証を通る
+          expect(
+            () => advanceRound(
+              state: state,
+              playerAction: action,
+              opponentAction: const UseMoveAction(moveId: 'fire_strong'),
+              master: testMaster,
+            ),
+            returnsNormally,
+            reason: '$moveIds seed=$seed: $action',
+          );
+        }
+      }
+      expect(oneHitCount, greaterThan(0));
+      expect(struggleCount, greaterThan(0));
+    });
+
+    test('麻痺と混乱が重なり、補助技が攻撃技に置き換わった時も麻痺で失敗する', () {
+      final before = duel(
+        playerMoveIds: ['fire_raise_attack'],
+        opponentMoveIds: ['fire_raise_attack', 'fire_strong'],
+      );
+      BattleState withStatuses({required int seed}) {
+        final opponent = before.opponent.activeMember;
+        return BattleState(
+          player: before.player,
+          opponent: BattleParty(
+            members: [
+              BattleMonster(
+                definition: opponent.definition,
+                state: opponent.state.copyWith(
+                  statusConditions: const {
+                    StatusConditionKind.paralysis: StatusCondition(
+                      kind: StatusConditionKind.paralysis,
+                      remainingTurns: 5,
+                      stackCount: 1,
+                      cursedStatKind: null,
+                    ),
+                    StatusConditionKind.confusion: StatusCondition(
+                      kind: StatusConditionKind.confusion,
+                      remainingTurns: 5,
+                      stackCount: 1,
+                      cursedStatKind: null,
+                    ),
+                  },
+                ),
+              ),
+            ],
+            activeMemberIndex: 0,
+          ),
+          turnNumber: before.turnNumber,
+          randomState: seed,
+          events: const [],
+          winner: null,
+          battleDate: before.battleDate,
+          field: null,
+        );
+      }
+
+      var paralyzedCount = 0;
+      for (var seed = 1; seed <= 60; seed++) {
+        final state = play(
+          state: withStatuses(seed: seed * 0x9E3779B9 & 0xFFFFFFFF),
+          playerMoveId: 'fire_raise_attack',
+          opponentMoveId: 'fire_raise_attack',
+        );
+        // 相手が攻撃技を出すことはない (置き換わった攻撃技は麻痺で失敗する)
+        expect(
+          state.events.whereType<MoveUsedEvent>().where(
+            (event) =>
+                event.attackerSide == BattleSideId.opponent &&
+                event.moveId == 'fire_strong',
+          ),
+          isEmpty,
+          reason: 'seed=$seed',
+        );
+        final failed = state.events.whereType<ActionFailedEvent>().where(
+          (event) => event.reason == ActionFailureReason.paralysis,
+        );
+        if (failed.isNotEmpty) {
+          paralyzedCount++;
+          expect(failed.single.moveId, 'fire_strong');
+        }
+      }
+      // 混乱で置き換わるのは 1/2 なので、半分ほどが麻痺で失敗する
+      expect(paralyzedCount, inInclusiveRange(15, 45));
+    });
+
+    test('続いている入れ替えのフィールドを同じ技で始め直しても、そのラウンドの入れ替えは保たれる', () {
+      var state = duel(
+        playerMoveIds: ['fire_shuffle', 'fire_raise_attack'],
+        opponentMoveIds: ['fire_raise_attack'],
+      );
+      state = play(
+        state: state,
+        playerMoveId: 'fire_shuffle',
+        opponentMoveId: 'fire_raise_attack',
+      );
+      state = play(
+        state: state,
+        playerMoveId: 'fire_raise_attack',
+        opponentMoveId: 'fire_raise_attack',
+      );
+      final swappedBefore = state.field!.swappedStatKinds;
+      expect(swappedBefore, isNotNull);
+      state = play(
+        state: state,
+        playerMoveId: 'fire_shuffle',
+        opponentMoveId: 'fire_raise_attack',
+      );
+      expect(state.field?.remainingRounds, 3);
+      // このラウンドの始めに選び直した組のまま (始め直しで消えない)
+      expect(state.field?.swappedStatKinds, isNotNull);
+      expect(state.events.whereType<FieldEffectShuffledEvent>().length, 2);
     });
   });
 }

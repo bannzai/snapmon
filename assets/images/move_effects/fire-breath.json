@@ -5,130 +5,130 @@
    "frame": {
     "x": 0,
     "y": 0,
-    "w": 160,
-    "h": 116
+    "w": 156,
+    "h": 113
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 160,
-    "h": 116
+    "w": 156,
+    "h": 113
    },
    "sourceSize": {
-    "w": 160,
-    "h": 116
+    "w": 156,
+    "h": 113
    },
    "duration": 33
   },
   {
    "filename": "fire-breath 1",
    "frame": {
-    "x": 160,
+    "x": 156,
     "y": 0,
-    "w": 160,
-    "h": 116
+    "w": 156,
+    "h": 113
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 160,
-    "h": 116
+    "w": 156,
+    "h": 113
    },
    "sourceSize": {
-    "w": 160,
-    "h": 116
+    "w": 156,
+    "h": 113
    },
    "duration": 33
   },
   {
    "filename": "fire-breath 2",
    "frame": {
-    "x": 320,
+    "x": 312,
     "y": 0,
-    "w": 160,
-    "h": 116
+    "w": 156,
+    "h": 113
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 160,
-    "h": 116
+    "w": 156,
+    "h": 113
    },
    "sourceSize": {
-    "w": 160,
-    "h": 116
+    "w": 156,
+    "h": 113
    },
    "duration": 33
   },
   {
    "filename": "fire-breath 3",
    "frame": {
-    "x": 480,
-    "y": 0,
-    "w": 160,
-    "h": 116
+    "x": 0,
+    "y": 113,
+    "w": 156,
+    "h": 113
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 160,
-    "h": 116
+    "w": 156,
+    "h": 113
    },
    "sourceSize": {
-    "w": 160,
-    "h": 116
+    "w": 156,
+    "h": 113
    },
    "duration": 33
   },
   {
    "filename": "fire-breath 4",
    "frame": {
-    "x": 640,
-    "y": 0,
-    "w": 160,
-    "h": 116
+    "x": 156,
+    "y": 113,
+    "w": 156,
+    "h": 113
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 160,
-    "h": 116
+    "w": 156,
+    "h": 113
    },
    "sourceSize": {
-    "w": 160,
-    "h": 116
+    "w": 156,
+    "h": 113
    },
    "duration": 33
   },
   {
    "filename": "fire-breath 5",
    "frame": {
-    "x": 800,
-    "y": 0,
-    "w": 160,
-    "h": 116
+    "x": 312,
+    "y": 113,
+    "w": 156,
+    "h": 113
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 160,
-    "h": 116
+    "w": 156,
+    "h": 113
    },
    "sourceSize": {
-    "w": 160,
-    "h": 116
+    "w": 156,
+    "h": 113
    },
    "duration": 33
   },
@@ -136,857 +136,131 @@
    "filename": "fire-breath 6",
    "frame": {
     "x": 0,
-    "y": 116,
-    "w": 160,
-    "h": 116
+    "y": 226,
+    "w": 156,
+    "h": 113
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 160,
-    "h": 116
+    "w": 156,
+    "h": 113
    },
    "sourceSize": {
-    "w": 160,
-    "h": 116
+    "w": 156,
+    "h": 113
    },
    "duration": 33
   },
   {
    "filename": "fire-breath 7",
    "frame": {
-    "x": 160,
-    "y": 116,
-    "w": 160,
-    "h": 116
+    "x": 156,
+    "y": 226,
+    "w": 156,
+    "h": 113
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 160,
-    "h": 116
+    "w": 156,
+    "h": 113
    },
    "sourceSize": {
-    "w": 160,
-    "h": 116
+    "w": 156,
+    "h": 113
    },
    "duration": 33
   },
   {
    "filename": "fire-breath 8",
    "frame": {
-    "x": 320,
-    "y": 116,
-    "w": 160,
-    "h": 116
+    "x": 312,
+    "y": 226,
+    "w": 156,
+    "h": 113
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 160,
-    "h": 116
+    "w": 156,
+    "h": 113
    },
    "sourceSize": {
-    "w": 160,
-    "h": 116
+    "w": 156,
+    "h": 113
    },
    "duration": 33
   },
   {
    "filename": "fire-breath 9",
    "frame": {
-    "x": 480,
-    "y": 116,
-    "w": 160,
-    "h": 116
+    "x": 0,
+    "y": 339,
+    "w": 156,
+    "h": 113
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 160,
-    "h": 116
+    "w": 156,
+    "h": 113
    },
    "sourceSize": {
-    "w": 160,
-    "h": 116
+    "w": 156,
+    "h": 113
    },
    "duration": 33
   },
   {
    "filename": "fire-breath 10",
    "frame": {
-    "x": 640,
-    "y": 116,
-    "w": 160,
-    "h": 116
+    "x": 156,
+    "y": 339,
+    "w": 156,
+    "h": 113
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 160,
-    "h": 116
+    "w": 156,
+    "h": 113
    },
    "sourceSize": {
-    "w": 160,
-    "h": 116
+    "w": 156,
+    "h": 113
    },
    "duration": 33
   },
   {
    "filename": "fire-breath 11",
    "frame": {
-    "x": 800,
-    "y": 116,
-    "w": 160,
-    "h": 116
+    "x": 312,
+    "y": 339,
+    "w": 156,
+    "h": 113
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 160,
-    "h": 116
+    "w": 156,
+    "h": 113
    },
    "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 12",
-   "frame": {
-    "x": 0,
-    "y": 232,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 13",
-   "frame": {
-    "x": 160,
-    "y": 232,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 14",
-   "frame": {
-    "x": 320,
-    "y": 232,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 15",
-   "frame": {
-    "x": 480,
-    "y": 232,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 16",
-   "frame": {
-    "x": 640,
-    "y": 232,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 17",
-   "frame": {
-    "x": 800,
-    "y": 232,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 18",
-   "frame": {
-    "x": 0,
-    "y": 348,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 19",
-   "frame": {
-    "x": 160,
-    "y": 348,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 20",
-   "frame": {
-    "x": 320,
-    "y": 348,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 21",
-   "frame": {
-    "x": 480,
-    "y": 348,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 22",
-   "frame": {
-    "x": 640,
-    "y": 348,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 23",
-   "frame": {
-    "x": 800,
-    "y": 348,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 24",
-   "frame": {
-    "x": 0,
-    "y": 464,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 25",
-   "frame": {
-    "x": 160,
-    "y": 464,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 26",
-   "frame": {
-    "x": 320,
-    "y": 464,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 27",
-   "frame": {
-    "x": 480,
-    "y": 464,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 28",
-   "frame": {
-    "x": 640,
-    "y": 464,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 29",
-   "frame": {
-    "x": 800,
-    "y": 464,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 30",
-   "frame": {
-    "x": 0,
-    "y": 580,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 31",
-   "frame": {
-    "x": 160,
-    "y": 580,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 32",
-   "frame": {
-    "x": 320,
-    "y": 580,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 33",
-   "frame": {
-    "x": 480,
-    "y": 580,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 34",
-   "frame": {
-    "x": 640,
-    "y": 580,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 35",
-   "frame": {
-    "x": 800,
-    "y": 580,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 36",
-   "frame": {
-    "x": 0,
-    "y": 696,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 37",
-   "frame": {
-    "x": 160,
-    "y": 696,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 38",
-   "frame": {
-    "x": 320,
-    "y": 696,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 39",
-   "frame": {
-    "x": 480,
-    "y": 696,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 40",
-   "frame": {
-    "x": 640,
-    "y": 696,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 41",
-   "frame": {
-    "x": 800,
-    "y": 696,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 42",
-   "frame": {
-    "x": 0,
-    "y": 812,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 43",
-   "frame": {
-    "x": 160,
-    "y": 812,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
-   },
-   "duration": 33
-  },
-  {
-   "filename": "fire-breath 44",
-   "frame": {
-    "x": 320,
-    "y": 812,
-    "w": 160,
-    "h": 116
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 160,
-    "h": 116
-   },
-   "sourceSize": {
-    "w": 160,
-    "h": 116
+    "w": 156,
+    "h": 113
    },
    "duration": 33
   }
@@ -997,15 +271,15 @@
   "image": "fire-breath.png",
   "format": "RGBA8888",
   "size": {
-   "w": 960,
-   "h": 928
+   "w": 468,
+   "h": 452
   },
   "scale": "1",
   "frameTags": [
    {
     "name": "fire-breath",
     "from": 0,
-    "to": 44,
+    "to": 11,
     "direction": "forward"
    }
   ],
@@ -1014,16 +288,27 @@
    "name": "Fire breath",
    "fps": 30,
    "loop": true,
-   "frames": 45,
+   "frames": 12,
    "frameSize": [
-    160,
-    116
+    156,
+    113
    ],
    "pivot": [
     12,
     72
    ],
-   "columns": 6
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.478,
+    0.5
+   ],
+   "sourceFrames": 45,
+   "sourceFrameSize": [
+    160,
+    116
+   ]
   }
  }
 }

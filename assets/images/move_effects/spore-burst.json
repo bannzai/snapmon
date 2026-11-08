@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "spore-burst 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 122,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 122,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 122,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spore-burst 1",
+   "frame": {
+    "x": 122,
+    "y": 0,
+    "w": 122,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 122,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 122,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spore-burst 2",
+   "frame": {
+    "x": 244,
+    "y": 0,
+    "w": 122,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 122,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 122,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spore-burst 3",
+   "frame": {
+    "x": 0,
+    "y": 109,
+    "w": 122,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 122,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 122,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spore-burst 4",
+   "frame": {
+    "x": 122,
+    "y": 109,
+    "w": 122,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 122,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 122,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spore-burst 5",
+   "frame": {
+    "x": 244,
+    "y": 109,
+    "w": 122,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 122,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 122,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spore-burst 6",
+   "frame": {
+    "x": 0,
+    "y": 218,
+    "w": 122,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 122,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 122,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spore-burst 7",
+   "frame": {
+    "x": 122,
+    "y": 218,
+    "w": 122,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 122,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 122,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spore-burst 8",
+   "frame": {
+    "x": 244,
+    "y": 218,
+    "w": 122,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 122,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 122,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spore-burst 9",
+   "frame": {
+    "x": 0,
+    "y": 327,
+    "w": 122,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 122,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 122,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spore-burst 10",
+   "frame": {
+    "x": 122,
+    "y": 327,
+    "w": 122,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 122,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 122,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spore-burst 11",
+   "frame": {
+    "x": 244,
+    "y": 327,
+    "w": 122,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 122,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 122,
+    "h": 109
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "spore-burst.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 366,
+   "h": 436
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "spore-burst",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "nature/spore-burst",
+   "name": "Spore burst",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    122,
+    109
+   ],
+   "pivot": [
+    106,
+    118
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.492,
+    0.505
+   ],
+   "sourceFrames": 97,
+   "sourceFrameSize": [
+    212,
+    132
+   ]
+  }
+ }
+}

@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "bullet-tracer 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 158,
+    "h": 37
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 158,
+    "h": 37
+   },
+   "sourceSize": {
+    "w": 158,
+    "h": 37
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bullet-tracer 1",
+   "frame": {
+    "x": 158,
+    "y": 0,
+    "w": 158,
+    "h": 37
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 158,
+    "h": 37
+   },
+   "sourceSize": {
+    "w": 158,
+    "h": 37
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bullet-tracer 2",
+   "frame": {
+    "x": 0,
+    "y": 37,
+    "w": 158,
+    "h": 37
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 158,
+    "h": 37
+   },
+   "sourceSize": {
+    "w": 158,
+    "h": 37
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bullet-tracer 3",
+   "frame": {
+    "x": 158,
+    "y": 37,
+    "w": 158,
+    "h": 37
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 158,
+    "h": 37
+   },
+   "sourceSize": {
+    "w": 158,
+    "h": 37
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bullet-tracer 4",
+   "frame": {
+    "x": 0,
+    "y": 74,
+    "w": 158,
+    "h": 37
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 158,
+    "h": 37
+   },
+   "sourceSize": {
+    "w": 158,
+    "h": 37
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bullet-tracer 5",
+   "frame": {
+    "x": 158,
+    "y": 74,
+    "w": 158,
+    "h": 37
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 158,
+    "h": 37
+   },
+   "sourceSize": {
+    "w": 158,
+    "h": 37
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bullet-tracer 6",
+   "frame": {
+    "x": 0,
+    "y": 111,
+    "w": 158,
+    "h": 37
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 158,
+    "h": 37
+   },
+   "sourceSize": {
+    "w": 158,
+    "h": 37
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bullet-tracer 7",
+   "frame": {
+    "x": 158,
+    "y": 111,
+    "w": 158,
+    "h": 37
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 158,
+    "h": 37
+   },
+   "sourceSize": {
+    "w": 158,
+    "h": 37
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bullet-tracer 8",
+   "frame": {
+    "x": 0,
+    "y": 148,
+    "w": 158,
+    "h": 37
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 158,
+    "h": 37
+   },
+   "sourceSize": {
+    "w": 158,
+    "h": 37
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bullet-tracer 9",
+   "frame": {
+    "x": 158,
+    "y": 148,
+    "w": 158,
+    "h": 37
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 158,
+    "h": 37
+   },
+   "sourceSize": {
+    "w": 158,
+    "h": 37
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bullet-tracer 10",
+   "frame": {
+    "x": 0,
+    "y": 185,
+    "w": 158,
+    "h": 37
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 158,
+    "h": 37
+   },
+   "sourceSize": {
+    "w": 158,
+    "h": 37
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bullet-tracer 11",
+   "frame": {
+    "x": 158,
+    "y": 185,
+    "w": 158,
+    "h": 37
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 158,
+    "h": 37
+   },
+   "sourceSize": {
+    "w": 158,
+    "h": 37
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "bullet-tracer.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 316,
+   "h": 222
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "bullet-tracer",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "projectiles/bullet-tracer",
+   "name": "Bullet tracer",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    158,
+    37
+   ],
+   "pivot": [
+    184,
+    18
+   ],
+   "columns": 2
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.487,
+    0.527
+   ],
+   "sourceFrames": 18,
+   "sourceFrameSize": [
+    200,
+    40
+   ]
+  }
+ }
+}

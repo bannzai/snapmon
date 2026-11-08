@@ -1,0 +1,521 @@
+{
+ "frames": [
+  {
+   "filename": "hammer-smash 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 166,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 166,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 166,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "hammer-smash 1",
+   "frame": {
+    "x": 166,
+    "y": 0,
+    "w": 166,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 166,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 166,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "hammer-smash 2",
+   "frame": {
+    "x": 332,
+    "y": 0,
+    "w": 166,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 166,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 166,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "hammer-smash 3",
+   "frame": {
+    "x": 0,
+    "y": 98,
+    "w": 166,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 166,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 166,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "hammer-smash 4",
+   "frame": {
+    "x": 166,
+    "y": 98,
+    "w": 166,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 166,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 166,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "hammer-smash 5",
+   "frame": {
+    "x": 332,
+    "y": 98,
+    "w": 166,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 166,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 166,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "hammer-smash 6",
+   "frame": {
+    "x": 0,
+    "y": 196,
+    "w": 166,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 166,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 166,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "hammer-smash 7",
+   "frame": {
+    "x": 166,
+    "y": 196,
+    "w": 166,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 166,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 166,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "hammer-smash 8",
+   "frame": {
+    "x": 332,
+    "y": 196,
+    "w": 166,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 166,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 166,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "hammer-smash 9",
+   "frame": {
+    "x": 0,
+    "y": 294,
+    "w": 166,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 166,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 166,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "hammer-smash 10",
+   "frame": {
+    "x": 166,
+    "y": 294,
+    "w": 166,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 166,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 166,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "hammer-smash 11",
+   "frame": {
+    "x": 332,
+    "y": 294,
+    "w": 166,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 166,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 166,
+    "h": 98
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "hammer-smash.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 498,
+   "h": 392
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "hammer-smash",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "melee/hammer-smash",
+   "name": "Hammer smash",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    166,
+    98
+   ],
+   "pivot": [
+    80,
+    92
+   ],
+   "columns": 3,
+   "act": {
+    "windup": 0.72,
+    "recovery": 0,
+    "onBody": false,
+    "targets": [
+     66
+    ],
+    "hits": [
+     {
+      "t": 0.15,
+      "freeze": 0.2,
+      "shake": 0.34,
+      "amp": 3,
+      "push": 3
+     }
+    ],
+    "poses": [
+     {
+      "t": -0.72,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 11,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7,
+       "weapon": "hammer",
+       "two": true,
+       "sa": 0.62,
+       "x": -3
+      }
+     },
+     {
+      "t": -0.44,
+      "how": "smooth",
+      "pose": {
+       "crouch": 5,
+       "fx": 16,
+       "fy": -28,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7,
+       "weapon": "hammer",
+       "two": true,
+       "sa": -0.9,
+       "x": -3,
+       "lean": -1
+      }
+     },
+     {
+      "t": -0.2,
+      "how": "smooth",
+      "pose": {
+       "crouch": 0,
+       "fx": 3,
+       "fy": -41,
+       "bx": 9,
+       "by": -21,
+       "ffx": 8,
+       "fbx": -5,
+       "weapon": "hammer",
+       "two": true,
+       "sa": -2.1,
+       "x": -3,
+       "lean": -3,
+       "ffy": -8,
+       "toeB": true
+      }
+     },
+     {
+      "t": -0.03,
+      "how": "smooth",
+      "pose": {
+       "crouch": 0,
+       "fx": 3,
+       "fy": -41,
+       "bx": 9,
+       "by": -21,
+       "ffx": 8,
+       "fbx": -5,
+       "weapon": "hammer",
+       "two": true,
+       "sa": -2.1,
+       "x": -3,
+       "lean": -3,
+       "ffy": -8,
+       "toeB": true,
+       "y": -2
+      }
+     },
+     {
+      "t": 0.06,
+      "how": "snap",
+      "pose": {
+       "crouch": -1,
+       "fx": 13,
+       "fy": -41,
+       "bx": 9,
+       "by": -21,
+       "ffx": 11,
+       "fbx": -7,
+       "weapon": "hammer",
+       "two": true,
+       "sa": -1.2,
+       "x": 0,
+       "y": -3,
+       "lean": 2,
+       "ffy": -8,
+       "ghost": 1
+      }
+     },
+     {
+      "t": 0.11,
+      "how": "snap",
+      "pose": {
+       "crouch": 3,
+       "fx": 19,
+       "fy": -30,
+       "bx": 9,
+       "by": -21,
+       "ffx": 13,
+       "fbx": -7,
+       "weapon": "hammer",
+       "two": true,
+       "sa": -0.15,
+       "x": 0,
+       "y": -1,
+       "lean": 5,
+       "ghost": 1
+      }
+     },
+     {
+      "t": 0.15,
+      "how": "snap",
+      "pose": {
+       "crouch": 7,
+       "fx": 14,
+       "fy": -19,
+       "bx": 9,
+       "by": -21,
+       "ffx": 11,
+       "fbx": -10,
+       "weapon": "hammer",
+       "two": true,
+       "sa": 0.62,
+       "x": -1,
+       "lean": 6
+      }
+     },
+     {
+      "t": 0.62,
+      "how": "smooth",
+      "pose": {
+       "crouch": 6,
+       "fx": 14,
+       "fy": -19,
+       "bx": 9,
+       "by": -21,
+       "ffx": 11,
+       "fbx": -10,
+       "weapon": "hammer",
+       "two": true,
+       "sa": 0.62,
+       "x": -1,
+       "lean": 5
+      }
+     },
+     {
+      "t": 1.02,
+      "how": "smooth",
+      "pose": {
+       "crouch": 5,
+       "fx": 14,
+       "fy": -24,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7,
+       "weapon": "hammer",
+       "two": true,
+       "sa": 0.3,
+       "x": -2,
+       "lean": 2
+      }
+     },
+     {
+      "t": 1.4,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 11,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7,
+       "weapon": "hammer",
+       "two": true,
+       "sa": 0.62,
+       "x": -3
+      }
+     }
+    ]
+   }
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.506,
+    0.541
+   ],
+   "sourceFrames": 61,
+   "sourceFrameSize": [
+    208,
+    112
+   ]
+  }
+ }
+}

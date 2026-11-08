@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "fireball 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 117,
+    "h": 54
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 117,
+    "h": 54
+   },
+   "sourceSize": {
+    "w": 117,
+    "h": 54
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fireball 1",
+   "frame": {
+    "x": 117,
+    "y": 0,
+    "w": 117,
+    "h": 54
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 117,
+    "h": 54
+   },
+   "sourceSize": {
+    "w": 117,
+    "h": 54
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fireball 2",
+   "frame": {
+    "x": 0,
+    "y": 54,
+    "w": 117,
+    "h": 54
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 117,
+    "h": 54
+   },
+   "sourceSize": {
+    "w": 117,
+    "h": 54
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fireball 3",
+   "frame": {
+    "x": 117,
+    "y": 54,
+    "w": 117,
+    "h": 54
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 117,
+    "h": 54
+   },
+   "sourceSize": {
+    "w": 117,
+    "h": 54
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fireball 4",
+   "frame": {
+    "x": 0,
+    "y": 108,
+    "w": 117,
+    "h": 54
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 117,
+    "h": 54
+   },
+   "sourceSize": {
+    "w": 117,
+    "h": 54
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fireball 5",
+   "frame": {
+    "x": 117,
+    "y": 108,
+    "w": 117,
+    "h": 54
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 117,
+    "h": 54
+   },
+   "sourceSize": {
+    "w": 117,
+    "h": 54
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fireball 6",
+   "frame": {
+    "x": 0,
+    "y": 162,
+    "w": 117,
+    "h": 54
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 117,
+    "h": 54
+   },
+   "sourceSize": {
+    "w": 117,
+    "h": 54
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fireball 7",
+   "frame": {
+    "x": 117,
+    "y": 162,
+    "w": 117,
+    "h": 54
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 117,
+    "h": 54
+   },
+   "sourceSize": {
+    "w": 117,
+    "h": 54
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fireball 8",
+   "frame": {
+    "x": 0,
+    "y": 216,
+    "w": 117,
+    "h": 54
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 117,
+    "h": 54
+   },
+   "sourceSize": {
+    "w": 117,
+    "h": 54
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fireball 9",
+   "frame": {
+    "x": 117,
+    "y": 216,
+    "w": 117,
+    "h": 54
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 117,
+    "h": 54
+   },
+   "sourceSize": {
+    "w": 117,
+    "h": 54
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fireball 10",
+   "frame": {
+    "x": 0,
+    "y": 270,
+    "w": 117,
+    "h": 54
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 117,
+    "h": 54
+   },
+   "sourceSize": {
+    "w": 117,
+    "h": 54
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fireball 11",
+   "frame": {
+    "x": 117,
+    "y": 270,
+    "w": 117,
+    "h": 54
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 117,
+    "h": 54
+   },
+   "sourceSize": {
+    "w": 117,
+    "h": 54
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "fireball.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 234,
+   "h": 324
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "fireball",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "fire/fireball",
+   "name": "Fireball",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    117,
+    54
+   ],
+   "pivot": [
+    112,
+    28
+   ],
+   "columns": 2
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.474,
+    0.491
+   ],
+   "sourceFrames": 36,
+   "sourceFrameSize": [
+    136,
+    56
+   ]
+  }
+ }
+}

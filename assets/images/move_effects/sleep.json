@@ -1,0 +1,371 @@
+{
+ "frames": [
+  {
+   "filename": "sleep 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 52,
+    "h": 65
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 52,
+    "h": 65
+   },
+   "sourceSize": {
+    "w": 52,
+    "h": 65
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sleep 1",
+   "frame": {
+    "x": 52,
+    "y": 0,
+    "w": 52,
+    "h": 65
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 52,
+    "h": 65
+   },
+   "sourceSize": {
+    "w": 52,
+    "h": 65
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sleep 2",
+   "frame": {
+    "x": 104,
+    "y": 0,
+    "w": 52,
+    "h": 65
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 52,
+    "h": 65
+   },
+   "sourceSize": {
+    "w": 52,
+    "h": 65
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sleep 3",
+   "frame": {
+    "x": 156,
+    "y": 0,
+    "w": 52,
+    "h": 65
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 52,
+    "h": 65
+   },
+   "sourceSize": {
+    "w": 52,
+    "h": 65
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sleep 4",
+   "frame": {
+    "x": 0,
+    "y": 65,
+    "w": 52,
+    "h": 65
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 52,
+    "h": 65
+   },
+   "sourceSize": {
+    "w": 52,
+    "h": 65
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sleep 5",
+   "frame": {
+    "x": 52,
+    "y": 65,
+    "w": 52,
+    "h": 65
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 52,
+    "h": 65
+   },
+   "sourceSize": {
+    "w": 52,
+    "h": 65
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sleep 6",
+   "frame": {
+    "x": 104,
+    "y": 65,
+    "w": 52,
+    "h": 65
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 52,
+    "h": 65
+   },
+   "sourceSize": {
+    "w": 52,
+    "h": 65
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sleep 7",
+   "frame": {
+    "x": 156,
+    "y": 65,
+    "w": 52,
+    "h": 65
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 52,
+    "h": 65
+   },
+   "sourceSize": {
+    "w": 52,
+    "h": 65
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sleep 8",
+   "frame": {
+    "x": 0,
+    "y": 130,
+    "w": 52,
+    "h": 65
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 52,
+    "h": 65
+   },
+   "sourceSize": {
+    "w": 52,
+    "h": 65
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sleep 9",
+   "frame": {
+    "x": 52,
+    "y": 130,
+    "w": 52,
+    "h": 65
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 52,
+    "h": 65
+   },
+   "sourceSize": {
+    "w": 52,
+    "h": 65
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sleep 10",
+   "frame": {
+    "x": 104,
+    "y": 130,
+    "w": 52,
+    "h": 65
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 52,
+    "h": 65
+   },
+   "sourceSize": {
+    "w": 52,
+    "h": 65
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sleep 11",
+   "frame": {
+    "x": 156,
+    "y": 130,
+    "w": 52,
+    "h": 65
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 52,
+    "h": 65
+   },
+   "sourceSize": {
+    "w": 52,
+    "h": 65
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "sleep.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 208,
+   "h": 195
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "sleep",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "status/sleep",
+   "name": "Sleep",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    52,
+    65
+   ],
+   "pivot": [
+    26,
+    74
+   ],
+   "columns": 4,
+   "act": {
+    "windup": 0,
+    "recovery": 0,
+    "onBody": true,
+    "targets": [],
+    "hits": [],
+    "poses": [
+     {
+      "t": 0,
+      "how": "smooth",
+      "pose": {
+       "turn": 0.9,
+       "crouch": 1,
+       "lean": 1,
+       "hy": 2,
+       "fx": -6,
+       "fy": -14,
+       "bx": 7,
+       "by": -14,
+       "ffx": -2,
+       "fbx": 3
+      }
+     },
+     {
+      "t": 1.2,
+      "how": "smooth",
+      "pose": {
+       "turn": 0.9,
+       "crouch": 2,
+       "lean": 2,
+       "hy": 3,
+       "fx": -6,
+       "fy": -14,
+       "bx": 7,
+       "by": -14,
+       "ffx": -2,
+       "fbx": 3
+      }
+     },
+     {
+      "t": 2.4,
+      "how": "smooth",
+      "pose": {
+       "turn": 0.9,
+       "crouch": 1,
+       "lean": 1,
+       "hy": 2,
+       "fx": -6,
+       "fy": -14,
+       "bx": 7,
+       "by": -14,
+       "ffx": -2,
+       "fbx": 3
+      }
+     }
+    ]
+   }
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.635,
+    0.392
+   ],
+   "sourceFrames": 72,
+   "sourceFrameSize": [
+    60,
+    82
+   ]
+  }
+ }
+}

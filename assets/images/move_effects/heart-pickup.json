@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "heart-pickup 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 40,
+    "h": 45
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 40,
+    "h": 45
+   },
+   "sourceSize": {
+    "w": 40,
+    "h": 45
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heart-pickup 1",
+   "frame": {
+    "x": 40,
+    "y": 0,
+    "w": 40,
+    "h": 45
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 40,
+    "h": 45
+   },
+   "sourceSize": {
+    "w": 40,
+    "h": 45
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heart-pickup 2",
+   "frame": {
+    "x": 80,
+    "y": 0,
+    "w": 40,
+    "h": 45
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 40,
+    "h": 45
+   },
+   "sourceSize": {
+    "w": 40,
+    "h": 45
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heart-pickup 3",
+   "frame": {
+    "x": 120,
+    "y": 0,
+    "w": 40,
+    "h": 45
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 40,
+    "h": 45
+   },
+   "sourceSize": {
+    "w": 40,
+    "h": 45
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heart-pickup 4",
+   "frame": {
+    "x": 0,
+    "y": 45,
+    "w": 40,
+    "h": 45
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 40,
+    "h": 45
+   },
+   "sourceSize": {
+    "w": 40,
+    "h": 45
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heart-pickup 5",
+   "frame": {
+    "x": 40,
+    "y": 45,
+    "w": 40,
+    "h": 45
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 40,
+    "h": 45
+   },
+   "sourceSize": {
+    "w": 40,
+    "h": 45
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heart-pickup 6",
+   "frame": {
+    "x": 80,
+    "y": 45,
+    "w": 40,
+    "h": 45
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 40,
+    "h": 45
+   },
+   "sourceSize": {
+    "w": 40,
+    "h": 45
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heart-pickup 7",
+   "frame": {
+    "x": 120,
+    "y": 45,
+    "w": 40,
+    "h": 45
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 40,
+    "h": 45
+   },
+   "sourceSize": {
+    "w": 40,
+    "h": 45
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heart-pickup 8",
+   "frame": {
+    "x": 0,
+    "y": 90,
+    "w": 40,
+    "h": 45
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 40,
+    "h": 45
+   },
+   "sourceSize": {
+    "w": 40,
+    "h": 45
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heart-pickup 9",
+   "frame": {
+    "x": 40,
+    "y": 90,
+    "w": 40,
+    "h": 45
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 40,
+    "h": 45
+   },
+   "sourceSize": {
+    "w": 40,
+    "h": 45
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heart-pickup 10",
+   "frame": {
+    "x": 80,
+    "y": 90,
+    "w": 40,
+    "h": 45
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 40,
+    "h": 45
+   },
+   "sourceSize": {
+    "w": 40,
+    "h": 45
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heart-pickup 11",
+   "frame": {
+    "x": 120,
+    "y": 90,
+    "w": 40,
+    "h": 45
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 40,
+    "h": 45
+   },
+   "sourceSize": {
+    "w": 40,
+    "h": 45
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "heart-pickup.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 160,
+   "h": 135
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "heart-pickup",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "pickups/heart-pickup",
+   "name": "Heart pickup",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    40,
+    45
+   ],
+   "pivot": [
+    28,
+    52
+   ],
+   "columns": 4
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.525,
+    0.522
+   ],
+   "sourceFrames": 36,
+   "sourceFrameSize": [
+    56,
+    60
+   ]
+  }
+ }
+}

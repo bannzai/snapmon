@@ -1,0 +1,532 @@
+{
+ "frames": [
+  {
+   "filename": "ground-pound 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 170
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 170
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 170
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ground-pound 1",
+   "frame": {
+    "x": 242,
+    "y": 0,
+    "w": 242,
+    "h": 170
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 170
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 170
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ground-pound 2",
+   "frame": {
+    "x": 484,
+    "y": 0,
+    "w": 242,
+    "h": 170
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 170
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 170
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ground-pound 3",
+   "frame": {
+    "x": 0,
+    "y": 170,
+    "w": 242,
+    "h": 170
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 170
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 170
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ground-pound 4",
+   "frame": {
+    "x": 242,
+    "y": 170,
+    "w": 242,
+    "h": 170
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 170
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 170
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ground-pound 5",
+   "frame": {
+    "x": 484,
+    "y": 170,
+    "w": 242,
+    "h": 170
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 170
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 170
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ground-pound 6",
+   "frame": {
+    "x": 0,
+    "y": 340,
+    "w": 242,
+    "h": 170
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 170
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 170
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ground-pound 7",
+   "frame": {
+    "x": 242,
+    "y": 340,
+    "w": 242,
+    "h": 170
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 170
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 170
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ground-pound 8",
+   "frame": {
+    "x": 484,
+    "y": 340,
+    "w": 242,
+    "h": 170
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 170
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 170
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ground-pound 9",
+   "frame": {
+    "x": 0,
+    "y": 510,
+    "w": 242,
+    "h": 170
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 170
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 170
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ground-pound 10",
+   "frame": {
+    "x": 242,
+    "y": 510,
+    "w": 242,
+    "h": 170
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 170
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 170
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ground-pound 11",
+   "frame": {
+    "x": 484,
+    "y": 510,
+    "w": 242,
+    "h": 170
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 170
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 170
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "ground-pound.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 726,
+   "h": 680
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "ground-pound",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "moves/ground-pound",
+   "name": "Ground pound",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    242,
+    170
+   ],
+   "pivot": [
+    152,
+    168
+   ],
+   "columns": 3,
+   "act": {
+    "windup": 0.5,
+    "recovery": 0,
+    "onBody": false,
+    "targets": [
+     80
+    ],
+    "hits": [
+     {
+      "t": 0.62,
+      "freeze": 0.2,
+      "shake": 0.5,
+      "amp": 4,
+      "push": 0
+     },
+     {
+      "t": 0.76,
+      "freeze": 0.04,
+      "shake": 0,
+      "amp": 0,
+      "push": 3
+     },
+     {
+      "t": 1.06,
+      "freeze": 0,
+      "shake": 0,
+      "amp": 0,
+      "push": -1.6
+     }
+    ],
+    "poses": [
+     {
+      "t": -0.5,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 11,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7
+      }
+     },
+     {
+      "t": -0.16,
+      "how": "smooth",
+      "pose": {
+       "crouch": 8,
+       "fx": -6,
+       "fy": -14,
+       "bx": 3,
+       "by": -14,
+       "ffx": 8,
+       "fbx": -8,
+       "lean": 4
+      }
+     },
+     {
+      "t": 0,
+      "how": "smooth",
+      "pose": {
+       "crouch": 7,
+       "fx": -6,
+       "fy": -14,
+       "bx": 3,
+       "by": -14,
+       "ffx": 8,
+       "fbx": -8,
+       "lean": 4
+      }
+     },
+     {
+      "t": 0.03,
+      "how": "snap",
+      "pose": {
+       "turn": 0.8,
+       "crouch": -1,
+       "fx": -9,
+       "fy": -44,
+       "bx": 10,
+       "by": -44,
+       "ffx": 6,
+       "ffy": -8,
+       "fbx": -3,
+       "fby": -3,
+       "toeB": true,
+       "y": -10,
+       "ghost": 1
+      }
+     },
+     {
+      "t": 0.26,
+      "how": "out",
+      "pose": {
+       "turn": 0.8,
+       "crouch": -1,
+       "fx": -10,
+       "fy": -20,
+       "bx": 11,
+       "by": -20,
+       "ffx": 7,
+       "ffy": -10,
+       "fbx": -4,
+       "fby": -10,
+       "toeB": true,
+       "y": -60
+      }
+     },
+     {
+      "t": 0.42,
+      "how": "smooth",
+      "pose": {
+       "turn": 0.8,
+       "crouch": -1,
+       "fx": -10,
+       "fy": -20,
+       "bx": 11,
+       "by": -20,
+       "ffx": 7,
+       "ffy": -10,
+       "fbx": -4,
+       "fby": -10,
+       "toeB": true,
+       "y": -62
+      }
+     },
+     {
+      "t": 0.615,
+      "how": "in",
+      "pose": {
+       "turn": 0.8,
+       "y": -4,
+       "crouch": 0,
+       "fx": -5,
+       "fy": -40,
+       "bx": 6,
+       "by": -40,
+       "ffx": 3,
+       "ffy": -3,
+       "fbx": -3,
+       "fby": -3,
+       "ghost": 1
+      }
+     },
+     {
+      "t": 0.62,
+      "how": "snap",
+      "pose": {
+       "y": 0,
+       "crouch": 8,
+       "lean": 5,
+       "fx": 13,
+       "fy": -8,
+       "bx": -6,
+       "by": -23,
+       "ffx": 11,
+       "fbx": -10
+      }
+     },
+     {
+      "t": 1.42,
+      "how": "smooth",
+      "pose": {
+       "y": 0,
+       "crouch": 6,
+       "lean": 5,
+       "fx": 13,
+       "fy": -8,
+       "bx": -6,
+       "by": -23,
+       "ffx": 11,
+       "fbx": -10
+      }
+     },
+     {
+      "t": 1.92,
+      "how": "smooth",
+      "pose": {
+       "y": 0,
+       "crouch": 5,
+       "lean": 3,
+       "fx": 13,
+       "fy": -15,
+       "bx": -5,
+       "by": -20,
+       "ffx": 11,
+       "fbx": -10
+      }
+     },
+     {
+      "t": 2.42,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 11,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7
+      }
+     },
+     {
+      "t": 3.8200000000000003,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 11,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7
+      }
+     }
+    ]
+   }
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.496,
+    0.494
+   ],
+   "sourceFrames": 116,
+   "sourceFrameSize": [
+    304,
+    204
+   ]
+  }
+ }
+}

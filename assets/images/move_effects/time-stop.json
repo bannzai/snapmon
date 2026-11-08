@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "time-stop 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 131
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 131
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 131
+   },
+   "duration": 33
+  },
+  {
+   "filename": "time-stop 1",
+   "frame": {
+    "x": 152,
+    "y": 0,
+    "w": 152,
+    "h": 131
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 131
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 131
+   },
+   "duration": 33
+  },
+  {
+   "filename": "time-stop 2",
+   "frame": {
+    "x": 304,
+    "y": 0,
+    "w": 152,
+    "h": 131
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 131
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 131
+   },
+   "duration": 33
+  },
+  {
+   "filename": "time-stop 3",
+   "frame": {
+    "x": 0,
+    "y": 131,
+    "w": 152,
+    "h": 131
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 131
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 131
+   },
+   "duration": 33
+  },
+  {
+   "filename": "time-stop 4",
+   "frame": {
+    "x": 152,
+    "y": 131,
+    "w": 152,
+    "h": 131
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 131
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 131
+   },
+   "duration": 33
+  },
+  {
+   "filename": "time-stop 5",
+   "frame": {
+    "x": 304,
+    "y": 131,
+    "w": 152,
+    "h": 131
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 131
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 131
+   },
+   "duration": 33
+  },
+  {
+   "filename": "time-stop 6",
+   "frame": {
+    "x": 0,
+    "y": 262,
+    "w": 152,
+    "h": 131
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 131
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 131
+   },
+   "duration": 33
+  },
+  {
+   "filename": "time-stop 7",
+   "frame": {
+    "x": 152,
+    "y": 262,
+    "w": 152,
+    "h": 131
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 131
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 131
+   },
+   "duration": 33
+  },
+  {
+   "filename": "time-stop 8",
+   "frame": {
+    "x": 304,
+    "y": 262,
+    "w": 152,
+    "h": 131
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 131
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 131
+   },
+   "duration": 33
+  },
+  {
+   "filename": "time-stop 9",
+   "frame": {
+    "x": 0,
+    "y": 393,
+    "w": 152,
+    "h": 131
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 131
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 131
+   },
+   "duration": 33
+  },
+  {
+   "filename": "time-stop 10",
+   "frame": {
+    "x": 152,
+    "y": 393,
+    "w": 152,
+    "h": 131
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 131
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 131
+   },
+   "duration": 33
+  },
+  {
+   "filename": "time-stop 11",
+   "frame": {
+    "x": 304,
+    "y": 393,
+    "w": 152,
+    "h": 131
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 131
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 131
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "time-stop.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 456,
+   "h": 524
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "time-stop",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "arcane/time-stop",
+   "name": "Time stop",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    152,
+    131
+   ],
+   "pivot": [
+    98,
+    118
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.553
+   ],
+   "sourceFrames": 109,
+   "sourceFrameSize": [
+    196,
+    136
+   ]
+  }
+ }
+}

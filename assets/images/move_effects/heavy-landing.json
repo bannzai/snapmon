@@ -1,0 +1,442 @@
+{
+ "frames": [
+  {
+   "filename": "heavy-landing 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 135,
+    "h": 39
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 135,
+    "h": 39
+   },
+   "sourceSize": {
+    "w": 135,
+    "h": 39
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heavy-landing 1",
+   "frame": {
+    "x": 135,
+    "y": 0,
+    "w": 135,
+    "h": 39
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 135,
+    "h": 39
+   },
+   "sourceSize": {
+    "w": 135,
+    "h": 39
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heavy-landing 2",
+   "frame": {
+    "x": 0,
+    "y": 39,
+    "w": 135,
+    "h": 39
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 135,
+    "h": 39
+   },
+   "sourceSize": {
+    "w": 135,
+    "h": 39
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heavy-landing 3",
+   "frame": {
+    "x": 135,
+    "y": 39,
+    "w": 135,
+    "h": 39
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 135,
+    "h": 39
+   },
+   "sourceSize": {
+    "w": 135,
+    "h": 39
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heavy-landing 4",
+   "frame": {
+    "x": 0,
+    "y": 78,
+    "w": 135,
+    "h": 39
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 135,
+    "h": 39
+   },
+   "sourceSize": {
+    "w": 135,
+    "h": 39
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heavy-landing 5",
+   "frame": {
+    "x": 135,
+    "y": 78,
+    "w": 135,
+    "h": 39
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 135,
+    "h": 39
+   },
+   "sourceSize": {
+    "w": 135,
+    "h": 39
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heavy-landing 6",
+   "frame": {
+    "x": 0,
+    "y": 117,
+    "w": 135,
+    "h": 39
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 135,
+    "h": 39
+   },
+   "sourceSize": {
+    "w": 135,
+    "h": 39
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heavy-landing 7",
+   "frame": {
+    "x": 135,
+    "y": 117,
+    "w": 135,
+    "h": 39
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 135,
+    "h": 39
+   },
+   "sourceSize": {
+    "w": 135,
+    "h": 39
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heavy-landing 8",
+   "frame": {
+    "x": 0,
+    "y": 156,
+    "w": 135,
+    "h": 39
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 135,
+    "h": 39
+   },
+   "sourceSize": {
+    "w": 135,
+    "h": 39
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heavy-landing 9",
+   "frame": {
+    "x": 135,
+    "y": 156,
+    "w": 135,
+    "h": 39
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 135,
+    "h": 39
+   },
+   "sourceSize": {
+    "w": 135,
+    "h": 39
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heavy-landing 10",
+   "frame": {
+    "x": 0,
+    "y": 195,
+    "w": 135,
+    "h": 39
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 135,
+    "h": 39
+   },
+   "sourceSize": {
+    "w": 135,
+    "h": 39
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heavy-landing 11",
+   "frame": {
+    "x": 135,
+    "y": 195,
+    "w": 135,
+    "h": 39
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 135,
+    "h": 39
+   },
+   "sourceSize": {
+    "w": 135,
+    "h": 39
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "heavy-landing.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 270,
+   "h": 234
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "heavy-landing",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "impacts/heavy-landing",
+   "name": "Heavy landing",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    135,
+    39
+   ],
+   "pivot": [
+    88,
+    60
+   ],
+   "columns": 2,
+   "act": {
+    "windup": 0.26,
+    "recovery": 0,
+    "onBody": false,
+    "targets": [],
+    "hits": [
+     {
+      "t": 0.005,
+      "freeze": 0.13,
+      "shake": 0.32,
+      "amp": 3,
+      "push": 1.2
+     }
+    ],
+    "poses": [
+     {
+      "t": -0.26,
+      "how": "smooth",
+      "pose": {
+       "turn": 0.8,
+       "y": -46,
+       "crouch": -1,
+       "lean": -1,
+       "fx": -9,
+       "fy": -42,
+       "bx": 10,
+       "by": -42,
+       "ffx": 6,
+       "ffy": -8,
+       "fbx": -3,
+       "fby": -3,
+       "toeB": true,
+       "ghost": 1
+      }
+     },
+     {
+      "t": -0.01,
+      "how": "in",
+      "pose": {
+       "turn": 0.8,
+       "y": -6,
+       "crouch": -1,
+       "lean": -1,
+       "fx": -9,
+       "fy": -42,
+       "bx": 10,
+       "by": -42,
+       "ffx": 6,
+       "ffy": -8,
+       "fbx": -3,
+       "fby": -3,
+       "toeB": true,
+       "ghost": 1
+      }
+     },
+     {
+      "t": 0,
+      "how": "snap",
+      "pose": {
+       "y": 0,
+       "crouch": 8,
+       "lean": 5,
+       "fx": 13,
+       "fy": -8,
+       "bx": -6,
+       "by": -23,
+       "ffx": 11,
+       "fbx": -10
+      }
+     },
+     {
+      "t": 0.55,
+      "how": "smooth",
+      "pose": {
+       "y": 0,
+       "crouch": 7,
+       "lean": 5,
+       "fx": 13,
+       "fy": -8,
+       "bx": -6,
+       "by": -23,
+       "ffx": 11,
+       "fbx": -10
+      }
+     },
+     {
+      "t": 0.95,
+      "how": "smooth",
+      "pose": {
+       "y": 0,
+       "crouch": 5,
+       "lean": 3,
+       "fx": 13,
+       "fy": -15,
+       "bx": -5,
+       "by": -20,
+       "ffx": 11,
+       "fbx": -10
+      }
+     },
+     {
+      "t": 1.3,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 11,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7
+      }
+     },
+     {
+      "t": 1.6,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 11,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7
+      }
+     }
+    ]
+   }
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.5
+   ],
+   "sourceFrames": 49,
+   "sourceFrameSize": [
+    176,
+    80
+   ]
+  }
+ }
+}

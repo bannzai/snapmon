@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "spirit-flame 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 78,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 78,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 78,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spirit-flame 1",
+   "frame": {
+    "x": 78,
+    "y": 0,
+    "w": 78,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 78,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 78,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spirit-flame 2",
+   "frame": {
+    "x": 156,
+    "y": 0,
+    "w": 78,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 78,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 78,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spirit-flame 3",
+   "frame": {
+    "x": 234,
+    "y": 0,
+    "w": 78,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 78,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 78,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spirit-flame 4",
+   "frame": {
+    "x": 0,
+    "y": 98,
+    "w": 78,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 78,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 78,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spirit-flame 5",
+   "frame": {
+    "x": 78,
+    "y": 98,
+    "w": 78,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 78,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 78,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spirit-flame 6",
+   "frame": {
+    "x": 156,
+    "y": 98,
+    "w": 78,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 78,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 78,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spirit-flame 7",
+   "frame": {
+    "x": 234,
+    "y": 98,
+    "w": 78,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 78,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 78,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spirit-flame 8",
+   "frame": {
+    "x": 0,
+    "y": 196,
+    "w": 78,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 78,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 78,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spirit-flame 9",
+   "frame": {
+    "x": 78,
+    "y": 196,
+    "w": 78,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 78,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 78,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spirit-flame 10",
+   "frame": {
+    "x": 156,
+    "y": 196,
+    "w": 78,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 78,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 78,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spirit-flame 11",
+   "frame": {
+    "x": 234,
+    "y": 196,
+    "w": 78,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 78,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 78,
+    "h": 98
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "spirit-flame.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 312,
+   "h": 294
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "spirit-flame",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "fire/spirit-flame",
+   "name": "Spirit flame",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    78,
+    98
+   ],
+   "pivot": [
+    40,
+    94
+   ],
+   "columns": 4
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.506,
+    0.418
+   ],
+   "sourceFrames": 90,
+   "sourceFrameSize": [
+    80,
+    124
+   ]
+  }
+ }
+}

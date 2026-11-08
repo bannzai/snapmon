@@ -1,0 +1,516 @@
+{
+ "frames": [
+  {
+   "filename": "heavy-cleave 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heavy-cleave 1",
+   "frame": {
+    "x": 152,
+    "y": 0,
+    "w": 152,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heavy-cleave 2",
+   "frame": {
+    "x": 304,
+    "y": 0,
+    "w": 152,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heavy-cleave 3",
+   "frame": {
+    "x": 0,
+    "y": 100,
+    "w": 152,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heavy-cleave 4",
+   "frame": {
+    "x": 152,
+    "y": 100,
+    "w": 152,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heavy-cleave 5",
+   "frame": {
+    "x": 304,
+    "y": 100,
+    "w": 152,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heavy-cleave 6",
+   "frame": {
+    "x": 0,
+    "y": 200,
+    "w": 152,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heavy-cleave 7",
+   "frame": {
+    "x": 152,
+    "y": 200,
+    "w": 152,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heavy-cleave 8",
+   "frame": {
+    "x": 304,
+    "y": 200,
+    "w": 152,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heavy-cleave 9",
+   "frame": {
+    "x": 0,
+    "y": 300,
+    "w": 152,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heavy-cleave 10",
+   "frame": {
+    "x": 152,
+    "y": 300,
+    "w": 152,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "heavy-cleave 11",
+   "frame": {
+    "x": 304,
+    "y": 300,
+    "w": 152,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 152,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 152,
+    "h": 100
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "heavy-cleave.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 456,
+   "h": 400
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "heavy-cleave",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "melee/heavy-cleave",
+   "name": "Heavy cleave",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    152,
+    100
+   ],
+   "pivot": [
+    68,
+    96
+   ],
+   "columns": 3,
+   "act": {
+    "windup": 0.42,
+    "recovery": 0,
+    "onBody": false,
+    "targets": [
+     66
+    ],
+    "hits": [
+     {
+      "t": 0.335,
+      "freeze": 0.2,
+      "shake": 0.34,
+      "amp": 3,
+      "push": 3.2
+     }
+    ],
+    "poses": [
+     {
+      "t": -0.42,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 11,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7,
+       "weapon": "greatsword",
+       "two": true,
+       "sa": -1,
+       "x": -4
+      }
+     },
+     {
+      "t": -0.3,
+      "how": "smooth",
+      "pose": {
+       "crouch": 4,
+       "fx": 13,
+       "fy": -29,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7,
+       "weapon": "greatsword",
+       "two": true,
+       "sa": -1.3,
+       "x": -3
+      }
+     },
+     {
+      "t": -0.12,
+      "how": "smooth",
+      "pose": {
+       "crouch": 4,
+       "fx": 1,
+       "fy": -42,
+       "bx": 9,
+       "by": -21,
+       "ffx": 8,
+       "fbx": -7,
+       "weapon": "greatsword",
+       "two": true,
+       "sa": -2.45,
+       "x": -4,
+       "lean": -2
+      }
+     },
+     {
+      "t": 0.2,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 1,
+       "fy": -42,
+       "bx": 9,
+       "by": -21,
+       "ffx": 8,
+       "fbx": -7,
+       "weapon": "greatsword",
+       "two": true,
+       "sa": -2.45,
+       "x": -4,
+       "lean": -2
+      }
+     },
+     {
+      "t": 0.27,
+      "how": "snap",
+      "pose": {
+       "crouch": 0,
+       "fx": 11,
+       "fy": -42,
+       "bx": 9,
+       "by": -21,
+       "ffx": 10,
+       "fbx": -7,
+       "weapon": "greatsword",
+       "two": true,
+       "sa": -1.45,
+       "x": -1,
+       "y": -2,
+       "lean": 2,
+       "ghost": 1
+      }
+     },
+     {
+      "t": 0.31,
+      "how": "snap",
+      "pose": {
+       "crouch": 3,
+       "fx": 18,
+       "fy": -33,
+       "bx": 9,
+       "by": -21,
+       "ffx": 12,
+       "fbx": -7,
+       "weapon": "greatsword",
+       "two": true,
+       "sa": -0.45,
+       "x": 0,
+       "y": -1,
+       "lean": 4,
+       "ghost": 1
+      }
+     },
+     {
+      "t": 0.335,
+      "how": "snap",
+      "pose": {
+       "crouch": 7,
+       "fx": 17,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 11,
+       "fbx": -10,
+       "weapon": "greatsword",
+       "two": true,
+       "sa": 0.72,
+       "x": 0,
+       "lean": 6,
+       "toeB": true
+      }
+     },
+     {
+      "t": 0.85,
+      "how": "smooth",
+      "pose": {
+       "crouch": 6,
+       "fx": 17,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 11,
+       "fbx": -10,
+       "weapon": "greatsword",
+       "two": true,
+       "sa": 0.72,
+       "x": 0,
+       "lean": 5,
+       "toeB": true
+      }
+     },
+     {
+      "t": 1.3,
+      "how": "smooth",
+      "pose": {
+       "crouch": 4,
+       "fx": 15,
+       "fy": -23,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7,
+       "weapon": "greatsword",
+       "two": true,
+       "sa": 0.1,
+       "x": -2,
+       "lean": 2
+      }
+     },
+     {
+      "t": 1.7,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 11,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7,
+       "weapon": "greatsword",
+       "two": true,
+       "sa": -1,
+       "x": -4
+      }
+     }
+    ]
+   }
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.51,
+    0.485
+   ],
+   "sourceFrames": 58,
+   "sourceFrameSize": [
+    208,
+    116
+   ]
+  }
+ }
+}

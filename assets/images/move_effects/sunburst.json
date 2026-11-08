@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "sunburst 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 110,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 110,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 110,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sunburst 1",
+   "frame": {
+    "x": 110,
+    "y": 0,
+    "w": 110,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 110,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 110,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sunburst 2",
+   "frame": {
+    "x": 220,
+    "y": 0,
+    "w": 110,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 110,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 110,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sunburst 3",
+   "frame": {
+    "x": 0,
+    "y": 110,
+    "w": 110,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 110,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 110,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sunburst 4",
+   "frame": {
+    "x": 110,
+    "y": 110,
+    "w": 110,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 110,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 110,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sunburst 5",
+   "frame": {
+    "x": 220,
+    "y": 110,
+    "w": 110,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 110,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 110,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sunburst 6",
+   "frame": {
+    "x": 0,
+    "y": 220,
+    "w": 110,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 110,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 110,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sunburst 7",
+   "frame": {
+    "x": 110,
+    "y": 220,
+    "w": 110,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 110,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 110,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sunburst 8",
+   "frame": {
+    "x": 220,
+    "y": 220,
+    "w": 110,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 110,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 110,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sunburst 9",
+   "frame": {
+    "x": 0,
+    "y": 330,
+    "w": 110,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 110,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 110,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sunburst 10",
+   "frame": {
+    "x": 110,
+    "y": 330,
+    "w": 110,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 110,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 110,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sunburst 11",
+   "frame": {
+    "x": 220,
+    "y": 330,
+    "w": 110,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 110,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 110,
+    "h": 110
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "sunburst.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 330,
+   "h": 440
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "sunburst",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "holy/sunburst",
+   "name": "Sunburst",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    110,
+    110
+   ],
+   "pivot": [
+    64,
+    64
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.482,
+    0.5
+   ],
+   "sourceFrames": 120,
+   "sourceFrameSize": [
+    128,
+    128
+   ]
+  }
+ }
+}

@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "brazier 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 110,
+    "h": 135
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 110,
+    "h": 135
+   },
+   "sourceSize": {
+    "w": 110,
+    "h": 135
+   },
+   "duration": 33
+  },
+  {
+   "filename": "brazier 1",
+   "frame": {
+    "x": 110,
+    "y": 0,
+    "w": 110,
+    "h": 135
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 110,
+    "h": 135
+   },
+   "sourceSize": {
+    "w": 110,
+    "h": 135
+   },
+   "duration": 33
+  },
+  {
+   "filename": "brazier 2",
+   "frame": {
+    "x": 220,
+    "y": 0,
+    "w": 110,
+    "h": 135
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 110,
+    "h": 135
+   },
+   "sourceSize": {
+    "w": 110,
+    "h": 135
+   },
+   "duration": 33
+  },
+  {
+   "filename": "brazier 3",
+   "frame": {
+    "x": 330,
+    "y": 0,
+    "w": 110,
+    "h": 135
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 110,
+    "h": 135
+   },
+   "sourceSize": {
+    "w": 110,
+    "h": 135
+   },
+   "duration": 33
+  },
+  {
+   "filename": "brazier 4",
+   "frame": {
+    "x": 0,
+    "y": 135,
+    "w": 110,
+    "h": 135
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 110,
+    "h": 135
+   },
+   "sourceSize": {
+    "w": 110,
+    "h": 135
+   },
+   "duration": 33
+  },
+  {
+   "filename": "brazier 5",
+   "frame": {
+    "x": 110,
+    "y": 135,
+    "w": 110,
+    "h": 135
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 110,
+    "h": 135
+   },
+   "sourceSize": {
+    "w": 110,
+    "h": 135
+   },
+   "duration": 33
+  },
+  {
+   "filename": "brazier 6",
+   "frame": {
+    "x": 220,
+    "y": 135,
+    "w": 110,
+    "h": 135
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 110,
+    "h": 135
+   },
+   "sourceSize": {
+    "w": 110,
+    "h": 135
+   },
+   "duration": 33
+  },
+  {
+   "filename": "brazier 7",
+   "frame": {
+    "x": 330,
+    "y": 135,
+    "w": 110,
+    "h": 135
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 110,
+    "h": 135
+   },
+   "sourceSize": {
+    "w": 110,
+    "h": 135
+   },
+   "duration": 33
+  },
+  {
+   "filename": "brazier 8",
+   "frame": {
+    "x": 0,
+    "y": 270,
+    "w": 110,
+    "h": 135
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 110,
+    "h": 135
+   },
+   "sourceSize": {
+    "w": 110,
+    "h": 135
+   },
+   "duration": 33
+  },
+  {
+   "filename": "brazier 9",
+   "frame": {
+    "x": 110,
+    "y": 270,
+    "w": 110,
+    "h": 135
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 110,
+    "h": 135
+   },
+   "sourceSize": {
+    "w": 110,
+    "h": 135
+   },
+   "duration": 33
+  },
+  {
+   "filename": "brazier 10",
+   "frame": {
+    "x": 220,
+    "y": 270,
+    "w": 110,
+    "h": 135
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 110,
+    "h": 135
+   },
+   "sourceSize": {
+    "w": 110,
+    "h": 135
+   },
+   "duration": 33
+  },
+  {
+   "filename": "brazier 11",
+   "frame": {
+    "x": 330,
+    "y": 270,
+    "w": 110,
+    "h": 135
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 110,
+    "h": 135
+   },
+   "sourceSize": {
+    "w": 110,
+    "h": 135
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "brazier.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 440,
+   "h": 405
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "brazier",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "fire/brazier",
+   "name": "Brazier",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    110,
+    135
+   ],
+   "pivot": [
+    56,
+    136
+   ],
+   "columns": 4
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.495,
+    0.485
+   ],
+   "sourceFrames": 90,
+   "sourceFrameSize": [
+    112,
+    148
+   ]
+  }
+ }
+}

@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "bubbles 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 97,
+    "h": 101
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 97,
+    "h": 101
+   },
+   "sourceSize": {
+    "w": 97,
+    "h": 101
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bubbles 1",
+   "frame": {
+    "x": 97,
+    "y": 0,
+    "w": 97,
+    "h": 101
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 97,
+    "h": 101
+   },
+   "sourceSize": {
+    "w": 97,
+    "h": 101
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bubbles 2",
+   "frame": {
+    "x": 194,
+    "y": 0,
+    "w": 97,
+    "h": 101
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 97,
+    "h": 101
+   },
+   "sourceSize": {
+    "w": 97,
+    "h": 101
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bubbles 3",
+   "frame": {
+    "x": 291,
+    "y": 0,
+    "w": 97,
+    "h": 101
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 97,
+    "h": 101
+   },
+   "sourceSize": {
+    "w": 97,
+    "h": 101
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bubbles 4",
+   "frame": {
+    "x": 0,
+    "y": 101,
+    "w": 97,
+    "h": 101
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 97,
+    "h": 101
+   },
+   "sourceSize": {
+    "w": 97,
+    "h": 101
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bubbles 5",
+   "frame": {
+    "x": 97,
+    "y": 101,
+    "w": 97,
+    "h": 101
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 97,
+    "h": 101
+   },
+   "sourceSize": {
+    "w": 97,
+    "h": 101
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bubbles 6",
+   "frame": {
+    "x": 194,
+    "y": 101,
+    "w": 97,
+    "h": 101
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 97,
+    "h": 101
+   },
+   "sourceSize": {
+    "w": 97,
+    "h": 101
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bubbles 7",
+   "frame": {
+    "x": 291,
+    "y": 101,
+    "w": 97,
+    "h": 101
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 97,
+    "h": 101
+   },
+   "sourceSize": {
+    "w": 97,
+    "h": 101
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bubbles 8",
+   "frame": {
+    "x": 0,
+    "y": 202,
+    "w": 97,
+    "h": 101
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 97,
+    "h": 101
+   },
+   "sourceSize": {
+    "w": 97,
+    "h": 101
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bubbles 9",
+   "frame": {
+    "x": 97,
+    "y": 202,
+    "w": 97,
+    "h": 101
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 97,
+    "h": 101
+   },
+   "sourceSize": {
+    "w": 97,
+    "h": 101
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bubbles 10",
+   "frame": {
+    "x": 194,
+    "y": 202,
+    "w": 97,
+    "h": 101
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 97,
+    "h": 101
+   },
+   "sourceSize": {
+    "w": 97,
+    "h": 101
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bubbles 11",
+   "frame": {
+    "x": 291,
+    "y": 202,
+    "w": 97,
+    "h": 101
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 97,
+    "h": 101
+   },
+   "sourceSize": {
+    "w": 97,
+    "h": 101
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "bubbles.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 388,
+   "h": 303
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "bubbles",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "water/bubbles",
+   "name": "Bubbles",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    97,
+    101
+   ],
+   "pivot": [
+    52,
+    104
+   ],
+   "columns": 4
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.49,
+    0.495
+   ],
+   "sourceFrames": 120,
+   "sourceFrameSize": [
+    104,
+    112
+   ]
+  }
+ }
+}

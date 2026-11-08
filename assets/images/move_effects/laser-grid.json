@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "laser-grid 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 112,
+    "h": 72
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 112,
+    "h": 72
+   },
+   "sourceSize": {
+    "w": 112,
+    "h": 72
+   },
+   "duration": 33
+  },
+  {
+   "filename": "laser-grid 1",
+   "frame": {
+    "x": 112,
+    "y": 0,
+    "w": 112,
+    "h": 72
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 112,
+    "h": 72
+   },
+   "sourceSize": {
+    "w": 112,
+    "h": 72
+   },
+   "duration": 33
+  },
+  {
+   "filename": "laser-grid 2",
+   "frame": {
+    "x": 224,
+    "y": 0,
+    "w": 112,
+    "h": 72
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 112,
+    "h": 72
+   },
+   "sourceSize": {
+    "w": 112,
+    "h": 72
+   },
+   "duration": 33
+  },
+  {
+   "filename": "laser-grid 3",
+   "frame": {
+    "x": 0,
+    "y": 72,
+    "w": 112,
+    "h": 72
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 112,
+    "h": 72
+   },
+   "sourceSize": {
+    "w": 112,
+    "h": 72
+   },
+   "duration": 33
+  },
+  {
+   "filename": "laser-grid 4",
+   "frame": {
+    "x": 112,
+    "y": 72,
+    "w": 112,
+    "h": 72
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 112,
+    "h": 72
+   },
+   "sourceSize": {
+    "w": 112,
+    "h": 72
+   },
+   "duration": 33
+  },
+  {
+   "filename": "laser-grid 5",
+   "frame": {
+    "x": 224,
+    "y": 72,
+    "w": 112,
+    "h": 72
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 112,
+    "h": 72
+   },
+   "sourceSize": {
+    "w": 112,
+    "h": 72
+   },
+   "duration": 33
+  },
+  {
+   "filename": "laser-grid 6",
+   "frame": {
+    "x": 0,
+    "y": 144,
+    "w": 112,
+    "h": 72
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 112,
+    "h": 72
+   },
+   "sourceSize": {
+    "w": 112,
+    "h": 72
+   },
+   "duration": 33
+  },
+  {
+   "filename": "laser-grid 7",
+   "frame": {
+    "x": 112,
+    "y": 144,
+    "w": 112,
+    "h": 72
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 112,
+    "h": 72
+   },
+   "sourceSize": {
+    "w": 112,
+    "h": 72
+   },
+   "duration": 33
+  },
+  {
+   "filename": "laser-grid 8",
+   "frame": {
+    "x": 224,
+    "y": 144,
+    "w": 112,
+    "h": 72
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 112,
+    "h": 72
+   },
+   "sourceSize": {
+    "w": 112,
+    "h": 72
+   },
+   "duration": 33
+  },
+  {
+   "filename": "laser-grid 9",
+   "frame": {
+    "x": 0,
+    "y": 216,
+    "w": 112,
+    "h": 72
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 112,
+    "h": 72
+   },
+   "sourceSize": {
+    "w": 112,
+    "h": 72
+   },
+   "duration": 33
+  },
+  {
+   "filename": "laser-grid 10",
+   "frame": {
+    "x": 112,
+    "y": 216,
+    "w": 112,
+    "h": 72
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 112,
+    "h": 72
+   },
+   "sourceSize": {
+    "w": 112,
+    "h": 72
+   },
+   "duration": 33
+  },
+  {
+   "filename": "laser-grid 11",
+   "frame": {
+    "x": 224,
+    "y": 216,
+    "w": 112,
+    "h": 72
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 112,
+    "h": 72
+   },
+   "sourceSize": {
+    "w": 112,
+    "h": 72
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "laser-grid.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 336,
+   "h": 288
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "laser-grid",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "scifi/laser-grid",
+   "name": "Laser grid",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    112,
+    72
+   ],
+   "pivot": [
+    64,
+    76
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.486
+   ],
+   "sourceFrames": 90,
+   "sourceFrameSize": [
+    128,
+    84
+   ]
+  }
+ }
+}

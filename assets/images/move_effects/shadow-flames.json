@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "shadow-flames 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 94,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 94,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 94,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "shadow-flames 1",
+   "frame": {
+    "x": 94,
+    "y": 0,
+    "w": 94,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 94,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 94,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "shadow-flames 2",
+   "frame": {
+    "x": 188,
+    "y": 0,
+    "w": 94,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 94,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 94,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "shadow-flames 3",
+   "frame": {
+    "x": 0,
+    "y": 95,
+    "w": 94,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 94,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 94,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "shadow-flames 4",
+   "frame": {
+    "x": 94,
+    "y": 95,
+    "w": 94,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 94,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 94,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "shadow-flames 5",
+   "frame": {
+    "x": 188,
+    "y": 95,
+    "w": 94,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 94,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 94,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "shadow-flames 6",
+   "frame": {
+    "x": 0,
+    "y": 190,
+    "w": 94,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 94,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 94,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "shadow-flames 7",
+   "frame": {
+    "x": 94,
+    "y": 190,
+    "w": 94,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 94,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 94,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "shadow-flames 8",
+   "frame": {
+    "x": 188,
+    "y": 190,
+    "w": 94,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 94,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 94,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "shadow-flames 9",
+   "frame": {
+    "x": 0,
+    "y": 285,
+    "w": 94,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 94,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 94,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "shadow-flames 10",
+   "frame": {
+    "x": 94,
+    "y": 285,
+    "w": 94,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 94,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 94,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "shadow-flames 11",
+   "frame": {
+    "x": 188,
+    "y": 285,
+    "w": 94,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 94,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 94,
+    "h": 95
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "shadow-flames.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 282,
+   "h": 380
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "shadow-flames",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "shadow/shadow-flames",
+   "name": "Shadow flames",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    94,
+    95
+   ],
+   "pivot": [
+    52,
+    102
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.511
+   ],
+   "sourceFrames": 72,
+   "sourceFrameSize": [
+    104,
+    112
+   ]
+  }
+ }
+}

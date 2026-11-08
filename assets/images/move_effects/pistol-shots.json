@@ -1,0 +1,568 @@
+{
+ "frames": [
+  {
+   "filename": "pistol-shots 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 359,
+    "h": 72
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 359,
+    "h": 72
+   },
+   "sourceSize": {
+    "w": 359,
+    "h": 72
+   },
+   "duration": 33
+  },
+  {
+   "filename": "pistol-shots 1",
+   "frame": {
+    "x": 359,
+    "y": 0,
+    "w": 359,
+    "h": 72
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 359,
+    "h": 72
+   },
+   "sourceSize": {
+    "w": 359,
+    "h": 72
+   },
+   "duration": 33
+  },
+  {
+   "filename": "pistol-shots 2",
+   "frame": {
+    "x": 0,
+    "y": 72,
+    "w": 359,
+    "h": 72
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 359,
+    "h": 72
+   },
+   "sourceSize": {
+    "w": 359,
+    "h": 72
+   },
+   "duration": 33
+  },
+  {
+   "filename": "pistol-shots 3",
+   "frame": {
+    "x": 359,
+    "y": 72,
+    "w": 359,
+    "h": 72
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 359,
+    "h": 72
+   },
+   "sourceSize": {
+    "w": 359,
+    "h": 72
+   },
+   "duration": 33
+  },
+  {
+   "filename": "pistol-shots 4",
+   "frame": {
+    "x": 0,
+    "y": 144,
+    "w": 359,
+    "h": 72
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 359,
+    "h": 72
+   },
+   "sourceSize": {
+    "w": 359,
+    "h": 72
+   },
+   "duration": 33
+  },
+  {
+   "filename": "pistol-shots 5",
+   "frame": {
+    "x": 359,
+    "y": 144,
+    "w": 359,
+    "h": 72
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 359,
+    "h": 72
+   },
+   "sourceSize": {
+    "w": 359,
+    "h": 72
+   },
+   "duration": 33
+  },
+  {
+   "filename": "pistol-shots 6",
+   "frame": {
+    "x": 0,
+    "y": 216,
+    "w": 359,
+    "h": 72
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 359,
+    "h": 72
+   },
+   "sourceSize": {
+    "w": 359,
+    "h": 72
+   },
+   "duration": 33
+  },
+  {
+   "filename": "pistol-shots 7",
+   "frame": {
+    "x": 359,
+    "y": 216,
+    "w": 359,
+    "h": 72
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 359,
+    "h": 72
+   },
+   "sourceSize": {
+    "w": 359,
+    "h": 72
+   },
+   "duration": 33
+  },
+  {
+   "filename": "pistol-shots 8",
+   "frame": {
+    "x": 0,
+    "y": 288,
+    "w": 359,
+    "h": 72
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 359,
+    "h": 72
+   },
+   "sourceSize": {
+    "w": 359,
+    "h": 72
+   },
+   "duration": 33
+  },
+  {
+   "filename": "pistol-shots 9",
+   "frame": {
+    "x": 359,
+    "y": 288,
+    "w": 359,
+    "h": 72
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 359,
+    "h": 72
+   },
+   "sourceSize": {
+    "w": 359,
+    "h": 72
+   },
+   "duration": 33
+  },
+  {
+   "filename": "pistol-shots 10",
+   "frame": {
+    "x": 0,
+    "y": 360,
+    "w": 359,
+    "h": 72
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 359,
+    "h": 72
+   },
+   "sourceSize": {
+    "w": 359,
+    "h": 72
+   },
+   "duration": 33
+  },
+  {
+   "filename": "pistol-shots 11",
+   "frame": {
+    "x": 359,
+    "y": 360,
+    "w": 359,
+    "h": 72
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 359,
+    "h": 72
+   },
+   "sourceSize": {
+    "w": 359,
+    "h": 72
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "pistol-shots.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 718,
+   "h": 432
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "pistol-shots",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "moves/pistol-shots",
+   "name": "Pistol shots",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    359,
+    72
+   ],
+   "pivot": [
+    111,
+    72
+   ],
+   "columns": 2,
+   "act": {
+    "windup": 0.36,
+    "recovery": 0,
+    "onBody": false,
+    "targets": [
+     180
+    ],
+    "hits": [
+     {
+      "t": 0.26,
+      "freeze": 0.04,
+      "shake": 0.1,
+      "amp": 1,
+      "push": 2
+     },
+     {
+      "t": 0.54,
+      "freeze": 0.04,
+      "shake": 0.1,
+      "amp": 1,
+      "push": -1.8
+     },
+     {
+      "t": 0.82,
+      "freeze": 0.08,
+      "shake": 0.1,
+      "amp": 2,
+      "push": 2
+     }
+    ],
+    "poses": [
+     {
+      "t": -0.36,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 10,
+       "fy": -17,
+       "bx": 7,
+       "by": -16,
+       "ffx": 7,
+       "fbx": -7,
+       "weapon": "pistol",
+       "sa": 0.9
+      }
+     },
+     {
+      "t": -0.06,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 18,
+       "fy": -28,
+       "bx": 12,
+       "by": -25,
+       "ffx": 11,
+       "fbx": -9,
+       "weapon": "pistol",
+       "sa": 0,
+       "lean": 2
+      }
+     },
+     {
+      "t": 0.14,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 18,
+       "fy": -28,
+       "bx": 12,
+       "by": -25,
+       "ffx": 11,
+       "fbx": -9,
+       "weapon": "pistol",
+       "sa": 0,
+       "lean": 2
+      }
+     },
+     {
+      "t": 0.14100000000000001,
+      "how": "snap",
+      "pose": {
+       "crouch": 3,
+       "fx": 16,
+       "fy": -33,
+       "bx": 12,
+       "by": -28,
+       "ffx": 11,
+       "fbx": -9,
+       "weapon": "pistol",
+       "sa": -0.45,
+       "lean": 0
+      }
+     },
+     {
+      "t": 0.28,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 18,
+       "fy": -28,
+       "bx": 12,
+       "by": -25,
+       "ffx": 11,
+       "fbx": -9,
+       "weapon": "pistol",
+       "sa": 0,
+       "lean": 2
+      }
+     },
+     {
+      "t": 0.42,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 18,
+       "fy": -28,
+       "bx": 12,
+       "by": -25,
+       "ffx": 11,
+       "fbx": -9,
+       "weapon": "pistol",
+       "sa": 0,
+       "lean": 2
+      }
+     },
+     {
+      "t": 0.421,
+      "how": "snap",
+      "pose": {
+       "crouch": 3,
+       "fx": 16,
+       "fy": -33,
+       "bx": 12,
+       "by": -28,
+       "ffx": 11,
+       "fbx": -9,
+       "weapon": "pistol",
+       "sa": -0.45,
+       "lean": 0
+      }
+     },
+     {
+      "t": 0.56,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 18,
+       "fy": -28,
+       "bx": 12,
+       "by": -25,
+       "ffx": 11,
+       "fbx": -9,
+       "weapon": "pistol",
+       "sa": 0,
+       "lean": 2
+      }
+     },
+     {
+      "t": 0.7,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 18,
+       "fy": -28,
+       "bx": 12,
+       "by": -25,
+       "ffx": 11,
+       "fbx": -9,
+       "weapon": "pistol",
+       "sa": 0,
+       "lean": 2
+      }
+     },
+     {
+      "t": 0.701,
+      "how": "snap",
+      "pose": {
+       "crouch": 3,
+       "fx": 16,
+       "fy": -33,
+       "bx": 12,
+       "by": -28,
+       "ffx": 11,
+       "fbx": -9,
+       "weapon": "pistol",
+       "sa": -0.45,
+       "lean": 0
+      }
+     },
+     {
+      "t": 0.84,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 18,
+       "fy": -28,
+       "bx": 12,
+       "by": -25,
+       "ffx": 11,
+       "fbx": -9,
+       "weapon": "pistol",
+       "sa": 0,
+       "lean": 2
+      }
+     },
+     {
+      "t": 1.2,
+      "how": "smooth",
+      "pose": {
+       "crouch": 1,
+       "fx": 18,
+       "fy": -28,
+       "bx": 12,
+       "by": -25,
+       "ffx": 11,
+       "fbx": -9,
+       "weapon": "pistol",
+       "sa": 0,
+       "lean": 2
+      }
+     },
+     {
+      "t": 1.7,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 10,
+       "fy": -17,
+       "bx": 7,
+       "by": -16,
+       "ffx": 7,
+       "fbx": -7,
+       "weapon": "pistol",
+       "sa": 0.9
+      }
+     },
+     {
+      "t": 2.6,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 10,
+       "fy": -17,
+       "bx": 7,
+       "by": -16,
+       "ffx": 7,
+       "fbx": -7,
+       "weapon": "pistol",
+       "sa": 0.9
+      }
+     }
+    ]
+   }
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.497,
+    0.5
+   ],
+   "sourceFrames": 79,
+   "sourceFrameSize": [
+    378,
+    76
+   ]
+  }
+ }
+}

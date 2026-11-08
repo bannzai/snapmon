@@ -4,13 +4,13 @@
 
 ## 技のエフェクト (`assets/images/move_effects/`)
 
-- 素材名: PixelFX の `impacts/hit-spark`・`melee/sword-slash`・`lightning/zap-hit`・`water/splash`・`nature/vine-whip`・`nature/earth-spike`・`nature/thorns`・`holy/smite`・`shadow/shadow-tendrils`・`nature/acid-splash`・`explosions/cartoon-pow`・`melee/claw-swipe`・`critters/butterfly`・`holy/feather-burst`・`critters/fish-school`・`ice/snowflake-burst`・`nature/tornado`・`nature/healing-bloom`・`scifi/emp-blast`・`explosions/firework-burst`・`critters/ghost`・`fire/fire-breath`・`ui/confetti`
-- 作者: Patch。hit-spark・sword-slash・zap-hit・splash・vine-whip・earth-spike・thorns・acid-splash・claw-swipe・fish-school・snowflake-burst・healing-bloom・emp-blast・firework-burst・fire-breath・confetti は、ソースの先頭に書かれているとおり Sprite Fusion のオープンソースのエフェクト (Hugo Duprez、MIT) を元にしている
+- 素材名: PixelFX の 167 素材。一覧は master (`assets/master/master.json`) の `effects` の `pixelfxId` (技ごとの割り当て) が正
+- 作者: Patch。素材の一部 (hit-spark・sword-slash・zap-hit・splash・vine-whip・earth-spike・thorns・acid-splash・claw-swipe・fish-school・snowflake-burst・healing-bloom・emp-blast・firework-burst・fire-breath・confetti 等) は、ソースの先頭に書かれているとおり Sprite Fusion のオープンソースのエフェクト (Hugo Duprez、MIT) を元にしている
 - 入手先: https://github.com/patch-gg/pixelfx/tree/a84159688af3ca37a4be05a0d422b94451b2e24e
 - ライセンス: MIT。著作権表示と許諾文の同梱が必要で、同じディレクトリの `LICENSE`・`NOTICE.md` を配布物に含め、アプリのライセンスの一覧 (`LicenseRegistry`。`lib/main.dart`) にも登録している
-- 持ち込まない物: `gallery/fonts/PatchPixel-Regular.woff2` は MIT の対象外 (`NOTICE.md`)
+- 持ち込まない物: `gallery/fonts/PatchPixel-Regular.woff2` は MIT の対象外 (`NOTICE.md`)。見本の人形を描く素材 (`status/poisoned` 等) は使わない
 - 書き出し: `scripts/move_effects/generate_move_effect_sprite_sheets.sh` (固定のコミットと書き出しのコマンドを持つ)
-- 改変: 画像は書き出したまま変えていない。再生するアプリが、時間を 0.5 秒に縮め (`hitReactionSeconds`)、大きさを被弾したモンスターに合わせ、攻撃の向きに合わせて左右を反転する (`lib/features/battle/battle_field_game.dart`)
+- 改変: 書き出した後に `scripts/move_effects/postprocess_sprite_sheets.py` でコマを 12 個に間引き、透明な余白を切り抜いている (同梱の大きさを 121MB から 13MB にするため。絵の中身は変えていない)。再生するアプリが、時間を 0.5 秒に縮め (`hitReactionSeconds`)、大きさを被弾したモンスターに合わせ、攻撃の向きに合わせて左右を反転する (`lib/features/battle/battle_field_game.dart`)
 
 ## BGM (`assets/audio/`)
 

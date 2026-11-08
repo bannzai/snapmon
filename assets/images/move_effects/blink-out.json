@@ -1,0 +1,396 @@
+{
+ "frames": [
+  {
+   "filename": "blink-out 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 102,
+    "h": 88
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 102,
+    "h": 88
+   },
+   "sourceSize": {
+    "w": 102,
+    "h": 88
+   },
+   "duration": 33
+  },
+  {
+   "filename": "blink-out 1",
+   "frame": {
+    "x": 102,
+    "y": 0,
+    "w": 102,
+    "h": 88
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 102,
+    "h": 88
+   },
+   "sourceSize": {
+    "w": 102,
+    "h": 88
+   },
+   "duration": 33
+  },
+  {
+   "filename": "blink-out 2",
+   "frame": {
+    "x": 204,
+    "y": 0,
+    "w": 102,
+    "h": 88
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 102,
+    "h": 88
+   },
+   "sourceSize": {
+    "w": 102,
+    "h": 88
+   },
+   "duration": 33
+  },
+  {
+   "filename": "blink-out 3",
+   "frame": {
+    "x": 0,
+    "y": 88,
+    "w": 102,
+    "h": 88
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 102,
+    "h": 88
+   },
+   "sourceSize": {
+    "w": 102,
+    "h": 88
+   },
+   "duration": 33
+  },
+  {
+   "filename": "blink-out 4",
+   "frame": {
+    "x": 102,
+    "y": 88,
+    "w": 102,
+    "h": 88
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 102,
+    "h": 88
+   },
+   "sourceSize": {
+    "w": 102,
+    "h": 88
+   },
+   "duration": 33
+  },
+  {
+   "filename": "blink-out 5",
+   "frame": {
+    "x": 204,
+    "y": 88,
+    "w": 102,
+    "h": 88
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 102,
+    "h": 88
+   },
+   "sourceSize": {
+    "w": 102,
+    "h": 88
+   },
+   "duration": 33
+  },
+  {
+   "filename": "blink-out 6",
+   "frame": {
+    "x": 0,
+    "y": 176,
+    "w": 102,
+    "h": 88
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 102,
+    "h": 88
+   },
+   "sourceSize": {
+    "w": 102,
+    "h": 88
+   },
+   "duration": 33
+  },
+  {
+   "filename": "blink-out 7",
+   "frame": {
+    "x": 102,
+    "y": 176,
+    "w": 102,
+    "h": 88
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 102,
+    "h": 88
+   },
+   "sourceSize": {
+    "w": 102,
+    "h": 88
+   },
+   "duration": 33
+  },
+  {
+   "filename": "blink-out 8",
+   "frame": {
+    "x": 204,
+    "y": 176,
+    "w": 102,
+    "h": 88
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 102,
+    "h": 88
+   },
+   "sourceSize": {
+    "w": 102,
+    "h": 88
+   },
+   "duration": 33
+  },
+  {
+   "filename": "blink-out 9",
+   "frame": {
+    "x": 0,
+    "y": 264,
+    "w": 102,
+    "h": 88
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 102,
+    "h": 88
+   },
+   "sourceSize": {
+    "w": 102,
+    "h": 88
+   },
+   "duration": 33
+  },
+  {
+   "filename": "blink-out 10",
+   "frame": {
+    "x": 102,
+    "y": 264,
+    "w": 102,
+    "h": 88
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 102,
+    "h": 88
+   },
+   "sourceSize": {
+    "w": 102,
+    "h": 88
+   },
+   "duration": 33
+  },
+  {
+   "filename": "blink-out 11",
+   "frame": {
+    "x": 204,
+    "y": 264,
+    "w": 102,
+    "h": 88
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 102,
+    "h": 88
+   },
+   "sourceSize": {
+    "w": 102,
+    "h": 88
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "blink-out.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 306,
+   "h": 352
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "blink-out",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "arcane/blink-out",
+   "name": "Blink out",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    102,
+    88
+   ],
+   "pivot": [
+    68,
+    80
+   ],
+   "columns": 3,
+   "act": {
+    "windup": 0.36,
+    "recovery": 0,
+    "onBody": true,
+    "targets": [],
+    "hits": [],
+    "poses": [
+     {
+      "t": -0.36,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 11,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7
+      }
+     },
+     {
+      "t": -0.1,
+      "how": "smooth",
+      "pose": {
+       "turn": 1,
+       "crouch": 4,
+       "fx": -2,
+       "fy": -25,
+       "bx": 2,
+       "by": -25,
+       "armsFront": true,
+       "ffx": 0,
+       "fbx": 2
+      }
+     },
+     {
+      "t": 0.2,
+      "how": "smooth",
+      "pose": {
+       "turn": 1,
+       "crouch": 5,
+       "fx": -2,
+       "fy": -25,
+       "bx": 2,
+       "by": -25,
+       "armsFront": true,
+       "ffx": 0,
+       "fbx": 2
+      }
+     },
+     {
+      "t": 0.32,
+      "how": "snap",
+      "pose": {
+       "turn": 1,
+       "crouch": 0,
+       "fx": -2,
+       "fy": -25,
+       "bx": 2,
+       "by": -25,
+       "armsFront": true,
+       "ffx": 0,
+       "fbx": 2
+      }
+     },
+     {
+      "t": 1.6,
+      "how": "smooth",
+      "pose": {
+       "turn": 1,
+       "crouch": 0,
+       "fx": -2,
+       "fy": -25,
+       "bx": 2,
+       "by": -25,
+       "armsFront": true,
+       "ffx": 0,
+       "fbx": 2
+      }
+     }
+    ]
+   }
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.5
+   ],
+   "sourceFrames": 49,
+   "sourceFrameSize": [
+    136,
+    96
+   ]
+  }
+ }
+}

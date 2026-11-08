@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "portal 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 150,
+    "h": 114
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 150,
+    "h": 114
+   },
+   "sourceSize": {
+    "w": 150,
+    "h": 114
+   },
+   "duration": 33
+  },
+  {
+   "filename": "portal 1",
+   "frame": {
+    "x": 150,
+    "y": 0,
+    "w": 150,
+    "h": 114
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 150,
+    "h": 114
+   },
+   "sourceSize": {
+    "w": 150,
+    "h": 114
+   },
+   "duration": 33
+  },
+  {
+   "filename": "portal 2",
+   "frame": {
+    "x": 300,
+    "y": 0,
+    "w": 150,
+    "h": 114
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 150,
+    "h": 114
+   },
+   "sourceSize": {
+    "w": 150,
+    "h": 114
+   },
+   "duration": 33
+  },
+  {
+   "filename": "portal 3",
+   "frame": {
+    "x": 0,
+    "y": 114,
+    "w": 150,
+    "h": 114
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 150,
+    "h": 114
+   },
+   "sourceSize": {
+    "w": 150,
+    "h": 114
+   },
+   "duration": 33
+  },
+  {
+   "filename": "portal 4",
+   "frame": {
+    "x": 150,
+    "y": 114,
+    "w": 150,
+    "h": 114
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 150,
+    "h": 114
+   },
+   "sourceSize": {
+    "w": 150,
+    "h": 114
+   },
+   "duration": 33
+  },
+  {
+   "filename": "portal 5",
+   "frame": {
+    "x": 300,
+    "y": 114,
+    "w": 150,
+    "h": 114
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 150,
+    "h": 114
+   },
+   "sourceSize": {
+    "w": 150,
+    "h": 114
+   },
+   "duration": 33
+  },
+  {
+   "filename": "portal 6",
+   "frame": {
+    "x": 0,
+    "y": 228,
+    "w": 150,
+    "h": 114
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 150,
+    "h": 114
+   },
+   "sourceSize": {
+    "w": 150,
+    "h": 114
+   },
+   "duration": 33
+  },
+  {
+   "filename": "portal 7",
+   "frame": {
+    "x": 150,
+    "y": 228,
+    "w": 150,
+    "h": 114
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 150,
+    "h": 114
+   },
+   "sourceSize": {
+    "w": 150,
+    "h": 114
+   },
+   "duration": 33
+  },
+  {
+   "filename": "portal 8",
+   "frame": {
+    "x": 300,
+    "y": 228,
+    "w": 150,
+    "h": 114
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 150,
+    "h": 114
+   },
+   "sourceSize": {
+    "w": 150,
+    "h": 114
+   },
+   "duration": 33
+  },
+  {
+   "filename": "portal 9",
+   "frame": {
+    "x": 0,
+    "y": 342,
+    "w": 150,
+    "h": 114
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 150,
+    "h": 114
+   },
+   "sourceSize": {
+    "w": 150,
+    "h": 114
+   },
+   "duration": 33
+  },
+  {
+   "filename": "portal 10",
+   "frame": {
+    "x": 150,
+    "y": 342,
+    "w": 150,
+    "h": 114
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 150,
+    "h": 114
+   },
+   "sourceSize": {
+    "w": 150,
+    "h": 114
+   },
+   "duration": 33
+  },
+  {
+   "filename": "portal 11",
+   "frame": {
+    "x": 300,
+    "y": 342,
+    "w": 150,
+    "h": 114
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 150,
+    "h": 114
+   },
+   "sourceSize": {
+    "w": 150,
+    "h": 114
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "portal.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 450,
+   "h": 456
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "portal",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "arcane/portal",
+   "name": "Portal",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    150,
+    114
+   ],
+   "pivot": [
+    76,
+    106
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.503,
+    0.539
+   ],
+   "sourceFrames": 72,
+   "sourceFrameSize": [
+    152,
+    116
+   ]
+  }
+ }
+}

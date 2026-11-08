@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "grasping-hands 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 144,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 144,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 144,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "grasping-hands 1",
+   "frame": {
+    "x": 144,
+    "y": 0,
+    "w": 144,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 144,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 144,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "grasping-hands 2",
+   "frame": {
+    "x": 288,
+    "y": 0,
+    "w": 144,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 144,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 144,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "grasping-hands 3",
+   "frame": {
+    "x": 0,
+    "y": 99,
+    "w": 144,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 144,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 144,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "grasping-hands 4",
+   "frame": {
+    "x": 144,
+    "y": 99,
+    "w": 144,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 144,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 144,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "grasping-hands 5",
+   "frame": {
+    "x": 288,
+    "y": 99,
+    "w": 144,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 144,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 144,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "grasping-hands 6",
+   "frame": {
+    "x": 0,
+    "y": 198,
+    "w": 144,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 144,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 144,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "grasping-hands 7",
+   "frame": {
+    "x": 144,
+    "y": 198,
+    "w": 144,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 144,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 144,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "grasping-hands 8",
+   "frame": {
+    "x": 288,
+    "y": 198,
+    "w": 144,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 144,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 144,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "grasping-hands 9",
+   "frame": {
+    "x": 0,
+    "y": 297,
+    "w": 144,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 144,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 144,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "grasping-hands 10",
+   "frame": {
+    "x": 144,
+    "y": 297,
+    "w": 144,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 144,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 144,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "grasping-hands 11",
+   "frame": {
+    "x": 288,
+    "y": 297,
+    "w": 144,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 144,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 144,
+    "h": 99
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "grasping-hands.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 432,
+   "h": 396
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "grasping-hands",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "shadow/grasping-hands",
+   "name": "Grasping hands",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    144,
+    99
+   ],
+   "pivot": [
+    100,
+    100
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.561
+   ],
+   "sourceFrames": 94,
+   "sourceFrameSize": [
+    200,
+    116
+   ]
+  }
+ }
+}

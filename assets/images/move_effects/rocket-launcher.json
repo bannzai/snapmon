@@ -1,0 +1,503 @@
+{
+ "frames": [
+  {
+   "filename": "rocket-launcher 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 458,
+    "h": 232
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 458,
+    "h": 232
+   },
+   "sourceSize": {
+    "w": 458,
+    "h": 232
+   },
+   "duration": 33
+  },
+  {
+   "filename": "rocket-launcher 1",
+   "frame": {
+    "x": 458,
+    "y": 0,
+    "w": 458,
+    "h": 232
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 458,
+    "h": 232
+   },
+   "sourceSize": {
+    "w": 458,
+    "h": 232
+   },
+   "duration": 33
+  },
+  {
+   "filename": "rocket-launcher 2",
+   "frame": {
+    "x": 0,
+    "y": 232,
+    "w": 458,
+    "h": 232
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 458,
+    "h": 232
+   },
+   "sourceSize": {
+    "w": 458,
+    "h": 232
+   },
+   "duration": 33
+  },
+  {
+   "filename": "rocket-launcher 3",
+   "frame": {
+    "x": 458,
+    "y": 232,
+    "w": 458,
+    "h": 232
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 458,
+    "h": 232
+   },
+   "sourceSize": {
+    "w": 458,
+    "h": 232
+   },
+   "duration": 33
+  },
+  {
+   "filename": "rocket-launcher 4",
+   "frame": {
+    "x": 0,
+    "y": 464,
+    "w": 458,
+    "h": 232
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 458,
+    "h": 232
+   },
+   "sourceSize": {
+    "w": 458,
+    "h": 232
+   },
+   "duration": 33
+  },
+  {
+   "filename": "rocket-launcher 5",
+   "frame": {
+    "x": 458,
+    "y": 464,
+    "w": 458,
+    "h": 232
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 458,
+    "h": 232
+   },
+   "sourceSize": {
+    "w": 458,
+    "h": 232
+   },
+   "duration": 33
+  },
+  {
+   "filename": "rocket-launcher 6",
+   "frame": {
+    "x": 0,
+    "y": 696,
+    "w": 458,
+    "h": 232
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 458,
+    "h": 232
+   },
+   "sourceSize": {
+    "w": 458,
+    "h": 232
+   },
+   "duration": 33
+  },
+  {
+   "filename": "rocket-launcher 7",
+   "frame": {
+    "x": 458,
+    "y": 696,
+    "w": 458,
+    "h": 232
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 458,
+    "h": 232
+   },
+   "sourceSize": {
+    "w": 458,
+    "h": 232
+   },
+   "duration": 33
+  },
+  {
+   "filename": "rocket-launcher 8",
+   "frame": {
+    "x": 0,
+    "y": 928,
+    "w": 458,
+    "h": 232
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 458,
+    "h": 232
+   },
+   "sourceSize": {
+    "w": 458,
+    "h": 232
+   },
+   "duration": 33
+  },
+  {
+   "filename": "rocket-launcher 9",
+   "frame": {
+    "x": 458,
+    "y": 928,
+    "w": 458,
+    "h": 232
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 458,
+    "h": 232
+   },
+   "sourceSize": {
+    "w": 458,
+    "h": 232
+   },
+   "duration": 33
+  },
+  {
+   "filename": "rocket-launcher 10",
+   "frame": {
+    "x": 0,
+    "y": 1160,
+    "w": 458,
+    "h": 232
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 458,
+    "h": 232
+   },
+   "sourceSize": {
+    "w": 458,
+    "h": 232
+   },
+   "duration": 33
+  },
+  {
+   "filename": "rocket-launcher 11",
+   "frame": {
+    "x": 458,
+    "y": 1160,
+    "w": 458,
+    "h": 232
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 458,
+    "h": 232
+   },
+   "sourceSize": {
+    "w": 458,
+    "h": 232
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "rocket-launcher.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 916,
+   "h": 1392
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "rocket-launcher",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "moves/rocket-launcher",
+   "name": "Rocket launcher",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    458,
+    232
+   ],
+   "pivot": [
+    178,
+    198
+   ],
+   "columns": 2,
+   "act": {
+    "windup": 0.52,
+    "recovery": 0,
+    "onBody": false,
+    "targets": [
+     200
+    ],
+    "hits": [
+     {
+      "t": 0.6,
+      "freeze": 0.06,
+      "shake": 0.22,
+      "amp": 2,
+      "push": 0
+     },
+     {
+      "t": 1.1600000000000001,
+      "freeze": 0.2,
+      "shake": 0.45,
+      "amp": 4,
+      "push": 3.8,
+      "skin": "char"
+     },
+     {
+      "t": 5.96,
+      "freeze": 0,
+      "shake": 0,
+      "amp": 0,
+      "push": 0,
+      "skin": null
+     }
+    ],
+    "poses": [
+     {
+      "t": -0.52,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 9,
+       "fy": -19,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7,
+       "weapon": "launcher",
+       "two": true,
+       "sa": -1
+      }
+     },
+     {
+      "t": -0.18,
+      "how": "smooth",
+      "pose": {
+       "crouch": 6,
+       "fx": 9,
+       "fy": -17,
+       "bx": 9,
+       "by": -21,
+       "ffx": 12,
+       "fbx": -9,
+       "weapon": "launcher",
+       "two": true,
+       "sa": 0,
+       "lean": 2
+      }
+     },
+     {
+      "t": 0.599,
+      "how": "smooth",
+      "pose": {
+       "crouch": 7,
+       "fx": 9,
+       "fy": -17,
+       "bx": 9,
+       "by": -21,
+       "ffx": 12,
+       "fbx": -9,
+       "weapon": "launcher",
+       "two": true,
+       "sa": 0,
+       "lean": 2
+      }
+     },
+     {
+      "t": 0.6,
+      "how": "snap",
+      "pose": {
+       "crouch": 5,
+       "fx": 4,
+       "fy": -19,
+       "bx": 9,
+       "by": -21,
+       "ffx": 12,
+       "fbx": -9,
+       "weapon": "launcher",
+       "two": true,
+       "sa": -0.12,
+       "lean": -4,
+       "x": -6
+      }
+     },
+     {
+      "t": 0.96,
+      "how": "smooth",
+      "pose": {
+       "crouch": 6,
+       "fx": 9,
+       "fy": -17,
+       "bx": 9,
+       "by": -21,
+       "ffx": 12,
+       "fbx": -9,
+       "weapon": "launcher",
+       "two": true,
+       "sa": 0,
+       "lean": 2,
+       "x": -6
+      }
+     },
+     {
+      "t": 2.06,
+      "how": "smooth",
+      "pose": {
+       "crouch": 5,
+       "fx": 9,
+       "fy": -17,
+       "bx": 9,
+       "by": -21,
+       "ffx": 12,
+       "fbx": -9,
+       "weapon": "launcher",
+       "two": true,
+       "sa": 0,
+       "lean": 1,
+       "x": -6
+      }
+     },
+     {
+      "t": 2.66,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 9,
+       "fy": -19,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7,
+       "weapon": "launcher",
+       "two": true,
+       "sa": -1,
+       "x": -3
+      }
+     },
+     {
+      "t": 3.3600000000000003,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 9,
+       "fy": -19,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7,
+       "weapon": "launcher",
+       "two": true,
+       "sa": -1,
+       "x": 0
+      }
+     },
+     {
+      "t": 6.5600000000000005,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 9,
+       "fy": -19,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7,
+       "weapon": "launcher",
+       "two": true,
+       "sa": -1
+      }
+     }
+    ]
+   }
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.498
+   ],
+   "sourceFrames": 198,
+   "sourceFrameSize": [
+    480,
+    244
+   ]
+  }
+ }
+}

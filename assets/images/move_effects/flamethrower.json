@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "flamethrower 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 180,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 180,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 180,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "flamethrower 1",
+   "frame": {
+    "x": 180,
+    "y": 0,
+    "w": 180,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 180,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 180,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "flamethrower 2",
+   "frame": {
+    "x": 360,
+    "y": 0,
+    "w": 180,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 180,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 180,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "flamethrower 3",
+   "frame": {
+    "x": 0,
+    "y": 99,
+    "w": 180,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 180,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 180,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "flamethrower 4",
+   "frame": {
+    "x": 180,
+    "y": 99,
+    "w": 180,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 180,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 180,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "flamethrower 5",
+   "frame": {
+    "x": 360,
+    "y": 99,
+    "w": 180,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 180,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 180,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "flamethrower 6",
+   "frame": {
+    "x": 0,
+    "y": 198,
+    "w": 180,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 180,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 180,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "flamethrower 7",
+   "frame": {
+    "x": 180,
+    "y": 198,
+    "w": 180,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 180,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 180,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "flamethrower 8",
+   "frame": {
+    "x": 360,
+    "y": 198,
+    "w": 180,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 180,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 180,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "flamethrower 9",
+   "frame": {
+    "x": 0,
+    "y": 297,
+    "w": 180,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 180,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 180,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "flamethrower 10",
+   "frame": {
+    "x": 180,
+    "y": 297,
+    "w": 180,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 180,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 180,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "flamethrower 11",
+   "frame": {
+    "x": 360,
+    "y": 297,
+    "w": 180,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 180,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 180,
+    "h": 99
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "flamethrower.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 540,
+   "h": 396
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "flamethrower",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "fire/flamethrower",
+   "name": "Flamethrower",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    180,
+    99
+   ],
+   "pivot": [
+    30,
+    60
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.481,
+    0.52
+   ],
+   "sourceFrames": 48,
+   "sourceFrameSize": [
+    184,
+    104
+   ]
+  }
+ }
+}

@@ -1,10 +1,11 @@
+import '../battle/status_condition.dart';
 import 'monster_stats.dart';
 
 /// レベルの上限 (DIRECTION.md「ゲームの仕様」の「上限は 999」)。
 const int maximumLevel = 999;
 
 /// モンスターの変わる部分。レベル・経験は戦うたびに増えて保存し、
-/// HP・PP の残りとステータスの倍率はバトルの中だけで変わる (バトルの開始時に満タンと等倍へ戻す)。
+/// HP・PP の残り・ステータスの倍率・状態はバトルの中だけで変わる (バトルの開始時に満タン・等倍・状態なしへ戻す)。
 class MonsterState {
   /// モンスターの状態を作る。
   const MonsterState({
@@ -13,6 +14,7 @@ class MonsterState {
     required this.currentHitPoints,
     required this.remainingPowerPoints,
     required this.statModifierPercents,
+    required this.statusConditions,
   });
 
   /// レベル (1 以上 [maximumLevel] 以下)。
@@ -31,6 +33,9 @@ class MonsterState {
   /// 無いステータスは 100 (lib/domain/battle/battle_engine.dart の `statModifierPercentOf`)。
   final Map<StatKind, int> statModifierPercents;
 
+  /// バトル中に付いている状態。同じ種類の状態は 1 つだけ持つ。
+  final Map<StatusConditionKind, StatusCondition> statusConditions;
+
   /// 指定した値だけを置き換えた状態を返す。
   MonsterState copyWith({
     int? level,
@@ -38,11 +43,13 @@ class MonsterState {
     int? currentHitPoints,
     Map<String, int>? remainingPowerPoints,
     Map<StatKind, int>? statModifierPercents,
+    Map<StatusConditionKind, StatusCondition>? statusConditions,
   }) => MonsterState(
     level: level ?? this.level,
     experience: experience ?? this.experience,
     currentHitPoints: currentHitPoints ?? this.currentHitPoints,
     remainingPowerPoints: remainingPowerPoints ?? this.remainingPowerPoints,
     statModifierPercents: statModifierPercents ?? this.statModifierPercents,
+    statusConditions: statusConditions ?? this.statusConditions,
   );
 }

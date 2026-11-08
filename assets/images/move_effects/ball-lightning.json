@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "ball-lightning 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ball-lightning 1",
+   "frame": {
+    "x": 126,
+    "y": 0,
+    "w": 126,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ball-lightning 2",
+   "frame": {
+    "x": 252,
+    "y": 0,
+    "w": 126,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ball-lightning 3",
+   "frame": {
+    "x": 0,
+    "y": 95,
+    "w": 126,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ball-lightning 4",
+   "frame": {
+    "x": 126,
+    "y": 95,
+    "w": 126,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ball-lightning 5",
+   "frame": {
+    "x": 252,
+    "y": 95,
+    "w": 126,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ball-lightning 6",
+   "frame": {
+    "x": 0,
+    "y": 190,
+    "w": 126,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ball-lightning 7",
+   "frame": {
+    "x": 126,
+    "y": 190,
+    "w": 126,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ball-lightning 8",
+   "frame": {
+    "x": 252,
+    "y": 190,
+    "w": 126,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ball-lightning 9",
+   "frame": {
+    "x": 0,
+    "y": 285,
+    "w": 126,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ball-lightning 10",
+   "frame": {
+    "x": 126,
+    "y": 285,
+    "w": 126,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ball-lightning 11",
+   "frame": {
+    "x": 252,
+    "y": 285,
+    "w": 126,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 95
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "ball-lightning.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 378,
+   "h": 380
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "ball-lightning",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "lightning/ball-lightning",
+   "name": "Ball lightning",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    126,
+    95
+   ],
+   "pivot": [
+    68,
+    92
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.48,
+    0.568
+   ],
+   "sourceFrames": 120,
+   "sourceFrameSize": [
+    136,
+    104
+   ]
+  }
+ }
+}

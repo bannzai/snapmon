@@ -1,0 +1,424 @@
+{
+ "frames": [
+  {
+   "filename": "dissolve-burn 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 92,
+    "h": 106
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 92,
+    "h": 106
+   },
+   "sourceSize": {
+    "w": 92,
+    "h": 106
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dissolve-burn 1",
+   "frame": {
+    "x": 92,
+    "y": 0,
+    "w": 92,
+    "h": 106
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 92,
+    "h": 106
+   },
+   "sourceSize": {
+    "w": 92,
+    "h": 106
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dissolve-burn 2",
+   "frame": {
+    "x": 184,
+    "y": 0,
+    "w": 92,
+    "h": 106
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 92,
+    "h": 106
+   },
+   "sourceSize": {
+    "w": 92,
+    "h": 106
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dissolve-burn 3",
+   "frame": {
+    "x": 276,
+    "y": 0,
+    "w": 92,
+    "h": 106
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 92,
+    "h": 106
+   },
+   "sourceSize": {
+    "w": 92,
+    "h": 106
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dissolve-burn 4",
+   "frame": {
+    "x": 0,
+    "y": 106,
+    "w": 92,
+    "h": 106
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 92,
+    "h": 106
+   },
+   "sourceSize": {
+    "w": 92,
+    "h": 106
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dissolve-burn 5",
+   "frame": {
+    "x": 92,
+    "y": 106,
+    "w": 92,
+    "h": 106
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 92,
+    "h": 106
+   },
+   "sourceSize": {
+    "w": 92,
+    "h": 106
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dissolve-burn 6",
+   "frame": {
+    "x": 184,
+    "y": 106,
+    "w": 92,
+    "h": 106
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 92,
+    "h": 106
+   },
+   "sourceSize": {
+    "w": 92,
+    "h": 106
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dissolve-burn 7",
+   "frame": {
+    "x": 276,
+    "y": 106,
+    "w": 92,
+    "h": 106
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 92,
+    "h": 106
+   },
+   "sourceSize": {
+    "w": 92,
+    "h": 106
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dissolve-burn 8",
+   "frame": {
+    "x": 0,
+    "y": 212,
+    "w": 92,
+    "h": 106
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 92,
+    "h": 106
+   },
+   "sourceSize": {
+    "w": 92,
+    "h": 106
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dissolve-burn 9",
+   "frame": {
+    "x": 92,
+    "y": 212,
+    "w": 92,
+    "h": 106
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 92,
+    "h": 106
+   },
+   "sourceSize": {
+    "w": 92,
+    "h": 106
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dissolve-burn 10",
+   "frame": {
+    "x": 184,
+    "y": 212,
+    "w": 92,
+    "h": 106
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 92,
+    "h": 106
+   },
+   "sourceSize": {
+    "w": 92,
+    "h": 106
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dissolve-burn 11",
+   "frame": {
+    "x": 276,
+    "y": 212,
+    "w": 92,
+    "h": 106
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 92,
+    "h": 106
+   },
+   "sourceSize": {
+    "w": 92,
+    "h": 106
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "dissolve-burn.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 368,
+   "h": 318
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "dissolve-burn",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "spawn/dissolve-burn",
+   "name": "Dissolve burn",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    92,
+    106
+   ],
+   "pivot": [
+    48,
+    100
+   ],
+   "columns": 4,
+   "act": {
+    "windup": 0.16,
+    "recovery": 0,
+    "onBody": true,
+    "targets": [],
+    "hits": [],
+    "poses": [
+     {
+      "t": -0.16,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 11,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7
+      }
+     },
+     {
+      "t": 0.4,
+      "how": "smooth",
+      "pose": {
+       "turn": 1,
+       "crouch": 2,
+       "fx": -9,
+       "fy": -22,
+       "bx": 10,
+       "by": -22,
+       "ffx": -3,
+       "fbx": 4
+      }
+     },
+     {
+      "t": 0.8,
+      "how": "smooth",
+      "pose": {
+       "turn": 1,
+       "crouch": 2,
+       "fx": -13,
+       "fy": -35,
+       "bx": 13,
+       "by": -26,
+       "ffx": -3,
+       "fbx": 4
+      }
+     },
+     {
+      "t": 1.2,
+      "how": "smooth",
+      "pose": {
+       "turn": 1,
+       "crouch": 2,
+       "fx": -13,
+       "fy": -26,
+       "bx": 13,
+       "by": -36,
+       "ffx": -3,
+       "fbx": 4,
+       "lean": 2
+      }
+     },
+     {
+      "t": 1.6,
+      "how": "smooth",
+      "pose": {
+       "turn": 1,
+       "crouch": 2,
+       "fx": -13,
+       "fy": -36,
+       "bx": 13,
+       "by": -26,
+       "ffx": -3,
+       "fbx": 4,
+       "lean": -2
+      }
+     },
+     {
+      "t": 2.1,
+      "how": "smooth",
+      "pose": {
+       "turn": 1,
+       "crouch": 5,
+       "fx": -8,
+       "fy": -38,
+       "bx": 9,
+       "by": -38,
+       "ffx": -3,
+       "fbx": 4,
+       "lean": 2
+      }
+     },
+     {
+      "t": 3.6,
+      "how": "smooth",
+      "pose": {
+       "turn": 1,
+       "crouch": 6,
+       "fx": -8,
+       "fy": -36,
+       "bx": 9,
+       "by": -36,
+       "ffx": -3,
+       "fbx": 4,
+       "lean": 2
+      }
+     }
+    ]
+   }
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.484,
+    0.486
+   ],
+   "sourceFrames": 109,
+   "sourceFrameSize": [
+    96,
+    112
+   ]
+  }
+ }
+}

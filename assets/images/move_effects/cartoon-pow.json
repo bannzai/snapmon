@@ -5,130 +5,130 @@
    "frame": {
     "x": 0,
     "y": 0,
-    "w": 184,
-    "h": 144
+    "w": 138,
+    "h": 124
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 184,
-    "h": 144
+    "w": 138,
+    "h": 124
    },
    "sourceSize": {
-    "w": 184,
-    "h": 144
+    "w": 138,
+    "h": 124
    },
    "duration": 33
   },
   {
    "filename": "cartoon-pow 1",
    "frame": {
-    "x": 184,
+    "x": 138,
     "y": 0,
-    "w": 184,
-    "h": 144
+    "w": 138,
+    "h": 124
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 184,
-    "h": 144
+    "w": 138,
+    "h": 124
    },
    "sourceSize": {
-    "w": 184,
-    "h": 144
+    "w": 138,
+    "h": 124
    },
    "duration": 33
   },
   {
    "filename": "cartoon-pow 2",
    "frame": {
-    "x": 368,
+    "x": 276,
     "y": 0,
-    "w": 184,
-    "h": 144
+    "w": 138,
+    "h": 124
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 184,
-    "h": 144
+    "w": 138,
+    "h": 124
    },
    "sourceSize": {
-    "w": 184,
-    "h": 144
+    "w": 138,
+    "h": 124
    },
    "duration": 33
   },
   {
    "filename": "cartoon-pow 3",
    "frame": {
-    "x": 552,
-    "y": 0,
-    "w": 184,
-    "h": 144
+    "x": 0,
+    "y": 124,
+    "w": 138,
+    "h": 124
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 184,
-    "h": 144
+    "w": 138,
+    "h": 124
    },
    "sourceSize": {
-    "w": 184,
-    "h": 144
+    "w": 138,
+    "h": 124
    },
    "duration": 33
   },
   {
    "filename": "cartoon-pow 4",
    "frame": {
-    "x": 736,
-    "y": 0,
-    "w": 184,
-    "h": 144
+    "x": 138,
+    "y": 124,
+    "w": 138,
+    "h": 124
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 184,
-    "h": 144
+    "w": 138,
+    "h": 124
    },
    "sourceSize": {
-    "w": 184,
-    "h": 144
+    "w": 138,
+    "h": 124
    },
    "duration": 33
   },
   {
    "filename": "cartoon-pow 5",
    "frame": {
-    "x": 920,
-    "y": 0,
-    "w": 184,
-    "h": 144
+    "x": 276,
+    "y": 124,
+    "w": 138,
+    "h": 124
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 184,
-    "h": 144
+    "w": 138,
+    "h": 124
    },
    "sourceSize": {
-    "w": 184,
-    "h": 144
+    "w": 138,
+    "h": 124
    },
    "duration": 33
   },
@@ -136,593 +136,131 @@
    "filename": "cartoon-pow 6",
    "frame": {
     "x": 0,
-    "y": 144,
-    "w": 184,
-    "h": 144
+    "y": 248,
+    "w": 138,
+    "h": 124
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 184,
-    "h": 144
+    "w": 138,
+    "h": 124
    },
    "sourceSize": {
-    "w": 184,
-    "h": 144
+    "w": 138,
+    "h": 124
    },
    "duration": 33
   },
   {
    "filename": "cartoon-pow 7",
    "frame": {
-    "x": 184,
-    "y": 144,
-    "w": 184,
-    "h": 144
+    "x": 138,
+    "y": 248,
+    "w": 138,
+    "h": 124
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 184,
-    "h": 144
+    "w": 138,
+    "h": 124
    },
    "sourceSize": {
-    "w": 184,
-    "h": 144
+    "w": 138,
+    "h": 124
    },
    "duration": 33
   },
   {
    "filename": "cartoon-pow 8",
    "frame": {
-    "x": 368,
-    "y": 144,
-    "w": 184,
-    "h": 144
+    "x": 276,
+    "y": 248,
+    "w": 138,
+    "h": 124
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 184,
-    "h": 144
+    "w": 138,
+    "h": 124
    },
    "sourceSize": {
-    "w": 184,
-    "h": 144
+    "w": 138,
+    "h": 124
    },
    "duration": 33
   },
   {
    "filename": "cartoon-pow 9",
    "frame": {
-    "x": 552,
-    "y": 144,
-    "w": 184,
-    "h": 144
+    "x": 0,
+    "y": 372,
+    "w": 138,
+    "h": 124
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 184,
-    "h": 144
+    "w": 138,
+    "h": 124
    },
    "sourceSize": {
-    "w": 184,
-    "h": 144
+    "w": 138,
+    "h": 124
    },
    "duration": 33
   },
   {
    "filename": "cartoon-pow 10",
    "frame": {
-    "x": 736,
-    "y": 144,
-    "w": 184,
-    "h": 144
+    "x": 138,
+    "y": 372,
+    "w": 138,
+    "h": 124
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 184,
-    "h": 144
+    "w": 138,
+    "h": 124
    },
    "sourceSize": {
-    "w": 184,
-    "h": 144
+    "w": 138,
+    "h": 124
    },
    "duration": 33
   },
   {
    "filename": "cartoon-pow 11",
    "frame": {
-    "x": 920,
-    "y": 144,
-    "w": 184,
-    "h": 144
+    "x": 276,
+    "y": 372,
+    "w": 138,
+    "h": 124
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 184,
-    "h": 144
+    "w": 138,
+    "h": 124
    },
    "sourceSize": {
-    "w": 184,
-    "h": 144
-   },
-   "duration": 33
-  },
-  {
-   "filename": "cartoon-pow 12",
-   "frame": {
-    "x": 0,
-    "y": 288,
-    "w": 184,
-    "h": 144
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 184,
-    "h": 144
-   },
-   "sourceSize": {
-    "w": 184,
-    "h": 144
-   },
-   "duration": 33
-  },
-  {
-   "filename": "cartoon-pow 13",
-   "frame": {
-    "x": 184,
-    "y": 288,
-    "w": 184,
-    "h": 144
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 184,
-    "h": 144
-   },
-   "sourceSize": {
-    "w": 184,
-    "h": 144
-   },
-   "duration": 33
-  },
-  {
-   "filename": "cartoon-pow 14",
-   "frame": {
-    "x": 368,
-    "y": 288,
-    "w": 184,
-    "h": 144
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 184,
-    "h": 144
-   },
-   "sourceSize": {
-    "w": 184,
-    "h": 144
-   },
-   "duration": 33
-  },
-  {
-   "filename": "cartoon-pow 15",
-   "frame": {
-    "x": 552,
-    "y": 288,
-    "w": 184,
-    "h": 144
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 184,
-    "h": 144
-   },
-   "sourceSize": {
-    "w": 184,
-    "h": 144
-   },
-   "duration": 33
-  },
-  {
-   "filename": "cartoon-pow 16",
-   "frame": {
-    "x": 736,
-    "y": 288,
-    "w": 184,
-    "h": 144
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 184,
-    "h": 144
-   },
-   "sourceSize": {
-    "w": 184,
-    "h": 144
-   },
-   "duration": 33
-  },
-  {
-   "filename": "cartoon-pow 17",
-   "frame": {
-    "x": 920,
-    "y": 288,
-    "w": 184,
-    "h": 144
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 184,
-    "h": 144
-   },
-   "sourceSize": {
-    "w": 184,
-    "h": 144
-   },
-   "duration": 33
-  },
-  {
-   "filename": "cartoon-pow 18",
-   "frame": {
-    "x": 0,
-    "y": 432,
-    "w": 184,
-    "h": 144
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 184,
-    "h": 144
-   },
-   "sourceSize": {
-    "w": 184,
-    "h": 144
-   },
-   "duration": 33
-  },
-  {
-   "filename": "cartoon-pow 19",
-   "frame": {
-    "x": 184,
-    "y": 432,
-    "w": 184,
-    "h": 144
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 184,
-    "h": 144
-   },
-   "sourceSize": {
-    "w": 184,
-    "h": 144
-   },
-   "duration": 33
-  },
-  {
-   "filename": "cartoon-pow 20",
-   "frame": {
-    "x": 368,
-    "y": 432,
-    "w": 184,
-    "h": 144
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 184,
-    "h": 144
-   },
-   "sourceSize": {
-    "w": 184,
-    "h": 144
-   },
-   "duration": 33
-  },
-  {
-   "filename": "cartoon-pow 21",
-   "frame": {
-    "x": 552,
-    "y": 432,
-    "w": 184,
-    "h": 144
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 184,
-    "h": 144
-   },
-   "sourceSize": {
-    "w": 184,
-    "h": 144
-   },
-   "duration": 33
-  },
-  {
-   "filename": "cartoon-pow 22",
-   "frame": {
-    "x": 736,
-    "y": 432,
-    "w": 184,
-    "h": 144
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 184,
-    "h": 144
-   },
-   "sourceSize": {
-    "w": 184,
-    "h": 144
-   },
-   "duration": 33
-  },
-  {
-   "filename": "cartoon-pow 23",
-   "frame": {
-    "x": 920,
-    "y": 432,
-    "w": 184,
-    "h": 144
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 184,
-    "h": 144
-   },
-   "sourceSize": {
-    "w": 184,
-    "h": 144
-   },
-   "duration": 33
-  },
-  {
-   "filename": "cartoon-pow 24",
-   "frame": {
-    "x": 0,
-    "y": 576,
-    "w": 184,
-    "h": 144
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 184,
-    "h": 144
-   },
-   "sourceSize": {
-    "w": 184,
-    "h": 144
-   },
-   "duration": 33
-  },
-  {
-   "filename": "cartoon-pow 25",
-   "frame": {
-    "x": 184,
-    "y": 576,
-    "w": 184,
-    "h": 144
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 184,
-    "h": 144
-   },
-   "sourceSize": {
-    "w": 184,
-    "h": 144
-   },
-   "duration": 33
-  },
-  {
-   "filename": "cartoon-pow 26",
-   "frame": {
-    "x": 368,
-    "y": 576,
-    "w": 184,
-    "h": 144
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 184,
-    "h": 144
-   },
-   "sourceSize": {
-    "w": 184,
-    "h": 144
-   },
-   "duration": 33
-  },
-  {
-   "filename": "cartoon-pow 27",
-   "frame": {
-    "x": 552,
-    "y": 576,
-    "w": 184,
-    "h": 144
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 184,
-    "h": 144
-   },
-   "sourceSize": {
-    "w": 184,
-    "h": 144
-   },
-   "duration": 33
-  },
-  {
-   "filename": "cartoon-pow 28",
-   "frame": {
-    "x": 736,
-    "y": 576,
-    "w": 184,
-    "h": 144
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 184,
-    "h": 144
-   },
-   "sourceSize": {
-    "w": 184,
-    "h": 144
-   },
-   "duration": 33
-  },
-  {
-   "filename": "cartoon-pow 29",
-   "frame": {
-    "x": 920,
-    "y": 576,
-    "w": 184,
-    "h": 144
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 184,
-    "h": 144
-   },
-   "sourceSize": {
-    "w": 184,
-    "h": 144
-   },
-   "duration": 33
-  },
-  {
-   "filename": "cartoon-pow 30",
-   "frame": {
-    "x": 0,
-    "y": 720,
-    "w": 184,
-    "h": 144
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 184,
-    "h": 144
-   },
-   "sourceSize": {
-    "w": 184,
-    "h": 144
-   },
-   "duration": 33
-  },
-  {
-   "filename": "cartoon-pow 31",
-   "frame": {
-    "x": 184,
-    "y": 720,
-    "w": 184,
-    "h": 144
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 184,
-    "h": 144
-   },
-   "sourceSize": {
-    "w": 184,
-    "h": 144
-   },
-   "duration": 33
-  },
-  {
-   "filename": "cartoon-pow 32",
-   "frame": {
-    "x": 368,
-    "y": 720,
-    "w": 184,
-    "h": 144
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 184,
-    "h": 144
-   },
-   "sourceSize": {
-    "w": 184,
-    "h": 144
+    "w": 138,
+    "h": 124
    },
    "duration": 33
   }
@@ -733,15 +271,15 @@
   "image": "cartoon-pow.png",
   "format": "RGBA8888",
   "size": {
-   "w": 1104,
-   "h": 864
+   "w": 414,
+   "h": 496
   },
   "scale": "1",
   "frameTags": [
    {
     "name": "cartoon-pow",
     "from": 0,
-    "to": 32,
+    "to": 11,
     "direction": "forward"
    }
   ],
@@ -750,16 +288,27 @@
    "name": "Cartoon POW",
    "fps": 30,
    "loop": false,
-   "frames": 33,
+   "frames": 12,
    "frameSize": [
-    184,
-    144
+    138,
+    124
    ],
    "pivot": [
     92,
     72
    ],
-   "columns": 6
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.5
+   ],
+   "sourceFrames": 33,
+   "sourceFrameSize": [
+    184,
+    144
+   ]
   }
  }
 }

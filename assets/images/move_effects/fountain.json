@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "fountain 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 80,
+    "h": 93
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 80,
+    "h": 93
+   },
+   "sourceSize": {
+    "w": 80,
+    "h": 93
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fountain 1",
+   "frame": {
+    "x": 80,
+    "y": 0,
+    "w": 80,
+    "h": 93
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 80,
+    "h": 93
+   },
+   "sourceSize": {
+    "w": 80,
+    "h": 93
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fountain 2",
+   "frame": {
+    "x": 160,
+    "y": 0,
+    "w": 80,
+    "h": 93
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 80,
+    "h": 93
+   },
+   "sourceSize": {
+    "w": 80,
+    "h": 93
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fountain 3",
+   "frame": {
+    "x": 240,
+    "y": 0,
+    "w": 80,
+    "h": 93
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 80,
+    "h": 93
+   },
+   "sourceSize": {
+    "w": 80,
+    "h": 93
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fountain 4",
+   "frame": {
+    "x": 0,
+    "y": 93,
+    "w": 80,
+    "h": 93
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 80,
+    "h": 93
+   },
+   "sourceSize": {
+    "w": 80,
+    "h": 93
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fountain 5",
+   "frame": {
+    "x": 80,
+    "y": 93,
+    "w": 80,
+    "h": 93
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 80,
+    "h": 93
+   },
+   "sourceSize": {
+    "w": 80,
+    "h": 93
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fountain 6",
+   "frame": {
+    "x": 160,
+    "y": 93,
+    "w": 80,
+    "h": 93
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 80,
+    "h": 93
+   },
+   "sourceSize": {
+    "w": 80,
+    "h": 93
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fountain 7",
+   "frame": {
+    "x": 240,
+    "y": 93,
+    "w": 80,
+    "h": 93
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 80,
+    "h": 93
+   },
+   "sourceSize": {
+    "w": 80,
+    "h": 93
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fountain 8",
+   "frame": {
+    "x": 0,
+    "y": 186,
+    "w": 80,
+    "h": 93
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 80,
+    "h": 93
+   },
+   "sourceSize": {
+    "w": 80,
+    "h": 93
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fountain 9",
+   "frame": {
+    "x": 80,
+    "y": 186,
+    "w": 80,
+    "h": 93
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 80,
+    "h": 93
+   },
+   "sourceSize": {
+    "w": 80,
+    "h": 93
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fountain 10",
+   "frame": {
+    "x": 160,
+    "y": 186,
+    "w": 80,
+    "h": 93
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 80,
+    "h": 93
+   },
+   "sourceSize": {
+    "w": 80,
+    "h": 93
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fountain 11",
+   "frame": {
+    "x": 240,
+    "y": 186,
+    "w": 80,
+    "h": 93
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 80,
+    "h": 93
+   },
+   "sourceSize": {
+    "w": 80,
+    "h": 93
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "fountain.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 320,
+   "h": 279
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "fountain",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "water/fountain",
+   "name": "Fountain",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    80,
+    93
+   ],
+   "pivot": [
+    60,
+    96
+   ],
+   "columns": 4
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.511
+   ],
+   "sourceFrames": 60,
+   "sourceFrameSize": [
+    120,
+    104
+   ]
+  }
+ }
+}

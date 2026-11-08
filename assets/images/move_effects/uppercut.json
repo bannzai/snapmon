@@ -1,0 +1,479 @@
+{
+ "frames": [
+  {
+   "filename": "uppercut 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 108,
+    "h": 104
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 108,
+    "h": 104
+   },
+   "sourceSize": {
+    "w": 108,
+    "h": 104
+   },
+   "duration": 33
+  },
+  {
+   "filename": "uppercut 1",
+   "frame": {
+    "x": 108,
+    "y": 0,
+    "w": 108,
+    "h": 104
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 108,
+    "h": 104
+   },
+   "sourceSize": {
+    "w": 108,
+    "h": 104
+   },
+   "duration": 33
+  },
+  {
+   "filename": "uppercut 2",
+   "frame": {
+    "x": 216,
+    "y": 0,
+    "w": 108,
+    "h": 104
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 108,
+    "h": 104
+   },
+   "sourceSize": {
+    "w": 108,
+    "h": 104
+   },
+   "duration": 33
+  },
+  {
+   "filename": "uppercut 3",
+   "frame": {
+    "x": 0,
+    "y": 104,
+    "w": 108,
+    "h": 104
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 108,
+    "h": 104
+   },
+   "sourceSize": {
+    "w": 108,
+    "h": 104
+   },
+   "duration": 33
+  },
+  {
+   "filename": "uppercut 4",
+   "frame": {
+    "x": 108,
+    "y": 104,
+    "w": 108,
+    "h": 104
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 108,
+    "h": 104
+   },
+   "sourceSize": {
+    "w": 108,
+    "h": 104
+   },
+   "duration": 33
+  },
+  {
+   "filename": "uppercut 5",
+   "frame": {
+    "x": 216,
+    "y": 104,
+    "w": 108,
+    "h": 104
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 108,
+    "h": 104
+   },
+   "sourceSize": {
+    "w": 108,
+    "h": 104
+   },
+   "duration": 33
+  },
+  {
+   "filename": "uppercut 6",
+   "frame": {
+    "x": 0,
+    "y": 208,
+    "w": 108,
+    "h": 104
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 108,
+    "h": 104
+   },
+   "sourceSize": {
+    "w": 108,
+    "h": 104
+   },
+   "duration": 33
+  },
+  {
+   "filename": "uppercut 7",
+   "frame": {
+    "x": 108,
+    "y": 208,
+    "w": 108,
+    "h": 104
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 108,
+    "h": 104
+   },
+   "sourceSize": {
+    "w": 108,
+    "h": 104
+   },
+   "duration": 33
+  },
+  {
+   "filename": "uppercut 8",
+   "frame": {
+    "x": 216,
+    "y": 208,
+    "w": 108,
+    "h": 104
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 108,
+    "h": 104
+   },
+   "sourceSize": {
+    "w": 108,
+    "h": 104
+   },
+   "duration": 33
+  },
+  {
+   "filename": "uppercut 9",
+   "frame": {
+    "x": 0,
+    "y": 312,
+    "w": 108,
+    "h": 104
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 108,
+    "h": 104
+   },
+   "sourceSize": {
+    "w": 108,
+    "h": 104
+   },
+   "duration": 33
+  },
+  {
+   "filename": "uppercut 10",
+   "frame": {
+    "x": 108,
+    "y": 312,
+    "w": 108,
+    "h": 104
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 108,
+    "h": 104
+   },
+   "sourceSize": {
+    "w": 108,
+    "h": 104
+   },
+   "duration": 33
+  },
+  {
+   "filename": "uppercut 11",
+   "frame": {
+    "x": 216,
+    "y": 312,
+    "w": 108,
+    "h": 104
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 108,
+    "h": 104
+   },
+   "sourceSize": {
+    "w": 108,
+    "h": 104
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "uppercut.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 324,
+   "h": 416
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "uppercut",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "melee/uppercut",
+   "name": "Uppercut",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    108,
+    104
+   ],
+   "pivot": [
+    48,
+    110
+   ],
+   "columns": 3,
+   "act": {
+    "windup": 0.42,
+    "recovery": 0.13,
+    "onBody": false,
+    "targets": [
+     44
+    ],
+    "hits": [
+     {
+      "t": 0.076,
+      "freeze": 0.13,
+      "shake": 0.18,
+      "amp": 2,
+      "push": -2.6
+     }
+    ],
+    "poses": [
+     {
+      "t": -0.42,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 12,
+       "fy": -25,
+       "bx": 9,
+       "by": -27,
+       "ffx": 7,
+       "fbx": -7,
+       "lean": 1
+      }
+     },
+     {
+      "t": -0.16,
+      "how": "smooth",
+      "pose": {
+       "crouch": 7,
+       "fx": 8,
+       "fy": -11,
+       "bx": 8,
+       "by": -27,
+       "ffx": 10,
+       "fbx": -9,
+       "lean": 3
+      }
+     },
+     {
+      "t": 0,
+      "how": "smooth",
+      "pose": {
+       "crouch": 8,
+       "fx": 8,
+       "fy": -11,
+       "bx": 8,
+       "by": -27,
+       "ffx": 10,
+       "fbx": -9,
+       "lean": 3
+      }
+     },
+     {
+      "t": 0.03,
+      "how": "snap",
+      "pose": {
+       "crouch": 1,
+       "fx": 18,
+       "fy": -27,
+       "bx": -5,
+       "by": -23,
+       "ffx": 9,
+       "fbx": -7,
+       "lean": 4,
+       "y": -4,
+       "toeB": true,
+       "ghost": 1
+      }
+     },
+     {
+      "t": 0.076,
+      "how": "snap",
+      "pose": {
+       "crouch": -1,
+       "fx": 12,
+       "fy": -42,
+       "bx": -6,
+       "by": -21,
+       "ffx": 8,
+       "fbx": -3,
+       "lean": 2,
+       "x": 1,
+       "y": -11,
+       "ffy": -8,
+       "fby": -2,
+       "toeB": true,
+       "ghost": 1
+      }
+     },
+     {
+      "t": 0.3,
+      "how": "smooth",
+      "pose": {
+       "crouch": -1,
+       "fx": 12,
+       "fy": -42,
+       "bx": -6,
+       "by": -21,
+       "ffx": 8,
+       "fbx": -3,
+       "lean": 2,
+       "x": 1,
+       "y": -13,
+       "ffy": -8,
+       "fby": -2,
+       "toeB": true
+      }
+     },
+     {
+      "t": 0.56,
+      "how": "in",
+      "pose": {
+       "crouch": 2,
+       "fx": 13,
+       "fy": -31,
+       "bx": -6,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -5,
+       "lean": 2,
+       "x": 1,
+       "y": 0,
+       "ffy": -6,
+       "fby": -5,
+       "toeB": true
+      }
+     },
+     {
+      "t": 0.6,
+      "how": "snap",
+      "pose": {
+       "crouch": 7,
+       "fx": 12,
+       "fy": -14,
+       "bx": -6,
+       "by": -16,
+       "ffx": 10,
+       "fbx": -9,
+       "lean": 3,
+       "y": 0
+      }
+     },
+     {
+      "t": 0.98,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 12,
+       "fy": -25,
+       "bx": 9,
+       "by": -27,
+       "ffx": 7,
+       "fbx": -7,
+       "lean": 1
+      }
+     }
+    ]
+   }
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.505,
+    0.5
+   ],
+   "sourceFrames": 27,
+   "sourceFrameSize": [
+    132,
+    128
+   ]
+  }
+ }
+}

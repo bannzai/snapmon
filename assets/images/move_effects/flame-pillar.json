@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "flame-pillar 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 168,
+    "h": 238
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 168,
+    "h": 238
+   },
+   "sourceSize": {
+    "w": 168,
+    "h": 238
+   },
+   "duration": 33
+  },
+  {
+   "filename": "flame-pillar 1",
+   "frame": {
+    "x": 168,
+    "y": 0,
+    "w": 168,
+    "h": 238
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 168,
+    "h": 238
+   },
+   "sourceSize": {
+    "w": 168,
+    "h": 238
+   },
+   "duration": 33
+  },
+  {
+   "filename": "flame-pillar 2",
+   "frame": {
+    "x": 336,
+    "y": 0,
+    "w": 168,
+    "h": 238
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 168,
+    "h": 238
+   },
+   "sourceSize": {
+    "w": 168,
+    "h": 238
+   },
+   "duration": 33
+  },
+  {
+   "filename": "flame-pillar 3",
+   "frame": {
+    "x": 504,
+    "y": 0,
+    "w": 168,
+    "h": 238
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 168,
+    "h": 238
+   },
+   "sourceSize": {
+    "w": 168,
+    "h": 238
+   },
+   "duration": 33
+  },
+  {
+   "filename": "flame-pillar 4",
+   "frame": {
+    "x": 0,
+    "y": 238,
+    "w": 168,
+    "h": 238
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 168,
+    "h": 238
+   },
+   "sourceSize": {
+    "w": 168,
+    "h": 238
+   },
+   "duration": 33
+  },
+  {
+   "filename": "flame-pillar 5",
+   "frame": {
+    "x": 168,
+    "y": 238,
+    "w": 168,
+    "h": 238
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 168,
+    "h": 238
+   },
+   "sourceSize": {
+    "w": 168,
+    "h": 238
+   },
+   "duration": 33
+  },
+  {
+   "filename": "flame-pillar 6",
+   "frame": {
+    "x": 336,
+    "y": 238,
+    "w": 168,
+    "h": 238
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 168,
+    "h": 238
+   },
+   "sourceSize": {
+    "w": 168,
+    "h": 238
+   },
+   "duration": 33
+  },
+  {
+   "filename": "flame-pillar 7",
+   "frame": {
+    "x": 504,
+    "y": 238,
+    "w": 168,
+    "h": 238
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 168,
+    "h": 238
+   },
+   "sourceSize": {
+    "w": 168,
+    "h": 238
+   },
+   "duration": 33
+  },
+  {
+   "filename": "flame-pillar 8",
+   "frame": {
+    "x": 0,
+    "y": 476,
+    "w": 168,
+    "h": 238
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 168,
+    "h": 238
+   },
+   "sourceSize": {
+    "w": 168,
+    "h": 238
+   },
+   "duration": 33
+  },
+  {
+   "filename": "flame-pillar 9",
+   "frame": {
+    "x": 168,
+    "y": 476,
+    "w": 168,
+    "h": 238
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 168,
+    "h": 238
+   },
+   "sourceSize": {
+    "w": 168,
+    "h": 238
+   },
+   "duration": 33
+  },
+  {
+   "filename": "flame-pillar 10",
+   "frame": {
+    "x": 336,
+    "y": 476,
+    "w": 168,
+    "h": 238
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 168,
+    "h": 238
+   },
+   "sourceSize": {
+    "w": 168,
+    "h": 238
+   },
+   "duration": 33
+  },
+  {
+   "filename": "flame-pillar 11",
+   "frame": {
+    "x": 504,
+    "y": 476,
+    "w": 168,
+    "h": 238
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 168,
+    "h": 238
+   },
+   "sourceSize": {
+    "w": 168,
+    "h": 238
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "flame-pillar.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 672,
+   "h": 714
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "flame-pillar",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "fire/flame-pillar",
+   "name": "Flame pillar",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    168,
+    238
+   ],
+   "pivot": [
+    92,
+    232
+   ],
+   "columns": 4
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.502
+   ],
+   "sourceFrames": 151,
+   "sourceFrameSize": [
+    184,
+    256
+   ]
+  }
+ }
+}

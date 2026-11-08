@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "collect-burst 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 77,
+    "h": 85
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 77,
+    "h": 85
+   },
+   "sourceSize": {
+    "w": 77,
+    "h": 85
+   },
+   "duration": 33
+  },
+  {
+   "filename": "collect-burst 1",
+   "frame": {
+    "x": 77,
+    "y": 0,
+    "w": 77,
+    "h": 85
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 77,
+    "h": 85
+   },
+   "sourceSize": {
+    "w": 77,
+    "h": 85
+   },
+   "duration": 33
+  },
+  {
+   "filename": "collect-burst 2",
+   "frame": {
+    "x": 154,
+    "y": 0,
+    "w": 77,
+    "h": 85
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 77,
+    "h": 85
+   },
+   "sourceSize": {
+    "w": 77,
+    "h": 85
+   },
+   "duration": 33
+  },
+  {
+   "filename": "collect-burst 3",
+   "frame": {
+    "x": 231,
+    "y": 0,
+    "w": 77,
+    "h": 85
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 77,
+    "h": 85
+   },
+   "sourceSize": {
+    "w": 77,
+    "h": 85
+   },
+   "duration": 33
+  },
+  {
+   "filename": "collect-burst 4",
+   "frame": {
+    "x": 0,
+    "y": 85,
+    "w": 77,
+    "h": 85
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 77,
+    "h": 85
+   },
+   "sourceSize": {
+    "w": 77,
+    "h": 85
+   },
+   "duration": 33
+  },
+  {
+   "filename": "collect-burst 5",
+   "frame": {
+    "x": 77,
+    "y": 85,
+    "w": 77,
+    "h": 85
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 77,
+    "h": 85
+   },
+   "sourceSize": {
+    "w": 77,
+    "h": 85
+   },
+   "duration": 33
+  },
+  {
+   "filename": "collect-burst 6",
+   "frame": {
+    "x": 154,
+    "y": 85,
+    "w": 77,
+    "h": 85
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 77,
+    "h": 85
+   },
+   "sourceSize": {
+    "w": 77,
+    "h": 85
+   },
+   "duration": 33
+  },
+  {
+   "filename": "collect-burst 7",
+   "frame": {
+    "x": 231,
+    "y": 85,
+    "w": 77,
+    "h": 85
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 77,
+    "h": 85
+   },
+   "sourceSize": {
+    "w": 77,
+    "h": 85
+   },
+   "duration": 33
+  },
+  {
+   "filename": "collect-burst 8",
+   "frame": {
+    "x": 0,
+    "y": 170,
+    "w": 77,
+    "h": 85
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 77,
+    "h": 85
+   },
+   "sourceSize": {
+    "w": 77,
+    "h": 85
+   },
+   "duration": 33
+  },
+  {
+   "filename": "collect-burst 9",
+   "frame": {
+    "x": 77,
+    "y": 170,
+    "w": 77,
+    "h": 85
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 77,
+    "h": 85
+   },
+   "sourceSize": {
+    "w": 77,
+    "h": 85
+   },
+   "duration": 33
+  },
+  {
+   "filename": "collect-burst 10",
+   "frame": {
+    "x": 154,
+    "y": 170,
+    "w": 77,
+    "h": 85
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 77,
+    "h": 85
+   },
+   "sourceSize": {
+    "w": 77,
+    "h": 85
+   },
+   "duration": 33
+  },
+  {
+   "filename": "collect-burst 11",
+   "frame": {
+    "x": 231,
+    "y": 170,
+    "w": 77,
+    "h": 85
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 77,
+    "h": 85
+   },
+   "sourceSize": {
+    "w": 77,
+    "h": 85
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "collect-burst.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 308,
+   "h": 255
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "collect-burst",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "pickups/collect-burst",
+   "name": "Collect burst",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    77,
+    85
+   ],
+   "pivot": [
+    56,
+    94
+   ],
+   "columns": 4
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.494,
+    0.494
+   ],
+   "sourceFrames": 42,
+   "sourceFrameSize": [
+    112,
+    108
+   ]
+  }
+ }
+}

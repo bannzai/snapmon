@@ -1,0 +1,753 @@
+{
+ "frames": [
+  {
+   "filename": "sword-combo 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 172,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 172,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 172,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sword-combo 1",
+   "frame": {
+    "x": 172,
+    "y": 0,
+    "w": 172,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 172,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 172,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sword-combo 2",
+   "frame": {
+    "x": 344,
+    "y": 0,
+    "w": 172,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 172,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 172,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sword-combo 3",
+   "frame": {
+    "x": 0,
+    "y": 109,
+    "w": 172,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 172,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 172,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sword-combo 4",
+   "frame": {
+    "x": 172,
+    "y": 109,
+    "w": 172,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 172,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 172,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sword-combo 5",
+   "frame": {
+    "x": 344,
+    "y": 109,
+    "w": 172,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 172,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 172,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sword-combo 6",
+   "frame": {
+    "x": 0,
+    "y": 218,
+    "w": 172,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 172,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 172,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sword-combo 7",
+   "frame": {
+    "x": 172,
+    "y": 218,
+    "w": 172,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 172,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 172,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sword-combo 8",
+   "frame": {
+    "x": 344,
+    "y": 218,
+    "w": 172,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 172,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 172,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sword-combo 9",
+   "frame": {
+    "x": 0,
+    "y": 327,
+    "w": 172,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 172,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 172,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sword-combo 10",
+   "frame": {
+    "x": 172,
+    "y": 327,
+    "w": 172,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 172,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 172,
+    "h": 109
+   },
+   "duration": 33
+  },
+  {
+   "filename": "sword-combo 11",
+   "frame": {
+    "x": 344,
+    "y": 327,
+    "w": 172,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 172,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 172,
+    "h": 109
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "sword-combo.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 516,
+   "h": 436
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "sword-combo",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "moves/sword-combo",
+   "name": "Sword combo",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    172,
+    109
+   ],
+   "pivot": [
+    72,
+    130
+   ],
+   "columns": 3,
+   "act": {
+    "windup": 0.55,
+    "recovery": 0,
+    "onBody": false,
+    "targets": [
+     118
+    ],
+    "hits": [
+     {
+      "t": 0.06,
+      "freeze": 0.14,
+      "shake": 0.18,
+      "amp": 2,
+      "push": 2.8
+     },
+     {
+      "t": 0.56,
+      "freeze": 0.05,
+      "shake": 0.08,
+      "amp": 1,
+      "push": 1.4
+     },
+     {
+      "t": 0.66,
+      "freeze": 0.14,
+      "shake": 0.2,
+      "amp": 2,
+      "push": 2.8
+     },
+     {
+      "t": 1.375,
+      "freeze": 0.2,
+      "shake": 0.34,
+      "amp": 3,
+      "push": 3.2
+     }
+    ],
+    "poses": [
+     {
+      "t": -0.55,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 12,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7,
+       "weapon": "sword",
+       "sa": -0.85,
+       "x": -8
+      }
+     },
+     {
+      "t": -0.3,
+      "how": "smooth",
+      "pose": {
+       "crouch": 4,
+       "fx": -7,
+       "fy": -35,
+       "bx": 9,
+       "by": -25,
+       "ffx": 9,
+       "fbx": -8,
+       "weapon": "sword",
+       "sa": -2.65,
+       "x": -8,
+       "lean": -4,
+       "armsFront": true
+      }
+     },
+     {
+      "t": -0.08,
+      "how": "smooth",
+      "pose": {
+       "crouch": 5,
+       "fx": -7,
+       "fy": -35,
+       "bx": 9,
+       "by": -25,
+       "ffx": 9,
+       "fbx": -8,
+       "weapon": "sword",
+       "sa": -2.65,
+       "x": -8,
+       "lean": -5,
+       "armsFront": true
+      }
+     },
+     {
+      "t": 0,
+      "how": "snap",
+      "pose": {
+       "crouch": 2,
+       "fx": 16,
+       "fy": -37,
+       "bx": -7,
+       "by": -24,
+       "ffx": 11,
+       "fbx": -10,
+       "weapon": "sword",
+       "sa": -1.45,
+       "x": 0,
+       "lean": 3,
+       "ghost": 1
+      }
+     },
+     {
+      "t": 0.06,
+      "how": "snap",
+      "pose": {
+       "crouch": 5,
+       "fx": 20,
+       "fy": -21,
+       "bx": -9,
+       "by": -24,
+       "ffx": 13,
+       "fbx": -10,
+       "weapon": "sword",
+       "sa": 0.62,
+       "x": 2,
+       "lean": 5,
+       "toeB": true
+      }
+     },
+     {
+      "t": 0.3,
+      "how": "smooth",
+      "pose": {
+       "crouch": 6,
+       "fx": 20,
+       "fy": -21,
+       "bx": -9,
+       "by": -24,
+       "ffx": 13,
+       "fbx": -10,
+       "weapon": "sword",
+       "sa": 0.62,
+       "x": 3,
+       "lean": 5,
+       "toeB": true
+      }
+     },
+     {
+      "t": 0.46,
+      "how": "smooth",
+      "pose": {
+       "crouch": 5,
+       "fx": -7,
+       "fy": -35,
+       "bx": 9,
+       "by": -25,
+       "ffx": 9,
+       "fbx": -8,
+       "weapon": "sword",
+       "sa": -2.65,
+       "x": 3,
+       "lean": -4,
+       "armsFront": true
+      }
+     },
+     {
+      "t": 0.5,
+      "how": "snap",
+      "pose": {
+       "crouch": 2,
+       "fx": 16,
+       "fy": -37,
+       "bx": -7,
+       "by": -24,
+       "ffx": 11,
+       "fbx": -9,
+       "weapon": "sword",
+       "sa": -1.45,
+       "x": 10,
+       "lean": 3,
+       "ghost": 1
+      }
+     },
+     {
+      "t": 0.56,
+      "how": "snap",
+      "pose": {
+       "crouch": 6,
+       "fx": 22,
+       "fy": -20,
+       "bx": -8,
+       "by": -24,
+       "ffx": 13,
+       "fbx": -10,
+       "weapon": "sword",
+       "sa": 0.62,
+       "x": 13,
+       "lean": 6,
+       "toeB": true
+      }
+     },
+     {
+      "t": 0.64,
+      "how": "smooth",
+      "pose": {
+       "crouch": 6,
+       "fx": 20,
+       "fy": -17,
+       "bx": -8,
+       "by": -24,
+       "ffx": 13,
+       "fbx": -10,
+       "weapon": "sword",
+       "sa": 0.85,
+       "x": 14,
+       "lean": 5,
+       "toeB": true,
+       "ghost": 1
+      }
+     },
+     {
+      "t": 0.67,
+      "how": "snap",
+      "pose": {
+       "crouch": 3,
+       "fx": 22,
+       "fy": -28,
+       "bx": -8,
+       "by": -18,
+       "ffx": 13,
+       "fbx": -10,
+       "weapon": "sword",
+       "sa": 0.1,
+       "x": 15,
+       "lean": 5,
+       "toeB": true,
+       "ghost": 1
+      }
+     },
+     {
+      "t": 0.71,
+      "how": "snap",
+      "pose": {
+       "crouch": 1,
+       "fx": 19,
+       "fy": -37,
+       "bx": -8,
+       "by": -18,
+       "ffx": 13,
+       "fbx": -10,
+       "weapon": "sword",
+       "sa": -0.95,
+       "x": 16,
+       "lean": 6,
+       "toeB": true,
+       "fby": -6
+      }
+     },
+     {
+      "t": 0.74,
+      "how": "smooth",
+      "pose": {
+       "crouch": 4,
+       "fx": 13,
+       "fy": -29,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7,
+       "weapon": "sword",
+       "two": true,
+       "sa": -1.3,
+       "x": 17
+      }
+     },
+     {
+      "t": 0.92,
+      "how": "smooth",
+      "pose": {
+       "crouch": 4,
+       "fx": 1,
+       "fy": -42,
+       "bx": 9,
+       "by": -21,
+       "ffx": 8,
+       "fbx": -7,
+       "weapon": "sword",
+       "two": true,
+       "sa": -2.45,
+       "x": 16,
+       "lean": -2
+      }
+     },
+     {
+      "t": 1.24,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 1,
+       "fy": -42,
+       "bx": 9,
+       "by": -21,
+       "ffx": 8,
+       "fbx": -7,
+       "weapon": "sword",
+       "two": true,
+       "sa": -2.45,
+       "x": 16,
+       "lean": -2
+      }
+     },
+     {
+      "t": 1.31,
+      "how": "snap",
+      "pose": {
+       "crouch": 0,
+       "fx": 11,
+       "fy": -42,
+       "bx": 9,
+       "by": -21,
+       "ffx": 10,
+       "fbx": -7,
+       "weapon": "sword",
+       "two": true,
+       "sa": -1.45,
+       "x": 19,
+       "y": -2,
+       "lean": 2,
+       "ghost": 1
+      }
+     },
+     {
+      "t": 1.35,
+      "how": "snap",
+      "pose": {
+       "crouch": 3,
+       "fx": 18,
+       "fy": -33,
+       "bx": 9,
+       "by": -21,
+       "ffx": 12,
+       "fbx": -7,
+       "weapon": "sword",
+       "two": true,
+       "sa": -0.45,
+       "x": 20,
+       "y": -1,
+       "lean": 4,
+       "ghost": 1
+      }
+     },
+     {
+      "t": 1.375,
+      "how": "snap",
+      "pose": {
+       "crouch": 7,
+       "fx": 17,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 11,
+       "fbx": -10,
+       "weapon": "sword",
+       "two": true,
+       "sa": 0.72,
+       "x": 20,
+       "lean": 6,
+       "toeB": true
+      }
+     },
+     {
+      "t": 1.8900000000000001,
+      "how": "smooth",
+      "pose": {
+       "crouch": 6,
+       "fx": 17,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 11,
+       "fbx": -10,
+       "weapon": "sword",
+       "two": true,
+       "sa": 0.72,
+       "x": 20,
+       "lean": 5,
+       "toeB": true
+      }
+     },
+     {
+      "t": 2.34,
+      "how": "smooth",
+      "pose": {
+       "crouch": 4,
+       "fx": 15,
+       "fy": -23,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7,
+       "weapon": "sword",
+       "two": true,
+       "sa": 0.1,
+       "x": 18,
+       "lean": 2
+      }
+     },
+     {
+      "t": 2.74,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 11,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7,
+       "weapon": "sword",
+       "two": true,
+       "sa": -1,
+       "x": 16
+      }
+     },
+     {
+      "t": 2.975,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 11,
+       "fy": -15,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7,
+       "weapon": "sword",
+       "sa": 0.38,
+       "x": 16
+      }
+     }
+    ]
+   }
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.503,
+    0.55
+   ],
+   "sourceFrames": 90,
+   "sourceFrameSize": [
+    264,
+    150
+   ]
+  }
+ }
+}

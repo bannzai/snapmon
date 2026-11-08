@@ -1,0 +1,390 @@
+{
+ "frames": [
+  {
+   "filename": "warp-in 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 183,
+    "h": 166
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 183,
+    "h": 166
+   },
+   "sourceSize": {
+    "w": 183,
+    "h": 166
+   },
+   "duration": 33
+  },
+  {
+   "filename": "warp-in 1",
+   "frame": {
+    "x": 183,
+    "y": 0,
+    "w": 183,
+    "h": 166
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 183,
+    "h": 166
+   },
+   "sourceSize": {
+    "w": 183,
+    "h": 166
+   },
+   "duration": 33
+  },
+  {
+   "filename": "warp-in 2",
+   "frame": {
+    "x": 366,
+    "y": 0,
+    "w": 183,
+    "h": 166
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 183,
+    "h": 166
+   },
+   "sourceSize": {
+    "w": 183,
+    "h": 166
+   },
+   "duration": 33
+  },
+  {
+   "filename": "warp-in 3",
+   "frame": {
+    "x": 0,
+    "y": 166,
+    "w": 183,
+    "h": 166
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 183,
+    "h": 166
+   },
+   "sourceSize": {
+    "w": 183,
+    "h": 166
+   },
+   "duration": 33
+  },
+  {
+   "filename": "warp-in 4",
+   "frame": {
+    "x": 183,
+    "y": 166,
+    "w": 183,
+    "h": 166
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 183,
+    "h": 166
+   },
+   "sourceSize": {
+    "w": 183,
+    "h": 166
+   },
+   "duration": 33
+  },
+  {
+   "filename": "warp-in 5",
+   "frame": {
+    "x": 366,
+    "y": 166,
+    "w": 183,
+    "h": 166
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 183,
+    "h": 166
+   },
+   "sourceSize": {
+    "w": 183,
+    "h": 166
+   },
+   "duration": 33
+  },
+  {
+   "filename": "warp-in 6",
+   "frame": {
+    "x": 0,
+    "y": 332,
+    "w": 183,
+    "h": 166
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 183,
+    "h": 166
+   },
+   "sourceSize": {
+    "w": 183,
+    "h": 166
+   },
+   "duration": 33
+  },
+  {
+   "filename": "warp-in 7",
+   "frame": {
+    "x": 183,
+    "y": 332,
+    "w": 183,
+    "h": 166
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 183,
+    "h": 166
+   },
+   "sourceSize": {
+    "w": 183,
+    "h": 166
+   },
+   "duration": 33
+  },
+  {
+   "filename": "warp-in 8",
+   "frame": {
+    "x": 366,
+    "y": 332,
+    "w": 183,
+    "h": 166
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 183,
+    "h": 166
+   },
+   "sourceSize": {
+    "w": 183,
+    "h": 166
+   },
+   "duration": 33
+  },
+  {
+   "filename": "warp-in 9",
+   "frame": {
+    "x": 0,
+    "y": 498,
+    "w": 183,
+    "h": 166
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 183,
+    "h": 166
+   },
+   "sourceSize": {
+    "w": 183,
+    "h": 166
+   },
+   "duration": 33
+  },
+  {
+   "filename": "warp-in 10",
+   "frame": {
+    "x": 183,
+    "y": 498,
+    "w": 183,
+    "h": 166
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 183,
+    "h": 166
+   },
+   "sourceSize": {
+    "w": 183,
+    "h": 166
+   },
+   "duration": 33
+  },
+  {
+   "filename": "warp-in 11",
+   "frame": {
+    "x": 366,
+    "y": 498,
+    "w": 183,
+    "h": 166
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 183,
+    "h": 166
+   },
+   "sourceSize": {
+    "w": 183,
+    "h": 166
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "warp-in.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 549,
+   "h": 664
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "warp-in",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "scifi/warp-in",
+   "name": "Warp in",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    183,
+    166
+   ],
+   "pivot": [
+    96,
+    128
+   ],
+   "columns": 3,
+   "act": {
+    "windup": 0,
+    "recovery": 0,
+    "onBody": true,
+    "targets": [],
+    "hits": [],
+    "poses": [
+     {
+      "t": 0,
+      "how": "smooth",
+      "pose": {
+       "crouch": 7,
+       "lean": 3,
+       "fx": 9,
+       "fy": -12,
+       "bx": 12,
+       "by": -12,
+       "ffx": 8,
+       "fbx": -6
+      }
+     },
+     {
+      "t": 1.82,
+      "how": "smooth",
+      "pose": {
+       "crouch": 7,
+       "lean": 3,
+       "fx": 9,
+       "fy": -12,
+       "bx": 12,
+       "by": -12,
+       "ffx": 8,
+       "fbx": -6
+      }
+     },
+     {
+      "t": 2.05,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 8,
+       "fy": -19,
+       "bx": 8,
+       "by": -18,
+       "ffx": 4,
+       "fbx": -3
+      }
+     },
+     {
+      "t": 2.5,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 11,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7
+      }
+     },
+     {
+      "t": 3,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 11,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7
+      }
+     }
+    ]
+   }
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.449
+   ],
+   "sourceFrames": 91,
+   "sourceFrameSize": [
+    192,
+    168
+   ]
+  }
+ }
+}

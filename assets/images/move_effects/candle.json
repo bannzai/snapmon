@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "candle 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 54,
+    "h": 65
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 54,
+    "h": 65
+   },
+   "sourceSize": {
+    "w": 54,
+    "h": 65
+   },
+   "duration": 33
+  },
+  {
+   "filename": "candle 1",
+   "frame": {
+    "x": 54,
+    "y": 0,
+    "w": 54,
+    "h": 65
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 54,
+    "h": 65
+   },
+   "sourceSize": {
+    "w": 54,
+    "h": 65
+   },
+   "duration": 33
+  },
+  {
+   "filename": "candle 2",
+   "frame": {
+    "x": 108,
+    "y": 0,
+    "w": 54,
+    "h": 65
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 54,
+    "h": 65
+   },
+   "sourceSize": {
+    "w": 54,
+    "h": 65
+   },
+   "duration": 33
+  },
+  {
+   "filename": "candle 3",
+   "frame": {
+    "x": 162,
+    "y": 0,
+    "w": 54,
+    "h": 65
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 54,
+    "h": 65
+   },
+   "sourceSize": {
+    "w": 54,
+    "h": 65
+   },
+   "duration": 33
+  },
+  {
+   "filename": "candle 4",
+   "frame": {
+    "x": 0,
+    "y": 65,
+    "w": 54,
+    "h": 65
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 54,
+    "h": 65
+   },
+   "sourceSize": {
+    "w": 54,
+    "h": 65
+   },
+   "duration": 33
+  },
+  {
+   "filename": "candle 5",
+   "frame": {
+    "x": 54,
+    "y": 65,
+    "w": 54,
+    "h": 65
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 54,
+    "h": 65
+   },
+   "sourceSize": {
+    "w": 54,
+    "h": 65
+   },
+   "duration": 33
+  },
+  {
+   "filename": "candle 6",
+   "frame": {
+    "x": 108,
+    "y": 65,
+    "w": 54,
+    "h": 65
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 54,
+    "h": 65
+   },
+   "sourceSize": {
+    "w": 54,
+    "h": 65
+   },
+   "duration": 33
+  },
+  {
+   "filename": "candle 7",
+   "frame": {
+    "x": 162,
+    "y": 65,
+    "w": 54,
+    "h": 65
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 54,
+    "h": 65
+   },
+   "sourceSize": {
+    "w": 54,
+    "h": 65
+   },
+   "duration": 33
+  },
+  {
+   "filename": "candle 8",
+   "frame": {
+    "x": 0,
+    "y": 130,
+    "w": 54,
+    "h": 65
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 54,
+    "h": 65
+   },
+   "sourceSize": {
+    "w": 54,
+    "h": 65
+   },
+   "duration": 33
+  },
+  {
+   "filename": "candle 9",
+   "frame": {
+    "x": 54,
+    "y": 130,
+    "w": 54,
+    "h": 65
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 54,
+    "h": 65
+   },
+   "sourceSize": {
+    "w": 54,
+    "h": 65
+   },
+   "duration": 33
+  },
+  {
+   "filename": "candle 10",
+   "frame": {
+    "x": 108,
+    "y": 130,
+    "w": 54,
+    "h": 65
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 54,
+    "h": 65
+   },
+   "sourceSize": {
+    "w": 54,
+    "h": 65
+   },
+   "duration": 33
+  },
+  {
+   "filename": "candle 11",
+   "frame": {
+    "x": 162,
+    "y": 130,
+    "w": 54,
+    "h": 65
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 54,
+    "h": 65
+   },
+   "sourceSize": {
+    "w": 54,
+    "h": 65
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "candle.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 216,
+   "h": 195
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "candle",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "fire/candle",
+   "name": "Candle",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    54,
+    65
+   ],
+   "pivot": [
+    28,
+    64
+   ],
+   "columns": 4
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.538
+   ],
+   "sourceFrames": 120,
+   "sourceFrameSize": [
+    56,
+    76
+   ]
+  }
+ }
+}

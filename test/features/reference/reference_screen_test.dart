@@ -185,10 +185,12 @@ void main() {
       of: find.byKey(const Key('reference-move-list')),
       matching: find.byType(Scrollable),
     );
+    // その場で作った技は 23 属性 460 件 (版 9) の後ろに出るため、既定の 50 回より多くスクロールする
     await tester.scrollUntilVisible(
       find.byKey(const Key('reference-move-custom_rubber_1')),
       500,
       scrollable: moveListScrollable,
+      maxScrolls: 400,
     );
     expect(find.text('ゴムだまはじき'), findsOneWidget);
 
@@ -196,6 +198,7 @@ void main() {
       steamMove,
       -500,
       scrollable: moveListScrollable,
+      maxScrolls: 400,
     );
     // scrollUntilVisible は要素が作られた (画面の外の cache の範囲でも) 時点で止まるため、タップの前に画面の中へ入れる
     await tester.ensureVisible(steamMove);

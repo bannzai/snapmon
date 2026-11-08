@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "boulder 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 224,
+    "h": 108
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 224,
+    "h": 108
+   },
+   "sourceSize": {
+    "w": 224,
+    "h": 108
+   },
+   "duration": 33
+  },
+  {
+   "filename": "boulder 1",
+   "frame": {
+    "x": 224,
+    "y": 0,
+    "w": 224,
+    "h": 108
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 224,
+    "h": 108
+   },
+   "sourceSize": {
+    "w": 224,
+    "h": 108
+   },
+   "duration": 33
+  },
+  {
+   "filename": "boulder 2",
+   "frame": {
+    "x": 0,
+    "y": 108,
+    "w": 224,
+    "h": 108
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 224,
+    "h": 108
+   },
+   "sourceSize": {
+    "w": 224,
+    "h": 108
+   },
+   "duration": 33
+  },
+  {
+   "filename": "boulder 3",
+   "frame": {
+    "x": 224,
+    "y": 108,
+    "w": 224,
+    "h": 108
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 224,
+    "h": 108
+   },
+   "sourceSize": {
+    "w": 224,
+    "h": 108
+   },
+   "duration": 33
+  },
+  {
+   "filename": "boulder 4",
+   "frame": {
+    "x": 0,
+    "y": 216,
+    "w": 224,
+    "h": 108
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 224,
+    "h": 108
+   },
+   "sourceSize": {
+    "w": 224,
+    "h": 108
+   },
+   "duration": 33
+  },
+  {
+   "filename": "boulder 5",
+   "frame": {
+    "x": 224,
+    "y": 216,
+    "w": 224,
+    "h": 108
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 224,
+    "h": 108
+   },
+   "sourceSize": {
+    "w": 224,
+    "h": 108
+   },
+   "duration": 33
+  },
+  {
+   "filename": "boulder 6",
+   "frame": {
+    "x": 0,
+    "y": 324,
+    "w": 224,
+    "h": 108
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 224,
+    "h": 108
+   },
+   "sourceSize": {
+    "w": 224,
+    "h": 108
+   },
+   "duration": 33
+  },
+  {
+   "filename": "boulder 7",
+   "frame": {
+    "x": 224,
+    "y": 324,
+    "w": 224,
+    "h": 108
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 224,
+    "h": 108
+   },
+   "sourceSize": {
+    "w": 224,
+    "h": 108
+   },
+   "duration": 33
+  },
+  {
+   "filename": "boulder 8",
+   "frame": {
+    "x": 0,
+    "y": 432,
+    "w": 224,
+    "h": 108
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 224,
+    "h": 108
+   },
+   "sourceSize": {
+    "w": 224,
+    "h": 108
+   },
+   "duration": 33
+  },
+  {
+   "filename": "boulder 9",
+   "frame": {
+    "x": 224,
+    "y": 432,
+    "w": 224,
+    "h": 108
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 224,
+    "h": 108
+   },
+   "sourceSize": {
+    "w": 224,
+    "h": 108
+   },
+   "duration": 33
+  },
+  {
+   "filename": "boulder 10",
+   "frame": {
+    "x": 0,
+    "y": 540,
+    "w": 224,
+    "h": 108
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 224,
+    "h": 108
+   },
+   "sourceSize": {
+    "w": 224,
+    "h": 108
+   },
+   "duration": 33
+  },
+  {
+   "filename": "boulder 11",
+   "frame": {
+    "x": 224,
+    "y": 540,
+    "w": 224,
+    "h": 108
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 224,
+    "h": 108
+   },
+   "sourceSize": {
+    "w": 224,
+    "h": 108
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "boulder.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 448,
+   "h": 648
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "boulder",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "nature/boulder",
+   "name": "Boulder",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    224,
+    108
+   ],
+   "pivot": [
+    40,
+    104
+   ],
+   "columns": 2
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.491,
+    0.491
+   ],
+   "sourceFrames": 70,
+   "sourceFrameSize": [
+    264,
+    120
+   ]
+  }
+ }
+}

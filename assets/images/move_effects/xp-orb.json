@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "xp-orb 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 62,
+    "h": 44
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 62,
+    "h": 44
+   },
+   "sourceSize": {
+    "w": 62,
+    "h": 44
+   },
+   "duration": 33
+  },
+  {
+   "filename": "xp-orb 1",
+   "frame": {
+    "x": 62,
+    "y": 0,
+    "w": 62,
+    "h": 44
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 62,
+    "h": 44
+   },
+   "sourceSize": {
+    "w": 62,
+    "h": 44
+   },
+   "duration": 33
+  },
+  {
+   "filename": "xp-orb 2",
+   "frame": {
+    "x": 124,
+    "y": 0,
+    "w": 62,
+    "h": 44
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 62,
+    "h": 44
+   },
+   "sourceSize": {
+    "w": 62,
+    "h": 44
+   },
+   "duration": 33
+  },
+  {
+   "filename": "xp-orb 3",
+   "frame": {
+    "x": 0,
+    "y": 44,
+    "w": 62,
+    "h": 44
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 62,
+    "h": 44
+   },
+   "sourceSize": {
+    "w": 62,
+    "h": 44
+   },
+   "duration": 33
+  },
+  {
+   "filename": "xp-orb 4",
+   "frame": {
+    "x": 62,
+    "y": 44,
+    "w": 62,
+    "h": 44
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 62,
+    "h": 44
+   },
+   "sourceSize": {
+    "w": 62,
+    "h": 44
+   },
+   "duration": 33
+  },
+  {
+   "filename": "xp-orb 5",
+   "frame": {
+    "x": 124,
+    "y": 44,
+    "w": 62,
+    "h": 44
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 62,
+    "h": 44
+   },
+   "sourceSize": {
+    "w": 62,
+    "h": 44
+   },
+   "duration": 33
+  },
+  {
+   "filename": "xp-orb 6",
+   "frame": {
+    "x": 0,
+    "y": 88,
+    "w": 62,
+    "h": 44
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 62,
+    "h": 44
+   },
+   "sourceSize": {
+    "w": 62,
+    "h": 44
+   },
+   "duration": 33
+  },
+  {
+   "filename": "xp-orb 7",
+   "frame": {
+    "x": 62,
+    "y": 88,
+    "w": 62,
+    "h": 44
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 62,
+    "h": 44
+   },
+   "sourceSize": {
+    "w": 62,
+    "h": 44
+   },
+   "duration": 33
+  },
+  {
+   "filename": "xp-orb 8",
+   "frame": {
+    "x": 124,
+    "y": 88,
+    "w": 62,
+    "h": 44
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 62,
+    "h": 44
+   },
+   "sourceSize": {
+    "w": 62,
+    "h": 44
+   },
+   "duration": 33
+  },
+  {
+   "filename": "xp-orb 9",
+   "frame": {
+    "x": 0,
+    "y": 132,
+    "w": 62,
+    "h": 44
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 62,
+    "h": 44
+   },
+   "sourceSize": {
+    "w": 62,
+    "h": 44
+   },
+   "duration": 33
+  },
+  {
+   "filename": "xp-orb 10",
+   "frame": {
+    "x": 62,
+    "y": 132,
+    "w": 62,
+    "h": 44
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 62,
+    "h": 44
+   },
+   "sourceSize": {
+    "w": 62,
+    "h": 44
+   },
+   "duration": 33
+  },
+  {
+   "filename": "xp-orb 11",
+   "frame": {
+    "x": 124,
+    "y": 132,
+    "w": 62,
+    "h": 44
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 62,
+    "h": 44
+   },
+   "sourceSize": {
+    "w": 62,
+    "h": 44
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "xp-orb.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 186,
+   "h": 176
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "xp-orb",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "pickups/xp-orb",
+   "name": "XP orb",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    62,
+    44
+   ],
+   "pivot": [
+    36,
+    48
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.58
+   ],
+   "sourceFrames": 54,
+   "sourceFrameSize": [
+    72,
+    56
+   ]
+  }
+ }
+}

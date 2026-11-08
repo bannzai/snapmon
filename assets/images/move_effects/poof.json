@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "poof 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 88,
+    "h": 75
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 88,
+    "h": 75
+   },
+   "sourceSize": {
+    "w": 88,
+    "h": 75
+   },
+   "duration": 33
+  },
+  {
+   "filename": "poof 1",
+   "frame": {
+    "x": 88,
+    "y": 0,
+    "w": 88,
+    "h": 75
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 88,
+    "h": 75
+   },
+   "sourceSize": {
+    "w": 88,
+    "h": 75
+   },
+   "duration": 33
+  },
+  {
+   "filename": "poof 2",
+   "frame": {
+    "x": 176,
+    "y": 0,
+    "w": 88,
+    "h": 75
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 88,
+    "h": 75
+   },
+   "sourceSize": {
+    "w": 88,
+    "h": 75
+   },
+   "duration": 33
+  },
+  {
+   "filename": "poof 3",
+   "frame": {
+    "x": 0,
+    "y": 75,
+    "w": 88,
+    "h": 75
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 88,
+    "h": 75
+   },
+   "sourceSize": {
+    "w": 88,
+    "h": 75
+   },
+   "duration": 33
+  },
+  {
+   "filename": "poof 4",
+   "frame": {
+    "x": 88,
+    "y": 75,
+    "w": 88,
+    "h": 75
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 88,
+    "h": 75
+   },
+   "sourceSize": {
+    "w": 88,
+    "h": 75
+   },
+   "duration": 33
+  },
+  {
+   "filename": "poof 5",
+   "frame": {
+    "x": 176,
+    "y": 75,
+    "w": 88,
+    "h": 75
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 88,
+    "h": 75
+   },
+   "sourceSize": {
+    "w": 88,
+    "h": 75
+   },
+   "duration": 33
+  },
+  {
+   "filename": "poof 6",
+   "frame": {
+    "x": 0,
+    "y": 150,
+    "w": 88,
+    "h": 75
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 88,
+    "h": 75
+   },
+   "sourceSize": {
+    "w": 88,
+    "h": 75
+   },
+   "duration": 33
+  },
+  {
+   "filename": "poof 7",
+   "frame": {
+    "x": 88,
+    "y": 150,
+    "w": 88,
+    "h": 75
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 88,
+    "h": 75
+   },
+   "sourceSize": {
+    "w": 88,
+    "h": 75
+   },
+   "duration": 33
+  },
+  {
+   "filename": "poof 8",
+   "frame": {
+    "x": 176,
+    "y": 150,
+    "w": 88,
+    "h": 75
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 88,
+    "h": 75
+   },
+   "sourceSize": {
+    "w": 88,
+    "h": 75
+   },
+   "duration": 33
+  },
+  {
+   "filename": "poof 9",
+   "frame": {
+    "x": 0,
+    "y": 225,
+    "w": 88,
+    "h": 75
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 88,
+    "h": 75
+   },
+   "sourceSize": {
+    "w": 88,
+    "h": 75
+   },
+   "duration": 33
+  },
+  {
+   "filename": "poof 10",
+   "frame": {
+    "x": 88,
+    "y": 225,
+    "w": 88,
+    "h": 75
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 88,
+    "h": 75
+   },
+   "sourceSize": {
+    "w": 88,
+    "h": 75
+   },
+   "duration": 33
+  },
+  {
+   "filename": "poof 11",
+   "frame": {
+    "x": 176,
+    "y": 225,
+    "w": 88,
+    "h": 75
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 88,
+    "h": 75
+   },
+   "sourceSize": {
+    "w": 88,
+    "h": 75
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "poof.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 264,
+   "h": 300
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "poof",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "spawn/poof",
+   "name": "Poof",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    88,
+    75
+   ],
+   "pivot": [
+    56,
+    80
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.54,
+    0.5
+   ],
+   "sourceFrames": 49,
+   "sourceFrameSize": [
+    112,
+    92
+   ]
+  }
+ }
+}

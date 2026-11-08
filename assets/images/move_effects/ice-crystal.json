@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "ice-crystal 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 58,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 58,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 58,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-crystal 1",
+   "frame": {
+    "x": 58,
+    "y": 0,
+    "w": 58,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 58,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 58,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-crystal 2",
+   "frame": {
+    "x": 116,
+    "y": 0,
+    "w": 58,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 58,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 58,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-crystal 3",
+   "frame": {
+    "x": 174,
+    "y": 0,
+    "w": 58,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 58,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 58,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-crystal 4",
+   "frame": {
+    "x": 0,
+    "y": 73,
+    "w": 58,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 58,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 58,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-crystal 5",
+   "frame": {
+    "x": 58,
+    "y": 73,
+    "w": 58,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 58,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 58,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-crystal 6",
+   "frame": {
+    "x": 116,
+    "y": 73,
+    "w": 58,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 58,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 58,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-crystal 7",
+   "frame": {
+    "x": 174,
+    "y": 73,
+    "w": 58,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 58,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 58,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-crystal 8",
+   "frame": {
+    "x": 0,
+    "y": 146,
+    "w": 58,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 58,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 58,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-crystal 9",
+   "frame": {
+    "x": 58,
+    "y": 146,
+    "w": 58,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 58,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 58,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-crystal 10",
+   "frame": {
+    "x": 116,
+    "y": 146,
+    "w": 58,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 58,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 58,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-crystal 11",
+   "frame": {
+    "x": 174,
+    "y": 146,
+    "w": 58,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 58,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 58,
+    "h": 73
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "ice-crystal.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 232,
+   "h": 219
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "ice-crystal",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "ice/ice-crystal",
+   "name": "Ice crystal",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    58,
+    73
+   ],
+   "pivot": [
+    48,
+    92
+   ],
+   "columns": 4
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.509,
+    0.521
+   ],
+   "sourceFrames": 90,
+   "sourceFrameSize": [
+    96,
+    100
+   ]
+  }
+ }
+}

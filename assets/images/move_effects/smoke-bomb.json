@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "smoke-bomb 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 188,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 188,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 188,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "smoke-bomb 1",
+   "frame": {
+    "x": 188,
+    "y": 0,
+    "w": 188,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 188,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 188,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "smoke-bomb 2",
+   "frame": {
+    "x": 376,
+    "y": 0,
+    "w": 188,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 188,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 188,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "smoke-bomb 3",
+   "frame": {
+    "x": 0,
+    "y": 110,
+    "w": 188,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 188,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 188,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "smoke-bomb 4",
+   "frame": {
+    "x": 188,
+    "y": 110,
+    "w": 188,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 188,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 188,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "smoke-bomb 5",
+   "frame": {
+    "x": 376,
+    "y": 110,
+    "w": 188,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 188,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 188,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "smoke-bomb 6",
+   "frame": {
+    "x": 0,
+    "y": 220,
+    "w": 188,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 188,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 188,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "smoke-bomb 7",
+   "frame": {
+    "x": 188,
+    "y": 220,
+    "w": 188,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 188,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 188,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "smoke-bomb 8",
+   "frame": {
+    "x": 376,
+    "y": 220,
+    "w": 188,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 188,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 188,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "smoke-bomb 9",
+   "frame": {
+    "x": 0,
+    "y": 330,
+    "w": 188,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 188,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 188,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "smoke-bomb 10",
+   "frame": {
+    "x": 188,
+    "y": 330,
+    "w": 188,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 188,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 188,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "smoke-bomb 11",
+   "frame": {
+    "x": 376,
+    "y": 330,
+    "w": 188,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 188,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 188,
+    "h": 110
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "smoke-bomb.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 564,
+   "h": 440
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "smoke-bomb",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "explosions/smoke-bomb",
+   "name": "Smoke bomb",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    188,
+    110
+   ],
+   "pivot": [
+    130,
+    156
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.487,
+    0.495
+   ],
+   "sourceFrames": 151,
+   "sourceFrameSize": [
+    260,
+    176
+   ]
+  }
+ }
+}

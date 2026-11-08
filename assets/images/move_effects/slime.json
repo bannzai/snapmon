@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "slime 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 104,
+    "h": 83
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 104,
+    "h": 83
+   },
+   "sourceSize": {
+    "w": 104,
+    "h": 83
+   },
+   "duration": 33
+  },
+  {
+   "filename": "slime 1",
+   "frame": {
+    "x": 104,
+    "y": 0,
+    "w": 104,
+    "h": 83
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 104,
+    "h": 83
+   },
+   "sourceSize": {
+    "w": 104,
+    "h": 83
+   },
+   "duration": 33
+  },
+  {
+   "filename": "slime 2",
+   "frame": {
+    "x": 208,
+    "y": 0,
+    "w": 104,
+    "h": 83
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 104,
+    "h": 83
+   },
+   "sourceSize": {
+    "w": 104,
+    "h": 83
+   },
+   "duration": 33
+  },
+  {
+   "filename": "slime 3",
+   "frame": {
+    "x": 0,
+    "y": 83,
+    "w": 104,
+    "h": 83
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 104,
+    "h": 83
+   },
+   "sourceSize": {
+    "w": 104,
+    "h": 83
+   },
+   "duration": 33
+  },
+  {
+   "filename": "slime 4",
+   "frame": {
+    "x": 104,
+    "y": 83,
+    "w": 104,
+    "h": 83
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 104,
+    "h": 83
+   },
+   "sourceSize": {
+    "w": 104,
+    "h": 83
+   },
+   "duration": 33
+  },
+  {
+   "filename": "slime 5",
+   "frame": {
+    "x": 208,
+    "y": 83,
+    "w": 104,
+    "h": 83
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 104,
+    "h": 83
+   },
+   "sourceSize": {
+    "w": 104,
+    "h": 83
+   },
+   "duration": 33
+  },
+  {
+   "filename": "slime 6",
+   "frame": {
+    "x": 0,
+    "y": 166,
+    "w": 104,
+    "h": 83
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 104,
+    "h": 83
+   },
+   "sourceSize": {
+    "w": 104,
+    "h": 83
+   },
+   "duration": 33
+  },
+  {
+   "filename": "slime 7",
+   "frame": {
+    "x": 104,
+    "y": 166,
+    "w": 104,
+    "h": 83
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 104,
+    "h": 83
+   },
+   "sourceSize": {
+    "w": 104,
+    "h": 83
+   },
+   "duration": 33
+  },
+  {
+   "filename": "slime 8",
+   "frame": {
+    "x": 208,
+    "y": 166,
+    "w": 104,
+    "h": 83
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 104,
+    "h": 83
+   },
+   "sourceSize": {
+    "w": 104,
+    "h": 83
+   },
+   "duration": 33
+  },
+  {
+   "filename": "slime 9",
+   "frame": {
+    "x": 0,
+    "y": 249,
+    "w": 104,
+    "h": 83
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 104,
+    "h": 83
+   },
+   "sourceSize": {
+    "w": 104,
+    "h": 83
+   },
+   "duration": 33
+  },
+  {
+   "filename": "slime 10",
+   "frame": {
+    "x": 104,
+    "y": 249,
+    "w": 104,
+    "h": 83
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 104,
+    "h": 83
+   },
+   "sourceSize": {
+    "w": 104,
+    "h": 83
+   },
+   "duration": 33
+  },
+  {
+   "filename": "slime 11",
+   "frame": {
+    "x": 208,
+    "y": 249,
+    "w": 104,
+    "h": 83
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 104,
+    "h": 83
+   },
+   "sourceSize": {
+    "w": 104,
+    "h": 83
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "slime.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 312,
+   "h": 332
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "slime",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "critters/slime",
+   "name": "Slime",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    104,
+    83
+   ],
+   "pivot": [
+    56,
+    72
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.495,
+    0.596
+   ],
+   "sourceFrames": 54,
+   "sourceFrameSize": [
+    112,
+    88
+   ]
+  }
+ }
+}

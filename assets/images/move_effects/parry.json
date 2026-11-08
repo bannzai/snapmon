@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "parry 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 169,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 169,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 169,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "parry 1",
+   "frame": {
+    "x": 169,
+    "y": 0,
+    "w": 169,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 169,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 169,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "parry 2",
+   "frame": {
+    "x": 338,
+    "y": 0,
+    "w": 169,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 169,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 169,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "parry 3",
+   "frame": {
+    "x": 0,
+    "y": 100,
+    "w": 169,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 169,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 169,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "parry 4",
+   "frame": {
+    "x": 169,
+    "y": 100,
+    "w": 169,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 169,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 169,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "parry 5",
+   "frame": {
+    "x": 338,
+    "y": 100,
+    "w": 169,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 169,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 169,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "parry 6",
+   "frame": {
+    "x": 0,
+    "y": 200,
+    "w": 169,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 169,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 169,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "parry 7",
+   "frame": {
+    "x": 169,
+    "y": 200,
+    "w": 169,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 169,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 169,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "parry 8",
+   "frame": {
+    "x": 338,
+    "y": 200,
+    "w": 169,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 169,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 169,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "parry 9",
+   "frame": {
+    "x": 0,
+    "y": 300,
+    "w": 169,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 169,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 169,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "parry 10",
+   "frame": {
+    "x": 169,
+    "y": 300,
+    "w": 169,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 169,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 169,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "parry 11",
+   "frame": {
+    "x": 338,
+    "y": 300,
+    "w": 169,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 169,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 169,
+    "h": 100
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "parry.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 507,
+   "h": 400
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "parry",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "impacts/parry",
+   "name": "Parry",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    169,
+    100
+   ],
+   "pivot": [
+    100,
+    96
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.497,
+    0.51
+   ],
+   "sourceFrames": 31,
+   "sourceFrameSize": [
+    200,
+    112
+   ]
+  }
+ }
+}
