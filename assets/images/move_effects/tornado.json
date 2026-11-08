@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "tornado 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 149,
+    "h": 165
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 149,
+    "h": 165
+   },
+   "sourceSize": {
+    "w": 149,
+    "h": 165
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tornado 1",
+   "frame": {
+    "x": 149,
+    "y": 0,
+    "w": 149,
+    "h": 165
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 149,
+    "h": 165
+   },
+   "sourceSize": {
+    "w": 149,
+    "h": 165
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tornado 2",
+   "frame": {
+    "x": 298,
+    "y": 0,
+    "w": 149,
+    "h": 165
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 149,
+    "h": 165
+   },
+   "sourceSize": {
+    "w": 149,
+    "h": 165
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tornado 3",
+   "frame": {
+    "x": 447,
+    "y": 0,
+    "w": 149,
+    "h": 165
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 149,
+    "h": 165
+   },
+   "sourceSize": {
+    "w": 149,
+    "h": 165
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tornado 4",
+   "frame": {
+    "x": 0,
+    "y": 165,
+    "w": 149,
+    "h": 165
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 149,
+    "h": 165
+   },
+   "sourceSize": {
+    "w": 149,
+    "h": 165
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tornado 5",
+   "frame": {
+    "x": 149,
+    "y": 165,
+    "w": 149,
+    "h": 165
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 149,
+    "h": 165
+   },
+   "sourceSize": {
+    "w": 149,
+    "h": 165
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tornado 6",
+   "frame": {
+    "x": 298,
+    "y": 165,
+    "w": 149,
+    "h": 165
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 149,
+    "h": 165
+   },
+   "sourceSize": {
+    "w": 149,
+    "h": 165
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tornado 7",
+   "frame": {
+    "x": 447,
+    "y": 165,
+    "w": 149,
+    "h": 165
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 149,
+    "h": 165
+   },
+   "sourceSize": {
+    "w": 149,
+    "h": 165
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tornado 8",
+   "frame": {
+    "x": 0,
+    "y": 330,
+    "w": 149,
+    "h": 165
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 149,
+    "h": 165
+   },
+   "sourceSize": {
+    "w": 149,
+    "h": 165
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tornado 9",
+   "frame": {
+    "x": 149,
+    "y": 330,
+    "w": 149,
+    "h": 165
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 149,
+    "h": 165
+   },
+   "sourceSize": {
+    "w": 149,
+    "h": 165
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tornado 10",
+   "frame": {
+    "x": 298,
+    "y": 330,
+    "w": 149,
+    "h": 165
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 149,
+    "h": 165
+   },
+   "sourceSize": {
+    "w": 149,
+    "h": 165
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tornado 11",
+   "frame": {
+    "x": 447,
+    "y": 330,
+    "w": 149,
+    "h": 165
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 149,
+    "h": 165
+   },
+   "sourceSize": {
+    "w": 149,
+    "h": 165
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "tornado.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 596,
+   "h": 495
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "tornado",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "nature/tornado",
+   "name": "Tornado",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    149,
+    165
+   ],
+   "pivot": [
+    98,
+    152
+   ],
+   "columns": 4
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.53
+   ],
+   "sourceFrames": 60,
+   "sourceFrameSize": [
+    196,
+    168
+   ]
+  }
+ }
+}

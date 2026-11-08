@@ -1,0 +1,468 @@
+{
+ "frames": [
+  {
+   "filename": "chain-lightning 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 207,
+    "h": 91
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 207,
+    "h": 91
+   },
+   "sourceSize": {
+    "w": 207,
+    "h": 91
+   },
+   "duration": 33
+  },
+  {
+   "filename": "chain-lightning 1",
+   "frame": {
+    "x": 207,
+    "y": 0,
+    "w": 207,
+    "h": 91
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 207,
+    "h": 91
+   },
+   "sourceSize": {
+    "w": 207,
+    "h": 91
+   },
+   "duration": 33
+  },
+  {
+   "filename": "chain-lightning 2",
+   "frame": {
+    "x": 0,
+    "y": 91,
+    "w": 207,
+    "h": 91
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 207,
+    "h": 91
+   },
+   "sourceSize": {
+    "w": 207,
+    "h": 91
+   },
+   "duration": 33
+  },
+  {
+   "filename": "chain-lightning 3",
+   "frame": {
+    "x": 207,
+    "y": 91,
+    "w": 207,
+    "h": 91
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 207,
+    "h": 91
+   },
+   "sourceSize": {
+    "w": 207,
+    "h": 91
+   },
+   "duration": 33
+  },
+  {
+   "filename": "chain-lightning 4",
+   "frame": {
+    "x": 0,
+    "y": 182,
+    "w": 207,
+    "h": 91
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 207,
+    "h": 91
+   },
+   "sourceSize": {
+    "w": 207,
+    "h": 91
+   },
+   "duration": 33
+  },
+  {
+   "filename": "chain-lightning 5",
+   "frame": {
+    "x": 207,
+    "y": 182,
+    "w": 207,
+    "h": 91
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 207,
+    "h": 91
+   },
+   "sourceSize": {
+    "w": 207,
+    "h": 91
+   },
+   "duration": 33
+  },
+  {
+   "filename": "chain-lightning 6",
+   "frame": {
+    "x": 0,
+    "y": 273,
+    "w": 207,
+    "h": 91
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 207,
+    "h": 91
+   },
+   "sourceSize": {
+    "w": 207,
+    "h": 91
+   },
+   "duration": 33
+  },
+  {
+   "filename": "chain-lightning 7",
+   "frame": {
+    "x": 207,
+    "y": 273,
+    "w": 207,
+    "h": 91
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 207,
+    "h": 91
+   },
+   "sourceSize": {
+    "w": 207,
+    "h": 91
+   },
+   "duration": 33
+  },
+  {
+   "filename": "chain-lightning 8",
+   "frame": {
+    "x": 0,
+    "y": 364,
+    "w": 207,
+    "h": 91
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 207,
+    "h": 91
+   },
+   "sourceSize": {
+    "w": 207,
+    "h": 91
+   },
+   "duration": 33
+  },
+  {
+   "filename": "chain-lightning 9",
+   "frame": {
+    "x": 207,
+    "y": 364,
+    "w": 207,
+    "h": 91
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 207,
+    "h": 91
+   },
+   "sourceSize": {
+    "w": 207,
+    "h": 91
+   },
+   "duration": 33
+  },
+  {
+   "filename": "chain-lightning 10",
+   "frame": {
+    "x": 0,
+    "y": 455,
+    "w": 207,
+    "h": 91
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 207,
+    "h": 91
+   },
+   "sourceSize": {
+    "w": 207,
+    "h": 91
+   },
+   "duration": 33
+  },
+  {
+   "filename": "chain-lightning 11",
+   "frame": {
+    "x": 207,
+    "y": 455,
+    "w": 207,
+    "h": 91
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 207,
+    "h": 91
+   },
+   "sourceSize": {
+    "w": 207,
+    "h": 91
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "chain-lightning.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 414,
+   "h": 546
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "chain-lightning",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "lightning/chain-lightning",
+   "name": "Chain lightning",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    207,
+    91
+   ],
+   "pivot": [
+    40,
+    82
+   ],
+   "columns": 2,
+   "act": {
+    "windup": 0.46,
+    "recovery": 0,
+    "onBody": false,
+    "targets": [
+     58,
+     104,
+     150
+    ],
+    "hits": [
+     {
+      "t": 0.05,
+      "freeze": 0.03,
+      "shake": 0,
+      "amp": 0,
+      "push": 1.2,
+      "skin": "shock",
+      "at": 0
+     },
+     {
+      "t": 0.14,
+      "freeze": 0.03,
+      "shake": 0,
+      "amp": 0,
+      "push": 1.2,
+      "skin": "shock",
+      "at": 1
+     },
+     {
+      "t": 0.23,
+      "freeze": 0.07,
+      "shake": 0.14,
+      "amp": 1,
+      "push": 1.2,
+      "skin": "shock",
+      "at": 2
+     },
+     {
+      "t": 1.35,
+      "freeze": 0,
+      "shake": 0,
+      "amp": 0,
+      "push": 0,
+      "skin": null
+     }
+    ],
+    "poses": [
+     {
+      "t": -0.46,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 11,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7,
+       "x": -6
+      }
+     },
+     {
+      "t": -0.22,
+      "how": "smooth",
+      "pose": {
+       "crouch": 4,
+       "fx": -5,
+       "fy": -32,
+       "bx": 8,
+       "by": -24,
+       "ffx": 9,
+       "fbx": -7,
+       "x": -6,
+       "lean": -3,
+       "armsFront": true
+      }
+     },
+     {
+      "t": 0,
+      "how": "smooth",
+      "pose": {
+       "crouch": 5,
+       "fx": -5,
+       "fy": -32,
+       "bx": 8,
+       "by": -24,
+       "ffx": 9,
+       "fbx": -7,
+       "x": -6,
+       "lean": -3,
+       "armsFront": true
+      }
+     },
+     {
+      "t": 0.04,
+      "how": "snap",
+      "pose": {
+       "crouch": 4,
+       "fx": 16,
+       "fy": -16,
+       "bx": -6,
+       "by": -23,
+       "ffx": 11,
+       "fbx": -9,
+       "x": -6,
+       "lean": 4
+      }
+     },
+     {
+      "t": 0.7,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 16,
+       "fy": -16,
+       "bx": -6,
+       "by": -23,
+       "ffx": 11,
+       "fbx": -9,
+       "x": -6,
+       "lean": 4
+      }
+     },
+     {
+      "t": 1.35,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 16,
+       "fy": -18,
+       "bx": -6,
+       "by": -23,
+       "ffx": 11,
+       "fbx": -9,
+       "x": -6,
+       "lean": 4
+      }
+     },
+     {
+      "t": 1.8,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 11,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7,
+       "x": -6
+      }
+     }
+    ]
+   }
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.493,
+    0.5
+   ],
+   "sourceFrames": 55,
+   "sourceFrameSize": [
+    248,
+    104
+   ]
+  }
+ }
+}

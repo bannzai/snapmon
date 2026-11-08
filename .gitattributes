@@ -1,0 +1,3 @@
+# 技のエフェクトのスプライトシートの JSON は scripts/move_effects/generate_move_effect_sprite_sheets.sh が書き出す生成物で、
+# 手で編集しない。差分の表示と漏れの点検 (pre-publish-leak-check) から patch を省く
+assets/images/move_effects/*.json linguist-generated=true

@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "potion 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 44,
+    "h": 62
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 44,
+    "h": 62
+   },
+   "sourceSize": {
+    "w": 44,
+    "h": 62
+   },
+   "duration": 33
+  },
+  {
+   "filename": "potion 1",
+   "frame": {
+    "x": 44,
+    "y": 0,
+    "w": 44,
+    "h": 62
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 44,
+    "h": 62
+   },
+   "sourceSize": {
+    "w": 44,
+    "h": 62
+   },
+   "duration": 33
+  },
+  {
+   "filename": "potion 2",
+   "frame": {
+    "x": 88,
+    "y": 0,
+    "w": 44,
+    "h": 62
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 44,
+    "h": 62
+   },
+   "sourceSize": {
+    "w": 44,
+    "h": 62
+   },
+   "duration": 33
+  },
+  {
+   "filename": "potion 3",
+   "frame": {
+    "x": 132,
+    "y": 0,
+    "w": 44,
+    "h": 62
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 44,
+    "h": 62
+   },
+   "sourceSize": {
+    "w": 44,
+    "h": 62
+   },
+   "duration": 33
+  },
+  {
+   "filename": "potion 4",
+   "frame": {
+    "x": 0,
+    "y": 62,
+    "w": 44,
+    "h": 62
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 44,
+    "h": 62
+   },
+   "sourceSize": {
+    "w": 44,
+    "h": 62
+   },
+   "duration": 33
+  },
+  {
+   "filename": "potion 5",
+   "frame": {
+    "x": 44,
+    "y": 62,
+    "w": 44,
+    "h": 62
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 44,
+    "h": 62
+   },
+   "sourceSize": {
+    "w": 44,
+    "h": 62
+   },
+   "duration": 33
+  },
+  {
+   "filename": "potion 6",
+   "frame": {
+    "x": 88,
+    "y": 62,
+    "w": 44,
+    "h": 62
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 44,
+    "h": 62
+   },
+   "sourceSize": {
+    "w": 44,
+    "h": 62
+   },
+   "duration": 33
+  },
+  {
+   "filename": "potion 7",
+   "frame": {
+    "x": 132,
+    "y": 62,
+    "w": 44,
+    "h": 62
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 44,
+    "h": 62
+   },
+   "sourceSize": {
+    "w": 44,
+    "h": 62
+   },
+   "duration": 33
+  },
+  {
+   "filename": "potion 8",
+   "frame": {
+    "x": 0,
+    "y": 124,
+    "w": 44,
+    "h": 62
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 44,
+    "h": 62
+   },
+   "sourceSize": {
+    "w": 44,
+    "h": 62
+   },
+   "duration": 33
+  },
+  {
+   "filename": "potion 9",
+   "frame": {
+    "x": 44,
+    "y": 124,
+    "w": 44,
+    "h": 62
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 44,
+    "h": 62
+   },
+   "sourceSize": {
+    "w": 44,
+    "h": 62
+   },
+   "duration": 33
+  },
+  {
+   "filename": "potion 10",
+   "frame": {
+    "x": 88,
+    "y": 124,
+    "w": 44,
+    "h": 62
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 44,
+    "h": 62
+   },
+   "sourceSize": {
+    "w": 44,
+    "h": 62
+   },
+   "duration": 33
+  },
+  {
+   "filename": "potion 11",
+   "frame": {
+    "x": 132,
+    "y": 124,
+    "w": 44,
+    "h": 62
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 44,
+    "h": 62
+   },
+   "sourceSize": {
+    "w": 44,
+    "h": 62
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "potion.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 176,
+   "h": 186
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "potion",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "pickups/potion",
+   "name": "Potion",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    44,
+    62
+   ],
+   "pivot": [
+    28,
+    64
+   ],
+   "columns": 4
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.489,
+    0.484
+   ],
+   "sourceFrames": 72,
+   "sourceFrameSize": [
+    56,
+    72
+   ]
+  }
+ }
+}

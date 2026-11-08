@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "fire-breath 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 156,
+    "h": 113
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 156,
+    "h": 113
+   },
+   "sourceSize": {
+    "w": 156,
+    "h": 113
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fire-breath 1",
+   "frame": {
+    "x": 156,
+    "y": 0,
+    "w": 156,
+    "h": 113
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 156,
+    "h": 113
+   },
+   "sourceSize": {
+    "w": 156,
+    "h": 113
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fire-breath 2",
+   "frame": {
+    "x": 312,
+    "y": 0,
+    "w": 156,
+    "h": 113
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 156,
+    "h": 113
+   },
+   "sourceSize": {
+    "w": 156,
+    "h": 113
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fire-breath 3",
+   "frame": {
+    "x": 0,
+    "y": 113,
+    "w": 156,
+    "h": 113
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 156,
+    "h": 113
+   },
+   "sourceSize": {
+    "w": 156,
+    "h": 113
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fire-breath 4",
+   "frame": {
+    "x": 156,
+    "y": 113,
+    "w": 156,
+    "h": 113
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 156,
+    "h": 113
+   },
+   "sourceSize": {
+    "w": 156,
+    "h": 113
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fire-breath 5",
+   "frame": {
+    "x": 312,
+    "y": 113,
+    "w": 156,
+    "h": 113
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 156,
+    "h": 113
+   },
+   "sourceSize": {
+    "w": 156,
+    "h": 113
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fire-breath 6",
+   "frame": {
+    "x": 0,
+    "y": 226,
+    "w": 156,
+    "h": 113
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 156,
+    "h": 113
+   },
+   "sourceSize": {
+    "w": 156,
+    "h": 113
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fire-breath 7",
+   "frame": {
+    "x": 156,
+    "y": 226,
+    "w": 156,
+    "h": 113
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 156,
+    "h": 113
+   },
+   "sourceSize": {
+    "w": 156,
+    "h": 113
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fire-breath 8",
+   "frame": {
+    "x": 312,
+    "y": 226,
+    "w": 156,
+    "h": 113
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 156,
+    "h": 113
+   },
+   "sourceSize": {
+    "w": 156,
+    "h": 113
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fire-breath 9",
+   "frame": {
+    "x": 0,
+    "y": 339,
+    "w": 156,
+    "h": 113
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 156,
+    "h": 113
+   },
+   "sourceSize": {
+    "w": 156,
+    "h": 113
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fire-breath 10",
+   "frame": {
+    "x": 156,
+    "y": 339,
+    "w": 156,
+    "h": 113
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 156,
+    "h": 113
+   },
+   "sourceSize": {
+    "w": 156,
+    "h": 113
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fire-breath 11",
+   "frame": {
+    "x": 312,
+    "y": 339,
+    "w": 156,
+    "h": 113
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 156,
+    "h": 113
+   },
+   "sourceSize": {
+    "w": 156,
+    "h": 113
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "fire-breath.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 468,
+   "h": 452
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "fire-breath",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "fire/fire-breath",
+   "name": "Fire breath",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    156,
+    113
+   ],
+   "pivot": [
+    12,
+    72
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.478,
+    0.5
+   ],
+   "sourceFrames": 45,
+   "sourceFrameSize": [
+    160,
+    116
+   ]
+  }
+ }
+}

@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "ice-shatter 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 183,
+    "h": 107
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 183,
+    "h": 107
+   },
+   "sourceSize": {
+    "w": 183,
+    "h": 107
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-shatter 1",
+   "frame": {
+    "x": 183,
+    "y": 0,
+    "w": 183,
+    "h": 107
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 183,
+    "h": 107
+   },
+   "sourceSize": {
+    "w": 183,
+    "h": 107
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-shatter 2",
+   "frame": {
+    "x": 366,
+    "y": 0,
+    "w": 183,
+    "h": 107
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 183,
+    "h": 107
+   },
+   "sourceSize": {
+    "w": 183,
+    "h": 107
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-shatter 3",
+   "frame": {
+    "x": 0,
+    "y": 107,
+    "w": 183,
+    "h": 107
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 183,
+    "h": 107
+   },
+   "sourceSize": {
+    "w": 183,
+    "h": 107
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-shatter 4",
+   "frame": {
+    "x": 183,
+    "y": 107,
+    "w": 183,
+    "h": 107
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 183,
+    "h": 107
+   },
+   "sourceSize": {
+    "w": 183,
+    "h": 107
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-shatter 5",
+   "frame": {
+    "x": 366,
+    "y": 107,
+    "w": 183,
+    "h": 107
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 183,
+    "h": 107
+   },
+   "sourceSize": {
+    "w": 183,
+    "h": 107
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-shatter 6",
+   "frame": {
+    "x": 0,
+    "y": 214,
+    "w": 183,
+    "h": 107
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 183,
+    "h": 107
+   },
+   "sourceSize": {
+    "w": 183,
+    "h": 107
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-shatter 7",
+   "frame": {
+    "x": 183,
+    "y": 214,
+    "w": 183,
+    "h": 107
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 183,
+    "h": 107
+   },
+   "sourceSize": {
+    "w": 183,
+    "h": 107
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-shatter 8",
+   "frame": {
+    "x": 366,
+    "y": 214,
+    "w": 183,
+    "h": 107
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 183,
+    "h": 107
+   },
+   "sourceSize": {
+    "w": 183,
+    "h": 107
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-shatter 9",
+   "frame": {
+    "x": 0,
+    "y": 321,
+    "w": 183,
+    "h": 107
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 183,
+    "h": 107
+   },
+   "sourceSize": {
+    "w": 183,
+    "h": 107
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-shatter 10",
+   "frame": {
+    "x": 183,
+    "y": 321,
+    "w": 183,
+    "h": 107
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 183,
+    "h": 107
+   },
+   "sourceSize": {
+    "w": 183,
+    "h": 107
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-shatter 11",
+   "frame": {
+    "x": 366,
+    "y": 321,
+    "w": 183,
+    "h": 107
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 183,
+    "h": 107
+   },
+   "sourceSize": {
+    "w": 183,
+    "h": 107
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "ice-shatter.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 549,
+   "h": 428
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "ice-shatter",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "ice/ice-shatter",
+   "name": "Ice shatter",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    183,
+    107
+   ],
+   "pivot": [
+    68,
+    90
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.522,
+    0.579
+   ],
+   "sourceFrames": 85,
+   "sourceFrameSize": [
+    224,
+    112
+   ]
+  }
+ }
+}

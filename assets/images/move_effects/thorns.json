@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "thorns 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 74
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 74
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 74
+   },
+   "duration": 33
+  },
+  {
+   "filename": "thorns 1",
+   "frame": {
+    "x": 192,
+    "y": 0,
+    "w": 192,
+    "h": 74
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 74
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 74
+   },
+   "duration": 33
+  },
+  {
+   "filename": "thorns 2",
+   "frame": {
+    "x": 0,
+    "y": 74,
+    "w": 192,
+    "h": 74
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 74
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 74
+   },
+   "duration": 33
+  },
+  {
+   "filename": "thorns 3",
+   "frame": {
+    "x": 192,
+    "y": 74,
+    "w": 192,
+    "h": 74
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 74
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 74
+   },
+   "duration": 33
+  },
+  {
+   "filename": "thorns 4",
+   "frame": {
+    "x": 0,
+    "y": 148,
+    "w": 192,
+    "h": 74
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 74
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 74
+   },
+   "duration": 33
+  },
+  {
+   "filename": "thorns 5",
+   "frame": {
+    "x": 192,
+    "y": 148,
+    "w": 192,
+    "h": 74
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 74
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 74
+   },
+   "duration": 33
+  },
+  {
+   "filename": "thorns 6",
+   "frame": {
+    "x": 0,
+    "y": 222,
+    "w": 192,
+    "h": 74
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 74
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 74
+   },
+   "duration": 33
+  },
+  {
+   "filename": "thorns 7",
+   "frame": {
+    "x": 192,
+    "y": 222,
+    "w": 192,
+    "h": 74
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 74
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 74
+   },
+   "duration": 33
+  },
+  {
+   "filename": "thorns 8",
+   "frame": {
+    "x": 0,
+    "y": 296,
+    "w": 192,
+    "h": 74
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 74
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 74
+   },
+   "duration": 33
+  },
+  {
+   "filename": "thorns 9",
+   "frame": {
+    "x": 192,
+    "y": 296,
+    "w": 192,
+    "h": 74
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 74
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 74
+   },
+   "duration": 33
+  },
+  {
+   "filename": "thorns 10",
+   "frame": {
+    "x": 0,
+    "y": 370,
+    "w": 192,
+    "h": 74
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 74
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 74
+   },
+   "duration": 33
+  },
+  {
+   "filename": "thorns 11",
+   "frame": {
+    "x": 192,
+    "y": 370,
+    "w": 192,
+    "h": 74
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 74
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 74
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "thorns.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 384,
+   "h": 444
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "thorns",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "nature/thorns",
+   "name": "Thorns",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    192,
+    74
+   ],
+   "pivot": [
+    48,
+    78
+   ],
+   "columns": 2
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.503,
+    0.527
+   ],
+   "sourceFrames": 73,
+   "sourceFrameSize": [
+    232,
+    92
+   ]
+  }
+ }
+}

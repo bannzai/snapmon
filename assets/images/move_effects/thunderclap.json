@@ -1,0 +1,453 @@
+{
+ "frames": [
+  {
+   "filename": "thunderclap 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 254,
+    "h": 150
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 254,
+    "h": 150
+   },
+   "sourceSize": {
+    "w": 254,
+    "h": 150
+   },
+   "duration": 33
+  },
+  {
+   "filename": "thunderclap 1",
+   "frame": {
+    "x": 254,
+    "y": 0,
+    "w": 254,
+    "h": 150
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 254,
+    "h": 150
+   },
+   "sourceSize": {
+    "w": 254,
+    "h": 150
+   },
+   "duration": 33
+  },
+  {
+   "filename": "thunderclap 2",
+   "frame": {
+    "x": 508,
+    "y": 0,
+    "w": 254,
+    "h": 150
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 254,
+    "h": 150
+   },
+   "sourceSize": {
+    "w": 254,
+    "h": 150
+   },
+   "duration": 33
+  },
+  {
+   "filename": "thunderclap 3",
+   "frame": {
+    "x": 0,
+    "y": 150,
+    "w": 254,
+    "h": 150
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 254,
+    "h": 150
+   },
+   "sourceSize": {
+    "w": 254,
+    "h": 150
+   },
+   "duration": 33
+  },
+  {
+   "filename": "thunderclap 4",
+   "frame": {
+    "x": 254,
+    "y": 150,
+    "w": 254,
+    "h": 150
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 254,
+    "h": 150
+   },
+   "sourceSize": {
+    "w": 254,
+    "h": 150
+   },
+   "duration": 33
+  },
+  {
+   "filename": "thunderclap 5",
+   "frame": {
+    "x": 508,
+    "y": 150,
+    "w": 254,
+    "h": 150
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 254,
+    "h": 150
+   },
+   "sourceSize": {
+    "w": 254,
+    "h": 150
+   },
+   "duration": 33
+  },
+  {
+   "filename": "thunderclap 6",
+   "frame": {
+    "x": 0,
+    "y": 300,
+    "w": 254,
+    "h": 150
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 254,
+    "h": 150
+   },
+   "sourceSize": {
+    "w": 254,
+    "h": 150
+   },
+   "duration": 33
+  },
+  {
+   "filename": "thunderclap 7",
+   "frame": {
+    "x": 254,
+    "y": 300,
+    "w": 254,
+    "h": 150
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 254,
+    "h": 150
+   },
+   "sourceSize": {
+    "w": 254,
+    "h": 150
+   },
+   "duration": 33
+  },
+  {
+   "filename": "thunderclap 8",
+   "frame": {
+    "x": 508,
+    "y": 300,
+    "w": 254,
+    "h": 150
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 254,
+    "h": 150
+   },
+   "sourceSize": {
+    "w": 254,
+    "h": 150
+   },
+   "duration": 33
+  },
+  {
+   "filename": "thunderclap 9",
+   "frame": {
+    "x": 0,
+    "y": 450,
+    "w": 254,
+    "h": 150
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 254,
+    "h": 150
+   },
+   "sourceSize": {
+    "w": 254,
+    "h": 150
+   },
+   "duration": 33
+  },
+  {
+   "filename": "thunderclap 10",
+   "frame": {
+    "x": 254,
+    "y": 450,
+    "w": 254,
+    "h": 150
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 254,
+    "h": 150
+   },
+   "sourceSize": {
+    "w": 254,
+    "h": 150
+   },
+   "duration": 33
+  },
+  {
+   "filename": "thunderclap 11",
+   "frame": {
+    "x": 508,
+    "y": 450,
+    "w": 254,
+    "h": 150
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 254,
+    "h": 150
+   },
+   "sourceSize": {
+    "w": 254,
+    "h": 150
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "thunderclap.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 762,
+   "h": 600
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "thunderclap",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "lightning/thunderclap",
+   "name": "Thunderclap",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    254,
+    150
+   ],
+   "pivot": [
+    144,
+    124
+   ],
+   "columns": 3,
+   "act": {
+    "windup": 0.46,
+    "recovery": 0,
+    "onBody": true,
+    "targets": [
+     104
+    ],
+    "hits": [
+     {
+      "t": 0.12,
+      "freeze": 0.13,
+      "shake": 0.3,
+      "amp": 3,
+      "push": 0
+     },
+     {
+      "t": 0.42,
+      "freeze": 0,
+      "shake": 0,
+      "amp": 0,
+      "push": 2,
+      "skin": "shock"
+     },
+     {
+      "t": 1.2,
+      "freeze": 0,
+      "shake": 0,
+      "amp": 0,
+      "push": 0,
+      "skin": null
+     }
+    ],
+    "poses": [
+     {
+      "t": -0.46,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 11,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7
+      }
+     },
+     {
+      "t": -0.18,
+      "how": "smooth",
+      "pose": {
+       "turn": 1.15,
+       "crouch": 5,
+       "lean": -1,
+       "fx": -15,
+       "fy": -33,
+       "bx": 15,
+       "by": -33,
+       "ffx": -7,
+       "fbx": 8
+      }
+     },
+     {
+      "t": 0.08,
+      "how": "smooth",
+      "pose": {
+       "turn": 1.15,
+       "crouch": 6,
+       "lean": -1,
+       "fx": -15,
+       "fy": -33,
+       "bx": 15,
+       "by": -33,
+       "ffx": -7,
+       "fbx": 8
+      }
+     },
+     {
+      "t": 0.12,
+      "how": "snap",
+      "pose": {
+       "turn": 1.15,
+       "y": -2,
+       "crouch": 0,
+       "fx": -1,
+       "fy": -45,
+       "bx": 1,
+       "by": -45,
+       "ffx": -3,
+       "ffy": -5,
+       "fbx": 4,
+       "fby": -5
+      }
+     },
+     {
+      "t": 0.55,
+      "how": "smooth",
+      "pose": {
+       "turn": 1.15,
+       "y": 0,
+       "crouch": 1,
+       "fx": -1,
+       "fy": -45,
+       "bx": 1,
+       "by": -45,
+       "ffx": -3,
+       "ffy": -4,
+       "fbx": 4,
+       "fby": -4
+      }
+     },
+     {
+      "t": 1.05,
+      "how": "smooth",
+      "pose": {
+       "turn": 1,
+       "crouch": 3,
+       "fx": -10,
+       "fy": -28,
+       "bx": 11,
+       "by": -28,
+       "ffx": -4,
+       "fbx": 5
+      }
+     },
+     {
+      "t": 1.7,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 11,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7
+      }
+     }
+    ]
+   }
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.504,
+    0.58
+   ],
+   "sourceFrames": 58,
+   "sourceFrameSize": [
+    288,
+    156
+   ]
+  }
+ }
+}

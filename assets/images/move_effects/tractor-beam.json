@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "tractor-beam 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 78,
+    "h": 127
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 78,
+    "h": 127
+   },
+   "sourceSize": {
+    "w": 78,
+    "h": 127
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tractor-beam 1",
+   "frame": {
+    "x": 78,
+    "y": 0,
+    "w": 78,
+    "h": 127
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 78,
+    "h": 127
+   },
+   "sourceSize": {
+    "w": 78,
+    "h": 127
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tractor-beam 2",
+   "frame": {
+    "x": 156,
+    "y": 0,
+    "w": 78,
+    "h": 127
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 78,
+    "h": 127
+   },
+   "sourceSize": {
+    "w": 78,
+    "h": 127
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tractor-beam 3",
+   "frame": {
+    "x": 234,
+    "y": 0,
+    "w": 78,
+    "h": 127
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 78,
+    "h": 127
+   },
+   "sourceSize": {
+    "w": 78,
+    "h": 127
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tractor-beam 4",
+   "frame": {
+    "x": 0,
+    "y": 127,
+    "w": 78,
+    "h": 127
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 78,
+    "h": 127
+   },
+   "sourceSize": {
+    "w": 78,
+    "h": 127
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tractor-beam 5",
+   "frame": {
+    "x": 78,
+    "y": 127,
+    "w": 78,
+    "h": 127
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 78,
+    "h": 127
+   },
+   "sourceSize": {
+    "w": 78,
+    "h": 127
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tractor-beam 6",
+   "frame": {
+    "x": 156,
+    "y": 127,
+    "w": 78,
+    "h": 127
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 78,
+    "h": 127
+   },
+   "sourceSize": {
+    "w": 78,
+    "h": 127
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tractor-beam 7",
+   "frame": {
+    "x": 234,
+    "y": 127,
+    "w": 78,
+    "h": 127
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 78,
+    "h": 127
+   },
+   "sourceSize": {
+    "w": 78,
+    "h": 127
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tractor-beam 8",
+   "frame": {
+    "x": 0,
+    "y": 254,
+    "w": 78,
+    "h": 127
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 78,
+    "h": 127
+   },
+   "sourceSize": {
+    "w": 78,
+    "h": 127
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tractor-beam 9",
+   "frame": {
+    "x": 78,
+    "y": 254,
+    "w": 78,
+    "h": 127
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 78,
+    "h": 127
+   },
+   "sourceSize": {
+    "w": 78,
+    "h": 127
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tractor-beam 10",
+   "frame": {
+    "x": 156,
+    "y": 254,
+    "w": 78,
+    "h": 127
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 78,
+    "h": 127
+   },
+   "sourceSize": {
+    "w": 78,
+    "h": 127
+   },
+   "duration": 33
+  },
+  {
+   "filename": "tractor-beam 11",
+   "frame": {
+    "x": 234,
+    "y": 254,
+    "w": 78,
+    "h": 127
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 78,
+    "h": 127
+   },
+   "sourceSize": {
+    "w": 78,
+    "h": 127
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "tractor-beam.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 312,
+   "h": 381
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "tractor-beam",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "scifi/tractor-beam",
+   "name": "Tractor beam",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    78,
+    127
+   ],
+   "pivot": [
+    60,
+    114
+   ],
+   "columns": 4
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.487,
+    0.512
+   ],
+   "sourceFrames": 90,
+   "sourceFrameSize": [
+    120,
+    132
+   ]
+  }
+ }
+}

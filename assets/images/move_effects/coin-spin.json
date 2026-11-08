@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "coin-spin 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 38,
+    "h": 40
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 38,
+    "h": 40
+   },
+   "sourceSize": {
+    "w": 38,
+    "h": 40
+   },
+   "duration": 33
+  },
+  {
+   "filename": "coin-spin 1",
+   "frame": {
+    "x": 38,
+    "y": 0,
+    "w": 38,
+    "h": 40
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 38,
+    "h": 40
+   },
+   "sourceSize": {
+    "w": 38,
+    "h": 40
+   },
+   "duration": 33
+  },
+  {
+   "filename": "coin-spin 2",
+   "frame": {
+    "x": 76,
+    "y": 0,
+    "w": 38,
+    "h": 40
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 38,
+    "h": 40
+   },
+   "sourceSize": {
+    "w": 38,
+    "h": 40
+   },
+   "duration": 33
+  },
+  {
+   "filename": "coin-spin 3",
+   "frame": {
+    "x": 114,
+    "y": 0,
+    "w": 38,
+    "h": 40
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 38,
+    "h": 40
+   },
+   "sourceSize": {
+    "w": 38,
+    "h": 40
+   },
+   "duration": 33
+  },
+  {
+   "filename": "coin-spin 4",
+   "frame": {
+    "x": 0,
+    "y": 40,
+    "w": 38,
+    "h": 40
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 38,
+    "h": 40
+   },
+   "sourceSize": {
+    "w": 38,
+    "h": 40
+   },
+   "duration": 33
+  },
+  {
+   "filename": "coin-spin 5",
+   "frame": {
+    "x": 38,
+    "y": 40,
+    "w": 38,
+    "h": 40
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 38,
+    "h": 40
+   },
+   "sourceSize": {
+    "w": 38,
+    "h": 40
+   },
+   "duration": 33
+  },
+  {
+   "filename": "coin-spin 6",
+   "frame": {
+    "x": 76,
+    "y": 40,
+    "w": 38,
+    "h": 40
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 38,
+    "h": 40
+   },
+   "sourceSize": {
+    "w": 38,
+    "h": 40
+   },
+   "duration": 33
+  },
+  {
+   "filename": "coin-spin 7",
+   "frame": {
+    "x": 114,
+    "y": 40,
+    "w": 38,
+    "h": 40
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 38,
+    "h": 40
+   },
+   "sourceSize": {
+    "w": 38,
+    "h": 40
+   },
+   "duration": 33
+  },
+  {
+   "filename": "coin-spin 8",
+   "frame": {
+    "x": 0,
+    "y": 80,
+    "w": 38,
+    "h": 40
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 38,
+    "h": 40
+   },
+   "sourceSize": {
+    "w": 38,
+    "h": 40
+   },
+   "duration": 33
+  },
+  {
+   "filename": "coin-spin 9",
+   "frame": {
+    "x": 38,
+    "y": 80,
+    "w": 38,
+    "h": 40
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 38,
+    "h": 40
+   },
+   "sourceSize": {
+    "w": 38,
+    "h": 40
+   },
+   "duration": 33
+  },
+  {
+   "filename": "coin-spin 10",
+   "frame": {
+    "x": 76,
+    "y": 80,
+    "w": 38,
+    "h": 40
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 38,
+    "h": 40
+   },
+   "sourceSize": {
+    "w": 38,
+    "h": 40
+   },
+   "duration": 33
+  },
+  {
+   "filename": "coin-spin 11",
+   "frame": {
+    "x": 114,
+    "y": 80,
+    "w": 38,
+    "h": 40
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 38,
+    "h": 40
+   },
+   "sourceSize": {
+    "w": 38,
+    "h": 40
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "coin-spin.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 152,
+   "h": 120
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "coin-spin",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "pickups/coin-spin",
+   "name": "Coin spin",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    38,
+    40
+   ],
+   "pivot": [
+    28,
+    48
+   ],
+   "columns": 4
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.575
+   ],
+   "sourceFrames": 48,
+   "sourceFrameSize": [
+    56,
+    56
+   ]
+  }
+ }
+}

@@ -1,0 +1,380 @@
+{
+ "frames": [
+  {
+   "filename": "disintegrate 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 130,
+    "h": 81
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 130,
+    "h": 81
+   },
+   "sourceSize": {
+    "w": 130,
+    "h": 81
+   },
+   "duration": 33
+  },
+  {
+   "filename": "disintegrate 1",
+   "frame": {
+    "x": 130,
+    "y": 0,
+    "w": 130,
+    "h": 81
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 130,
+    "h": 81
+   },
+   "sourceSize": {
+    "w": 130,
+    "h": 81
+   },
+   "duration": 33
+  },
+  {
+   "filename": "disintegrate 2",
+   "frame": {
+    "x": 260,
+    "y": 0,
+    "w": 130,
+    "h": 81
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 130,
+    "h": 81
+   },
+   "sourceSize": {
+    "w": 130,
+    "h": 81
+   },
+   "duration": 33
+  },
+  {
+   "filename": "disintegrate 3",
+   "frame": {
+    "x": 0,
+    "y": 81,
+    "w": 130,
+    "h": 81
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 130,
+    "h": 81
+   },
+   "sourceSize": {
+    "w": 130,
+    "h": 81
+   },
+   "duration": 33
+  },
+  {
+   "filename": "disintegrate 4",
+   "frame": {
+    "x": 130,
+    "y": 81,
+    "w": 130,
+    "h": 81
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 130,
+    "h": 81
+   },
+   "sourceSize": {
+    "w": 130,
+    "h": 81
+   },
+   "duration": 33
+  },
+  {
+   "filename": "disintegrate 5",
+   "frame": {
+    "x": 260,
+    "y": 81,
+    "w": 130,
+    "h": 81
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 130,
+    "h": 81
+   },
+   "sourceSize": {
+    "w": 130,
+    "h": 81
+   },
+   "duration": 33
+  },
+  {
+   "filename": "disintegrate 6",
+   "frame": {
+    "x": 0,
+    "y": 162,
+    "w": 130,
+    "h": 81
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 130,
+    "h": 81
+   },
+   "sourceSize": {
+    "w": 130,
+    "h": 81
+   },
+   "duration": 33
+  },
+  {
+   "filename": "disintegrate 7",
+   "frame": {
+    "x": 130,
+    "y": 162,
+    "w": 130,
+    "h": 81
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 130,
+    "h": 81
+   },
+   "sourceSize": {
+    "w": 130,
+    "h": 81
+   },
+   "duration": 33
+  },
+  {
+   "filename": "disintegrate 8",
+   "frame": {
+    "x": 260,
+    "y": 162,
+    "w": 130,
+    "h": 81
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 130,
+    "h": 81
+   },
+   "sourceSize": {
+    "w": 130,
+    "h": 81
+   },
+   "duration": 33
+  },
+  {
+   "filename": "disintegrate 9",
+   "frame": {
+    "x": 0,
+    "y": 243,
+    "w": 130,
+    "h": 81
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 130,
+    "h": 81
+   },
+   "sourceSize": {
+    "w": 130,
+    "h": 81
+   },
+   "duration": 33
+  },
+  {
+   "filename": "disintegrate 10",
+   "frame": {
+    "x": 130,
+    "y": 243,
+    "w": 130,
+    "h": 81
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 130,
+    "h": 81
+   },
+   "sourceSize": {
+    "w": 130,
+    "h": 81
+   },
+   "duration": 33
+  },
+  {
+   "filename": "disintegrate 11",
+   "frame": {
+    "x": 260,
+    "y": 243,
+    "w": 130,
+    "h": 81
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 130,
+    "h": 81
+   },
+   "sourceSize": {
+    "w": 130,
+    "h": 81
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "disintegrate.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 390,
+   "h": 324
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "disintegrate",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "spawn/disintegrate",
+   "name": "Disintegrate",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    130,
+    81
+   ],
+   "pivot": [
+    48,
+    86
+   ],
+   "columns": 3,
+   "act": {
+    "windup": 0.2,
+    "recovery": 0,
+    "onBody": true,
+    "targets": [],
+    "hits": [],
+    "poses": [
+     {
+      "t": -0.2,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 11,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7
+      }
+     },
+     {
+      "t": 0.05,
+      "how": "smooth",
+      "pose": {
+       "turn": 1,
+       "crouch": 3,
+       "fx": -9,
+       "fy": -16,
+       "bx": 10,
+       "by": -16,
+       "ffx": -3,
+       "fbx": 4
+      }
+     },
+     {
+      "t": 0.3,
+      "how": "smooth",
+      "pose": {
+       "turn": 1.15,
+       "crouch": 0,
+       "hy": -1,
+       "fx": -14,
+       "fy": -36,
+       "bx": 15,
+       "by": -36,
+       "ffx": -3,
+       "fbx": 4
+      }
+     },
+     {
+      "t": 3.4,
+      "how": "smooth",
+      "pose": {
+       "turn": 1.15,
+       "crouch": 0,
+       "hy": -1,
+       "fx": -14,
+       "fy": -36,
+       "bx": 15,
+       "by": -36,
+       "ffx": -3,
+       "fbx": 4
+      }
+     }
+    ]
+   }
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.554,
+    0.488
+   ],
+   "sourceFrames": 103,
+   "sourceFrameSize": [
+    176,
+    100
+   ]
+  }
+ }
+}

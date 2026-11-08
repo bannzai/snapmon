@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "jellyfish 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 88,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 88,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 88,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "jellyfish 1",
+   "frame": {
+    "x": 88,
+    "y": 0,
+    "w": 88,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 88,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 88,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "jellyfish 2",
+   "frame": {
+    "x": 176,
+    "y": 0,
+    "w": 88,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 88,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 88,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "jellyfish 3",
+   "frame": {
+    "x": 264,
+    "y": 0,
+    "w": 88,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 88,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 88,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "jellyfish 4",
+   "frame": {
+    "x": 0,
+    "y": 100,
+    "w": 88,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 88,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 88,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "jellyfish 5",
+   "frame": {
+    "x": 88,
+    "y": 100,
+    "w": 88,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 88,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 88,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "jellyfish 6",
+   "frame": {
+    "x": 176,
+    "y": 100,
+    "w": 88,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 88,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 88,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "jellyfish 7",
+   "frame": {
+    "x": 264,
+    "y": 100,
+    "w": 88,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 88,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 88,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "jellyfish 8",
+   "frame": {
+    "x": 0,
+    "y": 200,
+    "w": 88,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 88,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 88,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "jellyfish 9",
+   "frame": {
+    "x": 88,
+    "y": 200,
+    "w": 88,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 88,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 88,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "jellyfish 10",
+   "frame": {
+    "x": 176,
+    "y": 200,
+    "w": 88,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 88,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 88,
+    "h": 100
+   },
+   "duration": 33
+  },
+  {
+   "filename": "jellyfish 11",
+   "frame": {
+    "x": 264,
+    "y": 200,
+    "w": 88,
+    "h": 100
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 88,
+    "h": 100
+   },
+   "sourceSize": {
+    "w": 88,
+    "h": 100
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "jellyfish.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 352,
+   "h": 300
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "jellyfish",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "critters/jellyfish",
+   "name": "Jellyfish",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    88,
+    100
+   ],
+   "pivot": [
+    48,
+    38
+   ],
+   "columns": 4
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.432,
+    0.535
+   ],
+   "sourceFrames": 96,
+   "sourceFrameSize": [
+    96,
+    120
+   ]
+  }
+ }
+}

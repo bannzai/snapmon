@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "ripples 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 49
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 49
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 49
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ripples 1",
+   "frame": {
+    "x": 126,
+    "y": 0,
+    "w": 126,
+    "h": 49
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 49
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 49
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ripples 2",
+   "frame": {
+    "x": 0,
+    "y": 49,
+    "w": 126,
+    "h": 49
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 49
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 49
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ripples 3",
+   "frame": {
+    "x": 126,
+    "y": 49,
+    "w": 126,
+    "h": 49
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 49
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 49
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ripples 4",
+   "frame": {
+    "x": 0,
+    "y": 98,
+    "w": 126,
+    "h": 49
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 49
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 49
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ripples 5",
+   "frame": {
+    "x": 126,
+    "y": 98,
+    "w": 126,
+    "h": 49
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 49
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 49
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ripples 6",
+   "frame": {
+    "x": 0,
+    "y": 147,
+    "w": 126,
+    "h": 49
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 49
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 49
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ripples 7",
+   "frame": {
+    "x": 126,
+    "y": 147,
+    "w": 126,
+    "h": 49
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 49
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 49
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ripples 8",
+   "frame": {
+    "x": 0,
+    "y": 196,
+    "w": 126,
+    "h": 49
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 49
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 49
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ripples 9",
+   "frame": {
+    "x": 126,
+    "y": 196,
+    "w": 126,
+    "h": 49
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 49
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 49
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ripples 10",
+   "frame": {
+    "x": 0,
+    "y": 245,
+    "w": 126,
+    "h": 49
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 49
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 49
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ripples 11",
+   "frame": {
+    "x": 126,
+    "y": 245,
+    "w": 126,
+    "h": 49
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 49
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 49
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "ripples.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 252,
+   "h": 294
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "ripples",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "water/ripples",
+   "name": "Ripples",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    126,
+    49
+   ],
+   "pivot": [
+    68,
+    30
+   ],
+   "columns": 2
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.582
+   ],
+   "sourceFrames": 60,
+   "sourceFrameSize": [
+    136,
+    52
+   ]
+  }
+ }
+}

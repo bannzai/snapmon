@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "whirlpool 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 118,
+    "h": 80
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 118,
+    "h": 80
+   },
+   "sourceSize": {
+    "w": 118,
+    "h": 80
+   },
+   "duration": 33
+  },
+  {
+   "filename": "whirlpool 1",
+   "frame": {
+    "x": 118,
+    "y": 0,
+    "w": 118,
+    "h": 80
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 118,
+    "h": 80
+   },
+   "sourceSize": {
+    "w": 118,
+    "h": 80
+   },
+   "duration": 33
+  },
+  {
+   "filename": "whirlpool 2",
+   "frame": {
+    "x": 236,
+    "y": 0,
+    "w": 118,
+    "h": 80
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 118,
+    "h": 80
+   },
+   "sourceSize": {
+    "w": 118,
+    "h": 80
+   },
+   "duration": 33
+  },
+  {
+   "filename": "whirlpool 3",
+   "frame": {
+    "x": 0,
+    "y": 80,
+    "w": 118,
+    "h": 80
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 118,
+    "h": 80
+   },
+   "sourceSize": {
+    "w": 118,
+    "h": 80
+   },
+   "duration": 33
+  },
+  {
+   "filename": "whirlpool 4",
+   "frame": {
+    "x": 118,
+    "y": 80,
+    "w": 118,
+    "h": 80
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 118,
+    "h": 80
+   },
+   "sourceSize": {
+    "w": 118,
+    "h": 80
+   },
+   "duration": 33
+  },
+  {
+   "filename": "whirlpool 5",
+   "frame": {
+    "x": 236,
+    "y": 80,
+    "w": 118,
+    "h": 80
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 118,
+    "h": 80
+   },
+   "sourceSize": {
+    "w": 118,
+    "h": 80
+   },
+   "duration": 33
+  },
+  {
+   "filename": "whirlpool 6",
+   "frame": {
+    "x": 0,
+    "y": 160,
+    "w": 118,
+    "h": 80
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 118,
+    "h": 80
+   },
+   "sourceSize": {
+    "w": 118,
+    "h": 80
+   },
+   "duration": 33
+  },
+  {
+   "filename": "whirlpool 7",
+   "frame": {
+    "x": 118,
+    "y": 160,
+    "w": 118,
+    "h": 80
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 118,
+    "h": 80
+   },
+   "sourceSize": {
+    "w": 118,
+    "h": 80
+   },
+   "duration": 33
+  },
+  {
+   "filename": "whirlpool 8",
+   "frame": {
+    "x": 236,
+    "y": 160,
+    "w": 118,
+    "h": 80
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 118,
+    "h": 80
+   },
+   "sourceSize": {
+    "w": 118,
+    "h": 80
+   },
+   "duration": 33
+  },
+  {
+   "filename": "whirlpool 9",
+   "frame": {
+    "x": 0,
+    "y": 240,
+    "w": 118,
+    "h": 80
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 118,
+    "h": 80
+   },
+   "sourceSize": {
+    "w": 118,
+    "h": 80
+   },
+   "duration": 33
+  },
+  {
+   "filename": "whirlpool 10",
+   "frame": {
+    "x": 118,
+    "y": 240,
+    "w": 118,
+    "h": 80
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 118,
+    "h": 80
+   },
+   "sourceSize": {
+    "w": 118,
+    "h": 80
+   },
+   "duration": 33
+  },
+  {
+   "filename": "whirlpool 11",
+   "frame": {
+    "x": 236,
+    "y": 240,
+    "w": 118,
+    "h": 80
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 118,
+    "h": 80
+   },
+   "sourceSize": {
+    "w": 118,
+    "h": 80
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "whirlpool.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 354,
+   "h": 320
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "whirlpool",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "water/whirlpool",
+   "name": "Whirlpool",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    118,
+    80
+   ],
+   "pivot": [
+    64,
+    42
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.5
+   ],
+   "sourceFrames": 90,
+   "sourceFrameSize": [
+    128,
+    84
+   ]
+  }
+ }
+}

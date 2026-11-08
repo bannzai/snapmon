@@ -1,0 +1,405 @@
+{
+ "frames": [
+  {
+   "filename": "stunned 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 51,
+    "h": 39
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 51,
+    "h": 39
+   },
+   "sourceSize": {
+    "w": 51,
+    "h": 39
+   },
+   "duration": 33
+  },
+  {
+   "filename": "stunned 1",
+   "frame": {
+    "x": 51,
+    "y": 0,
+    "w": 51,
+    "h": 39
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 51,
+    "h": 39
+   },
+   "sourceSize": {
+    "w": 51,
+    "h": 39
+   },
+   "duration": 33
+  },
+  {
+   "filename": "stunned 2",
+   "frame": {
+    "x": 102,
+    "y": 0,
+    "w": 51,
+    "h": 39
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 51,
+    "h": 39
+   },
+   "sourceSize": {
+    "w": 51,
+    "h": 39
+   },
+   "duration": 33
+  },
+  {
+   "filename": "stunned 3",
+   "frame": {
+    "x": 0,
+    "y": 39,
+    "w": 51,
+    "h": 39
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 51,
+    "h": 39
+   },
+   "sourceSize": {
+    "w": 51,
+    "h": 39
+   },
+   "duration": 33
+  },
+  {
+   "filename": "stunned 4",
+   "frame": {
+    "x": 51,
+    "y": 39,
+    "w": 51,
+    "h": 39
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 51,
+    "h": 39
+   },
+   "sourceSize": {
+    "w": 51,
+    "h": 39
+   },
+   "duration": 33
+  },
+  {
+   "filename": "stunned 5",
+   "frame": {
+    "x": 102,
+    "y": 39,
+    "w": 51,
+    "h": 39
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 51,
+    "h": 39
+   },
+   "sourceSize": {
+    "w": 51,
+    "h": 39
+   },
+   "duration": 33
+  },
+  {
+   "filename": "stunned 6",
+   "frame": {
+    "x": 0,
+    "y": 78,
+    "w": 51,
+    "h": 39
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 51,
+    "h": 39
+   },
+   "sourceSize": {
+    "w": 51,
+    "h": 39
+   },
+   "duration": 33
+  },
+  {
+   "filename": "stunned 7",
+   "frame": {
+    "x": 51,
+    "y": 78,
+    "w": 51,
+    "h": 39
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 51,
+    "h": 39
+   },
+   "sourceSize": {
+    "w": 51,
+    "h": 39
+   },
+   "duration": 33
+  },
+  {
+   "filename": "stunned 8",
+   "frame": {
+    "x": 102,
+    "y": 78,
+    "w": 51,
+    "h": 39
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 51,
+    "h": 39
+   },
+   "sourceSize": {
+    "w": 51,
+    "h": 39
+   },
+   "duration": 33
+  },
+  {
+   "filename": "stunned 9",
+   "frame": {
+    "x": 0,
+    "y": 117,
+    "w": 51,
+    "h": 39
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 51,
+    "h": 39
+   },
+   "sourceSize": {
+    "w": 51,
+    "h": 39
+   },
+   "duration": 33
+  },
+  {
+   "filename": "stunned 10",
+   "frame": {
+    "x": 51,
+    "y": 117,
+    "w": 51,
+    "h": 39
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 51,
+    "h": 39
+   },
+   "sourceSize": {
+    "w": 51,
+    "h": 39
+   },
+   "duration": 33
+  },
+  {
+   "filename": "stunned 11",
+   "frame": {
+    "x": 102,
+    "y": 117,
+    "w": 51,
+    "h": 39
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 51,
+    "h": 39
+   },
+   "sourceSize": {
+    "w": 51,
+    "h": 39
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "stunned.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 153,
+   "h": 156
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "stunned",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "status/stunned",
+   "name": "Stunned",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    51,
+    39
+   ],
+   "pivot": [
+    30,
+    56
+   ],
+   "columns": 3,
+   "act": {
+    "windup": 0,
+    "recovery": 0,
+    "onBody": true,
+    "targets": [],
+    "hits": [],
+    "poses": [
+     {
+      "t": 0,
+      "how": "smooth",
+      "pose": {
+       "turn": 1,
+       "fx": -7,
+       "fy": -15,
+       "bx": 8,
+       "by": -15,
+       "ffx": -3,
+       "fbx": 4,
+       "x": -1,
+       "lean": -3,
+       "hx": -1
+      }
+     },
+     {
+      "t": 0.5,
+      "how": "smooth",
+      "pose": {
+       "turn": 1,
+       "fx": -7,
+       "fy": -15,
+       "bx": 8,
+       "by": -15,
+       "ffx": -2,
+       "fbx": 4,
+       "x": 0,
+       "lean": 0,
+       "crouch": 2,
+       "hy": 1
+      }
+     },
+     {
+      "t": 1,
+      "how": "smooth",
+      "pose": {
+       "turn": 1,
+       "fx": -7,
+       "fy": -15,
+       "bx": 8,
+       "by": -15,
+       "ffx": -3,
+       "fbx": 4,
+       "x": 1,
+       "lean": 3,
+       "hx": 1
+      }
+     },
+     {
+      "t": 1.5,
+      "how": "smooth",
+      "pose": {
+       "turn": 1,
+       "fx": -7,
+       "fy": -15,
+       "bx": 8,
+       "by": -15,
+       "ffx": -3,
+       "fbx": 3,
+       "x": 0,
+       "lean": 0,
+       "crouch": 2,
+       "hy": 1
+      }
+     },
+     {
+      "t": 2,
+      "how": "smooth",
+      "pose": {
+       "turn": 1,
+       "fx": -7,
+       "fy": -15,
+       "bx": 8,
+       "by": -15,
+       "ffx": -3,
+       "fbx": 4,
+       "x": -1,
+       "lean": -3,
+       "hx": -1
+      }
+     }
+    ]
+   }
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.51,
+    0.385
+   ],
+   "sourceFrames": 60,
+   "sourceFrameSize": [
+    60,
+    64
+   ]
+  }
+ }
+}

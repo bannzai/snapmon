@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "ghost 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 90,
+    "h": 89
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 90,
+    "h": 89
+   },
+   "sourceSize": {
+    "w": 90,
+    "h": 89
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ghost 1",
+   "frame": {
+    "x": 90,
+    "y": 0,
+    "w": 90,
+    "h": 89
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 90,
+    "h": 89
+   },
+   "sourceSize": {
+    "w": 90,
+    "h": 89
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ghost 2",
+   "frame": {
+    "x": 180,
+    "y": 0,
+    "w": 90,
+    "h": 89
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 90,
+    "h": 89
+   },
+   "sourceSize": {
+    "w": 90,
+    "h": 89
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ghost 3",
+   "frame": {
+    "x": 0,
+    "y": 89,
+    "w": 90,
+    "h": 89
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 90,
+    "h": 89
+   },
+   "sourceSize": {
+    "w": 90,
+    "h": 89
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ghost 4",
+   "frame": {
+    "x": 90,
+    "y": 89,
+    "w": 90,
+    "h": 89
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 90,
+    "h": 89
+   },
+   "sourceSize": {
+    "w": 90,
+    "h": 89
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ghost 5",
+   "frame": {
+    "x": 180,
+    "y": 89,
+    "w": 90,
+    "h": 89
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 90,
+    "h": 89
+   },
+   "sourceSize": {
+    "w": 90,
+    "h": 89
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ghost 6",
+   "frame": {
+    "x": 0,
+    "y": 178,
+    "w": 90,
+    "h": 89
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 90,
+    "h": 89
+   },
+   "sourceSize": {
+    "w": 90,
+    "h": 89
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ghost 7",
+   "frame": {
+    "x": 90,
+    "y": 178,
+    "w": 90,
+    "h": 89
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 90,
+    "h": 89
+   },
+   "sourceSize": {
+    "w": 90,
+    "h": 89
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ghost 8",
+   "frame": {
+    "x": 180,
+    "y": 178,
+    "w": 90,
+    "h": 89
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 90,
+    "h": 89
+   },
+   "sourceSize": {
+    "w": 90,
+    "h": 89
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ghost 9",
+   "frame": {
+    "x": 0,
+    "y": 267,
+    "w": 90,
+    "h": 89
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 90,
+    "h": 89
+   },
+   "sourceSize": {
+    "w": 90,
+    "h": 89
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ghost 10",
+   "frame": {
+    "x": 90,
+    "y": 267,
+    "w": 90,
+    "h": 89
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 90,
+    "h": 89
+   },
+   "sourceSize": {
+    "w": 90,
+    "h": 89
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ghost 11",
+   "frame": {
+    "x": 180,
+    "y": 267,
+    "w": 90,
+    "h": 89
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 90,
+    "h": 89
+   },
+   "sourceSize": {
+    "w": 90,
+    "h": 89
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "ghost.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 270,
+   "h": 356
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "ghost",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "critters/ghost",
+   "name": "Ghost",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    90,
+    89
+   ],
+   "pivot": [
+    48,
+    90
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.494,
+    0.652
+   ],
+   "sourceFrames": 72,
+   "sourceFrameSize": [
+    96,
+    100
+   ]
+  }
+ }
+}

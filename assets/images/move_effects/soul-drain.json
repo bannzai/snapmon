@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "soul-drain 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 189,
+    "h": 82
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 189,
+    "h": 82
+   },
+   "sourceSize": {
+    "w": 189,
+    "h": 82
+   },
+   "duration": 33
+  },
+  {
+   "filename": "soul-drain 1",
+   "frame": {
+    "x": 189,
+    "y": 0,
+    "w": 189,
+    "h": 82
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 189,
+    "h": 82
+   },
+   "sourceSize": {
+    "w": 189,
+    "h": 82
+   },
+   "duration": 33
+  },
+  {
+   "filename": "soul-drain 2",
+   "frame": {
+    "x": 0,
+    "y": 82,
+    "w": 189,
+    "h": 82
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 189,
+    "h": 82
+   },
+   "sourceSize": {
+    "w": 189,
+    "h": 82
+   },
+   "duration": 33
+  },
+  {
+   "filename": "soul-drain 3",
+   "frame": {
+    "x": 189,
+    "y": 82,
+    "w": 189,
+    "h": 82
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 189,
+    "h": 82
+   },
+   "sourceSize": {
+    "w": 189,
+    "h": 82
+   },
+   "duration": 33
+  },
+  {
+   "filename": "soul-drain 4",
+   "frame": {
+    "x": 0,
+    "y": 164,
+    "w": 189,
+    "h": 82
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 189,
+    "h": 82
+   },
+   "sourceSize": {
+    "w": 189,
+    "h": 82
+   },
+   "duration": 33
+  },
+  {
+   "filename": "soul-drain 5",
+   "frame": {
+    "x": 189,
+    "y": 164,
+    "w": 189,
+    "h": 82
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 189,
+    "h": 82
+   },
+   "sourceSize": {
+    "w": 189,
+    "h": 82
+   },
+   "duration": 33
+  },
+  {
+   "filename": "soul-drain 6",
+   "frame": {
+    "x": 0,
+    "y": 246,
+    "w": 189,
+    "h": 82
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 189,
+    "h": 82
+   },
+   "sourceSize": {
+    "w": 189,
+    "h": 82
+   },
+   "duration": 33
+  },
+  {
+   "filename": "soul-drain 7",
+   "frame": {
+    "x": 189,
+    "y": 246,
+    "w": 189,
+    "h": 82
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 189,
+    "h": 82
+   },
+   "sourceSize": {
+    "w": 189,
+    "h": 82
+   },
+   "duration": 33
+  },
+  {
+   "filename": "soul-drain 8",
+   "frame": {
+    "x": 0,
+    "y": 328,
+    "w": 189,
+    "h": 82
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 189,
+    "h": 82
+   },
+   "sourceSize": {
+    "w": 189,
+    "h": 82
+   },
+   "duration": 33
+  },
+  {
+   "filename": "soul-drain 9",
+   "frame": {
+    "x": 189,
+    "y": 328,
+    "w": 189,
+    "h": 82
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 189,
+    "h": 82
+   },
+   "sourceSize": {
+    "w": 189,
+    "h": 82
+   },
+   "duration": 33
+  },
+  {
+   "filename": "soul-drain 10",
+   "frame": {
+    "x": 0,
+    "y": 410,
+    "w": 189,
+    "h": 82
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 189,
+    "h": 82
+   },
+   "sourceSize": {
+    "w": 189,
+    "h": 82
+   },
+   "duration": 33
+  },
+  {
+   "filename": "soul-drain 11",
+   "frame": {
+    "x": 189,
+    "y": 410,
+    "w": 189,
+    "h": 82
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 189,
+    "h": 82
+   },
+   "sourceSize": {
+    "w": 189,
+    "h": 82
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "soul-drain.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 378,
+   "h": 492
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "soul-drain",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "shadow/soul-drain",
+   "name": "Soul drain",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    189,
+    82
+   ],
+   "pivot": [
+    40,
+    110
+   ],
+   "columns": 2
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.516,
+    0.47
+   ],
+   "sourceFrames": 96,
+   "sourceFrameSize": [
+    208,
+    120
+   ]
+  }
+ }
+}

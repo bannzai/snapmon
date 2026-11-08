@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "emp-blast 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 130,
+    "h": 106
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 130,
+    "h": 106
+   },
+   "sourceSize": {
+    "w": 130,
+    "h": 106
+   },
+   "duration": 33
+  },
+  {
+   "filename": "emp-blast 1",
+   "frame": {
+    "x": 130,
+    "y": 0,
+    "w": 130,
+    "h": 106
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 130,
+    "h": 106
+   },
+   "sourceSize": {
+    "w": 130,
+    "h": 106
+   },
+   "duration": 33
+  },
+  {
+   "filename": "emp-blast 2",
+   "frame": {
+    "x": 260,
+    "y": 0,
+    "w": 130,
+    "h": 106
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 130,
+    "h": 106
+   },
+   "sourceSize": {
+    "w": 130,
+    "h": 106
+   },
+   "duration": 33
+  },
+  {
+   "filename": "emp-blast 3",
+   "frame": {
+    "x": 0,
+    "y": 106,
+    "w": 130,
+    "h": 106
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 130,
+    "h": 106
+   },
+   "sourceSize": {
+    "w": 130,
+    "h": 106
+   },
+   "duration": 33
+  },
+  {
+   "filename": "emp-blast 4",
+   "frame": {
+    "x": 130,
+    "y": 106,
+    "w": 130,
+    "h": 106
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 130,
+    "h": 106
+   },
+   "sourceSize": {
+    "w": 130,
+    "h": 106
+   },
+   "duration": 33
+  },
+  {
+   "filename": "emp-blast 5",
+   "frame": {
+    "x": 260,
+    "y": 106,
+    "w": 130,
+    "h": 106
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 130,
+    "h": 106
+   },
+   "sourceSize": {
+    "w": 130,
+    "h": 106
+   },
+   "duration": 33
+  },
+  {
+   "filename": "emp-blast 6",
+   "frame": {
+    "x": 0,
+    "y": 212,
+    "w": 130,
+    "h": 106
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 130,
+    "h": 106
+   },
+   "sourceSize": {
+    "w": 130,
+    "h": 106
+   },
+   "duration": 33
+  },
+  {
+   "filename": "emp-blast 7",
+   "frame": {
+    "x": 130,
+    "y": 212,
+    "w": 130,
+    "h": 106
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 130,
+    "h": 106
+   },
+   "sourceSize": {
+    "w": 130,
+    "h": 106
+   },
+   "duration": 33
+  },
+  {
+   "filename": "emp-blast 8",
+   "frame": {
+    "x": 260,
+    "y": 212,
+    "w": 130,
+    "h": 106
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 130,
+    "h": 106
+   },
+   "sourceSize": {
+    "w": 130,
+    "h": 106
+   },
+   "duration": 33
+  },
+  {
+   "filename": "emp-blast 9",
+   "frame": {
+    "x": 0,
+    "y": 318,
+    "w": 130,
+    "h": 106
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 130,
+    "h": 106
+   },
+   "sourceSize": {
+    "w": 130,
+    "h": 106
+   },
+   "duration": 33
+  },
+  {
+   "filename": "emp-blast 10",
+   "frame": {
+    "x": 130,
+    "y": 318,
+    "w": 130,
+    "h": 106
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 130,
+    "h": 106
+   },
+   "sourceSize": {
+    "w": 130,
+    "h": 106
+   },
+   "duration": 33
+  },
+  {
+   "filename": "emp-blast 11",
+   "frame": {
+    "x": 260,
+    "y": 318,
+    "w": 130,
+    "h": 106
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 130,
+    "h": 106
+   },
+   "sourceSize": {
+    "w": 130,
+    "h": 106
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "emp-blast.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 390,
+   "h": 424
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "emp-blast",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "scifi/emp-blast",
+   "name": "EMP blast",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    130,
+    106
+   ],
+   "pivot": [
+    76,
+    84
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.515,
+    0.462
+   ],
+   "sourceFrames": 97,
+   "sourceFrameSize": [
+    152,
+    116
+   ]
+  }
+ }
+}

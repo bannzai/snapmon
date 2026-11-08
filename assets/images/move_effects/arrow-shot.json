@@ -1,0 +1,467 @@
+{
+ "frames": [
+  {
+   "filename": "arrow-shot 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 209,
+    "h": 64
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 209,
+    "h": 64
+   },
+   "sourceSize": {
+    "w": 209,
+    "h": 64
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arrow-shot 1",
+   "frame": {
+    "x": 209,
+    "y": 0,
+    "w": 209,
+    "h": 64
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 209,
+    "h": 64
+   },
+   "sourceSize": {
+    "w": 209,
+    "h": 64
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arrow-shot 2",
+   "frame": {
+    "x": 0,
+    "y": 64,
+    "w": 209,
+    "h": 64
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 209,
+    "h": 64
+   },
+   "sourceSize": {
+    "w": 209,
+    "h": 64
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arrow-shot 3",
+   "frame": {
+    "x": 209,
+    "y": 64,
+    "w": 209,
+    "h": 64
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 209,
+    "h": 64
+   },
+   "sourceSize": {
+    "w": 209,
+    "h": 64
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arrow-shot 4",
+   "frame": {
+    "x": 0,
+    "y": 128,
+    "w": 209,
+    "h": 64
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 209,
+    "h": 64
+   },
+   "sourceSize": {
+    "w": 209,
+    "h": 64
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arrow-shot 5",
+   "frame": {
+    "x": 209,
+    "y": 128,
+    "w": 209,
+    "h": 64
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 209,
+    "h": 64
+   },
+   "sourceSize": {
+    "w": 209,
+    "h": 64
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arrow-shot 6",
+   "frame": {
+    "x": 0,
+    "y": 192,
+    "w": 209,
+    "h": 64
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 209,
+    "h": 64
+   },
+   "sourceSize": {
+    "w": 209,
+    "h": 64
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arrow-shot 7",
+   "frame": {
+    "x": 209,
+    "y": 192,
+    "w": 209,
+    "h": 64
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 209,
+    "h": 64
+   },
+   "sourceSize": {
+    "w": 209,
+    "h": 64
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arrow-shot 8",
+   "frame": {
+    "x": 0,
+    "y": 256,
+    "w": 209,
+    "h": 64
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 209,
+    "h": 64
+   },
+   "sourceSize": {
+    "w": 209,
+    "h": 64
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arrow-shot 9",
+   "frame": {
+    "x": 209,
+    "y": 256,
+    "w": 209,
+    "h": 64
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 209,
+    "h": 64
+   },
+   "sourceSize": {
+    "w": 209,
+    "h": 64
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arrow-shot 10",
+   "frame": {
+    "x": 0,
+    "y": 320,
+    "w": 209,
+    "h": 64
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 209,
+    "h": 64
+   },
+   "sourceSize": {
+    "w": 209,
+    "h": 64
+   },
+   "duration": 33
+  },
+  {
+   "filename": "arrow-shot 11",
+   "frame": {
+    "x": 209,
+    "y": 320,
+    "w": 209,
+    "h": 64
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 209,
+    "h": 64
+   },
+   "sourceSize": {
+    "w": 209,
+    "h": 64
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "arrow-shot.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 418,
+   "h": 384
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "arrow-shot",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "moves/arrow-shot",
+   "name": "Arrow shot",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    209,
+    64
+   ],
+   "pivot": [
+    38,
+    66
+   ],
+   "columns": 2,
+   "act": {
+    "windup": 0.44,
+    "recovery": 0,
+    "onBody": false,
+    "targets": [
+     180
+    ],
+    "hits": [
+     {
+      "t": 0.8,
+      "freeze": 0.07,
+      "shake": 0.12,
+      "amp": 2,
+      "push": 2.2
+     }
+    ],
+    "poses": [
+     {
+      "t": -0.44,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 12,
+       "fy": -20,
+       "bx": 6,
+       "by": -17,
+       "ffx": 7,
+       "fbx": -7,
+       "weapon": "bow",
+       "sa": -0.4
+      }
+     },
+     {
+      "t": -0.14,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 18,
+       "fy": -28,
+       "bx": 10,
+       "by": -27,
+       "ffx": 11,
+       "fbx": -9,
+       "weapon": "bow",
+       "sa": 0,
+       "lean": 1,
+       "nocked": true
+      }
+     },
+     {
+      "t": 0.16,
+      "how": "smooth",
+      "pose": {
+       "crouch": 4,
+       "fx": 18,
+       "fy": -28,
+       "bx": -3,
+       "by": -29,
+       "ffx": 11,
+       "fbx": -9,
+       "weapon": "bow",
+       "sa": 0,
+       "lean": -2,
+       "nocked": true,
+       "pull": true
+      }
+     },
+     {
+      "t": 0.56,
+      "how": "smooth",
+      "pose": {
+       "crouch": 4,
+       "fx": 18,
+       "fy": -28,
+       "bx": -3,
+       "by": -29,
+       "ffx": 11,
+       "fbx": -9,
+       "weapon": "bow",
+       "sa": 0,
+       "lean": -2,
+       "nocked": true,
+       "pull": true
+      }
+     },
+     {
+      "t": 0.562,
+      "how": "snap",
+      "pose": {
+       "crouch": 3,
+       "fx": 19,
+       "fy": -28,
+       "bx": -9,
+       "by": -32,
+       "ffx": 11,
+       "fbx": -9,
+       "weapon": "bow",
+       "sa": 0,
+       "lean": 2,
+       "nocked": false,
+       "pull": false
+      }
+     },
+     {
+      "t": 1.1,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 19,
+       "fy": -28,
+       "bx": -6,
+       "by": -25,
+       "ffx": 11,
+       "fbx": -9,
+       "weapon": "bow",
+       "sa": 0,
+       "lean": 2,
+       "nocked": false,
+       "pull": false
+      }
+     },
+     {
+      "t": 1.6,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 12,
+       "fy": -20,
+       "bx": 6,
+       "by": -17,
+       "ffx": 7,
+       "fbx": -7,
+       "weapon": "bow",
+       "sa": -0.4
+      }
+     },
+     {
+      "t": 1.9,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 12,
+       "fy": -20,
+       "bx": 6,
+       "by": -17,
+       "ffx": 7,
+       "fbx": -7,
+       "weapon": "bow",
+       "sa": -0.4
+      }
+     }
+    ]
+   }
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.495,
+    0.539
+   ],
+   "sourceFrames": 58,
+   "sourceFrameSize": [
+    300,
+    74
+   ]
+  }
+ }
+}

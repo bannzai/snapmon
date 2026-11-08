@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "muzzle-shotgun 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 122,
+    "h": 75
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 122,
+    "h": 75
+   },
+   "sourceSize": {
+    "w": 122,
+    "h": 75
+   },
+   "duration": 33
+  },
+  {
+   "filename": "muzzle-shotgun 1",
+   "frame": {
+    "x": 122,
+    "y": 0,
+    "w": 122,
+    "h": 75
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 122,
+    "h": 75
+   },
+   "sourceSize": {
+    "w": 122,
+    "h": 75
+   },
+   "duration": 33
+  },
+  {
+   "filename": "muzzle-shotgun 2",
+   "frame": {
+    "x": 244,
+    "y": 0,
+    "w": 122,
+    "h": 75
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 122,
+    "h": 75
+   },
+   "sourceSize": {
+    "w": 122,
+    "h": 75
+   },
+   "duration": 33
+  },
+  {
+   "filename": "muzzle-shotgun 3",
+   "frame": {
+    "x": 0,
+    "y": 75,
+    "w": 122,
+    "h": 75
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 122,
+    "h": 75
+   },
+   "sourceSize": {
+    "w": 122,
+    "h": 75
+   },
+   "duration": 33
+  },
+  {
+   "filename": "muzzle-shotgun 4",
+   "frame": {
+    "x": 122,
+    "y": 75,
+    "w": 122,
+    "h": 75
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 122,
+    "h": 75
+   },
+   "sourceSize": {
+    "w": 122,
+    "h": 75
+   },
+   "duration": 33
+  },
+  {
+   "filename": "muzzle-shotgun 5",
+   "frame": {
+    "x": 244,
+    "y": 75,
+    "w": 122,
+    "h": 75
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 122,
+    "h": 75
+   },
+   "sourceSize": {
+    "w": 122,
+    "h": 75
+   },
+   "duration": 33
+  },
+  {
+   "filename": "muzzle-shotgun 6",
+   "frame": {
+    "x": 0,
+    "y": 150,
+    "w": 122,
+    "h": 75
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 122,
+    "h": 75
+   },
+   "sourceSize": {
+    "w": 122,
+    "h": 75
+   },
+   "duration": 33
+  },
+  {
+   "filename": "muzzle-shotgun 7",
+   "frame": {
+    "x": 122,
+    "y": 150,
+    "w": 122,
+    "h": 75
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 122,
+    "h": 75
+   },
+   "sourceSize": {
+    "w": 122,
+    "h": 75
+   },
+   "duration": 33
+  },
+  {
+   "filename": "muzzle-shotgun 8",
+   "frame": {
+    "x": 244,
+    "y": 150,
+    "w": 122,
+    "h": 75
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 122,
+    "h": 75
+   },
+   "sourceSize": {
+    "w": 122,
+    "h": 75
+   },
+   "duration": 33
+  },
+  {
+   "filename": "muzzle-shotgun 9",
+   "frame": {
+    "x": 0,
+    "y": 225,
+    "w": 122,
+    "h": 75
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 122,
+    "h": 75
+   },
+   "sourceSize": {
+    "w": 122,
+    "h": 75
+   },
+   "duration": 33
+  },
+  {
+   "filename": "muzzle-shotgun 10",
+   "frame": {
+    "x": 122,
+    "y": 225,
+    "w": 122,
+    "h": 75
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 122,
+    "h": 75
+   },
+   "sourceSize": {
+    "w": 122,
+    "h": 75
+   },
+   "duration": 33
+  },
+  {
+   "filename": "muzzle-shotgun 11",
+   "frame": {
+    "x": 244,
+    "y": 225,
+    "w": 122,
+    "h": 75
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 122,
+    "h": 75
+   },
+   "sourceSize": {
+    "w": 122,
+    "h": 75
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "muzzle-shotgun.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 366,
+   "h": 300
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "muzzle-shotgun",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "projectiles/muzzle-shotgun",
+   "name": "Shotgun blast",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    122,
+    75
+   ],
+   "pivot": [
+    44,
+    82
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.513
+   ],
+   "sourceFrames": 97,
+   "sourceFrameSize": [
+    160,
+    88
+   ]
+  }
+ }
+}

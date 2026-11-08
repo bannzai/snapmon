@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "plasma-ball 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 90,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 90,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 90,
+    "h": 96
+   },
+   "duration": 33
+  },
+  {
+   "filename": "plasma-ball 1",
+   "frame": {
+    "x": 90,
+    "y": 0,
+    "w": 90,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 90,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 90,
+    "h": 96
+   },
+   "duration": 33
+  },
+  {
+   "filename": "plasma-ball 2",
+   "frame": {
+    "x": 180,
+    "y": 0,
+    "w": 90,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 90,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 90,
+    "h": 96
+   },
+   "duration": 33
+  },
+  {
+   "filename": "plasma-ball 3",
+   "frame": {
+    "x": 270,
+    "y": 0,
+    "w": 90,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 90,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 90,
+    "h": 96
+   },
+   "duration": 33
+  },
+  {
+   "filename": "plasma-ball 4",
+   "frame": {
+    "x": 0,
+    "y": 96,
+    "w": 90,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 90,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 90,
+    "h": 96
+   },
+   "duration": 33
+  },
+  {
+   "filename": "plasma-ball 5",
+   "frame": {
+    "x": 90,
+    "y": 96,
+    "w": 90,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 90,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 90,
+    "h": 96
+   },
+   "duration": 33
+  },
+  {
+   "filename": "plasma-ball 6",
+   "frame": {
+    "x": 180,
+    "y": 96,
+    "w": 90,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 90,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 90,
+    "h": 96
+   },
+   "duration": 33
+  },
+  {
+   "filename": "plasma-ball 7",
+   "frame": {
+    "x": 270,
+    "y": 96,
+    "w": 90,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 90,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 90,
+    "h": 96
+   },
+   "duration": 33
+  },
+  {
+   "filename": "plasma-ball 8",
+   "frame": {
+    "x": 0,
+    "y": 192,
+    "w": 90,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 90,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 90,
+    "h": 96
+   },
+   "duration": 33
+  },
+  {
+   "filename": "plasma-ball 9",
+   "frame": {
+    "x": 90,
+    "y": 192,
+    "w": 90,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 90,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 90,
+    "h": 96
+   },
+   "duration": 33
+  },
+  {
+   "filename": "plasma-ball 10",
+   "frame": {
+    "x": 180,
+    "y": 192,
+    "w": 90,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 90,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 90,
+    "h": 96
+   },
+   "duration": 33
+  },
+  {
+   "filename": "plasma-ball 11",
+   "frame": {
+    "x": 270,
+    "y": 192,
+    "w": 90,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 90,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 90,
+    "h": 96
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "plasma-ball.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 360,
+   "h": 288
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "plasma-ball",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "lightning/plasma-ball",
+   "name": "Plasma ball",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    90,
+    96
+   ],
+   "pivot": [
+    56,
+    96
+   ],
+   "columns": 4
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.505
+   ],
+   "sourceFrames": 90,
+   "sourceFrameSize": [
+    112,
+    104
+   ]
+  }
+ }
+}

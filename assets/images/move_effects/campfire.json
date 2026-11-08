@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "campfire 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 120,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 120,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 120,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "campfire 1",
+   "frame": {
+    "x": 120,
+    "y": 0,
+    "w": 120,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 120,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 120,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "campfire 2",
+   "frame": {
+    "x": 240,
+    "y": 0,
+    "w": 120,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 120,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 120,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "campfire 3",
+   "frame": {
+    "x": 0,
+    "y": 98,
+    "w": 120,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 120,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 120,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "campfire 4",
+   "frame": {
+    "x": 120,
+    "y": 98,
+    "w": 120,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 120,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 120,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "campfire 5",
+   "frame": {
+    "x": 240,
+    "y": 98,
+    "w": 120,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 120,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 120,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "campfire 6",
+   "frame": {
+    "x": 0,
+    "y": 196,
+    "w": 120,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 120,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 120,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "campfire 7",
+   "frame": {
+    "x": 120,
+    "y": 196,
+    "w": 120,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 120,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 120,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "campfire 8",
+   "frame": {
+    "x": 240,
+    "y": 196,
+    "w": 120,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 120,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 120,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "campfire 9",
+   "frame": {
+    "x": 0,
+    "y": 294,
+    "w": 120,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 120,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 120,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "campfire 10",
+   "frame": {
+    "x": 120,
+    "y": 294,
+    "w": 120,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 120,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 120,
+    "h": 98
+   },
+   "duration": 33
+  },
+  {
+   "filename": "campfire 11",
+   "frame": {
+    "x": 240,
+    "y": 294,
+    "w": 120,
+    "h": 98
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 120,
+    "h": 98
+   },
+   "sourceSize": {
+    "w": 120,
+    "h": 98
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "campfire.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 360,
+   "h": 392
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "campfire",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "fire/campfire",
+   "name": "Campfire",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    120,
+    98
+   ],
+   "pivot": [
+    64,
+    112
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.508,
+    0.495
+   ],
+   "sourceFrames": 90,
+   "sourceFrameSize": [
+    128,
+    128
+   ]
+  }
+ }
+}

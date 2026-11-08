@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "feather-burst 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 141,
+    "h": 133
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 141,
+    "h": 133
+   },
+   "sourceSize": {
+    "w": 141,
+    "h": 133
+   },
+   "duration": 33
+  },
+  {
+   "filename": "feather-burst 1",
+   "frame": {
+    "x": 141,
+    "y": 0,
+    "w": 141,
+    "h": 133
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 141,
+    "h": 133
+   },
+   "sourceSize": {
+    "w": 141,
+    "h": 133
+   },
+   "duration": 33
+  },
+  {
+   "filename": "feather-burst 2",
+   "frame": {
+    "x": 282,
+    "y": 0,
+    "w": 141,
+    "h": 133
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 141,
+    "h": 133
+   },
+   "sourceSize": {
+    "w": 141,
+    "h": 133
+   },
+   "duration": 33
+  },
+  {
+   "filename": "feather-burst 3",
+   "frame": {
+    "x": 0,
+    "y": 133,
+    "w": 141,
+    "h": 133
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 141,
+    "h": 133
+   },
+   "sourceSize": {
+    "w": 141,
+    "h": 133
+   },
+   "duration": 33
+  },
+  {
+   "filename": "feather-burst 4",
+   "frame": {
+    "x": 141,
+    "y": 133,
+    "w": 141,
+    "h": 133
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 141,
+    "h": 133
+   },
+   "sourceSize": {
+    "w": 141,
+    "h": 133
+   },
+   "duration": 33
+  },
+  {
+   "filename": "feather-burst 5",
+   "frame": {
+    "x": 282,
+    "y": 133,
+    "w": 141,
+    "h": 133
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 141,
+    "h": 133
+   },
+   "sourceSize": {
+    "w": 141,
+    "h": 133
+   },
+   "duration": 33
+  },
+  {
+   "filename": "feather-burst 6",
+   "frame": {
+    "x": 0,
+    "y": 266,
+    "w": 141,
+    "h": 133
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 141,
+    "h": 133
+   },
+   "sourceSize": {
+    "w": 141,
+    "h": 133
+   },
+   "duration": 33
+  },
+  {
+   "filename": "feather-burst 7",
+   "frame": {
+    "x": 141,
+    "y": 266,
+    "w": 141,
+    "h": 133
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 141,
+    "h": 133
+   },
+   "sourceSize": {
+    "w": 141,
+    "h": 133
+   },
+   "duration": 33
+  },
+  {
+   "filename": "feather-burst 8",
+   "frame": {
+    "x": 282,
+    "y": 266,
+    "w": 141,
+    "h": 133
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 141,
+    "h": 133
+   },
+   "sourceSize": {
+    "w": 141,
+    "h": 133
+   },
+   "duration": 33
+  },
+  {
+   "filename": "feather-burst 9",
+   "frame": {
+    "x": 0,
+    "y": 399,
+    "w": 141,
+    "h": 133
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 141,
+    "h": 133
+   },
+   "sourceSize": {
+    "w": 141,
+    "h": 133
+   },
+   "duration": 33
+  },
+  {
+   "filename": "feather-burst 10",
+   "frame": {
+    "x": 141,
+    "y": 399,
+    "w": 141,
+    "h": 133
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 141,
+    "h": 133
+   },
+   "sourceSize": {
+    "w": 141,
+    "h": 133
+   },
+   "duration": 33
+  },
+  {
+   "filename": "feather-burst 11",
+   "frame": {
+    "x": 282,
+    "y": 399,
+    "w": 141,
+    "h": 133
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 141,
+    "h": 133
+   },
+   "sourceSize": {
+    "w": 141,
+    "h": 133
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "feather-burst.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 423,
+   "h": 532
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "feather-burst",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "holy/feather-burst",
+   "name": "Feather burst",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    141,
+    133
+   ],
+   "pivot": [
+    80,
+    60
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.508
+   ],
+   "sourceFrames": 91,
+   "sourceFrameSize": [
+    160,
+    160
+   ]
+  }
+ }
+}

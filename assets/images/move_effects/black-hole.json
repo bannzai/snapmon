@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "black-hole 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 161,
+    "h": 130
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 161,
+    "h": 130
+   },
+   "sourceSize": {
+    "w": 161,
+    "h": 130
+   },
+   "duration": 33
+  },
+  {
+   "filename": "black-hole 1",
+   "frame": {
+    "x": 161,
+    "y": 0,
+    "w": 161,
+    "h": 130
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 161,
+    "h": 130
+   },
+   "sourceSize": {
+    "w": 161,
+    "h": 130
+   },
+   "duration": 33
+  },
+  {
+   "filename": "black-hole 2",
+   "frame": {
+    "x": 322,
+    "y": 0,
+    "w": 161,
+    "h": 130
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 161,
+    "h": 130
+   },
+   "sourceSize": {
+    "w": 161,
+    "h": 130
+   },
+   "duration": 33
+  },
+  {
+   "filename": "black-hole 3",
+   "frame": {
+    "x": 0,
+    "y": 130,
+    "w": 161,
+    "h": 130
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 161,
+    "h": 130
+   },
+   "sourceSize": {
+    "w": 161,
+    "h": 130
+   },
+   "duration": 33
+  },
+  {
+   "filename": "black-hole 4",
+   "frame": {
+    "x": 161,
+    "y": 130,
+    "w": 161,
+    "h": 130
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 161,
+    "h": 130
+   },
+   "sourceSize": {
+    "w": 161,
+    "h": 130
+   },
+   "duration": 33
+  },
+  {
+   "filename": "black-hole 5",
+   "frame": {
+    "x": 322,
+    "y": 130,
+    "w": 161,
+    "h": 130
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 161,
+    "h": 130
+   },
+   "sourceSize": {
+    "w": 161,
+    "h": 130
+   },
+   "duration": 33
+  },
+  {
+   "filename": "black-hole 6",
+   "frame": {
+    "x": 0,
+    "y": 260,
+    "w": 161,
+    "h": 130
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 161,
+    "h": 130
+   },
+   "sourceSize": {
+    "w": 161,
+    "h": 130
+   },
+   "duration": 33
+  },
+  {
+   "filename": "black-hole 7",
+   "frame": {
+    "x": 161,
+    "y": 260,
+    "w": 161,
+    "h": 130
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 161,
+    "h": 130
+   },
+   "sourceSize": {
+    "w": 161,
+    "h": 130
+   },
+   "duration": 33
+  },
+  {
+   "filename": "black-hole 8",
+   "frame": {
+    "x": 322,
+    "y": 260,
+    "w": 161,
+    "h": 130
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 161,
+    "h": 130
+   },
+   "sourceSize": {
+    "w": 161,
+    "h": 130
+   },
+   "duration": 33
+  },
+  {
+   "filename": "black-hole 9",
+   "frame": {
+    "x": 0,
+    "y": 390,
+    "w": 161,
+    "h": 130
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 161,
+    "h": 130
+   },
+   "sourceSize": {
+    "w": 161,
+    "h": 130
+   },
+   "duration": 33
+  },
+  {
+   "filename": "black-hole 10",
+   "frame": {
+    "x": 161,
+    "y": 390,
+    "w": 161,
+    "h": 130
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 161,
+    "h": 130
+   },
+   "sourceSize": {
+    "w": 161,
+    "h": 130
+   },
+   "duration": 33
+  },
+  {
+   "filename": "black-hole 11",
+   "frame": {
+    "x": 322,
+    "y": 390,
+    "w": 161,
+    "h": 130
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 161,
+    "h": 130
+   },
+   "sourceSize": {
+    "w": 161,
+    "h": 130
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "black-hole.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 483,
+   "h": 520
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "black-hole",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "shadow/black-hole",
+   "name": "Black hole",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    161,
+    130
+   ],
+   "pivot": [
+    92,
+    124
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.503,
+    0.504
+   ],
+   "sourceFrames": 120,
+   "sourceFrameSize": [
+    184,
+    132
+   ]
+  }
+ }
+}

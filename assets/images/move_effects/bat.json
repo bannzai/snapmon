@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "bat 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 99,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 99,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 99,
+    "h": 61
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bat 1",
+   "frame": {
+    "x": 99,
+    "y": 0,
+    "w": 99,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 99,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 99,
+    "h": 61
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bat 2",
+   "frame": {
+    "x": 198,
+    "y": 0,
+    "w": 99,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 99,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 99,
+    "h": 61
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bat 3",
+   "frame": {
+    "x": 0,
+    "y": 61,
+    "w": 99,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 99,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 99,
+    "h": 61
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bat 4",
+   "frame": {
+    "x": 99,
+    "y": 61,
+    "w": 99,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 99,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 99,
+    "h": 61
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bat 5",
+   "frame": {
+    "x": 198,
+    "y": 61,
+    "w": 99,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 99,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 99,
+    "h": 61
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bat 6",
+   "frame": {
+    "x": 0,
+    "y": 122,
+    "w": 99,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 99,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 99,
+    "h": 61
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bat 7",
+   "frame": {
+    "x": 99,
+    "y": 122,
+    "w": 99,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 99,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 99,
+    "h": 61
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bat 8",
+   "frame": {
+    "x": 198,
+    "y": 122,
+    "w": 99,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 99,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 99,
+    "h": 61
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bat 9",
+   "frame": {
+    "x": 0,
+    "y": 183,
+    "w": 99,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 99,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 99,
+    "h": 61
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bat 10",
+   "frame": {
+    "x": 99,
+    "y": 183,
+    "w": 99,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 99,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 99,
+    "h": 61
+   },
+   "duration": 33
+  },
+  {
+   "filename": "bat 11",
+   "frame": {
+    "x": 198,
+    "y": 183,
+    "w": 99,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 99,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 99,
+    "h": 61
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "bat.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 297,
+   "h": 244
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "bat",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "critters/bat",
+   "name": "Bat",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    99,
+    61
+   ],
+   "pivot": [
+    56,
+    40
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.53,
+    0.492
+   ],
+   "sourceFrames": 72,
+   "sourceFrameSize": [
+    112,
+    80
+   ]
+  }
+ }
+}

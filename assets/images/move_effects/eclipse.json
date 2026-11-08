@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "eclipse 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 149,
+    "h": 137
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 149,
+    "h": 137
+   },
+   "sourceSize": {
+    "w": 149,
+    "h": 137
+   },
+   "duration": 33
+  },
+  {
+   "filename": "eclipse 1",
+   "frame": {
+    "x": 149,
+    "y": 0,
+    "w": 149,
+    "h": 137
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 149,
+    "h": 137
+   },
+   "sourceSize": {
+    "w": 149,
+    "h": 137
+   },
+   "duration": 33
+  },
+  {
+   "filename": "eclipse 2",
+   "frame": {
+    "x": 298,
+    "y": 0,
+    "w": 149,
+    "h": 137
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 149,
+    "h": 137
+   },
+   "sourceSize": {
+    "w": 149,
+    "h": 137
+   },
+   "duration": 33
+  },
+  {
+   "filename": "eclipse 3",
+   "frame": {
+    "x": 0,
+    "y": 137,
+    "w": 149,
+    "h": 137
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 149,
+    "h": 137
+   },
+   "sourceSize": {
+    "w": 149,
+    "h": 137
+   },
+   "duration": 33
+  },
+  {
+   "filename": "eclipse 4",
+   "frame": {
+    "x": 149,
+    "y": 137,
+    "w": 149,
+    "h": 137
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 149,
+    "h": 137
+   },
+   "sourceSize": {
+    "w": 149,
+    "h": 137
+   },
+   "duration": 33
+  },
+  {
+   "filename": "eclipse 5",
+   "frame": {
+    "x": 298,
+    "y": 137,
+    "w": 149,
+    "h": 137
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 149,
+    "h": 137
+   },
+   "sourceSize": {
+    "w": 149,
+    "h": 137
+   },
+   "duration": 33
+  },
+  {
+   "filename": "eclipse 6",
+   "frame": {
+    "x": 0,
+    "y": 274,
+    "w": 149,
+    "h": 137
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 149,
+    "h": 137
+   },
+   "sourceSize": {
+    "w": 149,
+    "h": 137
+   },
+   "duration": 33
+  },
+  {
+   "filename": "eclipse 7",
+   "frame": {
+    "x": 149,
+    "y": 274,
+    "w": 149,
+    "h": 137
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 149,
+    "h": 137
+   },
+   "sourceSize": {
+    "w": 149,
+    "h": 137
+   },
+   "duration": 33
+  },
+  {
+   "filename": "eclipse 8",
+   "frame": {
+    "x": 298,
+    "y": 274,
+    "w": 149,
+    "h": 137
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 149,
+    "h": 137
+   },
+   "sourceSize": {
+    "w": 149,
+    "h": 137
+   },
+   "duration": 33
+  },
+  {
+   "filename": "eclipse 9",
+   "frame": {
+    "x": 0,
+    "y": 411,
+    "w": 149,
+    "h": 137
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 149,
+    "h": 137
+   },
+   "sourceSize": {
+    "w": 149,
+    "h": 137
+   },
+   "duration": 33
+  },
+  {
+   "filename": "eclipse 10",
+   "frame": {
+    "x": 149,
+    "y": 411,
+    "w": 149,
+    "h": 137
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 149,
+    "h": 137
+   },
+   "sourceSize": {
+    "w": 149,
+    "h": 137
+   },
+   "duration": 33
+  },
+  {
+   "filename": "eclipse 11",
+   "frame": {
+    "x": 298,
+    "y": 411,
+    "w": 149,
+    "h": 137
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 149,
+    "h": 137
+   },
+   "sourceSize": {
+    "w": 149,
+    "h": 137
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "eclipse.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 447,
+   "h": 548
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "eclipse",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "shadow/eclipse",
+   "name": "Eclipse",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    149,
+    137
+   ],
+   "pivot": [
+    80,
+    72
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.507
+   ],
+   "sourceFrames": 120,
+   "sourceFrameSize": [
+    160,
+    144
+   ]
+  }
+ }
+}

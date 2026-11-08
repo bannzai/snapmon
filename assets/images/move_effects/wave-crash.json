@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "wave-crash 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 215,
+    "h": 78
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 215,
+    "h": 78
+   },
+   "sourceSize": {
+    "w": 215,
+    "h": 78
+   },
+   "duration": 33
+  },
+  {
+   "filename": "wave-crash 1",
+   "frame": {
+    "x": 215,
+    "y": 0,
+    "w": 215,
+    "h": 78
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 215,
+    "h": 78
+   },
+   "sourceSize": {
+    "w": 215,
+    "h": 78
+   },
+   "duration": 33
+  },
+  {
+   "filename": "wave-crash 2",
+   "frame": {
+    "x": 0,
+    "y": 78,
+    "w": 215,
+    "h": 78
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 215,
+    "h": 78
+   },
+   "sourceSize": {
+    "w": 215,
+    "h": 78
+   },
+   "duration": 33
+  },
+  {
+   "filename": "wave-crash 3",
+   "frame": {
+    "x": 215,
+    "y": 78,
+    "w": 215,
+    "h": 78
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 215,
+    "h": 78
+   },
+   "sourceSize": {
+    "w": 215,
+    "h": 78
+   },
+   "duration": 33
+  },
+  {
+   "filename": "wave-crash 4",
+   "frame": {
+    "x": 0,
+    "y": 156,
+    "w": 215,
+    "h": 78
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 215,
+    "h": 78
+   },
+   "sourceSize": {
+    "w": 215,
+    "h": 78
+   },
+   "duration": 33
+  },
+  {
+   "filename": "wave-crash 5",
+   "frame": {
+    "x": 215,
+    "y": 156,
+    "w": 215,
+    "h": 78
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 215,
+    "h": 78
+   },
+   "sourceSize": {
+    "w": 215,
+    "h": 78
+   },
+   "duration": 33
+  },
+  {
+   "filename": "wave-crash 6",
+   "frame": {
+    "x": 0,
+    "y": 234,
+    "w": 215,
+    "h": 78
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 215,
+    "h": 78
+   },
+   "sourceSize": {
+    "w": 215,
+    "h": 78
+   },
+   "duration": 33
+  },
+  {
+   "filename": "wave-crash 7",
+   "frame": {
+    "x": 215,
+    "y": 234,
+    "w": 215,
+    "h": 78
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 215,
+    "h": 78
+   },
+   "sourceSize": {
+    "w": 215,
+    "h": 78
+   },
+   "duration": 33
+  },
+  {
+   "filename": "wave-crash 8",
+   "frame": {
+    "x": 0,
+    "y": 312,
+    "w": 215,
+    "h": 78
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 215,
+    "h": 78
+   },
+   "sourceSize": {
+    "w": 215,
+    "h": 78
+   },
+   "duration": 33
+  },
+  {
+   "filename": "wave-crash 9",
+   "frame": {
+    "x": 215,
+    "y": 312,
+    "w": 215,
+    "h": 78
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 215,
+    "h": 78
+   },
+   "sourceSize": {
+    "w": 215,
+    "h": 78
+   },
+   "duration": 33
+  },
+  {
+   "filename": "wave-crash 10",
+   "frame": {
+    "x": 0,
+    "y": 390,
+    "w": 215,
+    "h": 78
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 215,
+    "h": 78
+   },
+   "sourceSize": {
+    "w": 215,
+    "h": 78
+   },
+   "duration": 33
+  },
+  {
+   "filename": "wave-crash 11",
+   "frame": {
+    "x": 215,
+    "y": 390,
+    "w": 215,
+    "h": 78
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 215,
+    "h": 78
+   },
+   "sourceSize": {
+    "w": 215,
+    "h": 78
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "wave-crash.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 430,
+   "h": 468
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "wave-crash",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "water/wave-crash",
+   "name": "Wave crash",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    215,
+    78
+   ],
+   "pivot": [
+    112,
+    86
+   ],
+   "columns": 2
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.491,
+    0.468
+   ],
+   "sourceFrames": 97,
+   "sourceFrameSize": [
+    224,
+    104
+   ]
+  }
+ }
+}

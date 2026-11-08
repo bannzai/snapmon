@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "wisp 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 125,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 125,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 125,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "wisp 1",
+   "frame": {
+    "x": 125,
+    "y": 0,
+    "w": 125,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 125,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 125,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "wisp 2",
+   "frame": {
+    "x": 250,
+    "y": 0,
+    "w": 125,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 125,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 125,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "wisp 3",
+   "frame": {
+    "x": 0,
+    "y": 95,
+    "w": 125,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 125,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 125,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "wisp 4",
+   "frame": {
+    "x": 125,
+    "y": 95,
+    "w": 125,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 125,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 125,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "wisp 5",
+   "frame": {
+    "x": 250,
+    "y": 95,
+    "w": 125,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 125,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 125,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "wisp 6",
+   "frame": {
+    "x": 0,
+    "y": 190,
+    "w": 125,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 125,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 125,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "wisp 7",
+   "frame": {
+    "x": 125,
+    "y": 190,
+    "w": 125,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 125,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 125,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "wisp 8",
+   "frame": {
+    "x": 250,
+    "y": 190,
+    "w": 125,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 125,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 125,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "wisp 9",
+   "frame": {
+    "x": 0,
+    "y": 285,
+    "w": 125,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 125,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 125,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "wisp 10",
+   "frame": {
+    "x": 125,
+    "y": 285,
+    "w": 125,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 125,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 125,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "wisp 11",
+   "frame": {
+    "x": 250,
+    "y": 285,
+    "w": 125,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 125,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 125,
+    "h": 95
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "wisp.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 375,
+   "h": 380
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "wisp",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "critters/wisp",
+   "name": "Wisp",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    125,
+    95
+   ],
+   "pivot": [
+    64,
+    96
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.492,
+    0.516
+   ],
+   "sourceFrames": 96,
+   "sourceFrameSize": [
+    128,
+    104
+   ]
+  }
+ }
+}

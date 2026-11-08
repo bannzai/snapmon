@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "splash 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "splash 1",
+   "frame": {
+    "x": 126,
+    "y": 0,
+    "w": 126,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "splash 2",
+   "frame": {
+    "x": 252,
+    "y": 0,
+    "w": 126,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "splash 3",
+   "frame": {
+    "x": 0,
+    "y": 99,
+    "w": 126,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "splash 4",
+   "frame": {
+    "x": 126,
+    "y": 99,
+    "w": 126,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "splash 5",
+   "frame": {
+    "x": 252,
+    "y": 99,
+    "w": 126,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "splash 6",
+   "frame": {
+    "x": 0,
+    "y": 198,
+    "w": 126,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "splash 7",
+   "frame": {
+    "x": 126,
+    "y": 198,
+    "w": 126,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "splash 8",
+   "frame": {
+    "x": 252,
+    "y": 198,
+    "w": 126,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "splash 9",
+   "frame": {
+    "x": 0,
+    "y": 297,
+    "w": 126,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "splash 10",
+   "frame": {
+    "x": 126,
+    "y": 297,
+    "w": 126,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 99
+   },
+   "duration": 33
+  },
+  {
+   "filename": "splash 11",
+   "frame": {
+    "x": 252,
+    "y": 297,
+    "w": 126,
+    "h": 99
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 126,
+    "h": 99
+   },
+   "sourceSize": {
+    "w": 126,
+    "h": 99
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "splash.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 378,
+   "h": 396
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "splash",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "water/splash",
+   "name": "Splash",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    126,
+    99
+   ],
+   "pivot": [
+    88,
+    78
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.504,
+    0.48
+   ],
+   "sourceFrames": 76,
+   "sourceFrameSize": [
+    176,
+    100
+   ]
+  }
+ }
+}

@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "star-fall 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 166,
+    "h": 157
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 166,
+    "h": 157
+   },
+   "sourceSize": {
+    "w": 166,
+    "h": 157
+   },
+   "duration": 33
+  },
+  {
+   "filename": "star-fall 1",
+   "frame": {
+    "x": 166,
+    "y": 0,
+    "w": 166,
+    "h": 157
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 166,
+    "h": 157
+   },
+   "sourceSize": {
+    "w": 166,
+    "h": 157
+   },
+   "duration": 33
+  },
+  {
+   "filename": "star-fall 2",
+   "frame": {
+    "x": 332,
+    "y": 0,
+    "w": 166,
+    "h": 157
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 166,
+    "h": 157
+   },
+   "sourceSize": {
+    "w": 166,
+    "h": 157
+   },
+   "duration": 33
+  },
+  {
+   "filename": "star-fall 3",
+   "frame": {
+    "x": 0,
+    "y": 157,
+    "w": 166,
+    "h": 157
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 166,
+    "h": 157
+   },
+   "sourceSize": {
+    "w": 166,
+    "h": 157
+   },
+   "duration": 33
+  },
+  {
+   "filename": "star-fall 4",
+   "frame": {
+    "x": 166,
+    "y": 157,
+    "w": 166,
+    "h": 157
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 166,
+    "h": 157
+   },
+   "sourceSize": {
+    "w": 166,
+    "h": 157
+   },
+   "duration": 33
+  },
+  {
+   "filename": "star-fall 5",
+   "frame": {
+    "x": 332,
+    "y": 157,
+    "w": 166,
+    "h": 157
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 166,
+    "h": 157
+   },
+   "sourceSize": {
+    "w": 166,
+    "h": 157
+   },
+   "duration": 33
+  },
+  {
+   "filename": "star-fall 6",
+   "frame": {
+    "x": 0,
+    "y": 314,
+    "w": 166,
+    "h": 157
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 166,
+    "h": 157
+   },
+   "sourceSize": {
+    "w": 166,
+    "h": 157
+   },
+   "duration": 33
+  },
+  {
+   "filename": "star-fall 7",
+   "frame": {
+    "x": 166,
+    "y": 314,
+    "w": 166,
+    "h": 157
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 166,
+    "h": 157
+   },
+   "sourceSize": {
+    "w": 166,
+    "h": 157
+   },
+   "duration": 33
+  },
+  {
+   "filename": "star-fall 8",
+   "frame": {
+    "x": 332,
+    "y": 314,
+    "w": 166,
+    "h": 157
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 166,
+    "h": 157
+   },
+   "sourceSize": {
+    "w": 166,
+    "h": 157
+   },
+   "duration": 33
+  },
+  {
+   "filename": "star-fall 9",
+   "frame": {
+    "x": 0,
+    "y": 471,
+    "w": 166,
+    "h": 157
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 166,
+    "h": 157
+   },
+   "sourceSize": {
+    "w": 166,
+    "h": 157
+   },
+   "duration": 33
+  },
+  {
+   "filename": "star-fall 10",
+   "frame": {
+    "x": 166,
+    "y": 471,
+    "w": 166,
+    "h": 157
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 166,
+    "h": 157
+   },
+   "sourceSize": {
+    "w": 166,
+    "h": 157
+   },
+   "duration": 33
+  },
+  {
+   "filename": "star-fall 11",
+   "frame": {
+    "x": 332,
+    "y": 471,
+    "w": 166,
+    "h": 157
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 166,
+    "h": 157
+   },
+   "sourceSize": {
+    "w": 166,
+    "h": 157
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "star-fall.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 498,
+   "h": 628
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "star-fall",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "arcane/star-fall",
+   "name": "Star fall",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    166,
+    157
+   ],
+   "pivot": [
+    124,
+    150
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.49
+   ],
+   "sourceFrames": 76,
+   "sourceFrameSize": [
+    232,
+    172
+   ]
+  }
+ }
+}

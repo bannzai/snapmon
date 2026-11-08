@@ -1,0 +1,401 @@
+{
+ "frames": [
+  {
+   "filename": "halo 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 39,
+    "h": 40
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 39,
+    "h": 40
+   },
+   "sourceSize": {
+    "w": 39,
+    "h": 40
+   },
+   "duration": 33
+  },
+  {
+   "filename": "halo 1",
+   "frame": {
+    "x": 39,
+    "y": 0,
+    "w": 39,
+    "h": 40
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 39,
+    "h": 40
+   },
+   "sourceSize": {
+    "w": 39,
+    "h": 40
+   },
+   "duration": 33
+  },
+  {
+   "filename": "halo 2",
+   "frame": {
+    "x": 78,
+    "y": 0,
+    "w": 39,
+    "h": 40
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 39,
+    "h": 40
+   },
+   "sourceSize": {
+    "w": 39,
+    "h": 40
+   },
+   "duration": 33
+  },
+  {
+   "filename": "halo 3",
+   "frame": {
+    "x": 117,
+    "y": 0,
+    "w": 39,
+    "h": 40
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 39,
+    "h": 40
+   },
+   "sourceSize": {
+    "w": 39,
+    "h": 40
+   },
+   "duration": 33
+  },
+  {
+   "filename": "halo 4",
+   "frame": {
+    "x": 0,
+    "y": 40,
+    "w": 39,
+    "h": 40
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 39,
+    "h": 40
+   },
+   "sourceSize": {
+    "w": 39,
+    "h": 40
+   },
+   "duration": 33
+  },
+  {
+   "filename": "halo 5",
+   "frame": {
+    "x": 39,
+    "y": 40,
+    "w": 39,
+    "h": 40
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 39,
+    "h": 40
+   },
+   "sourceSize": {
+    "w": 39,
+    "h": 40
+   },
+   "duration": 33
+  },
+  {
+   "filename": "halo 6",
+   "frame": {
+    "x": 78,
+    "y": 40,
+    "w": 39,
+    "h": 40
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 39,
+    "h": 40
+   },
+   "sourceSize": {
+    "w": 39,
+    "h": 40
+   },
+   "duration": 33
+  },
+  {
+   "filename": "halo 7",
+   "frame": {
+    "x": 117,
+    "y": 40,
+    "w": 39,
+    "h": 40
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 39,
+    "h": 40
+   },
+   "sourceSize": {
+    "w": 39,
+    "h": 40
+   },
+   "duration": 33
+  },
+  {
+   "filename": "halo 8",
+   "frame": {
+    "x": 0,
+    "y": 80,
+    "w": 39,
+    "h": 40
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 39,
+    "h": 40
+   },
+   "sourceSize": {
+    "w": 39,
+    "h": 40
+   },
+   "duration": 33
+  },
+  {
+   "filename": "halo 9",
+   "frame": {
+    "x": 39,
+    "y": 80,
+    "w": 39,
+    "h": 40
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 39,
+    "h": 40
+   },
+   "sourceSize": {
+    "w": 39,
+    "h": 40
+   },
+   "duration": 33
+  },
+  {
+   "filename": "halo 10",
+   "frame": {
+    "x": 78,
+    "y": 80,
+    "w": 39,
+    "h": 40
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 39,
+    "h": 40
+   },
+   "sourceSize": {
+    "w": 39,
+    "h": 40
+   },
+   "duration": 33
+  },
+  {
+   "filename": "halo 11",
+   "frame": {
+    "x": 117,
+    "y": 80,
+    "w": 39,
+    "h": 40
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 39,
+    "h": 40
+   },
+   "sourceSize": {
+    "w": 39,
+    "h": 40
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "halo.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 156,
+   "h": 120
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "halo",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "holy/halo",
+   "name": "Halo",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    39,
+    40
+   ],
+   "pivot": [
+    28,
+    70
+   ],
+   "columns": 4,
+   "act": {
+    "windup": 0,
+    "recovery": 0,
+    "onBody": true,
+    "targets": [],
+    "hits": [],
+    "poses": [
+     {
+      "t": 0,
+      "how": "smooth",
+      "pose": {
+       "turn": 1.1,
+       "fx": -1,
+       "fy": -26,
+       "bx": 2,
+       "by": -26,
+       "armsFront": true,
+       "hy": 1,
+       "ffx": -3,
+       "fbx": 4
+      }
+     },
+     {
+      "t": 0.5,
+      "how": "smooth",
+      "pose": {
+       "turn": 1.1,
+       "fx": -1,
+       "fy": -26,
+       "bx": 2,
+       "by": -26,
+       "armsFront": true,
+       "hy": 1,
+       "ffx": -3,
+       "fbx": 4,
+       "crouch": 1
+      }
+     },
+     {
+      "t": 1,
+      "how": "smooth",
+      "pose": {
+       "turn": 1.1,
+       "fx": -1,
+       "fy": -26,
+       "bx": 2,
+       "by": -26,
+       "armsFront": true,
+       "hy": 2,
+       "ffx": -3,
+       "fbx": 4,
+       "crouch": 1
+      }
+     },
+     {
+      "t": 1.5,
+      "how": "smooth",
+      "pose": {
+       "turn": 1.1,
+       "fx": -1,
+       "fy": -26,
+       "bx": 2,
+       "by": -26,
+       "armsFront": true,
+       "hy": 1,
+       "ffx": -3,
+       "fbx": 4,
+       "crouch": 1
+      }
+     },
+     {
+      "t": 2,
+      "how": "smooth",
+      "pose": {
+       "turn": 1.1,
+       "fx": -1,
+       "fy": -26,
+       "bx": 2,
+       "by": -26,
+       "armsFront": true,
+       "hy": 1,
+       "ffx": -3,
+       "fbx": 4
+      }
+     }
+    ]
+   }
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.487,
+    0.562
+   ],
+   "sourceFrames": 60,
+   "sourceFrameSize": [
+    56,
+    80
+   ]
+  }
+ }
+}

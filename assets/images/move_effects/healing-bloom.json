@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "healing-bloom 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 102,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 102,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 102,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "healing-bloom 1",
+   "frame": {
+    "x": 102,
+    "y": 0,
+    "w": 102,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 102,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 102,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "healing-bloom 2",
+   "frame": {
+    "x": 204,
+    "y": 0,
+    "w": 102,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 102,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 102,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "healing-bloom 3",
+   "frame": {
+    "x": 306,
+    "y": 0,
+    "w": 102,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 102,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 102,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "healing-bloom 4",
+   "frame": {
+    "x": 0,
+    "y": 110,
+    "w": 102,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 102,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 102,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "healing-bloom 5",
+   "frame": {
+    "x": 102,
+    "y": 110,
+    "w": 102,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 102,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 102,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "healing-bloom 6",
+   "frame": {
+    "x": 204,
+    "y": 110,
+    "w": 102,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 102,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 102,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "healing-bloom 7",
+   "frame": {
+    "x": 306,
+    "y": 110,
+    "w": 102,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 102,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 102,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "healing-bloom 8",
+   "frame": {
+    "x": 0,
+    "y": 220,
+    "w": 102,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 102,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 102,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "healing-bloom 9",
+   "frame": {
+    "x": 102,
+    "y": 220,
+    "w": 102,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 102,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 102,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "healing-bloom 10",
+   "frame": {
+    "x": 204,
+    "y": 220,
+    "w": 102,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 102,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 102,
+    "h": 110
+   },
+   "duration": 33
+  },
+  {
+   "filename": "healing-bloom 11",
+   "frame": {
+    "x": 306,
+    "y": 220,
+    "w": 102,
+    "h": 110
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 102,
+    "h": 110
+   },
+   "sourceSize": {
+    "w": 102,
+    "h": 110
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "healing-bloom.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 408,
+   "h": 330
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "healing-bloom",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "nature/healing-bloom",
+   "name": "Healing bloom",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    102,
+    110
+   ],
+   "pivot": [
+    62,
+    108
+   ],
+   "columns": 4
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.549,
+    0.477
+   ],
+   "sourceFrames": 100,
+   "sourceFrameSize": [
+    124,
+    120
+   ]
+  }
+ }
+}

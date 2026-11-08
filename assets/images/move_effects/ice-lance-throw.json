@@ -1,0 +1,461 @@
+{
+ "frames": [
+  {
+   "filename": "ice-lance-throw 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 252,
+    "h": 123
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 252,
+    "h": 123
+   },
+   "sourceSize": {
+    "w": 252,
+    "h": 123
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-lance-throw 1",
+   "frame": {
+    "x": 252,
+    "y": 0,
+    "w": 252,
+    "h": 123
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 252,
+    "h": 123
+   },
+   "sourceSize": {
+    "w": 252,
+    "h": 123
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-lance-throw 2",
+   "frame": {
+    "x": 0,
+    "y": 123,
+    "w": 252,
+    "h": 123
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 252,
+    "h": 123
+   },
+   "sourceSize": {
+    "w": 252,
+    "h": 123
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-lance-throw 3",
+   "frame": {
+    "x": 252,
+    "y": 123,
+    "w": 252,
+    "h": 123
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 252,
+    "h": 123
+   },
+   "sourceSize": {
+    "w": 252,
+    "h": 123
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-lance-throw 4",
+   "frame": {
+    "x": 0,
+    "y": 246,
+    "w": 252,
+    "h": 123
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 252,
+    "h": 123
+   },
+   "sourceSize": {
+    "w": 252,
+    "h": 123
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-lance-throw 5",
+   "frame": {
+    "x": 252,
+    "y": 246,
+    "w": 252,
+    "h": 123
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 252,
+    "h": 123
+   },
+   "sourceSize": {
+    "w": 252,
+    "h": 123
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-lance-throw 6",
+   "frame": {
+    "x": 0,
+    "y": 369,
+    "w": 252,
+    "h": 123
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 252,
+    "h": 123
+   },
+   "sourceSize": {
+    "w": 252,
+    "h": 123
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-lance-throw 7",
+   "frame": {
+    "x": 252,
+    "y": 369,
+    "w": 252,
+    "h": 123
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 252,
+    "h": 123
+   },
+   "sourceSize": {
+    "w": 252,
+    "h": 123
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-lance-throw 8",
+   "frame": {
+    "x": 0,
+    "y": 492,
+    "w": 252,
+    "h": 123
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 252,
+    "h": 123
+   },
+   "sourceSize": {
+    "w": 252,
+    "h": 123
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-lance-throw 9",
+   "frame": {
+    "x": 252,
+    "y": 492,
+    "w": 252,
+    "h": 123
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 252,
+    "h": 123
+   },
+   "sourceSize": {
+    "w": 252,
+    "h": 123
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-lance-throw 10",
+   "frame": {
+    "x": 0,
+    "y": 615,
+    "w": 252,
+    "h": 123
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 252,
+    "h": 123
+   },
+   "sourceSize": {
+    "w": 252,
+    "h": 123
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ice-lance-throw 11",
+   "frame": {
+    "x": 252,
+    "y": 615,
+    "w": 252,
+    "h": 123
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 252,
+    "h": 123
+   },
+   "sourceSize": {
+    "w": 252,
+    "h": 123
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "ice-lance-throw.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 504,
+   "h": 738
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "ice-lance-throw",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "moves/ice-lance-throw",
+   "name": "Ice lance throw",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    252,
+    123
+   ],
+   "pivot": [
+    86,
+    134
+   ],
+   "columns": 2,
+   "act": {
+    "windup": 0.4,
+    "recovery": 0,
+    "onBody": false,
+    "targets": [
+     170
+    ],
+    "hits": [
+     {
+      "t": 1.1400000000000001,
+      "freeze": 0.13,
+      "shake": 0.2,
+      "amp": 2,
+      "push": 2.4,
+      "skin": "ice"
+     },
+     {
+      "t": 2.75,
+      "freeze": 0,
+      "shake": 0,
+      "amp": 0,
+      "push": 0.3,
+      "skin": null
+     }
+    ],
+    "poses": [
+     {
+      "t": -0.4,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 11,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7,
+       "x": -3
+      }
+     },
+     {
+      "t": 0.06,
+      "how": "smooth",
+      "pose": {
+       "crouch": 4,
+       "fx": 18,
+       "fy": -22,
+       "bx": 11,
+       "by": -17,
+       "ffx": 10,
+       "fbx": -8,
+       "x": -3,
+       "lean": 2
+      }
+     },
+     {
+      "t": 0.6000000000000001,
+      "how": "smooth",
+      "pose": {
+       "crouch": 4,
+       "fx": 18,
+       "fy": -22,
+       "bx": 11,
+       "by": -17,
+       "ffx": 10,
+       "fbx": -8,
+       "x": -3,
+       "lean": 2
+      }
+     },
+     {
+      "t": 0.77,
+      "how": "smooth",
+      "pose": {
+       "crouch": 5,
+       "fx": 17,
+       "fy": -22,
+       "bx": 5,
+       "by": -20,
+       "ffx": 10,
+       "fbx": -8,
+       "x": -3,
+       "lean": -2
+      }
+     },
+     {
+      "t": 0.8,
+      "how": "snap",
+      "pose": {
+       "crouch": 4,
+       "fx": 19,
+       "fy": -24,
+       "bx": -6,
+       "by": -24,
+       "ffx": 13,
+       "fbx": -10,
+       "x": 9,
+       "lean": 6,
+       "toeB": true
+      }
+     },
+     {
+      "t": 1.4400000000000002,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 19,
+       "fy": -24,
+       "bx": -6,
+       "by": -24,
+       "ffx": 13,
+       "fbx": -10,
+       "x": 9,
+       "lean": 4,
+       "toeB": true
+      }
+     },
+     {
+      "t": 2.04,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 11,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7,
+       "x": -3
+      }
+     },
+     {
+      "t": 4.34,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 11,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7,
+       "x": -3
+      }
+     }
+    ]
+   }
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.488,
+    0.528
+   ],
+   "sourceFrames": 131,
+   "sourceFrameSize": [
+    310,
+    136
+   ]
+  }
+ }
+}

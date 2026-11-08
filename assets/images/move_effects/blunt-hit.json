@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "blunt-hit 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 91,
+    "h": 81
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 91,
+    "h": 81
+   },
+   "sourceSize": {
+    "w": 91,
+    "h": 81
+   },
+   "duration": 33
+  },
+  {
+   "filename": "blunt-hit 1",
+   "frame": {
+    "x": 91,
+    "y": 0,
+    "w": 91,
+    "h": 81
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 91,
+    "h": 81
+   },
+   "sourceSize": {
+    "w": 91,
+    "h": 81
+   },
+   "duration": 33
+  },
+  {
+   "filename": "blunt-hit 2",
+   "frame": {
+    "x": 182,
+    "y": 0,
+    "w": 91,
+    "h": 81
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 91,
+    "h": 81
+   },
+   "sourceSize": {
+    "w": 91,
+    "h": 81
+   },
+   "duration": 33
+  },
+  {
+   "filename": "blunt-hit 3",
+   "frame": {
+    "x": 0,
+    "y": 81,
+    "w": 91,
+    "h": 81
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 91,
+    "h": 81
+   },
+   "sourceSize": {
+    "w": 91,
+    "h": 81
+   },
+   "duration": 33
+  },
+  {
+   "filename": "blunt-hit 4",
+   "frame": {
+    "x": 91,
+    "y": 81,
+    "w": 91,
+    "h": 81
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 91,
+    "h": 81
+   },
+   "sourceSize": {
+    "w": 91,
+    "h": 81
+   },
+   "duration": 33
+  },
+  {
+   "filename": "blunt-hit 5",
+   "frame": {
+    "x": 182,
+    "y": 81,
+    "w": 91,
+    "h": 81
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 91,
+    "h": 81
+   },
+   "sourceSize": {
+    "w": 91,
+    "h": 81
+   },
+   "duration": 33
+  },
+  {
+   "filename": "blunt-hit 6",
+   "frame": {
+    "x": 0,
+    "y": 162,
+    "w": 91,
+    "h": 81
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 91,
+    "h": 81
+   },
+   "sourceSize": {
+    "w": 91,
+    "h": 81
+   },
+   "duration": 33
+  },
+  {
+   "filename": "blunt-hit 7",
+   "frame": {
+    "x": 91,
+    "y": 162,
+    "w": 91,
+    "h": 81
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 91,
+    "h": 81
+   },
+   "sourceSize": {
+    "w": 91,
+    "h": 81
+   },
+   "duration": 33
+  },
+  {
+   "filename": "blunt-hit 8",
+   "frame": {
+    "x": 182,
+    "y": 162,
+    "w": 91,
+    "h": 81
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 91,
+    "h": 81
+   },
+   "sourceSize": {
+    "w": 91,
+    "h": 81
+   },
+   "duration": 33
+  },
+  {
+   "filename": "blunt-hit 9",
+   "frame": {
+    "x": 0,
+    "y": 243,
+    "w": 91,
+    "h": 81
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 91,
+    "h": 81
+   },
+   "sourceSize": {
+    "w": 91,
+    "h": 81
+   },
+   "duration": 33
+  },
+  {
+   "filename": "blunt-hit 10",
+   "frame": {
+    "x": 91,
+    "y": 243,
+    "w": 91,
+    "h": 81
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 91,
+    "h": 81
+   },
+   "sourceSize": {
+    "w": 91,
+    "h": 81
+   },
+   "duration": 33
+  },
+  {
+   "filename": "blunt-hit 11",
+   "frame": {
+    "x": 182,
+    "y": 243,
+    "w": 91,
+    "h": 81
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 91,
+    "h": 81
+   },
+   "sourceSize": {
+    "w": 91,
+    "h": 81
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "blunt-hit.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 273,
+   "h": 324
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "blunt-hit",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "impacts/blunt-hit",
+   "name": "Blunt hit",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    91,
+    81
+   ],
+   "pivot": [
+    64,
+    72
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.478,
+    0.58
+   ],
+   "sourceFrames": 28,
+   "sourceFrameSize": [
+    128,
+    88
+   ]
+  }
+ }
+}

@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "water-orb 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 105
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 105
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 105
+   },
+   "duration": 33
+  },
+  {
+   "filename": "water-orb 1",
+   "frame": {
+    "x": 96,
+    "y": 0,
+    "w": 96,
+    "h": 105
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 105
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 105
+   },
+   "duration": 33
+  },
+  {
+   "filename": "water-orb 2",
+   "frame": {
+    "x": 192,
+    "y": 0,
+    "w": 96,
+    "h": 105
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 105
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 105
+   },
+   "duration": 33
+  },
+  {
+   "filename": "water-orb 3",
+   "frame": {
+    "x": 288,
+    "y": 0,
+    "w": 96,
+    "h": 105
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 105
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 105
+   },
+   "duration": 33
+  },
+  {
+   "filename": "water-orb 4",
+   "frame": {
+    "x": 0,
+    "y": 105,
+    "w": 96,
+    "h": 105
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 105
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 105
+   },
+   "duration": 33
+  },
+  {
+   "filename": "water-orb 5",
+   "frame": {
+    "x": 96,
+    "y": 105,
+    "w": 96,
+    "h": 105
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 105
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 105
+   },
+   "duration": 33
+  },
+  {
+   "filename": "water-orb 6",
+   "frame": {
+    "x": 192,
+    "y": 105,
+    "w": 96,
+    "h": 105
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 105
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 105
+   },
+   "duration": 33
+  },
+  {
+   "filename": "water-orb 7",
+   "frame": {
+    "x": 288,
+    "y": 105,
+    "w": 96,
+    "h": 105
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 105
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 105
+   },
+   "duration": 33
+  },
+  {
+   "filename": "water-orb 8",
+   "frame": {
+    "x": 0,
+    "y": 210,
+    "w": 96,
+    "h": 105
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 105
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 105
+   },
+   "duration": 33
+  },
+  {
+   "filename": "water-orb 9",
+   "frame": {
+    "x": 96,
+    "y": 210,
+    "w": 96,
+    "h": 105
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 105
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 105
+   },
+   "duration": 33
+  },
+  {
+   "filename": "water-orb 10",
+   "frame": {
+    "x": 192,
+    "y": 210,
+    "w": 96,
+    "h": 105
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 105
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 105
+   },
+   "duration": 33
+  },
+  {
+   "filename": "water-orb 11",
+   "frame": {
+    "x": 288,
+    "y": 210,
+    "w": 96,
+    "h": 105
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 105
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 105
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "water-orb.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 384,
+   "h": 315
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "water-orb",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "water/water-orb",
+   "name": "Water orb",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    96,
+    105
+   ],
+   "pivot": [
+    50,
+    100
+   ],
+   "columns": 4
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.59
+   ],
+   "sourceFrames": 90,
+   "sourceFrameSize": [
+    100,
+    108
+   ]
+  }
+ }
+}

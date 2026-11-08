@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "laser-bolt 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 113,
+    "h": 30
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 113,
+    "h": 30
+   },
+   "sourceSize": {
+    "w": 113,
+    "h": 30
+   },
+   "duration": 33
+  },
+  {
+   "filename": "laser-bolt 1",
+   "frame": {
+    "x": 113,
+    "y": 0,
+    "w": 113,
+    "h": 30
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 113,
+    "h": 30
+   },
+   "sourceSize": {
+    "w": 113,
+    "h": 30
+   },
+   "duration": 33
+  },
+  {
+   "filename": "laser-bolt 2",
+   "frame": {
+    "x": 0,
+    "y": 30,
+    "w": 113,
+    "h": 30
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 113,
+    "h": 30
+   },
+   "sourceSize": {
+    "w": 113,
+    "h": 30
+   },
+   "duration": 33
+  },
+  {
+   "filename": "laser-bolt 3",
+   "frame": {
+    "x": 113,
+    "y": 30,
+    "w": 113,
+    "h": 30
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 113,
+    "h": 30
+   },
+   "sourceSize": {
+    "w": 113,
+    "h": 30
+   },
+   "duration": 33
+  },
+  {
+   "filename": "laser-bolt 4",
+   "frame": {
+    "x": 0,
+    "y": 60,
+    "w": 113,
+    "h": 30
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 113,
+    "h": 30
+   },
+   "sourceSize": {
+    "w": 113,
+    "h": 30
+   },
+   "duration": 33
+  },
+  {
+   "filename": "laser-bolt 5",
+   "frame": {
+    "x": 113,
+    "y": 60,
+    "w": 113,
+    "h": 30
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 113,
+    "h": 30
+   },
+   "sourceSize": {
+    "w": 113,
+    "h": 30
+   },
+   "duration": 33
+  },
+  {
+   "filename": "laser-bolt 6",
+   "frame": {
+    "x": 0,
+    "y": 90,
+    "w": 113,
+    "h": 30
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 113,
+    "h": 30
+   },
+   "sourceSize": {
+    "w": 113,
+    "h": 30
+   },
+   "duration": 33
+  },
+  {
+   "filename": "laser-bolt 7",
+   "frame": {
+    "x": 113,
+    "y": 90,
+    "w": 113,
+    "h": 30
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 113,
+    "h": 30
+   },
+   "sourceSize": {
+    "w": 113,
+    "h": 30
+   },
+   "duration": 33
+  },
+  {
+   "filename": "laser-bolt 8",
+   "frame": {
+    "x": 0,
+    "y": 120,
+    "w": 113,
+    "h": 30
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 113,
+    "h": 30
+   },
+   "sourceSize": {
+    "w": 113,
+    "h": 30
+   },
+   "duration": 33
+  },
+  {
+   "filename": "laser-bolt 9",
+   "frame": {
+    "x": 113,
+    "y": 120,
+    "w": 113,
+    "h": 30
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 113,
+    "h": 30
+   },
+   "sourceSize": {
+    "w": 113,
+    "h": 30
+   },
+   "duration": 33
+  },
+  {
+   "filename": "laser-bolt 10",
+   "frame": {
+    "x": 0,
+    "y": 150,
+    "w": 113,
+    "h": 30
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 113,
+    "h": 30
+   },
+   "sourceSize": {
+    "w": 113,
+    "h": 30
+   },
+   "duration": 33
+  },
+  {
+   "filename": "laser-bolt 11",
+   "frame": {
+    "x": 113,
+    "y": 150,
+    "w": 113,
+    "h": 30
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 113,
+    "h": 30
+   },
+   "sourceSize": {
+    "w": 113,
+    "h": 30
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "laser-bolt.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 226,
+   "h": 180
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "laser-bolt",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "projectiles/laser-bolt",
+   "name": "Laser bolt",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    113,
+    30
+   ],
+   "pivot": [
+    108,
+    16
+   ],
+   "columns": 2
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.473,
+    0.5
+   ],
+   "sourceFrames": 15,
+   "sourceFrameSize": [
+    128,
+    32
+   ]
+  }
+ }
+}

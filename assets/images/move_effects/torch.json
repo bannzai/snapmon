@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "torch 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 70,
+    "h": 111
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 70,
+    "h": 111
+   },
+   "sourceSize": {
+    "w": 70,
+    "h": 111
+   },
+   "duration": 33
+  },
+  {
+   "filename": "torch 1",
+   "frame": {
+    "x": 70,
+    "y": 0,
+    "w": 70,
+    "h": 111
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 70,
+    "h": 111
+   },
+   "sourceSize": {
+    "w": 70,
+    "h": 111
+   },
+   "duration": 33
+  },
+  {
+   "filename": "torch 2",
+   "frame": {
+    "x": 140,
+    "y": 0,
+    "w": 70,
+    "h": 111
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 70,
+    "h": 111
+   },
+   "sourceSize": {
+    "w": 70,
+    "h": 111
+   },
+   "duration": 33
+  },
+  {
+   "filename": "torch 3",
+   "frame": {
+    "x": 210,
+    "y": 0,
+    "w": 70,
+    "h": 111
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 70,
+    "h": 111
+   },
+   "sourceSize": {
+    "w": 70,
+    "h": 111
+   },
+   "duration": 33
+  },
+  {
+   "filename": "torch 4",
+   "frame": {
+    "x": 0,
+    "y": 111,
+    "w": 70,
+    "h": 111
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 70,
+    "h": 111
+   },
+   "sourceSize": {
+    "w": 70,
+    "h": 111
+   },
+   "duration": 33
+  },
+  {
+   "filename": "torch 5",
+   "frame": {
+    "x": 70,
+    "y": 111,
+    "w": 70,
+    "h": 111
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 70,
+    "h": 111
+   },
+   "sourceSize": {
+    "w": 70,
+    "h": 111
+   },
+   "duration": 33
+  },
+  {
+   "filename": "torch 6",
+   "frame": {
+    "x": 140,
+    "y": 111,
+    "w": 70,
+    "h": 111
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 70,
+    "h": 111
+   },
+   "sourceSize": {
+    "w": 70,
+    "h": 111
+   },
+   "duration": 33
+  },
+  {
+   "filename": "torch 7",
+   "frame": {
+    "x": 210,
+    "y": 111,
+    "w": 70,
+    "h": 111
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 70,
+    "h": 111
+   },
+   "sourceSize": {
+    "w": 70,
+    "h": 111
+   },
+   "duration": 33
+  },
+  {
+   "filename": "torch 8",
+   "frame": {
+    "x": 0,
+    "y": 222,
+    "w": 70,
+    "h": 111
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 70,
+    "h": 111
+   },
+   "sourceSize": {
+    "w": 70,
+    "h": 111
+   },
+   "duration": 33
+  },
+  {
+   "filename": "torch 9",
+   "frame": {
+    "x": 70,
+    "y": 222,
+    "w": 70,
+    "h": 111
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 70,
+    "h": 111
+   },
+   "sourceSize": {
+    "w": 70,
+    "h": 111
+   },
+   "duration": 33
+  },
+  {
+   "filename": "torch 10",
+   "frame": {
+    "x": 140,
+    "y": 222,
+    "w": 70,
+    "h": 111
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 70,
+    "h": 111
+   },
+   "sourceSize": {
+    "w": 70,
+    "h": 111
+   },
+   "duration": 33
+  },
+  {
+   "filename": "torch 11",
+   "frame": {
+    "x": 210,
+    "y": 222,
+    "w": 70,
+    "h": 111
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 70,
+    "h": 111
+   },
+   "sourceSize": {
+    "w": 70,
+    "h": 111
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "torch.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 280,
+   "h": 333
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "torch",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "fire/torch",
+   "name": "Torch",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    70,
+    111
+   ],
+   "pivot": [
+    36,
+    94
+   ],
+   "columns": 4
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.482
+   ],
+   "sourceFrames": 60,
+   "sourceFrameSize": [
+    72,
+    120
+   ]
+  }
+ }
+}

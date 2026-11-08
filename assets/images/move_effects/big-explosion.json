@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "big-explosion 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 298,
+    "h": 267
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 298,
+    "h": 267
+   },
+   "sourceSize": {
+    "w": 298,
+    "h": 267
+   },
+   "duration": 33
+  },
+  {
+   "filename": "big-explosion 1",
+   "frame": {
+    "x": 298,
+    "y": 0,
+    "w": 298,
+    "h": 267
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 298,
+    "h": 267
+   },
+   "sourceSize": {
+    "w": 298,
+    "h": 267
+   },
+   "duration": 33
+  },
+  {
+   "filename": "big-explosion 2",
+   "frame": {
+    "x": 596,
+    "y": 0,
+    "w": 298,
+    "h": 267
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 298,
+    "h": 267
+   },
+   "sourceSize": {
+    "w": 298,
+    "h": 267
+   },
+   "duration": 33
+  },
+  {
+   "filename": "big-explosion 3",
+   "frame": {
+    "x": 0,
+    "y": 267,
+    "w": 298,
+    "h": 267
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 298,
+    "h": 267
+   },
+   "sourceSize": {
+    "w": 298,
+    "h": 267
+   },
+   "duration": 33
+  },
+  {
+   "filename": "big-explosion 4",
+   "frame": {
+    "x": 298,
+    "y": 267,
+    "w": 298,
+    "h": 267
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 298,
+    "h": 267
+   },
+   "sourceSize": {
+    "w": 298,
+    "h": 267
+   },
+   "duration": 33
+  },
+  {
+   "filename": "big-explosion 5",
+   "frame": {
+    "x": 596,
+    "y": 267,
+    "w": 298,
+    "h": 267
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 298,
+    "h": 267
+   },
+   "sourceSize": {
+    "w": 298,
+    "h": 267
+   },
+   "duration": 33
+  },
+  {
+   "filename": "big-explosion 6",
+   "frame": {
+    "x": 0,
+    "y": 534,
+    "w": 298,
+    "h": 267
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 298,
+    "h": 267
+   },
+   "sourceSize": {
+    "w": 298,
+    "h": 267
+   },
+   "duration": 33
+  },
+  {
+   "filename": "big-explosion 7",
+   "frame": {
+    "x": 298,
+    "y": 534,
+    "w": 298,
+    "h": 267
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 298,
+    "h": 267
+   },
+   "sourceSize": {
+    "w": 298,
+    "h": 267
+   },
+   "duration": 33
+  },
+  {
+   "filename": "big-explosion 8",
+   "frame": {
+    "x": 596,
+    "y": 534,
+    "w": 298,
+    "h": 267
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 298,
+    "h": 267
+   },
+   "sourceSize": {
+    "w": 298,
+    "h": 267
+   },
+   "duration": 33
+  },
+  {
+   "filename": "big-explosion 9",
+   "frame": {
+    "x": 0,
+    "y": 801,
+    "w": 298,
+    "h": 267
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 298,
+    "h": 267
+   },
+   "sourceSize": {
+    "w": 298,
+    "h": 267
+   },
+   "duration": 33
+  },
+  {
+   "filename": "big-explosion 10",
+   "frame": {
+    "x": 298,
+    "y": 801,
+    "w": 298,
+    "h": 267
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 298,
+    "h": 267
+   },
+   "sourceSize": {
+    "w": 298,
+    "h": 267
+   },
+   "duration": 33
+  },
+  {
+   "filename": "big-explosion 11",
+   "frame": {
+    "x": 596,
+    "y": 801,
+    "w": 298,
+    "h": 267
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 298,
+    "h": 267
+   },
+   "sourceSize": {
+    "w": 298,
+    "h": 267
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "big-explosion.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 894,
+   "h": 1068
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "big-explosion",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "explosions/big-explosion",
+   "name": "Big explosion",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    298,
+    267
+   ],
+   "pivot": [
+    180,
+    262
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.493,
+    0.515
+   ],
+   "sourceFrames": 217,
+   "sourceFrameSize": [
+    360,
+    300
+   ]
+  }
+ }
+}

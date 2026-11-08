@@ -1,0 +1,492 @@
+{
+ "frames": [
+  {
+   "filename": "whip-crack 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 144,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 144,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 144,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "whip-crack 1",
+   "frame": {
+    "x": 144,
+    "y": 0,
+    "w": 144,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 144,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 144,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "whip-crack 2",
+   "frame": {
+    "x": 0,
+    "y": 73,
+    "w": 144,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 144,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 144,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "whip-crack 3",
+   "frame": {
+    "x": 144,
+    "y": 73,
+    "w": 144,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 144,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 144,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "whip-crack 4",
+   "frame": {
+    "x": 0,
+    "y": 146,
+    "w": 144,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 144,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 144,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "whip-crack 5",
+   "frame": {
+    "x": 144,
+    "y": 146,
+    "w": 144,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 144,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 144,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "whip-crack 6",
+   "frame": {
+    "x": 0,
+    "y": 219,
+    "w": 144,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 144,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 144,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "whip-crack 7",
+   "frame": {
+    "x": 144,
+    "y": 219,
+    "w": 144,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 144,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 144,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "whip-crack 8",
+   "frame": {
+    "x": 0,
+    "y": 292,
+    "w": 144,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 144,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 144,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "whip-crack 9",
+   "frame": {
+    "x": 144,
+    "y": 292,
+    "w": 144,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 144,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 144,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "whip-crack 10",
+   "frame": {
+    "x": 0,
+    "y": 365,
+    "w": 144,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 144,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 144,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "whip-crack 11",
+   "frame": {
+    "x": 144,
+    "y": 365,
+    "w": 144,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 144,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 144,
+    "h": 73
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "whip-crack.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 288,
+   "h": 438
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "whip-crack",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "melee/whip-crack",
+   "name": "Whip crack",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    144,
+    73
+   ],
+   "pivot": [
+    30,
+    68
+   ],
+   "columns": 2,
+   "act": {
+    "windup": 0.46,
+    "recovery": 0.07000000000000006,
+    "onBody": false,
+    "targets": [
+     94
+    ],
+    "hits": [
+     {
+      "t": 0.21,
+      "freeze": 0.1,
+      "shake": 0.14,
+      "amp": 2,
+      "push": 2.4
+     }
+    ],
+    "poses": [
+     {
+      "t": -0.46,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 13,
+       "fy": -21,
+       "bx": 7,
+       "by": -18,
+       "ffx": 7,
+       "fbx": -7,
+       "weapon": "handle",
+       "x": -7,
+       "sa": -0.3
+      }
+     },
+     {
+      "t": -0.22,
+      "how": "smooth",
+      "pose": {
+       "crouch": 4,
+       "fx": -6,
+       "fy": -38,
+       "bx": 9,
+       "by": -23,
+       "ffx": 9,
+       "fbx": -7,
+       "weapon": "handle",
+       "x": -7,
+       "sa": -2.2,
+       "lean": -3,
+       "armsFront": true
+      }
+     },
+     {
+      "t": 0.02,
+      "how": "smooth",
+      "pose": {
+       "crouch": 4,
+       "fx": -6,
+       "fy": -38,
+       "bx": 9,
+       "by": -23,
+       "ffx": 9,
+       "fbx": -7,
+       "weapon": "handle",
+       "x": -7,
+       "sa": -2.2,
+       "lean": -4,
+       "armsFront": true
+      }
+     },
+     {
+      "t": 0.06,
+      "how": "snap",
+      "pose": {
+       "crouch": 4,
+       "fx": 15,
+       "fy": -34,
+       "bx": -8,
+       "by": -23,
+       "ffx": 12,
+       "fbx": -10,
+       "weapon": "handle",
+       "x": -7,
+       "sa": -0.7,
+       "lean": 2,
+       "toeB": true,
+       "ghost": 1
+      }
+     },
+     {
+      "t": 0.12,
+      "how": "snap",
+      "pose": {
+       "crouch": 4,
+       "fx": 18,
+       "fy": -21,
+       "bx": -8,
+       "by": -23,
+       "ffx": 12,
+       "fbx": -10,
+       "weapon": "handle",
+       "x": -7,
+       "sa": 0,
+       "lean": 5,
+       "toeB": true
+      }
+     },
+     {
+      "t": 0.21,
+      "how": "smooth",
+      "pose": {
+       "crouch": 4,
+       "fx": 18,
+       "fy": -21,
+       "bx": -8,
+       "by": -23,
+       "ffx": 12,
+       "fbx": -10,
+       "weapon": "handle",
+       "x": -7,
+       "sa": 0,
+       "lean": 5,
+       "toeB": true
+      }
+     },
+     {
+      "t": 0.26,
+      "how": "snap",
+      "pose": {
+       "crouch": 3,
+       "fx": 15,
+       "fy": -27,
+       "bx": -8,
+       "by": -23,
+       "ffx": 12,
+       "fbx": -10,
+       "weapon": "handle",
+       "x": -7,
+       "sa": -0.3,
+       "lean": 2,
+       "toeB": true
+      }
+     },
+     {
+      "t": 0.44,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 17,
+       "fy": -22,
+       "bx": -8,
+       "by": -23,
+       "ffx": 12,
+       "fbx": -10,
+       "weapon": "handle",
+       "x": -7,
+       "sa": 0.1,
+       "lean": 3,
+       "toeB": true
+      }
+     },
+     {
+      "t": 0.92,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 13,
+       "fy": -21,
+       "bx": 7,
+       "by": -18,
+       "ffx": 7,
+       "fbx": -7,
+       "weapon": "handle",
+       "x": -7,
+       "sa": -0.3
+      }
+     }
+    ]
+   }
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.493,
+    0.473
+   ],
+   "sourceFrames": 27,
+   "sourceFrameSize": [
+    192,
+    80
+   ]
+  }
+ }
+}

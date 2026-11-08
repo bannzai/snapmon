@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "acid-splash 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 113,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 113,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 113,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "acid-splash 1",
+   "frame": {
+    "x": 113,
+    "y": 0,
+    "w": 113,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 113,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 113,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "acid-splash 2",
+   "frame": {
+    "x": 226,
+    "y": 0,
+    "w": 113,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 113,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 113,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "acid-splash 3",
+   "frame": {
+    "x": 0,
+    "y": 95,
+    "w": 113,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 113,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 113,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "acid-splash 4",
+   "frame": {
+    "x": 113,
+    "y": 95,
+    "w": 113,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 113,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 113,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "acid-splash 5",
+   "frame": {
+    "x": 226,
+    "y": 95,
+    "w": 113,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 113,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 113,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "acid-splash 6",
+   "frame": {
+    "x": 0,
+    "y": 190,
+    "w": 113,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 113,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 113,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "acid-splash 7",
+   "frame": {
+    "x": 113,
+    "y": 190,
+    "w": 113,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 113,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 113,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "acid-splash 8",
+   "frame": {
+    "x": 226,
+    "y": 190,
+    "w": 113,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 113,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 113,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "acid-splash 9",
+   "frame": {
+    "x": 0,
+    "y": 285,
+    "w": 113,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 113,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 113,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "acid-splash 10",
+   "frame": {
+    "x": 113,
+    "y": 285,
+    "w": 113,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 113,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 113,
+    "h": 95
+   },
+   "duration": 33
+  },
+  {
+   "filename": "acid-splash 11",
+   "frame": {
+    "x": 226,
+    "y": 285,
+    "w": 113,
+    "h": 95
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 113,
+    "h": 95
+   },
+   "sourceSize": {
+    "w": 113,
+    "h": 95
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "acid-splash.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 339,
+   "h": 380
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "acid-splash",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "nature/acid-splash",
+   "name": "Acid splash",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    113,
+    95
+   ],
+   "pivot": [
+    92,
+    100
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.504,
+    0.479
+   ],
+   "sourceFrames": 85,
+   "sourceFrameSize": [
+    184,
+    116
+   ]
+  }
+ }
+}

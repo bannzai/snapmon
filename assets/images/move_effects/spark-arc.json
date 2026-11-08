@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "spark-arc 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 95,
+    "h": 115
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 95,
+    "h": 115
+   },
+   "sourceSize": {
+    "w": 95,
+    "h": 115
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spark-arc 1",
+   "frame": {
+    "x": 95,
+    "y": 0,
+    "w": 95,
+    "h": 115
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 95,
+    "h": 115
+   },
+   "sourceSize": {
+    "w": 95,
+    "h": 115
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spark-arc 2",
+   "frame": {
+    "x": 190,
+    "y": 0,
+    "w": 95,
+    "h": 115
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 95,
+    "h": 115
+   },
+   "sourceSize": {
+    "w": 95,
+    "h": 115
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spark-arc 3",
+   "frame": {
+    "x": 285,
+    "y": 0,
+    "w": 95,
+    "h": 115
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 95,
+    "h": 115
+   },
+   "sourceSize": {
+    "w": 95,
+    "h": 115
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spark-arc 4",
+   "frame": {
+    "x": 0,
+    "y": 115,
+    "w": 95,
+    "h": 115
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 95,
+    "h": 115
+   },
+   "sourceSize": {
+    "w": 95,
+    "h": 115
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spark-arc 5",
+   "frame": {
+    "x": 95,
+    "y": 115,
+    "w": 95,
+    "h": 115
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 95,
+    "h": 115
+   },
+   "sourceSize": {
+    "w": 95,
+    "h": 115
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spark-arc 6",
+   "frame": {
+    "x": 190,
+    "y": 115,
+    "w": 95,
+    "h": 115
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 95,
+    "h": 115
+   },
+   "sourceSize": {
+    "w": 95,
+    "h": 115
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spark-arc 7",
+   "frame": {
+    "x": 285,
+    "y": 115,
+    "w": 95,
+    "h": 115
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 95,
+    "h": 115
+   },
+   "sourceSize": {
+    "w": 95,
+    "h": 115
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spark-arc 8",
+   "frame": {
+    "x": 0,
+    "y": 230,
+    "w": 95,
+    "h": 115
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 95,
+    "h": 115
+   },
+   "sourceSize": {
+    "w": 95,
+    "h": 115
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spark-arc 9",
+   "frame": {
+    "x": 95,
+    "y": 230,
+    "w": 95,
+    "h": 115
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 95,
+    "h": 115
+   },
+   "sourceSize": {
+    "w": 95,
+    "h": 115
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spark-arc 10",
+   "frame": {
+    "x": 190,
+    "y": 230,
+    "w": 95,
+    "h": 115
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 95,
+    "h": 115
+   },
+   "sourceSize": {
+    "w": 95,
+    "h": 115
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spark-arc 11",
+   "frame": {
+    "x": 285,
+    "y": 230,
+    "w": 95,
+    "h": 115
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 95,
+    "h": 115
+   },
+   "sourceSize": {
+    "w": 95,
+    "h": 115
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "spark-arc.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 380,
+   "h": 345
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "spark-arc",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "lightning/spark-arc",
+   "name": "Spark arc",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    95,
+    115
+   ],
+   "pivot": [
+    62,
+    108
+   ],
+   "columns": 4
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.542,
+    0.535
+   ],
+   "sourceFrames": 60,
+   "sourceFrameSize": [
+    124,
+    120
+   ]
+  }
+ }
+}

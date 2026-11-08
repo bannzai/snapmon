@@ -1,0 +1,644 @@
+{
+ "frames": [
+  {
+   "filename": "dagger-flurry 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 109,
+    "h": 88
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 109,
+    "h": 88
+   },
+   "sourceSize": {
+    "w": 109,
+    "h": 88
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dagger-flurry 1",
+   "frame": {
+    "x": 109,
+    "y": 0,
+    "w": 109,
+    "h": 88
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 109,
+    "h": 88
+   },
+   "sourceSize": {
+    "w": 109,
+    "h": 88
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dagger-flurry 2",
+   "frame": {
+    "x": 218,
+    "y": 0,
+    "w": 109,
+    "h": 88
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 109,
+    "h": 88
+   },
+   "sourceSize": {
+    "w": 109,
+    "h": 88
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dagger-flurry 3",
+   "frame": {
+    "x": 0,
+    "y": 88,
+    "w": 109,
+    "h": 88
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 109,
+    "h": 88
+   },
+   "sourceSize": {
+    "w": 109,
+    "h": 88
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dagger-flurry 4",
+   "frame": {
+    "x": 109,
+    "y": 88,
+    "w": 109,
+    "h": 88
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 109,
+    "h": 88
+   },
+   "sourceSize": {
+    "w": 109,
+    "h": 88
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dagger-flurry 5",
+   "frame": {
+    "x": 218,
+    "y": 88,
+    "w": 109,
+    "h": 88
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 109,
+    "h": 88
+   },
+   "sourceSize": {
+    "w": 109,
+    "h": 88
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dagger-flurry 6",
+   "frame": {
+    "x": 0,
+    "y": 176,
+    "w": 109,
+    "h": 88
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 109,
+    "h": 88
+   },
+   "sourceSize": {
+    "w": 109,
+    "h": 88
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dagger-flurry 7",
+   "frame": {
+    "x": 109,
+    "y": 176,
+    "w": 109,
+    "h": 88
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 109,
+    "h": 88
+   },
+   "sourceSize": {
+    "w": 109,
+    "h": 88
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dagger-flurry 8",
+   "frame": {
+    "x": 218,
+    "y": 176,
+    "w": 109,
+    "h": 88
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 109,
+    "h": 88
+   },
+   "sourceSize": {
+    "w": 109,
+    "h": 88
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dagger-flurry 9",
+   "frame": {
+    "x": 0,
+    "y": 264,
+    "w": 109,
+    "h": 88
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 109,
+    "h": 88
+   },
+   "sourceSize": {
+    "w": 109,
+    "h": 88
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dagger-flurry 10",
+   "frame": {
+    "x": 109,
+    "y": 264,
+    "w": 109,
+    "h": 88
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 109,
+    "h": 88
+   },
+   "sourceSize": {
+    "w": 109,
+    "h": 88
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dagger-flurry 11",
+   "frame": {
+    "x": 218,
+    "y": 264,
+    "w": 109,
+    "h": 88
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 109,
+    "h": 88
+   },
+   "sourceSize": {
+    "w": 109,
+    "h": 88
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "dagger-flurry.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 327,
+   "h": 352
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "dagger-flurry",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "melee/dagger-flurry",
+   "name": "Dagger flurry",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    109,
+    88
+   ],
+   "pivot": [
+    36,
+    86
+   ],
+   "columns": 3,
+   "act": {
+    "windup": 0.4,
+    "recovery": 0.10000000000000009,
+    "onBody": false,
+    "targets": [
+     60
+    ],
+    "hits": [
+     {
+      "t": 0.05,
+      "freeze": 0.015,
+      "shake": 0,
+      "amp": 0,
+      "push": 0.5
+     },
+     {
+      "t": 0.105,
+      "freeze": 0.015,
+      "shake": 0,
+      "amp": 0,
+      "push": -0.3
+     },
+     {
+      "t": 0.16,
+      "freeze": 0.015,
+      "shake": 0,
+      "amp": 0,
+      "push": 0.5
+     },
+     {
+      "t": 0.215,
+      "freeze": 0.015,
+      "shake": 0,
+      "amp": 0,
+      "push": -0.3
+     },
+     {
+      "t": 0.27,
+      "freeze": 0.015,
+      "shake": 0,
+      "amp": 0,
+      "push": 0.5
+     },
+     {
+      "t": 0.325,
+      "freeze": 0.015,
+      "shake": 0,
+      "amp": 0,
+      "push": -0.3
+     },
+     {
+      "t": 0.42,
+      "freeze": 0.12,
+      "shake": 0.18,
+      "amp": 2,
+      "push": 2.6
+     }
+    ],
+    "poses": [
+     {
+      "t": -0.4,
+      "how": "smooth",
+      "pose": {
+       "crouch": 4,
+       "fx": 12,
+       "fy": -24,
+       "bx": 9,
+       "by": -24,
+       "ffx": 11,
+       "fbx": -9,
+       "weapon": "dagger",
+       "offWeapon": "dagger",
+       "sa": -0.5,
+       "sb": -0.9,
+       "lean": 3,
+       "x": -4
+      }
+     },
+     {
+      "t": -0.14,
+      "how": "smooth",
+      "pose": {
+       "crouch": 5,
+       "fx": 2,
+       "fy": -22,
+       "bx": 2,
+       "by": -26,
+       "ffx": 11,
+       "fbx": -9,
+       "weapon": "dagger",
+       "offWeapon": "dagger",
+       "sa": -1.2,
+       "sb": -1.5,
+       "lean": -2,
+       "x": -6
+      }
+     },
+     {
+      "t": -0.03,
+      "how": "smooth",
+      "pose": {
+       "crouch": 6,
+       "fx": 1,
+       "fy": -21,
+       "bx": 1,
+       "by": -25,
+       "ffx": 11,
+       "fbx": -9,
+       "weapon": "dagger",
+       "offWeapon": "dagger",
+       "sa": -1.2,
+       "sb": -1.5,
+       "lean": -3,
+       "x": -6
+      }
+     },
+     {
+      "t": 0,
+      "how": "snap",
+      "pose": {
+       "crouch": 4,
+       "fx": 20,
+       "fy": -31,
+       "bx": 4,
+       "by": -24,
+       "ffx": 11,
+       "fbx": -9,
+       "weapon": "dagger",
+       "offWeapon": "dagger",
+       "sa": -0.5,
+       "sb": -1,
+       "lean": 3,
+       "x": 2,
+       "ghost": 1
+      }
+     },
+     {
+      "t": 0.055,
+      "how": "snap",
+      "pose": {
+       "crouch": 4,
+       "fx": 1,
+       "fy": -23,
+       "bx": 21,
+       "by": -23,
+       "ffx": 11,
+       "fbx": -9,
+       "weapon": "dagger",
+       "offWeapon": "dagger",
+       "sa": -1,
+       "sb": 0.5,
+       "lean": 3,
+       "x": 3
+      }
+     },
+     {
+      "t": 0.11,
+      "how": "snap",
+      "pose": {
+       "crouch": 4,
+       "fx": 18,
+       "fy": -36,
+       "bx": 4,
+       "by": -24,
+       "ffx": 11,
+       "fbx": -9,
+       "weapon": "dagger",
+       "offWeapon": "dagger",
+       "sa": -1,
+       "sb": -1,
+       "lean": 3,
+       "x": 4
+      }
+     },
+     {
+      "t": 0.165,
+      "how": "snap",
+      "pose": {
+       "crouch": 4,
+       "fx": 1,
+       "fy": -23,
+       "bx": 22,
+       "by": -31,
+       "ffx": 11,
+       "fbx": -9,
+       "weapon": "dagger",
+       "offWeapon": "dagger",
+       "sa": -1,
+       "sb": -0.6,
+       "lean": 3,
+       "x": 5
+      }
+     },
+     {
+      "t": 0.22,
+      "how": "snap",
+      "pose": {
+       "crouch": 4,
+       "fx": 20,
+       "fy": -22,
+       "bx": 4,
+       "by": -24,
+       "ffx": 11,
+       "fbx": -9,
+       "weapon": "dagger",
+       "offWeapon": "dagger",
+       "sa": 0.2,
+       "sb": -1,
+       "lean": 3,
+       "x": 5
+      }
+     },
+     {
+      "t": 0.275,
+      "how": "snap",
+      "pose": {
+       "crouch": 4,
+       "fx": 1,
+       "fy": -23,
+       "bx": 21,
+       "by": -27,
+       "ffx": 11,
+       "fbx": -9,
+       "weapon": "dagger",
+       "offWeapon": "dagger",
+       "sa": -1,
+       "sb": 0.05,
+       "lean": 3,
+       "x": 6
+      }
+     },
+     {
+      "t": 0.33,
+      "how": "snap",
+      "pose": {
+       "crouch": 5,
+       "fx": -1,
+       "fy": -33,
+       "bx": 2,
+       "by": -23,
+       "ffx": 11,
+       "fbx": -9,
+       "weapon": "dagger",
+       "offWeapon": "dagger",
+       "sa": -2.5,
+       "sb": -1.2,
+       "lean": -3,
+       "x": 4
+      }
+     },
+     {
+      "t": 0.37,
+      "how": "snap",
+      "pose": {
+       "crouch": 4,
+       "fx": 16,
+       "fy": -34,
+       "bx": -7,
+       "by": -24,
+       "ffx": 11,
+       "fbx": -9,
+       "weapon": "dagger",
+       "offWeapon": "dagger",
+       "sa": -1,
+       "sb": -2.4,
+       "lean": 2,
+       "x": 7,
+       "ghost": 1
+      }
+     },
+     {
+      "t": 0.43,
+      "how": "snap",
+      "pose": {
+       "crouch": 6,
+       "fx": 22,
+       "fy": -23,
+       "bx": -9,
+       "by": -24,
+       "ffx": 13,
+       "fbx": -10,
+       "weapon": "dagger",
+       "offWeapon": "dagger",
+       "sa": 0.15,
+       "sb": -2.6,
+       "lean": 6,
+       "x": 9,
+       "toeB": true
+      }
+     },
+     {
+      "t": 0.68,
+      "how": "smooth",
+      "pose": {
+       "crouch": 5,
+       "fx": 21,
+       "fy": -22,
+       "bx": -8,
+       "by": -24,
+       "ffx": 11,
+       "fbx": -9,
+       "weapon": "dagger",
+       "offWeapon": "dagger",
+       "sa": 0.2,
+       "sb": -2.6,
+       "lean": 5,
+       "x": 9
+      }
+     },
+     {
+      "t": 1.05,
+      "how": "smooth",
+      "pose": {
+       "crouch": 4,
+       "fx": 12,
+       "fy": -24,
+       "bx": 9,
+       "by": -24,
+       "ffx": 11,
+       "fbx": -9,
+       "weapon": "dagger",
+       "offWeapon": "dagger",
+       "sa": -0.5,
+       "sb": -0.9,
+       "lean": 3,
+       "x": -4
+      }
+     }
+    ]
+   }
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.468,
+    0.483
+   ],
+   "sourceFrames": 30,
+   "sourceFrameSize": [
+    148,
+    104
+   ]
+  }
+ }
+}

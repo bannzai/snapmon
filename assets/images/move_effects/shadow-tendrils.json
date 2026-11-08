@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "shadow-tendrils 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 146,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 146,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 146,
+    "h": 112
+   },
+   "duration": 33
+  },
+  {
+   "filename": "shadow-tendrils 1",
+   "frame": {
+    "x": 146,
+    "y": 0,
+    "w": 146,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 146,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 146,
+    "h": 112
+   },
+   "duration": 33
+  },
+  {
+   "filename": "shadow-tendrils 2",
+   "frame": {
+    "x": 292,
+    "y": 0,
+    "w": 146,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 146,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 146,
+    "h": 112
+   },
+   "duration": 33
+  },
+  {
+   "filename": "shadow-tendrils 3",
+   "frame": {
+    "x": 0,
+    "y": 112,
+    "w": 146,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 146,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 146,
+    "h": 112
+   },
+   "duration": 33
+  },
+  {
+   "filename": "shadow-tendrils 4",
+   "frame": {
+    "x": 146,
+    "y": 112,
+    "w": 146,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 146,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 146,
+    "h": 112
+   },
+   "duration": 33
+  },
+  {
+   "filename": "shadow-tendrils 5",
+   "frame": {
+    "x": 292,
+    "y": 112,
+    "w": 146,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 146,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 146,
+    "h": 112
+   },
+   "duration": 33
+  },
+  {
+   "filename": "shadow-tendrils 6",
+   "frame": {
+    "x": 0,
+    "y": 224,
+    "w": 146,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 146,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 146,
+    "h": 112
+   },
+   "duration": 33
+  },
+  {
+   "filename": "shadow-tendrils 7",
+   "frame": {
+    "x": 146,
+    "y": 224,
+    "w": 146,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 146,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 146,
+    "h": 112
+   },
+   "duration": 33
+  },
+  {
+   "filename": "shadow-tendrils 8",
+   "frame": {
+    "x": 292,
+    "y": 224,
+    "w": 146,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 146,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 146,
+    "h": 112
+   },
+   "duration": 33
+  },
+  {
+   "filename": "shadow-tendrils 9",
+   "frame": {
+    "x": 0,
+    "y": 336,
+    "w": 146,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 146,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 146,
+    "h": 112
+   },
+   "duration": 33
+  },
+  {
+   "filename": "shadow-tendrils 10",
+   "frame": {
+    "x": 146,
+    "y": 336,
+    "w": 146,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 146,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 146,
+    "h": 112
+   },
+   "duration": 33
+  },
+  {
+   "filename": "shadow-tendrils 11",
+   "frame": {
+    "x": 292,
+    "y": 336,
+    "w": 146,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 146,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 146,
+    "h": 112
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "shadow-tendrils.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 438,
+   "h": 448
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "shadow-tendrils",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "shadow/shadow-tendrils",
+   "name": "Shadow tendrils",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    146,
+    112
+   ],
+   "pivot": [
+    104,
+    106
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.527,
+    0.643
+   ],
+   "sourceFrames": 97,
+   "sourceFrameSize": [
+    208,
+    130
+   ]
+  }
+ }
+}

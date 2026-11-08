@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "confetti 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 195,
+    "h": 92
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 195,
+    "h": 92
+   },
+   "sourceSize": {
+    "w": 195,
+    "h": 92
+   },
+   "duration": 33
+  },
+  {
+   "filename": "confetti 1",
+   "frame": {
+    "x": 195,
+    "y": 0,
+    "w": 195,
+    "h": 92
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 195,
+    "h": 92
+   },
+   "sourceSize": {
+    "w": 195,
+    "h": 92
+   },
+   "duration": 33
+  },
+  {
+   "filename": "confetti 2",
+   "frame": {
+    "x": 0,
+    "y": 92,
+    "w": 195,
+    "h": 92
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 195,
+    "h": 92
+   },
+   "sourceSize": {
+    "w": 195,
+    "h": 92
+   },
+   "duration": 33
+  },
+  {
+   "filename": "confetti 3",
+   "frame": {
+    "x": 195,
+    "y": 92,
+    "w": 195,
+    "h": 92
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 195,
+    "h": 92
+   },
+   "sourceSize": {
+    "w": 195,
+    "h": 92
+   },
+   "duration": 33
+  },
+  {
+   "filename": "confetti 4",
+   "frame": {
+    "x": 0,
+    "y": 184,
+    "w": 195,
+    "h": 92
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 195,
+    "h": 92
+   },
+   "sourceSize": {
+    "w": 195,
+    "h": 92
+   },
+   "duration": 33
+  },
+  {
+   "filename": "confetti 5",
+   "frame": {
+    "x": 195,
+    "y": 184,
+    "w": 195,
+    "h": 92
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 195,
+    "h": 92
+   },
+   "sourceSize": {
+    "w": 195,
+    "h": 92
+   },
+   "duration": 33
+  },
+  {
+   "filename": "confetti 6",
+   "frame": {
+    "x": 0,
+    "y": 276,
+    "w": 195,
+    "h": 92
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 195,
+    "h": 92
+   },
+   "sourceSize": {
+    "w": 195,
+    "h": 92
+   },
+   "duration": 33
+  },
+  {
+   "filename": "confetti 7",
+   "frame": {
+    "x": 195,
+    "y": 276,
+    "w": 195,
+    "h": 92
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 195,
+    "h": 92
+   },
+   "sourceSize": {
+    "w": 195,
+    "h": 92
+   },
+   "duration": 33
+  },
+  {
+   "filename": "confetti 8",
+   "frame": {
+    "x": 0,
+    "y": 368,
+    "w": 195,
+    "h": 92
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 195,
+    "h": 92
+   },
+   "sourceSize": {
+    "w": 195,
+    "h": 92
+   },
+   "duration": 33
+  },
+  {
+   "filename": "confetti 9",
+   "frame": {
+    "x": 195,
+    "y": 368,
+    "w": 195,
+    "h": 92
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 195,
+    "h": 92
+   },
+   "sourceSize": {
+    "w": 195,
+    "h": 92
+   },
+   "duration": 33
+  },
+  {
+   "filename": "confetti 10",
+   "frame": {
+    "x": 0,
+    "y": 460,
+    "w": 195,
+    "h": 92
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 195,
+    "h": 92
+   },
+   "sourceSize": {
+    "w": 195,
+    "h": 92
+   },
+   "duration": 33
+  },
+  {
+   "filename": "confetti 11",
+   "frame": {
+    "x": 195,
+    "y": 460,
+    "w": 195,
+    "h": 92
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 195,
+    "h": 92
+   },
+   "sourceSize": {
+    "w": 195,
+    "h": 92
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "confetti.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 390,
+   "h": 552
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "confetti",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "ui/confetti",
+   "name": "Confetti",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    195,
+    92
+   ],
+   "pivot": [
+    100,
+    126
+   ],
+   "columns": 2
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.526,
+    0.484
+   ],
+   "sourceFrames": 103,
+   "sourceFrameSize": [
+    200,
+    140
+   ]
+  }
+ }
+}

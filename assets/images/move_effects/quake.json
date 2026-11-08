@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "quake 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 249,
+    "h": 74
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 249,
+    "h": 74
+   },
+   "sourceSize": {
+    "w": 249,
+    "h": 74
+   },
+   "duration": 33
+  },
+  {
+   "filename": "quake 1",
+   "frame": {
+    "x": 249,
+    "y": 0,
+    "w": 249,
+    "h": 74
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 249,
+    "h": 74
+   },
+   "sourceSize": {
+    "w": 249,
+    "h": 74
+   },
+   "duration": 33
+  },
+  {
+   "filename": "quake 2",
+   "frame": {
+    "x": 0,
+    "y": 74,
+    "w": 249,
+    "h": 74
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 249,
+    "h": 74
+   },
+   "sourceSize": {
+    "w": 249,
+    "h": 74
+   },
+   "duration": 33
+  },
+  {
+   "filename": "quake 3",
+   "frame": {
+    "x": 249,
+    "y": 74,
+    "w": 249,
+    "h": 74
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 249,
+    "h": 74
+   },
+   "sourceSize": {
+    "w": 249,
+    "h": 74
+   },
+   "duration": 33
+  },
+  {
+   "filename": "quake 4",
+   "frame": {
+    "x": 0,
+    "y": 148,
+    "w": 249,
+    "h": 74
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 249,
+    "h": 74
+   },
+   "sourceSize": {
+    "w": 249,
+    "h": 74
+   },
+   "duration": 33
+  },
+  {
+   "filename": "quake 5",
+   "frame": {
+    "x": 249,
+    "y": 148,
+    "w": 249,
+    "h": 74
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 249,
+    "h": 74
+   },
+   "sourceSize": {
+    "w": 249,
+    "h": 74
+   },
+   "duration": 33
+  },
+  {
+   "filename": "quake 6",
+   "frame": {
+    "x": 0,
+    "y": 222,
+    "w": 249,
+    "h": 74
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 249,
+    "h": 74
+   },
+   "sourceSize": {
+    "w": 249,
+    "h": 74
+   },
+   "duration": 33
+  },
+  {
+   "filename": "quake 7",
+   "frame": {
+    "x": 249,
+    "y": 222,
+    "w": 249,
+    "h": 74
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 249,
+    "h": 74
+   },
+   "sourceSize": {
+    "w": 249,
+    "h": 74
+   },
+   "duration": 33
+  },
+  {
+   "filename": "quake 8",
+   "frame": {
+    "x": 0,
+    "y": 296,
+    "w": 249,
+    "h": 74
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 249,
+    "h": 74
+   },
+   "sourceSize": {
+    "w": 249,
+    "h": 74
+   },
+   "duration": 33
+  },
+  {
+   "filename": "quake 9",
+   "frame": {
+    "x": 249,
+    "y": 296,
+    "w": 249,
+    "h": 74
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 249,
+    "h": 74
+   },
+   "sourceSize": {
+    "w": 249,
+    "h": 74
+   },
+   "duration": 33
+  },
+  {
+   "filename": "quake 10",
+   "frame": {
+    "x": 0,
+    "y": 370,
+    "w": 249,
+    "h": 74
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 249,
+    "h": 74
+   },
+   "sourceSize": {
+    "w": 249,
+    "h": 74
+   },
+   "duration": 33
+  },
+  {
+   "filename": "quake 11",
+   "frame": {
+    "x": 249,
+    "y": 370,
+    "w": 249,
+    "h": 74
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 249,
+    "h": 74
+   },
+   "sourceSize": {
+    "w": 249,
+    "h": 74
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "quake.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 498,
+   "h": 444
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "quake",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "nature/quake",
+   "name": "Quake",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    249,
+    74
+   ],
+   "pivot": [
+    144,
+    88
+   ],
+   "columns": 2
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.48
+   ],
+   "sourceFrames": 94,
+   "sourceFrameSize": [
+    288,
+    104
+   ]
+  }
+ }
+}

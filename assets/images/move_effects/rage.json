@@ -1,0 +1,407 @@
+{
+ "frames": [
+  {
+   "filename": "rage 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 57,
+    "h": 62
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 57,
+    "h": 62
+   },
+   "sourceSize": {
+    "w": 57,
+    "h": 62
+   },
+   "duration": 33
+  },
+  {
+   "filename": "rage 1",
+   "frame": {
+    "x": 57,
+    "y": 0,
+    "w": 57,
+    "h": 62
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 57,
+    "h": 62
+   },
+   "sourceSize": {
+    "w": 57,
+    "h": 62
+   },
+   "duration": 33
+  },
+  {
+   "filename": "rage 2",
+   "frame": {
+    "x": 114,
+    "y": 0,
+    "w": 57,
+    "h": 62
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 57,
+    "h": 62
+   },
+   "sourceSize": {
+    "w": 57,
+    "h": 62
+   },
+   "duration": 33
+  },
+  {
+   "filename": "rage 3",
+   "frame": {
+    "x": 171,
+    "y": 0,
+    "w": 57,
+    "h": 62
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 57,
+    "h": 62
+   },
+   "sourceSize": {
+    "w": 57,
+    "h": 62
+   },
+   "duration": 33
+  },
+  {
+   "filename": "rage 4",
+   "frame": {
+    "x": 0,
+    "y": 62,
+    "w": 57,
+    "h": 62
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 57,
+    "h": 62
+   },
+   "sourceSize": {
+    "w": 57,
+    "h": 62
+   },
+   "duration": 33
+  },
+  {
+   "filename": "rage 5",
+   "frame": {
+    "x": 57,
+    "y": 62,
+    "w": 57,
+    "h": 62
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 57,
+    "h": 62
+   },
+   "sourceSize": {
+    "w": 57,
+    "h": 62
+   },
+   "duration": 33
+  },
+  {
+   "filename": "rage 6",
+   "frame": {
+    "x": 114,
+    "y": 62,
+    "w": 57,
+    "h": 62
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 57,
+    "h": 62
+   },
+   "sourceSize": {
+    "w": 57,
+    "h": 62
+   },
+   "duration": 33
+  },
+  {
+   "filename": "rage 7",
+   "frame": {
+    "x": 171,
+    "y": 62,
+    "w": 57,
+    "h": 62
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 57,
+    "h": 62
+   },
+   "sourceSize": {
+    "w": 57,
+    "h": 62
+   },
+   "duration": 33
+  },
+  {
+   "filename": "rage 8",
+   "frame": {
+    "x": 0,
+    "y": 124,
+    "w": 57,
+    "h": 62
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 57,
+    "h": 62
+   },
+   "sourceSize": {
+    "w": 57,
+    "h": 62
+   },
+   "duration": 33
+  },
+  {
+   "filename": "rage 9",
+   "frame": {
+    "x": 57,
+    "y": 124,
+    "w": 57,
+    "h": 62
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 57,
+    "h": 62
+   },
+   "sourceSize": {
+    "w": 57,
+    "h": 62
+   },
+   "duration": 33
+  },
+  {
+   "filename": "rage 10",
+   "frame": {
+    "x": 114,
+    "y": 124,
+    "w": 57,
+    "h": 62
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 57,
+    "h": 62
+   },
+   "sourceSize": {
+    "w": 57,
+    "h": 62
+   },
+   "duration": 33
+  },
+  {
+   "filename": "rage 11",
+   "frame": {
+    "x": 171,
+    "y": 124,
+    "w": 57,
+    "h": 62
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 57,
+    "h": 62
+   },
+   "sourceSize": {
+    "w": 57,
+    "h": 62
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "rage.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 228,
+   "h": 186
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "rage",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "status/rage",
+   "name": "Rage",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    57,
+    62
+   ],
+   "pivot": [
+    40,
+    70
+   ],
+   "columns": 4,
+   "act": {
+    "windup": 0,
+    "recovery": 0,
+    "onBody": true,
+    "targets": [],
+    "hits": [],
+    "poses": [
+     {
+      "t": 0,
+      "how": "smooth",
+      "pose": {
+       "turn": 1,
+       "crouch": 4,
+       "fx": -13,
+       "fy": -19,
+       "bx": 13,
+       "by": -19,
+       "ffx": -8,
+       "fbx": 9
+      }
+     },
+     {
+      "t": 0.05,
+      "how": "snap",
+      "pose": {
+       "turn": 1,
+       "crouch": 6,
+       "fx": -13,
+       "fy": -23,
+       "bx": 13,
+       "by": -23,
+       "ffx": -8,
+       "fbx": 9
+      }
+     },
+     {
+      "t": 0.17,
+      "how": "snap",
+      "pose": {
+       "turn": 1,
+       "crouch": 4,
+       "fx": -13,
+       "fy": -19,
+       "bx": 13,
+       "by": -19,
+       "ffx": -8,
+       "fbx": 9
+      }
+     },
+     {
+      "t": 0.29,
+      "how": "snap",
+      "pose": {
+       "turn": 1,
+       "crouch": 5,
+       "fx": -13,
+       "fy": -23,
+       "bx": 13,
+       "by": -23,
+       "ffx": -8,
+       "fbx": 9
+      }
+     },
+     {
+      "t": 0.4,
+      "how": "snap",
+      "pose": {
+       "turn": 1,
+       "crouch": 4,
+       "fx": -13,
+       "fy": -19,
+       "bx": 13,
+       "by": -19,
+       "ffx": -8,
+       "fbx": 9
+      }
+     },
+     {
+      "t": 1.2,
+      "how": "smooth",
+      "pose": {
+       "turn": 1,
+       "crouch": 4,
+       "fx": -13,
+       "fy": -19,
+       "bx": 13,
+       "by": -19,
+       "ffx": -8,
+       "fbx": 9
+      }
+     }
+    ]
+   }
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.509,
+    0.476
+   ],
+   "sourceFrames": 36,
+   "sourceFrameSize": [
+    80,
+    80
+   ]
+  }
+ }
+}

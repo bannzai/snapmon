@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "ground-slam 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 167
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 167
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 167
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ground-slam 1",
+   "frame": {
+    "x": 242,
+    "y": 0,
+    "w": 242,
+    "h": 167
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 167
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 167
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ground-slam 2",
+   "frame": {
+    "x": 484,
+    "y": 0,
+    "w": 242,
+    "h": 167
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 167
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 167
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ground-slam 3",
+   "frame": {
+    "x": 0,
+    "y": 167,
+    "w": 242,
+    "h": 167
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 167
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 167
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ground-slam 4",
+   "frame": {
+    "x": 242,
+    "y": 167,
+    "w": 242,
+    "h": 167
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 167
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 167
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ground-slam 5",
+   "frame": {
+    "x": 484,
+    "y": 167,
+    "w": 242,
+    "h": 167
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 167
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 167
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ground-slam 6",
+   "frame": {
+    "x": 0,
+    "y": 334,
+    "w": 242,
+    "h": 167
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 167
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 167
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ground-slam 7",
+   "frame": {
+    "x": 242,
+    "y": 334,
+    "w": 242,
+    "h": 167
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 167
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 167
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ground-slam 8",
+   "frame": {
+    "x": 484,
+    "y": 334,
+    "w": 242,
+    "h": 167
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 167
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 167
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ground-slam 9",
+   "frame": {
+    "x": 0,
+    "y": 501,
+    "w": 242,
+    "h": 167
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 167
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 167
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ground-slam 10",
+   "frame": {
+    "x": 242,
+    "y": 501,
+    "w": 242,
+    "h": 167
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 167
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 167
+   },
+   "duration": 33
+  },
+  {
+   "filename": "ground-slam 11",
+   "frame": {
+    "x": 484,
+    "y": 501,
+    "w": 242,
+    "h": 167
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 167
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 167
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "ground-slam.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 726,
+   "h": 668
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "ground-slam",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "impacts/ground-slam",
+   "name": "Ground slam",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    242,
+    167
+   ],
+   "pivot": [
+    144,
+    164
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.494
+   ],
+   "sourceFrames": 97,
+   "sourceFrameSize": [
+    288,
+    208
+   ]
+  }
+ }
+}

@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "muzzle-pistol 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 76,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 76,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 76,
+    "h": 61
+   },
+   "duration": 33
+  },
+  {
+   "filename": "muzzle-pistol 1",
+   "frame": {
+    "x": 76,
+    "y": 0,
+    "w": 76,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 76,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 76,
+    "h": 61
+   },
+   "duration": 33
+  },
+  {
+   "filename": "muzzle-pistol 2",
+   "frame": {
+    "x": 152,
+    "y": 0,
+    "w": 76,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 76,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 76,
+    "h": 61
+   },
+   "duration": 33
+  },
+  {
+   "filename": "muzzle-pistol 3",
+   "frame": {
+    "x": 0,
+    "y": 61,
+    "w": 76,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 76,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 76,
+    "h": 61
+   },
+   "duration": 33
+  },
+  {
+   "filename": "muzzle-pistol 4",
+   "frame": {
+    "x": 76,
+    "y": 61,
+    "w": 76,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 76,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 76,
+    "h": 61
+   },
+   "duration": 33
+  },
+  {
+   "filename": "muzzle-pistol 5",
+   "frame": {
+    "x": 152,
+    "y": 61,
+    "w": 76,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 76,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 76,
+    "h": 61
+   },
+   "duration": 33
+  },
+  {
+   "filename": "muzzle-pistol 6",
+   "frame": {
+    "x": 0,
+    "y": 122,
+    "w": 76,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 76,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 76,
+    "h": 61
+   },
+   "duration": 33
+  },
+  {
+   "filename": "muzzle-pistol 7",
+   "frame": {
+    "x": 76,
+    "y": 122,
+    "w": 76,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 76,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 76,
+    "h": 61
+   },
+   "duration": 33
+  },
+  {
+   "filename": "muzzle-pistol 8",
+   "frame": {
+    "x": 152,
+    "y": 122,
+    "w": 76,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 76,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 76,
+    "h": 61
+   },
+   "duration": 33
+  },
+  {
+   "filename": "muzzle-pistol 9",
+   "frame": {
+    "x": 0,
+    "y": 183,
+    "w": 76,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 76,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 76,
+    "h": 61
+   },
+   "duration": 33
+  },
+  {
+   "filename": "muzzle-pistol 10",
+   "frame": {
+    "x": 76,
+    "y": 183,
+    "w": 76,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 76,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 76,
+    "h": 61
+   },
+   "duration": 33
+  },
+  {
+   "filename": "muzzle-pistol 11",
+   "frame": {
+    "x": 152,
+    "y": 183,
+    "w": 76,
+    "h": 61
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 76,
+    "h": 61
+   },
+   "sourceSize": {
+    "w": 76,
+    "h": 61
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "muzzle-pistol.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 228,
+   "h": 244
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "muzzle-pistol",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "projectiles/muzzle-pistol",
+   "name": "Pistol shot",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    76,
+    61
+   ],
+   "pivot": [
+    44,
+    66
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.487,
+    0.459
+   ],
+   "sourceFrames": 55,
+   "sourceFrameSize": [
+    96,
+    72
+   ]
+  }
+ }
+}

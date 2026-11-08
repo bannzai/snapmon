@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "drip 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 45,
+    "h": 85
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 45,
+    "h": 85
+   },
+   "sourceSize": {
+    "w": 45,
+    "h": 85
+   },
+   "duration": 33
+  },
+  {
+   "filename": "drip 1",
+   "frame": {
+    "x": 45,
+    "y": 0,
+    "w": 45,
+    "h": 85
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 45,
+    "h": 85
+   },
+   "sourceSize": {
+    "w": 45,
+    "h": 85
+   },
+   "duration": 33
+  },
+  {
+   "filename": "drip 2",
+   "frame": {
+    "x": 90,
+    "y": 0,
+    "w": 45,
+    "h": 85
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 45,
+    "h": 85
+   },
+   "sourceSize": {
+    "w": 45,
+    "h": 85
+   },
+   "duration": 33
+  },
+  {
+   "filename": "drip 3",
+   "frame": {
+    "x": 135,
+    "y": 0,
+    "w": 45,
+    "h": 85
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 45,
+    "h": 85
+   },
+   "sourceSize": {
+    "w": 45,
+    "h": 85
+   },
+   "duration": 33
+  },
+  {
+   "filename": "drip 4",
+   "frame": {
+    "x": 180,
+    "y": 0,
+    "w": 45,
+    "h": 85
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 45,
+    "h": 85
+   },
+   "sourceSize": {
+    "w": 45,
+    "h": 85
+   },
+   "duration": 33
+  },
+  {
+   "filename": "drip 5",
+   "frame": {
+    "x": 0,
+    "y": 85,
+    "w": 45,
+    "h": 85
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 45,
+    "h": 85
+   },
+   "sourceSize": {
+    "w": 45,
+    "h": 85
+   },
+   "duration": 33
+  },
+  {
+   "filename": "drip 6",
+   "frame": {
+    "x": 45,
+    "y": 85,
+    "w": 45,
+    "h": 85
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 45,
+    "h": 85
+   },
+   "sourceSize": {
+    "w": 45,
+    "h": 85
+   },
+   "duration": 33
+  },
+  {
+   "filename": "drip 7",
+   "frame": {
+    "x": 90,
+    "y": 85,
+    "w": 45,
+    "h": 85
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 45,
+    "h": 85
+   },
+   "sourceSize": {
+    "w": 45,
+    "h": 85
+   },
+   "duration": 33
+  },
+  {
+   "filename": "drip 8",
+   "frame": {
+    "x": 135,
+    "y": 85,
+    "w": 45,
+    "h": 85
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 45,
+    "h": 85
+   },
+   "sourceSize": {
+    "w": 45,
+    "h": 85
+   },
+   "duration": 33
+  },
+  {
+   "filename": "drip 9",
+   "frame": {
+    "x": 180,
+    "y": 85,
+    "w": 45,
+    "h": 85
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 45,
+    "h": 85
+   },
+   "sourceSize": {
+    "w": 45,
+    "h": 85
+   },
+   "duration": 33
+  },
+  {
+   "filename": "drip 10",
+   "frame": {
+    "x": 0,
+    "y": 170,
+    "w": 45,
+    "h": 85
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 45,
+    "h": 85
+   },
+   "sourceSize": {
+    "w": 45,
+    "h": 85
+   },
+   "duration": 33
+  },
+  {
+   "filename": "drip 11",
+   "frame": {
+    "x": 45,
+    "y": 170,
+    "w": 45,
+    "h": 85
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 45,
+    "h": 85
+   },
+   "sourceSize": {
+    "w": 45,
+    "h": 85
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "drip.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 225,
+   "h": 255
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "drip",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "water/drip",
+   "name": "Drip",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    45,
+    85
+   ],
+   "pivot": [
+    36,
+    78
+   ],
+   "columns": 5
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.476
+   ],
+   "sourceFrames": 48,
+   "sourceFrameSize": [
+    72,
+    88
+   ]
+  }
+ }
+}

@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "butterfly 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 118,
+    "h": 83
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 118,
+    "h": 83
+   },
+   "sourceSize": {
+    "w": 118,
+    "h": 83
+   },
+   "duration": 33
+  },
+  {
+   "filename": "butterfly 1",
+   "frame": {
+    "x": 118,
+    "y": 0,
+    "w": 118,
+    "h": 83
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 118,
+    "h": 83
+   },
+   "sourceSize": {
+    "w": 118,
+    "h": 83
+   },
+   "duration": 33
+  },
+  {
+   "filename": "butterfly 2",
+   "frame": {
+    "x": 236,
+    "y": 0,
+    "w": 118,
+    "h": 83
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 118,
+    "h": 83
+   },
+   "sourceSize": {
+    "w": 118,
+    "h": 83
+   },
+   "duration": 33
+  },
+  {
+   "filename": "butterfly 3",
+   "frame": {
+    "x": 0,
+    "y": 83,
+    "w": 118,
+    "h": 83
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 118,
+    "h": 83
+   },
+   "sourceSize": {
+    "w": 118,
+    "h": 83
+   },
+   "duration": 33
+  },
+  {
+   "filename": "butterfly 4",
+   "frame": {
+    "x": 118,
+    "y": 83,
+    "w": 118,
+    "h": 83
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 118,
+    "h": 83
+   },
+   "sourceSize": {
+    "w": 118,
+    "h": 83
+   },
+   "duration": 33
+  },
+  {
+   "filename": "butterfly 5",
+   "frame": {
+    "x": 236,
+    "y": 83,
+    "w": 118,
+    "h": 83
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 118,
+    "h": 83
+   },
+   "sourceSize": {
+    "w": 118,
+    "h": 83
+   },
+   "duration": 33
+  },
+  {
+   "filename": "butterfly 6",
+   "frame": {
+    "x": 0,
+    "y": 166,
+    "w": 118,
+    "h": 83
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 118,
+    "h": 83
+   },
+   "sourceSize": {
+    "w": 118,
+    "h": 83
+   },
+   "duration": 33
+  },
+  {
+   "filename": "butterfly 7",
+   "frame": {
+    "x": 118,
+    "y": 166,
+    "w": 118,
+    "h": 83
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 118,
+    "h": 83
+   },
+   "sourceSize": {
+    "w": 118,
+    "h": 83
+   },
+   "duration": 33
+  },
+  {
+   "filename": "butterfly 8",
+   "frame": {
+    "x": 236,
+    "y": 166,
+    "w": 118,
+    "h": 83
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 118,
+    "h": 83
+   },
+   "sourceSize": {
+    "w": 118,
+    "h": 83
+   },
+   "duration": 33
+  },
+  {
+   "filename": "butterfly 9",
+   "frame": {
+    "x": 0,
+    "y": 249,
+    "w": 118,
+    "h": 83
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 118,
+    "h": 83
+   },
+   "sourceSize": {
+    "w": 118,
+    "h": 83
+   },
+   "duration": 33
+  },
+  {
+   "filename": "butterfly 10",
+   "frame": {
+    "x": 118,
+    "y": 249,
+    "w": 118,
+    "h": 83
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 118,
+    "h": 83
+   },
+   "sourceSize": {
+    "w": 118,
+    "h": 83
+   },
+   "duration": 33
+  },
+  {
+   "filename": "butterfly 11",
+   "frame": {
+    "x": 236,
+    "y": 249,
+    "w": 118,
+    "h": 83
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 118,
+    "h": 83
+   },
+   "sourceSize": {
+    "w": 118,
+    "h": 83
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "butterfly.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 354,
+   "h": 332
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "butterfly",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "critters/butterfly",
+   "name": "Butterfly",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    118,
+    83
+   ],
+   "pivot": [
+    64,
+    44
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.504,
+    0.542
+   ],
+   "sourceFrames": 96,
+   "sourceFrameSize": [
+    128,
+    88
+   ]
+  }
+ }
+}

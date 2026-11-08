@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "vine-whip 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 168,
+    "h": 92
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 168,
+    "h": 92
+   },
+   "sourceSize": {
+    "w": 168,
+    "h": 92
+   },
+   "duration": 33
+  },
+  {
+   "filename": "vine-whip 1",
+   "frame": {
+    "x": 168,
+    "y": 0,
+    "w": 168,
+    "h": 92
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 168,
+    "h": 92
+   },
+   "sourceSize": {
+    "w": 168,
+    "h": 92
+   },
+   "duration": 33
+  },
+  {
+   "filename": "vine-whip 2",
+   "frame": {
+    "x": 336,
+    "y": 0,
+    "w": 168,
+    "h": 92
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 168,
+    "h": 92
+   },
+   "sourceSize": {
+    "w": 168,
+    "h": 92
+   },
+   "duration": 33
+  },
+  {
+   "filename": "vine-whip 3",
+   "frame": {
+    "x": 0,
+    "y": 92,
+    "w": 168,
+    "h": 92
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 168,
+    "h": 92
+   },
+   "sourceSize": {
+    "w": 168,
+    "h": 92
+   },
+   "duration": 33
+  },
+  {
+   "filename": "vine-whip 4",
+   "frame": {
+    "x": 168,
+    "y": 92,
+    "w": 168,
+    "h": 92
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 168,
+    "h": 92
+   },
+   "sourceSize": {
+    "w": 168,
+    "h": 92
+   },
+   "duration": 33
+  },
+  {
+   "filename": "vine-whip 5",
+   "frame": {
+    "x": 336,
+    "y": 92,
+    "w": 168,
+    "h": 92
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 168,
+    "h": 92
+   },
+   "sourceSize": {
+    "w": 168,
+    "h": 92
+   },
+   "duration": 33
+  },
+  {
+   "filename": "vine-whip 6",
+   "frame": {
+    "x": 0,
+    "y": 184,
+    "w": 168,
+    "h": 92
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 168,
+    "h": 92
+   },
+   "sourceSize": {
+    "w": 168,
+    "h": 92
+   },
+   "duration": 33
+  },
+  {
+   "filename": "vine-whip 7",
+   "frame": {
+    "x": 168,
+    "y": 184,
+    "w": 168,
+    "h": 92
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 168,
+    "h": 92
+   },
+   "sourceSize": {
+    "w": 168,
+    "h": 92
+   },
+   "duration": 33
+  },
+  {
+   "filename": "vine-whip 8",
+   "frame": {
+    "x": 336,
+    "y": 184,
+    "w": 168,
+    "h": 92
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 168,
+    "h": 92
+   },
+   "sourceSize": {
+    "w": 168,
+    "h": 92
+   },
+   "duration": 33
+  },
+  {
+   "filename": "vine-whip 9",
+   "frame": {
+    "x": 0,
+    "y": 276,
+    "w": 168,
+    "h": 92
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 168,
+    "h": 92
+   },
+   "sourceSize": {
+    "w": 168,
+    "h": 92
+   },
+   "duration": 33
+  },
+  {
+   "filename": "vine-whip 10",
+   "frame": {
+    "x": 168,
+    "y": 276,
+    "w": 168,
+    "h": 92
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 168,
+    "h": 92
+   },
+   "sourceSize": {
+    "w": 168,
+    "h": 92
+   },
+   "duration": 33
+  },
+  {
+   "filename": "vine-whip 11",
+   "frame": {
+    "x": 336,
+    "y": 276,
+    "w": 168,
+    "h": 92
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 168,
+    "h": 92
+   },
+   "sourceSize": {
+    "w": 168,
+    "h": 92
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "vine-whip.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 504,
+   "h": 368
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "vine-whip",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "nature/vine-whip",
+   "name": "Vine whip",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    168,
+    92
+   ],
+   "pivot": [
+    60,
+    114
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.417,
+    0.451
+   ],
+   "sourceFrames": 43,
+   "sourceFrameSize": [
+    216,
+    128
+   ]
+  }
+ }
+}

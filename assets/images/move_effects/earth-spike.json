@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "earth-spike 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 137
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 137
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 137
+   },
+   "duration": 33
+  },
+  {
+   "filename": "earth-spike 1",
+   "frame": {
+    "x": 242,
+    "y": 0,
+    "w": 242,
+    "h": 137
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 137
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 137
+   },
+   "duration": 33
+  },
+  {
+   "filename": "earth-spike 2",
+   "frame": {
+    "x": 484,
+    "y": 0,
+    "w": 242,
+    "h": 137
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 137
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 137
+   },
+   "duration": 33
+  },
+  {
+   "filename": "earth-spike 3",
+   "frame": {
+    "x": 0,
+    "y": 137,
+    "w": 242,
+    "h": 137
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 137
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 137
+   },
+   "duration": 33
+  },
+  {
+   "filename": "earth-spike 4",
+   "frame": {
+    "x": 242,
+    "y": 137,
+    "w": 242,
+    "h": 137
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 137
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 137
+   },
+   "duration": 33
+  },
+  {
+   "filename": "earth-spike 5",
+   "frame": {
+    "x": 484,
+    "y": 137,
+    "w": 242,
+    "h": 137
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 137
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 137
+   },
+   "duration": 33
+  },
+  {
+   "filename": "earth-spike 6",
+   "frame": {
+    "x": 0,
+    "y": 274,
+    "w": 242,
+    "h": 137
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 137
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 137
+   },
+   "duration": 33
+  },
+  {
+   "filename": "earth-spike 7",
+   "frame": {
+    "x": 242,
+    "y": 274,
+    "w": 242,
+    "h": 137
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 137
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 137
+   },
+   "duration": 33
+  },
+  {
+   "filename": "earth-spike 8",
+   "frame": {
+    "x": 484,
+    "y": 274,
+    "w": 242,
+    "h": 137
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 137
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 137
+   },
+   "duration": 33
+  },
+  {
+   "filename": "earth-spike 9",
+   "frame": {
+    "x": 0,
+    "y": 411,
+    "w": 242,
+    "h": 137
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 137
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 137
+   },
+   "duration": 33
+  },
+  {
+   "filename": "earth-spike 10",
+   "frame": {
+    "x": 242,
+    "y": 411,
+    "w": 242,
+    "h": 137
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 137
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 137
+   },
+   "duration": 33
+  },
+  {
+   "filename": "earth-spike 11",
+   "frame": {
+    "x": 484,
+    "y": 411,
+    "w": 242,
+    "h": 137
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 242,
+    "h": 137
+   },
+   "sourceSize": {
+    "w": 242,
+    "h": 137
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "earth-spike.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 726,
+   "h": 548
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "earth-spike",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "nature/earth-spike",
+   "name": "Earth spike",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    242,
+    137
+   ],
+   "pivot": [
+    136,
+    132
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.5,
+    0.471
+   ],
+   "sourceFrames": 103,
+   "sourceFrameSize": [
+    272,
+    150
+   ]
+  }
+ }
+}

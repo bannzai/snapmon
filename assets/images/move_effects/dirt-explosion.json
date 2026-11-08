@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "dirt-explosion 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 252,
+    "h": 223
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 252,
+    "h": 223
+   },
+   "sourceSize": {
+    "w": 252,
+    "h": 223
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dirt-explosion 1",
+   "frame": {
+    "x": 252,
+    "y": 0,
+    "w": 252,
+    "h": 223
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 252,
+    "h": 223
+   },
+   "sourceSize": {
+    "w": 252,
+    "h": 223
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dirt-explosion 2",
+   "frame": {
+    "x": 504,
+    "y": 0,
+    "w": 252,
+    "h": 223
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 252,
+    "h": 223
+   },
+   "sourceSize": {
+    "w": 252,
+    "h": 223
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dirt-explosion 3",
+   "frame": {
+    "x": 0,
+    "y": 223,
+    "w": 252,
+    "h": 223
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 252,
+    "h": 223
+   },
+   "sourceSize": {
+    "w": 252,
+    "h": 223
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dirt-explosion 4",
+   "frame": {
+    "x": 252,
+    "y": 223,
+    "w": 252,
+    "h": 223
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 252,
+    "h": 223
+   },
+   "sourceSize": {
+    "w": 252,
+    "h": 223
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dirt-explosion 5",
+   "frame": {
+    "x": 504,
+    "y": 223,
+    "w": 252,
+    "h": 223
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 252,
+    "h": 223
+   },
+   "sourceSize": {
+    "w": 252,
+    "h": 223
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dirt-explosion 6",
+   "frame": {
+    "x": 0,
+    "y": 446,
+    "w": 252,
+    "h": 223
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 252,
+    "h": 223
+   },
+   "sourceSize": {
+    "w": 252,
+    "h": 223
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dirt-explosion 7",
+   "frame": {
+    "x": 252,
+    "y": 446,
+    "w": 252,
+    "h": 223
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 252,
+    "h": 223
+   },
+   "sourceSize": {
+    "w": 252,
+    "h": 223
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dirt-explosion 8",
+   "frame": {
+    "x": 504,
+    "y": 446,
+    "w": 252,
+    "h": 223
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 252,
+    "h": 223
+   },
+   "sourceSize": {
+    "w": 252,
+    "h": 223
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dirt-explosion 9",
+   "frame": {
+    "x": 0,
+    "y": 669,
+    "w": 252,
+    "h": 223
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 252,
+    "h": 223
+   },
+   "sourceSize": {
+    "w": 252,
+    "h": 223
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dirt-explosion 10",
+   "frame": {
+    "x": 252,
+    "y": 669,
+    "w": 252,
+    "h": 223
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 252,
+    "h": 223
+   },
+   "sourceSize": {
+    "w": 252,
+    "h": 223
+   },
+   "duration": 33
+  },
+  {
+   "filename": "dirt-explosion 11",
+   "frame": {
+    "x": 504,
+    "y": 669,
+    "w": 252,
+    "h": 223
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 252,
+    "h": 223
+   },
+   "sourceSize": {
+    "w": 252,
+    "h": 223
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "dirt-explosion.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 756,
+   "h": 892
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "dirt-explosion",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "explosions/dirt-explosion",
+   "name": "Dirt explosion",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    252,
+    223
+   ],
+   "pivot": [
+    130,
+    206
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.49,
+    0.491
+   ],
+   "sourceFrames": 109,
+   "sourceFrameSize": [
+    260,
+    240
+   ]
+  }
+ }
+}

@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "firework-burst 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 191,
+    "h": 230
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 191,
+    "h": 230
+   },
+   "sourceSize": {
+    "w": 191,
+    "h": 230
+   },
+   "duration": 33
+  },
+  {
+   "filename": "firework-burst 1",
+   "frame": {
+    "x": 191,
+    "y": 0,
+    "w": 191,
+    "h": 230
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 191,
+    "h": 230
+   },
+   "sourceSize": {
+    "w": 191,
+    "h": 230
+   },
+   "duration": 33
+  },
+  {
+   "filename": "firework-burst 2",
+   "frame": {
+    "x": 382,
+    "y": 0,
+    "w": 191,
+    "h": 230
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 191,
+    "h": 230
+   },
+   "sourceSize": {
+    "w": 191,
+    "h": 230
+   },
+   "duration": 33
+  },
+  {
+   "filename": "firework-burst 3",
+   "frame": {
+    "x": 573,
+    "y": 0,
+    "w": 191,
+    "h": 230
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 191,
+    "h": 230
+   },
+   "sourceSize": {
+    "w": 191,
+    "h": 230
+   },
+   "duration": 33
+  },
+  {
+   "filename": "firework-burst 4",
+   "frame": {
+    "x": 0,
+    "y": 230,
+    "w": 191,
+    "h": 230
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 191,
+    "h": 230
+   },
+   "sourceSize": {
+    "w": 191,
+    "h": 230
+   },
+   "duration": 33
+  },
+  {
+   "filename": "firework-burst 5",
+   "frame": {
+    "x": 191,
+    "y": 230,
+    "w": 191,
+    "h": 230
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 191,
+    "h": 230
+   },
+   "sourceSize": {
+    "w": 191,
+    "h": 230
+   },
+   "duration": 33
+  },
+  {
+   "filename": "firework-burst 6",
+   "frame": {
+    "x": 382,
+    "y": 230,
+    "w": 191,
+    "h": 230
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 191,
+    "h": 230
+   },
+   "sourceSize": {
+    "w": 191,
+    "h": 230
+   },
+   "duration": 33
+  },
+  {
+   "filename": "firework-burst 7",
+   "frame": {
+    "x": 573,
+    "y": 230,
+    "w": 191,
+    "h": 230
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 191,
+    "h": 230
+   },
+   "sourceSize": {
+    "w": 191,
+    "h": 230
+   },
+   "duration": 33
+  },
+  {
+   "filename": "firework-burst 8",
+   "frame": {
+    "x": 0,
+    "y": 460,
+    "w": 191,
+    "h": 230
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 191,
+    "h": 230
+   },
+   "sourceSize": {
+    "w": 191,
+    "h": 230
+   },
+   "duration": 33
+  },
+  {
+   "filename": "firework-burst 9",
+   "frame": {
+    "x": 191,
+    "y": 460,
+    "w": 191,
+    "h": 230
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 191,
+    "h": 230
+   },
+   "sourceSize": {
+    "w": 191,
+    "h": 230
+   },
+   "duration": 33
+  },
+  {
+   "filename": "firework-burst 10",
+   "frame": {
+    "x": 382,
+    "y": 460,
+    "w": 191,
+    "h": 230
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 191,
+    "h": 230
+   },
+   "sourceSize": {
+    "w": 191,
+    "h": 230
+   },
+   "duration": 33
+  },
+  {
+   "filename": "firework-burst 11",
+   "frame": {
+    "x": 573,
+    "y": 460,
+    "w": 191,
+    "h": 230
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 191,
+    "h": 230
+   },
+   "sourceSize": {
+    "w": 191,
+    "h": 230
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "firework-burst.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 764,
+   "h": 690
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "firework-burst",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "explosions/firework-burst",
+   "name": "Firework burst",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    191,
+    230
+   ],
+   "pivot": [
+    120,
+    100
+   ],
+   "columns": 4
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.487,
+    0.57
+   ],
+   "sourceFrames": 109,
+   "sourceFrameSize": [
+    240,
+    248
+   ]
+  }
+ }
+}

@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "fish-school 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 128,
+    "h": 78
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 128,
+    "h": 78
+   },
+   "sourceSize": {
+    "w": 128,
+    "h": 78
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fish-school 1",
+   "frame": {
+    "x": 128,
+    "y": 0,
+    "w": 128,
+    "h": 78
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 128,
+    "h": 78
+   },
+   "sourceSize": {
+    "w": 128,
+    "h": 78
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fish-school 2",
+   "frame": {
+    "x": 256,
+    "y": 0,
+    "w": 128,
+    "h": 78
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 128,
+    "h": 78
+   },
+   "sourceSize": {
+    "w": 128,
+    "h": 78
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fish-school 3",
+   "frame": {
+    "x": 0,
+    "y": 78,
+    "w": 128,
+    "h": 78
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 128,
+    "h": 78
+   },
+   "sourceSize": {
+    "w": 128,
+    "h": 78
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fish-school 4",
+   "frame": {
+    "x": 128,
+    "y": 78,
+    "w": 128,
+    "h": 78
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 128,
+    "h": 78
+   },
+   "sourceSize": {
+    "w": 128,
+    "h": 78
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fish-school 5",
+   "frame": {
+    "x": 256,
+    "y": 78,
+    "w": 128,
+    "h": 78
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 128,
+    "h": 78
+   },
+   "sourceSize": {
+    "w": 128,
+    "h": 78
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fish-school 6",
+   "frame": {
+    "x": 0,
+    "y": 156,
+    "w": 128,
+    "h": 78
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 128,
+    "h": 78
+   },
+   "sourceSize": {
+    "w": 128,
+    "h": 78
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fish-school 7",
+   "frame": {
+    "x": 128,
+    "y": 156,
+    "w": 128,
+    "h": 78
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 128,
+    "h": 78
+   },
+   "sourceSize": {
+    "w": 128,
+    "h": 78
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fish-school 8",
+   "frame": {
+    "x": 256,
+    "y": 156,
+    "w": 128,
+    "h": 78
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 128,
+    "h": 78
+   },
+   "sourceSize": {
+    "w": 128,
+    "h": 78
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fish-school 9",
+   "frame": {
+    "x": 0,
+    "y": 234,
+    "w": 128,
+    "h": 78
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 128,
+    "h": 78
+   },
+   "sourceSize": {
+    "w": 128,
+    "h": 78
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fish-school 10",
+   "frame": {
+    "x": 128,
+    "y": 234,
+    "w": 128,
+    "h": 78
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 128,
+    "h": 78
+   },
+   "sourceSize": {
+    "w": 128,
+    "h": 78
+   },
+   "duration": 33
+  },
+  {
+   "filename": "fish-school 11",
+   "frame": {
+    "x": 256,
+    "y": 234,
+    "w": 128,
+    "h": 78
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 128,
+    "h": 78
+   },
+   "sourceSize": {
+    "w": 128,
+    "h": 78
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "fish-school.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 384,
+   "h": 312
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "fish-school",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "critters/fish-school",
+   "name": "Fish school",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    128,
+    78
+   ],
+   "pivot": [
+    68,
+    40
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.438,
+    0.436
+   ],
+   "sourceFrames": 144,
+   "sourceFrameSize": [
+    136,
+    80
+   ]
+  }
+ }
+}

@@ -1,0 +1,510 @@
+{
+ "frames": [
+  {
+   "filename": "spear-sweep 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 180,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 180,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 180,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spear-sweep 1",
+   "frame": {
+    "x": 180,
+    "y": 0,
+    "w": 180,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 180,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 180,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spear-sweep 2",
+   "frame": {
+    "x": 0,
+    "y": 73,
+    "w": 180,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 180,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 180,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spear-sweep 3",
+   "frame": {
+    "x": 180,
+    "y": 73,
+    "w": 180,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 180,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 180,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spear-sweep 4",
+   "frame": {
+    "x": 0,
+    "y": 146,
+    "w": 180,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 180,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 180,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spear-sweep 5",
+   "frame": {
+    "x": 180,
+    "y": 146,
+    "w": 180,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 180,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 180,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spear-sweep 6",
+   "frame": {
+    "x": 0,
+    "y": 219,
+    "w": 180,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 180,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 180,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spear-sweep 7",
+   "frame": {
+    "x": 180,
+    "y": 219,
+    "w": 180,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 180,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 180,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spear-sweep 8",
+   "frame": {
+    "x": 0,
+    "y": 292,
+    "w": 180,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 180,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 180,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spear-sweep 9",
+   "frame": {
+    "x": 180,
+    "y": 292,
+    "w": 180,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 180,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 180,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spear-sweep 10",
+   "frame": {
+    "x": 0,
+    "y": 365,
+    "w": 180,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 180,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 180,
+    "h": 73
+   },
+   "duration": 33
+  },
+  {
+   "filename": "spear-sweep 11",
+   "frame": {
+    "x": 180,
+    "y": 365,
+    "w": 180,
+    "h": 73
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 180,
+    "h": 73
+   },
+   "sourceSize": {
+    "w": 180,
+    "h": 73
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "spear-sweep.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 360,
+   "h": 438
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "spear-sweep",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "melee/spear-sweep",
+   "name": "Spear sweep",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    180,
+    73
+   ],
+   "pivot": [
+    104,
+    70
+   ],
+   "columns": 2,
+   "act": {
+    "windup": 0.56,
+    "recovery": 0,
+    "onBody": false,
+    "targets": [
+     62
+    ],
+    "hits": [
+     {
+      "t": 0.1,
+      "freeze": 0.12,
+      "shake": 0.18,
+      "amp": 2,
+      "push": 2.6
+     }
+    ],
+    "poses": [
+     {
+      "t": -0.56,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 11,
+       "fy": -21,
+       "bx": 7,
+       "by": -16,
+       "ffx": 7,
+       "fbx": -7,
+       "weapon": "spear",
+       "sa": -1.42
+      }
+     },
+     {
+      "t": -0.34,
+      "how": "smooth",
+      "pose": {
+       "crouch": 4,
+       "fx": 14,
+       "fy": -22,
+       "bx": 7,
+       "by": -16,
+       "ffx": 7,
+       "fbx": -7,
+       "weapon": "spear",
+       "sa": -0.7,
+       "two": true
+      }
+     },
+     {
+      "t": -0.14,
+      "how": "smooth",
+      "pose": {
+       "crouch": 6,
+       "fx": 15,
+       "fy": -17,
+       "bx": 7,
+       "by": -16,
+       "ffx": 9,
+       "fbx": -8,
+       "weapon": "spear",
+       "sa": 0.05,
+       "two": true,
+       "yaw": 2.5,
+       "lean": 2
+      }
+     },
+     {
+      "t": -0.02,
+      "how": "smooth",
+      "pose": {
+       "crouch": 7,
+       "fx": 15,
+       "fy": -17,
+       "bx": 7,
+       "by": -16,
+       "ffx": 9,
+       "fbx": -8,
+       "weapon": "spear",
+       "sa": 0.05,
+       "two": true,
+       "yaw": 2.7,
+       "lean": 2
+      }
+     },
+     {
+      "t": 0.045,
+      "how": "snap",
+      "pose": {
+       "crouch": 6,
+       "fx": 20,
+       "fy": -15,
+       "bx": 7,
+       "by": -16,
+       "ffx": 12,
+       "fbx": -10,
+       "weapon": "spear",
+       "sa": 0.04,
+       "two": true,
+       "x": 1,
+       "lean": 6,
+       "toeB": true,
+       "yaw": 1.3,
+       "ghost": 1
+      }
+     },
+     {
+      "t": 0.09,
+      "how": "snap",
+      "pose": {
+       "crouch": 6,
+       "fx": 20,
+       "fy": -15,
+       "bx": 7,
+       "by": -16,
+       "ffx": 12,
+       "fbx": -10,
+       "weapon": "spear",
+       "sa": 0.04,
+       "two": true,
+       "x": 2,
+       "lean": 6,
+       "toeB": true,
+       "ghost": 1
+      }
+     },
+     {
+      "t": 0.14,
+      "how": "snap",
+      "pose": {
+       "crouch": 6,
+       "fx": 20,
+       "fy": -15,
+       "bx": 7,
+       "by": -16,
+       "ffx": 12,
+       "fbx": -10,
+       "weapon": "spear",
+       "sa": 0.04,
+       "two": true,
+       "x": 2,
+       "lean": 6,
+       "toeB": true
+      }
+     },
+     {
+      "t": 0.62,
+      "how": "smooth",
+      "pose": {
+       "crouch": 5,
+       "fx": 20,
+       "fy": -15,
+       "bx": 7,
+       "by": -16,
+       "ffx": 12,
+       "fbx": -10,
+       "weapon": "spear",
+       "sa": 0.04,
+       "two": true,
+       "x": 2,
+       "lean": 5,
+       "toeB": true
+      }
+     },
+     {
+      "t": 1.12,
+      "how": "smooth",
+      "pose": {
+       "crouch": 4,
+       "fx": 14,
+       "fy": -22,
+       "bx": 7,
+       "by": -16,
+       "ffx": 7,
+       "fbx": -7,
+       "weapon": "spear",
+       "sa": -0.7,
+       "two": true
+      }
+     },
+     {
+      "t": 1.5,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 11,
+       "fy": -21,
+       "bx": 7,
+       "by": -16,
+       "ffx": 7,
+       "fbx": -7,
+       "weapon": "spear",
+       "sa": -1.42
+      }
+     }
+    ]
+   }
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.494,
+    0.616
+   ],
+   "sourceFrames": 46,
+   "sourceFrameSize": [
+    216,
+    84
+   ]
+  }
+ }
+}

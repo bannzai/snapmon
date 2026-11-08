@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "coin-collect 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 151,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 151,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 151,
+    "h": 112
+   },
+   "duration": 33
+  },
+  {
+   "filename": "coin-collect 1",
+   "frame": {
+    "x": 151,
+    "y": 0,
+    "w": 151,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 151,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 151,
+    "h": 112
+   },
+   "duration": 33
+  },
+  {
+   "filename": "coin-collect 2",
+   "frame": {
+    "x": 302,
+    "y": 0,
+    "w": 151,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 151,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 151,
+    "h": 112
+   },
+   "duration": 33
+  },
+  {
+   "filename": "coin-collect 3",
+   "frame": {
+    "x": 0,
+    "y": 112,
+    "w": 151,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 151,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 151,
+    "h": 112
+   },
+   "duration": 33
+  },
+  {
+   "filename": "coin-collect 4",
+   "frame": {
+    "x": 151,
+    "y": 112,
+    "w": 151,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 151,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 151,
+    "h": 112
+   },
+   "duration": 33
+  },
+  {
+   "filename": "coin-collect 5",
+   "frame": {
+    "x": 302,
+    "y": 112,
+    "w": 151,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 151,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 151,
+    "h": 112
+   },
+   "duration": 33
+  },
+  {
+   "filename": "coin-collect 6",
+   "frame": {
+    "x": 0,
+    "y": 224,
+    "w": 151,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 151,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 151,
+    "h": 112
+   },
+   "duration": 33
+  },
+  {
+   "filename": "coin-collect 7",
+   "frame": {
+    "x": 151,
+    "y": 224,
+    "w": 151,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 151,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 151,
+    "h": 112
+   },
+   "duration": 33
+  },
+  {
+   "filename": "coin-collect 8",
+   "frame": {
+    "x": 302,
+    "y": 224,
+    "w": 151,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 151,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 151,
+    "h": 112
+   },
+   "duration": 33
+  },
+  {
+   "filename": "coin-collect 9",
+   "frame": {
+    "x": 0,
+    "y": 336,
+    "w": 151,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 151,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 151,
+    "h": 112
+   },
+   "duration": 33
+  },
+  {
+   "filename": "coin-collect 10",
+   "frame": {
+    "x": 151,
+    "y": 336,
+    "w": 151,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 151,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 151,
+    "h": 112
+   },
+   "duration": 33
+  },
+  {
+   "filename": "coin-collect 11",
+   "frame": {
+    "x": 302,
+    "y": 336,
+    "w": 151,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 151,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 151,
+    "h": 112
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "coin-collect.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 453,
+   "h": 448
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "coin-collect",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "ui/coin-collect",
+   "name": "Coin collect",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    151,
+    112
+   ],
+   "pivot": [
+    60,
+    102
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.503,
+    0.518
+   ],
+   "sourceFrames": 75,
+   "sourceFrameSize": [
+    176,
+    116
+   ]
+  }
+ }
+}

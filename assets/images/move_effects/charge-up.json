@@ -1,0 +1,449 @@
+{
+ "frames": [
+  {
+   "filename": "charge-up 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 193,
+    "h": 147
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 193,
+    "h": 147
+   },
+   "sourceSize": {
+    "w": 193,
+    "h": 147
+   },
+   "duration": 33
+  },
+  {
+   "filename": "charge-up 1",
+   "frame": {
+    "x": 193,
+    "y": 0,
+    "w": 193,
+    "h": 147
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 193,
+    "h": 147
+   },
+   "sourceSize": {
+    "w": 193,
+    "h": 147
+   },
+   "duration": 33
+  },
+  {
+   "filename": "charge-up 2",
+   "frame": {
+    "x": 386,
+    "y": 0,
+    "w": 193,
+    "h": 147
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 193,
+    "h": 147
+   },
+   "sourceSize": {
+    "w": 193,
+    "h": 147
+   },
+   "duration": 33
+  },
+  {
+   "filename": "charge-up 3",
+   "frame": {
+    "x": 0,
+    "y": 147,
+    "w": 193,
+    "h": 147
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 193,
+    "h": 147
+   },
+   "sourceSize": {
+    "w": 193,
+    "h": 147
+   },
+   "duration": 33
+  },
+  {
+   "filename": "charge-up 4",
+   "frame": {
+    "x": 193,
+    "y": 147,
+    "w": 193,
+    "h": 147
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 193,
+    "h": 147
+   },
+   "sourceSize": {
+    "w": 193,
+    "h": 147
+   },
+   "duration": 33
+  },
+  {
+   "filename": "charge-up 5",
+   "frame": {
+    "x": 386,
+    "y": 147,
+    "w": 193,
+    "h": 147
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 193,
+    "h": 147
+   },
+   "sourceSize": {
+    "w": 193,
+    "h": 147
+   },
+   "duration": 33
+  },
+  {
+   "filename": "charge-up 6",
+   "frame": {
+    "x": 0,
+    "y": 294,
+    "w": 193,
+    "h": 147
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 193,
+    "h": 147
+   },
+   "sourceSize": {
+    "w": 193,
+    "h": 147
+   },
+   "duration": 33
+  },
+  {
+   "filename": "charge-up 7",
+   "frame": {
+    "x": 193,
+    "y": 294,
+    "w": 193,
+    "h": 147
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 193,
+    "h": 147
+   },
+   "sourceSize": {
+    "w": 193,
+    "h": 147
+   },
+   "duration": 33
+  },
+  {
+   "filename": "charge-up 8",
+   "frame": {
+    "x": 386,
+    "y": 294,
+    "w": 193,
+    "h": 147
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 193,
+    "h": 147
+   },
+   "sourceSize": {
+    "w": 193,
+    "h": 147
+   },
+   "duration": 33
+  },
+  {
+   "filename": "charge-up 9",
+   "frame": {
+    "x": 0,
+    "y": 441,
+    "w": 193,
+    "h": 147
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 193,
+    "h": 147
+   },
+   "sourceSize": {
+    "w": 193,
+    "h": 147
+   },
+   "duration": 33
+  },
+  {
+   "filename": "charge-up 10",
+   "frame": {
+    "x": 193,
+    "y": 441,
+    "w": 193,
+    "h": 147
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 193,
+    "h": 147
+   },
+   "sourceSize": {
+    "w": 193,
+    "h": 147
+   },
+   "duration": 33
+  },
+  {
+   "filename": "charge-up 11",
+   "frame": {
+    "x": 386,
+    "y": 441,
+    "w": 193,
+    "h": 147
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 193,
+    "h": 147
+   },
+   "sourceSize": {
+    "w": 193,
+    "h": 147
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "charge-up.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 579,
+   "h": 588
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "charge-up",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "lightning/charge-up",
+   "name": "Charge up",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    193,
+    147
+   ],
+   "pivot": [
+    124,
+    148
+   ],
+   "columns": 3,
+   "act": {
+    "windup": 0.36,
+    "recovery": 0,
+    "onBody": true,
+    "targets": [],
+    "hits": [
+     {
+      "t": 1.6,
+      "freeze": 0.14,
+      "shake": 0.3,
+      "amp": 3,
+      "push": 1.2
+     }
+    ],
+    "poses": [
+     {
+      "t": -0.36,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 11,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7
+      }
+     },
+     {
+      "t": 0,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 15,
+       "fy": -21,
+       "bx": 9,
+       "by": -17,
+       "ffx": 9,
+       "fbx": -7,
+       "lean": -2
+      }
+     },
+     {
+      "t": 0.8,
+      "how": "smooth",
+      "pose": {
+       "crouch": 4,
+       "fx": 15,
+       "fy": -21,
+       "bx": 9,
+       "by": -17,
+       "ffx": 9,
+       "fbx": -7,
+       "lean": -2
+      }
+     },
+     {
+      "t": 1.4,
+      "how": "smooth",
+      "pose": {
+       "crouch": 6,
+       "fx": 15,
+       "fy": -21,
+       "bx": 9,
+       "by": -17,
+       "ffx": 9,
+       "fbx": -7,
+       "lean": 0
+      }
+     },
+     {
+      "t": 1.59,
+      "how": "smooth",
+      "pose": {
+       "crouch": 7,
+       "fx": 15,
+       "fy": -21,
+       "bx": 9,
+       "by": -17,
+       "ffx": 9,
+       "fbx": -7,
+       "lean": 0
+      }
+     },
+     {
+      "t": 1.6,
+      "how": "snap",
+      "pose": {
+       "turn": 1.15,
+       "y": -2,
+       "crouch": 0,
+       "lean": -2,
+       "fx": -13,
+       "fy": -37,
+       "bx": 14,
+       "by": -36,
+       "ffx": -2,
+       "ffy": -6,
+       "fbx": 3,
+       "fby": -6
+      }
+     },
+     {
+      "t": 1.95,
+      "how": "smooth",
+      "pose": {
+       "turn": 1.15,
+       "y": 0,
+       "crouch": 2,
+       "lean": -2,
+       "fx": -13,
+       "fy": -30,
+       "bx": 14,
+       "by": -30,
+       "ffx": -2,
+       "ffy": -4,
+       "fbx": 3,
+       "fby": -4
+      }
+     },
+     {
+      "t": 2.7,
+      "how": "smooth",
+      "pose": {
+       "crouch": 3,
+       "fx": 11,
+       "fy": -21,
+       "bx": 9,
+       "by": -21,
+       "ffx": 7,
+       "fbx": -7
+      }
+     }
+    ]
+   }
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.505,
+    0.469
+   ],
+   "sourceFrames": 82,
+   "sourceFrameSize": [
+    272,
+    184
+   ]
+  }
+ }
+}

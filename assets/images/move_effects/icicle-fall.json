@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "icicle-fall 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 131,
+    "h": 114
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 131,
+    "h": 114
+   },
+   "sourceSize": {
+    "w": 131,
+    "h": 114
+   },
+   "duration": 33
+  },
+  {
+   "filename": "icicle-fall 1",
+   "frame": {
+    "x": 131,
+    "y": 0,
+    "w": 131,
+    "h": 114
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 131,
+    "h": 114
+   },
+   "sourceSize": {
+    "w": 131,
+    "h": 114
+   },
+   "duration": 33
+  },
+  {
+   "filename": "icicle-fall 2",
+   "frame": {
+    "x": 262,
+    "y": 0,
+    "w": 131,
+    "h": 114
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 131,
+    "h": 114
+   },
+   "sourceSize": {
+    "w": 131,
+    "h": 114
+   },
+   "duration": 33
+  },
+  {
+   "filename": "icicle-fall 3",
+   "frame": {
+    "x": 0,
+    "y": 114,
+    "w": 131,
+    "h": 114
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 131,
+    "h": 114
+   },
+   "sourceSize": {
+    "w": 131,
+    "h": 114
+   },
+   "duration": 33
+  },
+  {
+   "filename": "icicle-fall 4",
+   "frame": {
+    "x": 131,
+    "y": 114,
+    "w": 131,
+    "h": 114
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 131,
+    "h": 114
+   },
+   "sourceSize": {
+    "w": 131,
+    "h": 114
+   },
+   "duration": 33
+  },
+  {
+   "filename": "icicle-fall 5",
+   "frame": {
+    "x": 262,
+    "y": 114,
+    "w": 131,
+    "h": 114
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 131,
+    "h": 114
+   },
+   "sourceSize": {
+    "w": 131,
+    "h": 114
+   },
+   "duration": 33
+  },
+  {
+   "filename": "icicle-fall 6",
+   "frame": {
+    "x": 0,
+    "y": 228,
+    "w": 131,
+    "h": 114
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 131,
+    "h": 114
+   },
+   "sourceSize": {
+    "w": 131,
+    "h": 114
+   },
+   "duration": 33
+  },
+  {
+   "filename": "icicle-fall 7",
+   "frame": {
+    "x": 131,
+    "y": 228,
+    "w": 131,
+    "h": 114
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 131,
+    "h": 114
+   },
+   "sourceSize": {
+    "w": 131,
+    "h": 114
+   },
+   "duration": 33
+  },
+  {
+   "filename": "icicle-fall 8",
+   "frame": {
+    "x": 262,
+    "y": 228,
+    "w": 131,
+    "h": 114
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 131,
+    "h": 114
+   },
+   "sourceSize": {
+    "w": 131,
+    "h": 114
+   },
+   "duration": 33
+  },
+  {
+   "filename": "icicle-fall 9",
+   "frame": {
+    "x": 0,
+    "y": 342,
+    "w": 131,
+    "h": 114
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 131,
+    "h": 114
+   },
+   "sourceSize": {
+    "w": 131,
+    "h": 114
+   },
+   "duration": 33
+  },
+  {
+   "filename": "icicle-fall 10",
+   "frame": {
+    "x": 131,
+    "y": 342,
+    "w": 131,
+    "h": 114
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 131,
+    "h": 114
+   },
+   "sourceSize": {
+    "w": 131,
+    "h": 114
+   },
+   "duration": 33
+  },
+  {
+   "filename": "icicle-fall 11",
+   "frame": {
+    "x": 262,
+    "y": 342,
+    "w": 131,
+    "h": 114
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 131,
+    "h": 114
+   },
+   "sourceSize": {
+    "w": 131,
+    "h": 114
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "icicle-fall.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 393,
+   "h": 456
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "icicle-fall",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "ice/icicle-fall",
+   "name": "Icicle fall",
+   "fps": 30,
+   "loop": false,
+   "frames": 12,
+   "frameSize": [
+    131,
+    114
+   ],
+   "pivot": [
+    76,
+    100
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.508,
+    0.5
+   ],
+   "sourceFrames": 79,
+   "sourceFrameSize": [
+    152,
+    120
+   ]
+  }
+ }
+}

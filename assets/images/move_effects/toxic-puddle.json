@@ -1,0 +1,314 @@
+{
+ "frames": [
+  {
+   "filename": "toxic-puddle 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 106,
+    "h": 60
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 106,
+    "h": 60
+   },
+   "sourceSize": {
+    "w": 106,
+    "h": 60
+   },
+   "duration": 33
+  },
+  {
+   "filename": "toxic-puddle 1",
+   "frame": {
+    "x": 106,
+    "y": 0,
+    "w": 106,
+    "h": 60
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 106,
+    "h": 60
+   },
+   "sourceSize": {
+    "w": 106,
+    "h": 60
+   },
+   "duration": 33
+  },
+  {
+   "filename": "toxic-puddle 2",
+   "frame": {
+    "x": 212,
+    "y": 0,
+    "w": 106,
+    "h": 60
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 106,
+    "h": 60
+   },
+   "sourceSize": {
+    "w": 106,
+    "h": 60
+   },
+   "duration": 33
+  },
+  {
+   "filename": "toxic-puddle 3",
+   "frame": {
+    "x": 0,
+    "y": 60,
+    "w": 106,
+    "h": 60
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 106,
+    "h": 60
+   },
+   "sourceSize": {
+    "w": 106,
+    "h": 60
+   },
+   "duration": 33
+  },
+  {
+   "filename": "toxic-puddle 4",
+   "frame": {
+    "x": 106,
+    "y": 60,
+    "w": 106,
+    "h": 60
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 106,
+    "h": 60
+   },
+   "sourceSize": {
+    "w": 106,
+    "h": 60
+   },
+   "duration": 33
+  },
+  {
+   "filename": "toxic-puddle 5",
+   "frame": {
+    "x": 212,
+    "y": 60,
+    "w": 106,
+    "h": 60
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 106,
+    "h": 60
+   },
+   "sourceSize": {
+    "w": 106,
+    "h": 60
+   },
+   "duration": 33
+  },
+  {
+   "filename": "toxic-puddle 6",
+   "frame": {
+    "x": 0,
+    "y": 120,
+    "w": 106,
+    "h": 60
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 106,
+    "h": 60
+   },
+   "sourceSize": {
+    "w": 106,
+    "h": 60
+   },
+   "duration": 33
+  },
+  {
+   "filename": "toxic-puddle 7",
+   "frame": {
+    "x": 106,
+    "y": 120,
+    "w": 106,
+    "h": 60
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 106,
+    "h": 60
+   },
+   "sourceSize": {
+    "w": 106,
+    "h": 60
+   },
+   "duration": 33
+  },
+  {
+   "filename": "toxic-puddle 8",
+   "frame": {
+    "x": 212,
+    "y": 120,
+    "w": 106,
+    "h": 60
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 106,
+    "h": 60
+   },
+   "sourceSize": {
+    "w": 106,
+    "h": 60
+   },
+   "duration": 33
+  },
+  {
+   "filename": "toxic-puddle 9",
+   "frame": {
+    "x": 0,
+    "y": 180,
+    "w": 106,
+    "h": 60
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 106,
+    "h": 60
+   },
+   "sourceSize": {
+    "w": 106,
+    "h": 60
+   },
+   "duration": 33
+  },
+  {
+   "filename": "toxic-puddle 10",
+   "frame": {
+    "x": 106,
+    "y": 180,
+    "w": 106,
+    "h": 60
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 106,
+    "h": 60
+   },
+   "sourceSize": {
+    "w": 106,
+    "h": 60
+   },
+   "duration": 33
+  },
+  {
+   "filename": "toxic-puddle 11",
+   "frame": {
+    "x": 212,
+    "y": 180,
+    "w": 106,
+    "h": 60
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 106,
+    "h": 60
+   },
+   "sourceSize": {
+    "w": 106,
+    "h": 60
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "https://github.com/patch-gg/pixelfx",
+  "version": "1",
+  "image": "toxic-puddle.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 318,
+   "h": 240
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "toxic-puddle",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "nature/toxic-puddle",
+   "name": "Toxic puddle",
+   "fps": 30,
+   "loop": true,
+   "frames": 12,
+   "frameSize": [
+    106,
+    60
+   ],
+   "pivot": [
+    88,
+    86
+   ],
+   "columns": 3
+  },
+  "snapmon": {
+   "visibleCenter": [
+    0.505,
+    0.583
+   ],
+   "sourceFrames": 120,
+   "sourceFrameSize": [
+    176,
+    100
+   ]
+  }
+ }
+}
