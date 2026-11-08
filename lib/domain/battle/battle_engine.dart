@@ -232,7 +232,8 @@ double? moveTypeMultiplierAgainst({
   required Move move,
   required BattleMonster defender,
   required MasterData master,
-}) => move.category == MoveCategory.support ||
+}) =>
+    move.category == MoveCategory.support ||
         (move.specialEffect?.isOneHitKnockout ?? false)
     ? null
     : totalTypeMultiplier(
