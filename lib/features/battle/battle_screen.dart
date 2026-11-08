@@ -477,9 +477,10 @@ class _BattleScreenState extends State<BattleScreen>
             if (event.isOneHitKnockout) l10n.battleLogOneHitKnockout,
             // 効果が働かなかった (倍率 100%) 時は、起きていないことを出さない。
             // 説明文は技の名前と同じく master の定義の文言のため、ARB には移さない
-            if (event.specialEffect
-                case (:final powerPercent, :final description)
-                when powerPercent > 100)
+            if (event.specialEffect case (
+              :final powerPercent,
+              :final description,
+            ) when powerPercent > 100)
               description,
             if (move?.category != MoveCategory.support &&
                 !event.isOneHitKnockout &&
