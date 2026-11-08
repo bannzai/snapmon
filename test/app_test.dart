@@ -2,8 +2,10 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -51,6 +53,9 @@ void main() {
   /// 画面が流した BGM・鳴らした効果音。[pumpApp]・[pumpHome] で作り直す。
   late RecordedAudioCalls audioCalls;
 
+  /// [pumpApp] の BGM が Web のように最初の操作を待つか。既定は待たない (iOS・Android)。待つテストは [pumpApp] の前に変える。
+  var audioWaitsForUserInteraction = false;
+
   /// タイトル画面が Analytics に送ったイベント (呼ばれた順)。
   late List<({AnalyticsEvent event, Map<String, Object>? parameters})>
   titleEvents;
@@ -91,6 +96,7 @@ void main() {
 
   setUp(() {
     albumPhoto = testPhotoBytes;
+    audioWaitsForUserInteraction = false;
     startSessionGate = null;
     generationGate = null;
     startBattleRecord = () async => null;
@@ -231,6 +237,8 @@ void main() {
           calls: audioCalls,
           isBackgroundMusicEnabled: true,
           isSoundEffectsEnabled: true,
+          waitsForUserInteractionBeforeBackgroundMusic:
+              audioWaitsForUserInteraction,
         ),
         openUrl: ({required uri}) async {
           openedUris.add(uri);
@@ -280,6 +288,7 @@ void main() {
             calls: audioCalls,
             isBackgroundMusicEnabled: true,
             isSoundEffectsEnabled: true,
+            waitsForUserInteractionBeforeBackgroundMusic: false,
           ),
           child: MaterialApp(
             theme: snapmonThemeData(),
@@ -364,6 +373,99 @@ void main() {
         AnalyticsEvent.titleShown,
       ]);
     });
+
+    testWidgets('Web のように最初の操作を待つ時、タイトルでは BGM を流さず、画面のどこかを押した時に流す', (
+      tester,
+    ) async {
+      audioWaitsForUserInteraction = true;
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: false,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      expect(audioCalls.playedBackgroundMusicAssetPaths, isEmpty);
+      // タッチは指を置いただけではブラウザが操作に数えないため、離すまで流さない
+      final gesture = await tester.startGesture(
+        tester.getCenter(find.text('snapmon')),
+        kind: PointerDeviceKind.touch,
+      );
+      await tester.pump();
+      expect(audioCalls.playedBackgroundMusicAssetPaths, isEmpty);
+      // ボタンではない場所 (見出し) から指を離しても、最初の操作として BGM が始まる
+      await gesture.up();
+      await tester.pumpAndSettle();
+      expect(audioCalls.playedBackgroundMusicAssetPaths, [
+        BackgroundMusic.home.assetPath,
+      ]);
+    });
+
+    testWidgets('Web のように最初の操作を待つ時、マウスは押した時点で BGM が始まる', (tester) async {
+      audioWaitsForUserInteraction = true;
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: false,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      final gesture = await tester.startGesture(
+        tester.getCenter(find.text('snapmon')),
+        kind: PointerDeviceKind.mouse,
+      );
+      await tester.pumpAndSettle();
+      expect(audioCalls.playedBackgroundMusicAssetPaths, [
+        BackgroundMusic.home.assetPath,
+      ]);
+      await gesture.up();
+      await tester.pumpAndSettle();
+      expect(audioCalls.playedBackgroundMusicAssetPaths, [
+        BackgroundMusic.home.assetPath,
+      ]);
+    });
+
+    testWidgets(
+      'Web のように最初の操作を待つ時、キーボードのキーを押しただけでも BGM が始まる。Esc と修飾キーだけの押下は操作に数えない',
+      (tester) async {
+        audioWaitsForUserInteraction = true;
+        await pumpApp(
+          tester: tester,
+          hasStartedSession: false,
+          startSessionFailureCount: 0,
+          isDeveloperMenuEnabled: false,
+        );
+        expect(audioCalls.playedBackgroundMusicAssetPaths, isEmpty);
+        // 数えないキーは 1 つずつ全部送り、どれでも流れないことを確かめる。
+        // tester.sendKeyEvent は flutter test の既定の platform (android) のキー表に無いキー (AltGraph 等) で
+        // assert に当たるため、HardwareKeyboard に押下・解放のイベントを直接入れる (物理キーは何でもよい)
+        for (final key in keysNotCountedAsUserInteraction) {
+          HardwareKeyboard.instance.handleKeyEvent(
+            KeyDownEvent(
+              physicalKey: PhysicalKeyboardKey.keyA,
+              logicalKey: key,
+              timeStamp: Duration.zero,
+            ),
+          );
+          HardwareKeyboard.instance.handleKeyEvent(
+            KeyUpEvent(
+              physicalKey: PhysicalKeyboardKey.keyA,
+              logicalKey: key,
+              timeStamp: Duration.zero,
+            ),
+          );
+          await tester.pumpAndSettle();
+          expect(
+            audioCalls.playedBackgroundMusicAssetPaths,
+            isEmpty,
+            reason: '${key.debugName} で BGM が始まった',
+          );
+        }
+        await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+        await tester.pumpAndSettle();
+        expect(audioCalls.playedBackgroundMusicAssetPaths, [
+          BackgroundMusic.home.assetPath,
+        ]);
+      },
+    );
 
     testWidgets('図鑑が空なら「つづきから」が無く、図鑑に 1 体入ると「つづきから (図鑑 1)」が出る', (tester) async {
       await pumpApp(
@@ -1728,6 +1830,7 @@ void main() {
           calls: RecordedAudioCalls(),
           isBackgroundMusicEnabled: true,
           isSoundEffectsEnabled: true,
+          waitsForUserInteractionBeforeBackgroundMusic: false,
         ),
         child: MaterialApp(
           theme: snapmonThemeData(),
@@ -1812,6 +1915,7 @@ void main() {
               calls: RecordedAudioCalls(),
               isBackgroundMusicEnabled: true,
               isSoundEffectsEnabled: true,
+              waitsForUserInteractionBeforeBackgroundMusic: false,
             ),
             child: MaterialApp(
               key: UniqueKey(),
