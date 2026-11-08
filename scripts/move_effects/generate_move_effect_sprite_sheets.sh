@@ -6,7 +6,13 @@ set -euo pipefail
 
 PIXELFX_REPOSITORY_URL="https://github.com/patch-gg/pixelfx.git"
 PIXELFX_COMMIT="a84159688af3ca37a4be05a0d422b94451b2e24e"
-RENDER_TARGETS=("impacts/hit-spark" "melee/sword-slash" "lightning/zap-hit" "water/splash" "water/wave-crash" "nature/vine-whip" "nature/spore-burst" "nature/boulder" "nature/earth-spike" "nature/thorns" "nature/quake" "holy/smite" "holy/holy-pillar" "shadow/grasping-hands" "shadow/dark-explosion" "nature/acid-splash" "nature/toxic-puddle" "explosions/cartoon-pow" "impacts/crit-hit" "melee/claw-swipe" "impacts/blunt-hit" "melee/dagger-flurry" "holy/feather-burst" "critters/bird" "critters/fish-school" "ice/ice-shatter" "ice/snowflake-burst" "nature/tornado" "melee/spear-sweep" "nature/healing-bloom" "pickups/collect-burst" "scifi/emp-blast" "explosions/plasma-explosion" "explosions/firework-burst" "critters/ghost" "shadow/shadow-tendrils" "fire/fire-breath" "melee/whip-crack" "ui/confetti" "melee/double-slash")
+RENDER_TARGETS=(
+  "impacts/hit-spark" "melee/sword-slash" "lightning/zap-hit"
+  "water/splash" "nature/vine-whip" "nature/earth-spike" "nature/thorns" "holy/smite" "shadow/shadow-tendrils" "nature/acid-splash"
+  "explosions/cartoon-pow" "melee/claw-swipe" "critters/butterfly" "holy/feather-burst" "critters/fish-school" "ice/snowflake-burst"
+  "nature/tornado" "nature/healing-bloom" "scifi/emp-blast" "explosions/firework-burst" "critters/ghost" "fire/fire-breath"
+  "melee/whip-crack" "ui/confetti"
+)
 
 repository_root="$(git rev-parse --show-toplevel)"
 source_directory="${repository_root}/tmp/pixelfx-source"
