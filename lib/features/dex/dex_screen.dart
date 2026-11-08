@@ -16,6 +16,7 @@ import 'owned_monster.dart';
 
 /// 図鑑の画面 (モックの Dex.dc.html)。上に手持ち、下に図鑑のすべてのモンスターを 3 列で並べる。
 /// 見出しと手持ちの間に、属性の相性表と技の一覧の画面 ([ReferenceScreen]) を開く入口を置く (モックに無い入口で、置き場所は agent が決めた)。
+/// 撮る画面を開くボタンは見出しの右ではなく、画面の下に横長の「追加する」として置く (#246)。
 class DexScreen extends StatelessWidget {
   /// 図鑑の画面を作る。
   const DexScreen({
@@ -52,8 +53,52 @@ class DexScreen extends StatelessWidget {
     ),
   );
 
+  /// 手持ちに入っていない図鑑のモンスターから 1 体を選んでもらい、手持ちに入れる。保存に失敗したらエラーをそのまま出す。
+  Future<void> _addToParty({required BuildContext context}) async {
+    final candidates = [
+      for (final monster in dexStore.monsters)
+        if (!dexStore.isInParty(monsterId: monster.definition.id)) monster,
+    ];
+    final incomingMonster = await showDialog<OwnedMonster>(
+      context: context,
+      builder: (context) => SimpleDialog(
+        title: Text(context.l10n.dexAddToPartyTitle),
+        children: [
+          if (candidates.isEmpty)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+              child: Text(
+                context.l10n.dexNoPartyCandidates,
+                style: SnapmonTextStyles.body,
+              ),
+            ),
+          for (final candidate in candidates)
+            SimpleDialogOption(
+              key: Key('dex-add-to-party-${candidate.definition.id}'),
+              onPressed: () => Navigator.of(context).pop(candidate),
+              child: Text(
+                '${candidate.definition.name}  ${context.l10n.commonLevel(candidate.level)}',
+              ),
+            ),
+        ],
+      ),
+    );
+    if (incomingMonster == null || !context.mounted) {
+      return;
+    }
+    final messenger = ScaffoldMessenger.of(context);
+    try {
+      await dexStore.addToParty(monsterId: incomingMonster.definition.id);
+    } catch (error) {
+      messenger
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(content: Text(error.toString())));
+    }
+  }
+
   @override
-  Widget build(BuildContext context) => ListenableBuilder(
+  Widget build(BuildContext context) => Scaffold(
+    body: ListenableBuilder(
     listenable: dexStore,
     builder: (context, _) {
       final party = dexStore.party;
@@ -100,19 +145,6 @@ class DexScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  FilledButton.icon(
-                    style: FilledButton.styleFrom(
-                      minimumSize: const Size(0, 44),
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: SnapmonRadii.button,
-                      ),
-                      textStyle: SnapmonTextStyles.label,
-                    ),
-                    onPressed: () => onSelectTab(tab: HomeTab.capture),
-                    icon: const Icon(Icons.photo_camera_outlined, size: 18),
-                    label: Text(context.l10n.tabCapture),
-                  ),
-                  const SizedBox(width: 8),
                   SquareIconButton(
                     icon: Icons.settings_outlined,
                     tooltip: context.l10n.settingsTitle,
@@ -201,7 +233,14 @@ class DexScreen extends StatelessWidget {
                                       monster: party[index],
                                     ),
                                   )
-                                : const _EmptyPartySlot(),
+                                : _EmptyPartySlot(
+                                    // 手持ちの ID が図鑑より先に届いた間は、枠が空いて見えても手持ちに空きが無い
+                                    onTap:
+                                        dexStore.isSavingParty ||
+                                            !dexStore.hasPartyVacancy
+                                        ? null
+                                        : () => _addToParty(context: context),
+                                  ),
                           ),
                         ),
                       ],
@@ -250,16 +289,41 @@ class DexScreen extends StatelessWidget {
                 ],
               ),
             ),
+          // 最後の行が下の「追加する」ボタン (高さ 52 + 下の余白 16) に隠れないよう、その分だけ下に余白を足す
+          const SliverPadding(padding: EdgeInsets.only(bottom: 72)),
         ],
       );
     },
+    ),
+    floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    floatingActionButton: Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: SizedBox(
+        width: double.infinity,
+        height: 52,
+        child: FloatingActionButton.extended(
+          key: const Key('dex-add-monster'),
+          backgroundColor: SnapmonColors.accent,
+          foregroundColor: SnapmonColors.textOnCard,
+          shape: const RoundedRectangleBorder(
+            borderRadius: SnapmonRadii.button,
+          ),
+          onPressed: () => onSelectTab(tab: HomeTab.capture),
+          icon: const Icon(Icons.photo_camera_outlined),
+          label: Text(
+            context.l10n.dexAddMonster,
+            style: SnapmonTextStyles.label,
+          ),
+        ),
+      ),
+    ),
   );
 }
 
 /// 図鑑のカードと手持ちの枠の幅 / 高さ。モック (Dex.dc.html) の 3 列のカードの比率から取った。
 const double _monsterTileAspectRatio = 0.72;
 
-/// 図鑑の 1 体のカード。手持ちは生成りのカードに黄緑の縁、それ以外は地の色のカードで描く。
+/// 図鑑の 1 体のカード。手持ちと「すべて」は同じ地の色のカードで描き、手持ちにだけ黄緑の縁を付ける (#246)。
 /// 高さは呼び出し元の比率で決まり、絵は文字の残りの高さに収める (端末の文字を大きくしてもはみ出さないため)。
 class _MonsterTile extends StatelessWidget {
   const _MonsterTile({
@@ -273,12 +337,8 @@ class _MonsterTile extends StatelessWidget {
   final VoidCallback onTap;
 
   @override
-  Widget build(BuildContext context) {
-    final textColor = isInParty
-        ? SnapmonColors.textOnCard
-        : SnapmonColors.textOnBackground;
-    return Material(
-      color: isInParty ? SnapmonColors.card : SnapmonColors.surface,
+  Widget build(BuildContext context) => Material(
+      color: SnapmonColors.surface,
       shape: RoundedRectangleBorder(
         borderRadius: SnapmonRadii.card,
         side: isInParty
@@ -299,9 +359,7 @@ class _MonsterTile extends StatelessWidget {
                     aspectRatio: 1,
                     child: MonsterArt(
                       monster: monster,
-                      backgroundColor: isInParty
-                          ? SnapmonColors.cardSubtle
-                          : SnapmonColors.artBackground,
+                      backgroundColor: SnapmonColors.artBackground,
                     ),
                   ),
                 ),
@@ -311,14 +369,14 @@ class _MonsterTile extends StatelessWidget {
                 monster.definition.name,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: SnapmonTextStyles.caption.copyWith(color: textColor),
+                style: SnapmonTextStyles.caption.copyWith(
+                  color: SnapmonColors.textOnBackground,
+                ),
               ),
               Text(
                 context.l10n.commonLevel(monster.level),
                 style: SnapmonTextStyles.small.copyWith(
-                  color: isInParty
-                      ? SnapmonColors.textOnCardMuted
-                      : SnapmonColors.textMuted,
+                  color: SnapmonColors.textMuted,
                 ),
               ),
             ],
@@ -326,21 +384,35 @@ class _MonsterTile extends StatelessWidget {
         ),
       ),
     );
-  }
 }
 
-/// 手持ちの空いた枠。
+/// 手持ちの空いた枠。+ を出し、タップで手持ちに入れるモンスターを選ぶ。[onTap] が null の間 (手持ちの保存中・手持ちに空きが無い間) はタップを受け付けない。
 class _EmptyPartySlot extends StatelessWidget {
-  const _EmptyPartySlot();
+  const _EmptyPartySlot({required this.onTap});
+
+  final VoidCallback? onTap;
 
   @override
-  Widget build(BuildContext context) => DecoratedBox(
-    decoration: BoxDecoration(
+  Widget build(BuildContext context) => Material(
+    color: Colors.transparent,
+    shape: const RoundedRectangleBorder(
       borderRadius: SnapmonRadii.card,
-      border: Border.all(color: SnapmonColors.surface, width: 2),
+      side: BorderSide(color: SnapmonColors.surface, width: 2),
     ),
-    child: Center(
-      child: Text(context.l10n.dexEmptySlot, style: SnapmonTextStyles.small),
+    child: InkWell(
+      key: const Key('dex-empty-party-slot'),
+      borderRadius: SnapmonRadii.card,
+      onTap: onTap,
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.add, color: SnapmonColors.accent, size: 28),
+            const SizedBox(height: 4),
+            Text(context.l10n.dexEmptySlot, style: SnapmonTextStyles.small),
+          ],
+        ),
+      ),
     ),
   );
 }
