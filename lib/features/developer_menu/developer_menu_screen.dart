@@ -68,11 +68,11 @@ class DeveloperMenuScreen extends StatelessWidget {
         ..hideCurrentSnackBar()
         ..showSnackBar(SnackBar(content: Text(message)));
 
-  /// [assetPath] の見本の写真から生成する。[cropsWhenSubjectNotFound] は [GenerationScreen.cropsWhenSubjectNotFound] に渡す。
+  /// [assetPath] の見本の写真から生成する。[letsUserChooseSubjectRange] は [GenerationScreen.letsUserChooseSubjectRange] に渡す。
   Future<void> _generateFromSamplePhoto({
     required BuildContext context,
     required String assetPath,
-    required bool cropsWhenSubjectNotFound,
+    required bool letsUserChooseSubjectRange,
   }) async {
     final sourcePhoto = (await rootBundle.load(assetPath)).buffer.asUint8List();
     if (!context.mounted) {
@@ -83,7 +83,7 @@ class DeveloperMenuScreen extends StatelessWidget {
         builder: (context) => GenerationScreen(
           sourcePhoto: sourcePhoto,
           photoSource: GenerationPhotoSource.sample,
-          cropsWhenSubjectNotFound: cropsWhenSubjectNotFound,
+          letsUserChooseSubjectRange: letsUserChooseSubjectRange,
           monsterGenerator: monsterGenerator,
           dexStore: dexStore,
           cardSharer: cardSharer,
@@ -124,12 +124,12 @@ class DeveloperMenuScreen extends StatelessWidget {
               leading: const Icon(Icons.auto_awesome_outlined),
               title: Text('見本の写真から生成: $samplePhotoName'),
               subtitle: const Text(
-                '同梱した写真を生成に送る (カメラの無い Simulator 向け)\n自動の切り出しが使えない時は写真全体で送る',
+                '同梱した写真を生成に送る (カメラの無い Simulator 向け)\n自動の切り出しで被写体が見つかれば選ばずに切り抜き 使えない時は写真全体で送る',
               ),
               onTap: () => _generateFromSamplePhoto(
                 context: context,
                 assetPath: assetPath,
-                cropsWhenSubjectNotFound: false,
+                letsUserChooseSubjectRange: false,
               ),
             ),
           // ストアに商品が無い間と Simulator で、購入画面の見た目と流れを確かめるため。見本の package と見本の購入を使い、ストアも RevenueCat も呼ばない
@@ -170,17 +170,19 @@ class DeveloperMenuScreen extends StatelessWidget {
               ).whenComplete(sampleGenerationTickets.close);
             },
           ),
-          // アルバムのファイル選択を自動の操作で通しにくい Web (webtunnel) で、範囲を決める画面を確かめるため
+          // アルバムのファイル選択を自動の操作で通しにくい Web (webtunnel) と Simulator で、切り抜くかを選ぶ画面と範囲を決める画面を確かめるため
           ListTile(
             leading: const Icon(Icons.crop_outlined),
             title: Text(
               '見本の写真から範囲を決めて生成: ${_samplePhotoAssetPaths.keys.first}',
             ),
-            subtitle: const Text('自動の切り出しが使えない時は アルバムから選んだ時と同じく範囲を決める画面を出す'),
+            subtitle: const Text(
+              'アルバムから選んだ時と同じく 自動の切り出しで被写体が見つかれば切り抜くかを選ぶ画面を\n見つからない・使えない時は範囲を決める画面を出す',
+            ),
             onTap: () => _generateFromSamplePhoto(
               context: context,
               assetPath: _samplePhotoAssetPaths.values.first,
-              cropsWhenSubjectNotFound: true,
+              letsUserChooseSubjectRange: true,
             ),
           ),
           // 全属性の技を当てるにはバトルを何度も重ねる必要があるため、エフェクトだけを見本のモンスターに当てて確かめる
