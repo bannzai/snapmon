@@ -85,6 +85,32 @@ List<String> selectElementTypeIds({
   ];
 }
 
+/// [statKind] の種族値 [baseStats] と個体値 [individualValues] が、取り得る最大 (master [master] の段階のうち
+/// 最大の種族値と個体値の上限) に対してどれだけかを 0 以上 1 以下で返す。
+/// カードのステータスの目盛りに使う。レベルの項を含めないのは、レベル 1 では実際の値が 11〜13・5〜7 に
+/// 潰れて段階の差が見えないため (documents/game-rules.md「ステータスの計算式」)。
+/// [master] に段階が無い時は [StateError] を投げる。
+double statStrengthRatio({
+  required StatKind statKind,
+  required MonsterStats baseStats,
+  required MonsterStats individualValues,
+  required MasterData master,
+}) {
+  if (master.statGrades.isEmpty) {
+    throw StateError('master にステータスの段階が無い');
+  }
+  return ((2 * baseStats.valueOf(statKind: statKind) +
+              individualValues.valueOf(statKind: statKind)) /
+          (2 *
+                  master.statGrades
+                      .map((statGrade) => statGrade.baseStat)
+                      .reduce((left, right) => left > right ? left : right) +
+              individualValueMaximum))
+      // 上限・下限を double で渡す。int の 0・1 だと、はみ出た時に clamp がその int を返し、native では
+      // double の戻り値に合わず実行時に TypeError になる (dart-lang/sdk#39652)
+      .clamp(0.0, 1.0);
+}
+
 /// 種族値・個体値・レベルから実際のステータスを返す。
 /// [statCalculationVersion] はモンスターに保存した計算手順の版で、知らない版なら [ArgumentError] を投げる。
 /// 式は documents/game-rules.md「ステータスの計算式」。

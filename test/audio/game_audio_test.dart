@@ -21,6 +21,8 @@ void main() {
       BackgroundMusic.home.assetPath,
       BackgroundMusic.battle.assetPath,
     ]);
+    // BGM は効果音 (1.0) より薄く流す (値の根拠は backgroundMusicVolume のコメント)
+    expect(calls.playedBackgroundMusicVolumes, [0.2, 0.2]);
   });
 
   test('BGM を止めた後に同じ曲を求めると流し直す', () async {
@@ -61,6 +63,8 @@ void main() {
     expect(calls.playedBackgroundMusicAssetPaths, [
       BackgroundMusic.battle.assetPath,
     ]);
+    // オンに戻した時の再生も、通常の再生と同じ音量で流す
+    expect(calls.playedBackgroundMusicVolumes, [0.2]);
     expect(calls.savedSettings, [
       (key: AudioSettingKey.backgroundMusic, value: true),
     ]);
