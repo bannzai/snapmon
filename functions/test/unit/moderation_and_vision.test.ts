@@ -120,4 +120,12 @@ describe("proposalRangeViolation", () => {
     expect(proposalRangeViolation({ ...proposal, moves: [proposal.moves[0], { ...proposal.moves[1], specialEffect }, proposal.moves[2]] })).toContain("2 つ目の技に特殊効果");
     expect(proposalRangeViolation({ ...proposal, moves: [{ ...proposal.moves[0], specialEffect: { ...specialEffect, power: "if(fast, 130, 100)" } }, proposal.moves[1], proposal.moves[2]] })).toContain("fast");
   });
+
+  it("master から外した布の属性に当たる提案は名前か説明で止め、布の物に近いが布地でまとめない属性は通す", () => {
+    expect(proposalRangeViolation({ ...proposal, element: { ...proposal.element, displayName: "布", description: "布でできた物" } })).toContain("布の属性");
+    expect(proposalRangeViolation({ ...proposal, element: { ...proposal.element, displayName: "ヌノ", description: "やわらかい物" } })).toContain("布の属性");
+    expect(proposalRangeViolation({ ...proposal, element: { ...proposal.element, displayName: "ソフト", description: "織物や繊維が主な素材の物" } })).toContain("布の属性");
+    expect(proposalRangeViolation({ ...proposal, element: { ...proposal.element, displayName: "ファブリック", description: "やわらかい物" } })).toContain("布の属性");
+    expect(proposalRangeViolation({ ...proposal, element: { ...proposal.element, displayName: "履物", description: "足にはいて歩く物 (くつ・くつした・スリッパ)" } })).toBeUndefined();
+  });
 });
