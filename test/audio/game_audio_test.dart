@@ -12,6 +12,7 @@ void main() {
       calls: calls,
       isBackgroundMusicEnabled: true,
       isSoundEffectsEnabled: true,
+      waitsForUserInteractionBeforeBackgroundMusic: false,
     );
     await gameAudio.playBackgroundMusic(music: BackgroundMusic.home);
     await gameAudio.playBackgroundMusic(music: BackgroundMusic.home);
@@ -28,6 +29,7 @@ void main() {
       calls: calls,
       isBackgroundMusicEnabled: true,
       isSoundEffectsEnabled: true,
+      waitsForUserInteractionBeforeBackgroundMusic: false,
     );
     await gameAudio.playBackgroundMusic(music: BackgroundMusic.battle);
     await gameAudio.stopBackgroundMusic();
@@ -45,6 +47,7 @@ void main() {
       calls: calls,
       isBackgroundMusicEnabled: false,
       isSoundEffectsEnabled: true,
+      waitsForUserInteractionBeforeBackgroundMusic: false,
     );
     await gameAudio.playBackgroundMusic(music: BackgroundMusic.home);
     await gameAudio.playBackgroundMusic(music: BackgroundMusic.battle);
@@ -69,6 +72,7 @@ void main() {
       calls: calls,
       isBackgroundMusicEnabled: true,
       isSoundEffectsEnabled: true,
+      waitsForUserInteractionBeforeBackgroundMusic: false,
     );
     await gameAudio.playBackgroundMusic(music: BackgroundMusic.home);
     await gameAudio.setBackgroundMusicEnabled(enabled: false);
@@ -88,6 +92,7 @@ void main() {
       calls: calls,
       isBackgroundMusicEnabled: true,
       isSoundEffectsEnabled: true,
+      waitsForUserInteractionBeforeBackgroundMusic: false,
     );
     await gameAudio.playSoundEffect(effect: SoundEffect.hit);
     await gameAudio.setSoundEffectsEnabled(enabled: false);
@@ -199,6 +204,7 @@ void main() {
       calls: calls,
       isBackgroundMusicEnabled: true,
       isSoundEffectsEnabled: true,
+      waitsForUserInteractionBeforeBackgroundMusic: false,
     );
     await gameAudio.playBackgroundMusic(music: BackgroundMusic.home);
     expect(calls.playedBackgroundMusicAssetPaths, [

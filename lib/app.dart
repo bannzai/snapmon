@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'analytics/analytics_events.dart';
 import 'audio/game_audio.dart';
@@ -94,12 +95,24 @@ class _SnapmonAppState extends State<SnapmonApp> {
   void initState() {
     super.initState();
     widget.sessionStore.addListener(_onSessionChanged);
+    HardwareKeyboard.instance.addHandler(_onHardwareKeyEvent);
   }
 
   @override
   void dispose() {
+    HardwareKeyboard.instance.removeHandler(_onHardwareKeyEvent);
     widget.sessionStore.removeListener(_onSessionChanged);
     super.dispose();
+  }
+
+  /// キーボードだけで操作する時 (Web を Tab・Enter・Space で操作する時) も、最初のキーを BGM に伝える。
+  /// ブラウザはキーの押下もページの操作に数える。フォーカスに依らず全てのキーを受けるため、Focus ではなくこちらで受ける。
+  /// キーは消費しない (false) ので、画面の操作はそのまま届く。
+  bool _onHardwareKeyEvent(KeyEvent event) {
+    if (event is KeyDownEvent) {
+      unawaited(widget.gameAudio.notifyUserInteraction());
+    }
+    return false;
   }
 
   /// ログインを終えたら、次にログインした時に下タブへ飛ばずタイトルから始めるようにする。
@@ -118,7 +131,7 @@ class _SnapmonAppState extends State<SnapmonApp> {
     // Navigator より外に置き、push したバトル画面・設定画面からも引けるようにする
     builder: (context, child) => GameAudioScope(
       gameAudio: widget.gameAudio,
-      // Web はユーザーが一度ページを操作するまで音を出せないため、最初のタップ・クリックを BGM に伝える
+      // Web はユーザーが一度ページを操作するまで音を出せないため、最初のタップ・クリックを BGM に伝える (キーは _onHardwareKeyEvent)
       child: Listener(
         onPointerDown: (_) =>
             unawaited(widget.gameAudio.notifyUserInteraction()),

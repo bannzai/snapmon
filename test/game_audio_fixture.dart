@@ -17,10 +17,12 @@ class RecordedAudioCalls {
 
 /// 音声のプラグインと端末の設定を呼ばずに [calls] へ呼び出しを残す [GameAudio] を返す。
 /// [isBackgroundMusicEnabled]・[isSoundEffectsEnabled] は起動時に端末から読んだ設定の代わり。
+/// [waitsForUserInteractionBeforeBackgroundMusic] は Web の最初の操作を待つ振る舞い (main.dart の `kIsWeb`) の代わり。
 GameAudio fakeGameAudio({
   required RecordedAudioCalls calls,
   required bool isBackgroundMusicEnabled,
   required bool isSoundEffectsEnabled,
+  required bool waitsForUserInteractionBeforeBackgroundMusic,
 }) => GameAudio(
   playBackgroundMusicAsset: ({required assetPath, required volume}) async {
     calls.playedBackgroundMusicAssetPaths.add(assetPath);
@@ -36,6 +38,6 @@ GameAudio fakeGameAudio({
   },
   isBackgroundMusicEnabled: isBackgroundMusicEnabled,
   isSoundEffectsEnabled: isSoundEffectsEnabled,
-  // Web の最初の操作を待つ振る舞いは test/audio/game_audio_test.dart が GameAudio を直接作って確かめる
-  waitsForUserInteractionBeforeBackgroundMusic: false,
+  waitsForUserInteractionBeforeBackgroundMusic:
+      waitsForUserInteractionBeforeBackgroundMusic,
 );

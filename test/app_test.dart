@@ -4,6 +4,7 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -51,6 +52,9 @@ void main() {
   /// 画面が流した BGM・鳴らした効果音。[pumpApp]・[pumpHome] で作り直す。
   late RecordedAudioCalls audioCalls;
 
+  /// [pumpApp] の BGM が Web のように最初の操作を待つか。既定は待たない (iOS・Android)。待つテストは [pumpApp] の前に変える。
+  var audioWaitsForUserInteraction = false;
+
   /// タイトル画面が Analytics に送ったイベント (呼ばれた順)。
   late List<({AnalyticsEvent event, Map<String, Object>? parameters})>
   titleEvents;
@@ -91,6 +95,7 @@ void main() {
 
   setUp(() {
     albumPhoto = testPhotoBytes;
+    audioWaitsForUserInteraction = false;
     startSessionGate = null;
     generationGate = null;
     startBattleRecord = () async => null;
@@ -231,6 +236,8 @@ void main() {
           calls: audioCalls,
           isBackgroundMusicEnabled: true,
           isSoundEffectsEnabled: true,
+          waitsForUserInteractionBeforeBackgroundMusic:
+              audioWaitsForUserInteraction,
         ),
         openUrl: ({required uri}) async {
           openedUris.add(uri);
@@ -280,6 +287,7 @@ void main() {
             calls: audioCalls,
             isBackgroundMusicEnabled: true,
             isSoundEffectsEnabled: true,
+            waitsForUserInteractionBeforeBackgroundMusic: false,
           ),
           child: MaterialApp(
             theme: snapmonThemeData(),
@@ -362,6 +370,41 @@ void main() {
       expect(sessionStore.uid, 'uid-1');
       expect(titleEvents.map((logged) => logged.event), [
         AnalyticsEvent.titleShown,
+      ]);
+    });
+
+    testWidgets('Web のように最初の操作を待つ時、タイトルでは BGM を流さず、画面のどこかを押した時に流す', (
+      tester,
+    ) async {
+      audioWaitsForUserInteraction = true;
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: false,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      expect(audioCalls.playedBackgroundMusicAssetPaths, isEmpty);
+      // ボタンではない場所 (見出し) を押しても、最初の操作として BGM が始まる
+      await tester.tap(find.text('snapmon'));
+      await tester.pumpAndSettle();
+      expect(audioCalls.playedBackgroundMusicAssetPaths, [
+        BackgroundMusic.home.assetPath,
+      ]);
+    });
+
+    testWidgets('Web のように最初の操作を待つ時、キーボードのキーを押しただけでも BGM が始まる', (tester) async {
+      audioWaitsForUserInteraction = true;
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: false,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      expect(audioCalls.playedBackgroundMusicAssetPaths, isEmpty);
+      await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+      await tester.pumpAndSettle();
+      expect(audioCalls.playedBackgroundMusicAssetPaths, [
+        BackgroundMusic.home.assetPath,
       ]);
     });
 
@@ -1728,6 +1771,7 @@ void main() {
           calls: RecordedAudioCalls(),
           isBackgroundMusicEnabled: true,
           isSoundEffectsEnabled: true,
+          waitsForUserInteractionBeforeBackgroundMusic: false,
         ),
         child: MaterialApp(
           theme: snapmonThemeData(),
@@ -1812,6 +1856,7 @@ void main() {
               calls: RecordedAudioCalls(),
               isBackgroundMusicEnabled: true,
               isSoundEffectsEnabled: true,
+              waitsForUserInteractionBeforeBackgroundMusic: false,
             ),
             child: MaterialApp(
               key: UniqueKey(),

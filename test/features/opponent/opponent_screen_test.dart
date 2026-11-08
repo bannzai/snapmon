@@ -87,6 +87,7 @@ void main() {
           calls: RecordedAudioCalls(),
           isBackgroundMusicEnabled: true,
           isSoundEffectsEnabled: true,
+          waitsForUserInteractionBeforeBackgroundMusic: false,
         ),
         child: MaterialApp(
           theme: snapmonThemeData(),
@@ -616,6 +617,7 @@ void main() {
           calls: RecordedAudioCalls(),
           isBackgroundMusicEnabled: true,
           isSoundEffectsEnabled: true,
+          waitsForUserInteractionBeforeBackgroundMusic: false,
         ),
         child: MaterialApp(
           theme: snapmonThemeData(),
