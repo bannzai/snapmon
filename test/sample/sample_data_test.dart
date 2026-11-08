@@ -38,6 +38,8 @@ void main() {
     }
     // 相性表が無いと倍率が常に 1 になり、バトルで属性の相性が効かないため、master と同じ表を持つ
     expect(sampleDefinitions['typeChart'], masterJson['typeChart']);
+    // ステータスの段階が無いとカードのステータスの目盛り (種族値の上限) を描けないため、master と同じ段階を持つ
+    expect(sampleDefinitions['statGrades'], masterJson['statGrades']);
   });
 
   test('見本のモンスターの属性・技はすべて見本の定義にある', () {
