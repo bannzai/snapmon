@@ -78,7 +78,8 @@ void main() {
                         builder: (context) => GenerationScreen(
                           sourcePhoto: sourcePhoto ?? testPhotoBytes,
                           photoSource: photoSource,
-                          letsUserChooseSubjectRange: letsUserChooseSubjectRange,
+                          letsUserChooseSubjectRange:
+                              letsUserChooseSubjectRange,
                           monsterGenerator: generator,
                           dexStore: dexStore,
                           cardSharer: fakeCardSharer(
@@ -351,7 +352,9 @@ void main() {
       expect(calls.requestedMaskSources, isEmpty);
     });
 
-    testWidgets('切り抜いた絵を選ぶと、OS の切り出しのマスクを置いて ios_subject で生成する', (tester) async {
+    testWidgets('切り抜いた絵を選ぶと、OS の切り出しのマスクを置いて ios_subject で生成する', (
+      tester,
+    ) async {
       await pumpGenerationScreen(
         tester: tester,
         startsFirstBattle: false,
@@ -396,9 +399,7 @@ void main() {
       expect(find.text('あたらしい なかま'), findsOneWidget);
     });
 
-    testWidgets('切り抜いた絵を選んだ後の失敗からもう一度試す時は、選ぶ画面に戻さず同じマスクで送り直す', (
-      tester,
-    ) async {
+    testWidgets('切り抜いた絵を選んだ後の失敗からもう一度試す時は、選ぶ画面に戻さず同じマスクで送り直す', (tester) async {
       var requestCount = 0;
       var subjectMaskCount = 0;
       await pumpGenerationScreen(
@@ -475,24 +476,25 @@ void main() {
       expect(calls.requestedMaskSources, [GenerationMaskSource.iosSubject]);
     });
 
-    testWidgets('範囲を決めない設定 (開発者メニューの見本の写真) で被写体が見つかった時は、選ばずに ios_subject で生成する', (
-      tester,
-    ) async {
-      await pumpGenerationScreen(
-        tester: tester,
-        startsFirstBattle: false,
-        photoSource: GenerationPhotoSource.sample,
-        generator: generatorWithSubjectMask(
-          createSubjectMask: ({required photo}) async => testSubjectMaskBytes,
-        ),
-      );
-      expect(find.text('被写体を切り抜きました'), findsNothing);
-      expect(calls.uploadedMasks, [
-        (requestId: 'request-1', mask: testSubjectMaskBytes),
-      ]);
-      expect(calls.requestedMaskSources, [GenerationMaskSource.iosSubject]);
-      expect(find.text('あたらしい なかま'), findsOneWidget);
-    });
+    testWidgets(
+      '範囲を決めない設定 (開発者メニューの見本の写真) で被写体が見つかった時は、選ばずに ios_subject で生成する',
+      (tester) async {
+        await pumpGenerationScreen(
+          tester: tester,
+          startsFirstBattle: false,
+          photoSource: GenerationPhotoSource.sample,
+          generator: generatorWithSubjectMask(
+            createSubjectMask: ({required photo}) async => testSubjectMaskBytes,
+          ),
+        );
+        expect(find.text('被写体を切り抜きました'), findsNothing);
+        expect(calls.uploadedMasks, [
+          (requestId: 'request-1', mask: testSubjectMaskBytes),
+        ]);
+        expect(calls.requestedMaskSources, [GenerationMaskSource.iosSubject]);
+        expect(find.text('あたらしい なかま'), findsOneWidget);
+      },
+    );
 
     testWidgets('OS の切り出しが被写体を見つけない時は範囲を決める画面を出し、決めた枠をマスクにして crop で生成する', (
       tester,

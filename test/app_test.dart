@@ -339,9 +339,12 @@ void main() {
     required WidgetTester tester,
     required bool settles,
   }) async {
-    // 高さの低い画面では選ぶボタンがスクロールの外にあるため、見える所まで動かしてから押す
-    await tester.ensureVisible(find.text('切り抜いた絵で作る'));
-    await tester.pump();
+    // 高さの低い画面では選ぶボタンが ListView の画面外にあって作られていないため、見える所までスクロールしてから押す
+    await tester.scrollUntilVisible(
+      find.text('切り抜いた絵で作る'),
+      100,
+      scrollable: find.byType(Scrollable).last,
+    );
     await tester.tap(find.text('切り抜いた絵で作る'));
     if (settles) {
       await tester.pumpAndSettle();
