@@ -114,6 +114,7 @@ void main() {
           savedValues.add(value),
       isBackgroundMusicEnabled: true,
       isSoundEffectsEnabled: true,
+      waitsForUserInteractionBeforeBackgroundMusic: false,
     );
     // 再生の完了は待ち行列が後ろの操作より先に待つため、ここでは待たない
     unawaited(gameAudio.playBackgroundMusic(music: BackgroundMusic.home));
@@ -134,6 +135,81 @@ void main() {
     expect(gameAudio.isBackgroundMusicEnabled, isFalse);
   });
 
+  test('Web では最初の操作まで BGM を流さず、操作の後に最後に求められた曲を流す。2 回目の操作では流し直さない', () async {
+    final calls = RecordedAudioCalls();
+    final gameAudio = GameAudio(
+      playBackgroundMusicAsset: ({required assetPath, required volume}) async =>
+          calls.playedBackgroundMusicAssetPaths.add(assetPath),
+      stopBackgroundMusicAsset: () async => calls.stopBackgroundMusicCount += 1,
+      playSoundEffectAsset: ({required assetPath}) async {},
+      saveSetting: ({required key, required value}) async {},
+      isBackgroundMusicEnabled: true,
+      isSoundEffectsEnabled: true,
+      waitsForUserInteractionBeforeBackgroundMusic: true,
+    );
+    await gameAudio.playBackgroundMusic(music: BackgroundMusic.home);
+    await gameAudio.playBackgroundMusic(music: BackgroundMusic.battle);
+    expect(calls.playedBackgroundMusicAssetPaths, isEmpty);
+
+    await gameAudio.notifyUserInteraction();
+    expect(calls.playedBackgroundMusicAssetPaths, [
+      BackgroundMusic.battle.assetPath,
+    ]);
+    await gameAudio.notifyUserInteraction();
+    expect(calls.playedBackgroundMusicAssetPaths, [
+      BackgroundMusic.battle.assetPath,
+    ]);
+    // 操作の後に求めた曲は待たずに流す
+    await gameAudio.playBackgroundMusic(music: BackgroundMusic.home);
+    expect(calls.playedBackgroundMusicAssetPaths, [
+      BackgroundMusic.battle.assetPath,
+      BackgroundMusic.home.assetPath,
+    ]);
+  });
+
+  test('Web で最初の操作の前に BGM をオンにしても流さず、操作の後に流す', () async {
+    final calls = RecordedAudioCalls();
+    final gameAudio = GameAudio(
+      playBackgroundMusicAsset: ({required assetPath, required volume}) async =>
+          calls.playedBackgroundMusicAssetPaths.add(assetPath),
+      stopBackgroundMusicAsset: () async => calls.stopBackgroundMusicCount += 1,
+      playSoundEffectAsset: ({required assetPath}) async {},
+      saveSetting: ({required key, required value}) async =>
+          calls.savedSettings.add((key: key, value: value)),
+      isBackgroundMusicEnabled: false,
+      isSoundEffectsEnabled: true,
+      waitsForUserInteractionBeforeBackgroundMusic: true,
+    );
+    await gameAudio.playBackgroundMusic(music: BackgroundMusic.home);
+    await gameAudio.setBackgroundMusicEnabled(enabled: true);
+    expect(calls.playedBackgroundMusicAssetPaths, isEmpty);
+    expect(calls.savedSettings, [
+      (key: AudioSettingKey.backgroundMusic, value: true),
+    ]);
+
+    await gameAudio.notifyUserInteraction();
+    expect(calls.playedBackgroundMusicAssetPaths, [
+      BackgroundMusic.home.assetPath,
+    ]);
+  });
+
+  test('操作を待たない (iOS・Android) 時は、操作の通知が無くても求められた BGM をすぐ流す', () async {
+    final calls = RecordedAudioCalls();
+    final gameAudio = fakeGameAudio(
+      calls: calls,
+      isBackgroundMusicEnabled: true,
+      isSoundEffectsEnabled: true,
+    );
+    await gameAudio.playBackgroundMusic(music: BackgroundMusic.home);
+    expect(calls.playedBackgroundMusicAssetPaths, [
+      BackgroundMusic.home.assetPath,
+    ]);
+    await gameAudio.notifyUserInteraction();
+    expect(calls.playedBackgroundMusicAssetPaths, [
+      BackgroundMusic.home.assetPath,
+    ]);
+  });
+
   test('再生に失敗しても throw せず、次に同じ曲を求めた時に流し直す', () async {
     var playCount = 0;
     final gameAudio = GameAudio(
@@ -149,6 +225,7 @@ void main() {
       saveSetting: ({required key, required value}) async {},
       isBackgroundMusicEnabled: true,
       isSoundEffectsEnabled: true,
+      waitsForUserInteractionBeforeBackgroundMusic: false,
     );
     await gameAudio.playBackgroundMusic(music: BackgroundMusic.home);
     await gameAudio.playBackgroundMusic(music: BackgroundMusic.home);

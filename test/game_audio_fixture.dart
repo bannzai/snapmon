@@ -36,4 +36,6 @@ GameAudio fakeGameAudio({
   },
   isBackgroundMusicEnabled: isBackgroundMusicEnabled,
   isSoundEffectsEnabled: isSoundEffectsEnabled,
+  // Web の最初の操作を待つ振る舞いは test/audio/game_audio_test.dart が GameAudio を直接作って確かめる
+  waitsForUserInteractionBeforeBackgroundMusic: false,
 );

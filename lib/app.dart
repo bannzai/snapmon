@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'analytics/analytics_events.dart';
@@ -116,8 +118,13 @@ class _SnapmonAppState extends State<SnapmonApp> {
     // Navigator より外に置き、push したバトル画面・設定画面からも引けるようにする
     builder: (context, child) => GameAudioScope(
       gameAudio: widget.gameAudio,
-      child: constrainToAppContentWidth(
-        child: child ?? const SizedBox.shrink(),
+      // Web はユーザーが一度ページを操作するまで音を出せないため、最初のタップ・クリックを BGM に伝える
+      child: Listener(
+        onPointerDown: (_) =>
+            unawaited(widget.gameAudio.notifyUserInteraction()),
+        child: constrainToAppContentWidth(
+          child: child ?? const SizedBox.shrink(),
+        ),
       ),
     ),
     home: ListenableBuilder(
