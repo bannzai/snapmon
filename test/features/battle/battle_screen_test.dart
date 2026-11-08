@@ -374,6 +374,97 @@ void main() {
     expect(find.text('ターン 1'), findsOneWidget);
   });
 
+  testWidgets('端のスワイプと端末の戻るではバトルの画面を閉じず、上に開いた技の詳細は端のスワイプで閉じ、「にげる」で閉じる', (
+    tester,
+  ) async {
+    tester.view
+      ..physicalSize = const Size(390, 844)
+      ..devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    final navigatorKey = GlobalKey<NavigatorState>();
+    await tester.pumpWidget(
+      GameAudioScope(
+        gameAudio: fakeGameAudio(
+          calls: RecordedAudioCalls(),
+          isBackgroundMusicEnabled: true,
+          isSoundEffectsEnabled: true,
+          waitsForUserInteractionBeforeBackgroundMusic: false,
+        ),
+        child: MaterialApp(
+          navigatorKey: navigatorKey,
+          theme: snapmonThemeData(),
+          locale: const Locale('ja'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: const Scaffold(body: Text('バトルを開いた画面')),
+        ),
+      ),
+    );
+    // 端のスワイプで戻れるのは最初の route の上に開いた route だけのため、バトルの画面を home の上に開く
+    navigatorKey.currentState!.push(
+      MaterialPageRoute<BattleScreenAction>(
+        builder: (context) => BattleScreen(
+          playerParty: [strongPlayer],
+          opponentParty: [weakOpponent],
+          opponentKind: BattleOpponentKind.pvp,
+          definitions: sampleData.definitions,
+          randomSeed: 1,
+          battleRecorder: fakeBattleRecorder(
+            calls: RecordedBattleCalls(),
+            startBattleRecord: () async => null,
+            recordedLevels: const {},
+          ),
+          onPlayerLevelsChanged: ({required levelsByMonsterId}) {},
+          cardSharer: fakeCardSharer(
+            calls: RecordedShareCalls(),
+            artImage: null,
+            shareResultStatus: ShareResultStatus.success,
+          ),
+          firstBattleBornMonster: null,
+          firstBattleMonsterIsNewlyBorn: false,
+          playerProfile: null,
+          opponentDisplayName: 'CPU リク',
+        ),
+      ),
+    );
+    // 画面の遷移の演出を終える (Flame のゲームループがあるため pumpAndSettle は使わない)
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
+
+    /// 左端から画面の幅の大半まで指を滑らせ、戻る演出の分の時間を進める。
+    Future<void> swipeFromLeftEdge() async {
+      // x = 5: iOS の戻るスワイプを受け付ける左端の幅 (20) の内側
+      await tester.dragFrom(const Offset(5, 400), const Offset(300, 0));
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
+      await tester.pump();
+    }
+
+    // 似ているが閉じる側: バトルの画面の上に開いた技の詳細は、同じスワイプで閉じる (スワイプの操作が戻るとして効くことの確かめ)
+    await tester.longPress(find.byKey(const Key('move-slot-0')));
+    await tester.pump(const Duration(seconds: 1));
+    expect(find.byType(MoveDetailScreen), findsOneWidget);
+    await swipeFromLeftEdge();
+    expect(find.byType(MoveDetailScreen), findsNothing);
+    expect(find.byType(BattleScreen), findsOneWidget);
+
+    // 閉じない側: バトルの画面は端のスワイプでも端末の戻る (Android の戻るボタン・戻るジェスチャー) でも閉じない
+    await swipeFromLeftEdge();
+    expect(find.byType(BattleScreen), findsOneWidget);
+    await tester.binding.handlePopRoute();
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
+    expect(find.byType(BattleScreen), findsOneWidget);
+
+    // 「にげる」のボタンでは閉じる
+    await tester.tap(find.text('にげる'));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
+    await tester.pump();
+    expect(find.byType(BattleScreen), findsNothing);
+    expect(find.text('バトルを開いた画面'), findsOneWidget);
+  }, variant: TargetPlatformVariant.only(TargetPlatform.iOS));
+
   testWidgets('技を選ぶと決着まで進み、勝敗とレベルの上がり方を出して記録と計測をする', (tester) async {
     final calls = RecordedBattleCalls();
     await pumpBattleScreen(
@@ -980,9 +1071,8 @@ void main() {
       );
       return scrollable.evaluate().isEmpty
           ? battleLogRect(tester: tester)
-          : battleLogRect(
-              tester: tester,
-            ).intersect(tester.getRect(scrollable.first));
+          : battleLogRect(tester: tester)
+                .intersect(tester.getRect(scrollable.first));
     }
 
     /// フィールドに描いた 2 体 (相手・自分) の絵の、画面の座標での矩形。
