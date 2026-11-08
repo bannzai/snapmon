@@ -488,7 +488,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
       MaterialPageRoute<BattleScreenAction>(
         builder: (context) => BattleScreen(
           playerParty: playerParty,
-          opponentParty: opponent.opponentParty,
+          opponentParty: opponent.cpuOpponent.opponentParty,
           opponentKind: BattleOpponentKind.cpu,
           definitions: opponent.definitions,
           randomSeed: _firstBattleRandomSeed,
@@ -499,7 +499,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
           firstBattleMonsterIsNewlyBorn:
               monster.definition.id != _alreadyInDexMonster?.definition.id,
           playerProfile: _playerProfile,
-          opponentDisplayName: opponent.opponentName,
+          opponentDisplayName: opponent.cpuOpponent.opponentName,
         ),
       ),
     );
@@ -795,7 +795,9 @@ class _GenerationScreenState extends State<GenerationScreen> {
         ],
         _GenerationPhase.opponentFound => [
           Text(
-            l10n.generationOpponentAppeared(_firstBattleOpponent!.opponentName),
+            l10n.generationOpponentAppeared(
+              _firstBattleOpponent!.cpuOpponent.opponentName,
+            ),
             textAlign: TextAlign.center,
             style: SnapmonTextStyles.hero,
           ),

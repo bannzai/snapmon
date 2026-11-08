@@ -6,14 +6,12 @@ import 'package:share_plus/share_plus.dart';
 
 import 'package:snapmon/audio/game_audio.dart';
 import 'package:snapmon/features/battle/battle_screen.dart';
-import 'package:snapmon/features/capture/first_battle.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
 import 'package:snapmon/features/dex/owned_monster.dart';
 import 'package:snapmon/features/opponent/cpu_party.dart';
 import 'package:snapmon/features/opponent/opponent_screen.dart';
 import 'package:snapmon/features/opponent/pvp_client.dart';
 import 'package:snapmon/features/opponent/pvp_opponent.dart';
-import 'package:snapmon/features/result/monster_detail_card.dart';
 import 'package:snapmon/features/result/result_screen.dart';
 import 'package:snapmon/l10n/l10n.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
@@ -134,7 +132,7 @@ void main() {
       );
 
   testWidgets(
-    'ログインしていても他のユーザーの手持ちを読まず、CPU トレーナー 3 人と戦績だけを出し、「ほかの相手をさがす」と通報・ブロックを出さない',
+    'ログインしていても他のユーザーの手持ちを読まず、戦績と「ランダムな相手と戦う」だけを出し、CPU トレーナーの一覧・「ほかの相手をさがす」・通報・ブロックを出さない',
     (tester) async {
       final calls = RecordedPvpCalls();
       await pumpOpponentScreen(
@@ -151,37 +149,32 @@ void main() {
           reason: opponent.opponentUid,
         );
       }
-      // 他のユーザーがいた時と同じく 3 人並べる (issue #105 の「常に 3 人出す」)
-      for (final (index, cpuTrainer) in sampleData.cpuTrainers.indexed) {
+      // 相手の一覧は出さず、CPU トレーナーの名前も見本のモンスターの札 (自分の手持ち以外) も出ない (issue #217)
+      for (final cpuTrainerName in sampleData.cpuTrainerNames) {
         expect(
-          find.byKey(
-            Key('opponent-card-${cpuTrainer.id}'),
-            skipOffstage: false,
-          ),
-          index < 3 ? findsOneWidget : findsNothing,
-          reason: cpuTrainer.id,
-        );
-        if (index >= 3) {
-          continue;
-        }
-        expect(find.text(cpuTrainer.name, skipOffstage: false), findsOneWidget);
-        expect(cpuTrainer.name, startsWith('CPU '));
-        expect(
-          find.byKey(
-            Key('opponent-menu-${cpuTrainer.id}'),
-            skipOffstage: false,
-          ),
+          find.text(cpuTrainerName, skipOffstage: false),
           findsNothing,
+          reason: cpuTrainerName,
         );
       }
       expect(
+        find.byKey(const Key('random-battle'), skipOffstage: false),
+        findsOneWidget,
+      );
+      expect(
         tester
-            .widget<FilledButton>(
-              find.byKey(Key('challenge-${sampleData.cpuTrainers.first.id}')),
-            )
+            .widget<ButtonStyleButton>(find.byKey(const Key('random-battle')))
             .onPressed,
         isNotNull,
       );
+      expect(find.byType(FilledButton, skipOffstage: false), findsOneWidget);
+      for (final text in ['相手をえらぶ', '挑む', 'ほかの相手をさがす']) {
+        expect(
+          find.text(text, skipOffstage: false),
+          findsNothing,
+          reason: text,
+        );
+      }
       for (final key in ['reload-opponents', 'report-help']) {
         expect(
           find.byKey(Key(key), skipOffstage: false),
@@ -189,85 +182,8 @@ void main() {
           reason: key,
         );
       }
-      expect(find.text('ほかの相手をさがす', skipOffstage: false), findsNothing);
     },
   );
-
-  testWidgets('CPU トレーナーのカードのレベルは、どのトレーナーも自分の手持ちの平均と同じ「Lv. N」になる', (
-    tester,
-  ) async {
-    await pumpOpponentScreen(
-      tester: tester,
-      pvpClient: signedInPvpClient(calls: RecordedPvpCalls()),
-      onOpenSettings: () async {},
-    );
-    // 自分の手持ちのカードにも「Lv. N」が出るため、CPU トレーナーのカードの中だけを探す
-    for (final cpuTrainer in sampleData.cpuTrainers.take(3)) {
-      expect(
-        find.descendant(
-          of: find.byKey(
-            Key('opponent-card-${cpuTrainer.id}'),
-            skipOffstage: false,
-          ),
-          matching: find.text(
-            'Lv. ${averagePartyLevel(
-              party: (DexStore(definitions: sampleData.definitions)..replaceAll(monsters: sampleData.monsters)).party,
-            )}',
-            skipOffstage: false,
-          ),
-        ),
-        findsOneWidget,
-        reason: cpuTrainer.id,
-      );
-    }
-  });
-
-  testWidgets('CPU トレーナーの手持ちの札を押すと、挑む時と同じレベルのそのモンスターの詳細をボトムシートで出す', (
-    tester,
-  ) async {
-    await pumpOpponentScreen(
-      tester: tester,
-      pvpClient: signedInPvpClient(calls: RecordedPvpCalls()),
-      onOpenSettings: () async {},
-    );
-    final cpuTrainer = sampleData.cpuTrainers.first;
-    final monster = sampleData.monsterById(
-      monsterId: cpuTrainer.monsterIds.first,
-    );
-    final detailKey = Key('opponent-monster-detail-${monster.definition.id}');
-    expect(find.byKey(detailKey), findsNothing);
-    await tester.tap(
-      find.byKey(
-        Key('opponent-monster-${cpuTrainer.id}-${monster.definition.id}'),
-      ),
-    );
-    await tester.pumpAndSettle();
-    expect(find.byKey(detailKey), findsOneWidget);
-    final level = averagePartyLevel(
-      party: (DexStore(
-        definitions: sampleData.definitions,
-      )..replaceAll(monsters: sampleData.monsters)).party,
-    );
-    final detailCard = tester.widget<MonsterDetailCard>(
-      find.descendant(
-        of: find.byKey(detailKey),
-        matching: find.byType(MonsterDetailCard),
-      ),
-    );
-    expect(detailCard.monster.definition.id, monster.definition.id);
-    expect(detailCard.monster.level, level);
-    for (final text in [monster.definition.name, 'Lv. $level', 'おぼえている技']) {
-      expect(
-        find.descendant(of: find.byKey(detailKey), matching: find.text(text)),
-        findsOneWidget,
-        reason: text,
-      );
-    }
-    // シートは画面の高さの 85% までで、上に残る外側を押すと閉じる
-    await tester.tapAt(Offset(tester.view.physicalSize.width / 2, 10));
-    await tester.pumpAndSettle();
-    expect(find.byKey(detailKey), findsNothing);
-  });
 
   testWidgets('自分の手持ちの札を押すと、図鑑から開いた時と同じそのモンスターの画面を開く', (tester) async {
     await pumpOpponentScreen(
@@ -287,7 +203,7 @@ void main() {
     expect(resultScreen.origin, ResultScreenOrigin.dex);
   });
 
-  testWidgets('ログインが無い時は戦績を出さず、見本の対戦相手を出さずに CPU トレーナーを出す', (tester) async {
+  testWidgets('ログインが無い時は戦績を出さず、見本の対戦相手を出さずに「ランダムな相手と戦う」を押せる', (tester) async {
     final calls = RecordedPvpCalls();
     await pumpOpponentScreen(
       tester: tester,
@@ -304,17 +220,14 @@ void main() {
       );
     }
     expect(
-      find.byKey(
-        Key('opponent-card-${sampleData.cpuTrainers.first.id}'),
-        skipOffstage: false,
-      ),
-      findsOneWidget,
+      tester
+          .widget<ButtonStyleButton>(find.byKey(const Key('random-battle')))
+          .onPressed,
+      isNotNull,
     );
   });
 
-  testWidgets('自分のアイコン (未登録は既定の印) と表示名を戦績と並べ、手持ちと CPU トレーナーの手持ちの札にモンスターの絵を出す', (
-    tester,
-  ) async {
+  testWidgets('自分のアイコン (未登録は既定の印) と表示名を戦績と並べ、手持ちの札にモンスターの絵を出す', (tester) async {
     await pumpOpponentScreen(
       tester: tester,
       pvpClient: signedInPvpClient(calls: RecordedPvpCalls()),
@@ -331,21 +244,23 @@ void main() {
     final party = (DexStore(
       definitions: sampleData.definitions,
     )..replaceAll(monsters: sampleData.monsters)).party;
-    final cpuTrainer = sampleData.cpuTrainers.first;
-    for (final chipKey in [
-      for (final monster in party) 'party-monster-${monster.definition.id}',
-      for (final monsterId in cpuTrainer.monsterIds)
-        'opponent-monster-${cpuTrainer.id}-$monsterId',
-    ]) {
+    for (final monster in party) {
       expect(
         find.descendant(
-          of: find.byKey(Key(chipKey), skipOffstage: false),
+          of: find.byKey(
+            Key('party-monster-${monster.definition.id}'),
+            skipOffstage: false,
+          ),
           matching: find.byType(MonsterArt, skipOffstage: false),
         ),
         findsOneWidget,
-        reason: chipKey,
+        reason: monster.definition.id,
       );
     }
+    expect(
+      find.byType(MonsterArt, skipOffstage: false),
+      findsNWidgets(party.length),
+    );
   });
 
   testWidgets('設定を閉じたらプロフィールを読み直し、変えた表示名を出す', (tester) async {
@@ -411,7 +326,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.byKey(const Key('opponent-tab-player-trainer')), findsNothing);
     expect(find.text('トレーナー 0001'), findsNothing);
-    await tester.tap(find.byKey(const Key('auto-match')));
+    await tester.tap(find.byKey(const Key('random-battle')));
     // バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
@@ -487,9 +402,9 @@ void main() {
     );
   }
 
-  /// 「自動で相手を決めて戦う」でバトルに入り、対戦の画面を閉じて対戦タブに戻る (閉じると戦績を読み直す)。
+  /// 「ランダムな相手と戦う」でバトルに入り、対戦の画面を閉じて対戦タブに戻る (閉じると戦績を読み直す)。
   Future<void> battleAndReturn({required WidgetTester tester}) async {
-    await tester.tap(find.byKey(const Key('auto-match')));
+    await tester.tap(find.byKey(const Key('random-battle')));
     // バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
@@ -569,14 +484,14 @@ void main() {
   });
 
   testWidgets(
-    '「自動で相手を決めて戦う」は、自分の手持ちと同じ絵の見本のモンスターを持たない CPU トレーナーを選んでバトルに入り、自分と相手の名前を渡す',
+    '「ランダムな相手と戦う」は、CPU トレーナーの名前と、自分の手持ちと同じ数で同じ絵を含まない自分の平均レベルの見本のモンスターを相手にしてバトルに入り、自分と相手の名前を渡す',
     (tester) async {
       await pumpOpponentScreen(
         tester: tester,
         pvpClient: signedInPvpClient(calls: RecordedPvpCalls()),
         onOpenSettings: () async {},
       );
-      await tester.tap(find.byKey(const Key('auto-match')));
+      await tester.tap(find.byKey(const Key('random-battle')));
       // バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める
       await tester.pump();
       await tester.pump(const Duration(seconds: 1));
@@ -588,25 +503,24 @@ void main() {
         iconPath: null,
       ));
       expect(battleScreen.opponentKind, BattleOpponentKind.cpu);
-      // 見本の手持ち (sampleData.monsters の先頭 3 体) と同じ絵を持たない CPU トレーナーの中から選ぶ (lib/features/capture/first_battle.dart)
+      expect(
+        sampleData.cpuTrainerNames,
+        contains(battleScreen.opponentDisplayName),
+      );
+      // 相手の手持ちは乱数で組む (lib/features/opponent/cpu_party.dart の chooseRandomCpuOpponent)
       final party = (DexStore(
         definitions: sampleData.definitions,
       )..replaceAll(monsters: sampleData.monsters)).party;
-      final allowedTrainers = excludeCpuTrainersWithSameArt(
-        sampleData: sampleData,
-        playerParty: party,
-      );
-      final chosenTrainer = allowedTrainers.firstWhere(
-        (cpuTrainer) => cpuTrainer.name == battleScreen.opponentDisplayName,
-      );
-      expect(
-        battleScreen.opponentParty.map((monster) => monster.definition.id),
-        chosenTrainer.monsterIds,
-      );
+      final partyArtPaths = {for (final monster in party) monster.artPath};
+      expect(battleScreen.opponentParty, hasLength(party.length));
+      for (final monster in battleScreen.opponentParty) {
+        expect(partyArtPaths.contains(monster.artPath), isFalse);
+        expect(monster.level, averagePartyLevel(party: party));
+      }
     },
   );
 
-  testWidgets('手持ちが空の時は「自動で相手を決めて戦う」を押せない', (tester) async {
+  testWidgets('手持ちが空の時は「ランダムな相手と戦う」を押せない', (tester) async {
     tester.view
       ..physicalSize = const Size(390, 844)
       ..devicePixelRatio = 1;
@@ -649,7 +563,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(
       tester
-          .widget<ButtonStyleButton>(find.byKey(const Key('auto-match')))
+          .widget<ButtonStyleButton>(find.byKey(const Key('random-battle')))
           .onPressed,
       isNull,
     );

@@ -3274,36 +3274,10 @@
       ]
     }
   ],
-  "cpuTrainers": [
-    {
-      "id": "sample-cpu-minato",
-      "name": "CPU ミナト",
-      "monsterIds": [
-        "sample-mugmon",
-        "sample-petbottler"
-      ]
-    },
-    {
-      "id": "sample-cpu-sora",
-      "name": "CPU ソラ",
-      "monsterIds": [
-        "sample-keybon",
-        "sample-ringora"
-      ]
-    },
-    {
-      "id": "sample-cpu-haru",
-      "name": "CPU ハル",
-      "monsterIds": [
-        "sample-noton"
-      ]
-    },
-    {
-      "id": "sample-cpu-riku",
-      "name": "CPU リク",
-      "monsterIds": [
-        "sample-slippan"
-      ]
-    }
+  "cpuTrainerNames": [
+    "CPU ミナト",
+    "CPU ソラ",
+    "CPU ハル",
+    "CPU リク"
   ]
 }
