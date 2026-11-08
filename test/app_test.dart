@@ -423,26 +423,31 @@ void main() {
       ]);
     });
 
-    testWidgets('Web のように最初の操作を待つ時、キーボードのキーを押しただけでも BGM が始まる。Esc は操作に数えない', (
-      tester,
-    ) async {
-      audioWaitsForUserInteraction = true;
-      await pumpApp(
-        tester: tester,
-        hasStartedSession: false,
-        startSessionFailureCount: 0,
-        isDeveloperMenuEnabled: false,
-      );
-      expect(audioCalls.playedBackgroundMusicAssetPaths, isEmpty);
-      await tester.sendKeyEvent(LogicalKeyboardKey.escape);
-      await tester.pumpAndSettle();
-      expect(audioCalls.playedBackgroundMusicAssetPaths, isEmpty);
-      await tester.sendKeyEvent(LogicalKeyboardKey.tab);
-      await tester.pumpAndSettle();
-      expect(audioCalls.playedBackgroundMusicAssetPaths, [
-        BackgroundMusic.home.assetPath,
-      ]);
-    });
+    testWidgets(
+      'Web のように最初の操作を待つ時、キーボードのキーを押しただけでも BGM が始まる。Esc と修飾キーだけの押下は操作に数えない',
+      (tester) async {
+        audioWaitsForUserInteraction = true;
+        await pumpApp(
+          tester: tester,
+          hasStartedSession: false,
+          startSessionFailureCount: 0,
+          isDeveloperMenuEnabled: false,
+        );
+        expect(audioCalls.playedBackgroundMusicAssetPaths, isEmpty);
+        await tester.sendKeyEvent(LogicalKeyboardKey.escape);
+        await tester.sendKeyEvent(LogicalKeyboardKey.shiftLeft);
+        await tester.sendKeyEvent(LogicalKeyboardKey.controlLeft);
+        await tester.sendKeyEvent(LogicalKeyboardKey.altLeft);
+        await tester.sendKeyEvent(LogicalKeyboardKey.metaLeft);
+        await tester.pumpAndSettle();
+        expect(audioCalls.playedBackgroundMusicAssetPaths, isEmpty);
+        await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+        await tester.pumpAndSettle();
+        expect(audioCalls.playedBackgroundMusicAssetPaths, [
+          BackgroundMusic.home.assetPath,
+        ]);
+      },
+    );
 
     testWidgets('図鑑が空なら「つづきから」が無く、図鑑に 1 体入ると「つづきから (図鑑 1)」が出る', (tester) async {
       await pumpApp(
