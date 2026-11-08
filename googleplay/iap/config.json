@@ -1,0 +1,25 @@
+{
+  "packageName": "com.bannzai.snapmon",
+  "api": "onetimeproducts",
+  "defaults": { "fail_strategy": "fail-fast" },
+  "iaps": [
+    {
+      "sku": "snapmon_generationticket10_200yen",
+      "status": "inactive",
+      "default_price": { "currency": "JPY", "price": "200" },
+      "listings": {
+        "ja-JP": { "title": "生成チケット 10 回", "description": "写真からモンスターを 10 回つくれる" },
+        "en-US": { "title": "10 Generation Tickets", "description": "Create 10 monsters from your photos" }
+      }
+    },
+    {
+      "sku": "snapmon_generationticket30_500yen",
+      "status": "inactive",
+      "default_price": { "currency": "JPY", "price": "500" },
+      "listings": {
+        "ja-JP": { "title": "生成チケット 30 回", "description": "写真からモンスターを 30 回つくれる" },
+        "en-US": { "title": "30 Generation Tickets", "description": "Create 30 monsters from your photos" }
+      }
+    }
+  ]
+}
