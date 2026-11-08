@@ -210,6 +210,21 @@ void main() {
         ),
         closeTo(80 / 271, 1e-9),
       );
+      // 段階の最大を超える種族値 (後から master の最大の段階が下がった時等) は 1 に収める。
+      // 収めた値が double であること (clamp の上限を int で渡すと int が返る) も確かめる
+      final clamped = statStrengthRatio(
+        statKind: StatKind.attack,
+        baseStats: const MonsterStats(
+          hitPoints: 130,
+          attack: 130,
+          defense: 130,
+          speed: 130,
+        ),
+        individualValues: maximum,
+        master: master,
+      );
+      expect(clamped, 1.0);
+      expect(clamped, isA<double>());
       // レベルの項を含めないため、ステータスの種類ごとの種族値・個体値だけで決まる
       expect(
         statStrengthRatio(

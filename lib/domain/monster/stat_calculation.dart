@@ -106,7 +106,9 @@ double statStrengthRatio({
                       .map((statGrade) => statGrade.baseStat)
                       .reduce((left, right) => left > right ? left : right) +
               individualValueMaximum))
-      .clamp(0, 1);
+      // 上限・下限を double で渡す。int の 0・1 だと、はみ出た時に clamp がその int を返し、native では
+      // double の戻り値に合わず実行時に TypeError になる (dart-lang/sdk#39652)
+      .clamp(0.0, 1.0);
 }
 
 /// 種族値・個体値・レベルから実際のステータスを返す。
