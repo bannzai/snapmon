@@ -21,6 +21,35 @@ import 'sample/sample_data.dart';
 import 'theme/snapmon_theme.dart';
 import 'widgets/app_content_width.dart';
 
+/// ブラウザがページの操作に数えないキー。Esc は HTML 仕様の activation triggering input event が除いていて
+/// ( https://html.spec.whatwg.org/multipage/interaction.html#tracking-user-activation )、修飾キーだけの押下は
+/// Chromium が数えない (`KeyboardEventManager` が `ui::KeycodeConverter::IsDomKeyForModifier` の true のキーを除く。
+/// 一覧は ACCEL・ALT・ALT_GRAPH・CAPS_LOCK・CONTROL・FN・FN_LOCK・HYPER・META・NUM_LOCK・SCROLL_LOCK・SHIFT・SUPER・
+/// SYMBOL・SYMBOL_LOCK・SHIFT_LEVEL5。 https://source.chromium.org/chromium/chromium/src/+/main:ui/events/keycodes/dom/keycode_converter.cc 。
+/// ACCEL・SHIFT_LEVEL5 は Flutter の LogicalKeyboardKey に無い)。
+/// これらで先に伝えると、ブラウザが再生を許す前に流そうとして待ち行列が止まる。
+const keysNotCountedAsUserInteraction = {
+  LogicalKeyboardKey.escape,
+  LogicalKeyboardKey.shiftLeft,
+  LogicalKeyboardKey.shiftRight,
+  LogicalKeyboardKey.controlLeft,
+  LogicalKeyboardKey.controlRight,
+  LogicalKeyboardKey.altLeft,
+  LogicalKeyboardKey.altRight,
+  LogicalKeyboardKey.altGraph,
+  LogicalKeyboardKey.metaLeft,
+  LogicalKeyboardKey.metaRight,
+  LogicalKeyboardKey.capsLock,
+  LogicalKeyboardKey.numLock,
+  LogicalKeyboardKey.scrollLock,
+  LogicalKeyboardKey.fn,
+  LogicalKeyboardKey.fnLock,
+  LogicalKeyboardKey.hyper,
+  LogicalKeyboardKey.superKey,
+  LogicalKeyboardKey.symbol,
+  LogicalKeyboardKey.symbolLock,
+};
+
 /// アプリのルート。起動するとタイトル画面を出し、タイトルのボタンでログインを済ませてから下タブの画面に入る。
 /// ログインを終えた (アカウントの削除・開発者メニューのやり直し) 時はタイトルに戻る。
 class SnapmonApp extends StatefulWidget {
@@ -106,30 +135,12 @@ class _SnapmonAppState extends State<SnapmonApp> {
     super.dispose();
   }
 
-  /// ブラウザがページの操作に数えないキー。Esc は HTML 仕様の activation triggering input event が除いていて
-  /// ( https://html.spec.whatwg.org/multipage/interaction.html#tracking-user-activation )、修飾キーだけの押下は
-  /// Chromium が数えない (crbug 709765。 https://codereview.chromium.org/2874263002 )。
-  /// これらで先に伝えると、ブラウザが再生を許す前に流そうとして待ち行列が止まる。
-  static const _keysNotCountedAsUserInteraction = {
-    LogicalKeyboardKey.escape,
-    LogicalKeyboardKey.shiftLeft,
-    LogicalKeyboardKey.shiftRight,
-    LogicalKeyboardKey.controlLeft,
-    LogicalKeyboardKey.controlRight,
-    LogicalKeyboardKey.altLeft,
-    LogicalKeyboardKey.altRight,
-    LogicalKeyboardKey.metaLeft,
-    LogicalKeyboardKey.metaRight,
-    LogicalKeyboardKey.capsLock,
-    LogicalKeyboardKey.fn,
-  };
-
   /// キーボードだけで操作する時 (Web を Tab・Enter・Space で操作する時) も、最初のキーを BGM に伝える。
-  /// ブラウザはキーの押下もページの操作に数える ([_keysNotCountedAsUserInteraction] を除く)。
+  /// ブラウザはキーの押下もページの操作に数える ([keysNotCountedAsUserInteraction] を除く)。
   /// フォーカスに依らず全てのキーを受けるため、Focus ではなくこちらで受ける。キーは消費しない (false) ので、画面の操作はそのまま届く。
   bool _onHardwareKeyEvent(KeyEvent event) {
     if (event is KeyDownEvent &&
-        !_keysNotCountedAsUserInteraction.contains(event.logicalKey)) {
+        !keysNotCountedAsUserInteraction.contains(event.logicalKey)) {
       unawaited(widget.gameAudio.notifyUserInteraction());
     }
     return false;

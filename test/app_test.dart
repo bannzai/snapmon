@@ -434,13 +434,16 @@ void main() {
           isDeveloperMenuEnabled: false,
         );
         expect(audioCalls.playedBackgroundMusicAssetPaths, isEmpty);
-        await tester.sendKeyEvent(LogicalKeyboardKey.escape);
-        await tester.sendKeyEvent(LogicalKeyboardKey.shiftLeft);
-        await tester.sendKeyEvent(LogicalKeyboardKey.controlLeft);
-        await tester.sendKeyEvent(LogicalKeyboardKey.altLeft);
-        await tester.sendKeyEvent(LogicalKeyboardKey.metaLeft);
-        await tester.pumpAndSettle();
-        expect(audioCalls.playedBackgroundMusicAssetPaths, isEmpty);
+        // 数えないキーは 1 つずつ全部送り、どれでも流れないことを確かめる
+        for (final key in keysNotCountedAsUserInteraction) {
+          await tester.sendKeyEvent(key);
+          await tester.pumpAndSettle();
+          expect(
+            audioCalls.playedBackgroundMusicAssetPaths,
+            isEmpty,
+            reason: '${key.debugName} で BGM が始まった',
+          );
+        }
         await tester.sendKeyEvent(LogicalKeyboardKey.tab);
         await tester.pumpAndSettle();
         expect(audioCalls.playedBackgroundMusicAssetPaths, [
