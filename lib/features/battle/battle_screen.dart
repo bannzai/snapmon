@@ -1173,9 +1173,11 @@ class _BattleScreenState extends State<BattleScreen>
         !fieldBox.hasSize) {
       return null;
     }
-    return (widgetBox.localToGlobal(Offset.zero) -
-            fieldBox.localToGlobal(Offset.zero)) &
-        widgetBox.size;
+    // 位置の差分ではなく変形で直す。Android・Web の既定の画面遷移は拡大縮小を伴い、遷移の途中に測ると差分だけが縮尺倍になるため
+    return MatrixUtils.transformRect(
+      widgetBox.getTransformTo(fieldBox),
+      Offset.zero & widgetBox.size,
+    );
   }
 
   /// 横向きスマホのフィールドと操作。カードの文字が大きい時はフィールドもスクロールし、絵とカードを重ねない。
