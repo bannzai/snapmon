@@ -277,6 +277,23 @@ double totalTypeMultiplier({
             ),
       );
 
+/// [move] を [defender] に使った時にダメージに掛かる相性の倍率を返す。技のボタンに相性を出すために使う。
+/// 相性が効かない技 (ダメージの無い補助技と、相性に関係なく HP を 0 にする一撃必殺) は null を返す
+/// ([advanceRound] のダメージの計算と、ログに相性を出さない技の規則 (documents/game-rules.md「補助技」「一撃必殺」) と揃える)。
+double? moveTypeMultiplierAgainst({
+  required Move move,
+  required BattleMonster defender,
+  required MasterData master,
+}) =>
+    move.category == MoveCategory.support ||
+        (move.specialEffect?.isOneHitKnockout ?? false)
+    ? null
+    : totalTypeMultiplier(
+        moveElementTypeId: move.elementTypeId,
+        defenderElementTypeIds: defender.definition.elementTypeIds,
+        master: master,
+      );
+
 /// ダメージを返す。式は documents/game-rules.md「ダメージ式」。
 /// [randomPercent] は [damageRandomMinimumPercent] 以上 100 以下の乱数。結果は 1 以上。
 int calculateDamage({

@@ -197,6 +197,7 @@
   "statusConditionSwitchBlocked": "Can't switch",
   "moveAccuracy": "Acc {accuracy}",
   "movePriority": "Priority",
+  "moveTypeMultiplier": "×{multiplier}",
   "moveDetailAccuracy": "Accuracy",
   "moveDetailPriority": "Priority",
   "moveDetailPriorityValue": "Moves first regardless of speed",

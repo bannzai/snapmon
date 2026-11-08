@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../domain/battle/move_special_effect.dart';
 import '../domain/master/master_data.dart';
 import '../domain/master/move.dart';
 import '../l10n/l10n.dart';
 import '../theme/snapmon_colors.dart';
+import '../theme/snapmon_radii.dart';
 import '../theme/snapmon_text_styles.dart';
 import 'monster_parts.dart';
 
@@ -16,6 +18,7 @@ class MoveSummary extends StatelessWidget {
     super.key,
     required this.move,
     required this.remainingPowerPoints,
+    required this.typeMultiplier,
     required this.definitions,
   });
 
@@ -24,6 +27,11 @@ class MoveSummary extends StatelessWidget {
 
   /// 残りの PP。バトルの外 (カードの覚えている技) では null で、その時は最大の PP だけを出す。
   final int? remainingPowerPoints;
+
+  /// 今の相手の場のモンスターへの相性の倍率。属性の札の横に「×2」のように出す
+  /// (効果が抜群か今ひとつかを技を選ぶ前に分かるようにする。https://github.com/bannzai/snapmon/issues/241 )。
+  /// バトルの外と相性が効かない技 (補助技・一撃必殺) は null で、出さない。
+  final double? typeMultiplier;
 
   /// 技の属性の名前を引く定義。
   final MasterData definitions;
@@ -41,9 +49,22 @@ class MoveSummary extends StatelessWidget {
         runSpacing: 4,
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
-          ElementTypeTag(
-            elementTypeId: move.elementTypeId,
-            definitions: definitions,
+          // 属性の札と相性の倍率は「炎 ×2」と 1 まとまりで読ませるため、外の Wrap の 1 つの子にして威力と PP より先に改行させる。
+          // 大きい文字で 2 つの札が技のボタンの幅に入らない時だけ、はみ出さずに札の間で折り返す
+          Wrap(
+            spacing: 4,
+            runSpacing: 4,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              ElementTypeTag(
+                elementTypeId: move.elementTypeId,
+                definitions: definitions,
+              ),
+              // 等倍は出さない (ログの「こうかは ばつぐんだ」「いまひとつ」と同じく、倍率が変わる時だけ知らせる。全部の技に出すと技の枠が埋まるため)
+              if (typeMultiplier case final typeMultiplier?
+                  when typeMultiplier != 1)
+                _TypeMultiplierTag(typeMultiplier: typeMultiplier),
+            ],
           ),
           _MoveStatValue(label: context.l10n.movePower, value: '${move.power}'),
           _MoveStatValue(
@@ -85,6 +106,42 @@ class MoveSummary extends StatelessWidget {
       ],
     ],
   );
+}
+
+/// 相性の倍率の札。抜群 (1 より大きい) は暗い地に明るい色で目立たせ、今ひとつ (1 より小さい) は薄い地と薄い文字で控えめに描く。
+class _TypeMultiplierTag extends StatelessWidget {
+  const _TypeMultiplierTag({required this.typeMultiplier});
+
+  /// 相性の倍率 (等倍以外)。
+  final double typeMultiplier;
+
+  @override
+  Widget build(BuildContext context) {
+    final isSuperEffective = typeMultiplier > 1;
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: isSuperEffective
+            ? SnapmonColors.textOnCard
+            : SnapmonColors.cardTrack,
+        borderRadius: SnapmonRadii.tag,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        child: Text(
+          context.l10n.moveTypeMultiplier(
+            // 相性の倍率は 0.5・2 の積 (0.25〜) のため、% の整数にしても桁は落ちない
+            formatPowerPercent(powerPercent: (typeMultiplier * 100).round()),
+          ),
+          key: const Key('move-type-multiplier'),
+          style: SnapmonTextStyles.small.copyWith(
+            color: isSuperEffective
+                ? SnapmonColors.accent
+                : SnapmonColors.textOnCardMuted,
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 /// 技の数値 1 つ。小さく薄いラベルの後に太い数値を続ける。

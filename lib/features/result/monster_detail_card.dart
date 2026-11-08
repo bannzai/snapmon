@@ -292,6 +292,7 @@ class _MoveSlot extends StatelessWidget {
                   child: MoveSummary(
                     move: move,
                     remainingPowerPoints: null,
+                    typeMultiplier: null,
                     definitions: definitions,
                   ),
                 ),
