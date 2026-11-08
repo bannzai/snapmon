@@ -1042,7 +1042,7 @@
         "powerPoints": 10,
         "category": "support",
         "effectId": "fire_s7",
-        "learnableLevelMinimum": 5,
+        "learnableLevelMinimum": 100,
         "learnableLevelMaximum": 999,
         "specialEffect": {
           "opponentStatusConditions": [
@@ -1402,7 +1402,7 @@
         "powerPoints": 10,
         "category": "support",
         "effectId": "water_s7",
-        "learnableLevelMinimum": 5,
+        "learnableLevelMinimum": 100,
         "learnableLevelMaximum": 999,
         "specialEffect": {
           "opponentStatusConditions": [
@@ -1763,7 +1763,7 @@
         "powerPoints": 10,
         "category": "support",
         "effectId": "grass_s7",
-        "learnableLevelMinimum": 5,
+        "learnableLevelMinimum": 100,
         "learnableLevelMaximum": 999,
         "specialEffect": {
           "opponentStatusConditions": [
@@ -2125,7 +2125,7 @@
         "powerPoints": 10,
         "category": "support",
         "effectId": "thunder_s7",
-        "learnableLevelMinimum": 5,
+        "learnableLevelMinimum": 100,
         "learnableLevelMaximum": 999,
         "specialEffect": {
           "opponentStatusConditions": [
@@ -2486,7 +2486,7 @@
         "powerPoints": 10,
         "category": "support",
         "effectId": "earth_s7",
-        "learnableLevelMinimum": 5,
+        "learnableLevelMinimum": 100,
         "learnableLevelMaximum": 999,
         "specialEffect": {
           "opponentStatusConditions": [
@@ -2848,7 +2848,7 @@
         "powerPoints": 10,
         "category": "support",
         "effectId": "steel_s7",
-        "learnableLevelMinimum": 5,
+        "learnableLevelMinimum": 100,
         "learnableLevelMaximum": 999,
         "specialEffect": {
           "opponentStatusConditions": [
@@ -3209,7 +3209,7 @@
         "powerPoints": 10,
         "category": "support",
         "effectId": "wood_s7",
-        "learnableLevelMinimum": 5,
+        "learnableLevelMinimum": 100,
         "learnableLevelMaximum": 999,
         "specialEffect": {
           "opponentStatusConditions": [
@@ -3569,7 +3569,7 @@
         "powerPoints": 10,
         "category": "support",
         "effectId": "light_s7",
-        "learnableLevelMinimum": 5,
+        "learnableLevelMinimum": 100,
         "learnableLevelMaximum": 999,
         "specialEffect": {
           "opponentStatusConditions": [
@@ -3930,7 +3930,7 @@
         "powerPoints": 10,
         "category": "support",
         "effectId": "dark_s7",
-        "learnableLevelMinimum": 5,
+        "learnableLevelMinimum": 100,
         "learnableLevelMaximum": 999,
         "specialEffect": {
           "opponentStatusConditions": [
@@ -4290,7 +4290,7 @@
         "powerPoints": 10,
         "category": "support",
         "effectId": "poison_s7",
-        "learnableLevelMinimum": 5,
+        "learnableLevelMinimum": 100,
         "learnableLevelMaximum": 999,
         "specialEffect": {
           "opponentStatusConditions": [
@@ -4653,7 +4653,7 @@
         "powerPoints": 10,
         "category": "support",
         "effectId": "sound_s7",
-        "learnableLevelMinimum": 5,
+        "learnableLevelMinimum": 100,
         "learnableLevelMaximum": 999,
         "specialEffect": {
           "opponentStatusConditions": [
@@ -5013,7 +5013,7 @@
         "powerPoints": 10,
         "category": "support",
         "effectId": "beast_s7",
-        "learnableLevelMinimum": 5,
+        "learnableLevelMinimum": 100,
         "learnableLevelMaximum": 999,
         "specialEffect": {
           "opponentStatusConditions": [
@@ -5376,7 +5376,7 @@
         "powerPoints": 10,
         "category": "support",
         "effectId": "bug_s7",
-        "learnableLevelMinimum": 5,
+        "learnableLevelMinimum": 100,
         "learnableLevelMaximum": 999,
         "specialEffect": {
           "opponentStatusConditions": [
@@ -5736,7 +5736,7 @@
         "powerPoints": 10,
         "category": "support",
         "effectId": "bird_s7",
-        "learnableLevelMinimum": 5,
+        "learnableLevelMinimum": 100,
         "learnableLevelMaximum": 999,
         "specialEffect": {
           "opponentStatusConditions": [
@@ -6097,7 +6097,7 @@
         "powerPoints": 10,
         "category": "support",
         "effectId": "fish_s7",
-        "learnableLevelMinimum": 5,
+        "learnableLevelMinimum": 100,
         "learnableLevelMaximum": 999,
         "specialEffect": {
           "opponentStatusConditions": [
@@ -6459,7 +6459,7 @@
         "powerPoints": 10,
         "category": "support",
         "effectId": "ice_s7",
-        "learnableLevelMinimum": 5,
+        "learnableLevelMinimum": 100,
         "learnableLevelMaximum": 999,
         "specialEffect": {
           "opponentStatusConditions": [
@@ -6820,7 +6820,7 @@
         "powerPoints": 10,
         "category": "support",
         "effectId": "wind_s7",
-        "learnableLevelMinimum": 5,
+        "learnableLevelMinimum": 100,
         "learnableLevelMaximum": 999,
         "specialEffect": {
           "opponentStatusConditions": [
@@ -7180,7 +7180,7 @@
         "powerPoints": 10,
         "category": "support",
         "effectId": "flower_s7",
-        "learnableLevelMinimum": 5,
+        "learnableLevelMinimum": 100,
         "learnableLevelMaximum": 999,
         "specialEffect": {
           "opponentStatusConditions": [
@@ -7541,7 +7541,7 @@
         "powerPoints": 10,
         "category": "support",
         "effectId": "machine_s7",
-        "learnableLevelMinimum": 5,
+        "learnableLevelMinimum": 100,
         "learnableLevelMaximum": 999,
         "specialEffect": {
           "opponentStatusConditions": [
@@ -7901,7 +7901,7 @@
         "powerPoints": 10,
         "category": "support",
         "effectId": "sweets_s7",
-        "learnableLevelMinimum": 5,
+        "learnableLevelMinimum": 100,
         "learnableLevelMaximum": 999,
         "specialEffect": {
           "opponentStatusConditions": [
@@ -8264,7 +8264,7 @@
         "powerPoints": 10,
         "category": "support",
         "effectId": "ghost_s7",
-        "learnableLevelMinimum": 5,
+        "learnableLevelMinimum": 100,
         "learnableLevelMaximum": 999,
         "specialEffect": {
           "opponentStatusConditions": [
@@ -8624,7 +8624,7 @@
         "powerPoints": 10,
         "category": "support",
         "effectId": "dragon_s7",
-        "learnableLevelMinimum": 5,
+        "learnableLevelMinimum": 100,
         "learnableLevelMaximum": 999,
         "specialEffect": {
           "opponentStatusConditions": [
@@ -8985,7 +8985,7 @@
         "powerPoints": 10,
         "category": "support",
         "effectId": "paper_s7",
-        "learnableLevelMinimum": 5,
+        "learnableLevelMinimum": 100,
         "learnableLevelMaximum": 999,
         "specialEffect": {
           "opponentStatusConditions": [

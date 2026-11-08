@@ -532,10 +532,9 @@ class _BattleScreenState extends State<BattleScreen>
             if (event.isOneHitKnockout) l10n.battleLogOneHitKnockout,
             // 効果が働かなかった (倍率 100%) 時は、起きていないことを出さない。
             // 説明文は技の名前と同じく master の定義の文言のため、ARB には移さない
-            if (event.specialEffect case (
-              :final powerPercent,
-              :final description,
-            ) when powerPercent > 100)
+            if (event.specialEffect
+                case (:final powerPercent, :final description)
+                when powerPercent > 100)
               description,
             if (move?.category != MoveCategory.support &&
                 !event.isOneHitKnockout &&
@@ -781,14 +780,12 @@ class _BattleScreenState extends State<BattleScreen>
       case MonsterSwitchedInEvent(:final withdrawnMonsterId):
         // 自分からの交代はラウンドの始めに起き、その後に相手の技を受けるため、控えにいたラウンドの始めの状態で出す。
         // 倒れた時の交代はラウンドの終わりに起きるため、解決した後の状態で出す
-        final member =
-            (withdrawnMonsterId == null ? nextState : previousState)
-                .partyOf(side: event.side)
-                .members
-                .firstWhere(
-                  (member) => member.definition.id == event.monsterId,
-                );
-        final withdrawnName = _displayedActiveMembers[event.side]!.definition.name;
+        final member = (withdrawnMonsterId == null ? nextState : previousState)
+            .partyOf(side: event.side)
+            .members
+            .firstWhere((member) => member.definition.id == event.monsterId);
+        final withdrawnName =
+            _displayedActiveMembers[event.side]!.definition.name;
         setState(() {
           _displayedActiveMembers[event.side] = member;
           _logText = (l10n) => withdrawnMonsterId == null
@@ -1572,9 +1569,8 @@ class _BattleScreenState extends State<BattleScreen>
         Row(
           children: [
             // 交代できる控えがいない時はボタンを出さない。交換不可の間は押せない
-            if (switchableMemberIndices(
-              party: _battleState.player,
-            ).isNotEmpty) ...[
+            if (switchableMemberIndices(party: _battleState.player)
+                .isNotEmpty) ...[
               Expanded(
                 child: _BattleCommandButton(
                   key: const Key('battle-switch-monster'),

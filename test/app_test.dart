@@ -950,9 +950,8 @@ void main() {
         );
 
         await playFirstBattleUntilFinished(tester: tester);
-        final bornMonster = generatedWaxMonster(
-          monsterId: bornMonsterId,
-        ).definition;
+        final bornMonster = generatedWaxMonster(monsterId: bornMonsterId)
+            .definition;
         // 生まれたカードと勝敗が同じ画面に出る
         expect(find.text('あたらしい なかま'), findsOneWidget);
         expect(find.text(bornMonster.encyclopediaText), findsOneWidget);
@@ -1078,9 +1077,8 @@ void main() {
       await seedPartyWithOneMonster(tester: tester);
       await tester.tap(find.byTooltip('アルバムから選ぶ'));
       await tester.pumpAndSettle();
-      final bornMonster = generatedWaxMonster(
-        monsterId: 'generated-request-1',
-      ).definition;
+      final bornMonster = generatedWaxMonster(monsterId: 'generated-request-1')
+          .definition;
       expect(find.text('あたらしい なかま'), findsOneWidget);
       expect(find.text(bornMonster.name), findsOneWidget);
       // AI 生成の開示は利用規約・プライバシーポリシー・ストアの説明文で行い、画面には出さない
@@ -1140,9 +1138,8 @@ void main() {
       await tester.tap(find.byKey(const Key('share-confirm')));
       await tester.pumpAndSettle();
 
-      final bornMonster = generatedWaxMonster(
-        monsterId: 'generated-request-1',
-      ).definition;
+      final bornMonster = generatedWaxMonster(monsterId: 'generated-request-1')
+          .definition;
       final rendered = shareCalls.renderedCards.single;
       expect(rendered.format, ShareCardFormat.portrait);
       expect(
@@ -1663,10 +1660,7 @@ void main() {
       await pumpTransition();
       // 候補は場にいない 2 体目と 3 体目だけ
       expect(find.text('場に出す モンスターを えらぶ'), findsOneWidget);
-      expect(
-        find.byKey(const Key('battle-switch-candidate-0')),
-        findsNothing,
-      );
+      expect(find.byKey(const Key('battle-switch-candidate-0')), findsNothing);
       expect(
         find.byKey(const Key('battle-switch-candidate-2')),
         findsOneWidget,
@@ -1688,10 +1682,7 @@ void main() {
       for (var second = 0; second < 10; second++) {
         await tester.pump(const Duration(seconds: 1));
       }
-      expect(
-        find.text('${party[1].definition.name} の 技をえらぶ'),
-        findsOneWidget,
-      );
+      expect(find.text('${party[1].definition.name} の 技をえらぶ'), findsOneWidget);
     });
   });
 

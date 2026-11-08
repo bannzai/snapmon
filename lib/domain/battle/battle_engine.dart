@@ -528,7 +528,9 @@ BattleState advanceRound({
             index == party.activeMemberIndex
                 ? BattleMonster(
                     definition: member.definition,
-                    state: member.state.copyWith(statModifierPercents: const {}),
+                    state: member.state.copyWith(
+                      statModifierPercents: const {},
+                    ),
                   )
                 : member,
         ],
