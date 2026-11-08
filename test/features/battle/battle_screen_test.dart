@@ -1711,9 +1711,8 @@ void main() {
           playerMonster: strongPlayer,
         );
 
-        final field = fieldRect(tester: tester);
         for (final artRect in monsterArtRects(tester: tester)) {
-          expect(field.intersect(artRect), artRect);
+          expect(fieldRect(tester: tester).intersect(artRect), artRect);
           for (final coveringRect in [
             opponentStatusCardRect(tester: tester),
             playerStatusCardRect(tester: tester),

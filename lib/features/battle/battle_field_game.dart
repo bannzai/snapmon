@@ -386,13 +386,12 @@ double _maximumSizeBesideOverlay({
 }) {
   final gappedRect = overlayRect.inflate(_monsterArtGapToOverlay);
   // 絵の広がる向きと逆側にある矩形 (角より右にある矩形に左へ広がる絵、角より上にある矩形に下へ広がる絵等) には、どの大きさでも重ならない
-  final isOutsideHorizontally = growsLeft
-      ? gappedRect.left >= anchor.dx
-      : gappedRect.right <= anchor.dx;
-  final isOutsideVertically = growsDown
-      ? gappedRect.bottom <= anchor.dy
-      : gappedRect.top >= anchor.dy;
-  if (isOutsideHorizontally || isOutsideVertically) {
+  if ((growsLeft
+          ? gappedRect.left >= anchor.dx
+          : gappedRect.right <= anchor.dx) ||
+      (growsDown
+          ? gappedRect.bottom <= anchor.dy
+          : gappedRect.top >= anchor.dy)) {
     return double.infinity;
   }
   return math.max(
