@@ -767,9 +767,7 @@ void main() {
     await playUntilFinished(tester: tester);
   });
 
-  testWidgets('切り出した画像を読めない時はそのモンスターを描かないまま、エラーを出さずに最後まで戦える', (
-    tester,
-  ) async {
+  testWidgets('切り出した画像を読めない時はそのモンスターを描かないまま、エラーを出さずに最後まで戦える', (tester) async {
     final calls = RecordedBattleCalls();
     await pumpBattleScreen(
       tester: tester,
