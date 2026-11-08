@@ -110,6 +110,8 @@ describe("buildLearnset", () => {
       // レベル帯の下限 (100) が覚える順のレベルより高い技は、下限で覚える
       { moveId: "paper_3", unlockLevel: 100 },
       { moveId: "paper_k1", unlockLevel: 100 },
+      // 版 10 の交換不可にする補助技 (#239)
+      { moveId: "paper_s7", unlockLevel: 100 },
     ]);
   });
 
