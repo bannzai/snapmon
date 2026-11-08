@@ -9,6 +9,16 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
+// Google Play へ上げる AAB の署名 (upload key)。CI (.github/workflows/build-android-release.yml) が 1Password を正とする
+// GitHub Secrets から android/key.properties と android/app/upload-keystore.jks を書き出す。手元に key.properties が無い時は
+// release も debug 署名のままにして `flutter run --release` を壊さない
+val keystorePropertiesFile = rootProject.file("key.properties")
+val keystoreProperties = java.util.Properties().apply {
+    if (keystorePropertiesFile.exists()) {
+        keystorePropertiesFile.inputStream().use { load(it) }
+    }
+}
+
 android {
     namespace = "com.bannzai.snapmon"
     compileSdk = flutter.compileSdkVersion
@@ -30,11 +40,24 @@ android {
         versionName = flutter.versionName
     }
 
+    signingConfigs {
+        if (keystorePropertiesFile.exists()) {
+            create("release") {
+                keyAlias = keystoreProperties.getProperty("keyAlias")
+                keyPassword = keystoreProperties.getProperty("keyPassword")
+                storeFile = file(keystoreProperties.getProperty("storeFile"))
+                storePassword = keystoreProperties.getProperty("storePassword")
+            }
+        }
+    }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = if (keystorePropertiesFile.exists()) {
+                signingConfigs.getByName("release")
+            } else {
+                signingConfigs.getByName("debug")
+            }
         }
     }
 }

@@ -55,6 +55,7 @@ jobs:
     - run: flutter gen-l10n
     - run: flutter test
     - run: bash scripts/test/test-set-webtunnel-setup-env-secret.sh
+    - run: bash scripts/test/test-restore-android-signing.sh
     - run: bash scripts/test/test-makefile-targets.sh
     - run: bash scripts/test/test-metadata-check.sh
     # docs/master-viewer.js は package.json の無いディレクトリの ES module で、拡張子 .js のまま読むには
