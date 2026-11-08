@@ -131,5 +131,10 @@ describe("proposalRangeViolation", () => {
     expect(proposalRangeViolation({ ...proposal, element: { ...proposal.element, displayName: "海藻", description: "昆布やわかめなどの海の草" } })).toBeUndefined();
     expect(proposalRangeViolation({ ...proposal, element: { ...proposal.element, displayName: "小物", description: "財布や鍵のような持ち歩く物。分布は広い" } })).toBeUndefined();
     expect(proposalRangeViolation({ ...proposal, element: { ...proposal.element, displayName: "ペット", description: "いぬのおもちゃや首輪のような物" } })).toBeUndefined();
+    expect(proposalRangeViolation({ ...proposal, element: { ...proposal.element, displayName: "戦術", description: "布陣を組んで攻める物。布教や布石にも使う" } })).toBeUndefined();
+    expect(proposalRangeViolation({ ...proposal, element: { ...proposal.element, displayName: "手当て", description: "湿布や包帯のような物" } })).toBeUndefined();
+    expect(proposalRangeViolation({ ...proposal, element: { ...proposal.element, displayName: "寝具", description: "布団や枕のような物" } })).toBeUndefined();
+    expect(proposalRangeViolation({ ...proposal, element: { ...proposal.element, displayName: "衣", description: "布地でできた服" } })).toContain("布の属性");
+    expect(proposalRangeViolation({ ...proposal, element: { ...proposal.element, displayName: "雑貨", description: "布製の小物" } })).toContain("布の属性");
   });
 });
