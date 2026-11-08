@@ -29,8 +29,9 @@ jobs:
       with:
         persist-credentials: false
     # PixelFX の書き出しは依存パッケージを使わず、runner に入っている node (package.json の engines は >=18) だけで動く。
-    # 書き出した後の後処理 (scripts/move_effects/postprocess_sprite_sheets.py) が Pillow を使う
-    - run: python3 -m pip install --user pillow
+    # 書き出した後の後処理 (scripts/move_effects/postprocess_sprite_sheets.py) が Pillow を使う。runner の python3 は
+    # externally-managed (PEP 668) で pip install が拒否されるため、apt のパッケージで入れる
+    - run: sudo apt-get update && sudo apt-get install -y python3-pil
     - run: bash scripts/move_effects/generate_move_effect_sprite_sheets.sh
     - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
       with:
