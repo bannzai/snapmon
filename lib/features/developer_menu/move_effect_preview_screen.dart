@@ -124,10 +124,8 @@ class _MoveEffectPreviewScreenState extends State<MoveEffectPreviewScreen> {
     appBar: AppBar(title: Text(_selectedEffectId ?? '技のエフェクトの見本')),
     body: Column(
       children: [
-        AspectRatio(
-          aspectRatio: 4 / 3,
-          child: GameWidget(game: _game),
-        ),
+        // 横長の画面でも一覧の高さが残るよう、フィールドと一覧で高さを分ける
+        Expanded(child: GameWidget(game: _game)),
         Expanded(
           child: ListView(
             children: [
