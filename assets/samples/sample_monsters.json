@@ -12987,6 +12987,14 @@
             "unlockLevel": 1
           },
           {
+            "moveId": "thunder_s4",
+            "unlockLevel": 2
+          },
+          {
+            "moveId": "thunder_1g",
+            "unlockLevel": 3
+          },
+          {
             "moveId": "thunder_2",
             "unlockLevel": 15
           },
