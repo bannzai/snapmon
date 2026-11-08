@@ -233,6 +233,8 @@ class _GenerationScreenState extends State<GenerationScreen> {
 
   /// 済んでいない手順 (写真を整える・範囲を決める・送る) から生成を進める。もう一度試す時も同じ要求 ID で呼び直す。
   /// 範囲を決めてもらう時は [_GenerationPhase.choosingRange] にして止まり、決まったら [_confirmCrop] から呼び直される。
+  /// 切り抜くかを選んでもらう時は [_GenerationPhase.choosingCutout] にして止まり、切り抜くと選んだら [_useSubjectCutout] から
+  /// 呼び直される (範囲を自分で決めると選んだら [_GenerationPhase.choosingRange] に移る)。
   Future<void> _generate() async {
     setState(() {
       _phase = _GenerationPhase.inProgress;

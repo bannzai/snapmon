@@ -227,7 +227,9 @@ class DeveloperMenuScreen extends StatelessWidget {
             title: Text(
               '見本の写真から切り抜くかを選んで生成: ${_samplePhotoAssetPaths.keys.first}',
             ),
-            subtitle: const Text('写真の中央の正方形を自動の切り出しが見つけた被写体として\n切り抜くかを選ぶ画面を出す'),
+            subtitle: const Text(
+              '写真の中央の正方形を自動の切り出しが見つけた被写体として\n切り抜くかを選ぶ画面を出す\n切り抜いた絵で作ると 正方形のマスクが ios_subject として生成のレコードに残る',
+            ),
             onTap: () => _generateFromSamplePhoto(
               context: context,
               assetPath: _samplePhotoAssetPaths.values.first,
