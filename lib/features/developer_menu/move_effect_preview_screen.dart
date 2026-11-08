@@ -37,10 +37,13 @@ class MoveEffectPreviewScreen extends StatefulWidget {
       _MoveEffectPreviewScreenState();
 }
 
+/// [MoveEffectPreviewScreen] の状態。フィールドのゲームと、当て続けているエフェクトを持つ。
 class _MoveEffectPreviewScreenState extends State<MoveEffectPreviewScreen> {
-  // 被弾の 0.5 秒 (hitReactionSeconds) の再生が終わってから次を当て、スクリーンショットを撮る間も絵が出続けるようにする
+  /// 同じエフェクトを当て直す間隔。被弾の 0.5 秒 (hitReactionSeconds) の再生が終わってから次を当て、
+  /// スクリーンショットを撮る間も絵が出続けるようにするため。
   static const Duration _replayInterval = Duration(milliseconds: 600);
 
+  /// 見本の 2 体を場に出したバトルのフィールド。
   late final BattleFieldGame _game = BattleFieldGame(
     playerMonster: widget.playerMonster,
     opponentMonster: widget.opponentMonster,
@@ -94,6 +97,8 @@ class _MoveEffectPreviewScreenState extends State<MoveEffectPreviewScreen> {
     setState(() => _selectedEffectId = effectId);
     void hitOpponent() => _game.hit(
       defenderSide: BattleSideId.opponent,
+      // master をアプリに同梱しない (ADR 0001) ため ID だけで作る。kind と色はシートの読み込みが済むまでのパーティクルにだけ効き、
+      // どの属性でも暗いフィールドの上で見える白にする
       effect: MoveEffect(
         id: effectId,
         displayName: effectId,
