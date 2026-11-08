@@ -93,6 +93,11 @@ dependency_overrides:
 # The following section is specific to Flutter packages.
 flutter:
 
+  # iOS の依存は CocoaPods を使わず SwiftPM だけで解決する。CocoaPods trunk が 2026-12-02 に read-only になり、
+  # 既に PurchasesHybridCommon 20.3.0 などが trunk に無いため。手元の `flutter config` の設定に左右されないようここで固定する
+  config:
+    enable-swift-package-manager: true
+
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
