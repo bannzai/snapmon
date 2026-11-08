@@ -7,7 +7,7 @@ RevenueCat の値は `revenuecat/config.json` が正で、生成チケットの 
 ## 解放の前に揃えるもの
 
 - App Store Connect のアプリのレコードと商品 2 つ (#183)。アプリのレコードの作成は Apple ID の認証が要る (`~/.claude/skills/appstore-in-app-purchase/references/api_endpoints.md`)
-- Google Play Console の商品 2 つ (同じ識別子)
+- Google Play Console の商品 2 つ (同じ識別子。`googleplay/iap/config.json` を `play_apply_config.sh` で適用。DRAFT で登録し、有効化は「解放」で行う)
 - RevenueCat の app に App Store の In-App Purchase Key と Google Play のサービスアカウントを登録する
 - RevenueCat の webhook を `revenueCatWebhook` に向ける (Authorization は Secret Manager の `REVENUECAT_WEBHOOK_AUTHORIZATION` と同じ値)
 
@@ -17,7 +17,7 @@ RevenueCat の値は `revenuecat/config.json` が正で、生成チケットの 
 
 ## iOS の最初の提出
 
-current の offering は project に 1 つで、iOS と Android の両方に効く (`revenuecat/config.json` の 1 つの project に両方の app がある)。Android を鍵ありで先に公開して Play の商品も登録済みなら、審査の間は Android の一般の利用者にも購入画面が出る。Android の公開か商品の登録は、iOS の審査が通るまで待つ。
+current の offering は project に 1 つで、iOS と Android の両方に効く (`revenuecat/config.json` の 1 つの project に両方の app がある)。Android を鍵ありで先に公開して Play の商品も有効なら、審査の間は Android の一般の利用者にも購入画面が出る。Play の商品 2 つは DRAFT (購入できない。`googleplay/iap/config.json` の `status: inactive`) で登録してあり、有効化は下の「解放」で行う。Android の公開か商品の有効化は、iOS の審査が通るまで待つ。
 
 Apple は最初の消耗型の商品を新しいアプリのバージョンと一緒に提出するよう求める。出典: https://developer.apple.com/help/app-store-connect/manage-submissions-to-app-review/submit-an-in-app-purchase (2026-11-07 に確認)。そのため最初のアプリの提出に商品を含めて審査を通す。
 
@@ -39,16 +39,23 @@ Apple は最初の消耗型の商品を新しいアプリのバージョンと�
 
 ## 解放
 
-先に offering を切り替える。逆の順だと、買えないのに無料の回数だけ減る時間ができる。
+先に商品を買える状態にしてから offering を切り替える。逆の順だと、買えないのに無料の回数だけ減る時間ができる。
 
-1. 生成チケットの offering を current にする。アプリの再リリースは要らない
+1. Google Play の商品 2 つを有効にする (DRAFT で登録してあるため。App Store の商品は審査で承認済みのものを使うので操作は無い)
+
+   ```sh
+   op run --env-file .env.1password -- bash ~/.claude/skills/googleplay-in-app-purchase/scripts/play_otp_set_state.sh snapmon_generationticket10_200yen buy activate
+   op run --env-file .env.1password -- bash ~/.claude/skills/googleplay-in-app-purchase/scripts/play_otp_set_state.sh snapmon_generationticket30_500yen buy activate
+   ```
+
+2. 生成チケットの offering を current にする。アプリの再リリースは要らない
 
    ```sh
    rc offerings set-current ofrng07ce9e2214 --project-id proj682b16be --yes --json --no-input
    ```
 
-2. SDK は offering をキャッシュするため、端末に反映されるまで時間がかかることがある (未計測)。反映を確かめる
-3. 無料の生成を 1 日 3 回にする PR をマージしてデプロイする (`functions/src/generation/pipeline.ts` の `DAILY_GENERATION_LIMIT_PER_USER`)
+3. SDK は offering をキャッシュするため、端末に反映されるまで時間がかかることがある (未計測)。反映を確かめる
+4. 無料の生成を 1 日 3 回にする PR をマージしてデプロイする (`functions/src/generation/pipeline.ts` の `DAILY_GENERATION_LIMIT_PER_USER`)
 
 解放の前に sandbox で確かめること (未確認): Android の `one_time` の商品を 2 回続けて買えるか (消耗型として扱われるか)。
 
