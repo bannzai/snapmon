@@ -111,8 +111,9 @@ export const PROPOSED_MOVE_TIERS = [
  * master のどの属性にも当てはまらずこの提案に来るため、ここで止めないと、その場で作った布の属性が以後の判定の候補に入り
  * (pipeline.ts の判定は master とその場で作った属性の両方を問う)、外した属性が戻る。当たった提案は使わず既存の属性に寄せる。
  * 「布」の前の除外の文字は、布地と関係の無い語 (昆布・財布・散布・分布・配布・公布・宣布・発布・頒布・流布・塗布) で止めないため。
+ * ひらがなの「ぬの」は「いぬの」の途中に当たるため入れない。
  */
-const REMOVED_CLOTH_ELEMENT_PATTERN = /(?<![昆財散分配公宣発頒流塗])布|ぬの|ヌノ|繊維|織物|ファブリック/;
+const REMOVED_CLOTH_ELEMENT_PATTERN = /(?<![昆財散分配公宣発頒流塗])布|ヌノ|繊維|織物|ファブリック/;
 
 /** 提案の値が範囲内かを検査し、範囲外なら理由を返す。範囲内なら undefined。 */
 export function proposalRangeViolation(output: ProposeElementOutput): string | undefined {
