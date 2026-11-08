@@ -50,6 +50,10 @@ jobs:
         BUILD_NUMBER: ${{ inputs.build_number }}
         REVENUECAT_PUBLIC_API_KEY_ANDROID: ${{ vars.REVENUECAT_PUBLIC_API_KEY_ANDROID }}
       run: |
+        if [ -z "$REVENUECAT_PUBLIC_API_KEY_ANDROID" ]; then
+          echo "::error::GitHub Variable REVENUECAT_PUBLIC_API_KEY_ANDROID が未設定です。鍵なしのビルドは購入画面が出ず再リリースが要るため止めます (documents/generation-ticket-release.md)"
+          exit 1
+        fi
         flutter build appbundle --release \
           ${BUILD_NUMBER:+--build-number="$BUILD_NUMBER"} \
           --dart-define=REVENUECAT_PUBLIC_API_KEY_ANDROID="$REVENUECAT_PUBLIC_API_KEY_ANDROID"
