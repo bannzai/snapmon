@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     // START: FlutterFire Configuration
@@ -13,7 +15,7 @@ plugins {
 // GitHub Secrets から android/key.properties と android/app/upload-keystore.jks を書き出す。手元に key.properties が無い時は
 // release も debug 署名のままにして `flutter run --release` を壊さない
 val keystorePropertiesFile = rootProject.file("key.properties")
-val keystoreProperties = java.util.Properties().apply {
+val keystoreProperties = Properties().apply {
     if (keystorePropertiesFile.exists()) {
         keystorePropertiesFile.inputStream().use { load(it) }
     }
