@@ -86,6 +86,7 @@ class DexScreen extends StatelessWidget {
     if (incomingMonster == null || !context.mounted) {
       return;
     }
+    // 保存を待つ間に図鑑の画面が閉じても失敗を出せるよう、await の前に ScaffoldMessenger を取っておく
     final messenger = ScaffoldMessenger.of(context);
     try {
       await dexStore.addToParty(monsterId: incomingMonster.definition.id);
@@ -401,6 +402,7 @@ class _MonsterTile extends StatelessWidget {
 class _EmptyPartySlot extends StatelessWidget {
   const _EmptyPartySlot({required this.onTap});
 
+  /// 枠をタップした時の処理。null の間はタップを受け付けない。
   final VoidCallback? onTap;
 
   @override

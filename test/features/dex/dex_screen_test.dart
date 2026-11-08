@@ -204,19 +204,17 @@ void main() {
     await tester.drag(find.byType(CustomScrollView), const Offset(0, -5000));
     await tester.pumpAndSettle();
 
-    final lastMonsterName = sampleData.monsters.last.definition.name;
-    final lastTileBottom = tester
-        .getBottomLeft(
-          find
-              .ancestor(
-                of: find.text(lastMonsterName).last,
-                matching: find.byType(Material),
-              )
-              .first,
-        )
-        .dy;
     expect(
-      lastTileBottom,
+      tester
+          .getBottomLeft(
+            find
+                .ancestor(
+                  of: find.text(sampleData.monsters.last.definition.name).last,
+                  matching: find.byType(Material),
+                )
+                .first,
+          )
+          .dy,
       lessThanOrEqualTo(
         tester.getTopLeft(find.byKey(const Key('dex-add-monster'))).dy,
       ),
