@@ -290,8 +290,12 @@ class DexScreen extends StatelessWidget {
                   ],
                 ),
               ),
-            // 最後の行が下の「追加する」ボタン (高さ 52 + 下の余白 16) に隠れないよう、その分だけ下に余白を足す
-            const SliverPadding(padding: EdgeInsets.only(bottom: 72)),
+            // 最後の行が下の「追加する」ボタンに隠れないよう、ボタンの高さと centerFloat がボタンの下に空ける余白の分だけ下に余白を足す
+            const SliverPadding(
+              padding: EdgeInsets.only(
+                bottom: _addMonsterButtonHeight + kFloatingActionButtonMargin,
+              ),
+            ),
           ],
         );
       },
@@ -301,7 +305,7 @@ class DexScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: SizedBox(
         width: double.infinity,
-        height: 52,
+        height: _addMonsterButtonHeight,
         child: FloatingActionButton.extended(
           key: const Key('dex-add-monster'),
           backgroundColor: SnapmonColors.accent,
@@ -323,6 +327,9 @@ class DexScreen extends StatelessWidget {
     ),
   );
 }
+
+/// 図鑑の画面の下の「追加する」ボタンの高さ。モックのボタンの文字 14px と上下の余白を、指で押しやすい 44 以上に広げた値。
+const double _addMonsterButtonHeight = 52;
 
 /// 図鑑のカードと手持ちの枠の幅 / 高さ。モック (Dex.dc.html) の 3 列のカードの比率から取った。
 const double _monsterTileAspectRatio = 0.72;

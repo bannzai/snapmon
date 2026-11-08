@@ -192,4 +192,34 @@ void main() {
     await tester.tap(addButton);
     expect(selectedTabs, [HomeTab.capture]);
   });
+
+  testWidgets('一番下までスクロールすると、最後の行のカードは「追加する」ボタンに隠れない', (tester) async {
+    final dexStore = DexStore(definitions: sampleData.definitions)
+      ..replaceAll(monsters: sampleData.monsters);
+    await pumpDexScreen(tester: tester, dexStore: dexStore, selectedTabs: []);
+    // 見本の 6 体は 844 の高さにほぼ収まりスクロールしないため、画面を低くして一番下までスクロールさせる
+    tester.view.physicalSize = const Size(390, 600);
+    await tester.pump();
+
+    await tester.drag(find.byType(CustomScrollView), const Offset(0, -5000));
+    await tester.pumpAndSettle();
+
+    final lastMonsterName = sampleData.monsters.last.definition.name;
+    final lastTileBottom = tester
+        .getBottomLeft(
+          find
+              .ancestor(
+                of: find.text(lastMonsterName).last,
+                matching: find.byType(Material),
+              )
+              .first,
+        )
+        .dy;
+    expect(
+      lastTileBottom,
+      lessThanOrEqualTo(
+        tester.getTopLeft(find.byKey(const Key('dex-add-monster'))).dy,
+      ),
+    );
+  });
 }
