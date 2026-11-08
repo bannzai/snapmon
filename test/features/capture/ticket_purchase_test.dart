@@ -84,7 +84,8 @@ void main() {
         home: GenerationScreen(
           sourcePhoto: testPhotoBytes,
           photoSource: GenerationPhotoSource.album,
-          cropsWhenSubjectNotFound: true,
+          // 上限に当たるまで操作を挟まずに進めるため、切り抜くかを選ぶ画面を出さない
+          letsUserChooseSubjectRange: false,
           monsterGenerator: generator,
           dexStore: DexStore(definitions: sampleData.definitions),
           cardSharer: fakeCardSharer(

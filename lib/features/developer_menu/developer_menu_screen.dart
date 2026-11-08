@@ -9,6 +9,7 @@ import '../../theme/snapmon_text_styles.dart';
 import '../battle/battle_recorder.dart';
 import '../capture/generation_screen.dart';
 import '../capture/monster_generator.dart';
+import '../capture/subject_mask.dart';
 import '../capture/ticket_purchase_sheet.dart';
 import '../dex/dex_store.dart';
 import '../opponent/pvp_client.dart';
@@ -68,11 +69,44 @@ class DeveloperMenuScreen extends StatelessWidget {
         ..hideCurrentSnackBar()
         ..showSnackBar(SnackBar(content: Text(message)));
 
-  /// [assetPath] の見本の写真から生成する。[cropsWhenSubjectNotFound] は [GenerationScreen.cropsWhenSubjectNotFound] に渡す。
+  /// [monsterGenerator] の OS の切り出しだけを、写真の中央の短辺いっぱいの正方形を被写体として返すものに替えた [MonsterGenerator]。
+  /// Simulator では Vision の前景のマスクが返らず (#242 の simtunnel で確かめた)、OS の切り出しが被写体を見つけた時の画面
+  /// (切り抜くかを選ぶ画面) に届かないため、被写体が見つかったことにして確かめる。
+  MonsterGenerator _monsterGeneratorWithSubjectFound() => MonsterGenerator(
+    listCameras: monsterGenerator.listCameras,
+    openAppSettings: monsterGenerator.openAppSettings,
+    pickAlbumPhoto: monsterGenerator.pickAlbumPhoto,
+    preparePhoto: monsterGenerator.preparePhoto,
+    createSubjectMask: ({required photo}) {
+      final photoSize = photoPixelSize(photo: photo);
+      return monsterGenerator.createSquareMask(
+        photo: photo,
+        crop: initialSquareCrop(
+          photoWidth: photoSize.width,
+          photoHeight: photoSize.height,
+        ),
+      );
+    },
+    createSquareMask: monsterGenerator.createSquareMask,
+    createCutoutPreview: monsterGenerator.createCutoutPreview,
+    createRequestId: monsterGenerator.createRequestId,
+    uploadPhoto: monsterGenerator.uploadPhoto,
+    uploadMask: monsterGenerator.uploadMask,
+    requestGeneration: monsterGenerator.requestGeneration,
+    fetchGeneration: monsterGenerator.fetchGeneration,
+    fetchTicketPackages: monsterGenerator.fetchTicketPackages,
+    purchaseTicketPackage: monsterGenerator.purchaseTicketPackage,
+    syncTicketPurchases: monsterGenerator.syncTicketPurchases,
+    watchGenerationTickets: monsterGenerator.watchGenerationTickets,
+    logEvent: monsterGenerator.logEvent,
+  );
+
+  /// [assetPath] の見本の写真から [generator] で生成する。[letsUserChooseSubjectRange] は [GenerationScreen.letsUserChooseSubjectRange] に渡す。
   Future<void> _generateFromSamplePhoto({
     required BuildContext context,
     required String assetPath,
-    required bool cropsWhenSubjectNotFound,
+    required bool letsUserChooseSubjectRange,
+    required MonsterGenerator generator,
   }) async {
     final sourcePhoto = (await rootBundle.load(assetPath)).buffer.asUint8List();
     if (!context.mounted) {
@@ -83,8 +117,8 @@ class DeveloperMenuScreen extends StatelessWidget {
         builder: (context) => GenerationScreen(
           sourcePhoto: sourcePhoto,
           photoSource: GenerationPhotoSource.sample,
-          cropsWhenSubjectNotFound: cropsWhenSubjectNotFound,
-          monsterGenerator: monsterGenerator,
+          letsUserChooseSubjectRange: letsUserChooseSubjectRange,
+          monsterGenerator: generator,
           dexStore: dexStore,
           cardSharer: cardSharer,
           startsFirstBattle: dexStore.party.isEmpty,
@@ -124,12 +158,13 @@ class DeveloperMenuScreen extends StatelessWidget {
               leading: const Icon(Icons.auto_awesome_outlined),
               title: Text('見本の写真から生成: $samplePhotoName'),
               subtitle: const Text(
-                '同梱した写真を生成に送る (カメラの無い Simulator 向け)\n自動の切り出しが使えない時は写真全体で送る',
+                '同梱した写真を生成に送る (カメラの無い Simulator 向け)\n自動の切り出しで被写体が見つかれば選ばずに切り抜き 使えない時は写真全体で送る',
               ),
               onTap: () => _generateFromSamplePhoto(
                 context: context,
                 assetPath: assetPath,
-                cropsWhenSubjectNotFound: false,
+                letsUserChooseSubjectRange: false,
+                generator: monsterGenerator,
               ),
             ),
           // ストアに商品が無い間と Simulator で、購入画面の見た目と流れを確かめるため。見本の package と見本の購入を使い、ストアも RevenueCat も呼ばない
@@ -170,17 +205,36 @@ class DeveloperMenuScreen extends StatelessWidget {
               ).whenComplete(sampleGenerationTickets.close);
             },
           ),
-          // アルバムのファイル選択を自動の操作で通しにくい Web (webtunnel) で、範囲を決める画面を確かめるため
+          // アルバムのファイル選択を自動の操作で通しにくい Web (webtunnel) と Simulator で、切り抜くかを選ぶ画面と範囲を決める画面を確かめるため
           ListTile(
             leading: const Icon(Icons.crop_outlined),
             title: Text(
               '見本の写真から範囲を決めて生成: ${_samplePhotoAssetPaths.keys.first}',
             ),
-            subtitle: const Text('自動の切り出しが使えない時は アルバムから選んだ時と同じく範囲を決める画面を出す'),
+            subtitle: const Text(
+              'アルバムから選んだ時と同じく 自動の切り出しで被写体が見つかれば切り抜くかを選ぶ画面を\n見つからない・使えない時は範囲を決める画面を出す',
+            ),
             onTap: () => _generateFromSamplePhoto(
               context: context,
               assetPath: _samplePhotoAssetPaths.values.first,
-              cropsWhenSubjectNotFound: true,
+              letsUserChooseSubjectRange: true,
+              generator: monsterGenerator,
+            ),
+          ),
+          // Simulator では Vision の前景のマスクが返らないため、被写体が見つかった時の切り抜くかを選ぶ画面を確かめる
+          ListTile(
+            leading: const Icon(Icons.content_cut_outlined),
+            title: Text(
+              '見本の写真から切り抜くかを選んで生成: ${_samplePhotoAssetPaths.keys.first}',
+            ),
+            subtitle: const Text(
+              '写真の中央の正方形を自動の切り出しが見つけた被写体として\n切り抜くかを選ぶ画面を出す\n切り抜いた絵で作ると 正方形のマスクが ios_subject として生成のレコードに残る',
+            ),
+            onTap: () => _generateFromSamplePhoto(
+              context: context,
+              assetPath: _samplePhotoAssetPaths.values.first,
+              letsUserChooseSubjectRange: true,
+              generator: _monsterGeneratorWithSubjectFound(),
             ),
           ),
           // 全属性の技を当てるにはバトルを何度も重ねる必要があるため、エフェクトだけを見本のモンスターに当てて確かめる

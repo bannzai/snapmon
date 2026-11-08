@@ -312,7 +312,7 @@ class _CaptureScreenState extends State<CaptureScreen>
         builder: (context) => GenerationScreen(
           sourcePhoto: sourcePhoto,
           photoSource: photoSource,
-          cropsWhenSubjectNotFound: true,
+          letsUserChooseSubjectRange: true,
           monsterGenerator: widget.monsterGenerator,
           dexStore: widget.dexStore,
           cardSharer: widget.cardSharer,

@@ -7,8 +7,8 @@ import 'package:image/image.dart' as img;
 import 'monster_generator.dart';
 
 // 生成に送るマスク (被写体が白・背景が黒の PNG。大きさは生成に送る写真と同じ) を端末で作る。
-// iOS 17 以降は OS の切り出し (ios/Runner/AppDelegate.swift の Vision の前景のマスク) を使い、使えない時はユーザーが crop で決めた
-// 正方形の範囲をマスクにする。サーバーはこのマスクを検査済みの写真に当てて切り出す (functions/src/generation/cutout.ts、ADR 0002)。
+// iOS 17 以降は OS の切り出し (ios/Runner/AppDelegate.swift の Vision の前景のマスク) で切り抜いた絵を見せ、それを使うかをユーザーに
+// 選んでもらう (lib/features/capture/generation_screen.dart)。使わないと選んだ時と使えない時は、ユーザーが crop で決めた正方形の範囲をマスクにする。サーバーはこのマスクを検査済みの写真に当てて切り出す (functions/src/generation/cutout.ts、ADR 0002)。
 
 /// OS の切り出しを呼ぶ platform channel (ios/Runner/AppDelegate.swift と同じ名前)。
 const MethodChannel _subjectMaskChannel = MethodChannel('snapmon/subject_mask');

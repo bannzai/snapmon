@@ -333,6 +333,27 @@ void main() {
     await tester.pumpAndSettle();
   }
 
+  /// 生成の画面で、OS の切り出しが見つけた被写体 ([fakeMonsterGenerator] の既定) を「切り抜いた絵で作る」と選ぶ
+  /// (自動では切り抜かないため。#242)。[settles] が false なら、初回の導線の相手を探す表示が止まらないため時間を指定して進める。
+  Future<void> chooseSubjectCutout({
+    required WidgetTester tester,
+    required bool settles,
+  }) async {
+    // 高さの低い画面では選ぶボタンが ListView の画面外にあって作られていないため、見える所までスクロールしてから押す
+    await tester.scrollUntilVisible(
+      find.text('切り抜いた絵で作る'),
+      100,
+      scrollable: find.byType(Scrollable).last,
+    );
+    await tester.tap(find.text('切り抜いた絵で作る'));
+    if (settles) {
+      await tester.pumpAndSettle();
+    } else {
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 500));
+    }
+  }
+
   /// 図鑑と手持ちに見本のモンスターを 1 体入れる。写真を選んだ時に手持ちがあるため、初回の導線 (生まれたらそのまま戦う) ではなく
   /// 2 回目以降の導線 (生まれたカードを出す) になる。
   Future<void> seedPartyWithOneMonster({required WidgetTester tester}) async {
@@ -543,6 +564,7 @@ void main() {
         );
         await seedPartyWithOneMonster(tester: tester);
         await tapStartFromAlbum(tester: tester);
+        await chooseSubjectCutout(tester: tester, settles: true);
         final bornMonster = generatedWaxMonster(
           monsterId: 'generated-request-1',
         ).definition;
@@ -575,6 +597,7 @@ void main() {
       );
       await seedPartyWithOneMonster(tester: tester);
       await tapStartFromAlbum(tester: tester);
+      await chooseSubjectCutout(tester: tester, settles: true);
       await tester.tap(find.text('もう 1 体撮る'));
       await tester.pumpAndSettle();
       expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
@@ -645,6 +668,7 @@ void main() {
       await tester.pumpAndSettle();
       expect(startSessionCallCount, 4);
       expect(sessionStore.uid, 'uid-1');
+      await chooseSubjectCutout(tester: tester, settles: true);
       expect(find.text('あたらしい なかま'), findsOneWidget);
     });
 
@@ -671,6 +695,7 @@ void main() {
       startSessionGate!.complete();
       await tester.pumpAndSettle();
       expect(sessionStore.uid, 'uid-1');
+      await chooseSubjectCutout(tester: tester, settles: true);
       expect(find.text('あたらしい なかま'), findsOneWidget);
     });
 
@@ -788,6 +813,7 @@ void main() {
         scrollable: find.byType(Scrollable).first,
       );
       await tapStartFromAlbum(tester: tester);
+      await chooseSubjectCutout(tester: tester, settles: true);
       expect(find.text('あたらしい なかま'), findsOneWidget);
     });
 
@@ -810,6 +836,7 @@ void main() {
         scrollable: find.byType(Scrollable).first,
       );
       await tapStartFromAlbum(tester: tester);
+      await chooseSubjectCutout(tester: tester, settles: true);
       expect(find.text('あたらしい なかま'), findsOneWidget);
     });
   });
@@ -828,6 +855,7 @@ void main() {
       expect(find.text('つながりませんでした'), findsOneWidget);
       await tester.tap(find.text('ログインせずに進む (DEBUG)'));
       await tester.pumpAndSettle();
+      await chooseSubjectCutout(tester: tester, settles: true);
       expect(find.text('あたらしい なかま'), findsOneWidget);
 
       await tester.tap(find.text('手持ちに入れる'));
@@ -855,6 +883,7 @@ void main() {
       await seedPartyWithOneMonster(tester: tester);
       await tapStartFromAlbum(tester: tester);
       expect(startSessionCallCount, 1);
+      await chooseSubjectCutout(tester: tester, settles: true);
       expect(find.text('あたらしい なかま'), findsOneWidget);
     });
   });
@@ -918,9 +947,13 @@ void main() {
           isDeveloperMenuEnabled: false,
         );
         await tester.tap(find.byKey(const Key('title-album')));
-        // 相手を探す表示の進捗は止まらないため、pumpAndSettle を使わず時間を指定して進める
         await tester.pump();
         await tester.pump(const Duration(milliseconds: 500));
+        // 切り抜くかを選ぶまでは、生成を始めず相手も探さない
+        expect(generationCalls.requestedRequestIds, isEmpty);
+        expect(find.text('相手を探しています'), findsNothing);
+        // 相手を探す表示の進捗は止まらないため、pumpAndSettle を使わず時間を指定して進める
+        await chooseSubjectCutout(tester: tester, settles: false);
         // 生成はまだ終わっていない
         expect(generationCalls.requestedRequestIds, ['request-1']);
         expect(find.text('相手を探しています'), findsOneWidget);
@@ -1025,6 +1058,7 @@ void main() {
       await tester.tap(find.byTooltip('アルバムから選ぶ'));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 500));
+      await chooseSubjectCutout(tester: tester, settles: false);
       // 相手は CPU トレーナーのどれか (seed で選ぶ)
       expect(find.textContaining(RegExp(r'^CPU .+ があらわれた$')), findsOneWidget);
       expect(pvpCalls.fetchOpponentsCount, 0);
@@ -1078,6 +1112,7 @@ void main() {
       await seedPartyWithOneMonster(tester: tester);
       await tester.tap(find.byTooltip('アルバムから選ぶ'));
       await tester.pumpAndSettle();
+      await chooseSubjectCutout(tester: tester, settles: true);
       final bornMonster = generatedWaxMonster(
         monsterId: 'generated-request-1',
       ).definition;
@@ -1113,6 +1148,7 @@ void main() {
       await seedPartyWithOneMonster(tester: tester);
       await tester.tap(find.byTooltip('アルバムから選ぶ'));
       await tester.pumpAndSettle();
+      await chooseSubjectCutout(tester: tester, settles: true);
       await tester.tap(find.text('もう 1 体撮る'));
       await tester.pumpAndSettle();
       expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
@@ -1130,6 +1166,7 @@ void main() {
       await seedPartyWithOneMonster(tester: tester);
       await tester.tap(find.byTooltip('アルバムから選ぶ'));
       await tester.pumpAndSettle();
+      await chooseSubjectCutout(tester: tester, settles: true);
       await tester.tap(find.text('カードを共有'));
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key('share-format-portrait')));
@@ -1311,6 +1348,7 @@ void main() {
       );
       await tester.tap(find.byTooltip('アルバムから選ぶ'));
       await tester.pumpAndSettle();
+      await chooseSubjectCutout(tester: tester, settles: true);
       expect(dexStore.monsters, hasLength(2));
     });
 
@@ -2378,6 +2416,7 @@ void main() {
         expect(startSessionCallCount, 1);
         expect(sessionStore.uid, 'uid-1');
         await tapStartFromAlbum(tester: tester);
+        await chooseSubjectCutout(tester: tester, settles: true);
         expect(find.text('あたらしい なかま'), findsOneWidget);
       },
     );
@@ -2693,6 +2732,39 @@ void main() {
       });
     });
 
+    testWidgets(
+      '開発者メニューの見本の写真から切り抜くかを選んで生成すると、中央の正方形を被写体として選ぶ画面を出し、切り抜いた絵で ios_subject を送る',
+      (tester) async {
+        await pumpHome(
+          tester: tester,
+          hasStartedSession: true,
+          startSessionFailureCount: 0,
+          isDeveloperMenuEnabled: true,
+          startsCameraOnCaptureOpen: false,
+        );
+        await seedPartyWithOneMonster(tester: tester);
+        await tester.tap(find.byTooltip('設定'));
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('開発者メニュー'));
+        await tester.pumpAndSettle();
+        await tester.scrollUntilVisible(
+          find.text('見本の写真から切り抜くかを選んで生成: マグカップ'),
+          100,
+          scrollable: find.byType(Scrollable).last,
+        );
+        await tester.tap(find.text('見本の写真から切り抜くかを選んで生成: マグカップ'));
+        await tester.pumpAndSettle();
+        expect(find.text('被写体を切り抜きました'), findsOneWidget);
+        expect(generationCalls.squareMaskCrops, hasLength(1));
+        expect(generationCalls.requestedMaskSources, isEmpty);
+        await chooseSubjectCutout(tester: tester, settles: true);
+        expect(find.text('あたらしい なかま'), findsOneWidget);
+        expect(generationCalls.requestedMaskSources, [
+          GenerationMaskSource.iosSubject,
+        ]);
+      },
+    );
+
     testWidgets('開発者メニューで新しいアカウントで始め直すと、ログインを終えてタイトルに戻り、初回起動と同じく裏でログインする', (
       tester,
     ) async {
@@ -2716,6 +2788,7 @@ void main() {
       expect(sessionStore.uid, 'uid-1');
 
       await tapStartFromAlbum(tester: tester);
+      await chooseSubjectCutout(tester: tester, settles: true);
       expect(find.text('あたらしい なかま'), findsOneWidget);
     });
 

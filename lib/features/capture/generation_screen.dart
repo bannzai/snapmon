@@ -45,9 +45,10 @@ const Duration _pollingInterval = Duration(seconds: 5);
 /// 写真 1 枚から生成する画面。写真を整えて送り、段階ごとの待ち時間を出し、結果に応じて生まれた画面を開くか、
 /// 判定待ち・生成しなかった理由・エラーを出す。生まれた画面を閉じたら、その画面の [ResultScreenAction] を返して閉じる。
 ///
-/// 送る前に被写体の範囲を決める: OS の切り出し ([MonsterGenerator.createSubjectMask]) が被写体を見つけたらそのマスクで切り出した絵を
-/// 出して送り、見つからない・使えない時は [cropsWhenSubjectNotFound] なら正方形の枠で範囲を決めてもらい、そうでなければマスク無し
-/// (写真全体) で送る。
+/// 送る前に被写体の範囲を決める。[letsUserChooseSubjectRange] なら、OS の切り出し ([MonsterGenerator.createSubjectMask]) が
+/// 被写体を見つけた時は切り出した絵と元の写真を並べ、切り抜いた絵で作るか正方形の枠で範囲を決めるかを選んでもらい
+/// (自動では切り抜かない。#242)、見つからない・使えない時は正方形の枠で範囲を決めてもらう。
+/// [letsUserChooseSubjectRange] でなければ、操作を挟まず OS の切り出しのマスクで、それも無ければマスク無し (写真全体) で送る。
 ///
 /// 初回の導線 ([startsFirstBattle]) では、生成を待つ間は「相手を探しています」を出し、生まれたら手持ちに入れて相手を決め、
 /// 「○○ があらわれた」の後にバトルの画面を開く。バトルの画面を閉じたら、図鑑を見る時は [ResultScreenAction.openDex]、
@@ -58,7 +59,7 @@ class GenerationScreen extends StatefulWidget {
     super.key,
     required this.sourcePhoto,
     required this.photoSource,
-    required this.cropsWhenSubjectNotFound,
+    required this.letsUserChooseSubjectRange,
     required this.monsterGenerator,
     required this.dexStore,
     required this.cardSharer,
@@ -87,9 +88,10 @@ class GenerationScreen extends StatefulWidget {
   /// 写真がどこから来たか。
   final GenerationPhotoSource photoSource;
 
-  /// OS の切り出しが被写体を見つけられない・使えない時に、正方形の枠で範囲を決めてもらうか。false ならマスク無し (写真全体) で送る
+  /// 被写体の範囲を利用者に決めてもらうか (OS の切り出しが被写体を見つけた時は切り抜くかを選び、見つけられない・使えない時は
+  /// 正方形の枠で範囲を決める)。false なら操作を挟まず、OS の切り出しのマスクか、それも無ければマスク無し (写真全体) で送る
   /// (開発者メニューの見本の写真は、操作を挟まずに生成まで通すため false にする)。
-  final bool cropsWhenSubjectNotFound;
+  final bool letsUserChooseSubjectRange;
 
   /// 生成の呼び出しと計測。
   final MonsterGenerator monsterGenerator;
@@ -109,7 +111,10 @@ enum _GenerationPhase {
   /// 写真を整えている・被写体を探している・送っている・サーバーが処理している・途中の状態の結果を取り直している。
   inProgress,
 
-  /// OS の切り出しが被写体を見つけられず、正方形の枠で範囲を決めてもらっている。
+  /// OS の切り出しが被写体を見つけ、切り抜いた絵で作るか正方形の枠で範囲を決めるかを選んでもらっている。
+  choosingCutout,
+
+  /// 正方形の枠で範囲を決めてもらっている (OS の切り出しが被写体を見つけられなかった・使えなかった時と、切り抜かないと選んだ時)。
   choosingRange,
 
   /// 結果を [_pollingDuration] の間取り直しても、サーバーが判定を待っている (pending_judge) か、まだ処理している。
@@ -142,6 +147,10 @@ class _GenerationScreenState extends State<GenerationScreen> {
 
   /// マスクで切り出した絵のプレビュー。マスクが無い時は null (写真をそのまま出す)。
   Uint8List? _cutoutPreview;
+
+  /// OS の切り出しが見つけた被写体のマスクと、それで切り出した絵のプレビュー。切り抜くかを選んでもらう間
+  /// ([_GenerationPhase.choosingCutout]) に使い、切り抜くと選んだら [_mask]・[_cutoutPreview] に移す。見つけていない時は null。
+  ({Uint8List mask, Uint8List cutoutPreview})? _subjectCutout;
 
   /// 範囲を決めている写真の画素の大きさ ([_GenerationPhase.choosingRange] の間だけ使う)。
   ({int width, int height})? _photoSize;
@@ -224,6 +233,8 @@ class _GenerationScreenState extends State<GenerationScreen> {
 
   /// 済んでいない手順 (写真を整える・範囲を決める・送る) から生成を進める。もう一度試す時も同じ要求 ID で呼び直す。
   /// 範囲を決めてもらう時は [_GenerationPhase.choosingRange] にして止まり、決まったら [_confirmCrop] から呼び直される。
+  /// 切り抜くかを選んでもらう時は [_GenerationPhase.choosingCutout] にして止まり、切り抜くと選んだら [_useSubjectCutout] から
+  /// 呼び直される (範囲を自分で決めると選んだら [_GenerationPhase.choosingRange] に移る)。
   Future<void> _generate() async {
     setState(() {
       _phase = _GenerationPhase.inProgress;
@@ -313,8 +324,8 @@ class _GenerationScreenState extends State<GenerationScreen> {
     }
   }
 
-  /// OS の切り出しで [photo] のマスクを決める。決まった (被写体が見つかった・範囲を決めずにマスク無しにした) 時は true、
-  /// 範囲を決めてもらう画面にした時は false を返す。
+  /// OS の切り出しで [photo] のマスクを決める。決まった (範囲を決めてもらわない設定で、被写体が見つかった・マスク無しにした) 時は true、
+  /// 切り抜くかを選んでもらう画面か範囲を決めてもらう画面にした時は false を返す。
   Future<bool> _decideMask({required Uint8List photo}) async {
     // 範囲を決めた後の失敗 (crop のマスクを作れなかった) からもう一度試す時は、OS の切り出しをやり直さず決めた枠のまま範囲を決める画面に戻す
     if (_crop != null) {
@@ -332,39 +343,67 @@ class _GenerationScreenState extends State<GenerationScreen> {
     } on MissingPluginException catch (error) {
       subjectMaskError = error;
     }
-    if (subjectMask != null) {
+    if (subjectMask case final foundSubjectMask?) {
       final cutoutPreview = await widget.monsterGenerator.createCutoutPreview(
         photo: photo,
-        mask: subjectMask,
+        mask: foundSubjectMask,
       );
-      if (mounted) {
+      if (!mounted) {
+        return false;
+      }
+      if (!widget.letsUserChooseSubjectRange) {
         setState(() {
           _maskSource = GenerationMaskSource.iosSubject;
-          _mask = subjectMask;
+          _mask = foundSubjectMask;
           _cutoutPreview = cutoutPreview;
         });
+        return true;
       }
-      return true;
+      setState(() {
+        _subjectCutout = (mask: foundSubjectMask, cutoutPreview: cutoutPreview);
+        _phase = _GenerationPhase.choosingCutout;
+      });
+      return false;
     }
-    if (!widget.cropsWhenSubjectNotFound) {
+    if (!widget.letsUserChooseSubjectRange) {
       if (mounted) {
         setState(() => _maskSource = GenerationMaskSource.none);
       }
       return true;
     }
-    final photoSize = photoPixelSize(photo: photo);
     if (mounted) {
-      setState(() {
-        _photoSize = photoSize;
-        _crop = initialSquareCrop(
-          photoWidth: photoSize.width,
-          photoHeight: photoSize.height,
-        );
-        _subjectMaskError = subjectMaskError;
-        _phase = _GenerationPhase.choosingRange;
-      });
+      _startChoosingRange(photo: photo, subjectMaskError: subjectMaskError);
     }
     return false;
+  }
+
+  /// [photo] の上で正方形の枠で範囲を決めてもらう画面にする。[subjectMaskError] (OS の切り出しが失敗した時のエラー) があれば画面に出す。
+  /// [photo] が読めない形式なら [FormatException] を投げる。
+  void _startChoosingRange({
+    required Uint8List photo,
+    required Object? subjectMaskError,
+  }) {
+    final photoSize = photoPixelSize(photo: photo);
+    setState(() {
+      _photoSize = photoSize;
+      _crop = initialSquareCrop(
+        photoWidth: photoSize.width,
+        photoHeight: photoSize.height,
+      );
+      _subjectMaskError = subjectMaskError;
+      _phase = _GenerationPhase.choosingRange;
+    });
+  }
+
+  /// OS の切り出しで切り抜いた絵 ([_subjectCutout]) で生成を続ける。
+  Future<void> _useSubjectCutout() {
+    final subjectCutout = _subjectCutout!;
+    setState(() {
+      _maskSource = GenerationMaskSource.iosSubject;
+      _mask = subjectCutout.mask;
+      _cutoutPreview = subjectCutout.cutoutPreview;
+    });
+    return _generate();
   }
 
   /// 決めた枠 ([_crop]) をマスクにして、生成を続ける。
@@ -692,6 +731,11 @@ class _GenerationScreenState extends State<GenerationScreen> {
               crop: _crop!,
               onCropChanged: ({required crop}) => setState(() => _crop = crop),
             )
+          else if (_phase == _GenerationPhase.choosingCutout)
+            _CutoutChoicePreview(
+              cutoutPreview: _subjectCutout!.cutoutPreview,
+              photo: _preparedPhoto!,
+            )
           else
             Center(
               child: SizedBox.square(
@@ -730,196 +774,223 @@ class _GenerationScreenState extends State<GenerationScreen> {
     ),
   );
 
-  List<Widget> _buildPhaseContent({required AppLocalizations l10n}) =>
-      switch (_phase) {
-        // 初回の導線は生成を待つ間も相手を探している見せ方にし、生成の段階は小さく添える
-        _GenerationPhase.inProgress when _startsFirstBattle => [
-          Text(
-            l10n.generationSearchingOpponent,
-            textAlign: TextAlign.center,
-            style: SnapmonTextStyles.hero,
+  List<Widget> _buildPhaseContent({
+    required AppLocalizations l10n,
+  }) => switch (_phase) {
+    // 初回の導線は生成を待つ間も相手を探している見せ方にし、生成の段階は小さく添える
+    _GenerationPhase.inProgress when _startsFirstBattle => [
+      Text(
+        l10n.generationSearchingOpponent,
+        textAlign: TextAlign.center,
+        style: SnapmonTextStyles.hero,
+      ),
+      const SizedBox(height: 12),
+      Text(
+        _firstBattleMonster == null
+            ? _inProgressText(l10n: l10n)
+            : l10n.generationBattleWith(_firstBattleMonster!.definition.name),
+        key: const Key('matchmaking-stage'),
+        textAlign: TextAlign.center,
+        style: SnapmonTextStyles.body,
+      ),
+      const SizedBox(height: 24),
+      const Center(child: CircularProgressIndicator()),
+    ],
+    _GenerationPhase.inProgress => [
+      Text(
+        _inProgressText(l10n: l10n),
+        textAlign: TextAlign.center,
+        style: SnapmonTextStyles.hero,
+      ),
+      const SizedBox(height: 24),
+      const Center(child: CircularProgressIndicator()),
+    ],
+    _GenerationPhase.choosingCutout => [
+      Text(
+        l10n.generationChooseCutoutTitle,
+        textAlign: TextAlign.center,
+        style: SnapmonTextStyles.hero,
+      ),
+      const SizedBox(height: 12),
+      Text(
+        l10n.generationChooseCutoutMessage,
+        textAlign: TextAlign.center,
+        style: SnapmonTextStyles.body,
+      ),
+      const SizedBox(height: 28),
+      FilledButton(
+        onPressed: _useSubjectCutout,
+        child: Text(l10n.generationCreateWithCutout),
+      ),
+      const SizedBox(height: 12),
+      OutlinedButton(
+        onPressed: () =>
+            _startChoosingRange(photo: _preparedPhoto!, subjectMaskError: null),
+        child: Text(l10n.generationChooseRangeMyself),
+      ),
+      const SizedBox(height: 12),
+      OutlinedButton(
+        onPressed: () => Navigator.of(context).pop(),
+        child: Text(l10n.generationRetake),
+      ),
+    ],
+    _GenerationPhase.choosingRange => [
+      Text(
+        l10n.generationChooseRangeTitle,
+        textAlign: TextAlign.center,
+        style: SnapmonTextStyles.hero,
+      ),
+      const SizedBox(height: 12),
+      Text(
+        l10n.generationChooseRangeMessage,
+        textAlign: TextAlign.center,
+        style: SnapmonTextStyles.body,
+      ),
+      if (_subjectMaskError != null) ...[
+        const SizedBox(height: 12),
+        Text(
+          '${l10n.generationAutoCutoutUnavailable}\n$_subjectMaskError',
+          textAlign: TextAlign.center,
+          style: SnapmonTextStyles.small,
+        ),
+      ],
+      const SizedBox(height: 28),
+      FilledButton(
+        onPressed: _confirmCrop,
+        child: Text(l10n.generationCreateWithRange),
+      ),
+      const SizedBox(height: 12),
+      OutlinedButton(
+        onPressed: () => Navigator.of(context).pop(),
+        child: Text(l10n.generationRetake),
+      ),
+    ],
+    _GenerationPhase.opponentFound => [
+      Text(
+        l10n.generationOpponentAppeared(
+          _firstBattleOpponent!.cpuOpponent.opponentName,
+        ),
+        textAlign: TextAlign.center,
+        style: SnapmonTextStyles.hero,
+      ),
+      const SizedBox(height: 12),
+      Text(
+        l10n.generationLetsBattleWith(_firstBattleMonster!.definition.name),
+        textAlign: TextAlign.center,
+        style: SnapmonTextStyles.body,
+      ),
+      const SizedBox(height: 24),
+      // バトルの画面を開くまでの待ち (_openFirstBattleTimer) を見せる。繰り返すアニメーションにしない
+      TweenAnimationBuilder<double>(
+        tween: Tween(begin: 0, end: 1),
+        duration: _opponentRevealDuration,
+        builder: (context, value, _) => ClipRRect(
+          borderRadius: SnapmonRadii.tag,
+          child: LinearProgressIndicator(
+            value: value,
+            minHeight: 6,
+            color: SnapmonColors.accent,
+            backgroundColor: SnapmonColors.surface,
           ),
-          const SizedBox(height: 12),
-          Text(
-            _firstBattleMonster == null
-                ? _inProgressText(l10n: l10n)
-                : l10n.generationBattleWith(
-                    _firstBattleMonster!.definition.name,
-                  ),
-            key: const Key('matchmaking-stage'),
-            textAlign: TextAlign.center,
-            style: SnapmonTextStyles.body,
-          ),
-          const SizedBox(height: 24),
-          const Center(child: CircularProgressIndicator()),
-        ],
-        _GenerationPhase.inProgress => [
-          Text(
-            _inProgressText(l10n: l10n),
-            textAlign: TextAlign.center,
-            style: SnapmonTextStyles.hero,
-          ),
-          const SizedBox(height: 24),
-          const Center(child: CircularProgressIndicator()),
-        ],
-        _GenerationPhase.choosingRange => [
-          Text(
-            l10n.generationChooseRangeTitle,
-            textAlign: TextAlign.center,
-            style: SnapmonTextStyles.hero,
-          ),
-          const SizedBox(height: 12),
-          Text(
-            l10n.generationChooseRangeMessage,
-            textAlign: TextAlign.center,
-            style: SnapmonTextStyles.body,
-          ),
-          if (_subjectMaskError != null) ...[
-            const SizedBox(height: 12),
-            Text(
-              '${l10n.generationAutoCutoutUnavailable}\n$_subjectMaskError',
-              textAlign: TextAlign.center,
-              style: SnapmonTextStyles.small,
-            ),
-          ],
-          const SizedBox(height: 28),
-          FilledButton(
-            onPressed: _confirmCrop,
-            child: Text(l10n.generationCreateWithRange),
-          ),
-          const SizedBox(height: 12),
-          OutlinedButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(l10n.generationRetake),
-          ),
-        ],
-        _GenerationPhase.opponentFound => [
-          Text(
-            l10n.generationOpponentAppeared(
-              _firstBattleOpponent!.cpuOpponent.opponentName,
-            ),
-            textAlign: TextAlign.center,
-            style: SnapmonTextStyles.hero,
-          ),
-          const SizedBox(height: 12),
-          Text(
-            l10n.generationLetsBattleWith(_firstBattleMonster!.definition.name),
-            textAlign: TextAlign.center,
-            style: SnapmonTextStyles.body,
-          ),
-          const SizedBox(height: 24),
-          // バトルの画面を開くまでの待ち (_openFirstBattleTimer) を見せる。繰り返すアニメーションにしない
-          TweenAnimationBuilder<double>(
-            tween: Tween(begin: 0, end: 1),
-            duration: _opponentRevealDuration,
-            builder: (context, value, _) => ClipRRect(
-              borderRadius: SnapmonRadii.tag,
-              child: LinearProgressIndicator(
-                value: value,
-                minHeight: 6,
-                color: SnapmonColors.accent,
-                backgroundColor: SnapmonColors.surface,
-              ),
-            ),
-          ),
-        ],
-        _GenerationPhase.alreadyInDex => [
-          Text(
-            l10n.generationAlreadyInDexTitle,
-            textAlign: TextAlign.center,
-            style: SnapmonTextStyles.hero,
-          ),
-          const SizedBox(height: 12),
-          Text(
-            l10n.generationAlreadyInDexMessage(
-              _alreadyInDexMonster!.definition.name,
-            ),
-            textAlign: TextAlign.center,
-            style: SnapmonTextStyles.body,
-          ),
-          const SizedBox(height: 28),
-          FilledButton(
-            onPressed: () =>
-                _prepareFirstBattle(monster: _alreadyInDexMonster!),
-            child: Text(l10n.generationBattleWithThisMonster),
-          ),
-          const SizedBox(height: 12),
-          OutlinedButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(l10n.generationRetake),
-          ),
-        ],
-        _GenerationPhase.waiting => [
-          Text(
-            l10n.generationWaitingTitle,
-            textAlign: TextAlign.center,
-            style: SnapmonTextStyles.hero,
-          ),
-          const SizedBox(height: 12),
-          Text(
-            l10n.generationWaitingMessage,
-            textAlign: TextAlign.center,
-            style: SnapmonTextStyles.body,
-          ),
-          const SizedBox(height: 28),
-          FilledButton(
-            onPressed: _fetchAgain,
-            child: Text(l10n.generationCheckAgain),
-          ),
-          const SizedBox(height: 12),
-          OutlinedButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(l10n.generationSeeLater),
-          ),
-        ],
-        _GenerationPhase.notGenerated => [
-          Text(
-            l10n.generationNotBornTitle,
-            textAlign: TextAlign.center,
-            style: SnapmonTextStyles.hero,
-          ),
-          const SizedBox(height: 12),
-          Text(
-            _notGeneratedText(l10n: l10n, result: _result!),
-            textAlign: TextAlign.center,
-            style: SnapmonTextStyles.body,
-          ),
-          const SizedBox(height: 28),
-          FilledButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(l10n.generationRetake),
-          ),
-        ],
-        _GenerationPhase.error => [
-          Text(
-            _firstBattleMonster == null
-                ? l10n.generationFailedTitle
-                : l10n.generationBattlePreparationFailedTitle,
-            textAlign: TextAlign.center,
-            style: SnapmonTextStyles.hero,
-          ),
-          const SizedBox(height: 12),
-          Text(
-            _error.toString(),
-            textAlign: TextAlign.center,
-            style: SnapmonTextStyles.body.copyWith(
-              color: SnapmonColors.hitPointsLoss,
-            ),
-          ),
-          const SizedBox(height: 28),
-          FilledButton(
-            onPressed: _firstBattleMonster == null
-                ? _generate
-                : () => _prepareFirstBattle(monster: _firstBattleMonster!),
-            child: Text(l10n.commonRetry),
-          ),
-          const SizedBox(height: 12),
-          OutlinedButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(l10n.commonBack),
-          ),
-        ],
-      };
+        ),
+      ),
+    ],
+    _GenerationPhase.alreadyInDex => [
+      Text(
+        l10n.generationAlreadyInDexTitle,
+        textAlign: TextAlign.center,
+        style: SnapmonTextStyles.hero,
+      ),
+      const SizedBox(height: 12),
+      Text(
+        l10n.generationAlreadyInDexMessage(
+          _alreadyInDexMonster!.definition.name,
+        ),
+        textAlign: TextAlign.center,
+        style: SnapmonTextStyles.body,
+      ),
+      const SizedBox(height: 28),
+      FilledButton(
+        onPressed: () => _prepareFirstBattle(monster: _alreadyInDexMonster!),
+        child: Text(l10n.generationBattleWithThisMonster),
+      ),
+      const SizedBox(height: 12),
+      OutlinedButton(
+        onPressed: () => Navigator.of(context).pop(),
+        child: Text(l10n.generationRetake),
+      ),
+    ],
+    _GenerationPhase.waiting => [
+      Text(
+        l10n.generationWaitingTitle,
+        textAlign: TextAlign.center,
+        style: SnapmonTextStyles.hero,
+      ),
+      const SizedBox(height: 12),
+      Text(
+        l10n.generationWaitingMessage,
+        textAlign: TextAlign.center,
+        style: SnapmonTextStyles.body,
+      ),
+      const SizedBox(height: 28),
+      FilledButton(
+        onPressed: _fetchAgain,
+        child: Text(l10n.generationCheckAgain),
+      ),
+      const SizedBox(height: 12),
+      OutlinedButton(
+        onPressed: () => Navigator.of(context).pop(),
+        child: Text(l10n.generationSeeLater),
+      ),
+    ],
+    _GenerationPhase.notGenerated => [
+      Text(
+        l10n.generationNotBornTitle,
+        textAlign: TextAlign.center,
+        style: SnapmonTextStyles.hero,
+      ),
+      const SizedBox(height: 12),
+      Text(
+        _notGeneratedText(l10n: l10n, result: _result!),
+        textAlign: TextAlign.center,
+        style: SnapmonTextStyles.body,
+      ),
+      const SizedBox(height: 28),
+      FilledButton(
+        onPressed: () => Navigator.of(context).pop(),
+        child: Text(l10n.generationRetake),
+      ),
+    ],
+    _GenerationPhase.error => [
+      Text(
+        _firstBattleMonster == null
+            ? l10n.generationFailedTitle
+            : l10n.generationBattlePreparationFailedTitle,
+        textAlign: TextAlign.center,
+        style: SnapmonTextStyles.hero,
+      ),
+      const SizedBox(height: 12),
+      Text(
+        _error.toString(),
+        textAlign: TextAlign.center,
+        style: SnapmonTextStyles.body.copyWith(
+          color: SnapmonColors.hitPointsLoss,
+        ),
+      ),
+      const SizedBox(height: 28),
+      FilledButton(
+        onPressed: _firstBattleMonster == null
+            ? _generate
+            : () => _prepareFirstBattle(monster: _firstBattleMonster!),
+        child: Text(l10n.commonRetry),
+      ),
+      const SizedBox(height: 12),
+      OutlinedButton(
+        onPressed: () => Navigator.of(context).pop(),
+        child: Text(l10n.commonBack),
+      ),
+    ],
+  };
 
   /// 進めている手順の文言。サーバーの段階は最後に済んだ段階 ([_completedStage]) の次の手順を出す。
   String _inProgressText({required AppLocalizations l10n}) {
@@ -959,4 +1030,79 @@ class _GenerationScreenState extends State<GenerationScreen> {
     GenerationRejectionReason.refused => l10n.generationRejectedRefused,
     null => l10n.generationFailedMessage,
   };
+}
+
+/// 切り抜くかを選んでもらう間に、OS の切り出しで切り抜いた絵と元の写真を横に並べて見比べさせる。
+class _CutoutChoicePreview extends StatelessWidget {
+  const _CutoutChoicePreview({
+    required this.cutoutPreview,
+    required this.photo,
+  });
+
+  /// OS の切り出しのマスクで切り抜いた絵 (背景が透明な PNG)。
+  final Uint8List cutoutPreview;
+
+  /// 生成に送る写真 (切り抜く前)。
+  final Uint8List photo;
+
+  @override
+  Widget build(BuildContext context) => Row(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Expanded(
+        child: _CutoutChoiceTile(
+          label: context.l10n.generationCutoutLabel,
+          // 切り出した絵は形を崩さず、透明な背景を地の色で見せる (生成を待つ間のプレビューと同じ)
+          image: ColoredBox(
+            key: const Key('cutout-choice-cutout'),
+            color: SnapmonColors.artBackground,
+            child: Image.memory(
+              cutoutPreview,
+              fit: BoxFit.contain,
+              gaplessPlayback: true,
+              errorBuilder: (context, error, stackTrace) =>
+                  const SizedBox.shrink(),
+            ),
+          ),
+        ),
+      ),
+      const SizedBox(width: 12),
+      Expanded(
+        child: _CutoutChoiceTile(
+          label: context.l10n.generationOriginalPhotoLabel,
+          image: Image.memory(
+            photo,
+            key: const Key('cutout-choice-photo'),
+            fit: BoxFit.cover,
+            gaplessPlayback: true,
+            errorBuilder: (context, error, stackTrace) =>
+                const ColoredBox(color: SnapmonColors.surfaceRaised),
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
+/// [_CutoutChoicePreview] の 1 枚。正方形の [image] の下に [label] を出す。
+class _CutoutChoiceTile extends StatelessWidget {
+  const _CutoutChoiceTile({required this.label, required this.image});
+
+  /// 絵の下に出す名前。
+  final String label;
+
+  /// 正方形の枠に収める絵。
+  final Widget image;
+
+  @override
+  Widget build(BuildContext context) => Column(
+    children: [
+      AspectRatio(
+        aspectRatio: 1,
+        child: ClipRRect(borderRadius: SnapmonRadii.card, child: image),
+      ),
+      const SizedBox(height: 8),
+      Text(label, textAlign: TextAlign.center, style: SnapmonTextStyles.label),
+    ],
+  );
 }
