@@ -477,7 +477,6 @@ BattleState advanceRound({
     StruggleAction() || SwitchMonsterAction() => null,
   };
   final playerSwitches = playerAction is SwitchMonsterAction;
-  final opponentSwitches = opponentAction is SwitchMonsterAction;
   final playerPriority = moveOf(action: playerAction)?.priority ?? 0;
   final opponentPriority = moveOf(action: opponentAction)?.priority ?? 0;
   final playerSpeed = effectiveStats(
@@ -489,7 +488,8 @@ BattleState advanceRound({
     field: field,
   ).speed;
   // 交代は先制の度合い・素早さに関係なく技より先に行う (交代したモンスターが相手の技を受ける)
-  final playerMovesFirst = playerSwitches != opponentSwitches
+  final playerMovesFirst =
+      playerSwitches != (opponentAction is SwitchMonsterAction)
       ? playerSwitches
       : playerPriority != opponentPriority
       ? playerPriority > opponentPriority
