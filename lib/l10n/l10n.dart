@@ -39,4 +39,5 @@ String statusConditionLabel({
   StatusConditionKind.dizzy => l10n.statusConditionDizzy,
   StatusConditionKind.excited => l10n.statusConditionExcited,
   StatusConditionKind.frozen => l10n.statusConditionFrozen,
+  StatusConditionKind.switchBlocked => l10n.statusConditionSwitchBlocked,
 };

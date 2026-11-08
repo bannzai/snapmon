@@ -186,6 +186,48 @@ List<LearnsetEntry> equippedLearnsetEntries({
   );
 }
 
+/// [learnset] のモンスターが [previousLevel] から [newLevel] に上がった時の技の枠 ([equippedLearnsetEntries]) の変化を返す。
+/// `learnedEntries` は新しく枠に入った技、`forgottenEntries` は入れ替わりで枠から外れた技で、どちらも覚える技の一覧の順。
+/// 枠が変わらなければどちらも空 (バトルの後に覚えた技を知らせるため。#247)。
+({List<LearnsetEntry> learnedEntries, List<LearnsetEntry> forgottenEntries})
+equippedLearnsetChanges({
+  required List<LearnsetEntry> learnset,
+  required int previousLevel,
+  required int newLevel,
+}) {
+  final previousEntries = equippedLearnsetEntries(
+    learnset: learnset,
+    level: previousLevel,
+  );
+  final newEntries = equippedLearnsetEntries(
+    learnset: learnset,
+    level: newLevel,
+  );
+  return (
+    learnedEntries: [
+      for (final learnsetEntry in newEntries)
+        if (!previousEntries.contains(learnsetEntry)) learnsetEntry,
+    ],
+    forgottenEntries: [
+      for (final learnsetEntry in previousEntries)
+        if (!newEntries.contains(learnsetEntry)) learnsetEntry,
+    ],
+  );
+}
+
+/// [learnset] のうち [level] より後に開放される技の、最も低い開放レベル。もう覚える技が無ければ null。
+int? nextLearnsetUnlockLevel({
+  required List<LearnsetEntry> learnset,
+  required int level,
+}) => learnset
+    .map((learnsetEntry) => learnsetEntry.unlockLevel)
+    .where((unlockLevel) => unlockLevel > level)
+    .fold<int?>(
+      null,
+      (lowest, unlockLevel) =>
+          lowest == null ? unlockLevel : math.min(lowest, unlockLevel),
+    );
+
 /// [move] が通常の攻撃技 (自爆・一撃必殺を除く攻撃技) か。わるあがきを選べるのはこれが 1 つも残っていない時で、
 /// 自爆と一撃必殺だけが残った時に自爆か賭けしか選べなくならないようにする (version 9 の技の枠には自爆と一撃必殺だけが残るレベル帯がある)。
 bool isOrdinaryAttackMove(Move move) =>
@@ -401,17 +443,20 @@ BattleAction chooseCpuAction({
 /// 両陣営の行動 [playerAction]・[opponentAction] で 1 ラウンド (両陣営 1 ターンずつ) を解決し、次の状態を返す。
 ///
 /// ラウンドの始めに入れ替えのフィールドがあれば、残りのラウンドが 0 なら終わり、あれば攻撃・防御・素早さから 2 つを乱数で選んで入れ替える。
-/// 先制の度合いが高い技が先、同じなら場のモンスターの素早さが高い順に行動し (同じなら乱数)、倒れたモンスターはそのターンの行動を失う。
+/// 交代 ([SwitchMonsterAction]) は技より先に行い、ターンの終わりの処理をしない。技どうしは先制の度合いが高い技が先、
+/// 同じなら場のモンスターの素早さが高い順に行動し (同じなら乱数)、倒れたモンスターはそのターンの行動を失う。
 /// 各ターンは、気絶・眠り・凍結なら行動が失敗し (PP を使わない)、混乱なら 1/2 の確率で選んだ技の代わりに
 /// 他の使える技が出て、麻痺なら実際に出る技が攻撃技かわるあがきの時に失敗し (PP を使わない)、命中率 (眩暈なら 70%) で外れる (PP を使う)。当たった技は、一撃必殺なら相手の HP を 0 にし、攻撃技なら威力に特殊効果の倍率
 /// ([calculateMoveSpecialEffect]) を掛けたダメージ (やけどなら与えるダメージが半分、受ける側がやけどなら (10 + 重なり) / 10 倍) を与える。
 /// 続けて特殊効果の式 ([calculateMoveStatusEffect]) でステータスの倍率を変え、HP を回復し、状態を付け・解除し、フィールドを始め、自爆する。
 /// ダメージを受けた凍結は解け、毒の技を受けた毒は重なりが増える。ターンの終わりに毒のダメージを受け、残りのターンを持つ状態が 1 減って 0 なら消える。
-/// ステータスの倍率と状態は場のモンスターに付き、そのバトルの間 (倒れるまで) 続く。ダメージ・行動順・技の式の変数は倍率と状態を反映した値 ([effectiveStats]) を使う。
+/// ステータスの倍率と状態は場のモンスターに付き、倍率は交代で場を離れると等倍に戻り、状態はそのバトルの間 (倒れるまで) 続く。
+/// ダメージ・行動順・技の式の変数は倍率と状態を反映した値 ([effectiveStats]) を使う。
 /// ラウンドの終わりに倒れたモンスターを手持ちの次のモンスターと交代し、手持ちがすべて倒れた側が負ける。
 /// 決着がついたら勝敗を問わず両陣営の、場に出たことがある手持ちのレベルを 1 上げる (上限 [maximumLevel]。
 /// DIRECTION.md「必要な機能」の「1 戦ごとに、戦闘に出た手持ちのレベルが勝敗に関係なく 1 上がる」)。
-/// 決着済みの状態・選べない行動 (PP が 0 か未開放の技、使える攻撃技があるのにわるあがき) には例外を投げる。
+/// 決着済みの状態・選べない行動 (PP が 0 か未開放の技、使える攻撃技があるのにわるあがき、倒れている・場にいるモンスターや
+/// 交換不可の間の交代) には例外を投げる。
 BattleState advanceRound({
   required BattleState state,
   required BattleAction playerAction,
@@ -427,7 +472,7 @@ BattleState advanceRound({
   };
   for (final entry in actions.entries) {
     _validateAction(
-      monster: state.partyOf(side: entry.key).activeMember,
+      party: state.partyOf(side: entry.key),
       action: entry.value,
       master: master,
     );
@@ -471,8 +516,9 @@ BattleState advanceRound({
 
   Move? moveOf({required BattleAction action}) => switch (action) {
     UseMoveAction(:final moveId) => master.moveById(moveId: moveId),
-    StruggleAction() => null,
+    StruggleAction() || SwitchMonsterAction() => null,
   };
+  final playerSwitches = playerAction is SwitchMonsterAction;
   final playerPriority = moveOf(action: playerAction)?.priority ?? 0;
   final opponentPriority = moveOf(action: opponentAction)?.priority ?? 0;
   final playerSpeed = effectiveStats(
@@ -483,7 +529,11 @@ BattleState advanceRound({
     monster: parties[BattleSideId.opponent]!.activeMember,
     field: field,
   ).speed;
-  final playerMovesFirst = playerPriority != opponentPriority
+  // 交代は先制の度合い・素早さに関係なく技より先に行う (交代したモンスターが相手の技を受ける)
+  final playerMovesFirst =
+      playerSwitches != (opponentAction is SwitchMonsterAction)
+      ? playerSwitches
+      : playerPriority != opponentPriority
       ? playerPriority > opponentPriority
       : playerSpeed != opponentSpeed
       ? playerSpeed > opponentSpeed
@@ -508,6 +558,36 @@ BattleState advanceRound({
     if (attackerBeforeTurn.isFainted) {
       continue;
     }
+    final action = actions[attackerSide]!;
+    // 交代は技ではないため、行動できない状態 (気絶・眠り・凍結) でも行う。場を離れるモンスターのステータスの倍率は
+    // 等倍に戻り、状態は残る。交代のターンはターンの終わりの処理 (毒のダメージ・残りのターン) をしない
+    // (どちらのモンスターも場で行動していないため。documents/game-rules.md「1 ラウンドの流れ」)
+    if (action case SwitchMonsterAction(:final memberIndex)) {
+      final party = parties[attackerSide]!;
+      parties[attackerSide] = BattleParty(
+        members: [
+          for (final (index, member) in party.members.indexed)
+            index == party.activeMemberIndex
+                ? BattleMonster(
+                    definition: member.definition,
+                    state: member.state.copyWith(
+                      statModifierPercents: const {},
+                    ),
+                  )
+                : member,
+        ],
+        activeMemberIndex: memberIndex,
+      );
+      events.add(
+        MonsterSwitchedInEvent(
+          turnNumber: turnNumber,
+          side: attackerSide,
+          monsterId: party.members[memberIndex].definition.id,
+          withdrawnMonsterId: attackerBeforeTurn.definition.id,
+        ),
+      );
+      continue;
+    }
     final defenderSide = _otherSide(side: attackerSide);
     // 先に動いた側が自爆や毒で倒れていたら、後に動く側は技を使わない (倒れた相手に当てて PP を使い、倒れたログが重ならないため)。
     // 状態の残りのターンと毒のダメージは、行動しないターンでも進める
@@ -520,7 +600,6 @@ BattleState advanceRound({
       );
       continue;
     }
-    final action = actions[attackerSide]!;
     final selectedMove = moveOf(action: action);
     final attackerStatusConditions = attackerBeforeTurn.state.statusConditions;
 
@@ -898,6 +977,7 @@ BattleState advanceRound({
         turnNumber: lastTurnNumber,
         side: side,
         monsterId: party.members[nextMemberIndex].definition.id,
+        withdrawnMonsterId: null,
       ),
     );
   }
@@ -905,12 +985,18 @@ BattleState advanceRound({
   if (winner != null) {
     for (final side in BattleSideId.values) {
       final party = parties[side]!;
-      // 交代は倒れていない最も前のモンスターを出し、倒れるのは場に出ている間だけのため、
-      // 手持ちは先頭から順に場に出る。場に出たことがあるのは activeMemberIndex 以下の位置のモンスター。
+      // 自分からの交代で手持ちは順不同に場に出るため、場に出たことがあるモンスターはログから求める
+      // (先頭のモンスターと、交代で場に出たモンスター)
+      final participantMonsterIds = {
+        party.members.first.definition.id,
+        for (final event in events)
+          if (event is MonsterSwitchedInEvent && event.side == side)
+            event.monsterId,
+      };
       parties[side] = BattleParty(
         members: [
-          for (final (memberIndex, member) in party.members.indexed)
-            memberIndex <= party.activeMemberIndex
+          for (final member in party.members)
+            participantMonsterIds.contains(member.definition.id)
                 ? BattleMonster(
                     definition: member.definition,
                     state: member.state.copyWith(
@@ -922,8 +1008,8 @@ BattleState advanceRound({
         ],
         activeMemberIndex: party.activeMemberIndex,
       );
-      for (final member in parties[side]!.members.take(
-        party.activeMemberIndex + 1,
+      for (final member in parties[side]!.members.where(
+        (member) => participantMonsterIds.contains(member.definition.id),
       )) {
         events.add(
           LevelUpEvent(
@@ -1041,7 +1127,8 @@ void _inflictStatusCondition({
           StatusConditionKind.stun ||
           StatusConditionKind.confusion ||
           StatusConditionKind.dizzy ||
-          StatusConditionKind.frozen:
+          StatusConditionKind.frozen ||
+          StatusConditionKind.switchBlocked:
         inflicted = StatusCondition(
           kind: kind,
           remainingTurns: _randomDuration(kind: kind, random: random),
@@ -1165,14 +1252,34 @@ BattleSideId _otherSide({required BattleSideId side}) => switch (side) {
   BattleSideId.opponent => BattleSideId.player,
 };
 
-/// [action] を [monster] が選べるかを確かめ、選べなければ [ArgumentError] を投げる。
+/// [party] の手持ちのうち、自分から交代して場に出せるモンスターの位置 (倒れていない・場に出ていない)。
+List<int> switchableMemberIndices({required BattleParty party}) => [
+  for (final (index, member) in party.members.indexed)
+    if (index != party.activeMemberIndex && !member.isFainted) index,
+];
+
+/// [party] の場のモンスターが交換不可 ([StatusConditionKind.switchBlocked]) で、自分から交代できないか。
+bool isSwitchBlocked({required BattleParty party}) => party
+    .activeMember
+    .state
+    .statusConditions
+    .containsKey(StatusConditionKind.switchBlocked);
+
+/// [action] を [party] の場のモンスターが選べるかを確かめ、選べなければ [ArgumentError] を投げる。
 void _validateAction({
-  required BattleMonster monster,
+  required BattleParty party,
   required BattleAction action,
   required MasterData master,
 }) {
-  final moves = selectableMoves(monster: monster, master: master);
+  final moves = selectableMoves(monster: party.activeMember, master: master);
   switch (action) {
+    case SwitchMonsterAction(:final memberIndex):
+      if (!switchableMemberIndices(party: party).contains(memberIndex)) {
+        throw ArgumentError('手持ちの $memberIndex 番目は倒れているか場に出ているため、交代できない');
+      }
+      if (isSwitchBlocked(party: party)) {
+        throw ArgumentError('交換不可の状態のため、交代できない');
+      }
     case UseMoveAction(:final moveId):
       if (!moves.any((move) => move.id == moveId)) {
         throw ArgumentError('技 $moveId は PP が 0 か、まだ使えない');
