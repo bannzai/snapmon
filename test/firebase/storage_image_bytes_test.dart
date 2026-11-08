@@ -81,6 +81,28 @@ void main() {
       expect(readCount, 2);
     });
 
+    test('Future を返す前に同期で throw した読み込みも残さず、次の要求で読み直す', () async {
+      final cache = StorageImageBytesCache(maximumTotalBytes: 1024);
+      var readCount = 0;
+      Future<Uint8List?> read({required String storagePath}) {
+        readCount += 1;
+        if (readCount == 1) {
+          throw StateError('同期の失敗');
+        }
+        return Future.value(bytesOf(length: 4, fill: 1));
+      }
+
+      await expectLater(
+        cache.read(storagePath: 'monsters/a/art.png', read: read),
+        throwsStateError,
+      );
+      expect(
+        await cache.read(storagePath: 'monsters/a/art.png', read: read),
+        isNotNull,
+      );
+      expect(readCount, 2);
+    });
+
     test('null だった読み込みは残さず、次の要求で読み直す', () async {
       final cache = StorageImageBytesCache(maximumTotalBytes: 1024);
       var readCount = 0;

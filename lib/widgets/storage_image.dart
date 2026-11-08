@@ -54,9 +54,9 @@ class _StorageImageState extends State<StorageImage> {
   /// [StorageImage.storagePath] の画像の中身を読む。上に [StorageImageLoaderScope] があればその関数で、無ければ Storage から読む。
   Future<Uint8List?> _load() =>
       (context
-              .getInheritedWidgetOfExactType<StorageImageLoaderScope>()
-              ?.loadBytes ??
-          readStorageImageBytesWithFirebase)(storagePath: widget.storagePath);
+          .getInheritedWidgetOfExactType<StorageImageLoaderScope>()
+          ?.loadBytes ??
+      readStorageImageBytesWithFirebase)(storagePath: widget.storagePath);
 
   @override
   void didUpdateWidget(StorageImage oldWidget) {

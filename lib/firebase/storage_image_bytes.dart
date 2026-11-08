@@ -44,17 +44,24 @@ class StorageImageBytesCache {
       _bytesByPath[storagePath] = cachedBytes;
       return Future.value(cachedBytes);
     }
-    return _inFlightByPath[storagePath] ??= () async {
-      try {
-        final bytes = await read(storagePath: storagePath);
-        if (bytes != null) {
-          _store(storagePath: storagePath, bytes: bytes);
-        }
-        return bytes;
-      } finally {
-        _inFlightByPath.remove(storagePath);
+    final inFlight = _inFlightByPath[storagePath];
+    if (inFlight != null) {
+      return inFlight;
+    }
+    // Future.sync: read が Future を返す前に同期で throw しても失敗した Future にし、登録してから外す順を保つ
+    // (async の関数で包むと、同期の throw では finally の remove が登録より先に走り、失敗した Future が残り続ける)
+    final reading = Future.sync(() => read(storagePath: storagePath)).then((
+      bytes,
+    ) {
+      if (bytes != null) {
+        _store(storagePath: storagePath, bytes: bytes);
       }
-    }();
+      return bytes;
+    });
+    _inFlightByPath[storagePath] = reading;
+    // 失敗は reading を待つ呼び出し元が受け取るため、ここで派生した Future の失敗は未処理にしない
+    reading.whenComplete(() => _inFlightByPath.remove(storagePath)).ignore();
+    return reading;
   }
 
   /// [bytes] を [storagePath] の中身として持つ。合計が上限を超える分は使われていない順に捨てる。
