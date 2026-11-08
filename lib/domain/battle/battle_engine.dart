@@ -45,6 +45,9 @@ const int cpuOneHitKnockoutChanceDenominator = 4;
 /// CPU が自爆の技を選ぶ時の、自分の残り HP の最大 HP に対する割合の分母。残り HP がこの割合 (1/4) 以下の時だけ 1/2 の確率で選ぶ。
 const int cpuSelfDestructHitPointsDenominator = 4;
 
+/// CPU との対戦で、CPU が与えるダメージに掛ける割合 (%)。根拠は documents/DIRECTION.md「決めたこと」の 2026-11-09 の行 (issue #240)。
+const int cpuDamagePercent = 75;
+
 /// CPU の技選びの乱数の seed を、バトルの乱数の状態から作る時に混ぜる値 (黄金比の 32bit の定数 0x9E3779B9)。
 /// 同じラウンドの行動順・ダメージの乱数と同じ列を使わないため (同じ値の列だと、同じ速さの時の行動順と CPU の技選びが連動する)。
 const int _cpuRandomSeedSalt = 0x9E3779B9;
@@ -142,11 +145,13 @@ MonsterStats effectiveStats({
 /// 両陣営の手持ち ([prepareBattleMonster] で用意した 1〜3 体) でバトルを始める。
 /// [randomSeed] は行動順の同速判定・ダメージの乱数幅・命中・状態・混乱・入れ替えに使い、同じ seed と同じ行動からは同じ結果になる。
 /// [battleDate] は対戦日で、技の特殊効果の入力に渡す。
+/// [opponentDamagePercent] は相手の陣営が与えるダメージに掛ける割合 (%) で、CPU との対戦は [cpuDamagePercent]、補正しないなら 100。
 BattleState startBattle({
   required List<BattleMonster> playerMembers,
   required List<BattleMonster> opponentMembers,
   required int randomSeed,
   required DateTime battleDate,
+  required int opponentDamagePercent,
 }) {
   for (final members in [playerMembers, opponentMembers]) {
     if (members.isEmpty || members.length > maximumPartySize) {
@@ -164,6 +169,7 @@ BattleState startBattle({
     winner: null,
     battleDate: battleDate,
     field: null,
+    opponentDamagePercent: opponentDamagePercent,
   );
 }
 
@@ -677,6 +683,12 @@ BattleState advanceRound({
       if (defenderBurn != null) {
         calculated = calculated * (10 + defenderBurn.stackCount) ~/ 10;
       }
+      if (attackerSide == BattleSideId.opponent) {
+        calculated = math.max(
+          1,
+          calculated * state.opponentDamagePercent ~/ 100,
+        );
+      }
       damage = calculated;
     }
     final defenderRemainingHitPoints = math.max(
@@ -947,6 +959,7 @@ BattleState advanceRound({
     winner: winner,
     battleDate: state.battleDate,
     field: field,
+    opponentDamagePercent: state.opponentDamagePercent,
   );
 }
 

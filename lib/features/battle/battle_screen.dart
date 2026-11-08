@@ -279,6 +279,11 @@ class _BattleScreenState extends State<BattleScreen>
       opponentMembers: prepare(party: widget.opponentParty),
       randomSeed: widget.randomSeed,
       battleDate: DateTime.now(),
+      opponentDamagePercent: switch (widget.opponentKind) {
+        BattleOpponentKind.cpu => cpuDamagePercent,
+        // 相手は他のユーザーが育てたモンスターで、表示するレベルどおりの強さで戦わせるため補正しない
+        BattleOpponentKind.pvp => 100,
+      },
     );
     _displayedActiveMembers = _activeMembersOf(state: _battleState);
     final firstOpponentName =

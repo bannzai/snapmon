@@ -69,7 +69,15 @@ void main() {
     final buffer = StringBuffer('\n');
     for (final level in [1, 5, 20]) {
       for (final playerPolicy in ['random', 'best']) {
-        for (final loweredAmount in [0, 20, 40, 60]) {
+        for (final (damagePercent, cpuBestPercent) in [
+          (100, 100),
+          (100, 50),
+          (75, 100),
+          (75, 50),
+          (60, 100),
+          (50, 100),
+        ]) {
+          const loweredAmount = 0;
           var wins = 0;
           var battles = 0;
           for (final baseStats in productionBaseStats) {
@@ -108,6 +116,7 @@ void main() {
                     ],
                     randomSeed: seed,
                     battleDate: DateTime(2026, 11, 9),
+                    opponentDamagePercent: damagePercent,
                   );
                   while (state.winner == null && state.turnNumber < 500) {
                     state = advanceRound(
@@ -123,11 +132,17 @@ void main() {
                               side: BattleSideId.player,
                               master: master,
                             ),
-                      opponentAction: chooseCpuAction(
-                        state: state,
-                        side: BattleSideId.opponent,
-                        master: master,
-                      ),
+                      opponentAction: random.nextUint32() % 100 < cpuBestPercent
+                          ? chooseCpuAction(
+                              state: state,
+                              side: BattleSideId.opponent,
+                              master: master,
+                            )
+                          : randomSelectable(
+                              state: state,
+                              side: BattleSideId.opponent,
+                              random: random,
+                            ),
                       master: master,
                     );
                   }
@@ -140,7 +155,7 @@ void main() {
             }
           }
           buffer.writeln(
-            'MEASURE level=$level player=$playerPolicy cpuLowered=$loweredAmount '
+            'MEASURE level=$level player=$playerPolicy damage=$damagePercent% cpuBest=$cpuBestPercent% '
             'playerWin=${(wins * 1000 ~/ battles) / 10}% ($wins/$battles)',
           );
         }
