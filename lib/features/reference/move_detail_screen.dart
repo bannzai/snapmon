@@ -63,7 +63,7 @@ class MoveDetailScreen extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 14),
-          // 3 つの枠の高さを揃える (ラベルが長い言語で 1 つだけ折り返しても枠の下端が揃うように)
+          // 4 つの枠の高さを揃える (ラベルが長い言語で 1 つだけ折り返しても枠の下端が揃うように)
           IntrinsicHeight(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -71,6 +71,7 @@ class MoveDetailScreen extends StatelessWidget {
                 for (final (label, value) in [
                   (context.l10n.moveDetailPower, '${move.power}'),
                   (context.l10n.moveDetailPowerPoints, '${move.powerPoints}'),
+                  (context.l10n.moveDetailAccuracy, '${move.accuracy}'),
                   (
                     context.l10n.moveDetailUnlockLevel,
                     // 覚える技の一覧の開放レベルはレベル帯の下限 (functions/src/generation/monster_stats.ts の buildLearnset)。
@@ -117,6 +118,13 @@ class MoveDetailScreen extends StatelessWidget {
               ],
             ),
           ),
+          if (move.priority > 0) ...[
+            const SizedBox(height: 10),
+            Text(
+              '${context.l10n.moveDetailPriority}: ${context.l10n.moveDetailPriorityValue}',
+              style: SnapmonTextStyles.body,
+            ),
+          ],
           const SizedBox(height: 20),
           _SectionTitle(title: context.l10n.moveDetailSpecialEffect),
           if (specialEffect == null)
@@ -129,6 +137,8 @@ class MoveDetailScreen extends StatelessWidget {
             const SizedBox(height: 2),
             Text(specialEffect.rule, style: SnapmonTextStyles.body),
             const SizedBox(height: 10),
+            // 式の無い効果 (状態・フィールド・自爆・一撃・必中だけの技) は規則の説明だけで足り、空の枠を出さない
+            if (!specialEffect.hasNoExpressionEffect)
             DecoratedBox(
               decoration: const BoxDecoration(
                 color: SnapmonColors.surface,

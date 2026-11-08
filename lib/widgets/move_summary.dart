@@ -54,6 +54,23 @@ class MoveSummary extends StatelessWidget {
               null => '${move.powerPoints}',
             },
           ),
+          // 外れることがある技と先制の技だけに印を出す (ほとんどの技は命中 100・先制なしで、全部に出すと技の枠が埋まるため)
+          if (move.accuracy < defaultMoveAccuracyPercent)
+            Text(
+              context.l10n.moveAccuracy(move.accuracy),
+              style: SnapmonTextStyles.small.copyWith(
+                fontWeight: FontWeight.w400,
+                color: SnapmonColors.textOnCardMuted,
+              ),
+            ),
+          if (move.priority > 0)
+            Text(
+              context.l10n.movePriority,
+              style: SnapmonTextStyles.small.copyWith(
+                fontWeight: FontWeight.w400,
+                color: SnapmonColors.textOnCardMuted,
+              ),
+            ),
         ],
       ),
       if (move.specialEffect case final specialEffect?) ...[

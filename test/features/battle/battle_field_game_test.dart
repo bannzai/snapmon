@@ -405,46 +405,52 @@ void main() {
     );
 
     testWithGame<BattleFieldGame>(
-      '同梱のシートをすべて読み、読めないシートは飛ばして残りを描く',
+      'master のシートで描くエフェクトをすべて読み、読めないシートとパーティクルのエフェクトは飛ばして残りを描く',
       createGame,
       (game) async {
         // testWithGame は binding を初期化せず、rootBundle からアセットを読むのに要るため
         TestWidgetsFlutterBinding.ensureInitialized();
+        final spriteSheetEffects = [
+          for (final effect in sampleData.definitions.effects)
+            if (effect.spriteSheet != null) effect,
+        ];
+        expect(spriteSheetEffects, isNotEmpty);
         await loadMoveEffectSpriteSheets(
           game: game,
-          spriteSheetsByEffectId: {
-            ...moveEffectSpriteSheetsByEffectId,
-            'water_particle': (
-              assetName: 'not-bundled',
-              visibleCenterAnchor: Anchor.center,
+          effects: [
+            ...sampleData.definitions.effects,
+            const MoveEffect(
+              id: 'not_bundled',
+              displayName: '同梱していないシート',
+              kind: 'spriteSheet',
+              colorHex: '#FFFFFF',
+              spriteSheet: 'not-bundled',
             ),
-          },
+          ],
           assetBundle: rootBundle,
         );
-        for (final MapEntry(key: effectId, value: spriteSheet)
-            in moveEffectSpriteSheetsByEffectId.entries) {
-          game.hit(
-            defenderSide: BattleSideId.opponent,
-            effect: MoveEffect(
-              id: effectId,
-              displayName: spriteSheet.assetName,
-              kind: 'particle',
-              colorHex: '#FFFFFF',
-            ),
-          );
+        for (final effect in spriteSheetEffects) {
+          game.hit(defenderSide: BattleSideId.opponent, effect: effect);
         }
         game.hit(
           defenderSide: BattleSideId.opponent,
           effect: const MoveEffect(
-            id: 'water_particle',
-            displayName: '水のパーティクル',
-            kind: 'particle',
-            colorHex: '#2196F3',
+            id: 'not_bundled',
+            displayName: '同梱していないシート',
+            kind: 'spriteSheet',
+            colorHex: '#FFFFFF',
+            spriteSheet: 'not-bundled',
+          ),
+        );
+        game.hit(
+          defenderSide: BattleSideId.opponent,
+          effect: sampleData.definitions.effectById(
+            effectId: 'water_particle',
           ),
         );
         await game.ready();
         final components = game.children.whereType<SpriteAnimationComponent>();
-        expect(components, hasLength(moveEffectSpriteSheetsByEffectId.length));
+        expect(components, hasLength(spriteSheetEffects.length));
         // JSON のコマの矩形が PNG の中に収まる (JSON と PNG が別の書き出しで食い違っていない)
         for (final component in components) {
           final image = component.animation!.frames.last.sprite.image;
@@ -457,13 +463,33 @@ void main() {
             lastFrame.srcPosition.y + lastFrame.srcSize.y,
             lessThanOrEqualTo(image.height),
           );
+          // 合わせる点はコマの中 (見える範囲の中心を測って書いた値)
+          expect(component.anchor.x, inInclusiveRange(0, 1));
+          expect(component.anchor.y, inInclusiveRange(0, 1));
         }
         expect(
           game.children.whereType<ParticleSystemComponent>(),
-          hasLength(1),
+          hasLength(2),
         );
       },
     );
+
+    test('シートの JSON の見える範囲の中心を Anchor にし、無ければコマの中心にする', () {
+      expect(
+        visibleCenterAnchorOf(
+          spriteSheetJson: {
+            'meta': {
+              'snapmon': {'visibleCenter': [0.25, 0.75]},
+            },
+          },
+        ),
+        const Anchor(0.25, 0.75),
+      );
+      expect(
+        visibleCenterAnchorOf(spriteSheetJson: {'meta': <String, dynamic>{}}),
+        Anchor.center,
+      );
+    });
 
     testWithGame<BattleFieldGame>(
       'JSON は読めて PNG を decode できないシートは、未処理のエラーを出さずキャッシュにも残さずパーティクルのままにする',
@@ -473,12 +499,15 @@ void main() {
         TestWidgetsFlutterBinding.ensureInitialized();
         await loadMoveEffectSpriteSheets(
           game: game,
-          spriteSheetsByEffectId: const {
-            'water_particle': (
-              assetName: 'broken-png',
-              visibleCenterAnchor: Anchor.center,
+          effects: const [
+            MoveEffect(
+              id: 'water_particle',
+              displayName: '壊れた PNG',
+              kind: 'spriteSheet',
+              colorHex: '#2196F3',
+              spriteSheet: 'broken-png',
             ),
-          },
+          ],
           assetBundle: _BrokenPngAssetBundle(),
         );
         expect(game.images.containsKey('move_effects/broken-png.png'), isFalse);

@@ -11,8 +11,10 @@ import '../../audio/game_audio.dart';
 import '../../domain/battle/battle_engine.dart';
 import '../../domain/battle/battle_state.dart';
 import '../../domain/battle/move_special_effect.dart';
+import '../../domain/battle/status_condition.dart';
 import '../../domain/master/master_data.dart';
 import '../../domain/master/move.dart';
+import '../../domain/monster/monster_state.dart';
 import '../../domain/monster/stat_calculation.dart';
 import '../../l10n/l10n.dart';
 import '../../theme/snapmon_colors.dart';
@@ -29,6 +31,7 @@ import '../share/card_sharer.dart';
 import '../share/share_card_button.dart';
 import '../share/share_cards.dart';
 import 'battle_field_game.dart';
+import 'battle_haptics.dart';
 import 'battle_recorder.dart';
 import 'move_effect_sprite_sheets.dart';
 
@@ -126,7 +129,7 @@ const double _battleLogCommandsGap = 10;
 const double _landscapeBattleFieldGap = 8;
 
 /// バトル画面 (モックの Battle.dc.html)。フィールドは Flame の [BattleFieldGame]、名前・HP・技のボタン・ログの帯・勝敗は Flutter で描く。
-/// 技を選ぶと CPU の行動と合わせて 1 ターンを [advanceTurn] で解決し、増えたバトルのログを 1 件ずつ演出して見せる。
+/// 技を選ぶと CPU の行動と合わせて 1 ラウンド (両陣営 1 ターンずつ) を [advanceRound] で解決し、増えたバトルのログを 1 件ずつ演出して見せる。
 /// 決着がつくと勝敗と、戦闘に出た自分のモンスターのレベルの上がり方を出し、Functions に結果を記録して Analytics にバトル完了を送る。
 class BattleScreen extends StatefulWidget {
   /// [playerParty] と [opponentParty] (それぞれ 1〜3 体) のバトル画面を作る。
@@ -254,6 +257,9 @@ class _BattleScreenState extends State<BattleScreen>
   /// BGM・効果音。dispose でも使うため initState で引いておく (dispose では context から引けない)。
   late final GameAudio _gameAudio = GameAudioScope.read(context);
 
+  /// 被弾・倒れる・状態の変化に合わせた触覚のフィードバック (iOS / Android だけ)。
+  final BattleHaptics _haptics = BattleHaptics();
+
   @override
   void initState() {
     super.initState();
@@ -294,11 +300,19 @@ class _BattleScreenState extends State<BattleScreen>
     }) {
       unawaited(_loadArtImage(artPath: artPath));
     }
-    // 読み込みが済むまでの被弾はパーティクルで描くため、待たずにバトルを始める
+    // 読み込みが済むまでの被弾はパーティクルで描くため、待たずにバトルを始める。読むのはこのバトルの両陣営が使い得る技のエフェクトだけ
     unawaited(
       loadMoveEffectSpriteSheets(
         game: _game,
-        spriteSheetsByEffectId: moveEffectSpriteSheetsByEffectId,
+        effects: {
+          for (final monster in [...widget.playerParty, ...widget.opponentParty])
+            for (final learnsetEntry in monster.definition.learnset)
+              widget.definitions.effectById(
+                effectId: widget.definitions
+                    .moveById(moveId: learnsetEntry.moveId)
+                    .effectId,
+              ),
+        },
         assetBundle: rootBundle,
       ),
     );
@@ -362,10 +376,10 @@ class _BattleScreenState extends State<BattleScreen>
       side: state.partyOf(side: side).activeMember,
   };
 
-  /// [playerAction] と CPU の行動で 1 ターンを進め、増えたログを順に演出する。決着がついたら [_finishBattle] に進む。
+  /// [playerAction] と CPU の行動で 1 ラウンド (両陣営 1 ターンずつ) を進め、増えたログを順に演出する。決着がついたら [_finishBattle] に進む。
   Future<void> _selectAction({required BattleAction playerAction}) async {
     final previousState = _battleState;
-    final nextState = advanceTurn(
+    final nextState = advanceRound(
       state: previousState,
       playerAction: playerAction,
       opponentAction: chooseCpuAction(
@@ -407,7 +421,26 @@ class _BattleScreenState extends State<BattleScreen>
     }
   }
 
-  /// バトルのログ [event] 1 件を演出する。[nextState] はこのターンを解決した後の状態。
+  /// [side] の相手の陣営。
+  static BattleSideId _otherSideOf({required BattleSideId side}) =>
+      switch (side) {
+        BattleSideId.player => BattleSideId.opponent,
+        BattleSideId.opponent => BattleSideId.player,
+      };
+
+  /// 場のモンスターの表示 ([_displayedActiveMembers]) のうち [side] の状態を [update] で置き換える。
+  void _updateDisplayedMember({
+    required BattleSideId side,
+    required MonsterState Function(MonsterState state) update,
+  }) {
+    final member = _displayedActiveMembers[side]!;
+    _displayedActiveMembers[side] = BattleMonster(
+      definition: member.definition,
+      state: update(member.state),
+    );
+  }
+
+  /// バトルのログ [event] 1 件を演出する。[nextState] はこのラウンドを解決した後の状態。
   Future<void> _playEvent({
     required BattleEvent event,
     required BattleState nextState,
@@ -415,22 +448,30 @@ class _BattleScreenState extends State<BattleScreen>
     switch (event) {
       case MoveUsedEvent():
         final attacker = _displayedActiveMembers[event.attackerSide]!;
-        final defenderSide = switch (event.attackerSide) {
-          BattleSideId.player => BattleSideId.opponent,
-          BattleSideId.opponent => BattleSideId.player,
-        };
+        final defenderSide = _otherSideOf(side: event.attackerSide);
         final move = event.moveId == null
             ? null
             : widget.definitions.moveById(moveId: event.moveId!);
+        final replacedMove = event.replacedMoveId == null
+            ? null
+            : widget.definitions.moveById(moveId: event.replacedMoveId!);
         // ログの文言は言語の切り替えで後から組み立て直すため、技を受けた側の名前はこの時点の値で固定する (交代の後に別の名前にならないように)
         final defenderName =
             _displayedActiveMembers[defenderSide]!.definition.name;
         setState(
           () => _logText = (l10n) => [
-            l10n.battleLogMoveUsed(
-              attacker.definition.name,
-              move?.displayName ?? l10n.battleStruggle,
-            ),
+            if (replacedMove != null && move != null)
+              l10n.battleLogConfusedMove(
+                attacker.definition.name,
+                replacedMove.displayName,
+                move.displayName,
+              )
+            else
+              l10n.battleLogMoveUsed(
+                attacker.definition.name,
+                move?.displayName ?? l10n.battleStruggle,
+              ),
+            if (event.isOneHitKnockout) l10n.battleLogOneHitKnockout,
             // 効果が働かなかった (倍率 100%) 時は、起きていないことを出さない。
             // 説明文は技の名前と同じく master の定義の文言のため、ARB には移さない
             if (event.specialEffect case (
@@ -439,9 +480,11 @@ class _BattleScreenState extends State<BattleScreen>
             ) when powerPercent > 100)
               description,
             if (move?.category != MoveCategory.support &&
+                !event.isOneHitKnockout &&
                 event.typeMultiplier > 1)
               l10n.battleLogSuperEffective,
             if (move?.category != MoveCategory.support &&
+                !event.isOneHitKnockout &&
                 event.typeMultiplier < 1)
               l10n.battleLogNotVeryEffective,
             for (final change in event.statModifierChanges)
@@ -457,25 +500,33 @@ class _BattleScreenState extends State<BattleScreen>
                 attacker.definition.name,
                 event.recoveredHitPoints,
               ),
+            if (event.selfDestructed)
+              l10n.battleLogSelfDestructed(attacker.definition.name),
             if (move?.category == MoveCategory.support &&
                 event.statModifierChanges.isEmpty &&
-                event.recoveredHitPoints == 0)
+                event.recoveredHitPoints == 0 &&
+                !_hasValueEffectToPlay(
+                  nextState: nextState,
+                  moveUsedEvent: event,
+                ))
               l10n.battleLogNoEffect,
           ].join('\n'),
         );
+        if (event.statModifierChanges.isNotEmpty) {
+          unawaited(_haptics.statusChanged());
+        }
         if (move?.category == MoveCategory.support) {
           // 補助技はダメージを与えないため、突進と被弾の演出をせず、HP とステータスの倍率だけを変える
           setState(() {
             for (final side in BattleSideId.values) {
-              final member = _displayedActiveMembers[side]!;
-              _displayedActiveMembers[side] = BattleMonster(
-                definition: member.definition,
-                state: member.state.copyWith(
+              _updateDisplayedMember(
+                side: side,
+                update: (state) => state.copyWith(
                   currentHitPoints: side == event.attackerSide
                       ? event.attackerRemainingHitPoints
                       : null,
                   statModifierPercents: {
-                    ...member.state.statModifierPercents,
+                    ...state.statModifierPercents,
                     for (final change in event.statModifierChanges)
                       if (change.side == side)
                         change.statKind: change.newPercent,
@@ -499,22 +550,166 @@ class _BattleScreenState extends State<BattleScreen>
               : widget.definitions.effectById(effectId: move.effectId),
         );
         unawaited(_gameAudio.playSoundEffect(effect: SoundEffect.hit));
-        final defender = _displayedActiveMembers[defenderSide]!;
-        setState(
-          () => _displayedActiveMembers[defenderSide] = BattleMonster(
-            definition: defender.definition,
-            state: defender.state.copyWith(
+        unawaited(_haptics.hit());
+        setState(() {
+          _updateDisplayedMember(
+            side: defenderSide,
+            update: (state) => state.copyWith(
               currentHitPoints: event.defenderRemainingHitPoints,
+              statModifierPercents: {
+                ...state.statModifierPercents,
+                for (final change in event.statModifierChanges)
+                  if (change.side == defenderSide)
+                    change.statKind: change.newPercent,
+              },
             ),
+          );
+          // 攻撃技でも HP の吸収・自爆で技を使った側の HP が変わる
+          _updateDisplayedMember(
+            side: event.attackerSide,
+            update: (state) => state.copyWith(
+              currentHitPoints: event.attackerRemainingHitPoints,
+              statModifierPercents: {
+                ...state.statModifierPercents,
+                for (final change in event.statModifierChanges)
+                  if (change.side == event.attackerSide)
+                    change.statKind: change.newPercent,
+              },
+            ),
+          );
+        });
+        await Future<void>.delayed(_hitDuration);
+      case ActionFailedEvent():
+        final monsterName = _displayedActiveMembers[event.side]!.definition.name;
+        final move = event.moveId == null
+            ? null
+            : widget.definitions.moveById(moveId: event.moveId!);
+        setState(
+          () => _logText = (l10n) => switch (event.reason) {
+            ActionFailureReason.missed =>
+              '${l10n.battleLogMoveUsed(monsterName, move?.displayName ?? l10n.battleStruggle)}\n${l10n.battleLogMissed}',
+            ActionFailureReason.paralysis => l10n.battleLogParalyzed(
+              monsterName,
+            ),
+            ActionFailureReason.stun => l10n.battleLogStunned(monsterName),
+            ActionFailureReason.sleep => l10n.battleLogAsleep(monsterName),
+            ActionFailureReason.frozen => l10n.battleLogFrozenSolid(
+              monsterName,
+            ),
+          },
+        );
+        await Future<void>.delayed(_messageDuration);
+      case StatusConditionInflictedEvent():
+        final monsterName = _displayedActiveMembers[event.side]!.definition.name;
+        setState(() {
+          _updateDisplayedMember(
+            side: event.side,
+            update: (state) => state.copyWith(
+              statusConditions: {
+                ...state.statusConditions,
+                event.kind: StatusCondition(
+                  kind: event.kind,
+                  remainingTurns: null,
+                  stackCount: event.stackCount,
+                  cursedStatKind: event.cursedStatKind,
+                ),
+              }..remove(event.replacedKind),
+            ),
+          );
+          _logText = (l10n) {
+            final statusName = statusConditionLabel(l10n: l10n, kind: event.kind);
+            if (event.replacedKind case final replacedKind?) {
+              return l10n.battleLogStatusReplaced(
+                monsterName,
+                statusConditionLabel(l10n: l10n, kind: replacedKind),
+                statusName,
+              );
+            }
+            if (event.cursedStatKind case final cursedStatKind?) {
+              return l10n.battleLogCursedStat(
+                monsterName,
+                statLabel(l10n: l10n, statKind: cursedStatKind),
+              );
+            }
+            return event.stackCount > 1
+                ? l10n.battleLogStatusStacked(
+                    monsterName,
+                    statusName,
+                    event.stackCount,
+                  )
+                : l10n.battleLogStatusInflicted(monsterName, statusName);
+          };
+        });
+        unawaited(_haptics.statusChanged());
+        await Future<void>.delayed(_messageDuration);
+      case StatusConditionCuredEvent():
+        final monsterName = _displayedActiveMembers[event.side]!.definition.name;
+        setState(() {
+          _updateDisplayedMember(
+            side: event.side,
+            update: (state) => state.copyWith(
+              statusConditions: {
+                for (final MapEntry(key: kind, value: condition)
+                    in state.statusConditions.entries)
+                  if (!event.kinds.contains(kind)) kind: condition,
+              },
+            ),
+          );
+          _logText = (l10n) => [
+            for (final kind in event.kinds)
+              l10n.battleLogStatusCured(
+                monsterName,
+                statusConditionLabel(l10n: l10n, kind: kind),
+              ),
+          ].join('\n');
+        });
+        await Future<void>.delayed(_messageDuration);
+      case StatusConditionDamageEvent():
+        final monsterName = _displayedActiveMembers[event.side]!.definition.name;
+        setState(() {
+          _updateDisplayedMember(
+            side: event.side,
+            update: (state) =>
+                state.copyWith(currentHitPoints: event.remainingHitPoints),
+          );
+          _logText = (l10n) => l10n.battleLogStatusDamage(
+            monsterName,
+            statusConditionLabel(l10n: l10n, kind: event.kind),
+          );
+        });
+        unawaited(_haptics.hit());
+        await Future<void>.delayed(_messageDuration);
+      case FieldEffectStartedEvent():
+        setState(
+          () => _logText = (l10n) => switch (event.kind) {
+            FieldEffectKind.statShuffle => l10n.battleLogFieldStatShuffleStarted,
+          },
+        );
+        await Future<void>.delayed(_messageDuration);
+      case FieldEffectShuffledEvent():
+        setState(
+          () => _logText = (l10n) => l10n.battleLogFieldStatShuffled(
+            statLabel(l10n: l10n, statKind: event.statKinds.$1),
+            statLabel(l10n: l10n, statKind: event.statKinds.$2),
           ),
         );
-        await Future<void>.delayed(_hitDuration);
+        await Future<void>.delayed(_messageDuration);
+      case FieldEffectEndedEvent():
+        setState(() => _logText = (l10n) => l10n.battleLogFieldEnded);
+        await Future<void>.delayed(_messageDuration);
       case MonsterFaintedEvent():
         final faintedName =
             _displayedActiveMembers[event.side]!.definition.name;
-        setState(() => _logText = (l10n) => l10n.battleLogFainted(faintedName));
+        setState(() {
+          _logText = (l10n) => l10n.battleLogFainted(faintedName);
+          _updateDisplayedMember(
+            side: event.side,
+            update: (state) => state.copyWith(currentHitPoints: 0),
+          );
+        });
         _game.faint(side: event.side);
         unawaited(_gameAudio.playSoundEffect(effect: SoundEffect.faint));
+        unawaited(_haptics.faint());
         await Future<void>.delayed(_messageDuration);
       case MonsterSwitchedInEvent():
         final member = nextState
@@ -538,6 +733,19 @@ class _BattleScreenState extends State<BattleScreen>
         // レベルアップと勝敗は勝敗の画面にまとめて出す
         break;
     }
+  }
+
+  /// 補助技のログ [moveUsedEvent] の直後に、その技の値の効果 (状態・解除・フィールド) のログが続くか。
+  /// 続くなら「しかし なにも おこらなかった」を出さない (起きたことが次のログに出るため)。
+  static bool _hasValueEffectToPlay({
+    required BattleState nextState,
+    required MoveUsedEvent moveUsedEvent,
+  }) {
+    final eventIndex = nextState.events.indexOf(moveUsedEvent);
+    final nextEvent = nextState.events.elementAtOrNull(eventIndex + 1);
+    return nextEvent is StatusConditionInflictedEvent ||
+        nextEvent is StatusConditionCuredEvent ||
+        nextEvent is FieldEffectStartedEvent;
   }
 
   /// ステータスの倍率の変化 [change] (変わったモンスターの名前 [monsterName]) のログの 1 行。
@@ -1709,6 +1917,21 @@ class _MonsterStatusCard extends StatelessWidget {
                   : SnapmonColors.textOnCardMuted,
             ),
           ),
+      // 付いている状態 (重なる状態は重なりの数も)
+      for (final condition in monster.state.statusConditions.values)
+        Text(
+          condition.stackCount > 1
+              ? context.l10n.battleStatusStackCount(
+                  statusConditionLabel(
+                    l10n: context.l10n,
+                    kind: condition.kind,
+                  ),
+                  condition.stackCount,
+                )
+              : statusConditionLabel(l10n: context.l10n, kind: condition.kind),
+          key: Key('battle-status-condition-${condition.kind.name}'),
+          style: SnapmonTextStyles.small.copyWith(color: SnapmonColors.accent),
+        ),
     ];
     if (keepsEachRowOnOneLine) {
       return Align(
