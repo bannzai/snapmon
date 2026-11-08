@@ -2303,5 +2303,136 @@ void main() {
       }
       expect(oneHitCount, inInclusiveRange(10, 40));
     });
+
+    test('CPU は通常の攻撃技が無く一撃必殺・自爆だけが残った時にそれを使い、検証で拒否されるわるあがきを返さない', () {
+      for (final moveIds in [
+        ['fire_one_hit'],
+        ['fire_self_destruct'],
+        ['fire_one_hit', 'fire_raise_attack'],
+      ]) {
+        for (var seed = 1; seed <= 30; seed++) {
+          final state = duel(
+            playerMoveIds: moveIds,
+            opponentMoveIds: ['fire_strong'],
+            randomSeed: seed,
+          );
+          final action = chooseCpuAction(
+            state: state,
+            side: BattleSideId.player,
+            master: testMaster,
+          );
+          // 選んだ行動は advanceRound の検証を通る
+          expect(
+            () => advanceRound(
+              state: state,
+              playerAction: action,
+              opponentAction: const UseMoveAction(moveId: 'fire_strong'),
+              master: testMaster,
+            ),
+            returnsNormally,
+            reason: '$moveIds seed=$seed: $action',
+          );
+        }
+      }
+    });
+
+    test('麻痺と混乱が重なり、補助技が攻撃技に置き換わった時も麻痺で失敗する', () {
+      final before = duel(
+        playerMoveIds: ['fire_raise_attack'],
+        opponentMoveIds: ['fire_raise_attack', 'fire_strong'],
+      );
+      BattleState withStatuses({required int seed}) {
+        final opponent = before.opponent.activeMember;
+        return BattleState(
+          player: before.player,
+          opponent: BattleParty(
+            members: [
+              BattleMonster(
+                definition: opponent.definition,
+                state: opponent.state.copyWith(
+                  statusConditions: const {
+                    StatusConditionKind.paralysis: StatusCondition(
+                      kind: StatusConditionKind.paralysis,
+                      remainingTurns: 5,
+                      stackCount: 1,
+                      cursedStatKind: null,
+                    ),
+                    StatusConditionKind.confusion: StatusCondition(
+                      kind: StatusConditionKind.confusion,
+                      remainingTurns: 5,
+                      stackCount: 1,
+                      cursedStatKind: null,
+                    ),
+                  },
+                ),
+              ),
+            ],
+            activeMemberIndex: 0,
+          ),
+          turnNumber: before.turnNumber,
+          randomState: seed,
+          events: const [],
+          winner: null,
+          battleDate: before.battleDate,
+          field: null,
+        );
+      }
+
+      var paralyzedCount = 0;
+      for (var seed = 1; seed <= 60; seed++) {
+        final state = play(
+          state: withStatuses(seed: seed * 0x9E3779B9 & 0xFFFFFFFF),
+          playerMoveId: 'fire_raise_attack',
+          opponentMoveId: 'fire_raise_attack',
+        );
+        // 相手が攻撃技を出すことはない (置き換わった攻撃技は麻痺で失敗する)
+        expect(
+          state.events.whereType<MoveUsedEvent>().where(
+            (event) =>
+                event.attackerSide == BattleSideId.opponent &&
+                event.moveId == 'fire_strong',
+          ),
+          isEmpty,
+          reason: 'seed=$seed',
+        );
+        final failed = state.events.whereType<ActionFailedEvent>().where(
+          (event) => event.reason == ActionFailureReason.paralysis,
+        );
+        if (failed.isNotEmpty) {
+          paralyzedCount++;
+          expect(failed.single.moveId, 'fire_strong');
+        }
+      }
+      // 混乱で置き換わるのは 1/2 なので、半分ほどが麻痺で失敗する
+      expect(paralyzedCount, inInclusiveRange(15, 45));
+    });
+
+    test('続いている入れ替えのフィールドを同じ技で始め直しても、そのラウンドの入れ替えは保たれる', () {
+      var state = duel(
+        playerMoveIds: ['fire_shuffle', 'fire_raise_attack'],
+        opponentMoveIds: ['fire_raise_attack'],
+      );
+      state = play(
+        state: state,
+        playerMoveId: 'fire_shuffle',
+        opponentMoveId: 'fire_raise_attack',
+      );
+      state = play(
+        state: state,
+        playerMoveId: 'fire_raise_attack',
+        opponentMoveId: 'fire_raise_attack',
+      );
+      final swappedBefore = state.field!.swappedStatKinds;
+      expect(swappedBefore, isNotNull);
+      state = play(
+        state: state,
+        playerMoveId: 'fire_shuffle',
+        opponentMoveId: 'fire_raise_attack',
+      );
+      expect(state.field?.remainingRounds, 3);
+      // このラウンドの始めに選び直した組のまま (始め直しで消えない)
+      expect(state.field?.swappedStatKinds, isNotNull);
+      expect(state.events.whereType<FieldEffectShuffledEvent>().length, 2);
+    });
   });
 }

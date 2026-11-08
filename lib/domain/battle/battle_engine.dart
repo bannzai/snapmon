@@ -275,7 +275,8 @@ bool canInflictStatusCondition({
 /// 一撃必殺の技を持つ時は 1/[cpuOneHitKnockoutChanceDenominator] の確率で、自爆の技は残り HP が最大 HP の
 /// 1/[cpuSelfDestructHitPointsDenominator] 以下の時に 1/2 の確率で選ぶ。
 /// それ以外は、相手の場のモンスターへの相性の倍率が最大の攻撃技 (一撃必殺・自爆を除く) を選び、
-/// 倍率が同じなら威力 × 命中率が高い技、それも同じなら覚える技の一覧で先の技を選ぶ。使える攻撃技が無ければわるあがき。
+/// 倍率が同じなら威力 × 命中率が高い技、それも同じなら覚える技の一覧で先の技を選ぶ。通常の攻撃技が無く一撃必殺・自爆だけが
+/// 残っていればそれを使い (わるあがきは使える攻撃技が無い時しか選べない)、使える攻撃技が無ければわるあがき。
 /// 効果のある補助技は、HP の回復だけをする技なら HP が減っている時だけ、ステータスを変える技なら変える先のどれかが重ねがけの上限に達していない時、
 /// 状態を付ける技なら付ける先に変化がある時、状態を解除する技なら自分に状態がある時、フィールドの技ならフィールドが無い時だけ。
 /// 乱数は [state] の乱数の状態とターン数・陣営から作った別の列で引き、[state] の乱数の状態は進めない
@@ -373,6 +374,7 @@ BattleAction chooseCpuAction({
         (move.specialEffect?.selfDestructs ?? false)) {
       continue;
     }
+    // 下の fallback より先に通常の攻撃技を優先するため、ここで比べる
     final multiplier = totalTypeMultiplier(
       moveElementTypeId: move.elementTypeId,
       defenderElementTypeIds: defender.definition.elementTypeIds,
@@ -386,6 +388,10 @@ BattleAction chooseCpuAction({
       bestMultiplier = multiplier;
     }
   }
+  // 通常の攻撃技が無く一撃必殺・自爆だけが残った時はそれを使う (わるあがきは使える攻撃技が無い時しか選べないため)
+  bestMove ??= moves
+      .where((move) => move.category == MoveCategory.attack)
+      .firstOrNull;
   return bestMove == null
       ? const StruggleAction()
       : UseMoveAction(moveId: bestMove.id);
@@ -395,8 +401,8 @@ BattleAction chooseCpuAction({
 ///
 /// ラウンドの始めに入れ替えのフィールドがあれば、残りのラウンドが 0 なら終わり、あれば攻撃・防御・素早さから 2 つを乱数で選んで入れ替える。
 /// 先制の度合いが高い技が先、同じなら場のモンスターの素早さが高い順に行動し (同じなら乱数)、倒れたモンスターはそのターンの行動を失う。
-/// 各ターンは、気絶・眠り・凍結なら行動が失敗し (PP を使わない)、麻痺なら攻撃技とわるあがきが失敗し、混乱なら 1/2 の確率で選んだ技の代わりに
-/// 他の使える技が出て、命中率 (眩暈なら 70%) で外れる (PP を使う)。当たった技は、一撃必殺なら相手の HP を 0 にし、攻撃技なら威力に特殊効果の倍率
+/// 各ターンは、気絶・眠り・凍結なら行動が失敗し (PP を使わない)、混乱なら 1/2 の確率で選んだ技の代わりに
+/// 他の使える技が出て、麻痺なら実際に出る技が攻撃技かわるあがきの時に失敗し (PP を使わない)、命中率 (眩暈なら 70%) で外れる (PP を使う)。当たった技は、一撃必殺なら相手の HP を 0 にし、攻撃技なら威力に特殊効果の倍率
 /// ([calculateMoveSpecialEffect]) を掛けたダメージ (やけどなら与えるダメージが半分、受ける側がやけどなら (10 + 重なり) / 10 倍) を与える。
 /// 続けて特殊効果の式 ([calculateMoveStatusEffect]) でステータスの倍率を変え、HP を回復し、状態を付け・解除し、フィールドを始め、自爆する。
 /// ダメージを受けた凍結は解け、毒の技を受けた毒は重なりが増える。ターンの終わりに毒のダメージを受け、残りのターンを持つ状態が 1 減って 0 なら消える。
@@ -509,10 +515,7 @@ BattleState advanceRound({
     final incapacitatingKind = incapacitatingStatusConditionKinds
         .where(attackerStatusConditions.containsKey)
         .firstOrNull;
-    final isParalyzedAttack =
-        attackerStatusConditions.containsKey(StatusConditionKind.paralysis) &&
-        (selectedMove == null || selectedMove.category == MoveCategory.attack);
-    if (incapacitatingKind != null || isParalyzedAttack) {
+    if (incapacitatingKind != null) {
       events.add(
         ActionFailedEvent(
           turnNumber: turnNumber,
@@ -522,8 +525,7 @@ BattleState advanceRound({
           reason: switch (incapacitatingKind) {
             StatusConditionKind.stun => ActionFailureReason.stun,
             StatusConditionKind.sleep => ActionFailureReason.sleep,
-            StatusConditionKind.frozen => ActionFailureReason.frozen,
-            _ => ActionFailureReason.paralysis,
+            _ => ActionFailureReason.frozen,
           },
         ),
       );
@@ -551,6 +553,26 @@ BattleState advanceRound({
         replacedMoveId = move.id;
         move = otherMoves[random.nextUint32() % otherMoves.length];
       }
+    }
+    // 麻痺の判定は、混乱で置き換わった後の実際に出る技で行う (補助技を選んで攻撃技に置き換わっても攻撃させないため)
+    if (attackerStatusConditions.containsKey(StatusConditionKind.paralysis) &&
+        (move == null || move.category == MoveCategory.attack)) {
+      events.add(
+        ActionFailedEvent(
+          turnNumber: turnNumber,
+          side: attackerSide,
+          monsterId: attackerBeforeTurn.definition.id,
+          moveId: move?.id,
+          reason: ActionFailureReason.paralysis,
+        ),
+      );
+      _endTurn(
+        parties: parties,
+        side: attackerSide,
+        turnNumber: turnNumber,
+        events: events,
+      );
+      continue;
     }
     final attacker = attackerBeforeTurn;
     final remainingPowerPoints = move == null
@@ -798,10 +820,13 @@ BattleState advanceRound({
         );
       }
       if (moveSpecialEffect.fieldEffect case final fieldEffectKind?) {
+        // 続いている同じフィールドを始め直す時は、このラウンドの始めに決まった入れ替えを保ち (後攻だけ入れ替え前の値で計算しないため)、残りのラウンドだけ戻す
         field = BattleField(
           kind: fieldEffectKind,
           remainingRounds: fieldEffectDurationRounds,
-          swappedStatKinds: null,
+          swappedStatKinds: field?.kind == fieldEffectKind
+              ? field!.swappedStatKinds
+              : null,
         );
         events.add(
           FieldEffectStartedEvent(
