@@ -99,12 +99,13 @@ double statStrengthRatio({
   if (master.statGrades.isEmpty) {
     throw StateError('master にステータスの段階が無い');
   }
-  final maximumBaseStat = master.statGrades
-      .map((statGrade) => statGrade.baseStat)
-      .reduce((left, right) => left > right ? left : right);
   return ((2 * baseStats.valueOf(statKind: statKind) +
               individualValues.valueOf(statKind: statKind)) /
-          (2 * maximumBaseStat + individualValueMaximum))
+          (2 *
+                  master.statGrades
+                      .map((statGrade) => statGrade.baseStat)
+                      .reduce((left, right) => left > right ? left : right) +
+              individualValueMaximum))
       .clamp(0, 1);
 }
 
