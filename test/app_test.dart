@@ -2711,6 +2711,39 @@ void main() {
       });
     });
 
+    testWidgets(
+      '開発者メニューの見本の写真から切り抜くかを選んで生成すると、中央の正方形を被写体として選ぶ画面を出し、切り抜いた絵で ios_subject を送る',
+      (tester) async {
+        await pumpHome(
+          tester: tester,
+          hasStartedSession: true,
+          startSessionFailureCount: 0,
+          isDeveloperMenuEnabled: true,
+          startsCameraOnCaptureOpen: false,
+        );
+        await seedPartyWithOneMonster(tester: tester);
+        await tester.tap(find.byTooltip('設定'));
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('開発者メニュー'));
+        await tester.pumpAndSettle();
+        await tester.scrollUntilVisible(
+          find.text('見本の写真から切り抜くかを選んで生成: マグカップ'),
+          100,
+          scrollable: find.byType(Scrollable).last,
+        );
+        await tester.tap(find.text('見本の写真から切り抜くかを選んで生成: マグカップ'));
+        await tester.pumpAndSettle();
+        expect(find.text('被写体を切り抜きました'), findsOneWidget);
+        expect(generationCalls.squareMaskCrops, hasLength(1));
+        expect(generationCalls.requestedMaskSources, isEmpty);
+        await chooseSubjectCutout(tester: tester, settles: true);
+        expect(find.text('あたらしい なかま'), findsOneWidget);
+        expect(generationCalls.requestedMaskSources, [
+          GenerationMaskSource.iosSubject,
+        ]);
+      },
+    );
+
     testWidgets('開発者メニューで新しいアカウントで始め直すと、ログインを終えてタイトルに戻り、初回起動と同じく裏でログインする', (
       tester,
     ) async {
