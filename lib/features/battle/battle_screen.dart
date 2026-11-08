@@ -1570,6 +1570,52 @@ class _BattleResultPanel extends StatelessWidget {
   /// バトルの結果の共有に使う関数の組。
   final CardSharer cardSharer;
 
+  /// [monster] が [newLevel] に上がって覚えた技・入れ替わりで外れた技の行を返す。技の枠が変わらなかった時は、次に技を覚えるレベルの行
+  /// (もう覚える技が無ければ何も返さない)。入れ替えは自動で画面に出ないため、レベルアップの行で知らせる (#247)。
+  List<Widget> _learnsetChangeTexts({
+    required BuildContext context,
+    required OwnedMonster monster,
+    required int newLevel,
+  }) {
+    final changes = equippedLearnsetChanges(
+      learnset: monster.definition.learnset,
+      previousLevel: monster.level,
+      newLevel: newLevel,
+    );
+    final style = SnapmonTextStyles.small.copyWith(
+      color: SnapmonColors.textOnCard,
+    );
+    if (changes.learnedEntries.isEmpty) {
+      return [
+        if (nextLearnsetUnlockLevel(
+              learnset: monster.definition.learnset,
+              level: newLevel,
+            )
+            case final nextUnlockLevel?)
+          Text(
+            context.l10n.battleNextLearnLevel(nextUnlockLevel),
+            style: style,
+          ),
+      ];
+    }
+    return [
+      for (final learnsetEntry in changes.learnedEntries)
+        Text(
+          context.l10n.battleLearnedMove(
+            definitions.moveById(moveId: learnsetEntry.moveId).displayName,
+          ),
+          style: style,
+        ),
+      for (final learnsetEntry in changes.forgottenEntries)
+        Text(
+          context.l10n.battleForgotMove(
+            definitions.moveById(moveId: learnsetEntry.moveId).displayName,
+          ),
+          style: style,
+        ),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     final bornMonster = firstBattleBornMonster;
@@ -1616,11 +1662,21 @@ class _BattleResultPanel extends StatelessWidget {
                     horizontal: 14,
                     vertical: 10,
                   ),
-                  child: Text(
-                    '${monster.definition.name}  ${context.l10n.commonLevelUp(monster.level, newLevel)}',
-                    style: SnapmonTextStyles.label.copyWith(
-                      color: SnapmonColors.textOnCard,
-                    ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${monster.definition.name}  ${context.l10n.commonLevelUp(monster.level, newLevel)}',
+                        style: SnapmonTextStyles.label.copyWith(
+                          color: SnapmonColors.textOnCard,
+                        ),
+                      ),
+                      ..._learnsetChangeTexts(
+                        context: context,
+                        monster: monster,
+                        newLevel: newLevel,
+                      ),
+                    ],
                   ),
                 ),
               ),

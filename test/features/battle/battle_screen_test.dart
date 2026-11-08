@@ -397,6 +397,9 @@ void main() {
       find.text('${strongPlayer.definition.name}  Lv. 7 → 9'),
       findsOneWidget,
     );
+    // 見本のマグモンは Lv.9 までに技の枠が変わらないため、次に技を覚えるレベル (段階 2 の Lv.15) を出す
+    expect(find.text('Lv. 15 で新しい技をおぼえる'), findsOneWidget);
+    expect(find.textContaining('をおぼえた'), findsNothing);
     expect(find.text('記録しました'), findsOneWidget);
     // 開いた時にバトルの BGM を流し、決着で止めて勝ちの効果音を鳴らす。途中は技が当たるたびに被弾の音、倒れた時に倒れた音
     expect(audioCalls.playedBackgroundMusicAssetPaths, [
@@ -436,6 +439,53 @@ void main() {
       'turn_count': completed.turnCount,
       'opponent': 'pvp',
     });
+  });
+
+  testWidgets('レベルが上がって技を覚えた時は、覚えた技と入れ替わりで外れた技をレベルの行の下に出す', (tester) async {
+    final playerMonster = OwnedMonster(
+      definition: MonsterDefinition(
+        id: strongPlayer.definition.id,
+        sourcePhotoReference: strongPlayer.definition.sourcePhotoReference,
+        name: strongPlayer.definition.name,
+        encyclopediaText: strongPlayer.definition.encyclopediaText,
+        elementTypeIds: strongPlayer.definition.elementTypeIds,
+        learnset: [
+          ...strongPlayer.definition.learnset.where(
+            (learnsetEntry) => learnsetEntry.unlockLevel == 1,
+          ),
+          const LearnsetEntry(moveId: 'steel_2', unlockLevel: 8),
+        ],
+        baseStats: strongPlayer.definition.baseStats,
+        individualValues: strongPlayer.definition.individualValues,
+        statCalculationVersion: strongPlayer.definition.statCalculationVersion,
+        masterVersion: strongPlayer.definition.masterVersion,
+      ),
+      level: strongPlayer.level,
+      artPath: strongPlayer.artPath,
+      definitionIds: strongPlayer.definitionIds,
+      decoration: strongPlayer.decoration,
+      decorationVersion: strongPlayer.decorationVersion,
+    );
+    await pumpBattleScreen(
+      tester: tester,
+      playerMonster: playerMonster,
+      artImage: null,
+      battleRecorder: fakeBattleRecorder(
+        calls: RecordedBattleCalls(),
+        startBattleRecord: () async => 'battle-1',
+        recordedLevels: {strongPlayer.definition.id: 9},
+      ),
+    );
+    await playUntilFinished(tester: tester);
+    expect(
+      find.text('${strongPlayer.definition.name}  Lv. 7 → 9'),
+      findsOneWidget,
+    );
+    // Lv.1 の 4 つの枠のうち一覧で一番古い fire_1 (ほかほかタッチ) が、Lv.8 の steel_2 (スチールプレス) と入れ替わる
+    expect(find.text('スチールプレス をおぼえた'), findsOneWidget);
+    expect(find.text('ほかほかタッチ をわすれた'), findsOneWidget);
+    // 技を覚えた時は次に覚えるレベルを出さない
+    expect(find.textContaining('で新しい技をおぼえる'), findsNothing);
   });
 
   testWidgets('記録しない時は端末の計算のレベルを反映し、記録していないことを出す', (tester) async {
