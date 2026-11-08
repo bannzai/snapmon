@@ -54,6 +54,7 @@ class GameAudio extends ChangeNotifier {
     required bool isBackgroundMusicEnabled,
     required bool isSoundEffectsEnabled,
   }) : _isBackgroundMusicEnabled = isBackgroundMusicEnabled,
+       _appliedBackgroundMusicEnabled = isBackgroundMusicEnabled,
        _isSoundEffectsEnabled = isSoundEffectsEnabled;
 
   /// [assetPath] の BGM を [volume] で繰り返し流す。流れている BGM があれば差し替える。
@@ -77,6 +78,10 @@ class GameAudio extends ChangeNotifier {
   saveSetting;
 
   bool _isBackgroundMusicEnabled;
+
+  /// 「BGM」のオン・オフのうち、音の停止・再開と保存まで済ませた最新の値。
+  /// [_isBackgroundMusicEnabled] は切り替えた瞬間に変わる (スイッチの表示用) のに対し、こちらは待ち行列で順番が回ってから変わる。
+  bool _appliedBackgroundMusicEnabled;
   bool _isSoundEffectsEnabled;
 
   /// 最後に求められた BGM。止めた後と、まだ求められていない間は null。
@@ -162,10 +167,13 @@ class GameAudio extends ChangeNotifier {
     _isBackgroundMusicEnabled = enabled;
     notifyListeners();
     return _runAfterPreviousBackgroundMusicOperation(() async {
-      // 順番が回ってきた時点の値で判断する (待っている間にもう一度切り替わっていれば、その切り替えの番で反映する)
-      if (_isBackgroundMusicEnabled != enabled) {
+      // 順番が回ってきた時点の値で判断する。待っている間に別の値へ切り替わっていれば、その切り替えの番に任せる。
+      // 待っている間に同じ値へ戻っていて、その値をもう反映済みなら (オフ→オン→オフの最後のオフ) 重ねて止めず保存もしない
+      if (_isBackgroundMusicEnabled != enabled ||
+          _appliedBackgroundMusicEnabled == enabled) {
         return;
       }
+      _appliedBackgroundMusicEnabled = enabled;
       final requested = _requestedBackgroundMusic;
       if (enabled) {
         if (requested != null && _playingBackgroundMusic != requested) {

@@ -117,7 +117,8 @@ void main() {
     );
     final playing = gameAudio.playBackgroundMusic(music: BackgroundMusic.home);
     await playStarted.future;
-    // 読み込み中にオフ → オン → オフと切り替える。保存は切り替えた順に、停止は読み込みが終わった後に行う
+    // 読み込み中にオフ → オン → オフと切り替える。停止は読み込みが終わった後に 1 回だけ行い、
+    // 途中のオンと最後のオフ (もう反映済みの値) は重ねて反映しない。保存は最後の値 (オフ) だけ
     final toggling = Future.wait([
       gameAudio.setBackgroundMusicEnabled(enabled: false),
       gameAudio.setBackgroundMusicEnabled(enabled: true),
@@ -128,7 +129,7 @@ void main() {
     await playing;
     await toggling;
     expect(stopCount, 1);
-    expect(savedValues, [false, true, false]);
+    expect(savedValues, [false]);
     expect(gameAudio.isBackgroundMusicEnabled, isFalse);
   });
 
