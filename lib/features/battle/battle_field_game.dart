@@ -141,7 +141,7 @@ class BattleFieldGame extends FlameGame {
   }
 
   /// [artPath] の切り出した被写体の画像 [artImage] を受け取り、そのパスのモンスターを画像で描くようにする。
-  /// 読み込みはバトル画面が非同期に行うため、届くまでと読めなかった時は仮の絵のまま描く。
+  /// 読み込みはバトル画面が非同期に行うため、届くまでと読めなかった時はそのモンスターを描かない ([MonsterComponent])。
   void applyArtImage({required String artPath, required Image artImage}) {
     final artSprite = _artSpritesByPath[artPath] = Sprite(artImage);
     for (final component in [
@@ -364,8 +364,9 @@ class _GroundComponent extends Component with HasGameReference<FlameGame> {
   }
 }
 
-/// 場のモンスターを描く部品。切り出した被写体の画像 ([artSprite]) があれば図鑑のカードと同じく描き
-/// ([paintMonsterArt])、無ければ (画像を持たない・読み込み中・読み込みの失敗) 仮の絵を描く。
+/// 場のモンスターを描く部品。切り出した被写体の画像 ([artSprite]) があれば図鑑のカードと同じく描く ([paintMonsterArt])。
+/// 画像を持たないモンスター ([OwnedMonster.artPath] が null) は仮の絵を描き、画像を持つモンスターの読み込み中と読み込みの失敗は
+/// 図鑑のカード ([MonsterArt]) と同じく何も描かない (被写体と無関係な仮の絵が一瞬出て、画像に切り替わる時にちらつくため。#211)。
 class MonsterComponent extends PositionComponent with HasVisibility {
   /// [monster] を描く部品を作る。
   MonsterComponent({required this.monster, required this.artSprite});
@@ -373,7 +374,7 @@ class MonsterComponent extends PositionComponent with HasVisibility {
   /// 描くモンスター。
   final OwnedMonster monster;
 
-  /// [OwnedMonster.artPath] の画像の Sprite。null の間は仮の絵を描く。
+  /// [OwnedMonster.artPath] の画像の Sprite。画像を持つモンスターは null の間何も描かない。
   Sprite? artSprite;
 
   /// 点滅の残り時間 (秒)。0 なら点滅していない。
@@ -411,6 +412,9 @@ class MonsterComponent extends PositionComponent with HasVisibility {
     }
     final sprite = artSprite;
     if (sprite == null) {
+      if (monster.artPath != null) {
+        return;
+      }
       paintPlaceholderMonster(
         canvas: canvas,
         size: Size(size.x, size.y),

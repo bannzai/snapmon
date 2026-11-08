@@ -10,6 +10,7 @@ import 'package:snapmon/domain/battle/battle_state.dart';
 import 'package:snapmon/domain/master/move_effect.dart';
 import 'package:snapmon/features/battle/battle_field_game.dart';
 import 'package:snapmon/features/battle/move_effect_sprite_sheets.dart';
+import 'package:snapmon/features/dex/owned_monster.dart';
 
 import '../../card_sharer_fixture.dart';
 import '../../decorated_monster_fixture.dart';
@@ -18,7 +19,7 @@ import '../../sample_data_fixture.dart';
 void main() {
   final sampleData = loadSampleDataFixture();
 
-  /// 自分の場のモンスターの切り出した被写体の画像のパス。相手 (見本のモンスター) は画像を持たない。
+  /// 自分の場のモンスターの切り出した被写体の画像のパス。相手 (見本のモンスター) は同梱の見本の画像のパスを持つ。
   const playerArtPath = 'monsters/player-monster/art.png';
 
   BattleFieldGame createGame() => BattleFieldGame(
@@ -533,16 +534,14 @@ void main() {
   });
 
   testWithGame<BattleFieldGame>(
-    '切り出した画像が届くまでは四角の仮の絵で描き、届いたらそのパスのモンスターだけを Sprite で描く',
+    '切り出した画像が届くまでは画像を持つモンスターを描かず、届いたらそのパスのモンスターだけを Sprite で描く',
     createGame,
     (game) async {
-      final player = game.playerMonsterComponent;
-      final opponent = game.opponentMonsterComponent;
+      final player = game.playerMonsterComponent..size = Vector2(100, 100);
+      final opponent = game.opponentMonsterComponent..size = Vector2(100, 100);
       expect(player.artSprite, isNull);
-      expect(
-        renderInvocations(component: player).map((call) => call.memberName),
-        isNot(contains(#drawImageRect)),
-      );
+      // 画像を持つ自分のモンスターは、届くまで仮の絵も描かない (#211)
+      expect(renderInvocations(component: player), isEmpty);
 
       final artImage = await createArtImage(width: 8, height: 8);
       addTearDown(artImage.dispose);
@@ -553,12 +552,29 @@ void main() {
         renderInvocations(component: player).map((call) => call.memberName),
         contains(#drawImageRect),
       );
-      // 画像を持たない相手は仮の絵のまま
+      // 画像を持つ相手 (見本の同梱の画像) は、届くまで描かない
+      expect(opponent.monster.artPath, isNotNull);
       expect(opponent.artSprite, isNull);
-      expect(
-        renderInvocations(component: opponent).map((call) => call.memberName),
-        isNot(contains(#drawImageRect)),
+      expect(renderInvocations(component: opponent), isEmpty);
+
+      // 画像を持たないモンスターは仮の絵 (角丸の体) を描く
+      final sampleMonster = sampleData.monsters[2];
+      game.switchIn(
+        side: BattleSideId.opponent,
+        monster: OwnedMonster(
+          definition: sampleMonster.definition,
+          level: sampleMonster.level,
+          artPath: null,
+          definitionIds: sampleMonster.definitionIds,
+          decoration: null,
+          decorationVersion: null,
+        ),
       );
+      final placeholderInvocations = renderInvocations(
+        component: game.opponentMonsterComponent..size = Vector2(100, 100),
+      ).map((call) => call.memberName);
+      expect(placeholderInvocations, contains(#drawRRect));
+      expect(placeholderInvocations, isNot(contains(#drawImageRect)));
     },
   );
 
