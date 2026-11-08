@@ -284,6 +284,40 @@ void main() {
     await tester.pump(const Duration(seconds: 5));
   });
 
+  testWidgets('技の枠に、相手の場のモンスターへの相性の倍率を等倍以外だけ出す', (tester) async {
+    await pumpBattleScreen(
+      tester: tester,
+      playerMonster: strongPlayer,
+      artImage: null,
+      battleRecorder: fakeBattleRecorder(
+        calls: RecordedBattleCalls(),
+        startBattleRecord: () async => null,
+        recordedLevels: const {},
+      ),
+    );
+    // マグモンの技の枠は 炎・鋼・炎・鋼 の順。炎はリンゴラの菓子・草の両方に 2 倍で 4 倍、鋼はどちらにも等倍
+    for (final (slotIndex, expectedText) in [
+      (0, '×4'),
+      (1, null),
+      (2, '×4'),
+      (3, null),
+    ]) {
+      final multiplierTag = find.descendant(
+        of: find.byKey(Key('move-slot-$slotIndex')),
+        matching: find.byKey(const Key('move-type-multiplier')),
+      );
+      if (expectedText == null) {
+        expect(multiplierTag, findsNothing, reason: 'move-slot-$slotIndex');
+      } else {
+        expect(
+          tester.widget<Text>(multiplierTag).data,
+          expectedText,
+          reason: 'move-slot-$slotIndex',
+        );
+      }
+    }
+  });
+
   testWidgets('補助技は相手のステータスを下げたことをログに出し、変わった倍率を相手のカードに出す', (tester) async {
     await pumpBattleScreen(
       tester: tester,

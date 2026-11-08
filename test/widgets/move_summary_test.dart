@@ -18,11 +18,12 @@ void main() {
   /// ブリキパンチ (鋼・威力 40・PP 30)。特殊効果を持たない技として使う。
   final plainMove = sampleData.definitions.moveById(moveId: 'steel_1');
 
-  /// [remainingPowerPoints] を渡した [MoveSummary] を [move] で描く。
+  /// [remainingPowerPoints]・[typeMultiplier] を渡した [MoveSummary] を [moveId] の技で描く。
   Future<void> pumpMoveSummary({
     required WidgetTester tester,
     required int? remainingPowerPoints,
     required String moveId,
+    required double? typeMultiplier,
   }) => tester.pumpWidget(
     MaterialApp(
       theme: snapmonThemeData(),
@@ -33,6 +34,7 @@ void main() {
         body: MoveSummary(
           move: sampleData.definitions.moveById(moveId: moveId),
           remainingPowerPoints: remainingPowerPoints,
+          typeMultiplier: typeMultiplier,
           definitions: sampleData.definitions,
         ),
       ),
@@ -44,6 +46,7 @@ void main() {
       tester: tester,
       remainingPowerPoints: 12,
       moveId: effectMove.id,
+      typeMultiplier: null,
     );
     // 名前は見出しの書体で、属性の札・説明 (本文の書体) と区別する
     expect(
@@ -86,12 +89,45 @@ void main() {
       tester: tester,
       remainingPowerPoints: null,
       moveId: plainMove.id,
+      typeMultiplier: null,
     );
     expect(
       find.text('PP ${plainMove.powerPoints}', findRichText: true),
       findsOneWidget,
     );
-    // 名前・札の中の属性名・威力・PP の 4 つだけで、説明の段は無い
+    // 名前・札の中の属性名・威力・PP の 4 つだけで、説明の段と相性の札は無い
     expect(find.byType(RichText), findsNWidgets(4));
   });
+
+  // 等倍 (1) は「似ているが出さない」側。0.25・4 は 2 属性の相手への積で、桁を落とさずに出す
+  for (final (typeMultiplier, expectedText) in [
+    (2.0, '×2'),
+    (4.0, '×4'),
+    (0.5, '×0.5'),
+    (0.25, '×0.25'),
+    (1.0, null),
+    (null, null),
+  ]) {
+    testWidgets('相性の倍率 $typeMultiplier は ${expectedText ?? '出さない'}', (
+      tester,
+    ) async {
+      await pumpMoveSummary(
+        tester: tester,
+        remainingPowerPoints: 12,
+        moveId: plainMove.id,
+        typeMultiplier: typeMultiplier,
+      );
+      final multiplierTag = find.byKey(const Key('move-type-multiplier'));
+      if (expectedText == null) {
+        expect(multiplierTag, findsNothing);
+        return;
+      }
+      expect(tester.widget<Text>(multiplierTag).data, expectedText);
+      // 属性の札の右に並べ、「鋼 ×2」のように属性と倍率を続けて読ませる
+      expect(
+        tester.getTopLeft(multiplierTag).dx,
+        greaterThan(tester.getTopRight(find.byType(ElementTypeTag)).dx),
+      );
+    });
+  }
 }

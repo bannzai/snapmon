@@ -266,6 +266,8 @@
   "moveAccuracy": "命中 {accuracy}",
   "@moveAccuracy": {"placeholders": {"accuracy": {"type": "int"}}},
   "movePriority": "先制",
+  "moveTypeMultiplier": "×{multiplier}",
+  "@moveTypeMultiplier": {"description": "バトルの技のボタンで、技の属性の横に出す今の相手への相性の倍率", "placeholders": {"multiplier": {"type": "String", "example": "2"}}},
   "moveDetailAccuracy": "命中率",
   "moveDetailPriority": "先制",
   "moveDetailPriorityValue": "素早さに関係なく先に出る",

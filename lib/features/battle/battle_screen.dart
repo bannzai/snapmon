@@ -1127,6 +1127,7 @@ class _BattleScreenState extends State<BattleScreen>
                               child: _buildCommandsOrResult(
                                 context: context,
                                 playerMonster: playerMonster,
+                                opponentMonster: opponentMonster,
                                 isFinished: isFinished,
                               ),
                             ),
@@ -1251,6 +1252,7 @@ class _BattleScreenState extends State<BattleScreen>
                     child: _buildCommandsOrResult(
                       context: context,
                       playerMonster: playerMonster,
+                      opponentMonster: opponentMonster,
                       isFinished: isFinished,
                     ),
                   ),
@@ -1267,6 +1269,7 @@ class _BattleScreenState extends State<BattleScreen>
   Widget _buildCommandsOrResult({
     required BuildContext context,
     required BattleMonster playerMonster,
+    required BattleMonster opponentMonster,
     required bool isFinished,
   }) => isFinished
       ? _BattleResultPanel(
@@ -1280,7 +1283,11 @@ class _BattleScreenState extends State<BattleScreen>
           firstBattleBornMonster: widget.firstBattleBornMonster,
           firstBattleMonsterIsNewlyBorn: widget.firstBattleMonsterIsNewlyBorn,
         )
-      : _buildCommands(context: context, playerMonster: playerMonster);
+      : _buildCommands(
+          context: context,
+          playerMonster: playerMonster,
+          opponentMonster: opponentMonster,
+        );
 
   /// ログの帯 (今のログの文言を出す暗い地の帯)。幅は親の幅いっぱいにする。
   Widget _buildBattleLog({required BuildContext context}) => DecoratedBox(
@@ -1410,10 +1417,11 @@ class _BattleScreenState extends State<BattleScreen>
     ],
   );
 
-  /// 技のボタンと、交代・にげるのボタン。
+  /// 技のボタンと、交代・にげるのボタン。技のボタンには [opponentMonster] への相性の倍率を出す。
   Widget _buildCommands({
     required BuildContext context,
     required BattleMonster playerMonster,
+    required BattleMonster opponentMonster,
   }) {
     final moves = selectableMoves(
       monster: playerMonster,
@@ -1472,6 +1480,14 @@ class _BattleScreenState extends State<BattleScreen>
                             : playerMonster.state.remainingPowerPoints[move
                                       .id] ??
                                   0,
+                        // 画面に出ている相手 (交代の演出に合わせて変わる) への相性にする
+                        typeMultiplier: move == null
+                            ? null
+                            : moveTypeMultiplierAgainst(
+                                move: move,
+                                defender: opponentMonster,
+                                master: widget.definitions,
+                              ),
                         definitions: widget.definitions,
                         onPressed: move == null || _isPlaying
                             ? null
@@ -1976,6 +1992,7 @@ class _MoveButton extends StatelessWidget {
     super.key,
     required this.move,
     required this.remainingPowerPoints,
+    required this.typeMultiplier,
     required this.definitions,
     required this.onPressed,
     required this.onLongPress,
@@ -1983,6 +2000,9 @@ class _MoveButton extends StatelessWidget {
 
   final Move? move;
   final int remainingPowerPoints;
+
+  /// 今の相手への相性の倍率 ([MoveSummary.typeMultiplier])。技が無い枠と相性が効かない技は null。
+  final double? typeMultiplier;
   final MasterData definitions;
 
   /// 技を選ぶ。技が無い枠と演出の再生中は null で、押せなくする。
@@ -2013,6 +2033,7 @@ class _MoveButton extends StatelessWidget {
                   child: MoveSummary(
                     move: move,
                     remainingPowerPoints: remainingPowerPoints,
+                    typeMultiplier: typeMultiplier,
                     definitions: definitions,
                   ),
                 ),
