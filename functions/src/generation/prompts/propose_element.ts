@@ -115,7 +115,7 @@ export const PROPOSED_MOVE_TIERS = [
  * 関係の無い語が多く、除外する語を並べても漏れるため、布地を指す熟語 (毛布・布地・布製・綿布・毛糸) だけを名指しで当てる。
  * ひらがなの「ぬの」は「いぬの」の途中に当たるため入れない。
  */
-const REMOVED_CLOTH_ELEMENT_PATTERN = /(?<!\p{Script=Han})[布糸綿革](?!\p{Script=Han})|毛布|布地|布製|綿布|毛糸|ヌノ|繊維|織物|ファブリック|フェルト|ニット/u;
+const REMOVED_CLOTH_ELEMENT_PATTERN = /(?<!\p{Script=Han})[布糸綿革](?!\p{Script=Han})|毛布|布地|布製|綿布|毛糸|ヌノ|繊維|織物|ファブリック|フェルト|(?<![\p{Script=Katakana}ー])ニット/u;
 
 /** 提案の値が範囲内かを検査し、範囲外なら理由を返す。範囲内なら undefined。 */
 export function proposalRangeViolation(output: ProposeElementOutput): string | undefined {

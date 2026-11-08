@@ -139,6 +139,8 @@ describe("proposalRangeViolation", () => {
     expect(proposalRangeViolation({ ...proposal, element: { ...proposal.element, displayName: "毛糸", description: "毛糸や綿で編んだ柔らかい物" } })).toContain("布の属性");
     expect(proposalRangeViolation({ ...proposal, element: { ...proposal.element, displayName: "フェルト", description: "やわらかい物" } })).toContain("布の属性");
     expect(proposalRangeViolation({ ...proposal, element: { ...proposal.element, displayName: "手芸", description: "糸や革で作った物" } })).toContain("布の属性");
+    expect(proposalRangeViolation({ ...proposal, element: { ...proposal.element, displayName: "ニット帽", description: "やわらかい物" } })).toContain("布の属性");
+    expect(proposalRangeViolation({ ...proposal, element: { ...proposal.element, displayName: "家具", description: "ユニットバスや棚のような物" } })).toBeUndefined();
     expect(proposalRangeViolation({ ...proposal, element: { ...proposal.element, displayName: "屋台", description: "綿菓子や糸電話のような遊びの物。皮革は使わない" } })).toBeUndefined();
   });
 });
