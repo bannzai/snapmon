@@ -267,6 +267,58 @@ void main() {
     }
   });
 
+  test('版 9 までの技とエフェクトは消えず、値も変わっていない (documents/game-rules.md「技」の版の規則)', () {
+    // 指紋は版 9 の各項目を区切りの空白なしの JSON にした文字列の FNV-1a (32 ビット)。版 9 の master.json から作った
+    final fingerprints =
+        jsonDecode(
+              File(
+                'test/fixtures/master_version_9_fingerprints.json',
+              ).readAsStringSync(),
+            )
+            as Map<String, dynamic>;
+    final masterJson =
+        jsonDecode(File('assets/master/master.json').readAsStringSync())
+            as Map<String, dynamic>;
+    String fnv1a32({required String text}) {
+      var value = 0x811C9DC5;
+      for (final byte in utf8.encode(text)) {
+        value = ((value ^ byte) * 0x01000193) & 0xFFFFFFFF;
+      }
+      return value.toRadixString(16).padLeft(8, '0');
+    }
+
+    for (final key in ['moves', 'effects']) {
+      final currentFingerprints = {
+        for (final entry in masterJson[key] as List<dynamic>)
+          (entry as Map<String, dynamic>)['id'] as String: fnv1a32(
+            text: jsonEncode(entry),
+          ),
+      };
+      final changedIds = [
+        for (final MapEntry(key: id, value: fingerprint)
+            in (fingerprints[key] as Map<String, dynamic>).entries)
+          if (currentFingerprints[id] != fingerprint) id,
+      ];
+      expect(changedIds, isEmpty, reason: '$key の消えた・変わった ID');
+    }
+  });
+
+  test('版 10 で属性ごとに相手を必ず交換不可にする補助技 (<属性>_s7) を 1 件ずつ足した (#239)', () {
+    expect(master.version, greaterThanOrEqualTo(10));
+    for (final elementType in master.elementTypes) {
+      final move = master.moves.singleWhere(
+        (move) => move.id == '${elementType.id}_s7',
+      );
+      expect(move.elementTypeId, elementType.id);
+      expect(move.category, MoveCategory.support);
+      expect(move.power, 0);
+      final infliction = move.specialEffect!.opponentStatusConditions.single;
+      expect(infliction.kind, StatusConditionKind.switchBlocked);
+      expect(infliction.chancePercent, 100);
+      expect(master.effects.map((effect) => effect.id), contains(move.effectId));
+    }
+  });
+
   test('Lv.1 で覚えられる技の半分以上に特殊効果が付いている (#65 の完了条件)', () {
     final levelOneMoves = master.moves.where(
       (move) => move.learnableLevelMinimum == 1,
