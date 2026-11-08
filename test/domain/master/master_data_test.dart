@@ -10,9 +10,9 @@ import 'package:snapmon/domain/monster/monster_stats.dart';
 
 void main() {
   final master = MasterData.fromJson(
-    json: jsonDecode(
-      File('assets/master/master.json').readAsStringSync(),
-    ) as Map<String, dynamic>,
+    json:
+        jsonDecode(File('assets/master/master.json').readAsStringSync())
+            as Map<String, dynamic>,
   );
 
   test('master は版を持つ', () {
@@ -269,13 +269,16 @@ void main() {
 
   test('版 9 までの技とエフェクトは消えず、値も変わっていない (documents/game-rules.md「技」の版の規則)', () {
     // 指紋は版 9 の各項目を区切りの空白なしの JSON にした文字列の FNV-1a (32 ビット)。版 9 の master.json から作った
-    final fingerprints = jsonDecode(
-      File('test/fixtures/master_version_9_fingerprints.json')
-          .readAsStringSync(),
-    ) as Map<String, dynamic>;
-    final masterJson = jsonDecode(
-      File('assets/master/master.json').readAsStringSync(),
-    ) as Map<String, dynamic>;
+    final fingerprints =
+        jsonDecode(
+              File(
+                'test/fixtures/master_version_9_fingerprints.json',
+              ).readAsStringSync(),
+            )
+            as Map<String, dynamic>;
+    final masterJson =
+        jsonDecode(File('assets/master/master.json').readAsStringSync())
+            as Map<String, dynamic>;
     String fnv1a32({required String text}) {
       var value = 0x811C9DC5;
       for (final byte in utf8.encode(text)) {

@@ -88,7 +88,8 @@ final testMaster = MasterData(
       learnableLevelMinimum: 1,
       learnableLevelMaximum: 999,
       specialEffect: MoveSpecialEffect(
-        power: '100 + 100 * (move.maximumPowerPoints - move.remainingPowerPoints) / (move.maximumPowerPoints - 1)',
+        power:
+            '100 + 100 * (move.maximumPowerPoints - move.remainingPowerPoints) / (move.maximumPowerPoints - 1)',
         selfStatChanges: {},
         opponentStatChanges: {},
         selfHitPointsRecovery: null,
@@ -107,7 +108,8 @@ final testMaster = MasterData(
       learnableLevelMinimum: 1,
       learnableLevelMaximum: 999,
       specialEffect: MoveSpecialEffect(
-        power: '100 + 100 * (self.maximumHitPoints - self.hitPoints) / self.maximumHitPoints',
+        power:
+            '100 + 100 * (self.maximumHitPoints - self.hitPoints) / self.maximumHitPoints',
         selfStatChanges: {},
         opponentStatChanges: {},
         selfHitPointsRecovery: null,
@@ -1808,8 +1810,9 @@ void main() {
         playerMoveIds: ['fire_drowsy'],
         opponentMoveIds: ['fire_raise_attack'],
       );
-      final speedBefore = effectiveStats(monster: state.opponent.activeMember)
-          .speed;
+      final speedBefore = effectiveStats(
+        monster: state.opponent.activeMember,
+      ).speed;
       state = play(
         state: state,
         playerMoveId: 'fire_drowsy',
