@@ -1,0 +1,296 @@
+{
+  "model": "jev-1.13.0",
+  "masterVersion": 8,
+  "measuredAt": "2026-11-08T08:04:19.980Z",
+  "repeatCount": 2,
+  "descriptions": {
+    "new-ghost-1": {
+      "what": "にっこり笑うおばけ",
+      "colors": [
+        "白",
+        "紫",
+        "黒",
+        "赤"
+      ],
+      "materials": [
+        "布"
+      ],
+      "size": "medium",
+      "hardness": "soft",
+      "temperature": "cold",
+      "uses": [],
+      "impression": [
+        "ふわふわ",
+        "にこにこ",
+        "かわいい"
+      ],
+      "distinctiveMarks": [
+        "クレヨンで描いたような絵",
+        "紫色の太い輪郭線",
+        "すそがギザギザ",
+        "まわりに黄色いきらきら"
+      ]
+    },
+    "new-ghost-2": {
+      "what": "にっこり笑うおばけ",
+      "colors": [
+        "白",
+        "紺色",
+        "黒",
+        "赤"
+      ],
+      "materials": [
+        "布"
+      ],
+      "size": "medium",
+      "hardness": "soft",
+      "temperature": "cold",
+      "uses": [],
+      "impression": [
+        "ふわふわ",
+        "にこにこ",
+        "かわいい"
+      ],
+      "distinctiveMarks": [
+        "クレヨンで描いたような絵",
+        "紺色の太い輪郭線",
+        "すそがギザギザ",
+        "まわりに黄色いキラキラ"
+      ]
+    },
+    "new-ghost-3": {
+      "what": "にっこり笑うおばけ",
+      "colors": [
+        "白",
+        "紺色",
+        "黒",
+        "赤"
+      ],
+      "materials": [
+        "布"
+      ],
+      "size": "medium",
+      "hardness": "soft",
+      "temperature": "cold",
+      "uses": [],
+      "impression": [
+        "ふわふわ",
+        "にこにこ",
+        "かわいい"
+      ],
+      "distinctiveMarks": [
+        "クレヨンのような太い線で描いた絵",
+        "紺色の輪郭線",
+        "すそがギザギザ",
+        "まわりに黄色いキラキラ"
+      ]
+    },
+    "new-ghost-4": {
+      "what": "にっこり笑う白いおばけ",
+      "colors": [
+        "白",
+        "紺",
+        "黒",
+        "赤"
+      ],
+      "materials": [
+        "布"
+      ],
+      "size": "medium",
+      "hardness": "soft",
+      "temperature": "cold",
+      "uses": [],
+      "impression": [
+        "ふわふわ",
+        "にこにこ",
+        "かわいい"
+      ],
+      "distinctiveMarks": [
+        "クレヨンで描いたような手描きの絵",
+        "紺色の太い輪郭線",
+        "すそがギザギザ",
+        "まわりに黄色いキラキラの印"
+      ]
+    },
+    "fabric-tshirt": {
+      "what": "白い無地の半袖のTシャツ",
+      "colors": [
+        "白"
+      ],
+      "materials": [
+        "布",
+        "綿"
+      ],
+      "size": "medium",
+      "hardness": "soft",
+      "temperature": "neutral",
+      "uses": [
+        "着る"
+      ],
+      "impression": [
+        "シンプル",
+        "さっぱり"
+      ],
+      "distinctiveMarks": [
+        "丸い首まわり",
+        "首の後ろに小さなタグ"
+      ]
+    },
+    "fabric-socks": {
+      "what": "灰色のくつした",
+      "colors": [
+        "灰色"
+      ],
+      "materials": [
+        "布",
+        "毛糸"
+      ],
+      "size": "small",
+      "hardness": "soft",
+      "temperature": "warm",
+      "uses": [
+        "はく",
+        "足を温める"
+      ],
+      "impression": [
+        "やわらかい",
+        "あたたかい"
+      ],
+      "distinctiveMarks": [
+        "かかとが濃い灰色",
+        "口のゴムのしま"
+      ]
+    }
+  },
+  "results": {
+    "new-ghost-1": [
+      {
+        "selected": [
+          "ghost"
+        ],
+        "probabilities": {
+          "light": 0.28,
+          "dark": 0.18,
+          "ice": 0.13,
+          "ghost": 0.94
+        }
+      },
+      {
+        "selected": [
+          "ghost"
+        ],
+        "probabilities": {
+          "light": 0.27,
+          "dark": 0.19,
+          "ice": 0.13,
+          "ghost": 0.94
+        }
+      }
+    ],
+    "new-ghost-2": [
+      {
+        "selected": [
+          "ghost"
+        ],
+        "probabilities": {
+          "light": 0.25,
+          "dark": 0.2,
+          "ice": 0.12,
+          "ghost": 0.93
+        }
+      },
+      {
+        "selected": [
+          "ghost"
+        ],
+        "probabilities": {
+          "light": 0.25,
+          "dark": 0.21,
+          "ice": 0.13,
+          "ghost": 0.94
+        }
+      }
+    ],
+    "new-ghost-3": [
+      {
+        "selected": [
+          "ghost"
+        ],
+        "probabilities": {
+          "light": 0.25,
+          "dark": 0.2,
+          "ice": 0.12,
+          "ghost": 0.94
+        }
+      },
+      {
+        "selected": [
+          "ghost"
+        ],
+        "probabilities": {
+          "light": 0.26,
+          "dark": 0.2,
+          "ice": 0.13,
+          "ghost": 0.94
+        }
+      }
+    ],
+    "new-ghost-4": [
+      {
+        "selected": [
+          "ghost"
+        ],
+        "probabilities": {
+          "light": 0.4,
+          "dark": 0.11,
+          "ice": 0.13,
+          "ghost": 0.94
+        }
+      },
+      {
+        "selected": [
+          "ghost"
+        ],
+        "probabilities": {
+          "light": 0.39,
+          "dark": 0.1,
+          "ice": 0.13,
+          "ghost": 0.93
+        }
+      }
+    ],
+    "fabric-tshirt": [
+      {
+        "selected": [
+          "light"
+        ],
+        "probabilities": {
+          "light": 0.55
+        }
+      },
+      {
+        "selected": [
+          "light"
+        ],
+        "probabilities": {
+          "light": 0.58
+        }
+      }
+    ],
+    "fabric-socks": [
+      {
+        "selected": [],
+        "probabilities": {
+          "beast": 0.2
+        }
+      },
+      {
+        "selected": [],
+        "probabilities": {
+          "beast": 0.19
+        }
+      }
+    ]
+  },
+  "inputTokens": 187046
+}
