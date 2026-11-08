@@ -434,9 +434,24 @@ void main() {
           isDeveloperMenuEnabled: false,
         );
         expect(audioCalls.playedBackgroundMusicAssetPaths, isEmpty);
-        // 数えないキーは 1 つずつ全部送り、どれでも流れないことを確かめる
+        // 数えないキーは 1 つずつ全部送り、どれでも流れないことを確かめる。
+        // tester.sendKeyEvent は flutter test の既定の platform (android) のキー表に無いキー (AltGraph 等) で
+        // assert に当たるため、HardwareKeyboard に押下・解放のイベントを直接入れる (物理キーは何でもよい)
         for (final key in keysNotCountedAsUserInteraction) {
-          await tester.sendKeyEvent(key);
+          HardwareKeyboard.instance.handleKeyEvent(
+            KeyDownEvent(
+              physicalKey: PhysicalKeyboardKey.keyA,
+              logicalKey: key,
+              timeStamp: Duration.zero,
+            ),
+          );
+          HardwareKeyboard.instance.handleKeyEvent(
+            KeyUpEvent(
+              physicalKey: PhysicalKeyboardKey.keyA,
+              logicalKey: key,
+              timeStamp: Duration.zero,
+            ),
+          );
           await tester.pumpAndSettle();
           expect(
             audioCalls.playedBackgroundMusicAssetPaths,
