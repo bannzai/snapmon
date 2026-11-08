@@ -313,7 +313,10 @@ class DexScreen extends StatelessWidget {
           icon: const Icon(Icons.photo_camera_outlined),
           label: Text(
             context.l10n.dexAddMonster,
-            style: SnapmonTextStyles.label,
+            // label の文字色 (地の色の上の白) がボタンの foregroundColor を上書きするため、黄緑の上の濃い色を明示する
+            style: SnapmonTextStyles.label.copyWith(
+              color: SnapmonColors.textOnCard,
+            ),
           ),
         ),
       ),

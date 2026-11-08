@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -172,6 +173,17 @@ void main() {
         matching: find.byIcon(Icons.photo_camera_outlined),
       ),
       findsOneWidget,
+    );
+    // 黄緑の地の上で読めるよう、文字はアイコンと同じ濃い色で描く
+    expect(
+      tester
+          .renderObject<RenderParagraph>(
+            find.descendant(of: addButton, matching: find.text('追加する')),
+          )
+          .text
+          .style
+          ?.color,
+      SnapmonColors.textOnCard,
     );
     // 横長: 左右の余白 20 を除いた画面の幅いっぱいで、画面の下半分に置く
     expect(tester.getSize(addButton).width, 390 - 20 * 2);
