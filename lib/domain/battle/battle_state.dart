@@ -421,6 +421,7 @@ class BattleState {
     required this.winner,
     required this.battleDate,
     required this.field,
+    required this.opponentDamagePercent,
   });
 
   /// 利用者の陣営。
@@ -446,6 +447,10 @@ class BattleState {
 
   /// 続いているフィールドの効果。無ければ null。
   final BattleField? field;
+
+  /// 相手の陣営が与えるダメージ式のダメージ (攻撃技・わるあがき) に掛ける割合 (%)。100 なら補正しない。
+  /// 一撃必殺と毒のダメージには掛けない (documents/game-rules.md「ダメージ式」)。CPU との対戦は [cpuDamagePercent] (battle_engine.dart)。
+  final int opponentDamagePercent;
 
   /// 次に解決するラウンドの番号 (1 から)。
   int get roundNumber => (turnNumber + 1) ~/ 2;

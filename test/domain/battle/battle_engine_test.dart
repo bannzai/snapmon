@@ -537,6 +537,7 @@ void main() {
       ],
       randomSeed: 1,
       battleDate: testBattleDate,
+      opponentDamagePercent: 100,
     );
     final grassTarget = startBattle(
       playerMembers: state.player.members,
@@ -553,6 +554,7 @@ void main() {
       ],
       randomSeed: 1,
       battleDate: testBattleDate,
+      opponentDamagePercent: 100,
     );
     MoveUsedEvent firstHit(BattleState battleState) => advanceRound(
       state: battleState,
@@ -588,6 +590,7 @@ void main() {
       ],
       randomSeed: 1,
       battleDate: testBattleDate,
+      opponentDamagePercent: 100,
     );
     final playerAction = chooseCpuAction(
       state: state,
@@ -631,6 +634,7 @@ void main() {
         ],
         randomSeed: 1,
         battleDate: testBattleDate,
+        opponentDamagePercent: 100,
       ),
       playerAction: const UseMoveAction(moveId: 'fire_strong'),
       opponentAction: const UseMoveAction(moveId: 'fire_strong'),
@@ -673,6 +677,7 @@ void main() {
       ],
       randomSeed: 1,
       battleDate: testBattleDate,
+      opponentDamagePercent: 100,
     );
     expect(
       () => advanceRound(
@@ -759,6 +764,7 @@ void main() {
       ],
       randomSeed: randomSeed,
       battleDate: testBattleDate,
+      opponentDamagePercent: 100,
     );
 
     test('3 体すべて倒れた側が負け、勝敗を問わず場に出た手持ちのレベルが 1 上がる (上限 999)', () {
@@ -851,6 +857,7 @@ void main() {
         ],
         randomSeed: randomSeed,
         battleDate: testBattleDate,
+        opponentDamagePercent: 100,
       ),
       playerAction: const UseMoveAction(moveId: 'fire_strong'),
       opponentAction: const UseMoveAction(moveId: 'fire_strong'),
@@ -911,6 +918,7 @@ void main() {
       opponentMembers: [supportOnlyMonster(id: 'opponent')],
       randomSeed: 1,
       battleDate: testBattleDate,
+      opponentDamagePercent: 100,
     );
     while (state.winner == null) {
       state = advanceRound(
@@ -964,6 +972,7 @@ void main() {
       ],
       randomSeed: 1,
       battleDate: testBattleDate,
+      opponentDamagePercent: 100,
     );
 
     /// [state] から両陣営が [playerMoveId]・[opponentMoveId] を使って 1 ターン進め、陣営ごとの技のログを返す。
@@ -1097,6 +1106,7 @@ void main() {
       ],
       randomSeed: randomSeed,
       battleDate: testBattleDate,
+      opponentDamagePercent: 100,
     );
 
     /// [state] から両陣営が [playerMoveId]・[opponentMoveId] を使って 1 ターン進めた状態を返す。
@@ -1189,6 +1199,7 @@ void main() {
         winner: null,
         battleDate: before.battleDate,
         field: null,
+        opponentDamagePercent: 100,
       );
       final beforeWithSameHitPoints = BattleState(
         player: lowered.player,
@@ -1209,6 +1220,7 @@ void main() {
         winner: null,
         battleDate: before.battleDate,
         field: null,
+        opponentDamagePercent: 100,
       );
       int damageOf({required BattleState state}) => lastMoveOf(
         state: playTurn(
@@ -1374,6 +1386,7 @@ void main() {
           winner: null,
           battleDate: testBattleDate,
           field: null,
+          opponentDamagePercent: 100,
         );
         expect(
           chooseCpuAction(
@@ -1456,6 +1469,7 @@ void main() {
         opponentMembers: [member],
         randomSeed: 1,
         battleDate: testBattleDate,
+        opponentDamagePercent: 100,
       ),
       throwsArgumentError,
     );
@@ -1465,6 +1479,7 @@ void main() {
         opponentMembers: [member],
         randomSeed: 1,
         battleDate: testBattleDate,
+        opponentDamagePercent: 100,
       ),
       throwsArgumentError,
     );
@@ -1648,6 +1663,7 @@ void main() {
       // どの seed でも同じ値になる。アプリの seed は Random の 32 bit の値のため、テストでも黄金比の定数を掛けて散らす
       randomSeed: (randomSeed * 0x9E3779B9) & 0xFFFFFFFF,
       battleDate: testBattleDate,
+      opponentDamagePercent: 100,
     );
 
     BattleState play({
@@ -1997,6 +2013,7 @@ void main() {
           winner: null,
           battleDate: before.battleDate,
           field: null,
+          opponentDamagePercent: 100,
         );
       }
 
@@ -2252,6 +2269,7 @@ void main() {
         winner: null,
         battleDate: before.battleDate,
         field: null,
+        opponentDamagePercent: 100,
       );
       expect(
         poisonDamage(maximumHitPoints: maximumHitPoints, stackCount: 1),
@@ -2570,6 +2588,7 @@ void main() {
           winner: null,
           battleDate: before.battleDate,
           field: null,
+          opponentDamagePercent: 100,
         );
       }
 
@@ -2682,6 +2701,7 @@ void main() {
       ],
       randomSeed: 1,
       battleDate: testBattleDate,
+      opponentDamagePercent: 100,
     );
 
     test('交代は先制の技より先に行われ、交代して出たモンスターが相手の技を受ける', () {
