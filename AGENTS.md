@@ -24,6 +24,7 @@
   - 例外 (release ビルドの App Check): webtunnel の Chromium と headless の Chrome は reCAPTCHA Enterprise のスコアが低くトークン交換が 403 になる。release ビルドで App Check が通るかは、flutter-ci の artifact `web-build` を `gh run download <検証する commit の run ID> -n web-build -D tmp/web-build-<run ID>` で取り、`python3 -m http.server 8090 --bind 127.0.0.1 --directory tmp/web-build-<run ID>` で配信して `agent-browser --headed` の Chrome で開いて確かめる (手順は QA データベースの `_root` の項目)。webtunnel で Functions を呼ぶ時は debug ビルド (`-f flutter_build_mode=debug`。debug token で App Check を通す)
 - 動作確認 (Android): Android の UI 確認の外部経路は未整備で、当面は CI の `flutter build apk --debug` が通ることまでを確認する。UI の確認が要る変更は、iOS と Web の確認結果と、Android で確認していない事実を PR に書く
 - 手元で触る (人が確認する時): `make` (既定 target は `ios`。sim-boot で起動したプロジェクト固有の simulator へ `flutter run` する)。繋いだ iPhone の実機は `make ios-device`、手元の Chrome で Web 版は `make web`、Android Emulator は `make android`
+- 手元の Flutter SDK の版: `pubspec.yaml` の `environment: flutter:` が CI と同じ版の SSOT。`make ios` 等は先に `make flutter-version-check` で手元の版と比べ、違えば揃えるコマンドを出して止まる
 
 <!-- ai-review-config begin -->
 <!--

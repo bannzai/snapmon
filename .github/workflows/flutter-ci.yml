@@ -14,10 +14,9 @@ on:
 permissions:
   contents: read
 
-# ローカル開発の Flutter (3.47.8) と揃える。上げる時は simulator-session.yml / browser-session.yml (タグが指す commit SHA) も同じ版にする
+# Flutter の版は pubspec.yaml の environment: flutter: に書き、各 job は flutter-version-file で読む (手元の版は make flutter-version-check が比べる)
 # Firebase の設定ファイルは git の管理外のため、各 job はビルドの前に scripts/restore-firebase-config.sh で Secrets から書き出す
 env:
-  FLUTTER_VERSION: '3.47.8'
   FIREBASE_OPTIONS_DART_B64: ${{ secrets.FIREBASE_OPTIONS_DART_B64 }}
   GOOGLE_SERVICE_INFO_PLIST_B64: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST_B64 }}
   GOOGLE_SERVICES_JSON_B64: ${{ secrets.GOOGLE_SERVICES_JSON_B64 }}
@@ -31,8 +30,8 @@ jobs:
         persist-credentials: false
     - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
       with:
+        flutter-version-file: pubspec.yaml
         channel: stable
-        flutter-version: ${{ env.FLUTTER_VERSION }}
     - run: scripts/restore-firebase-config.sh dart
     - run: flutter pub get
     # UI の文言 (lib/l10n/app_*.arb) から AppLocalizations を生成する。生成物は git に入れないため、analyze の前に作る
@@ -48,8 +47,8 @@ jobs:
         persist-credentials: false
     - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
       with:
+        flutter-version-file: pubspec.yaml
         channel: stable
-        flutter-version: ${{ env.FLUTTER_VERSION }}
     - run: scripts/restore-firebase-config.sh dart
     - run: flutter pub get
     - run: flutter gen-l10n
@@ -73,8 +72,8 @@ jobs:
         persist-credentials: false
     - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
       with:
+        flutter-version-file: pubspec.yaml
         channel: stable
-        flutter-version: ${{ env.FLUTTER_VERSION }}
     - run: scripts/restore-firebase-config.sh dart
     - run: flutter pub get
     # サイトキー (公開値) を付けて、本番の Hosting と同じ App Check の設定の成果物にする (deploy-hosting.yml と同じ)
@@ -101,8 +100,8 @@ jobs:
         java-version: '17'
     - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
       with:
+        flutter-version-file: pubspec.yaml
         channel: stable
-        flutter-version: ${{ env.FLUTTER_VERSION }}
     - run: scripts/restore-firebase-config.sh dart android
     - run: flutter pub get
     - run: flutter build apk --debug --dart-define=REVENUECAT_PUBLIC_API_KEY_ANDROID="$REVENUECAT_PUBLIC_API_KEY_ANDROID"
