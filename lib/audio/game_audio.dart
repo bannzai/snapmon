@@ -106,11 +106,9 @@ class GameAudio extends ChangeNotifier {
   Future<void> _runAfterPreviousBackgroundMusicOperation(
     Future<void> Function() operation,
   ) {
-    final completed = _lastBackgroundMusicOperation.then((_) => operation());
-    _lastBackgroundMusicOperation = completed.catchError(
-      (Object error) => debugPrint(error.toString()),
-    );
-    return _lastBackgroundMusicOperation;
+    return _lastBackgroundMusicOperation = _lastBackgroundMusicOperation
+        .then((_) => operation())
+        .catchError((Object error) => debugPrint(error.toString()));
   }
 
   /// [music] を流す。同じ曲が流れている時は流し直さない (画面を行き来するたびに曲が頭に戻らないため)。
