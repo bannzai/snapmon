@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../../audio/game_audio.dart';
 import '../../l10n/l10n.dart';
 import '../../sample/sample_data.dart';
 import '../../theme/snapmon_text_styles.dart';
@@ -238,6 +239,8 @@ class SettingsScreen extends StatelessWidget {
             monsterGenerator: monsterGenerator,
           ),
         ),
+        _SectionTitle(title: context.l10n.settingsSoundSection),
+        _SoundSwitches(gameAudio: GameAudioScope.of(context)),
         _SectionTitle(title: context.l10n.settingsSupportSection),
         ListTile(
           leading: const Icon(Icons.mail_outline),
@@ -322,6 +325,36 @@ class SettingsScreen extends StatelessWidget {
         ],
       ],
     ),
+  );
+}
+
+/// 「BGM」「効果音」のスイッチ。切り替えはその場で音に反映され、端末に保存される。
+class _SoundSwitches extends StatelessWidget {
+  const _SoundSwitches({required this.gameAudio});
+
+  /// BGM・効果音のオン・オフ。
+  final GameAudio gameAudio;
+
+  @override
+  Widget build(BuildContext context) => Column(
+    children: [
+      SwitchListTile(
+        key: const Key('settings-background-music'),
+        secondary: const Icon(Icons.music_note_outlined),
+        title: Text(context.l10n.settingsBackgroundMusic),
+        value: gameAudio.isBackgroundMusicEnabled,
+        onChanged: (enabled) =>
+            gameAudio.setBackgroundMusicEnabled(enabled: enabled),
+      ),
+      SwitchListTile(
+        key: const Key('settings-sound-effects'),
+        secondary: const Icon(Icons.volume_up_outlined),
+        title: Text(context.l10n.settingsSoundEffects),
+        value: gameAudio.isSoundEffectsEnabled,
+        onChanged: (enabled) =>
+            gameAudio.setSoundEffectsEnabled(enabled: enabled),
+      ),
+    ],
   );
 }
 

@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../analytics/analytics_events.dart';
+import '../../audio/game_audio.dart';
 import '../../l10n/l10n.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
@@ -133,6 +134,11 @@ class _TitleScreenState extends State<TitleScreen> {
     _couldEnterApp = widget.sessionStore.canEnterApp;
     widget.sessionStore.addListener(_onSessionChanged);
     unawaited(_detectCamera());
+    unawaited(
+      GameAudioScope.read(
+        context,
+      ).playBackgroundMusic(music: BackgroundMusic.home),
+    );
     // ログインの状態を変えるため、親の ListenableBuilder が build の途中にならない最初のフレームの後に始める
     WidgetsBinding.instance.addPostFrameCallback((_) {
       unawaited(_startSessionInBackground());

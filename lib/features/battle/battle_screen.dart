@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../analytics/analytics_events.dart';
+import '../../audio/game_audio.dart';
 import '../../domain/battle/battle_engine.dart';
 import '../../domain/battle/battle_state.dart';
 import '../../domain/battle/move_special_effect.dart';
@@ -250,10 +251,14 @@ class _BattleScreenState extends State<BattleScreen>
   /// フィールドに描くために読んだ切り出した被写体の画像。画面を閉じる時に dispose する。
   final List<ui.Image> _loadedArtImages = [];
 
+  /// BGM・効果音。dispose でも使うため initState で引いておく (dispose では context から引けない)。
+  late final GameAudio _gameAudio = GameAudioScope.read(context);
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    unawaited(_gameAudio.playBackgroundMusic(music: BackgroundMusic.battle));
     List<BattleMonster> prepare({required List<OwnedMonster> party}) => [
       for (final monster in party)
         prepareBattleMonster(
@@ -318,6 +323,8 @@ class _BattleScreenState extends State<BattleScreen>
     for (final artImage in _loadedArtImages) {
       artImage.dispose();
     }
+    // 閉じた先 (対戦・撮るのタブ、生まれた画面) は下タブの画面のため、その曲に戻す
+    unawaited(_gameAudio.playBackgroundMusic(music: BackgroundMusic.home));
     super.dispose();
   }
 
@@ -387,6 +394,15 @@ class _BattleScreenState extends State<BattleScreen>
       _isPlaying = false;
     });
     if (nextState.winner != null) {
+      // 決着の曲は無いため BGM を止め、勝敗の効果音だけを鳴らす (画面を閉じると下タブの曲に戻る)
+      unawaited(_gameAudio.stopBackgroundMusic());
+      unawaited(
+        _gameAudio.playSoundEffect(
+          effect: nextState.winner == BattleSideId.player
+              ? SoundEffect.victory
+              : SoundEffect.defeat,
+        ),
+      );
       await _finishBattle(finishedState: nextState);
     }
   }
@@ -482,6 +498,7 @@ class _BattleScreenState extends State<BattleScreen>
               ? null
               : widget.definitions.effectById(effectId: move.effectId),
         );
+        unawaited(_gameAudio.playSoundEffect(effect: SoundEffect.hit));
         final defender = _displayedActiveMembers[defenderSide]!;
         setState(
           () => _displayedActiveMembers[defenderSide] = BattleMonster(
@@ -497,6 +514,7 @@ class _BattleScreenState extends State<BattleScreen>
             _displayedActiveMembers[event.side]!.definition.name;
         setState(() => _logText = (l10n) => l10n.battleLogFainted(faintedName));
         _game.faint(side: event.side);
+        unawaited(_gameAudio.playSoundEffect(effect: SoundEffect.faint));
         await Future<void>.delayed(_messageDuration);
       case MonsterSwitchedInEvent():
         final member = nextState

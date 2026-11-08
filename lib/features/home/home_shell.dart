@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
+import '../../audio/game_audio.dart';
 import '../../l10n/l10n.dart';
 import '../../sample/sample_data.dart';
 import '../../theme/snapmon_colors.dart';
@@ -99,6 +102,17 @@ class _HomeShellState extends State<HomeShell> {
   /// タイトルの「カメラで撮ってはじめる」で求めたカメラを、最初に開いた撮る画面でまだ使っていないか。
   /// タブを切り替えたら下ろす (拒否された後に撮る画面へ戻るたびに権限を聞き直さないため)
   late bool _isTitleCameraRequestPending = widget.startsCameraOnCaptureOpen;
+
+  @override
+  void initState() {
+    super.initState();
+    // タイトルから続けて同じ曲を流す (同じ曲なら流し直さない)。バトル画面から戻った時はバトル画面が流し直す
+    unawaited(
+      GameAudioScope.read(
+        context,
+      ).playBackgroundMusic(music: BackgroundMusic.home),
+    );
+  }
 
   void _selectTab({required HomeTab tab}) => setState(() {
     _selectedTab = tab;

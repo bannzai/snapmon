@@ -8,6 +8,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:share_plus/share_plus.dart';
 
 import 'package:snapmon/analytics/analytics_events.dart';
+import 'package:snapmon/audio/game_audio.dart';
 import 'package:snapmon/domain/battle/battle_state.dart';
 import 'package:snapmon/domain/monster/monster_stats.dart';
 import 'package:snapmon/domain/monster/stat_calculation.dart';
@@ -26,6 +27,7 @@ import 'package:snapmon/widgets/monster_parts.dart';
 
 import '../../battle_recorder_fixture.dart';
 import '../../card_sharer_fixture.dart';
+import '../../game_audio_fixture.dart';
 import '../../sample_data_fixture.dart';
 
 void main() {
@@ -39,6 +41,9 @@ void main() {
 
   late List<Map<String, int>> levelChanges;
   late RecordedShareCalls shareCalls;
+
+  /// バトル画面が流した BGM・鳴らした効果音。[pumpBattleScreen] で作り直す。
+  late RecordedAudioCalls audioCalls;
 
   /// [battleRecorder] を使い、自分の手持ちを [playerMonster] 1 体にしたバトル画面を、iPhone の画面の大きさ (モックの 390 × 844) で開く。
   /// 共有は [shareCalls] に残し、切り出した画像の読み込みには [artImage] を返す。
@@ -54,30 +59,38 @@ void main() {
     addTearDown(tester.view.reset);
     levelChanges = [];
     shareCalls = RecordedShareCalls();
+    audioCalls = RecordedAudioCalls();
     await tester.pumpWidget(
-      MaterialApp(
-        theme: snapmonThemeData(),
-        locale: const Locale('ja'),
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        home: BattleScreen(
-          playerParty: [playerMonster],
-          opponentParty: [weakOpponent],
-          opponentKind: BattleOpponentKind.pvp,
-          definitions: sampleData.definitions,
-          randomSeed: 1,
-          battleRecorder: battleRecorder,
-          onPlayerLevelsChanged: ({required levelsByMonsterId}) =>
-              levelChanges.add(levelsByMonsterId),
-          cardSharer: fakeCardSharer(
-            calls: shareCalls,
-            artImage: artImage,
-            shareResultStatus: ShareResultStatus.success,
+      GameAudioScope(
+        gameAudio: fakeGameAudio(
+          calls: audioCalls,
+          isBackgroundMusicEnabled: true,
+          isSoundEffectsEnabled: true,
+        ),
+        child: MaterialApp(
+          theme: snapmonThemeData(),
+          locale: const Locale('ja'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: BattleScreen(
+            playerParty: [playerMonster],
+            opponentParty: [weakOpponent],
+            opponentKind: BattleOpponentKind.pvp,
+            definitions: sampleData.definitions,
+            randomSeed: 1,
+            battleRecorder: battleRecorder,
+            onPlayerLevelsChanged: ({required levelsByMonsterId}) =>
+                levelChanges.add(levelsByMonsterId),
+            cardSharer: fakeCardSharer(
+              calls: shareCalls,
+              artImage: artImage,
+              shareResultStatus: ShareResultStatus.success,
+            ),
+            firstBattleBornMonster: null,
+            firstBattleMonsterIsNewlyBorn: false,
+            playerProfile: (displayName: 'ばんざい', iconPath: null),
+            opponentDisplayName: 'CPU リク',
           ),
-          firstBattleBornMonster: null,
-          firstBattleMonsterIsNewlyBorn: false,
-          playerProfile: (displayName: 'ばんざい', iconPath: null),
-          opponentDisplayName: 'CPU リク',
         ),
       ),
     );
@@ -116,32 +129,39 @@ void main() {
           ..devicePixelRatio = 1;
         addTearDown(tester.view.reset);
         await tester.pumpWidget(
-          MaterialApp(
-            theme: snapmonThemeData(),
-            locale: const Locale('ja'),
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
-            supportedLocales: AppLocalizations.supportedLocales,
-            home: BattleScreen(
-              playerParty: [strongPlayer],
-              opponentParty: [weakOpponent],
-              opponentKind: BattleOpponentKind.cpu,
-              definitions: sampleData.definitions,
-              randomSeed: 1,
-              battleRecorder: fakeBattleRecorder(
-                calls: RecordedBattleCalls(),
-                startBattleRecord: () async => null,
-                recordedLevels: const {},
+          GameAudioScope(
+            gameAudio: fakeGameAudio(
+              calls: RecordedAudioCalls(),
+              isBackgroundMusicEnabled: true,
+              isSoundEffectsEnabled: true,
+            ),
+            child: MaterialApp(
+              theme: snapmonThemeData(),
+              locale: const Locale('ja'),
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              home: BattleScreen(
+                playerParty: [strongPlayer],
+                opponentParty: [weakOpponent],
+                opponentKind: BattleOpponentKind.cpu,
+                definitions: sampleData.definitions,
+                randomSeed: 1,
+                battleRecorder: fakeBattleRecorder(
+                  calls: RecordedBattleCalls(),
+                  startBattleRecord: () async => null,
+                  recordedLevels: const {},
+                ),
+                onPlayerLevelsChanged: ({required levelsByMonsterId}) {},
+                cardSharer: fakeCardSharer(
+                  calls: RecordedShareCalls(),
+                  artImage: null,
+                  shareResultStatus: ShareResultStatus.success,
+                ),
+                firstBattleBornMonster: strongPlayer,
+                firstBattleMonsterIsNewlyBorn: isNewlyBorn,
+                playerProfile: null,
+                opponentDisplayName: 'CPU リク',
               ),
-              onPlayerLevelsChanged: ({required levelsByMonsterId}) {},
-              cardSharer: fakeCardSharer(
-                calls: RecordedShareCalls(),
-                artImage: null,
-                shareResultStatus: ShareResultStatus.success,
-              ),
-              firstBattleBornMonster: strongPlayer,
-              firstBattleMonsterIsNewlyBorn: isNewlyBorn,
-              playerProfile: null,
-              opponentDisplayName: 'CPU リク',
             ),
           ),
         );
@@ -376,6 +396,27 @@ void main() {
       findsOneWidget,
     );
     expect(find.text('記録しました'), findsOneWidget);
+    // 開いた時にバトルの BGM を流し、決着で止めて勝ちの効果音を鳴らす。途中は技が当たるたびに被弾の音、倒れた時に倒れた音
+    expect(audioCalls.playedBackgroundMusicAssetPaths, [
+      BackgroundMusic.battle.assetPath,
+    ]);
+    expect(audioCalls.stopBackgroundMusicCount, 1);
+    expect(
+      audioCalls.playedSoundEffectAssetPaths,
+      containsAllInOrder([
+        SoundEffect.hit.assetPath,
+        SoundEffect.faint.assetPath,
+        SoundEffect.victory.assetPath,
+      ]),
+    );
+    expect(
+      audioCalls.playedSoundEffectAssetPaths.last,
+      SoundEffect.victory.assetPath,
+    );
+    expect(
+      audioCalls.playedSoundEffectAssetPaths,
+      isNot(contains(SoundEffect.defeat.assetPath)),
+    );
 
     final completed = calls.completedBattles.single;
     expect(completed.battleId, 'battle-1');
@@ -820,37 +861,44 @@ void main() {
         );
       addTearDown(tester.view.reset);
       await tester.pumpWidget(
-        MaterialApp(
-          builder: (context, child) => constrainToAppContentWidth(
-            child: child ?? const SizedBox.shrink(),
+        GameAudioScope(
+          gameAudio: fakeGameAudio(
+            calls: RecordedAudioCalls(),
+            isBackgroundMusicEnabled: true,
+            isSoundEffectsEnabled: true,
           ),
-          theme: snapmonThemeData(),
-          locale: const Locale('ja'),
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          home: BattleScreen(
-            playerParty: [playerMonster],
-            opponentParty: [weakOpponent],
-            opponentKind: BattleOpponentKind.cpu,
-            definitions: sampleData.definitions,
-            randomSeed: 1,
-            battleRecorder: fakeBattleRecorder(
-              calls: RecordedBattleCalls(),
-              startBattleRecord: () async => null,
-              recordedLevels: const {},
+          child: MaterialApp(
+            builder: (context, child) => constrainToAppContentWidth(
+              child: child ?? const SizedBox.shrink(),
             ),
-            onPlayerLevelsChanged: ({required levelsByMonsterId}) {},
-            cardSharer: fakeCardSharer(
-              calls: RecordedShareCalls(),
-              artImage: null,
-              shareResultStatus: ShareResultStatus.success,
+            theme: snapmonThemeData(),
+            locale: const Locale('ja'),
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            home: BattleScreen(
+              playerParty: [playerMonster],
+              opponentParty: [weakOpponent],
+              opponentKind: BattleOpponentKind.cpu,
+              definitions: sampleData.definitions,
+              randomSeed: 1,
+              battleRecorder: fakeBattleRecorder(
+                calls: RecordedBattleCalls(),
+                startBattleRecord: () async => null,
+                recordedLevels: const {},
+              ),
+              onPlayerLevelsChanged: ({required levelsByMonsterId}) {},
+              cardSharer: fakeCardSharer(
+                calls: RecordedShareCalls(),
+                artImage: null,
+                shareResultStatus: ShareResultStatus.success,
+              ),
+              firstBattleBornMonster: firstBattleBornMonster,
+              firstBattleMonsterIsNewlyBorn: firstBattleBornMonster != null,
+              // 自分の札は右に寄せて名前の長さだけの幅になるため、表示名の上限 12 文字 (functions/src/pvp_rules.ts の DISPLAY_NAME_MAX_LENGTH) にして、
+              // 札が相手のカードと横に重なる幅で配置を確かめる
+              playerProfile: (displayName: 'ながいなまえのトレーナー', iconPath: null),
+              opponentDisplayName: 'CPU リク',
             ),
-            firstBattleBornMonster: firstBattleBornMonster,
-            firstBattleMonsterIsNewlyBorn: firstBattleBornMonster != null,
-            // 自分の札は右に寄せて名前の長さだけの幅になるため、表示名の上限 12 文字 (functions/src/pvp_rules.ts の DISPLAY_NAME_MAX_LENGTH) にして、
-            // 札が相手のカードと横に重なる幅で配置を確かめる
-            playerProfile: (displayName: 'ながいなまえのトレーナー', iconPath: null),
-            opponentDisplayName: 'CPU リク',
           ),
         ),
       );

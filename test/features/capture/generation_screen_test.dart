@@ -8,6 +8,7 @@ import 'package:image/image.dart' as img;
 import 'package:share_plus/share_plus.dart';
 
 import 'package:snapmon/analytics/analytics_events.dart';
+import 'package:snapmon/audio/game_audio.dart';
 import 'package:snapmon/features/battle/battle_screen.dart';
 import 'package:snapmon/features/capture/generation_screen.dart';
 import 'package:snapmon/features/capture/monster_generator.dart';
@@ -19,6 +20,7 @@ import 'package:snapmon/theme/snapmon_theme.dart';
 
 import '../../battle_recorder_fixture.dart';
 import '../../card_sharer_fixture.dart';
+import '../../game_audio_fixture.dart';
 import '../../monster_generator_fixture.dart';
 import '../../pvp_client_fixture.dart';
 import '../../sample_data_fixture.dart';
@@ -51,44 +53,51 @@ void main() {
     addTearDown(tester.view.reset);
     final closedActions = <ResultScreenAction?>[];
     await tester.pumpWidget(
-      MaterialApp(
-        theme: snapmonThemeData(),
-        locale: const Locale('ja'),
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        home: Builder(
-          builder: (context) => Scaffold(
-            body: Center(
-              child: FilledButton(
-                onPressed: () async => closedActions.add(
-                  await Navigator.of(context).push(
-                    MaterialPageRoute<ResultScreenAction>(
-                      builder: (context) => GenerationScreen(
-                        sourcePhoto: sourcePhoto ?? testPhotoBytes,
-                        photoSource: photoSource,
-                        cropsWhenSubjectNotFound: cropsWhenSubjectNotFound,
-                        monsterGenerator: generator,
-                        dexStore: dexStore,
-                        cardSharer: fakeCardSharer(
-                          calls: RecordedShareCalls(),
-                          artImage: null,
-                          shareResultStatus: ShareResultStatus.success,
-                        ),
-                        startsFirstBattle: startsFirstBattle,
-                        sampleData: sampleData,
-                        pvpClient:
-                            pvpClient ??
-                            signedOutPvpClient(calls: RecordedPvpCalls()),
-                        battleRecorder: fakeBattleRecorder(
-                          calls: battleCalls,
-                          startBattleRecord: () async => null,
-                          recordedLevels: const {},
+      GameAudioScope(
+        gameAudio: fakeGameAudio(
+          calls: RecordedAudioCalls(),
+          isBackgroundMusicEnabled: true,
+          isSoundEffectsEnabled: true,
+        ),
+        child: MaterialApp(
+          theme: snapmonThemeData(),
+          locale: const Locale('ja'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: Builder(
+            builder: (context) => Scaffold(
+              body: Center(
+                child: FilledButton(
+                  onPressed: () async => closedActions.add(
+                    await Navigator.of(context).push(
+                      MaterialPageRoute<ResultScreenAction>(
+                        builder: (context) => GenerationScreen(
+                          sourcePhoto: sourcePhoto ?? testPhotoBytes,
+                          photoSource: photoSource,
+                          cropsWhenSubjectNotFound: cropsWhenSubjectNotFound,
+                          monsterGenerator: generator,
+                          dexStore: dexStore,
+                          cardSharer: fakeCardSharer(
+                            calls: RecordedShareCalls(),
+                            artImage: null,
+                            shareResultStatus: ShareResultStatus.success,
+                          ),
+                          startsFirstBattle: startsFirstBattle,
+                          sampleData: sampleData,
+                          pvpClient:
+                              pvpClient ??
+                              signedOutPvpClient(calls: RecordedPvpCalls()),
+                          battleRecorder: fakeBattleRecorder(
+                            calls: battleCalls,
+                            startBattleRecord: () async => null,
+                            recordedLevels: const {},
+                          ),
                         ),
                       ),
                     ),
                   ),
+                  child: const Text('開く'),
                 ),
-                child: const Text('開く'),
               ),
             ),
           ),

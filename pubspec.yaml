@@ -39,6 +39,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   flame: ^1.38.2
+  # BGM (ループ・裏に回った時の一時停止) と効果音の再生。flame と同じ系列で版を揃える
+  flame_audio: ^2.12.2
   shared_preferences: ^2.5.6
   url_launcher: ^6.3.3
   # cloud_firestore 7.1.0 は eMudhra の中間 CA の失効に対応した FirebaseFirestore 13.1.1 (SwiftPM) / 12.19.3 (CocoaPods) を使う。
@@ -105,6 +107,8 @@ flutter:
     - assets/samples/art/
     # 技のエフェクト (PixelFX)。MIT の著作権表示と許諾文 (LICENSE) を含めて配布する
     - assets/images/move_effects/
+    # BGM と効果音 (CC0。出どころは assets/CREDITS.md)
+    - assets/audio/
     - assets/fonts/dela_gothic_one/OFL.txt
     - assets/fonts/zen_kaku_gothic_new/OFL.txt
 

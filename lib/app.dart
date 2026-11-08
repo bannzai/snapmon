@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'analytics/analytics_events.dart';
+import 'audio/game_audio.dart';
 import 'features/battle/battle_recorder.dart';
 import 'features/capture/monster_generator.dart';
 import 'features/dex/dex_store.dart';
@@ -25,6 +26,7 @@ class SnapmonApp extends StatefulWidget {
     required this.sampleData,
     required this.dexStore,
     required this.sessionStore,
+    required this.gameAudio,
     required this.openUrl,
     required this.isDeveloperMenuEnabled,
     required this.battleRecorder,
@@ -34,6 +36,9 @@ class SnapmonApp extends StatefulWidget {
     required this.accountStore,
     required this.logEvent,
   });
+
+  /// BGM・効果音。[GameAudioScope] で全画面から引けるようにする。
+  final GameAudio gameAudio;
 
   /// 非同期 PvP の相手の取得・通報・ブロック・戦績・表示名。
   final PvpClient pvpClient;
@@ -108,8 +113,13 @@ class _SnapmonAppState extends State<SnapmonApp> {
     theme: snapmonThemeData(),
     localizationsDelegates: AppLocalizations.localizationsDelegates,
     supportedLocales: AppLocalizations.supportedLocales,
-    builder: (context, child) =>
-        constrainToAppContentWidth(child: child ?? const SizedBox.shrink()),
+    // Navigator より外に置き、push したバトル画面・設定画面からも引けるようにする
+    builder: (context, child) => GameAudioScope(
+      gameAudio: widget.gameAudio,
+      child: constrainToAppContentWidth(
+        child: child ?? const SizedBox.shrink(),
+      ),
+    ),
     home: ListenableBuilder(
       listenable: widget.sessionStore,
       builder: (context, _) {

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:share_plus/share_plus.dart';
 
+import 'package:snapmon/audio/game_audio.dart';
 import 'package:snapmon/features/battle/battle_screen.dart';
 import 'package:snapmon/features/capture/first_battle.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
@@ -20,6 +21,7 @@ import 'package:snapmon/widgets/monster_parts.dart';
 
 import '../../battle_recorder_fixture.dart';
 import '../../card_sharer_fixture.dart';
+import '../../game_audio_fixture.dart';
 import '../../pvp_client_fixture.dart';
 import '../../sample_data_fixture.dart';
 
@@ -80,27 +82,34 @@ void main() {
     final dexStore = DexStore(definitions: sampleData.definitions)
       ..replaceAll(monsters: sampleData.monsters);
     await tester.pumpWidget(
-      MaterialApp(
-        theme: snapmonThemeData(),
-        locale: const Locale('ja'),
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        home: Scaffold(
-          body: OpponentScreen(
-            sampleData: sampleData,
-            dexStore: dexStore,
-            onSelectTab: ({required tab}) {},
-            onOpenSettings: onOpenSettings,
-            battleRecorder: fakeBattleRecorder(
-              calls: RecordedBattleCalls(),
-              startBattleRecord: () async => null,
-              recordedLevels: const {},
-            ),
-            pvpClient: pvpClient,
-            cardSharer: fakeCardSharer(
-              calls: RecordedShareCalls(),
-              artImage: null,
-              shareResultStatus: ShareResultStatus.success,
+      GameAudioScope(
+        gameAudio: fakeGameAudio(
+          calls: RecordedAudioCalls(),
+          isBackgroundMusicEnabled: true,
+          isSoundEffectsEnabled: true,
+        ),
+        child: MaterialApp(
+          theme: snapmonThemeData(),
+          locale: const Locale('ja'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: Scaffold(
+            body: OpponentScreen(
+              sampleData: sampleData,
+              dexStore: dexStore,
+              onSelectTab: ({required tab}) {},
+              onOpenSettings: onOpenSettings,
+              battleRecorder: fakeBattleRecorder(
+                calls: RecordedBattleCalls(),
+                startBattleRecord: () async => null,
+                recordedLevels: const {},
+              ),
+              pvpClient: pvpClient,
+              cardSharer: fakeCardSharer(
+                calls: RecordedShareCalls(),
+                artImage: null,
+                shareResultStatus: ShareResultStatus.success,
+              ),
             ),
           ),
         ),
@@ -602,27 +611,34 @@ void main() {
       ..devicePixelRatio = 1;
     addTearDown(tester.view.reset);
     await tester.pumpWidget(
-      MaterialApp(
-        theme: snapmonThemeData(),
-        locale: const Locale('ja'),
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        home: Scaffold(
-          body: OpponentScreen(
-            sampleData: sampleData,
-            dexStore: DexStore(definitions: sampleData.definitions),
-            onSelectTab: ({required tab}) {},
-            onOpenSettings: () async {},
-            battleRecorder: fakeBattleRecorder(
-              calls: RecordedBattleCalls(),
-              startBattleRecord: () async => null,
-              recordedLevels: const {},
-            ),
-            pvpClient: signedOutPvpClient(calls: RecordedPvpCalls()),
-            cardSharer: fakeCardSharer(
-              calls: RecordedShareCalls(),
-              artImage: null,
-              shareResultStatus: ShareResultStatus.success,
+      GameAudioScope(
+        gameAudio: fakeGameAudio(
+          calls: RecordedAudioCalls(),
+          isBackgroundMusicEnabled: true,
+          isSoundEffectsEnabled: true,
+        ),
+        child: MaterialApp(
+          theme: snapmonThemeData(),
+          locale: const Locale('ja'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: Scaffold(
+            body: OpponentScreen(
+              sampleData: sampleData,
+              dexStore: DexStore(definitions: sampleData.definitions),
+              onSelectTab: ({required tab}) {},
+              onOpenSettings: () async {},
+              battleRecorder: fakeBattleRecorder(
+                calls: RecordedBattleCalls(),
+                startBattleRecord: () async => null,
+                recordedLevels: const {},
+              ),
+              pvpClient: signedOutPvpClient(calls: RecordedPvpCalls()),
+              cardSharer: fakeCardSharer(
+                calls: RecordedShareCalls(),
+                artImage: null,
+                shareResultStatus: ShareResultStatus.success,
+              ),
             ),
           ),
         ),

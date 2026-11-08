@@ -9,6 +9,9 @@ import 'package:uuid/uuid.dart';
 
 import 'package:snapmon/analytics/analytics_events.dart';
 import 'package:snapmon/app.dart';
+import 'package:snapmon/audio/audio_settings_preferences.dart';
+import 'package:snapmon/audio/flame_game_audio.dart';
+import 'package:snapmon/audio/game_audio.dart';
 import 'package:snapmon/features/battle/battle_recorder.dart';
 import 'package:snapmon/features/capture/monster_generator.dart';
 import 'package:snapmon/features/capture/photo_preparation.dart';
@@ -65,6 +68,19 @@ Future<void> main() async {
     debugPrint(error.toString());
   }
   final sampleData = await loadSampleData(bundle: rootBundle);
+  await initializeFlameAudio();
+  final gameAudio = GameAudio(
+    playBackgroundMusicAsset: playBackgroundMusicWithFlameAudio,
+    stopBackgroundMusicAsset: stopBackgroundMusicWithFlameAudio,
+    playSoundEffectAsset: playSoundEffectWithFlameAudio,
+    saveSetting: saveAudioSettingToPreferences,
+    isBackgroundMusicEnabled: await readAudioSettingFromPreferences(
+      key: AudioSettingKey.backgroundMusic,
+    ),
+    isSoundEffectsEnabled: await readAudioSettingFromPreferences(
+      key: AudioSettingKey.soundEffects,
+    ),
+  );
   // サーバーの master を読むまで (と、ログインを飛ばした DEBUG ビルド) は見本の定義で属性・技を引く
   final dexStore = DexStore(definitions: sampleData.definitions);
   final sessionStore = SessionStore(
@@ -83,6 +99,7 @@ Future<void> main() async {
       sampleData: sampleData,
       dexStore: dexStore,
       sessionStore: sessionStore,
+      gameAudio: gameAudio,
       openUrl: ({required uri}) =>
           launchUrl(uri, mode: LaunchMode.externalApplication),
       isDeveloperMenuEnabled: kDebugMode,
