@@ -16,6 +16,7 @@ import '../result/result_screen.dart';
 import '../session/session_store.dart';
 import '../settings/settings_screen.dart';
 import '../share/card_sharer.dart';
+import 'move_effect_preview_screen.dart';
 
 /// 開発者メニューから生成に送る見本の写真の名前とファイル。Simulator にはカメラが無いため、撮影の代わりに使う
 /// (出典とライセンスは assets/samples/photos/LICENSES.md)。
@@ -180,6 +181,21 @@ class DeveloperMenuScreen extends StatelessWidget {
               context: context,
               assetPath: _samplePhotoAssetPaths.values.first,
               cropsWhenSubjectNotFound: true,
+            ),
+          ),
+          // 全属性の技を当てるにはバトルを何度も重ねる必要があるため、エフェクトだけを見本のモンスターに当てて確かめる
+          ListTile(
+            leading: const Icon(Icons.flare_outlined),
+            title: const Text('技のエフェクトの見本'),
+            subtitle: const Text('選んだ属性のエフェクトを見本のモンスターに当て続ける'),
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (context) => MoveEffectPreviewScreen(
+                  playerMonster: sampleData.monsters[0],
+                  opponentMonster: sampleData.monsters[1],
+                  cardSharer: cardSharer,
+                ),
+              ),
             ),
           ),
           ListTile(

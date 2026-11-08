@@ -6,7 +6,13 @@ set -euo pipefail
 
 PIXELFX_REPOSITORY_URL="https://github.com/patch-gg/pixelfx.git"
 PIXELFX_COMMIT="a84159688af3ca37a4be05a0d422b94451b2e24e"
-RENDER_TARGETS=("impacts/hit-spark" "melee/sword-slash" "lightning/zap-hit")
+RENDER_TARGETS=(
+  "impacts/hit-spark" "melee/sword-slash" "lightning/zap-hit"
+  "water/splash" "nature/vine-whip" "nature/earth-spike" "nature/thorns" "holy/smite" "shadow/shadow-tendrils" "nature/acid-splash"
+  "explosions/cartoon-pow" "melee/claw-swipe" "critters/butterfly" "holy/feather-burst" "critters/fish-school" "ice/snowflake-burst"
+  "nature/tornado" "nature/healing-bloom" "scifi/emp-blast" "explosions/firework-burst" "critters/ghost" "fire/fire-breath"
+  "ui/confetti"
+)
 
 repository_root="$(git rev-parse --show-toplevel)"
 source_directory="${repository_root}/tmp/pixelfx-source"
