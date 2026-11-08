@@ -46,18 +46,16 @@ RandomCpuOpponent chooseRandomCpuOpponent({
       if (!playerArtPaths.contains(monster.artPath)) monster,
   ];
   return (
-    opponentName: sampleData.cpuTrainerNames[random.nextIntInRange(
-      minimum: 0,
-      maximum: sampleData.cpuTrainerNames.length - 1,
-    )],
+    opponentName:
+        sampleData.cpuTrainerNames[random.nextIntInRange(
+          minimum: 0,
+          maximum: sampleData.cpuTrainerNames.length - 1,
+        )],
     opponentParty: buildCpuParty(
       monsters: [
         for (var index = 0; index < playerParty.length; index++)
           candidates.removeAt(
-            random.nextIntInRange(
-              minimum: 0,
-              maximum: candidates.length - 1,
-            ),
+            random.nextIntInRange(minimum: 0, maximum: candidates.length - 1),
           ),
       ],
       playerParty: playerParty,

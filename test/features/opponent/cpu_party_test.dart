@@ -63,21 +63,17 @@ void main() {
     ];
 
     test('名前は CPU トレーナーの名前から選び、seed によって全員が出る', () {
-      expect(
-        {for (final opponent in opponents) opponent.opponentName},
-        sampleData.cpuTrainerNames.toSet(),
-      );
+      expect({
+        for (final opponent in opponents) opponent.opponentName,
+      }, sampleData.cpuTrainerNames.toSet());
     });
 
     test('手持ちは自分の手持ちと同じ数で、重複せず、自分の手持ちと同じ絵を含まず、レベルは自分の手持ちの平均', () {
       for (final opponent in opponents) {
         expect(opponent.opponentParty, hasLength(playerParty.length));
-        expect(
-          {
-            for (final monster in opponent.opponentParty) monster.definition.id,
-          },
-          hasLength(playerParty.length),
-        );
+        expect({
+          for (final monster in opponent.opponentParty) monster.definition.id,
+        }, hasLength(playerParty.length));
         for (final monster in opponent.opponentParty) {
           expect(playerArtPaths.contains(monster.artPath), isFalse);
           expect(monster.level, averagePartyLevel(party: playerParty));
@@ -86,15 +82,12 @@ void main() {
     });
 
     test('手持ちの組み合わせ (並びを含む) は seed によって変わる', () {
-      expect(
-        {
-          for (final opponent in opponents)
-            opponent.opponentParty
-                .map((monster) => monster.definition.id)
-                .join(','),
-        },
-        hasLength(greaterThan(1)),
-      );
+      expect({
+        for (final opponent in opponents)
+          opponent.opponentParty
+              .map((monster) => monster.definition.id)
+              .join(','),
+      }, hasLength(greaterThan(1)));
     });
 
     test('同じ seed からは同じ相手になる', () {

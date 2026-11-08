@@ -99,16 +99,18 @@ void main() {
     }
   });
 
-  test('見本のモンスターは手持ちの上限の 2 倍以上いて、絵が互いに重ならない (自分の手持ちと同じ絵を除いても CPU の手持ちを組めるため)', () {
-    expect(
-      sampleData.monsters.length,
-      greaterThanOrEqualTo(maximumPartySize * 2),
-    );
-    expect(
-      {for (final monster in sampleData.monsters) monster.artPath},
-      hasLength(sampleData.monsters.length),
-    );
-  });
+  test(
+    '見本のモンスターは手持ちの上限の 2 倍以上いて、絵が互いに重ならない (自分の手持ちと同じ絵を除いても CPU の手持ちを組めるため)',
+    () {
+      expect(
+        sampleData.monsters.length,
+        greaterThanOrEqualTo(maximumPartySize * 2),
+      );
+      expect({
+        for (final monster in sampleData.monsters) monster.artPath,
+      }, hasLength(sampleData.monsters.length));
+    },
+  );
 
   test('見本の対戦相手は見本のモンスターを 1〜3 体持つ', () {
     expect(sampleData.opponents, isNotEmpty);

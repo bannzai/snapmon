@@ -226,9 +226,7 @@ void main() {
     );
   });
 
-  testWidgets('自分のアイコン (未登録は既定の印) と表示名を戦績と並べ、手持ちの札にモンスターの絵を出す', (
-    tester,
-  ) async {
+  testWidgets('自分のアイコン (未登録は既定の印) と表示名を戦績と並べ、手持ちの札にモンスターの絵を出す', (tester) async {
     await pumpOpponentScreen(
       tester: tester,
       pvpClient: signedInPvpClient(calls: RecordedPvpCalls()),

@@ -56,13 +56,19 @@ void main() {
           ),
       ];
       expect(fetchOpponentsCount, 0);
-      expect(
-        {for (final opponent in opponents) opponent.opponentName},
-        sampleData.cpuTrainerNames.toSet(),
-      );
+      expect({
+        for (final opponent in opponents) opponent.opponentName,
+      }, sampleData.cpuTrainerNames.toSet());
+      // CPU のレベルは自分の手持ち (マグモン 1 体) の平均に合わせる
       for (final opponent in opponents) {
-        expect(opponent.opponentParty.single.definition.id, isNot('sample-mugmon'));
-        expect(opponent.opponentParty.single.level, 1);
+        expect(
+          opponent.opponentParty.single.definition.id,
+          isNot('sample-mugmon'),
+        );
+        expect(
+          opponent.opponentParty.single.level,
+          sampleData.monsterById(monsterId: 'sample-mugmon').level,
+        );
         expect(opponent.definitions, dexStore.definitions);
       }
     },

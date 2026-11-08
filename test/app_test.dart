@@ -1548,10 +1548,7 @@ void main() {
           .opponentParty
           .first
           .definition;
-      expect(
-        find.text('${opponentMonster.name} が 勝負をしかけてきた'),
-        findsOneWidget,
-      );
+      expect(find.text('${opponentMonster.name} が 勝負をしかけてきた'), findsOneWidget);
       expect(find.text('ターン 1'), findsOneWidget);
 
       await tester.tap(find.text('にげる'));
