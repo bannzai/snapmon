@@ -276,7 +276,8 @@ describe("generate", () => {
     const monster = (await firestore.doc(`users/alice/monsters/${first.monsterId}`).get()).data() as MonsterDocument;
     expect(monster.definition.name).toBe(descriptions["01"].name);
     expect(monster.definition.elementTypeIds).toEqual(["steel"]);
-    expect(monster.definition.learnset.filter((entry) => entry.unlockLevel === 1).map((entry) => entry.moveId)).toEqual(["steel_1", "steel_1b", "steel_1c", "steel_1d"]);
+    // Lv.1 は自分の属性の技 2 つと、別の属性 (当てはまりが同じ 0.05 なので ID 順) の技 2 つ (#224)
+    expect(monster.definition.learnset.filter((entry) => entry.unlockLevel === 1).map((entry) => entry.moveId)).toEqual(["steel_1", "steel_1b", "beast_1", "bird_1"]);
     expect(monster.definition.baseStats).toEqual({ hitPoints: 80, attack: 80, defense: 80, speed: 80 });
     expect(monster.categoryIds[0]).toBe("tableware");
     const [artExists] = await bucket.file(`monsters/${first.monsterId}/art.png`).exists();
