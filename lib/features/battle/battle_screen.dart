@@ -20,9 +20,9 @@ import '../../l10n/l10n.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
-import '../../widgets/monster_parts.dart';
-import '../../widgets/move_summary.dart';
-import '../../widgets/trainer_icon.dart';
+import '../../monster_ui/monster_parts.dart';
+import '../../monster_ui/move_card.dart';
+import '../../monster_ui/trainer_icon.dart';
 import '../dex/owned_monster.dart';
 import '../opponent/pvp_client.dart';
 import '../reference/move_detail_screen.dart';
@@ -2185,7 +2185,7 @@ class _MoveButton extends StatelessWidget {
   final Move? move;
   final int remainingPowerPoints;
 
-  /// 今の相手への相性の倍率 ([MoveSummary.typeMultiplier])。技が無い枠と相性が効かない技は null。
+  /// 今の相手への相性の倍率 ([MoveCard.typeMultiplier])。技が無い枠と相性が効かない技は null。
   final double? typeMultiplier;
   final MasterData definitions;
 
@@ -2214,7 +2214,7 @@ class _MoveButton extends StatelessWidget {
               ? const Center(child: Text('—', style: SnapmonTextStyles.caption))
               : Align(
                   alignment: Alignment.centerLeft,
-                  child: MoveSummary(
+                  child: MoveCard(
                     move: move,
                     remainingPowerPoints: remainingPowerPoints,
                     typeMultiplier: typeMultiplier,

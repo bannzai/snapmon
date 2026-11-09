@@ -23,7 +23,7 @@ import '../settings/account_store.dart';
 import '../settings/settings_screen.dart';
 import '../share/card_sharer.dart';
 import '../../sample/sample_data.dart';
-import '../../widgets/square_icon_button.dart';
+import '../../common_ui/square_icon_button.dart';
 
 /// 対象年齢の下限。アプリ内で年齢は確認せず、タイトルの表示と利用規約 (docs/Terms.md) とストアの年齢区分で示す
 /// (DIRECTION.md「決めたこと」2026-10-23 の年齢の確認の行)。

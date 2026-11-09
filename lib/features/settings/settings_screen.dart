@@ -7,7 +7,7 @@ import '../../audio/game_audio.dart';
 import '../../l10n/l10n.dart';
 import '../../sample/sample_data.dart';
 import '../../theme/snapmon_text_styles.dart';
-import '../../widgets/trainer_icon.dart';
+import '../../monster_ui/trainer_icon.dart';
 import '../battle/battle_recorder.dart';
 import '../capture/monster_generator.dart';
 import '../capture/ticket_purchase_sheet.dart';

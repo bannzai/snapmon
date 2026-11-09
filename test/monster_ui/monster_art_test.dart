@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:snapmon/widgets/monster_parts.dart';
+import 'package:snapmon/monster_ui/monster_parts.dart';
 
 import '../card_sharer_fixture.dart';
 import '../sample_data_fixture.dart';

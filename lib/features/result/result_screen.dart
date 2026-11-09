@@ -4,7 +4,7 @@ import '../../l10n/l10n.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
-import '../../widgets/square_icon_button.dart';
+import '../../common_ui/square_icon_button.dart';
 import '../action_card/action_card_moves_section.dart';
 import '../dex/dex_store.dart';
 import '../dex/owned_monster.dart';

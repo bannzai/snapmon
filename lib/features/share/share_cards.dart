@@ -9,7 +9,7 @@ import '../../l10n/l10n.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
-import '../../widgets/monster_parts.dart';
+import '../../monster_ui/monster_parts.dart';
 import '../dex/owned_monster.dart';
 import '../settings/settings_screen.dart';
 import 'card_sharer.dart';

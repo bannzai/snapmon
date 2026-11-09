@@ -8,7 +8,7 @@ import '../../domain/master/move.dart';
 import '../../l10n/l10n.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_text_styles.dart';
-import '../../widgets/move_summary.dart';
+import '../../monster_ui/move_card.dart';
 import '../capture/monster_generator.dart';
 import '../dex/dex_store.dart';
 import 'action_card_client.dart';
@@ -336,7 +336,7 @@ class _ActionCardMoveTile extends StatelessWidget {
     color: SnapmonColors.card,
     child: ListTile(
       onTap: onTap,
-      title: MoveSummary(
+      title: MoveCard(
         move: move,
         remainingPowerPoints: null,
         typeMultiplier: null,

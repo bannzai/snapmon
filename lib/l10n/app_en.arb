@@ -243,7 +243,7 @@
   "referenceMovesTab": "Moves",
   "referenceTypeChartNote": "Rows are the move's type and columns are the target's type\nAgainst a target with 2 types the 2 multipliers are multiplied",
   "referenceTypeChartCorner": "Move / Target",
-  "referenceMoveSummary": "Power {power}  PP {powerPoints}  From Lv. {unlockLevel}",
+  "referenceMoveStats": "Power {power}  PP {powerPoints}  From Lv. {unlockLevel}",
   "moveDetailPower": "Power",
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "Learned at",

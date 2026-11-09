@@ -20,7 +20,7 @@ import 'features/title/title_screen.dart';
 import 'l10n/l10n.dart';
 import 'sample/sample_data.dart';
 import 'theme/snapmon_theme.dart';
-import 'widgets/app_content_width.dart';
+import 'common_ui/app_content_width.dart';
 
 /// ブラウザがページの操作に数えないキー。Esc は HTML 仕様の activation triggering input event が除いていて
 /// ( https://html.spec.whatwg.org/multipage/interaction.html#tracking-user-activation )、修飾キーだけの押下は
