@@ -40,29 +40,47 @@ class MoveCard extends StatelessWidget {
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisSize: MainAxisSize.min,
     children: [
-      // 名前を左、属性と相性のアイコンを右端に置く。名前は幅に入らなければ折り返し (`...` で切らない)、
-      // アイコンは折り返さず 1 行目の右端に留まる (bannzai の「カードのタイトルが長かったら 1 行に収めるように `...` にしないこと。
-      // アイコンは改行しない」。https://github.com/bannzai/snapmon/issues/281 )。名前を Expanded にするため、
-      // 大きい文字でも Row がはみ出さない
-      Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Text(move.displayName, style: SnapmonTextStyles.moveName),
-          ),
-          const SizedBox(width: 6),
-          ElementTypeIcon(
-            elementTypeId: move.elementTypeId,
-            definitions: definitions,
-          ),
-          // 等倍は出さない (ログの「こうかは ばつぐんだ」「いまひとつ」と同じく、倍率が変わる時だけ知らせる。全部の技に出すと技の枠が埋まるため)
-          if (typeMultiplier case final typeMultiplier?
-              when typeMultiplier != 1) ...[
-            const SizedBox(width: 4),
-            _TypeEffectivenessIcon(typeMultiplier: typeMultiplier),
+      // バトルの技のボタン (remainingPowerPoints がある) では、名前を左、属性と相性のアイコンを右端に置く。
+      // 名前は幅に入らなければ折り返し (`...` で切らない)、アイコンは折り返さず 1 行目の右端に留まる
+      // (bannzai の「カードのタイトルが長かったら 1 行に収めるように `...` にしないこと。アイコンは改行しない」。
+      // https://github.com/bannzai/snapmon/issues/281 )。名前を Expanded にするため、大きい文字でも Row がはみ出さない。
+      // モンスターのカードの覚えている技の行 (バトルの外) は issue #281 の「モンスターのカードの属性の札は変えない」のとおり、
+      // 他の画面と同じ文字の属性の札のままにする (幅が広く、名前と札が 1 行に入る)
+      if (remainingPowerPoints != null)
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Text(move.displayName, style: SnapmonTextStyles.moveName),
+            ),
+            const SizedBox(width: 6),
+            ElementTypeIcon(
+              elementTypeId: move.elementTypeId,
+              definitions: definitions,
+            ),
+            // 等倍は出さない (ログの「こうかは ばつぐんだ」「いまひとつ」と同じく、倍率が変わる時だけ知らせる。全部の技に出すと技の枠が埋まるため)
+            if (typeMultiplier case final typeMultiplier?
+                when typeMultiplier != 1) ...[
+              const SizedBox(width: 4),
+              _TypeEffectivenessIcon(typeMultiplier: typeMultiplier),
+            ],
           ],
-        ],
-      ),
+        )
+      else
+        // 名前と札が 1 行に入らない幅 (大きい文字) では札を名前の下の行に送る。Row に並べると札が入らない時に名前が潰れてはみ出す
+        Wrap(
+          alignment: WrapAlignment.spaceBetween,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          spacing: 8,
+          runSpacing: 4,
+          children: [
+            Text(move.displayName, style: SnapmonTextStyles.moveName),
+            ElementTypeTag(
+              elementTypeId: move.elementTypeId,
+              definitions: definitions,
+            ),
+          ],
+        ),
       const SizedBox(height: 4),
       Text.rich(
         TextSpan(

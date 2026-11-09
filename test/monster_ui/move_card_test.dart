@@ -212,9 +212,13 @@ void main() {
       typeMultiplier: null,
     );
     expect(find.text('PP ${plainMove.powerPoints}'), findsOneWidget);
-    // 文字は名前・威力・PP の 3 つだけで、説明の段と相性のアイコンは無い (属性はアイコンで、文字を持たない。
-    // RichText で数えないのは、Icon の字形も RichText で描かれるため)
-    expect(find.byType(Text), findsNWidgets(3));
+    // バトルの外 (モンスターのカードの覚えている技の行) は他の画面と同じ文字の属性の札で、アイコンにしない
+    // (issue #281 の「モンスターのカードの属性の札は変えない」)
+    expect(find.byType(ElementTypeTag), findsOneWidget);
+    expect(find.text('鋼'), findsOneWidget);
+    expect(find.byType(ElementTypeIcon), findsNothing);
+    // 文字は名前・札の中の属性名・威力・PP の 4 つだけで、説明の段と相性のアイコンは無い
+    expect(find.byType(Text), findsNWidgets(4));
     expect(find.byKey(const Key('move-type-effectiveness')), findsNothing);
   });
 
