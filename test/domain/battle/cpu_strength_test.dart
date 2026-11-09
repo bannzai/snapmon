@@ -66,18 +66,21 @@ void main() {
     );
   });
 
-  test('Lv.4 対 Lv.2 で、CPU の打撃のうち 1 ダメージに潰れるものは 3 割以下 (issue #267 の「1 ダメージしか受けない」)', () {
-    final result = simulate(
-      playerLevel: 4,
-      opponentLevel: 2,
-      policy: SimulatedPlayerPolicy.randomMove,
-    );
-    expect(
-      percent(result.opponentOneDamageHits, result.opponentAttackHits),
-      lessThanOrEqualTo(30),
-      reason: '${result.opponentOneDamageHits}/${result.opponentAttackHits}',
-    );
-  });
+  test(
+    'Lv.4 対 Lv.2 で、CPU の打撃のうち 1 ダメージに潰れるものは 3 割以下 (issue #267 の「1 ダメージしか受けない」)',
+    () {
+      final result = simulate(
+        playerLevel: 4,
+        opponentLevel: 2,
+        policy: SimulatedPlayerPolicy.randomMove,
+      );
+      expect(
+        percent(result.opponentOneDamageHits, result.opponentAttackHits),
+        lessThanOrEqualTo(30),
+        reason: '${result.opponentOneDamageHits}/${result.opponentAttackHits}',
+      );
+    },
+  );
 
   test('補正しない (100%) と、Lv.1 で技を乱数で選ぶ利用者は CPU に半分も勝てない (issue #240 の再現)', () {
     final result = simulate(
@@ -119,7 +122,11 @@ void main() {
       full * 70 ~/ 100,
     );
     expect(
-      maximumHitPoints(definition: definition, level: 1, maximumHitPointsPercent: 1),
+      maximumHitPoints(
+        definition: definition,
+        level: 1,
+        maximumHitPointsPercent: 1,
+      ),
       1,
     );
   });

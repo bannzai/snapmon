@@ -106,7 +106,7 @@ class SampleData {
 /// [bundle] から見本データを読む。
 Future<SampleData> loadSampleData({required AssetBundle bundle}) async =>
     SampleData.fromJson(
-      json:
-          jsonDecode(await bundle.loadString(sampleDataAssetPath))
-              as Map<String, dynamic>,
+      json: jsonDecode(
+        await bundle.loadString(sampleDataAssetPath),
+      ) as Map<String, dynamic>,
     );

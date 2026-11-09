@@ -3,7 +3,7 @@
 // 開発用の Mac では実行せず (CLAUDE.md「ビルド・テスト・検証方法」)、GitHub Actions の workflow
 // `.github/workflows/battle-simulation.yml` (workflow_dispatch) で `dart run tool/simulate_battles.dart` を実行して読む。
 //
-// 使い方: dart run tool/simulate_battles.dart [--seeds <数>] [--damage-percents 50,70,100] [--hit-points-percents 50,70,100]
+// 使い方: dart run tool/simulate_battles.dart [--seeds <数>] [--damage-percents 50,70,80,90,100] [--hit-points-percents 40,50,60,70,100]
 //   --seeds: 利用者 1 体 × CPU 1 体の組ごとの乱数の数 (既定 5。既定の組み合わせ 36 × 5 体 = 180 組 × 5 = 900 戦)
 //   --damage-percents / --hit-points-percents: 試す CPU のダメージの割合・最大 HP の割合 (%) の一覧
 // レベルの組 (利用者 / CPU) は Lv.1・4・10・20 の同レベルと、issue #267 の Lv.4 対 Lv.2、Lv.2 対 Lv.4 を試す。
@@ -29,14 +29,14 @@ const List<({int player, int opponent})> levelPairs = [
 void main(List<String> arguments) {
   final seedCount = int.parse(_option(arguments, '--seeds') ?? '5');
   final damagePercents = _percents(
-    _option(arguments, '--damage-percents') ?? '50,70,100',
+    _option(arguments, '--damage-percents') ?? '50,70,80,90,100',
   );
   final hitPointsPercents = _percents(
-    _option(arguments, '--hit-points-percents') ?? '50,70,100',
+    _option(arguments, '--hit-points-percents') ?? '40,50,60,70,100',
   );
-  final sampleJson =
-      jsonDecode(File(sampleDataAssetPath).readAsStringSync())
-          as Map<String, dynamic>;
+  final sampleJson = jsonDecode(
+    File(sampleDataAssetPath).readAsStringSync(),
+  ) as Map<String, dynamic>;
   final master = MasterData.fromJson(
     json: sampleJson['definitions'] as Map<String, dynamic>,
   );
@@ -54,7 +54,9 @@ void main(List<String> arguments) {
   stdout.writeln(
     '| 利用者 Lv | CPU Lv | 技の選び方 | ダメージ % | 最大 HP % | 戦数 | 利用者の勝率 | 平均ラウンド | 最長ラウンド | 利用者の 1 ダメージ | CPU の 1 ダメージ |',
   );
-  stdout.writeln('| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |');
+  stdout.writeln(
+    '| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |',
+  );
   for (final levels in levelPairs) {
     for (final policy in SimulatedPlayerPolicy.values) {
       for (final damagePercent in damagePercents) {
