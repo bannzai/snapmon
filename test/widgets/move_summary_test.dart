@@ -136,6 +136,11 @@ void main() {
       tester.getTopLeft(find.text('PP 12/${effectMove.powerPoints}')).dx,
       greaterThanOrEqualTo(tester.getTopRight(find.text('先に動くと強い')).dx),
     );
+    // PP は段の右端に付く (説明と幅を分け合って右に空白が残る形にしない)
+    expect(
+      tester.getTopRight(find.text('PP 12/${effectMove.powerPoints}')).dx,
+      moreOrLessEquals(tester.getTopRight(find.byType(MoveSummary)).dx),
+    );
   });
 
   testWidgets('バトルの外 (残りの PP が null) では最大の PP だけを出し、特殊効果が無ければ説明を出さない', (

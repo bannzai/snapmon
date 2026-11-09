@@ -89,39 +89,44 @@ class MoveSummary extends StatelessWidget {
         ),
       ),
       const SizedBox(height: 4),
-      Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          if (move.specialEffect case final specialEffect?)
-            Expanded(
+      LayoutBuilder(
+        builder: (context, constraints) => Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            if (move.specialEffect case final specialEffect?)
+              Expanded(
+                child: Text(
+                  specialEffect.summary,
+                  style: SnapmonTextStyles.small.copyWith(
+                    fontWeight: FontWeight.w400,
+                    color: SnapmonColors.textOnCardMuted,
+                  ),
+                ),
+              )
+            else
+              const Spacer(),
+            const SizedBox(width: 8),
+            // PP は技を選ぶ判断に効くことが少ないため、威力より小さく細くして右下に置く。
+            // 薄さは大きさと太さで出し、色は生成りの地で読める textOnCardMuted にする (暗い地の textMuted はコントラスト比 2.2 で読めない)。
+            // 幅の上限は、通常の文字の PP (「PP 30/30」で約 45px) がいちばん狭い端末の技のボタン (中の幅約 107px) の半分に入り、
+            // 説明が残りの幅を使えるように段の半分にする。上限が無いと大きい文字で PP が段からはみ出して例外になり、
+            // Flexible にすると説明と PP が幅を等分して説明が狭まる
+            ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: constraints.maxWidth / 2),
               child: Text(
-                specialEffect.summary,
+                '${context.l10n.movePowerPoints} ${switch (remainingPowerPoints) {
+                  final remainingPowerPoints? => '$remainingPowerPoints/${move.powerPoints}',
+                  null => '${move.powerPoints}',
+                }}',
                 style: SnapmonTextStyles.small.copyWith(
+                  fontSize: 10,
                   fontWeight: FontWeight.w400,
                   color: SnapmonColors.textOnCardMuted,
                 ),
               ),
-            )
-          else
-            const Spacer(),
-          const SizedBox(width: 8),
-          // PP は技を選ぶ判断に効くことが少ないため、威力より小さく細くして右下に置く。
-          // 薄さは大きさと太さで出し、色は生成りの地で読める textOnCardMuted にする (暗い地の textMuted はコントラスト比 2.2 で読めない)。
-          // Flexible は大きい文字で PP が技のボタンの幅を超えた時に折り返すため (Row の子のままだとはみ出して例外になる)
-          Flexible(
-            child: Text(
-              '${context.l10n.movePowerPoints} ${switch (remainingPowerPoints) {
-                final remainingPowerPoints? => '$remainingPowerPoints/${move.powerPoints}',
-                null => '${move.powerPoints}',
-              }}',
-              style: SnapmonTextStyles.small.copyWith(
-                fontSize: 10,
-                fontWeight: FontWeight.w400,
-                color: SnapmonColors.textOnCardMuted,
-              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     ],
   );
