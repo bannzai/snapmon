@@ -2515,12 +2515,13 @@ void main() {
         ),
       );
       expect(effectiveStats(monster: lowAccuracyAttacker).accuracy, 88);
+      // 威力 60 の技は威力の割合で 98%。98 × 88 ÷ 100 = 86
       expect(
         moveHitChancePercent(
           move: testMaster.moveById(moveId: 'fire_strong'),
           attacker: lowAccuracyAttacker,
         ),
-        88,
+        86,
       );
       expect(
         moveHitChancePercent(
@@ -2536,7 +2537,7 @@ void main() {
         ),
         100,
       );
-      // 命中 100 のモンスターは技の命中率のまま
+      // 命中 100 のモンスターは技の命中率 (威力の割合を掛けた値) のまま
       expect(
         moveHitChancePercent(
           move: testMaster.moveById(moveId: 'fire_strong'),
@@ -2549,7 +2550,7 @@ void main() {
             ),
           ),
         ),
-        100,
+        98,
       );
     });
 
@@ -2585,14 +2586,26 @@ void main() {
     });
 
     test('自爆はダメージを与えた後に自分の HP を 0 にし、相打ちなら利用者の勝ち', () {
-      final state = play(
-        state: duel(
-          playerMoveIds: ['fire_self_destruct'],
-          opponentMoveIds: ['fire_strong'],
-        ),
-        playerMoveId: 'fire_self_destruct',
-        opponentMoveId: 'fire_strong',
-      );
+      // 自爆 (威力 200) は威力の割合で命中率 70% のため (#279)、当たった後の規則を確かめるよう自爆が当たる最初の seed を使う
+      BattleState hitSelfDestruct({int opponentHitPoints = 250}) =>
+          [
+            for (var randomSeed = 1; randomSeed <= 20; randomSeed++)
+              play(
+                state: duel(
+                  playerMoveIds: ['fire_self_destruct'],
+                  opponentMoveIds: ['fire_strong'],
+                  randomSeed: randomSeed,
+                  opponentHitPoints: opponentHitPoints,
+                ),
+                playerMoveId: 'fire_self_destruct',
+                opponentMoveId: 'fire_strong',
+              ),
+          ].firstWhere(
+            (state) => state.events.whereType<MoveUsedEvent>().any(
+              (event) => event.selfDestructed,
+            ),
+          );
+      final state = hitSelfDestruct();
       // 自分が速いため先に自爆する。倒れた相手には後に動く側も技を使わないため、技のログは自爆の 1 件だけ
       final moveUsed = state.events.whereType<MoveUsedEvent>().single;
       expect(moveUsed.attackerSide, BattleSideId.player);
@@ -2613,15 +2626,7 @@ void main() {
       );
       expect(state.winner, BattleSideId.opponent);
 
-      final mutual = play(
-        state: duel(
-          playerMoveIds: ['fire_self_destruct'],
-          opponentMoveIds: ['fire_strong'],
-          opponentHitPoints: 1,
-        ),
-        playerMoveId: 'fire_self_destruct',
-        opponentMoveId: 'fire_strong',
-      );
+      final mutual = hitSelfDestruct(opponentHitPoints: 1);
       expect(mutual.player.isDefeated, isTrue);
       expect(mutual.opponent.isDefeated, isTrue);
       expect(mutual.winner, BattleSideId.player);
