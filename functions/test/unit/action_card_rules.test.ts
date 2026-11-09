@@ -4,10 +4,9 @@ import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
 import {
-  actionCardCreditsOf,
   actionCardRankOfProduct,
+  canAssignMoveToActionCard,
   computeMoveRanks,
-  creditRankToRedeem,
   equippedMoveIds,
   fallbackMoveRank,
   previousDayKeys,
@@ -146,24 +145,14 @@ describe("computeMoveRanks", () => {
   });
 });
 
-describe("creditRankToRedeem", () => {
-  it("技のランクと同じランクのカードを使う", () => {
-    expect(creditRankToRedeem({ moveRank: 2, actionCardCredits: { rank1: 1, rank2: 1, rank3: 1 } })).toBe(2);
+describe("canAssignMoveToActionCard", () => {
+  it("技のランクが購入のランクと同じか低ければ結び付けられる", () => {
+    expect(canAssignMoveToActionCard({ moveRank: 2, actionCardRank: 2 })).toBe(true);
+    expect(canAssignMoveToActionCard({ moveRank: 1, actionCardRank: 2 })).toBe(true);
   });
 
-  it("同じランクが無ければ上の一番安いランクを使う", () => {
-    expect(creditRankToRedeem({ moveRank: 1, actionCardCredits: { rank1: 0, rank2: 1, rank3: 1 } })).toBe(2);
-  });
-
-  it("下のランクのカードでは高い技を買えない", () => {
-    expect(creditRankToRedeem({ moveRank: 3, actionCardCredits: { rank1: 5, rank2: 5, rank3: 0 } })).toBeUndefined();
-  });
-});
-
-describe("actionCardCreditsOf", () => {
-  it("無いランクと数でない値は 0 枚", () => {
-    expect(actionCardCreditsOf({ rank2: 3, rank3: "1" })).toEqual({ rank1: 0, rank2: 3, rank3: 0 });
-    expect(actionCardCreditsOf(undefined)).toEqual({ rank1: 0, rank2: 0, rank3: 0 });
+  it("技のランクが購入のランクより高ければ結び付けられない", () => {
+    expect(canAssignMoveToActionCard({ moveRank: 3, actionCardRank: 2 })).toBe(false);
   });
 });
 

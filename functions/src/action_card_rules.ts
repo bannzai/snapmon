@@ -1,4 +1,4 @@
-// Action Card (技を 1 つ買い切り、本人のモンスターに何体にでも何回でも覚えさせる消耗型の商品) の、Firestore に依存しない規則。
+// Action Card (技を 1 つ選んで買い切り、本人のモンスターに何体にでも何回でも覚えさせる消耗型の商品) の、Firestore に依存しない規則。
 // 決めた値と根拠は documents/DIRECTION.md「決めたこと」2026-11-09 の #271 の行と documents/game-rules.md「Action Card」。
 
 import { battleDayKey } from "./battle_rules";
@@ -124,22 +124,12 @@ export function computeMoveRanks({
   );
 }
 
-/** `users/{uid}.actionCardCredits` の形。ランクごとの Action Card の残高。 */
-export type ActionCardCredits = Record<`rank${MoveRank}`, number>;
-
 /**
- * ランク [moveRank] の技を買う時に使うカードのランク。[actionCardCredits] のうち、[moveRank] 以上で残高のある一番安いランク。
- * 高いカードで安い技を買える (#271) が、安いカードが残っている時に高いカードを減らさないため一番安いものから使う。使えるカードが無ければ undefined。
+ * ランク [actionCardRank] の Action Card の購入に、今のランクが [moveRank] の技を結び付けられるか。技のランクが購入のランク以下の時だけ
+ * (技を選んでから購入が届くまでの間にランクが上がった技を、安い購入で渡さないため。下がった技は払った値段より安いが、選んだ技なので渡す。#290)。
  */
-export function creditRankToRedeem({ moveRank, actionCardCredits }: { moveRank: MoveRank; actionCardCredits: ActionCardCredits }): MoveRank | undefined {
-  return MOVE_RANKS.find((creditRank) => creditRank >= moveRank && actionCardCredits[`rank${creditRank}`] >= 1);
-}
-
-/** Firestore から読んだ `users/{uid}.actionCardCredits` の値 [stored] の、無いランク・数でない値を 0 枚 (買っていない) にした残高。 */
-export function actionCardCreditsOf(stored: unknown): ActionCardCredits {
-  const countOf = (value: unknown) => (typeof value === "number" ? value : 0);
-  const { rank1, rank2, rank3 } = (stored ?? {}) as Partial<Record<keyof ActionCardCredits, unknown>>;
-  return { rank1: countOf(rank1), rank2: countOf(rank2), rank3: countOf(rank3) };
+export function canAssignMoveToActionCard({ moveRank, actionCardRank }: { moveRank: MoveRank; actionCardRank: MoveRank }): boolean {
+  return moveRank <= actionCardRank;
 }
 
 /**

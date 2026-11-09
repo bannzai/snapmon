@@ -229,38 +229,36 @@ describe("生成チケットの残高と購入の記録", () => {
   });
 });
 
-describe("Action Card の購入の記録と買い切った技", () => {
+describe("Action Card の購入の記録 (買い切った技は購入の moveID)", () => {
   beforeEach(async () => {
     await testEnvironment.withSecurityRulesDisabled(async (context) => {
       const firestore = context.firestore();
       for (const uid of ["alice", "bob"]) {
-        await setDoc(doc(firestore, `users/${uid}`), { actionCardCredits: { rank1: 1 } });
-        await setDoc(doc(firestore, `users/${uid}/actionCardPurchases/event-${uid}`), { productId: "snapmon_actioncardrank1_100yen", rank: 1 });
-        await setDoc(doc(firestore, `users/${uid}/actionCards/fire_1`), { moveId: "fire_1", rank: 1 });
+        await setDoc(doc(firestore, `users/${uid}`), { displayName: uid });
+        await setDoc(doc(firestore, `users/${uid}/actionCardPurchases/event-${uid}`), { productId: "snapmon_actioncardrank1_100yen", rank: 1, moveID: "fire_1" });
       }
     });
   });
 
-  it("本人は自分の購入の記録と買い切った技を読める", async () => {
+  it("本人は自分の購入の記録を読める", async () => {
     const firestore = signedInFirestore("alice");
     await assertSucceeds(getDoc(doc(firestore, "users/alice/actionCardPurchases/event-alice")));
-    await assertSucceeds(getDoc(doc(firestore, "users/alice/actionCards/fire_1")));
   });
 
-  it("他人の購入の記録と買い切った技は読めない", async () => {
+  it("他人の購入の記録は読めない", async () => {
     const firestore = signedInFirestore("alice");
     await assertFails(getDoc(doc(firestore, "users/bob/actionCardPurchases/event-bob")));
-    await assertFails(getDoc(doc(firestore, "users/bob/actionCards/fire_1")));
   });
 
-  it("本人も購入の記録・買い切った技・残高・覚えさせた技を書けない (改ざんさせないため)", async () => {
+  it("本人も購入の記録・買う技の控え・覚えさせた技を書けない (改ざんさせないため)", async () => {
     const firestore = signedInFirestore("alice");
-    await assertFails(setDoc(doc(firestore, "users/alice/actionCardPurchases/event-new"), { productId: "snapmon_actioncardrank3_500yen", rank: 3 }));
-    await assertFails(setDoc(doc(firestore, "users/alice/actionCards/water_1"), { moveId: "water_1", rank: 1 }));
-    await assertFails(deleteDoc(doc(firestore, "users/alice/actionCards/fire_1")));
-    await assertFails(setDoc(doc(firestore, "users/alice"), { actionCardCredits: { rank3: 100 } }, { merge: true }));
+    await assertFails(setDoc(doc(firestore, "users/alice/actionCardPurchases/event-new"), { productId: "snapmon_actioncardrank3_500yen", rank: 3, moveID: "water_1" }));
+    await assertFails(setDoc(doc(firestore, "users/alice/actionCardPurchases/event-alice"), { moveID: "water_1" }, { merge: true }));
+    await assertFails(deleteDoc(doc(firestore, "users/alice/actionCardPurchases/event-alice")));
+    await assertFails(setDoc(doc(firestore, "users/alice"), { actionCardMoveReservation: { moveID: "water_1", rank: 3 } }, { merge: true }));
     await assertFails(setDoc(doc(firestore, "users/alice/monsters/m1"), { actionCardMoveIds: ["fire_1"] }, { merge: true }));
   });
+});
 });
 
 describe("技のランクの表・機能の切り替え・技の使用回数", () => {

@@ -1,19 +1,21 @@
-// 生成チケット (1 日の無料の回数を使い切った後に生成できる消耗型の商品) と Action Card (技を 1 つ買い切る消耗型の商品) の購入を、
-// RevenueCat の webhook で残高に足す。
+// 生成チケット (1 日の無料の回数を使い切った後に生成できる消耗型の商品) と Action Card (技を 1 つ選んで買い切る消耗型の商品) の購入を、
+// RevenueCat の webhook で受ける。
 // 生成チケットの残高は `users/{uid}.generationTickets` に置き、生成の予約 (generation/pipeline.ts の startGeneration) が 1 枚ずつ減らす。
-// Action Card の残高は `users/{uid}.actionCardCredits.rank{1|2|3}` に置き、redeemActionCard (action_cards.ts) が 1 枚ずつ減らす。
+// Action Card は購入 1 件を `users/{uid}/actionCardPurchases/{eventId}` に置き、買う前に控えた技 (action_cards.ts の reserveActionCardMove) を
+// その購入に結び付ける。枚数の残高は持たない (#290)。
 // 受け取る形は https://www.revenuecat.com/docs/integrations/webhooks/event-types-and-fields (2026-11-07 に確認): 本文は
 // `{ api_version, event }` で、消耗型を含む自動更新しない購入は `event.type` が `NON_RENEWING_PURCHASE`、返金と取り消しは `CANCELLATION`。
 
 import { timingSafeEqual } from "node:crypto";
 
 import { type Auth, getAuth } from "firebase-admin/auth";
-import { FieldValue, type Firestore, getFirestore, Timestamp } from "firebase-admin/firestore";
+import { FieldValue, type Firestore, getFirestore, Timestamp, type Transaction } from "firebase-admin/firestore";
 import { logger } from "firebase-functions";
 import { onRequest } from "firebase-functions/v2/https";
 
 import { authUserExists } from "./account";
-import { type MoveRank, actionCardRankOfProduct } from "./action_card_rules";
+import { type MoveRank, actionCardRankOfProduct, canAssignMoveToActionCard } from "./action_card_rules";
+import { type ActionCardMoveReservation, currentMoveRank, ownsActionCardMove } from "./action_cards";
 import { revenueCatWebhookAuthorization, slackBotToken } from "./secrets";
 import { PRODUCTION_NOTIFICATION_CHANNEL, postSlackMessage, type SendSlackMessage } from "./slack";
 
@@ -98,12 +100,21 @@ export interface TicketPurchaseDocument {
 }
 
 /**
- * Action Card の購入の記録 (`users/{uid}/actionCardPurchases/{eventId}`)。同じイベントを 2 回足さない判定と購入の履歴に使う。
- * 形は [TicketPurchaseDocument] の枚数の代わりに足したカードのランクを持つ。
+ * Action Card の購入 1 件 (`users/{uid}/actionCardPurchases/{eventId}`)。同じイベントを 2 回記録しない判定に使い、買い切った技はこの記録の
+ * `moveID` から出す (技ごとのドキュメントと残高の枚数を別に持たない。#290)。形は [TicketPurchaseDocument] の枚数の代わりにランクと技を持つ。
  */
 export interface ActionCardPurchaseDocument extends Omit<TicketPurchaseDocument, "ticketCount"> {
-  /** 足したカードのランク (`actionCardCredits.rank{N}` に 1 枚足した)。 */
+  /** 購入した商品のランク。この購入で受け取れる技は、受け取る時の技のランクがこれ以下のもの。 */
   rank: MoveRank;
+  /**
+   * この購入で買い切った技の ID。技に結び付いていない購入 (利用者が技を選び直して受け取る) は null。
+   * この変更 (#290) より前の購入はこのフィールドを持たず、無い時も null と同じに扱う。
+   */
+  moveID: string | null;
+  /** 購入に結び付けた控えの ID (action_cards.ts の ActionCardMoveReservation)。控えのランクが商品と違い控えを使わなかった時は null。 */
+  actionCardMoveReservationID: string | null;
+  /** `moveID` を結び付けた時刻。技に結び付いていない間は null。 */
+  moveAssignedAt: Timestamp | null;
 }
 
 /** webhook の処理に使う外部の資源。本番は onRequest が、テストはモックを渡す。 */
@@ -153,12 +164,36 @@ async function notify(sendMessage: SendSlackMessage, text: string): Promise<void
 }
 
 /**
- * RevenueCat の webhook を受け、消耗型の商品の購入を残高に足す (onRequest の本体)。生成チケットは `users/{uid}.generationTickets` に枚数を、
- * Action Card は `users/{uid}.actionCardCredits.rank{N}` に 1 枚を足す。
+ * 技 [reservation] (購入と同じランクの控え) を今受け取れるか。技が今も買え、今のランクが控えのランク以下で、まだ買い切っていない時だけ true。
+ * [transaction] の中で読む (同じ技を 2 つの購入に結び付けないため。action_cards.ts の ownsActionCardMove)。
+ */
+async function canReceiveReservedMove({
+  firestore,
+  transaction,
+  uid,
+  reservation,
+}: {
+  firestore: Firestore;
+  transaction: Transaction;
+  uid: string;
+  reservation: ActionCardMoveReservation;
+}): Promise<boolean> {
+  const moveRank = await currentMoveRank({ firestore, transaction, moveID: reservation.moveID });
+  return (
+    moveRank !== undefined &&
+    canAssignMoveToActionCard({ moveRank, actionCardRank: reservation.rank }) &&
+    !(await ownsActionCardMove({ firestore, transaction, uid, moveID: reservation.moveID }))
+  );
+}
+
+/**
+ * RevenueCat の webhook を受け、消耗型の商品の購入を記録する (onRequest の本体)。生成チケットは `users/{uid}.generationTickets` に枚数を足す。
+ * Action Card は購入の記録に、`users/{uid}.actionCardMoveReservation` の同じランクの控えの技を結び付け (受け取れない時は技に結び付けずに残し、
+ * 利用者が assignActionCardMove で選び直す)、使った控えを消す。端末が購入の後に何も呼ばなくても技が手に入る。
  *
  * - `Authorization` が RevenueCat に設定した値と一致しない時は 401 で、何も書かない
- * - `NON_RENEWING_PURCHASE` で、商品が生成チケットか Action Card で、`app_user_id` が uid の形で、アカウントが残っている時だけ足す。同じイベントの ID の
- *   2 回目は足さない (購入の記録 `users/{uid}/ticketPurchases/{eventId}`・`users/{uid}/actionCardPurchases/{eventId}` を足す時と同じトランザクションで作る)
+ * - `NON_RENEWING_PURCHASE` で、商品が生成チケットか Action Card で、`app_user_id` が uid の形で、アカウントが残っている時だけ記録する。同じイベントの ID の
+ *   2 回目は記録しない (購入の記録 `users/{uid}/ticketPurchases/{eventId}`・`users/{uid}/actionCardPurchases/{eventId}` を足す時と同じトランザクションで作る)
  * - 返金・取り消し (`CANCELLATION`) は残高・買い切った技を減らさず Slack に知らせる (残高が負になる扱いを作らないため。DIRECTION.md「決めたこと」2026-11-07 の行と
  *   2026-11-09 の #271 の行)
  * - 足せない購入 (知らない商品・uid の形でない・アカウントが無い) は Slack に知らせて 200 を返す (再送しても足せないため)
@@ -228,9 +263,27 @@ export async function handleRevenueCatWebhook(
     if (product.kind === "generationTicket") {
       transaction.create(purchaseDocument, { ...purchaseRecord, ticketCount: product.ticketCount } satisfies TicketPurchaseDocument);
       transaction.set(userDocument, { generationTickets: FieldValue.increment(product.ticketCount) }, { merge: true });
-    } else {
-      transaction.create(purchaseDocument, { ...purchaseRecord, rank: product.rank } satisfies ActionCardPurchaseDocument);
-      transaction.set(userDocument, { actionCardCredits: { [`rank${product.rank}`]: FieldValue.increment(1) } }, { merge: true });
+      return "added";
+    }
+    const reservation = userSnapshot.get("actionCardMoveReservation") as ActionCardMoveReservation | undefined;
+    // 控えのランクが商品と違う時は、別の購入のための控えのため使わずに残す (このアプリは控えてから買うため、通常は起きない)
+    const matchedReservation = reservation?.rank === product.rank ? reservation : undefined;
+    const moveID =
+      matchedReservation !== undefined && (await canReceiveReservedMove({ firestore, transaction, uid: appUserId, reservation: matchedReservation }))
+        ? matchedReservation.moveID
+        : null;
+    transaction.create(purchaseDocument, {
+      ...purchaseRecord,
+      rank: product.rank,
+      moveID,
+      actionCardMoveReservationID: matchedReservation?.actionCardMoveReservationID ?? null,
+      moveAssignedAt: moveID === null ? null : purchaseRecord.createdAt,
+    } satisfies ActionCardPurchaseDocument);
+    if (matchedReservation !== undefined) {
+      transaction.update(userDocument, { actionCardMoveReservation: FieldValue.delete() });
+    } else if (!userSnapshot.exists) {
+      // 生成も控えもしていないユーザーには users/{uid} が無いが、購入は users/{uid} の配下に置くため作る (生成チケットの購入と同じ)
+      transaction.set(userDocument, {}, { merge: true });
     }
     return "added";
   });
@@ -241,7 +294,7 @@ export async function handleRevenueCatWebhook(
   if (outcome === "added") {
     await notify(
       dependencies.sendMessage,
-      product.kind === "generationTicket" ? `生成チケットが ${product.ticketCount} 枚売れました (${summary})` : `${productLabel(product)}が 1 枚売れました (${summary})`,
+      product.kind === "generationTicket" ? `生成チケットが ${product.ticketCount} 枚売れました (${summary})` : `${productLabel(product)}が売れました (${summary})`,
     );
   }
   return { status: 200, body: outcome };
