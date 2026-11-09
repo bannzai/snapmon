@@ -141,6 +141,25 @@ void main() {
     ]);
   });
 
+  test('package の読み込みの途中でアカウントが変わっても 新しいアカウントで読み込みを始めて入口を出す', () async {
+    final pendingCompleter = Completer<List<Package>>();
+    fakeActionCards.packagesCompleters.add(pendingCompleter);
+    final switchingStore = ActionCardStore(
+      client: fakeActionCards.client(),
+      sessionChanges: sessionChanges,
+      sampleActionCards: null,
+    );
+    addTearDown(switchingStore.dispose);
+    await pumpEventQueue();
+    sessionChanges.value += 1;
+    await pumpEventQueue();
+    expect(switchingStore.isPurchaseEntryVisible, isTrue);
+    // 前のアカウントの読み込みが後から返っても 新しいアカウントの一覧を変えない
+    pendingCompleter.complete(const []);
+    await pumpEventQueue();
+    expect(switchingStore.isPurchaseEntryVisible, isTrue);
+  });
+
   test('package の読み直しが例外で失敗したら 前に読めた一覧を残し 空が返ったら空にする', () async {
     await pumpEventQueue();
     expect(store.packages, hasLength(actionCardRanks.length));

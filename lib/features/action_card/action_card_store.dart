@@ -111,6 +111,8 @@ class ActionCardStore extends ChangeNotifier {
     _isActionCardsVisible = false;
     _packages = const [];
     _hasLoadedPackages = false;
+    // 前のアカウントの途中の読み込みは、返ってもアカウントが違うため件数を減らさない。数え直しをここで 0 から始める
+    _loadingPackagesCount = 0;
     _creditsByRank = const {};
     _rankByMoveId = null;
     _ownedMoveIds = const [];
