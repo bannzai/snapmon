@@ -151,11 +151,10 @@ Future<Map<int, int>> redeemActionCardWithFirebase({
       ))['actionCardCredits'],
     );
   } on FirebaseFunctionsException catch (error) {
-    if (error.details
-        case {
-          'creditRank': final int changedCreditRank,
-          'actionCardCredits': final Object actionCardCredits,
-        } when error.code == 'failed-precondition') {
+    if (error.details case {
+      'creditRank': final int changedCreditRank,
+      'actionCardCredits': final Object actionCardCredits,
+    } when error.code == 'failed-precondition') {
       throw ActionCardCreditRankChangedException(
         creditRank: changedCreditRank,
         creditsByRank: _creditsOfResponse(stored: actionCardCredits),

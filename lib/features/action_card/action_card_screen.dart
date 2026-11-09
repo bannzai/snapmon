@@ -162,10 +162,7 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
       }
       setState(() => _redeemingMoveId = move.id);
       try {
-        await store.redeem(
-          moveId: move.id,
-          creditRank: confirmingCreditRank,
-        );
+        await store.redeem(moveId: move.id, creditRank: confirmingCreditRank);
         messenger.showSnackBar(
           SnackBar(content: Text(l10n.actionCardRedeemed(move.displayName))),
         );

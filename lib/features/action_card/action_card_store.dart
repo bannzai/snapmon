@@ -217,10 +217,7 @@ class ActionCardStore extends ChangeNotifier {
   /// 呼び出しの前と同じオブジェクトかで届いたかを見分ける。
   /// 使うカードのランクが確かめる画面で出した [creditRank] と違うと断られた時は、断られた時の残高を同じ条件で反映してから
   /// [ActionCardCreditRankChangedException] を投げ直す (確かめ直す画面と一覧の残高を揃えるため)。
-  Future<void> redeem({
-    required String moveId,
-    required int creditRank,
-  }) async {
+  Future<void> redeem({required String moveId, required int creditRank}) async {
     final sessionGeneration = _sessionGeneration;
     final creditsByRankAtStart = _creditsByRank;
     final ownedMoveIdsAtStart = _ownedMoveIds;
