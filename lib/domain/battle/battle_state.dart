@@ -18,13 +18,22 @@ enum BattleSideId {
 /// バトルに出ている 1 体。生まれた時に決まる部分と変わる部分の組。
 class BattleMonster {
   /// バトルに出ている 1 体を作る。
-  const BattleMonster({required this.definition, required this.state});
+  const BattleMonster({
+    required this.definition,
+    required this.state,
+    required this.maximumHitPointsPercent,
+  });
 
   /// 生まれた時に決まる部分。
   final MonsterDefinition definition;
 
   /// 変わる部分 (レベル・経験・HP・PP の残り・ステータスの倍率・状態)。
   final MonsterState state;
+
+  /// 最大 HP に掛ける割合 (%)。100 なら補正しない。CPU の手持ちは `cpuHitPointsPercent` (battle_engine.dart)、
+  /// 利用者と PvP の相手は 100。始めの HP・回復の上限・毒のダメージ・技の式の変数の最大 HP・HP バーの分母が
+  /// この割合を掛けた値になる (`maximumHitPoints`。documents/game-rules.md「ダメージ式」)。
+  final int maximumHitPointsPercent;
 
   /// HP が 0 で倒れているか。
   bool get isFainted => state.currentHitPoints <= 0;

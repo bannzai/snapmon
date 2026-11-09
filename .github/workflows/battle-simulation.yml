@@ -1,0 +1,50 @@
+name: battle-simulation
+
+# CPU の強さのシミュレーション (tool/simulate_battles.dart) を実行し、利用者の勝率・ラウンド数・1 ダメージの割合の表を
+# job の出力と成果物 (artifact) に残す。開発用の Mac ではバトルの計算を何千戦も回さない (CLAUDE.md「ビルド・テスト・検証方法」) ため、
+# CPU のダメージ・最大 HP の割合を決め直す時にここで実行して結果を読む (issue #267)。
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  workflow_dispatch:
+    inputs:
+      seeds:
+        description: 利用者 1 体 × CPU 1 体の組ごとの乱数の数
+        default: '5'
+      damage_percents:
+        description: 試す CPU のダメージの割合 (%) の一覧 (カンマ区切り)
+        default: '50,70,100'
+      hit_points_percents:
+        description: 試す CPU の最大 HP の割合 (%) の一覧 (カンマ区切り)
+        default: '50,70,100'
+
+# job が GITHUB_TOKEN を使うのは checkout だけのため、読み取り専用に絞る
+permissions:
+  contents: read
+
+jobs:
+  simulate:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
+    - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+      with:
+        flutter-version-file: pubspec.yaml
+        channel: stable
+    - run: flutter pub get
+    - run: mkdir -p tmp
+    - run: dart run tool/simulate_battles.dart --seeds "$SEEDS" --damage-percents "$DAMAGE_PERCENTS" --hit-points-percents "$HIT_POINTS_PERCENTS" | tee tmp/battle-simulation.md
+      env:
+        SEEDS: ${{ inputs.seeds }}
+        DAMAGE_PERCENTS: ${{ inputs.damage_percents }}
+        HIT_POINTS_PERCENTS: ${{ inputs.hit_points_percents }}
+    - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      with:
+        name: battle-simulation
+        path: tmp/battle-simulation.md
+        if-no-files-found: error
