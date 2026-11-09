@@ -1707,7 +1707,7 @@ void main() {
         findsOneWidget,
       );
       await tester.tap(find.byKey(const Key('battle-switch-candidate-1')));
-      // 交代のログは次のログまで 0.7 秒だけ出るため、その間に確かめる
+      // 交代のログは次のログまで 1.5 秒だけ出るため、その間に確かめる
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 100));
       final party = dexStore.party;
