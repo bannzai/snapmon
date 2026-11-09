@@ -323,7 +323,7 @@ master の版を上げる時は、既存の属性・技・エフェクトの ID 
 
 ### 段階と種族値
 
-Jev が HP・攻撃・防御・素早さ・命中ごとに 5 段階で判定し、段階から種族値を決める (`statGrades`)。命中は #279 で足した。それより前に生まれたモンスターは命中を持たず、端末は種族値 80 (ふつう)・個体値 15 (範囲の真ん中) として読む (`lib/domain/monster/monster_stats.dart` の `accuracyBaseStatWithoutJudgement`・`accuracyIndividualValueWithoutJudgement`。保存済みの値は書き換えない)。
+Jev が HP・攻撃・防御・素早さ・命中ごとに 5 段階で判定し、段階から種族値を決める (`statGrades`)。命中は #279 で足した。それより前に生まれたモンスターは命中を持たず、端末は種族値 80 (ふつう)・個体値 15 (範囲の真ん中) として読む (`lib/domain/monster/monster_stats.dart` の `accuracyBaseStatWithoutJudgement`・`accuracyIndividualValueWithoutJudgement`。保存済みの値は書き換えない)。命中の問いの段階は、2026-11-10 に較正の見本の説明 46 件 (`functions/test/fixtures/calibration/descriptions.json`) を本番と同じ判定の問い (`jev-1.13.0`、5 つの Score の問い) で 1 回ずつ送って測った: low 26・high 9・medium 6・veryLow 5・veryHigh 0。high はハサミ・アザミのつぼみ・カブトムシ・ロードバイク・多肉植物・一眼レフ等、veryLow はぬいぐるみ・タオル・ケーキ・布のおばけ等で、問いの狙い (とがった・狙う物ほど高く、ふわふわした物ほど低い) に沿っていた。命中の式の幅が 85〜100% と狭いため、low に寄っても強さの差は小さい (low の種族値 60・個体値 15 で 89%)
 
 | 段階 | 種族値 |
 | --- | --- |
