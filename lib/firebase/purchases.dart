@@ -80,7 +80,21 @@ void connectPurchasesWhileSignedIn({required SessionStore sessionStore}) {
   followSignedInUid();
 }
 
-/// current offering の package を返す ([MonsterGenerator.fetchTicketPackages])。課金が無効なビルド・ログインしていない時は空。
+/// 生成チケットの package の `lookup_key` の接頭辞 (`revenuecat/config.json` の `ticket10`・`ticket30`)。
+/// 同じ offering に Action Card の package (`actioncard_rank*`) も入るため、生成チケットの購入画面に出す package をこれで選ぶ。
+const String _generationTicketPackageIdentifierPrefix = 'ticket';
+
+/// [packages] のうち生成チケットの package だけを、並びを保って返す。
+List<Package> generationTicketPackages({required List<Package> packages}) =>
+    packages
+        .where(
+          (package) => package.identifier.startsWith(
+            _generationTicketPackageIdentifierPrefix,
+          ),
+        )
+        .toList();
+
+/// current offering の生成チケットの package を返す ([MonsterGenerator.fetchTicketPackages])。課金が無効なビルド・ログインしていない時は空。
 /// 閉じている間は package の無い offering が current のため空になる (documents/DIRECTION.md「決めたこと」)。
 Future<List<Package>> fetchTicketPackagesWithRevenueCat() async {
   final uid = FirebaseAuth.instance.currentUser?.uid;
@@ -88,8 +102,11 @@ Future<List<Package>> fetchTicketPackagesWithRevenueCat() async {
     return const [];
   }
   await _syncPurchasesUser(uid: uid);
-  return (await Purchases.getOfferings()).current?.availablePackages ??
-      const [];
+  return generationTicketPackages(
+    packages:
+        (await Purchases.getOfferings()).current?.availablePackages ??
+        const [],
+  );
 }
 
 /// [package] を購入する ([MonsterGenerator.purchaseTicketPackage])。ログインしていない時は webhook が残高を足す先が無いため [StateError] を投げる。
