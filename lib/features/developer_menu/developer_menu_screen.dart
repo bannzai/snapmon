@@ -173,23 +173,30 @@ class DeveloperMenuScreen extends StatelessWidget {
           // 端末だけの見本 (lib/sample/sample_action_cards.dart) で表示・残高・技のランクを作る。見本はアプリ全体の Action Card を置き換える
           if (ActionCardScope.maybeOf(context)?.sampleActionCards
               case final sampleActionCards?) ...[
-            ListTile(
-              key: const Key('developer-action-card-visible'),
-              leading: const Icon(Icons.style_outlined),
-              title: const Text('Action Card の見本を出す'),
-              subtitle: Text(
-                dexStore.isServerBacked
-                    ? 'ログイン中は使えない (サーバーの Action Card を置き換えないため)'
-                    : '表示の切り替えを true にし 技のランクの表を見本の master から作る',
+            ValueListenableBuilder(
+              valueListenable: sampleActionCards.isActionCardsVisible,
+              builder: (context, isActionCardsVisible, _) => SwitchListTile(
+                key: const Key('developer-action-card-visible'),
+                secondary: const Icon(Icons.style_outlined),
+                title: const Text('Action Card の見本の表示の切り替え'),
+                subtitle: Text(
+                  dexStore.isServerBacked
+                      ? 'ログイン中は使えない (サーバーの Action Card を置き換えないため)'
+                      : 'actionCardsVisible の代わり\nオンにした時に技のランクの表が無ければ見本の master から作る',
+                ),
+                value: isActionCardsVisible,
+                onChanged: dexStore.isServerBacked
+                    ? null
+                    : (value) {
+                        sampleActionCards.isActionCardsVisible.value = value;
+                        if (value &&
+                            sampleActionCards.rankByMoveId.value == null) {
+                          sampleActionCards.loadSampleMoveRanks(
+                            master: dexStore.definitions,
+                          );
+                        }
+                      },
               ),
-              enabled: !dexStore.isServerBacked,
-              onTap: () {
-                sampleActionCards.isActionCardsVisible.value = true;
-                sampleActionCards.loadSampleMoveRanks(
-                  master: dexStore.definitions,
-                );
-                _showMessage(context: context, message: 'Action Card の見本を出しました');
-              },
             ),
             for (final rank in actionCardRanks)
               ListTile(
