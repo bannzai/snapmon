@@ -9,7 +9,7 @@
       "productId": "snapmon_generationticket10_200yen",
       "referenceName": "Generation Ticket x10",
       "type": "CONSUMABLE",
-      "reviewNote": "1 日の無料の生成回数を使い切った後に、モンスターを生成するための消耗型のチケットです。撮るタブで別々の写真から無料の回数を使い切ると、生成の画面に購入画面が出ます。",
+      "reviewNote": "1 日の無料の生成回数を使い切った後に、モンスターを生成するための消耗型のチケットです。撮る画面で別々の写真から無料の回数を使い切ると、生成の画面に購入画面が出ます。",
       "price": {
         "base_territory": "JPN",
         "customer_price": "200"
@@ -35,7 +35,7 @@
       "productId": "snapmon_generationticket30_500yen",
       "referenceName": "Generation Ticket x30",
       "type": "CONSUMABLE",
-      "reviewNote": "1 日の無料の生成回数を使い切った後に、モンスターを生成するための消耗型のチケットです。撮るタブで別々の写真から無料の回数を使い切ると、生成の画面に購入画面が出ます。",
+      "reviewNote": "1 日の無料の生成回数を使い切った後に、モンスターを生成するための消耗型のチケットです。撮る画面で別々の写真から無料の回数を使い切ると、生成の画面に購入画面が出ます。",
       "price": {
         "base_territory": "JPN",
         "customer_price": "500"

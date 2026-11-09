@@ -233,6 +233,7 @@ const STAT_QUESTION_INSTRUCTIONS: Record<(typeof STAT_KINDS)[number], string> = 
   attack: "この物をモンスターにした時の攻撃 (相手に与える力)。とがった・硬い・熱い・勢いのある物ほど高く、柔らかい・丸い・おとなしい物ほど低い。",
   defense: "この物をモンスターにした時の防御 (攻撃の受け止めやすさ)。硬い・厚い・頑丈な物ほど高く、柔らかい・薄い・割れやすい物ほど低い。",
   speed: "この物をモンスターにした時の素早さ。小さい・軽い・動く・転がる物ほど高く、大きい・重い・据え置きの物ほど低い。",
+  accuracy: "この物をモンスターにした時の命中 (狙った所に当てる正確さ)。とがった・細い・まっすぐな・狙うための物ほど高く、丸い・ふわふわした・形の定まらない物ほど低い。",
 };
 
 /**
@@ -341,6 +342,7 @@ export function readJudgeResponse({
       attack: gradeOf("attack"),
       defense: gradeOf("defense"),
       speed: gradeOf("speed"),
+      accuracy: gradeOf("accuracy"),
     },
     moveProbabilitiesByElement,
   };

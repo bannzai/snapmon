@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 
 /// 繰り返し流す BGM。素材の出どころとライセンスは assets/CREDITS.md。
 enum BackgroundMusic {
-  /// タイトルと下タブの画面 (図鑑・撮る・対戦) で流す落ち着いた曲。
+  /// タイトルとホームの画面 (図鑑・撮る・対戦) で流す落ち着いた曲。
   home('assets/audio/song18_0.mp3'),
 
   /// バトル画面で流す曲。
@@ -81,11 +81,15 @@ class GameAudio extends ChangeNotifier {
   })
   saveSetting;
 
+  /// 「BGM」のオン・オフのうち、ユーザーが最後に選んだ値 (設定画面のスイッチの表示用)。切り替えた瞬間に変わる。
+  /// 音の停止・再開と保存が済んだ値は [_appliedBackgroundMusicEnabled] で、こちらより遅れて変わる。
   bool _isBackgroundMusicEnabled;
 
   /// 「BGM」のオン・オフのうち、音の停止・再開と保存まで済ませた最新の値。
   /// [_isBackgroundMusicEnabled] は切り替えた瞬間に変わる (スイッチの表示用) のに対し、こちらは待ち行列で順番が回ってから変わる。
   bool _appliedBackgroundMusicEnabled;
+
+  /// 「効果音」のオン・オフのうち、ユーザーが最後に選んだ値。効果音は待ち行列を通さないため、反映済みの値を別に持たない。
   bool _isSoundEffectsEnabled;
 
   /// 最後に求められた BGM。止めた後と、まだ求められていない間は null。

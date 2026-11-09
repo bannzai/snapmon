@@ -3,11 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../../audio/game_audio.dart';
-import '../../l10n/l10n.dart';
+import '../../common_ui/scene_route.dart';
 import '../../sample/sample_data.dart';
-import '../../theme/snapmon_colors.dart';
-import '../../theme/snapmon_radii.dart';
-import '../../theme/snapmon_text_styles.dart';
 import '../battle/battle_recorder.dart';
 import '../capture/capture_screen.dart';
 import '../capture/monster_generator.dart';
@@ -20,24 +17,25 @@ import '../settings/account_store.dart';
 import '../settings/settings_screen.dart';
 import '../share/card_sharer.dart';
 
-/// 下タブの項目。並びは DIRECTION.md「デザインの方向」の「下タブは図鑑・撮る・対戦」。
-enum HomeTab {
+/// ホームの画面で切り替えるシーン。撮るを起点にし、図鑑・対戦は撮るのボタンから開いて「もどる」で撮るに戻る (#264)。
+enum HomeScene {
   /// 図鑑。
   dex,
 
-  /// 撮る。
+  /// 撮る。ホームの画面の起点のシーン。
   capture,
 
   /// 対戦。
   opponent,
 }
 
-/// 下タブ (図鑑・撮る・対戦) を持つ、タイトル画面からログインを済ませて入る画面。
+/// タイトル画面からログインを済ませて入る、図鑑・撮る・対戦のシーンを 1 つずつ出す画面。
+/// 下タブは置かず、シーンの間は画面の中のボタンで移り、フェードで切り替える (#264)。
 class HomeShell extends StatefulWidget {
-  /// 下タブの画面を作る。
+  /// ホームの画面を作る。
   const HomeShell({
     super.key,
-    required this.initialTab,
+    required this.initialScene,
     required this.startsCameraOnCaptureOpen,
     required this.sampleData,
     required this.dexStore,
@@ -51,8 +49,8 @@ class HomeShell extends StatefulWidget {
     required this.accountStore,
   });
 
-  /// 最初に見せるタブ (タイトル画面のどのボタンから入ったかで決まる)。
-  final HomeTab initialTab;
+  /// 最初に見せるシーン (タイトル画面のどのボタンから入ったかで決まる)。
+  final HomeScene initialScene;
 
   /// 最初に撮る画面を開いた時に、押すのを待たずにカメラを開くか (タイトルの「カメラで撮ってはじめる」から来た時)。
   final bool startsCameraOnCaptureOpen;
@@ -92,15 +90,15 @@ class HomeShell extends StatefulWidget {
 }
 
 class _HomeShellState extends State<HomeShell> {
-  late HomeTab _selectedTab = widget.initialTab;
+  late HomeScene _selectedScene = widget.initialScene;
 
-  /// 一度カメラを開けた (権限を許可された) か。撮る画面はタブを切り替えるたびに作り直されるため、ここで覚え、
-  /// 次からはタブを開いた時に映像を出す。覚えるのはこの画面がある間 (アプリを起動し直すと、もう一度押してもらう) で、
+  /// 一度カメラを開けた (権限を許可された) か。撮る画面はシーンを切り替えるたびに作り直されるため、ここで覚え、
+  /// 次からは撮るのシーンを開いた時に映像を出す。覚えるのはこの画面がある間 (アプリを起動し直すと、もう一度押してもらう) で、
   /// 端末に保存しない (#64 の DIRECTION.md の行)
   bool _hasOpenedCamera = false;
 
   /// タイトルの「カメラで撮ってはじめる」で求めたカメラを、最初に開いた撮る画面でまだ使っていないか。
-  /// タブを切り替えたら下ろす (拒否された後に撮る画面へ戻るたびに権限を聞き直さないため)
+  /// シーンを切り替えたら下ろす (拒否された後に撮る画面へ戻るたびに権限を聞き直さないため)
   late bool _isTitleCameraRequestPending = widget.startsCameraOnCaptureOpen;
 
   @override
@@ -114,14 +112,15 @@ class _HomeShellState extends State<HomeShell> {
     );
   }
 
-  void _selectTab({required HomeTab tab}) => setState(() {
-    _selectedTab = tab;
+  /// [scene] のシーンに切り替える。タイトルから求めたカメラは最初の撮る画面だけで使い、ここで下ろす。
+  void _selectScene({required HomeScene scene}) => setState(() {
+    _selectedScene = scene;
     _isTitleCameraRequestPending = false;
   });
 
   /// 設定画面を開き、閉じるまで待つ (対戦の画面が閉じた後にプロフィールを読み直すため)。
   Future<void> _openSettings() => Navigator.of(context).push(
-    MaterialPageRoute<void>(
+    sceneRoute<void>(
       builder: (context) => SettingsScreen(
         sampleData: widget.sampleData,
         dexStore: widget.dexStore,
@@ -137,115 +136,63 @@ class _HomeShellState extends State<HomeShell> {
     ),
   );
 
-  @override
-  Widget build(BuildContext context) => Scaffold(
-    body: SafeArea(
-      bottom: false,
-      child: switch (_selectedTab) {
-        HomeTab.dex => DexScreen(
-          dexStore: widget.dexStore,
-          onSelectTab: _selectTab,
-          onOpenSettings: _openSettings,
-          cardSharer: widget.cardSharer,
-        ),
-        HomeTab.capture => CaptureScreen(
-          startsCameraOnOpen: _hasOpenedCamera || _isTitleCameraRequestPending,
-          onCameraOpened: () => _hasOpenedCamera = true,
-          dexStore: widget.dexStore,
-          monsterGenerator: widget.monsterGenerator,
-          onSelectTab: _selectTab,
-          onOpenSettings: _openSettings,
-          cardSharer: widget.cardSharer,
-          sampleData: widget.sampleData,
-          pvpClient: widget.pvpClient,
-          battleRecorder: widget.battleRecorder,
-        ),
-        // 設定の「データを引き継ぐ」で別のアカウントに切り替わると uid が変わるため、uid ごとに作り直して
-        // 前のアカウントの戦績を持ち越さない
-        HomeTab.opponent => ListenableBuilder(
-          listenable: widget.sessionStore,
-          builder: (context, _) => OpponentScreen(
-            key: ValueKey(widget.sessionStore.uid),
-            sampleData: widget.sampleData,
-            dexStore: widget.dexStore,
-            onSelectTab: _selectTab,
-            onOpenSettings: _openSettings,
-            battleRecorder: widget.battleRecorder,
-            pvpClient: widget.pvpClient,
-            cardSharer: widget.cardSharer,
-          ),
-        ),
-      },
+  /// [scene] のシーンの画面を作る。シーンを切り替えるたびに作り直す (前のシーンの State は残さない)。
+  Widget _buildScene({required HomeScene scene}) => switch (scene) {
+    HomeScene.dex => DexScreen(
+      dexStore: widget.dexStore,
+      onSelectScene: _selectScene,
+      onOpenSettings: _openSettings,
+      cardSharer: widget.cardSharer,
     ),
-    bottomNavigationBar: SafeArea(
-      top: false,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
-        child: Row(
-          children: [
-            for (final tab in HomeTab.values)
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4),
-                  child: _TabButton(
-                    tab: tab,
-                    isSelected: tab == _selectedTab,
-                    onTap: () => _selectTab(tab: tab),
-                  ),
-                ),
-              ),
-          ],
+    HomeScene.capture => CaptureScreen(
+      startsCameraOnOpen: _hasOpenedCamera || _isTitleCameraRequestPending,
+      onCameraOpened: () => _hasOpenedCamera = true,
+      dexStore: widget.dexStore,
+      monsterGenerator: widget.monsterGenerator,
+      onSelectScene: _selectScene,
+      onOpenSettings: _openSettings,
+      cardSharer: widget.cardSharer,
+      sampleData: widget.sampleData,
+      pvpClient: widget.pvpClient,
+      battleRecorder: widget.battleRecorder,
+    ),
+    // 設定の「データを引き継ぐ」で別のアカウントに切り替わると uid が変わるため、uid ごとに作り直して
+    // 前のアカウントの戦績を持ち越さない
+    HomeScene.opponent => ListenableBuilder(
+      listenable: widget.sessionStore,
+      builder: (context, _) => OpponentScreen(
+        key: ValueKey(widget.sessionStore.uid),
+        sampleData: widget.sampleData,
+        dexStore: widget.dexStore,
+        onSelectScene: _selectScene,
+        onOpenSettings: _openSettings,
+        battleRecorder: widget.battleRecorder,
+        pvpClient: widget.pvpClient,
+        cardSharer: widget.cardSharer,
+      ),
+    ),
+  };
+
+  @override
+  Widget build(BuildContext context) => PopScope(
+    // 図鑑・対戦では端末の戻る操作 (Android の戻るボタン・戻るジェスチャー) で撮るに戻り、撮るでは今までどおりアプリを閉じる
+    canPop: _selectedScene == HomeScene.capture,
+    onPopInvokedWithResult: (didPop, _) {
+      if (!didPop) {
+        _selectScene(scene: HomeScene.capture);
+      }
+    },
+    child: Scaffold(
+      body: SafeArea(
+        child: AnimatedSwitcher(
+          duration: sceneTransitionDuration,
+          layoutBuilder: sceneSwitcherLayoutBuilder,
+          child: KeyedSubtree(
+            key: ValueKey(_selectedScene),
+            child: _buildScene(scene: _selectedScene),
+          ),
         ),
       ),
     ),
   );
-}
-
-class _TabButton extends StatelessWidget {
-  const _TabButton({
-    required this.tab,
-    required this.isSelected,
-    required this.onTap,
-  });
-
-  final HomeTab tab;
-  final bool isSelected;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final color = isSelected ? SnapmonColors.accent : SnapmonColors.textMuted;
-    return Material(
-      color: isSelected ? SnapmonColors.surface : SnapmonColors.background,
-      borderRadius: SnapmonRadii.button,
-      child: InkWell(
-        key: Key('tab-${tab.name}'),
-        borderRadius: SnapmonRadii.button,
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                switch (tab) {
-                  HomeTab.dex => Icons.grid_view_rounded,
-                  HomeTab.capture => Icons.photo_camera_outlined,
-                  HomeTab.opponent => Icons.sports_martial_arts,
-                },
-                color: color,
-                size: 22,
-              ),
-              const SizedBox(height: 4),
-              Text(switch (tab) {
-                HomeTab.dex => context.l10n.tabDex,
-                HomeTab.capture => context.l10n.tabCapture,
-                HomeTab.opponent => context.l10n.tabOpponent,
-              }, style: SnapmonTextStyles.small.copyWith(color: color)),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 }

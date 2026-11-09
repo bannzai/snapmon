@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../common_ui/scene_route.dart';
 import '../../domain/battle/battle_state.dart';
 import '../../l10n/l10n.dart';
 import '../../theme/snapmon_colors.dart';
@@ -22,7 +23,7 @@ class DexScreen extends StatelessWidget {
   const DexScreen({
     super.key,
     required this.dexStore,
-    required this.onSelectTab,
+    required this.onSelectScene,
     required this.onOpenSettings,
     required this.cardSharer,
   });
@@ -30,8 +31,8 @@ class DexScreen extends StatelessWidget {
   /// 図鑑と手持ち。
   final DexStore dexStore;
 
-  /// 下タブを切り替える。
-  final void Function({required HomeTab tab}) onSelectTab;
+  /// ホームの画面のシーンを切り替える (「もどる」で撮るに戻す・「追加する」で撮るを開く)。
+  final void Function({required HomeScene scene}) onSelectScene;
 
   /// 設定画面を開く。
   final VoidCallback onOpenSettings;
@@ -43,7 +44,7 @@ class DexScreen extends StatelessWidget {
     required BuildContext context,
     required OwnedMonster monster,
   }) => Navigator.of(context).push(
-    MaterialPageRoute<ResultScreenAction>(
+    sceneRoute<ResultScreenAction>(
       builder: (context) => ResultScreen(
         monster: monster,
         dexStore: dexStore,
@@ -111,6 +112,17 @@ class DexScreen extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
+                    SquareIconButton(
+                      key: const Key('scene-back-to-capture'),
+                      icon: Icons.chevron_left,
+                      // AppBar の戻るボタンと同じ文言 (Material の各言語の訳) にする (生まれた画面の戻ると同じ)
+                      tooltip: MaterialLocalizations.of(
+                        context,
+                      ).backButtonTooltip,
+                      onPressed: () => onSelectScene(scene: HomeScene.capture),
+                      size: 44,
+                    ),
+                    const SizedBox(width: 12),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -166,7 +178,7 @@ class DexScreen extends StatelessWidget {
                     key: const Key('dex-open-reference'),
                     borderRadius: SnapmonRadii.button,
                     onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute<void>(
+                      sceneRoute<void>(
                         builder: (context) =>
                             ReferenceScreen(dexStore: dexStore),
                       ),
@@ -314,7 +326,7 @@ class DexScreen extends StatelessWidget {
           shape: const RoundedRectangleBorder(
             borderRadius: SnapmonRadii.button,
           ),
-          onPressed: () => onSelectTab(tab: HomeTab.capture),
+          onPressed: () => onSelectScene(scene: HomeScene.capture),
           icon: const Icon(Icons.photo_camera_outlined),
           label: Text(
             context.l10n.dexAddMonster,

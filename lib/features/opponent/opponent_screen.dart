@@ -3,6 +3,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../../common_ui/scene_route.dart';
 import '../../domain/master/master_data.dart';
 import '../../l10n/l10n.dart';
 import '../../sample/sample_data.dart';
@@ -33,7 +34,7 @@ class OpponentScreen extends StatefulWidget {
     super.key,
     required this.sampleData,
     required this.dexStore,
-    required this.onSelectTab,
+    required this.onSelectScene,
     required this.onOpenSettings,
     required this.battleRecorder,
     required this.pvpClient,
@@ -46,8 +47,8 @@ class OpponentScreen extends StatefulWidget {
   /// 図鑑と手持ち。
   final DexStore dexStore;
 
-  /// 下タブを切り替える。
-  final void Function({required HomeTab tab}) onSelectTab;
+  /// ホームの画面のシーンを切り替える (「もどる」で撮るに戻す・図鑑を開く)。
+  final void Function({required HomeScene scene}) onSelectScene;
 
   /// 設定画面を開き、閉じるまで待つ (閉じた後にプロフィールを読み直すため)。
   final Future<void> Function() onOpenSettings;
@@ -190,7 +191,7 @@ class _OpponentScreenState extends State<OpponentScreen> {
       randomSeed: math.Random().nextInt(0x100000000),
     );
     final action = await Navigator.of(context).push(
-      MaterialPageRoute<BattleScreenAction>(
+      sceneRoute<BattleScreenAction>(
         builder: (context) => BattleScreen(
           playerParty: playerParty,
           opponentParty: cpuOpponent.opponentParty,
@@ -209,14 +210,14 @@ class _OpponentScreenState extends State<OpponentScreen> {
     );
     unawaited(_loadBattleRecord());
     if (action == BattleScreenAction.openDex) {
-      widget.onSelectTab(tab: HomeTab.dex);
+      widget.onSelectScene(scene: HomeScene.dex);
     }
   }
 
-  /// 自分の手持ちの [monster] を図鑑から開いた時と同じ画面で開く。手持ちに入れた・入れ替えた時は図鑑のタブを開く。
+  /// 自分の手持ちの [monster] を図鑑から開いた時と同じ画面で開く。手持ちに入れた・入れ替えた時は図鑑のシーンを開く。
   Future<void> _openPartyMonster({required OwnedMonster monster}) async {
     final action = await Navigator.of(context).push(
-      MaterialPageRoute<ResultScreenAction>(
+      sceneRoute<ResultScreenAction>(
         builder: (context) => ResultScreen(
           monster: monster,
           dexStore: widget.dexStore,
@@ -226,7 +227,7 @@ class _OpponentScreenState extends State<OpponentScreen> {
       ),
     );
     if (action == ResultScreenAction.openDex) {
-      widget.onSelectTab(tab: HomeTab.dex);
+      widget.onSelectScene(scene: HomeScene.dex);
     }
   }
 
@@ -243,6 +244,15 @@ class _OpponentScreenState extends State<OpponentScreen> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
+              SquareIconButton(
+                key: const Key('scene-back-to-capture'),
+                icon: Icons.chevron_left,
+                // AppBar の戻るボタンと同じ文言 (Material の各言語の訳) にする (生まれた画面の戻ると同じ)
+                tooltip: MaterialLocalizations.of(context).backButtonTooltip,
+                onPressed: () => widget.onSelectScene(scene: HomeScene.capture),
+                size: 44,
+              ),
+              const SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -349,7 +359,7 @@ class _OpponentScreenState extends State<OpponentScreen> {
                 borderRadius: SnapmonRadii.button,
                 child: InkWell(
                   borderRadius: SnapmonRadii.button,
-                  onTap: () => widget.onSelectTab(tab: HomeTab.dex),
+                  onTap: () => widget.onSelectScene(scene: HomeScene.dex),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 12,

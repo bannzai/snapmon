@@ -65,6 +65,7 @@ class MonsterShareCard extends StatelessWidget {
       (context.l10n.statAttack, stats.attack),
       (context.l10n.statDefense, stats.defense),
       (context.l10n.statSpeed, stats.speed),
+      (context.l10n.statAccuracy, stats.accuracy),
     ];
     return ColoredBox(
       color: SnapmonColors.background,
@@ -533,7 +534,7 @@ class _ShareCardMonsterArt extends StatelessWidget {
   }
 }
 
-/// HP・攻撃・防御・素早さの 4 つの枠。
+/// HP・攻撃・防御・素早さ・命中の 5 つの枠。
 class _StatBoxes extends StatelessWidget {
   const _StatBoxes({
     required this.statValues,

@@ -1,6 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+
+import '../../common_ui/scene_route.dart';
+
 import 'package:flutter/services.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
@@ -115,7 +118,7 @@ class DeveloperMenuScreen extends StatelessWidget {
       return;
     }
     await Navigator.of(context).push(
-      MaterialPageRoute<ResultScreenAction>(
+      sceneRoute<ResultScreenAction>(
         builder: (context) => GenerationScreen(
           sourcePhoto: sourcePhoto,
           photoSource: GenerationPhotoSource.sample,
@@ -289,7 +292,7 @@ class DeveloperMenuScreen extends StatelessWidget {
             title: const Text('技のエフェクトの見本'),
             subtitle: const Text('選んだ技のエフェクトを見本のモンスターに当て続ける'),
             onTap: () => Navigator.of(context).push(
-              MaterialPageRoute<void>(
+              sceneRoute<void>(
                 builder: (context) => MoveEffectPreviewScreen(
                   playerMonster: sampleData.monsters[0],
                   opponentMonster: sampleData.monsters[1],

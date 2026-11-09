@@ -3,6 +3,9 @@ import 'dart:math' as math;
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+
+import '../../common_ui/scene_route.dart';
+
 import 'package:flutter/services.dart';
 
 import '../../analytics/analytics_events.dart';
@@ -524,7 +527,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
     // 経路が作り直されると builder が呼び直されるため、決着の後にレベルが上がった手持ちを渡し直さないよう、開く時の手持ちで固定する
     final playerParty = List.of(dexStore.party);
     final action = await Navigator.of(context).push(
-      MaterialPageRoute<BattleScreenAction>(
+      sceneRoute<BattleScreenAction>(
         builder: (context) => BattleScreen(
           playerParty: playerParty,
           opponentParty: opponent.cpuOpponent.opponentParty,
@@ -684,7 +687,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
           return;
         }
         final action = await Navigator.of(context).push(
-          MaterialPageRoute<ResultScreenAction>(
+          sceneRoute<ResultScreenAction>(
             builder: (context) => ResultScreen(
               monster: monster,
               dexStore: widget.dexStore,

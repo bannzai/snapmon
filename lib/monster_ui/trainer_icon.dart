@@ -60,7 +60,7 @@ class TrainerIcon extends StatelessWidget {
   }
 }
 
-/// トレーナーのアイコンと表示名を横に並べた札。対戦タブと対戦画面で、戦うトレーナーを示す。
+/// トレーナーのアイコンと表示名を横に並べた札。対戦のシーンと対戦画面で、戦うトレーナーを示す。
 class TrainerLabel extends StatelessWidget {
   /// トレーナーの札を作る。
   const TrainerLabel({

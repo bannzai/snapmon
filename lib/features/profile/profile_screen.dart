@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 
+import '../../common_ui/scene_route.dart';
 import '../../l10n/l10n.dart';
 import '../../theme/snapmon_text_styles.dart';
 import '../../monster_ui/trainer_icon.dart';
@@ -183,7 +184,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               subtitle: Text(context.l10n.actionCardEntrySubtitle),
               trailing: const Icon(Icons.chevron_right),
               onTap: () => Navigator.of(context).push(
-                MaterialPageRoute<void>(
+                sceneRoute<void>(
                   builder: (context) =>
                       ActionCardScreen(dexStore: widget.dexStore),
                 ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../domain/battle/battle_engine.dart';
 import '../../domain/master/move.dart';
+import '../../common_ui/scene_route.dart';
 import '../../l10n/l10n.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
@@ -264,7 +265,7 @@ class _ActionCardMovesSectionState extends State<ActionCardMovesSection> {
                 OutlinedButton.icon(
                   key: const Key('action-card-entry-dex'),
                   onPressed: () => Navigator.of(context).push(
-                    MaterialPageRoute<void>(
+                    sceneRoute<void>(
                       builder: (context) =>
                           ActionCardScreen(dexStore: widget.dexStore),
                     ),

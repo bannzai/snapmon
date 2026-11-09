@@ -7,6 +7,7 @@ import '../domain/monster/monster_definition.dart';
 import '../features/dex/owned_monster.dart';
 import '../firebase/share_art.dart';
 import '../theme/snapmon_colors.dart';
+import '../theme/snapmon_element_icons.dart';
 import '../theme/snapmon_radii.dart';
 import '../theme/snapmon_text_styles.dart';
 import 'monster_art_painting.dart';
@@ -257,6 +258,54 @@ class ElementTypeTag extends StatelessWidget {
             )
             .displayName,
         style: SnapmonTextStyles.small.copyWith(
+          color: SnapmonColors.textOnBackground,
+        ),
+      ),
+    ),
+  );
+}
+
+/// 技のカードの名前の右端に置く属性のアイコン。属性の色の丸に [elementTypeIcon] を白で描き、属性の名前は読み上げにだけ持つ。
+/// 名前の 1 行目 (文字 15 × 行の高さ 1.2 = 18) と同じ高さにし、名前が折り返しても 1 行目の右端に留まる
+/// (https://github.com/bannzai/snapmon/issues/281 。bannzai の「属性ごとのアイコンを決めよう。そして上向か下向きかのアイコンも含めて
+/// タイトルの右端に配置。どちらも小さく」)。
+class ElementTypeIcon extends StatelessWidget {
+  /// 属性のアイコンを作る。
+  const ElementTypeIcon({
+    super.key,
+    required this.elementTypeId,
+    required this.definitions,
+  });
+
+  /// 描く属性の識別子。
+  final String elementTypeId;
+
+  /// 読み上げる属性の名前を引く定義。
+  final MasterData definitions;
+
+  /// 丸の直径。技の名前の 1 行の高さ (`SnapmonTextStyles.moveName` の 15 × 1.2) に合わせる。
+  static const double diameter = 18;
+
+  @override
+  Widget build(BuildContext context) => Semantics(
+    label: definitions.elementTypes
+        .firstWhere(
+          (elementType) => elementType.id == elementTypeId,
+          orElse: () => throw StateError('属性 $elementTypeId が定義に無い'),
+        )
+        .displayName,
+    child: ExcludeSemantics(
+      child: Container(
+        width: diameter,
+        height: diameter,
+        decoration: BoxDecoration(
+          color: elementTypeColor(elementTypeId: elementTypeId),
+          shape: BoxShape.circle,
+        ),
+        // 丸 18 の中に 12 のアイコン。上下左右 3 の余白が残り、丸の縁に触れない
+        child: Icon(
+          elementTypeIcon(elementTypeId: elementTypeId),
+          size: 12,
           color: SnapmonColors.textOnBackground,
         ),
       ),

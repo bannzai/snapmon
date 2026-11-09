@@ -11,6 +11,7 @@ import 'package:snapmon/domain/master/master_data.dart';
 import 'package:snapmon/domain/master/move.dart';
 import 'package:snapmon/domain/monster/monster_definition.dart';
 import 'package:snapmon/domain/monster/monster_stats.dart';
+import 'package:snapmon/domain/monster/stat_calculation.dart';
 
 /// バトルの規則だけを確かめるための小さな master。fire は grass に 2 倍、grass は fire に 0.5 倍。
 final testMaster = MasterData(
@@ -481,6 +482,7 @@ MonsterDefinition testDefinition({
   required List<String> moveIds,
   required int speed,
   int hitPoints = 80,
+  int accuracyBaseStat = 120,
 }) => MonsterDefinition(
   id: id,
   sourcePhotoReference: 'users/test/photos/$id.jpg',
@@ -490,17 +492,21 @@ MonsterDefinition testDefinition({
   learnset: [
     for (final moveId in moveIds) LearnsetEntry(moveId: moveId, unlockLevel: 1),
   ],
+  // 命中は既定で種族値・個体値の最大 (計算した命中が 100) にし、技の命中率だけで当たり外れが決まるようにする。
+  // 命中の効き目は「使う側の命中を技の命中率に掛ける」のテストで、[accuracyBaseStat] を下げて確かめる
   baseStats: MonsterStats(
     hitPoints: hitPoints,
     attack: 80,
     defense: 80,
     speed: speed,
+    accuracy: accuracyBaseStat,
   ),
   individualValues: const MonsterStats(
     hitPoints: 0,
     attack: 0,
     defense: 0,
     speed: 0,
+    accuracy: individualValueMaximum,
   ),
   statCalculationVersion: 1,
   masterVersion: 1,
@@ -2617,6 +2623,57 @@ void main() {
       }
     });
 
+    test('使う側の命中を技の命中率に掛け、命中が 100 未満なら命中率 100 の技も外れる (#279)', () {
+      // 命中の種族値 40・個体値 31 は 80 + (2 × 40 + 31) × 20 ÷ 271 = 88
+      final lowAccuracyAttacker = prepare(
+        definition: testDefinition(
+          id: 'low-accuracy',
+          elementTypeId: 'fire',
+          moveIds: ['fire_strong', 'fire_inaccurate', 'fire_sure_hit'],
+          speed: 80,
+          accuracyBaseStat: 40,
+        ),
+      );
+      expect(effectiveStats(monster: lowAccuracyAttacker).accuracy, 88);
+      // 威力 60 の技は威力の割合で 98%。98 × 88 ÷ 100 = 86
+      expect(
+        moveHitChancePercent(
+          move: testMaster.moveById(moveId: 'fire_strong'),
+          attacker: lowAccuracyAttacker,
+        ),
+        86,
+      );
+      expect(
+        moveHitChancePercent(
+          move: testMaster.moveById(moveId: 'fire_inaccurate'),
+          attacker: lowAccuracyAttacker,
+        ),
+        44,
+      );
+      expect(
+        moveHitChancePercent(
+          move: testMaster.moveById(moveId: 'fire_sure_hit'),
+          attacker: lowAccuracyAttacker,
+        ),
+        100,
+      );
+      // 命中 100 のモンスターは技の命中率 (威力の割合を掛けた値) のまま
+      expect(
+        moveHitChancePercent(
+          move: testMaster.moveById(moveId: 'fire_strong'),
+          attacker: prepare(
+            definition: testDefinition(
+              id: 'full-accuracy',
+              elementTypeId: 'fire',
+              moveIds: ['fire_strong'],
+              speed: 80,
+            ),
+          ),
+        ),
+        98,
+      );
+    });
+
     test('一撃必殺は当たれば威力に関係なく相手の HP を 0 にし、PP 1 で外れやすい', () {
       var hitCount = 0;
       const seedCount = 100;
@@ -2649,14 +2706,26 @@ void main() {
     });
 
     test('自爆はダメージを与えた後に自分の HP を 0 にし、相打ちなら利用者の勝ち', () {
-      final state = play(
-        state: duel(
-          playerMoveIds: ['fire_self_destruct'],
-          opponentMoveIds: ['fire_strong'],
-        ),
-        playerMoveId: 'fire_self_destruct',
-        opponentMoveId: 'fire_strong',
-      );
+      // 自爆 (威力 200) は威力の割合で命中率 70% のため (#279)、当たった後の規則を確かめるよう自爆が当たる最初の seed を使う
+      BattleState hitSelfDestruct({int opponentHitPoints = 250}) =>
+          [
+            for (var randomSeed = 1; randomSeed <= 20; randomSeed++)
+              play(
+                state: duel(
+                  playerMoveIds: ['fire_self_destruct'],
+                  opponentMoveIds: ['fire_strong'],
+                  randomSeed: randomSeed,
+                  opponentHitPoints: opponentHitPoints,
+                ),
+                playerMoveId: 'fire_self_destruct',
+                opponentMoveId: 'fire_strong',
+              ),
+          ].firstWhere(
+            (state) => state.events.whereType<MoveUsedEvent>().any(
+              (event) => event.selfDestructed,
+            ),
+          );
+      final state = hitSelfDestruct();
       // 自分が速いため先に自爆する。倒れた相手には後に動く側も技を使わないため、技のログは自爆の 1 件だけ
       final moveUsed = state.events.whereType<MoveUsedEvent>().single;
       expect(moveUsed.attackerSide, BattleSideId.player);
@@ -2677,15 +2746,7 @@ void main() {
       );
       expect(state.winner, BattleSideId.opponent);
 
-      final mutual = play(
-        state: duel(
-          playerMoveIds: ['fire_self_destruct'],
-          opponentMoveIds: ['fire_strong'],
-          opponentHitPoints: 1,
-        ),
-        playerMoveId: 'fire_self_destruct',
-        opponentMoveId: 'fire_strong',
-      );
+      final mutual = hitSelfDestruct(opponentHitPoints: 1);
       expect(mutual.player.isDefeated, isTrue);
       expect(mutual.opponent.isDefeated, isTrue);
       expect(mutual.winner, BattleSideId.player);

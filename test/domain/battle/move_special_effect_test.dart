@@ -52,12 +52,14 @@ BattleMonster testMonster({
       attack: 80,
       defense: 80,
       speed: 80,
+      accuracy: 80,
     ),
     individualValues: const MonsterStats(
       hitPoints: 0,
       attack: 0,
       defense: 0,
       speed: 0,
+      accuracy: 0,
     ),
     statCalculationVersion: 1,
     masterVersion: 1,
@@ -84,6 +86,7 @@ MonsterStats testStats({
   attack: attack,
   defense: defense,
   speed: 50,
+  accuracy: 100,
 );
 
 /// 既定の状況 (両者の HP 満タン・同じ属性・技の PP 満タン・先に行動) を引数で変えた、[move] を使う時点の式の変数を返す。

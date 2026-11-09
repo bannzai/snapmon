@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../common_ui/scene_route.dart';
 import '../../domain/battle/move_expression.dart';
 import '../../domain/battle/move_special_effect.dart';
 import '../../domain/master/master_data.dart';
@@ -17,7 +18,7 @@ Future<void> openMoveDetail({
   required Move move,
   required MasterData definitions,
 }) => Navigator.of(context).push(
-  MaterialPageRoute<void>(
+  sceneRoute<void>(
     builder: (context) =>
         MoveDetailScreen(move: move, definitions: definitions),
   ),
@@ -71,7 +72,10 @@ class MoveDetailScreen extends StatelessWidget {
                 for (final (label, value) in [
                   (context.l10n.moveDetailPower, '${move.power}'),
                   (context.l10n.moveDetailPowerPoints, '${move.powerPoints}'),
-                  (context.l10n.moveDetailAccuracy, '${move.accuracy}'),
+                  (
+                    context.l10n.moveDetailAccuracy,
+                    '${moveAccuracyPercent(move: move)}',
+                  ),
                   (
                     context.l10n.moveDetailUnlockLevel,
                     // 覚える技の一覧の開放レベルはレベル帯の下限 (functions/src/generation/monster_stats.ts の buildLearnset)。

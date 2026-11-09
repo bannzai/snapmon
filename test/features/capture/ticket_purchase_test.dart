@@ -346,7 +346,7 @@ void main() {
     await tester.pump(const Duration(seconds: 1));
   });
 
-  /// [generator] で撮るタブの残高の表示を開く。
+  /// [generator] で撮るのシーンの残高の表示を開く。
   Future<void> pumpGenerationTicketBalance({
     required WidgetTester tester,
     required MonsterGenerator generator,

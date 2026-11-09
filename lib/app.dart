@@ -21,6 +21,7 @@ import 'l10n/l10n.dart';
 import 'sample/sample_data.dart';
 import 'theme/snapmon_theme.dart';
 import 'common_ui/app_content_width.dart';
+import 'common_ui/scene_route.dart';
 
 /// ブラウザがページの操作に数えないキー。Esc は HTML 仕様の activation triggering input event が除いていて
 /// ( https://html.spec.whatwg.org/multipage/interaction.html#tracking-user-activation )、修飾キーだけの押下は
@@ -52,7 +53,7 @@ final Set<LogicalKeyboardKey> keysNotCountedAsUserInteraction = {
   LogicalKeyboardKey.symbolLock,
 };
 
-/// アプリのルート。起動するとタイトル画面を出し、タイトルのボタンでログインを済ませてから下タブの画面に入る。
+/// アプリのルート。起動するとタイトル画面を出し、タイトルのボタンでログインを済ませてからホームの画面 ([HomeShell]) に入る。
 /// ログインを終えた (アカウントの削除・開発者メニューのやり直し) 時はタイトルに戻る。
 class SnapmonApp extends StatefulWidget {
   /// アプリのルートを作る。
@@ -121,10 +122,10 @@ class SnapmonApp extends StatefulWidget {
 }
 
 class _SnapmonAppState extends State<SnapmonApp> {
-  /// 下タブの画面に入った時の最初のタブ。タイトルを出している間は null。
-  HomeTab? _homeTab;
+  /// ホームの画面に入った時の最初のシーン。タイトルを出している間は null。
+  HomeScene? _homeScene;
 
-  /// 下タブの画面に入った時に、撮る画面で押すのを待たずにカメラを開くか (タイトルの「カメラで撮ってはじめる」から来た時)。
+  /// ホームの画面に入った時に、撮る画面で押すのを待たずにカメラを開くか (タイトルの「カメラで撮ってはじめる」から来た時)。
   bool _startsCameraOnHomeOpen = false;
 
   @override
@@ -164,10 +165,10 @@ class _SnapmonAppState extends State<SnapmonApp> {
     }
   }
 
-  /// ログインを終えたら、次にログインした時に下タブへ飛ばずタイトルから始めるようにする。
+  /// ログインを終えたら、次にログインした時にホームの画面へ飛ばずタイトルから始めるようにする。
   void _onSessionChanged() {
-    if (!widget.sessionStore.canEnterApp && _homeTab != null) {
-      setState(() => _homeTab = null);
+    if (!widget.sessionStore.canEnterApp && _homeScene != null) {
+      setState(() => _homeScene = null);
     }
   }
 
@@ -197,40 +198,46 @@ class _SnapmonAppState extends State<SnapmonApp> {
     home: ListenableBuilder(
       listenable: widget.sessionStore,
       builder: (context, _) {
-        final homeTab = _homeTab;
-        if (homeTab == null || !widget.sessionStore.canEnterApp) {
-          return TitleScreen(
-            sampleData: widget.sampleData,
-            dexStore: widget.dexStore,
-            sessionStore: widget.sessionStore,
-            monsterGenerator: widget.monsterGenerator,
-            pvpClient: widget.pvpClient,
-            cardSharer: widget.cardSharer,
-            openUrl: widget.openUrl,
-            isDeveloperMenuEnabled: widget.isDeveloperMenuEnabled,
-            accountStore: widget.accountStore,
-            logEvent: widget.logEvent,
-            onEnterHome: ({required tab, required startsCamera}) =>
-                setState(() {
-                  _homeTab = tab;
-                  _startsCameraOnHomeOpen = startsCamera;
-                }),
-            battleRecorder: widget.battleRecorder,
-          );
-        }
-        return HomeShell(
-          initialTab: homeTab,
-          startsCameraOnCaptureOpen: _startsCameraOnHomeOpen,
-          sampleData: widget.sampleData,
-          dexStore: widget.dexStore,
-          sessionStore: widget.sessionStore,
-          openUrl: widget.openUrl,
-          isDeveloperMenuEnabled: widget.isDeveloperMenuEnabled,
-          battleRecorder: widget.battleRecorder,
-          monsterGenerator: widget.monsterGenerator,
-          pvpClient: widget.pvpClient,
-          cardSharer: widget.cardSharer,
-          accountStore: widget.accountStore,
+        final homeScene = _homeScene;
+        return AnimatedSwitcher(
+          duration: sceneTransitionDuration,
+          // タイトルとホームの画面の切り替えもシーンの切り替えと同じフェードにする (#264)
+          layoutBuilder: sceneSwitcherLayoutBuilder,
+          child: homeScene == null || !widget.sessionStore.canEnterApp
+              ? TitleScreen(
+                  key: const ValueKey('title'),
+                  sampleData: widget.sampleData,
+                  dexStore: widget.dexStore,
+                  sessionStore: widget.sessionStore,
+                  monsterGenerator: widget.monsterGenerator,
+                  pvpClient: widget.pvpClient,
+                  cardSharer: widget.cardSharer,
+                  openUrl: widget.openUrl,
+                  isDeveloperMenuEnabled: widget.isDeveloperMenuEnabled,
+                  accountStore: widget.accountStore,
+                  logEvent: widget.logEvent,
+                  onEnterHome: ({required scene, required startsCamera}) =>
+                      setState(() {
+                        _homeScene = scene;
+                        _startsCameraOnHomeOpen = startsCamera;
+                      }),
+                  battleRecorder: widget.battleRecorder,
+                )
+              : HomeShell(
+                  key: const ValueKey('home'),
+                  initialScene: homeScene,
+                  startsCameraOnCaptureOpen: _startsCameraOnHomeOpen,
+                  sampleData: widget.sampleData,
+                  dexStore: widget.dexStore,
+                  sessionStore: widget.sessionStore,
+                  openUrl: widget.openUrl,
+                  isDeveloperMenuEnabled: widget.isDeveloperMenuEnabled,
+                  battleRecorder: widget.battleRecorder,
+                  monsterGenerator: widget.monsterGenerator,
+                  pvpClient: widget.pvpClient,
+                  cardSharer: widget.cardSharer,
+                  accountStore: widget.accountStore,
+                ),
         );
       },
     ),

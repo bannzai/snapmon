@@ -309,13 +309,13 @@ void main() {
       find.descendant(of: moveSlot, matching: find.text('先に動くと強い')),
       findsOneWidget,
     );
-    // 属性はモンスターの属性と同じ色の札で出し、威力と PP はラベル付きの数値で出す
+    // 属性は名前の右端の属性のアイコンで出し、威力と PP はラベル付きの数値で出す
     expect(
       tester
-          .widget<ElementTypeTag>(
+          .widget<ElementTypeIcon>(
             find.descendant(
               of: moveSlot,
-              matching: find.byType(ElementTypeTag),
+              matching: find.byType(ElementTypeIcon),
             ),
           )
           .elementTypeId,
@@ -353,7 +353,9 @@ void main() {
     await tester.pump(const Duration(seconds: 10));
   });
 
-  testWidgets('技の枠に、相手の場のモンスターへの相性の倍率を等倍以外だけ出す', (tester) async {
+  testWidgets('技の枠に、相手の場のモンスターへの相性の札を等倍以外だけ出す', (tester) async {
+    // 読み上げの名前 (倍率付き) を find.bySemanticsLabel で確かめるため
+    final semanticsHandle = tester.ensureSemantics();
     await pumpBattleScreen(
       tester: tester,
       playerMonster: strongPlayer,
@@ -364,27 +366,43 @@ void main() {
         recordedLevels: const {},
       ),
     );
-    // マグモンの技の枠は 炎・鋼・炎・鋼 の順。炎はリンゴラの菓子・草の両方に 2 倍で 4 倍、鋼はどちらにも等倍
-    for (final (slotIndex, expectedText) in [
-      (0, '×4'),
+    // マグモンの技の枠は 炎・鋼・炎・鋼 の順。炎はリンゴラの菓子・草の両方に 2 倍で 4 倍、鋼はどちらにも等倍。
+    // 画面の札は上向きの矢印だけで、4 倍は読み上げの名前にだけ出る
+    for (final (slotIndex, expectedLabel) in [
+      (0, '効果は抜群 ×4'),
       (1, null),
-      (2, '×4'),
+      (2, '効果は抜群 ×4'),
       (3, null),
     ]) {
-      final multiplierTag = find.descendant(
+      final effectivenessTag = find.descendant(
         of: find.byKey(Key('move-slot-$slotIndex')),
-        matching: find.byKey(const Key('move-type-multiplier')),
+        matching: find.byKey(const Key('move-type-effectiveness')),
       );
-      if (expectedText == null) {
-        expect(multiplierTag, findsNothing, reason: 'move-slot-$slotIndex');
+      if (expectedLabel == null) {
+        expect(effectivenessTag, findsNothing, reason: 'move-slot-$slotIndex');
       } else {
         expect(
-          tester.widget<Text>(multiplierTag).data,
-          expectedText,
+          tester.widget<Icon>(effectivenessTag).icon,
+          Icons.keyboard_double_arrow_up,
+          reason: 'move-slot-$slotIndex',
+        );
+        // 技のボタンの中では読み上げの名前がボタンの節にまとめられ、find.bySemanticsLabel では札の節を単独で見つけられないため、
+        // 札の Semantics ウィジェットの label で確かめる
+        expect(
+          find.descendant(
+            of: find.byKey(Key('move-slot-$slotIndex')),
+            matching: find.byWidgetPredicate(
+              (widget) =>
+                  widget is Semantics &&
+                  widget.properties.label == expectedLabel,
+            ),
+          ),
+          findsOneWidget,
           reason: 'move-slot-$slotIndex',
         );
       }
     }
+    semanticsHandle.dispose();
   });
 
   testWidgets('補助技は相手のステータスを下げたことをログに出し、変わった倍率を相手のカードに出す', (tester) async {
@@ -543,11 +561,16 @@ void main() {
       await tester.pump();
     }
 
-    // 似ているが閉じる側: バトルの画面の上に開いた技の詳細は、同じスワイプで閉じる (スワイプの操作が戻るとして効くことの確かめ)
+    // 似ているが閉じる側: バトルの画面の上に開いた技の詳細は、端末の戻るで閉じる (戻る操作が効くことの確かめ)。
+    // 技の詳細はフェードの route (#264) で開くため、端のスワイプでは閉じない
     await tester.longPress(find.byKey(const Key('move-slot-0')));
     await tester.pump(const Duration(seconds: 1));
     expect(find.byType(MoveDetailScreen), findsOneWidget);
     await swipeFromLeftEdge();
+    expect(find.byType(MoveDetailScreen), findsOneWidget);
+    await tester.binding.handlePopRoute();
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
     expect(find.byType(MoveDetailScreen), findsNothing);
     expect(find.byType(BattleScreen), findsOneWidget);
 

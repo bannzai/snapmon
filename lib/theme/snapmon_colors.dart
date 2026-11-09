@@ -6,7 +6,7 @@ abstract final class SnapmonColors {
   /// 画面の地 (深い紫がかった黒)。
   static const Color background = Color(0xFF15121C);
 
-  /// 地の上に置くボタン・カード・選択中の下タブの面。
+  /// 地の上に置くボタン・カードの面。
   static const Color surface = Color(0xFF231E30);
 
   /// [surface] より一段明るい面 (ファインダー・バトルの空・相手のモンスターの枠)。

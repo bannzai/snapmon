@@ -14,9 +14,10 @@ import '../../monster_ui/move_card.dart';
 import '../dex/owned_monster.dart';
 import '../reference/move_detail_screen.dart';
 
-/// カードの絵の一辺。ステータスの 4 本の目盛り (ラベルの行と棒。各 29 ほど) を隣に積んだ高さに揃え、
+/// カードの絵の一辺。ステータスの 5 本の目盛り (ラベルの行と棒。各 29 ほど) を間隔 2 で隣に積んだ高さ (5 × 29 + 4 × 2) に揃え、
 /// 絵とステータスを 1 段に収めて技を最初の画面に入れる (https://github.com/bannzai/snapmon/issues/216 )。
-const double monsterDetailArtSize = 128;
+/// 命中を足した (#279) 時に、4 本の時の 128 から目盛り 1 本分を足した。
+const double monsterDetailArtSize = 153;
 
 /// モンスター 1 体のカード (名前・レベル・属性・絵・ステータス・図鑑の文章・覚えている技)。
 /// 生まれた画面と、対戦相手の画面の相手のモンスターの詳細で使う。
@@ -118,14 +119,15 @@ class MonsterDetailCard extends StatelessWidget {
                 Expanded(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
-                    // 標準の文字の大きさで 4 本の目盛りが絵の高さ (monsterDetailArtSize) に揃う間隔
-                    spacing: 4,
+                    // 標準の文字の大きさで 5 本の目盛りが絵の高さ (monsterDetailArtSize) に揃う間隔
+                    spacing: 2,
                     children: [
                       for (final (label, statKind) in [
                         (context.l10n.statHitPoints, StatKind.hitPoints),
                         (context.l10n.statAttack, StatKind.attack),
                         (context.l10n.statDefense, StatKind.defense),
                         (context.l10n.statSpeed, StatKind.speed),
+                        (context.l10n.statAccuracy, StatKind.accuracy),
                       ])
                         _StatGauge(
                           key: Key('stat-gauge-${statKind.name}'),
