@@ -67,8 +67,9 @@ export const startBattle = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async 
  * 勝敗とターン数は端末の計算をそのまま記録し、検証しない (レベルは勝敗に関係なく +1 のため。ADR 0001 の DB の行)。
  * 返す値: `{ levels: { [monsterId]: number } }` (上がった後のレベル)。
  * トランザクションでバトルの完了状態を確かめ、未完了の時だけ、1 日 (日本時間) の上限 [DAILY_BATTLE_LIMIT] 戦を検証して
- * レベル・経験の加算、1 日の数、完了の記録と、参加したモンスターの技の枠の技の使用回数 (`moveUsageDailyCounts/{日本時間の日付}`) を同時に書く。
- * 完了済みの battleId の再送は加算せず、記録済みの levels を返す (冪等)。
+ * レベル・経験の加算、1 日の数、完了の記録を同時に書く。コミットの後に、参加したモンスターの技の枠の技の使用回数
+ * (`moveUsageDailyCounts/{日本時間の日付}`) をトランザクションの外で足す (書けなくてもレベルの記録は成功として返し、その回は数えない)。
+ * 完了済みの battleId の再送は加算も使用回数の加算もせず、記録済みの levels を返す (冪等)。
  */
 export const recordBattle = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async (request) => {
   const uid = requireSignedInUid({ request });

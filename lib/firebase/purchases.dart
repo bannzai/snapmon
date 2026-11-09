@@ -84,7 +84,21 @@ void connectPurchasesWhileSignedIn({required SessionStore sessionStore}) {
 /// このビルドで課金を使えるか。Web と RevenueCat の鍵を渡していないビルドでは false。
 bool isPurchasesEnabled() => _revenueCatPublicApiKey().isNotEmpty;
 
-/// current offering の package を返す。課金が無効なビルド・ログインしていない時は空。
+/// 生成チケットの package の `lookup_key` の接頭辞 (`revenuecat/config.json` の `ticket10`・`ticket30`)。
+/// 同じ offering に Action Card の package (`actioncard_rank*`) も入るため、生成チケットの購入画面に出す package をこれで選ぶ。
+const String _generationTicketPackageIdentifierPrefix = 'ticket';
+
+/// [packages] のうち生成チケットの package だけを、並びを保って返す。
+List<Package> generationTicketPackages({required List<Package> packages}) =>
+    packages
+        .where(
+          (package) => package.identifier.startsWith(
+            _generationTicketPackageIdentifierPrefix,
+          ),
+        )
+        .toList();
+
+/// current offering の package をすべて返す。課金が無効なビルド・ログインしていない時は空。
 /// 閉じている間は package の無い offering が current のため空になる (documents/DIRECTION.md「決めたこと」)。
 Future<List<Package>> _fetchCurrentPackagesWithRevenueCat() async {
   final uid = FirebaseAuth.instance.currentUser?.uid;
@@ -97,11 +111,10 @@ Future<List<Package>> _fetchCurrentPackagesWithRevenueCat() async {
 }
 
 /// current offering の生成チケットの package を返す ([MonsterGenerator.fetchTicketPackages])。
-/// 同じ offering に入る Action Card の package (revenuecat/config.json) は外す (生成チケットの購入画面に並べないため)。
-Future<List<Package>> fetchTicketPackagesWithRevenueCat() async => [
-  for (final package in await _fetchCurrentPackagesWithRevenueCat())
-    if (actionCardRankOfPackage(package: package) == null) package,
-];
+Future<List<Package>> fetchTicketPackagesWithRevenueCat() async =>
+    generationTicketPackages(
+      packages: await _fetchCurrentPackagesWithRevenueCat(),
+    );
 
 /// current offering の Action Card の package を返す ([ActionCardClient.fetchActionCardPackages])。
 Future<List<Package>> fetchActionCardPackagesWithRevenueCat() async => [
