@@ -14,7 +14,7 @@ const INDIVIDUAL_VALUE_MAXIMUM = 31;
 
 const UINT32_MASK = 0xffffffff;
 
-/** HP・攻撃・防御・素早さの 4 つの値。Dart の `MonsterStats` の JSON と同じ形。 */
+/** HP・攻撃・防御・素早さ・命中の 5 つの値。Dart の `MonsterStats` の JSON と同じ形。 */
 export interface MonsterStats {
   /** HP。 */
   hitPoints: number;
@@ -24,10 +24,12 @@ export interface MonsterStats {
   defense: number;
   /** 素早さ。 */
   speed: number;
+  /** 命中。#279 より前に生まれたモンスターのドキュメントには無い (端末は既定の値で読む。Dart の `MonsterStats.fromJson`)。 */
+  accuracy?: number;
 }
 
 /** ステータスの種類。Jev の Score の問いの名前と、`MonsterStats` のキーに使う。 */
-export const STAT_KINDS = ["hitPoints", "attack", "defense", "speed"] as const;
+export const STAT_KINDS = ["hitPoints", "attack", "defense", "speed", "accuracy"] as const;
 
 /** モンスターが覚える技の 1 件。Dart の `LearnsetEntry` の JSON と同じ形。 */
 export interface LearnsetEntry {
@@ -64,14 +66,15 @@ function deterministicRandom(seed: number): (range: { minimum: number; maximum: 
   };
 }
 
-/** 保存した被写体の説明文から、個体値 (各 0〜31) を決定的に引く。引く順番は HP・攻撃・防御・素早さで固定する。 */
-export function individualValuesFromDescription(subjectDescriptionText: string): MonsterStats {
+/** 保存した被写体の説明文から、個体値 (各 0〜31) を決定的に引く。引く順番は HP・攻撃・防御・素早さ・命中で固定する (命中は #279 で最後に足した)。 */
+export function individualValuesFromDescription(subjectDescriptionText: string): Required<MonsterStats> {
   const next = deterministicRandom(fnv1a32(subjectDescriptionText));
   return {
     hitPoints: next({ minimum: 0, maximum: INDIVIDUAL_VALUE_MAXIMUM }),
     attack: next({ minimum: 0, maximum: INDIVIDUAL_VALUE_MAXIMUM }),
     defense: next({ minimum: 0, maximum: INDIVIDUAL_VALUE_MAXIMUM }),
     speed: next({ minimum: 0, maximum: INDIVIDUAL_VALUE_MAXIMUM }),
+    accuracy: next({ minimum: 0, maximum: INDIVIDUAL_VALUE_MAXIMUM }),
   };
 }
 
@@ -82,7 +85,7 @@ export function baseStatsFromStatGrades({
 }: {
   statGradeIds: Record<(typeof STAT_KINDS)[number], string>;
   master: Master;
-}): MonsterStats {
+}): Required<MonsterStats> {
   const baseStatOf = (statKind: (typeof STAT_KINDS)[number]) => {
     const statGrade = master.statGrades.find((grade) => grade.id === statGradeIds[statKind]);
     if (!statGrade) {
@@ -95,6 +98,7 @@ export function baseStatsFromStatGrades({
     attack: baseStatOf("attack"),
     defense: baseStatOf("defense"),
     speed: baseStatOf("speed"),
+    accuracy: baseStatOf("accuracy"),
   };
 }
 
