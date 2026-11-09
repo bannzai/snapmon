@@ -241,7 +241,7 @@ class _BattleScreenState extends State<BattleScreen>
   /// 文言そのものではなく作り方を持つ。
   late String Function(AppLocalizations l10n) _logText;
 
-  /// 演出を再生しているか。再生中は技・交代・にげるを押せない。
+  /// 演出を再生しているか。再生中は技・交代を押せない。
   bool _isPlaying = false;
 
   /// startBattle の呼び出し。決着の後に battleId を受け取って recordBattle に使う。
@@ -940,7 +940,7 @@ class _BattleScreenState extends State<BattleScreen>
     // 文字の拡大率が変わるとカードの高さも変わるため、拡大率の変更でも build し直してカードを測り直す
     MediaQuery.textScalerOf(context);
     // 端のスワイプ (iOS) と戻るボタン・戻るジェスチャー (Android) でバトルを抜けると、決着の前に手が触れただけで閉じるため、
-    // 閉じるのは「にげる」・勝敗の画面のボタンだけにする。ボタンの Navigator.pop は PopScope で止まらない。
+    // 閉じるのは勝敗の画面のボタンだけにする (決着の前に抜ける「にげる」は issue #263 で無くした)。ボタンの Navigator.pop は PopScope で止まらない。
     // pop を拒む route は端のスワイプも受け付けない (Flutter の ModalRoute.popGestureEnabled が popDisposition の doNotPop で false を返す)
     return PopScope(
       canPop: false,
@@ -1523,7 +1523,7 @@ class _BattleScreenState extends State<BattleScreen>
     ],
   );
 
-  /// 技のボタンと、交代・にげるのボタン。技のボタンには [opponentMonster] への相性の倍率を出す。
+  /// 技のボタンと、交代のボタン。技のボタンには [opponentMonster] への相性の倍率を出す。
   Widget _buildCommands({
     required BuildContext context,
     required BattleMonster playerMonster,
@@ -1625,34 +1625,19 @@ class _BattleScreenState extends State<BattleScreen>
                   : () => _selectAction(playerAction: const StruggleAction()),
             ),
           ),
-        Row(
-          children: [
-            // 交代できる控えがいない時はボタンを出さない。交換不可の間は押せない
-            if (switchableMemberIndices(
-              party: _battleState.player,
-            ).isNotEmpty) ...[
-              Expanded(
-                child: _BattleCommandButton(
-                  key: const Key('battle-switch-monster'),
-                  label: context.l10n.battleSwitchMonster,
-                  onPressed:
-                      _isPlaying || isSwitchBlocked(party: _battleState.player)
-                      ? null
-                      : _chooseSwitchMonster,
-                ),
-              ),
-              const SizedBox(width: 10),
-            ],
-            Expanded(
-              child: _BattleCommandButton(
-                label: context.l10n.battleRun,
-                onPressed: _isPlaying
-                    ? null
-                    : () => Navigator.of(context).pop(),
-              ),
+        // 交代できる控えがいない時はボタンを出さない。交換不可の間は押せない
+        if (switchableMemberIndices(party: _battleState.player).isNotEmpty)
+          SizedBox(
+            width: double.infinity,
+            child: _BattleCommandButton(
+              key: const Key('battle-switch-monster'),
+              label: context.l10n.battleSwitchMonster,
+              onPressed:
+                  _isPlaying || isSwitchBlocked(party: _battleState.player)
+                  ? null
+                  : _chooseSwitchMonster,
             ),
-          ],
-        ),
+          ),
       ],
     );
   }
@@ -2211,7 +2196,7 @@ class _MoveButton extends StatelessWidget {
   }
 }
 
-/// 交代・にげる・わるあがきのボタン。
+/// 交代・わるあがきのボタン。
 class _BattleCommandButton extends StatelessWidget {
   const _BattleCommandButton({
     super.key,

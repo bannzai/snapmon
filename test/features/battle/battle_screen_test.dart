@@ -408,7 +408,7 @@ void main() {
     expect(find.text('ターン 1'), findsOneWidget);
   });
 
-  testWidgets('端のスワイプと端末の戻るではバトルの画面を閉じず、上に開いた技の詳細は端のスワイプで閉じ、「にげる」で閉じる', (
+  testWidgets('端のスワイプと端末の戻るではバトルの画面を閉じず、上に開いた技の詳細は端のスワイプで閉じ、「にげる」は無く勝敗の画面のボタンで閉じる', (
     tester,
   ) async {
     tester.view
@@ -490,8 +490,12 @@ void main() {
     await tester.pump(const Duration(seconds: 1));
     expect(find.byType(BattleScreen), findsOneWidget);
 
-    // 「にげる」のボタンでは閉じる
-    await tester.tap(find.text('にげる'));
+    // 決着の前に閉じるボタンは置かない (issue #263)
+    expect(find.text('にげる'), findsNothing);
+
+    // 決着の後は勝敗の画面のボタンで閉じる
+    await playUntilFinished(tester: tester);
+    await tester.tap(find.text('もどる'));
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
     await tester.pump();
