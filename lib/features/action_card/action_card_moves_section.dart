@@ -76,17 +76,31 @@ class _ActionCardMovesSectionState extends State<ActionCardMovesSection> {
     super.dispose();
   }
 
+  /// 図鑑の [monsterId] のモンスター (図鑑にいなければ null)。
+  OwnedMonster? _dexMonster({required String monsterId}) => widget
+      .dexStore
+      .monsters
+      .where((monster) => monster.definition.id == monsterId)
+      .firstOrNull;
+
   /// [update] (teach か forget) を呼び、返った一覧を Firestore から届く前に図鑑へ出す。失敗したらエラーをそのまま出す。
+  /// 待っている間に図鑑のそのモンスターが変わった (Firestore の新しい値が届いた) 時は、届いた値の方が新しいため上書きしない。
+  /// 図鑑は値が変わるたびに新しい [OwnedMonster] を置くため、呼び出しの前と同じオブジェクトかで見分ける。
   Future<void> _updateActionCardMoveIds({
     required Future<List<String>> Function() update,
   }) async {
     final messenger = ScaffoldMessenger.of(context);
+    final monsterId = widget.monster.definition.id;
+    final monsterAtStart = _dexMonster(monsterId: monsterId);
     setState(() => _isUpdating = true);
     try {
-      widget.dexStore.updateActionCardMoveIds(
-        monsterId: widget.monster.definition.id,
-        actionCardMoveIds: await update(),
-      );
+      final actionCardMoveIds = await update();
+      if (identical(_dexMonster(monsterId: monsterId), monsterAtStart)) {
+        widget.dexStore.updateActionCardMoveIds(
+          monsterId: monsterId,
+          actionCardMoveIds: actionCardMoveIds,
+        );
+      }
     } catch (error) {
       messenger.showSnackBar(SnackBar(content: Text(error.toString())));
     } finally {

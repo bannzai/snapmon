@@ -145,16 +145,23 @@ class ActionCardStore extends ChangeNotifier {
   Future<TicketPurchaseResult> purchase({required Package package}) =>
       client.purchaseActionCardPackage(package: package);
 
-  /// [moveId] を買い切り、返った残高を購読の値が届く前に出す。待っている間にアカウントが変わった時は、返った値は前のアカウントの
-  /// ものなので反映しない (coding-rules-general-verify-value-ownership.md)。
+  /// [moveId] を買い切り、返った残高と技を購読の値が届く前に出す。待っている間にアカウントが変わった時は、返った値は前のアカウントの
+  /// ものなので反映しない (coding-rules-general-verify-value-ownership.md)。待っている間に購読の値が届いた時も、その値の方が
+  /// 新しい (買い切りの後の別の端末の購入などを含む) ため、届いた項目は返った値で上書きしない。購読は値ごとに新しいオブジェクトを流すため、
+  /// 呼び出しの前と同じオブジェクトかで届いたかを見分ける。
   Future<void> redeem({required String moveId}) async {
     final sessionGeneration = _sessionGeneration;
+    final creditsByRankAtStart = _creditsByRank;
+    final ownedMoveIdsAtStart = _ownedMoveIds;
     final creditsByRank = await client.redeemActionCard(moveId: moveId);
     if (sessionGeneration != _sessionGeneration) {
       return;
     }
-    _creditsByRank = creditsByRank;
-    if (!_ownedMoveIds.contains(moveId)) {
+    if (identical(_creditsByRank, creditsByRankAtStart)) {
+      _creditsByRank = creditsByRank;
+    }
+    if (identical(_ownedMoveIds, ownedMoveIdsAtStart) &&
+        !_ownedMoveIds.contains(moveId)) {
       _ownedMoveIds = [..._ownedMoveIds, moveId];
     }
     notifyListeners();

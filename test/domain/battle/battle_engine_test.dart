@@ -1776,6 +1776,34 @@ void main() {
       );
     });
 
+    test('Action Card の技が枠の数以上ある時は、開放レベルに上がっても枠が変わらず次に覚えるレベルを出さない', () {
+      const actionCardMoveIds = ['w', 'x', 'y', 'z'];
+      final changes = levelUpChanges(
+        learnset: currentRuleLearnset,
+        actionCardMoveIds: actionCardMoveIds,
+        previousLevel: 1,
+        newLevel: 2,
+      );
+      expect(changes.learnedMoveIds, isEmpty);
+      expect(
+        nextLearnsetUnlockLevel(
+          learnset: currentRuleLearnset,
+          actionCardMoveIds: actionCardMoveIds,
+          level: 1,
+        ),
+        isNull,
+      );
+      // 枠の数より 1 つ少なければ、開放した技が枠に入るので次のレベルを出す
+      expect(
+        nextLearnsetUnlockLevel(
+          learnset: currentRuleLearnset,
+          actionCardMoveIds: const ['x', 'y', 'z'],
+          level: 1,
+        ),
+        2,
+      );
+    });
+
     test('Action Card の技を覚えさせると、一番古い技が枠から外れる', () {
       final changes = equippedMoveChanges(
         previousMoveIds: equippedLearnsetEntries(

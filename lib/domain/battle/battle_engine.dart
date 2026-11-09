@@ -233,23 +233,26 @@ equippedMoveChanges({
 );
 
 /// [learnset] のうち [level] より後に開放される技の、最も低い開放レベル。もう覚える技が無ければ null。
-/// [actionCardMoveIds] に入った技は、開放しても枠が変わらないため数えない。
+/// [actionCardMoveIds] に入った技は、開放しても枠が変わらないため数えない。[actionCardMoveIds] が枠の数以上ある時は、
+/// 開放した技は列で Action Card の技より前に並んで枠に入らないため、null。
 int? nextLearnsetUnlockLevel({
   required List<LearnsetEntry> learnset,
   required List<String> actionCardMoveIds,
   required int level,
-}) => learnset
-    .where(
-      (learnsetEntry) =>
-          learnsetEntry.unlockLevel > level &&
-          !actionCardMoveIds.contains(learnsetEntry.moveId),
-    )
-    .map((learnsetEntry) => learnsetEntry.unlockLevel)
-    .fold<int?>(
-      null,
-      (lowest, unlockLevel) =>
-          lowest == null ? unlockLevel : math.min(lowest, unlockLevel),
-    );
+}) => actionCardMoveIds.length >= maximumEquippedMoveCount
+    ? null
+    : learnset
+          .where(
+            (learnsetEntry) =>
+                learnsetEntry.unlockLevel > level &&
+                !actionCardMoveIds.contains(learnsetEntry.moveId),
+          )
+          .map((learnsetEntry) => learnsetEntry.unlockLevel)
+          .fold<int?>(
+            null,
+            (lowest, unlockLevel) =>
+                lowest == null ? unlockLevel : math.min(lowest, unlockLevel),
+          );
 
 /// [move] が通常の攻撃技 (自爆・一撃必殺を除く攻撃技) か。わるあがきを選べるのはこれが 1 つも残っていない時で、
 /// 自爆と一撃必殺だけが残った時に自爆か賭けしか選べなくならないようにする (version 9 の技の枠には自爆と一撃必殺だけが残るレベル帯がある)。

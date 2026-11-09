@@ -51,6 +51,34 @@ void main() {
     expect(store.ownedMoveIds, isEmpty);
   });
 
+  test('買い切りの応答より先に購読の新しい残高が届いたら 古い応答で上書きしない', () async {
+    final redeemCompleter = Completer<Map<int, int>>();
+    fakeActionCards
+      ..creditsByRank.value = {1: 1}
+      ..redeemCompleter = redeemCompleter;
+    await pumpEventQueue();
+    final redeeming = store.redeem(moveId: 'fire_1c');
+    // 買い切りで 0 枚になった後に別の端末の購入で 1 枚足された値が、応答より先に届く
+    fakeActionCards.creditsByRank.value = {1: 1, 2: 1};
+    await pumpEventQueue();
+    redeemCompleter.complete({1: 0});
+    await redeeming;
+    expect(store.creditsByRank, {1: 1, 2: 1});
+  });
+
+  test('購読の値が届く前に買い切りの応答が返ったら 返った残高を出す', () async {
+    final redeemCompleter = Completer<Map<int, int>>();
+    fakeActionCards
+      ..creditsByRank.value = {1: 1}
+      ..redeemCompleter = redeemCompleter;
+    await pumpEventQueue();
+    final redeeming = store.redeem(moveId: 'fire_1c');
+    redeemCompleter.complete({1: 0});
+    await redeeming;
+    expect(store.creditsByRank, {1: 0});
+    expect(store.ownedMoveIds, ['fire_1c']);
+  });
+
   test('技のランクの表に端末の定義に無い技があれば 定義を 1 回だけ読み直す', () async {
     final sampleData = loadSampleDataFixture();
     var refreshCount = 0;
