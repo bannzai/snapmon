@@ -28,6 +28,10 @@ class FakeActionCards {
   /// `config/features.actionCardsVisible`。
   final ValueNotifier<bool> isActionCardsVisible = ValueNotifier(true);
 
+  /// fetchActionCardPackages の応答。null なら [packages] をすぐ返し、あればテストが完了させるまで待たせる
+  /// (読み込みが並んで走る順番を確かめるため)。呼ばれるたびに先頭から 1 つずつ使う。
+  final List<Completer<List<Package>>> packagesCompleters = [];
+
   /// 売っている package。
   List<Package> packages = [
     for (final rank in actionCardRanks) testActionCardPackage(rank: rank),
@@ -81,7 +85,9 @@ class FakeActionCards {
   ActionCardClient client() => ActionCardClient(
     isPurchaseSupported: () => isPurchaseSupported,
     watchActionCardsVisible: () => _watch(notifier: isActionCardsVisible),
-    fetchActionCardPackages: () async => packages,
+    fetchActionCardPackages: () async => packagesCompleters.isEmpty
+        ? packages
+        : packagesCompleters.removeAt(0).future,
     purchaseActionCardPackage: ({required package}) {
       purchasedPackageIds.add(package.identifier);
       return switch (purchaseResult) {

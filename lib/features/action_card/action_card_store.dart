@@ -44,6 +44,10 @@ class ActionCardStore extends ChangeNotifier {
   /// 最後に読めた売っている Action Card の package (ランクの順)。
   List<Package> _packages = const [];
 
+  /// [refreshPackages] を始めた回数。読み込みが並んで走った時に、最後に始めた読み込みの結果だけを反映するために比べる
+  /// (先に始めた読み込みが後から失敗で返り、後の読み込みの成功を空で上書きしないため)。
+  int _packagesRequestNumber = 0;
+
   /// ランクごとの残高。
   Map<int, int> _creditsByRank = const {};
 
@@ -126,10 +130,12 @@ class ActionCardStore extends ChangeNotifier {
   /// offering の切り替えはアプリの再リリース無しで行うため、Action Card の画面を開くたびにも呼ぶ。
   Future<void> refreshPackages() async {
     final sessionGeneration = _sessionGeneration;
+    final packagesRequestNumber = ++_packagesRequestNumber;
     final packages = await client.fetchActionCardPackages().catchError(
       (Object _) => const <Package>[],
     );
-    if (sessionGeneration != _sessionGeneration) {
+    if (sessionGeneration != _sessionGeneration ||
+        packagesRequestNumber != _packagesRequestNumber) {
       return;
     }
     _packages = [

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:snapmon/features/action_card/action_card_store.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
 
@@ -77,6 +78,26 @@ void main() {
     await redeeming;
     expect(store.creditsByRank, {1: 0});
     expect(store.ownedMoveIds, ['fire_1c']);
+  });
+
+  test('package の読み込みが並んだ時 先に始めた読み込みが後から失敗で返っても 後の成功を空で上書きしない', () async {
+    // setUp の store の最初の読み込みは済ませてから、2 つの読み込みを待たせて走らせる
+    await pumpEventQueue();
+    final earlierCompleter = Completer<List<Package>>();
+    final laterCompleter = Completer<List<Package>>();
+    fakeActionCards.packagesCompleters.addAll([
+      earlierCompleter,
+      laterCompleter,
+    ]);
+    final earlierRefresh = store.refreshPackages();
+    final laterRefresh = store.refreshPackages();
+    laterCompleter.complete([testActionCardPackage(rank: 1)]);
+    await laterRefresh;
+    earlierCompleter.completeError(StateError('通信の失敗'));
+    await earlierRefresh;
+    expect(store.packages.map((package) => package.identifier), [
+      'actioncard_rank1',
+    ]);
   });
 
   test('技のランクの表に端末の定義に無い技があれば 定義を 1 回だけ読み直す', () async {
