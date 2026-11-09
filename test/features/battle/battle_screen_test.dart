@@ -408,7 +408,7 @@ void main() {
     expect(find.text('ターン 1'), findsOneWidget);
   });
 
-  testWidgets('端のスワイプと端末の戻るではバトルの画面を閉じず、上に開いた技の詳細は端のスワイプで閉じ、「にげる」は無く勝敗の画面のボタンで閉じる', (
+  testWidgets('端のスワイプと端末の戻るではバトルの画面を閉じず、上に開いた技の詳細は端のスワイプで閉じ、勝敗の画面で閉じる', (
     tester,
   ) async {
     tester.view
