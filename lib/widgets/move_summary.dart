@@ -89,30 +89,32 @@ class MoveSummary extends StatelessWidget {
         ),
       ),
       const SizedBox(height: 4),
-      LayoutBuilder(
-        builder: (context, constraints) => Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            if (move.specialEffect case final specialEffect?)
-              Expanded(
-                child: Text(
-                  specialEffect.summary,
-                  style: SnapmonTextStyles.small.copyWith(
-                    fontWeight: FontWeight.w400,
-                    color: SnapmonColors.textOnCardMuted,
-                  ),
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          if (move.specialEffect case final specialEffect?)
+            Expanded(
+              child: Text(
+                specialEffect.summary,
+                style: SnapmonTextStyles.small.copyWith(
+                  fontWeight: FontWeight.w400,
+                  color: SnapmonColors.textOnCardMuted,
                 ),
-              )
-            else
-              const Spacer(),
-            const SizedBox(width: 8),
-            // PP は技を選ぶ判断に効くことが少ないため、威力より小さく細くして右下に置く。
-            // 薄さは大きさと太さで出し、色は生成りの地で読める textOnCardMuted にする (暗い地の textMuted はコントラスト比 2.2 で読めない)。
-            // 幅の上限は、通常の文字の PP (「PP 30/30」で約 45px) がいちばん狭い端末の技のボタン (中の幅約 107px) の半分に入り、
-            // 説明が残りの幅を使えるように段の半分にする。上限が無いと大きい文字で PP が段からはみ出して例外になり、
-            // Flexible にすると説明と PP が幅を等分して説明が狭まる
-            ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: constraints.maxWidth / 2),
+              ),
+            )
+          else
+            const Spacer(),
+          const SizedBox(width: 8),
+          // PP は技を選ぶ判断に効くことが少ないため、威力より小さく細くして右下に置く。
+          // 薄さは大きさと太さで出し、色は生成りの地で読める textOnCardMuted にする (暗い地の textMuted はコントラスト比 2.2 で読めない)。
+          // 説明と PP は幅を半分ずつ分け、PP はその中で右に寄せる。Row の子のままだと大きい文字で PP が段からはみ出して例外になる。
+          // PP の取り分を半分より狭くする (説明 3 : PP 2、上限 80px) と、横向きのスマホで文字を 2 倍にした時に PP が 3〜4 行に
+          // 折り返して技のボタンが高くなり、スクロールしても押せなくなる (battle_screen_test の「横向きのスマホで文字を 2 倍にしても…
+          // 技のボタンを押せる」で測った)。段の幅から上限を求めない (LayoutBuilder) のは、技のボタンが IntrinsicHeight の中にあり、
+          // LayoutBuilder が intrinsic の高さを返せず描画が止まるため
+          Flexible(
+            child: Align(
+              alignment: Alignment.bottomRight,
               child: Text(
                 '${context.l10n.movePowerPoints} ${switch (remainingPowerPoints) {
                   final remainingPowerPoints? => '$remainingPowerPoints/${move.powerPoints}',
@@ -125,8 +127,8 @@ class MoveSummary extends StatelessWidget {
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     ],
   );
