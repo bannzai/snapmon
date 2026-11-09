@@ -56,6 +56,84 @@
           "description": "Create 30 monsters from your photos"
         }
       ]
+    },
+    {
+      "productId": "snapmon_actioncardrank1_100yen",
+      "referenceName": "Action Card Rank 1",
+      "type": "CONSUMABLE",
+      "reviewNote": "買うと好きな技を 1 つ選んで手に入れ、何体のモンスターにでも覚えさせられる消耗型の商品です。技は人気で 3 つのランクに分かれ、このランク以下の技から選べます。モンスターの詳細の画面から購入します。",
+      "price": {
+        "base_territory": "JPN",
+        "customer_price": "100"
+      },
+      "availability": {
+        "available_in_new_territories": true,
+        "territories": "ALL"
+      },
+      "locales": [
+        {
+          "locale": "ja",
+          "name": "Action Card ランク 1",
+          "description": "好きな技を 1 つ選んで何体にでも覚えさせられる"
+        },
+        {
+          "locale": "en-US",
+          "name": "Action Card Rank 1",
+          "description": "Pick one move and teach it to any of your monsters"
+        }
+      ]
+    },
+    {
+      "productId": "snapmon_actioncardrank2_300yen",
+      "referenceName": "Action Card Rank 2",
+      "type": "CONSUMABLE",
+      "reviewNote": "買うと好きな技を 1 つ選んで手に入れ、何体のモンスターにでも覚えさせられる消耗型の商品です。技は人気で 3 つのランクに分かれ、このランク以下の技から選べます。モンスターの詳細の画面から購入します。",
+      "price": {
+        "base_territory": "JPN",
+        "customer_price": "300"
+      },
+      "availability": {
+        "available_in_new_territories": true,
+        "territories": "ALL"
+      },
+      "locales": [
+        {
+          "locale": "ja",
+          "name": "Action Card ランク 2",
+          "description": "好きな技を 1 つ選んで何体にでも覚えさせられる"
+        },
+        {
+          "locale": "en-US",
+          "name": "Action Card Rank 2",
+          "description": "Pick one move and teach it to any of your monsters"
+        }
+      ]
+    },
+    {
+      "productId": "snapmon_actioncardrank3_500yen",
+      "referenceName": "Action Card Rank 3",
+      "type": "CONSUMABLE",
+      "reviewNote": "買うと好きな技を 1 つ選んで手に入れ、何体のモンスターにでも覚えさせられる消耗型の商品です。技は人気で 3 つのランクに分かれ、このランク以下の技から選べます。モンスターの詳細の画面から購入します。",
+      "price": {
+        "base_territory": "JPN",
+        "customer_price": "500"
+      },
+      "availability": {
+        "available_in_new_territories": true,
+        "territories": "ALL"
+      },
+      "locales": [
+        {
+          "locale": "ja",
+          "name": "Action Card ランク 3",
+          "description": "好きな技を 1 つ選んで何体にでも覚えさせられる"
+        },
+        {
+          "locale": "en-US",
+          "name": "Action Card Rank 3",
+          "description": "Pick one move and teach it to any of your monsters"
+        }
+      ]
     }
   ]
 }
