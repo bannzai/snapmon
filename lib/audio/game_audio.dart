@@ -81,11 +81,15 @@ class GameAudio extends ChangeNotifier {
   })
   saveSetting;
 
+  /// 「BGM」のオン・オフのうち、ユーザーが最後に選んだ値 (設定画面のスイッチの表示用)。切り替えた瞬間に変わる。
+  /// 音の停止・再開と保存が済んだ値は [_appliedBackgroundMusicEnabled] で、こちらより遅れて変わる。
   bool _isBackgroundMusicEnabled;
 
   /// 「BGM」のオン・オフのうち、音の停止・再開と保存まで済ませた最新の値。
   /// [_isBackgroundMusicEnabled] は切り替えた瞬間に変わる (スイッチの表示用) のに対し、こちらは待ち行列で順番が回ってから変わる。
   bool _appliedBackgroundMusicEnabled;
+
+  /// 「効果音」のオン・オフのうち、ユーザーが最後に選んだ値。効果音は待ち行列を通さないため、反映済みの値を別に持たない。
   bool _isSoundEffectsEnabled;
 
   /// 最後に求められた BGM。止めた後と、まだ求められていない間は null。
