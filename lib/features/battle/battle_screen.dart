@@ -15,7 +15,6 @@ import '../../domain/battle/status_condition.dart';
 import '../../domain/master/master_data.dart';
 import '../../domain/master/move.dart';
 import '../../domain/monster/monster_state.dart';
-import '../../domain/monster/stat_calculation.dart';
 import '../../l10n/l10n.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
@@ -273,25 +272,33 @@ class _BattleScreenState extends State<BattleScreen>
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     unawaited(_gameAudio.playBackgroundMusic(music: BackgroundMusic.battle));
-    List<BattleMonster> prepare({required List<OwnedMonster> party}) => [
+    List<BattleMonster> prepare({
+      required List<OwnedMonster> party,
+      required int maximumHitPointsPercent,
+    }) => [
       for (final monster in party)
         prepareBattleMonster(
           definition: monster.definition,
           level: monster.level,
           experience: 0,
           master: widget.definitions,
+          maximumHitPointsPercent: maximumHitPointsPercent,
         ),
     ];
+    // PvP の相手は他のユーザーが育てたモンスターで、表示するレベルどおりの強さで戦わせるため、ダメージも最大 HP も補正しない
+    final isCpu = widget.opponentKind == BattleOpponentKind.cpu;
     _battleState = startBattle(
-      playerMembers: prepare(party: widget.playerParty),
-      opponentMembers: prepare(party: widget.opponentParty),
+      playerMembers: prepare(
+        party: widget.playerParty,
+        maximumHitPointsPercent: 100,
+      ),
+      opponentMembers: prepare(
+        party: widget.opponentParty,
+        maximumHitPointsPercent: isCpu ? cpuHitPointsPercent : 100,
+      ),
       randomSeed: widget.randomSeed,
       battleDate: DateTime.now(),
-      opponentDamagePercent: switch (widget.opponentKind) {
-        BattleOpponentKind.cpu => cpuDamagePercent,
-        // 相手は他のユーザーが育てたモンスターで、表示するレベルどおりの強さで戦わせるため補正しない
-        BattleOpponentKind.pvp => 100,
-      },
+      opponentDamagePercent: isCpu ? cpuDamagePercent : 100,
     );
     _displayedActiveMembers = _activeMembersOf(state: _battleState);
     final firstOpponentName =
@@ -506,6 +513,7 @@ class _BattleScreenState extends State<BattleScreen>
     final member = _displayedActiveMembers[side]!;
     _displayedActiveMembers[side] = BattleMonster(
       definition: member.definition,
+      maximumHitPointsPercent: member.maximumHitPointsPercent,
       state: update(member.state),
     );
   }
@@ -2001,12 +2009,8 @@ class _MonsterStatusCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final maximumHitPoints = calculateStats(
-      baseStats: monster.definition.baseStats,
-      individualValues: monster.definition.individualValues,
-      level: monster.state.level,
-      statCalculationVersion: monster.definition.statCalculationVersion,
-    ).hitPoints;
+    // CPU の手持ちは最大 HP に割合を掛けるため、ステータスの計算式の HP ではなく補正後の最大 HP を分母にする
+    final maximumHitPoints = effectiveStats(monster: monster).hitPoints;
     return Container(
       width: _monsterStatusCardWidth,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),

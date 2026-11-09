@@ -67,7 +67,7 @@ verify:
 	flutter pub get
 	flutter gen-l10n
 	flutter analyze --no-pub --no-fatal-infos --fatal-warnings
-	dart format --set-exit-if-changed lib test store_screenshots
+	dart format --set-exit-if-changed lib test store_screenshots tool
 	flutter test
 	bash scripts/test/test-set-webtunnel-setup-env-secret.sh
 	bash scripts/test/test-makefile-targets.sh
