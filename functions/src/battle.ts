@@ -2,7 +2,7 @@ import { FieldValue, getFirestore } from "firebase-admin/firestore";
 import { logger } from "firebase-functions";
 import { CallableRequest, HttpsError, onCall } from "firebase-functions/v2/https";
 
-import { MOVE_USAGE_SHARD_COUNT, equippedMoveIds, moveUsageDocumentId } from "./action_card_rules";
+import { equippedMoveIds } from "./action_card_rules";
 import { ENFORCE_APP_CHECK } from "./app_check";
 import {
   DAILY_BATTLE_LIMIT,
@@ -162,13 +162,14 @@ export const recordBattle = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
     return { levels: nextLevels, moveUsage: { dayKey: today, counts: moveUsageCounts } };
   });
   if (moveUsage !== undefined && Object.keys(moveUsage.counts).length > 0) {
-    // 使用回数は全ユーザーが書く文書のため、レベルの記録のトランザクションの外で、分けた文書のどれかに書く (action_card_rules.ts の
-    // MOVE_USAGE_SHARD_COUNT)。書けなくてもレベルの記録は済んでいるため、記録を失敗させずにログだけ残す。
+    // 使用回数の文書は全ユーザーのバトルの記録が書くため、レベルの記録のトランザクションの外で書く。1 文書への書き込みの頻度には
+    // 上限があり ("you can't update a single document at an unlimited rate." https://firebase.google.com/docs/firestore/solutions/counters )、
+    // 同じトランザクションに入れると、ぶつかった時にレベルの記録まで失敗するため。書けなくてもレベルの記録は済んでいるため、失敗させずにログだけ残す。
     // 完了済みの battleId の再送は上で数えずに返すため、ここに来るのは記録した 1 回だけ (書き損じた分はランクの集計から抜けるが、二重には数えない)
     try {
       // ドット区切りの update は文書が無いと失敗し、技の ID の `.` を区切りと読むため、入れ子の値を merge で書く
       await firestore
-        .doc(`moveUsageDailyCounts/${moveUsageDocumentId({ dayKey: moveUsage.dayKey, shard: Math.floor(Math.random() * MOVE_USAGE_SHARD_COUNT) })}`)
+        .doc(`moveUsageDailyCounts/${moveUsage.dayKey}`)
         .set({ counts: Object.fromEntries(Object.entries(moveUsage.counts).map(([moveId, count]) => [moveId, FieldValue.increment(count)])) }, { merge: true });
     } catch (error) {
       logger.error("技の使用回数を書けませんでした", { error, battleId });

@@ -24,20 +24,6 @@ export const MAXIMUM_EQUIPPED_MOVE_COUNT = 4;
 export const MOVE_USAGE_WINDOW_DAYS = 7;
 
 /**
- * 技の 1 日の使用回数を分けて置く文書の数 (`moveUsageDailyCounts/{日付}_{0〜9}`)。全ユーザーのバトルの記録が同じ 1 文書に書き込むと、
- * Firestore の 1 文書あたりの書き込みの上限に当たるため分ける ("In Cloud Firestore, you can't update a single document at an unlimited rate."、
- * 分散カウンタの例は 1 文書を "incremented once per second" として扱う。https://firebase.google.com/docs/firestore/solutions/counters )。
- * 10 にしたのは、1 文書を毎秒 1 回とすると毎秒 10 戦 (1 日 86 万戦。1 人 1 日 50 戦の上限まで遊ぶ人が 1.7 万人いても足りる) を受けられ、
- * ランクの計算が読む文書が 7 日分で 70 件に収まるため。
- */
-export const MOVE_USAGE_SHARD_COUNT = 10;
-
-/** [dayKey] の日の [shard] 番目の、技の使用回数の文書の ID。 */
-export function moveUsageDocumentId({ dayKey, shard }: { dayKey: string; shard: number }): string {
-  return `${dayKey}_${shard}`;
-}
-
-/**
  * 買える技のうちランク 3 にする割合 (%)。仮の値: 高い段が多すぎると 500 円の技がありふれて見えるため、上位の 2 割にした (#271)。
  */
 export const RANK_3_USAGE_PERCENT = 20;

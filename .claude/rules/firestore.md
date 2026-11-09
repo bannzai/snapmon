@@ -23,7 +23,7 @@ paths:
 | `users/{uid}/actionCards/{moveId}` | 買い切った技 (形は `functions/src/action_cards.ts` の `ActionCardDocument`)。redeemActionCard が作り、持っている間は本人のどのモンスターにも覚えさせられる | 本人が読む | 書く |
 | `users/{uid}/generationAliases/{requestId}` | 同じ写真・マスクの組で別の要求 ID の結果を使い回した要求の、使い回し先 (`reusedRequestId`)。同じ要求 ID の再送に結果を返すため | 読み書きしない | 書く |
 | `generationDailyCounts/{YYYY-MM-DD}` | プロジェクト全体の 1 日の生成数 (原価の上限のカウンタ。日付は日本時間) | 読み書きしない | 書く |
-| `moveUsageDailyCounts/{YYYY-MM-DD}_{0〜9}` | 技の 1 日の使用回数 (`counts.{moveId}`。日付は日本時間。全ユーザーの書き込みが 1 文書に集まらないよう 10 件に分け、合計を使う。`functions/src/action_card_rules.ts` の `MOVE_USAGE_SHARD_COUNT`)。recordBattle がレベルの記録の後に、参加したモンスターの技の枠の技を分けた文書のどれかに 1 ずつ足し、updateMoveRanks が技のランクを決めるのに使う (ランクは購入の可否の判定に使う値で、集計のサマリーに当たらない) | 読み書きしない | 書く |
+| `moveUsageDailyCounts/{YYYY-MM-DD}` | 技の 1 日の使用回数 (`counts.{moveId}`。日付は日本時間)。recordBattle がレベルの記録のトランザクションの後に、参加したモンスターの技の枠の技を 1 ずつ足し、updateMoveRanks が技のランクを決めるのに使う (ランクは購入の可否の判定に使う値で、集計のサマリーに当たらない) | 読み書きしない | 書く |
 | `moveRanks/current` | 技のランクの表 (形は `functions/src/action_cards.ts` の `MoveRanksDocument`)。updateMoveRanks が毎日書く | 読む (ログインしたユーザー) | 書く |
 | `config/features` | 機能を出すかの切り替え (`actionCardsVisible`: Action Card の画面を出すか。無ければ出さない) | 読む (ログインしたユーザー) | `functions/scripts/set-feature-flag.mjs` が書く |
 | `iconCheckDailyCounts/{YYYY-MM-DD}` | プロジェクト全体の 1 日のアイコンの検査の数 (Cloud Vision の原価の上限のカウンタ。日付は日本時間。`functions/src/profile.ts`) | 読み書きしない | 書く |

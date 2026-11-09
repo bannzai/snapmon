@@ -4,7 +4,6 @@ import { connectAuthEmulator, getAuth, signInAnonymously, signOut, type User } f
 import { deleteDoc, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 
-import { MOVE_USAGE_SHARD_COUNT, moveUsageDocumentId } from "../../src/action_card_rules";
 import { ENFORCE_APP_CHECK } from "../../src/app_check";
 import { DAILY_BATTLE_LIMIT, MAXIMUM_LEVEL, battleDayKey } from "../../src/battle_rules";
 
@@ -82,20 +81,13 @@ async function seedMonsters({ uid, levels }: { uid: string; levels: Record<strin
   });
 }
 
-/** 今日 (日本時間) の技の使用回数の文書のうち、あるものの中身を Rules を通さずに読む。 */
-async function moveUsageDocumentsOfToday(): Promise<{ counts: Record<string, number> }[]> {
-  const usageDocuments: { counts: Record<string, number> }[] = [];
+/** 今日 (日本時間) の技の使用回数の文書の `counts` を Rules を通さずに読む。文書が無ければ undefined。 */
+async function moveUsageCountsOfToday(): Promise<unknown> {
+  let counts: unknown;
   await testEnvironment.withSecurityRulesDisabled(async (context) => {
-    for (let shard = 0; shard < MOVE_USAGE_SHARD_COUNT; shard++) {
-      const snapshot = await getDoc(
-        doc(context.firestore(), `moveUsageDailyCounts/${moveUsageDocumentId({ dayKey: battleDayKey({ now: new Date() }), shard })}`),
-      );
-      if (snapshot.exists()) {
-        usageDocuments.push(snapshot.data() as { counts: Record<string, number> });
-      }
-    }
+    counts = (await getDoc(doc(context.firestore(), `moveUsageDailyCounts/${battleDayKey({ now: new Date() })}`))).get("counts");
   });
-  return usageDocuments;
+  return counts;
 }
 
 /** [uid] の図鑑のモンスター [monsterId] を Rules を通さずに読む。 */
@@ -255,11 +247,8 @@ describe("startBattle と recordBattle", () => {
     expect((await recordBattle({ user, battleId, participantMonsterIds: ["m1", "m2"] })).status).toBe(200);
     // 同じ battleId の再送は数えない
     expect((await recordBattle({ user, battleId, participantMonsterIds: ["m1", "m2"] })).status).toBe(200);
-    // 1 回のバトルの分は分けた文書のどれか 1 つにまとめて書く
-    const usageDocuments = await moveUsageDocumentsOfToday();
-    expect(usageDocuments).toHaveLength(1);
     // b は 2 体の枠にあるため 2 回
-    expect(usageDocuments[0].counts).toEqual({ b: 1 + 1, c: 1, d: 1, e: 1, x: 1 });
+    expect(await moveUsageCountsOfToday()).toEqual({ b: 1 + 1, c: 1, d: 1, e: 1, x: 1 });
   });
 
   it("learnset の無いモンスターは使用回数に数えずにレベルを上げる", async () => {
@@ -269,7 +258,7 @@ describe("startBattle と recordBattle", () => {
 
     expect((await recordBattle({ user, battleId, participantMonsterIds: ["m1"] })).status).toBe(200);
     expect(await readMonster({ uid: user.uid, monsterId: "m1" })).toMatchObject({ level: 6 });
-    expect(await moveUsageDocumentsOfToday()).toEqual([]);
+    expect(await moveUsageCountsOfToday()).toBeUndefined();
   });
 
   it("カスタムクレームの無い匿名ログインで呼べる", async () => {
