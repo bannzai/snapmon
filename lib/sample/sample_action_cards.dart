@@ -68,7 +68,7 @@ class SampleActionCards {
   ];
 
   /// 買い切った技の ID。
-  Set<String> get _ownedMoveIds => {
+  Set<String> get _ownedMoveIDs => {
     for (final purchase in purchases.value) ?purchase.moveID,
   };
 
@@ -126,7 +126,7 @@ class SampleActionCards {
 
   /// reserveActionCardMove の代わり。買い切り済み・ランクが [rank] と違う時に断るのは Functions と同じ。
   Future<String> _reserve({required String moveID, required int rank}) async {
-    if (_ownedMoveIds.contains(moveID)) {
+    if (_ownedMoveIDs.contains(moveID)) {
       throw StateError('$moveID は買い切り済みです');
     }
     final moveRank = rankByMoveId.value?[moveID];
@@ -175,7 +175,7 @@ class SampleActionCards {
           reservation != null &&
           reservedMoveRank != null &&
           reservedMoveRank <= reservation.rank &&
-          !_ownedMoveIds.contains(reservation.moveID);
+          !_ownedMoveIDs.contains(reservation.moveID);
       _addPurchase(
         rank: rank,
         moveID: canReceive ? reservation.moveID : null,
@@ -199,7 +199,7 @@ class SampleActionCards {
     if (purchase.moveID != null) {
       throw StateError('$actionCardPurchaseID は技を受け取り済みです');
     }
-    if (_ownedMoveIds.contains(moveID)) {
+    if (_ownedMoveIDs.contains(moveID)) {
       throw StateError('$moveID は買い切り済みです');
     }
     final moveRank = rankByMoveId.value?[moveID];
@@ -229,7 +229,7 @@ class SampleActionCards {
     required String monsterId,
     required String moveId,
   }) async {
-    if (!_ownedMoveIds.contains(moveId)) {
+    if (!_ownedMoveIDs.contains(moveId)) {
       throw StateError('$moveId を買い切っていません');
     }
     final actionCardMoveIds = actionCardMoveIdsOf(monsterId: monsterId);

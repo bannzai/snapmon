@@ -259,7 +259,6 @@ describe("Action Card の購入の記録 (買い切った技は購入の moveID)
     await assertFails(setDoc(doc(firestore, "users/alice/monsters/m1"), { actionCardMoveIds: ["fire_1"] }, { merge: true }));
   });
 });
-});
 
 describe("技のランクの表・機能の切り替え・技の使用回数", () => {
   beforeEach(async () => {

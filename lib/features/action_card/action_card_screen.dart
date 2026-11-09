@@ -41,10 +41,10 @@ List<Move> assignableMovesOfPurchase({
 }) {
   final movesById = _movesById(master: master);
   return [
-    for (final MapEntry(key: moveId, value: moveRank)
+    for (final MapEntry(key: moveID, value: moveRank)
         in (store.rankByMoveId ?? const <String, int>{}).entries)
-      if (moveRank <= purchase.rank && !store.ownedMoveIds.contains(moveId))
-        ?movesById[moveId],
+      if (moveRank <= purchase.rank && !store.ownedMoveIds.contains(moveID))
+        ?movesById[moveID],
   ]..sort((left, right) => left.id.compareTo(right.id));
 }
 
@@ -132,11 +132,11 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
     // 売っているランクの技だけを出す (offering に無いランクの技は値段を出せず買えないため)
     final purchasableMoves = [
       if (rankByMoveId != null && store.isPurchaseEntryVisible)
-        for (final MapEntry(key: moveId, value: moveRank)
+        for (final MapEntry(key: moveID, value: moveRank)
             in rankByMoveId.entries)
-          if (!store.ownedMoveIds.contains(moveId) &&
+          if (!store.ownedMoveIds.contains(moveID) &&
               actionCardPackageOfRank(store: store, rank: moveRank) != null)
-            ?movesById[moveId],
+            ?movesById[moveID],
     ]..sort((left, right) => left.id.compareTo(right.id));
     // 選んだ属性の技を買い切り終えるとその属性のチップは消えるため、買える技が無い属性はすべてとして扱う
     // (一覧が空のまま、どのチップも選ばれていない状態にしないため)。選んだ値も次のフレームで解除する
