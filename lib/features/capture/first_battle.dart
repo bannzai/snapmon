@@ -12,7 +12,7 @@ typedef FirstBattleOpponent = ({
 });
 
 /// 生まれたモンスターを手持ちに入れた後の [dexStore] の手持ちと戦う、初回のバトルの相手を決める。
-/// 相手は対戦タブと同じく [randomSeed] で決めた CPU の相手 ([chooseRandomCpuOpponent]) で、他のユーザーの手持ち
+/// 相手は対戦のシーンと同じく [randomSeed] で決めた CPU の相手 ([chooseRandomCpuOpponent]) で、他のユーザーの手持ち
 /// (Functions の fetchOpponents) は相手にしない (本人の操作なしに他人の手持ちを CPU に操作させないため。issue #130)。
 /// 図鑑の定義を読み直せない時は例外を投げる ([prepareBattleDefinitions])。
 Future<FirstBattleOpponent> prepareFirstBattleOpponent({

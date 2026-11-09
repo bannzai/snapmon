@@ -97,7 +97,7 @@ abstract final class SnapmonTextStyles {
     color: SnapmonColors.textMuted,
   );
 
-  /// さらに小さな太字 (レベル・技の補足・下タブ)。
+  /// さらに小さな太字 (レベル・技の補足)。
   static const TextStyle small = TextStyle(
     fontFamily: bodyFontFamily,
     fontSize: 11,

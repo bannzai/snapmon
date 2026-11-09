@@ -4,6 +4,7 @@ import 'dart:math' as math;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../../common_ui/scene_route.dart';
 import '../../analytics/analytics_events.dart';
 import '../../audio/game_audio.dart';
 import '../../l10n/l10n.dart';
@@ -42,9 +43,9 @@ enum TitleAction {
 }
 
 /// 起動後の最初の画面 (モックの documents/design/mock-2026-10-23/Title.dc.html)。世界観を 1 枚で見せ、
-/// 写真から選ぶかカメラで撮るかで体験を始める。図鑑に 1 体以上いれば「つづきから」で下タブの画面に入る。
+/// 写真から選ぶかカメラで撮るかで体験を始める。図鑑に 1 体以上いれば「つづきから」でホームの画面に入る。
 ///
-/// ログインが済んでいない時は、ボタンを押してから下タブ・生成に進む前にログインを済ませる。画面を開いた時に裏でログインを始め、
+/// ログインが済んでいない時は、ボタンを押してからホームの画面・生成に進む前にログインを済ませる。画面を開いた時に裏でログインを始め、
 /// 失敗はボタンを押した時に「つながりませんでした」と再試行で出す。
 class TitleScreen extends StatefulWidget {
   /// タイトル画面を作る。
@@ -101,9 +102,9 @@ class TitleScreen extends StatefulWidget {
   })
   logEvent;
 
-  /// 下タブの画面を [tab] から開く。[startsCamera] は撮る画面を開いた時に押すのを待たずにカメラを開くか
+  /// ホームの画面を [scene] から開く。[startsCamera] は撮る画面を開いた時に押すのを待たずにカメラを開くか
   /// (「カメラで撮ってはじめる」を押した時だけ true)。
-  final void Function({required HomeTab tab, required bool startsCamera})
+  final void Function({required HomeScene scene, required bool startsCamera})
   onEnterHome;
 
   @override
@@ -251,7 +252,7 @@ class _TitleScreenState extends State<TitleScreen> {
     }
   }
 
-  /// 下タブ・生成に進める状態 (ログイン済みか DEBUG で飛ばした) にする。済んでいなければログインの画面
+  /// ホームの画面・生成に進める状態 (ログイン済みか DEBUG で飛ばした) にする。済んでいなければログインの画面
   /// (裏のログインが途中なら「じゅんびしています」) を開いて済むまで待つ。戻るで閉じられた時は false。
   Future<bool> _ensureCanEnterApp() async {
     final sessionStore = widget.sessionStore;
@@ -261,7 +262,7 @@ class _TitleScreenState extends State<TitleScreen> {
     // 裏のログインが途中でも、通信が遅い時にタイトルで黙って待たせないよう、すぐ「じゅんびしています」の画面を出す
     // (ログインの画面が start を呼び直しても、途中なら SessionStore.start が何もしない)
     await Navigator.of(context).push(
-      MaterialPageRoute<void>(
+      sceneRoute<void>(
         builder: (context) => _SessionGateScreen(
           sessionStore: sessionStore,
           isDebugSkipEnabled: widget.isDeveloperMenuEnabled,
@@ -272,7 +273,7 @@ class _TitleScreenState extends State<TitleScreen> {
   }
 
   /// 写真から選んではじめる。選ばずに閉じた時はタイトルに留まる。手持ちが空なら生成の画面は初回の導線になり、
-  /// 生まれたらそのまま戦う ([GenerationScreen.startsFirstBattle])。生成の画面を閉じた後は、結果にかかわらず下タブの画面に進む
+  /// 生まれたらそのまま戦う ([GenerationScreen.startsFirstBattle])。生成の画面を閉じた後は、結果にかかわらずホームの画面に進む
   /// (生まれたカードから手持ちに入れた時と初回のバトルの「図鑑を見る」は図鑑、それ以外は撮る。撮る画面からの生成と同じ)。
   Future<void> _startFromAlbum() => _run(
     work: () async {
@@ -285,7 +286,7 @@ class _TitleScreenState extends State<TitleScreen> {
         return;
       }
       final action = await Navigator.of(context).push(
-        MaterialPageRoute<ResultScreenAction>(
+        sceneRoute<ResultScreenAction>(
           builder: (context) => GenerationScreen(
             sourcePhoto: photo,
             photoSource: GenerationPhotoSource.album,
@@ -302,25 +303,25 @@ class _TitleScreenState extends State<TitleScreen> {
       );
       if (mounted) {
         widget.onEnterHome(
-          tab: action == ResultScreenAction.openDex
-              ? HomeTab.dex
-              : HomeTab.capture,
+          scene: action == ResultScreenAction.openDex
+              ? HomeScene.dex
+              : HomeScene.capture,
           startsCamera: false,
         );
       }
     },
   );
 
-  /// [action] のボタンで、下タブの画面を [tab] から開く。
+  /// [action] のボタンで、ホームの画面を [scene] から開く。
   Future<void> _enterHome({
     required TitleAction action,
-    required HomeTab tab,
+    required HomeScene scene,
   }) => _run(
     work: () async {
       await _logAction(action: action);
       if (await _ensureCanEnterApp() && mounted) {
         widget.onEnterHome(
-          tab: tab,
+          scene: scene,
           startsCamera: action == TitleAction.camera,
         );
       }
@@ -335,7 +336,7 @@ class _TitleScreenState extends State<TitleScreen> {
         return;
       }
       await Navigator.of(context).push(
-        MaterialPageRoute<void>(
+        sceneRoute<void>(
           builder: (context) => SettingsScreen(
             sampleData: widget.sampleData,
             dexStore: widget.dexStore,
@@ -445,7 +446,7 @@ class _TitleScreenState extends State<TitleScreen> {
                 isPrimary: false,
                 onPressed: () => _enterHome(
                   action: TitleAction.camera,
-                  tab: HomeTab.capture,
+                  scene: HomeScene.capture,
                 ),
               ),
             ],
@@ -475,7 +476,7 @@ class _TitleScreenState extends State<TitleScreen> {
                     style: _TitleTextStyles.continueLink,
                     onTap: () => _enterHome(
                       action: TitleAction.continueFromDex,
-                      tab: HomeTab.dex,
+                      scene: HomeScene.dex,
                     ),
                   ),
                 );
@@ -1103,7 +1104,7 @@ class TitleHeroPainter extends CustomPainter {
       oldDelegate.pupilOffset != pupilOffset;
 }
 
-/// タイトルのボタンを押した後、下タブ・生成に進める状態になるまで出す画面。ログインの画面 (失敗なら「つながりませんでした」と
+/// タイトルのボタンを押した後、ホームの画面・生成に進める状態になるまで出す画面。ログインの画面 (失敗なら「つながりませんでした」と
 /// 再試行) を出し、進める状態になったら閉じる。
 class _SessionGateScreen extends StatefulWidget {
   const _SessionGateScreen({

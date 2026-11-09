@@ -317,7 +317,7 @@ class _TicketPurchaseSheetState extends State<_TicketPurchaseSheet> {
         ];
 }
 
-/// 撮るタブの生成チケットの残高。売っている package があり、残高が正の時だけ出す (閉じている間の見え方を変えないため。Web は売っていない)。
+/// 撮るのシーンの生成チケットの残高。売っている package があり、残高が正の時だけ出す (閉じている間の見え方を変えないため。Web は売っていない)。
 class GenerationTicketBalance extends StatefulWidget {
   /// 残高の表示を作る。
   const GenerationTicketBalance({super.key, required this.monsterGenerator});

@@ -561,11 +561,16 @@ void main() {
       await tester.pump();
     }
 
-    // 似ているが閉じる側: バトルの画面の上に開いた技の詳細は、同じスワイプで閉じる (スワイプの操作が戻るとして効くことの確かめ)
+    // 似ているが閉じる側: バトルの画面の上に開いた技の詳細は、端末の戻るで閉じる (戻る操作が効くことの確かめ)。
+    // 技の詳細はフェードの route (#264) で開くため、端のスワイプでは閉じない
     await tester.longPress(find.byKey(const Key('move-slot-0')));
     await tester.pump(const Duration(seconds: 1));
     expect(find.byType(MoveDetailScreen), findsOneWidget);
     await swipeFromLeftEdge();
+    expect(find.byType(MoveDetailScreen), findsOneWidget);
+    await tester.binding.handlePopRoute();
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
     expect(find.byType(MoveDetailScreen), findsNothing);
     expect(find.byType(BattleScreen), findsOneWidget);
 

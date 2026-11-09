@@ -15,7 +15,7 @@ import 'monster_detail_card.dart';
 
 /// 生まれた画面 (モックの Result.dc.html) を閉じた後に、呼び出し元にしてほしいこと。
 enum ResultScreenAction {
-  /// 図鑑のタブを開く。
+  /// 図鑑のシーンを開く。
   openDex,
 }
 

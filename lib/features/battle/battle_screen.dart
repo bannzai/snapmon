@@ -36,7 +36,7 @@ import 'move_effect_sprite_sheets.dart';
 
 /// バトル画面を閉じた後に、呼び出し元にしてほしいこと。
 enum BattleScreenAction {
-  /// 図鑑のタブを開く (勝敗の画面の「図鑑を見る」)。
+  /// 図鑑のシーンを開く (勝敗の画面の「図鑑を見る」)。
   openDex,
 }
 
@@ -360,7 +360,7 @@ class _BattleScreenState extends State<BattleScreen>
     for (final artImage in _loadedArtImages) {
       artImage.dispose();
     }
-    // 閉じた先 (対戦・撮るのタブ、生まれた画面) は下タブの画面のため、その曲に戻す
+    // 閉じた先 (対戦・撮るのシーン、生まれた画面) はホームの画面のため、その曲に戻す
     unawaited(_gameAudio.playBackgroundMusic(music: BackgroundMusic.home));
     super.dispose();
   }
@@ -435,7 +435,7 @@ class _BattleScreenState extends State<BattleScreen>
       _isPlaying = false;
     });
     if (nextState.winner != null) {
-      // 決着の曲は無いため BGM を止め、勝敗の効果音だけを鳴らす (画面を閉じると下タブの曲に戻る)
+      // 決着の曲は無いため BGM を止め、勝敗の効果音だけを鳴らす (画面を閉じるとホームの画面の曲に戻る)
       unawaited(_gameAudio.stopBackgroundMusic());
       unawaited(
         _gameAudio.playSoundEffect(

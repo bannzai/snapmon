@@ -161,7 +161,7 @@ void main() {
               watchGenerationTickets: () => generationTickets,
               logEvent: generator.logEvent,
             ),
-            onSelectTab: ({required tab}) {},
+            onSelectScene: ({required scene}) {},
             onOpenSettings: () {},
             sampleData: loadSampleDataFixture(),
             pvpClient: signedOutPvpClient(calls: RecordedPvpCalls()),
@@ -177,7 +177,7 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  testWidgets('売っている間で残高が正の時は 撮るタブに枚数を出す', (tester) async {
+  testWidgets('売っている間で残高が正の時は 撮るのシーンに枚数を出す', (tester) async {
     await pumpCaptureScreen(
       tester: tester,
       startsCameraOnOpen: false,
@@ -188,7 +188,7 @@ void main() {
     expect(find.text('チケット 7 枚'), findsOneWidget);
   });
 
-  testWidgets('小さい画面と大きい文字でも 残高を出して撮るタブがあふれない', (tester) async {
+  testWidgets('小さい画面と大きい文字でも 残高を出して撮るのシーンがあふれない', (tester) async {
     tester.view
       ..physicalSize = const Size(320, 568)
       ..devicePixelRatio = 1;
@@ -208,7 +208,7 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
-  testWidgets('売っている間でも残高が 0 の時は 撮るタブに何も出さない', (tester) async {
+  testWidgets('売っている間でも残高が 0 の時は 撮るのシーンに何も出さない', (tester) async {
     await pumpCaptureScreen(
       tester: tester,
       startsCameraOnOpen: false,
@@ -219,7 +219,7 @@ void main() {
     expect(find.textContaining('チケット'), findsNothing);
   });
 
-  testWidgets('売っていない間は残高が正でも 撮るタブに何も出さない', (tester) async {
+  testWidgets('売っていない間は残高が正でも 撮るのシーンに何も出さない', (tester) async {
     await pumpCaptureScreen(
       tester: tester,
       startsCameraOnOpen: false,

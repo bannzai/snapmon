@@ -16,11 +16,11 @@ import '../../sample_data_fixture.dart';
 void main() {
   final sampleData = loadSampleDataFixture();
 
-  /// 図鑑の画面を iPhone の画面の大きさ (モックの 390 × 844) で開き、下タブの切り替えを [selectedTabs] に残す。
+  /// 図鑑の画面を iPhone の画面の大きさ (モックの 390 × 844) で開き、シーンの切り替えを [selectedScenes] に残す。
   Future<void> pumpDexScreen({
     required WidgetTester tester,
     required DexStore dexStore,
-    required List<HomeTab> selectedTabs,
+    required List<HomeScene> selectedScenes,
   }) async {
     tester.view
       ..physicalSize = const Size(390, 844)
@@ -35,7 +35,7 @@ void main() {
         home: Scaffold(
           body: DexScreen(
             dexStore: dexStore,
-            onSelectTab: ({required tab}) => selectedTabs.add(tab),
+            onSelectScene: ({required scene}) => selectedScenes.add(scene),
             onOpenSettings: () {},
             cardSharer: fakeCardSharer(
               calls: RecordedShareCalls(),
@@ -66,7 +66,7 @@ void main() {
   testWidgets('手持ちと「すべて」のカードは同じ地の色で、手持ちにだけ黄緑の縁を付ける', (tester) async {
     final dexStore = DexStore(definitions: sampleData.definitions)
       ..replaceAll(monsters: sampleData.monsters.take(1).toList());
-    await pumpDexScreen(tester: tester, dexStore: dexStore, selectedTabs: []);
+    await pumpDexScreen(tester: tester, dexStore: dexStore, selectedScenes: []);
 
     final name = sampleData.monsters.first.definition.name;
     expect(find.text(name), findsNWidgets(2));
@@ -87,7 +87,7 @@ void main() {
     final dexStore = DexStore(definitions: sampleData.definitions)
       ..replaceAll(monsters: sampleData.monsters.take(4).toList());
     await dexStore.removeFromParty(monsterId: firstMonster.definition.id);
-    await pumpDexScreen(tester: tester, dexStore: dexStore, selectedTabs: []);
+    await pumpDexScreen(tester: tester, dexStore: dexStore, selectedScenes: []);
 
     expect(find.byKey(const Key('dex-empty-party-slot')), findsOneWidget);
     await tester.tap(find.byKey(const Key('dex-empty-party-slot')));
@@ -122,7 +122,7 @@ void main() {
   testWidgets('手持ちに入れられるモンスターがいない時は、空いた枠をタップするとその旨を出す', (tester) async {
     final dexStore = DexStore(definitions: sampleData.definitions)
       ..replaceAll(monsters: sampleData.monsters.take(2).toList());
-    await pumpDexScreen(tester: tester, dexStore: dexStore, selectedTabs: []);
+    await pumpDexScreen(tester: tester, dexStore: dexStore, selectedScenes: []);
 
     await tester.tap(find.byKey(const Key('dex-empty-party-slot')));
     await tester.pumpAndSettle();
@@ -144,7 +144,7 @@ void main() {
         ],
         definitions: null,
       );
-    await pumpDexScreen(tester: tester, dexStore: dexStore, selectedTabs: []);
+    await pumpDexScreen(tester: tester, dexStore: dexStore, selectedScenes: []);
 
     expect(find.byKey(const Key('dex-empty-party-slot')), findsOneWidget);
     await tester.tap(find.byKey(const Key('dex-empty-party-slot')));
@@ -154,11 +154,11 @@ void main() {
   });
 
   testWidgets('撮る画面へは見出しのボタンではなく、画面の下の横長の「追加する」から開く', (tester) async {
-    final selectedTabs = <HomeTab>[];
+    final selectedScenes = <HomeScene>[];
     await pumpDexScreen(
       tester: tester,
       dexStore: DexStore(definitions: sampleData.definitions),
-      selectedTabs: selectedTabs,
+      selectedScenes: selectedScenes,
     );
 
     expect(find.text('撮る'), findsNothing);
@@ -190,13 +190,13 @@ void main() {
     expect(tester.getCenter(addButton).dy, greaterThan(844 / 2));
 
     await tester.tap(addButton);
-    expect(selectedTabs, [HomeTab.capture]);
+    expect(selectedScenes, [HomeScene.capture]);
   });
 
   testWidgets('一番下までスクロールすると、最後の行のカードは「追加する」ボタンに隠れない', (tester) async {
     final dexStore = DexStore(definitions: sampleData.definitions)
       ..replaceAll(monsters: sampleData.monsters);
-    await pumpDexScreen(tester: tester, dexStore: dexStore, selectedTabs: []);
+    await pumpDexScreen(tester: tester, dexStore: dexStore, selectedScenes: []);
     // 見本の 6 体は 844 の高さにほぼ収まりスクロールしないため、画面を低くして一番下までスクロールさせる
     tester.view.physicalSize = const Size(390, 600);
     await tester.pump();
