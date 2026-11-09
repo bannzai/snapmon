@@ -41,6 +41,49 @@ void main() {
     ),
   );
 
+  testWidgets('2 列の技のボタンの幅で文字を 3 倍にしても 1 段目がはみ出さず、札が折り返す', (tester) async {
+    // 390 の画面の 2 列の技のボタンの幅 (173) に、長い倍率 (×0.25) の札を 3 倍の文字で入れる。
+    // 札が折り返さないと、Row が「RenderFlex overflowed」の例外を出す (Codex のレビューと観点レビューの指摘)
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: snapmonThemeData(),
+        locale: const Locale('ja'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: MediaQuery(
+          data: const MediaQueryData(textScaler: TextScaler.linear(3)),
+          child: Scaffold(
+            body: Center(
+              child: SizedBox(
+                width: 173,
+                child: MoveSummary(
+                  move: plainMove,
+                  remainingPowerPoints: 12,
+                  typeMultiplier: 0.25,
+                  definitions: sampleData.definitions,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    expect(tester.takeException(), isNull);
+    final elementTypeTag = find.byType(ElementTypeTag);
+    final multiplierText = find.byKey(const Key('move-type-multiplier'));
+    expect(multiplierText, findsOneWidget);
+    // 相性の札は属性の札の右に並ばず、その下に折り返す
+    expect(
+      tester.getTopLeft(multiplierText).dy,
+      greaterThanOrEqualTo(tester.getBottomLeft(elementTypeTag).dy),
+    );
+    // どの札も技のボタンの幅からはみ出さない
+    expect(
+      tester.getBottomRight(multiplierText).dx,
+      lessThanOrEqualTo(tester.getTopRight(find.byType(MoveSummary)).dx),
+    );
+  });
+
   testWidgets('名前と属性の札・威力・特殊効果の説明と PP を別の段と書体で描く', (tester) async {
     await pumpMoveSummary(
       tester: tester,
@@ -122,8 +165,8 @@ void main() {
     testWidgets('相性の倍率 $typeMultiplier は ${expectedText ?? '出さない'}', (
       tester,
     ) async {
-      final semantics = tester.ensureSemantics();
-      addTearDown(semantics.dispose);
+      // 読み上げの名前を find.bySemanticsLabel で確かめるため。テストの終わりの検査より前に dispose する必要があり、addTearDown では間に合わない
+      final semanticsHandle = tester.ensureSemantics();
       await pumpMoveSummary(
         tester: tester,
         remainingPowerPoints: 12,
@@ -135,17 +178,18 @@ void main() {
         expect(multiplierText, findsNothing);
         expect(find.byIcon(Icons.keyboard_double_arrow_up), findsNothing);
         expect(find.byIcon(Icons.keyboard_double_arrow_down), findsNothing);
-        return;
+      } else {
+        expect(tester.widget<Text>(multiplierText).data, expectedText);
+        expect(find.byIcon(expectedIcon!), findsOneWidget);
+        expect(find.bySemanticsLabel(expectedLabel!), findsOneWidget);
+        expect(find.text(expectedLabel), findsNothing);
+        // 属性の札の右に並べ、「鋼 ⇈×2」のように属性と相性を続けて読ませる
+        expect(
+          tester.getTopLeft(multiplierText).dx,
+          greaterThan(tester.getTopRight(find.byType(ElementTypeTag)).dx),
+        );
       }
-      expect(tester.widget<Text>(multiplierText).data, expectedText);
-      expect(find.byIcon(expectedIcon!), findsOneWidget);
-      expect(find.bySemanticsLabel(expectedLabel!), findsOneWidget);
-      expect(find.text(expectedLabel), findsNothing);
-      // 属性の札の右に並べ、「鋼 ⇈×2」のように属性と相性を続けて読ませる
-      expect(
-        tester.getTopLeft(multiplierText).dx,
-        greaterThan(tester.getTopRight(find.byType(ElementTypeTag)).dx),
-      );
+      semanticsHandle.dispose();
     });
   }
 }

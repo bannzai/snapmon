@@ -9,7 +9,7 @@ import '../theme/snapmon_radii.dart';
 import '../theme/snapmon_text_styles.dart';
 import 'monster_parts.dart';
 
-/// 技の中身を 3 段で描く。1 段目は名前と、右に寄せた属性の札・今の相手への相性の札、2 段目は威力、3 段目は特殊効果の説明と右に寄せた PP。
+/// 技の中身を 3 段で描く。1 段目は名前と、右に寄せた属性の札・今の相手への相性の札 (1 行に入らない幅では名前の下の行)、2 段目は威力、3 段目は特殊効果の説明と右に寄せた PP。
 /// 段ごとに書体と色を変え、何が名前で何が属性かを読み分けられるようにする (https://github.com/bannzai/snapmon/issues/123 )。
 /// バトルの技のボタンと、モンスターのカードの覚えている技の行で使う。地はカードの生成りの白を前提にする。
 class MoveSummary extends StatelessWidget {
@@ -41,24 +41,31 @@ class MoveSummary extends StatelessWidget {
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisSize: MainAxisSize.min,
     children: [
-      Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      // 名前を左、札を右に置き、1 行に収まらない幅 (2 列の技のボタンに長い名前と 2 枚の札、大きい文字) では
+      // 札を名前の下の行に送る。Row に並べると、札が入らない時に名前が潰れて Row がはみ出す
+      Wrap(
+        alignment: WrapAlignment.spaceBetween,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        spacing: 8,
+        runSpacing: 4,
         children: [
-          // 名前は札に押されて切れないよう、札を除いた幅で折り返す (2 列の技のボタンの幅では長い名前が 1 行に収まらない)
-          Expanded(
-            child: Text(move.displayName, style: SnapmonTextStyles.moveName),
+          Text(move.displayName, style: SnapmonTextStyles.moveName),
+          // 属性の札と相性の札は「鋼 ⇈×2」と 1 まとまりで読ませるため 1 つの子にし、大きい文字で 2 枚が入らない時だけ札の間で折り返す
+          Wrap(
+            spacing: 4,
+            runSpacing: 4,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              ElementTypeTag(
+                elementTypeId: move.elementTypeId,
+                definitions: definitions,
+              ),
+              // 等倍は出さない (ログの「こうかは ばつぐんだ」「いまひとつ」と同じく、倍率が変わる時だけ知らせる。全部の技に出すと技の枠が埋まるため)
+              if (typeMultiplier case final typeMultiplier?
+                  when typeMultiplier != 1)
+                _TypeEffectivenessTag(typeMultiplier: typeMultiplier),
+            ],
           ),
-          const SizedBox(width: 8),
-          ElementTypeTag(
-            elementTypeId: move.elementTypeId,
-            definitions: definitions,
-          ),
-          // 等倍は出さない (ログの「こうかは ばつぐんだ」「いまひとつ」と同じく、倍率が変わる時だけ知らせる。全部の技に出すと技の枠が埋まるため)
-          if (typeMultiplier case final typeMultiplier?
-              when typeMultiplier != 1) ...[
-            const SizedBox(width: 4),
-            _TypeEffectivenessTag(typeMultiplier: typeMultiplier),
-          ],
         ],
       ),
       const SizedBox(height: 4),
@@ -99,16 +106,19 @@ class MoveSummary extends StatelessWidget {
             const Spacer(),
           const SizedBox(width: 8),
           // PP は技を選ぶ判断に効くことが少ないため、威力より小さく細くして右下に置く。
-          // 薄さは大きさと太さで出し、色は生成りの地で読める textOnCardMuted にする (暗い地の textMuted はコントラスト比 2.2 で読めない)
-          Text(
-            '${context.l10n.movePowerPoints} ${switch (remainingPowerPoints) {
-              final remainingPowerPoints? => '$remainingPowerPoints/${move.powerPoints}',
-              null => '${move.powerPoints}',
-            }}',
-            style: SnapmonTextStyles.small.copyWith(
-              fontSize: 10,
-              fontWeight: FontWeight.w400,
-              color: SnapmonColors.textOnCardMuted,
+          // 薄さは大きさと太さで出し、色は生成りの地で読める textOnCardMuted にする (暗い地の textMuted はコントラスト比 2.2 で読めない)。
+          // Flexible は大きい文字で PP が技のボタンの幅を超えた時に折り返すため (Row の子のままだとはみ出して例外になる)
+          Flexible(
+            child: Text(
+              '${context.l10n.movePowerPoints} ${switch (remainingPowerPoints) {
+                final remainingPowerPoints? => '$remainingPowerPoints/${move.powerPoints}',
+                null => '${move.powerPoints}',
+              }}',
+              style: SnapmonTextStyles.small.copyWith(
+                fontSize: 10,
+                fontWeight: FontWeight.w400,
+                color: SnapmonColors.textOnCardMuted,
+              ),
             ),
           ),
         ],
@@ -152,8 +162,9 @@ class _TypeEffectivenessTag extends StatelessWidget {
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
+            // Row だと大きい文字で札の幅が技のボタンを超えた時にはみ出して例外になるため、矢印と倍率の間で折り返せる Wrap にする
+            child: Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
               children: [
                 Icon(
                   isSuperEffective
