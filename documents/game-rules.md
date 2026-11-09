@@ -107,7 +107,7 @@ master.json の全キー (属性・相性表・技・エフェクト・ステー
 
 ## 用語
 
-- 基本ステータス: HP・攻撃・防御・素早さ (`lib/domain/monster/monster_stats.dart` の `MonsterStats`)。補助技で変わるのは攻撃・防御・素早さの倍率
+- 基本ステータス: HP・攻撃・防御・素早さ・命中 (`lib/domain/monster/monster_stats.dart` の `MonsterStats`。命中は #279 で足した)。補助技で変わるのは攻撃・防御・素早さの倍率
 - ターン: 片方の陣営の 1 回の行動。両陣営が 1 ターンずつ行動する区切りをラウンドと呼ぶ (`lib/domain/battle/battle_engine.dart` の `advanceRound`)。バトルのログのターン番号は行動ごとに 1 増え、ラウンド r の先に動く側が 2r−1、後に動く側が 2r。画面の「ターン N」は次に解決するラウンドの最初のターンの番号 (#224)
 - 状態: 毒・麻痺などの状態異常 (下の「状態」)。ステータスの倍率とは別に持つ
 
