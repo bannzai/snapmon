@@ -248,20 +248,21 @@ describe("updateMoveRanksWith", () => {
   // 2026-11-09 04:00 (日本時間)
   const now = new Date("2026-11-08T19:00:00Z");
 
-  it("前日から 7 日分の使用回数を合計して、買える技のランクを書く", async () => {
+  it("前日から 7 日分の、分けた文書の使用回数を合計して、買える技のランクを書く", async () => {
     // 当日 (11-09) と 8 日前 (11-01) の分は数えない
-    await firestore.doc("moveUsageDailyCounts/2026-11-09").set({ counts: { strong: 1000 } });
-    await firestore.doc("moveUsageDailyCounts/2026-11-01").set({ counts: { strong: 1000 } });
-    await firestore.doc("moveUsageDailyCounts/2026-11-08").set({ counts: { weak: 3, middle: 1, replaced: 50 } });
-    await firestore.doc("moveUsageDailyCounts/2026-11-02").set({ counts: { middle: 1 } });
+    await firestore.doc("moveUsageDailyCounts/2026-11-09_0").set({ counts: { strong: 1000 } });
+    await firestore.doc("moveUsageDailyCounts/2026-11-01_0").set({ counts: { strong: 1000 } });
+    await firestore.doc("moveUsageDailyCounts/2026-11-08_0").set({ counts: { weak: 2, middle: 1, replaced: 50 } });
+    await firestore.doc("moveUsageDailyCounts/2026-11-08_9").set({ counts: { weak: 1 } });
+    await firestore.doc("moveUsageDailyCounts/2026-11-02_4").set({ counts: { middle: 1 } });
 
     const written = await updateMoveRanksWith({ firestore, now });
     const stored = (await firestore.doc("moveRanks/current").get()).data();
     expect(stored).toMatchObject({ version: 1, usageWindowDays: 7 });
     expect(stored?.computedAt.toDate()).toEqual(now);
-    // 使われた技は weak (3) と middle (2) の 2 件で、ランク 3 は 2 件の 20% の切り捨てで 0 件、ランク 2 は 50% の切り捨てで 1 件目まで。
-    // strong (使われていない) と replacer は段階で決める。置き換えられた replaced は表に入れない
-    expect(stored?.rankByMoveId).toEqual({ weak: 2, middle: 1, strong: 3, replacer: 1 });
+    // 買える技は 4 件 (replaced は置き換えられたため表に入れない)。ランク 3 は 4 件の 20% の切り捨てで 0 件、ランク 2 は 50% の 2 件目まで。
+    // 使用の順は weak (3)・middle (2) で、使われていない strong と replacer は段階で決める
+    expect(stored?.rankByMoveId).toEqual({ weak: 2, middle: 2, strong: 3, replacer: 1 });
     expect(written.rankByMoveId).toEqual(stored?.rankByMoveId);
   });
 

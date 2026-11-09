@@ -6,12 +6,14 @@ import { HttpsError, onCall } from "firebase-functions/v2/https";
 import { onSchedule } from "firebase-functions/v2/scheduler";
 
 import {
+  MOVE_USAGE_SHARD_COUNT,
   MOVE_USAGE_WINDOW_DAYS,
   type MoveRank,
   actionCardCreditsOf,
   computeMoveRanks,
   creditRankToRedeem,
   fallbackMoveRank,
+  moveUsageDocumentId,
   previousDayKeys,
 } from "./action_card_rules";
 import { ENFORCE_APP_CHECK } from "./app_check";
@@ -43,13 +45,17 @@ export interface ActionCardDocument {
 }
 
 /**
- * 直近 [MOVE_USAGE_WINDOW_DAYS] 日の `moveUsageDailyCounts` を合計し、最新の版の master の買える技のランクを `moveRanks/current` に書く
+ * 直近 [MOVE_USAGE_WINDOW_DAYS] 日の `moveUsageDailyCounts` (日ごとに [MOVE_USAGE_SHARD_COUNT] 件) を合計し、最新の版の master の買える技のランクを `moveRanks/current` に書く
  * (updateMoveRanks の本体。テストは Firestore と時刻を渡して直接呼ぶ)。同じ入力からは同じ表を書く (冪等)。返す値は書いた表。
  */
 export async function updateMoveRanksWith({ firestore, now }: { firestore: Firestore; now: Date }): Promise<MoveRanksDocument> {
   const [master, usageSnapshots] = await Promise.all([
     fetchLatestMaster(firestore),
-    firestore.getAll(...previousDayKeys({ now, days: MOVE_USAGE_WINDOW_DAYS }).map((dayKey) => firestore.doc(`moveUsageDailyCounts/${dayKey}`))),
+    firestore.getAll(
+      ...previousDayKeys({ now, days: MOVE_USAGE_WINDOW_DAYS }).flatMap((dayKey) =>
+        Array.from({ length: MOVE_USAGE_SHARD_COUNT }, (_, shard) => firestore.doc(`moveUsageDailyCounts/${moveUsageDocumentId({ dayKey, shard })}`)),
+      ),
+    ),
   ]);
   const usageCountByMoveId: Record<string, number> = {};
   for (const snapshot of usageSnapshots) {
