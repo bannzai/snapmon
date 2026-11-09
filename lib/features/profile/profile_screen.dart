@@ -2,9 +2,12 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 
+import '../../domain/master/master_data.dart';
 import '../../l10n/l10n.dart';
 import '../../theme/snapmon_text_styles.dart';
 import '../../widgets/trainer_icon.dart';
+import '../action_card/action_card_screen.dart';
+import '../action_card/action_card_store.dart';
 import '../opponent/pvp_client.dart';
 
 /// プロフィール画面。対戦の相手と対戦画面に出るアイコン (端末の写真から選ぶ) と表示名を変える。設定の「プロフィール」から開く。
@@ -18,7 +21,11 @@ class ProfileScreen extends StatefulWidget {
     required this.pvpClient,
     required this.pickPhoto,
     required this.preparePhoto,
+    required this.definitions,
   });
+
+  /// Action Card の画面が技の名前・属性を引く定義。
+  final MasterData definitions;
 
   /// 開いた時の表示名とアイコン。
   final PlayerProfile initialProfile;
@@ -160,6 +167,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
             trailing: const Icon(Icons.edit),
             onTap: _editDisplayName,
           ),
+          if (ActionCardScope.maybeOf(context)?.isScreenEntryVisible ?? false)
+            ListTile(
+              key: const Key('action-card-entry-profile'),
+              leading: const Icon(Icons.style_outlined),
+              title: Text(context.l10n.actionCardTitle),
+              subtitle: Text(context.l10n.actionCardEntrySubtitle),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (context) =>
+                      ActionCardScreen(definitions: widget.definitions),
+                ),
+              ),
+            ),
         ],
       ),
     ),

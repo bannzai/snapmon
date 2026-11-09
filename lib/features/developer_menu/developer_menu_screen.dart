@@ -6,6 +6,8 @@ import 'package:purchases_flutter/purchases_flutter.dart';
 
 import '../../sample/sample_data.dart';
 import '../../theme/snapmon_text_styles.dart';
+import '../action_card/action_card_client.dart';
+import '../action_card/action_card_store.dart';
 import '../battle/battle_recorder.dart';
 import '../capture/generation_screen.dart';
 import '../capture/monster_generator.dart';
@@ -167,6 +169,43 @@ class DeveloperMenuScreen extends StatelessWidget {
                 generator: monsterGenerator,
               ),
             ),
+          // Action Card は Simulator で購入できず、ログインを飛ばした端末は Functions を呼べないため、ログインを飛ばした間だけ
+          // 端末だけの見本 (lib/sample/sample_action_cards.dart) で表示・残高・技のランクを作る。見本はアプリ全体の Action Card を置き換える
+          if (ActionCardScope.maybeOf(context)?.sampleActionCards
+              case final sampleActionCards?) ...[
+            ListTile(
+              key: const Key('developer-action-card-visible'),
+              leading: const Icon(Icons.style_outlined),
+              title: const Text('Action Card の見本を出す'),
+              subtitle: Text(
+                dexStore.isServerBacked
+                    ? 'ログイン中は使えない (サーバーの Action Card を置き換えないため)'
+                    : '表示の切り替えを true にし 技のランクの表を見本の master から作る',
+              ),
+              enabled: !dexStore.isServerBacked,
+              onTap: () {
+                sampleActionCards.isActionCardsVisible.value = true;
+                sampleActionCards.loadSampleMoveRanks(
+                  master: dexStore.definitions,
+                );
+                _showMessage(context: context, message: 'Action Card の見本を出しました');
+              },
+            ),
+            for (final rank in actionCardRanks)
+              ListTile(
+                key: Key('developer-action-card-credit-$rank'),
+                leading: const Icon(Icons.add_card_outlined),
+                title: Text('Action Card のランク $rank を 1 枚足す'),
+                enabled: !dexStore.isServerBacked,
+                onTap: () {
+                  sampleActionCards.addCredit(rank: rank);
+                  _showMessage(
+                    context: context,
+                    message: 'ランク $rank を 1 枚足しました',
+                  );
+                },
+              ),
+          ],
           // ストアに商品が無い間と Simulator で、購入画面の見た目と流れを確かめるため。見本の package と見本の購入を使い、ストアも RevenueCat も呼ばない
           ListTile(
             leading: const Icon(Icons.confirmation_number_outlined),

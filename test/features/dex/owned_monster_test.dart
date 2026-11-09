@@ -150,5 +150,23 @@ void main() {
       expect(monster.decoration, isNull);
       expect(monster.decorationVersion, isNull);
     });
+
+    test('Action Card で覚えさせた技を覚えさせた順で読み 項目が無ければ空にする', () {
+      expect(
+        OwnedMonster.fromJson(
+          json: {
+            ...monsterJson(decoration: null, decorationVersion: null),
+            'actionCardMoveIds': ['water_3', 'fire_1c'],
+          },
+        ).actionCardMoveIds,
+        ['water_3', 'fire_1c'],
+      );
+      expect(
+        OwnedMonster.fromJson(
+          json: monsterJson(decoration: null, decorationVersion: null),
+        ).actionCardMoveIds,
+        isEmpty,
+      );
+    });
   });
 }

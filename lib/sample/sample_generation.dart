@@ -33,6 +33,7 @@ GenerationResult generateSampleMonster({
       OwnedMonster(
         definition: sampleMonster.definition,
         level: 1,
+        actionCardMoveIds: const [],
         artPath: sampleMonster.artPath,
         definitionIds: sampleMonster.definitionIds,
         decoration: sampleMonster.decoration,

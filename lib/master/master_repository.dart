@@ -28,17 +28,31 @@ Future<DocumentSnapshot<Map<String, dynamic>>> fetchDefinition({
 }
 
 /// 読んである master [cachedMasterJson] で [monsters] の属性・技を引けないおそれがあり、最新の master を読み直すべきかを返す。
-/// まだ読んでいない (null) 時と、読んだ版より新しい版で生まれたモンスターがいる時 (ログインの後に新しい版が投入された) に true。
+/// まだ読んでいない (null) 時と、読んだ版より新しい版で生まれたモンスターがいる時 (ログインの後に新しい版が投入された) と、
+/// 読んだ版に無い技を Action Card で覚えさせたモンスターがいる時 (買える技は最新の版の master の技で、別の端末で覚えさせられるため) に true。
 bool needsLatestMasterFetch({
   required Map<String, dynamic>? cachedMasterJson,
   required List<OwnedMonster> monsters,
-}) =>
-    cachedMasterJson == null ||
-    monsters.any(
-      (monster) =>
-          monster.definition.masterVersion >
-          (cachedMasterJson['version'] as int),
-    );
+}) {
+  if (cachedMasterJson == null) {
+    return true;
+  }
+  final actionCardMoveIds = {
+    for (final monster in monsters) ...monster.actionCardMoveIds,
+  };
+  return monsters.any(
+        (monster) =>
+            monster.definition.masterVersion >
+            (cachedMasterJson['version'] as int),
+      ) ||
+      actionCardMoveIds
+          .difference({
+            for (final moveJson
+                in cachedMasterJson['moves'] as List<dynamic>? ?? [])
+              (moveJson as Map<String, dynamic>)['id'] as String,
+          })
+          .isNotEmpty;
+}
 
 /// 図鑑と対戦で属性・技を引く定義の集まりを返す: 最新の版の master [latestMasterJson] に、図鑑のモンスターが参照する
 /// その場で作った定義 [definitionJsons] を足す (同じ ID は master を優先する。[mergeMasterData])。

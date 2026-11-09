@@ -15,6 +15,7 @@ void main() {
       OwnedMonster(
         definition: sampleData.monsters[index].definition,
         level: level,
+        actionCardMoveIds: const [],
         artPath: null,
         definitionIds: const [],
         decoration: null,

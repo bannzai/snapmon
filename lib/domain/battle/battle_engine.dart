@@ -61,18 +61,21 @@ const int cpuDamagePercent = 50;
 /// 同じラウンドの行動順・ダメージの乱数と同じ列を使わないため (同じ値の列だと、同じ速さの時の行動順と CPU の技選びが連動する)。
 const int _cpuRandomSeedSalt = 0x9E3779B9;
 
-/// [definition] のモンスターを、[level]・[experience] で HP・PP を満タンにし、ステータスの倍率を等倍、状態なしにしてバトルに出す。
-/// PP は覚える技の一覧のすべての技について持つ (レベルで開放されていない技も、上がった後に使えるよう持っておく)。
+/// [definition] のモンスターを、[level]・[experience]・[actionCardMoveIds] (Action Card で覚えさせた技) で HP・PP を満タンにし、
+/// ステータスの倍率を等倍、状態なしにしてバトルに出す。
+/// PP は覚える技の一覧と [actionCardMoveIds] のすべての技について持つ (レベルで開放されていない技も、上がった後に使えるよう持っておく)。
 BattleMonster prepareBattleMonster({
   required MonsterDefinition definition,
   required int level,
   required int experience,
+  required List<String> actionCardMoveIds,
   required MasterData master,
 }) => BattleMonster(
   definition: definition,
   state: MonsterState(
     level: level,
     experience: experience,
+    actionCardMoveIds: actionCardMoveIds,
     currentHitPoints: calculateStats(
       baseStats: definition.baseStats,
       individualValues: definition.individualValues,
@@ -80,10 +83,11 @@ BattleMonster prepareBattleMonster({
       statCalculationVersion: definition.statCalculationVersion,
     ).hitPoints,
     remainingPowerPoints: {
-      for (final learnsetEntry in definition.learnset)
-        learnsetEntry.moveId: master
-            .moveById(moveId: learnsetEntry.moveId)
-            .powerPoints,
+      for (final moveId in {
+        for (final learnsetEntry in definition.learnset) learnsetEntry.moveId,
+        ...actionCardMoveIds,
+      })
+        moveId: master.moveById(moveId: moveId).powerPoints,
     },
     statModifierPercents: const {},
     statusConditions: const {},
@@ -186,57 +190,59 @@ BattleState startBattle({
 /// (functions/src/generation/monster_stats.ts の `STARTING_MOVE_COUNT`) と同じ値。
 const int maximumEquippedMoveCount = 4;
 
-/// [learnset] のうち、[level] で使える技 (開放済みの技のうち、覚える技の一覧で後ろの [maximumEquippedMoveCount] 個) を一覧の順で返す。
-/// 開放済みの技が枠より多い時は、新しく覚えた技が一番古い技と入れ替わる (documents/game-rules.md「技」)。
-List<LearnsetEntry> equippedLearnsetEntries({
+/// [learnset] と [actionCardMoveIds] (Action Card で覚えさせた技の ID。覚えさせた順) のモンスターが [level] で使える技 (技の枠) の ID を、枠の順で返す。
+/// 枠は「[learnset] のうち開放レベルが [level] 以下の技を一覧の順に並べ、[actionCardMoveIds] を覚えさせた順で続けた列」の後ろ
+/// [maximumEquippedMoveCount] 個で、新しく覚えた技が一番古い技と入れ替わる。[actionCardMoveIds] の技は開放レベルに関係なく使え、
+/// [learnset] 側の列からは外す (同じ技が枠に 2 つ並ばないため)。規則は documents/game-rules.md「技」で、
+/// Functions の functions/src/action_card_rules.ts の `equippedMoveIds` と同じ技を返す (共通のテストケースは test/fixtures/equipped_move_cases.json)。
+List<String> equippedMoveIds({
   required List<LearnsetEntry> learnset,
+  required List<String> actionCardMoveIds,
   required int level,
 }) {
-  final unlockedEntries = [
+  final moveIds = [
     for (final learnsetEntry in learnset)
-      if (learnsetEntry.unlockLevel <= level) learnsetEntry,
+      if (learnsetEntry.unlockLevel <= level &&
+          !actionCardMoveIds.contains(learnsetEntry.moveId))
+        learnsetEntry.moveId,
+    ...actionCardMoveIds,
   ];
-  return unlockedEntries.sublist(
-    math.max(0, unlockedEntries.length - maximumEquippedMoveCount),
+  return moveIds.sublist(
+    math.max(0, moveIds.length - maximumEquippedMoveCount),
   );
 }
 
-/// [learnset] のモンスターが [previousLevel] から [newLevel] に上がった時の技の枠 ([equippedLearnsetEntries]) の変化を返す。
-/// `learnedEntries` は新しく枠に入った技、`forgottenEntries` は入れ替わりで枠から外れた技で、どちらも覚える技の一覧の順。
-/// 枠が変わらなければどちらも空 (バトルの後に覚えた技を知らせるため。#247)。
-({List<LearnsetEntry> learnedEntries, List<LearnsetEntry> forgottenEntries})
-equippedLearnsetChanges({
-  required List<LearnsetEntry> learnset,
-  required int previousLevel,
-  required int newLevel,
-}) {
-  final previousEntries = equippedLearnsetEntries(
-    learnset: learnset,
-    level: previousLevel,
-  );
-  final newEntries = equippedLearnsetEntries(
-    learnset: learnset,
-    level: newLevel,
-  );
-  return (
-    learnedEntries: [
-      for (final learnsetEntry in newEntries)
-        if (!previousEntries.contains(learnsetEntry)) learnsetEntry,
-    ],
-    forgottenEntries: [
-      for (final learnsetEntry in previousEntries)
-        if (!newEntries.contains(learnsetEntry)) learnsetEntry,
-    ],
-  );
-}
+/// 技の枠 ([equippedMoveIds]) が [previousMoveIds] から [newMoveIds] に変わった時の変化を返す。
+/// `learnedMoveIds` は新しく枠に入った技、`forgottenMoveIds` は入れ替わりで枠から外れた技で、どちらも枠の順。
+/// 枠が変わらなければどちらも空 (バトルの後のレベルアップと、Action Card の技を覚えさせる前に、入れ替わる技を知らせるため。#247)。
+({List<String> learnedMoveIds, List<String> forgottenMoveIds})
+equippedMoveChanges({
+  required List<String> previousMoveIds,
+  required List<String> newMoveIds,
+}) => (
+  learnedMoveIds: [
+    for (final moveId in newMoveIds)
+      if (!previousMoveIds.contains(moveId)) moveId,
+  ],
+  forgottenMoveIds: [
+    for (final moveId in previousMoveIds)
+      if (!newMoveIds.contains(moveId)) moveId,
+  ],
+);
 
 /// [learnset] のうち [level] より後に開放される技の、最も低い開放レベル。もう覚える技が無ければ null。
+/// [actionCardMoveIds] に入った技は、開放しても枠が変わらないため数えない。
 int? nextLearnsetUnlockLevel({
   required List<LearnsetEntry> learnset,
+  required List<String> actionCardMoveIds,
   required int level,
 }) => learnset
+    .where(
+      (learnsetEntry) =>
+          learnsetEntry.unlockLevel > level &&
+          !actionCardMoveIds.contains(learnsetEntry.moveId),
+    )
     .map((learnsetEntry) => learnsetEntry.unlockLevel)
-    .where((unlockLevel) => unlockLevel > level)
     .fold<int?>(
       null,
       (lowest, unlockLevel) =>
@@ -250,18 +256,19 @@ bool isOrdinaryAttackMove(Move move) =>
     !(move.specialEffect?.selfDestructs ?? false) &&
     !(move.specialEffect?.isOneHitKnockout ?? false);
 
-/// [monster] が今使える技 ([equippedLearnsetEntries] のうち PP が残っている技) を、覚える技の一覧の順で返す。
+/// [monster] が今使える技 ([equippedMoveIds] のうち PP が残っている技) を、枠の順で返す。
 /// 通常の攻撃技 ([isOrdinaryAttackMove]) が 1 つも無ければわるあがき ([StruggleAction]) も選べる (補助技だけが残って決着しなくなるのを防ぐため)。
 List<Move> selectableMoves({
   required BattleMonster monster,
   required MasterData master,
 }) => [
-  for (final learnsetEntry in equippedLearnsetEntries(
+  for (final moveId in equippedMoveIds(
     learnset: monster.definition.learnset,
+    actionCardMoveIds: monster.state.actionCardMoveIds,
     level: monster.state.level,
   ))
-    if ((monster.state.remainingPowerPoints[learnsetEntry.moveId] ?? 0) > 0)
-      master.moveById(moveId: learnsetEntry.moveId),
+    if ((monster.state.remainingPowerPoints[moveId] ?? 0) > 0)
+      master.moveById(moveId: moveId),
 ];
 
 /// 攻撃側の技の属性 [moveElementTypeId] から、防御側の属性 [defenderElementTypeIds] への倍率を返す。

@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../audio/game_audio.dart';
+import '../../domain/master/master_data.dart';
 import '../../l10n/l10n.dart';
 import '../../sample/sample_data.dart';
 import '../../theme/snapmon_text_styles.dart';
@@ -237,6 +238,7 @@ class SettingsScreen extends StatelessWidget {
             isAccountWorking: accountStore.isWorking,
             pvpClient: pvpClient,
             monsterGenerator: monsterGenerator,
+            definitions: dexStore.definitions,
           ),
         ),
         _SectionTitle(title: context.l10n.settingsSoundSection),
@@ -366,7 +368,11 @@ class _ProfileTile extends StatefulWidget {
     required this.isAccountWorking,
     required this.pvpClient,
     required this.monsterGenerator,
+    required this.definitions,
   });
+
+  /// プロフィール画面から開く Action Card の画面が技の名前・属性を引く定義。
+  final MasterData definitions;
 
   /// アカウントの連携・切り替え・削除の途中か。途中は押せなくする (切り替わった後も前の uid の値を持つプロフィール画面を開かせないため)。
   final bool isAccountWorking;
@@ -439,6 +445,7 @@ class _ProfileTileState extends State<_ProfileTile> {
           pvpClient: widget.pvpClient,
           pickPhoto: widget.monsterGenerator.pickAlbumPhoto,
           preparePhoto: widget.monsterGenerator.preparePhoto,
+          definitions: widget.definitions,
         ),
       ),
     );

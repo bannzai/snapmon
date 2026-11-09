@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:snapmon/features/dex/owned_monster.dart';
 import 'package:snapmon/master/master_repository.dart';
 
 import '../monster_generator_fixture.dart';
@@ -73,6 +74,43 @@ void main() {
         monsters: monsters,
       ),
       isTrue,
+    );
+  });
+
+  test('読んだ版に無い技を Action Card で覚えさせたモンスターがいる時は master を読み直す', () {
+    final monster = generatedWaxMonster(monsterId: 'm1');
+    final taughtMonster = OwnedMonster(
+      definition: monster.definition,
+      level: monster.level,
+      actionCardMoveIds: const ['water_3'],
+      artPath: monster.artPath,
+      definitionIds: monster.definitionIds,
+      decoration: monster.decoration,
+      decorationVersion: monster.decorationVersion,
+    );
+    expect(
+      needsLatestMasterFetch(
+        cachedMasterJson: const {
+          'version': 1,
+          'moves': [
+            {'id': 'fire_1'},
+          ],
+        },
+        monsters: [taughtMonster],
+      ),
+      isTrue,
+    );
+    expect(
+      needsLatestMasterFetch(
+        cachedMasterJson: const {
+          'version': 1,
+          'moves': [
+            {'id': 'water_3'},
+          ],
+        },
+        monsters: [taughtMonster],
+      ),
+      isFalse,
     );
   });
 

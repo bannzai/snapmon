@@ -13,6 +13,7 @@ import 'package:snapmon/analytics/analytics_events.dart';
 import 'package:snapmon/app.dart';
 import 'package:snapmon/audio/game_audio.dart';
 import 'package:snapmon/domain/master/master_data.dart';
+import 'package:snapmon/features/action_card/action_card_store.dart';
 import 'package:snapmon/features/battle/battle_screen.dart';
 import 'package:snapmon/features/capture/monster_generator.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
@@ -31,6 +32,7 @@ import 'package:snapmon/theme/snapmon_theme.dart';
 import 'package:snapmon/widgets/storage_image.dart';
 import 'package:snapmon/widgets/trainer_icon.dart';
 
+import 'action_card_client_fixture.dart';
 import 'battle_recorder_fixture.dart';
 import 'card_sharer_fixture.dart';
 import 'game_audio_fixture.dart';
@@ -260,6 +262,12 @@ void main() {
         accountStore: accountStore,
         logEvent: ({required event, required parameters}) async =>
             titleEvents.add((event: event, parameters: parameters)),
+        actionCardStore: ActionCardStore(
+          client: (FakeActionCards()..isActionCardsVisible.value = false)
+              .client(),
+          sessionChanges: sessionStore,
+          sampleActionCards: null,
+        ),
       ),
     );
     await tester.pumpAndSettle();

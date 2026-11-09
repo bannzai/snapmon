@@ -147,16 +147,14 @@ void main() {
     }
 
     // 技の枠は 4 つで、1 行目の 2 つは同じ高さに横に並び、2 行目はその下に並ぶ
-    final equippedMoveIds = [
-      for (final learnsetEntry in equippedLearnsetEntries(
-        learnset: monster.definition.learnset,
-        level: monster.level,
-      ))
-        learnsetEntry.moveId,
-    ];
-    expect(equippedMoveIds, hasLength(maximumEquippedMoveCount));
+    final slotMoveIds = equippedMoveIds(
+      learnset: monster.definition.learnset,
+      actionCardMoveIds: monster.actionCardMoveIds,
+      level: monster.level,
+    );
+    expect(slotMoveIds, hasLength(maximumEquippedMoveCount));
     final slotRects = [
-      for (final moveId in equippedMoveIds)
+      for (final moveId in slotMoveIds)
         tester.getRect(find.byKey(Key('move-chip-$moveId'))),
     ];
     expect(slotRects[0].top, slotRects[1].top);
@@ -222,6 +220,7 @@ void main() {
         masterVersion: sampleDefinition.masterVersion,
       ),
       level: sampleMonster.level,
+      actionCardMoveIds: const [],
       artPath: sampleMonster.artPath,
       definitionIds: sampleMonster.definitionIds,
       decoration: sampleMonster.decoration,

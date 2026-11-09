@@ -6,10 +6,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
+import '../features/action_card/action_card_client.dart';
 import '../features/capture/monster_generator.dart';
 import '../features/session/session_store.dart';
 
-// 生成チケットの購入 (RevenueCat の SDK) と残高の購読。残高に足すのはサーバーの webhook (functions/src/generation_tickets.ts) で、
+// 生成チケットと Action Card の購入 (RevenueCat の SDK) と生成チケットの残高の購読。残高に足すのはサーバーの webhook (functions/src/generation_tickets.ts) で、
 // webhook はイベントの `app_user_id` を uid として読むため、SDK のユーザー ID は常に Firebase の uid に揃える。
 
 /// iOS の RevenueCat の public API key (公開値)。`--dart-define` で渡す。空のビルドでは課金を無効にする。
@@ -80,11 +81,14 @@ void connectPurchasesWhileSignedIn({required SessionStore sessionStore}) {
   followSignedInUid();
 }
 
-/// current offering の package を返す ([MonsterGenerator.fetchTicketPackages])。課金が無効なビルド・ログインしていない時は空。
+/// このビルドで課金を使えるか。Web と RevenueCat の鍵を渡していないビルドでは false。
+bool isPurchasesEnabled() => _revenueCatPublicApiKey().isNotEmpty;
+
+/// current offering の package を返す。課金が無効なビルド・ログインしていない時は空。
 /// 閉じている間は package の無い offering が current のため空になる (documents/DIRECTION.md「決めたこと」)。
-Future<List<Package>> fetchTicketPackagesWithRevenueCat() async {
+Future<List<Package>> _fetchCurrentPackagesWithRevenueCat() async {
   final uid = FirebaseAuth.instance.currentUser?.uid;
-  if (_revenueCatPublicApiKey().isEmpty || uid == null) {
+  if (!isPurchasesEnabled() || uid == null) {
     return const [];
   }
   await _syncPurchasesUser(uid: uid);
@@ -92,7 +96,21 @@ Future<List<Package>> fetchTicketPackagesWithRevenueCat() async {
       const [];
 }
 
-/// [package] を購入する ([MonsterGenerator.purchaseTicketPackage])。ログインしていない時は webhook が残高を足す先が無いため [StateError] を投げる。
+/// current offering の生成チケットの package を返す ([MonsterGenerator.fetchTicketPackages])。
+/// 同じ offering に入る Action Card の package (revenuecat/config.json) は外す (生成チケットの購入画面に並べないため)。
+Future<List<Package>> fetchTicketPackagesWithRevenueCat() async => [
+  for (final package in await _fetchCurrentPackagesWithRevenueCat())
+    if (actionCardRankOfPackage(package: package) == null) package,
+];
+
+/// current offering の Action Card の package を返す ([ActionCardClient.fetchActionCardPackages])。
+Future<List<Package>> fetchActionCardPackagesWithRevenueCat() async => [
+  for (final package in await _fetchCurrentPackagesWithRevenueCat())
+    if (actionCardRankOfPackage(package: package) != null) package,
+];
+
+/// [package] を購入する ([MonsterGenerator.purchaseTicketPackage] と [ActionCardClient.purchaseActionCardPackage])。
+/// ログインしていない時は webhook が残高を足す先が無いため [StateError] を投げる。
 Future<TicketPurchaseResult> purchaseTicketPackageWithRevenueCat({
   required Package package,
 }) async {

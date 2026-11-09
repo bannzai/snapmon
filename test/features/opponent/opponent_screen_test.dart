@@ -35,6 +35,7 @@ void main() {
     return OwnedMonster(
       definition: sample.definition,
       level: level,
+      actionCardMoveIds: const [],
       artPath: null,
       definitionIds: const [],
       decoration: null,

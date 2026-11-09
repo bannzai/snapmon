@@ -1,5 +1,5 @@
 {
-  "description": "技の枠 (lib/domain/battle/battle_engine.dart の equippedLearnsetEntries と functions/src/action_card_rules.ts の equippedMoveIds) の共通のテストケース。expectedMoveIds は枠の技の ID を枠の順に並べたもの。actionCardMoveIds が空でないケースは、端末が Action Card の技の枠を実装するまで TypeScript のテストだけが読む",
+  "description": "技の枠 (lib/domain/battle/battle_engine.dart と functions/src/action_card_rules.ts の equippedMoveIds) の共通のテストケース。expectedMoveIds は枠の技の ID を枠の順に並べたもの",
   "cases": [
     {
       "name": "開放した技が 4 つ以下ならすべて",

@@ -49,11 +49,12 @@ class MonsterDetailCard extends StatelessWidget {
       maximumEquippedMoveCount,
       (index) => null,
     );
-    for (final (index, learnsetEntry) in equippedLearnsetEntries(
+    for (final (index, moveId) in equippedMoveIds(
       learnset: definition.learnset,
+      actionCardMoveIds: monster.actionCardMoveIds,
       level: monster.level,
     ).indexed) {
-      moveSlots[index] = definitions.moveById(moveId: learnsetEntry.moveId);
+      moveSlots[index] = definitions.moveById(moveId: moveId);
     }
     return DecoratedBox(
       decoration: const BoxDecoration(

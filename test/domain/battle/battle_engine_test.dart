@@ -509,10 +509,12 @@ MonsterDefinition testDefinition({
 BattleMonster prepare({
   required MonsterDefinition definition,
   int level = 50,
+  List<String> actionCardMoveIds = const [],
 }) => prepareBattleMonster(
   definition: definition,
   level: level,
   experience: 0,
+  actionCardMoveIds: actionCardMoveIds,
   master: testMaster,
 );
 
@@ -1068,6 +1070,7 @@ void main() {
           ),
           level: 50,
           experience: 0,
+          actionCardMoveIds: const [],
           master: supportOnlyMaster,
         );
     var state = startBattle(
@@ -1642,7 +1645,7 @@ void main() {
     );
   });
 
-  group('equippedLearnsetChanges と nextLearnsetUnlockLevel', () {
+  group('equippedMoveChanges と nextLearnsetUnlockLevel', () {
     // 版 9 (#224) より前の規則で生まれたモンスターの一覧。Lv.1 の次は補助技の Lv.5、段階 2 の Lv.15
     const previousRuleLearnset = [
       LearnsetEntry(moveId: 'a', unlockLevel: 1),
@@ -1661,70 +1664,137 @@ void main() {
       LearnsetEntry(moveId: 'e', unlockLevel: 2),
       LearnsetEntry(moveId: 'f', unlockLevel: 3),
     ];
-    List<String> moveIdsOf(List<LearnsetEntry> learnsetEntries) => [
-      for (final learnsetEntry in learnsetEntries) learnsetEntry.moveId,
-    ];
+    ({List<String> learnedMoveIds, List<String> forgottenMoveIds})
+    levelUpChanges({
+      required List<LearnsetEntry> learnset,
+      required List<String> actionCardMoveIds,
+      required int previousLevel,
+      required int newLevel,
+    }) => equippedMoveChanges(
+      previousMoveIds: equippedMoveIds(
+        learnset: learnset,
+        actionCardMoveIds: actionCardMoveIds,
+        level: previousLevel,
+      ),
+      newMoveIds: equippedMoveIds(
+        learnset: learnset,
+        actionCardMoveIds: actionCardMoveIds,
+        level: newLevel,
+      ),
+    );
 
     test('技を覚えるレベルに上がった時は、覚えた技と入れ替わりで外れた技を返す', () {
-      final changes = equippedLearnsetChanges(
+      final changes = levelUpChanges(
         learnset: currentRuleLearnset,
+        actionCardMoveIds: const [],
         previousLevel: 1,
         newLevel: 2,
       );
-      expect(moveIdsOf(changes.learnedEntries), ['e']);
-      expect(moveIdsOf(changes.forgottenEntries), ['a']);
+      expect(changes.learnedMoveIds, ['e']);
+      expect(changes.forgottenMoveIds, ['a']);
     });
 
     test('前の規則で生まれたモンスターが Lv.2〜4 に上がっても技の枠は変わらず、次に覚えるのは Lv.5', () {
-      final changes = equippedLearnsetChanges(
+      final changes = levelUpChanges(
         learnset: previousRuleLearnset,
+        actionCardMoveIds: const [],
         previousLevel: 2,
         newLevel: 3,
       );
-      expect(changes.learnedEntries, isEmpty);
-      expect(changes.forgottenEntries, isEmpty);
+      expect(changes.learnedMoveIds, isEmpty);
+      expect(changes.forgottenMoveIds, isEmpty);
       expect(
-        nextLearnsetUnlockLevel(learnset: previousRuleLearnset, level: 3),
+        nextLearnsetUnlockLevel(
+          learnset: previousRuleLearnset,
+          actionCardMoveIds: const [],
+          level: 3,
+        ),
         5,
       );
     });
 
     test('Lv.5 に上がると補助技を覚え、次に覚えるのは Lv.15', () {
-      final changes = equippedLearnsetChanges(
+      final changes = levelUpChanges(
         learnset: previousRuleLearnset,
+        actionCardMoveIds: const [],
         previousLevel: 4,
         newLevel: 5,
       );
-      expect(moveIdsOf(changes.learnedEntries), ['s']);
-      expect(moveIdsOf(changes.forgottenEntries), ['a']);
+      expect(changes.learnedMoveIds, ['s']);
+      expect(changes.forgottenMoveIds, ['a']);
       expect(
-        nextLearnsetUnlockLevel(learnset: previousRuleLearnset, level: 5),
+        nextLearnsetUnlockLevel(
+          learnset: previousRuleLearnset,
+          actionCardMoveIds: const [],
+          level: 5,
+        ),
         15,
       );
     });
 
     test('枠に空きがある間は、覚えても外れる技は無い', () {
-      final changes = equippedLearnsetChanges(
+      final changes = levelUpChanges(
         learnset: const [
           LearnsetEntry(moveId: 'paper_1', unlockLevel: 1),
           LearnsetEntry(moveId: 'paper_2', unlockLevel: 15),
         ],
+        actionCardMoveIds: const [],
         previousLevel: 14,
         newLevel: 15,
       );
-      expect(moveIdsOf(changes.learnedEntries), ['paper_2']);
-      expect(changes.forgottenEntries, isEmpty);
+      expect(changes.learnedMoveIds, ['paper_2']);
+      expect(changes.forgottenMoveIds, isEmpty);
     });
 
     test('もう覚える技が無ければ、次に覚えるレベルは null', () {
       expect(
-        nextLearnsetUnlockLevel(learnset: currentRuleLearnset, level: 3),
+        nextLearnsetUnlockLevel(
+          learnset: currentRuleLearnset,
+          actionCardMoveIds: const [],
+          level: 3,
+        ),
         isNull,
       );
     });
+
+    test('Action Card で先に覚えさせた技は、開放レベルに上がっても枠を変えず次に覚えるレベルにも数えない', () {
+      final changes = levelUpChanges(
+        learnset: currentRuleLearnset,
+        actionCardMoveIds: const ['e'],
+        previousLevel: 1,
+        newLevel: 2,
+      );
+      expect(changes.learnedMoveIds, isEmpty);
+      expect(changes.forgottenMoveIds, isEmpty);
+      expect(
+        nextLearnsetUnlockLevel(
+          learnset: currentRuleLearnset,
+          actionCardMoveIds: const ['e'],
+          level: 1,
+        ),
+        3,
+      );
+    });
+
+    test('Action Card の技を覚えさせると、一番古い技が枠から外れる', () {
+      final changes = equippedMoveChanges(
+        previousMoveIds: equippedMoveIds(
+          learnset: currentRuleLearnset,
+          actionCardMoveIds: const [],
+          level: 1,
+        ),
+        newMoveIds: equippedMoveIds(
+          learnset: currentRuleLearnset,
+          actionCardMoveIds: const ['x'],
+          level: 1,
+        ),
+      );
+      expect(changes.learnedMoveIds, ['x']);
+      expect(changes.forgottenMoveIds, ['a']);
+    });
   });
 
-  group('equippedLearnsetEntries', () {
+  group('equippedMoveIds', () {
     const learnset = [
       LearnsetEntry(moveId: 'a', unlockLevel: 1),
       LearnsetEntry(moveId: 'b', unlockLevel: 1),
@@ -1734,56 +1804,48 @@ void main() {
       LearnsetEntry(moveId: 'f', unlockLevel: 15),
       LearnsetEntry(moveId: 'g', unlockLevel: 100),
     ];
-    List<String> equippedMoveIds({required int level}) => [
-      for (final learnsetEntry in equippedLearnsetEntries(
-        learnset: learnset,
-        level: level,
-      ))
-        learnsetEntry.moveId,
-    ];
+    List<String> learnsetMoveIds({required int level}) => equippedMoveIds(
+      learnset: learnset,
+      actionCardMoveIds: const [],
+      level: level,
+    );
 
     test('開放済みの技が枠の数までなら、開放済みの技をすべて一覧の順で返す', () {
-      expect(equippedMoveIds(level: 14), ['a', 'b', 'c', 'd']);
+      expect(learnsetMoveIds(level: 14), ['a', 'b', 'c', 'd']);
     });
 
     test('開放済みの技が枠より多い時は、新しく覚えた技が一番古い技と入れ替わる', () {
-      expect(equippedMoveIds(level: 15), ['c', 'd', 'e', 'f']);
-      expect(equippedMoveIds(level: 100), ['d', 'e', 'f', 'g']);
+      expect(learnsetMoveIds(level: 15), ['c', 'd', 'e', 'f']);
+      expect(learnsetMoveIds(level: 100), ['d', 'e', 'f', 'g']);
     });
 
     test('覚える技が枠より少ない (前の規則で生まれた) モンスターも、開放済みの技をすべて返す', () {
       expect(
-        equippedLearnsetEntries(
+        equippedMoveIds(
           learnset: const [
             LearnsetEntry(moveId: 'paper_1', unlockLevel: 1),
             LearnsetEntry(moveId: 'paper_2', unlockLevel: 15),
           ],
+          actionCardMoveIds: const [],
           level: 1,
-        ).map((learnsetEntry) => learnsetEntry.moveId),
+        ),
         ['paper_1'],
       );
     });
 
-    // Functions の技の使用の集計 (functions/src/action_card_rules.ts の equippedMoveIds) と共通のテストケース。
-    // Action Card の技の枠は端末にまだ無いため、覚えさせた技の無いケースだけを確かめる
-    final equippedMoveCases =
-        ((jsonDecode(
+    // Functions の技の枠 (functions/src/action_card_rules.ts の equippedMoveIds) と共通のテストケース
+    for (final equippedMoveCase
+        in ((jsonDecode(
                       File(
                         'test/fixtures/equipped_move_cases.json',
                       ).readAsStringSync(),
                     )
                     as Map<String, dynamic>)['cases']
                 as List<dynamic>)
-            .cast<Map<String, dynamic>>()
-            .where(
-              (equippedMoveCase) =>
-                  (equippedMoveCase['actionCardMoveIds'] as List<dynamic>)
-                      .isEmpty,
-            );
-    for (final equippedMoveCase in equippedMoveCases) {
+            .cast<Map<String, dynamic>>()) {
       test('共通のテストケース: ${equippedMoveCase['name']}', () {
         expect(
-          equippedLearnsetEntries(
+          equippedMoveIds(
             learnset: [
               for (final learnsetEntryJson
                   in equippedMoveCase['learnset'] as List<dynamic>)
@@ -1791,8 +1853,13 @@ void main() {
                   json: learnsetEntryJson as Map<String, dynamic>,
                 ),
             ],
+            actionCardMoveIds: [
+              for (final moveId
+                  in equippedMoveCase['actionCardMoveIds'] as List<dynamic>)
+                moveId as String,
+            ],
             level: equippedMoveCase['level'] as int,
-          ).map((learnsetEntry) => learnsetEntry.moveId),
+          ),
           equippedMoveCase['expectedMoveIds'],
         );
       });
@@ -1807,6 +1874,30 @@ void main() {
           speed: 50,
         ),
         level: 1,
+      );
+      expect(
+        selectableMoves(
+          monster: monster,
+          master: testMaster,
+        ).map((move) => move.id),
+        ['fire_strong', 'grass_strong'],
+      );
+    });
+
+    test('Action Card で覚えさせた技は、PP を満タンにして枠の後ろで選べる', () {
+      final monster = prepare(
+        definition: testDefinition(
+          id: 'player',
+          elementTypeId: 'fire',
+          moveIds: ['fire_strong'],
+          speed: 50,
+        ),
+        level: 1,
+        actionCardMoveIds: ['grass_strong'],
+      );
+      expect(
+        monster.state.remainingPowerPoints['grass_strong'],
+        testMaster.moveById(moveId: 'grass_strong').powerPoints,
       );
       expect(
         selectableMoves(

@@ -279,6 +279,7 @@ class _BattleScreenState extends State<BattleScreen>
           definition: monster.definition,
           level: monster.level,
           experience: 0,
+          actionCardMoveIds: monster.actionCardMoveIds,
           master: widget.definitions,
         ),
     ];
@@ -1709,18 +1710,26 @@ class _BattleResultPanel extends StatelessWidget {
     required OwnedMonster monster,
     required int newLevel,
   }) {
-    final changes = equippedLearnsetChanges(
-      learnset: monster.definition.learnset,
-      previousLevel: monster.level,
-      newLevel: newLevel,
+    final changes = equippedMoveChanges(
+      previousMoveIds: equippedMoveIds(
+        learnset: monster.definition.learnset,
+        actionCardMoveIds: monster.actionCardMoveIds,
+        level: monster.level,
+      ),
+      newMoveIds: equippedMoveIds(
+        learnset: monster.definition.learnset,
+        actionCardMoveIds: monster.actionCardMoveIds,
+        level: newLevel,
+      ),
     );
     final style = SnapmonTextStyles.small.copyWith(
       color: SnapmonColors.textOnCard,
     );
-    if (changes.learnedEntries.isEmpty) {
+    if (changes.learnedMoveIds.isEmpty) {
       return [
         if (nextLearnsetUnlockLevel(
               learnset: monster.definition.learnset,
+              actionCardMoveIds: monster.actionCardMoveIds,
               level: newLevel,
             )
             case final nextUnlockLevel?)
@@ -1731,17 +1740,17 @@ class _BattleResultPanel extends StatelessWidget {
       ];
     }
     return [
-      for (final learnsetEntry in changes.learnedEntries)
+      for (final moveId in changes.learnedMoveIds)
         Text(
           context.l10n.battleLearnedMove(
-            definitions.moveById(moveId: learnsetEntry.moveId).displayName,
+            definitions.moveById(moveId: moveId).displayName,
           ),
           style: style,
         ),
-      for (final learnsetEntry in changes.forgottenEntries)
+      for (final moveId in changes.forgottenMoveIds)
         Text(
           context.l10n.battleForgotMove(
-            definitions.moveById(moveId: learnsetEntry.moveId).displayName,
+            definitions.moveById(moveId: moveId).displayName,
           ),
           style: style,
         ),

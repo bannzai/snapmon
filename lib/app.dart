@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 
 import 'analytics/analytics_events.dart';
 import 'audio/game_audio.dart';
+import 'features/action_card/action_card_store.dart';
 import 'features/battle/battle_recorder.dart';
 import 'features/capture/monster_generator.dart';
 import 'features/dex/dex_store.dart';
@@ -69,10 +70,14 @@ class SnapmonApp extends StatefulWidget {
     required this.cardSharer,
     required this.accountStore,
     required this.logEvent,
+    required this.actionCardStore,
   });
 
   /// BGM・効果音。[GameAudioScope] で全画面から引けるようにする。
   final GameAudio gameAudio;
+
+  /// Action Card の表示の切り替え・残高・技。[ActionCardScope] で全画面から引けるようにする。
+  final ActionCardStore actionCardStore;
 
   /// 非同期 PvP の相手の取得・通報・ブロック・戦績・表示名。
   final PvpClient pvpClient;
@@ -175,14 +180,17 @@ class _SnapmonAppState extends State<SnapmonApp> {
     // Navigator より外に置き、push したバトル画面・設定画面からも引けるようにする
     builder: (context, child) => GameAudioScope(
       gameAudio: widget.gameAudio,
-      // Web はユーザーが一度ページを操作するまで音を出せないため、最初のタップ・クリックを BGM に伝える (キーは _onHardwareKeyEvent)
-      child: Listener(
-        onPointerDown: (event) =>
-            _notifyPointerInteraction(event: event, isDown: true),
-        onPointerUp: (event) =>
-            _notifyPointerInteraction(event: event, isDown: false),
-        child: constrainToAppContentWidth(
-          child: child ?? const SizedBox.shrink(),
+      child: ActionCardScope(
+        actionCardStore: widget.actionCardStore,
+        // Web はユーザーが一度ページを操作するまで音を出せないため、最初のタップ・クリックを BGM に伝える (キーは _onHardwareKeyEvent)
+        child: Listener(
+          onPointerDown: (event) =>
+              _notifyPointerInteraction(event: event, isDown: true),
+          onPointerUp: (event) =>
+              _notifyPointerInteraction(event: event, isDown: false),
+          child: constrainToAppContentWidth(
+            child: child ?? const SizedBox.shrink(),
+          ),
         ),
       ),
     ),

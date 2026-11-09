@@ -12,6 +12,8 @@ import 'package:snapmon/app.dart';
 import 'package:snapmon/audio/audio_settings_preferences.dart';
 import 'package:snapmon/audio/flame_game_audio.dart';
 import 'package:snapmon/audio/game_audio.dart';
+import 'package:snapmon/features/action_card/action_card_client.dart';
+import 'package:snapmon/features/action_card/action_card_store.dart';
 import 'package:snapmon/features/battle/battle_recorder.dart';
 import 'package:snapmon/features/capture/monster_generator.dart';
 import 'package:snapmon/features/capture/photo_preparation.dart';
@@ -24,6 +26,7 @@ import 'package:snapmon/features/share/render_widget_png.dart';
 import 'package:snapmon/features/share/share_image.dart';
 import 'package:snapmon/features/settings/account_store.dart';
 import 'package:snapmon/firebase/account.dart';
+import 'package:snapmon/firebase/action_cards.dart';
 import 'package:snapmon/firebase/battle_record.dart';
 import 'package:snapmon/firebase/dex_firestore.dart';
 import 'package:snapmon/firebase/monster_generation.dart';
@@ -32,6 +35,7 @@ import 'package:snapmon/firebase/pvp.dart';
 import 'package:snapmon/firebase/session.dart';
 import 'package:snapmon/firebase/share_art.dart';
 import 'package:snapmon/firebase_options.dart';
+import 'package:snapmon/sample/sample_action_cards.dart';
 import 'package:snapmon/sample/sample_data.dart';
 import 'package:snapmon/sample/sample_generation.dart';
 
@@ -95,6 +99,68 @@ Future<void> main() async {
     localDefinitions: sampleData.definitions,
   );
   connectPurchasesWhileSignedIn(sessionStore: sessionStore);
+  // DEBUG ビルドでログインを飛ばした (「ログインせずに使う」) 時は、Action Card を端末だけの見本で置き換える (lib/sample/sample_action_cards.dart)。
+  // release ビルドでは kDebugMode が const の false のため、見本は作らずこの経路はビルドから除かれる
+  final sampleActionCards = kDebugMode
+      ? SampleActionCards(
+          actionCardMoveIdsOf: ({required monsterId}) =>
+              dexStore.monsters
+                  .where((monster) => monster.definition.id == monsterId)
+                  .firstOrNull
+                  ?.actionCardMoveIds ??
+              const [],
+        )
+      : null;
+  bool isSample() => sampleActionCards != null && sessionStore.uid == null;
+  final sampleActionCardClient = sampleActionCards?.client();
+  final actionCardStore = ActionCardStore(
+    sessionChanges: sessionStore,
+    sampleActionCards: sampleActionCards,
+    client: ActionCardClient(
+      isPurchaseSupported: () => isSample() || isPurchasesEnabled(),
+      watchActionCardsVisible: () => isSample()
+          ? sampleActionCardClient!.watchActionCardsVisible()
+          : watchActionCardsVisibleWithFirebase(),
+      fetchActionCardPackages: () => isSample()
+          ? sampleActionCardClient!.fetchActionCardPackages()
+          : fetchActionCardPackagesWithRevenueCat(),
+      purchaseActionCardPackage: ({required package}) => isSample()
+          ? sampleActionCardClient!.purchaseActionCardPackage(package: package)
+          : purchaseTicketPackageWithRevenueCat(package: package),
+      watchActionCardCredits: () => isSample()
+          ? sampleActionCardClient!.watchActionCardCredits()
+          : watchActionCardCreditsWithFirebase(),
+      watchMoveRanks: () => isSample()
+          ? sampleActionCardClient!.watchMoveRanks()
+          : watchMoveRanksWithFirebase(),
+      watchOwnedActionCardMoveIds: () => isSample()
+          ? sampleActionCardClient!.watchOwnedActionCardMoveIds()
+          : watchOwnedActionCardMoveIdsWithFirebase(),
+      redeemActionCard: ({required moveId}) => isSample()
+          ? sampleActionCardClient!.redeemActionCard(moveId: moveId)
+          : redeemActionCardWithFirebase(moveId: moveId),
+      teachActionCardMove: ({required monsterId, required moveId}) =>
+          isSample()
+          ? sampleActionCardClient!.teachActionCardMove(
+              monsterId: monsterId,
+              moveId: moveId,
+            )
+          : teachActionCardMoveWithFirebase(
+              monsterId: monsterId,
+              moveId: moveId,
+            ),
+      forgetActionCardMove: ({required monsterId, required moveId}) =>
+          isSample()
+          ? sampleActionCardClient!.forgetActionCardMove(
+              monsterId: monsterId,
+              moveId: moveId,
+            )
+          : forgetActionCardMoveWithFirebase(
+              monsterId: monsterId,
+              moveId: moveId,
+            ),
+    ),
+  );
   runApp(
     SnapmonApp(
       sampleData: sampleData,
@@ -189,6 +255,7 @@ Future<void> main() async {
         deleteAccount: deleteAccountWithFirebase,
       ),
       logEvent: logAnalyticsEvent,
+      actionCardStore: actionCardStore,
     ),
   );
 }
