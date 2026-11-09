@@ -588,6 +588,8 @@ Future<void> showActionCardAssignSheet({
 }) => showModalBottomSheet<void>(
   context: context,
   isScrollControlled: true,
+  // ドラッグの閉じ方は PopScope で止まらず、受け取りの途中に閉じると後の pop が背後の画面を閉じるため切る
+  enableDrag: false,
   builder: (context) =>
       _ActionCardAssignSheet(purchase: purchase, definitions: definitions),
 );
@@ -631,7 +633,10 @@ class _ActionCardAssignSheetState extends State<_ActionCardAssignSheet> {
       messenger.showSnackBar(
         SnackBar(content: Text(l10n.actionCardAssigned(move.displayName))),
       );
-      navigator.pop();
+      // 受け取りの途中に (アカウントの切り替え等で) シートが閉じていたら、背後の画面を閉じないよう pop しない
+      if (mounted) {
+        navigator.pop();
+      }
     } catch (error) {
       messenger.showSnackBar(SnackBar(content: Text(error.toString())));
       if (mounted) {
