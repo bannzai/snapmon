@@ -56,10 +56,18 @@ class MoveCard extends StatelessWidget {
             runSpacing: 4,
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
-              ElementTypeTag.compact(
-                elementTypeId: move.elementTypeId,
-                definitions: definitions,
-              ),
+              // 小さくするのはバトルの技のボタン (remainingPowerPoints がある) の中だけ。モンスターのカードの覚えている技の行は
+              // 幅が広く、他の画面の属性の札と同じ大きさにそろえる (https://github.com/bannzai/snapmon/issues/281 )
+              if (remainingPowerPoints != null)
+                ElementTypeTag.compact(
+                  elementTypeId: move.elementTypeId,
+                  definitions: definitions,
+                )
+              else
+                ElementTypeTag(
+                  elementTypeId: move.elementTypeId,
+                  definitions: definitions,
+                ),
               // 等倍は出さない (ログの「こうかは ばつぐんだ」「いまひとつ」と同じく、倍率が変わる時だけ知らせる。全部の技に出すと技の枠が埋まるため)
               if (typeMultiplier case final typeMultiplier?
                   when typeMultiplier != 1)
