@@ -143,6 +143,7 @@ void main() {
       definition: sampleDefinitions[0],
       level: 30,
       experience: 0,
+      actionCardMoveIds: const [],
       master: master,
       maximumHitPointsPercent: 50,
     );
@@ -150,6 +151,7 @@ void main() {
       definition: sampleDefinitions[0],
       level: 30,
       experience: 0,
+      actionCardMoveIds: const [],
       master: master,
       maximumHitPointsPercent: 100,
     );
@@ -172,6 +174,7 @@ void main() {
             definition: sampleDefinitions[0],
             level: 30,
             experience: 0,
+            actionCardMoveIds: const [],
             master: master,
             maximumHitPointsPercent: 100,
           ),
@@ -181,6 +184,7 @@ void main() {
             definition: sampleDefinitions[1],
             level: 30,
             experience: 0,
+            actionCardMoveIds: const [],
             master: master,
             maximumHitPointsPercent: 100,
           ),

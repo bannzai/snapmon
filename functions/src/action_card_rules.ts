@@ -60,8 +60,7 @@ export function actionCardRankOfProduct(productId: string | null): MoveRank | un
  * 枠は「[learnset] のうち開放レベルが [level] 以下の技を一覧の順に並べ、[actionCardMoveIds] を覚えさせた順で続けた列」の後ろ
  * [MAXIMUM_EQUIPPED_MOVE_COUNT] 個。[actionCardMoveIds] に入った技は learnset 側の列から外す (同じ技が枠に 2 つ並ばないようにし、
  * 覚えさせた技を一番新しい技として扱うため。documents/game-rules.md「技」)。
- * [actionCardMoveIds] が空なら lib/domain/battle/battle_engine.dart の `equippedLearnsetEntries` と同じ技を返す
- * (共通のテストケースは test/fixtures/equipped_move_cases.json)。
+ * lib/domain/battle/battle_engine.dart の `equippedLearnsetEntries` と同じ技を返す (共通のテストケースは test/fixtures/equipped_move_cases.json)。
  */
 export function equippedMoveIds({
   learnset,

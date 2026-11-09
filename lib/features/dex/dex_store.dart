@@ -220,6 +220,31 @@ class DexStore extends ChangeNotifier {
             : OwnedMonster(
                 definition: monster.definition,
                 level: levelsByMonsterId[monster.definition.id]!,
+                actionCardMoveIds: monster.actionCardMoveIds,
+                artPath: monster.artPath,
+                definitionIds: monster.definitionIds,
+                decoration: monster.decoration,
+                decorationVersion: monster.decorationVersion,
+              ),
+    ];
+    notifyListeners();
+  }
+
+  /// 図鑑の [monsterId] のモンスターの Action Card で覚えさせた技を [actionCardMoveIds] に置き換える。図鑑にいない時は何もしない。
+  /// サーバーの図鑑では、teachActionCardMove・forgetActionCardMove が返した値を Firestore から届くまでの間に出すために使い、
+  /// 端末だけの図鑑 (開発者メニューの見本の Action Card) では保存先の代わりにする。
+  void updateActionCardMoveIds({
+    required String monsterId,
+    required List<String> actionCardMoveIds,
+  }) {
+    _monsters = [
+      for (final monster in _monsters)
+        monster.definition.id != monsterId
+            ? monster
+            : OwnedMonster(
+                definition: monster.definition,
+                level: monster.level,
+                actionCardMoveIds: List.unmodifiable(actionCardMoveIds),
                 artPath: monster.artPath,
                 definitionIds: monster.definitionIds,
                 decoration: monster.decoration,

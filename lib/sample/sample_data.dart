@@ -64,6 +64,7 @@ class SampleData {
                         as Map<String, dynamic>,
               ),
               level: monsterJson['level'] as int,
+              actionCardMoveIds: const [],
               artPath: monsterJson['artPath'] as String,
               definitionIds: const [],
               decoration: null,

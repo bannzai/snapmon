@@ -281,6 +281,7 @@ class _BattleScreenState extends State<BattleScreen>
           definition: monster.definition,
           level: monster.level,
           experience: 0,
+          actionCardMoveIds: monster.actionCardMoveIds,
           master: widget.definitions,
           maximumHitPointsPercent: maximumHitPointsPercent,
         ),
@@ -320,7 +321,8 @@ class _BattleScreenState extends State<BattleScreen>
     }) {
       unawaited(_loadArtImage(artPath: artPath));
     }
-    // 読み込みが済むまでの被弾はパーティクルで描くため、待たずにバトルを始める。読むのはこのバトルの両陣営が使い得る技のエフェクトだけ
+    // 読み込みが済むまでの被弾はパーティクルで描くため、待たずにバトルを始める。読むのはこのバトルの両陣営が使い得る技
+    // (覚える技の一覧と Action Card で覚えさせた技) のエフェクトだけ
     unawaited(
       loadMoveEffectSpriteSheets(
         game: _game,
@@ -329,11 +331,13 @@ class _BattleScreenState extends State<BattleScreen>
             ...widget.playerParty,
             ...widget.opponentParty,
           ])
-            for (final learnsetEntry in monster.definition.learnset)
+            for (final moveId in [
+              for (final learnsetEntry in monster.definition.learnset)
+                learnsetEntry.moveId,
+              ...monster.actionCardMoveIds,
+            ])
               widget.definitions.effectById(
-                effectId: widget.definitions
-                    .moveById(moveId: learnsetEntry.moveId)
-                    .effectId,
+                effectId: widget.definitions.moveById(moveId: moveId).effectId,
               ),
         },
         assetBundle: rootBundle,
@@ -1717,18 +1721,26 @@ class _BattleResultPanel extends StatelessWidget {
     required OwnedMonster monster,
     required int newLevel,
   }) {
-    final changes = equippedLearnsetChanges(
-      learnset: monster.definition.learnset,
-      previousLevel: monster.level,
-      newLevel: newLevel,
+    final changes = equippedMoveChanges(
+      previousMoveIds: equippedLearnsetEntries(
+        learnset: monster.definition.learnset,
+        actionCardMoveIds: monster.actionCardMoveIds,
+        level: monster.level,
+      ),
+      newMoveIds: equippedLearnsetEntries(
+        learnset: monster.definition.learnset,
+        actionCardMoveIds: monster.actionCardMoveIds,
+        level: newLevel,
+      ),
     );
     final style = SnapmonTextStyles.small.copyWith(
       color: SnapmonColors.textOnCard,
     );
-    if (changes.learnedEntries.isEmpty) {
+    if (changes.learnedMoveIds.isEmpty) {
       return [
         if (nextLearnsetUnlockLevel(
               learnset: monster.definition.learnset,
+              actionCardMoveIds: monster.actionCardMoveIds,
               level: newLevel,
             )
             case final nextUnlockLevel?)
@@ -1739,17 +1751,17 @@ class _BattleResultPanel extends StatelessWidget {
       ];
     }
     return [
-      for (final learnsetEntry in changes.learnedEntries)
+      for (final moveId in changes.learnedMoveIds)
         Text(
           context.l10n.battleLearnedMove(
-            definitions.moveById(moveId: learnsetEntry.moveId).displayName,
+            definitions.moveById(moveId: moveId).displayName,
           ),
           style: style,
         ),
-      for (final learnsetEntry in changes.forgottenEntries)
+      for (final moveId in changes.forgottenMoveIds)
         Text(
           context.l10n.battleForgotMove(
-            definitions.moveById(moveId: learnsetEntry.moveId).displayName,
+            definitions.moveById(moveId: moveId).displayName,
           ),
           style: style,
         ),

@@ -645,6 +645,7 @@ void main() {
         monster: OwnedMonster(
           definition: sampleMonster.definition,
           level: sampleMonster.level,
+          actionCardMoveIds: const [],
           artPath: null,
           definitionIds: sampleMonster.definitionIds,
           decoration: null,

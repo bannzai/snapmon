@@ -5,6 +5,7 @@ import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
 import '../../common_ui/square_icon_button.dart';
+import '../action_card/action_card_moves_section.dart';
 import '../dex/dex_store.dart';
 import '../dex/owned_monster.dart';
 import '../settings/settings_screen.dart';
@@ -155,14 +156,33 @@ class ResultScreen extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: ListView(
-                padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
-                children: [
-                  MonsterDetailCard(
-                    monster: monster,
-                    definitions: dexStore.definitions,
-                  ),
-                ],
+              // Action Card の技を覚えさせる・忘れさせると図鑑の値が変わるため、図鑑の最新の値で描く (図鑑にいなければ開いた時の値)
+              child: ListenableBuilder(
+                listenable: dexStore,
+                builder: (context, _) {
+                  final latestMonster =
+                      dexStore.monsters
+                          .where(
+                            (dexMonster) =>
+                                dexMonster.definition.id == definition.id,
+                          )
+                          .firstOrNull ??
+                      monster;
+                  return ListView(
+                    padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
+                    children: [
+                      MonsterDetailCard(
+                        monster: latestMonster,
+                        definitions: dexStore.definitions,
+                      ),
+                      if (origin == ResultScreenOrigin.dex)
+                        ActionCardMovesSection(
+                          monster: latestMonster,
+                          dexStore: dexStore,
+                        ),
+                    ],
+                  );
+                },
               ),
             ),
             Padding(

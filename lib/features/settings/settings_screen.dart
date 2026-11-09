@@ -238,6 +238,7 @@ class SettingsScreen extends StatelessWidget {
             isAccountWorking: accountStore.isWorking,
             pvpClient: pvpClient,
             monsterGenerator: monsterGenerator,
+            dexStore: dexStore,
           ),
         ),
         _SectionTitle(title: context.l10n.settingsSoundSection),
@@ -367,7 +368,11 @@ class _ProfileTile extends StatefulWidget {
     required this.isAccountWorking,
     required this.pvpClient,
     required this.monsterGenerator,
+    required this.dexStore,
   });
+
+  /// プロフィール画面から開く Action Card の画面が技の名前・属性を引く定義の持ち主。
+  final DexStore dexStore;
 
   /// アカウントの連携・切り替え・削除の途中か。途中は押せなくする (切り替わった後も前の uid の値を持つプロフィール画面を開かせないため)。
   final bool isAccountWorking;
@@ -440,6 +445,7 @@ class _ProfileTileState extends State<_ProfileTile> {
           pvpClient: widget.pvpClient,
           pickPhoto: widget.monsterGenerator.pickAlbumPhoto,
           preparePhoto: widget.monsterGenerator.preparePhoto,
+          dexStore: widget.dexStore,
         ),
       ),
     );

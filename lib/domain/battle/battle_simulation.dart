@@ -206,12 +206,14 @@ BattleState _playBattle({
   final playerRandom = DeterministicRandom(
     seed: seed * _playerRandomSeedMultiplier,
   );
+  // シミュレーションは master の定義の覚える技だけで戦わせ、Action Card で覚えさせた技は持たせない (両陣営とも空)
   var state = startBattle(
     playerMembers: [
       prepareBattleMonster(
         definition: playerDefinition,
         level: condition.playerLevel,
         experience: 0,
+        actionCardMoveIds: const [],
         master: master,
         maximumHitPointsPercent: 100,
       ),
@@ -221,6 +223,7 @@ BattleState _playBattle({
         definition: opponentDefinition,
         level: condition.opponentLevel,
         experience: 0,
+        actionCardMoveIds: const [],
         master: master,
         maximumHitPointsPercent: condition.opponentHitPointsPercent,
       ),

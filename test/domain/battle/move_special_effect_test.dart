@@ -68,6 +68,7 @@ BattleMonster testMonster({
   state: MonsterState(
     level: 50,
     experience: 0,
+    actionCardMoveIds: const [],
     currentHitPoints: currentHitPoints,
     remainingPowerPoints: {moveId: remainingPowerPoints},
     statModifierPercents: const {},
