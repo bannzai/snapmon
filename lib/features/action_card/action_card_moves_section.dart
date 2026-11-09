@@ -225,6 +225,10 @@ class _ActionCardMovesSectionState extends State<ActionCardMovesSection> {
                                 moveId: moveId,
                               ),
                             ),
+                      // テーマの文字色 (accent) は明るいカードの上で読めないため、カードの上の文字色にする
+                      style: TextButton.styleFrom(
+                        foregroundColor: SnapmonColors.textOnCard,
+                      ),
                       child: Text(l10n.actionCardForget),
                     ),
                   ],
@@ -260,6 +264,13 @@ class _ActionCardMovesSectionState extends State<ActionCardMovesSection> {
                     MaterialPageRoute<void>(
                       builder: (context) =>
                           ActionCardScreen(dexStore: widget.dexStore),
+                    ),
+                  ),
+                  // テーマの文字色 (accent) は明るいカードの上で読めないため、カードの上の文字色と枠にする
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: SnapmonColors.textOnCard,
+                    side: const BorderSide(
+                      color: SnapmonColors.textOnCardMuted,
                     ),
                   ),
                   icon: const Icon(Icons.style_outlined),

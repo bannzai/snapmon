@@ -543,7 +543,9 @@ class _ActionCardPurchaseSheetState extends State<_ActionCardPurchaseSheet> {
                                             )
                                             .length,
                                       ),
-                                      style: SnapmonTextStyles.small,
+                                      style: SnapmonTextStyles.small.copyWith(
+                                        color: SnapmonColors.textOnCardMuted,
+                                      ),
                                     ),
                                     if (featuredMoveOfRank(
                                           rank: rank,
@@ -555,7 +557,9 @@ class _ActionCardPurchaseSheetState extends State<_ActionCardPurchaseSheet> {
                                         l10n.actionCardPackageFeatured(
                                           featuredMove.displayName,
                                         ),
-                                        style: SnapmonTextStyles.small,
+                                        style: SnapmonTextStyles.small.copyWith(
+                                          color: SnapmonColors.textOnCardMuted,
+                                        ),
                                       ),
                                   ],
                                 ],
