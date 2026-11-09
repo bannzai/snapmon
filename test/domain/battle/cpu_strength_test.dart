@@ -1,140 +1,168 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:snapmon/domain/battle/battle_engine.dart';
+import 'package:snapmon/domain/battle/battle_simulation.dart';
 import 'package:snapmon/domain/battle/battle_state.dart';
-import 'package:snapmon/domain/monster/monster_definition.dart';
-import 'package:snapmon/domain/monster/monster_stats.dart';
-import 'package:snapmon/domain/random/deterministic_random.dart';
 
 import '../../sample_data_fixture.dart';
 
-// CPU の強さ (issue #240)。利用者の側は、本番の図鑑のモンスター 6 体の種族値 (2026-11-09 に snapmon-prod から読んだ値) に
-// 見本のモンスターの属性・技を組み合わせ、CPU の側は見本のモンスターのまま戦わせる。
+// CPU の強さ (issue #240・#267)。計測は lib/domain/battle/battle_simulation.dart (利用者の側は本番の図鑑の 6 体の種族値に
+// 見本の属性・技、CPU の側は見本のモンスター) で、目標の値は documents/DIRECTION.md「決めたこと」の 2026-11-09 の #267 の行。
 void main() {
   final sampleData = loadSampleDataFixture();
   final master = sampleData.definitions;
-  const productionBaseStats = [
-    MonsterStats(hitPoints: 60, attack: 40, defense: 60, speed: 80),
-    MonsterStats(hitPoints: 120, attack: 80, defense: 100, speed: 40),
-    MonsterStats(hitPoints: 60, attack: 60, defense: 60, speed: 80),
-    MonsterStats(hitPoints: 60, attack: 40, defense: 60, speed: 80),
-    MonsterStats(hitPoints: 60, attack: 40, defense: 40, speed: 80),
-    MonsterStats(hitPoints: 60, attack: 40, defense: 40, speed: 80),
+  final sampleDefinitions = [
+    for (final monster in sampleData.monsters) monster.definition,
   ];
-
-  /// [definition] の種族値だけを [baseStats] に替えた定義を返す。
-  MonsterDefinition withBaseStats({
-    required MonsterDefinition definition,
-    required MonsterStats baseStats,
-  }) => MonsterDefinition(
-    id: definition.id,
-    sourcePhotoReference: definition.sourcePhotoReference,
-    name: definition.name,
-    encyclopediaText: definition.encyclopediaText,
-    elementTypeIds: definition.elementTypeIds,
-    learnset: definition.learnset,
-    baseStats: baseStats,
-    individualValues: definition.individualValues,
-    statCalculationVersion: definition.statCalculationVersion,
-    masterVersion: definition.masterVersion,
+  final playerDefinitions = simulationPlayerDefinitions(
+    sampleDefinitions: sampleDefinitions,
   );
 
-  /// 利用者の側が使える技から乱数で 1 つを選ぶ (技の相性を考えずに選ぶ利用者の代わり)。
-  BattleAction randomSelectable({
-    required BattleState state,
-    required DeterministicRandom random,
-  }) {
-    final moves = selectableMoves(
-      monster: state.player.activeMember,
-      master: master,
-    );
-    if (!moves.any(isOrdinaryAttackMove)) {
-      return const StruggleAction();
-    }
-    return UseMoveAction(moveId: moves[random.nextUint32() % moves.length].id);
-  }
+  /// 利用者 Lv.[playerLevel]・CPU Lv.[opponentLevel] で戦わせた時の集計。補正の既定値は、アプリが CPU 戦で使う今の値
+  /// ([cpuDamagePercent]・[cpuHitPointsPercent]) で、目標を守るテストがアプリと同じ条件を測るため。
+  BattleSimulationResult simulate({
+    required int playerLevel,
+    required int opponentLevel,
+    required SimulatedPlayerPolicy policy,
+    int opponentDamagePercent = cpuDamagePercent,
+    int opponentHitPointsPercent = cpuHitPointsPercent,
+  }) => simulateBattles(
+    master: master,
+    playerDefinitions: playerDefinitions,
+    opponentDefinitions: sampleDefinitions,
+    condition: (
+      playerLevel: playerLevel,
+      opponentLevel: opponentLevel,
+      opponentDamagePercent: opponentDamagePercent,
+      opponentHitPointsPercent: opponentHitPointsPercent,
+      playerPolicy: policy,
+      // 180 組 × 5 で 1 条件 900 戦になり、値を決めた tool/simulate_battles.dart の既定と同じ戦数で目標を確かめるため
+      seedCount: 5,
+    ),
+  );
 
-  /// Lv.[level] で、本番の種族値の利用者が乱数で技を選び、CPU が [chooseCpuAction] で選ぶ時の、利用者の勝ち数と対戦数を返す。
-  ({int wins, int battles}) playerWins({
-    required int level,
-    required int opponentDamagePercent,
-  }) {
-    var wins = 0;
-    var battles = 0;
-    for (final baseStats in productionBaseStats) {
-      for (final player in sampleData.monsters) {
-        for (final opponent in sampleData.monsters) {
-          if (player.artPath == opponent.artPath) {
-            continue;
-          }
-          for (var seed = 1; seed <= 5; seed++) {
-            final random = DeterministicRandom(seed: seed * 7919);
-            var state = startBattle(
-              playerMembers: [
-                prepareBattleMonster(
-                  definition: withBaseStats(
-                    definition: player.definition,
-                    baseStats: baseStats,
-                  ),
-                  level: level,
-                  experience: 0,
-                  actionCardMoveIds: const [],
-                  master: master,
-                ),
-              ],
-              opponentMembers: [
-                prepareBattleMonster(
-                  definition: opponent.definition,
-                  level: level,
-                  experience: 0,
-                  actionCardMoveIds: const [],
-                  master: master,
-                ),
-              ],
-              randomSeed: seed,
-              battleDate: DateTime(2026, 11, 9),
-              opponentDamagePercent: opponentDamagePercent,
-            );
-            while (state.winner == null) {
-              state = advanceRound(
-                state: state,
-                playerAction: randomSelectable(state: state, random: random),
-                opponentAction: chooseCpuAction(
-                  state: state,
-                  side: BattleSideId.opponent,
-                  master: master,
-                ),
-                master: master,
-              );
-            }
-            battles++;
-            if (state.winner == BattleSideId.player) {
-              wins++;
-            }
-          }
-        }
-      }
-    }
-    return (wins: wins, battles: battles);
-  }
+  /// [count] / [total] を % で返す。
+  double percent({required int count, required int total}) =>
+      count * 100 / total;
 
   test('初回のバトル (Lv.1) で、技を乱数で選ぶ利用者が CPU に 6 割以上勝つ', () {
-    final result = playerWins(
-      level: 1,
-      opponentDamagePercent: cpuDamagePercent,
+    final result = simulate(
+      playerLevel: 1,
+      opponentLevel: 1,
+      policy: SimulatedPlayerPolicy.randomMove,
     );
     expect(
-      result.wins * 100 / result.battles,
+      percent(count: result.playerWins, total: result.battles),
       greaterThanOrEqualTo(60),
-      reason: '${result.wins}/${result.battles}',
+      reason: '${result.playerWins}/${result.battles}',
     );
   });
 
-  test('補正しない (100%) と、Lv.1 で技を乱数で選ぶ利用者は CPU に半分も勝てない (issue #240 の再現)', () {
-    final result = playerWins(level: 1, opponentDamagePercent: 100);
+  test('Lv.20 で相性の最善を選ぶ利用者の勝率は 75% を超えない (CPU が弱すぎない)', () {
+    final result = simulate(
+      playerLevel: 20,
+      opponentLevel: 20,
+      policy: SimulatedPlayerPolicy.sameAsCpu,
+    );
     expect(
-      result.wins * 100 / result.battles,
+      percent(count: result.playerWins, total: result.battles),
+      lessThanOrEqualTo(75),
+      reason: '${result.playerWins}/${result.battles}',
+    );
+  });
+
+  test(
+    'Lv.4 対 Lv.2 で、CPU の打撃のうち 1 ダメージに潰れるものは 3 割以下 (issue #267 の「1 ダメージしか受けない」)',
+    () {
+      final result = simulate(
+        playerLevel: 4,
+        opponentLevel: 2,
+        policy: SimulatedPlayerPolicy.randomMove,
+      );
+      expect(
+        percent(
+          count: result.opponentOneDamageHits,
+          total: result.opponentAttackHits,
+        ),
+        lessThanOrEqualTo(30),
+        reason: '${result.opponentOneDamageHits}/${result.opponentAttackHits}',
+      );
+    },
+  );
+
+  test('補正しない (100%) と、Lv.1 で技を乱数で選ぶ利用者は CPU に半分も勝てない (issue #240 の再現)', () {
+    final result = simulate(
+      playerLevel: 1,
+      opponentLevel: 1,
+      policy: SimulatedPlayerPolicy.randomMove,
+      opponentDamagePercent: 100,
+      opponentHitPointsPercent: 100,
+    );
+    expect(
+      percent(count: result.playerWins, total: result.battles),
       lessThan(50),
-      reason: '${result.wins}/${result.battles}',
+      reason: '${result.playerWins}/${result.battles}',
+    );
+  });
+
+  test('同じ条件のシミュレーションは同じ結果になる (seed で決まる)', () {
+    BattleSimulationResult run() => simulate(
+      playerLevel: 4,
+      opponentLevel: 2,
+      policy: SimulatedPlayerPolicy.randomMove,
+    );
+    expect(run(), run());
+  });
+
+  test('最大 HP の割合は切り捨てで 1 以上になり、100 ならステータスの計算式の HP のまま', () {
+    final definition = sampleDefinitions[0];
+    final full = maximumHitPoints(
+      definition: definition,
+      level: 10,
+      maximumHitPointsPercent: 100,
+    );
+    expect(
+      maximumHitPoints(
+        definition: definition,
+        level: 10,
+        maximumHitPointsPercent: 70,
+      ),
+      full * 70 ~/ 100,
+    );
+    expect(
+      maximumHitPoints(
+        definition: definition,
+        level: 1,
+        maximumHitPointsPercent: 1,
+      ),
+      1,
+    );
+  });
+
+  test('最大 HP の割合は、始めの HP・回復の上限・技の式の変数・毒のダメージの最大 HP に掛かる', () {
+    final reduced = prepareBattleMonster(
+      definition: sampleDefinitions[0],
+      level: 30,
+      experience: 0,
+      actionCardMoveIds: const [],
+      master: master,
+      maximumHitPointsPercent: 50,
+    );
+    final full = prepareBattleMonster(
+      definition: sampleDefinitions[0],
+      level: 30,
+      experience: 0,
+      actionCardMoveIds: const [],
+      master: master,
+      maximumHitPointsPercent: 100,
+    );
+    expect(reduced.state.currentHitPoints, full.state.currentHitPoints ~/ 2);
+    expect(
+      effectiveStats(monster: reduced).hitPoints,
+      full.state.currentHitPoints ~/ 2,
+    );
+    expect(
+      effectiveStats(monster: reduced).attack,
+      effectiveStats(monster: full).attack,
     );
   });
 
@@ -143,24 +171,26 @@ void main() {
       final state = startBattle(
         playerMembers: [
           prepareBattleMonster(
-            definition: sampleData.monsters[0].definition,
+            definition: sampleDefinitions[0],
             level: 30,
             experience: 0,
             actionCardMoveIds: const [],
             master: master,
+            maximumHitPointsPercent: 100,
           ),
         ],
         opponentMembers: [
           prepareBattleMonster(
-            definition: sampleData.monsters[1].definition,
+            definition: sampleDefinitions[1],
             level: 30,
             experience: 0,
             actionCardMoveIds: const [],
             master: master,
+            maximumHitPointsPercent: 100,
           ),
         ],
         randomSeed: 1,
-        battleDate: DateTime(2026, 11, 9),
+        battleDate: simulationBattleDate,
         opponentDamagePercent: opponentDamagePercent,
       );
       return advanceRound(

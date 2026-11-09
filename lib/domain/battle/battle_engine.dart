@@ -50,38 +50,64 @@ const int cpuOneHitKnockoutChanceDenominator = 4;
 /// CPU が自爆の技を選ぶ時の、自分の残り HP の最大 HP に対する割合の分母。残り HP がこの割合 (1/4) 以下の時だけ 1/2 の確率で選ぶ。
 const int cpuSelfDestructHitPointsDenominator = 4;
 
-/// CPU との対戦で、CPU が与えるダメージに掛ける割合 (%)。根拠は documents/DIRECTION.md「決めたこと」の 2026-11-09 の行 (issue #240)。
-/// 本番の種族値の利用者が技を乱数で選ぶ時の Lv.1 の勝率を 6 割以上にする値のうち、Lv.20 で相性の最善を選ぶ利用者の勝率が 75% を超えない値
-/// (test/domain/battle/cpu_strength_test.dart と同じ組み合わせの 900 戦で、100% は 38.1%、75% は 51.3%、60% は 60.0%、50% は 66.3%。
-/// 50% の時の Lv.20 の最善を選ぶ利用者は 52.1%)。60% は目標の境目で、乱数の幅 (約 ±3 ポイント) で下回るため 50% にした。
-/// Lv.1 はステータスの式の切り捨てでどのモンスターも HP 12〜13・攻撃 5〜7 にそろい、種族値を下げても勝率が 5 割前後で止まるため、ダメージで補正する。
-const int cpuDamagePercent = 50;
+/// CPU との対戦で、CPU が与えるダメージに掛ける割合 (%)。100 は補正しない。根拠は documents/DIRECTION.md「決めたこと」の
+/// 2026-11-09 の #267 の行。issue #240 で 50 にしたが、低レベルの打撃は基本ダメージが 1〜3 のため、割合を掛けた後の切り捨てで
+/// 1 に潰れる (tool/simulate_battles.dart の 900 戦で、Lv.4 対 Lv.2 の CPU の打撃のうち 1 ダメージは 50 で 53.5%、80 で 52.8%、
+/// 90 で 53.0%、100 で 16.9%)。100 未満のどの値でも潰れるため補正をやめ、CPU の強さは [cpuHitPointsPercent] で下げる。
+/// 定数を残すのは、シミュレーションでダメージの補正と比べ直せるようにするため。
+const int cpuDamagePercent = 100;
+
+/// CPU との対戦で、CPU の手持ちの最大 HP に掛ける割合 (%)。100 は補正しない。根拠は documents/DIRECTION.md「決めたこと」の
+/// 2026-11-09 の #267 の行。tool/simulate_battles.dart の 900 戦 (ダメージの補正なし) で、3 つの目標 (Lv.1 で技を乱数で選ぶ利用者の
+/// 勝率 60% 以上、Lv.20 で相性の最善を選ぶ利用者の勝率 75% 以下、Lv.4 対 Lv.2 の CPU の打撃のうち 1 ダメージ 30% 以下) を、
+/// 40 は 68.3%・57.7%・12.6% で満たす。50 は Lv.1 が 59.3% で目標を割るため 40 にした。
+const int cpuHitPointsPercent = 40;
 
 /// CPU の技選びの乱数の seed を、バトルの乱数の状態から作る時に混ぜる値 (黄金比の 32bit の定数 0x9E3779B9)。
 /// 同じラウンドの行動順・ダメージの乱数と同じ列を使わないため (同じ値の列だと、同じ速さの時の行動順と CPU の技選びが連動する)。
 const int _cpuRandomSeedSalt = 0x9E3779B9;
 
+/// レベル [level] の [definition] のモンスターの最大 HP。ステータスの計算式の HP に [maximumHitPointsPercent] (%) を掛けた値
+/// (切り捨て、1 以上)。CPU の手持ちは [cpuHitPointsPercent]、利用者と PvP の相手は 100 で、100 ならステータスの計算式の HP そのもの。
+int maximumHitPoints({
+  required MonsterDefinition definition,
+  required int level,
+  required int maximumHitPointsPercent,
+}) => math.max(
+  1,
+  calculateStats(
+        baseStats: definition.baseStats,
+        individualValues: definition.individualValues,
+        level: level,
+        statCalculationVersion: definition.statCalculationVersion,
+      ).hitPoints *
+      maximumHitPointsPercent ~/
+      100,
+);
+
 /// [definition] のモンスターを、[level]・[experience]・[actionCardMoveIds] (Action Card で覚えさせた技) で HP・PP を満タンにし、
 /// ステータスの倍率を等倍、状態なしにしてバトルに出す。
 /// PP は覚える技の一覧と [actionCardMoveIds] のすべての技について持つ (レベルで開放されていない技も、上がった後に使えるよう持っておく)。
+/// [maximumHitPointsPercent] は最大 HP に掛ける割合 (%) で、CPU の手持ちは [cpuHitPointsPercent]、補正しないなら 100。
 BattleMonster prepareBattleMonster({
   required MonsterDefinition definition,
   required int level,
   required int experience,
   required List<String> actionCardMoveIds,
   required MasterData master,
+  required int maximumHitPointsPercent,
 }) => BattleMonster(
   definition: definition,
+  maximumHitPointsPercent: maximumHitPointsPercent,
   state: MonsterState(
     level: level,
     experience: experience,
     actionCardMoveIds: actionCardMoveIds,
-    currentHitPoints: calculateStats(
-      baseStats: definition.baseStats,
-      individualValues: definition.individualValues,
+    currentHitPoints: maximumHitPoints(
+      definition: definition,
       level: level,
-      statCalculationVersion: definition.statCalculationVersion,
-    ).hitPoints,
+      maximumHitPointsPercent: maximumHitPointsPercent,
+    ),
     remainingPowerPoints: {
       for (final moveId in {
         for (final learnsetEntry in definition.learnset) learnsetEntry.moveId,
@@ -101,8 +127,9 @@ int statModifierPercentOf({
 }) => monster.state.statModifierPercents[statKind] ?? 100;
 
 /// [monster] の今のレベルのステータスに、補助技で変わった倍率と状態の効果 (眠気・呪い・興奮) を掛け、
-/// フィールドの入れ替え ([field]) を反映した値 (小数点以下は切り捨て、1 以上) を返す。HP は倍率を持たない。
-/// ダメージ・行動順・技の式の変数に使う。
+/// フィールドの入れ替え ([field]) を反映した値 (小数点以下は切り捨て、1 以上) を返す。HP は倍率を持たず、
+/// [BattleMonster.maximumHitPointsPercent] を掛けた最大 HP ([maximumHitPoints])。
+/// ダメージ・行動順・技の式の変数・回復の上限・毒のダメージ・HP バーの分母に使う。
 MonsterStats effectiveStats({
   required BattleMonster monster,
   BattleField? field,
@@ -148,7 +175,11 @@ MonsterStats effectiveStats({
     modifiedStats[second] = firstValue;
   }
   return MonsterStats(
-    hitPoints: stats.hitPoints,
+    hitPoints: maximumHitPoints(
+      definition: monster.definition,
+      level: monster.state.level,
+      maximumHitPointsPercent: monster.maximumHitPointsPercent,
+    ),
     attack: modifiedStats[StatKind.attack]!,
     defense: modifiedStats[StatKind.defense]!,
     speed: modifiedStats[StatKind.speed]!,
@@ -614,6 +645,7 @@ BattleState advanceRound({
             index == party.activeMemberIndex
                 ? BattleMonster(
                     definition: member.definition,
+                    maximumHitPointsPercent: member.maximumHitPointsPercent,
                     state: member.state.copyWith(
                       statModifierPercents: const {},
                     ),
@@ -1053,6 +1085,7 @@ BattleState advanceRound({
             participantMonsterIds.contains(member.definition.id)
                 ? BattleMonster(
                     definition: member.definition,
+                    maximumHitPointsPercent: member.maximumHitPointsPercent,
                     state: member.state.copyWith(
                       level: math.min(member.state.level + 1, maximumLevel),
                       experience: member.state.experience + 1,
@@ -1392,7 +1425,11 @@ BattleParty _replaceActiveMemberState({
   members: [
     for (final (index, member) in party.members.indexed)
       index == party.activeMemberIndex
-          ? BattleMonster(definition: member.definition, state: state)
+          ? BattleMonster(
+              definition: member.definition,
+              maximumHitPointsPercent: member.maximumHitPointsPercent,
+              state: state,
+            )
           : member,
   ],
   activeMemberIndex: party.activeMemberIndex,

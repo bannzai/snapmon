@@ -37,7 +37,7 @@ jobs:
     # UI の文言 (lib/l10n/app_*.arb) から AppLocalizations を生成する。生成物は git に入れないため、analyze の前に作る
     - run: flutter gen-l10n
     - run: flutter analyze --no-pub --no-fatal-infos --fatal-warnings
-    - run: dart format --set-exit-if-changed lib test store_screenshots
+    - run: dart format --set-exit-if-changed lib test store_screenshots tool
 
   test:
     runs-on: ubuntu-latest

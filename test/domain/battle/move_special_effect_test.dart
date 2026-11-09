@@ -62,6 +62,7 @@ BattleMonster testMonster({
     statCalculationVersion: 1,
     masterVersion: 1,
   ),
+  maximumHitPointsPercent: 100,
   state: MonsterState(
     level: 50,
     experience: 0,

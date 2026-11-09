@@ -5,9 +5,9 @@ import 'package:flutter/services.dart';
 import '../domain/master/master_data.dart';
 import '../domain/monster/monster_definition.dart';
 import '../features/dex/owned_monster.dart';
+import 'sample_data_path.dart';
 
-/// 見本データのファイル。CPU 対戦の相手、ログインが無い時 (DEBUG ビルド) の PvP の相手の代わり、開発者メニューの見本の投入に使う。
-const String sampleDataAssetPath = 'assets/samples/sample_monsters.json';
+export 'sample_data_path.dart';
 
 /// 見本の対戦相手。ログインが無い時 (DEBUG ビルド) の PvP の相手の代わり (lib/features/opponent/opponent_screen.dart)。
 class SampleOpponent {
