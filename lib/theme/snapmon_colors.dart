@@ -48,6 +48,11 @@ abstract final class SnapmonColors {
   /// カードの上の本文 (図鑑の文章)。
   static const Color textOnCardBody = Color(0xFF2A2534);
 
+  /// カードの上の、技が今の相手に効果抜群であることを知らせる文字。
+  /// 威力・PP の数値 ([textOnCard]) と見分けられる色相にし、[card] の地とのコントラスト比を 5.85 (WCAG AA の 4.5 以上) にした。
+  /// [accent] は [card] の地では文字が読めないため使わない (https://github.com/bannzai/snapmon/issues/259 )。
+  static const Color superEffectiveOnCard = Color(0xFF33691E);
+
   /// 絵や写真の上に重ねる文字の下地 (地の色の 85%)。
   static const Color scrim = Color(0xD915121C);
 
