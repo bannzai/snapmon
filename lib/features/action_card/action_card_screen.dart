@@ -186,6 +186,8 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
                     ),
                     style: TextButton.styleFrom(
                       foregroundColor: SnapmonColors.textOnCard,
+                      // 押せない間 (技のランクの表が届く前) の既定はテーマの onSurface で、カードと同じ色になり読めないため
+                      disabledForegroundColor: SnapmonColors.textOnCardMuted,
                     ),
                     onPressed: rankByMoveId == null
                         ? null
