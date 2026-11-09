@@ -2041,9 +2041,9 @@ void main() {
             opponentMoveId: 'fire_raise_attack',
           );
           final failed = state.events.whereType<ActionFailedEvent>().toList();
-          final opponentMoves = state.events
-              .whereType<MoveUsedEvent>()
-              .where((event) => event.attackerSide == BattleSideId.opponent);
+          final opponentMoves = state.events.whereType<MoveUsedEvent>().where(
+            (event) => event.attackerSide == BattleSideId.opponent,
+          );
           // 止まったかどうかに関係なく、相手の行動の前に状態が付いている
           final inflictedIndex = state.events.indexWhere(
             (event) =>
