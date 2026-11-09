@@ -14,7 +14,7 @@ import 'dart:io';
 import 'package:snapmon/domain/battle/battle_simulation.dart';
 import 'package:snapmon/domain/master/master_data.dart';
 import 'package:snapmon/domain/monster/monster_definition.dart';
-import 'package:snapmon/sample/sample_data.dart' show sampleDataAssetPath;
+import 'package:snapmon/sample/sample_data_path.dart';
 
 /// 試すレベルの組 (利用者のレベル, CPU のレベル)。同レベルの 4 段階と、issue #267 のスクリーンショットの差 (Lv.4 対 Lv.2) とその逆。
 const List<({int player, int opponent})> levelPairs = [

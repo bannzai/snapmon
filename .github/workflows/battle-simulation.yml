@@ -47,12 +47,14 @@ jobs:
         channel: stable
     - run: flutter pub get
     - run: mkdir -p tmp
-    - run: dart run tool/simulate_battles.dart --seeds "$SEEDS" --damage-percents "$DAMAGE_PERCENTS" --hit-points-percents "$HIT_POINTS_PERCENTS" | tee tmp/battle-simulation.md
+    # tee で繋ぐとツールの失敗が exit 0 に隠れるため、ファイルに書いてから表示する
+    - run: dart run tool/simulate_battles.dart --seeds "$SEEDS" --damage-percents "$DAMAGE_PERCENTS" --hit-points-percents "$HIT_POINTS_PERCENTS" > tmp/battle-simulation.md
       # pull_request では inputs が無いため、workflow_dispatch の既定値と同じ値にする
       env:
         SEEDS: ${{ inputs.seeds || '5' }}
         DAMAGE_PERCENTS: ${{ inputs.damage_percents || '50,70,100' }}
         HIT_POINTS_PERCENTS: ${{ inputs.hit_points_percents || '50,70,100' }}
+    - run: cat tmp/battle-simulation.md
     - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
       with:
         name: battle-simulation
