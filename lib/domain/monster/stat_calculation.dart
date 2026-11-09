@@ -16,7 +16,7 @@ int individualValueSeed({required String subjectDescription}) =>
     fnv1a32(text: subjectDescription);
 
 /// [seed] から個体値 (各 0 以上 [individualValueMaximum] 以下) を決定的に引く。
-/// 引く順番は HP・攻撃・防御・素早さで固定する (順番を変えると既存の値が変わるため)。
+/// 引く順番は HP・攻撃・防御・素早さ・命中で固定する (順番を変えると既存の値が変わるため。命中は #279 で最後に足した)。
 MonsterStats individualValuesFromSeed({required int seed}) {
   final random = DeterministicRandom(seed: seed);
   int next() =>
@@ -26,6 +26,7 @@ MonsterStats individualValuesFromSeed({required int seed}) {
     attack: next(),
     defense: next(),
     speed: next(),
+    accuracy: next(),
   );
 }
 
@@ -53,6 +54,7 @@ MonsterStats baseStatsFromStatGrades({
     attack: baseStatOf(statKind: StatKind.attack),
     defense: baseStatOf(statKind: StatKind.defense),
     speed: baseStatOf(statKind: StatKind.speed),
+    accuracy: baseStatOf(statKind: StatKind.accuracy),
   );
 }
 
@@ -111,9 +113,22 @@ double statStrengthRatio({
       .clamp(0.0, 1.0);
 }
 
+/// 命中の下限 (%)。種族値と個体値が最も低いモンスターでも、命中率 100 の技が 8 割 5 分ほど当たる値にした
+/// (issue #279「だいたい当たれば良い」。眩暈の 70% より外れにくくするため)。
+const int accuracyStatMinimumPercent = 80;
+
+/// 命中の幅 (%)。種族値と個体値が最も高いモンスターで命中が 100 になるよう、[accuracyStatMinimumPercent] との和を 100 にした。
+const int accuracyStatRangePercent = 20;
+
+/// 命中の式の分母。種族値の段階の最大 (master の statGrades の `veryHigh` の 120) と個体値の上限の (2 × 120 + 31)。
+/// master の段階を後で変えても保存済みのモンスターの命中が変わらないよう、master から引かずに固定した。
+const int accuracyStatScaleDenominator = 2 * 120 + individualValueMaximum;
+
 /// 種族値・個体値・レベルから実際のステータスを返す。
 /// [statCalculationVersion] はモンスターに保存した計算手順の版で、知らない版なら [ArgumentError] を投げる。
-/// 式は documents/game-rules.md「ステータスの計算式」。
+/// 式は documents/game-rules.md「ステータスの計算式」。命中は割合 (%) のためレベルで変わらない。
+/// 命中は #279 で版 1 に足した式で、版を上げなかったのは、版 1 の他の値の式を変えず、命中を持たずに保存されたモンスターも
+/// 既定の種族値・個体値 ([accuracyBaseStatWithoutJudgement]・[accuracyIndividualValueWithoutJudgement]) で同じ式を使うため。
 MonsterStats calculateStats({
   required MonsterStats baseStats,
   required MonsterStats individualValues,
@@ -132,6 +147,11 @@ MonsterStats calculateStats({
         attack: scaled(statKind: StatKind.attack) + 5,
         defense: scaled(statKind: StatKind.defense) + 5,
         speed: scaled(statKind: StatKind.speed) + 5,
+        accuracy:
+            accuracyStatMinimumPercent +
+            (2 * baseStats.accuracy + individualValues.accuracy) *
+                accuracyStatRangePercent ~/
+                accuracyStatScaleDenominator,
       );
     default:
       throw ArgumentError('ステータスの計算手順の版 $statCalculationVersion を知らない');

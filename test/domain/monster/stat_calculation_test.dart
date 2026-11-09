@@ -19,6 +19,7 @@ void main() {
     StatKind.attack: 'low',
     StatKind.defense: 'veryHigh',
     StatKind.speed: 'veryLow',
+    StatKind.accuracy: 'high',
   };
 
   test('FNV-1a は既知の値と一致する (実行環境で値が変わらない実装であること)', () {
@@ -40,12 +41,24 @@ void main() {
     // 期待値は FNV-1a と xorshift32 を任意精度の整数で別実装 (Python) して求めた。
     expect(
       individualValues(),
-      const MonsterStats(hitPoints: 1, attack: 5, defense: 22, speed: 25),
+      const MonsterStats(
+        hitPoints: 1,
+        attack: 5,
+        defense: 22,
+        speed: 25,
+        accuracy: 17,
+      ),
     );
     expect(baseStats(), baseStats());
     expect(
       baseStats(),
-      const MonsterStats(hitPoints: 80, attack: 60, defense: 120, speed: 40),
+      const MonsterStats(
+        hitPoints: 80,
+        attack: 60,
+        defense: 120,
+        speed: 40,
+        accuracy: 100,
+      ),
     );
   });
 
@@ -112,19 +125,28 @@ void main() {
       attack: 40,
       defense: 40,
       speed: 40,
+      accuracy: 40,
     );
     const highest = MonsterStats(
       hitPoints: 120,
       attack: 120,
       defense: 120,
       speed: 120,
+      accuracy: 120,
     );
-    const zero = MonsterStats(hitPoints: 0, attack: 0, defense: 0, speed: 0);
+    const zero = MonsterStats(
+      hitPoints: 0,
+      attack: 0,
+      defense: 0,
+      speed: 0,
+      accuracy: 0,
+    );
     const maximum = MonsterStats(
       hitPoints: individualValueMaximum,
       attack: individualValueMaximum,
       defense: individualValueMaximum,
       speed: individualValueMaximum,
+      accuracy: individualValueMaximum,
     );
 
     test('レベル 1', () {
@@ -135,7 +157,13 @@ void main() {
           level: 1,
           statCalculationVersion: 1,
         ),
-        const MonsterStats(hitPoints: 11, attack: 5, defense: 5, speed: 5),
+        const MonsterStats(
+          hitPoints: 11,
+          attack: 5,
+          defense: 5,
+          speed: 5,
+          accuracy: 85,
+        ),
       );
       expect(
         calculateStats(
@@ -144,7 +172,13 @@ void main() {
           level: 1,
           statCalculationVersion: 1,
         ),
-        const MonsterStats(hitPoints: 13, attack: 7, defense: 7, speed: 7),
+        const MonsterStats(
+          hitPoints: 13,
+          attack: 7,
+          defense: 7,
+          speed: 7,
+          accuracy: 100,
+        ),
       );
     });
 
@@ -161,6 +195,8 @@ void main() {
           attack: 804,
           defense: 804,
           speed: 804,
+          // 命中は割合のためレベルで変わらない
+          accuracy: 85,
         ),
       );
       expect(
@@ -175,7 +211,35 @@ void main() {
           attack: 2712,
           defense: 2712,
           speed: 2712,
+          accuracy: 100,
         ),
+      );
+    });
+
+    test('命中を持たずに保存されたモンスター (#279 より前) は、既定の種族値・個体値で命中 92 になる', () {
+      const json = {'hitPoints': 80, 'attack': 80, 'defense': 80, 'speed': 80};
+      expect(
+        calculateStats(
+          baseStats: MonsterStats.fromJson(
+            json: json,
+            accuracyWithoutJudgement: accuracyBaseStatWithoutJudgement,
+          ),
+          individualValues: MonsterStats.fromJson(
+            json: json,
+            accuracyWithoutJudgement: accuracyIndividualValueWithoutJudgement,
+          ),
+          level: 1,
+          statCalculationVersion: 1,
+        ).accuracy,
+        92,
+      );
+      // 保存された命中があればそれを使う
+      expect(
+        MonsterStats.fromJson(
+          json: {...json, 'accuracy': 120},
+          accuracyWithoutJudgement: accuracyBaseStatWithoutJudgement,
+        ).accuracy,
+        120,
       );
     });
 
@@ -219,6 +283,7 @@ void main() {
           attack: 130,
           defense: 130,
           speed: 130,
+          accuracy: 130,
         ),
         individualValues: maximum,
         master: master,
@@ -234,12 +299,14 @@ void main() {
             attack: 40,
             defense: 120,
             speed: 40,
+            accuracy: 40,
           ),
           individualValues: const MonsterStats(
             hitPoints: 0,
             attack: 0,
             defense: 31,
             speed: 0,
+            accuracy: 0,
           ),
           master: master,
         ),

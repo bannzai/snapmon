@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import '../battle/status_condition.dart';
 import '../monster/monster_stats.dart';
 
@@ -155,6 +157,35 @@ MoveSpecialEffect? moveSpecialEffectFromJson({
 
 /// 技の命中率の既定 (%)。master の技が `accuracy` を持たない時の値。
 const int defaultMoveAccuracyPercent = 100;
+
+/// 命中率を下げ始める威力。これ以下の技は威力で命中率を下げない。
+/// 段階 1 の攻撃技 (40〜50) を下げず「だいたい当たる」を保ち、段階 2 (60〜75) から下げるため (#279)。
+const int accuracyPenaltyPowerThreshold = 50;
+
+/// 威力がこれだけ上がるごとに命中率を 1 下げる。段階 3 (110) で 88、自爆 (200) で 70 になる (#279)。
+const int accuracyPenaltyPowerStep = 5;
+
+/// 威力で下げた命中率の下限 (%)。眩暈の 70% と同じにし、最も強い技でも 10 回に 7 回は当たるようにした (#279)。
+const int accuracyPenaltyMinimumPercent = 70;
+
+/// [move] の命中率 (%)。master の命中率 (`accuracy`) に、威力が高いほど低くなる割合を掛ける (切り捨て)。必中の技は 100。
+/// 威力の割合を master の値ではなく式で持つのは、版をまたいで既存の技の値を変えない規則 (documents/game-rules.md「技」) のため。
+/// バトルの命中 (`moveHitChancePercent`) と技の詳細画面の命中率が使う。
+int moveAccuracyPercent({required Move move}) {
+  if (move.specialEffect?.isSureHit ?? false) {
+    return 100;
+  }
+  return move.accuracy *
+      (move.power <= accuracyPenaltyPowerThreshold
+          ? 100
+          : max(
+              accuracyPenaltyMinimumPercent,
+              100 -
+                  (move.power - accuracyPenaltyPowerThreshold) ~/
+                      accuracyPenaltyPowerStep,
+            )) ~/
+      100;
+}
 
 /// 技の定義。master (`assets/master/master.json`) の `moves` と、
 /// 登録時にその場で作って Firestore に保存した定義が同じ形を持つ。

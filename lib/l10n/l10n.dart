@@ -12,7 +12,7 @@ extension L10nBuildContext on BuildContext {
   AppLocalizations get l10n => AppLocalizations.of(this);
 }
 
-/// [statKind] の画面の名前 (HP・攻撃・防御・素早さ) を、[l10n] の言語で返す。
+/// [statKind] の画面の名前 (HP・攻撃・防御・素早さ・命中) を、[l10n] の言語で返す。
 String statLabel({
   required AppLocalizations l10n,
   required StatKind statKind,
@@ -21,6 +21,7 @@ String statLabel({
   StatKind.attack => l10n.statAttack,
   StatKind.defense => l10n.statDefense,
   StatKind.speed => l10n.statSpeed,
+  StatKind.accuracy => l10n.statAccuracy,
 };
 
 /// 状態 [kind] の画面の名前 (どく・まひ 等) を、[l10n] の言語で返す。

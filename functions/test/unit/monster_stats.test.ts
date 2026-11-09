@@ -28,15 +28,16 @@ describe("Dart の計算 (lib/domain/) と同じ値", () => {
   });
 
   it("同じ説明文からは Dart のテストと同じ個体値になる", () => {
-    expect(individualValuesFromDescription("赤い陶器のマグカップ。手のひらほどの大きさで硬い")).toEqual({ hitPoints: 1, attack: 5, defense: 22, speed: 25 });
+    expect(individualValuesFromDescription("赤い陶器のマグカップ。手のひらほどの大きさで硬い")).toEqual({ hitPoints: 1, attack: 5, defense: 22, speed: 25, accuracy: 17 });
   });
 
   it("段階から種族値を引く", () => {
-    expect(baseStatsFromStatGrades({ statGradeIds: { hitPoints: "medium", attack: "low", defense: "veryHigh", speed: "veryLow" }, master })).toEqual({
+    expect(baseStatsFromStatGrades({ statGradeIds: { hitPoints: "medium", attack: "low", defense: "veryHigh", speed: "veryLow", accuracy: "high" }, master })).toEqual({
       hitPoints: 80,
       attack: 60,
       defense: 120,
       speed: 40,
+      accuracy: 100,
     });
   });
 
