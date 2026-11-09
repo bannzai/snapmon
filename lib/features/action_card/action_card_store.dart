@@ -5,6 +5,7 @@ import 'package:purchases_flutter/purchases_flutter.dart';
 
 import '../../sample/sample_action_cards.dart';
 import '../capture/monster_generator.dart';
+import '../dex/dex_store.dart';
 import 'action_card_client.dart';
 
 /// Action Card の表示の切り替え・売っている package・残高・技のランク・買い切った技の、最後に読めた値。
@@ -33,6 +34,9 @@ class ActionCardStore extends ChangeNotifier {
 
   /// 購読の一覧。購読し直す時にすべて止める。
   final List<StreamSubscription<Object?>> _subscriptions = [];
+
+  /// 購読し直した回数。呼び出しの途中で購読し直した (アカウントが変わった) 時に、前のアカウントの結果を反映しないために比べる。
+  int _sessionGeneration = 0;
 
   /// `config/features.actionCardsVisible`。
   bool _isActionCardsVisible = false;
@@ -68,12 +72,16 @@ class ActionCardStore extends ChangeNotifier {
       _isActionCardsVisible &&
       _packages.isNotEmpty;
 
-  /// Action Card の画面の入口を出すか。購入の入口を出す時と、買い切った技を持っている時 (隠している間も、買ったものを使えなくしないため)。
+  /// Action Card の画面の入口を出すか。購入の入口を出す時と、まだ技に換えていないカードか買い切った技を持っている時
+  /// (隠している間や商品を読めない間も、払ったものを使えなくしないため)。
   bool get isScreenEntryVisible =>
-      isPurchaseEntryVisible || _ownedMoveIds.isNotEmpty;
+      isPurchaseEntryVisible ||
+      _creditsByRank.values.any((count) => count > 0) ||
+      _ownedMoveIds.isNotEmpty;
 
   /// 空の値に戻してから、[client] の購読をすべて始め直す。
   void _resubscribe() {
+    _sessionGeneration += 1;
     for (final subscription in _subscriptions) {
       unawaited(subscription.cancel());
     }
@@ -117,9 +125,13 @@ class ActionCardStore extends ChangeNotifier {
   /// 売っている package を読み直す。読めない時は売っていない時と同じく空にする (購入の入口を出さない)。
   /// offering の切り替えはアプリの再リリース無しで行うため、Action Card の画面を開くたびにも呼ぶ。
   Future<void> refreshPackages() async {
+    final sessionGeneration = _sessionGeneration;
     final packages = await client.fetchActionCardPackages().catchError(
       (Object _) => const <Package>[],
     );
+    if (sessionGeneration != _sessionGeneration) {
+      return;
+    }
     _packages = [
       for (final rank in actionCardRanks)
         ...packages.where(
@@ -133,9 +145,15 @@ class ActionCardStore extends ChangeNotifier {
   Future<TicketPurchaseResult> purchase({required Package package}) =>
       client.purchaseActionCardPackage(package: package);
 
-  /// [moveId] を買い切り、返った残高を購読の値が届く前に出す。
+  /// [moveId] を買い切り、返った残高を購読の値が届く前に出す。待っている間にアカウントが変わった時は、返った値は前のアカウントの
+  /// ものなので反映しない (coding-rules-general-verify-value-ownership.md)。
   Future<void> redeem({required String moveId}) async {
-    _creditsByRank = await client.redeemActionCard(moveId: moveId);
+    final sessionGeneration = _sessionGeneration;
+    final creditsByRank = await client.redeemActionCard(moveId: moveId);
+    if (sessionGeneration != _sessionGeneration) {
+      return;
+    }
+    _creditsByRank = creditsByRank;
     if (!_ownedMoveIds.contains(moveId)) {
       _ownedMoveIds = [..._ownedMoveIds, moveId];
     }
@@ -150,6 +168,31 @@ class ActionCardStore extends ChangeNotifier {
     }
     super.dispose();
   }
+}
+
+/// [actionCardStore] の技のランクの表と買い切った技のうち、[dexStore] の定義に無い技があれば、定義を最新の master から読み直す。
+/// 技のランクの表と買い切った技は最新の版の master の技で、ログインの後に新しい版が投入されると端末の定義に無い技が届くため
+/// (図鑑の読み直しは図鑑のモンスターの技しか見ない。lib/master/master_repository.dart の `needsLatestMasterFetch`)。
+/// [requestedMoveIds] は読み直しを頼んだ技で、master に無い技のために何度も読み直さないよう、呼び出し側が画面ごとに持つ。
+/// 読み直しの失敗は無視する (無い技は一覧に出さないままにする)。
+Future<void> refreshDefinitionsForActionCardMoves({
+  required ActionCardStore actionCardStore,
+  required DexStore dexStore,
+  required Set<String> requestedMoveIds,
+}) async {
+  final missingMoveIds =
+      {
+        ...?actionCardStore.rankByMoveId?.keys,
+        ...actionCardStore.ownedMoveIds,
+      }.difference({
+        for (final move in dexStore.definitions.moves) move.id,
+        ...requestedMoveIds,
+      });
+  if (missingMoveIds.isEmpty) {
+    return;
+  }
+  requestedMoveIds.addAll(missingMoveIds);
+  await dexStore.refreshDefinitions().catchError((Object _) {});
 }
 
 /// [ActionCardStore] を配る範囲。アプリは Navigator の外に置き、push した画面からも引けるようにする。

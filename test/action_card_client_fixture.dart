@@ -60,6 +60,9 @@ class FakeActionCards {
   /// teach・forget が返す一覧。
   List<String> monsterMoveIdsResult = const [];
 
+  /// redeemActionCard の応答。null なら今の残高をすぐ返し、あればテストが完了させるまで待たせる (応答の途中を確かめるため)。
+  Completer<Map<int, int>>? redeemCompleter;
+
   /// [notifier] の今の値を流し、変わるたびに流す。
   Stream<T> _watch<T>({required ValueNotifier<T> notifier}) {
     late final StreamController<T> controller;
@@ -91,7 +94,7 @@ class FakeActionCards {
     watchOwnedActionCardMoveIds: () => _watch(notifier: ownedMoveIds),
     redeemActionCard: ({required moveId}) async {
       redeemedMoveIds.add(moveId);
-      return creditsByRank.value;
+      return redeemCompleter?.future ?? creditsByRank.value;
     },
     teachActionCardMove: ({required monsterId, required moveId}) async {
       taughtMoves.add((monsterId: monsterId, moveId: moveId));

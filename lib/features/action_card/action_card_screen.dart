@@ -10,6 +10,7 @@ import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_text_styles.dart';
 import '../../widgets/move_summary.dart';
 import '../capture/monster_generator.dart';
+import '../dex/dex_store.dart';
 import 'action_card_client.dart';
 import 'action_card_store.dart';
 
@@ -18,7 +19,7 @@ import 'action_card_store.dart';
 const Duration _creditArrivalNoticeDelay = Duration(seconds: 20);
 
 /// [master] の技を ID で引く表。技のランクの表と買い切った技は最新の版の master の技で、端末の master にまだ無い技は表に無い
-/// (lib/master/master_repository.dart の `needsLatestMasterFetch` が読み直すまでの間。無い技は出さない)。
+/// (`refreshDefinitionsForActionCardMoves` が定義を読み直すまでの間。無い技は出さない)。
 Map<String, Move> _movesById({required MasterData master}) => {
   for (final move in master.moves) move.id: move,
 };
@@ -47,10 +48,10 @@ Move? featuredMoveOfRank({
 /// 入口はプロフィールと図鑑の詳細 ([ActionCardStore.isScreenEntryVisible] の時だけ)。
 class ActionCardScreen extends StatefulWidget {
   /// 画面を作る。
-  const ActionCardScreen({super.key, required this.definitions});
+  const ActionCardScreen({super.key, required this.dexStore});
 
-  /// 技の名前・属性を引く定義。
-  final MasterData definitions;
+  /// 技の名前・属性を引く定義の持ち主。定義は読み直しで変わるため、開いた時の定義ではなくこの最新の値を使う。
+  final DexStore dexStore;
 
   @override
   State<ActionCardScreen> createState() => _ActionCardScreenState();
@@ -63,6 +64,43 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
 
   /// 買い切りの途中の技。途中は他の技を押せなくする (同じカードを 2 回使わせないため)。
   String? _redeemingMoveId;
+
+  /// 定義の読み直しを頼んだ技 (`refreshDefinitionsForActionCardMoves`)。
+  final Set<String> _requestedMoveIds = {};
+
+  /// 定義に無い技が届いたかを見ている [ActionCardStore]。
+  ActionCardStore? _listenedActionCardStore;
+
+  /// [_listenedActionCardStore] の技のうち定義に無い技があれば、定義を読み直す。
+  void _refreshMissingDefinitions() {
+    if (_listenedActionCardStore case final actionCardStore?) {
+      unawaited(
+        refreshDefinitionsForActionCardMoves(
+          actionCardStore: actionCardStore,
+          dexStore: widget.dexStore,
+          requestedMoveIds: _requestedMoveIds,
+        ),
+      );
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final actionCardStore = ActionCardScope.maybeOf(context);
+    if (!identical(actionCardStore, _listenedActionCardStore)) {
+      _listenedActionCardStore?.removeListener(_refreshMissingDefinitions);
+      _listenedActionCardStore = actionCardStore
+        ?..addListener(_refreshMissingDefinitions);
+      _refreshMissingDefinitions();
+    }
+  }
+
+  @override
+  void dispose() {
+    _listenedActionCardStore?.removeListener(_refreshMissingDefinitions);
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -120,13 +158,19 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) => ListenableBuilder(
+    listenable: widget.dexStore,
+    builder: (context, _) => _buildScreen(context: context),
+  );
+
+  /// [build] の中身。定義が読み直されるたびに描き直す。
+  Widget _buildScreen({required BuildContext context}) {
     final l10n = context.l10n;
     final store = ActionCardScope.maybeOf(context);
     if (store == null) {
       return const SizedBox.shrink();
     }
-    final movesById = _movesById(master: widget.definitions);
+    final movesById = _movesById(master: widget.dexStore.definitions);
     final rankByMoveId = store.rankByMoveId;
     final highestCreditRank = actionCardRanks.lastWhere(
       (rank) => (store.creditsByRank[rank] ?? 0) > 0,
@@ -166,7 +210,7 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
               key: const Key('action-card-buy'),
               onPressed: () => showActionCardPurchaseSheet(
                 context: context,
-                definitions: widget.definitions,
+                definitions: widget.dexStore.definitions,
               ),
               icon: const Icon(Icons.shopping_bag_outlined),
               label: Text(l10n.actionCardBuy),
@@ -190,7 +234,8 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
                   onSelected: (_) =>
                       setState(() => _elementTypeIdFilter = null),
                 ),
-                for (final elementType in widget.definitions.elementTypes)
+                for (final elementType
+                    in widget.dexStore.definitions.elementTypes)
                   if (redeemableMoves.any(
                     (move) => move.elementTypeId == elementType.id,
                   ))
@@ -211,7 +256,7 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
                   key: Key('action-card-redeem-${move.id}'),
                   move: move,
                   rank: rankByMoveId[move.id]!,
-                  definitions: widget.definitions,
+                  definitions: widget.dexStore.definitions,
                   onTap: _redeemingMoveId != null
                       ? null
                       : switch (creditRankToRedeem(
@@ -239,7 +284,7 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
                   key: Key('action-card-owned-${move.id}'),
                   move: move,
                   rank: null,
-                  definitions: widget.definitions,
+                  definitions: widget.dexStore.definitions,
                   onTap: null,
                 ),
         ],

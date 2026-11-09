@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../../domain/battle/battle_engine.dart';
@@ -36,6 +38,43 @@ class ActionCardMovesSection extends StatefulWidget {
 class _ActionCardMovesSectionState extends State<ActionCardMovesSection> {
   /// 覚えさせる・忘れさせるの途中か。途中は他の操作を押せなくする。
   bool _isUpdating = false;
+
+  /// 定義の読み直しを頼んだ技 (`refreshDefinitionsForActionCardMoves`)。
+  final Set<String> _requestedMoveIds = {};
+
+  /// 定義に無い技が届いたかを見ている [ActionCardStore]。
+  ActionCardStore? _listenedActionCardStore;
+
+  /// [_listenedActionCardStore] の買い切った技のうち定義に無い技があれば、定義を読み直す (覚えさせる候補に出すため)。
+  void _refreshMissingDefinitions() {
+    if (_listenedActionCardStore case final actionCardStore?) {
+      unawaited(
+        refreshDefinitionsForActionCardMoves(
+          actionCardStore: actionCardStore,
+          dexStore: widget.dexStore,
+          requestedMoveIds: _requestedMoveIds,
+        ),
+      );
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final actionCardStore = ActionCardScope.maybeOf(context);
+    if (!identical(actionCardStore, _listenedActionCardStore)) {
+      _listenedActionCardStore?.removeListener(_refreshMissingDefinitions);
+      _listenedActionCardStore = actionCardStore
+        ?..addListener(_refreshMissingDefinitions);
+      _refreshMissingDefinitions();
+    }
+  }
+
+  @override
+  void dispose() {
+    _listenedActionCardStore?.removeListener(_refreshMissingDefinitions);
+    super.dispose();
+  }
 
   /// [update] (teach か forget) を呼び、返った一覧を Firestore から届く前に図鑑へ出す。失敗したらエラーをそのまま出す。
   Future<void> _updateActionCardMoveIds({
@@ -206,7 +245,7 @@ class _ActionCardMovesSectionState extends State<ActionCardMovesSection> {
                   onPressed: () => Navigator.of(context).push(
                     MaterialPageRoute<void>(
                       builder: (context) =>
-                          ActionCardScreen(definitions: definitions),
+                          ActionCardScreen(dexStore: widget.dexStore),
                     ),
                   ),
                   icon: const Icon(Icons.style_outlined),

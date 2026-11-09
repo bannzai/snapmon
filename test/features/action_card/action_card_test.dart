@@ -116,7 +116,7 @@ void main() {
       fakeActionCards.rankByMoveId.value = sampleRankByMoveId;
       await pump(
         tester: tester,
-        home: ActionCardScreen(definitions: sampleData.definitions),
+        home: ActionCardScreen(dexStore: dexStore),
       );
       await tester.tap(find.byKey(const Key('action-card-buy')));
       await tester.pumpAndSettle();
@@ -133,7 +133,7 @@ void main() {
     testWidgets('技のランクの表がまだ無い間は 準備中を出し 買うボタンを押せない', (tester) async {
       await pump(
         tester: tester,
-        home: ActionCardScreen(definitions: sampleData.definitions),
+        home: ActionCardScreen(dexStore: dexStore),
       );
       await tester.tap(find.byKey(const Key('action-card-buy')));
       await tester.pumpAndSettle();
@@ -154,7 +154,7 @@ void main() {
         ..creditsByRank.value = {1: 1};
       await pump(
         tester: tester,
-        home: ActionCardScreen(definitions: sampleData.definitions),
+        home: ActionCardScreen(dexStore: dexStore),
       );
       await tester.tap(find.byKey(const Key('action-card-buy')));
       await tester.pumpAndSettle();
@@ -174,7 +174,7 @@ void main() {
       fakeActionCards.rankByMoveId.value = sampleRankByMoveId;
       await pump(
         tester: tester,
-        home: ActionCardScreen(definitions: sampleData.definitions),
+        home: ActionCardScreen(dexStore: dexStore),
       );
       await tester.tap(find.byKey(const Key('action-card-buy')));
       await tester.pumpAndSettle();
@@ -191,7 +191,7 @@ void main() {
         ..purchaseResult = TicketPurchaseResult.pending;
       await pump(
         tester: tester,
-        home: ActionCardScreen(definitions: sampleData.definitions),
+        home: ActionCardScreen(dexStore: dexStore),
       );
       await tester.tap(find.byKey(const Key('action-card-buy')));
       await tester.pumpAndSettle();
@@ -208,7 +208,7 @@ void main() {
         ..creditsByRank.value = {1: 1};
       await pump(
         tester: tester,
-        home: ActionCardScreen(definitions: sampleData.definitions),
+        home: ActionCardScreen(dexStore: dexStore),
       );
       expect(
         find.byKey(const Key('action-card-redeem-fire_1c')),
@@ -231,7 +231,7 @@ void main() {
         ..creditsByRank.value = {3: 1};
       await pump(
         tester: tester,
-        home: ActionCardScreen(definitions: sampleData.definitions),
+        home: ActionCardScreen(dexStore: dexStore),
       );
       await tester.tap(find.byKey(const Key('action-card-redeem-water_3')));
       await tester.pumpAndSettle();
@@ -246,7 +246,7 @@ void main() {
         ..creditsByRank.value = {3: 1};
       await pump(
         tester: tester,
-        home: ActionCardScreen(definitions: sampleData.definitions),
+        home: ActionCardScreen(dexStore: dexStore),
       );
       await tester.tap(find.byKey(const Key('action-card-filter-water')));
       await tester.pumpAndSettle();
