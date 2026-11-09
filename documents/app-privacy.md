@@ -13,6 +13,7 @@ App Store の App Privacy (`fastlane/app_privacy_details.json`) と Google Play 
 | 表示名・アイコン・通報の内容 | Functions の setDisplayName が `users/{uid}.displayName` に、setProfileIcon が `users/{uid}.iconPath` (検査を通した写真を正方形にした `users/{uid}/icons/`) に、reportMonster が `reports/{reporterUid}_{monsterId}` に書く | Other User Content | App Functionality | 紐付く |
 | Firebase Authentication の uid | 匿名ログイン (`lib/firebase/session.dart`)。PvP の通報・ブロックの宛先にも使う。RevenueCat のアプリのユーザー ID にも使う (`lib/firebase/purchases.dart`) | User ID | App Functionality・Analytics | 紐付く |
 | 生成チケットの購入の履歴 | ストアの購入を RevenueCat の SDK が RevenueCat へ送り (`lib/firebase/purchases.dart`)、webhook が `users/{uid}/ticketPurchases/{eventId}` に書く (`functions/src/generation_tickets.ts`) | Purchase History | App Functionality・Analytics | 紐付く |
+| Action Card の購入の履歴と買い切った技 | ストアの購入を RevenueCat の SDK が RevenueCat へ送り、webhook が `users/{uid}/actionCardPurchases/{eventId}` に、redeemActionCard が `users/{uid}/actionCards/{moveId}` に書く (`functions/src/generation_tickets.ts`・`functions/src/action_cards.ts`)。アプリの購入画面は未実装 (#271 の後の issue) | Purchase History | App Functionality・Analytics | 紐付く |
 | メールアドレス・名前 | Apple / Google の連携 (`lib/firebase/account.dart`) で、プロバイダが渡した値を Firebase Authentication がユーザーに保存する | Email Address・Name | App Functionality | 紐付く |
 | 利用状況のイベント | Google Analytics for Firebase (`lib/analytics/analytics_events.dart`) | Product Interaction | Analytics | 紐付かない |
 | アプリインスタンス ID | Google Analytics for Firebase が自動で割り当てる | Device ID | Analytics | 紐付かない |
