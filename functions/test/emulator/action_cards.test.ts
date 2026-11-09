@@ -106,6 +106,50 @@ describe("redeemActionCard", () => {
     expect((await firestore.doc(`users/${user.uid}/actionCards/weak`).get()).data()).toMatchObject({ moveId: "weak", rank: 2 });
   });
 
+  it("端末が出したランク (creditRank) と使うカードのランクが違えば failed-precondition で、カードを使わずに今使うランクと残高を返す", async () => {
+    // 端末はランク 1 の技としてランク 1 のカードを出したが、確かめている間に技のランクが 2 に上がった
+    const user = await signInUser({ credits: { rank1: 1, rank2: 1 } });
+    await firestore.doc("moveRanks/current").set({ version: 1, rankByMoveId: { weak: 2 }, usageWindowDays: 7 });
+
+    const { status, body } = await callFunction({ name: "redeemActionCard", user, data: { moveId: "weak", creditRank: 1 } });
+    expect(status).toBe(400);
+    expect(body.error).toMatchObject({ status: "FAILED_PRECONDITION", details: { creditRank: 2, actionCardCredits: { rank1: 1, rank2: 1, rank3: 0 } } });
+    expect(await creditsOf(user.uid)).toEqual({ rank1: 1, rank2: 1 });
+    expect((await firestore.doc(`users/${user.uid}/actionCards/weak`).get()).exists).toBe(false);
+  });
+
+  it("端末が出したランクが今使うランクより高くても (安いカードが届いた) 断る", async () => {
+    const user = await signInUser({ credits: { rank1: 1, rank3: 1 } });
+    const { status, body } = await callFunction({ name: "redeemActionCard", user, data: { moveId: "weak", creditRank: 3 } });
+    expect(status).toBe(400);
+    expect(body.error).toMatchObject({ status: "FAILED_PRECONDITION", details: { creditRank: 1 } });
+    expect(await creditsOf(user.uid)).toEqual({ rank1: 1, rank3: 1 });
+  });
+
+  it("端末が出したランクが使うカードのランクと同じなら買い切る", async () => {
+    const user = await signInUser({ credits: { rank1: 1, rank2: 1 } });
+    await firestore.doc("moveRanks/current").set({ version: 1, rankByMoveId: { weak: 2 }, usageWindowDays: 7 });
+    const { status, body } = await callFunction({ name: "redeemActionCard", user, data: { moveId: "weak", creditRank: 2 } });
+    expect(status).toBe(200);
+    expect(body.result).toMatchObject({ creditRank: 2, actionCardCredits: { rank1: 1, rank2: 0, rank3: 0 } });
+  });
+
+  it("端末が出したランクがあっても使えるカードが無ければ、ランクの違いではなくカードが無いことで断る (details に creditRank を入れない)", async () => {
+    const user = await signInUser({ credits: { rank1: 1 } });
+    const { status, body } = await callFunction({ name: "redeemActionCard", user, data: { moveId: "middle", creditRank: 1 } });
+    expect(status).toBe(400);
+    expect(body.error.details).toEqual({ actionCardCredits: { rank1: 1, rank2: 0, rank3: 0 } });
+  });
+
+  it.each([0, 4, "1", 1.5, null])("creditRank がランク (1・2・3) でない (%s) なら invalid-argument で、カードを使わない", async (creditRank) => {
+    const user = await signInUser({ credits: { rank1: 1 } });
+    const { status, body } = await callFunction({ name: "redeemActionCard", user, data: { moveId: "weak", creditRank } });
+    expect(status).toBe(400);
+    expect(body.error.status).toBe("INVALID_ARGUMENT");
+    expect(await creditsOf(user.uid)).toEqual({ rank1: 1 });
+    expect((await firestore.doc(`users/${user.uid}/actionCards/weak`).get()).exists).toBe(false);
+  });
+
   it("同じランクのカードが無ければ上のランクのカードで買える", async () => {
     const user = await signInUser({ credits: { rank3: 1 } });
     const { status, body } = await callFunction({ name: "redeemActionCard", user, data: { moveId: "weak" } });
