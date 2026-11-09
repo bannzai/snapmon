@@ -172,11 +172,20 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
                   'action-card-unassigned-${purchase.actionCardPurchaseID}',
                 ),
                 color: SnapmonColors.card,
+                // テーマの文字色は暗い背景の上の色のため、明るいカードの上の色を指定する (指定しないと文字が背景に溶けて読めない)
                 child: ListTile(
-                  title: Text(l10n.actionCardRank(purchase.rank)),
+                  title: Text(
+                    l10n.actionCardRank(purchase.rank),
+                    style: SnapmonTextStyles.body.copyWith(
+                      color: SnapmonColors.textOnCard,
+                    ),
+                  ),
                   trailing: TextButton(
                     key: Key(
                       'action-card-unassigned-choose-${purchase.actionCardPurchaseID}',
+                    ),
+                    style: TextButton.styleFrom(
+                      foregroundColor: SnapmonColors.textOnCard,
                     ),
                     onPressed: rankByMoveId == null
                         ? null
