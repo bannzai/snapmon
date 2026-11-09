@@ -1909,59 +1909,166 @@ void main() {
       );
     });
 
-    test('麻痺は次の自分のターンの攻撃技だけを失敗させ (PP は減らない)、そのターンの終わりに消える', () {
-      var state = duel(
-        playerMoveIds: ['fire_paralyze', 'fire_strong'],
-        opponentMoveIds: ['fire_strong', 'fire_raise_attack'],
-      );
-      state = play(
-        state: state,
-        playerMoveId: 'fire_paralyze',
-        opponentMoveId: 'fire_strong',
-      );
-      final failed = state.events.whereType<ActionFailedEvent>().single;
-      expect(failed.side, BattleSideId.opponent);
-      expect(failed.reason, ActionFailureReason.paralysis);
-      expect(failed.turnNumber, 2);
-      expect(
-        state.opponent.activeMember.state.remainingPowerPoints['fire_strong'],
-        10,
-      );
-      expect(
-        state.events.whereType<StatusConditionCuredEvent>().single.cause,
-        StatusConditionCureCause.expired,
-      );
-      expect(state.opponent.activeMember.state.statusConditions, isEmpty);
-      // 麻痺でも補助技は使える
-      state = play(
-        state: state,
-        playerMoveId: 'fire_paralyze',
-        opponentMoveId: 'fire_raise_attack',
-      );
-      expect(
-        state.events.whereType<MoveUsedEvent>().last.moveId,
-        'fire_raise_attack',
-      );
+    test('麻痺は次の自分のターンの攻撃技だけを 5 割の確率で失敗させ (PP は減らない)、そのターンの終わりに消える', () {
+      var failedCount = 0;
+      var attackedCount = 0;
+      for (var seed = 1; seed <= 200; seed++) {
+        var state = duel(
+          playerMoveIds: ['fire_paralyze', 'fire_strong'],
+          opponentMoveIds: ['fire_strong', 'fire_raise_attack'],
+          randomSeed: seed,
+        );
+        state = play(
+          state: state,
+          playerMoveId: 'fire_paralyze',
+          opponentMoveId: 'fire_strong',
+        );
+        final failed = state.events.whereType<ActionFailedEvent>().toList();
+        if (failed.isEmpty) {
+          // 止められなかったターンは、麻痺が無い時と同じに攻撃技を出して PP を使う
+          attackedCount++;
+          expect(
+            state.events.whereType<MoveUsedEvent>().last.attackerSide,
+            BattleSideId.opponent,
+            reason: 'seed=$seed',
+          );
+          expect(
+            state
+                .opponent
+                .activeMember
+                .state
+                .remainingPowerPoints['fire_strong'],
+            9,
+            reason: 'seed=$seed',
+          );
+        } else {
+          failedCount++;
+          expect(failed.single.side, BattleSideId.opponent);
+          expect(failed.single.reason, ActionFailureReason.paralysis);
+          expect(failed.single.turnNumber, 2);
+          expect(
+            state
+                .opponent
+                .activeMember
+                .state
+                .remainingPowerPoints['fire_strong'],
+            10,
+            reason: 'seed=$seed',
+          );
+        }
+        // 止めたかどうかに関係なく、麻痺はそのターンの終わりに消える
+        expect(
+          state.events.whereType<StatusConditionCuredEvent>().single.cause,
+          StatusConditionCureCause.expired,
+          reason: 'seed=$seed',
+        );
+        expect(state.opponent.activeMember.state.statusConditions, isEmpty);
+      }
+      // 200 回の 5 割は、二項分布の 99.9% の範囲がおよそ 77〜123 回
+      expect(failedCount, inInclusiveRange(70, 130));
+      expect(attackedCount, 200 - failedCount);
     });
 
-    test('気絶・眠り・凍結は全ての行動を失敗させ、凍結は技のダメージを受けると解ける', () {
+    test('麻痺でも補助技はどの seed でも使え、麻痺の乱数を引かない', () {
+      for (var seed = 1; seed <= 50; seed++) {
+        final before = duel(
+          playerMoveIds: ['fire_paralyze'],
+          opponentMoveIds: ['fire_raise_attack'],
+          randomSeed: seed,
+        );
+        final state = play(
+          state: before,
+          playerMoveId: 'fire_paralyze',
+          opponentMoveId: 'fire_raise_attack',
+        );
+        expect(
+          state.events.whereType<ActionFailedEvent>(),
+          isEmpty,
+          reason: 'seed=$seed',
+        );
+        expect(
+          state.events.whereType<MoveUsedEvent>().last.moveId,
+          'fire_raise_attack',
+        );
+        // 相手が補助技を出す前に麻痺が付いている (麻痺を持ったまま補助技を出した)
+        final paralysisIndex = state.events.indexWhere(
+          (event) =>
+              event is StatusConditionInflictedEvent &&
+              event.side == BattleSideId.opponent &&
+              event.kind == StatusConditionKind.paralysis,
+        );
+        expect(paralysisIndex, isNonNegative, reason: 'seed=$seed');
+        expect(
+          state.events.indexWhere(
+            (event) =>
+                event is MoveUsedEvent &&
+                event.attackerSide == BattleSideId.opponent,
+          ),
+          greaterThan(paralysisIndex),
+          reason: 'seed=$seed',
+        );
+        // 麻痺の技を使わないラウンドと乱数の進み方が同じ (補助技の時は麻痺の判定の乱数を引かない)
+        expect(
+          state.randomState,
+          play(
+            state: duel(
+              playerMoveIds: ['fire_raise_attack'],
+              opponentMoveIds: ['fire_raise_attack'],
+              randomSeed: seed,
+            ),
+            playerMoveId: 'fire_raise_attack',
+            opponentMoveId: 'fire_raise_attack',
+          ).randomState,
+          reason: 'seed=$seed',
+        );
+      }
+    });
+
+    test('気絶・凍結は 5 割の確率で全ての行動 (補助技を含む) を失敗させる', () {
       for (final (moveId, reason) in [
         ('fire_stun', ActionFailureReason.stun),
         ('fire_freeze', ActionFailureReason.frozen),
       ]) {
-        final state = play(
-          state: duel(
-            playerMoveIds: [moveId, 'fire_strong'],
-            opponentMoveIds: ['fire_raise_attack'],
-          ),
-          playerMoveId: moveId,
-          opponentMoveId: 'fire_raise_attack',
-        );
-        expect(
-          state.events.whereType<ActionFailedEvent>().single.reason,
-          reason,
-        );
+        var failedCount = 0;
+        for (var seed = 1; seed <= 200; seed++) {
+          final state = play(
+            state: duel(
+              playerMoveIds: [moveId, 'fire_strong'],
+              opponentMoveIds: ['fire_raise_attack'],
+              randomSeed: seed,
+            ),
+            playerMoveId: moveId,
+            opponentMoveId: 'fire_raise_attack',
+          );
+          final failed = state.events.whereType<ActionFailedEvent>().toList();
+          final opponentMoves = state.events.whereType<MoveUsedEvent>().where(
+            (event) => event.attackerSide == BattleSideId.opponent,
+          );
+          // 止まったかどうかに関係なく、相手の行動の前に状態が付いている
+          final inflictedIndex = state.events.indexWhere(
+            (event) =>
+                event is StatusConditionInflictedEvent &&
+                event.side == BattleSideId.opponent,
+          );
+          expect(inflictedIndex, isNonNegative, reason: '$moveId seed=$seed');
+          if (failed.isEmpty) {
+            expect(opponentMoves.single.moveId, 'fire_raise_attack');
+            expect(
+              state.events.indexOf(opponentMoves.single),
+              greaterThan(inflictedIndex),
+              reason: '$moveId seed=$seed',
+            );
+          } else {
+            failedCount++;
+            expect(failed.single.reason, reason);
+            expect(opponentMoves, isEmpty);
+          }
+        }
+        expect(failedCount, inInclusiveRange(70, 130), reason: moveId);
       }
+    });
+
+    test('凍結は技のダメージを受けると解ける', () {
       // 凍結は 1〜3 ターンで、1 ターンなら最初の自分のターンの終わりに解けるため、2 ターン以上残った seed で確かめる
       var state = duel(
         playerMoveIds: ['fire_freeze', 'fire_strong'],
@@ -2007,8 +2114,10 @@ void main() {
       );
     });
 
-    test('眠りは 1〜3 ターン続き、その間は眠りの失敗になる', () {
-      for (var seed = 1; seed <= 20; seed++) {
+    test('眠りは 1〜3 ターン続き、その間は自分のターンごとに 5 割の確率で眠りの失敗になる', () {
+      var sleepTurnCount = 0;
+      var sleepFailedCount = 0;
+      for (var seed = 1; seed <= 60; seed++) {
         var state = duel(
           playerMoveIds: ['fire_drowsy', 'fire_raise_attack'],
           opponentMoveIds: ['fire_raise_attack'],
@@ -2019,7 +2128,7 @@ void main() {
           playerMoveId: 'fire_drowsy',
           opponentMoveId: 'fire_raise_attack',
         );
-        // 2 回目の眠気で眠りになり、同じラウンドの相手のターンから失敗が始まる
+        // 2 回目の眠気で眠りになり、同じラウンドの相手のターンから失敗の判定が始まる
         final beforeSleep = state;
         state = play(
           state: state,
@@ -2033,29 +2142,56 @@ void main() {
           ).whereType<StatusConditionInflictedEvent>().single.kind,
           StatusConditionKind.sleep,
         );
-        var failedCount = lastRoundEvents(state: state, previous: beforeSleep)
-            .whereType<ActionFailedEvent>()
-            .where((event) => event.reason == ActionFailureReason.sleep)
-            .length;
-        expect(failedCount, 1);
+        // 眠りの間の相手のターンの数と、そのうち失敗したターンの数を数える (失敗しなかったターンは補助技を使う)
+        void countSleepTurn({required List<BattleEvent> roundEvents}) {
+          sleepTurnCount++;
+          final failed = roundEvents.whereType<ActionFailedEvent>().where(
+            (event) => event.reason == ActionFailureReason.sleep,
+          );
+          final opponentMoves = roundEvents.whereType<MoveUsedEvent>().where(
+            (event) => event.attackerSide == BattleSideId.opponent,
+          );
+          if (failed.isEmpty) {
+            expect(opponentMoves.single.moveId, 'fire_raise_attack');
+          } else {
+            sleepFailedCount++;
+            expect(opponentMoves, isEmpty);
+          }
+        }
+
+        countSleepTurn(
+          roundEvents: lastRoundEvents(state: state, previous: beforeSleep),
+        );
         for (var round = 0; round < 2; round++) {
+          if (!state.opponent.activeMember.state.statusConditions.containsKey(
+            StatusConditionKind.sleep,
+          )) {
+            break;
+          }
           final previous = state;
           state = play(
             state: state,
             playerMoveId: 'fire_raise_attack',
             opponentMoveId: 'fire_raise_attack',
           );
-          failedCount += lastRoundEvents(state: state, previous: previous)
-              .whereType<ActionFailedEvent>()
-              .where((event) => event.reason == ActionFailureReason.sleep)
-              .length;
+          countSleepTurn(
+            roundEvents: lastRoundEvents(state: state, previous: previous),
+          );
         }
-        expect(failedCount, inInclusiveRange(1, 3));
+        // 眠りの長さは 1〜3 ターンで、3 ターン目の終わりには必ず消える
         expect(
           state.opponent.activeMember.state.statusConditions,
           isNot(contains(StatusConditionKind.sleep)),
+          reason: 'seed=$seed',
         );
       }
+      // 60 戦の眠りのターン (60〜180) の 5 割前後が失敗する
+      expect(sleepTurnCount, inInclusiveRange(60, 180));
+      expect(
+        sleepFailedCount * 100 / sleepTurnCount,
+        inInclusiveRange(35, 65),
+        reason: '$sleepFailedCount/$sleepTurnCount',
+      );
     });
 
     test('眠気は素早さを半分にし、眠気の中でもう一度眠気を受けると眠りに置き換わる', () {
@@ -2704,7 +2840,7 @@ void main() {
       expect(struggleCount, greaterThan(0));
     });
 
-    test('麻痺と混乱が重なり、補助技が攻撃技に置き換わった時も麻痺で失敗する', () {
+    test('麻痺と混乱が重なり、補助技が攻撃技に置き換わった時は麻痺の判定を受ける (補助技のままなら受けない)', () {
       final before = duel(
         playerMoveIds: ['fire_raise_attack'],
         opponentMoveIds: ['fire_raise_attack', 'fire_strong'],
@@ -2748,32 +2884,36 @@ void main() {
       }
 
       var paralyzedCount = 0;
-      for (var seed = 1; seed <= 60; seed++) {
+      var replacedAttackCount = 0;
+      var supportCount = 0;
+      for (var seed = 1; seed <= 200; seed++) {
         final state = play(
           state: withStatuses(seed: seed * 0x9E3779B9 & 0xFFFFFFFF),
           playerMoveId: 'fire_raise_attack',
           opponentMoveId: 'fire_raise_attack',
         );
-        // 相手が攻撃技を出すことはない (置き換わった攻撃技は麻痺で失敗する)
-        expect(
-          state.events.whereType<MoveUsedEvent>().where(
-            (event) =>
-                event.attackerSide == BattleSideId.opponent &&
-                event.moveId == 'fire_strong',
-          ),
-          isEmpty,
-          reason: 'seed=$seed',
-        );
+        final opponentMoveIds = [
+          for (final event in state.events.whereType<MoveUsedEvent>())
+            if (event.attackerSide == BattleSideId.opponent) event.moveId,
+        ];
         final failed = state.events.whereType<ActionFailedEvent>().where(
           (event) => event.reason == ActionFailureReason.paralysis,
         );
         if (failed.isNotEmpty) {
+          // 失敗するのは置き換わった攻撃技だけ
           paralyzedCount++;
-          expect(failed.single.moveId, 'fire_strong');
+          expect(failed.single.moveId, 'fire_strong', reason: 'seed=$seed');
+          expect(opponentMoveIds, isEmpty, reason: 'seed=$seed');
+        } else if (opponentMoveIds.single == 'fire_strong') {
+          replacedAttackCount++;
+        } else {
+          supportCount++;
         }
       }
-      // 混乱で置き換わるのは 1/2 なので、半分ほどが麻痺で失敗する
-      expect(paralyzedCount, inInclusiveRange(15, 45));
+      // 混乱で置き換わるのが 1/2、置き換わった攻撃技が麻痺で止まるのがその 1/2 なので、止まるのは 1/4 ほど
+      expect(paralyzedCount, inInclusiveRange(25, 75));
+      expect(replacedAttackCount, inInclusiveRange(25, 75));
+      expect(supportCount, inInclusiveRange(70, 130));
     });
 
     test('続いている入れ替えのフィールドを同じ技で始め直しても、そのラウンドの入れ替えは保たれる', () {
