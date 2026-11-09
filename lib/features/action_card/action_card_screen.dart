@@ -465,11 +465,12 @@ class _ActionCardMovePurchaseSheetState
         ? null
         : actionCardPackageOfRank(store: store, rank: rank);
     return [
-      MoveCard(
+      // MoveCard の文字色は明るいカードの上の色のため、一覧の行と同じカードに載せる (シートの暗い背景では技の名前が読めないため)
+      _ActionCardMoveTile(
         move: widget.move,
-        remainingPowerPoints: null,
-        typeMultiplier: null,
+        trailingText: null,
         definitions: widget.definitions,
+        onTap: null,
       ),
       const SizedBox(height: 12),
       if (_isRankChanged) ...[
