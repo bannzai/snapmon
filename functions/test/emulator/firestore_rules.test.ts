@@ -4,7 +4,7 @@ import {
   initializeTestEnvironment,
   type RulesTestEnvironment,
 } from "@firebase/rules-unit-testing";
-import { doc, getDoc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
+import { deleteDoc, doc, getDoc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import { afterAll, beforeAll, beforeEach, describe, it } from "vitest";
 
 // firebase emulators:exec (package.json の test:emulator) の中で実行する。
@@ -226,5 +226,74 @@ describe("生成チケットの残高と購入の記録", () => {
     await assertFails(setDoc(doc(firestore, "users/alice/ticketPurchases/event3"), { productId: "snapmon_generationticket30_500yen", ticketCount: 30 }));
     await assertFails(updateDoc(doc(firestore, "users/alice/ticketPurchases/event1"), { ticketCount: 30 }));
     await assertFails(setDoc(doc(firestore, "users/alice"), { generationTickets: 100 }, { merge: true }));
+  });
+});
+
+describe("Action Card の購入の記録と買い切った技", () => {
+  beforeEach(async () => {
+    await testEnvironment.withSecurityRulesDisabled(async (context) => {
+      const firestore = context.firestore();
+      for (const uid of ["alice", "bob"]) {
+        await setDoc(doc(firestore, `users/${uid}`), { actionCardCredits: { rank1: 1 } });
+        await setDoc(doc(firestore, `users/${uid}/actionCardPurchases/event-${uid}`), { productId: "snapmon_actioncardrank1_100yen", rank: 1 });
+        await setDoc(doc(firestore, `users/${uid}/actionCards/fire_1`), { moveId: "fire_1", rank: 1 });
+      }
+    });
+  });
+
+  it("本人は自分の購入の記録と買い切った技を読める", async () => {
+    const firestore = signedInFirestore("alice");
+    await assertSucceeds(getDoc(doc(firestore, "users/alice/actionCardPurchases/event-alice")));
+    await assertSucceeds(getDoc(doc(firestore, "users/alice/actionCards/fire_1")));
+  });
+
+  it("他人の購入の記録と買い切った技は読めない", async () => {
+    const firestore = signedInFirestore("alice");
+    await assertFails(getDoc(doc(firestore, "users/bob/actionCardPurchases/event-bob")));
+    await assertFails(getDoc(doc(firestore, "users/bob/actionCards/fire_1")));
+  });
+
+  it("本人も購入の記録・買い切った技・残高・覚えさせた技を書けない (改ざんさせないため)", async () => {
+    const firestore = signedInFirestore("alice");
+    await assertFails(setDoc(doc(firestore, "users/alice/actionCardPurchases/event-new"), { productId: "snapmon_actioncardrank3_500yen", rank: 3 }));
+    await assertFails(setDoc(doc(firestore, "users/alice/actionCards/water_1"), { moveId: "water_1", rank: 1 }));
+    await assertFails(deleteDoc(doc(firestore, "users/alice/actionCards/fire_1")));
+    await assertFails(setDoc(doc(firestore, "users/alice"), { actionCardCredits: { rank3: 100 } }, { merge: true }));
+    await assertFails(setDoc(doc(firestore, "users/alice/monsters/m1"), { actionCardMoveIds: ["fire_1"] }, { merge: true }));
+  });
+});
+
+describe("技のランクの表・機能の切り替え・技の使用回数", () => {
+  beforeEach(async () => {
+    await testEnvironment.withSecurityRulesDisabled(async (context) => {
+      const firestore = context.firestore();
+      await setDoc(doc(firestore, "moveRanks/current"), { version: 1, rankByMoveId: { fire_1: 1 }, usageWindowDays: 7 });
+      await setDoc(doc(firestore, "config/features"), { actionCardsVisible: false });
+      await setDoc(doc(firestore, "moveUsageDailyCounts/2026-11-09"), { counts: { fire_1: 3 } });
+    });
+  });
+
+  it("ログインしたユーザーは技のランクの表と機能の切り替えを読める", async () => {
+    const firestore = signedInFirestore("alice");
+    await assertSucceeds(getDoc(doc(firestore, "moveRanks/current")));
+    await assertSucceeds(getDoc(doc(firestore, "config/features")));
+  });
+
+  it("ログインしていないと読めない", async () => {
+    const firestore = testEnvironment.unauthenticatedContext().firestore();
+    await assertFails(getDoc(doc(firestore, "moveRanks/current")));
+    await assertFails(getDoc(doc(firestore, "config/features")));
+  });
+
+  it("ログインしたユーザーも技のランクの表と機能の切り替えを書けない", async () => {
+    const firestore = signedInFirestore("alice");
+    await assertFails(setDoc(doc(firestore, "moveRanks/current"), { version: 1, rankByMoveId: { fire_1: 3 } }));
+    await assertFails(setDoc(doc(firestore, "config/features"), { actionCardsVisible: true }));
+  });
+
+  it("技の使用回数はログインしたユーザーも読み書きできない (ランクを動かさせないため)", async () => {
+    const firestore = signedInFirestore("alice");
+    await assertFails(getDoc(doc(firestore, "moveUsageDailyCounts/2026-11-09")));
+    await assertFails(setDoc(doc(firestore, "moveUsageDailyCounts/2026-11-09"), { counts: { fire_1: 999 } }));
   });
 });

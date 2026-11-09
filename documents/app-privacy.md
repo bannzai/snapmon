@@ -13,6 +13,7 @@ App Store の App Privacy (`fastlane/app_privacy_details.json`) と Google Play 
 | 表示名・アイコン・通報の内容 | Functions の setDisplayName が `users/{uid}.displayName` に、setProfileIcon が `users/{uid}.iconPath` (検査を通した写真を正方形にした `users/{uid}/icons/`) に、reportMonster が `reports/{reporterUid}_{monsterId}` に書く | Other User Content | App Functionality | 紐付く |
 | Firebase Authentication の uid | 匿名ログイン (`lib/firebase/session.dart`)。PvP の通報・ブロックの宛先にも使う。RevenueCat のアプリのユーザー ID にも使う (`lib/firebase/purchases.dart`) | User ID | App Functionality・Analytics | 紐付く |
 | 生成チケットの購入の履歴 | ストアの購入を RevenueCat の SDK が RevenueCat へ送り (`lib/firebase/purchases.dart`)、webhook が `users/{uid}/ticketPurchases/{eventId}` に書く (`functions/src/generation_tickets.ts`) | Purchase History | App Functionality・Analytics | 紐付く |
+| Action Card の購入の履歴と買い切った技 | ストアの購入を RevenueCat の SDK が RevenueCat へ送り、webhook が `users/{uid}/actionCardPurchases/{eventId}` に、redeemActionCard が `users/{uid}/actionCards/{moveId}` に書く (`functions/src/generation_tickets.ts`・`functions/src/action_cards.ts`)。アプリの購入画面は未実装 (#271 の後の issue) | Purchase History | App Functionality・Analytics | 紐付く |
 | メールアドレス・名前 | Apple / Google の連携 (`lib/firebase/account.dart`) で、プロバイダが渡した値を Firebase Authentication がユーザーに保存する | Email Address・Name | App Functionality | 紐付く |
 | 利用状況のイベント | Google Analytics for Firebase (`lib/analytics/analytics_events.dart`) | Product Interaction | Analytics | 紐付かない |
 | アプリインスタンス ID | Google Analytics for Firebase が自動で割り当てる | Device ID | Analytics | 紐付かない |
@@ -56,7 +57,7 @@ Play の「収集」は端末の外に送ることを指し、「共有」は第
 | 個人情報: メールアドレス | する | いいえ | 任意 (連携した時だけ) | アカウント管理 |
 | 個人情報: ユーザー ID | する | いいえ | 必須 | アプリの機能、分析 (RevenueCat のダッシュボード)、アカウント管理、不正行為の防止とセキュリティ (通報・ブロック) |
 | 写真と動画: 写真 | する | いいえ | 必須 (モンスターの生成に要る) | アプリの機能 |
-| 金融情報: 購入履歴 | する | いいえ | 任意 (生成チケットを買った時だけ) | アプリの機能、分析 |
+| 金融情報: 購入履歴 | する | いいえ | 任意 (生成チケット・Action Card を買った時だけ) | アプリの機能、分析 |
 | アプリのアクティビティ: アプリの操作 | する | いいえ | 必須 | 分析 |
 | アプリのアクティビティ: その他のユーザー作成コンテンツ (モンスター・表示名・アイコン・通報) | する | いいえ | 必須 | アプリの機能、不正行為の防止とセキュリティ |
 | アプリの情報とパフォーマンス: クラッシュログ | する | いいえ | 必須 | 分析 |

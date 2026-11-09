@@ -1,5 +1,7 @@
-// 生成チケット (1 日の無料の回数を使い切った後に生成できる消耗型の商品) の購入を、RevenueCat の webhook で残高に足す。
-// 残高は `users/{uid}.generationTickets` に置き、生成の予約 (generation/pipeline.ts の startGeneration) が 1 枚ずつ減らす。
+// 生成チケット (1 日の無料の回数を使い切った後に生成できる消耗型の商品) と Action Card (技を 1 つ買い切る消耗型の商品) の購入を、
+// RevenueCat の webhook で残高に足す。
+// 生成チケットの残高は `users/{uid}.generationTickets` に置き、生成の予約 (generation/pipeline.ts の startGeneration) が 1 枚ずつ減らす。
+// Action Card の残高は `users/{uid}.actionCardCredits.rank{1|2|3}` に置き、redeemActionCard (action_cards.ts) が 1 枚ずつ減らす。
 // 受け取る形は https://www.revenuecat.com/docs/integrations/webhooks/event-types-and-fields (2026-11-07 に確認): 本文は
 // `{ api_version, event }` で、消耗型を含む自動更新しない購入は `event.type` が `NON_RENEWING_PURCHASE`、返金と取り消しは `CANCELLATION`。
 
@@ -11,6 +13,7 @@ import { logger } from "firebase-functions";
 import { onRequest } from "firebase-functions/v2/https";
 
 import { authUserExists } from "./account";
+import { type MoveRank, actionCardRankOfProduct } from "./action_card_rules";
 import { revenueCatWebhookAuthorization, slackBotToken } from "./secrets";
 import { PRODUCTION_NOTIFICATION_CHANNEL, postSlackMessage, type SendSlackMessage } from "./slack";
 
@@ -40,6 +43,24 @@ const REVENUECAT_EVENT_ID_PATTERN = /^[A-Za-z0-9_-]{1,128}$/;
 /** [productId] が生成チケットの商品なら 1 回の購入で足す枚数、それ以外は undefined。継承したキー (`constructor` 等) を商品として扱わない。 */
 function generationTicketCount(productId: string | null): number | undefined {
   return productId !== null && Object.hasOwn(GENERATION_TICKET_COUNT_BY_PRODUCT_ID, productId) ? GENERATION_TICKET_COUNT_BY_PRODUCT_ID[productId] : undefined;
+}
+
+/** 消耗型の商品の種類。生成チケットは足す枚数、Action Card は足すカードのランクを持つ。 */
+type ConsumableProduct = { kind: "generationTicket"; ticketCount: number } | { kind: "actionCard"; rank: MoveRank };
+
+/** [productId] がこのアプリの消耗型の商品ならその種類、それ以外は undefined。 */
+function consumableProductOf(productId: string | null): ConsumableProduct | undefined {
+  const ticketCount = generationTicketCount(productId);
+  if (ticketCount !== undefined) {
+    return { kind: "generationTicket", ticketCount };
+  }
+  const rank = actionCardRankOfProduct(productId);
+  return rank === undefined ? undefined : { kind: "actionCard", rank };
+}
+
+/** [product] の商品の、Slack の通知に書く名前。 */
+function productLabel(product: ConsumableProduct): string {
+  return product.kind === "generationTicket" ? "生成チケット" : `Action Card (ランク ${product.rank})`;
 }
 
 /** RevenueCat の webhook の本文の `event` のうち、このファイルが読むフィールド。 */
@@ -76,8 +97,17 @@ export interface TicketPurchaseDocument {
   createdAt: Timestamp;
 }
 
+/**
+ * Action Card の購入の記録 (`users/{uid}/actionCardPurchases/{eventId}`)。同じイベントを 2 回足さない判定と購入の履歴に使う。
+ * 形は [TicketPurchaseDocument] の枚数の代わりに足したカードのランクを持つ。
+ */
+export interface ActionCardPurchaseDocument extends Omit<TicketPurchaseDocument, "ticketCount"> {
+  /** 足したカードのランク (`actionCardCredits.rank{N}` に 1 枚足した)。 */
+  rank: MoveRank;
+}
+
 /** webhook の処理に使う外部の資源。本番は onRequest が、テストはモックを渡す。 */
-export interface GenerationTicketWebhookDependencies {
+export interface RevenueCatWebhookDependencies {
   /** Firestore。 */
   firestore: Firestore;
   /** Firebase Authentication (アカウントを消し終えた uid の見分けに使う)。 */
@@ -91,7 +121,7 @@ export interface GenerationTicketWebhookDependencies {
 }
 
 /** webhook の応答。`status` は HTTP の状態コード。 */
-export interface GenerationTicketWebhookResponse {
+export interface RevenueCatWebhookResponse {
   /** HTTP の状態コード。 */
   status: number;
   /** 応答の本文 (RevenueCat のダッシュボードの配信の記録に出る)。 */
@@ -118,26 +148,28 @@ async function notify(sendMessage: SendSlackMessage, text: string): Promise<void
   try {
     await sendMessage({ channel: PRODUCTION_NOTIFICATION_CHANNEL, text });
   } catch (error) {
-    logger.error("生成チケットの通知を Slack に送れませんでした", { error, text });
+    logger.error("購入の通知を Slack に送れませんでした", { error, text });
   }
 }
 
 /**
- * RevenueCat の webhook を受け、生成チケットの購入なら `users/{uid}.generationTickets` に足す (onRequest の本体)。
+ * RevenueCat の webhook を受け、消耗型の商品の購入を残高に足す (onRequest の本体)。生成チケットは `users/{uid}.generationTickets` に枚数を、
+ * Action Card は `users/{uid}.actionCardCredits.rank{N}` に 1 枚を足す。
  *
  * - `Authorization` が RevenueCat に設定した値と一致しない時は 401 で、何も書かない
- * - `NON_RENEWING_PURCHASE` で、商品が生成チケットで、`app_user_id` が uid の形で、アカウントが残っている時だけ足す。同じイベントの ID の
- *   2 回目は足さない (`users/{uid}/ticketPurchases/{eventId}` を足す時と同じトランザクションで作る)
- * - 返金・取り消し (`CANCELLATION`) は残高を減らさず Slack に知らせる (残高が負になる扱いを作らないため。DIRECTION.md「決めたこと」2026-11-07 の行)
+ * - `NON_RENEWING_PURCHASE` で、商品が生成チケットか Action Card で、`app_user_id` が uid の形で、アカウントが残っている時だけ足す。同じイベントの ID の
+ *   2 回目は足さない (購入の記録 `users/{uid}/ticketPurchases/{eventId}`・`users/{uid}/actionCardPurchases/{eventId}` を足す時と同じトランザクションで作る)
+ * - 返金・取り消し (`CANCELLATION`) は残高・買い切った技を減らさず Slack に知らせる (残高が負になる扱いを作らないため。DIRECTION.md「決めたこと」2026-11-07 の行と
+ *   2026-11-09 の #271 の行)
  * - 足せない購入 (知らない商品・uid の形でない・アカウントが無い) は Slack に知らせて 200 を返す (再送しても足せないため)
  * - それ以外のイベントは何もせず 200 を返す
  *
  * Firestore の書き込みが失敗した時は投げる (onRequest が 500 を返し、RevenueCat が再送する)。
  */
-export async function handleGenerationTicketWebhook(
-  dependencies: GenerationTicketWebhookDependencies,
+export async function handleRevenueCatWebhook(
+  dependencies: RevenueCatWebhookDependencies,
   { authorization, body }: { authorization: string | undefined; body: unknown },
-): Promise<GenerationTicketWebhookResponse> {
+): Promise<RevenueCatWebhookResponse> {
   if (!isAuthorized({ authorization, expectedAuthorization: dependencies.expectedAuthorization })) {
     return { status: 401, body: "unauthorized" };
   }
@@ -149,30 +181,40 @@ export async function handleGenerationTicketWebhook(
   const productId = optionalString(event.product_id);
   const environment = optionalString(event.environment);
   const summary = `イベント ${event.id}・ユーザー ${String(appUserId)}・商品 ${productId ?? "(なし)"}・環境 ${environment ?? "(なし)"}`;
+  const product = consumableProductOf(productId);
 
   if (event.type === "CANCELLATION") {
-    if (generationTicketCount(productId) !== undefined) {
-      await notify(dependencies.sendMessage, `生成チケットの返金・取り消しを受けました。残高は減らしていません (${summary})`);
+    if (product !== undefined) {
+      await notify(dependencies.sendMessage, `${productLabel(product)}の返金・取り消しを受けました。残高は減らしていません (${summary})`);
     }
     return { status: 200, body: "ignored" };
   }
   if (event.type !== "NON_RENEWING_PURCHASE") {
     return { status: 200, body: "ignored" };
   }
-  const ticketCount = generationTicketCount(productId);
-  if (ticketCount === undefined) {
-    // 生成チケット以外の消耗型の商品はまだ無いため、届いたら設定の誤りとして知らせる
-    await notify(dependencies.sendMessage, `生成チケットとして知らない商品の購入を受けました。残高に足していません (${summary})`);
+  if (product === undefined) {
+    // 生成チケットと Action Card 以外の消耗型の商品は無いため、届いたら設定の誤りとして知らせる
+    await notify(dependencies.sendMessage, `知らない商品の購入を受けました。残高に足していません (${summary})`);
     return { status: 200, body: "unknown product" };
   }
   if (typeof appUserId !== "string" || !FIREBASE_UID_PATTERN.test(appUserId)) {
-    await notify(dependencies.sendMessage, `uid ではないユーザーの生成チケットの購入を受けました。残高に足していません (${summary})`);
+    await notify(dependencies.sendMessage, `uid ではないユーザーの${productLabel(product)}の購入を受けました。残高に足していません (${summary})`);
     return { status: 200, body: "unknown user" };
   }
 
   const { firestore } = dependencies;
   const userDocument = firestore.doc(`users/${appUserId}`);
-  const purchaseDocument = firestore.doc(`users/${appUserId}/ticketPurchases/${event.id}`);
+  const purchaseRecord = {
+    productId: productId!,
+    transactionId: optionalString(event.transaction_id),
+    environment,
+    store: optionalString(event.store),
+    createdAt: Timestamp.fromDate(dependencies.now()),
+  };
+  const purchaseDocument =
+    product.kind === "generationTicket"
+      ? firestore.doc(`users/${appUserId}/ticketPurchases/${event.id}`)
+      : firestore.doc(`users/${appUserId}/actionCardPurchases/${event.id}`);
   const outcome = await firestore.runTransaction(async (transaction): Promise<"added" | "duplicate" | "account_missing"> => {
     const [userSnapshot, purchaseSnapshot] = await Promise.all([transaction.get(userDocument), transaction.get(purchaseDocument)]);
     if (purchaseSnapshot.exists) {
@@ -183,23 +225,24 @@ export async function handleGenerationTicketWebhook(
     if (userSnapshot.get("accountDeletionStartedAt") !== undefined || (!userSnapshot.exists && !(await authUserExists({ auth: dependencies.auth, uid: appUserId })))) {
       return "account_missing";
     }
-    transaction.create(purchaseDocument, {
-      productId: productId!,
-      ticketCount,
-      transactionId: optionalString(event.transaction_id),
-      environment,
-      store: optionalString(event.store),
-      createdAt: Timestamp.fromDate(dependencies.now()),
-    } satisfies TicketPurchaseDocument);
-    transaction.set(userDocument, { generationTickets: FieldValue.increment(ticketCount) }, { merge: true });
+    if (product.kind === "generationTicket") {
+      transaction.create(purchaseDocument, { ...purchaseRecord, ticketCount: product.ticketCount } satisfies TicketPurchaseDocument);
+      transaction.set(userDocument, { generationTickets: FieldValue.increment(product.ticketCount) }, { merge: true });
+    } else {
+      transaction.create(purchaseDocument, { ...purchaseRecord, rank: product.rank } satisfies ActionCardPurchaseDocument);
+      transaction.set(userDocument, { actionCardCredits: { [`rank${product.rank}`]: FieldValue.increment(1) } }, { merge: true });
+    }
     return "added";
   });
   if (outcome === "account_missing") {
-    await notify(dependencies.sendMessage, `アカウントが無いか削除中のユーザーの生成チケットの購入を受けました。残高に足していません (${summary})`);
+    await notify(dependencies.sendMessage, `アカウントが無いか削除中のユーザーの${productLabel(product)}の購入を受けました。残高に足していません (${summary})`);
     return { status: 200, body: "account missing" };
   }
   if (outcome === "added") {
-    await notify(dependencies.sendMessage, `生成チケットが ${ticketCount} 枚売れました (${summary})`);
+    await notify(
+      dependencies.sendMessage,
+      product.kind === "generationTicket" ? `生成チケットが ${product.ticketCount} 枚売れました (${summary})` : `${productLabel(product)}が 1 枚売れました (${summary})`,
+    );
   }
   return { status: 200, body: outcome };
 }
@@ -214,7 +257,7 @@ export const revenueCatWebhook = onRequest({ secrets: [revenueCatWebhookAuthoriz
     return;
   }
   try {
-    const result = await handleGenerationTicketWebhook(
+    const result = await handleRevenueCatWebhook(
       {
         firestore: getFirestore(),
         auth: getAuth(),
@@ -227,7 +270,7 @@ export const revenueCatWebhook = onRequest({ secrets: [revenueCatWebhookAuthoriz
     response.status(result.status).send(result.body);
   } catch (error) {
     // 失敗したトランザクションは何も書かないため、500 で RevenueCat に再送させても二重に足さない
-    logger.error("生成チケットの webhook の処理に失敗しました", { error });
+    logger.error("RevenueCat の webhook の処理に失敗しました", { error });
     response.status(500).send("internal error");
   }
 });

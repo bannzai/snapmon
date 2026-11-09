@@ -138,6 +138,11 @@ export interface MonsterDocument {
   definitionIds: string[];
   /** 生まれた生成の requestId。 */
   generationRequestId: string;
+  /**
+   * Action Card で覚えさせた技の ID (覚えさせた順)。teachActionCardMove・forgetActionCardMove (action_cards.ts) が書き、生成では作らない。
+   * 無ければ覚えさせた技は無い。技の枠の決め方は action_card_rules.ts の equippedMoveIds。
+   */
+  actionCardMoveIds?: string[];
   /** 生まれた時刻。 */
   createdAt: Timestamp;
 }
