@@ -21,9 +21,9 @@ void main() {
   /// 図鑑のモンスターが参照するその場で作った定義 (属性 1 つと技 1 つ) を足した定義。
   final definitions = mergeMasterData(
     base: MasterData.fromJson(
-      json: jsonDecode(
-        File('assets/master/master.json').readAsStringSync(),
-      ) as Map<String, dynamic>,
+      json:
+          jsonDecode(File('assets/master/master.json').readAsStringSync())
+              as Map<String, dynamic>,
     ),
     additional: MasterData.fromJson(
       json: {
