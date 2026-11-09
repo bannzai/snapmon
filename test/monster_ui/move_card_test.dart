@@ -41,9 +41,11 @@ void main() {
     ),
   );
 
-  testWidgets('2 列の技のボタンの幅で文字を 3 倍にしても 1 段目がはみ出さず、札が折り返す', (tester) async {
-    // 390 の画面の 2 列の技のボタンの幅 (173) に、長い倍率 (×0.25) の札を 3 倍の文字で入れる。
-    // 札が折り返さないと、Row が「RenderFlex overflowed」の例外を出す (Codex のレビューと観点レビューの指摘)
+  testWidgets('2 列の技のボタンの幅で文字を 3 倍にしても 1 段目がはみ出さず、札が名前の下の行に下りる', (
+    tester,
+  ) async {
+    // 390 の画面の 2 列の技のボタンの幅 (173) に、2 枚の札を 3 倍の文字で入れる。
+    // 名前と札を Row に並べると「RenderFlex overflowed」の例外が出る (Codex のレビューと観点レビューの指摘)
     await tester.pumpWidget(
       MaterialApp(
         theme: snapmonThemeData(),
@@ -70,17 +72,66 @@ void main() {
     );
     expect(tester.takeException(), isNull);
     final elementTypeTag = find.byType(ElementTypeTag);
-    final multiplierText = find.byKey(const Key('move-type-multiplier'));
-    expect(multiplierText, findsOneWidget);
-    // 相性の札は属性の札の右に並ばず、その下に折り返す
+    final effectivenessTag = find.byKey(const Key('move-type-effectiveness'));
+    expect(effectivenessTag, findsOneWidget);
+    // 札は名前の右に並ばず、名前の下の行に下りる
     expect(
-      tester.getTopLeft(multiplierText).dy,
-      greaterThanOrEqualTo(tester.getBottomLeft(elementTypeTag).dy),
+      tester.getTopLeft(elementTypeTag).dy,
+      greaterThanOrEqualTo(tester.getBottomLeft(find.text('ブリキパンチ')).dy),
     );
     // どの札も技のボタンの幅からはみ出さない
     expect(
-      tester.getBottomRight(multiplierText).dx,
+      tester.getBottomRight(effectivenessTag).dx,
       lessThanOrEqualTo(tester.getTopRight(find.byType(MoveCard)).dx),
+    );
+  });
+
+  testWidgets('技のボタンの属性の札は、カードの属性の札より余白と文字が小さい', (tester) async {
+    // 2 列の技のボタンの幅 (390 の画面で約 142) に名前と 2 枚の札を並べるため、技のボタンの中だけ小さくする。
+    // 他の画面 (モンスターのカード・図鑑・技の詳細) の札は変えない (https://github.com/bannzai/snapmon/issues/281 )
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: snapmonThemeData(),
+        locale: const Locale('ja'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: Scaffold(
+          body: Column(
+            children: [
+              ElementTypeTag(
+                key: const Key('card-tag'),
+                elementTypeId: plainMove.elementTypeId,
+                definitions: sampleData.definitions,
+              ),
+              MoveCard(
+                move: plainMove,
+                remainingPowerPoints: 12,
+                typeMultiplier: 2,
+                definitions: sampleData.definitions,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+    final cardTag = find.byKey(const Key('card-tag'));
+    final moveTag = find.descendant(
+      of: find.byType(MoveCard),
+      matching: find.byType(ElementTypeTag),
+    );
+    // 余白 8/4 + 文字 11 のカードの札に対し、技のボタンの札は余白 6/2 + 文字 10 で、幅・高さとも小さい
+    expect(
+      tester.getSize(moveTag).width,
+      lessThan(tester.getSize(cardTag).width),
+    );
+    expect(
+      tester.getSize(moveTag).height,
+      lessThan(tester.getSize(cardTag).height),
+    );
+    // 相性の札 (余白 4/2 + 矢印 14) も、カードの属性の札より低い
+    expect(
+      tester.getSize(find.byKey(const Key('move-type-effectiveness'))).height,
+      lessThan(tester.getSize(cardTag).height),
     );
   });
 
@@ -157,17 +208,17 @@ void main() {
     expect(find.byType(RichText), findsNWidgets(4));
   });
 
-  // 等倍 (1) は「似ているが出さない」側。0.25・4 は 2 属性の相手への積で、桁を落とさずに出す。
-  // 言葉は画面に出さず、読み上げの名前にだけ持つ
-  for (final (typeMultiplier, expectedText, expectedIcon, expectedLabel) in [
-    (2.0, '×2', Icons.keyboard_double_arrow_up, '効果は抜群 ×2'),
-    (4.0, '×4', Icons.keyboard_double_arrow_up, '効果は抜群 ×4'),
-    (0.5, '×0.5', Icons.keyboard_double_arrow_down, '効果はいまひとつ ×0.5'),
-    (0.25, '×0.25', Icons.keyboard_double_arrow_down, '効果はいまひとつ ×0.25'),
-    (1.0, null, null, null),
-    (null, null, null, null),
+  // 等倍 (1) は「似ているが出さない」側。0.25・4 は 2 属性の相手への積で、画面では ×2・×0.5 と同じ矢印になり、
+  // 読み上げの名前でだけ区別できる。倍率と言葉は画面に出さず、読み上げの名前にだけ持つ
+  for (final (typeMultiplier, expectedIcon, expectedLabel) in [
+    (2.0, Icons.keyboard_double_arrow_up, '効果は抜群 ×2'),
+    (4.0, Icons.keyboard_double_arrow_up, '効果は抜群 ×4'),
+    (0.5, Icons.keyboard_double_arrow_down, '効果はいまひとつ ×0.5'),
+    (0.25, Icons.keyboard_double_arrow_down, '効果はいまひとつ ×0.25'),
+    (1.0, null, null),
+    (null, null, null),
   ]) {
-    testWidgets('相性の倍率 $typeMultiplier は ${expectedText ?? '出さない'}', (
+    testWidgets('相性の倍率 $typeMultiplier は ${expectedLabel ?? '出さない'}', (
       tester,
     ) async {
       // 読み上げの名前を find.bySemanticsLabel で確かめるため。テストの終わりの検査より前に dispose する必要があり、addTearDown では間に合わない
@@ -178,19 +229,22 @@ void main() {
         moveId: plainMove.id,
         typeMultiplier: typeMultiplier,
       );
-      final multiplierText = find.byKey(const Key('move-type-multiplier'));
-      if (expectedText == null) {
-        expect(multiplierText, findsNothing);
+      final effectivenessTag = find.byKey(
+        const Key('move-type-effectiveness'),
+      );
+      if (expectedLabel == null) {
+        expect(effectivenessTag, findsNothing);
         expect(find.byIcon(Icons.keyboard_double_arrow_up), findsNothing);
         expect(find.byIcon(Icons.keyboard_double_arrow_down), findsNothing);
       } else {
-        expect(tester.widget<Text>(multiplierText).data, expectedText);
-        expect(find.byIcon(expectedIcon!), findsOneWidget);
-        expect(find.bySemanticsLabel(expectedLabel!), findsOneWidget);
+        expect(tester.widget<Icon>(effectivenessTag).icon, expectedIcon);
+        expect(find.bySemanticsLabel(expectedLabel), findsOneWidget);
         expect(find.text(expectedLabel), findsNothing);
-        // 属性の札の右に並べ、「鋼 ⇈×2」のように属性と相性を続けて読ませる
+        // 倍率の文字は画面に出さない (札の中は矢印だけ)
+        expect(find.textContaining('×'), findsNothing);
+        // 属性の札の右に並べ、「鋼 ⇈」のように属性と相性を続けて読ませる
         expect(
-          tester.getTopLeft(multiplierText).dx,
+          tester.getTopLeft(effectivenessTag).dx,
           greaterThan(tester.getTopRight(find.byType(ElementTypeTag)).dx),
         );
       }

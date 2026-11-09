@@ -228,18 +228,29 @@ class _PlaceholderMonsterPainter extends CustomPainter {
 
 /// 属性の札。[elementTypeId] の名前を [definitions] から引き、属性の色の地に描く。
 class ElementTypeTag extends StatelessWidget {
-  /// 属性の札を作る。
+  /// 属性の札を作る (モンスターのカード・図鑑・技の詳細の大きさ)。
   const ElementTypeTag({
     super.key,
     required this.elementTypeId,
     required this.definitions,
-  });
+  }) : compact = false;
+
+  /// バトルの技のボタンの中に置く小さい札を作る。2 列の技のボタンの幅 (390 の画面で約 142px) に技の名前と
+  /// 相性の札と並べるため、余白と文字を [ElementTypeTag.new] より詰める (https://github.com/bannzai/snapmon/issues/281 )。
+  const ElementTypeTag.compact({
+    super.key,
+    required this.elementTypeId,
+    required this.definitions,
+  }) : compact = true;
 
   /// 描く属性の識別子。
   final String elementTypeId;
 
   /// 属性の名前を引く定義。
   final MasterData definitions;
+
+  /// 技のボタンの中の小さい札として描くか。
+  final bool compact;
 
   @override
   Widget build(BuildContext context) => DecoratedBox(
@@ -248,7 +259,11 @@ class ElementTypeTag extends StatelessWidget {
       borderRadius: SnapmonRadii.tag,
     ),
     child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      // 小さい札の余白 6/2 と文字 10 は、相性の札 (矢印 14 + 上下の余白 2) と高さが揃い、
+      // 2 枚で約 44px (余白 12 + 文字 10、余白 8 + 矢印 14) になる値。文字を 10 より小さくすると属性名が読めない
+      padding: compact
+          ? const EdgeInsets.symmetric(horizontal: 6, vertical: 2)
+          : const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: Text(
         definitions.elementTypes
             .firstWhere(
@@ -257,6 +272,7 @@ class ElementTypeTag extends StatelessWidget {
             )
             .displayName,
         style: SnapmonTextStyles.small.copyWith(
+          fontSize: compact ? 10 : null,
           color: SnapmonColors.textOnBackground,
         ),
       ),

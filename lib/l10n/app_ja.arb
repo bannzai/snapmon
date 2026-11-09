@@ -280,8 +280,6 @@
   "statusConditionExcited": "こうふん",
   "statusConditionFrozen": "こおり",
   "statusConditionSwitchBlocked": "こうたいふか",
-  "moveTypeMultiplier": "×{multiplier}",
-  "@moveTypeMultiplier": {"description": "バトルの技のボタンで、技の属性の横の札に出す今の相手への相性の倍率", "placeholders": {"multiplier": {"type": "String", "example": "2"}}},
   "moveTypeSuperEffective": "効果は抜群 ×{multiplier}",
   "@moveTypeSuperEffective": {"description": "バトルの技のボタンの相性の札 (上向きの矢印と倍率) の読み上げの名前。効果が抜群の時", "placeholders": {"multiplier": {"type": "String", "example": "2"}}},
   "moveTypeNotVeryEffective": "効果はいまひとつ ×{multiplier}",
