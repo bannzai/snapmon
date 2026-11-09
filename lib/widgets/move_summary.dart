@@ -9,7 +9,7 @@ import '../theme/snapmon_radii.dart';
 import '../theme/snapmon_text_styles.dart';
 import 'monster_parts.dart';
 
-/// 技の中身を「名前 / 属性の札・威力・PP / 特殊効果の説明」の 3 段に分けて描く。
+/// 技の中身を 3 段で描く。1 段目は名前と、右に寄せた属性の札・今の相手への相性の札 (1 行に入らない幅では名前の下の行)、2 段目は威力、3 段目は特殊効果の説明と右に寄せた PP。
 /// 段ごとに書体と色を変え、何が名前で何が属性かを読み分けられるようにする (https://github.com/bannzai/snapmon/issues/123 )。
 /// バトルの技のボタンと、モンスターのカードの覚えている技の行で使う。地はカードの生成りの白を前提にする。
 class MoveSummary extends StatelessWidget {
@@ -28,7 +28,7 @@ class MoveSummary extends StatelessWidget {
   /// 残りの PP。バトルの外 (カードの覚えている技) では null で、その時は最大の PP だけを出す。
   final int? remainingPowerPoints;
 
-  /// 今の相手の場のモンスターへの相性の倍率。属性の札の横に「×2」のように出す
+  /// 今の相手の場のモンスターへの相性の倍率。属性の札の右に矢印と倍率の札で出す
   /// (効果が抜群か今ひとつかを技を選ぶ前に分かるようにする。https://github.com/bannzai/snapmon/issues/241 )。
   /// バトルの外と相性が効かない技 (補助技・一撃必殺) は null で、出さない。
   final double? typeMultiplier;
@@ -41,16 +41,16 @@ class MoveSummary extends StatelessWidget {
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text(move.displayName, style: SnapmonTextStyles.moveName),
-      const SizedBox(height: 4),
-      // 2 列の技のボタンの幅では札と 2 つの数値が 1 行に収まらないことがあるため、収まらない分は次の行に回す
+      // 名前を左、札を右に置き、1 行に収まらない幅 (2 列の技のボタンに長い名前と 2 枚の札、大きい文字) では
+      // 札を名前の下の行に送る。Row に並べると、札が入らない時に名前が潰れて Row がはみ出す
       Wrap(
+        alignment: WrapAlignment.spaceBetween,
+        crossAxisAlignment: WrapCrossAlignment.center,
         spacing: 8,
         runSpacing: 4,
-        crossAxisAlignment: WrapCrossAlignment.center,
         children: [
-          // 属性の札と相性の倍率は「炎 ×2」と 1 まとまりで読ませるため、外の Wrap の 1 つの子にして威力と PP より先に改行させる。
-          // 大きい文字で 2 つの札が技のボタンの幅に入らない時だけ、はみ出さずに札の間で折り返す
+          Text(move.displayName, style: SnapmonTextStyles.moveName),
+          // 属性の札と相性の札は「鋼 ⇈×2」と 1 まとまりで読ませるため 1 つの子にし、大きい文字で 2 枚が入らない時だけ札の間で折り返す
           Wrap(
             spacing: 4,
             runSpacing: 4,
@@ -63,54 +63,84 @@ class MoveSummary extends StatelessWidget {
               // 等倍は出さない (ログの「こうかは ばつぐんだ」「いまひとつ」と同じく、倍率が変わる時だけ知らせる。全部の技に出すと技の枠が埋まるため)
               if (typeMultiplier case final typeMultiplier?
                   when typeMultiplier != 1)
-                _TypeMultiplierTag(typeMultiplier: typeMultiplier),
+                _TypeEffectivenessTag(typeMultiplier: typeMultiplier),
             ],
           ),
-          _MoveStatValue(label: context.l10n.movePower, value: '${move.power}'),
-          _MoveStatValue(
-            label: context.l10n.movePowerPoints,
-            value: switch (remainingPowerPoints) {
-              final remainingPowerPoints? =>
-                '$remainingPowerPoints/${move.powerPoints}',
-              null => '${move.powerPoints}',
-            },
-          ),
-          // 外れることがある技と先制の技だけに印を出す (ほとんどの技は命中 100・先制なしで、全部に出すと技の枠が埋まるため)
-          if (move.accuracy < defaultMoveAccuracyPercent)
-            Text(
-              context.l10n.moveAccuracy(move.accuracy),
-              style: SnapmonTextStyles.small.copyWith(
-                fontWeight: FontWeight.w400,
-                color: SnapmonColors.textOnCardMuted,
-              ),
-            ),
-          if (move.priority > 0)
-            Text(
-              context.l10n.movePriority,
-              style: SnapmonTextStyles.small.copyWith(
-                fontWeight: FontWeight.w400,
-                color: SnapmonColors.textOnCardMuted,
-              ),
-            ),
         ],
       ),
-      if (move.specialEffect case final specialEffect?) ...[
-        const SizedBox(height: 4),
-        Text(
-          specialEffect.summary,
-          style: SnapmonTextStyles.small.copyWith(
-            fontWeight: FontWeight.w400,
-            color: SnapmonColors.textOnCardMuted,
-          ),
+      const SizedBox(height: 4),
+      Text.rich(
+        TextSpan(
+          children: [
+            TextSpan(
+              text: '${context.l10n.movePower} ',
+              style: SnapmonTextStyles.small.copyWith(
+                fontWeight: FontWeight.w400,
+                color: SnapmonColors.textOnCardMuted,
+              ),
+            ),
+            TextSpan(
+              text: '${move.power}',
+              style: SnapmonTextStyles.label.copyWith(
+                color: SnapmonColors.textOnCard,
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
+      const SizedBox(height: 4),
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          if (move.specialEffect case final specialEffect?)
+            Expanded(
+              child: Text(
+                specialEffect.summary,
+                style: SnapmonTextStyles.small.copyWith(
+                  fontWeight: FontWeight.w400,
+                  color: SnapmonColors.textOnCardMuted,
+                ),
+              ),
+            )
+          else
+            const Spacer(),
+          const SizedBox(width: 8),
+          // PP は技を選ぶ判断に効くことが少ないため、威力より小さく細くして右下に置く。
+          // 薄さは大きさと太さで出し、色は生成りの地で読める textOnCardMuted にする (暗い地の textMuted はコントラスト比 2.2 で読めない)。
+          // 説明と PP は幅を半分ずつ分け、PP はその中で右に寄せる。Row の子のままだと大きい文字で PP が段からはみ出して例外になる。
+          // PP の取り分を半分より狭くする (説明 3 : PP 2、上限 80px) と、横向きのスマホで文字を 2 倍にした時に PP が 3〜4 行に
+          // 折り返して技のボタンが高くなり、スクロールしても押せなくなる (battle_screen_test の「横向きのスマホで文字を 2 倍にしても…
+          // 技のボタンを押せる」で測った)。段の幅から上限を求めない (LayoutBuilder) のは、技のボタンが IntrinsicHeight の中にあり、
+          // LayoutBuilder が intrinsic の高さを返せず描画が止まるため
+          Flexible(
+            child: Align(
+              alignment: Alignment.bottomRight,
+              child: Text(
+                '${context.l10n.movePowerPoints} ${switch (remainingPowerPoints) {
+                  final remainingPowerPoints? => '$remainingPowerPoints/${move.powerPoints}',
+                  null => '${move.powerPoints}',
+                }}',
+                style: SnapmonTextStyles.small.copyWith(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w400,
+                  color: SnapmonColors.textOnCardMuted,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     ],
   );
 }
 
-/// 相性の倍率の札。抜群 (1 より大きい) は暗い地に明るい色で目立たせ、今ひとつ (1 より小さい) は薄い地と薄い文字で控えめに描く。
-class _TypeMultiplierTag extends StatelessWidget {
-  const _TypeMultiplierTag({required this.typeMultiplier});
+/// 今の相手への相性の札。上下の矢印と倍率で、効果が抜群 (1 より大きい) か今ひとつ (1 より小さい) かを言葉を読まずに伝える
+/// (https://github.com/bannzai/snapmon/issues/259 )。
+/// 抜群は強調色の地に濃い文字で技の中でいちばん目を引かせ、今ひとつは薄い地と薄い文字で控えめに描く。
+/// 「効果は抜群」「効果はいまひとつ」の言葉は読み上げの名前にだけ持つ。画面に出すと 2 列の技のボタンの幅に収まらず、
+/// 使った後のログが同じ言葉を出して矢印の意味を教えるため。
+class _TypeEffectivenessTag extends StatelessWidget {
+  const _TypeEffectivenessTag({required this.typeMultiplier});
 
   /// 相性の倍率 (等倍以外)。
   final double typeMultiplier;
@@ -118,60 +148,49 @@ class _TypeMultiplierTag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isSuperEffective = typeMultiplier > 1;
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: isSuperEffective
-            ? SnapmonColors.textOnCard
-            : SnapmonColors.cardTrack,
-        borderRadius: SnapmonRadii.tag,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-        child: Text(
-          context.l10n.moveTypeMultiplier(
-            // 相性の倍率は 0.5・2 の積 (0.25〜) のため、% の整数にしても桁は落ちない
-            formatPowerPercent(powerPercent: (typeMultiplier * 100).round()),
-          ),
-          key: const Key('move-type-multiplier'),
-          style: SnapmonTextStyles.small.copyWith(
+    // 相性の倍率は 0.5・2 の積 (0.25〜) のため、% の整数にしても桁は落ちない
+    final multiplierText = formatPowerPercent(
+      powerPercent: (typeMultiplier * 100).round(),
+    );
+    final foreground = isSuperEffective
+        ? SnapmonColors.textOnCard
+        : SnapmonColors.textOnCardMuted;
+    return Semantics(
+      label: isSuperEffective
+          ? context.l10n.moveTypeSuperEffective(multiplierText)
+          : context.l10n.moveTypeNotVeryEffective(multiplierText),
+      child: ExcludeSemantics(
+        child: DecoratedBox(
+          decoration: BoxDecoration(
             color: isSuperEffective
                 ? SnapmonColors.accent
-                : SnapmonColors.textOnCardMuted,
+                : SnapmonColors.cardTrack,
+            borderRadius: SnapmonRadii.tag,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+            // Row だと大きい文字で札の幅が技のボタンを超えた時にはみ出して例外になるため、矢印と倍率の間で折り返せる Wrap にする
+            child: Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
+                Icon(
+                  isSuperEffective
+                      ? Icons.keyboard_double_arrow_up
+                      : Icons.keyboard_double_arrow_down,
+                  // 文字 (11) と同じ高さに見える大きさ。文字より大きいと札だけ背が高くなり、属性の札と揃わない
+                  size: 12,
+                  color: foreground,
+                ),
+                Text(
+                  context.l10n.moveTypeMultiplier(multiplierText),
+                  key: const Key('move-type-multiplier'),
+                  style: SnapmonTextStyles.small.copyWith(color: foreground),
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
-}
-
-/// 技の数値 1 つ。小さく薄いラベルの後に太い数値を続ける。
-class _MoveStatValue extends StatelessWidget {
-  const _MoveStatValue({required this.label, required this.value});
-
-  /// 数値の前に付けるラベル (威力・PP)。
-  final String label;
-
-  /// 数値の文字列。
-  final String value;
-
-  @override
-  Widget build(BuildContext context) => Text.rich(
-    TextSpan(
-      children: [
-        TextSpan(
-          text: '$label ',
-          style: SnapmonTextStyles.small.copyWith(
-            fontWeight: FontWeight.w400,
-            color: SnapmonColors.textOnCardMuted,
-          ),
-        ),
-        TextSpan(
-          text: value,
-          style: SnapmonTextStyles.label.copyWith(
-            color: SnapmonColors.textOnCard,
-          ),
-        ),
-      ],
-    ),
-  );
 }
