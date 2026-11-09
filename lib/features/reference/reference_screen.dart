@@ -243,6 +243,7 @@ class _TypeChartMultiplierCell extends StatelessWidget {
 }
 
 /// 技の一覧。属性ごとに技を並べ、タップで技の詳細 ([openMoveDetail]) を開く。
+/// 別の技が置き換えた補助技 (`Move.replacesMoveId` が指す技) は、新しく生まれるモンスターが覚えないため並べない (#257)。
 class _MoveList extends StatelessWidget {
   const _MoveList({required this.definitions});
 
@@ -250,7 +251,15 @@ class _MoveList extends StatelessWidget {
   final MasterData definitions;
 
   @override
-  Widget build(BuildContext context) => ListView(
+  Widget build(BuildContext context) => _buildList(
+    replacedMoveIds: {
+      for (final move in definitions.moves)
+        if (move.replacesMoveId case final String replacedMoveId) replacedMoveId,
+    },
+  );
+
+  /// [replacedMoveIds] に入っていない技を属性ごとに並べた一覧を返す。
+  Widget _buildList({required Set<String> replacedMoveIds}) => ListView(
     key: const Key('reference-move-list'),
     padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
     children: [
@@ -267,7 +276,8 @@ class _MoveList extends StatelessWidget {
           ),
         ),
         for (final move in definitions.moves)
-          if (move.elementTypeId == elementType.id)
+          if (move.elementTypeId == elementType.id &&
+              !replacedMoveIds.contains(move.id))
             Padding(
               padding: const EdgeInsets.only(bottom: 8),
               child: _MoveRow(move: move, definitions: definitions),

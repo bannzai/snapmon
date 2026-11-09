@@ -35,8 +35,8 @@ export interface MasterMove {
   learnableLevelMaximum: number;
   /**
    * 技の特殊効果。数値の出力は式 (文法は documents/game-rules.md「技の式」、検査は src/move_expression.ts) を持つ。
-   * `power` は攻撃技の威力の倍率 (%)、`selfStatChanges`・`opponentStatChanges` は補助技が自分・相手のステータス (attack・defense・speed) の倍率 (%) に足す値、
-   * `selfHitPointsRecovery` は補助技が自分の HP を回復する量。
+   * `power` は攻撃技の威力の倍率 (%)、`selfStatChanges`・`opponentStatChanges` は技が自分・相手のステータス (attack・defense・speed) の倍率 (%) に足す値
+   * (補助技は使った時、攻撃技は当たった時。攻撃技に付くのは版 11 (#257) から)、`selfHitPointsRecovery` は補助技が自分の HP を回復する量。
    * 版 9 (#224) から、値で書く効果を持つ: `selfStatusConditions`・`opponentStatusConditions` (付ける状態と確率)、`curesSelfStatusConditions` (自分の状態の解除)、
    * `fieldEffect` (フィールドの効果)、`selfDestructs` (自爆)、`oneHitKnockout` (一撃必殺)、`sureHit` (必中)。状態・フィールドの名前は端末の列挙 (lib/domain/battle/status_condition.dart) が正。
    * `summary` は技の枠に出す短い説明、`rule` はバトルのログと技の詳細に出す効果の規則の説明。計算は端末のバトル (lib/domain/battle/battle_engine.dart) が行う。
@@ -67,6 +67,11 @@ export interface MasterMove {
    * (documents/game-rules.md「技の根拠」)。master の版 4 より前の版と、版 4 より前にその場で作った技は持たない。
    */
   rationale?: string;
+  /**
+   * この技が置き換えた版 10 までの補助技の識別子 (版 11 から。#257)。置き換えられた補助技は、生まれた時に覚えた既存のモンスターのために master に残し、
+   * 新しく生まれるモンスターには覚えさせず、図鑑の技の一覧にも出さない。
+   */
+  replacesMoveId?: string;
 }
 
 /** ステータスの段階と種族値の対応。 */
@@ -144,4 +149,10 @@ export async function fetchMaster({ firestore, version }: { firestore: Firestore
 export async function fetchDynamicDefinitions(firestore: Firestore): Promise<{ id: string; definition: DynamicDefinition }[]> {
   const snapshot = await firestore.collection("definitions").get();
   return snapshot.docs.map((document) => ({ id: document.id, definition: document.data() as DynamicDefinition }));
+}
+
+/** [moves] から、別の技の `replacesMoveId` が指す技 (置き換えられた補助技) を除いた、新しく生まれるモンスターが覚えてよい技を元の順で返す。 */
+export function learnableMoves(moves: MasterMove[]): MasterMove[] {
+  const replacedMoveIds = new Set(moves.flatMap((move) => (move.replacesMoveId ? [move.replacesMoveId] : [])));
+  return moves.filter((move) => !replacedMoveIds.has(move.id));
 }

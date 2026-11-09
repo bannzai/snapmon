@@ -223,6 +223,45 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
+  testWidgets('技の一覧に、別の技が置き換えた補助技を出さず、置き換えた攻撃技と置き換えていない補助技を出す (#257)', (tester) async {
+    await pumpApp(
+      tester: tester,
+      home: ReferenceScreen(dexStore: DexStore(definitions: definitions)),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('技の一覧'));
+    await tester.pumpAndSettle();
+
+    final moveListScrollable = find.descendant(
+      of: find.byKey(const Key('reference-move-list')),
+      matching: find.byType(Scrollable),
+    );
+    // 炎 (一覧の先頭の属性) の行を、炎の最後の技 fire_a7 が出るまで少しずつ送り、途中のどの画面にも fire_s1 が無いことを確かめる
+    var sawRecoverySupport = false;
+    for (
+      var step = 0;
+      step < 100 &&
+          find.byKey(const Key('reference-move-fire_a7')).evaluate().isEmpty;
+      step++
+    ) {
+      expect(find.byKey(const Key('reference-move-fire_s1')), findsNothing);
+      sawRecoverySupport |= find
+          .byKey(const Key('reference-move-fire_s3'))
+          .evaluate()
+          .isNotEmpty;
+      await tester.drag(moveListScrollable, const Offset(0, -200));
+      await tester.pumpAndSettle();
+    }
+    expect(find.byKey(const Key('reference-move-fire_a7')), findsOneWidget);
+    expect(find.byKey(const Key('reference-move-fire_s1')), findsNothing);
+    sawRecoverySupport |= find
+        .byKey(const Key('reference-move-fire_s3'))
+        .evaluate()
+        .isNotEmpty;
+    expect(sawRecoverySupport, isTrue);
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('開いた時に最新の master を読み直し、失敗したら古い表を出さずにエラーとやり直しを出す', (tester) async {
     final dexStore = DexStore(definitions: definitions);
     var refreshCount = 0;

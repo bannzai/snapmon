@@ -276,8 +276,11 @@ describe("generate", () => {
     const monster = (await firestore.doc(`users/alice/monsters/${first.monsterId}`).get()).data() as MonsterDocument;
     expect(monster.definition.name).toBe(descriptions["01"].name);
     expect(monster.definition.elementTypeIds).toEqual(["steel"]);
-    // Lv.1 は自分の属性の技 2 つと、別の属性 (当てはまりが同じ 0.05 なので ID 順) の技 2 つ (#224)
-    expect(monster.definition.learnset.filter((entry) => entry.unlockLevel === 1).map((entry) => entry.moveId)).toEqual(["steel_1", "steel_1b", "beast_1", "bird_1"]);
+    // Lv.1 は自分の属性の段階 1 の技 2 つと、別の属性の段階 1 の技 2 つ (#224)。確率が同じ技・属性の並びは説明文で決まる (#257)
+    const startingMoveIds = monster.definition.learnset.filter((entry) => entry.unlockLevel === 1).map((entry) => entry.moveId);
+    expect(startingMoveIds).toHaveLength(4);
+    expect(startingMoveIds.slice(0, 2).every((moveId) => /^steel_1[b-d]?$/.test(moveId))).toBe(true);
+    expect(startingMoveIds.slice(2).every((moveId) => /^[a-z]+_1[b-d]?$/.test(moveId) && !moveId.startsWith("steel_"))).toBe(true);
     expect(monster.definition.baseStats).toEqual({ hitPoints: 80, attack: 80, defense: 80, speed: 80 });
     expect(monster.categoryIds[0]).toBe("tableware");
     const [artExists] = await bucket.file(`monsters/${first.monsterId}/art.png`).exists();
@@ -808,12 +811,12 @@ describe("generate", () => {
     const definition = (await firestore.doc(`definitions/${elementTypeId}`).get()).data()!;
     expect(definition).toMatchObject({ version: 1, elementTypes: [{ id: elementTypeId, displayName: "ろう" }] });
     expect(definition.moves.map((move: { rationale?: string }) => move.rationale)).toEqual(["ろうの塊でぶつかる技", "溶けたろうで押しつぶす技", "ろうそくの炎ごとはじける技"]);
-    // その場で作った属性は段階 1 の技を 1 つしか持たないため、Lv.1 の残りを master の別の属性 (当てはまりが同じ 0.05 なので ID 順) で埋める
-    expect(monster.definition.learnset).toEqual([
-      { moveId: `${elementTypeId}_1`, unlockLevel: 1 },
-      { moveId: "beast_1", unlockLevel: 1 },
-      { moveId: "bird_1", unlockLevel: 1 },
-      { moveId: "bug_1", unlockLevel: 1 },
+    // その場で作った属性は段階 1 の技を 1 つしか持たないため、Lv.1 の残りを master の別の属性の段階 1 の技で埋める (確率が同じ属性の並びは説明文で決まる。#257)
+    expect(monster.definition.learnset[0]).toEqual({ moveId: `${elementTypeId}_1`, unlockLevel: 1 });
+    expect(
+      monster.definition.learnset.slice(1, 4).every((entry) => entry.unlockLevel === 1 && /^[a-z]+_1[b-d]?$/.test(entry.moveId)),
+    ).toBe(true);
+    expect(monster.definition.learnset.slice(4)).toEqual([
       { moveId: `${elementTypeId}_2`, unlockLevel: 15 },
       { moveId: `${elementTypeId}_3`, unlockLevel: 100 },
     ]);

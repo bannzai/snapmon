@@ -325,6 +325,63 @@ void main() {
     }
   });
 
+  test('版 11 で、ステータス・状態を変える補助技を、同じ効果を追加効果に持つ攻撃技に置き換えた (#257)', () {
+    expect(master.version, greaterThanOrEqualTo(11));
+    final movesById = {for (final move in master.moves) move.id: move};
+    final replacingMoves = [
+      for (final move in master.moves)
+        if (move.replacesMoveId != null) move,
+    ];
+    expect(replacingMoves, isNotEmpty);
+    for (final move in replacingMoves) {
+      final replaced = movesById[move.replacesMoveId]!;
+      expect(replaced.category, MoveCategory.support, reason: move.id);
+      expect(replaced.elementTypeId, move.elementTypeId, reason: move.id);
+      expect(move.category, MoveCategory.attack, reason: move.id);
+      expect(move.power, greaterThan(0), reason: move.id);
+      expect(move.learnableLevelMinimum, lessThan(100), reason: move.id);
+      expect(
+        move.specialEffect!.selfStatChanges,
+        replaced.specialEffect!.selfStatChanges,
+        reason: move.id,
+      );
+      expect(
+        move.specialEffect!.opponentStatChanges,
+        replaced.specialEffect!.opponentStatChanges,
+        reason: move.id,
+      );
+      expect(
+        move.specialEffect!.opponentStatusConditions.map(
+          (infliction) => infliction.kind,
+        ),
+        replaced.specialEffect!.opponentStatusConditions.map(
+          (infliction) => infliction.kind,
+        ),
+        reason: move.id,
+      );
+    }
+    // 交換不可は、置き換えた攻撃技で必ず付く (補助技だった時と同じ働き)
+    for (final elementType in master.elementTypes) {
+      final move = movesById['${elementType.id}_a7']!;
+      expect(move.replacesMoveId, '${elementType.id}_s7');
+      expect(
+        move.specialEffect!.opponentStatusConditions.single.chancePercent,
+        100,
+      );
+    }
+    // 新しく生まれるモンスターが覚える技 (置き換えられた補助技を除く) のうち、威力 0 の技は 1 割未満の例外にする
+    final replacedMoveIds = {
+      for (final move in replacingMoves) move.replacesMoveId!,
+    };
+    final learnableMoves = master.moves.where(
+      (move) => !replacedMoveIds.contains(move.id),
+    );
+    expect(
+      learnableMoves.where((move) => move.power == 0).length * 10,
+      lessThan(learnableMoves.length),
+    );
+  });
+
   test('Lv.1 で覚えられる技の半分以上に特殊効果が付いている (#65 の完了条件)', () {
     final levelOneMoves = master.moves.where(
       (move) => move.learnableLevelMinimum == 1,
