@@ -514,6 +514,7 @@ BattleMonster prepare({
   level: level,
   experience: 0,
   master: testMaster,
+  maximumHitPointsPercent: 100,
 );
 
 /// 両陣営とも CPU の規則で行動させ、決着までのターンを進めた状態を返す。
@@ -1069,6 +1070,7 @@ void main() {
           level: 50,
           experience: 0,
           master: supportOnlyMaster,
+          maximumHitPointsPercent: 100,
         );
     var state = startBattle(
       playerMembers: [supportOnlyMonster(id: 'player')],
@@ -1364,6 +1366,8 @@ void main() {
           members: [
             BattleMonster(
               definition: lowered.opponent.activeMember.definition,
+              maximumHitPointsPercent:
+                  lowered.opponent.activeMember.maximumHitPointsPercent,
               state: lowered.opponent.activeMember.state.copyWith(
                 statModifierPercents: const {},
               ),
@@ -1411,6 +1415,7 @@ void main() {
       final baseAttack = effectiveStats(
         monster: BattleMonster(
           definition: player.definition,
+          maximumHitPointsPercent: player.maximumHitPointsPercent,
           state: player.state.copyWith(statModifierPercents: const {}),
         ),
       ).attack;
@@ -1528,6 +1533,10 @@ void main() {
             members: [
               BattleMonster(
                 definition: defenseAtMinimum.opponent.activeMember.definition,
+                maximumHitPointsPercent: defenseAtMinimum
+                    .opponent
+                    .activeMember
+                    .maximumHitPointsPercent,
                 state: defenseAtMinimum.opponent.activeMember.state.copyWith(
                   statModifierPercents: const {
                     StatKind.defense: statModifierPercentMinimum,
@@ -2313,6 +2322,8 @@ void main() {
           members: [
             BattleMonster(
               definition: party.activeMember.definition,
+              maximumHitPointsPercent:
+                  party.activeMember.maximumHitPointsPercent,
               state: party.activeMember.state.copyWith(
                 statusConditions: {
                   StatusConditionKind.burn: StatusCondition(
@@ -2574,6 +2585,7 @@ void main() {
           members: [
             BattleMonster(
               definition: player.definition,
+              maximumHitPointsPercent: player.maximumHitPointsPercent,
               state: player.state.copyWith(
                 currentHitPoints: 1,
                 statusConditions: const {
@@ -2889,6 +2901,7 @@ void main() {
             members: [
               BattleMonster(
                 definition: opponent.definition,
+                maximumHitPointsPercent: opponent.maximumHitPointsPercent,
                 state: opponent.state.copyWith(
                   statusConditions: const {
                     StatusConditionKind.paralysis: StatusCondition(
@@ -2990,6 +3003,7 @@ void main() {
         ? member
         : BattleMonster(
             definition: member.definition,
+            maximumHitPointsPercent: member.maximumHitPointsPercent,
             state: member.state.copyWith(currentHitPoints: hitPoints),
           );
 

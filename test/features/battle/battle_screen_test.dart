@@ -9,6 +9,7 @@ import 'package:share_plus/share_plus.dart';
 
 import 'package:snapmon/analytics/analytics_events.dart';
 import 'package:snapmon/audio/game_audio.dart';
+import 'package:snapmon/domain/battle/battle_engine.dart';
 import 'package:snapmon/domain/battle/battle_state.dart';
 import 'package:snapmon/domain/monster/monster_stats.dart';
 import 'package:snapmon/domain/monster/stat_calculation.dart';
@@ -186,6 +187,61 @@ void main() {
       },
     );
   }
+
+  testWidgets('CPU 戦は、最大 HP に割合を掛けた CPU の HP バーも満タンで始まる (issue #267)', (
+    tester,
+  ) async {
+    // 割合が 100 なら分母が補正前の最大 HP でも満タンになり、このテストで分母の取り違えを見分けられないため
+    expect(cpuHitPointsPercent, lessThan(100));
+    await tester.pumpWidget(
+      GameAudioScope(
+        gameAudio: fakeGameAudio(
+          calls: RecordedAudioCalls(),
+          isBackgroundMusicEnabled: true,
+          isSoundEffectsEnabled: true,
+          waitsForUserInteractionBeforeBackgroundMusic: false,
+        ),
+        child: MaterialApp(
+          theme: snapmonThemeData(),
+          locale: const Locale('ja'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: BattleScreen(
+            playerParty: [strongPlayer],
+            opponentParty: [weakOpponent],
+            opponentKind: BattleOpponentKind.cpu,
+            definitions: sampleData.definitions,
+            randomSeed: 1,
+            battleRecorder: fakeBattleRecorder(
+              calls: RecordedBattleCalls(),
+              startBattleRecord: () async => null,
+              recordedLevels: const {},
+            ),
+            onPlayerLevelsChanged: ({required levelsByMonsterId}) {},
+            cardSharer: fakeCardSharer(
+              calls: RecordedShareCalls(),
+              artImage: null,
+              shareResultStatus: ShareResultStatus.success,
+            ),
+            firstBattleBornMonster: null,
+            firstBattleMonsterIsNewlyBorn: false,
+            playerProfile: null,
+            opponentDisplayName: 'CPU リク',
+          ),
+        ),
+      ),
+    );
+    await tester.pump(const Duration(seconds: 1));
+    expect(
+      [
+        for (final indicator in tester.widgetList<LinearProgressIndicator>(
+          find.byType(LinearProgressIndicator),
+        ))
+          indicator.value,
+      ],
+      [1.0, 1.0],
+    );
+  });
 
   testWidgets('相手と自分のトレーナーのアイコン (未登録は既定の印) と名前を、それぞれの情報カードの上に出す', (
     tester,
