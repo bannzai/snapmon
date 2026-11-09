@@ -86,9 +86,7 @@ void main() {
     );
   });
 
-  testWidgets('バトルの技のボタンの属性の札は、カードの属性の札より余白と文字が小さい', (
-    tester,
-  ) async {
+  testWidgets('バトルの技のボタンの属性の札は、カードの属性の札より余白と文字が小さい', (tester) async {
     // 2 列の技のボタンの幅 (390 の画面で約 142) に名前と 2 枚の札を並べるため、技のボタンの中だけ小さくする。
     // 他の画面 (モンスターのカード・図鑑・技の詳細) の札は変えない (https://github.com/bannzai/snapmon/issues/281 )
     await tester.pumpWidget(
@@ -249,9 +247,7 @@ void main() {
         moveId: plainMove.id,
         typeMultiplier: typeMultiplier,
       );
-      final effectivenessTag = find.byKey(
-        const Key('move-type-effectiveness'),
-      );
+      final effectivenessTag = find.byKey(const Key('move-type-effectiveness'));
       if (expectedLabel == null) {
         expect(effectivenessTag, findsNothing);
         expect(find.byIcon(Icons.keyboard_double_arrow_up), findsNothing);

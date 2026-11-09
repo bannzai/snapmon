@@ -386,10 +386,16 @@ void main() {
           Icons.keyboard_double_arrow_up,
           reason: 'move-slot-$slotIndex',
         );
+        // 技のボタンの中では読み上げの名前がボタンの節にまとめられ、find.bySemanticsLabel では札の節を単独で見つけられないため、
+        // 札の Semantics ウィジェットの label で確かめる
         expect(
           find.descendant(
             of: find.byKey(Key('move-slot-$slotIndex')),
-            matching: find.bySemanticsLabel(expectedLabel),
+            matching: find.byWidgetPredicate(
+              (widget) =>
+                  widget is Semantics &&
+                  widget.properties.label == expectedLabel,
+            ),
           ),
           findsOneWidget,
           reason: 'move-slot-$slotIndex',
