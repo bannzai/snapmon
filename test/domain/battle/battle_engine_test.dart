@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:flutter_test/flutter_test.dart';
@@ -1761,6 +1763,40 @@ void main() {
         ['paper_1'],
       );
     });
+
+    // Functions の技の使用の集計 (functions/src/action_card_rules.ts の equippedMoveIds) と共通のテストケース。
+    // Action Card の技の枠は端末にまだ無いため、覚えさせた技の無いケースだけを確かめる
+    final equippedMoveCases =
+        ((jsonDecode(
+                      File(
+                        'test/fixtures/equipped_move_cases.json',
+                      ).readAsStringSync(),
+                    )
+                    as Map<String, dynamic>)['cases']
+                as List<dynamic>)
+            .cast<Map<String, dynamic>>()
+            .where(
+              (equippedMoveCase) =>
+                  (equippedMoveCase['actionCardMoveIds'] as List<dynamic>)
+                      .isEmpty,
+            );
+    for (final equippedMoveCase in equippedMoveCases) {
+      test('共通のテストケース: ${equippedMoveCase['name']}', () {
+        expect(
+          equippedLearnsetEntries(
+            learnset: [
+              for (final learnsetEntryJson
+                  in equippedMoveCase['learnset'] as List<dynamic>)
+                LearnsetEntry.fromJson(
+                  json: learnsetEntryJson as Map<String, dynamic>,
+                ),
+            ],
+            level: equippedMoveCase['level'] as int,
+          ).map((learnsetEntry) => learnsetEntry.moveId),
+          equippedMoveCase['expectedMoveIds'],
+        );
+      });
+    }
 
     test('バトルで選べる技は枠に入った技だけ', () {
       final monster = prepare(

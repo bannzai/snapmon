@@ -1,6 +1,8 @@
 import { FieldValue, getFirestore } from "firebase-admin/firestore";
+import { logger } from "firebase-functions";
 import { CallableRequest, HttpsError, onCall } from "firebase-functions/v2/https";
 
+import { equippedMoveIds } from "./action_card_rules";
 import { ENFORCE_APP_CHECK } from "./app_check";
 import {
   DAILY_BATTLE_LIMIT,
@@ -65,7 +67,9 @@ export const startBattle = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async 
  * 勝敗とターン数は端末の計算をそのまま記録し、検証しない (レベルは勝敗に関係なく +1 のため。ADR 0001 の DB の行)。
  * 返す値: `{ levels: { [monsterId]: number } }` (上がった後のレベル)。
  * トランザクションでバトルの完了状態を確かめ、未完了の時だけ、1 日 (日本時間) の上限 [DAILY_BATTLE_LIMIT] 戦を検証して
- * レベル・経験の加算、1 日の数、完了の記録を同時に書く。完了済みの battleId の再送は加算せず、記録済みの levels を返す (冪等)。
+ * レベル・経験の加算、1 日の数、完了の記録を同時に書く。コミットの後に、参加したモンスターの技の枠の技の使用回数
+ * (`moveUsageDailyCounts/{日本時間の日付}`) をトランザクションの外で足す (書けなくてもレベルの記録は成功として返し、その回は数えない)。
+ * 完了済みの battleId の再送は加算も使用回数の加算もせず、記録済みの levels を返す (冪等)。
  */
 export const recordBattle = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async (request) => {
   const uid = requireSignedInUid({ request });
@@ -90,13 +94,14 @@ export const recordBattle = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
   const firestore = getFirestore();
   const userDocument = firestore.doc(`users/${uid}`);
   const battleDocument = firestore.doc(`users/${uid}/battles/${battleId}`);
-  const levels = await firestore.runTransaction(async (transaction) => {
+  const { levels, moveUsage } = await firestore.runTransaction(
+    async (transaction): Promise<{ levels: Record<string, number>; moveUsage?: { dayKey: string; counts: Record<string, number> } }> => {
     const battleSnapshot = await transaction.get(battleDocument);
     if (!battleSnapshot.exists) {
       throw new HttpsError("not-found", `バトル ${battleId} は始まっていません`);
     }
     if (battleSnapshot.get("status") === "completed") {
-      return battleSnapshot.get("levels") as Record<string, number>;
+      return { levels: battleSnapshot.get("levels") as Record<string, number> };
     }
     if (
       !isSubsetOfParty({
@@ -118,12 +123,22 @@ export const recordBattle = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
     );
     const monsterSnapshots = await transaction.getAll(...monsterDocuments);
     const nextLevels: Record<string, number> = {};
+    // 技のランク (action_cards.ts の updateMoveRanks) に使う、参加したモンスターのバトルの時点の技の枠の技の数。
+    // クライアントから技を受け取らず図鑑から決める (改ざんでランクを動かさせないため)。同じ技を持つモンスターが 2 体いれば 2 回数える
+    const moveUsageCounts: Record<string, number> = {};
     for (const [index, monsterSnapshot] of monsterSnapshots.entries()) {
       const level = monsterSnapshot.get("level");
       if (!monsterSnapshot.exists || typeof level !== "number") {
         throw new HttpsError("not-found", `図鑑に無いモンスター ${participantMonsterIds[index]} が含まれています`);
       }
       nextLevels[participantMonsterIds[index]] = levelAfterBattle({ level });
+      const learnset: unknown = monsterSnapshot.get("definition.learnset");
+      // 生成が作るモンスターは必ず learnset を持つ。持たない文書は数えずに進め、集計のためにレベルの記録を失敗させない
+      if (Array.isArray(learnset)) {
+        for (const moveId of equippedMoveIds({ learnset, level, actionCardMoveIds: monsterSnapshot.get("actionCardMoveIds") ?? [] })) {
+          moveUsageCounts[moveId] = (moveUsageCounts[moveId] ?? 0) + 1;
+        }
+      }
     }
     for (const [index, monsterDocument] of monsterDocuments.entries()) {
       transaction.update(monsterDocument, {
@@ -145,7 +160,21 @@ export const recordBattle = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
       levels: nextLevels,
       completedAt: FieldValue.serverTimestamp(),
     });
-    return nextLevels;
+    return { levels: nextLevels, moveUsage: { dayKey: today, counts: moveUsageCounts } };
   });
+  if (moveUsage !== undefined && Object.keys(moveUsage.counts).length > 0) {
+    // 使用回数の文書は全ユーザーのバトルの記録が書くため、レベルの記録のトランザクションの外で書く。1 文書への書き込みの頻度には
+    // 上限があり ("you can't update a single document at an unlimited rate." https://firebase.google.com/docs/firestore/solutions/counters )、
+    // 同じトランザクションに入れると、ぶつかった時にレベルの記録まで失敗するため。書けなくてもレベルの記録は済んでいるため、失敗させずにログだけ残す。
+    // 完了済みの battleId の再送は上で数えずに返すため、ここに来るのは記録した 1 回だけ (書き損じた分はランクの集計から抜けるが、二重には数えない)
+    try {
+      // ドット区切りの update は文書が無いと失敗し、技の ID の `.` を区切りと読むため、入れ子の値を merge で書く
+      await firestore
+        .doc(`moveUsageDailyCounts/${moveUsage.dayKey}`)
+        .set({ counts: Object.fromEntries(Object.entries(moveUsage.counts).map(([moveId, count]) => [moveId, FieldValue.increment(count)])) }, { merge: true });
+    } catch (error) {
+      logger.error("技の使用回数を書けませんでした", { error, battleId });
+    }
+  }
   return { levels };
 });
