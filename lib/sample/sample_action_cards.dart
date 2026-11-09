@@ -37,18 +37,14 @@ class SampleActionCards {
   );
 
   /// `users/{uid}.actionCardMoveReservation` の代わり。
-  ({String actionCardMoveReservationID, String moveID, int rank})?
-  _reservation;
+  ({String actionCardMoveReservationID, String moveID, int rank})? _reservation;
 
   /// 見本の購入と控えの ID に付ける番号。
   int _sampleSequence = 0;
 
   /// [rank] の技に結び付いていない購入を 1 件足す (#290 より前の購入や、選び直しが要る購入の代わり)。
-  void addUnassignedPurchase({required int rank}) => _addPurchase(
-    rank: rank,
-    moveID: null,
-    actionCardMoveReservationID: null,
-  );
+  void addUnassignedPurchase({required int rank}) =>
+      _addPurchase(rank: rank, moveID: null, actionCardMoveReservationID: null);
 
   /// 購入を 1 件足す。
   void _addPurchase({

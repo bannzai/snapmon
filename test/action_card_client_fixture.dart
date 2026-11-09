@@ -124,12 +124,16 @@ class FakeActionCards {
       }
       return 'reservation-${reservedMoves.length}';
     },
-    assignActionCardMove: ({required actionCardPurchaseID, required moveID}) async {
-      assignedMoves.add((actionCardPurchaseID: actionCardPurchaseID, moveID: moveID));
-      if (assignErrors.isNotEmpty) {
-        throw assignErrors.removeAt(0);
-      }
-    },
+    assignActionCardMove:
+        ({required actionCardPurchaseID, required moveID}) async {
+          assignedMoves.add((
+            actionCardPurchaseID: actionCardPurchaseID,
+            moveID: moveID,
+          ));
+          if (assignErrors.isNotEmpty) {
+            throw assignErrors.removeAt(0);
+          }
+        },
     teachActionCardMove: ({required monsterId, required moveId}) async {
       taughtMoves.add((monsterId: monsterId, moveId: moveId));
       return monsterMoveIdsResult;

@@ -32,7 +32,11 @@ void main() {
     fakeActionCards
       ..isActionCardsVisible.value = false
       ..purchases.value = [
-        testActionCardPurchase(actionCardPurchaseID: 'p1', rank: 2, moveID: null),
+        testActionCardPurchase(
+          actionCardPurchaseID: 'p1',
+          rank: 2,
+          moveID: null,
+        ),
       ];
     await pumpEventQueue();
     expect(store.isPurchaseEntryVisible, isFalse);
@@ -47,21 +51,35 @@ void main() {
 
   test('買い切った技は技のある購入から 技に結び付いていない購入は技の無い購入から出す', () async {
     fakeActionCards.purchases.value = [
-      testActionCardPurchase(actionCardPurchaseID: 'p1', rank: 1, moveID: 'fire_1c'),
+      testActionCardPurchase(
+        actionCardPurchaseID: 'p1',
+        rank: 1,
+        moveID: 'fire_1c',
+      ),
       testActionCardPurchase(actionCardPurchaseID: 'p2', rank: 3, moveID: null),
-      testActionCardPurchase(actionCardPurchaseID: 'p3', rank: 2, moveID: 'water_3'),
+      testActionCardPurchase(
+        actionCardPurchaseID: 'p3',
+        rank: 2,
+        moveID: 'water_3',
+      ),
     ];
     await pumpEventQueue();
     expect(store.ownedMoveIds, ['fire_1c', 'water_3']);
     expect(
-      store.unassignedPurchases.map((purchase) => purchase.actionCardPurchaseID),
+      store.unassignedPurchases.map(
+        (purchase) => purchase.actionCardPurchaseID,
+      ),
       ['p2'],
     );
   });
 
   test('アカウントが変わったら 前のアカウントの購入を出さない', () async {
     fakeActionCards.purchases.value = [
-      testActionCardPurchase(actionCardPurchaseID: 'p1', rank: 1, moveID: 'fire_1c'),
+      testActionCardPurchase(
+        actionCardPurchaseID: 'p1',
+        rank: 1,
+        moveID: 'fire_1c',
+      ),
     ];
     await pumpEventQueue();
     expect(store.ownedMoveIds, ['fire_1c']);

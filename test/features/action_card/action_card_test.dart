@@ -327,9 +327,7 @@ void main() {
       expect(find.byKey(const Key('action-card-buy-water_3')), findsNothing);
     });
 
-    testWidgets('控えた技を受け取れなかった購入が届いたら 選び直しの案内を出し 画面に選び直しの節を出す', (
-      tester,
-    ) async {
+    testWidgets('控えた技を受け取れなかった購入が届いたら 選び直しの案内を出し 画面に選び直しの節を出す', (tester) async {
       fakeActionCards.rankByMoveId.value = sampleRankByMoveId;
       await pump(
         tester: tester,
@@ -362,9 +360,7 @@ void main() {
       );
     });
 
-    testWidgets('値段を出している間にランクが変わって控えを断られたら 買わずに 値段が変わったと出す', (
-      tester,
-    ) async {
+    testWidgets('値段を出している間にランクが変わって控えを断られたら 買わずに 値段が変わったと出す', (tester) async {
       fakeActionCards
         ..rankByMoveId.value = sampleRankByMoveId
         ..reserveErrors.add(const ActionCardMoveRankChangedException(rank: 3));
@@ -382,7 +378,10 @@ void main() {
         findsOneWidget,
       );
       // 新しいランクが購読で届くと 新しい値段で買い直せる
-      fakeActionCards.rankByMoveId.value = {...sampleRankByMoveId, 'fire_1c': 3};
+      fakeActionCards.rankByMoveId.value = {
+        ...sampleRankByMoveId,
+        'fire_1c': 3,
+      };
       await tester.pump();
       expect(find.text('ランク 3  ¥300 で買う'), findsOneWidget);
     });
@@ -414,10 +413,7 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key('action-card-purchase-buy')));
       await tester.pumpAndSettle();
-      expect(
-        find.byKey(const Key('action-card-purchase-buy')),
-        findsOneWidget,
-      );
+      expect(find.byKey(const Key('action-card-purchase-buy')), findsOneWidget);
       expect(find.text('技を受け取っています'), findsNothing);
     });
 
@@ -464,7 +460,10 @@ void main() {
         findsOneWidget,
       );
       // 持っている技 (water_1b) と 購入のランクより高い技 (water_3) は出さない
-      expect(find.byKey(const Key('action-card-assign-water_1b')), findsNothing);
+      expect(
+        find.byKey(const Key('action-card-assign-water_1b')),
+        findsNothing,
+      );
       expect(find.byKey(const Key('action-card-assign-water_3')), findsNothing);
       await tester.tap(find.byKey(const Key('action-card-assign-fire_1c')));
       await tester.pumpAndSettle();

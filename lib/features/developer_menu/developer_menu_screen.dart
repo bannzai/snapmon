@@ -217,7 +217,8 @@ class DeveloperMenuScreen extends StatelessWidget {
                 },
               ),
             ValueListenableBuilder(
-              valueListenable: sampleActionCards.blocksReservedMoveBeforeArrival,
+              valueListenable:
+                  sampleActionCards.blocksReservedMoveBeforeArrival,
               builder: (context, blocksReservedMove, _) => SwitchListTile(
                 key: const Key('developer-action-card-block-reserved-move'),
                 secondary: const Icon(Icons.trending_up),

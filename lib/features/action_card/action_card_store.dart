@@ -81,14 +81,15 @@ class ActionCardStore extends ChangeNotifier {
 
   /// 買い切った技の ID (技を結び付けた順)。購入の `moveID` から出し、別に持たない (#290)。
   List<String> get ownedMoveIds => [
-    for (final purchase in [
-      for (final purchase in _purchases)
-        if (purchase.moveID != null) purchase,
-    ]..sort(
-        (left, right) => (left.moveAssignedAt ?? left.createdAt).compareTo(
-          right.moveAssignedAt ?? right.createdAt,
-        ),
-      ))
+    for (final purchase
+        in [
+          for (final purchase in _purchases)
+            if (purchase.moveID != null) purchase,
+        ]..sort(
+          (left, right) => (left.moveAssignedAt ?? left.createdAt).compareTo(
+            right.moveAssignedAt ?? right.createdAt,
+          ),
+        ))
       purchase.moveID!,
   ];
 

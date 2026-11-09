@@ -74,8 +74,7 @@ Stream<List<ActionCardPurchase>> watchActionCardPurchasesWithFirebase() =>
                   rank: document.data()['rank'] as int,
                   moveID: document.data()['moveID'] as String?,
                   actionCardMoveReservationID:
-                      document.data()['actionCardMoveReservationID']
-                          as String?,
+                      document.data()['actionCardMoveReservationID'] as String?,
                   createdAt: (document.data()['createdAt'] as Timestamp)
                       .toDate(),
                   moveAssignedAt:
@@ -109,9 +108,10 @@ Future<Map<Object?, Object?>> _call({
   required String name,
   required Object? data,
 }) async =>
-    (await FirebaseFunctions.instanceFor(
-          region: functionsRegion,
-        ).httpsCallable(name).call<Object?>(data)).data!
+    (await FirebaseFunctions.instanceFor(region: functionsRegion)
+                .httpsCallable(name)
+                .call<Object?>(data))
+            .data!
         as Map<Object?, Object?>;
 
 /// reserveActionCardMove を呼ぶ ([ActionCardClient.reserveActionCardMove])。返す値は控えの ID。
@@ -128,9 +128,8 @@ Future<String> reserveActionCardMoveWithFirebase({
         ))['actionCardMoveReservationID']!
         as String;
   } on FirebaseFunctionsException catch (error) {
-    if (error.details case {
-      'rank': final int changedRank,
-    } when error.code == 'failed-precondition') {
+    if (error.details case {'rank': final int changedRank}
+        when error.code == 'failed-precondition') {
       throw ActionCardMoveRankChangedException(rank: changedRank);
     }
     rethrow;
