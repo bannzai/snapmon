@@ -41,7 +41,7 @@ void main() {
     ),
   );
 
-  testWidgets('名前・属性の札・威力と PP・特殊効果の説明を別の段と書体で描く', (tester) async {
+  testWidgets('名前と属性の札・威力・特殊効果の説明と PP を別の段と書体で描く', (tester) async {
     await pumpMoveSummary(
       tester: tester,
       remainingPowerPoints: 12,
@@ -61,24 +61,37 @@ void main() {
       find.text('威力 ${effectMove.power}', findRichText: true),
       findsOneWidget,
     );
-    expect(
-      find.text('PP 12/${effectMove.powerPoints}', findRichText: true),
-      findsOneWidget,
-    );
+    expect(find.text('PP 12/${effectMove.powerPoints}'), findsOneWidget);
     expect(
       tester.widget<Text>(find.text('先に動くと強い')).style?.fontFamily,
       bodyFontFamily,
     );
-    // 名前・札と数値・説明の順に上から並ぶ
+    // 1 段目は名前の右に属性の札、その下に威力、いちばん下に説明と PP が並ぶ
     expect(
-      tester.getTopLeft(find.byType(ElementTypeTag)).dy,
-      greaterThanOrEqualTo(tester.getBottomLeft(find.text('ゆげのもや')).dy),
+      tester.getTopLeft(find.byType(ElementTypeTag)).dx,
+      greaterThanOrEqualTo(tester.getTopRight(find.text('ゆげのもや')).dx),
+    );
+    expect(
+      tester
+          .getTopLeft(find.text('威力 ${effectMove.power}', findRichText: true))
+          .dy,
+      greaterThanOrEqualTo(
+        tester.getBottomLeft(find.byType(ElementTypeTag)).dy,
+      ),
     );
     expect(
       tester.getTopLeft(find.text('先に動くと強い')).dy,
       greaterThanOrEqualTo(
-        tester.getBottomLeft(find.byType(ElementTypeTag)).dy,
+        tester
+            .getBottomLeft(
+              find.text('威力 ${effectMove.power}', findRichText: true),
+            )
+            .dy,
       ),
+    );
+    expect(
+      tester.getTopLeft(find.text('PP 12/${effectMove.powerPoints}')).dx,
+      greaterThanOrEqualTo(tester.getTopRight(find.text('先に動くと強い')).dx),
     );
   });
 
@@ -91,41 +104,46 @@ void main() {
       moveId: plainMove.id,
       typeMultiplier: null,
     );
-    expect(
-      find.text('PP ${plainMove.powerPoints}', findRichText: true),
-      findsOneWidget,
-    );
+    expect(find.text('PP ${plainMove.powerPoints}'), findsOneWidget);
     // 名前・札の中の属性名・威力・PP の 4 つだけで、説明の段と相性の札は無い
     expect(find.byType(RichText), findsNWidgets(4));
   });
 
-  // 等倍 (1) は「似ているが出さない」側。0.25・4 は 2 属性の相手への積で、桁を落とさずに出す
-  for (final (typeMultiplier, expectedText) in [
-    (2.0, '×2'),
-    (4.0, '×4'),
-    (0.5, '×0.5'),
-    (0.25, '×0.25'),
-    (1.0, null),
-    (null, null),
+  // 等倍 (1) は「似ているが出さない」側。0.25・4 は 2 属性の相手への積で、桁を落とさずに出す。
+  // 言葉は画面に出さず、読み上げの名前にだけ持つ
+  for (final (typeMultiplier, expectedText, expectedIcon, expectedLabel) in [
+    (2.0, '×2', Icons.keyboard_double_arrow_up, '効果は抜群 ×2'),
+    (4.0, '×4', Icons.keyboard_double_arrow_up, '効果は抜群 ×4'),
+    (0.5, '×0.5', Icons.keyboard_double_arrow_down, '効果はいまひとつ ×0.5'),
+    (0.25, '×0.25', Icons.keyboard_double_arrow_down, '効果はいまひとつ ×0.25'),
+    (1.0, null, null, null),
+    (null, null, null, null),
   ]) {
     testWidgets('相性の倍率 $typeMultiplier は ${expectedText ?? '出さない'}', (
       tester,
     ) async {
+      final semantics = tester.ensureSemantics();
+      addTearDown(semantics.dispose);
       await pumpMoveSummary(
         tester: tester,
         remainingPowerPoints: 12,
         moveId: plainMove.id,
         typeMultiplier: typeMultiplier,
       );
-      final multiplierTag = find.byKey(const Key('move-type-multiplier'));
+      final multiplierText = find.byKey(const Key('move-type-multiplier'));
       if (expectedText == null) {
-        expect(multiplierTag, findsNothing);
+        expect(multiplierText, findsNothing);
+        expect(find.byIcon(Icons.keyboard_double_arrow_up), findsNothing);
+        expect(find.byIcon(Icons.keyboard_double_arrow_down), findsNothing);
         return;
       }
-      expect(tester.widget<Text>(multiplierTag).data, expectedText);
-      // 属性の札の右に並べ、「鋼 ×2」のように属性と倍率を続けて読ませる
+      expect(tester.widget<Text>(multiplierText).data, expectedText);
+      expect(find.byIcon(expectedIcon!), findsOneWidget);
+      expect(find.bySemanticsLabel(expectedLabel!), findsOneWidget);
+      expect(find.text(expectedLabel), findsNothing);
+      // 属性の札の右に並べ、「鋼 ⇈×2」のように属性と相性を続けて読ませる
       expect(
-        tester.getTopLeft(multiplierTag).dx,
+        tester.getTopLeft(multiplierText).dx,
         greaterThan(tester.getTopRight(find.byType(ElementTypeTag)).dx),
       );
     });
