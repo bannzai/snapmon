@@ -189,6 +189,7 @@
   "statAttack": "攻撃",
   "statDefense": "防御",
   "statSpeed": "素早さ",
+  "statAccuracy": "命中",
   "resultLearnedMoves": "おぼえている技",
   "resultRemoveFromParty": "手持ちから外す",
   "resultAddToParty": "手持ちに入れる",

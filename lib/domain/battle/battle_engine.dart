@@ -124,8 +124,8 @@ int statModifierPercentOf({
 
 /// [monster] の今のレベルのステータスに、補助技で変わった倍率と状態の効果 (眠気・呪い・興奮) を掛け、
 /// フィールドの入れ替え ([field]) を反映した値 (小数点以下は切り捨て、1 以上) を返す。HP は倍率を持たず、
-/// [BattleMonster.maximumHitPointsPercent] を掛けた最大 HP ([maximumHitPoints])。
-/// ダメージ・行動順・技の式の変数・回復の上限・毒のダメージ・HP バーの分母に使う。
+/// [BattleMonster.maximumHitPointsPercent] を掛けた最大 HP ([maximumHitPoints])。命中は計算したステータスのまま。
+/// ダメージ・行動順・命中・技の式の変数・回復の上限・毒のダメージ・HP バーの分母に使う。
 MonsterStats effectiveStats({
   required BattleMonster monster,
   BattleField? field,
@@ -155,7 +155,7 @@ MonsterStats effectiveStats({
       value = switch (statKind) {
         StatKind.attack => value * 3 ~/ 2,
         StatKind.defense => value ~/ 2,
-        StatKind.hitPoints || StatKind.speed => value,
+        StatKind.hitPoints || StatKind.speed || StatKind.accuracy => value,
       };
     }
     return math.max(1, value);
@@ -179,6 +179,9 @@ MonsterStats effectiveStats({
     attack: modifiedStats[StatKind.attack]!,
     defense: modifiedStats[StatKind.defense]!,
     speed: modifiedStats[StatKind.speed]!,
+    // 命中は補助技の倍率・状態・フィールドの対象にしない (documents/DIRECTION.md の #279 の行)。
+    // 割合 (%) のため、攻撃・防御・素早さの実数と入れ替えると意味が壊れる
+    accuracy: stats.accuracy,
   );
 }
 
@@ -349,7 +352,9 @@ int calculateDamage({
 int poisonDamage({required int maximumHitPoints, required int stackCount}) =>
     math.max(1, maximumHitPoints * stackCount ~/ poisonDamageDenominator);
 
-/// [move] (わるあがきは null) の今回の命中率 (%)。必中の技は 100。眩暈の時は [dizzyAccuracyPercent] を掛ける。
+/// [attacker] が [move] (わるあがきは null) を使う時の今回の命中率 (%)。技の命中率 ([moveAccuracyPercent]。威力が高いほど低い) に
+/// [attacker] の命中 (%) を掛け、
+/// 眩暈の時はさらに [dizzyAccuracyPercent] を掛ける (どれも切り捨て)。必中の技は 100。
 int moveHitChancePercent({
   required Move? move,
   required BattleMonster attacker,
@@ -357,7 +362,12 @@ int moveHitChancePercent({
   if (move?.specialEffect?.isSureHit ?? false) {
     return 100;
   }
-  final accuracy = move?.accuracy ?? defaultMoveAccuracyPercent;
+  final accuracy =
+      (move == null
+          ? defaultMoveAccuracyPercent
+          : moveAccuracyPercent(move: move)) *
+      effectiveStats(monster: attacker).accuracy ~/
+      100;
   return attacker.state.statusConditions.containsKey(StatusConditionKind.dizzy)
       ? accuracy * dizzyAccuracyPercent ~/ 100
       : accuracy;
@@ -492,7 +502,8 @@ BattleAction chooseCpuAction({
     if (bestMove == null ||
         multiplier > bestMultiplier ||
         (multiplier == bestMultiplier &&
-            move.power * move.accuracy > bestMove.power * bestMove.accuracy)) {
+            move.power * moveAccuracyPercent(move: move) >
+                bestMove.power * moveAccuracyPercent(move: bestMove))) {
       bestMove = move;
       bestMultiplier = multiplier;
     }
@@ -509,7 +520,7 @@ BattleAction chooseCpuAction({
 /// 交代 ([SwitchMonsterAction]) は技より先に行い、ターンの終わりの処理をしない。技どうしは先制の度合いが高い技が先、
 /// 同じなら場のモンスターの素早さが高い順に行動し (同じなら乱数)、倒れたモンスターはそのターンの行動を失う。
 /// 各ターンは、気絶・眠り・凍結なら [actionPreventingStatusConditionChancePercent] の確率で行動が失敗し (PP を使わない)、混乱なら 1/2 の確率で選んだ技の代わりに
-/// 他の使える技が出て、麻痺なら実際に出る技が攻撃技かわるあがきの時に同じ確率で失敗し (PP を使わない)、命中率 (眩暈なら 70%) で外れる (PP を使う)。当たった技は、一撃必殺なら相手の HP を 0 にし、攻撃技なら威力に特殊効果の倍率
+/// 他の使える技が出て、麻痺なら実際に出る技が攻撃技かわるあがきの時に同じ確率で失敗し (PP を使わない)、命中率 (技の命中率 × 使う側の命中。眩暈なら × 70%。`moveHitChancePercent`) で外れる (PP を使う)。当たった技は、一撃必殺なら相手の HP を 0 にし、攻撃技なら威力に特殊効果の倍率
 /// ([calculateMoveSpecialEffect]) を掛けたダメージ (やけどなら与えるダメージが半分、受ける側がやけどなら (10 + 重なり) / 10 倍) を与える。
 /// 続けて特殊効果の式 ([calculateMoveStatusEffect]) でステータスの倍率を変え、HP を回復し、状態を付け・解除し、フィールドを始め、自爆する。
 /// ダメージを受けた凍結は解け、毒の技を受けた毒は重なりが増える。ターンの終わりに毒のダメージを受け、残りのターンを持つ状態が 1 減って 0 なら消える。

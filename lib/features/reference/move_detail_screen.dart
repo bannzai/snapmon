@@ -72,7 +72,10 @@ class MoveDetailScreen extends StatelessWidget {
                 for (final (label, value) in [
                   (context.l10n.moveDetailPower, '${move.power}'),
                   (context.l10n.moveDetailPowerPoints, '${move.powerPoints}'),
-                  (context.l10n.moveDetailAccuracy, '${move.accuracy}'),
+                  (
+                    context.l10n.moveDetailAccuracy,
+                    '${moveAccuracyPercent(move: move)}',
+                  ),
                   (
                     context.l10n.moveDetailUnlockLevel,
                     // 覚える技の一覧の開放レベルはレベル帯の下限 (functions/src/generation/monster_stats.ts の buildLearnset)。

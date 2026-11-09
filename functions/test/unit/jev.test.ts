@@ -85,7 +85,7 @@ describe("buildJudgeRequest / readJudgeResponse", () => {
   it("属性ごとの Noul とステータスの Score を 1 リクエストに入れ、同じ帯に技が 2 つ以上ある属性に Choice を付ける", () => {
     const request = buildJudgeRequest({ description, elementTypes: master.elementTypes, moves: master.moves, statGrades: master.statGrades });
     expect(Object.keys(request.questions).filter((name) => name.startsWith("element__"))).toHaveLength(master.elementTypes.length);
-    expect(Object.keys(request.questions).filter((name) => name.startsWith("stat__"))).toHaveLength(4);
+    expect(Object.keys(request.questions).filter((name) => name.startsWith("stat__"))).toHaveLength(5);
     // master は全属性が Lv.1 の帯に技を 4 つ持つ
     expect(Object.keys(request.questions).filter((name) => name.startsWith("move__"))).toHaveLength(master.elementTypes.length);
   });
@@ -126,6 +126,7 @@ describe("buildJudgeRequest / readJudgeResponse", () => {
           stat__attack: score("とても高い"),
           stat__defense: score("ふつう"),
           stat__speed: score("高い"),
+          stat__accuracy: score("低い"),
         },
       },
     });
@@ -134,7 +135,7 @@ describe("buildJudgeRequest / readJudgeResponse", () => {
     expect(() =>
       readJudgeResponse({ statGrades: master.statGrades, response: { model: "jev-1.13.0", usage: { input_tokens: 0, output_tokens: 0 }, answers: {} } }),
     ).toThrow(JevUnavailableError);
-    expect(judged.statGradeIds).toEqual({ hitPoints: "veryLow", attack: "veryHigh", defense: "medium", speed: "high" });
+    expect(judged.statGradeIds).toEqual({ hitPoints: "veryLow", attack: "veryHigh", defense: "medium", speed: "high", accuracy: "low" });
   });
 });
 

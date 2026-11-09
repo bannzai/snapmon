@@ -281,7 +281,7 @@ describe("generate", () => {
     expect(startingMoveIds).toHaveLength(4);
     expect(startingMoveIds.slice(0, 2).every((moveId) => /^steel_(1[b-g]?|p1)$/.test(moveId))).toBe(true);
     expect(startingMoveIds.slice(2).every((moveId) => /^[a-z]+_(1[b-g]?|p1)$/.test(moveId) && !moveId.startsWith("steel_"))).toBe(true);
-    expect(monster.definition.baseStats).toEqual({ hitPoints: 80, attack: 80, defense: 80, speed: 80 });
+    expect(monster.definition.baseStats).toEqual({ hitPoints: 80, attack: 80, defense: 80, speed: 80, accuracy: 80 });
     expect(monster.categoryIds[0]).toBe("tableware");
     const [artExists] = await bucket.file(`monsters/${first.monsterId}/art.png`).exists();
     expect(artExists).toBe(true);

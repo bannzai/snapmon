@@ -71,6 +71,7 @@ List<OwnedMonster> storeScreenshotMonsters() => [
       attack: 100,
       defense: 100,
       speed: 60,
+      accuracy: 80,
     ),
   ),
   _monster(
@@ -84,6 +85,7 @@ List<OwnedMonster> storeScreenshotMonsters() => [
       attack: 70,
       defense: 80,
       speed: 100,
+      accuracy: 60,
     ),
   ),
   _monster(
@@ -97,6 +99,7 @@ List<OwnedMonster> storeScreenshotMonsters() => [
       attack: 90,
       defense: 110,
       speed: 30,
+      accuracy: 100,
     ),
   ),
   _monster(
@@ -110,6 +113,7 @@ List<OwnedMonster> storeScreenshotMonsters() => [
       attack: 90,
       defense: 80,
       speed: 120,
+      accuracy: 120,
     ),
   ),
   _monster(
@@ -123,6 +127,7 @@ List<OwnedMonster> storeScreenshotMonsters() => [
       attack: 70,
       defense: 100,
       speed: 50,
+      accuracy: 80,
     ),
   ),
   _monster(
@@ -136,6 +141,7 @@ List<OwnedMonster> storeScreenshotMonsters() => [
       attack: 110,
       defense: 60,
       speed: 90,
+      accuracy: 100,
     ),
   ),
 ];
@@ -168,6 +174,7 @@ OwnedMonster _monster({
       attack: 24,
       defense: 12,
       speed: 20,
+      accuracy: 16,
     ),
     statCalculationVersion: 1,
     masterVersion: 1,

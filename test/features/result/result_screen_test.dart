@@ -106,7 +106,7 @@ void main() {
       ),
     );
 
-    // ステータスの目盛りは絵の右に、絵の上端から順に 4 本並ぶ
+    // ステータスの目盛りは絵の右に、絵の上端から順に 5 本並ぶ
     final artRect = tester.getRect(find.byType(MonsterArt));
     double previousGaugeBottom = artRect.top;
     final stats = calculateStats(
@@ -195,7 +195,7 @@ void main() {
     expect(tester.takeException(), isNull);
     // 目盛りは絵より高くなってよい (高さを絵に固定しない)
     expect(
-      tester.getRect(find.byKey(const Key('stat-gauge-speed'))).bottom,
+      tester.getRect(find.byKey(const Key('stat-gauge-accuracy'))).bottom,
       greaterThan(tester.getRect(find.byType(MonsterArt)).bottom),
     );
   });
