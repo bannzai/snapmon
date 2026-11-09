@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:snapmon/widgets/app_content_width.dart';
+import 'package:snapmon/common_ui/app_content_width.dart';
 
 /// [constrainToAppContentWidth] で包んだ画面の内容と下タブを出すアプリ。
 Widget _appWithContentWidth() => MaterialApp(

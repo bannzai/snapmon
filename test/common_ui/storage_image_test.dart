@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:snapmon/widgets/storage_image.dart';
+import 'package:snapmon/common_ui/storage_image.dart';
 
 void main() {
   testWidgets('StorageImageLoaderScope の下では、その関数で読んだ中身を描く (Firebase を呼ばない)', (

@@ -8,7 +8,7 @@ import '../../l10n/l10n.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
-import '../../widgets/monster_parts.dart';
+import '../../monster_ui/monster_parts.dart';
 
 /// [move] の詳細の画面を開く。技の一覧・バトルの技のボタンの長押し・モンスターのカードの技の札から開く。
 /// [definitions] は属性の名前と相性を引く定義で、開いた画面の定義 (バトルならそのバトルの定義) を渡す。

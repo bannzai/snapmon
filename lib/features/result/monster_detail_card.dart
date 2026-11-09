@@ -9,8 +9,8 @@ import '../../l10n/l10n.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
-import '../../widgets/monster_parts.dart';
-import '../../widgets/move_summary.dart';
+import '../../monster_ui/monster_parts.dart';
+import '../../monster_ui/move_card.dart';
 import '../dex/owned_monster.dart';
 import '../reference/move_detail_screen.dart';
 
@@ -289,7 +289,7 @@ class _MoveSlot extends StatelessWidget {
                 )
               : Align(
                   alignment: Alignment.centerLeft,
-                  child: MoveSummary(
+                  child: MoveCard(
                     move: move,
                     remainingPowerPoints: null,
                     typeMultiplier: null,

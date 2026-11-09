@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../common_ui/storage_image.dart';
 import '../theme/snapmon_colors.dart';
 import '../theme/snapmon_text_styles.dart';
-import 'storage_image.dart';
 
 /// 表示名が [displayName] のトレーナーのアイコンを一辺 [dimension] の角丸の正方形で描く。
 /// アイコンを登録していない (CPU トレーナーを含む) 時と読む前・読めなかった時は、既定の印 (表示名の最初の 1 文字) を描く。

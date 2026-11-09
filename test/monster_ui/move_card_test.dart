@@ -4,8 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:snapmon/l10n/l10n.dart';
 import 'package:snapmon/theme/snapmon_text_styles.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
-import 'package:snapmon/widgets/monster_parts.dart';
-import 'package:snapmon/widgets/move_summary.dart';
+import 'package:snapmon/monster_ui/monster_parts.dart';
+import 'package:snapmon/monster_ui/move_card.dart';
 
 import '../sample_data_fixture.dart';
 
@@ -18,8 +18,8 @@ void main() {
   /// ブリキパンチ (鋼・威力 40・PP 30)。特殊効果を持たない技として使う。
   final plainMove = sampleData.definitions.moveById(moveId: 'steel_1');
 
-  /// [remainingPowerPoints]・[typeMultiplier] を渡した [MoveSummary] を [moveId] の技で描く。
-  Future<void> pumpMoveSummary({
+  /// [remainingPowerPoints]・[typeMultiplier] を渡した [MoveCard] を [moveId] の技で描く。
+  Future<void> pumpMoveCard({
     required WidgetTester tester,
     required int? remainingPowerPoints,
     required String moveId,
@@ -31,7 +31,7 @@ void main() {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       home: Scaffold(
-        body: MoveSummary(
+        body: MoveCard(
           move: sampleData.definitions.moveById(moveId: moveId),
           remainingPowerPoints: remainingPowerPoints,
           typeMultiplier: typeMultiplier,
@@ -56,7 +56,7 @@ void main() {
             body: Center(
               child: SizedBox(
                 width: 173,
-                child: MoveSummary(
+                child: MoveCard(
                   move: plainMove,
                   remainingPowerPoints: 12,
                   typeMultiplier: 0.25,
@@ -80,12 +80,12 @@ void main() {
     // どの札も技のボタンの幅からはみ出さない
     expect(
       tester.getBottomRight(multiplierText).dx,
-      lessThanOrEqualTo(tester.getTopRight(find.byType(MoveSummary)).dx),
+      lessThanOrEqualTo(tester.getTopRight(find.byType(MoveCard)).dx),
     );
   });
 
   testWidgets('名前と属性の札・威力・特殊効果の説明と PP を別の段と書体で描く', (tester) async {
-    await pumpMoveSummary(
+    await pumpMoveCard(
       tester: tester,
       remainingPowerPoints: 12,
       moveId: effectMove.id,
@@ -139,14 +139,14 @@ void main() {
     // PP は段の右端に付く (説明と幅を分け合って右に空白が残る形にしない)
     expect(
       tester.getTopRight(find.text('PP 12/${effectMove.powerPoints}')).dx,
-      moreOrLessEquals(tester.getTopRight(find.byType(MoveSummary)).dx),
+      moreOrLessEquals(tester.getTopRight(find.byType(MoveCard)).dx),
     );
   });
 
   testWidgets('バトルの外 (残りの PP が null) では最大の PP だけを出し、特殊効果が無ければ説明を出さない', (
     tester,
   ) async {
-    await pumpMoveSummary(
+    await pumpMoveCard(
       tester: tester,
       remainingPowerPoints: null,
       moveId: plainMove.id,
@@ -172,7 +172,7 @@ void main() {
     ) async {
       // 読み上げの名前を find.bySemanticsLabel で確かめるため。テストの終わりの検査より前に dispose する必要があり、addTearDown では間に合わない
       final semanticsHandle = tester.ensureSemantics();
-      await pumpMoveSummary(
+      await pumpMoveCard(
         tester: tester,
         remainingPowerPoints: 12,
         moveId: plainMove.id,

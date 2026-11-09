@@ -15,7 +15,7 @@ import 'package:snapmon/features/opponent/pvp_opponent.dart';
 import 'package:snapmon/features/result/result_screen.dart';
 import 'package:snapmon/l10n/l10n.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
-import 'package:snapmon/widgets/monster_parts.dart';
+import 'package:snapmon/monster_ui/monster_parts.dart';
 
 import '../../battle_recorder_fixture.dart';
 import '../../card_sharer_fixture.dart';

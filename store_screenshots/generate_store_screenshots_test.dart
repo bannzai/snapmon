@@ -28,8 +28,8 @@ import 'package:snapmon/sample/sample_data.dart';
 import 'package:snapmon/theme/snapmon_colors.dart';
 import 'package:snapmon/theme/snapmon_text_styles.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
-import 'package:snapmon/widgets/monster_parts.dart';
-import 'package:snapmon/widgets/storage_image.dart';
+import 'package:snapmon/monster_ui/monster_parts.dart';
+import 'package:snapmon/common_ui/storage_image.dart';
 
 import '../test/battle_recorder_fixture.dart';
 import '../test/game_audio_fixture.dart';
