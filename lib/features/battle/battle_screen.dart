@@ -61,8 +61,13 @@ const Duration _hitDuration = Duration(
   milliseconds: (hitReactionSeconds * 1000) ~/ 1,
 );
 
-/// 倒れた・交代したのログを読ませる間。ログの帯の 1 行を読める長さにした。
-const Duration _messageDuration = Duration(milliseconds: 700);
+/// ログの帯の 1 行を読ませる間。ログの 1 行は 10〜30 文字のひらがな主体の文 (app_ja.arb の battleLog*) で、
+/// 以前の 0.7 秒 (技のログは前進と被弾の 0.8 秒) では読み切れないと指摘されたため (issue #262)、1 行を読み切れる長さとして 1.5 秒にした。
+const Duration _logReadingDurationPerLine = Duration(milliseconds: 1500);
+
+/// ログの文 [logText] を読ませる間。行が増えるほど長くする (技のログは相性・ステータスの変化が別の行に続くため)。
+Duration battleLogReadingDuration({required String logText}) =>
+    _logReadingDurationPerLine * logText.split('\n').length;
 
 /// フィールドの左右の端からログの帯・情報カードまでの間 (モックの Battle.dc.html の左右の余白)。
 const double _fieldHorizontalMargin = 20;
@@ -505,6 +510,16 @@ class _BattleScreenState extends State<BattleScreen>
     );
   }
 
+  /// 今のログの帯の文 ([_logText]) を読ませる間 ([battleLogReadingDuration]) のうち、
+  /// ログを出してから演出で既に過ぎた [elapsed] を除いた残りだけ待つ。
+  Future<void> _waitForLogReading({required Duration elapsed}) async {
+    final remaining =
+        battleLogReadingDuration(logText: _logText(context.l10n)) - elapsed;
+    if (remaining > Duration.zero) {
+      await Future<void>.delayed(remaining);
+    }
+  }
+
   /// バトルのログ [event] 1 件を演出する。[previousState] はこのラウンドを解決する前、[nextState] は解決した後の状態。
   Future<void> _playEvent({
     required BattleEvent event,
@@ -601,7 +616,7 @@ class _BattleScreenState extends State<BattleScreen>
               );
             }
           });
-          await Future<void>.delayed(_messageDuration);
+          await _waitForLogReading(elapsed: Duration.zero);
           return;
         }
         _game.lunge(attackerSide: event.attackerSide);
@@ -645,6 +660,10 @@ class _BattleScreenState extends State<BattleScreen>
           );
         });
         await Future<void>.delayed(_hitDuration);
+        if (!mounted) {
+          return;
+        }
+        await _waitForLogReading(elapsed: _lungeDuration + _hitDuration);
       case ActionFailedEvent():
         final monsterName =
             _displayedActiveMembers[event.side]!.definition.name;
@@ -665,7 +684,7 @@ class _BattleScreenState extends State<BattleScreen>
             ),
           },
         );
-        await Future<void>.delayed(_messageDuration);
+        await _waitForLogReading(elapsed: Duration.zero);
       case StatusConditionInflictedEvent():
         final monsterName =
             _displayedActiveMembers[event.side]!.definition.name;
@@ -712,7 +731,7 @@ class _BattleScreenState extends State<BattleScreen>
           };
         });
         unawaited(_haptics.statusChanged());
-        await Future<void>.delayed(_messageDuration);
+        await _waitForLogReading(elapsed: Duration.zero);
       case StatusConditionCuredEvent():
         final monsterName =
             _displayedActiveMembers[event.side]!.definition.name;
@@ -736,7 +755,7 @@ class _BattleScreenState extends State<BattleScreen>
           ].join('\n');
         });
         unawaited(_haptics.statusChanged());
-        await Future<void>.delayed(_messageDuration);
+        await _waitForLogReading(elapsed: Duration.zero);
       case StatusConditionDamageEvent():
         final monsterName =
             _displayedActiveMembers[event.side]!.definition.name;
@@ -752,7 +771,7 @@ class _BattleScreenState extends State<BattleScreen>
           );
         });
         unawaited(_haptics.hit());
-        await Future<void>.delayed(_messageDuration);
+        await _waitForLogReading(elapsed: Duration.zero);
       case FieldEffectStartedEvent():
         setState(
           () => _logText = (l10n) => switch (event.kind) {
@@ -760,7 +779,7 @@ class _BattleScreenState extends State<BattleScreen>
               l10n.battleLogFieldStatShuffleStarted,
           },
         );
-        await Future<void>.delayed(_messageDuration);
+        await _waitForLogReading(elapsed: Duration.zero);
       case FieldEffectShuffledEvent():
         setState(
           () => _logText = (l10n) => l10n.battleLogFieldStatShuffled(
@@ -768,10 +787,10 @@ class _BattleScreenState extends State<BattleScreen>
             statLabel(l10n: l10n, statKind: event.statKinds.$2),
           ),
         );
-        await Future<void>.delayed(_messageDuration);
+        await _waitForLogReading(elapsed: Duration.zero);
       case FieldEffectEndedEvent():
         setState(() => _logText = (l10n) => l10n.battleLogFieldEnded);
-        await Future<void>.delayed(_messageDuration);
+        await _waitForLogReading(elapsed: Duration.zero);
       case MonsterFaintedEvent():
         final faintedName =
             _displayedActiveMembers[event.side]!.definition.name;
@@ -785,7 +804,7 @@ class _BattleScreenState extends State<BattleScreen>
         _game.faint(side: event.side);
         unawaited(_gameAudio.playSoundEffect(effect: SoundEffect.faint));
         unawaited(_haptics.faint());
-        await Future<void>.delayed(_messageDuration);
+        await _waitForLogReading(elapsed: Duration.zero);
       case MonsterSwitchedInEvent(:final withdrawnMonsterId):
         // 自分からの交代はラウンドの始めに起き、その後に相手の技を受けるため、控えにいたラウンドの始めの状態で出す。
         // 倒れた時の交代はラウンドの終わりに起きるため、解決した後の状態で出す
@@ -811,7 +830,7 @@ class _BattleScreenState extends State<BattleScreen>
             monsterId: event.monsterId,
           ),
         );
-        await Future<void>.delayed(_messageDuration);
+        await _waitForLogReading(elapsed: Duration.zero);
       case LevelUpEvent():
       case BattleFinishedEvent():
         // レベルアップと勝敗は勝敗の画面にまとめて出す
