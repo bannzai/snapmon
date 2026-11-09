@@ -1406,7 +1406,7 @@ void main() {
           expectBattleLogNotCut(tester: tester, bottomPadding: bottomPadding);
           expectMonsterArtsVisible(tester: tester);
           // 演出の待ち (Future.delayed) をテストの終わりに残さない
-          await tester.pump(const Duration(seconds: 5));
+          await tester.pump(const Duration(seconds: 10));
         },
       );
     }
@@ -1530,7 +1530,7 @@ void main() {
       final nextMoveSlot = find.byKey(const Key('move-slot-0'));
       await tester.ensureVisible(nextMoveSlot);
       expect(nextMoveSlot.hitTestable(), findsOneWidget);
-      await tester.pump(const Duration(seconds: 5));
+      await tester.pump(const Duration(seconds: 10));
     });
 
     // 幅 600 は内容の幅の上限と同じで、両脇の余白で右のセーフエリアが差し引かれずに残る。
@@ -1703,7 +1703,7 @@ void main() {
             isFalse,
           );
           // 演出の待ち (Future.delayed) をテストの終わりに残さない
-          await tester.pump(const Duration(seconds: 5));
+          await tester.pump(const Duration(seconds: 10));
         },
       );
     }
