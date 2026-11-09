@@ -193,10 +193,8 @@ class _SnapmonAppState extends State<SnapmonApp> {
         final homeScene = _homeScene;
         return AnimatedSwitcher(
           duration: sceneTransitionDuration,
-          // タイトルとホームの画面の切り替えもシーンの切り替えと同じフェードにする (#264)。前の画面は切り替えた時点で外す
-          // (ホームの画面の切り替えと同じく、2 つの画面が同時に BGM・カメラ・ログインを動かさないため)
-          layoutBuilder: (currentChild, previousChildren) =>
-              currentChild ?? const SizedBox.shrink(),
+          // タイトルとホームの画面の切り替えもシーンの切り替えと同じフェードにする (#264)
+          layoutBuilder: sceneSwitcherLayoutBuilder,
           child: homeScene == null || !widget.sessionStore.canEnterApp
               ? TitleScreen(
                   key: const ValueKey('title'),

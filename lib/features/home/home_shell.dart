@@ -135,6 +135,7 @@ class _HomeShellState extends State<HomeShell> {
     ),
   );
 
+  /// [scene] のシーンの画面を作る。シーンを切り替えるたびに作り直す (前のシーンの State は残さない)。
   Widget _buildScene({required HomeScene scene}) => switch (scene) {
     HomeScene.dex => DexScreen(
       dexStore: widget.dexStore,
@@ -184,10 +185,7 @@ class _HomeShellState extends State<HomeShell> {
       body: SafeArea(
         child: AnimatedSwitcher(
           duration: sceneTransitionDuration,
-          // 前のシーンは切り替えた時点で外し、新しいシーンのフェードインだけにする。前のシーンを重ねて残すと、
-          // 撮る → 図鑑 → 撮る を素早く押した時に撮る画面が 2 つ同時にあり、カメラを 2 回開くため
-          layoutBuilder: (currentChild, previousChildren) =>
-              currentChild ?? const SizedBox.shrink(),
+          layoutBuilder: sceneSwitcherLayoutBuilder,
           child: KeyedSubtree(
             key: ValueKey(_selectedScene),
             child: _buildScene(scene: _selectedScene),
