@@ -22,8 +22,8 @@ import 'package:snapmon/features/share/card_sharer.dart';
 import 'package:snapmon/features/share/share_cards.dart';
 import 'package:snapmon/l10n/l10n.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
-import 'package:snapmon/widgets/app_content_width.dart';
-import 'package:snapmon/widgets/monster_parts.dart';
+import 'package:snapmon/common_ui/app_content_width.dart';
+import 'package:snapmon/monster_ui/monster_parts.dart';
 
 import '../../battle_recorder_fixture.dart';
 import '../../card_sharer_fixture.dart';

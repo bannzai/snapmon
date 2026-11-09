@@ -10,7 +10,7 @@ import '../../sample/sample_data.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
-import '../../widgets/square_icon_button.dart';
+import '../../common_ui/square_icon_button.dart';
 import '../battle/battle_recorder.dart';
 import '../dex/dex_store.dart';
 import '../home/home_shell.dart';

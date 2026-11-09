@@ -28,8 +28,8 @@ import 'package:snapmon/features/share/share_cards.dart';
 import 'package:snapmon/features/title/title_screen.dart';
 import 'package:snapmon/l10n/l10n.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
-import 'package:snapmon/widgets/storage_image.dart';
-import 'package:snapmon/widgets/trainer_icon.dart';
+import 'package:snapmon/common_ui/storage_image.dart';
+import 'package:snapmon/monster_ui/trainer_icon.dart';
 
 import 'battle_recorder_fixture.dart';
 import 'card_sharer_fixture.dart';

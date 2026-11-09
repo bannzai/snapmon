@@ -17,8 +17,8 @@ import 'package:snapmon/features/result/monster_detail_card.dart';
 import 'package:snapmon/features/result/result_screen.dart';
 import 'package:snapmon/l10n/l10n.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
-import 'package:snapmon/widgets/monster_parts.dart';
-import 'package:snapmon/widgets/storage_image.dart';
+import 'package:snapmon/monster_ui/monster_parts.dart';
+import 'package:snapmon/common_ui/storage_image.dart';
 
 import '../../card_sharer_fixture.dart';
 import '../../sample_data_fixture.dart';

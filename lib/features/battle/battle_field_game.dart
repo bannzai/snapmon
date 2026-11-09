@@ -11,8 +11,8 @@ import 'package:flutter/foundation.dart';
 import '../../domain/battle/battle_state.dart';
 import '../../domain/master/move_effect.dart';
 import '../../theme/snapmon_colors.dart';
-import '../../widgets/monster_art_painting.dart';
-import '../../widgets/placeholder_monster_painting.dart';
+import '../../monster_ui/monster_art_painting.dart';
+import '../../monster_ui/placeholder_monster_painting.dart';
 import '../dex/owned_monster.dart';
 
 /// 攻撃の前進にかける時間 (秒)。往復でこの 2 倍になる。技の演出 1 回を 1 秒前後に収め、ターンの待ちを短くするため。

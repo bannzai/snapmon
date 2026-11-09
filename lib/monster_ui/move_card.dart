@@ -12,9 +12,9 @@ import 'monster_parts.dart';
 /// 技の中身を 3 段で描く。1 段目は名前と、右に寄せた属性の札・今の相手への相性の札 (1 行に入らない幅では名前の下の行)、2 段目は威力、3 段目は特殊効果の説明と右に寄せた PP。
 /// 段ごとに書体と色を変え、何が名前で何が属性かを読み分けられるようにする (https://github.com/bannzai/snapmon/issues/123 )。
 /// バトルの技のボタンと、モンスターのカードの覚えている技の行で使う。地はカードの生成りの白を前提にする。
-class MoveSummary extends StatelessWidget {
+class MoveCard extends StatelessWidget {
   /// 技の 3 段の表示を作る。
-  const MoveSummary({
+  const MoveCard({
     super.key,
     required this.move,
     required this.remainingPowerPoints,

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../l10n/l10n.dart';
 import '../../theme/snapmon_text_styles.dart';
-import '../../widgets/trainer_icon.dart';
+import '../../monster_ui/trainer_icon.dart';
 import '../opponent/pvp_client.dart';
 
 /// プロフィール画面。対戦の相手と対戦画面に出るアイコン (端末の写真から選ぶ) と表示名を変える。設定の「プロフィール」から開く。
