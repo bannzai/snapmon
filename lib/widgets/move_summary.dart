@@ -98,7 +98,8 @@ class MoveSummary extends StatelessWidget {
           else
             const Spacer(),
           const SizedBox(width: 8),
-          // PP は技を選ぶ判断に効くことが少ないため、威力より小さく薄くして右下に置く
+          // PP は技を選ぶ判断に効くことが少ないため、威力より小さく細くして右下に置く。
+          // 薄さは大きさと太さで出し、色は生成りの地で読める textOnCardMuted にする (暗い地の textMuted はコントラスト比 2.2 で読めない)
           Text(
             '${context.l10n.movePowerPoints} ${switch (remainingPowerPoints) {
               final remainingPowerPoints? => '$remainingPowerPoints/${move.powerPoints}',
@@ -107,7 +108,7 @@ class MoveSummary extends StatelessWidget {
             style: SnapmonTextStyles.small.copyWith(
               fontSize: 10,
               fontWeight: FontWeight.w400,
-              color: SnapmonColors.textMuted,
+              color: SnapmonColors.textOnCardMuted,
             ),
           ),
         ],
