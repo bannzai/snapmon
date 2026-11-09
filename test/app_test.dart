@@ -1140,15 +1140,21 @@ void main() {
       }
 
       // 撮るではホームの画面の PopScope が戻る操作を止めない (ホームの画面は最初の route のため、閉じるのはアプリ)
-      final popScope = tester.widget<PopScope<Object?>>(
-        find
-            .descendant(
-              of: find.byType(HomeShell),
-              matching: find.byWidgetPredicate((widget) => widget is PopScope),
+      expect(
+        tester
+            .widget<PopScope<Object?>>(
+              find
+                  .descendant(
+                    of: find.byType(HomeShell),
+                    matching: find.byWidgetPredicate(
+                      (widget) => widget is PopScope,
+                    ),
+                  )
+                  .first,
             )
-            .first,
+            .canPop,
+        isTrue,
       );
-      expect(popScope.canPop, isTrue);
     });
 
     testWidgets('撮る → 図鑑 → 撮る を素早く押しても、撮る画面は同時に 1 つしかない', (tester) async {

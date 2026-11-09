@@ -112,6 +112,7 @@ class _HomeShellState extends State<HomeShell> {
     );
   }
 
+  /// [scene] のシーンに切り替える。タイトルから求めたカメラは最初の撮る画面だけで使い、ここで下ろす。
   void _selectScene({required HomeScene scene}) => setState(() {
     _selectedScene = scene;
     _isTitleCameraRequestPending = false;

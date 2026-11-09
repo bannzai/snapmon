@@ -402,7 +402,7 @@ void main() {
     );
   }
 
-  /// 「ランダムな相手と戦う」でバトルに入り、対戦の画面を閉じて対戦タブに戻る (閉じると戦績を読み直す)。
+  /// 「ランダムな相手と戦う」でバトルに入り、バトルの画面を閉じて対戦のシーンに戻る (閉じると戦績を読み直す)。
   Future<void> battleAndReturn({required WidgetTester tester}) async {
     await tester.tap(find.byKey(const Key('random-battle')));
     // バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める
