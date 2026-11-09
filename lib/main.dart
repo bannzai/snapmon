@@ -136,9 +136,15 @@ Future<void> main() async {
       watchOwnedActionCardMoveIds: () => isSample()
           ? sampleActionCardClient!.watchOwnedActionCardMoveIds()
           : watchOwnedActionCardMoveIdsWithFirebase(),
-      redeemActionCard: ({required moveId}) => isSample()
-          ? sampleActionCardClient!.redeemActionCard(moveId: moveId)
-          : redeemActionCardWithFirebase(moveId: moveId),
+      redeemActionCard: ({required moveId, required creditRank}) => isSample()
+          ? sampleActionCardClient!.redeemActionCard(
+              moveId: moveId,
+              creditRank: creditRank,
+            )
+          : redeemActionCardWithFirebase(
+              moveId: moveId,
+              creditRank: creditRank,
+            ),
       teachActionCardMove: ({required monsterId, required moveId}) => isSample()
           ? sampleActionCardClient!.teachActionCardMove(
               monsterId: monsterId,

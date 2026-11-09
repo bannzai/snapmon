@@ -298,6 +298,7 @@
   "actionCardRedeemConfirmBody": "This uses one rank {creditRank} card. You cannot undo it.",
   "@actionCardRedeemConfirmBody": {"placeholders": {"creditRank": {"type": "int"}}},
   "actionCardRedeemConfirm": "Buy",
+  "actionCardRedeemCreditRankChanged": "The card to use changed while you were deciding",
   "actionCardRedeemed": "You bought {moveName}",
   "@actionCardRedeemed": {"placeholders": {"moveName": {"type": "String"}}},
   "actionCardOwnedHeading": "Your moves",

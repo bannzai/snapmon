@@ -215,11 +215,26 @@ class ActionCardStore extends ChangeNotifier {
   /// ものなので反映しない (coding-rules-general-verify-value-ownership.md)。待っている間に購読の値が届いた時も、その値の方が
   /// 新しい (買い切りの後の別の端末の購入などを含む) ため、届いた項目は返った値で上書きしない。購読は値ごとに新しいオブジェクトを流すため、
   /// 呼び出しの前と同じオブジェクトかで届いたかを見分ける。
-  Future<void> redeem({required String moveId}) async {
+  /// 使うカードのランクが確かめる画面で出した [creditRank] と違うと断られた時は、断られた時の残高を同じ条件で反映してから
+  /// [ActionCardCreditRankChangedException] を投げ直す (確かめ直す画面と一覧の残高を揃えるため)。
+  Future<void> redeem({required String moveId, required int creditRank}) async {
     final sessionGeneration = _sessionGeneration;
     final creditsByRankAtStart = _creditsByRank;
     final ownedMoveIdsAtStart = _ownedMoveIds;
-    final creditsByRank = await client.redeemActionCard(moveId: moveId);
+    final Map<int, int> creditsByRank;
+    try {
+      creditsByRank = await client.redeemActionCard(
+        moveId: moveId,
+        creditRank: creditRank,
+      );
+    } on ActionCardCreditRankChangedException catch (error) {
+      if (sessionGeneration == _sessionGeneration &&
+          identical(_creditsByRank, creditsByRankAtStart)) {
+        _creditsByRank = error.creditsByRank;
+        notifyListeners();
+      }
+      rethrow;
+    }
     if (sessionGeneration != _sessionGeneration) {
       return;
     }

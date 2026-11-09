@@ -32,6 +32,26 @@ int? creditRankToRedeem({
   return null;
 }
 
+/// 買い切りを、確かめる画面で出したカードのランクと使うカードのランクが違うため断られた (確かめている間に技のランクか残高が変わった)。
+/// redeemActionCard が failed-precondition の `details` に今使うランクを入れて断った時に投げる (functions/src/action_cards.ts。#277)。
+class ActionCardCreditRankChangedException implements Exception {
+  /// 断られた時の今使うランク [creditRank] と残高 [creditsByRank] を持つ。
+  const ActionCardCreditRankChangedException({
+    required this.creditRank,
+    required this.creditsByRank,
+  });
+
+  /// 今の残高と技のランクで使うカードのランク。確かめ直す画面に出す。
+  final int creditRank;
+
+  /// 断られた時の残高 (キーはランク)。
+  final Map<int, int> creditsByRank;
+
+  @override
+  String toString() =>
+      'ActionCardCreditRankChangedException(creditRank: $creditRank)';
+}
+
 /// Action Card の表示の切り替え・商品・残高・技のランク・買い切った技の購読と、購入・買い切り・覚えさせる・忘れさせるを呼ぶ関数の組。
 /// 画面を Firebase・RevenueCat と切り離してテストするため、実体 (lib/firebase/action_cards.dart) は main.dart から渡す。
 /// 購読は uid が変わるたびに空の値 (残高 0・技なし・隠す) から流し直す (前のアカウントの値を今のアカウントのものとして出さないため)。
@@ -74,8 +94,12 @@ class ActionCardClient {
   /// `users/{uid}/actionCards` の技の ID を、買い切った順で流す。
   final Stream<List<String>> Function() watchOwnedActionCardMoveIds;
 
-  /// redeemActionCard を呼んで [moveId] を買い切り、使った後の残高を返す。
-  final Future<Map<int, int>> Function({required String moveId})
+  /// redeemActionCard を呼んで [moveId] を、確かめる画面で出したランク [creditRank] のカードで買い切り、使った後の残高を返す。
+  /// 使うカードのランクが [creditRank] と違えば買い切らずに [ActionCardCreditRankChangedException] を投げる。
+  final Future<Map<int, int>> Function({
+    required String moveId,
+    required int creditRank,
+  })
   redeemActionCard;
 
   /// teachActionCardMove を呼んで図鑑の [monsterId] に [moveId] を覚えさせ、覚えさせた後の一覧を返す。

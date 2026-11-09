@@ -114,6 +114,8 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
   }
 
   /// [move] を買い切ってよいかを、使うカードのランク [creditRank] を出して確かめてから買い切る。
+  /// 確かめている間に技のランクか残高が変わってサーバーが別のランクのカードを使うと断った時は、そのランクで確かめ直す
+  /// (確かめた内容と違うカードを使わないため。#277)。
   Future<void> _redeem({
     required ActionCardStore store,
     required Move move,
@@ -121,38 +123,63 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
   }) async {
     final messenger = ScaffoldMessenger.of(context);
     final l10n = context.l10n;
-    final isConfirmed = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(l10n.actionCardRedeemConfirmTitle(move.displayName)),
-        content: Text(l10n.actionCardRedeemConfirmBody(creditRank)),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text(l10n.commonCancel),
+    var confirmingCreditRank = creditRank;
+    var isCreditRankChanged = false;
+    while (true) {
+      final isConfirmed = await showDialog<bool>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(l10n.actionCardRedeemConfirmTitle(move.displayName)),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (isCreditRankChanged) ...[
+                Text(
+                  l10n.actionCardRedeemCreditRankChanged,
+                  key: const Key('action-card-redeem-credit-rank-changed'),
+                ),
+                const SizedBox(height: 8),
+              ],
+              Text(l10n.actionCardRedeemConfirmBody(confirmingCreditRank)),
+            ],
           ),
-          FilledButton(
-            key: const Key('action-card-redeem-confirm'),
-            onPressed: () => Navigator.of(context).pop(true),
-            child: Text(l10n.actionCardRedeemConfirm),
-          ),
-        ],
-      ),
-    );
-    if (isConfirmed != true || !mounted) {
-      return;
-    }
-    setState(() => _redeemingMoveId = move.id);
-    try {
-      await store.redeem(moveId: move.id);
-      messenger.showSnackBar(
-        SnackBar(content: Text(l10n.actionCardRedeemed(move.displayName))),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text(l10n.commonCancel),
+            ),
+            FilledButton(
+              key: const Key('action-card-redeem-confirm'),
+              onPressed: () => Navigator.of(context).pop(true),
+              child: Text(l10n.actionCardRedeemConfirm),
+            ),
+          ],
+        ),
       );
-    } catch (error) {
-      messenger.showSnackBar(SnackBar(content: Text(error.toString())));
-    } finally {
-      if (mounted) {
-        setState(() => _redeemingMoveId = null);
+      if (isConfirmed != true || !mounted) {
+        return;
+      }
+      setState(() => _redeemingMoveId = move.id);
+      try {
+        await store.redeem(moveId: move.id, creditRank: confirmingCreditRank);
+        messenger.showSnackBar(
+          SnackBar(content: Text(l10n.actionCardRedeemed(move.displayName))),
+        );
+        return;
+      } on ActionCardCreditRankChangedException catch (error) {
+        confirmingCreditRank = error.creditRank;
+        isCreditRankChanged = true;
+      } catch (error) {
+        messenger.showSnackBar(SnackBar(content: Text(error.toString())));
+        return;
+      } finally {
+        if (mounted) {
+          setState(() => _redeemingMoveId = null);
+        }
+      }
+      if (!mounted) {
+        return;
       }
     }
   }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:snapmon/features/action_card/action_card_client.dart';
 import 'package:snapmon/features/action_card/action_card_screen.dart';
 import 'package:snapmon/features/action_card/action_card_store.dart';
 import 'package:snapmon/features/capture/monster_generator.dart';
@@ -332,7 +333,87 @@ void main() {
       await tester.tap(find.byKey(const Key('action-card-redeem-confirm')));
       await tester.pumpAndSettle();
       expect(fakeActionCards.redeemedMoveIds, ['fire_1c']);
+      expect(fakeActionCards.redeemedCreditRanks, [1]);
       expect(find.text('アイロンがけ を買い切りました'), findsOneWidget);
+      expect(
+        find.byKey(const Key('action-card-redeem-credit-rank-changed')),
+        findsNothing,
+      );
+    });
+
+    testWidgets('確かめている間に使うカードが変わって断られたら 新しいランクで確かめ直し 確かめるとそのランクで買い切る', (
+      tester,
+    ) async {
+      fakeActionCards
+        ..rankByMoveId.value = sampleRankByMoveId
+        ..creditsByRank.value = {1: 1, 2: 1}
+        ..redeemErrors.add(
+          const ActionCardCreditRankChangedException(
+            creditRank: 2,
+            creditsByRank: {1: 1, 2: 1},
+          ),
+        );
+      await pump(
+        tester: tester,
+        home: ActionCardScreen(dexStore: dexStore),
+      );
+      await tester.tap(find.byKey(const Key('action-card-redeem-fire_1c')));
+      await tester.pumpAndSettle();
+      expect(find.text('ランク 1 のカードを 1 枚使います。買い切った後は取り消せません。'), findsOneWidget);
+      await tester.tap(find.byKey(const Key('action-card-redeem-confirm')));
+      await tester.pumpAndSettle();
+
+      expect(find.text('確かめている間に使うカードが変わりました'), findsOneWidget);
+      expect(find.text('ランク 2 のカードを 1 枚使います。買い切った後は取り消せません。'), findsOneWidget);
+      expect(find.text('アイロンがけ を買い切りました'), findsNothing);
+      await tester.tap(find.byKey(const Key('action-card-redeem-confirm')));
+      await tester.pumpAndSettle();
+      expect(fakeActionCards.redeemedMoveIds, ['fire_1c', 'fire_1c']);
+      expect(fakeActionCards.redeemedCreditRanks, [1, 2]);
+      expect(find.text('アイロンがけ を買い切りました'), findsOneWidget);
+    });
+
+    testWidgets('使うカードが変わって確かめ直す画面でやめたら 買い切らない', (tester) async {
+      fakeActionCards
+        ..rankByMoveId.value = sampleRankByMoveId
+        ..creditsByRank.value = {1: 1, 2: 1}
+        ..redeemErrors.add(
+          const ActionCardCreditRankChangedException(
+            creditRank: 2,
+            creditsByRank: {1: 1, 2: 1},
+          ),
+        );
+      await pump(
+        tester: tester,
+        home: ActionCardScreen(dexStore: dexStore),
+      );
+      await tester.tap(find.byKey(const Key('action-card-redeem-fire_1c')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('action-card-redeem-confirm')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('やめる'));
+      await tester.pumpAndSettle();
+      expect(fakeActionCards.redeemedCreditRanks, [1]);
+      expect(find.byType(AlertDialog), findsNothing);
+      expect(find.text('アイロンがけ を買い切りました'), findsNothing);
+    });
+
+    testWidgets('ランクの違いではない失敗は 確かめ直さずに失敗を出す', (tester) async {
+      fakeActionCards
+        ..rankByMoveId.value = sampleRankByMoveId
+        ..creditsByRank.value = {1: 1}
+        ..redeemErrors.add(StateError('ランク 1 以上の Action Card がありません'));
+      await pump(
+        tester: tester,
+        home: ActionCardScreen(dexStore: dexStore),
+      );
+      await tester.tap(find.byKey(const Key('action-card-redeem-fire_1c')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('action-card-redeem-confirm')));
+      await tester.pumpAndSettle();
+      expect(find.byType(AlertDialog), findsNothing);
+      expect(find.textContaining('Action Card がありません'), findsOneWidget);
+      expect(fakeActionCards.redeemedCreditRanks, [1]);
     });
 
     testWidgets('確かめる画面でやめたら 買い切らない', (tester) async {

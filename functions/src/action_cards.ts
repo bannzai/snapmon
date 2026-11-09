@@ -6,6 +6,7 @@ import { HttpsError, onCall } from "firebase-functions/v2/https";
 import { onSchedule } from "firebase-functions/v2/scheduler";
 
 import {
+  MOVE_RANKS,
   MOVE_USAGE_WINDOW_DAYS,
   type MoveRank,
   actionCardCreditsOf,
@@ -79,18 +80,24 @@ export const updateMoveRanks = onSchedule({ schedule: "0 4 * * *", timeZone: "As
 /**
  * Action Card のクレジットを 1 枚使って技を買い切る callable。
  *
- * 受け取る data: `{ moveId: string }` (最新の版の master の買える技の ID)。
+ * 受け取る data: `{ moveId: string, creditRank?: 1 | 2 | 3 }` (最新の版の master の買える技の ID と、端末が確かめる画面で出した使うカードのランク)。
  * 返す値: `{ moveId, rank, creditRank, actionCardCredits: { rank1, rank2, rank3 } }` (技のランク、使ったカードのランク、使った後の残高)。
  * 技のランクは `moveRanks/current` から引き、表に無い (表が無い・表を作った後に master に足された) 技は段階で決める予備のランク
  * (action_card_rules.ts の fallbackMoveRank) にする。カードは技のランク以上で一番安いランクのものを使う。
  * 既に持っている技は already-exists、使えるカードが無い時は failed-precondition で、どちらも `details` に残高を返す。
+ * `creditRank` を渡した時は、使うカードのランクがそれと違えば (確かめている間に技のランクか残高が変わった) カードを使わずに failed-precondition で断り、
+ * `details` に残高と今使うランク `creditRank` を返す (端末が確かめ直すため。#277)。`creditRank` を渡さない呼び出しは確かめずに使う
+ * (`creditRank` を足す前のアプリの呼び出しを壊さないため)。ランクでない値は invalid-argument。
  * 置き換えられた技・master に無い技は not-found。同じ技を買い直せないため、同じ呼び出しを繰り返してもクレジットは 1 回しか減らない。
  */
 export const redeemActionCard = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async (request) => {
   const uid = requireSignedInUid({ request });
-  const { moveId } = (request.data ?? {}) as { moveId?: unknown };
+  const { moveId, creditRank: confirmedCreditRank } = (request.data ?? {}) as { moveId?: unknown; creditRank?: unknown };
   if (!isDocumentId(moveId)) {
     throw new HttpsError("invalid-argument", "moveId を渡してください");
+  }
+  if (confirmedCreditRank !== undefined && !MOVE_RANKS.includes(confirmedCreditRank as MoveRank)) {
+    throw new HttpsError("invalid-argument", "creditRank は 1・2・3 のどれかを渡してください");
   }
   const firestore = getFirestore();
   // 投入済みの版は書き換えないため、トランザクションの外で読んでよい
@@ -112,6 +119,12 @@ export const redeemActionCard = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, a
     const creditRank = creditRankToRedeem({ moveRank: rank, actionCardCredits });
     if (creditRank === undefined) {
       throw new HttpsError("failed-precondition", `ランク ${rank} 以上の Action Card がありません`, { actionCardCredits });
+    }
+    if (confirmedCreditRank !== undefined && confirmedCreditRank !== creditRank) {
+      throw new HttpsError("failed-precondition", `使うカードがランク ${confirmedCreditRank} からランク ${creditRank} に変わりました`, {
+        actionCardCredits,
+        creditRank,
+      });
     }
     transaction.create(actionCardDocument, { moveId, rank, redeemedAt: Timestamp.now() } satisfies ActionCardDocument);
     transaction.update(userDocument, { [`actionCardCredits.rank${creditRank}`]: FieldValue.increment(-1) });

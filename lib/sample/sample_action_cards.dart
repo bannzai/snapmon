@@ -96,8 +96,12 @@ class SampleActionCards {
     return TicketPurchaseResult.purchased;
   }
 
-  /// redeemActionCard の代わり。使うカードの決め方と、買い切り済み・カードが無い時に断るのは Functions と同じ。
-  Future<Map<int, int>> _redeem({required String moveId}) async {
+  /// redeemActionCard の代わり。使うカードの決め方と、買い切り済み・カードが無い時・使うカードのランクが [creditRank] と違う時に
+  /// 断るのは Functions と同じ。
+  Future<Map<int, int>> _redeem({
+    required String moveId,
+    required int creditRank,
+  }) async {
     if (ownedMoveIds.value.contains(moveId)) {
       throw StateError('$moveId は買い切り済みです');
     }
@@ -105,16 +109,22 @@ class SampleActionCards {
     if (moveRank == null) {
       throw StateError('技のランクの表に $moveId がありません');
     }
-    final creditRank = creditRankToRedeem(
+    final redeemedCreditRank = creditRankToRedeem(
       moveRank: moveRank,
       creditsByRank: creditsByRank.value,
     );
-    if (creditRank == null) {
+    if (redeemedCreditRank == null) {
       throw StateError('ランク $moveRank 以上の Action Card がありません');
+    }
+    if (redeemedCreditRank != creditRank) {
+      throw ActionCardCreditRankChangedException(
+        creditRank: redeemedCreditRank,
+        creditsByRank: creditsByRank.value,
+      );
     }
     creditsByRank.value = {
       ...creditsByRank.value,
-      creditRank: creditsByRank.value[creditRank]! - 1,
+      redeemedCreditRank: creditsByRank.value[redeemedCreditRank]! - 1,
     };
     ownedMoveIds.value = [...ownedMoveIds.value, moveId];
     return creditsByRank.value;
