@@ -55,6 +55,12 @@ class FakeActionCards {
   /// redeemActionCard に渡された技 (呼ばれた順)。
   final List<String> redeemedMoveIds = [];
 
+  /// redeemActionCard に渡されたカードのランク (呼ばれた順。[redeemedMoveIds] と同じ並び)。
+  final List<int> redeemedCreditRanks = [];
+
+  /// redeemActionCard が投げる失敗。呼ばれるたびに先頭から 1 つずつ投げ、空なら成功する (断られた後の確かめ直しを確かめるため)。
+  final List<Object> redeemErrors = [];
+
   /// teachActionCardMove に渡された引数 (呼ばれた順)。
   final List<({String monsterId, String moveId})> taughtMoves = [];
 
@@ -98,8 +104,12 @@ class FakeActionCards {
     watchActionCardCredits: () => _watch(notifier: creditsByRank),
     watchMoveRanks: () => _watch(notifier: rankByMoveId),
     watchOwnedActionCardMoveIds: () => _watch(notifier: ownedMoveIds),
-    redeemActionCard: ({required moveId}) async {
+    redeemActionCard: ({required moveId, required creditRank}) async {
       redeemedMoveIds.add(moveId);
+      redeemedCreditRanks.add(creditRank);
+      if (redeemErrors.isNotEmpty) {
+        throw redeemErrors.removeAt(0);
+      }
       return redeemCompleter?.future ?? creditsByRank.value;
     },
     teachActionCardMove: ({required monsterId, required moveId}) async {

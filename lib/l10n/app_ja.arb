@@ -402,6 +402,7 @@
   "actionCardRedeemConfirmBody": "ランク {creditRank} のカードを 1 枚使います。買い切った後は取り消せません。",
   "@actionCardRedeemConfirmBody": {"placeholders": {"creditRank": {"type": "int"}}},
   "actionCardRedeemConfirm": "買い切る",
+  "actionCardRedeemCreditRankChanged": "確かめている間に使うカードが変わりました",
   "actionCardRedeemed": "{moveName} を買い切りました",
   "@actionCardRedeemed": {"placeholders": {"moveName": {"type": "String"}}},
   "actionCardOwnedHeading": "買い切った技",

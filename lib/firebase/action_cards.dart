@@ -126,21 +126,44 @@ Future<Map<Object?, Object?>> _call({
         ).httpsCallable(name).call<Object?>(data)).data!
         as Map<Object?, Object?>;
 
+/// Functions が返した残高 [stored] (`{ rank1, rank2, rank3 }`) をランクごとの残高にする。
+Map<int, int> _creditsOfResponse({required Object? stored}) =>
+    actionCardCreditsOf(
+      stored: {
+        for (final MapEntry(key: rankKey, value: count)
+            in (stored! as Map<Object?, Object?>).entries)
+          rankKey! as String: count,
+      },
+    );
+
 /// redeemActionCard を呼ぶ ([ActionCardClient.redeemActionCard])。返す値は使った後の残高。
+/// 使うカードのランクが [creditRank] と違うと断られた時 (failed-precondition の `details` に今使うランクがある) は
+/// [ActionCardCreditRankChangedException] にして投げ、それ以外の失敗はそのまま投げる。
 Future<Map<int, int>> redeemActionCardWithFirebase({
   required String moveId,
-}) async => actionCardCreditsOf(
-  stored: {
-    for (final MapEntry(key: rankKey, value: count)
-        in ((await _call(
-                  name: 'redeemActionCard',
-                  data: {'moveId': moveId},
-                ))['actionCardCredits']!
-                as Map<Object?, Object?>)
-            .entries)
-      rankKey! as String: count,
-  },
-);
+  required int creditRank,
+}) async {
+  try {
+    return _creditsOfResponse(
+      stored: (await _call(
+        name: 'redeemActionCard',
+        data: {'moveId': moveId, 'creditRank': creditRank},
+      ))['actionCardCredits'],
+    );
+  } on FirebaseFunctionsException catch (error) {
+    if (error.details
+        case {
+          'creditRank': final int changedCreditRank,
+          'actionCardCredits': final Object actionCardCredits,
+        } when error.code == 'failed-precondition') {
+      throw ActionCardCreditRankChangedException(
+        creditRank: changedCreditRank,
+        creditsByRank: _creditsOfResponse(stored: actionCardCredits),
+      );
+    }
+    rethrow;
+  }
+}
 
 /// teachActionCardMove・forgetActionCardMove の [name] を呼び、返った一覧を返す。
 Future<List<String>> _callMonsterMove({
