@@ -12,14 +12,51 @@ import 'battle_state.dart';
 /// 入口は tool/simulate_battles.dart (表を出す) と test/domain/battle/cpu_strength_test.dart (目標の値を守る)。
 
 /// 本番の図鑑のモンスター 6 体の種族値 (2026-11-09 に snapmon-prod から読んだ値。issue #240)。
+/// 命中は読んだ時点の値に無く (#279 より前に生まれた)、端末が読む時と同じ既定の種族値にした。
 /// 見本のモンスターの種族値は本番より高めのため、利用者の側はこの種族値に見本の属性・技を組み合わせて測る ([simulationPlayerDefinitions])。
 const List<MonsterStats> productionBaseStatsSample = [
-  MonsterStats(hitPoints: 60, attack: 40, defense: 60, speed: 80),
-  MonsterStats(hitPoints: 120, attack: 80, defense: 100, speed: 40),
-  MonsterStats(hitPoints: 60, attack: 60, defense: 60, speed: 80),
-  MonsterStats(hitPoints: 60, attack: 40, defense: 60, speed: 80),
-  MonsterStats(hitPoints: 60, attack: 40, defense: 40, speed: 80),
-  MonsterStats(hitPoints: 60, attack: 40, defense: 40, speed: 80),
+  MonsterStats(
+    hitPoints: 60,
+    attack: 40,
+    defense: 60,
+    speed: 80,
+    accuracy: accuracyBaseStatWithoutJudgement,
+  ),
+  MonsterStats(
+    hitPoints: 120,
+    attack: 80,
+    defense: 100,
+    speed: 40,
+    accuracy: accuracyBaseStatWithoutJudgement,
+  ),
+  MonsterStats(
+    hitPoints: 60,
+    attack: 60,
+    defense: 60,
+    speed: 80,
+    accuracy: accuracyBaseStatWithoutJudgement,
+  ),
+  MonsterStats(
+    hitPoints: 60,
+    attack: 40,
+    defense: 60,
+    speed: 80,
+    accuracy: accuracyBaseStatWithoutJudgement,
+  ),
+  MonsterStats(
+    hitPoints: 60,
+    attack: 40,
+    defense: 40,
+    speed: 80,
+    accuracy: accuracyBaseStatWithoutJudgement,
+  ),
+  MonsterStats(
+    hitPoints: 60,
+    attack: 40,
+    defense: 40,
+    speed: 80,
+    accuracy: accuracyBaseStatWithoutJudgement,
+  ),
 ];
 
 /// シミュレーションの対戦日。技の特殊効果の入力に渡す値で、今の master に日付で変わる効果は無いため固定の日付 (issue #240 の計測日) にする。

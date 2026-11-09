@@ -11,6 +11,7 @@ import 'package:snapmon/domain/master/master_data.dart';
 import 'package:snapmon/domain/master/move.dart';
 import 'package:snapmon/domain/monster/monster_definition.dart';
 import 'package:snapmon/domain/monster/monster_stats.dart';
+import 'package:snapmon/domain/monster/stat_calculation.dart';
 
 /// バトルの規則だけを確かめるための小さな master。fire は grass に 2 倍、grass は fire に 0.5 倍。
 final testMaster = MasterData(
@@ -481,6 +482,7 @@ MonsterDefinition testDefinition({
   required List<String> moveIds,
   required int speed,
   int hitPoints = 80,
+  int accuracyBaseStat = 120,
 }) => MonsterDefinition(
   id: id,
   sourcePhotoReference: 'users/test/photos/$id.jpg',
@@ -490,17 +492,21 @@ MonsterDefinition testDefinition({
   learnset: [
     for (final moveId in moveIds) LearnsetEntry(moveId: moveId, unlockLevel: 1),
   ],
+  // 命中は既定で種族値・個体値の最大 (計算した命中が 100) にし、技の命中率だけで当たり外れが決まるようにする。
+  // 命中の効き目は「使う側の命中を技の命中率に掛ける」のテストで、[accuracyBaseStat] を下げて確かめる
   baseStats: MonsterStats(
     hitPoints: hitPoints,
     attack: 80,
     defense: 80,
     speed: speed,
+    accuracy: accuracyBaseStat,
   ),
   individualValues: const MonsterStats(
     hitPoints: 0,
     attack: 0,
     defense: 0,
     speed: 0,
+    accuracy: individualValueMaximum,
   ),
   statCalculationVersion: 1,
   masterVersion: 1,
@@ -2495,6 +2501,56 @@ void main() {
         );
         expect(state.events.whereType<ActionFailedEvent>(), isEmpty);
       }
+    });
+
+    test('使う側の命中を技の命中率に掛け、命中が 100 未満なら命中率 100 の技も外れる (#279)', () {
+      // 命中の種族値 40・個体値 31 は 80 + (2 × 40 + 31) × 20 ÷ 271 = 88
+      final lowAccuracyAttacker = prepare(
+        definition: testDefinition(
+          id: 'low-accuracy',
+          elementTypeId: 'fire',
+          moveIds: ['fire_strong', 'fire_inaccurate', 'fire_sure_hit'],
+          speed: 80,
+          accuracyBaseStat: 40,
+        ),
+      );
+      expect(effectiveStats(monster: lowAccuracyAttacker).accuracy, 88);
+      expect(
+        moveHitChancePercent(
+          move: testMaster.moveById(moveId: 'fire_strong'),
+          attacker: lowAccuracyAttacker,
+        ),
+        88,
+      );
+      expect(
+        moveHitChancePercent(
+          move: testMaster.moveById(moveId: 'fire_inaccurate'),
+          attacker: lowAccuracyAttacker,
+        ),
+        44,
+      );
+      expect(
+        moveHitChancePercent(
+          move: testMaster.moveById(moveId: 'fire_sure_hit'),
+          attacker: lowAccuracyAttacker,
+        ),
+        100,
+      );
+      // 命中 100 のモンスターは技の命中率のまま
+      expect(
+        moveHitChancePercent(
+          move: testMaster.moveById(moveId: 'fire_strong'),
+          attacker: prepare(
+            definition: testDefinition(
+              id: 'full-accuracy',
+              elementTypeId: 'fire',
+              moveIds: ['fire_strong'],
+              speed: 80,
+            ),
+          ),
+        ),
+        100,
+      );
     });
 
     test('一撃必殺は当たれば威力に関係なく相手の HP を 0 にし、PP 1 で外れやすい', () {

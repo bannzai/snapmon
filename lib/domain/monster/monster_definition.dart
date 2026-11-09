@@ -55,9 +55,11 @@ class MonsterDefinition {
         ],
         baseStats: MonsterStats.fromJson(
           json: json['baseStats'] as Map<String, dynamic>,
+          accuracyWithoutJudgement: accuracyBaseStatWithoutJudgement,
         ),
         individualValues: MonsterStats.fromJson(
           json: json['individualValues'] as Map<String, dynamic>,
+          accuracyWithoutJudgement: accuracyIndividualValueWithoutJudgement,
         ),
         statCalculationVersion: json['statCalculationVersion'] as int,
         masterVersion: json['masterVersion'] as int,

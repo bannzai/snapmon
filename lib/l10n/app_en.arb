@@ -134,6 +134,7 @@
   "statAttack": "Attack",
   "statDefense": "Defense",
   "statSpeed": "Speed",
+  "statAccuracy": "Accuracy",
   "resultLearnedMoves": "Known moves",
   "resultRemoveFromParty": "Remove from party",
   "resultAddToParty": "Add to party",
