@@ -173,7 +173,7 @@ class DeveloperMenuScreen extends StatelessWidget {
               ),
             ),
           // Action Card は Simulator で購入できず、ログインを飛ばした端末は Functions を呼べないため、ログインを飛ばした間だけ
-          // 端末だけの見本 (lib/sample/sample_action_cards.dart) で表示・残高・技のランクを作る。見本はアプリ全体の Action Card を置き換える
+          // 端末だけの見本 (lib/sample/sample_action_cards.dart) で表示・購入・技のランクを作る。見本はアプリ全体の Action Card を置き換える
           if (ActionCardScope.maybeOf(context)?.sampleActionCards
               case final sampleActionCards?) ...[
             ValueListenableBuilder(
@@ -203,18 +203,38 @@ class DeveloperMenuScreen extends StatelessWidget {
             ),
             for (final rank in actionCardRanks)
               ListTile(
-                key: Key('developer-action-card-credit-$rank'),
+                key: Key('developer-action-card-unassigned-$rank'),
                 leading: const Icon(Icons.add_card_outlined),
-                title: Text('Action Card のランク $rank を 1 枚足す'),
+                title: Text('技に結び付いていないランク $rank の購入を 1 件足す'),
+                subtitle: const Text('選び直しの導線を確かめるため'),
                 enabled: !dexStore.isServerBacked,
                 onTap: () {
-                  sampleActionCards.addCredit(rank: rank);
+                  sampleActionCards.addUnassignedPurchase(rank: rank);
                   _showMessage(
                     context: context,
-                    message: 'ランク $rank を 1 枚足しました',
+                    message: 'ランク $rank の購入を足しました',
                   );
                 },
               ),
+            ValueListenableBuilder(
+              valueListenable: sampleActionCards.blocksReservedMoveBeforeArrival,
+              builder: (context, blocksReservedMove, _) => SwitchListTile(
+                key: const Key('developer-action-card-block-reserved-move'),
+                secondary: const Icon(Icons.trending_up),
+                title: const Text('次の購入が届く前に選んだ技を受け取れなくする'),
+                subtitle: const Text(
+                  '技のランクを 1 つ上げる (ランク 3 の技は同じ技を先に受け取ったことにする)\n技を受け取れずに購入が残る流れを確かめるため',
+                ),
+                value: blocksReservedMove,
+                onChanged: dexStore.isServerBacked
+                    ? null
+                    : (value) =>
+                          sampleActionCards
+                                  .blocksReservedMoveBeforeArrival
+                                  .value =
+                              value,
+              ),
+            ),
           ],
           // ストアに商品が無い間と Simulator で、購入画面の見た目と流れを確かめるため。見本の package と見本の購入を使い、ストアも RevenueCat も呼ばない
           ListTile(

@@ -17,44 +17,54 @@ int? actionCardRankOfPackage({required Package package}) =>
       )
     : null;
 
-/// [moveRank] の技を買い切る時に使うカードのランク。技のランク以上で残高のあるうち一番安いランクで、無ければ null。
-/// Functions の redeemActionCard が使うカードの決め方 (functions/src/action_card_rules.ts の `creditRankToRedeem`) と同じで、
-/// 買い切る前にどのカードを使うかを出すために使う。
-int? creditRankToRedeem({
-  required int moveRank,
-  required Map<int, int> creditsByRank,
-}) {
-  for (final creditRank in actionCardRanks) {
-    if (creditRank >= moveRank && (creditsByRank[creditRank] ?? 0) >= 1) {
-      return creditRank;
-    }
-  }
-  return null;
-}
-
-/// 買い切りを、確かめる画面で出したカードのランクと使うカードのランクが違うため断られた (確かめている間に技のランクか残高が変わった)。
-/// redeemActionCard が failed-precondition の `details` に今使うランクを入れて断った時に投げる (functions/src/action_cards.ts。#277)。
-class ActionCardCreditRankChangedException implements Exception {
-  /// 断られた時の今使うランク [creditRank] と残高 [creditsByRank] を持つ。
-  const ActionCardCreditRankChangedException({
-    required this.creditRank,
-    required this.creditsByRank,
+/// Action Card の購入 1 件 (`users/{uid}/actionCardPurchases/{eventId}`。形は functions/src/generation_tickets.ts の
+/// `ActionCardPurchaseDocument`)。買い切った技は `moveID` のある購入で、`moveID` の無い購入は技を選び直して受け取る。
+class ActionCardPurchase {
+  /// Firestore から読んだ購入を作る。
+  const ActionCardPurchase({
+    required this.actionCardPurchaseID,
+    required this.rank,
+    required this.moveID,
+    required this.actionCardMoveReservationID,
+    required this.createdAt,
+    required this.moveAssignedAt,
   });
 
-  /// 今の残高と技のランクで使うカードのランク。確かめ直す画面に出す。
-  final int creditRank;
+  /// 購入の ID (RevenueCat のイベントの ID。文書 ID)。
+  final String actionCardPurchaseID;
 
-  /// 断られた時の残高 (キーはランク)。
-  final Map<int, int> creditsByRank;
+  /// 購入した商品のランク。受け取れる技は、受け取る時のランクがこれ以下のもの。
+  final int rank;
 
-  @override
-  String toString() =>
-      'ActionCardCreditRankChangedException(creditRank: $creditRank)';
+  /// 買い切った技の ID。技に結び付いていない購入は null (#290 より前のフィールドの無い購入も null)。
+  final String? moveID;
+
+  /// 購入に結び付けた控えの ID。購入画面はこの ID の購入が届くのを待つ。控えを使わなかった購入は null。
+  final String? actionCardMoveReservationID;
+
+  /// 購入を記録した時刻。
+  final DateTime createdAt;
+
+  /// 技を結び付けた時刻。技に結び付いていない間は null。
+  final DateTime? moveAssignedAt;
 }
 
-/// Action Card の表示の切り替え・商品・残高・技のランク・買い切った技の購読と、購入・買い切り・覚えさせる・忘れさせるを呼ぶ関数の組。
+/// 技を控える時に端末が出したランクと技の今のランクが違うため断られた (値段を出している間に技のランクが変わった)。
+/// reserveActionCardMove が failed-precondition の `details` に今のランクを入れて断った時に投げる (functions/src/action_cards.ts)。
+class ActionCardMoveRankChangedException implements Exception {
+  /// 断られた時の技の今のランク [rank] を持つ。
+  const ActionCardMoveRankChangedException({required this.rank});
+
+  /// 技の今のランク。
+  final int rank;
+
+  @override
+  String toString() => 'ActionCardMoveRankChangedException(rank: $rank)';
+}
+
+/// Action Card の表示の切り替え・商品・購入・技のランクの購読と、技の控え・購入・選び直し・覚えさせる・忘れさせるを呼ぶ関数の組。
 /// 画面を Firebase・RevenueCat と切り離してテストするため、実体 (lib/firebase/action_cards.dart) は main.dart から渡す。
-/// 購読は uid が変わるたびに空の値 (残高 0・技なし・隠す) から流し直す (前のアカウントの値を今のアカウントのものとして出さないため)。
+/// 購読は uid が変わるたびに空の値 (購入なし・隠す) から流し直す (前のアカウントの値を今のアカウントのものとして出さないため)。
 class ActionCardClient {
   /// 関数の組を作る。
   const ActionCardClient({
@@ -62,10 +72,10 @@ class ActionCardClient {
     required this.watchActionCardsVisible,
     required this.fetchActionCardPackages,
     required this.purchaseActionCardPackage,
-    required this.watchActionCardCredits,
+    required this.watchActionCardPurchases,
     required this.watchMoveRanks,
-    required this.watchOwnedActionCardMoveIds,
-    required this.redeemActionCard,
+    required this.reserveActionCardMove,
+    required this.assignActionCardMove,
     required this.teachActionCardMove,
     required this.forgetActionCardMove,
   });
@@ -81,26 +91,27 @@ class ActionCardClient {
   /// 課金が無効なビルド・ログインしていない時・売っていない時は空。
   final Future<List<Package>> Function() fetchActionCardPackages;
 
-  /// [package] を購入する。残高はストアの購入の後に webhook が足し、[watchActionCardCredits] に届く。
+  /// [package] を購入する。技は、先に [reserveActionCardMove] で控えた技を webhook が購入に結び付け、[watchActionCardPurchases] に届く。
   final Future<TicketPurchaseResult> Function({required Package package})
   purchaseActionCardPackage;
 
-  /// `users/{uid}.actionCardCredits` をランクごとの残高 (キーはランク。無いランクは 0 枚) で流す。
-  final Stream<Map<int, int>> Function() watchActionCardCredits;
+  /// `users/{uid}/actionCardPurchases` を、記録した順で流す。
+  final Stream<List<ActionCardPurchase>> Function() watchActionCardPurchases;
 
   /// `moveRanks/current.rankByMoveId` (技の ID ごとのランク) を流す。表がまだ無い時は null。
   final Stream<Map<String, int>?> Function() watchMoveRanks;
 
-  /// `users/{uid}/actionCards` の技の ID を、買い切った順で流す。
-  final Stream<List<String>> Function() watchOwnedActionCardMoveIds;
+  /// reserveActionCardMove を呼んで、値段を出したランク [rank] の [moveID] を買う前に控え、控えの ID を返す。
+  /// 技の今のランクが [rank] と違えば控えずに [ActionCardMoveRankChangedException] を投げる。
+  final Future<String> Function({required String moveID, required int rank})
+  reserveActionCardMove;
 
-  /// redeemActionCard を呼んで [moveId] を、確かめる画面で出したランク [creditRank] のカードで買い切り、使った後の残高を返す。
-  /// 使うカードのランクが [creditRank] と違えば買い切らずに [ActionCardCreditRankChangedException] を投げる。
-  final Future<Map<int, int>> Function({
-    required String moveId,
-    required int creditRank,
+  /// assignActionCardMove を呼んで、技に結び付いていない購入 [actionCardPurchaseID] に [moveID] を結び付ける。
+  final Future<void> Function({
+    required String actionCardPurchaseID,
+    required String moveID,
   })
-  redeemActionCard;
+  assignActionCardMove;
 
   /// teachActionCardMove を呼んで図鑑の [monsterId] に [moveId] を覚えさせ、覚えさせた後の一覧を返す。
   final Future<List<String>> Function({

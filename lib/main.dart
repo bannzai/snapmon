@@ -127,23 +127,27 @@ Future<void> main() async {
       purchaseActionCardPackage: ({required package}) => isSample()
           ? sampleActionCardClient!.purchaseActionCardPackage(package: package)
           : purchaseTicketPackageWithRevenueCat(package: package),
-      watchActionCardCredits: () => isSample()
-          ? sampleActionCardClient!.watchActionCardCredits()
-          : watchActionCardCreditsWithFirebase(),
+      watchActionCardPurchases: () => isSample()
+          ? sampleActionCardClient!.watchActionCardPurchases()
+          : watchActionCardPurchasesWithFirebase(),
       watchMoveRanks: () => isSample()
           ? sampleActionCardClient!.watchMoveRanks()
           : watchMoveRanksWithFirebase(),
-      watchOwnedActionCardMoveIds: () => isSample()
-          ? sampleActionCardClient!.watchOwnedActionCardMoveIds()
-          : watchOwnedActionCardMoveIdsWithFirebase(),
-      redeemActionCard: ({required moveId, required creditRank}) => isSample()
-          ? sampleActionCardClient!.redeemActionCard(
-              moveId: moveId,
-              creditRank: creditRank,
+      reserveActionCardMove: ({required moveID, required rank}) => isSample()
+          ? sampleActionCardClient!.reserveActionCardMove(
+              moveID: moveID,
+              rank: rank,
             )
-          : redeemActionCardWithFirebase(
-              moveId: moveId,
-              creditRank: creditRank,
+          : reserveActionCardMoveWithFirebase(moveID: moveID, rank: rank),
+      assignActionCardMove:
+          ({required actionCardPurchaseID, required moveID}) => isSample()
+          ? sampleActionCardClient!.assignActionCardMove(
+              actionCardPurchaseID: actionCardPurchaseID,
+              moveID: moveID,
+            )
+          : assignActionCardMoveWithFirebase(
+              actionCardPurchaseID: actionCardPurchaseID,
+              moveID: moveID,
             ),
       teachActionCardMove: ({required monsterId, required moveId}) => isSample()
           ? sampleActionCardClient!.teachActionCardMove(

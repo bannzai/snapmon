@@ -22,7 +22,7 @@ import '../../sample_data_fixture.dart';
 void main() {
   final sampleData = loadSampleDataFixture();
 
-  /// 技のランクの表の見本。ランク 1 に 2 つ (威力 40 と 35)、ランク 3 に 1 つ。
+  /// 技のランクの表の見本。ランク 1 に 2 つ (fire_1c・water_1b)、ランク 3 に 1 つ (water_3)。
   const sampleRankByMoveId = {'fire_1c': 1, 'water_1b': 1, 'water_3': 3};
 
   late FakeActionCards fakeActionCards;
@@ -140,11 +140,19 @@ void main() {
     ) async {
       fakeActionCards
         ..isPurchaseSupported = false
-        ..ownedMoveIds.value = ['water_3'];
+        ..rankByMoveId.value = sampleRankByMoveId
+        ..purchases.value = [
+          testActionCardPurchase(
+            actionCardPurchaseID: 'p1',
+            rank: 3,
+            moveID: 'water_3',
+          ),
+        ];
       await pump(tester: tester, home: dexDetail());
       await tester.tap(find.byKey(const Key('action-card-entry-dex')));
       await tester.pumpAndSettle();
-      expect(find.byKey(const Key('action-card-buy')), findsNothing);
+      expect(find.byKey(const Key('action-card-buy-fire_1c')), findsNothing);
+      expect(find.text('今は技を売っていません'), findsOneWidget);
       expect(
         find.byKey(const Key('action-card-owned-water_3')),
         findsOneWidget,
@@ -222,78 +230,161 @@ void main() {
     });
   });
 
-  group('購入画面', () {
-    testWidgets('3 つのランクの価格と そのランクの技の数と例の技を出す', (tester) async {
-      fakeActionCards.rankByMoveId.value = sampleRankByMoveId;
-      await pump(
-        tester: tester,
-        home: ActionCardScreen(dexStore: dexStore),
-      );
-      await tester.tap(find.byKey(const Key('action-card-buy')));
-      await tester.pumpAndSettle();
-      expect(find.text('ランク 1  ¥100'), findsOneWidget);
-      expect(find.text('ランク 2  ¥200'), findsOneWidget);
-      expect(find.text('ランク 3  ¥300'), findsOneWidget);
-      expect(find.text('このランクの技 2 個'), findsOneWidget);
-      expect(find.text('このランクの技 0 個'), findsOneWidget);
-      // ランク 1 の例は威力の大きい アイロンがけ (fire_1c、威力 45)
-      expect(find.text('たとえば アイロンがけ'), findsOneWidget);
-      expect(find.text('たとえば おおつなみ'), findsOneWidget);
-    });
-
-    testWidgets('技のランクの表がまだ無い間は 準備中を出し 買うボタンを押せない', (tester) async {
-      await pump(
-        tester: tester,
-        home: ActionCardScreen(dexStore: dexStore),
-      );
-      await tester.tap(find.byKey(const Key('action-card-buy')));
-      await tester.pumpAndSettle();
-      expect(find.textContaining('技のランクを準備しています'), findsWidgets);
-      expect(
-        tester
-            .widget<FilledButton>(
-              find.byKey(const Key('action-card-package-1')),
-            )
-            .onPressed,
-        isNull,
-      );
-    });
-
-    testWidgets('カードを持ったまま買っても 残高が増えるまでは届いたと出さない', (tester) async {
+  group('技を選んで買う', () {
+    testWidgets('買い切っていない技を 今のランクと値段を付けて並べ 買い切った技は出さない', (tester) async {
       fakeActionCards
         ..rankByMoveId.value = sampleRankByMoveId
-        ..creditsByRank.value = {1: 1};
+        ..purchases.value = [
+          testActionCardPurchase(
+            actionCardPurchaseID: 'p0',
+            rank: 1,
+            moveID: 'water_1b',
+          ),
+        ];
       await pump(
         tester: tester,
         home: ActionCardScreen(dexStore: dexStore),
       );
-      await tester.tap(find.byKey(const Key('action-card-buy')));
-      await tester.pumpAndSettle();
-      await tester.tap(find.byKey(const Key('action-card-package-1')));
-      await tester.pump();
-      expect(fakeActionCards.purchasedPackageIds, ['actioncard_rank1']);
-      expect(find.text('カードを受け取っています'), findsOneWidget);
-      expect(find.text('カードが届きました'), findsNothing);
-
-      fakeActionCards.creditsByRank.value = {1: 2};
-      await tester.pump();
-      expect(find.text('カードが届きました'), findsOneWidget);
-      expect(find.byKey(const Key('action-card-choose-move')), findsOneWidget);
+      expect(find.byKey(const Key('action-card-buy-fire_1c')), findsOneWidget);
+      expect(find.text('ランク 1\n¥100'), findsOneWidget);
+      expect(find.text('ランク 3\n¥300'), findsOneWidget);
+      expect(find.byKey(const Key('action-card-buy-water_1b')), findsNothing);
+      expect(
+        find.byKey(const Key('action-card-owned-water_1b')),
+        findsOneWidget,
+      );
+      // 技に結び付いていない購入が無い時は 選び直しの節を出さない
+      expect(find.text('受け取っていない Action Card'), findsNothing);
     });
 
-    testWidgets('別のランクの残高が増えても 買ったランクが増えるまでは届いたと出さない', (tester) async {
+    testWidgets('売っていないランクの技は 値段を出せないため並べない', (tester) async {
+      fakeActionCards
+        ..rankByMoveId.value = sampleRankByMoveId
+        ..packages = [testActionCardPackage(rank: 1)];
+      await pump(
+        tester: tester,
+        home: ActionCardScreen(dexStore: dexStore),
+      );
+      expect(find.byKey(const Key('action-card-buy-fire_1c')), findsOneWidget);
+      expect(find.byKey(const Key('action-card-buy-water_3')), findsNothing);
+    });
+
+    testWidgets('技のランクの表がまだ無い間は 準備中を出し 技を並べない', (tester) async {
+      await pump(
+        tester: tester,
+        home: ActionCardScreen(dexStore: dexStore),
+      );
+      expect(find.textContaining('技のランクを準備しています'), findsOneWidget);
+      expect(find.byKey(const Key('action-card-buy-fire_1c')), findsNothing);
+    });
+
+    testWidgets('技を選んで買うと 技を控えてから そのランクの商品を買い 控えの購入が届いたら手に入れたと出す', (
+      tester,
+    ) async {
       fakeActionCards.rankByMoveId.value = sampleRankByMoveId;
       await pump(
         tester: tester,
         home: ActionCardScreen(dexStore: dexStore),
       );
-      await tester.tap(find.byKey(const Key('action-card-buy')));
+      await tester.tap(find.byKey(const Key('action-card-buy-water_3')));
       await tester.pumpAndSettle();
-      await tester.tap(find.byKey(const Key('action-card-package-3')));
+      expect(find.text('ランク 3  ¥300 で買う'), findsOneWidget);
+      await tester.tap(find.byKey(const Key('action-card-purchase-buy')));
       await tester.pump();
-      fakeActionCards.creditsByRank.value = {1: 1};
+      expect(fakeActionCards.reservedMoves, [(moveID: 'water_3', rank: 3)]);
+      expect(fakeActionCards.purchasedPackageIds, ['actioncard_rank3']);
+      expect(find.text('技を受け取っています'), findsOneWidget);
+
+      // 別の端末の購入 (控えの ID が違う) が届いても 自分の購入が届いたとは出さない
+      fakeActionCards.purchases.value = [
+        testActionCardPurchase(
+          actionCardPurchaseID: 'other',
+          rank: 1,
+          moveID: 'fire_1c',
+          actionCardMoveReservationID: 'reservation-from-other-device',
+        ),
+      ];
       await tester.pump();
-      expect(find.text('カードが届きました'), findsNothing);
+      expect(find.text('技を受け取っています'), findsOneWidget);
+
+      fakeActionCards.purchases.value = [
+        ...fakeActionCards.purchases.value,
+        testActionCardPurchase(
+          actionCardPurchaseID: 'p1',
+          rank: 3,
+          moveID: 'water_3',
+          actionCardMoveReservationID: 'reservation-1',
+        ),
+      ];
+      await tester.pump();
+      expect(find.text('おおつなみ を手に入れました'), findsOneWidget);
+      await tester.tap(find.byKey(const Key('action-card-purchase-close')));
+      await tester.pumpAndSettle();
+      expect(
+        find.byKey(const Key('action-card-owned-water_3')),
+        findsOneWidget,
+      );
+      expect(find.byKey(const Key('action-card-buy-water_3')), findsNothing);
+    });
+
+    testWidgets('控えた技を受け取れなかった購入が届いたら 選び直しの案内を出し 画面に選び直しの節を出す', (
+      tester,
+    ) async {
+      fakeActionCards.rankByMoveId.value = sampleRankByMoveId;
+      await pump(
+        tester: tester,
+        home: ActionCardScreen(dexStore: dexStore),
+      );
+      await tester.tap(find.byKey(const Key('action-card-buy-fire_1c')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('action-card-purchase-buy')));
+      await tester.pump();
+      // 購入が届くまでの間に fire_1c のランクが上がった
+      fakeActionCards.purchases.value = [
+        testActionCardPurchase(
+          actionCardPurchaseID: 'p1',
+          rank: 1,
+          moveID: null,
+          actionCardMoveReservationID: 'reservation-1',
+        ),
+      ];
+      await tester.pump();
+      expect(
+        find.byKey(const Key('action-card-purchase-unassigned')),
+        findsOneWidget,
+      );
+      await tester.tap(find.byKey(const Key('action-card-purchase-close')));
+      await tester.pumpAndSettle();
+      expect(find.text('受け取っていない Action Card'), findsOneWidget);
+      expect(
+        find.byKey(const Key('action-card-unassigned-p1')),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('値段を出している間にランクが変わって控えを断られたら 買わずに 値段が変わったと出す', (
+      tester,
+    ) async {
+      fakeActionCards
+        ..rankByMoveId.value = sampleRankByMoveId
+        ..reserveErrors.add(const ActionCardMoveRankChangedException(rank: 3));
+      await pump(
+        tester: tester,
+        home: ActionCardScreen(dexStore: dexStore),
+      );
+      await tester.tap(find.byKey(const Key('action-card-buy-fire_1c')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('action-card-purchase-buy')));
+      await tester.pump();
+      expect(fakeActionCards.purchasedPackageIds, isEmpty);
+      expect(
+        find.byKey(const Key('action-card-purchase-rank-changed')),
+        findsOneWidget,
+      );
+      // 新しいランクが購読で届くと 新しい値段で買い直せる
+      fakeActionCards.rankByMoveId.value = {...sampleRankByMoveId, 'fire_1c': 3};
+      await tester.pump();
+      expect(find.text('ランク 3  ¥300 で買う'), findsOneWidget);
     });
 
     testWidgets('支払いが保留になったら 支払いを待つ案内を出す', (tester) async {
@@ -304,146 +395,109 @@ void main() {
         tester: tester,
         home: ActionCardScreen(dexStore: dexStore),
       );
-      await tester.tap(find.byKey(const Key('action-card-buy')));
+      await tester.tap(find.byKey(const Key('action-card-buy-fire_1c')));
       await tester.pumpAndSettle();
-      await tester.tap(find.byKey(const Key('action-card-package-2')));
+      await tester.tap(find.byKey(const Key('action-card-purchase-buy')));
       await tester.pump();
       expect(find.textContaining('支払いの完了を待っています'), findsOneWidget);
     });
-  });
 
-  group('技を選んで買い切る', () {
-    testWidgets('持っているカードのランク以下の技だけを出し 使うカードを確かめてから買い切る', (tester) async {
+    testWidgets('ストアの購入をやめたら 買う前の画面に戻る', (tester) async {
       fakeActionCards
         ..rankByMoveId.value = sampleRankByMoveId
-        ..creditsByRank.value = {1: 1};
+        ..purchaseResult = TicketPurchaseResult.cancelled;
       await pump(
         tester: tester,
         home: ActionCardScreen(dexStore: dexStore),
       );
+      await tester.tap(find.byKey(const Key('action-card-buy-fire_1c')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('action-card-purchase-buy')));
+      await tester.pumpAndSettle();
       expect(
-        find.byKey(const Key('action-card-redeem-fire_1c')),
+        find.byKey(const Key('action-card-purchase-buy')),
         findsOneWidget,
       );
-      expect(find.byKey(const Key('action-card-redeem-water_3')), findsNothing);
-
-      await tester.tap(find.byKey(const Key('action-card-redeem-fire_1c')));
-      await tester.pumpAndSettle();
-      expect(find.text('ランク 1 のカードを 1 枚使います。買い切った後は取り消せません。'), findsOneWidget);
-      await tester.tap(find.byKey(const Key('action-card-redeem-confirm')));
-      await tester.pumpAndSettle();
-      expect(fakeActionCards.redeemedMoveIds, ['fire_1c']);
-      expect(fakeActionCards.redeemedCreditRanks, [1]);
-      expect(find.text('アイロンがけ を買い切りました'), findsOneWidget);
-      expect(
-        find.byKey(const Key('action-card-redeem-credit-rank-changed')),
-        findsNothing,
-      );
-    });
-
-    testWidgets('確かめている間に使うカードが変わって断られたら 新しいランクで確かめ直し 確かめるとそのランクで買い切る', (
-      tester,
-    ) async {
-      fakeActionCards
-        ..rankByMoveId.value = sampleRankByMoveId
-        ..creditsByRank.value = {1: 1, 2: 1}
-        ..redeemErrors.add(
-          const ActionCardCreditRankChangedException(
-            creditRank: 2,
-            creditsByRank: {1: 1, 2: 1},
-          ),
-        );
-      await pump(
-        tester: tester,
-        home: ActionCardScreen(dexStore: dexStore),
-      );
-      await tester.tap(find.byKey(const Key('action-card-redeem-fire_1c')));
-      await tester.pumpAndSettle();
-      expect(find.text('ランク 1 のカードを 1 枚使います。買い切った後は取り消せません。'), findsOneWidget);
-      await tester.tap(find.byKey(const Key('action-card-redeem-confirm')));
-      await tester.pumpAndSettle();
-
-      expect(find.text('確かめている間に使うカードが変わりました'), findsOneWidget);
-      expect(find.text('ランク 2 のカードを 1 枚使います。買い切った後は取り消せません。'), findsOneWidget);
-      expect(find.text('アイロンがけ を買い切りました'), findsNothing);
-      await tester.tap(find.byKey(const Key('action-card-redeem-confirm')));
-      await tester.pumpAndSettle();
-      expect(fakeActionCards.redeemedMoveIds, ['fire_1c', 'fire_1c']);
-      expect(fakeActionCards.redeemedCreditRanks, [1, 2]);
-      expect(find.text('アイロンがけ を買い切りました'), findsOneWidget);
-    });
-
-    testWidgets('使うカードが変わって確かめ直す画面でやめたら 買い切らない', (tester) async {
-      fakeActionCards
-        ..rankByMoveId.value = sampleRankByMoveId
-        ..creditsByRank.value = {1: 1, 2: 1}
-        ..redeemErrors.add(
-          const ActionCardCreditRankChangedException(
-            creditRank: 2,
-            creditsByRank: {1: 1, 2: 1},
-          ),
-        );
-      await pump(
-        tester: tester,
-        home: ActionCardScreen(dexStore: dexStore),
-      );
-      await tester.tap(find.byKey(const Key('action-card-redeem-fire_1c')));
-      await tester.pumpAndSettle();
-      await tester.tap(find.byKey(const Key('action-card-redeem-confirm')));
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('やめる'));
-      await tester.pumpAndSettle();
-      expect(fakeActionCards.redeemedCreditRanks, [1]);
-      expect(find.byType(AlertDialog), findsNothing);
-      expect(find.text('アイロンがけ を買い切りました'), findsNothing);
-    });
-
-    testWidgets('ランクの違いではない失敗は 確かめ直さずに失敗を出す', (tester) async {
-      fakeActionCards
-        ..rankByMoveId.value = sampleRankByMoveId
-        ..creditsByRank.value = {1: 1}
-        ..redeemErrors.add(StateError('ランク 1 以上の Action Card がありません'));
-      await pump(
-        tester: tester,
-        home: ActionCardScreen(dexStore: dexStore),
-      );
-      await tester.tap(find.byKey(const Key('action-card-redeem-fire_1c')));
-      await tester.pumpAndSettle();
-      await tester.tap(find.byKey(const Key('action-card-redeem-confirm')));
-      await tester.pumpAndSettle();
-      expect(find.byType(AlertDialog), findsNothing);
-      expect(find.textContaining('Action Card がありません'), findsOneWidget);
-      expect(fakeActionCards.redeemedCreditRanks, [1]);
-    });
-
-    testWidgets('確かめる画面でやめたら 買い切らない', (tester) async {
-      fakeActionCards
-        ..rankByMoveId.value = sampleRankByMoveId
-        ..creditsByRank.value = {3: 1};
-      await pump(
-        tester: tester,
-        home: ActionCardScreen(dexStore: dexStore),
-      );
-      await tester.tap(find.byKey(const Key('action-card-redeem-water_3')));
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('やめる'));
-      await tester.pumpAndSettle();
-      expect(fakeActionCards.redeemedMoveIds, isEmpty);
+      expect(find.text('技を受け取っています'), findsNothing);
     });
 
     testWidgets('属性で絞り込むと その属性の技だけを出す', (tester) async {
-      fakeActionCards
-        ..rankByMoveId.value = sampleRankByMoveId
-        ..creditsByRank.value = {3: 1};
+      fakeActionCards.rankByMoveId.value = sampleRankByMoveId;
       await pump(
         tester: tester,
         home: ActionCardScreen(dexStore: dexStore),
       );
       await tester.tap(find.byKey(const Key('action-card-filter-water')));
       await tester.pumpAndSettle();
-      expect(find.byKey(const Key('action-card-redeem-fire_1c')), findsNothing);
+      expect(find.byKey(const Key('action-card-buy-fire_1c')), findsNothing);
+      expect(find.byKey(const Key('action-card-buy-water_3')), findsOneWidget);
+    });
+  });
+
+  group('技に結び付いていない購入で選び直す', () {
+    testWidgets('購入のランク以下で持っていない技だけを出し 選ぶと購入に結び付ける', (tester) async {
+      fakeActionCards
+        ..rankByMoveId.value = sampleRankByMoveId
+        ..purchases.value = [
+          testActionCardPurchase(
+            actionCardPurchaseID: 'p0',
+            rank: 1,
+            moveID: 'water_1b',
+          ),
+          testActionCardPurchase(
+            actionCardPurchaseID: 'p1',
+            rank: 1,
+            moveID: null,
+          ),
+        ];
+      await pump(
+        tester: tester,
+        home: ActionCardScreen(dexStore: dexStore),
+      );
+      await tester.tap(
+        find.byKey(const Key('action-card-unassigned-choose-p1')),
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('ランク 1 の Action Card で受け取る技'), findsOneWidget);
       expect(
-        find.byKey(const Key('action-card-redeem-water_3')),
+        find.byKey(const Key('action-card-assign-fire_1c')),
+        findsOneWidget,
+      );
+      // 持っている技 (water_1b) と 購入のランクより高い技 (water_3) は出さない
+      expect(find.byKey(const Key('action-card-assign-water_1b')), findsNothing);
+      expect(find.byKey(const Key('action-card-assign-water_3')), findsNothing);
+      await tester.tap(find.byKey(const Key('action-card-assign-fire_1c')));
+      await tester.pumpAndSettle();
+      expect(fakeActionCards.assignedMoves, [
+        (actionCardPurchaseID: 'p1', moveID: 'fire_1c'),
+      ]);
+      expect(find.text('アイロンがけ を受け取りました'), findsOneWidget);
+    });
+
+    testWidgets('断られたら 失敗を出して選ぶ画面に残る', (tester) async {
+      fakeActionCards
+        ..rankByMoveId.value = sampleRankByMoveId
+        ..purchases.value = [
+          testActionCardPurchase(
+            actionCardPurchaseID: 'p1',
+            rank: 1,
+            moveID: null,
+          ),
+        ]
+        ..assignErrors.add(StateError('ランク 1 の Action Card では受け取れません'));
+      await pump(
+        tester: tester,
+        home: ActionCardScreen(dexStore: dexStore),
+      );
+      await tester.tap(
+        find.byKey(const Key('action-card-unassigned-choose-p1')),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('action-card-assign-fire_1c')));
+      await tester.pumpAndSettle();
+      expect(find.textContaining('受け取れません'), findsOneWidget);
+      expect(
+        find.byKey(const Key('action-card-assign-fire_1c')),
         findsOneWidget,
       );
     });
@@ -451,18 +505,22 @@ void main() {
 
   group('属性の絞り込み', () {
     testWidgets('絞り込んだ属性の最後の技を買い切ると すべてに戻して残りの技を出す', (tester) async {
-      fakeActionCards
-        ..rankByMoveId.value = sampleRankByMoveId
-        ..creditsByRank.value = {3: 2};
+      fakeActionCards.rankByMoveId.value = {'fire_1c': 1, 'water_3': 3};
       await pump(
         tester: tester,
         home: ActionCardScreen(dexStore: dexStore),
       );
       await tester.tap(find.byKey(const Key('action-card-filter-fire')));
       await tester.pumpAndSettle();
-      expect(find.byKey(const Key('action-card-redeem-water_3')), findsNothing);
+      expect(find.byKey(const Key('action-card-buy-water_3')), findsNothing);
       // 炎の技 (fire_1c) を買い切った後の購読の値を流す
-      fakeActionCards.ownedMoveIds.value = ['fire_1c'];
+      fakeActionCards.purchases.value = [
+        testActionCardPurchase(
+          actionCardPurchaseID: 'p1',
+          rank: 1,
+          moveID: 'fire_1c',
+        ),
+      ];
       await tester.pumpAndSettle();
       expect(find.byKey(const Key('action-card-filter-fire')), findsNothing);
       expect(
@@ -471,12 +529,9 @@ void main() {
             .selected,
         isTrue,
       );
-      expect(
-        find.byKey(const Key('action-card-redeem-water_3')),
-        findsOneWidget,
-      );
-      // 後で炎の技がまた買い切れるようになっても 前の絞り込みは戻らない
-      fakeActionCards.ownedMoveIds.value = const [];
+      expect(find.byKey(const Key('action-card-buy-water_3')), findsOneWidget);
+      // 後で炎の技がまた買えるようになっても 前の絞り込みは戻らない
+      fakeActionCards.purchases.value = const [];
       await tester.pumpAndSettle();
       expect(
         tester
@@ -484,17 +539,20 @@ void main() {
             .selected,
         isTrue,
       );
-      expect(
-        find.byKey(const Key('action-card-redeem-water_3')),
-        findsOneWidget,
-      );
+      expect(find.byKey(const Key('action-card-buy-water_3')), findsOneWidget);
     });
   });
 
   group('図鑑の詳細で覚えさせる・忘れさせる', () {
     testWidgets('覚えさせる技を選ぶ時に 外れる技を出し 選ぶと覚えさせて技の枠に出す', (tester) async {
       fakeActionCards
-        ..ownedMoveIds.value = ['water_3']
+        ..purchases.value = [
+          testActionCardPurchase(
+            actionCardPurchaseID: 'p1',
+            rank: 3,
+            moveID: 'water_3',
+          ),
+        ]
         ..monsterMoveIdsResult = ['water_3'];
       await pump(tester: tester, home: dexDetail());
       await tester.tap(find.byKey(const Key('action-card-teach')));
@@ -526,7 +584,13 @@ void main() {
         actionCardMoveIds: ['water_3'],
       );
       fakeActionCards
-        ..ownedMoveIds.value = ['water_3']
+        ..purchases.value = [
+          testActionCardPurchase(
+            actionCardPurchaseID: 'p1',
+            rank: 3,
+            moveID: 'water_3',
+          ),
+        ]
         ..monsterMoveIdsResult = const [];
       await pump(tester: tester, home: dexDetail());
       await tester.tap(find.byKey(const Key('action-card-forget-water_3')));

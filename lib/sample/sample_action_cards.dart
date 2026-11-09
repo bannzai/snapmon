@@ -9,7 +9,7 @@ import '../features/capture/monster_generator.dart';
 
 /// DEBUG ビルドでログインを飛ばした時に、Action Card の Firestore・Functions・RevenueCat の代わりになる端末だけの見本。
 /// Simulator には StoreKit の購入が無く、ログインを飛ばした端末は Functions を呼べないため、開発者メニューから
-/// 表示の切り替え・残高・技のランクの表を作り、購入・買い切り・覚えさせる・忘れさせるの画面の流れを確かめる
+/// 表示の切り替え・技に結び付いていない購入・技のランクの表を作り、技を選んで買う・選び直す・覚えさせる・忘れさせるの画面の流れを確かめる
 /// (~/.claude/rules/debug-menu-first-for-hard-to-reach-states.md)。値はアプリを閉じると消える。
 class SampleActionCards {
   /// 見本を作る。[actionCardMoveIdsOf] は図鑑の [monsterId] のモンスターが今覚えている Action Card の技を返す
@@ -22,19 +22,54 @@ class SampleActionCards {
   /// `config/features.actionCardsVisible` の代わり。
   final ValueNotifier<bool> isActionCardsVisible = ValueNotifier(false);
 
-  /// `users/{uid}.actionCardCredits` の代わり。
-  final ValueNotifier<Map<int, int>> creditsByRank = ValueNotifier(const {});
+  /// `users/{uid}/actionCardPurchases` の代わり (記録した順)。
+  final ValueNotifier<List<ActionCardPurchase>> purchases = ValueNotifier(
+    const [],
+  );
 
   /// `moveRanks/current.rankByMoveId` の代わり。
   final ValueNotifier<Map<String, int>?> rankByMoveId = ValueNotifier(null);
 
-  /// `users/{uid}/actionCards` の代わり。
-  final ValueNotifier<List<String>> ownedMoveIds = ValueNotifier(const []);
+  /// 次の購入が届く前に、控えた技を受け取れなくするか (開発者メニューが切り替える)。技を選んでから購入が届くまでの間に
+  /// ランクが上がるか同じ技を別の端末で受け取り、技に結び付かない購入が残る流れ (選び直しの導線) を確かめるため。
+  final ValueNotifier<bool> blocksReservedMoveBeforeArrival = ValueNotifier(
+    false,
+  );
 
-  /// [rank] の残高を 1 枚足す。
-  void addCredit({required int rank}) => creditsByRank.value = {
-    ...creditsByRank.value,
-    rank: (creditsByRank.value[rank] ?? 0) + 1,
+  /// `users/{uid}.actionCardMoveReservation` の代わり。
+  ({String actionCardMoveReservationID, String moveID, int rank})?
+  _reservation;
+
+  /// 見本の購入と控えの ID に付ける番号。
+  int _sampleSequence = 0;
+
+  /// [rank] の技に結び付いていない購入を 1 件足す (#290 より前の購入や、選び直しが要る購入の代わり)。
+  void addUnassignedPurchase({required int rank}) => _addPurchase(
+    rank: rank,
+    moveID: null,
+    actionCardMoveReservationID: null,
+  );
+
+  /// 購入を 1 件足す。
+  void _addPurchase({
+    required int rank,
+    required String? moveID,
+    required String? actionCardMoveReservationID,
+  }) => purchases.value = [
+    ...purchases.value,
+    ActionCardPurchase(
+      actionCardPurchaseID: 'sample-purchase-${++_sampleSequence}',
+      rank: rank,
+      moveID: moveID,
+      actionCardMoveReservationID: actionCardMoveReservationID,
+      createdAt: DateTime.now(),
+      moveAssignedAt: moveID == null ? null : DateTime.now(),
+    ),
+  ];
+
+  /// 買い切った技の ID。
+  Set<String> get _ownedMoveIds => {
+    for (final purchase in purchases.value) ?purchase.moveID,
   };
 
   /// [master] の買える技 (置き換えられた技を除く) に、威力でランクを付けた表を入れる。使用回数は見ない。
@@ -89,45 +124,104 @@ class SampleActionCards {
       ),
   ];
 
-  /// [Package] の購入の代わり。webhook が届くまでの間を確かめられるよう、3 秒後に残高を 1 枚足す。
+  /// reserveActionCardMove の代わり。買い切り済み・ランクが [rank] と違う時に断るのは Functions と同じ。
+  Future<String> _reserve({required String moveID, required int rank}) async {
+    if (_ownedMoveIds.contains(moveID)) {
+      throw StateError('$moveID は買い切り済みです');
+    }
+    final moveRank = rankByMoveId.value?[moveID];
+    if (moveRank == null) {
+      throw StateError('技のランクの表に $moveID がありません');
+    }
+    if (moveRank != rank) {
+      throw ActionCardMoveRankChangedException(rank: moveRank);
+    }
+    final actionCardMoveReservationID =
+        'sample-reservation-${++_sampleSequence}';
+    _reservation = (
+      actionCardMoveReservationID: actionCardMoveReservationID,
+      moveID: moveID,
+      rank: rank,
+    );
+    return actionCardMoveReservationID;
+  }
+
+  /// [Package] の購入と webhook の代わり。webhook が届くまでの間を確かめられるよう、3 秒後に購入を足す。
+  /// 控えた技を購入に結び付ける条件は Functions (functions/src/generation_tickets.ts) と同じ。
+  /// [blocksReservedMoveBeforeArrival] がオンなら、購入を足す前に控えた技のランクを 1 つ上げる (ランク 3 の技は上げられないため、
+  /// 代わりに同じ技を先に受け取ったことにする) ので、技に結び付かない購入が残る。
   Future<TicketPurchaseResult> _purchase({required Package package}) async {
     final rank = actionCardRankOfPackage(package: package)!;
-    Timer(const Duration(seconds: 3), () => addCredit(rank: rank));
+    Timer(const Duration(seconds: 3), () {
+      final reservation = _reservation?.rank == rank ? _reservation : null;
+      if (reservation != null && blocksReservedMoveBeforeArrival.value) {
+        if (reservation.rank < actionCardRanks.last) {
+          rankByMoveId.value = {
+            ...?rankByMoveId.value,
+            reservation.moveID: reservation.rank + 1,
+          };
+        } else {
+          _addPurchase(
+            rank: reservation.rank,
+            moveID: reservation.moveID,
+            actionCardMoveReservationID: null,
+          );
+        }
+      }
+      final reservedMoveRank = reservation == null
+          ? null
+          : rankByMoveId.value?[reservation.moveID];
+      final canReceive =
+          reservation != null &&
+          reservedMoveRank != null &&
+          reservedMoveRank <= reservation.rank &&
+          !_ownedMoveIds.contains(reservation.moveID);
+      _addPurchase(
+        rank: rank,
+        moveID: canReceive ? reservation.moveID : null,
+        actionCardMoveReservationID: reservation?.actionCardMoveReservationID,
+      );
+      if (reservation != null) {
+        _reservation = null;
+      }
+    });
     return TicketPurchaseResult.purchased;
   }
 
-  /// redeemActionCard の代わり。使うカードの決め方と、買い切り済み・カードが無い時・使うカードのランクが [creditRank] と違う時に
-  /// 断るのは Functions と同じ。
-  Future<Map<int, int>> _redeem({
-    required String moveId,
-    required int creditRank,
+  /// assignActionCardMove の代わり。断る条件は Functions と同じ。
+  Future<void> _assign({
+    required String actionCardPurchaseID,
+    required String moveID,
   }) async {
-    if (ownedMoveIds.value.contains(moveId)) {
-      throw StateError('$moveId は買い切り済みです');
-    }
-    final moveRank = rankByMoveId.value?[moveId];
-    if (moveRank == null) {
-      throw StateError('技のランクの表に $moveId がありません');
-    }
-    final redeemedCreditRank = creditRankToRedeem(
-      moveRank: moveRank,
-      creditsByRank: creditsByRank.value,
+    final purchase = purchases.value.singleWhere(
+      (purchase) => purchase.actionCardPurchaseID == actionCardPurchaseID,
     );
-    if (redeemedCreditRank == null) {
-      throw StateError('ランク $moveRank 以上の Action Card がありません');
+    if (purchase.moveID != null) {
+      throw StateError('$actionCardPurchaseID は技を受け取り済みです');
     }
-    if (redeemedCreditRank != creditRank) {
-      throw ActionCardCreditRankChangedException(
-        creditRank: redeemedCreditRank,
-        creditsByRank: creditsByRank.value,
+    if (_ownedMoveIds.contains(moveID)) {
+      throw StateError('$moveID は買い切り済みです');
+    }
+    final moveRank = rankByMoveId.value?[moveID];
+    if (moveRank == null || moveRank > purchase.rank) {
+      throw StateError(
+        'ランク ${purchase.rank} の Action Card では $moveID を受け取れません',
       );
     }
-    creditsByRank.value = {
-      ...creditsByRank.value,
-      redeemedCreditRank: creditsByRank.value[redeemedCreditRank]! - 1,
-    };
-    ownedMoveIds.value = [...ownedMoveIds.value, moveId];
-    return creditsByRank.value;
+    purchases.value = [
+      for (final candidate in purchases.value)
+        candidate.actionCardPurchaseID == actionCardPurchaseID
+            ? ActionCardPurchase(
+                actionCardPurchaseID: candidate.actionCardPurchaseID,
+                rank: candidate.rank,
+                moveID: moveID,
+                actionCardMoveReservationID:
+                    candidate.actionCardMoveReservationID,
+                createdAt: candidate.createdAt,
+                moveAssignedAt: DateTime.now(),
+              )
+            : candidate,
+    ];
   }
 
   /// teachActionCardMove の代わり。既に覚えていれば変えない (冪等)。
@@ -135,7 +229,7 @@ class SampleActionCards {
     required String monsterId,
     required String moveId,
   }) async {
-    if (!ownedMoveIds.value.contains(moveId)) {
+    if (!_ownedMoveIds.contains(moveId)) {
       throw StateError('$moveId を買い切っていません');
     }
     final actionCardMoveIds = actionCardMoveIdsOf(monsterId: monsterId);
@@ -159,10 +253,10 @@ class SampleActionCards {
     watchActionCardsVisible: () => _watch(notifier: isActionCardsVisible),
     fetchActionCardPackages: () async => _samplePackages(),
     purchaseActionCardPackage: _purchase,
-    watchActionCardCredits: () => _watch(notifier: creditsByRank),
+    watchActionCardPurchases: () => _watch(notifier: purchases),
     watchMoveRanks: () => _watch(notifier: rankByMoveId),
-    watchOwnedActionCardMoveIds: () => _watch(notifier: ownedMoveIds),
-    redeemActionCard: _redeem,
+    reserveActionCardMove: _reserve,
+    assignActionCardMove: _assign,
     teachActionCardMove: _teach,
     forgetActionCardMove: _forget,
   );

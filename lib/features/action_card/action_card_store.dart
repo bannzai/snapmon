@@ -12,7 +12,7 @@ import 'action_card_client.dart';
 /// 戻るのを待ちつつ、入口が出ないまま利用者が待たされすぎない長さにした。読めるまで繰り返す。
 const Duration _packagesRetryDelay = Duration(seconds: 30);
 
-/// Action Card の表示の切り替え・売っている package・残高・技のランク・買い切った技の、最後に読めた値。
+/// Action Card の表示の切り替え・売っている package・購入・技のランクの、最後に読めた値。
 /// 図鑑の詳細・プロフィール・Action Card の画面が同じ値を見るため、アプリに 1 つ置いて [ActionCardScope] で配る。
 class ActionCardStore extends ChangeNotifier {
   /// [client] で購読を始める。[sessionChanges] が知らせるたびに (ログイン・始め直し・データの引き継ぎ) 空の値から購読し直す。
@@ -64,26 +64,39 @@ class ActionCardStore extends ChangeNotifier {
   /// 読み込みの失敗の後の読み直しのタイマー。読めるまで [_packagesRetryDelay] ごとに読み直す。
   Timer? _packagesRetryTimer;
 
-  /// ランクごとの残高。
-  Map<int, int> _creditsByRank = const {};
+  /// Action Card の購入 (記録した順)。
+  List<ActionCardPurchase> _purchases = const [];
 
   /// 技の ID ごとのランク。表がまだ無い時は null。
   Map<String, int>? _rankByMoveId;
 
-  /// 買い切った技の ID (買い切った順)。
-  List<String> _ownedMoveIds = const [];
-
   /// 売っている Action Card の package (ランクの順)。
   List<Package> get packages => _packages;
 
-  /// ランクごとの残高 (無いランクは 0 枚)。
-  Map<int, int> get creditsByRank => _creditsByRank;
+  /// Action Card の購入 (記録した順)。購入画面が、控えた技の購入が届いたかを見る。
+  List<ActionCardPurchase> get purchases => _purchases;
 
-  /// 技の ID ごとのランク。表がまだ無い時 (最初のデプロイの直後) は null で、買い切りと購入を受け付けない。
+  /// 技の ID ごとのランク。表がまだ無い時 (最初のデプロイの直後) は null で、購入と選び直しを受け付けない。
   Map<String, int>? get rankByMoveId => _rankByMoveId;
 
-  /// 買い切った技の ID (買い切った順)。
-  List<String> get ownedMoveIds => _ownedMoveIds;
+  /// 買い切った技の ID (技を結び付けた順)。購入の `moveID` から出し、別に持たない (#290)。
+  List<String> get ownedMoveIds => [
+    for (final purchase in [
+      for (final purchase in _purchases)
+        if (purchase.moveID != null) purchase,
+    ]..sort(
+        (left, right) => (left.moveAssignedAt ?? left.createdAt).compareTo(
+          right.moveAssignedAt ?? right.createdAt,
+        ),
+      ))
+      purchase.moveID!,
+  ];
+
+  /// 技に結び付いていない購入 (記録した順)。技を選んでから購入が届くまでの間にランクが上がった時などに残り、利用者が技を選び直す。
+  List<ActionCardPurchase> get unassignedPurchases => [
+    for (final purchase in _purchases)
+      if (purchase.moveID == null) purchase,
+  ];
 
   /// 購入の入口 (プロフィール・図鑑の詳細のボタンと購入の画面) を出すか。課金を使えるビルドで、`actionCardsVisible` が true で、
   /// 売っている package がある時だけ true (issue #273 の表示の条件)。
@@ -92,12 +105,10 @@ class ActionCardStore extends ChangeNotifier {
       _isActionCardsVisible &&
       _packages.isNotEmpty;
 
-  /// Action Card の画面の入口を出すか。購入の入口を出す時と、まだ技に換えていないカードか買い切った技を持っている時
-  /// (隠している間や商品を読めない間も、払ったものを使えなくしないため)。
+  /// Action Card の画面の入口を出すか。購入の入口を出す時と、購入が 1 件でもある時 (買い切った技と技に結び付いていない購入。
+  /// 隠している間や商品を読めない間も、払ったものを使えなくしないため)。
   bool get isScreenEntryVisible =>
-      isPurchaseEntryVisible ||
-      _creditsByRank.values.any((count) => count > 0) ||
-      _ownedMoveIds.isNotEmpty;
+      isPurchaseEntryVisible || _purchases.isNotEmpty;
 
   /// 空の値に戻してから、[client] の購読をすべて始め直す。
   void _resubscribe() {
@@ -113,9 +124,8 @@ class ActionCardStore extends ChangeNotifier {
     _hasLoadedPackages = false;
     // 前のアカウントの途中の読み込みは、返ってもアカウントが違うため件数を減らさない。数え直しをここで 0 から始める
     _loadingPackagesCount = 0;
-    _creditsByRank = const {};
+    _purchases = const [];
     _rankByMoveId = null;
-    _ownedMoveIds = const [];
     notifyListeners();
     _subscriptions
       ..add(
@@ -126,20 +136,14 @@ class ActionCardStore extends ChangeNotifier {
         }, onError: (Object _) {}),
       )
       ..add(
-        client.watchActionCardCredits().listen((creditsByRank) {
-          _creditsByRank = creditsByRank;
+        client.watchActionCardPurchases().listen((purchases) {
+          _purchases = purchases;
           notifyListeners();
         }, onError: (Object _) {}),
       )
       ..add(
         client.watchMoveRanks().listen((rankByMoveId) {
           _rankByMoveId = rankByMoveId;
-          notifyListeners();
-        }, onError: (Object _) {}),
-      )
-      ..add(
-        client.watchOwnedActionCardMoveIds().listen((ownedMoveIds) {
-          _ownedMoveIds = ownedMoveIds;
           notifyListeners();
         }, onError: (Object _) {}),
       );
@@ -207,46 +211,23 @@ class ActionCardStore extends ChangeNotifier {
     });
   }
 
-  /// [package] を購入する ([ActionCardClient.purchaseActionCardPackage])。
+  /// 値段を出したランク [rank] の [moveID] を買う前に控え、控えの ID を返す ([ActionCardClient.reserveActionCardMove])。
+  Future<String> reserveMove({required String moveID, required int rank}) =>
+      client.reserveActionCardMove(moveID: moveID, rank: rank);
+
+  /// [package] を購入する ([ActionCardClient.purchaseActionCardPackage])。先に [reserveMove] で控えた技が、届いた購入に結び付く。
   Future<TicketPurchaseResult> purchase({required Package package}) =>
       client.purchaseActionCardPackage(package: package);
 
-  /// [moveId] を買い切り、返った残高と技を購読の値が届く前に出す。待っている間にアカウントが変わった時は、返った値は前のアカウントの
-  /// ものなので反映しない (coding-rules-general-verify-value-ownership.md)。待っている間に購読の値が届いた時も、その値の方が
-  /// 新しい (買い切りの後の別の端末の購入などを含む) ため、届いた項目は返った値で上書きしない。購読は値ごとに新しいオブジェクトを流すため、
-  /// 呼び出しの前と同じオブジェクトかで届いたかを見分ける。
-  /// 使うカードのランクが確かめる画面で出した [creditRank] と違うと断られた時は、断られた時の残高を同じ条件で反映してから
-  /// [ActionCardCreditRankChangedException] を投げ直す (確かめ直す画面と一覧の残高を揃えるため)。
-  Future<void> redeem({required String moveId, required int creditRank}) async {
-    final sessionGeneration = _sessionGeneration;
-    final creditsByRankAtStart = _creditsByRank;
-    final ownedMoveIdsAtStart = _ownedMoveIds;
-    final Map<int, int> creditsByRank;
-    try {
-      creditsByRank = await client.redeemActionCard(
-        moveId: moveId,
-        creditRank: creditRank,
-      );
-    } on ActionCardCreditRankChangedException catch (error) {
-      if (sessionGeneration == _sessionGeneration &&
-          identical(_creditsByRank, creditsByRankAtStart)) {
-        _creditsByRank = error.creditsByRank;
-        notifyListeners();
-      }
-      rethrow;
-    }
-    if (sessionGeneration != _sessionGeneration) {
-      return;
-    }
-    if (identical(_creditsByRank, creditsByRankAtStart)) {
-      _creditsByRank = creditsByRank;
-    }
-    if (identical(_ownedMoveIds, ownedMoveIdsAtStart) &&
-        !_ownedMoveIds.contains(moveId)) {
-      _ownedMoveIds = [..._ownedMoveIds, moveId];
-    }
-    notifyListeners();
-  }
+  /// 技に結び付いていない購入 [actionCardPurchaseID] に [moveID] を結び付ける ([ActionCardClient.assignActionCardMove])。
+  /// 結果は購入の購読で届く。
+  Future<void> assignMove({
+    required String actionCardPurchaseID,
+    required String moveID,
+  }) => client.assignActionCardMove(
+    actionCardPurchaseID: actionCardPurchaseID,
+    moveID: moveID,
+  );
 
   @override
   void dispose() {

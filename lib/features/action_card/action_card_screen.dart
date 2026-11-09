@@ -16,7 +16,7 @@ import 'action_card_store.dart';
 
 /// 購入の後に webhook の反映を待ってから「反映を待っています」の案内を出すまでの時間。
 /// 生成チケットの購入画面 (lib/features/capture/ticket_purchase_sheet.dart) と同じ webhook のため、同じ長さにした。
-const Duration _creditArrivalNoticeDelay = Duration(seconds: 20);
+const Duration _purchaseArrivalNoticeDelay = Duration(seconds: 20);
 
 /// [master] の技を ID で引く表。技のランクの表と買い切った技は最新の版の master の技で、端末の master にまだ無い技は表に無い
 /// (`refreshDefinitionsForActionCardMoves` が定義を読み直すまでの間。無い技は出さない)。
@@ -24,27 +24,31 @@ Map<String, Move> _movesById({required MasterData master}) => {
   for (final move in master.moves) move.id: move,
 };
 
-/// [rank] の技のうち、購入画面にランクの例として出す技。威力が一番大きい技 (同じなら ID の順) で、無ければ null。
-/// 威力で選ぶのは、高いランクほど強い技が並ぶことを 1 つの名前で伝えるため (documents/DIRECTION.md「決めたこと」の #273 の行)。
-Move? featuredMoveOfRank({
+/// [store] の売っている package のうち、ランク [rank] のもの。売っていなければ null。
+Package? actionCardPackageOfRank({
+  required ActionCardStore store,
   required int rank,
-  required Map<String, int> rankByMoveId,
+}) => store.packages
+    .where((package) => actionCardRankOfPackage(package: package) == rank)
+    .firstOrNull;
+
+/// 技に結び付いていない購入 [purchase] で受け取れる技。今のランクが購入のランク以下で、まだ買い切っていない技 (ID の順)。
+/// 判定は Functions の assignActionCardMove (functions/src/action_card_rules.ts の canAssignMoveToActionCard) と同じ。
+List<Move> assignableMovesOfPurchase({
+  required ActionCardPurchase purchase,
+  required ActionCardStore store,
   required MasterData master,
 }) {
   final movesById = _movesById(master: master);
-  final moves =
-      [
-        for (final MapEntry(key: moveId, value: moveRank)
-            in rankByMoveId.entries)
-          if (moveRank == rank) ?movesById[moveId],
-      ]..sort((left, right) {
-        final powerOrder = right.power.compareTo(left.power);
-        return powerOrder != 0 ? powerOrder : left.id.compareTo(right.id);
-      });
-  return moves.firstOrNull;
+  return [
+    for (final MapEntry(key: moveId, value: moveRank)
+        in (store.rankByMoveId ?? const <String, int>{}).entries)
+      if (moveRank <= purchase.rank && !store.ownedMoveIds.contains(moveId))
+        ?movesById[moveId],
+  ]..sort((left, right) => left.id.compareTo(right.id));
 }
 
-/// Action Card の画面。持っているカードの枚数、カードを買う入口、技を選んで買い切る一覧、買い切った技を出す。
+/// Action Card の画面。技に結び付いていない購入 (あれば)、技を選んで買う一覧、買い切った技を出す。
 /// 入口はプロフィールと図鑑の詳細 ([ActionCardStore.isScreenEntryVisible] の時だけ)。
 class ActionCardScreen extends StatefulWidget {
   /// 画面を作る。
@@ -57,13 +61,10 @@ class ActionCardScreen extends StatefulWidget {
   State<ActionCardScreen> createState() => _ActionCardScreenState();
 }
 
-/// [ActionCardScreen] の属性の絞り込みと買い切りの途中かどうか。
+/// [ActionCardScreen] の属性の絞り込みと、定義の読み直しの状態。
 class _ActionCardScreenState extends State<ActionCardScreen> {
-  /// 買い切る一覧を絞る属性。null はすべて。
+  /// 買う一覧を絞る属性。null はすべて。
   String? _elementTypeIdFilter;
-
-  /// 買い切りの途中の技。途中は他の技を押せなくする (同じカードを 2 回使わせないため)。
-  String? _redeemingMoveId;
 
   /// 定義の読み直しを頼んだ技 (`refreshDefinitionsForActionCardMoves`)。
   final Set<String> _requestedMoveIds = {};
@@ -113,77 +114,6 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
     });
   }
 
-  /// [move] を買い切ってよいかを、使うカードのランク [creditRank] を出して確かめてから買い切る。
-  /// 確かめている間に技のランクか残高が変わってサーバーが別のランクのカードを使うと断った時は、そのランクで確かめ直す
-  /// (確かめた内容と違うカードを使わないため。#277)。
-  Future<void> _redeem({
-    required ActionCardStore store,
-    required Move move,
-    required int creditRank,
-  }) async {
-    final messenger = ScaffoldMessenger.of(context);
-    final l10n = context.l10n;
-    var confirmingCreditRank = creditRank;
-    var isCreditRankChanged = false;
-    while (true) {
-      final isConfirmed = await showDialog<bool>(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text(l10n.actionCardRedeemConfirmTitle(move.displayName)),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (isCreditRankChanged) ...[
-                Text(
-                  l10n.actionCardRedeemCreditRankChanged,
-                  key: const Key('action-card-redeem-credit-rank-changed'),
-                ),
-                const SizedBox(height: 8),
-              ],
-              Text(l10n.actionCardRedeemConfirmBody(confirmingCreditRank)),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(false),
-              child: Text(l10n.commonCancel),
-            ),
-            FilledButton(
-              key: const Key('action-card-redeem-confirm'),
-              onPressed: () => Navigator.of(context).pop(true),
-              child: Text(l10n.actionCardRedeemConfirm),
-            ),
-          ],
-        ),
-      );
-      if (isConfirmed != true || !mounted) {
-        return;
-      }
-      setState(() => _redeemingMoveId = move.id);
-      try {
-        await store.redeem(moveId: move.id, creditRank: confirmingCreditRank);
-        messenger.showSnackBar(
-          SnackBar(content: Text(l10n.actionCardRedeemed(move.displayName))),
-        );
-        return;
-      } on ActionCardCreditRankChangedException catch (error) {
-        confirmingCreditRank = error.creditRank;
-        isCreditRankChanged = true;
-      } catch (error) {
-        messenger.showSnackBar(SnackBar(content: Text(error.toString())));
-        return;
-      } finally {
-        if (mounted) {
-          setState(() => _redeemingMoveId = null);
-        }
-      }
-      if (!mounted) {
-        return;
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) => ListenableBuilder(
     listenable: widget.dexStore,
@@ -199,23 +129,20 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
     }
     final movesById = _movesById(master: widget.dexStore.definitions);
     final rankByMoveId = store.rankByMoveId;
-    final highestCreditRank = actionCardRanks.lastWhere(
-      (rank) => (store.creditsByRank[rank] ?? 0) > 0,
-      orElse: () => 0,
-    );
-    final redeemableMoves = [
-      if (rankByMoveId != null)
+    // 売っているランクの技だけを出す (offering に無いランクの技は値段を出せず買えないため)
+    final purchasableMoves = [
+      if (rankByMoveId != null && store.isPurchaseEntryVisible)
         for (final MapEntry(key: moveId, value: moveRank)
             in rankByMoveId.entries)
-          if (moveRank <= highestCreditRank &&
-              !store.ownedMoveIds.contains(moveId))
+          if (!store.ownedMoveIds.contains(moveId) &&
+              actionCardPackageOfRank(store: store, rank: moveRank) != null)
             ?movesById[moveId],
     ]..sort((left, right) => left.id.compareTo(right.id));
-    // 選んだ属性の技を買い切り終えるとその属性のチップは消えるため、買い切れる技が無い属性はすべてとして扱う
+    // 選んだ属性の技を買い切り終えるとその属性のチップは消えるため、買える技が無い属性はすべてとして扱う
     // (一覧が空のまま、どのチップも選ばれていない状態にしないため)。選んだ値も次のフレームで解除する
-    // (残すと、後で残高や技のランクが変わってその属性の技がまた買い切れるようになった時に、触っていない絞り込みが戻るため)
+    // (残すと、後で技のランクや売っているランクが変わってその属性の技がまた買えるようになった時に、触っていない絞り込みが戻るため)
     final activeElementTypeIdFilter =
-        redeemableMoves.any(
+        purchasableMoves.any(
           (move) => move.elementTypeId == _elementTypeIdFilter,
         )
         ? _elementTypeIdFilter
@@ -232,40 +159,46 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(20, 8, 20, 32),
         children: [
-          Text(l10n.actionCardCreditsHeading, style: SnapmonTextStyles.label),
-          const SizedBox(height: 8),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: [
-              for (final rank in actionCardRanks)
-                Chip(
-                  key: Key('action-card-credit-$rank'),
-                  label: Text(
-                    '${l10n.actionCardRank(rank)}  ${l10n.actionCardCreditCount(store.creditsByRank[rank] ?? 0)}',
+          // 技に結び付いていない購入は、選び直しが要る時だけ出す (通常の購入は技を選んでから買うため残らない。#290)
+          if (store.unassignedPurchases.isNotEmpty) ...[
+            Text(
+              l10n.actionCardUnassignedHeading,
+              style: SnapmonTextStyles.label,
+            ),
+            const SizedBox(height: 8),
+            for (final purchase in store.unassignedPurchases)
+              Card(
+                key: Key(
+                  'action-card-unassigned-${purchase.actionCardPurchaseID}',
+                ),
+                color: SnapmonColors.card,
+                child: ListTile(
+                  title: Text(l10n.actionCardRank(purchase.rank)),
+                  trailing: TextButton(
+                    key: Key(
+                      'action-card-unassigned-choose-${purchase.actionCardPurchaseID}',
+                    ),
+                    onPressed: rankByMoveId == null
+                        ? null
+                        : () => showActionCardAssignSheet(
+                            context: context,
+                            purchase: purchase,
+                            definitions: widget.dexStore.definitions,
+                          ),
+                    child: Text(l10n.actionCardUnassignedChooseMove),
                   ),
                 ),
-            ],
-          ),
-          if (store.isPurchaseEntryVisible) ...[
-            const SizedBox(height: 12),
-            FilledButton.icon(
-              key: const Key('action-card-buy'),
-              onPressed: () => showActionCardPurchaseSheet(
-                context: context,
-                definitions: widget.dexStore.definitions,
               ),
-              icon: const Icon(Icons.shopping_bag_outlined),
-              label: Text(l10n.actionCardBuy),
-            ),
+            const SizedBox(height: 24),
           ],
-          const SizedBox(height: 24),
-          Text(l10n.actionCardRedeemHeading, style: SnapmonTextStyles.label),
+          Text(l10n.actionCardBuyHeading, style: SnapmonTextStyles.label),
+          const SizedBox(height: 4),
+          Text(l10n.actionCardBuyDescription, style: SnapmonTextStyles.small),
           const SizedBox(height: 8),
-          if (rankByMoveId == null)
+          if (!store.isPurchaseEntryVisible)
+            Text(l10n.actionCardBuyUnavailable, style: SnapmonTextStyles.body)
+          else if (rankByMoveId == null)
             Text(l10n.actionCardRanksPreparing, style: SnapmonTextStyles.body)
-          else if (highestCreditRank == 0)
-            Text(l10n.actionCardRedeemNoCredits, style: SnapmonTextStyles.body)
           else ...[
             Wrap(
               spacing: 6,
@@ -279,7 +212,7 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
                 ),
                 for (final elementType
                     in widget.dexStore.definitions.elementTypes)
-                  if (redeemableMoves.any(
+                  if (purchasableMoves.any(
                     (move) => move.elementTypeId == elementType.id,
                   ))
                     ChoiceChip(
@@ -292,27 +225,20 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
               ],
             ),
             const SizedBox(height: 8),
-            for (final move in redeemableMoves)
+            for (final move in purchasableMoves)
               if (activeElementTypeIdFilter == null ||
                   move.elementTypeId == activeElementTypeIdFilter)
                 _ActionCardMoveTile(
-                  key: Key('action-card-redeem-${move.id}'),
+                  key: Key('action-card-buy-${move.id}'),
                   move: move,
-                  rank: rankByMoveId[move.id]!,
+                  trailingText:
+                      '${l10n.actionCardRank(rankByMoveId[move.id]!)}\n${actionCardPackageOfRank(store: store, rank: rankByMoveId[move.id]!)!.storeProduct.priceString}',
                   definitions: widget.dexStore.definitions,
-                  onTap: _redeemingMoveId != null
-                      ? null
-                      : switch (creditRankToRedeem(
-                          moveRank: rankByMoveId[move.id]!,
-                          creditsByRank: store.creditsByRank,
-                        )) {
-                          final creditRank? => () => _redeem(
-                            store: store,
-                            move: move,
-                            creditRank: creditRank,
-                          ),
-                          null => null,
-                        },
+                  onTap: () => showActionCardMovePurchaseSheet(
+                    context: context,
+                    move: move,
+                    definitions: widget.dexStore.definitions,
+                  ),
                 ),
           ],
           const SizedBox(height: 24),
@@ -326,7 +252,7 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
                 _ActionCardMoveTile(
                   key: Key('action-card-owned-${move.id}'),
                   move: move,
-                  rank: null,
+                  trailingText: null,
                   definitions: widget.dexStore.definitions,
                   onTap: null,
                 ),
@@ -341,7 +267,7 @@ class _ActionCardMoveTile extends StatelessWidget {
   const _ActionCardMoveTile({
     super.key,
     required this.move,
-    required this.rank,
+    required this.trailingText,
     required this.definitions,
     required this.onTap,
   });
@@ -349,8 +275,8 @@ class _ActionCardMoveTile extends StatelessWidget {
   /// 出す技。
   final Move move;
 
-  /// 技の今のランク。買い切った技の一覧では出さないため null。
-  final int? rank;
+  /// 右に出す文言 (買う一覧では技の今のランクと値段)。買い切った技の一覧では出さないため null。
+  final String? trailingText;
 
   /// 技の属性の名前を引く定義。
   final MasterData definitions;
@@ -369,9 +295,10 @@ class _ActionCardMoveTile extends StatelessWidget {
         typeMultiplier: null,
         definitions: definitions,
       ),
-      trailing: switch (rank) {
-        final rank? => Text(
-          context.l10n.actionCardRank(rank),
+      trailing: switch (trailingText) {
+        final trailingText? => Text(
+          trailingText,
+          textAlign: TextAlign.end,
           style: SnapmonTextStyles.small.copyWith(
             color: SnapmonColors.textOnCardMuted,
           ),
@@ -382,70 +309,84 @@ class _ActionCardMoveTile extends StatelessWidget {
   );
 }
 
-/// Action Card の購入画面を出す。売っている package (ランクの順) ごとに、ストアの価格・今そのランクにある技の数・例の技を出す。
-/// 技のランクの表がまだ無い間は、買ったカードで技を選べないため買うボタンを押せなくする。
-Future<void> showActionCardPurchaseSheet({
+/// 技 [move] を買う画面を出す。技の今のランクの商品の値段を出し、買うと技を控えてからストアで購入し、購入が届くまで待つ。
+Future<void> showActionCardMovePurchaseSheet({
   required BuildContext context,
+  required Move move,
   required MasterData definitions,
 }) => showModalBottomSheet<void>(
   context: context,
   isScrollControlled: true,
   // ドラッグの閉じ方は PopScope で止まらず、購入の途中に閉じると結果を受ける画面が無くなるため切る
   enableDrag: false,
-  builder: (context) => _ActionCardPurchaseSheet(definitions: definitions),
+  builder: (context) =>
+      _ActionCardMovePurchaseSheet(move: move, definitions: definitions),
 );
 
-/// Action Card の購入画面。
-class _ActionCardPurchaseSheet extends StatefulWidget {
-  const _ActionCardPurchaseSheet({required this.definitions});
+/// 技を 1 つ買う画面。
+class _ActionCardMovePurchaseSheet extends StatefulWidget {
+  const _ActionCardMovePurchaseSheet({
+    required this.move,
+    required this.definitions,
+  });
 
-  /// 例の技の名前を引く定義。
+  /// 買う技。
+  final Move move;
+
+  /// 技の属性の名前を引く定義。
   final MasterData definitions;
 
   @override
-  State<_ActionCardPurchaseSheet> createState() =>
-      _ActionCardPurchaseSheetState();
+  State<_ActionCardMovePurchaseSheet> createState() =>
+      _ActionCardMovePurchaseSheetState();
 }
 
-/// [_ActionCardPurchaseSheet] の購入の進み具合。
-class _ActionCardPurchaseSheetState extends State<_ActionCardPurchaseSheet> {
-  /// ストアの購入の途中か。
+/// [_ActionCardMovePurchaseSheet] の購入の進み具合。
+class _ActionCardMovePurchaseSheetState
+    extends State<_ActionCardMovePurchaseSheet> {
+  /// 技の控えかストアの購入の途中か。
   bool _isPurchasing = false;
 
-  /// 購入が済んだ (か支払いが保留になった) カードのランクと、購入を始めた時のそのランクの残高。
-  /// 残高がこの値より増えたら届いたとする (残りのカードを持ったまま開けるため、0 より多いかでは決められない)。
-  ({int rank, int creditsAtPurchase})? _purchasedCredit;
+  /// 購入が済んだ (か支払いが保留になった) 時の控えの ID。この ID の購入が届くのを待つ (別の端末の購入と取り違えないため)。
+  String? _actionCardMoveReservationID;
 
   /// 支払いが保留になったか。もう一度買わせないため、買うボタンを出さない。
   bool _isPaymentPending = false;
 
   /// 反映に時間がかかっている案内を出すか。
-  bool _isCreditArrivalDelayed = false;
+  bool _isPurchaseArrivalDelayed = false;
+
+  /// 値段を出している間に技のランクが変わり、控えを断られたか。新しいランクの値段を出して買い直してもらう。
+  bool _isRankChanged = false;
 
   /// 最後の購入の失敗。
   Object? _purchaseError;
 
-  /// [_isCreditArrivalDelayed] にするタイマー。
-  Timer? _creditArrivalNoticeTimer;
+  /// [_isPurchaseArrivalDelayed] にするタイマー。
+  Timer? _purchaseArrivalNoticeTimer;
 
   @override
   void dispose() {
-    _creditArrivalNoticeTimer?.cancel();
+    _purchaseArrivalNoticeTimer?.cancel();
     super.dispose();
   }
 
-  /// [package] (ランク [rank]) を購入し、結果に応じて画面を進める。
+  /// 値段を出したランク [rank] で技を控え、[package] を購入し、結果に応じて画面を進める。
   Future<void> _purchase({
     required ActionCardStore store,
     required Package package,
     required int rank,
   }) async {
-    final creditsAtPurchase = store.creditsByRank[rank] ?? 0;
     setState(() {
       _isPurchasing = true;
+      _isRankChanged = false;
       _purchaseError = null;
     });
     try {
+      final actionCardMoveReservationID = await store.reserveMove(
+        moveID: widget.move.id,
+        rank: rank,
+      );
       final result = await store.purchase(package: package);
       if (!mounted) {
         return;
@@ -454,23 +395,26 @@ class _ActionCardPurchaseSheetState extends State<_ActionCardPurchaseSheet> {
         _isPurchasing = false;
         switch (result) {
           case TicketPurchaseResult.purchased:
-            _purchasedCredit = (
-              rank: rank,
-              creditsAtPurchase: creditsAtPurchase,
+            _actionCardMoveReservationID = actionCardMoveReservationID;
+            _purchaseArrivalNoticeTimer = Timer(
+              _purchaseArrivalNoticeDelay,
+              () => setState(() => _isPurchaseArrivalDelayed = true),
             );
-            _creditArrivalNoticeTimer = Timer(_creditArrivalNoticeDelay, () {
-              setState(() => _isCreditArrivalDelayed = true);
-            });
           case TicketPurchaseResult.cancelled:
             break;
           case TicketPurchaseResult.pending:
-            _purchasedCredit = (
-              rank: rank,
-              creditsAtPurchase: creditsAtPurchase,
-            );
+            _actionCardMoveReservationID = actionCardMoveReservationID;
             _isPaymentPending = true;
         }
       });
+    } on ActionCardMoveRankChangedException {
+      // 新しいランクは技のランクの購読で届くため、届いた値で値段を出し直す
+      if (mounted) {
+        setState(() {
+          _isPurchasing = false;
+          _isRankChanged = true;
+        });
+      }
     } catch (error) {
       if (mounted) {
         setState(() {
@@ -483,13 +427,10 @@ class _ActionCardPurchaseSheetState extends State<_ActionCardPurchaseSheet> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
     final store = ActionCardScope.maybeOf(context);
     if (store == null) {
       return const SizedBox.shrink();
     }
-    final rankByMoveId = store.rankByMoveId;
-    final purchasedCredit = _purchasedCredit;
     return PopScope(
       canPop: !_isPurchasing,
       child: SafeArea(
@@ -499,131 +440,251 @@ class _ActionCardPurchaseSheetState extends State<_ActionCardPurchaseSheet> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: purchasedCredit != null
-                ? (store.creditsByRank[purchasedCredit.rank] ?? 0) >
-                          purchasedCredit.creditsAtPurchase
-                      ? [
-                          Text(
-                            l10n.actionCardPurchaseArrivedTitle,
-                            textAlign: TextAlign.center,
-                            style: SnapmonTextStyles.hero,
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            '${l10n.actionCardRank(purchasedCredit.rank)}  ${l10n.actionCardCreditCount(store.creditsByRank[purchasedCredit.rank] ?? 0)}',
-                            textAlign: TextAlign.center,
-                            style: SnapmonTextStyles.body,
-                          ),
-                          const SizedBox(height: 16),
-                          FilledButton(
-                            key: const Key('action-card-choose-move'),
-                            onPressed: () => Navigator.of(context).pop(),
-                            child: Text(l10n.actionCardPurchaseChooseMove),
-                          ),
-                        ]
-                      : [
-                          const Center(child: CircularProgressIndicator()),
-                          const SizedBox(height: 16),
-                          Text(
-                            _isPaymentPending
-                                ? l10n.actionCardPurchasePending
-                                : _isCreditArrivalDelayed
-                                ? l10n.actionCardPurchaseArrivalDelayed
-                                : l10n.actionCardPurchaseWaiting,
-                            textAlign: TextAlign.center,
-                            style: SnapmonTextStyles.body,
-                          ),
-                        ]
-                : [
-                    Text(
-                      l10n.actionCardTitle,
-                      textAlign: TextAlign.center,
-                      style: SnapmonTextStyles.hero,
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      l10n.actionCardPurchaseDescription,
-                      textAlign: TextAlign.center,
-                      style: SnapmonTextStyles.body,
-                    ),
-                    const SizedBox(height: 16),
-                    if (rankByMoveId == null)
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 12),
-                        child: Text(
-                          l10n.actionCardRanksPreparing,
-                          textAlign: TextAlign.center,
-                          style: SnapmonTextStyles.body,
-                        ),
-                      ),
-                    for (final package in store.packages)
-                      if (actionCardRankOfPackage(package: package)
-                          case final rank?)
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: FilledButton(
-                            key: Key('action-card-package-$rank'),
-                            onPressed: _isPurchasing || rankByMoveId == null
-                                ? null
-                                : () => _purchase(
-                                    store: store,
-                                    package: package,
-                                    rank: rank,
-                                  ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    '${l10n.actionCardRank(rank)}  ${package.storeProduct.priceString}',
-                                  ),
-                                  if (rankByMoveId != null) ...[
-                                    Text(
-                                      l10n.actionCardPackageMoves(
-                                        rankByMoveId.values
-                                            .where(
-                                              (moveRank) => moveRank == rank,
-                                            )
-                                            .length,
-                                      ),
-                                      style: SnapmonTextStyles.small.copyWith(
-                                        color: SnapmonColors.textOnCardMuted,
-                                      ),
-                                    ),
-                                    if (featuredMoveOfRank(
-                                          rank: rank,
-                                          rankByMoveId: rankByMoveId,
-                                          master: widget.definitions,
-                                        )
-                                        case final featuredMove?)
-                                      Text(
-                                        l10n.actionCardPackageFeatured(
-                                          featuredMove.displayName,
-                                        ),
-                                        style: SnapmonTextStyles.small.copyWith(
-                                          color: SnapmonColors.textOnCardMuted,
-                                        ),
-                                      ),
-                                  ],
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                    if (_purchaseError case final purchaseError?)
-                      Text(
-                        purchaseError.toString(),
-                        textAlign: TextAlign.center,
-                        style: SnapmonTextStyles.body.copyWith(
-                          color: SnapmonColors.hitPointsLoss,
-                        ),
-                      ),
-                    if (_isPurchasing)
-                      const Padding(
-                        padding: EdgeInsets.only(top: 8),
-                        child: Center(child: CircularProgressIndicator()),
-                      ),
-                  ],
+            children: switch (_actionCardMoveReservationID) {
+              final actionCardMoveReservationID? => _arrivalChildren(
+                context: context,
+                store: store,
+                actionCardMoveReservationID: actionCardMoveReservationID,
+              ),
+              null => _offerChildren(context: context, store: store),
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// 買う前の中身。技、今のランクの値段、買うボタン。
+  List<Widget> _offerChildren({
+    required BuildContext context,
+    required ActionCardStore store,
+  }) {
+    final l10n = context.l10n;
+    final rank = store.rankByMoveId?[widget.move.id];
+    final package = rank == null
+        ? null
+        : actionCardPackageOfRank(store: store, rank: rank);
+    return [
+      MoveCard(
+        move: widget.move,
+        remainingPowerPoints: null,
+        typeMultiplier: null,
+        definitions: widget.definitions,
+      ),
+      const SizedBox(height: 12),
+      if (_isRankChanged) ...[
+        Text(
+          l10n.actionCardPurchaseRankChanged,
+          key: const Key('action-card-purchase-rank-changed'),
+          textAlign: TextAlign.center,
+          style: SnapmonTextStyles.body,
+        ),
+        const SizedBox(height: 12),
+      ],
+      if (rank != null && package != null)
+        FilledButton(
+          key: const Key('action-card-purchase-buy'),
+          onPressed: _isPurchasing
+              ? null
+              : () => _purchase(store: store, package: package, rank: rank),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: Text(
+              '${l10n.actionCardRank(rank)}  ${l10n.actionCardPurchaseBuy(package.storeProduct.priceString)}',
+            ),
+          ),
+        )
+      else
+        Text(
+          l10n.actionCardBuyUnavailable,
+          textAlign: TextAlign.center,
+          style: SnapmonTextStyles.body,
+        ),
+      if (_purchaseError case final purchaseError?)
+        Padding(
+          padding: const EdgeInsets.only(top: 8),
+          child: Text(
+            purchaseError.toString(),
+            textAlign: TextAlign.center,
+            style: SnapmonTextStyles.body.copyWith(
+              color: SnapmonColors.hitPointsLoss,
+            ),
+          ),
+        ),
+      if (_isPurchasing)
+        const Padding(
+          padding: EdgeInsets.only(top: 8),
+          child: Center(child: CircularProgressIndicator()),
+        ),
+    ];
+  }
+
+  /// 購入の後の中身。控え [actionCardMoveReservationID] の購入が届くまで待ち、届いたら技を受け取れたかを出す。
+  List<Widget> _arrivalChildren({
+    required BuildContext context,
+    required ActionCardStore store,
+    required String actionCardMoveReservationID,
+  }) {
+    final l10n = context.l10n;
+    final arrivedPurchase = store.purchases
+        .where(
+          (purchase) =>
+              purchase.actionCardMoveReservationID ==
+              actionCardMoveReservationID,
+        )
+        .firstOrNull;
+    if (arrivedPurchase == null) {
+      return [
+        const Center(child: CircularProgressIndicator()),
+        const SizedBox(height: 16),
+        Text(
+          _isPaymentPending
+              ? l10n.actionCardPurchasePending
+              : _isPurchaseArrivalDelayed
+              ? l10n.actionCardPurchaseArrivalDelayed
+              : l10n.actionCardPurchaseWaiting,
+          textAlign: TextAlign.center,
+          style: SnapmonTextStyles.body,
+        ),
+      ];
+    }
+    final isMoveReceived = arrivedPurchase.moveID == widget.move.id;
+    return [
+      Text(
+        isMoveReceived
+            ? l10n.actionCardPurchaseArrivedTitle(widget.move.displayName)
+            : l10n.actionCardPurchaseUnassignedTitle,
+        key: Key(
+          isMoveReceived
+              ? 'action-card-purchase-arrived'
+              : 'action-card-purchase-unassigned',
+        ),
+        textAlign: TextAlign.center,
+        style: SnapmonTextStyles.hero,
+      ),
+      if (!isMoveReceived) ...[
+        const SizedBox(height: 8),
+        Text(
+          l10n.actionCardPurchaseUnassignedBody,
+          textAlign: TextAlign.center,
+          style: SnapmonTextStyles.body,
+        ),
+      ],
+      const SizedBox(height: 16),
+      FilledButton(
+        key: const Key('action-card-purchase-close'),
+        onPressed: () => Navigator.of(context).pop(),
+        child: Text(l10n.commonClose),
+      ),
+    ];
+  }
+}
+
+/// 技に結び付いていない購入 [purchase] で受け取る技を選ぶ画面を出す。
+Future<void> showActionCardAssignSheet({
+  required BuildContext context,
+  required ActionCardPurchase purchase,
+  required MasterData definitions,
+}) => showModalBottomSheet<void>(
+  context: context,
+  isScrollControlled: true,
+  builder: (context) =>
+      _ActionCardAssignSheet(purchase: purchase, definitions: definitions),
+);
+
+/// 技に結び付いていない購入で受け取る技を選ぶ画面。
+class _ActionCardAssignSheet extends StatefulWidget {
+  const _ActionCardAssignSheet({
+    required this.purchase,
+    required this.definitions,
+  });
+
+  /// 技に結び付いていない購入。
+  final ActionCardPurchase purchase;
+
+  /// 技の名前・属性を引く定義。
+  final MasterData definitions;
+
+  @override
+  State<_ActionCardAssignSheet> createState() => _ActionCardAssignSheetState();
+}
+
+/// [_ActionCardAssignSheet] の受け取りの途中かどうか。
+class _ActionCardAssignSheetState extends State<_ActionCardAssignSheet> {
+  /// 受け取りの途中の技。途中は他の技を押せなくする (1 つの購入に 2 つの技を結び付けようとさせないため)。
+  String? _assigningMoveID;
+
+  /// [move] を購入に結び付け、結果を知らせて閉じる。断られた時は理由を出して画面に残る (選び直せるようにするため)。
+  Future<void> _assign({
+    required ActionCardStore store,
+    required Move move,
+  }) async {
+    final messenger = ScaffoldMessenger.of(context);
+    final navigator = Navigator.of(context);
+    final l10n = context.l10n;
+    setState(() => _assigningMoveID = move.id);
+    try {
+      await store.assignMove(
+        actionCardPurchaseID: widget.purchase.actionCardPurchaseID,
+        moveID: move.id,
+      );
+      messenger.showSnackBar(
+        SnackBar(content: Text(l10n.actionCardAssigned(move.displayName))),
+      );
+      navigator.pop();
+    } catch (error) {
+      messenger.showSnackBar(SnackBar(content: Text(error.toString())));
+      if (mounted) {
+        setState(() => _assigningMoveID = null);
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final store = ActionCardScope.maybeOf(context);
+    if (store == null) {
+      return const SizedBox.shrink();
+    }
+    final moves = assignableMovesOfPurchase(
+      purchase: widget.purchase,
+      store: store,
+      master: widget.definitions,
+    );
+    return PopScope(
+      canPop: _assigningMoveID == null,
+      child: SafeArea(
+        child: SizedBox(
+          height: MediaQuery.sizeOf(context).height * 0.7,
+          child: ListView(
+            padding: const EdgeInsets.all(20),
+            children: [
+              Text(
+                l10n.actionCardAssignTitle(widget.purchase.rank),
+                textAlign: TextAlign.center,
+                style: SnapmonTextStyles.label,
+              ),
+              const SizedBox(height: 12),
+              if (moves.isEmpty)
+                Text(
+                  l10n.actionCardAssignNoMoves,
+                  textAlign: TextAlign.center,
+                  style: SnapmonTextStyles.body,
+                ),
+              for (final move in moves)
+                _ActionCardMoveTile(
+                  key: Key('action-card-assign-${move.id}'),
+                  move: move,
+                  trailingText: l10n.actionCardRank(
+                    store.rankByMoveId![move.id]!,
+                  ),
+                  definitions: widget.definitions,
+                  onTap: _assigningMoveID != null
+                      ? null
+                      : () => _assign(store: store, move: move),
+                ),
+            ],
           ),
         ),
       ),

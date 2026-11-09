@@ -28,97 +28,47 @@ void main() {
 
   tearDown(() => store.dispose());
 
-  test('表示の切り替えが false でも 技に換えていないカードがあれば Action Card の画面の入口を出す', () async {
+  test('表示の切り替えが false でも 技に結び付いていない購入があれば Action Card の画面の入口を出す', () async {
     fakeActionCards
       ..isActionCardsVisible.value = false
-      ..creditsByRank.value = {2: 1};
+      ..purchases.value = [
+        testActionCardPurchase(actionCardPurchaseID: 'p1', rank: 2, moveID: null),
+      ];
     await pumpEventQueue();
     expect(store.isPurchaseEntryVisible, isFalse);
     expect(store.isScreenEntryVisible, isTrue);
   });
 
-  test('買い切りの応答を待っている間にアカウントが変わったら 返った残高を反映しない', () async {
-    final redeemCompleter = Completer<Map<int, int>>();
-    fakeActionCards
-      ..creditsByRank.value = {1: 1}
-      ..redeemCompleter = redeemCompleter;
+  test('購入がひとつも無く 表示の切り替えが false なら Action Card の画面の入口を出さない', () async {
+    fakeActionCards.isActionCardsVisible.value = false;
     await pumpEventQueue();
-    final redeeming = store.redeem(moveId: 'fire_1c', creditRank: 1);
-    fakeActionCards.creditsByRank.value = {3: 5};
+    expect(store.isScreenEntryVisible, isFalse);
+  });
+
+  test('買い切った技は技のある購入から 技に結び付いていない購入は技の無い購入から出す', () async {
+    fakeActionCards.purchases.value = [
+      testActionCardPurchase(actionCardPurchaseID: 'p1', rank: 1, moveID: 'fire_1c'),
+      testActionCardPurchase(actionCardPurchaseID: 'p2', rank: 3, moveID: null),
+      testActionCardPurchase(actionCardPurchaseID: 'p3', rank: 2, moveID: 'water_3'),
+    ];
+    await pumpEventQueue();
+    expect(store.ownedMoveIds, ['fire_1c', 'water_3']);
+    expect(
+      store.unassignedPurchases.map((purchase) => purchase.actionCardPurchaseID),
+      ['p2'],
+    );
+  });
+
+  test('アカウントが変わったら 前のアカウントの購入を出さない', () async {
+    fakeActionCards.purchases.value = [
+      testActionCardPurchase(actionCardPurchaseID: 'p1', rank: 1, moveID: 'fire_1c'),
+    ];
+    await pumpEventQueue();
+    expect(store.ownedMoveIds, ['fire_1c']);
+    fakeActionCards.purchases.value = const [];
     sessionChanges.value += 1;
     await pumpEventQueue();
-    redeemCompleter.complete({1: 0});
-    await redeeming;
-    expect(store.creditsByRank, {3: 5});
     expect(store.ownedMoveIds, isEmpty);
-  });
-
-  test('買い切りの応答より先に購読の新しい残高が届いたら 古い応答で上書きしない', () async {
-    final redeemCompleter = Completer<Map<int, int>>();
-    fakeActionCards
-      ..creditsByRank.value = {1: 1}
-      ..redeemCompleter = redeemCompleter;
-    await pumpEventQueue();
-    final redeeming = store.redeem(moveId: 'fire_1c', creditRank: 1);
-    // 買い切りで 0 枚になった後に別の端末の購入で 1 枚足された値が、応答より先に届く
-    fakeActionCards.creditsByRank.value = {1: 1, 2: 1};
-    await pumpEventQueue();
-    redeemCompleter.complete({1: 0});
-    await redeeming;
-    expect(store.creditsByRank, {1: 1, 2: 1});
-  });
-
-  test('購読の値が届く前に買い切りの応答が返ったら 返った残高を出す', () async {
-    final redeemCompleter = Completer<Map<int, int>>();
-    fakeActionCards
-      ..creditsByRank.value = {1: 1}
-      ..redeemCompleter = redeemCompleter;
-    await pumpEventQueue();
-    final redeeming = store.redeem(moveId: 'fire_1c', creditRank: 1);
-    redeemCompleter.complete({1: 0});
-    await redeeming;
-    expect(store.creditsByRank, {1: 0});
-    expect(store.ownedMoveIds, ['fire_1c']);
-  });
-
-  test('使うカードのランクが変わったと断られたら 断られた時の残高を出して 例外を投げ直し 技を足さない', () async {
-    fakeActionCards
-      ..creditsByRank.value = {1: 1}
-      ..redeemErrors.add(
-        const ActionCardCreditRankChangedException(
-          creditRank: 2,
-          creditsByRank: {1: 0, 2: 1},
-        ),
-      );
-    await pumpEventQueue();
-    await expectLater(
-      store.redeem(moveId: 'fire_1c', creditRank: 1),
-      throwsA(isA<ActionCardCreditRankChangedException>()),
-    );
-    expect(store.creditsByRank, {1: 0, 2: 1});
-    expect(store.ownedMoveIds, isEmpty);
-  });
-
-  test('断られるより先に購読の新しい残高が届いていたら 断られた時の残高で上書きしない', () async {
-    final redeemCompleter = Completer<Map<int, int>>();
-    fakeActionCards
-      ..creditsByRank.value = {1: 1}
-      ..redeemCompleter = redeemCompleter;
-    await pumpEventQueue();
-    final redeeming = store.redeem(moveId: 'fire_1c', creditRank: 1);
-    fakeActionCards.creditsByRank.value = {1: 0, 2: 1, 3: 1};
-    await pumpEventQueue();
-    redeemCompleter.completeError(
-      const ActionCardCreditRankChangedException(
-        creditRank: 2,
-        creditsByRank: {1: 0, 2: 1},
-      ),
-    );
-    await expectLater(
-      redeeming,
-      throwsA(isA<ActionCardCreditRankChangedException>()),
-    );
-    expect(store.creditsByRank, {1: 0, 2: 1, 3: 1});
   });
 
   test('package の読み込みが並んだ時 先に始めた読み込みが後から失敗で返っても 後の成功を空で上書きしない', () async {
