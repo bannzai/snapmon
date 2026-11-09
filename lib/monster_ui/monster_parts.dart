@@ -7,6 +7,7 @@ import '../domain/monster/monster_definition.dart';
 import '../features/dex/owned_monster.dart';
 import '../firebase/share_art.dart';
 import '../theme/snapmon_colors.dart';
+import '../theme/snapmon_element_icons.dart';
 import '../theme/snapmon_radii.dart';
 import '../theme/snapmon_text_styles.dart';
 import 'monster_art_painting.dart';
@@ -228,29 +229,18 @@ class _PlaceholderMonsterPainter extends CustomPainter {
 
 /// 属性の札。[elementTypeId] の名前を [definitions] から引き、属性の色の地に描く。
 class ElementTypeTag extends StatelessWidget {
-  /// 属性の札を作る (モンスターのカード・図鑑・技の詳細の大きさ)。
+  /// 属性の札を作る。
   const ElementTypeTag({
     super.key,
     required this.elementTypeId,
     required this.definitions,
-  }) : compact = false;
-
-  /// バトルの技のボタンの中に置く小さい札を作る。2 列の技のボタンの幅 (390 の画面で約 142px) に技の名前と
-  /// 相性の札と並べるため、余白と文字を [ElementTypeTag.new] より詰める (https://github.com/bannzai/snapmon/issues/281 )。
-  const ElementTypeTag.compact({
-    super.key,
-    required this.elementTypeId,
-    required this.definitions,
-  }) : compact = true;
+  });
 
   /// 描く属性の識別子。
   final String elementTypeId;
 
   /// 属性の名前を引く定義。
   final MasterData definitions;
-
-  /// 技のボタンの中の小さい札として描くか。
-  final bool compact;
 
   @override
   Widget build(BuildContext context) => DecoratedBox(
@@ -259,11 +249,7 @@ class ElementTypeTag extends StatelessWidget {
       borderRadius: SnapmonRadii.tag,
     ),
     child: Padding(
-      // 小さい札の余白 6/2 と文字 10 は、相性の札 (矢印 14 + 上下の余白 2) と高さが揃い、
-      // 2 枚で約 44px (余白 12 + 文字 10、余白 8 + 矢印 14) になる値。文字を 10 より小さくすると属性名が読めない
-      padding: compact
-          ? const EdgeInsets.symmetric(horizontal: 6, vertical: 2)
-          : const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: Text(
         definitions.elementTypes
             .firstWhere(
@@ -272,7 +258,54 @@ class ElementTypeTag extends StatelessWidget {
             )
             .displayName,
         style: SnapmonTextStyles.small.copyWith(
-          fontSize: compact ? 10 : null,
+          color: SnapmonColors.textOnBackground,
+        ),
+      ),
+    ),
+  );
+}
+
+/// 技のカードの名前の右端に置く属性のアイコン。属性の色の丸に [elementTypeIcon] を白で描き、属性の名前は読み上げにだけ持つ。
+/// 名前の 1 行目 (文字 15 × 行の高さ 1.2 = 18) と同じ高さにし、名前が折り返しても 1 行目の右端に留まる
+/// (https://github.com/bannzai/snapmon/issues/281 。bannzai の「属性ごとのアイコンを決めよう。そして上向か下向きかのアイコンも含めて
+/// タイトルの右端に配置。どちらも小さく」)。
+class ElementTypeIcon extends StatelessWidget {
+  /// 属性のアイコンを作る。
+  const ElementTypeIcon({
+    super.key,
+    required this.elementTypeId,
+    required this.definitions,
+  });
+
+  /// 描く属性の識別子。
+  final String elementTypeId;
+
+  /// 読み上げる属性の名前を引く定義。
+  final MasterData definitions;
+
+  /// 丸の直径。技の名前の 1 行の高さ (`SnapmonTextStyles.moveName` の 15 × 1.2) に合わせる。
+  static const double diameter = 18;
+
+  @override
+  Widget build(BuildContext context) => Semantics(
+    label: definitions.elementTypes
+        .firstWhere(
+          (elementType) => elementType.id == elementTypeId,
+          orElse: () => throw StateError('属性 $elementTypeId が定義に無い'),
+        )
+        .displayName,
+    child: ExcludeSemantics(
+      child: Container(
+        width: diameter,
+        height: diameter,
+        decoration: BoxDecoration(
+          color: elementTypeColor(elementTypeId: elementTypeId),
+          shape: BoxShape.circle,
+        ),
+        // 丸 18 の中に 12 のアイコン。上下左右 3 の余白が残り、丸の縁に触れない
+        child: Icon(
+          elementTypeIcon(elementTypeId: elementTypeId),
+          size: 12,
           color: SnapmonColors.textOnBackground,
         ),
       ),

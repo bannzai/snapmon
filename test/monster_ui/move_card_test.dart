@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:snapmon/l10n/l10n.dart';
+import 'package:snapmon/theme/snapmon_element_icons.dart';
 import 'package:snapmon/theme/snapmon_text_styles.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
 import 'package:snapmon/monster_ui/monster_parts.dart';
 import 'package:snapmon/monster_ui/move_card.dart';
 
+import '../monster_generator_fixture.dart';
 import '../sample_data_fixture.dart';
 
 void main() {
@@ -41,11 +43,11 @@ void main() {
     ),
   );
 
-  testWidgets('2 列の技のボタンの幅で文字を 3 倍にしても 1 段目がはみ出さず、札が名前の下の行に下りる', (
+  testWidgets('2 列の技のボタンの幅で文字を 3 倍にしても 1 段目がはみ出さず、名前が折り返してアイコンは 1 行目の右端に残る', (
     tester,
   ) async {
-    // 390 の画面の 2 列の技のボタンの幅 (173) に、2 枚の札を 3 倍の文字で入れる。
-    // 名前と札を Row に並べると「RenderFlex overflowed」の例外が出る (Codex のレビューと観点レビューの指摘)
+    // 390 の画面の 2 列の技のボタンの幅 (173) に、2 つのアイコンを 3 倍の文字で入れる。
+    // 名前を Expanded にしない Row だと「RenderFlex overflowed」の例外が出る (Codex のレビューと観点レビューの指摘)
     await tester.pumpWidget(
       MaterialApp(
         theme: snapmonThemeData(),
@@ -71,86 +73,72 @@ void main() {
       ),
     );
     expect(tester.takeException(), isNull);
-    final elementTypeTag = find.byType(ElementTypeTag);
-    final effectivenessTag = find.byKey(const Key('move-type-effectiveness'));
-    expect(effectivenessTag, findsOneWidget);
-    // 札は名前の右に並ばず、名前の下の行に下りる
+    final name = find.text('ブリキパンチ');
+    final elementTypeIcon = find.byType(ElementTypeIcon);
+    final effectivenessIcon = find.byKey(const Key('move-type-effectiveness'));
+    expect(effectivenessIcon, findsOneWidget);
+    // 名前は `...` で切らずに折り返す (1 行の高さ 15 × 1.2 × 3 倍 = 54 より高い)
+    final nameText = tester.widget<Text>(name);
+    expect(nameText.overflow, isNot(TextOverflow.ellipsis));
+    expect(nameText.maxLines, isNull);
+    expect(tester.getSize(name).height, greaterThan(54));
+    // アイコンは名前の下の行に下りず、1 行目の上端に揃って名前の右にある
+    expect(tester.getTopLeft(elementTypeIcon).dy, tester.getTopLeft(name).dy);
     expect(
-      tester.getTopLeft(elementTypeTag).dy,
-      greaterThanOrEqualTo(tester.getBottomLeft(find.text('ブリキパンチ')).dy),
+      tester.getTopLeft(elementTypeIcon).dx,
+      greaterThanOrEqualTo(tester.getTopRight(name).dx),
     );
-    // どの札も技のボタンの幅からはみ出さない
+    // どのアイコンも技のボタンの幅からはみ出さない
     expect(
-      tester.getBottomRight(effectivenessTag).dx,
+      tester.getBottomRight(effectivenessIcon).dx,
       lessThanOrEqualTo(tester.getTopRight(find.byType(MoveCard)).dx),
     );
   });
 
-  testWidgets('バトルの技のボタンの属性の札は、カードの属性の札より余白と文字が小さい', (tester) async {
-    // 2 列の技のボタンの幅 (390 の画面で約 142) に名前と 2 枚の札を並べるため、技のボタンの中だけ小さくする。
-    // 他の画面 (モンスターのカード・図鑑・技の詳細) の札は変えない (https://github.com/bannzai/snapmon/issues/281 )
+  testWidgets('属性と相性のアイコンは名前の 1 行の高さ (18) の丸で、名前の右端に並ぶ', (tester) async {
+    // bannzai の「属性ごとのアイコンを決めよう。そして上向か下向きかのアイコンも含めてタイトルの右端に配置。どちらも小さく」
+    // (https://github.com/bannzai/snapmon/issues/281 )
+    await pumpMoveCard(
+      tester: tester,
+      remainingPowerPoints: 12,
+      moveId: plainMove.id,
+      typeMultiplier: 2,
+    );
+    final elementTypeIcon = find.byType(ElementTypeIcon);
+    final effectivenessIcon = find.byKey(const Key('move-type-effectiveness'));
+    expect(tester.getSize(elementTypeIcon), const Size(18, 18));
+    expect(tester.getSize(effectivenessIcon), const Size(18, 18));
+    // 鋼のアイコンは盾
+    expect(
+      find.descendant(of: elementTypeIcon, matching: find.byIcon(Icons.shield)),
+      findsOneWidget,
+    );
+    // 属性名の文字は画面に出さず、読み上げの名前にだけ持つ
+    expect(find.text('鋼'), findsNothing);
+    // 相性のアイコンがいちばん右で、MoveCard の右端に付く
+    expect(
+      tester.getTopRight(effectivenessIcon).dx,
+      moreOrLessEquals(tester.getTopRight(find.byType(MoveCard)).dx),
+    );
+    expect(
+      tester.getTopLeft(effectivenessIcon).dx,
+      greaterThan(tester.getTopRight(elementTypeIcon).dx),
+    );
+  });
+
+  testWidgets('master に無い属性 (その場で作った定義) は代わりの星のアイコンで描く', (tester) async {
     await tester.pumpWidget(
       MaterialApp(
         theme: snapmonThemeData(),
-        locale: const Locale('ja'),
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
         home: Scaffold(
-          body: Column(
-            children: [
-              ElementTypeTag(
-                key: const Key('card-tag'),
-                elementTypeId: plainMove.elementTypeId,
-                definitions: sampleData.definitions,
-              ),
-              MoveCard(
-                key: const Key('battle-move'),
-                move: plainMove,
-                remainingPowerPoints: 12,
-                typeMultiplier: 2,
-                definitions: sampleData.definitions,
-              ),
-              // モンスターのカードの覚えている技の行 (バトルの外。残りの PP が無い) は同じ MoveCard を通るが、札は小さくしない
-              MoveCard(
-                key: const Key('card-move'),
-                move: plainMove,
-                remainingPowerPoints: null,
-                typeMultiplier: null,
-                definitions: sampleData.definitions,
-              ),
-            ],
+          body: ElementTypeIcon(
+            elementTypeId: 'dynamic-wax',
+            definitions: definitionsWithWax(base: sampleData.definitions),
           ),
         ),
       ),
     );
-    final cardTag = find.byKey(const Key('card-tag'));
-    final moveTag = find.descendant(
-      of: find.byKey(const Key('battle-move')),
-      matching: find.byType(ElementTypeTag),
-    );
-    expect(
-      tester.getSize(
-        find.descendant(
-          of: find.byKey(const Key('card-move')),
-          matching: find.byType(ElementTypeTag),
-        ),
-      ),
-      tester.getSize(cardTag),
-    );
-    // 余白 8/4 + 文字 11 のカードの札に対し、技のボタンの札は余白 6/2 + 文字 10 で、幅・高さとも小さい
-    expect(
-      tester.getSize(moveTag).width,
-      lessThan(tester.getSize(cardTag).width),
-    );
-    expect(
-      tester.getSize(moveTag).height,
-      lessThan(tester.getSize(cardTag).height),
-    );
-    // 相性の札 (余白 4/2 + 矢印 14) も、カードの属性の札より低い
-    expect(
-      tester.getSize(find.byKey(const Key('move-type-effectiveness'))).height,
-      lessThan(tester.getSize(cardTag).height),
-    );
+    expect(find.byIcon(elementTypeFallbackIcon), findsOneWidget);
   });
 
   testWidgets('名前と属性の札・威力・特殊効果の説明と PP を別の段と書体で描く', (tester) async {
@@ -160,13 +148,15 @@ void main() {
       moveId: effectMove.id,
       typeMultiplier: null,
     );
-    // 名前は見出しの書体で、属性の札・説明 (本文の書体) と区別する
+    // 名前は見出しの書体で、説明 (本文の書体) と区別する
     expect(
       tester.widget<Text>(find.text('ゆげのもや')).style?.fontFamily,
       headingFontFamily,
     );
     expect(
-      tester.widget<ElementTypeTag>(find.byType(ElementTypeTag)).elementTypeId,
+      tester
+          .widget<ElementTypeIcon>(find.byType(ElementTypeIcon))
+          .elementTypeId,
       effectMove.elementTypeId,
     );
     expect(
@@ -178,9 +168,9 @@ void main() {
       tester.widget<Text>(find.text('先に動くと強い')).style?.fontFamily,
       bodyFontFamily,
     );
-    // 1 段目は名前の右に属性の札、その下に威力、いちばん下に説明と PP が並ぶ
+    // 1 段目は名前の右に属性のアイコン、その下に威力、いちばん下に説明と PP が並ぶ
     expect(
-      tester.getTopLeft(find.byType(ElementTypeTag)).dx,
+      tester.getTopLeft(find.byType(ElementTypeIcon)).dx,
       greaterThanOrEqualTo(tester.getTopRight(find.text('ゆげのもや')).dx),
     );
     expect(
@@ -188,7 +178,7 @@ void main() {
           .getTopLeft(find.text('威力 ${effectMove.power}', findRichText: true))
           .dy,
       greaterThanOrEqualTo(
-        tester.getBottomLeft(find.byType(ElementTypeTag)).dy,
+        tester.getBottomLeft(find.byType(ElementTypeIcon)).dy,
       ),
     );
     expect(
@@ -222,8 +212,10 @@ void main() {
       typeMultiplier: null,
     );
     expect(find.text('PP ${plainMove.powerPoints}'), findsOneWidget);
-    // 名前・札の中の属性名・威力・PP の 4 つだけで、説明の段と相性の札は無い
-    expect(find.byType(RichText), findsNWidgets(4));
+    // 文字は名前・威力・PP の 3 つだけで、説明の段と相性のアイコンは無い (属性はアイコンで、文字を持たない。
+    // RichText で数えないのは、Icon の字形も RichText で描かれるため)
+    expect(find.byType(Text), findsNWidgets(3));
+    expect(find.byKey(const Key('move-type-effectiveness')), findsNothing);
   });
 
   // 等倍 (1) は「似ているが出さない」側。0.25・4 は 2 属性の相手への積で、画面では ×2・×0.5 と同じ矢印になり、
@@ -256,12 +248,12 @@ void main() {
         expect(tester.widget<Icon>(effectivenessTag).icon, expectedIcon);
         expect(find.bySemanticsLabel(expectedLabel), findsOneWidget);
         expect(find.text(expectedLabel), findsNothing);
-        // 倍率の文字は画面に出さない (札の中は矢印だけ)
+        // 倍率の文字は画面に出さない (丸の中は矢印だけ)
         expect(find.textContaining('×'), findsNothing);
-        // 属性の札の右に並べ、「鋼 ⇈」のように属性と相性を続けて読ませる
+        // 属性のアイコンの右に並べ、属性と相性を続けて読ませる
         expect(
           tester.getTopLeft(effectivenessTag).dx,
-          greaterThan(tester.getTopRight(find.byType(ElementTypeTag)).dx),
+          greaterThan(tester.getTopRight(find.byType(ElementTypeIcon)).dx),
         );
       }
       semanticsHandle.dispose();

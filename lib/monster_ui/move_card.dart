@@ -5,11 +5,10 @@ import '../domain/master/master_data.dart';
 import '../domain/master/move.dart';
 import '../l10n/l10n.dart';
 import '../theme/snapmon_colors.dart';
-import '../theme/snapmon_radii.dart';
 import '../theme/snapmon_text_styles.dart';
 import 'monster_parts.dart';
 
-/// 技の中身を 3 段で描く。1 段目は名前と、右に寄せた属性の札・今の相手への相性の札 (1 行に入らない幅では名前の下の行)、2 段目は威力、3 段目は特殊効果の説明と右に寄せた PP。
+/// 技の中身を 3 段で描く。1 段目は名前 (幅に入らなければ折り返す) と、右端に固定した属性のアイコン・今の相手への相性のアイコン、2 段目は威力、3 段目は特殊効果の説明と右に寄せた PP。
 /// 段ごとに書体と色を変え、何が名前で何が属性かを読み分けられるようにする (https://github.com/bannzai/snapmon/issues/123 )。
 /// バトルの技のボタンと、モンスターのカードの覚えている技の行で使う。地はカードの生成りの白を前提にする。
 class MoveCard extends StatelessWidget {
@@ -28,7 +27,7 @@ class MoveCard extends StatelessWidget {
   /// 残りの PP。バトルの外 (カードの覚えている技) では null で、その時は最大の PP だけを出す。
   final int? remainingPowerPoints;
 
-  /// 今の相手の場のモンスターへの相性の倍率。属性の札の右に上下の矢印の札で出す
+  /// 今の相手の場のモンスターへの相性の倍率。属性のアイコンの右に上下の矢印のアイコンで出す
   /// (効果が抜群か今ひとつかを技を選ぶ前に分かるようにする。https://github.com/bannzai/snapmon/issues/241 )。
   /// バトルの外と相性が効かない技 (補助技・一撃必殺) は null で、出さない。
   final double? typeMultiplier;
@@ -41,39 +40,27 @@ class MoveCard extends StatelessWidget {
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisSize: MainAxisSize.min,
     children: [
-      // 名前を左、札を右に置き、1 行に収まらない幅 (2 列の技のボタンに長い名前と 2 枚の札、大きい文字) では
-      // 札を名前の下の行に送る。Row に並べると、札が入らない時に名前が潰れて Row がはみ出す
-      Wrap(
-        alignment: WrapAlignment.spaceBetween,
-        crossAxisAlignment: WrapCrossAlignment.center,
-        spacing: 8,
-        runSpacing: 4,
+      // 名前を左、属性と相性のアイコンを右端に置く。名前は幅に入らなければ折り返し (`...` で切らない)、
+      // アイコンは折り返さず 1 行目の右端に留まる (bannzai の「カードのタイトルが長かったら 1 行に収めるように `...` にしないこと。
+      // アイコンは改行しない」。https://github.com/bannzai/snapmon/issues/281 )。名前を Expanded にするため、
+      // 大きい文字でも Row がはみ出さない
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(move.displayName, style: SnapmonTextStyles.moveName),
-          // 属性の札と相性の札は「鋼 ⇈」と 1 まとまりで読ませるため 1 つの子にし、大きい文字で 2 枚が入らない時だけ札の間で折り返す
-          Wrap(
-            spacing: 4,
-            runSpacing: 4,
-            crossAxisAlignment: WrapCrossAlignment.center,
-            children: [
-              // 小さくするのはバトルの技のボタン (remainingPowerPoints がある) の中だけ。モンスターのカードの覚えている技の行は
-              // 幅が広く、他の画面の属性の札と同じ大きさにそろえる (https://github.com/bannzai/snapmon/issues/281 )
-              if (remainingPowerPoints != null)
-                ElementTypeTag.compact(
-                  elementTypeId: move.elementTypeId,
-                  definitions: definitions,
-                )
-              else
-                ElementTypeTag(
-                  elementTypeId: move.elementTypeId,
-                  definitions: definitions,
-                ),
-              // 等倍は出さない (ログの「こうかは ばつぐんだ」「いまひとつ」と同じく、倍率が変わる時だけ知らせる。全部の技に出すと技の枠が埋まるため)
-              if (typeMultiplier case final typeMultiplier?
-                  when typeMultiplier != 1)
-                _TypeEffectivenessTag(typeMultiplier: typeMultiplier),
-            ],
+          Expanded(
+            child: Text(move.displayName, style: SnapmonTextStyles.moveName),
           ),
+          const SizedBox(width: 6),
+          ElementTypeIcon(
+            elementTypeId: move.elementTypeId,
+            definitions: definitions,
+          ),
+          // 等倍は出さない (ログの「こうかは ばつぐんだ」「いまひとつ」と同じく、倍率が変わる時だけ知らせる。全部の技に出すと技の枠が埋まるため)
+          if (typeMultiplier case final typeMultiplier?
+              when typeMultiplier != 1) ...[
+            const SizedBox(width: 4),
+            _TypeEffectivenessIcon(typeMultiplier: typeMultiplier),
+          ],
         ],
       ),
       const SizedBox(height: 4),
@@ -142,14 +129,14 @@ class MoveCard extends StatelessWidget {
   );
 }
 
-/// 今の相手への相性の札。上下の矢印だけで、効果が抜群 (1 より大きい) か今ひとつ (1 より小さい) かを言葉を読まずに伝える
-/// (https://github.com/bannzai/snapmon/issues/259 )。
+/// 今の相手への相性のアイコン。上下の矢印だけで、効果が抜群 (1 より大きい) か今ひとつ (1 より小さい) かを言葉を読まずに伝える
+/// (https://github.com/bannzai/snapmon/issues/259 )。属性のアイコンと同じ大きさの丸にし、
 /// 抜群は強調色の地に濃い矢印で技の中でいちばん目を引かせ、今ひとつは薄い地と薄い矢印で控えめに描く。
 /// 倍率 (×2・×4・×0.5・×0.25) と「効果は抜群」「効果はいまひとつ」の言葉は読み上げの名前にだけ持つ。
-/// 画面に出すと 2 列の技のボタンの幅に収まらず札が名前の下の行に下り、使った後のログが同じ言葉を出して矢印の意味を教えるため
+/// 画面に出すと 2 列の技のボタンの幅に収まらず、使った後のログが同じ言葉を出して矢印の意味を教えるため
 /// (倍率を消したのは bannzai の「なんなら数字もいらない気がする」。https://github.com/bannzai/snapmon/issues/281 )。
-class _TypeEffectivenessTag extends StatelessWidget {
-  const _TypeEffectivenessTag({required this.typeMultiplier});
+class _TypeEffectivenessIcon extends StatelessWidget {
+  const _TypeEffectivenessIcon({required this.typeMultiplier});
 
   /// 相性の倍率 (等倍以外)。
   final double typeMultiplier;
@@ -166,26 +153,25 @@ class _TypeEffectivenessTag extends StatelessWidget {
           ? context.l10n.moveTypeSuperEffective(multiplierText)
           : context.l10n.moveTypeNotVeryEffective(multiplierText),
       child: ExcludeSemantics(
-        child: DecoratedBox(
+        child: Container(
+          width: ElementTypeIcon.diameter,
+          height: ElementTypeIcon.diameter,
           decoration: BoxDecoration(
             color: isSuperEffective
                 ? SnapmonColors.accent
                 : SnapmonColors.cardTrack,
-            borderRadius: SnapmonRadii.tag,
+            shape: BoxShape.circle,
           ),
-          child: Padding(
-            // 余白 4/2 と矢印 14 は、小さい属性の札 (文字 10 + 上下の余白 2) と高さが揃う値 (ElementTypeTag.compact のコメント)
-            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-            child: Icon(
-              isSuperEffective
-                  ? Icons.keyboard_double_arrow_up
-                  : Icons.keyboard_double_arrow_down,
-              key: const Key('move-type-effectiveness'),
-              size: 14,
-              color: isSuperEffective
-                  ? SnapmonColors.textOnCard
-                  : SnapmonColors.textOnCardMuted,
-            ),
+          // 2 重の矢印は属性のアイコンより線が細く見えるため、丸 18 の中で 14 にして同じ重さに見せる
+          child: Icon(
+            isSuperEffective
+                ? Icons.keyboard_double_arrow_up
+                : Icons.keyboard_double_arrow_down,
+            key: const Key('move-type-effectiveness'),
+            size: 14,
+            color: isSuperEffective
+                ? SnapmonColors.textOnCard
+                : SnapmonColors.textOnCardMuted,
           ),
         ),
       ),

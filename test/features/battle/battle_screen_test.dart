@@ -309,13 +309,13 @@ void main() {
       find.descendant(of: moveSlot, matching: find.text('先に動くと強い')),
       findsOneWidget,
     );
-    // 属性はモンスターの属性と同じ色の札で出し、威力と PP はラベル付きの数値で出す
+    // 属性は名前の右端の属性のアイコンで出し、威力と PP はラベル付きの数値で出す
     expect(
       tester
-          .widget<ElementTypeTag>(
+          .widget<ElementTypeIcon>(
             find.descendant(
               of: moveSlot,
-              matching: find.byType(ElementTypeTag),
+              matching: find.byType(ElementTypeIcon),
             ),
           )
           .elementTypeId,
