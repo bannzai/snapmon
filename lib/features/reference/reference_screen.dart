@@ -325,7 +325,7 @@ class _MoveRow extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    context.l10n.referenceMoveSummary(
+                    context.l10n.referenceMoveStats(
                       move.power,
                       move.powerPoints,
                       move.learnableLevelMinimum,
