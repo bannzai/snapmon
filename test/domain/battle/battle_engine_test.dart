@@ -1990,6 +1990,23 @@ void main() {
           state.events.whereType<MoveUsedEvent>().last.moveId,
           'fire_raise_attack',
         );
+        // 相手が補助技を出す前に麻痺が付いている (麻痺を持ったまま補助技を出した)
+        final paralysisIndex = state.events.indexWhere(
+          (event) =>
+              event is StatusConditionInflictedEvent &&
+              event.side == BattleSideId.opponent &&
+              event.kind == StatusConditionKind.paralysis,
+        );
+        expect(paralysisIndex, isNonNegative, reason: 'seed=$seed');
+        expect(
+          state.events.indexWhere(
+            (event) =>
+                event is MoveUsedEvent &&
+                event.attackerSide == BattleSideId.opponent,
+          ),
+          greaterThan(paralysisIndex),
+          reason: 'seed=$seed',
+        );
         // 麻痺の技を使わないラウンドと乱数の進み方が同じ (補助技の時は麻痺の判定の乱数を引かない)
         expect(
           state.randomState,
@@ -2027,8 +2044,20 @@ void main() {
           final opponentMoves = state.events
               .whereType<MoveUsedEvent>()
               .where((event) => event.attackerSide == BattleSideId.opponent);
+          // 止まったかどうかに関係なく、相手の行動の前に状態が付いている
+          final inflictedIndex = state.events.indexWhere(
+            (event) =>
+                event is StatusConditionInflictedEvent &&
+                event.side == BattleSideId.opponent,
+          );
+          expect(inflictedIndex, isNonNegative, reason: '$moveId seed=$seed');
           if (failed.isEmpty) {
             expect(opponentMoves.single.moveId, 'fire_raise_attack');
+            expect(
+              state.events.indexOf(opponentMoves.single),
+              greaterThan(inflictedIndex),
+              reason: '$moveId seed=$seed',
+            );
           } else {
             failedCount++;
             expect(failed.single.reason, reason);

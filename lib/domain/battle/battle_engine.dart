@@ -591,7 +591,7 @@ BattleState advanceRound({
       continue;
     }
     final action = actions[attackerSide]!;
-    // 交代は技ではないため、行動できない状態 (気絶・眠り・凍結) でも行う。場を離れるモンスターのステータスの倍率は
+    // 交代は技ではないため、行動を止める状態 (気絶・眠り・凍結) でも行う。場を離れるモンスターのステータスの倍率は
     // 等倍に戻り、状態は残る。交代のターンはターンの終わりの処理 (毒のダメージ・残りのターン) をしない
     // (どちらのモンスターも場で行動していないため。documents/game-rules.md「1 ラウンドの流れ」)
     if (action case SwitchMonsterAction(:final memberIndex)) {
