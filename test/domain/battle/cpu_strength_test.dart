@@ -17,7 +17,8 @@ void main() {
     sampleDefinitions: sampleDefinitions,
   );
 
-  /// 利用者 Lv.[playerLevel]・CPU Lv.[opponentLevel] で、CPU に今の補正 ([cpuDamagePercent]・[cpuHitPointsPercent]) を掛けた時の集計。
+  /// 利用者 Lv.[playerLevel]・CPU Lv.[opponentLevel] で戦わせた時の集計。補正の既定値は、アプリが CPU 戦で使う今の値
+  /// ([cpuDamagePercent]・[cpuHitPointsPercent]) で、目標を守るテストがアプリと同じ条件を測るため。
   BattleSimulationResult simulate({
     required int playerLevel,
     required int opponentLevel,
@@ -34,11 +35,14 @@ void main() {
       opponentDamagePercent: opponentDamagePercent,
       opponentHitPointsPercent: opponentHitPointsPercent,
       playerPolicy: policy,
+      // 180 組 × 5 で 1 条件 900 戦になり、値を決めた tool/simulate_battles.dart の既定と同じ戦数で目標を確かめるため
       seedCount: 5,
     ),
   );
 
-  double percent(int count, int total) => count * 100 / total;
+  /// [count] / [total] を % で返す。
+  double percent({required int count, required int total}) =>
+      count * 100 / total;
 
   test('初回のバトル (Lv.1) で、技を乱数で選ぶ利用者が CPU に 6 割以上勝つ', () {
     final result = simulate(
@@ -47,7 +51,7 @@ void main() {
       policy: SimulatedPlayerPolicy.randomMove,
     );
     expect(
-      percent(result.playerWins, result.battles),
+      percent(count: result.playerWins, total: result.battles),
       greaterThanOrEqualTo(60),
       reason: '${result.playerWins}/${result.battles}',
     );
@@ -60,7 +64,7 @@ void main() {
       policy: SimulatedPlayerPolicy.sameAsCpu,
     );
     expect(
-      percent(result.playerWins, result.battles),
+      percent(count: result.playerWins, total: result.battles),
       lessThanOrEqualTo(75),
       reason: '${result.playerWins}/${result.battles}',
     );
@@ -75,7 +79,10 @@ void main() {
         policy: SimulatedPlayerPolicy.randomMove,
       );
       expect(
-        percent(result.opponentOneDamageHits, result.opponentAttackHits),
+        percent(
+          count: result.opponentOneDamageHits,
+          total: result.opponentAttackHits,
+        ),
         lessThanOrEqualTo(30),
         reason: '${result.opponentOneDamageHits}/${result.opponentAttackHits}',
       );
@@ -91,7 +98,7 @@ void main() {
       opponentHitPointsPercent: 100,
     );
     expect(
-      percent(result.playerWins, result.battles),
+      percent(count: result.playerWins, total: result.battles),
       lessThan(50),
       reason: '${result.playerWins}/${result.battles}',
     );

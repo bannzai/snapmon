@@ -18,17 +18,15 @@ on:
       - assets/samples/sample_monsters.json
       - tool/simulate_battles.dart
       - .github/workflows/battle-simulation.yml
+  # 入力の既定値は tool/simulate_battles.dart の定数が持つ。空のまま dispatch するとその値で実行する
   workflow_dispatch:
     inputs:
       seeds:
-        description: 利用者 1 体 × CPU 1 体の組ごとの乱数の数
-        default: '5'
+        description: 利用者 1 体 × CPU 1 体の組ごとの乱数の数 (空ならツールの既定)
       damage_percents:
-        description: 試す CPU のダメージの割合 (%) の一覧 (カンマ区切り)
-        default: '50,70,80,90,100'
+        description: 試す CPU のダメージの割合 (%) の一覧 (カンマ区切り。空ならツールの既定)
       hit_points_percents:
-        description: 試す CPU の最大 HP の割合 (%) の一覧 (カンマ区切り)
-        default: '40,50,60,70,100'
+        description: 試す CPU の最大 HP の割合 (%) の一覧 (カンマ区切り。空ならツールの既定)
 
 # job が GITHUB_TOKEN を使うのは checkout だけのため、読み取り専用に絞る
 permissions:
@@ -49,11 +47,11 @@ jobs:
     - run: mkdir -p tmp
     # tee で繋ぐとツールの失敗が exit 0 に隠れるため、ファイルに書いてから表示する
     - run: dart run tool/simulate_battles.dart --seeds "$SEEDS" --damage-percents "$DAMAGE_PERCENTS" --hit-points-percents "$HIT_POINTS_PERCENTS" > tmp/battle-simulation.md
-      # pull_request では inputs が無いため、workflow_dispatch の既定値と同じ値にする
+      # pull_request では inputs が無く空の値になり、ツールは空の値を省略として扱う
       env:
-        SEEDS: ${{ inputs.seeds || '5' }}
-        DAMAGE_PERCENTS: ${{ inputs.damage_percents || '50,70,80,90,100' }}
-        HIT_POINTS_PERCENTS: ${{ inputs.hit_points_percents || '40,50,60,70,100' }}
+        SEEDS: ${{ inputs.seeds }}
+        DAMAGE_PERCENTS: ${{ inputs.damage_percents }}
+        HIT_POINTS_PERCENTS: ${{ inputs.hit_points_percents }}
     - run: cat tmp/battle-simulation.md
     - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
       with:
