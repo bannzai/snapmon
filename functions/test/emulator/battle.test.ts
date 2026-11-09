@@ -215,6 +215,48 @@ describe("startBattle と recordBattle", () => {
     expect((await recordBattle({ user, battleId, participantMonsterIds: ["m1"] })).status).toBe(200);
   });
 
+  it("参加したモンスターのバトルの時点の技の枠の技を、その日の使用回数に 1 ずつ足す", async () => {
+    const user = await signInUser();
+    await seedMonsters({ uid: user.uid, levels: { m1: 4, m2: 1, m3: 1 } });
+    await testEnvironment.withSecurityRulesDisabled(async (context) => {
+      // m1 は Lv.4 で b〜e (Lv.5 の f はレベルが上がった後に開放するため数えない)、m2 は a と Action Card の x、m3 は戦闘に出ない
+      await updateDoc(doc(context.firestore(), `users/${user.uid}/monsters/m1`), {
+        "definition.learnset": ["a", "b", "c", "d"].map((moveId) => ({ moveId, unlockLevel: 1 })).concat([
+          { moveId: "e", unlockLevel: 4 },
+          { moveId: "f", unlockLevel: 5 },
+        ]),
+      });
+      await updateDoc(doc(context.firestore(), `users/${user.uid}/monsters/m2`), {
+        "definition.learnset": [{ moveId: "a", unlockLevel: 1 }],
+        actionCardMoveIds: ["x"],
+      });
+      await updateDoc(doc(context.firestore(), `users/${user.uid}/monsters/m3`), { "definition.learnset": [{ moveId: "z", unlockLevel: 1 }] });
+    });
+    const battleId = await startBattle({ user, partyMonsterIds: ["m1", "m2", "m3"] });
+
+    expect((await recordBattle({ user, battleId, participantMonsterIds: ["m1", "m2"] })).status).toBe(200);
+    // 同じ battleId の再送は数えない
+    expect((await recordBattle({ user, battleId, participantMonsterIds: ["m1", "m2"] })).status).toBe(200);
+    let counts: unknown;
+    await testEnvironment.withSecurityRulesDisabled(async (context) => {
+      counts = (await getDoc(doc(context.firestore(), `moveUsageDailyCounts/${battleDayKey({ now: new Date() })}`))).get("counts");
+    });
+    // a は 2 体が持つため 2 回
+    expect(counts).toEqual({ a: 1 + 1, b: 1, c: 1, d: 1, e: 1, x: 1 });
+  });
+
+  it("learnset の無いモンスターは使用回数に数えずにレベルを上げる", async () => {
+    const user = await signInUser();
+    await seedMonsters({ uid: user.uid, levels: { m1: 5 } });
+    const battleId = await startBattle({ user, partyMonsterIds: ["m1"] });
+
+    expect((await recordBattle({ user, battleId, participantMonsterIds: ["m1"] })).status).toBe(200);
+    expect(await readMonster({ uid: user.uid, monsterId: "m1" })).toMatchObject({ level: 6 });
+    await testEnvironment.withSecurityRulesDisabled(async (context) => {
+      expect((await getDoc(doc(context.firestore(), `moveUsageDailyCounts/${battleDayKey({ now: new Date() })}`))).exists()).toBe(false);
+    });
+  });
+
   it("カスタムクレームの無い匿名ログインで呼べる", async () => {
     const user = await signInUser();
     expect((await user.getIdTokenResult()).claims.ageVerified).toBeUndefined();

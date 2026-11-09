@@ -103,6 +103,11 @@ describe("publicMonster", () => {
     expect(shown).toMatchObject({ level: 7, artPath: "monsters/monster-1/art.png", definitionIds: ["definition-1"] });
     expect(shown.definition).toMatchObject({ id: "monster-1", name: "マグモン", elementTypeIds: ["fire"] });
   });
+
+  it("Action Card で覚えさせた技を覚えさせた順で返し、覚えさせていないモンスターは空で返す", () => {
+    expect(publicMonster({ ...monsterDocument(), actionCardMoveIds: ["fire_k1", "water_2"] }).actionCardMoveIds).toEqual(["fire_k1", "water_2"]);
+    expect(publicMonster(monsterDocument()).actionCardMoveIds).toEqual([]);
+  });
 });
 
 describe("通報の通知", () => {

@@ -34,9 +34,10 @@ import { PRODUCTION_NOTIFICATION_CHANNEL, postSlackMessage, type SendSlackMessag
  * (battle.ts の startBattle と同じ条件)。アカウントの削除 (account.ts) の後も別の端末の ID トークンは期限まで通るため、
  * 確かめずに書くと、削除が消し終えた後に本人の通報・ブロックが残る。満たさない時は failed-precondition を投げる。
  * 通報・ブロックは相手を探す (手持ちのモンスターが要る) 後にしか呼ばれず、モンスターを生成した時に `users/{uid}` ができているため、
- * `users/{uid}` が無いことを消し終えた印として扱う。
+ * `users/{uid}` が無いことを消し終えた印として扱う。Action Card (action_cards.ts) も、残高を置く購入の webhook と図鑑のモンスターを
+ * 作る生成が `users/{uid}` を作るため、同じ扱いで使う。
  */
-function requireActiveAccount({ userSnapshot }: { userSnapshot: DocumentSnapshot }): void {
+export function requireActiveAccount({ userSnapshot }: { userSnapshot: DocumentSnapshot }): void {
   if (!userSnapshot.exists || userSnapshot.get("accountDeletionStartedAt") !== undefined) {
     throw new HttpsError("failed-precondition", "アカウントの削除が進んでいるか、アカウントが見つかりません");
   }

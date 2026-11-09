@@ -3,7 +3,7 @@ import type { Auth } from "firebase-admin/auth";
 import { getFirestore } from "firebase-admin/firestore";
 import { afterAll, beforeEach, describe, expect, it } from "vitest";
 
-import { handleGenerationTicketWebhook, type GenerationTicketWebhookDependencies } from "../../src/generation_tickets";
+import { handleRevenueCatWebhook, type RevenueCatWebhookDependencies } from "../../src/generation_tickets";
 
 // firebase emulators:exec (package.json の test:emulator) の中で実行する。
 
@@ -36,7 +36,7 @@ const auth = {
 } as unknown as Auth;
 
 /** 本番の依存をモックに替えたものと、Slack に送った文。 */
-function createDependencies(): { dependencies: GenerationTicketWebhookDependencies; slackTexts: string[] } {
+function createDependencies(): { dependencies: RevenueCatWebhookDependencies; slackTexts: string[] } {
   const slackTexts: string[] = [];
   return {
     slackTexts,
@@ -77,7 +77,7 @@ async function generationTickets(uid: string): Promise<unknown> {
 describe("RevenueCat の webhook", () => {
   it("消耗型の購入で残高に 10 枚足し、購入の記録を残して Slack に知らせる", async () => {
     const { dependencies, slackTexts } = createDependencies();
-    expect((await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody() })).status).toBe(200);
+    expect((await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody() })).status).toBe(200);
     expect(await generationTickets("alice")).toBe(10);
     expect((await firestore.doc("users/alice/ticketPurchases/event-1").get()).data()).toMatchObject({
       productId: "snapmon_generationticket10_200yen",
@@ -92,78 +92,78 @@ describe("RevenueCat の webhook", () => {
   it("30 枚の商品は 30 枚足し、既にある残高に加える", async () => {
     await firestore.doc("users/alice").set({ generationTickets: 3 });
     const { dependencies } = createDependencies();
-    await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ product_id: "snapmon_generationticket30_500yen" }) });
+    await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ product_id: "snapmon_generationticket30_500yen" }) });
     expect(await generationTickets("alice")).toBe(33);
   });
 
   it("同じイベントの ID を 2 回受けても 1 回しか足さない", async () => {
     const { dependencies, slackTexts } = createDependencies();
-    await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody() });
-    expect((await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody() })).status).toBe(200);
+    await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody() });
+    expect((await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody() })).status).toBe(200);
     expect(await generationTickets("alice")).toBe(10);
     expect(slackTexts).toHaveLength(1);
   });
 
   it("別のイベントの ID なら同じ商品でも足す", async () => {
     const { dependencies } = createDependencies();
-    await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody() });
-    await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ id: "event-2" }) });
+    await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody() });
+    await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ id: "event-2" }) });
     expect(await generationTickets("alice")).toBe(20);
   });
 
   it("Authorization が違う・無い時は 401 で何も書かない", async () => {
     const { dependencies } = createDependencies();
-    expect((await handleGenerationTicketWebhook(dependencies, { authorization: "Bearer wrong-webhook-authorization", body: webhookBody() })).status).toBe(401);
-    expect((await handleGenerationTicketWebhook(dependencies, { authorization: `${AUTHORIZATION} `, body: webhookBody() })).status).toBe(401);
-    expect((await handleGenerationTicketWebhook(dependencies, { authorization: undefined, body: webhookBody() })).status).toBe(401);
+    expect((await handleRevenueCatWebhook(dependencies, { authorization: "Bearer wrong-webhook-authorization", body: webhookBody() })).status).toBe(401);
+    expect((await handleRevenueCatWebhook(dependencies, { authorization: `${AUTHORIZATION} `, body: webhookBody() })).status).toBe(401);
+    expect((await handleRevenueCatWebhook(dependencies, { authorization: undefined, body: webhookBody() })).status).toBe(401);
     expect((await firestore.doc("users/alice").get()).exists).toBe(false);
   });
 
   it("Secret が空の時は、空の Authorization でも通さない", async () => {
     const { dependencies } = createDependencies();
-    expect((await handleGenerationTicketWebhook({ ...dependencies, expectedAuthorization: "" }, { authorization: "", body: webhookBody() })).status).toBe(401);
+    expect((await handleRevenueCatWebhook({ ...dependencies, expectedAuthorization: "" }, { authorization: "", body: webhookBody() })).status).toBe(401);
   });
 
   it("消耗型の購入以外のイベント (サブスクリプションの購入) は足さない", async () => {
     const { dependencies } = createDependencies();
-    expect((await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ type: "INITIAL_PURCHASE" }) })).status).toBe(200);
+    expect((await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ type: "INITIAL_PURCHASE" }) })).status).toBe(200);
     expect((await firestore.doc("users/alice").get()).exists).toBe(false);
   });
 
   it("返金・取り消しは残高を減らさず Slack に知らせる", async () => {
     await firestore.doc("users/alice").set({ generationTickets: 10 });
     const { dependencies, slackTexts } = createDependencies();
-    expect((await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ type: "CANCELLATION", id: "event-3" }) })).status).toBe(200);
+    expect((await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ type: "CANCELLATION", id: "event-3" }) })).status).toBe(200);
     expect(await generationTickets("alice")).toBe(10);
     expect(slackTexts).toHaveLength(1);
   });
 
   it("知らない商品の消耗型の購入は足さずに Slack に知らせる", async () => {
     const { dependencies, slackTexts } = createDependencies();
-    expect((await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ product_id: "snapmon_generationticket100_1500yen" }) })).status).toBe(200);
+    expect((await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ product_id: "snapmon_generationticket100_1500yen" }) })).status).toBe(200);
     expect((await firestore.doc("users/alice").get()).exists).toBe(false);
     expect(slackTexts).toHaveLength(1);
   });
 
   it("logIn していない購入 (RevenueCat の匿名の ID) と / を含む ID は足さない", async () => {
     const { dependencies, slackTexts } = createDependencies();
-    await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ app_user_id: "$RCAnonymousID:abc123" }) });
-    await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ id: "event-2", app_user_id: "alice/ticketPurchases" }) });
+    await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ app_user_id: "$RCAnonymousID:abc123" }) });
+    await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ id: "event-2", app_user_id: "alice/ticketPurchases" }) });
     expect((await firestore.doc("users/alice").get()).exists).toBe(false);
     expect(slackTexts).toHaveLength(2);
   });
 
   it("生成する前に買った (users/{uid} の無い) ユーザーにも足す", async () => {
     const { dependencies } = createDependencies();
-    await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ app_user_id: "bob" }) });
+    await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ app_user_id: "bob" }) });
     expect(await generationTickets("bob")).toBe(10);
   });
 
   it("アカウントの削除が始まったユーザーと消し終えたユーザーには足さず、users/{uid} を作り直さない", async () => {
     await firestore.doc("users/alice").set({ accountDeletionStartedAt: new Date() });
     const { dependencies } = createDependencies();
-    await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody() });
-    await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ id: "event-2", app_user_id: "deleted" }) });
+    await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody() });
+    await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ id: "event-2", app_user_id: "deleted" }) });
     expect(await generationTickets("alice")).toBeUndefined();
     expect((await firestore.doc("users/alice/ticketPurchases/event-1").get()).exists).toBe(false);
     expect((await firestore.doc("users/deleted").get()).exists).toBe(false);
@@ -171,26 +171,97 @@ describe("RevenueCat の webhook", () => {
 
   it("event.id の無い本文は 400 を返す", async () => {
     const { dependencies } = createDependencies();
-    expect((await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ id: undefined }) })).status).toBe(400);
+    expect((await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ id: undefined }) })).status).toBe(400);
   });
 
   it("文書 ID に使えない event.id (/ を含む・..) は 400 を返して何も書かない", async () => {
     const { dependencies } = createDependencies();
-    expect((await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ id: "event/1" }) })).status).toBe(400);
-    expect((await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ id: ".." }) })).status).toBe(400);
+    expect((await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ id: "event/1" }) })).status).toBe(400);
+    expect((await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ id: ".." }) })).status).toBe(400);
     expect((await firestore.doc("users/alice").get()).exists).toBe(false);
   });
 
   it("UUID の形の event.id は受け付ける", async () => {
     const { dependencies } = createDependencies();
-    expect((await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ id: "CDD0A5C7-26F5-4D57-A4B2-1F2E5B0A9C11" }) })).status).toBe(200);
+    expect((await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ id: "CDD0A5C7-26F5-4D57-A4B2-1F2E5B0A9C11" }) })).status).toBe(200);
     expect(await generationTickets("alice")).toBe(10);
   });
 
   it("継承したキーの商品 (constructor) は知らない商品として足さずに Slack に知らせる", async () => {
     const { dependencies, slackTexts } = createDependencies();
-    expect((await handleGenerationTicketWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ product_id: "constructor" }) })).status).toBe(200);
+    expect((await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ product_id: "constructor" }) })).status).toBe(200);
     expect((await firestore.doc("users/alice").get()).exists).toBe(false);
     expect(slackTexts).toHaveLength(1);
+  });
+});
+
+/** [uid] の Action Card の残高 (`users/{uid}.actionCardCredits`)。文書かフィールドが無ければ undefined。 */
+async function actionCardCredits(uid: string): Promise<unknown> {
+  return (await firestore.doc(`users/${uid}`).get()).get("actionCardCredits");
+}
+
+describe("RevenueCat の webhook の Action Card", () => {
+  it.each([
+    ["snapmon_actioncardrank1_100yen", "rank1"],
+    ["snapmon_actioncardrank2_300yen", "rank2"],
+    ["snapmon_actioncardrank3_500yen", "rank3"],
+    // Google Play で 100 円を設定できない時の識別子。価格の部分は見ない
+    ["snapmon_actioncardrank1_150yen", "rank1"],
+  ])("%s の購入で %s に 1 枚足し、購入の記録を残して Slack に知らせる", async (productId, rankKey) => {
+    const { dependencies, slackTexts } = createDependencies();
+    expect((await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ product_id: productId }) })).status).toBe(200);
+    expect(await actionCardCredits("alice")).toEqual({ [rankKey]: 1 });
+    expect((await firestore.doc("users/alice/actionCardPurchases/event-1").get()).data()).toMatchObject({
+      productId,
+      rank: Number(rankKey.slice(-1)),
+      transactionId: "transaction-1",
+      environment: "PRODUCTION",
+      store: "APP_STORE",
+    });
+    expect((await firestore.doc("users/alice/ticketPurchases/event-1").get()).exists).toBe(false);
+    expect(await generationTickets("alice")).toBeUndefined();
+    expect(slackTexts).toHaveLength(1);
+  });
+
+  it("同じイベントの ID を 2 回受けても 1 枚しか足さず、既にある残高と別のランクの残高を保つ", async () => {
+    await firestore.doc("users/alice").set({ actionCardCredits: { rank1: 2, rank3: 1 }, generationTickets: 5 });
+    const { dependencies, slackTexts } = createDependencies();
+    const body = webhookBody({ product_id: "snapmon_actioncardrank1_100yen" });
+    await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body });
+    expect((await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body })).body).toBe("duplicate");
+    expect(await actionCardCredits("alice")).toEqual({ rank1: 3, rank3: 1 });
+    expect(await generationTickets("alice")).toBe(5);
+    expect(slackTexts).toHaveLength(1);
+  });
+
+  it.each(["snapmon_actioncardrank4_100yen", "snapmon_actioncardrank1", "snapmon_actioncardrank10_100yen", "snapmon_actioncardrank0_100yen"])(
+    "接頭辞に合わない %s は知らない商品として足さずに Slack に知らせる",
+    async (productId) => {
+      const { dependencies, slackTexts } = createDependencies();
+      expect((await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ product_id: productId }) })).body).toBe("unknown product");
+      expect((await firestore.doc("users/alice").get()).exists).toBe(false);
+      expect(slackTexts).toHaveLength(1);
+    },
+  );
+
+  it("返金・取り消しは残高を減らさず Slack に知らせる", async () => {
+    await firestore.doc("users/alice").set({ actionCardCredits: { rank2: 1 } });
+    const { dependencies, slackTexts } = createDependencies();
+    await handleRevenueCatWebhook(dependencies, {
+      authorization: AUTHORIZATION,
+      body: webhookBody({ type: "CANCELLATION", product_id: "snapmon_actioncardrank2_300yen" }),
+    });
+    expect(await actionCardCredits("alice")).toEqual({ rank2: 1 });
+    expect(slackTexts).toHaveLength(1);
+  });
+
+  it("アカウントの削除が始まったユーザーには足さない", async () => {
+    await firestore.doc("users/alice").set({ accountDeletionStartedAt: new Date() });
+    const { dependencies } = createDependencies();
+    expect(
+      (await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ product_id: "snapmon_actioncardrank3_500yen" }) })).body,
+    ).toBe("account missing");
+    expect(await actionCardCredits("alice")).toBeUndefined();
+    expect((await firestore.doc("users/alice/actionCardPurchases/event-1").get()).exists).toBe(false);
   });
 });

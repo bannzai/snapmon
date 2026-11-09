@@ -1,6 +1,7 @@
 import { FieldValue, getFirestore } from "firebase-admin/firestore";
 import { CallableRequest, HttpsError, onCall } from "firebase-functions/v2/https";
 
+import { equippedMoveIds } from "./action_card_rules";
 import { ENFORCE_APP_CHECK } from "./app_check";
 import {
   DAILY_BATTLE_LIMIT,
@@ -65,7 +66,8 @@ export const startBattle = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async 
  * 勝敗とターン数は端末の計算をそのまま記録し、検証しない (レベルは勝敗に関係なく +1 のため。ADR 0001 の DB の行)。
  * 返す値: `{ levels: { [monsterId]: number } }` (上がった後のレベル)。
  * トランザクションでバトルの完了状態を確かめ、未完了の時だけ、1 日 (日本時間) の上限 [DAILY_BATTLE_LIMIT] 戦を検証して
- * レベル・経験の加算、1 日の数、完了の記録を同時に書く。完了済みの battleId の再送は加算せず、記録済みの levels を返す (冪等)。
+ * レベル・経験の加算、1 日の数、完了の記録と、参加したモンスターの技の枠の技の使用回数 (`moveUsageDailyCounts/{日本時間の日付}`) を同時に書く。
+ * 完了済みの battleId の再送は加算せず、記録済みの levels を返す (冪等)。
  */
 export const recordBattle = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async (request) => {
   const uid = requireSignedInUid({ request });
@@ -118,12 +120,22 @@ export const recordBattle = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
     );
     const monsterSnapshots = await transaction.getAll(...monsterDocuments);
     const nextLevels: Record<string, number> = {};
+    // 技のランク (action_cards.ts の updateMoveRanks) に使う、参加したモンスターのバトルの時点の技の枠の技の数。
+    // クライアントから技を受け取らず図鑑から決める (改ざんでランクを動かさせないため)。同じ技を持つモンスターが 2 体いれば 2 回数える
+    const moveUsageCounts: Record<string, number> = {};
     for (const [index, monsterSnapshot] of monsterSnapshots.entries()) {
       const level = monsterSnapshot.get("level");
       if (!monsterSnapshot.exists || typeof level !== "number") {
         throw new HttpsError("not-found", `図鑑に無いモンスター ${participantMonsterIds[index]} が含まれています`);
       }
       nextLevels[participantMonsterIds[index]] = levelAfterBattle({ level });
+      const learnset: unknown = monsterSnapshot.get("definition.learnset");
+      // 生成が作るモンスターは必ず learnset を持つ。持たない文書は数えずに進め、集計のためにレベルの記録を失敗させない
+      if (Array.isArray(learnset)) {
+        for (const moveId of equippedMoveIds({ learnset, level, actionCardMoveIds: monsterSnapshot.get("actionCardMoveIds") ?? [] })) {
+          moveUsageCounts[moveId] = (moveUsageCounts[moveId] ?? 0) + 1;
+        }
+      }
     }
     for (const [index, monsterDocument] of monsterDocuments.entries()) {
       transaction.update(monsterDocument, {
@@ -137,6 +149,14 @@ export const recordBattle = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
       { dailyBattleDate: today, dailyBattleCount: battleCountOfToday + 1 },
       { merge: true },
     );
+    if (Object.keys(moveUsageCounts).length > 0) {
+      // ドット区切りの update は文書が無いと失敗し、技の ID の `.` を区切りと読むため、入れ子の値を merge で書く
+      transaction.set(
+        firestore.doc(`moveUsageDailyCounts/${today}`),
+        { counts: Object.fromEntries(Object.entries(moveUsageCounts).map(([moveId, count]) => [moveId, FieldValue.increment(count)])) },
+        { merge: true },
+      );
+    }
     transaction.update(battleDocument, {
       status: "completed",
       participantMonsterIds,

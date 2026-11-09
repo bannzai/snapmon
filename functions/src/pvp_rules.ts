@@ -148,6 +148,8 @@ export interface PublicMonster {
   decoration: MonsterDocument["decoration"];
   /** 装飾の描画の版。 */
   decorationVersion: number;
+  /** Action Card で覚えさせた技の ID (覚えさせた順)。相手のモンスターの技の枠を自分のモンスターと同じ規則で決めるため返す。 */
+  actionCardMoveIds: string[];
 }
 
 /**
@@ -174,6 +176,8 @@ export function publicMonster(monster: MonsterDocument): PublicMonster {
     definitionIds: monster.definitionIds,
     decoration: monster.decoration,
     decorationVersion: monster.decorationVersion,
+    // 覚えさせた技が無いモンスターは項目を持たない ([MonsterDocument.actionCardMoveIds])
+    actionCardMoveIds: monster.actionCardMoveIds ?? [],
   };
 }
 
