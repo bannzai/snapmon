@@ -34,9 +34,9 @@ void main(List<String> arguments) {
   final hitPointsPercents = _percents(
     _option(arguments, '--hit-points-percents') ?? '40,50,60,70,100',
   );
-  final sampleJson = jsonDecode(
-    File(sampleDataAssetPath).readAsStringSync(),
-  ) as Map<String, dynamic>;
+  final sampleJson =
+      jsonDecode(File(sampleDataAssetPath).readAsStringSync())
+          as Map<String, dynamic>;
   final master = MasterData.fromJson(
     json: sampleJson['definitions'] as Map<String, dynamic>,
   );

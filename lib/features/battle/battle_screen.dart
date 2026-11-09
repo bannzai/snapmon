@@ -60,8 +60,13 @@ const Duration _hitDuration = Duration(
   milliseconds: (hitReactionSeconds * 1000) ~/ 1,
 );
 
-/// 倒れた・交代したのログを読ませる間。ログの帯の 1 行を読める長さにした。
-const Duration _messageDuration = Duration(milliseconds: 700);
+/// ログの帯の 1 行を読ませる間。ログの 1 行は 10〜30 文字のひらがな主体の文 (app_ja.arb の battleLog*) で、
+/// 以前の 0.7 秒 (技のログは前進と被弾の 0.8 秒) では読み切れないと指摘されたため (issue #262)、1 行を読み切れる長さとして 1.5 秒にした。
+const Duration _logReadingDurationPerLine = Duration(milliseconds: 1500);
+
+/// ログの文 [logText] を読ませる間。行が増えるほど長くする (技のログは相性・ステータスの変化が別の行に続くため)。
+Duration battleLogReadingDuration({required String logText}) =>
+    _logReadingDurationPerLine * logText.split('\n').length;
 
 /// フィールドの左右の端からログの帯・情報カードまでの間 (モックの Battle.dc.html の左右の余白)。
 const double _fieldHorizontalMargin = 20;
@@ -240,7 +245,7 @@ class _BattleScreenState extends State<BattleScreen>
   /// 文言そのものではなく作り方を持つ。
   late String Function(AppLocalizations l10n) _logText;
 
-  /// 演出を再生しているか。再生中は技・交代・にげるを押せない。
+  /// 演出を再生しているか。再生中は技・交代を押せない。
   bool _isPlaying = false;
 
   /// startBattle の呼び出し。決着の後に battleId を受け取って recordBattle に使う。
@@ -513,6 +518,16 @@ class _BattleScreenState extends State<BattleScreen>
     );
   }
 
+  /// 今のログの帯の文 ([_logText]) を読ませる間 ([battleLogReadingDuration]) のうち、
+  /// ログを出してから演出で既に過ぎた [elapsed] を除いた残りだけ待つ。
+  Future<void> _waitForLogReading({required Duration elapsed}) async {
+    final remaining =
+        battleLogReadingDuration(logText: _logText(context.l10n)) - elapsed;
+    if (remaining > Duration.zero) {
+      await Future<void>.delayed(remaining);
+    }
+  }
+
   /// バトルのログ [event] 1 件を演出する。[previousState] はこのラウンドを解決する前、[nextState] は解決した後の状態。
   Future<void> _playEvent({
     required BattleEvent event,
@@ -548,9 +563,10 @@ class _BattleScreenState extends State<BattleScreen>
             if (event.isOneHitKnockout) l10n.battleLogOneHitKnockout,
             // 効果が働かなかった (倍率 100%) 時は、起きていないことを出さない。
             // 説明文は技の名前と同じく master の定義の文言のため、ARB には移さない
-            if (event.specialEffect
-                case (:final powerPercent, :final description)
-                when powerPercent > 100)
+            if (event.specialEffect case (
+              :final powerPercent,
+              :final description,
+            ) when powerPercent > 100)
               description,
             if (move?.category != MoveCategory.support &&
                 !event.isOneHitKnockout &&
@@ -608,7 +624,7 @@ class _BattleScreenState extends State<BattleScreen>
               );
             }
           });
-          await Future<void>.delayed(_messageDuration);
+          await _waitForLogReading(elapsed: Duration.zero);
           return;
         }
         _game.lunge(attackerSide: event.attackerSide);
@@ -652,6 +668,10 @@ class _BattleScreenState extends State<BattleScreen>
           );
         });
         await Future<void>.delayed(_hitDuration);
+        if (!mounted) {
+          return;
+        }
+        await _waitForLogReading(elapsed: _lungeDuration + _hitDuration);
       case ActionFailedEvent():
         final monsterName =
             _displayedActiveMembers[event.side]!.definition.name;
@@ -672,7 +692,7 @@ class _BattleScreenState extends State<BattleScreen>
             ),
           },
         );
-        await Future<void>.delayed(_messageDuration);
+        await _waitForLogReading(elapsed: Duration.zero);
       case StatusConditionInflictedEvent():
         final monsterName =
             _displayedActiveMembers[event.side]!.definition.name;
@@ -719,7 +739,7 @@ class _BattleScreenState extends State<BattleScreen>
           };
         });
         unawaited(_haptics.statusChanged());
-        await Future<void>.delayed(_messageDuration);
+        await _waitForLogReading(elapsed: Duration.zero);
       case StatusConditionCuredEvent():
         final monsterName =
             _displayedActiveMembers[event.side]!.definition.name;
@@ -743,7 +763,7 @@ class _BattleScreenState extends State<BattleScreen>
           ].join('\n');
         });
         unawaited(_haptics.statusChanged());
-        await Future<void>.delayed(_messageDuration);
+        await _waitForLogReading(elapsed: Duration.zero);
       case StatusConditionDamageEvent():
         final monsterName =
             _displayedActiveMembers[event.side]!.definition.name;
@@ -759,7 +779,7 @@ class _BattleScreenState extends State<BattleScreen>
           );
         });
         unawaited(_haptics.hit());
-        await Future<void>.delayed(_messageDuration);
+        await _waitForLogReading(elapsed: Duration.zero);
       case FieldEffectStartedEvent():
         setState(
           () => _logText = (l10n) => switch (event.kind) {
@@ -767,7 +787,7 @@ class _BattleScreenState extends State<BattleScreen>
               l10n.battleLogFieldStatShuffleStarted,
           },
         );
-        await Future<void>.delayed(_messageDuration);
+        await _waitForLogReading(elapsed: Duration.zero);
       case FieldEffectShuffledEvent():
         setState(
           () => _logText = (l10n) => l10n.battleLogFieldStatShuffled(
@@ -775,10 +795,10 @@ class _BattleScreenState extends State<BattleScreen>
             statLabel(l10n: l10n, statKind: event.statKinds.$2),
           ),
         );
-        await Future<void>.delayed(_messageDuration);
+        await _waitForLogReading(elapsed: Duration.zero);
       case FieldEffectEndedEvent():
         setState(() => _logText = (l10n) => l10n.battleLogFieldEnded);
-        await Future<void>.delayed(_messageDuration);
+        await _waitForLogReading(elapsed: Duration.zero);
       case MonsterFaintedEvent():
         final faintedName =
             _displayedActiveMembers[event.side]!.definition.name;
@@ -792,7 +812,7 @@ class _BattleScreenState extends State<BattleScreen>
         _game.faint(side: event.side);
         unawaited(_gameAudio.playSoundEffect(effect: SoundEffect.faint));
         unawaited(_haptics.faint());
-        await Future<void>.delayed(_messageDuration);
+        await _waitForLogReading(elapsed: Duration.zero);
       case MonsterSwitchedInEvent(:final withdrawnMonsterId):
         // 自分からの交代はラウンドの始めに起き、その後に相手の技を受けるため、控えにいたラウンドの始めの状態で出す。
         // 倒れた時の交代はラウンドの終わりに起きるため、解決した後の状態で出す
@@ -818,7 +838,7 @@ class _BattleScreenState extends State<BattleScreen>
             monsterId: event.monsterId,
           ),
         );
-        await Future<void>.delayed(_messageDuration);
+        await _waitForLogReading(elapsed: Duration.zero);
       case LevelUpEvent():
       case BattleFinishedEvent():
         // レベルアップと勝敗は勝敗の画面にまとめて出す
@@ -947,7 +967,7 @@ class _BattleScreenState extends State<BattleScreen>
     // 文字の拡大率が変わるとカードの高さも変わるため、拡大率の変更でも build し直してカードを測り直す
     MediaQuery.textScalerOf(context);
     // 端のスワイプ (iOS) と戻るボタン・戻るジェスチャー (Android) でバトルを抜けると、決着の前に手が触れただけで閉じるため、
-    // 閉じるのは「にげる」・勝敗の画面のボタンだけにする。ボタンの Navigator.pop は PopScope で止まらない。
+    // 閉じるのは勝敗の画面のボタンだけにする (決着の前に抜ける「にげる」は issue #263 で無くした)。ボタンの Navigator.pop は PopScope で止まらない。
     // pop を拒む route は端のスワイプも受け付けない (Flutter の ModalRoute.popGestureEnabled が popDisposition の doNotPop で false を返す)
     return PopScope(
       canPop: false,
@@ -1530,7 +1550,7 @@ class _BattleScreenState extends State<BattleScreen>
     ],
   );
 
-  /// 技のボタンと、交代・にげるのボタン。技のボタンには [opponentMonster] への相性の倍率を出す。
+  /// 技のボタンと、交代のボタン。技のボタンには [opponentMonster] への相性の倍率を出す。
   Widget _buildCommands({
     required BuildContext context,
     required BattleMonster playerMonster,
@@ -1632,33 +1652,19 @@ class _BattleScreenState extends State<BattleScreen>
                   : () => _selectAction(playerAction: const StruggleAction()),
             ),
           ),
-        Row(
-          children: [
-            // 交代できる控えがいない時はボタンを出さない。交換不可の間は押せない
-            if (switchableMemberIndices(party: _battleState.player)
-                .isNotEmpty) ...[
-              Expanded(
-                child: _BattleCommandButton(
-                  key: const Key('battle-switch-monster'),
-                  label: context.l10n.battleSwitchMonster,
-                  onPressed:
-                      _isPlaying || isSwitchBlocked(party: _battleState.player)
-                      ? null
-                      : _chooseSwitchMonster,
-                ),
-              ),
-              const SizedBox(width: 10),
-            ],
-            Expanded(
-              child: _BattleCommandButton(
-                label: context.l10n.battleRun,
-                onPressed: _isPlaying
-                    ? null
-                    : () => Navigator.of(context).pop(),
-              ),
+        // 交代できる控えがいない時はボタンを出さない。交換不可の間は押せない
+        if (switchableMemberIndices(party: _battleState.player).isNotEmpty)
+          SizedBox(
+            width: double.infinity,
+            child: _BattleCommandButton(
+              key: const Key('battle-switch-monster'),
+              label: context.l10n.battleSwitchMonster,
+              onPressed:
+                  _isPlaying || isSwitchBlocked(party: _battleState.player)
+                  ? null
+                  : _chooseSwitchMonster,
             ),
-          ],
-        ),
+          ),
       ],
     );
   }
@@ -2213,7 +2219,7 @@ class _MoveButton extends StatelessWidget {
   }
 }
 
-/// 交代・にげる・わるあがきのボタン。
+/// 交代・わるあがきのボタン。
 class _BattleCommandButton extends StatelessWidget {
   const _BattleCommandButton({
     super.key,

@@ -52,7 +52,7 @@ const Duration _pollingInterval = Duration(seconds: 5);
 ///
 /// 初回の導線 ([startsFirstBattle]) では、生成を待つ間は「相手を探しています」を出し、生まれたら手持ちに入れて相手を決め、
 /// 「○○ があらわれた」の後にバトルの画面を開く。バトルの画面を閉じたら、図鑑を見る時は [ResultScreenAction.openDex]、
-/// それ以外 (もう 1 体撮る・にげる) は null を返して閉じる。生まれなかった時は初回でない時と同じ理由の表示に戻る。
+/// それ以外 (もう 1 体撮る) は null を返して閉じる。生まれなかった時は初回でない時と同じ理由の表示に戻る。
 class GenerationScreen extends StatefulWidget {
   /// 生成の画面を作る。
   const GenerationScreen({

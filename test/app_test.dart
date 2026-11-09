@@ -1658,7 +1658,7 @@ void main() {
       expect(pvpCalls.fetchOpponentsCount, 0);
     });
 
-    testWidgets('挑むとバトル画面が開き、にげると対戦相手の画面に戻り、交代で手持ちの控えを場に出せる', (tester) async {
+    testWidgets('挑むとバトル画面が開き、にげるのボタンは無く、交代で手持ちの控えを場に出せる', (tester) async {
       await pumpHome(
         tester: tester,
         hasStartedSession: true,
@@ -1690,13 +1690,9 @@ void main() {
           .definition;
       expect(find.text('${opponentMonster.name} が 勝負をしかけてきた'), findsOneWidget);
       expect(find.text('ターン 1'), findsOneWidget);
+      // 決着の前にバトルを抜けるボタンは置かない (issue #263)
+      expect(find.text('にげる'), findsNothing);
 
-      await tester.tap(find.text('にげる'));
-      await pumpTransition();
-      expect(find.text('ランダムな相手と戦う'), findsOneWidget);
-
-      await tester.tap(challengeButton);
-      await pumpTransition();
       await tester.tap(find.text('モンスターを交代'));
       await pumpTransition();
       // 候補は場にいない 2 体目と 3 体目だけ
@@ -1707,7 +1703,7 @@ void main() {
         findsOneWidget,
       );
       await tester.tap(find.byKey(const Key('battle-switch-candidate-1')));
-      // 交代のログは次のログまで 0.7 秒だけ出るため、その間に確かめる
+      // 交代のログは次のログまで 1.5 秒だけ出るため、その間に確かめる
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 100));
       final party = dexStore.party;
@@ -1859,12 +1855,12 @@ void main() {
     // バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
-    expect(find.text('にげる'), findsOneWidget);
+    expect(find.text('モンスターを交代'), findsOneWidget);
     // はみ出しは RenderFlex のエラーとして報告されるため、例外が無いことで確かめる
     expect(tester.takeException(), isNull);
   });
 
-  testWidgets('iOS の最大の文字サイズでも交代・にげるのボタンの文字が切れない', (tester) async {
+  testWidgets('iOS の最大の文字サイズでも交代のボタンの文字が切れない', (tester) async {
     // iOS のアクセシビリティの最大の文字サイズ (約 3.1 倍) より少し大きくした
     // 文字が大きいと対戦相手の画面の挑むボタンが画面外に出るため、バトル画面を直接開く
     tester.platformDispatcher.textScaleFactorTestValue = 3.2;
@@ -1915,16 +1911,15 @@ void main() {
     await tester.pump(const Duration(seconds: 1));
     // 高さが足りない時、文字は例外を出さずに切れる (描画の大きさが中身の高さより小さくなる) ため、
     // 文字の描画の大きさが中身の高さ以上あることで確かめる
-    for (final label in ['にげる', 'モンスターを交代']) {
-      final paragraph = tester.renderObject<RenderParagraph>(find.text(label));
-      expect(
-        paragraph.size.height,
-        greaterThanOrEqualTo(
-          paragraph.getMinIntrinsicHeight(paragraph.size.width),
-        ),
-        reason: label,
-      );
-    }
+    final paragraph = tester.renderObject<RenderParagraph>(
+      find.text('モンスターを交代'),
+    );
+    expect(
+      paragraph.size.height,
+      greaterThanOrEqualTo(
+        paragraph.getMinIntrinsicHeight(paragraph.size.width),
+      ),
+    );
   });
 
   group('設定画面', () {

@@ -20,6 +20,33 @@
         "ja-JP": { "title": "生成チケット 30 回", "description": "写真からモンスターを 30 回つくれる" },
         "en-US": { "title": "30 Generation Tickets", "description": "Create 30 monsters from your photos" }
       }
+    },
+    {
+      "sku": "snapmon_actioncardrank1_100yen",
+      "status": "inactive",
+      "default_price": { "currency": "JPY", "price": "100" },
+      "listings": {
+        "ja-JP": { "title": "Action Card ランク 1", "description": "好きな技を 1 つ選んで何体にでも覚えさせられる" },
+        "en-US": { "title": "Action Card Rank 1", "description": "Pick one move and teach it to any of your monsters" }
+      }
+    },
+    {
+      "sku": "snapmon_actioncardrank2_300yen",
+      "status": "inactive",
+      "default_price": { "currency": "JPY", "price": "300" },
+      "listings": {
+        "ja-JP": { "title": "Action Card ランク 2", "description": "好きな技を 1 つ選んで何体にでも覚えさせられる" },
+        "en-US": { "title": "Action Card Rank 2", "description": "Pick one move and teach it to any of your monsters" }
+      }
+    },
+    {
+      "sku": "snapmon_actioncardrank3_500yen",
+      "status": "inactive",
+      "default_price": { "currency": "JPY", "price": "500" },
+      "listings": {
+        "ja-JP": { "title": "Action Card ランク 3", "description": "好きな技を 1 つ選んで何体にでも覚えさせられる" },
+        "en-US": { "title": "Action Card Rank 3", "description": "Pick one move and teach it to any of your monsters" }
+      }
     }
   ]
 }
