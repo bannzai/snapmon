@@ -141,6 +141,17 @@ class ActionCardStore extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// 表示の切り替えが true で課金を使えるのに売っている package が無い時だけ、package を読み直す。
+  /// 起動直後の読み込みが失敗 (オフライン・RevenueCat の一時的な失敗) すると空のまま残り、入口が出ないため
+  /// Action Card の画面 (開くたびに読み直す) にも入れなくなる。入口を出す画面 (プロフィール・図鑑の詳細) を開いた時に呼ぶ。
+  void refreshPackagesIfMissing() {
+    if (_isActionCardsVisible &&
+        client.isPurchaseSupported() &&
+        _packages.isEmpty) {
+      unawaited(refreshPackages());
+    }
+  }
+
   /// [package] を購入する ([ActionCardClient.purchaseActionCardPackage])。
   Future<TicketPurchaseResult> purchase({required Package package}) =>
       client.purchaseActionCardPackage(package: package);

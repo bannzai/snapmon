@@ -5,12 +5,14 @@ import 'package:snapmon/features/action_card/action_card_screen.dart';
 import 'package:snapmon/features/action_card/action_card_store.dart';
 import 'package:snapmon/features/capture/monster_generator.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
+import 'package:snapmon/features/profile/profile_screen.dart';
 import 'package:snapmon/features/result/result_screen.dart';
 import 'package:snapmon/l10n/l10n.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
 
 import '../../action_card_client_fixture.dart';
 import '../../card_sharer_fixture.dart';
+import '../../pvp_client_fixture.dart';
 import '../../sample_data_fixture.dart';
 
 void main() {
@@ -106,6 +108,74 @@ void main() {
       expect(find.byKey(const Key('action-card-buy')), findsNothing);
       expect(
         find.byKey(const Key('action-card-owned-water_3')),
+        findsOneWidget,
+      );
+    });
+  });
+
+  group('プロフィールの入口', () {
+    /// プロフィール画面 (アイコンの写真は選ばない)。
+    Widget profile() => ProfileScreen(
+      initialProfile: (displayName: 'トレーナー', iconPath: null),
+      onProfileChanged: ({required profile}) {},
+      pvpClient: signedOutPvpClient(calls: RecordedPvpCalls()),
+      pickPhoto: () async => null,
+      preparePhoto: ({required sourceBytes}) async => sourceBytes,
+      dexStore: dexStore,
+    );
+
+    testWidgets('表示の切り替えが true で package がある時は 入口を出す', (tester) async {
+      await pump(tester: tester, home: profile());
+      expect(
+        find.byKey(const Key('action-card-entry-profile')),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('表示の切り替えが false の時は 入口を出さない', (tester) async {
+      fakeActionCards.isActionCardsVisible.value = false;
+      await pump(tester: tester, home: profile());
+      expect(find.byKey(const Key('action-card-entry-profile')), findsNothing);
+    });
+
+    testWidgets('売っている package が無い時は 入口を出さない', (tester) async {
+      fakeActionCards.packages = const [];
+      await pump(tester: tester, home: profile());
+      expect(find.byKey(const Key('action-card-entry-profile')), findsNothing);
+    });
+
+    testWidgets('課金を使えないビルド (Web) では 入口を出さない', (tester) async {
+      fakeActionCards.isPurchaseSupported = false;
+      await pump(tester: tester, home: profile());
+      expect(find.byKey(const Key('action-card-entry-profile')), findsNothing);
+    });
+
+    testWidgets('起動直後の package の読み込みが失敗しても 開いた時に読み直して入口を出す', (tester) async {
+      final packages = fakeActionCards.packages;
+      fakeActionCards.packages = const [];
+      final store = ActionCardStore(
+        client: fakeActionCards.client(),
+        sessionChanges: ChangeNotifier(),
+        sampleActionCards: null,
+      );
+      addTearDown(store.dispose);
+      await tester.pumpAndSettle();
+      expect(store.isPurchaseEntryVisible, isFalse);
+      fakeActionCards.packages = packages;
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: snapmonThemeData(),
+          locale: const Locale('ja'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          builder: (context, child) =>
+              ActionCardScope(actionCardStore: store, child: child!),
+          home: profile(),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(
+        find.byKey(const Key('action-card-entry-profile')),
         findsOneWidget,
       );
     });

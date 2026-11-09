@@ -58,6 +58,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
   /// アイコンを選んでから保存し終えるまでの間か。間は選び直させない (先に送った写真の結果で上書きされるため)。
   bool _isUpdatingIcon = false;
 
+  /// Action Card の package の読み直しを頼んだ [ActionCardStore]。画面を開いた時に 1 度だけ頼むため
+  /// (読み直しの結果の通知でも呼ばれ、失敗が続くと読み直しを繰り返すため)。
+  ActionCardStore? _packagesRequestedActionCardStore;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // 起動直後の package の読み込みが失敗したままだと Action Card の入口が出ないため、開いた時に読み直す
+    final actionCardStore = ActionCardScope.maybeOf(context);
+    if (!identical(actionCardStore, _packagesRequestedActionCardStore)) {
+      _packagesRequestedActionCardStore = actionCardStore
+        ?..refreshPackagesIfMissing();
+    }
+  }
+
   /// 画面の下に [message] を 1 つだけ出す (前の通知は消す)。
   void _showMessage({required String message}) => ScaffoldMessenger.of(context)
     ..hideCurrentSnackBar()

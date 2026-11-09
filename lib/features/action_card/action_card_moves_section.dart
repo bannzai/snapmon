@@ -67,6 +67,7 @@ class _ActionCardMovesSectionState extends State<ActionCardMovesSection> {
       _listenedActionCardStore = actionCardStore
         ?..addListener(_refreshMissingDefinitions);
       _refreshMissingDefinitions();
+      actionCardStore?.refreshPackagesIfMissing();
     }
   }
 
