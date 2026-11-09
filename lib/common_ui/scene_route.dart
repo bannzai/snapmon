@@ -16,11 +16,18 @@ Widget sceneSwitcherLayoutBuilder(
 /// 画面をゲームのシーンのようにフェードで重ねて開く route を作る (#264)。OS 標準の横スライドの遷移
 /// (MaterialPageRoute) と違い、iOS の端のスワイプでは閉じない。閉じるのは画面の「閉じる」「もどる」のボタンと
 /// Android の戻る操作だけになる。[builder] は開く画面を作る。
-PageRoute<T> sceneRoute<T>({required WidgetBuilder builder}) =>
-    PageRouteBuilder<T>(
-      transitionDuration: sceneTransitionDuration,
-      reverseTransitionDuration: sceneTransitionDuration,
-      pageBuilder: (context, animation, secondaryAnimation) => builder(context),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-          FadeTransition(opacity: animation, child: child),
-    );
+PageRoute<T> sceneRoute<T>({
+  required WidgetBuilder builder,
+}) => PageRouteBuilder<T>(
+  transitionDuration: sceneTransitionDuration,
+  reverseTransitionDuration: sceneTransitionDuration,
+  // MaterialPageRoute の buildPage と同じく画面単位の Semantics で包み、TalkBack・VoiceOver に新しい画面を知らせる
+  // (PageRouteBuilder はこの包みを足さないため)
+  pageBuilder: (context, animation, secondaryAnimation) => Semantics(
+    scopesRoute: true,
+    explicitChildNodes: true,
+    child: builder(context),
+  ),
+  transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+      FadeTransition(opacity: animation, child: child),
+);
