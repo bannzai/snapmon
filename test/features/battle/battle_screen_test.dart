@@ -302,15 +302,15 @@ void main() {
       (2, '▲×4'),
       (3, null),
     ]) {
-      final multiplierTag = find.descendant(
+      final multiplierText = find.descendant(
         of: find.byKey(Key('move-slot-$slotIndex')),
         matching: find.byKey(const Key('move-type-multiplier')),
       );
       if (expectedText == null) {
-        expect(multiplierTag, findsNothing, reason: 'move-slot-$slotIndex');
+        expect(multiplierText, findsNothing, reason: 'move-slot-$slotIndex');
       } else {
         expect(
-          tester.widget<Text>(multiplierTag).data,
+          tester.widget<Text>(multiplierText).data,
           expectedText,
           reason: 'move-slot-$slotIndex',
         );

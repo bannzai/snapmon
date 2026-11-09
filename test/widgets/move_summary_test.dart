@@ -117,15 +117,15 @@ void main() {
         moveId: plainMove.id,
         typeMultiplier: typeMultiplier,
       );
-      final multiplierTag = find.byKey(const Key('move-type-multiplier'));
+      final multiplierText = find.byKey(const Key('move-type-multiplier'));
       if (expectedText == null) {
-        expect(multiplierTag, findsNothing);
+        expect(multiplierText, findsNothing);
         return;
       }
-      expect(tester.widget<Text>(multiplierTag).data, expectedText);
+      expect(tester.widget<Text>(multiplierText).data, expectedText);
       // 属性の札の右に並べ、段を足さない (足すと技のボタンが高くなり、バトルの場が狭まる)
       expect(
-        tester.getTopLeft(multiplierTag).dx,
+        tester.getTopLeft(multiplierText).dx,
         greaterThan(tester.getTopRight(find.byType(ElementTypeTag)).dx),
       );
       // 札の地を付けず、属性の札より小さく見せる (地を持つのは属性の札の 1 つだけ。https://github.com/bannzai/snapmon/issues/259 )
