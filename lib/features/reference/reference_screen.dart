@@ -254,7 +254,8 @@ class _MoveList extends StatelessWidget {
   Widget build(BuildContext context) => _buildList(
     replacedMoveIds: {
       for (final move in definitions.moves)
-        if (move.replacesMoveId case final String replacedMoveId) replacedMoveId,
+        if (move.replacesMoveId case final String replacedMoveId)
+          replacedMoveId,
     },
   );
 

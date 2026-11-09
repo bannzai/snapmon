@@ -1,6 +1,6 @@
 {
   "definitions": {
-    "version": 10,
+    "version": 11,
     "elementTypes": [
       {
         "id": "fire",

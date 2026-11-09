@@ -279,8 +279,8 @@ describe("generate", () => {
     // Lv.1 は自分の属性の段階 1 の技 2 つと、別の属性の段階 1 の技 2 つ (#224)。確率が同じ技・属性の並びは説明文で決まる (#257)
     const startingMoveIds = monster.definition.learnset.filter((entry) => entry.unlockLevel === 1).map((entry) => entry.moveId);
     expect(startingMoveIds).toHaveLength(4);
-    expect(startingMoveIds.slice(0, 2).every((moveId) => /^steel_1[b-d]?$/.test(moveId))).toBe(true);
-    expect(startingMoveIds.slice(2).every((moveId) => /^[a-z]+_1[b-d]?$/.test(moveId) && !moveId.startsWith("steel_"))).toBe(true);
+    expect(startingMoveIds.slice(0, 2).every((moveId) => /^steel_(1[b-g]?|p1)$/.test(moveId))).toBe(true);
+    expect(startingMoveIds.slice(2).every((moveId) => /^[a-z]+_(1[b-g]?|p1)$/.test(moveId) && !moveId.startsWith("steel_"))).toBe(true);
     expect(monster.definition.baseStats).toEqual({ hitPoints: 80, attack: 80, defense: 80, speed: 80 });
     expect(monster.categoryIds[0]).toBe("tableware");
     const [artExists] = await bucket.file(`monsters/${first.monsterId}/art.png`).exists();
@@ -814,7 +814,7 @@ describe("generate", () => {
     // その場で作った属性は段階 1 の技を 1 つしか持たないため、Lv.1 の残りを master の別の属性の段階 1 の技で埋める (確率が同じ属性の並びは説明文で決まる。#257)
     expect(monster.definition.learnset[0]).toEqual({ moveId: `${elementTypeId}_1`, unlockLevel: 1 });
     expect(
-      monster.definition.learnset.slice(1, 4).every((entry) => entry.unlockLevel === 1 && /^[a-z]+_1[b-d]?$/.test(entry.moveId)),
+      monster.definition.learnset.slice(1, 4).every((entry) => entry.unlockLevel === 1 && /^[a-z]+_(1[b-g]?|p1)$/.test(entry.moveId)),
     ).toBe(true);
     expect(monster.definition.learnset.slice(4)).toEqual([
       { moveId: `${elementTypeId}_2`, unlockLevel: 15 },

@@ -21,9 +21,9 @@ void main() {
   /// 図鑑のモンスターが参照するその場で作った定義 (属性 1 つと技 1 つ) を足した定義。
   final definitions = mergeMasterData(
     base: MasterData.fromJson(
-      json:
-          jsonDecode(File('assets/master/master.json').readAsStringSync())
-              as Map<String, dynamic>,
+      json: jsonDecode(
+        File('assets/master/master.json').readAsStringSync(),
+      ) as Map<String, dynamic>,
     ),
     additional: MasterData.fromJson(
       json: {
@@ -223,7 +223,9 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
-  testWidgets('技の一覧に、別の技が置き換えた補助技を出さず、置き換えた攻撃技と置き換えていない補助技を出す (#257)', (tester) async {
+  testWidgets('技の一覧に、別の技が置き換えた補助技を出さず、置き換えた攻撃技と置き換えていない補助技を出す (#257)', (
+    tester,
+  ) async {
     await pumpApp(
       tester: tester,
       home: ReferenceScreen(dexStore: DexStore(definitions: definitions)),
