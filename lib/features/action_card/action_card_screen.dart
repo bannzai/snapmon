@@ -185,13 +185,21 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
             ?movesById[moveId],
     ]..sort((left, right) => left.id.compareTo(right.id));
     // 選んだ属性の技を買い切り終えるとその属性のチップは消えるため、買い切れる技が無い属性はすべてとして扱う
-    // (選んだ値は残し、チップの選択と一覧の絞り込みだけを戻す。一覧が空のまま、どのチップも選ばれていない状態にしないため)
+    // (一覧が空のまま、どのチップも選ばれていない状態にしないため)。選んだ値も次のフレームで解除する
+    // (残すと、後で残高や技のランクが変わってその属性の技がまた買い切れるようになった時に、触っていない絞り込みが戻るため)
     final activeElementTypeIdFilter =
         redeemableMoves.any(
           (move) => move.elementTypeId == _elementTypeIdFilter,
         )
         ? _elementTypeIdFilter
         : null;
+    if (_elementTypeIdFilter != null && activeElementTypeIdFilter == null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          setState(() => _elementTypeIdFilter = null);
+        }
+      });
+    }
     return Scaffold(
       appBar: AppBar(title: Text(l10n.actionCardTitle)),
       body: ListView(

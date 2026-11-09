@@ -394,6 +394,19 @@ void main() {
         find.byKey(const Key('action-card-redeem-water_3')),
         findsOneWidget,
       );
+      // 後で炎の技がまた買い切れるようになっても 前の絞り込みは戻らない
+      fakeActionCards.ownedMoveIds.value = const [];
+      await tester.pumpAndSettle();
+      expect(
+        tester
+            .widget<ChoiceChip>(find.widgetWithText(ChoiceChip, 'すべて'))
+            .selected,
+        isTrue,
+      );
+      expect(
+        find.byKey(const Key('action-card-redeem-water_3')),
+        findsOneWidget,
+      );
     });
   });
 
