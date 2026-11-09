@@ -103,16 +103,15 @@ export const redeemActionCard = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, a
   return firestore.runTransaction(async (transaction) => {
     const [userSnapshot, moveRanksSnapshot, actionCardSnapshot] = await transaction.getAll(userDocument, firestore.doc("moveRanks/current"), actionCardDocument);
     requireActiveAccount({ userSnapshot });
-    const credits = actionCardCreditsOf(userSnapshot.get("actionCardCredits"));
-    const creditsDetails = { actionCardCredits: { rank1: credits[1], rank2: credits[2], rank3: credits[3] } };
+    const actionCardCredits = actionCardCreditsOf(userSnapshot.get("actionCardCredits"));
     if (actionCardSnapshot.exists) {
-      throw new HttpsError("already-exists", `${moveId} は買い切り済みです`, creditsDetails);
+      throw new HttpsError("already-exists", `${moveId} は買い切り済みです`, { actionCardCredits });
     }
     const rankByMoveId = (moveRanksSnapshot.get("rankByMoveId") ?? {}) as Record<string, MoveRank>;
     const rank = Object.hasOwn(rankByMoveId, moveId) ? rankByMoveId[moveId] : fallbackMoveRank(move);
-    const creditRank = creditRankToRedeem({ moveRank: rank, credits });
+    const creditRank = creditRankToRedeem({ moveRank: rank, actionCardCredits });
     if (creditRank === undefined) {
-      throw new HttpsError("failed-precondition", `ランク ${rank} 以上の Action Card がありません`, creditsDetails);
+      throw new HttpsError("failed-precondition", `ランク ${rank} 以上の Action Card がありません`, { actionCardCredits });
     }
     transaction.create(actionCardDocument, { moveId, rank, redeemedAt: Timestamp.now() } satisfies ActionCardDocument);
     transaction.update(userDocument, { [`actionCardCredits.rank${creditRank}`]: FieldValue.increment(-1) });
@@ -120,14 +119,14 @@ export const redeemActionCard = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, a
       moveId,
       rank,
       creditRank,
-      actionCardCredits: { ...creditsDetails.actionCardCredits, [`rank${creditRank}`]: credits[creditRank] - 1 },
+      actionCardCredits: { ...actionCardCredits, [`rank${creditRank}`]: actionCardCredits[`rank${creditRank}`] - 1 },
     };
   });
 });
 
-/** teach・forget の data `{ monsterId, moveId }` を確かめて返す。形が違えば invalid-argument を投げる。 */
-function monsterMoveArguments(data: unknown): { monsterId: string; moveId: string } {
-  const { monsterId, moveId } = (data ?? {}) as { monsterId?: unknown; moveId?: unknown };
+/** teach・forget の callable の request.data `{ monsterId, moveId }` を確かめて返す。形が違えば invalid-argument を投げる。 */
+function monsterMoveArguments(requestData: unknown): { monsterId: string; moveId: string } {
+  const { monsterId, moveId } = (requestData ?? {}) as { monsterId?: unknown; moveId?: unknown };
   if (!isDocumentId(monsterId) || !isDocumentId(moveId)) {
     throw new HttpsError("invalid-argument", "monsterId と moveId を渡してください");
   }

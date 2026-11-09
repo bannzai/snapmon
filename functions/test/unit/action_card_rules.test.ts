@@ -145,22 +145,22 @@ describe("computeMoveRanks", () => {
 
 describe("creditRankToRedeem", () => {
   it("技のランクと同じランクのカードを使う", () => {
-    expect(creditRankToRedeem({ moveRank: 2, credits: { 1: 1, 2: 1, 3: 1 } })).toBe(2);
+    expect(creditRankToRedeem({ moveRank: 2, actionCardCredits: { rank1: 1, rank2: 1, rank3: 1 } })).toBe(2);
   });
 
   it("同じランクが無ければ上の一番安いランクを使う", () => {
-    expect(creditRankToRedeem({ moveRank: 1, credits: { 1: 0, 2: 1, 3: 1 } })).toBe(2);
+    expect(creditRankToRedeem({ moveRank: 1, actionCardCredits: { rank1: 0, rank2: 1, rank3: 1 } })).toBe(2);
   });
 
   it("下のランクのカードでは高い技を買えない", () => {
-    expect(creditRankToRedeem({ moveRank: 3, credits: { 1: 5, 2: 5, 3: 0 } })).toBeUndefined();
+    expect(creditRankToRedeem({ moveRank: 3, actionCardCredits: { rank1: 5, rank2: 5, rank3: 0 } })).toBeUndefined();
   });
 });
 
 describe("actionCardCreditsOf", () => {
-  it("無いランクは 0 枚", () => {
-    expect(actionCardCreditsOf({ rank2: 3 })).toEqual({ 1: 0, 2: 3, 3: 0 });
-    expect(actionCardCreditsOf(undefined)).toEqual({ 1: 0, 2: 0, 3: 0 });
+  it("無いランクと数でない値は 0 枚", () => {
+    expect(actionCardCreditsOf({ rank2: 3, rank3: "1" })).toEqual({ rank1: 0, rank2: 3, rank3: 0 });
+    expect(actionCardCreditsOf(undefined)).toEqual({ rank1: 0, rank2: 0, rank3: 0 });
   });
 });
 

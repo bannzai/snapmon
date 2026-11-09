@@ -105,27 +105,35 @@ export function computeMoveRanks({
   const usedMoves = moves
     .filter((move) => usageCountOf(move) > 0)
     .sort((left, right) => usageCountOf(right) - usageCountOf(left) || (left.id < right.id ? -1 : left.id > right.id ? 1 : 0));
-  const rank3Count = Math.floor((usedMoves.length * RANK_3_USAGE_PERCENT) / 100);
-  const rank2OrHigherCount = Math.floor((usedMoves.length * (RANK_3_USAGE_PERCENT + RANK_2_USAGE_PERCENT)) / 100);
   const usageRankByMoveId = new Map<string, MoveRank>(
-    usedMoves.map((move, index): [string, MoveRank] => [move.id, index < rank3Count ? 3 : index < rank2OrHigherCount ? 2 : 1]),
+    usedMoves.map((move, index): [string, MoveRank] => [
+      move.id,
+      index < Math.floor((usedMoves.length * RANK_3_USAGE_PERCENT) / 100)
+        ? 3
+        : index < Math.floor((usedMoves.length * (RANK_3_USAGE_PERCENT + RANK_2_USAGE_PERCENT)) / 100)
+          ? 2
+          : 1,
+    ]),
   );
   return Object.fromEntries(moves.map((move) => [move.id, usageRankByMoveId.get(move.id) ?? fallbackMoveRank(move)]));
 }
 
+/** `users/{uid}.actionCardCredits` の形。ランクごとの Action Card の残高。 */
+export type ActionCardCredits = Record<`rank${MoveRank}`, number>;
+
 /**
- * ランク [moveRank] の技を買う時に使うカードのランク。[credits] (ランクごとの残高) のうち、[moveRank] 以上で残高のある一番安いランク。
+ * ランク [moveRank] の技を買う時に使うカードのランク。[actionCardCredits] のうち、[moveRank] 以上で残高のある一番安いランク。
  * 高いカードで安い技を買える (#271) が、安いカードが残っている時に高いカードを減らさないため一番安いものから使う。使えるカードが無ければ undefined。
  */
-export function creditRankToRedeem({ moveRank, credits }: { moveRank: MoveRank; credits: Record<MoveRank, number> }): MoveRank | undefined {
-  return MOVE_RANKS.find((creditRank) => creditRank >= moveRank && credits[creditRank] >= 1);
+export function creditRankToRedeem({ moveRank, actionCardCredits }: { moveRank: MoveRank; actionCardCredits: ActionCardCredits }): MoveRank | undefined {
+  return MOVE_RANKS.find((creditRank) => creditRank >= moveRank && actionCardCredits[`rank${creditRank}`] >= 1);
 }
 
-/** `users/{uid}.actionCardCredits` の値 [stored] を、ランクごとの残高にする。無いランクは 0 枚 (買っていない)。 */
-export function actionCardCreditsOf(stored: unknown): Record<MoveRank, number> {
-  const credits = (stored ?? {}) as Partial<Record<`rank${MoveRank}`, unknown>>;
+/** Firestore から読んだ `users/{uid}.actionCardCredits` の値 [stored] の、無いランク・数でない値を 0 枚 (買っていない) にした残高。 */
+export function actionCardCreditsOf(stored: unknown): ActionCardCredits {
   const countOf = (value: unknown) => (typeof value === "number" ? value : 0);
-  return { 1: countOf(credits.rank1), 2: countOf(credits.rank2), 3: countOf(credits.rank3) };
+  const { rank1, rank2, rank3 } = (stored ?? {}) as Partial<Record<keyof ActionCardCredits, unknown>>;
+  return { rank1: countOf(rank1), rank2: countOf(rank2), rank3: countOf(rank3) };
 }
 
 /**

@@ -259,9 +259,9 @@ describe("updateMoveRanksWith", () => {
     const stored = (await firestore.doc("moveRanks/current").get()).data();
     expect(stored).toMatchObject({ version: 1, usageWindowDays: 7 });
     expect(stored?.computedAt.toDate()).toEqual(now);
-    // 使われた技は weak (3) と middle (2) の 2 件で、上位 20% (0 件)・30% (0 件) の後のランク 1。
+    // 使われた技は weak (3) と middle (2) の 2 件で、ランク 3 は 2 件の 20% の切り捨てで 0 件、ランク 2 は 50% の切り捨てで 1 件目まで。
     // strong (使われていない) と replacer は段階で決める。置き換えられた replaced は表に入れない
-    expect(stored?.rankByMoveId).toEqual({ weak: 1, middle: 1, strong: 3, replacer: 1 });
+    expect(stored?.rankByMoveId).toEqual({ weak: 2, middle: 1, strong: 3, replacer: 1 });
     expect(written.rankByMoveId).toEqual(stored?.rankByMoveId);
   });
 
