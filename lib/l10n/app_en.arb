@@ -195,7 +195,6 @@
   "statusConditionExcited": "Excited",
   "statusConditionFrozen": "Frozen",
   "statusConditionSwitchBlocked": "Can't switch",
-  "moveTypeMultiplier": "×{multiplier}",
   "moveTypeSuperEffective": "Super effective ×{multiplier}",
   "moveTypeNotVeryEffective": "Not very effective ×{multiplier}",
   "moveDetailAccuracy": "Accuracy",
