@@ -101,10 +101,10 @@ void main() {
 
   // 等倍 (1) は「似ているが出さない」側。0.25・4 は 2 属性の相手への積で、桁を落とさずに出す
   for (final (typeMultiplier, expectedText) in [
-    (2.0, '▲ばつぐん ×2'),
-    (4.0, '▲ばつぐん ×4'),
-    (0.5, '▼いまひとつ ×0.5'),
-    (0.25, '▼いまひとつ ×0.25'),
+    (2.0, '▲×2'),
+    (4.0, '▲×4'),
+    (0.5, '▼×0.5'),
+    (0.25, '▼×0.25'),
     (1.0, null),
     (null, null),
   ]) {
@@ -123,21 +123,12 @@ void main() {
         return;
       }
       expect(tester.widget<Text>(multiplierTag).data, expectedText);
-      // 属性の札・威力・PP の段に混ぜず、その下の段に出す (https://github.com/bannzai/snapmon/issues/259 )
+      // 属性の札の右に並べ、段を足さない (足すと技のボタンが高くなり、バトルの場が狭まる)
       expect(
-        tester.getTopLeft(multiplierTag).dy,
-        greaterThanOrEqualTo(
-          tester
-              .getBottomLeft(
-                find.text(
-                  'PP 12/${plainMove.powerPoints}',
-                  findRichText: true,
-                ),
-              )
-              .dy,
-        ),
+        tester.getTopLeft(multiplierTag).dx,
+        greaterThan(tester.getTopRight(find.byType(ElementTypeTag)).dx),
       );
-      // 札の地を付けず、属性の札より小さく見せる (地を持つのは属性の札の 1 つだけ)
+      // 札の地を付けず、属性の札より小さく見せる (地を持つのは属性の札の 1 つだけ。https://github.com/bannzai/snapmon/issues/259 )
       expect(
         find.descendant(
           of: find.byType(MoveSummary),

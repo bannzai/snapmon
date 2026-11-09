@@ -297,9 +297,9 @@ void main() {
     );
     // マグモンの技の枠は 炎・鋼・炎・鋼 の順。炎はリンゴラの菓子・草の両方に 2 倍で 4 倍、鋼はどちらにも等倍
     for (final (slotIndex, expectedText) in [
-      (0, '▲ばつぐん ×4'),
+      (0, '▲×4'),
       (1, null),
-      (2, '▲ばつぐん ×4'),
+      (2, '▲×4'),
       (3, null),
     ]) {
       final multiplierTag = find.descendant(

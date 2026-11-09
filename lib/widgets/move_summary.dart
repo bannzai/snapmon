@@ -8,7 +8,7 @@ import '../theme/snapmon_colors.dart';
 import '../theme/snapmon_text_styles.dart';
 import 'monster_parts.dart';
 
-/// 技の中身を「名前 / 属性の札・威力・PP / 今の相手への相性 / 特殊効果の説明」の段に分けて描く (相性はバトルの中で等倍以外の時だけ)。
+/// 技の中身を「名前 / 属性の札・威力・PP / 特殊効果の説明」の 3 段に分けて描く。
 /// 段ごとに書体と色を変え、何が名前で何が属性かを読み分けられるようにする (https://github.com/bannzai/snapmon/issues/123 )。
 /// バトルの技のボタンと、モンスターのカードの覚えている技の行で使う。地はカードの生成りの白を前提にする。
 class MoveSummary extends StatelessWidget {
@@ -27,7 +27,7 @@ class MoveSummary extends StatelessWidget {
   /// 残りの PP。バトルの外 (カードの覚えている技) では null で、その時は最大の PP だけを出す。
   final int? remainingPowerPoints;
 
-  /// 今の相手の場のモンスターへの相性の倍率。威力・PP の段の下に「▲ばつぐん ×2」のように出す
+  /// 今の相手の場のモンスターへの相性の倍率。属性の札の後ろに「▲×2」のように出す
   /// (効果が抜群か今ひとつかを技を選ぶ前に分かるようにする。https://github.com/bannzai/snapmon/issues/241 )。
   /// バトルの外と相性が効かない技 (補助技・一撃必殺) は null で、出さない。
   final double? typeMultiplier;
@@ -52,6 +52,12 @@ class MoveSummary extends StatelessWidget {
             elementTypeId: move.elementTypeId,
             definitions: definitions,
           ),
+          // 等倍は出さない (ログの「こうかは ばつぐんだ」「いまひとつ」と同じく、倍率が変わる時だけ知らせる。全部の技に出すと技の枠が埋まるため)。
+          // 札にすると属性がもう 1 つあるように見えるため、地の無い ▲ / ▼ 付きの色の文字にして、属性の札とも「ラベル + 太字の値」の威力・PP とも違う形にする
+          // (https://github.com/bannzai/snapmon/issues/259 )
+          if (typeMultiplier case final typeMultiplier?
+              when typeMultiplier != 1)
+            _TypeEffectivenessText(typeMultiplier: typeMultiplier),
           _MoveStatValue(label: context.l10n.movePower, value: '${move.power}'),
           _MoveStatValue(
             label: context.l10n.movePowerPoints,
@@ -80,14 +86,6 @@ class MoveSummary extends StatelessWidget {
             ),
         ],
       ),
-      // 等倍は出さない (ログの「こうかは ばつぐんだ」「いまひとつ」と同じく、倍率が変わる時だけ知らせる。全部の技に出すと技の枠が埋まるため)。
-      // 属性の札・威力・PP の段に並べると、札なら属性、太字の数字なら数値の 1 つに見えて何の値か読めないため、言葉を付けて別の段にする
-      // (https://github.com/bannzai/snapmon/issues/259 )
-      if (typeMultiplier case final typeMultiplier?
-          when typeMultiplier != 1) ...[
-        const SizedBox(height: 4),
-        _TypeEffectivenessText(typeMultiplier: typeMultiplier),
-      ],
       if (move.specialEffect case final specialEffect?) ...[
         const SizedBox(height: 4),
         Text(
@@ -102,7 +100,8 @@ class MoveSummary extends StatelessWidget {
   );
 }
 
-/// 相性の倍率の 1 行 (「▲ばつぐん ×2」「▼いまひとつ ×0.5」)。札の地を付けず、属性の札・数値より小さく見せる。
+/// 相性の倍率の文字 (「▲×2」「▼×0.5」)。札の地を付けず、属性の札・数値より小さく見せる。
+/// 技のボタンに言葉を足す高さは無いため (言葉の行を足すと 390×844 でトレーナーの札が出なくなる)、言葉はログの「こうかは ばつぐんだ」に任せる。
 /// 抜群 (1 より大きい) は緑の太字で目立たせ、今ひとつ (1 より小さい) は特殊効果の説明と同じ薄い細字で控えめに描く。
 class _TypeEffectivenessText extends StatelessWidget {
   const _TypeEffectivenessText({required this.typeMultiplier});
