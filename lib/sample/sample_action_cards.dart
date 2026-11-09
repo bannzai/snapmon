@@ -37,8 +37,11 @@ class SampleActionCards {
     rank: (creditsByRank.value[rank] ?? 0) + 1,
   };
 
-  /// [master] の買える技 (置き換えられた技を除く) に、威力でランクを付けた表を入れる。Functions の予備のランク
-  /// (functions/src/action_card_rules.ts の `fallbackMoveRank`) の威力の区切りに寄せた見本で、使用回数は見ない。
+  /// [master] の買える技 (置き換えられた技を除く) に、威力でランクを付けた表を入れる。使用回数は見ない。
+  /// 区切りの 110 と 70 は、Functions の予備のランク (functions/src/action_card_rules.ts の `fallbackMoveRank`) が使う
+  /// `RANK_3_MINIMUM_POWER`・`RANK_2_MINIMUM_POWER` と同じ値にした (見本でも本番と同じランクの並びで画面を確かめるため)。
+  /// Dart から TypeScript の定数を読めないため値を写しており、向こうを変えたらここも変える。DEBUG ビルドの見本だけが使い、
+  /// 本番のランクは moveRanks/current が正。
   void loadSampleMoveRanks({required MasterData master}) {
     final replacedMoveIds = {
       for (final move in master.moves) ?move.replacesMoveId,

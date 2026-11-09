@@ -31,13 +31,15 @@ Move? featuredMoveOfRank({
   required MasterData master,
 }) {
   final movesById = _movesById(master: master);
-  final moves = [
-    for (final MapEntry(key: moveId, value: moveRank) in rankByMoveId.entries)
-      if (moveRank == rank) ?movesById[moveId],
-  ]..sort((left, right) {
-      final powerOrder = right.power.compareTo(left.power);
-      return powerOrder != 0 ? powerOrder : left.id.compareTo(right.id);
-    });
+  final moves =
+      [
+        for (final MapEntry(key: moveId, value: moveRank)
+            in rankByMoveId.entries)
+          if (moveRank == rank) ?movesById[moveId],
+      ]..sort((left, right) {
+        final powerOrder = right.power.compareTo(left.power);
+        return powerOrder != 0 ? powerOrder : left.id.compareTo(right.id);
+      });
   return moves.firstOrNull;
 }
 
@@ -138,9 +140,6 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
               !store.ownedMoveIds.contains(moveId))
             ?movesById[moveId],
     ]..sort((left, right) => left.id.compareTo(right.id));
-    final elementTypeIds = {
-      for (final move in redeemableMoves) move.elementTypeId,
-    };
     return Scaffold(
       appBar: AppBar(title: Text(l10n.actionCardTitle)),
       body: ListView(
@@ -192,14 +191,15 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
                       setState(() => _elementTypeIdFilter = null),
                 ),
                 for (final elementType in widget.definitions.elementTypes)
-                  if (elementTypeIds.contains(elementType.id))
+                  if (redeemableMoves.any(
+                    (move) => move.elementTypeId == elementType.id,
+                  ))
                     ChoiceChip(
                       key: Key('action-card-filter-${elementType.id}'),
                       label: Text(elementType.displayName),
                       selected: _elementTypeIdFilter == elementType.id,
-                      onSelected: (_) => setState(
-                        () => _elementTypeIdFilter = elementType.id,
-                      ),
+                      onSelected: (_) =>
+                          setState(() => _elementTypeIdFilter = elementType.id),
                     ),
               ],
             ),

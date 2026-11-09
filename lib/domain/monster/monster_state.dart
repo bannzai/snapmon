@@ -25,7 +25,7 @@ class MonsterState {
   final int experience;
 
   /// Action Card で覚えさせた技の ID (覚えさせた順。`users/{uid}/monsters/{monsterId}.actionCardMoveIds`)。技の枠の決め方は
-  /// lib/domain/battle/battle_engine.dart の `equippedMoveIds`。
+  /// lib/domain/battle/battle_engine.dart の `equippedLearnsetEntries`。
   final List<String> actionCardMoveIds;
 
   /// バトル中の HP の残り。0 で倒れている。

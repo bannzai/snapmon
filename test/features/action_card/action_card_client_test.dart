@@ -22,15 +22,15 @@ void main() {
     });
 
     test('技のランクより安いカードしか無ければ null', () {
-      expect(creditRankToRedeem(moveRank: 3, creditsByRank: {1: 5, 2: 5}), isNull);
+      expect(
+        creditRankToRedeem(moveRank: 3, creditsByRank: {1: 5, 2: 5}),
+        isNull,
+      );
     });
   });
 
   test('actionCardCredits は無いランクを 0 枚として読む', () {
     expect(actionCardCreditsOf(stored: null), {1: 0, 2: 0, 3: 0});
-    expect(
-      actionCardCreditsOf(stored: {'rank2': 3}),
-      {1: 0, 2: 3, 3: 0},
-    );
+    expect(actionCardCreditsOf(stored: {'rank2': 3}), {1: 0, 2: 3, 3: 0});
   });
 }

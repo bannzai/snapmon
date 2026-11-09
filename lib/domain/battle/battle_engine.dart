@@ -195,7 +195,9 @@ const int maximumEquippedMoveCount = 4;
 /// [maximumEquippedMoveCount] 個で、新しく覚えた技が一番古い技と入れ替わる。[actionCardMoveIds] の技は開放レベルに関係なく使え、
 /// [learnset] 側の列からは外す (同じ技が枠に 2 つ並ばないため)。規則は documents/game-rules.md「技」で、
 /// Functions の functions/src/action_card_rules.ts の `equippedMoveIds` と同じ技を返す (共通のテストケースは test/fixtures/equipped_move_cases.json)。
-List<String> equippedMoveIds({
+/// 名前は issue #273 の完了条件が名指しした関数名のまま。Action Card の技は覚える技の一覧の項目 (開放レベル) を持たないため、
+/// 返すのは技の ID。
+List<String> equippedLearnsetEntries({
   required List<LearnsetEntry> learnset,
   required List<String> actionCardMoveIds,
   required int level,
@@ -212,7 +214,7 @@ List<String> equippedMoveIds({
   );
 }
 
-/// 技の枠 ([equippedMoveIds]) が [previousMoveIds] から [newMoveIds] に変わった時の変化を返す。
+/// 技の枠 ([equippedLearnsetEntries]) が [previousMoveIds] から [newMoveIds] に変わった時の変化を返す。
 /// `learnedMoveIds` は新しく枠に入った技、`forgottenMoveIds` は入れ替わりで枠から外れた技で、どちらも枠の順。
 /// 枠が変わらなければどちらも空 (バトルの後のレベルアップと、Action Card の技を覚えさせる前に、入れ替わる技を知らせるため。#247)。
 ({List<String> learnedMoveIds, List<String> forgottenMoveIds})
@@ -256,13 +258,13 @@ bool isOrdinaryAttackMove(Move move) =>
     !(move.specialEffect?.selfDestructs ?? false) &&
     !(move.specialEffect?.isOneHitKnockout ?? false);
 
-/// [monster] が今使える技 ([equippedMoveIds] のうち PP が残っている技) を、枠の順で返す。
+/// [monster] が今使える技 ([equippedLearnsetEntries] のうち PP が残っている技) を、枠の順で返す。
 /// 通常の攻撃技 ([isOrdinaryAttackMove]) が 1 つも無ければわるあがき ([StruggleAction]) も選べる (補助技だけが残って決着しなくなるのを防ぐため)。
 List<Move> selectableMoves({
   required BattleMonster monster,
   required MasterData master,
 }) => [
-  for (final moveId in equippedMoveIds(
+  for (final moveId in equippedLearnsetEntries(
     learnset: monster.definition.learnset,
     actionCardMoveIds: monster.state.actionCardMoveIds,
     level: monster.state.level,

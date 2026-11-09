@@ -314,7 +314,8 @@ class _BattleScreenState extends State<BattleScreen>
     }) {
       unawaited(_loadArtImage(artPath: artPath));
     }
-    // 読み込みが済むまでの被弾はパーティクルで描くため、待たずにバトルを始める。読むのはこのバトルの両陣営が使い得る技のエフェクトだけ
+    // 読み込みが済むまでの被弾はパーティクルで描くため、待たずにバトルを始める。読むのはこのバトルの両陣営が使い得る技
+    // (覚える技の一覧と Action Card で覚えさせた技) のエフェクトだけ
     unawaited(
       loadMoveEffectSpriteSheets(
         game: _game,
@@ -323,11 +324,13 @@ class _BattleScreenState extends State<BattleScreen>
             ...widget.playerParty,
             ...widget.opponentParty,
           ])
-            for (final learnsetEntry in monster.definition.learnset)
+            for (final moveId in [
+              for (final learnsetEntry in monster.definition.learnset)
+                learnsetEntry.moveId,
+              ...monster.actionCardMoveIds,
+            ])
               widget.definitions.effectById(
-                effectId: widget.definitions
-                    .moveById(moveId: learnsetEntry.moveId)
-                    .effectId,
+                effectId: widget.definitions.moveById(moveId: moveId).effectId,
               ),
         },
         assetBundle: rootBundle,
@@ -1711,12 +1714,12 @@ class _BattleResultPanel extends StatelessWidget {
     required int newLevel,
   }) {
     final changes = equippedMoveChanges(
-      previousMoveIds: equippedMoveIds(
+      previousMoveIds: equippedLearnsetEntries(
         learnset: monster.definition.learnset,
         actionCardMoveIds: monster.actionCardMoveIds,
         level: monster.level,
       ),
-      newMoveIds: equippedMoveIds(
+      newMoveIds: equippedLearnsetEntries(
         learnset: monster.definition.learnset,
         actionCardMoveIds: monster.actionCardMoveIds,
         level: newLevel,

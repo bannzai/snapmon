@@ -139,8 +139,7 @@ Future<void> main() async {
       redeemActionCard: ({required moveId}) => isSample()
           ? sampleActionCardClient!.redeemActionCard(moveId: moveId)
           : redeemActionCardWithFirebase(moveId: moveId),
-      teachActionCardMove: ({required monsterId, required moveId}) =>
-          isSample()
+      teachActionCardMove: ({required monsterId, required moveId}) => isSample()
           ? sampleActionCardClient!.teachActionCardMove(
               monsterId: monsterId,
               moveId: moveId,

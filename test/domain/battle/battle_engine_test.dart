@@ -1671,12 +1671,12 @@ void main() {
       required int previousLevel,
       required int newLevel,
     }) => equippedMoveChanges(
-      previousMoveIds: equippedMoveIds(
+      previousMoveIds: equippedLearnsetEntries(
         learnset: learnset,
         actionCardMoveIds: actionCardMoveIds,
         level: previousLevel,
       ),
-      newMoveIds: equippedMoveIds(
+      newMoveIds: equippedLearnsetEntries(
         learnset: learnset,
         actionCardMoveIds: actionCardMoveIds,
         level: newLevel,
@@ -1778,12 +1778,12 @@ void main() {
 
     test('Action Card の技を覚えさせると、一番古い技が枠から外れる', () {
       final changes = equippedMoveChanges(
-        previousMoveIds: equippedMoveIds(
+        previousMoveIds: equippedLearnsetEntries(
           learnset: currentRuleLearnset,
           actionCardMoveIds: const [],
           level: 1,
         ),
-        newMoveIds: equippedMoveIds(
+        newMoveIds: equippedLearnsetEntries(
           learnset: currentRuleLearnset,
           actionCardMoveIds: const ['x'],
           level: 1,
@@ -1794,7 +1794,7 @@ void main() {
     });
   });
 
-  group('equippedMoveIds', () {
+  group('equippedLearnsetEntries', () {
     const learnset = [
       LearnsetEntry(moveId: 'a', unlockLevel: 1),
       LearnsetEntry(moveId: 'b', unlockLevel: 1),
@@ -1804,11 +1804,12 @@ void main() {
       LearnsetEntry(moveId: 'f', unlockLevel: 15),
       LearnsetEntry(moveId: 'g', unlockLevel: 100),
     ];
-    List<String> learnsetMoveIds({required int level}) => equippedMoveIds(
-      learnset: learnset,
-      actionCardMoveIds: const [],
-      level: level,
-    );
+    List<String> learnsetMoveIds({required int level}) =>
+        equippedLearnsetEntries(
+          learnset: learnset,
+          actionCardMoveIds: const [],
+          level: level,
+        );
 
     test('開放済みの技が枠の数までなら、開放済みの技をすべて一覧の順で返す', () {
       expect(learnsetMoveIds(level: 14), ['a', 'b', 'c', 'd']);
@@ -1821,7 +1822,7 @@ void main() {
 
     test('覚える技が枠より少ない (前の規則で生まれた) モンスターも、開放済みの技をすべて返す', () {
       expect(
-        equippedMoveIds(
+        equippedLearnsetEntries(
           learnset: const [
             LearnsetEntry(moveId: 'paper_1', unlockLevel: 1),
             LearnsetEntry(moveId: 'paper_2', unlockLevel: 15),
@@ -1845,7 +1846,7 @@ void main() {
             .cast<Map<String, dynamic>>()) {
       test('共通のテストケース: ${equippedMoveCase['name']}', () {
         expect(
-          equippedMoveIds(
+          equippedLearnsetEntries(
             learnset: [
               for (final learnsetEntryJson
                   in equippedMoveCase['learnset'] as List<dynamic>)

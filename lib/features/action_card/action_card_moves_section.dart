@@ -61,12 +61,6 @@ class _ActionCardMovesSectionState extends State<ActionCardMovesSection> {
   /// (枠は自動で入れ替わり、選ぶ画面が無いため。#247 の勝敗の画面と同じ文言)。選ばなければ null。
   Future<Move?> _chooseMoveToTeach({required List<Move> candidateMoves}) {
     final monster = widget.monster;
-    final definitions = widget.dexStore.definitions;
-    final currentMoveIds = equippedMoveIds(
-      learnset: monster.definition.learnset,
-      actionCardMoveIds: monster.actionCardMoveIds,
-      level: monster.level,
-    );
     return showModalBottomSheet<Move>(
       context: context,
       isScrollControlled: true,
@@ -85,27 +79,28 @@ class _ActionCardMovesSectionState extends State<ActionCardMovesSection> {
               ListTile(
                 key: Key('action-card-teach-${move.id}'),
                 title: Text(move.displayName),
-                subtitle: Text(
-                  switch (equippedMoveChanges(
-                    previousMoveIds: currentMoveIds,
-                    newMoveIds: equippedMoveIds(
-                      learnset: monster.definition.learnset,
-                      actionCardMoveIds: [
-                        ...monster.actionCardMoveIds,
-                        move.id,
-                      ],
-                      level: monster.level,
-                    ),
-                  ).forgottenMoveIds) {
-                    [] => context.l10n.actionCardTeachNoForgotten,
-                    final forgottenMoveIds => [
-                      for (final moveId in forgottenMoveIds)
-                        context.l10n.battleForgotMove(
-                          definitions.moveById(moveId: moveId).displayName,
-                        ),
-                    ].join('\n'),
-                  },
-                ),
+                subtitle: Text(switch (equippedMoveChanges(
+                  previousMoveIds: equippedLearnsetEntries(
+                    learnset: monster.definition.learnset,
+                    actionCardMoveIds: monster.actionCardMoveIds,
+                    level: monster.level,
+                  ),
+                  newMoveIds: equippedLearnsetEntries(
+                    learnset: monster.definition.learnset,
+                    actionCardMoveIds: [...monster.actionCardMoveIds, move.id],
+                    level: monster.level,
+                  ),
+                ).forgottenMoveIds) {
+                  [] => context.l10n.actionCardTeachNoForgotten,
+                  final forgottenMoveIds => [
+                    for (final moveId in forgottenMoveIds)
+                      context.l10n.battleForgotMove(
+                        widget.dexStore.definitions
+                            .moveById(moveId: moveId)
+                            .displayName,
+                      ),
+                  ].join('\n'),
+                }),
                 onTap: () => Navigator.of(context).pop(move),
               ),
           ],

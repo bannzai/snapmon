@@ -45,13 +45,11 @@ bool needsLatestMasterFetch({
             monster.definition.masterVersion >
             (cachedMasterJson['version'] as int),
       ) ||
-      actionCardMoveIds
-          .difference({
-            for (final moveJson
-                in cachedMasterJson['moves'] as List<dynamic>? ?? [])
-              (moveJson as Map<String, dynamic>)['id'] as String,
-          })
-          .isNotEmpty;
+      actionCardMoveIds.difference({
+        for (final moveJson
+            in cachedMasterJson['moves'] as List<dynamic>? ?? [])
+          (moveJson as Map<String, dynamic>)['id'] as String,
+      }).isNotEmpty;
 }
 
 /// 図鑑と対戦で属性・技を引く定義の集まりを返す: 最新の版の master [latestMasterJson] に、図鑑のモンスターが参照する

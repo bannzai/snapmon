@@ -49,7 +49,7 @@ class MonsterDetailCard extends StatelessWidget {
       maximumEquippedMoveCount,
       (index) => null,
     );
-    for (final (index, moveId) in equippedMoveIds(
+    for (final (index, moveId) in equippedLearnsetEntries(
       learnset: definition.learnset,
       actionCardMoveIds: monster.actionCardMoveIds,
       level: monster.level,

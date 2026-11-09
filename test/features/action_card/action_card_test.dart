@@ -275,9 +275,7 @@ void main() {
       ]);
       expect(
         dexStore.monsters
-            .firstWhere(
-              (monster) => monster.definition.id == 'sample-mugmon',
-            )
+            .firstWhere((monster) => monster.definition.id == 'sample-mugmon')
             .actionCardMoveIds,
         ['water_3'],
       );

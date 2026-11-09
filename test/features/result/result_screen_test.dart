@@ -147,7 +147,7 @@ void main() {
     }
 
     // 技の枠は 4 つで、1 行目の 2 つは同じ高さに横に並び、2 行目はその下に並ぶ
-    final slotMoveIds = equippedMoveIds(
+    final slotMoveIds = equippedLearnsetEntries(
       learnset: monster.definition.learnset,
       actionCardMoveIds: monster.actionCardMoveIds,
       level: monster.level,

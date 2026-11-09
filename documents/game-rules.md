@@ -146,7 +146,7 @@ master の版を上げる時は、既存の属性・技・エフェクトの ID 
 - 覚える順は、選んだ攻撃技と補助技をそれぞれレベル帯の下限の順 (同じなら選んだ順) に並べ、攻撃技 2 つに補助技 1 つの間隔で混ぜる。技の枠は開放の新しい 4 つで、この間隔なら枠に攻撃技が 2 つ以上残る (`functions/test/unit/monster_stats.test.ts` が全属性の組で確かめる)
 - 同時に使える技は 4 つ。開放した技が 4 つを超えたら、覚える技の一覧で後ろの 4 つを使い、新しく覚えた技が一番古い技と入れ替わる (`lib/domain/battle/battle_engine.dart` の `equippedLearnsetEntries`)。入れ替えを選ぶ画面は無い。バトルの勝敗の画面のレベルアップの行の下に、覚えた技と入れ替わりで外れた技を出し、枠が変わらなかった時は次に技を覚えるレベルを出す (`equippedLearnsetChanges`・`nextLearnsetUnlockLevel`。#247)
 - 覚える技の一覧は生まれた時のまま変えない。この規則より前に生まれたモンスター (Lv.1 の技が 1〜2 つ、版 8 までの覚え方) も、そのまま使える技だけで戦う
-- Action Card (下の節) で覚えさせた技 (`actionCardMoveIds`) は、開放レベルに関係なく Lv.1 から使える。技の枠は「覚える技の一覧のうち開放した技を一覧の順に並べ、覚えさせた技を覚えさせた順で続けた列」の後ろの 4 つで、覚えさせるたびに一番古い技が枠から外れる (上の「後ろの 4 つ」の規則をそのまま延ばし、入れ替えを選ぶ画面を作らない #247 と揃える。#271)。覚える技の一覧にある技を覚えさせた時は一覧の側を列から外し、覚えさせた位置に 1 つだけ置く (同じ技が枠に 2 つ並ばないため)。Functions の `functions/src/action_card_rules.ts` の `equippedMoveIds` がこの規則で、端末の `lib/domain/battle/battle_engine.dart` の `equippedMoveIds` と同じ技を返すことを共通のテストケース `test/fixtures/equipped_move_cases.json` で確かめる
+- Action Card (下の節) で覚えさせた技 (`actionCardMoveIds`) は、開放レベルに関係なく Lv.1 から使える。技の枠は「覚える技の一覧のうち開放した技を一覧の順に並べ、覚えさせた技を覚えさせた順で続けた列」の後ろの 4 つで、覚えさせるたびに一番古い技が枠から外れる (上の「後ろの 4 つ」の規則をそのまま延ばし、入れ替えを選ぶ画面を作らない #247 と揃える。#271)。覚える技の一覧にある技を覚えさせた時は一覧の側を列から外し、覚えさせた位置に 1 つだけ置く (同じ技が枠に 2 つ並ばないため)。Functions の `functions/src/action_card_rules.ts` の `equippedMoveIds` がこの規則で、端末の `lib/domain/battle/battle_engine.dart` の `equippedLearnsetEntries` と同じ技を返すことを共通のテストケース `test/fixtures/equipped_move_cases.json` で確かめる
 
 ### Action Card
 
