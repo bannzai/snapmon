@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:snapmon/features/action_card/action_card_screen.dart';
 import 'package:snapmon/features/action_card/action_card_store.dart';
@@ -94,6 +97,41 @@ void main() {
       fakeActionCards.isPurchaseSupported = false;
       await pump(tester: tester, home: dexDetail());
       expect(find.byKey(const Key('action-card-entry-dex')), findsNothing);
+    });
+
+    testWidgets('起動直後の package の読み込みが例外で失敗しても 図鑑の詳細を開いた時に読み直して入口を出す', (
+      tester,
+    ) async {
+      final failingCompleter = Completer<List<Package>>();
+      fakeActionCards.packagesCompleters.add(failingCompleter);
+      final store = ActionCardStore(
+        client: fakeActionCards.client(),
+        sessionChanges: ChangeNotifier(),
+        sampleActionCards: null,
+      );
+      addTearDown(store.dispose);
+      await tester.pump();
+      // ストアが起動直後の読み込みを始めてから失敗させる (待つ側がいない間に失敗させるとテストの外へ漏れるため)
+      failingCompleter.completeError(StateError('通信の失敗'));
+      await tester.pumpAndSettle();
+      expect(store.isPurchaseEntryVisible, isFalse);
+      tester.view
+        ..physicalSize = const Size(390, 1400)
+        ..devicePixelRatio = 1;
+      addTearDown(tester.view.reset);
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: snapmonThemeData(),
+          locale: const Locale('ja'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          builder: (context, child) =>
+              ActionCardScope(actionCardStore: store, child: child!),
+          home: dexDetail(),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('action-card-entry-dex')), findsOneWidget);
     });
 
     testWidgets('課金を使えないビルドでも 買い切った技があれば Action Card の画面に入れるが 買うボタンは出さない', (

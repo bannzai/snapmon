@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
+import 'package:snapmon/features/action_card/action_card_client.dart';
 import 'package:snapmon/features/action_card/action_card_store.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
 
@@ -98,6 +99,20 @@ void main() {
     expect(store.packages.map((package) => package.identifier), [
       'actioncard_rank1',
     ]);
+  });
+
+  test('package の読み直しが例外で失敗したら 前に読めた一覧を残し 空が返ったら空にする', () async {
+    await pumpEventQueue();
+    expect(store.packages, hasLength(actionCardRanks.length));
+    final failingCompleter = Completer<List<Package>>();
+    fakeActionCards.packagesCompleters.add(failingCompleter);
+    final failingRefresh = store.refreshPackages();
+    failingCompleter.completeError(StateError('通信の失敗'));
+    await failingRefresh;
+    expect(store.packages, hasLength(actionCardRanks.length));
+    fakeActionCards.packages = const [];
+    await store.refreshPackages();
+    expect(store.packages, isEmpty);
   });
 
   test('技のランクの表に端末の定義に無い技があれば 定義を 1 回だけ読み直す', () async {

@@ -126,14 +126,19 @@ class ActionCardStore extends ChangeNotifier {
       );
   }
 
-  /// 売っている package を読み直す。読めない時は売っていない時と同じく空にする (購入の入口を出さない)。
+  /// 売っている package を読み直す。売っていない (空が返った) 時は空にして購入の入口を出さない。
+  /// 読めなかった (例外) 時は前に読めた一覧を残す (通信の一時的な失敗で入口が消え、入口の画面を開き直すまで戻らなくなるため。
+  /// 残すのは前に取得した実際の値で、取得できなかった値を作って出すことにはならない)。
   /// offering の切り替えはアプリの再リリース無しで行うため、Action Card の画面を開くたびにも呼ぶ。
   Future<void> refreshPackages() async {
     final sessionGeneration = _sessionGeneration;
     final packagesRequestNumber = ++_packagesRequestNumber;
-    final packages = await client.fetchActionCardPackages().catchError(
-      (Object _) => const <Package>[],
-    );
+    final List<Package> packages;
+    try {
+      packages = await client.fetchActionCardPackages();
+    } catch (_) {
+      return;
+    }
     if (sessionGeneration != _sessionGeneration ||
         packagesRequestNumber != _packagesRequestNumber) {
       return;
