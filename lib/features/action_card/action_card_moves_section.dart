@@ -166,8 +166,9 @@ class _ActionCardMovesSectionState extends State<ActionCardMovesSection> {
   Widget build(BuildContext context) {
     final store = ActionCardScope.maybeOf(context);
     final monster = widget.monster;
-    final definitions = widget.dexStore.definitions;
-    final movesById = {for (final move in definitions.moves) move.id: move};
+    final movesById = {
+      for (final move in widget.dexStore.definitions.moves) move.id: move,
+    };
     final isEntryVisible = store?.isScreenEntryVisible ?? false;
     if (!isEntryVisible && monster.actionCardMoveIds.isEmpty) {
       return const SizedBox.shrink();
