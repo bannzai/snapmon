@@ -1948,6 +1948,9 @@ void main() {
       startsCameraOnCaptureOpen: false,
     );
     dexStore.replaceAll(monsters: sampleData.monsters);
+    // 文字が 2 倍だと撮る画面のシャッターの行は画面の下にはみ出すため、スクロールして出してから押す
+    await tester.ensureVisible(find.byKey(const Key('capture-open-opponent')));
+    await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('capture-open-opponent')));
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('random-battle')));

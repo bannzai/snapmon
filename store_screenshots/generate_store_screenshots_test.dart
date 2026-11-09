@@ -329,7 +329,7 @@ Future<void> _writeScreenshot({
         StoreScreenshotPage.capture => _homeShell(
           sampleData: sampleData,
           dexStore: dexStore,
-          initialTab: HomeTab.capture,
+          initialScene: HomeScene.capture,
           artImagesByPath: artImagesByPath,
         ),
         StoreScreenshotPage.born => ResultScreen(
@@ -341,7 +341,7 @@ Future<void> _writeScreenshot({
         StoreScreenshotPage.dex => _homeShell(
           sampleData: sampleData,
           dexStore: dexStore,
-          initialTab: HomeTab.dex,
+          initialScene: HomeScene.dex,
           artImagesByPath: artImagesByPath,
         ),
         StoreScreenshotPage.battle => BattleScreen(
@@ -364,14 +364,14 @@ Future<void> _writeScreenshot({
           cardSharer: _cardSharer(artImagesByPath: artImagesByPath),
           firstBattleBornMonster: null,
           firstBattleMonsterIsNewlyBorn: false,
-          // 対戦タブ (_homeShell) の表示名と同じにする
+          // 対戦のシーン (_homeShell) の表示名と同じにする
           playerProfile: (displayName: 'snap', iconPath: null),
           opponentDisplayName: sampleData.cpuTrainerNames.first,
         ),
         StoreScreenshotPage.opponent => _homeShell(
           sampleData: sampleData,
           dexStore: dexStore,
-          initialTab: HomeTab.opponent,
+          initialScene: HomeScene.opponent,
           artImagesByPath: artImagesByPath,
         ),
         StoreScreenshotPage.share => MonsterShareCard(
@@ -461,12 +461,12 @@ CardSharer _cardSharer({required Map<String, ui.Image> artImagesByPath}) =>
       logEvent: ({required event, required parameters}) async {},
     );
 
-/// ログイン済みで、図鑑・撮る・対戦のタブを持つ画面。戦績は見本を返す (対戦の相手は CPU トレーナーだけで、他のユーザーは読まない。issue #130)。
+/// ログイン済みで、図鑑・撮る・対戦のシーンを切り替えるホームの画面。戦績は見本を返す (対戦の相手は CPU トレーナーだけで、他のユーザーは読まない。issue #130)。
 /// [artImagesByPath] は切り出した絵の Storage のパスとデコード済みの画像 (_cardSharer に渡す)。
 Widget _homeShell({
   required SampleData sampleData,
   required DexStore dexStore,
-  required HomeTab initialTab,
+  required HomeScene initialScene,
   required Map<String, ui.Image> artImagesByPath,
 }) {
   final sessionStore = SessionStore(
@@ -475,9 +475,9 @@ Widget _homeShell({
     resumedUid: 'store-screenshot-uid',
   );
   return HomeShell(
-    initialTab: initialTab,
+    initialScene: initialScene,
     // 撮るページはファインダーに写真を映すため、押すのを待たずにカメラを開いた状態で描く
-    startsCameraOnCaptureOpen: initialTab == HomeTab.capture,
+    startsCameraOnCaptureOpen: initialScene == HomeScene.capture,
     sampleData: sampleData,
     dexStore: dexStore,
     sessionStore: sessionStore,
@@ -754,7 +754,7 @@ class _DeviceFrame extends StatelessWidget {
                       loadArtImage: _loadArtImage(
                         artImagesByPath: artImagesByPath,
                       ),
-                      // 撮影では音を鳴らさない (バトル画面・下タブの画面が GameAudioScope を求めるため置く)
+                      // 撮影では音を鳴らさない (バトル画面・ホームの画面が GameAudioScope を求めるため置く)
                       child: GameAudioScope(
                         gameAudio: fakeGameAudio(
                           calls: RecordedAudioCalls(),
