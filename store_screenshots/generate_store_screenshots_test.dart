@@ -430,6 +430,7 @@ OwnedMonster _withLevel({required OwnedMonster monster, required int level}) =>
     OwnedMonster(
       definition: monster.definition,
       level: level,
+      actionCardMoveIds: const [],
       artPath: monster.artPath,
       decoration: monster.decoration,
       decorationVersion: monster.decorationVersion,

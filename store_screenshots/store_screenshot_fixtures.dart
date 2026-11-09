@@ -173,6 +173,7 @@ OwnedMonster _monster({
     masterVersion: 1,
   ),
   level: level,
+  actionCardMoveIds: const [],
   artPath: _artPath(name: name),
   // 装飾 (#77) は Claude が生成時に返すパラメータで、スクリーンショットの見本には持たせない (切り出した絵だけを描く)
   decoration: null,
