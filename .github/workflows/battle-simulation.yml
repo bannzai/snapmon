@@ -5,10 +5,19 @@ name: battle-simulation
 # CPU のダメージ・最大 HP の割合を決め直す時にここで実行して結果を読む (issue #267)。
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 on:
+  # バトルの計算・見本のモンスター・シミュレーションを変えた PR では既定の条件で実行し、勝率の変化を PR の run で読めるようにする
+  # (workflow_dispatch だけの workflow は main に入るまで dispatch できないため、PR からも動かす)
+  pull_request:
+    paths:
+      - lib/domain/battle/**
+      - lib/domain/monster/**
+      - assets/samples/sample_monsters.json
+      - tool/simulate_battles.dart
+      - .github/workflows/battle-simulation.yml
   workflow_dispatch:
     inputs:
       seeds:
@@ -39,10 +48,11 @@ jobs:
     - run: flutter pub get
     - run: mkdir -p tmp
     - run: dart run tool/simulate_battles.dart --seeds "$SEEDS" --damage-percents "$DAMAGE_PERCENTS" --hit-points-percents "$HIT_POINTS_PERCENTS" | tee tmp/battle-simulation.md
+      # pull_request では inputs が無いため、workflow_dispatch の既定値と同じ値にする
       env:
-        SEEDS: ${{ inputs.seeds }}
-        DAMAGE_PERCENTS: ${{ inputs.damage_percents }}
-        HIT_POINTS_PERCENTS: ${{ inputs.hit_points_percents }}
+        SEEDS: ${{ inputs.seeds || '5' }}
+        DAMAGE_PERCENTS: ${{ inputs.damage_percents || '50,70,100' }}
+        HIT_POINTS_PERCENTS: ${{ inputs.hit_points_percents || '50,70,100' }}
     - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
       with:
         name: battle-simulation
