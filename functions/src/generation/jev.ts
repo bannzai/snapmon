@@ -3,7 +3,7 @@
 // 問いの設計規約は ~/.claude/skills/jev/references/jev-question-design.md (二値の判定を肯定・否定の対で問う等)。
 // 閾値は documents/game-rules.md「Jev の閾値」に実測とともに書き、問いの文言を変えたら測り直す (functions/scripts/calibrate-jev.mjs)。
 
-import type { MasterElementType, MasterMove, MasterStatGrade, MasterSubjectCategory } from "./master";
+import { learnableMoves, type MasterElementType, type MasterMove, type MasterStatGrade, type MasterSubjectCategory } from "./master";
 import { STAT_KINDS } from "./monster_stats";
 import type { SubjectDescription } from "./prompts/describe_subject";
 
@@ -269,7 +269,8 @@ export function buildJudgeRequest({
     };
   }
   for (const elementType of elementTypes) {
-    const elementMoves = moves.filter((move) => move.elementTypeId === elementType.id);
+    // 置き換えられた補助技は覚えないため選択肢に入れない (#257)
+    const elementMoves = learnableMoves(moves).filter((move) => move.elementTypeId === elementType.id);
     const levelBands = new Set(elementMoves.map((move) => move.learnableLevelMinimum));
     if (levelBands.size === elementMoves.length) {
       continue;
@@ -277,9 +278,16 @@ export function buildJudgeRequest({
     questions[`move__${elementType.id}`] = {
       type: "choice",
       instructions: "state の subject (写真の被写体) がモンスターになって使う技として、名前と威力 (補助技は効果) が最も似合う技はどれか。",
-      // 補助技は威力 0 で威力が選ぶ手がかりにならないため、効果の説明を見せる
+      // 補助技は威力 0 で威力が選ぶ手がかりにならないため、効果の説明を見せる。版 11 の追加効果の技は威力が同じ 40 のため、攻撃技も効果があれば見せる (#257)
       criteria: Object.fromEntries(
-        elementMoves.map((move) => [move.id, `${move.displayName} (${move.category === "support" ? `補助: ${move.specialEffect?.summary ?? ""}` : `威力 ${move.power}`})`]),
+        elementMoves.map((move) => [
+          move.id,
+          `${move.displayName} (${
+            move.category === "support"
+              ? `補助: ${move.specialEffect?.summary ?? ""}`
+              : `威力 ${move.power}${move.specialEffect ? `、${move.specialEffect.summary}` : ""}`
+          })`,
+        ]),
       ),
     };
   }

@@ -4,7 +4,7 @@
 // 計算をサーバーに置くのは、モンスターの値を Functions だけが書く (クライアントに値を決めさせない) ため (ADR 0002)。
 // 式を変える時は Dart 側と同時に変え、版 (`CURRENT_STAT_CALCULATION_VERSION`) を上げる。
 
-import type { Master, MasterMove } from "./master";
+import { learnableMoves, type Master, type MasterMove } from "./master";
 
 /** 新しく生まれるモンスターに保存するステータスの計算手順の版 (Dart の `currentStatCalculationVersion` と同じ値)。 */
 export const CURRENT_STAT_CALCULATION_VERSION = 1;
@@ -144,11 +144,25 @@ export function laterLearnLevel({ index }: { index: number }): number {
 const SUPPORT_MOVE_INTERVAL = 3;
 
 /**
- * 属性ごとの技の確率 (Jev の Choice の `probabilities`) から覚える技の一覧を組む。
- * Lv.1 の技は `STARTING_MOVE_COUNT` 個そろえる: 自分の属性の段階 1 の技を確率の高い順 (同じなら [moves] の順) に属性の順に 1 つずつ交互に
- * `STARTING_OWN_ELEMENT_MOVE_COUNT` 個まで取り、残りは [fallbackMoves] の別の属性の段階 1 の技から、当てはまりの確率 [elementProbabilities] が高い順 (同じなら ID 順) に 1 つずつ足す。
- * Lv.2 以降は、自分の属性の残りの技を、攻撃技と補助技に分けてそれぞれレベル帯の下限 → Jev の確率が高い順 → [moves] の順に並べ (属性が 2 つなら交互)、
- * 攻撃技 2 つに補助技 1 つの間隔で混ぜ、`laterLearnLevel` の順のレベルで 1 つずつ覚える。開放レベルはそのレベルとレベル帯の下限の大きい方。候補が尽きたら終わり。
+ * Lv.2 以降に覚える攻撃技の数 (属性の数によらない合計)。master の版 11 で 1 属性が Lv.1 で取らなかった攻撃技はおよそ 17 件あり、
+ * その半分ほどにして、同じ属性のモンスターでも覚える技の半分ほどが入れ替わるようにした (#257。owner「タイプごとに技が一緒になっているみたいな状況なら絶対やめて欲しい」)。
+ */
+export const LATER_ATTACK_MOVE_COUNT = 9;
+
+/**
+ * Lv.2 以降に覚える補助技の数 (属性の数によらない合計)。版 11 で威力 0 の技は回復・状態の解除・フィールド・自分への状態だけの例外にしたため、
+ * 1 つにした (#257。owner「あくまで追加効果がほとんど」)。
+ */
+export const LATER_SUPPORT_MOVE_COUNT = 1;
+
+/**
+ * 属性ごとの技の確率 (Jev の Choice の `probabilities`) と被写体の説明文から覚える技の一覧を組む。
+ * 置き換えられた補助技 (`learnableMoves` が除く技) は覚えない。確率が同じ技・属性の並びは、説明文と ID から作る値の順にする
+ * (#257。確率が同じ時に ID・master の順にすると、同じ属性のモンスターがどれも同じ技を同じ順に覚えるため)。説明文が同じなら同じ一覧になる。
+ * Lv.1 の技は `STARTING_MOVE_COUNT` 個そろえる: 自分の属性の段階 1 の技を確率の高い順に属性の順に 1 つずつ交互に
+ * `STARTING_OWN_ELEMENT_MOVE_COUNT` 個まで取り、残りは [fallbackMoves] の別の属性の段階 1 の技から、当てはまりの確率 [elementProbabilities] が高い順に 1 つずつ足す。
+ * Lv.2 以降は、自分の属性の残りの技から攻撃技を `LATER_ATTACK_MOVE_COUNT` 個、補助技を `LATER_SUPPORT_MOVE_COUNT` 個、確率の高い順に (属性が 2 つなら交互に) 選び、
+ * それぞれレベル帯の下限の順に並べて攻撃技 2 つに補助技 1 つの間隔で混ぜ、`laterLearnLevel` の順のレベルで 1 つずつ覚える。開放レベルはそのレベルとレベル帯の下限の大きい方。
  * 並びは開放レベル順 (同じレベルは覚える順)。
  * [fallbackMoves] には master の技を渡す (その場で作った別の属性の技はモンスターの `definitionIds` に入らず、端末で引けないため)。
  */
@@ -158,62 +172,35 @@ export function buildLearnset({
   moveProbabilitiesByElement,
   moves,
   fallbackMoves,
+  subjectDescriptionText,
 }: {
   elementTypeIds: string[];
   elementProbabilities: Record<string, number>;
   moveProbabilitiesByElement: Record<string, Record<string, number>>;
   moves: MasterMove[];
   fallbackMoves: MasterMove[];
+  subjectDescriptionText: string;
 }): LearnsetEntry[] {
-  /** [elementTypeId] の技の確率が高い順 (同じなら元の順) に [candidates] を並べ替えて返す。 */
+  /** 確率が同じ技・属性の並びに使う、説明文と [id] から決まる値。 */
+  const tieBreakerOf = (id: string) => fnv1a32(`${subjectDescriptionText}\n${id}`);
+  /** [elementTypeId] の技の確率が高い順 (同じなら `tieBreakerOf` の順) に [candidates] を並べ替えて返す。 */
   const sortByProbability = ({ elementTypeId, candidates }: { elementTypeId: string; candidates: MasterMove[] }) => {
     const probabilities = moveProbabilitiesByElement[elementTypeId] ?? {};
-    return [...candidates].sort((left, right) => (probabilities[right.id] ?? 0) - (probabilities[left.id] ?? 0));
+    return [...candidates].sort(
+      (left, right) => (probabilities[right.id] ?? 0) - (probabilities[left.id] ?? 0) || tieBreakerOf(left.id) - tieBreakerOf(right.id),
+    );
   };
-  /** [candidates] のうち [elementTypeId] の段階 1 の技を、Jev の技の確率が高い順 (同じなら [candidates] の順) で返す。 */
+  /** [candidates] のうち [elementTypeId] の段階 1 の技を、Jev の技の確率が高い順で返す。 */
   const startingMovesByProbability = ({ elementTypeId, candidates }: { elementTypeId: string; candidates: MasterMove[] }) =>
     sortByProbability({
       elementTypeId,
       candidates: candidates.filter((move) => move.elementTypeId === elementTypeId && move.learnableLevelMinimum === STARTING_LEVEL),
     });
-  /** Lv.1 で覚える技の ID。選んだ順に並び、`STARTING_MOVE_COUNT` 個を超えず、重複しない。 */
-  const startingMoveIds: string[] = [];
-  /**
-   * 属性ごとの技の列 [movesByElement] から、各列の先頭から 1 つずつ交互に取って `startingMoveIds` の後ろに足す (副作用)。
-   * `startingMoveIds` が [limit] 個に達した後と、すでに入っている技は足さない。
-   */
-  const takeInTurns = ({ movesByElement, limit }: { movesByElement: MasterMove[][]; limit: number }) => {
+  /** 属性ごとの技の列 [movesByElement] を、各列の先頭から 1 つずつ交互に取って重複なく 1 列にして返す。 */
+  const mergeInTurns = (movesByElement: MasterMove[][]) => {
+    const merged: MasterMove[] = [];
     for (let round = 0; movesByElement.some((elementMoves) => round < elementMoves.length); round++) {
       for (const move of movesByElement.map((elementMoves) => elementMoves[round])) {
-        if (move && startingMoveIds.length < limit && !startingMoveIds.includes(move.id)) {
-          startingMoveIds.push(move.id);
-        }
-      }
-    }
-  };
-  takeInTurns({
-    movesByElement: elementTypeIds.map((elementTypeId) => startingMovesByProbability({ elementTypeId, candidates: moves })),
-    limit: Math.min(STARTING_OWN_ELEMENT_MOVE_COUNT, STARTING_MOVE_COUNT),
-  });
-  takeInTurns({
-    movesByElement: [...new Set(fallbackMoves.map((move) => move.elementTypeId))]
-      .filter((elementTypeId) => !elementTypeIds.includes(elementTypeId))
-      .sort((leftId, rightId) => (elementProbabilities[rightId] ?? 0) - (elementProbabilities[leftId] ?? 0) || leftId.localeCompare(rightId))
-      .map((elementTypeId) => startingMovesByProbability({ elementTypeId, candidates: fallbackMoves })),
-    limit: STARTING_MOVE_COUNT,
-  });
-
-  /** 属性ごとの残りの技 (Lv.1 で取らなかった技) を、レベル帯の下限 → 確率の順に並べ、[category] の技だけを属性の順に交互に並べて返す。 */
-  const laterCandidates = ({ category }: { category: "attack" | "support" }) => {
-    const byElement = elementTypeIds.map((elementTypeId) =>
-      sortByProbability({
-        elementTypeId,
-        candidates: moves.filter((move) => move.elementTypeId === elementTypeId && move.category === category && !startingMoveIds.includes(move.id)),
-      }).sort((left, right) => left.learnableLevelMinimum - right.learnableLevelMinimum),
-    );
-    const merged: MasterMove[] = [];
-    for (let round = 0; byElement.some((elementMoves) => round < elementMoves.length); round++) {
-      for (const move of byElement.map((elementMoves) => elementMoves[round])) {
         if (move && !merged.some((candidate) => candidate.id === move.id)) {
           merged.push(move);
         }
@@ -221,8 +208,36 @@ export function buildLearnset({
     }
     return merged;
   };
-  const attackCandidates = laterCandidates({ category: "attack" });
-  const supportCandidates = laterCandidates({ category: "support" });
+  const ownMoves = learnableMoves(moves);
+  const otherMoves = learnableMoves(fallbackMoves);
+  const startingMoveIds = mergeInTurns(elementTypeIds.map((elementTypeId) => startingMovesByProbability({ elementTypeId, candidates: ownMoves })))
+    .slice(0, Math.min(STARTING_OWN_ELEMENT_MOVE_COUNT, STARTING_MOVE_COUNT))
+    .map((move) => move.id);
+  for (const move of mergeInTurns(
+    [...new Set(otherMoves.map((move) => move.elementTypeId))]
+      .filter((elementTypeId) => !elementTypeIds.includes(elementTypeId))
+      .sort((leftId, rightId) => (elementProbabilities[rightId] ?? 0) - (elementProbabilities[leftId] ?? 0) || tieBreakerOf(leftId) - tieBreakerOf(rightId))
+      .map((elementTypeId) => startingMovesByProbability({ elementTypeId, candidates: otherMoves })),
+  )) {
+    if (startingMoveIds.length < STARTING_MOVE_COUNT && !startingMoveIds.includes(move.id)) {
+      startingMoveIds.push(move.id);
+    }
+  }
+
+  /** 自分の属性の残りの [category] の技から、確率の高い順に (属性が 2 つなら交互に) [count] 個を選び、レベル帯の下限の順 (同じなら選んだ順) に並べて返す。 */
+  const laterCandidates = ({ category, count }: { category: "attack" | "support"; count: number }) =>
+    mergeInTurns(
+      elementTypeIds.map((elementTypeId) =>
+        sortByProbability({
+          elementTypeId,
+          candidates: ownMoves.filter((move) => move.elementTypeId === elementTypeId && move.category === category && !startingMoveIds.includes(move.id)),
+        }),
+      ),
+    )
+      .slice(0, count)
+      .sort((left, right) => left.learnableLevelMinimum - right.learnableLevelMinimum);
+  const attackCandidates = laterCandidates({ category: "attack", count: LATER_ATTACK_MOVE_COUNT });
+  const supportCandidates = laterCandidates({ category: "support", count: LATER_SUPPORT_MOVE_COUNT });
   const laterLearnset: LearnsetEntry[] = [];
   for (let index = 0; attackCandidates.length > 0 || supportCandidates.length > 0; index++) {
     const preferSupport = (index + 1) % SUPPORT_MOVE_INTERVAL === 0;

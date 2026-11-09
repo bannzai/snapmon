@@ -965,6 +965,7 @@ async function runJudgeStage(
           moveProbabilitiesByElement: judged.moveProbabilitiesByElement,
           moves: judgedMoves,
           fallbackMoves: master.moves,
+          subjectDescriptionText: record.subjectDescriptionText!,
         }),
         baseStats: baseStatsFromStatGrades({ statGradeIds: judged.statGradeIds, master }),
         individualValues: individualValuesFromDescription(record.subjectDescriptionText!),

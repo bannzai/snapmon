@@ -90,6 +90,18 @@ describe("buildJudgeRequest / readJudgeResponse", () => {
     expect(Object.keys(request.questions).filter((name) => name.startsWith("move__"))).toHaveLength(master.elementTypes.length);
   });
 
+  it("技の Choice は置き換えられた補助技を選択肢に入れず、効果のある攻撃技は威力と効果を見せる (#257)", () => {
+    const request = buildJudgeRequest({ description, elementTypes: master.elementTypes, moves: master.moves, statGrades: master.statGrades });
+    const question = request.questions.move__paper;
+    if (question.type !== "choice") {
+      throw new Error("move__paper が Choice ではない");
+    }
+    expect(Object.keys(question.criteria)).not.toContain("paper_s7");
+    expect(Object.keys(question.criteria)).toContain("paper_s3");
+    expect(question.criteria.paper_a7).toBe("のりべったり (威力 40、相手を交代できなくする)");
+    expect(question.criteria.paper_1).toBe("かみひこうき (威力 40)");
+  });
+
   it("技が 1 帯 1 件の属性には Choice を付けない", () => {
     const oneMovePerBand = master.moves.filter((move) => /_\d$/.test(move.id));
     const request = buildJudgeRequest({ description, elementTypes: master.elementTypes, moves: oneMovePerBand, statGrades: master.statGrades });

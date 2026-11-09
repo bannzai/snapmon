@@ -228,6 +228,51 @@ final testMaster = MasterData(
           rule: '相手を ${kind.name} にする',
         ),
       ),
+    // 版 11 (#257) の、ステータス・状態の変化を追加効果に持つ攻撃技
+    const Move(
+      id: 'fire_block_switch_attack',
+      displayName: 'こうたいふうじ',
+      elementTypeId: 'fire',
+      power: 40,
+      powerPoints: 10,
+      category: MoveCategory.attack,
+      effectId: 'none',
+      learnableLevelMinimum: 5,
+      learnableLevelMaximum: 999,
+      specialEffect: MoveSpecialEffect(
+        power: null,
+        selfStatChanges: {},
+        opponentStatChanges: {},
+        selfHitPointsRecovery: null,
+        opponentStatusConditions: [
+          StatusConditionInfliction(
+            kind: StatusConditionKind.switchBlocked,
+            chancePercent: 100,
+          ),
+        ],
+        summary: '相手を交代できなくする',
+        rule: '当たると相手を交換不可にする',
+      ),
+    ),
+    const Move(
+      id: 'fire_lower_defense_attack',
+      displayName: 'ぼうぎょさげ',
+      elementTypeId: 'fire',
+      power: 40,
+      powerPoints: 10,
+      category: MoveCategory.attack,
+      effectId: 'none',
+      learnableLevelMinimum: 5,
+      learnableLevelMaximum: 999,
+      specialEffect: MoveSpecialEffect(
+        power: null,
+        selfStatChanges: {},
+        opponentStatChanges: {StatKind.defense: '-25'},
+        selfHitPointsRecovery: null,
+        summary: '相手の防御を下げる',
+        rule: '当たると相手の防御を下げる',
+      ),
+    ),
     const Move(
       id: 'fire_excite',
       displayName: 'こうふん',
@@ -917,6 +962,72 @@ void main() {
       for (var randomSeed = 1; randomSeed <= 20; randomSeed++)
         firstAttacker(randomSeed: randomSeed),
     ], firstAttackers);
+  });
+
+  test('攻撃技の追加効果のステータスの変化と交換不可は、ダメージと一緒に相手に付く (#257)', () {
+    var state = startBattle(
+      playerMembers: [
+        prepare(
+          definition: testDefinition(
+            id: 'player',
+            elementTypeId: 'fire',
+            moveIds: ['fire_lower_defense_attack', 'fire_block_switch_attack'],
+            speed: 100,
+          ),
+        ),
+      ],
+      opponentMembers: [
+        for (final index in [1, 2])
+          prepare(
+            definition: testDefinition(
+              id: 'opponent_$index',
+              elementTypeId: 'fire',
+              moveIds: ['fire_priority'],
+              speed: 50,
+            ),
+          ),
+      ],
+      randomSeed: 1,
+      battleDate: testBattleDate,
+      opponentDamagePercent: 100,
+    );
+    final opponentHitPoints =
+        state.opponent.activeMember.state.currentHitPoints;
+    state = advanceRound(
+      state: state,
+      playerAction: const UseMoveAction(moveId: 'fire_lower_defense_attack'),
+      opponentAction: const UseMoveAction(moveId: 'fire_priority'),
+      master: testMaster,
+    );
+    expect(
+      state.opponent.activeMember.state.currentHitPoints,
+      lessThan(opponentHitPoints),
+    );
+    expect(
+      statModifierPercentOf(
+        monster: state.opponent.activeMember,
+        statKind: StatKind.defense,
+      ),
+      lessThan(100),
+    );
+
+    state = advanceRound(
+      state: state,
+      playerAction: const UseMoveAction(moveId: 'fire_block_switch_attack'),
+      opponentAction: const UseMoveAction(moveId: 'fire_priority'),
+      master: testMaster,
+    );
+    expect(isSwitchBlocked(party: state.opponent), isTrue);
+    final blockedState = state;
+    expect(
+      () => advanceRound(
+        state: blockedState,
+        playerAction: const UseMoveAction(moveId: 'fire_lower_defense_attack'),
+        opponentAction: const SwitchMonsterAction(memberIndex: 1),
+        master: testMaster,
+      ),
+      throwsArgumentError,
+    );
   });
 
   test('補助技しか残っていない時はわるあがきを選べ、CPU の行動で決着する', () {

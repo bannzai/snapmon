@@ -1,5 +1,5 @@
 {
-  "version": 10,
+  "version": 11,
   "elementTypes": [
     {
       "id": "fire",
@@ -8998,6 +8998,2660 @@
         "rationale": "のりではりつけは紙の物事の名前で、のりで貼り付けてその場に留める効果として交換不可の状態を相手に付ける効果にした"
       },
       "rationale": "のりではりつけは紙の性質で相手の動きを封じる技で、紙の技にした"
+    },
+    {
+      "id": "fire_a1",
+      "displayName": "ほてりパンチ",
+      "elementTypeId": "fire",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "fire_s1",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "当たると自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "体がほてるほど力をこめて殴るため、版 10 の補助技「あつあつスープ」(fire_s1) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "fire_s1",
+      "rationale": "ほてりパンチは体がほてるほど力をこめて殴る技で、炎の物で当たるため炎の技にした"
+    },
+    {
+      "id": "fire_a2",
+      "displayName": "とろけろうそく",
+      "elementTypeId": "fire",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "fire_s2",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "当たると相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "溶けたろうを浴びせて相手の表面を柔らかくするため、版 10 の補助技「ろうそくたらし」(fire_s2) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "fire_s2",
+      "rationale": "とろけろうそくは溶けたろうを浴びせて相手の表面を柔らかくする技で、炎の物で当たるため炎の技にした"
+    },
+    {
+      "id": "fire_a4",
+      "displayName": "あつあつやきいし",
+      "elementTypeId": "fire",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "fire_s4",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "burn",
+            "chancePercent": 50
+          }
+        ],
+        "summary": "5 割でやけどにする",
+        "rule": "当たると 5 割の確率で相手をやけどにする (与える攻撃のダメージが半分、受けるダメージが (10 + 重なり) / 10 倍になる)",
+        "rationale": "熱く焼いた石を当てて肌に熱を残すため、版 10 の補助技「ひばなちらし」(fire_s4) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "fire_s4",
+      "rationale": "あつあつやきいしは熱く焼いた石を当てて肌に熱を残す技で、炎の物で当たるため炎の技にした"
+    },
+    {
+      "id": "fire_a5",
+      "displayName": "もえあがりタックル",
+      "elementTypeId": "fire",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "fire_s5",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "50",
+          "defense": "-25"
+        },
+        "summary": "攻撃を大きく上げ、防御を下げる",
+        "rule": "当たると自分の攻撃の倍率を 50 上げ、防御の倍率を 25 下げる",
+        "rationale": "燃え上がる勢いのまま守りを捨ててぶつかるため、版 10 の補助技「ねっけつモード」(fire_s5) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "fire_s5",
+      "rationale": "もえあがりタックルは燃え上がる勢いのまま守りを捨ててぶつかる技で、炎の物で当たるため炎の技にした"
+    },
+    {
+      "id": "fire_a7",
+      "displayName": "たきびのわ",
+      "elementTypeId": "fire",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "fire_s7",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "当たると相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "たき火の輪で相手を囲んでから炙るため、版 10 の補助技「ほのおのかこい」(fire_s7) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "fire_s7",
+      "rationale": "たきびのわはたき火の輪で相手を囲んでから炙る技で、炎の物で当たるため炎の技にした"
+    },
+    {
+      "id": "water_a1",
+      "displayName": "どろはねキック",
+      "elementTypeId": "water",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "water_s1",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "当たると相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "泥水をはね上げて足元をぬかるませるため、版 10 の補助技「どろみずぬかるみ」(water_s1) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "water_s1",
+      "rationale": "どろはねキックは泥水をはね上げて足元をぬかるませる技で、水の物で当たるため水の技にした"
+    },
+    {
+      "id": "water_a3",
+      "displayName": "びしょぬれスプラッシュ",
+      "elementTypeId": "water",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "water_s3",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "当たると相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "水を浴びせて相手をびしょぬれにし、ふやけさせるため、版 10 の補助技「みずびたし」(water_s3) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "water_s3",
+      "rationale": "びしょぬれスプラッシュは水を浴びせて相手をびしょぬれにし、ふやけさせる技で、水の物で当たるため水の技にした"
+    },
+    {
+      "id": "water_a4",
+      "displayName": "ぬるまゆシャワー",
+      "elementTypeId": "water",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "water_s4",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "drowsy",
+            "chancePercent": 50
+          }
+        ],
+        "summary": "5 割でねむけにする",
+        "rule": "当たると 5 割の確率で相手をねむけにする (素早さが半分になる。重ねて受けると眠る)",
+        "rationale": "ぬるいお湯を浴びせて眠気を誘うため、版 10 の補助技「ぬるまゆ」(water_s4) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "water_s4",
+      "rationale": "ぬるまゆシャワーはぬるいお湯を浴びせて眠気を誘う技で、水の物で当たるため水の技にした"
+    },
+    {
+      "id": "water_a5",
+      "displayName": "はやせのりダッシュ",
+      "elementTypeId": "water",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "water_s5",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "speed": "50",
+          "defense": "-25"
+        },
+        "summary": "素早さを大きく上げ、防御を下げる",
+        "rule": "当たると自分の素早さの倍率を 50 上げ、防御の倍率を 25 下げる",
+        "rationale": "早瀬の流れに乗って守りを捨てて突っ込むため、版 10 の補助技「ながれにのる」(water_s5) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "water_s5",
+      "rationale": "はやせのりダッシュは早瀬の流れに乗って守りを捨てて突っ込む技で、水の物で当たるため水の技にした"
+    },
+    {
+      "id": "water_a7",
+      "displayName": "うずまきバケツ",
+      "elementTypeId": "water",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "water_s7",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "当たると相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "バケツの水を渦にして相手を巻き込むため、版 10 の補助技「うずしおしばり」(water_s7) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "water_s7",
+      "rationale": "うずまきバケツはバケツの水を渦にして相手を巻き込む技で、水の物で当たるため水の技にした"
+    },
+    {
+      "id": "grass_a1",
+      "displayName": "つるまきムチ",
+      "elementTypeId": "grass",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "grass_s1",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "当たると相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "つるのムチで打ち、足に巻きついて動きを鈍らせるため、版 10 の補助技「からみぐさ」(grass_s1) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "grass_s1",
+      "rationale": "つるまきムチはつるのムチで打ち、足に巻きついて動きを鈍らせる技で、草の物で当たるため草の技にした"
+    },
+    {
+      "id": "grass_a3",
+      "displayName": "やさいパワータックル",
+      "elementTypeId": "grass",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "grass_s3",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "当たると自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "野菜を食べて出た力でぶつかるため、版 10 の補助技「やさいのちから」(grass_s3) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "grass_s3",
+      "rationale": "やさいパワータックルは野菜を食べて出た力でぶつかる技で、草の物で当たるため草の技にした"
+    },
+    {
+      "id": "grass_a4",
+      "displayName": "しばふごろごろ",
+      "elementTypeId": "grass",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "grass_s4",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "sleep",
+            "chancePercent": 50
+          }
+        ],
+        "summary": "5 割でねむりにする",
+        "rule": "当たると 5 割の確率で相手をねむりにする (1〜3 ターン動けない)",
+        "rationale": "やわらかい芝生に転がして眠らせるため、版 10 の補助技「くさのねどこ」(grass_s4) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "grass_s4",
+      "rationale": "しばふごろごろはやわらかい芝生に転がして眠らせる技で、草の物で当たるため草の技にした"
+    },
+    {
+      "id": "grass_a5",
+      "displayName": "ねっこどっしり",
+      "elementTypeId": "grass",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "grass_s5",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "defense": "50",
+          "speed": "-25"
+        },
+        "summary": "防御を大きく上げ、素早さを下げる",
+        "rule": "当たると自分の防御の倍率を 50 上げ、素早さの倍率を 25 下げる",
+        "rationale": "根を張った重さでのしかかり、動かなくなる代わりに固くなるため、版 10 の補助技「ねをはる」(grass_s5) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "grass_s5",
+      "rationale": "ねっこどっしりは根を張った重さでのしかかり、動かなくなる代わりに固くなる技で、草の物で当たるため草の技にした"
+    },
+    {
+      "id": "grass_a7",
+      "displayName": "くさむらしばり",
+      "elementTypeId": "grass",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "grass_s7",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "当たると相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "伸びた草むらで相手を縛ってから打つため、版 10 の補助技「つるでぐるぐる」(grass_s7) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "grass_s7",
+      "rationale": "くさむらしばりは伸びた草むらで相手を縛ってから打つ技で、草の物で当たるため草の技にした"
+    },
+    {
+      "id": "thunder_a1",
+      "displayName": "じゅうでんタッチ",
+      "elementTypeId": "thunder",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "thunder_s1",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "当たると自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "触れた時に電気をため込んで力に変えるため、版 10 の補助技「じゅうでんちゅう」(thunder_s1) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "thunder_s1",
+      "rationale": "じゅうでんタッチは触れた時に電気をため込んで力に変える技で、雷の物で当たるため雷の技にした"
+    },
+    {
+      "id": "thunder_a2",
+      "displayName": "しびれコード",
+      "elementTypeId": "thunder",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "thunder_s2",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "当たると相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "電気の通ったコードを当ててしびれさせるため、版 10 の補助技「しびれびりびり」(thunder_s2) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "thunder_s2",
+      "rationale": "しびれコードは電気の通ったコードを当ててしびれさせる技で、雷の物で当たるため雷の技にした"
+    },
+    {
+      "id": "thunder_a3",
+      "displayName": "ショートスパーク",
+      "elementTypeId": "thunder",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "thunder_s3",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "当たると相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "火花を飛ばして相手の守りをショートさせるため、版 10 の補助技「ショートさせる」(thunder_s3) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "thunder_s3",
+      "rationale": "ショートスパークは火花を飛ばして相手の守りをショートさせる技で、雷の物で当たるため雷の技にした"
+    },
+    {
+      "id": "thunder_a4",
+      "displayName": "せいでんきパチッ",
+      "elementTypeId": "thunder",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "thunder_s4",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "paralysis",
+            "chancePercent": 50
+          }
+        ],
+        "summary": "5 割でまひにする",
+        "rule": "当たると 5 割の確率で相手をまひにする (次の自分のターンに攻撃技が出せない)",
+        "rationale": "静電気をはじけさせて体をしびれさせるため、版 10 の補助技「ビリビリでんき」(thunder_s4) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "thunder_s4",
+      "rationale": "せいでんきパチッは静電気をはじけさせて体をしびれさせる技で、雷の物で当たるため雷の技にした"
+    },
+    {
+      "id": "thunder_a5",
+      "displayName": "フルパワーモーター",
+      "elementTypeId": "thunder",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "thunder_s5",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "50",
+          "defense": "-25"
+        },
+        "summary": "攻撃を大きく上げ、防御を下げる",
+        "rule": "当たると自分の攻撃の倍率を 50 上げ、防御の倍率を 25 下げる",
+        "rationale": "モーターを全開で回して守りを捨ててぶつかるため、版 10 の補助技「オーバークロック」(thunder_s5) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "thunder_s5",
+      "rationale": "フルパワーモーターはモーターを全開で回して守りを捨ててぶつかる技で、雷の物で当たるため雷の技にした"
+    },
+    {
+      "id": "thunder_a7",
+      "displayName": "でんきさくビリッ",
+      "elementTypeId": "thunder",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "thunder_s7",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "当たると相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "電気の柵で囲んで触れたところをしびれさせるため、版 10 の補助技「でんきのおり」(thunder_s7) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "thunder_s7",
+      "rationale": "でんきさくビリッは電気の柵で囲んで触れたところをしびれさせる技で、雷の物で当たるため雷の技にした"
+    },
+    {
+      "id": "earth_a1",
+      "displayName": "すなけずり",
+      "elementTypeId": "earth",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "earth_s1",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "当たると相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "砂でこすって相手の表面を削るため、版 10 の補助技「すなぼこり」(earth_s1) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "earth_s1",
+      "rationale": "すなけずりは砂でこすって相手の表面を削る技で、土の物で当たるため土の技にした"
+    },
+    {
+      "id": "earth_a2",
+      "displayName": "どろだんごなげ",
+      "elementTypeId": "earth",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "earth_s2",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "当たると自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "固めた泥団子を投げて手ごたえで力をつけるため、版 10 の補助技「どろだんごこね」(earth_s2) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "earth_s2",
+      "rationale": "どろだんごなげは固めた泥団子を投げて手ごたえで力をつける技で、土の物で当たるため土の技にした"
+    },
+    {
+      "id": "earth_a4",
+      "displayName": "すなけむりアタック",
+      "elementTypeId": "earth",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "earth_s4",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "dizzy",
+            "chancePercent": 50
+          }
+        ],
+        "summary": "5 割でめまいにする",
+        "rule": "当たると 5 割の確率で相手をめまいにする (3 ターンの間、技の命中率が 70% になる)",
+        "rationale": "砂煙を立てて目をくらませるため、版 10 の補助技「すなかけ」(earth_s4) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "earth_s4",
+      "rationale": "すなけむりアタックは砂煙を立てて目をくらませる技で、土の物で当たるため土の技にした"
+    },
+    {
+      "id": "earth_a5",
+      "displayName": "じならしダッシュ",
+      "elementTypeId": "earth",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "earth_s5",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "speed": "50",
+          "defense": "-25"
+        },
+        "summary": "素早さを大きく上げ、防御を下げる",
+        "rule": "当たると自分の素早さの倍率を 50 上げ、防御の倍率を 25 下げる",
+        "rationale": "地面をならして走りやすくし、守りを捨てて突っ込むため、版 10 の補助技「かたいじめん」(earth_s5) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "earth_s5",
+      "rationale": "じならしダッシュは地面をならして走りやすくし、守りを捨てて突っ込む技で、土の物で当たるため土の技にした"
+    },
+    {
+      "id": "earth_a7",
+      "displayName": "ぬかるみはまり",
+      "elementTypeId": "earth",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "earth_s7",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "当たると相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "ぬかるみに相手の足をはまらせてから打つため、版 10 の補助技「どろあしどめ」(earth_s7) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "earth_s7",
+      "rationale": "ぬかるみはまりはぬかるみに相手の足をはまらせてから打つ技で、土の物で当たるため土の技にした"
+    },
+    {
+      "id": "steel_a1",
+      "displayName": "とぎすましカット",
+      "elementTypeId": "steel",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "steel_s1",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "当たると自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "研いだ刃で切りつけ、切れ味を上げていくため、版 10 の補助技「やすりみがき」(steel_s1) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "steel_s1",
+      "rationale": "とぎすましカットは研いだ刃で切りつけ、切れ味を上げていく技で、鋼の物で当たるため鋼の技にした"
+    },
+    {
+      "id": "steel_a2",
+      "displayName": "さびさびパンチ",
+      "elementTypeId": "steel",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "steel_s2",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "当たると相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "さびた拳で殴り、相手の守りをさびつかせるため、版 10 の補助技「さびつかせ」(steel_s2) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "steel_s2",
+      "rationale": "さびさびパンチはさびた拳で殴り、相手の守りをさびつかせる技で、鋼の物で当たるため鋼の技にした"
+    },
+    {
+      "id": "steel_a3",
+      "displayName": "てつのおもりなげ",
+      "elementTypeId": "steel",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "steel_s3",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "当たると相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "鉄のおもりを投げつけて体を重くするため、版 10 の補助技「おもりのくさり」(steel_s3) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "steel_s3",
+      "rationale": "てつのおもりなげは鉄のおもりを投げつけて体を重くする技で、鋼の物で当たるため鋼の技にした"
+    },
+    {
+      "id": "steel_a4",
+      "displayName": "スパナごつん",
+      "elementTypeId": "steel",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "steel_s4",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "stun",
+            "chancePercent": 50
+          }
+        ],
+        "summary": "5 割できぜつにする",
+        "rule": "当たると 5 割の確率で相手をきぜつにする (次の自分のターンに動けない)",
+        "rationale": "スパナで頭を打って気を失わせるため、版 10 の補助技「ボルトしめ」(steel_s4) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "steel_s4",
+      "rationale": "スパナごつんはスパナで頭を打って気を失わせる技で、鋼の物で当たるため鋼の技にした"
+    },
+    {
+      "id": "steel_a5",
+      "displayName": "てっぱんタックル",
+      "elementTypeId": "steel",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "steel_s5",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "defense": "50",
+          "speed": "-25"
+        },
+        "summary": "防御を大きく上げ、素早さを下げる",
+        "rule": "当たると自分の防御の倍率を 50 上げ、素早さの倍率を 25 下げる",
+        "rationale": "鉄板を構えてぶつかり、重さで動きが鈍る代わりに固くなるため、版 10 の補助技「よろいかため」(steel_s5) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "steel_s5",
+      "rationale": "てっぱんタックルは鉄板を構えてぶつかり、重さで動きが鈍る代わりに固くなる技で、鋼の物で当たるため鋼の技にした"
+    },
+    {
+      "id": "steel_a7",
+      "displayName": "なんきんじょうガチャン",
+      "elementTypeId": "steel",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "steel_s7",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "当たると相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "南京錠で鍵をかけて逃げられなくするため、版 10 の補助技「かぎをかける」(steel_s7) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "steel_s7",
+      "rationale": "なんきんじょうガチャンは南京錠で鍵をかけて逃げられなくする技で、鋼の物で当たるため鋼の技にした"
+    },
+    {
+      "id": "wood_a1",
+      "displayName": "のこぎりけずり",
+      "elementTypeId": "wood",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "wood_s1",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "当たると相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "のこぎりで相手の守りを削るため、版 10 の補助技「かんなけずり」(wood_s1) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "wood_s1",
+      "rationale": "のこぎりけずりはのこぎりで相手の守りを削る技で、木の物で当たるため木の技にした"
+    },
+    {
+      "id": "wood_a3",
+      "displayName": "まきわりスイング",
+      "elementTypeId": "wood",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "wood_s3",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "当たると自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "薪割りの振りで当て、振るたびに力が乗るため、版 10 の補助技「まきわりじゅんび」(wood_s3) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "wood_s3",
+      "rationale": "まきわりスイングは薪割りの振りで当て、振るたびに力が乗る技で、木の物で当たるため木の技にした"
+    },
+    {
+      "id": "wood_a4",
+      "displayName": "つみきくずし",
+      "elementTypeId": "wood",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "wood_s4",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "confusion",
+            "chancePercent": 50
+          }
+        ],
+        "summary": "5 割でこんらんにする",
+        "rule": "当たると 5 割の確率で相手をこんらんにする (2〜4 ターンの間、1/2 の確率で別の技が出る)",
+        "rationale": "積み木を崩して浴びせ、相手を混乱させるため、版 10 の補助技「きのぼうでコツン」(wood_s4) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "wood_s4",
+      "rationale": "つみきくずしは積み木を崩して浴びせ、相手を混乱させる技で、木の物で当たるため木の技にした"
+    },
+    {
+      "id": "wood_a5",
+      "displayName": "ねんりんタックル",
+      "elementTypeId": "wood",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "wood_s5",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "50",
+          "defense": "-25"
+        },
+        "summary": "攻撃を大きく上げ、防御を下げる",
+        "rule": "当たると自分の攻撃の倍率を 50 上げ、防御の倍率を 25 下げる",
+        "rationale": "年輪の重みで守りを捨ててぶつかるため、版 10 の補助技「ねんりんのちから」(wood_s5) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "wood_s5",
+      "rationale": "ねんりんタックルは年輪の重みで守りを捨ててぶつかる技で、木の物で当たるため木の技にした"
+    },
+    {
+      "id": "wood_a7",
+      "displayName": "ログハウスとじこめ",
+      "elementTypeId": "wood",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "wood_s7",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "当たると相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "丸太の小屋に閉じ込めてから打つため、版 10 の補助技「きのさくでかこう」(wood_s7) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "wood_s7",
+      "rationale": "ログハウスとじこめは丸太の小屋に閉じ込めてから打つ技で、木の物で当たるため木の技にした"
+    },
+    {
+      "id": "light_a1",
+      "displayName": "まぶしライト",
+      "elementTypeId": "light",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "light_s1",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "当たると相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "まぶしい光を当てて目をくらませ、動きを鈍らせるため、版 10 の補助技「まぶしいフラッシュ」(light_s1) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "light_s1",
+      "rationale": "まぶしライトはまぶしい光を当てて目をくらませ、動きを鈍らせる技で、光の物で当たるため光の技にした"
+    },
+    {
+      "id": "light_a2",
+      "displayName": "ひなたチャージ",
+      "elementTypeId": "light",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "light_s2",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "当たると自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "日なたの光を浴びた力で当たるため、版 10 の補助技「ひなたぼっこ」(light_s2) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "light_s2",
+      "rationale": "ひなたチャージは日なたの光を浴びた力で当たる技で、光の物で当たるため光の技にした"
+    },
+    {
+      "id": "light_a4",
+      "displayName": "ミラーボールまわし",
+      "elementTypeId": "light",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "light_s4",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "dizzy",
+            "chancePercent": 50
+          }
+        ],
+        "summary": "5 割でめまいにする",
+        "rule": "当たると 5 割の確率で相手をめまいにする (3 ターンの間、技の命中率が 70% になる)",
+        "rationale": "回るミラーボールの光で目を回させるため、版 10 の補助技「レーザーポインター」(light_s4) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "light_s4",
+      "rationale": "ミラーボールまわしは回るミラーボールの光で目を回させる技で、光の物で当たるため光の技にした"
+    },
+    {
+      "id": "light_a5",
+      "displayName": "ひかりのダッシュ",
+      "elementTypeId": "light",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "light_s5",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "speed": "50",
+          "defense": "-25"
+        },
+        "summary": "素早さを大きく上げ、防御を下げる",
+        "rule": "当たると自分の素早さの倍率を 50 上げ、防御の倍率を 25 下げる",
+        "rationale": "光のように速く走り、守りを捨てて当たるため、版 10 の補助技「ひかりをまとう」(light_s5) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "light_s5",
+      "rationale": "ひかりのダッシュは光のように速く走り、守りを捨てて当たる技で、光の物で当たるため光の技にした"
+    },
+    {
+      "id": "light_a7",
+      "displayName": "スポットライトとじこめ",
+      "elementTypeId": "light",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "light_s7",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "当たると相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "スポットライトの輪の中に相手を閉じ込めるため、版 10 の補助技「ひかりのおり」(light_s7) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "light_s7",
+      "rationale": "スポットライトとじこめはスポットライトの輪の中に相手を閉じ込める技で、光の物で当たるため光の技にした"
+    },
+    {
+      "id": "dark_a1",
+      "displayName": "やみよのつまずき",
+      "elementTypeId": "dark",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "dark_s1",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "当たると相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "暗がりで足を引っかけてつまずかせるため、版 10 の補助技「まっくらまよい」(dark_s1) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "dark_s1",
+      "rationale": "やみよのつまずきは暗がりで足を引っかけてつまずかせる技で、闇の物で当たるため闇の技にした"
+    },
+    {
+      "id": "dark_a2",
+      "displayName": "こわいかげぶつけ",
+      "elementTypeId": "dark",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "dark_s2",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "当たると相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "怖い影をぶつけて相手をすくませ、守りを崩すため、版 10 の補助技「こわいはなし」(dark_s2) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "dark_s2",
+      "rationale": "こわいかげぶつけは怖い影をぶつけて相手をすくませ、守りを崩す技で、闇の物で当たるため闇の技にした"
+    },
+    {
+      "id": "dark_a4",
+      "displayName": "のろいのささやき",
+      "elementTypeId": "dark",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "dark_s4",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "curse",
+            "chancePercent": 50
+          }
+        ],
+        "summary": "5 割でのろいにする",
+        "rule": "当たると 5 割の確率で相手をのろいにする (攻撃・防御・素早さのどれか 1 つが半分になる)",
+        "rationale": "呪いの言葉をささやきながら打つため、版 10 の補助技「のろいのことば」(dark_s4) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "dark_s4",
+      "rationale": "のろいのささやきは呪いの言葉をささやきながら打つ技で、闇の物で当たるため闇の技にした"
+    },
+    {
+      "id": "dark_a5",
+      "displayName": "くろマントアタック",
+      "elementTypeId": "dark",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "dark_s5",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "defense": "50",
+          "speed": "-25"
+        },
+        "summary": "防御を大きく上げ、素早さを下げる",
+        "rule": "当たると自分の防御の倍率を 50 上げ、素早さの倍率を 25 下げる",
+        "rationale": "黒いマントにくるまってぶつかり、重くなる代わりに固くなるため、版 10 の補助技「やみのちから」(dark_s5) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "dark_s5",
+      "rationale": "くろマントアタックは黒いマントにくるまってぶつかり、重くなる代わりに固くなる技で、闇の物で当たるため闇の技にした"
+    },
+    {
+      "id": "dark_a7",
+      "displayName": "まよなかのおり",
+      "elementTypeId": "dark",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "dark_s7",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "当たると相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "真夜中の暗い檻に閉じ込めるため、版 10 の補助技「やみのあしどめ」(dark_s7) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "dark_s7",
+      "rationale": "まよなかのおりは真夜中の暗い檻に閉じ込める技で、闇の物で当たるため闇の技にした"
+    },
+    {
+      "id": "poison_a1",
+      "displayName": "とけるスプレー",
+      "elementTypeId": "poison",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "poison_s1",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "当たると相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "物を溶かす液を吹きつけて守りを溶かすため、版 10 の補助技「とかすくすり」(poison_s1) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "poison_s1",
+      "rationale": "とけるスプレーは物を溶かす液を吹きつけて守りを溶かす技で、毒の物で当たるため毒の技にした"
+    },
+    {
+      "id": "poison_a2",
+      "displayName": "けだるいかおり",
+      "elementTypeId": "poison",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "poison_s2",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "当たると相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "けだるくなる匂いを浴びせて動きを鈍らせるため、版 10 の補助技「ねむけのかおり」(poison_s2) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "poison_s2",
+      "rationale": "けだるいかおりはけだるくなる匂いを浴びせて動きを鈍らせる技で、毒の物で当たるため毒の技にした"
+    },
+    {
+      "id": "poison_a4",
+      "displayName": "どくのしずく",
+      "elementTypeId": "poison",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "poison_s4",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "poison",
+            "chancePercent": 50
+          }
+        ],
+        "summary": "5 割でどくにする",
+        "rule": "当たると 5 割の確率で相手をどくにする (毎ターンの終わりに最大 HP の 1/16 × 重なりのダメージを受ける)",
+        "rationale": "毒のしずくを垂らして体に毒を回すため、版 10 の補助技「どくえきまき」(poison_s4) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "poison_s4",
+      "rationale": "どくのしずくは毒のしずくを垂らして体に毒を回す技で、毒の物で当たるため毒の技にした"
+    },
+    {
+      "id": "poison_a5",
+      "displayName": "げきやくタックル",
+      "elementTypeId": "poison",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "poison_s5",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "50",
+          "defense": "-25"
+        },
+        "summary": "攻撃を大きく上げ、防御を下げる",
+        "rule": "当たると自分の攻撃の倍率を 50 上げ、防御の倍率を 25 下げる",
+        "rationale": "強い薬で体を奮い立たせ、守りを捨ててぶつかるため、版 10 の補助技「どくにならす」(poison_s5) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "poison_s5",
+      "rationale": "げきやくタックルは強い薬で体を奮い立たせ、守りを捨ててぶつかる技で、毒の物で当たるため毒の技にした"
+    },
+    {
+      "id": "poison_a7",
+      "displayName": "どくぬまはまり",
+      "elementTypeId": "poison",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "poison_s7",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "当たると相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "毒の沼に足をはまらせて逃げられなくするため、版 10 の補助技「どくのあしかせ」(poison_s7) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "poison_s7",
+      "rationale": "どくぬまはまりは毒の沼に足をはまらせて逃げられなくする技で、毒の物で当たるため毒の技にした"
+    },
+    {
+      "id": "sound_a1",
+      "displayName": "マーチのたいこ",
+      "elementTypeId": "sound",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "sound_s1",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "当たると自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "行進曲の太鼓を打ち鳴らして気持ちを高めるため、版 10 の補助技「おうえんのうた」(sound_s1) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "sound_s1",
+      "rationale": "マーチのたいこは行進曲の太鼓を打ち鳴らして気持ちを高める技で、音の物で当たるため音の技にした"
+    },
+    {
+      "id": "sound_a2",
+      "displayName": "ゆったりワルツ",
+      "elementTypeId": "sound",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "sound_s2",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "当たると相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "ゆったりした三拍子で相手の動きを遅くするため、版 10 の補助技「こもりうた」(sound_s2) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "sound_s2",
+      "rationale": "ゆったりワルツはゆったりした三拍子で相手の動きを遅くする技で、音の物で当たるため音の技にした"
+    },
+    {
+      "id": "sound_a3",
+      "displayName": "キーンとハウリング",
+      "elementTypeId": "sound",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "sound_s3",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "当たると相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "キーンという音で耳をふさがせ、守りを崩すため、版 10 の補助技「キーンとおと」(sound_s3) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "sound_s3",
+      "rationale": "キーンとハウリングはキーンという音で耳をふさがせ、守りを崩す技で、音の物で当たるため音の技にした"
+    },
+    {
+      "id": "sound_a4",
+      "displayName": "ふきょうわおん",
+      "elementTypeId": "sound",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "sound_s4",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "confusion",
+            "chancePercent": 50
+          }
+        ],
+        "summary": "5 割でこんらんにする",
+        "rule": "当たると 5 割の確率で相手をこんらんにする (2〜4 ターンの間、1/2 の確率で別の技が出る)",
+        "rationale": "濁った和音で頭を混乱させるため、版 10 の補助技「がんがんサウンド」(sound_s4) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "sound_s4",
+      "rationale": "ふきょうわおんは濁った和音で頭を混乱させる技で、音の物で当たるため音の技にした"
+    },
+    {
+      "id": "sound_a5",
+      "displayName": "アップテンポビート",
+      "elementTypeId": "sound",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "sound_s5",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "speed": "50",
+          "defense": "-25"
+        },
+        "summary": "素早さを大きく上げ、防御を下げる",
+        "rule": "当たると自分の素早さの倍率を 50 上げ、防御の倍率を 25 下げる",
+        "rationale": "速いビートに乗って守りを捨てて当たるため、版 10 の補助技「ロックンロール」(sound_s5) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "sound_s5",
+      "rationale": "アップテンポビートは速いビートに乗って守りを捨てて当たる技で、音の物で当たるため音の技にした"
+    },
+    {
+      "id": "sound_a7",
+      "displayName": "カーテンコールのはくしゅ",
+      "elementTypeId": "sound",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "sound_s7",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "当たると相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "鳴りやまない拍手で舞台から下がらせないため、版 10 の補助技「ひきとめのうた」(sound_s7) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "sound_s7",
+      "rationale": "カーテンコールのはくしゅは鳴りやまない拍手で舞台から下がらせない技で、音の物で当たるため音の技にした"
+    },
+    {
+      "id": "beast_a1",
+      "displayName": "つめとぎひっかき",
+      "elementTypeId": "beast",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "beast_s1",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "当たると自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "爪を研ぎながら引っかき、鋭くしていくため、版 10 の補助技「ねこのつめみがき」(beast_s1) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "beast_s1",
+      "rationale": "つめとぎひっかきは爪を研ぎながら引っかき、鋭くしていく技で、獣の物で当たるため獣の技にした"
+    },
+    {
+      "id": "beast_a2",
+      "displayName": "うなりタックル",
+      "elementTypeId": "beast",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "beast_s2",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "当たると相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "うなり声で脅しながらぶつかり、守りを崩すため、版 10 の補助技「うなりごえ」(beast_s2) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "beast_s2",
+      "rationale": "うなりタックルはうなり声で脅しながらぶつかり、守りを崩す技で、獣の物で当たるため獣の技にした"
+    },
+    {
+      "id": "beast_a5",
+      "displayName": "ふかふかけがわ",
+      "elementTypeId": "beast",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "beast_s5",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "defense": "50",
+          "speed": "-25"
+        },
+        "summary": "防御を大きく上げ、素早さを下げる",
+        "rule": "当たると自分の防御の倍率を 50 上げ、素早さの倍率を 25 下げる",
+        "rationale": "毛皮を膨らませてのしかかり、重くなる代わりに固くなるため、版 10 の補助技「ぜんそくりょく」(beast_s5) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "beast_s5",
+      "rationale": "ふかふかけがわは毛皮を膨らませてのしかかり、重くなる代わりに固くなる技で、獣の物で当たるため獣の技にした"
+    },
+    {
+      "id": "beast_a7",
+      "displayName": "しっぽでぐるり",
+      "elementTypeId": "beast",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "beast_s7",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "当たると相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "しっぽを巻きつけて逃げられなくするため、版 10 の補助技「しっぽでおさえる」(beast_s7) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "beast_s7",
+      "rationale": "しっぽでぐるりはしっぽを巻きつけて逃げられなくする技で、獣の物で当たるため獣の技にした"
+    },
+    {
+      "id": "bug_a1",
+      "displayName": "みのむしいとまき",
+      "elementTypeId": "bug",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "bug_s1",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "当たると相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "みのむしの糸を巻きつけて動きを鈍らせるため、版 10 の補助技「みのむしまき」(bug_s1) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "bug_s1",
+      "rationale": "みのむしいとまきはみのむしの糸を巻きつけて動きを鈍らせる技で、虫の物で当たるため虫の技にした"
+    },
+    {
+      "id": "bug_a2",
+      "displayName": "うかのはばたき",
+      "elementTypeId": "bug",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "bug_s2",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "当たると自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "羽化したての羽ではばたき、力をつけるため、版 10 の補助技「さなぎのめざめ」(bug_s2) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "bug_s2",
+      "rationale": "うかのはばたきは羽化したての羽ではばたき、力をつける技で、虫の物で当たるため虫の技にした"
+    },
+    {
+      "id": "bug_a3",
+      "displayName": "シロアリがじがじ",
+      "elementTypeId": "bug",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "bug_s3",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "当たると相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "シロアリのようにかじって守りを崩すため、版 10 の補助技「シロアリかじり」(bug_s3) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "bug_s3",
+      "rationale": "シロアリがじがじはシロアリのようにかじって守りを崩す技で、虫の物で当たるため虫の技にした"
+    },
+    {
+      "id": "bug_a4",
+      "displayName": "はちのひとさし",
+      "elementTypeId": "bug",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "bug_s4",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "poison",
+            "chancePercent": 50
+          }
+        ],
+        "summary": "5 割でどくにする",
+        "rule": "当たると 5 割の確率で相手をどくにする (毎ターンの終わりに最大 HP の 1/16 × 重なりのダメージを受ける)",
+        "rationale": "はちの針で刺して毒を入れるため、版 10 の補助技「はちのどく」(bug_s4) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "bug_s4",
+      "rationale": "はちのひとさしははちの針で刺して毒を入れる技で、虫の物で当たるため虫の技にした"
+    },
+    {
+      "id": "bug_a5",
+      "displayName": "だっぴアタック",
+      "elementTypeId": "bug",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "bug_s5",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "50",
+          "defense": "-25"
+        },
+        "summary": "攻撃を大きく上げ、防御を下げる",
+        "rule": "当たると自分の攻撃の倍率を 50 上げ、防御の倍率を 25 下げる",
+        "rationale": "殻を脱ぎ捨てた身軽な体で当たり、守りが薄くなる代わりに力が出るため、版 10 の補助技「かたいこうら」(bug_s5) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "bug_s5",
+      "rationale": "だっぴアタックは殻を脱ぎ捨てた身軽な体で当たり、守りが薄くなる代わりに力が出る技で、虫の物で当たるため虫の技にした"
+    },
+    {
+      "id": "bug_a7",
+      "displayName": "クモのすがらめ",
+      "elementTypeId": "bug",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "bug_s7",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "当たると相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "クモの巣にからめて逃げられなくするため、版 10 の補助技「まゆでつつむ」(bug_s7) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "bug_s7",
+      "rationale": "クモのすがらめはクモの巣にからめて逃げられなくする技で、虫の物で当たるため虫の技にした"
+    },
+    {
+      "id": "bird_a1",
+      "displayName": "はねぶとんどすん",
+      "elementTypeId": "bird",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "bird_s1",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "当たると相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "羽毛布団をかぶせてのしかかり、動きを鈍らせるため、版 10 の補助技「はねぶとん」(bird_s1) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "bird_s1",
+      "rationale": "はねぶとんどすんは羽毛布団をかぶせてのしかかり、動きを鈍らせる技で、鳥の物で当たるため鳥の技にした"
+    },
+    {
+      "id": "bird_a3",
+      "displayName": "おおはばたき",
+      "elementTypeId": "bird",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "bird_s3",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "当たると自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "大きく羽ばたいて勢いをつけるため、版 10 の補助技「はねをひろげる」(bird_s3) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "bird_s3",
+      "rationale": "おおはばたきは大きく羽ばたいて勢いをつける技で、鳥の物で当たるため鳥の技にした"
+    },
+    {
+      "id": "bird_a4",
+      "displayName": "せんかいダイブ",
+      "elementTypeId": "bird",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "bird_s4",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "dizzy",
+            "chancePercent": 50
+          }
+        ],
+        "summary": "5 割でめまいにする",
+        "rule": "当たると 5 割の確率で相手をめまいにする (3 ターンの間、技の命中率が 70% になる)",
+        "rationale": "くるくる旋回してから飛び込み、目を回させるため、版 10 の補助技「くるくるせんかい」(bird_s4) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "bird_s4",
+      "rationale": "せんかいダイブはくるくる旋回してから飛び込み、目を回させる技で、鳥の物で当たるため鳥の技にした"
+    },
+    {
+      "id": "bird_a5",
+      "displayName": "かるがるダッシュ",
+      "elementTypeId": "bird",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "bird_s5",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "speed": "50",
+          "defense": "-25"
+        },
+        "summary": "素早さを大きく上げ、防御を下げる",
+        "rule": "当たると自分の素早さの倍率を 50 上げ、防御の倍率を 25 下げる",
+        "rationale": "軽い体で飛ぶように走り、守りを捨てて当たるため、版 10 の補助技「かるいからだ」(bird_s5) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "bird_s5",
+      "rationale": "かるがるダッシュは軽い体で飛ぶように走り、守りを捨てて当たる技で、鳥の物で当たるため鳥の技にした"
+    },
+    {
+      "id": "bird_a7",
+      "displayName": "とりかごガシャン",
+      "elementTypeId": "bird",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "bird_s7",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "当たると相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "鳥かごをかぶせて閉じ込めるため、版 10 の補助技「とりかごいれ」(bird_s7) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "bird_s7",
+      "rationale": "とりかごガシャンは鳥かごをかぶせて閉じ込める技で、鳥の物で当たるため鳥の技にした"
+    },
+    {
+      "id": "fish_a1",
+      "displayName": "クラゲのしょくしゅ",
+      "elementTypeId": "fish",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "fish_s1",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "当たると相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "クラゲの触手で打ってしびれさせ、動きを鈍らせるため、版 10 の補助技「クラゲのしびれ」(fish_s1) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "fish_s1",
+      "rationale": "クラゲのしょくしゅはクラゲの触手で打ってしびれさせ、動きを鈍らせる技で、魚の物で当たるため魚の技にした"
+    },
+    {
+      "id": "fish_a2",
+      "displayName": "ウツボのぎゅうぎゅう",
+      "elementTypeId": "fish",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "fish_s2",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "当たると相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "ウツボのように巻きついて締め、守りを崩すため、版 10 の補助技「ウツボのまきつき」(fish_s2) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "fish_s2",
+      "rationale": "ウツボのぎゅうぎゅうはウツボのように巻きついて締め、守りを崩す技で、魚の物で当たるため魚の技にした"
+    },
+    {
+      "id": "fish_a4",
+      "displayName": "シビレエイタッチ",
+      "elementTypeId": "fish",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "fish_s4",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "paralysis",
+            "chancePercent": 50
+          }
+        ],
+        "summary": "5 割でまひにする",
+        "rule": "当たると 5 割の確率で相手をまひにする (次の自分のターンに攻撃技が出せない)",
+        "rationale": "シビレエイのように触れてしびれさせるため、版 10 の補助技「でんきウナギ」(fish_s4) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "fish_s4",
+      "rationale": "シビレエイタッチはシビレエイのように触れてしびれさせる技で、魚の物で当たるため魚の技にした"
+    },
+    {
+      "id": "fish_a5",
+      "displayName": "サザエのふたアタック",
+      "elementTypeId": "fish",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "fish_s5",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "defense": "50",
+          "speed": "-25"
+        },
+        "summary": "防御を大きく上げ、素早さを下げる",
+        "rule": "当たると自分の防御の倍率を 50 上げ、素早さの倍率を 25 下げる",
+        "rationale": "サザエのふたを閉じて体当たりし、重くなる代わりに固くなるため、版 10 の補助技「すいすいおよぎ」(fish_s5) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "fish_s5",
+      "rationale": "サザエのふたアタックはサザエのふたを閉じて体当たりし、重くなる代わりに固くなる技で、魚の物で当たるため魚の技にした"
+    },
+    {
+      "id": "fish_a7",
+      "displayName": "あみですくう",
+      "elementTypeId": "fish",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "fish_s7",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "当たると相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "網ですくい上げて逃げられなくするため、版 10 の補助技「ぎょもうでかこむ」(fish_s7) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "fish_s7",
+      "rationale": "あみですくうは網ですくい上げて逃げられなくする技で、魚の物で当たるため魚の技にした"
+    },
+    {
+      "id": "ice_a1",
+      "displayName": "つるつるスケート",
+      "elementTypeId": "ice",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "ice_s1",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "当たると相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "氷の上を滑ってぶつかり、相手の足を滑らせるため、版 10 の補助技「こおりのゆか」(ice_s1) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "ice_s1",
+      "rationale": "つるつるスケートは氷の上を滑ってぶつかり、相手の足を滑らせる技で、氷の物で当たるため氷の技にした"
+    },
+    {
+      "id": "ice_a2",
+      "displayName": "しもばしらキック",
+      "elementTypeId": "ice",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "ice_s2",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "当たると相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "霜柱を蹴り上げて相手を冷やし、体をこわばらせるため、版 10 の補助技「しもやけ」(ice_s2) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "ice_s2",
+      "rationale": "しもばしらキックは霜柱を蹴り上げて相手を冷やし、体をこわばらせる技で、氷の物で当たるため氷の技にした"
+    },
+    {
+      "id": "ice_a3",
+      "displayName": "かんぷうまさつパンチ",
+      "elementTypeId": "ice",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "ice_s3",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "当たると自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "寒風の中で体をこすって温め、その力で殴るため、版 10 の補助技「かんぷうまさつ」(ice_s3) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "ice_s3",
+      "rationale": "かんぷうまさつパンチは寒風の中で体をこすって温め、その力で殴る技で、氷の物で当たるため氷の技にした"
+    },
+    {
+      "id": "ice_a4",
+      "displayName": "ほれいざいピタッ",
+      "elementTypeId": "ice",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "ice_s4",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "frozen",
+            "chancePercent": 50
+          }
+        ],
+        "summary": "5 割でこおりにする",
+        "rule": "当たると 5 割の確率で相手をこおりにする (1〜3 ターン動けない。ダメージを受けると解ける)",
+        "rationale": "冷えた保冷剤を押し当てて凍らせるため、版 10 の補助技「こおりづけ」(ice_s4) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "ice_s4",
+      "rationale": "ほれいざいピタッは冷えた保冷剤を押し当てて凍らせる技で、氷の物で当たるため氷の技にした"
+    },
+    {
+      "id": "ice_a5",
+      "displayName": "かきごおりブレイク",
+      "elementTypeId": "ice",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "ice_s5",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "50",
+          "defense": "-25"
+        },
+        "summary": "攻撃を大きく上げ、防御を下げる",
+        "rule": "当たると自分の攻撃の倍率を 50 上げ、防御の倍率を 25 下げる",
+        "rationale": "かき氷を崩す勢いで守りを捨てて当たるため、版 10 の補助技「こおりのよろい」(ice_s5) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "ice_s5",
+      "rationale": "かきごおりブレイクはかき氷を崩す勢いで守りを捨てて当たる技で、氷の物で当たるため氷の技にした"
+    },
+    {
+      "id": "ice_a7",
+      "displayName": "こおりのとじこめ",
+      "elementTypeId": "ice",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "ice_s7",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "当たると相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "氷の壁で囲んで閉じ込めるため、版 10 の補助技「こおりのあしかせ」(ice_s7) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "ice_s7",
+      "rationale": "こおりのとじこめは氷の壁で囲んで閉じ込める技で、氷の物で当たるため氷の技にした"
+    },
+    {
+      "id": "wind_a1",
+      "displayName": "せなかおしかぜ",
+      "elementTypeId": "wind",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "wind_s1",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "当たると自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "背中を押す風に乗って勢いをつけるため、版 10 の補助技「せなかのかぜ」(wind_s1) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "wind_s1",
+      "rationale": "せなかおしかぜは背中を押す風に乗って勢いをつける技で、風の物で当たるため風の技にした"
+    },
+    {
+      "id": "wind_a2",
+      "displayName": "むかいかぜブロー",
+      "elementTypeId": "wind",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "wind_s2",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "当たると相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "向かい風を吹きつけて相手を進みにくくするため、版 10 の補助技「むかいかぜ」(wind_s2) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "wind_s2",
+      "rationale": "むかいかぜブローは向かい風を吹きつけて相手を進みにくくする技で、風の物で当たるため風の技にした"
+    },
+    {
+      "id": "wind_a4",
+      "displayName": "せんぷうきぐるぐる",
+      "elementTypeId": "wind",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "wind_s4",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "confusion",
+            "chancePercent": 50
+          }
+        ],
+        "summary": "5 割でこんらんにする",
+        "rule": "当たると 5 割の確率で相手をこんらんにする (2〜4 ターンの間、1/2 の確率で別の技が出る)",
+        "rationale": "扇風機の風で相手をぐるぐる回して混乱させるため、版 10 の補助技「つむじかぜまわし」(wind_s4) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "wind_s4",
+      "rationale": "せんぷうきぐるぐるは扇風機の風で相手をぐるぐる回して混乱させる技で、風の物で当たるため風の技にした"
+    },
+    {
+      "id": "wind_a5",
+      "displayName": "とっぷうダッシュ",
+      "elementTypeId": "wind",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "wind_s5",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "speed": "50",
+          "defense": "-25"
+        },
+        "summary": "素早さを大きく上げ、防御を下げる",
+        "rule": "当たると自分の素早さの倍率を 50 上げ、防御の倍率を 25 下げる",
+        "rationale": "突風に乗って走り、守りを捨てて当たるため、版 10 の補助技「みがるなかぜ」(wind_s5) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "wind_s5",
+      "rationale": "とっぷうダッシュは突風に乗って走り、守りを捨てて当たる技で、風の物で当たるため風の技にした"
+    },
+    {
+      "id": "wind_a7",
+      "displayName": "かぜぐるまのかこい",
+      "elementTypeId": "wind",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "wind_s7",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "当たると相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "風車の風で相手を囲んで動けなくするため、版 10 の補助技「かぜのかべ」(wind_s7) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "wind_s7",
+      "rationale": "かぜぐるまのかこいは風車の風で相手を囲んで動けなくする技で、風の物で当たるため風の技にした"
+    },
+    {
+      "id": "flower_a2",
+      "displayName": "はなのかおりうっとり",
+      "elementTypeId": "flower",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "flower_s2",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "当たると相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "花の香りでうっとりさせて動きを鈍らせるため、版 10 の補助技「いいかおり」(flower_s2) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "flower_s2",
+      "rationale": "はなのかおりうっとりは花の香りでうっとりさせて動きを鈍らせる技で、花の物で当たるため花の技にした"
+    },
+    {
+      "id": "flower_a3",
+      "displayName": "つぼみはじけ",
+      "elementTypeId": "flower",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "flower_s3",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "当たると自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "つぼみがはじける勢いで当たり、力をつけるため、版 10 の補助技「つぼみのちから」(flower_s3) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "flower_s3",
+      "rationale": "つぼみはじけはつぼみがはじける勢いで当たり、力をつける技で、花の物で当たるため花の技にした"
+    },
+    {
+      "id": "flower_a4",
+      "displayName": "まどろみかふん",
+      "elementTypeId": "flower",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "flower_s4",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "sleep",
+            "chancePercent": 50
+          }
+        ],
+        "summary": "5 割でねむりにする",
+        "rule": "当たると 5 割の確率で相手をねむりにする (1〜3 ターン動けない)",
+        "rationale": "眠くなる花粉を浴びせて眠らせるため、版 10 の補助技「ねむりのかふん」(flower_s4) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "flower_s4",
+      "rationale": "まどろみかふんは眠くなる花粉を浴びせて眠らせる技で、花の物で当たるため花の技にした"
+    },
+    {
+      "id": "flower_a5",
+      "displayName": "ブーケどすん",
+      "elementTypeId": "flower",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "flower_s5",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "defense": "50",
+          "speed": "-25"
+        },
+        "summary": "防御を大きく上げ、素早さを下げる",
+        "rule": "当たると自分の防御の倍率を 50 上げ、素早さの倍率を 25 下げる",
+        "rationale": "大きな花束でのしかかり、重くなる代わりに固くなるため、版 10 の補助技「まんかいのちから」(flower_s5) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "flower_s5",
+      "rationale": "ブーケどすんは大きな花束でのしかかり、重くなる代わりに固くなる技で、花の物で当たるため花の技にした"
+    },
+    {
+      "id": "flower_a7",
+      "displayName": "ばらのかきね",
+      "elementTypeId": "flower",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "flower_s7",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "当たると相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "ばらの垣根で囲んで逃げられなくするため、版 10 の補助技「いばらのかきね」(flower_s7) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "flower_s7",
+      "rationale": "ばらのかきねはばらの垣根で囲んで逃げられなくする技で、花の物で当たるため花の技にした"
+    },
+    {
+      "id": "machine_a1",
+      "displayName": "アップグレードパンチ",
+      "elementTypeId": "machine",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "machine_s1",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "当たると自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "殴るたびに部品を新しくして強くなるため、版 10 の補助技「アップデート」(machine_s1) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "machine_s1",
+      "rationale": "アップグレードパンチは殴るたびに部品を新しくして強くなる技で、機械の物で当たるため機械の技にした"
+    },
+    {
+      "id": "machine_a2",
+      "displayName": "ドライバーぶんかい",
+      "elementTypeId": "machine",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "machine_s2",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "当たると相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "ドライバーでねじを外して守りをばらすため、版 10 の補助技「ぶんかい」(machine_s2) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "machine_s2",
+      "rationale": "ドライバーぶんかいはドライバーでねじを外して守りをばらす技で、機械の物で当たるため機械の技にした"
+    },
+    {
+      "id": "machine_a4",
+      "displayName": "かんでんブザー",
+      "elementTypeId": "machine",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "machine_s4",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "paralysis",
+            "chancePercent": 50
+          }
+        ],
+        "summary": "5 割でまひにする",
+        "rule": "当たると 5 割の確率で相手をまひにする (次の自分のターンに攻撃技が出せない)",
+        "rationale": "電気の流れるブザーでしびれさせるため、版 10 の補助技「かんでんトラップ」(machine_s4) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "machine_s4",
+      "rationale": "かんでんブザーは電気の流れるブザーでしびれさせる技で、機械の物で当たるため機械の技にした"
+    },
+    {
+      "id": "machine_a5",
+      "displayName": "ターボモード",
+      "elementTypeId": "machine",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "machine_s5",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "50",
+          "defense": "-25"
+        },
+        "summary": "攻撃を大きく上げ、防御を下げる",
+        "rule": "当たると自分の攻撃の倍率を 50 上げ、防御の倍率を 25 下げる",
+        "rationale": "出力を上げきって守りを捨ててぶつかるため、版 10 の補助技「パワーモード」(machine_s5) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "machine_s5",
+      "rationale": "ターボモードは出力を上げきって守りを捨ててぶつかる技で、機械の物で当たるため機械の技にした"
+    },
+    {
+      "id": "machine_a7",
+      "displayName": "シャッターおろし",
+      "elementTypeId": "machine",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "machine_s7",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "当たると相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "シャッターを下ろして閉じ込めるため、版 10 の補助技「オートロック」(machine_s7) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "machine_s7",
+      "rationale": "シャッターおろしはシャッターを下ろして閉じ込める技で、機械の物で当たるため機械の技にした"
+    },
+    {
+      "id": "sweets_a2",
+      "displayName": "キャラメルべったり",
+      "elementTypeId": "sweets",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "sweets_s2",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "当たると相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "べたつくキャラメルをくっつけて動きを鈍らせるため、版 10 の補助技「ねばねばキャラメル」(sweets_s2) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "sweets_s2",
+      "rationale": "キャラメルべったりはべたつくキャラメルをくっつけて動きを鈍らせる技で、菓子の物で当たるため菓子の技にした"
+    },
+    {
+      "id": "sweets_a3",
+      "displayName": "とろけるチョコ",
+      "elementTypeId": "sweets",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "sweets_s3",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "当たると相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "溶けたチョコを浴びせて相手をとろけさせ、守りを崩すため、版 10 の補助技「あまいゆうわく」(sweets_s3) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "sweets_s3",
+      "rationale": "とろけるチョコは溶けたチョコを浴びせて相手をとろけさせ、守りを崩す技で、菓子の物で当たるため菓子の技にした"
+    },
+    {
+      "id": "sweets_a4",
+      "displayName": "おなかいっぱいケーキ",
+      "elementTypeId": "sweets",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "sweets_s4",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "drowsy",
+            "chancePercent": 50
+          }
+        ],
+        "summary": "5 割でねむけにする",
+        "rule": "当たると 5 割の確率で相手をねむけにする (素早さが半分になる。重ねて受けると眠る)",
+        "rationale": "ケーキを押しつけておなかいっぱいにさせ、眠気を誘うため、版 10 の補助技「まんぷくねむけ」(sweets_s4) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "sweets_s4",
+      "rationale": "おなかいっぱいケーキはケーキを押しつけておなかいっぱいにさせ、眠気を誘う技で、菓子の物で当たるため菓子の技にした"
+    },
+    {
+      "id": "sweets_a5",
+      "displayName": "あまあまダッシュ",
+      "elementTypeId": "sweets",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "sweets_s5",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "speed": "50",
+          "defense": "-25"
+        },
+        "summary": "素早さを大きく上げ、防御を下げる",
+        "rule": "当たると自分の素早さの倍率を 50 上げ、防御の倍率を 25 下げる",
+        "rationale": "糖分で元気になって守りを捨てて走り込むため、版 10 の補助技「とうぶんチャージ」(sweets_s5) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "sweets_s5",
+      "rationale": "あまあまダッシュは糖分で元気になって守りを捨てて走り込む技で、菓子の物で当たるため菓子の技にした"
+    },
+    {
+      "id": "sweets_a7",
+      "displayName": "ガムでぺったり",
+      "elementTypeId": "sweets",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "sweets_s7",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "当たると相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "ガムを貼りつけて逃げられなくするため、版 10 の補助技「ねばねばガム」(sweets_s7) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "sweets_s7",
+      "rationale": "ガムでぺったりはガムを貼りつけて逃げられなくする技で、菓子の物で当たるため菓子の技にした"
+    },
+    {
+      "id": "ghost_a1",
+      "displayName": "うしろからヒヤリ",
+      "elementTypeId": "ghost",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "ghost_s1",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "当たると相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "背後から冷たく触れてすくませ、動きを鈍らせるため、版 10 の補助技「うしろのけはい」(ghost_s1) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "ghost_s1",
+      "rationale": "うしろからヒヤリは背後から冷たく触れてすくませ、動きを鈍らせる技で、霊の物で当たるため霊の技にした"
+    },
+    {
+      "id": "ghost_a2",
+      "displayName": "ぞくぞくさむけ",
+      "elementTypeId": "ghost",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "ghost_s2",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "当たると相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "寒気を走らせて相手の守りをゆるませるため、版 10 の補助技「ぞくっとさむけ」(ghost_s2) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "ghost_s2",
+      "rationale": "ぞくぞくさむけは寒気を走らせて相手の守りをゆるませる技で、霊の物で当たるため霊の技にした"
+    },
+    {
+      "id": "ghost_a3",
+      "displayName": "うらめしパンチ",
+      "elementTypeId": "ghost",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "ghost_s3",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "当たると自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "恨みをこめて殴り、恨みが力を増すため、版 10 の補助技「うらめしや」(ghost_s3) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "ghost_s3",
+      "rationale": "うらめしパンチは恨みをこめて殴り、恨みが力を増す技で、霊の物で当たるため霊の技にした"
+    },
+    {
+      "id": "ghost_a4",
+      "displayName": "のろいのおふだ",
+      "elementTypeId": "ghost",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "ghost_s4",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "curse",
+            "chancePercent": 50
+          }
+        ],
+        "summary": "5 割でのろいにする",
+        "rule": "当たると 5 割の確率で相手をのろいにする (攻撃・防御・素早さのどれか 1 つが半分になる)",
+        "rationale": "呪いのお札を貼りつけるため、版 10 の補助技「うらみのわらにんぎょう」(ghost_s4) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "ghost_s4",
+      "rationale": "のろいのおふだは呪いのお札を貼りつける技で、霊の物で当たるため霊の技にした"
+    },
+    {
+      "id": "ghost_a5",
+      "displayName": "ゆうれいのころも",
+      "elementTypeId": "ghost",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "ghost_s5",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "defense": "50",
+          "speed": "-25"
+        },
+        "summary": "防御を大きく上げ、素早さを下げる",
+        "rule": "当たると自分の防御の倍率を 50 上げ、素早さの倍率を 25 下げる",
+        "rationale": "白い衣をまとってのしかかり、動きが重くなる代わりに固くなるため、版 10 の補助技「おんねんのちから」(ghost_s5) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "ghost_s5",
+      "rationale": "ゆうれいのころもは白い衣をまとってのしかかり、動きが重くなる代わりに固くなる技で、霊の物で当たるため霊の技にした"
+    },
+    {
+      "id": "ghost_a7",
+      "displayName": "おいでおいで",
+      "elementTypeId": "ghost",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "ghost_s7",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "当たると相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "手招きして相手をその場から離れられなくするため、版 10 の補助技「おばけのてまねき」(ghost_s7) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "ghost_s7",
+      "rationale": "おいでおいでは手招きして相手をその場から離れられなくする技で、霊の物で当たるため霊の技にした"
+    },
+    {
+      "id": "dragon_a1",
+      "displayName": "うろこひからせ",
+      "elementTypeId": "dragon",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "dragon_s1",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "25"
+        },
+        "summary": "自分の攻撃を上げる",
+        "rule": "当たると自分の攻撃の倍率を 25 上げる (200 で止まる)",
+        "rationale": "うろこを光らせながら打ち、気迫を高めるため、版 10 の補助技「うろこみがき」(dragon_s1) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "dragon_s1",
+      "rationale": "うろこひからせはうろこを光らせながら打ち、気迫を高める技で、竜の物で当たるため竜の技にした"
+    },
+    {
+      "id": "dragon_a2",
+      "displayName": "りゅうのつめあと",
+      "elementTypeId": "dragon",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "dragon_s2",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "当たると相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "竜の爪で深い傷あとを残し、守りを崩すため、版 10 の補助技「りゅうのまなざし」(dragon_s2) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "dragon_s2",
+      "rationale": "りゅうのつめあとは竜の爪で深い傷あとを残し、守りを崩す技で、竜の物で当たるため竜の技にした"
+    },
+    {
+      "id": "dragon_a5",
+      "displayName": "りゅうのおおあばれ",
+      "elementTypeId": "dragon",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "dragon_s5",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "attack": "50",
+          "defense": "-25"
+        },
+        "summary": "攻撃を大きく上げ、防御を下げる",
+        "rule": "当たると自分の攻撃の倍率を 50 上げ、防御の倍率を 25 下げる",
+        "rationale": "竜が大暴れして守りを捨ててぶつかるため、版 10 の補助技「りゅうのほこり」(dragon_s5) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "dragon_s5",
+      "rationale": "りゅうのおおあばれは竜が大暴れして守りを捨ててぶつかる技で、竜の物で当たるため竜の技にした"
+    },
+    {
+      "id": "dragon_a7",
+      "displayName": "りゅうのとぐろまき",
+      "elementTypeId": "dragon",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "dragon_s7",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "当たると相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "長い体でとぐろを巻いて閉じ込めるため、版 10 の補助技「りゅうのしっぽまき」(dragon_s7) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "dragon_s7",
+      "rationale": "りゅうのとぐろまきは長い体でとぐろを巻いて閉じ込める技で、竜の物で当たるため竜の技にした"
+    },
+    {
+      "id": "paper_a1",
+      "displayName": "くしゃくしゃぶつけ",
+      "elementTypeId": "paper",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "paper_s1",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "defense": "-25"
+        },
+        "summary": "相手の防御を下げる",
+        "rule": "当たると相手の防御の倍率を 25 下げる (50 で止まる)",
+        "rationale": "丸めた紙をぶつけて相手をくしゃくしゃにし、守りを崩すため、版 10 の補助技「しわくちゃ」(paper_s1) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "paper_s1",
+      "rationale": "くしゃくしゃぶつけは丸めた紙をぶつけて相手をくしゃくしゃにし、守りを崩す技で、紙の物で当たるため紙の技にした"
+    },
+    {
+      "id": "paper_a2",
+      "displayName": "ガムテープはり",
+      "elementTypeId": "paper",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "paper_s2",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatChanges": {
+          "speed": "-25"
+        },
+        "summary": "相手の素早さを下げる",
+        "rule": "当たると相手の素早さの倍率を 25 下げる (50 で止まる)",
+        "rationale": "ガムテープを貼りつけて動きを鈍らせるため、版 10 の補助技「セロハンテープ」(paper_s2) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "paper_s2",
+      "rationale": "ガムテープはりはガムテープを貼りつけて動きを鈍らせる技で、紙の物で当たるため紙の技にした"
+    },
+    {
+      "id": "paper_a4",
+      "displayName": "かみふぶきシャワー",
+      "elementTypeId": "paper",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "paper_s4",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "confusion",
+            "chancePercent": 50
+          }
+        ],
+        "summary": "5 割でこんらんにする",
+        "rule": "当たると 5 割の確率で相手をこんらんにする (2〜4 ターンの間、1/2 の確率で別の技が出る)",
+        "rationale": "紙吹雪を浴びせて相手を混乱させるため、版 10 の補助技「かみふぶきまい」(paper_s4) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "paper_s4",
+      "rationale": "かみふぶきシャワーは紙吹雪を浴びせて相手を混乱させる技で、紙の物で当たるため紙の技にした"
+    },
+    {
+      "id": "paper_a5",
+      "displayName": "かみひこうきダッシュ",
+      "elementTypeId": "paper",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "paper_s5",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "selfStatChanges": {
+          "speed": "50",
+          "defense": "-25"
+        },
+        "summary": "素早さを大きく上げ、防御を下げる",
+        "rule": "当たると自分の素早さの倍率を 50 上げ、防御の倍率を 25 下げる",
+        "rationale": "紙飛行機のように軽く飛び込み、守りを捨てて当たるため、版 10 の補助技「かみよろい」(paper_s5) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "paper_s5",
+      "rationale": "かみひこうきダッシュは紙飛行機のように軽く飛び込み、守りを捨てて当たる技で、紙の物で当たるため紙の技にした"
+    },
+    {
+      "id": "paper_a7",
+      "displayName": "のりべったり",
+      "elementTypeId": "paper",
+      "power": 40,
+      "powerPoints": 15,
+      "category": "attack",
+      "effectId": "paper_s7",
+      "learnableLevelMinimum": 5,
+      "learnableLevelMaximum": 999,
+      "specialEffect": {
+        "opponentStatusConditions": [
+          {
+            "kind": "switchBlocked",
+            "chancePercent": 100
+          }
+        ],
+        "summary": "相手を交代できなくする",
+        "rule": "当たると相手を 3 ターンの間 交換不可にする (手持ちと交代できない)",
+        "rationale": "のりで貼りつけて離れられなくするため、版 10 の補助技「のりではりつけ」(paper_s7) と同じ効果を当てた時の追加効果にした (#257)。威力は効果の分だけ段階 1 の技の最低と同じ 40 にした"
+      },
+      "replacesMoveId": "paper_s7",
+      "rationale": "のりべったりはのりで貼りつけて離れられなくする技で、紙の物で当たるため紙の技にした"
     }
   ],
   "effects": [

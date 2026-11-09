@@ -173,6 +173,7 @@ class Move {
     required this.specialEffect,
     this.accuracy = defaultMoveAccuracyPercent,
     this.priority = 0,
+    this.replacesMoveId,
   });
 
   /// JSON (master と Firestore の定義に共通の形) から技を読む。
@@ -193,6 +194,7 @@ class Move {
     ),
     accuracy: json['accuracy'] as int? ?? defaultMoveAccuracyPercent,
     priority: json['priority'] as int? ?? 0,
+    replacesMoveId: json['replacesMoveId'] as String?,
   );
 
   /// 技の一意な識別子。
@@ -231,4 +233,8 @@ class Move {
 
   /// 先制の度合い。大きい技が素早さに関係なく先に出る。0 が通常 (documents/game-rules.md「行動順」)。
   final int priority;
+
+  /// この技が置き換えた版 10 までの補助技の識別子 (master の版 11 から。#257)。置き換えのない技は null。
+  /// 置き換えられた補助技は、それを覚えた既存のモンスターのバトルのために master に残し、図鑑の技の一覧には出さない。
+  final String? replacesMoveId;
 }
