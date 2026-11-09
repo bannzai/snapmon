@@ -104,8 +104,7 @@ Future<List<Package>> fetchTicketPackagesWithRevenueCat() async {
   await _syncPurchasesUser(uid: uid);
   return generationTicketPackages(
     packages:
-        (await Purchases.getOfferings()).current?.availablePackages ??
-        const [],
+        (await Purchases.getOfferings()).current?.availablePackages ?? const [],
   );
 }
 
