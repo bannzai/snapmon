@@ -42,6 +42,48 @@
       "store_identifier": "snapmon_generationticket30_500yen",
       "type": "one_time",
       "display_name": "生成チケット 30 回 (Android)"
+    },
+    {
+      "key": "actioncard_rank1_ios",
+      "app": "ios",
+      "store_identifier": "snapmon_actioncardrank1_100yen",
+      "type": "consumable",
+      "display_name": "Action Card ランク 1 (iOS)"
+    },
+    {
+      "key": "actioncard_rank2_ios",
+      "app": "ios",
+      "store_identifier": "snapmon_actioncardrank2_300yen",
+      "type": "consumable",
+      "display_name": "Action Card ランク 2 (iOS)"
+    },
+    {
+      "key": "actioncard_rank3_ios",
+      "app": "ios",
+      "store_identifier": "snapmon_actioncardrank3_500yen",
+      "type": "consumable",
+      "display_name": "Action Card ランク 3 (iOS)"
+    },
+    {
+      "key": "actioncard_rank1_android",
+      "app": "android",
+      "store_identifier": "snapmon_actioncardrank1_100yen",
+      "type": "one_time",
+      "display_name": "Action Card ランク 1 (Android)"
+    },
+    {
+      "key": "actioncard_rank2_android",
+      "app": "android",
+      "store_identifier": "snapmon_actioncardrank2_300yen",
+      "type": "one_time",
+      "display_name": "Action Card ランク 2 (Android)"
+    },
+    {
+      "key": "actioncard_rank3_android",
+      "app": "android",
+      "store_identifier": "snapmon_actioncardrank3_500yen",
+      "type": "one_time",
+      "display_name": "Action Card ランク 3 (Android)"
     }
   ],
   "webhooks": [
@@ -77,6 +119,33 @@
           "products": [
             { "key": "ticket30_ios", "eligibility_criteria": "all" },
             { "key": "ticket30_android", "eligibility_criteria": "all" }
+          ]
+        },
+        {
+          "lookup_key": "actioncard_rank1",
+          "display_name": "Action Card ランク 1",
+          "position": 3,
+          "products": [
+            { "key": "actioncard_rank1_ios", "eligibility_criteria": "all" },
+            { "key": "actioncard_rank1_android", "eligibility_criteria": "all" }
+          ]
+        },
+        {
+          "lookup_key": "actioncard_rank2",
+          "display_name": "Action Card ランク 2",
+          "position": 4,
+          "products": [
+            { "key": "actioncard_rank2_ios", "eligibility_criteria": "all" },
+            { "key": "actioncard_rank2_android", "eligibility_criteria": "all" }
+          ]
+        },
+        {
+          "lookup_key": "actioncard_rank3",
+          "display_name": "Action Card ランク 3",
+          "position": 5,
+          "products": [
+            { "key": "actioncard_rank3_ios", "eligibility_criteria": "all" },
+            { "key": "actioncard_rank3_android", "eligibility_criteria": "all" }
           ]
         }
       ]
