@@ -280,8 +280,21 @@ void main() {
       // 炎はリンゴラの菓子・草の両方に 2 倍のため、相性の行も続く
       '${strongPlayer.definition.name} の ゆげのもや\n先に行動すると威力が上がる (今回は 1.3 倍)\nこうかは ばつぐんだ',
     );
+    // 3 行のログは 1 行 1.5 秒の 4.5 秒の間、前進と被弾の演出 (0.8 秒) が終わっても次のログに変わらない
+    await tester.pump(const Duration(milliseconds: 4400));
+    expect(
+      tester.widget<Text>(find.byKey(const Key('battle-log'))).data,
+      '${strongPlayer.definition.name} の ゆげのもや\n先に行動すると威力が上がる (今回は 1.3 倍)\nこうかは ばつぐんだ',
+    );
+    await tester.pump(const Duration(milliseconds: 200));
+    expect(
+      tester.widget<Text>(find.byKey(const Key('battle-log'))).data,
+      isNot(
+        '${strongPlayer.definition.name} の ゆげのもや\n先に行動すると威力が上がる (今回は 1.3 倍)\nこうかは ばつぐんだ',
+      ),
+    );
     // 演出の待ち (Future.delayed) をテストの終わりに残さない
-    await tester.pump(const Duration(seconds: 5));
+    await tester.pump(const Duration(seconds: 10));
   });
 
   testWidgets('技の枠に、相手の場のモンスターへの相性の倍率を等倍以外だけ出す', (tester) async {
@@ -408,7 +421,7 @@ void main() {
     expect(find.text('ターン 1'), findsOneWidget);
   });
 
-  testWidgets('端のスワイプと端末の戻るではバトルの画面を閉じず、上に開いた技の詳細は端のスワイプで閉じ、「にげる」で閉じる', (
+  testWidgets('端のスワイプと端末の戻るではバトルの画面を閉じず、上に開いた技の詳細は端のスワイプで閉じ、勝敗の画面で閉じる', (
     tester,
   ) async {
     tester.view
@@ -490,8 +503,12 @@ void main() {
     await tester.pump(const Duration(seconds: 1));
     expect(find.byType(BattleScreen), findsOneWidget);
 
-    // 「にげる」のボタンでは閉じる
-    await tester.tap(find.text('にげる'));
+    // 決着の前に閉じるボタンは置かない (issue #263)
+    expect(find.text('にげる'), findsNothing);
+
+    // 決着の後は勝敗の画面のボタンで閉じる
+    await playUntilFinished(tester: tester);
+    await tester.tap(find.text('もどる'));
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
     await tester.pump();
@@ -1393,7 +1410,7 @@ void main() {
           expectBattleLogNotCut(tester: tester, bottomPadding: bottomPadding);
           expectMonsterArtsVisible(tester: tester);
           // 演出の待ち (Future.delayed) をテストの終わりに残さない
-          await tester.pump(const Duration(seconds: 5));
+          await tester.pump(const Duration(seconds: 10));
         },
       );
     }
@@ -1517,7 +1534,7 @@ void main() {
       final nextMoveSlot = find.byKey(const Key('move-slot-0'));
       await tester.ensureVisible(nextMoveSlot);
       expect(nextMoveSlot.hitTestable(), findsOneWidget);
-      await tester.pump(const Duration(seconds: 5));
+      await tester.pump(const Duration(seconds: 10));
     });
 
     // 幅 600 は内容の幅の上限と同じで、両脇の余白で右のセーフエリアが差し引かれずに残る。
@@ -1690,7 +1707,7 @@ void main() {
             isFalse,
           );
           // 演出の待ち (Future.delayed) をテストの終わりに残さない
-          await tester.pump(const Duration(seconds: 5));
+          await tester.pump(const Duration(seconds: 10));
         },
       );
     }

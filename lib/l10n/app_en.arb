@@ -209,7 +209,6 @@
   "battleTurn": "Turn {turnNumber}",
   "battleSwitchMonster": "Switch monster",
   "battleChooseSwitchMonster": "Choose a monster to send out",
-  "battleRun": "Run",
   "battleLevelUpNote": "Monsters that battled level up whether you win or lose",
   "battleLearnedMove": "Learned {moveName}",
   "battleForgotMove": "Forgot {moveName}",

@@ -6,10 +6,10 @@ enum StatusConditionKind {
   /// 毒。持ち主のターンの終わりに、最大 HP × 重なり / 16 のダメージを受ける。毒の技を受けるたびに重なりが増える。
   poison,
 
-  /// 麻痺。次の自分のターンに攻撃技 (わるあがきを含む) が失敗する。補助技は使える。
+  /// 麻痺。次の自分のターンに確率で攻撃技 (わるあがきを含む) が失敗する。補助技は使える。
   paralysis,
 
-  /// 気絶。次の自分のターンに全ての行動が失敗する。
+  /// 気絶。次の自分のターンに確率で全ての行動が失敗する。
   stun,
 
   /// やけど。与える攻撃のダメージが半分になり、受けるダメージが (10 + 重なり) / 10 倍になる。
@@ -18,7 +18,7 @@ enum StatusConditionKind {
   /// 眠気。素早さが半分になる。眠気の中でもう一度眠気を受けると眠りになる。
   drowsy,
 
-  /// 眠り。1〜3 ターンの間、全ての行動が失敗する。
+  /// 眠り。1〜3 ターンの間、自分のターンごとに確率で全ての行動が失敗する。
   sleep,
 
   /// 呪い。攻撃・防御・素早さのどれか 1 つ (付与の時に決まる) が半分になる。重ねられない。
@@ -33,7 +33,7 @@ enum StatusConditionKind {
   /// 興奮。攻撃が 1.5 倍、防御が半分になる。
   excited,
 
-  /// 凍結。1〜3 ターンの間、全ての行動が失敗する。技のダメージを受けると解ける。
+  /// 凍結。1〜3 ターンの間、自分のターンごとに確率で全ての行動が失敗する。技のダメージを受けると解ける。
   frozen,
 
   /// 交換不可。3 ターンの間、手持ちと自分から交代できない。倒れた時の交代は止めない。
@@ -60,7 +60,8 @@ const Map<StatusConditionKind, int> statusConditionStackMaximums = {
   StatusConditionKind.burn: 5,
 };
 
-/// 全ての行動が失敗する状態。
+/// 全ての行動を止める状態。止めるのは自分のターンごとに一定の確率 (lib/domain/battle/battle_engine.dart の
+/// actionPreventingStatusConditionChancePercent) で、止めなかったターンは状態が無い時と同じに行動する。
 const Set<StatusConditionKind> incapacitatingStatusConditionKinds = {
   StatusConditionKind.stun,
   StatusConditionKind.sleep,

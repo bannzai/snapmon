@@ -299,7 +299,6 @@
   "@battleTurn": {"placeholders": {"turnNumber": {"type": "int"}}},
   "battleSwitchMonster": "モンスターを交代",
   "battleChooseSwitchMonster": "場に出す モンスターを えらぶ",
-  "battleRun": "にげる",
   "battleLevelUpNote": "勝ち負けに関係なく 戦ったモンスターのレベルが上がる",
   "battleLearnedMove": "{moveName} をおぼえた",
   "@battleLearnedMove": {"description": "バトルの後のレベルアップで技の枠に新しく入った技", "placeholders": {"moveName": {"type": "String"}}},
