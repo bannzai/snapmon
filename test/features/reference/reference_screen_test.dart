@@ -90,7 +90,7 @@ void main() {
       home: Scaffold(
         body: DexScreen(
           dexStore: DexStore(definitions: definitions),
-          onSelectTab: ({required tab}) {},
+          onSelectScene: ({required scene}) {},
           onOpenSettings: () {},
           cardSharer: fakeCardSharer(
             calls: RecordedShareCalls(),

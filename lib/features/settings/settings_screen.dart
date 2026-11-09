@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../../common_ui/scene_route.dart';
 import '../../audio/game_audio.dart';
 import '../../l10n/l10n.dart';
 import '../../sample/sample_data.dart';
@@ -309,7 +310,7 @@ class SettingsScreen extends StatelessWidget {
             leading: const Icon(Icons.build_outlined),
             title: const Text('開発者メニュー'),
             onTap: () => Navigator.of(context).push(
-              MaterialPageRoute<void>(
+              sceneRoute<void>(
                 builder: (context) => DeveloperMenuScreen(
                   sampleData: sampleData,
                   dexStore: dexStore,
@@ -432,7 +433,7 @@ class _ProfileTileState extends State<_ProfileTile> {
   /// [profile] から始めるプロフィール画面を開き、閉じたら読み直す。保存できた値は読み直しを待たずに出す。
   Future<void> _open({required PlayerProfile profile}) async {
     await Navigator.of(context).push(
-      MaterialPageRoute<void>(
+      sceneRoute<void>(
         builder: (context) => ProfileScreen(
           initialProfile: profile,
           onProfileChanged: _applySavedProfile,

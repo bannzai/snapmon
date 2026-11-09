@@ -24,7 +24,7 @@ class SessionStore extends ChangeNotifier {
   /// ログインした uid。ログインが済むまでと、[skipForDebug] で飛ばした時は null。
   String? get uid => _uid;
 
-  /// 下タブの画面に入ってよいか。ログインが済んだ時か、DEBUG ビルドでログインを飛ばした時。
+  /// ホームの画面に入ってよいか。ログインが済んだ時か、DEBUG ビルドでログインを飛ばした時。
   bool get canEnterApp => _uid != null || _isSkippedForDebug;
 
   /// ログインの途中か。
@@ -52,7 +52,7 @@ class SessionStore extends ChangeNotifier {
     }
   }
 
-  /// ログインせずに下タブの画面へ入る。DEBUG ビルドのログインの失敗の画面と開発者メニューの「ログインせずに使う」だけが使う
+  /// ログインせずにホームの画面へ入る。DEBUG ビルドのログインの失敗の画面と開発者メニューの「ログインせずに使う」だけが使う
   /// (Functions のデプロイや App Check の登録が済んでいない検証環境でも、ほかの画面の動作確認を止めないため)。
   void skipForDebug() {
     _isSkippedForDebug = true;

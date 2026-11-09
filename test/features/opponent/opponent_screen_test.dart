@@ -96,7 +96,7 @@ void main() {
             body: OpponentScreen(
               sampleData: sampleData,
               dexStore: dexStore,
-              onSelectTab: ({required tab}) {},
+              onSelectScene: ({required scene}) {},
               onOpenSettings: onOpenSettings,
               battleRecorder: fakeBattleRecorder(
                 calls: RecordedBattleCalls(),
@@ -542,7 +542,7 @@ void main() {
             body: OpponentScreen(
               sampleData: sampleData,
               dexStore: DexStore(definitions: sampleData.definitions),
-              onSelectTab: ({required tab}) {},
+              onSelectScene: ({required scene}) {},
               onOpenSettings: () async {},
               battleRecorder: fakeBattleRecorder(
                 calls: RecordedBattleCalls(),

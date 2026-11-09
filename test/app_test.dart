@@ -14,12 +14,15 @@ import 'package:snapmon/app.dart';
 import 'package:snapmon/audio/game_audio.dart';
 import 'package:snapmon/domain/master/master_data.dart';
 import 'package:snapmon/features/battle/battle_screen.dart';
+import 'package:snapmon/features/capture/capture_screen.dart';
 import 'package:snapmon/features/capture/monster_generator.dart';
+import 'package:snapmon/features/dex/dex_screen.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
 import 'package:snapmon/features/home/home_shell.dart';
 import 'package:snapmon/features/opponent/pvp_client.dart';
 import 'package:snapmon/features/opponent/pvp_opponent.dart';
 import 'package:snapmon/features/profile/profile_screen.dart';
+import 'package:snapmon/features/result/result_screen.dart';
 import 'package:snapmon/features/session/session_store.dart';
 import 'package:snapmon/features/settings/account_store.dart';
 import 'package:snapmon/features/settings/settings_screen.dart';
@@ -265,8 +268,8 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  /// [prepareStores] の状態で、タイトル画面からログインを済ませて入った後の下タブの画面 ([HomeShell]) を撮るタブから開く。
-  /// タイトルから入る経路はタイトル画面のテストが固定するため、下タブより先の画面のテストはここから始める。
+  /// [prepareStores] の状態で、タイトル画面からログインを済ませて入った後のホームの画面 ([HomeShell]) を撮るのシーンから開く。
+  /// タイトルから入る経路はタイトル画面のテストが固定するため、ホームの画面より先の画面のテストはここから始める。
   Future<void> pumpHome({
     required WidgetTester tester,
     required bool hasStartedSession,
@@ -296,7 +299,7 @@ void main() {
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
             home: HomeShell(
-              initialTab: HomeTab.capture,
+              initialScene: HomeScene.capture,
               startsCameraOnCaptureOpen: startsCameraOnCaptureOpen,
               sampleData: sampleData,
               dexStore: dexStore,
@@ -361,7 +364,7 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  /// 図鑑に見本を入れて、タイトル画面の「つづきから」で下タブの画面に入る。
+  /// 図鑑に見本を入れて、タイトル画面の「つづきから」でホームの画面に入る。
   Future<void> enterHomeFromTitle({required WidgetTester tester}) async {
     dexStore.replaceAll(monsters: sampleData.monsters);
     await tester.pumpAndSettle();
@@ -382,8 +385,8 @@ void main() {
       expect(find.text('写真から選んではじめる'), findsOneWidget);
       expect(find.text('$minimumAge 歳以上が対象 · '), findsOneWidget);
       expect(find.byType(TextField), findsNothing);
-      expect(find.byKey(const Key('tab-dex')), findsNothing);
-      // タイトルで下タブの画面と同じ BGM を流し始める
+      expect(find.byType(HomeShell), findsNothing);
+      // タイトルでホームの画面と同じ BGM を流し始める
       expect(audioCalls.playedBackgroundMusicAssetPaths, [
         BackgroundMusic.home.assetPath,
       ]);
@@ -584,7 +587,7 @@ void main() {
         await tester.tap(find.text('手持ちに入れる'));
         await tester.pumpAndSettle();
         expect(find.text('2 体 · 手持ち 2 体'), findsOneWidget);
-        expect(find.byKey(const Key('tab-capture')), findsOneWidget);
+        expect(find.byType(HomeShell), findsOneWidget);
       },
     );
 
@@ -699,7 +702,7 @@ void main() {
       expect(find.text('あたらしい なかま'), findsOneWidget);
     });
 
-    testWidgets('「つづきから」を押すと下タブの画面 (撮る・図鑑・対戦のタブ) が図鑑から出る', (tester) async {
+    testWidgets('「つづきから」を押すとホームの画面が図鑑のシーンから出る', (tester) async {
       await pumpApp(
         tester: tester,
         hasStartedSession: true,
@@ -707,9 +710,7 @@ void main() {
         isDeveloperMenuEnabled: false,
       );
       await enterHomeFromTitle(tester: tester);
-      expect(find.byKey(const Key('tab-dex')), findsOneWidget);
-      expect(find.byKey(const Key('tab-capture')), findsOneWidget);
-      expect(find.byKey(const Key('tab-opponent')), findsOneWidget);
+      expect(find.byType(HomeShell), findsOneWidget);
       expect(
         find.text('${sampleData.monsters.length} 体 · 手持ち 3 体'),
         findsOneWidget,
@@ -732,11 +733,11 @@ void main() {
       expect(find.text('アカウントを削除'), findsOneWidget);
       expect(generationCalls.uploadedRequestIds, isEmpty);
 
-      // 戻るとタイトルに戻る (下タブには入らない)。pageBack は英語の tooltip (Back) で探すため型で探す
+      // 戻るとタイトルに戻る (ホームの画面には入らない)。pageBack は英語の tooltip (Back) で探すため型で探す
       await tester.tap(find.byType(BackButton));
       await tester.pumpAndSettle();
       expect(find.text('写真から選んではじめる'), findsOneWidget);
-      expect(find.byKey(const Key('tab-dex')), findsNothing);
+      expect(find.byType(HomeShell), findsNothing);
     });
 
     testWidgets('タイトルの設定からアカウントを削除した後は、裏でログインし直して title_shown を送り直す', (
@@ -876,9 +877,9 @@ void main() {
       );
       expect(startSessionCallCount, 1);
       expect(sessionStore.uid, 'uid-1');
-      // ログインが済んでもタイトルに留まり、ボタンを押すまで下タブに入らない
+      // ログインが済んでもタイトルに留まり、ボタンを押すまでホームの画面に入らない
       expect(find.text('写真から選んではじめる'), findsOneWidget);
-      expect(find.byKey(const Key('tab-dex')), findsNothing);
+      expect(find.byType(HomeShell), findsNothing);
 
       await seedPartyWithOneMonster(tester: tester);
       await tapStartFromAlbum(tester: tester);
@@ -1031,7 +1032,7 @@ void main() {
           AnalyticsEvent.firstExperience,
         );
 
-        // 「もう 1 体撮る」で撮るタブに進む。手持ちがあるので、撮るタブの初回の案内はもう出ない
+        // 「もう 1 体撮る」で撮るのシーンに進む。手持ちがあるので、撮るのシーンの初回の案内はもう出ない
         await tester.tap(find.byKey(const Key('first-battle-capture-again')));
         await tester.pump();
         await tester.pump(const Duration(seconds: 1));
@@ -1042,7 +1043,7 @@ void main() {
       },
     );
 
-    testWidgets('撮るタブは手持ちが空の時に案内を出し、アルバムから選ぶと CPU トレーナーと戦い、「図鑑を見る」で図鑑に入る', (
+    testWidgets('撮るのシーンは手持ちが空の時に案内を出し、アルバムから選ぶと CPU トレーナーと戦い、「図鑑を見る」で図鑑に入る', (
       tester,
     ) async {
       await pumpHome(
@@ -1076,8 +1077,8 @@ void main() {
     });
   });
 
-  group('下タブと画面の遷移', () {
-    testWidgets('下タブで図鑑・撮る・対戦を切り替える', (tester) async {
+  group('ホームの画面のシーンと画面の遷移', () {
+    testWidgets('下タブは無く、撮るのボタンで図鑑・対戦を開き、「もどる」で撮るに戻る', (tester) async {
       await pumpHome(
         tester: tester,
         hasStartedSession: true,
@@ -1086,19 +1087,115 @@ void main() {
         startsCameraOnCaptureOpen: false,
       );
       expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
+      // 下タブ (図鑑・撮る・対戦が並ぶ帯) は無い (#264)
+      for (final removedTabKey in const [
+        'tab-dex',
+        'tab-capture',
+        'tab-opponent',
+      ]) {
+        expect(find.byKey(Key(removedTabKey)), findsNothing);
+      }
+      // 撮るは起点のシーンのため「もどる」を出さない
+      expect(find.byKey(const Key('scene-back-to-capture')), findsNothing);
 
-      await tester.tap(find.byKey(const Key('tab-dex')));
+      await tester.tap(find.byKey(const Key('capture-open-dex')));
       await tester.pumpAndSettle();
       expect(find.text('0 体 · 手持ち 0 体'), findsOneWidget);
       expect(find.text('まだモンスターがいません\n撮る画面から身の回りの物を撮ってみよう'), findsOneWidget);
 
-      await tester.tap(find.byKey(const Key('tab-opponent')));
+      await tester.tap(find.byKey(const Key('scene-back-to-capture')));
+      await tester.pumpAndSettle();
+      expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
+
+      await tester.tap(find.byKey(const Key('capture-open-opponent')));
       await tester.pumpAndSettle();
       expect(find.text('ランダムな相手と戦う'), findsOneWidget);
 
-      await tester.tap(find.byKey(const Key('tab-capture')));
+      await tester.tap(find.byKey(const Key('scene-back-to-capture')));
       await tester.pumpAndSettle();
       expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
+    });
+
+    testWidgets('図鑑・対戦で端末の戻る操作をすると撮るに戻り、撮るでは戻る操作を止めない', (tester) async {
+      await pumpHome(
+        tester: tester,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
+      );
+
+      for (final openKey in const [
+        Key('capture-open-dex'),
+        Key('capture-open-opponent'),
+      ]) {
+        await tester.tap(find.byKey(openKey));
+        await tester.pumpAndSettle();
+        expect(find.byKey(const Key('scene-back-to-capture')), findsOneWidget);
+
+        // Android の戻るボタン・戻るジェスチャーと同じ経路 (Navigator の maybePop)
+        expect(await tester.binding.handlePopRoute(), isTrue);
+        await tester.pumpAndSettle();
+        expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
+      }
+
+      // 撮るではホームの画面の PopScope が戻る操作を止めない (ホームの画面は最初の route のため、閉じるのはアプリ)
+      final popScope = tester.widget<PopScope<Object?>>(
+        find
+            .descendant(
+              of: find.byType(HomeShell),
+              matching: find.byWidgetPredicate((widget) => widget is PopScope),
+            )
+            .first,
+      );
+      expect(popScope.canPop, isTrue);
+    });
+
+    testWidgets('撮る → 図鑑 → 撮る を素早く押しても、撮る画面は同時に 1 つしかない', (tester) async {
+      await pumpHome(
+        tester: tester,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
+      );
+
+      await tester.tap(find.byKey(const Key('capture-open-dex')));
+      // フェードの途中 (300ms より前) で撮るに戻す
+      await tester.pump(const Duration(milliseconds: 50));
+      await tester.tap(find.byKey(const Key('scene-back-to-capture')));
+      for (var frame = 0; frame < 20; frame++) {
+        await tester.pump(const Duration(milliseconds: 20));
+        expect(
+          find.byType(CaptureScreen).evaluate().length,
+          lessThanOrEqualTo(1),
+        );
+        expect(find.byType(DexScreen).evaluate().length, lessThanOrEqualTo(1));
+      }
+      await tester.pumpAndSettle();
+      expect(find.byType(CaptureScreen), findsOneWidget);
+      expect(find.byType(DexScreen), findsNothing);
+    });
+
+    testWidgets('図鑑から開く画面は横スライドの MaterialPageRoute ではなくフェードの route で開く', (
+      tester,
+    ) async {
+      await pumpHome(
+        tester: tester,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
+      );
+      dexStore.replaceAll(monsters: sampleData.monsters);
+      await tester.tap(find.byKey(const Key('capture-open-dex')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text(sampleData.monsters.last.definition.name));
+      await tester.pumpAndSettle();
+
+      final route = ModalRoute.of(tester.element(find.byType(ResultScreen)));
+      expect(route, isA<PageRouteBuilder<Object?>>());
+      expect(route, isNot(isA<MaterialPageRoute<Object?>>()));
     });
 
     testWidgets('手持ちがある時はアルバムから選ぶと生成して生まれた画面が開き、手持ちに入れると図鑑に戻る', (tester) async {
@@ -1214,7 +1311,7 @@ void main() {
         startsCameraOnCaptureOpen: false,
       );
       dexStore.replaceAll(monsters: sampleData.monsters);
-      await tester.tap(find.byKey(const Key('tab-dex')));
+      await tester.tap(find.byKey(const Key('capture-open-dex')));
       await tester.pumpAndSettle();
       // 手持ちにいない (図鑑の一覧にだけ名前が出る) 最後のモンスターを開く
       await tester.tap(find.text(sampleData.monsters.last.definition.name));
@@ -1240,7 +1337,7 @@ void main() {
         startsCameraOnCaptureOpen: false,
       );
       dexStore.replaceAll(monsters: sampleData.monsters);
-      await tester.tap(find.byKey(const Key('tab-dex')));
+      await tester.tap(find.byKey(const Key('capture-open-dex')));
       await tester.pumpAndSettle();
       // 手持ちにいない (図鑑の一覧にだけ名前が出る) 最後のモンスターを開く
       await tester.tap(find.text(sampleData.monsters.last.definition.name));
@@ -1270,7 +1367,7 @@ void main() {
         startsCameraOnCaptureOpen: false,
       );
       dexStore.replaceAll(monsters: sampleData.monsters);
-      await tester.tap(find.byKey(const Key('tab-dex')));
+      await tester.tap(find.byKey(const Key('capture-open-dex')));
       await tester.pumpAndSettle();
       // 手持ちにいない (図鑑の一覧にだけ名前が出る) 最後のモンスターを開く
       await tester.tap(find.text(sampleData.monsters.last.definition.name));
@@ -1295,7 +1392,7 @@ void main() {
         startsCameraOnCaptureOpen: false,
       );
       dexStore.replaceAll(monsters: sampleData.monsters);
-      await tester.tap(find.byKey(const Key('tab-dex')));
+      await tester.tap(find.byKey(const Key('capture-open-dex')));
       await tester.pumpAndSettle();
       await tester.tap(find.text(sampleData.monsters.last.definition.name));
       await tester.pumpAndSettle();
@@ -1317,7 +1414,7 @@ void main() {
         startsCameraOnCaptureOpen: false,
       );
       dexStore.replaceAll(monsters: sampleData.monsters);
-      await tester.tap(find.byKey(const Key('tab-dex')));
+      await tester.tap(find.byKey(const Key('capture-open-dex')));
       await tester.pumpAndSettle();
       // はみ出しは RenderFlex のエラーとして報告されるため、例外が無いことで確かめる
       expect(tester.takeException(), isNull);
@@ -1371,7 +1468,7 @@ void main() {
     });
 
     testWidgets(
-      'タイトルの「カメラで撮ってはじめる」から来た時は撮るタブですぐカメラを求め、開けないままタブを切り替えて戻ると求め直さない',
+      'タイトルの「カメラで撮ってはじめる」から来た時は撮るのシーンですぐカメラを求め、開けないままシーンを切り替えて戻ると求め直さない',
       (tester) async {
         await pumpHome(
           tester: tester,
@@ -1384,9 +1481,9 @@ void main() {
         expect(find.textContaining('カメラが使えません'), findsOneWidget);
         expect(find.byKey(const Key('capture-use-camera')), findsNothing);
 
-        await tester.tap(find.byKey(const Key('tab-dex')));
+        await tester.tap(find.byKey(const Key('capture-open-dex')));
         await tester.pumpAndSettle();
-        await tester.tap(find.byKey(const Key('tab-capture')));
+        await tester.tap(find.byKey(const Key('scene-back-to-capture')));
         await tester.pumpAndSettle();
         expect(find.textContaining('カメラが使えません'), findsNothing);
         expect(find.byKey(const Key('capture-use-camera')), findsOneWidget);
@@ -1403,7 +1500,7 @@ void main() {
       );
       dexStore.replaceAll(monsters: sampleData.monsters);
       final partyBefore = dexStore.party;
-      await tester.tap(find.byKey(const Key('tab-dex')));
+      await tester.tap(find.byKey(const Key('capture-open-dex')));
       await tester.pumpAndSettle();
       final benchMonster = sampleData.monsters.last.definition;
       await tester.tap(find.text(benchMonster.name));
@@ -1455,7 +1552,7 @@ void main() {
           partyMonsterIds: [waxMonster.definition.id],
           definitions: sampleData.definitions,
         );
-      await tester.tap(find.byKey(const Key('tab-opponent')));
+      await tester.tap(find.byKey(const Key('capture-open-opponent')));
       await tester.pumpAndSettle();
       final challengeButton = find.byKey(const Key('random-battle'));
       await tester.ensureVisible(challengeButton);
@@ -1491,7 +1588,7 @@ void main() {
             return pendingRefresh.future;
           },
         );
-      await tester.tap(find.byKey(const Key('tab-opponent')));
+      await tester.tap(find.byKey(const Key('capture-open-opponent')));
       await tester.pumpAndSettle();
       final challengeButton = find.byKey(const Key('random-battle'));
       await tester.ensureVisible(challengeButton);
@@ -1526,7 +1623,7 @@ void main() {
           ),
         )
         ..reportServerError(error: StateError('通信できません'));
-      await tester.tap(find.byKey(const Key('tab-dex')));
+      await tester.tap(find.byKey(const Key('capture-open-dex')));
       await tester.pumpAndSettle();
       expect(find.text('Bad state: 通信できません'), findsOneWidget);
       await tester.tap(find.text('もう一度読み込む'));
@@ -1553,7 +1650,7 @@ void main() {
           refreshDefinitions: () async =>
               throw StateError('Firestore に master が投入されていません'),
         );
-      await tester.tap(find.byKey(const Key('tab-opponent')));
+      await tester.tap(find.byKey(const Key('capture-open-opponent')));
       await tester.pumpAndSettle();
       final challengeButton = find.byKey(const Key('random-battle'));
       await tester.ensureVisible(challengeButton);
@@ -1581,7 +1678,7 @@ void main() {
         partyMonsterIds: [waxMonster.definition.id],
         definitions: definitionsWithWax(base: sampleData.definitions),
       );
-      await tester.tap(find.byKey(const Key('tab-dex')));
+      await tester.tap(find.byKey(const Key('capture-open-dex')));
       await tester.pumpAndSettle();
       await tester.tap(find.text(waxMonster.definition.name).first);
       await tester.pumpAndSettle();
@@ -1589,7 +1686,9 @@ void main() {
       await tester.tap(find.byTooltip('戻る'));
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byKey(const Key('tab-opponent')));
+      await tester.tap(find.byKey(const Key('scene-back-to-capture')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('capture-open-opponent')));
       await tester.pumpAndSettle();
       final challengeButton = find.byKey(const Key('random-battle'));
       await tester.ensureVisible(challengeButton);
@@ -1617,7 +1716,7 @@ void main() {
         startsCameraOnCaptureOpen: false,
       );
       dexStore.replaceAll(monsters: sampleData.monsters);
-      await tester.tap(find.byKey(const Key('tab-dex')));
+      await tester.tap(find.byKey(const Key('capture-open-dex')));
       await tester.pumpAndSettle();
       final partyMonsterName = sampleData.monsters.first.definition.name;
       await tester.tap(find.text(partyMonsterName).first);
@@ -1645,7 +1744,7 @@ void main() {
         isDeveloperMenuEnabled: false,
         startsCameraOnCaptureOpen: false,
       );
-      await tester.tap(find.byKey(const Key('tab-opponent')));
+      await tester.tap(find.byKey(const Key('capture-open-opponent')));
       await tester.pumpAndSettle();
       expect(find.text('手持ちを入れると挑めます'), findsOneWidget);
       expect(
@@ -1667,7 +1766,7 @@ void main() {
         startsCameraOnCaptureOpen: false,
       );
       dexStore.replaceAll(monsters: sampleData.monsters);
-      await tester.tap(find.byKey(const Key('tab-opponent')));
+      await tester.tap(find.byKey(const Key('capture-open-opponent')));
       await tester.pumpAndSettle();
       final challengeButton = find.byKey(const Key('random-battle'));
 
@@ -1733,7 +1832,7 @@ void main() {
     );
     dexStore.replaceAll(monsters: sampleData.monsters);
     final partyBefore = dexStore.party;
-    await tester.tap(find.byKey(const Key('tab-opponent')));
+    await tester.tap(find.byKey(const Key('capture-open-opponent')));
     await tester.pumpAndSettle();
     final challengeButton = find.byKey(const Key('random-battle'));
     await tester.ensureVisible(challengeButton);
@@ -1810,7 +1909,7 @@ void main() {
       startsCameraOnCaptureOpen: false,
     );
     dexStore.replaceAll(monsters: sampleData.monsters);
-    await tester.tap(find.byKey(const Key('tab-opponent')));
+    await tester.tap(find.byKey(const Key('capture-open-opponent')));
     await tester.pumpAndSettle();
     final challengeButton = find.byKey(const Key('random-battle'));
     await tester.ensureVisible(challengeButton);
@@ -1849,7 +1948,7 @@ void main() {
       startsCameraOnCaptureOpen: false,
     );
     dexStore.replaceAll(monsters: sampleData.monsters);
-    await tester.tap(find.byKey(const Key('tab-opponent')));
+    await tester.tap(find.byKey(const Key('capture-open-opponent')));
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('random-battle')));
     // バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める
@@ -2407,7 +2506,7 @@ void main() {
         expect(accountCalls, ['delete']);
         expect(endSessionCallCount, endSessionCallCountBeforeDeletion + 1);
         expect(find.text('写真から選んではじめる'), findsOneWidget);
-        expect(find.byKey(const Key('tab-dex')), findsNothing);
+        expect(find.byType(HomeShell), findsNothing);
         expect(startSessionCallCount, 1);
         expect(sessionStore.uid, 'uid-1');
         await tapStartFromAlbum(tester: tester);
@@ -2550,7 +2649,7 @@ void main() {
         isDeveloperMenuEnabled: false,
         startsCameraOnCaptureOpen: false,
       );
-      await tester.tap(find.byKey(const Key('tab-opponent')));
+      await tester.tap(find.byKey(const Key('capture-open-opponent')));
       await tester.pumpAndSettle();
       expect(find.text('1 勝 2 敗'), findsOneWidget);
 
@@ -2602,7 +2701,7 @@ void main() {
       expect(find.text('アカウントを削除しますか'), findsNothing);
     });
 
-    testWidgets('下タブの画面は BGM を流し、設定の「BGM」「効果音」を切ると止めて保存し、戻すと流し直す', (
+    testWidgets('ホームの画面は BGM を流し、設定の「BGM」「効果音」を切ると止めて保存し、戻すと流し直す', (
       tester,
     ) async {
       await openSettings(tester: tester);

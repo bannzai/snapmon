@@ -6,7 +6,7 @@ abstract final class SnapmonRadii {
   /// 属性の札などの小さな部品。
   static const BorderRadius tag = BorderRadius.all(Radius.circular(8));
 
-  /// ボタン・下タブ・小さなカード。
+  /// ボタン・小さなカード。
   static const BorderRadius button = BorderRadius.all(Radius.circular(12));
 
   /// モンスターのカード・技のボタン。

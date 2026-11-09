@@ -4,6 +4,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../../common_ui/scene_route.dart';
 import '../../analytics/analytics_events.dart';
 import '../../l10n/l10n.dart';
 import '../../sample/sample_data.dart';
@@ -33,7 +34,7 @@ class CaptureScreen extends StatefulWidget {
     required this.onCameraOpened,
     required this.dexStore,
     required this.monsterGenerator,
-    required this.onSelectTab,
+    required this.onSelectScene,
     required this.onOpenSettings,
     required this.cardSharer,
     required this.sampleData,
@@ -63,8 +64,8 @@ class CaptureScreen extends StatefulWidget {
   /// 生成の呼び出しと計測。
   final MonsterGenerator monsterGenerator;
 
-  /// 下タブを切り替える。
-  final void Function({required HomeTab tab}) onSelectTab;
+  /// ホームの画面のシーンを切り替える (図鑑・対戦を開く)。
+  final void Function({required HomeScene scene}) onSelectScene;
 
   /// 設定画面を開く。
   final VoidCallback onOpenSettings;
@@ -308,7 +309,7 @@ class _CaptureScreenState extends State<CaptureScreen>
       return;
     }
     final action = await Navigator.of(context).push(
-      MaterialPageRoute<ResultScreenAction>(
+      sceneRoute<ResultScreenAction>(
         builder: (context) => GenerationScreen(
           sourcePhoto: sourcePhoto,
           photoSource: photoSource,
@@ -324,7 +325,7 @@ class _CaptureScreenState extends State<CaptureScreen>
       ),
     );
     if (action == ResultScreenAction.openDex) {
-      widget.onSelectTab(tab: HomeTab.dex);
+      widget.onSelectScene(scene: HomeScene.dex);
     }
   }
 
@@ -362,8 +363,9 @@ class _CaptureScreenState extends State<CaptureScreen>
                 color: SnapmonColors.surface,
                 borderRadius: SnapmonRadii.button,
                 child: InkWell(
+                  key: const Key('capture-open-dex'),
                   borderRadius: SnapmonRadii.button,
-                  onTap: () => widget.onSelectTab(tab: HomeTab.dex),
+                  onTap: () => widget.onSelectScene(scene: HomeScene.dex),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 14,
@@ -481,9 +483,10 @@ class _CaptureScreenState extends State<CaptureScreen>
             ),
             const SizedBox(width: 28),
             SquareIconButton(
+              key: const Key('capture-open-opponent'),
               icon: Icons.sports_martial_arts,
               tooltip: context.l10n.captureGoToBattle,
-              onPressed: () => widget.onSelectTab(tab: HomeTab.opponent),
+              onPressed: () => widget.onSelectScene(scene: HomeScene.opponent),
               size: 56,
             ),
           ],
