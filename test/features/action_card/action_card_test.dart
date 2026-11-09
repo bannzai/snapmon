@@ -368,6 +368,35 @@ void main() {
     });
   });
 
+  group('属性の絞り込み', () {
+    testWidgets('絞り込んだ属性の最後の技を買い切ると すべてに戻して残りの技を出す', (tester) async {
+      fakeActionCards
+        ..rankByMoveId.value = sampleRankByMoveId
+        ..creditsByRank.value = {3: 2};
+      await pump(
+        tester: tester,
+        home: ActionCardScreen(dexStore: dexStore),
+      );
+      await tester.tap(find.byKey(const Key('action-card-filter-fire')));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('action-card-redeem-water_3')), findsNothing);
+      // 炎の技 (fire_1c) を買い切った後の購読の値を流す
+      fakeActionCards.ownedMoveIds.value = ['fire_1c'];
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('action-card-filter-fire')), findsNothing);
+      expect(
+        tester
+            .widget<ChoiceChip>(find.widgetWithText(ChoiceChip, 'すべて'))
+            .selected,
+        isTrue,
+      );
+      expect(
+        find.byKey(const Key('action-card-redeem-water_3')),
+        findsOneWidget,
+      );
+    });
+  });
+
   group('図鑑の詳細で覚えさせる・忘れさせる', () {
     testWidgets('覚えさせる技を選ぶ時に 外れる技を出し 選ぶと覚えさせて技の枠に出す', (tester) async {
       fakeActionCards

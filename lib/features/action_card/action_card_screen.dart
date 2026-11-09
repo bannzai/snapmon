@@ -184,6 +184,14 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
               !store.ownedMoveIds.contains(moveId))
             ?movesById[moveId],
     ]..sort((left, right) => left.id.compareTo(right.id));
+    // 選んだ属性の技を買い切り終えるとその属性のチップは消えるため、買い切れる技が無い属性はすべてとして扱う
+    // (選んだ値は残し、チップの選択と一覧の絞り込みだけを戻す。一覧が空のまま、どのチップも選ばれていない状態にしないため)
+    final activeElementTypeIdFilter =
+        redeemableMoves.any(
+          (move) => move.elementTypeId == _elementTypeIdFilter,
+        )
+        ? _elementTypeIdFilter
+        : null;
     return Scaffold(
       appBar: AppBar(title: Text(l10n.actionCardTitle)),
       body: ListView(
@@ -230,7 +238,7 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
               children: [
                 ChoiceChip(
                   label: Text(l10n.actionCardFilterAll),
-                  selected: _elementTypeIdFilter == null,
+                  selected: activeElementTypeIdFilter == null,
                   onSelected: (_) =>
                       setState(() => _elementTypeIdFilter = null),
                 ),
@@ -242,7 +250,7 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
                     ChoiceChip(
                       key: Key('action-card-filter-${elementType.id}'),
                       label: Text(elementType.displayName),
-                      selected: _elementTypeIdFilter == elementType.id,
+                      selected: activeElementTypeIdFilter == elementType.id,
                       onSelected: (_) =>
                           setState(() => _elementTypeIdFilter = elementType.id),
                     ),
@@ -250,8 +258,8 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
             ),
             const SizedBox(height: 8),
             for (final move in redeemableMoves)
-              if (_elementTypeIdFilter == null ||
-                  move.elementTypeId == _elementTypeIdFilter)
+              if (activeElementTypeIdFilter == null ||
+                  move.elementTypeId == activeElementTypeIdFilter)
                 _ActionCardMoveTile(
                   key: Key('action-card-redeem-${move.id}'),
                   move: move,
