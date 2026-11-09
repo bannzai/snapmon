@@ -31,6 +31,11 @@ const int statModifierPercentMaximum = 200;
 /// 眩暈の時の命中率の倍率 (%)。命中率 100 の技が 7 割で当たる程度にし、3 ターンの間に 1 回は外れる体感になる値にした。
 const int dizzyAccuracyPercent = 70;
 
+/// 気絶・眠り・凍結・麻痺の持ち主が、自分のターンに行動を止められる確率 (%)。
+/// 必ず止めると付けられた側が一方的に何もできないため確率にした (issue #260 の「確定はきつい」)。
+/// 混乱が別の技を出す確率 (1/2) と揃え、1 ターンだけの麻痺・気絶でも付ける意味が残る 5 割にした。
+const int actionPreventingStatusConditionChancePercent = 50;
+
 /// 毒のダメージの分母。最大 HP × 重なり / この値のダメージを、持ち主のターンの終わりに受ける。
 /// 重なり 1 で 16 ターン、上限の重なり 4 で 4 ターンかけて倒れる速さにした。
 const int poisonDamageDenominator = 16;
@@ -147,7 +152,7 @@ MonsterStats effectiveStats({
 }
 
 /// 両陣営の手持ち ([prepareBattleMonster] で用意した 1〜3 体) でバトルを始める。
-/// [randomSeed] は行動順の同速判定・ダメージの乱数幅・命中・状態・混乱・入れ替えに使い、同じ seed と同じ行動からは同じ結果になる。
+/// [randomSeed] は行動順の同速判定・ダメージの乱数幅・命中・状態・状態で行動が止まるか・混乱・入れ替えに使い、同じ seed と同じ行動からは同じ結果になる。
 /// [battleDate] は対戦日で、技の特殊効果の入力に渡す。
 /// [opponentDamagePercent] は相手の陣営が与えるダメージに掛ける割合 (%) で、CPU との対戦は [cpuDamagePercent]、補正しないなら 100。
 BattleState startBattle({
@@ -472,8 +477,8 @@ BattleAction chooseCpuAction({
 /// ラウンドの始めに入れ替えのフィールドがあれば、残りのラウンドが 0 なら終わり、あれば攻撃・防御・素早さから 2 つを乱数で選んで入れ替える。
 /// 交代 ([SwitchMonsterAction]) は技より先に行い、ターンの終わりの処理をしない。技どうしは先制の度合いが高い技が先、
 /// 同じなら場のモンスターの素早さが高い順に行動し (同じなら乱数)、倒れたモンスターはそのターンの行動を失う。
-/// 各ターンは、気絶・眠り・凍結なら行動が失敗し (PP を使わない)、混乱なら 1/2 の確率で選んだ技の代わりに
-/// 他の使える技が出て、麻痺なら実際に出る技が攻撃技かわるあがきの時に失敗し (PP を使わない)、命中率 (眩暈なら 70%) で外れる (PP を使う)。当たった技は、一撃必殺なら相手の HP を 0 にし、攻撃技なら威力に特殊効果の倍率
+/// 各ターンは、気絶・眠り・凍結なら [actionPreventingStatusConditionChancePercent] の確率で行動が失敗し (PP を使わない)、混乱なら 1/2 の確率で選んだ技の代わりに
+/// 他の使える技が出て、麻痺なら実際に出る技が攻撃技かわるあがきの時に同じ確率で失敗し (PP を使わない)、命中率 (眩暈なら 70%) で外れる (PP を使う)。当たった技は、一撃必殺なら相手の HP を 0 にし、攻撃技なら威力に特殊効果の倍率
 /// ([calculateMoveSpecialEffect]) を掛けたダメージ (やけどなら与えるダメージが半分、受ける側がやけどなら (10 + 重なり) / 10 倍) を与える。
 /// 続けて特殊効果の式 ([calculateMoveStatusEffect]) でステータスの倍率を変え、HP を回復し、状態を付け・解除し、フィールドを始め、自爆する。
 /// ダメージを受けた凍結は解け、毒の技を受けた毒は重なりが増える。ターンの終わりに毒のダメージを受け、残りのターンを持つ状態が 1 減って 0 なら消える。
@@ -630,8 +635,10 @@ BattleState advanceRound({
     final selectedMove = moveOf(action: action);
     final attackerStatusConditions = attackerBeforeTurn.state.statusConditions;
 
+    // 状態ごとに判定し、最初に止めた状態を失敗の理由にする。firstOrNull で止まるため、止めた後の状態の乱数は引かない
     final incapacitatingKind = incapacitatingStatusConditionKinds
         .where(attackerStatusConditions.containsKey)
+        .where((_) => _rollsActionPrevention(random: random))
         .firstOrNull;
     if (incapacitatingKind != null) {
       events.add(
@@ -672,9 +679,11 @@ BattleState advanceRound({
         move = otherMoves[random.nextUint32() % otherMoves.length];
       }
     }
-    // 麻痺の判定は、混乱で置き換わった後の実際に出る技で行う (補助技を選んで攻撃技に置き換わっても攻撃させないため)
+    // 麻痺の判定は、混乱で置き換わった後の実際に出る技で行う (補助技を選んで攻撃技に置き換わった時も麻痺の判定を掛けるため)。
+    // 乱数は攻撃技かわるあがきの時だけ引く (補助技は麻痺で止まらないため)
     if (attackerStatusConditions.containsKey(StatusConditionKind.paralysis) &&
-        (move == null || move.category == MoveCategory.attack)) {
+        (move == null || move.category == MoveCategory.attack) &&
+        _rollsActionPrevention(random: random)) {
       events.add(
         ActionFailedEvent(
           turnNumber: turnNumber,
@@ -1194,6 +1203,12 @@ void _inflictStatusCondition({
     ),
   );
 }
+
+/// 気絶・眠り・凍結・麻痺の 1 つが、このターンの行動を止めるかを [random] で決める。
+/// [actionPreventingStatusConditionChancePercent] の確率で true を返し、乱数を 1 つ進める。
+bool _rollsActionPrevention({required DeterministicRandom random}) =>
+    random.nextIntInRange(minimum: 1, maximum: 100) <=
+    actionPreventingStatusConditionChancePercent;
 
 /// 残りのターンを持つ状態 [kind] の残りのターン数を引く。範囲の最小と最大が同じ状態は乱数を引かない。
 int _randomDuration({
