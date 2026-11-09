@@ -188,18 +188,20 @@ void main() {
       expect(find.byKey(const Key('action-card-entry-profile')), findsNothing);
     });
 
-    testWidgets('起動直後の package の読み込みが失敗しても 開いた時に読み直して入口を出す', (tester) async {
-      final packages = fakeActionCards.packages;
-      fakeActionCards.packages = const [];
+    testWidgets('起動直後の package の読み込みが例外で失敗しても 開いた時に読み直して入口を出す', (tester) async {
+      final failingCompleter = Completer<List<Package>>();
+      fakeActionCards.packagesCompleters.add(failingCompleter);
       final store = ActionCardStore(
         client: fakeActionCards.client(),
         sessionChanges: ChangeNotifier(),
         sampleActionCards: null,
       );
       addTearDown(store.dispose);
-      await tester.pumpAndSettle();
+      await tester.pump();
+      // ストアが起動直後の読み込みを始めてから失敗させる (待つ側がいない間に失敗させるとテストの外へ漏れるため)
+      failingCompleter.completeError(StateError('通信の失敗'));
+      await tester.pump();
       expect(store.isPurchaseEntryVisible, isFalse);
-      fakeActionCards.packages = packages;
       await tester.pumpWidget(
         MaterialApp(
           theme: snapmonThemeData(),

@@ -67,8 +67,10 @@ class _ActionCardMovesSectionState extends State<ActionCardMovesSection> {
       _listenedActionCardStore = actionCardStore
         ?..addListener(_refreshMissingDefinitions);
       _refreshMissingDefinitions();
-      actionCardStore?.refreshPackagesIfMissing();
     }
+    // package をまだ読めていないと Action Card の入口が出ないため、開いた時とストアの値が変わるたびに足りなければ読み込む
+    // (読めた後と読み込みの途中は何もしないため、何度呼んでも読み込みは重ならない)
+    actionCardStore?.refreshPackagesIfMissing();
   }
 
   @override

@@ -8,6 +8,10 @@ import '../capture/monster_generator.dart';
 import '../dex/dex_store.dart';
 import 'action_card_client.dart';
 
+/// package の読み込みが失敗した後に読み直すまでの時間。通信の一時的な失敗 (電波の切り替わり・RevenueCat の一時的な失敗) が
+/// 戻るのを待ちつつ、入口が出ないまま利用者が待たされすぎない長さにした。読めるまで繰り返す。
+const Duration _packagesRetryDelay = Duration(seconds: 30);
+
 /// Action Card の表示の切り替え・売っている package・残高・技のランク・買い切った技の、最後に読めた値。
 /// 図鑑の詳細・プロフィール・Action Card の画面が同じ値を見るため、アプリに 1 つ置いて [ActionCardScope] で配る。
 class ActionCardStore extends ChangeNotifier {
@@ -44,9 +48,21 @@ class ActionCardStore extends ChangeNotifier {
   /// 最後に読めた売っている Action Card の package (ランクの順)。
   List<Package> _packages = const [];
 
-  /// [refreshPackages] を始めた回数。読み込みが並んで走った時に、最後に始めた読み込みの結果だけを反映するために比べる
-  /// (先に始めた読み込みが後から失敗で返り、後の読み込みの成功を空で上書きしないため)。
+  /// [refreshPackages] を始めた回数。読み込みごとの番号にする。
   int _packagesRequestNumber = 0;
+
+  /// 一覧に反映した読み込みの番号。読み込みが並んで走った時に、これより後に始めた読み込みの成功だけを反映する
+  /// (先に始めた読み込みの成功が後から返って新しい一覧を古い一覧で上書きしないため。失敗はどの読み込みの結果も捨てない)。
+  int _appliedPackagesRequestNumber = 0;
+
+  /// 途中の読み込みの数。0 の時だけ [refreshPackagesIfMissing] が読み込みを始める (同じ読み込みを重ねないため)。
+  int _loadingPackagesCount = 0;
+
+  /// 今のアカウントで package を一度でも読めたか (売っていない空の結果を含む)。読めた後は [refreshPackagesIfMissing] が読み直さない。
+  bool _hasLoadedPackages = false;
+
+  /// 読み込みの失敗の後の読み直しのタイマー。読めるまで [_packagesRetryDelay] ごとに読み直す。
+  Timer? _packagesRetryTimer;
 
   /// ランクごとの残高。
   Map<int, int> _creditsByRank = const {};
@@ -90,8 +106,11 @@ class ActionCardStore extends ChangeNotifier {
       unawaited(subscription.cancel());
     }
     _subscriptions.clear();
+    _packagesRetryTimer?.cancel();
+    _packagesRetryTimer = null;
     _isActionCardsVisible = false;
     _packages = const [];
+    _hasLoadedPackages = false;
     _creditsByRank = const {};
     _rankByMoveId = null;
     _ownedMoveIds = const [];
@@ -101,9 +120,7 @@ class ActionCardStore extends ChangeNotifier {
         client.watchActionCardsVisible().listen((isActionCardsVisible) {
           _isActionCardsVisible = isActionCardsVisible;
           notifyListeners();
-          if (isActionCardsVisible) {
-            unawaited(refreshPackages());
-          }
+          refreshPackagesIfMissing();
         }, onError: (Object _) {}),
       )
       ..add(
@@ -127,22 +144,35 @@ class ActionCardStore extends ChangeNotifier {
   }
 
   /// 売っている package を読み直す。売っていない (空が返った) 時は空にして購入の入口を出さない。
-  /// 読めなかった (例外) 時は前に読めた一覧を残す (通信の一時的な失敗で入口が消え、入口の画面を開き直すまで戻らなくなるため。
-  /// 残すのは前に取得した実際の値で、取得できなかった値を作って出すことにはならない)。
+  /// 読めなかった (例外) 時は前に読めた一覧を残し、まだ一度も読めていなければ [_packagesRetryDelay] の後に読み直す
+  /// (通信の一時的な失敗で入口が消え、入口の画面を開き直すまで戻らなくなるため。残すのは前に取得した実際の値で、
+  /// 取得できなかった値を作って出すことにはならない)。
   /// offering の切り替えはアプリの再リリース無しで行うため、Action Card の画面を開くたびにも呼ぶ。
   Future<void> refreshPackages() async {
     final sessionGeneration = _sessionGeneration;
     final packagesRequestNumber = ++_packagesRequestNumber;
+    _loadingPackagesCount += 1;
     final List<Package> packages;
     try {
       packages = await client.fetchActionCardPackages();
     } catch (_) {
+      if (sessionGeneration == _sessionGeneration) {
+        _loadingPackagesCount -= 1;
+        _schedulePackagesRetry();
+      }
       return;
     }
-    if (sessionGeneration != _sessionGeneration ||
-        packagesRequestNumber != _packagesRequestNumber) {
+    if (sessionGeneration != _sessionGeneration) {
       return;
     }
+    _loadingPackagesCount -= 1;
+    if (packagesRequestNumber <= _appliedPackagesRequestNumber) {
+      return;
+    }
+    _appliedPackagesRequestNumber = packagesRequestNumber;
+    _hasLoadedPackages = true;
+    _packagesRetryTimer?.cancel();
+    _packagesRetryTimer = null;
     _packages = [
       for (final rank in actionCardRanks)
         ...packages.where(
@@ -152,15 +182,27 @@ class ActionCardStore extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// 表示の切り替えが true で課金を使えるのに売っている package が無い時だけ、package を読み直す。
-  /// 起動直後の読み込みが失敗 (オフライン・RevenueCat の一時的な失敗) すると空のまま残り、入口が出ないため
-  /// Action Card の画面 (開くたびに読み直す) にも入れなくなる。入口を出す画面 (プロフィール・図鑑の詳細) を開いた時に呼ぶ。
+  /// 表示の切り替えが true で課金を使えるのに、今のアカウントでまだ package を読めておらず、読み込みの途中でもない時だけ読み込む。
+  /// 表示の切り替えが届いた時と、入口を出す画面 (プロフィール・図鑑の詳細) がストアの値の変化を受けるたびに呼ぶ
+  /// (読めた後と途中は何もしないため、何度呼んでも読み込みは重ならない)。
   void refreshPackagesIfMissing() {
     if (_isActionCardsVisible &&
         client.isPurchaseSupported() &&
-        _packages.isEmpty) {
+        !_hasLoadedPackages &&
+        _loadingPackagesCount == 0) {
       unawaited(refreshPackages());
     }
+  }
+
+  /// まだ一度も package を読めていない時に、[_packagesRetryDelay] の後に [refreshPackagesIfMissing] を呼ぶタイマーを置く。
+  void _schedulePackagesRetry() {
+    if (_hasLoadedPackages || _packagesRetryTimer != null) {
+      return;
+    }
+    _packagesRetryTimer = Timer(_packagesRetryDelay, () {
+      _packagesRetryTimer = null;
+      refreshPackagesIfMissing();
+    });
   }
 
   /// [package] を購入する ([ActionCardClient.purchaseActionCardPackage])。
@@ -191,6 +233,7 @@ class ActionCardStore extends ChangeNotifier {
 
   @override
   void dispose() {
+    _packagesRetryTimer?.cancel();
     _sessionChanges.removeListener(_resubscribe);
     for (final subscription in _subscriptions) {
       unawaited(subscription.cancel());

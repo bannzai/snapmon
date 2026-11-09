@@ -101,6 +101,46 @@ void main() {
     ]);
   });
 
+  test('package の読み込みが並んだ時 後に始めた読み込みが失敗しても 先に始めた読み込みの成功を反映する', () async {
+    await pumpEventQueue();
+    fakeActionCards.packages = const [];
+    await store.refreshPackages();
+    final earlierCompleter = Completer<List<Package>>();
+    final laterCompleter = Completer<List<Package>>();
+    fakeActionCards.packagesCompleters.addAll([
+      earlierCompleter,
+      laterCompleter,
+    ]);
+    final earlierRefresh = store.refreshPackages();
+    final laterRefresh = store.refreshPackages();
+    laterCompleter.completeError(StateError('通信の失敗'));
+    await laterRefresh;
+    earlierCompleter.complete([testActionCardPackage(rank: 2)]);
+    await earlierRefresh;
+    expect(store.packages.map((package) => package.identifier), [
+      'actioncard_rank2',
+    ]);
+  });
+
+  test('package の読み込みが並んだ時 先に始めた読み込みの成功が後から返っても 後の成功を上書きしない', () async {
+    await pumpEventQueue();
+    final earlierCompleter = Completer<List<Package>>();
+    final laterCompleter = Completer<List<Package>>();
+    fakeActionCards.packagesCompleters.addAll([
+      earlierCompleter,
+      laterCompleter,
+    ]);
+    final earlierRefresh = store.refreshPackages();
+    final laterRefresh = store.refreshPackages();
+    laterCompleter.complete([testActionCardPackage(rank: 3)]);
+    await laterRefresh;
+    earlierCompleter.complete([testActionCardPackage(rank: 1)]);
+    await earlierRefresh;
+    expect(store.packages.map((package) => package.identifier), [
+      'actioncard_rank3',
+    ]);
+  });
+
   test('package の読み直しが例外で失敗したら 前に読めた一覧を残し 空が返ったら空にする', () async {
     await pumpEventQueue();
     expect(store.packages, hasLength(actionCardRanks.length));
@@ -113,6 +153,25 @@ void main() {
     fakeActionCards.packages = const [];
     await store.refreshPackages();
     expect(store.packages, isEmpty);
+  });
+
+  testWidgets('一度も package を読めないまま読み込みが失敗したら 30 秒後に読み直す', (tester) async {
+    final failingCompleter = Completer<List<Package>>();
+    fakeActionCards.packagesCompleters.add(failingCompleter);
+    final retryingStore = ActionCardStore(
+      client: fakeActionCards.client(),
+      sessionChanges: ValueNotifier(0),
+      sampleActionCards: null,
+    );
+    addTearDown(retryingStore.dispose);
+    await tester.pump();
+    failingCompleter.completeError(StateError('通信の失敗'));
+    await tester.pump();
+    expect(retryingStore.isPurchaseEntryVisible, isFalse);
+    await tester.pump(const Duration(seconds: 29));
+    expect(retryingStore.isPurchaseEntryVisible, isFalse);
+    await tester.pump(const Duration(seconds: 1));
+    expect(retryingStore.isPurchaseEntryVisible, isTrue);
   });
 
   test('技のランクの表に端末の定義に無い技があれば 定義を 1 回だけ読み直す', () async {
