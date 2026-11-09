@@ -12,20 +12,18 @@ Package offeringPackage({required String identifier}) => Package(
 
 void main() {
   test('生成チケットの購入画面には生成チケットの package だけを並びを保って出す', () {
-    final packages = generationTicketPackages(
-      packages: [
-        offeringPackage(identifier: 'ticket10'),
-        offeringPackage(identifier: 'ticket30'),
-        offeringPackage(identifier: 'actioncard_rank1'),
-        offeringPackage(identifier: 'actioncard_rank2'),
-        offeringPackage(identifier: 'actioncard_rank3'),
-      ],
+    expect(
+      generationTicketPackages(
+        packages: [
+          offeringPackage(identifier: 'ticket10'),
+          offeringPackage(identifier: 'ticket30'),
+          offeringPackage(identifier: 'actioncard_rank1'),
+          offeringPackage(identifier: 'actioncard_rank2'),
+          offeringPackage(identifier: 'actioncard_rank3'),
+        ],
+      ).map((package) => package.identifier),
+      ['ticket10', 'ticket30'],
     );
-
-    expect(packages.map((package) => package.identifier), [
-      'ticket10',
-      'ticket30',
-    ]);
   });
 
   test('Action Card の package だけの時は空になる', () {
