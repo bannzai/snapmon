@@ -81,6 +81,15 @@ async function seedMonsters({ uid, levels }: { uid: string; levels: Record<strin
   });
 }
 
+/** 今日 (日本時間) の技の使用回数の文書の `counts` を Rules を通さずに読む。文書が無ければ undefined。 */
+async function moveUsageCountsOfToday(): Promise<unknown> {
+  let counts: unknown;
+  await testEnvironment.withSecurityRulesDisabled(async (context) => {
+    counts = (await getDoc(doc(context.firestore(), `moveUsageDailyCounts/${battleDayKey({ now: new Date() })}`))).get("counts");
+  });
+  return counts;
+}
+
 /** [uid] の図鑑のモンスター [monsterId] を Rules を通さずに読む。 */
 async function readMonster({ uid, monsterId }: { uid: string; monsterId: string }) {
   let data: Record<string, unknown> | undefined;
@@ -219,7 +228,8 @@ describe("startBattle と recordBattle", () => {
     const user = await signInUser();
     await seedMonsters({ uid: user.uid, levels: { m1: 4, m2: 1, m3: 1 } });
     await testEnvironment.withSecurityRulesDisabled(async (context) => {
-      // m1 は Lv.4 で b〜e (Lv.5 の f はレベルが上がった後に開放するため数えない)、m2 は a と Action Card の x、m3 は戦闘に出ない
+      // m1 は Lv.4 で枠が b〜e (a は後ろの 4 つから外れ、Lv.5 の f はレベルが上がった後に開放するため数えない)、
+      // m2 は b と Action Card の x、m3 は戦闘に出ない
       await updateDoc(doc(context.firestore(), `users/${user.uid}/monsters/m1`), {
         "definition.learnset": ["a", "b", "c", "d"].map((moveId) => ({ moveId, unlockLevel: 1 })).concat([
           { moveId: "e", unlockLevel: 4 },
@@ -227,7 +237,7 @@ describe("startBattle と recordBattle", () => {
         ]),
       });
       await updateDoc(doc(context.firestore(), `users/${user.uid}/monsters/m2`), {
-        "definition.learnset": [{ moveId: "a", unlockLevel: 1 }],
+        "definition.learnset": [{ moveId: "b", unlockLevel: 1 }],
         actionCardMoveIds: ["x"],
       });
       await updateDoc(doc(context.firestore(), `users/${user.uid}/monsters/m3`), { "definition.learnset": [{ moveId: "z", unlockLevel: 1 }] });
@@ -237,12 +247,8 @@ describe("startBattle と recordBattle", () => {
     expect((await recordBattle({ user, battleId, participantMonsterIds: ["m1", "m2"] })).status).toBe(200);
     // 同じ battleId の再送は数えない
     expect((await recordBattle({ user, battleId, participantMonsterIds: ["m1", "m2"] })).status).toBe(200);
-    let counts: unknown;
-    await testEnvironment.withSecurityRulesDisabled(async (context) => {
-      counts = (await getDoc(doc(context.firestore(), `moveUsageDailyCounts/${battleDayKey({ now: new Date() })}`))).get("counts");
-    });
-    // a は 2 体が持つため 2 回
-    expect(counts).toEqual({ a: 1 + 1, b: 1, c: 1, d: 1, e: 1, x: 1 });
+    // b は 2 体の枠にあるため 2 回
+    expect(await moveUsageCountsOfToday()).toEqual({ b: 1 + 1, c: 1, d: 1, e: 1, x: 1 });
   });
 
   it("learnset の無いモンスターは使用回数に数えずにレベルを上げる", async () => {
@@ -252,9 +258,7 @@ describe("startBattle と recordBattle", () => {
 
     expect((await recordBattle({ user, battleId, participantMonsterIds: ["m1"] })).status).toBe(200);
     expect(await readMonster({ uid: user.uid, monsterId: "m1" })).toMatchObject({ level: 6 });
-    await testEnvironment.withSecurityRulesDisabled(async (context) => {
-      expect((await getDoc(doc(context.firestore(), `moveUsageDailyCounts/${battleDayKey({ now: new Date() })}`))).exists()).toBe(false);
-    });
+    expect(await moveUsageCountsOfToday()).toBeUndefined();
   });
 
   it("カスタムクレームの無い匿名ログインで呼べる", async () => {

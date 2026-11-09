@@ -24,21 +24,26 @@ export const MAXIMUM_EQUIPPED_MOVE_COUNT = 4;
 export const MOVE_USAGE_WINDOW_DAYS = 7;
 
 /**
- * 使われた技のうちランク 3 にする割合 (%)。仮の値: 高い段が多すぎると 500 円の技がありふれて見えるため、上位の 2 割にした (#271)。
+ * 買える技のうちランク 3 にする割合 (%)。仮の値: 高い段が多すぎると 500 円の技がありふれて見えるため、上位の 2 割にした (#271)。
  */
 export const RANK_3_USAGE_PERCENT = 20;
 
 /**
- * 使われた技のうちランク 2 にする割合 (%)。仮の値: ランク 3 の次の 3 割にし、残りの 5 割を 100 円のランク 1 にして、
+ * 買える技のうちランク 2 にする割合 (%)。仮の値: ランク 3 の次の 3 割にし、残りの 5 割を 100 円のランク 1 にして、
  * 安いカードで買える技が一番多くなるようにした (#271)。
  */
 export const RANK_2_USAGE_PERCENT = 30;
 
 /**
- * 段階で決める予備のランクのしきい値の威力。110 は段階 3 の技の威力、70 は段階 2 の技の威力
- * (documents/game-rules.md「技」の表)。段階 3 と同じ強さの技を 500 円、段階 2 と同じ強さの技を 300 円にするため。
+ * 段階で決める予備のランクで 3 にする最小の威力。110 は段階 3 の技の威力 (documents/game-rules.md「技」の表) で、
+ * 段階 3 と同じ強さの技を 500 円にするため。
  */
 const RANK_3_MINIMUM_POWER = 110;
+
+/**
+ * 段階で決める予備のランクで 2 にする最小の威力。70 は段階 2 の技の威力 (documents/game-rules.md「技」の表) で、
+ * 段階 2 と同じ強さの技を 300 円にするため。
+ */
 const RANK_2_MINIMUM_POWER = 70;
 
 /** 商品の識別子の接頭辞とランク。識別子の残り (価格の `_100yen`・`_150yen`) は見ない (Google Play で 100 円を設定できない時に 150 円へ変えるため。#271)。 */
@@ -67,7 +72,9 @@ export function equippedMoveIds({
   actionCardMoveIds: string[];
 }): string[] {
   const moveIds = [
-    ...learnset.filter((entry) => entry.unlockLevel <= level && !actionCardMoveIds.includes(entry.moveId)).map((entry) => entry.moveId),
+    ...learnset
+      .filter((learnsetEntry) => learnsetEntry.unlockLevel <= level && !actionCardMoveIds.includes(learnsetEntry.moveId))
+      .map((learnsetEntry) => learnsetEntry.moveId),
     ...actionCardMoveIds,
   ];
   return moveIds.slice(Math.max(0, moveIds.length - MAXIMUM_EQUIPPED_MOVE_COUNT));
@@ -88,10 +95,10 @@ export function fallbackMoveRank(move: MasterMove): MoveRank {
 }
 
 /**
- * [moves] (買える技) のランクを決める。[usageCountByMoveId] で 1 回以上使われた技を使用回数の多い順 (同じ回数は技の ID の順) に並べ、
- * 使われた技の数の [RANK_3_USAGE_PERCENT]% (切り捨て) までをランク 3、[RANK_3_USAGE_PERCENT] + [RANK_2_USAGE_PERCENT]% (切り捨て) までを
- * ランク 2、残りをランク 1 にする。使われていない技は [fallbackMoveRank] で決める。
- * 割合の母数を使われた技の数にするのは、使われた技が少ない間に、使用 0 の技どうしの並びで段を分けないため。
+ * [moves] (買える技) のランクを決める。[moves] を [usageCountByMoveId] の使用回数の多い順 (同じ回数は技の ID の順) に並べ、
+ * [moves] の数の [RANK_3_USAGE_PERCENT]% (切り捨て) までをランク 3、[RANK_3_USAGE_PERCENT] + [RANK_2_USAGE_PERCENT]% (切り捨て) までを
+ * ランク 2、残りをランク 1 にする。ただし使用回数が 0 の技は、並びの位置に関係なく [fallbackMoveRank] で決める
+ * (issue #271 の「上位 20% をランク 3」と「使用回数が 0 の技は技の段階で決める」の両方をそのまま満たすため)。
  */
 export function computeMoveRanks({
   moves,
@@ -101,30 +108,38 @@ export function computeMoveRanks({
   usageCountByMoveId: Record<string, number>;
 }): Record<string, MoveRank> {
   const usageCountOf = (move: MasterMove) => (Object.hasOwn(usageCountByMoveId, move.id) ? usageCountByMoveId[move.id] : 0);
-  const usedMoves = moves
-    .filter((move) => usageCountOf(move) > 0)
-    .sort((left, right) => usageCountOf(right) - usageCountOf(left) || (left.id < right.id ? -1 : left.id > right.id ? 1 : 0));
-  const rank3Count = Math.floor((usedMoves.length * RANK_3_USAGE_PERCENT) / 100);
-  const rank2OrHigherCount = Math.floor((usedMoves.length * (RANK_3_USAGE_PERCENT + RANK_2_USAGE_PERCENT)) / 100);
-  const usageRankByMoveId = new Map<string, MoveRank>(
-    usedMoves.map((move, index): [string, MoveRank] => [move.id, index < rank3Count ? 3 : index < rank2OrHigherCount ? 2 : 1]),
+  return Object.fromEntries(
+    [...moves]
+      .sort((left, right) => usageCountOf(right) - usageCountOf(left) || (left.id < right.id ? -1 : left.id > right.id ? 1 : 0))
+      .map((move, index): [string, MoveRank] => [
+        move.id,
+        usageCountOf(move) === 0
+          ? fallbackMoveRank(move)
+          : index < Math.floor((moves.length * RANK_3_USAGE_PERCENT) / 100)
+            ? 3
+            : index < Math.floor((moves.length * (RANK_3_USAGE_PERCENT + RANK_2_USAGE_PERCENT)) / 100)
+              ? 2
+              : 1,
+      ]),
   );
-  return Object.fromEntries(moves.map((move) => [move.id, usageRankByMoveId.get(move.id) ?? fallbackMoveRank(move)]));
 }
+
+/** `users/{uid}.actionCardCredits` の形。ランクごとの Action Card の残高。 */
+export type ActionCardCredits = Record<`rank${MoveRank}`, number>;
 
 /**
- * ランク [moveRank] の技を買う時に使うカードのランク。[credits] (ランクごとの残高) のうち、[moveRank] 以上で残高のある一番安いランク。
+ * ランク [moveRank] の技を買う時に使うカードのランク。[actionCardCredits] のうち、[moveRank] 以上で残高のある一番安いランク。
  * 高いカードで安い技を買える (#271) が、安いカードが残っている時に高いカードを減らさないため一番安いものから使う。使えるカードが無ければ undefined。
  */
-export function creditRankToRedeem({ moveRank, credits }: { moveRank: MoveRank; credits: Record<MoveRank, number> }): MoveRank | undefined {
-  return MOVE_RANKS.find((creditRank) => creditRank >= moveRank && credits[creditRank] >= 1);
+export function creditRankToRedeem({ moveRank, actionCardCredits }: { moveRank: MoveRank; actionCardCredits: ActionCardCredits }): MoveRank | undefined {
+  return MOVE_RANKS.find((creditRank) => creditRank >= moveRank && actionCardCredits[`rank${creditRank}`] >= 1);
 }
 
-/** `users/{uid}.actionCardCredits` の値 [stored] を、ランクごとの残高にする。無いランクは 0 枚 (買っていない)。 */
-export function actionCardCreditsOf(stored: unknown): Record<MoveRank, number> {
-  const credits = (stored ?? {}) as Partial<Record<`rank${MoveRank}`, unknown>>;
+/** Firestore から読んだ `users/{uid}.actionCardCredits` の値 [stored] の、無いランク・数でない値を 0 枚 (買っていない) にした残高。 */
+export function actionCardCreditsOf(stored: unknown): ActionCardCredits {
   const countOf = (value: unknown) => (typeof value === "number" ? value : 0);
-  return { 1: countOf(credits.rank1), 2: countOf(credits.rank2), 3: countOf(credits.rank3) };
+  const { rank1, rank2, rank3 } = (stored ?? {}) as Partial<Record<keyof ActionCardCredits, unknown>>;
+  return { rank1: countOf(rank1), rank2: countOf(rank2), rank3: countOf(rank3) };
 }
 
 /**

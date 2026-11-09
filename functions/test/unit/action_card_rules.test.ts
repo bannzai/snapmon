@@ -90,7 +90,7 @@ describe("computeMoveRanks", () => {
   /** 威力 40 (予備のランク 1) の技 [count] 件。ID は m00, m01, ... */
   const plainMoves = (count: number) => Array.from({ length: count }, (_, index) => move({ id: `m${String(index).padStart(2, "0")}` }));
 
-  it("使われた 10 件を使用回数の順に 2 件・3 件・5 件に分ける", () => {
+  it("10 件がすべて使われていれば使用回数の順に 2 件・3 件・5 件に分ける", () => {
     const moves = plainMoves(10);
     const usageCountByMoveId = Object.fromEntries(moves.map((target, index) => [target.id, 100 - index]));
     expect(computeMoveRanks({ moves, usageCountByMoveId })).toEqual({
@@ -107,19 +107,22 @@ describe("computeMoveRanks", () => {
     });
   });
 
-  it("割合の位置は切り捨てで、使われた技が 4 件ならランク 3 は無く、2 件がランク 2", () => {
+  it("割合の母数は使われていない技を含めた買える技の数で、境界の位置は切り捨て", () => {
+    // 10 件のうち使われたのは 3 件。上位 2 件 (10 件の 20%) がランク 3、3 件目が 5 件目 (50%) までのランク 2
+    const moves = plainMoves(10);
+    expect(computeMoveRanks({ moves, usageCountByMoveId: { m00: 9, m01: 8, m02: 7 } })).toMatchObject({ m00: 3, m01: 3, m02: 2 });
+  });
+
+  it("使われた技でも並びが 50% より後ならランク 1", () => {
+    // 4 件のうち 2 件 (50%) までがランク 2 以上で、ランク 3 は 4 件の 20% の切り捨てで 0 件
     const moves = plainMoves(4);
     expect(computeMoveRanks({ moves, usageCountByMoveId: { m00: 4, m01: 3, m02: 2, m03: 1 } })).toEqual({ m00: 2, m01: 2, m02: 1, m03: 1 });
   });
 
-  it("使われた技が 5 件ならランク 3 が 1 件、ランク 2 が 1 件 (5 件の 50% の 2.5 を切り捨てた 2 件目まで)", () => {
-    const moves = plainMoves(5);
-    expect(computeMoveRanks({ moves, usageCountByMoveId: { m00: 5, m01: 4, m02: 3, m03: 2, m04: 1 } })).toEqual({ m00: 3, m01: 2, m02: 1, m03: 1, m04: 1 });
-  });
-
-  it("使われた技が 1 件ならランク 1 で、使われていない技は段階で決める", () => {
-    const moves = [...plainMoves(2), move({ id: "strong", power: 110 }), move({ id: "middle", power: 70 })];
-    expect(computeMoveRanks({ moves, usageCountByMoveId: { m00: 9 } })).toEqual({ m00: 1, m01: 1, strong: 3, middle: 2 });
+  it("使われていない技は並びの位置に関係なく段階で決める", () => {
+    // 5 件のうち使われたのは m00 だけ。並びで上位 20% に入る位置が無くても、使用 0 の strong はランク 3、weak はランク 1
+    const moves = [...plainMoves(1), move({ id: "strong", power: 110 }), move({ id: "middle", power: 70 }), move({ id: "weak1" }), move({ id: "weak2" })];
+    expect(computeMoveRanks({ moves, usageCountByMoveId: { m00: 9 } })).toEqual({ m00: 3, strong: 3, middle: 2, weak1: 1, weak2: 1 });
   });
 
   it("どの技も使われていなければすべて段階で決める", () => {
@@ -129,7 +132,7 @@ describe("computeMoveRanks", () => {
 
   it("使用回数が同じ技は境界をまたいでも技の ID の順に並べる", () => {
     const moves = plainMoves(5).reverse();
-    // m00 と m01 が同じ回数で、ランク 3 の 1 件の境界をまたぐ
+    // m00 と m01 が同じ回数で、ランク 3 の 1 件 (5 件の 20%) の境界をまたぐ
     expect(computeMoveRanks({ moves, usageCountByMoveId: { m00: 7, m01: 7, m02: 3, m03: 2, m04: 1 } })).toMatchObject({ m00: 3, m01: 2 });
   });
 
@@ -145,22 +148,22 @@ describe("computeMoveRanks", () => {
 
 describe("creditRankToRedeem", () => {
   it("技のランクと同じランクのカードを使う", () => {
-    expect(creditRankToRedeem({ moveRank: 2, credits: { 1: 1, 2: 1, 3: 1 } })).toBe(2);
+    expect(creditRankToRedeem({ moveRank: 2, actionCardCredits: { rank1: 1, rank2: 1, rank3: 1 } })).toBe(2);
   });
 
   it("同じランクが無ければ上の一番安いランクを使う", () => {
-    expect(creditRankToRedeem({ moveRank: 1, credits: { 1: 0, 2: 1, 3: 1 } })).toBe(2);
+    expect(creditRankToRedeem({ moveRank: 1, actionCardCredits: { rank1: 0, rank2: 1, rank3: 1 } })).toBe(2);
   });
 
   it("下のランクのカードでは高い技を買えない", () => {
-    expect(creditRankToRedeem({ moveRank: 3, credits: { 1: 5, 2: 5, 3: 0 } })).toBeUndefined();
+    expect(creditRankToRedeem({ moveRank: 3, actionCardCredits: { rank1: 5, rank2: 5, rank3: 0 } })).toBeUndefined();
   });
 });
 
 describe("actionCardCreditsOf", () => {
-  it("無いランクは 0 枚", () => {
-    expect(actionCardCreditsOf({ rank2: 3 })).toEqual({ 1: 0, 2: 3, 3: 0 });
-    expect(actionCardCreditsOf(undefined)).toEqual({ 1: 0, 2: 0, 3: 0 });
+  it("無いランクと数でない値は 0 枚", () => {
+    expect(actionCardCreditsOf({ rank2: 3, rank3: "1" })).toEqual({ rank1: 0, rank2: 3, rank3: 0 });
+    expect(actionCardCreditsOf(undefined)).toEqual({ rank1: 0, rank2: 0, rank3: 0 });
   });
 });
 

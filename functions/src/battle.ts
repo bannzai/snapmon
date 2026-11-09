@@ -1,4 +1,5 @@
 import { FieldValue, getFirestore } from "firebase-admin/firestore";
+import { logger } from "firebase-functions";
 import { CallableRequest, HttpsError, onCall } from "firebase-functions/v2/https";
 
 import { equippedMoveIds } from "./action_card_rules";
@@ -92,13 +93,14 @@ export const recordBattle = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
   const firestore = getFirestore();
   const userDocument = firestore.doc(`users/${uid}`);
   const battleDocument = firestore.doc(`users/${uid}/battles/${battleId}`);
-  const levels = await firestore.runTransaction(async (transaction) => {
+  const { levels, moveUsage } = await firestore.runTransaction(
+    async (transaction): Promise<{ levels: Record<string, number>; moveUsage?: { dayKey: string; counts: Record<string, number> } }> => {
     const battleSnapshot = await transaction.get(battleDocument);
     if (!battleSnapshot.exists) {
       throw new HttpsError("not-found", `バトル ${battleId} は始まっていません`);
     }
     if (battleSnapshot.get("status") === "completed") {
-      return battleSnapshot.get("levels") as Record<string, number>;
+      return { levels: battleSnapshot.get("levels") as Record<string, number> };
     }
     if (
       !isSubsetOfParty({
@@ -149,14 +151,6 @@ export const recordBattle = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
       { dailyBattleDate: today, dailyBattleCount: battleCountOfToday + 1 },
       { merge: true },
     );
-    if (Object.keys(moveUsageCounts).length > 0) {
-      // ドット区切りの update は文書が無いと失敗し、技の ID の `.` を区切りと読むため、入れ子の値を merge で書く
-      transaction.set(
-        firestore.doc(`moveUsageDailyCounts/${today}`),
-        { counts: Object.fromEntries(Object.entries(moveUsageCounts).map(([moveId, count]) => [moveId, FieldValue.increment(count)])) },
-        { merge: true },
-      );
-    }
     transaction.update(battleDocument, {
       status: "completed",
       participantMonsterIds,
@@ -165,7 +159,21 @@ export const recordBattle = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
       levels: nextLevels,
       completedAt: FieldValue.serverTimestamp(),
     });
-    return nextLevels;
+    return { levels: nextLevels, moveUsage: { dayKey: today, counts: moveUsageCounts } };
   });
+  if (moveUsage !== undefined && Object.keys(moveUsage.counts).length > 0) {
+    // 使用回数の文書は全ユーザーのバトルの記録が書くため、レベルの記録のトランザクションの外で書く。1 文書への書き込みの頻度には
+    // 上限があり ("you can't update a single document at an unlimited rate." https://firebase.google.com/docs/firestore/solutions/counters )、
+    // 同じトランザクションに入れると、ぶつかった時にレベルの記録まで失敗するため。書けなくてもレベルの記録は済んでいるため、失敗させずにログだけ残す。
+    // 完了済みの battleId の再送は上で数えずに返すため、ここに来るのは記録した 1 回だけ (書き損じた分はランクの集計から抜けるが、二重には数えない)
+    try {
+      // ドット区切りの update は文書が無いと失敗し、技の ID の `.` を区切りと読むため、入れ子の値を merge で書く
+      await firestore
+        .doc(`moveUsageDailyCounts/${moveUsage.dayKey}`)
+        .set({ counts: Object.fromEntries(Object.entries(moveUsage.counts).map(([moveId, count]) => [moveId, FieldValue.increment(count)])) }, { merge: true });
+    } catch (error) {
+      logger.error("技の使用回数を書けませんでした", { error, battleId });
+    }
+  }
   return { levels };
 });
