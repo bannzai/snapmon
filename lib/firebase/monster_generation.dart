@@ -31,30 +31,30 @@ String _signedInUid() {
 
 DocumentReference<Map<String, dynamic>> _generationDocument({
   required String uid,
-  required String requestId,
+  required String requestID,
 }) => FirebaseFirestore.instance
     .collection('users')
     .doc(uid)
     .collection('generations')
-    .doc(requestId);
+    .doc(requestID);
 
-/// [photo] (JPEG) を Storage の `users/{uid}/photos/{requestId}` に置く ([MonsterGenerator.uploadPhoto])。
+/// [photo] (JPEG) を Storage の `users/{uid}/photos/{requestID}` に置く ([MonsterGenerator.uploadPhoto])。
 Future<void> uploadGenerationPhotoWithFirebase({
-  required String requestId,
+  required String requestID,
   required Uint8List photo,
 }) async {
   await FirebaseStorage.instance
-      .ref('users/${_signedInUid()}/photos/$requestId')
+      .ref('users/${_signedInUid()}/photos/$requestID')
       .putData(photo, SettableMetadata(contentType: 'image/jpeg'));
 }
 
-/// [mask] (PNG) を Storage の `users/{uid}/masks/{requestId}` に置く ([MonsterGenerator.uploadMask])。
+/// [mask] (PNG) を Storage の `users/{uid}/masks/{requestID}` に置く ([MonsterGenerator.uploadMask])。
 Future<void> uploadGenerationMaskWithFirebase({
-  required String requestId,
+  required String requestID,
   required Uint8List mask,
 }) async {
   await FirebaseStorage.instance
-      .ref('users/${_signedInUid()}/masks/$requestId')
+      .ref('users/${_signedInUid()}/masks/$requestID')
       .putData(mask, SettableMetadata(contentType: 'image/png'));
 }
 
@@ -62,7 +62,7 @@ Future<void> uploadGenerationMaskWithFirebase({
 /// [uploadGenerationMaskWithFirebase] で置いたマスクのパスも渡す。呼んでいる間は生成のレコードの段階を
 /// [onCompletedStage] に渡す。callable が待ち時間を過ぎたら、生成のレコードが処理中でなくなるのを待って、その結果を返す。
 Future<GenerationResult> requestGenerationWithFirebase({
-  required String requestId,
+  required String requestID,
   required GenerationMaskSource maskSource,
   required void Function({required GenerationStage completedStage})
   onCompletedStage,
@@ -70,7 +70,7 @@ Future<GenerationResult> requestGenerationWithFirebase({
   final uid = _signedInUid();
   final generationDocument = _generationDocument(
     uid: uid,
-    requestId: requestId,
+    requestID: requestID,
   );
   final stageSubscription = generationDocument.snapshots().listen((snapshot) {
     final completedStage = snapshot.data()?['completedStage'];
@@ -87,10 +87,10 @@ Future<GenerationResult> requestGenerationWithFirebase({
           options: HttpsCallableOptions(timeout: _generateCallableTimeout),
         )
         .call<Object?>({
-          'requestId': requestId,
-          'photoPath': 'users/$uid/photos/$requestId',
+          'requestID': requestID,
+          'photoPath': 'users/$uid/photos/$requestID',
           if (maskSource != GenerationMaskSource.none)
-            'maskPath': 'users/$uid/masks/$requestId',
+            'maskPath': 'users/$uid/masks/$requestID',
           'maskSource': maskSource.sourceName,
         });
     return GenerationResult.fromJson(
@@ -119,26 +119,26 @@ Future<GenerationResult> requestGenerationWithFirebase({
         )
         .timeout(_generationRecordWaitTimeout);
     return GenerationResult.fromJson(
-      json: {...finishedSnapshot.data()!, 'requestId': requestId},
+      json: {...finishedSnapshot.data()!, 'requestID': requestID},
     );
   } finally {
     await stageSubscription.cancel();
   }
 }
 
-/// [requestId] の生成のレコードを読み直して結果を返す ([MonsterGenerator.fetchGeneration])。
+/// [requestID] の生成のレコードを読み直して結果を返す ([MonsterGenerator.fetchGeneration])。
 /// レコードが無い時は [StateError] を投げる。
 Future<GenerationResult> fetchGenerationWithFirebase({
-  required String requestId,
+  required String requestID,
 }) async {
   final snapshot = await _generationDocument(
     uid: _signedInUid(),
-    requestId: requestId,
+    requestID: requestID,
   ).get();
   if (!snapshot.exists) {
-    throw StateError('生成の記録 $requestId がありません');
+    throw StateError('生成の記録 $requestID がありません');
   }
   return GenerationResult.fromJson(
-    json: {...snapshot.data()!, 'requestId': requestId},
+    json: {...snapshot.data()!, 'requestID': requestID},
   );
 }

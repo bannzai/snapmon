@@ -311,7 +311,7 @@ Future<void> _writeScreenshot({
   final dexStore = DexStore(definitions: sampleData.definitions)
     ..applyServerSnapshot(
       monsters: monsters,
-      partyMonsterIds: [
+      partyMonsterIDs: [
         for (final monster in monsters.take(3)) monster.definition.id,
       ],
       definitions: null,
@@ -360,7 +360,7 @@ Future<void> _writeScreenshot({
             startBattleRecord: () async => null,
             recordedLevels: const {},
           ),
-          onPlayerLevelsChanged: ({required levelsByMonsterId}) {},
+          onPlayerLevelsChanged: ({required levelsByMonsterID}) {},
           cardSharer: _cardSharer(artImagesByPath: artImagesByPath),
           firstBattleBornMonster: null,
           firstBattleMonsterIsNewlyBorn: false,
@@ -430,11 +430,11 @@ OwnedMonster _withLevel({required OwnedMonster monster, required int level}) =>
     OwnedMonster(
       definition: monster.definition,
       level: level,
-      actionCardMoveIds: const [],
+      actionCardMoveIDs: const [],
       artPath: monster.artPath,
       decoration: monster.decoration,
       decorationVersion: monster.decorationVersion,
-      definitionIds: monster.definitionIds,
+      definitionIDs: monster.definitionIDs,
     );
 
 /// 切り出した絵を [artImagesByPath] のデコード済みの画像の複製で返す関数 (受け取った側が使い終わった画像を dispose するため)。
@@ -482,7 +482,7 @@ Widget _homeShell({
     sampleData: sampleData,
     dexStore: dexStore,
     sessionStore: sessionStore,
-    openUrl: ({required uri}) async => true,
+    openURL: ({required uri}) async => true,
     isDeveloperMenuEnabled: false,
     battleRecorder: fakeBattleRecorder(
       calls: RecordedBattleCalls(),
@@ -500,17 +500,17 @@ Widget _homeShell({
           throw StateError('スクリーンショットでは生成しない'),
       createCutoutPreview: ({required photo, required mask}) =>
           throw StateError('スクリーンショットでは生成しない'),
-      createRequestId: () => 'store-screenshot-request',
-      uploadPhoto: ({required requestId, required photo}) async {},
-      uploadMask: ({required requestId, required mask}) =>
+      createRequestID: () => 'store-screenshot-request',
+      uploadPhoto: ({required requestID, required photo}) async {},
+      uploadMask: ({required requestID, required mask}) =>
           throw StateError('スクリーンショットでは生成しない'),
       requestGeneration:
           ({
-            required requestId,
+            required requestID,
             required maskSource,
             required onCompletedStage,
           }) => throw StateError('スクリーンショットでは生成しない'),
-      fetchGeneration: ({required requestId}) =>
+      fetchGeneration: ({required requestID}) =>
           throw StateError('スクリーンショットでは生成しない'),
       fetchTicketPackages: () async => const [],
       purchaseTicketPackage: ({required package}) =>

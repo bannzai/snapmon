@@ -95,7 +95,7 @@ describe("users/{uid}/party/current", () => {
     const firestore = signedInFirestore("alice");
     await assertSucceeds(
       setDoc(doc(firestore, "users/alice/party/current"), {
-        monsterIds: ["m1", "m2", "m3"],
+        monsterIDs: ["m1", "m2", "m3"],
         updatedAt: serverTimestamp(),
       }),
     );
@@ -105,7 +105,7 @@ describe("users/{uid}/party/current", () => {
     const firestore = signedInFirestore("alice");
     await assertFails(
       setDoc(doc(firestore, "users/alice/party/current"), {
-        monsterIds: ["m1", "m2", "m3", "m4"],
+        monsterIDs: ["m1", "m2", "m3", "m4"],
         updatedAt: serverTimestamp(),
       }),
     );
@@ -114,17 +114,17 @@ describe("users/{uid}/party/current", () => {
   it("自分の monsters に無い ID・重複は書けない", async () => {
     const firestore = signedInFirestore("alice");
     await assertFails(
-      setDoc(doc(firestore, "users/alice/party/current"), { monsterIds: ["b1"], updatedAt: serverTimestamp() }),
+      setDoc(doc(firestore, "users/alice/party/current"), { monsterIDs: ["b1"], updatedAt: serverTimestamp() }),
     );
     await assertFails(
-      setDoc(doc(firestore, "users/alice/party/current"), { monsterIds: ["m1", "m1"], updatedAt: serverTimestamp() }),
+      setDoc(doc(firestore, "users/alice/party/current"), { monsterIDs: ["m1", "m1"], updatedAt: serverTimestamp() }),
     );
   });
 
   it("他人の手持ちは書けない", async () => {
     const firestore = signedInFirestore("alice");
     await assertFails(
-      setDoc(doc(firestore, "users/bob/party/current"), { monsterIds: [], updatedAt: serverTimestamp() }),
+      setDoc(doc(firestore, "users/bob/party/current"), { monsterIDs: [], updatedAt: serverTimestamp() }),
     );
   });
 
@@ -132,7 +132,7 @@ describe("users/{uid}/party/current", () => {
     const firestore = signedInFirestore("alice");
     await assertFails(
       setDoc(doc(firestore, "users/alice/party/current"), {
-        monsterIds: ["m1"],
+        monsterIDs: ["m1"],
         updatedAt: serverTimestamp(),
         level: 999,
       }),
@@ -153,13 +153,13 @@ describe("アカウントの削除の途中と削除の後", () => {
       await setDoc(doc(context.firestore(), "users/alice"), { createdAt: 0, accountDeletionStartedAt: 0 });
     });
     const firestore = signedInFirestore("alice");
-    await assertFails(setDoc(doc(firestore, "users/alice/party/current"), { monsterIds: [], updatedAt: serverTimestamp() }));
+    await assertFails(setDoc(doc(firestore, "users/alice/party/current"), { monsterIDs: [], updatedAt: serverTimestamp() }));
     await assertFails(setDoc(doc(firestore, "users/alice/settings/current"), { soundEnabled: true }));
   });
 
   it("users/{uid} が消えた本人 (ID トークンが期限まで残る別の端末) は、手持ちと設定を書けない", async () => {
     const firestore = signedInFirestore("carol");
-    await assertFails(setDoc(doc(firestore, "users/carol/party/current"), { monsterIds: [], updatedAt: serverTimestamp() }));
+    await assertFails(setDoc(doc(firestore, "users/carol/party/current"), { monsterIDs: [], updatedAt: serverTimestamp() }));
     await assertFails(setDoc(doc(firestore, "users/carol/settings/current"), { soundEnabled: true }));
   });
 });
@@ -183,7 +183,7 @@ describe("master と definitions", () => {
 describe("reports と blocks と reportedMonsters", () => {
   it("クライアントから読み書きできない", async () => {
     const firestore = signedInFirestore("alice");
-    await assertFails(setDoc(doc(firestore, "reports/r1"), { monsterId: "b1" }));
+    await assertFails(setDoc(doc(firestore, "reports/r1"), { monsterID: "b1" }));
     await assertFails(setDoc(doc(firestore, "blocks/k1"), { blockedUid: "bob" }));
     await assertFails(getDoc(doc(firestore, "reports/r1")));
     await assertFails(getDoc(doc(firestore, "blocks/k1")));
@@ -196,7 +196,7 @@ describe("生成のカウンタと使い回しの記録", () => {
   it("本人も含めてクライアントから読み書きできない", async () => {
     const firestore = signedInFirestore("alice");
     await assertFails(getDoc(doc(firestore, "users/alice/generationAliases/request1")));
-    await assertFails(setDoc(doc(firestore, "users/alice/generationAliases/request1"), { reusedRequestId: "request0" }));
+    await assertFails(setDoc(doc(firestore, "users/alice/generationAliases/request1"), { reusedRequestID: "request0" }));
     await assertFails(getDoc(doc(firestore, "generationDailyCounts/2026-10-22")));
     await assertFails(setDoc(doc(firestore, "generationDailyCounts/2026-10-22"), { count: 0 }));
     await assertFails(getDoc(doc(firestore, "definitionCounters/global")));
@@ -208,8 +208,8 @@ describe("生成チケットの残高と購入の記録", () => {
   beforeEach(async () => {
     await testEnvironment.withSecurityRulesDisabled(async (context) => {
       const firestore = context.firestore();
-      await setDoc(doc(firestore, "users/alice/ticketPurchases/event1"), { productId: "snapmon_generationticket10_200yen", ticketCount: 10 });
-      await setDoc(doc(firestore, "users/bob/ticketPurchases/event2"), { productId: "snapmon_generationticket10_200yen", ticketCount: 10 });
+      await setDoc(doc(firestore, "users/alice/ticketPurchases/event1"), { productID: "snapmon_generationticket10_200yen", ticketCount: 10 });
+      await setDoc(doc(firestore, "users/bob/ticketPurchases/event2"), { productID: "snapmon_generationticket10_200yen", ticketCount: 10 });
     });
   });
 
@@ -223,7 +223,7 @@ describe("生成チケットの残高と購入の記録", () => {
 
   it("本人も購入の記録と残高を書けない (残高を改ざんさせないため)", async () => {
     const firestore = signedInFirestore("alice");
-    await assertFails(setDoc(doc(firestore, "users/alice/ticketPurchases/event3"), { productId: "snapmon_generationticket30_500yen", ticketCount: 30 }));
+    await assertFails(setDoc(doc(firestore, "users/alice/ticketPurchases/event3"), { productID: "snapmon_generationticket30_500yen", ticketCount: 30 }));
     await assertFails(updateDoc(doc(firestore, "users/alice/ticketPurchases/event1"), { ticketCount: 30 }));
     await assertFails(setDoc(doc(firestore, "users/alice"), { generationTickets: 100 }, { merge: true }));
   });
@@ -235,7 +235,7 @@ describe("Action Card の購入の記録 (買い切った技は購入の moveID)
       const firestore = context.firestore();
       for (const uid of ["alice", "bob"]) {
         await setDoc(doc(firestore, `users/${uid}`), { displayName: uid });
-        await setDoc(doc(firestore, `users/${uid}/actionCardPurchases/event-${uid}`), { productId: "snapmon_actioncardrank1_100yen", rank: 1, moveID: "fire_1" });
+        await setDoc(doc(firestore, `users/${uid}/actionCardPurchases/event-${uid}`), { productID: "snapmon_actioncardrank1_100yen", rank: 1, moveID: "fire_1" });
       }
     });
   });
@@ -252,11 +252,11 @@ describe("Action Card の購入の記録 (買い切った技は購入の moveID)
 
   it("本人も購入の記録・買う技の控え・覚えさせた技を書けない (改ざんさせないため)", async () => {
     const firestore = signedInFirestore("alice");
-    await assertFails(setDoc(doc(firestore, "users/alice/actionCardPurchases/event-new"), { productId: "snapmon_actioncardrank3_500yen", rank: 3, moveID: "water_1" }));
+    await assertFails(setDoc(doc(firestore, "users/alice/actionCardPurchases/event-new"), { productID: "snapmon_actioncardrank3_500yen", rank: 3, moveID: "water_1" }));
     await assertFails(setDoc(doc(firestore, "users/alice/actionCardPurchases/event-alice"), { moveID: "water_1" }, { merge: true }));
     await assertFails(deleteDoc(doc(firestore, "users/alice/actionCardPurchases/event-alice")));
     await assertFails(setDoc(doc(firestore, "users/alice"), { actionCardMoveReservation: { moveID: "water_1", rank: 3 } }, { merge: true }));
-    await assertFails(setDoc(doc(firestore, "users/alice/monsters/m1"), { actionCardMoveIds: ["fire_1"] }, { merge: true }));
+    await assertFails(setDoc(doc(firestore, "users/alice/monsters/m1"), { actionCardMoveIDs: ["fire_1"] }, { merge: true }));
   });
 });
 
@@ -264,7 +264,7 @@ describe("技のランクの表・機能の切り替え・技の使用回数", (
   beforeEach(async () => {
     await testEnvironment.withSecurityRulesDisabled(async (context) => {
       const firestore = context.firestore();
-      await setDoc(doc(firestore, "moveRanks/current"), { version: 1, rankByMoveId: { fire_1: 1 }, usageWindowDays: 7 });
+      await setDoc(doc(firestore, "moveRanks/current"), { version: 1, rankByMoveID: { fire_1: 1 }, usageWindowDays: 7 });
       await setDoc(doc(firestore, "config/features"), { actionCardsVisible: false });
       await setDoc(doc(firestore, "moveUsageDailyCounts/2026-11-09"), { counts: { fire_1: 3 } });
     });
@@ -284,7 +284,7 @@ describe("技のランクの表・機能の切り替え・技の使用回数", (
 
   it("ログインしたユーザーも技のランクの表と機能の切り替えを書けない", async () => {
     const firestore = signedInFirestore("alice");
-    await assertFails(setDoc(doc(firestore, "moveRanks/current"), { version: 1, rankByMoveId: { fire_1: 3 } }));
+    await assertFails(setDoc(doc(firestore, "moveRanks/current"), { version: 1, rankByMoveID: { fire_1: 3 } }));
     await assertFails(setDoc(doc(firestore, "config/features"), { actionCardsVisible: true }));
   });
 

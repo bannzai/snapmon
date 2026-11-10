@@ -23,7 +23,7 @@ void main() {
   final sampleData = loadSampleDataFixture();
 
   /// 技のランクの表の見本。ランク 1 に 2 つ (fire_1c・water_1b)、ランク 3 に 1 つ (water_3)。
-  const sampleRankByMoveId = {'fire_1c': 1, 'water_1b': 1, 'water_3': 3};
+  const sampleRankByMoveID = {'fire_1c': 1, 'water_1b': 1, 'water_3': 3};
 
   late FakeActionCards fakeActionCards;
   late DexStore dexStore;
@@ -65,7 +65,7 @@ void main() {
 
   /// 図鑑の詳細 (見本の mugmon。Lv.7 で技の枠は fire_1・steel_1・fire_1b・steel_1b)。
   Widget dexDetail() => ResultScreen(
-    monster: sampleData.monsterById(monsterId: 'sample-mugmon'),
+    monster: sampleData.monsterByID(monsterID: 'sample-mugmon'),
     dexStore: dexStore,
     origin: ResultScreenOrigin.dex,
     cardSharer: fakeCardSharer(
@@ -140,7 +140,7 @@ void main() {
     ) async {
       fakeActionCards
         ..isPurchaseSupported = false
-        ..rankByMoveId.value = sampleRankByMoveId
+        ..rankByMoveID.value = sampleRankByMoveID
         ..purchases.value = [
           testActionCardPurchase(
             actionCardPurchaseID: 'p1',
@@ -233,7 +233,7 @@ void main() {
   group('技を選んで買う', () {
     testWidgets('買い切っていない技を 今のランクと値段を付けて並べ 買い切った技は出さない', (tester) async {
       fakeActionCards
-        ..rankByMoveId.value = sampleRankByMoveId
+        ..rankByMoveID.value = sampleRankByMoveID
         ..purchases.value = [
           testActionCardPurchase(
             actionCardPurchaseID: 'p0',
@@ -259,7 +259,7 @@ void main() {
 
     testWidgets('売っていないランクの技は 値段を出せないため並べない', (tester) async {
       fakeActionCards
-        ..rankByMoveId.value = sampleRankByMoveId
+        ..rankByMoveID.value = sampleRankByMoveID
         ..packages = [testActionCardPackage(rank: 1)];
       await pump(
         tester: tester,
@@ -281,7 +281,7 @@ void main() {
     testWidgets('技を選んで買うと 技を控えてから そのランクの商品を買い 控えの購入が届いたら手に入れたと出す', (
       tester,
     ) async {
-      fakeActionCards.rankByMoveId.value = sampleRankByMoveId;
+      fakeActionCards.rankByMoveID.value = sampleRankByMoveID;
       await pump(
         tester: tester,
         home: ActionCardScreen(dexStore: dexStore),
@@ -292,7 +292,7 @@ void main() {
       await tester.tap(find.byKey(const Key('action-card-purchase-buy')));
       await tester.pump();
       expect(fakeActionCards.reservedMoves, [(moveID: 'water_3', rank: 3)]);
-      expect(fakeActionCards.purchasedPackageIds, ['actioncard_rank3']);
+      expect(fakeActionCards.purchasedPackageIDs, ['actioncard_rank3']);
       expect(find.text('技を受け取っています'), findsOneWidget);
 
       // 別の端末の購入 (控えの ID が違う) が届いても 自分の購入が届いたとは出さない
@@ -328,7 +328,7 @@ void main() {
     });
 
     testWidgets('控えた技を受け取れなかった購入が届いたら 選び直しの案内を出し 画面に選び直しの節を出す', (tester) async {
-      fakeActionCards.rankByMoveId.value = sampleRankByMoveId;
+      fakeActionCards.rankByMoveID.value = sampleRankByMoveID;
       await pump(
         tester: tester,
         home: ActionCardScreen(dexStore: dexStore),
@@ -362,7 +362,7 @@ void main() {
 
     testWidgets('値段を出している間にランクが変わって控えを断られたら 買わずに 値段が変わったと出す', (tester) async {
       fakeActionCards
-        ..rankByMoveId.value = sampleRankByMoveId
+        ..rankByMoveID.value = sampleRankByMoveID
         ..reserveErrors.add(const ActionCardMoveRankChangedException(rank: 3));
       await pump(
         tester: tester,
@@ -372,14 +372,14 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key('action-card-purchase-buy')));
       await tester.pump();
-      expect(fakeActionCards.purchasedPackageIds, isEmpty);
+      expect(fakeActionCards.purchasedPackageIDs, isEmpty);
       expect(
         find.byKey(const Key('action-card-purchase-rank-changed')),
         findsOneWidget,
       );
       // 新しいランクが購読で届くと 新しい値段で買い直せる
-      fakeActionCards.rankByMoveId.value = {
-        ...sampleRankByMoveId,
+      fakeActionCards.rankByMoveID.value = {
+        ...sampleRankByMoveID,
         'fire_1c': 3,
       };
       await tester.pump();
@@ -388,7 +388,7 @@ void main() {
 
     testWidgets('支払いが保留になったら 支払いを待つ案内を出す', (tester) async {
       fakeActionCards
-        ..rankByMoveId.value = sampleRankByMoveId
+        ..rankByMoveID.value = sampleRankByMoveID
         ..purchaseResult = TicketPurchaseResult.pending;
       await pump(
         tester: tester,
@@ -403,7 +403,7 @@ void main() {
 
     testWidgets('ストアの購入をやめたら 買う前の画面に戻る', (tester) async {
       fakeActionCards
-        ..rankByMoveId.value = sampleRankByMoveId
+        ..rankByMoveID.value = sampleRankByMoveID
         ..purchaseResult = TicketPurchaseResult.cancelled;
       await pump(
         tester: tester,
@@ -418,7 +418,7 @@ void main() {
     });
 
     testWidgets('属性で絞り込むと その属性の技だけを出す', (tester) async {
-      fakeActionCards.rankByMoveId.value = sampleRankByMoveId;
+      fakeActionCards.rankByMoveID.value = sampleRankByMoveID;
       await pump(
         tester: tester,
         home: ActionCardScreen(dexStore: dexStore),
@@ -433,7 +433,7 @@ void main() {
   group('技に結び付いていない購入で選び直す', () {
     testWidgets('購入のランク以下で持っていない技だけを出し 選ぶと購入に結び付ける', (tester) async {
       fakeActionCards
-        ..rankByMoveId.value = sampleRankByMoveId
+        ..rankByMoveID.value = sampleRankByMoveID
         ..purchases.value = [
           testActionCardPurchase(
             actionCardPurchaseID: 'p0',
@@ -475,7 +475,7 @@ void main() {
 
     testWidgets('断られたら 失敗を出して選ぶ画面に残る', (tester) async {
       fakeActionCards
-        ..rankByMoveId.value = sampleRankByMoveId
+        ..rankByMoveID.value = sampleRankByMoveID
         ..purchases.value = [
           testActionCardPurchase(
             actionCardPurchaseID: 'p1',
@@ -504,7 +504,7 @@ void main() {
 
   group('属性の絞り込み', () {
     testWidgets('絞り込んだ属性の最後の技を買い切ると すべてに戻して残りの技を出す', (tester) async {
-      fakeActionCards.rankByMoveId.value = {'fire_1c': 1, 'water_3': 3};
+      fakeActionCards.rankByMoveID.value = {'fire_1c': 1, 'water_3': 3};
       await pump(
         tester: tester,
         home: ActionCardScreen(dexStore: dexStore),
@@ -552,7 +552,7 @@ void main() {
             moveID: 'water_3',
           ),
         ]
-        ..monsterMoveIdsResult = ['water_3'];
+        ..monsterMoveIDsResult = ['water_3'];
       await pump(tester: tester, home: dexDetail());
       await tester.tap(find.byKey(const Key('action-card-teach')));
       await tester.pumpAndSettle();
@@ -561,12 +561,12 @@ void main() {
       await tester.tap(find.byKey(const Key('action-card-teach-water_3')));
       await tester.pumpAndSettle();
       expect(fakeActionCards.taughtMoves, [
-        (monsterId: 'sample-mugmon', moveId: 'water_3'),
+        (monsterID: 'sample-mugmon', moveID: 'water_3'),
       ]);
       expect(
         dexStore.monsters
             .firstWhere((monster) => monster.definition.id == 'sample-mugmon')
-            .actionCardMoveIds,
+            .actionCardMoveIDs,
         ['water_3'],
       );
       expect(find.byKey(const Key('move-chip-water_3')), findsOneWidget);
@@ -578,9 +578,9 @@ void main() {
     });
 
     testWidgets('忘れさせると 技の枠を元に戻す', (tester) async {
-      dexStore.updateActionCardMoveIds(
-        monsterId: 'sample-mugmon',
-        actionCardMoveIds: ['water_3'],
+      dexStore.updateActionCardMoveIDs(
+        monsterID: 'sample-mugmon',
+        actionCardMoveIDs: ['water_3'],
       );
       fakeActionCards
         ..purchases.value = [
@@ -590,21 +590,21 @@ void main() {
             moveID: 'water_3',
           ),
         ]
-        ..monsterMoveIdsResult = const [];
+        ..monsterMoveIDsResult = const [];
       await pump(tester: tester, home: dexDetail());
       await tester.tap(find.byKey(const Key('action-card-forget-water_3')));
       await tester.pumpAndSettle();
       expect(fakeActionCards.forgottenMoves, [
-        (monsterId: 'sample-mugmon', moveId: 'water_3'),
+        (monsterID: 'sample-mugmon', moveID: 'water_3'),
       ]);
       expect(find.byKey(const Key('move-chip-fire_1')), findsOneWidget);
       expect(find.byKey(const Key('move-chip-water_3')), findsNothing);
     });
 
     testWidgets('表示の切り替えが false でも 覚えさせた技があれば忘れさせられる', (tester) async {
-      dexStore.updateActionCardMoveIds(
-        monsterId: 'sample-mugmon',
-        actionCardMoveIds: ['water_3'],
+      dexStore.updateActionCardMoveIDs(
+        monsterID: 'sample-mugmon',
+        actionCardMoveIDs: ['water_3'],
       );
       fakeActionCards.isActionCardsVisible.value = false;
       await pump(tester: tester, home: dexDetail());

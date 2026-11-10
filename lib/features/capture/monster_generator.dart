@@ -85,23 +85,23 @@ enum GenerationRejectionReason {
 class GenerationResult {
   /// 結果を作る。
   const GenerationResult({
-    required this.requestId,
+    required this.requestID,
     required this.status,
-    required this.monsterId,
+    required this.monsterID,
     required this.rejectionReason,
     required this.personDetected,
   });
 
-  /// callable の戻り値か、生成のレコード (`users/{uid}/generations/{requestId}` に `requestId` を足したもの) から結果を読む。
+  /// callable の戻り値か、生成のレコード (`users/{uid}/generations/{requestID}` に `requestID` を足したもの) から結果を読む。
   factory GenerationResult.fromJson({
     required Map<String, dynamic> json,
   }) => GenerationResult(
-    requestId: json['requestId'] as String,
+    requestID: json['requestID'] as String,
     status: GenerationStatus.values.firstWhere(
       (status) => status.statusName == json['status'],
       orElse: () => throw FormatException('生成の状態 ${json['status']} を知らない'),
     ),
-    monsterId: json['monsterId'] as String?,
+    monsterID: json['monsterID'] as String?,
     rejectionReason: json['rejectionReason'] == null
         ? null
         : GenerationRejectionReason.values.firstWhere(
@@ -115,13 +115,13 @@ class GenerationResult {
   );
 
   /// 結果を出した生成の要求 ID。同じ写真で別の要求の結果を使い回した時は、送った ID ではなく使い回し先の ID になる。
-  final String requestId;
+  final String requestID;
 
   /// 状態。
   final GenerationStatus status;
 
   /// saved・duplicate の時のモンスターの ID。
-  final String? monsterId;
+  final String? monsterID;
 
   /// rejected の理由。
   final GenerationRejectionReason? rejectionReason;
@@ -213,7 +213,7 @@ class MonsterGenerator {
     required this.createSubjectMask,
     required this.createSquareMask,
     required this.createCutoutPreview,
-    required this.createRequestId,
+    required this.createRequestID,
     required this.uploadPhoto,
     required this.uploadMask,
     required this.requestGeneration,
@@ -264,34 +264,34 @@ class MonsterGenerator {
 
   /// 生成の要求 ID (UUID) を作る。写真 1 枚につき 1 回だけ作り、送り直しにも同じ ID を使う
   /// (サーバーは同じ ID の再送に保存済みの結果を返すため)。
-  final String Function() createRequestId;
+  final String Function() createRequestID;
 
-  /// 生成に送る写真 [photo] (JPEG) を [requestId] の置き場 (Storage の `users/{uid}/photos/{requestId}`) に置く。
+  /// 生成に送る写真 [photo] (JPEG) を [requestID] の置き場 (Storage の `users/{uid}/photos/{requestID}`) に置く。
   final Future<void> Function({
-    required String requestId,
+    required String requestID,
     required Uint8List photo,
   })
   uploadPhoto;
 
-  /// 生成に送るマスク [mask] (PNG) を [requestId] の置き場 (Storage の `users/{uid}/masks/{requestId}`) に置く。
+  /// 生成に送るマスク [mask] (PNG) を [requestID] の置き場 (Storage の `users/{uid}/masks/{requestID}`) に置く。
   final Future<void> Function({
-    required String requestId,
+    required String requestID,
     required Uint8List mask,
   })
   uploadMask;
 
-  /// [requestId] の写真から生成し、結果を返す。マスクを置いた時は [maskSource] にその出どころを、置いていない時は
+  /// [requestID] の写真から生成し、結果を返す。マスクを置いた時は [maskSource] にその出どころを、置いていない時は
   /// [GenerationMaskSource.none] を渡す。サーバーが段階を済ませるたびに [onCompletedStage] を呼ぶ。
   final Future<GenerationResult> Function({
-    required String requestId,
+    required String requestID,
     required GenerationMaskSource maskSource,
     required void Function({required GenerationStage completedStage})
     onCompletedStage,
   })
   requestGeneration;
 
-  /// [requestId] の生成の今の結果を読み直す (判定待ちの後に生まれたかを確かめる)。
-  final Future<GenerationResult> Function({required String requestId})
+  /// [requestID] の生成の今の結果を読み直す (判定待ちの後に生まれたかを確かめる)。
+  final Future<GenerationResult> Function({required String requestID})
   fetchGeneration;
 
   /// 今売っている生成チケットの package を返す (lib/firebase/purchases.dart)。売っていない間・課金が無効なビルド・Web では空。

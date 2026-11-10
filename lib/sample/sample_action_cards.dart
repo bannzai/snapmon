@@ -12,12 +12,12 @@ import '../features/capture/monster_generator.dart';
 /// 表示の切り替え・技に結び付いていない購入・技のランクの表を作り、技を選んで買う・選び直す・覚えさせる・忘れさせるの画面の流れを確かめる
 /// (~/.claude/rules/debug-menu-first-for-hard-to-reach-states.md)。値はアプリを閉じると消える。
 class SampleActionCards {
-  /// 見本を作る。[actionCardMoveIdsOf] は図鑑の [monsterId] のモンスターが今覚えている Action Card の技を返す
+  /// 見本を作る。[actionCardMoveIDsOf] は図鑑の [monsterID] のモンスターが今覚えている Action Card の技を返す
   /// (覚えさせる・忘れさせるの結果を、Functions と同じく今の一覧から作るため)。
-  SampleActionCards({required this.actionCardMoveIdsOf});
+  SampleActionCards({required this.actionCardMoveIDsOf});
 
-  /// 図鑑の [monsterId] のモンスターが今覚えている Action Card の技。
-  final List<String> Function({required String monsterId}) actionCardMoveIdsOf;
+  /// 図鑑の [monsterID] のモンスターが今覚えている Action Card の技。
+  final List<String> Function({required String monsterID}) actionCardMoveIDsOf;
 
   /// `config/features.actionCardsVisible` の代わり。
   final ValueNotifier<bool> isActionCardsVisible = ValueNotifier(false);
@@ -27,8 +27,8 @@ class SampleActionCards {
     const [],
   );
 
-  /// `moveRanks/current.rankByMoveId` の代わり。
-  final ValueNotifier<Map<String, int>?> rankByMoveId = ValueNotifier(null);
+  /// `moveRanks/current.rankByMoveID` の代わり。
+  final ValueNotifier<Map<String, int>?> rankByMoveID = ValueNotifier(null);
 
   /// 次の購入が届く前に、控えた技を受け取れなくするか (開発者メニューが切り替える)。技を選んでから購入が届くまでの間に
   /// ランクが上がるか同じ技を別の端末で受け取り、技に結び付かない購入が残る流れ (選び直しの導線) を確かめるため。
@@ -74,12 +74,12 @@ class SampleActionCards {
   /// Dart から TypeScript の定数を読めないため値を写しており、向こうを変えたらここも変える。DEBUG ビルドの見本だけが使い、
   /// 本番のランクは moveRanks/current が正。
   void loadSampleMoveRanks({required MasterData master}) {
-    final replacedMoveIds = {
-      for (final move in master.moves) ?move.replacesMoveId,
+    final replacedMoveIDs = {
+      for (final move in master.moves) ?move.replacesMoveID,
     };
-    rankByMoveId.value = {
+    rankByMoveID.value = {
       for (final move in master.moves)
-        if (!replacedMoveIds.contains(move.id))
+        if (!replacedMoveIDs.contains(move.id))
           move.id: move.power >= 110
               ? 3
               : move.power >= 70
@@ -125,7 +125,7 @@ class SampleActionCards {
     if (_ownedMoveIDs.contains(moveID)) {
       throw StateError('$moveID は買い切り済みです');
     }
-    final moveRank = rankByMoveId.value?[moveID];
+    final moveRank = rankByMoveID.value?[moveID];
     if (moveRank == null) {
       throw StateError('技のランクの表に $moveID がありません');
     }
@@ -152,8 +152,8 @@ class SampleActionCards {
       final reservation = _reservation?.rank == rank ? _reservation : null;
       if (reservation != null && blocksReservedMoveBeforeArrival.value) {
         if (reservation.rank < actionCardRanks.last) {
-          rankByMoveId.value = {
-            ...?rankByMoveId.value,
+          rankByMoveID.value = {
+            ...?rankByMoveID.value,
             reservation.moveID: reservation.rank + 1,
           };
         } else {
@@ -166,7 +166,7 @@ class SampleActionCards {
       }
       final reservedMoveRank = reservation == null
           ? null
-          : rankByMoveId.value?[reservation.moveID];
+          : rankByMoveID.value?[reservation.moveID];
       final canReceive =
           reservation != null &&
           reservedMoveRank != null &&
@@ -198,7 +198,7 @@ class SampleActionCards {
     if (_ownedMoveIDs.contains(moveID)) {
       throw StateError('$moveID は買い切り済みです');
     }
-    final moveRank = rankByMoveId.value?[moveID];
+    final moveRank = rankByMoveID.value?[moveID];
     if (moveRank == null || moveRank > purchase.rank) {
       throw StateError(
         'ランク ${purchase.rank} の Action Card では $moveID を受け取れません',
@@ -222,25 +222,25 @@ class SampleActionCards {
 
   /// teachActionCardMove の代わり。既に覚えていれば変えない (冪等)。
   Future<List<String>> _teach({
-    required String monsterId,
-    required String moveId,
+    required String monsterID,
+    required String moveID,
   }) async {
-    if (!_ownedMoveIDs.contains(moveId)) {
-      throw StateError('$moveId を買い切っていません');
+    if (!_ownedMoveIDs.contains(moveID)) {
+      throw StateError('$moveID を買い切っていません');
     }
-    final actionCardMoveIds = actionCardMoveIdsOf(monsterId: monsterId);
-    return actionCardMoveIds.contains(moveId)
-        ? actionCardMoveIds
-        : [...actionCardMoveIds, moveId];
+    final actionCardMoveIDs = actionCardMoveIDsOf(monsterID: monsterID);
+    return actionCardMoveIDs.contains(moveID)
+        ? actionCardMoveIDs
+        : [...actionCardMoveIDs, moveID];
   }
 
   /// forgetActionCardMove の代わり。覚えていなければ変えない (冪等)。
   Future<List<String>> _forget({
-    required String monsterId,
-    required String moveId,
+    required String monsterID,
+    required String moveID,
   }) async => [
-    for (final actionCardMoveId in actionCardMoveIdsOf(monsterId: monsterId))
-      if (actionCardMoveId != moveId) actionCardMoveId,
+    for (final actionCardMoveID in actionCardMoveIDsOf(monsterID: monsterID))
+      if (actionCardMoveID != moveID) actionCardMoveID,
   ];
 
   /// この見本を呼ぶ関数の組。課金の可否はビルドに関係なく使えるとする (Simulator で購入の画面を確かめるため)。
@@ -250,7 +250,7 @@ class SampleActionCards {
     fetchActionCardPackages: () async => _samplePackages(),
     purchaseActionCardPackage: _purchase,
     watchActionCardPurchases: () => _watch(notifier: purchases),
-    watchMoveRanks: () => _watch(notifier: rankByMoveId),
+    watchMoveRanks: () => _watch(notifier: rankByMoveID),
     reserveActionCardMove: _reserve,
     assignActionCardMove: _assign,
     teachActionCardMove: _teach,

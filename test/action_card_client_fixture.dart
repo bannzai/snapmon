@@ -58,13 +58,13 @@ class FakeActionCards {
   );
 
   /// 技のランクの表。
-  final ValueNotifier<Map<String, int>?> rankByMoveId = ValueNotifier(null);
+  final ValueNotifier<Map<String, int>?> rankByMoveID = ValueNotifier(null);
 
   /// 購入の結果。null なら終わらない (購入の途中を確かめるため)。
   TicketPurchaseResult? purchaseResult = TicketPurchaseResult.purchased;
 
   /// 購入した package の ID (呼ばれた順)。
-  final List<String> purchasedPackageIds = [];
+  final List<String> purchasedPackageIDs = [];
 
   /// reserveActionCardMove に渡された引数 (呼ばれた順)。
   final List<({String moveID, int rank})> reservedMoves = [];
@@ -79,13 +79,13 @@ class FakeActionCards {
   final List<Object> assignErrors = [];
 
   /// teachActionCardMove に渡された引数 (呼ばれた順)。
-  final List<({String monsterId, String moveId})> taughtMoves = [];
+  final List<({String monsterID, String moveID})> taughtMoves = [];
 
   /// forgetActionCardMove に渡された引数 (呼ばれた順)。
-  final List<({String monsterId, String moveId})> forgottenMoves = [];
+  final List<({String monsterID, String moveID})> forgottenMoves = [];
 
   /// teach・forget が返す一覧。
-  List<String> monsterMoveIdsResult = const [];
+  List<String> monsterMoveIDsResult = const [];
 
   /// [notifier] の今の値を流し、変わるたびに流す。
   Stream<T> _watch<T>({required ValueNotifier<T> notifier}) {
@@ -109,14 +109,14 @@ class FakeActionCards {
         ? packages
         : packagesCompleters.removeAt(0).future,
     purchaseActionCardPackage: ({required package}) {
-      purchasedPackageIds.add(package.identifier);
+      purchasedPackageIDs.add(package.identifier);
       return switch (purchaseResult) {
         final result? => Future.value(result),
         null => Completer<TicketPurchaseResult>().future,
       };
     },
     watchActionCardPurchases: () => _watch(notifier: purchases),
-    watchMoveRanks: () => _watch(notifier: rankByMoveId),
+    watchMoveRanks: () => _watch(notifier: rankByMoveID),
     reserveActionCardMove: ({required moveID, required rank}) async {
       reservedMoves.add((moveID: moveID, rank: rank));
       if (reserveErrors.isNotEmpty) {
@@ -134,13 +134,13 @@ class FakeActionCards {
             throw assignErrors.removeAt(0);
           }
         },
-    teachActionCardMove: ({required monsterId, required moveId}) async {
-      taughtMoves.add((monsterId: monsterId, moveId: moveId));
-      return monsterMoveIdsResult;
+    teachActionCardMove: ({required monsterID, required moveID}) async {
+      taughtMoves.add((monsterID: monsterID, moveID: moveID));
+      return monsterMoveIDsResult;
     },
-    forgetActionCardMove: ({required monsterId, required moveId}) async {
-      forgottenMoves.add((monsterId: monsterId, moveId: moveId));
-      return monsterMoveIdsResult;
+    forgetActionCardMove: ({required monsterID, required moveID}) async {
+      forgottenMoves.add((monsterID: monsterID, moveID: moveID));
+      return monsterMoveIDsResult;
     },
   );
 }

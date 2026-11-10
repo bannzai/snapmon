@@ -53,9 +53,9 @@ class MonsterShareCard extends StatelessWidget {
       spacing: 6,
       runSpacing: 6,
       children: [
-        for (final elementTypeId in definition.elementTypeIds)
+        for (final elementTypeID in definition.elementTypeIDs)
           ElementTypeTag(
-            elementTypeId: elementTypeId,
+            elementTypeID: elementTypeID,
             definitions: definitions,
           ),
       ],
@@ -247,12 +247,12 @@ class BattleResultShareCard extends StatelessWidget {
   });
 
   /// 勝った陣営。
-  final BattleSideId winner;
+  final BattleSideID winner;
 
   /// バトルの前の自分の手持ち (上がる前のレベルを出すため)。
   final List<OwnedMonster> playerParty;
 
-  /// 確定した自分のモンスターのレベル (monsterId ごと)。確定していない間 (記録の待ち・失敗) は空で、
+  /// 確定した自分のモンスターのレベル (monsterID ごと)。確定していない間 (記録の待ち・失敗) は空で、
   /// 勝敗の画面と同じく上がった後のレベルを出さない。
   final Map<String, int> appliedLevels;
 
@@ -280,7 +280,7 @@ class BattleResultShareCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final resultText = Text(
-      winner == BattleSideId.player
+      winner == BattleSideID.player
           ? context.l10n.battleWon
           : context.l10n.battleLost,
       style: SnapmonTextStyles.screenTitle.copyWith(
@@ -288,7 +288,7 @@ class BattleResultShareCard extends StatelessWidget {
           ShareCardFormat.portrait => 56,
           ShareCardFormat.landscape => 40,
         },
-        color: winner == BattleSideId.player
+        color: winner == BattleSideID.player
             ? SnapmonColors.accent
             : SnapmonColors.hitPointsLoss,
       ),
@@ -369,10 +369,10 @@ class BattleResultShareCard extends StatelessWidget {
                                 spacing: 6,
                                 runSpacing: 6,
                                 children: [
-                                  for (final elementTypeId
-                                      in monster.definition.elementTypeIds)
+                                  for (final elementTypeID
+                                      in monster.definition.elementTypeIDs)
                                     ElementTypeTag(
-                                      elementTypeId: elementTypeId,
+                                      elementTypeID: elementTypeID,
                                       definitions: definitions,
                                     ),
                                 ],

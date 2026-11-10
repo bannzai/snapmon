@@ -16,11 +16,11 @@ void main() {
   Move attackMove({required int power, int accuracy = 100}) => Move(
     id: 'power_$power',
     displayName: 'テスト',
-    elementTypeId: 'fire',
+    elementTypeID: 'fire',
     power: power,
     powerPoints: 10,
     category: MoveCategory.attack,
-    effectId: 'none',
+    effectID: 'none',
     learnableLevelMinimum: 1,
     learnableLevelMaximum: 999,
     specialEffect: null,

@@ -42,7 +42,7 @@ void main() {
 
   /// 切り出した画像と元の写真を持つ 1 体。
   final monsterWithArt = ownedMonsterWithArt(
-    monster: sampleData.monsterById(monsterId: 'sample-mugmon'),
+    monster: sampleData.monsterByID(monsterID: 'sample-mugmon'),
     artPath: artPath,
     sourcePhotoReference: sourcePhotoReference,
   );
@@ -122,11 +122,11 @@ void main() {
         await pumpCard(
           tester: tester,
           card: BattleResultShareCard(
-            winner: BattleSideId.player,
+            winner: BattleSideID.player,
             playerParty: [monsterWithArt],
             appliedLevels: {monsterWithArt.definition.id: 8},
             opponentParty: [
-              sampleData.monsterById(monsterId: 'sample-ringora'),
+              sampleData.monsterByID(monsterID: 'sample-ringora'),
             ],
             artImagesByPath: {artPath: artImage},
             definitions: sampleData.definitions,
@@ -170,7 +170,7 @@ void main() {
                   sourcePhotoReference: monster.definition.sourcePhotoReference,
                   name: monster.definition.name,
                   encyclopediaText: monster.definition.encyclopediaText,
-                  elementTypeIds: [
+                  elementTypeIDs: [
                     for (final elementType
                         in sampleData.definitions.elementTypes.take(4))
                       elementType.id,
@@ -183,9 +183,9 @@ void main() {
                   masterVersion: monster.definition.masterVersion,
                 ),
                 level: monster.level,
-                actionCardMoveIds: const [],
+                actionCardMoveIDs: const [],
                 artPath: monster.artPath,
-                definitionIds: monster.definitionIds,
+                definitionIDs: monster.definitionIDs,
                 decoration: monster.decoration,
                 decorationVersion: monster.decorationVersion,
               ),
@@ -213,7 +213,7 @@ void main() {
                     monsterWithArt.definition.sourcePhotoReference,
                 name: name,
                 encyclopediaText: monsterWithArt.definition.encyclopediaText,
-                elementTypeIds: [
+                elementTypeIDs: [
                   for (final elementType
                       in sampleData.definitions.elementTypes.take(2))
                     elementType.id,
@@ -226,9 +226,9 @@ void main() {
                 masterVersion: monsterWithArt.definition.masterVersion,
               ),
               level: monsterWithArt.level,
-              actionCardMoveIds: const [],
+              actionCardMoveIDs: const [],
               artPath: monsterWithArt.artPath,
-              definitionIds: monsterWithArt.definitionIds,
+              definitionIDs: monsterWithArt.definitionIDs,
               decoration: monsterWithArt.decoration,
               decorationVersion: monsterWithArt.decorationVersion,
             ),
@@ -308,7 +308,7 @@ void main() {
           },
         );
 
-        for (final winner in BattleSideId.values) {
+        for (final winner in BattleSideID.values) {
           testWidgets(
             'バトルの結果のカード (${winner.name}・$locale) が ${expectedSize.$1}×${expectedSize.$2} の PNG になり、はみ出さない',
             (tester) async {

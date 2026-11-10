@@ -11,9 +11,9 @@ OwnedMonster decoratedMonster({
 }) => OwnedMonster(
   definition: monster.definition,
   level: monster.level,
-  actionCardMoveIds: const [],
+  actionCardMoveIDs: const [],
   artPath: artPath,
-  definitionIds: monster.definitionIds,
+  definitionIDs: monster.definitionIDs,
   decoration: decoration,
   decorationVersion: decorationVersion,
 );

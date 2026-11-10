@@ -19,12 +19,12 @@ Future<DocumentSnapshot<Map<String, dynamic>>?> fetchLatestMaster({
   return snapshot.docs.isEmpty ? null : snapshot.docs.first;
 }
 
-/// 生成時にその場で作った属性・技の定義 (definitions/{definitionId}) を返す。他人のモンスターが参照する定義の解決にも使う。
+/// 生成時にその場で作った属性・技の定義 (definitions/{definitionID}) を返す。他人のモンスターが参照する定義の解決にも使う。
 Future<DocumentSnapshot<Map<String, dynamic>>> fetchDefinition({
   required FirebaseFirestore firestore,
-  required String definitionId,
+  required String definitionID,
 }) {
-  return firestore.collection('definitions').doc(definitionId).get();
+  return firestore.collection('definitions').doc(definitionID).get();
 }
 
 /// 読んである master [cachedMasterJson] で [monsters] の属性・技を引けないおそれがあり、最新の master を読み直すべきかを返す。
@@ -37,15 +37,15 @@ bool needsLatestMasterFetch({
   if (cachedMasterJson == null) {
     return true;
   }
-  final actionCardMoveIds = {
-    for (final monster in monsters) ...monster.actionCardMoveIds,
+  final actionCardMoveIDs = {
+    for (final monster in monsters) ...monster.actionCardMoveIDs,
   };
   return monsters.any(
         (monster) =>
             monster.definition.masterVersion >
             (cachedMasterJson['version'] as int),
       ) ||
-      actionCardMoveIds.difference({
+      actionCardMoveIDs.difference({
         for (final moveJson
             in cachedMasterJson['moves'] as List<dynamic>? ?? [])
           (moveJson as Map<String, dynamic>)['id'] as String,

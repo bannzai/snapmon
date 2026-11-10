@@ -68,7 +68,7 @@ class ActionCardStore extends ChangeNotifier {
   List<ActionCardPurchase> _purchases = const [];
 
   /// 技の ID ごとのランク。表がまだ無い時は null。
-  Map<String, int>? _rankByMoveId;
+  Map<String, int>? _rankByMoveID;
 
   /// 売っている Action Card の package (ランクの順)。
   List<Package> get packages => _packages;
@@ -77,10 +77,10 @@ class ActionCardStore extends ChangeNotifier {
   List<ActionCardPurchase> get purchases => _purchases;
 
   /// 技の ID ごとのランク。表がまだ無い時 (最初のデプロイの直後) は null で、購入と選び直しを受け付けない。
-  Map<String, int>? get rankByMoveId => _rankByMoveId;
+  Map<String, int>? get rankByMoveID => _rankByMoveID;
 
   /// 買い切った技の ID (技を結び付けた順)。購入の `moveID` から出し、別に持たない (#290)。
-  List<String> get ownedMoveIds => [
+  List<String> get ownedMoveIDs => [
     for (final purchase
         in [
           for (final purchase in _purchases)
@@ -126,7 +126,7 @@ class ActionCardStore extends ChangeNotifier {
     // 前のアカウントの途中の読み込みは、返ってもアカウントが違うため件数を減らさない。数え直しをここで 0 から始める
     _loadingPackagesCount = 0;
     _purchases = const [];
-    _rankByMoveId = null;
+    _rankByMoveID = null;
     notifyListeners();
     _subscriptions
       ..add(
@@ -143,8 +143,8 @@ class ActionCardStore extends ChangeNotifier {
         }, onError: (Object _) {}),
       )
       ..add(
-        client.watchMoveRanks().listen((rankByMoveId) {
-          _rankByMoveId = rankByMoveId;
+        client.watchMoveRanks().listen((rankByMoveID) {
+          _rankByMoveID = rankByMoveID;
           notifyListeners();
         }, onError: (Object _) {}),
       );
@@ -244,25 +244,25 @@ class ActionCardStore extends ChangeNotifier {
 /// [actionCardStore] の技のランクの表と買い切った技のうち、[dexStore] の定義に無い技があれば、定義を最新の master から読み直す。
 /// 技のランクの表と買い切った技は最新の版の master の技で、ログインの後に新しい版が投入されると端末の定義に無い技が届くため
 /// (図鑑の読み直しは図鑑のモンスターの技しか見ない。lib/master/master_repository.dart の `needsLatestMasterFetch`)。
-/// [requestedMoveIds] は読み直しを頼んだ技で、master に無い技のために何度も読み直さないよう、呼び出し側が画面ごとに持つ。
+/// [requestedMoveIDs] は読み直しを頼んだ技で、master に無い技のために何度も読み直さないよう、呼び出し側が画面ごとに持つ。
 /// 読み直しの失敗は無視する (無い技は一覧に出さないままにする)。
 Future<void> refreshDefinitionsForActionCardMoves({
   required ActionCardStore actionCardStore,
   required DexStore dexStore,
-  required Set<String> requestedMoveIds,
+  required Set<String> requestedMoveIDs,
 }) async {
-  final missingMoveIds =
+  final missingMoveIDs =
       {
-        ...?actionCardStore.rankByMoveId?.keys,
-        ...actionCardStore.ownedMoveIds,
+        ...?actionCardStore.rankByMoveID?.keys,
+        ...actionCardStore.ownedMoveIDs,
       }.difference({
         for (final move in dexStore.definitions.moves) move.id,
-        ...requestedMoveIds,
+        ...requestedMoveIDs,
       });
-  if (missingMoveIds.isEmpty) {
+  if (missingMoveIDs.isEmpty) {
     return;
   }
-  requestedMoveIds.addAll(missingMoveIds);
+  requestedMoveIDs.addAll(missingMoveIDs);
   await dexStore.refreshDefinitions().catchError((Object _) {});
 }
 

@@ -22,15 +22,15 @@ void main() {
       definitions.elementTypes.map((elementType) => elementType.id),
       contains('dynamic-wax'),
     );
-    expect(definitions.moveById(moveId: 'dynamic-wax-1').displayName, 'ろうアタック');
-    expect(definitions.moveById(moveId: 'steel_1').displayName, isNotEmpty);
+    expect(definitions.moveByID(moveID: 'dynamic-wax-1').displayName, 'ろうアタック');
+    expect(definitions.moveByID(moveID: 'steel_1').displayName, isNotEmpty);
   });
 
   test('同じ ID の定義は master を優先する', () {
     final masterSteelMove = buildDexDefinitions(
       latestMasterJson: masterJson,
       definitionJsons: const [],
-    ).moveById(moveId: 'steel_1');
+    ).moveByID(moveID: 'steel_1');
     final definitions = buildDexDefinitions(
       latestMasterJson: masterJson,
       definitionJsons: [
@@ -49,14 +49,14 @@ void main() {
       ],
     );
     expect(
-      definitions.moveById(moveId: 'steel_1').displayName,
+      definitions.moveByID(moveID: 'steel_1').displayName,
       masterSteelMove.displayName,
     );
   });
 
   test('まだ読んでいない時と、読んだ版より新しい版で生まれたモンスターがいる時だけ master を読み直す', () {
     // generatedWaxMonster は master の版 1 で生まれたモンスター
-    final monsters = [generatedWaxMonster(monsterId: 'm1')];
+    final monsters = [generatedWaxMonster(monsterID: 'm1')];
     expect(
       needsLatestMasterFetch(cachedMasterJson: null, monsters: monsters),
       isTrue,
@@ -78,13 +78,13 @@ void main() {
   });
 
   test('読んだ版に無い技を Action Card で覚えさせたモンスターがいる時は master を読み直す', () {
-    final monster = generatedWaxMonster(monsterId: 'm1');
+    final monster = generatedWaxMonster(monsterID: 'm1');
     final taughtMonster = OwnedMonster(
       definition: monster.definition,
       level: monster.level,
-      actionCardMoveIds: const ['water_3'],
+      actionCardMoveIDs: const ['water_3'],
       artPath: monster.artPath,
-      definitionIds: monster.definitionIds,
+      definitionIDs: monster.definitionIDs,
       decoration: monster.decoration,
       decorationVersion: monster.decorationVersion,
     );

@@ -1,88 +1,88 @@
 {
-  "description": "技の枠 (lib/domain/battle/battle_engine.dart の equippedLearnsetEntries と functions/src/action_card_rules.ts の equippedMoveIds) の共通のテストケース。expectedMoveIds は枠の技の ID を枠の順に並べたもの",
+  "description": "技の枠 (lib/domain/battle/battle_engine.dart の equippedLearnsetEntries と functions/src/action_card_rules.ts の equippedMoveIDs) の共通のテストケース。expectedMoveIDs は枠の技の ID を枠の順に並べたもの",
   "cases": [
     {
       "name": "開放した技が 4 つ以下ならすべて",
       "learnset": [
-        { "moveId": "a", "unlockLevel": 1 },
-        { "moveId": "b", "unlockLevel": 1 },
-        { "moveId": "c", "unlockLevel": 3 }
+        { "moveID": "a", "unlockLevel": 1 },
+        { "moveID": "b", "unlockLevel": 1 },
+        { "moveID": "c", "unlockLevel": 3 }
       ],
       "level": 2,
-      "actionCardMoveIds": [],
-      "expectedMoveIds": ["a", "b"]
+      "actionCardMoveIDs": [],
+      "expectedMoveIDs": ["a", "b"]
     },
     {
       "name": "開放した技が 4 つを超えたら一覧の後ろの 4 つ",
       "learnset": [
-        { "moveId": "a", "unlockLevel": 1 },
-        { "moveId": "b", "unlockLevel": 1 },
-        { "moveId": "c", "unlockLevel": 1 },
-        { "moveId": "d", "unlockLevel": 1 },
-        { "moveId": "e", "unlockLevel": 2 },
-        { "moveId": "f", "unlockLevel": 3 }
+        { "moveID": "a", "unlockLevel": 1 },
+        { "moveID": "b", "unlockLevel": 1 },
+        { "moveID": "c", "unlockLevel": 1 },
+        { "moveID": "d", "unlockLevel": 1 },
+        { "moveID": "e", "unlockLevel": 2 },
+        { "moveID": "f", "unlockLevel": 3 }
       ],
       "level": 2,
-      "actionCardMoveIds": [],
-      "expectedMoveIds": ["b", "c", "d", "e"]
+      "actionCardMoveIDs": [],
+      "expectedMoveIDs": ["b", "c", "d", "e"]
     },
     {
       "name": "開放レベルと同じレベルで開放する",
       "learnset": [
-        { "moveId": "a", "unlockLevel": 1 },
-        { "moveId": "b", "unlockLevel": 5 }
+        { "moveID": "a", "unlockLevel": 1 },
+        { "moveID": "b", "unlockLevel": 5 }
       ],
       "level": 5,
-      "actionCardMoveIds": [],
-      "expectedMoveIds": ["a", "b"]
+      "actionCardMoveIDs": [],
+      "expectedMoveIDs": ["a", "b"]
     },
     {
       "name": "Action Card の技は learnset の後ろに覚えさせた順で続き、一番古い技が枠から外れる",
       "learnset": [
-        { "moveId": "a", "unlockLevel": 1 },
-        { "moveId": "b", "unlockLevel": 1 },
-        { "moveId": "c", "unlockLevel": 1 },
-        { "moveId": "d", "unlockLevel": 1 }
+        { "moveID": "a", "unlockLevel": 1 },
+        { "moveID": "b", "unlockLevel": 1 },
+        { "moveID": "c", "unlockLevel": 1 },
+        { "moveID": "d", "unlockLevel": 1 }
       ],
       "level": 1,
-      "actionCardMoveIds": ["x", "y"],
-      "expectedMoveIds": ["c", "d", "x", "y"]
+      "actionCardMoveIDs": ["x", "y"],
+      "expectedMoveIDs": ["c", "d", "x", "y"]
     },
     {
       "name": "Action Card の技は開放レベルに関係なく Lv.1 から使える",
-      "learnset": [{ "moveId": "a", "unlockLevel": 1 }],
+      "learnset": [{ "moveID": "a", "unlockLevel": 1 }],
       "level": 1,
-      "actionCardMoveIds": ["x"],
-      "expectedMoveIds": ["a", "x"]
+      "actionCardMoveIDs": ["x"],
+      "expectedMoveIDs": ["a", "x"]
     },
     {
       "name": "Action Card の技が 4 つを超えたら覚えさせた順で後ろの 4 つ",
-      "learnset": [{ "moveId": "a", "unlockLevel": 1 }],
+      "learnset": [{ "moveID": "a", "unlockLevel": 1 }],
       "level": 1,
-      "actionCardMoveIds": ["v", "w", "x", "y", "z"],
-      "expectedMoveIds": ["w", "x", "y", "z"]
+      "actionCardMoveIDs": ["v", "w", "x", "y", "z"],
+      "expectedMoveIDs": ["w", "x", "y", "z"]
     },
     {
       "name": "learnset にある技を覚えさせたら learnset 側を外し、覚えさせた位置に置く",
       "learnset": [
-        { "moveId": "a", "unlockLevel": 1 },
-        { "moveId": "b", "unlockLevel": 1 },
-        { "moveId": "c", "unlockLevel": 1 },
-        { "moveId": "d", "unlockLevel": 1 }
+        { "moveID": "a", "unlockLevel": 1 },
+        { "moveID": "b", "unlockLevel": 1 },
+        { "moveID": "c", "unlockLevel": 1 },
+        { "moveID": "d", "unlockLevel": 1 }
       ],
       "level": 1,
-      "actionCardMoveIds": ["a"],
-      "expectedMoveIds": ["b", "c", "d", "a"]
+      "actionCardMoveIDs": ["a"],
+      "expectedMoveIDs": ["b", "c", "d", "a"]
     },
     {
       "name": "まだ開放していない learnset の技を覚えさせたら、開放した後も枠に 1 つだけ並ぶ",
       "learnset": [
-        { "moveId": "a", "unlockLevel": 1 },
-        { "moveId": "k", "unlockLevel": 100 }
+        { "moveID": "a", "unlockLevel": 1 },
+        { "moveID": "k", "unlockLevel": 100 }
       ],
       "level": 100,
-      "actionCardMoveIds": ["k"],
-      "expectedMoveIds": ["a", "k"]
+      "actionCardMoveIDs": ["k"],
+      "expectedMoveIDs": ["a", "k"]
     }
   ]
 }

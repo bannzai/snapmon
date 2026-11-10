@@ -5,14 +5,14 @@ import 'package:snapmon/features/battle/battle_recorder.dart';
 /// テスト用の [BattleRecorder] が受け取った呼び出し。
 class RecordedBattleCalls {
   /// startBattleRecord に渡された手持ちの ID (呼ばれた順)。
-  final List<List<String>> startedPartyMonsterIds = [];
+  final List<List<String>> startedPartyMonsterIDs = [];
 
   /// completeBattleRecord に渡された引数 (呼ばれた順)。
   final List<
     ({
-      String battleId,
-      List<String> participantMonsterIds,
-      BattleSideId winner,
+      String battleID,
+      List<String> participantMonsterIDs,
+      BattleSideID winner,
       int turnCount,
     })
   >
@@ -31,20 +31,20 @@ BattleRecorder fakeBattleRecorder({
   required Future<String?> Function() startBattleRecord,
   required Map<String, int> recordedLevels,
 }) => BattleRecorder(
-  startBattleRecord: ({required partyMonsterIds}) {
-    calls.startedPartyMonsterIds.add(partyMonsterIds);
+  startBattleRecord: ({required partyMonsterIDs}) {
+    calls.startedPartyMonsterIDs.add(partyMonsterIDs);
     return startBattleRecord();
   },
   completeBattleRecord:
       ({
-        required battleId,
-        required participantMonsterIds,
+        required battleID,
+        required participantMonsterIDs,
         required winner,
         required turnCount,
       }) async {
         calls.completedBattles.add((
-          battleId: battleId,
-          participantMonsterIds: participantMonsterIds,
+          battleID: battleID,
+          participantMonsterIDs: participantMonsterIDs,
           winner: winner,
           turnCount: turnCount,
         ));

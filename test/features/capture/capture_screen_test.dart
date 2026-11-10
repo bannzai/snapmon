@@ -116,9 +116,9 @@ void main() {
       calls: generationCalls,
       albumPhoto: null,
       uploadError: null,
-      requestGeneration: ({required requestId}) =>
+      requestGeneration: ({required requestID}) =>
           throw StateError('requestGeneration は呼ばない'),
-      fetchGeneration: ({required requestId}) =>
+      fetchGeneration: ({required requestID}) =>
           throw StateError('fetchGeneration は呼ばない'),
     );
     await tester.pumpWidget(
@@ -150,7 +150,7 @@ void main() {
               createSubjectMask: generator.createSubjectMask,
               createSquareMask: generator.createSquareMask,
               createCutoutPreview: generator.createCutoutPreview,
-              createRequestId: generator.createRequestId,
+              createRequestID: generator.createRequestID,
               uploadPhoto: generator.uploadPhoto,
               uploadMask: generator.uploadMask,
               requestGeneration: generator.requestGeneration,
@@ -279,7 +279,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(cameraPlatform.initializeCallCount, 1);
     expect(find.byKey(const Key('fake-camera-preview')), findsOneWidget);
-    expect(generationCalls.uploadedRequestIds, isEmpty);
+    expect(generationCalls.uploadedRequestIDs, isEmpty);
   });
 
   testWidgets('一度カメラを開けた後 (startsCameraOnOpen) は、開いた時に押すのを待たずにカメラを開く', (

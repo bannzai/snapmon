@@ -53,20 +53,20 @@ Object? _toJson(Object? value) => switch (value) {
   _ => value,
 };
 
-/// [base] に、Firestore の `definitions/{definitionId}` ([definitionIds]) を読んで足した定義を返す。
+/// [base] に、Firestore の `definitions/{definitionID}` ([definitionIDs]) を読んで足した定義を返す。
 /// 無い定義があれば [StateError] を投げる (相手の属性・技を引けないまま戦わせないため)。
 Future<MasterData> fetchDefinitionsWithFirebase({
   required MasterData base,
-  required List<String> definitionIds,
+  required List<String> definitionIDs,
 }) async {
   var definitions = base;
-  for (final definitionId in definitionIds.toSet()) {
+  for (final definitionID in definitionIDs.toSet()) {
     final definitionJson = (await fetchDefinition(
       firestore: FirebaseFirestore.instance,
-      definitionId: definitionId,
+      definitionID: definitionID,
     )).data();
     if (definitionJson == null) {
-      throw StateError('定義 $definitionId が Firestore にありません');
+      throw StateError('定義 $definitionID が Firestore にありません');
     }
     definitions = mergeMasterData(
       base: definitions,
@@ -76,16 +76,16 @@ Future<MasterData> fetchDefinitionsWithFirebase({
   return definitions;
 }
 
-/// Functions の reportMonster を呼び、[monsterOwnerUid] のモンスター [monsterId] を [reason] で通報する。
+/// Functions の reportMonster を呼び、[monsterOwnerUid] のモンスター [monsterID] を [reason] で通報する。
 Future<void> reportMonsterWithFirebase({
   required String monsterOwnerUid,
-  required String monsterId,
+  required String monsterID,
   required ReportReason reason,
 }) => _call(
   name: 'reportMonster',
   data: {
     'monsterOwnerUid': monsterOwnerUid,
-    'monsterId': monsterId,
+    'monsterID': monsterID,
     'reason': reason.value,
   },
 );
@@ -124,20 +124,20 @@ Future<PlayerProfile?> fetchProfileWithFirebase() async {
   );
 }
 
-/// [photo] (JPEG) を Storage の `users/{uid}/iconUploads/{uploadId}` に置いてから Functions の setProfileIcon を呼び、
-/// 保存したアイコンのパスを返す。uploadId は呼ぶたびに作る (同じ写真を選び直しても、別のアイコンとして検査し直すため)。
+/// [photo] (JPEG) を Storage の `users/{uid}/iconUploads/{uploadID}` に置いてから Functions の setProfileIcon を呼び、
+/// 保存したアイコンのパスを返す。uploadID は呼ぶたびに作る (同じ写真を選び直しても、別のアイコンとして検査し直すため)。
 Future<String> updateProfileIconWithFirebase({required Uint8List photo}) async {
   final uid = _signedInUid();
   if (uid == null) {
     throw StateError('ログインしていないためアイコンを変えられません');
   }
-  final uploadId = const Uuid().v4();
+  final uploadID = const Uuid().v4();
   await FirebaseStorage.instance
-      .ref('users/$uid/iconUploads/$uploadId')
+      .ref('users/$uid/iconUploads/$uploadID')
       .putData(photo, SettableMetadata(contentType: 'image/jpeg'));
   return (await _call(
         name: 'setProfileIcon',
-        data: {'uploadId': uploadId},
+        data: {'uploadID': uploadID},
       ))['iconPath']!
       as String;
 }

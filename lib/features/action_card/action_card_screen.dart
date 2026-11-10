@@ -20,7 +20,7 @@ const Duration _purchaseArrivalNoticeDelay = Duration(seconds: 20);
 
 /// [master] の技を ID で引く表。技のランクの表と買い切った技は最新の版の master の技で、端末の master にまだ無い技は表に無い
 /// (`refreshDefinitionsForActionCardMoves` が定義を読み直すまでの間。無い技は出さない)。
-Map<String, Move> _movesById({required MasterData master}) => {
+Map<String, Move> _movesByID({required MasterData master}) => {
   for (final move in master.moves) move.id: move,
 };
 
@@ -39,12 +39,12 @@ List<Move> assignableMovesOfPurchase({
   required ActionCardStore store,
   required MasterData master,
 }) {
-  final movesById = _movesById(master: master);
+  final movesByID = _movesByID(master: master);
   return [
     for (final MapEntry(key: moveID, value: moveRank)
-        in (store.rankByMoveId ?? const <String, int>{}).entries)
-      if (moveRank <= purchase.rank && !store.ownedMoveIds.contains(moveID))
-        ?movesById[moveID],
+        in (store.rankByMoveID ?? const <String, int>{}).entries)
+      if (moveRank <= purchase.rank && !store.ownedMoveIDs.contains(moveID))
+        ?movesByID[moveID],
   ]..sort((left, right) => left.id.compareTo(right.id));
 }
 
@@ -64,10 +64,10 @@ class ActionCardScreen extends StatefulWidget {
 /// [ActionCardScreen] の属性の絞り込みと、定義の読み直しの状態。
 class _ActionCardScreenState extends State<ActionCardScreen> {
   /// 買う一覧を絞る属性。null はすべて。
-  String? _elementTypeIdFilter;
+  String? _elementTypeIDFilter;
 
   /// 定義の読み直しを頼んだ技 (`refreshDefinitionsForActionCardMoves`)。
-  final Set<String> _requestedMoveIds = {};
+  final Set<String> _requestedMoveIDs = {};
 
   /// 定義に無い技が届いたかを見ている [ActionCardStore]。
   ActionCardStore? _listenedActionCardStore;
@@ -79,7 +79,7 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
         refreshDefinitionsForActionCardMoves(
           actionCardStore: actionCardStore,
           dexStore: widget.dexStore,
-          requestedMoveIds: _requestedMoveIds,
+          requestedMoveIDs: _requestedMoveIDs,
         ),
       );
     }
@@ -127,30 +127,30 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
     if (store == null) {
       return const SizedBox.shrink();
     }
-    final movesById = _movesById(master: widget.dexStore.definitions);
-    final rankByMoveId = store.rankByMoveId;
+    final movesByID = _movesByID(master: widget.dexStore.definitions);
+    final rankByMoveID = store.rankByMoveID;
     // 売っているランクの技だけを出す (offering に無いランクの技は値段を出せず買えないため)
     final purchasableMoves = [
-      if (rankByMoveId != null && store.isPurchaseEntryVisible)
+      if (rankByMoveID != null && store.isPurchaseEntryVisible)
         for (final MapEntry(key: moveID, value: moveRank)
-            in rankByMoveId.entries)
-          if (!store.ownedMoveIds.contains(moveID) &&
+            in rankByMoveID.entries)
+          if (!store.ownedMoveIDs.contains(moveID) &&
               actionCardPackageOfRank(store: store, rank: moveRank) != null)
-            ?movesById[moveID],
+            ?movesByID[moveID],
     ]..sort((left, right) => left.id.compareTo(right.id));
     // 選んだ属性の技を買い切り終えるとその属性のチップは消えるため、買える技が無い属性はすべてとして扱う
     // (一覧が空のまま、どのチップも選ばれていない状態にしないため)。選んだ値も次のフレームで解除する
     // (残すと、後で技のランクや売っているランクが変わってその属性の技がまた買えるようになった時に、触っていない絞り込みが戻るため)
-    final activeElementTypeIdFilter =
+    final activeElementTypeIDFilter =
         purchasableMoves.any(
-          (move) => move.elementTypeId == _elementTypeIdFilter,
+          (move) => move.elementTypeID == _elementTypeIDFilter,
         )
-        ? _elementTypeIdFilter
+        ? _elementTypeIDFilter
         : null;
-    if (_elementTypeIdFilter != null && activeElementTypeIdFilter == null) {
+    if (_elementTypeIDFilter != null && activeElementTypeIDFilter == null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (mounted) {
-          setState(() => _elementTypeIdFilter = null);
+          setState(() => _elementTypeIDFilter = null);
         }
       });
     }
@@ -189,7 +189,7 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
                       // 押せない間 (技のランクの表が届く前) の既定はテーマの onSurface で、カードと同じ色になり読めないため
                       disabledForegroundColor: SnapmonColors.textOnCardMuted,
                     ),
-                    onPressed: rankByMoveId == null
+                    onPressed: rankByMoveID == null
                         ? null
                         : () => showActionCardAssignSheet(
                             context: context,
@@ -208,7 +208,7 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
           const SizedBox(height: 8),
           if (!store.isPurchaseEntryVisible)
             Text(l10n.actionCardBuyUnavailable, style: SnapmonTextStyles.body)
-          else if (rankByMoveId == null)
+          else if (rankByMoveID == null)
             Text(l10n.actionCardRanksPreparing, style: SnapmonTextStyles.body)
           else ...[
             Wrap(
@@ -217,33 +217,33 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
               children: [
                 ChoiceChip(
                   label: Text(l10n.actionCardFilterAll),
-                  selected: activeElementTypeIdFilter == null,
+                  selected: activeElementTypeIDFilter == null,
                   onSelected: (_) =>
-                      setState(() => _elementTypeIdFilter = null),
+                      setState(() => _elementTypeIDFilter = null),
                 ),
                 for (final elementType
                     in widget.dexStore.definitions.elementTypes)
                   if (purchasableMoves.any(
-                    (move) => move.elementTypeId == elementType.id,
+                    (move) => move.elementTypeID == elementType.id,
                   ))
                     ChoiceChip(
                       key: Key('action-card-filter-${elementType.id}'),
                       label: Text(elementType.displayName),
-                      selected: activeElementTypeIdFilter == elementType.id,
+                      selected: activeElementTypeIDFilter == elementType.id,
                       onSelected: (_) =>
-                          setState(() => _elementTypeIdFilter = elementType.id),
+                          setState(() => _elementTypeIDFilter = elementType.id),
                     ),
               ],
             ),
             const SizedBox(height: 8),
             for (final move in purchasableMoves)
-              if (activeElementTypeIdFilter == null ||
-                  move.elementTypeId == activeElementTypeIdFilter)
+              if (activeElementTypeIDFilter == null ||
+                  move.elementTypeID == activeElementTypeIDFilter)
                 _ActionCardMoveTile(
                   key: Key('action-card-buy-${move.id}'),
                   move: move,
                   trailingText:
-                      '${l10n.actionCardRank(rankByMoveId[move.id]!)}\n${actionCardPackageOfRank(store: store, rank: rankByMoveId[move.id]!)!.storeProduct.priceString}',
+                      '${l10n.actionCardRank(rankByMoveID[move.id]!)}\n${actionCardPackageOfRank(store: store, rank: rankByMoveID[move.id]!)!.storeProduct.priceString}',
                   definitions: widget.dexStore.definitions,
                   onTap: () => showActionCardMovePurchaseSheet(
                     context: context,
@@ -255,11 +255,11 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
           const SizedBox(height: 24),
           Text(l10n.actionCardOwnedHeading, style: SnapmonTextStyles.label),
           const SizedBox(height: 8),
-          if (store.ownedMoveIds.isEmpty)
+          if (store.ownedMoveIDs.isEmpty)
             Text(l10n.actionCardOwnedEmpty, style: SnapmonTextStyles.body)
           else
-            for (final moveId in store.ownedMoveIds)
-              if (movesById[moveId] case final move?)
+            for (final moveID in store.ownedMoveIDs)
+              if (movesByID[moveID] case final move?)
                 _ActionCardMoveTile(
                   key: Key('action-card-owned-${move.id}'),
                   move: move,
@@ -471,7 +471,7 @@ class _ActionCardMovePurchaseSheetState
     required ActionCardStore store,
   }) {
     final l10n = context.l10n;
-    final rank = store.rankByMoveId?[widget.move.id];
+    final rank = store.rankByMoveID?[widget.move.id];
     final package = rank == null
         ? null
         : actionCardPackageOfRank(store: store, rank: rank);
@@ -694,7 +694,7 @@ class _ActionCardAssignSheetState extends State<_ActionCardAssignSheet> {
                   key: Key('action-card-assign-${move.id}'),
                   move: move,
                   trailingText: l10n.actionCardRank(
-                    store.rankByMoveId![move.id]!,
+                    store.rankByMoveID![move.id]!,
                   ),
                   definitions: widget.definitions,
                   onTap: _assigningMoveID != null

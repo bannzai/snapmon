@@ -27,7 +27,7 @@ void main() {
           child: MaterialApp(
             home: MonsterArt(
               monster: ownedMonsterWithArt(
-                monster: sampleData.monsterById(monsterId: 'sample-mugmon'),
+                monster: sampleData.monsterByID(monsterID: 'sample-mugmon'),
                 artPath: artPath,
                 sourcePhotoReference: 'users/uid-1/photos/original-photo',
               ),

@@ -11,22 +11,22 @@ void main() {
         jsonDecode(File('assets/master/master.json').readAsStringSync())
             as Map<String, dynamic>;
     final master = MasterData.fromJson(json: masterJson);
-    // 書き出しのスクリプトは pixelfxId の最後の部分をファイル名にするため、spriteSheet と一致し、別の素材が同じ名前を持たない
-    final pixelfxIdsBySheet = <String, Set<String>>{};
+    // 書き出しのスクリプトは pixelfxID の最後の部分をファイル名にするため、spriteSheet と一致し、別の素材が同じ名前を持たない
+    final pixelfxIDsBySheet = <String, Set<String>>{};
     for (final effect in masterJson['effects'] as List<dynamic>) {
       if ((effect as Map<String, dynamic>)['spriteSheet']
           case final String spriteSheet) {
-        final pixelfxId = effect['pixelfxId'] as String;
-        expect(spriteSheet, pixelfxId.split('/').last, reason: effect['id']);
-        (pixelfxIdsBySheet[spriteSheet] ??= {}).add(pixelfxId);
+        final pixelfxID = effect['pixelfxID'] as String;
+        expect(spriteSheet, pixelfxID.split('/').last, reason: effect['id']);
+        (pixelfxIDsBySheet[spriteSheet] ??= {}).add(pixelfxID);
       }
     }
-    for (final MapEntry(key: sheet, value: pixelfxIds)
-        in pixelfxIdsBySheet.entries) {
-      expect(pixelfxIds, hasLength(1), reason: sheet);
+    for (final MapEntry(key: sheet, value: pixelfxIDs)
+        in pixelfxIDsBySheet.entries) {
+      expect(pixelfxIDs, hasLength(1), reason: sheet);
     }
     for (final move in master.moves) {
-      final effect = master.effectById(effectId: move.effectId);
+      final effect = master.effectByID(effectID: move.effectID);
       expect(effect.kind, 'spriteSheet', reason: move.id);
       expect(effect.spriteSheet, isNotNull, reason: move.id);
       // シートの PNG と JSON が同梱されている

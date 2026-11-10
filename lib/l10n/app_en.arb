@@ -17,7 +17,7 @@
   "reportSheetSubmitting": "Sending",
   "reportSheetSubmit": "Report",
   "reportSheetOtherTrouble": "If you're having any other trouble",
-  "commonCouldNotOpenUrl": "Couldn't open {url}",
+  "commonCouldNotOpenURL": "Couldn't open {url}",
   "commonCancel": "Cancel",
   "commonLevel": "Lv. {level}",
   "settingsTitle": "Settings",

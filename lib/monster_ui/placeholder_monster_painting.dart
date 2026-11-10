@@ -16,10 +16,10 @@ void paintPlaceholderMonster({
   required MonsterDefinition definition,
 }) {
   final bodyColor = elementTypeColor(
-    elementTypeId: definition.elementTypeIds.first,
+    elementTypeID: definition.elementTypeIDs.first,
   );
-  final accentColor = definition.elementTypeIds.length > 1
-      ? elementTypeColor(elementTypeId: definition.elementTypeIds[1])
+  final accentColor = definition.elementTypeIDs.length > 1
+      ? elementTypeColor(elementTypeID: definition.elementTypeIDs[1])
       : Color.lerp(bodyColor, SnapmonColors.background, 0.3)!;
   final shape = fnv1a32(text: definition.id) % _placeholderShapeCount;
   final width = size.width;

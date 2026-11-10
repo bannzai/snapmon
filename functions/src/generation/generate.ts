@@ -16,8 +16,8 @@ const REQUEST_ID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-
 /**
  * `generate` の受け取る data を検査し、生成を始める (callable の本体。テストは依存を差し替えて直接呼ぶ)。
  *
- * 受け取る data: `{ requestId: string (UUID), photoPath: string, maskPath?: string, maskSource?: "ios_subject" | "crop" | "none" }`。
- * `photoPath` は `users/{uid}/photos/{requestId}`、`maskPath` は `users/{uid}/masks/{requestId}` でなければならない
+ * 受け取る data: `{ requestID: string (UUID), photoPath: string, maskPath?: string, maskSource?: "ios_subject" | "crop" | "none" }`。
+ * `photoPath` は `users/{uid}/photos/{requestID}`、`maskPath` は `users/{uid}/masks/{requestID}` でなければならない
  * (Admin SDK は Storage の Rules を通らないため、他人の写真を読ませないようパスを本人と要求 ID に固定する)。
  * `maskSource` は `maskPath` を渡す時は `ios_subject` か `crop` を必ず渡し、渡さない時は省くか `none` にする
  * (2026-10-28 より前の端末は `maskPath` も `maskSource` も送らないため、どちらも無い呼び出しはマスク無しとして受け付ける)。
@@ -30,20 +30,20 @@ export async function handleGenerateRequest(dependencies: GenerationDependencies
     throw new HttpsError("unauthenticated", "匿名ログインの後に呼んでください");
   }
   const uid = request.auth.uid;
-  const { requestId, photoPath, maskPath, maskSource } = (request.data ?? {}) as {
-    requestId?: unknown;
+  const { requestID, photoPath, maskPath, maskSource } = (request.data ?? {}) as {
+    requestID?: unknown;
     photoPath?: unknown;
     maskPath?: unknown;
     maskSource?: unknown;
   };
-  if (typeof requestId !== "string" || !REQUEST_ID_PATTERN.test(requestId)) {
-    throw new HttpsError("invalid-argument", "requestId を UUID の文字列で渡してください");
+  if (typeof requestID !== "string" || !REQUEST_ID_PATTERN.test(requestID)) {
+    throw new HttpsError("invalid-argument", "requestID を UUID の文字列で渡してください");
   }
-  if (photoPath !== `users/${uid}/photos/${requestId}`) {
-    throw new HttpsError("invalid-argument", "photoPath は users/{uid}/photos/{requestId} にしてください");
+  if (photoPath !== `users/${uid}/photos/${requestID}`) {
+    throw new HttpsError("invalid-argument", "photoPath は users/{uid}/photos/{requestID} にしてください");
   }
-  if (maskPath !== undefined && maskPath !== null && maskPath !== `users/${uid}/masks/${requestId}`) {
-    throw new HttpsError("invalid-argument", "maskPath は users/{uid}/masks/{requestId} にしてください");
+  if (maskPath !== undefined && maskPath !== null && maskPath !== `users/${uid}/masks/${requestID}`) {
+    throw new HttpsError("invalid-argument", "maskPath は users/{uid}/masks/{requestID} にしてください");
   }
   const hasMask = typeof maskPath === "string";
   if (hasMask ? maskSource !== "ios_subject" && maskSource !== "crop" : maskSource !== undefined && maskSource !== null && maskSource !== "none") {
@@ -52,7 +52,7 @@ export async function handleGenerateRequest(dependencies: GenerationDependencies
   try {
     return await startGeneration(dependencies, {
       uid,
-      requestId,
+      requestID,
       photoPath,
       maskPath: hasMask ? maskPath : null,
       maskSource: hasMask ? (maskSource as MaskSource) : "none",

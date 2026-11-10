@@ -40,27 +40,27 @@ const elementFalse = [];
 const statGrades = {};
 /** 見本ごと・回ごとに、本番の規則 (master の elementSelection) で選ばれる属性と、確率 0.1 以上の属性。属性の受け皿を目で確かめるための記録 */
 const elementSelections = {};
-for (const [sampleId, label] of Object.entries(labels.elements)) {
+for (const [sampleID, label] of Object.entries(labels.elements)) {
   for (let round = 0; round < REPEAT_COUNT; round++) {
     const response = await ask(
-      jev.buildJudgeRequest({ description: descriptions[sampleId].description, elementTypes: master.elementTypes, moves: master.moves, statGrades: master.statGrades }),
+      jev.buildJudgeRequest({ description: descriptions[sampleID].description, elementTypes: master.elementTypes, moves: master.moves, statGrades: master.statGrades }),
     );
     const judged = jev.readJudgeResponse({ response, statGrades: master.statGrades });
-    elementSelections[sampleId] = [
-      ...(elementSelections[sampleId] ?? []),
+    elementSelections[sampleID] = [
+      ...(elementSelections[sampleID] ?? []),
       {
-        selected: monsterStats.selectElementTypeIds({ elementProbabilities: judged.elementProbabilities, master }),
+        selected: monsterStats.selectElementTypeIDs({ elementProbabilities: judged.elementProbabilities, master }),
         probabilities: Object.fromEntries(Object.entries(judged.elementProbabilities).filter(([, probability]) => probability >= 0.1)),
       },
     ];
-    for (const [elementTypeId, probability] of Object.entries(judged.elementProbabilities)) {
-      if (label.expected.includes(elementTypeId)) {
-        elementTrue.push({ sampleId, round, elementTypeId, probability });
-      } else if (!label.acceptable.includes(elementTypeId)) {
-        elementFalse.push({ sampleId, round, elementTypeId, probability });
+    for (const [elementTypeID, probability] of Object.entries(judged.elementProbabilities)) {
+      if (label.expected.includes(elementTypeID)) {
+        elementTrue.push({ sampleID, round, elementTypeID, probability });
+      } else if (!label.acceptable.includes(elementTypeID)) {
+        elementFalse.push({ sampleID, round, elementTypeID, probability });
       }
     }
-    statGrades[sampleId] = [...(statGrades[sampleId] ?? []), judged.statGradeIds];
+    statGrades[sampleID] = [...(statGrades[sampleID] ?? []), judged.statGradeIDs];
   }
 }
 
@@ -68,21 +68,21 @@ for (const [sampleId, label] of Object.entries(labels.elements)) {
 // (向きで否定が 0.2 ほど変わったため。https://github.com/bannzai/snapmon/issues/74 )
 const dedupeRows = [];
 for (const [kind, pairs] of [["same", labels.dedupe.same], ["differentSameKind", labels.dedupe.differentSameKind], ["differentKind", labels.dedupe.differentKind]]) {
-  for (const [leftId, rightId] of pairs.flatMap(([left, right]) => [[left, right], [right, left]])) {
+  for (const [leftID, rightID] of pairs.flatMap(([left, right]) => [[left, right], [right, left]])) {
     for (let round = 0; round < REPEAT_COUNT; round++) {
       const [response] = await Promise.all(
-        jev.buildDedupeRequests({ description: descriptions[leftId].description, candidates: [{ candidateId: rightId, description: descriptions[rightId].description }] }).map(ask),
+        jev.buildDedupeRequests({ description: descriptions[leftID].description, candidates: [{ candidateID: rightID, description: descriptions[rightID].description }] }).map(ask),
       );
-      dedupeRows.push({ kind, leftId, rightId, round, same: response.answers.same__0.noul, different: response.answers.different__0.noul });
+      dedupeRows.push({ kind, leftID, rightID, round, same: response.answers.same__0.noul, different: response.answers.different__0.noul });
     }
   }
 }
 
 // 分類: 上位 3 件を目視用に出す (閾値は持たない)
 const categories = {};
-for (const sampleId of Object.keys(descriptions)) {
-  const response = await ask(jev.buildClassifyRequest({ description: descriptions[sampleId].description, visionLabels: [], subjectCategories: master.subjectCategories }));
-  categories[sampleId] = jev.topCategoryIds({ response, count: 3 });
+for (const sampleID of Object.keys(descriptions)) {
+  const response = await ask(jev.buildClassifyRequest({ description: descriptions[sampleID].description, visionLabels: [], subjectCategories: master.subjectCategories }));
+  categories[sampleID] = jev.topCategoryIDs({ response, count: 3 });
 }
 
 const minimum = (rows, key) => rows.reduce((best, row) => (row[key] < best[key] ? row : best));

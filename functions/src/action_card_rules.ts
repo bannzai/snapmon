@@ -49,35 +49,35 @@ const RANK_2_MINIMUM_POWER = 70;
 /** 商品の識別子の接頭辞とランク。識別子の残り (価格の `_100yen`・`_150yen`) は見ない (Google Play で 100 円を設定できない時に 150 円へ変えるため。#271)。 */
 const ACTION_CARD_PRODUCT_ID_PATTERN = /^snapmon_actioncardrank([123])_/;
 
-/** [productId] が Action Card の商品ならそのランク、それ以外は undefined。 */
-export function actionCardRankOfProduct(productId: string | null): MoveRank | undefined {
-  const match = productId === null ? null : ACTION_CARD_PRODUCT_ID_PATTERN.exec(productId);
+/** [productID] が Action Card の商品ならそのランク、それ以外は undefined。 */
+export function actionCardRankOfProduct(productID: string | null): MoveRank | undefined {
+  const match = productID === null ? null : ACTION_CARD_PRODUCT_ID_PATTERN.exec(productID);
   return match ? (Number(match[1]) as MoveRank) : undefined;
 }
 
 /**
- * [learnset] と [actionCardMoveIds] のモンスターが [level] で使える技 (技の枠) の ID を、枠の順で返す。
- * 枠は「[learnset] のうち開放レベルが [level] 以下の技を一覧の順に並べ、[actionCardMoveIds] を覚えさせた順で続けた列」の後ろ
- * [MAXIMUM_EQUIPPED_MOVE_COUNT] 個。[actionCardMoveIds] に入った技は learnset 側の列から外す (同じ技が枠に 2 つ並ばないようにし、
+ * [learnset] と [actionCardMoveIDs] のモンスターが [level] で使える技 (技の枠) の ID を、枠の順で返す。
+ * 枠は「[learnset] のうち開放レベルが [level] 以下の技を一覧の順に並べ、[actionCardMoveIDs] を覚えさせた順で続けた列」の後ろ
+ * [MAXIMUM_EQUIPPED_MOVE_COUNT] 個。[actionCardMoveIDs] に入った技は learnset 側の列から外す (同じ技が枠に 2 つ並ばないようにし、
  * 覚えさせた技を一番新しい技として扱うため。documents/game-rules.md「技」)。
  * lib/domain/battle/battle_engine.dart の `equippedLearnsetEntries` と同じ技を返す (共通のテストケースは test/fixtures/equipped_move_cases.json)。
  */
-export function equippedMoveIds({
+export function equippedMoveIDs({
   learnset,
   level,
-  actionCardMoveIds,
+  actionCardMoveIDs,
 }: {
   learnset: LearnsetEntry[];
   level: number;
-  actionCardMoveIds: string[];
+  actionCardMoveIDs: string[];
 }): string[] {
-  const moveIds = [
+  const moveIDs = [
     ...learnset
-      .filter((learnsetEntry) => learnsetEntry.unlockLevel <= level && !actionCardMoveIds.includes(learnsetEntry.moveId))
-      .map((learnsetEntry) => learnsetEntry.moveId),
-    ...actionCardMoveIds,
+      .filter((learnsetEntry) => learnsetEntry.unlockLevel <= level && !actionCardMoveIDs.includes(learnsetEntry.moveID))
+      .map((learnsetEntry) => learnsetEntry.moveID),
+    ...actionCardMoveIDs,
   ];
-  return moveIds.slice(Math.max(0, moveIds.length - MAXIMUM_EQUIPPED_MOVE_COUNT));
+  return moveIDs.slice(Math.max(0, moveIDs.length - MAXIMUM_EQUIPPED_MOVE_COUNT));
 }
 
 /**
@@ -95,19 +95,19 @@ export function fallbackMoveRank(move: MasterMove): MoveRank {
 }
 
 /**
- * [moves] (買える技) のランクを決める。[moves] を [usageCountByMoveId] の使用回数の多い順 (同じ回数は技の ID の順) に並べ、
+ * [moves] (買える技) のランクを決める。[moves] を [usageCountByMoveID] の使用回数の多い順 (同じ回数は技の ID の順) に並べ、
  * [moves] の数の [RANK_3_USAGE_PERCENT]% (切り捨て) までをランク 3、[RANK_3_USAGE_PERCENT] + [RANK_2_USAGE_PERCENT]% (切り捨て) までを
  * ランク 2、残りをランク 1 にする。ただし使用回数が 0 の技は、並びの位置に関係なく [fallbackMoveRank] で決める
  * (issue #271 の「上位 20% をランク 3」と「使用回数が 0 の技は技の段階で決める」の両方をそのまま満たすため)。
  */
 export function computeMoveRanks({
   moves,
-  usageCountByMoveId,
+  usageCountByMoveID,
 }: {
   moves: MasterMove[];
-  usageCountByMoveId: Record<string, number>;
+  usageCountByMoveID: Record<string, number>;
 }): Record<string, MoveRank> {
-  const usageCountOf = (move: MasterMove) => (Object.hasOwn(usageCountByMoveId, move.id) ? usageCountByMoveId[move.id] : 0);
+  const usageCountOf = (move: MasterMove) => (Object.hasOwn(usageCountByMoveID, move.id) ? usageCountByMoveID[move.id] : 0);
   return Object.fromEntries(
     [...moves]
       .sort((left, right) => usageCountOf(right) - usageCountOf(left) || (left.id < right.id ? -1 : left.id > right.id ? 1 : 0))

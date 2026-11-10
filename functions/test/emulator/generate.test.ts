@@ -30,8 +30,8 @@ import type { AnnotateImage, VisionAnnotation } from "../../src/generation/visio
 // generate の本体 (handleGenerateRequest) を Firestore・Storage の Emulator に対して、外部の API (Vision・Claude・Jev) をモックにして呼ぶ。
 // モックの呼び出し回数で、同じ要求の 2 回目や再試行が有料の API を呼び直さないことを確かめる。
 
-const projectId = "demo-snapmon";
-const app = getApps().find((existing) => existing.name === "generate-test") ?? initializeApp({ projectId }, "generate-test");
+const projectID = "demo-snapmon";
+const app = getApps().find((existing) => existing.name === "generate-test") ?? initializeApp({ projectId: projectID }, "generate-test");
 const firestore = getFirestore(app);
 const bucket = getStorage(app).bucket("snapmon-prod-storage");
 const master = JSON.parse(readFileSync(path.join(__dirname, "..", "..", "..", "assets", "master", "master.json"), "utf8")) as Master;
@@ -48,7 +48,7 @@ afterAll(async () => {
 });
 
 beforeEach(async () => {
-  await fetch(`http://127.0.0.1:8080/emulator/v1/projects/${projectId}/databases/(default)/documents`, { method: "DELETE" });
+  await fetch(`http://127.0.0.1:8080/emulator/v1/projects/${projectID}/databases/(default)/documents`, { method: "DELETE" });
   await firestore.doc(`master/${master.version}`).set(master);
   const [files] = await bucket.getFiles();
   await Promise.all(files.map((file) => file.delete({ ignoreNotFound: true })));
@@ -177,14 +177,14 @@ function createMocks({
 
 /** 本人の写真を Storage に置き、generate の data を返す。 */
 async function uploadPhoto({ uid, photo }: { uid: string; photo: Buffer }) {
-  const requestId = randomUUID();
-  const photoPath = `users/${uid}/photos/${requestId}`;
+  const requestID = randomUUID();
+  const photoPath = `users/${uid}/photos/${requestID}`;
   await bucket.file(photoPath).save(photo, { contentType: "image/jpeg", resumable: false });
-  return { requestId, photoPath };
+  return { requestID, photoPath };
 }
 
-function photoFixture(sampleId: string): Buffer {
-  return readFileSync(path.join(__dirname, "..", "fixtures", "calibration", "photos", `${sampleId}.jpg`));
+function photoFixture(sampleID: string): Buffer {
+  return readFileSync(path.join(__dirname, "..", "fixtures", "calibration", "photos", `${sampleID}.jpg`));
 }
 
 /** 紙に描いた絵の画像 (fixtures/illustration/)。 */
@@ -197,8 +197,8 @@ function signedInRequest({ uid, data }: { uid: string; data: unknown }) {
   return { auth: { uid, token: {} } as never, data };
 }
 
-async function generationRecord({ uid, requestId }: { uid: string; requestId: string }): Promise<GenerationRecord> {
-  return (await firestore.doc(`users/${uid}/generations/${requestId}`).get()).data() as GenerationRecord;
+async function generationRecord({ uid, requestID }: { uid: string; requestID: string }): Promise<GenerationRecord> {
+  return (await firestore.doc(`users/${uid}/generations/${requestID}`).get()).data() as GenerationRecord;
 }
 
 /** メソッドを本物の対象に束縛して返す Proxy の get (Firestore と Transaction は private な状態を持ち、Proxy を this にすると動かないため)。 */
@@ -264,7 +264,7 @@ function writeAfterExhaustedFirestore(concurrentWrite: () => Promise<unknown>): 
 }
 
 describe("generate", () => {
-  it("写真から 1 体を保存し、同じ requestId の 2 回目は API を呼ばずに保存済みの結果を返す", async () => {
+  it("写真から 1 体を保存し、同じ requestID の 2 回目は API を呼ばずに保存済みの結果を返す", async () => {
     const mocks = createMocks();
     const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
     const first = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data }));
@@ -273,20 +273,20 @@ describe("generate", () => {
     expect(second).toEqual(first);
     expect(mocks.calls).toEqual({ vision: 1, describe: 1, propose: 0, jev: { classify: 1, judge: 1 } });
 
-    const monster = (await firestore.doc(`users/alice/monsters/${first.monsterId}`).get()).data() as MonsterDocument;
+    const monster = (await firestore.doc(`users/alice/monsters/${first.monsterID}`).get()).data() as MonsterDocument;
     expect(monster.definition.name).toBe(descriptions["01"].name);
-    expect(monster.definition.elementTypeIds).toEqual(["steel"]);
+    expect(monster.definition.elementTypeIDs).toEqual(["steel"]);
     // Lv.1 は自分の属性の段階 1 の技 2 つと、別の属性の段階 1 の技 2 つ (#224)。確率が同じ技・属性の並びは説明文で決まる (#257)
-    const startingMoveIds = monster.definition.learnset.filter((entry) => entry.unlockLevel === 1).map((entry) => entry.moveId);
-    expect(startingMoveIds).toHaveLength(4);
-    expect(startingMoveIds.slice(0, 2).every((moveId) => /^steel_(1[b-g]?|p1)$/.test(moveId))).toBe(true);
-    expect(startingMoveIds.slice(2).every((moveId) => /^[a-z]+_(1[b-g]?|p1)$/.test(moveId) && !moveId.startsWith("steel_"))).toBe(true);
+    const startingMoveIDs = monster.definition.learnset.filter((entry) => entry.unlockLevel === 1).map((entry) => entry.moveID);
+    expect(startingMoveIDs).toHaveLength(4);
+    expect(startingMoveIDs.slice(0, 2).every((moveID) => /^steel_(1[b-g]?|p1)$/.test(moveID))).toBe(true);
+    expect(startingMoveIDs.slice(2).every((moveID) => /^[a-z]+_(1[b-g]?|p1)$/.test(moveID) && !moveID.startsWith("steel_"))).toBe(true);
     expect(monster.definition.baseStats).toEqual({ hitPoints: 80, attack: 80, defense: 80, speed: 80, accuracy: 80 });
-    expect(monster.categoryIds[0]).toBe("tableware");
-    const [artExists] = await bucket.file(`monsters/${first.monsterId}/art.png`).exists();
+    expect(monster.categoryIDs[0]).toBe("tableware");
+    const [artExists] = await bucket.file(`monsters/${first.monsterID}/art.png`).exists();
     expect(artExists).toBe(true);
     // 中間の切り出し画像は saved で消し、元の写真は本人の図鑑のために残す
-    expect((await bucket.file(`users/alice/generations/${data.requestId}/cutout.png`).exists())[0]).toBe(false);
+    expect((await bucket.file(`users/alice/generations/${data.requestID}/cutout.png`).exists())[0]).toBe(false);
     expect((await bucket.file(data.photoPath).exists())[0]).toBe(true);
     // ロックは外れている
     expect((await firestore.doc("users/alice").get()).get("generationLock")).toBeUndefined();
@@ -312,7 +312,7 @@ describe("generate", () => {
     expect(warnings.map((warning) => warning.message)).toEqual([]);
   });
 
-  it("同じ写真を別の requestId で送ると、新しいレコードを作らず先の結果を返す", async () => {
+  it("同じ写真を別の requestID で送ると、新しいレコードを作らず先の結果を返す", async () => {
     const mocks = createMocks();
     const firstData = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
     const first = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data: firstData }));
@@ -326,11 +326,11 @@ describe("generate", () => {
     // 写真を消した後に同じ要求 ID で再送されても、使い回し先の結果を返す
     expect(await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data: secondData }))).toEqual(first);
     // 消し損ねた時のために、消すタスクも積む。タスクはレコードの無い要求の写真だけを消す
-    expect(mocks.enqueued).toContainEqual(expect.objectContaining({ requestId: secondData.requestId, purpose: "discard" }));
+    expect(mocks.enqueued).toContainEqual(expect.objectContaining({ requestID: secondData.requestID, purpose: "discard" }));
     await bucket.file(secondData.photoPath).save(photoFixture("01"), { contentType: "image/jpeg", resumable: false });
-    await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: secondData.requestId, purpose: "discard" });
+    await resumeGeneration(mocks.dependencies, { uid: "alice", requestID: secondData.requestID, purpose: "discard" });
     expect((await bucket.file(secondData.photoPath).exists())[0]).toBe(false);
-    await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: firstData.requestId, purpose: "discard" });
+    await resumeGeneration(mocks.dependencies, { uid: "alice", requestID: firstData.requestID, purpose: "discard" });
     expect((await bucket.file(firstData.photoPath).exists())[0]).toBe(true);
   });
 
@@ -341,7 +341,7 @@ describe("generate", () => {
     const secondMocks = createMocks({ description: descriptions["01b"], jev: { dedupe: { same: 0.9, different: 0.05 } } });
     const secondData = await uploadPhoto({ uid: "alice", photo: photoFixture("01b") });
     const second = await handleGenerateRequest(secondMocks.dependencies, signedInRequest({ uid: "alice", data: secondData }));
-    expect(second).toMatchObject({ status: "duplicate", monsterId: first.monsterId });
+    expect(second).toMatchObject({ status: "duplicate", monsterID: first.monsterID });
     expect(secondMocks.calls.jev).toEqual({ classify: 1, dedupe: 1 });
     // 重複の写真は消す
     expect((await bucket.file(secondData.photoPath).exists())[0]).toBe(false);
@@ -362,11 +362,11 @@ describe("generate", () => {
     const result = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data: await uploadPhoto({ uid: "alice", photo: illustrationFixture("strawberry_cake") }) }));
     expect(result.status).toBe("saved");
 
-    const monster = (await firestore.doc(`users/alice/monsters/${result.monsterId}`).get()).data() as MonsterDocument;
+    const monster = (await firestore.doc(`users/alice/monsters/${result.monsterID}`).get()).data() as MonsterDocument;
     expect(monster.subjectDescription.what).not.toContain("紙");
     expect(monster.subjectDescription.materials).not.toContain("紙");
     expect(monster.subjectDescription.materials).toContain("食べ物");
-    expect(monster.definition.elementTypeIds).toEqual(["sweets", "fire"]);
+    expect(monster.definition.elementTypeIDs).toEqual(["sweets", "fire"]);
   });
 
   it("同じ種類の別の絵 (いちごとチョコレートのケーキ) は別のモンスターとして保存する (#129)", async () => {
@@ -414,7 +414,7 @@ describe("generate", () => {
     const result = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data }));
     expect(result).toMatchObject({ status: "saved", personDetected: true });
     expect(mocks.calls.describe).toBe(1);
-    expect((await generationRecord({ uid: "alice", requestId: data.requestId })).personDetected).toBe(true);
+    expect((await generationRecord({ uid: "alice", requestID: data.requestID })).personDetected).toBe(true);
   });
 
   it("Claude が人が写っていると答えた画像も生成し、人が写っている印を残す (#198)", async () => {
@@ -449,14 +449,14 @@ describe("generate", () => {
       updatedAt: now,
     });
     const result = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data }));
-    expect(result).toMatchObject({ requestId: data.requestId, status: "saved" });
+    expect(result).toMatchObject({ requestID: data.requestID, status: "saved" });
     expect(mocks.calls.vision).toBe(1);
   });
 
   it("写真が無い要求は、理由の分かるエラー (failed-precondition) にする", async () => {
-    const requestId = randomUUID();
+    const requestID = randomUUID();
     await expect(
-      handleGenerateRequest(createMocks().dependencies, signedInRequest({ uid: "alice", data: { requestId, photoPath: `users/alice/photos/${requestId}` } })),
+      handleGenerateRequest(createMocks().dependencies, signedInRequest({ uid: "alice", data: { requestID, photoPath: `users/alice/photos/${requestID}` } })),
     ).rejects.toMatchObject({ code: "failed-precondition" });
   });
 
@@ -466,20 +466,20 @@ describe("generate", () => {
     const data = await uploadPhoto({ uid: "alice", photo: uniform });
     const result = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data }));
     expect(result.status).toBe("saved");
-    expect(await generationRecord({ uid: "alice", requestId: data.requestId })).toMatchObject({ maskPath: null, maskSource: "none", cutoutCoverage: 1 });
-    const [art] = await bucket.file(`monsters/${result.monsterId}/art.png`).download();
+    expect(await generationRecord({ uid: "alice", requestID: data.requestID })).toMatchObject({ maskPath: null, maskSource: "none", cutoutCoverage: 1 });
+    const [art] = await bucket.file(`monsters/${result.monsterID}/art.png`).download();
     expect(await sharp(art).metadata()).toMatchObject({ width: 640, height: 480 });
   });
 
   it("crop で決めた範囲のマスクはその範囲で切り出し、写真全体を範囲にしても拒否しない", async () => {
     const mocks = createMocks();
     const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
-    const maskPath = `users/alice/masks/${data.requestId}`;
+    const maskPath = `users/alice/masks/${data.requestID}`;
     const fullMask = await sharp({ create: { width: 64, height: 48, channels: 3, background: "#ffffff" } }).png().toBuffer();
     await bucket.file(maskPath).save(fullMask, { contentType: "image/png", resumable: false });
     const result = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data: { ...data, maskPath, maskSource: "crop" } }));
     expect(result.status).toBe("saved");
-    expect(await generationRecord({ uid: "alice", requestId: data.requestId })).toMatchObject({ maskPath, maskSource: "crop", cutoutCoverage: 1 });
+    expect(await generationRecord({ uid: "alice", requestID: data.requestID })).toMatchObject({ maskPath, maskSource: "crop", cutoutCoverage: 1 });
   });
 
   it("iOS の OS の切り出しのマスクは被写体の部分だけを絵にし、マスクの出どころを ios_subject と記録する", async () => {
@@ -487,7 +487,7 @@ describe("generate", () => {
     const photo = photoFixture("01");
     const { width, height } = await sharp(photo).metadata();
     const data = await uploadPhoto({ uid: "alice", photo });
-    const maskPath = `users/alice/masks/${data.requestId}`;
+    const maskPath = `users/alice/masks/${data.requestID}`;
     const mask = await sharp({ create: { width: width!, height: height!, channels: 3, background: "#000000" } })
       .composite([{ input: { create: { width: Math.round(width! / 2), height: Math.round(height! / 2), channels: 3, background: "#ffffff" } }, left: Math.round(width! / 4), top: Math.round(height! / 4) }])
       .png()
@@ -495,14 +495,14 @@ describe("generate", () => {
     await bucket.file(maskPath).save(mask, { contentType: "image/png", resumable: false });
     const result = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data: { ...data, maskPath, maskSource: "ios_subject" } }));
     expect(result.status).toBe("saved");
-    const record = await generationRecord({ uid: "alice", requestId: data.requestId });
+    const record = await generationRecord({ uid: "alice", requestID: data.requestID });
     expect(record).toMatchObject({ maskSource: "ios_subject" });
     expect(record.cutoutCoverage).toBeCloseTo(0.25, 1);
   });
 
   it("maskSource がマスクの有無と合わない呼び出しは invalid-argument にする", async () => {
     const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
-    const maskPath = `users/alice/masks/${data.requestId}`;
+    const maskPath = `users/alice/masks/${data.requestID}`;
     for (const invalid of [{ ...data, maskPath }, { ...data, maskPath, maskSource: "none" }, { ...data, maskSource: "crop" }, { ...data, maskSource: "server" }]) {
       await expect(handleGenerateRequest(createMocks().dependencies, signedInRequest({ uid: "alice", data: invalid }))).rejects.toMatchObject({ code: "invalid-argument" });
     }
@@ -513,31 +513,31 @@ describe("generate", () => {
     const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
     const pending = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data }));
     expect(pending.status).toBe("pending_judge");
-    expect(await generationRecord({ uid: "alice", requestId: data.requestId })).toMatchObject({ status: "pending_judge", completedStage: "dedupe" });
+    expect(await generationRecord({ uid: "alice", requestID: data.requestID })).toMatchObject({ status: "pending_judge", completedStage: "dedupe" });
     expect(mocks.enqueued).toContainEqual({
       uid: "alice",
-      requestId: data.requestId,
+      requestID: data.requestID,
       purpose: "judge",
       delaySeconds: JUDGE_RETRY_INTERVAL_SECONDS,
       judgeAttempt: 0,
-      taskId: `alice-${data.requestId}-judge-0`,
+      taskID: `alice-${data.requestID}-judge-0`,
     });
     // 判定待ちの間はロックを外し、同じ uid の別の生成を止めない
     expect((await firestore.doc("users/alice").get()).get("generationLock")).toBeUndefined();
 
     // 1 回目の再試行でも Jev が答えず、もう一度判定待ちになる
-    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "judge", judgeAttempt: 0 })).status).toBe("pending_judge");
+    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestID: data.requestID, purpose: "judge", judgeAttempt: 0 })).status).toBe("pending_judge");
     // 進め終えた回のタスクがもう一度届いても、Jev を呼ばない
-    await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "judge", judgeAttempt: 0 });
+    await resumeGeneration(mocks.dependencies, { uid: "alice", requestID: data.requestID, purpose: "judge", judgeAttempt: 0 });
     expect(mocks.calls.jev.judge).toBe(2);
 
     mocks.jevBehavior.unavailableFor.clear();
     // 予約切れの引き継ぎのタスクは判定待ちを進めない (1 時間おきの系列を 1 つにするため)
-    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "lease" })).status).toBe("pending_judge");
-    const resumed = await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "judge", judgeAttempt: 1 });
+    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestID: data.requestID, purpose: "lease" })).status).toBe("pending_judge");
+    const resumed = await resumeGeneration(mocks.dependencies, { uid: "alice", requestID: data.requestID, purpose: "judge", judgeAttempt: 1 });
     expect(resumed.status).toBe("saved");
     expect(mocks.calls).toMatchObject({ vision: 1, describe: 1, jev: { classify: 1, judge: 3 } });
-    expect((await generationRecord({ uid: "alice", requestId: data.requestId })).judgeRetryCount).toBe(2);
+    expect((await generationRecord({ uid: "alice", requestID: data.requestID })).judgeRetryCount).toBe(2);
   });
 
   it("Claude の一時的なエラーで落ちた生成は、再試行のタスクが済んだ段階を飛ばして続きから完了する", async () => {
@@ -545,10 +545,10 @@ describe("generate", () => {
     const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
     // 再試行に回した生成は、クライアントには処理中として返す (同じ要求 ID で問い合わせ直せばよい)
     expect((await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data }))).status).toBe("processing");
-    expect(await generationRecord({ uid: "alice", requestId: data.requestId })).toMatchObject({ status: "processing", completedStage: "cutout" });
-    expect(mocks.enqueued.at(-1)).toEqual({ uid: "alice", requestId: data.requestId, purpose: "lease", delaySeconds: 60 });
+    expect(await generationRecord({ uid: "alice", requestID: data.requestID })).toMatchObject({ status: "processing", completedStage: "cutout" });
+    expect(mocks.enqueued.at(-1)).toEqual({ uid: "alice", requestID: data.requestID, purpose: "lease", delaySeconds: 60 });
 
-    const resumed = await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "lease" });
+    const resumed = await resumeGeneration(mocks.dependencies, { uid: "alice", requestID: data.requestID, purpose: "lease" });
     expect(resumed.status).toBe("saved");
     expect(mocks.calls).toMatchObject({ vision: 1, describe: 2 });
     // 引き継いだ実行にも、予約切れを引き継ぐタスクを積む
@@ -559,8 +559,8 @@ describe("generate", () => {
     const mocks = createMocks({ describeFailureCount: 2 });
     const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
     expect((await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data }))).status).toBe("processing");
-    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "lease" })).status).toBe("processing");
-    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "lease" })).status).toBe("saved");
+    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestID: data.requestID, purpose: "lease" })).status).toBe("processing");
+    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestID: data.requestID, purpose: "lease" })).status).toBe("saved");
   });
 
   it("予約の期限を過ぎて別の実行に引き継がれた後は、古い実行が段階の結果も終了状態も書かない", async () => {
@@ -569,12 +569,12 @@ describe("generate", () => {
     const describe = mocks.dependencies.describeSubject;
     mocks.dependencies.describeSubject = async (cutout) => {
       // Claude の応答を待っている間に、引き継いだ実行が保存まで済ませた状態を作る
-      await firestore.doc(`users/alice/generations/${data.requestId}`).update({ leaseToken: "taken-over", status: "saved" });
+      await firestore.doc(`users/alice/generations/${data.requestID}`).update({ leaseToken: "taken-over", status: "saved" });
       return describe(cutout);
     };
     const result = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data }));
     expect(result.status).toBe("saved");
-    expect(await generationRecord({ uid: "alice", requestId: data.requestId })).toMatchObject({ status: "saved", leaseToken: "taken-over" });
+    expect(await generationRecord({ uid: "alice", requestID: data.requestID })).toMatchObject({ status: "saved", leaseToken: "taken-over" });
   });
 
   it("後から受け付けて dedupe を済ませた保存前の生成も、先の生成の候補にする", async () => {
@@ -586,15 +586,15 @@ describe("generate", () => {
     mocks.jevBehavior.unavailableFor = new Set(["judge"]);
     const laterData = await uploadPhoto({ uid: "alice", photo: photoFixture("01b") });
     expect((await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data: laterData }))).status).toBe("pending_judge");
-    expect((await generationRecord({ uid: "alice", requestId: laterData.requestId })).completedStage).toBe("dedupe");
+    expect((await generationRecord({ uid: "alice", requestID: laterData.requestID })).completedStage).toBe("dedupe");
     // 先の生成が再開すると、後の生成を待つ (二重に保存しない)
     mocks.jevBehavior.unavailableFor = new Set();
-    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: earlierData.requestId, purpose: "judge", judgeAttempt: 0 })).status).toBe("pending_judge");
-    const later = await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: laterData.requestId, purpose: "judge", judgeAttempt: 0 });
+    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestID: earlierData.requestID, purpose: "judge", judgeAttempt: 0 })).status).toBe("pending_judge");
+    const later = await resumeGeneration(mocks.dependencies, { uid: "alice", requestID: laterData.requestID, purpose: "judge", judgeAttempt: 0 });
     expect(later.status).toBe("saved");
-    expect(await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: earlierData.requestId, purpose: "judge", judgeAttempt: 1 })).toMatchObject({
+    expect(await resumeGeneration(mocks.dependencies, { uid: "alice", requestID: earlierData.requestID, purpose: "judge", judgeAttempt: 1 })).toMatchObject({
       status: "duplicate",
-      monsterId: later.monsterId,
+      monsterID: later.monsterID,
     });
   });
 
@@ -603,18 +603,18 @@ describe("generate", () => {
     const stalledData = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
     await handleGenerateRequest(stalledMocks.dependencies, signedInRequest({ uid: "alice", data: stalledData }));
     // 保存の手前で止まった状態 (judge まで済んだ処理中・予約切れ・ロックなし) を作る
-    await firestore.doc(`users/alice/generations/${stalledData.requestId}`).update({ status: "processing", completedStage: "judge", leaseExpiresAt: Timestamp.fromMillis(0) });
-    const savedMonsterId = (await generationRecord({ uid: "alice", requestId: stalledData.requestId })).monsterId!;
-    await firestore.doc(`users/alice/monsters/${savedMonsterId}`).delete();
+    await firestore.doc(`users/alice/generations/${stalledData.requestID}`).update({ status: "processing", completedStage: "judge", leaseExpiresAt: Timestamp.fromMillis(0) });
+    const savedMonsterID = (await generationRecord({ uid: "alice", requestID: stalledData.requestID })).monsterID!;
+    await firestore.doc(`users/alice/monsters/${savedMonsterID}`).delete();
 
     const mocks = createMocks({ description: descriptions["01b"], jev: { dedupe: { same: 0.9, different: 0.05 } } });
     const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01b") });
     expect((await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data }))).status).toBe("pending_judge");
     expect(mocks.calls.jev.judge).toBeUndefined();
 
-    expect((await resumeGeneration(stalledMocks.dependencies, { uid: "alice", requestId: stalledData.requestId, purpose: "lease" })).status).toBe("saved");
-    const resumed = await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "judge", judgeAttempt: 0 });
-    expect(resumed).toMatchObject({ status: "duplicate", monsterId: savedMonsterId });
+    expect((await resumeGeneration(stalledMocks.dependencies, { uid: "alice", requestID: stalledData.requestID, purpose: "lease" })).status).toBe("saved");
+    const resumed = await resumeGeneration(mocks.dependencies, { uid: "alice", requestID: data.requestID, purpose: "judge", judgeAttempt: 0 });
+    expect(resumed).toMatchObject({ status: "duplicate", monsterID: savedMonsterID });
   });
 
   it("後から受け付けた保存前の生成は候補にせず、先の生成は待たずに保存へ進む (互いに待ち合わない)", async () => {
@@ -622,13 +622,13 @@ describe("generate", () => {
     const earlierData = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
     // 先の生成を judge で止め、dedupe の前 (classify まで済んだ状態) に戻す
     expect((await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data: earlierData }))).status).toBe("pending_judge");
-    await firestore.doc(`users/alice/generations/${earlierData.requestId}`).update({ completedStage: "classify" });
+    await firestore.doc(`users/alice/generations/${earlierData.requestID}`).update({ completedStage: "classify" });
     // 後の生成は先の生成を待つ
     mocks.jevBehavior.unavailableFor = new Set();
     const laterData = await uploadPhoto({ uid: "alice", photo: photoFixture("01b") });
     expect((await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data: laterData }))).status).toBe("pending_judge");
     // 先の生成は後の生成を候補にしないため、待たずに保存される
-    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: earlierData.requestId, purpose: "judge", judgeAttempt: 0 })).status).toBe("saved");
+    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestID: earlierData.requestID, purpose: "judge", judgeAttempt: 0 })).status).toBe("saved");
   });
 
   it("保存の後に中間のファイルを消し損ねても saved のままにし、再試行のタスクが消す", async () => {
@@ -647,11 +647,11 @@ describe("generate", () => {
       },
     });
     expect((await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data }))).status).toBe("saved");
-    const cutoutPath = `users/alice/generations/${data.requestId}/cutout.png`;
+    const cutoutPath = `users/alice/generations/${data.requestID}/cutout.png`;
     expect((await bucket.file(cutoutPath).exists())[0]).toBe(true);
 
     mocks.dependencies.bucket = realBucket;
-    await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "lease" });
+    await resumeGeneration(mocks.dependencies, { uid: "alice", requestID: data.requestID, purpose: "lease" });
     expect((await bucket.file(cutoutPath).exists())[0]).toBe(false);
     expect((await bucket.file(data.photoPath).exists())[0]).toBe(true);
   });
@@ -661,21 +661,21 @@ describe("generate", () => {
     const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
     mocks.dependencies.firestore = failingSavedCommitFirestore();
     expect((await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data }))).status).toBe("processing");
-    const stalled = await generationRecord({ uid: "alice", requestId: data.requestId });
+    const stalled = await generationRecord({ uid: "alice", requestID: data.requestID });
     expect(stalled).toMatchObject({ status: "processing", completedStage: "judge" });
     expect((await firestore.collection("users/alice/monsters").get()).size).toBe(0);
     // ほかの段階の一時的な失敗と同じく、ロックを外して少し後の再試行に回す
     expect((await firestore.doc("users/alice").get()).get("generationLock")).toBeUndefined();
-    expect(mocks.enqueued).toContainEqual({ uid: "alice", requestId: data.requestId, purpose: "lease", delaySeconds: FAILED_STAGE_RETRY_DELAY_SECONDS });
+    expect(mocks.enqueued).toContainEqual({ uid: "alice", requestID: data.requestID, purpose: "lease", delaySeconds: FAILED_STAGE_RETRY_DELAY_SECONDS });
 
     // 予約を切れた扱いにした後に、再試行のタスクが届く
     mocks.dependencies.firestore = firestore;
-    expect(await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "lease" })).toMatchObject({
+    expect(await resumeGeneration(mocks.dependencies, { uid: "alice", requestID: data.requestID, purpose: "lease" })).toMatchObject({
       status: "saved",
-      monsterId: stalled.monsterId,
+      monsterID: stalled.monsterID,
     });
-    expect((await firestore.collection("users/alice/monsters").get()).docs.map((document) => document.id)).toEqual([stalled.monsterId]);
-    expect((await bucket.file(`monsters/${stalled.monsterId}/art.png`).exists())[0]).toBe(true);
+    expect((await firestore.collection("users/alice/monsters").get()).docs.map((document) => document.id)).toEqual([stalled.monsterID]);
+    expect((await bucket.file(`monsters/${stalled.monsterID}/art.png`).exists())[0]).toBe(true);
   });
 
   it("保存の段階で落ち続けて failed になった生成は絵を消し、failed でもモンスターの文書がある生成の絵と元の写真は消さない", async () => {
@@ -683,21 +683,21 @@ describe("generate", () => {
     const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
     mocks.dependencies.firestore = failingSavedCommitFirestore();
     await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data }));
-    const stalled = await generationRecord({ uid: "alice", requestId: data.requestId });
-    expect((await bucket.file(`monsters/${stalled.monsterId}/art.png`).exists())[0]).toBe(true);
+    const stalled = await generationRecord({ uid: "alice", requestID: data.requestID });
+    expect((await bucket.file(`monsters/${stalled.monsterID}/art.png`).exists())[0]).toBe(true);
     // 予約を取る回数の上限に達した後に予約が切れる
-    await firestore.doc(`users/alice/generations/${data.requestId}`).update({ leaseExpiresAt: Timestamp.fromMillis(0), attemptCount: 4 });
+    await firestore.doc(`users/alice/generations/${data.requestID}`).update({ leaseExpiresAt: Timestamp.fromMillis(0), attemptCount: 4 });
     mocks.dependencies.firestore = firestore;
-    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "lease" })).status).toBe("failed");
-    expect((await bucket.file(`monsters/${stalled.monsterId}/art.png`).exists())[0]).toBe(false);
+    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestID: data.requestID, purpose: "lease" })).status).toBe("failed");
+    expect((await bucket.file(`monsters/${stalled.monsterID}/art.png`).exists())[0]).toBe(false);
 
     // モンスターの作成と saved を別々のトランザクションで書いていた版が残し得る、モンスターの文書がある failed のレコード
     const savedData = await uploadPhoto({ uid: "bob", photo: photoFixture("01") });
     const saved = await handleGenerateRequest(createMocks().dependencies, signedInRequest({ uid: "bob", data: savedData }));
-    await firestore.doc(`users/bob/generations/${savedData.requestId}`).update({ status: "failed", filesDeleted: FieldValue.delete() });
-    await resumeGeneration(mocks.dependencies, { uid: "bob", requestId: savedData.requestId, purpose: "lease" });
-    expect((await generationRecord({ uid: "bob", requestId: savedData.requestId })).filesDeleted).toBe(true);
-    expect((await bucket.file(`monsters/${saved.monsterId}/art.png`).exists())[0]).toBe(true);
+    await firestore.doc(`users/bob/generations/${savedData.requestID}`).update({ status: "failed", filesDeleted: FieldValue.delete() });
+    await resumeGeneration(mocks.dependencies, { uid: "bob", requestID: savedData.requestID, purpose: "lease" });
+    expect((await generationRecord({ uid: "bob", requestID: savedData.requestID })).filesDeleted).toBe(true);
+    expect((await bucket.file(`monsters/${saved.monsterID}/art.png`).exists())[0]).toBe(true);
     expect((await bucket.file(savedData.photoPath).exists())[0]).toBe(true);
   });
 
@@ -705,49 +705,49 @@ describe("generate", () => {
     const mocks = createMocks();
     const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
     const saved = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data }));
-    const document = firestore.doc(`users/alice/generations/${data.requestId}`);
+    const document = firestore.doc(`users/alice/generations/${data.requestID}`);
     // 予約の期限を過ぎて上限に達した処理中のレコード。上限の判定の直後に、古い実行が saved を書く
     await document.update({ status: "processing", completedStage: "judge", leaseExpiresAt: Timestamp.fromMillis(0), attemptCount: 4 });
     mocks.dependencies.firestore = writeAfterExhaustedFirestore(() => document.update({ status: "saved", completedStage: "saved" }));
-    expect(await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "lease" })).toMatchObject({
+    expect(await resumeGeneration(mocks.dependencies, { uid: "alice", requestID: data.requestID, purpose: "lease" })).toMatchObject({
       status: "saved",
-      monsterId: saved.monsterId,
+      monsterID: saved.monsterID,
     });
-    expect((await generationRecord({ uid: "alice", requestId: data.requestId })).status).toBe("saved");
+    expect((await generationRecord({ uid: "alice", requestID: data.requestID })).status).toBe("saved");
   });
 
   it("モンスターの文書が既にある処理中の生成は、モンスターを作り直さずに saved にする", async () => {
     const mocks = createMocks();
     const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
     const saved = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data }));
-    const monster = (await firestore.doc(`users/alice/monsters/${saved.monsterId}`).get()).data();
+    const monster = (await firestore.doc(`users/alice/monsters/${saved.monsterID}`).get()).data();
     // モンスターの作成と saved を別々のトランザクションで書いていた版が残し得る、モンスターだけを作って処理中のまま予約が切れたレコード
-    await firestore.doc(`users/alice/generations/${data.requestId}`).update({
+    await firestore.doc(`users/alice/generations/${data.requestID}`).update({
       status: "processing",
       completedStage: "judge",
       leaseExpiresAt: Timestamp.fromMillis(0),
       filesDeleted: FieldValue.delete(),
     });
-    expect(await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "lease" })).toMatchObject({
+    expect(await resumeGeneration(mocks.dependencies, { uid: "alice", requestID: data.requestID, purpose: "lease" })).toMatchObject({
       status: "saved",
-      monsterId: saved.monsterId,
+      monsterID: saved.monsterID,
     });
-    expect((await firestore.collection("users/alice/monsters").get()).docs.map((document) => document.id)).toEqual([saved.monsterId]);
-    expect((await firestore.doc(`users/alice/monsters/${saved.monsterId}`).get()).data()).toEqual(monster);
+    expect((await firestore.collection("users/alice/monsters").get()).docs.map((document) => document.id)).toEqual([saved.monsterID]);
+    expect((await firestore.doc(`users/alice/monsters/${saved.monsterID}`).get()).data()).toEqual(monster);
   });
 
   it("同じ被写体の相手の生成が失敗したら、待っていた生成は保存に進む", async () => {
     const otherData = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
     await handleGenerateRequest(createMocks().dependencies, signedInRequest({ uid: "alice", data: otherData }));
-    await firestore.doc(`users/alice/generations/${otherData.requestId}`).update({ status: "pending_judge" });
-    const savedMonsterId = (await generationRecord({ uid: "alice", requestId: otherData.requestId })).monsterId!;
-    await firestore.doc(`users/alice/monsters/${savedMonsterId}`).delete();
+    await firestore.doc(`users/alice/generations/${otherData.requestID}`).update({ status: "pending_judge" });
+    const savedMonsterID = (await generationRecord({ uid: "alice", requestID: otherData.requestID })).monsterID!;
+    await firestore.doc(`users/alice/monsters/${savedMonsterID}`).delete();
 
     const mocks = createMocks({ description: descriptions["01b"], jev: { dedupe: { same: 0.9, different: 0.05 } } });
     const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01b") });
     expect((await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data }))).status).toBe("pending_judge");
-    await firestore.doc(`users/alice/generations/${otherData.requestId}`).update({ status: "failed" });
-    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "judge", judgeAttempt: 0 })).status).toBe("saved");
+    await firestore.doc(`users/alice/generations/${otherData.requestID}`).update({ status: "failed" });
+    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestID: data.requestID, purpose: "judge", judgeAttempt: 0 })).status).toBe("saved");
   });
 
   it("受け付けた後に写真が差し替えられたら、差し替えた写真を検査せずに使わず failed にする", async () => {
@@ -787,17 +787,17 @@ describe("generate", () => {
     expect(mocks.enqueued.at(-1)).toMatchObject({ purpose: "lease" });
 
     mocks.dependencies.bucket = realBucket;
-    await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "lease" });
+    await resumeGeneration(mocks.dependencies, { uid: "alice", requestID: data.requestID, purpose: "lease" });
     expect((await bucket.file(data.photoPath).exists())[0]).toBe(false);
-    expect((await generationRecord({ uid: "alice", requestId: data.requestId })).filesDeleted).toBe(true);
+    expect((await generationRecord({ uid: "alice", requestID: data.requestID })).filesDeleted).toBe(true);
   });
 
   it("判定待ちの再試行が上限を超えたら failed にする", async () => {
     const mocks = createMocks({ jev: { unavailableFor: new Set(["classify"]) } });
     const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
     await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data }));
-    await firestore.doc(`users/alice/generations/${data.requestId}`).update({ judgeRetryCount: 24 });
-    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestId: data.requestId, purpose: "judge", judgeAttempt: 24 })).status).toBe("failed");
+    await firestore.doc(`users/alice/generations/${data.requestID}`).update({ judgeRetryCount: 24 });
+    expect((await resumeGeneration(mocks.dependencies, { uid: "alice", requestID: data.requestID, purpose: "judge", judgeAttempt: 24 })).status).toBe("failed");
   });
 
   it("どの属性にも当てはまらない時は、Claude の提案から新しい属性を版付きで definitions に保存して使う", async () => {
@@ -805,20 +805,20 @@ describe("generate", () => {
     const result = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data: await uploadPhoto({ uid: "alice", photo: photoFixture("18") }) }));
     expect(result.status).toBe("saved");
     expect(mocks.calls.propose).toBe(1);
-    const monster = (await firestore.doc(`users/alice/monsters/${result.monsterId}`).get()).data() as MonsterDocument;
-    const [elementTypeId] = monster.definition.elementTypeIds;
-    expect(monster.definitionIds).toEqual([elementTypeId]);
-    const definition = (await firestore.doc(`definitions/${elementTypeId}`).get()).data()!;
-    expect(definition).toMatchObject({ version: 1, elementTypes: [{ id: elementTypeId, displayName: "ろう" }] });
+    const monster = (await firestore.doc(`users/alice/monsters/${result.monsterID}`).get()).data() as MonsterDocument;
+    const [elementTypeID] = monster.definition.elementTypeIDs;
+    expect(monster.definitionIDs).toEqual([elementTypeID]);
+    const definition = (await firestore.doc(`definitions/${elementTypeID}`).get()).data()!;
+    expect(definition).toMatchObject({ version: 1, elementTypes: [{ id: elementTypeID, displayName: "ろう" }] });
     expect(definition.moves.map((move: { rationale?: string }) => move.rationale)).toEqual(["ろうの塊でぶつかる技", "溶けたろうで押しつぶす技", "ろうそくの炎ごとはじける技"]);
     // その場で作った属性は段階 1 の技を 1 つしか持たないため、Lv.1 の残りを master の別の属性の段階 1 の技で埋める (確率が同じ属性の並びは説明文で決まる。#257)
-    expect(monster.definition.learnset[0]).toEqual({ moveId: `${elementTypeId}_1`, unlockLevel: 1 });
+    expect(monster.definition.learnset[0]).toEqual({ moveID: `${elementTypeID}_1`, unlockLevel: 1 });
     expect(
-      monster.definition.learnset.slice(1, 4).every((entry) => entry.unlockLevel === 1 && /^[a-z]+_(1[b-g]?|p1)$/.test(entry.moveId)),
+      monster.definition.learnset.slice(1, 4).every((entry) => entry.unlockLevel === 1 && /^[a-z]+_(1[b-g]?|p1)$/.test(entry.moveID)),
     ).toBe(true);
     expect(monster.definition.learnset.slice(4)).toEqual([
-      { moveId: `${elementTypeId}_2`, unlockLevel: 15 },
-      { moveId: `${elementTypeId}_3`, unlockLevel: 100 },
+      { moveID: `${elementTypeID}_2`, unlockLevel: 15 },
+      { moveID: `${elementTypeID}_3`, unlockLevel: 100 },
     ]);
     expect((await firestore.doc("definitionCounters/global").get()).data()).toEqual({ elementCount: 1, moveCount: 3 });
   });
@@ -840,7 +840,7 @@ describe("generate", () => {
     const result = await handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data: await uploadPhoto({ uid: "alice", photo: photoFixture("18") }) }));
     expect(result.status).toBe("saved");
     expect(
-      (await firestore.doc(`definitions/${((await firestore.doc(`users/alice/monsters/${result.monsterId}`).get()).data() as MonsterDocument).definition.elementTypeIds[0]}`).get()).data()!.moves.map((move: Record<string, unknown>) => "rationale" in move)).toEqual([false, false, false]);
+      (await firestore.doc(`definitions/${((await firestore.doc(`users/alice/monsters/${result.monsterID}`).get()).data() as MonsterDocument).definition.elementTypeIDs[0]}`).get()).data()!.moves.map((move: Record<string, unknown>) => "rationale" in move)).toEqual([false, false, false]);
   });
 });
 
@@ -854,7 +854,7 @@ describe("generate の上限と検査", () => {
     await expect(handleGenerateRequest(mocks.dependencies, signedInRequest({ uid: "alice", data }))).rejects.toMatchObject({ code: "resource-exhausted" });
     expect(mocks.calls.vision).toBe(0);
     const [task] = mocks.enqueued;
-    expect(task).toMatchObject({ requestId: data.requestId, purpose: "lease" });
+    expect(task).toMatchObject({ requestID: data.requestID, purpose: "lease" });
     await resumeGeneration(mocks.dependencies, task);
     expect((await bucket.file(data.photoPath).exists())[0]).toBe(false);
   });
@@ -876,7 +876,7 @@ describe("generate の上限と検査", () => {
     const user = (await firestore.doc("users/alice").get()).data()!;
     expect(user.generationTickets).toBe(1);
     expect(user.dailyGeneration).toEqual({ date: today, count: DAILY_GENERATION_LIMIT_PER_USER + 1 });
-    expect((await generationRecord({ uid: "alice", requestId: data.requestId })).usedGenerationTicket).toBe(true);
+    expect((await generationRecord({ uid: "alice", requestID: data.requestID })).usedGenerationTicket).toBe(true);
   });
 
   it("無料の回数が残っている間はチケットを使わない", async () => {
@@ -884,7 +884,7 @@ describe("generate の上限と検査", () => {
     const data = await uploadPhoto({ uid: "alice", photo: photoFixture("01") });
     expect((await handleGenerateRequest(createMocks().dependencies, signedInRequest({ uid: "alice", data }))).status).toBe("saved");
     expect((await firestore.doc("users/alice").get()).get("generationTickets")).toBe(2);
-    expect((await generationRecord({ uid: "alice", requestId: data.requestId })).usedGenerationTicket).toBeUndefined();
+    expect((await generationRecord({ uid: "alice", requestID: data.requestID })).usedGenerationTicket).toBeUndefined();
   });
 
   it("全体の上限に達した時はチケットがあっても生成せず、チケットも減らさない", async () => {
@@ -912,7 +912,7 @@ describe("generate の上限と検査", () => {
   });
 
   it("同じ uid の別の生成が進んでいる間は受け付けない", async () => {
-    await firestore.doc("users/alice").set({ generationLock: { requestId: randomUUID(), expiresAt: Timestamp.fromMillis(Date.now() + 60_000) } }, { merge: true });
+    await firestore.doc("users/alice").set({ generationLock: { requestID: randomUUID(), expiresAt: Timestamp.fromMillis(Date.now() + 60_000) } }, { merge: true });
     await expect(
       handleGenerateRequest(createMocks().dependencies, signedInRequest({ uid: "alice", data: await uploadPhoto({ uid: "alice", photo: photoFixture("01") }) })),
     ).rejects.toMatchObject({ code: "failed-precondition" });

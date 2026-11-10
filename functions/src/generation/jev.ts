@@ -118,21 +118,21 @@ export function buildClassifyRequest({
 }
 
 /** Choice の確率の高い順に分類 ID を上位 `count` 件返す。 */
-export function topCategoryIds({ response, count }: { response: JevResponse; count: number }): string[] {
+export function topCategoryIDs({ response, count }: { response: JevResponse; count: number }): string[] {
   const answer = response.answers.category;
   if (answer?.type !== "choice") {
     throw new Error("Jev の応答に分類の答えがありません");
   }
   return Object.entries(answer.probabilities)
-    .sort(([leftId, left], [rightId, right]) => (left !== right ? right - left : leftId.localeCompare(rightId)))
+    .sort(([leftID, left], [rightID, right]) => (left !== right ? right - left : leftID.localeCompare(rightID)))
     .slice(0, count)
-    .map(([categoryId]) => categoryId);
+    .map(([categoryID]) => categoryID);
 }
 
 /** 同じ被写体の判定の候補 (既存のモンスターか、判定待ちの生成)。 */
 export interface DedupeCandidate {
-  /** 候補の識別子 (モンスターなら monsterId、判定待ちの生成なら `generation:<requestId>`)。 */
-  candidateId: string;
+  /** 候補の識別子 (モンスターなら monsterID、判定待ちの生成なら `generation:<requestID>`)。 */
+  candidateID: string;
   /** 候補の保存済みの説明。 */
   description: SubjectDescription;
 }
@@ -202,7 +202,7 @@ export interface DedupeThresholds {
 export const DEDUPE_THRESHOLDS: DedupeThresholds = { thresholdYes: 0.55, thresholdNo: 0.45 };
 
 /** 同じ個体と判定された候補の識別子を、肯定側の確率の高い順に返す。 */
-export function sameSubjectCandidateIds({
+export function sameSubjectCandidateIDs({
   responses,
   candidates,
   thresholds,
@@ -217,14 +217,14 @@ export function sameSubjectCandidateIds({
       const same = answers[`same__${index}`];
       const different = answers[`different__${index}`];
       return {
-        candidateId: candidate.candidateId,
+        candidateID: candidate.candidateID,
         same: same?.type === "noul" ? same.noul : 0,
         different: different?.type === "noul" ? different.noul : 1,
       };
     })
     .filter(({ same, different }) => same >= thresholds.thresholdYes && different <= thresholds.thresholdNo)
     .sort((left, right) => right.same - left.same)
-    .map(({ candidateId }) => candidateId);
+    .map(({ candidateID }) => candidateID);
 }
 
 /** ステータスごとの Score の問いの基準 (段階 0〜4 が master の statGrades の並びに対応する)。 */
@@ -271,7 +271,7 @@ export function buildJudgeRequest({
   }
   for (const elementType of elementTypes) {
     // 置き換えられた補助技は覚えないため選択肢に入れない (#257)
-    const elementMoves = learnableMoves(moves).filter((move) => move.elementTypeId === elementType.id);
+    const elementMoves = learnableMoves(moves).filter((move) => move.elementTypeID === elementType.id);
     const levelBands = new Set(elementMoves.map((move) => move.learnableLevelMinimum));
     if (levelBands.size === elementMoves.length) {
       continue;
@@ -304,7 +304,7 @@ export function readJudgeResponse({
   statGrades: MasterStatGrade[];
 }): {
   elementProbabilities: Record<string, number>;
-  statGradeIds: Record<(typeof STAT_KINDS)[number], string>;
+  statGradeIDs: Record<(typeof STAT_KINDS)[number], string>;
   moveProbabilitiesByElement: Record<string, Record<string, number>>;
 } {
   const elementProbabilities: Record<string, number> = {};
@@ -337,7 +337,7 @@ export function readJudgeResponse({
   };
   return {
     elementProbabilities,
-    statGradeIds: {
+    statGradeIDs: {
       hitPoints: gradeOf("hitPoints"),
       attack: gradeOf("attack"),
       defense: gradeOf("defense"),

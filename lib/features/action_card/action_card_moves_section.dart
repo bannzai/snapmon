@@ -41,7 +41,7 @@ class _ActionCardMovesSectionState extends State<ActionCardMovesSection> {
   bool _isUpdating = false;
 
   /// 定義の読み直しを頼んだ技 (`refreshDefinitionsForActionCardMoves`)。
-  final Set<String> _requestedMoveIds = {};
+  final Set<String> _requestedMoveIDs = {};
 
   /// 定義に無い技が届いたかを見ている [ActionCardStore]。
   ActionCardStore? _listenedActionCardStore;
@@ -53,7 +53,7 @@ class _ActionCardMovesSectionState extends State<ActionCardMovesSection> {
         refreshDefinitionsForActionCardMoves(
           actionCardStore: actionCardStore,
           dexStore: widget.dexStore,
-          requestedMoveIds: _requestedMoveIds,
+          requestedMoveIDs: _requestedMoveIDs,
         ),
       );
     }
@@ -80,29 +80,29 @@ class _ActionCardMovesSectionState extends State<ActionCardMovesSection> {
     super.dispose();
   }
 
-  /// 図鑑の [monsterId] のモンスター (図鑑にいなければ null)。
-  OwnedMonster? _dexMonster({required String monsterId}) => widget
+  /// 図鑑の [monsterID] のモンスター (図鑑にいなければ null)。
+  OwnedMonster? _dexMonster({required String monsterID}) => widget
       .dexStore
       .monsters
-      .where((monster) => monster.definition.id == monsterId)
+      .where((monster) => monster.definition.id == monsterID)
       .firstOrNull;
 
   /// [update] (teach か forget) を呼び、返った一覧を Firestore から届く前に図鑑へ出す。失敗したらエラーをそのまま出す。
   /// 待っている間に図鑑のそのモンスターが変わった (Firestore の新しい値が届いた) 時は、届いた値の方が新しいため上書きしない。
   /// 図鑑は値が変わるたびに新しい [OwnedMonster] を置くため、呼び出しの前と同じオブジェクトかで見分ける。
-  Future<void> _updateActionCardMoveIds({
+  Future<void> _updateActionCardMoveIDs({
     required Future<List<String>> Function() update,
   }) async {
     final messenger = ScaffoldMessenger.of(context);
-    final monsterId = widget.monster.definition.id;
-    final monsterAtStart = _dexMonster(monsterId: monsterId);
+    final monsterID = widget.monster.definition.id;
+    final monsterAtStart = _dexMonster(monsterID: monsterID);
     setState(() => _isUpdating = true);
     try {
-      final actionCardMoveIds = await update();
-      if (identical(_dexMonster(monsterId: monsterId), monsterAtStart)) {
-        widget.dexStore.updateActionCardMoveIds(
-          monsterId: monsterId,
-          actionCardMoveIds: actionCardMoveIds,
+      final actionCardMoveIDs = await update();
+      if (identical(_dexMonster(monsterID: monsterID), monsterAtStart)) {
+        widget.dexStore.updateActionCardMoveIDs(
+          monsterID: monsterID,
+          actionCardMoveIDs: actionCardMoveIDs,
         );
       }
     } catch (error) {
@@ -137,23 +137,23 @@ class _ActionCardMovesSectionState extends State<ActionCardMovesSection> {
                 key: Key('action-card-teach-${move.id}'),
                 title: Text(move.displayName),
                 subtitle: Text(switch (equippedMoveChanges(
-                  previousMoveIds: equippedLearnsetEntries(
+                  previousMoveIDs: equippedLearnsetEntries(
                     learnset: monster.definition.learnset,
-                    actionCardMoveIds: monster.actionCardMoveIds,
+                    actionCardMoveIDs: monster.actionCardMoveIDs,
                     level: monster.level,
                   ),
-                  newMoveIds: equippedLearnsetEntries(
+                  newMoveIDs: equippedLearnsetEntries(
                     learnset: monster.definition.learnset,
-                    actionCardMoveIds: [...monster.actionCardMoveIds, move.id],
+                    actionCardMoveIDs: [...monster.actionCardMoveIDs, move.id],
                     level: monster.level,
                   ),
-                ).forgottenMoveIds) {
+                ).forgottenMoveIDs) {
                   [] => context.l10n.actionCardTeachNoForgotten,
-                  final forgottenMoveIds => [
-                    for (final moveId in forgottenMoveIds)
+                  final forgottenMoveIDs => [
+                    for (final moveID in forgottenMoveIDs)
                       context.l10n.battleForgotMove(
                         widget.dexStore.definitions
-                            .moveById(moveId: moveId)
+                            .moveByID(moveID: moveID)
                             .displayName,
                       ),
                   ].join('\n'),
@@ -171,14 +171,14 @@ class _ActionCardMovesSectionState extends State<ActionCardMovesSection> {
     final store = ActionCardScope.maybeOf(context);
     final monster = widget.monster;
     final definitions = widget.dexStore.definitions;
-    final movesById = {for (final move in definitions.moves) move.id: move};
+    final movesByID = {for (final move in definitions.moves) move.id: move};
     final isEntryVisible = store?.isScreenEntryVisible ?? false;
-    if (!isEntryVisible && monster.actionCardMoveIds.isEmpty) {
+    if (!isEntryVisible && monster.actionCardMoveIDs.isEmpty) {
       return const SizedBox.shrink();
     }
     final candidateMoves = [
-      for (final moveId in store?.ownedMoveIds ?? const <String>[])
-        if (!monster.actionCardMoveIds.contains(moveId)) ?movesById[moveId],
+      for (final moveID in store?.ownedMoveIDs ?? const <String>[])
+        if (!monster.actionCardMoveIDs.contains(moveID)) ?movesByID[moveID],
     ];
     final l10n = context.l10n;
     return Padding(
@@ -200,33 +200,33 @@ class _ActionCardMovesSectionState extends State<ActionCardMovesSection> {
                 ),
               ),
               const SizedBox(height: 6),
-              if (monster.actionCardMoveIds.isEmpty)
+              if (monster.actionCardMoveIDs.isEmpty)
                 Text(
                   l10n.actionCardTaughtNone,
                   style: SnapmonTextStyles.body.copyWith(
                     color: SnapmonColors.textOnCardBody,
                   ),
                 ),
-              for (final moveId in monster.actionCardMoveIds)
+              for (final moveID in monster.actionCardMoveIDs)
                 Row(
-                  key: Key('action-card-taught-$moveId'),
+                  key: Key('action-card-taught-$moveID'),
                   children: [
                     Expanded(
                       child: Text(
-                        movesById[moveId]?.displayName ?? moveId,
+                        movesByID[moveID]?.displayName ?? moveID,
                         style: SnapmonTextStyles.body.copyWith(
                           color: SnapmonColors.textOnCard,
                         ),
                       ),
                     ),
                     TextButton(
-                      key: Key('action-card-forget-$moveId'),
+                      key: Key('action-card-forget-$moveID'),
                       onPressed: _isUpdating || store == null
                           ? null
-                          : () => _updateActionCardMoveIds(
+                          : () => _updateActionCardMoveIDs(
                               update: () => store.client.forgetActionCardMove(
-                                monsterId: monster.definition.id,
-                                moveId: moveId,
+                                monsterID: monster.definition.id,
+                                moveID: moveID,
                               ),
                             ),
                       // テーマの文字色 (accent) は明るいカードの上で読めないため、カードの上の文字色にする
@@ -250,10 +250,10 @@ class _ActionCardMovesSectionState extends State<ActionCardMovesSection> {
                           if (move == null || !mounted) {
                             return;
                           }
-                          await _updateActionCardMoveIds(
+                          await _updateActionCardMoveIDs(
                             update: () => store.client.teachActionCardMove(
-                              monsterId: monster.definition.id,
-                              moveId: move.id,
+                              monsterID: monster.definition.id,
+                              moveID: move.id,
                             ),
                           );
                         },

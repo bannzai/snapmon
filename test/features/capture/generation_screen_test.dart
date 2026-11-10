@@ -126,64 +126,64 @@ void main() {
         logged.parameters?['step'],
   ];
 
-  /// サーバーが [monsterId] のモンスターを保存して図鑑に届けた後に、[result] を返す生成。
-  Future<GenerationResult> Function({required String requestId})
+  /// サーバーが [monsterID] のモンスターを保存して図鑑に届けた後に、[result] を返す生成。
+  Future<GenerationResult> Function({required String requestID})
   savedGeneration({
-    required String monsterId,
+    required String monsterID,
     required GenerationStatus status,
-    required String? resultRequestId,
-  }) => ({required requestId}) async {
+    required String? resultRequestID,
+  }) => ({required requestID}) async {
     dexStore.applyServerSnapshot(
-      monsters: [generatedWaxMonster(monsterId: monsterId)],
-      partyMonsterIds: null,
+      monsters: [generatedWaxMonster(monsterID: monsterID)],
+      partyMonsterIDs: null,
       definitions: definitionsWithWax(base: sampleData.definitions),
     );
     return GenerationResult(
-      requestId: resultRequestId ?? requestId,
+      requestID: resultRequestID ?? requestID,
       status: status,
-      monsterId: monsterId,
+      monsterID: monsterID,
       rejectionReason: null,
       personDetected: false,
     );
   };
 
-  Future<GenerationResult> unexpectedFetch({required String requestId}) =>
+  Future<GenerationResult> unexpectedFetch({required String requestID}) =>
       throw StateError('fetchGeneration は呼ばない');
 
   /// サーバーが判定を待っている (途中の状態の) 生成。
   Future<GenerationResult> pendingGeneration({
-    required String requestId,
+    required String requestID,
   }) async => GenerationResult(
-    requestId: requestId,
+    requestID: requestID,
     status: GenerationStatus.pendingJudge,
-    monsterId: null,
+    monsterID: null,
     rejectionReason: null,
     personDetected: false,
   );
 
   /// サーバーが段階をやり直している (途中の状態の) 生成。
   Future<GenerationResult> processingGeneration({
-    required String requestId,
+    required String requestID,
   }) async => GenerationResult(
-    requestId: requestId,
+    requestID: requestID,
     status: GenerationStatus.processing,
-    monsterId: null,
+    monsterID: null,
     rejectionReason: null,
     personDetected: false,
   );
 
   /// 呼ばれるたびに [fetches] を順に呼び、使い切った後は最後のものを呼び続ける読み直し。
-  Future<GenerationResult> Function({required String requestId})
+  Future<GenerationResult> Function({required String requestID})
   fetchesInOrder({
     required List<
-      Future<GenerationResult> Function({required String requestId})
+      Future<GenerationResult> Function({required String requestID})
     >
     fetches,
   }) {
     var fetchCount = 0;
-    return ({required requestId}) =>
+    return ({required requestID}) =>
         fetches[(fetchCount++).clamp(0, fetches.length - 1)](
-          requestId: requestId,
+          requestID: requestID,
         );
   }
 
@@ -202,9 +202,9 @@ void main() {
         albumPhoto: null,
         uploadError: null,
         requestGeneration: savedGeneration(
-          monsterId: 'm1',
+          monsterID: 'm1',
           status: GenerationStatus.saved,
-          resultRequestId: null,
+          resultRequestID: null,
         ),
         fetchGeneration: unexpectedFetch,
       ),
@@ -214,8 +214,8 @@ void main() {
     // ろう はモンスターの属性の札と、ろうアタックの属性の札の 2 つ
     expect(find.text('ろう'), findsNWidgets(2));
     expect(find.text('ろうアタック'), findsOneWidget);
-    expect(calls.uploadedRequestIds, ['request-1']);
-    expect(calls.requestedRequestIds, ['request-1']);
+    expect(calls.uploadedRequestIDs, ['request-1']);
+    expect(calls.requestedRequestIDs, ['request-1']);
     expect(calls.loggedEvents, hasLength(1));
     expect(calls.loggedEvents.single.event, AnalyticsEvent.monsterGenerated);
     expect(calls.loggedEvents.single.parameters, {'source': 'album'});
@@ -230,16 +230,16 @@ void main() {
         calls: calls,
         albumPhoto: null,
         uploadError: null,
-        requestGeneration: ({required requestId}) async {
+        requestGeneration: ({required requestID}) async {
           dexStore.applyServerSnapshot(
-            monsters: [generatedWaxMonster(monsterId: 'm1')],
-            partyMonsterIds: null,
+            monsters: [generatedWaxMonster(monsterID: 'm1')],
+            partyMonsterIDs: null,
             definitions: definitionsWithWax(base: sampleData.definitions),
           );
           return GenerationResult(
-            requestId: requestId,
+            requestID: requestID,
             status: GenerationStatus.saved,
-            monsterId: 'm1',
+            monsterID: 'm1',
             rejectionReason: null,
             personDetected: true,
           );
@@ -268,16 +268,16 @@ void main() {
         calls: calls,
         albumPhoto: null,
         uploadError: null,
-        requestGeneration: ({required requestId}) async {
+        requestGeneration: ({required requestID}) async {
           dexStore.applyServerSnapshot(
-            monsters: [generatedWaxMonster(monsterId: 'm1')],
-            partyMonsterIds: null,
+            monsters: [generatedWaxMonster(monsterID: 'm1')],
+            partyMonsterIDs: null,
             definitions: definitionsWithWax(base: sampleData.definitions),
           );
           return GenerationResult(
-            requestId: requestId,
+            requestID: requestID,
             status: GenerationStatus.duplicate,
-            monsterId: 'm1',
+            monsterID: 'm1',
             rejectionReason: null,
             personDetected: true,
           );
@@ -298,9 +298,9 @@ void main() {
         albumPhoto: null,
         uploadError: null,
         requestGeneration: savedGeneration(
-          monsterId: 'm1',
+          monsterID: 'm1',
           status: GenerationStatus.saved,
-          resultRequestId: null,
+          resultRequestID: null,
         ),
         fetchGeneration: unexpectedFetch,
       ),
@@ -324,9 +324,9 @@ void main() {
       uploadError: null,
       createSubjectMask: createSubjectMask,
       requestGeneration: savedGeneration(
-        monsterId: 'm1',
+        monsterID: 'm1',
         status: GenerationStatus.saved,
-        resultRequestId: null,
+        resultRequestID: null,
       ),
       fetchGeneration: unexpectedFetch,
     );
@@ -347,7 +347,7 @@ void main() {
       expect(find.byKey(const Key('cutout-choice-photo')), findsOneWidget);
       expect(find.text('切り抜いた絵で作る'), findsOneWidget);
       expect(find.text('範囲を自分で決める'), findsOneWidget);
-      expect(calls.uploadedRequestIds, isEmpty);
+      expect(calls.uploadedRequestIDs, isEmpty);
       expect(calls.uploadedMasks, isEmpty);
       expect(calls.requestedMaskSources, isEmpty);
     });
@@ -367,7 +367,7 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('あたらしい なかま'), findsOneWidget);
       expect(calls.uploadedMasks, [
-        (requestId: 'request-1', mask: testSubjectMaskBytes),
+        (requestID: 'request-1', mask: testSubjectMaskBytes),
       ]);
       expect(calls.requestedMaskSources, [GenerationMaskSource.iosSubject]);
     });
@@ -388,12 +388,12 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('モンスターにする範囲'), findsOneWidget);
       expect(find.textContaining('自動の切り出しを使えませんでした'), findsNothing);
-      expect(calls.uploadedRequestIds, isEmpty);
+      expect(calls.uploadedRequestIDs, isEmpty);
       await tester.tap(find.text('この範囲で作る'));
       await tester.pumpAndSettle();
       expect(calls.squareMaskCrops, [(left: 5.0, top: 0.0, side: 30.0)]);
       expect(calls.uploadedMasks, [
-        (requestId: 'request-1', mask: testSquareMaskBytes),
+        (requestID: 'request-1', mask: testSquareMaskBytes),
       ]);
       expect(calls.requestedMaskSources, [GenerationMaskSource.crop]);
       expect(find.text('あたらしい なかま'), findsOneWidget);
@@ -414,17 +414,17 @@ void main() {
             subjectMaskCount++;
             return testSubjectMaskBytes;
           },
-          requestGeneration: ({required requestId}) async {
+          requestGeneration: ({required requestID}) async {
             if (++requestCount == 1) {
               throw const GenerationPhotoMissingException(
                 message: '写真が見つかりません',
               );
             }
             return savedGeneration(
-              monsterId: 'm1',
+              monsterID: 'm1',
               status: GenerationStatus.saved,
-              resultRequestId: null,
-            )(requestId: requestId);
+              resultRequestID: null,
+            )(requestID: requestID);
           },
           fetchGeneration: unexpectedFetch,
         ),
@@ -437,8 +437,8 @@ void main() {
       expect(find.text('被写体を切り抜きました'), findsNothing);
       expect(subjectMaskCount, 1);
       expect(calls.uploadedMasks, [
-        (requestId: 'request-1', mask: testSubjectMaskBytes),
-        (requestId: 'request-1', mask: testSubjectMaskBytes),
+        (requestID: 'request-1', mask: testSubjectMaskBytes),
+        (requestID: 'request-1', mask: testSubjectMaskBytes),
       ]);
       expect(calls.requestedMaskSources, [
         GenerationMaskSource.iosSubject,
@@ -460,7 +460,7 @@ void main() {
           uploadError: null,
           createSubjectMask: ({required photo}) async => testSubjectMaskBytes,
           // 生成を待っている間の表示を確かめるため、終わらせない (初回のバトルのタイマーを残さないため)
-          requestGeneration: ({required requestId}) =>
+          requestGeneration: ({required requestID}) =>
               Completer<GenerationResult>().future,
           fetchGeneration: unexpectedFetch,
         ),
@@ -489,7 +489,7 @@ void main() {
         );
         expect(find.text('被写体を切り抜きました'), findsNothing);
         expect(calls.uploadedMasks, [
-          (requestId: 'request-1', mask: testSubjectMaskBytes),
+          (requestID: 'request-1', mask: testSubjectMaskBytes),
         ]);
         expect(calls.requestedMaskSources, [GenerationMaskSource.iosSubject]);
         expect(find.text('あたらしい なかま'), findsOneWidget);
@@ -510,7 +510,7 @@ void main() {
       );
       expect(find.text('モンスターにする範囲'), findsOneWidget);
       expect(find.textContaining('自動の切り出しを使えませんでした'), findsNothing);
-      expect(calls.uploadedRequestIds, isEmpty);
+      expect(calls.uploadedRequestIDs, isEmpty);
 
       // 枠 (初めは中央の 30 × 30) を左へ動かすと、写真の左端で止まる
       await tester.drag(
@@ -522,7 +522,7 @@ void main() {
       await tester.pumpAndSettle();
       expect(calls.squareMaskCrops, [(left: 0.0, top: 0.0, side: 30.0)]);
       expect(calls.uploadedMasks, [
-        (requestId: 'request-1', mask: testSquareMaskBytes),
+        (requestID: 'request-1', mask: testSquareMaskBytes),
       ]);
       expect(calls.requestedMaskSources, [GenerationMaskSource.crop]);
       expect(find.text('あたらしい なかま'), findsOneWidget);
@@ -553,9 +553,9 @@ void main() {
             return testSquareMaskBytes;
           },
           requestGeneration: savedGeneration(
-            monsterId: 'm1',
+            monsterID: 'm1',
             status: GenerationStatus.saved,
-            resultRequestId: null,
+            resultRequestID: null,
           ),
           fetchGeneration: unexpectedFetch,
         ),
@@ -630,17 +630,17 @@ void main() {
           albumPhoto: null,
           uploadError: null,
           createSubjectMask: ({required photo}) async => null,
-          requestGeneration: ({required requestId}) async {
+          requestGeneration: ({required requestID}) async {
             if (++requestCount == 1) {
               throw const GenerationPhotoMissingException(
                 message: '写真が見つかりません',
               );
             }
             return savedGeneration(
-              monsterId: 'm1',
+              monsterID: 'm1',
               status: GenerationStatus.saved,
-              resultRequestId: null,
-            )(requestId: requestId);
+              resultRequestID: null,
+            )(requestID: requestID);
           },
           fetchGeneration: unexpectedFetch,
         ),
@@ -652,7 +652,7 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('モンスターにする範囲'), findsNothing);
       expect(calls.squareMaskCrops, hasLength(1));
-      expect(calls.uploadedRequestIds, ['request-1', 'request-1']);
+      expect(calls.uploadedRequestIDs, ['request-1', 'request-1']);
       expect(calls.uploadedMasks, hasLength(2));
       expect(calls.requestedMaskSources, [
         GenerationMaskSource.crop,
@@ -671,9 +671,9 @@ void main() {
         albumPhoto: null,
         uploadError: null,
         requestGeneration: savedGeneration(
-          monsterId: 'm1',
+          monsterID: 'm1',
           status: GenerationStatus.saved,
-          resultRequestId: 'earlier-request',
+          resultRequestID: 'earlier-request',
         ),
         fetchGeneration: unexpectedFetch,
       ),
@@ -692,9 +692,9 @@ void main() {
         albumPhoto: null,
         uploadError: null,
         requestGeneration: savedGeneration(
-          monsterId: 'm1',
+          monsterID: 'm1',
           status: GenerationStatus.duplicate,
-          resultRequestId: null,
+          resultRequestID: null,
         ),
         fetchGeneration: unexpectedFetch,
       ),
@@ -727,9 +727,9 @@ void main() {
               pendingGeneration,
               processingGeneration,
               savedGeneration(
-                monsterId: 'm1',
+                monsterID: 'm1',
                 status: GenerationStatus.saved,
-                resultRequestId: null,
+                resultRequestID: null,
               ),
             ],
           ),
@@ -738,18 +738,18 @@ void main() {
       await tester.pump(const Duration(seconds: 1));
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
       expect(find.text('もう少し待ってね'), findsNothing);
-      expect(calls.fetchedRequestIds, isEmpty);
+      expect(calls.fetchedRequestIDs, isEmpty);
 
       await tester.pump(const Duration(seconds: 5));
-      expect(calls.fetchedRequestIds, ['request-1']);
+      expect(calls.fetchedRequestIDs, ['request-1']);
       await tester.pump(const Duration(seconds: 5));
-      expect(calls.fetchedRequestIds, ['request-1', 'request-1']);
+      expect(calls.fetchedRequestIDs, ['request-1', 'request-1']);
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
       expect(find.text('もう少し待ってね'), findsNothing);
 
       await tester.pump(const Duration(seconds: 5));
       await tester.pumpAndSettle();
-      expect(calls.fetchedRequestIds, ['request-1', 'request-1', 'request-1']);
+      expect(calls.fetchedRequestIDs, ['request-1', 'request-1', 'request-1']);
       expect(find.text('あたらしい なかま'), findsOneWidget);
       expect(calls.loggedEvents, hasLength(1));
     },
@@ -773,11 +773,11 @@ void main() {
     await tester.pump(const Duration(seconds: 39));
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
     expect(find.text('もう少し待ってね'), findsNothing);
-    expect(calls.fetchedRequestIds, hasLength(7));
+    expect(calls.fetchedRequestIDs, hasLength(7));
 
     await tester.pump(const Duration(seconds: 1));
     await tester.pump();
-    expect(calls.fetchedRequestIds, hasLength(8));
+    expect(calls.fetchedRequestIDs, hasLength(8));
     expect(find.byType(CircularProgressIndicator), findsNothing);
     expect(find.text('もう少し待ってね'), findsOneWidget);
     expect(find.text('もう一度確かめる'), findsOneWidget);
@@ -786,12 +786,12 @@ void main() {
     await tester.tap(find.text('もう一度確かめる'));
     await tester.pump();
     await tester.pump();
-    expect(calls.fetchedRequestIds, hasLength(9));
+    expect(calls.fetchedRequestIDs, hasLength(9));
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
     expect(find.text('もう少し待ってね'), findsNothing);
     await tester.pump(const Duration(seconds: 5));
-    expect(calls.fetchedRequestIds, hasLength(10));
-    expect(calls.fetchedRequestIds, everyElement('request-1'));
+    expect(calls.fetchedRequestIDs, hasLength(10));
+    expect(calls.fetchedRequestIDs, everyElement('request-1'));
 
     await tester.pump(const Duration(seconds: 35));
     await tester.pump();
@@ -812,13 +812,13 @@ void main() {
       ),
     );
     await tester.pump(const Duration(seconds: 6));
-    expect(calls.fetchedRequestIds, hasLength(1));
+    expect(calls.fetchedRequestIDs, hasLength(1));
 
     await tester.tap(find.byIcon(Icons.close));
     await tester.pumpAndSettle();
     expect(find.text('開く'), findsOneWidget);
     await tester.pump(const Duration(seconds: 40));
-    expect(calls.fetchedRequestIds, hasLength(1));
+    expect(calls.fetchedRequestIDs, hasLength(1));
   });
 
   testWidgets('使い回した別の要求が判定待ちの時は、使い回し先の要求 ID で読み直す', (tester) async {
@@ -830,22 +830,22 @@ void main() {
         calls: calls,
         albumPhoto: null,
         uploadError: null,
-        requestGeneration: ({required requestId}) async =>
+        requestGeneration: ({required requestID}) async =>
             const GenerationResult(
-              requestId: 'earlier-request',
+              requestID: 'earlier-request',
               status: GenerationStatus.pendingJudge,
-              monsterId: null,
+              monsterID: null,
               rejectionReason: null,
               personDetected: false,
             ),
         fetchGeneration: savedGeneration(
-          monsterId: 'm1',
+          monsterID: 'm1',
           status: GenerationStatus.saved,
-          resultRequestId: null,
+          resultRequestID: null,
         ),
       ),
     );
-    expect(calls.fetchedRequestIds, ['earlier-request']);
+    expect(calls.fetchedRequestIDs, ['earlier-request']);
     // 読み直した結果は使い回し先の要求のもので、この写真から新しく生まれたのではない
     expect(find.text('もう図鑑にいます'), findsOneWidget);
     expect(calls.loggedEvents, isEmpty);
@@ -859,10 +859,10 @@ void main() {
         calls: calls,
         albumPhoto: null,
         uploadError: null,
-        requestGeneration: ({required requestId}) async => GenerationResult(
-          requestId: requestId,
+        requestGeneration: ({required requestID}) async => GenerationResult(
+          requestID: requestID,
           status: GenerationStatus.rejected,
-          monsterId: null,
+          monsterID: null,
           rejectionReason: GenerationRejectionReason.faceDetected,
           personDetected: false,
         ),
@@ -882,10 +882,10 @@ void main() {
         calls: calls,
         albumPhoto: null,
         uploadError: null,
-        requestGeneration: ({required requestId}) async => GenerationResult(
-          requestId: requestId,
+        requestGeneration: ({required requestID}) async => GenerationResult(
+          requestID: requestID,
           status: GenerationStatus.failed,
-          monsterId: null,
+          monsterID: null,
           rejectionReason: null,
           personDetected: false,
         ),
@@ -906,16 +906,16 @@ void main() {
         calls: calls,
         albumPhoto: null,
         uploadError: null,
-        requestGeneration: ({required requestId}) async {
+        requestGeneration: ({required requestID}) async {
           if (remainingFailureCount > 0) {
             remainingFailureCount--;
             throw Exception('deadline-exceeded');
           }
           return savedGeneration(
-            monsterId: 'm1',
+            monsterID: 'm1',
             status: GenerationStatus.saved,
-            resultRequestId: null,
-          )(requestId: requestId);
+            resultRequestID: null,
+          )(requestID: requestID);
         },
         fetchGeneration: unexpectedFetch,
       ),
@@ -923,8 +923,8 @@ void main() {
     expect(find.text('Exception: deadline-exceeded'), findsOneWidget);
     await tester.tap(find.text('もう一度試す'));
     await tester.pumpAndSettle();
-    expect(calls.uploadedRequestIds, ['request-1']);
-    expect(calls.requestedRequestIds, ['request-1', 'request-1']);
+    expect(calls.uploadedRequestIDs, ['request-1']);
+    expect(calls.requestedRequestIDs, ['request-1', 'request-1']);
     expect(find.text('あたらしい なかま'), findsOneWidget);
   });
 
@@ -937,7 +937,7 @@ void main() {
         calls: calls,
         albumPhoto: null,
         uploadError: null,
-        requestGeneration: ({required requestId}) async {
+        requestGeneration: ({required requestID}) async {
           if (remainingFailureCount > 0) {
             remainingFailureCount--;
             throw const GenerationPhotoMissingException(
@@ -945,10 +945,10 @@ void main() {
             );
           }
           return savedGeneration(
-            monsterId: 'm1',
+            monsterID: 'm1',
             status: GenerationStatus.saved,
-            resultRequestId: null,
-          )(requestId: requestId);
+            resultRequestID: null,
+          )(requestID: requestID);
         },
         fetchGeneration: unexpectedFetch,
       ),
@@ -956,8 +956,8 @@ void main() {
     expect(find.text('写真が見つかりません。写真を上げ直してください'), findsOneWidget);
     await tester.tap(find.text('もう一度試す'));
     await tester.pumpAndSettle();
-    expect(calls.uploadedRequestIds, ['request-1', 'request-1']);
-    expect(calls.requestedRequestIds, ['request-1', 'request-1']);
+    expect(calls.uploadedRequestIDs, ['request-1', 'request-1']);
+    expect(calls.requestedRequestIDs, ['request-1', 'request-1']);
     expect(find.text('あたらしい なかま'), findsOneWidget);
   });
 
@@ -971,14 +971,14 @@ void main() {
         calls: calls,
         albumPhoto: null,
         uploadError: StateError('ログインしていないため生成できません'),
-        requestGeneration: ({required requestId}) =>
+        requestGeneration: ({required requestID}) =>
             throw StateError('requestGeneration は呼ばない'),
         fetchGeneration: unexpectedFetch,
       ),
     );
     expect(find.text('Bad state: ログインしていないため生成できません'), findsOneWidget);
     expect(find.text('もう一度試す'), findsOneWidget);
-    expect(calls.requestedRequestIds, isEmpty);
+    expect(calls.requestedRequestIDs, isEmpty);
   });
 
   testWidgets('生まれた画面で手持ちに入れると、図鑑を開くよう閉じる', (tester) async {
@@ -990,9 +990,9 @@ void main() {
         albumPhoto: null,
         uploadError: null,
         requestGeneration: savedGeneration(
-          monsterId: 'm1',
+          monsterID: 'm1',
           status: GenerationStatus.saved,
-          resultRequestId: null,
+          resultRequestID: null,
         ),
         fetchGeneration: unexpectedFetch,
       ),
@@ -1000,7 +1000,7 @@ void main() {
     await tester.tap(find.text('手持ちに入れる'));
     await tester.pumpAndSettle();
     expect(closedActions, [ResultScreenAction.openDex]);
-    expect(dexStore.isInParty(monsterId: 'm1'), isTrue);
+    expect(dexStore.isInParty(monsterID: 'm1'), isTrue);
   });
 
   group('初回の導線 (手持ちが空の時)', () {
@@ -1019,10 +1019,10 @@ void main() {
           calls: calls,
           albumPhoto: null,
           uploadError: null,
-          requestGeneration: ({required requestId}) async => GenerationResult(
-            requestId: requestId,
+          requestGeneration: ({required requestID}) async => GenerationResult(
+            requestID: requestID,
             status: GenerationStatus.rejected,
-            monsterId: null,
+            monsterID: null,
             rejectionReason: GenerationRejectionReason.explicitContent,
             personDetected: false,
           ),
@@ -1075,7 +1075,7 @@ void main() {
           calls: calls,
           albumPhoto: null,
           uploadError: null,
-          requestGeneration: ({required requestId}) async =>
+          requestGeneration: ({required requestID}) async =>
               throw Exception('deadline-exceeded'),
           fetchGeneration: unexpectedFetch,
         ),
@@ -1097,9 +1097,9 @@ void main() {
             albumPhoto: null,
             uploadError: null,
             requestGeneration: savedGeneration(
-              monsterId: 'm1',
+              monsterID: 'm1',
               status: GenerationStatus.duplicate,
-              resultRequestId: null,
+              resultRequestID: null,
             ),
             fetchGeneration: unexpectedFetch,
           ),
@@ -1122,7 +1122,7 @@ void main() {
         await tester.tap(find.text('このモンスターで戦う'));
         await tester.pump();
         await tester.pump(const Duration(milliseconds: 100));
-        expect(dexStore.isInParty(monsterId: 'm1'), isTrue);
+        expect(dexStore.isInParty(monsterID: 'm1'), isTrue);
         // ログインが無い時の PvP の候補は null のため、CPU トレーナーが相手になる
         expect(find.textContaining(RegExp(r'^CPU .+ があらわれた$')), findsOneWidget);
         await tester.pump(const Duration(seconds: 2));
@@ -1152,9 +1152,9 @@ void main() {
             fetches: [
               ...List.filled(8, pendingGeneration),
               savedGeneration(
-                monsterId: 'm1',
+                monsterID: 'm1',
                 status: GenerationStatus.saved,
-                resultRequestId: null,
+                resultRequestID: null,
               ),
             ],
           ),
@@ -1168,8 +1168,8 @@ void main() {
       await tester.tap(find.text('もう一度確かめる'));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 100));
-      expect(calls.fetchedRequestIds, hasLength(9));
-      expect(dexStore.isInParty(monsterId: 'm1'), isTrue);
+      expect(calls.fetchedRequestIDs, hasLength(9));
+      expect(dexStore.isInParty(monsterID: 'm1'), isTrue);
       await tester.pump(const Duration(seconds: 2));
       await tester.pump(const Duration(seconds: 1));
       expect(find.byType(BattleScreen), findsOneWidget);
@@ -1190,19 +1190,19 @@ void main() {
           albumPhoto: null,
           uploadError: null,
           // Firestore の手持ち (前の端末で入れた m0) が、生成の結果より先に届く
-          requestGeneration: ({required requestId}) async {
+          requestGeneration: ({required requestID}) async {
             dexStore.applyServerSnapshot(
               monsters: [
-                generatedWaxMonster(monsterId: 'm0'),
-                generatedWaxMonster(monsterId: 'm1'),
+                generatedWaxMonster(monsterID: 'm0'),
+                generatedWaxMonster(monsterID: 'm1'),
               ],
-              partyMonsterIds: ['m0'],
+              partyMonsterIDs: ['m0'],
               definitions: definitionsWithWax(base: sampleData.definitions),
             );
             return GenerationResult(
-              requestId: requestId,
+              requestID: requestID,
               status: GenerationStatus.saved,
-              monsterId: 'm1',
+              monsterID: 'm1',
               rejectionReason: null,
               personDetected: false,
             );
@@ -1214,7 +1214,7 @@ void main() {
       await tester.pump(const Duration(seconds: 1));
       expect(find.text('あたらしい なかま'), findsOneWidget);
       expect(find.byType(BattleScreen), findsNothing);
-      expect(dexStore.isInParty(monsterId: 'm1'), isFalse);
+      expect(dexStore.isInParty(monsterID: 'm1'), isFalse);
       expect(firstExperienceSteps(), isNot(contains('matchmaking')));
     });
 
@@ -1241,9 +1241,9 @@ void main() {
       albumPhoto: null,
       uploadError: null,
       requestGeneration: savedGeneration(
-        monsterId: 'm1',
+        monsterID: 'm1',
         status: GenerationStatus.saved,
-        resultRequestId: null,
+        resultRequestID: null,
       ),
       fetchGeneration: unexpectedFetch,
     );
@@ -1254,7 +1254,7 @@ void main() {
       final profileReply = Completer<PlayerProfile?>();
       var refreshedDefinitionsCount = 0;
       dexStore.connectServer(
-        savePartyMonsterIds: ({required monsterIds}) async {},
+        savePartyMonsterIDs: ({required monsterIDs}) async {},
         refreshDefinitions: () async => refreshedDefinitionsCount++,
       );
       await pumpGenerationScreen(
@@ -1308,7 +1308,7 @@ void main() {
       var fetchProfileCount = 0;
       var refreshDefinitionsCount = 0;
       dexStore.connectServer(
-        savePartyMonsterIds: ({required monsterIds}) async {},
+        savePartyMonsterIDs: ({required monsterIDs}) async {},
         refreshDefinitions: () async {
           refreshDefinitionsCount += 1;
           if (refreshDefinitionsCount == 1) {
@@ -1347,7 +1347,7 @@ void main() {
     testWidgets('相手を決められない時はプロフィールの応答を待たずに元の例外の文言をそのまま出す', (tester) async {
       final profileReply = Completer<PlayerProfile?>();
       dexStore.connectServer(
-        savePartyMonsterIds: ({required monsterIds}) async {},
+        savePartyMonsterIDs: ({required monsterIDs}) async {},
         refreshDefinitions: () async => throw Exception('master-unavailable'),
       );
       await pumpGenerationScreen(

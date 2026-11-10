@@ -7,7 +7,7 @@ import 'status_condition.dart';
 const int maximumPartySize = 3;
 
 /// バトルの陣営。CPU 対戦では [opponent] が CPU、非同期 PvP では相手の手持ちを CPU が操作する。
-enum BattleSideId {
+enum BattleSideID {
   /// 端末を操作している利用者の陣営。
   player,
 
@@ -65,10 +65,10 @@ sealed class BattleAction {
 /// 技を使う行動。
 class UseMoveAction extends BattleAction {
   /// 技を使う行動を作る。
-  const UseMoveAction({required this.moveId});
+  const UseMoveAction({required this.moveID});
 
   /// 使う技の識別子。
-  final String moveId;
+  final String moveID;
 }
 
 /// 使える攻撃技が無い (PP が 0 か補助技しか残っていない) 時の行動 (わるあがき)。
@@ -106,7 +106,7 @@ class StatModifierChange {
   });
 
   /// 倍率が変わったモンスターの陣営。
-  final BattleSideId side;
+  final BattleSideID side;
 
   /// 変わったステータス (攻撃・防御・素早さ)。
   final StatKind statKind;
@@ -124,8 +124,8 @@ class MoveUsedEvent extends BattleEvent {
   const MoveUsedEvent({
     required super.turnNumber,
     required this.attackerSide,
-    required this.attackerMonsterId,
-    required this.moveId,
+    required this.attackerMonsterID,
+    required this.moveID,
     required this.typeMultiplier,
     required this.damage,
     required this.defenderRemainingHitPoints,
@@ -133,19 +133,19 @@ class MoveUsedEvent extends BattleEvent {
     required this.statModifierChanges,
     required this.recoveredHitPoints,
     required this.attackerRemainingHitPoints,
-    this.replacedMoveId,
+    this.replacedMoveID,
     this.isOneHitKnockout = false,
     this.selfDestructed = false,
   });
 
   /// 技を使った陣営。
-  final BattleSideId attackerSide;
+  final BattleSideID attackerSide;
 
   /// 技を使ったモンスターの識別子。
-  final String attackerMonsterId;
+  final String attackerMonsterID;
 
   /// 使った技の識別子。わるあがきの時は null。
-  final String? moveId;
+  final String? moveID;
 
   /// 属性の相性の倍率 (防御側の属性ごとの倍率の積)。
   final double typeMultiplier;
@@ -168,8 +168,8 @@ class MoveUsedEvent extends BattleEvent {
   /// 技を使った側の、回復の後 (自爆なら自爆の後) の残りの HP。
   final int attackerRemainingHitPoints;
 
-  /// 混乱で選んだ技の代わりに [moveId] が出た時の、選んだ技の識別子。選んだ技がそのまま出た時は null。
-  final String? replacedMoveId;
+  /// 混乱で選んだ技の代わりに [moveID] が出た時の、選んだ技の識別子。選んだ技がそのまま出た時は null。
+  final String? replacedMoveID;
 
   /// 一撃必殺が当たり、威力に関係なく相手の HP を 0 にしたか。
   final bool isOneHitKnockout;
@@ -202,19 +202,19 @@ class ActionFailedEvent extends BattleEvent {
   const ActionFailedEvent({
     required super.turnNumber,
     required this.side,
-    required this.monsterId,
-    required this.moveId,
+    required this.monsterID,
+    required this.moveID,
     required this.reason,
   });
 
   /// 失敗した陣営。
-  final BattleSideId side;
+  final BattleSideID side;
 
   /// 失敗したモンスターの識別子。
-  final String monsterId;
+  final String monsterID;
 
   /// 使おうとした技の識別子。わるあがきの時は null。
-  final String? moveId;
+  final String? moveID;
 
   /// 失敗した理由。
   final ActionFailureReason reason;
@@ -226,7 +226,7 @@ class StatusConditionInflictedEvent extends BattleEvent {
   const StatusConditionInflictedEvent({
     required super.turnNumber,
     required this.side,
-    required this.monsterId,
+    required this.monsterID,
     required this.kind,
     required this.stackCount,
     required this.replacedKind,
@@ -234,10 +234,10 @@ class StatusConditionInflictedEvent extends BattleEvent {
   });
 
   /// 状態が付いたモンスターの陣営。
-  final BattleSideId side;
+  final BattleSideID side;
 
   /// 状態が付いたモンスターの識別子。
-  final String monsterId;
+  final String monsterID;
 
   /// 付いた状態。
   final StatusConditionKind kind;
@@ -270,16 +270,16 @@ class StatusConditionCuredEvent extends BattleEvent {
   const StatusConditionCuredEvent({
     required super.turnNumber,
     required this.side,
-    required this.monsterId,
+    required this.monsterID,
     required this.kinds,
     required this.cause,
   });
 
   /// 状態が消えたモンスターの陣営。
-  final BattleSideId side;
+  final BattleSideID side;
 
   /// 状態が消えたモンスターの識別子。
-  final String monsterId;
+  final String monsterID;
 
   /// 消えた状態 (1 つ以上)。
   final List<StatusConditionKind> kinds;
@@ -294,17 +294,17 @@ class StatusConditionDamageEvent extends BattleEvent {
   const StatusConditionDamageEvent({
     required super.turnNumber,
     required this.side,
-    required this.monsterId,
+    required this.monsterID,
     required this.kind,
     required this.damage,
     required this.remainingHitPoints,
   });
 
   /// ダメージを受けたモンスターの陣営。
-  final BattleSideId side;
+  final BattleSideID side;
 
   /// ダメージを受けたモンスターの識別子。
-  final String monsterId;
+  final String monsterID;
 
   /// ダメージの元の状態。
   final StatusConditionKind kind;
@@ -326,7 +326,7 @@ class FieldEffectStartedEvent extends BattleEvent {
   });
 
   /// 技を使った陣営。
-  final BattleSideId side;
+  final BattleSideID side;
 
   /// 始まった効果。
   final FieldEffectKind kind;
@@ -359,14 +359,14 @@ class MonsterFaintedEvent extends BattleEvent {
   const MonsterFaintedEvent({
     required super.turnNumber,
     required this.side,
-    required this.monsterId,
+    required this.monsterID,
   });
 
   /// 倒れたモンスターの陣営。
-  final BattleSideId side;
+  final BattleSideID side;
 
   /// 倒れたモンスターの識別子。
-  final String monsterId;
+  final String monsterID;
 }
 
 /// 手持ちのモンスターが場に出た (倒れたモンスターの代わりか、[SwitchMonsterAction] の交代)。
@@ -375,18 +375,18 @@ class MonsterSwitchedInEvent extends BattleEvent {
   const MonsterSwitchedInEvent({
     required super.turnNumber,
     required this.side,
-    required this.monsterId,
-    required this.withdrawnMonsterId,
+    required this.monsterID,
+    required this.withdrawnMonsterID,
   });
 
   /// 交代した陣営。
-  final BattleSideId side;
+  final BattleSideID side;
 
   /// 場に出たモンスターの識別子。
-  final String monsterId;
+  final String monsterID;
 
   /// [SwitchMonsterAction] の交代で引っ込めたモンスターの識別子。倒れたモンスターの代わりに出た時は null。
-  final String? withdrawnMonsterId;
+  final String? withdrawnMonsterID;
 }
 
 /// 決着後にモンスターのレベルが上がった。上限に達していて上がらなかった時も、経験の加算として出す。
@@ -395,15 +395,15 @@ class LevelUpEvent extends BattleEvent {
   const LevelUpEvent({
     required super.turnNumber,
     required this.side,
-    required this.monsterId,
+    required this.monsterID,
     required this.newLevel,
   });
 
   /// レベルが上がった陣営。
-  final BattleSideId side;
+  final BattleSideID side;
 
   /// レベルが上がったモンスターの識別子。
-  final String monsterId;
+  final String monsterID;
 
   /// 上がった後のレベル。
   final int newLevel;
@@ -415,7 +415,7 @@ class BattleFinishedEvent extends BattleEvent {
   const BattleFinishedEvent({required super.turnNumber, required this.winner});
 
   /// 勝った陣営。
-  final BattleSideId winner;
+  final BattleSideID winner;
 }
 
 /// バトルの状態。`advanceRound` (battle_engine.dart) は状態を書き換えず、次の状態を返す。
@@ -449,7 +449,7 @@ class BattleState {
   final List<BattleEvent> events;
 
   /// 勝った陣営。決着前は null。
-  final BattleSideId? winner;
+  final BattleSideID? winner;
 
   /// 対戦日 (バトルを始めた日時)。技の特殊効果の入力に渡す (外部要因の効果を足す時の枠)。
   final DateTime battleDate;
@@ -465,8 +465,8 @@ class BattleState {
   int get roundNumber => (turnNumber + 1) ~/ 2;
 
   /// [side] の陣営を返す。
-  BattleParty partyOf({required BattleSideId side}) => switch (side) {
-    BattleSideId.player => player,
-    BattleSideId.opponent => opponent,
+  BattleParty partyOf({required BattleSideID side}) => switch (side) {
+    BattleSideID.player => player,
+    BattleSideID.opponent => opponent,
   };
 }

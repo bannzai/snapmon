@@ -12,13 +12,13 @@ import {
   REPORT_HIDE_THRESHOLD,
   type ReportDocument,
   averageLevel,
-  blockDocumentId,
+  blockDocumentID,
   displayNameOf,
-  isDocumentId,
+  isDocumentID,
   isReportReason,
   profileIconOf,
   publicMonster,
-  reportDocumentId,
+  reportDocumentID,
   reportNotificationText,
   selectOpponents,
   validateDisplayName,
@@ -43,28 +43,28 @@ export function requireActiveAccount({ userSnapshot }: { userSnapshot: DocumentS
   }
 }
 
-/** `users/{uid}/party/current` の monsterIds のうち、文字列の ID だけを返す (無ければ空)。 */
-function partyMonsterIdsOf(partyData: DocumentData | undefined): string[] {
-  const monsterIds: unknown = partyData?.monsterIds;
-  return Array.isArray(monsterIds) ? monsterIds.filter(isDocumentId) : [];
+/** `users/{uid}/party/current` の monsterIDs のうち、文字列の ID だけを返す (無ければ空)。 */
+function partyMonsterIDsOf(partyData: DocumentData | undefined): string[] {
+  const monsterIDs: unknown = partyData?.monsterIDs;
+  return Array.isArray(monsterIDs) ? monsterIDs.filter(isDocumentID) : [];
 }
 
 /**
- * [partyMonsterIdsByUid] (uid ごとの手持ちの ID) の図鑑のモンスターを 1 回の getAll で読み、uid ごとに図鑑にあるものだけを返す
+ * [partyMonsterIDsByUid] (uid ごとの手持ちの ID) の図鑑のモンスターを 1 回の getAll で読み、uid ごとに図鑑にあるものだけを返す
  * (手持ちの ID は消えたモンスターを指すことがあるため、無いものは落とす)。
  */
 async function partyMonstersOf({
   firestore,
-  partyMonsterIdsByUid,
+  partyMonsterIDsByUid,
 }: {
   firestore: Firestore;
-  partyMonsterIdsByUid: Map<string, string[]>;
+  partyMonsterIDsByUid: Map<string, string[]>;
 }): Promise<Map<string, MonsterDocument[]>> {
-  const references = [...partyMonsterIdsByUid].flatMap(([uid, monsterIds]) =>
-    monsterIds.map((monsterId) => ({ uid, document: firestore.doc(`users/${uid}/monsters/${monsterId}`) })),
+  const references = [...partyMonsterIDsByUid].flatMap(([uid, monsterIDs]) =>
+    monsterIDs.map((monsterID) => ({ uid, document: firestore.doc(`users/${uid}/monsters/${monsterID}`) })),
   );
   const snapshots = references.length === 0 ? [] : await firestore.getAll(...references.map(({ document }) => document));
-  const monstersByUid = new Map<string, MonsterDocument[]>([...partyMonsterIdsByUid.keys()].map((uid) => [uid, []]));
+  const monstersByUid = new Map<string, MonsterDocument[]>([...partyMonsterIDsByUid.keys()].map((uid) => [uid, []]));
   for (const [index, snapshot] of snapshots.entries()) {
     if (snapshot.exists) {
       monstersByUid.get(references[index].uid)!.push(snapshot.data() as MonsterDocument);
@@ -137,16 +137,16 @@ export const fetchOpponents = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, asy
     candidateUids.length === 0 ? [] : firestore.getAll(...candidateUids.map((candidateUid) => firestore.doc(`users/${candidateUid}`))),
   ]);
   const candidateUserByUid = new Map(candidateUsers.map((candidateUser) => [candidateUser.id, candidateUser]));
-  const partyMonsterIdsByUid = new Map<string, string[]>([[uid, partyMonsterIdsOf(playerParty.data())]]);
+  const partyMonsterIDsByUid = new Map<string, string[]>([[uid, partyMonsterIDsOf(playerParty.data())]]);
   for (const [candidateUid, partyData] of candidatePartyDataByUid) {
     const candidateUser = candidateUserByUid.get(candidateUid)!;
     // 削除の途中 (絵は消え、通報は reportMonster が断る) と消し終えた (users/{uid} が無い) 持ち主は、通報できない相手になるため出さない
     if (hiddenOwnerUids.has(candidateUid) || !candidateUser.exists || candidateUser.get("accountDeletionStartedAt") !== undefined) {
       continue;
     }
-    partyMonsterIdsByUid.set(candidateUid, partyMonsterIdsOf(partyData));
+    partyMonsterIDsByUid.set(candidateUid, partyMonsterIDsOf(partyData));
   }
-  const partyMonstersByUid = await partyMonstersOf({ firestore, partyMonsterIdsByUid });
+  const partyMonstersByUid = await partyMonstersOf({ firestore, partyMonsterIDsByUid });
   const playerPartyMonsters = partyMonstersByUid.get(uid)!;
   if (playerPartyMonsters.length === 0) {
     throw new HttpsError("failed-precondition", "手持ちを入れてから相手を探してください");
@@ -170,21 +170,21 @@ export const fetchOpponents = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, asy
 /**
  * 他のユーザーのモンスターを通報する callable (ストアの UGC 要件の通報)。
  *
- * 受け取る data: `{ monsterOwnerUid: string, monsterId: string, reason: ReportReason }`。
- * 返す値: `{ reported: true }`。`reports/{reporterUid}_{monsterId}` を作り、同じトランザクションで `reportedMonsters/{monsterId}` の
+ * 受け取る data: `{ monsterOwnerUid: string, monsterID: string, reason: ReportReason }`。
+ * 返す値: `{ reported: true }`。`reports/{reporterUid}_{monsterID}` を作り、同じトランザクションで `reportedMonsters/{monsterID}` の
  * 通報したユーザー数を 1 増やす。作られた通報は notifyReport が #snapmon-notification に知らせる。
  * 同じユーザーが同じモンスターを通報し直しても、通報もユーザー数も増やさない (冪等)。
  * 自分のモンスターは通報できない (invalid-argument)。モンスターが無い時は not-found。
  */
 export const reportMonster = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async (request) => {
   const uid = requireSignedInUid({ request });
-  const { monsterOwnerUid, monsterId, reason } = (request.data ?? {}) as {
+  const { monsterOwnerUid, monsterID, reason } = (request.data ?? {}) as {
     monsterOwnerUid?: unknown;
-    monsterId?: unknown;
+    monsterID?: unknown;
     reason?: unknown;
   };
-  if (!isDocumentId(monsterOwnerUid) || !isDocumentId(monsterId)) {
-    throw new HttpsError("invalid-argument", "monsterOwnerUid と monsterId を渡してください");
+  if (!isDocumentID(monsterOwnerUid) || !isDocumentID(monsterID)) {
+    throw new HttpsError("invalid-argument", "monsterOwnerUid と monsterID を渡してください");
   }
   if (!isReportReason(reason)) {
     throw new HttpsError("invalid-argument", "reason に通報の理由を渡してください");
@@ -193,8 +193,8 @@ export const reportMonster = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, asyn
     throw new HttpsError("invalid-argument", "自分のモンスターは通報できません");
   }
   const firestore = getFirestore();
-  const monsterDocument = firestore.doc(`users/${monsterOwnerUid}/monsters/${monsterId}`);
-  const reportDocument = firestore.doc(`reports/${reportDocumentId({ reporterUid: uid, monsterId })}`);
+  const monsterDocument = firestore.doc(`users/${monsterOwnerUid}/monsters/${monsterID}`);
+  const reportDocument = firestore.doc(`reports/${reportDocumentID({ reporterUid: uid, monsterID })}`);
   await firestore.runTransaction(async (transaction) => {
     const [userSnapshot, ownerSnapshot, monsterSnapshot, reportSnapshot] = await transaction.getAll(
       firestore.doc(`users/${uid}`),
@@ -214,7 +214,7 @@ export const reportMonster = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, asyn
     const report: ReportDocument = {
       reporterUid: uid,
       monsterOwnerUid,
-      monsterId,
+      monsterID,
       monsterName: monster.definition.name,
       monsterArtPath: monster.artPath,
       // 通報の理由が「アイコンが不適切」の時に見る絵。通報の後に差し替えられても通報した時のアイコンを確かめられるよう、パスを写す
@@ -223,7 +223,7 @@ export const reportMonster = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, asyn
     };
     transaction.create(reportDocument, { ...report, createdAt: FieldValue.serverTimestamp() });
     transaction.set(
-      firestore.doc(`reportedMonsters/${monsterId}`),
+      firestore.doc(`reportedMonsters/${monsterID}`),
       { monsterOwnerUid, reporterCount: FieldValue.increment(1), updatedAt: FieldValue.serverTimestamp() },
       { merge: true },
     );
@@ -241,14 +241,14 @@ export const reportMonster = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, asyn
 export const blockUser = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async (request) => {
   const uid = requireSignedInUid({ request });
   const { blockedUid } = (request.data ?? {}) as { blockedUid?: unknown };
-  if (!isDocumentId(blockedUid)) {
+  if (!isDocumentID(blockedUid)) {
     throw new HttpsError("invalid-argument", "blockedUid を渡してください");
   }
   if (blockedUid === uid) {
     throw new HttpsError("invalid-argument", "自分はブロックできません");
   }
   const firestore = getFirestore();
-  const blockDocument = firestore.doc(`blocks/${blockDocumentId({ blockerUid: uid, blockedUid })}`);
+  const blockDocument = firestore.doc(`blocks/${blockDocumentID({ blockerUid: uid, blockedUid })}`);
   await firestore.runTransaction(async (transaction) => {
     const [userSnapshot, blockSnapshot] = await transaction.getAll(firestore.doc(`users/${uid}`), blockDocument);
     requireActiveAccount({ userSnapshot });
@@ -303,29 +303,29 @@ export const setDisplayName = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, asy
   return { displayName: validation.displayName };
 });
 
-/** 作られた通報 [report] ([reportId]) を [sendMessage] で本番の通知チャンネルに知らせる (Firestore のトリガーはテスト用の引数を受け取れないため)。 */
+/** 作られた通報 [report] ([reportID]) を [sendMessage] で本番の通知チャンネルに知らせる (Firestore のトリガーはテスト用の引数を受け取れないため)。 */
 export async function handleReportCreated({
-  reportId,
+  reportID,
   report,
   sendMessage,
 }: {
-  reportId: string;
+  reportID: string;
   report: ReportDocument;
   sendMessage: SendSlackMessage;
 }): Promise<void> {
-  await sendMessage({ channel: PRODUCTION_NOTIFICATION_CHANNEL, text: reportNotificationText({ reportId, report }) });
+  await sendMessage({ channel: PRODUCTION_NOTIFICATION_CHANNEL, text: reportNotificationText({ reportID, report }) });
 }
 
 /**
- * 通報 (`reports/{reportId}`) が作られたら、プロジェクトを問わず #snapmon-notification に知らせる (ストアの UGC 要件の「懸念へのすみやかな対応」のため)。
+ * 通報 (`reports/{reportID}`) が作られたら、プロジェクトを問わず #snapmon-notification に知らせる (ストアの UGC 要件の「懸念へのすみやかな対応」のため)。
  * 送れなかった時は例外をログに残す (再試行はしない。通報そのものは Firestore に残っている)。
  */
-export const notifyReport = onDocumentCreated({ document: "reports/{reportId}", secrets: [slackBotToken] }, async (event) => {
+export const notifyReport = onDocumentCreated({ document: "reports/{reportID}", secrets: [slackBotToken] }, async (event) => {
   if (!event.data) {
     return;
   }
   await handleReportCreated({
-    reportId: event.params.reportId,
+    reportID: event.params.reportID,
     report: event.data.data() as ReportDocument,
     sendMessage: ({ channel, text }) =>
       postSlackMessage({

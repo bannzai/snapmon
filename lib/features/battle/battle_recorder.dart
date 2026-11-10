@@ -11,17 +11,17 @@ class BattleRecorder {
     required this.logEvent,
   });
 
-  /// バトルの開始を記録し、結果の送信に使う battleId を返す。[partyMonsterIds] は連れて行く手持ち。
+  /// バトルの開始を記録し、結果の送信に使う battleID を返す。[partyMonsterIDs] は連れて行く手持ち。
   /// 記録しない時 (ログインが無い。DEBUG ビルドでログインを飛ばした時) は null を返す。
-  final Future<String?> Function({required List<String> partyMonsterIds})
+  final Future<String?> Function({required List<String> partyMonsterIDs})
   startBattleRecord;
 
-  /// [battleId] のバトルの結果を記録する。[participantMonsterIds] は場に出たことがある自分のモンスター。
-  /// レベルの加算は Functions が行い、上がった後のレベルを monsterId ごとに返す。
+  /// [battleID] のバトルの結果を記録する。[participantMonsterIDs] は場に出たことがある自分のモンスター。
+  /// レベルの加算は Functions が行い、上がった後のレベルを monsterID ごとに返す。
   final Future<Map<String, int>> Function({
-    required String battleId,
-    required List<String> participantMonsterIds,
-    required BattleSideId winner,
+    required String battleID,
+    required List<String> participantMonsterIDs,
+    required BattleSideID winner,
     required int turnCount,
   })
   completeBattleRecord;

@@ -5,13 +5,13 @@ import 'package:snapmon/features/capture/monster_generator.dart';
 void main() {
   test('callable の結果の状態・モンスター・拒否の理由・人が写っている印を読む', () {
     final saved = GenerationResult.fromJson(
-      json: {'requestId': 'request-1', 'status': 'saved', 'monsterId': 'm1'},
+      json: {'requestID': 'request-1', 'status': 'saved', 'monsterID': 'm1'},
     );
     expect(
       (
-        saved.requestId,
+        saved.requestID,
         saved.status,
-        saved.monsterId,
+        saved.monsterID,
         saved.rejectionReason,
         saved.personDetected,
       ),
@@ -20,9 +20,9 @@ void main() {
     expect(
       GenerationResult.fromJson(
         json: {
-          'requestId': 'request-4',
+          'requestID': 'request-4',
           'status': 'saved',
-          'monsterId': 'm4',
+          'monsterID': 'm4',
           'personDetected': true,
         },
       ).personDetected,
@@ -30,7 +30,7 @@ void main() {
     );
     final rejected = GenerationResult.fromJson(
       json: {
-        'requestId': 'request-2',
+        'requestID': 'request-2',
         'status': 'rejected',
         'rejectionReason': 'face_detected',
       },
@@ -38,7 +38,7 @@ void main() {
     expect(rejected.rejectionReason, GenerationRejectionReason.faceDetected);
     expect(
       GenerationResult.fromJson(
-        json: {'requestId': 'request-3', 'status': 'pending_judge'},
+        json: {'requestID': 'request-3', 'status': 'pending_judge'},
       ).status,
       GenerationStatus.pendingJudge,
     );
@@ -47,7 +47,7 @@ void main() {
   test('知らない状態は FormatException を投げる (別の状態として扱わない)', () {
     expect(
       () => GenerationResult.fromJson(
-        json: {'requestId': 'request-1', 'status': 'unknown'},
+        json: {'requestID': 'request-1', 'status': 'unknown'},
       ),
       throwsFormatException,
     );

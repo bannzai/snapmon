@@ -108,7 +108,7 @@ class _MoveEffectPreviewScreenState extends State<MoveEffectPreviewScreen> {
     _replayTimer?.cancel();
     setState(() => _selectedEffect = effect);
     void hitOpponent() =>
-        _game.hit(defenderSide: BattleSideId.opponent, effect: effect);
+        _game.hit(defenderSide: BattleSideID.opponent, effect: effect);
     hitOpponent();
     _replayTimer = Timer.periodic(_replayInterval, (_) => hitOpponent());
   }

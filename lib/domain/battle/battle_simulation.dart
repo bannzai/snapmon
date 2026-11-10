@@ -108,7 +108,7 @@ MonsterDefinition definitionWithBaseStats({
   sourcePhotoReference: definition.sourcePhotoReference,
   name: definition.name,
   encyclopediaText: definition.encyclopediaText,
-  elementTypeIds: definition.elementTypeIds,
+  elementTypeIDs: definition.elementTypeIDs,
   learnset: definition.learnset,
   baseStats: baseStats,
   individualValues: definition.individualValues,
@@ -156,7 +156,7 @@ BattleSimulationResult simulateBattles({
           seed: seed,
         );
         battles++;
-        if (finished.winner == BattleSideId.player) {
+        if (finished.winner == BattleSideID.player) {
           playerWins++;
         }
         // roundNumber は次に解決するラウンドの番号のため、戦ったラウンド数はその 1 つ前
@@ -168,7 +168,7 @@ BattleSimulationResult simulateBattles({
           if (event.damage == 0 || event.isOneHitKnockout) {
             continue;
           }
-          if (event.attackerSide == BattleSideId.player) {
+          if (event.attackerSide == BattleSideID.player) {
             playerAttackHits++;
             if (event.damage == 1) {
               playerOneDamageHits++;
@@ -213,7 +213,7 @@ BattleState _playBattle({
         definition: playerDefinition,
         level: condition.playerLevel,
         experience: 0,
-        actionCardMoveIds: const [],
+        actionCardMoveIDs: const [],
         master: master,
         maximumHitPointsPercent: 100,
       ),
@@ -223,7 +223,7 @@ BattleState _playBattle({
         definition: opponentDefinition,
         level: condition.opponentLevel,
         experience: 0,
-        actionCardMoveIds: const [],
+        actionCardMoveIDs: const [],
         master: master,
         maximumHitPointsPercent: condition.opponentHitPointsPercent,
       ),
@@ -243,7 +243,7 @@ BattleState _playBattle({
       ),
       opponentAction: chooseCpuAction(
         state: state,
-        side: BattleSideId.opponent,
+        side: BattleSideID.opponent,
         master: master,
       ),
       master: master,
@@ -269,12 +269,12 @@ BattleAction _playerAction({
         return const StruggleAction();
       }
       return UseMoveAction(
-        moveId: moves[random.nextUint32() % moves.length].id,
+        moveID: moves[random.nextUint32() % moves.length].id,
       );
     case SimulatedPlayerPolicy.sameAsCpu:
       return chooseCpuAction(
         state: state,
-        side: BattleSideId.player,
+        side: BattleSideID.player,
         master: master,
       );
   }

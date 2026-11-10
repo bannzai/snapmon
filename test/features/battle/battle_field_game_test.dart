@@ -270,7 +270,7 @@ void main() {
     createGame,
     (game) async {
       game.hit(
-        defenderSide: BattleSideId.opponent,
+        defenderSide: BattleSideID.opponent,
         effect: sampleData.definitions.effects.first,
       );
       await game.ready();
@@ -287,7 +287,7 @@ void main() {
   testWithGame<BattleFieldGame>('わるあがき (エフェクト無し) はパーティクルを出さない', createGame, (
     game,
   ) async {
-    game.hit(defenderSide: BattleSideId.player, effect: null);
+    game.hit(defenderSide: BattleSideID.player, effect: null);
     await game.ready();
     expect(game.children.whereType<ParticleSystemComponent>(), isEmpty);
     expect(game.playerMonsterComponent.isBlinking, isTrue);
@@ -306,7 +306,7 @@ void main() {
       final spriteSheetImage = await createArtImage(width: 20, height: 16);
       addTearDown(spriteSheetImage.dispose);
       game.applyMoveEffectSpriteSheet(
-        effectId: steelEffect.id,
+        effectID: steelEffect.id,
         spriteSheetImage: spriteSheetImage,
         spriteSheetJson: const {
           'meta': {
@@ -324,7 +324,7 @@ void main() {
     testWithGame<BattleFieldGame>('シートを読み込む前の被弾はパーティクルで描く', createGame, (
       game,
     ) async {
-      game.hit(defenderSide: BattleSideId.opponent, effect: steelEffect);
+      game.hit(defenderSide: BattleSideID.opponent, effect: steelEffect);
       await game.ready();
       expect(game.children.whereType<ParticleSystemComponent>(), hasLength(1));
       expect(game.children.whereType<SpriteAnimationComponent>(), isEmpty);
@@ -336,7 +336,7 @@ void main() {
       (game) async {
         game.onGameResize(Vector2(390, 500));
         await applySteelSpriteSheet(game: game);
-        game.hit(defenderSide: BattleSideId.opponent, effect: steelEffect);
+        game.hit(defenderSide: BattleSideID.opponent, effect: steelEffect);
         await game.ready();
         expect(game.children.whereType<ParticleSystemComponent>(), isEmpty);
         final component = game.children
@@ -382,7 +382,7 @@ void main() {
         /// 1 なら素材の向きのまま、-1 なら左右を反転して描く。
         /// 呼ぶたびにエフェクトが [game] に 1 つ足される。
         Future<double> horizontalScaleOfNewEffect({
-          required BattleSideId defenderSide,
+          required BattleSideID defenderSide,
         }) async {
           game.hit(defenderSide: defenderSide, effect: steelEffect);
           await game.ready();
@@ -395,11 +395,11 @@ void main() {
 
         // 比率の配置: 自分が左、相手が右
         expect(
-          await horizontalScaleOfNewEffect(defenderSide: BattleSideId.opponent),
+          await horizontalScaleOfNewEffect(defenderSide: BattleSideID.opponent),
           1,
         );
         expect(
-          await horizontalScaleOfNewEffect(defenderSide: BattleSideId.player),
+          await horizontalScaleOfNewEffect(defenderSide: BattleSideID.player),
           -1,
         );
 
@@ -407,11 +407,11 @@ void main() {
         game.onGameResize(Vector2(600, 103));
         game.updateMonsterArtArea(area: const Rect.fromLTRB(218, 16, 382, 102));
         expect(
-          await horizontalScaleOfNewEffect(defenderSide: BattleSideId.opponent),
+          await horizontalScaleOfNewEffect(defenderSide: BattleSideID.opponent),
           -1,
         );
         expect(
-          await horizontalScaleOfNewEffect(defenderSide: BattleSideId.player),
+          await horizontalScaleOfNewEffect(defenderSide: BattleSideID.player),
           1,
         );
 
@@ -421,11 +421,11 @@ void main() {
           placesPlayerOnLeft: true,
         );
         expect(
-          await horizontalScaleOfNewEffect(defenderSide: BattleSideId.opponent),
+          await horizontalScaleOfNewEffect(defenderSide: BattleSideID.opponent),
           1,
         );
         expect(
-          await horizontalScaleOfNewEffect(defenderSide: BattleSideId.player),
+          await horizontalScaleOfNewEffect(defenderSide: BattleSideID.player),
           -1,
         );
       },
@@ -437,7 +437,7 @@ void main() {
       (game) async {
         await applySteelSpriteSheet(game: game);
         game.hit(
-          defenderSide: BattleSideId.opponent,
+          defenderSide: BattleSideID.opponent,
           effect: const MoveEffect(
             id: 'generated_effect',
             displayName: 'その場で作ったエフェクト',
@@ -445,7 +445,7 @@ void main() {
             colorHex: '#2196F3',
           ),
         );
-        game.hit(defenderSide: BattleSideId.player, effect: null);
+        game.hit(defenderSide: BattleSideID.player, effect: null);
         await game.ready();
         expect(
           game.children.whereType<ParticleSystemComponent>(),
@@ -482,10 +482,10 @@ void main() {
           assetBundle: rootBundle,
         );
         for (final effect in spriteSheetEffects) {
-          game.hit(defenderSide: BattleSideId.opponent, effect: effect);
+          game.hit(defenderSide: BattleSideID.opponent, effect: effect);
         }
         game.hit(
-          defenderSide: BattleSideId.opponent,
+          defenderSide: BattleSideID.opponent,
           effect: const MoveEffect(
             id: 'not_bundled',
             displayName: '同梱していないシート',
@@ -495,8 +495,8 @@ void main() {
           ),
         );
         game.hit(
-          defenderSide: BattleSideId.opponent,
-          effect: sampleData.definitions.effectById(effectId: 'water_particle'),
+          defenderSide: BattleSideID.opponent,
+          effect: sampleData.definitions.effectByID(effectID: 'water_particle'),
         );
         await game.ready();
         final components = game.children.whereType<SpriteAnimationComponent>();
@@ -564,7 +564,7 @@ void main() {
         );
         expect(game.images.containsKey('move_effects/broken-png.png'), isFalse);
         game.hit(
-          defenderSide: BattleSideId.opponent,
+          defenderSide: BattleSideID.opponent,
           effect: const MoveEffect(
             id: 'water_particle',
             displayName: '水のパーティクル',
@@ -599,11 +599,11 @@ void main() {
   ) async {
     game.onGameResize(Vector2(390, 500));
     final positionBefore = game.opponentMonsterComponent.position.clone();
-    game.faint(side: BattleSideId.opponent);
+    game.faint(side: BattleSideID.opponent);
     expect(game.opponentMonsterComponent.isVisible, isFalse);
 
     final nextMonster = sampleData.monsters[2];
-    game.switchIn(side: BattleSideId.opponent, monster: nextMonster);
+    game.switchIn(side: BattleSideID.opponent, monster: nextMonster);
     await game.ready();
     expect(
       game.opponentMonsterComponent.monster.definition.id,
@@ -641,13 +641,13 @@ void main() {
       // 画像を持たないモンスターは仮の絵 (角丸の体) を描く
       final sampleMonster = sampleData.monsters[2];
       game.switchIn(
-        side: BattleSideId.opponent,
+        side: BattleSideID.opponent,
         monster: OwnedMonster(
           definition: sampleMonster.definition,
           level: sampleMonster.level,
-          actionCardMoveIds: const [],
+          actionCardMoveIDs: const [],
           artPath: null,
-          definitionIds: sampleMonster.definitionIds,
+          definitionIDs: sampleMonster.definitionIDs,
           decoration: null,
           decorationVersion: null,
         ),
@@ -683,7 +683,7 @@ void main() {
     addTearDown(artImage.dispose);
     game.applyArtImage(artPath: playerArtPath, artImage: artImage);
     game.switchIn(
-      side: BattleSideId.player,
+      side: BattleSideID.player,
       monster: decoratedMonster(
         monster: sampleData.monsters[0],
         artPath: playerArtPath,
@@ -709,7 +709,7 @@ void main() {
     game.applyArtImage(artPath: playerArtPath, artImage: artImage);
 
     game.switchIn(
-      side: BattleSideId.player,
+      side: BattleSideID.player,
       monster: ownedMonsterWithArt(
         monster: sampleData.monsters[2],
         artPath: playerArtPath,
@@ -719,7 +719,7 @@ void main() {
     expect(game.playerMonsterComponent.artSprite?.image, artImage);
 
     game.switchIn(
-      side: BattleSideId.player,
+      side: BattleSideID.player,
       monster: ownedMonsterWithArt(
         monster: sampleData.monsters[3],
         artPath: 'monsters/not-loaded/art.png',

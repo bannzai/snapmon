@@ -30,21 +30,21 @@ MonsterStats individualValuesFromSeed({required int seed}) {
   );
 }
 
-/// Jev が判定したステータスごとの段階 [statGradeIds] (段階の `id`) から種族値を返す。
+/// Jev が判定したステータスごとの段階 [statGradeIDs] (段階の `id`) から種族値を返す。
 /// 段階が master に無い・ステータスの段階が欠けている時は [StateError] を投げる。
 MonsterStats baseStatsFromStatGrades({
-  required Map<StatKind, String> statGradeIds,
+  required Map<StatKind, String> statGradeIDs,
   required MasterData master,
 }) {
   int baseStatOf({required StatKind statKind}) {
-    final statGradeId = statGradeIds[statKind];
-    if (statGradeId == null) {
+    final statGradeID = statGradeIDs[statKind];
+    if (statGradeID == null) {
       throw StateError('${statKind.name} の段階が判定結果に無い');
     }
     return master.statGrades
         .firstWhere(
-          (statGrade) => statGrade.id == statGradeId,
-          orElse: () => throw StateError('段階 $statGradeId が master に無い'),
+          (statGrade) => statGrade.id == statGradeID,
+          orElse: () => throw StateError('段階 $statGradeID が master に無い'),
         )
         .baseStat;
   }
@@ -62,7 +62,7 @@ MonsterStats baseStatsFromStatGrades({
 /// 確率が master の閾値以上の属性を確率の高い順 (同じなら ID 順) に上限まで選ぶ。
 /// 空の一覧を返した時は master に合う属性が無く、その場で新しい属性を作る経路に進む
 /// (ADR 0001「master に無い属性・技」)。
-List<String> selectElementTypeIds({
+List<String> selectElementTypeIDs({
   required Map<String, double> elementProbabilities,
   required MasterData master,
 }) {

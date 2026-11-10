@@ -63,7 +63,7 @@ class SnapmonApp extends StatefulWidget {
     required this.dexStore,
     required this.sessionStore,
     required this.gameAudio,
-    required this.openUrl,
+    required this.openURL,
     required this.isDeveloperMenuEnabled,
     required this.battleRecorder,
     required this.monsterGenerator,
@@ -93,7 +93,7 @@ class SnapmonApp extends StatefulWidget {
   final SessionStore sessionStore;
 
   /// 設定画面・タイトル画面のリンクを開く。
-  final OpenUrl openUrl;
+  final OpenURL openURL;
 
   /// 設定画面に開発者メニューを出すか ([SettingsScreen.isDeveloperMenuEnabled])。
   final bool isDeveloperMenuEnabled;
@@ -212,7 +212,7 @@ class _SnapmonAppState extends State<SnapmonApp> {
                   monsterGenerator: widget.monsterGenerator,
                   pvpClient: widget.pvpClient,
                   cardSharer: widget.cardSharer,
-                  openUrl: widget.openUrl,
+                  openURL: widget.openURL,
                   isDeveloperMenuEnabled: widget.isDeveloperMenuEnabled,
                   accountStore: widget.accountStore,
                   logEvent: widget.logEvent,
@@ -230,7 +230,7 @@ class _SnapmonAppState extends State<SnapmonApp> {
                   sampleData: widget.sampleData,
                   dexStore: widget.dexStore,
                   sessionStore: widget.sessionStore,
-                  openUrl: widget.openUrl,
+                  openURL: widget.openURL,
                   isDeveloperMenuEnabled: widget.isDeveloperMenuEnabled,
                   battleRecorder: widget.battleRecorder,
                   monsterGenerator: widget.monsterGenerator,

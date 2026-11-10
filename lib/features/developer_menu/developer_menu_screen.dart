@@ -94,7 +94,7 @@ class DeveloperMenuScreen extends StatelessWidget {
     },
     createSquareMask: monsterGenerator.createSquareMask,
     createCutoutPreview: monsterGenerator.createCutoutPreview,
-    createRequestId: monsterGenerator.createRequestId,
+    createRequestID: monsterGenerator.createRequestID,
     uploadPhoto: monsterGenerator.uploadPhoto,
     uploadMask: monsterGenerator.uploadMask,
     requestGeneration: monsterGenerator.requestGeneration,
@@ -193,7 +193,7 @@ class DeveloperMenuScreen extends StatelessWidget {
                     : (value) {
                         sampleActionCards.isActionCardsVisible.value = value;
                         if (value &&
-                            sampleActionCards.rankByMoveId.value == null) {
+                            sampleActionCards.rankByMoveID.value == null) {
                           sampleActionCards.loadSampleMoveRanks(
                             master: dexStore.definitions,
                           );

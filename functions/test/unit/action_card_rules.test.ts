@@ -7,7 +7,7 @@ import {
   actionCardRankOfProduct,
   canAssignMoveToActionCard,
   computeMoveRanks,
-  equippedMoveIds,
+  equippedMoveIDs,
   fallbackMoveRank,
   previousDayKeys,
 } from "../../src/action_card_rules";
@@ -17,7 +17,7 @@ import type { LearnsetEntry } from "../../src/generation/monster_stats";
 /** 端末の技の枠 (test/domain/battle/battle_engine_test.dart) と共通のテストケース。 */
 const equippedMoveCases = (
   JSON.parse(readFileSync(resolve(__dirname, "../../../test/fixtures/equipped_move_cases.json"), "utf8")) as {
-    cases: { name: string; learnset: LearnsetEntry[]; level: number; actionCardMoveIds: string[]; expectedMoveIds: string[] }[];
+    cases: { name: string; learnset: LearnsetEntry[]; level: number; actionCardMoveIDs: string[]; expectedMoveIDs: string[] }[];
   }
 ).cases;
 
@@ -25,11 +25,11 @@ const equippedMoveCases = (
 function move(overrides: Partial<MasterMove> & { id: string }): MasterMove {
   return {
     displayName: overrides.id,
-    elementTypeId: "fire",
+    elementTypeID: "fire",
     power: 40,
     powerPoints: 30,
     category: "attack",
-    effectId: "fire_particle",
+    effectID: "fire_particle",
     learnableLevelMinimum: 1,
     learnableLevelMaximum: 30,
     ...overrides,
@@ -42,8 +42,8 @@ describe("actionCardRankOfProduct", () => {
     ["snapmon_actioncardrank1_150yen", 1],
     ["snapmon_actioncardrank2_300yen", 2],
     ["snapmon_actioncardrank3_500yen", 3],
-  ])("%s はランク %i", (productId, rank) => {
-    expect(actionCardRankOfProduct(productId)).toBe(rank);
+  ])("%s はランク %i", (productID, rank) => {
+    expect(actionCardRankOfProduct(productID)).toBe(rank);
   });
 
   it.each([
@@ -53,8 +53,8 @@ describe("actionCardRankOfProduct", () => {
     "snapmon_actioncardrank1",
     "xsnapmon_actioncardrank1_100yen",
     "snapmon_generationticket10_200yen",
-  ])("%s は Action Card ではない", (productId) => {
-    expect(actionCardRankOfProduct(productId)).toBeUndefined();
+  ])("%s は Action Card ではない", (productID) => {
+    expect(actionCardRankOfProduct(productID)).toBeUndefined();
   });
 
   it("商品の識別子が無ければ Action Card ではない", () => {
@@ -62,9 +62,9 @@ describe("actionCardRankOfProduct", () => {
   });
 });
 
-describe("equippedMoveIds", () => {
-  it.each(equippedMoveCases)("$name", ({ learnset, level, actionCardMoveIds, expectedMoveIds }) => {
-    expect(equippedMoveIds({ learnset, level, actionCardMoveIds })).toEqual(expectedMoveIds);
+describe("equippedMoveIDs", () => {
+  it.each(equippedMoveCases)("$name", ({ learnset, level, actionCardMoveIDs, expectedMoveIDs }) => {
+    expect(equippedMoveIDs({ learnset, level, actionCardMoveIDs })).toEqual(expectedMoveIDs);
   });
 });
 
@@ -91,8 +91,8 @@ describe("computeMoveRanks", () => {
 
   it("10 件がすべて使われていれば使用回数の順に 2 件・3 件・5 件に分ける", () => {
     const moves = plainMoves(10);
-    const usageCountByMoveId = Object.fromEntries(moves.map((target, index) => [target.id, 100 - index]));
-    expect(computeMoveRanks({ moves, usageCountByMoveId })).toEqual({
+    const usageCountByMoveID = Object.fromEntries(moves.map((target, index) => [target.id, 100 - index]));
+    expect(computeMoveRanks({ moves, usageCountByMoveID })).toEqual({
       m00: 3,
       m01: 3,
       m02: 2,
@@ -109,39 +109,39 @@ describe("computeMoveRanks", () => {
   it("割合の母数は使われていない技を含めた買える技の数で、境界の位置は切り捨て", () => {
     // 10 件のうち使われたのは 3 件。上位 2 件 (10 件の 20%) がランク 3、3 件目が 5 件目 (50%) までのランク 2
     const moves = plainMoves(10);
-    expect(computeMoveRanks({ moves, usageCountByMoveId: { m00: 9, m01: 8, m02: 7 } })).toMatchObject({ m00: 3, m01: 3, m02: 2 });
+    expect(computeMoveRanks({ moves, usageCountByMoveID: { m00: 9, m01: 8, m02: 7 } })).toMatchObject({ m00: 3, m01: 3, m02: 2 });
   });
 
   it("使われた技でも並びが 50% より後ならランク 1", () => {
     // 4 件のうち 2 件 (50%) までがランク 2 以上で、ランク 3 は 4 件の 20% の切り捨てで 0 件
     const moves = plainMoves(4);
-    expect(computeMoveRanks({ moves, usageCountByMoveId: { m00: 4, m01: 3, m02: 2, m03: 1 } })).toEqual({ m00: 2, m01: 2, m02: 1, m03: 1 });
+    expect(computeMoveRanks({ moves, usageCountByMoveID: { m00: 4, m01: 3, m02: 2, m03: 1 } })).toEqual({ m00: 2, m01: 2, m02: 1, m03: 1 });
   });
 
   it("使われていない技は並びの位置に関係なく段階で決める", () => {
     // 5 件のうち使われたのは m00 だけ。並びで上位 20% に入る位置が無くても、使用 0 の strong はランク 3、weak はランク 1
     const moves = [...plainMoves(1), move({ id: "strong", power: 110 }), move({ id: "middle", power: 70 }), move({ id: "weak1" }), move({ id: "weak2" })];
-    expect(computeMoveRanks({ moves, usageCountByMoveId: { m00: 9 } })).toEqual({ m00: 3, strong: 3, middle: 2, weak1: 1, weak2: 1 });
+    expect(computeMoveRanks({ moves, usageCountByMoveID: { m00: 9 } })).toEqual({ m00: 3, strong: 3, middle: 2, weak1: 1, weak2: 1 });
   });
 
   it("どの技も使われていなければすべて段階で決める", () => {
     const moves = [move({ id: "weak" }), move({ id: "strong", power: 110 }), move({ id: "middle", power: 70 })];
-    expect(computeMoveRanks({ moves, usageCountByMoveId: {} })).toEqual({ weak: 1, strong: 3, middle: 2 });
+    expect(computeMoveRanks({ moves, usageCountByMoveID: {} })).toEqual({ weak: 1, strong: 3, middle: 2 });
   });
 
   it("使用回数が同じ技は境界をまたいでも技の ID の順に並べる", () => {
     const moves = plainMoves(5).reverse();
     // m00 と m01 が同じ回数で、ランク 3 の 1 件 (5 件の 20%) の境界をまたぐ
-    expect(computeMoveRanks({ moves, usageCountByMoveId: { m00: 7, m01: 7, m02: 3, m03: 2, m04: 1 } })).toMatchObject({ m00: 3, m01: 2 });
+    expect(computeMoveRanks({ moves, usageCountByMoveID: { m00: 7, m01: 7, m02: 3, m03: 2, m04: 1 } })).toMatchObject({ m00: 3, m01: 2 });
   });
 
   it("使われた強い技でも使用の順のランクにし、段階のランクを使わない", () => {
     const moves = [...plainMoves(4), move({ id: "strong", power: 110 })];
-    expect(computeMoveRanks({ moves, usageCountByMoveId: { m00: 50, m01: 40, m02: 30, m03: 20, strong: 1 } })).toMatchObject({ m00: 3, strong: 1 });
+    expect(computeMoveRanks({ moves, usageCountByMoveID: { m00: 50, m01: 40, m02: 30, m03: 20, strong: 1 } })).toMatchObject({ m00: 3, strong: 1 });
   });
 
   it("買える技に無い ID の使用回数は表に入れない", () => {
-    expect(computeMoveRanks({ moves: plainMoves(1), usageCountByMoveId: { replaced: 99, constructor: 5 } })).toEqual({ m00: 1 });
+    expect(computeMoveRanks({ moves: plainMoves(1), usageCountByMoveID: { replaced: 99, constructor: 5 } })).toEqual({ m00: 1 });
   });
 });
 

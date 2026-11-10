@@ -46,8 +46,8 @@ void main() {
       required List<String> calledSteps,
     }) => resumeSession(
       currentUid: currentUid,
-      refreshIdToken: () async {
-        calledSteps.add('refreshIdToken');
+      refreshIDToken: () async {
+        calledSteps.add('refreshIDToken');
         if (refreshError != null) {
           throw refreshError;
         }
@@ -81,7 +81,7 @@ void main() {
         'uid-1',
       );
       expect(calledSteps, [
-        'refreshIdToken',
+        'refreshIDToken',
         'activateAppCheck',
         'enableCollection',
       ]);
@@ -103,7 +103,7 @@ void main() {
           ),
           isNull,
         );
-        expect(calledSteps, ['refreshIdToken', 'signOut']);
+        expect(calledSteps, ['refreshIDToken', 'signOut']);
       });
     }
 
@@ -118,7 +118,7 @@ void main() {
         'uid-1',
       );
       expect(calledSteps, [
-        'refreshIdToken',
+        'refreshIDToken',
         'activateAppCheck',
         'enableCollection',
       ]);
@@ -134,7 +134,7 @@ void main() {
         ),
         throwsA(isA<FirebaseAuthException>()),
       );
-      expect(calledSteps, ['refreshIdToken']);
+      expect(calledSteps, ['refreshIDToken']);
     });
   });
 }

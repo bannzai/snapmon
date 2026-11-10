@@ -136,7 +136,7 @@ class _TypeChart extends StatelessWidget {
                   ),
                   for (final defenderElementType in elementTypes)
                     _TypeChartElementHeader(
-                      elementTypeId: defenderElementType.id,
+                      elementTypeID: defenderElementType.id,
                       displayName: defenderElementType.displayName,
                     ),
                 ],
@@ -145,7 +145,7 @@ class _TypeChart extends StatelessWidget {
                 TableRow(
                   children: [
                     _TypeChartElementHeader(
-                      elementTypeId: attackerElementType.id,
+                      elementTypeID: attackerElementType.id,
                       displayName: attackerElementType.displayName,
                     ),
                     for (final defenderElementType in elementTypes)
@@ -154,8 +154,8 @@ class _TypeChart extends StatelessWidget {
                           'type-chart-${attackerElementType.id}-${defenderElementType.id}',
                         ),
                         multiplier: definitions.typeMultiplier(
-                          attackerElementTypeId: attackerElementType.id,
-                          defenderElementTypeId: defenderElementType.id,
+                          attackerElementTypeID: attackerElementType.id,
+                          defenderElementTypeID: defenderElementType.id,
                         ),
                       ),
                   ],
@@ -191,19 +191,19 @@ class _TypeChartCell extends StatelessWidget {
 /// 相性表の見出しの属性のマス (属性の色の地に名前)。
 class _TypeChartElementHeader extends StatelessWidget {
   const _TypeChartElementHeader({
-    required this.elementTypeId,
+    required this.elementTypeID,
     required this.displayName,
   });
 
   /// 見出しの属性の ID。地の色を決める。
-  final String elementTypeId;
+  final String elementTypeID;
 
   /// 見出しに出す属性の名前。
   final String displayName;
 
   @override
   Widget build(BuildContext context) => _TypeChartCell(
-    color: elementTypeColor(elementTypeId: elementTypeId),
+    color: elementTypeColor(elementTypeID: elementTypeID),
     child: Text(
       displayName,
       maxLines: 2,
@@ -243,7 +243,7 @@ class _TypeChartMultiplierCell extends StatelessWidget {
 }
 
 /// 技の一覧。属性ごとに技を並べ、タップで技の詳細 ([openMoveDetail]) を開く。
-/// 別の技が置き換えた補助技 (`Move.replacesMoveId` が指す技) は、新しく生まれるモンスターが覚えないため並べない (#257)。
+/// 別の技が置き換えた補助技 (`Move.replacesMoveID` が指す技) は、新しく生まれるモンスターが覚えないため並べない (#257)。
 class _MoveList extends StatelessWidget {
   const _MoveList({required this.definitions});
 
@@ -252,15 +252,15 @@ class _MoveList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => _buildList(
-    replacedMoveIds: {
+    replacedMoveIDs: {
       for (final move in definitions.moves)
-        if (move.replacesMoveId case final String replacedMoveId)
-          replacedMoveId,
+        if (move.replacesMoveID case final String replacedMoveID)
+          replacedMoveID,
     },
   );
 
-  /// [replacedMoveIds] に入っていない技を属性ごとに並べた一覧を返す。
-  Widget _buildList({required Set<String> replacedMoveIds}) => ListView(
+  /// [replacedMoveIDs] に入っていない技を属性ごとに並べた一覧を返す。
+  Widget _buildList({required Set<String> replacedMoveIDs}) => ListView(
     key: const Key('reference-move-list'),
     padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
     children: [
@@ -270,15 +270,15 @@ class _MoveList extends StatelessWidget {
           child: Row(
             children: [
               ElementTypeTag(
-                elementTypeId: elementType.id,
+                elementTypeID: elementType.id,
                 definitions: definitions,
               ),
             ],
           ),
         ),
         for (final move in definitions.moves)
-          if (move.elementTypeId == elementType.id &&
-              !replacedMoveIds.contains(move.id))
+          if (move.elementTypeID == elementType.id &&
+              !replacedMoveIDs.contains(move.id))
             Padding(
               padding: const EdgeInsets.only(bottom: 8),
               child: _MoveRow(move: move, definitions: definitions),

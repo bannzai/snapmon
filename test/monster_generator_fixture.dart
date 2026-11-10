@@ -11,13 +11,13 @@ import 'package:snapmon/features/dex/owned_monster.dart';
 /// テスト用の [MonsterGenerator] が受け取った呼び出し。
 class RecordedGenerationCalls {
   /// uploadPhoto に渡された要求 ID (呼ばれた順)。
-  final List<String> uploadedRequestIds = [];
+  final List<String> uploadedRequestIDs = [];
 
   /// uploadMask に渡された要求 ID とマスク (呼ばれた順)。
-  final List<({String requestId, Uint8List mask})> uploadedMasks = [];
+  final List<({String requestID, Uint8List mask})> uploadedMasks = [];
 
   /// requestGeneration に渡された要求 ID (呼ばれた順)。
-  final List<String> requestedRequestIds = [];
+  final List<String> requestedRequestIDs = [];
 
   /// requestGeneration に渡されたマスクの出どころ (呼ばれた順)。
   final List<GenerationMaskSource> requestedMaskSources = [];
@@ -26,7 +26,7 @@ class RecordedGenerationCalls {
   final List<SquareCrop> squareMaskCrops = [];
 
   /// fetchGeneration に渡された要求 ID (呼ばれた順)。
-  final List<String> fetchedRequestIds = [];
+  final List<String> fetchedRequestIDs = [];
 
   /// openAppSettings が呼ばれた回数。
   int openAppSettingsCallCount = 0;
@@ -73,9 +73,9 @@ MonsterGenerator fakeMonsterGenerator({
   required RecordedGenerationCalls calls,
   required Uint8List? albumPhoto,
   required Object? uploadError,
-  required Future<GenerationResult> Function({required String requestId})
+  required Future<GenerationResult> Function({required String requestID})
   requestGeneration,
-  required Future<GenerationResult> Function({required String requestId})
+  required Future<GenerationResult> Function({required String requestID})
   fetchGeneration,
   Future<Uint8List?> Function({required Uint8List photo})? createSubjectMask,
   Future<Uint8List> Function({
@@ -89,7 +89,7 @@ MonsterGenerator fakeMonsterGenerator({
   purchaseTicketPackage,
   Stream<int>? generationTickets,
 }) {
-  var requestIdCount = 0;
+  var requestIDCount = 0;
   return MonsterGenerator(
     // テストの環境にはカメラが無い (Simulator と同じ)
     listCameras: () async => const [],
@@ -108,25 +108,25 @@ MonsterGenerator fakeMonsterGenerator({
           : createSquareMask(photo: photo, crop: crop);
     },
     createCutoutPreview: ({required photo, required mask}) async => photo,
-    createRequestId: () => 'request-${++requestIdCount}',
-    uploadPhoto: ({required requestId, required photo}) async {
+    createRequestID: () => 'request-${++requestIDCount}',
+    uploadPhoto: ({required requestID, required photo}) async {
       if (uploadError != null) {
         throw uploadError;
       }
-      calls.uploadedRequestIds.add(requestId);
+      calls.uploadedRequestIDs.add(requestID);
     },
-    uploadMask: ({required requestId, required mask}) async =>
-        calls.uploadedMasks.add((requestId: requestId, mask: mask)),
+    uploadMask: ({required requestID, required mask}) async =>
+        calls.uploadedMasks.add((requestID: requestID, mask: mask)),
     requestGeneration:
-        ({required requestId, required maskSource, required onCompletedStage}) {
-          calls.requestedRequestIds.add(requestId);
+        ({required requestID, required maskSource, required onCompletedStage}) {
+          calls.requestedRequestIDs.add(requestID);
           calls.requestedMaskSources.add(maskSource);
           onCompletedStage(completedStage: GenerationStage.cutout);
-          return requestGeneration(requestId: requestId);
+          return requestGeneration(requestID: requestID);
         },
-    fetchGeneration: ({required requestId}) {
-      calls.fetchedRequestIds.add(requestId);
-      return fetchGeneration(requestId: requestId);
+    fetchGeneration: ({required requestID}) {
+      calls.fetchedRequestIDs.add(requestID);
+      return fetchGeneration(requestID: requestID);
     },
     fetchTicketPackages: fetchTicketPackages ?? () async => ticketPackages,
     purchaseTicketPackage:
@@ -139,7 +139,7 @@ MonsterGenerator fakeMonsterGenerator({
   );
 }
 
-/// 生成時にその場で作った定義 (`definitions/{definitionId}`) の見本。見本の定義に無い属性と技を 1 つずつ持つ。
+/// 生成時にその場で作った定義 (`definitions/{definitionID}`) の見本。見本の定義に無い属性と技を 1 つずつ持つ。
 const Map<String, dynamic> waxDefinitionJson = {
   'version': 1,
   'elementTypes': [
@@ -149,11 +149,11 @@ const Map<String, dynamic> waxDefinitionJson = {
     {
       'id': 'dynamic-wax-1',
       'displayName': 'ろうアタック',
-      'elementTypeId': 'dynamic-wax',
+      'elementTypeID': 'dynamic-wax',
       'power': 40,
       'powerPoints': 30,
       'category': 'attack',
-      'effectId': 'steel_particle',
+      'effectID': 'steel_particle',
       'learnableLevelMinimum': 1,
       'learnableLevelMaximum': 30,
     },
@@ -161,7 +161,7 @@ const Map<String, dynamic> waxDefinitionJson = {
 };
 
 /// [waxDefinitionJson] の定義の ID。
-const String waxDefinitionId = 'definition-wax';
+const String waxDefinitionID = 'definition-wax';
 
 /// [base] (見本の定義) に [waxDefinitionJson] を足した定義。
 MasterData definitionsWithWax({required MasterData base}) => mergeMasterData(
@@ -171,16 +171,16 @@ MasterData definitionsWithWax({required MasterData base}) => mergeMasterData(
 
 /// サーバーで生まれたモンスターの見本。属性と最初の技は [waxDefinitionJson] にだけある。
 /// 切り出した画像は持たない (widget test で Storage を読ませないため)。
-OwnedMonster generatedWaxMonster({required String monsterId}) => OwnedMonster(
+OwnedMonster generatedWaxMonster({required String monsterID}) => OwnedMonster(
   definition: MonsterDefinition(
-    id: monsterId,
+    id: monsterID,
     sourcePhotoReference: 'users/uid-1/photos/request-1',
     name: 'ロウソクン',
     encyclopediaText: 'あかりをともすと元気になる',
-    elementTypeIds: const ['dynamic-wax'],
+    elementTypeIDs: const ['dynamic-wax'],
     learnset: const [
-      LearnsetEntry(moveId: 'dynamic-wax-1', unlockLevel: 1),
-      LearnsetEntry(moveId: 'steel_1', unlockLevel: 1),
+      LearnsetEntry(moveID: 'dynamic-wax-1', unlockLevel: 1),
+      LearnsetEntry(moveID: 'steel_1', unlockLevel: 1),
     ],
     baseStats: const MonsterStats(
       hitPoints: 80,
@@ -200,9 +200,9 @@ OwnedMonster generatedWaxMonster({required String monsterId}) => OwnedMonster(
     masterVersion: 1,
   ),
   level: 1,
-  actionCardMoveIds: const [],
+  actionCardMoveIDs: const [],
   artPath: null,
-  definitionIds: const [waxDefinitionId],
+  definitionIDs: const [waxDefinitionID],
   decoration: null,
   decorationVersion: null,
 );

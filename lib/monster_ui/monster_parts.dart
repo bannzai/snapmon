@@ -227,17 +227,17 @@ class _PlaceholderMonsterPainter extends CustomPainter {
       oldDelegate.definition.id != definition.id;
 }
 
-/// 属性の札。[elementTypeId] の名前を [definitions] から引き、属性の色の地に描く。
+/// 属性の札。[elementTypeID] の名前を [definitions] から引き、属性の色の地に描く。
 class ElementTypeTag extends StatelessWidget {
   /// 属性の札を作る。
   const ElementTypeTag({
     super.key,
-    required this.elementTypeId,
+    required this.elementTypeID,
     required this.definitions,
   });
 
   /// 描く属性の識別子。
-  final String elementTypeId;
+  final String elementTypeID;
 
   /// 属性の名前を引く定義。
   final MasterData definitions;
@@ -245,7 +245,7 @@ class ElementTypeTag extends StatelessWidget {
   @override
   Widget build(BuildContext context) => DecoratedBox(
     decoration: BoxDecoration(
-      color: elementTypeColor(elementTypeId: elementTypeId),
+      color: elementTypeColor(elementTypeID: elementTypeID),
       borderRadius: SnapmonRadii.tag,
     ),
     child: Padding(
@@ -253,8 +253,8 @@ class ElementTypeTag extends StatelessWidget {
       child: Text(
         definitions.elementTypes
             .firstWhere(
-              (elementType) => elementType.id == elementTypeId,
-              orElse: () => throw StateError('属性 $elementTypeId が定義に無い'),
+              (elementType) => elementType.id == elementTypeID,
+              orElse: () => throw StateError('属性 $elementTypeID が定義に無い'),
             )
             .displayName,
         style: SnapmonTextStyles.small.copyWith(
@@ -273,12 +273,12 @@ class ElementTypeIcon extends StatelessWidget {
   /// 属性のアイコンを作る。
   const ElementTypeIcon({
     super.key,
-    required this.elementTypeId,
+    required this.elementTypeID,
     required this.definitions,
   });
 
   /// 描く属性の識別子。
-  final String elementTypeId;
+  final String elementTypeID;
 
   /// 読み上げる属性の名前を引く定義。
   final MasterData definitions;
@@ -290,8 +290,8 @@ class ElementTypeIcon extends StatelessWidget {
   Widget build(BuildContext context) => Semantics(
     label: definitions.elementTypes
         .firstWhere(
-          (elementType) => elementType.id == elementTypeId,
-          orElse: () => throw StateError('属性 $elementTypeId が定義に無い'),
+          (elementType) => elementType.id == elementTypeID,
+          orElse: () => throw StateError('属性 $elementTypeID が定義に無い'),
         )
         .displayName,
     child: ExcludeSemantics(
@@ -299,12 +299,12 @@ class ElementTypeIcon extends StatelessWidget {
         width: diameter,
         height: diameter,
         decoration: BoxDecoration(
-          color: elementTypeColor(elementTypeId: elementTypeId),
+          color: elementTypeColor(elementTypeID: elementTypeID),
           shape: BoxShape.circle,
         ),
         // 丸 18 の中に 12 のアイコン。上下左右 3 の余白が残り、丸の縁に触れない
         child: Icon(
-          elementTypeIcon(elementTypeId: elementTypeId),
+          elementTypeIcon(elementTypeID: elementTypeID),
           size: 12,
           color: SnapmonColors.textOnBackground,
         ),

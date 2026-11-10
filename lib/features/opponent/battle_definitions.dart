@@ -20,8 +20,8 @@ Future<MasterData> prepareBattleDefinitions({
   }
   return pvpClient.fetchDefinitions(
     base: dexStore.definitions,
-    definitionIds: [
-      for (final monster in pvpOpponentMonsters) ...monster.definitionIds,
+    definitionIDs: [
+      for (final monster in pvpOpponentMonsters) ...monster.definitionIDs,
     ],
   );
 }

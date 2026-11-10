@@ -23,7 +23,7 @@ void main() {
     final sampleDefinitions = sampleJson['definitions'] as Map<String, dynamic>;
     expect(sampleDefinitions['version'], masterJson['version']);
     for (final key in ['elementTypes', 'moves', 'effects']) {
-      final masterById = {
+      final masterByID = {
         for (final entry in masterJson[key] as List<dynamic>)
           (entry as Map<String, dynamic>)['id']: entry,
       };
@@ -31,7 +31,7 @@ void main() {
         final sampleEntry = entry as Map<String, dynamic>;
         expect(
           sampleEntry,
-          masterById[sampleEntry['id']],
+          masterByID[sampleEntry['id']],
           reason: '$key の ${sampleEntry['id']}',
         );
       }
@@ -43,21 +43,21 @@ void main() {
   });
 
   test('見本のモンスターの属性・技はすべて見本の定義にある', () {
-    final elementTypeIds = {
+    final elementTypeIDs = {
       for (final elementType in sampleData.definitions.elementTypes)
         elementType.id,
     };
     for (final monster in sampleData.monsters) {
       expect(
-        elementTypeIds.containsAll(monster.definition.elementTypeIds),
+        elementTypeIDs.containsAll(monster.definition.elementTypeIDs),
         isTrue,
       );
       for (final learnsetEntry in monster.definition.learnset) {
-        final move = sampleData.definitions.moveById(
-          moveId: learnsetEntry.moveId,
+        final move = sampleData.definitions.moveByID(
+          moveID: learnsetEntry.moveID,
         );
         expect(
-          () => sampleData.definitions.effectById(effectId: move.effectId),
+          () => sampleData.definitions.effectByID(effectID: move.effectID),
           returnsNormally,
         );
       }
@@ -117,10 +117,10 @@ void main() {
   test('見本の対戦相手は見本のモンスターを 1〜3 体持つ', () {
     expect(sampleData.opponents, isNotEmpty);
     for (final opponent in sampleData.opponents) {
-      expect(opponent.monsterIds.length, inInclusiveRange(1, maximumPartySize));
-      for (final monsterId in opponent.monsterIds) {
+      expect(opponent.monsterIDs.length, inInclusiveRange(1, maximumPartySize));
+      for (final monsterID in opponent.monsterIDs) {
         expect(
-          () => sampleData.monsterById(monsterId: monsterId),
+          () => sampleData.monsterByID(monsterID: monsterID),
           returnsNormally,
         );
       }
