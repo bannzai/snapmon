@@ -2142,13 +2142,12 @@ void main() {
 
     test('麻痺でも補助技はどの seed でも使え、麻痺の乱数を引かない', () {
       for (var seed = 1; seed <= 50; seed++) {
-        final before = duel(
-          playerMoveIDs: ['fire_paralyze'],
-          opponentMoveIDs: ['fire_raise_attack'],
-          randomSeed: seed,
-        );
         final state = play(
-          state: before,
+          state: duel(
+            playerMoveIDs: ['fire_paralyze'],
+            opponentMoveIDs: ['fire_raise_attack'],
+            randomSeed: seed,
+          ),
           playerMoveID: 'fire_paralyze',
           opponentMoveID: 'fire_raise_attack',
         );
