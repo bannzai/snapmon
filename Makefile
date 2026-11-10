@@ -61,9 +61,10 @@ android: flutter-version-check
 build-web: flutter-version-check
 	flutter build web --release $(web_dart_defines)
 
-# CI (.github/workflows/flutter-ci.yml) の lint・test と同じ検査をまとめて実行する
+# CI (.github/workflows/flutter-ci.yml) の lint・test と同じ検査をまとめて実行する。
+# 手元の SDK が CI と違う版だと pub get は通っても analyze・test の結果が CI と食い違うため、先に版を検査する
 .PHONY: verify
-verify:
+verify: flutter-version-check
 	flutter pub get
 	flutter gen-l10n
 	flutter analyze --no-pub --no-fatal-infos --fatal-warnings

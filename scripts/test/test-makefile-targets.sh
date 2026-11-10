@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Makefile の ios-device と web のテスト。flutter を差し替えて (呼ばれた引数を記録し、devices --machine には
+# Makefile の ios-device・web・verify のテスト。flutter を差し替えて (呼ばれた引数を記録し、devices --machine には
 # 用意した一覧を返す)、実機の自動選択・実機が無い時の失敗・DEVICE= の指定・web の起動の引数を確かめる。
 # 一時ディレクトリにリポジトリの Makefile を写して実行し、手元の simulator・Chrome には触れない。
 set -euo pipefail
@@ -212,6 +212,45 @@ test_build_web_does_not_pass_debug_token() {
   pass "build-web: release のビルドには debug token を渡さない"
 }
 
+# 引数: 作業ディレクトリ、差し替えの flutter が --version --machine に返す版。prepare_workspace の flutter の版を置き換える
+set_flutter_version() {
+  local work=$1 version=$2
+  sed -i.bak "s/\"frameworkVersion\": \"9.9.9\"/\"frameworkVersion\": \"$version\"/" "$work/bin/flutter"
+}
+
+test_verify_runs_after_version_check_passes() {
+  local work
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  # verify の後続 (dart format・各テストの script) は作業場所に無く失敗するため、exit code ではなく flutter の呼び出しで確かめる
+  run_make "$work" '[]' verify || true
+  if [ "$(head -n 1 "$work/flutter-args")" != "pub get" ]; then
+    fail "verify: 手元の版が pubspec と一致するのに flutter pub get まで進んでいない ($(cat "$work/stdout"))"
+    return
+  fi
+  pass "verify: 手元の版が pubspec と一致すれば flutter pub get から実行する"
+}
+
+test_verify_stops_on_version_mismatch() {
+  local work
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  set_flutter_version "$work" "9.9.10"
+  if run_make "$work" '[]' verify; then
+    fail "verify: 手元の版が pubspec と違うのに成功した"
+    return
+  fi
+  if ! grep -q '手元の Flutter SDK は 9.9.10 で、pubspec.yaml (CI と同じ版) は 9.9.9 です' "$work/stdout"; then
+    fail "verify: 版の不一致のエラーメッセージが出ていない ($(cat "$work/stdout"))"
+    return
+  fi
+  if [ -s "$work/flutter-args" ]; then
+    fail "verify: 版が違うのに flutter を呼んだ ($(cat "$work/flutter-args"))"
+    return
+  fi
+  pass "verify: 手元の版が pubspec と違えば flutter pub get の前に止まる"
+}
+
 test_ios_device_selects_supported_physical_device
 test_ios_device_fails_without_physical_device
 test_ios_device_uses_device_variable
@@ -220,6 +259,8 @@ test_web_prefers_environment_site_key
 test_web_runs_without_site_key
 test_web_passes_debug_token_from_environment
 test_build_web_does_not_pass_debug_token
+test_verify_runs_after_version_check_passes
+test_verify_stops_on_version_mismatch
 
 if [ "$failures" -ne 0 ]; then
   echo "$failures 件失敗"
