@@ -225,7 +225,7 @@ class DeveloperMenuScreen extends StatelessWidget {
                 secondary: const Icon(Icons.trending_up),
                 title: const Text('次の購入が届く前に選んだ技を受け取れなくする'),
                 subtitle: const Text(
-                  '技のランクを 1 つ上げる (ランク 3 の技は同じ技を先に受け取ったことにする)\n技を受け取れずに購入が残る流れを確かめるため',
+                  '購入が届く前に 控えた技を別の見本の商品に変える\n技を受け取れずに購入が残る流れを確かめるため',
                 ),
                 value: blocksReservedMove,
                 onChanged: dexStore.isServerBacked
