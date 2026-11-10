@@ -180,9 +180,12 @@ class ActionCardStore extends ChangeNotifier {
     _hasLoadedPackages = true;
     _packagesRetryTimer?.cancel();
     _packagesRetryTimer = null;
-    _packages = [
-      ...packages.where((package) => isActionCardPackage(package: package)),
-    ]..sort((left, right) => left.storeProduct.price.compareTo(right.storeProduct.price));
+    _packages =
+        [...packages.where((package) => isActionCardPackage(package: package))]
+          ..sort(
+            (left, right) =>
+                left.storeProduct.price.compareTo(right.storeProduct.price),
+          );
     notifyListeners();
   }
 

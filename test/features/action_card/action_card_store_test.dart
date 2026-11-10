@@ -56,7 +56,11 @@ void main() {
         productID: testCheapActionCardProductID,
         moveID: 'fire_1c',
       ),
-      testActionCardPurchase(actionCardPurchaseID: 'p2', productID: testExpensiveActionCardProductID, moveID: null),
+      testActionCardPurchase(
+        actionCardPurchaseID: 'p2',
+        productID: testExpensiveActionCardProductID,
+        moveID: null,
+      ),
       testActionCardPurchase(
         actionCardPurchaseID: 'p3',
         productID: testModerateActionCardProductID,
@@ -100,7 +104,9 @@ void main() {
     ]);
     final earlierRefresh = store.refreshPackages();
     final laterRefresh = store.refreshPackages();
-    laterCompleter.complete([testActionCardPackage(productID: testCheapActionCardProductID)]);
+    laterCompleter.complete([
+      testActionCardPackage(productID: testCheapActionCardProductID),
+    ]);
     await laterRefresh;
     earlierCompleter.completeError(StateError('通信の失敗'));
     await earlierRefresh;
@@ -123,7 +129,9 @@ void main() {
     final laterRefresh = store.refreshPackages();
     laterCompleter.completeError(StateError('通信の失敗'));
     await laterRefresh;
-    earlierCompleter.complete([testActionCardPackage(productID: testModerateActionCardProductID)]);
+    earlierCompleter.complete([
+      testActionCardPackage(productID: testModerateActionCardProductID),
+    ]);
     await earlierRefresh;
     expect(store.packages.map((package) => package.identifier), [
       'actioncard_test200',
@@ -140,9 +148,13 @@ void main() {
     ]);
     final earlierRefresh = store.refreshPackages();
     final laterRefresh = store.refreshPackages();
-    laterCompleter.complete([testActionCardPackage(productID: testExpensiveActionCardProductID)]);
+    laterCompleter.complete([
+      testActionCardPackage(productID: testExpensiveActionCardProductID),
+    ]);
     await laterRefresh;
-    earlierCompleter.complete([testActionCardPackage(productID: testCheapActionCardProductID)]);
+    earlierCompleter.complete([
+      testActionCardPackage(productID: testCheapActionCardProductID),
+    ]);
     await earlierRefresh;
     expect(store.packages.map((package) => package.identifier), [
       'actioncard_test300',
@@ -177,14 +189,11 @@ void main() {
       testActionCardPackage(productID: testModerateActionCardProductID),
     ];
     await store.refreshPackages();
-    expect(
-      store.packages.map((package) => package.storeProduct.identifier),
-      [
-        testCheapActionCardProductID,
-        testModerateActionCardProductID,
-        testExpensiveActionCardProductID,
-      ],
-    );
+    expect(store.packages.map((package) => package.storeProduct.identifier), [
+      testCheapActionCardProductID,
+      testModerateActionCardProductID,
+      testExpensiveActionCardProductID,
+    ]);
   });
 
   test('package の読み直しが例外で失敗したら 前に読めた一覧を残し 空が返ったら空にする', () async {
@@ -228,7 +237,10 @@ void main() {
         savePartyMonsterIds: ({required monsterIds}) async {},
         refreshDefinitions: () async => refreshCount += 1,
       );
-    fakeActionCards.productIDByMoveID.value = {'fire_1c': testCheapActionCardProductID, 'newer_move': testModerateActionCardProductID};
+    fakeActionCards.productIDByMoveID.value = {
+      'fire_1c': testCheapActionCardProductID,
+      'newer_move': testModerateActionCardProductID,
+    };
     await pumpEventQueue();
     final requestedMoveIds = <String>{};
     await refreshDefinitionsForActionCardMoves(

@@ -70,10 +70,10 @@ describe("fallbackActionCardProductID", () => {
   it.each([
     ["段階 3 (威力 110)", move({ id: "m", power: 110 }), EXPENSIVE_ACTION_CARD_PRODUCT_ID],
     ["自爆 (威力 200)", move({ id: "m", power: 200 }), EXPENSIVE_ACTION_CARD_PRODUCT_ID],
-    ["一撃必殺", move({ id: "m", power: CHEAP_ACTION_CARD_PRODUCT_ID, specialEffect: { oneHitKnockout: true, summary: "", rule: "" } }), EXPENSIVE_ACTION_CARD_PRODUCT_ID],
+    ["一撃必殺", move({ id: "m", power: 1, specialEffect: { oneHitKnockout: true, summary: "", rule: "" } }), EXPENSIVE_ACTION_CARD_PRODUCT_ID],
     ["威力 109", move({ id: "m", power: 109 }), MODERATE_ACTION_CARD_PRODUCT_ID],
     ["段階 2 (威力 70)", move({ id: "m", power: 70 }), MODERATE_ACTION_CARD_PRODUCT_ID],
-    ["先制", move({ id: "m", power: 40, priority: CHEAP_ACTION_CARD_PRODUCT_ID }), MODERATE_ACTION_CARD_PRODUCT_ID],
+    ["先制", move({ id: "m", power: 40, priority: 1 }), MODERATE_ACTION_CARD_PRODUCT_ID],
     ["必中 (威力 60)", move({ id: "m", power: 60, specialEffect: { sureHit: true, summary: "", rule: "" } }), MODERATE_ACTION_CARD_PRODUCT_ID],
     ["威力 69", move({ id: "m", power: 69 }), CHEAP_ACTION_CARD_PRODUCT_ID],
     ["先制の度合い 0", move({ id: "m", power: 40, priority: 0 }), CHEAP_ACTION_CARD_PRODUCT_ID],

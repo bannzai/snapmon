@@ -94,11 +94,12 @@ class SampleActionCards {
     productIDByMoveID.value = {
       for (final move in master.moves)
         if (!replacedMoveIds.contains(move.id))
-          move.id: sampleActionCardProductIDs[move.power >= 110
-              ? 2
-              : move.power >= 70
-              ? 1
-              : 0],
+          move.id:
+              sampleActionCardProductIDs[move.power >= 110
+                  ? 2
+                  : move.power >= 70
+                  ? 1
+                  : 0],
     };
   }
 
@@ -258,8 +259,7 @@ class SampleActionCards {
     fetchActionCardPackages: () async => _samplePackages(),
     purchaseActionCardPackage: _purchase,
     watchActionCardPurchases: () => _watch(notifier: purchases),
-    watchActionCardProductIDByMoveID: () =>
-        _watch(notifier: productIDByMoveID),
+    watchActionCardProductIDByMoveID: () => _watch(notifier: productIDByMoveID),
     reserveActionCardMove: _reserve,
     assignActionCardMove: _assign,
     teachActionCardMove: _teach,

@@ -193,8 +193,7 @@ class DeveloperMenuScreen extends StatelessWidget {
                     : (value) {
                         sampleActionCards.isActionCardsVisible.value = value;
                         if (value &&
-                            sampleActionCards.productIDByMoveID.value ==
-                                null) {
+                            sampleActionCards.productIDByMoveID.value == null) {
                           sampleActionCards.loadSampleActionCardProducts(
                             master: dexStore.definitions,
                           );

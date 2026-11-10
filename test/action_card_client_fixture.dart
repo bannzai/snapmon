@@ -135,8 +135,7 @@ class FakeActionCards {
       };
     },
     watchActionCardPurchases: () => _watch(notifier: purchases),
-    watchActionCardProductIDByMoveID: () =>
-        _watch(notifier: productIDByMoveID),
+    watchActionCardProductIDByMoveID: () => _watch(notifier: productIDByMoveID),
     reserveActionCardMove: ({required moveID, required productID}) async {
       reservedMoves.add((moveID: moveID, productID: productID));
       if (reserveErrors.isNotEmpty) {

@@ -23,7 +23,11 @@ void main() {
   final sampleData = loadSampleDataFixture();
 
   /// 技ごとの商品の表の見本。100 円の商品に 2 つ (fire_1c・water_1b)、300 円の商品に 1 つ (water_3)。
-  const sampleProductIDByMoveID = {'fire_1c': testCheapActionCardProductID, 'water_1b': testCheapActionCardProductID, 'water_3': testExpensiveActionCardProductID};
+  const sampleProductIDByMoveID = {
+    'fire_1c': testCheapActionCardProductID,
+    'water_1b': testCheapActionCardProductID,
+    'water_3': testExpensiveActionCardProductID,
+  };
 
   late FakeActionCards fakeActionCards;
   late DexStore dexStore;
@@ -262,7 +266,9 @@ void main() {
     testWidgets('売っていない商品の技は 値段を出せないため並べない', (tester) async {
       fakeActionCards
         ..productIDByMoveID.value = sampleProductIDByMoveID
-        ..packages = [testActionCardPackage(productID: testCheapActionCardProductID)];
+        ..packages = [
+          testActionCardPackage(productID: testCheapActionCardProductID),
+        ];
       await pump(
         tester: tester,
         home: ActionCardScreen(dexStore: dexStore),
@@ -293,7 +299,9 @@ void main() {
       expect(find.text('¥300 で買う'), findsOneWidget);
       await tester.tap(find.byKey(const Key('action-card-purchase-buy')));
       await tester.pump();
-      expect(fakeActionCards.reservedMoves, [(moveID: 'water_3', productID: testExpensiveActionCardProductID)]);
+      expect(fakeActionCards.reservedMoves, [
+        (moveID: 'water_3', productID: testExpensiveActionCardProductID),
+      ]);
       expect(fakeActionCards.purchasedPackageIds, ['actioncard_test300']);
       expect(find.text('技を受け取っています'), findsOneWidget);
 
@@ -512,7 +520,10 @@ void main() {
 
   group('属性の絞り込み', () {
     testWidgets('絞り込んだ属性の最後の技を買い切ると すべてに戻して残りの技を出す', (tester) async {
-      fakeActionCards.productIDByMoveID.value = {'fire_1c': testCheapActionCardProductID, 'water_3': testExpensiveActionCardProductID};
+      fakeActionCards.productIDByMoveID.value = {
+        'fire_1c': testCheapActionCardProductID,
+        'water_3': testExpensiveActionCardProductID,
+      };
       await pump(
         tester: tester,
         home: ActionCardScreen(dexStore: dexStore),
