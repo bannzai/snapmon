@@ -138,6 +138,16 @@ describe("users/{uid}/party/current", () => {
       }),
     );
   });
+
+  it("改名前の表記のキー monsterIds では書けない (PR #294 で monsterIDs に改名した。hasOnly と isValidParty の検査を古いキーで外させないため)", async () => {
+    const firestore = signedInFirestore("alice");
+    await assertFails(
+      setDoc(doc(firestore, "users/alice/party/current"), { monsterIds: ["b1"], updatedAt: serverTimestamp() }),
+    );
+    await assertFails(
+      setDoc(doc(firestore, "users/alice/party/current"), { monsterIds: ["m1"], updatedAt: serverTimestamp() }),
+    );
+  });
 });
 
 describe("users/{uid}/settings/current", () => {

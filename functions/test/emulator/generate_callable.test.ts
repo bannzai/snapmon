@@ -66,4 +66,16 @@ describe("generate (Functions の Emulator)", () => {
     expect(response.status).toBe(400);
     expect((await response.json()).error.status).toBe("INVALID_ARGUMENT");
   });
+
+  it("改名前の表記のキー requestId で送った要求は invalid-argument を返す (PR #294 で requestID に改名した)", async () => {
+    const credential = await signInAnonymously(auth);
+    const requestID = randomUUID();
+    const response = await callFunction({
+      name: "generate",
+      idToken: await credential.user.getIdToken(),
+      data: { requestId: requestID, photoPath: `users/${credential.user.uid}/photos/${requestID}` },
+    });
+    expect(response.status).toBe(400);
+    expect((await response.json()).error.status).toBe("INVALID_ARGUMENT");
+  });
 });
