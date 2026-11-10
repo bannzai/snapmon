@@ -20,6 +20,21 @@ Package testActionCardPackage({required int rank}) => Package(
   const PresentedOfferingContext('generation_tickets', null, null),
 );
 
+/// テストの Action Card の購入。[moveID] が null なら技に結び付いていない購入。
+ActionCardPurchase testActionCardPurchase({
+  required String actionCardPurchaseID,
+  required int rank,
+  required String? moveID,
+  String? actionCardMoveReservationID,
+}) => ActionCardPurchase(
+  actionCardPurchaseID: actionCardPurchaseID,
+  rank: rank,
+  moveID: moveID,
+  actionCardMoveReservationID: actionCardMoveReservationID,
+  createdAt: DateTime(2026, 11, 10),
+  moveAssignedAt: moveID == null ? null : DateTime(2026, 11, 10),
+);
+
 /// テストが値を流し、呼び出しを確かめる Action Card の Firestore・Functions・RevenueCat の代わり。
 class FakeActionCards {
   /// 課金を使えるビルドか。
@@ -37,14 +52,13 @@ class FakeActionCards {
     for (final rank in actionCardRanks) testActionCardPackage(rank: rank),
   ];
 
-  /// ランクごとの残高。
-  final ValueNotifier<Map<int, int>> creditsByRank = ValueNotifier(const {});
+  /// `users/{uid}/actionCardPurchases` (記録した順)。
+  final ValueNotifier<List<ActionCardPurchase>> purchases = ValueNotifier(
+    const [],
+  );
 
   /// 技のランクの表。
   final ValueNotifier<Map<String, int>?> rankByMoveId = ValueNotifier(null);
-
-  /// 買い切った技。
-  final ValueNotifier<List<String>> ownedMoveIds = ValueNotifier(const []);
 
   /// 購入の結果。null なら終わらない (購入の途中を確かめるため)。
   TicketPurchaseResult? purchaseResult = TicketPurchaseResult.purchased;
@@ -52,14 +66,17 @@ class FakeActionCards {
   /// 購入した package の ID (呼ばれた順)。
   final List<String> purchasedPackageIds = [];
 
-  /// redeemActionCard に渡された技 (呼ばれた順)。
-  final List<String> redeemedMoveIds = [];
+  /// reserveActionCardMove に渡された引数 (呼ばれた順)。
+  final List<({String moveID, int rank})> reservedMoves = [];
 
-  /// redeemActionCard に渡されたカードのランク (呼ばれた順。[redeemedMoveIds] と同じ並び)。
-  final List<int> redeemedCreditRanks = [];
+  /// reserveActionCardMove が投げる失敗。呼ばれるたびに先頭から 1 つずつ投げ、空なら成功する (値段が変わった後の買い直しを確かめるため)。
+  final List<Object> reserveErrors = [];
 
-  /// redeemActionCard が投げる失敗。呼ばれるたびに先頭から 1 つずつ投げ、空なら成功する (断られた後の確かめ直しを確かめるため)。
-  final List<Object> redeemErrors = [];
+  /// assignActionCardMove に渡された引数 (呼ばれた順)。
+  final List<({String actionCardPurchaseID, String moveID})> assignedMoves = [];
+
+  /// assignActionCardMove が投げる失敗。空なら成功する。
+  final List<Object> assignErrors = [];
 
   /// teachActionCardMove に渡された引数 (呼ばれた順)。
   final List<({String monsterId, String moveId})> taughtMoves = [];
@@ -69,9 +86,6 @@ class FakeActionCards {
 
   /// teach・forget が返す一覧。
   List<String> monsterMoveIdsResult = const [];
-
-  /// redeemActionCard の応答。null なら今の残高をすぐ返し、あればテストが完了させるまで待たせる (応答の途中を確かめるため)。
-  Completer<Map<int, int>>? redeemCompleter;
 
   /// [notifier] の今の値を流し、変わるたびに流す。
   Stream<T> _watch<T>({required ValueNotifier<T> notifier}) {
@@ -101,17 +115,25 @@ class FakeActionCards {
         null => Completer<TicketPurchaseResult>().future,
       };
     },
-    watchActionCardCredits: () => _watch(notifier: creditsByRank),
+    watchActionCardPurchases: () => _watch(notifier: purchases),
     watchMoveRanks: () => _watch(notifier: rankByMoveId),
-    watchOwnedActionCardMoveIds: () => _watch(notifier: ownedMoveIds),
-    redeemActionCard: ({required moveId, required creditRank}) async {
-      redeemedMoveIds.add(moveId);
-      redeemedCreditRanks.add(creditRank);
-      if (redeemErrors.isNotEmpty) {
-        throw redeemErrors.removeAt(0);
+    reserveActionCardMove: ({required moveID, required rank}) async {
+      reservedMoves.add((moveID: moveID, rank: rank));
+      if (reserveErrors.isNotEmpty) {
+        throw reserveErrors.removeAt(0);
       }
-      return redeemCompleter?.future ?? creditsByRank.value;
+      return 'reservation-${reservedMoves.length}';
     },
+    assignActionCardMove:
+        ({required actionCardPurchaseID, required moveID}) async {
+          assignedMoves.add((
+            actionCardPurchaseID: actionCardPurchaseID,
+            moveID: moveID,
+          ));
+          if (assignErrors.isNotEmpty) {
+            throw assignErrors.removeAt(0);
+          }
+        },
     teachActionCardMove: ({required monsterId, required moveId}) async {
       taughtMoves.add((monsterId: monsterId, moveId: moveId));
       return monsterMoveIdsResult;

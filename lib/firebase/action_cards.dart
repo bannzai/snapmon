@@ -55,28 +55,33 @@ Stream<bool> watchActionCardsVisibleWithFirebase() => _watchWhileSignedIn(
       ),
 );
 
-/// `users/{uid}.actionCardCredits` の値 [stored] をランクごとの残高にする。無いランクは 0 枚 (買っていない。
-/// Functions の functions/src/action_card_rules.ts の `actionCardCreditsOf` と同じ)。
-Map<int, int> actionCardCreditsOf({required Object? stored}) => {
-  for (final rank in actionCardRanks)
-    rank: switch (stored is Map ? stored['rank$rank'] : null) {
-      final int count => count,
-      _ => 0,
-    },
-};
-
-/// `users/{uid}.actionCardCredits` を流す ([ActionCardClient.watchActionCardCredits])。
-Stream<Map<int, int>> watchActionCardCreditsWithFirebase() =>
+/// `users/{uid}/actionCardPurchases` を記録した順 (`createdAt`) で流す ([ActionCardClient.watchActionCardPurchases])。
+/// `moveID` のフィールドが無い購入 (#290 より前) は技に結び付いていない購入として読む。
+Stream<List<ActionCardPurchase>> watchActionCardPurchasesWithFirebase() =>
     _watchWhileSignedIn(
-      emptyValue: actionCardCreditsOf(stored: null),
+      emptyValue: const [],
       watchSignedIn: ({required uid}) => FirebaseFirestore.instance
           .collection('users')
           .doc(uid)
+          .collection('actionCardPurchases')
+          .orderBy('createdAt')
           .snapshots()
           .map(
-            (snapshot) => actionCardCreditsOf(
-              stored: snapshot.data()?['actionCardCredits'],
-            ),
+            (snapshot) => [
+              for (final document in snapshot.docs)
+                ActionCardPurchase(
+                  actionCardPurchaseID: document.id,
+                  rank: document.data()['rank'] as int,
+                  moveID: document.data()['moveID'] as String?,
+                  actionCardMoveReservationID:
+                      document.data()['actionCardMoveReservationID'] as String?,
+                  createdAt: (document.data()['createdAt'] as Timestamp)
+                      .toDate(),
+                  moveAssignedAt:
+                      (document.data()['moveAssignedAt'] as Timestamp?)
+                          ?.toDate(),
+                ),
+            ],
           ),
     );
 
@@ -98,24 +103,6 @@ Stream<Map<String, int>?> watchMoveRanksWithFirebase() => _watchWhileSignedIn(
       ),
 );
 
-/// `users/{uid}/actionCards` の技の ID を、買い切った順 (`redeemedAt`) で流す ([ActionCardClient.watchOwnedActionCardMoveIds])。
-Stream<List<String>> watchOwnedActionCardMoveIdsWithFirebase() =>
-    _watchWhileSignedIn(
-      emptyValue: const [],
-      watchSignedIn: ({required uid}) => FirebaseFirestore.instance
-          .collection('users')
-          .doc(uid)
-          .collection('actionCards')
-          .orderBy('redeemedAt')
-          .snapshots()
-          .map(
-            (snapshot) => [
-              for (final document in snapshot.docs)
-                document.data()['moveId'] as String,
-            ],
-          ),
-    );
-
 /// Functions の callable [name] を [data] で呼び、返った値を返す。
 Future<Map<Object?, Object?>> _call({
   required String name,
@@ -126,43 +113,37 @@ Future<Map<Object?, Object?>> _call({
         ).httpsCallable(name).call<Object?>(data)).data!
         as Map<Object?, Object?>;
 
-/// Functions が返した残高 [stored] (`{ rank1, rank2, rank3 }`) をランクごとの残高にする。
-Map<int, int> _creditsOfResponse({required Object? stored}) =>
-    actionCardCreditsOf(
-      stored: {
-        for (final MapEntry(key: rankKey, value: count)
-            in (stored! as Map<Object?, Object?>).entries)
-          rankKey! as String: count,
-      },
-    );
-
-/// redeemActionCard を呼ぶ ([ActionCardClient.redeemActionCard])。返す値は使った後の残高。
-/// 使うカードのランクが [creditRank] と違うと断られた時 (failed-precondition の `details` に今使うランクがある) は
-/// [ActionCardCreditRankChangedException] にして投げ、それ以外の失敗はそのまま投げる。
-Future<Map<int, int>> redeemActionCardWithFirebase({
-  required String moveId,
-  required int creditRank,
+/// reserveActionCardMove を呼ぶ ([ActionCardClient.reserveActionCardMove])。返す値は控えの ID。
+/// 技のランクが [rank] と違うと断られた時 (failed-precondition の `details` に今のランクがある) は
+/// [ActionCardMoveRankChangedException] にして投げ、それ以外の失敗はそのまま投げる。
+Future<String> reserveActionCardMoveWithFirebase({
+  required String moveID,
+  required int rank,
 }) async {
   try {
-    return _creditsOfResponse(
-      stored: (await _call(
-        name: 'redeemActionCard',
-        data: {'moveId': moveId, 'creditRank': creditRank},
-      ))['actionCardCredits'],
-    );
+    return (await _call(
+          name: 'reserveActionCardMove',
+          data: {'moveID': moveID, 'rank': rank},
+        ))['actionCardMoveReservationID']!
+        as String;
   } on FirebaseFunctionsException catch (error) {
     if (error.details case {
-      'creditRank': final int changedCreditRank,
-      'actionCardCredits': final Object actionCardCredits,
+      'rank': final int changedRank,
     } when error.code == 'failed-precondition') {
-      throw ActionCardCreditRankChangedException(
-        creditRank: changedCreditRank,
-        creditsByRank: _creditsOfResponse(stored: actionCardCredits),
-      );
+      throw ActionCardMoveRankChangedException(rank: changedRank);
     }
     rethrow;
   }
 }
+
+/// assignActionCardMove を呼ぶ ([ActionCardClient.assignActionCardMove])。
+Future<void> assignActionCardMoveWithFirebase({
+  required String actionCardPurchaseID,
+  required String moveID,
+}) => _call(
+  name: 'assignActionCardMove',
+  data: {'actionCardPurchaseID': actionCardPurchaseID, 'moveID': moveID},
+);
 
 /// teachActionCardMove・forgetActionCardMove の [name] を呼び、返った一覧を返す。
 Future<List<String>> _callMonsterMove({

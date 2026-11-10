@@ -108,12 +108,8 @@ service cloud.firestore {
         allow write: if false;
       }
 
-      // Action Card の購入の記録と買い切った技。書くのは webhook と redeemActionCard (Functions) だけ (残高と持っている技を改ざんさせないため)。
+      // Action Card の購入の記録 (買い切った技は購入の moveID)。書くのは webhook と assignActionCardMove (Functions) だけ (持っている技を改ざんさせないため)。
       match /actionCardPurchases/{eventId} {
-        allow read: if isOwner(uid);
-        allow write: if false;
-      }
-      match /actionCards/{moveId} {
         allow read: if isOwner(uid);
         allow write: if false;
       }
