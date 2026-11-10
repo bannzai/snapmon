@@ -270,7 +270,9 @@ void main() {
   test('版 9 までの技とエフェクトは消えず、値も変わっていない (documents/game-rules.md「技」の版の規則)', () {
     // 指紋は版 9 の各項目を区切りの空白なしの JSON にした文字列の FNV-1a (32 ビット)。版 9 の master.json から作った。
     // 版 12 (#260) で特殊効果の説明文 (rule) を変えた <属性>_s4 の 7 件だけは版 12 の値の指紋にした
-    // (特殊効果は版をまたいで変えてよい。documents/game-rules.md「技」の版の規則)
+    // (特殊効果は版をまたいで変えてよい。documents/game-rules.md「技」の版の規則)。
+    // キーの略語を ID に書き直した時 (#291。本番の master は消して入れ直した) に、値を変えずにキーだけを書き直した項目の指紋に作り直した
+    // (作り直す前の指紋が書き直す前の項目と一致することを確かめてから置き換えた)
     String fnv1a32({required String text}) {
       var value = 0x811C9DC5;
       for (final byte in utf8.encode(text)) {
