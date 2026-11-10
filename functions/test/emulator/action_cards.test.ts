@@ -195,6 +195,17 @@ describe("技を選んで買う (reserveActionCardMove と webhook)", () => {
     expect(await reservationOf(user.uid)).toMatchObject({ actionCardMoveReservationID: body.result.actionCardMoveReservationID });
   });
 
+  it("商品の ID を持たない #293 より前の形の控えは使わず、購入を技に結び付けずに残す (利用者は購入から技を選び直せる)", async () => {
+    const user = await signInUser();
+    await firestore
+      .doc(`users/${user.uid}`)
+      .set({ actionCardMoveReservation: { actionCardMoveReservationID: "old-reservation", moveID: "weak", rank: 1, reservedAt: new Date() } }, { merge: true });
+    await receivePurchase({ uid: user.uid, productID: CHEAP_ACTION_CARD_PRODUCT_ID });
+    expect(await purchaseOf({ uid: user.uid })).toMatchObject({ productId: CHEAP_ACTION_CARD_PRODUCT_ID, moveID: null, actionCardMoveReservationID: null });
+    expect((await callFunction({ name: "assignActionCardMove", user, data: { actionCardPurchaseID: "event-1", moveID: "weak" } })).status).toBe(200);
+    expect(await purchaseOf({ uid: user.uid })).toMatchObject({ moveID: "weak" });
+  });
+
   it("控えが無い購入は技に結び付けずに残す", async () => {
     const user = await signInUser();
     await receivePurchase({ uid: user.uid, productID: EXPENSIVE_ACTION_CARD_PRODUCT_ID });
