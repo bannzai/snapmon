@@ -58,7 +58,7 @@ class DexScreen extends StatelessWidget {
   Future<void> _addToParty({required BuildContext context}) async {
     final candidates = [
       for (final monster in dexStore.monsters)
-        if (!dexStore.isInParty(monsterId: monster.definition.id)) monster,
+        if (!dexStore.isInParty(monsterID: monster.definition.id)) monster,
     ];
     final incomingMonster = await showDialog<OwnedMonster>(
       context: context,
@@ -90,7 +90,7 @@ class DexScreen extends StatelessWidget {
     // 保存を待つ間に図鑑の画面が閉じても失敗を出せるよう、await の前に ScaffoldMessenger を取っておく
     final messenger = ScaffoldMessenger.of(context);
     try {
-      await dexStore.addToParty(monsterId: incomingMonster.definition.id);
+      await dexStore.addToParty(monsterID: incomingMonster.definition.id);
     } catch (error) {
       messenger
         ..hideCurrentSnackBar()

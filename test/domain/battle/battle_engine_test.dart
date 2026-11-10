@@ -28,11 +28,11 @@ final testMaster = MasterData(
     Move(
       id: 'fire_strong',
       displayName: 'つよいほのお',
-      elementTypeId: 'fire',
+      elementTypeID: 'fire',
       power: 60,
       powerPoints: 10,
       category: MoveCategory.attack,
-      effectId: 'none',
+      effectID: 'none',
       learnableLevelMinimum: 1,
       learnableLevelMaximum: 999,
       specialEffect: null,
@@ -40,11 +40,11 @@ final testMaster = MasterData(
     Move(
       id: 'grass_strong',
       displayName: 'つよいくさ',
-      elementTypeId: 'grass',
+      elementTypeID: 'grass',
       power: 60,
       powerPoints: 10,
       category: MoveCategory.attack,
-      effectId: 'none',
+      effectID: 'none',
       learnableLevelMinimum: 1,
       learnableLevelMaximum: 999,
       specialEffect: null,
@@ -52,11 +52,11 @@ final testMaster = MasterData(
     Move(
       id: 'grass_weak',
       displayName: 'よわいくさ',
-      elementTypeId: 'grass',
+      elementTypeID: 'grass',
       power: 20,
       powerPoints: 2,
       category: MoveCategory.attack,
-      effectId: 'none',
+      effectID: 'none',
       learnableLevelMinimum: 1,
       learnableLevelMaximum: 999,
       specialEffect: null,
@@ -64,11 +64,11 @@ final testMaster = MasterData(
     Move(
       id: 'fire_last',
       displayName: 'あとだしほのお',
-      elementTypeId: 'fire',
+      elementTypeID: 'fire',
       power: 60,
       powerPoints: 10,
       category: MoveCategory.attack,
-      effectId: 'none',
+      effectID: 'none',
       learnableLevelMinimum: 1,
       learnableLevelMaximum: 999,
       specialEffect: MoveSpecialEffect(
@@ -83,11 +83,11 @@ final testMaster = MasterData(
     Move(
       id: 'fire_last_resort',
       displayName: 'のこりびほのお',
-      elementTypeId: 'fire',
+      elementTypeID: 'fire',
       power: 60,
       powerPoints: 2,
       category: MoveCategory.attack,
-      effectId: 'none',
+      effectID: 'none',
       learnableLevelMinimum: 1,
       learnableLevelMaximum: 999,
       specialEffect: MoveSpecialEffect(
@@ -103,11 +103,11 @@ final testMaster = MasterData(
     Move(
       id: 'fire_desperate',
       displayName: 'やけっぱちほのお',
-      elementTypeId: 'fire',
+      elementTypeID: 'fire',
       power: 60,
       powerPoints: 10,
       category: MoveCategory.attack,
-      effectId: 'none',
+      effectID: 'none',
       learnableLevelMinimum: 1,
       learnableLevelMaximum: 999,
       specialEffect: MoveSpecialEffect(
@@ -123,11 +123,11 @@ final testMaster = MasterData(
     Move(
       id: 'fire_lower_defense',
       displayName: 'ぼうぎょさげ',
-      elementTypeId: 'fire',
+      elementTypeID: 'fire',
       power: 0,
       powerPoints: 10,
       category: MoveCategory.support,
-      effectId: 'none',
+      effectID: 'none',
       learnableLevelMinimum: 1,
       learnableLevelMaximum: 999,
       specialEffect: MoveSpecialEffect(
@@ -142,11 +142,11 @@ final testMaster = MasterData(
     Move(
       id: 'fire_raise_attack',
       displayName: 'こうげきあげ',
-      elementTypeId: 'fire',
+      elementTypeID: 'fire',
       power: 0,
       powerPoints: 10,
       category: MoveCategory.support,
-      effectId: 'none',
+      effectID: 'none',
       learnableLevelMinimum: 1,
       learnableLevelMaximum: 999,
       specialEffect: MoveSpecialEffect(
@@ -161,11 +161,11 @@ final testMaster = MasterData(
     Move(
       id: 'fire_lower_speed',
       displayName: 'すばやさげ',
-      elementTypeId: 'fire',
+      elementTypeID: 'fire',
       power: 0,
       powerPoints: 10,
       category: MoveCategory.support,
-      effectId: 'none',
+      effectID: 'none',
       learnableLevelMinimum: 1,
       learnableLevelMaximum: 999,
       specialEffect: MoveSpecialEffect(
@@ -180,11 +180,11 @@ final testMaster = MasterData(
     Move(
       id: 'fire_recover',
       displayName: 'かいふく',
-      elementTypeId: 'fire',
+      elementTypeID: 'fire',
       power: 0,
       powerPoints: 10,
       category: MoveCategory.support,
-      effectId: 'none',
+      effectID: 'none',
       learnableLevelMinimum: 1,
       learnableLevelMaximum: 999,
       specialEffect: MoveSpecialEffect(
@@ -212,11 +212,11 @@ final testMaster = MasterData(
       Move(
         id: id,
         displayName: id,
-        elementTypeId: 'fire',
+        elementTypeID: 'fire',
         power: 0,
         powerPoints: 10,
         category: MoveCategory.support,
-        effectId: 'none',
+        effectID: 'none',
         learnableLevelMinimum: 1,
         learnableLevelMaximum: 999,
         specialEffect: MoveSpecialEffect(
@@ -235,11 +235,11 @@ final testMaster = MasterData(
     const Move(
       id: 'fire_block_switch_attack',
       displayName: 'こうたいふうじ',
-      elementTypeId: 'fire',
+      elementTypeID: 'fire',
       power: 40,
       powerPoints: 10,
       category: MoveCategory.attack,
-      effectId: 'none',
+      effectID: 'none',
       learnableLevelMinimum: 5,
       learnableLevelMaximum: 999,
       specialEffect: MoveSpecialEffect(
@@ -260,11 +260,11 @@ final testMaster = MasterData(
     const Move(
       id: 'fire_lower_defense_attack',
       displayName: 'ぼうぎょさげ',
-      elementTypeId: 'fire',
+      elementTypeID: 'fire',
       power: 40,
       powerPoints: 10,
       category: MoveCategory.attack,
-      effectId: 'none',
+      effectID: 'none',
       learnableLevelMinimum: 5,
       learnableLevelMaximum: 999,
       specialEffect: MoveSpecialEffect(
@@ -279,11 +279,11 @@ final testMaster = MasterData(
     const Move(
       id: 'fire_excite',
       displayName: 'こうふん',
-      elementTypeId: 'fire',
+      elementTypeID: 'fire',
       power: 0,
       powerPoints: 10,
       category: MoveCategory.support,
-      effectId: 'none',
+      effectID: 'none',
       learnableLevelMinimum: 1,
       learnableLevelMaximum: 999,
       specialEffect: MoveSpecialEffect(
@@ -304,11 +304,11 @@ final testMaster = MasterData(
     const Move(
       id: 'fire_poison_attack',
       displayName: 'どくのほのお',
-      elementTypeId: 'fire',
+      elementTypeID: 'fire',
       power: 40,
       powerPoints: 10,
       category: MoveCategory.attack,
-      effectId: 'none',
+      effectID: 'none',
       learnableLevelMinimum: 1,
       learnableLevelMaximum: 999,
       specialEffect: MoveSpecialEffect(
@@ -329,11 +329,11 @@ final testMaster = MasterData(
     const Move(
       id: 'poison_strong',
       displayName: 'つよいどく',
-      elementTypeId: 'poison',
+      elementTypeID: 'poison',
       power: 40,
       powerPoints: 10,
       category: MoveCategory.attack,
-      effectId: 'none',
+      effectID: 'none',
       learnableLevelMinimum: 1,
       learnableLevelMaximum: 999,
       specialEffect: null,
@@ -341,11 +341,11 @@ final testMaster = MasterData(
     const Move(
       id: 'fire_cure',
       displayName: 'かいじょ',
-      elementTypeId: 'fire',
+      elementTypeID: 'fire',
       power: 0,
       powerPoints: 10,
       category: MoveCategory.support,
-      effectId: 'none',
+      effectID: 'none',
       learnableLevelMinimum: 1,
       learnableLevelMaximum: 999,
       specialEffect: MoveSpecialEffect(
@@ -361,11 +361,11 @@ final testMaster = MasterData(
     const Move(
       id: 'fire_shuffle',
       displayName: 'いれかえ',
-      elementTypeId: 'fire',
+      elementTypeID: 'fire',
       power: 0,
       powerPoints: 10,
       category: MoveCategory.support,
-      effectId: 'none',
+      effectID: 'none',
       learnableLevelMinimum: 1,
       learnableLevelMaximum: 999,
       specialEffect: MoveSpecialEffect(
@@ -381,11 +381,11 @@ final testMaster = MasterData(
     const Move(
       id: 'fire_self_destruct',
       displayName: 'じばく',
-      elementTypeId: 'fire',
+      elementTypeID: 'fire',
       power: 200,
       powerPoints: 5,
       category: MoveCategory.attack,
-      effectId: 'none',
+      effectID: 'none',
       learnableLevelMinimum: 1,
       learnableLevelMaximum: 999,
       specialEffect: MoveSpecialEffect(
@@ -401,11 +401,11 @@ final testMaster = MasterData(
     const Move(
       id: 'fire_one_hit',
       displayName: 'いちげき',
-      elementTypeId: 'fire',
+      elementTypeID: 'fire',
       power: 0,
       powerPoints: 1,
       category: MoveCategory.attack,
-      effectId: 'none',
+      effectID: 'none',
       learnableLevelMinimum: 1,
       learnableLevelMaximum: 999,
       specialEffect: MoveSpecialEffect(
@@ -422,11 +422,11 @@ final testMaster = MasterData(
     const Move(
       id: 'fire_sure_hit',
       displayName: 'ひっちゅう',
-      elementTypeId: 'fire',
+      elementTypeID: 'fire',
       power: 40,
       powerPoints: 10,
       category: MoveCategory.attack,
-      effectId: 'none',
+      effectID: 'none',
       learnableLevelMinimum: 1,
       learnableLevelMaximum: 999,
       specialEffect: MoveSpecialEffect(
@@ -443,11 +443,11 @@ final testMaster = MasterData(
     const Move(
       id: 'fire_priority',
       displayName: 'せんせい',
-      elementTypeId: 'fire',
+      elementTypeID: 'fire',
       power: 40,
       powerPoints: 10,
       category: MoveCategory.attack,
-      effectId: 'none',
+      effectID: 'none',
       learnableLevelMinimum: 1,
       learnableLevelMaximum: 999,
       specialEffect: null,
@@ -456,11 +456,11 @@ final testMaster = MasterData(
     const Move(
       id: 'fire_inaccurate',
       displayName: 'はずれやすい',
-      elementTypeId: 'fire',
+      elementTypeID: 'fire',
       power: 40,
       powerPoints: 10,
       category: MoveCategory.attack,
-      effectId: 'none',
+      effectID: 'none',
       learnableLevelMinimum: 1,
       learnableLevelMaximum: 999,
       specialEffect: null,
@@ -478,8 +478,8 @@ final testBattleDate = DateTime.utc(2026, 10, 28);
 /// 種族値・個体値を揃えた、テスト用のモンスターの定義を返す。
 MonsterDefinition testDefinition({
   required String id,
-  required String elementTypeId,
-  required List<String> moveIds,
+  required String elementTypeID,
+  required List<String> moveIDs,
   required int speed,
   int hitPoints = 80,
   int accuracyBaseStat = 120,
@@ -488,9 +488,9 @@ MonsterDefinition testDefinition({
   sourcePhotoReference: 'users/test/photos/$id.jpg',
   name: id,
   encyclopediaText: '',
-  elementTypeIds: [elementTypeId],
+  elementTypeIDs: [elementTypeID],
   learnset: [
-    for (final moveId in moveIds) LearnsetEntry(moveId: moveId, unlockLevel: 1),
+    for (final moveID in moveIDs) LearnsetEntry(moveID: moveID, unlockLevel: 1),
   ],
   // 命中は既定で種族値・個体値の最大 (計算した命中が 100) にし、技の命中率だけで当たり外れが決まるようにする。
   // 命中の効き目は「使う側の命中を技の命中率に掛ける」のテストで、[accuracyBaseStat] を下げて確かめる
@@ -515,12 +515,12 @@ MonsterDefinition testDefinition({
 BattleMonster prepare({
   required MonsterDefinition definition,
   int level = 50,
-  List<String> actionCardMoveIds = const [],
+  List<String> actionCardMoveIDs = const [],
 }) => prepareBattleMonster(
   definition: definition,
   level: level,
   experience: 0,
-  actionCardMoveIds: actionCardMoveIds,
+  actionCardMoveIDs: actionCardMoveIDs,
   master: testMaster,
   maximumHitPointsPercent: 100,
 );
@@ -533,12 +533,12 @@ BattleState playUntilFinished({required BattleState state}) {
       state: current,
       playerAction: chooseCpuAction(
         state: current,
-        side: BattleSideId.player,
+        side: BattleSideID.player,
         master: testMaster,
       ),
       opponentAction: chooseCpuAction(
         state: current,
-        side: BattleSideId.opponent,
+        side: BattleSideID.opponent,
         master: testMaster,
       ),
       master: testMaster,
@@ -562,8 +562,8 @@ void main() {
     expect(damage(0.5), lessThan(damage(1)));
     expect(
       totalTypeMultiplier(
-        moveElementTypeId: 'fire',
-        defenderElementTypeIds: ['grass', 'grass'],
+        moveElementTypeID: 'fire',
+        defenderElementTypeIDs: ['grass', 'grass'],
         master: testMaster,
       ),
       4,
@@ -574,8 +574,8 @@ void main() {
         prepare(
           definition: testDefinition(
             id: 'player',
-            elementTypeId: 'fire',
-            moveIds: ['fire_strong'],
+            elementTypeID: 'fire',
+            moveIDs: ['fire_strong'],
             speed: 100,
           ),
         ),
@@ -584,8 +584,8 @@ void main() {
         prepare(
           definition: testDefinition(
             id: 'opponent',
-            elementTypeId: 'fire',
-            moveIds: ['grass_strong'],
+            elementTypeID: 'fire',
+            moveIDs: ['grass_strong'],
             speed: 50,
             hitPoints: 250,
           ),
@@ -601,8 +601,8 @@ void main() {
         prepare(
           definition: testDefinition(
             id: 'opponent',
-            elementTypeId: 'grass',
-            moveIds: ['grass_strong'],
+            elementTypeID: 'grass',
+            moveIDs: ['grass_strong'],
             speed: 50,
             hitPoints: 250,
           ),
@@ -614,8 +614,8 @@ void main() {
     );
     MoveUsedEvent firstHit(BattleState battleState) => advanceRound(
       state: battleState,
-      playerAction: const UseMoveAction(moveId: 'fire_strong'),
-      opponentAction: const UseMoveAction(moveId: 'grass_strong'),
+      playerAction: const UseMoveAction(moveID: 'fire_strong'),
+      opponentAction: const UseMoveAction(moveID: 'grass_strong'),
       master: testMaster,
     ).events.whereType<MoveUsedEvent>().first;
     expect(firstHit(grassTarget).typeMultiplier, 2);
@@ -626,42 +626,42 @@ void main() {
     final grassDefender = prepare(
       definition: testDefinition(
         id: 'opponent',
-        elementTypeId: 'grass',
-        moveIds: ['grass_strong'],
+        elementTypeID: 'grass',
+        moveIDs: ['grass_strong'],
         speed: 50,
       ),
     );
     final fireDefender = prepare(
       definition: testDefinition(
         id: 'opponent',
-        elementTypeId: 'fire',
-        moveIds: ['grass_strong'],
+        elementTypeID: 'fire',
+        moveIDs: ['grass_strong'],
         speed: 50,
       ),
     );
     double? multiplierOf({
-      required String moveId,
+      required String moveID,
       required BattleMonster defender,
     }) => moveTypeMultiplierAgainst(
-      move: testMaster.moveById(moveId: moveId),
+      move: testMaster.moveByID(moveID: moveID),
       defender: defender,
       master: testMaster,
     );
-    expect(multiplierOf(moveId: 'fire_strong', defender: grassDefender), 2);
-    expect(multiplierOf(moveId: 'grass_strong', defender: fireDefender), 0.5);
-    expect(multiplierOf(moveId: 'fire_strong', defender: fireDefender), 1);
+    expect(multiplierOf(moveID: 'fire_strong', defender: grassDefender), 2);
+    expect(multiplierOf(moveID: 'grass_strong', defender: fireDefender), 0.5);
+    expect(multiplierOf(moveID: 'fire_strong', defender: fireDefender), 1);
     // 自爆はダメージに相性が掛かるため出す
     expect(
-      multiplierOf(moveId: 'fire_self_destruct', defender: grassDefender),
+      multiplierOf(moveID: 'fire_self_destruct', defender: grassDefender),
       2,
     );
     // 同じ炎の技でも、ダメージの無い補助技と HP を 0 にする一撃必殺は相性が効かない
     expect(
-      multiplierOf(moveId: 'fire_lower_defense', defender: grassDefender),
+      multiplierOf(moveID: 'fire_lower_defense', defender: grassDefender),
       isNull,
     );
     expect(
-      multiplierOf(moveId: 'fire_one_hit', defender: grassDefender),
+      multiplierOf(moveID: 'fire_one_hit', defender: grassDefender),
       isNull,
     );
   });
@@ -672,8 +672,8 @@ void main() {
         prepare(
           definition: testDefinition(
             id: 'player',
-            elementTypeId: 'grass',
-            moveIds: ['grass_weak', 'fire_strong'],
+            elementTypeID: 'grass',
+            moveIDs: ['grass_weak', 'fire_strong'],
             speed: 50,
           ),
         ),
@@ -682,8 +682,8 @@ void main() {
         prepare(
           definition: testDefinition(
             id: 'opponent',
-            elementTypeId: 'fire',
-            moveIds: ['grass_weak', 'grass_strong'],
+            elementTypeID: 'fire',
+            moveIDs: ['grass_weak', 'grass_strong'],
             speed: 50,
           ),
         ),
@@ -694,20 +694,20 @@ void main() {
     );
     final playerAction = chooseCpuAction(
       state: state,
-      side: BattleSideId.player,
+      side: BattleSideID.player,
       master: testMaster,
     );
-    expect((playerAction as UseMoveAction).moveId, 'fire_strong');
+    expect((playerAction as UseMoveAction).moveID, 'fire_strong');
     final opponentAction = chooseCpuAction(
       state: state,
-      side: BattleSideId.opponent,
+      side: BattleSideID.opponent,
       master: testMaster,
     );
-    expect((opponentAction as UseMoveAction).moveId, 'grass_strong');
+    expect((opponentAction as UseMoveAction).moveID, 'grass_strong');
   });
 
   test('素早さが高い方が先に動く', () {
-    BattleSideId firstAttacker({
+    BattleSideID firstAttacker({
       required int playerSpeed,
       required int opponentSpeed,
     }) => advanceRound(
@@ -716,8 +716,8 @@ void main() {
           prepare(
             definition: testDefinition(
               id: 'player',
-              elementTypeId: 'fire',
-              moveIds: ['fire_strong'],
+              elementTypeID: 'fire',
+              moveIDs: ['fire_strong'],
               speed: playerSpeed,
             ),
           ),
@@ -726,8 +726,8 @@ void main() {
           prepare(
             definition: testDefinition(
               id: 'opponent',
-              elementTypeId: 'fire',
-              moveIds: ['fire_strong'],
+              elementTypeID: 'fire',
+              moveIDs: ['fire_strong'],
               speed: opponentSpeed,
             ),
           ),
@@ -736,18 +736,18 @@ void main() {
         battleDate: testBattleDate,
         opponentDamagePercent: 100,
       ),
-      playerAction: const UseMoveAction(moveId: 'fire_strong'),
-      opponentAction: const UseMoveAction(moveId: 'fire_strong'),
+      playerAction: const UseMoveAction(moveID: 'fire_strong'),
+      opponentAction: const UseMoveAction(moveID: 'fire_strong'),
       master: testMaster,
     ).events.whereType<MoveUsedEvent>().first.attackerSide;
 
     expect(
       firstAttacker(playerSpeed: 100, opponentSpeed: 50),
-      BattleSideId.player,
+      BattleSideID.player,
     );
     expect(
       firstAttacker(playerSpeed: 50, opponentSpeed: 100),
-      BattleSideId.opponent,
+      BattleSideID.opponent,
     );
   });
 
@@ -757,8 +757,8 @@ void main() {
         prepare(
           definition: testDefinition(
             id: 'player',
-            elementTypeId: 'fire',
-            moveIds: ['grass_weak'],
+            elementTypeID: 'fire',
+            moveIDs: ['grass_weak'],
             speed: 100,
             hitPoints: 250,
           ),
@@ -768,8 +768,8 @@ void main() {
         prepare(
           definition: testDefinition(
             id: 'opponent',
-            elementTypeId: 'fire',
-            moveIds: ['grass_weak'],
+            elementTypeID: 'fire',
+            moveIDs: ['grass_weak'],
             speed: 50,
             hitPoints: 250,
           ),
@@ -783,7 +783,7 @@ void main() {
       () => advanceRound(
         state: state,
         playerAction: const StruggleAction(),
-        opponentAction: const UseMoveAction(moveId: 'grass_weak'),
+        opponentAction: const UseMoveAction(moveID: 'grass_weak'),
         master: testMaster,
       ),
       throwsArgumentError,
@@ -791,8 +791,8 @@ void main() {
     for (var turn = 0; turn < 2; turn++) {
       state = advanceRound(
         state: state,
-        playerAction: const UseMoveAction(moveId: 'grass_weak'),
-        opponentAction: const UseMoveAction(moveId: 'grass_weak'),
+        playerAction: const UseMoveAction(moveID: 'grass_weak'),
+        opponentAction: const UseMoveAction(moveID: 'grass_weak'),
         master: testMaster,
       );
     }
@@ -807,7 +807,7 @@ void main() {
     expect(
       () => advanceRound(
         state: state,
-        playerAction: const UseMoveAction(moveId: 'grass_weak'),
+        playerAction: const UseMoveAction(moveID: 'grass_weak'),
         opponentAction: const StruggleAction(),
         master: testMaster,
       ),
@@ -816,7 +816,7 @@ void main() {
     expect(
       chooseCpuAction(
         state: state,
-        side: BattleSideId.opponent,
+        side: BattleSideID.opponent,
         master: testMaster,
       ),
       isA<StruggleAction>(),
@@ -830,7 +830,7 @@ void main() {
     final struggleEvents = afterStruggle.events
         .whereType<MoveUsedEvent>()
         .where((event) => event.turnNumber >= state.turnNumber);
-    expect(struggleEvents.map((event) => event.moveId), [null, null]);
+    expect(struggleEvents.map((event) => event.moveID), [null, null]);
     expect(struggleEvents.every((event) => event.damage > 0), isTrue);
   });
 
@@ -844,8 +844,8 @@ void main() {
           prepare(
             definition: testDefinition(
               id: 'player_$index',
-              elementTypeId: 'fire',
-              moveIds: ['fire_strong'],
+              elementTypeID: 'fire',
+              moveIDs: ['fire_strong'],
               speed: 100,
             ),
             level: index == 1 ? leadPlayerLevel : 50,
@@ -856,8 +856,8 @@ void main() {
           prepare(
             definition: testDefinition(
               id: 'opponent_$index',
-              elementTypeId: 'grass',
-              moveIds: ['grass_strong'],
+              elementTypeID: 'grass',
+              moveIDs: ['grass_strong'],
               speed: 50,
             ),
           ),
@@ -872,11 +872,11 @@ void main() {
         state: startThreeOnThree(randomSeed: 7, leadPlayerLevel: 999),
       );
 
-      expect(finished.winner, BattleSideId.player);
+      expect(finished.winner, BattleSideID.player);
       expect(finished.opponent.isDefeated, isTrue);
       expect(
         finished.events.whereType<MonsterSwitchedInEvent>().map(
-          (event) => event.monsterId,
+          (event) => event.monsterID,
         ),
         containsAllInOrder(['opponent_2', 'opponent_3']),
       );
@@ -904,8 +904,8 @@ void main() {
       expect(
         () => advanceRound(
           state: finished,
-          playerAction: const UseMoveAction(moveId: 'fire_strong'),
-          opponentAction: const UseMoveAction(moveId: 'grass_strong'),
+          playerAction: const UseMoveAction(moveID: 'fire_strong'),
+          opponentAction: const UseMoveAction(moveID: 'grass_strong'),
           master: testMaster,
         ),
         throwsStateError,
@@ -933,14 +933,14 @@ void main() {
   });
 
   test('素早さが同じ時の行動順は seed で決まる (同じ seed なら同じ、seed によって入れ替わる)', () {
-    BattleSideId firstAttacker({required int randomSeed}) => advanceRound(
+    BattleSideID firstAttacker({required int randomSeed}) => advanceRound(
       state: startBattle(
         playerMembers: [
           prepare(
             definition: testDefinition(
               id: 'player',
-              elementTypeId: 'fire',
-              moveIds: ['fire_strong'],
+              elementTypeID: 'fire',
+              moveIDs: ['fire_strong'],
               speed: 80,
             ),
           ),
@@ -949,8 +949,8 @@ void main() {
           prepare(
             definition: testDefinition(
               id: 'opponent',
-              elementTypeId: 'fire',
-              moveIds: ['fire_strong'],
+              elementTypeID: 'fire',
+              moveIDs: ['fire_strong'],
               speed: 80,
             ),
           ),
@@ -959,8 +959,8 @@ void main() {
         battleDate: testBattleDate,
         opponentDamagePercent: 100,
       ),
-      playerAction: const UseMoveAction(moveId: 'fire_strong'),
-      opponentAction: const UseMoveAction(moveId: 'fire_strong'),
+      playerAction: const UseMoveAction(moveID: 'fire_strong'),
+      opponentAction: const UseMoveAction(moveID: 'fire_strong'),
       master: testMaster,
     ).events.whereType<MoveUsedEvent>().first.attackerSide;
 
@@ -968,7 +968,7 @@ void main() {
       for (var randomSeed = 1; randomSeed <= 20; randomSeed++)
         firstAttacker(randomSeed: randomSeed),
     ];
-    expect(firstAttackers.toSet(), BattleSideId.values.toSet());
+    expect(firstAttackers.toSet(), BattleSideID.values.toSet());
     expect([
       for (var randomSeed = 1; randomSeed <= 20; randomSeed++)
         firstAttacker(randomSeed: randomSeed),
@@ -981,8 +981,8 @@ void main() {
         prepare(
           definition: testDefinition(
             id: 'player',
-            elementTypeId: 'fire',
-            moveIds: ['fire_lower_defense_attack', 'fire_block_switch_attack'],
+            elementTypeID: 'fire',
+            moveIDs: ['fire_lower_defense_attack', 'fire_block_switch_attack'],
             speed: 100,
           ),
         ),
@@ -992,8 +992,8 @@ void main() {
           prepare(
             definition: testDefinition(
               id: 'opponent_$index',
-              elementTypeId: 'fire',
-              moveIds: ['fire_priority'],
+              elementTypeID: 'fire',
+              moveIDs: ['fire_priority'],
               speed: 50,
             ),
           ),
@@ -1006,8 +1006,8 @@ void main() {
         state.opponent.activeMember.state.currentHitPoints;
     state = advanceRound(
       state: state,
-      playerAction: const UseMoveAction(moveId: 'fire_lower_defense_attack'),
-      opponentAction: const UseMoveAction(moveId: 'fire_priority'),
+      playerAction: const UseMoveAction(moveID: 'fire_lower_defense_attack'),
+      opponentAction: const UseMoveAction(moveID: 'fire_priority'),
       master: testMaster,
     );
     expect(
@@ -1024,8 +1024,8 @@ void main() {
 
     state = advanceRound(
       state: state,
-      playerAction: const UseMoveAction(moveId: 'fire_block_switch_attack'),
-      opponentAction: const UseMoveAction(moveId: 'fire_priority'),
+      playerAction: const UseMoveAction(moveID: 'fire_block_switch_attack'),
+      opponentAction: const UseMoveAction(moveID: 'fire_priority'),
       master: testMaster,
     );
     expect(isSwitchBlocked(party: state.opponent), isTrue);
@@ -1033,7 +1033,7 @@ void main() {
     expect(
       () => advanceRound(
         state: blockedState,
-        playerAction: const UseMoveAction(moveId: 'fire_lower_defense_attack'),
+        playerAction: const UseMoveAction(moveID: 'fire_lower_defense_attack'),
         opponentAction: const SwitchMonsterAction(memberIndex: 1),
         master: testMaster,
       ),
@@ -1052,11 +1052,11 @@ void main() {
           Move(
             id: 'support_only',
             displayName: 'みまもる',
-            elementTypeId: 'fire',
+            elementTypeID: 'fire',
             power: 0,
             powerPoints: 5,
             category: MoveCategory.support,
-            effectId: 'none',
+            effectID: 'none',
             learnableLevelMinimum: 1,
             learnableLevelMaximum: 999,
             specialEffect: null,
@@ -1071,13 +1071,13 @@ void main() {
         prepareBattleMonster(
           definition: testDefinition(
             id: id,
-            elementTypeId: 'fire',
-            moveIds: ['support_only'],
+            elementTypeID: 'fire',
+            moveIDs: ['support_only'],
             speed: id == 'player' ? 100 : 50,
           ),
           level: 50,
           experience: 0,
-          actionCardMoveIds: const [],
+          actionCardMoveIDs: const [],
           master: supportOnlyMaster,
           maximumHitPointsPercent: 100,
         );
@@ -1093,12 +1093,12 @@ void main() {
         state: state,
         playerAction: chooseCpuAction(
           state: state,
-          side: BattleSideId.player,
+          side: BattleSideID.player,
           master: supportOnlyMaster,
         ),
         opponentAction: chooseCpuAction(
           state: state,
-          side: BattleSideId.opponent,
+          side: BattleSideID.opponent,
           master: supportOnlyMaster,
         ),
         master: supportOnlyMaster,
@@ -1109,10 +1109,10 @@ void main() {
   });
 
   group('技の特殊効果', () {
-    /// 速さ [playerSpeed] の自分と速さ [opponentSpeed] の相手が、それぞれ [playerMoveId]・[opponentMoveId] だけを持つバトル。
+    /// 速さ [playerSpeed] の自分と速さ [opponentSpeed] の相手が、それぞれ [playerMoveID]・[opponentMoveID] だけを持つバトル。
     BattleState startDuel({
-      required String playerMoveId,
-      required String opponentMoveId,
+      required String playerMoveID,
+      required String opponentMoveID,
       required int playerSpeed,
       required int opponentSpeed,
     }) => startBattle(
@@ -1120,8 +1120,8 @@ void main() {
         prepare(
           definition: testDefinition(
             id: 'player',
-            elementTypeId: 'fire',
-            moveIds: [playerMoveId],
+            elementTypeID: 'fire',
+            moveIDs: [playerMoveID],
             speed: playerSpeed,
             hitPoints: 250,
           ),
@@ -1131,8 +1131,8 @@ void main() {
         prepare(
           definition: testDefinition(
             id: 'opponent',
-            elementTypeId: 'fire',
-            moveIds: [opponentMoveId],
+            elementTypeID: 'fire',
+            moveIDs: [opponentMoveID],
             speed: opponentSpeed,
             hitPoints: 250,
           ),
@@ -1143,16 +1143,16 @@ void main() {
       opponentDamagePercent: 100,
     );
 
-    /// [state] から両陣営が [playerMoveId]・[opponentMoveId] を使って 1 ターン進め、陣営ごとの技のログを返す。
-    Map<BattleSideId, MoveUsedEvent> playTurn({
+    /// [state] から両陣営が [playerMoveID]・[opponentMoveID] を使って 1 ターン進め、陣営ごとの技のログを返す。
+    Map<BattleSideID, MoveUsedEvent> playTurn({
       required BattleState state,
-      required String playerMoveId,
-      required String opponentMoveId,
+      required String playerMoveID,
+      required String opponentMoveID,
     }) => {
       for (final event in advanceRound(
         state: state,
-        playerAction: UseMoveAction(moveId: playerMoveId),
-        opponentAction: UseMoveAction(moveId: opponentMoveId),
+        playerAction: UseMoveAction(moveID: playerMoveID),
+        opponentAction: UseMoveAction(moveID: opponentMoveID),
         master: testMaster,
       ).events.skip(state.events.length).whereType<MoveUsedEvent>())
         event.attackerSide: event,
@@ -1161,49 +1161,49 @@ void main() {
     test('後に動くと強い技は、そのターンに後に行動した側だけ倍率が最大になり、ダメージが増える', () {
       final events = playTurn(
         state: startDuel(
-          playerMoveId: 'fire_last',
-          opponentMoveId: 'fire_last',
+          playerMoveID: 'fire_last',
+          opponentMoveID: 'fire_last',
           playerSpeed: 50,
           opponentSpeed: 100,
         ),
-        playerMoveId: 'fire_last',
-        opponentMoveId: 'fire_last',
+        playerMoveID: 'fire_last',
+        opponentMoveID: 'fire_last',
       );
-      expect(events[BattleSideId.opponent]!.specialEffect!.powerPercent, 100);
-      expect(events[BattleSideId.player]!.specialEffect!.powerPercent, 200);
+      expect(events[BattleSideID.opponent]!.specialEffect!.powerPercent, 100);
+      expect(events[BattleSideID.player]!.specialEffect!.powerPercent, 200);
       // 威力 2 倍は乱数幅 (85〜100%) より大きいため、同じ条件の相手より必ず多く与える
       expect(
-        events[BattleSideId.player]!.damage,
-        greaterThan(events[BattleSideId.opponent]!.damage),
+        events[BattleSideID.player]!.damage,
+        greaterThan(events[BattleSideID.opponent]!.damage),
       );
     });
 
     test('残り PP が少ないほど強い技は、使う前の残りで計算する (PP 2 の技の 2 回目で最大)', () {
       final firstState = startDuel(
-        playerMoveId: 'fire_last_resort',
-        opponentMoveId: 'fire_strong',
+        playerMoveID: 'fire_last_resort',
+        opponentMoveID: 'fire_strong',
         playerSpeed: 100,
         opponentSpeed: 50,
       );
       expect(
         playTurn(
           state: firstState,
-          playerMoveId: 'fire_last_resort',
-          opponentMoveId: 'fire_strong',
-        )[BattleSideId.player]!.specialEffect!.powerPercent,
+          playerMoveID: 'fire_last_resort',
+          opponentMoveID: 'fire_strong',
+        )[BattleSideID.player]!.specialEffect!.powerPercent,
         100,
       );
       expect(
         playTurn(
           state: advanceRound(
             state: firstState,
-            playerAction: const UseMoveAction(moveId: 'fire_last_resort'),
-            opponentAction: const UseMoveAction(moveId: 'fire_strong'),
+            playerAction: const UseMoveAction(moveID: 'fire_last_resort'),
+            opponentAction: const UseMoveAction(moveID: 'fire_strong'),
             master: testMaster,
           ),
-          playerMoveId: 'fire_last_resort',
-          opponentMoveId: 'fire_strong',
-        )[BattleSideId.player]!.specialEffect!.powerPercent,
+          playerMoveID: 'fire_last_resort',
+          opponentMoveID: 'fire_strong',
+        )[BattleSideID.player]!.specialEffect!.powerPercent,
         200,
       );
     });
@@ -1211,17 +1211,17 @@ void main() {
     test('自分の HP が減っているほど強い技は、同じターンに先に受けたダメージを倍率に入れる', () {
       final events = playTurn(
         state: startDuel(
-          playerMoveId: 'fire_desperate',
-          opponentMoveId: 'fire_strong',
+          playerMoveID: 'fire_desperate',
+          opponentMoveID: 'fire_strong',
           playerSpeed: 50,
           opponentSpeed: 100,
         ),
-        playerMoveId: 'fire_desperate',
-        opponentMoveId: 'fire_strong',
+        playerMoveID: 'fire_desperate',
+        opponentMoveID: 'fire_strong',
       );
-      expect(events[BattleSideId.opponent]!.damage, greaterThan(0));
+      expect(events[BattleSideID.opponent]!.damage, greaterThan(0));
       expect(
-        events[BattleSideId.player]!.specialEffect!.powerPercent,
+        events[BattleSideID.player]!.specialEffect!.powerPercent,
         greaterThan(100),
       );
     });
@@ -1229,23 +1229,23 @@ void main() {
     test('特殊効果の無い技のログは特殊効果を持たない', () {
       final events = playTurn(
         state: startDuel(
-          playerMoveId: 'fire_strong',
-          opponentMoveId: 'fire_strong',
+          playerMoveID: 'fire_strong',
+          opponentMoveID: 'fire_strong',
           playerSpeed: 100,
           opponentSpeed: 50,
         ),
-        playerMoveId: 'fire_strong',
-        opponentMoveId: 'fire_strong',
+        playerMoveID: 'fire_strong',
+        opponentMoveID: 'fire_strong',
       );
-      expect(events[BattleSideId.player]!.specialEffect, isNull);
+      expect(events[BattleSideID.player]!.specialEffect, isNull);
     });
   });
 
   group('補助技', () {
-    /// 自分 (速さ [playerSpeed]、技 [playerMoveIds]) と相手 (速さ [opponentSpeed]、技 [opponentMoveIds]) の 1 対 1 のバトル。
+    /// 自分 (速さ [playerSpeed]、技 [playerMoveIDs]) と相手 (速さ [opponentSpeed]、技 [opponentMoveIDs]) の 1 対 1 のバトル。
     BattleState startDuel({
-      required List<String> playerMoveIds,
-      required List<String> opponentMoveIds,
+      required List<String> playerMoveIDs,
+      required List<String> opponentMoveIDs,
       required int playerSpeed,
       required int opponentSpeed,
       int randomSeed = 1,
@@ -1254,8 +1254,8 @@ void main() {
         prepare(
           definition: testDefinition(
             id: 'player',
-            elementTypeId: 'fire',
-            moveIds: playerMoveIds,
+            elementTypeID: 'fire',
+            moveIDs: playerMoveIDs,
             speed: playerSpeed,
             hitPoints: 250,
           ),
@@ -1265,8 +1265,8 @@ void main() {
         prepare(
           definition: testDefinition(
             id: 'opponent',
-            elementTypeId: 'fire',
-            moveIds: opponentMoveIds,
+            elementTypeID: 'fire',
+            moveIDs: opponentMoveIDs,
             speed: opponentSpeed,
             hitPoints: 250,
           ),
@@ -1277,30 +1277,30 @@ void main() {
       opponentDamagePercent: 100,
     );
 
-    /// [state] から両陣営が [playerMoveId]・[opponentMoveId] を使って 1 ターン進めた状態を返す。
+    /// [state] から両陣営が [playerMoveID]・[opponentMoveID] を使って 1 ターン進めた状態を返す。
     BattleState playTurn({
       required BattleState state,
-      required String playerMoveId,
-      required String opponentMoveId,
+      required String playerMoveID,
+      required String opponentMoveID,
     }) => advanceRound(
       state: state,
-      playerAction: UseMoveAction(moveId: playerMoveId),
-      opponentAction: UseMoveAction(moveId: opponentMoveId),
+      playerAction: UseMoveAction(moveID: playerMoveID),
+      opponentAction: UseMoveAction(moveID: opponentMoveID),
       master: testMaster,
     );
 
     /// [state] の最後のターンの、[side] が使った技のログ。
     MoveUsedEvent lastMoveOf({
       required BattleState state,
-      required BattleSideId side,
+      required BattleSideID side,
     }) => state.events.whereType<MoveUsedEvent>().lastWhere(
       (event) => event.attackerSide == side,
     );
 
     test('相手の防御を下げる技はダメージを与えず、倍率を 25 ずつ下げ、下限 50 で止まる', () {
       var state = startDuel(
-        playerMoveIds: ['fire_lower_defense'],
-        opponentMoveIds: ['grass_weak'],
+        playerMoveIDs: ['fire_lower_defense'],
+        opponentMoveIDs: ['grass_weak'],
         playerSpeed: 100,
         opponentSpeed: 50,
       );
@@ -1312,13 +1312,13 @@ void main() {
         );
         state = playTurn(
           state: state,
-          playerMoveId: 'fire_lower_defense',
-          opponentMoveId: 'grass_weak',
+          playerMoveID: 'fire_lower_defense',
+          opponentMoveID: 'grass_weak',
         );
-        final event = lastMoveOf(state: state, side: BattleSideId.player);
+        final event = lastMoveOf(state: state, side: BattleSideID.player);
         expect(event.damage, 0);
         expect(event.statModifierChanges, hasLength(1));
-        expect(event.statModifierChanges.single.side, BattleSideId.opponent);
+        expect(event.statModifierChanges.single.side, BattleSideID.opponent);
         expect(event.statModifierChanges.single.statKind, StatKind.defense);
         expect(
           event.statModifierChanges.single.previousPercent,
@@ -1336,26 +1336,26 @@ void main() {
       // 下限に達した後にもう一度使うと、倍率は変わらず、変化の前後が同じ値で残る
       state = advanceRound(
         state: state,
-        playerAction: const UseMoveAction(moveId: 'fire_lower_defense'),
+        playerAction: const UseMoveAction(moveID: 'fire_lower_defense'),
         opponentAction: const StruggleAction(),
         master: testMaster,
       );
-      final capped = lastMoveOf(state: state, side: BattleSideId.player);
+      final capped = lastMoveOf(state: state, side: BattleSideID.player);
       expect(capped.statModifierChanges.single.previousPercent, 50);
       expect(capped.statModifierChanges.single.newPercent, 50);
     });
 
     test('下げた防御はダメージ式に入り、同じ乱数なら下げる前より多く与える', () {
       final before = startDuel(
-        playerMoveIds: ['fire_strong', 'fire_lower_defense'],
-        opponentMoveIds: ['fire_strong'],
+        playerMoveIDs: ['fire_strong', 'fire_lower_defense'],
+        opponentMoveIDs: ['fire_strong'],
         playerSpeed: 100,
         opponentSpeed: 50,
       );
       final lowered = playTurn(
         state: before,
-        playerMoveId: 'fire_lower_defense',
-        opponentMoveId: 'fire_strong',
+        playerMoveID: 'fire_lower_defense',
+        opponentMoveID: 'fire_strong',
       );
       // 乱数の状態を揃えて、防御の倍率だけが違う 2 つの状態から同じ攻撃をする
       final loweredWithSameRandom = BattleState(
@@ -1395,10 +1395,10 @@ void main() {
       int damageOf({required BattleState state}) => lastMoveOf(
         state: playTurn(
           state: state,
-          playerMoveId: 'fire_strong',
-          opponentMoveId: 'fire_strong',
+          playerMoveID: 'fire_strong',
+          opponentMoveID: 'fire_strong',
         ),
-        side: BattleSideId.player,
+        side: BattleSideID.player,
       ).damage;
       expect(
         damageOf(state: loweredWithSameRandom),
@@ -1409,17 +1409,17 @@ void main() {
     test('自分の攻撃を上げる技は、倍率を掛けた攻撃を返す', () {
       final state = playTurn(
         state: startDuel(
-          playerMoveIds: ['fire_raise_attack'],
-          opponentMoveIds: ['grass_weak'],
+          playerMoveIDs: ['fire_raise_attack'],
+          opponentMoveIDs: ['grass_weak'],
           playerSpeed: 100,
           opponentSpeed: 50,
         ),
-        playerMoveId: 'fire_raise_attack',
-        opponentMoveId: 'grass_weak',
+        playerMoveID: 'fire_raise_attack',
+        opponentMoveID: 'grass_weak',
       );
       final player = state.player.activeMember;
-      final event = lastMoveOf(state: state, side: BattleSideId.player);
-      expect(event.statModifierChanges.single.side, BattleSideId.player);
+      final event = lastMoveOf(state: state, side: BattleSideID.player);
+      expect(event.statModifierChanges.single.side, BattleSideID.player);
       expect(event.statModifierChanges.single.newPercent, 125);
       final baseAttack = effectiveStats(
         monster: BattleMonster(
@@ -1433,45 +1433,45 @@ void main() {
 
     test('相手の素早さを下げると、次のターンから行動順が入れ替わる', () {
       var state = startDuel(
-        playerMoveIds: ['fire_strong'],
-        opponentMoveIds: ['fire_lower_speed', 'fire_strong'],
+        playerMoveIDs: ['fire_strong'],
+        opponentMoveIDs: ['fire_lower_speed', 'fire_strong'],
         playerSpeed: 100,
         opponentSpeed: 90,
       );
       state = playTurn(
         state: state,
-        playerMoveId: 'fire_strong',
-        opponentMoveId: 'fire_lower_speed',
+        playerMoveID: 'fire_strong',
+        opponentMoveID: 'fire_lower_speed',
       );
       final firstTurnEvents = state.events.whereType<MoveUsedEvent>().toList();
-      expect(firstTurnEvents.first.attackerSide, BattleSideId.player);
+      expect(firstTurnEvents.first.attackerSide, BattleSideID.player);
       state = playTurn(
         state: state,
-        playerMoveId: 'fire_strong',
-        opponentMoveId: 'fire_strong',
+        playerMoveID: 'fire_strong',
+        opponentMoveID: 'fire_strong',
       );
       final secondTurnEvents = state.events
           .whereType<MoveUsedEvent>()
           .skip(firstTurnEvents.length)
           .toList();
-      expect(secondTurnEvents.first.attackerSide, BattleSideId.opponent);
+      expect(secondTurnEvents.first.attackerSide, BattleSideID.opponent);
     });
 
     test('回復する技は最大 HP を超えず、満タンなら 0 回復', () {
       final fullHitPoints = playTurn(
         state: startDuel(
-          playerMoveIds: ['fire_recover'],
-          opponentMoveIds: ['grass_weak'],
+          playerMoveIDs: ['fire_recover'],
+          opponentMoveIDs: ['grass_weak'],
           playerSpeed: 100,
           opponentSpeed: 50,
         ),
-        playerMoveId: 'fire_recover',
-        opponentMoveId: 'grass_weak',
+        playerMoveID: 'fire_recover',
+        opponentMoveID: 'grass_weak',
       );
       expect(
         lastMoveOf(
           state: fullHitPoints,
-          side: BattleSideId.player,
+          side: BattleSideID.player,
         ).recoveredHitPoints,
         0,
       );
@@ -1479,19 +1479,19 @@ void main() {
       // 相手が先に攻撃して減った HP を、同じターンに回復する
       final damaged = playTurn(
         state: startDuel(
-          playerMoveIds: ['fire_recover'],
-          opponentMoveIds: ['fire_strong'],
+          playerMoveIDs: ['fire_recover'],
+          opponentMoveIDs: ['fire_strong'],
           playerSpeed: 50,
           opponentSpeed: 100,
         ),
-        playerMoveId: 'fire_recover',
-        opponentMoveId: 'fire_strong',
+        playerMoveID: 'fire_recover',
+        opponentMoveID: 'fire_strong',
       );
       final damage = lastMoveOf(
         state: damaged,
-        side: BattleSideId.opponent,
+        side: BattleSideID.opponent,
       ).damage;
-      final recovery = lastMoveOf(state: damaged, side: BattleSideId.player);
+      final recovery = lastMoveOf(state: damaged, side: BattleSideID.player);
       final maximumHitPoints = effectiveStats(
         monster: damaged.player.activeMember,
       ).hitPoints;
@@ -1513,16 +1513,16 @@ void main() {
       for (var seed = 1; seed <= seedCount; seed++) {
         final action = chooseCpuAction(
           state: startDuel(
-            playerMoveIds: ['fire_strong', 'fire_lower_defense'],
-            opponentMoveIds: ['fire_strong'],
+            playerMoveIDs: ['fire_strong', 'fire_lower_defense'],
+            opponentMoveIDs: ['fire_strong'],
             playerSpeed: 100,
             opponentSpeed: 50,
             randomSeed: seed,
           ),
-          side: BattleSideId.player,
+          side: BattleSideID.player,
           master: testMaster,
         );
-        if (action case UseMoveAction(moveId: 'fire_lower_defense')) {
+        if (action case UseMoveAction(moveID: 'fire_lower_defense')) {
           supportCount++;
         }
       }
@@ -1530,8 +1530,8 @@ void main() {
       expect(supportCount, inInclusiveRange(60, 140));
 
       final defenseAtMinimum = startDuel(
-        playerMoveIds: ['fire_strong', 'fire_lower_defense'],
-        opponentMoveIds: ['fire_strong'],
+        playerMoveIDs: ['fire_strong', 'fire_lower_defense'],
+        opponentMoveIDs: ['fire_strong'],
         playerSpeed: 100,
         opponentSpeed: 50,
       );
@@ -1566,12 +1566,12 @@ void main() {
         expect(
           chooseCpuAction(
             state: state,
-            side: BattleSideId.player,
+            side: BattleSideID.player,
             master: testMaster,
           ),
           isA<UseMoveAction>().having(
-            (action) => action.moveId,
-            'moveId',
+            (action) => action.moveID,
+            'moveID',
             'fire_strong',
           ),
         );
@@ -1582,18 +1582,18 @@ void main() {
         expect(
           chooseCpuAction(
             state: startDuel(
-              playerMoveIds: ['fire_strong', 'fire_recover'],
-              opponentMoveIds: ['fire_strong'],
+              playerMoveIDs: ['fire_strong', 'fire_recover'],
+              opponentMoveIDs: ['fire_strong'],
               playerSpeed: 100,
               opponentSpeed: 50,
               randomSeed: seed,
             ),
-            side: BattleSideId.player,
+            side: BattleSideID.player,
             master: testMaster,
           ),
           isA<UseMoveAction>().having(
-            (action) => action.moveId,
-            'moveId',
+            (action) => action.moveID,
+            'moveID',
             'fire_strong',
           ),
         );
@@ -1603,13 +1603,13 @@ void main() {
     test('補助技を持つ CPU 同士のバトルも決着する', () {
       final state = playUntilFinished(
         state: startDuel(
-          playerMoveIds: [
+          playerMoveIDs: [
             'fire_strong',
             'fire_lower_defense',
             'fire_raise_attack',
             'fire_recover',
           ],
-          opponentMoveIds: [
+          opponentMoveIDs: [
             'fire_strong',
             'fire_lower_speed',
             'fire_raise_attack',
@@ -1633,8 +1633,8 @@ void main() {
     final member = prepare(
       definition: testDefinition(
         id: 'member',
-        elementTypeId: 'fire',
-        moveIds: ['fire_strong'],
+        elementTypeID: 'fire',
+        moveIDs: ['fire_strong'],
         speed: 50,
       ),
     );
@@ -1663,37 +1663,37 @@ void main() {
   group('equippedMoveChanges と nextLearnsetUnlockLevel', () {
     // 版 9 (#224) より前の規則で生まれたモンスターの一覧。Lv.1 の次は補助技の Lv.5、段階 2 の Lv.15
     const previousRuleLearnset = [
-      LearnsetEntry(moveId: 'a', unlockLevel: 1),
-      LearnsetEntry(moveId: 'b', unlockLevel: 1),
-      LearnsetEntry(moveId: 'c', unlockLevel: 1),
-      LearnsetEntry(moveId: 'd', unlockLevel: 1),
-      LearnsetEntry(moveId: 's', unlockLevel: 5),
-      LearnsetEntry(moveId: 'e', unlockLevel: 15),
+      LearnsetEntry(moveID: 'a', unlockLevel: 1),
+      LearnsetEntry(moveID: 'b', unlockLevel: 1),
+      LearnsetEntry(moveID: 'c', unlockLevel: 1),
+      LearnsetEntry(moveID: 'd', unlockLevel: 1),
+      LearnsetEntry(moveID: 's', unlockLevel: 5),
+      LearnsetEntry(moveID: 'e', unlockLevel: 15),
     ];
     // 版 9 の規則 (Lv.2・3・5・8… で 1 つずつ覚える) で生まれたモンスターの一覧
     const currentRuleLearnset = [
-      LearnsetEntry(moveId: 'a', unlockLevel: 1),
-      LearnsetEntry(moveId: 'b', unlockLevel: 1),
-      LearnsetEntry(moveId: 'c', unlockLevel: 1),
-      LearnsetEntry(moveId: 'd', unlockLevel: 1),
-      LearnsetEntry(moveId: 'e', unlockLevel: 2),
-      LearnsetEntry(moveId: 'f', unlockLevel: 3),
+      LearnsetEntry(moveID: 'a', unlockLevel: 1),
+      LearnsetEntry(moveID: 'b', unlockLevel: 1),
+      LearnsetEntry(moveID: 'c', unlockLevel: 1),
+      LearnsetEntry(moveID: 'd', unlockLevel: 1),
+      LearnsetEntry(moveID: 'e', unlockLevel: 2),
+      LearnsetEntry(moveID: 'f', unlockLevel: 3),
     ];
-    ({List<String> learnedMoveIds, List<String> forgottenMoveIds})
+    ({List<String> learnedMoveIDs, List<String> forgottenMoveIDs})
     levelUpChanges({
       required List<LearnsetEntry> learnset,
-      required List<String> actionCardMoveIds,
+      required List<String> actionCardMoveIDs,
       required int previousLevel,
       required int newLevel,
     }) => equippedMoveChanges(
-      previousMoveIds: equippedLearnsetEntries(
+      previousMoveIDs: equippedLearnsetEntries(
         learnset: learnset,
-        actionCardMoveIds: actionCardMoveIds,
+        actionCardMoveIDs: actionCardMoveIDs,
         level: previousLevel,
       ),
-      newMoveIds: equippedLearnsetEntries(
+      newMoveIDs: equippedLearnsetEntries(
         learnset: learnset,
-        actionCardMoveIds: actionCardMoveIds,
+        actionCardMoveIDs: actionCardMoveIDs,
         level: newLevel,
       ),
     );
@@ -1701,27 +1701,27 @@ void main() {
     test('技を覚えるレベルに上がった時は、覚えた技と入れ替わりで外れた技を返す', () {
       final changes = levelUpChanges(
         learnset: currentRuleLearnset,
-        actionCardMoveIds: const [],
+        actionCardMoveIDs: const [],
         previousLevel: 1,
         newLevel: 2,
       );
-      expect(changes.learnedMoveIds, ['e']);
-      expect(changes.forgottenMoveIds, ['a']);
+      expect(changes.learnedMoveIDs, ['e']);
+      expect(changes.forgottenMoveIDs, ['a']);
     });
 
     test('前の規則で生まれたモンスターが Lv.2〜4 に上がっても技の枠は変わらず、次に覚えるのは Lv.5', () {
       final changes = levelUpChanges(
         learnset: previousRuleLearnset,
-        actionCardMoveIds: const [],
+        actionCardMoveIDs: const [],
         previousLevel: 2,
         newLevel: 3,
       );
-      expect(changes.learnedMoveIds, isEmpty);
-      expect(changes.forgottenMoveIds, isEmpty);
+      expect(changes.learnedMoveIDs, isEmpty);
+      expect(changes.forgottenMoveIDs, isEmpty);
       expect(
         nextLearnsetUnlockLevel(
           learnset: previousRuleLearnset,
-          actionCardMoveIds: const [],
+          actionCardMoveIDs: const [],
           level: 3,
         ),
         5,
@@ -1731,16 +1731,16 @@ void main() {
     test('Lv.5 に上がると補助技を覚え、次に覚えるのは Lv.15', () {
       final changes = levelUpChanges(
         learnset: previousRuleLearnset,
-        actionCardMoveIds: const [],
+        actionCardMoveIDs: const [],
         previousLevel: 4,
         newLevel: 5,
       );
-      expect(changes.learnedMoveIds, ['s']);
-      expect(changes.forgottenMoveIds, ['a']);
+      expect(changes.learnedMoveIDs, ['s']);
+      expect(changes.forgottenMoveIDs, ['a']);
       expect(
         nextLearnsetUnlockLevel(
           learnset: previousRuleLearnset,
-          actionCardMoveIds: const [],
+          actionCardMoveIDs: const [],
           level: 5,
         ),
         15,
@@ -1750,22 +1750,22 @@ void main() {
     test('枠に空きがある間は、覚えても外れる技は無い', () {
       final changes = levelUpChanges(
         learnset: const [
-          LearnsetEntry(moveId: 'paper_1', unlockLevel: 1),
-          LearnsetEntry(moveId: 'paper_2', unlockLevel: 15),
+          LearnsetEntry(moveID: 'paper_1', unlockLevel: 1),
+          LearnsetEntry(moveID: 'paper_2', unlockLevel: 15),
         ],
-        actionCardMoveIds: const [],
+        actionCardMoveIDs: const [],
         previousLevel: 14,
         newLevel: 15,
       );
-      expect(changes.learnedMoveIds, ['paper_2']);
-      expect(changes.forgottenMoveIds, isEmpty);
+      expect(changes.learnedMoveIDs, ['paper_2']);
+      expect(changes.forgottenMoveIDs, isEmpty);
     });
 
     test('もう覚える技が無ければ、次に覚えるレベルは null', () {
       expect(
         nextLearnsetUnlockLevel(
           learnset: currentRuleLearnset,
-          actionCardMoveIds: const [],
+          actionCardMoveIDs: const [],
           level: 3,
         ),
         isNull,
@@ -1775,16 +1775,16 @@ void main() {
     test('Action Card で先に覚えさせた技は、開放レベルに上がっても枠を変えず次に覚えるレベルにも数えない', () {
       final changes = levelUpChanges(
         learnset: currentRuleLearnset,
-        actionCardMoveIds: const ['e'],
+        actionCardMoveIDs: const ['e'],
         previousLevel: 1,
         newLevel: 2,
       );
-      expect(changes.learnedMoveIds, isEmpty);
-      expect(changes.forgottenMoveIds, isEmpty);
+      expect(changes.learnedMoveIDs, isEmpty);
+      expect(changes.forgottenMoveIDs, isEmpty);
       expect(
         nextLearnsetUnlockLevel(
           learnset: currentRuleLearnset,
-          actionCardMoveIds: const ['e'],
+          actionCardMoveIDs: const ['e'],
           level: 1,
         ),
         3,
@@ -1792,18 +1792,18 @@ void main() {
     });
 
     test('Action Card の技が枠の数以上ある時は、開放レベルに上がっても枠が変わらず次に覚えるレベルを出さない', () {
-      const actionCardMoveIds = ['w', 'x', 'y', 'z'];
+      const actionCardMoveIDs = ['w', 'x', 'y', 'z'];
       final changes = levelUpChanges(
         learnset: currentRuleLearnset,
-        actionCardMoveIds: actionCardMoveIds,
+        actionCardMoveIDs: actionCardMoveIDs,
         previousLevel: 1,
         newLevel: 2,
       );
-      expect(changes.learnedMoveIds, isEmpty);
+      expect(changes.learnedMoveIDs, isEmpty);
       expect(
         nextLearnsetUnlockLevel(
           learnset: currentRuleLearnset,
-          actionCardMoveIds: actionCardMoveIds,
+          actionCardMoveIDs: actionCardMoveIDs,
           level: 1,
         ),
         isNull,
@@ -1812,7 +1812,7 @@ void main() {
       expect(
         nextLearnsetUnlockLevel(
           learnset: currentRuleLearnset,
-          actionCardMoveIds: const ['x', 'y', 'z'],
+          actionCardMoveIDs: const ['x', 'y', 'z'],
           level: 1,
         ),
         2,
@@ -1821,63 +1821,63 @@ void main() {
 
     test('Action Card の技を覚えさせると、一番古い技が枠から外れる', () {
       final changes = equippedMoveChanges(
-        previousMoveIds: equippedLearnsetEntries(
+        previousMoveIDs: equippedLearnsetEntries(
           learnset: currentRuleLearnset,
-          actionCardMoveIds: const [],
+          actionCardMoveIDs: const [],
           level: 1,
         ),
-        newMoveIds: equippedLearnsetEntries(
+        newMoveIDs: equippedLearnsetEntries(
           learnset: currentRuleLearnset,
-          actionCardMoveIds: const ['x'],
+          actionCardMoveIDs: const ['x'],
           level: 1,
         ),
       );
-      expect(changes.learnedMoveIds, ['x']);
-      expect(changes.forgottenMoveIds, ['a']);
+      expect(changes.learnedMoveIDs, ['x']);
+      expect(changes.forgottenMoveIDs, ['a']);
     });
   });
 
   group('equippedLearnsetEntries', () {
     const learnset = [
-      LearnsetEntry(moveId: 'a', unlockLevel: 1),
-      LearnsetEntry(moveId: 'b', unlockLevel: 1),
-      LearnsetEntry(moveId: 'c', unlockLevel: 1),
-      LearnsetEntry(moveId: 'd', unlockLevel: 1),
-      LearnsetEntry(moveId: 'e', unlockLevel: 15),
-      LearnsetEntry(moveId: 'f', unlockLevel: 15),
-      LearnsetEntry(moveId: 'g', unlockLevel: 100),
+      LearnsetEntry(moveID: 'a', unlockLevel: 1),
+      LearnsetEntry(moveID: 'b', unlockLevel: 1),
+      LearnsetEntry(moveID: 'c', unlockLevel: 1),
+      LearnsetEntry(moveID: 'd', unlockLevel: 1),
+      LearnsetEntry(moveID: 'e', unlockLevel: 15),
+      LearnsetEntry(moveID: 'f', unlockLevel: 15),
+      LearnsetEntry(moveID: 'g', unlockLevel: 100),
     ];
-    List<String> learnsetMoveIds({required int level}) =>
+    List<String> learnsetMoveIDs({required int level}) =>
         equippedLearnsetEntries(
           learnset: learnset,
-          actionCardMoveIds: const [],
+          actionCardMoveIDs: const [],
           level: level,
         );
 
     test('開放済みの技が枠の数までなら、開放済みの技をすべて一覧の順で返す', () {
-      expect(learnsetMoveIds(level: 14), ['a', 'b', 'c', 'd']);
+      expect(learnsetMoveIDs(level: 14), ['a', 'b', 'c', 'd']);
     });
 
     test('開放済みの技が枠より多い時は、新しく覚えた技が一番古い技と入れ替わる', () {
-      expect(learnsetMoveIds(level: 15), ['c', 'd', 'e', 'f']);
-      expect(learnsetMoveIds(level: 100), ['d', 'e', 'f', 'g']);
+      expect(learnsetMoveIDs(level: 15), ['c', 'd', 'e', 'f']);
+      expect(learnsetMoveIDs(level: 100), ['d', 'e', 'f', 'g']);
     });
 
     test('覚える技が枠より少ない (前の規則で生まれた) モンスターも、開放済みの技をすべて返す', () {
       expect(
         equippedLearnsetEntries(
           learnset: const [
-            LearnsetEntry(moveId: 'paper_1', unlockLevel: 1),
-            LearnsetEntry(moveId: 'paper_2', unlockLevel: 15),
+            LearnsetEntry(moveID: 'paper_1', unlockLevel: 1),
+            LearnsetEntry(moveID: 'paper_2', unlockLevel: 15),
           ],
-          actionCardMoveIds: const [],
+          actionCardMoveIDs: const [],
           level: 1,
         ),
         ['paper_1'],
       );
     });
 
-    // Functions の技の枠 (functions/src/action_card_rules.ts の equippedMoveIds) と共通のテストケース
+    // Functions の技の枠 (functions/src/action_card_rules.ts の equippedMoveIDs) と共通のテストケース
     for (final equippedMoveCase
         in ((jsonDecode(
                       File(
@@ -1897,14 +1897,14 @@ void main() {
                   json: learnsetEntryJson as Map<String, dynamic>,
                 ),
             ],
-            actionCardMoveIds: [
-              for (final moveId
-                  in equippedMoveCase['actionCardMoveIds'] as List<dynamic>)
-                moveId as String,
+            actionCardMoveIDs: [
+              for (final moveID
+                  in equippedMoveCase['actionCardMoveIDs'] as List<dynamic>)
+                moveID as String,
             ],
             level: equippedMoveCase['level'] as int,
           ),
-          equippedMoveCase['expectedMoveIds'],
+          equippedMoveCase['expectedMoveIDs'],
         );
       });
     }
@@ -1913,8 +1913,8 @@ void main() {
       final monster = prepare(
         definition: testDefinition(
           id: 'player',
-          elementTypeId: 'fire',
-          moveIds: ['fire_strong', 'grass_strong'],
+          elementTypeID: 'fire',
+          moveIDs: ['fire_strong', 'grass_strong'],
           speed: 50,
         ),
         level: 1,
@@ -1932,16 +1932,16 @@ void main() {
       final monster = prepare(
         definition: testDefinition(
           id: 'player',
-          elementTypeId: 'fire',
-          moveIds: ['fire_strong'],
+          elementTypeID: 'fire',
+          moveIDs: ['fire_strong'],
           speed: 50,
         ),
         level: 1,
-        actionCardMoveIds: ['grass_strong'],
+        actionCardMoveIDs: ['grass_strong'],
       );
       expect(
         monster.state.remainingPowerPoints['grass_strong'],
-        testMaster.moveById(moveId: 'grass_strong').powerPoints,
+        testMaster.moveByID(moveID: 'grass_strong').powerPoints,
       );
       expect(
         selectableMoves(
@@ -1954,10 +1954,10 @@ void main() {
   });
 
   group('状態・フィールド・命中・先制 (版 9)', () {
-    /// 速い自分 (fire、技 [playerMoveIds]) と遅い相手 (fire、技 [opponentMoveIds]。HP は多め) の 1 対 1 を始める。
+    /// 速い自分 (fire、技 [playerMoveIDs]) と遅い相手 (fire、技 [opponentMoveIDs]。HP は多め) の 1 対 1 を始める。
     BattleState duel({
-      required List<String> playerMoveIds,
-      required List<String> opponentMoveIds,
+      required List<String> playerMoveIDs,
+      required List<String> opponentMoveIDs,
       int randomSeed = 1,
       int playerSpeed = 100,
       int opponentSpeed = 50,
@@ -1967,8 +1967,8 @@ void main() {
         prepare(
           definition: testDefinition(
             id: 'player',
-            elementTypeId: 'fire',
-            moveIds: playerMoveIds,
+            elementTypeID: 'fire',
+            moveIDs: playerMoveIDs,
             speed: playerSpeed,
             hitPoints: 250,
           ),
@@ -1978,8 +1978,8 @@ void main() {
         prepare(
           definition: testDefinition(
             id: 'opponent',
-            elementTypeId: 'fire',
-            moveIds: opponentMoveIds,
+            elementTypeID: 'fire',
+            moveIDs: opponentMoveIDs,
             speed: opponentSpeed,
             hitPoints: opponentHitPoints,
           ),
@@ -1994,12 +1994,12 @@ void main() {
 
     BattleState play({
       required BattleState state,
-      required String playerMoveId,
-      required String opponentMoveId,
+      required String playerMoveID,
+      required String opponentMoveID,
     }) => advanceRound(
       state: state,
-      playerAction: UseMoveAction(moveId: playerMoveId),
-      opponentAction: UseMoveAction(moveId: opponentMoveId),
+      playerAction: UseMoveAction(moveID: playerMoveID),
+      opponentAction: UseMoveAction(moveID: opponentMoveID),
       master: testMaster,
     );
 
@@ -2011,13 +2011,13 @@ void main() {
 
     test('1 ラウンドは両陣営のターン 2 つで、ログのターン番号は行動ごとに 1 増える', () {
       final before = duel(
-        playerMoveIds: ['fire_strong'],
-        opponentMoveIds: ['fire_strong'],
+        playerMoveIDs: ['fire_strong'],
+        opponentMoveIDs: ['fire_strong'],
       );
       final after = play(
         state: before,
-        playerMoveId: 'fire_strong',
-        opponentMoveId: 'fire_strong',
+        playerMoveID: 'fire_strong',
+        opponentMoveID: 'fire_strong',
       );
       expect(before.turnNumber, 1);
       expect(before.roundNumber, 1);
@@ -2033,13 +2033,13 @@ void main() {
 
     test('毒は持ち主のターンの終わりに最大 HP の 1/16 を削り、毒の技を受けると重なりが増える', () {
       var state = duel(
-        playerMoveIds: ['fire_poison_attack', 'poison_strong'],
-        opponentMoveIds: ['fire_strong'],
+        playerMoveIDs: ['fire_poison_attack', 'poison_strong'],
+        opponentMoveIDs: ['fire_strong'],
       );
       state = play(
         state: state,
-        playerMoveId: 'fire_poison_attack',
-        opponentMoveId: 'fire_strong',
+        playerMoveID: 'fire_poison_attack',
+        opponentMoveID: 'fire_strong',
       );
       final opponent = state.opponent.activeMember;
       final poison =
@@ -2052,14 +2052,14 @@ void main() {
           .whereType<StatusConditionDamageEvent>()
           .toList();
       expect(poisonDamages, hasLength(1));
-      expect(poisonDamages.single.side, BattleSideId.opponent);
+      expect(poisonDamages.single.side, BattleSideID.opponent);
       expect(poisonDamages.single.damage, maximumHitPoints ~/ 16);
       expect(poisonDamages.single.turnNumber, 2);
 
       state = play(
         state: state,
-        playerMoveId: 'poison_strong',
-        opponentMoveId: 'fire_strong',
+        playerMoveID: 'poison_strong',
+        opponentMoveID: 'fire_strong',
       );
       expect(
         state
@@ -2085,14 +2085,14 @@ void main() {
       var attackedCount = 0;
       for (var seed = 1; seed <= 200; seed++) {
         var state = duel(
-          playerMoveIds: ['fire_paralyze', 'fire_strong'],
-          opponentMoveIds: ['fire_strong', 'fire_raise_attack'],
+          playerMoveIDs: ['fire_paralyze', 'fire_strong'],
+          opponentMoveIDs: ['fire_strong', 'fire_raise_attack'],
           randomSeed: seed,
         );
         state = play(
           state: state,
-          playerMoveId: 'fire_paralyze',
-          opponentMoveId: 'fire_strong',
+          playerMoveID: 'fire_paralyze',
+          opponentMoveID: 'fire_strong',
         );
         final failed = state.events.whereType<ActionFailedEvent>().toList();
         if (failed.isEmpty) {
@@ -2100,7 +2100,7 @@ void main() {
           attackedCount++;
           expect(
             state.events.whereType<MoveUsedEvent>().last.attackerSide,
-            BattleSideId.opponent,
+            BattleSideID.opponent,
             reason: 'seed=$seed',
           );
           expect(
@@ -2114,7 +2114,7 @@ void main() {
           );
         } else {
           failedCount++;
-          expect(failed.single.side, BattleSideId.opponent);
+          expect(failed.single.side, BattleSideID.opponent);
           expect(failed.single.reason, ActionFailureReason.paralysis);
           expect(failed.single.turnNumber, 2);
           expect(
@@ -2143,14 +2143,14 @@ void main() {
     test('麻痺でも補助技はどの seed でも使え、麻痺の乱数を引かない', () {
       for (var seed = 1; seed <= 50; seed++) {
         final before = duel(
-          playerMoveIds: ['fire_paralyze'],
-          opponentMoveIds: ['fire_raise_attack'],
+          playerMoveIDs: ['fire_paralyze'],
+          opponentMoveIDs: ['fire_raise_attack'],
           randomSeed: seed,
         );
         final state = play(
           state: before,
-          playerMoveId: 'fire_paralyze',
-          opponentMoveId: 'fire_raise_attack',
+          playerMoveID: 'fire_paralyze',
+          opponentMoveID: 'fire_raise_attack',
         );
         expect(
           state.events.whereType<ActionFailedEvent>(),
@@ -2158,14 +2158,14 @@ void main() {
           reason: 'seed=$seed',
         );
         expect(
-          state.events.whereType<MoveUsedEvent>().last.moveId,
+          state.events.whereType<MoveUsedEvent>().last.moveID,
           'fire_raise_attack',
         );
         // 相手が補助技を出す前に麻痺が付いている (麻痺を持ったまま補助技を出した)
         final paralysisIndex = state.events.indexWhere(
           (event) =>
               event is StatusConditionInflictedEvent &&
-              event.side == BattleSideId.opponent &&
+              event.side == BattleSideID.opponent &&
               event.kind == StatusConditionKind.paralysis,
         );
         expect(paralysisIndex, isNonNegative, reason: 'seed=$seed');
@@ -2173,7 +2173,7 @@ void main() {
           state.events.indexWhere(
             (event) =>
                 event is MoveUsedEvent &&
-                event.attackerSide == BattleSideId.opponent,
+                event.attackerSide == BattleSideID.opponent,
           ),
           greaterThan(paralysisIndex),
           reason: 'seed=$seed',
@@ -2183,12 +2183,12 @@ void main() {
           state.randomState,
           play(
             state: duel(
-              playerMoveIds: ['fire_raise_attack'],
-              opponentMoveIds: ['fire_raise_attack'],
+              playerMoveIDs: ['fire_raise_attack'],
+              opponentMoveIDs: ['fire_raise_attack'],
               randomSeed: seed,
             ),
-            playerMoveId: 'fire_raise_attack',
-            opponentMoveId: 'fire_raise_attack',
+            playerMoveID: 'fire_raise_attack',
+            opponentMoveID: 'fire_raise_attack',
           ).randomState,
           reason: 'seed=$seed',
         );
@@ -2196,7 +2196,7 @@ void main() {
     });
 
     test('気絶・凍結は 5 割の確率で全ての行動 (補助技を含む) を失敗させる', () {
-      for (final (moveId, reason) in [
+      for (final (moveID, reason) in [
         ('fire_stun', ActionFailureReason.stun),
         ('fire_freeze', ActionFailureReason.frozen),
       ]) {
@@ -2204,30 +2204,30 @@ void main() {
         for (var seed = 1; seed <= 200; seed++) {
           final state = play(
             state: duel(
-              playerMoveIds: [moveId, 'fire_strong'],
-              opponentMoveIds: ['fire_raise_attack'],
+              playerMoveIDs: [moveID, 'fire_strong'],
+              opponentMoveIDs: ['fire_raise_attack'],
               randomSeed: seed,
             ),
-            playerMoveId: moveId,
-            opponentMoveId: 'fire_raise_attack',
+            playerMoveID: moveID,
+            opponentMoveID: 'fire_raise_attack',
           );
           final failed = state.events.whereType<ActionFailedEvent>().toList();
           final opponentMoves = state.events.whereType<MoveUsedEvent>().where(
-            (event) => event.attackerSide == BattleSideId.opponent,
+            (event) => event.attackerSide == BattleSideID.opponent,
           );
           // 止まったかどうかに関係なく、相手の行動の前に状態が付いている
           final inflictedIndex = state.events.indexWhere(
             (event) =>
                 event is StatusConditionInflictedEvent &&
-                event.side == BattleSideId.opponent,
+                event.side == BattleSideID.opponent,
           );
-          expect(inflictedIndex, isNonNegative, reason: '$moveId seed=$seed');
+          expect(inflictedIndex, isNonNegative, reason: '$moveID seed=$seed');
           if (failed.isEmpty) {
-            expect(opponentMoves.single.moveId, 'fire_raise_attack');
+            expect(opponentMoves.single.moveID, 'fire_raise_attack');
             expect(
               state.events.indexOf(opponentMoves.single),
               greaterThan(inflictedIndex),
-              reason: '$moveId seed=$seed',
+              reason: '$moveID seed=$seed',
             );
           } else {
             failedCount++;
@@ -2235,25 +2235,25 @@ void main() {
             expect(opponentMoves, isEmpty);
           }
         }
-        expect(failedCount, inInclusiveRange(70, 130), reason: moveId);
+        expect(failedCount, inInclusiveRange(70, 130), reason: moveID);
       }
     });
 
     test('凍結は技のダメージを受けると解ける', () {
       // 凍結は 1〜3 ターンで、1 ターンなら最初の自分のターンの終わりに解けるため、2 ターン以上残った seed で確かめる
       var state = duel(
-        playerMoveIds: ['fire_freeze', 'fire_strong'],
-        opponentMoveIds: ['fire_strong'],
+        playerMoveIDs: ['fire_freeze', 'fire_strong'],
+        opponentMoveIDs: ['fire_strong'],
       );
       for (var seed = 1; seed <= 20; seed++) {
         state = play(
           state: duel(
-            playerMoveIds: ['fire_freeze', 'fire_strong'],
-            opponentMoveIds: ['fire_strong'],
+            playerMoveIDs: ['fire_freeze', 'fire_strong'],
+            opponentMoveIDs: ['fire_strong'],
             randomSeed: seed,
           ),
-          playerMoveId: 'fire_freeze',
-          opponentMoveId: 'fire_strong',
+          playerMoveID: 'fire_freeze',
+          opponentMoveID: 'fire_strong',
         );
         if (state.opponent.activeMember.state.statusConditions.containsKey(
           StatusConditionKind.frozen,
@@ -2268,8 +2268,8 @@ void main() {
       final previous = state;
       state = play(
         state: state,
-        playerMoveId: 'fire_strong',
-        opponentMoveId: 'fire_strong',
+        playerMoveID: 'fire_strong',
+        opponentMoveID: 'fire_strong',
       );
       final roundEvents = lastRoundEvents(state: state, previous: previous);
       expect(
@@ -2281,7 +2281,7 @@ void main() {
         roundEvents.whereType<MoveUsedEvent>().map(
           (event) => event.attackerSide,
         ),
-        [BattleSideId.player, BattleSideId.opponent],
+        [BattleSideID.player, BattleSideID.opponent],
       );
     });
 
@@ -2290,21 +2290,21 @@ void main() {
       var sleepFailedCount = 0;
       for (var seed = 1; seed <= 60; seed++) {
         var state = duel(
-          playerMoveIds: ['fire_drowsy', 'fire_raise_attack'],
-          opponentMoveIds: ['fire_raise_attack'],
+          playerMoveIDs: ['fire_drowsy', 'fire_raise_attack'],
+          opponentMoveIDs: ['fire_raise_attack'],
           randomSeed: seed,
         );
         state = play(
           state: state,
-          playerMoveId: 'fire_drowsy',
-          opponentMoveId: 'fire_raise_attack',
+          playerMoveID: 'fire_drowsy',
+          opponentMoveID: 'fire_raise_attack',
         );
         // 2 回目の眠気で眠りになり、同じラウンドの相手のターンから失敗の判定が始まる
         final beforeSleep = state;
         state = play(
           state: state,
-          playerMoveId: 'fire_drowsy',
-          opponentMoveId: 'fire_raise_attack',
+          playerMoveID: 'fire_drowsy',
+          opponentMoveID: 'fire_raise_attack',
         );
         expect(
           lastRoundEvents(
@@ -2320,10 +2320,10 @@ void main() {
             (event) => event.reason == ActionFailureReason.sleep,
           );
           final opponentMoves = roundEvents.whereType<MoveUsedEvent>().where(
-            (event) => event.attackerSide == BattleSideId.opponent,
+            (event) => event.attackerSide == BattleSideID.opponent,
           );
           if (failed.isEmpty) {
-            expect(opponentMoves.single.moveId, 'fire_raise_attack');
+            expect(opponentMoves.single.moveID, 'fire_raise_attack');
           } else {
             sleepFailedCount++;
             expect(opponentMoves, isEmpty);
@@ -2342,8 +2342,8 @@ void main() {
           final previous = state;
           state = play(
             state: state,
-            playerMoveId: 'fire_raise_attack',
-            opponentMoveId: 'fire_raise_attack',
+            playerMoveID: 'fire_raise_attack',
+            opponentMoveID: 'fire_raise_attack',
           );
           countSleepTurn(
             roundEvents: lastRoundEvents(state: state, previous: previous),
@@ -2367,16 +2367,16 @@ void main() {
 
     test('眠気は素早さを半分にし、眠気の中でもう一度眠気を受けると眠りに置き換わる', () {
       var state = duel(
-        playerMoveIds: ['fire_drowsy'],
-        opponentMoveIds: ['fire_raise_attack'],
+        playerMoveIDs: ['fire_drowsy'],
+        opponentMoveIDs: ['fire_raise_attack'],
       );
       final speedBefore = effectiveStats(
         monster: state.opponent.activeMember,
       ).speed;
       state = play(
         state: state,
-        playerMoveId: 'fire_drowsy',
-        opponentMoveId: 'fire_raise_attack',
+        playerMoveID: 'fire_drowsy',
+        opponentMoveID: 'fire_raise_attack',
       );
       expect(
         effectiveStats(monster: state.opponent.activeMember).speed,
@@ -2384,8 +2384,8 @@ void main() {
       );
       state = play(
         state: state,
-        playerMoveId: 'fire_drowsy',
-        opponentMoveId: 'fire_raise_attack',
+        playerMoveID: 'fire_drowsy',
+        opponentMoveID: 'fire_raise_attack',
       );
       final inflicted = state.events
           .whereType<StatusConditionInflictedEvent>()
@@ -2400,15 +2400,15 @@ void main() {
 
     test('呪いは攻撃・防御・素早さのどれか 1 つを半分にし、重ねられない', () {
       var state = duel(
-        playerMoveIds: ['fire_curse'],
-        opponentMoveIds: ['fire_raise_attack'],
+        playerMoveIDs: ['fire_curse'],
+        opponentMoveIDs: ['fire_raise_attack'],
         randomSeed: 3,
       );
       final statsBefore = effectiveStats(monster: state.opponent.activeMember);
       state = play(
         state: state,
-        playerMoveId: 'fire_curse',
-        opponentMoveId: 'fire_raise_attack',
+        playerMoveID: 'fire_curse',
+        opponentMoveID: 'fire_raise_attack',
       );
       final curse = state
           .opponent
@@ -2429,8 +2429,8 @@ void main() {
           .length;
       state = play(
         state: state,
-        playerMoveId: 'fire_curse',
-        opponentMoveId: 'fire_raise_attack',
+        playerMoveID: 'fire_curse',
+        opponentMoveID: 'fire_raise_attack',
       );
       expect(
         state.events.whereType<StatusConditionInflictedEvent>().length,
@@ -2440,10 +2440,10 @@ void main() {
 
     test('やけどは与える攻撃のダメージを半分にし、受けるダメージを 1.1 倍にする', () {
       final before = duel(
-        playerMoveIds: ['fire_strong'],
-        opponentMoveIds: ['fire_strong'],
+        playerMoveIDs: ['fire_strong'],
+        opponentMoveIDs: ['fire_strong'],
       );
-      BattleState withBurn({required BattleSideId side, required int stack}) {
+      BattleState withBurn({required BattleSideID side, required int stack}) {
         BattleParty withStatus(BattleParty party) => BattleParty(
           members: [
             BattleMonster(
@@ -2465,10 +2465,10 @@ void main() {
           activeMemberIndex: 0,
         );
         return BattleState(
-          player: side == BattleSideId.player
+          player: side == BattleSideID.player
               ? withStatus(before.player)
               : before.player,
-          opponent: side == BattleSideId.opponent
+          opponent: side == BattleSideID.opponent
               ? withStatus(before.opponent)
               : before.opponent,
           turnNumber: before.turnNumber,
@@ -2483,34 +2483,34 @@ void main() {
 
       int playerDamage(BattleState state) => play(
         state: state,
-        playerMoveId: 'fire_strong',
-        opponentMoveId: 'fire_strong',
+        playerMoveID: 'fire_strong',
+        opponentMoveID: 'fire_strong',
       ).events.whereType<MoveUsedEvent>().first.damage;
       final normal = playerDamage(before);
       expect(
-        playerDamage(withBurn(side: BattleSideId.player, stack: 1)),
+        playerDamage(withBurn(side: BattleSideID.player, stack: 1)),
         normal ~/ 2,
       );
       expect(
-        playerDamage(withBurn(side: BattleSideId.opponent, stack: 1)),
+        playerDamage(withBurn(side: BattleSideID.opponent, stack: 1)),
         normal * 11 ~/ 10,
       );
       expect(
-        playerDamage(withBurn(side: BattleSideId.opponent, stack: 3)),
+        playerDamage(withBurn(side: BattleSideID.opponent, stack: 3)),
         normal * 13 ~/ 10,
       );
     });
 
     test('興奮は攻撃を 1.5 倍、防御を半分にする', () {
       var state = duel(
-        playerMoveIds: ['fire_excite'],
-        opponentMoveIds: ['fire_raise_attack'],
+        playerMoveIDs: ['fire_excite'],
+        opponentMoveIDs: ['fire_raise_attack'],
       );
       final statsBefore = effectiveStats(monster: state.player.activeMember);
       state = play(
         state: state,
-        playerMoveId: 'fire_excite',
-        opponentMoveId: 'fire_raise_attack',
+        playerMoveID: 'fire_excite',
+        opponentMoveID: 'fire_raise_attack',
       );
       final statsAfter = effectiveStats(monster: state.player.activeMember);
       expect(statsAfter.attack, statsBefore.attack * 3 ~/ 2);
@@ -2523,28 +2523,28 @@ void main() {
       const seedCount = 100;
       for (var seed = 1; seed <= seedCount; seed++) {
         var state = duel(
-          playerMoveIds: ['fire_confuse'],
-          opponentMoveIds: ['fire_raise_attack', 'fire_lower_speed'],
+          playerMoveIDs: ['fire_confuse'],
+          opponentMoveIDs: ['fire_raise_attack', 'fire_lower_speed'],
           randomSeed: seed,
         );
         state = play(
           state: state,
-          playerMoveId: 'fire_confuse',
-          opponentMoveId: 'fire_raise_attack',
+          playerMoveID: 'fire_confuse',
+          opponentMoveID: 'fire_raise_attack',
         );
         final previous = state;
         state = play(
           state: state,
-          playerMoveId: 'fire_confuse',
-          opponentMoveId: 'fire_raise_attack',
+          playerMoveID: 'fire_confuse',
+          opponentMoveID: 'fire_raise_attack',
         );
         final opponentMove = lastRoundEvents(state: state, previous: previous)
             .whereType<MoveUsedEvent>()
-            .firstWhere((event) => event.attackerSide == BattleSideId.opponent);
-        if (opponentMove.replacedMoveId != null) {
+            .firstWhere((event) => event.attackerSide == BattleSideID.opponent);
+        if (opponentMove.replacedMoveID != null) {
           replacedCount++;
-          expect(opponentMove.replacedMoveId, 'fire_raise_attack');
-          expect(opponentMove.moveId, 'fire_lower_speed');
+          expect(opponentMove.replacedMoveID, 'fire_raise_attack');
+          expect(opponentMove.moveID, 'fire_lower_speed');
           // PP は実際に出た技から減る
           expect(
             state
@@ -2566,20 +2566,20 @@ void main() {
       for (var seed = 1; seed <= seedCount; seed++) {
         final state = play(
           state: duel(
-            playerMoveIds: ['fire_inaccurate'],
-            opponentMoveIds: ['fire_raise_attack'],
+            playerMoveIDs: ['fire_inaccurate'],
+            opponentMoveIDs: ['fire_raise_attack'],
             randomSeed: seed,
           ),
-          playerMoveId: 'fire_inaccurate',
-          opponentMoveId: 'fire_raise_attack',
+          playerMoveID: 'fire_inaccurate',
+          opponentMoveID: 'fire_raise_attack',
         );
         final missed = state.events.whereType<ActionFailedEvent>().where(
           (event) => event.reason == ActionFailureReason.missed,
         );
         if (missed.isNotEmpty) {
           missedCount++;
-          expect(missed.single.side, BattleSideId.player);
-          expect(missed.single.moveId, 'fire_inaccurate');
+          expect(missed.single.side, BattleSideID.player);
+          expect(missed.single.moveID, 'fire_inaccurate');
         }
         expect(
           state
@@ -2594,14 +2594,14 @@ void main() {
 
       for (var seed = 1; seed <= 30; seed++) {
         var state = duel(
-          playerMoveIds: ['fire_sure_hit', 'fire_inaccurate'],
-          opponentMoveIds: ['fire_dizzy'],
+          playerMoveIDs: ['fire_sure_hit', 'fire_inaccurate'],
+          opponentMoveIDs: ['fire_dizzy'],
           randomSeed: seed,
         );
         state = play(
           state: state,
-          playerMoveId: 'fire_sure_hit',
-          opponentMoveId: 'fire_dizzy',
+          playerMoveID: 'fire_sure_hit',
+          opponentMoveID: 'fire_dizzy',
         );
         expect(
           state.player.activeMember.state.statusConditions,
@@ -2609,15 +2609,15 @@ void main() {
         );
         expect(
           moveHitChancePercent(
-            move: testMaster.moveById(moveId: 'fire_inaccurate'),
+            move: testMaster.moveByID(moveID: 'fire_inaccurate'),
             attacker: state.player.activeMember,
           ),
           35,
         );
         state = play(
           state: state,
-          playerMoveId: 'fire_sure_hit',
-          opponentMoveId: 'fire_dizzy',
+          playerMoveID: 'fire_sure_hit',
+          opponentMoveID: 'fire_dizzy',
         );
         expect(state.events.whereType<ActionFailedEvent>(), isEmpty);
       }
@@ -2628,8 +2628,8 @@ void main() {
       final lowAccuracyAttacker = prepare(
         definition: testDefinition(
           id: 'low-accuracy',
-          elementTypeId: 'fire',
-          moveIds: ['fire_strong', 'fire_inaccurate', 'fire_sure_hit'],
+          elementTypeID: 'fire',
+          moveIDs: ['fire_strong', 'fire_inaccurate', 'fire_sure_hit'],
           speed: 80,
           accuracyBaseStat: 40,
         ),
@@ -2638,21 +2638,21 @@ void main() {
       // 威力 60 の技は威力の割合で 98%。98 × 88 ÷ 100 = 86
       expect(
         moveHitChancePercent(
-          move: testMaster.moveById(moveId: 'fire_strong'),
+          move: testMaster.moveByID(moveID: 'fire_strong'),
           attacker: lowAccuracyAttacker,
         ),
         86,
       );
       expect(
         moveHitChancePercent(
-          move: testMaster.moveById(moveId: 'fire_inaccurate'),
+          move: testMaster.moveByID(moveID: 'fire_inaccurate'),
           attacker: lowAccuracyAttacker,
         ),
         44,
       );
       expect(
         moveHitChancePercent(
-          move: testMaster.moveById(moveId: 'fire_sure_hit'),
+          move: testMaster.moveByID(moveID: 'fire_sure_hit'),
           attacker: lowAccuracyAttacker,
         ),
         100,
@@ -2660,12 +2660,12 @@ void main() {
       // 命中 100 のモンスターは技の命中率 (威力の割合を掛けた値) のまま
       expect(
         moveHitChancePercent(
-          move: testMaster.moveById(moveId: 'fire_strong'),
+          move: testMaster.moveByID(moveID: 'fire_strong'),
           attacker: prepare(
             definition: testDefinition(
               id: 'full-accuracy',
-              elementTypeId: 'fire',
-              moveIds: ['fire_strong'],
+              elementTypeID: 'fire',
+              moveIDs: ['fire_strong'],
               speed: 80,
             ),
           ),
@@ -2680,21 +2680,21 @@ void main() {
       for (var seed = 1; seed <= seedCount; seed++) {
         final state = play(
           state: duel(
-            playerMoveIds: ['fire_one_hit', 'fire_strong'],
-            opponentMoveIds: ['fire_strong'],
+            playerMoveIDs: ['fire_one_hit', 'fire_strong'],
+            opponentMoveIDs: ['fire_strong'],
             randomSeed: seed,
           ),
-          playerMoveId: 'fire_one_hit',
-          opponentMoveId: 'fire_strong',
+          playerMoveID: 'fire_one_hit',
+          opponentMoveID: 'fire_strong',
         );
         final moveUsed = state.events.whereType<MoveUsedEvent>().where(
-          (event) => event.attackerSide == BattleSideId.player,
+          (event) => event.attackerSide == BattleSideID.player,
         );
         if (moveUsed.isNotEmpty) {
           hitCount++;
           expect(moveUsed.single.isOneHitKnockout, isTrue);
           expect(moveUsed.single.defenderRemainingHitPoints, 0);
-          expect(state.winner, BattleSideId.player);
+          expect(state.winner, BattleSideID.player);
         }
         expect(
           state.player.activeMember.state.remainingPowerPoints['fire_one_hit'],
@@ -2712,13 +2712,13 @@ void main() {
             for (var randomSeed = 1; randomSeed <= 20; randomSeed++)
               play(
                 state: duel(
-                  playerMoveIds: ['fire_self_destruct'],
-                  opponentMoveIds: ['fire_strong'],
+                  playerMoveIDs: ['fire_self_destruct'],
+                  opponentMoveIDs: ['fire_strong'],
                   randomSeed: randomSeed,
                   opponentHitPoints: opponentHitPoints,
                 ),
-                playerMoveId: 'fire_self_destruct',
-                opponentMoveId: 'fire_strong',
+                playerMoveID: 'fire_self_destruct',
+                opponentMoveID: 'fire_strong',
               ),
           ].firstWhere(
             (state) => state.events.whereType<MoveUsedEvent>().any(
@@ -2728,7 +2728,7 @@ void main() {
       final state = hitSelfDestruct();
       // 自分が速いため先に自爆する。倒れた相手には後に動く側も技を使わないため、技のログは自爆の 1 件だけ
       final moveUsed = state.events.whereType<MoveUsedEvent>().single;
-      expect(moveUsed.attackerSide, BattleSideId.player);
+      expect(moveUsed.attackerSide, BattleSideID.player);
       expect(moveUsed.selfDestructed, isTrue);
       expect(moveUsed.damage, greaterThan(0));
       expect(moveUsed.attackerRemainingHitPoints, 0);
@@ -2737,27 +2737,27 @@ void main() {
         state.events.whereType<MonsterFaintedEvent>().map(
           (event) => event.side,
         ),
-        [BattleSideId.player],
+        [BattleSideID.player],
       );
       // 相手は技を使っていないので PP も減らない
       expect(
         state.opponent.activeMember.state.remainingPowerPoints['fire_strong'],
         10,
       );
-      expect(state.winner, BattleSideId.opponent);
+      expect(state.winner, BattleSideID.opponent);
 
       final mutual = hitSelfDestruct(opponentHitPoints: 1);
       expect(mutual.player.isDefeated, isTrue);
       expect(mutual.opponent.isDefeated, isTrue);
-      expect(mutual.winner, BattleSideId.player);
+      expect(mutual.winner, BattleSideID.player);
       expect(mutual.events.whereType<MonsterFaintedEvent>(), hasLength(2));
     });
 
     test('先に動いた側が毒で倒れた時も、後に動く側は倒れた相手に技を使わず、倒れたログは 1 件', () {
       // 毒の持ち主 (自分) を最大 HP が小さく毒 4 重ねで 1 ターンで倒れる状態にする
       final before = duel(
-        playerMoveIds: ['fire_raise_attack'],
-        opponentMoveIds: ['fire_strong'],
+        playerMoveIDs: ['fire_raise_attack'],
+        opponentMoveIDs: ['fire_strong'],
       );
       final player = before.player.activeMember;
       final maximumHitPoints = effectiveStats(monster: player).hitPoints;
@@ -2797,14 +2797,14 @@ void main() {
       );
       final state = play(
         state: poisoned,
-        playerMoveId: 'fire_raise_attack',
-        opponentMoveId: 'fire_strong',
+        playerMoveID: 'fire_raise_attack',
+        opponentMoveID: 'fire_strong',
       );
       expect(
         state.events.whereType<MoveUsedEvent>().map(
           (event) => event.attackerSide,
         ),
-        [BattleSideId.player],
+        [BattleSideID.player],
       );
       expect(
         state.events.whereType<StatusConditionDamageEvent>(),
@@ -2814,21 +2814,21 @@ void main() {
         state.events.whereType<MonsterFaintedEvent>().map(
           (event) => event.side,
         ),
-        [BattleSideId.player],
+        [BattleSideID.player],
       );
-      expect(state.winner, BattleSideId.opponent);
+      expect(state.winner, BattleSideID.opponent);
     });
 
     test('自爆・一撃必殺だけが残った時はわるあがきも選べる', () {
       final state = duel(
-        playerMoveIds: ['fire_one_hit', 'fire_self_destruct'],
-        opponentMoveIds: ['fire_strong'],
+        playerMoveIDs: ['fire_one_hit', 'fire_self_destruct'],
+        opponentMoveIDs: ['fire_strong'],
       );
       expect(
         () => advanceRound(
           state: state,
           playerAction: const StruggleAction(),
-          opponentAction: const UseMoveAction(moveId: 'fire_strong'),
+          opponentAction: const UseMoveAction(moveID: 'fire_strong'),
           master: testMaster,
         ),
         returnsNormally,
@@ -2836,11 +2836,11 @@ void main() {
       expect(
         () => advanceRound(
           state: duel(
-            playerMoveIds: ['fire_one_hit', 'fire_strong'],
-            opponentMoveIds: ['fire_strong'],
+            playerMoveIDs: ['fire_one_hit', 'fire_strong'],
+            opponentMoveIDs: ['fire_strong'],
           ),
           playerAction: const StruggleAction(),
-          opponentAction: const UseMoveAction(moveId: 'fire_strong'),
+          opponentAction: const UseMoveAction(moveID: 'fire_strong'),
           master: testMaster,
         ),
         throwsArgumentError,
@@ -2850,41 +2850,41 @@ void main() {
     test('先制の技は素早さに関係なく先に出る', () {
       final state = play(
         state: duel(
-          playerMoveIds: ['fire_strong'],
-          opponentMoveIds: ['fire_priority'],
+          playerMoveIDs: ['fire_strong'],
+          opponentMoveIDs: ['fire_priority'],
         ),
-        playerMoveId: 'fire_strong',
-        opponentMoveId: 'fire_priority',
+        playerMoveID: 'fire_strong',
+        opponentMoveID: 'fire_priority',
       );
       expect(
         state.events.whereType<MoveUsedEvent>().map(
           (event) => event.attackerSide,
         ),
-        [BattleSideId.opponent, BattleSideId.player],
+        [BattleSideID.opponent, BattleSideID.player],
       );
     });
 
     test('状態を解除する技は自分の状態をすべて消す', () {
       var state = duel(
-        playerMoveIds: ['fire_burn', 'fire_poison_support'],
-        opponentMoveIds: ['fire_cure', 'fire_raise_attack'],
+        playerMoveIDs: ['fire_burn', 'fire_poison_support'],
+        opponentMoveIDs: ['fire_cure', 'fire_raise_attack'],
       );
       state = play(
         state: state,
-        playerMoveId: 'fire_burn',
-        opponentMoveId: 'fire_raise_attack',
+        playerMoveID: 'fire_burn',
+        opponentMoveID: 'fire_raise_attack',
       );
       state = play(
         state: state,
-        playerMoveId: 'fire_poison_support',
-        opponentMoveId: 'fire_raise_attack',
+        playerMoveID: 'fire_poison_support',
+        opponentMoveID: 'fire_raise_attack',
       );
       expect(state.opponent.activeMember.state.statusConditions, hasLength(2));
       final previous = state;
       state = play(
         state: state,
-        playerMoveId: 'fire_burn',
-        opponentMoveId: 'fire_cure',
+        playerMoveID: 'fire_burn',
+        opponentMoveID: 'fire_cure',
       );
       final cured = lastRoundEvents(
         state: state,
@@ -2908,13 +2908,13 @@ void main() {
 
     test('入れ替えのフィールドは次のラウンドから 3 ラウンドの間、ラウンドの始めに 2 つのステータスを入れ替える', () {
       var state = duel(
-        playerMoveIds: ['fire_shuffle', 'fire_raise_attack'],
-        opponentMoveIds: ['fire_raise_attack'],
+        playerMoveIDs: ['fire_shuffle', 'fire_raise_attack'],
+        opponentMoveIDs: ['fire_raise_attack'],
       );
       state = play(
         state: state,
-        playerMoveId: 'fire_shuffle',
-        opponentMoveId: 'fire_raise_attack',
+        playerMoveID: 'fire_shuffle',
+        opponentMoveID: 'fire_raise_attack',
       );
       expect(state.field?.kind, FieldEffectKind.statShuffle);
       expect(state.field?.remainingRounds, 3);
@@ -2924,8 +2924,8 @@ void main() {
         final previous = state;
         state = play(
           state: state,
-          playerMoveId: 'fire_raise_attack',
-          opponentMoveId: 'fire_raise_attack',
+          playerMoveID: 'fire_raise_attack',
+          opponentMoveID: 'fire_raise_attack',
         );
         final shuffled = lastRoundEvents(
           state: state,
@@ -2951,8 +2951,8 @@ void main() {
       final previous = state;
       state = play(
         state: state,
-        playerMoveId: 'fire_raise_attack',
-        opponentMoveId: 'fire_raise_attack',
+        playerMoveID: 'fire_raise_attack',
+        opponentMoveID: 'fire_raise_attack',
       );
       expect(
         lastRoundEvents(
@@ -2966,29 +2966,29 @@ void main() {
 
     test('CPU は状態を付ける補助技を相手がその状態でない時だけ効果ありとみなし、一撃必殺・自爆を通常の攻撃に選ばない', () {
       var state = duel(
-        playerMoveIds: ['fire_paralyze', 'fire_strong'],
-        opponentMoveIds: ['fire_strong'],
+        playerMoveIDs: ['fire_paralyze', 'fire_strong'],
+        opponentMoveIDs: ['fire_strong'],
       );
       var supportCount = 0;
       for (var seed = 1; seed <= 100; seed++) {
         final action = chooseCpuAction(
           state: duel(
-            playerMoveIds: ['fire_paralyze', 'fire_strong'],
-            opponentMoveIds: ['fire_strong'],
+            playerMoveIDs: ['fire_paralyze', 'fire_strong'],
+            opponentMoveIDs: ['fire_strong'],
             randomSeed: seed,
           ),
-          side: BattleSideId.player,
+          side: BattleSideID.player,
           master: testMaster,
         );
-        if (action case UseMoveAction(moveId: 'fire_paralyze')) {
+        if (action case UseMoveAction(moveID: 'fire_paralyze')) {
           supportCount++;
         }
       }
       expect(supportCount, inInclusiveRange(10, 40));
       state = play(
         state: state,
-        playerMoveId: 'fire_paralyze',
-        opponentMoveId: 'fire_strong',
+        playerMoveID: 'fire_paralyze',
+        opponentMoveID: 'fire_strong',
       );
       // 相手が麻痺の間 (このラウンドの始め) は麻痺の技を選ばない
       expect(
@@ -3000,21 +3000,21 @@ void main() {
       for (var seed = 1; seed <= 100; seed++) {
         final action = chooseCpuAction(
           state: duel(
-            playerMoveIds: [
+            playerMoveIDs: [
               'fire_one_hit',
               'fire_self_destruct',
               'fire_strong',
             ],
-            opponentMoveIds: ['fire_strong'],
+            opponentMoveIDs: ['fire_strong'],
             randomSeed: seed,
           ),
-          side: BattleSideId.player,
+          side: BattleSideID.player,
           master: testMaster,
         );
         switch (action) {
-          case UseMoveAction(moveId: 'fire_one_hit'):
+          case UseMoveAction(moveID: 'fire_one_hit'):
             oneHitCount++;
-          case UseMoveAction(moveId: 'fire_strong'):
+          case UseMoveAction(moveID: 'fire_strong'):
             break;
           default:
             fail('HP が満タンの時に自爆・わるあがきを選んだ: $action');
@@ -3026,42 +3026,42 @@ void main() {
     test('CPU は通常の攻撃技が無く一撃必殺・自爆だけが残った時、確率で選ばなければわるあがきにし、HP が満タンなら自爆しない', () {
       var oneHitCount = 0;
       var struggleCount = 0;
-      for (final moveIds in [
+      for (final moveIDs in [
         ['fire_one_hit', 'fire_self_destruct'],
         ['fire_self_destruct'],
         ['fire_one_hit', 'fire_raise_attack'],
       ]) {
         for (var seed = 1; seed <= 30; seed++) {
           final state = duel(
-            playerMoveIds: moveIds,
-            opponentMoveIds: ['fire_strong'],
+            playerMoveIDs: moveIDs,
+            opponentMoveIDs: ['fire_strong'],
             randomSeed: seed,
           );
           final action = chooseCpuAction(
             state: state,
-            side: BattleSideId.player,
+            side: BattleSideID.player,
             master: testMaster,
           );
           switch (action) {
-            case UseMoveAction(moveId: 'fire_one_hit'):
+            case UseMoveAction(moveID: 'fire_one_hit'):
               oneHitCount++;
-            case UseMoveAction(moveId: 'fire_raise_attack'):
+            case UseMoveAction(moveID: 'fire_raise_attack'):
               break;
             case StruggleAction():
               struggleCount++;
             default:
-              fail('HP が満タンの時に自爆を選んだ: $moveIds seed=$seed: $action');
+              fail('HP が満タンの時に自爆を選んだ: $moveIDs seed=$seed: $action');
           }
           // 選んだ行動は advanceRound の検証を通る
           expect(
             () => advanceRound(
               state: state,
               playerAction: action,
-              opponentAction: const UseMoveAction(moveId: 'fire_strong'),
+              opponentAction: const UseMoveAction(moveID: 'fire_strong'),
               master: testMaster,
             ),
             returnsNormally,
-            reason: '$moveIds seed=$seed: $action',
+            reason: '$moveIDs seed=$seed: $action',
           );
         }
       }
@@ -3071,8 +3071,8 @@ void main() {
 
     test('麻痺と混乱が重なり、補助技が攻撃技に置き換わった時は麻痺の判定を受ける (補助技のままなら受けない)', () {
       final before = duel(
-        playerMoveIds: ['fire_raise_attack'],
-        opponentMoveIds: ['fire_raise_attack', 'fire_strong'],
+        playerMoveIDs: ['fire_raise_attack'],
+        opponentMoveIDs: ['fire_raise_attack', 'fire_strong'],
       );
       BattleState withStatuses({required int seed}) {
         final opponent = before.opponent.activeMember;
@@ -3119,12 +3119,12 @@ void main() {
       for (var seed = 1; seed <= 200; seed++) {
         final state = play(
           state: withStatuses(seed: seed * 0x9E3779B9 & 0xFFFFFFFF),
-          playerMoveId: 'fire_raise_attack',
-          opponentMoveId: 'fire_raise_attack',
+          playerMoveID: 'fire_raise_attack',
+          opponentMoveID: 'fire_raise_attack',
         );
-        final opponentMoveIds = [
+        final opponentMoveIDs = [
           for (final event in state.events.whereType<MoveUsedEvent>())
-            if (event.attackerSide == BattleSideId.opponent) event.moveId,
+            if (event.attackerSide == BattleSideID.opponent) event.moveID,
         ];
         final failed = state.events.whereType<ActionFailedEvent>().where(
           (event) => event.reason == ActionFailureReason.paralysis,
@@ -3132,9 +3132,9 @@ void main() {
         if (failed.isNotEmpty) {
           // 失敗するのは置き換わった攻撃技だけ
           paralyzedCount++;
-          expect(failed.single.moveId, 'fire_strong', reason: 'seed=$seed');
-          expect(opponentMoveIds, isEmpty, reason: 'seed=$seed');
-        } else if (opponentMoveIds.single == 'fire_strong') {
+          expect(failed.single.moveID, 'fire_strong', reason: 'seed=$seed');
+          expect(opponentMoveIDs, isEmpty, reason: 'seed=$seed');
+        } else if (opponentMoveIDs.single == 'fire_strong') {
           replacedAttackCount++;
         } else {
           supportCount++;
@@ -3148,25 +3148,25 @@ void main() {
 
     test('続いている入れ替えのフィールドを同じ技で始め直しても、そのラウンドの入れ替えは保たれる', () {
       var state = duel(
-        playerMoveIds: ['fire_shuffle', 'fire_raise_attack'],
-        opponentMoveIds: ['fire_raise_attack'],
+        playerMoveIDs: ['fire_shuffle', 'fire_raise_attack'],
+        opponentMoveIDs: ['fire_raise_attack'],
       );
       state = play(
         state: state,
-        playerMoveId: 'fire_shuffle',
-        opponentMoveId: 'fire_raise_attack',
+        playerMoveID: 'fire_shuffle',
+        opponentMoveID: 'fire_raise_attack',
       );
       state = play(
         state: state,
-        playerMoveId: 'fire_raise_attack',
-        opponentMoveId: 'fire_raise_attack',
+        playerMoveID: 'fire_raise_attack',
+        opponentMoveID: 'fire_raise_attack',
       );
       final swappedBefore = state.field!.swappedStatKinds;
       expect(swappedBefore, isNotNull);
       state = play(
         state: state,
-        playerMoveId: 'fire_shuffle',
-        opponentMoveId: 'fire_raise_attack',
+        playerMoveID: 'fire_shuffle',
+        opponentMoveID: 'fire_raise_attack',
       );
       expect(state.field?.remainingRounds, 3);
       // このラウンドの始めに選び直した組のまま (始め直しで消えない)
@@ -3199,8 +3199,8 @@ void main() {
             member: prepare(
               definition: testDefinition(
                 id: 'player_${index + 1}',
-                elementTypeId: 'fire',
-                moveIds: ['fire_strong', 'fire_raise_attack'],
+                elementTypeID: 'fire',
+                moveIDs: ['fire_strong', 'fire_raise_attack'],
                 speed: 50,
               ),
             ),
@@ -3212,8 +3212,8 @@ void main() {
           member: prepare(
             definition: testDefinition(
               id: 'opponent_1',
-              elementTypeId: 'grass',
-              moveIds: [
+              elementTypeID: 'grass',
+              moveIDs: [
                 'grass_strong',
                 'fire_priority',
                 'fire_block_switch',
@@ -3235,18 +3235,18 @@ void main() {
       final next = advanceRound(
         state: state,
         playerAction: const SwitchMonsterAction(memberIndex: 1),
-        opponentAction: const UseMoveAction(moveId: 'fire_priority'),
+        opponentAction: const UseMoveAction(moveID: 'fire_priority'),
         master: testMaster,
       );
 
       final switched = next.events.first as MonsterSwitchedInEvent;
       expect(switched.turnNumber, 1);
-      expect(switched.side, BattleSideId.player);
-      expect(switched.monsterId, 'player_2');
-      expect(switched.withdrawnMonsterId, 'player_1');
+      expect(switched.side, BattleSideID.player);
+      expect(switched.monsterID, 'player_2');
+      expect(switched.withdrawnMonsterID, 'player_1');
       final moveUsed = next.events[1] as MoveUsedEvent;
       expect(moveUsed.turnNumber, 2);
-      expect(moveUsed.attackerSide, BattleSideId.opponent);
+      expect(moveUsed.attackerSide, BattleSideID.opponent);
       expect(next.player.activeMemberIndex, 1);
       expect(
         next.player.members[1].state.currentHitPoints,
@@ -3266,7 +3266,7 @@ void main() {
           () => advanceRound(
             state: state,
             playerAction: SwitchMonsterAction(memberIndex: memberIndex),
-            opponentAction: const UseMoveAction(moveId: 'grass_strong'),
+            opponentAction: const UseMoveAction(moveID: 'grass_strong'),
             master: testMaster,
           ),
           throwsArgumentError,
@@ -3277,7 +3277,7 @@ void main() {
         () => advanceRound(
           state: state,
           playerAction: const SwitchMonsterAction(memberIndex: 2),
-          opponentAction: const UseMoveAction(moveId: 'grass_strong'),
+          opponentAction: const UseMoveAction(moveID: 'grass_strong'),
           master: testMaster,
         ),
         returnsNormally,
@@ -3287,8 +3287,8 @@ void main() {
     test('場を離れるとステータスの倍率は等倍に戻り、状態は残る', () {
       var state = advanceRound(
         state: startSwitchBattle(),
-        playerAction: const UseMoveAction(moveId: 'fire_raise_attack'),
-        opponentAction: const UseMoveAction(moveId: 'fire_curse'),
+        playerAction: const UseMoveAction(moveID: 'fire_raise_attack'),
+        opponentAction: const UseMoveAction(moveID: 'fire_curse'),
         master: testMaster,
       );
       expect(
@@ -3305,7 +3305,7 @@ void main() {
       state = advanceRound(
         state: state,
         playerAction: const SwitchMonsterAction(memberIndex: 1),
-        opponentAction: const UseMoveAction(moveId: 'fire_curse'),
+        opponentAction: const UseMoveAction(moveID: 'fire_curse'),
         master: testMaster,
       );
       final withdrawn = state.player.members[0];
@@ -3322,8 +3322,8 @@ void main() {
     test('交換不可の間は交代が拒まれ、残りのターンが 0 になって消えると交代できる', () {
       var state = advanceRound(
         state: startSwitchBattle(),
-        playerAction: const UseMoveAction(moveId: 'fire_raise_attack'),
-        opponentAction: const UseMoveAction(moveId: 'fire_block_switch'),
+        playerAction: const UseMoveAction(moveID: 'fire_raise_attack'),
+        opponentAction: const UseMoveAction(moveID: 'fire_block_switch'),
         master: testMaster,
       );
       expect(
@@ -3337,15 +3337,15 @@ void main() {
           () => advanceRound(
             state: blockedState,
             playerAction: const SwitchMonsterAction(memberIndex: 1),
-            opponentAction: const UseMoveAction(moveId: 'fire_curse'),
+            opponentAction: const UseMoveAction(moveID: 'fire_curse'),
             master: testMaster,
           ),
           throwsArgumentError,
         );
         state = advanceRound(
           state: state,
-          playerAction: const UseMoveAction(moveId: 'fire_raise_attack'),
-          opponentAction: const UseMoveAction(moveId: 'fire_curse'),
+          playerAction: const UseMoveAction(moveID: 'fire_raise_attack'),
+          opponentAction: const UseMoveAction(moveID: 'fire_curse'),
           master: testMaster,
         );
         blockedRounds++;
@@ -3359,7 +3359,7 @@ void main() {
       final next = advanceRound(
         state: state,
         playerAction: const SwitchMonsterAction(memberIndex: 1),
-        opponentAction: const UseMoveAction(moveId: 'fire_curse'),
+        opponentAction: const UseMoveAction(moveID: 'fire_curse'),
         master: testMaster,
       );
       expect(next.player.activeMemberIndex, 1);
@@ -3368,20 +3368,20 @@ void main() {
     test('交換不可でも、倒れた時の交代は止まらない', () {
       var state = advanceRound(
         state: startSwitchBattle(playerHitPoints: {0: 1}),
-        playerAction: const UseMoveAction(moveId: 'fire_raise_attack'),
-        opponentAction: const UseMoveAction(moveId: 'fire_block_switch'),
+        playerAction: const UseMoveAction(moveID: 'fire_raise_attack'),
+        opponentAction: const UseMoveAction(moveID: 'fire_block_switch'),
         master: testMaster,
       );
       expect(isSwitchBlocked(party: state.player), isTrue);
       state = advanceRound(
         state: state,
-        playerAction: const UseMoveAction(moveId: 'fire_raise_attack'),
-        opponentAction: const UseMoveAction(moveId: 'grass_strong'),
+        playerAction: const UseMoveAction(moveID: 'fire_raise_attack'),
+        opponentAction: const UseMoveAction(moveID: 'grass_strong'),
         master: testMaster,
       );
       final switched = state.events.whereType<MonsterSwitchedInEvent>().single;
-      expect(switched.monsterId, 'player_2');
-      expect(switched.withdrawnMonsterId, isNull);
+      expect(switched.monsterID, 'player_2');
+      expect(switched.withdrawnMonsterID, isNull);
       expect(state.player.activeMemberIndex, 1);
     });
 
@@ -3389,24 +3389,24 @@ void main() {
       var state = advanceRound(
         state: startSwitchBattle(playerHitPoints: {2: 1}, opponentHitPoints: 1),
         playerAction: const SwitchMonsterAction(memberIndex: 2),
-        opponentAction: const UseMoveAction(moveId: 'grass_strong'),
+        opponentAction: const UseMoveAction(moveID: 'grass_strong'),
         master: testMaster,
       );
       // 3 体目は相手の技で倒れ、倒れていない最も前の先頭が戻る
       expect(
         state.events.whereType<MonsterSwitchedInEvent>().map(
-          (event) => (event.monsterId, event.withdrawnMonsterId),
+          (event) => (event.monsterID, event.withdrawnMonsterID),
         ),
         [('player_3', 'player_1'), ('player_1', null)],
       );
       expect(state.player.activeMemberIndex, 0);
       state = advanceRound(
         state: state,
-        playerAction: const UseMoveAction(moveId: 'fire_strong'),
-        opponentAction: const UseMoveAction(moveId: 'fire_curse'),
+        playerAction: const UseMoveAction(moveID: 'fire_strong'),
+        opponentAction: const UseMoveAction(moveID: 'fire_curse'),
         master: testMaster,
       );
-      expect(state.winner, BattleSideId.player);
+      expect(state.winner, BattleSideID.player);
       expect(state.player.members.map((member) => member.state.level), [
         51,
         50,
@@ -3415,8 +3415,8 @@ void main() {
       expect(
         state.events
             .whereType<LevelUpEvent>()
-            .where((event) => event.side == BattleSideId.player)
-            .map((event) => event.monsterId),
+            .where((event) => event.side == BattleSideID.player)
+            .map((event) => event.monsterID),
         ['player_1', 'player_3'],
       );
     });

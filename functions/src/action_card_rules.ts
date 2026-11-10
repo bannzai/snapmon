@@ -63,28 +63,28 @@ export function isActionCardProductID(productID: string | null): productID is st
 }
 
 /**
- * [learnset] と [actionCardMoveIds] のモンスターが [level] で使える技 (技の枠) の ID を、枠の順で返す。
- * 枠は「[learnset] のうち開放レベルが [level] 以下の技を一覧の順に並べ、[actionCardMoveIds] を覚えさせた順で続けた列」の後ろ
- * [MAXIMUM_EQUIPPED_MOVE_COUNT] 個。[actionCardMoveIds] に入った技は learnset 側の列から外す (同じ技が枠に 2 つ並ばないようにし、
+ * [learnset] と [actionCardMoveIDs] のモンスターが [level] で使える技 (技の枠) の ID を、枠の順で返す。
+ * 枠は「[learnset] のうち開放レベルが [level] 以下の技を一覧の順に並べ、[actionCardMoveIDs] を覚えさせた順で続けた列」の後ろ
+ * [MAXIMUM_EQUIPPED_MOVE_COUNT] 個。[actionCardMoveIDs] に入った技は learnset 側の列から外す (同じ技が枠に 2 つ並ばないようにし、
  * 覚えさせた技を一番新しい技として扱うため。documents/game-rules.md「技」)。
  * lib/domain/battle/battle_engine.dart の `equippedLearnsetEntries` と同じ技を返す (共通のテストケースは test/fixtures/equipped_move_cases.json)。
  */
-export function equippedMoveIds({
+export function equippedMoveIDs({
   learnset,
   level,
-  actionCardMoveIds,
+  actionCardMoveIDs,
 }: {
   learnset: LearnsetEntry[];
   level: number;
-  actionCardMoveIds: string[];
+  actionCardMoveIDs: string[];
 }): string[] {
-  const moveIds = [
+  const moveIDs = [
     ...learnset
-      .filter((learnsetEntry) => learnsetEntry.unlockLevel <= level && !actionCardMoveIds.includes(learnsetEntry.moveId))
-      .map((learnsetEntry) => learnsetEntry.moveId),
-    ...actionCardMoveIds,
+      .filter((learnsetEntry) => learnsetEntry.unlockLevel <= level && !actionCardMoveIDs.includes(learnsetEntry.moveID))
+      .map((learnsetEntry) => learnsetEntry.moveID),
+    ...actionCardMoveIDs,
   ];
-  return moveIds.slice(Math.max(0, moveIds.length - MAXIMUM_EQUIPPED_MOVE_COUNT));
+  return moveIDs.slice(Math.max(0, moveIDs.length - MAXIMUM_EQUIPPED_MOVE_COUNT));
 }
 
 /**
@@ -103,7 +103,7 @@ export function fallbackActionCardProductID(move: MasterMove): string {
 }
 
 /**
- * [moves] (買える技) に Action Card の商品 ID を割り振り、技の ID ごとの商品 ID を返す。[moves] を [usageCountByMoveId] の使用回数の多い順
+ * [moves] (買える技) に Action Card の商品 ID を割り振り、技の ID ごとの商品 ID を返す。[moves] を [usageCountByMoveID] の使用回数の多い順
  * (同じ回数は技の ID の順) に並べ、[moves] の数の [EXPENSIVE_PRODUCT_USAGE_PERCENT]% (切り捨て) までを [EXPENSIVE_ACTION_CARD_PRODUCT_ID]、
  * [EXPENSIVE_PRODUCT_USAGE_PERCENT] + [MODERATE_PRODUCT_USAGE_PERCENT]% (切り捨て) までを [MODERATE_ACTION_CARD_PRODUCT_ID]、
  * 残りを [CHEAP_ACTION_CARD_PRODUCT_ID] にする。ただし使用回数が 0 の技は、並びの位置に関係なく [fallbackActionCardProductID] で決める
@@ -111,12 +111,12 @@ export function fallbackActionCardProductID(move: MasterMove): string {
  */
 export function computeActionCardProductIDByMoveID({
   moves,
-  usageCountByMoveId,
+  usageCountByMoveID,
 }: {
   moves: MasterMove[];
-  usageCountByMoveId: Record<string, number>;
+  usageCountByMoveID: Record<string, number>;
 }): Record<string, string> {
-  const usageCountOf = (move: MasterMove) => (Object.hasOwn(usageCountByMoveId, move.id) ? usageCountByMoveId[move.id] : 0);
+  const usageCountOf = (move: MasterMove) => (Object.hasOwn(usageCountByMoveID, move.id) ? usageCountByMoveID[move.id] : 0);
   return Object.fromEntries(
     [...moves]
       .sort((left, right) => usageCountOf(right) - usageCountOf(left) || (left.id < right.id ? -1 : left.id > right.id ? 1 : 0))

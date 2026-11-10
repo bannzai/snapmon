@@ -25,20 +25,20 @@ service cloud.firestore {
     }
 
     // 本人の図鑑にあるモンスターか。
-    function ownsMonster(uid, monsterId) {
-      return monsterId is string
-        && exists(/databases/$(database)/documents/users/$(uid)/monsters/$(monsterId));
+    function ownsMonster(uid, monsterID) {
+      return monsterID is string
+        && exists(/databases/$(database)/documents/users/$(uid)/monsters/$(monsterID));
     }
 
-    // 手持ちの monsterIds が「本人の図鑑にあるモンスターの ID を重複なく 3 件まで」か。
+    // 手持ちの monsterIDs が「本人の図鑑にあるモンスターの ID を重複なく 3 件まで」か。
     // Rules にループが無いため、上限の 3 件を添字で確かめる。
-    function isValidParty(uid, monsterIds) {
-      return monsterIds is list
-        && monsterIds.size() <= 3
-        && monsterIds.toSet().size() == monsterIds.size()
-        && (monsterIds.size() < 1 || ownsMonster(uid, monsterIds[0]))
-        && (monsterIds.size() < 2 || ownsMonster(uid, monsterIds[1]))
-        && (monsterIds.size() < 3 || ownsMonster(uid, monsterIds[2]));
+    function isValidParty(uid, monsterIDs) {
+      return monsterIDs is list
+        && monsterIDs.size() <= 3
+        && monsterIDs.toSet().size() == monsterIDs.size()
+        && (monsterIDs.size() < 1 || ownsMonster(uid, monsterIDs[0]))
+        && (monsterIDs.size() < 2 || ownsMonster(uid, monsterIDs[1]))
+        && (monsterIDs.size() < 3 || ownsMonster(uid, monsterIDs[2]));
     }
 
     // master (属性・技・相性表・分類) の版。投入は Functions のデプロイ時のスクリプトだけが行う。
@@ -48,19 +48,19 @@ service cloud.firestore {
     }
 
     // 生成時にその場で作った属性・技の定義。他人のモンスターが参照する定義を端末で解決するため、ログインした全員が読める。
-    match /definitions/{definitionId} {
+    match /definitions/{definitionID} {
       allow read: if isSignedIn();
       allow write: if false;
     }
 
     // 技ごとの Action Card の商品の表。購入の画面で技の値段を出すため、ログインした全員が読める。書くのは updateActionCardProducts (Functions) だけ。
-    match /actionCardProducts/{actionCardProductsId} {
+    match /actionCardProducts/{actionCardProductsID} {
       allow read: if isSignedIn();
       allow write: if false;
     }
 
     // 機能を出すかの切り替え (Action Card を出すか等)。書くのは functions/scripts/set-feature-flag.mjs (Admin SDK) だけ。
-    match /config/{configId} {
+    match /config/{configID} {
       allow read: if isSignedIn();
       allow write: if false;
     }
@@ -71,14 +71,14 @@ service cloud.firestore {
     }
 
     // 通報・ブロックは Functions 経由で書き、クライアントから直接読み書きしない。
-    match /reports/{reportId} {
+    match /reports/{reportID} {
       allow read, write: if false;
     }
-    match /blocks/{blockId} {
+    match /blocks/{blockID} {
       allow read, write: if false;
     }
     // 通報したユーザー数のカウンタ。通報した人を他人に知られないよう、クライアントから読ませない。
-    match /reportedMonsters/{monsterId} {
+    match /reportedMonsters/{monsterID} {
       allow read, write: if false;
     }
 
@@ -87,29 +87,29 @@ service cloud.firestore {
       allow read: if isOwner(uid);
       allow write: if false;
 
-      match /monsters/{monsterId} {
+      match /monsters/{monsterID} {
         allow read: if isOwner(uid);
         allow write: if false;
       }
 
-      match /generations/{requestId} {
+      match /generations/{requestID} {
         allow read: if isOwner(uid);
         allow write: if false;
       }
 
-      match /battles/{battleId} {
+      match /battles/{battleID} {
         allow read: if isOwner(uid);
         allow write: if false;
       }
 
       // 生成チケットの購入の記録。RevenueCat の webhook (Functions) だけが書く (残高を改ざんさせないため)。
-      match /ticketPurchases/{eventId} {
+      match /ticketPurchases/{eventID} {
         allow read: if isOwner(uid);
         allow write: if false;
       }
 
       // Action Card の購入の記録 (買い切った技は購入の moveID)。書くのは webhook と assignActionCardMove (Functions) だけ (持っている技を改ざんさせないため)。
-      match /actionCardPurchases/{eventId} {
+      match /actionCardPurchases/{eventID} {
         allow read: if isOwner(uid);
         allow write: if false;
       }
@@ -118,9 +118,9 @@ service cloud.firestore {
       match /party/current {
         allow read, delete: if isOwner(uid);
         allow create, update: if isActiveOwner(uid)
-          && request.resource.data.keys().hasOnly(['monsterIds', 'updatedAt'])
+          && request.resource.data.keys().hasOnly(['monsterIDs', 'updatedAt'])
           && request.resource.data.updatedAt == request.time
-          && isValidParty(uid, request.resource.data.monsterIds);
+          && isValidParty(uid, request.resource.data.monsterIDs);
       }
 
       // 端末の設定。クライアントが書ける 2 つのうちの 1 つ。

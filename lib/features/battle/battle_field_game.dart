@@ -84,7 +84,7 @@ class BattleFieldGame extends FlameGame {
 
   /// 読み込めた技のエフェクトのスプライトシート (エフェクトの id ごと)。ここに無いエフェクトはパーティクルで描く。
   final Map<String, ({SpriteAnimation animation, Anchor visibleCenterAnchor})>
-  _moveEffectAnimationsByEffectId = {};
+  _moveEffectAnimationsByEffectID = {};
 
   /// バトル画面が Flutter でフィールドに重ねる情報カードとトレーナーの札の、フィールドの座標での矩形。
   /// 比率の配置では 2 体の絵をこれらに重ならない大きさに抑える。バトル画面が測って渡すまでは空 (重ねる部品を考えない)
@@ -160,11 +160,11 @@ class BattleFieldGame extends FlameGame {
     }
   }
 
-  /// [effectId] のエフェクトを、PixelFX が書き出したシートの画像 [spriteSheetImage] と JSON [spriteSheetJson] で描くようにする。
+  /// [effectID] のエフェクトを、PixelFX が書き出したシートの画像 [spriteSheetImage] と JSON [spriteSheetJson] で描くようにする。
   /// [visibleCenterAnchor] はコマの中で被弾したモンスターの中心に合わせる点。
   /// 1 回の被弾の時間 ([hitReactionSeconds]) で全コマを再生して消える。素材の時間 (528〜924 ms) のまま再生すると次の攻撃・交代に残るため。
   void applyMoveEffectSpriteSheet({
-    required String effectId,
+    required String effectID,
     required Image spriteSheetImage,
     required Map<String, dynamic> spriteSheetJson,
     required Anchor visibleCenterAnchor,
@@ -174,7 +174,7 @@ class BattleFieldGame extends FlameGame {
             as Map<String, dynamic>;
     final frameCount = pixelfxMetadata['frames'] as int;
     final frameSize = pixelfxMetadata['frameSize'] as List<dynamic>;
-    _moveEffectAnimationsByEffectId[effectId] = (
+    _moveEffectAnimationsByEffectID[effectID] = (
       animation: SpriteAnimation.fromFrameData(
         spriteSheetImage,
         SpriteAnimationData.sequenced(
@@ -193,14 +193,14 @@ class BattleFieldGame extends FlameGame {
   }
 
   /// [side] の場のモンスター。
-  MonsterComponent monsterComponentOf({required BattleSideId side}) =>
+  MonsterComponent monsterComponentOf({required BattleSideID side}) =>
       switch (side) {
-        BattleSideId.player => playerMonsterComponent,
-        BattleSideId.opponent => opponentMonsterComponent,
+        BattleSideID.player => playerMonsterComponent,
+        BattleSideID.opponent => opponentMonsterComponent,
       };
 
   /// [attackerSide] のモンスターを相手の方へ前進させて戻す ([attackLungeSeconds] の往復)。
-  void lunge({required BattleSideId attackerSide}) {
+  void lunge({required BattleSideID attackerSide}) {
     final attacker = monsterComponentOf(side: attackerSide);
     final defender = monsterComponentOf(side: _otherSide(side: attackerSide));
     attacker.add(
@@ -217,13 +217,13 @@ class BattleFieldGame extends FlameGame {
   /// [defenderSide] のモンスターを [hitReactionSeconds] の間点滅させ、[effect] があればそのエフェクトを出す。
   /// スプライトシートが読み込めているエフェクトはシートを 1 回再生し、それ以外 (読み込み中・読めなかった・対応が無い) はその色のパーティクルを散らす。
   /// わるあがき (属性の無い攻撃) は [effect] を null にして点滅だけにする。
-  void hit({required BattleSideId defenderSide, required MoveEffect? effect}) {
+  void hit({required BattleSideID defenderSide, required MoveEffect? effect}) {
     final defender = monsterComponentOf(side: defenderSide)
       ..blink(seconds: hitReactionSeconds);
     if (effect == null) {
       return;
     }
-    if (_moveEffectAnimationsByEffectId[effect.id] case (
+    if (_moveEffectAnimationsByEffectID[effect.id] case (
       :final animation,
       :final visibleCenterAnchor,
     )) {
@@ -277,21 +277,21 @@ class BattleFieldGame extends FlameGame {
   }
 
   /// [side] のモンスターを倒れた (描かない) 状態にする。
-  void faint({required BattleSideId side}) {
+  void faint({required BattleSideID side}) {
     monsterComponentOf(side: side).isVisible = false;
   }
 
   /// [side] の場のモンスターを [monster] に入れ替える。
-  void switchIn({required BattleSideId side, required OwnedMonster monster}) {
+  void switchIn({required BattleSideID side, required OwnedMonster monster}) {
     final replacement = MonsterComponent(
       monster: monster,
       artSprite: _artSpritesByPath[monster.artPath],
     );
     monsterComponentOf(side: side).removeFromParent();
     switch (side) {
-      case BattleSideId.player:
+      case BattleSideID.player:
         playerMonsterComponent = replacement;
-      case BattleSideId.opponent:
+      case BattleSideID.opponent:
         opponentMonsterComponent = replacement;
     }
     add(replacement);
@@ -404,9 +404,9 @@ double _maximumSizeBesideOverlay({
 }
 
 /// [side] の相手の陣営を返す。
-BattleSideId _otherSide({required BattleSideId side}) => switch (side) {
-  BattleSideId.player => BattleSideId.opponent,
-  BattleSideId.opponent => BattleSideId.player,
+BattleSideID _otherSide({required BattleSideID side}) => switch (side) {
+  BattleSideID.player => BattleSideID.opponent,
+  BattleSideID.opponent => BattleSideID.player,
 };
 
 /// 地面 (フィールドの下 46%)。

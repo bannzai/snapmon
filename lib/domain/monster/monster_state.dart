@@ -11,7 +11,7 @@ class MonsterState {
   const MonsterState({
     required this.level,
     required this.experience,
-    required this.actionCardMoveIds,
+    required this.actionCardMoveIDs,
     required this.currentHitPoints,
     required this.remainingPowerPoints,
     required this.statModifierPercents,
@@ -24,9 +24,9 @@ class MonsterState {
   /// 場に出て決着まで戦ったバトルの回数の累計 (勝敗を問わない)。レベルが上限に達した後も増える。
   final int experience;
 
-  /// Action Card で覚えさせた技の ID (覚えさせた順。`users/{uid}/monsters/{monsterId}.actionCardMoveIds`)。技の枠の決め方は
+  /// Action Card で覚えさせた技の ID (覚えさせた順。`users/{uid}/monsters/{monsterID}.actionCardMoveIDs`)。技の枠の決め方は
   /// lib/domain/battle/battle_engine.dart の `equippedLearnsetEntries`。
-  final List<String> actionCardMoveIds;
+  final List<String> actionCardMoveIDs;
 
   /// バトル中の HP の残り。0 で倒れている。
   final int currentHitPoints;
@@ -52,7 +52,7 @@ class MonsterState {
   }) => MonsterState(
     level: level ?? this.level,
     experience: experience ?? this.experience,
-    actionCardMoveIds: actionCardMoveIds,
+    actionCardMoveIDs: actionCardMoveIDs,
     currentHitPoints: currentHitPoints ?? this.currentHitPoints,
     remainingPowerPoints: remainingPowerPoints ?? this.remainingPowerPoints,
     statModifierPercents: statModifierPercents ?? this.statModifierPercents,

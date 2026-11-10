@@ -52,7 +52,7 @@ void main() {
             },
             child: ResultScreen(
               monster: ownedMonsterWithArt(
-                monster: sampleData.monsterById(monsterId: 'sample-mugmon'),
+                monster: sampleData.monsterByID(monsterID: 'sample-mugmon'),
                 artPath: 'monsters/sample-mugmon/art.png',
                 sourcePhotoReference: 'users/uid-1/photos/original-photo',
               ),
@@ -86,7 +86,7 @@ void main() {
       ..physicalSize = const Size(390, 844)
       ..devicePixelRatio = 1;
     addTearDown(tester.view.reset);
-    final monster = sampleData.monsterById(monsterId: 'sample-mugmon');
+    final monster = sampleData.monsterByID(monsterID: 'sample-mugmon');
     await tester.pumpWidget(
       MaterialApp(
         theme: snapmonThemeData(),
@@ -147,15 +147,15 @@ void main() {
     }
 
     // 技の枠は 4 つで、1 行目の 2 つは同じ高さに横に並び、2 行目はその下に並ぶ
-    final slotMoveIds = equippedLearnsetEntries(
+    final slotMoveIDs = equippedLearnsetEntries(
       learnset: monster.definition.learnset,
-      actionCardMoveIds: monster.actionCardMoveIds,
+      actionCardMoveIDs: monster.actionCardMoveIDs,
       level: monster.level,
     );
-    expect(slotMoveIds, hasLength(maximumEquippedMoveCount));
+    expect(slotMoveIDs, hasLength(maximumEquippedMoveCount));
     final slotRects = [
-      for (final moveId in slotMoveIds)
-        tester.getRect(find.byKey(Key('move-chip-$moveId'))),
+      for (final moveID in slotMoveIDs)
+        tester.getRect(find.byKey(Key('move-chip-$moveID'))),
     ];
     expect(slotRects[0].top, slotRects[1].top);
     expect(slotRects[0].right, lessThanOrEqualTo(slotRects[1].left));
@@ -178,7 +178,7 @@ void main() {
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         home: ResultScreen(
-          monster: sampleData.monsterById(monsterId: 'sample-mugmon'),
+          monster: sampleData.monsterByID(monsterID: 'sample-mugmon'),
           dexStore: DexStore(definitions: sampleData.definitions),
           origin: ResultScreenOrigin.dex,
           cardSharer: fakeCardSharer(
@@ -203,7 +203,7 @@ void main() {
       ..physicalSize = const Size(390, 844)
       ..devicePixelRatio = 1;
     addTearDown(tester.view.reset);
-    final sampleMonster = sampleData.monsterById(monsterId: 'sample-mugmon');
+    final sampleMonster = sampleData.monsterByID(monsterID: 'sample-mugmon');
     final sampleDefinition = sampleMonster.definition;
     // 覚える技を 1 つだけ残す
     final monster = OwnedMonster(
@@ -212,7 +212,7 @@ void main() {
         sourcePhotoReference: sampleDefinition.sourcePhotoReference,
         name: sampleDefinition.name,
         encyclopediaText: sampleDefinition.encyclopediaText,
-        elementTypeIds: sampleDefinition.elementTypeIds,
+        elementTypeIDs: sampleDefinition.elementTypeIDs,
         learnset: [sampleDefinition.learnset.first],
         baseStats: sampleDefinition.baseStats,
         individualValues: sampleDefinition.individualValues,
@@ -220,9 +220,9 @@ void main() {
         masterVersion: sampleDefinition.masterVersion,
       ),
       level: sampleMonster.level,
-      actionCardMoveIds: const [],
+      actionCardMoveIDs: const [],
       artPath: sampleMonster.artPath,
-      definitionIds: sampleMonster.definitionIds,
+      definitionIDs: sampleMonster.definitionIDs,
       decoration: sampleMonster.decoration,
       decorationVersion: sampleMonster.decorationVersion,
     );
@@ -246,7 +246,7 @@ void main() {
     );
 
     expect(
-      find.byKey(Key('move-chip-${monster.definition.learnset.first.moveId}')),
+      find.byKey(Key('move-chip-${monster.definition.learnset.first.moveID}')),
       findsOneWidget,
     );
     for (final slotIndex in [1, 2, 3]) {
@@ -260,7 +260,7 @@ void main() {
       ..physicalSize = const Size(390, 844)
       ..devicePixelRatio = 1;
     addTearDown(tester.view.reset);
-    final monster = sampleData.monsterById(monsterId: 'sample-mugmon');
+    final monster = sampleData.monsterByID(monsterID: 'sample-mugmon');
     await tester.pumpWidget(
       MaterialApp(
         theme: snapmonThemeData(),
@@ -279,8 +279,8 @@ void main() {
         ),
       ),
     );
-    final moveId = monster.definition.learnset.first.moveId;
-    final moveChip = find.byKey(Key('move-chip-$moveId'));
+    final moveID = monster.definition.learnset.first.moveID;
+    final moveChip = find.byKey(Key('move-chip-$moveID'));
     // scrollUntilVisible は行の端が一覧に入った所で止まり、行の中心が一覧の外 (下のボタンの領域) に残るため、
     // 行を一覧の上端まで送ってからタップする
     await tester.ensureVisible(moveChip);
@@ -292,10 +292,10 @@ void main() {
     expect(find.byType(MoveDetailScreen), findsOneWidget);
     expect(
       tester.widget<MoveDetailScreen>(find.byType(MoveDetailScreen)).move.id,
-      moveId,
+      moveID,
     );
     expect(
-      find.text(sampleData.definitions.moveById(moveId: moveId).displayName),
+      find.text(sampleData.definitions.moveByID(moveID: moveID).displayName),
       findsOneWidget,
     );
   });

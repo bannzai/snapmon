@@ -96,8 +96,8 @@ class ResultScreen extends StatelessWidget {
     if (await _changeParty(
           context: context,
           change: () => dexStore.replacePartyMember(
-            outgoingMonsterId: outgoingMonster.definition.id,
-            incomingMonsterId: monster.definition.id,
+            outgoingMonsterID: outgoingMonster.definition.id,
+            incomingMonsterID: monster.definition.id,
           ),
         ) &&
         context.mounted) {
@@ -109,7 +109,7 @@ class ResultScreen extends StatelessWidget {
   Future<void> _addToParty({required BuildContext context}) async {
     if (await _changeParty(
           context: context,
-          change: () => dexStore.addToParty(monsterId: monster.definition.id),
+          change: () => dexStore.addToParty(monsterID: monster.definition.id),
         ) &&
         context.mounted) {
       Navigator.of(context).pop(ResultScreenAction.openDex);
@@ -193,7 +193,7 @@ class ResultScreen extends StatelessWidget {
                     listenable: dexStore,
                     builder: (context, _) {
                       final isInParty = dexStore.isInParty(
-                        monsterId: definition.id,
+                        monsterID: definition.id,
                       );
                       // 手持ちにいるモンスターはここから外せるようにし、満員の時は手持ちの 1 体と入れ替える。
                       // 保存の途中は押せなくする (DexStore は保存の途中の次の変更を受け付けないため)
@@ -204,7 +204,7 @@ class ResultScreen extends StatelessWidget {
                             ? () => _changeParty(
                                 context: context,
                                 change: () => dexStore.removeFromParty(
-                                  monsterId: definition.id,
+                                  monsterID: definition.id,
                                 ),
                               )
                             : dexStore.hasPartyVacancy

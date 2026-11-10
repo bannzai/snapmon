@@ -8,21 +8,21 @@ import 'sample_data.dart';
 /// 済んでいない検証環境 (simtunnel・webtunnel) でも、写真を選んでから戦うまでの導線を確かめるため。issue #45)。
 ///
 /// [sampleData] の見本のモンスターのうち [dexStore] の図鑑にまだいない最初の 1 体を、レベル 1 (生まれたばかり) にして
-/// 図鑑に足し、[requestId] の saved を返す。全部いる時は先頭の見本のモンスターの duplicate を返す (同じ被写体の扱いを確かめるため)。
+/// 図鑑に足し、[requestID] の saved を返す。全部いる時は先頭の見本のモンスターの duplicate を返す (同じ被写体の扱いを確かめるため)。
 /// サーバーに繋いでいない図鑑だけに使う ([DexStore.applyServerSnapshot] で端末の図鑑に足すため)。
 GenerationResult generateSampleMonster({
   required DexStore dexStore,
   required SampleData sampleData,
-  required String requestId,
+  required String requestID,
 }) {
   final sampleMonster = sampleData.monsters
-      .where((monster) => !dexStore.contains(monsterId: monster.definition.id))
+      .where((monster) => !dexStore.contains(monsterID: monster.definition.id))
       .firstOrNull;
   if (sampleMonster == null) {
     return GenerationResult(
-      requestId: requestId,
+      requestID: requestID,
       status: GenerationStatus.duplicate,
-      monsterId: sampleData.monsters.first.definition.id,
+      monsterID: sampleData.monsters.first.definition.id,
       rejectionReason: null,
       personDetected: false,
     );
@@ -33,20 +33,20 @@ GenerationResult generateSampleMonster({
       OwnedMonster(
         definition: sampleMonster.definition,
         level: 1,
-        actionCardMoveIds: const [],
+        actionCardMoveIDs: const [],
         artPath: sampleMonster.artPath,
-        definitionIds: sampleMonster.definitionIds,
+        definitionIDs: sampleMonster.definitionIDs,
         decoration: sampleMonster.decoration,
         decorationVersion: sampleMonster.decorationVersion,
       ),
     ],
-    partyMonsterIds: null,
+    partyMonsterIDs: null,
     definitions: null,
   );
   return GenerationResult(
-    requestId: requestId,
+    requestID: requestID,
     status: GenerationStatus.saved,
-    monsterId: sampleMonster.definition.id,
+    monsterID: sampleMonster.definition.id,
     rejectionReason: null,
     personDetected: false,
   );

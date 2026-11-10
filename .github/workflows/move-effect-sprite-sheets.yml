@@ -1,7 +1,7 @@
 name: move-effect-sprite-sheets
 
 # 技のエフェクトのスプライトシート (assets/images/move_effects/) を scripts/move_effects/generate_move_effect_sprite_sheets.sh で書き出し
-# (対象は master の effects の pixelfxId。版 9 から技ごと)、
+# (対象は master の effects の pixelfxID。版 9 から技ごと)、
 # 成果物 (artifact) に残す。書き出しは PixelFX (外部のリポジトリ) のコードを node で実行するため、開発用の Mac では動かさずここで行う。
 # 成果物をダウンロードし、確認用の contact.png で人形が写っていないかを目で確かめてから、シートをリポジトリに入れる。
 

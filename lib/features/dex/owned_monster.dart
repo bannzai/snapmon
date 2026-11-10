@@ -4,7 +4,7 @@ import '../../domain/monster/monster_decoration.dart';
 import '../../domain/monster/monster_definition.dart';
 
 /// 図鑑に入っている 1 体。生まれた時に決まる部分と、保存して変わる部分 (レベル・Action Card で覚えさせた技) の組。
-/// サーバーの図鑑は Firestore の `users/{uid}/monsters/{monsterId}` (形は functions/src/generation/records.ts の
+/// サーバーの図鑑は Firestore の `users/{uid}/monsters/{monsterID}` (形は functions/src/generation/records.ts の
 /// `MonsterDocument`) から、PvP の相手は fetchOpponents の応答 (形は functions/src/pvp_rules.ts の `PublicMonster`) から読み、
 /// 見本のモンスターは assets/samples/sample_monsters.json から読む。
 class OwnedMonster {
@@ -12,14 +12,14 @@ class OwnedMonster {
   const OwnedMonster({
     required this.definition,
     required this.level,
-    required this.actionCardMoveIds,
+    required this.actionCardMoveIDs,
     required this.artPath,
-    required this.definitionIds,
+    required this.definitionIDs,
     required this.decoration,
     required this.decorationVersion,
   });
 
-  /// Firestore の `users/{uid}/monsters/{monsterId}` のドキュメントか fetchOpponents の応答のモンスター [json] から 1 体を読む。
+  /// Firestore の `users/{uid}/monsters/{monsterID}` のドキュメントか fetchOpponents の応答のモンスター [json] から 1 体を読む。
   factory OwnedMonster.fromJson({required Map<String, dynamic> json}) {
     final decorationVersion = json['decorationVersion'] as int?;
     return OwnedMonster(
@@ -28,14 +28,14 @@ class OwnedMonster {
       ),
       level: json['level'] as int,
       // 覚えさせた技が無いモンスターは項目を持たない (functions/src/generation/records.ts の MonsterDocument)
-      actionCardMoveIds: [
-        for (final moveId in json['actionCardMoveIds'] as List<dynamic>? ?? [])
-          moveId as String,
+      actionCardMoveIDs: [
+        for (final moveID in json['actionCardMoveIDs'] as List<dynamic>? ?? [])
+          moveID as String,
       ],
       artPath: json['artPath'] as String,
-      definitionIds: [
-        for (final definitionId in json['definitionIds'] as List<dynamic>)
-          definitionId as String,
+      definitionIDs: [
+        for (final definitionID in json['definitionIDs'] as List<dynamic>)
+          definitionID as String,
       ],
       decoration: _readDecoration(
         decorationJson: json['decoration'],
@@ -69,16 +69,16 @@ class OwnedMonster {
   /// 今のレベル。
   final int level;
 
-  /// Action Card で覚えさせた技の ID (覚えさせた順。`MonsterState.actionCardMoveIds` と同じ)。見本のモンスターは空。
-  final List<String> actionCardMoveIds;
+  /// Action Card で覚えさせた技の ID (覚えさせた順。`MonsterState.actionCardMoveIDs` と同じ)。見本のモンスターは空。
+  final List<String> actionCardMoveIDs;
 
-  /// 写真から切り出した被写体の画像のパス。図鑑・PvP の相手のモンスターは Storage のパス (`monsters/{monsterId}/art.png`)、
-  /// 見本のモンスターはアプリに同梱した asset のパス (`assets/samples/art/{monsterId}.png`。[isBundledArtPath])。
+  /// 写真から切り出した被写体の画像のパス。図鑑・PvP の相手のモンスターは Storage のパス (`monsters/{monsterID}/art.png`)、
+  /// 見本のモンスターはアプリに同梱した asset のパス (`assets/samples/art/{monsterID}.png`。[isBundledArtPath])。
   /// null の時は仮の絵を描く。
   final String? artPath;
 
-  /// 参照するその場で作った属性・技の定義 (`definitions/{definitionId}`) の ID。見本のモンスターは空。
-  final List<String> definitionIds;
+  /// 参照するその場で作った属性・技の定義 (`definitions/{definitionID}`) の ID。見本のモンスターは空。
+  final List<String> definitionIDs;
 
   /// 生成の時に保存された装飾のパラメータ。絵には描かない (DIRECTION.md「決めたこと」2026-10-29)。
   /// 見本のモンスターと、[decorationVersion] がこのクライアントの読めない版の時は null。

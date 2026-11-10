@@ -21,7 +21,7 @@ import '../share/card_sharer.dart';
 import 'account_store.dart';
 
 /// [uri] を外部のアプリ (ブラウザ・メール) で開き、開けたかを返す。
-typedef OpenUrl = Future<bool> Function({required Uri uri});
+typedef OpenURL = Future<bool> Function({required Uri uri});
 
 /// お問い合わせの宛先 (docs/index.html のサポートの連絡先と同じ)。
 final Uri contactUri = Uri.parse('mailto:bannzai.app@gmail.com');
@@ -53,7 +53,7 @@ class SettingsScreen extends StatelessWidget {
     required this.monsterGenerator,
     required this.pvpClient,
     required this.cardSharer,
-    required this.openUrl,
+    required this.openURL,
     required this.isDeveloperMenuEnabled,
     required this.accountStore,
     required this.battleRecorder,
@@ -81,7 +81,7 @@ class SettingsScreen extends StatelessWidget {
   final CardSharer cardSharer;
 
   /// リンクを開く。
-  final OpenUrl openUrl;
+  final OpenURL openURL;
 
   /// 開発者メニューの入口を出すか。release ビルドでは [kDebugMode] が const の false のため、
   /// この値に関係なく入口と開発者メニューのコードがビルドから除かれる。widget test は false を渡して出ないことを確かめる。
@@ -199,7 +199,7 @@ class SettingsScreen extends StatelessWidget {
   Future<void> _open({required BuildContext context, required Uri uri}) async {
     final message = await _openAndDescribeFailure(
       uri: uri,
-      couldNotOpenMessage: context.l10n.commonCouldNotOpenUrl(uri.toString()),
+      couldNotOpenMessage: context.l10n.commonCouldNotOpenURL(uri.toString()),
     );
     if (message == null || !context.mounted) {
       return;
@@ -215,7 +215,7 @@ class SettingsScreen extends StatelessWidget {
     required String couldNotOpenMessage,
   }) async {
     try {
-      return await openUrl(uri: uri) ? null : couldNotOpenMessage;
+      return await openURL(uri: uri) ? null : couldNotOpenMessage;
     } on Exception catch (error) {
       return error.toString();
     }

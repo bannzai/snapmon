@@ -23,8 +23,8 @@ function monsterDocument(): MonsterDocument {
       sourcePhotoReference: "users/owner-1/photos/secret-photo-request",
       name: "マグモン",
       encyclopediaText: "まいにち あたたかい のみものを はこぶ",
-      elementTypeIds: ["fire"],
-      learnset: [{ moveId: "warm-touch", unlockLevel: 1 }],
+      elementTypeIDs: ["fire"],
+      learnset: [{ moveID: "warm-touch", unlockLevel: 1 }],
       baseStats: { hitPoints: 50, attack: 50, defense: 50, speed: 50 },
       individualValues: { hitPoints: 1, attack: 2, defense: 3, speed: 4 },
       statCalculationVersion: 1,
@@ -36,9 +36,9 @@ function monsterDocument(): MonsterDocument {
     decoration: { eyes: "round", mouth: "smile", limbs: "stubby", aura: "soft", outlineColor: "#000000" } as never,
     decorationVersion: 1,
     subjectDescription: { what: "secret-subject-description" } as never,
-    categoryIds: ["secret-category"],
-    definitionIds: ["definition-1"],
-    generationRequestId: "secret-generation-request",
+    categoryIDs: ["secret-category"],
+    definitionIDs: ["definition-1"],
+    generationRequestID: "secret-generation-request",
     createdAt: Timestamp.fromMillis(0),
   };
 }
@@ -100,13 +100,13 @@ describe("publicMonster", () => {
       expect(shownText).not.toContain(secret);
     }
     expect(shown.definition).not.toHaveProperty("sourcePhotoReference");
-    expect(shown).toMatchObject({ level: 7, artPath: "monsters/monster-1/art.png", definitionIds: ["definition-1"] });
-    expect(shown.definition).toMatchObject({ id: "monster-1", name: "マグモン", elementTypeIds: ["fire"] });
+    expect(shown).toMatchObject({ level: 7, artPath: "monsters/monster-1/art.png", definitionIDs: ["definition-1"] });
+    expect(shown.definition).toMatchObject({ id: "monster-1", name: "マグモン", elementTypeIDs: ["fire"] });
   });
 
   it("Action Card で覚えさせた技を覚えさせた順で返し、覚えさせていないモンスターは空で返す", () => {
-    expect(publicMonster({ ...monsterDocument(), actionCardMoveIds: ["fire_k1", "water_2"] }).actionCardMoveIds).toEqual(["fire_k1", "water_2"]);
-    expect(publicMonster(monsterDocument()).actionCardMoveIds).toEqual([]);
+    expect(publicMonster({ ...monsterDocument(), actionCardMoveIDs: ["fire_k1", "water_2"] }).actionCardMoveIDs).toEqual(["fire_k1", "water_2"]);
+    expect(publicMonster(monsterDocument()).actionCardMoveIDs).toEqual([]);
   });
 });
 
@@ -114,7 +114,7 @@ describe("通報の通知", () => {
   const report: ReportDocument = {
     reporterUid: "reporter-1",
     monsterOwnerUid: "owner-1",
-    monsterId: "monster-1",
+    monsterID: "monster-1",
     monsterName: "マグモン",
     monsterArtPath: "monsters/monster-1/art.png",
     monsterOwnerIconPath: null,
@@ -123,7 +123,7 @@ describe("通報の通知", () => {
 
   it("アイコンが不適切の通報は、理由と持ち主のアイコンのパスを書く", () => {
     const text = reportNotificationText({
-      reportId: "reporter-1_monster-1",
+      reportID: "reporter-1_monster-1",
       report: { ...report, reason: "inappropriate_icon", monsterOwnerIconPath: "users/owner-1/icons/upload1.png" },
     });
     expect(text).toContain("不適切なアイコン");
@@ -131,17 +131,17 @@ describe("通報の通知", () => {
   });
 
   it("アイコンの無い持ち主の通報は、アイコンを「なし」と書く", () => {
-    expect(reportNotificationText({ reportId: "reporter-1_monster-1", report })).toContain("持ち主のアイコン: なし");
+    expect(reportNotificationText({ reportID: "reporter-1_monster-1", report })).toContain("持ち主のアイコン: なし");
   });
 
   it("理由・モンスター・持ち主・通報した人を書いた文章を #snapmon-notification に送る", async () => {
     const sendMessage = vi.fn(async () => {});
-    await handleReportCreated({ reportId: "reporter-1_monster-1", report, sendMessage });
+    await handleReportCreated({ reportID: "reporter-1_monster-1", report, sendMessage });
     expect(sendMessage).toHaveBeenCalledWith({
       channel: "#snapmon-notification",
-      text: reportNotificationText({ reportId: "reporter-1_monster-1", report }),
+      text: reportNotificationText({ reportID: "reporter-1_monster-1", report }),
     });
-    const text = reportNotificationText({ reportId: "reporter-1_monster-1", report });
+    const text = reportNotificationText({ reportID: "reporter-1_monster-1", report });
     for (const expected of [
       "不適切な絵",
       "マグモン",
@@ -160,7 +160,7 @@ describe("通報の通知", () => {
     vi.stubEnv("FIREBASE_CONFIG", JSON.stringify({ projectId: "demo-snapmon" }));
     try {
       const sendMessage = vi.fn(async () => {});
-      await handleReportCreated({ reportId: "reporter-1_monster-1", report, sendMessage });
+      await handleReportCreated({ reportID: "reporter-1_monster-1", report, sendMessage });
       expect(sendMessage).toHaveBeenCalledWith(expect.objectContaining({ channel: "#snapmon-notification" }));
     } finally {
       vi.unstubAllEnvs();

@@ -69,7 +69,7 @@ void main() {
 
   /// 図鑑の詳細 (見本の mugmon。Lv.7 で技の枠は fire_1・steel_1・fire_1b・steel_1b)。
   Widget dexDetail() => ResultScreen(
-    monster: sampleData.monsterById(monsterId: 'sample-mugmon'),
+    monster: sampleData.monsterByID(monsterID: 'sample-mugmon'),
     dexStore: dexStore,
     origin: ResultScreenOrigin.dex,
     cardSharer: fakeCardSharer(
@@ -302,7 +302,7 @@ void main() {
       expect(fakeActionCards.reservedMoves, [
         (moveID: 'water_3', productID: testExpensiveActionCardProductID),
       ]);
-      expect(fakeActionCards.purchasedPackageIds, ['actioncard_test300']);
+      expect(fakeActionCards.purchasedPackageIDs, ['actioncard_test300']);
       expect(find.text('技を受け取っています'), findsOneWidget);
 
       // 別の端末の購入 (控えの ID が違う) が届いても 自分の購入が届いたとは出さない
@@ -388,7 +388,7 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key('action-card-purchase-buy')));
       await tester.pump();
-      expect(fakeActionCards.purchasedPackageIds, isEmpty);
+      expect(fakeActionCards.purchasedPackageIDs, isEmpty);
       expect(
         find.byKey(const Key('action-card-purchase-price-changed')),
         findsOneWidget,
@@ -571,7 +571,7 @@ void main() {
             moveID: 'water_3',
           ),
         ]
-        ..monsterMoveIdsResult = ['water_3'];
+        ..monsterMoveIDsResult = ['water_3'];
       await pump(tester: tester, home: dexDetail());
       await tester.tap(find.byKey(const Key('action-card-teach')));
       await tester.pumpAndSettle();
@@ -580,12 +580,12 @@ void main() {
       await tester.tap(find.byKey(const Key('action-card-teach-water_3')));
       await tester.pumpAndSettle();
       expect(fakeActionCards.taughtMoves, [
-        (monsterId: 'sample-mugmon', moveId: 'water_3'),
+        (monsterID: 'sample-mugmon', moveID: 'water_3'),
       ]);
       expect(
         dexStore.monsters
             .firstWhere((monster) => monster.definition.id == 'sample-mugmon')
-            .actionCardMoveIds,
+            .actionCardMoveIDs,
         ['water_3'],
       );
       expect(find.byKey(const Key('move-chip-water_3')), findsOneWidget);
@@ -597,9 +597,9 @@ void main() {
     });
 
     testWidgets('忘れさせると 技の枠を元に戻す', (tester) async {
-      dexStore.updateActionCardMoveIds(
-        monsterId: 'sample-mugmon',
-        actionCardMoveIds: ['water_3'],
+      dexStore.updateActionCardMoveIDs(
+        monsterID: 'sample-mugmon',
+        actionCardMoveIDs: ['water_3'],
       );
       fakeActionCards
         ..purchases.value = [
@@ -609,21 +609,21 @@ void main() {
             moveID: 'water_3',
           ),
         ]
-        ..monsterMoveIdsResult = const [];
+        ..monsterMoveIDsResult = const [];
       await pump(tester: tester, home: dexDetail());
       await tester.tap(find.byKey(const Key('action-card-forget-water_3')));
       await tester.pumpAndSettle();
       expect(fakeActionCards.forgottenMoves, [
-        (monsterId: 'sample-mugmon', moveId: 'water_3'),
+        (monsterID: 'sample-mugmon', moveID: 'water_3'),
       ]);
       expect(find.byKey(const Key('move-chip-fire_1')), findsOneWidget);
       expect(find.byKey(const Key('move-chip-water_3')), findsNothing);
     });
 
     testWidgets('表示の切り替えが false でも 覚えさせた技があれば忘れさせられる', (tester) async {
-      dexStore.updateActionCardMoveIds(
-        monsterId: 'sample-mugmon',
-        actionCardMoveIds: ['water_3'],
+      dexStore.updateActionCardMoveIDs(
+        monsterID: 'sample-mugmon',
+        actionCardMoveIDs: ['water_3'],
       );
       fakeActionCards.isActionCardsVisible.value = false;
       await pump(tester: tester, home: dexDetail());

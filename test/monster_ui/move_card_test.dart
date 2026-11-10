@@ -15,16 +15,16 @@ void main() {
   final sampleData = loadSampleDataFixture();
 
   /// ゆげのもや (炎・威力 35・PP 35・先に動くと強い)。特殊効果を持つ技として使う。
-  final effectMove = sampleData.definitions.moveById(moveId: 'fire_1b');
+  final effectMove = sampleData.definitions.moveByID(moveID: 'fire_1b');
 
   /// ブリキパンチ (鋼・威力 40・PP 30)。特殊効果を持たない技として使う。
-  final plainMove = sampleData.definitions.moveById(moveId: 'steel_1');
+  final plainMove = sampleData.definitions.moveByID(moveID: 'steel_1');
 
-  /// [remainingPowerPoints]・[typeMultiplier] を渡した [MoveCard] を [moveId] の技で描く。
+  /// [remainingPowerPoints]・[typeMultiplier] を渡した [MoveCard] を [moveID] の技で描く。
   Future<void> pumpMoveCard({
     required WidgetTester tester,
     required int? remainingPowerPoints,
-    required String moveId,
+    required String moveID,
     required double? typeMultiplier,
   }) => tester.pumpWidget(
     MaterialApp(
@@ -34,7 +34,7 @@ void main() {
       supportedLocales: AppLocalizations.supportedLocales,
       home: Scaffold(
         body: MoveCard(
-          move: sampleData.definitions.moveById(moveId: moveId),
+          move: sampleData.definitions.moveByID(moveID: moveID),
           remainingPowerPoints: remainingPowerPoints,
           typeMultiplier: typeMultiplier,
           definitions: sampleData.definitions,
@@ -101,7 +101,7 @@ void main() {
     await pumpMoveCard(
       tester: tester,
       remainingPowerPoints: 12,
-      moveId: plainMove.id,
+      moveID: plainMove.id,
       typeMultiplier: 2,
     );
     final elementTypeIcon = find.byType(ElementTypeIcon);
@@ -132,7 +132,7 @@ void main() {
         theme: snapmonThemeData(),
         home: Scaffold(
           body: ElementTypeIcon(
-            elementTypeId: 'dynamic-wax',
+            elementTypeID: 'dynamic-wax',
             definitions: definitionsWithWax(base: sampleData.definitions),
           ),
         ),
@@ -145,7 +145,7 @@ void main() {
     await pumpMoveCard(
       tester: tester,
       remainingPowerPoints: 12,
-      moveId: effectMove.id,
+      moveID: effectMove.id,
       typeMultiplier: null,
     );
     // 名前は見出しの書体で、説明 (本文の書体) と区別する
@@ -156,8 +156,8 @@ void main() {
     expect(
       tester
           .widget<ElementTypeIcon>(find.byType(ElementTypeIcon))
-          .elementTypeId,
-      effectMove.elementTypeId,
+          .elementTypeID,
+      effectMove.elementTypeID,
     );
     expect(
       find.text('威力 ${effectMove.power}', findRichText: true),
@@ -208,7 +208,7 @@ void main() {
     await pumpMoveCard(
       tester: tester,
       remainingPowerPoints: null,
-      moveId: plainMove.id,
+      moveID: plainMove.id,
       typeMultiplier: null,
     );
     expect(find.text('PP ${plainMove.powerPoints}'), findsOneWidget);
@@ -240,7 +240,7 @@ void main() {
       await pumpMoveCard(
         tester: tester,
         remainingPowerPoints: 12,
-        moveId: plainMove.id,
+        moveID: plainMove.id,
         typeMultiplier: typeMultiplier,
       );
       final effectivenessTag = find.byKey(const Key('move-type-effectiveness'));

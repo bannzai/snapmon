@@ -13,7 +13,7 @@ bool isActionCardPackage({required Package package}) =>
 
 /// [packages] のうち、ストアの商品 ID が [productID] の package。無ければ null。
 /// iOS と Android の消耗型はどちらも `storeProduct.identifier` がストアの商品 ID そのもの (Android の
-/// `GoogleStoreProduct` は INAPP に基本プランが無く、`productId:basePlanId` の形は定期購入だけ)。
+/// `GoogleStoreProduct` は INAPP に基本プランが無く、`productID:basePlanID` の形は定期購入だけ)。
 Package? actionCardPackageOfProductID({
   required List<Package> packages,
   required String productID,
@@ -26,7 +26,7 @@ Package? actionCardPackageOfProductID({
   return null;
 }
 
-/// Action Card の購入 1 件 (`users/{uid}/actionCardPurchases/{eventId}`。形は functions/src/generation_tickets.ts の
+/// Action Card の購入 1 件 (`users/{uid}/actionCardPurchases/{eventID}`。形は functions/src/generation_tickets.ts の
 /// `ActionCardPurchaseDocument`)。買い切った技は `moveID` のある購入で、`moveID` の無い購入は技を選び直して受け取る。
 class ActionCardPurchase {
   /// Firestore から読んだ購入を作る。
@@ -42,7 +42,7 @@ class ActionCardPurchase {
   /// 購入の ID (RevenueCat のイベントの ID。文書 ID)。
   final String actionCardPurchaseID;
 
-  /// 購入した商品の ID (Firestore の `productId`)。受け取れる技は、受け取る時にこの商品で買える技。
+  /// 購入した商品の ID (Firestore の `productID`)。受け取れる技は、受け取る時にこの商品で買える技。
   final String productID;
 
   /// 買い切った技の ID。技に結び付いていない購入は null (#290 より前のフィールドの無い購入も null)。
@@ -127,17 +127,17 @@ class ActionCardClient {
   })
   assignActionCardMove;
 
-  /// teachActionCardMove を呼んで図鑑の [monsterId] に [moveId] を覚えさせ、覚えさせた後の一覧を返す。
+  /// teachActionCardMove を呼んで図鑑の [monsterID] に [moveID] を覚えさせ、覚えさせた後の一覧を返す。
   final Future<List<String>> Function({
-    required String monsterId,
-    required String moveId,
+    required String monsterID,
+    required String moveID,
   })
   teachActionCardMove;
 
-  /// forgetActionCardMove を呼んで図鑑の [monsterId] から [moveId] を忘れさせ、忘れさせた後の一覧を返す。
+  /// forgetActionCardMove を呼んで図鑑の [monsterID] から [moveID] を忘れさせ、忘れさせた後の一覧を返す。
   final Future<List<String>> Function({
-    required String monsterId,
-    required String moveId,
+    required String monsterID,
+    required String moveID,
   })
   forgetActionCardMove;
 }

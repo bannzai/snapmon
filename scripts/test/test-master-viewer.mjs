@@ -6,7 +6,7 @@ import { readFileSync } from 'node:fs';
 import {
   DEFAULT_MASTER_URL,
   MASTER_SECTIONS,
-  resolveMasterUrl,
+  resolveMasterURL,
   unrenderedKeys,
   multiplierKind,
   isColorHex,
@@ -49,26 +49,26 @@ test('MASTER_SECTIONS に無いキーは unrenderedKeys が返す', () => {
 });
 
 test('src が無ければ main の master.json を読む', () => {
-  assert.equal(resolveMasterUrl('https://bannzai.github.io/snapmon/master.html'), DEFAULT_MASTER_URL);
+  assert.equal(resolveMasterURL('https://bannzai.github.io/snapmon/master.html'), DEFAULT_MASTER_URL);
 });
 
 test('src はページからの相対で解決する', () => {
   assert.equal(
-    resolveMasterUrl('http://localhost:8000/docs/master.html?src=../assets/master/master.json'),
+    resolveMasterURL('http://localhost:8000/docs/master.html?src=../assets/master/master.json'),
     'http://localhost:8000/assets/master/master.json',
   );
 });
 
 test('src の http・https の絶対 URL はそのまま使う', () => {
   assert.equal(
-    resolveMasterUrl('https://bannzai.github.io/snapmon/master.html?src=https://example.com/master.json'),
+    resolveMasterURL('https://bannzai.github.io/snapmon/master.html?src=https://example.com/master.json'),
     'https://example.com/master.json',
   );
 });
 
 test('src の javascript: と data: は拒否する', () => {
-  assert.throws(() => resolveMasterUrl('https://bannzai.github.io/snapmon/master.html?src=javascript:alert(1)'), /javascript:/);
-  assert.throws(() => resolveMasterUrl('https://bannzai.github.io/snapmon/master.html?src=data:application/json,{}'), /data:/);
+  assert.throws(() => resolveMasterURL('https://bannzai.github.io/snapmon/master.html?src=javascript:alert(1)'), /javascript:/);
+  assert.throws(() => resolveMasterURL('https://bannzai.github.io/snapmon/master.html?src=data:application/json,{}'), /data:/);
 });
 
 test('倍率の区分', () => {
@@ -81,7 +81,7 @@ test('技の 1 行は ID・表示名・属性の表示名・威力・PP・覚え
   const move = master.moves.find((candidate) => !candidate.specialEffect);
   assert.equal(
     moveFeedbackLine(master, move),
-    `${move.id} ${move.displayName} ${master.elementTypes.find((candidate) => candidate.id === move.elementTypeId).displayName} 威力 ${move.power} PP ${move.powerPoints} Lv ${move.learnableLevelMinimum}-${move.learnableLevelMaximum}`,
+    `${move.id} ${move.displayName} ${master.elementTypes.find((candidate) => candidate.id === move.elementTypeID).displayName} 威力 ${move.power} PP ${move.powerPoints} Lv ${move.learnableLevelMinimum}-${move.learnableLevelMaximum}`,
   );
 });
 

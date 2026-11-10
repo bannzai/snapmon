@@ -68,7 +68,7 @@ void main() {
       ),
     ];
     await pumpEventQueue();
-    expect(store.ownedMoveIds, ['fire_1c', 'water_3']);
+    expect(store.ownedMoveIDs, ['fire_1c', 'water_3']);
     expect(
       store.unassignedPurchases.map(
         (purchase) => purchase.actionCardPurchaseID,
@@ -86,11 +86,11 @@ void main() {
       ),
     ];
     await pumpEventQueue();
-    expect(store.ownedMoveIds, ['fire_1c']);
+    expect(store.ownedMoveIDs, ['fire_1c']);
     fakeActionCards.purchases.value = const [];
     sessionChanges.value += 1;
     await pumpEventQueue();
-    expect(store.ownedMoveIds, isEmpty);
+    expect(store.ownedMoveIDs, isEmpty);
   });
 
   test('package の読み込みが並んだ時 先に始めた読み込みが後から失敗で返っても 後の成功を空で上書きしない', () async {
@@ -234,7 +234,7 @@ void main() {
     var refreshCount = 0;
     final dexStore = DexStore(definitions: sampleData.definitions)
       ..connectServer(
-        savePartyMonsterIds: ({required monsterIds}) async {},
+        savePartyMonsterIDs: ({required monsterIDs}) async {},
         refreshDefinitions: () async => refreshCount += 1,
       );
     fakeActionCards.productIDByMoveID.value = {
@@ -242,18 +242,18 @@ void main() {
       'newer_move': testModerateActionCardProductID,
     };
     await pumpEventQueue();
-    final requestedMoveIds = <String>{};
+    final requestedMoveIDs = <String>{};
     await refreshDefinitionsForActionCardMoves(
       actionCardStore: store,
       dexStore: dexStore,
-      requestedMoveIds: requestedMoveIds,
+      requestedMoveIDs: requestedMoveIDs,
     );
     await refreshDefinitionsForActionCardMoves(
       actionCardStore: store,
       dexStore: dexStore,
-      requestedMoveIds: requestedMoveIds,
+      requestedMoveIDs: requestedMoveIDs,
     );
     expect(refreshCount, 1);
-    expect(requestedMoveIds, {'newer_move'});
+    expect(requestedMoveIDs, {'newer_move'});
   });
 }

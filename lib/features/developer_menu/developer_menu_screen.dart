@@ -94,7 +94,7 @@ class DeveloperMenuScreen extends StatelessWidget {
     },
     createSquareMask: monsterGenerator.createSquareMask,
     createCutoutPreview: monsterGenerator.createCutoutPreview,
-    createRequestId: monsterGenerator.createRequestId,
+    createRequestID: monsterGenerator.createRequestID,
     uploadPhoto: monsterGenerator.uploadPhoto,
     uploadMask: monsterGenerator.uploadMask,
     requestGeneration: monsterGenerator.requestGeneration,

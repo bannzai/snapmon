@@ -103,11 +103,11 @@ Future<void> main() async {
   // release ビルドでは kDebugMode が const の false のため、見本は作らずこの経路はビルドから除かれる
   final sampleActionCards = kDebugMode
       ? SampleActionCards(
-          actionCardMoveIdsOf: ({required monsterId}) =>
+          actionCardMoveIDsOf: ({required monsterID}) =>
               dexStore.monsters
-                  .where((monster) => monster.definition.id == monsterId)
+                  .where((monster) => monster.definition.id == monsterID)
                   .firstOrNull
-                  ?.actionCardMoveIds ??
+                  ?.actionCardMoveIDs ??
               const [],
         )
       : null;
@@ -153,24 +153,24 @@ Future<void> main() async {
               actionCardPurchaseID: actionCardPurchaseID,
               moveID: moveID,
             ),
-      teachActionCardMove: ({required monsterId, required moveId}) => isSample()
+      teachActionCardMove: ({required monsterID, required moveID}) => isSample()
           ? sampleActionCardClient!.teachActionCardMove(
-              monsterId: monsterId,
-              moveId: moveId,
+              monsterID: monsterID,
+              moveID: moveID,
             )
           : teachActionCardMoveWithFirebase(
-              monsterId: monsterId,
-              moveId: moveId,
+              monsterID: monsterID,
+              moveID: moveID,
             ),
-      forgetActionCardMove: ({required monsterId, required moveId}) =>
+      forgetActionCardMove: ({required monsterID, required moveID}) =>
           isSample()
           ? sampleActionCardClient!.forgetActionCardMove(
-              monsterId: monsterId,
-              moveId: moveId,
+              monsterID: monsterID,
+              moveID: moveID,
             )
           : forgetActionCardMoveWithFirebase(
-              monsterId: monsterId,
-              moveId: moveId,
+              monsterID: monsterID,
+              moveID: moveID,
             ),
     ),
   );
@@ -180,7 +180,7 @@ Future<void> main() async {
       dexStore: dexStore,
       sessionStore: sessionStore,
       gameAudio: gameAudio,
-      openUrl: ({required uri}) =>
+      openURL: ({required uri}) =>
           launchUrl(uri, mode: LaunchMode.externalApplication),
       isDeveloperMenuEnabled: kDebugMode,
       battleRecorder: const BattleRecorder(
@@ -206,30 +206,30 @@ Future<void> main() async {
         createSubjectMask: createSubjectMaskWithOs,
         createSquareMask: createSquareMaskInBackground,
         createCutoutPreview: createCutoutPreviewInBackground,
-        createRequestId: const Uuid().v4,
+        createRequestID: const Uuid().v4,
         // DEBUG ビルドでログインを飛ばした (「ログインせずに使う」) 時は、写真を送らず見本のモンスターで生成を置き換える
         // (lib/sample/sample_generation.dart)。release ビルドでは kDebugMode が const の false のため、この経路はビルドから除かれる
-        uploadPhoto: ({required requestId, required photo}) async {
+        uploadPhoto: ({required requestID, required photo}) async {
           if (kDebugMode && sessionStore.uid == null) {
             return;
           }
           await uploadGenerationPhotoWithFirebase(
-            requestId: requestId,
+            requestID: requestID,
             photo: photo,
           );
         },
-        uploadMask: ({required requestId, required mask}) async {
+        uploadMask: ({required requestID, required mask}) async {
           if (kDebugMode && sessionStore.uid == null) {
             return;
           }
           await uploadGenerationMaskWithFirebase(
-            requestId: requestId,
+            requestID: requestID,
             mask: mask,
           );
         },
         requestGeneration:
             ({
-              required requestId,
+              required requestID,
               required maskSource,
               required onCompletedStage,
             }) async {
@@ -237,11 +237,11 @@ Future<void> main() async {
                 return generateSampleMonster(
                   dexStore: dexStore,
                   sampleData: sampleData,
-                  requestId: requestId,
+                  requestID: requestID,
                 );
               }
               return requestGenerationWithFirebase(
-                requestId: requestId,
+                requestID: requestID,
                 maskSource: maskSource,
                 onCompletedStage: onCompletedStage,
               );

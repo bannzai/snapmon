@@ -137,8 +137,8 @@ enum _GenerationPhase {
 }
 
 class _GenerationScreenState extends State<GenerationScreen> {
-  /// 写真 1 枚に 1 つの要求 ID。送り直し・読み直しにも同じ ID を使う ([MonsterGenerator.createRequestId])。
-  late final String _requestId = widget.monsterGenerator.createRequestId();
+  /// 写真 1 枚に 1 つの要求 ID。送り直し・読み直しにも同じ ID を使う ([MonsterGenerator.createRequestID])。
+  late final String _requestID = widget.monsterGenerator.createRequestID();
 
   Uint8List? _preparedPhoto;
 
@@ -261,12 +261,12 @@ class _GenerationScreenState extends State<GenerationScreen> {
       }
       if (!_isUploaded) {
         await widget.monsterGenerator.uploadPhoto(
-          requestId: _requestId,
+          requestID: _requestID,
           photo: preparedPhoto,
         );
         if (_mask case final mask?) {
           await widget.monsterGenerator.uploadMask(
-            requestId: _requestId,
+            requestID: _requestID,
             mask: mask,
           );
         }
@@ -274,7 +274,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
       }
       await _handleResult(
         result: await widget.monsterGenerator.requestGeneration(
-          requestId: _requestId,
+          requestID: _requestID,
           maskSource: _maskSource!,
           onCompletedStage: ({required completedStage}) {
             if (mounted) {
@@ -460,9 +460,9 @@ class _GenerationScreenState extends State<GenerationScreen> {
       _error = null;
     });
     try {
-      await widget.dexStore.addToParty(monsterId: monster.definition.id);
+      await widget.dexStore.addToParty(monsterID: monster.definition.id);
       // 手持ちの保存が済んでから相手を決める (CPU トレーナーの手持ちのレベルは手持ちに入れた後の平均に合わせるため)
-      if (!widget.dexStore.isInParty(monsterId: monster.definition.id)) {
+      if (!widget.dexStore.isInParty(monsterID: monster.definition.id)) {
         throw StateError('${monster.definition.name} を手持ちに入れられませんでした');
       }
       // 相手を決める間に並べて読む。レコードの .wait は例外を ParallelWaitError に包み、画面に出す文言が変わるため、
@@ -581,7 +581,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
       await _handleResult(
         // 同じ写真の別の要求の結果を使い回した時は、送った ID のレコードは無く、使い回し先の ID のレコードを読む
         result: await widget.monsterGenerator.fetchGeneration(
-          requestId: _result?.requestId ?? _requestId,
+          requestID: _result?.requestID ?? _requestID,
         ),
       );
     } catch (error) {
@@ -611,7 +611,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
       }
       // 同じ写真の別の要求の結果を使い回した時は、送った ID のレコードは無く、使い回し先の ID のレコードを読む
       final polledResult = await widget.monsterGenerator.fetchGeneration(
-        requestId: _result?.requestId ?? _requestId,
+        requestID: _result?.requestID ?? _requestID,
       );
       if (!mounted) {
         return;
@@ -647,9 +647,9 @@ class _GenerationScreenState extends State<GenerationScreen> {
         // その時と同じ被写体 (duplicate) の時は、新しく生まれず図鑑にいるモンスターを開く
         final isNewlyBorn =
             result.status == GenerationStatus.saved &&
-            result.requestId == _requestId;
+            result.requestID == _requestID;
         final monster = await widget.dexStore.waitForMonster(
-          monsterId: result.monsterId!,
+          monsterID: result.monsterID!,
           timeout: _monsterArrivalTimeout,
         );
         if (isNewlyBorn) {

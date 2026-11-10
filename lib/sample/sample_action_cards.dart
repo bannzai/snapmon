@@ -20,12 +20,12 @@ class SampleActionCards {
     'sample_actioncard_500yen',
   ];
 
-  /// 見本を作る。[actionCardMoveIdsOf] は図鑑の [monsterId] のモンスターが今覚えている Action Card の技を返す
+  /// 見本を作る。[actionCardMoveIDsOf] は図鑑の [monsterID] のモンスターが今覚えている Action Card の技を返す
   /// (覚えさせる・忘れさせるの結果を、Functions と同じく今の一覧から作るため)。
-  SampleActionCards({required this.actionCardMoveIdsOf});
+  SampleActionCards({required this.actionCardMoveIDsOf});
 
-  /// 図鑑の [monsterId] のモンスターが今覚えている Action Card の技。
-  final List<String> Function({required String monsterId}) actionCardMoveIdsOf;
+  /// 図鑑の [monsterID] のモンスターが今覚えている Action Card の技。
+  final List<String> Function({required String monsterID}) actionCardMoveIDsOf;
 
   /// `config/features.actionCardsVisible` の代わり。
   final ValueNotifier<bool> isActionCardsVisible = ValueNotifier(false);
@@ -88,12 +88,12 @@ class SampleActionCards {
   /// Dart から TypeScript の定数を読めないため値を写しており、向こうを変えたらここも変える。DEBUG ビルドの見本だけが使い、
   /// 本番の技ごとの商品は actionCardProducts/current が正。
   void loadSampleActionCardProducts({required MasterData master}) {
-    final replacedMoveIds = {
-      for (final move in master.moves) ?move.replacesMoveId,
+    final replacedMoveIDs = {
+      for (final move in master.moves) ?move.replacesMoveID,
     };
     productIDByMoveID.value = {
       for (final move in master.moves)
-        if (!replacedMoveIds.contains(move.id))
+        if (!replacedMoveIDs.contains(move.id))
           move.id:
               sampleActionCardProductIDs[move.power >= 110
                   ? 2
@@ -231,25 +231,25 @@ class SampleActionCards {
 
   /// teachActionCardMove の代わり。既に覚えていれば変えない (冪等)。
   Future<List<String>> _teach({
-    required String monsterId,
-    required String moveId,
+    required String monsterID,
+    required String moveID,
   }) async {
-    if (!_ownedMoveIDs.contains(moveId)) {
-      throw StateError('$moveId を買い切っていません');
+    if (!_ownedMoveIDs.contains(moveID)) {
+      throw StateError('$moveID を買い切っていません');
     }
-    final actionCardMoveIds = actionCardMoveIdsOf(monsterId: monsterId);
-    return actionCardMoveIds.contains(moveId)
-        ? actionCardMoveIds
-        : [...actionCardMoveIds, moveId];
+    final actionCardMoveIDs = actionCardMoveIDsOf(monsterID: monsterID);
+    return actionCardMoveIDs.contains(moveID)
+        ? actionCardMoveIDs
+        : [...actionCardMoveIDs, moveID];
   }
 
   /// forgetActionCardMove の代わり。覚えていなければ変えない (冪等)。
   Future<List<String>> _forget({
-    required String monsterId,
-    required String moveId,
+    required String monsterID,
+    required String moveID,
   }) async => [
-    for (final actionCardMoveId in actionCardMoveIdsOf(monsterId: monsterId))
-      if (actionCardMoveId != moveId) actionCardMoveId,
+    for (final actionCardMoveID in actionCardMoveIDsOf(monsterID: monsterID))
+      if (actionCardMoveID != moveID) actionCardMoveID,
   ];
 
   /// この見本を呼ぶ関数の組。課金の可否はビルドに関係なく使えるとする (Simulator で購入の画面を確かめるため)。

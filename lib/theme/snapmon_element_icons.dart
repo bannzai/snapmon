@@ -33,6 +33,6 @@ const Map<String, IconData> elementTypeIcons = {
 /// [elementTypeIcons] に無い属性のアイコン。生成でその場に作られた属性は名前が決まっていないため、「新しく生まれた」を表す星にした。
 const IconData elementTypeFallbackIcon = Icons.auto_awesome;
 
-/// [elementTypeId] の属性のアイコンを返す。
-IconData elementTypeIcon({required String elementTypeId}) =>
-    elementTypeIcons[elementTypeId] ?? elementTypeFallbackIcon;
+/// [elementTypeID] の属性のアイコンを返す。
+IconData elementTypeIcon({required String elementTypeID}) =>
+    elementTypeIcons[elementTypeID] ?? elementTypeFallbackIcon;

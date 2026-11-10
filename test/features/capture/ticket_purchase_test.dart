@@ -43,21 +43,21 @@ void main() {
       calls: calls,
       albumPhoto: null,
       uploadError: null,
-      requestGeneration: ({required requestId}) async {
+      requestGeneration: ({required requestID}) async {
         if (isAlwaysLimited || ++requestCount == 1) {
           throw const GenerationDailyLimitException(
             message: _dailyLimitMessage,
           );
         }
         return GenerationResult(
-          requestId: requestId,
+          requestID: requestID,
           status: GenerationStatus.failed,
-          monsterId: null,
+          monsterID: null,
           rejectionReason: null,
           personDetected: false,
         );
       },
-      fetchGeneration: ({required requestId}) =>
+      fetchGeneration: ({required requestID}) =>
           throw StateError('fetchGeneration は呼ばない'),
       ticketPackages: ticketPackages,
       fetchTicketPackages: fetchTicketPackages,
@@ -453,8 +453,8 @@ void main() {
     await tester.tap(find.text('この写真で生成する'));
     await tester.pumpAndSettle();
 
-    expect(calls.requestedRequestIds, ['request-1', 'request-1']);
-    expect(calls.uploadedRequestIds, ['request-1', 'request-1']);
+    expect(calls.requestedRequestIDs, ['request-1', 'request-1']);
+    expect(calls.uploadedRequestIDs, ['request-1', 'request-1']);
     expect(ticketPurchaseSteps(), ['shown', 'purchased']);
     // 反映の案内のタイマーを終わらせる
     await tester.pump(const Duration(seconds: 30));
@@ -475,7 +475,7 @@ void main() {
     await tester.pump(const Duration(seconds: 21));
 
     expect(find.textContaining('反映を待っています'), findsOneWidget);
-    expect(calls.requestedRequestIds, ['request-1']);
+    expect(calls.requestedRequestIDs, ['request-1']);
   });
 
   testWidgets('ストアの購入を閉じたら 購入画面のままで生成をやり直さない', (tester) async {
@@ -492,7 +492,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('生成チケット'), findsOneWidget);
-    expect(calls.requestedRequestIds, ['request-1']);
+    expect(calls.requestedRequestIDs, ['request-1']);
     expect(ticketPurchaseSteps(), ['shown', 'cancelled']);
   });
 

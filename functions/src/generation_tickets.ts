@@ -1,7 +1,7 @@
 // 生成チケット (1 日の無料の回数を使い切った後に生成できる消耗型の商品) と Action Card (技を 1 つ選んで買い切る消耗型の商品) の購入を、
 // RevenueCat の webhook で受ける。
 // 生成チケットの残高は `users/{uid}.generationTickets` に置き、生成の予約 (generation/pipeline.ts の startGeneration) が 1 枚ずつ減らす。
-// Action Card は購入 1 件を `users/{uid}/actionCardPurchases/{eventId}` に置き、買う前に控えた技 (action_cards.ts の reserveActionCardMove) を
+// Action Card は購入 1 件を `users/{uid}/actionCardPurchases/{eventID}` に置き、買う前に控えた技 (action_cards.ts の reserveActionCardMove) を
 // その購入に結び付ける。枚数の残高は持たない (#290)。
 // 受け取る形は https://www.revenuecat.com/docs/integrations/webhooks/event-types-and-fields (2026-11-07 に確認): 本文は
 // `{ api_version, event }` で、消耗型を含む自動更新しない購入は `event.type` が `NON_RENEWING_PURCHASE`、返金と取り消しは `CANCELLATION`。
@@ -42,21 +42,21 @@ const FIREBASE_UID_PATTERN = /^[A-Za-z0-9_-]{1,128}$/;
  */
 const REVENUECAT_EVENT_ID_PATTERN = /^[A-Za-z0-9_-]{1,128}$/;
 
-/** [productId] が生成チケットの商品なら 1 回の購入で足す枚数、それ以外は undefined。継承したキー (`constructor` 等) を商品として扱わない。 */
-function generationTicketCount(productId: string | null): number | undefined {
-  return productId !== null && Object.hasOwn(GENERATION_TICKET_COUNT_BY_PRODUCT_ID, productId) ? GENERATION_TICKET_COUNT_BY_PRODUCT_ID[productId] : undefined;
+/** [productID] が生成チケットの商品なら 1 回の購入で足す枚数、それ以外は undefined。継承したキー (`constructor` 等) を商品として扱わない。 */
+function generationTicketCount(productID: string | null): number | undefined {
+  return productID !== null && Object.hasOwn(GENERATION_TICKET_COUNT_BY_PRODUCT_ID, productID) ? GENERATION_TICKET_COUNT_BY_PRODUCT_ID[productID] : undefined;
 }
 
 /** 消耗型の商品の種類。生成チケットは足す枚数を持つ。Action Card は商品の ID そのものが技を結び付ける条件で、別の値を持たない。 */
 type ConsumableProduct = { kind: "generationTicket"; ticketCount: number } | { kind: "actionCard" };
 
-/** [productId] がこのアプリの消耗型の商品ならその種類、それ以外は undefined。 */
-function consumableProductOf(productId: string | null): ConsumableProduct | undefined {
-  const ticketCount = generationTicketCount(productId);
+/** [productID] がこのアプリの消耗型の商品ならその種類、それ以外は undefined。 */
+function consumableProductOf(productID: string | null): ConsumableProduct | undefined {
+  const ticketCount = generationTicketCount(productID);
   if (ticketCount !== undefined) {
     return { kind: "generationTicket", ticketCount };
   }
-  return isActionCardProductID(productId) ? { kind: "actionCard" } : undefined;
+  return isActionCardProductID(productID) ? { kind: "actionCard" } : undefined;
 }
 
 /** [product] の商品の、Slack の通知に書く名前。商品の ID は通知の summary に別に出す。 */
@@ -82,14 +82,14 @@ export interface RevenueCatWebhookEvent {
   store?: unknown;
 }
 
-/** 生成チケットの購入の記録 (`users/{uid}/ticketPurchases/{eventId}`)。同じイベントを 2 回足さない判定と購入の履歴に使う。 */
+/** 生成チケットの購入の記録 (`users/{uid}/ticketPurchases/{eventID}`)。同じイベントを 2 回足さない判定と購入の履歴に使う。 */
 export interface TicketPurchaseDocument {
   /** 商品の識別子。 */
-  productId: string;
+  productID: string;
   /** 足した枚数。 */
   ticketCount: number;
   /** ストアの取引の ID (RevenueCat が送らなかった時は null)。 */
-  transactionId: string | null;
+  transactionID: string | null;
   /** `SANDBOX` か `PRODUCTION` (RevenueCat が送らなかった時は null)。 */
   environment: string | null;
   /** 購入したストア (RevenueCat が送らなかった時は null)。 */
@@ -99,9 +99,9 @@ export interface TicketPurchaseDocument {
 }
 
 /**
- * Action Card の購入 1 件 (`users/{uid}/actionCardPurchases/{eventId}`)。同じイベントを 2 回記録しない判定に使い、買い切った技はこの記録の
+ * Action Card の購入 1 件 (`users/{uid}/actionCardPurchases/{eventID}`)。同じイベントを 2 回記録しない判定に使い、買い切った技はこの記録の
  * `moveID` から出す (技ごとのドキュメントと残高の枚数を別に持たない。#290)。形は [TicketPurchaseDocument] の枚数の代わりに技を持つ。
- * 買った商品は `productId` (webhook が届いた商品の ID をそのまま書く) で、この購入で受け取れる技は、受け取る時にその商品で買える技 (#293)。
+ * 買った商品は `productID` (webhook が届いた商品の ID をそのまま書く) で、この購入で受け取れる技は、受け取る時にその商品で買える技 (#293)。
  */
 export interface ActionCardPurchaseDocument extends Omit<TicketPurchaseDocument, "ticketCount"> {
   /**
@@ -190,7 +190,7 @@ async function canReceiveReservedMove({
  *
  * - `Authorization` が RevenueCat に設定した値と一致しない時は 401 で、何も書かない
  * - `NON_RENEWING_PURCHASE` で、商品が生成チケットか Action Card で、`app_user_id` が uid の形で、アカウントが残っている時だけ記録する。同じイベントの ID の
- *   2 回目は記録しない (購入の記録 `users/{uid}/ticketPurchases/{eventId}`・`users/{uid}/actionCardPurchases/{eventId}` を足す時と同じトランザクションで作る)
+ *   2 回目は記録しない (購入の記録 `users/{uid}/ticketPurchases/{eventID}`・`users/{uid}/actionCardPurchases/{eventID}` を足す時と同じトランザクションで作る)
  * - 返金・取り消し (`CANCELLATION`) は残高・買い切った技を減らさず Slack に知らせる (残高が負になる扱いを作らないため。DIRECTION.md「決めたこと」2026-11-07 の行と
  *   2026-11-09 の #271 の行)
  * - 足せない購入 (知らない商品・uid の形でない・アカウントが無い) は Slack に知らせて 200 を返す (再送しても足せないため)
@@ -209,11 +209,11 @@ export async function handleRevenueCatWebhook(
   if (!event || typeof event.id !== "string" || !REVENUECAT_EVENT_ID_PATTERN.test(event.id) || typeof event.type !== "string") {
     return { status: 400, body: "event.id と event.type がないか、event.id の形が違います" };
   }
-  const appUserId = event.app_user_id;
-  const productId = optionalString(event.product_id);
+  const appUserID = event.app_user_id;
+  const productID = optionalString(event.product_id);
   const environment = optionalString(event.environment);
-  const summary = `イベント ${event.id}・ユーザー ${String(appUserId)}・商品 ${productId ?? "(なし)"}・環境 ${environment ?? "(なし)"}`;
-  const product = consumableProductOf(productId);
+  const summary = `イベント ${event.id}・ユーザー ${String(appUserID)}・商品 ${productID ?? "(なし)"}・環境 ${environment ?? "(なし)"}`;
+  const product = consumableProductOf(productID);
 
   if (event.type === "CANCELLATION") {
     if (product !== undefined) {
@@ -229,24 +229,24 @@ export async function handleRevenueCatWebhook(
     await notify(dependencies.sendMessage, `知らない商品の購入を受けました。残高に足していません (${summary})`);
     return { status: 200, body: "unknown product" };
   }
-  if (typeof appUserId !== "string" || !FIREBASE_UID_PATTERN.test(appUserId)) {
+  if (typeof appUserID !== "string" || !FIREBASE_UID_PATTERN.test(appUserID)) {
     await notify(dependencies.sendMessage, `uid ではないユーザーの${productLabel(product)}の購入を受けました。残高に足していません (${summary})`);
     return { status: 200, body: "unknown user" };
   }
 
   const { firestore } = dependencies;
-  const userDocument = firestore.doc(`users/${appUserId}`);
+  const userDocument = firestore.doc(`users/${appUserID}`);
   const purchaseRecord = {
-    productId: productId!,
-    transactionId: optionalString(event.transaction_id),
+    productID: productID!,
+    transactionID: optionalString(event.transaction_id),
     environment,
     store: optionalString(event.store),
     createdAt: Timestamp.fromDate(dependencies.now()),
   };
   const purchaseDocument =
     product.kind === "generationTicket"
-      ? firestore.doc(`users/${appUserId}/ticketPurchases/${event.id}`)
-      : firestore.doc(`users/${appUserId}/actionCardPurchases/${event.id}`);
+      ? firestore.doc(`users/${appUserID}/ticketPurchases/${event.id}`)
+      : firestore.doc(`users/${appUserID}/actionCardPurchases/${event.id}`);
   const outcome = await firestore.runTransaction(async (transaction): Promise<"added" | "duplicate" | "account_missing"> => {
     const [userSnapshot, purchaseSnapshot] = await Promise.all([transaction.get(userDocument), transaction.get(purchaseDocument)]);
     if (purchaseSnapshot.exists) {
@@ -254,7 +254,7 @@ export async function handleRevenueCatWebhook(
     }
     // アカウントの削除 (account.ts) が始まった後と消し終えた後は書かない。書くと、消し終えた後に users/{uid} が残るため。
     // 生成する前に買ったユーザーには users/{uid} が無いため、Auth のユーザーで見分ける (pipeline.ts の予約と同じ)
-    if (userSnapshot.get("accountDeletionStartedAt") !== undefined || (!userSnapshot.exists && !(await authUserExists({ auth: dependencies.auth, uid: appUserId })))) {
+    if (userSnapshot.get("accountDeletionStartedAt") !== undefined || (!userSnapshot.exists && !(await authUserExists({ auth: dependencies.auth, uid: appUserID })))) {
       return "account_missing";
     }
     if (product.kind === "generationTicket") {
@@ -264,9 +264,9 @@ export async function handleRevenueCatWebhook(
     }
     const reservation = userSnapshot.get("actionCardMoveReservation") as ActionCardMoveReservation | undefined;
     // 控えの商品が届いた商品と違う時は、別の購入のための控えのため使わずに残す (このアプリは控えてから買うため、通常は起きない)
-    const matchedReservation = reservation?.productID === productId ? reservation : undefined;
+    const matchedReservation = reservation?.productID === productID ? reservation : undefined;
     const moveID =
-      matchedReservation !== undefined && (await canReceiveReservedMove({ firestore, transaction, uid: appUserId, reservation: matchedReservation }))
+      matchedReservation !== undefined && (await canReceiveReservedMove({ firestore, transaction, uid: appUserID, reservation: matchedReservation }))
         ? matchedReservation.moveID
         : null;
     transaction.create(purchaseDocument, {

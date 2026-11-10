@@ -80,7 +80,7 @@ class ActionCardStore extends ChangeNotifier {
   Map<String, String>? get productIDByMoveID => _productIDByMoveID;
 
   /// 買い切った技の ID (技を結び付けた順)。購入の `moveID` から出し、別に持たない (#290)。
-  List<String> get ownedMoveIds => [
+  List<String> get ownedMoveIDs => [
     for (final purchase
         in [
           for (final purchase in _purchases)
@@ -246,25 +246,25 @@ class ActionCardStore extends ChangeNotifier {
 /// [actionCardStore] の技ごとの商品の表と買い切った技のうち、[dexStore] の定義に無い技があれば、定義を最新の master から読み直す。
 /// 技ごとの商品の表と買い切った技は最新の版の master の技で、ログインの後に新しい版が投入されると端末の定義に無い技が届くため
 /// (図鑑の読み直しは図鑑のモンスターの技しか見ない。lib/master/master_repository.dart の `needsLatestMasterFetch`)。
-/// [requestedMoveIds] は読み直しを頼んだ技で、master に無い技のために何度も読み直さないよう、呼び出し側が画面ごとに持つ。
+/// [requestedMoveIDs] は読み直しを頼んだ技で、master に無い技のために何度も読み直さないよう、呼び出し側が画面ごとに持つ。
 /// 読み直しの失敗は無視する (無い技は一覧に出さないままにする)。
 Future<void> refreshDefinitionsForActionCardMoves({
   required ActionCardStore actionCardStore,
   required DexStore dexStore,
-  required Set<String> requestedMoveIds,
+  required Set<String> requestedMoveIDs,
 }) async {
-  final missingMoveIds =
+  final missingMoveIDs =
       {
         ...?actionCardStore.productIDByMoveID?.keys,
-        ...actionCardStore.ownedMoveIds,
+        ...actionCardStore.ownedMoveIDs,
       }.difference({
         for (final move in dexStore.definitions.moves) move.id,
-        ...requestedMoveIds,
+        ...requestedMoveIDs,
       });
-  if (missingMoveIds.isEmpty) {
+  if (missingMoveIDs.isEmpty) {
     return;
   }
-  requestedMoveIds.addAll(missingMoveIds);
+  requestedMoveIDs.addAll(missingMoveIDs);
   await dexStore.refreshDefinitions().catchError((Object _) {});
 }
 

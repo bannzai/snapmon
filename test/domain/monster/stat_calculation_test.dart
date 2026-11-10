@@ -14,7 +14,7 @@ void main() {
             as Map<String, dynamic>,
   );
   const description = '赤い陶器のマグカップ。手のひらほどの大きさで硬い';
-  const statGradeIds = {
+  const statGradeIDs = {
     StatKind.hitPoints: 'medium',
     StatKind.attack: 'low',
     StatKind.defense: 'veryHigh',
@@ -34,7 +34,7 @@ void main() {
       seed: individualValueSeed(subjectDescription: description),
     );
     MonsterStats baseStats() =>
-        baseStatsFromStatGrades(statGradeIds: statGradeIds, master: master);
+        baseStatsFromStatGrades(statGradeIDs: statGradeIDs, master: master);
 
     expect(individualValues(), individualValues());
     // 保存済みのモンスターの値を変えないよう、固定の説明文から引いた値を固定する。
@@ -82,14 +82,14 @@ void main() {
   test('段階が master に無い・欠けている時は例外にする', () {
     expect(
       () => baseStatsFromStatGrades(
-        statGradeIds: {...statGradeIds, StatKind.speed: 'unknown'},
+        statGradeIDs: {...statGradeIDs, StatKind.speed: 'unknown'},
         master: master,
       ),
       throwsStateError,
     );
     expect(
       () => baseStatsFromStatGrades(
-        statGradeIds: {StatKind.hitPoints: 'medium'},
+        statGradeIDs: {StatKind.hitPoints: 'medium'},
         master: master,
       ),
       throwsStateError,
@@ -98,7 +98,7 @@ void main() {
 
   test('属性は閾値以上を確率の高い順に上限まで選ぶ', () {
     expect(
-      selectElementTypeIds(
+      selectElementTypeIDs(
         elementProbabilities: {
           'steel': 0.6,
           'light': 0.9,
@@ -110,7 +110,7 @@ void main() {
       ['light', 'fire'],
     );
     expect(
-      selectElementTypeIds(
+      selectElementTypeIDs(
         // 閾値 (master の elementSelection.probabilityThreshold = 0.5) より下
         elementProbabilities: {'steel': 0.49, 'water': 0.1},
         master: master,

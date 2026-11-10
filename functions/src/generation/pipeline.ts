@@ -25,8 +25,8 @@ import {
   type JevResponse,
   JevUnavailableError,
   readJudgeResponse,
-  sameSubjectCandidateIds,
-  topCategoryIds,
+  sameSubjectCandidateIDs,
+  topCategoryIDs,
 } from "./jev";
 import { type DynamicDefinition, fetchDynamicDefinitions, fetchLatestMaster, fetchMaster, type Master, type MasterElementType, type MasterMove } from "./master";
 import { findModerationViolation } from "./moderation";
@@ -36,7 +36,7 @@ import {
   CURRENT_STAT_CALCULATION_VERSION,
   fnv1a32,
   individualValuesFromDescription,
-  selectElementTypeIds,
+  selectElementTypeIDs,
 } from "./monster_stats";
 import { DECORATION_VERSION } from "./prompts/describe_subject";
 import { boundedProposedSpecialEffectPower, PROPOSED_MOVE_TIERS, proposalRangeViolation } from "./prompts/propose_element";
@@ -73,7 +73,7 @@ export interface GenerationDependencies {
   /** Jev。 */
   askJev: AskJev;
   /** 再試行のタスクを積む。`delaySeconds` 後に `resumeGeneration` が同じ要求 ID と目的で呼ばれる。 */
-  enqueueResume: (task: ResumeTask & { delaySeconds: number; taskId?: string }) => Promise<void>;
+  enqueueResume: (task: ResumeTask & { delaySeconds: number; taskID?: string }) => Promise<void>;
   /** 現在時刻。 */
   now: () => Date;
 }
@@ -88,7 +88,7 @@ export interface ResumeTask {
   /** 生成したユーザー。 */
   uid: string;
   /** 生成の要求 ID。 */
-  requestId: string;
+  requestID: string;
   /** タスクの目的。 */
   purpose: "lease" | "judge" | "discard";
   /**
@@ -187,13 +187,13 @@ function sha256(buffer: Buffer): string {
   return createHash("sha256").update(buffer).digest("hex");
 }
 
-function generationDocument({ firestore, uid, requestId }: { firestore: Firestore; uid: string; requestId: string }) {
-  return firestore.doc(`users/${uid}/generations/${requestId}`);
+function generationDocument({ firestore, uid, requestID }: { firestore: Firestore; uid: string; requestID: string }) {
+  return firestore.doc(`users/${uid}/generations/${requestID}`);
 }
 
-/** 別の要求 ID の結果を使い回した要求の、使い回し先 (`reusedRequestId`) の記録。 */
-function generationAliasDocument({ firestore, uid, requestId }: { firestore: Firestore; uid: string; requestId: string }) {
-  return firestore.doc(`users/${uid}/generationAliases/${requestId}`);
+/** 別の要求 ID の結果を使い回した要求の、使い回し先 (`reusedRequestID`) の記録。 */
+function generationAliasDocument({ firestore, uid, requestID }: { firestore: Firestore; uid: string; requestID: string }) {
+  return firestore.doc(`users/${uid}/generationAliases/${requestID}`);
 }
 
 /**
@@ -262,23 +262,23 @@ export async function startGeneration(
   dependencies: GenerationDependencies,
   {
     uid,
-    requestId,
+    requestID,
     photoPath,
     maskPath,
     maskSource,
-  }: { uid: string; requestId: string; photoPath: string; maskPath: string | null; maskSource: MaskSource },
+  }: { uid: string; requestID: string; photoPath: string; maskPath: string | null; maskSource: MaskSource },
 ): Promise<GenerationResult> {
   const { firestore, bucket } = dependencies;
-  const document = generationDocument({ firestore, uid, requestId });
+  const document = generationDocument({ firestore, uid, requestID });
   const existing = await document.get();
   if (existing.exists) {
-    return continueExistingGeneration(dependencies, { uid, requestId, record: existing.data() as GenerationRecord });
+    return continueExistingGeneration(dependencies, { uid, requestID, record: existing.data() as GenerationRecord });
   }
   // 別の要求 ID の結果を使い回した要求の再送 (写真は消してあるため、記録した使い回し先の結果を返す)
-  const alias = await generationAliasDocument({ firestore, uid, requestId }).get();
+  const alias = await generationAliasDocument({ firestore, uid, requestID }).get();
   if (alias.exists) {
-    const reusedRequestId = alias.get("reusedRequestId") as string;
-    return generationResult({ requestId: reusedRequestId, record: (await generationDocument({ firestore, uid, requestId: reusedRequestId }).get()).data() as GenerationRecord });
+    const reusedRequestID = alias.get("reusedRequestID") as string;
+    return generationResult({ requestID: reusedRequestID, record: (await generationDocument({ firestore, uid, requestID: reusedRequestID }).get()).data() as GenerationRecord });
   }
 
   const [[photoExists], [maskExists]] = await Promise.all([bucket.file(photoPath).exists(), maskPath ? bucket.file(maskPath).exists() : [true]]);
@@ -295,7 +295,7 @@ export async function startGeneration(
 
   // 予約より先に積む (予約の後で積むのに失敗すると、引き継ぐタスクの無い予約が残るため)。予約しなかった時のタスクは、
   // レコードが無いか予約の取れない状態を見て何もしない。
-  await enqueueLeaseRecovery(dependencies, { uid, requestId });
+  await enqueueLeaseRecovery(dependencies, { uid, requestID });
   const leaseToken = randomUUID();
   const reservation = await firestore.runTransaction(async (transaction): Promise<GenerationResult | "reserved"> => {
     const userDocument = firestore.doc(`users/${uid}`);
@@ -322,16 +322,16 @@ export async function startGeneration(
     });
     if (sameInput) {
       // 写真を消す前に、この要求 ID と使い回し先の対応を残す (応答を受け取れずに同じ要求 ID で再送されても結果を返せるように)
-      transaction.set(generationAliasDocument({ firestore, uid, requestId }), { reusedRequestId: sameInput.id, createdAt: Timestamp.fromDate(now) });
-      return generationResult({ requestId: sameInput.id, record: sameInput.data() as GenerationRecord });
+      transaction.set(generationAliasDocument({ firestore, uid, requestID }), { reusedRequestID: sameInput.id, createdAt: Timestamp.fromDate(now) });
+      return generationResult({ requestID: sameInput.id, record: sameInput.data() as GenerationRecord });
     }
     const current = await transaction.get(document);
     if (current.exists) {
-      return generationResult({ requestId, record: current.data() as GenerationRecord });
+      return generationResult({ requestID, record: current.data() as GenerationRecord });
     }
     const totalCounterDocument = firestore.doc(`generationDailyCounts/${today}`);
     const totalCounterSnapshot = await transaction.get(totalCounterDocument);
-    assertGenerationLockAvailable({ lock: userSnapshot.get("generationLock"), requestId, now });
+    assertGenerationLockAvailable({ lock: userSnapshot.get("generationLock"), requestID, now });
     const userCount = userSnapshot.get("dailyGeneration.date") === today ? (userSnapshot.get("dailyGeneration.count") as number) : 0;
     // 残高が無いユーザー (チケットを買ったことが無い) はフィールドが無く、0 枚と同じ
     const generationTickets = (userSnapshot.get("generationTickets") as number | undefined) ?? 0;
@@ -351,7 +351,7 @@ export async function startGeneration(
     transaction.set(
       userDocument,
       {
-        generationLock: { requestId, expiresAt: leaseExpiresAt },
+        generationLock: { requestID, expiresAt: leaseExpiresAt },
         dailyGeneration: { date: today, count: userCount + 1 },
         ...(usesGenerationTicket ? { generationTickets: FieldValue.increment(-1) } : {}),
       },
@@ -379,13 +379,13 @@ export async function startGeneration(
   if (reservation !== "reserved") {
     // 別の要求 ID の結果を使い回した時は、今回の要求で置かれた写真とマスクにはレコードが無く、誰も消さないため、ここで消す。
     // 消すのに失敗した時のために、消すタスクを先に積む (タスクも同じパスを消し、無いファイルは無視する)。
-    if (reservation.requestId !== requestId) {
-      await dependencies.enqueueResume({ uid, requestId, purpose: "discard", delaySeconds: FAILED_STAGE_RETRY_DELAY_SECONDS });
+    if (reservation.requestID !== requestID) {
+      await dependencies.enqueueResume({ uid, requestID, purpose: "discard", delaySeconds: FAILED_STAGE_RETRY_DELAY_SECONDS });
       await deleteFiles(bucket, [photoPath, maskPath]);
     }
     return reservation;
   }
-  return advanceGenerationForCaller(dependencies, { uid, requestId, leaseToken });
+  return advanceGenerationForCaller(dependencies, { uid, requestID, leaseToken });
 }
 
 /**
@@ -394,13 +394,13 @@ export async function startGeneration(
  */
 async function advanceGenerationForCaller(
   dependencies: GenerationDependencies,
-  { uid, requestId, leaseToken }: { uid: string; requestId: string; leaseToken: string },
+  { uid, requestID, leaseToken }: { uid: string; requestID: string; leaseToken: string },
 ): Promise<GenerationResult> {
   try {
-    return await advanceGeneration(dependencies, { uid, requestId, leaseToken });
+    return await advanceGeneration(dependencies, { uid, requestID, leaseToken });
   } catch (error) {
     if (error instanceof StageRetryScheduledError) {
-      return generationResult({ requestId, record: (await generationDocument({ firestore: dependencies.firestore, uid, requestId }).get()).data() as GenerationRecord });
+      return generationResult({ requestID, record: (await generationDocument({ firestore: dependencies.firestore, uid, requestID }).get()).data() as GenerationRecord });
     }
     throw error;
   }
@@ -410,24 +410,24 @@ async function advanceGenerationForCaller(
  * 実行が予約の期限までに終わらなかった時 (タイムアウト・インスタンスの停止) に、期限切れの予約を引き継ぐタスクを積む。
  * 予約を取る直前に毎回積む (引き継いだ実行も止まり得るため。予約の後に積むと、積むのに失敗した時に引き継ぐタスクが無くなるため)。
  */
-function enqueueLeaseRecovery(dependencies: GenerationDependencies, { uid, requestId }: { uid: string; requestId: string }): Promise<void> {
-  return dependencies.enqueueResume({ uid, requestId, purpose: "lease", delaySeconds: LEASE_DURATION_SECONDS + 60 });
+function enqueueLeaseRecovery(dependencies: GenerationDependencies, { uid, requestID }: { uid: string; requestID: string }): Promise<void> {
+  return dependencies.enqueueResume({ uid, requestID, purpose: "lease", delaySeconds: LEASE_DURATION_SECONDS + 60 });
 }
 
 /** 既にレコードがある要求 ID の呼び出し。終了状態・判定待ち・予約中はそのまま返し、予約が切れた処理中は引き継ぐ。 */
 async function continueExistingGeneration(
   dependencies: GenerationDependencies,
-  { uid, requestId, record }: { uid: string; requestId: string; record: GenerationRecord },
+  { uid, requestID, record }: { uid: string; requestID: string; record: GenerationRecord },
 ): Promise<GenerationResult> {
   if (!isLeaseAcquirable({ record, now: dependencies.now(), resumingFromPendingJudge: false })) {
-    return generationResult({ requestId, record });
+    return generationResult({ requestID, record });
   }
-  await enqueueLeaseRecovery(dependencies, { uid, requestId });
-  const acquired = await acquireLease(dependencies, { uid, requestId, resumingFromPendingJudge: false });
+  await enqueueLeaseRecovery(dependencies, { uid, requestID });
+  const acquired = await acquireLease(dependencies, { uid, requestID, resumingFromPendingJudge: false });
   if (!("leaseToken" in acquired)) {
     return acquired;
   }
-  return advanceGenerationForCaller(dependencies, { uid, requestId, leaseToken: acquired.leaseToken });
+  return advanceGenerationForCaller(dependencies, { uid, requestID, leaseToken: acquired.leaseToken });
 }
 
 /**
@@ -439,8 +439,8 @@ function isLeaseAcquirable({ record, now, resumingFromPendingJudge }: { record: 
 }
 
 /** uid ごとの生成中ロックが、別の要求 ID に期限内で取られていれば throw する。 */
-function assertGenerationLockAvailable({ lock, requestId, now }: { lock: { requestId: string; expiresAt: Timestamp } | undefined; requestId: string; now: Date }) {
-  if (lock && lock.requestId !== requestId && lock.expiresAt.toMillis() > now.getTime()) {
+function assertGenerationLockAvailable({ lock, requestID, now }: { lock: { requestID: string; expiresAt: Timestamp } | undefined; requestID: string; now: Date }) {
+  if (lock && lock.requestID !== requestID && lock.expiresAt.toMillis() > now.getTime()) {
     throw new GenerationRequestError("another_generation_in_progress", "別の生成が進んでいます。終わってからためしてください");
   }
 }
@@ -453,13 +453,13 @@ async function acquireLease(
   dependencies: GenerationDependencies,
   {
     uid,
-    requestId,
+    requestID,
     resumingFromPendingJudge,
     judgeAttempt,
-  }: { uid: string; requestId: string; resumingFromPendingJudge: boolean; judgeAttempt?: number },
+  }: { uid: string; requestID: string; resumingFromPendingJudge: boolean; judgeAttempt?: number },
 ): Promise<GenerationResult | { leaseToken: string }> {
   const { firestore } = dependencies;
-  const document = generationDocument({ firestore, uid, requestId });
+  const document = generationDocument({ firestore, uid, requestID });
   const now = dependencies.now();
   const leaseToken = randomUUID();
   const outcome = await firestore.runTransaction(async (transaction): Promise<GenerationResult | "acquired" | "exhausted"> => {
@@ -470,20 +470,20 @@ async function acquireLease(
     // アカウントの削除 (account.ts) が始まった後・消し終えた後 (生成のレコードと users/{uid} が消える) は再開しない。
     // 再開すると、消した後に切り出し画像やモンスターを書いて残すため
     if (!snapshot.exists || !userSnapshot.exists || userSnapshot.get("accountDeletionStartedAt") !== undefined) {
-      return { requestId, status: "failed" };
+      return { requestID, status: "failed" };
     }
     // 同じ回の judge のタスクが同時に 2 つ届いても、回数が一致する方の 1 つだけが予約を取る
     const isWaitingJudge = record.status === "pending_judge" && record.judgeRetryCount === judgeAttempt;
     const isExpiredProcessing = record.status === "processing" && record.leaseExpiresAt.toMillis() <= now.getTime();
     if (!(isExpiredProcessing || (isWaitingJudge && resumingFromPendingJudge))) {
-      return generationResult({ requestId, record });
+      return generationResult({ requestID, record });
     }
     if (isExpiredProcessing && record.attemptCount >= MAXIMUM_ATTEMPT_COUNT) {
       return "exhausted";
     }
-    assertGenerationLockAvailable({ lock: userSnapshot.get("generationLock"), requestId, now });
+    assertGenerationLockAvailable({ lock: userSnapshot.get("generationLock"), requestID, now });
     const leaseExpiresAt = Timestamp.fromMillis(now.getTime() + LEASE_DURATION_SECONDS * 1000);
-    transaction.set(userDocument, { generationLock: { requestId, expiresAt: leaseExpiresAt } }, { merge: true });
+    transaction.set(userDocument, { generationLock: { requestID, expiresAt: leaseExpiresAt } }, { merge: true });
     transaction.update(document, {
       status: "processing",
       leaseExpiresAt,
@@ -494,7 +494,7 @@ async function acquireLease(
     return "acquired";
   });
   if (outcome === "exhausted") {
-    return finishGeneration(dependencies, { uid, requestId, update: { status: "failed", failureMessage: `予約を ${MAXIMUM_ATTEMPT_COUNT} 回取っても終わりませんでした` } });
+    return finishGeneration(dependencies, { uid, requestID, update: { status: "failed", failureMessage: `予約を ${MAXIMUM_ATTEMPT_COUNT} 回取っても終わりませんでした` } });
   }
   return outcome === "acquired" ? { leaseToken } : outcome;
 }
@@ -503,58 +503,58 @@ async function acquireLease(
  * 再試行のタスクの本体。judge のタスクは、判定待ちなら 1 回分の再試行として続きから進め、回数の上限を超えたら failed にする。
  * どちらのタスクも、予約が切れた処理中なら引き継ぎ、終了した生成に消し残したファイルがあれば消す。それ以外 (予約中・目的の違う判定待ち) は何もしない。
  */
-export async function resumeGeneration(dependencies: GenerationDependencies, { uid, requestId, purpose, judgeAttempt }: ResumeTask): Promise<GenerationResult> {
-  const snapshot = await generationDocument({ firestore: dependencies.firestore, uid, requestId }).get();
+export async function resumeGeneration(dependencies: GenerationDependencies, { uid, requestID, purpose, judgeAttempt }: ResumeTask): Promise<GenerationResult> {
+  const snapshot = await generationDocument({ firestore: dependencies.firestore, uid, requestID }).get();
   if (!snapshot.exists) {
     // レコードの無い要求 (使い回し・1 日の上限・生成中のロックで受け付けなかった) の写真とマスクを消す。受け付けた要求は、予約より先に
     // 積んだこのタスクが届く頃 (11 分後) には必ずレコードがある。パスは uid と要求 ID から決め、タスクの中身からは受け取らない。
-    await deleteFiles(dependencies.bucket, [`users/${uid}/photos/${requestId}`, `users/${uid}/masks/${requestId}`]);
-    return { requestId, status: "failed" };
+    await deleteFiles(dependencies.bucket, [`users/${uid}/photos/${requestID}`, `users/${uid}/masks/${requestID}`]);
+    return { requestID, status: "failed" };
   }
   const record = snapshot.data() as GenerationRecord;
   if (purpose === "discard") {
-    return generationResult({ requestId, record });
+    return generationResult({ requestID, record });
   }
   if (record.status === "pending_judge" && purpose === "judge" && judgeAttempt !== record.judgeRetryCount) {
     // 進め終えた回の judge のタスクがもう一度届いた
-    return generationResult({ requestId, record });
+    return generationResult({ requestID, record });
   }
   if (TERMINAL_GENERATION_STATUSES.includes(record.status)) {
-    await deleteDiscardedFiles(dependencies, { uid, requestId, record });
-    return generationResult({ requestId, record });
+    await deleteDiscardedFiles(dependencies, { uid, requestID, record });
+    return generationResult({ requestID, record });
   }
   if (record.status === "pending_judge" && purpose !== "judge") {
-    return generationResult({ requestId, record });
+    return generationResult({ requestID, record });
   }
   if (record.status === "pending_judge" && record.judgeRetryCount >= JUDGE_RETRY_MAXIMUM_COUNT) {
     return finishGeneration(dependencies, {
       uid,
-      requestId,
+      requestID,
       update: { status: "failed", failureMessage: `Jev が ${JUDGE_RETRY_MAXIMUM_COUNT} 回の再試行でも答えませんでした` },
     });
   }
   if (!isLeaseAcquirable({ record, now: dependencies.now(), resumingFromPendingJudge: purpose === "judge" })) {
-    return generationResult({ requestId, record });
+    return generationResult({ requestID, record });
   }
-  await enqueueLeaseRecovery(dependencies, { uid, requestId });
+  await enqueueLeaseRecovery(dependencies, { uid, requestID });
   let acquired: GenerationResult | { leaseToken: string };
   try {
-    acquired = await acquireLease(dependencies, { uid, requestId, resumingFromPendingJudge: purpose === "judge", judgeAttempt });
+    acquired = await acquireLease(dependencies, { uid, requestID, resumingFromPendingJudge: purpose === "judge", judgeAttempt });
   } catch (error) {
     if (error instanceof GenerationRequestError && error.code === "another_generation_in_progress") {
       // 同じ uid の別の生成が終わるまで待ってから続ける (直列にするため。ADR 0001「同じ被写体の判定」)。
       // lease のタスクは直前に積んだタスク (ロックの期限より後に届く) が続きを受け持つため、judge のタスクだけを積み直す。
       if (purpose === "judge") {
-        await dependencies.enqueueResume({ uid, requestId, purpose, judgeAttempt, delaySeconds: LEASE_DURATION_SECONDS });
+        await dependencies.enqueueResume({ uid, requestID, purpose, judgeAttempt, delaySeconds: LEASE_DURATION_SECONDS });
       }
-      return generationResult({ requestId, record });
+      return generationResult({ requestID, record });
     }
     throw error;
   }
   if (!("leaseToken" in acquired)) {
     return acquired;
   }
-  return advanceGenerationForCaller(dependencies, { uid, requestId, leaseToken: acquired.leaseToken });
+  return advanceGenerationForCaller(dependencies, { uid, requestID, leaseToken: acquired.leaseToken });
 }
 
 /**
@@ -571,53 +571,53 @@ type StageOutcome =
  */
 async function advanceGeneration(
   dependencies: GenerationDependencies,
-  { uid, requestId, leaseToken }: { uid: string; requestId: string; leaseToken: string },
+  { uid, requestID, leaseToken }: { uid: string; requestID: string; leaseToken: string },
 ): Promise<GenerationResult> {
   const { firestore } = dependencies;
-  const document = generationDocument({ firestore, uid, requestId });
+  const document = generationDocument({ firestore, uid, requestID });
   for (;;) {
     const record = (await document.get()).data() as GenerationRecord;
     if (record.status !== "processing" || record.leaseToken !== leaseToken) {
-      return generationResult({ requestId, record });
+      return generationResult({ requestID, record });
     }
     const nextStage = GENERATION_STAGES[GENERATION_STAGES.indexOf(record.completedStage) + 1];
     let outcome: StageOutcome;
     try {
-      outcome = await runStage(dependencies, { uid, requestId, record, stage: nextStage });
+      outcome = await runStage(dependencies, { uid, requestID, record, stage: nextStage });
     } catch (error) {
       if (error instanceof JevUnavailableError || error instanceof WaitingForOtherGenerationError) {
-        logger.warn("判定待ちにします", { uid, requestId, stage: nextStage, error: error.message });
+        logger.warn("判定待ちにします", { uid, requestID, stage: nextStage, error: error.message });
         // タスクを先に積んでから判定待ちにする。逆の順で積むのに失敗すると、判定待ちを進めるタスクが無いまま止まるため
         // (先に積んで状態の更新が失敗した時は、処理中のまま予約切れを引き継ぐタスクが拾う)。
         // タスクの ID を再試行の回数で決め、同じ回の再試行のタスクが 2 つ積まれないようにする。
         await dependencies.enqueueResume({
           uid,
-          requestId,
+          requestID,
           purpose: "judge",
           delaySeconds: JUDGE_RETRY_INTERVAL_SECONDS,
           judgeAttempt: record.judgeRetryCount,
-          taskId: `${uid}-${requestId}-judge-${record.judgeRetryCount}`,
+          taskID: `${uid}-${requestID}-judge-${record.judgeRetryCount}`,
         });
-        return generationResult({ requestId, record: await releaseLock(dependencies, { uid, requestId, leaseToken, update: { status: "pending_judge" } }) });
+        return generationResult({ requestID, record: await releaseLock(dependencies, { uid, requestID, leaseToken, update: { status: "pending_judge" } }) });
       }
       if (error instanceof ClaudeRefusalError) {
-        return finishGeneration(dependencies, { uid, requestId, leaseToken, update: { status: "rejected", rejectionReason: "refused" } });
+        return finishGeneration(dependencies, { uid, requestID, leaseToken, update: { status: "rejected", rejectionReason: "refused" } });
       }
       if (error instanceof InputChangedError) {
-        return finishGeneration(dependencies, { uid, requestId, leaseToken, update: { status: "failed", failureMessage: error.message } });
+        return finishGeneration(dependencies, { uid, requestID, leaseToken, update: { status: "failed", failureMessage: error.message } });
       }
       // それ以外 (Claude・Vision・Storage の一時的なエラー) は再試行に回す
-      return scheduleStageRetry(dependencies, { uid, requestId, leaseToken, stage: nextStage, error });
+      return scheduleStageRetry(dependencies, { uid, requestID, leaseToken, stage: nextStage, error });
     }
     if (outcome.kind === "finish") {
       try {
-        return await finishGeneration(dependencies, { uid, requestId, leaseToken, update: outcome.update, monster: outcome.monster });
+        return await finishGeneration(dependencies, { uid, requestID, leaseToken, update: outcome.update, monster: outcome.monster });
       } catch (error) {
         // 保存の段階はモンスターの作成を終了状態と同じトランザクションで書くため、その一時的なエラーもほかの段階と同じく再試行に回す
         if (!outcome.monster) {
           throw error;
         }
-        return scheduleStageRetry(dependencies, { uid, requestId, leaseToken, stage: nextStage, error });
+        return scheduleStageRetry(dependencies, { uid, requestID, leaseToken, stage: nextStage, error });
       }
     }
     const written = await firestore.runTransaction(async (transaction) => {
@@ -629,7 +629,7 @@ async function advanceGeneration(
       return true;
     });
     if (!written) {
-      logger.warn("予約が別の実行に引き継がれたため、段階の結果を書かずに抜けます", { uid, requestId, stage: nextStage });
+      logger.warn("予約が別の実行に引き継がれたため、段階の結果を書かずに抜けます", { uid, requestID, stage: nextStage });
     }
   }
 }
@@ -643,10 +643,10 @@ async function advanceGeneration(
  */
 async function releaseLock(
   dependencies: GenerationDependencies,
-  { uid, requestId, leaseToken, update, monster }: { uid: string; requestId: string; leaseToken?: string; update: Partial<GenerationRecord>; monster?: MonsterDocument },
+  { uid, requestID, leaseToken, update, monster }: { uid: string; requestID: string; leaseToken?: string; update: Partial<GenerationRecord>; monster?: MonsterDocument },
 ): Promise<GenerationRecord> {
   const { firestore } = dependencies;
-  const document = generationDocument({ firestore, uid, requestId });
+  const document = generationDocument({ firestore, uid, requestID });
   const monsterDocument = monster && firestore.doc(`users/${uid}/monsters/${monster.definition.id}`);
   return firestore.runTransaction(async (transaction) => {
     const userDocument = firestore.doc(`users/${uid}`);
@@ -668,7 +668,7 @@ async function releaseLock(
     if (monster && monsterDocument && !monsterSnapshot?.exists) {
       transaction.create(monsterDocument, monster);
     }
-    if (userSnapshot.get("generationLock.requestId") === requestId) {
+    if (userSnapshot.get("generationLock.requestID") === requestID) {
       transaction.update(userDocument, { generationLock: FieldValue.delete() });
     }
     transaction.update(document, { ...update, updatedAt: Timestamp.fromDate(dependencies.now()) });
@@ -682,11 +682,11 @@ async function releaseLock(
  */
 async function scheduleStageRetry(
   dependencies: GenerationDependencies,
-  { uid, requestId, leaseToken, stage, error }: { uid: string; requestId: string; leaseToken: string; stage: GenerationStage; error: unknown },
+  { uid, requestID, leaseToken, stage, error }: { uid: string; requestID: string; leaseToken: string; stage: GenerationStage; error: unknown },
 ): Promise<never> {
-  logger.error("生成の段階が失敗しました。再試行に回します", { uid, requestId, stage, error });
-  await releaseLock(dependencies, { uid, requestId, leaseToken, update: { leaseExpiresAt: Timestamp.fromDate(dependencies.now()) } });
-  await dependencies.enqueueResume({ uid, requestId, purpose: "lease", delaySeconds: FAILED_STAGE_RETRY_DELAY_SECONDS });
+  logger.error("生成の段階が失敗しました。再試行に回します", { uid, requestID, stage, error });
+  await releaseLock(dependencies, { uid, requestID, leaseToken, update: { leaseExpiresAt: Timestamp.fromDate(dependencies.now()) } });
+  await dependencies.enqueueResume({ uid, requestID, purpose: "lease", delaySeconds: FAILED_STAGE_RETRY_DELAY_SECONDS });
   throw new StageRetryScheduledError(error);
 }
 
@@ -695,28 +695,28 @@ async function finishGeneration(
   dependencies: GenerationDependencies,
   {
     uid,
-    requestId,
+    requestID,
     leaseToken,
     update,
     monster,
   }: {
     uid: string;
-    requestId: string;
+    requestID: string;
     leaseToken?: string;
     update: Partial<GenerationRecord> & { status: GenerationRecord["status"] };
     monster?: MonsterDocument;
   },
 ): Promise<GenerationResult> {
-  const record = await releaseLock(dependencies, { uid, requestId, leaseToken, update, monster });
-  logger.info("生成を終えました", { uid, requestId, status: record.status, rejectionReason: record.rejectionReason, failureMessage: record.failureMessage });
+  const record = await releaseLock(dependencies, { uid, requestID, leaseToken, update, monster });
+  logger.info("生成を終えました", { uid, requestID, status: record.status, rejectionReason: record.rejectionReason, failureMessage: record.failureMessage });
   try {
-    await deleteDiscardedFiles(dependencies, { uid, requestId, record });
+    await deleteDiscardedFiles(dependencies, { uid, requestID, record });
   } catch (error) {
     // 終了状態は記録済みのため、消し残しは後のタスクで消す (ADR 0001「画像ストレージ」の削除の再試行)。
-    logger.error("生成の後片付けのファイルを消せませんでした。再試行に回します", { uid, requestId, error });
-    await dependencies.enqueueResume({ uid, requestId, purpose: "lease", delaySeconds: FAILED_STAGE_RETRY_DELAY_SECONDS });
+    logger.error("生成の後片付けのファイルを消せませんでした。再試行に回します", { uid, requestID, error });
+    await dependencies.enqueueResume({ uid, requestID, purpose: "lease", delaySeconds: FAILED_STAGE_RETRY_DELAY_SECONDS });
   }
-  return generationResult({ requestId, record });
+  return generationResult({ requestID, record });
 }
 
 /**
@@ -727,7 +727,7 @@ async function finishGeneration(
  */
 async function deleteDiscardedFiles(
   dependencies: GenerationDependencies,
-  { uid, requestId, record }: { uid: string; requestId: string; record: GenerationRecord },
+  { uid, requestID, record }: { uid: string; requestID: string; record: GenerationRecord },
 ): Promise<void> {
   if (!TERMINAL_GENERATION_STATUSES.includes(record.status) || record.filesDeleted) {
     return;
@@ -736,37 +736,37 @@ async function deleteDiscardedFiles(
   // そのモンスターは図鑑に出ていて元の写真と絵を使うため、saved と同じく消さない
   const keepsMonsterFiles =
     record.status === "saved" ||
-    (record.status === "failed" && !!record.monsterId && (await dependencies.firestore.doc(`users/${uid}/monsters/${record.monsterId}`).get()).exists);
+    (record.status === "failed" && !!record.monsterID && (await dependencies.firestore.doc(`users/${uid}/monsters/${record.monsterID}`).get()).exists);
   await deleteFiles(dependencies.bucket, [
     keepsMonsterFiles ? undefined : record.photoPath,
     record.maskPath,
     record.cutoutPath,
-    // 保存の段階で絵を置いた後に failed になった生成の絵。duplicate の monsterId は既存のモンスターなので消さない
-    record.status === "failed" && record.monsterId && !keepsMonsterFiles ? `monsters/${record.monsterId}/art.png` : undefined,
+    // 保存の段階で絵を置いた後に failed になった生成の絵。duplicate の monsterID は既存のモンスターなので消さない
+    record.status === "failed" && record.monsterID && !keepsMonsterFiles ? `monsters/${record.monsterID}/art.png` : undefined,
   ]);
-  await generationDocument({ firestore: dependencies.firestore, uid, requestId }).update({ filesDeleted: true });
+  await generationDocument({ firestore: dependencies.firestore, uid, requestID }).update({ filesDeleted: true });
 }
 
 /** 段階を 1 つ進める。 */
 async function runStage(
   dependencies: GenerationDependencies,
-  { uid, requestId, record, stage }: { uid: string; requestId: string; record: GenerationRecord; stage: GenerationStage },
+  { uid, requestID, record, stage }: { uid: string; requestID: string; record: GenerationRecord; stage: GenerationStage },
 ): Promise<StageOutcome> {
   switch (stage) {
     case "safesearch":
-      return runSafeSearchStage(dependencies, { uid, requestId, record });
+      return runSafeSearchStage(dependencies, { uid, requestID, record });
     case "cutout":
-      return runCutoutStage(dependencies, { uid, requestId, record });
+      return runCutoutStage(dependencies, { uid, requestID, record });
     case "claude":
-      return runClaudeStage(dependencies, { uid, requestId, record });
+      return runClaudeStage(dependencies, { uid, requestID, record });
     case "classify":
       return runClassifyStage(dependencies, record);
     case "dedupe":
-      return runDedupeStage(dependencies, { uid, requestId, record });
+      return runDedupeStage(dependencies, { uid, requestID, record });
     case "judge":
-      return runJudgeStage(dependencies, { uid, requestId, record });
+      return runJudgeStage(dependencies, { uid, requestID, record });
     case "saved":
-      return runSaveStage(dependencies, { requestId, record });
+      return runSaveStage(dependencies, { requestID, record });
     case "uploaded":
       throw new Error("uploaded は予約の時に済む段階で、ここには来ない");
   }
@@ -778,20 +778,20 @@ function rejected(rejectionReason: RejectionReason): StageOutcome {
 
 async function runSafeSearchStage(
   dependencies: GenerationDependencies,
-  { uid, requestId, record }: { uid: string; requestId: string; record: GenerationRecord },
+  { uid, requestID, record }: { uid: string; requestID: string; record: GenerationRecord },
 ): Promise<StageOutcome> {
   // Vision にも縮めた写真を送る (顔・露骨な内容の判定は長辺 1024px で足り、送る量を抑えるため)。
   const annotation = await dependencies.annotateImage(await downscalePhoto((await downloadVerifiedInput(dependencies.bucket, record)).photo));
   const rejectionReason = visionRejectionReason(annotation);
   if (rejectionReason) {
     // 閾値の妥当性を後から見直すため、どの区分で拒否したかを残す (https://github.com/bannzai/snapmon/issues/118 )
-    logger.info("Vision の判定で生成しません", { uid, requestId, rejectionReason, ...visionRejectionLogFields(annotation) });
+    logger.info("Vision の判定で生成しません", { uid, requestID, rejectionReason, ...visionRejectionLogFields(annotation) });
     return rejected(rejectionReason);
   }
   const personDetected = visionDetectsFace(annotation);
   if (personDetected) {
     // 人が写る写真は拒否せず、生まれた時に注意を出す印を残す (https://github.com/bannzai/snapmon/issues/198 )
-    logger.info("Vision が顔を検出しました。生成は続けます", { uid, requestId, ...visionRejectionLogFields(annotation) });
+    logger.info("Vision が顔を検出しました。生成は続けます", { uid, requestID, ...visionRejectionLogFields(annotation) });
   }
   return {
     kind: "next",
@@ -804,20 +804,20 @@ async function runSafeSearchStage(
 
 async function runCutoutStage(
   dependencies: GenerationDependencies,
-  { uid, requestId, record }: { uid: string; requestId: string; record: GenerationRecord },
+  { uid, requestID, record }: { uid: string; requestID: string; record: GenerationRecord },
 ): Promise<StageOutcome> {
   const input = await downloadVerifiedInput(dependencies.bucket, record);
   // マスクが無い (crop しなかった) 写真と、写真のほぼ全体を crop した範囲は、元の写真に近い絵になり他人も読む (DIRECTION.md「決めたこと」
   // 2026-10-28 で受け入れた)。被写体が無い写真も拒否せずに進める
   const { cutoutPng, coverage } = await applyMask({ photo: await downscalePhoto(input.photo), mask: input.mask });
-  const cutoutPath = `users/${uid}/generations/${requestId}/cutout.png`;
+  const cutoutPath = `users/${uid}/generations/${requestID}/cutout.png`;
   await dependencies.bucket.file(cutoutPath).save(cutoutPng, { contentType: "image/png", resumable: false });
   return { kind: "next", update: { cutoutPath, cutoutCoverage: coverage } };
 }
 
 async function runClaudeStage(
   dependencies: GenerationDependencies,
-  { uid, requestId, record }: { uid: string; requestId: string; record: GenerationRecord },
+  { uid, requestID, record }: { uid: string; requestID: string; record: GenerationRecord },
 ): Promise<StageOutcome> {
   const cutoutJpeg = await flattenCutoutForDescription(await downloadFile(dependencies.bucket, record.cutoutPath!));
   const claudeUsages = [...(record.claudeUsages ?? [])];
@@ -829,7 +829,7 @@ async function runClaudeStage(
     if (!violation) {
       if (output.containsPerson) {
         // 顔が写らない人 (体・手) の写真も拒否せず、生まれた時に注意を出す印を残す (https://github.com/bannzai/snapmon/issues/198 )
-        logger.info("Claude が人が写っていると判断しました。生成は続けます", { uid, requestId, containsPerson: true, attempt });
+        logger.info("Claude が人が写っていると判断しました。生成は続けます", { uid, requestID, containsPerson: true, attempt });
       }
       return {
         kind: "next",
@@ -860,21 +860,21 @@ async function runClassifyStage(dependencies: GenerationDependencies, record: Ge
   const { responses, jevInputTokens } = await askJevCounting(dependencies, record, [
     buildClassifyRequest({ description: record.subject!.description, visionLabels: record.visionLabels ?? [], subjectCategories: master.subjectCategories }),
   ]);
-  return { kind: "next", update: { categoryIds: topCategoryIds({ response: responses[0], count: CATEGORY_COUNT }), masterVersion: master.version, jevInputTokens } };
+  return { kind: "next", update: { categoryIDs: topCategoryIDs({ response: responses[0], count: CATEGORY_COUNT }), masterVersion: master.version, jevInputTokens } };
 }
 
 async function runDedupeStage(
   dependencies: GenerationDependencies,
-  { uid, requestId, record }: { uid: string; requestId: string; record: GenerationRecord },
+  { uid, requestID, record }: { uid: string; requestID: string; record: GenerationRecord },
 ): Promise<StageOutcome> {
   const { firestore } = dependencies;
-  const categoryIds = record.categoryIds!;
+  const categoryIDs = record.categoryIDs!;
   const [monsters, generations] = await Promise.all([
-    firestore.collection(`users/${uid}/monsters`).where("categoryIds", "array-contains-any", categoryIds).get(),
-    firestore.collection(`users/${uid}/generations`).where("categoryIds", "array-contains-any", categoryIds).get(),
+    firestore.collection(`users/${uid}/monsters`).where("categoryIDs", "array-contains-any", categoryIDs).get(),
+    firestore.collection(`users/${uid}/generations`).where("categoryIDs", "array-contains-any", categoryIDs).get(),
   ]);
   const candidates: DedupeCandidate[] = [
-    ...monsters.docs.map((document) => ({ candidateId: document.id, description: (document.data() as MonsterDocument).subjectDescription })),
+    ...monsters.docs.map((document) => ({ candidateID: document.id, description: (document.data() as MonsterDocument).subjectDescription })),
     // 保存前で止まっている生成 (判定待ち・一時的なエラーで再試行を待つ処理中) も候補にする。ロックを外した後に同じ被写体を送られても、
     // 止まっている方が再開時に dedupe を飛ばして保存し、二重に登録されないように。
     // 候補にするのは、自分より先に受け付けた生成と、dedupe を済ませた生成 (受け付けた順を問わない)。dedupe を済ませた生成は
@@ -884,47 +884,47 @@ async function runDedupeStage(
       .filter((document) => {
         const generation = document.data() as GenerationRecord;
         const isEarlier =
-          generation.createdAt.toMillis() < record.createdAt.toMillis() || (generation.createdAt.toMillis() === record.createdAt.toMillis() && document.id < requestId);
+          generation.createdAt.toMillis() < record.createdAt.toMillis() || (generation.createdAt.toMillis() === record.createdAt.toMillis() && document.id < requestID);
         const passedDedupe = generation.completedStage === "dedupe" || generation.completedStage === "judge";
         return (
-          document.id !== requestId &&
+          document.id !== requestID &&
           (isEarlier || passedDedupe) &&
           (generation.status === "pending_judge" || generation.status === "processing") &&
           generation.subject
         );
       })
-      .map((document) => ({ candidateId: `generation:${document.id}`, description: (document.data() as GenerationRecord).subject!.description })),
+      .map((document) => ({ candidateID: `generation:${document.id}`, description: (document.data() as GenerationRecord).subject!.description })),
   ];
   if (candidates.length === 0) {
     return { kind: "next", update: {} };
   }
   const { responses, jevInputTokens } = await askJevCounting(dependencies, record, buildDedupeRequests({ description: record.subject!.description, candidates }));
-  const [sameCandidateId] = sameSubjectCandidateIds({ responses, candidates, thresholds: DEDUPE_THRESHOLDS });
-  if (!sameCandidateId) {
+  const [sameCandidateID] = sameSubjectCandidateIDs({ responses, candidates, thresholds: DEDUPE_THRESHOLDS });
+  if (!sameCandidateID) {
     return { kind: "next", update: { jevInputTokens } };
   }
-  if (sameCandidateId.startsWith("generation:")) {
+  if (sameCandidateID.startsWith("generation:")) {
     // 同じ被写体の生成がまだ保存前なら、結果が出るまで判定待ちにして dedupe からやり直す
     // (相手が保存されれば重複としてそのモンスターを返し、失敗すれば候補から外れて保存に進む)。
-    await generationDocument({ firestore, uid, requestId }).update({ jevInputTokens });
-    throw new WaitingForOtherGenerationError(`同じ被写体の生成 ${sameCandidateId} の結果を待ちます`);
+    await generationDocument({ firestore, uid, requestID }).update({ jevInputTokens });
+    throw new WaitingForOtherGenerationError(`同じ被写体の生成 ${sameCandidateID} の結果を待ちます`);
   }
-  return { kind: "finish", update: { status: "duplicate", jevInputTokens, monsterId: sameCandidateId } };
+  return { kind: "finish", update: { status: "duplicate", jevInputTokens, monsterID: sameCandidateID } };
 }
 
 /** master とその場で作った定義の属性・技を合わせる。 */
 function mergeDefinitions({ master, dynamicDefinitions }: { master: Master; dynamicDefinitions: { id: string; definition: DynamicDefinition }[] }) {
-  const masterElementIds = new Set(master.elementTypes.map((elementType) => elementType.id));
-  const masterMoveIds = new Set(master.moves.map((move) => move.id));
+  const masterElementIDs = new Set(master.elementTypes.map((elementType) => elementType.id));
+  const masterMoveIDs = new Set(master.moves.map((move) => move.id));
   return {
-    elementTypes: [...master.elementTypes, ...dynamicDefinitions.flatMap(({ definition }) => definition.elementTypes).filter((elementType) => !masterElementIds.has(elementType.id))],
-    moves: [...master.moves, ...dynamicDefinitions.flatMap(({ definition }) => definition.moves).filter((move) => !masterMoveIds.has(move.id))],
+    elementTypes: [...master.elementTypes, ...dynamicDefinitions.flatMap(({ definition }) => definition.elementTypes).filter((elementType) => !masterElementIDs.has(elementType.id))],
+    moves: [...master.moves, ...dynamicDefinitions.flatMap(({ definition }) => definition.moves).filter((move) => !masterMoveIDs.has(move.id))],
   };
 }
 
 async function runJudgeStage(
   dependencies: GenerationDependencies,
-  { uid, requestId, record }: { uid: string; requestId: string; record: GenerationRecord },
+  { uid, requestID, record }: { uid: string; requestID: string; record: GenerationRecord },
 ): Promise<StageOutcome> {
   const { firestore } = dependencies;
   // classify で記録した版を使う (判定待ちの間に新しい版が入っても、モンスターに記録する版と判定に使った版を揃えるため)。
@@ -934,23 +934,23 @@ async function runJudgeStage(
   const description = record.subject!.description;
   const { responses, jevInputTokens } = await askJevCounting(dependencies, record, [buildJudgeRequest({ description, elementTypes, moves, statGrades: master.statGrades })]);
   const judged = readJudgeResponse({ response: responses[0], statGrades: master.statGrades });
-  let elementTypeIds = selectElementTypeIds({ elementProbabilities: judged.elementProbabilities, master });
+  let elementTypeIDs = selectElementTypeIDs({ elementProbabilities: judged.elementProbabilities, master });
   let judgedMoves = moves;
   let update: Partial<GenerationRecord> = { jevInputTokens };
-  let definitionIds = dynamicDefinitions.map(({ id }) => id);
-  if (elementTypeIds.length === 0) {
+  let definitionIDs = dynamicDefinitions.map(({ id }) => id);
+  if (elementTypeIDs.length === 0) {
     const resolved = await resolveNewElementType(dependencies, {
       uid,
-      requestId,
+      requestID,
       record: { ...record, jevInputTokens },
       master,
       elementTypes,
       dynamicDefinitions,
       elementProbabilities: judged.elementProbabilities,
     });
-    elementTypeIds = [resolved.elementTypeId];
+    elementTypeIDs = [resolved.elementTypeID];
     judgedMoves = [...moves, ...resolved.createdDefinition.moves];
-    definitionIds = [...definitionIds, ...(resolved.createdDefinition.moves.length > 0 ? [resolved.elementTypeId] : [])];
+    definitionIDs = [...definitionIDs, ...(resolved.createdDefinition.moves.length > 0 ? [resolved.elementTypeID] : [])];
     update = { ...update, ...resolved.update };
   }
   return {
@@ -958,22 +958,22 @@ async function runJudgeStage(
     update: {
       ...update,
       judgement: {
-        elementTypeIds,
+        elementTypeIDs,
         learnset: buildLearnset({
-          elementTypeIds,
+          elementTypeIDs,
           elementProbabilities: judged.elementProbabilities,
           moveProbabilitiesByElement: judged.moveProbabilitiesByElement,
           moves: judgedMoves,
           fallbackMoves: master.moves,
           subjectDescriptionText: record.subjectDescriptionText!,
         }),
-        baseStats: baseStatsFromStatGrades({ statGradeIds: judged.statGradeIds, master }),
+        baseStats: baseStatsFromStatGrades({ statGradeIDs: judged.statGradeIDs, master }),
         individualValues: individualValuesFromDescription(record.subjectDescriptionText!),
         // その場で作った定義のうち、このモンスターの属性を持つものだけを参照として残す (定義の ID は属性の ID と同じ)。
-        definitionIds: definitionIds.filter((definitionId) => elementTypeIds.includes(definitionId)),
+        definitionIDs: definitionIDs.filter((definitionID) => elementTypeIDs.includes(definitionID)),
       },
       // 生まれるモンスターの ID を先に決めて残す。保存の段階を再試行しても同じ ID の 1 体だけになるように。
-      monsterId: firestore.collection(`users/${uid}/monsters`).doc().id,
+      monsterID: firestore.collection(`users/${uid}/monsters`).doc().id,
     },
   };
 }
@@ -986,7 +986,7 @@ async function resolveNewElementType(
   dependencies: GenerationDependencies,
   {
     uid,
-    requestId,
+    requestID,
     record,
     master,
     elementTypes,
@@ -994,17 +994,17 @@ async function resolveNewElementType(
     elementProbabilities,
   }: {
     uid: string;
-    requestId: string;
+    requestID: string;
     record: GenerationRecord;
     master: Master;
     elementTypes: MasterElementType[];
     dynamicDefinitions: { id: string; definition: DynamicDefinition }[];
     elementProbabilities: Record<string, number>;
   },
-): Promise<{ elementTypeId: string; createdDefinition: { moves: MasterMove[] }; update: Partial<GenerationRecord> }> {
-  const [bestExistingElementTypeId] = Object.entries(elementProbabilities).sort(([, left], [, right]) => right - left)[0];
-  const reuse = ({ elementTypeId, update }: { elementTypeId: string; update: Partial<GenerationRecord> }) => ({ elementTypeId, createdDefinition: { moves: [] }, update });
-  const fallback = (update: Partial<GenerationRecord>) => reuse({ elementTypeId: bestExistingElementTypeId, update });
+): Promise<{ elementTypeID: string; createdDefinition: { moves: MasterMove[] }; update: Partial<GenerationRecord> }> {
+  const [bestExistingElementTypeID] = Object.entries(elementProbabilities).sort(([, left], [, right]) => right - left)[0];
+  const reuse = ({ elementTypeID, update }: { elementTypeID: string; update: Partial<GenerationRecord> }) => ({ elementTypeID, createdDefinition: { moves: [] }, update });
+  const fallback = (update: Partial<GenerationRecord>) => reuse({ elementTypeID: bestExistingElementTypeID, update });
 
   let proposal = record.elementProposal;
   const claudeUsages = [...(record.claudeUsages ?? [])];
@@ -1013,7 +1013,7 @@ async function resolveNewElementType(
     proposal = proposed.output;
     claudeUsages.push(proposed.usage);
     // Jev が答えず判定待ちになっても、再試行で Claude を呼び直さないよう先に書く。
-    await generationDocument({ firestore: dependencies.firestore, uid, requestId }).update({
+    await generationDocument({ firestore: dependencies.firestore, uid, requestID }).update({
       elementProposal: proposal,
       claudeUsages,
     });
@@ -1028,7 +1028,7 @@ async function resolveNewElementType(
   }
   const sameName = elementTypes.find((elementType) => elementType.displayName === proposal.element.displayName);
   if (sameName) {
-    return reuse({ elementTypeId: sameName.id, update: baseUpdate });
+    return reuse({ elementTypeID: sameName.id, update: baseUpdate });
   }
   const dynamicElementTypes = dynamicDefinitions.flatMap(({ definition }) => definition.elementTypes);
   let jevInputTokens = record.jevInputTokens ?? 0;
@@ -1042,21 +1042,21 @@ async function resolveNewElementType(
       return answer?.type === "noul" && answer.noul >= SAME_DEFINITION_PROBABILITY_THRESHOLD;
     });
     if (same) {
-      return reuse({ elementTypeId: same.id, update: { ...baseUpdate, jevInputTokens } });
+      return reuse({ elementTypeID: same.id, update: { ...baseUpdate, jevInputTokens } });
     }
   }
-  const elementTypeId = `element_${fnv1a32(proposal.element.displayName).toString(16)}`;
+  const elementTypeID = `element_${fnv1a32(proposal.element.displayName).toString(16)}`;
   const definition: DynamicDefinition & { effects: { id: string; displayName: string; kind: string; colorHex: string }[] } = {
     version: 1,
-    elementTypes: [{ id: elementTypeId, displayName: proposal.element.displayName, description: proposal.element.description }],
+    elementTypes: [{ id: elementTypeID, displayName: proposal.element.displayName, description: proposal.element.description }],
     moves: proposal.moves.map((move, index) => ({
-      id: `${elementTypeId}_${index + 1}`,
+      id: `${elementTypeID}_${index + 1}`,
       displayName: move.displayName,
-      elementTypeId,
+      elementTypeID,
       power: move.power,
       powerPoints: move.powerPoints,
       category: "attack",
-      effectId: `${elementTypeId}_particle`,
+      effectID: `${elementTypeID}_particle`,
       learnableLevelMinimum: PROPOSED_MOVE_TIERS[index].learnableLevelMinimum,
       learnableLevelMaximum: PROPOSED_MOVE_TIERS[index].learnableLevelMaximum,
       // rationale を足す前に保存した提案を判定待ちの再試行で使う時は根拠が無く、undefined を Firestore に書くと失敗するため項目ごと省く。
@@ -1064,10 +1064,10 @@ async function resolveNewElementType(
       // 特殊効果を足す前に保存した提案は specialEffect を持たず (undefined)、効果の無い技は null のため、どちらも項目ごと省く。
       ...(move.specialEffect ? { specialEffect: { ...move.specialEffect, power: boundedProposedSpecialEffectPower(move.specialEffect.power) } } : {}),
     })),
-    effects: [{ id: `${elementTypeId}_particle`, displayName: `${proposal.element.displayName}のパーティクル`, kind: "particle", colorHex: proposal.element.colorHex }],
+    effects: [{ id: `${elementTypeID}_particle`, displayName: `${proposal.element.displayName}のパーティクル`, kind: "particle", colorHex: proposal.element.colorHex }],
   };
   const created = await dependencies.firestore.runTransaction(async (transaction: Transaction) => {
-    const definitionDocument = dependencies.firestore.doc(`definitions/${elementTypeId}`);
+    const definitionDocument = dependencies.firestore.doc(`definitions/${elementTypeID}`);
     const counterDocument = dependencies.firestore.doc("definitionCounters/global");
     const [definitionSnapshot, counterSnapshot] = await Promise.all([transaction.get(definitionDocument), transaction.get(counterDocument)]);
     if (definitionSnapshot.exists) {
@@ -1087,16 +1087,16 @@ async function resolveNewElementType(
     return fallback({ ...baseUpdate, jevInputTokens });
   }
   // "exists" は同じ名前の定義を別の生成が先に作った時で、その定義の技は既存の定義の一覧に含まれていないため、作った定義の技として返す。
-  return { elementTypeId, createdDefinition: { moves: definition.moves }, update: { ...baseUpdate, jevInputTokens } };
+  return { elementTypeID, createdDefinition: { moves: definition.moves }, update: { ...baseUpdate, jevInputTokens } };
 }
 
 async function runSaveStage(
   dependencies: GenerationDependencies,
-  { requestId, record }: { requestId: string; record: GenerationRecord },
+  { requestID, record }: { requestID: string; record: GenerationRecord },
 ): Promise<StageOutcome> {
   const { bucket } = dependencies;
-  const monsterId = record.monsterId!;
-  const artPath = `monsters/${monsterId}/art.png`;
+  const monsterID = record.monsterID!;
+  const artPath = `monsters/${monsterID}/art.png`;
   // 絵を先に置く。保存のトランザクションの前に落ちても、再試行が同じ ID で置き直す (同じ中身の上書きで冪等)。
   // 置いたまま失敗が続いて failed になった時は、モンスターの文書が無いため deleteDiscardedFiles が消す。
   if (!(await bucket.file(artPath).exists())[0]) {
@@ -1106,11 +1106,11 @@ async function runSaveStage(
   const judgement = record.judgement!;
   const monster: MonsterDocument = {
     definition: {
-      id: monsterId,
+      id: monsterID,
       sourcePhotoReference: record.photoPath,
       name: subject.name,
       encyclopediaText: subject.encyclopediaText,
-      elementTypeIds: judgement.elementTypeIds,
+      elementTypeIDs: judgement.elementTypeIDs,
       learnset: judgement.learnset,
       baseStats: judgement.baseStats,
       individualValues: judgement.individualValues,
@@ -1123,9 +1123,9 @@ async function runSaveStage(
     decoration: subject.decoration,
     decorationVersion: DECORATION_VERSION,
     subjectDescription: subject.description,
-    categoryIds: record.categoryIds!,
-    definitionIds: judgement.definitionIds,
-    generationRequestId: requestId,
+    categoryIDs: record.categoryIDs!,
+    definitionIDs: judgement.definitionIDs,
+    generationRequestID: requestID,
     createdAt: Timestamp.fromDate(dependencies.now()),
   };
   // モンスターの文書は saved と同じトランザクションで finishGeneration が作る。中間のファイルは saved を記録した後に消す

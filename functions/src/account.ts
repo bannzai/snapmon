@@ -17,7 +17,7 @@ import { FUNCTIONS_SERVICE_ACCOUNT } from "./service_account";
 export interface AccountFileDeletionTask {
   /** 削除したユーザー。Storage の `users/{uid}/` の配下を消す。 */
   uid: string;
-  /** そのユーザーのモンスターの絵 (`monsters/{monsterId}/art.png`)。Firestore を消した後は引けないため、タスクに持たせる。 */
+  /** そのユーザーのモンスターの絵 (`monsters/{monsterID}/art.png`)。Firestore を消した後は引けないため、タスクに持たせる。 */
   artPaths: string[];
   /**
    * Firestore の `users/{uid}` も消すか。Auth を消し終えた後に積んだタスクだけが true。削除の途中に積んだタスクで消すと、
@@ -79,8 +79,8 @@ export async function deleteAccountData(dependencies: AccountDeletionDependencie
     ...new Set([
       ...monsters.docs.map((monster) => monster.get("artPath") as string | undefined),
       ...generations.docs.map((generation) => {
-        const monsterId = generation.get("monsterId") as string | undefined;
-        return monsterId ? `monsters/${monsterId}/art.png` : undefined;
+        const monsterID = generation.get("monsterID") as string | undefined;
+        return monsterID ? `monsters/${monsterID}/art.png` : undefined;
       }),
     ]),
   ].filter((path): path is string => !!path && ART_PATH_PATTERN.test(path));

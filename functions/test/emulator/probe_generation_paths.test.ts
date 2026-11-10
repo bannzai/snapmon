@@ -22,8 +22,8 @@ import type { VisionAnnotation } from "../../src/generation/vision";
 // 呼ぶ generatePhoto を渡し、テスト写真のすべての経路が expectations.json のとおりになることを確かめる。
 // 外部の API (Vision・Claude・Jev) は写真ごとに答えを決めたモックにする。同じ被写体かは、較正のラベル (fixtures/calibration/labels.json) で答える。
 
-const projectId = "demo-snapmon";
-const app = getApps().find((existing) => existing.name === "probe-generation-paths-test") ?? initializeApp({ projectId }, "probe-generation-paths-test");
+const projectID = "demo-snapmon";
+const app = getApps().find((existing) => existing.name === "probe-generation-paths-test") ?? initializeApp({ projectId: projectID }, "probe-generation-paths-test");
 const firestore = getFirestore(app);
 const bucket = getStorage(app).bucket("snapmon-prod-storage");
 const fixturesDirectory = path.join(__dirname, "..", "fixtures");
@@ -32,7 +32,7 @@ const calibrationDescriptions = JSON.parse(readFileSync(path.join(fixturesDirect
 const calibrationLabels = JSON.parse(readFileSync(path.join(fixturesDirectory, "calibration", "labels.json"), "utf8")) as { dedupe: { same: [string, string][] } };
 
 /** テスト写真から、同じ写真の較正の見本の ID (LICENSES.md の「較正の NN.jpg」)。 */
-const calibrationIdByPhotoName: Record<string, string> = {
+const calibrationIDByPhotoName: Record<string, string> = {
   "ordinary/mug.jpg": "01",
   "ordinary/scissors.jpg": "15",
   "ordinary/cactus.jpg": "04",
@@ -57,11 +57,11 @@ function backgroundDescription(photoName: string): DescribeSubjectOutput {
 }
 
 /** 説明 (正規化した JSON 文字列) から、その説明を返した写真の較正の見本の ID。較正の見本に無い説明は undefined。 */
-const calibrationIdByDescriptionText = new Map(Object.entries(calibrationDescriptions).map(([calibrationId, output]) => [canonicalDescriptionText(output.description), calibrationId]));
+const calibrationIDByDescriptionText = new Map(Object.entries(calibrationDescriptions).map(([calibrationID, output]) => [canonicalDescriptionText(output.description), calibrationID]));
 
 /** 較正のラベルで同じ個体とした組か。 */
-function isSameSubject(leftId: string | undefined, rightId: string | undefined): boolean {
-  return calibrationLabels.dedupe.same.some(([first, second]) => (first === leftId && second === rightId) || (first === rightId && second === leftId));
+function isSameSubject(leftID: string | undefined, rightID: string | undefined): boolean {
+  return calibrationLabels.dedupe.same.some(([first, second]) => (first === leftID && second === rightID) || (first === rightID && second === leftID));
 }
 
 /** Auth のユーザーが残っている uid。 */
@@ -98,8 +98,8 @@ function createDependencies({ jevSaysDifferentForAll = false }: { jevSaysDiffere
         labelAnnotations: [{ description: "Object", score: 0.9 }],
       }),
       describeSubject: async () => {
-        const calibrationId = calibrationIdByPhotoName[state.currentPhotoName];
-        const output = calibrationId ? calibrationDescriptions[calibrationId] : backgroundDescription(state.currentPhotoName);
+        const calibrationID = calibrationIDByPhotoName[state.currentPhotoName];
+        const output = calibrationID ? calibrationDescriptions[calibrationID] : backgroundDescription(state.currentPhotoName);
         return { output: { ...output, containsPerson: containsPersonPhotoNames.has(state.currentPhotoName) }, usage: { inputTokens: 1500, outputTokens: 700 } };
       },
       proposeElement: async () => {
@@ -107,7 +107,7 @@ function createDependencies({ jevSaysDifferentForAll = false }: { jevSaysDiffere
       },
       // 物の分類は tableware、ステータスはふつう、属性は steel と答え、同じ被写体かは較正のラベルで答える
       askJev: async (request) => {
-        const subjectId = calibrationIdByDescriptionText.get(canonicalDescriptionText((request.state as { subject: DescribeSubjectOutput["description"] }).subject));
+        const subjectID = calibrationIDByDescriptionText.get(canonicalDescriptionText((request.state as { subject: DescribeSubjectOutput["description"] }).subject));
         const answers: JevResponse["answers"] = {};
         for (const [name, question] of Object.entries(request.questions) as [string, JevQuestion][]) {
           if (question.type === "choice") {
@@ -118,7 +118,7 @@ function createDependencies({ jevSaysDifferentForAll = false }: { jevSaysDiffere
           } else if (name.startsWith("same__") || name.startsWith("different__")) {
             const same =
               !jevSaysDifferentForAll &&
-              isSameSubject(subjectId, calibrationIdByDescriptionText.get(canonicalDescriptionText((question.instructions as { candidate: DescribeSubjectOutput["description"] }).candidate)));
+              isSameSubject(subjectID, calibrationIDByDescriptionText.get(canonicalDescriptionText((question.instructions as { candidate: DescribeSubjectOutput["description"] }).candidate)));
             answers[name] = { type: "noul", noul: name.startsWith("same__") === same ? 0.95 : 0.05 };
           } else if (name.startsWith("element__")) {
             answers[name] = { type: "noul", noul: name === "element__steel" ? 0.9 : 0.05 };
@@ -138,19 +138,19 @@ function createDependencies({ jevSaysDifferentForAll = false }: { jevSaysDiffere
 function createGeneratePhoto({ state, dependencies }: ReturnType<typeof createDependencies>) {
   return async ({ photoName, photo }: { photoName: string; photo: Buffer }) => {
     state.currentPhotoName = photoName;
-    const requestId = randomUUID();
-    const photoPath = `users/prober/photos/${requestId}`;
+    const requestID = randomUUID();
+    const photoPath = `users/prober/photos/${requestID}`;
     await bucket.file(photoPath).save(photo, { contentType: "image/jpeg", resumable: false });
-    await handleGenerateRequest(dependencies, { auth: { uid: "prober", token: {} } as never, data: { requestId, photoPath } });
-    const record = (await firestore.doc(`users/prober/generations/${requestId}`).get()).data() as GenerationRecord;
-    const monster = record.monsterId ? ((await firestore.doc(`users/prober/monsters/${record.monsterId}`).get()).data() as MonsterDocument | undefined) : undefined;
+    await handleGenerateRequest(dependencies, { auth: { uid: "prober", token: {} } as never, data: { requestID, photoPath } });
+    const record = (await firestore.doc(`users/prober/generations/${requestID}`).get()).data() as GenerationRecord;
+    const monster = record.monsterID ? ((await firestore.doc(`users/prober/monsters/${record.monsterID}`).get()).data() as MonsterDocument | undefined) : undefined;
     return {
       status: record.status,
       rejectionReason: record.rejectionReason,
       personDetected: record.personDetected,
-      monsterId: record.monsterId,
+      monsterID: record.monsterID,
       monsterName: monster?.definition.name,
-      elementTypeIds: monster?.definition.elementTypeIds,
+      elementTypeIDs: monster?.definition.elementTypeIDs,
       claudeUsages: record.claudeUsages,
       jevInputTokens: record.jevInputTokens,
       failureMessage: record.failureMessage,
@@ -159,7 +159,7 @@ function createGeneratePhoto({ state, dependencies }: ReturnType<typeof createDe
 }
 
 beforeEach(async () => {
-  await fetch(`http://127.0.0.1:8080/emulator/v1/projects/${projectId}/databases/(default)/documents`, { method: "DELETE" });
+  await fetch(`http://127.0.0.1:8080/emulator/v1/projects/${projectID}/databases/(default)/documents`, { method: "DELETE" });
   await firestore.doc(`master/${master.version}`).set(master);
   const [files] = await bucket.getFiles();
   await Promise.all(files.map((file) => file.delete({ ignoreNotFound: true })));

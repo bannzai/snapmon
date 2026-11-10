@@ -26,31 +26,31 @@ const artDirectory = path.join(root, "..", "assets", "samples", "art");
  */
 const SAMPLE_PHOTOS = [
   {
-    monsterId: "sample-mugmon",
+    monsterID: "sample-mugmon",
     commonsFile: "Bucharest mug (Unsplash).jpg",
     crop: { left: 0.15, top: 0.35, width: 0.45, height: 0.48 },
   },
   {
-    monsterId: "sample-petbottler",
+    monsterID: "sample-petbottler",
     commonsFile: "Bottle of Water.jpg",
     crop: { left: 0.33, top: 0.08, width: 0.35, height: 0.8 },
   },
   {
-    monsterId: "sample-keybon",
+    monsterID: "sample-keybon",
     commonsFile: "Black Computer keyboard.jpg",
     crop: { left: 0, top: 0.4, width: 0.655, height: 0.42 },
   },
   {
-    monsterId: "sample-ringora",
+    monsterID: "sample-ringora",
     commonsFile: "Red delicious Apple.jpg",
     crop: { left: 0.1, top: 0.3, width: 0.8, height: 0.6 },
   },
   {
-    monsterId: "sample-noton",
+    monsterID: "sample-noton",
     commonsFile: "Leather notebook (Unsplash).jpg",
     crop: { left: 0.615, top: 0.17, width: 0.315, height: 0.51 },
   },
-  { monsterId: "sample-slippan", commonsFile: "Slippers MET 69.108.371a-b CP4.jpg" },
+  { monsterID: "sample-slippan", commonsFile: "Slippers MET 69.108.371a-b CP4.jpg" },
 ];
 
 /** Commons から取る縮小版の幅 (px)。切り出しは長辺 1024px に縮めてから行う (cutout.ts の CUTOUT_PHOTO_LONG_SIDE_MAXIMUM) ため、切り詰めた後もそれを下回りにくい幅にした。 */
@@ -106,23 +106,23 @@ async function cropPhoto({ photo, crop }) {
 const workDirectory = mkdtempSync(path.join(tmpdir(), "snapmon-sample-art-"));
 
 /** [photo] の前景の被写体のマスクの PNG を、scripts/subject-mask.swift (アプリの iOS と同じ Vision の API) で作る。前景が無ければ throw する。 */
-function createSubjectMask({ monsterId, photo }) {
-  const photoPath = path.join(workDirectory, `${monsterId}.jpg`);
-  const maskPath = path.join(workDirectory, `${monsterId}-mask.png`);
+function createSubjectMask({ monsterID, photo }) {
+  const photoPath = path.join(workDirectory, `${monsterID}.jpg`);
+  const maskPath = path.join(workDirectory, `${monsterID}-mask.png`);
   writeFileSync(photoPath, photo);
   execFileSync("swift", [path.join(root, "scripts", "subject-mask.swift"), photoPath, maskPath], { stdio: "inherit" });
   return readFileSync(maskPath);
 }
 
 mkdirSync(artDirectory, { recursive: true });
-for (const { monsterId, commonsFile, crop } of SAMPLE_PHOTOS) {
+for (const { monsterID, commonsFile, crop } of SAMPLE_PHOTOS) {
   const photo = await cutout.downscalePhoto(await cropPhoto({ photo: await fetchCommonsPhoto(commonsFile), crop }));
   // 被写体の画素が無いマスクは applyMask が写真全体を返すため、見本の絵として使わずに止める
-  const { cutoutPng, coverage } = await cutout.applyMask({ photo, mask: createSubjectMask({ monsterId, photo }) });
+  const { cutoutPng, coverage } = await cutout.applyMask({ photo, mask: createSubjectMask({ monsterID, photo }) });
   if (coverage === 1) {
-    console.error(`${monsterId}: 被写体を切り出せませんでした (マスクが写真全体)`);
+    console.error(`${monsterID}: 被写体を切り出せませんでした (マスクが写真全体)`);
     process.exit(1);
   }
-  writeFileSync(path.join(artDirectory, `${monsterId}.png`), cutoutPng);
-  console.log(`${monsterId}: 被写体の割合 ${(coverage * 100).toFixed(1)}%`);
+  writeFileSync(path.join(artDirectory, `${monsterID}.png`), cutoutPng);
+  console.log(`${monsterID}: 被写体の割合 ${(coverage * 100).toFixed(1)}%`);
 }

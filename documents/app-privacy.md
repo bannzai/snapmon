@@ -8,12 +8,12 @@ App Store の App Privacy (`fastlane/app_privacy_details.json`) と Google Play 
 
 | データ | 出どころ (実装) | App Store の種別 | 用途 | ユーザーに紐付くか |
 | --- | --- | --- | --- | --- |
-| 撮影・選択した写真 | `lib/firebase/monster_generation.dart` が Storage の `users/{uid}/photos/{requestId}` に、アイコンにする写真は `lib/firebase/pvp.dart` が `users/{uid}/iconUploads/{uploadId}` に送る | Photos or Videos | App Functionality | 紐付く (uid のパスに置く) |
+| 撮影・選択した写真 | `lib/firebase/monster_generation.dart` が Storage の `users/{uid}/photos/{requestID}` に、アイコンにする写真は `lib/firebase/pvp.dart` が `users/{uid}/iconUploads/{uploadID}` に送る | Photos or Videos | App Functionality | 紐付く (uid のパスに置く) |
 | 生成したモンスター・手持ち・バトルの記録 | Firestore の `users/{uid}/monsters`・`party/current`・`battles` (`.claude/rules/firestore.md`) | Gameplay Content | App Functionality | 紐付く |
-| 表示名・アイコン・通報の内容 | Functions の setDisplayName が `users/{uid}.displayName` に、setProfileIcon が `users/{uid}.iconPath` (検査を通した写真を正方形にした `users/{uid}/icons/`) に、reportMonster が `reports/{reporterUid}_{monsterId}` に書く | Other User Content | App Functionality | 紐付く |
+| 表示名・アイコン・通報の内容 | Functions の setDisplayName が `users/{uid}.displayName` に、setProfileIcon が `users/{uid}.iconPath` (検査を通した写真を正方形にした `users/{uid}/icons/`) に、reportMonster が `reports/{reporterUid}_{monsterID}` に書く | Other User Content | App Functionality | 紐付く |
 | Firebase Authentication の uid | 匿名ログイン (`lib/firebase/session.dart`)。PvP の通報・ブロックの宛先にも使う。RevenueCat のアプリのユーザー ID にも使う (`lib/firebase/purchases.dart`) | User ID | App Functionality・Analytics | 紐付く |
-| 生成チケットの購入の履歴 | ストアの購入を RevenueCat の SDK が RevenueCat へ送り (`lib/firebase/purchases.dart`)、webhook が `users/{uid}/ticketPurchases/{eventId}` に書く (`functions/src/generation_tickets.ts`) | Purchase History | App Functionality・Analytics | 紐付く |
-| Action Card の購入の履歴と買い切った技 | ストアの購入を RevenueCat の SDK が RevenueCat へ送り、webhook が `users/{uid}/actionCardPurchases/{eventId}` に購入と買い切った技を書き、買う前に控えた技を reserveActionCardMove が `users/{uid}.actionCardMoveReservation` に、選び直した技を assignActionCardMove が同じ購入に書く (`functions/src/generation_tickets.ts`・`functions/src/action_cards.ts`)。アプリの購入画面は `lib/features/action_card/` | Purchase History | App Functionality・Analytics | 紐付く |
+| 生成チケットの購入の履歴 | ストアの購入を RevenueCat の SDK が RevenueCat へ送り (`lib/firebase/purchases.dart`)、webhook が `users/{uid}/ticketPurchases/{eventID}` に書く (`functions/src/generation_tickets.ts`) | Purchase History | App Functionality・Analytics | 紐付く |
+| Action Card の購入の履歴と買い切った技 | ストアの購入を RevenueCat の SDK が RevenueCat へ送り、webhook が `users/{uid}/actionCardPurchases/{eventID}` に購入と買い切った技を書き、買う前に控えた技を reserveActionCardMove が `users/{uid}.actionCardMoveReservation` に、選び直した技を assignActionCardMove が同じ購入に書く (`functions/src/generation_tickets.ts`・`functions/src/action_cards.ts`)。アプリの購入画面は `lib/features/action_card/` | Purchase History | App Functionality・Analytics | 紐付く |
 | メールアドレス・名前 | Apple / Google の連携 (`lib/firebase/account.dart`) で、プロバイダが渡した値を Firebase Authentication がユーザーに保存する | Email Address・Name | App Functionality | 紐付く |
 | 利用状況のイベント | Google Analytics for Firebase (`lib/analytics/analytics_events.dart`) | Product Interaction | Analytics | 紐付かない |
 | アプリインスタンス ID | Google Analytics for Firebase が自動で割り当てる | Device ID | Analytics | 紐付かない |

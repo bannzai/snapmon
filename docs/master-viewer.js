@@ -26,15 +26,15 @@ export const MASTER_SECTIONS = [
  * 解決した URL が http・https 以外 (`javascript:` 等) の時は throw する。ページは URL をリンクに出すため、
  * 他人が作った `?src=javascript:...` の URL を開いてリンクを押すとページのオリジンでスクリプトが動くのを防ぐ
  */
-export function resolveMasterUrl(pageHref) {
-  const pageUrl = new URL(pageHref);
-  const src = pageUrl.searchParams.get('src');
+export function resolveMasterURL(pageHref) {
+  const pageURL = new URL(pageHref);
+  const src = pageURL.searchParams.get('src');
   if (!src) return DEFAULT_MASTER_URL;
-  const masterUrl = new URL(src, pageUrl);
-  if (masterUrl.protocol !== 'http:' && masterUrl.protocol !== 'https:') {
-    throw new Error(`src に http・https 以外の URL は使えません (${masterUrl.protocol})`);
+  const masterURL = new URL(src, pageURL);
+  if (masterURL.protocol !== 'http:' && masterURL.protocol !== 'https:') {
+    throw new Error(`src に http・https 以外の URL は使えません (${masterURL.protocol})`);
   }
-  return masterUrl.href;
+  return masterURL.href;
 }
 
 /** master.json にあるのに MASTER_SECTIONS に無いキーを返す。ページはこれを警告として出し、黙って落とさない */
@@ -57,10 +57,10 @@ export function isColorHex(colorHex) {
   return /^#[0-9a-fA-F]{6}$/.test(colorHex);
 }
 
-/** 属性の ID (elementTypeId) の表示名を master.elementTypes から返す。見つからなければ ID をそのまま返す。
+/** 属性の ID (elementTypeID) の表示名を master.elementTypes から返す。見つからなければ ID をそのまま返す。
  * elementTypes に無い属性を技が指す master でも表を落とさず、どの属性 ID が抜けているかを表で見つけられるようにするため */
-export function elementTypeDisplayName(master, elementTypeId) {
-  return master.elementTypes.find((elementType) => elementType.id === elementTypeId)?.displayName ?? elementTypeId;
+export function elementTypeDisplayName(master, elementTypeID) {
+  return master.elementTypes.find((elementType) => elementType.id === elementTypeID)?.displayName ?? elementTypeID;
 }
 
 /** 技 (move) 1 件をフィードバック向けの 1 行 (例: `metal_1 ブリキパンチ 金属 威力 40 PP 30 Lv 1-30`) にして返す */
@@ -68,7 +68,7 @@ export function moveFeedbackLine(master, move) {
   const parts = [
     move.id,
     move.displayName,
-    elementTypeDisplayName(master, move.elementTypeId),
+    elementTypeDisplayName(master, move.elementTypeID),
     `威力 ${move.power}`,
     `PP ${move.powerPoints}`,
     `Lv ${move.learnableLevelMinimum}-${move.learnableLevelMaximum}`,
@@ -95,9 +95,9 @@ export function elementTypeFeedbackLine(elementType) {
   return `${elementType.id} ${elementType.displayName} ${elementType.description}`;
 }
 
-/** 相性表の 1 セル (攻撃側 attackerId が防御側 defenderId に与える倍率 multiplier) をフィードバック向けの 1 行にして返す */
-export function typeChartCellFeedbackLine(master, attackerId, defenderId, multiplier) {
-  return `相性 ${attackerId} ${elementTypeDisplayName(master, attackerId)} → ${defenderId} ${elementTypeDisplayName(master, defenderId)} ${multiplier} 倍`;
+/** 相性表の 1 セル (攻撃側 attackerID が防御側 defenderID に与える倍率 multiplier) をフィードバック向けの 1 行にして返す */
+export function typeChartCellFeedbackLine(master, attackerID, defenderID, multiplier) {
+  return `相性 ${attackerID} ${elementTypeDisplayName(master, attackerID)} → ${defenderID} ${elementTypeDisplayName(master, defenderID)} ${multiplier} 倍`;
 }
 
 /**
@@ -108,22 +108,22 @@ export function typeChartCellFeedbackLine(master, attackerId, defenderId, multip
  */
 export function buildDiff(master, edits) {
   const diff = {};
-  for (const [moveId, fields] of Object.entries(edits.moves ?? {})) {
-    const originalMove = master.moves.find((move) => move.id === moveId);
+  for (const [moveID, fields] of Object.entries(edits.moves ?? {})) {
+    const originalMove = master.moves.find((move) => move.id === moveID);
     if (!originalMove) continue;
     for (const [field, value] of Object.entries(fields)) {
       if (originalMove[field] === value) continue;
       diff.moves ??= {};
-      diff.moves[moveId] ??= {};
-      diff.moves[moveId][field] = value;
+      diff.moves[moveID] ??= {};
+      diff.moves[moveID][field] = value;
     }
   }
-  for (const [attackerId, row] of Object.entries(edits.typeChart ?? {})) {
-    for (const [defenderId, value] of Object.entries(row)) {
-      if (master.typeChart[attackerId]?.[defenderId] === value) continue;
+  for (const [attackerID, row] of Object.entries(edits.typeChart ?? {})) {
+    for (const [defenderID, value] of Object.entries(row)) {
+      if (master.typeChart[attackerID]?.[defenderID] === value) continue;
       diff.typeChart ??= {};
-      diff.typeChart[attackerId] ??= {};
-      diff.typeChart[attackerId][defenderId] = value;
+      diff.typeChart[attackerID] ??= {};
+      diff.typeChart[attackerID][defenderID] = value;
     }
   }
   return Object.keys(diff).length === 0 ? null : { baseVersion: master.version, ...diff };

@@ -22,7 +22,7 @@ import { requireSignedInUid } from "./battle";
 import { fetchLatestMaster, learnableMoves } from "./generation/master";
 import type { ActionCardPurchaseDocument } from "./generation_tickets";
 import { requireActiveAccount } from "./pvp";
-import { isDocumentId } from "./pvp_rules";
+import { isDocumentID } from "./pvp_rules";
 
 /**
  * 技ごとの Action Card の商品の表 (`actionCardProducts/current`)。updateActionCardProducts が毎日書き、購入の画面と
@@ -107,17 +107,17 @@ export async function updateActionCardProductsWith({ firestore, now }: { firesto
     fetchLatestMaster(firestore),
     firestore.getAll(...previousDayKeys({ now, days: MOVE_USAGE_WINDOW_DAYS }).map((dayKey) => firestore.doc(`moveUsageDailyCounts/${dayKey}`))),
   ]);
-  const usageCountByMoveId: Record<string, number> = {};
+  const usageCountByMoveID: Record<string, number> = {};
   for (const snapshot of usageSnapshots) {
-    for (const [moveId, count] of Object.entries((snapshot.get("counts") ?? {}) as Record<string, unknown>)) {
+    for (const [moveID, count] of Object.entries((snapshot.get("counts") ?? {}) as Record<string, unknown>)) {
       if (typeof count === "number") {
-        usageCountByMoveId[moveId] = (usageCountByMoveId[moveId] ?? 0) + count;
+        usageCountByMoveID[moveID] = (usageCountByMoveID[moveID] ?? 0) + count;
       }
     }
   }
   const actionCardProducts: ActionCardProductsDocument = {
     version: master.version,
-    productIDByMoveID: computeActionCardProductIDByMoveID({ moves: learnableMoves(master.moves), usageCountByMoveId }),
+    productIDByMoveID: computeActionCardProductIDByMoveID({ moves: learnableMoves(master.moves), usageCountByMoveID }),
     computedAt: Timestamp.fromDate(now),
     usageWindowDays: MOVE_USAGE_WINDOW_DAYS,
   };
@@ -146,7 +146,7 @@ export const updateActionCardProducts = onSchedule({ schedule: "0 4 * * *", time
 export const reserveActionCardMove = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async (request) => {
   const uid = requireSignedInUid({ request });
   const { moveID, productID } = (request.data ?? {}) as { moveID?: unknown; productID?: unknown };
-  if (!isDocumentId(moveID) || typeof productID !== "string" || !isActionCardProductID(productID)) {
+  if (!isDocumentID(moveID) || typeof productID !== "string" || !isActionCardProductID(productID)) {
     throw new HttpsError("invalid-argument", "moveID と productID (Action Card の商品の ID) を渡してください");
   }
   const firestore = getFirestore();
@@ -190,7 +190,7 @@ export const reserveActionCardMove = onCall({ enforceAppCheck: ENFORCE_APP_CHECK
 export const assignActionCardMove = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async (request) => {
   const uid = requireSignedInUid({ request });
   const { actionCardPurchaseID, moveID } = (request.data ?? {}) as { actionCardPurchaseID?: unknown; moveID?: unknown };
-  if (!isDocumentId(actionCardPurchaseID) || !isDocumentId(moveID)) {
+  if (!isDocumentID(actionCardPurchaseID) || !isDocumentID(moveID)) {
     throw new HttpsError("invalid-argument", "actionCardPurchaseID と moveID を渡してください");
   }
   const firestore = getFirestore();
@@ -212,7 +212,7 @@ export const assignActionCardMove = onCall({ enforceAppCheck: ENFORCE_APP_CHECK 
     if (await ownsActionCardMove({ firestore, transaction, uid, moveID })) {
       throw new HttpsError("already-exists", `${moveID} は買い切り済みです`);
     }
-    const purchasedProductID = purchaseSnapshot.get("productId") as string;
+    const purchasedProductID = purchaseSnapshot.get("productID") as string;
     if (moveProductID !== purchasedProductID) {
       throw new HttpsError("failed-precondition", `${purchasedProductID} の Action Card では ${moveProductID} で買う技 ${moveID} を受け取れません`);
     }
@@ -221,67 +221,67 @@ export const assignActionCardMove = onCall({ enforceAppCheck: ENFORCE_APP_CHECK 
   });
 });
 
-/** teach・forget の callable の request.data `{ monsterId, moveId }` を確かめて返す。形が違えば invalid-argument を投げる。 */
-function monsterMoveArguments(requestData: unknown): { monsterId: string; moveId: string } {
-  const { monsterId, moveId } = (requestData ?? {}) as { monsterId?: unknown; moveId?: unknown };
-  if (!isDocumentId(monsterId) || !isDocumentId(moveId)) {
-    throw new HttpsError("invalid-argument", "monsterId と moveId を渡してください");
+/** teach・forget の callable の request.data `{ monsterID, moveID }` を確かめて返す。形が違えば invalid-argument を投げる。 */
+function monsterMoveArguments(requestData: unknown): { monsterID: string; moveID: string } {
+  const { monsterID, moveID } = (requestData ?? {}) as { monsterID?: unknown; moveID?: unknown };
+  if (!isDocumentID(monsterID) || !isDocumentID(moveID)) {
+    throw new HttpsError("invalid-argument", "monsterID と moveID を渡してください");
   }
-  return { monsterId, moveId };
+  return { monsterID, moveID };
 }
 
 /**
  * 買い切った技を本人のモンスターに覚えさせる callable。
  *
- * 受け取る data: `{ monsterId: string, moveId: string }`。返す値: `{ actionCardMoveIds: string[] }` (覚えさせた後の一覧)。
- * `users/{uid}/monsters/{monsterId}.actionCardMoveIds` の末尾に足す (既に入っていれば変えない。冪等)。生まれた時の learnset は書き換えない。
+ * 受け取る data: `{ monsterID: string, moveID: string }`。返す値: `{ actionCardMoveIDs: string[] }` (覚えさせた後の一覧)。
+ * `users/{uid}/monsters/{monsterID}.actionCardMoveIDs` の末尾に足す (既に入っていれば変えない。冪等)。生まれた時の learnset は書き換えない。
  * 買い切っていない技は failed-precondition、図鑑に無いモンスター (他人のモンスターを含む) は not-found。
  */
 export const teachActionCardMove = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async (request) => {
   const uid = requireSignedInUid({ request });
-  const { monsterId, moveId } = monsterMoveArguments(request.data);
+  const { monsterID, moveID } = monsterMoveArguments(request.data);
   const firestore = getFirestore();
-  const monsterDocument = firestore.doc(`users/${uid}/monsters/${monsterId}`);
+  const monsterDocument = firestore.doc(`users/${uid}/monsters/${monsterID}`);
   return firestore.runTransaction(async (transaction) => {
     const [userSnapshot, monsterSnapshot] = await transaction.getAll(firestore.doc(`users/${uid}`), monsterDocument);
     requireActiveAccount({ userSnapshot });
     if (!monsterSnapshot.exists) {
-      throw new HttpsError("not-found", `図鑑にモンスター ${monsterId} はいません`);
+      throw new HttpsError("not-found", `図鑑にモンスター ${monsterID} はいません`);
     }
-    if (!(await ownsActionCardMove({ firestore, transaction, uid, moveID: moveId }))) {
-      throw new HttpsError("failed-precondition", `${moveId} を買い切っていません`);
+    if (!(await ownsActionCardMove({ firestore, transaction, uid, moveID: moveID }))) {
+      throw new HttpsError("failed-precondition", `${moveID} を買い切っていません`);
     }
-    const actionCardMoveIds = (monsterSnapshot.get("actionCardMoveIds") ?? []) as string[];
-    if (actionCardMoveIds.includes(moveId)) {
-      return { actionCardMoveIds };
+    const actionCardMoveIDs = (monsterSnapshot.get("actionCardMoveIDs") ?? []) as string[];
+    if (actionCardMoveIDs.includes(moveID)) {
+      return { actionCardMoveIDs };
     }
-    transaction.update(monsterDocument, { actionCardMoveIds: FieldValue.arrayUnion(moveId) });
-    return { actionCardMoveIds: [...actionCardMoveIds, moveId] };
+    transaction.update(monsterDocument, { actionCardMoveIDs: FieldValue.arrayUnion(moveID) });
+    return { actionCardMoveIDs: [...actionCardMoveIDs, moveID] };
   });
 });
 
 /**
  * 覚えさせた技を本人のモンスターから忘れさせる callable。買い切った技は残るため、何度でも覚え直せる。
  *
- * 受け取る data: `{ monsterId: string, moveId: string }`。返す値: `{ actionCardMoveIds: string[] }` (忘れさせた後の一覧)。
+ * 受け取る data: `{ monsterID: string, moveID: string }`。返す値: `{ actionCardMoveIDs: string[] }` (忘れさせた後の一覧)。
  * 覚えていない技なら変えない (冪等)。図鑑に無いモンスター (他人のモンスターを含む) は not-found。
  */
 export const forgetActionCardMove = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async (request) => {
   const uid = requireSignedInUid({ request });
-  const { monsterId, moveId } = monsterMoveArguments(request.data);
+  const { monsterID, moveID } = monsterMoveArguments(request.data);
   const firestore = getFirestore();
-  const monsterDocument = firestore.doc(`users/${uid}/monsters/${monsterId}`);
+  const monsterDocument = firestore.doc(`users/${uid}/monsters/${monsterID}`);
   return firestore.runTransaction(async (transaction) => {
     const [userSnapshot, monsterSnapshot] = await transaction.getAll(firestore.doc(`users/${uid}`), monsterDocument);
     requireActiveAccount({ userSnapshot });
     if (!monsterSnapshot.exists) {
-      throw new HttpsError("not-found", `図鑑にモンスター ${monsterId} はいません`);
+      throw new HttpsError("not-found", `図鑑にモンスター ${monsterID} はいません`);
     }
-    const actionCardMoveIds = (monsterSnapshot.get("actionCardMoveIds") ?? []) as string[];
-    if (!actionCardMoveIds.includes(moveId)) {
-      return { actionCardMoveIds };
+    const actionCardMoveIDs = (monsterSnapshot.get("actionCardMoveIDs") ?? []) as string[];
+    if (!actionCardMoveIDs.includes(moveID)) {
+      return { actionCardMoveIDs };
     }
-    transaction.update(monsterDocument, { actionCardMoveIds: FieldValue.arrayRemove(moveId) });
-    return { actionCardMoveIds: actionCardMoveIds.filter((actionCardMoveId) => actionCardMoveId !== moveId) };
+    transaction.update(monsterDocument, { actionCardMoveIDs: FieldValue.arrayRemove(moveID) });
+    return { actionCardMoveIDs: actionCardMoveIDs.filter((actionCardMoveID) => actionCardMoveID !== moveID) };
   });
 });

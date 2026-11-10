@@ -7,8 +7,8 @@ import { handleRevenueCatWebhook, type RevenueCatWebhookDependencies } from "../
 
 // firebase emulators:exec (package.json の test:emulator) の中で実行する。
 
-const projectId = "demo-snapmon";
-const app = getApps().find((existing) => existing.name === "generation-tickets-test") ?? initializeApp({ projectId }, "generation-tickets-test");
+const projectID = "demo-snapmon";
+const app = getApps().find((existing) => existing.name === "generation-tickets-test") ?? initializeApp({ projectId: projectID }, "generation-tickets-test");
 const firestore = getFirestore(app);
 
 /** テストで RevenueCat に設定したことにする `Authorization` の値。 */
@@ -19,7 +19,7 @@ afterAll(async () => {
 });
 
 beforeEach(async () => {
-  await fetch(`http://127.0.0.1:8080/emulator/v1/projects/${projectId}/databases/(default)/documents`, { method: "DELETE" });
+  await fetch(`http://127.0.0.1:8080/emulator/v1/projects/${projectID}/databases/(default)/documents`, { method: "DELETE" });
 });
 
 /** Auth のユーザーが残っている uid。 */
@@ -80,9 +80,9 @@ describe("RevenueCat の webhook", () => {
     expect((await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody() })).status).toBe(200);
     expect(await generationTickets("alice")).toBe(10);
     expect((await firestore.doc("users/alice/ticketPurchases/event-1").get()).data()).toMatchObject({
-      productId: "snapmon_generationticket10_200yen",
+      productID: "snapmon_generationticket10_200yen",
       ticketCount: 10,
-      transactionId: "transaction-1",
+      transactionID: "transaction-1",
       environment: "PRODUCTION",
       store: "APP_STORE",
     });
@@ -199,18 +199,18 @@ describe("RevenueCat の webhook の Action Card (技の控えが無い購入)",
   // 控えた技を結び付ける購入は action_cards.test.ts で確かめる
   it.each(["snapmon_actioncardrank1_100yen", "snapmon_actioncardrank2_300yen", "snapmon_actioncardrank3_500yen"])(
     "%s の購入は技に結び付けずに届いた商品の ID のまま記録し、Slack に知らせる",
-    async (productId) => {
+    async (productID) => {
       const { dependencies, slackTexts } = createDependencies();
-      expect((await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ product_id: productId }) })).status).toBe(200);
+      expect((await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ product_id: productID }) })).status).toBe(200);
       const purchase = (await firestore.doc("users/alice/actionCardPurchases/event-1").get()).data();
       // 商品の ID のほかに、値段の段を表す値を持たない (#293)
       expect(purchase).not.toHaveProperty("rank");
       expect(purchase).toMatchObject({
-        productId,
+        productID,
         moveID: null,
         actionCardMoveReservationID: null,
         moveAssignedAt: null,
-        transactionId: "transaction-1",
+        transactionID: "transaction-1",
         environment: "PRODUCTION",
         store: "APP_STORE",
       });
@@ -243,22 +243,22 @@ describe("RevenueCat の webhook の Action Card (技の控えが無い購入)",
     "snapmon_actioncardrank0_100yen",
   ])(
     "Action Card の 3 つの商品のどれでもない %s は知らない商品として記録せずに Slack に知らせる",
-    async (productId) => {
+    async (productID) => {
       const { dependencies, slackTexts } = createDependencies();
-      expect((await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ product_id: productId }) })).body).toBe("unknown product");
+      expect((await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ product_id: productID }) })).body).toBe("unknown product");
       expect((await firestore.doc("users/alice").get()).exists).toBe(false);
       expect(slackTexts).toHaveLength(1);
     },
   );
 
   it("返金・取り消しは購入と買い切った技を変えず Slack に知らせる", async () => {
-    await firestore.doc("users/alice/actionCardPurchases/event-0").set({ productId: "snapmon_actioncardrank2_300yen", moveID: "fire_1c" });
+    await firestore.doc("users/alice/actionCardPurchases/event-0").set({ productID: "snapmon_actioncardrank2_300yen", moveID: "fire_1c" });
     const { dependencies, slackTexts } = createDependencies();
     await handleRevenueCatWebhook(dependencies, {
       authorization: AUTHORIZATION,
       body: webhookBody({ type: "CANCELLATION", product_id: "snapmon_actioncardrank2_300yen" }),
     });
-    expect((await firestore.doc("users/alice/actionCardPurchases/event-0").get()).data()).toEqual({ productId: "snapmon_actioncardrank2_300yen", moveID: "fire_1c" });
+    expect((await firestore.doc("users/alice/actionCardPurchases/event-0").get()).data()).toEqual({ productID: "snapmon_actioncardrank2_300yen", moveID: "fire_1c" });
     expect((await firestore.doc("users/alice/actionCardPurchases/event-1").get()).exists).toBe(false);
     expect(slackTexts).toHaveLength(1);
   });

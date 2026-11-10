@@ -14,31 +14,31 @@ import type { MasterMove } from "../../src/generation/master";
 // Action Card の callable (reserveActionCardMove・assignActionCardMove・teachActionCardMove・forgetActionCardMove) を Auth・Firestore・Functions の
 // Emulator で、購入の webhook (handleRevenueCatWebhook) が控えた技を購入に結び付けるのを Firestore の Emulator で、技に割り振る商品の計算 (updateActionCardProducts の本体 updateActionCardProductsWith) を Firestore の Emulator で確かめる。
 
-const projectId = "demo-snapmon";
-const functionsBaseUrl = `http://127.0.0.1:5001/${projectId}/asia-northeast1`;
+const projectID = "demo-snapmon";
+const functionsBaseURL = `http://127.0.0.1:5001/${projectID}/asia-northeast1`;
 
 // Functions の Emulator は App Check のトークンを検証せずに中身だけを読む (battle.test.ts と同じ署名の無い JWT)。
 const fakeAppCheckToken = [
   Buffer.from(JSON.stringify({ alg: "none", typ: "JWT" })).toString("base64url"),
-  Buffer.from(JSON.stringify({ sub: "1:000000000000:web:emulator", aud: [`projects/${projectId}`] })).toString("base64url"),
+  Buffer.from(JSON.stringify({ sub: "1:000000000000:web:emulator", aud: [`projects/${projectID}`] })).toString("base64url"),
   "",
 ].join(".");
 
-const app = initializeApp({ projectId, apiKey: "demo-api-key" }, "action-cards-test");
+const app = initializeApp({ projectId: projectID, apiKey: "demo-api-key" }, "action-cards-test");
 const auth = getAuth(app);
 connectAuthEmulator(auth, "http://127.0.0.1:9099", { disableWarnings: true });
-const adminApp = getApps().find((existing) => existing.name === "action-cards-admin-test") ?? initializeAdminApp({ projectId }, "action-cards-admin-test");
+const adminApp = getApps().find((existing) => existing.name === "action-cards-admin-test") ?? initializeAdminApp({ projectId: projectID }, "action-cards-admin-test");
 const firestore = getFirestore(adminApp);
 
 /** テスト用の技。指定しない値は段階 1 の技 (威力 40) にする。 */
 function move(overrides: Partial<MasterMove> & { id: string }): MasterMove {
   return {
     displayName: overrides.id,
-    elementTypeId: "fire",
+    elementTypeID: "fire",
     power: 40,
     powerPoints: 30,
     category: "attack",
-    effectId: "fire_particle",
+    effectID: "fire_particle",
     learnableLevelMinimum: 1,
     learnableLevelMaximum: 30,
     ...overrides,
@@ -55,7 +55,7 @@ const master = {
     move({ id: "middle", power: 70 }),
     move({ id: "strong", power: 110 }),
     move({ id: "replaced" }),
-    move({ id: "replacer", replacesMoveId: "replaced" }),
+    move({ id: "replacer", replacesMoveID: "replaced" }),
   ],
 };
 
@@ -66,7 +66,7 @@ afterAll(async () => {
 
 beforeEach(async () => {
   await signOut(auth);
-  await fetch(`http://127.0.0.1:8080/emulator/v1/projects/${projectId}/databases/(default)/documents`, { method: "DELETE" });
+  await fetch(`http://127.0.0.1:8080/emulator/v1/projects/${projectID}/databases/(default)/documents`, { method: "DELETE" });
   await firestore.doc(`master/${master.version}`).set(master);
 });
 
@@ -82,7 +82,7 @@ async function signInUser({ withUserDocument = true }: { withUserDocument?: bool
 
 /** Functions の callable [name] を [user] で呼び、HTTP の状態コードと本文を返す。 */
 async function callFunction({ name, user, data }: { name: string; user: User; data: unknown }): Promise<{ status: number; body: any }> {
-  const response = await fetch(`${functionsBaseUrl}/${name}`, {
+  const response = await fetch(`${functionsBaseURL}/${name}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -140,14 +140,14 @@ describe("技を選んで買う (reserveActionCardMove と webhook)", () => {
 
     await receivePurchase({ uid: user.uid, productID: MODERATE_ACTION_CARD_PRODUCT_ID });
     expect(await purchaseOf({ uid: user.uid })).toMatchObject({
-      productId: MODERATE_ACTION_CARD_PRODUCT_ID,
+      productID: MODERATE_ACTION_CARD_PRODUCT_ID,
       moveID: "weak",
       actionCardMoveReservationID: body.result.actionCardMoveReservationID,
     });
     expect(await reservationOf(user.uid)).toBeUndefined();
     expect((await firestore.doc(`users/${user.uid}`).get()).get("actionCardCredits")).toBeUndefined();
-    expect((await callFunction({ name: "teachActionCardMove", user, data: { monsterId: "m1", moveId: "weak" } })).body.result).toEqual({
-      actionCardMoveIds: ["weak"],
+    expect((await callFunction({ name: "teachActionCardMove", user, data: { monsterID: "m1", moveID: "weak" } })).body.result).toEqual({
+      actionCardMoveIDs: ["weak"],
     });
   });
 
@@ -159,12 +159,12 @@ describe("技を選んで買う (reserveActionCardMove と webhook)", () => {
 
     await receivePurchase({ uid: user.uid, productID: CHEAP_ACTION_CARD_PRODUCT_ID });
     expect(await purchaseOf({ uid: user.uid })).toMatchObject({
-      productId: CHEAP_ACTION_CARD_PRODUCT_ID,
+      productID: CHEAP_ACTION_CARD_PRODUCT_ID,
       moveID: null,
       actionCardMoveReservationID: body.result.actionCardMoveReservationID,
     });
     expect(await reservationOf(user.uid)).toBeUndefined();
-    expect((await callFunction({ name: "teachActionCardMove", user, data: { monsterId: "m1", moveId: "weak" } })).status).toBe(400);
+    expect((await callFunction({ name: "teachActionCardMove", user, data: { monsterID: "m1", moveID: "weak" } })).status).toBe(400);
   });
 
   it("控えてから購入が届くまでの間に技が安い商品に変わっても、技に結び付けずに購入を残す (買った商品と同じ商品の技だけを渡す)", async () => {
@@ -173,17 +173,17 @@ describe("技を選んで買う (reserveActionCardMove と webhook)", () => {
     await callFunction({ name: "reserveActionCardMove", user, data: { moveID: "weak", productID: EXPENSIVE_ACTION_CARD_PRODUCT_ID } });
     await firestore.doc("actionCardProducts/current").set({ version: 1, productIDByMoveID: { weak: CHEAP_ACTION_CARD_PRODUCT_ID }, usageWindowDays: 7 });
     await receivePurchase({ uid: user.uid, productID: EXPENSIVE_ACTION_CARD_PRODUCT_ID });
-    expect(await purchaseOf({ uid: user.uid })).toMatchObject({ productId: EXPENSIVE_ACTION_CARD_PRODUCT_ID, moveID: null });
+    expect(await purchaseOf({ uid: user.uid })).toMatchObject({ productID: EXPENSIVE_ACTION_CARD_PRODUCT_ID, moveID: null });
   });
 
   it("控えてから購入が届くまでの間に同じ技を買い切っていたら、技に結び付けずに購入を残す (同じ技を 2 回持たない)", async () => {
     const user = await signInUser();
     await callFunction({ name: "reserveActionCardMove", user, data: { moveID: "weak", productID: CHEAP_ACTION_CARD_PRODUCT_ID } });
     // 別の端末で同じ技を先に受け取った
-    await firestore.doc(`users/${user.uid}/actionCardPurchases/event-0`).set({ productId: CHEAP_ACTION_CARD_PRODUCT_ID, moveID: "weak", createdAt: new Date() });
+    await firestore.doc(`users/${user.uid}/actionCardPurchases/event-0`).set({ productID: CHEAP_ACTION_CARD_PRODUCT_ID, moveID: "weak", createdAt: new Date() });
 
     await receivePurchase({ uid: user.uid, productID: CHEAP_ACTION_CARD_PRODUCT_ID });
-    expect(await purchaseOf({ uid: user.uid })).toMatchObject({ productId: CHEAP_ACTION_CARD_PRODUCT_ID, moveID: null });
+    expect(await purchaseOf({ uid: user.uid })).toMatchObject({ productID: CHEAP_ACTION_CARD_PRODUCT_ID, moveID: null });
     expect((await firestore.collection(`users/${user.uid}/actionCardPurchases`).where("moveID", "==", "weak").get()).size).toBe(1);
   });
 
@@ -191,7 +191,7 @@ describe("技を選んで買う (reserveActionCardMove と webhook)", () => {
     const user = await signInUser();
     const { body } = await callFunction({ name: "reserveActionCardMove", user, data: { moveID: "middle", productID: MODERATE_ACTION_CARD_PRODUCT_ID } });
     await receivePurchase({ uid: user.uid, productID: CHEAP_ACTION_CARD_PRODUCT_ID });
-    expect(await purchaseOf({ uid: user.uid })).toMatchObject({ productId: CHEAP_ACTION_CARD_PRODUCT_ID, moveID: null, actionCardMoveReservationID: null });
+    expect(await purchaseOf({ uid: user.uid })).toMatchObject({ productID: CHEAP_ACTION_CARD_PRODUCT_ID, moveID: null, actionCardMoveReservationID: null });
     expect(await reservationOf(user.uid)).toMatchObject({ actionCardMoveReservationID: body.result.actionCardMoveReservationID });
   });
 
@@ -201,7 +201,7 @@ describe("技を選んで買う (reserveActionCardMove と webhook)", () => {
       .doc(`users/${user.uid}`)
       .set({ actionCardMoveReservation: { actionCardMoveReservationID: "old-reservation", moveID: "weak", rank: 1, reservedAt: new Date() } }, { merge: true });
     await receivePurchase({ uid: user.uid, productID: CHEAP_ACTION_CARD_PRODUCT_ID });
-    expect(await purchaseOf({ uid: user.uid })).toMatchObject({ productId: CHEAP_ACTION_CARD_PRODUCT_ID, moveID: null, actionCardMoveReservationID: null });
+    expect(await purchaseOf({ uid: user.uid })).toMatchObject({ productID: CHEAP_ACTION_CARD_PRODUCT_ID, moveID: null, actionCardMoveReservationID: null });
     expect((await callFunction({ name: "assignActionCardMove", user, data: { actionCardPurchaseID: "event-1", moveID: "weak" } })).status).toBe(200);
     expect(await purchaseOf({ uid: user.uid })).toMatchObject({ moveID: "weak" });
   });
@@ -209,7 +209,7 @@ describe("技を選んで買う (reserveActionCardMove と webhook)", () => {
   it("控えが無い購入は技に結び付けずに残す", async () => {
     const user = await signInUser();
     await receivePurchase({ uid: user.uid, productID: EXPENSIVE_ACTION_CARD_PRODUCT_ID });
-    expect(await purchaseOf({ uid: user.uid })).toMatchObject({ productId: EXPENSIVE_ACTION_CARD_PRODUCT_ID, moveID: null, actionCardMoveReservationID: null });
+    expect(await purchaseOf({ uid: user.uid })).toMatchObject({ productID: EXPENSIVE_ACTION_CARD_PRODUCT_ID, moveID: null, actionCardMoveReservationID: null });
   });
 
   it("新しい控えは前の控えを上書きする", async () => {
@@ -237,7 +237,7 @@ describe("技を選んで買う (reserveActionCardMove と webhook)", () => {
 
   it("既に買い切った技は already-exists で控えない", async () => {
     const user = await signInUser();
-    await firestore.doc(`users/${user.uid}/actionCardPurchases/event-0`).set({ productId: CHEAP_ACTION_CARD_PRODUCT_ID, moveID: "weak", createdAt: new Date() });
+    await firestore.doc(`users/${user.uid}/actionCardPurchases/event-0`).set({ productID: CHEAP_ACTION_CARD_PRODUCT_ID, moveID: "weak", createdAt: new Date() });
     expect((await callFunction({ name: "reserveActionCardMove", user, data: { moveID: "weak", productID: CHEAP_ACTION_CARD_PRODUCT_ID } })).status).toBe(409);
     expect(await reservationOf(user.uid)).toBeUndefined();
   });
@@ -281,8 +281,8 @@ describe("技に結び付いていない購入で技を選び直す (assignActio
       .doc(`users/${user.uid}/actionCardPurchases/event-1`)
       .set(
         withoutMoveIDField
-          ? { productId: productID, createdAt: new Date() }
-          : { productId: productID, moveID: null, actionCardMoveReservationID: null, moveAssignedAt: null, createdAt: new Date() },
+          ? { productID: productID, createdAt: new Date() }
+          : { productID: productID, moveID: null, actionCardMoveReservationID: null, moveAssignedAt: null, createdAt: new Date() },
       );
   }
 
@@ -292,14 +292,14 @@ describe("技に結び付いていない購入で技を選び直す (assignActio
     const { status, body } = await callFunction({ name: "assignActionCardMove", user, data: { actionCardPurchaseID: "event-1", moveID: "weak" } });
     expect(status).toBe(200);
     expect(body.result).toEqual({ actionCardPurchaseID: "event-1", moveID: "weak" });
-    expect(await purchaseOf({ uid: user.uid })).toMatchObject({ productId: CHEAP_ACTION_CARD_PRODUCT_ID, moveID: "weak" });
-    expect((await callFunction({ name: "teachActionCardMove", user, data: { monsterId: "m1", moveId: "weak" } })).status).toBe(200);
+    expect(await purchaseOf({ uid: user.uid })).toMatchObject({ productID: CHEAP_ACTION_CARD_PRODUCT_ID, moveID: "weak" });
+    expect((await callFunction({ name: "teachActionCardMove", user, data: { monsterID: "m1", moveID: "weak" } })).status).toBe(200);
   });
 
   it("moveID のフィールドが無い (#290 より前の) 購入も、技に結び付いていない購入として選び直せる", async () => {
     const user = await signInUser();
     await seedUnassignedPurchase({ user, productID: CHEAP_ACTION_CARD_PRODUCT_ID, withoutMoveIDField: true });
-    expect((await callFunction({ name: "teachActionCardMove", user, data: { monsterId: "m1", moveId: "weak" } })).status).toBe(400);
+    expect((await callFunction({ name: "teachActionCardMove", user, data: { monsterID: "m1", moveID: "weak" } })).status).toBe(400);
     expect((await callFunction({ name: "assignActionCardMove", user, data: { actionCardPurchaseID: "event-1", moveID: "weak" } })).status).toBe(200);
     expect(await purchaseOf({ uid: user.uid })).toMatchObject({ moveID: "weak" });
   });
@@ -318,7 +318,7 @@ describe("技に結び付いていない購入で技を選び直す (assignActio
 
   it("既に買い切った技は already-exists で、購入は技に結び付いていないまま残る", async () => {
     const user = await signInUser();
-    await firestore.doc(`users/${user.uid}/actionCardPurchases/event-0`).set({ productId: CHEAP_ACTION_CARD_PRODUCT_ID, moveID: "weak", createdAt: new Date() });
+    await firestore.doc(`users/${user.uid}/actionCardPurchases/event-0`).set({ productID: CHEAP_ACTION_CARD_PRODUCT_ID, moveID: "weak", createdAt: new Date() });
     await seedUnassignedPurchase({ user, productID: CHEAP_ACTION_CARD_PRODUCT_ID });
     expect((await callFunction({ name: "assignActionCardMove", user, data: { actionCardPurchaseID: "event-1", moveID: "weak" } })).status).toBe(409);
     expect(await purchaseOf({ uid: user.uid })).toMatchObject({ moveID: null });
@@ -326,14 +326,14 @@ describe("技に結び付いていない購入で技を選び直す (assignActio
 
   it("技を受け取り済みの購入は failed-precondition で、技を変えない", async () => {
     const user = await signInUser();
-    await firestore.doc(`users/${user.uid}/actionCardPurchases/event-1`).set({ productId: EXPENSIVE_ACTION_CARD_PRODUCT_ID, moveID: "weak", createdAt: new Date() });
+    await firestore.doc(`users/${user.uid}/actionCardPurchases/event-1`).set({ productID: EXPENSIVE_ACTION_CARD_PRODUCT_ID, moveID: "weak", createdAt: new Date() });
     expect((await callFunction({ name: "assignActionCardMove", user, data: { actionCardPurchaseID: "event-1", moveID: "strong" } })).status).toBe(400);
     expect(await purchaseOf({ uid: user.uid })).toMatchObject({ moveID: "weak" });
   });
 
   it("無い購入・他人の購入は not-found", async () => {
     const user = await signInUser();
-    await firestore.doc("users/bob/actionCardPurchases/event-bob").set({ productId: EXPENSIVE_ACTION_CARD_PRODUCT_ID, moveID: null, createdAt: new Date() });
+    await firestore.doc("users/bob/actionCardPurchases/event-bob").set({ productID: EXPENSIVE_ACTION_CARD_PRODUCT_ID, moveID: null, createdAt: new Date() });
     expect((await callFunction({ name: "assignActionCardMove", user, data: { actionCardPurchaseID: "event-bob", moveID: "weak" } })).status).toBe(404);
     expect((await firestore.doc("users/bob/actionCardPurchases/event-bob").get()).get("moveID")).toBeNull();
   });
@@ -352,81 +352,81 @@ describe("技に結び付いていない購入で技を選び直す (assignActio
 });
 
 describe("teachActionCardMove・forgetActionCardMove", () => {
-  /** [user] に技 [moveId] を買い切った購入を置く。 */
-  async function seedActionCard({ user, moveId }: { user: User; moveId: string }): Promise<void> {
-    await firestore.doc(`users/${user.uid}/actionCardPurchases/event-${moveId}`).set({ productId: CHEAP_ACTION_CARD_PRODUCT_ID, moveID: moveId, createdAt: new Date() });
+  /** [user] に技 [moveID] を買い切った購入を置く。 */
+  async function seedActionCard({ user, moveID }: { user: User; moveID: string }): Promise<void> {
+    await firestore.doc(`users/${user.uid}/actionCardPurchases/event-${moveID}`).set({ productID: CHEAP_ACTION_CARD_PRODUCT_ID, moveID: moveID, createdAt: new Date() });
   }
 
-  /** [uid] のモンスター [monsterId] の actionCardMoveIds。 */
-  async function actionCardMoveIdsOf({ uid, monsterId }: { uid: string; monsterId: string }): Promise<unknown> {
-    return (await firestore.doc(`users/${uid}/monsters/${monsterId}`).get()).get("actionCardMoveIds");
+  /** [uid] のモンスター [monsterID] の actionCardMoveIDs。 */
+  async function actionCardMoveIDsOf({ uid, monsterID }: { uid: string; monsterID: string }): Promise<unknown> {
+    return (await firestore.doc(`users/${uid}/monsters/${monsterID}`).get()).get("actionCardMoveIDs");
   }
 
   it("覚えさせた順で末尾に足し、同じ技を 2 回覚えさせても 1 つだけにする", async () => {
     const user = await signInUser();
-    await seedActionCard({ user, moveId: "weak" });
-    await seedActionCard({ user, moveId: "strong" });
+    await seedActionCard({ user, moveID: "weak" });
+    await seedActionCard({ user, moveID: "strong" });
 
-    expect((await callFunction({ name: "teachActionCardMove", user, data: { monsterId: "m1", moveId: "strong" } })).body.result).toEqual({
-      actionCardMoveIds: ["strong"],
+    expect((await callFunction({ name: "teachActionCardMove", user, data: { monsterID: "m1", moveID: "strong" } })).body.result).toEqual({
+      actionCardMoveIDs: ["strong"],
     });
-    await callFunction({ name: "teachActionCardMove", user, data: { monsterId: "m1", moveId: "weak" } });
-    expect((await callFunction({ name: "teachActionCardMove", user, data: { monsterId: "m1", moveId: "strong" } })).body.result).toEqual({
-      actionCardMoveIds: ["strong", "weak"],
+    await callFunction({ name: "teachActionCardMove", user, data: { monsterID: "m1", moveID: "weak" } });
+    expect((await callFunction({ name: "teachActionCardMove", user, data: { monsterID: "m1", moveID: "strong" } })).body.result).toEqual({
+      actionCardMoveIDs: ["strong", "weak"],
     });
-    expect(await actionCardMoveIdsOf({ uid: user.uid, monsterId: "m1" })).toEqual(["strong", "weak"]);
+    expect(await actionCardMoveIDsOf({ uid: user.uid, monsterID: "m1" })).toEqual(["strong", "weak"]);
   });
 
   it("1 つの買い切った技を何体にでも覚えさせられる", async () => {
     const user = await signInUser();
     await firestore.doc(`users/${user.uid}/monsters/m2`).set({ name: "m2", level: 1, experience: 0 });
-    await seedActionCard({ user, moveId: "weak" });
-    await callFunction({ name: "teachActionCardMove", user, data: { monsterId: "m1", moveId: "weak" } });
-    await callFunction({ name: "teachActionCardMove", user, data: { monsterId: "m2", moveId: "weak" } });
-    expect(await actionCardMoveIdsOf({ uid: user.uid, monsterId: "m1" })).toEqual(["weak"]);
-    expect(await actionCardMoveIdsOf({ uid: user.uid, monsterId: "m2" })).toEqual(["weak"]);
+    await seedActionCard({ user, moveID: "weak" });
+    await callFunction({ name: "teachActionCardMove", user, data: { monsterID: "m1", moveID: "weak" } });
+    await callFunction({ name: "teachActionCardMove", user, data: { monsterID: "m2", moveID: "weak" } });
+    expect(await actionCardMoveIDsOf({ uid: user.uid, monsterID: "m1" })).toEqual(["weak"]);
+    expect(await actionCardMoveIDsOf({ uid: user.uid, monsterID: "m2" })).toEqual(["weak"]);
   });
 
   it("買い切っていない技は failed-precondition", async () => {
     const user = await signInUser();
-    const { status, body } = await callFunction({ name: "teachActionCardMove", user, data: { monsterId: "m1", moveId: "weak" } });
+    const { status, body } = await callFunction({ name: "teachActionCardMove", user, data: { monsterID: "m1", moveID: "weak" } });
     expect(status).toBe(400);
     expect(body.error.status).toBe("FAILED_PRECONDITION");
-    expect(await actionCardMoveIdsOf({ uid: user.uid, monsterId: "m1" })).toBeUndefined();
+    expect(await actionCardMoveIDsOf({ uid: user.uid, monsterID: "m1" })).toBeUndefined();
   });
 
   it("他人のモンスターには覚えさせられず、忘れさせられない", async () => {
     const user = await signInUser();
-    await seedActionCard({ user, moveId: "weak" });
-    await firestore.doc("users/bob/monsters/m-bob").set({ name: "m-bob", level: 1, experience: 0, actionCardMoveIds: ["weak"] });
+    await seedActionCard({ user, moveID: "weak" });
+    await firestore.doc("users/bob/monsters/m-bob").set({ name: "m-bob", level: 1, experience: 0, actionCardMoveIDs: ["weak"] });
 
-    expect((await callFunction({ name: "teachActionCardMove", user, data: { monsterId: "m-bob", moveId: "weak" } })).status).toBe(404);
-    expect((await callFunction({ name: "forgetActionCardMove", user, data: { monsterId: "m-bob", moveId: "weak" } })).status).toBe(404);
-    expect(await actionCardMoveIdsOf({ uid: "bob", monsterId: "m-bob" })).toEqual(["weak"]);
+    expect((await callFunction({ name: "teachActionCardMove", user, data: { monsterID: "m-bob", moveID: "weak" } })).status).toBe(404);
+    expect((await callFunction({ name: "forgetActionCardMove", user, data: { monsterID: "m-bob", moveID: "weak" } })).status).toBe(404);
+    expect(await actionCardMoveIDsOf({ uid: "bob", monsterID: "m-bob" })).toEqual(["weak"]);
   });
 
   it("忘れさせても買い切った技は残り、覚え直せる。覚えていない技を忘れさせても変えない", async () => {
     const user = await signInUser();
-    await seedActionCard({ user, moveId: "weak" });
-    await seedActionCard({ user, moveId: "strong" });
-    await callFunction({ name: "teachActionCardMove", user, data: { monsterId: "m1", moveId: "weak" } });
-    await callFunction({ name: "teachActionCardMove", user, data: { monsterId: "m1", moveId: "strong" } });
+    await seedActionCard({ user, moveID: "weak" });
+    await seedActionCard({ user, moveID: "strong" });
+    await callFunction({ name: "teachActionCardMove", user, data: { monsterID: "m1", moveID: "weak" } });
+    await callFunction({ name: "teachActionCardMove", user, data: { monsterID: "m1", moveID: "strong" } });
 
-    expect((await callFunction({ name: "forgetActionCardMove", user, data: { monsterId: "m1", moveId: "weak" } })).body.result).toEqual({
-      actionCardMoveIds: ["strong"],
+    expect((await callFunction({ name: "forgetActionCardMove", user, data: { monsterID: "m1", moveID: "weak" } })).body.result).toEqual({
+      actionCardMoveIDs: ["strong"],
     });
-    expect((await callFunction({ name: "forgetActionCardMove", user, data: { monsterId: "m1", moveId: "weak" } })).body.result).toEqual({
-      actionCardMoveIds: ["strong"],
+    expect((await callFunction({ name: "forgetActionCardMove", user, data: { monsterID: "m1", moveID: "weak" } })).body.result).toEqual({
+      actionCardMoveIDs: ["strong"],
     });
     expect((await firestore.doc(`users/${user.uid}/actionCardPurchases/event-weak`).get()).get("moveID")).toBe("weak");
-    await callFunction({ name: "teachActionCardMove", user, data: { monsterId: "m1", moveId: "weak" } });
-    expect(await actionCardMoveIdsOf({ uid: user.uid, monsterId: "m1" })).toEqual(["strong", "weak"]);
+    await callFunction({ name: "teachActionCardMove", user, data: { monsterID: "m1", moveID: "weak" } });
+    expect(await actionCardMoveIDsOf({ uid: user.uid, monsterID: "m1" })).toEqual(["strong", "weak"]);
   });
 
-  it("monsterId か moveId が無ければ invalid-argument", async () => {
+  it("monsterID か moveID が無ければ invalid-argument", async () => {
     const user = await signInUser();
-    expect((await callFunction({ name: "teachActionCardMove", user, data: { monsterId: "m1" } })).status).toBe(400);
-    expect((await callFunction({ name: "forgetActionCardMove", user, data: { moveId: "weak" } })).status).toBe(400);
+    expect((await callFunction({ name: "teachActionCardMove", user, data: { monsterID: "m1" } })).status).toBe(400);
+    expect((await callFunction({ name: "forgetActionCardMove", user, data: { moveID: "weak" } })).status).toBe(400);
   });
 });
 

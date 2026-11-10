@@ -71,7 +71,7 @@ Stream<List<ActionCardPurchase>> watchActionCardPurchasesWithFirebase() =>
               for (final document in snapshot.docs)
                 ActionCardPurchase(
                   actionCardPurchaseID: document.id,
-                  productID: document.data()['productId'] as String,
+                  productID: document.data()['productID'] as String,
                   moveID: document.data()['moveID'] as String?,
                   actionCardMoveReservationID:
                       document.data()['actionCardMoveReservationID'] as String?,
@@ -110,9 +110,10 @@ Future<Map<Object?, Object?>> _call({
   required String name,
   required Object? data,
 }) async =>
-    (await FirebaseFunctions.instanceFor(
-          region: functionsRegion,
-        ).httpsCallable(name).call<Object?>(data)).data!
+    (await FirebaseFunctions.instanceFor(region: functionsRegion)
+                .httpsCallable(name)
+                .call<Object?>(data))
+            .data!
         as Map<Object?, Object?>;
 
 /// reserveActionCardMove を呼ぶ ([ActionCardClient.reserveActionCardMove])。返す値は控えの ID。
@@ -129,9 +130,8 @@ Future<String> reserveActionCardMoveWithFirebase({
         ))['actionCardMoveReservationID']!
         as String;
   } on FirebaseFunctionsException catch (error) {
-    if (error.details case {
-      'productID': final String changedProductID,
-    } when error.code == 'failed-precondition') {
+    if (error.details case {'productID': final String changedProductID}
+        when error.code == 'failed-precondition') {
       throw ActionCardMoveProductChangedException(productID: changedProductID);
     }
     rethrow;
@@ -150,34 +150,34 @@ Future<void> assignActionCardMoveWithFirebase({
 /// teachActionCardMove・forgetActionCardMove の [name] を呼び、返った一覧を返す。
 Future<List<String>> _callMonsterMove({
   required String name,
-  required String monsterId,
-  required String moveId,
+  required String monsterID,
+  required String moveID,
 }) async => [
-  for (final actionCardMoveId
+  for (final actionCardMoveID
       in (await _call(
             name: name,
-            data: {'monsterId': monsterId, 'moveId': moveId},
-          ))['actionCardMoveIds']!
+            data: {'monsterID': monsterID, 'moveID': moveID},
+          ))['actionCardMoveIDs']!
           as List<Object?>)
-    actionCardMoveId! as String,
+    actionCardMoveID! as String,
 ];
 
 /// teachActionCardMove を呼ぶ ([ActionCardClient.teachActionCardMove])。
 Future<List<String>> teachActionCardMoveWithFirebase({
-  required String monsterId,
-  required String moveId,
+  required String monsterID,
+  required String moveID,
 }) => _callMonsterMove(
   name: 'teachActionCardMove',
-  monsterId: monsterId,
-  moveId: moveId,
+  monsterID: monsterID,
+  moveID: moveID,
 );
 
 /// forgetActionCardMove を呼ぶ ([ActionCardClient.forgetActionCardMove])。
 Future<List<String>> forgetActionCardMoveWithFirebase({
-  required String monsterId,
-  required String moveId,
+  required String monsterID,
+  required String moveID,
 }) => _callMonsterMove(
   name: 'forgetActionCardMove',
-  monsterId: monsterId,
-  moveId: moveId,
+  monsterID: monsterID,
+  moveID: moveID,
 );

@@ -10,24 +10,24 @@ import { DAILY_BATTLE_LIMIT, MAXIMUM_LEVEL, battleDayKey } from "../../src/battl
 // firebase emulators:exec (package.json の test:emulator) の中で実行する。
 // バトルの開始 (startBattle) と結果の記録 (recordBattle) を Auth・Firestore・Functions の Emulator で確かめる。
 
-const projectId = "demo-snapmon";
-const functionsBaseUrl = `http://127.0.0.1:5001/${projectId}/asia-northeast1`;
+const projectID = "demo-snapmon";
+const functionsBaseURL = `http://127.0.0.1:5001/${projectID}/asia-northeast1`;
 
 // Functions の Emulator は App Check のトークンを検証せずに中身だけを読む (auth_flow.test.ts と同じ署名の無い JWT)。
 const fakeAppCheckToken = [
   Buffer.from(JSON.stringify({ alg: "none", typ: "JWT" })).toString("base64url"),
-  Buffer.from(JSON.stringify({ sub: "1:000000000000:web:emulator", aud: [`projects/${projectId}`] })).toString("base64url"),
+  Buffer.from(JSON.stringify({ sub: "1:000000000000:web:emulator", aud: [`projects/${projectID}`] })).toString("base64url"),
   "",
 ].join(".");
 
-const app = initializeApp({ projectId, apiKey: "demo-api-key" }, "battle-test");
+const app = initializeApp({ projectId: projectID, apiKey: "demo-api-key" }, "battle-test");
 const auth = getAuth(app);
 connectAuthEmulator(auth, "http://127.0.0.1:9099", { disableWarnings: true });
 
 let testEnvironment: RulesTestEnvironment;
 
 beforeAll(async () => {
-  testEnvironment = await initializeTestEnvironment({ projectId });
+  testEnvironment = await initializeTestEnvironment({ projectId: projectID });
 });
 
 afterAll(async () => {
@@ -52,7 +52,7 @@ async function callFunction({
   appCheckToken: string | null;
   data: unknown;
 }): Promise<Response> {
-  return fetch(`${functionsBaseUrl}/${name}`, {
+  return fetch(`${functionsBaseURL}/${name}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -75,8 +75,8 @@ async function signInUser(): Promise<User> {
 async function seedMonsters({ uid, levels }: { uid: string; levels: Record<string, number> }): Promise<void> {
   await testEnvironment.withSecurityRulesDisabled(async (context) => {
     await setDoc(doc(context.firestore(), `users/${uid}`), { dailyGeneration: { date: "2000-01-01", count: 1 } }, { merge: true });
-    for (const [monsterId, level] of Object.entries(levels)) {
-      await setDoc(doc(context.firestore(), `users/${uid}/monsters/${monsterId}`), { name: monsterId, level, experience: 0 });
+    for (const [monsterID, level] of Object.entries(levels)) {
+      await setDoc(doc(context.firestore(), `users/${uid}/monsters/${monsterID}`), { name: monsterID, level, experience: 0 });
     }
   });
 }
@@ -90,42 +90,42 @@ async function moveUsageCountsOfToday(): Promise<unknown> {
   return counts;
 }
 
-/** [uid] の図鑑のモンスター [monsterId] を Rules を通さずに読む。 */
-async function readMonster({ uid, monsterId }: { uid: string; monsterId: string }) {
+/** [uid] の図鑑のモンスター [monsterID] を Rules を通さずに読む。 */
+async function readMonster({ uid, monsterID }: { uid: string; monsterID: string }) {
   let data: Record<string, unknown> | undefined;
   await testEnvironment.withSecurityRulesDisabled(async (context) => {
-    data = (await getDoc(doc(context.firestore(), `users/${uid}/monsters/${monsterId}`))).data();
+    data = (await getDoc(doc(context.firestore(), `users/${uid}/monsters/${monsterID}`))).data();
   });
   return data;
 }
 
-/** startBattle を呼んで battleId を返す。 */
-async function startBattle({ user, partyMonsterIds }: { user: User; partyMonsterIds: string[] }): Promise<string> {
+/** startBattle を呼んで battleID を返す。 */
+async function startBattle({ user, partyMonsterIDs }: { user: User; partyMonsterIDs: string[] }): Promise<string> {
   const response = await callFunction({
     name: "startBattle",
     idToken: await user.getIdToken(),
     appCheckToken: fakeAppCheckToken,
-    data: { partyMonsterIds },
+    data: { partyMonsterIDs },
   });
   expect(response.status).toBe(200);
-  return ((await response.json()) as { result: { battleId: string } }).result.battleId;
+  return ((await response.json()) as { result: { battleID: string } }).result.battleID;
 }
 
 /** recordBattle を呼び、HTTP の応答を返す。 */
 async function recordBattle({
   user,
-  battleId,
-  participantMonsterIds,
+  battleID,
+  participantMonsterIDs,
 }: {
   user: User;
-  battleId: string;
-  participantMonsterIds: string[];
+  battleID: string;
+  participantMonsterIDs: string[];
 }): Promise<Response> {
   return callFunction({
     name: "recordBattle",
     idToken: await user.getIdToken(),
     appCheckToken: fakeAppCheckToken,
-    data: { battleId, participantMonsterIds, winner: "player", turnCount: 4 },
+    data: { battleID, participantMonsterIDs, winner: "player", turnCount: 4 },
   });
 }
 
@@ -133,46 +133,46 @@ describe("startBattle と recordBattle", () => {
   it("戦闘に出た手持ちだけのレベルが 1 上がり、出なかった手持ちは変わらない", async () => {
     const user = await signInUser();
     await seedMonsters({ uid: user.uid, levels: { m1: 5, m2: 7, m3: 1 } });
-    const battleId = await startBattle({ user, partyMonsterIds: ["m1", "m2", "m3"] });
+    const battleID = await startBattle({ user, partyMonsterIDs: ["m1", "m2", "m3"] });
 
-    const response = await recordBattle({ user, battleId, participantMonsterIds: ["m1", "m2"] });
+    const response = await recordBattle({ user, battleID, participantMonsterIDs: ["m1", "m2"] });
     expect(response.status).toBe(200);
     expect(await response.json()).toEqual({ result: { levels: { m1: 6, m2: 8 } } });
-    expect(await readMonster({ uid: user.uid, monsterId: "m1" })).toMatchObject({ level: 6, experience: 1 });
-    expect(await readMonster({ uid: user.uid, monsterId: "m2" })).toMatchObject({ level: 8, experience: 1 });
-    expect(await readMonster({ uid: user.uid, monsterId: "m3" })).toMatchObject({ level: 1, experience: 0 });
+    expect(await readMonster({ uid: user.uid, monsterID: "m1" })).toMatchObject({ level: 6, experience: 1 });
+    expect(await readMonster({ uid: user.uid, monsterID: "m2" })).toMatchObject({ level: 8, experience: 1 });
+    expect(await readMonster({ uid: user.uid, monsterID: "m3" })).toMatchObject({ level: 1, experience: 0 });
   });
 
-  it("同じ battleId の再送ではレベルを上げず、記録済みのレベルを返す", async () => {
+  it("同じ battleID の再送ではレベルを上げず、記録済みのレベルを返す", async () => {
     const user = await signInUser();
     await seedMonsters({ uid: user.uid, levels: { m1: 5 } });
-    const battleId = await startBattle({ user, partyMonsterIds: ["m1"] });
+    const battleID = await startBattle({ user, partyMonsterIDs: ["m1"] });
 
-    expect((await recordBattle({ user, battleId, participantMonsterIds: ["m1"] })).status).toBe(200);
-    const resent = await recordBattle({ user, battleId, participantMonsterIds: ["m1"] });
+    expect((await recordBattle({ user, battleID, participantMonsterIDs: ["m1"] })).status).toBe(200);
+    const resent = await recordBattle({ user, battleID, participantMonsterIDs: ["m1"] });
     expect(resent.status).toBe(200);
     expect(await resent.json()).toEqual({ result: { levels: { m1: 6 } } });
-    expect(await readMonster({ uid: user.uid, monsterId: "m1" })).toMatchObject({ level: 6, experience: 1 });
+    expect(await readMonster({ uid: user.uid, monsterID: "m1" })).toMatchObject({ level: 6, experience: 1 });
   });
 
   it("上限のレベルでは上がらない", async () => {
     const user = await signInUser();
     await seedMonsters({ uid: user.uid, levels: { m1: MAXIMUM_LEVEL } });
-    const battleId = await startBattle({ user, partyMonsterIds: ["m1"] });
+    const battleID = await startBattle({ user, partyMonsterIDs: ["m1"] });
 
-    const response = await recordBattle({ user, battleId, participantMonsterIds: ["m1"] });
+    const response = await recordBattle({ user, battleID, participantMonsterIDs: ["m1"] });
     expect(await response.json()).toEqual({ result: { levels: { m1: MAXIMUM_LEVEL } } });
   });
 
   it("開始時の手持ちに無いモンスターは上げられない", async () => {
     const user = await signInUser();
     await seedMonsters({ uid: user.uid, levels: { m1: 5, m2: 5 } });
-    const battleId = await startBattle({ user, partyMonsterIds: ["m1"] });
+    const battleID = await startBattle({ user, partyMonsterIDs: ["m1"] });
 
-    const response = await recordBattle({ user, battleId, participantMonsterIds: ["m1", "m2"] });
+    const response = await recordBattle({ user, battleID, participantMonsterIDs: ["m1", "m2"] });
     expect(response.status).toBe(400);
-    expect(await readMonster({ uid: user.uid, monsterId: "m1" })).toMatchObject({ level: 5 });
-    expect(await readMonster({ uid: user.uid, monsterId: "m2" })).toMatchObject({ level: 5 });
+    expect(await readMonster({ uid: user.uid, monsterID: "m1" })).toMatchObject({ level: 5 });
+    expect(await readMonster({ uid: user.uid, monsterID: "m2" })).toMatchObject({ level: 5 });
   });
 
   it("図鑑に無いモンスターではバトルを始められない", async () => {
@@ -182,15 +182,15 @@ describe("startBattle と recordBattle", () => {
       name: "startBattle",
       idToken: await user.getIdToken(),
       appCheckToken: fakeAppCheckToken,
-      data: { partyMonsterIds: ["missing"] },
+      data: { partyMonsterIDs: ["missing"] },
     });
     expect(response.status).toBe(404);
   });
 
-  it("始まっていない battleId は記録できない", async () => {
+  it("始まっていない battleID は記録できない", async () => {
     const user = await signInUser();
     await seedMonsters({ uid: user.uid, levels: { m1: 5 } });
-    const response = await recordBattle({ user, battleId: "never-started", participantMonsterIds: ["m1"] });
+    const response = await recordBattle({ user, battleID: "never-started", participantMonsterIDs: ["m1"] });
     expect(response.status).toBe(404);
   });
 
@@ -203,11 +203,11 @@ describe("startBattle と recordBattle", () => {
         dailyBattleCount: DAILY_BATTLE_LIMIT,
       }, { merge: true });
     });
-    const battleId = await startBattle({ user, partyMonsterIds: ["m1"] });
+    const battleID = await startBattle({ user, partyMonsterIDs: ["m1"] });
 
-    const response = await recordBattle({ user, battleId, participantMonsterIds: ["m1"] });
+    const response = await recordBattle({ user, battleID, participantMonsterIDs: ["m1"] });
     expect(response.status).toBe(429);
-    expect(await readMonster({ uid: user.uid, monsterId: "m1" })).toMatchObject({ level: 5 });
+    expect(await readMonster({ uid: user.uid, monsterID: "m1" })).toMatchObject({ level: 5 });
   });
 
   it("前の日の数は今日の上限に数えない", async () => {
@@ -219,9 +219,9 @@ describe("startBattle と recordBattle", () => {
         dailyBattleCount: DAILY_BATTLE_LIMIT,
       }, { merge: true });
     });
-    const battleId = await startBattle({ user, partyMonsterIds: ["m1"] });
+    const battleID = await startBattle({ user, partyMonsterIDs: ["m1"] });
 
-    expect((await recordBattle({ user, battleId, participantMonsterIds: ["m1"] })).status).toBe(200);
+    expect((await recordBattle({ user, battleID, participantMonsterIDs: ["m1"] })).status).toBe(200);
   });
 
   it("参加したモンスターのバトルの時点の技の枠の技を、その日の使用回数に 1 ずつ足す", async () => {
@@ -231,22 +231,22 @@ describe("startBattle と recordBattle", () => {
       // m1 は Lv.4 で枠が b〜e (a は後ろの 4 つから外れ、Lv.5 の f はレベルが上がった後に開放するため数えない)、
       // m2 は b と Action Card の x、m3 は戦闘に出ない
       await updateDoc(doc(context.firestore(), `users/${user.uid}/monsters/m1`), {
-        "definition.learnset": ["a", "b", "c", "d"].map((moveId) => ({ moveId, unlockLevel: 1 })).concat([
-          { moveId: "e", unlockLevel: 4 },
-          { moveId: "f", unlockLevel: 5 },
+        "definition.learnset": ["a", "b", "c", "d"].map((moveID) => ({ moveID, unlockLevel: 1 })).concat([
+          { moveID: "e", unlockLevel: 4 },
+          { moveID: "f", unlockLevel: 5 },
         ]),
       });
       await updateDoc(doc(context.firestore(), `users/${user.uid}/monsters/m2`), {
-        "definition.learnset": [{ moveId: "b", unlockLevel: 1 }],
-        actionCardMoveIds: ["x"],
+        "definition.learnset": [{ moveID: "b", unlockLevel: 1 }],
+        actionCardMoveIDs: ["x"],
       });
-      await updateDoc(doc(context.firestore(), `users/${user.uid}/monsters/m3`), { "definition.learnset": [{ moveId: "z", unlockLevel: 1 }] });
+      await updateDoc(doc(context.firestore(), `users/${user.uid}/monsters/m3`), { "definition.learnset": [{ moveID: "z", unlockLevel: 1 }] });
     });
-    const battleId = await startBattle({ user, partyMonsterIds: ["m1", "m2", "m3"] });
+    const battleID = await startBattle({ user, partyMonsterIDs: ["m1", "m2", "m3"] });
 
-    expect((await recordBattle({ user, battleId, participantMonsterIds: ["m1", "m2"] })).status).toBe(200);
-    // 同じ battleId の再送は数えない
-    expect((await recordBattle({ user, battleId, participantMonsterIds: ["m1", "m2"] })).status).toBe(200);
+    expect((await recordBattle({ user, battleID, participantMonsterIDs: ["m1", "m2"] })).status).toBe(200);
+    // 同じ battleID の再送は数えない
+    expect((await recordBattle({ user, battleID, participantMonsterIDs: ["m1", "m2"] })).status).toBe(200);
     // b は 2 体の枠にあるため 2 回
     expect(await moveUsageCountsOfToday()).toEqual({ b: 1 + 1, c: 1, d: 1, e: 1, x: 1 });
   });
@@ -254,10 +254,10 @@ describe("startBattle と recordBattle", () => {
   it("learnset の無いモンスターは使用回数に数えずにレベルを上げる", async () => {
     const user = await signInUser();
     await seedMonsters({ uid: user.uid, levels: { m1: 5 } });
-    const battleId = await startBattle({ user, partyMonsterIds: ["m1"] });
+    const battleID = await startBattle({ user, partyMonsterIDs: ["m1"] });
 
-    expect((await recordBattle({ user, battleId, participantMonsterIds: ["m1"] })).status).toBe(200);
-    expect(await readMonster({ uid: user.uid, monsterId: "m1" })).toMatchObject({ level: 6 });
+    expect((await recordBattle({ user, battleID, participantMonsterIDs: ["m1"] })).status).toBe(200);
+    expect(await readMonster({ uid: user.uid, monsterID: "m1" })).toMatchObject({ level: 6 });
     expect(await moveUsageCountsOfToday()).toBeUndefined();
   });
 
@@ -265,7 +265,7 @@ describe("startBattle と recordBattle", () => {
     const user = await signInUser();
     expect((await user.getIdTokenResult()).claims.ageVerified).toBeUndefined();
     await seedMonsters({ uid: user.uid, levels: { m1: 5 } });
-    expect(await startBattle({ user, partyMonsterIds: ["m1"] })).not.toBe("");
+    expect(await startBattle({ user, partyMonsterIDs: ["m1"] })).not.toBe("");
   });
 
   it("users/{uid} の無い (アカウントの削除を消し終えた) ユーザーはバトルを始められない", async () => {
@@ -278,7 +278,7 @@ describe("startBattle と recordBattle", () => {
       name: "startBattle",
       idToken: await user.getIdToken(),
       appCheckToken: fakeAppCheckToken,
-      data: { partyMonsterIds: ["m1"] },
+      data: { partyMonsterIDs: ["m1"] },
     });
     expect(response.status).toBe(400);
     expect((await response.json()).error.status).toBe("FAILED_PRECONDITION");
@@ -292,12 +292,12 @@ describe("startBattle と recordBattle", () => {
         name,
         idToken: await user.getIdToken(),
         appCheckToken: null,
-        data: { partyMonsterIds: ["m1"] },
+        data: { partyMonsterIDs: ["m1"] },
       });
       if (ENFORCE_APP_CHECK) {
         expect(response.status, name).toBe(401);
       } else {
-        // 強制していない時は本体まで届く (startBattle は 200、recordBattle は battleId が無いため 400)
+        // 強制していない時は本体まで届く (startBattle は 200、recordBattle は battleID が無いため 400)
         expect(response.status, name).not.toBe(401);
       }
     }
@@ -311,6 +311,6 @@ describe("クライアントからのレベルの書き込み", () => {
     await expect(updateDoc(doc(firestore, "users/alice/monsters/m1"), { level: 999 })).rejects.toMatchObject({
       code: "permission-denied",
     });
-    expect(await readMonster({ uid: "alice", monsterId: "m1" })).toMatchObject({ level: 5 });
+    expect(await readMonster({ uid: "alice", monsterID: "m1" })).toMatchObject({ level: 5 });
   });
 });

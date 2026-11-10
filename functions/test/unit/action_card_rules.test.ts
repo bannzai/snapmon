@@ -8,7 +8,7 @@ import {
   EXPENSIVE_ACTION_CARD_PRODUCT_ID,
   MODERATE_ACTION_CARD_PRODUCT_ID,
   computeActionCardProductIDByMoveID,
-  equippedMoveIds,
+  equippedMoveIDs,
   fallbackActionCardProductID,
   isActionCardProductID,
   previousDayKeys,
@@ -19,7 +19,7 @@ import type { LearnsetEntry } from "../../src/generation/monster_stats";
 /** 端末の技の枠 (test/domain/battle/battle_engine_test.dart) と共通のテストケース。 */
 const equippedMoveCases = (
   JSON.parse(readFileSync(resolve(__dirname, "../../../test/fixtures/equipped_move_cases.json"), "utf8")) as {
-    cases: { name: string; learnset: LearnsetEntry[]; level: number; actionCardMoveIds: string[]; expectedMoveIds: string[] }[];
+    cases: { name: string; learnset: LearnsetEntry[]; level: number; actionCardMoveIDs: string[]; expectedMoveIDs: string[] }[];
   }
 ).cases;
 
@@ -27,11 +27,11 @@ const equippedMoveCases = (
 function move(overrides: Partial<MasterMove> & { id: string }): MasterMove {
   return {
     displayName: overrides.id,
-    elementTypeId: "fire",
+    elementTypeID: "fire",
     power: 40,
     powerPoints: 30,
     category: "attack",
-    effectId: "fire_particle",
+    effectID: "fire_particle",
     learnableLevelMinimum: 1,
     learnableLevelMaximum: 30,
     ...overrides,
@@ -60,9 +60,9 @@ describe("isActionCardProductID", () => {
   });
 });
 
-describe("equippedMoveIds", () => {
-  it.each(equippedMoveCases)("$name", ({ learnset, level, actionCardMoveIds, expectedMoveIds }) => {
-    expect(equippedMoveIds({ learnset, level, actionCardMoveIds })).toEqual(expectedMoveIds);
+describe("equippedMoveIDs", () => {
+  it.each(equippedMoveCases)("$name", ({ learnset, level, actionCardMoveIDs, expectedMoveIDs }) => {
+    expect(equippedMoveIDs({ learnset, level, actionCardMoveIDs })).toEqual(expectedMoveIDs);
   });
 });
 
@@ -89,8 +89,8 @@ describe("computeActionCardProductIDByMoveID", () => {
 
   it("10 件がすべて使われていれば使用回数の順に 2 件・3 件・5 件に分ける", () => {
     const moves = plainMoves(10);
-    const usageCountByMoveId = Object.fromEntries(moves.map((target, index) => [target.id, 100 - index]));
-    expect(computeActionCardProductIDByMoveID({ moves, usageCountByMoveId })).toEqual({
+    const usageCountByMoveID = Object.fromEntries(moves.map((target, index) => [target.id, 100 - index]));
+    expect(computeActionCardProductIDByMoveID({ moves, usageCountByMoveID })).toEqual({
       m00: EXPENSIVE_ACTION_CARD_PRODUCT_ID,
       m01: EXPENSIVE_ACTION_CARD_PRODUCT_ID,
       m02: MODERATE_ACTION_CARD_PRODUCT_ID,
@@ -107,39 +107,39 @@ describe("computeActionCardProductIDByMoveID", () => {
   it("割合の母数は使われていない技を含めた買える技の数で、境界の位置は切り捨て", () => {
     // 10 件のうち使われたのは 3 件。上位 2 件 (10 件の 20%) が500 円、3 件目が 5 件目 (50%) までの300 円
     const moves = plainMoves(10);
-    expect(computeActionCardProductIDByMoveID({ moves, usageCountByMoveId: { m00: 9, m01: 8, m02: 7 } })).toMatchObject({ m00: EXPENSIVE_ACTION_CARD_PRODUCT_ID, m01: EXPENSIVE_ACTION_CARD_PRODUCT_ID, m02: MODERATE_ACTION_CARD_PRODUCT_ID });
+    expect(computeActionCardProductIDByMoveID({ moves, usageCountByMoveID: { m00: 9, m01: 8, m02: 7 } })).toMatchObject({ m00: EXPENSIVE_ACTION_CARD_PRODUCT_ID, m01: EXPENSIVE_ACTION_CARD_PRODUCT_ID, m02: MODERATE_ACTION_CARD_PRODUCT_ID });
   });
 
   it("使われた技でも並びが 50% より後なら100 円", () => {
     // 4 件のうち 2 件 (50%) までが300 円 以上で、500 円 は 4 件の 20% の切り捨てで 0 件
     const moves = plainMoves(4);
-    expect(computeActionCardProductIDByMoveID({ moves, usageCountByMoveId: { m00: 4, m01: 3, m02: 2, m03: 1 } })).toEqual({ m00: MODERATE_ACTION_CARD_PRODUCT_ID, m01: MODERATE_ACTION_CARD_PRODUCT_ID, m02: CHEAP_ACTION_CARD_PRODUCT_ID, m03: CHEAP_ACTION_CARD_PRODUCT_ID });
+    expect(computeActionCardProductIDByMoveID({ moves, usageCountByMoveID: { m00: 4, m01: 3, m02: 2, m03: 1 } })).toEqual({ m00: MODERATE_ACTION_CARD_PRODUCT_ID, m01: MODERATE_ACTION_CARD_PRODUCT_ID, m02: CHEAP_ACTION_CARD_PRODUCT_ID, m03: CHEAP_ACTION_CARD_PRODUCT_ID });
   });
 
   it("使われていない技は並びの位置に関係なく段階で決める", () => {
     // 5 件のうち使われたのは m00 だけ。並びで上位 20% に入る位置が無くても、使用 0 の strong は500 円、weak は100 円
     const moves = [...plainMoves(1), move({ id: "strong", power: 110 }), move({ id: "middle", power: 70 }), move({ id: "weak1" }), move({ id: "weak2" })];
-    expect(computeActionCardProductIDByMoveID({ moves, usageCountByMoveId: { m00: 9 } })).toEqual({ m00: EXPENSIVE_ACTION_CARD_PRODUCT_ID, strong: EXPENSIVE_ACTION_CARD_PRODUCT_ID, middle: MODERATE_ACTION_CARD_PRODUCT_ID, weak1: CHEAP_ACTION_CARD_PRODUCT_ID, weak2: CHEAP_ACTION_CARD_PRODUCT_ID });
+    expect(computeActionCardProductIDByMoveID({ moves, usageCountByMoveID: { m00: 9 } })).toEqual({ m00: EXPENSIVE_ACTION_CARD_PRODUCT_ID, strong: EXPENSIVE_ACTION_CARD_PRODUCT_ID, middle: MODERATE_ACTION_CARD_PRODUCT_ID, weak1: CHEAP_ACTION_CARD_PRODUCT_ID, weak2: CHEAP_ACTION_CARD_PRODUCT_ID });
   });
 
   it("どの技も使われていなければすべて段階で決める", () => {
     const moves = [move({ id: "weak" }), move({ id: "strong", power: 110 }), move({ id: "middle", power: 70 })];
-    expect(computeActionCardProductIDByMoveID({ moves, usageCountByMoveId: {} })).toEqual({ weak: CHEAP_ACTION_CARD_PRODUCT_ID, strong: EXPENSIVE_ACTION_CARD_PRODUCT_ID, middle: MODERATE_ACTION_CARD_PRODUCT_ID });
+    expect(computeActionCardProductIDByMoveID({ moves, usageCountByMoveID: {} })).toEqual({ weak: CHEAP_ACTION_CARD_PRODUCT_ID, strong: EXPENSIVE_ACTION_CARD_PRODUCT_ID, middle: MODERATE_ACTION_CARD_PRODUCT_ID });
   });
 
   it("使用回数が同じ技は境界をまたいでも技の ID の順に並べる", () => {
     const moves = plainMoves(5).reverse();
     // m00 と m01 が同じ回数で、500 円 の 1 件 (5 件の 20%) の境界をまたぐ
-    expect(computeActionCardProductIDByMoveID({ moves, usageCountByMoveId: { m00: 7, m01: 7, m02: 3, m03: 2, m04: 1 } })).toMatchObject({ m00: EXPENSIVE_ACTION_CARD_PRODUCT_ID, m01: MODERATE_ACTION_CARD_PRODUCT_ID });
+    expect(computeActionCardProductIDByMoveID({ moves, usageCountByMoveID: { m00: 7, m01: 7, m02: 3, m03: 2, m04: 1 } })).toMatchObject({ m00: EXPENSIVE_ACTION_CARD_PRODUCT_ID, m01: MODERATE_ACTION_CARD_PRODUCT_ID });
   });
 
   it("使われた強い技でも使用の順の商品にし、段階の商品を使わない", () => {
     const moves = [...plainMoves(4), move({ id: "strong", power: 110 })];
-    expect(computeActionCardProductIDByMoveID({ moves, usageCountByMoveId: { m00: 50, m01: 40, m02: 30, m03: 20, strong: 1 } })).toMatchObject({ m00: EXPENSIVE_ACTION_CARD_PRODUCT_ID, strong: CHEAP_ACTION_CARD_PRODUCT_ID });
+    expect(computeActionCardProductIDByMoveID({ moves, usageCountByMoveID: { m00: 50, m01: 40, m02: 30, m03: 20, strong: 1 } })).toMatchObject({ m00: EXPENSIVE_ACTION_CARD_PRODUCT_ID, strong: CHEAP_ACTION_CARD_PRODUCT_ID });
   });
 
   it("買える技に無い ID の使用回数は表に入れない", () => {
-    expect(computeActionCardProductIDByMoveID({ moves: plainMoves(1), usageCountByMoveId: { replaced: 99, constructor: 5 } })).toEqual({ m00: CHEAP_ACTION_CARD_PRODUCT_ID });
+    expect(computeActionCardProductIDByMoveID({ moves: plainMoves(1), usageCountByMoveID: { replaced: 99, constructor: 5 } })).toEqual({ m00: CHEAP_ACTION_CARD_PRODUCT_ID });
   });
 });
 

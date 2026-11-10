@@ -135,7 +135,7 @@ input[type="number"] { width: 5.5em; text-align: right; }
 <script type="module">
 import {
   MASTER_SECTIONS,
-  resolveMasterUrl,
+  resolveMasterURL,
   unrenderedKeys,
   elementTypeDisplayName,
   multiplierKind,
@@ -183,8 +183,8 @@ function editedMove(move) {
 }
 
 /** 書き換えを反映した相性表の倍率を返す */
-function editedMultiplier(attackerId, defenderId) {
-  return state.edits.typeChart[attackerId]?.[defenderId] ?? state.master.typeChart[attackerId][defenderId];
+function editedMultiplier(attackerID, defenderID) {
+  return state.edits.typeChart[attackerID]?.[defenderID] ?? state.master.typeChart[attackerID][defenderID];
 }
 
 /** 書き換えた差分を下の欄に描き直す */
@@ -247,7 +247,7 @@ const renderers = {
     ))),
 
   typeChart: (master) => {
-    const elementTypeIds = master.elementTypes.map((elementType) => elementType.id);
+    const elementTypeIDs = master.elementTypes.map((elementType) => elementType.id);
     return element('div', {},
       element('p', {}, '行が攻撃する技の属性、列が受けるモンスターの属性。セルを押すとその 1 行をコピーする'),
       element('div', { className: 'legend' },
@@ -257,11 +257,11 @@ const renderers = {
       ),
       element('div', { className: 'panel' },
         element('table', { className: 'chart' },
-          element('thead', {}, element('tr', {}, element('th', {}, '攻撃 \\ 防御'), elementTypeIds.map((id) => element('th', {}, elementTypeDisplayName(master, id))))),
-          element('tbody', {}, elementTypeIds.map((attackerId) =>
+          element('thead', {}, element('tr', {}, element('th', {}, '攻撃 \\ 防御'), elementTypeIDs.map((id) => element('th', {}, elementTypeDisplayName(master, id))))),
+          element('tbody', {}, elementTypeIDs.map((attackerID) =>
             element('tr', {},
-              element('th', { className: 'attacker' }, elementTypeDisplayName(master, attackerId)),
-              elementTypeIds.map((defenderId) => typeChartCell(master, attackerId, defenderId)),
+              element('th', { className: 'attacker' }, elementTypeDisplayName(master, attackerID)),
+              elementTypeIDs.map((defenderID) => typeChartCell(master, attackerID, defenderID)),
             ))),
         ),
       ),
@@ -269,7 +269,7 @@ const renderers = {
   },
 
   moves: (master) => {
-    const moves = master.moves.filter((move) => state.moveFilter === '' || move.elementTypeId === state.moveFilter);
+    const moves = master.moves.filter((move) => state.moveFilter === '' || move.elementTypeID === state.moveFilter);
     return element('div', {},
       element('div', { className: 'toolbar' },
         element('label', {}, '属性で絞る',
@@ -289,11 +289,11 @@ const renderers = {
         element('tr', {},
           element('td', {}, element('code', {}, move.id)),
           element('td', { className: 'name' }, move.displayName),
-          element('td', {}, elementTypeDisplayName(master, move.elementTypeId)),
+          element('td', {}, elementTypeDisplayName(master, move.elementTypeID)),
           moveNumberCell(move, 'power', '威力'),
           moveNumberCell(move, 'powerPoints', 'PP'),
           element('td', {}, move.category),
-          element('td', {}, element('code', {}, move.effectId)),
+          element('td', {}, element('code', {}, move.effectID)),
           element('td', { className: 'number' }, `${move.learnableLevelMinimum}–${move.learnableLevelMaximum}`),
           element('td', { className: 'note' }, move.specialEffect
             ? [move.specialEffect.summary, element('br'), move.specialEffect.rule, element('br'), '倍率 (%) = ', element('code', {}, move.specialEffect.power), element('br'), move.specialEffect.rationale]
@@ -331,18 +331,18 @@ const renderers = {
 };
 
 /** 相性表のセルを作る。書き換える時は入力欄、それ以外は押すとその 1 行をコピーするボタン (キーボードでも押せるよう td ではなく button に持たせる) */
-function typeChartCell(master, attackerId, defenderId) {
-  const multiplier = editedMultiplier(attackerId, defenderId);
-  const feedbackLine = typeChartCellFeedbackLine(master, attackerId, defenderId, multiplier);
+function typeChartCell(master, attackerID, defenderID) {
+  const multiplier = editedMultiplier(attackerID, defenderID);
+  const feedbackLine = typeChartCellFeedbackLine(master, attackerID, defenderID, multiplier);
   const cell = element('td', { title: feedbackLine });
   const paint = (value) => {
     cell.className = multiplierKind(value);
-    cell.classList.toggle('edited', value !== master.typeChart[attackerId][defenderId]);
+    cell.classList.toggle('edited', value !== master.typeChart[attackerID][defenderID]);
   };
   paint(multiplier);
   if (state.editMode) {
-    cell.append(numberInput(multiplier, 0.5, `${attackerId} → ${defenderId} の倍率`, (value) => {
-      (state.edits.typeChart[attackerId] ??= {})[defenderId] = value;
+    cell.append(numberInput(multiplier, 0.5, `${attackerID} → ${defenderID} の倍率`, (value) => {
+      (state.edits.typeChart[attackerID] ??= {})[defenderID] = value;
       paint(value);
     }));
   } else {
@@ -397,11 +397,11 @@ document.getElementById('copy-diff').addEventListener('click', () => {
 document.getElementById('reset-edits').addEventListener('click', () => { state.edits = { moves: {}, typeChart: {} }; render(); });
 
 try {
-  const masterUrl = resolveMasterUrl(location.href);
+  const masterURL = resolveMasterURL(location.href);
   const sourceLink = document.getElementById('source-url');
-  sourceLink.href = masterUrl;
-  sourceLink.textContent = masterUrl;
-  const response = await fetch(masterUrl);
+  sourceLink.href = masterURL;
+  sourceLink.textContent = masterURL;
+  const response = await fetch(masterURL);
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
   state.master = await response.json();
   render();
