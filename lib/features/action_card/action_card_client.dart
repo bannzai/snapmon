@@ -2,20 +2,29 @@ import 'package:purchases_flutter/purchases_flutter.dart';
 
 import '../capture/monster_generator.dart';
 
-/// Action Card のランク (安い順)。Functions の functions/src/action_card_rules.ts の `MOVE_RANKS` と同じ値。
-const List<int> actionCardRanks = [1, 2, 3];
+/// RevenueCat の Action Card の package の識別子 (offering の package の lookup_key。revenuecat/config.json) の接頭辞。
+/// 生成チケットと同じ offering に入るため、接頭辞で見分ける。技に合う package は、識別子ではなくストアの商品 ID
+/// (`storeProduct.identifier`) で引く ([actionCardPackageOfProductID])。
+const String actionCardPackageIdentifierPrefix = 'actioncard_';
 
-/// RevenueCat の package の識別子 (offering の package の lookup_key) の接頭辞。後ろにランクの数字が付く
-/// (revenuecat/config.json の `actioncard_rank1`〜`actioncard_rank3`)。生成チケットと同じ offering に入る。
-const String actionCardPackageIdentifierPrefix = 'actioncard_rank';
+/// [package] が Action Card の package か。
+bool isActionCardPackage({required Package package}) =>
+    package.identifier.startsWith(actionCardPackageIdentifierPrefix);
 
-/// [package] が Action Card の package ならそのランク、そうでなければ null。
-int? actionCardRankOfPackage({required Package package}) =>
-    package.identifier.startsWith(actionCardPackageIdentifierPrefix)
-    ? int.tryParse(
-        package.identifier.substring(actionCardPackageIdentifierPrefix.length),
-      )
-    : null;
+/// [packages] のうち、ストアの商品 ID が [productID] の package。無ければ null。
+/// iOS と Android の消耗型はどちらも `storeProduct.identifier` がストアの商品 ID そのもの (Android の
+/// `GoogleStoreProduct` は INAPP に基本プランが無く、`productId:basePlanId` の形は定期購入だけ)。
+Package? actionCardPackageOfProductID({
+  required List<Package> packages,
+  required String productID,
+}) {
+  for (final package in packages) {
+    if (package.storeProduct.identifier == productID) {
+      return package;
+    }
+  }
+  return null;
+}
 
 /// Action Card の購入 1 件 (`users/{uid}/actionCardPurchases/{eventId}`。形は functions/src/generation_tickets.ts の
 /// `ActionCardPurchaseDocument`)。買い切った技は `moveID` のある購入で、`moveID` の無い購入は技を選び直して受け取る。
@@ -23,7 +32,7 @@ class ActionCardPurchase {
   /// Firestore から読んだ購入を作る。
   const ActionCardPurchase({
     required this.actionCardPurchaseID,
-    required this.rank,
+    required this.productID,
     required this.moveID,
     required this.actionCardMoveReservationID,
     required this.createdAt,
@@ -33,8 +42,8 @@ class ActionCardPurchase {
   /// 購入の ID (RevenueCat のイベントの ID。文書 ID)。
   final String actionCardPurchaseID;
 
-  /// 購入した商品のランク。受け取れる技は、受け取る時のランクがこれ以下のもの。
-  final int rank;
+  /// 購入した商品の ID (Firestore の `productId`)。受け取れる技は、受け取る時にこの商品で買える技。
+  final String productID;
 
   /// 買い切った技の ID。技に結び付いていない購入は null (#290 より前のフィールドの無い購入も null)。
   final String? moveID;
@@ -49,20 +58,21 @@ class ActionCardPurchase {
   final DateTime? moveAssignedAt;
 }
 
-/// 技を控える時に端末が出したランクと技の今のランクが違うため断られた (値段を出している間に技のランクが変わった)。
-/// reserveActionCardMove が failed-precondition の `details` に今のランクを入れて断った時に投げる (functions/src/action_cards.ts)。
-class ActionCardMoveRankChangedException implements Exception {
-  /// 断られた時の技の今のランク [rank] を持つ。
-  const ActionCardMoveRankChangedException({required this.rank});
+/// 技を控える時に端末が値段を出した商品と技の今の商品が違うため断られた (値段を出している間に技の商品が変わった)。
+/// reserveActionCardMove が failed-precondition の `details` に今の商品の ID を入れて断った時に投げる (functions/src/action_cards.ts)。
+class ActionCardMoveProductChangedException implements Exception {
+  /// 断られた時の技の今の商品の ID [productID] を持つ。
+  const ActionCardMoveProductChangedException({required this.productID});
 
-  /// 技の今のランク。
-  final int rank;
+  /// 技を今買える商品の ID。
+  final String productID;
 
   @override
-  String toString() => 'ActionCardMoveRankChangedException(rank: $rank)';
+  String toString() =>
+      'ActionCardMoveProductChangedException(productID: $productID)';
 }
 
-/// Action Card の表示の切り替え・商品・購入・技のランクの購読と、技の控え・購入・選び直し・覚えさせる・忘れさせるを呼ぶ関数の組。
+/// Action Card の表示の切り替え・商品・購入・技ごとの商品の購読と、技の控え・購入・選び直し・覚えさせる・忘れさせるを呼ぶ関数の組。
 /// 画面を Firebase・RevenueCat と切り離してテストするため、実体 (lib/firebase/action_cards.dart) は main.dart から渡す。
 /// 購読は uid が変わるたびに空の値 (購入なし・隠す) から流し直す (前のアカウントの値を今のアカウントのものとして出さないため)。
 class ActionCardClient {
@@ -73,7 +83,7 @@ class ActionCardClient {
     required this.fetchActionCardPackages,
     required this.purchaseActionCardPackage,
     required this.watchActionCardPurchases,
-    required this.watchMoveRanks,
+    required this.watchActionCardProductIDByMoveID,
     required this.reserveActionCardMove,
     required this.assignActionCardMove,
     required this.teachActionCardMove,
@@ -87,7 +97,7 @@ class ActionCardClient {
   /// `config/features.actionCardsVisible` を流す。無い時・読めない時は false。
   final Stream<bool> Function() watchActionCardsVisible;
 
-  /// RevenueCat の current offering のうち Action Card の package ([actionCardRankOfPackage] が null でないもの) を返す。
+  /// RevenueCat の current offering のうち Action Card の package ([isActionCardPackage] が true のもの) を返す。
   /// 課金が無効なビルド・ログインしていない時・売っていない時は空。
   final Future<List<Package>> Function() fetchActionCardPackages;
 
@@ -98,12 +108,16 @@ class ActionCardClient {
   /// `users/{uid}/actionCardPurchases` を、記録した順で流す。
   final Stream<List<ActionCardPurchase>> Function() watchActionCardPurchases;
 
-  /// `moveRanks/current.rankByMoveId` (技の ID ごとのランク) を流す。表がまだ無い時は null。
-  final Stream<Map<String, int>?> Function() watchMoveRanks;
+  /// `actionCardProducts/current.productIDByMoveID` (技の ID ごとの、その技を買える商品の ID) を流す。表がまだ無い時は null。
+  final Stream<Map<String, String>?> Function()
+  watchActionCardProductIDByMoveID;
 
-  /// reserveActionCardMove を呼んで、値段を出したランク [rank] の [moveID] を買う前に控え、控えの ID を返す。
-  /// 技の今のランクが [rank] と違えば控えずに [ActionCardMoveRankChangedException] を投げる。
-  final Future<String> Function({required String moveID, required int rank})
+  /// reserveActionCardMove を呼んで、商品 [productID] で値段を出した [moveID] を買う前に控え、控えの ID を返す。
+  /// 技を今買える商品が [productID] と違えば控えずに [ActionCardMoveProductChangedException] を投げる。
+  final Future<String> Function({
+    required String moveID,
+    required String productID,
+  })
   reserveActionCardMove;
 
   /// assignActionCardMove を呼んで、技に結び付いていない購入 [actionCardPurchaseID] に [moveID] を結び付ける。

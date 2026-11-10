@@ -14,7 +14,7 @@ setGlobalOptions({
 initializeApp();
 
 export { deleteAccount, deleteAccountFilesTask as deleteAccountFiles } from "./account";
-export { assignActionCardMove, forgetActionCardMove, reserveActionCardMove, teachActionCardMove, updateMoveRanks } from "./action_cards";
+export { assignActionCardMove, forgetActionCardMove, reserveActionCardMove, teachActionCardMove, updateActionCardProducts } from "./action_cards";
 export { recordBattle, startBattle } from "./battle";
 export { generate, resumeGenerationTask as resumeGeneration } from "./generation/generate";
 export { revenueCatWebhook } from "./generation_tickets";

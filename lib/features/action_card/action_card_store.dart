@@ -12,7 +12,7 @@ import 'action_card_client.dart';
 /// 戻るのを待ちつつ、入口が出ないまま利用者が待たされすぎない長さにした。読めるまで繰り返す。
 const Duration _packagesRetryDelay = Duration(seconds: 30);
 
-/// Action Card の表示の切り替え・売っている package・購入・技のランクの、最後に読めた値。
+/// Action Card の表示の切り替え・売っている package・購入・技ごとの商品の、最後に読めた値。
 /// 図鑑の詳細・プロフィール・Action Card の画面が同じ値を見るため、アプリに 1 つ置いて [ActionCardScope] で配る。
 class ActionCardStore extends ChangeNotifier {
   /// [client] で購読を始める。[sessionChanges] が知らせるたびに (ログイン・始め直し・データの引き継ぎ) 空の値から購読し直す。
@@ -45,7 +45,7 @@ class ActionCardStore extends ChangeNotifier {
   /// `config/features.actionCardsVisible`。
   bool _isActionCardsVisible = false;
 
-  /// 最後に読めた売っている Action Card の package (ランクの順)。
+  /// 最後に読めた売っている Action Card の package (安い順)。
   List<Package> _packages = const [];
 
   /// [refreshPackages] を始めた回数。読み込みごとの番号にする。
@@ -67,17 +67,17 @@ class ActionCardStore extends ChangeNotifier {
   /// Action Card の購入 (記録した順)。
   List<ActionCardPurchase> _purchases = const [];
 
-  /// 技の ID ごとのランク。表がまだ無い時は null。
-  Map<String, int>? _rankByMoveId;
+  /// 技の ID ごとの、その技を買える商品の ID。表がまだ無い時は null。
+  Map<String, String>? _productIDByMoveID;
 
-  /// 売っている Action Card の package (ランクの順)。
+  /// 売っている Action Card の package (ストアの価格の安い順)。
   List<Package> get packages => _packages;
 
   /// Action Card の購入 (記録した順)。購入画面が、控えた技の購入が届いたかを見る。
   List<ActionCardPurchase> get purchases => _purchases;
 
-  /// 技の ID ごとのランク。表がまだ無い時 (最初のデプロイの直後) は null で、購入と選び直しを受け付けない。
-  Map<String, int>? get rankByMoveId => _rankByMoveId;
+  /// 技の ID ごとの、その技を買える商品の ID。表がまだ無い時 (最初のデプロイの直後) は null で、購入と選び直しを受け付けない。
+  Map<String, String>? get productIDByMoveID => _productIDByMoveID;
 
   /// 買い切った技の ID (技を結び付けた順)。購入の `moveID` から出し、別に持たない (#290)。
   List<String> get ownedMoveIds => [
@@ -93,7 +93,7 @@ class ActionCardStore extends ChangeNotifier {
       purchase.moveID!,
   ];
 
-  /// 技に結び付いていない購入 (記録した順)。技を選んでから購入が届くまでの間にランクが上がった時などに残り、利用者が技を選び直す。
+  /// 技に結び付いていない購入 (記録した順)。技を選んでから購入が届くまでの間に技の商品が変わった時などに残り、利用者が技を選び直す。
   List<ActionCardPurchase> get unassignedPurchases => [
     for (final purchase in _purchases)
       if (purchase.moveID == null) purchase,
@@ -126,7 +126,7 @@ class ActionCardStore extends ChangeNotifier {
     // 前のアカウントの途中の読み込みは、返ってもアカウントが違うため件数を減らさない。数え直しをここで 0 から始める
     _loadingPackagesCount = 0;
     _purchases = const [];
-    _rankByMoveId = null;
+    _productIDByMoveID = null;
     notifyListeners();
     _subscriptions
       ..add(
@@ -143,8 +143,8 @@ class ActionCardStore extends ChangeNotifier {
         }, onError: (Object _) {}),
       )
       ..add(
-        client.watchMoveRanks().listen((rankByMoveId) {
-          _rankByMoveId = rankByMoveId;
+        client.watchActionCardProductIDByMoveID().listen((productIDByMoveID) {
+          _productIDByMoveID = productIDByMoveID;
           notifyListeners();
         }, onError: (Object _) {}),
       );
@@ -181,11 +181,8 @@ class ActionCardStore extends ChangeNotifier {
     _packagesRetryTimer?.cancel();
     _packagesRetryTimer = null;
     _packages = [
-      for (final rank in actionCardRanks)
-        ...packages.where(
-          (package) => actionCardRankOfPackage(package: package) == rank,
-        ),
-    ];
+      ...packages.where((package) => isActionCardPackage(package: package)),
+    ]..sort((left, right) => left.storeProduct.price.compareTo(right.storeProduct.price));
     notifyListeners();
   }
 
@@ -212,9 +209,11 @@ class ActionCardStore extends ChangeNotifier {
     });
   }
 
-  /// 値段を出したランク [rank] の [moveID] を買う前に控え、控えの ID を返す ([ActionCardClient.reserveActionCardMove])。
-  Future<String> reserveMove({required String moveID, required int rank}) =>
-      client.reserveActionCardMove(moveID: moveID, rank: rank);
+  /// 商品 [productID] で値段を出した [moveID] を買う前に控え、控えの ID を返す ([ActionCardClient.reserveActionCardMove])。
+  Future<String> reserveMove({
+    required String moveID,
+    required String productID,
+  }) => client.reserveActionCardMove(moveID: moveID, productID: productID);
 
   /// [package] を購入する ([ActionCardClient.purchaseActionCardPackage])。先に [reserveMove] で控えた技が、届いた購入に結び付く。
   Future<TicketPurchaseResult> purchase({required Package package}) =>
@@ -241,8 +240,8 @@ class ActionCardStore extends ChangeNotifier {
   }
 }
 
-/// [actionCardStore] の技のランクの表と買い切った技のうち、[dexStore] の定義に無い技があれば、定義を最新の master から読み直す。
-/// 技のランクの表と買い切った技は最新の版の master の技で、ログインの後に新しい版が投入されると端末の定義に無い技が届くため
+/// [actionCardStore] の技ごとの商品の表と買い切った技のうち、[dexStore] の定義に無い技があれば、定義を最新の master から読み直す。
+/// 技ごとの商品の表と買い切った技は最新の版の master の技で、ログインの後に新しい版が投入されると端末の定義に無い技が届くため
 /// (図鑑の読み直しは図鑑のモンスターの技しか見ない。lib/master/master_repository.dart の `needsLatestMasterFetch`)。
 /// [requestedMoveIds] は読み直しを頼んだ技で、master に無い技のために何度も読み直さないよう、呼び出し側が画面ごとに持つ。
 /// 読み直しの失敗は無視する (無い技は一覧に出さないままにする)。
@@ -253,7 +252,7 @@ Future<void> refreshDefinitionsForActionCardMoves({
 }) async {
   final missingMoveIds =
       {
-        ...?actionCardStore.rankByMoveId?.keys,
+        ...?actionCardStore.productIDByMoveID?.keys,
         ...actionCardStore.ownedMoveIds,
       }.difference({
         for (final move in dexStore.definitions.moves) move.id,

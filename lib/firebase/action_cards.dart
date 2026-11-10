@@ -71,7 +71,7 @@ Stream<List<ActionCardPurchase>> watchActionCardPurchasesWithFirebase() =>
               for (final document in snapshot.docs)
                 ActionCardPurchase(
                   actionCardPurchaseID: document.id,
-                  rank: document.data()['rank'] as int,
+                  productID: document.data()['productId'] as String,
                   moveID: document.data()['moveID'] as String?,
                   actionCardMoveReservationID:
                       document.data()['actionCardMoveReservationID'] as String?,
@@ -85,23 +85,25 @@ Stream<List<ActionCardPurchase>> watchActionCardPurchasesWithFirebase() =>
           ),
     );
 
-/// `moveRanks/current.rankByMoveId` を流す ([ActionCardClient.watchMoveRanks])。表が無い時は null。
-Stream<Map<String, int>?> watchMoveRanksWithFirebase() => _watchWhileSignedIn(
-  emptyValue: null,
-  watchSignedIn: ({required uid}) => FirebaseFirestore.instance
-      .doc('moveRanks/current')
-      .snapshots()
-      .map(
-        (snapshot) => switch (snapshot.data()?['rankByMoveId']) {
-          final Map<String, dynamic> rankByMoveId => {
-            for (final MapEntry(key: moveId, value: rank)
-                in rankByMoveId.entries)
-              moveId: rank as int,
-          },
-          _ => null,
-        },
-      ),
-);
+/// `actionCardProducts/current.productIDByMoveID` を流す ([ActionCardClient.watchActionCardProductIDByMoveID])。
+/// 表が無い時は null。
+Stream<Map<String, String>?> watchActionCardProductIDByMoveIDWithFirebase() =>
+    _watchWhileSignedIn(
+      emptyValue: null,
+      watchSignedIn: ({required uid}) => FirebaseFirestore.instance
+          .doc('actionCardProducts/current')
+          .snapshots()
+          .map(
+            (snapshot) => switch (snapshot.data()?['productIDByMoveID']) {
+              final Map<String, dynamic> productIDByMoveID => {
+                for (final MapEntry(key: moveID, value: productID)
+                    in productIDByMoveID.entries)
+                  moveID: productID as String,
+              },
+              _ => null,
+            },
+          ),
+    );
 
 /// Functions の callable [name] を [data] で呼び、返った値を返す。
 Future<Map<Object?, Object?>> _call({
@@ -114,23 +116,23 @@ Future<Map<Object?, Object?>> _call({
         as Map<Object?, Object?>;
 
 /// reserveActionCardMove を呼ぶ ([ActionCardClient.reserveActionCardMove])。返す値は控えの ID。
-/// 技のランクが [rank] と違うと断られた時 (failed-precondition の `details` に今のランクがある) は
-/// [ActionCardMoveRankChangedException] にして投げ、それ以外の失敗はそのまま投げる。
+/// 技を今買える商品が [productID] と違うと断られた時 (failed-precondition の `details` に今の商品の ID がある) は
+/// [ActionCardMoveProductChangedException] にして投げ、それ以外の失敗はそのまま投げる。
 Future<String> reserveActionCardMoveWithFirebase({
   required String moveID,
-  required int rank,
+  required String productID,
 }) async {
   try {
     return (await _call(
           name: 'reserveActionCardMove',
-          data: {'moveID': moveID, 'rank': rank},
+          data: {'moveID': moveID, 'productID': productID},
         ))['actionCardMoveReservationID']!
         as String;
   } on FirebaseFunctionsException catch (error) {
     if (error.details case {
-      'rank': final int changedRank,
+      'productID': final String changedProductID,
     } when error.code == 'failed-precondition') {
-      throw ActionCardMoveRankChangedException(rank: changedRank);
+      throw ActionCardMoveProductChangedException(productID: changedProductID);
     }
     rethrow;
   }

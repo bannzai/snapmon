@@ -1,4 +1,4 @@
-// Action Card の技の控え・選び直し・覚えさせる・忘れさせる callable と、技のランクの定期計算。購入を技に結び付けるのは
+// Action Card の技の控え・選び直し・覚えさせる・忘れさせる callable と、技に割り振る商品の定期計算。購入を技に結び付けるのは
 // RevenueCat の webhook (generation_tickets.ts)。構造と書き込みの主体は .claude/rules/firestore.md、規則は action_card_rules.ts と
 // documents/game-rules.md「Action Card」。
 
@@ -10,7 +10,13 @@ import { HttpsError, onCall } from "firebase-functions/v2/https";
 import { onSchedule } from "firebase-functions/v2/scheduler";
 
 import { authUserExists } from "./account";
-import { MOVE_RANKS, MOVE_USAGE_WINDOW_DAYS, type MoveRank, canAssignMoveToActionCard, computeMoveRanks, fallbackMoveRank, previousDayKeys } from "./action_card_rules";
+import {
+  MOVE_USAGE_WINDOW_DAYS,
+  computeActionCardProductIDByMoveID,
+  fallbackActionCardProductID,
+  isActionCardProductID,
+  previousDayKeys,
+} from "./action_card_rules";
 import { ENFORCE_APP_CHECK } from "./app_check";
 import { requireSignedInUid } from "./battle";
 import { fetchLatestMaster, learnableMoves } from "./generation/master";
@@ -18,13 +24,16 @@ import type { ActionCardPurchaseDocument } from "./generation_tickets";
 import { requireActiveAccount } from "./pvp";
 import { isDocumentId } from "./pvp_rules";
 
-/** 技のランクの表 (`moveRanks/current`)。updateMoveRanks が毎日書き、購入の画面と reserveActionCardMove・assignActionCardMove・webhook が読む。 */
-export interface MoveRanksDocument {
-  /** ランクを決めた master の版。 */
+/**
+ * 技ごとの Action Card の商品の表 (`actionCardProducts/current`)。updateActionCardProducts が毎日書き、購入の画面と
+ * reserveActionCardMove・assignActionCardMove・webhook が読む。
+ */
+export interface ActionCardProductsDocument {
+  /** 商品を割り振った master の版。 */
   version: number;
-  /** 技の ID ごとのランク。買える技 (最新の版の master の技のうち、置き換えられた技を除いたもの) だけを持つ。 */
-  rankByMoveId: Record<string, MoveRank>;
-  /** 決めた時刻。 */
+  /** 技の ID ごとの、その技を買える商品の ID。買える技 (最新の版の master の技のうち、置き換えられた技を除いたもの) だけを持つ。 */
+  productIDByMoveID: Record<string, string>;
+  /** 割り振った時刻。 */
   computedAt: Timestamp;
   /** 使用回数を集計した日数。 */
   usageWindowDays: number;
@@ -32,7 +41,7 @@ export interface MoveRanksDocument {
 
 /**
  * 買う前に控えた技 (`users/{uid}.actionCardMoveReservation`)。reserveActionCardMove が書き (新しい控えで上書きする)、
- * RevenueCat の webhook が同じランクの Action Card の購入を受けた時にこの技を購入に結び付けて消す (generation_tickets.ts)。
+ * RevenueCat の webhook が同じ商品の Action Card の購入を受けた時にこの技を購入に結び付けて消す (generation_tickets.ts)。
  * 端末が購入の後に技を伝える形にしないのは、購入の後にアプリが落ちると払ったのに技が手に入らないまま残るため (#290)。
  */
 export interface ActionCardMoveReservation {
@@ -40,18 +49,18 @@ export interface ActionCardMoveReservation {
   actionCardMoveReservationID: string;
   /** 控えた技の ID。 */
   moveID: string;
-  /** 控えた時の技のランク。webhook はこのランクの商品の購入だけをこの技に結び付ける。 */
-  rank: MoveRank;
+  /** 控えた時に技を買えた商品の ID。webhook はこの商品の購入だけをこの技に結び付ける。 */
+  productID: string;
   /** 控えた時刻。 */
   reservedAt: Timestamp;
 }
 
 /**
- * 最新の版の master の買える技 [moveID] の今のランク ([transaction] で `moveRanks/current` を読む)。表に無い
- * (表が無い・表を作った後に master に足された) 技は段階で決める予備のランク (action_card_rules.ts の fallbackMoveRank)。
+ * 最新の版の master の買える技 [moveID] を今買える商品の ID ([transaction] で `actionCardProducts/current` を読む)。表に無い
+ * (表が無い・表を作った後に master に足された) 技は段階で決める予備の商品 (action_card_rules.ts の fallbackActionCardProductID)。
  * 置き換えられた技・master に無い技は undefined。
  */
-export async function currentMoveRank({
+export async function currentActionCardProductID({
   firestore,
   transaction,
   moveID,
@@ -59,14 +68,14 @@ export async function currentMoveRank({
   firestore: Firestore;
   transaction: Transaction;
   moveID: string;
-}): Promise<MoveRank | undefined> {
+}): Promise<string | undefined> {
   // 投入済みの版は書き換えないため、トランザクションの外の読み取りでよい
   const move = learnableMoves((await fetchLatestMaster(firestore)).moves).find((candidate) => candidate.id === moveID);
   if (move === undefined) {
     return undefined;
   }
-  const rankByMoveId = ((await transaction.get(firestore.doc("moveRanks/current"))).get("rankByMoveId") ?? {}) as Record<string, MoveRank>;
-  return Object.hasOwn(rankByMoveId, moveID) ? rankByMoveId[moveID] : fallbackMoveRank(move);
+  const productIDByMoveID = ((await transaction.get(firestore.doc("actionCardProducts/current"))).get("productIDByMoveID") ?? {}) as Record<string, string>;
+  return Object.hasOwn(productIDByMoveID, moveID) ? productIDByMoveID[moveID] : fallbackActionCardProductID(move);
 }
 
 /**
@@ -89,10 +98,11 @@ export async function ownsActionCardMove({
 }
 
 /**
- * 直近 [MOVE_USAGE_WINDOW_DAYS] 日の `moveUsageDailyCounts` を合計し、最新の版の master の買える技のランクを `moveRanks/current` に書く
- * (updateMoveRanks の本体。テストは Firestore と時刻を渡して直接呼ぶ)。同じ入力からは同じ表を書く (冪等)。返す値は書いた表。
+ * 直近 [MOVE_USAGE_WINDOW_DAYS] 日の `moveUsageDailyCounts` を合計し、最新の版の master の買える技に割り振った商品を
+ * `actionCardProducts/current` に書く (updateActionCardProducts の本体。テストは Firestore と時刻を渡して直接呼ぶ)。
+ * 同じ入力からは同じ表を書く (冪等)。返す値は書いた表。
  */
-export async function updateMoveRanksWith({ firestore, now }: { firestore: Firestore; now: Date }): Promise<MoveRanksDocument> {
+export async function updateActionCardProductsWith({ firestore, now }: { firestore: Firestore; now: Date }): Promise<ActionCardProductsDocument> {
   const [master, usageSnapshots] = await Promise.all([
     fetchLatestMaster(firestore),
     firestore.getAll(...previousDayKeys({ now, days: MOVE_USAGE_WINDOW_DAYS }).map((dayKey) => firestore.doc(`moveUsageDailyCounts/${dayKey}`))),
@@ -105,38 +115,39 @@ export async function updateMoveRanksWith({ firestore, now }: { firestore: Fires
       }
     }
   }
-  const moveRanks: MoveRanksDocument = {
+  const actionCardProducts: ActionCardProductsDocument = {
     version: master.version,
-    rankByMoveId: computeMoveRanks({ moves: learnableMoves(master.moves), usageCountByMoveId }),
+    productIDByMoveID: computeActionCardProductIDByMoveID({ moves: learnableMoves(master.moves), usageCountByMoveId }),
     computedAt: Timestamp.fromDate(now),
     usageWindowDays: MOVE_USAGE_WINDOW_DAYS,
   };
-  await firestore.doc("moveRanks/current").set(moveRanks);
-  return moveRanks;
+  await firestore.doc("actionCardProducts/current").set(actionCardProducts);
+  return actionCardProducts;
 }
 
 /**
- * 技のランクを毎日 1 回決め直す (日本時間の 4 時。利用者の少ない時間で、日本時間で区切った前日までの集計が出そろった後にするため)。
+ * 技に割り振る商品を毎日 1 回決め直す (日本時間の 4 時。利用者の少ない時間で、日本時間で区切った前日までの集計が出そろった後にするため)。
  */
-export const updateMoveRanks = onSchedule({ schedule: "0 4 * * *", timeZone: "Asia/Tokyo" }, async () => {
-  await updateMoveRanksWith({ firestore: getFirestore(), now: new Date() });
+export const updateActionCardProducts = onSchedule({ schedule: "0 4 * * *", timeZone: "Asia/Tokyo" }, async () => {
+  await updateActionCardProductsWith({ firestore: getFirestore(), now: new Date() });
 });
 
 /**
- * Action Card を買う前に、買う技を控える callable。端末は返った控えのランクの商品をストアで購入し、webhook が購入をこの技に結び付ける。
+ * Action Card を買う前に、買う技を控える callable。端末は控えた商品をストアで購入し、webhook が購入をこの技に結び付ける。
  *
- * 受け取る data: `{ moveID: string, rank: 1 | 2 | 3 }` (最新の版の master の買える技の ID と、端末が値段を出した技のランク)。
- * 返す値: `{ actionCardMoveReservationID, moveID, rank }`。
- * 技の今のランクが `rank` と違えば (値段を出している間にランクが変わった) 控えずに failed-precondition で断り、`details` に今のランク `rank` を返す
- * (出した値段と違う商品を買わせないため)。既に買い切った技は already-exists、置き換えられた技・master に無い技は not-found、形が違えば invalid-argument。
+ * 受け取る data: `{ moveID: string, productID: string }` (最新の版の master の買える技の ID と、端末が値段を出した商品の ID)。
+ * 返す値: `{ actionCardMoveReservationID, moveID, productID }`。
+ * 技を今買える商品が `productID` と違えば (値段を出している間に技の商品が変わった) 控えずに failed-precondition で断り、`details` に今の商品
+ * `productID` を返す (出した値段と違う商品を買わせないため)。既に買い切った技は already-exists、置き換えられた技・master に無い技は not-found、
+ * 形が違えば (Action Card の商品の ID でないものを含む) invalid-argument。
  * 控えは 1 件だけで、呼ぶたびに新しい ID で上書きする (前の控えで買わなかった技を、後の購入に結び付けないため)。
  * 生成する前の (`users/{uid}` の無い) ユーザーも、webhook と同じく Auth のユーザーで見分けて受け付ける (生成の前にも買えるようにするため)。
  */
 export const reserveActionCardMove = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async (request) => {
   const uid = requireSignedInUid({ request });
-  const { moveID, rank } = (request.data ?? {}) as { moveID?: unknown; rank?: unknown };
-  if (!isDocumentId(moveID) || !MOVE_RANKS.includes(rank as MoveRank)) {
-    throw new HttpsError("invalid-argument", "moveID と rank (1・2・3 のどれか) を渡してください");
+  const { moveID, productID } = (request.data ?? {}) as { moveID?: unknown; productID?: unknown };
+  if (!isDocumentId(moveID) || typeof productID !== "string" || !isActionCardProductID(productID)) {
+    throw new HttpsError("invalid-argument", "moveID と productID (Action Card の商品の ID) を渡してください");
   }
   const firestore = getFirestore();
   const userDocument = firestore.doc(`users/${uid}`);
@@ -145,33 +156,35 @@ export const reserveActionCardMove = onCall({ enforceAppCheck: ENFORCE_APP_CHECK
     if (userSnapshot.get("accountDeletionStartedAt") !== undefined || (!userSnapshot.exists && !(await authUserExists({ auth: getAuth(), uid })))) {
       throw new HttpsError("failed-precondition", "アカウントの削除が進んでいるか、アカウントが見つかりません");
     }
-    const moveRank = await currentMoveRank({ firestore, transaction, moveID });
-    if (moveRank === undefined) {
+    const moveProductID = await currentActionCardProductID({ firestore, transaction, moveID });
+    if (moveProductID === undefined) {
       throw new HttpsError("not-found", `買える技に ${moveID} はありません`);
     }
     if (await ownsActionCardMove({ firestore, transaction, uid, moveID })) {
       throw new HttpsError("already-exists", `${moveID} は買い切り済みです`);
     }
-    if (moveRank !== rank) {
-      throw new HttpsError("failed-precondition", `${moveID} のランクが ${String(rank)} から ${moveRank} に変わりました`, { rank: moveRank });
+    if (moveProductID !== productID) {
+      throw new HttpsError("failed-precondition", `${moveID} を買える商品が ${productID} から ${moveProductID} に変わりました`, {
+        productID: moveProductID,
+      });
     }
     const actionCardMoveReservation: ActionCardMoveReservation = {
       actionCardMoveReservationID: randomUUID(),
       moveID,
-      rank: moveRank,
+      productID: moveProductID,
       reservedAt: Timestamp.now(),
     };
     transaction.set(userDocument, { actionCardMoveReservation }, { merge: true });
-    return { actionCardMoveReservationID: actionCardMoveReservation.actionCardMoveReservationID, moveID, rank: moveRank };
+    return { actionCardMoveReservationID: actionCardMoveReservation.actionCardMoveReservationID, moveID, productID: moveProductID };
   });
 });
 
 /**
  * 技に結び付いていない Action Card の購入 (`moveID` が null か無いもの) に、利用者が選び直した技を結び付ける callable。
- * 控えた技を購入に結び付けられなかった時 (技を選んでから購入が届くまでの間にランクが上がった・既に同じ技を買い切っていた・控えが無かった) だけ使う。
+ * 控えた技を購入に結び付けられなかった時 (技を選んでから購入が届くまでの間に技の商品が変わった・既に同じ技を買い切っていた・控えが無かった) だけ使う。
  *
  * 受け取る data: `{ actionCardPurchaseID: string, moveID: string }`。返す値: `{ actionCardPurchaseID, moveID }`。
- * 技の今のランクが購入のランクより高ければ failed-precondition (action_card_rules.ts の canAssignMoveToActionCard)、既に買い切った技は already-exists、
+ * 技を今買える商品が購入した商品と違えば failed-precondition (払った値段と違う値段の技を渡さないため。#293)、既に買い切った技は already-exists、
  * 購入が無ければ not-found、既に技に結び付いた購入は failed-precondition、置き換えられた技・master に無い技は not-found。断った時は購入を変えない。
  */
 export const assignActionCardMove = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async (request) => {
@@ -192,16 +205,16 @@ export const assignActionCardMove = onCall({ enforceAppCheck: ENFORCE_APP_CHECK 
     if (typeof purchaseSnapshot.get("moveID") === "string") {
       throw new HttpsError("failed-precondition", `Action Card の購入 ${actionCardPurchaseID} は技を受け取り済みです`);
     }
-    const moveRank = await currentMoveRank({ firestore, transaction, moveID });
-    if (moveRank === undefined) {
+    const moveProductID = await currentActionCardProductID({ firestore, transaction, moveID });
+    if (moveProductID === undefined) {
       throw new HttpsError("not-found", `買える技に ${moveID} はありません`);
     }
     if (await ownsActionCardMove({ firestore, transaction, uid, moveID })) {
       throw new HttpsError("already-exists", `${moveID} は買い切り済みです`);
     }
-    const actionCardRank = purchaseSnapshot.get("rank") as MoveRank;
-    if (!canAssignMoveToActionCard({ moveRank, actionCardRank })) {
-      throw new HttpsError("failed-precondition", `ランク ${actionCardRank} の Action Card ではランク ${moveRank} の ${moveID} を受け取れません`);
+    const purchasedProductID = purchaseSnapshot.get("productId") as string;
+    if (moveProductID !== purchasedProductID) {
+      throw new HttpsError("failed-precondition", `${purchasedProductID} の Action Card では ${moveProductID} で買う技 ${moveID} を受け取れません`);
     }
     transaction.update(purchaseDocument, { moveID, moveAssignedAt: Timestamp.now() } satisfies Partial<ActionCardPurchaseDocument>);
     return { actionCardPurchaseID, moveID };

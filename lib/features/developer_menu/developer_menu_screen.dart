@@ -7,9 +7,9 @@ import '../../common_ui/scene_route.dart';
 import 'package:flutter/services.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
+import '../../sample/sample_action_cards.dart';
 import '../../sample/sample_data.dart';
 import '../../theme/snapmon_text_styles.dart';
-import '../action_card/action_card_client.dart';
 import '../action_card/action_card_store.dart';
 import '../battle/battle_recorder.dart';
 import '../capture/generation_screen.dart';
@@ -173,7 +173,7 @@ class DeveloperMenuScreen extends StatelessWidget {
               ),
             ),
           // Action Card は Simulator で購入できず、ログインを飛ばした端末は Functions を呼べないため、ログインを飛ばした間だけ
-          // 端末だけの見本 (lib/sample/sample_action_cards.dart) で表示・購入・技のランクを作る。見本はアプリ全体の Action Card を置き換える
+          // 端末だけの見本 (lib/sample/sample_action_cards.dart) で表示・購入・技ごとの商品を作る。見本はアプリ全体の Action Card を置き換える
           if (ActionCardScope.maybeOf(context)?.sampleActionCards
               case final sampleActionCards?) ...[
             ValueListenableBuilder(
@@ -185,7 +185,7 @@ class DeveloperMenuScreen extends StatelessWidget {
                 subtitle: Text(
                   dexStore.isServerBacked
                       ? 'ログイン中は使えない (サーバーの Action Card を置き換えないため)'
-                      : 'actionCardsVisible の代わり\nオンにした時に技のランクの表が無ければ見本の master から作る',
+                      : 'actionCardsVisible の代わり\nオンにした時に技ごとの商品の表が無ければ見本の master から作る',
                 ),
                 value: isActionCardsVisible,
                 onChanged: dexStore.isServerBacked
@@ -193,26 +193,28 @@ class DeveloperMenuScreen extends StatelessWidget {
                     : (value) {
                         sampleActionCards.isActionCardsVisible.value = value;
                         if (value &&
-                            sampleActionCards.rankByMoveId.value == null) {
-                          sampleActionCards.loadSampleMoveRanks(
+                            sampleActionCards.productIDByMoveID.value ==
+                                null) {
+                          sampleActionCards.loadSampleActionCardProducts(
                             master: dexStore.definitions,
                           );
                         }
                       },
               ),
             ),
-            for (final rank in actionCardRanks)
+            for (final productID
+                in SampleActionCards.sampleActionCardProductIDs)
               ListTile(
-                key: Key('developer-action-card-unassigned-$rank'),
+                key: Key('developer-action-card-unassigned-$productID'),
                 leading: const Icon(Icons.add_card_outlined),
-                title: Text('技に結び付いていないランク $rank の購入を 1 件足す'),
+                title: Text('技に結び付いていない $productID の購入を 1 件足す'),
                 subtitle: const Text('選び直しの導線を確かめるため'),
                 enabled: !dexStore.isServerBacked,
                 onTap: () {
-                  sampleActionCards.addUnassignedPurchase(rank: rank);
+                  sampleActionCards.addUnassignedPurchase(productID: productID);
                   _showMessage(
                     context: context,
-                    message: 'ランク $rank の購入を足しました',
+                    message: '$productID の購入を足しました',
                   );
                 },
               ),
