@@ -187,6 +187,19 @@ describe("startBattle と recordBattle", () => {
     expect(response.status).toBe(404);
   });
 
+  it("改名前の表記のキー partyMonsterIds で送った手持ちでは始められない (PR #294 で partyMonsterIDs に改名した)", async () => {
+    const user = await signInUser();
+    await seedMonsters({ uid: user.uid, levels: { m1: 5 } });
+    const response = await callFunction({
+      name: "startBattle",
+      idToken: await user.getIdToken(),
+      appCheckToken: fakeAppCheckToken,
+      data: { partyMonsterIds: ["m1"] },
+    });
+    expect(response.status).toBe(400);
+    expect((await response.json()).error.status).toBe("INVALID_ARGUMENT");
+  });
+
   it("始まっていない battleID は記録できない", async () => {
     const user = await signInUser();
     await seedMonsters({ uid: user.uid, levels: { m1: 5 } });
