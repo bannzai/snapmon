@@ -35,10 +35,10 @@ void main() {
   final sampleData = loadSampleDataFixture();
 
   /// レベル 7 のマグモン。相手 ([weakOpponent]) より十分強く、1〜2 ターンで勝つ。
-  final strongPlayer = sampleData.monsterById(monsterId: 'sample-mugmon');
+  final strongPlayer = sampleData.monsterByID(monsterID: 'sample-mugmon');
 
   /// レベル 1 のリンゴラ。
-  final weakOpponent = sampleData.monsterById(monsterId: 'sample-ringora');
+  final weakOpponent = sampleData.monsterByID(monsterID: 'sample-ringora');
 
   late List<Map<String, int>> levelChanges;
   late RecordedShareCalls shareCalls;
@@ -81,8 +81,8 @@ void main() {
             definitions: sampleData.definitions,
             randomSeed: 1,
             battleRecorder: battleRecorder,
-            onPlayerLevelsChanged: ({required levelsByMonsterId}) =>
-                levelChanges.add(levelsByMonsterId),
+            onPlayerLevelsChanged: ({required levelsByMonsterID}) =>
+                levelChanges.add(levelsByMonsterID),
             cardSharer: fakeCardSharer(
               calls: shareCalls,
               artImage: artImage,
@@ -154,7 +154,7 @@ void main() {
                   startBattleRecord: () async => null,
                   recordedLevels: const {},
                 ),
-                onPlayerLevelsChanged: ({required levelsByMonsterId}) {},
+                onPlayerLevelsChanged: ({required levelsByMonsterID}) {},
                 cardSharer: fakeCardSharer(
                   calls: RecordedShareCalls(),
                   artImage: null,
@@ -217,7 +217,7 @@ void main() {
               startBattleRecord: () async => null,
               recordedLevels: const {},
             ),
-            onPlayerLevelsChanged: ({required levelsByMonsterId}) {},
+            onPlayerLevelsChanged: ({required levelsByMonsterID}) {},
             cardSharer: fakeCardSharer(
               calls: RecordedShareCalls(),
               artImage: null,
@@ -318,7 +318,7 @@ void main() {
               matching: find.byType(ElementTypeIcon),
             ),
           )
-          .elementTypeId,
+          .elementTypeID,
       'fire',
     );
     expect(
@@ -409,7 +409,7 @@ void main() {
     await pumpBattleScreen(
       tester: tester,
       // Lv.5 のスリッパンは 4 番目の技の枠に こもりうた (相手の素早さを 25 下げる補助技) を持つ
-      playerMonster: sampleData.monsterById(monsterId: 'sample-slippan'),
+      playerMonster: sampleData.monsterByID(monsterID: 'sample-slippan'),
       artImage: null,
       battleRecorder: fakeBattleRecorder(
         calls: RecordedBattleCalls(),
@@ -535,7 +535,7 @@ void main() {
             startBattleRecord: () async => null,
             recordedLevels: const {},
           ),
-          onPlayerLevelsChanged: ({required levelsByMonsterId}) {},
+          onPlayerLevelsChanged: ({required levelsByMonsterID}) {},
           cardSharer: fakeCardSharer(
             calls: RecordedShareCalls(),
             artImage: null,
@@ -607,7 +607,7 @@ void main() {
         recordedLevels: {strongPlayer.definition.id: 9},
       ),
     );
-    expect(calls.startedPartyMonsterIds, [
+    expect(calls.startedPartyMonsterIDs, [
       [strongPlayer.definition.id],
     ]);
 
@@ -645,9 +645,9 @@ void main() {
     );
 
     final completed = calls.completedBattles.single;
-    expect(completed.battleId, 'battle-1');
-    expect(completed.participantMonsterIds, [strongPlayer.definition.id]);
-    expect(completed.winner, BattleSideId.player);
+    expect(completed.battleID, 'battle-1');
+    expect(completed.participantMonsterIDs, [strongPlayer.definition.id]);
+    expect(completed.winner, BattleSideID.player);
     // 記録する対戦では端末の計算 (8) ではなく、Functions が返したレベルだけを反映する
     expect(levelChanges, [
       {strongPlayer.definition.id: 9},
@@ -669,12 +669,12 @@ void main() {
         sourcePhotoReference: strongPlayer.definition.sourcePhotoReference,
         name: strongPlayer.definition.name,
         encyclopediaText: strongPlayer.definition.encyclopediaText,
-        elementTypeIds: strongPlayer.definition.elementTypeIds,
+        elementTypeIDs: strongPlayer.definition.elementTypeIDs,
         learnset: [
           ...strongPlayer.definition.learnset.where(
             (learnsetEntry) => learnsetEntry.unlockLevel == 1,
           ),
-          const LearnsetEntry(moveId: 'steel_2', unlockLevel: 8),
+          const LearnsetEntry(moveID: 'steel_2', unlockLevel: 8),
         ],
         baseStats: strongPlayer.definition.baseStats,
         individualValues: strongPlayer.definition.individualValues,
@@ -682,9 +682,9 @@ void main() {
         masterVersion: strongPlayer.definition.masterVersion,
       ),
       level: strongPlayer.level,
-      actionCardMoveIds: const [],
+      actionCardMoveIDs: const [],
       artPath: strongPlayer.artPath,
-      definitionIds: strongPlayer.definitionIds,
+      definitionIDs: strongPlayer.definitionIDs,
       decoration: strongPlayer.decoration,
       decorationVersion: strongPlayer.decorationVersion,
     );
@@ -825,7 +825,7 @@ void main() {
     final localizedCard = rendered.card as Localizations;
     expect(localizedCard.locale, const Locale('ja'));
     final card = localizedCard.child! as BattleResultShareCard;
-    expect(card.winner, BattleSideId.player);
+    expect(card.winner, BattleSideID.player);
     // 勝敗の画面と同じく、Functions が返した確定したレベルを描く
     expect(card.appliedLevels, {strongPlayer.definition.id: 9});
     expect(card.artImagesByPath.keys, [artPath]);
@@ -896,7 +896,7 @@ void main() {
     // マグモンと相手の技のエフェクトをすべて、合成した画像のシートで描く
     for (final effect in sampleData.definitions.effects) {
       game.applyMoveEffectSpriteSheet(
-        effectId: effect.id,
+        effectID: effect.id,
         spriteSheetImage: spriteSheetImage,
         spriteSheetJson: const {
           'meta': {
@@ -980,7 +980,7 @@ void main() {
         .game!;
     for (final effect in sampleData.definitions.effects) {
       game.applyMoveEffectSpriteSheet(
-        effectId: effect.id,
+        effectID: effect.id,
         spriteSheetImage: spriteSheetImage,
         spriteSheetJson: const {
           'meta': {
@@ -1010,7 +1010,7 @@ void main() {
     await pumpBattleScreen(
       tester: tester,
       // ペットボトラの 1 番目の技 (水) はスプライトシートの対応が無く、シートの読み込みのタイミングに関係なくパーティクルで描く
-      playerMonster: sampleData.monsterById(monsterId: 'sample-petbottler'),
+      playerMonster: sampleData.monsterByID(monsterID: 'sample-petbottler'),
       artImage: null,
       battleRecorder: fakeBattleRecorder(
         calls: calls,
@@ -1164,7 +1164,7 @@ void main() {
                 startBattleRecord: () async => null,
                 recordedLevels: const {},
               ),
-              onPlayerLevelsChanged: ({required levelsByMonsterId}) {},
+              onPlayerLevelsChanged: ({required levelsByMonsterID}) {},
               cardSharer: fakeCardSharer(
                 calls: RecordedShareCalls(),
                 artImage: null,
@@ -1193,7 +1193,7 @@ void main() {
         sourcePhotoReference: strongPlayer.definition.sourcePhotoReference,
         name: 'ゆげたつマグカップ',
         encyclopediaText: strongPlayer.definition.encyclopediaText,
-        elementTypeIds: strongPlayer.definition.elementTypeIds,
+        elementTypeIDs: strongPlayer.definition.elementTypeIDs,
         learnset: strongPlayer.definition.learnset,
         baseStats: strongPlayer.definition.baseStats,
         individualValues: strongPlayer.definition.individualValues,
@@ -1201,9 +1201,9 @@ void main() {
         masterVersion: strongPlayer.definition.masterVersion,
       ),
       level: strongPlayer.level,
-      actionCardMoveIds: const [],
+      actionCardMoveIDs: const [],
       artPath: strongPlayer.artPath,
-      definitionIds: strongPlayer.definitionIds,
+      definitionIDs: strongPlayer.definitionIDs,
       decoration: strongPlayer.decoration,
       decorationVersion: strongPlayer.decorationVersion,
     );

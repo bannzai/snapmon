@@ -61,7 +61,7 @@ Future<void> Function() connectDexToFirestore({
   final partyDocument = userDocument.collection('party').doc('current');
   var isConnected = true;
   Map<String, dynamic>? latestMasterJson;
-  final definitionJsonsById = <String, Map<String, dynamic>>{};
+  final definitionJsonsByID = <String, Map<String, dynamic>>{};
   // 最後に届いた図鑑。定義を読めずに反映できなかった図鑑を、読み直しの時に反映し直すために持つ
   // (Firestore は図鑑が変わるまで同じスナップショットを送り直さないため)
   List<OwnedMonster>? latestMonsters;
@@ -79,23 +79,23 @@ Future<void> Function() connectDexToFirestore({
         firestore: firestore,
       ))?.data();
     }
-    for (final definitionId in {
-      for (final monster in monsters) ...monster.definitionIds,
+    for (final definitionID in {
+      for (final monster in monsters) ...monster.definitionIDs,
     }) {
-      if (!definitionJsonsById.containsKey(definitionId)) {
+      if (!definitionJsonsByID.containsKey(definitionID)) {
         final definitionJson = (await fetchDefinition(
           firestore: firestore,
-          definitionId: definitionId,
+          definitionID: definitionID,
         )).data();
         if (definitionJson == null) {
-          throw StateError('定義 $definitionId が Firestore にありません');
+          throw StateError('定義 $definitionID が Firestore にありません');
         }
-        definitionJsonsById[definitionId] = definitionJson;
+        definitionJsonsByID[definitionID] = definitionJson;
       }
     }
     return buildDexDefinitions(
       latestMasterJson: latestMasterJson,
-      definitionJsons: definitionJsonsById.values.toList(),
+      definitionJsons: definitionJsonsByID.values.toList(),
     );
   }
 
@@ -135,7 +135,7 @@ Future<void> Function() connectDexToFirestore({
           if (isConnected) {
             dexStore.applyServerSnapshot(
               monsters: monsters,
-              partyMonsterIds: null,
+              partyMonsterIDs: null,
               definitions: definitions,
             );
           }
@@ -145,10 +145,10 @@ Future<void> Function() connectDexToFirestore({
     partySubscription = partyDocument.snapshots().listen(
       (snapshot) => dexStore.applyServerSnapshot(
         monsters: null,
-        partyMonsterIds: [
-          for (final monsterId
-              in snapshot.data()?['monsterIds'] as List<dynamic>? ?? [])
-            monsterId as String,
+        partyMonsterIDs: [
+          for (final monsterID
+              in snapshot.data()?['monsterIDs'] as List<dynamic>? ?? [])
+            monsterID as String,
         ],
         definitions: null,
       ),
@@ -158,8 +158,8 @@ Future<void> Function() connectDexToFirestore({
 
   dexStore.connectServer(
     // updatedAt は Rules が request.time と一致することを求める (firebase/firestore.rules の party/current)
-    savePartyMonsterIds: ({required monsterIds}) => partyDocument.set({
-      'monsterIds': monsterIds,
+    savePartyMonsterIDs: ({required monsterIDs}) => partyDocument.set({
+      'monsterIDs': monsterIDs,
       'updatedAt': FieldValue.serverTimestamp(),
     }),
     refreshDefinitions: () async {
@@ -175,7 +175,7 @@ Future<void> Function() connectDexToFirestore({
       if (isConnected && identical(monsters, latestMonsters)) {
         dexStore.applyServerSnapshot(
           monsters: monsters,
-          partyMonsterIds: null,
+          partyMonsterIDs: null,
           definitions: definitions,
         );
       }

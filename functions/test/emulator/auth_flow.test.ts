@@ -7,18 +7,18 @@ import { ENFORCE_APP_CHECK } from "../../src/app_check";
 // firebase emulators:exec (package.json の test:emulator) の中で実行する。
 // 匿名ログインだけ (カスタムクレーム無し) で Functions を呼べることを、Auth と Functions の Emulator で確かめる。
 
-const projectId = "demo-snapmon";
-const functionsBaseUrl = `http://127.0.0.1:5001/${projectId}/asia-northeast1`;
+const projectID = "demo-snapmon";
+const functionsBaseURL = `http://127.0.0.1:5001/${projectID}/asia-northeast1`;
 
 // Functions の Emulator は App Check のトークンを検証せずに中身だけを読む (firebase-functions の skipTokenVerification)。
 // 署名の無い JWT の形にして、App Check のトークンを付けた呼び出しを模す。
 const fakeAppCheckToken = [
   Buffer.from(JSON.stringify({ alg: "none", typ: "JWT" })).toString("base64url"),
-  Buffer.from(JSON.stringify({ sub: "1:000000000000:web:emulator", aud: [`projects/${projectId}`] })).toString("base64url"),
+  Buffer.from(JSON.stringify({ sub: "1:000000000000:web:emulator", aud: [`projects/${projectID}`] })).toString("base64url"),
   "",
 ].join(".");
 
-const app = initializeApp({ projectId, apiKey: "demo-api-key" }, "auth-flow-test");
+const app = initializeApp({ projectId: projectID, apiKey: "demo-api-key" }, "auth-flow-test");
 const auth = getAuth(app);
 connectAuthEmulator(auth, "http://127.0.0.1:9099", { disableWarnings: true });
 
@@ -43,7 +43,7 @@ async function callFunction({
   appCheckToken: string | null;
   data: unknown;
 }): Promise<Response> {
-  return fetch(`${functionsBaseUrl}/${name}`, {
+  return fetch(`${functionsBaseURL}/${name}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

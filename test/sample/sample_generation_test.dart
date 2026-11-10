@@ -15,12 +15,12 @@ void main() {
     final result = generateSampleMonster(
       dexStore: dexStore,
       sampleData: sampleData,
-      requestId: 'request-1',
+      requestID: 'request-1',
     );
     final expectedMonster = sampleData.monsters[1];
     expect(result.status, GenerationStatus.saved);
-    expect(result.requestId, 'request-1');
-    expect(result.monsterId, expectedMonster.definition.id);
+    expect(result.requestID, 'request-1');
+    expect(result.monsterID, expectedMonster.definition.id);
     expect(dexStore.monsters.map((monster) => monster.definition.id), [
       sampleData.monsters.first.definition.id,
       expectedMonster.definition.id,
@@ -38,10 +38,10 @@ void main() {
     final result = generateSampleMonster(
       dexStore: dexStore,
       sampleData: sampleData,
-      requestId: 'request-1',
+      requestID: 'request-1',
     );
     expect(result.status, GenerationStatus.duplicate);
-    expect(result.monsterId, sampleData.monsters.first.definition.id);
+    expect(result.monsterID, sampleData.monsters.first.definition.id);
     expect(dexStore.monsters, hasLength(sampleData.monsters.length));
   });
 }

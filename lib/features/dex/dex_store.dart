@@ -15,10 +15,10 @@ class DexStore extends ChangeNotifier {
   DexStore({required MasterData definitions}) : _definitions = definitions;
 
   List<OwnedMonster> _monsters = [];
-  List<String> _partyMonsterIds = [];
+  List<String> _partyMonsterIDs = [];
   MasterData _definitions;
-  Future<void> Function({required List<String> monsterIds})?
-  _savePartyMonsterIds;
+  Future<void> Function({required List<String> monsterIDs})?
+  _savePartyMonsterIDs;
   Future<void> Function()? _refreshDefinitions;
   Object? _serverError;
 
@@ -28,42 +28,42 @@ class DexStore extends ChangeNotifier {
   /// 手持ちのモンスター (最大 [maximumPartySize] 体、入れた順)。
   /// 手持ちの ID のうち図鑑にまだ届いていないモンスターは除く (Firestore の手持ちと図鑑は別々に届くため)。
   List<OwnedMonster> get party => [
-    for (final monsterId in _partyMonsterIds)
-      ..._monsters.where((monster) => monster.definition.id == monsterId),
+    for (final monsterID in _partyMonsterIDs)
+      ..._monsters.where((monster) => monster.definition.id == monsterID),
   ];
 
   /// 図鑑のモンスターと対戦の相手の属性・技を引く定義。
   MasterData get definitions => _definitions;
 
   /// サーバーの図鑑に繋いでいるか ([connectServer] の後か)。
-  bool get isServerBacked => _savePartyMonsterIds != null;
+  bool get isServerBacked => _savePartyMonsterIDs != null;
 
   /// サーバーの図鑑の読み込みの最後の失敗。成功した時は null。
   Object? get serverError => _serverError;
 
-  /// [monsterId] のモンスターが図鑑にいるか。
-  bool contains({required String monsterId}) =>
-      _monsters.any((monster) => monster.definition.id == monsterId);
+  /// [monsterID] のモンスターが図鑑にいるか。
+  bool contains({required String monsterID}) =>
+      _monsters.any((monster) => monster.definition.id == monsterID);
 
-  /// [monsterId] のモンスターが手持ちにいるか。
-  bool isInParty({required String monsterId}) =>
-      _partyMonsterIds.contains(monsterId);
+  /// [monsterID] のモンスターが手持ちにいるか。
+  bool isInParty({required String monsterID}) =>
+      _partyMonsterIDs.contains(monsterID);
 
   /// 手持ちに空きがあるか。図鑑にまだ届いていない手持ちも数える (届く前に入れて、保存した手持ちから外さないため)。
-  bool get hasPartyVacancy => _partyMonsterIds.length < maximumPartySize;
+  bool get hasPartyVacancy => _partyMonsterIDs.length < maximumPartySize;
 
   /// 手持ちの変更を保存している途中か。途中は次の変更を受け付けない ([addToParty] 等が [StateError] を投げる)。
   bool get isSavingParty => _isSavingParty;
   bool _isSavingParty = false;
 
-  /// サーバーの図鑑に繋ぐ。以後の手持ちの変更は [savePartyMonsterIds] で保存し、[refreshDefinitions] で定義を
+  /// サーバーの図鑑に繋ぐ。以後の手持ちの変更は [savePartyMonsterIDs] で保存し、[refreshDefinitions] で定義を
   /// サーバーの最新の master から読み直す。何度呼んでも最後の関数を使う。
   void connectServer({
-    required Future<void> Function({required List<String> monsterIds})
-    savePartyMonsterIds,
+    required Future<void> Function({required List<String> monsterIDs})
+    savePartyMonsterIDs,
     required Future<void> Function() refreshDefinitions,
   }) {
-    _savePartyMonsterIds = savePartyMonsterIds;
+    _savePartyMonsterIDs = savePartyMonsterIDs;
     _refreshDefinitions = refreshDefinitions;
     notifyListeners();
   }
@@ -75,20 +75,20 @@ class DexStore extends ChangeNotifier {
 
   /// サーバーの図鑑から離れ、空の端末の図鑑 (定義は [definitions]) に戻す (ログインを終えた時。別の uid の図鑑を残さないため)。
   void disconnectServer({required MasterData definitions}) {
-    _savePartyMonsterIds = null;
+    _savePartyMonsterIDs = null;
     _refreshDefinitions = null;
     _definitions = definitions;
     _monsters = [];
-    _partyMonsterIds = [];
+    _partyMonsterIDs = [];
     _serverError = null;
     notifyListeners();
   }
 
-  /// サーバーから届いた図鑑 [monsters]・手持ち [partyMonsterIds]・定義 [definitions] を反映する。null の項目は変えない。
+  /// サーバーから届いた図鑑 [monsters]・手持ち [partyMonsterIDs]・定義 [definitions] を反映する。null の項目は変えない。
   /// 読み込みの失敗の表示 ([serverError]) は、図鑑か定義を反映した時だけ消す (手持ちだけが届いても図鑑は直っていないため)。
   void applyServerSnapshot({
     required List<OwnedMonster>? monsters,
-    required List<String>? partyMonsterIds,
+    required List<String>? partyMonsterIDs,
     required MasterData? definitions,
   }) {
     if (definitions != null) {
@@ -97,8 +97,8 @@ class DexStore extends ChangeNotifier {
     if (monsters != null) {
       _monsters = List.of(monsters);
     }
-    if (partyMonsterIds != null) {
-      _partyMonsterIds = List.of(partyMonsterIds);
+    if (partyMonsterIDs != null) {
+      _partyMonsterIDs = List.of(partyMonsterIDs);
     }
     if (monsters != null || definitions != null) {
       _serverError = null;
@@ -112,14 +112,14 @@ class DexStore extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// [monsterId] のモンスターが図鑑に届いたら、そのモンスターを返す (生成の直後は Firestore の図鑑の反映を待つため)。
+  /// [monsterID] のモンスターが図鑑に届いたら、そのモンスターを返す (生成の直後は Firestore の図鑑の反映を待つため)。
   /// [timeout] までに届かなければ [TimeoutException] を投げる。
   Future<OwnedMonster> waitForMonster({
-    required String monsterId,
+    required String monsterID,
     required Duration timeout,
   }) {
     OwnedMonster? findMonster() => _monsters
-        .where((monster) => monster.definition.id == monsterId)
+        .where((monster) => monster.definition.id == monsterID)
         .firstOrNull;
     final found = findMonster();
     if (found != null) {
@@ -138,71 +138,71 @@ class DexStore extends ChangeNotifier {
         .timeout(
           timeout,
           onTimeout: () =>
-              throw TimeoutException('モンスター $monsterId が図鑑に届きませんでした', timeout),
+              throw TimeoutException('モンスター $monsterID が図鑑に届きませんでした', timeout),
         )
         .whenComplete(() => removeListener(onChanged));
   }
 
-  /// 図鑑にいる [monsterId] のモンスターを手持ちに入れる。
+  /// 図鑑にいる [monsterID] のモンスターを手持ちに入れる。
   /// 既に手持ちにいる・手持ちに空きが無い・図鑑にいない時は何もしない。保存に失敗した時は元に戻して例外を投げる。
-  Future<void> addToParty({required String monsterId}) {
-    if (isInParty(monsterId: monsterId) ||
+  Future<void> addToParty({required String monsterID}) {
+    if (isInParty(monsterID: monsterID) ||
         !hasPartyVacancy ||
-        !contains(monsterId: monsterId)) {
+        !contains(monsterID: monsterID)) {
       return Future.value();
     }
-    return _changeParty(monsterIds: [..._partyMonsterIds, monsterId]);
+    return _changeParty(monsterIDs: [..._partyMonsterIDs, monsterID]);
   }
 
-  /// 手持ちの [outgoingMonsterId] を、図鑑にいる [incomingMonsterId] と入れ替える (手持ちの中の位置は変えない)。
-  /// [outgoingMonsterId] が手持ちにいない・[incomingMonsterId] が既に手持ちにいるか図鑑にいない時は何もしない。
+  /// 手持ちの [outgoingMonsterID] を、図鑑にいる [incomingMonsterID] と入れ替える (手持ちの中の位置は変えない)。
+  /// [outgoingMonsterID] が手持ちにいない・[incomingMonsterID] が既に手持ちにいるか図鑑にいない時は何もしない。
   /// 保存に失敗した時は元に戻して例外を投げる。
   Future<void> replacePartyMember({
-    required String outgoingMonsterId,
-    required String incomingMonsterId,
+    required String outgoingMonsterID,
+    required String incomingMonsterID,
   }) {
-    if (!isInParty(monsterId: outgoingMonsterId) ||
-        isInParty(monsterId: incomingMonsterId) ||
-        !contains(monsterId: incomingMonsterId)) {
+    if (!isInParty(monsterID: outgoingMonsterID) ||
+        isInParty(monsterID: incomingMonsterID) ||
+        !contains(monsterID: incomingMonsterID)) {
       return Future.value();
     }
     return _changeParty(
-      monsterIds: [
-        for (final monsterId in _partyMonsterIds)
-          monsterId == outgoingMonsterId ? incomingMonsterId : monsterId,
+      monsterIDs: [
+        for (final monsterID in _partyMonsterIDs)
+          monsterID == outgoingMonsterID ? incomingMonsterID : monsterID,
       ],
     );
   }
 
-  /// [monsterId] のモンスターを手持ちから外す。手持ちにいない時は何もしない。保存に失敗した時は元に戻して例外を投げる。
-  Future<void> removeFromParty({required String monsterId}) {
-    if (!isInParty(monsterId: monsterId)) {
+  /// [monsterID] のモンスターを手持ちから外す。手持ちにいない時は何もしない。保存に失敗した時は元に戻して例外を投げる。
+  Future<void> removeFromParty({required String monsterID}) {
+    if (!isInParty(monsterID: monsterID)) {
       return Future.value();
     }
     return _changeParty(
-      monsterIds: [
-        for (final partyMonsterId in _partyMonsterIds)
-          if (partyMonsterId != monsterId) partyMonsterId,
+      monsterIDs: [
+        for (final partyMonsterID in _partyMonsterIDs)
+          if (partyMonsterID != monsterID) partyMonsterID,
       ],
     );
   }
 
-  /// 手持ちを [monsterIds] にして、サーバーに繋いでいれば保存する。
+  /// 手持ちを [monsterIDs] にして、サーバーに繋いでいれば保存する。
   /// 画面にはすぐ反映し、保存に失敗したら変更の前に戻して例外を投げる (Firestore の手持ちと食い違わせないため)。
   /// 保存の途中に呼ばれた時は変えずに [StateError] を投げる (並んだ保存の片方が失敗した時に、もう片方の変更まで
   /// 巻き戻して食い違わせないため)。
-  Future<void> _changeParty({required List<String> monsterIds}) async {
+  Future<void> _changeParty({required List<String> monsterIDs}) async {
     if (_isSavingParty) {
       throw StateError('手持ちを保存しています');
     }
-    final previousPartyMonsterIds = _partyMonsterIds;
-    _partyMonsterIds = monsterIds;
+    final previousPartyMonsterIDs = _partyMonsterIDs;
+    _partyMonsterIDs = monsterIDs;
     _isSavingParty = true;
     notifyListeners();
     try {
-      await _savePartyMonsterIds?.call(monsterIds: monsterIds);
+      await _savePartyMonsterIDs?.call(monsterIDs: monsterIDs);
     } catch (_) {
-      _partyMonsterIds = previousPartyMonsterIds;
+      _partyMonsterIDs = previousPartyMonsterIDs;
       rethrow;
     } finally {
       _isSavingParty = false;
@@ -210,19 +210,19 @@ class DexStore extends ChangeNotifier {
     }
   }
 
-  /// 図鑑のモンスターのレベルを [levelsByMonsterId] (monsterId ごとのレベル) に置き換える。図鑑にいない ID は無視する。
+  /// 図鑑のモンスターのレベルを [levelsByMonsterID] (monsterID ごとのレベル) に置き換える。図鑑にいない ID は無視する。
   /// サーバーの図鑑では、Functions が保存したレベルが Firestore から届くまでの間の表示に使う。
-  void updateLevels({required Map<String, int> levelsByMonsterId}) {
+  void updateLevels({required Map<String, int> levelsByMonsterID}) {
     _monsters = [
       for (final monster in _monsters)
-        levelsByMonsterId[monster.definition.id] == null
+        levelsByMonsterID[monster.definition.id] == null
             ? monster
             : OwnedMonster(
                 definition: monster.definition,
-                level: levelsByMonsterId[monster.definition.id]!,
-                actionCardMoveIds: monster.actionCardMoveIds,
+                level: levelsByMonsterID[monster.definition.id]!,
+                actionCardMoveIDs: monster.actionCardMoveIDs,
                 artPath: monster.artPath,
-                definitionIds: monster.definitionIds,
+                definitionIDs: monster.definitionIDs,
                 decoration: monster.decoration,
                 decorationVersion: monster.decorationVersion,
               ),
@@ -230,23 +230,23 @@ class DexStore extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// 図鑑の [monsterId] のモンスターの Action Card で覚えさせた技を [actionCardMoveIds] に置き換える。図鑑にいない時は何もしない。
+  /// 図鑑の [monsterID] のモンスターの Action Card で覚えさせた技を [actionCardMoveIDs] に置き換える。図鑑にいない時は何もしない。
   /// サーバーの図鑑では、teachActionCardMove・forgetActionCardMove が返した値を Firestore から届くまでの間に出すために使い、
   /// 端末だけの図鑑 (開発者メニューの見本の Action Card) では保存先の代わりにする。
-  void updateActionCardMoveIds({
-    required String monsterId,
-    required List<String> actionCardMoveIds,
+  void updateActionCardMoveIDs({
+    required String monsterID,
+    required List<String> actionCardMoveIDs,
   }) {
     _monsters = [
       for (final monster in _monsters)
-        monster.definition.id != monsterId
+        monster.definition.id != monsterID
             ? monster
             : OwnedMonster(
                 definition: monster.definition,
                 level: monster.level,
-                actionCardMoveIds: List.unmodifiable(actionCardMoveIds),
+                actionCardMoveIDs: List.unmodifiable(actionCardMoveIDs),
                 artPath: monster.artPath,
-                definitionIds: monster.definitionIds,
+                definitionIDs: monster.definitionIDs,
                 decoration: monster.decoration,
                 decorationVersion: monster.decorationVersion,
               ),
@@ -258,7 +258,7 @@ class DexStore extends ChangeNotifier {
   /// サーバーの図鑑に繋いでいる時は使わない (見本のモンスターはサーバーに無く、手持ちを保存できないため)。
   void replaceAll({required List<OwnedMonster> monsters}) {
     _monsters = List.of(monsters);
-    _partyMonsterIds = [
+    _partyMonsterIDs = [
       for (final monster in monsters.take(maximumPartySize))
         monster.definition.id,
     ];

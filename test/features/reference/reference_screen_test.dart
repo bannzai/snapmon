@@ -35,11 +35,11 @@ void main() {
           {
             'id': 'custom_rubber_1',
             'displayName': 'ゴムだまはじき',
-            'elementTypeId': 'custom_rubber',
+            'elementTypeID': 'custom_rubber',
             'power': 40,
             'powerPoints': 30,
             'category': 'attack',
-            'effectId': 'machine_particle',
+            'effectID': 'machine_particle',
             'learnableLevelMinimum': 1,
             'learnableLevelMaximum': 30,
           },
@@ -68,16 +68,16 @@ void main() {
     );
   }
 
-  /// 相性表の、技の属性 [attackerElementTypeId] から受ける側の属性 [defenderElementTypeId] へのマスに出ている倍率の文字。
+  /// 相性表の、技の属性 [attackerElementTypeID] から受ける側の属性 [defenderElementTypeID] へのマスに出ている倍率の文字。
   String typeChartCellText({
     required WidgetTester tester,
-    required String attackerElementTypeId,
-    required String defenderElementTypeId,
+    required String attackerElementTypeID,
+    required String defenderElementTypeID,
   }) => tester
       .widget<Text>(
         find.descendant(
           of: find.byKey(
-            Key('type-chart-$attackerElementTypeId-$defenderElementTypeId'),
+            Key('type-chart-$attackerElementTypeID-$defenderElementTypeID'),
           ),
           matching: find.byType(Text),
         ),
@@ -109,24 +109,24 @@ void main() {
     expect(
       typeChartCellText(
         tester: tester,
-        attackerElementTypeId: 'steel',
-        defenderElementTypeId: 'ice',
+        attackerElementTypeID: 'steel',
+        defenderElementTypeID: 'ice',
       ),
       '2',
     );
     expect(
       typeChartCellText(
         tester: tester,
-        attackerElementTypeId: 'steel',
-        defenderElementTypeId: 'water',
+        attackerElementTypeID: 'steel',
+        defenderElementTypeID: 'water',
       ),
       '0.5',
     );
     expect(
       typeChartCellText(
         tester: tester,
-        attackerElementTypeId: 'steel',
-        defenderElementTypeId: 'grass',
+        attackerElementTypeID: 'steel',
+        defenderElementTypeID: 'grass',
       ),
       '1',
     );
@@ -135,16 +135,16 @@ void main() {
       expect(
         typeChartCellText(
           tester: tester,
-          attackerElementTypeId: 'custom_rubber',
-          defenderElementTypeId: elementType.id,
+          attackerElementTypeID: 'custom_rubber',
+          defenderElementTypeID: elementType.id,
         ),
         '1',
       );
       expect(
         typeChartCellText(
           tester: tester,
-          attackerElementTypeId: elementType.id,
-          defenderElementTypeId: 'custom_rubber',
+          attackerElementTypeID: elementType.id,
+          defenderElementTypeID: 'custom_rubber',
         ),
         '1',
       );
@@ -269,7 +269,7 @@ void main() {
     var refreshCount = 0;
     final firstRefresh = Completer<void>();
     dexStore.connectServer(
-      savePartyMonsterIds: ({required monsterIds}) async {},
+      savePartyMonsterIDs: ({required monsterIDs}) async {},
       refreshDefinitions: () {
         refreshCount++;
         return refreshCount == 1 ? firstRefresh.future : Future.value();

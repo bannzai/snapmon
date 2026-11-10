@@ -15,7 +15,7 @@ enum MoveCategory {
 /// 補助技の効果で変えられるステータス。HP は回復 ([MoveSpecialEffect.selfHitPointsRecovery]) で変え、ここには入れない。
 const modifiableStatKinds = [StatKind.attack, StatKind.defense, StatKind.speed];
 
-/// 技の特殊効果。master の技の `specialEffect` の形 (見た目のエフェクト `effectId` とは別物)。
+/// 技の特殊効果。master の技の `specialEffect` の形 (見た目のエフェクト `effectID` とは別物)。
 /// 数値の効果は式 (lib/domain/battle/move_expression.dart。文法は documents/game-rules.md「技の式」) で書き、
 /// 出力ごとに 1 つの式を持つ。状態・フィールド・自爆・一撃・必中は値で書く (master の版 9。#224)。
 class MoveSpecialEffect {
@@ -194,17 +194,17 @@ class Move {
   const Move({
     required this.id,
     required this.displayName,
-    required this.elementTypeId,
+    required this.elementTypeID,
     required this.power,
     required this.powerPoints,
     required this.category,
-    required this.effectId,
+    required this.effectID,
     required this.learnableLevelMinimum,
     required this.learnableLevelMaximum,
     required this.specialEffect,
     this.accuracy = defaultMoveAccuracyPercent,
     this.priority = 0,
-    this.replacesMoveId,
+    this.replacesMoveID,
   });
 
   /// JSON (master と Firestore の定義に共通の形) から技を読む。
@@ -213,11 +213,11 @@ class Move {
   factory Move.fromJson({required Map<String, dynamic> json}) => Move(
     id: json['id'] as String,
     displayName: json['displayName'] as String,
-    elementTypeId: json['elementTypeId'] as String,
+    elementTypeID: json['elementTypeID'] as String,
     power: json['power'] as int,
     powerPoints: json['powerPoints'] as int,
     category: MoveCategory.values.byName(json['category'] as String),
-    effectId: json['effectId'] as String,
+    effectID: json['effectID'] as String,
     learnableLevelMinimum: json['learnableLevelMinimum'] as int,
     learnableLevelMaximum: json['learnableLevelMaximum'] as int,
     specialEffect: moveSpecialEffectFromJson(
@@ -225,7 +225,7 @@ class Move {
     ),
     accuracy: json['accuracy'] as int? ?? defaultMoveAccuracyPercent,
     priority: json['priority'] as int? ?? 0,
-    replacesMoveId: json['replacesMoveId'] as String?,
+    replacesMoveID: json['replacesMoveID'] as String?,
   );
 
   /// 技の一意な識別子。
@@ -235,7 +235,7 @@ class Move {
   final String displayName;
 
   /// 技の属性 (1 つ)。相性表の攻撃側として引く。
-  final String elementTypeId;
+  final String elementTypeID;
 
   /// ダメージ式に入る威力。
   final int power;
@@ -247,7 +247,7 @@ class Move {
   final MoveCategory category;
 
   /// 技を使った時に出すエフェクトの識別子 (`effects` の `id`)。
-  final String effectId;
+  final String effectID;
 
   /// 生成時にモンスターへ覚えさせてよいレベル帯の下限。
   final int learnableLevelMinimum;
@@ -267,5 +267,5 @@ class Move {
 
   /// この技が置き換えた版 10 までの補助技の識別子 (master の版 11 から。#257)。置き換えのない技は null。
   /// 置き換えられた補助技は、それを覚えた既存のモンスターのバトルのために master に残し、図鑑の技の一覧には出さない。
-  final String? replacesMoveId;
+  final String? replacesMoveID;
 }

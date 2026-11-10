@@ -143,7 +143,7 @@ void main() {
       definition: sampleDefinitions[0],
       level: 30,
       experience: 0,
-      actionCardMoveIds: const [],
+      actionCardMoveIDs: const [],
       master: master,
       maximumHitPointsPercent: 50,
     );
@@ -151,7 +151,7 @@ void main() {
       definition: sampleDefinitions[0],
       level: 30,
       experience: 0,
-      actionCardMoveIds: const [],
+      actionCardMoveIDs: const [],
       master: master,
       maximumHitPointsPercent: 100,
     );
@@ -174,7 +174,7 @@ void main() {
             definition: sampleDefinitions[0],
             level: 30,
             experience: 0,
-            actionCardMoveIds: const [],
+            actionCardMoveIDs: const [],
             master: master,
             maximumHitPointsPercent: 100,
           ),
@@ -184,7 +184,7 @@ void main() {
             definition: sampleDefinitions[1],
             level: 30,
             experience: 0,
-            actionCardMoveIds: const [],
+            actionCardMoveIDs: const [],
             master: master,
             maximumHitPointsPercent: 100,
           ),
@@ -197,12 +197,12 @@ void main() {
         state: state,
         playerAction: chooseCpuAction(
           state: state,
-          side: BattleSideId.player,
+          side: BattleSideID.player,
           master: master,
         ),
         opponentAction: chooseCpuAction(
           state: state,
-          side: BattleSideId.opponent,
+          side: BattleSideID.opponent,
           master: master,
         ),
         master: master,
@@ -211,18 +211,18 @@ void main() {
 
     int damageBy({
       required List<MoveUsedEvent> events,
-      required BattleSideId side,
+      required BattleSideID side,
     }) => events.singleWhere((event) => event.attackerSide == side).damage;
 
     final unchanged = firstRound(opponentDamagePercent: 100);
     final halved = firstRound(opponentDamagePercent: 50);
     expect(
-      damageBy(events: halved, side: BattleSideId.player),
-      damageBy(events: unchanged, side: BattleSideId.player),
+      damageBy(events: halved, side: BattleSideID.player),
+      damageBy(events: unchanged, side: BattleSideID.player),
     );
     expect(
-      damageBy(events: halved, side: BattleSideId.opponent),
-      damageBy(events: unchanged, side: BattleSideId.opponent) * 50 ~/ 100,
+      damageBy(events: halved, side: BattleSideID.opponent),
+      damageBy(events: unchanged, side: BattleSideID.opponent) * 50 ~/ 100,
     );
   });
 }

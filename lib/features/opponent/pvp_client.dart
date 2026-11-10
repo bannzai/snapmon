@@ -32,17 +32,17 @@ class PvpClient {
   /// 相手の候補 (最大 3 人。手持ちの平均レベルが自分に近い順) を返す。ログインが無い時は null。
   final Future<List<PvpOpponent>?> Function() fetchOpponents;
 
-  /// [base] に、その場で作った定義 [definitionIds] (`definitions/{definitionId}`。相手のモンスターが参照する) を足して返す。
+  /// [base] に、その場で作った定義 [definitionIDs] (`definitions/{definitionID}`。相手のモンスターが参照する) を足して返す。
   final Future<MasterData> Function({
     required MasterData base,
-    required List<String> definitionIds,
+    required List<String> definitionIDs,
   })
   fetchDefinitions;
 
-  /// [monsterOwnerUid] のモンスター [monsterId] を [reason] で通報する。
+  /// [monsterOwnerUid] のモンスター [monsterID] を [reason] で通報する。
   final Future<void> Function({
     required String monsterOwnerUid,
-    required String monsterId,
+    required String monsterID,
     required ReportReason reason,
   })
   reportMonster;

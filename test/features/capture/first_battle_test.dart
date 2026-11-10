@@ -17,8 +17,8 @@ void main() {
       // 本番と同じく、生まれたモンスターを手持ちに入れた後の図鑑で相手を決める (CPU の手持ちのレベルを自分の手持ちに合わせるため)
       final dexStore = DexStore(definitions: sampleData.definitions)
         ..applyServerSnapshot(
-          monsters: [sampleData.monsterById(monsterId: 'sample-mugmon')],
-          partyMonsterIds: ['sample-mugmon'],
+          monsters: [sampleData.monsterByID(monsterID: 'sample-mugmon')],
+          partyMonsterIDs: ['sample-mugmon'],
           definitions: null,
         );
       var fetchOpponentsCount = 0;
@@ -30,14 +30,14 @@ void main() {
               opponentUid: 'opponent-uid-1',
               displayName: 'ろうそくや',
               iconPath: null,
-              monsters: [generatedWaxMonster(monsterId: 'opponent-wax-1')],
+              monsters: [generatedWaxMonster(monsterID: 'opponent-wax-1')],
             ),
           ];
         },
-        fetchDefinitions: ({required base, required definitionIds}) =>
+        fetchDefinitions: ({required base, required definitionIDs}) =>
             throw StateError('fetchDefinitions は呼ばない'),
         reportMonster:
-            ({required monsterOwnerUid, required monsterId, required reason}) =>
+            ({required monsterOwnerUid, required monsterID, required reason}) =>
                 throw StateError('reportMonster は呼ばない'),
         blockUser: ({required blockedUid}) =>
             throw StateError('blockUser は呼ばない'),
@@ -67,7 +67,7 @@ void main() {
         );
         expect(
           opponent.cpuOpponent.opponentParty.single.level,
-          sampleData.monsterById(monsterId: 'sample-mugmon').level,
+          sampleData.monsterByID(monsterID: 'sample-mugmon').level,
         );
         expect(opponent.definitions, dexStore.definitions);
       }

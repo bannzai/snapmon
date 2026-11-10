@@ -11,17 +11,17 @@ import { REPORT_HIDE_THRESHOLD, defaultDisplayName } from "../../src/pvp_rules";
 // 非同期 PvP の相手の取得 (fetchOpponents)・通報 (reportMonster)・ブロック (blockUser)・表示名 (getDisplayName・setDisplayName) を
 // Auth・Firestore・Functions の Emulator で、複数のユーザーの図鑑と手持ちを置いて確かめる。
 
-const projectId = "demo-snapmon";
-const functionsBaseUrl = `http://127.0.0.1:5001/${projectId}/asia-northeast1`;
+const projectID = "demo-snapmon";
+const functionsBaseURL = `http://127.0.0.1:5001/${projectID}/asia-northeast1`;
 
 // Functions の Emulator は App Check のトークンを検証せずに中身だけを読む (auth_flow.test.ts と同じ署名の無い JWT)。
 const fakeAppCheckToken = [
   Buffer.from(JSON.stringify({ alg: "none", typ: "JWT" })).toString("base64url"),
-  Buffer.from(JSON.stringify({ sub: "1:000000000000:web:emulator", aud: [`projects/${projectId}`] })).toString("base64url"),
+  Buffer.from(JSON.stringify({ sub: "1:000000000000:web:emulator", aud: [`projects/${projectID}`] })).toString("base64url"),
   "",
 ].join(".");
 
-const app = initializeApp({ projectId, apiKey: "demo-api-key" }, "pvp-test");
+const app = initializeApp({ projectId: projectID, apiKey: "demo-api-key" }, "pvp-test");
 const auth = getAuth(app);
 connectAuthEmulator(auth, "http://127.0.0.1:9099", { disableWarnings: true });
 
@@ -34,7 +34,7 @@ interface TestUser {
 }
 
 beforeAll(async () => {
-  testEnvironment = await initializeTestEnvironment({ projectId });
+  testEnvironment = await initializeTestEnvironment({ projectId: projectID });
 });
 
 afterAll(async () => {
@@ -59,7 +59,7 @@ async function callFunction({
   appCheckToken: string | null;
   data: unknown;
 }): Promise<Response> {
-  return fetch(`${functionsBaseUrl}/${name}`, {
+  return fetch(`${functionsBaseURL}/${name}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -96,9 +96,9 @@ async function markGenerated({ uid }: { uid: string }): Promise<void> {
   });
 }
 
-/** 他人に返してはいけない元の写真の参照。応答に含まれないことを確かめるため、uid と monsterId から見分けられる値にする。 */
-function secretPhotoPath({ uid, monsterId }: { uid: string; monsterId: string }): string {
-  return `users/${uid}/photos/secret-photo-${monsterId}`;
+/** 他人に返してはいけない元の写真の参照。応答に含まれないことを確かめるため、uid と monsterID から見分けられる値にする。 */
+function secretPhotoPath({ uid, monsterID }: { uid: string; monsterID: string }): string {
+  return `users/${uid}/photos/secret-photo-${monsterID}`;
 }
 
 /**
@@ -114,18 +114,18 @@ async function seedParty({
   levels: number[];
   updatedAtMillis: number;
 }): Promise<string[]> {
-  const monsterIds = levels.map((_, index) => `${uid}-monster-${index}`);
+  const monsterIDs = levels.map((_, index) => `${uid}-monster-${index}`);
   await testEnvironment.withSecurityRulesDisabled(async (context) => {
     const firestore = context.firestore();
-    for (const [index, monsterId] of monsterIds.entries()) {
-      await setDoc(doc(firestore, `users/${uid}/monsters/${monsterId}`), {
+    for (const [index, monsterID] of monsterIDs.entries()) {
+      await setDoc(doc(firestore, `users/${uid}/monsters/${monsterID}`), {
         definition: {
-          id: monsterId,
-          sourcePhotoReference: secretPhotoPath({ uid, monsterId }),
+          id: monsterID,
+          sourcePhotoReference: secretPhotoPath({ uid, monsterID }),
           name: `${uid} のモンスター ${index}`,
           encyclopediaText: "まいにち あたたかい のみものを はこぶ",
-          elementTypeIds: ["fire"],
-          learnset: [{ moveId: "warm-touch", unlockLevel: 1 }],
+          elementTypeIDs: ["fire"],
+          learnset: [{ moveID: "warm-touch", unlockLevel: 1 }],
           baseStats: { hitPoints: 50, attack: 50, defense: 50, speed: 50 },
           individualValues: { hitPoints: 1, attack: 2, defense: 3, speed: 4 },
           statCalculationVersion: 1,
@@ -133,24 +133,24 @@ async function seedParty({
         },
         level: levels[index],
         experience: 0,
-        artPath: `monsters/${monsterId}/art.png`,
+        artPath: `monsters/${monsterID}/art.png`,
         decoration: { eyes: "round" },
         decorationVersion: 1,
-        subjectDescription: { what: `secret-subject-${monsterId}` },
-        categoryIds: [`secret-category-${monsterId}`],
-        definitionIds: [`definition-${monsterId}`],
-        generationRequestId: `secret-request-${monsterId}`,
+        subjectDescription: { what: `secret-subject-${monsterID}` },
+        categoryIDs: [`secret-category-${monsterID}`],
+        definitionIDs: [`definition-${monsterID}`],
+        generationRequestID: `secret-request-${monsterID}`,
         createdAt: Timestamp.fromMillis(0),
       });
     }
     await setDoc(doc(firestore, `users/${uid}/party/current`), {
-      monsterIds,
+      monsterIDs,
       updatedAt: Timestamp.fromMillis(updatedAtMillis),
     });
   });
   // fetchOpponents は users/{uid} の無い持ち主を、アカウントの削除を消し終えたものとして候補に出さない
   await markGenerated({ uid });
-  return monsterIds;
+  return monsterIDs;
 }
 
 /** [uid] の `users/{uid}` に、setProfileIcon が書いた後と同じく iconPath を Rules を通さずに書く。 */
@@ -165,7 +165,7 @@ interface Opponent {
   opponentUid: string;
   displayName: string;
   iconPath: string | null;
-  monsters: { definition: Record<string, unknown>; level: number; artPath: string; definitionIds: string[] }[];
+  monsters: { definition: Record<string, unknown>; level: number; artPath: string; definitionIDs: string[] }[];
 }
 
 /** [user] で fetchOpponents を呼び、返った相手を返す。 */
@@ -188,8 +188,8 @@ describe("fetchOpponents", () => {
       opponentUid: "near",
       displayName: defaultDisplayName("near"),
       monsters: [
-        { level: 9, artPath: "monsters/near-monster-0/art.png", definitionIds: ["definition-near-monster-0"] },
-        { level: 11, artPath: "monsters/near-monster-1/art.png", definitionIds: ["definition-near-monster-1"] },
+        { level: 9, artPath: "monsters/near-monster-0/art.png", definitionIDs: ["definition-near-monster-0"] },
+        { level: 11, artPath: "monsters/near-monster-1/art.png", definitionIDs: ["definition-near-monster-1"] },
       ],
     });
     expect(opponents[1].monsters[0].definition).toMatchObject({ id: "near-monster-0", name: "near のモンスター 0" });
@@ -209,19 +209,19 @@ describe("fetchOpponents", () => {
   it("元の写真の参照・被写体の説明・分類・生成の要求 ID を他のユーザーに返さない", async () => {
     const player = await signInUser();
     await seedParty({ uid: player.uid, levels: [5], updatedAtMillis: 1 });
-    const monsterIds = await seedParty({ uid: "other", levels: [5, 6], updatedAtMillis: 2 });
+    const monsterIDs = await seedParty({ uid: "other", levels: [5, 6], updatedAtMillis: 2 });
 
     const response = await callFunction({ name: "fetchOpponents", user: player, appCheckToken: fakeAppCheckToken, data: null });
     const responseText = await response.text();
     expect(responseText).toContain("other-monster-0");
     expect(responseText).not.toContain("photos/");
     expect(responseText).not.toContain("sourcePhotoReference");
-    for (const monsterId of monsterIds) {
+    for (const monsterID of monsterIDs) {
       for (const secret of [
-        secretPhotoPath({ uid: "other", monsterId }),
-        `secret-subject-${monsterId}`,
-        `secret-category-${monsterId}`,
-        `secret-request-${monsterId}`,
+        secretPhotoPath({ uid: "other", monsterID }),
+        `secret-subject-${monsterID}`,
+        `secret-category-${monsterID}`,
+        `secret-request-${monsterID}`,
       ]) {
         expect(responseText).not.toContain(secret);
       }
@@ -235,10 +235,10 @@ describe("fetchOpponents", () => {
     await testEnvironment.withSecurityRulesDisabled(async (context) => {
       const firestore = context.firestore();
       await setDoc(doc(firestore, "users/partial/party/current"), {
-        monsterIds: ["partial-monster-0", "deleted-monster"],
+        monsterIDs: ["partial-monster-0", "deleted-monster"],
         updatedAt: Timestamp.fromMillis(2),
       });
-      await setDoc(doc(firestore, "users/ghost/party/current"), { monsterIds: ["deleted-monster"], updatedAt: Timestamp.fromMillis(3) });
+      await setDoc(doc(firestore, "users/ghost/party/current"), { monsterIDs: ["deleted-monster"], updatedAt: Timestamp.fromMillis(3) });
       await setDoc(doc(firestore, "users/ghost"), { dailyGeneration: { date: "2000-01-01", count: 1 } });
     });
 
@@ -274,21 +274,21 @@ describe("fetchOpponents", () => {
   it("自分が通報したモンスターの持ち主は、自分の候補から消える", async () => {
     const reporter = await signInUser();
     await seedParty({ uid: reporter.uid, levels: [5], updatedAtMillis: 1 });
-    const [reportedMonsterId] = await seedParty({ uid: "reported", levels: [5], updatedAtMillis: 2 });
+    const [reportedMonsterID] = await seedParty({ uid: "reported", levels: [5], updatedAtMillis: 2 });
     await seedParty({ uid: "bystander", levels: [5], updatedAtMillis: 3 });
 
     expect(
       await callOk({
         name: "reportMonster",
         user: reporter,
-        data: { monsterOwnerUid: "reported", monsterId: reportedMonsterId, reason: "inappropriate_picture" },
+        data: { monsterOwnerUid: "reported", monsterID: reportedMonsterID, reason: "inappropriate_picture" },
       }),
     ).toEqual({ reported: true });
     expect((await fetchOpponents({ user: reporter })).map((opponent) => opponent.opponentUid)).toEqual(["bystander"]);
   });
 
   it(`${REPORT_HIDE_THRESHOLD} 人から通報されたモンスターの持ち主は全員の候補から消え、それより少なければ残る`, async () => {
-    const [reportedMonsterId] = await seedParty({ uid: "reported", levels: [5], updatedAtMillis: 1 });
+    const [reportedMonsterID] = await seedParty({ uid: "reported", levels: [5], updatedAtMillis: 1 });
     const viewer = await signInUser();
     await seedParty({ uid: viewer.uid, levels: [5], updatedAtMillis: 2 });
     for (let count = 0; count < REPORT_HIDE_THRESHOLD; count++) {
@@ -297,7 +297,7 @@ describe("fetchOpponents", () => {
       await callOk({
         name: "reportMonster",
         user: reporter,
-        data: { monsterOwnerUid: "reported", monsterId: reportedMonsterId, reason: "other" },
+        data: { monsterOwnerUid: "reported", monsterID: reportedMonsterID, reason: "other" },
       });
     }
     expect((await fetchOpponents({ user: viewer })).map((opponent) => opponent.opponentUid)).not.toContain("reported");
@@ -319,7 +319,7 @@ describe("fetchOpponents", () => {
 
 describe("reportMonster", () => {
   /** reports と reportedMonsters を Rules を通さずに読む。 */
-  async function readReportState({ reportId, monsterId }: { reportId: string; monsterId: string }) {
+  async function readReportState({ reportID, monsterID }: { reportID: string; monsterID: string }) {
     let state: { report: Record<string, unknown> | undefined; counter: Record<string, unknown> | undefined } = {
       report: undefined,
       counter: undefined,
@@ -327,8 +327,8 @@ describe("reportMonster", () => {
     await testEnvironment.withSecurityRulesDisabled(async (context) => {
       const firestore = context.firestore();
       state = {
-        report: (await getDoc(doc(firestore, `reports/${reportId}`))).data(),
-        counter: (await getDoc(doc(firestore, `reportedMonsters/${monsterId}`))).data(),
+        report: (await getDoc(doc(firestore, `reports/${reportID}`))).data(),
+        counter: (await getDoc(doc(firestore, `reportedMonsters/${monsterID}`))).data(),
       };
     });
     return state;
@@ -336,17 +336,17 @@ describe("reportMonster", () => {
 
   it("通報を残し、同じユーザーが通報し直しても数を増やさない", async () => {
     const reporter = await signInUser();
-    const [monsterId] = await seedParty({ uid: "owner", levels: [5], updatedAtMillis: 1 });
+    const [monsterID] = await seedParty({ uid: "owner", levels: [5], updatedAtMillis: 1 });
     for (const reason of ["inappropriate_text", "other"]) {
-      await callOk({ name: "reportMonster", user: reporter, data: { monsterOwnerUid: "owner", monsterId, reason } });
+      await callOk({ name: "reportMonster", user: reporter, data: { monsterOwnerUid: "owner", monsterID, reason } });
     }
-    const { report, counter } = await readReportState({ reportId: `${reporter.uid}_${monsterId}`, monsterId });
+    const { report, counter } = await readReportState({ reportID: `${reporter.uid}_${monsterID}`, monsterID });
     expect(report).toMatchObject({
       reporterUid: reporter.uid,
       monsterOwnerUid: "owner",
-      monsterId,
+      monsterID,
       monsterName: "owner のモンスター 0",
-      monsterArtPath: `monsters/${monsterId}/art.png`,
+      monsterArtPath: `monsters/${monsterID}/art.png`,
       reason: "inappropriate_text",
     });
     expect(counter).toMatchObject({ monsterOwnerUid: "owner", reporterCount: 1 });
@@ -354,30 +354,30 @@ describe("reportMonster", () => {
 
   it("アイコンが不適切の理由で通報でき、通報した時点の持ち主のアイコンのパスを残す", async () => {
     const reporter = await signInUser();
-    const [monsterId] = await seedParty({ uid: "owner", levels: [5], updatedAtMillis: 1 });
+    const [monsterID] = await seedParty({ uid: "owner", levels: [5], updatedAtMillis: 1 });
     await setIconPath({ uid: "owner", iconPath: "users/owner/icons/upload1.png" });
-    await callOk({ name: "reportMonster", user: reporter, data: { monsterOwnerUid: "owner", monsterId, reason: "inappropriate_icon" } });
-    const { report } = await readReportState({ reportId: `${reporter.uid}_${monsterId}`, monsterId });
+    await callOk({ name: "reportMonster", user: reporter, data: { monsterOwnerUid: "owner", monsterID, reason: "inappropriate_icon" } });
+    const { report } = await readReportState({ reportID: `${reporter.uid}_${monsterID}`, monsterID });
     expect(report).toMatchObject({ reason: "inappropriate_icon", monsterOwnerIconPath: "users/owner/icons/upload1.png" });
   });
 
   it("アイコンを登録していない持ち主の通報は、アイコンのパスを null で残す", async () => {
     const reporter = await signInUser();
-    const [monsterId] = await seedParty({ uid: "owner", levels: [5], updatedAtMillis: 1 });
-    await callOk({ name: "reportMonster", user: reporter, data: { monsterOwnerUid: "owner", monsterId, reason: "other" } });
-    const { report } = await readReportState({ reportId: `${reporter.uid}_${monsterId}`, monsterId });
+    const [monsterID] = await seedParty({ uid: "owner", levels: [5], updatedAtMillis: 1 });
+    await callOk({ name: "reportMonster", user: reporter, data: { monsterOwnerUid: "owner", monsterID, reason: "other" } });
+    const { report } = await readReportState({ reportID: `${reporter.uid}_${monsterID}`, monsterID });
     expect(report).toMatchObject({ monsterOwnerIconPath: null });
   });
 
   it("自分のモンスター・無いモンスター・決めていない理由は通報できない", async () => {
     const reporter = await signInUser();
-    const [ownMonsterId] = await seedParty({ uid: reporter.uid, levels: [5], updatedAtMillis: 1 });
-    const [otherMonsterId] = await seedParty({ uid: "owner", levels: [5], updatedAtMillis: 2 });
+    const [ownMonsterID] = await seedParty({ uid: reporter.uid, levels: [5], updatedAtMillis: 1 });
+    const [otherMonsterID] = await seedParty({ uid: "owner", levels: [5], updatedAtMillis: 2 });
     const cases: { data: unknown; status: number }[] = [
-      { data: { monsterOwnerUid: reporter.uid, monsterId: ownMonsterId, reason: "other" }, status: 400 },
-      { data: { monsterOwnerUid: "owner", monsterId: "missing", reason: "other" }, status: 404 },
-      { data: { monsterOwnerUid: "owner", monsterId: otherMonsterId, reason: "boring" }, status: 400 },
-      { data: { monsterOwnerUid: "owner/x", monsterId: otherMonsterId, reason: "other" }, status: 400 },
+      { data: { monsterOwnerUid: reporter.uid, monsterID: ownMonsterID, reason: "other" }, status: 400 },
+      { data: { monsterOwnerUid: "owner", monsterID: "missing", reason: "other" }, status: 404 },
+      { data: { monsterOwnerUid: "owner", monsterID: otherMonsterID, reason: "boring" }, status: 400 },
+      { data: { monsterOwnerUid: "owner/x", monsterID: otherMonsterID, reason: "other" }, status: 400 },
     ];
     for (const { data, status } of cases) {
       const response = await callFunction({ name: "reportMonster", user: reporter, appCheckToken: fakeAppCheckToken, data });
@@ -389,12 +389,12 @@ describe("reportMonster", () => {
 describe("アカウントの削除の途中", () => {
   it("通報・ブロック・表示名の変更を断り、本人のデータを書かない", async () => {
     const user = await signInUser();
-    const [monsterId] = await seedParty({ uid: "owner", levels: [5], updatedAtMillis: 1 });
+    const [monsterID] = await seedParty({ uid: "owner", levels: [5], updatedAtMillis: 1 });
     await testEnvironment.withSecurityRulesDisabled(async (context) => {
       await setDoc(doc(context.firestore(), `users/${user.uid}`), { accountDeletionStartedAt: Timestamp.fromMillis(0) }, { merge: true });
     });
     for (const [name, data] of [
-      ["reportMonster", { monsterOwnerUid: "owner", monsterId, reason: "other" }],
+      ["reportMonster", { monsterOwnerUid: "owner", monsterID, reason: "other" }],
       ["blockUser", { blockedUid: "owner" }],
       ["setDisplayName", { displayName: "ばんざい" }],
     ] as const) {
@@ -404,7 +404,7 @@ describe("アカウントの削除の途中", () => {
     }
     await testEnvironment.withSecurityRulesDisabled(async (context) => {
       const firestore = context.firestore();
-      expect((await getDoc(doc(firestore, `reports/${user.uid}_${monsterId}`))).exists()).toBe(false);
+      expect((await getDoc(doc(firestore, `reports/${user.uid}_${monsterID}`))).exists()).toBe(false);
       expect((await getDoc(doc(firestore, `blocks/${user.uid}_owner`))).exists()).toBe(false);
       expect((await getDoc(doc(firestore, `users/${user.uid}`))).get("displayName")).toBeUndefined();
     });
@@ -416,11 +416,11 @@ describe("アカウントの削除を消し終えた後 (別の端末の ID ト�
     await signOut(auth);
     const credential = await signInAnonymously(auth);
     const user = { uid: credential.user.uid, idToken: await credential.user.getIdToken() };
-    const [monsterId] = await seedParty({ uid: "owner", levels: [5], updatedAtMillis: 1 });
+    const [monsterID] = await seedParty({ uid: "owner", levels: [5], updatedAtMillis: 1 });
     // 削除は Auth のユーザーを users/{uid} より先に消す (account.ts の deleteAccountData)。users/{uid} はまだ無い
     await deleteUser(credential.user);
     for (const [name, data] of [
-      ["reportMonster", { monsterOwnerUid: "owner", monsterId, reason: "other" }],
+      ["reportMonster", { monsterOwnerUid: "owner", monsterID, reason: "other" }],
       ["blockUser", { blockedUid: "owner" }],
       ["setDisplayName", { displayName: "ばんざい" }],
     ] as const) {
@@ -431,7 +431,7 @@ describe("アカウントの削除を消し終えた後 (別の端末の ID ト�
     await testEnvironment.withSecurityRulesDisabled(async (context) => {
       const firestore = context.firestore();
       expect((await getDoc(doc(firestore, `users/${user.uid}`))).exists()).toBe(false);
-      expect((await getDoc(doc(firestore, `reports/${user.uid}_${monsterId}`))).exists()).toBe(false);
+      expect((await getDoc(doc(firestore, `reports/${user.uid}_${monsterID}`))).exists()).toBe(false);
       expect((await getDoc(doc(firestore, `blocks/${user.uid}_owner`))).exists()).toBe(false);
     });
   });
@@ -451,7 +451,7 @@ describe("持ち主のアカウントの削除の途中", () => {
 
   it("そのモンスターへの通報は無いものとして断り、通報の数を作らない", async () => {
     const reporter = await signInUser();
-    const [monsterId] = await seedParty({ uid: "owner", levels: [5], updatedAtMillis: 1 });
+    const [monsterID] = await seedParty({ uid: "owner", levels: [5], updatedAtMillis: 1 });
     await testEnvironment.withSecurityRulesDisabled(async (context) => {
       await setDoc(doc(context.firestore(), "users/owner"), { accountDeletionStartedAt: Timestamp.fromMillis(0) }, { merge: true });
     });
@@ -459,11 +459,11 @@ describe("持ち主のアカウントの削除の途中", () => {
       name: "reportMonster",
       user: reporter,
       appCheckToken: fakeAppCheckToken,
-      data: { monsterOwnerUid: "owner", monsterId, reason: "other" },
+      data: { monsterOwnerUid: "owner", monsterID, reason: "other" },
     });
     expect(response.status).toBe(404);
     await testEnvironment.withSecurityRulesDisabled(async (context) => {
-      expect((await getDoc(doc(context.firestore(), `reportedMonsters/${monsterId}`))).exists()).toBe(false);
+      expect((await getDoc(doc(context.firestore(), `reportedMonsters/${monsterID}`))).exists()).toBe(false);
     });
   });
 });

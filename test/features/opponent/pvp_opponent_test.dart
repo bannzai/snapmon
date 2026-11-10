@@ -15,9 +15,9 @@ void main() {
               'id': 'monster-1',
               'name': 'マグモン',
               'encyclopediaText': 'まいにち あたたかい のみものを はこぶ',
-              'elementTypeIds': ['fire'],
+              'elementTypeIDs': ['fire'],
               'learnset': [
-                {'moveId': 'fire_1', 'unlockLevel': 1},
+                {'moveID': 'fire_1', 'unlockLevel': 1},
               ],
               'baseStats': {
                 'hitPoints': 50,
@@ -36,7 +36,7 @@ void main() {
             },
             'level': 7,
             'artPath': 'monsters/monster-1/art.png',
-            'definitionIds': ['definition-1'],
+            'definitionIDs': ['definition-1'],
             'decoration': {
               'eyeStyle': 'round',
               'mouthStyle': 'smile',
@@ -59,7 +59,7 @@ void main() {
     expect(monster.definition.sourcePhotoReference, isNull);
     expect(monster.level, 7);
     expect(monster.artPath, 'monsters/monster-1/art.png');
-    expect(monster.definitionIds, ['definition-1']);
+    expect(monster.definitionIDs, ['definition-1']);
     expect(monster.decorationVersion, 1);
     expect(monster.decoration?.eyeStyle, MonsterEyeStyle.round);
     expect(monster.decoration?.limbStyle, MonsterLimbStyle.stubby);

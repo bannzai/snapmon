@@ -40,7 +40,7 @@ class HomeShell extends StatefulWidget {
     required this.sampleData,
     required this.dexStore,
     required this.sessionStore,
-    required this.openUrl,
+    required this.openURL,
     required this.isDeveloperMenuEnabled,
     required this.battleRecorder,
     required this.monsterGenerator,
@@ -68,7 +68,7 @@ class HomeShell extends StatefulWidget {
   final SessionStore sessionStore;
 
   /// 設定画面のリンクを開く。
-  final OpenUrl openUrl;
+  final OpenURL openURL;
 
   /// 設定画面に開発者メニューを出すか (DEBUG ビルドだけ true。[SettingsScreen.isDeveloperMenuEnabled])。
   final bool isDeveloperMenuEnabled;
@@ -128,7 +128,7 @@ class _HomeShellState extends State<HomeShell> {
         monsterGenerator: widget.monsterGenerator,
         pvpClient: widget.pvpClient,
         cardSharer: widget.cardSharer,
-        openUrl: widget.openUrl,
+        openURL: widget.openURL,
         isDeveloperMenuEnabled: widget.isDeveloperMenuEnabled,
         accountStore: widget.accountStore,
         battleRecorder: widget.battleRecorder,

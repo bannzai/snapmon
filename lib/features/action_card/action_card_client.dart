@@ -17,7 +17,7 @@ int? actionCardRankOfPackage({required Package package}) =>
       )
     : null;
 
-/// Action Card の購入 1 件 (`users/{uid}/actionCardPurchases/{eventId}`。形は functions/src/generation_tickets.ts の
+/// Action Card の購入 1 件 (`users/{uid}/actionCardPurchases/{eventID}`。形は functions/src/generation_tickets.ts の
 /// `ActionCardPurchaseDocument`)。買い切った技は `moveID` のある購入で、`moveID` の無い購入は技を選び直して受け取る。
 class ActionCardPurchase {
   /// Firestore から読んだ購入を作る。
@@ -98,7 +98,7 @@ class ActionCardClient {
   /// `users/{uid}/actionCardPurchases` を、記録した順で流す。
   final Stream<List<ActionCardPurchase>> Function() watchActionCardPurchases;
 
-  /// `moveRanks/current.rankByMoveId` (技の ID ごとのランク) を流す。表がまだ無い時は null。
+  /// `moveRanks/current.rankByMoveID` (技の ID ごとのランク) を流す。表がまだ無い時は null。
   final Stream<Map<String, int>?> Function() watchMoveRanks;
 
   /// reserveActionCardMove を呼んで、値段を出したランク [rank] の [moveID] を買う前に控え、控えの ID を返す。
@@ -113,17 +113,17 @@ class ActionCardClient {
   })
   assignActionCardMove;
 
-  /// teachActionCardMove を呼んで図鑑の [monsterId] に [moveId] を覚えさせ、覚えさせた後の一覧を返す。
+  /// teachActionCardMove を呼んで図鑑の [monsterID] に [moveID] を覚えさせ、覚えさせた後の一覧を返す。
   final Future<List<String>> Function({
-    required String monsterId,
-    required String moveId,
+    required String monsterID,
+    required String moveID,
   })
   teachActionCardMove;
 
-  /// forgetActionCardMove を呼んで図鑑の [monsterId] から [moveId] を忘れさせ、忘れさせた後の一覧を返す。
+  /// forgetActionCardMove を呼んで図鑑の [monsterID] から [moveID] を忘れさせ、忘れさせた後の一覧を返す。
   final Future<List<String>> Function({
-    required String monsterId,
-    required String moveId,
+    required String monsterID,
+    required String moveID,
   })
   forgetActionCardMove;
 }

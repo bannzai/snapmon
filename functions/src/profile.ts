@@ -1,6 +1,6 @@
-// プロフィールのアイコン。端末が `users/{uid}/iconUploads/{uploadId}` に置いた写真を、生成と同じ Cloud Vision の検査
+// プロフィールのアイコン。端末が `users/{uid}/iconUploads/{uploadID}` に置いた写真を、生成と同じ Cloud Vision の検査
 // (露骨な内容・人の顔。generation/vision.ts の visionRejectionReason と visionDetectsFace) に通し、通った写真だけを正方形に縮めて
-// `users/{uid}/icons/{uploadId}.png` (ログインした全員が読める) に置き、`users/{uid}.iconPath` に持つ。
+// `users/{uid}/icons/{uploadID}.png` (ログインした全員が読める) に置き、`users/{uid}.iconPath` に持つ。
 // 置き場は .claude/rules/firestore.md。`users/{uid}/` の配下のため、アカウントの削除 (account.ts) が自動で消す。
 
 import { type Auth, getAuth } from "firebase-admin/auth";
@@ -71,13 +71,13 @@ async function reserveDailyIconCheck({
 }
 
 /** 端末がアイコンにする写真を置くパス (本人だけが置ける。firebase/storage.rules)。 */
-export function profileIconUploadPath({ uid, uploadId }: { uid: string; uploadId: string }): string {
-  return `users/${uid}/iconUploads/${uploadId}`;
+export function profileIconUploadPath({ uid, uploadID }: { uid: string; uploadID: string }): string {
+  return `users/${uid}/iconUploads/${uploadID}`;
 }
 
 /** 検査を通ったアイコンのパス (ログインした全員が読め、書くのは Functions だけ)。差し替えるたびに別のパスにし、古い絵を読み続けさせない。 */
-export function profileIconPath({ uid, uploadId }: { uid: string; uploadId: string }): string {
-  return `users/${uid}/icons/${uploadId}.png`;
+export function profileIconPath({ uid, uploadID }: { uid: string; uploadID: string }): string {
+  return `users/${uid}/icons/${uploadID}.png`;
 }
 
 /** アイコンの登録が使う外部の資源。callable は本番の実装を、テストは Emulator の資源とモックの Vision を渡す。 */
@@ -111,21 +111,21 @@ async function requireActiveAccount({
 }
 
 /**
- * [uid] が置いた写真 [uploadId] を検査してアイコンにし、保存したアイコンのパスを返す (callable の本体。テストは依存を差し替えて直接呼ぶ)。
+ * [uid] が置いた写真 [uploadID] を検査してアイコンにし、保存したアイコンのパスを返す (callable の本体。テストは依存を差し替えて直接呼ぶ)。
  *
  * 露骨な内容・人の顔が写る写真は、写真を消して invalid-argument (利用者に出す文言) を投げる (他のユーザーに見せる画像のため。
  * DIRECTION.md「必要な機能」の不適切な画像・人物の扱い)。写真は中央を正方形に切り取って [PROFILE_ICON_SIDE] px の PNG にする。
  * 前のアイコンと置いた写真は、新しいアイコンを `users/{uid}.iconPath` に書いた後に消す。
- * 同じ [uploadId] で呼び直した時は、保存済みならそのパスを返す (冪等。Vision を呼び直さない)。写真が無い時は not-found。
+ * 同じ [uploadID] で呼び直した時は、保存済みならそのパスを返す (冪等。Vision を呼び直さない)。写真が無い時は not-found。
  */
 export async function setProfileIconData(
   dependencies: ProfileIconDependencies,
-  { uid, uploadId }: { uid: string; uploadId: string },
+  { uid, uploadID }: { uid: string; uploadID: string },
 ): Promise<{ iconPath: string }> {
   const { firestore, auth, bucket, annotateImage } = dependencies;
   const userDocument = firestore.doc(`users/${uid}`);
-  const iconPath = profileIconPath({ uid, uploadId });
-  const uploadFile = bucket.file(profileIconUploadPath({ uid, uploadId }));
+  const iconPath = profileIconPath({ uid, uploadID });
+  const uploadFile = bucket.file(profileIconUploadPath({ uid, uploadID }));
   const userSnapshot = await userDocument.get();
   try {
     await requireActiveAccount({ auth, uid, userSnapshot });
@@ -149,14 +149,14 @@ export async function setProfileIconData(
     annotation = await annotateImage(await downscalePhoto(photo));
   } catch (error) {
     // 上限・削除の進行で断った時も検査に失敗した時も、置かれた写真を残さない
-    // (端末は試すたびに新しい uploadId で写真を置き直すため、同じ写真を使った再試行は無い。lib/firebase/pvp.dart の setProfileIcon)
+    // (端末は試すたびに新しい uploadID で写真を置き直すため、同じ写真を使った再試行は無い。lib/firebase/pvp.dart の setProfileIcon)
     await uploadFile.delete({ ignoreNotFound: true });
     throw error;
   }
   // 生成と違い、顔が写る写真はアイコンにしない (DIRECTION.md「決めたこと」2026-11-07 の #198 の行)
   const rejectionReason = visionRejectionReason(annotation) ?? (visionDetectsFace(annotation) ? "face_detected" : undefined);
   if (rejectionReason) {
-    logger.info("Vision の判定でアイコンにしません", { uid, uploadId, rejectionReason, ...visionRejectionLogFields(annotation) });
+    logger.info("Vision の判定でアイコンにしません", { uid, uploadID, rejectionReason, ...visionRejectionLogFields(annotation) });
     await uploadFile.delete({ ignoreNotFound: true });
     throw new HttpsError(
       "invalid-argument",
@@ -191,8 +191,8 @@ export async function setProfileIconData(
 }
 
 /**
- * setProfileIcon が受け付ける uploadId の形 (UUID)。端末は呼ぶたびに UUID v4 を作って送る (lib/firebase/pvp.dart)。
- * uploadId はアイコンのパスとして通報の通知 (Slack の本文。pvp_rules.ts の reportNotificationText) に入るため、
+ * setProfileIcon が受け付ける uploadID の形 (UUID)。端末は呼ぶたびに UUID v4 を作って送る (lib/firebase/pvp.dart)。
+ * uploadID はアイコンのパスとして通報の通知 (Slack の本文。pvp_rules.ts の reportNotificationText) に入るため、
  * mrkdwn の記号 (`<` `>` `&` 等) や長い文字列を入れさせない。
  */
 const PROFILE_ICON_UPLOAD_ID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -200,18 +200,18 @@ const PROFILE_ICON_UPLOAD_ID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-
 /**
  * プロフィールのアイコンを登録する callable (App Check の強制は app_check.ts)。
  *
- * 受け取る data: `{ uploadId: string }` (先に `users/{uid}/iconUploads/{uploadId}` に写真を置く)。返す値: `{ iconPath: string }`。
+ * 受け取る data: `{ uploadID: string }` (先に `users/{uid}/iconUploads/{uploadID}` に写真を置く)。返す値: `{ iconPath: string }`。
  * 検査と保存は [setProfileIconData]。
  * memory 1GiB: 生成 (generate.ts) と同じく長辺 1024px の写真を sharp で展開するため、同じ値にした。
  */
 export const setProfileIcon = onCall({ enforceAppCheck: ENFORCE_APP_CHECK, memory: "1GiB" }, async (request) => {
   const uid = requireSignedInUid({ request });
-  const { uploadId } = (request.data ?? {}) as { uploadId?: unknown };
-  if (typeof uploadId !== "string" || !PROFILE_ICON_UPLOAD_ID_PATTERN.test(uploadId)) {
-    throw new HttpsError("invalid-argument", "uploadId を渡してください");
+  const { uploadID } = (request.data ?? {}) as { uploadID?: unknown };
+  if (typeof uploadID !== "string" || !PROFILE_ICON_UPLOAD_ID_PATTERN.test(uploadID)) {
+    throw new HttpsError("invalid-argument", "uploadID を渡してください");
   }
   const { firestore, bucket, annotateImage } = createProductionDependencies();
   // 生成 (generate.ts) と同じく、削除を消し終えた uid が置いたファイル (users/{uid}/ の配下) を消して断る
   await rejectDeletedAccount({ auth: getAuth(), bucket, uid });
-  return setProfileIconData({ firestore, auth: getAuth(), bucket, annotateImage }, { uid, uploadId });
+  return setProfileIconData({ firestore, auth: getAuth(), bucket, annotateImage }, { uid, uploadID });
 });

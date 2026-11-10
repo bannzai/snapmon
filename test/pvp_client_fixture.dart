@@ -11,10 +11,10 @@ class RecordedPvpCalls {
   int fetchOpponentsCount = 0;
 
   /// fetchDefinitions に渡された定義の ID (呼ばれた順)。
-  final List<List<String>> fetchedDefinitionIds = [];
+  final List<List<String>> fetchedDefinitionIDs = [];
 
   /// reportMonster に渡された引数 (呼ばれた順)。
-  final List<({String monsterOwnerUid, String monsterId, ReportReason reason})>
+  final List<({String monsterOwnerUid, String monsterID, ReportReason reason})>
   reports = [];
 
   /// blockUser に渡された uid (呼ばれた順)。
@@ -47,17 +47,17 @@ PvpClient fakePvpClient({
     calls.fetchOpponentsCount++;
     return fetchOpponents();
   },
-  fetchDefinitions: ({required base, required definitionIds}) async {
-    calls.fetchedDefinitionIds.add(definitionIds);
+  fetchDefinitions: ({required base, required definitionIDs}) async {
+    calls.fetchedDefinitionIDs.add(definitionIDs);
     return extraDefinitions == null
         ? base
         : mergeMasterData(base: base, additional: extraDefinitions);
   },
   reportMonster:
-      ({required monsterOwnerUid, required monsterId, required reason}) async {
+      ({required monsterOwnerUid, required monsterID, required reason}) async {
         calls.reports.add((
           monsterOwnerUid: monsterOwnerUid,
-          monsterId: monsterId,
+          monsterID: monsterID,
           reason: reason,
         ));
         await reportMonster();

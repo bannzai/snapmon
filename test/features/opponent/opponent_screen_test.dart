@@ -26,18 +26,18 @@ import '../../sample_data_fixture.dart';
 void main() {
   final sampleData = loadSampleDataFixture();
 
-  /// 見本のモンスター [monsterId] を、他のユーザーの [level] のモンスターにする (元の写真の参照は返らないため持たない)。
+  /// 見本のモンスター [monsterID] を、他のユーザーの [level] のモンスターにする (元の写真の参照は返らないため持たない)。
   OwnedMonster opponentMonster({
-    required String monsterId,
+    required String monsterID,
     required int level,
   }) {
-    final sample = sampleData.monsterById(monsterId: monsterId);
+    final sample = sampleData.monsterByID(monsterID: monsterID);
     return OwnedMonster(
       definition: sample.definition,
       level: level,
-      actionCardMoveIds: const [],
+      actionCardMoveIDs: const [],
       artPath: null,
-      definitionIds: const [],
+      definitionIDs: const [],
       decoration: null,
       decorationVersion: null,
     );
@@ -49,21 +49,21 @@ void main() {
       displayName: 'トレーナー 1111',
       iconPath: null,
       monsters: [
-        opponentMonster(monsterId: 'sample-mugmon', level: 6),
-        opponentMonster(monsterId: 'sample-keybon', level: 8),
+        opponentMonster(monsterID: 'sample-mugmon', level: 6),
+        opponentMonster(monsterID: 'sample-keybon', level: 8),
       ],
     ),
     PvpOpponent(
       opponentUid: 'uid-b',
       displayName: 'ばんざい',
       iconPath: null,
-      monsters: [opponentMonster(monsterId: 'sample-noton', level: 12)],
+      monsters: [opponentMonster(monsterID: 'sample-noton', level: 12)],
     ),
     PvpOpponent(
       opponentUid: 'uid-c',
       displayName: 'トレーナー 3333',
       iconPath: null,
-      monsters: [opponentMonster(monsterId: 'sample-ringora', level: 3)],
+      monsters: [opponentMonster(monsterID: 'sample-ringora', level: 3)],
     ),
   ];
 

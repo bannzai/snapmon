@@ -8,17 +8,17 @@ import { afterAll, beforeEach, describe, expect, it } from "vitest";
 // generate が Functions の Emulator に読み込まれ、callable として呼べることを確かめる。外部の API に届く前の検査だけを通す
 // (Vision・Claude・Jev を呼ぶ経路は generate.test.ts がモックで確かめる)。
 
-const projectId = "demo-snapmon";
-const functionsOrigin = `http://127.0.0.1:5001/${projectId}/asia-northeast1`;
+const projectID = "demo-snapmon";
+const functionsOrigin = `http://127.0.0.1:5001/${projectID}/asia-northeast1`;
 
 // Functions の Emulator は App Check のトークンを検証せずに中身だけを読むため、署名の無い JWT で模す (auth_flow.test.ts と同じ)。
 const fakeAppCheckToken = [
   Buffer.from(JSON.stringify({ alg: "none", typ: "JWT" })).toString("base64url"),
-  Buffer.from(JSON.stringify({ sub: "1:000000000000:web:emulator", aud: [`projects/${projectId}`] })).toString("base64url"),
+  Buffer.from(JSON.stringify({ sub: "1:000000000000:web:emulator", aud: [`projects/${projectID}`] })).toString("base64url"),
   "",
 ].join(".");
 
-const app = initializeApp({ projectId, apiKey: "demo-api-key" }, "generate-callable-test");
+const app = initializeApp({ projectId: projectID, apiKey: "demo-api-key" }, "generate-callable-test");
 const auth = getAuth(app);
 connectAuthEmulator(auth, "http://127.0.0.1:9099", { disableWarnings: true });
 
@@ -45,11 +45,11 @@ function callFunction({ name, idToken, data }: { name: string; idToken: string |
 
 describe("generate (Functions の Emulator)", () => {
   it("ログインしていない呼び出しは unauthenticated を返す", async () => {
-    const requestId = randomUUID();
+    const requestID = randomUUID();
     const response = await callFunction({
       name: "generate",
       idToken: null,
-      data: { requestId, photoPath: `users/someone/photos/${requestId}` },
+      data: { requestID, photoPath: `users/someone/photos/${requestID}` },
     });
     expect(response.status).toBe(401);
     expect((await response.json()).error.status).toBe("UNAUTHENTICATED");
@@ -57,11 +57,11 @@ describe("generate (Functions の Emulator)", () => {
 
   it("匿名ログインだけ (カスタムクレーム無し) で呼べ、他人の写真のパスは invalid-argument を返す", async () => {
     const credential = await signInAnonymously(auth);
-    const requestId = randomUUID();
+    const requestID = randomUUID();
     const response = await callFunction({
       name: "generate",
       idToken: await credential.user.getIdToken(),
-      data: { requestId, photoPath: `users/someone-else/photos/${requestId}` },
+      data: { requestID, photoPath: `users/someone-else/photos/${requestID}` },
     });
     expect(response.status).toBe(400);
     expect((await response.json()).error.status).toBe("INVALID_ARGUMENT");

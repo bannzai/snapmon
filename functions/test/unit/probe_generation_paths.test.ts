@@ -13,8 +13,8 @@ describe("findMismatch", () => {
       findMismatch({
         pathExpectation: sameSubjectExpectation,
         photoExpectation: { duplicateOf: "ordinary/mug.jpg" },
-        outcome: { status: "duplicate", monsterId: "scissors-monster" },
-        photoNamesByMonsterId: new Map([
+        outcome: { status: "duplicate", monsterID: "scissors-monster" },
+        photoNamesByMonsterID: new Map([
           ["mug-monster", "ordinary/mug.jpg"],
           ["scissors-monster", "ordinary/scissors.jpg"],
         ]),
@@ -24,29 +24,29 @@ describe("findMismatch", () => {
 
   it("rejected の理由が候補のどれかなら合う", () => {
     const explicitExpectation = { path: "explicit", expected: { status: "rejected", rejectionReasons: ["explicit_content", "refused"] } };
-    expect(findMismatch({ pathExpectation: explicitExpectation, photoExpectation: {}, outcome: { status: "rejected", rejectionReason: "refused" }, photoNamesByMonsterId: new Map() })).toBeUndefined();
-    expect(findMismatch({ pathExpectation: explicitExpectation, photoExpectation: {}, outcome: { status: "rejected", rejectionReason: "no_subject" }, photoNamesByMonsterId: new Map() })).toBe(
+    expect(findMismatch({ pathExpectation: explicitExpectation, photoExpectation: {}, outcome: { status: "rejected", rejectionReason: "refused" }, photoNamesByMonsterID: new Map() })).toBeUndefined();
+    expect(findMismatch({ pathExpectation: explicitExpectation, photoExpectation: {}, outcome: { status: "rejected", rejectionReason: "no_subject" }, photoNamesByMonsterID: new Map() })).toBe(
       "rejectionReason が explicit_content / refused のどれでもなく no_subject",
     );
   });
 
   it("personDetected を期待する経路は、印の有無が合う時だけ合う (レコードに無い印は false)", () => {
     const personExpectation = { path: "person", expected: { status: "saved", personDetected: true } };
-    expect(findMismatch({ pathExpectation: personExpectation, photoExpectation: {}, outcome: { status: "saved", personDetected: true }, photoNamesByMonsterId: new Map() })).toBeUndefined();
-    expect(findMismatch({ pathExpectation: personExpectation, photoExpectation: {}, outcome: { status: "saved", personDetected: false }, photoNamesByMonsterId: new Map() })).toBe(
+    expect(findMismatch({ pathExpectation: personExpectation, photoExpectation: {}, outcome: { status: "saved", personDetected: true }, photoNamesByMonsterID: new Map() })).toBeUndefined();
+    expect(findMismatch({ pathExpectation: personExpectation, photoExpectation: {}, outcome: { status: "saved", personDetected: false }, photoNamesByMonsterID: new Map() })).toBe(
       "personDetected が true ではなく false",
     );
     const ordinaryExpectation = { path: "ordinary", expected: { status: "saved", personDetected: false } };
-    expect(findMismatch({ pathExpectation: ordinaryExpectation, photoExpectation: {}, outcome: { status: "saved" }, photoNamesByMonsterId: new Map() })).toBeUndefined();
-    expect(findMismatch({ pathExpectation: ordinaryExpectation, photoExpectation: {}, outcome: { status: "saved", personDetected: true }, photoNamesByMonsterId: new Map() })).toBe(
+    expect(findMismatch({ pathExpectation: ordinaryExpectation, photoExpectation: {}, outcome: { status: "saved" }, photoNamesByMonsterID: new Map() })).toBeUndefined();
+    expect(findMismatch({ pathExpectation: ordinaryExpectation, photoExpectation: {}, outcome: { status: "saved", personDetected: true }, photoNamesByMonsterID: new Map() })).toBe(
       "personDetected が false ではなく true",
     );
     // 期待に personDetected が無い経路は印を見ない
-    expect(findMismatch({ pathExpectation: { path: "ordinary", expected: { status: "saved" } }, photoExpectation: {}, outcome: { status: "saved", personDetected: true }, photoNamesByMonsterId: new Map() })).toBeUndefined();
+    expect(findMismatch({ pathExpectation: { path: "ordinary", expected: { status: "saved" } }, photoExpectation: {}, outcome: { status: "saved", personDetected: true }, photoNamesByMonsterID: new Map() })).toBeUndefined();
   });
 
   it("status が違えば合わない (判定待ちのまま止まった生成を含む)", () => {
-    expect(findMismatch({ pathExpectation: { path: "ordinary", expected: { status: "saved" } }, photoExpectation: {}, outcome: { status: "pending_judge" }, photoNamesByMonsterId: new Map() })).toBe(
+    expect(findMismatch({ pathExpectation: { path: "ordinary", expected: { status: "saved" } }, photoExpectation: {}, outcome: { status: "pending_judge" }, photoNamesByMonsterID: new Map() })).toBe(
       "status が saved ではなく pending_judge",
     );
   });

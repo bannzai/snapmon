@@ -1,4 +1,4 @@
-// 生成の状態遷移のレコード (`users/{uid}/generations/{requestId}`) と、生まれたモンスター (`users/{uid}/monsters/{monsterId}`) の形。
+// 生成の状態遷移のレコード (`users/{uid}/generations/{requestID}`) と、生まれたモンスター (`users/{uid}/monsters/{monsterID}`) の形。
 // 段階と終了状態は documents/adr/0001-tech-stack.md「サーバーコード」の行。
 
 import type { Timestamp } from "firebase-admin/firestore";
@@ -86,26 +86,26 @@ export interface GenerationRecord {
   /** 判定に使った master の版。 */
   masterVersion?: number;
   /** 物の分類の上位 3 件。 */
-  categoryIds?: string[];
+  categoryIDs?: string[];
   /** 新しい属性の提案 (Jev が答えずに判定待ちになっても、再試行で Claude を呼び直さないため残す)。 */
   elementProposal?: ProposeElementOutput;
   /** judge の段階で決めた、生まれるモンスターの値。 */
   judgement?: {
-    elementTypeIds: string[];
+    elementTypeIDs: string[];
     learnset: LearnsetEntry[];
     baseStats: MonsterStats;
     individualValues: MonsterStats;
-    definitionIds: string[];
+    definitionIDs: string[];
   };
   /** saved なら生まれたモンスター、duplicate なら同じ被写体の既存のモンスターの ID。 */
-  monsterId?: string;
+  monsterID?: string;
   /** 作った時刻。 */
   createdAt: Timestamp;
   /** 最後に書いた時刻。 */
   updatedAt: Timestamp;
 }
 
-/** `users/{uid}/monsters/{monsterId}` に保存するモンスター。`definition` は Dart の `MonsterDefinition.fromJson` が読む形。 */
+/** `users/{uid}/monsters/{monsterID}` に保存するモンスター。`definition` は Dart の `MonsterDefinition.fromJson` が読む形。 */
 export interface MonsterDocument {
   /** 生まれた時に決まる部分。 */
   definition: {
@@ -113,7 +113,7 @@ export interface MonsterDocument {
     sourcePhotoReference: string;
     name: string;
     encyclopediaText: string;
-    elementTypeIds: string[];
+    elementTypeIDs: string[];
     learnset: LearnsetEntry[];
     baseStats: MonsterStats;
     individualValues: MonsterStats;
@@ -124,7 +124,7 @@ export interface MonsterDocument {
   level: number;
   /** 戦ったバトルの回数の累計。 */
   experience: number;
-  /** 切り出した被写体の画像の Storage のパス (`monsters/{monsterId}/art.png`)。 */
+  /** 切り出した被写体の画像の Storage のパス (`monsters/{monsterID}/art.png`)。 */
   artPath: string;
   /** 装飾のパラメータ。 */
   decoration: MonsterDecoration;
@@ -133,16 +133,16 @@ export interface MonsterDocument {
   /** 被写体の説明 (同じ被写体の判定の比較に使う)。 */
   subjectDescription: SubjectDescription;
   /** 物の分類の上位 3 件 (同じ被写体の判定の候補の絞り込みに使う)。 */
-  categoryIds: string[];
+  categoryIDs: string[];
   /** 参照するその場で作った定義の ID。 */
-  definitionIds: string[];
-  /** 生まれた生成の requestId。 */
-  generationRequestId: string;
+  definitionIDs: string[];
+  /** 生まれた生成の requestID。 */
+  generationRequestID: string;
   /**
    * Action Card で覚えさせた技の ID (覚えさせた順)。teachActionCardMove・forgetActionCardMove (action_cards.ts) が書き、生成では作らない。
-   * 無ければ覚えさせた技は無い。技の枠の決め方は action_card_rules.ts の equippedMoveIds。
+   * 無ければ覚えさせた技は無い。技の枠の決め方は action_card_rules.ts の equippedMoveIDs。
    */
-  actionCardMoveIds?: string[];
+  actionCardMoveIDs?: string[];
   /** 生まれた時刻。 */
   createdAt: Timestamp;
 }
@@ -150,11 +150,11 @@ export interface MonsterDocument {
 /** callable と再試行が返す結果。 */
 export interface GenerationResult {
   /** 生成の要求 ID。 */
-  requestId: string;
+  requestID: string;
   /** 状態。 */
   status: GenerationStatus;
   /** saved・duplicate の時のモンスターの ID。 */
-  monsterId?: string;
+  monsterID?: string;
   /** rejected の理由。 */
   rejectionReason?: RejectionReason;
   /** 写真に人が写っていると判定したか ([GenerationRecord.personDetected])。true の時だけ付ける。 */
@@ -162,11 +162,11 @@ export interface GenerationResult {
 }
 
 /** レコードから、クライアントに返す結果を作る。 */
-export function generationResult({ requestId, record }: { requestId: string; record: GenerationRecord }): GenerationResult {
+export function generationResult({ requestID, record }: { requestID: string; record: GenerationRecord }): GenerationResult {
   return {
-    requestId,
+    requestID,
     status: record.status,
-    ...(record.monsterId ? { monsterId: record.monsterId } : {}),
+    ...(record.monsterID ? { monsterID: record.monsterID } : {}),
     ...(record.rejectionReason ? { rejectionReason: record.rejectionReason } : {}),
     ...(record.personDetected ? { personDetected: true } : {}),
   };

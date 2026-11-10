@@ -14,11 +14,11 @@ import 'package:snapmon/domain/monster/monster_stats.dart';
 Move testMove({required String? power, int powerPoints = 10}) => Move(
   id: 'test_move',
   displayName: 'テストのわざ',
-  elementTypeId: 'fire',
+  elementTypeID: 'fire',
   power: 40,
   powerPoints: powerPoints,
   category: MoveCategory.attack,
-  effectId: 'none',
+  effectID: 'none',
   learnableLevelMinimum: 1,
   learnableLevelMaximum: 999,
   specialEffect: power == null
@@ -33,11 +33,11 @@ Move testMove({required String? power, int powerPoints = 10}) => Move(
         ),
 );
 
-/// 属性 [elementTypeIds]・HP [currentHitPoints]・技 [moveId] の残り PP [remainingPowerPoints] のバトル中のモンスターを返す。
+/// 属性 [elementTypeIDs]・HP [currentHitPoints]・技 [moveID] の残り PP [remainingPowerPoints] のバトル中のモンスターを返す。
 BattleMonster testMonster({
-  List<String> elementTypeIds = const ['fire'],
+  List<String> elementTypeIDs = const ['fire'],
   int currentHitPoints = 100,
-  String moveId = 'test_move',
+  String moveID = 'test_move',
   int remainingPowerPoints = 10,
 }) => BattleMonster(
   definition: MonsterDefinition(
@@ -45,8 +45,8 @@ BattleMonster testMonster({
     sourcePhotoReference: null,
     name: 'モンスター',
     encyclopediaText: '',
-    elementTypeIds: elementTypeIds,
-    learnset: [LearnsetEntry(moveId: moveId, unlockLevel: 1)],
+    elementTypeIDs: elementTypeIDs,
+    learnset: [LearnsetEntry(moveID: moveID, unlockLevel: 1)],
     baseStats: const MonsterStats(
       hitPoints: 80,
       attack: 80,
@@ -68,9 +68,9 @@ BattleMonster testMonster({
   state: MonsterState(
     level: 50,
     experience: 0,
-    actionCardMoveIds: const [],
+    actionCardMoveIDs: const [],
     currentHitPoints: currentHitPoints,
-    remainingPowerPoints: {moveId: remainingPowerPoints},
+    remainingPowerPoints: {moveID: remainingPowerPoints},
     statModifierPercents: const {},
     statusConditions: const {},
   ),
@@ -252,7 +252,7 @@ void main() {
     int evaluate({required String power}) => calculate(
       move: testMove(power: power),
       attacker: testMonster(currentHitPoints: 30, remainingPowerPoints: 4),
-      defender: testMonster(currentHitPoints: 70, elementTypeIds: ['water']),
+      defender: testMonster(currentHitPoints: 70, elementTypeIDs: ['water']),
       attackerStats: testStats(hitPoints: 90, attack: 61, defense: 62),
       defenderStats: testStats(hitPoints: 110, attack: 71, defense: 72),
       attackerMovesFirst: false,
@@ -324,7 +324,7 @@ void main() {
         ) {
           for (final (attack, defense) in [(80, 60), (60, 80), (70, 70)]) {
             for (final attackerMovesFirst in [true, false]) {
-              for (final defenderElementTypeIds in [
+              for (final defenderElementTypeIDs in [
                 ['fire'],
                 ['water'],
               ]) {
@@ -332,12 +332,12 @@ void main() {
                   move: move,
                   attacker: testMonster(
                     currentHitPoints: attackerHitPoints,
-                    moveId: move.id,
+                    moveID: move.id,
                     remainingPowerPoints: remainingPowerPoints,
                   ),
                   defender: testMonster(
                     currentHitPoints: defenderHitPoints,
-                    elementTypeIds: defenderElementTypeIds,
+                    elementTypeIDs: defenderElementTypeIDs,
                   ),
                   attackerStats: testStats(attack: attack),
                   defenderStats: testStats(defense: defense),
@@ -355,14 +355,14 @@ void main() {
                   defenderDefense: defense,
                   remainingPowerPoints: remainingPowerPoints,
                   maximumPowerPoints: move.powerPoints,
-                  sharesElementType: defenderElementTypeIds.contains('fire'),
+                  sharesElementType: defenderElementTypeIDs.contains('fire'),
                   attackerMovesFirst: attackerMovesFirst,
                 );
                 expect(
                   actual,
                   expected,
                   reason:
-                      '${move.id} HP $attackerHitPoints/$defenderHitPoints PP $remainingPowerPoints 攻撃 $attack 防御 $defense 先 $attackerMovesFirst 相手 $defenderElementTypeIds',
+                      '${move.id} HP $attackerHitPoints/$defenderHitPoints PP $remainingPowerPoints 攻撃 $attack 防御 $defense 先 $attackerMovesFirst 相手 $defenderElementTypeIDs',
                 );
                 comparedCount++;
               }
@@ -437,11 +437,11 @@ void main() {
     }) => Move(
       id: 'test_move',
       displayName: 'テストのわざ',
-      elementTypeId: 'fire',
+      elementTypeID: 'fire',
       power: 0,
       powerPoints: 10,
       category: MoveCategory.support,
-      effectId: 'none',
+      effectID: 'none',
       learnableLevelMinimum: 1,
       learnableLevelMaximum: 999,
       specialEffect: MoveSpecialEffect(

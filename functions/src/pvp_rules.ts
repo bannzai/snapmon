@@ -46,8 +46,8 @@ export function isReportReason(value: unknown): value is ReportReason {
   return typeof value === "string" && (REPORT_REASONS as readonly string[]).includes(value);
 }
 
-/** Firestore のドキュメント ID に使える uid・monsterId か (空でなく `/` を含まない)。 */
-export function isDocumentId(value: unknown): value is string {
+/** Firestore のドキュメント ID に使える uid・monsterID か (空でなく `/` を含まない)。 */
+export function isDocumentID(value: unknown): value is string {
   return typeof value === "string" && value !== "" && !value.includes("/");
 }
 
@@ -143,13 +143,13 @@ export interface PublicMonster {
   /** 切り出した被写体の画像の Storage のパス (ログインした全員が読める)。 */
   artPath: string;
   /** 参照するその場で作った定義の ID (クライアントが `definitions/` から属性・技を引く)。 */
-  definitionIds: string[];
+  definitionIDs: string[];
   /** 装飾のパラメータ。 */
   decoration: MonsterDocument["decoration"];
   /** 装飾の描画の版。 */
   decorationVersion: number;
   /** Action Card で覚えさせた技の ID (覚えさせた順)。相手のモンスターの技の枠を自分のモンスターと同じ規則で決めるため返す。 */
-  actionCardMoveIds: string[];
+  actionCardMoveIDs: string[];
 }
 
 /**
@@ -164,7 +164,7 @@ export function publicMonster(monster: MonsterDocument): PublicMonster {
       id: definition.id,
       name: definition.name,
       encyclopediaText: definition.encyclopediaText,
-      elementTypeIds: definition.elementTypeIds,
+      elementTypeIDs: definition.elementTypeIDs,
       learnset: definition.learnset,
       baseStats: definition.baseStats,
       individualValues: definition.individualValues,
@@ -173,22 +173,22 @@ export function publicMonster(monster: MonsterDocument): PublicMonster {
     },
     level: monster.level,
     artPath: monster.artPath,
-    definitionIds: monster.definitionIds,
+    definitionIDs: monster.definitionIDs,
     decoration: monster.decoration,
     decorationVersion: monster.decorationVersion,
-    // 覚えさせた技が無いモンスターは項目を持たない ([MonsterDocument.actionCardMoveIds])
-    actionCardMoveIds: monster.actionCardMoveIds ?? [],
+    // 覚えさせた技が無いモンスターは項目を持たない ([MonsterDocument.actionCardMoveIDs])
+    actionCardMoveIDs: monster.actionCardMoveIDs ?? [],
   };
 }
 
-/** `reports/{reportId}` に保存する通報 (reportMonster が書く)。 */
+/** `reports/{reportID}` に保存する通報 (reportMonster が書く)。 */
 export interface ReportDocument {
   /** 通報したユーザーの uid。 */
   reporterUid: string;
   /** 通報されたモンスターの持ち主の uid。 */
   monsterOwnerUid: string;
   /** 通報されたモンスターの ID。 */
-  monsterId: string;
+  monsterID: string;
   /** 通報されたモンスターの名前 (通知に出すため、通報した時点の名前を写す)。 */
   monsterName: string;
   /** 通報されたモンスターの切り出した画像の Storage のパス。 */
@@ -200,28 +200,28 @@ export interface ReportDocument {
 }
 
 /** 通報 1 件の ID。同じユーザーが同じモンスターを何度通報しても 1 件として数えるため、2 つの ID から決める。 */
-export function reportDocumentId({ reporterUid, monsterId }: { reporterUid: string; monsterId: string }): string {
-  return `${reporterUid}_${monsterId}`;
+export function reportDocumentID({ reporterUid, monsterID }: { reporterUid: string; monsterID: string }): string {
+  return `${reporterUid}_${monsterID}`;
 }
 
 /** ブロック 1 件の ID。同じ相手を何度ブロックしても 1 件にするため、2 つの uid から決める。 */
-export function blockDocumentId({ blockerUid, blockedUid }: { blockerUid: string; blockedUid: string }): string {
+export function blockDocumentID({ blockerUid, blockedUid }: { blockerUid: string; blockedUid: string }): string {
   return `${blockerUid}_${blockedUid}`;
 }
 
 /** 通報 [report] を #snapmon-notification に知らせる文章。 */
-export function reportNotificationText({ reportId, report }: { reportId: string; report: ReportDocument }): string {
+export function reportNotificationText({ reportID, report }: { reportID: string; report: ReportDocument }): string {
   return [
     `PvP の通報: ${REPORT_REASON_LABELS[report.reason]}`,
-    `モンスター: ${report.monsterName} (${report.monsterId})`,
+    `モンスター: ${report.monsterName} (${report.monsterID})`,
     `持ち主: ${report.monsterOwnerUid}`,
     `通報した人: ${report.reporterUid}`,
     `絵: ${report.monsterArtPath}`,
     // アイコンの無い持ち主と、この項目を足す前に作られた通報 (項目を持たない) は「なし」と書く
     `持ち主のアイコン: ${report.monsterOwnerIconPath ?? "なし"}`,
-    `通報: reports/${reportId}`,
+    `通報: reports/${reportID}`,
     `${REPORT_HIDE_THRESHOLD} 人から通報されると、持ち主は対戦の相手の候補から外れる`,
     // 通報者の数は匿名ログインの uid で数えるため、1 人が複数のアカウントで数を作れる。外れた持ち主を戻す手順を通知に添える
-    `不当な通報で外れた持ち主を戻す時は reportedMonsters/${report.monsterId} を消す`,
+    `不当な通報で外れた持ち主を戻す時は reportedMonsters/${report.monsterID} を消す`,
   ].join("\n");
 }

@@ -10,7 +10,7 @@ import { afterAll, beforeAll, beforeEach, describe, it } from "vitest";
 // firebase emulators:exec (package.json の test:emulator) の中で実行する。
 // Rules は Emulator が firebase.json の firebase/storage.rules から読み込む (テストから別の Rules を渡さない)。
 
-const bucketUrl = "gs://snapmon-prod-storage";
+const bucketURL = "gs://snapmon-prod-storage";
 const smallImage = new Uint8Array([0xff, 0xd8, 0xff, 0xe0]);
 
 let testEnvironment: RulesTestEnvironment;
@@ -27,7 +27,7 @@ beforeEach(async () => {
   // clearStorage は既定のバケット gs://demo-snapmon を消すが、Rules を対応させているのは snapmon-prod-storage だけのため、
   // テストで使うバケットの中身を自分で消す。
   await testEnvironment.withSecurityRulesDisabled(async (context) => {
-    const storage = context.storage(bucketUrl);
+    const storage = context.storage(bucketURL);
     await Promise.all((await listAllRecursively(ref(storage))).map((item) => deleteObject(item)));
     await uploadBytes(ref(storage, "users/bob/photos/request1"), smallImage, { contentType: "image/jpeg" });
     await uploadBytes(ref(storage, "monsters/monster1/art.png"), smallImage, { contentType: "image/png" });
@@ -46,7 +46,7 @@ async function listAllRecursively(folder: StorageReference): Promise<StorageRefe
 
 /** 匿名ログインしたユーザー (カスタムクレーム無し) の Storage。 */
 function signedInStorage(uid: string) {
-  return testEnvironment.authenticatedContext(uid).storage(bucketUrl);
+  return testEnvironment.authenticatedContext(uid).storage(bucketURL);
 }
 
 describe("users/{uid}/photos", () => {
@@ -81,7 +81,7 @@ describe("users/{uid}/photos", () => {
   });
 
   it("未ログインは置けない", async () => {
-    const storage = testEnvironment.unauthenticatedContext().storage(bucketUrl);
+    const storage = testEnvironment.unauthenticatedContext().storage(bucketURL);
     await assertFails(
       uploadBytes(ref(storage, "users/alice/photos/request1"), smallImage, { contentType: "image/jpeg" }),
     );
@@ -100,7 +100,7 @@ describe("users/{uid}/masks", () => {
   });
 });
 
-describe("users/{uid}/generations/{requestId}/cutout.png", () => {
+describe("users/{uid}/generations/{requestID}/cutout.png", () => {
   it("本人だけが読め、本人も書けない", async () => {
     await assertSucceeds(getBytes(ref(signedInStorage("alice"), "users/alice/generations/request1/cutout.png")));
     await assertFails(getBytes(ref(signedInStorage("bob"), "users/alice/generations/request1/cutout.png")));
@@ -113,15 +113,15 @@ describe("users/{uid}/generations/{requestId}/cutout.png", () => {
 describe("users/{uid}/iconUploads", () => {
   it("本人は UUID の名前で 4 MB 以下の JPEG・PNG を置け、4 MB を超える写真・UUID 以外の名前・他人の場所には置けない", async () => {
     const storage = signedInStorage("alice");
-    const uploadId = "0b6f3c1e-2d4a-4e8b-9c7d-5a1f2e3d4c5b";
-    await assertSucceeds(uploadBytes(ref(storage, `users/alice/iconUploads/${uploadId}`), smallImage, { contentType: "image/jpeg" }));
+    const uploadID = "0b6f3c1e-2d4a-4e8b-9c7d-5a1f2e3d4c5b";
+    await assertSucceeds(uploadBytes(ref(storage, `users/alice/iconUploads/${uploadID}`), smallImage, { contentType: "image/jpeg" }));
     await assertFails(
-      uploadBytes(ref(storage, `users/alice/iconUploads/${uploadId}`), new Uint8Array(4 * 1024 * 1024 + 1), { contentType: "image/jpeg" }),
+      uploadBytes(ref(storage, `users/alice/iconUploads/${uploadID}`), new Uint8Array(4 * 1024 * 1024 + 1), { contentType: "image/jpeg" }),
     );
-    await assertFails(uploadBytes(ref(storage, `users/alice/iconUploads/${uploadId}`), smallImage, { contentType: "image/gif" }));
-    // setProfileIcon が UUID 以外の uploadId を断り、置かれた写真を消せないため
+    await assertFails(uploadBytes(ref(storage, `users/alice/iconUploads/${uploadID}`), smallImage, { contentType: "image/gif" }));
+    // setProfileIcon が UUID 以外の uploadID を断り、置かれた写真を消せないため
     await assertFails(uploadBytes(ref(storage, "users/alice/iconUploads/upload1"), smallImage, { contentType: "image/jpeg" }));
-    await assertFails(uploadBytes(ref(storage, `users/bob/iconUploads/${uploadId}`), smallImage, { contentType: "image/jpeg" }));
+    await assertFails(uploadBytes(ref(storage, `users/bob/iconUploads/${uploadID}`), smallImage, { contentType: "image/jpeg" }));
   });
 
   it("他人の置いた写真は読めない", async () => {
@@ -136,12 +136,12 @@ describe("users/{uid}/icons", () => {
   });
 
   it("未ログインは読めない", async () => {
-    const storage = testEnvironment.unauthenticatedContext().storage(bucketUrl);
+    const storage = testEnvironment.unauthenticatedContext().storage(bucketURL);
     await assertFails(getBytes(ref(storage, "users/bob/icons/upload1.png")));
   });
 });
 
-describe("monsters/{monsterId}/art.png", () => {
+describe("monsters/{monsterID}/art.png", () => {
   it("ログインしたユーザーは他人のモンスターの絵も読めるが、書けない", async () => {
     const storage = signedInStorage("alice");
     await assertSucceeds(getBytes(ref(storage, "monsters/monster1/art.png")));
@@ -151,7 +151,7 @@ describe("monsters/{monsterId}/art.png", () => {
   });
 
   it("未ログインは読めない", async () => {
-    const storage = testEnvironment.unauthenticatedContext().storage(bucketUrl);
+    const storage = testEnvironment.unauthenticatedContext().storage(bucketURL);
     await assertFails(getBytes(ref(storage, "monsters/monster1/art.png")));
   });
 });

@@ -22,7 +22,7 @@ class MoveEffect {
         spriteSheet: json['spriteSheet'] as String?,
       );
 
-  /// エフェクトの一意な識別子。技の `effectId` から参照される。
+  /// エフェクトの一意な識別子。技の `effectID` から参照される。
   final String id;
 
   /// 開発者向けのエフェクトの名前。

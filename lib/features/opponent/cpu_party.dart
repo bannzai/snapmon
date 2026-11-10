@@ -16,9 +16,9 @@ List<OwnedMonster> buildCpuParty({
     OwnedMonster(
       definition: monster.definition,
       level: averagePartyLevel(party: playerParty),
-      actionCardMoveIds: monster.actionCardMoveIds,
+      actionCardMoveIDs: monster.actionCardMoveIDs,
       artPath: monster.artPath,
-      definitionIds: monster.definitionIds,
+      definitionIDs: monster.definitionIDs,
       decoration: monster.decoration,
       decorationVersion: monster.decorationVersion,
     ),

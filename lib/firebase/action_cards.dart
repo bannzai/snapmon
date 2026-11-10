@@ -85,18 +85,18 @@ Stream<List<ActionCardPurchase>> watchActionCardPurchasesWithFirebase() =>
           ),
     );
 
-/// `moveRanks/current.rankByMoveId` を流す ([ActionCardClient.watchMoveRanks])。表が無い時は null。
+/// `moveRanks/current.rankByMoveID` を流す ([ActionCardClient.watchMoveRanks])。表が無い時は null。
 Stream<Map<String, int>?> watchMoveRanksWithFirebase() => _watchWhileSignedIn(
   emptyValue: null,
   watchSignedIn: ({required uid}) => FirebaseFirestore.instance
       .doc('moveRanks/current')
       .snapshots()
       .map(
-        (snapshot) => switch (snapshot.data()?['rankByMoveId']) {
-          final Map<String, dynamic> rankByMoveId => {
-            for (final MapEntry(key: moveId, value: rank)
-                in rankByMoveId.entries)
-              moveId: rank as int,
+        (snapshot) => switch (snapshot.data()?['rankByMoveID']) {
+          final Map<String, dynamic> rankByMoveID => {
+            for (final MapEntry(key: moveID, value: rank)
+                in rankByMoveID.entries)
+              moveID: rank as int,
           },
           _ => null,
         },
@@ -148,34 +148,34 @@ Future<void> assignActionCardMoveWithFirebase({
 /// teachActionCardMove・forgetActionCardMove の [name] を呼び、返った一覧を返す。
 Future<List<String>> _callMonsterMove({
   required String name,
-  required String monsterId,
-  required String moveId,
+  required String monsterID,
+  required String moveID,
 }) async => [
-  for (final actionCardMoveId
+  for (final actionCardMoveID
       in (await _call(
             name: name,
-            data: {'monsterId': monsterId, 'moveId': moveId},
-          ))['actionCardMoveIds']!
+            data: {'monsterID': monsterID, 'moveID': moveID},
+          ))['actionCardMoveIDs']!
           as List<Object?>)
-    actionCardMoveId! as String,
+    actionCardMoveID! as String,
 ];
 
 /// teachActionCardMove を呼ぶ ([ActionCardClient.teachActionCardMove])。
 Future<List<String>> teachActionCardMoveWithFirebase({
-  required String monsterId,
-  required String moveId,
+  required String monsterID,
+  required String moveID,
 }) => _callMonsterMove(
   name: 'teachActionCardMove',
-  monsterId: monsterId,
-  moveId: moveId,
+  monsterID: monsterID,
+  moveID: moveID,
 );
 
 /// forgetActionCardMove を呼ぶ ([ActionCardClient.forgetActionCardMove])。
 Future<List<String>> forgetActionCardMoveWithFirebase({
-  required String monsterId,
-  required String moveId,
+  required String monsterID,
+  required String moveID,
 }) => _callMonsterMove(
   name: 'forgetActionCardMove',
-  monsterId: monsterId,
-  moveId: moveId,
+  monsterID: monsterID,
+  moveID: moveID,
 );

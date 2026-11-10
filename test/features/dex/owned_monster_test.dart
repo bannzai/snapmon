@@ -26,9 +26,9 @@ void main() {
             'sourcePhotoReference': 'users/uid-1/photos/request-1',
             'name': 'マグモン',
             'encyclopediaText': '朝のコーヒーの熱をためこむ',
-            'elementTypeIds': ['steel', 'dynamic-wax'],
+            'elementTypeIDs': ['steel', 'dynamic-wax'],
             'learnset': [
-              {'moveId': 'steel_1', 'unlockLevel': 1},
+              {'moveID': 'steel_1', 'unlockLevel': 1},
             ],
             'baseStats': {
               'hitPoints': 80,
@@ -50,8 +50,8 @@ void main() {
           'artPath': 'monsters/m1/art.png',
           'decoration': decorationJson,
           'decorationVersion': 1,
-          'definitionIds': ['definition-wax'],
-          'generationRequestId': 'request-1',
+          'definitionIDs': ['definition-wax'],
+          'generationRequestID': 'request-1',
         },
       );
       expect(monster.definition.id, 'm1');
@@ -61,7 +61,7 @@ void main() {
       );
       expect(monster.level, 7);
       expect(monster.artPath, 'monsters/m1/art.png');
-      expect(monster.definitionIds, ['definition-wax']);
+      expect(monster.definitionIDs, ['definition-wax']);
       final decoration = monster.decoration!;
       expect(monster.decorationVersion, 1);
       expect(decoration.eyeStyle, MonsterEyeStyle.sparkle);
@@ -84,9 +84,9 @@ void main() {
         'id': 'm1',
         'name': 'マグモン',
         'encyclopediaText': '朝のコーヒーの熱をためこむ',
-        'elementTypeIds': ['steel'],
+        'elementTypeIDs': ['steel'],
         'learnset': [
-          {'moveId': 'steel_1', 'unlockLevel': 1},
+          {'moveID': 'steel_1', 'unlockLevel': 1},
         ],
         'baseStats': {
           'hitPoints': 80,
@@ -105,7 +105,7 @@ void main() {
       },
       'level': 1,
       'artPath': 'monsters/m1/art.png',
-      'definitionIds': <String>[],
+      'definitionIDs': <String>[],
       'decoration': ?decoration,
       'decorationVersion': ?decorationVersion,
     };
@@ -156,15 +156,15 @@ void main() {
         OwnedMonster.fromJson(
           json: {
             ...monsterJson(decoration: null, decorationVersion: null),
-            'actionCardMoveIds': ['water_3', 'fire_1c'],
+            'actionCardMoveIDs': ['water_3', 'fire_1c'],
           },
-        ).actionCardMoveIds,
+        ).actionCardMoveIDs,
         ['water_3', 'fire_1c'],
       );
       expect(
         OwnedMonster.fromJson(
           json: monsterJson(decoration: null, decorationVersion: null),
-        ).actionCardMoveIds,
+        ).actionCardMoveIDs,
         isEmpty,
       );
     });

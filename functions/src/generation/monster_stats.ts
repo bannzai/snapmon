@@ -34,7 +34,7 @@ export const STAT_KINDS = ["hitPoints", "attack", "defense", "speed", "accuracy"
 /** モンスターが覚える技の 1 件。Dart の `LearnsetEntry` の JSON と同じ形。 */
 export interface LearnsetEntry {
   /** 技の識別子。 */
-  moveId: string;
+  moveID: string;
   /** 使えるようになるレベル。 */
   unlockLevel: number;
 }
@@ -80,16 +80,16 @@ export function individualValuesFromDescription(subjectDescriptionText: string):
 
 /** Jev が判定したステータスごとの段階 (段階の `id`) から種族値を返す。段階が master に無ければ throw する。 */
 export function baseStatsFromStatGrades({
-  statGradeIds,
+  statGradeIDs,
   master,
 }: {
-  statGradeIds: Record<(typeof STAT_KINDS)[number], string>;
+  statGradeIDs: Record<(typeof STAT_KINDS)[number], string>;
   master: Master;
 }): Required<MonsterStats> {
   const baseStatOf = (statKind: (typeof STAT_KINDS)[number]) => {
-    const statGrade = master.statGrades.find((grade) => grade.id === statGradeIds[statKind]);
+    const statGrade = master.statGrades.find((grade) => grade.id === statGradeIDs[statKind]);
     if (!statGrade) {
-      throw new Error(`段階 ${statGradeIds[statKind]} が master に無い`);
+      throw new Error(`段階 ${statGradeIDs[statKind]} が master に無い`);
     }
     return statGrade.baseStat;
   };
@@ -103,10 +103,10 @@ export function baseStatsFromStatGrades({
 }
 
 /**
- * 属性ごとの当てはまりの確率から、確率が閾値以上の属性を確率の高い順 (同じなら ID 順) に上限まで返す (Dart の `selectElementTypeIds` と同じ規則)。
+ * 属性ごとの当てはまりの確率から、確率が閾値以上の属性を確率の高い順 (同じなら ID 順) に上限まで返す (Dart の `selectElementTypeIDs` と同じ規則)。
  * 空の配列はどの属性にも当てはまらないことを表し、その場で新しい属性を作る経路に進む。
  */
-export function selectElementTypeIds({
+export function selectElementTypeIDs({
   elementProbabilities,
   master,
 }: {
@@ -115,9 +115,9 @@ export function selectElementTypeIds({
 }): string[] {
   return Object.entries(elementProbabilities)
     .filter(([, probability]) => probability >= master.elementSelection.probabilityThreshold)
-    .sort(([leftId, left], [rightId, right]) => (left !== right ? right - left : leftId.localeCompare(rightId)))
+    .sort(([leftID, left], [rightID, right]) => (left !== right ? right - left : leftID.localeCompare(rightID)))
     .slice(0, master.elementSelection.maximumCount)
-    .map(([elementTypeId]) => elementTypeId);
+    .map(([elementTypeID]) => elementTypeID);
 }
 
 /** 生まれた時 (Lv.1) に使える技の数。バトル画面の技の枠の数 (Dart の `maximumEquippedMoveCount`) と同じ値。 */
@@ -168,17 +168,17 @@ export const LATER_SUPPORT_MOVE_COUNT = 1;
  * Lv.2 以降は、自分の属性の残りの技から攻撃技を `LATER_ATTACK_MOVE_COUNT` 個、補助技を `LATER_SUPPORT_MOVE_COUNT` 個、確率の高い順に (属性が 2 つなら交互に) 選び、
  * それぞれレベル帯の下限の順に並べて攻撃技 2 つに補助技 1 つの間隔で混ぜ、`laterLearnLevel` の順のレベルで 1 つずつ覚える。開放レベルはそのレベルとレベル帯の下限の大きい方。
  * 並びは開放レベル順 (同じレベルは覚える順)。
- * [fallbackMoves] には master の技を渡す (その場で作った別の属性の技はモンスターの `definitionIds` に入らず、端末で引けないため)。
+ * [fallbackMoves] には master の技を渡す (その場で作った別の属性の技はモンスターの `definitionIDs` に入らず、端末で引けないため)。
  */
 export function buildLearnset({
-  elementTypeIds,
+  elementTypeIDs,
   elementProbabilities,
   moveProbabilitiesByElement,
   moves,
   fallbackMoves,
   subjectDescriptionText,
 }: {
-  elementTypeIds: string[];
+  elementTypeIDs: string[];
   elementProbabilities: Record<string, number>;
   moveProbabilitiesByElement: Record<string, Record<string, number>>;
   moves: MasterMove[];
@@ -187,18 +187,18 @@ export function buildLearnset({
 }): LearnsetEntry[] {
   /** 確率が同じ技・属性の並びに使う、説明文と [id] から決まる値。 */
   const tieBreakerOf = (id: string) => fnv1a32(`${subjectDescriptionText}\n${id}`);
-  /** [elementTypeId] の技の確率が高い順 (同じなら `tieBreakerOf` の順) に [candidates] を並べ替えて返す。 */
-  const sortByProbability = ({ elementTypeId, candidates }: { elementTypeId: string; candidates: MasterMove[] }) => {
-    const probabilities = moveProbabilitiesByElement[elementTypeId] ?? {};
+  /** [elementTypeID] の技の確率が高い順 (同じなら `tieBreakerOf` の順) に [candidates] を並べ替えて返す。 */
+  const sortByProbability = ({ elementTypeID, candidates }: { elementTypeID: string; candidates: MasterMove[] }) => {
+    const probabilities = moveProbabilitiesByElement[elementTypeID] ?? {};
     return [...candidates].sort(
       (left, right) => (probabilities[right.id] ?? 0) - (probabilities[left.id] ?? 0) || tieBreakerOf(left.id) - tieBreakerOf(right.id),
     );
   };
-  /** [candidates] のうち [elementTypeId] の段階 1 の技を、Jev の技の確率が高い順で返す。 */
-  const startingMovesByProbability = ({ elementTypeId, candidates }: { elementTypeId: string; candidates: MasterMove[] }) =>
+  /** [candidates] のうち [elementTypeID] の段階 1 の技を、Jev の技の確率が高い順で返す。 */
+  const startingMovesByProbability = ({ elementTypeID, candidates }: { elementTypeID: string; candidates: MasterMove[] }) =>
     sortByProbability({
-      elementTypeId,
-      candidates: candidates.filter((move) => move.elementTypeId === elementTypeId && move.learnableLevelMinimum === STARTING_LEVEL),
+      elementTypeID,
+      candidates: candidates.filter((move) => move.elementTypeID === elementTypeID && move.learnableLevelMinimum === STARTING_LEVEL),
     });
   /** 属性ごとの技の列 [movesByElement] を、各列の先頭から 1 つずつ交互に取って重複なく 1 列にして返す。 */
   const mergeInTurns = (movesByElement: MasterMove[][]) => {
@@ -214,27 +214,27 @@ export function buildLearnset({
   };
   const ownMoves = learnableMoves(moves);
   const otherMoves = learnableMoves(fallbackMoves);
-  const startingMoveIds = mergeInTurns(elementTypeIds.map((elementTypeId) => startingMovesByProbability({ elementTypeId, candidates: ownMoves })))
+  const startingMoveIDs = mergeInTurns(elementTypeIDs.map((elementTypeID) => startingMovesByProbability({ elementTypeID, candidates: ownMoves })))
     .slice(0, Math.min(STARTING_OWN_ELEMENT_MOVE_COUNT, STARTING_MOVE_COUNT))
     .map((move) => move.id);
   for (const move of mergeInTurns(
-    [...new Set(otherMoves.map((move) => move.elementTypeId))]
-      .filter((elementTypeId) => !elementTypeIds.includes(elementTypeId))
-      .sort((leftId, rightId) => (elementProbabilities[rightId] ?? 0) - (elementProbabilities[leftId] ?? 0) || tieBreakerOf(leftId) - tieBreakerOf(rightId))
-      .map((elementTypeId) => startingMovesByProbability({ elementTypeId, candidates: otherMoves })),
+    [...new Set(otherMoves.map((move) => move.elementTypeID))]
+      .filter((elementTypeID) => !elementTypeIDs.includes(elementTypeID))
+      .sort((leftID, rightID) => (elementProbabilities[rightID] ?? 0) - (elementProbabilities[leftID] ?? 0) || tieBreakerOf(leftID) - tieBreakerOf(rightID))
+      .map((elementTypeID) => startingMovesByProbability({ elementTypeID, candidates: otherMoves })),
   )) {
-    if (startingMoveIds.length < STARTING_MOVE_COUNT && !startingMoveIds.includes(move.id)) {
-      startingMoveIds.push(move.id);
+    if (startingMoveIDs.length < STARTING_MOVE_COUNT && !startingMoveIDs.includes(move.id)) {
+      startingMoveIDs.push(move.id);
     }
   }
 
   /** 自分の属性の残りの [category] の技から、確率の高い順に (属性が 2 つなら交互に) [count] 個を選び、レベル帯の下限の順 (同じなら選んだ順) に並べて返す。 */
   const laterCandidates = ({ category, count }: { category: "attack" | "support"; count: number }) =>
     mergeInTurns(
-      elementTypeIds.map((elementTypeId) =>
+      elementTypeIDs.map((elementTypeID) =>
         sortByProbability({
-          elementTypeId,
-          candidates: ownMoves.filter((move) => move.elementTypeId === elementTypeId && move.category === category && !startingMoveIds.includes(move.id)),
+          elementTypeID,
+          candidates: ownMoves.filter((move) => move.elementTypeID === elementTypeID && move.category === category && !startingMoveIDs.includes(move.id)),
         }),
       ),
     )
@@ -246,10 +246,10 @@ export function buildLearnset({
   for (let index = 0; attackCandidates.length > 0 || supportCandidates.length > 0; index++) {
     const preferSupport = (index + 1) % SUPPORT_MOVE_INTERVAL === 0;
     const move = (preferSupport ? supportCandidates.shift() ?? attackCandidates.shift() : attackCandidates.shift() ?? supportCandidates.shift())!;
-    laterLearnset.push({ moveId: move.id, unlockLevel: Math.max(laterLearnLevel({ index }), move.learnableLevelMinimum) });
+    laterLearnset.push({ moveID: move.id, unlockLevel: Math.max(laterLearnLevel({ index }), move.learnableLevelMinimum) });
   }
   return [
-    ...startingMoveIds.map((moveId) => ({ moveId, unlockLevel: STARTING_LEVEL })),
+    ...startingMoveIDs.map((moveID) => ({ moveID, unlockLevel: STARTING_LEVEL })),
     ...laterLearnset.sort((left, right) => left.unlockLevel - right.unlockLevel),
   ];
 }

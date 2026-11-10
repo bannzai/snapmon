@@ -57,7 +57,7 @@ class TitleScreen extends StatefulWidget {
     required this.monsterGenerator,
     required this.pvpClient,
     required this.cardSharer,
-    required this.openUrl,
+    required this.openURL,
     required this.isDeveloperMenuEnabled,
     required this.accountStore,
     required this.logEvent,
@@ -90,7 +90,7 @@ class TitleScreen extends StatefulWidget {
   final CardSharer cardSharer;
 
   /// 利用規約・プライバシーポリシーを開く。
-  final OpenUrl openUrl;
+  final OpenURL openURL;
 
   /// ログインの失敗の画面に「ログインせずに進む (DEBUG)」を出すか ([SessionScreen.isDebugSkipEnabled])。
   final bool isDeveloperMenuEnabled;
@@ -344,7 +344,7 @@ class _TitleScreenState extends State<TitleScreen> {
             monsterGenerator: widget.monsterGenerator,
             pvpClient: widget.pvpClient,
             cardSharer: widget.cardSharer,
-            openUrl: widget.openUrl,
+            openURL: widget.openURL,
             isDeveloperMenuEnabled: widget.isDeveloperMenuEnabled,
             accountStore: widget.accountStore,
             battleRecorder: widget.battleRecorder,
@@ -354,14 +354,14 @@ class _TitleScreenState extends State<TitleScreen> {
     },
   );
 
-  Future<void> _openUrl({required Uri uri}) async {
+  Future<void> _openURL({required Uri uri}) async {
     try {
-      if (!await widget.openUrl(uri: uri) && mounted) {
+      if (!await widget.openURL(uri: uri) && mounted) {
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
           ..showSnackBar(
             SnackBar(
-              content: Text(context.l10n.commonCouldNotOpenUrl(uri.toString())),
+              content: Text(context.l10n.commonCouldNotOpenURL(uri.toString())),
             ),
           );
       }
@@ -492,13 +492,13 @@ class _TitleScreenState extends State<TitleScreen> {
                 _FooterLink(
                   label: context.l10n.settingsTerms,
                   style: _TitleTextStyles.footer,
-                  onTap: () => _openUrl(uri: termsUri),
+                  onTap: () => _openURL(uri: termsUri),
                 ),
                 const Text(' · ', style: _TitleTextStyles.footer),
                 _FooterLink(
                   label: context.l10n.titlePrivacy,
                   style: _TitleTextStyles.footer,
-                  onTap: () => _openUrl(uri: privacyPolicyUri),
+                  onTap: () => _openURL(uri: privacyPolicyUri),
                 ),
               ],
             ),

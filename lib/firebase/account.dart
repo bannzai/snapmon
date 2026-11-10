@@ -15,7 +15,7 @@ String get accountLinkProviderNameForPlatform => _isIOS ? 'Apple' : 'Google';
 bool get _isIOS => !kIsWeb && defaultTargetPlatform == TargetPlatform.iOS;
 
 /// Firebase の provider の ID ごとの、画面に出す名前。
-const Map<String, String> _providerNamesById = {
+const Map<String, String> _providerNamesByID = {
   'apple.com': 'Apple',
   'google.com': 'Google',
 };
@@ -24,7 +24,7 @@ const Map<String, String> _providerNamesById = {
 List<String> linkedProviderNamesWithFirebase() => [
   for (final provider
       in FirebaseAuth.instance.currentUser?.providerData ?? <UserInfo>[])
-    _providerNamesById[provider.providerId] ?? provider.providerId,
+    _providerNamesByID[provider.providerId] ?? provider.providerId,
 ];
 
 /// google_sign_in の初期化。アプリの中で 1 回だけ行う (google_sign_in の `initialize` の契約)。失敗したら次の呼び出しでやり直す。

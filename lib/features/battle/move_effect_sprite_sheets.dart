@@ -32,7 +32,7 @@ Future<void> loadMoveEffectSpriteSheets({
                   )
                   as Map<String, dynamic>;
           game.applyMoveEffectSpriteSheet(
-            effectId: effect.id,
+            effectID: effect.id,
             spriteSheetJson: spriteSheetJson,
             spriteSheetImage: await _loadSpriteSheetImage(
               game: game,

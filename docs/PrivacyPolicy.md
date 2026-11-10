@@ -42,7 +42,7 @@ bannzai（以下「提供者」といいます。）は、提供者の提供す�
 
 ## 写真の取扱い
 - ユーザーの元の写真のファイルは、そのユーザー本人の図鑑にだけ表示し、他のユーザーには表示しません。ただし、下のとおりモンスターの画像は元の写真の一部または全体であることがあります。共有カードに描くのはモンスターの画像で、ユーザーが共有を選んだ時だけ SNS などに出ます。
-  <!-- source: lib/features/share/share_cards.dart: MonsterShareCard・BattleResultShareCard が描く絵は OwnedMonster.artPath (monsters/{monsterId}/art.png) の画像だけで、元の写真 (sourcePhotoReference) は読まない。lib/features/share/share_card_button.dart: 共有シートを開くのは利用者が「共有する」を押した時 -->
+  <!-- source: lib/features/share/share_cards.dart: MonsterShareCard・BattleResultShareCard が描く絵は OwnedMonster.artPath (monsters/{monsterID}/art.png) の画像だけで、元の写真 (sourcePhotoReference) は読まない。lib/features/share/share_card_button.dart: 共有シートを開くのは利用者が「共有する」を押した時 -->
 - 生成したモンスターの画像・名前・属性・技・ステータスは、認証済みの他のユーザーが閲覧でき、対戦（PvP）と共有で表示されます。対戦では、手持ちのモンスターのレベルとユーザーの表示名も相手に表示されます。
 - モンスターの画像は、写真から被写体を切り出したもの（iPhone の被写体の切り出しの機能を使います）か、ユーザーが写真の上で選んだ範囲を切り取ったものです。範囲を選んだ場合は、その範囲に写る背景や周りの物も画像に含まれ、写真全体が画像になることもあります。被写体を切り出せず範囲も選ばなかった場合は、写真全体を画像にします。
 - モンスターの画像は、端末が決めた範囲を本サービスのサーバー（Cloud Functions for Firebase）が元の写真に当てはめて作ります。AI で絵を生成せず、画像生成の外部サービスに写真を送信しません。
@@ -50,7 +50,7 @@ bannzai（以下「提供者」といいます。）は、提供者の提供す�
 - 写真は、モンスターの生成の前に Google Cloud Vision API で、露骨な内容・暴力的な内容・顔の検出・ラベル（写っている物の種類）の判定を受けます。露骨な内容または暴力的な内容を含むと判定された写真からは、モンスターを生成しません。顔が写る写真からもモンスターを生成しますが、顔の検出または Claude API の判定で人が写っていると判定した時は、生成したモンスターの画像が他のユーザーに表示されることと、ユーザー以外の人が写っている場合はその人の同意を得ることを、アプリ上で注意します。人が写っていると判定した事実は、生成の記録として保存します。
   <!-- source: functions/src/generation/pipeline.ts: Cloud Vision の annotateImage を呼ぶのは runSafeSearchStage の 1 か所で、切り出しの前の元の写真 (downscalePhoto で縮めたもの) にだけかける -->
 - アイコンにする写真は、モンスターの生成と同じく Google Cloud Vision API で判定を受け、露骨な内容・暴力的な内容を含む写真と顔が写る写真はアイコンにせず、その時点で削除します。判定を通った写真は正方形に切り取った画像だけを保存し、認証済みの他のユーザーが閲覧できます（対戦で表示されます）。アイコンにする写真は Anthropic の Claude API に送信しません。アイコンを変えると、前のアイコンは削除します。
-  <!-- source: functions/src/profile.ts: setProfileIconData が users/{uid}/iconUploads/{uploadId} の写真を annotateImage (Cloud Vision) にかけ、visionRejectionReason で断る時は写真を消す。通った写真は sharp で 256px の正方形の PNG にして users/{uid}/icons/{uploadId}.png に置き、置いた写真と前のアイコンを消す。Claude API のクライアントは使わない。firebase/storage.rules: users/{uid}/icons はログインした全員が読める -->
+  <!-- source: functions/src/profile.ts: setProfileIconData が users/{uid}/iconUploads/{uploadID} の写真を annotateImage (Cloud Vision) にかけ、visionRejectionReason で断る時は写真を消す。通った写真は sharp で 256px の正方形の PNG にして users/{uid}/icons/{uploadID}.png に置き、置いた写真と前のアイコンを消す。Claude API のクライアントは使わない。firebase/storage.rules: users/{uid}/icons はログインした全員が読める -->
 
 - 不適切と判定された写真と、同じ被写体の重複と判定された写真は、その時点で削除します。
 - 他人が写っている写真、他人の権利を侵害する写真を送信しないでください（利用規約を参照してください）。

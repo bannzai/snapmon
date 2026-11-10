@@ -20,16 +20,16 @@ void main() {
   });
 
   test('相性表は属性数 × 属性数のすべての組に 0.5 / 1 / 2 の倍率を持つ', () {
-    final elementTypeIds = master.elementTypes.map(
+    final elementTypeIDs = master.elementTypes.map(
       (elementType) => elementType.id,
     );
-    expect(master.typeChart.keys.toSet(), elementTypeIds.toSet());
-    for (final attackerElementTypeId in elementTypeIds) {
-      final row = master.typeChart[attackerElementTypeId]!;
+    expect(master.typeChart.keys.toSet(), elementTypeIDs.toSet());
+    for (final attackerElementTypeID in elementTypeIDs) {
+      final row = master.typeChart[attackerElementTypeID]!;
       expect(
         row.keys.toSet(),
-        elementTypeIds.toSet(),
-        reason: '$attackerElementTypeId の行に抜けか余分な列がある',
+        elementTypeIDs.toSet(),
+        reason: '$attackerElementTypeID の行に抜けか余分な列がある',
       );
       for (final multiplier in row.values) {
         expect([0.5, 1.0, 2.0], contains(multiplier));
@@ -49,13 +49,13 @@ void main() {
   });
 
   test('技は master にある属性とエフェクトを参照し、値域に収まる', () {
-    final elementTypeIds = {
+    final elementTypeIDs = {
       for (final elementType in master.elementTypes) elementType.id,
     };
-    final effectIds = {for (final effect in master.effects) effect.id};
+    final effectIDs = {for (final effect in master.effects) effect.id};
     for (final move in master.moves) {
-      expect(elementTypeIds, contains(move.elementTypeId), reason: move.id);
-      expect(effectIds, contains(move.effectId), reason: move.id);
+      expect(elementTypeIDs, contains(move.elementTypeID), reason: move.id);
+      expect(effectIDs, contains(move.effectID), reason: move.id);
       switch (move.category) {
         case MoveCategory.attack:
           expect(move.power, greaterThan(0), reason: move.id);
@@ -231,11 +231,11 @@ void main() {
       json: {
         'id': 'custom_rubber_1',
         'displayName': 'ゴムだまはじき',
-        'elementTypeId': 'custom_rubber',
+        'elementTypeID': 'custom_rubber',
         'power': 40,
         'powerPoints': 30,
         'category': 'attack',
-        'effectId': 'machine_particle',
+        'effectID': 'machine_particle',
         'learnableLevelMinimum': 1,
         'learnableLevelMaximum': 30,
         'rationale': 'ゴムの玉をはじく技',
@@ -258,7 +258,7 @@ void main() {
       expect(
         master.moves.where(
           (move) =>
-              move.elementTypeId == elementType.id &&
+              move.elementTypeID == elementType.id &&
               move.category == MoveCategory.support,
         ),
         isNotEmpty,
@@ -270,7 +270,9 @@ void main() {
   test('版 9 までの技とエフェクトは消えず、値も変わっていない (documents/game-rules.md「技」の版の規則)', () {
     // 指紋は版 9 の各項目を区切りの空白なしの JSON にした文字列の FNV-1a (32 ビット)。版 9 の master.json から作った。
     // 版 12 (#260) で特殊効果の説明文 (rule) を変えた <属性>_s4 の 7 件だけは版 12 の値の指紋にした
-    // (特殊効果は版をまたいで変えてよい。documents/game-rules.md「技」の版の規則)
+    // (特殊効果は版をまたいで変えてよい。documents/game-rules.md「技」の版の規則)。
+    // キーの略語を ID に書き直した時 (#291。本番の master は消して入れ直した) に、値を変えずにキーだけを書き直した項目の指紋に作り直した
+    // (作り直す前の指紋が書き直す前の項目と一致することを確かめてから置き換えた)
     String fnv1a32({required String text}) {
       var value = 0x811C9DC5;
       for (final byte in utf8.encode(text)) {
@@ -314,7 +316,7 @@ void main() {
       final move = master.moves.singleWhere(
         (move) => move.id == '${elementType.id}_s7',
       );
-      expect(move.elementTypeId, elementType.id);
+      expect(move.elementTypeID, elementType.id);
       expect(move.category, MoveCategory.support);
       expect(move.power, 0);
       final infliction = move.specialEffect!.opponentStatusConditions.single;
@@ -322,23 +324,23 @@ void main() {
       expect(infliction.chancePercent, 100);
       expect(
         master.effects.map((effect) => effect.id),
-        contains(move.effectId),
+        contains(move.effectID),
       );
     }
   });
 
   test('版 11 で、ステータス・状態を変える補助技を、同じ効果を追加効果に持つ攻撃技に置き換えた (#257)', () {
     expect(master.version, greaterThanOrEqualTo(11));
-    final movesById = {for (final move in master.moves) move.id: move};
+    final movesByID = {for (final move in master.moves) move.id: move};
     final replacingMoves = [
       for (final move in master.moves)
-        if (move.replacesMoveId != null) move,
+        if (move.replacesMoveID != null) move,
     ];
     expect(replacingMoves, isNotEmpty);
     for (final move in replacingMoves) {
-      final replaced = movesById[move.replacesMoveId]!;
+      final replaced = movesByID[move.replacesMoveID]!;
       expect(replaced.category, MoveCategory.support, reason: move.id);
-      expect(replaced.elementTypeId, move.elementTypeId, reason: move.id);
+      expect(replaced.elementTypeID, move.elementTypeID, reason: move.id);
       expect(move.category, MoveCategory.attack, reason: move.id);
       expect(move.power, greaterThan(0), reason: move.id);
       expect(move.learnableLevelMinimum, lessThan(100), reason: move.id);
@@ -364,19 +366,19 @@ void main() {
     }
     // 交換不可は、置き換えた攻撃技で必ず付く (補助技だった時と同じ働き)
     for (final elementType in master.elementTypes) {
-      final move = movesById['${elementType.id}_a7']!;
-      expect(move.replacesMoveId, '${elementType.id}_s7');
+      final move = movesByID['${elementType.id}_a7']!;
+      expect(move.replacesMoveID, '${elementType.id}_s7');
       expect(
         move.specialEffect!.opponentStatusConditions.single.chancePercent,
         100,
       );
     }
     // 新しく生まれるモンスターが覚える技 (置き換えられた補助技を除く) のうち、威力 0 の技は 1 割未満の例外にする
-    final replacedMoveIds = {
-      for (final move in replacingMoves) move.replacesMoveId!,
+    final replacedMoveIDs = {
+      for (final move in replacingMoves) move.replacesMoveID!,
     };
     final learnableMoves = master.moves.where(
-      (move) => !replacedMoveIds.contains(move.id),
+      (move) => !replacedMoveIDs.contains(move.id),
     );
     expect(
       learnableMoves.where((move) => move.power == 0).length * 10,
@@ -410,11 +412,11 @@ void main() {
           {
             'id': 'custom_rubber_1',
             'displayName': 'ゴムだまはじき',
-            'elementTypeId': 'custom_rubber',
+            'elementTypeID': 'custom_rubber',
             'power': 40,
             'powerPoints': 30,
             'category': 'attack',
-            'effectId': 'machine_particle',
+            'effectID': 'machine_particle',
             'learnableLevelMinimum': 1,
             'learnableLevelMaximum': 30,
           },
@@ -424,18 +426,18 @@ void main() {
     final merged = mergeMasterData(base: master, additional: customDefinitions);
 
     expect(merged.version, master.version);
-    expect(merged.moveById(moveId: 'custom_rubber_1').power, 40);
+    expect(merged.moveByID(moveID: 'custom_rubber_1').power, 40);
     expect(
       merged.typeMultiplier(
-        attackerElementTypeId: 'custom_rubber',
-        defenderElementTypeId: 'steel',
+        attackerElementTypeID: 'custom_rubber',
+        defenderElementTypeID: 'steel',
       ),
       1,
     );
     expect(
       merged.typeMultiplier(
-        attackerElementTypeId: 'fire',
-        defenderElementTypeId: 'custom_rubber',
+        attackerElementTypeID: 'fire',
+        defenderElementTypeID: 'custom_rubber',
       ),
       1,
     );

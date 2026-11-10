@@ -37,11 +37,11 @@ final Map<String, String> _filePathsByStoragePath = {
   },
 };
 
-/// 名前が [name] のスクリーンショットのモンスターの、切り出した絵の Storage のパス (本番の `monsters/{monsterId}/art.png` と同じ形)。
+/// 名前が [name] のスクリーンショットのモンスターの、切り出した絵の Storage のパス (本番の `monsters/{monsterID}/art.png` と同じ形)。
 String _artPath({required String name}) =>
     'monsters/store-screenshot-$name/art.png';
 
-/// 名前が [name] のスクリーンショットのモンスターの、元の写真の Storage のパス (本番の `users/{uid}/photos/{requestId}` と同じ形)。
+/// 名前が [name] のスクリーンショットのモンスターの、元の写真の Storage のパス (本番の `users/{uid}/photos/{requestID}` と同じ形)。
 String _photoPath({required String name}) =>
     'users/store-screenshot/photos/$name';
 
@@ -64,7 +64,7 @@ List<OwnedMonster> storeScreenshotMonsters() => [
     name: 'mug',
     monsterName: 'マグモン',
     encyclopediaText: '朝いちばんのコーヒーの熱を体にためこむ。取っ手を振り回して戦うが、中身をこぼすと急に弱気になる。',
-    elementTypeIds: const ['fire', 'steel'],
+    elementTypeIDs: const ['fire', 'steel'],
     level: 12,
     baseStats: const MonsterStats(
       hitPoints: 80,
@@ -78,7 +78,7 @@ List<OwnedMonster> storeScreenshotMonsters() => [
     name: 'rubber_duck',
     monsterName: 'プカプック',
     encyclopediaText: 'お風呂に浮かんで水面を見張っている。押されると高い声で鳴いて仲間を呼ぶ。',
-    elementTypeIds: const ['bird', 'water'],
+    elementTypeIDs: const ['bird', 'water'],
     level: 9,
     baseStats: const MonsterStats(
       hitPoints: 90,
@@ -92,7 +92,7 @@ List<OwnedMonster> storeScreenshotMonsters() => [
     name: 'cactus',
     monsterName: 'トゲボウ',
     encyclopediaText: '日なたでじっと動かず、トゲの先に光をためる。水をもらうと少しだけ背がのびる。',
-    elementTypeIds: const ['grass'],
+    elementTypeIDs: const ['grass'],
     level: 7,
     baseStats: const MonsterStats(
       hitPoints: 110,
@@ -106,7 +106,7 @@ List<OwnedMonster> storeScreenshotMonsters() => [
     name: 'scissors',
     monsterName: 'チョッキン',
     encyclopediaText: '2 本の刃を交差させて、目の前の物を何でも切ろうとする。持ち手の輪に指を入れられると、おとなしくなる。',
-    elementTypeIds: const ['steel', 'dark'],
+    elementTypeIDs: const ['steel', 'dark'],
     level: 5,
     baseStats: const MonsterStats(
       hitPoints: 70,
@@ -120,7 +120,7 @@ List<OwnedMonster> storeScreenshotMonsters() => [
     name: 'kettle',
     monsterName: 'ハーブポット',
     encyclopediaText: '体の中でハーブを育てている。湯気といっしょに香りを広げて、相手の気持ちを落ちつかせる。',
-    elementTypeIds: const ['steel', 'grass'],
+    elementTypeIDs: const ['steel', 'grass'],
     level: 4,
     baseStats: const MonsterStats(
       hitPoints: 100,
@@ -134,7 +134,7 @@ List<OwnedMonster> storeScreenshotMonsters() => [
     name: 'candle',
     monsterName: 'ロウソクン',
     encyclopediaText: '頭の火がゆれていると機嫌がいい。風の強い日はじっと動かず、火を守っている。',
-    elementTypeIds: const ['fire'],
+    elementTypeIDs: const ['fire'],
     level: 3,
     baseStats: const MonsterStats(
       hitPoints: 60,
@@ -151,7 +151,7 @@ OwnedMonster _monster({
   required String name,
   required String monsterName,
   required String encyclopediaText,
-  required List<String> elementTypeIds,
+  required List<String> elementTypeIDs,
   required int level,
   required MonsterStats baseStats,
 }) => OwnedMonster(
@@ -160,13 +160,13 @@ OwnedMonster _monster({
     sourcePhotoReference: _photoPath(name: name),
     name: monsterName,
     encyclopediaText: encyclopediaText,
-    elementTypeIds: elementTypeIds,
+    elementTypeIDs: elementTypeIDs,
     // 本番の生成と同じく、生まれた時点で Lv.1 の技を 4 つ持つ (属性の順に 1 つずつ交互に取る。
     // functions の master の版 2 と #63 の「決めたこと」の行)。見本の定義の Lv.1 の技は属性ごとに _1・_1b・_1c・_1d
     learnset: [
       for (final suffix in const ['1', '1b', '1c', '1d'])
-        for (final elementTypeId in elementTypeIds)
-          LearnsetEntry(moveId: '${elementTypeId}_$suffix', unlockLevel: 1),
+        for (final elementTypeID in elementTypeIDs)
+          LearnsetEntry(moveID: '${elementTypeID}_$suffix', unlockLevel: 1),
     ].take(4).toList(),
     baseStats: baseStats,
     individualValues: const MonsterStats(
@@ -180,12 +180,12 @@ OwnedMonster _monster({
     masterVersion: 1,
   ),
   level: level,
-  actionCardMoveIds: const [],
+  actionCardMoveIDs: const [],
   artPath: _artPath(name: name),
   // 装飾 (#77) は Claude が生成時に返すパラメータで、スクリーンショットの見本には持たせない (切り出した絵だけを描く)
   decoration: null,
   decorationVersion: null,
-  definitionIds: const [],
+  definitionIDs: const [],
 );
 
 /// 撮る画面のカメラ。ファインダーに [viewfinderPhoto] を映す (widget test にはカメラが無いため、camera の端末側の実装を差し替える)。

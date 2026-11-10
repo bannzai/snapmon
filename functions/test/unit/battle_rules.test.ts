@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { MAXIMUM_LEVEL, battleDayKey, isMonsterIdList, isSubsetOfParty, levelAfterBattle } from "../../src/battle_rules";
+import { MAXIMUM_LEVEL, battleDayKey, isMonsterIDList, isSubsetOfParty, levelAfterBattle } from "../../src/battle_rules";
 
 describe("battleDayKey", () => {
   it("日本時間の 0 時で日付が変わる", () => {
@@ -9,27 +9,27 @@ describe("battleDayKey", () => {
   });
 });
 
-describe("isMonsterIdList", () => {
+describe("isMonsterIDList", () => {
   it("重複の無い 1〜3 件の ID を通す", () => {
-    expect(isMonsterIdList(["a"])).toBe(true);
-    expect(isMonsterIdList(["a", "b", "c"])).toBe(true);
+    expect(isMonsterIDList(["a"])).toBe(true);
+    expect(isMonsterIDList(["a", "b", "c"])).toBe(true);
   });
 
   it("空・4 件以上・重複・文字列以外・パスの区切りを含む ID は通さない", () => {
-    expect(isMonsterIdList([])).toBe(false);
-    expect(isMonsterIdList(["a", "b", "c", "d"])).toBe(false);
-    expect(isMonsterIdList(["a", "a"])).toBe(false);
-    expect(isMonsterIdList([1])).toBe(false);
-    expect(isMonsterIdList([""])).toBe(false);
-    expect(isMonsterIdList(["a/b"])).toBe(false);
-    expect(isMonsterIdList("a")).toBe(false);
+    expect(isMonsterIDList([])).toBe(false);
+    expect(isMonsterIDList(["a", "b", "c", "d"])).toBe(false);
+    expect(isMonsterIDList(["a", "a"])).toBe(false);
+    expect(isMonsterIDList([1])).toBe(false);
+    expect(isMonsterIDList([""])).toBe(false);
+    expect(isMonsterIDList(["a/b"])).toBe(false);
+    expect(isMonsterIDList("a")).toBe(false);
   });
 });
 
 describe("isSubsetOfParty", () => {
   it("開始時の手持ちに無いモンスターがあれば通さない", () => {
-    expect(isSubsetOfParty({ participantMonsterIds: ["a", "b"], partyMonsterIds: ["a", "b", "c"] })).toBe(true);
-    expect(isSubsetOfParty({ participantMonsterIds: ["a", "x"], partyMonsterIds: ["a", "b", "c"] })).toBe(false);
+    expect(isSubsetOfParty({ participantMonsterIDs: ["a", "b"], partyMonsterIDs: ["a", "b", "c"] })).toBe(true);
+    expect(isSubsetOfParty({ participantMonsterIDs: ["a", "x"], partyMonsterIDs: ["a", "b", "c"] })).toBe(false);
   });
 });
 

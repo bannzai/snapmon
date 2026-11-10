@@ -6,15 +6,15 @@
     "trueCount": 48,
     "falseCount": 426,
     "trueMinimum": {
-      "sampleId": "28b",
+      "sampleID": "28b",
       "round": 0,
-      "elementTypeId": "stone",
+      "elementTypeID": "stone",
       "probability": 0.54
     },
     "falseMaximum": {
-      "sampleId": "01b",
+      "sampleID": "01b",
       "round": 0,
-      "elementTypeId": "food",
+      "elementTypeID": "food",
       "probability": 0.16
     },
     "trueBelowHalf": [],
@@ -23,32 +23,32 @@
   "dedupe": {
     "sameMinimumOfSame": {
       "kind": "same",
-      "leftId": "01",
-      "rightId": "01b",
+      "leftID": "01",
+      "rightID": "01b",
       "round": 1,
       "same": 0.76,
       "different": 0.17
     },
     "sameMaximumOfDifferent": {
       "kind": "same",
-      "leftId": "01",
-      "rightId": "01b",
+      "leftID": "01",
+      "rightID": "01b",
       "round": 1,
       "same": 0.76,
       "different": 0.17
     },
     "differentMaximumOfSame": {
       "kind": "differentSameKind",
-      "leftId": "22",
-      "rightId": "05",
+      "leftID": "22",
+      "rightID": "05",
       "round": 0,
       "same": 0.46,
       "different": 0.63
     },
     "differentMinimumOfDifferent": {
       "kind": "differentSameKind",
-      "leftId": "22",
-      "rightId": "05",
+      "leftID": "22",
+      "rightID": "05",
       "round": 0,
       "same": 0.46,
       "different": 0.63
@@ -56,288 +56,288 @@
     "rows": [
       {
         "kind": "same",
-        "leftId": "01",
-        "rightId": "01b",
+        "leftID": "01",
+        "rightID": "01b",
         "round": 0,
         "same": 0.77,
         "different": 0.16
       },
       {
         "kind": "same",
-        "leftId": "01",
-        "rightId": "01b",
+        "leftID": "01",
+        "rightID": "01b",
         "round": 1,
         "same": 0.76,
         "different": 0.17
       },
       {
         "kind": "same",
-        "leftId": "08",
-        "rightId": "08b",
+        "leftID": "08",
+        "rightID": "08b",
         "round": 0,
         "same": 0.84,
         "different": 0.07
       },
       {
         "kind": "same",
-        "leftId": "08",
-        "rightId": "08b",
+        "leftID": "08",
+        "rightID": "08b",
         "round": 1,
         "same": 0.84,
         "different": 0.07
       },
       {
         "kind": "same",
-        "leftId": "15",
-        "rightId": "15b",
+        "leftID": "15",
+        "rightID": "15b",
         "round": 0,
         "same": 0.87,
         "different": 0.08
       },
       {
         "kind": "same",
-        "leftId": "15",
-        "rightId": "15b",
+        "leftID": "15",
+        "rightID": "15b",
         "round": 1,
         "same": 0.87,
         "different": 0.07
       },
       {
         "kind": "same",
-        "leftId": "28",
-        "rightId": "28b",
+        "leftID": "28",
+        "rightID": "28b",
         "round": 0,
         "same": 0.89,
         "different": 0.08
       },
       {
         "kind": "same",
-        "leftId": "28",
-        "rightId": "28b",
+        "leftID": "28",
+        "rightID": "28b",
         "round": 1,
         "same": 0.89,
         "different": 0.08
       },
       {
         "kind": "differentSameKind",
-        "leftId": "01",
-        "rightId": "02",
+        "leftID": "01",
+        "rightID": "02",
         "round": 0,
         "same": 0.01,
         "different": 0.98
       },
       {
         "kind": "differentSameKind",
-        "leftId": "01",
-        "rightId": "02",
+        "leftID": "01",
+        "rightID": "02",
         "round": 1,
         "same": 0.01,
         "different": 0.98
       },
       {
         "kind": "differentSameKind",
-        "leftId": "01",
-        "rightId": "28",
+        "leftID": "01",
+        "rightID": "28",
         "round": 0,
         "same": 0.05,
         "different": 0.96
       },
       {
         "kind": "differentSameKind",
-        "leftId": "01",
-        "rightId": "28",
+        "leftID": "01",
+        "rightID": "28",
         "round": 1,
         "same": 0.04,
         "different": 0.96
       },
       {
         "kind": "differentSameKind",
-        "leftId": "02",
-        "rightId": "28",
+        "leftID": "02",
+        "rightID": "28",
         "round": 0,
         "same": 0.06,
         "different": 0.95
       },
       {
         "kind": "differentSameKind",
-        "leftId": "02",
-        "rightId": "28",
+        "leftID": "02",
+        "rightID": "28",
         "round": 1,
         "same": 0.07,
         "different": 0.96
       },
       {
         "kind": "differentSameKind",
-        "leftId": "08",
-        "rightId": "09",
+        "leftID": "08",
+        "rightID": "09",
         "round": 0,
         "same": 0.12,
         "different": 0.89
       },
       {
         "kind": "differentSameKind",
-        "leftId": "08",
-        "rightId": "09",
+        "leftID": "08",
+        "rightID": "09",
         "round": 1,
         "same": 0.12,
         "different": 0.89
       },
       {
         "kind": "differentSameKind",
-        "leftId": "08b",
-        "rightId": "09",
+        "leftID": "08b",
+        "rightID": "09",
         "round": 0,
         "same": 0.08,
         "different": 0.92
       },
       {
         "kind": "differentSameKind",
-        "leftId": "08b",
-        "rightId": "09",
+        "leftID": "08b",
+        "rightID": "09",
         "round": 1,
         "same": 0.07,
         "different": 0.92
       },
       {
         "kind": "differentSameKind",
-        "leftId": "22",
-        "rightId": "05",
+        "leftID": "22",
+        "rightID": "05",
         "round": 0,
         "same": 0.46,
         "different": 0.63
       },
       {
         "kind": "differentSameKind",
-        "leftId": "22",
-        "rightId": "05",
+        "leftID": "22",
+        "rightID": "05",
         "round": 1,
         "same": 0.45,
         "different": 0.64
       },
       {
         "kind": "differentSameKind",
-        "leftId": "22",
-        "rightId": "23",
+        "leftID": "22",
+        "rightID": "23",
         "round": 0,
         "same": 0.18,
         "different": 0.94
       },
       {
         "kind": "differentSameKind",
-        "leftId": "22",
-        "rightId": "23",
+        "leftID": "22",
+        "rightID": "23",
         "round": 1,
         "same": 0.18,
         "different": 0.94
       },
       {
         "kind": "differentSameKind",
-        "leftId": "13",
-        "rightId": "14",
+        "leftID": "13",
+        "rightID": "14",
         "round": 0,
         "same": 0.02,
         "different": 0.97
       },
       {
         "kind": "differentSameKind",
-        "leftId": "13",
-        "rightId": "14",
+        "leftID": "13",
+        "rightID": "14",
         "round": 1,
         "same": 0.03,
         "different": 0.97
       },
       {
         "kind": "differentSameKind",
-        "leftId": "12",
-        "rightId": "03",
+        "leftID": "12",
+        "rightID": "03",
         "round": 0,
         "same": 0.01,
         "different": 0.98
       },
       {
         "kind": "differentSameKind",
-        "leftId": "12",
-        "rightId": "03",
+        "leftID": "12",
+        "rightID": "03",
         "round": 1,
         "same": 0.01,
         "different": 0.98
       },
       {
         "kind": "differentKind",
-        "leftId": "01",
-        "rightId": "15",
+        "leftID": "01",
+        "rightID": "15",
         "round": 0,
         "same": 0.01,
         "different": 0.99
       },
       {
         "kind": "differentKind",
-        "leftId": "01",
-        "rightId": "15",
+        "leftID": "01",
+        "rightID": "15",
         "round": 1,
         "same": 0.01,
         "different": 0.99
       },
       {
         "kind": "differentKind",
-        "leftId": "08",
-        "rightId": "21",
+        "leftID": "08",
+        "rightID": "21",
         "round": 0,
         "same": 0.01,
         "different": 0.99
       },
       {
         "kind": "differentKind",
-        "leftId": "08",
-        "rightId": "21",
+        "leftID": "08",
+        "rightID": "21",
         "round": 1,
         "same": 0.01,
         "different": 0.99
       },
       {
         "kind": "differentKind",
-        "leftId": "12",
-        "rightId": "26",
+        "leftID": "12",
+        "rightID": "26",
         "round": 0,
         "same": 0.01,
         "different": 0.99
       },
       {
         "kind": "differentKind",
-        "leftId": "12",
-        "rightId": "26",
+        "leftID": "12",
+        "rightID": "26",
         "round": 1,
         "same": 0.01,
         "different": 0.99
       },
       {
         "kind": "differentKind",
-        "leftId": "19",
-        "rightId": "11",
+        "leftID": "19",
+        "rightID": "11",
         "round": 0,
         "same": 0.01,
         "different": 0.99
       },
       {
         "kind": "differentKind",
-        "leftId": "19",
-        "rightId": "11",
+        "leftID": "19",
+        "rightID": "11",
         "round": 1,
         "same": 0.01,
         "different": 0.99
       },
       {
         "kind": "differentKind",
-        "leftId": "04",
-        "rightId": "18",
+        "leftID": "04",
+        "rightID": "18",
         "round": 0,
         "same": 0.01,
         "different": 0.98
       },
       {
         "kind": "differentKind",
-        "leftId": "04",
-        "rightId": "18",
+        "leftID": "04",
+        "rightID": "18",
         "round": 1,
         "same": 0.01,
         "different": 0.98

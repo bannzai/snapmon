@@ -43,11 +43,11 @@ class MoveDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final specialEffect = move.specialEffect;
-    final multipliersByDefenderElementTypeId = {
+    final multipliersByDefenderElementTypeID = {
       for (final elementType in definitions.elementTypes)
         elementType.id: definitions.typeMultiplier(
-          attackerElementTypeId: move.elementTypeId,
-          defenderElementTypeId: elementType.id,
+          attackerElementTypeID: move.elementTypeID,
+          defenderElementTypeID: elementType.id,
         ),
     };
     return Scaffold(
@@ -58,7 +58,7 @@ class MoveDetailScreen extends StatelessWidget {
           Row(
             children: [
               ElementTypeTag(
-                elementTypeId: move.elementTypeId,
+                elementTypeID: move.elementTypeID,
                 definitions: definitions,
               ),
             ],
@@ -200,7 +200,7 @@ class MoveDetailScreen extends StatelessWidget {
           ],
           const SizedBox(height: 20),
           _SectionTitle(title: context.l10n.moveDetailEffectiveness),
-          if (multipliersByDefenderElementTypeId.values.every(
+          if (multipliersByDefenderElementTypeID.values.every(
             (multiplier) => multiplier == 1,
           ))
             Text(
@@ -218,7 +218,7 @@ class MoveDetailScreen extends StatelessWidget {
                 (double multiplier) => multiplier < 1,
               ),
             ])
-              if (multipliersByDefenderElementTypeId.values.any(isIncluded))
+              if (multipliersByDefenderElementTypeID.values.any(isIncluded))
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10),
                   child: Column(
@@ -231,16 +231,16 @@ class MoveDetailScreen extends StatelessWidget {
                         runSpacing: 6,
                         children: [
                           for (final MapEntry(
-                                key: elementTypeId,
+                                key: elementTypeID,
                                 value: multiplier,
                               )
-                              in multipliersByDefenderElementTypeId.entries)
+                              in multipliersByDefenderElementTypeID.entries)
                             if (isIncluded(multiplier))
                               Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   ElementTypeTag(
-                                    elementTypeId: elementTypeId,
+                                    elementTypeID: elementTypeID,
                                     definitions: definitions,
                                   ),
                                   const SizedBox(width: 4),

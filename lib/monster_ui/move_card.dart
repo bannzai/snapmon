@@ -55,7 +55,7 @@ class MoveCard extends StatelessWidget {
             ),
             const SizedBox(width: 6),
             ElementTypeIcon(
-              elementTypeId: move.elementTypeId,
+              elementTypeID: move.elementTypeID,
               definitions: definitions,
             ),
             // 等倍は出さない (ログの「こうかは ばつぐんだ」「いまひとつ」と同じく、倍率が変わる時だけ知らせる。全部の技に出すと技の枠が埋まるため)
@@ -76,7 +76,7 @@ class MoveCard extends StatelessWidget {
           children: [
             Text(move.displayName, style: SnapmonTextStyles.moveName),
             ElementTypeTag(
-              elementTypeId: move.elementTypeId,
+              elementTypeID: move.elementTypeID,
               definitions: definitions,
             ),
           ],

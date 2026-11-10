@@ -1,6 +1,6 @@
 import type { Firestore } from "firebase-admin/firestore";
 
-// master (`master/{version}`。元の JSON は assets/master/master.json) と、生成時にその場で作った定義 (`definitions/{definitionId}`) の型と読み出し。
+// master (`master/{version}`。元の JSON は assets/master/master.json) と、生成時にその場で作った定義 (`definitions/{definitionID}`) の型と読み出し。
 // 形は Dart の lib/domain/master/master_data.dart が読む JSON と同じ。
 
 /** 属性の 1 件。 */
@@ -20,7 +20,7 @@ export interface MasterMove {
   /** 画面に出す技の名前。 */
   displayName: string;
   /** 技の属性の識別子。 */
-  elementTypeId: string;
+  elementTypeID: string;
   /** 威力。 */
   power: number;
   /** PP。 */
@@ -28,7 +28,7 @@ export interface MasterMove {
   /** 技の分類。attack (ダメージを与える技) か support (威力 0 で、特殊効果でステータスを変えるか HP を回復する技。master の版 7 から)。 */
   category: string;
   /** 技のエフェクトの識別子。 */
-  effectId: string;
+  effectID: string;
   /** 覚えさせてよいレベル帯の下限 (覚える技の一覧の開放レベルに使う)。 */
   learnableLevelMinimum: number;
   /** 覚えさせてよいレベル帯の上限。 */
@@ -71,7 +71,7 @@ export interface MasterMove {
    * この技が置き換えた版 10 までの補助技の識別子 (版 11 から。#257)。置き換えられた補助技は、生まれた時に覚えた既存のモンスターのために master に残し、
    * 新しく生まれるモンスターには覚えさせず、図鑑の技の一覧にも出さない。
    */
-  replacesMoveId?: string;
+  replacesMoveID?: string;
 }
 
 /** ステータスの段階と種族値の対応。 */
@@ -105,10 +105,10 @@ export interface Master {
   /** 技の一覧。 */
   moves: MasterMove[];
   /**
-   * 技のエフェクトの一覧。`kind` が `spriteSheet` のエフェクトは `spriteSheet` (端末に同梱したシートの名前) と `pixelfxId` (素材の ID。
+   * 技のエフェクトの一覧。`kind` が `spriteSheet` のエフェクトは `spriteSheet` (端末に同梱したシートの名前) と `pixelfxID` (素材の ID。
    * scripts/move_effects/generate_move_effect_sprite_sheets.sh が書き出しに使う) を持つ。
    */
-  effects: { id: string; displayName: string; kind: string; colorHex: string; spriteSheet?: string; pixelfxId?: string }[];
+  effects: { id: string; displayName: string; kind: string; colorHex: string; spriteSheet?: string; pixelfxID?: string }[];
   /** ステータスの段階。 */
   statGrades: MasterStatGrade[];
   /** 属性を選ぶ規則。 */
@@ -117,7 +117,7 @@ export interface Master {
   subjectCategories: MasterSubjectCategory[];
 }
 
-/** その場で作った定義 (`definitions/{definitionId}`)。1 件の属性と、その属性の技を持つ。 */
+/** その場で作った定義 (`definitions/{definitionID}`)。1 件の属性と、その属性の技を持つ。 */
 export interface DynamicDefinition {
   /** 定義の版 (形を変えた時に上げる)。 */
   version: number;
@@ -151,8 +151,8 @@ export async function fetchDynamicDefinitions(firestore: Firestore): Promise<{ i
   return snapshot.docs.map((document) => ({ id: document.id, definition: document.data() as DynamicDefinition }));
 }
 
-/** [moves] から、別の技の `replacesMoveId` が指す技 (置き換えられた補助技) を除いた、新しく生まれるモンスターが覚えてよい技を元の順で返す。 */
+/** [moves] から、別の技の `replacesMoveID` が指す技 (置き換えられた補助技) を除いた、新しく生まれるモンスターが覚えてよい技を元の順で返す。 */
 export function learnableMoves(moves: MasterMove[]): MasterMove[] {
-  const replacedMoveIds = new Set(moves.flatMap((move) => (move.replacesMoveId ? [move.replacesMoveId] : [])));
-  return moves.filter((move) => !replacedMoveIds.has(move.id));
+  const replacedMoveIDs = new Set(moves.flatMap((move) => (move.replacesMoveID ? [move.replacesMoveID] : [])));
+  return moves.filter((move) => !replacedMoveIDs.has(move.id));
 }

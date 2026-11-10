@@ -128,24 +128,24 @@ class MasterData {
   /// 属性を選ぶ規則。その場で作った定義には無い。
   final ElementSelectionRule? elementSelection;
 
-  /// [moveId] の技を返す。無ければ [StateError] を投げる。
-  Move moveById({required String moveId}) => moves.firstWhere(
-    (move) => move.id == moveId,
-    orElse: () => throw StateError('技 $moveId が定義に無い'),
+  /// [moveID] の技を返す。無ければ [StateError] を投げる。
+  Move moveByID({required String moveID}) => moves.firstWhere(
+    (move) => move.id == moveID,
+    orElse: () => throw StateError('技 $moveID が定義に無い'),
   );
 
-  /// [effectId] のエフェクトを返す。無ければ [StateError] を投げる。
-  MoveEffect effectById({required String effectId}) => effects.firstWhere(
-    (effect) => effect.id == effectId,
-    orElse: () => throw StateError('エフェクト $effectId が定義に無い'),
+  /// [effectID] のエフェクトを返す。無ければ [StateError] を投げる。
+  MoveEffect effectByID({required String effectID}) => effects.firstWhere(
+    (effect) => effect.id == effectID,
+    orElse: () => throw StateError('エフェクト $effectID が定義に無い'),
   );
 
-  /// 攻撃側の属性 [attackerElementTypeId] から防御側の属性 [defenderElementTypeId] への倍率を返す。
+  /// 攻撃側の属性 [attackerElementTypeID] から防御側の属性 [defenderElementTypeID] への倍率を返す。
   double typeMultiplier({
-    required String attackerElementTypeId,
-    required String defenderElementTypeId,
+    required String attackerElementTypeID,
+    required String defenderElementTypeID,
   }) =>
-      typeChart[attackerElementTypeId]?[defenderElementTypeId] ??
+      typeChart[attackerElementTypeID]?[defenderElementTypeID] ??
       // その場で作った属性の相性は、既存の全属性と等倍を既定にする (ADR 0001「master に無い属性・技」)。
       // master 自体の組の抜けはテスト (test/domain/master/master_data_test.dart) で防ぐ。
       1;
@@ -158,17 +158,17 @@ MasterData mergeMasterData({
   required MasterData base,
   required MasterData additional,
 }) {
-  final baseElementTypeIds = {
+  final baseElementTypeIDs = {
     for (final elementType in base.elementTypes) elementType.id,
   };
-  final baseMoveIds = {for (final move in base.moves) move.id};
-  final baseEffectIds = {for (final effect in base.effects) effect.id};
+  final baseMoveIDs = {for (final move in base.moves) move.id};
+  final baseEffectIDs = {for (final effect in base.effects) effect.id};
   return MasterData(
     version: base.version,
     elementTypes: [
       ...base.elementTypes,
       ...additional.elementTypes.where(
-        (elementType) => !baseElementTypeIds.contains(elementType.id),
+        (elementType) => !baseElementTypeIDs.contains(elementType.id),
       ),
     ],
     // その場で作った属性の相性は等倍に固定するため (ADR 0001「master に無い属性・技」)、
@@ -176,12 +176,12 @@ MasterData mergeMasterData({
     typeChart: base.typeChart,
     moves: [
       ...base.moves,
-      ...additional.moves.where((move) => !baseMoveIds.contains(move.id)),
+      ...additional.moves.where((move) => !baseMoveIDs.contains(move.id)),
     ],
     effects: [
       ...base.effects,
       ...additional.effects.where(
-        (effect) => !baseEffectIds.contains(effect.id),
+        (effect) => !baseEffectIDs.contains(effect.id),
       ),
     ],
     statGrades: base.statGrades,

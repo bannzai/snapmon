@@ -15,7 +15,7 @@ service firebase.storage {
     }
 
     // 元の写真。本人だけが読み書きでき、他人には見せない。
-    match /users/{uid}/photos/{requestId} {
+    match /users/{uid}/photos/{requestID} {
       allow read, delete: if isOwner(uid);
       // 4 MB と JPEG / PNG は ADR 0001 の画像ストレージの行の制限。
       allow create, update: if isOwner(uid)
@@ -24,7 +24,7 @@ service firebase.storage {
     }
 
     // 手で決めた切り出しの範囲 (被写体が白・背景が黒のマスク)。本人だけが置ける。generate が元の写真に適用する (ADR 0002)。
-    match /users/{uid}/masks/{requestId} {
+    match /users/{uid}/masks/{requestID} {
       allow read, delete: if isOwner(uid);
       // 1 MB と PNG: マスクは 2 値の画像で、写真と同じ大きさでも PNG ならこれに収まるため。
       allow create, update: if isOwner(uid)
@@ -32,20 +32,20 @@ service firebase.storage {
         && request.resource.contentType == 'image/png';
     }
 
-    // 生成の途中の切り出し画像。本人だけが読め、書き込みは Functions だけ。保存したら monsters/{monsterId}/art.png に移して消す。
-    match /users/{uid}/generations/{requestId}/cutout.png {
+    // 生成の途中の切り出し画像。本人だけが読め、書き込みは Functions だけ。保存したら monsters/{monsterID}/art.png に移して消す。
+    match /users/{uid}/generations/{requestID}/cutout.png {
       allow read: if isOwner(uid);
       allow write: if false;
     }
 
     // プロフィールのアイコンにする写真。本人だけが置ける。setProfileIcon (functions/src/profile.ts) が検査してから消す。
-    match /users/{uid}/iconUploads/{uploadId} {
+    match /users/{uid}/iconUploads/{uploadID} {
       allow read, delete: if isOwner(uid);
       // 4 MB と JPEG / PNG: 端末は生成に送る写真と同じ形 (長辺 1024px の JPEG) で置くため、元の写真と同じ制限にした。
-      // uploadId は UUID の形だけ: setProfileIcon が UUID 以外を断るため (functions/src/profile.ts の PROFILE_ICON_UPLOAD_ID_PATTERN)、
+      // uploadID は UUID の形だけ: setProfileIcon が UUID 以外を断るため (functions/src/profile.ts の PROFILE_ICON_UPLOAD_ID_PATTERN)、
       // 断られて消されない写真を置かせない。
       allow create, update: if isOwner(uid)
-        && uploadId.matches('^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$')
+        && uploadID.matches('^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$')
         && request.resource.size <= 4 * 1024 * 1024
         && request.resource.contentType.matches('image/(jpeg|png)');
     }
@@ -57,7 +57,7 @@ service firebase.storage {
     }
 
     // 写真から切り出した被写体の画像。PvP と共有カードで他人にも見せる。書き込みは Functions (Admin SDK) だけ。
-    match /monsters/{monsterId}/art.png {
+    match /monsters/{monsterID}/art.png {
       allow read: if isSignedIn();
       allow write: if false;
     }

@@ -10,28 +10,28 @@ import '../../sample_data_fixture.dart';
 void main() {
   final sampleData = loadSampleDataFixture();
   final monsters = sampleData.monsters;
-  List<String> partyIds({required DexStore dexStore}) => [
+  List<String> partyIDs({required DexStore dexStore}) => [
     for (final monster in dexStore.party) monster.definition.id,
   ];
 
-  /// 手持ちの保存を [savedPartyMonsterIds] に残すサーバーに繋いだ図鑑。[monsters] の全員が図鑑にいる。
+  /// 手持ちの保存を [savedPartyMonsterIDs] に残すサーバーに繋いだ図鑑。[monsters] の全員が図鑑にいる。
   /// [saveError] を渡すと保存がその例外で失敗する。
   DexStore serverBackedDexStore({
-    required List<List<String>> savedPartyMonsterIds,
+    required List<List<String>> savedPartyMonsterIDs,
     required Object? saveError,
   }) => DexStore(definitions: sampleData.definitions)
     ..connectServer(
-      savePartyMonsterIds: ({required monsterIds}) async {
+      savePartyMonsterIDs: ({required monsterIDs}) async {
         if (saveError != null) {
           throw saveError;
         }
-        savedPartyMonsterIds.add(monsterIds);
+        savedPartyMonsterIDs.add(monsterIDs);
       },
       refreshDefinitions: () async {},
     )
     ..applyServerSnapshot(
       monsters: monsters,
-      partyMonsterIds: const [],
+      partyMonsterIDs: const [],
       definitions: null,
     );
 
@@ -39,15 +39,15 @@ void main() {
     final dexStore = DexStore(definitions: sampleData.definitions)
       ..applyServerSnapshot(
         monsters: monsters,
-        partyMonsterIds: const [],
+        partyMonsterIDs: const [],
         definitions: null,
       );
-    await dexStore.addToParty(monsterId: 'not-in-dex');
+    await dexStore.addToParty(monsterID: 'not-in-dex');
     for (final monster in monsters) {
-      await dexStore.addToParty(monsterId: monster.definition.id);
+      await dexStore.addToParty(monsterID: monster.definition.id);
     }
     expect(
-      partyIds(dexStore: dexStore),
+      partyIDs(dexStore: dexStore),
       monsters.take(3).map((monster) => monster.definition.id),
     );
     expect(dexStore.hasPartyVacancy, isFalse);
@@ -57,33 +57,33 @@ void main() {
     final dexStore = DexStore(definitions: sampleData.definitions)
       ..replaceAll(monsters: monsters);
     await dexStore.replacePartyMember(
-      outgoingMonsterId: monsters[1].definition.id,
-      incomingMonsterId: monsters[3].definition.id,
+      outgoingMonsterID: monsters[1].definition.id,
+      incomingMonsterID: monsters[3].definition.id,
     );
-    expect(partyIds(dexStore: dexStore), [
+    expect(partyIDs(dexStore: dexStore), [
       monsters[0].definition.id,
       monsters[3].definition.id,
       monsters[2].definition.id,
     ]);
     // 既に手持ちにいるモンスターとは入れ替えない
     await dexStore.replacePartyMember(
-      outgoingMonsterId: monsters[0].definition.id,
-      incomingMonsterId: monsters[2].definition.id,
+      outgoingMonsterID: monsters[0].definition.id,
+      incomingMonsterID: monsters[2].definition.id,
     );
-    expect(partyIds(dexStore: dexStore), hasLength(3));
-    expect(partyIds(dexStore: dexStore).toSet(), hasLength(3));
+    expect(partyIDs(dexStore: dexStore), hasLength(3));
+    expect(partyIDs(dexStore: dexStore).toSet(), hasLength(3));
   });
 
   test('サーバーに繋いだ図鑑は、手持ちの変更を ID の一覧で保存する', () async {
-    final savedPartyMonsterIds = <List<String>>[];
+    final savedPartyMonsterIDs = <List<String>>[];
     final dexStore = serverBackedDexStore(
-      savedPartyMonsterIds: savedPartyMonsterIds,
+      savedPartyMonsterIDs: savedPartyMonsterIDs,
       saveError: null,
     );
-    await dexStore.addToParty(monsterId: monsters[0].definition.id);
-    await dexStore.addToParty(monsterId: monsters[1].definition.id);
-    await dexStore.removeFromParty(monsterId: monsters[0].definition.id);
-    expect(savedPartyMonsterIds, [
+    await dexStore.addToParty(monsterID: monsters[0].definition.id);
+    await dexStore.addToParty(monsterID: monsters[1].definition.id);
+    await dexStore.removeFromParty(monsterID: monsters[0].definition.id);
+    expect(savedPartyMonsterIDs, [
       [monsters[0].definition.id],
       [monsters[0].definition.id, monsters[1].definition.id],
       [monsters[1].definition.id],
@@ -92,14 +92,14 @@ void main() {
   });
 
   test('サーバーの図鑑から離れると、空の端末の図鑑と渡した定義に戻り、手持ちを保存しなくなる', () async {
-    final savedPartyMonsterIds = <List<String>>[];
+    final savedPartyMonsterIDs = <List<String>>[];
     final dexStore =
         serverBackedDexStore(
-          savedPartyMonsterIds: savedPartyMonsterIds,
+          savedPartyMonsterIDs: savedPartyMonsterIDs,
           saveError: null,
         )..applyServerSnapshot(
           monsters: null,
-          partyMonsterIds: null,
+          partyMonsterIDs: null,
           definitions: definitionsWithWax(base: sampleData.definitions),
         );
     dexStore.disconnectServer(definitions: sampleData.definitions);
@@ -107,17 +107,17 @@ void main() {
     expect(dexStore.isServerBacked, isFalse);
     expect(dexStore.definitions, same(sampleData.definitions));
     dexStore.replaceAll(monsters: monsters);
-    await dexStore.removeFromParty(monsterId: monsters[0].definition.id);
-    expect(savedPartyMonsterIds, isEmpty);
+    await dexStore.removeFromParty(monsterID: monsters[0].definition.id);
+    expect(savedPartyMonsterIDs, isEmpty);
   });
 
   test('手持ちの保存に失敗したら変更の前に戻して例外を投げる', () async {
     final dexStore = serverBackedDexStore(
-      savedPartyMonsterIds: [],
+      savedPartyMonsterIDs: [],
       saveError: Exception('permission-denied'),
     );
     await expectLater(
-      dexStore.addToParty(monsterId: monsters[0].definition.id),
+      dexStore.addToParty(monsterID: monsters[0].definition.id),
       throwsException,
     );
     expect(dexStore.party, isEmpty);
@@ -127,26 +127,26 @@ void main() {
     final dexStore = DexStore(definitions: sampleData.definitions)
       ..applyServerSnapshot(
         monsters: monsters.take(1).toList(),
-        partyMonsterIds: [monsters[0].definition.id, 'not-arrived'],
+        partyMonsterIDs: [monsters[0].definition.id, 'not-arrived'],
         definitions: null,
       );
-    expect(partyIds(dexStore: dexStore), [monsters[0].definition.id]);
+    expect(partyIDs(dexStore: dexStore), [monsters[0].definition.id]);
     expect(dexStore.hasPartyVacancy, isTrue);
   });
 
   test('図鑑にまだ届いていない手持ちも、手持ちを変えて保存する一覧と空きの数に残す', () async {
-    final savedPartyMonsterIds = <List<String>>[];
+    final savedPartyMonsterIDs = <List<String>>[];
     final dexStore =
         serverBackedDexStore(
-          savedPartyMonsterIds: savedPartyMonsterIds,
+          savedPartyMonsterIDs: savedPartyMonsterIDs,
           saveError: null,
         )..applyServerSnapshot(
           monsters: null,
-          partyMonsterIds: [monsters[0].definition.id, 'not-arrived'],
+          partyMonsterIDs: [monsters[0].definition.id, 'not-arrived'],
           definitions: null,
         );
-    await dexStore.addToParty(monsterId: monsters[1].definition.id);
-    expect(savedPartyMonsterIds.single, [
+    await dexStore.addToParty(monsterID: monsters[1].definition.id);
+    expect(savedPartyMonsterIDs.single, [
       monsters[0].definition.id,
       'not-arrived',
       monsters[1].definition.id,
@@ -158,26 +158,26 @@ void main() {
     final pendingSave = Completer<void>();
     final dexStore = DexStore(definitions: sampleData.definitions)
       ..connectServer(
-        savePartyMonsterIds: ({required monsterIds}) => pendingSave.future,
+        savePartyMonsterIDs: ({required monsterIDs}) => pendingSave.future,
         refreshDefinitions: () async {},
       )
       ..applyServerSnapshot(
         monsters: monsters,
-        partyMonsterIds: const [],
+        partyMonsterIDs: const [],
         definitions: null,
       );
     final firstChange = dexStore.addToParty(
-      monsterId: monsters[0].definition.id,
+      monsterID: monsters[0].definition.id,
     );
     expect(dexStore.isSavingParty, isTrue);
     await expectLater(
-      dexStore.addToParty(monsterId: monsters[1].definition.id),
+      dexStore.addToParty(monsterID: monsters[1].definition.id),
       throwsStateError,
     );
     pendingSave.complete();
     await firstChange;
     expect(dexStore.isSavingParty, isFalse);
-    expect(partyIds(dexStore: dexStore), [monsters[0].definition.id]);
+    expect(partyIDs(dexStore: dexStore), [monsters[0].definition.id]);
   });
 
   test('読み込みの失敗の表示は、手持ちだけが届いても消えず、図鑑か定義が届いた時に消える', () {
@@ -185,13 +185,13 @@ void main() {
       ..reportServerError(error: StateError('通信できません'))
       ..applyServerSnapshot(
         monsters: null,
-        partyMonsterIds: const [],
+        partyMonsterIDs: const [],
         definitions: null,
       );
     expect(dexStore.serverError, isNotNull);
     dexStore.applyServerSnapshot(
       monsters: monsters,
-      partyMonsterIds: null,
+      partyMonsterIDs: null,
       definitions: null,
     );
     expect(dexStore.serverError, isNull);
@@ -201,42 +201,42 @@ void main() {
     final definitions = definitionsWithWax(base: sampleData.definitions);
     final dexStore = DexStore(definitions: sampleData.definitions)
       ..applyServerSnapshot(
-        monsters: [generatedWaxMonster(monsterId: 'm1')],
-        partyMonsterIds: const ['m1'],
+        monsters: [generatedWaxMonster(monsterID: 'm1')],
+        partyMonsterIDs: const ['m1'],
         definitions: definitions,
       )
       ..applyServerSnapshot(
         monsters: null,
-        partyMonsterIds: null,
+        partyMonsterIDs: null,
         definitions: null,
       );
     expect(dexStore.monsters.single.definition.id, 'm1');
-    expect(partyIds(dexStore: dexStore), ['m1']);
+    expect(partyIDs(dexStore: dexStore), ['m1']);
     expect(dexStore.definitions, same(definitions));
   });
 
   test('waitForMonster は図鑑に届いた時に返し、届かなければ TimeoutException を投げる', () async {
     final dexStore = DexStore(definitions: sampleData.definitions);
     final arrival = dexStore.waitForMonster(
-      monsterId: 'm1',
+      monsterID: 'm1',
       timeout: const Duration(seconds: 1),
     );
     dexStore.applyServerSnapshot(
-      monsters: [generatedWaxMonster(monsterId: 'm1')],
-      partyMonsterIds: null,
+      monsters: [generatedWaxMonster(monsterID: 'm1')],
+      partyMonsterIDs: null,
       definitions: null,
     );
     expect((await arrival).definition.id, 'm1');
     expect(
       (await dexStore.waitForMonster(
-        monsterId: 'm1',
+        monsterID: 'm1',
         timeout: const Duration(seconds: 1),
       )).definition.id,
       'm1',
     );
     await expectLater(
       dexStore.waitForMonster(
-        monsterId: 'not-arriving',
+        monsterID: 'not-arriving',
         timeout: const Duration(milliseconds: 10),
       ),
       throwsA(isA<TimeoutException>()),
@@ -258,7 +258,7 @@ void main() {
     final dexStore = DexStore(definitions: sampleData.definitions)
       ..replaceAll(monsters: monsters);
     dexStore.updateLevels(
-      levelsByMonsterId: {monsters[0].definition.id: 42, 'not-in-dex': 5},
+      levelsByMonsterID: {monsters[0].definition.id: 42, 'not-in-dex': 5},
     );
     expect(dexStore.party.first.level, 42);
     expect(dexStore.monsters[1].level, monsters[1].level);

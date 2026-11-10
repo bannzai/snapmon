@@ -96,7 +96,7 @@ const _invalidCredentialErrorCodes = {
 /// 各段の実体は引数で受け取る (Firebase と切り離して分岐を単体テストするため)。アプリからは [resumeSessionWithFirebase] を使う。
 Future<String?> resumeSession({
   required String? currentUid,
-  required Future<void> Function() refreshIdToken,
+  required Future<void> Function() refreshIDToken,
   required Future<void> Function() signOut,
   required Future<void> Function() activateAppCheck,
   required Future<void> Function() enableCollection,
@@ -106,7 +106,7 @@ Future<String?> resumeSession({
   }
   try {
     // 期限の切れた ID トークンを取り直し、別の端末でアカウントを削除した後などの無効な認証情報を見つける
-    await refreshIdToken();
+    await refreshIDToken();
   } on FirebaseAuthException catch (error) {
     // 認証情報が無効だと分かるエラーだけでサインアウトする。無効な認証情報で再開すると、Firebase との通信がすべて失敗するのに
     // ログインし直せないため。通信できない・混み合っている等の一時的な失敗でサインアウトすると、連携していない匿名の
@@ -130,7 +130,7 @@ Future<String?> resumeSessionWithFirebase() {
   final user = FirebaseAuth.instance.currentUser;
   return resumeSession(
     currentUid: user?.uid,
-    refreshIdToken: () async => await user!.getIdToken(),
+    refreshIDToken: () async => await user!.getIdToken(),
     signOut: FirebaseAuth.instance.signOut,
     activateAppCheck: activateAppCheck,
     enableCollection: enableAnalyticsAndCrashlyticsCollection,

@@ -12,7 +12,7 @@ import {
   type JevResponse,
   JevUnavailableError,
   readJudgeResponse,
-  sameSubjectCandidateIds,
+  sameSubjectCandidateIDs,
 } from "../../src/generation/jev";
 import type { Master } from "../../src/generation/master";
 import type { SubjectDescription } from "../../src/generation/prompts/describe_subject";
@@ -32,7 +32,7 @@ const description: SubjectDescription = {
 
 describe("buildDedupeRequests", () => {
   it("候補 20 件ごとに 1 リクエストにし、候補ごとに肯定・否定の対を問う", () => {
-    const candidates = Array.from({ length: DEDUPE_CHUNK_SIZE + 1 }, (_, index) => ({ candidateId: `monster${index}`, description }));
+    const candidates = Array.from({ length: DEDUPE_CHUNK_SIZE + 1 }, (_, index) => ({ candidateID: `monster${index}`, description }));
     const requests = buildDedupeRequests({ description, candidates });
     expect(requests).toHaveLength(2);
     expect(Object.keys(requests[0].questions)).toHaveLength(DEDUPE_CHUNK_SIZE * 2);
@@ -40,8 +40,8 @@ describe("buildDedupeRequests", () => {
   });
 });
 
-describe("sameSubjectCandidateIds", () => {
-  const candidates = ["a", "b", "c", "d"].map((candidateId) => ({ candidateId, description }));
+describe("sameSubjectCandidateIDs", () => {
+  const candidates = ["a", "b", "c", "d"].map((candidateID) => ({ candidateID, description }));
   const response = (answers: [number, number][]): JevResponse => ({
     model: "jev-1.13.0",
     usage: { input_tokens: 0, output_tokens: 0 },
@@ -50,7 +50,7 @@ describe("sameSubjectCandidateIds", () => {
 
   it("肯定が高く否定が低い候補だけを同じ個体とし、揺れ (両方高い・両方低い) は別の物として扱う", () => {
     expect(
-      sameSubjectCandidateIds({
+      sameSubjectCandidateIDs({
         responses: [response([[0.9, 0.05], [0.8, 0.8], [0.2, 0.1], [0.66, 0.34]])],
         candidates,
         thresholds: DEDUPE_THRESHOLDS,
@@ -62,7 +62,7 @@ describe("sameSubjectCandidateIds", () => {
   // functions/scripts/calibrate-jev.mjs で測り直す (documents/game-rules.md「Jev の閾値」)
   it("較正 (2026-10-28) の同じ物の境目 (本番で撮り直したマグカップ) は同じ個体とし、同じ種類の別の物の境目は別の物とする", () => {
     expect(
-      sameSubjectCandidateIds({
+      sameSubjectCandidateIDs({
         responses: [response([[0.59, 0.36], [0.71, 0.37], [0.49, 0.54], [0.4, 0.52]])],
         candidates,
         thresholds: DEDUPE_THRESHOLDS,
@@ -72,7 +72,7 @@ describe("sameSubjectCandidateIds", () => {
 
   it("既知の限界: 同じ色・素材・位置の絵柄の題材を説明が読み分けられない別の物 (較正の 30 と 01) は同じ個体になる (documents/game-rules.md「見分けられない対」)", () => {
     expect(
-      sameSubjectCandidateIds({
+      sameSubjectCandidateIDs({
         responses: [response([[0.82, 0.18], [0.71, 0.41]])],
         candidates: candidates.slice(0, 2),
         thresholds: DEDUPE_THRESHOLDS,
@@ -135,7 +135,7 @@ describe("buildJudgeRequest / readJudgeResponse", () => {
     expect(() =>
       readJudgeResponse({ statGrades: master.statGrades, response: { model: "jev-1.13.0", usage: { input_tokens: 0, output_tokens: 0 }, answers: {} } }),
     ).toThrow(JevUnavailableError);
-    expect(judged.statGradeIds).toEqual({ hitPoints: "veryLow", attack: "veryHigh", defense: "medium", speed: "high", accuracy: "low" });
+    expect(judged.statGradeIDs).toEqual({ hitPoints: "veryLow", attack: "veryHigh", defense: "medium", speed: "high", accuracy: "low" });
   });
 });
 

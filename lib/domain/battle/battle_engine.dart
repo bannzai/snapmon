@@ -85,15 +85,15 @@ int maximumHitPoints({
       100,
 );
 
-/// [definition] のモンスターを、[level]・[experience]・[actionCardMoveIds] (Action Card で覚えさせた技) で HP・PP を満タンにし、
+/// [definition] のモンスターを、[level]・[experience]・[actionCardMoveIDs] (Action Card で覚えさせた技) で HP・PP を満タンにし、
 /// ステータスの倍率を等倍、状態なしにしてバトルに出す。
-/// PP は覚える技の一覧と [actionCardMoveIds] のすべての技について持つ (レベルで開放されていない技も、上がった後に使えるよう持っておく)。
+/// PP は覚える技の一覧と [actionCardMoveIDs] のすべての技について持つ (レベルで開放されていない技も、上がった後に使えるよう持っておく)。
 /// [maximumHitPointsPercent] は最大 HP に掛ける割合 (%) で、CPU の手持ちは [cpuHitPointsPercent]、補正しないなら 100。
 BattleMonster prepareBattleMonster({
   required MonsterDefinition definition,
   required int level,
   required int experience,
-  required List<String> actionCardMoveIds,
+  required List<String> actionCardMoveIDs,
   required MasterData master,
   required int maximumHitPointsPercent,
 }) => BattleMonster(
@@ -102,18 +102,18 @@ BattleMonster prepareBattleMonster({
   state: MonsterState(
     level: level,
     experience: experience,
-    actionCardMoveIds: actionCardMoveIds,
+    actionCardMoveIDs: actionCardMoveIDs,
     currentHitPoints: maximumHitPoints(
       definition: definition,
       level: level,
       maximumHitPointsPercent: maximumHitPointsPercent,
     ),
     remainingPowerPoints: {
-      for (final moveId in {
-        for (final learnsetEntry in definition.learnset) learnsetEntry.moveId,
-        ...actionCardMoveIds,
+      for (final moveID in {
+        for (final learnsetEntry in definition.learnset) learnsetEntry.moveID,
+        ...actionCardMoveIDs,
       })
-        moveId: master.moveById(moveId: moveId).powerPoints,
+        moveID: master.moveByID(moveID: moveID).powerPoints,
     },
     statModifierPercents: const {},
     statusConditions: const {},
@@ -224,62 +224,62 @@ BattleState startBattle({
 /// (functions/src/generation/monster_stats.ts の `STARTING_MOVE_COUNT`) と同じ値。
 const int maximumEquippedMoveCount = 4;
 
-/// [learnset] と [actionCardMoveIds] (Action Card で覚えさせた技の ID。覚えさせた順) のモンスターが [level] で使える技 (技の枠) の ID を、枠の順で返す。
-/// 枠は「[learnset] のうち開放レベルが [level] 以下の技を一覧の順に並べ、[actionCardMoveIds] を覚えさせた順で続けた列」の後ろ
-/// [maximumEquippedMoveCount] 個で、新しく覚えた技が一番古い技と入れ替わる。[actionCardMoveIds] の技は開放レベルに関係なく使え、
+/// [learnset] と [actionCardMoveIDs] (Action Card で覚えさせた技の ID。覚えさせた順) のモンスターが [level] で使える技 (技の枠) の ID を、枠の順で返す。
+/// 枠は「[learnset] のうち開放レベルが [level] 以下の技を一覧の順に並べ、[actionCardMoveIDs] を覚えさせた順で続けた列」の後ろ
+/// [maximumEquippedMoveCount] 個で、新しく覚えた技が一番古い技と入れ替わる。[actionCardMoveIDs] の技は開放レベルに関係なく使え、
 /// [learnset] 側の列からは外す (同じ技が枠に 2 つ並ばないため)。規則は documents/game-rules.md「技」で、
-/// Functions の functions/src/action_card_rules.ts の `equippedMoveIds` と同じ技を返す (共通のテストケースは test/fixtures/equipped_move_cases.json)。
+/// Functions の functions/src/action_card_rules.ts の `equippedMoveIDs` と同じ技を返す (共通のテストケースは test/fixtures/equipped_move_cases.json)。
 /// 名前は issue #273 の完了条件が名指しした関数名のまま。Action Card の技は覚える技の一覧の項目 (開放レベル) を持たないため、
 /// 返すのは技の ID。
 List<String> equippedLearnsetEntries({
   required List<LearnsetEntry> learnset,
-  required List<String> actionCardMoveIds,
+  required List<String> actionCardMoveIDs,
   required int level,
 }) {
-  final moveIds = [
+  final moveIDs = [
     for (final learnsetEntry in learnset)
       if (learnsetEntry.unlockLevel <= level &&
-          !actionCardMoveIds.contains(learnsetEntry.moveId))
-        learnsetEntry.moveId,
-    ...actionCardMoveIds,
+          !actionCardMoveIDs.contains(learnsetEntry.moveID))
+        learnsetEntry.moveID,
+    ...actionCardMoveIDs,
   ];
-  return moveIds.sublist(
-    math.max(0, moveIds.length - maximumEquippedMoveCount),
+  return moveIDs.sublist(
+    math.max(0, moveIDs.length - maximumEquippedMoveCount),
   );
 }
 
-/// 技の枠 ([equippedLearnsetEntries]) が [previousMoveIds] から [newMoveIds] に変わった時の変化を返す。
-/// `learnedMoveIds` は新しく枠に入った技、`forgottenMoveIds` は入れ替わりで枠から外れた技で、どちらも枠の順。
+/// 技の枠 ([equippedLearnsetEntries]) が [previousMoveIDs] から [newMoveIDs] に変わった時の変化を返す。
+/// `learnedMoveIDs` は新しく枠に入った技、`forgottenMoveIDs` は入れ替わりで枠から外れた技で、どちらも枠の順。
 /// 枠が変わらなければどちらも空 (バトルの後のレベルアップと、Action Card の技を覚えさせる前に、入れ替わる技を知らせるため。#247)。
-({List<String> learnedMoveIds, List<String> forgottenMoveIds})
+({List<String> learnedMoveIDs, List<String> forgottenMoveIDs})
 equippedMoveChanges({
-  required List<String> previousMoveIds,
-  required List<String> newMoveIds,
+  required List<String> previousMoveIDs,
+  required List<String> newMoveIDs,
 }) => (
-  learnedMoveIds: [
-    for (final moveId in newMoveIds)
-      if (!previousMoveIds.contains(moveId)) moveId,
+  learnedMoveIDs: [
+    for (final moveID in newMoveIDs)
+      if (!previousMoveIDs.contains(moveID)) moveID,
   ],
-  forgottenMoveIds: [
-    for (final moveId in previousMoveIds)
-      if (!newMoveIds.contains(moveId)) moveId,
+  forgottenMoveIDs: [
+    for (final moveID in previousMoveIDs)
+      if (!newMoveIDs.contains(moveID)) moveID,
   ],
 );
 
 /// [learnset] のうち [level] より後に開放される技の、最も低い開放レベル。もう覚える技が無ければ null。
-/// [actionCardMoveIds] に入った技は、開放しても枠が変わらないため数えない。[actionCardMoveIds] が枠の数以上ある時は、
+/// [actionCardMoveIDs] に入った技は、開放しても枠が変わらないため数えない。[actionCardMoveIDs] が枠の数以上ある時は、
 /// 開放した技は列で Action Card の技より前に並んで枠に入らないため、null。
 int? nextLearnsetUnlockLevel({
   required List<LearnsetEntry> learnset,
-  required List<String> actionCardMoveIds,
+  required List<String> actionCardMoveIDs,
   required int level,
-}) => actionCardMoveIds.length >= maximumEquippedMoveCount
+}) => actionCardMoveIDs.length >= maximumEquippedMoveCount
     ? null
     : learnset
           .where(
             (learnsetEntry) =>
                 learnsetEntry.unlockLevel > level &&
-                !actionCardMoveIds.contains(learnsetEntry.moveId),
+                !actionCardMoveIDs.contains(learnsetEntry.moveID),
           )
           .map((learnsetEntry) => learnsetEntry.unlockLevel)
           .fold<int?>(
@@ -301,30 +301,30 @@ List<Move> selectableMoves({
   required BattleMonster monster,
   required MasterData master,
 }) => [
-  for (final moveId in equippedLearnsetEntries(
+  for (final moveID in equippedLearnsetEntries(
     learnset: monster.definition.learnset,
-    actionCardMoveIds: monster.state.actionCardMoveIds,
+    actionCardMoveIDs: monster.state.actionCardMoveIDs,
     level: monster.state.level,
   ))
-    if ((monster.state.remainingPowerPoints[moveId] ?? 0) > 0)
-      master.moveById(moveId: moveId),
+    if ((monster.state.remainingPowerPoints[moveID] ?? 0) > 0)
+      master.moveByID(moveID: moveID),
 ];
 
-/// 攻撃側の技の属性 [moveElementTypeId] から、防御側の属性 [defenderElementTypeIds] への倍率を返す。
-/// 防御側が属性を複数持つ時は、属性ごとの倍率の積にする。[moveElementTypeId] が null (わるあがき) なら 1。
+/// 攻撃側の技の属性 [moveElementTypeID] から、防御側の属性 [defenderElementTypeIDs] への倍率を返す。
+/// 防御側が属性を複数持つ時は、属性ごとの倍率の積にする。[moveElementTypeID] が null (わるあがき) なら 1。
 double totalTypeMultiplier({
-  required String? moveElementTypeId,
-  required List<String> defenderElementTypeIds,
+  required String? moveElementTypeID,
+  required List<String> defenderElementTypeIDs,
   required MasterData master,
-}) => moveElementTypeId == null
+}) => moveElementTypeID == null
     ? 1
-    : defenderElementTypeIds.fold<double>(
+    : defenderElementTypeIDs.fold<double>(
         1,
-        (product, defenderElementTypeId) =>
+        (product, defenderElementTypeID) =>
             product *
             master.typeMultiplier(
-              attackerElementTypeId: moveElementTypeId,
-              defenderElementTypeId: defenderElementTypeId,
+              attackerElementTypeID: moveElementTypeID,
+              defenderElementTypeID: defenderElementTypeID,
             ),
       );
 
@@ -340,8 +340,8 @@ double? moveTypeMultiplierAgainst({
         (move.specialEffect?.isOneHitKnockout ?? false)
     ? null
     : totalTypeMultiplier(
-        moveElementTypeId: move.elementTypeId,
-        defenderElementTypeIds: defender.definition.elementTypeIds,
+        moveElementTypeID: move.elementTypeID,
+        defenderElementTypeIDs: defender.definition.elementTypeIDs,
         master: master,
       );
 
@@ -417,7 +417,7 @@ bool canInflictStatusCondition({
 /// (同じ状態からは同じ行動を選び、プレイヤーの行動順・ダメージの乱数を変えないため)。
 BattleAction chooseCpuAction({
   required BattleState state,
-  required BattleSideId side,
+  required BattleSideID side,
   required MasterData master,
 }) {
   final attacker = state.partyOf(side: side).activeMember;
@@ -478,7 +478,7 @@ BattleAction chooseCpuAction({
   if (effectiveSupportMoves.isNotEmpty &&
       cpuRandom.nextUint32() % cpuSupportMoveChanceDenominator == 0) {
     return UseMoveAction(
-      moveId:
+      moveID:
           effectiveSupportMoves[cpuRandom.nextUint32() %
                   effectiveSupportMoves.length]
               .id,
@@ -489,7 +489,7 @@ BattleAction chooseCpuAction({
       .firstOrNull;
   if (oneHitKnockoutMove != null &&
       cpuRandom.nextUint32() % cpuOneHitKnockoutChanceDenominator == 0) {
-    return UseMoveAction(moveId: oneHitKnockoutMove.id);
+    return UseMoveAction(moveID: oneHitKnockoutMove.id);
   }
   final selfDestructMove = moves
       .where((move) => move.specialEffect?.selfDestructs ?? false)
@@ -498,7 +498,7 @@ BattleAction chooseCpuAction({
       attacker.state.currentHitPoints * cpuSelfDestructHitPointsDenominator <=
           effectiveStats(monster: attacker).hitPoints &&
       cpuRandom.nextUint32() % 2 == 0) {
-    return UseMoveAction(moveId: selfDestructMove.id);
+    return UseMoveAction(moveID: selfDestructMove.id);
   }
   Move? bestMove;
   var bestMultiplier = 0.0;
@@ -507,8 +507,8 @@ BattleAction chooseCpuAction({
       continue;
     }
     final multiplier = totalTypeMultiplier(
-      moveElementTypeId: move.elementTypeId,
-      defenderElementTypeIds: defender.definition.elementTypeIds,
+      moveElementTypeID: move.elementTypeID,
+      defenderElementTypeIDs: defender.definition.elementTypeIDs,
       master: master,
     );
     if (bestMove == null ||
@@ -523,7 +523,7 @@ BattleAction chooseCpuAction({
   // 通常の攻撃技が無ければわるあがき。一撃必殺・自爆は上の確率と HP の条件で選ばなかった時に使わない (利用者と同じ規則で、自爆を強いない)
   return bestMove == null
       ? const StruggleAction()
-      : UseMoveAction(moveId: bestMove.id);
+      : UseMoveAction(moveID: bestMove.id);
 }
 
 /// 両陣営の行動 [playerAction]・[opponentAction] で 1 ラウンド (両陣営 1 ターンずつ) を解決し、次の状態を返す。
@@ -553,8 +553,8 @@ BattleState advanceRound({
     throw StateError('決着済みのバトルは進められない');
   }
   final actions = {
-    BattleSideId.player: playerAction,
-    BattleSideId.opponent: opponentAction,
+    BattleSideID.player: playerAction,
+    BattleSideID.opponent: opponentAction,
   };
   for (final entry in actions.entries) {
     _validateAction(
@@ -566,8 +566,8 @@ BattleState advanceRound({
 
   final random = DeterministicRandom(seed: state.randomState);
   final parties = {
-    BattleSideId.player: state.player,
-    BattleSideId.opponent: state.opponent,
+    BattleSideID.player: state.player,
+    BattleSideID.opponent: state.opponent,
   };
   final events = [...state.events];
   var field = state.field;
@@ -601,18 +601,18 @@ BattleState advanceRound({
   }
 
   Move? moveOf({required BattleAction action}) => switch (action) {
-    UseMoveAction(:final moveId) => master.moveById(moveId: moveId),
+    UseMoveAction(:final moveID) => master.moveByID(moveID: moveID),
     StruggleAction() || SwitchMonsterAction() => null,
   };
   final playerSwitches = playerAction is SwitchMonsterAction;
   final playerPriority = moveOf(action: playerAction)?.priority ?? 0;
   final opponentPriority = moveOf(action: opponentAction)?.priority ?? 0;
   final playerSpeed = effectiveStats(
-    monster: parties[BattleSideId.player]!.activeMember,
+    monster: parties[BattleSideID.player]!.activeMember,
     field: field,
   ).speed;
   final opponentSpeed = effectiveStats(
-    monster: parties[BattleSideId.opponent]!.activeMember,
+    monster: parties[BattleSideID.opponent]!.activeMember,
     field: field,
   ).speed;
   // 交代は先制の度合い・素早さに関係なく技より先に行う (交代したモンスターが相手の技を受ける)
@@ -625,11 +625,11 @@ BattleState advanceRound({
       ? playerSpeed > opponentSpeed
       : random.nextUint32() % 2 == 0;
   final order = playerMovesFirst
-      ? [BattleSideId.player, BattleSideId.opponent]
-      : [BattleSideId.opponent, BattleSideId.player];
+      ? [BattleSideID.player, BattleSideID.opponent]
+      : [BattleSideID.opponent, BattleSideID.player];
 
   void replaceActiveState({
-    required BattleSideId side,
+    required BattleSideID side,
     required MonsterState monsterState,
   }) {
     parties[side] = _replaceActiveMemberState(
@@ -669,8 +669,8 @@ BattleState advanceRound({
         MonsterSwitchedInEvent(
           turnNumber: turnNumber,
           side: attackerSide,
-          monsterId: party.members[memberIndex].definition.id,
-          withdrawnMonsterId: attackerBeforeTurn.definition.id,
+          monsterID: party.members[memberIndex].definition.id,
+          withdrawnMonsterID: attackerBeforeTurn.definition.id,
         ),
       );
       continue;
@@ -700,8 +700,8 @@ BattleState advanceRound({
         ActionFailedEvent(
           turnNumber: turnNumber,
           side: attackerSide,
-          monsterId: attackerBeforeTurn.definition.id,
-          moveId: selectedMove?.id,
+          monsterID: attackerBeforeTurn.definition.id,
+          moveID: selectedMove?.id,
           reason: switch (incapacitatingKind) {
             StatusConditionKind.stun => ActionFailureReason.stun,
             StatusConditionKind.sleep => ActionFailureReason.sleep,
@@ -719,7 +719,7 @@ BattleState advanceRound({
     }
 
     var move = selectedMove;
-    String? replacedMoveId;
+    String? replacedMoveID;
     if (move != null &&
         attackerStatusConditions.containsKey(StatusConditionKind.confusion)) {
       final otherMoves = [
@@ -730,7 +730,7 @@ BattleState advanceRound({
           if (candidate.id != move.id) candidate,
       ];
       if (otherMoves.isNotEmpty && random.nextUint32() % 2 == 0) {
-        replacedMoveId = move.id;
+        replacedMoveID = move.id;
         move = otherMoves[random.nextUint32() % otherMoves.length];
       }
     }
@@ -743,8 +743,8 @@ BattleState advanceRound({
         ActionFailedEvent(
           turnNumber: turnNumber,
           side: attackerSide,
-          monsterId: attackerBeforeTurn.definition.id,
-          moveId: move?.id,
+          monsterID: attackerBeforeTurn.definition.id,
+          moveID: move?.id,
           reason: ActionFailureReason.paralysis,
         ),
       );
@@ -777,8 +777,8 @@ BattleState advanceRound({
         ActionFailedEvent(
           turnNumber: turnNumber,
           side: attackerSide,
-          monsterId: attacker.definition.id,
-          moveId: move?.id,
+          monsterID: attacker.definition.id,
+          moveID: move?.id,
           reason: ActionFailureReason.missed,
         ),
       );
@@ -795,8 +795,8 @@ BattleState advanceRound({
     final attackerStats = effectiveStats(monster: attacker, field: field);
     final defenderStats = effectiveStats(monster: defender, field: field);
     final typeMultiplier = totalTypeMultiplier(
-      moveElementTypeId: move?.elementTypeId,
-      defenderElementTypeIds: defender.definition.elementTypeIds,
+      moveElementTypeID: move?.elementTypeID,
+      defenderElementTypeIDs: defender.definition.elementTypeIDs,
       master: master,
     );
     final variables = move == null
@@ -847,7 +847,7 @@ BattleState advanceRound({
       if (defenderBurn != null) {
         calculated = calculated * (10 + defenderBurn.stackCount) ~/ 10;
       }
-      if (attackerSide == BattleSideId.opponent) {
+      if (attackerSide == BattleSideID.opponent) {
         calculated = math.max(
           1,
           calculated * state.opponentDamagePercent ~/ 100,
@@ -906,8 +906,8 @@ BattleState advanceRound({
       MoveUsedEvent(
         turnNumber: turnNumber,
         attackerSide: attackerSide,
-        attackerMonsterId: attacker.definition.id,
-        moveId: move?.id,
+        attackerMonsterID: attacker.definition.id,
+        moveID: move?.id,
         typeMultiplier: typeMultiplier,
         damage: damage,
         defenderRemainingHitPoints: defenderRemainingHitPoints,
@@ -918,7 +918,7 @@ BattleState advanceRound({
         ],
         recoveredHitPoints: recoveredHitPoints,
         attackerRemainingHitPoints: attackerRemainingHitPoints,
-        replacedMoveId: replacedMoveId,
+        replacedMoveID: replacedMoveID,
         isOneHitKnockout: isOneHitKnockout,
         selfDestructed: selfDestructs,
       ),
@@ -942,14 +942,14 @@ BattleState advanceRound({
           StatusConditionCuredEvent(
             turnNumber: turnNumber,
             side: defenderSide,
-            monsterId: defenderAfterDamage.definition.id,
+            monsterID: defenderAfterDamage.definition.id,
             kinds: const [StatusConditionKind.frozen],
             cause: StatusConditionCureCause.damaged,
           ),
         );
       }
       if (move != null &&
-          move.elementTypeId == poisonElementTypeId &&
+          move.elementTypeID == poisonElementTypeID &&
           move.category == MoveCategory.attack &&
           parties[defenderSide]!.activeMember.state.statusConditions
               .containsKey(StatusConditionKind.poison)) {
@@ -995,7 +995,7 @@ BattleState advanceRound({
           StatusConditionCuredEvent(
             turnNumber: turnNumber,
             side: attackerSide,
-            monsterId: attackerAfterEffects.definition.id,
+            monsterID: attackerAfterEffects.definition.id,
             kinds: attackerAfterEffects.state.statusConditions.keys.toList(),
             cause: StatusConditionCureCause.move,
           ),
@@ -1030,7 +1030,7 @@ BattleState advanceRound({
         MonsterFaintedEvent(
           turnNumber: turnNumber,
           side: defenderSide,
-          monsterId: defender.definition.id,
+          monsterID: defender.definition.id,
         ),
       );
     }
@@ -1039,7 +1039,7 @@ BattleState advanceRound({
         MonsterFaintedEvent(
           turnNumber: turnNumber,
           side: attackerSide,
-          monsterId: attacker.definition.id,
+          monsterID: attacker.definition.id,
         ),
       );
     }
@@ -1052,12 +1052,12 @@ BattleState advanceRound({
   }
 
   // 両陣営の手持ちがすべて倒れた時 (自爆で相打ち) は利用者の勝ちにする (documents/game-rules.md「勝敗」)
-  final winner = parties[BattleSideId.opponent]!.isDefeated
-      ? BattleSideId.player
-      : parties[BattleSideId.player]!.isDefeated
-      ? BattleSideId.opponent
+  final winner = parties[BattleSideID.opponent]!.isDefeated
+      ? BattleSideID.player
+      : parties[BattleSideID.player]!.isDefeated
+      ? BattleSideID.opponent
       : null;
-  for (final side in BattleSideId.values) {
+  for (final side in BattleSideID.values) {
     final party = parties[side]!;
     if (!party.activeMember.isFainted || party.isDefeated) {
       continue;
@@ -1073,27 +1073,27 @@ BattleState advanceRound({
       MonsterSwitchedInEvent(
         turnNumber: lastTurnNumber,
         side: side,
-        monsterId: party.members[nextMemberIndex].definition.id,
-        withdrawnMonsterId: null,
+        monsterID: party.members[nextMemberIndex].definition.id,
+        withdrawnMonsterID: null,
       ),
     );
   }
 
   if (winner != null) {
-    for (final side in BattleSideId.values) {
+    for (final side in BattleSideID.values) {
       final party = parties[side]!;
       // 自分からの交代で手持ちは順不同に場に出るため、場に出たことがあるモンスターはログから求める
       // (先頭のモンスターと、交代で場に出たモンスター)
-      final participantMonsterIds = {
+      final participantMonsterIDs = {
         party.members.first.definition.id,
         for (final event in events)
           if (event is MonsterSwitchedInEvent && event.side == side)
-            event.monsterId,
+            event.monsterID,
       };
       parties[side] = BattleParty(
         members: [
           for (final member in party.members)
-            participantMonsterIds.contains(member.definition.id)
+            participantMonsterIDs.contains(member.definition.id)
                 ? BattleMonster(
                     definition: member.definition,
                     maximumHitPointsPercent: member.maximumHitPointsPercent,
@@ -1107,13 +1107,13 @@ BattleState advanceRound({
         activeMemberIndex: party.activeMemberIndex,
       );
       for (final member in parties[side]!.members.where(
-        (member) => participantMonsterIds.contains(member.definition.id),
+        (member) => participantMonsterIDs.contains(member.definition.id),
       )) {
         events.add(
           LevelUpEvent(
             turnNumber: lastTurnNumber,
             side: side,
-            monsterId: member.definition.id,
+            monsterID: member.definition.id,
             newLevel: member.state.level,
           ),
         );
@@ -1123,8 +1123,8 @@ BattleState advanceRound({
   }
 
   return BattleState(
-    player: parties[BattleSideId.player]!,
-    opponent: parties[BattleSideId.opponent]!,
+    player: parties[BattleSideID.player]!,
+    opponent: parties[BattleSideID.opponent]!,
     turnNumber: state.turnNumber + 2,
     randomState: random.state,
     events: events,
@@ -1136,14 +1136,14 @@ BattleState advanceRound({
 }
 
 /// 毒の属性の識別子 (master の `elementTypes`)。この属性の攻撃技を受けた毒のモンスターは毒の重なりが増える。
-const String poisonElementTypeId = 'poison';
+const String poisonElementTypeID = 'poison';
 
 /// [side] の場のモンスターに状態 [kind] を付け、変化があれば [events] に [StatusConditionInflictedEvent] を足す。
 /// 重なる状態 (毒・やけど) は上限まで重なりが増え、眠気は 2 回目で眠りに置き換わり、呪い・興奮は 2 回目は変わらない。
 /// 残りのターンを持つ状態は、既に持っていれば残りを引き直す。眠りを付ける時は眠気を消す。
 void _inflictStatusCondition({
-  required Map<BattleSideId, BattleParty> parties,
-  required BattleSideId side,
+  required Map<BattleSideID, BattleParty> parties,
+  required BattleSideID side,
   required StatusConditionKind kind,
   required int turnNumber,
   required List<BattleEvent> events,
@@ -1251,7 +1251,7 @@ void _inflictStatusCondition({
     StatusConditionInflictedEvent(
       turnNumber: turnNumber,
       side: side,
-      monsterId: monster.definition.id,
+      monsterID: monster.definition.id,
       kind: inflicted.kind,
       stackCount: inflicted.stackCount,
       replacedKind: replacedKind,
@@ -1280,8 +1280,8 @@ int _randomDuration({
 /// [side] のターンの終わりの処理。場のモンスターが倒れていなければ毒のダメージを受け (0 になれば倒れる)、
 /// 残りのターンを持つ状態を 1 減らして 0 になった状態を消す。
 void _endTurn({
-  required Map<BattleSideId, BattleParty> parties,
-  required BattleSideId side,
+  required Map<BattleSideID, BattleParty> parties,
+  required BattleSideID side,
   required int turnNumber,
   required List<BattleEvent> events,
 }) {
@@ -1301,7 +1301,7 @@ void _endTurn({
       StatusConditionDamageEvent(
         turnNumber: turnNumber,
         side: side,
-        monsterId: monster.definition.id,
+        monsterID: monster.definition.id,
         kind: StatusConditionKind.poison,
         damage: damage,
         remainingHitPoints: currentHitPoints,
@@ -1335,7 +1335,7 @@ void _endTurn({
       MonsterFaintedEvent(
         turnNumber: turnNumber,
         side: side,
-        monsterId: monster.definition.id,
+        monsterID: monster.definition.id,
       ),
     );
   } else if (expiredKinds.isNotEmpty) {
@@ -1343,7 +1343,7 @@ void _endTurn({
       StatusConditionCuredEvent(
         turnNumber: turnNumber,
         side: side,
-        monsterId: monster.definition.id,
+        monsterID: monster.definition.id,
         kinds: expiredKinds,
         cause: StatusConditionCureCause.expired,
       ),
@@ -1352,9 +1352,9 @@ void _endTurn({
 }
 
 /// [side] の相手の陣営を返す。
-BattleSideId _otherSide({required BattleSideId side}) => switch (side) {
-  BattleSideId.player => BattleSideId.opponent,
-  BattleSideId.opponent => BattleSideId.player,
+BattleSideID _otherSide({required BattleSideID side}) => switch (side) {
+  BattleSideID.player => BattleSideID.opponent,
+  BattleSideID.opponent => BattleSideID.player,
 };
 
 /// [party] の手持ちのうち、自分から交代して場に出せるモンスターの位置 (倒れていない・場に出ていない)。
@@ -1385,9 +1385,9 @@ void _validateAction({
       if (isSwitchBlocked(party: party)) {
         throw ArgumentError('交換不可の状態のため、交代できない');
       }
-    case UseMoveAction(:final moveId):
-      if (!moves.any((move) => move.id == moveId)) {
-        throw ArgumentError('技 $moveId は PP が 0 か、まだ使えない');
+    case UseMoveAction(:final moveID):
+      if (!moves.any((move) => move.id == moveID)) {
+        throw ArgumentError('技 $moveID は PP が 0 か、まだ使えない');
       }
     case StruggleAction():
       if (moves.any(isOrdinaryAttackMove)) {
@@ -1400,7 +1400,7 @@ void _validateAction({
 /// ([statModifierPercentMinimum]〜[statModifierPercentMaximum]) で丸めた変化の結果を返す。値が 0 の変化は除く。
 List<StatModifierChange> _statModifierChanges({
   required BattleMonster monster,
-  required BattleSideId side,
+  required BattleSideID side,
   required Map<StatKind, int> changes,
 }) => [
   for (final MapEntry(key: statKind, value: change) in changes.entries)

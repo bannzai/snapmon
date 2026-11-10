@@ -50,12 +50,12 @@ class MonsterDetailCard extends StatelessWidget {
       maximumEquippedMoveCount,
       (index) => null,
     );
-    for (final (index, moveId) in equippedLearnsetEntries(
+    for (final (index, moveID) in equippedLearnsetEntries(
       learnset: definition.learnset,
-      actionCardMoveIds: monster.actionCardMoveIds,
+      actionCardMoveIDs: monster.actionCardMoveIDs,
       level: monster.level,
     ).indexed) {
-      moveSlots[index] = definitions.moveById(moveId: moveId);
+      moveSlots[index] = definitions.moveByID(moveID: moveID);
     }
     return DecoratedBox(
       decoration: const BoxDecoration(
@@ -88,9 +88,9 @@ class MonsterDetailCard extends StatelessWidget {
                 Wrap(
                   spacing: 6,
                   children: [
-                    for (final elementTypeId in definition.elementTypeIds)
+                    for (final elementTypeID in definition.elementTypeIDs)
                       ElementTypeTag(
-                        elementTypeId: elementTypeId,
+                        elementTypeID: elementTypeID,
                         definitions: definitions,
                       ),
                   ],

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # 技のエフェクトのスプライトシート (assets/images/move_effects/) を PixelFX の固定のコミットから書き出す。
-# 書き出す素材は master (assets/master/master.json) の effects のうち `spriteSheet` を持つ項目の `pixelfxId` で、master が正。
+# 書き出す素材は master (assets/master/master.json) の effects のうち `spriteSheet` を持つ項目の `pixelfxID` で、master が正。
 # 繰り返し実行してよい (取得済みのソースは使い回し、書き出した物とライセンスを上書きし、master から参照が消えたシートは tmp/move_effects-stale/ へ退避する)。
 # 書き出した後、scripts/move_effects/postprocess_sprite_sheets.py でコマの間引き・余白の切り抜き・見える範囲の中心の記録を行う (理由は同スクリプトのヘッダー)。
 # 素材の中に見本の人形を描くもの (status/poisoned 等) は --no-actor でも消えないため、素材を足した時は書き出した PNG を目視で確かめる。
@@ -29,7 +29,7 @@ while IFS= read -r render_target; do
 done < <(python3 -I -c '
 import json, sys
 master = json.load(open(sys.argv[1]))
-print("\n".join(sorted({effect["pixelfxId"] for effect in master["effects"] if effect.get("spriteSheet")})))
+print("\n".join(sorted({effect["pixelfxID"] for effect in master["effects"] if effect.get("spriteSheet")})))
 ' "${master_file}")
 
 (

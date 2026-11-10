@@ -13,7 +13,7 @@ typedef ReadStorageImageBytes =
 /// 一度読んだ Storage の画像の中身を、パスごとにこの起動の間だけ持つインメモリのキャッシュ。
 /// 同じ画像を画面を開くたびに Storage から読み直さないため (Storage のダウンロードの数を減らす。#234)。
 /// パスで持ってよいのは、Storage の画像のパスが中身の変わらないものだけのため
-/// (`monsters/{monsterId}/art.png` は saved の後に作り直さず、アイコンは `users/{uid}/icons/{uploadId}.png` と登録のたびに別のパス)。
+/// (`monsters/{monsterID}/art.png` は saved の後に作り直さず、アイコンは `users/{uid}/icons/{uploadID}.png` と登録のたびに別のパス)。
 /// 読んでいる途中の同じパスの要求は 1 つの読み込みにまとめ、読めなかった (throw した・null だった) パスは残さず次の要求で読み直す
 /// (一時的な失敗でその起動の間ずっと描けないのを避けるため)。
 /// 状態 (持っている中身と読んでいる途中の Future) を持つため関数ではなく class にし、テストは別の instance で行う。

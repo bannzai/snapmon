@@ -86,7 +86,7 @@ void main() {
     final fourthMonster = sampleData.monsters[3];
     final dexStore = DexStore(definitions: sampleData.definitions)
       ..replaceAll(monsters: sampleData.monsters.take(4).toList());
-    await dexStore.removeFromParty(monsterId: firstMonster.definition.id);
+    await dexStore.removeFromParty(monsterID: firstMonster.definition.id);
     await pumpDexScreen(tester: tester, dexStore: dexStore, selectedScenes: []);
 
     expect(find.byKey(const Key('dex-empty-party-slot')), findsOneWidget);
@@ -114,7 +114,7 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    expect(dexStore.isInParty(monsterId: fourthMonster.definition.id), isTrue);
+    expect(dexStore.isInParty(monsterID: fourthMonster.definition.id), isTrue);
     expect(dexStore.party, hasLength(3));
     expect(find.byKey(const Key('dex-empty-party-slot')), findsNothing);
   });
@@ -137,7 +137,7 @@ void main() {
     final dexStore = DexStore(definitions: sampleData.definitions)
       ..applyServerSnapshot(
         monsters: sampleData.monsters.take(2).toList(),
-        partyMonsterIds: [
+        partyMonsterIDs: [
           for (final monster in sampleData.monsters.take(2))
             monster.definition.id,
           'monster-not-yet-in-dex',

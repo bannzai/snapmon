@@ -15,9 +15,9 @@ void main() {
       OwnedMonster(
         definition: sampleData.monsters[index].definition,
         level: level,
-        actionCardMoveIds: const [],
+        actionCardMoveIDs: const [],
         artPath: null,
-        definitionIds: const [],
+        definitionIDs: const [],
         decoration: null,
         decorationVersion: null,
       ),
@@ -107,7 +107,7 @@ void main() {
     });
 
     test('手持ちが 1 体なら相手も 1 体で、見本の絵を持たない (生成した) 手持ちはどの見本のモンスターも除かない', () {
-      final generatedParty = [generatedWaxMonster(monsterId: 'm1')];
+      final generatedParty = [generatedWaxMonster(monsterID: 'm1')];
       expect(
         {
           for (var randomSeed = 1; randomSeed <= 100; randomSeed++)

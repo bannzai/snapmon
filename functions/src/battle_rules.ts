@@ -25,28 +25,28 @@ export function battleDayKey({ now }: { now: Date }): string {
 /**
  * [value] がモンスターの ID の列 (空でない文字列を重複なく 1 件以上 [MAXIMUM_PARTY_SIZE] 件以下) かを判定する。
  */
-export function isMonsterIdList(value: unknown): value is string[] {
+export function isMonsterIDList(value: unknown): value is string[] {
   return (
     Array.isArray(value) &&
     value.length >= 1 &&
     value.length <= MAXIMUM_PARTY_SIZE &&
-    value.every((monsterId) => typeof monsterId === "string" && monsterId !== "" && !monsterId.includes("/")) &&
+    value.every((monsterID) => typeof monsterID === "string" && monsterID !== "" && !monsterID.includes("/")) &&
     new Set(value).size === value.length
   );
 }
 
 /**
- * 戦闘に出たモンスター [participantMonsterIds] が、バトルの開始時に記録した手持ち [partyMonsterIds] に含まれるかを判定する。
+ * 戦闘に出たモンスター [participantMonsterIDs] が、バトルの開始時に記録した手持ち [partyMonsterIDs] に含まれるかを判定する。
  * 手持ちに無いモンスターのレベルを上げさせないため。
  */
 export function isSubsetOfParty({
-  participantMonsterIds,
-  partyMonsterIds,
+  participantMonsterIDs,
+  partyMonsterIDs,
 }: {
-  participantMonsterIds: string[];
-  partyMonsterIds: string[];
+  participantMonsterIDs: string[];
+  partyMonsterIDs: string[];
 }): boolean {
-  return participantMonsterIds.every((monsterId) => partyMonsterIds.includes(monsterId));
+  return participantMonsterIDs.every((monsterID) => partyMonsterIDs.includes(monsterID));
 }
 
 /** 1 戦の後のレベルを返す。勝敗に関係なく 1 上がり、[MAXIMUM_LEVEL] で止まる。 */

@@ -74,7 +74,7 @@ void main() {
   /// 生成に時間がかかる状態を作る。null 以外なら、[appMonsterGenerator] の生成は complete するまで終わらない。
   Completer<void>? generationGate;
 
-  /// [pumpApp] のバトルの記録の開始が返す battleId と、記録の完了が返すレベル。
+  /// [pumpApp] のバトルの記録の開始が返す battleID と、記録の完了が返すレベル。
   /// 既定はログインしていない時の振る舞い (記録しない)。テストが [pumpApp] の前に変える。
   late Future<String?> Function() startBattleRecord;
   late Map<String, int> recordedLevels;
@@ -140,25 +140,25 @@ void main() {
     calls: generationCalls,
     albumPhoto: albumPhoto,
     uploadError: null,
-    requestGeneration: ({required requestId}) async {
+    requestGeneration: ({required requestID}) async {
       await generationGate?.future;
       dexStore.applyServerSnapshot(
         monsters: [
           ...dexStore.monsters,
-          generatedWaxMonster(monsterId: 'generated-$requestId'),
+          generatedWaxMonster(monsterID: 'generated-$requestID'),
         ],
-        partyMonsterIds: null,
+        partyMonsterIDs: null,
         definitions: definitionsWithWax(base: sampleData.definitions),
       );
       return GenerationResult(
-        requestId: requestId,
+        requestID: requestID,
         status: GenerationStatus.saved,
-        monsterId: 'generated-$requestId',
+        monsterID: 'generated-$requestID',
         rejectionReason: null,
         personDetected: false,
       );
     },
-    fetchGeneration: ({required requestId}) =>
+    fetchGeneration: ({required requestID}) =>
         throw StateError('fetchGeneration は呼ばない'),
   );
 
@@ -245,7 +245,7 @@ void main() {
           waitsForUserInteractionBeforeBackgroundMusic:
               audioWaitsForUserInteraction,
         ),
-        openUrl: ({required uri}) async {
+        openURL: ({required uri}) async {
           openedUris.add(uri);
           return true;
         },
@@ -312,7 +312,7 @@ void main() {
               sampleData: sampleData,
               dexStore: dexStore,
               sessionStore: sessionStore,
-              openUrl: ({required uri}) async {
+              openURL: ({required uri}) async {
                 openedUris.add(uri);
                 return true;
               },
@@ -510,8 +510,8 @@ void main() {
 
       // 図鑑は Firestore から後から届く
       dexStore.applyServerSnapshot(
-        monsters: [generatedWaxMonster(monsterId: 'm1')],
-        partyMonsterIds: null,
+        monsters: [generatedWaxMonster(monsterID: 'm1')],
+        partyMonsterIDs: null,
         definitions: definitionsWithWax(base: sampleData.definitions),
       );
       await tester.pumpAndSettle();
@@ -530,10 +530,10 @@ void main() {
       expect(find.byKey(const Key('title-continue')), findsNothing);
       dexStore
         ..connectServer(
-          savePartyMonsterIds: ({required monsterIds}) async {},
+          savePartyMonsterIDs: ({required monsterIDs}) async {},
           refreshDefinitions: () async => dexStore.applyServerSnapshot(
             monsters: sampleData.monsters,
-            partyMonsterIds: null,
+            partyMonsterIDs: null,
             definitions: sampleData.definitions,
           ),
         )
@@ -577,11 +577,11 @@ void main() {
         await tapStartFromAlbum(tester: tester);
         await chooseSubjectCutout(tester: tester, settles: true);
         final bornMonster = generatedWaxMonster(
-          monsterId: 'generated-request-1',
+          monsterID: 'generated-request-1',
         ).definition;
         expect(find.text('あたらしい なかま'), findsOneWidget);
         expect(find.text(bornMonster.name), findsOneWidget);
-        expect(generationCalls.uploadedRequestIds, ['request-1']);
+        expect(generationCalls.uploadedRequestIDs, ['request-1']);
         expect(
           generationCalls.loggedEvents.single.event,
           AnalyticsEvent.monsterGenerated,
@@ -626,7 +626,7 @@ void main() {
       await tapStartFromAlbum(tester: tester);
       expect(find.text('写真から選んではじめる'), findsOneWidget);
       expect(find.text('あたらしい なかま'), findsNothing);
-      expect(generationCalls.uploadedRequestIds, isEmpty);
+      expect(generationCalls.uploadedRequestIDs, isEmpty);
       // 押したことは選ばなくても数える (押した数に対する生成の数を見るため)
       expect(titleEvents.last.event, AnalyticsEvent.titleAction);
       expect(titleEvents.last.parameters, {'action': 'album'});
@@ -670,7 +670,7 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('写真から選んではじめる'), findsOneWidget);
       expect(find.text('つながりませんでした'), findsNothing);
-      expect(generationCalls.uploadedRequestIds, isEmpty);
+      expect(generationCalls.uploadedRequestIDs, isEmpty);
 
       await tester.tap(find.byKey(const Key('title-album')));
       await tester.pumpAndSettle();
@@ -739,7 +739,7 @@ void main() {
       expect(find.text('設定'), findsOneWidget);
       expect(find.text('データを引き継ぐ'), findsOneWidget);
       expect(find.text('アカウントを削除'), findsOneWidget);
-      expect(generationCalls.uploadedRequestIds, isEmpty);
+      expect(generationCalls.uploadedRequestIDs, isEmpty);
 
       // 戻るとタイトルに戻る (ホームの画面には入らない)。pageBack は英語の tooltip (Back) で探すため型で探す
       await tester.tap(find.byType(BackButton));
@@ -937,7 +937,7 @@ void main() {
                 displayName: 'ろうそくや $index',
                 iconPath: null,
                 monsters: [
-                  generatedWaxMonster(monsterId: 'opponent-wax-$index'),
+                  generatedWaxMonster(monsterID: 'opponent-wax-$index'),
                 ],
               ),
           ],
@@ -959,12 +959,12 @@ void main() {
         await tester.pump();
         await tester.pump(const Duration(milliseconds: 500));
         // 切り抜くかを選ぶまでは、生成を始めず相手も探さない
-        expect(generationCalls.requestedRequestIds, isEmpty);
+        expect(generationCalls.requestedRequestIDs, isEmpty);
         expect(find.text('相手を探しています'), findsNothing);
         // 相手を探す表示の進捗は止まらないため、pumpAndSettle を使わず時間を指定して進める
         await chooseSubjectCutout(tester: tester, settles: false);
         // 生成はまだ終わっていない
-        expect(generationCalls.requestedRequestIds, ['request-1']);
+        expect(generationCalls.requestedRequestIDs, ['request-1']);
         expect(find.text('相手を探しています'), findsOneWidget);
         expect(find.text('あたらしい なかま'), findsNothing);
         expect(find.byType(BattleScreen), findsNothing);
@@ -972,14 +972,14 @@ void main() {
         generationGate!.complete();
         await tester.pump();
         await tester.pump(const Duration(milliseconds: 100));
-        const bornMonsterId = 'generated-request-1';
+        const bornMonsterID = 'generated-request-1';
         expect(dexStore.party.map((monster) => monster.definition.id), [
-          bornMonsterId,
+          bornMonsterID,
         ]);
         // 相手は CPU トレーナーのどれか (seed で選ぶ)
         expect(find.textContaining(RegExp(r'^CPU .+ があらわれた$')), findsOneWidget);
         expect(pvpCalls.fetchOpponentsCount, 0);
-        expect(pvpCalls.fetchedDefinitionIds, isEmpty);
+        expect(pvpCalls.fetchedDefinitionIDs, isEmpty);
 
         await tester.pump(const Duration(seconds: 2));
         await tester.pump(const Duration(seconds: 1));
@@ -993,7 +993,7 @@ void main() {
 
         await playFirstBattleUntilFinished(tester: tester);
         final bornMonster = generatedWaxMonster(
-          monsterId: bornMonsterId,
+          monsterID: bornMonsterID,
         ).definition;
         // 生まれたカードと勝敗が同じ画面に出る
         expect(find.text('あたらしい なかま'), findsOneWidget);
@@ -1225,13 +1225,13 @@ void main() {
       await tester.pumpAndSettle();
       await chooseSubjectCutout(tester: tester, settles: true);
       final bornMonster = generatedWaxMonster(
-        monsterId: 'generated-request-1',
+        monsterID: 'generated-request-1',
       ).definition;
       expect(find.text('あたらしい なかま'), findsOneWidget);
       expect(find.text(bornMonster.name), findsOneWidget);
       // AI 生成の開示は利用規約・プライバシーポリシー・ストアの説明文で行い、画面には出さない
       expect(find.textContaining('AI が'), findsNothing);
-      expect(generationCalls.uploadedRequestIds, ['request-1']);
+      expect(generationCalls.uploadedRequestIDs, ['request-1']);
       expect(
         generationCalls.loggedEvents.single.event,
         AnalyticsEvent.monsterGenerated,
@@ -1289,7 +1289,7 @@ void main() {
       await tester.pumpAndSettle();
 
       final bornMonster = generatedWaxMonster(
-        monsterId: 'generated-request-1',
+        monsterID: 'generated-request-1',
       ).definition;
       final rendered = shareCalls.renderedCards.single;
       expect(rendered.format, ShareCardFormat.portrait);
@@ -1478,7 +1478,7 @@ void main() {
       await tester.pumpAndSettle();
       // fakeMonsterGenerator のカメラの一覧は空
       expect(find.textContaining('カメラが使えません\nアルバムから選んでください'), findsOneWidget);
-      expect(generationCalls.uploadedRequestIds, isEmpty);
+      expect(generationCalls.uploadedRequestIDs, isEmpty);
     });
 
     testWidgets(
@@ -1546,16 +1546,16 @@ void main() {
         isDeveloperMenuEnabled: false,
         startsCameraOnCaptureOpen: false,
       );
-      final waxMonster = generatedWaxMonster(monsterId: 'm1');
+      final waxMonster = generatedWaxMonster(monsterID: 'm1');
       var refreshCount = 0;
       dexStore
         ..connectServer(
-          savePartyMonsterIds: ({required monsterIds}) async {},
+          savePartyMonsterIDs: ({required monsterIDs}) async {},
           refreshDefinitions: () async {
             refreshCount++;
             dexStore.applyServerSnapshot(
               monsters: null,
-              partyMonsterIds: null,
+              partyMonsterIDs: null,
               definitions: definitionsWithWax(base: sampleData.definitions),
             );
           },
@@ -1563,7 +1563,7 @@ void main() {
         // 読み直す前の定義には、このモンスターの属性・技が無い
         ..applyServerSnapshot(
           monsters: [waxMonster],
-          partyMonsterIds: [waxMonster.definition.id],
+          partyMonsterIDs: [waxMonster.definition.id],
           definitions: sampleData.definitions,
         );
       await tester.tap(find.byKey(const Key('capture-open-opponent')));
@@ -1596,7 +1596,7 @@ void main() {
       dexStore
         ..replaceAll(monsters: sampleData.monsters)
         ..connectServer(
-          savePartyMonsterIds: ({required monsterIds}) async {},
+          savePartyMonsterIDs: ({required monsterIDs}) async {},
           refreshDefinitions: () {
             refreshCount++;
             return pendingRefresh.future;
@@ -1629,10 +1629,10 @@ void main() {
       );
       dexStore
         ..connectServer(
-          savePartyMonsterIds: ({required monsterIds}) async {},
+          savePartyMonsterIDs: ({required monsterIDs}) async {},
           refreshDefinitions: () async => dexStore.applyServerSnapshot(
             monsters: sampleData.monsters,
-            partyMonsterIds: null,
+            partyMonsterIDs: null,
             definitions: sampleData.definitions,
           ),
         )
@@ -1660,7 +1660,7 @@ void main() {
       dexStore
         ..replaceAll(monsters: sampleData.monsters)
         ..connectServer(
-          savePartyMonsterIds: ({required monsterIds}) async {},
+          savePartyMonsterIDs: ({required monsterIDs}) async {},
           refreshDefinitions: () async =>
               throw StateError('Firestore に master が投入されていません'),
         );
@@ -1686,10 +1686,10 @@ void main() {
         isDeveloperMenuEnabled: false,
         startsCameraOnCaptureOpen: false,
       );
-      final waxMonster = generatedWaxMonster(monsterId: 'm1');
+      final waxMonster = generatedWaxMonster(monsterID: 'm1');
       dexStore.applyServerSnapshot(
         monsters: [waxMonster, ...sampleData.monsters],
-        partyMonsterIds: [waxMonster.definition.id],
+        partyMonsterIDs: [waxMonster.definition.id],
         definitions: definitionsWithWax(base: sampleData.definitions),
       );
       await tester.tap(find.byKey(const Key('capture-open-dex')));
@@ -1746,7 +1746,7 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.text('手持ちに入れる'));
       await tester.pumpAndSettle();
-      expect(dexStore.isInParty(monsterId: benchMonster.id), isTrue);
+      expect(dexStore.isInParty(monsterID: benchMonster.id), isTrue);
       expect(dexStore.party, hasLength(3));
     });
 
@@ -1893,7 +1893,7 @@ void main() {
       1,
     );
     expect(find.text('ログインしていないため記録していません'), findsOneWidget);
-    expect(battleCalls.startedPartyMonsterIds, [
+    expect(battleCalls.startedPartyMonsterIDs, [
       [for (final monster in partyBefore) monster.definition.id],
     ]);
     expect(battleCalls.loggedEvents.single.event.eventName, 'battle_completed');
@@ -1947,7 +1947,7 @@ void main() {
       await tester.pump(const Duration(seconds: 5));
     }
     expect(find.text('記録しました'), findsOneWidget);
-    expect(battleCalls.completedBattles.single.battleId, 'battle-1');
+    expect(battleCalls.completedBattles.single.battleID, 'battle-1');
     expect(dexStore.party.first.level, 50);
   });
 
@@ -2009,7 +2009,7 @@ void main() {
               startBattleRecord: () async => null,
               recordedLevels: const {},
             ),
-            onPlayerLevelsChanged: ({required levelsByMonsterId}) {},
+            onPlayerLevelsChanged: ({required levelsByMonsterID}) {},
             cardSharer: fakeCardSharer(
               calls: RecordedShareCalls(),
               artImage: null,
@@ -2064,7 +2064,7 @@ void main() {
     });
 
     testWidgets('リンクを開けない時と開く時に例外になった時は、そのことを出す', (tester) async {
-      Future<void> pumpSettings({required OpenUrl openUrl}) async {
+      Future<void> pumpSettings({required OpenURL openURL}) async {
         final settingsSessionStore = fakeSessionStore(
           resumedUid: 'uid-resumed',
           failureCount: 0,
@@ -2093,7 +2093,7 @@ void main() {
                   artImage: null,
                   shareResultStatus: ShareResultStatus.success,
                 ),
-                openUrl: openUrl,
+                openURL: openURL,
                 isDeveloperMenuEnabled: false,
                 accountStore: fakeAccountStore(
                   sessionStore: settingsSessionStore,
@@ -2111,11 +2111,11 @@ void main() {
         await tester.pumpAndSettle();
       }
 
-      await pumpSettings(openUrl: ({required uri}) async => false);
+      await pumpSettings(openURL: ({required uri}) async => false);
       expect(find.text('$contactUri を開けませんでした'), findsOneWidget);
 
       await pumpSettings(
-        openUrl: ({required uri}) async =>
+        openURL: ({required uri}) async =>
             throw Exception('ACTIVITY_NOT_FOUND'),
       );
       expect(find.text('Exception: ACTIVITY_NOT_FOUND'), findsOneWidget);
@@ -2809,7 +2809,7 @@ void main() {
         startsCameraOnCaptureOpen: false,
       );
       dexStore.connectServer(
-        savePartyMonsterIds: ({required monsterIds}) async {},
+        savePartyMonsterIDs: ({required monsterIDs}) async {},
         refreshDefinitions: () async {},
       );
       await tester.tap(find.byTooltip('設定'));

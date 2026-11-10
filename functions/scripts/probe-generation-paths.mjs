@@ -109,9 +109,9 @@ function describeExpectation({ pathExpectation, photoExpectation }) {
 
 /**
  * 1 枚の結果を期待と突き合わせ、合わない理由を返す。合えば undefined。
- * `photoNamesByMonsterId` は、それまでに saved で生まれたモンスターの ID から写真への対応。
+ * `photoNamesByMonsterID` は、それまでに saved で生まれたモンスターの ID から写真への対応。
  */
-export function findMismatch({ pathExpectation, photoExpectation, outcome, photoNamesByMonsterId }) {
+export function findMismatch({ pathExpectation, photoExpectation, outcome, photoNamesByMonsterID }) {
   const expected = pathExpectation.expected;
   if (outcome.status !== expected.status) {
     return `status が ${expected.status} ではなく ${outcome.status}`;
@@ -124,9 +124,9 @@ export function findMismatch({ pathExpectation, photoExpectation, outcome, photo
     return `personDetected が ${expected.personDetected} ではなく ${outcome.personDetected}`;
   }
   if (photoExpectation.duplicateOf) {
-    const duplicatePhotoName = photoNamesByMonsterId.get(outcome.monsterId);
+    const duplicatePhotoName = photoNamesByMonsterID.get(outcome.monsterID);
     if (duplicatePhotoName !== photoExpectation.duplicateOf) {
-      return `同じ被写体と判定した相手が ${photoExpectation.duplicateOf} ではなく ${duplicatePhotoName ?? `不明なモンスター ${outcome.monsterId}`}`;
+      return `同じ被写体と判定した相手が ${photoExpectation.duplicateOf} ではなく ${duplicatePhotoName ?? `不明なモンスター ${outcome.monsterID}`}`;
     }
   }
   return undefined;
@@ -135,23 +135,23 @@ export function findMismatch({ pathExpectation, photoExpectation, outcome, photo
 /**
  * 写真を順に `generatePhoto` に渡し、結果と判定の行を返す。
  * `generatePhoto({ photoName, photo })` は 1 枚を生成して待つ関数で、
- * `{ status, rejectionReason?, personDetected?, monsterId?, monsterName?, elementTypeIds?, claudeUsages?, jevInputTokens?, failureMessage? }` を返す。
+ * `{ status, rejectionReason?, personDetected?, monsterID?, monsterName?, elementTypeIDs?, claudeUsages?, jevInputTokens?, failureMessage? }` を返す。
  * 同じ被写体の判定のため、すべての写真を同じユーザーで生成する関数を渡す。`onRow` は 1 枚が終わるたびに呼ぶ。
  */
 export async function probeGenerationPaths({ fixturesDirectory = PHOTOS_FIXTURES_DIRECTORY, expectations, pathNames, generatePhoto, onRow = () => {} }) {
-  const photoNamesByMonsterId = new Map();
+  const photoNamesByMonsterID = new Map();
   const rows = [];
   for (const { photoName, pathExpectation, photoExpectation } of listProbePhotos({ fixturesDirectory, expectations, pathNames })) {
     const outcome = await generatePhoto({ photoName, photo: readFileSync(path.join(fixturesDirectory, photoName)) });
-    if (outcome.status === "saved" && outcome.monsterId) {
-      photoNamesByMonsterId.set(outcome.monsterId, photoName);
+    if (outcome.status === "saved" && outcome.monsterID) {
+      photoNamesByMonsterID.set(outcome.monsterID, photoName);
     }
-    const mismatch = findMismatch({ pathExpectation, photoExpectation, outcome, photoNamesByMonsterId });
+    const mismatch = findMismatch({ pathExpectation, photoExpectation, outcome, photoNamesByMonsterID });
     const row = {
       photoName,
       expected: describeExpectation({ pathExpectation, photoExpectation }),
       ...outcome,
-      duplicateOfPhotoName: outcome.status === "duplicate" ? photoNamesByMonsterId.get(outcome.monsterId) : undefined,
+      duplicateOfPhotoName: outcome.status === "duplicate" ? photoNamesByMonsterID.get(outcome.monsterID) : undefined,
       verdict: mismatch ? "FAIL" : "PASS",
       mismatch,
     };
@@ -183,7 +183,7 @@ export function formatResultTable(rows) {
         [row.status, row.rejectionReason, row.failureMessage].filter(Boolean).join(" "),
         row.mismatch ? `FAIL: ${row.mismatch}` : "PASS",
         row.monsterName,
-        (row.elementTypeIds ?? []).join(", "),
+        (row.elementTypeIDs ?? []).join(", "),
         row.duplicateOfPhotoName,
         row.claudeUsages?.length ? row.claudeUsages.map((usage) => `${usage.inputTokens} / ${usage.outputTokens}`).join(", ") : "",
         row.jevInputTokens ?? "",
@@ -200,20 +200,20 @@ export function formatResultTable(rows) {
 }
 
 /** プロジェクトの各サービスの URL。Emulator のポートは firebase.json の emulators。 */
-function serviceEndpoints(projectId) {
-  if (projectId === EMULATOR_PROJECT_ID) {
+function serviceEndpoints(projectID) {
+  if (projectID === EMULATOR_PROJECT_ID) {
     return {
       identityToolkit: "http://127.0.0.1:9099/identitytoolkit.googleapis.com/v1",
       storage: `http://127.0.0.1:9199/v0/b/${STORAGE_BUCKET_NAME}/o`,
-      functions: `http://127.0.0.1:5001/${projectId}/asia-northeast1`,
-      firestore: `http://127.0.0.1:8080/v1/projects/${projectId}/databases/(default)/documents`,
+      functions: `http://127.0.0.1:5001/${projectID}/asia-northeast1`,
+      firestore: `http://127.0.0.1:8080/v1/projects/${projectID}/databases/(default)/documents`,
     };
   }
   return {
     identityToolkit: "https://identitytoolkit.googleapis.com/v1",
     storage: `https://firebasestorage.googleapis.com/v0/b/${STORAGE_BUCKET_NAME}/o`,
-    functions: `https://asia-northeast1-${projectId}.cloudfunctions.net`,
-    firestore: `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents`,
+    functions: `https://asia-northeast1-${projectID}.cloudfunctions.net`,
+    firestore: `https://firestore.googleapis.com/v1/projects/${projectID}/databases/(default)/documents`,
   };
 }
 
@@ -249,8 +249,8 @@ function decodeFirestoreValue(value) {
  * 匿名ユーザーで写真を生成する `generatePhoto` と、後始末の `deleteUser` を作る。
  * 返す値の `uid` は、作った匿名ユーザーの uid。
  */
-async function createHttpGenerationSession({ projectId, apiKey }) {
-  const endpoints = serviceEndpoints(projectId);
+async function createHttpGenerationSession({ projectID, apiKey }) {
+  const endpoints = serviceEndpoints(projectID);
   const signUpResponse = await fetch(`${endpoints.identityToolkit}/accounts:signUp?key=${apiKey}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -267,9 +267,9 @@ async function createHttpGenerationSession({ projectId, apiKey }) {
    * refresh token で ID トークンを取り直し、`idToken`・`refreshToken` を書き換える。失敗は throw。
    * ID トークンは 1 時間で切れ、全経路を流すと 1 時間を超えうるため、1 枚ごとと後始末の前に呼ぶ。
    */
-  const refreshIdToken = async () => {
+  const refreshIDToken = async () => {
     const response = await fetch(
-      projectId === EMULATOR_PROJECT_ID ? `http://127.0.0.1:9099/securetoken.googleapis.com/v1/token?key=${apiKey}` : `https://securetoken.googleapis.com/v1/token?key=${apiKey}`,
+      projectID === EMULATOR_PROJECT_ID ? `http://127.0.0.1:9099/securetoken.googleapis.com/v1/token?key=${apiKey}` : `https://securetoken.googleapis.com/v1/token?key=${apiKey}`,
       { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: new URLSearchParams({ grant_type: "refresh_token", refresh_token: refreshToken }) },
     );
     const refreshed = await response.json();
@@ -306,9 +306,9 @@ async function createHttpGenerationSession({ projectId, apiKey }) {
 
   /** probeGenerationPaths に渡す、1 枚を Storage に置いて generate を呼び、待つのをやめる状態か期限まで待って結果を返す関数。 */
   const generatePhoto = async ({ photo, photoName }) => {
-    await refreshIdToken();
-    const requestId = randomUUID();
-    const photoPath = `users/${uid}/photos/${requestId}`;
+    await refreshIDToken();
+    const requestID = randomUUID();
+    const photoPath = `users/${uid}/photos/${requestID}`;
     const uploadResponse = await fetch(`${endpoints.storage}?name=${encodeURIComponent(photoPath)}&uploadType=media`, {
       method: "POST",
       headers: { Authorization: `Firebase ${idToken}`, "Content-Type": /\.png$/i.test(photoName) ? "image/png" : "image/jpeg" },
@@ -319,26 +319,26 @@ async function createHttpGenerationSession({ projectId, apiKey }) {
     }
     const deadline = Date.now() + GENERATION_DEADLINE_MILLISECONDS;
     // 応答を待つ間に接続が切れても (fetch の既定のヘッダー待ちは 300 秒で、generate の上限と同じ)、生成はサーバーで続くため、レコードを読みに行く
-    const called = await callFunction({ functionName: "generate", requestData: { requestId, photoPath } }).catch((error) => ({ connectionError: error }));
+    const called = await callFunction({ functionName: "generate", requestData: { requestID, photoPath } }).catch((error) => ({ connectionError: error }));
     if (called.error) {
       return { status: `error:${called.error.status}`, failureMessage: [called.error.message, called.error.details?.reason].filter(Boolean).join(" ") };
     }
-    let record = await readDocument(`users/${uid}/generations/${requestId}`);
+    let record = await readDocument(`users/${uid}/generations/${requestID}`);
     while (!SETTLED_STATUSES.includes(record?.status) && Date.now() < deadline) {
       await new Promise((resolve) => setTimeout(resolve, GENERATION_POLL_INTERVAL_MILLISECONDS));
-      record = await readDocument(`users/${uid}/generations/${requestId}`);
+      record = await readDocument(`users/${uid}/generations/${requestID}`);
     }
     if (!record) {
       return { status: "no_record", failureMessage: called.connectionError ? String(called.connectionError) : "生成のレコードがありません" };
     }
-    const monster = record.status === "saved" || record.status === "duplicate" ? await readDocument(`users/${uid}/monsters/${record.monsterId}`) : undefined;
+    const monster = record.status === "saved" || record.status === "duplicate" ? await readDocument(`users/${uid}/monsters/${record.monsterID}`) : undefined;
     return {
       status: record.status,
       rejectionReason: record.rejectionReason,
       personDetected: record.personDetected,
-      monsterId: record.monsterId,
+      monsterID: record.monsterID,
       monsterName: monster?.definition?.name,
-      elementTypeIds: monster?.definition?.elementTypeIds,
+      elementTypeIDs: monster?.definition?.elementTypeIDs,
       claudeUsages: record.claudeUsages,
       jevInputTokens: record.jevInputTokens,
       failureMessage: record.failureMessage,
@@ -347,7 +347,7 @@ async function createHttpGenerationSession({ projectId, apiKey }) {
 
   /** 匿名ユーザーを deleteAccount で消す。失敗は throw。 */
   const deleteUser = async () => {
-    await refreshIdToken();
+    await refreshIDToken();
     const deleted = await callFunction({ functionName: "deleteAccount", requestData: {} });
     if (deleted.error) {
       throw new Error(`deleteAccount に失敗しました: ${JSON.stringify(deleted.error)}`);
@@ -384,7 +384,7 @@ async function main() {
   }
   // Auth の Emulator は API キーを検証せず、demo- のプロジェクトには本物のキーが無いため、任意の文字列を渡す
   const session = await createHttpGenerationSession({
-    projectId: values.project,
+    projectID: values.project,
     apiKey: values.project === EMULATOR_PROJECT_ID ? "demo-api-key" : process.env.FIREBASE_WEB_API_KEY || readWebApiKey(values["firebase-options"]),
   });
   console.log(`匿名ユーザー uid=${session.uid.slice(0, 6)}… で送ります`);

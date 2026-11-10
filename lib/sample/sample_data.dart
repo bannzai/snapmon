@@ -15,7 +15,7 @@ class SampleOpponent {
   const SampleOpponent({
     required this.id,
     required this.name,
-    required this.monsterIds,
+    required this.monsterIDs,
   });
 
   /// JSON から見本の対戦相手を読む。
@@ -23,9 +23,9 @@ class SampleOpponent {
       SampleOpponent(
         id: json['id'] as String,
         name: json['name'] as String,
-        monsterIds: [
-          for (final monsterId in json['monsterIds'] as List<dynamic>)
-            monsterId as String,
+        monsterIDs: [
+          for (final monsterID in json['monsterIDs'] as List<dynamic>)
+            monsterID as String,
         ],
       );
 
@@ -36,7 +36,7 @@ class SampleOpponent {
   final String name;
 
   /// 手持ちの見本のモンスターの識別子 ([SampleData.monsters] の定義の `id`)。
-  final List<String> monsterIds;
+  final List<String> monsterIDs;
 }
 
 /// 見本データ (`assets/samples/sample_monsters.json`) の中身。
@@ -64,9 +64,9 @@ class SampleData {
                         as Map<String, dynamic>,
               ),
               level: monsterJson['level'] as int,
-              actionCardMoveIds: const [],
+              actionCardMoveIDs: const [],
               artPath: monsterJson['artPath'] as String,
-              definitionIds: const [],
+              definitionIDs: const [],
               decoration: null,
               decorationVersion: null,
             ),
@@ -97,10 +97,10 @@ class SampleData {
   /// 名前は他のユーザーと見分けられるよう「CPU」を含める (どの画面の言語でも同じ印にするため、文言ではなく見本データに持つ)。
   final List<String> cpuTrainerNames;
 
-  /// [monsterId] の見本のモンスターを返す。無ければ [StateError] を投げる。
-  OwnedMonster monsterById({required String monsterId}) => monsters.firstWhere(
-    (monster) => monster.definition.id == monsterId,
-    orElse: () => throw StateError('見本のモンスター $monsterId が無い'),
+  /// [monsterID] の見本のモンスターを返す。無ければ [StateError] を投げる。
+  OwnedMonster monsterByID({required String monsterID}) => monsters.firstWhere(
+    (monster) => monster.definition.id == monsterID,
+    orElse: () => throw StateError('見本のモンスター $monsterID が無い'),
   );
 }
 

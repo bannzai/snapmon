@@ -83,6 +83,6 @@ abstract final class SnapmonColors {
   static const Color elementFallback = Color(0xFF5B6CC9);
 }
 
-/// [elementTypeId] の属性の色を返す。
-Color elementTypeColor({required String elementTypeId}) =>
-    SnapmonColors.elementTypes[elementTypeId] ?? SnapmonColors.elementFallback;
+/// [elementTypeID] の属性の色を返す。
+Color elementTypeColor({required String elementTypeID}) =>
+    SnapmonColors.elementTypes[elementTypeID] ?? SnapmonColors.elementFallback;

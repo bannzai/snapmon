@@ -187,10 +187,10 @@ class BattleScreen extends StatefulWidget {
   /// バトルの記録と計測。
   final BattleRecorder battleRecorder;
 
-  /// 決着の後、自分のモンスターのレベルが変わった時に monsterId ごとのレベルで呼ぶ。
+  /// 決着の後、自分のモンスターのレベルが変わった時に monsterID ごとのレベルで呼ぶ。
   /// 記録しない対戦 (ログインが無い) では端末の計算で上がったレベルで、
   /// 記録する対戦では Functions が返したレベルで 1 回呼ぶ。記録に失敗した時は呼ばない。
-  final void Function({required Map<String, int> levelsByMonsterId})
+  final void Function({required Map<String, int> levelsByMonsterID})
   onPlayerLevelsChanged;
 
   /// 勝敗の画面からバトルの結果を共有する関数の組。
@@ -239,7 +239,7 @@ class _BattleScreenState extends State<BattleScreen>
   double? _commandsPanelContentHeight;
 
   /// 画面に出している場のモンスター (HP は演出に合わせて減らす)。演出が終わると [_battleState] の場のモンスターに揃える。
-  late Map<BattleSideId, BattleMonster> _displayedActiveMembers;
+  late Map<BattleSideID, BattleMonster> _displayedActiveMembers;
 
   /// ログの帯に出している文言を、画面の言語の文言から作る。initState では文言 (Localizations) を引けないため、
   /// 文言そのものではなく作り方を持つ。
@@ -248,13 +248,13 @@ class _BattleScreenState extends State<BattleScreen>
   /// 演出を再生しているか。再生中は技・交代を押せない。
   bool _isPlaying = false;
 
-  /// startBattle の呼び出し。決着の後に battleId を受け取って recordBattle に使う。
+  /// startBattle の呼び出し。決着の後に battleID を受け取って recordBattle に使う。
   late final Future<String?> _battleRecordStart;
 
   /// 勝敗の画面に出す、バトルの記録の状態の文言の作り方 ([_logText] と同じく画面の言語の文言から作る)。決着前は null。
   String Function(AppLocalizations l10n)? _recordStatusText;
 
-  /// 決着の後に確定した自分のモンスターのレベル (monsterId ごと)。記録する対戦は Functions が返した値で、
+  /// 決着の後に確定した自分のモンスターのレベル (monsterID ごと)。記録する対戦は Functions が返した値で、
   /// 記録の待ち・失敗の間は空のまま (勝敗の画面に確定していないレベルアップを出さないため)。
   Map<String, int> _appliedLevels = const {};
 
@@ -281,7 +281,7 @@ class _BattleScreenState extends State<BattleScreen>
           definition: monster.definition,
           level: monster.level,
           experience: 0,
-          actionCardMoveIds: monster.actionCardMoveIds,
+          actionCardMoveIDs: monster.actionCardMoveIDs,
           master: widget.definitions,
           maximumHitPointsPercent: maximumHitPointsPercent,
         ),
@@ -307,12 +307,12 @@ class _BattleScreenState extends State<BattleScreen>
     _logText = (l10n) => l10n.battleLogChallenged(firstOpponentName);
     _game = BattleFieldGame(
       playerMonster: _ownedMonsterOf(
-        side: BattleSideId.player,
-        monsterId: _battleState.player.activeMember.definition.id,
+        side: BattleSideID.player,
+        monsterID: _battleState.player.activeMember.definition.id,
       ),
       opponentMonster: _ownedMonsterOf(
-        side: BattleSideId.opponent,
-        monsterId: _battleState.opponent.activeMember.definition.id,
+        side: BattleSideID.opponent,
+        monsterID: _battleState.opponent.activeMember.definition.id,
       ),
     );
     for (final artPath in {
@@ -331,20 +331,20 @@ class _BattleScreenState extends State<BattleScreen>
             ...widget.playerParty,
             ...widget.opponentParty,
           ])
-            for (final moveId in [
+            for (final moveID in [
               for (final learnsetEntry in monster.definition.learnset)
-                learnsetEntry.moveId,
-              ...monster.actionCardMoveIds,
+                learnsetEntry.moveID,
+              ...monster.actionCardMoveIDs,
             ])
-              widget.definitions.effectById(
-                effectId: widget.definitions.moveById(moveId: moveId).effectId,
+              widget.definitions.effectByID(
+                effectID: widget.definitions.moveByID(moveID: moveID).effectID,
               ),
         },
         assetBundle: rootBundle,
       ),
     );
     _battleRecordStart = widget.battleRecorder.startBattleRecord(
-      partyMonsterIds: [
+      partyMonsterIDs: [
         for (final monster in widget.playerParty) monster.definition.id,
       ],
     );
@@ -369,15 +369,15 @@ class _BattleScreenState extends State<BattleScreen>
     super.dispose();
   }
 
-  /// [side] の手持ちの [monsterId] のモンスター (切り出した被写体の画像を持つ)。
-  /// 見本同士の対戦では同じ monsterId が両陣営にいるため、陣営の手持ちから引く。
+  /// [side] の手持ちの [monsterID] のモンスター (切り出した被写体の画像を持つ)。
+  /// 見本同士の対戦では同じ monsterID が両陣営にいるため、陣営の手持ちから引く。
   OwnedMonster _ownedMonsterOf({
-    required BattleSideId side,
-    required String monsterId,
+    required BattleSideID side,
+    required String monsterID,
   }) => switch (side) {
-    BattleSideId.player => widget.playerParty,
-    BattleSideId.opponent => widget.opponentParty,
-  }.firstWhere((monster) => monster.definition.id == monsterId);
+    BattleSideID.player => widget.playerParty,
+    BattleSideID.opponent => widget.opponentParty,
+  }.firstWhere((monster) => monster.definition.id == monsterID);
 
   /// [artPath] の切り出した被写体の画像を読み、フィールドのモンスターを画像で描くようにする。
   /// 読めない時はフィールドの仮の絵のままバトルを続ける (絵のためにバトルを止めないため)。
@@ -396,10 +396,10 @@ class _BattleScreenState extends State<BattleScreen>
   }
 
   /// [state] の両陣営の場のモンスター。
-  static Map<BattleSideId, BattleMonster> _activeMembersOf({
+  static Map<BattleSideID, BattleMonster> _activeMembersOf({
     required BattleState state,
   }) => {
-    for (final side in BattleSideId.values)
+    for (final side in BattleSideID.values)
       side: state.partyOf(side: side).activeMember,
   };
 
@@ -411,7 +411,7 @@ class _BattleScreenState extends State<BattleScreen>
       playerAction: playerAction,
       opponentAction: chooseCpuAction(
         state: previousState,
-        side: BattleSideId.opponent,
+        side: BattleSideID.opponent,
         master: widget.definitions,
       ),
       master: widget.definitions,
@@ -443,7 +443,7 @@ class _BattleScreenState extends State<BattleScreen>
       unawaited(_gameAudio.stopBackgroundMusic());
       unawaited(
         _gameAudio.playSoundEffect(
-          effect: nextState.winner == BattleSideId.player
+          effect: nextState.winner == BattleSideID.player
               ? SoundEffect.victory
               : SoundEffect.defeat,
         ),
@@ -503,15 +503,15 @@ class _BattleScreenState extends State<BattleScreen>
   }
 
   /// [side] の相手の陣営。
-  static BattleSideId _otherSideOf({required BattleSideId side}) =>
+  static BattleSideID _otherSideOf({required BattleSideID side}) =>
       switch (side) {
-        BattleSideId.player => BattleSideId.opponent,
-        BattleSideId.opponent => BattleSideId.player,
+        BattleSideID.player => BattleSideID.opponent,
+        BattleSideID.opponent => BattleSideID.player,
       };
 
   /// 場のモンスターの表示 ([_displayedActiveMembers]) のうち [side] の状態を [update] で置き換える。
   void _updateDisplayedMember({
-    required BattleSideId side,
+    required BattleSideID side,
     required MonsterState Function(MonsterState state) update,
   }) {
     final member = _displayedActiveMembers[side]!;
@@ -542,12 +542,12 @@ class _BattleScreenState extends State<BattleScreen>
       case MoveUsedEvent():
         final attacker = _displayedActiveMembers[event.attackerSide]!;
         final defenderSide = _otherSideOf(side: event.attackerSide);
-        final move = event.moveId == null
+        final move = event.moveID == null
             ? null
-            : widget.definitions.moveById(moveId: event.moveId!);
-        final replacedMove = event.replacedMoveId == null
+            : widget.definitions.moveByID(moveID: event.moveID!);
+        final replacedMove = event.replacedMoveID == null
             ? null
-            : widget.definitions.moveById(moveId: event.replacedMoveId!);
+            : widget.definitions.moveByID(moveID: event.replacedMoveID!);
         // ログの文言は言語の切り替えで後から組み立て直すため、技を受けた側の名前はこの時点の値で固定する (交代の後に別の名前にならないように)
         final defenderName =
             _displayedActiveMembers[defenderSide]!.definition.name;
@@ -611,7 +611,7 @@ class _BattleScreenState extends State<BattleScreen>
         if (move?.category == MoveCategory.support) {
           // 補助技はダメージを与えないため、突進と被弾の演出をせず、HP とステータスの倍率だけを変える
           setState(() {
-            for (final side in BattleSideId.values) {
+            for (final side in BattleSideID.values) {
               _updateDisplayedMember(
                 side: side,
                 update: (state) => state.copyWith(
@@ -640,7 +640,7 @@ class _BattleScreenState extends State<BattleScreen>
           defenderSide: defenderSide,
           effect: move == null
               ? null
-              : widget.definitions.effectById(effectId: move.effectId),
+              : widget.definitions.effectByID(effectID: move.effectID),
         );
         unawaited(_gameAudio.playSoundEffect(effect: SoundEffect.hit));
         unawaited(_haptics.hit());
@@ -679,9 +679,9 @@ class _BattleScreenState extends State<BattleScreen>
       case ActionFailedEvent():
         final monsterName =
             _displayedActiveMembers[event.side]!.definition.name;
-        final move = event.moveId == null
+        final move = event.moveID == null
             ? null
-            : widget.definitions.moveById(moveId: event.moveId!);
+            : widget.definitions.moveByID(moveID: event.moveID!);
         setState(
           () => _logText = (l10n) => switch (event.reason) {
             ActionFailureReason.missed =>
@@ -817,18 +817,18 @@ class _BattleScreenState extends State<BattleScreen>
         unawaited(_gameAudio.playSoundEffect(effect: SoundEffect.faint));
         unawaited(_haptics.faint());
         await _waitForLogReading(elapsed: Duration.zero);
-      case MonsterSwitchedInEvent(:final withdrawnMonsterId):
+      case MonsterSwitchedInEvent(:final withdrawnMonsterID):
         // 自分からの交代はラウンドの始めに起き、その後に相手の技を受けるため、控えにいたラウンドの始めの状態で出す。
         // 倒れた時の交代はラウンドの終わりに起きるため、解決した後の状態で出す
-        final member = (withdrawnMonsterId == null ? nextState : previousState)
+        final member = (withdrawnMonsterID == null ? nextState : previousState)
             .partyOf(side: event.side)
             .members
-            .firstWhere((member) => member.definition.id == event.monsterId);
+            .firstWhere((member) => member.definition.id == event.monsterID);
         final withdrawnName =
             _displayedActiveMembers[event.side]!.definition.name;
         setState(() {
           _displayedActiveMembers[event.side] = member;
-          _logText = (l10n) => withdrawnMonsterId == null
+          _logText = (l10n) => withdrawnMonsterID == null
               ? l10n.battleLogSwitchedIn(member.definition.name)
               : l10n.battleLogSwitchedOut(
                   withdrawnName,
@@ -839,7 +839,7 @@ class _BattleScreenState extends State<BattleScreen>
           side: event.side,
           monster: _ownedMonsterOf(
             side: event.side,
-            monsterId: event.monsterId,
+            monsterID: event.monsterID,
           ),
         );
         await _waitForLogReading(elapsed: Duration.zero);
@@ -890,7 +890,7 @@ class _BattleScreenState extends State<BattleScreen>
           .logEvent(
             event: AnalyticsEvent.battleCompleted,
             parameters: {
-              'result': finishedEvent.winner == BattleSideId.player
+              'result': finishedEvent.winner == BattleSideID.player
                   ? 'win'
                   : 'lose',
               'turn_count': finishedEvent.turnNumber,
@@ -913,14 +913,14 @@ class _BattleScreenState extends State<BattleScreen>
       );
     }
     try {
-      final battleId = await _battleRecordStart;
-      if (battleId == null) {
+      final battleID = await _battleRecordStart;
+      if (battleID == null) {
         // 記録しない対戦は端末の計算のレベルを反映する。記録する対戦は Functions が成功した時だけ反映し、
         // 拒否された (1 日の上限等) 時にサーバーと食い違うレベルを残さない
         _applyPlayerLevels(
-          levelsByMonsterId: {
+          levelsByMonsterID: {
             for (final levelUp in playerLevelUps)
-              levelUp.monsterId: levelUp.newLevel,
+              levelUp.monsterID: levelUp.newLevel,
           },
         );
         if (mounted) {
@@ -929,14 +929,14 @@ class _BattleScreenState extends State<BattleScreen>
         return;
       }
       final recordedLevels = await widget.battleRecorder.completeBattleRecord(
-        battleId: battleId,
-        participantMonsterIds: [
-          for (final levelUp in playerLevelUps) levelUp.monsterId,
+        battleID: battleID,
+        participantMonsterIDs: [
+          for (final levelUp in playerLevelUps) levelUp.monsterID,
         ],
         winner: finishedEvent.winner,
         turnCount: finishedEvent.turnNumber,
       );
-      _applyPlayerLevels(levelsByMonsterId: recordedLevels);
+      _applyPlayerLevels(levelsByMonsterID: recordedLevels);
       if (mounted) {
         setState(() => _recordStatusText = (l10n) => l10n.battleRecorded);
       }
@@ -947,24 +947,24 @@ class _BattleScreenState extends State<BattleScreen>
     }
   }
 
-  /// 確定したレベル [levelsByMonsterId] を呼び出し元に渡し、勝敗の画面に出す。
-  void _applyPlayerLevels({required Map<String, int> levelsByMonsterId}) {
-    widget.onPlayerLevelsChanged(levelsByMonsterId: levelsByMonsterId);
+  /// 確定したレベル [levelsByMonsterID] を呼び出し元に渡し、勝敗の画面に出す。
+  void _applyPlayerLevels({required Map<String, int> levelsByMonsterID}) {
+    widget.onPlayerLevelsChanged(levelsByMonsterID: levelsByMonsterID);
     if (mounted) {
-      setState(() => _appliedLevels = levelsByMonsterId);
+      setState(() => _appliedLevels = levelsByMonsterID);
     }
   }
 
   /// [state] のログのうち、自分の陣営のレベルアップ (戦闘に出た自分のモンスター)。
   static List<LevelUpEvent> _playerLevelUpsOf({required BattleState state}) => [
     for (final levelUp in state.events.whereType<LevelUpEvent>())
-      if (levelUp.side == BattleSideId.player) levelUp,
+      if (levelUp.side == BattleSideID.player) levelUp,
   ];
 
   @override
   Widget build(BuildContext context) {
-    final playerMonster = _displayedActiveMembers[BattleSideId.player]!;
-    final opponentMonster = _displayedActiveMembers[BattleSideId.opponent]!;
+    final playerMonster = _displayedActiveMembers[BattleSideID.player]!;
+    final opponentMonster = _displayedActiveMembers[BattleSideID.opponent]!;
     final isFinished = _battleState.winner != null && !_isPlaying;
     final safeAreaPadding = MediaQuery.paddingOf(context);
     final safeAreaTop = safeAreaPadding.top;
@@ -1629,7 +1629,7 @@ class _BattleScreenState extends State<BattleScreen>
                         onPressed: move == null || _isPlaying
                             ? null
                             : () => _selectAction(
-                                playerAction: UseMoveAction(moveId: move.id),
+                                playerAction: UseMoveAction(moveID: move.id),
                               ),
                         // 詳細は読むだけでバトルを進めないため、演出の再生中も開ける
                         onLongPress: move == null
@@ -1688,7 +1688,7 @@ class _BattleResultPanel extends StatelessWidget {
     required this.firstBattleMonsterIsNewlyBorn,
   });
 
-  final BattleSideId winner;
+  final BattleSideID winner;
 
   /// 初回の 1 戦で生まれたモンスター ([BattleScreen.firstBattleBornMonster])。それ以外の対戦は null。
   final OwnedMonster? firstBattleBornMonster;
@@ -1696,7 +1696,7 @@ class _BattleResultPanel extends StatelessWidget {
   /// [BattleScreen.firstBattleMonsterIsNewlyBorn]。
   final bool firstBattleMonsterIsNewlyBorn;
 
-  /// 確定した自分のモンスターのレベル (monsterId ごと)。確定していない間は空。
+  /// 確定した自分のモンスターのレベル (monsterID ごと)。確定していない間は空。
   final Map<String, int> appliedLevels;
 
   /// バトルの前の自分の手持ち (上がる前のレベルを出すため)。
@@ -1722,25 +1722,25 @@ class _BattleResultPanel extends StatelessWidget {
     required int newLevel,
   }) {
     final changes = equippedMoveChanges(
-      previousMoveIds: equippedLearnsetEntries(
+      previousMoveIDs: equippedLearnsetEntries(
         learnset: monster.definition.learnset,
-        actionCardMoveIds: monster.actionCardMoveIds,
+        actionCardMoveIDs: monster.actionCardMoveIDs,
         level: monster.level,
       ),
-      newMoveIds: equippedLearnsetEntries(
+      newMoveIDs: equippedLearnsetEntries(
         learnset: monster.definition.learnset,
-        actionCardMoveIds: monster.actionCardMoveIds,
+        actionCardMoveIDs: monster.actionCardMoveIDs,
         level: newLevel,
       ),
     );
     final style = SnapmonTextStyles.small.copyWith(
       color: SnapmonColors.textOnCard,
     );
-    if (changes.learnedMoveIds.isEmpty) {
+    if (changes.learnedMoveIDs.isEmpty) {
       return [
         if (nextLearnsetUnlockLevel(
               learnset: monster.definition.learnset,
-              actionCardMoveIds: monster.actionCardMoveIds,
+              actionCardMoveIDs: monster.actionCardMoveIDs,
               level: newLevel,
             )
             case final nextUnlockLevel?)
@@ -1751,17 +1751,17 @@ class _BattleResultPanel extends StatelessWidget {
       ];
     }
     return [
-      for (final moveId in changes.learnedMoveIds)
+      for (final moveID in changes.learnedMoveIDs)
         Text(
           context.l10n.battleLearnedMove(
-            definitions.moveById(moveId: moveId).displayName,
+            definitions.moveByID(moveID: moveID).displayName,
           ),
           style: style,
         ),
-      for (final moveId in changes.forgottenMoveIds)
+      for (final moveID in changes.forgottenMoveIDs)
         Text(
           context.l10n.battleForgotMove(
-            definitions.moveById(moveId: moveId).displayName,
+            definitions.moveByID(moveID: moveID).displayName,
           ),
           style: style,
         ),
@@ -1782,11 +1782,11 @@ class _BattleResultPanel extends StatelessWidget {
           const SizedBox(height: 12),
         ],
         Text(
-          winner == BattleSideId.player
+          winner == BattleSideID.player
               ? context.l10n.battleWon
               : context.l10n.battleLost,
           style: SnapmonTextStyles.screenTitle.copyWith(
-            color: winner == BattleSideId.player
+            color: winner == BattleSideID.player
                 ? SnapmonColors.accent
                 : SnapmonColors.hitPointsLoss,
           ),
@@ -1856,7 +1856,7 @@ class _BattleResultPanel extends StatelessWidget {
                 definitions: definitions,
                 format: format,
               ),
-          shareText: winner == BattleSideId.player
+          shareText: winner == BattleSideID.player
               ? context.l10n.battleShareTextWon(landingPageUri.toString())
               : context.l10n.battleShareTextLost(landingPageUri.toString()),
           fileNamePrefix: 'snapmon-battle',
@@ -2113,8 +2113,8 @@ class _MonsterStatusCard extends StatelessWidget {
             ),
           ),
         ),
-      for (final elementTypeId in monster.definition.elementTypeIds)
-        ElementTypeTag(elementTypeId: elementTypeId, definitions: definitions),
+      for (final elementTypeID in monster.definition.elementTypeIDs)
+        ElementTypeTag(elementTypeID: elementTypeID, definitions: definitions),
       // 補助技で変わったステータスの倍率 (等倍のステータスは出さない)
       for (final statKind in modifiableStatKinds)
         if (statModifierPercentOf(monster: monster, statKind: statKind)

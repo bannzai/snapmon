@@ -37,8 +37,8 @@ Map<String, int> moveExpressionVariables({
   'move.maximumPowerPoints': move.powerPoints,
   'movesFirst': attackerMovesFirst ? 1 : 0,
   'sharesElementType':
-      attacker.definition.elementTypeIds.any(
-        defender.definition.elementTypeIds.contains,
+      attacker.definition.elementTypeIDs.any(
+        defender.definition.elementTypeIDs.contains,
       )
       ? 1
       : 0,
@@ -48,9 +48,9 @@ Map<String, int> moveExpressionVariables({
 };
 
 /// [source] の式を [variables] で評価した値を返す。評価できない時 (文法の誤り・未知の変数・0 での割り算・上限を超える値) は
-/// null を返し、[moveId] と理由を端末のログに残す。
+/// null を返し、[moveID] と理由を端末のログに残す。
 int? _evaluateOrLog({
-  required String moveId,
+  required String moveID,
   required String source,
   required Map<String, int> variables,
 }) {
@@ -60,7 +60,7 @@ int? _evaluateOrLog({
       variables: variables,
     );
   } on MoveExpressionException catch (error) {
-    developer.log('$moveId: $error', name: 'move_special_effect');
+    developer.log('$moveID: $error', name: 'move_special_effect');
     return null;
   }
 }
@@ -80,7 +80,7 @@ int? _evaluateOrLog({
     return null;
   }
   final value = _evaluateOrLog(
-    moveId: move.id,
+    moveID: move.id,
     source: powerSource,
     variables: variables,
   );
@@ -115,7 +115,7 @@ calculateMoveStatusEffect({
     for (final MapEntry(key: statKind, value: source) in statChanges.entries)
       statKind:
           _evaluateOrLog(
-            moveId: move.id,
+            moveID: move.id,
             source: source,
             variables: variables,
           ) ??
@@ -125,7 +125,7 @@ calculateMoveStatusEffect({
   final recovery = recoverySource == null
       ? 0
       : _evaluateOrLog(
-              moveId: move.id,
+              moveID: move.id,
               source: recoverySource,
               variables: variables,
             ) ??
