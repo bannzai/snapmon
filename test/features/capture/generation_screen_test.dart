@@ -528,6 +528,40 @@ void main() {
       expect(find.text('あたらしい なかま'), findsOneWidget);
     });
 
+    // Web の compute は同じスレッドで動くため、マスクを作り始める前に待ちの表示を描いていないと、押した後に画面が止まって見える (#302)
+    testWidgets('「この範囲で作る」を押すと、マスクを作り始める前に待ちの表示を出し終えている', (tester) async {
+      final shownOnSquareMaskStart = <({bool rangeButton, bool progress})>[];
+      await pumpGenerationScreen(
+        tester: tester,
+        startsFirstBattle: false,
+        letsUserChooseSubjectRange: true,
+        sourcePhoto: readablePhoto,
+        generator: fakeMonsterGenerator(
+          calls: calls,
+          albumPhoto: null,
+          uploadError: null,
+          createSubjectMask: ({required photo}) async => null,
+          createSquareMask: ({required photo, required crop}) async {
+            shownOnSquareMaskStart.add((
+              rangeButton: tester.any(find.text('この範囲で作る')),
+              progress: tester.any(find.byType(CircularProgressIndicator)),
+            ));
+            return testSquareMaskBytes;
+          },
+          requestGeneration: savedGeneration(
+            monsterID: 'm1',
+            status: GenerationStatus.saved,
+            resultRequestID: null,
+          ),
+          fetchGeneration: unexpectedFetch,
+        ),
+      );
+      await tester.tap(find.text('この範囲で作る'));
+      await tester.pumpAndSettle();
+      expect(shownOnSquareMaskStart, [(rangeButton: false, progress: true)]);
+      expect(find.text('あたらしい なかま'), findsOneWidget);
+    });
+
     testWidgets('crop のマスクを作れずにもう一度試す時は、OS の切り出しをやり直さず決めた枠のまま範囲を決める画面に戻す', (
       tester,
     ) async {
