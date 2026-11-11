@@ -42,3 +42,23 @@ String statusConditionLabel({
   StatusConditionKind.frozen => l10n.statusConditionFrozen,
   StatusConditionKind.switchBlocked => l10n.statusConditionSwitchBlocked,
 };
+
+/// 遊び方の画面に出す、状態 [kind] の効果の短い説明。効果の正は documents/game-rules.md「状態」と [StatusConditionKind] で、
+/// 説明は確率や重なりの上限のような細かい数値を写さずに働き方だけを書く (調整で数値を変えた時に説明が古くならないため)。
+String statusConditionHelpDescription({
+  required AppLocalizations l10n,
+  required StatusConditionKind kind,
+}) => switch (kind) {
+  StatusConditionKind.poison => l10n.helpStatusPoison,
+  StatusConditionKind.paralysis => l10n.helpStatusParalysis,
+  StatusConditionKind.stun => l10n.helpStatusStun,
+  StatusConditionKind.burn => l10n.helpStatusBurn,
+  StatusConditionKind.drowsy => l10n.helpStatusDrowsy,
+  StatusConditionKind.sleep => l10n.helpStatusSleep,
+  StatusConditionKind.curse => l10n.helpStatusCurse,
+  StatusConditionKind.confusion => l10n.helpStatusConfusion,
+  StatusConditionKind.dizzy => l10n.helpStatusDizzy,
+  StatusConditionKind.excited => l10n.helpStatusExcited,
+  StatusConditionKind.frozen => l10n.helpStatusFrozen,
+  StatusConditionKind.switchBlocked => l10n.helpStatusSwitchBlocked,
+};

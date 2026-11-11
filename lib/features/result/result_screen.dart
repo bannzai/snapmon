@@ -49,7 +49,7 @@ class ResultScreen extends StatelessWidget {
   /// 図鑑と手持ち (属性・技の定義も引く)。
   final DexStore dexStore;
 
-  /// どこから開いたか。撮る画面から開いた時は「もう 1 体撮る」を出し、図鑑から開いた時は出さない。
+  /// どこから開いたか。撮る画面から開いた時は「手持ちを増やす」を出し、図鑑から開いた時は出さない。
   final ResultScreenOrigin origin;
 
   /// 図鑑のカードの共有に使う関数の組。

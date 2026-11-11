@@ -1809,7 +1809,7 @@ void main() {
           playerMonster: strongPlayer,
           firstBattleBornMonster: strongPlayer,
         );
-        // 初回の 1 戦の勝敗の画面は「もどる」の代わりに「もう 1 体撮る」を出す
+        // 初回の 1 戦の勝敗の画面は「もどる」の代わりに「手持ちを増やす」を出す
         final finishedButton = find.byKey(
           const Key('first-battle-capture-again'),
         );
