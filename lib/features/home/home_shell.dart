@@ -236,34 +236,39 @@ class _TabButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = isSelected ? SnapmonColors.accent : SnapmonColors.textMuted;
-    return Material(
-      color: isSelected ? SnapmonColors.surface : SnapmonColors.background,
-      borderRadius: SnapmonRadii.button,
-      child: InkWell(
-        key: Key('tab-${scene.name}'),
+    // 選んでいる項目を色だけでなく読み上げにも伝える
+    return Semantics(
+      button: true,
+      selected: isSelected,
+      child: Material(
+        color: isSelected ? SnapmonColors.surface : SnapmonColors.background,
         borderRadius: SnapmonRadii.button,
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                switch (scene) {
-                  HomeScene.dex => Icons.grid_view_rounded,
-                  HomeScene.capture => Icons.photo_camera_outlined,
-                  HomeScene.opponent => Icons.sports_martial_arts,
-                },
-                color: color,
-                size: 22,
-              ),
-              const SizedBox(height: 4),
-              Text(switch (scene) {
-                HomeScene.dex => context.l10n.tabDex,
-                HomeScene.capture => context.l10n.tabCapture,
-                HomeScene.opponent => context.l10n.tabOpponent,
-              }, style: SnapmonTextStyles.small.copyWith(color: color)),
-            ],
+        child: InkWell(
+          key: Key('tab-${scene.name}'),
+          borderRadius: SnapmonRadii.button,
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  switch (scene) {
+                    HomeScene.dex => Icons.grid_view_rounded,
+                    HomeScene.capture => Icons.photo_camera_outlined,
+                    HomeScene.opponent => Icons.sports_martial_arts,
+                  },
+                  color: color,
+                  size: 22,
+                ),
+                const SizedBox(height: 4),
+                Text(switch (scene) {
+                  HomeScene.dex => context.l10n.tabDex,
+                  HomeScene.capture => context.l10n.tabCapture,
+                  HomeScene.opponent => context.l10n.tabOpponent,
+                }, style: SnapmonTextStyles.small.copyWith(color: color)),
+              ],
+            ),
           ),
         ),
       ),

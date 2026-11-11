@@ -1108,6 +1108,15 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('ランダムな相手と戦う'), findsOneWidget);
       expect(find.byTooltip('戻る'), findsNothing);
+      // 選んでいるタブだけを読み上げに「選択中」として伝える
+      expect(
+        tester.getSemantics(find.byKey(const Key('tab-opponent'))),
+        isSemantics(isButton: true, isSelected: true),
+      );
+      expect(
+        tester.getSemantics(find.byKey(const Key('tab-dex'))),
+        isSemantics(isButton: true, isSelected: false),
+      );
 
       await tester.tap(find.byKey(const Key('tab-dex')));
       await tester.pumpAndSettle();
