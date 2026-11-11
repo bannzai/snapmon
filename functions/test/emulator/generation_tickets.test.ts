@@ -197,32 +197,31 @@ describe("RevenueCat の webhook", () => {
 
 describe("RevenueCat の webhook の Action Card (技の控えが無い購入)", () => {
   // 控えた技を結び付ける購入は action_cards.test.ts で確かめる
-  it.each([
-    ["snapmon_actioncardrank1_100yen", 1],
-    ["snapmon_actioncardrank2_300yen", 2],
-    ["snapmon_actioncardrank3_500yen", 3],
-    // Google Play で 100 円を設定できない時の識別子。価格の部分は見ない
-    ["snapmon_actioncardrank1_150yen", 1],
-  ])("%s の購入は技に結び付けずにランク %s の購入として記録し、Slack に知らせる", async (productID, rank) => {
-    const { dependencies, slackTexts } = createDependencies();
-    expect((await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ product_id: productID }) })).status).toBe(200);
-    expect((await firestore.doc("users/alice/actionCardPurchases/event-1").get()).data()).toMatchObject({
-      productID,
-      rank,
-      moveID: null,
-      actionCardMoveReservationID: null,
-      moveAssignedAt: null,
-      transactionID: "transaction-1",
-      environment: "PRODUCTION",
-      store: "APP_STORE",
-    });
-    // 選び直しの callable (assignActionCardMove) は users/{uid} を求めるため、生成する前のユーザーにも作る
-    expect((await firestore.doc("users/alice").get()).exists).toBe(true);
-    expect((await firestore.doc("users/alice").get()).get("actionCardCredits")).toBeUndefined();
-    expect((await firestore.doc("users/alice/ticketPurchases/event-1").get()).exists).toBe(false);
-    expect(await generationTickets("alice")).toBeUndefined();
-    expect(slackTexts).toHaveLength(1);
-  });
+  it.each(["snapmon_actioncardrank1_100yen", "snapmon_actioncardrank2_300yen", "snapmon_actioncardrank3_500yen"])(
+    "%s の購入は技に結び付けずに届いた商品の ID のまま記録し、Slack に知らせる",
+    async (productID) => {
+      const { dependencies, slackTexts } = createDependencies();
+      expect((await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ product_id: productID }) })).status).toBe(200);
+      const purchase = (await firestore.doc("users/alice/actionCardPurchases/event-1").get()).data();
+      // 商品の ID のほかに、値段の段を表す値を持たない (#293)
+      expect(purchase).not.toHaveProperty("rank");
+      expect(purchase).toMatchObject({
+        productID,
+        moveID: null,
+        actionCardMoveReservationID: null,
+        moveAssignedAt: null,
+        transactionID: "transaction-1",
+        environment: "PRODUCTION",
+        store: "APP_STORE",
+      });
+      // 選び直しの callable (assignActionCardMove) は users/{uid} を求めるため、生成する前のユーザーにも作る
+      expect((await firestore.doc("users/alice").get()).exists).toBe(true);
+      expect((await firestore.doc("users/alice").get()).get("actionCardCredits")).toBeUndefined();
+      expect((await firestore.doc("users/alice/ticketPurchases/event-1").get()).exists).toBe(false);
+      expect(await generationTickets("alice")).toBeUndefined();
+      expect(slackTexts).toHaveLength(1);
+    },
+  );
 
   it("同じイベントの ID を 2 回受けても購入を 1 件しか記録せず、他のフィールドを保つ", async () => {
     await firestore.doc("users/alice").set({ generationTickets: 5 });
@@ -235,8 +234,15 @@ describe("RevenueCat の webhook の Action Card (技の控えが無い購入)",
     expect(slackTexts).toHaveLength(1);
   });
 
-  it.each(["snapmon_actioncardrank4_100yen", "snapmon_actioncardrank1", "snapmon_actioncardrank10_100yen", "snapmon_actioncardrank0_100yen"])(
-    "接頭辞に合わない %s は知らない商品として記録せずに Slack に知らせる",
+  it.each([
+    // 価格の部分だけが違う商品はストアに無い (Google Play で 100 円を設定できたため 150 円の商品は作っていない。DIRECTION.md の #272 の行)
+    "snapmon_actioncardrank1_150yen",
+    "snapmon_actioncardrank4_100yen",
+    "snapmon_actioncardrank1",
+    "snapmon_actioncardrank10_100yen",
+    "snapmon_actioncardrank0_100yen",
+  ])(
+    "Action Card の 3 つの商品のどれでもない %s は知らない商品として記録せずに Slack に知らせる",
     async (productID) => {
       const { dependencies, slackTexts } = createDependencies();
       expect((await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ product_id: productID }) })).body).toBe("unknown product");
@@ -246,13 +252,13 @@ describe("RevenueCat の webhook の Action Card (技の控えが無い購入)",
   );
 
   it("返金・取り消しは購入と買い切った技を変えず Slack に知らせる", async () => {
-    await firestore.doc("users/alice/actionCardPurchases/event-0").set({ rank: 2, moveID: "fire_1c" });
+    await firestore.doc("users/alice/actionCardPurchases/event-0").set({ productID: "snapmon_actioncardrank2_300yen", moveID: "fire_1c" });
     const { dependencies, slackTexts } = createDependencies();
     await handleRevenueCatWebhook(dependencies, {
       authorization: AUTHORIZATION,
       body: webhookBody({ type: "CANCELLATION", product_id: "snapmon_actioncardrank2_300yen" }),
     });
-    expect((await firestore.doc("users/alice/actionCardPurchases/event-0").get()).data()).toEqual({ rank: 2, moveID: "fire_1c" });
+    expect((await firestore.doc("users/alice/actionCardPurchases/event-0").get()).data()).toEqual({ productID: "snapmon_actioncardrank2_300yen", moveID: "fire_1c" });
     expect((await firestore.doc("users/alice/actionCardPurchases/event-1").get()).exists).toBe(false);
     expect(slackTexts).toHaveLength(1);
   });

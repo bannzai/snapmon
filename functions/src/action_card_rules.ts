@@ -5,11 +5,21 @@ import { battleDayKey } from "./battle_rules";
 import type { MasterMove } from "./generation/master";
 import type { LearnsetEntry } from "./generation/monster_stats";
 
-/** 技のランク。1 が 100 円、2 が 300 円、3 が 500 円のカードに当たる (価格はストアが正で、ここには持たない)。 */
-export type MoveRank = 1 | 2 | 3;
+/**
+ * 人気の上位の技と強い技に割り振る Action Card の商品 ID (500 円)。商品 ID は App Store・Google Play・RevenueCat で同じ
+ * (~/.claude/documents/rules/iap-product-identifier-naming.md)。価格はストアが正で、ここには持たない。
+ * 3 つの商品 ID を書くのは、割り振りを決めるこのファイルだけにする (アプリと webhook は技に割り振った商品 ID をそのまま使う。#293)。
+ */
+export const EXPENSIVE_ACTION_CARD_PRODUCT_ID = "snapmon_actioncardrank3_500yen";
 
-/** ランクの一覧 (安い順)。 */
-export const MOVE_RANKS: readonly MoveRank[] = [1, 2, 3];
+/** 人気が中くらいの技と中くらいの強さの技に割り振る Action Card の商品 ID (300 円)。 */
+export const MODERATE_ACTION_CARD_PRODUCT_ID = "snapmon_actioncardrank2_300yen";
+
+/** 残りの技に割り振る Action Card の商品 ID (100 円)。 */
+export const CHEAP_ACTION_CARD_PRODUCT_ID = "snapmon_actioncardrank1_100yen";
+
+/** Action Card の商品 ID の一覧。webhook が届いた商品を Action Card と見分けるのに使う。 */
+export const ACTION_CARD_PRODUCT_IDS: readonly string[] = [CHEAP_ACTION_CARD_PRODUCT_ID, MODERATE_ACTION_CARD_PRODUCT_ID, EXPENSIVE_ACTION_CARD_PRODUCT_ID];
 
 /**
  * 1 体が同時に使える技の数。lib/domain/battle/battle_engine.dart の `maximumEquippedMoveCount` と同じ値
@@ -18,41 +28,38 @@ export const MOVE_RANKS: readonly MoveRank[] = [1, 2, 3];
 export const MAXIMUM_EQUIPPED_MOVE_COUNT = 4;
 
 /**
- * ランクを決める使用回数の集計の期間 (日)。仮の値: 曜日ごとの遊ばれ方の偏りがならされる最短の 1 週間にした
+ * 技に割り振る商品を決める使用回数の集計の期間 (日)。仮の値: 曜日ごとの遊ばれ方の偏りがならされる最短の 1 週間にした
  * (owner の「為替みたいによく使われる技によって変動」を、毎日の入れ替えで追える長さにするため。#271)。
  */
 export const MOVE_USAGE_WINDOW_DAYS = 7;
 
 /**
- * 買える技のうちランク 3 にする割合 (%)。仮の値: 高い段が多すぎると 500 円の技がありふれて見えるため、上位の 2 割にした (#271)。
+ * 買える技のうち [EXPENSIVE_ACTION_CARD_PRODUCT_ID] を割り振る割合 (%)。仮の値: 高い段が多すぎると 500 円の技がありふれて見えるため、
+ * 上位の 2 割にした (#271)。
  */
-export const RANK_3_USAGE_PERCENT = 20;
+export const EXPENSIVE_PRODUCT_USAGE_PERCENT = 20;
 
 /**
- * 買える技のうちランク 2 にする割合 (%)。仮の値: ランク 3 の次の 3 割にし、残りの 5 割を 100 円のランク 1 にして、
+ * 買える技のうち [MODERATE_ACTION_CARD_PRODUCT_ID] を割り振る割合 (%)。仮の値: 500 円の次の 3 割にし、残りの 5 割を 100 円にして、
  * 安いカードで買える技が一番多くなるようにした (#271)。
  */
-export const RANK_2_USAGE_PERCENT = 30;
+export const MODERATE_PRODUCT_USAGE_PERCENT = 30;
 
 /**
- * 段階で決める予備のランクで 3 にする最小の威力。110 は段階 3 の技の威力 (documents/game-rules.md「技」の表) で、
- * 段階 3 と同じ強さの技を 500 円にするため。
+ * 段階で決める予備の商品で [EXPENSIVE_ACTION_CARD_PRODUCT_ID] にする最小の威力。110 は段階 3 の技の威力
+ * (documents/game-rules.md「技」の表) で、段階 3 と同じ強さの技を 500 円にするため。
  */
-const RANK_3_MINIMUM_POWER = 110;
+const EXPENSIVE_PRODUCT_MINIMUM_POWER = 110;
 
 /**
- * 段階で決める予備のランクで 2 にする最小の威力。70 は段階 2 の技の威力 (documents/game-rules.md「技」の表) で、
- * 段階 2 と同じ強さの技を 300 円にするため。
+ * 段階で決める予備の商品で [MODERATE_ACTION_CARD_PRODUCT_ID] にする最小の威力。70 は段階 2 の技の威力
+ * (documents/game-rules.md「技」の表) で、段階 2 と同じ強さの技を 300 円にするため。
  */
-const RANK_2_MINIMUM_POWER = 70;
+const MODERATE_PRODUCT_MINIMUM_POWER = 70;
 
-/** 商品の識別子の接頭辞とランク。識別子の残り (価格の `_100yen`・`_150yen`) は見ない (Google Play で 100 円を設定できない時に 150 円へ変えるため。#271)。 */
-const ACTION_CARD_PRODUCT_ID_PATTERN = /^snapmon_actioncardrank([123])_/;
-
-/** [productID] が Action Card の商品ならそのランク、それ以外は undefined。 */
-export function actionCardRankOfProduct(productID: string | null): MoveRank | undefined {
-  const match = productID === null ? null : ACTION_CARD_PRODUCT_ID_PATTERN.exec(productID);
-  return match ? (Number(match[1]) as MoveRank) : undefined;
+/** [productID] が Action Card の商品か。 */
+export function isActionCardProductID(productID: string | null): productID is string {
+  return productID !== null && ACTION_CARD_PRODUCT_IDS.includes(productID);
 }
 
 /**
@@ -81,59 +88,53 @@ export function equippedMoveIDs({
 }
 
 /**
- * 使用回数の集計が無い技のランク (技の段階で決める予備のランク)。威力 [RANK_3_MINIMUM_POWER] 以上 (段階 3・自爆) と一撃必殺は 3、
- * 威力 [RANK_2_MINIMUM_POWER] 以上 (段階 2) と先制・必中の技は 2、それ以外は 1。
+ * 使用回数の集計が無い技の商品 ID (技の段階で決める予備の商品)。威力 [EXPENSIVE_PRODUCT_MINIMUM_POWER] 以上 (段階 3・自爆) と一撃必殺は
+ * [EXPENSIVE_ACTION_CARD_PRODUCT_ID]、威力 [MODERATE_PRODUCT_MINIMUM_POWER] 以上 (段階 2) と先制・必中の技は [MODERATE_ACTION_CARD_PRODUCT_ID]、
+ * それ以外は [CHEAP_ACTION_CARD_PRODUCT_ID]。
  */
-export function fallbackMoveRank(move: MasterMove): MoveRank {
-  if (move.power >= RANK_3_MINIMUM_POWER || move.specialEffect?.oneHitKnockout === true) {
-    return 3;
+export function fallbackActionCardProductID(move: MasterMove): string {
+  if (move.power >= EXPENSIVE_PRODUCT_MINIMUM_POWER || move.specialEffect?.oneHitKnockout === true) {
+    return EXPENSIVE_ACTION_CARD_PRODUCT_ID;
   }
-  if (move.power >= RANK_2_MINIMUM_POWER || (move.priority ?? 0) > 0 || move.specialEffect?.sureHit === true) {
-    return 2;
+  if (move.power >= MODERATE_PRODUCT_MINIMUM_POWER || (move.priority ?? 0) > 0 || move.specialEffect?.sureHit === true) {
+    return MODERATE_ACTION_CARD_PRODUCT_ID;
   }
-  return 1;
+  return CHEAP_ACTION_CARD_PRODUCT_ID;
 }
 
 /**
- * [moves] (買える技) のランクを決める。[moves] を [usageCountByMoveID] の使用回数の多い順 (同じ回数は技の ID の順) に並べ、
- * [moves] の数の [RANK_3_USAGE_PERCENT]% (切り捨て) までをランク 3、[RANK_3_USAGE_PERCENT] + [RANK_2_USAGE_PERCENT]% (切り捨て) までを
- * ランク 2、残りをランク 1 にする。ただし使用回数が 0 の技は、並びの位置に関係なく [fallbackMoveRank] で決める
- * (issue #271 の「上位 20% をランク 3」と「使用回数が 0 の技は技の段階で決める」の両方をそのまま満たすため)。
+ * [moves] (買える技) に Action Card の商品 ID を割り振り、技の ID ごとの商品 ID を返す。[moves] を [usageCountByMoveID] の使用回数の多い順
+ * (同じ回数は技の ID の順) に並べ、[moves] の数の [EXPENSIVE_PRODUCT_USAGE_PERCENT]% (切り捨て) までを [EXPENSIVE_ACTION_CARD_PRODUCT_ID]、
+ * [EXPENSIVE_PRODUCT_USAGE_PERCENT] + [MODERATE_PRODUCT_USAGE_PERCENT]% (切り捨て) までを [MODERATE_ACTION_CARD_PRODUCT_ID]、
+ * 残りを [CHEAP_ACTION_CARD_PRODUCT_ID] にする。ただし使用回数が 0 の技は、並びの位置に関係なく [fallbackActionCardProductID] で決める
+ * (issue #271 の「上位 20% を 500 円」と「使用回数が 0 の技は技の段階で決める」の両方をそのまま満たすため)。
  */
-export function computeMoveRanks({
+export function computeActionCardProductIDByMoveID({
   moves,
   usageCountByMoveID,
 }: {
   moves: MasterMove[];
   usageCountByMoveID: Record<string, number>;
-}): Record<string, MoveRank> {
+}): Record<string, string> {
   const usageCountOf = (move: MasterMove) => (Object.hasOwn(usageCountByMoveID, move.id) ? usageCountByMoveID[move.id] : 0);
   return Object.fromEntries(
     [...moves]
       .sort((left, right) => usageCountOf(right) - usageCountOf(left) || (left.id < right.id ? -1 : left.id > right.id ? 1 : 0))
-      .map((move, index): [string, MoveRank] => [
+      .map((move, index): [string, string] => [
         move.id,
         usageCountOf(move) === 0
-          ? fallbackMoveRank(move)
-          : index < Math.floor((moves.length * RANK_3_USAGE_PERCENT) / 100)
-            ? 3
-            : index < Math.floor((moves.length * (RANK_3_USAGE_PERCENT + RANK_2_USAGE_PERCENT)) / 100)
-              ? 2
-              : 1,
+          ? fallbackActionCardProductID(move)
+          : index < Math.floor((moves.length * EXPENSIVE_PRODUCT_USAGE_PERCENT) / 100)
+            ? EXPENSIVE_ACTION_CARD_PRODUCT_ID
+            : index < Math.floor((moves.length * (EXPENSIVE_PRODUCT_USAGE_PERCENT + MODERATE_PRODUCT_USAGE_PERCENT)) / 100)
+              ? MODERATE_ACTION_CARD_PRODUCT_ID
+              : CHEAP_ACTION_CARD_PRODUCT_ID,
       ]),
   );
 }
 
 /**
- * ランク [actionCardRank] の Action Card の購入に、今のランクが [moveRank] の技を結び付けられるか。技のランクが購入のランク以下の時だけ
- * (技を選んでから購入が届くまでの間にランクが上がった技を、安い購入で渡さないため。下がった技は払った値段より安いが、選んだ技なので渡す。#290)。
- */
-export function canAssignMoveToActionCard({ moveRank, actionCardRank }: { moveRank: MoveRank; actionCardRank: MoveRank }): boolean {
-  return moveRank <= actionCardRank;
-}
-
-/**
- * [now] の日本時間の前日から遡った [days] 日分の日付 (`YYYY-MM-DD`。区切りは [battleDayKey])。ランクの集計の期間に使う。
+ * [now] の日本時間の前日から遡った [days] 日分の日付 (`YYYY-MM-DD`。区切りは [battleDayKey])。技に割り振る商品の集計の期間に使う。
  * 当日を含めないのは、集計が日本時間の 4 時に動き、当日の分が 4 時間しか無いため。
  */
 export function previousDayKeys({ now, days }: { now: Date; days: number }): string[] {

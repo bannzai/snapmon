@@ -18,22 +18,26 @@ import 'action_card_store.dart';
 /// 生成チケットの購入画面 (lib/features/capture/ticket_purchase_sheet.dart) と同じ webhook のため、同じ長さにした。
 const Duration _purchaseArrivalNoticeDelay = Duration(seconds: 20);
 
-/// [master] の技を ID で引く表。技のランクの表と買い切った技は最新の版の master の技で、端末の master にまだ無い技は表に無い
+/// [master] の技を ID で引く表。技ごとの商品の表と買い切った技は最新の版の master の技で、端末の master にまだ無い技は表に無い
 /// (`refreshDefinitionsForActionCardMoves` が定義を読み直すまでの間。無い技は出さない)。
 Map<String, Move> _movesByID({required MasterData master}) => {
   for (final move in master.moves) move.id: move,
 };
 
-/// [store] の売っている package のうち、ランク [rank] のもの。売っていなければ null。
-Package? actionCardPackageOfRank({
+/// [store] の売っている package のうち、技 [moveID] を今買える商品のもの。技が表に無いか、その商品を売っていなければ null。
+Package? actionCardPackageOfMove({
   required ActionCardStore store,
-  required int rank,
-}) => store.packages
-    .where((package) => actionCardRankOfPackage(package: package) == rank)
-    .firstOrNull;
+  required String moveID,
+}) => switch (store.productIDByMoveID?[moveID]) {
+  final productID? => actionCardPackageOfProductID(
+    packages: store.packages,
+    productID: productID,
+  ),
+  null => null,
+};
 
-/// 技に結び付いていない購入 [purchase] で受け取れる技。今のランクが購入のランク以下で、まだ買い切っていない技 (ID の順)。
-/// 判定は Functions の assignActionCardMove (functions/src/action_card_rules.ts の canAssignMoveToActionCard) と同じ。
+/// 技に結び付いていない購入 [purchase] で受け取れる技。今買える商品が購入した商品と同じで、まだ買い切っていない技 (ID の順)。
+/// 判定は Functions の assignActionCardMove (functions/src/action_cards.ts) と同じ。
 List<Move> assignableMovesOfPurchase({
   required ActionCardPurchase purchase,
   required ActionCardStore store,
@@ -41,9 +45,10 @@ List<Move> assignableMovesOfPurchase({
 }) {
   final movesByID = _movesByID(master: master);
   return [
-    for (final MapEntry(key: moveID, value: moveRank)
-        in (store.rankByMoveID ?? const <String, int>{}).entries)
-      if (moveRank <= purchase.rank && !store.ownedMoveIDs.contains(moveID))
+    for (final MapEntry(key: moveID, value: productID)
+        in (store.productIDByMoveID ?? const <String, String>{}).entries)
+      if (productID == purchase.productID &&
+          !store.ownedMoveIDs.contains(moveID))
         ?movesByID[moveID],
   ]..sort((left, right) => left.id.compareTo(right.id));
 }
@@ -128,19 +133,18 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
       return const SizedBox.shrink();
     }
     final movesByID = _movesByID(master: widget.dexStore.definitions);
-    final rankByMoveID = store.rankByMoveID;
-    // 売っているランクの技だけを出す (offering に無いランクの技は値段を出せず買えないため)
+    final productIDByMoveID = store.productIDByMoveID;
+    // 売っている商品の技だけを出す (offering に無い商品の技は値段を出せず買えないため)
     final purchasableMoves = [
-      if (rankByMoveID != null && store.isPurchaseEntryVisible)
-        for (final MapEntry(key: moveID, value: moveRank)
-            in rankByMoveID.entries)
+      if (productIDByMoveID != null && store.isPurchaseEntryVisible)
+        for (final moveID in productIDByMoveID.keys)
           if (!store.ownedMoveIDs.contains(moveID) &&
-              actionCardPackageOfRank(store: store, rank: moveRank) != null)
+              actionCardPackageOfMove(store: store, moveID: moveID) != null)
             ?movesByID[moveID],
     ]..sort((left, right) => left.id.compareTo(right.id));
     // 選んだ属性の技を買い切り終えるとその属性のチップは消えるため、買える技が無い属性はすべてとして扱う
     // (一覧が空のまま、どのチップも選ばれていない状態にしないため)。選んだ値も次のフレームで解除する
-    // (残すと、後で技のランクや売っているランクが変わってその属性の技がまた買えるようになった時に、触っていない絞り込みが戻るため)
+    // (残すと、後で技の商品や売っている商品が変わってその属性の技がまた買えるようになった時に、触っていない絞り込みが戻るため)
     final activeElementTypeIDFilter =
         purchasableMoves.any(
           (move) => move.elementTypeID == _elementTypeIDFilter,
@@ -175,7 +179,16 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
                 // テーマの文字色は暗い背景の上の色のため、明るいカードの上の色を指定する (指定しないと文字が背景に溶けて読めない)
                 child: ListTile(
                   title: Text(
-                    l10n.actionCardRank(purchase.rank),
+                    switch (actionCardPackageOfProductID(
+                      packages: store.packages,
+                      productID: purchase.productID,
+                    )) {
+                      final package? => l10n.actionCardOfPrice(
+                        package.storeProduct.priceString,
+                      ),
+                      // 売っていない商品の購入 (offering から外した後) は値段を出せないため、名前だけを出す
+                      null => l10n.actionCardTitle,
+                    },
                     style: SnapmonTextStyles.body.copyWith(
                       color: SnapmonColors.textOnCard,
                     ),
@@ -186,10 +199,10 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
                     ),
                     style: TextButton.styleFrom(
                       foregroundColor: SnapmonColors.textOnCard,
-                      // 押せない間 (技のランクの表が届く前) の既定はテーマの onSurface で、カードと同じ色になり読めないため
+                      // 押せない間 (技ごとの商品の表が届く前) の既定はテーマの onSurface で、カードと同じ色になり読めないため
                       disabledForegroundColor: SnapmonColors.textOnCardMuted,
                     ),
-                    onPressed: rankByMoveID == null
+                    onPressed: productIDByMoveID == null
                         ? null
                         : () => showActionCardAssignSheet(
                             context: context,
@@ -208,8 +221,8 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
           const SizedBox(height: 8),
           if (!store.isPurchaseEntryVisible)
             Text(l10n.actionCardBuyUnavailable, style: SnapmonTextStyles.body)
-          else if (rankByMoveID == null)
-            Text(l10n.actionCardRanksPreparing, style: SnapmonTextStyles.body)
+          else if (productIDByMoveID == null)
+            Text(l10n.actionCardPricesPreparing, style: SnapmonTextStyles.body)
           else ...[
             Wrap(
               spacing: 6,
@@ -242,8 +255,10 @@ class _ActionCardScreenState extends State<ActionCardScreen> {
                 _ActionCardMoveTile(
                   key: Key('action-card-buy-${move.id}'),
                   move: move,
-                  trailingText:
-                      '${l10n.actionCardRank(rankByMoveID[move.id]!)}\n${actionCardPackageOfRank(store: store, rank: rankByMoveID[move.id]!)!.storeProduct.priceString}',
+                  trailingText: actionCardPackageOfMove(
+                    store: store,
+                    moveID: move.id,
+                  )!.storeProduct.priceString,
                   definitions: widget.dexStore.definitions,
                   onTap: () => showActionCardMovePurchaseSheet(
                     context: context,
@@ -286,7 +301,7 @@ class _ActionCardMoveTile extends StatelessWidget {
   /// 出す技。
   final Move move;
 
-  /// 右に出す文言 (買う一覧では技の今のランクと値段)。買い切った技の一覧では出さないため null。
+  /// 右に出す文言 (買う一覧と受け取る技の一覧では技の今の値段)。買い切った技の一覧では出さないため null。
   final String? trailingText;
 
   /// 技の属性の名前を引く定義。
@@ -320,7 +335,7 @@ class _ActionCardMoveTile extends StatelessWidget {
   );
 }
 
-/// 技 [move] を買う画面を出す。技の今のランクの商品の値段を出し、買うと技を控えてからストアで購入し、購入が届くまで待つ。
+/// 技 [move] を買う画面を出す。技を今買える商品の値段を出し、買うと技を控えてからストアで購入し、購入が届くまで待つ。
 Future<void> showActionCardMovePurchaseSheet({
   required BuildContext context,
   required Move move,
@@ -367,8 +382,8 @@ class _ActionCardMovePurchaseSheetState
   /// 反映に時間がかかっている案内を出すか。
   bool _isPurchaseArrivalDelayed = false;
 
-  /// 値段を出している間に技のランクが変わり、控えを断られたか。新しいランクの値段を出して買い直してもらう。
-  bool _isRankChanged = false;
+  /// 値段を出している間に技の商品が変わり、控えを断られたか。新しい商品の値段を出して買い直してもらう。
+  bool _isPriceChanged = false;
 
   /// 最後の購入の失敗。
   Object? _purchaseError;
@@ -382,21 +397,20 @@ class _ActionCardMovePurchaseSheetState
     super.dispose();
   }
 
-  /// 値段を出したランク [rank] で技を控え、[package] を購入し、結果に応じて画面を進める。
+  /// 値段を出した [package] の商品で技を控え、[package] を購入し、結果に応じて画面を進める。
   Future<void> _purchase({
     required ActionCardStore store,
     required Package package,
-    required int rank,
   }) async {
     setState(() {
       _isPurchasing = true;
-      _isRankChanged = false;
+      _isPriceChanged = false;
       _purchaseError = null;
     });
     try {
       final actionCardMoveReservationID = await store.reserveMove(
         moveID: widget.move.id,
-        rank: rank,
+        productID: package.storeProduct.identifier,
       );
       final result = await store.purchase(package: package);
       if (!mounted) {
@@ -418,12 +432,12 @@ class _ActionCardMovePurchaseSheetState
             _isPaymentPending = true;
         }
       });
-    } on ActionCardMoveRankChangedException {
-      // 新しいランクは技のランクの購読で届くため、届いた値で値段を出し直す
+    } on ActionCardMoveProductChangedException {
+      // 新しい商品は技ごとの商品の購読で届くため、届いた値で値段を出し直す
       if (mounted) {
         setState(() {
           _isPurchasing = false;
-          _isRankChanged = true;
+          _isPriceChanged = true;
         });
       }
     } catch (error) {
@@ -465,16 +479,16 @@ class _ActionCardMovePurchaseSheetState
     );
   }
 
-  /// 買う前の中身。技、今のランクの値段、買うボタン。
+  /// 買う前の中身。技、今の値段、買うボタン。
   List<Widget> _offerChildren({
     required BuildContext context,
     required ActionCardStore store,
   }) {
     final l10n = context.l10n;
-    final rank = store.rankByMoveID?[widget.move.id];
-    final package = rank == null
-        ? null
-        : actionCardPackageOfRank(store: store, rank: rank);
+    final package = actionCardPackageOfMove(
+      store: store,
+      moveID: widget.move.id,
+    );
     return [
       // MoveCard の文字色は明るいカードの上の色のため、一覧の行と同じカードに載せる (シートの暗い背景では技の名前が読めないため)
       _ActionCardMoveTile(
@@ -484,25 +498,25 @@ class _ActionCardMovePurchaseSheetState
         onTap: null,
       ),
       const SizedBox(height: 12),
-      if (_isRankChanged) ...[
+      if (_isPriceChanged) ...[
         Text(
-          l10n.actionCardPurchaseRankChanged,
-          key: const Key('action-card-purchase-rank-changed'),
+          l10n.actionCardPurchasePriceChanged,
+          key: const Key('action-card-purchase-price-changed'),
           textAlign: TextAlign.center,
           style: SnapmonTextStyles.body,
         ),
         const SizedBox(height: 12),
       ],
-      if (rank != null && package != null)
+      if (package != null)
         FilledButton(
           key: const Key('action-card-purchase-buy'),
           onPressed: _isPurchasing
               ? null
-              : () => _purchase(store: store, package: package, rank: rank),
+              : () => _purchase(store: store, package: package),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Text(
-              '${l10n.actionCardRank(rank)}  ${l10n.actionCardPurchaseBuy(package.storeProduct.priceString)}',
+              l10n.actionCardPurchaseBuy(package.storeProduct.priceString),
             ),
           ),
         )
@@ -678,7 +692,7 @@ class _ActionCardAssignSheetState extends State<_ActionCardAssignSheet> {
             padding: const EdgeInsets.all(20),
             children: [
               Text(
-                l10n.actionCardAssignTitle(widget.purchase.rank),
+                l10n.actionCardAssignTitle,
                 textAlign: TextAlign.center,
                 style: SnapmonTextStyles.label,
               ),
@@ -693,9 +707,10 @@ class _ActionCardAssignSheetState extends State<_ActionCardAssignSheet> {
                 _ActionCardMoveTile(
                   key: Key('action-card-assign-${move.id}'),
                   move: move,
-                  trailingText: l10n.actionCardRank(
-                    store.rankByMoveID![move.id]!,
-                  ),
+                  trailingText: actionCardPackageOfMove(
+                    store: store,
+                    moveID: move.id,
+                  )?.storeProduct.priceString,
                   definitions: widget.definitions,
                   onTap: _assigningMoveID != null
                       ? null

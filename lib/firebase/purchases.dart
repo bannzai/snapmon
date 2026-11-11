@@ -85,7 +85,7 @@ void connectPurchasesWhileSignedIn({required SessionStore sessionStore}) {
 bool isPurchasesEnabled() => _revenueCatPublicApiKey().isNotEmpty;
 
 /// 生成チケットの package の `lookup_key` の接頭辞 (`revenuecat/config.json` の `ticket10`・`ticket30`)。
-/// 同じ offering に Action Card の package (`actioncard_rank*`) も入るため、生成チケットの購入画面に出す package をこれで選ぶ。
+/// 同じ offering に Action Card の package (`actioncard_` で始まる) も入るため、生成チケットの購入画面に出す package をこれで選ぶ。
 const String _generationTicketPackageIdentifierPrefix = 'ticket';
 
 /// [packages] のうち生成チケットの package だけを、並びを保って返す。
@@ -119,7 +119,7 @@ Future<List<Package>> fetchTicketPackagesWithRevenueCat() async =>
 /// current offering の Action Card の package を返す ([ActionCardClient.fetchActionCardPackages])。
 Future<List<Package>> fetchActionCardPackagesWithRevenueCat() async => [
   for (final package in await _fetchCurrentPackagesWithRevenueCat())
-    if (actionCardRankOfPackage(package: package) != null) package,
+    if (isActionCardPackage(package: package)) package,
 ];
 
 /// [package] を購入する ([MonsterGenerator.purchaseTicketPackage] と [ActionCardClient.purchaseActionCardPackage])。

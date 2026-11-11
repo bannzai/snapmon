@@ -14,7 +14,11 @@ setGlobalOptions({
 initializeApp();
 
 export { deleteAccount, deleteAccountFilesTask as deleteAccountFiles } from "./account";
-export { assignActionCardMove, forgetActionCardMove, reserveActionCardMove, teachActionCardMove, updateMoveRanks } from "./action_cards";
+// updateActionCardProducts は旧定期関数 updateMoveRanks を改名したもの (#293)。旧関数が本番に残っている間は、
+// deploy-functions.yml の既定の targets (`functions`) だと Firebase CLI が旧関数の削除を確かめようとして --non-interactive で止まる。
+// その間は targets に関数名 (`functions:updateActionCardProducts,functions:reserveActionCardMove,...`) を並べて出し、
+// 旧関数は `firebase functions:delete updateMoveRanks --region asia-northeast1 --project snapmon-prod --force` で消す。
+export { assignActionCardMove, forgetActionCardMove, reserveActionCardMove, teachActionCardMove, updateActionCardProducts } from "./action_cards";
 export { recordBattle, startBattle } from "./battle";
 export { generate, resumeGenerationTask as resumeGeneration } from "./generation/generate";
 export { revenueCatWebhook } from "./generation_tickets";

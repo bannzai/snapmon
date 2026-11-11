@@ -9,9 +9,17 @@ import '../features/capture/monster_generator.dart';
 
 /// DEBUG ビルドでログインを飛ばした時に、Action Card の Firestore・Functions・RevenueCat の代わりになる端末だけの見本。
 /// Simulator には StoreKit の購入が無く、ログインを飛ばした端末は Functions を呼べないため、開発者メニューから
-/// 表示の切り替え・技に結び付いていない購入・技のランクの表を作り、技を選んで買う・選び直す・覚えさせる・忘れさせるの画面の流れを確かめる
+/// 表示の切り替え・技に結び付いていない購入・技ごとの商品の表を作り、技を選んで買う・選び直す・覚えさせる・忘れさせるの画面の流れを確かめる
 /// (~/.claude/rules/debug-menu-first-for-hard-to-reach-states.md)。値はアプリを閉じると消える。
 class SampleActionCards {
+  /// 見本の Action Card の商品の ID (安い順)。本番の商品の ID は Functions (functions/src/action_card_rules.ts) だけが持ち、
+  /// アプリは技に割り振られた商品の ID をそのまま使うため、見本は本番と別の ID にする (本番の ID をアプリに写さないため)。
+  static const List<String> sampleActionCardProductIDs = [
+    'sample_actioncard_100yen',
+    'sample_actioncard_300yen',
+    'sample_actioncard_500yen',
+  ];
+
   /// 見本を作る。[actionCardMoveIDsOf] は図鑑の [monsterID] のモンスターが今覚えている Action Card の技を返す
   /// (覚えさせる・忘れさせるの結果を、Functions と同じく今の一覧から作るため)。
   SampleActionCards({required this.actionCardMoveIDsOf});
@@ -27,35 +35,41 @@ class SampleActionCards {
     const [],
   );
 
-  /// `moveRanks/current.rankByMoveID` の代わり。
-  final ValueNotifier<Map<String, int>?> rankByMoveID = ValueNotifier(null);
+  /// `actionCardProducts/current.productIDByMoveID` の代わり。
+  final ValueNotifier<Map<String, String>?> productIDByMoveID = ValueNotifier(
+    null,
+  );
 
   /// 次の購入が届く前に、控えた技を受け取れなくするか (開発者メニューが切り替える)。技を選んでから購入が届くまでの間に
-  /// ランクが上がるか同じ技を別の端末で受け取り、技に結び付かない購入が残る流れ (選び直しの導線) を確かめるため。
+  /// 技の商品が変わり、技に結び付かない購入が残る流れ (選び直しの導線) を確かめるため。
   final ValueNotifier<bool> blocksReservedMoveBeforeArrival = ValueNotifier(
     false,
   );
 
   /// `users/{uid}.actionCardMoveReservation` の代わり。
-  ({String actionCardMoveReservationID, String moveID, int rank})? _reservation;
+  ({String actionCardMoveReservationID, String moveID, String productID})?
+  _reservation;
 
   /// 見本の購入と控えの ID に付ける番号。
   int _sampleSequence = 0;
 
-  /// [rank] の技に結び付いていない購入を 1 件足す (#290 より前の購入や、選び直しが要る購入の代わり)。
-  void addUnassignedPurchase({required int rank}) =>
-      _addPurchase(rank: rank, moveID: null, actionCardMoveReservationID: null);
+  /// 商品 [productID] の技に結び付いていない購入を 1 件足す (#290 より前の購入や、選び直しが要る購入の代わり)。
+  void addUnassignedPurchase({required String productID}) => _addPurchase(
+    productID: productID,
+    moveID: null,
+    actionCardMoveReservationID: null,
+  );
 
   /// 購入を 1 件足す。
   void _addPurchase({
-    required int rank,
+    required String productID,
     required String? moveID,
     required String? actionCardMoveReservationID,
   }) => purchases.value = [
     ...purchases.value,
     ActionCardPurchase(
       actionCardPurchaseID: 'sample-purchase-${++_sampleSequence}',
-      rank: rank,
+      productID: productID,
       moveID: moveID,
       actionCardMoveReservationID: actionCardMoveReservationID,
       createdAt: DateTime.now(),
@@ -68,23 +82,24 @@ class SampleActionCards {
     for (final purchase in purchases.value) ?purchase.moveID,
   };
 
-  /// [master] の買える技 (置き換えられた技を除く) に、威力でランクを付けた表を入れる。使用回数は見ない。
-  /// 区切りの 110 と 70 は、Functions の予備のランク (functions/src/action_card_rules.ts の `fallbackMoveRank`) が使う
-  /// `RANK_3_MINIMUM_POWER`・`RANK_2_MINIMUM_POWER` と同じ値にした (見本でも本番と同じランクの並びで画面を確かめるため)。
+  /// [master] の買える技 (置き換えられた技を除く) に、威力で見本の商品を割り振った表を入れる。使用回数は見ない。
+  /// 区切りの 110 と 70 は、Functions の予備の商品 (functions/src/action_card_rules.ts の `fallbackActionCardProductID`) が使う
+  /// `EXPENSIVE_PRODUCT_MINIMUM_POWER`・`MODERATE_PRODUCT_MINIMUM_POWER` と同じ値にした (見本でも本番と同じ値段の並びで画面を確かめるため)。
   /// Dart から TypeScript の定数を読めないため値を写しており、向こうを変えたらここも変える。DEBUG ビルドの見本だけが使い、
-  /// 本番のランクは moveRanks/current が正。
-  void loadSampleMoveRanks({required MasterData master}) {
+  /// 本番の技ごとの商品は actionCardProducts/current が正。
+  void loadSampleActionCardProducts({required MasterData master}) {
     final replacedMoveIDs = {
       for (final move in master.moves) ?move.replacesMoveID,
     };
-    rankByMoveID.value = {
+    productIDByMoveID.value = {
       for (final move in master.moves)
         if (!replacedMoveIDs.contains(move.id))
-          move.id: move.power >= 110
-              ? 3
-              : move.power >= 70
-              ? 2
-              : 1,
+          move.id:
+              sampleActionCardProductIDs[move.power >= 110
+                  ? 2
+                  : move.power >= 70
+                  ? 1
+                  : 0],
     };
   }
 
@@ -102,78 +117,73 @@ class SampleActionCards {
     return controller.stream;
   }
 
-  /// ランクごとの見本の package。価格はストアから読まないため「見本の価格」と出す。
+  /// 見本の商品ごとの package。価格はストアから読まないため「見本の価格」と出す。並べ替えに使う price は商品の順の値にする。
   List<Package> _samplePackages() => [
-    for (final rank in actionCardRanks)
+    for (final (index, productID) in sampleActionCardProductIDs.indexed)
       Package(
-        '$actionCardPackageIdentifierPrefix$rank',
+        '${actionCardPackageIdentifierPrefix}sample${index + 1}',
         PackageType.custom,
         StoreProduct(
-          'sample_actioncard_rank$rank',
+          productID,
           '',
-          'Action Card ランク $rank (見本)',
-          0,
-          '見本の価格',
+          'Action Card (見本 ${index + 1})',
+          index.toDouble(),
+          '見本の価格 ${index + 1}',
           '',
         ),
         const PresentedOfferingContext('sample', null, null),
       ),
   ];
 
-  /// reserveActionCardMove の代わり。買い切り済み・ランクが [rank] と違う時に断るのは Functions と同じ。
-  Future<String> _reserve({required String moveID, required int rank}) async {
+  /// reserveActionCardMove の代わり。買い切り済み・技の商品が [productID] と違う時に断るのは Functions と同じ。
+  Future<String> _reserve({
+    required String moveID,
+    required String productID,
+  }) async {
     if (_ownedMoveIDs.contains(moveID)) {
       throw StateError('$moveID は買い切り済みです');
     }
-    final moveRank = rankByMoveID.value?[moveID];
-    if (moveRank == null) {
-      throw StateError('技のランクの表に $moveID がありません');
+    final moveProductID = productIDByMoveID.value?[moveID];
+    if (moveProductID == null) {
+      throw StateError('技ごとの商品の表に $moveID がありません');
     }
-    if (moveRank != rank) {
-      throw ActionCardMoveRankChangedException(rank: moveRank);
+    if (moveProductID != productID) {
+      throw ActionCardMoveProductChangedException(productID: moveProductID);
     }
     final actionCardMoveReservationID =
         'sample-reservation-${++_sampleSequence}';
     _reservation = (
       actionCardMoveReservationID: actionCardMoveReservationID,
       moveID: moveID,
-      rank: rank,
+      productID: productID,
     );
     return actionCardMoveReservationID;
   }
 
   /// [Package] の購入と webhook の代わり。webhook が届くまでの間を確かめられるよう、3 秒後に購入を足す。
   /// 控えた技を購入に結び付ける条件は Functions (functions/src/generation_tickets.ts) と同じ。
-  /// [blocksReservedMoveBeforeArrival] がオンなら、購入を足す前に控えた技のランクを 1 つ上げる (ランク 3 の技は上げられないため、
-  /// 代わりに同じ技を先に受け取ったことにする) ので、技に結び付かない購入が残る。
+  /// [blocksReservedMoveBeforeArrival] がオンなら、購入を足す前に控えた技を別の見本の商品に変えるので、技に結び付かない購入が残る。
   Future<TicketPurchaseResult> _purchase({required Package package}) async {
-    final rank = actionCardRankOfPackage(package: package)!;
+    final productID = package.storeProduct.identifier;
     Timer(const Duration(seconds: 3), () {
-      final reservation = _reservation?.rank == rank ? _reservation : null;
+      final reservation = _reservation?.productID == productID
+          ? _reservation
+          : null;
       if (reservation != null && blocksReservedMoveBeforeArrival.value) {
-        if (reservation.rank < actionCardRanks.last) {
-          rankByMoveID.value = {
-            ...?rankByMoveID.value,
-            reservation.moveID: reservation.rank + 1,
-          };
-        } else {
-          _addPurchase(
-            rank: reservation.rank,
-            moveID: reservation.moveID,
-            actionCardMoveReservationID: null,
-          );
-        }
+        productIDByMoveID.value = {
+          ...?productIDByMoveID.value,
+          reservation.moveID: sampleActionCardProductIDs.firstWhere(
+            (candidate) => candidate != reservation.productID,
+          ),
+        };
       }
-      final reservedMoveRank = reservation == null
-          ? null
-          : rankByMoveID.value?[reservation.moveID];
       final canReceive =
           reservation != null &&
-          reservedMoveRank != null &&
-          reservedMoveRank <= reservation.rank &&
+          productIDByMoveID.value?[reservation.moveID] ==
+              reservation.productID &&
           !_ownedMoveIDs.contains(reservation.moveID);
       _addPurchase(
-        rank: rank,
+        productID: productID,
         moveID: canReceive ? reservation.moveID : null,
         actionCardMoveReservationID: reservation?.actionCardMoveReservationID,
       );
@@ -198,10 +208,9 @@ class SampleActionCards {
     if (_ownedMoveIDs.contains(moveID)) {
       throw StateError('$moveID は買い切り済みです');
     }
-    final moveRank = rankByMoveID.value?[moveID];
-    if (moveRank == null || moveRank > purchase.rank) {
+    if (productIDByMoveID.value?[moveID] != purchase.productID) {
       throw StateError(
-        'ランク ${purchase.rank} の Action Card では $moveID を受け取れません',
+        '${purchase.productID} の Action Card では $moveID を受け取れません',
       );
     }
     purchases.value = [
@@ -209,7 +218,7 @@ class SampleActionCards {
         candidate.actionCardPurchaseID == actionCardPurchaseID
             ? ActionCardPurchase(
                 actionCardPurchaseID: candidate.actionCardPurchaseID,
-                rank: candidate.rank,
+                productID: candidate.productID,
                 moveID: moveID,
                 actionCardMoveReservationID:
                     candidate.actionCardMoveReservationID,
@@ -250,7 +259,7 @@ class SampleActionCards {
     fetchActionCardPackages: () async => _samplePackages(),
     purchaseActionCardPackage: _purchase,
     watchActionCardPurchases: () => _watch(notifier: purchases),
-    watchMoveRanks: () => _watch(notifier: rankByMoveID),
+    watchActionCardProductIDByMoveID: () => _watch(notifier: productIDByMoveID),
     reserveActionCardMove: _reserve,
     assignActionCardMove: _assign,
     teachActionCardMove: _teach,

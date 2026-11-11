@@ -5,16 +5,32 @@ import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:snapmon/features/action_card/action_card_client.dart';
 import 'package:snapmon/features/capture/monster_generator.dart';
 
-/// テストの Action Card の package。価格はストアから来る値の見本で、画面がこの値をそのまま出すかを確かめる。
-Package testActionCardPackage({required int rank}) => Package(
-  '$actionCardPackageIdentifierPrefix$rank',
+/// テストの 100 円の Action Card の商品の ID。本番の商品の ID は Functions だけが持つため、テストは別の ID を使う。
+const String testCheapActionCardProductID = 'test_actioncard_100yen';
+
+/// テストの 200 円の Action Card の商品の ID。
+const String testModerateActionCardProductID = 'test_actioncard_200yen';
+
+/// テストの 300 円の Action Card の商品の ID。
+const String testExpensiveActionCardProductID = 'test_actioncard_300yen';
+
+/// テストの商品の ID ごとのストアの価格 (円)。画面がストアの価格をそのまま出すかを確かめる見本の値。
+const Map<String, int> _testActionCardPriceOfProductID = {
+  testCheapActionCardProductID: 100,
+  testModerateActionCardProductID: 200,
+  testExpensiveActionCardProductID: 300,
+};
+
+/// テストの商品 [productID] の Action Card の package。
+Package testActionCardPackage({required String productID}) => Package(
+  '${actionCardPackageIdentifierPrefix}test${_testActionCardPriceOfProductID[productID]!}',
   PackageType.custom,
   StoreProduct(
-    'snapmon_actioncard_rank$rank',
+    productID,
     '',
-    'Action Card ランク $rank',
-    rank * 100,
-    '¥${rank * 100}',
+    'Action Card ${_testActionCardPriceOfProductID[productID]!} 円',
+    _testActionCardPriceOfProductID[productID]!.toDouble(),
+    '¥${_testActionCardPriceOfProductID[productID]!}',
     'JPY',
   ),
   const PresentedOfferingContext('generation_tickets', null, null),
@@ -23,12 +39,12 @@ Package testActionCardPackage({required int rank}) => Package(
 /// テストの Action Card の購入。[moveID] が null なら技に結び付いていない購入。
 ActionCardPurchase testActionCardPurchase({
   required String actionCardPurchaseID,
-  required int rank,
+  required String productID,
   required String? moveID,
   String? actionCardMoveReservationID,
 }) => ActionCardPurchase(
   actionCardPurchaseID: actionCardPurchaseID,
-  rank: rank,
+  productID: productID,
   moveID: moveID,
   actionCardMoveReservationID: actionCardMoveReservationID,
   createdAt: DateTime(2026, 11, 10),
@@ -49,7 +65,8 @@ class FakeActionCards {
 
   /// 売っている package。
   List<Package> packages = [
-    for (final rank in actionCardRanks) testActionCardPackage(rank: rank),
+    for (final productID in _testActionCardPriceOfProductID.keys)
+      testActionCardPackage(productID: productID),
   ];
 
   /// `users/{uid}/actionCardPurchases` (記録した順)。
@@ -57,8 +74,10 @@ class FakeActionCards {
     const [],
   );
 
-  /// 技のランクの表。
-  final ValueNotifier<Map<String, int>?> rankByMoveID = ValueNotifier(null);
+  /// 技ごとの商品の ID の表。
+  final ValueNotifier<Map<String, String>?> productIDByMoveID = ValueNotifier(
+    null,
+  );
 
   /// 購入の結果。null なら終わらない (購入の途中を確かめるため)。
   TicketPurchaseResult? purchaseResult = TicketPurchaseResult.purchased;
@@ -67,7 +86,7 @@ class FakeActionCards {
   final List<String> purchasedPackageIDs = [];
 
   /// reserveActionCardMove に渡された引数 (呼ばれた順)。
-  final List<({String moveID, int rank})> reservedMoves = [];
+  final List<({String moveID, String productID})> reservedMoves = [];
 
   /// reserveActionCardMove が投げる失敗。呼ばれるたびに先頭から 1 つずつ投げ、空なら成功する (値段が変わった後の買い直しを確かめるため)。
   final List<Object> reserveErrors = [];
@@ -116,9 +135,9 @@ class FakeActionCards {
       };
     },
     watchActionCardPurchases: () => _watch(notifier: purchases),
-    watchMoveRanks: () => _watch(notifier: rankByMoveID),
-    reserveActionCardMove: ({required moveID, required rank}) async {
-      reservedMoves.add((moveID: moveID, rank: rank));
+    watchActionCardProductIDByMoveID: () => _watch(notifier: productIDByMoveID),
+    reserveActionCardMove: ({required moveID, required productID}) async {
+      reservedMoves.add((moveID: moveID, productID: productID));
       if (reserveErrors.isNotEmpty) {
         throw reserveErrors.removeAt(0);
       }

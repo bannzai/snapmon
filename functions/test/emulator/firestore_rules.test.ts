@@ -245,7 +245,7 @@ describe("Action Card の購入の記録 (買い切った技は購入の moveID)
       const firestore = context.firestore();
       for (const uid of ["alice", "bob"]) {
         await setDoc(doc(firestore, `users/${uid}`), { displayName: uid });
-        await setDoc(doc(firestore, `users/${uid}/actionCardPurchases/event-${uid}`), { productID: "snapmon_actioncardrank1_100yen", rank: 1, moveID: "fire_1" });
+        await setDoc(doc(firestore, `users/${uid}/actionCardPurchases/event-${uid}`), { productID: "snapmon_actioncardrank1_100yen", moveID: "fire_1" });
       }
     });
   });
@@ -262,43 +262,43 @@ describe("Action Card の購入の記録 (買い切った技は購入の moveID)
 
   it("本人も購入の記録・買う技の控え・覚えさせた技を書けない (改ざんさせないため)", async () => {
     const firestore = signedInFirestore("alice");
-    await assertFails(setDoc(doc(firestore, "users/alice/actionCardPurchases/event-new"), { productID: "snapmon_actioncardrank3_500yen", rank: 3, moveID: "water_1" }));
+    await assertFails(setDoc(doc(firestore, "users/alice/actionCardPurchases/event-new"), { productID: "snapmon_actioncardrank3_500yen", moveID: "water_1" }));
     await assertFails(setDoc(doc(firestore, "users/alice/actionCardPurchases/event-alice"), { moveID: "water_1" }, { merge: true }));
     await assertFails(deleteDoc(doc(firestore, "users/alice/actionCardPurchases/event-alice")));
-    await assertFails(setDoc(doc(firestore, "users/alice"), { actionCardMoveReservation: { moveID: "water_1", rank: 3 } }, { merge: true }));
+    await assertFails(setDoc(doc(firestore, "users/alice"), { actionCardMoveReservation: { moveID: "water_1", productID: "snapmon_actioncardrank3_500yen" } }, { merge: true }));
     await assertFails(setDoc(doc(firestore, "users/alice/monsters/m1"), { actionCardMoveIDs: ["fire_1"] }, { merge: true }));
   });
 });
 
-describe("技のランクの表・機能の切り替え・技の使用回数", () => {
+describe("技ごとの Action Card の商品の表・機能の切り替え・技の使用回数", () => {
   beforeEach(async () => {
     await testEnvironment.withSecurityRulesDisabled(async (context) => {
       const firestore = context.firestore();
-      await setDoc(doc(firestore, "moveRanks/current"), { version: 1, rankByMoveID: { fire_1: 1 }, usageWindowDays: 7 });
+      await setDoc(doc(firestore, "actionCardProducts/current"), { version: 1, productIDByMoveID: { fire_1: "snapmon_actioncardrank1_100yen" }, usageWindowDays: 7 });
       await setDoc(doc(firestore, "config/features"), { actionCardsVisible: false });
       await setDoc(doc(firestore, "moveUsageDailyCounts/2026-11-09"), { counts: { fire_1: 3 } });
     });
   });
 
-  it("ログインしたユーザーは技のランクの表と機能の切り替えを読める", async () => {
+  it("ログインしたユーザーは技ごとの商品の表と機能の切り替えを読める", async () => {
     const firestore = signedInFirestore("alice");
-    await assertSucceeds(getDoc(doc(firestore, "moveRanks/current")));
+    await assertSucceeds(getDoc(doc(firestore, "actionCardProducts/current")));
     await assertSucceeds(getDoc(doc(firestore, "config/features")));
   });
 
   it("ログインしていないと読めない", async () => {
     const firestore = testEnvironment.unauthenticatedContext().firestore();
-    await assertFails(getDoc(doc(firestore, "moveRanks/current")));
+    await assertFails(getDoc(doc(firestore, "actionCardProducts/current")));
     await assertFails(getDoc(doc(firestore, "config/features")));
   });
 
-  it("ログインしたユーザーも技のランクの表と機能の切り替えを書けない", async () => {
+  it("ログインしたユーザーも技ごとの商品の表と機能の切り替えを書けない", async () => {
     const firestore = signedInFirestore("alice");
-    await assertFails(setDoc(doc(firestore, "moveRanks/current"), { version: 1, rankByMoveID: { fire_1: 3 } }));
+    await assertFails(setDoc(doc(firestore, "actionCardProducts/current"), { version: 1, productIDByMoveID: { fire_1: "snapmon_actioncardrank3_500yen" } }));
     await assertFails(setDoc(doc(firestore, "config/features"), { actionCardsVisible: true }));
   });
 
-  it("技の使用回数はログインしたユーザーも読み書きできない (ランクを動かさせないため)", async () => {
+  it("技の使用回数はログインしたユーザーも読み書きできない (技の値段を動かさせないため)", async () => {
     const firestore = signedInFirestore("alice");
     await assertFails(getDoc(doc(firestore, "moveUsageDailyCounts/2026-11-09")));
     await assertFails(setDoc(doc(firestore, "moveUsageDailyCounts/2026-11-09"), { counts: { fire_1: 999 } }));

@@ -123,8 +123,8 @@ export const recordBattle = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
     );
     const monsterSnapshots = await transaction.getAll(...monsterDocuments);
     const nextLevels: Record<string, number> = {};
-    // 技のランク (action_cards.ts の updateMoveRanks) に使う、参加したモンスターのバトルの時点の技の枠の技の数。
-    // クライアントから技を受け取らず図鑑から決める (改ざんでランクを動かさせないため)。同じ技を持つモンスターが 2 体いれば 2 回数える
+    // 技に割り振る Action Card の商品 (action_cards.ts の updateActionCardProducts) に使う、参加したモンスターのバトルの時点の技の枠の技の数。
+    // クライアントから技を受け取らず図鑑から決める (改ざんで技の値段を動かさせないため)。同じ技を持つモンスターが 2 体いれば 2 回数える
     const moveUsageCounts: Record<string, number> = {};
     for (const [index, monsterSnapshot] of monsterSnapshots.entries()) {
       const level = monsterSnapshot.get("level");
@@ -166,7 +166,7 @@ export const recordBattle = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
     // 使用回数の文書は全ユーザーのバトルの記録が書くため、レベルの記録のトランザクションの外で書く。1 文書への書き込みの頻度には
     // 上限があり ("you can't update a single document at an unlimited rate." https://firebase.google.com/docs/firestore/solutions/counters )、
     // 同じトランザクションに入れると、ぶつかった時にレベルの記録まで失敗するため。書けなくてもレベルの記録は済んでいるため、失敗させずにログだけ残す。
-    // 完了済みの battleID の再送は上で数えずに返すため、ここに来るのは記録した 1 回だけ (書き損じた分はランクの集計から抜けるが、二重には数えない)
+    // 完了済みの battleID の再送は上で数えずに返すため、ここに来るのは記録した 1 回だけ (書き損じた分は技の商品の集計から抜けるが、二重には数えない)
     try {
       // ドット区切りの update は文書が無いと失敗し、技の ID の `.` を区切りと読むため、入れ子の値を merge で書く
       await firestore

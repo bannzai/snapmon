@@ -53,8 +53,8 @@ service cloud.firestore {
       allow write: if false;
     }
 
-    // 技のランクの表。購入の画面で値段の段を出すため、ログインした全員が読める。書くのは updateMoveRanks (Functions) だけ。
-    match /moveRanks/{moveRanksID} {
+    // 技ごとの Action Card の商品の表。購入の画面で技の値段を出すため、ログインした全員が読める。書くのは updateActionCardProducts (Functions) だけ。
+    match /actionCardProducts/{actionCardProductsID} {
       allow read: if isSignedIn();
       allow write: if false;
     }
@@ -65,7 +65,7 @@ service cloud.firestore {
       allow write: if false;
     }
 
-    // 技の 1 日の使用回数。ランクの計算 (Functions) だけが使う。
+    // 技の 1 日の使用回数。技に割り振る商品の計算 (Functions) だけが使う。
     match /moveUsageDailyCounts/{day} {
       allow read, write: if false;
     }

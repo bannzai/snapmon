@@ -130,15 +130,19 @@ Future<void> main() async {
       watchActionCardPurchases: () => isSample()
           ? sampleActionCardClient!.watchActionCardPurchases()
           : watchActionCardPurchasesWithFirebase(),
-      watchMoveRanks: () => isSample()
-          ? sampleActionCardClient!.watchMoveRanks()
-          : watchMoveRanksWithFirebase(),
-      reserveActionCardMove: ({required moveID, required rank}) => isSample()
+      watchActionCardProductIDByMoveID: () => isSample()
+          ? sampleActionCardClient!.watchActionCardProductIDByMoveID()
+          : watchActionCardProductIDByMoveIDWithFirebase(),
+      reserveActionCardMove: ({required moveID, required productID}) =>
+          isSample()
           ? sampleActionCardClient!.reserveActionCardMove(
               moveID: moveID,
-              rank: rank,
+              productID: productID,
             )
-          : reserveActionCardMoveWithFirebase(moveID: moveID, rank: rank),
+          : reserveActionCardMoveWithFirebase(
+              moveID: moveID,
+              productID: productID,
+            ),
       assignActionCardMove:
           ({required actionCardPurchaseID, required moveID}) => isSample()
           ? sampleActionCardClient!.assignActionCardMove(

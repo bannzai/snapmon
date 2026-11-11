@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
-import 'package:snapmon/features/action_card/action_card_client.dart';
 import 'package:snapmon/features/action_card/action_card_store.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
 
 import '../../action_card_client_fixture.dart';
+import '../../monster_generator_fixture.dart';
 import '../../sample_data_fixture.dart';
 
 void main() {
@@ -34,7 +34,7 @@ void main() {
       ..purchases.value = [
         testActionCardPurchase(
           actionCardPurchaseID: 'p1',
-          rank: 2,
+          productID: testModerateActionCardProductID,
           moveID: null,
         ),
       ];
@@ -53,13 +53,17 @@ void main() {
     fakeActionCards.purchases.value = [
       testActionCardPurchase(
         actionCardPurchaseID: 'p1',
-        rank: 1,
+        productID: testCheapActionCardProductID,
         moveID: 'fire_1c',
       ),
-      testActionCardPurchase(actionCardPurchaseID: 'p2', rank: 3, moveID: null),
+      testActionCardPurchase(
+        actionCardPurchaseID: 'p2',
+        productID: testExpensiveActionCardProductID,
+        moveID: null,
+      ),
       testActionCardPurchase(
         actionCardPurchaseID: 'p3',
-        rank: 2,
+        productID: testModerateActionCardProductID,
         moveID: 'water_3',
       ),
     ];
@@ -77,7 +81,7 @@ void main() {
     fakeActionCards.purchases.value = [
       testActionCardPurchase(
         actionCardPurchaseID: 'p1',
-        rank: 1,
+        productID: testCheapActionCardProductID,
         moveID: 'fire_1c',
       ),
     ];
@@ -100,12 +104,14 @@ void main() {
     ]);
     final earlierRefresh = store.refreshPackages();
     final laterRefresh = store.refreshPackages();
-    laterCompleter.complete([testActionCardPackage(rank: 1)]);
+    laterCompleter.complete([
+      testActionCardPackage(productID: testCheapActionCardProductID),
+    ]);
     await laterRefresh;
     earlierCompleter.completeError(StateError('通信の失敗'));
     await earlierRefresh;
     expect(store.packages.map((package) => package.identifier), [
-      'actioncard_rank1',
+      'actioncard_test100',
     ]);
   });
 
@@ -123,10 +129,12 @@ void main() {
     final laterRefresh = store.refreshPackages();
     laterCompleter.completeError(StateError('通信の失敗'));
     await laterRefresh;
-    earlierCompleter.complete([testActionCardPackage(rank: 2)]);
+    earlierCompleter.complete([
+      testActionCardPackage(productID: testModerateActionCardProductID),
+    ]);
     await earlierRefresh;
     expect(store.packages.map((package) => package.identifier), [
-      'actioncard_rank2',
+      'actioncard_test200',
     ]);
   });
 
@@ -140,12 +148,16 @@ void main() {
     ]);
     final earlierRefresh = store.refreshPackages();
     final laterRefresh = store.refreshPackages();
-    laterCompleter.complete([testActionCardPackage(rank: 3)]);
+    laterCompleter.complete([
+      testActionCardPackage(productID: testExpensiveActionCardProductID),
+    ]);
     await laterRefresh;
-    earlierCompleter.complete([testActionCardPackage(rank: 1)]);
+    earlierCompleter.complete([
+      testActionCardPackage(productID: testCheapActionCardProductID),
+    ]);
     await earlierRefresh;
     expect(store.packages.map((package) => package.identifier), [
-      'actioncard_rank3',
+      'actioncard_test300',
     ]);
   });
 
@@ -168,15 +180,31 @@ void main() {
     expect(switchingStore.isPurchaseEntryVisible, isTrue);
   });
 
+  test('売っている package を ストアの価格の安い順に並べ 生成チケットの package は並べない', () async {
+    await pumpEventQueue();
+    fakeActionCards.packages = [
+      testActionCardPackage(productID: testExpensiveActionCardProductID),
+      testTicketPackage,
+      testActionCardPackage(productID: testCheapActionCardProductID),
+      testActionCardPackage(productID: testModerateActionCardProductID),
+    ];
+    await store.refreshPackages();
+    expect(store.packages.map((package) => package.storeProduct.identifier), [
+      testCheapActionCardProductID,
+      testModerateActionCardProductID,
+      testExpensiveActionCardProductID,
+    ]);
+  });
+
   test('package の読み直しが例外で失敗したら 前に読めた一覧を残し 空が返ったら空にする', () async {
     await pumpEventQueue();
-    expect(store.packages, hasLength(actionCardRanks.length));
+    expect(store.packages, hasLength(3));
     final failingCompleter = Completer<List<Package>>();
     fakeActionCards.packagesCompleters.add(failingCompleter);
     final failingRefresh = store.refreshPackages();
     failingCompleter.completeError(StateError('通信の失敗'));
     await failingRefresh;
-    expect(store.packages, hasLength(actionCardRanks.length));
+    expect(store.packages, hasLength(3));
     fakeActionCards.packages = const [];
     await store.refreshPackages();
     expect(store.packages, isEmpty);
@@ -201,7 +229,7 @@ void main() {
     expect(retryingStore.isPurchaseEntryVisible, isTrue);
   });
 
-  test('技のランクの表に端末の定義に無い技があれば 定義を 1 回だけ読み直す', () async {
+  test('技ごとの商品の表に端末の定義に無い技があれば 定義を 1 回だけ読み直す', () async {
     final sampleData = loadSampleDataFixture();
     var refreshCount = 0;
     final dexStore = DexStore(definitions: sampleData.definitions)
@@ -209,7 +237,10 @@ void main() {
         savePartyMonsterIDs: ({required monsterIDs}) async {},
         refreshDefinitions: () async => refreshCount += 1,
       );
-    fakeActionCards.rankByMoveID.value = {'fire_1c': 1, 'newer_move': 2};
+    fakeActionCards.productIDByMoveID.value = {
+      'fire_1c': testCheapActionCardProductID,
+      'newer_move': testModerateActionCardProductID,
+    };
     await pumpEventQueue();
     final requestedMoveIDs = <String>{};
     await refreshDefinitionsForActionCardMoves(
