@@ -21,6 +21,7 @@ import '../battle/battle_screen.dart';
 import '../dex/dex_store.dart';
 import '../dex/owned_monster.dart';
 import '../opponent/pvp_client.dart';
+import '../opponent/random_cpu_battle.dart';
 import '../result/result_screen.dart';
 import '../share/card_sharer.dart';
 import 'first_battle.dart';
@@ -64,7 +65,8 @@ Future<void> _waitUntilPainted() async {
 ///
 /// 初回の導線 ([startsFirstBattle]) では、生成を待つ間は「相手を探しています」を出し、生まれたら手持ちに入れて相手を決め、
 /// 「○○ があらわれた」の後にバトルの画面を開く。バトルの画面を閉じたら、図鑑を見る時は [ResultScreenAction.openDex]、
-/// それ以外 (もう 1 体撮る) は null を返して閉じる。生まれなかった時は初回でない時と同じ理由の表示に戻る。
+/// それ以外 (手持ちを増やす) は null を返して閉じる。「もう一回対戦する」で閉じた時は別の CPU の相手との対戦を続けて開き、
+/// それを閉じた時に同じ規則で閉じる。生まれなかった時は初回でない時と同じ理由の表示に戻る。
 class GenerationScreen extends StatefulWidget {
   /// 生成の画面を作る。
   const GenerationScreen({
@@ -519,7 +521,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
     }
   }
 
-  /// 決まった相手との初回のバトルの画面を開き、閉じたらこの画面も閉じる。
+  /// 決まった相手との初回のバトルの画面を開き、閉じたらこの画面も閉じる (「もう一回対戦する」の対戦を続けた時は、その後に閉じる)。
   Future<void> _openFirstBattle() async {
     final opponent = _firstBattleOpponent;
     final monster = _firstBattleMonster;
@@ -536,7 +538,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
     final dexStore = widget.dexStore;
     // 経路が作り直されると builder が呼び直されるため、決着の後にレベルが上がった手持ちを渡し直さないよう、開く時の手持ちで固定する
     final playerParty = List.of(dexStore.party);
-    final action = await Navigator.of(context).push(
+    var action = await Navigator.of(context).push(
       sceneRoute<BattleScreenAction>(
         builder: (context) => BattleScreen(
           playerParty: playerParty,
@@ -555,6 +557,35 @@ class _GenerationScreenState extends State<GenerationScreen> {
         ),
       ),
     );
+    // 「もう一回対戦する」で閉じた時は、対戦のシーンと同じく別の CPU の相手との対戦を続けて開く。
+    // 2 戦目からは初回の導線の計測 (first_experience) を送らない (firstBattleBornMonster が null)
+    while (action == BattleScreenAction.rematch) {
+      final BattleScreen battleScreen;
+      try {
+        battleScreen = await prepareRandomCpuBattleScreen(
+          dexStore: dexStore,
+          pvpClient: widget.pvpClient,
+          sampleData: widget.sampleData,
+          battleRecorder: widget.battleRecorder,
+          cardSharer: widget.cardSharer,
+          playerProfile: _playerProfile,
+        );
+      } catch (error) {
+        // 定義を読み直せない時はエラーをそのまま出し、この画面を閉じる (撮る画面に戻り、対戦のシーンから挑み直せる)
+        if (mounted) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(error.toString())));
+        }
+        break;
+      }
+      if (!mounted) {
+        return;
+      }
+      action = await Navigator.of(context).push(
+        sceneRoute<BattleScreenAction>(builder: (context) => battleScreen),
+      );
+    }
     if (mounted) {
       Navigator.of(context).pop(
         action == BattleScreenAction.openDex

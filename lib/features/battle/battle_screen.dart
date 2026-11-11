@@ -23,6 +23,7 @@ import '../../monster_ui/monster_parts.dart';
 import '../../monster_ui/move_card.dart';
 import '../../monster_ui/trainer_icon.dart';
 import '../dex/owned_monster.dart';
+import '../help/help_screen.dart';
 import '../opponent/pvp_client.dart';
 import '../reference/move_detail_screen.dart';
 import '../settings/settings_screen.dart';
@@ -38,6 +39,9 @@ import 'move_effect_sprite_sheets.dart';
 enum BattleScreenAction {
   /// 図鑑のシーンを開く (勝敗の画面の「図鑑を見る」)。
   openDex,
+
+  /// 乱数で決めた別の CPU の相手ともう一度戦う (勝敗の画面の「もう一回対戦する」)。
+  rematch,
 }
 
 /// 対戦の相手の種類。バトル完了の計測の `opponent` に名前 (`cpu` / `pvp`) をそのまま送る。
@@ -165,8 +169,8 @@ class BattleScreen extends StatefulWidget {
   final bool firstBattleMonsterIsNewlyBorn;
 
   /// 初回の導線 (手持ちが空の時に写真を選んでそのまま戦う 1 戦目) で生まれたモンスター。それ以外の対戦は null。
-  /// null 以外の時は、技のボタンの上に技の選び方を 1 行で出し、勝敗の画面に生まれたカードと「もう 1 体撮る」「図鑑を見る」を
-  /// 「もどる」の代わりに出し、決着で計測の `first_experience` (`battle_completed`) を送る。
+  /// null 以外の時は、技のボタンの上に技の選び方を 1 行で出し、勝敗の画面に生まれたカードと「手持ちを増やす」「図鑑を見る」
+  /// 「もう一回対戦する」を「もどる」の代わりに出し、決着で計測の `first_experience` (`battle_completed`) を送る。
   final OwnedMonster? firstBattleBornMonster;
 
   /// 自分の手持ち。
@@ -1418,6 +1422,7 @@ class _BattleScreenState extends State<BattleScreen>
           cardSharer: widget.cardSharer,
           firstBattleBornMonster: widget.firstBattleBornMonster,
           firstBattleMonsterIsNewlyBorn: widget.firstBattleMonsterIsNewlyBorn,
+          opponentKind: widget.opponentKind,
         )
       : _buildCommands(
           context: context,
@@ -1686,9 +1691,14 @@ class _BattleResultPanel extends StatelessWidget {
     required this.cardSharer,
     required this.firstBattleBornMonster,
     required this.firstBattleMonsterIsNewlyBorn,
+    required this.opponentKind,
   });
 
   final BattleSideID winner;
+
+  /// 相手が CPU トレーナーか他のユーザーか ([BattleScreen.opponentKind])。「もう一回対戦する」は乱数で選び直した CPU トレーナーと戦うため、
+  /// CPU トレーナーとの対戦の時だけ出す。
+  final BattleOpponentKind opponentKind;
 
   /// 初回の 1 戦で生まれたモンスター ([BattleScreen.firstBattleBornMonster])。それ以外の対戦は null。
   final OwnedMonster? firstBattleBornMonster;
@@ -1841,6 +1851,12 @@ class _BattleResultPanel extends StatelessWidget {
             style: SnapmonTextStyles.small,
           ),
         ],
+        // 手持ちが上限に満たないまま負けた時は、手持ちを増やすことと遊び方 (弱点・状態異常) を案内する
+        if (winner != BattleSideID.player &&
+            playerParty.length < maximumPartySize) ...[
+          const SizedBox(height: 8),
+          const _LostPartyHint(),
+        ],
         const SizedBox(height: 12),
         ShareCardButton(
           cardSharer: cardSharer,
@@ -1866,12 +1882,33 @@ class _BattleResultPanel extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 10),
-        if (bornMonster == null)
+        if (bornMonster == null && opponentKind != BattleOpponentKind.cpu)
           FilledButton(
             onPressed: () => Navigator.of(context).pop(),
             child: Text(context.l10n.commonBack),
           )
-        else
+        else if (bornMonster == null)
+          Row(
+            children: [
+              Expanded(
+                child: _BattleCommandButton(
+                  label: context.l10n.commonBack,
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: FilledButton(
+                  key: const Key('battle-rematch'),
+                  onPressed: () =>
+                      Navigator.of(context).pop(BattleScreenAction.rematch),
+                  child: Text(context.l10n.battleRematch),
+                ),
+              ),
+            ],
+          )
+        else ...[
+          // 初回は手持ちを増やすことを主な次の行動にし、もう一度戦う・図鑑を見るを並べる
           Row(
             children: [
               Expanded(
@@ -1883,17 +1920,67 @@ class _BattleResultPanel extends StatelessWidget {
               ),
               const SizedBox(width: 10),
               Expanded(
-                child: FilledButton(
-                  key: const Key('first-battle-capture-again'),
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: Text(context.l10n.resultCaptureAnother),
+                child: _BattleCommandButton(
+                  key: const Key('battle-rematch'),
+                  label: context.l10n.battleRematch,
+                  onPressed: () =>
+                      Navigator.of(context).pop(BattleScreenAction.rematch),
                 ),
               ),
             ],
           ),
+          const SizedBox(height: 10),
+          FilledButton(
+            key: const Key('first-battle-capture-again'),
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(context.l10n.resultCaptureAnother),
+          ),
+        ],
       ],
     );
   }
+}
+
+/// 手持ちが上限 ([maximumPartySize]) に満たないまま負けた時に、勝敗の画面に出す案内。手持ちを増やすと勝ちやすくなることと、
+/// 遊び方 (弱点・状態異常) をポップアップ ([showHelpSheet]) で開くボタンを出す。
+class _LostPartyHint extends StatelessWidget {
+  const _LostPartyHint();
+
+  @override
+  Widget build(BuildContext context) => DecoratedBox(
+    key: const Key('battle-lost-party-hint'),
+    decoration: const BoxDecoration(
+      color: SnapmonColors.surfaceRaised,
+      borderRadius: SnapmonRadii.button,
+    ),
+    child: Padding(
+      padding: const EdgeInsets.fromLTRB(14, 12, 8, 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            context.l10n.battleLostPartyHintTitle,
+            style: SnapmonTextStyles.label.copyWith(
+              color: SnapmonColors.accent,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            context.l10n.battleLostPartyHintMessage(maximumPartySize),
+            style: SnapmonTextStyles.small,
+          ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: TextButton(
+              key: const Key('battle-open-help'),
+              onPressed: () => showHelpSheet(context: context),
+              child: Text(context.l10n.helpOpen),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
 }
 
 /// 初回の 1 戦の勝敗の画面に出す、生まれたモンスターのカード (名前・図鑑の文章)。

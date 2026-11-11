@@ -1,10 +1,8 @@
 import 'dart:async';
-import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
 import '../../common_ui/scene_route.dart';
-import '../../domain/master/master_data.dart';
 import '../../l10n/l10n.dart';
 import '../../sample/sample_data.dart';
 import '../../theme/snapmon_colors.dart';
@@ -20,9 +18,9 @@ import '../dex/owned_monster.dart';
 import '../home/home_shell.dart';
 import '../result/result_screen.dart';
 import '../share/card_sharer.dart';
-import 'battle_definitions.dart';
 import 'cpu_party.dart';
 import 'pvp_client.dart';
+import 'random_cpu_battle.dart';
 
 /// 対戦の画面 (モックの Pvp.dc.html)。自分のアイコン・表示名と戦績、自分の手持ちを出し、「ランダムな相手と戦う」で
 /// 初回のバトルと同じ決め方 ([chooseRandomCpuOpponent]) で CPU の相手を決めて挑む。相手の一覧は出さない
@@ -161,56 +159,40 @@ class _OpponentScreenState extends State<OpponentScreen> {
     }
   }
 
-  /// 定義を読み直してから、乱数で決めた CPU の相手との対戦の画面を開き、閉じるまで待つ。
+  /// 乱数で決めた CPU の相手との対戦の画面 ([prepareRandomCpuBattleScreen]) を開き、閉じるまで待つ。
+  /// 勝敗の画面で「もう一回対戦する」を押して閉じた時は、別の相手との対戦の画面を続けて開く。
   Future<void> _prepareAndStartBattle() async {
-    final dexStore = widget.dexStore;
-    final MasterData definitions;
-    // 読み直せない時はエラーをそのまま出す
-    try {
-      definitions = await prepareBattleDefinitions(
-        dexStore: dexStore,
-        pvpClient: widget.pvpClient,
-        pvpOpponentMonsters: null,
-      );
-    } catch (error) {
-      if (mounted) {
-        _showMessage(message: error.toString());
-      }
-      return;
-    }
-    if (!mounted) {
-      return;
-    }
-    // 押すたびに別の相手・別の展開にするため、相手を決める seed とバトルの seed は毎回作る。
-    // 値の範囲は DeterministicRandom の状態 (32 bit) に合わせた。
-    // Web (JavaScript) ではシフトが 32 bit に切り詰められ `1 << 32` が 0 になるため、上限は整数リテラルで書く
-    final playerParty = dexStore.party;
-    final cpuOpponent = chooseRandomCpuOpponent(
-      sampleData: widget.sampleData,
-      playerParty: playerParty,
-      randomSeed: math.Random().nextInt(0x100000000),
-    );
-    final action = await Navigator.of(context).push(
-      sceneRoute<BattleScreenAction>(
-        builder: (context) => BattleScreen(
-          playerParty: playerParty,
-          opponentParty: cpuOpponent.opponentParty,
-          opponentKind: BattleOpponentKind.cpu,
-          definitions: definitions,
-          randomSeed: math.Random().nextInt(0x100000000),
+    while (true) {
+      final BattleScreen battleScreen;
+      // 定義を読み直せない時はエラーをそのまま出す
+      try {
+        battleScreen = await prepareRandomCpuBattleScreen(
+          dexStore: widget.dexStore,
+          pvpClient: widget.pvpClient,
+          sampleData: widget.sampleData,
           battleRecorder: widget.battleRecorder,
-          onPlayerLevelsChanged: dexStore.updateLevels,
           cardSharer: widget.cardSharer,
-          firstBattleBornMonster: null,
-          firstBattleMonsterIsNewlyBorn: false,
           playerProfile: _playerProfile,
-          opponentDisplayName: cpuOpponent.opponentName,
-        ),
-      ),
-    );
-    unawaited(_loadBattleRecord());
-    if (action == BattleScreenAction.openDex) {
-      widget.onSelectScene(scene: HomeScene.dex);
+        );
+      } catch (error) {
+        if (mounted) {
+          _showMessage(message: error.toString());
+        }
+        return;
+      }
+      if (!mounted) {
+        return;
+      }
+      final action = await Navigator.of(context).push(
+        sceneRoute<BattleScreenAction>(builder: (context) => battleScreen),
+      );
+      unawaited(_loadBattleRecord());
+      if (action == BattleScreenAction.openDex) {
+        widget.onSelectScene(scene: HomeScene.dex);
+      }
+      if (action != BattleScreenAction.rematch || !mounted) {
+        return;
+      }
     }
   }
 
