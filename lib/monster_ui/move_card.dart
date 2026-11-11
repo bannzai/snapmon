@@ -62,7 +62,7 @@ class MoveCard extends StatelessWidget {
             if (typeMultiplier case final typeMultiplier?
                 when typeMultiplier != 1) ...[
               const SizedBox(width: 4),
-              _TypeEffectivenessIcon(typeMultiplier: typeMultiplier),
+              TypeEffectivenessIcon(typeMultiplier: typeMultiplier),
             ],
           ],
         )
@@ -153,8 +153,9 @@ class MoveCard extends StatelessWidget {
 /// 倍率 (×2・×4・×0.5・×0.25) と「効果は抜群」「効果はいまひとつ」の言葉は読み上げの名前にだけ持つ。
 /// 画面に出すと 2 列の技のボタンの幅に収まらず、使った後のログが同じ言葉を出して矢印の意味を教えるため
 /// (倍率を消したのは bannzai の「なんなら数字もいらない気がする」。https://github.com/bannzai/snapmon/issues/281 )。
-class _TypeEffectivenessIcon extends StatelessWidget {
-  const _TypeEffectivenessIcon({required this.typeMultiplier});
+class TypeEffectivenessIcon extends StatelessWidget {
+  /// 相性の倍率 [typeMultiplier] のアイコンを作る。技の枠と遊び方の画面 (lib/features/help/) が使う。
+  const TypeEffectivenessIcon({super.key, required this.typeMultiplier});
 
   /// 相性の倍率 (等倍以外)。
   final double typeMultiplier;
