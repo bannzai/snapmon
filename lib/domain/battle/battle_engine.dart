@@ -364,9 +364,10 @@ int calculateDamage({
 int poisonDamage({required int maximumHitPoints, required int stackCount}) =>
     math.max(1, maximumHitPoints * stackCount ~/ poisonDamageDenominator);
 
-/// [attacker] が [move] (わるあがきは null) を使う時の今回の命中率 (%)。技の命中率 ([moveAccuracyPercent]。威力が高いほど低い) に
-/// [attacker] の命中 (%) を掛け、
+/// [attacker] が [move] (わるあがきは null) を使う時の今回の命中率 (%)。技の命中率 ([moveAccuracyPercent]。威力が高いほど低い) が
+/// 100 未満の時だけ [attacker] の命中 (%) を掛け、
 /// 眩暈の時はさらに [dizzyAccuracyPercent] を掛ける (どれも切り捨て)。必中の技は 100。
+/// 技の命中率が 100 の技に使う側の命中を掛けないのは、ほとんどの技を眩暈でなければ必ず当てるため (bannzai、2026-11-12)。
 int moveHitChancePercent({
   required Move? move,
   required BattleMonster attacker,
@@ -374,12 +375,12 @@ int moveHitChancePercent({
   if (move?.specialEffect?.isSureHit ?? false) {
     return 100;
   }
-  final accuracy =
-      (move == null
-          ? defaultMoveAccuracyPercent
-          : moveAccuracyPercent(move: move)) *
-      effectiveStats(monster: attacker).accuracy ~/
-      100;
+  final moveAccuracy = move == null
+      ? defaultMoveAccuracyPercent
+      : moveAccuracyPercent(move: move);
+  final accuracy = moveAccuracy < 100
+      ? moveAccuracy * effectiveStats(monster: attacker).accuracy ~/ 100
+      : moveAccuracy;
   return attacker.state.statusConditions.containsKey(StatusConditionKind.dizzy)
       ? accuracy * dizzyAccuracyPercent ~/ 100
       : accuracy;
@@ -532,7 +533,7 @@ BattleAction chooseCpuAction({
 /// 交代 ([SwitchMonsterAction]) は技より先に行い、ターンの終わりの処理をしない。技どうしは先制の度合いが高い技が先、
 /// 同じなら場のモンスターの素早さが高い順に行動し (同じなら乱数)、倒れたモンスターはそのターンの行動を失う。
 /// 各ターンは、気絶・眠り・凍結なら [actionPreventingStatusConditionChancePercent] の確率で行動が失敗し (PP を使わない)、混乱なら 1/2 の確率で選んだ技の代わりに
-/// 他の使える技が出て、麻痺なら実際に出る技が攻撃技かわるあがきの時に同じ確率で失敗し (PP を使わない)、命中率 (技の命中率 × 使う側の命中。眩暈なら × 70%。`moveHitChancePercent`) で外れる (PP を使う)。当たった技は、一撃必殺なら相手の HP を 0 にし、攻撃技なら威力に特殊効果の倍率
+/// 他の使える技が出て、麻痺なら実際に出る技が攻撃技かわるあがきの時に同じ確率で失敗し (PP を使わない)、命中率 (技の命中率。100 未満なら × 使う側の命中。眩暈なら × 70%。`moveHitChancePercent`) で外れる (PP を使う)。当たった技は、一撃必殺なら相手の HP を 0 にし、攻撃技なら威力に特殊効果の倍率
 /// ([calculateMoveSpecialEffect]) を掛けたダメージ (やけどなら与えるダメージが半分、受ける側がやけどなら (10 + 重なり) / 10 倍) を与える。
 /// 続けて特殊効果の式 ([calculateMoveStatusEffect]) でステータスの倍率を変え、HP を回復し、状態を付け・解除し、フィールドを始め、自爆する。
 /// ダメージを受けた凍結は解け、毒の技を受けた毒は重なりが増える。ターンの終わりに毒のダメージを受け、残りのターンを持つ状態が 1 減って 0 なら消える。
