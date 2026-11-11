@@ -1086,7 +1086,7 @@ void main() {
   });
 
   group('ホームの画面のシーンと画面の遷移', () {
-    testWidgets('下タブは無く、撮るのボタンで図鑑・対戦を開き、「もどる」で撮るに戻る', (tester) async {
+    testWidgets('下タブで図鑑・撮る・対戦のどこからでも他の 2 つへ 1 回で移れる', (tester) async {
       await pumpHome(
         tester: tester,
         hasStartedSession: true,
@@ -1095,74 +1095,44 @@ void main() {
         startsCameraOnCaptureOpen: false,
       );
       expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
-      // 下タブ (図鑑・撮る・対戦が並ぶ帯) は無い (#264)
-      for (final removedTabKey in const [
-        'tab-dex',
-        'tab-capture',
-        'tab-opponent',
-      ]) {
-        expect(find.byKey(Key(removedTabKey)), findsNothing);
-      }
-      // 撮るは起点のシーンのため「もどる」を出さない
-      expect(find.byKey(const Key('scene-back-to-capture')), findsNothing);
 
-      await tester.tap(find.byKey(const Key('capture-open-dex')));
+      // 下タブで行き来するため、図鑑・対戦の見出しに #264 の「もどる」(tooltip は Material の戻る) を置かない (#303)
+      await tester.tap(find.byKey(const Key('tab-dex')));
       await tester.pumpAndSettle();
       expect(find.text('0 体 · 手持ち 0 体'), findsOneWidget);
       expect(find.text('まだモンスターがいません\n撮る画面から身の回りの物を撮ってみよう'), findsOneWidget);
+      expect(find.byTooltip('戻る'), findsNothing);
 
-      await tester.tap(find.byKey(const Key('scene-back-to-capture')));
+      // 図鑑から対戦へ撮るを経由せずに移る
+      await tester.tap(find.byKey(const Key('tab-opponent')));
+      await tester.pumpAndSettle();
+      expect(find.text('ランダムな相手と戦う'), findsOneWidget);
+      expect(find.byTooltip('戻る'), findsNothing);
+      // 選んでいるタブだけを読み上げに「選択中」として伝える
+      expect(
+        tester.getSemantics(find.byKey(const Key('tab-opponent'))),
+        isSemantics(isButton: true, isSelected: true),
+      );
+      expect(
+        tester.getSemantics(find.byKey(const Key('tab-dex'))),
+        isSemantics(isButton: true, isSelected: false),
+      );
+
+      await tester.tap(find.byKey(const Key('tab-dex')));
+      await tester.pumpAndSettle();
+      expect(find.text('0 体 · 手持ち 0 体'), findsOneWidget);
+
+      await tester.tap(find.byKey(const Key('tab-capture')));
       await tester.pumpAndSettle();
       expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
 
-      await tester.tap(find.byKey(const Key('capture-open-opponent')));
+      await tester.tap(find.byKey(const Key('tab-opponent')));
       await tester.pumpAndSettle();
       expect(find.text('ランダムな相手と戦う'), findsOneWidget);
 
-      await tester.tap(find.byKey(const Key('scene-back-to-capture')));
+      await tester.tap(find.byKey(const Key('tab-capture')));
       await tester.pumpAndSettle();
       expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
-    });
-
-    testWidgets('図鑑・対戦で端末の戻る操作をすると撮るに戻り、撮るでは戻る操作を止めない', (tester) async {
-      await pumpHome(
-        tester: tester,
-        hasStartedSession: true,
-        startSessionFailureCount: 0,
-        isDeveloperMenuEnabled: false,
-        startsCameraOnCaptureOpen: false,
-      );
-
-      for (final openKey in const [
-        Key('capture-open-dex'),
-        Key('capture-open-opponent'),
-      ]) {
-        await tester.tap(find.byKey(openKey));
-        await tester.pumpAndSettle();
-        expect(find.byKey(const Key('scene-back-to-capture')), findsOneWidget);
-
-        // Android の戻るボタン・戻るジェスチャーと同じ経路 (Navigator の maybePop)
-        expect(await tester.binding.handlePopRoute(), isTrue);
-        await tester.pumpAndSettle();
-        expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
-      }
-
-      // 撮るではホームの画面の PopScope が戻る操作を止めない (ホームの画面は最初の route のため、閉じるのはアプリ)
-      expect(
-        tester
-            .widget<PopScope<Object?>>(
-              find
-                  .descendant(
-                    of: find.byType(HomeShell),
-                    matching: find.byWidgetPredicate(
-                      (widget) => widget is PopScope,
-                    ),
-                  )
-                  .first,
-            )
-            .canPop,
-        isTrue,
-      );
     });
 
     testWidgets('撮る → 図鑑 → 撮る を素早く押しても、撮る画面は同時に 1 つしかない', (tester) async {
@@ -1177,7 +1147,7 @@ void main() {
       await tester.tap(find.byKey(const Key('capture-open-dex')));
       // フェードの途中 (300ms より前) で撮るに戻す
       await tester.pump(const Duration(milliseconds: 50));
-      await tester.tap(find.byKey(const Key('scene-back-to-capture')));
+      await tester.tap(find.byKey(const Key('tab-capture')));
       for (var frame = 0; frame < 20; frame++) {
         await tester.pump(const Duration(milliseconds: 20));
         expect(
@@ -1497,7 +1467,7 @@ void main() {
 
         await tester.tap(find.byKey(const Key('capture-open-dex')));
         await tester.pumpAndSettle();
-        await tester.tap(find.byKey(const Key('scene-back-to-capture')));
+        await tester.tap(find.byKey(const Key('tab-capture')));
         await tester.pumpAndSettle();
         expect(find.textContaining('カメラが使えません'), findsNothing);
         expect(find.byKey(const Key('capture-use-camera')), findsOneWidget);
@@ -1700,7 +1670,7 @@ void main() {
       await tester.tap(find.byTooltip('戻る'));
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byKey(const Key('scene-back-to-capture')));
+      await tester.tap(find.byKey(const Key('tab-capture')));
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key('capture-open-opponent')));
       await tester.pumpAndSettle();

@@ -31,7 +31,7 @@ class DexScreen extends StatelessWidget {
   /// 図鑑と手持ち。
   final DexStore dexStore;
 
-  /// ホームの画面のシーンを切り替える (「もどる」で撮るに戻す・「追加する」で撮るを開く)。
+  /// ホームの画面のシーンを切り替える (「追加する」で撮るを開く)。
   final void Function({required HomeScene scene}) onSelectScene;
 
   /// 設定画面を開く。
@@ -112,17 +112,6 @@ class DexScreen extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    SquareIconButton(
-                      key: const Key('scene-back-to-capture'),
-                      icon: Icons.chevron_left,
-                      // AppBar の戻るボタンと同じ文言 (Material の各言語の訳) にする (生まれた画面の戻ると同じ)
-                      tooltip: MaterialLocalizations.of(
-                        context,
-                      ).backButtonTooltip,
-                      onPressed: () => onSelectScene(scene: HomeScene.capture),
-                      size: 44,
-                    ),
-                    const SizedBox(width: 12),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

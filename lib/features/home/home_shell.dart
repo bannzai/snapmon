@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 
 import '../../audio/game_audio.dart';
 import '../../common_ui/scene_route.dart';
+import '../../l10n/l10n.dart';
 import '../../sample/sample_data.dart';
+import '../../theme/snapmon_colors.dart';
+import '../../theme/snapmon_radii.dart';
+import '../../theme/snapmon_text_styles.dart';
 import '../battle/battle_recorder.dart';
 import '../capture/capture_screen.dart';
 import '../capture/monster_generator.dart';
@@ -17,12 +21,12 @@ import '../settings/account_store.dart';
 import '../settings/settings_screen.dart';
 import '../share/card_sharer.dart';
 
-/// ホームの画面で切り替えるシーン。撮るを起点にし、図鑑・対戦は撮るのボタンから開いて「もどる」で撮るに戻る (#264)。
+/// ホームの画面で切り替えるシーン。下タブの項目の並びもこの順 (DIRECTION.md「デザインの方向」の「下タブは図鑑・撮る・対戦」)。
 enum HomeScene {
   /// 図鑑。
   dex,
 
-  /// 撮る。ホームの画面の起点のシーン。
+  /// 撮る。
   capture,
 
   /// 対戦。
@@ -30,7 +34,7 @@ enum HomeScene {
 }
 
 /// タイトル画面からログインを済ませて入る、図鑑・撮る・対戦のシーンを 1 つずつ出す画面。
-/// 下タブは置かず、シーンの間は画面の中のボタンで移り、フェードで切り替える (#264)。
+/// シーンの間は下タブ (#303) と画面の中のボタンで移り、フェードで切り替える (#264)。
 class HomeShell extends StatefulWidget {
   /// ホームの画面を作る。
   const HomeShell({
@@ -174,25 +178,100 @@ class _HomeShellState extends State<HomeShell> {
   };
 
   @override
-  Widget build(BuildContext context) => PopScope(
-    // 図鑑・対戦では端末の戻る操作 (Android の戻るボタン・戻るジェスチャー) で撮るに戻り、撮るでは今までどおりアプリを閉じる
-    canPop: _selectedScene == HomeScene.capture,
-    onPopInvokedWithResult: (didPop, _) {
-      if (!didPop) {
-        _selectScene(scene: HomeScene.capture);
-      }
-    },
-    child: Scaffold(
-      body: SafeArea(
-        child: AnimatedSwitcher(
-          duration: sceneTransitionDuration,
-          layoutBuilder: sceneSwitcherLayoutBuilder,
-          child: KeyedSubtree(
-            key: ValueKey(_selectedScene),
-            child: _buildScene(scene: _selectedScene),
-          ),
+  Widget build(BuildContext context) => Scaffold(
+    body: SafeArea(
+      // 下の安全領域は下タブの側が受け持つ
+      bottom: false,
+      child: AnimatedSwitcher(
+        duration: sceneTransitionDuration,
+        layoutBuilder: sceneSwitcherLayoutBuilder,
+        child: KeyedSubtree(
+          key: ValueKey(_selectedScene),
+          child: _buildScene(scene: _selectedScene),
+        ),
+      ),
+    ),
+    bottomNavigationBar: SafeArea(
+      top: false,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
+        child: Row(
+          children: [
+            for (final scene in HomeScene.values)
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  child: _TabButton(
+                    scene: scene,
+                    isSelected: scene == _selectedScene,
+                    onTap: () => _selectScene(scene: scene),
+                  ),
+                ),
+              ),
+          ],
         ),
       ),
     ),
   );
+}
+
+/// 下タブの 1 つの項目。選んでいる項目は強調色で出す。
+class _TabButton extends StatelessWidget {
+  /// [scene] を開く下タブの項目を作る。
+  const _TabButton({
+    required this.scene,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  /// 押すと開くシーン。
+  final HomeScene scene;
+
+  /// 今出しているシーンの項目か。
+  final bool isSelected;
+
+  /// 押した時の処理。
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final color = isSelected ? SnapmonColors.accent : SnapmonColors.textMuted;
+    // 選んでいる項目を色だけでなく読み上げにも伝える
+    return Semantics(
+      button: true,
+      selected: isSelected,
+      child: Material(
+        color: isSelected ? SnapmonColors.surface : SnapmonColors.background,
+        borderRadius: SnapmonRadii.button,
+        child: InkWell(
+          key: Key('tab-${scene.name}'),
+          borderRadius: SnapmonRadii.button,
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  switch (scene) {
+                    HomeScene.dex => Icons.grid_view_rounded,
+                    HomeScene.capture => Icons.photo_camera_outlined,
+                    HomeScene.opponent => Icons.sports_martial_arts,
+                  },
+                  color: color,
+                  size: 22,
+                ),
+                const SizedBox(height: 4),
+                Text(switch (scene) {
+                  HomeScene.dex => context.l10n.tabDex,
+                  HomeScene.capture => context.l10n.tabCapture,
+                  HomeScene.opponent => context.l10n.tabOpponent,
+                }, style: SnapmonTextStyles.small.copyWith(color: color)),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
