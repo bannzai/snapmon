@@ -253,9 +253,6 @@ class _GenerationScreenState extends State<GenerationScreen> {
       _error = null;
     });
     try {
-      if (_preparedPhoto == null) {
-        await _waitUntilPainted();
-      }
       final preparedPhoto =
           _preparedPhoto ??
           await widget.monsterGenerator.preparePhoto(
