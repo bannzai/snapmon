@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 import '../../common_ui/scene_route.dart';
 
@@ -44,6 +45,14 @@ const Duration _pollingDuration = Duration(seconds: 40);
 /// ([MonsterGenerator.fetchGeneration]) で、40 秒の間に 8 回の読み取りに収まる。サーバーの段階は数秒〜数十秒で進むため、
 /// 終わってから画面に出るまでの遅れが 5 秒以内なら待たされたと感じにくい。
 const Duration _pollingInterval = Duration(seconds: 5);
+
+/// 直前の setState の表示が画面に出るまで待つ。Web の `compute` は別の isolate を使わず同じスレッドで動くため、
+/// ボタンを押した直後に重い画像の処理を始めると、押した後の待ちの表示が描かれないまま画面が止まる (#302)。
+/// フレームを描き終えた後もマイクロタスクのうちはブラウザが画面に出さないため、タイマーで 1 回イベントループに戻す。
+Future<void> _waitUntilPainted() async {
+  await SchedulerBinding.instance.endOfFrame;
+  await Future<void>.delayed(Duration.zero);
+}
 
 /// 写真 1 枚から生成する画面。写真を整えて送り、段階ごとの待ち時間を出し、結果に応じて生まれた画面を開くか、
 /// 判定待ち・生成しなかった理由・エラーを出す。生まれた画面を閉じたら、その画面の [ResultScreenAction] を返して閉じる。
@@ -414,6 +423,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
     final photo = _preparedPhoto!;
     setState(() => _phase = _GenerationPhase.inProgress);
     try {
+      await _waitUntilPainted();
       final mask = await widget.monsterGenerator.createSquareMask(
         photo: photo,
         crop: _crop!,
