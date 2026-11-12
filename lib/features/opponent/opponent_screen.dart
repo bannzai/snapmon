@@ -162,6 +162,9 @@ class _OpponentScreenState extends State<OpponentScreen> {
   /// 乱数で決めた CPU の相手との対戦の画面 ([prepareRandomCpuBattleScreen]) を開き、閉じるまで待つ。
   /// 勝敗の画面で「もう一回対戦する」を押して閉じた時は、別の相手との対戦の画面を続けて開く。
   Future<void> _prepareAndStartBattle() async {
+    // 前のバトルの画面の route。再戦の時はこれが閉じる演出を終えて破棄されるまで待ってから次を開く。待たずに開くと、
+    // 新しいバトルの画面が BGM を流した後に前の画面の破棄がホームの BGM に戻し、2 戦目でホームの BGM が流れるため
+    PageRoute<BattleScreenAction>? previousBattleRoute;
     while (true) {
       final BattleScreen battleScreen;
       // 定義を読み直せない時はエラーをそのまま出す
@@ -180,12 +183,15 @@ class _OpponentScreenState extends State<OpponentScreen> {
         }
         return;
       }
+      await previousBattleRoute?.completed;
       if (!mounted) {
         return;
       }
-      final action = await Navigator.of(context).push(
-        sceneRoute<BattleScreenAction>(builder: (context) => battleScreen),
+      final battleRoute = sceneRoute<BattleScreenAction>(
+        builder: (context) => battleScreen,
       );
+      previousBattleRoute = battleRoute;
+      final action = await Navigator.of(context).push(battleRoute);
       unawaited(_loadBattleRecord());
       if (action == BattleScreenAction.openDex) {
         widget.onSelectScene(scene: HomeScene.dex);

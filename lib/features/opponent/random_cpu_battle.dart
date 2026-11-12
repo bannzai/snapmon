@@ -11,7 +11,7 @@ import 'pvp_client.dart';
 
 /// 定義を読み直し、乱数で決めた CPU の相手と [dexStore] の今の手持ちで戦う対戦の画面を作る。
 /// 対戦のシーンの「ランダムな相手と戦う」と、勝敗の画面の「もう一回対戦する」が開く。
-/// 図鑑の定義を読み直せない時は例外を投げる ([prepareBattleDefinitions])。
+/// 図鑑の定義を読み直せない時 ([prepareBattleDefinitions]) と手持ちが空の時は例外を投げる。
 /// [playerProfile] は自分の札に出すアイコンと表示名で、読めていない時は null。
 Future<BattleScreen> prepareRandomCpuBattleScreen({
   required DexStore dexStore,
@@ -28,6 +28,11 @@ Future<BattleScreen> prepareRandomCpuBattleScreen({
   );
   // 決着の後にレベルが上がった手持ちを渡し直さないよう、作る時の手持ちで固定する
   final playerParty = List.of(dexStore.party);
+  // 前のバトルの間にサーバーの図鑑の読み直しで手持ちが空になった時、空の手持ちでバトルの画面を作ると開いた時に
+  // バトルを始められず落ちるため、ここで断って呼び出し元にエラーを出させる
+  if (playerParty.isEmpty) {
+    throw StateError('手持ちがいないため対戦を始められません');
+  }
   // 押すたびに別の相手・別の展開にするため、相手を決める seed とバトルの seed は毎回作る。
   // 値の範囲は DeterministicRandom の状態 (32 bit) に合わせた。
   // Web (JavaScript) ではシフトが 32 bit に切り詰められ `1 << 32` が 0 になるため、上限は整数リテラルで書く

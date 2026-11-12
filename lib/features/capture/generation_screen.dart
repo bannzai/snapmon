@@ -538,25 +538,24 @@ class _GenerationScreenState extends State<GenerationScreen> {
     final dexStore = widget.dexStore;
     // 経路が作り直されると builder が呼び直されるため、決着の後にレベルが上がった手持ちを渡し直さないよう、開く時の手持ちで固定する
     final playerParty = List.of(dexStore.party);
-    var action = await Navigator.of(context).push(
-      sceneRoute<BattleScreenAction>(
-        builder: (context) => BattleScreen(
-          playerParty: playerParty,
-          opponentParty: opponent.cpuOpponent.opponentParty,
-          opponentKind: BattleOpponentKind.cpu,
-          definitions: opponent.definitions,
-          randomSeed: _firstBattleRandomSeed,
-          battleRecorder: widget.battleRecorder,
-          onPlayerLevelsChanged: dexStore.updateLevels,
-          cardSharer: widget.cardSharer,
-          firstBattleBornMonster: monster,
-          firstBattleMonsterIsNewlyBorn:
-              monster.definition.id != _alreadyInDexMonster?.definition.id,
-          playerProfile: _playerProfile,
-          opponentDisplayName: opponent.cpuOpponent.opponentName,
-        ),
+    var battleRoute = sceneRoute<BattleScreenAction>(
+      builder: (context) => BattleScreen(
+        playerParty: playerParty,
+        opponentParty: opponent.cpuOpponent.opponentParty,
+        opponentKind: BattleOpponentKind.cpu,
+        definitions: opponent.definitions,
+        randomSeed: _firstBattleRandomSeed,
+        battleRecorder: widget.battleRecorder,
+        onPlayerLevelsChanged: dexStore.updateLevels,
+        cardSharer: widget.cardSharer,
+        firstBattleBornMonster: monster,
+        firstBattleMonsterIsNewlyBorn:
+            monster.definition.id != _alreadyInDexMonster?.definition.id,
+        playerProfile: _playerProfile,
+        opponentDisplayName: opponent.cpuOpponent.opponentName,
       ),
     );
+    var action = await Navigator.of(context).push(battleRoute);
     // 2 戦目からは初回の導線の計測 (first_experience) を送らない (prepareRandomCpuBattleScreen は firstBattleBornMonster を null にする)
     while (action == BattleScreenAction.rematch) {
       // 準備の間に前の相手の「○○ があらわれた」を出したままにすると、乱数で選び直す次の相手と名前が食い違うため、相手を探す表示に戻す
@@ -582,13 +581,17 @@ class _GenerationScreenState extends State<GenerationScreen> {
         }
         break;
       }
+      // 前のバトルの画面が閉じる演出を終えて破棄されるまで待つ。待たずに開くと、新しいバトルの画面が BGM を流した後に
+      // 前の画面の破棄がホームの BGM に戻し、2 戦目でホームの BGM が流れるため
+      await battleRoute.completed;
       // 最初のバトルを開く時と同じく、準備を待つ間に閉じられた (閉じる演出の途中の) 画面からはバトルを開かない
       if (!mounted || !(ModalRoute.of(context)?.isCurrent ?? false)) {
         return;
       }
-      action = await Navigator.of(context).push(
-        sceneRoute<BattleScreenAction>(builder: (context) => battleScreen),
+      battleRoute = sceneRoute<BattleScreenAction>(
+        builder: (context) => battleScreen,
       );
+      action = await Navigator.of(context).push(battleRoute);
     }
     if (mounted) {
       Navigator.of(context).pop(
