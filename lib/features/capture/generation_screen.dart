@@ -313,6 +313,20 @@ class _GenerationScreenState extends State<GenerationScreen> {
     }
   }
 
+  /// エラーの表示の「もう一度試す」から生成をやり直す。やり直しは写真を整える・被写体を切り出すといった重い画像の処理から
+  /// 始まることがあるため、待ちの表示を描いてから [_generate] を呼ぶ (#312)。
+  Future<void> _retryGeneration() async {
+    setState(() {
+      _phase = _GenerationPhase.inProgress;
+      _error = null;
+    });
+    await _waitUntilPainted();
+    if (!mounted) {
+      return;
+    }
+    await _generate();
+  }
+
   /// 上限に当たった時に、売っていれば購入画面を出し、利用者が続けると決めたら同じ写真で生成をやり直す。
   /// 売っていない間は何もしない (上限のエラーの表示のまま)。
   Future<void> _offerTicketPurchaseAndRetry() async {
@@ -1032,7 +1046,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
       const SizedBox(height: 28),
       FilledButton(
         onPressed: _firstBattleMonster == null
-            ? _generate
+            ? _retryGeneration
             : () => _prepareFirstBattle(monster: _firstBattleMonster!),
         child: Text(l10n.commonRetry),
       ),

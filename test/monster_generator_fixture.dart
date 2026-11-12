@@ -100,8 +100,7 @@ MonsterGenerator fakeMonsterGenerator({
       return true;
     },
     pickAlbumPhoto: () async => albumPhoto,
-    preparePhoto:
-        preparePhoto ?? ({required sourceBytes}) async => sourceBytes,
+    preparePhoto: preparePhoto ?? ({required sourceBytes}) async => sourceBytes,
     createSubjectMask:
         createSubjectMask ?? ({required photo}) async => testSubjectMaskBytes,
     createSquareMask: ({required photo, required crop}) async {
