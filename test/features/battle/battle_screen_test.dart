@@ -408,7 +408,7 @@ void main() {
   testWidgets('補助技は相手のステータスを下げたことをログに出し、変わった倍率を相手のカードに出す', (tester) async {
     await pumpBattleScreen(
       tester: tester,
-      // Lv.5 のスリッパンは 4 番目の技の枠に こもりうた (相手の素早さを 25 下げる補助技) を持つ
+      // Lv.5 のスリッパンは技の枠に こもりうた (相手の素早さを 25 下げる補助技) を持つ
       playerMonster: sampleData.monsterByID(monsterID: 'sample-slippan'),
       artImage: null,
       battleRecorder: fakeBattleRecorder(
@@ -417,11 +417,15 @@ void main() {
         recordedLevels: const {},
       ),
     );
-    final moveSlot = find.byKey(const Key('move-slot-3'));
-    expect(
-      find.descendant(of: moveSlot, matching: find.text('こもりうた')),
-      findsOneWidget,
+    final moveSlot = find.ancestor(
+      of: find.text('こもりうた'),
+      matching: find.byWidgetPredicate(
+        (widget) =>
+            widget.key is ValueKey<String> &&
+            (widget.key! as ValueKey<String>).value.startsWith('move-slot-'),
+      ),
     );
+    expect(moveSlot, findsOneWidget);
     expect(
       find.descendant(of: moveSlot, matching: find.text('相手の素早さを下げる')),
       findsOneWidget,

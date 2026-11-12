@@ -137,7 +137,11 @@ class _ActionCardMovesSectionState extends State<ActionCardMovesSection> {
                 key: Key('action-card-teach-${move.id}'),
                 title: Text(move.displayName),
                 subtitle: Text(
-                  _teachSubtitle(context: context, monster: monster, move: move),
+                  _teachSubtitle(
+                    context: context,
+                    monster: monster,
+                    move: move,
+                  ),
                 ),
                 onTap: () => Navigator.of(context).pop(move),
               ),

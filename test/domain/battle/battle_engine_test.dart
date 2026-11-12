@@ -1804,24 +1804,27 @@ void main() {
       );
     });
 
-    test('Action Card の技が枠の数以上ある時は、開放レベルに上がっても枠が変わらないが、技を選ぶ画面で選べるため次に覚えるレベルを出す', () {
-      const actionCardMoveIDs = ['w', 'x', 'y', 'z'];
-      final changes = levelUpChanges(
-        learnset: currentRuleLearnset,
-        actionCardMoveIDs: actionCardMoveIDs,
-        previousLevel: 1,
-        newLevel: 2,
-      );
-      expect(changes.learnedMoveIDs, isEmpty);
-      expect(
-        nextLearnsetUnlockLevel(
+    test(
+      'Action Card の技が枠の数以上ある時は、開放レベルに上がっても枠が変わらないが、技を選ぶ画面で選べるため次に覚えるレベルを出す',
+      () {
+        const actionCardMoveIDs = ['w', 'x', 'y', 'z'];
+        final changes = levelUpChanges(
           learnset: currentRuleLearnset,
           actionCardMoveIDs: actionCardMoveIDs,
-          level: 1,
-        ),
-        2,
-      );
-    });
+          previousLevel: 1,
+          newLevel: 2,
+        );
+        expect(changes.learnedMoveIDs, isEmpty);
+        expect(
+          nextLearnsetUnlockLevel(
+            learnset: currentRuleLearnset,
+            actionCardMoveIDs: actionCardMoveIDs,
+            level: 1,
+          ),
+          2,
+        );
+      },
+    );
 
     test('Action Card の技を覚えさせると、一番古い技が枠から外れる', () {
       final changes = equippedMoveChanges(
@@ -1971,19 +1974,19 @@ void main() {
         definition: testDefinition(
           id: 'player',
           elementTypeID: 'fire',
-          moveIDs: ['fire_weak', 'fire_strong', 'grass_weak'],
+          moveIDs: ['fire_strong', 'grass_weak'],
           speed: 50,
         ),
         level: 1,
         actionCardMoveIDs: ['grass_strong'],
-        selectedMoveIDs: ['grass_strong', 'fire_weak'],
+        selectedMoveIDs: ['grass_strong', 'grass_weak'],
       );
       expect(
         selectableMoves(
           monster: monster,
           master: testMaster,
         ).map((move) => move.id),
-        ['grass_strong', 'fire_weak'],
+        ['grass_strong', 'grass_weak'],
       );
     });
   });

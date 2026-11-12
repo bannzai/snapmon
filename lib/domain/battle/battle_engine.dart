@@ -295,10 +295,7 @@ List<String> equippedLearnsetEntries({
         actionCardMoveIDs[actionCardIndex];
   }
   for (
-    var learnsetIndex = math.max(
-      0,
-      learnsetMoveIDs.length - learnsetSlotCount,
-    );
+    var learnsetIndex = math.max(0, learnsetMoveIDs.length - learnsetSlotCount);
     learnsetIndex < learnsetMoveIDs.length;
     learnsetIndex++
   ) {

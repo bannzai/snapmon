@@ -125,12 +125,12 @@ void main() {
   });
 
   test('対戦の前に選んだ技は、図鑑のモンスターにすぐ反映してサーバーに保存する (#309)', () async {
-    final savedSelections = <(String, List<String>)>[];
+    final savedSelections = <List<String>>[];
     final dexStore = DexStore(definitions: sampleData.definitions)
       ..connectServer(
         savePartyMonsterIDs: ({required monsterIDs}) async {},
         saveSelectedMoveIDs: ({required monsterID, required moveIDs}) async =>
-            savedSelections.add((monsterID, moveIDs)),
+            savedSelections.add([monsterID, ...moveIDs]),
         refreshDefinitions: () async {},
       )
       ..applyServerSnapshot(
@@ -140,8 +140,9 @@ void main() {
       );
     final monsterID = monsters[0].definition.id;
     await dexStore.selectMoves(monsterID: monsterID, moveIDs: ['b', 'a']);
+    // 保存した [モンスターの ID, 選んだ技の ID...]
     expect(savedSelections, [
-      (monsterID, ['b', 'a']),
+      [monsterID, 'b', 'a'],
     ]);
     expect(
       dexStore.monsters
