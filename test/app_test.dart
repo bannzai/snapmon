@@ -1114,6 +1114,10 @@ void main() {
         await tester.ensureVisible(rematch);
         await tester.tap(rematch);
         await tester.pump();
+        // 次の対戦の準備の間、下の生成の画面は 1 戦目の相手の「○○ があらわれた」ではなく相手を探す表示に戻る
+        // (次の相手は乱数で選び直すため、前の相手の名前を出すと食い違う)
+        expect(find.textContaining(RegExp(r'^CPU .+ があらわれた$')), findsNothing);
+        expect(find.byKey(const Key('matchmaking-stage')), findsOneWidget);
         await tester.pump(const Duration(seconds: 1));
         await tester.pump(const Duration(seconds: 1));
         expect(find.byType(BattleScreen), findsOneWidget);
