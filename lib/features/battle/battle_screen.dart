@@ -1707,6 +1707,11 @@ class _BattleResultPanel extends StatelessWidget {
   /// 「もう一回対戦する」を押せるか (決着の後の記録を終えたか)。
   final bool canRematch;
 
+  /// 「もう一回対戦する」を押した時の処理。記録を終えるまで ([canRematch] が false) は押せないよう null を返す。
+  VoidCallback? _onRematchPressed({required BuildContext context}) => canRematch
+      ? () => Navigator.of(context).pop(BattleScreenAction.rematch)
+      : null;
+
   final BattleSideID winner;
 
   /// 相手が CPU トレーナーか他のユーザーか ([BattleScreen.opponentKind])。「もう一回対戦する」は乱数で選び直した CPU トレーナーと戦うため、
@@ -1864,7 +1869,7 @@ class _BattleResultPanel extends StatelessWidget {
             style: SnapmonTextStyles.small,
           ),
         ],
-        // 手持ちが上限に満たないまま負けた時は、手持ちを増やすことと遊び方 (弱点・状態異常) を案内する
+        // 手持ちが埋まっている時に負けても手持ちは増やせないため、案内は上限に満たない時だけ出す
         if (winner != BattleSideID.player &&
             playerParty.length < maximumPartySize) ...[
           const SizedBox(height: 8),
@@ -1913,18 +1918,14 @@ class _BattleResultPanel extends StatelessWidget {
               Expanded(
                 child: FilledButton(
                   key: const Key('battle-rematch'),
-                  onPressed: canRematch
-                      ? () => Navigator.of(
-                          context,
-                        ).pop(BattleScreenAction.rematch)
-                      : null,
+                  onPressed: _onRematchPressed(context: context),
                   child: Text(context.l10n.battleRematch),
                 ),
               ),
             ],
           )
         else ...[
-          // 初回は手持ちを増やすことを主な次の行動にし、もう一度戦う・図鑑を見るを並べる
+          // 初回の手持ちは 1 体だけで、次に手持ちを増やしてほしいため「手持ちを増やす」を主ボタンにする
           Row(
             children: [
               Expanded(
@@ -1939,11 +1940,7 @@ class _BattleResultPanel extends StatelessWidget {
                 child: _BattleCommandButton(
                   key: const Key('battle-rematch'),
                   label: context.l10n.battleRematch,
-                  onPressed: canRematch
-                      ? () => Navigator.of(
-                          context,
-                        ).pop(BattleScreenAction.rematch)
-                      : null,
+                  onPressed: _onRematchPressed(context: context),
                 ),
               ),
             ],

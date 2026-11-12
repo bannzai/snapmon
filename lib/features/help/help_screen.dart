@@ -35,7 +35,9 @@ Future<void> showHelpSheet({required BuildContext context}) =>
         expand: false,
         // 開いた時に勝敗の画面の上の方が少し見え、ポップアップだと分かる高さにした
         initialChildSize: 0.85,
+        // 半分まで縮めると勝敗の画面と見比べられ、それより下げる時は閉じるボタンか下へのスワイプで閉じれば足りるため
         minChildSize: 0.5,
+        // 上端の少しを残し、ポップアップの外を押して閉じられるようにするため
         maxChildSize: 0.95,
         builder: (context, scrollController) => ListView(
           key: const Key('help-sheet'),

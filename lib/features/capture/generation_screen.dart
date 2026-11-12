@@ -557,8 +557,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
         ),
       ),
     );
-    // 「もう一回対戦する」で閉じた時は、対戦のシーンと同じく別の CPU の相手との対戦を続けて開く。
-    // 2 戦目からは初回の導線の計測 (first_experience) を送らない (firstBattleBornMonster が null)
+    // 2 戦目からは初回の導線の計測 (first_experience) を送らない (prepareRandomCpuBattleScreen は firstBattleBornMonster を null にする)
     while (action == BattleScreenAction.rematch) {
       final BattleScreen battleScreen;
       try {
