@@ -159,10 +159,11 @@ MoveSpecialEffect? moveSpecialEffectFromJson({
 const int defaultMoveAccuracyPercent = 100;
 
 /// 命中率を下げ始める威力。これ以下の技は威力で命中率を下げない。
-/// 段階 1 の攻撃技 (40〜50) を下げず「だいたい当たる」を保ち、段階 2 (60〜75) から下げるため (#279)。
-const int accuracyPenaltyPowerThreshold = 50;
+/// 段階 1・2 の攻撃技 (40〜75) を必ず当たるようにし、段階 3 (110) と自爆 (200) だけを外れるようにするため
+/// (#279 では 50 で段階 2 も外れたが、bannzai の「ほとんどの技は100%にして欲しい」(2026-11-12) で 75 にした)。
+const int accuracyPenaltyPowerThreshold = 75;
 
-/// 威力がこれだけ上がるごとに命中率を 1 下げる。段階 3 (110) で 88、自爆 (200) で 70 になる (#279)。
+/// 威力がこれだけ上がるごとに命中率を 1 下げる。段階 3 (110) で 93、自爆 (200) で 75 になる (#279)。
 const int accuracyPenaltyPowerStep = 5;
 
 /// 威力で下げた命中率の下限 (%)。眩暈の 70% と同じにし、最も強い技でも 10 回に 7 回は当たるようにした (#279)。

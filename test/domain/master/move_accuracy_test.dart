@@ -28,24 +28,42 @@ void main() {
   );
 
   group('moveAccuracyPercent (#279)', () {
-    test('威力 50 以下は master の命中率のまま、50 を超えると威力 5 ごとに 1 下がる', () {
+    test('威力 75 以下は master の命中率のまま、75 を超えると威力 5 ごとに 1 下がる', () {
       expect(moveAccuracyPercent(move: attackMove(power: 40)), 100);
-      expect(moveAccuracyPercent(move: attackMove(power: 50)), 100);
-      expect(moveAccuracyPercent(move: attackMove(power: 55)), 99);
-      expect(moveAccuracyPercent(move: attackMove(power: 75)), 95);
-      expect(moveAccuracyPercent(move: attackMove(power: 110)), 88);
+      expect(moveAccuracyPercent(move: attackMove(power: 75)), 100);
+      expect(moveAccuracyPercent(move: attackMove(power: 80)), 99);
+      expect(moveAccuracyPercent(move: attackMove(power: 110)), 93);
+      expect(moveAccuracyPercent(move: attackMove(power: 200)), 75);
     });
 
     test('威力の割合は 70% より下がらない', () {
-      expect(moveAccuracyPercent(move: attackMove(power: 200)), 70);
+      expect(moveAccuracyPercent(move: attackMove(power: 225)), 70);
       expect(moveAccuracyPercent(move: attackMove(power: 300)), 70);
     });
 
     test('master の命中率に威力の割合を掛ける', () {
       expect(
         moveAccuracyPercent(move: attackMove(power: 110, accuracy: 50)),
-        44,
+        46,
       );
+    });
+
+    test('master の技は、段階 3・自爆・一撃必殺だけが命中率 100 未満で、それ以外は 100', () {
+      final belowHundredMoves = master.moves
+          .where((move) => moveAccuracyPercent(move: move) < 100)
+          .toList();
+      expect(
+        belowHundredMoves.every(
+          (move) =>
+              move.power > accuracyPenaltyPowerThreshold ||
+              (move.specialEffect?.isOneHitKnockout ?? false),
+        ),
+        isTrue,
+        reason: belowHundredMoves.map((move) => move.id).join(','),
+      );
+      // 段階 3 (110)・自爆 (200)・一撃必殺の 3 種類 × 23 属性
+      expect(belowHundredMoves.length, 69);
+      expect(master.moves.length - belowHundredMoves.length, 533);
     });
 
     test('master の必中の技は威力に関係なく 100、一撃必殺は master の命中率のまま', () {

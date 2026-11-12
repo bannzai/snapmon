@@ -493,7 +493,7 @@ MonsterDefinition testDefinition({
     for (final moveID in moveIDs) LearnsetEntry(moveID: moveID, unlockLevel: 1),
   ],
   // 命中は既定で種族値・個体値の最大 (計算した命中が 100) にし、技の命中率だけで当たり外れが決まるようにする。
-  // 命中の効き目は「使う側の命中を技の命中率に掛ける」のテストで、[accuracyBaseStat] を下げて確かめる
+  // 命中の効き目は「使う側の命中は技の命中率が 100 未満の技にだけ掛け」のテストで、[accuracyBaseStat] を下げて確かめる
   baseStats: MonsterStats(
     hitPoints: hitPoints,
     attack: 80,
@@ -2622,25 +2622,43 @@ void main() {
       }
     });
 
-    test('使う側の命中を技の命中率に掛け、命中が 100 未満なら命中率 100 の技も外れる (#279)', () {
+    test('使う側の命中は技の命中率が 100 未満の技にだけ掛け、命中率 100 の技は命中が低くても外れない', () {
       // 命中の種族値 40・個体値 31 は 80 + (2 × 40 + 31) × 20 ÷ 271 = 88
       final lowAccuracyAttacker = prepare(
         definition: testDefinition(
           id: 'low-accuracy',
           elementTypeID: 'fire',
-          moveIDs: ['fire_strong', 'fire_inaccurate', 'fire_sure_hit'],
+          moveIDs: [
+            'fire_strong',
+            'fire_inaccurate',
+            'fire_sure_hit',
+            'fire_self_destruct',
+          ],
           speed: 80,
           accuracyBaseStat: 40,
         ),
       );
       expect(effectiveStats(monster: lowAccuracyAttacker).accuracy, 88);
-      // 威力 60 の技は威力の割合で 98%。98 × 88 ÷ 100 = 86
+      // 威力 60 の技は技の命中率 100 のため、使う側の命中を掛けない
       expect(
         moveHitChancePercent(
           move: testMaster.moveByID(moveID: 'fire_strong'),
           attacker: lowAccuracyAttacker,
         ),
-        86,
+        100,
+      );
+      // わるあがきも命中率 100 のため外れない
+      expect(
+        moveHitChancePercent(move: null, attacker: lowAccuracyAttacker),
+        100,
+      );
+      // 自爆 (威力 200) は威力の割合で 75%。75 × 88 ÷ 100 = 66
+      expect(
+        moveHitChancePercent(
+          move: testMaster.moveByID(moveID: 'fire_self_destruct'),
+          attacker: lowAccuracyAttacker,
+        ),
+        66,
       );
       expect(
         moveHitChancePercent(
@@ -2659,17 +2677,17 @@ void main() {
       // 命中 100 のモンスターは技の命中率 (威力の割合を掛けた値) のまま
       expect(
         moveHitChancePercent(
-          move: testMaster.moveByID(moveID: 'fire_strong'),
+          move: testMaster.moveByID(moveID: 'fire_self_destruct'),
           attacker: prepare(
             definition: testDefinition(
               id: 'full-accuracy',
               elementTypeID: 'fire',
-              moveIDs: ['fire_strong'],
+              moveIDs: ['fire_self_destruct'],
               speed: 80,
             ),
           ),
         ),
-        98,
+        75,
       );
     });
 
@@ -2705,7 +2723,7 @@ void main() {
     });
 
     test('自爆はダメージを与えた後に自分の HP を 0 にし、相打ちなら利用者の勝ち', () {
-      // 自爆 (威力 200) は威力の割合で命中率 70% のため (#279)、当たった後の規則を確かめるよう自爆が当たる最初の seed を使う
+      // 自爆 (威力 200) は威力の割合で命中率 75% のため (#279)、当たった後の規則を確かめるよう自爆が当たる最初の seed を使う
       BattleState hitSelfDestruct({int opponentHitPoints = 250}) =>
           [
             for (var randomSeed = 1; randomSeed <= 20; randomSeed++)
