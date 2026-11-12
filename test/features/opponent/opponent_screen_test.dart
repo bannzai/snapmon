@@ -67,6 +67,9 @@ void main() {
     ),
   ];
 
+  /// [pumpOpponentScreen] で開いた画面が流した BGM・効果音。開くたびに作り直す。
+  late RecordedAudioCalls audioCalls;
+
   /// [pvpClient] を使う対戦相手の画面を、手持ちを 3 体入れて iPhone の画面の大きさ (モックの 390 × 844) で開く。
   /// 設定を開く操作は [onOpenSettings] を呼ぶ。
   Future<void> pumpOpponentScreen({
@@ -80,10 +83,11 @@ void main() {
     addTearDown(tester.view.reset);
     final dexStore = DexStore(definitions: sampleData.definitions)
       ..replaceAll(monsters: sampleData.monsters);
+    audioCalls = RecordedAudioCalls();
     await tester.pumpWidget(
       GameAudioScope(
         gameAudio: fakeGameAudio(
-          calls: RecordedAudioCalls(),
+          calls: audioCalls,
           isBackgroundMusicEnabled: true,
           isSoundEffectsEnabled: true,
           waitsForUserInteractionBeforeBackgroundMusic: false,
@@ -413,6 +417,48 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
   }
+
+  testWidgets(
+    '勝敗の画面の「もう一回対戦する」で閉じると、前のバトルの画面の破棄を待ってから次のバトルの画面を開き、バトルの BGM を流す',
+    (tester) async {
+      await pumpOpponentScreen(
+        tester: tester,
+        pvpClient: signedInPvpClient(calls: RecordedPvpCalls()),
+        onOpenSettings: () async {},
+      );
+      await tester.tap(find.byKey(const Key('random-battle')));
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
+      final firstBattle = tester.widget<BattleScreen>(
+        find.byType(BattleScreen),
+      );
+      Navigator.of(
+        tester.element(find.byType(BattleScreen)),
+      ).pop(BattleScreenAction.rematch);
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
+      await tester.pump(const Duration(seconds: 1));
+      // 前の画面の破棄を待ってから次の画面を開くため、開いた後のフレームをもう 1 秒進める
+      await tester.pump(const Duration(seconds: 1));
+      final secondBattle = tester.widget<BattleScreen>(
+        find.byType(BattleScreen),
+      );
+      expect(identical(secondBattle, firstBattle), isFalse);
+      // 前の画面の破棄がホームの BGM に戻した後に次の画面がバトルの BGM を流すため、最後はバトルの BGM
+      expect(
+        audioCalls.playedBackgroundMusicAssetPaths.last,
+        BackgroundMusic.battle.assetPath,
+      );
+
+      // 「もどる」で閉じた時は次のバトルを開かずに対戦のシーンに戻る
+      Navigator.of(tester.element(find.byType(BattleScreen))).pop();
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
+      await tester.pump(const Duration(seconds: 1));
+      expect(find.byType(BattleScreen), findsNothing);
+      expect(find.byKey(const Key('random-battle')), findsOneWidget);
+    },
+  );
 
   testWidgets('バトルの後の戦績の読み直しに失敗したら、古い勝敗を出さずにエラーを出す', (tester) async {
     var fetchBattleRecordFails = false;

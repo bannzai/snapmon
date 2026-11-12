@@ -1120,7 +1120,14 @@ void main() {
         expect(find.byKey(const Key('matchmaking-stage')), findsOneWidget);
         await tester.pump(const Duration(seconds: 1));
         await tester.pump(const Duration(seconds: 1));
+        // 1 戦目の画面の破棄を待ってから 2 戦目を開くため、開いた後のフレームをもう 1 秒進める
+        await tester.pump(const Duration(seconds: 1));
         expect(find.byType(BattleScreen), findsOneWidget);
+        // 1 戦目の画面の破棄 (ホームの BGM に戻す) を待ってから 2 戦目を開くため、最後に流れているのはバトルの BGM
+        expect(
+          audioCalls.playedBackgroundMusicAssetPaths.last,
+          BackgroundMusic.battle.assetPath,
+        );
         // 2 戦目は初回の導線ではない
         expect(find.byKey(const Key('first-battle-hint')), findsNothing);
 

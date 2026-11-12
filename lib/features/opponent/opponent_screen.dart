@@ -184,7 +184,8 @@ class _OpponentScreenState extends State<OpponentScreen> {
         return;
       }
       await previousBattleRoute?.completed;
-      if (!mounted) {
+      // 準備の間に設定などの画面を上に開いた時は、その上にバトルを重ねて開かない
+      if (!mounted || !(ModalRoute.of(context)?.isCurrent ?? false)) {
         return;
       }
       final battleRoute = sceneRoute<BattleScreenAction>(

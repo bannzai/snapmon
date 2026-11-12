@@ -593,7 +593,8 @@ class _GenerationScreenState extends State<GenerationScreen> {
       );
       action = await Navigator.of(context).push(battleRoute);
     }
-    if (mounted) {
+    // 再戦の準備の間に閉じられた (閉じる演出の途中の) 画面からもう一度 pop すると、下の画面まで閉じてしまうため、前面にある時だけ閉じる
+    if (mounted && (ModalRoute.of(context)?.isCurrent ?? false)) {
       Navigator.of(context).pop(
         action == BattleScreenAction.openDex
             ? ResultScreenAction.openDex
