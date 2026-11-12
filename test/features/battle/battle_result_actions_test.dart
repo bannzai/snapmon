@@ -133,10 +133,14 @@ void main() {
     // null の時は「もう一回対戦する」: CPU トレーナーとの対戦の勝敗の画面には必ず出るため
     Finder? finishedButton,
   }) async {
-    final rematchButton =
+    final resolvedFinishedButton =
         finishedButton ?? find.byKey(const Key('battle-rematch'));
     // 300 ターン: 3 体ずつの手持ちでも決着する数より十分多く、決着しない不具合でテストが止まらない上限
-    for (var turn = 0; turn < 300 && rematchButton.evaluate().isEmpty; turn++) {
+    for (
+      var turn = 0;
+      turn < 300 && resolvedFinishedButton.evaluate().isEmpty;
+      turn++
+    ) {
       final move = find.text('わるあがき').evaluate().isEmpty
           ? find.byKey(const Key('move-slot-0'))
           : find.text('わるあがき');
@@ -145,7 +149,7 @@ void main() {
       await tester.pump();
       await tester.pump(const Duration(seconds: 5));
     }
-    expect(rematchButton, findsOneWidget);
+    expect(resolvedFinishedButton, findsOneWidget);
   }
 
   /// [finder] を画面に入れてから押し、閉じる演出を進める。
