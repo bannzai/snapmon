@@ -23,5 +23,6 @@ export { recordBattle, startBattle } from "./battle";
 export { generate, resumeGenerationTask as resumeGeneration } from "./generation/generate";
 export { revenueCatWebhook } from "./generation_tickets";
 export { healthCheck } from "./health_check";
+export { selectMonsterMoves } from "./monster_moves";
 export { setProfileIcon } from "./profile";
 export { blockUser, fetchOpponents, getDisplayName, notifyReport, reportMonster, setDisplayName } from "./pvp";

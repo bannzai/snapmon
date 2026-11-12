@@ -646,6 +646,7 @@ void main() {
           definition: sampleMonster.definition,
           level: sampleMonster.level,
           actionCardMoveIDs: const [],
+          selectedMoveIDs: null,
           artPath: null,
           definitionIDs: sampleMonster.definitionIDs,
           decoration: null,

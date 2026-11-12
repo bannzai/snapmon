@@ -5,6 +5,7 @@ import 'monster_stats.dart';
 const int maximumLevel = 999;
 
 /// モンスターの変わる部分。レベル・経験は戦うたびに増えて保存し、Action Card で覚えさせた技は覚えさせる・忘れさせるたびに保存し、
+/// 対戦の前に選んだ技は選ぶたびに保存し、
 /// HP・PP の残り・ステータスの倍率・状態はバトルの中だけで変わる (バトルの開始時に満タン・等倍・状態なしへ戻す)。
 class MonsterState {
   /// モンスターの状態を作る。
@@ -12,6 +13,7 @@ class MonsterState {
     required this.level,
     required this.experience,
     required this.actionCardMoveIDs,
+    required this.selectedMoveIDs,
     required this.currentHitPoints,
     required this.remainingPowerPoints,
     required this.statModifierPercents,
@@ -27,6 +29,10 @@ class MonsterState {
   /// Action Card で覚えさせた技の ID (覚えさせた順。`users/{uid}/monsters/{monsterID}.actionCardMoveIDs`)。技の枠の決め方は
   /// lib/domain/battle/battle_engine.dart の `equippedLearnsetEntries`。
   final List<String> actionCardMoveIDs;
+
+  /// 対戦の前に選んだ技の ID (枠の順。`users/{uid}/monsters/{monsterID}.selectedMoveIDs`)。選んでいなければ null。
+  /// 技の枠の決め方は lib/domain/battle/battle_engine.dart の `equippedLearnsetEntries`。
+  final List<String>? selectedMoveIDs;
 
   /// バトル中の HP の残り。0 で倒れている。
   final int currentHitPoints;
@@ -53,6 +59,7 @@ class MonsterState {
     level: level ?? this.level,
     experience: experience ?? this.experience,
     actionCardMoveIDs: actionCardMoveIDs,
+    selectedMoveIDs: selectedMoveIDs,
     currentHitPoints: currentHitPoints ?? this.currentHitPoints,
     remainingPowerPoints: remainingPowerPoints ?? this.remainingPowerPoints,
     statModifierPercents: statModifierPercents ?? this.statModifierPercents,

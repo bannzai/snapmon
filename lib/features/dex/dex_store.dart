@@ -20,6 +20,11 @@ class DexStore extends ChangeNotifier {
   Future<void> Function({required List<String> monsterIDs})?
   _savePartyMonsterIDs;
   Future<void> Function()? _refreshDefinitions;
+  Future<void> Function({
+    required String monsterID,
+    required List<String> moveIDs,
+  })?
+  _saveSelectedMoveIDs;
   Object? _serverError;
 
   /// 図鑑のモンスター (入った順)。
@@ -56,14 +61,20 @@ class DexStore extends ChangeNotifier {
   bool get isSavingParty => _isSavingParty;
   bool _isSavingParty = false;
 
-  /// サーバーの図鑑に繋ぐ。以後の手持ちの変更は [savePartyMonsterIDs] で保存し、[refreshDefinitions] で定義を
-  /// サーバーの最新の master から読み直す。何度呼んでも最後の関数を使う。
+  /// サーバーの図鑑に繋ぐ。以後の手持ちの変更は [savePartyMonsterIDs] で、対戦の前に選んだ技は [saveSelectedMoveIDs] で保存し、
+  /// [refreshDefinitions] で定義をサーバーの最新の master から読み直す。何度呼んでも最後の関数を使う。
   void connectServer({
     required Future<void> Function({required List<String> monsterIDs})
     savePartyMonsterIDs,
+    required Future<void> Function({
+      required String monsterID,
+      required List<String> moveIDs,
+    })
+    saveSelectedMoveIDs,
     required Future<void> Function() refreshDefinitions,
   }) {
     _savePartyMonsterIDs = savePartyMonsterIDs;
+    _saveSelectedMoveIDs = saveSelectedMoveIDs;
     _refreshDefinitions = refreshDefinitions;
     notifyListeners();
   }
@@ -76,6 +87,7 @@ class DexStore extends ChangeNotifier {
   /// サーバーの図鑑から離れ、空の端末の図鑑 (定義は [definitions]) に戻す (ログインを終えた時。別の uid の図鑑を残さないため)。
   void disconnectServer({required MasterData definitions}) {
     _savePartyMonsterIDs = null;
+    _saveSelectedMoveIDs = null;
     _refreshDefinitions = null;
     _definitions = definitions;
     _monsters = [];
@@ -221,6 +233,7 @@ class DexStore extends ChangeNotifier {
                 definition: monster.definition,
                 level: levelsByMonsterID[monster.definition.id]!,
                 actionCardMoveIDs: monster.actionCardMoveIDs,
+                selectedMoveIDs: monster.selectedMoveIDs,
                 artPath: monster.artPath,
                 definitionIDs: monster.definitionIDs,
                 decoration: monster.decoration,
@@ -245,11 +258,72 @@ class DexStore extends ChangeNotifier {
                 definition: monster.definition,
                 level: monster.level,
                 actionCardMoveIDs: List.unmodifiable(actionCardMoveIDs),
+                selectedMoveIDs: monster.selectedMoveIDs,
                 artPath: monster.artPath,
                 definitionIDs: monster.definitionIDs,
                 decoration: monster.decoration,
                 decorationVersion: monster.decorationVersion,
               ),
+    ];
+    notifyListeners();
+  }
+
+  /// 図鑑の [monsterID] のモンスターの対戦の前に選んだ技を [moveIDs] (枠の順) にし、サーバーに繋いでいれば保存する
+  /// (端末だけの図鑑ではメモリだけに持つ)。図鑑にいない時は何もしない。
+  /// 画面にはすぐ反映し、保存に失敗した時は、図鑑のそのモンスターの選んだ技がまだこの呼び出しで入れたものなら選ぶ前に戻して例外を投げる
+  /// (Firestore から別の値が届いていればそちらが新しいため戻さない。レベルの更新などで作り直されたモンスターは、
+  /// 選んだ技の一覧をそのまま引き継ぐため、一覧の同一性で見分ける)。
+  Future<void> selectMoves({
+    required String monsterID,
+    required List<String> moveIDs,
+  }) async {
+    final previousMonster = _monsters
+        .where((monster) => monster.definition.id == monsterID)
+        .firstOrNull;
+    if (previousMonster == null) {
+      return;
+    }
+    final selectedMoveIDs = List<String>.unmodifiable(moveIDs);
+    _replaceSelectedMoveIDs(
+      monster: previousMonster,
+      selectedMoveIDs: selectedMoveIDs,
+    );
+    try {
+      await _saveSelectedMoveIDs?.call(monsterID: monsterID, moveIDs: moveIDs);
+    } catch (_) {
+      final currentMonster = _monsters
+          .where((monster) => monster.definition.id == monsterID)
+          .firstOrNull;
+      if (currentMonster != null &&
+          identical(currentMonster.selectedMoveIDs, selectedMoveIDs)) {
+        _replaceSelectedMoveIDs(
+          monster: currentMonster,
+          selectedMoveIDs: previousMonster.selectedMoveIDs,
+        );
+      }
+      rethrow;
+    }
+  }
+
+  /// 図鑑の [monster] を、選んだ技だけを [selectedMoveIDs] に置き換えたモンスターに差し替えて知らせる。
+  void _replaceSelectedMoveIDs({
+    required OwnedMonster monster,
+    required List<String>? selectedMoveIDs,
+  }) {
+    _monsters = [
+      for (final dexMonster in _monsters)
+        identical(dexMonster, monster)
+            ? OwnedMonster(
+                definition: monster.definition,
+                level: monster.level,
+                actionCardMoveIDs: monster.actionCardMoveIDs,
+                selectedMoveIDs: selectedMoveIDs,
+                artPath: monster.artPath,
+                definitionIDs: monster.definitionIDs,
+                decoration: monster.decoration,
+                decorationVersion: monster.decorationVersion,
+              )
+            : dexMonster,
     ];
     notifyListeners();
   }

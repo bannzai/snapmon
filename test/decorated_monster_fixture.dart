@@ -12,6 +12,7 @@ OwnedMonster decoratedMonster({
   definition: monster.definition,
   level: monster.level,
   actionCardMoveIDs: const [],
+  selectedMoveIDs: null,
   artPath: artPath,
   definitionIDs: monster.definitionIDs,
   decoration: decoration,

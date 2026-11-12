@@ -201,6 +201,7 @@ OwnedMonster generatedWaxMonster({required String monsterID}) => OwnedMonster(
   ),
   level: 1,
   actionCardMoveIDs: const [],
+  selectedMoveIDs: null,
   artPath: null,
   definitionIDs: const [waxDefinitionID],
   decoration: null,

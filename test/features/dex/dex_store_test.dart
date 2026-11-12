@@ -27,6 +27,7 @@ void main() {
         }
         savedPartyMonsterIDs.add(monsterIDs);
       },
+      saveSelectedMoveIDs: ({required monsterID, required moveIDs}) async {},
       refreshDefinitions: () async {},
     )
     ..applyServerSnapshot(
@@ -123,6 +124,89 @@ void main() {
     expect(dexStore.party, isEmpty);
   });
 
+  test('対戦の前に選んだ技は、図鑑のモンスターにすぐ反映してサーバーに保存する (#309)', () async {
+    final savedSelections = <List<String>>[];
+    final dexStore = DexStore(definitions: sampleData.definitions)
+      ..connectServer(
+        savePartyMonsterIDs: ({required monsterIDs}) async {},
+        saveSelectedMoveIDs: ({required monsterID, required moveIDs}) async =>
+            savedSelections.add([monsterID, ...moveIDs]),
+        refreshDefinitions: () async {},
+      )
+      ..applyServerSnapshot(
+        monsters: monsters,
+        partyMonsterIDs: const [],
+        definitions: null,
+      );
+    final monsterID = monsters[0].definition.id;
+    await dexStore.selectMoves(monsterID: monsterID, moveIDs: ['b', 'a']);
+    // 保存した [モンスターの ID, 選んだ技の ID...]
+    expect(savedSelections, [
+      [monsterID, 'b', 'a'],
+    ]);
+    expect(
+      dexStore.monsters
+          .firstWhere((monster) => monster.definition.id == monsterID)
+          .selectedMoveIDs,
+      ['b', 'a'],
+    );
+  });
+
+  test('選んだ技の保存に失敗したら選ぶ前に戻して例外を投げる', () async {
+    final dexStore = DexStore(definitions: sampleData.definitions)
+      ..connectServer(
+        savePartyMonsterIDs: ({required monsterIDs}) async {},
+        saveSelectedMoveIDs: ({required monsterID, required moveIDs}) async =>
+            throw Exception('invalid-argument'),
+        refreshDefinitions: () async {},
+      )
+      ..applyServerSnapshot(
+        monsters: monsters,
+        partyMonsterIDs: const [],
+        definitions: null,
+      );
+    final monsterID = monsters[0].definition.id;
+    await expectLater(
+      dexStore.selectMoves(monsterID: monsterID, moveIDs: ['a']),
+      throwsException,
+    );
+    expect(
+      dexStore.monsters
+          .firstWhere((monster) => monster.definition.id == monsterID)
+          .selectedMoveIDs,
+      isNull,
+    );
+  });
+
+  test('保存を待つ間にレベルが更新されても、保存に失敗したら選ぶ前に戻す', () async {
+    final saveCompleter = Completer<void>();
+    final dexStore = DexStore(definitions: sampleData.definitions)
+      ..connectServer(
+        savePartyMonsterIDs: ({required monsterIDs}) async {},
+        saveSelectedMoveIDs: ({required monsterID, required moveIDs}) =>
+            saveCompleter.future,
+        refreshDefinitions: () async {},
+      )
+      ..applyServerSnapshot(
+        monsters: monsters,
+        partyMonsterIDs: const [],
+        definitions: null,
+      );
+    final monsterID = monsters[0].definition.id;
+    final selection = dexStore.selectMoves(
+      monsterID: monsterID,
+      moveIDs: ['a'],
+    );
+    dexStore.updateLevels(levelsByMonsterID: {monsterID: 99});
+    saveCompleter.completeError(Exception('unavailable'));
+    await expectLater(selection, throwsException);
+    final monster = dexStore.monsters.firstWhere(
+      (monster) => monster.definition.id == monsterID,
+    );
+    expect(monster.selectedMoveIDs, isNull);
+    expect(monster.level, 99);
+  });
+
   test('手持ちの ID のうち図鑑にまだ届いていないモンスターは手持ちに出さない', () {
     final dexStore = DexStore(definitions: sampleData.definitions)
       ..applyServerSnapshot(
@@ -159,6 +243,7 @@ void main() {
     final dexStore = DexStore(definitions: sampleData.definitions)
       ..connectServer(
         savePartyMonsterIDs: ({required monsterIDs}) => pendingSave.future,
+        saveSelectedMoveIDs: ({required monsterID, required moveIDs}) async {},
         refreshDefinitions: () async {},
       )
       ..applyServerSnapshot(

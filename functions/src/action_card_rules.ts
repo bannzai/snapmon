@@ -63,13 +63,12 @@ export function isActionCardProductID(productID: string | null): productID is st
 }
 
 /**
- * [learnset] と [actionCardMoveIDs] のモンスターが [level] で使える技 (技の枠) の ID を、枠の順で返す。
- * 枠は「[learnset] のうち開放レベルが [level] 以下の技を一覧の順に並べ、[actionCardMoveIDs] を覚えさせた順で続けた列」の後ろ
- * [MAXIMUM_EQUIPPED_MOVE_COUNT] 個。[actionCardMoveIDs] に入った技は learnset 側の列から外す (同じ技が枠に 2 つ並ばないようにし、
- * 覚えさせた技を一番新しい技として扱うため。documents/game-rules.md「技」)。
- * lib/domain/battle/battle_engine.dart の `equippedLearnsetEntries` と同じ技を返す (共通のテストケースは test/fixtures/equipped_move_cases.json)。
+ * [learnset] と [actionCardMoveIDs] のモンスターが [level] で持っている技 (対戦の前に技の枠へ選べる技) の ID を、
+ * 「[learnset] のうち開放レベルが [level] 以下の技を一覧の順に並べ、[actionCardMoveIDs] を覚えさせた順で続けた列」で返す。
+ * [actionCardMoveIDs] に入った技は learnset 側の列から外す (同じ技が 2 つ並ばないようにし、覚えさせた技を一番新しい技として扱うため。
+ * documents/game-rules.md「技」)。lib/domain/battle/battle_engine.dart の `availableMoveIDs` と同じ列を返す。
  */
-export function equippedMoveIDs({
+export function availableMoveIDs({
   learnset,
   level,
   actionCardMoveIDs,
@@ -78,13 +77,77 @@ export function equippedMoveIDs({
   level: number;
   actionCardMoveIDs: string[];
 }): string[] {
-  const moveIDs = [
+  return [
     ...learnset
       .filter((learnsetEntry) => learnsetEntry.unlockLevel <= level && !actionCardMoveIDs.includes(learnsetEntry.moveID))
       .map((learnsetEntry) => learnsetEntry.moveID),
     ...actionCardMoveIDs,
   ];
-  return moveIDs.slice(Math.max(0, moveIDs.length - MAXIMUM_EQUIPPED_MOVE_COUNT));
+}
+
+/**
+ * [learnset]・[actionCardMoveIDs]・[selectedMoveIDs] (対戦の前に選んだ技の ID。枠の順。選んでいなければ undefined) のモンスターが
+ * [level] で使える技 (技の枠) の ID を、枠の順で返す。
+ * [selectedMoveIDs] のうち今も持っている技 ([availableMoveIDs]) が 1 つ以上あれば、それを選んだ順で枠にする。無ければ持っている技の列の後ろ
+ * [MAXIMUM_EQUIPPED_MOVE_COUNT] 個を枠にする。Action Card の技 (m 個) は前の枠で、覚えさせた順で j 番目の技を j mod 4 の枠に、
+ * 覚える技の一覧の技は残りの枠で、列の i 番目の技を m + (i mod 残りの枠の数) の枠に置く
+ * (新しく覚えた技が外れた技の枠に入り、残る技の枠を変えないため。レベルで開放した技は一覧の側の後ろに入るため Action Card の技の枠を動かさない。#309)。規則は documents/game-rules.md「技」。
+ * lib/domain/battle/battle_engine.dart の `equippedLearnsetEntries` と同じ技を同じ順で返す (共通のテストケースは test/fixtures/equipped_move_cases.json)。
+ */
+export function equippedMoveIDs({
+  learnset,
+  level,
+  actionCardMoveIDs,
+  selectedMoveIDs,
+}: {
+  learnset: LearnsetEntry[];
+  level: number;
+  actionCardMoveIDs: string[];
+  selectedMoveIDs: string[] | undefined;
+}): string[] {
+  const moveIDs = availableMoveIDs({ learnset, level, actionCardMoveIDs });
+  const selectedAvailableMoveIDs = [...new Set(selectedMoveIDs ?? [])]
+    .filter((moveID) => moveIDs.includes(moveID))
+    .slice(0, MAXIMUM_EQUIPPED_MOVE_COUNT);
+  if (selectedAvailableMoveIDs.length > 0) {
+    return selectedAvailableMoveIDs;
+  }
+  const learnsetMoveIDs = moveIDs.slice(0, moveIDs.length - actionCardMoveIDs.length);
+  const actionCardSlotCount = Math.min(actionCardMoveIDs.length, MAXIMUM_EQUIPPED_MOVE_COUNT);
+  const learnsetSlotCount = MAXIMUM_EQUIPPED_MOVE_COUNT - actionCardSlotCount;
+  const slots: (string | undefined)[] = Array.from({ length: MAXIMUM_EQUIPPED_MOVE_COUNT }, () => undefined);
+  for (let actionCardIndex = actionCardMoveIDs.length - actionCardSlotCount; actionCardIndex < actionCardMoveIDs.length; actionCardIndex++) {
+    slots[actionCardIndex % MAXIMUM_EQUIPPED_MOVE_COUNT] = actionCardMoveIDs[actionCardIndex];
+  }
+  for (let learnsetIndex = Math.max(0, learnsetMoveIDs.length - learnsetSlotCount); learnsetIndex < learnsetMoveIDs.length; learnsetIndex++) {
+    slots[actionCardSlotCount + (learnsetIndex % learnsetSlotCount)] = learnsetMoveIDs[learnsetIndex];
+  }
+  return slots.filter((moveID): moveID is string => moveID !== undefined);
+}
+
+/**
+ * 対戦の前に選ぶ技 [moveIDs] (枠の順) を [availableMoveIDs] (モンスターが持っている技) の中から選べているかを確かめ、
+ * 選べていなければ断る理由を、選べていれば null を返す。1 つ以上 [MAXIMUM_EQUIPPED_MOVE_COUNT] 個以下で、重複が無く、
+ * すべて持っている技であること (技の枠が空のまま戦えず、持っていない技を改ざんで使わせないため)。
+ */
+export function selectedMoveIDsRejectionReason({
+  moveIDs,
+  availableMoveIDs,
+}: {
+  moveIDs: string[];
+  availableMoveIDs: string[];
+}): string | null {
+  if (moveIDs.length === 0 || moveIDs.length > MAXIMUM_EQUIPPED_MOVE_COUNT) {
+    return `技は 1 つ以上 ${MAXIMUM_EQUIPPED_MOVE_COUNT} つ以下で選んでください`;
+  }
+  if (new Set(moveIDs).size !== moveIDs.length) {
+    return "同じ技を 2 回選んでいます";
+  }
+  const unavailableMoveID = moveIDs.find((moveID) => !availableMoveIDs.includes(moveID));
+  if (unavailableMoveID !== undefined) {
+    return `${unavailableMoveID} はまだ覚えていません`;
+  }
+  return null;
 }
 
 /**

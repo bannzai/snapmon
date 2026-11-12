@@ -135,7 +135,12 @@ export const recordBattle = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
       const learnset: unknown = monsterSnapshot.get("definition.learnset");
       // 生成が作るモンスターは必ず learnset を持つ。持たない文書は数えずに進め、集計のためにレベルの記録を失敗させない
       if (Array.isArray(learnset)) {
-        for (const moveID of equippedMoveIDs({ learnset, level, actionCardMoveIDs: monsterSnapshot.get("actionCardMoveIDs") ?? [] })) {
+        for (const moveID of equippedMoveIDs({
+          learnset,
+          level,
+          actionCardMoveIDs: monsterSnapshot.get("actionCardMoveIDs") ?? [],
+          selectedMoveIDs: monsterSnapshot.get("selectedMoveIDs") ?? undefined,
+        })) {
           moveUsageCounts[moveID] = (moveUsageCounts[moveID] ?? 0) + 1;
         }
       }

@@ -69,6 +69,7 @@ BattleMonster testMonster({
     level: 50,
     experience: 0,
     actionCardMoveIDs: const [],
+    selectedMoveIDs: null,
     currentHitPoints: currentHitPoints,
     remainingPowerPoints: {moveID: remainingPowerPoints},
     statModifierPercents: const {},

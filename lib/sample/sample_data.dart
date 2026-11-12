@@ -65,6 +65,7 @@ class SampleData {
               ),
               level: monsterJson['level'] as int,
               actionCardMoveIDs: const [],
+              selectedMoveIDs: null,
               artPath: monsterJson['artPath'] as String,
               definitionIDs: const [],
               decoration: null,

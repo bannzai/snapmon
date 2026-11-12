@@ -1289,6 +1289,7 @@ void main() {
       var refreshedDefinitionsCount = 0;
       dexStore.connectServer(
         savePartyMonsterIDs: ({required monsterIDs}) async {},
+        saveSelectedMoveIDs: ({required monsterID, required moveIDs}) async {},
         refreshDefinitions: () async => refreshedDefinitionsCount++,
       );
       await pumpGenerationScreen(
@@ -1343,6 +1344,7 @@ void main() {
       var refreshDefinitionsCount = 0;
       dexStore.connectServer(
         savePartyMonsterIDs: ({required monsterIDs}) async {},
+        saveSelectedMoveIDs: ({required monsterID, required moveIDs}) async {},
         refreshDefinitions: () async {
           refreshDefinitionsCount += 1;
           if (refreshDefinitionsCount == 1) {
@@ -1382,6 +1384,7 @@ void main() {
       final profileReply = Completer<PlayerProfile?>();
       dexStore.connectServer(
         savePartyMonsterIDs: ({required monsterIDs}) async {},
+        saveSelectedMoveIDs: ({required monsterID, required moveIDs}) async {},
         refreshDefinitions: () async => throw Exception('master-unavailable'),
       );
       await pumpGenerationScreen(

@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import '../../domain/monster/monster_decoration.dart';
 import '../../domain/monster/monster_definition.dart';
 
-/// 図鑑に入っている 1 体。生まれた時に決まる部分と、保存して変わる部分 (レベル・Action Card で覚えさせた技) の組。
+/// 図鑑に入っている 1 体。生まれた時に決まる部分と、保存して変わる部分 (レベル・Action Card で覚えさせた技・対戦の前に選んだ技) の組。
 /// サーバーの図鑑は Firestore の `users/{uid}/monsters/{monsterID}` (形は functions/src/generation/records.ts の
 /// `MonsterDocument`) から、PvP の相手は fetchOpponents の応答 (形は functions/src/pvp_rules.ts の `PublicMonster`) から読み、
 /// 見本のモンスターは assets/samples/sample_monsters.json から読む。
@@ -13,6 +13,7 @@ class OwnedMonster {
     required this.definition,
     required this.level,
     required this.actionCardMoveIDs,
+    required this.selectedMoveIDs,
     required this.artPath,
     required this.definitionIDs,
     required this.decoration,
@@ -32,6 +33,13 @@ class OwnedMonster {
         for (final moveID in json['actionCardMoveIDs'] as List<dynamic>? ?? [])
           moveID as String,
       ],
+      // 対戦の前に技を選んでいないモンスターは項目を持たない (functions/src/generation/records.ts の MonsterDocument)
+      selectedMoveIDs: switch (json['selectedMoveIDs']) {
+        final List<dynamic> selectedMoveIDs => [
+          for (final moveID in selectedMoveIDs) moveID as String,
+        ],
+        _ => null,
+      },
       artPath: json['artPath'] as String,
       definitionIDs: [
         for (final definitionID in json['definitionIDs'] as List<dynamic>)
@@ -71,6 +79,9 @@ class OwnedMonster {
 
   /// Action Card で覚えさせた技の ID (覚えさせた順。`MonsterState.actionCardMoveIDs` と同じ)。見本のモンスターは空。
   final List<String> actionCardMoveIDs;
+
+  /// 対戦の前に選んだ技の ID (枠の順。`MonsterState.selectedMoveIDs` と同じ)。選んでいない・見本のモンスターは null。
+  final List<String>? selectedMoveIDs;
 
   /// 写真から切り出した被写体の画像のパス。図鑑・PvP の相手のモンスターは Storage のパス (`monsters/{monsterID}/art.png`)、
   /// 見本のモンスターはアプリに同梱した asset のパス (`assets/samples/art/{monsterID}.png`。[isBundledArtPath])。

@@ -235,6 +235,7 @@ void main() {
     final dexStore = DexStore(definitions: sampleData.definitions)
       ..connectServer(
         savePartyMonsterIDs: ({required monsterIDs}) async {},
+        saveSelectedMoveIDs: ({required monsterID, required moveIDs}) async {},
         refreshDefinitions: () async => refreshCount += 1,
       );
     fakeActionCards.productIDByMoveID.value = {

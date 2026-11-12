@@ -7,9 +7,10 @@ import '../features/dex/dex_store.dart';
 import '../features/dex/owned_monster.dart';
 import '../features/session/session_store.dart';
 import '../master/master_repository.dart';
+import 'monster_moves.dart';
 
 // 図鑑 (users/{uid}/monsters) と手持ち (users/{uid}/party/current) を Firestore から読み続け、DexStore に反映する。
-// 図鑑はクライアントから書けず (Functions が生成で書く)、手持ちだけを書く (.claude/rules/firestore.md)。
+// 図鑑はクライアントから書けず (Functions が生成で書き、対戦の前に選んだ技は selectMonsterMoves が書く)、手持ちだけを書く (.claude/rules/firestore.md)。
 
 /// [sessionStore] のログインが続く間、その uid の図鑑に [dexStore] を繋ぐ。
 /// ログインした時 (起動時に済んでいれば今) に繋ぎ、uid が変わった・ログインを終えた時は前の uid の購読をやめて
@@ -162,6 +163,8 @@ Future<void> Function() connectDexToFirestore({
       'monsterIDs': monsterIDs,
       'updatedAt': FieldValue.serverTimestamp(),
     }),
+    // 図鑑のモンスターはクライアントから書けないため、Functions が選べる技か確かめてから書く (.claude/rules/firestore.md)
+    saveSelectedMoveIDs: selectMonsterMovesWithFirebase,
     refreshDefinitions: () async {
       if (hasSubscriptionStopped && isConnected) {
         await subscribe();

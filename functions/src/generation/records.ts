@@ -143,6 +143,11 @@ export interface MonsterDocument {
    * 無ければ覚えさせた技は無い。技の枠の決め方は action_card_rules.ts の equippedMoveIDs。
    */
   actionCardMoveIDs?: string[];
+  /**
+   * 対戦の前に選んだ技の ID (枠の順。1 つ以上 MAXIMUM_EQUIPPED_MOVE_COUNT 個以下)。selectMonsterMoves (monster_moves.ts) が書き、生成では作らない。
+   * 無ければ技を選んでいない。技の枠の決め方は action_card_rules.ts の equippedMoveIDs。
+   */
+  selectedMoveIDs?: string[];
   /** 生まれた時刻。 */
   createdAt: Timestamp;
 }

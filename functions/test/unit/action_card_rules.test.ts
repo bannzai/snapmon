@@ -12,6 +12,7 @@ import {
   fallbackActionCardProductID,
   isActionCardProductID,
   previousDayKeys,
+  selectedMoveIDsRejectionReason,
 } from "../../src/action_card_rules";
 import type { MasterMove } from "../../src/generation/master";
 import type { LearnsetEntry } from "../../src/generation/monster_stats";
@@ -19,7 +20,7 @@ import type { LearnsetEntry } from "../../src/generation/monster_stats";
 /** 端末の技の枠 (test/domain/battle/battle_engine_test.dart) と共通のテストケース。 */
 const equippedMoveCases = (
   JSON.parse(readFileSync(resolve(__dirname, "../../../test/fixtures/equipped_move_cases.json"), "utf8")) as {
-    cases: { name: string; learnset: LearnsetEntry[]; level: number; actionCardMoveIDs: string[]; expectedMoveIDs: string[] }[];
+    cases: { name: string; learnset: LearnsetEntry[]; level: number; actionCardMoveIDs: string[]; selectedMoveIDs: string[] | null; expectedMoveIDs: string[] }[];
   }
 ).cases;
 
@@ -61,8 +62,28 @@ describe("isActionCardProductID", () => {
 });
 
 describe("equippedMoveIDs", () => {
-  it.each(equippedMoveCases)("$name", ({ learnset, level, actionCardMoveIDs, expectedMoveIDs }) => {
-    expect(equippedMoveIDs({ learnset, level, actionCardMoveIDs })).toEqual(expectedMoveIDs);
+  it.each(equippedMoveCases)("$name", ({ learnset, level, actionCardMoveIDs, selectedMoveIDs, expectedMoveIDs }) => {
+    expect(equippedMoveIDs({ learnset, level, actionCardMoveIDs, selectedMoveIDs: selectedMoveIDs ?? undefined })).toEqual(expectedMoveIDs);
+  });
+});
+
+describe("selectedMoveIDsRejectionReason", () => {
+  const availableMoveIDs = ["a", "b", "c", "d", "e"];
+
+  it.each([
+    ["1 つ", ["a"]],
+    ["4 つ", ["e", "a", "c", "b"]],
+  ])("持っている技を %s選べば通す", (_, moveIDs) => {
+    expect(selectedMoveIDsRejectionReason({ moveIDs, availableMoveIDs })).toBeNull();
+  });
+
+  it.each([
+    ["空", []],
+    ["5 つ", ["a", "b", "c", "d", "e"]],
+    ["重複", ["a", "a"]],
+    ["持っていない技", ["a", "x"]],
+  ])("%s は断る", (_, moveIDs) => {
+    expect(selectedMoveIDsRejectionReason({ moveIDs, availableMoveIDs })).not.toBeNull();
   });
 });
 
