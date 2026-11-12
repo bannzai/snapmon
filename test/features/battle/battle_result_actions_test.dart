@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:share_plus/share_plus.dart';
@@ -63,6 +65,8 @@ void main() {
     required OwnedMonster? firstBattleBornMonster,
     // 既定は CPU: 今のアプリが開く対戦は CPU トレーナーとだけで、他のユーザーとの対戦を確かめるテストだけが替える
     BattleOpponentKind opponentKind = BattleOpponentKind.cpu,
+    // 既定は記録しない対戦 (null): 決着の後の記録がすぐ終わり、記録の途中を確かめるテストだけが替える
+    Future<String?> Function()? startBattleRecord,
   }) async {
     tester.view
       ..physicalSize = const Size(390, 844)
@@ -99,7 +103,7 @@ void main() {
               randomSeed: 1,
               battleRecorder: fakeBattleRecorder(
                 calls: RecordedBattleCalls(),
-                startBattleRecord: () async => null,
+                startBattleRecord: startBattleRecord ?? () async => null,
                 recordedLevels: const {},
               ),
               onPlayerLevelsChanged: ({required levelsByMonsterID}) {},
@@ -261,6 +265,31 @@ void main() {
       expect(poppedActions, [expectedAction]);
       await tester.pumpWidget(const SizedBox.shrink());
     }
+  });
+
+  testWidgets('決着の後の記録が終わるまで「もう一回対戦する」は押せず、終わると押せる', (tester) async {
+    final recordStart = Completer<String?>();
+    await pumpBattle(
+      tester: tester,
+      playerParty: party(
+        monsterIDs: strongMonsterIDs.take(1).toList(),
+        level: 60,
+      ),
+      opponentParty: party(
+        monsterIDs: weakMonsterIDs.take(1).toList(),
+        level: 1,
+      ),
+      firstBattleBornMonster: null,
+      startBattleRecord: () => recordStart.future,
+    );
+    await playUntilFinished(tester: tester);
+    final rematch = find.byKey(const Key('battle-rematch'));
+    expect(tester.widget<FilledButton>(rematch).onPressed, isNull);
+
+    recordStart.complete('battle-1');
+    await tester.pump();
+    await tester.pump();
+    expect(tester.widget<FilledButton>(rematch).onPressed, isNotNull);
   });
 
   testWidgets('他のユーザーとの対戦の勝敗の画面は「もどる」だけを出し「もう一回対戦する」を出さない', (tester) async {

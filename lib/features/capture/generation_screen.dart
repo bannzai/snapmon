@@ -579,7 +579,8 @@ class _GenerationScreenState extends State<GenerationScreen> {
         }
         break;
       }
-      if (!mounted) {
+      // 最初のバトルを開く時と同じく、準備を待つ間に閉じられた (閉じる演出の途中の) 画面からはバトルを開かない
+      if (!mounted || !(ModalRoute.of(context)?.isCurrent ?? false)) {
         return;
       }
       action = await Navigator.of(context).push(

@@ -262,6 +262,10 @@ class _BattleScreenState extends State<BattleScreen>
   /// 記録の待ち・失敗の間は空のまま (勝敗の画面に確定していないレベルアップを出さないため)。
   Map<String, int> _appliedLevels = const {};
 
+  /// 決着の後の記録 ([_finishBattle]) を終えたか (成否を問わない)。終えるまでは「もう一回対戦する」を押せなくし、
+  /// レベルが上がる前の手持ちで次の対戦を始めない。
+  bool _hasFinishedRecording = false;
+
   /// フィールドに描くために読んだ切り出した被写体の画像。画面を閉じる時に dispose する。
   final List<ui.Image> _loadedArtImages = [];
 
@@ -948,6 +952,10 @@ class _BattleScreenState extends State<BattleScreen>
       if (mounted) {
         setState(() => _recordStatusText = (_) => error.toString());
       }
+    } finally {
+      if (mounted) {
+        setState(() => _hasFinishedRecording = true);
+      }
     }
   }
 
@@ -1423,6 +1431,7 @@ class _BattleScreenState extends State<BattleScreen>
           firstBattleBornMonster: widget.firstBattleBornMonster,
           firstBattleMonsterIsNewlyBorn: widget.firstBattleMonsterIsNewlyBorn,
           opponentKind: widget.opponentKind,
+          canRematch: _hasFinishedRecording,
         )
       : _buildCommands(
           context: context,
@@ -1692,7 +1701,11 @@ class _BattleResultPanel extends StatelessWidget {
     required this.firstBattleBornMonster,
     required this.firstBattleMonsterIsNewlyBorn,
     required this.opponentKind,
+    required this.canRematch,
   });
+
+  /// 「もう一回対戦する」を押せるか (決着の後の記録を終えたか)。
+  final bool canRematch;
 
   final BattleSideID winner;
 
@@ -1900,8 +1913,11 @@ class _BattleResultPanel extends StatelessWidget {
               Expanded(
                 child: FilledButton(
                   key: const Key('battle-rematch'),
-                  onPressed: () =>
-                      Navigator.of(context).pop(BattleScreenAction.rematch),
+                  onPressed: canRematch
+                      ? () => Navigator.of(
+                          context,
+                        ).pop(BattleScreenAction.rematch)
+                      : null,
                   child: Text(context.l10n.battleRematch),
                 ),
               ),
@@ -1923,8 +1939,11 @@ class _BattleResultPanel extends StatelessWidget {
                 child: _BattleCommandButton(
                   key: const Key('battle-rematch'),
                   label: context.l10n.battleRematch,
-                  onPressed: () =>
-                      Navigator.of(context).pop(BattleScreenAction.rematch),
+                  onPressed: canRematch
+                      ? () => Navigator.of(
+                          context,
+                        ).pop(BattleScreenAction.rematch)
+                      : null,
                 ),
               ),
             ],
