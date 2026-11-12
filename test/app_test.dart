@@ -2100,7 +2100,8 @@ void main() {
       expect(find.byType(HelpScreen), findsOneWidget);
       expect(find.text('属性の相性 (弱点)'), findsOneWidget);
 
-      await tester.pageBack();
+      // 見出しの戻るはアプリ独自のボタン (#264) で pageBack が探す BackButton ではないため、tooltip で押す
+      await tester.tap(find.byTooltip('戻る'));
       await tester.pumpAndSettle();
       expect(find.byType(HelpScreen), findsNothing);
       expect(find.byKey(const Key('settings-open-help')), findsOneWidget);
