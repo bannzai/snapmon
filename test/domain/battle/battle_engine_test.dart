@@ -516,11 +516,13 @@ BattleMonster prepare({
   required MonsterDefinition definition,
   int level = 50,
   List<String> actionCardMoveIDs = const [],
+  List<String>? selectedMoveIDs,
 }) => prepareBattleMonster(
   definition: definition,
   level: level,
   experience: 0,
   actionCardMoveIDs: actionCardMoveIDs,
+  selectedMoveIDs: selectedMoveIDs,
   master: testMaster,
   maximumHitPointsPercent: 100,
 );
@@ -804,6 +806,14 @@ void main() {
       selectableMoves(monster: state.player.activeMember, master: testMaster),
       isEmpty,
     );
+    // PP が尽きても技の枠には残す (技のボタンの位置をずらさないため。#309)
+    expect(
+      equippedMoves(
+        monster: state.player.activeMember,
+        master: testMaster,
+      ).map((move) => move.id),
+      ['grass_weak'],
+    );
     expect(
       () => advanceRound(
         state: state,
@@ -1078,6 +1088,7 @@ void main() {
           level: 50,
           experience: 0,
           actionCardMoveIDs: const [],
+          selectedMoveIDs: null,
           master: supportOnlyMaster,
           maximumHitPointsPercent: 100,
         );
@@ -1689,11 +1700,13 @@ void main() {
       previousMoveIDs: equippedLearnsetEntries(
         learnset: learnset,
         actionCardMoveIDs: actionCardMoveIDs,
+        selectedMoveIDs: null,
         level: previousLevel,
       ),
       newMoveIDs: equippedLearnsetEntries(
         learnset: learnset,
         actionCardMoveIDs: actionCardMoveIDs,
+        selectedMoveIDs: null,
         level: newLevel,
       ),
     );
@@ -1791,7 +1804,7 @@ void main() {
       );
     });
 
-    test('Action Card の技が枠の数以上ある時は、開放レベルに上がっても枠が変わらず次に覚えるレベルを出さない', () {
+    test('Action Card の技が枠の数以上ある時は、開放レベルに上がっても枠が変わらないが、技を選ぶ画面で選べるため次に覚えるレベルを出す', () {
       const actionCardMoveIDs = ['w', 'x', 'y', 'z'];
       final changes = levelUpChanges(
         learnset: currentRuleLearnset,
@@ -1806,15 +1819,6 @@ void main() {
           actionCardMoveIDs: actionCardMoveIDs,
           level: 1,
         ),
-        isNull,
-      );
-      // 枠の数より 1 つ少なければ、開放した技が枠に入るので次のレベルを出す
-      expect(
-        nextLearnsetUnlockLevel(
-          learnset: currentRuleLearnset,
-          actionCardMoveIDs: const ['x', 'y', 'z'],
-          level: 1,
-        ),
         2,
       );
     });
@@ -1824,11 +1828,13 @@ void main() {
         previousMoveIDs: equippedLearnsetEntries(
           learnset: currentRuleLearnset,
           actionCardMoveIDs: const [],
+          selectedMoveIDs: null,
           level: 1,
         ),
         newMoveIDs: equippedLearnsetEntries(
           learnset: currentRuleLearnset,
           actionCardMoveIDs: const ['x'],
+          selectedMoveIDs: null,
           level: 1,
         ),
       );
@@ -1851,6 +1857,7 @@ void main() {
         equippedLearnsetEntries(
           learnset: learnset,
           actionCardMoveIDs: const [],
+          selectedMoveIDs: null,
           level: level,
         );
 
@@ -1858,9 +1865,9 @@ void main() {
       expect(learnsetMoveIDs(level: 14), ['a', 'b', 'c', 'd']);
     });
 
-    test('開放済みの技が枠より多い時は、新しく覚えた技が一番古い技と入れ替わる', () {
-      expect(learnsetMoveIDs(level: 15), ['c', 'd', 'e', 'f']);
-      expect(learnsetMoveIDs(level: 100), ['d', 'e', 'f', 'g']);
+    test('開放済みの技が枠より多い時は、新しく覚えた技が一番古い技の枠に入り、残る技の枠は変わらない (#309)', () {
+      expect(learnsetMoveIDs(level: 15), ['e', 'f', 'c', 'd']);
+      expect(learnsetMoveIDs(level: 100), ['e', 'f', 'g', 'd']);
     });
 
     test('覚える技が枠より少ない (前の規則で生まれた) モンスターも、開放済みの技をすべて返す', () {
@@ -1871,6 +1878,7 @@ void main() {
             LearnsetEntry(moveID: 'paper_2', unlockLevel: 15),
           ],
           actionCardMoveIDs: const [],
+          selectedMoveIDs: null,
           level: 1,
         ),
         ['paper_1'],
@@ -1902,6 +1910,12 @@ void main() {
                   in equippedMoveCase['actionCardMoveIDs'] as List<dynamic>)
                 moveID as String,
             ],
+            selectedMoveIDs: switch (equippedMoveCase['selectedMoveIDs']) {
+              final List<dynamic> selectedMoveIDs => [
+                for (final moveID in selectedMoveIDs) moveID as String,
+              ],
+              _ => null,
+            },
             level: equippedMoveCase['level'] as int,
           ),
           equippedMoveCase['expectedMoveIDs'],
@@ -1949,6 +1963,27 @@ void main() {
           master: testMaster,
         ).map((move) => move.id),
         ['fire_strong', 'grass_strong'],
+      );
+    });
+
+    test('対戦の前に選んだ技があれば、選んだ順で技の枠にして選べる (#309)', () {
+      final monster = prepare(
+        definition: testDefinition(
+          id: 'player',
+          elementTypeID: 'fire',
+          moveIDs: ['fire_weak', 'fire_strong', 'grass_weak'],
+          speed: 50,
+        ),
+        level: 1,
+        actionCardMoveIDs: ['grass_strong'],
+        selectedMoveIDs: ['grass_strong', 'fire_weak'],
+      );
+      expect(
+        selectableMoves(
+          monster: monster,
+          master: testMaster,
+        ).map((move) => move.id),
+        ['grass_strong', 'fire_weak'],
       );
     });
   });

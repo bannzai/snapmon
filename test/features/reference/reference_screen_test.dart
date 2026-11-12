@@ -270,6 +270,7 @@ void main() {
     final firstRefresh = Completer<void>();
     dexStore.connectServer(
       savePartyMonsterIDs: ({required monsterIDs}) async {},
+      saveSelectedMoveIDs: ({required monsterID, required moveIDs}) async {},
       refreshDefinitions: () {
         refreshCount++;
         return refreshCount == 1 ? firstRefresh.future : Future.value();

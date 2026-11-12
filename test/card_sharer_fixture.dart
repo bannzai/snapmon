@@ -53,6 +53,7 @@ OwnedMonster ownedMonsterWithArt({
     ),
     level: monster.level,
     actionCardMoveIDs: const [],
+    selectedMoveIDs: null,
     artPath: artPath,
     definitionIDs: monster.definitionIDs,
     decoration: monster.decoration,

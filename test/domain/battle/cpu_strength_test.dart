@@ -144,6 +144,7 @@ void main() {
       level: 30,
       experience: 0,
       actionCardMoveIDs: const [],
+      selectedMoveIDs: null,
       master: master,
       maximumHitPointsPercent: 50,
     );
@@ -152,6 +153,7 @@ void main() {
       level: 30,
       experience: 0,
       actionCardMoveIDs: const [],
+      selectedMoveIDs: null,
       master: master,
       maximumHitPointsPercent: 100,
     );
@@ -175,6 +177,7 @@ void main() {
             level: 30,
             experience: 0,
             actionCardMoveIDs: const [],
+            selectedMoveIDs: null,
             master: master,
             maximumHitPointsPercent: 100,
           ),
@@ -185,6 +188,7 @@ void main() {
             level: 30,
             experience: 0,
             actionCardMoveIDs: const [],
+            selectedMoveIDs: null,
             master: master,
             maximumHitPointsPercent: 100,
           ),

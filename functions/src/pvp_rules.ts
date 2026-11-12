@@ -150,6 +150,8 @@ export interface PublicMonster {
   decorationVersion: number;
   /** Action Card で覚えさせた技の ID (覚えさせた順)。相手のモンスターの技の枠を自分のモンスターと同じ規則で決めるため返す。 */
   actionCardMoveIDs: string[];
+  /** 対戦の前に選んだ技の ID (枠の順)。相手のモンスターを持ち主が選んだ技で戦わせるため返す。選んでいなければ null。 */
+  selectedMoveIDs: string[] | null;
 }
 
 /**
@@ -178,6 +180,8 @@ export function publicMonster(monster: MonsterDocument): PublicMonster {
     decorationVersion: monster.decorationVersion,
     // 覚えさせた技が無いモンスターは項目を持たない ([MonsterDocument.actionCardMoveIDs])
     actionCardMoveIDs: monster.actionCardMoveIDs ?? [],
+    // 技を選んでいないモンスターは項目を持たない ([MonsterDocument.selectedMoveIDs])
+    selectedMoveIDs: monster.selectedMoveIDs ?? null,
   };
 }
 

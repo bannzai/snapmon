@@ -16,6 +16,7 @@ void main() {
         definition: sampleData.monsters[index].definition,
         level: level,
         actionCardMoveIDs: const [],
+        selectedMoveIDs: null,
         artPath: null,
         definitionIDs: const [],
         decoration: null,

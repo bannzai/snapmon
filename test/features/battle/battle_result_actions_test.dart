@@ -30,6 +30,7 @@ void main() {
       definition: monster.definition,
       level: level,
       actionCardMoveIDs: monster.actionCardMoveIDs,
+      selectedMoveIDs: null,
       artPath: monster.artPath,
       definitionIDs: monster.definitionIDs,
       decoration: monster.decoration,

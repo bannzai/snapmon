@@ -83,6 +83,7 @@ void main() {
       definition: monster.definition,
       level: monster.level,
       actionCardMoveIDs: const ['water_3'],
+      selectedMoveIDs: null,
       artPath: monster.artPath,
       definitionIDs: monster.definitionIDs,
       decoration: monster.decoration,

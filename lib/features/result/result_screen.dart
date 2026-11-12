@@ -4,10 +4,12 @@ import '../../l10n/l10n.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_radii.dart';
 import '../../theme/snapmon_text_styles.dart';
+import '../../common_ui/scene_route.dart';
 import '../../common_ui/square_icon_button.dart';
 import '../action_card/action_card_moves_section.dart';
 import '../dex/dex_store.dart';
 import '../dex/owned_monster.dart';
+import '../move_selection/move_selection_screen.dart';
 import '../settings/settings_screen.dart';
 import '../share/card_sharer.dart';
 import '../share/share_card_button.dart';
@@ -175,6 +177,23 @@ class ResultScreen extends StatelessWidget {
                         monster: latestMonster,
                         definitions: dexStore.definitions,
                       ),
+                      // 対戦で使う技を対戦の前に選ぶ入口 (#309)。図鑑・対戦の手持ちから開いた自分のモンスターにだけ出す
+                      if (origin == ResultScreenOrigin.dex) ...[
+                        const SizedBox(height: 12),
+                        OutlinedButton.icon(
+                          key: const Key('result-select-moves'),
+                          icon: const Icon(Icons.swap_vert),
+                          label: Text(context.l10n.moveSelectionOpen),
+                          onPressed: () => Navigator.of(context).push(
+                            sceneRoute<void>(
+                              builder: (context) => MoveSelectionScreen(
+                                monster: latestMonster,
+                                dexStore: dexStore,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                       if (origin == ResultScreenOrigin.dex)
                         ActionCardMovesSection(
                           monster: latestMonster,

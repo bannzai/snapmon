@@ -532,6 +532,7 @@ void main() {
       dexStore
         ..connectServer(
           savePartyMonsterIDs: ({required monsterIDs}) async {},
+          saveSelectedMoveIDs: ({required monsterID, required moveIDs}) async {},
           refreshDefinitions: () async => dexStore.applyServerSnapshot(
             monsters: sampleData.monsters,
             partyMonsterIDs: null,
@@ -1604,6 +1605,7 @@ void main() {
       dexStore
         ..connectServer(
           savePartyMonsterIDs: ({required monsterIDs}) async {},
+          saveSelectedMoveIDs: ({required monsterID, required moveIDs}) async {},
           refreshDefinitions: () async {
             refreshCount++;
             dexStore.applyServerSnapshot(
@@ -1650,6 +1652,7 @@ void main() {
         ..replaceAll(monsters: sampleData.monsters)
         ..connectServer(
           savePartyMonsterIDs: ({required monsterIDs}) async {},
+          saveSelectedMoveIDs: ({required monsterID, required moveIDs}) async {},
           refreshDefinitions: () {
             refreshCount++;
             return pendingRefresh.future;
@@ -1683,6 +1686,7 @@ void main() {
       dexStore
         ..connectServer(
           savePartyMonsterIDs: ({required monsterIDs}) async {},
+          saveSelectedMoveIDs: ({required monsterID, required moveIDs}) async {},
           refreshDefinitions: () async => dexStore.applyServerSnapshot(
             monsters: sampleData.monsters,
             partyMonsterIDs: null,
@@ -1714,6 +1718,7 @@ void main() {
         ..replaceAll(monsters: sampleData.monsters)
         ..connectServer(
           savePartyMonsterIDs: ({required monsterIDs}) async {},
+          saveSelectedMoveIDs: ({required monsterID, required moveIDs}) async {},
           refreshDefinitions: () async =>
               throw StateError('Firestore に master が投入されていません'),
         );
@@ -2885,6 +2890,7 @@ void main() {
       );
       dexStore.connectServer(
         savePartyMonsterIDs: ({required monsterIDs}) async {},
+        saveSelectedMoveIDs: ({required monsterID, required moveIDs}) async {},
         refreshDefinitions: () async {},
       );
       await tester.tap(find.byTooltip('設定'));

@@ -290,6 +290,7 @@ class _BattleScreenState extends State<BattleScreen>
           level: monster.level,
           experience: 0,
           actionCardMoveIDs: monster.actionCardMoveIDs,
+          selectedMoveIDs: monster.selectedMoveIDs,
           master: widget.definitions,
           maximumHitPointsPercent: maximumHitPointsPercent,
         ),
@@ -1574,7 +1575,7 @@ class _BattleScreenState extends State<BattleScreen>
     required BattleMonster playerMonster,
     required BattleMonster opponentMonster,
   }) {
-    final moves = selectableMoves(
+    final moves = equippedMoves(
       monster: playerMonster,
       master: widget.definitions,
     );
@@ -1583,7 +1584,10 @@ class _BattleScreenState extends State<BattleScreen>
       for (var index = 0; index < maximumEquippedMoveCount; index++)
         index < moves.length ? moves[index] : null,
     ];
-    final canStruggle = !moves.any(isOrdinaryAttackMove);
+    final canStruggle = !selectableMoves(
+      monster: playerMonster,
+      master: widget.definitions,
+    ).any(isOrdinaryAttackMove);
     return Column(
       children: [
         if (widget.firstBattleBornMonster != null) ...[
@@ -1640,7 +1644,14 @@ class _BattleScreenState extends State<BattleScreen>
                                 master: widget.definitions,
                               ),
                         definitions: widget.definitions,
-                        onPressed: move == null || _isPlaying
+                        // PP が尽きた技は枠に残して押せなくする (#309)
+                        onPressed:
+                            move == null ||
+                                _isPlaying ||
+                                (playerMonster.state.remainingPowerPoints[move
+                                            .id] ??
+                                        0) <=
+                                    0
                             ? null
                             : () => _selectAction(
                                 playerAction: UseMoveAction(moveID: move.id),
@@ -1742,25 +1753,42 @@ class _BattleResultPanel extends StatelessWidget {
   /// バトルの結果の共有に使う関数の組。
   final CardSharer cardSharer;
 
-  /// [monster] が [newLevel] に上がって覚えた技・入れ替わりで外れた技の行を返す。技の枠が変わらなかった時は、次に技を覚えるレベルの行
-  /// (もう覚える技が無ければ何も返さない)。入れ替えは自動で画面に出ないため、レベルアップの行で知らせる (#247)。
+  /// [monster] が [newLevel] に上がって覚えた技 (新しく選べるようになった技)・入れ替わりで枠から外れた技の行を返す。
+  /// 覚えた技が枠に入らなかった時 (対戦の前に技を選んである・枠が Action Card の技で埋まっている) は、技を選び直せることを知らせる行も足す。
+  /// 覚えた技が無い時は、次に技を覚えるレベルの行 (もう覚える技が無ければ何も返さない)。
+  /// 入れ替えは自動で画面に出ないため、レベルアップの行で知らせる (#247・#309)。
   List<Widget> _learnsetChangeTexts({
     required BuildContext context,
     required OwnedMonster monster,
     required int newLevel,
   }) {
+    final newEquippedMoveIDs = equippedLearnsetEntries(
+      learnset: monster.definition.learnset,
+      actionCardMoveIDs: monster.actionCardMoveIDs,
+      selectedMoveIDs: monster.selectedMoveIDs,
+      level: newLevel,
+    );
     final changes = equippedMoveChanges(
-      previousMoveIDs: equippedLearnsetEntries(
+      previousMoveIDs: availableMoveIDs(
         learnset: monster.definition.learnset,
         actionCardMoveIDs: monster.actionCardMoveIDs,
         level: monster.level,
       ),
-      newMoveIDs: equippedLearnsetEntries(
+      newMoveIDs: availableMoveIDs(
         learnset: monster.definition.learnset,
         actionCardMoveIDs: monster.actionCardMoveIDs,
         level: newLevel,
       ),
     );
+    final forgottenMoveIDs = equippedMoveChanges(
+      previousMoveIDs: equippedLearnsetEntries(
+        learnset: monster.definition.learnset,
+        actionCardMoveIDs: monster.actionCardMoveIDs,
+        selectedMoveIDs: monster.selectedMoveIDs,
+        level: monster.level,
+      ),
+      newMoveIDs: newEquippedMoveIDs,
+    ).forgottenMoveIDs;
     final style = SnapmonTextStyles.small.copyWith(
       color: SnapmonColors.textOnCard,
     );
@@ -1786,13 +1814,17 @@ class _BattleResultPanel extends StatelessWidget {
           ),
           style: style,
         ),
-      for (final moveID in changes.forgottenMoveIDs)
+      for (final moveID in forgottenMoveIDs)
         Text(
           context.l10n.battleForgotMove(
             definitions.moveByID(moveID: moveID).displayName,
           ),
           style: style,
         ),
+      if (changes.learnedMoveIDs.any(
+        (moveID) => !newEquippedMoveIDs.contains(moveID),
+      ))
+        Text(context.l10n.battleLearnedMoveNotEquipped, style: style),
     ];
   }
 

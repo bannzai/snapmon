@@ -53,6 +53,7 @@ class MonsterDetailCard extends StatelessWidget {
     for (final (index, moveID) in equippedLearnsetEntries(
       learnset: definition.learnset,
       actionCardMoveIDs: monster.actionCardMoveIDs,
+      selectedMoveIDs: monster.selectedMoveIDs,
       level: monster.level,
     ).indexed) {
       moveSlots[index] = definitions.moveByID(moveID: moveID);

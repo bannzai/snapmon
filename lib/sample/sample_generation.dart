@@ -34,6 +34,7 @@ GenerationResult generateSampleMonster({
         definition: sampleMonster.definition,
         level: 1,
         actionCardMoveIDs: const [],
+        selectedMoveIDs: null,
         artPath: sampleMonster.artPath,
         definitionIDs: sampleMonster.definitionIDs,
         decoration: sampleMonster.decoration,

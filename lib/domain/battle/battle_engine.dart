@@ -85,7 +85,8 @@ int maximumHitPoints({
       100,
 );
 
-/// [definition] のモンスターを、[level]・[experience]・[actionCardMoveIDs] (Action Card で覚えさせた技) で HP・PP を満タンにし、
+/// [definition] のモンスターを、[level]・[experience]・[actionCardMoveIDs] (Action Card で覚えさせた技)・
+/// [selectedMoveIDs] (対戦の前に選んだ技。選んでいなければ null) で HP・PP を満タンにし、
 /// ステータスの倍率を等倍、状態なしにしてバトルに出す。
 /// PP は覚える技の一覧と [actionCardMoveIDs] のすべての技について持つ (レベルで開放されていない技も、上がった後に使えるよう持っておく)。
 /// [maximumHitPointsPercent] は最大 HP に掛ける割合 (%) で、CPU の手持ちは [cpuHitPointsPercent]、補正しないなら 100。
@@ -94,6 +95,7 @@ BattleMonster prepareBattleMonster({
   required int level,
   required int experience,
   required List<String> actionCardMoveIDs,
+  required List<String>? selectedMoveIDs,
   required MasterData master,
   required int maximumHitPointsPercent,
 }) => BattleMonster(
@@ -103,6 +105,7 @@ BattleMonster prepareBattleMonster({
     level: level,
     experience: experience,
     actionCardMoveIDs: actionCardMoveIDs,
+    selectedMoveIDs: selectedMoveIDs,
     currentHitPoints: maximumHitPoints(
       definition: definition,
       level: level,
@@ -224,28 +227,63 @@ BattleState startBattle({
 /// (functions/src/generation/monster_stats.ts の `STARTING_MOVE_COUNT`) と同じ値。
 const int maximumEquippedMoveCount = 4;
 
-/// [learnset] と [actionCardMoveIDs] (Action Card で覚えさせた技の ID。覚えさせた順) のモンスターが [level] で使える技 (技の枠) の ID を、枠の順で返す。
-/// 枠は「[learnset] のうち開放レベルが [level] 以下の技を一覧の順に並べ、[actionCardMoveIDs] を覚えさせた順で続けた列」の後ろ
-/// [maximumEquippedMoveCount] 個で、新しく覚えた技が一番古い技と入れ替わる。[actionCardMoveIDs] の技は開放レベルに関係なく使え、
-/// [learnset] 側の列からは外す (同じ技が枠に 2 つ並ばないため)。規則は documents/game-rules.md「技」で、
-/// Functions の functions/src/action_card_rules.ts の `equippedMoveIDs` と同じ技を返す (共通のテストケースは test/fixtures/equipped_move_cases.json)。
+/// [learnset] と [actionCardMoveIDs] (Action Card で覚えさせた技の ID。覚えさせた順) のモンスターが [level] で持っている技
+/// (対戦の前に技の枠へ選べる技) の ID を、「[learnset] のうち開放レベルが [level] 以下の技を一覧の順に並べ、
+/// [actionCardMoveIDs] を覚えさせた順で続けた列」で返す。[actionCardMoveIDs] の技は開放レベルに関係なく持ち、
+/// [learnset] 側の列からは外す (同じ技が 2 つ並ばないため)。
+/// Functions の functions/src/action_card_rules.ts の `availableMoveIDs` と同じ列を返す。
+List<String> availableMoveIDs({
+  required List<LearnsetEntry> learnset,
+  required List<String> actionCardMoveIDs,
+  required int level,
+}) => [
+  for (final learnsetEntry in learnset)
+    if (learnsetEntry.unlockLevel <= level &&
+        !actionCardMoveIDs.contains(learnsetEntry.moveID))
+      learnsetEntry.moveID,
+  ...actionCardMoveIDs,
+];
+
+/// [learnset]・[actionCardMoveIDs]・[selectedMoveIDs] (対戦の前に選んだ技の ID。枠の順。選んでいなければ null) のモンスターが
+/// [level] で使える技 (技の枠) の ID を、枠の順で返す。
+///
+/// [selectedMoveIDs] のうち今も持っている技 ([availableMoveIDs]) が 1 つ以上あれば、それを選んだ順で枠にする
+/// (技を覚えても選んだ枠は変えない。#309)。無ければ (選んでいない・選んだ技をすべて忘れさせた) 持っている技の列の後ろ
+/// [maximumEquippedMoveCount] 個を枠にし、新しく覚えた技が一番古い技と入れ替わる。この時、列の i 番目 (0 始まり) の技は
+/// i を [maximumEquippedMoveCount] で割った余りの枠に置く。新しく覚えた技は外れた技の枠に入り、残る技の枠は変わらない
+/// (列の位置で枠を詰めると、技を覚えるたびにすべての技の枠がずれるため。#309)。
+/// 規則は documents/game-rules.md「技」で、Functions の functions/src/action_card_rules.ts の `equippedMoveIDs` と
+/// 同じ技を同じ順で返す (共通のテストケースは test/fixtures/equipped_move_cases.json)。
 /// 名前は issue #273 の完了条件が名指しした関数名のまま。Action Card の技は覚える技の一覧の項目 (開放レベル) を持たないため、
 /// 返すのは技の ID。
 List<String> equippedLearnsetEntries({
   required List<LearnsetEntry> learnset,
   required List<String> actionCardMoveIDs,
+  required List<String>? selectedMoveIDs,
   required int level,
 }) {
-  final moveIDs = [
-    for (final learnsetEntry in learnset)
-      if (learnsetEntry.unlockLevel <= level &&
-          !actionCardMoveIDs.contains(learnsetEntry.moveID))
-        learnsetEntry.moveID,
-    ...actionCardMoveIDs,
-  ];
-  return moveIDs.sublist(
-    math.max(0, moveIDs.length - maximumEquippedMoveCount),
+  final moveIDs = availableMoveIDs(
+    learnset: learnset,
+    actionCardMoveIDs: actionCardMoveIDs,
+    level: level,
   );
+  final selectedAvailableMoveIDs = [
+    for (final moveID in {...?selectedMoveIDs})
+      if (moveIDs.contains(moveID)) moveID,
+  ].take(maximumEquippedMoveCount).toList();
+  if (selectedAvailableMoveIDs.isNotEmpty) {
+    return selectedAvailableMoveIDs;
+  }
+  final windowStart = math.max(0, moveIDs.length - maximumEquippedMoveCount);
+  return [
+    for (
+      var slotIndex = 0;
+      slotIndex < moveIDs.length - windowStart;
+      slotIndex++
+    )
+      moveIDs[windowStart +
+          (slotIndex - windowStart) % maximumEquippedMoveCount],
+  ];
 }
 
 /// 技の枠 ([equippedLearnsetEntries]) が [previousMoveIDs] から [newMoveIDs] に変わった時の変化を返す。
@@ -266,27 +304,25 @@ equippedMoveChanges({
   ],
 );
 
-/// [learnset] のうち [level] より後に開放される技の、最も低い開放レベル。もう覚える技が無ければ null。
-/// [actionCardMoveIDs] に入った技は、開放しても枠が変わらないため数えない。[actionCardMoveIDs] が枠の数以上ある時は、
-/// 開放した技は列で Action Card の技より前に並んで枠に入らないため、null。
+/// [learnset] のうち [level] より後に開放される技 (新しく選べるようになる技) の、最も低い開放レベル。もう覚える技が無ければ null。
+/// [actionCardMoveIDs] に入った技は、もう持っていて開放しても選べる技が増えないため数えない。
+/// 開放した技が枠に入らない時 (Action Card の技で枠が埋まっている・技を選んである) も、技を選ぶ画面で枠に入れられるため数える (#309)。
 int? nextLearnsetUnlockLevel({
   required List<LearnsetEntry> learnset,
   required List<String> actionCardMoveIDs,
   required int level,
-}) => actionCardMoveIDs.length >= maximumEquippedMoveCount
-    ? null
-    : learnset
-          .where(
-            (learnsetEntry) =>
-                learnsetEntry.unlockLevel > level &&
-                !actionCardMoveIDs.contains(learnsetEntry.moveID),
-          )
-          .map((learnsetEntry) => learnsetEntry.unlockLevel)
-          .fold<int?>(
-            null,
-            (lowest, unlockLevel) =>
-                lowest == null ? unlockLevel : math.min(lowest, unlockLevel),
-          );
+}) => learnset
+    .where(
+      (learnsetEntry) =>
+          learnsetEntry.unlockLevel > level &&
+          !actionCardMoveIDs.contains(learnsetEntry.moveID),
+    )
+    .map((learnsetEntry) => learnsetEntry.unlockLevel)
+    .fold<int?>(
+      null,
+      (lowest, unlockLevel) =>
+          lowest == null ? unlockLevel : math.min(lowest, unlockLevel),
+    );
 
 /// [move] が通常の攻撃技 (自爆・一撃必殺を除く攻撃技) か。わるあがきを選べるのはこれが 1 つも残っていない時で、
 /// 自爆と一撃必殺だけが残った時に自爆か賭けしか選べなくならないようにする (version 9 の技の枠には自爆と一撃必殺だけが残るレベル帯がある)。
@@ -295,19 +331,29 @@ bool isOrdinaryAttackMove(Move move) =>
     !(move.specialEffect?.selfDestructs ?? false) &&
     !(move.specialEffect?.isOneHitKnockout ?? false);
 
-/// [monster] が今使える技 ([equippedLearnsetEntries] のうち PP が残っている技) を、枠の順で返す。
-/// 通常の攻撃技 ([isOrdinaryAttackMove]) が 1 つも無ければわるあがき ([StruggleAction]) も選べる (補助技だけが残って決着しなくなるのを防ぐため)。
-List<Move> selectableMoves({
+/// [monster] の技の枠 ([equippedLearnsetEntries]) の技を、PP が残っていない技も含めて枠の順で返す。
+/// バトル画面の技のボタンはこの順に並べ、PP が尽きた技も枠に残して押せなくする (尽きた技を詰めると、後ろの技のボタンの位置がずれるため。#309)。
+List<Move> equippedMoves({
   required BattleMonster monster,
   required MasterData master,
 }) => [
   for (final moveID in equippedLearnsetEntries(
     learnset: monster.definition.learnset,
     actionCardMoveIDs: monster.state.actionCardMoveIDs,
+    selectedMoveIDs: monster.state.selectedMoveIDs,
     level: monster.state.level,
   ))
-    if ((monster.state.remainingPowerPoints[moveID] ?? 0) > 0)
-      master.moveByID(moveID: moveID),
+    master.moveByID(moveID: moveID),
+];
+
+/// [monster] が今使える技 ([equippedMoves] のうち PP が残っている技) を、枠の順で返す。
+/// 通常の攻撃技 ([isOrdinaryAttackMove]) が 1 つも無ければわるあがき ([StruggleAction]) も選べる (補助技だけが残って決着しなくなるのを防ぐため)。
+List<Move> selectableMoves({
+  required BattleMonster monster,
+  required MasterData master,
+}) => [
+  for (final move in equippedMoves(monster: monster, master: master))
+    if ((monster.state.remainingPowerPoints[move.id] ?? 0) > 0) move,
 ];
 
 /// 攻撃側の技の属性 [moveElementTypeID] から、防御側の属性 [defenderElementTypeIDs] への倍率を返す。

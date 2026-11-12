@@ -36,6 +36,7 @@ void main() {
       definition: sample.definition,
       level: level,
       actionCardMoveIDs: const [],
+      selectedMoveIDs: null,
       artPath: null,
       definitionIDs: const [],
       decoration: null,

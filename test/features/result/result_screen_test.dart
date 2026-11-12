@@ -150,6 +150,7 @@ void main() {
     final slotMoveIDs = equippedLearnsetEntries(
       learnset: monster.definition.learnset,
       actionCardMoveIDs: monster.actionCardMoveIDs,
+      selectedMoveIDs: monster.selectedMoveIDs,
       level: monster.level,
     );
     expect(slotMoveIDs, hasLength(maximumEquippedMoveCount));
@@ -221,6 +222,7 @@ void main() {
       ),
       level: sampleMonster.level,
       actionCardMoveIDs: const [],
+      selectedMoveIDs: null,
       artPath: sampleMonster.artPath,
       definitionIDs: sampleMonster.definitionIDs,
       decoration: sampleMonster.decoration,

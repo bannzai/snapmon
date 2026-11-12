@@ -108,6 +108,11 @@ describe("publicMonster", () => {
     expect(publicMonster({ ...monsterDocument(), actionCardMoveIDs: ["fire_k1", "water_2"] }).actionCardMoveIDs).toEqual(["fire_k1", "water_2"]);
     expect(publicMonster(monsterDocument()).actionCardMoveIDs).toEqual([]);
   });
+
+  it("対戦の前に選んだ技を枠の順で返し、選んでいないモンスターは null で返す", () => {
+    expect(publicMonster({ ...monsterDocument(), selectedMoveIDs: ["water_2", "fire_1"] }).selectedMoveIDs).toEqual(["water_2", "fire_1"]);
+    expect(publicMonster(monsterDocument()).selectedMoveIDs).toBeNull();
+  });
 });
 
 describe("通報の通知", () => {

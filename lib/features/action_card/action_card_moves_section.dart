@@ -140,14 +140,20 @@ class _ActionCardMovesSectionState extends State<ActionCardMovesSection> {
                   previousMoveIDs: equippedLearnsetEntries(
                     learnset: monster.definition.learnset,
                     actionCardMoveIDs: monster.actionCardMoveIDs,
+                    selectedMoveIDs: monster.selectedMoveIDs,
                     level: monster.level,
                   ),
                   newMoveIDs: equippedLearnsetEntries(
                     learnset: monster.definition.learnset,
                     actionCardMoveIDs: [...monster.actionCardMoveIDs, move.id],
+                    selectedMoveIDs: monster.selectedMoveIDs,
                     level: monster.level,
                   ),
                 ).forgottenMoveIDs) {
+                  // 技を選んであるモンスターは、覚えさせても選んだ技の枠を変えない (#309)。
+                  // 覚えさせた技は「技を選ぶ」で枠に入れる
+                  [] when monster.selectedMoveIDs != null =>
+                    context.l10n.actionCardTeachNotEquipped,
                   [] => context.l10n.actionCardTeachNoForgotten,
                   final forgottenMoveIDs => [
                     for (final moveID in forgottenMoveIDs)
