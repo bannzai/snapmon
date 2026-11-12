@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:share_plus/share_plus.dart';
 
+import 'package:snapmon/audio/game_audio.dart';
 import 'package:snapmon/domain/battle/status_condition.dart';
 import 'package:snapmon/features/battle/battle_screen.dart';
 import 'package:snapmon/features/dex/owned_monster.dart';
@@ -35,7 +36,11 @@ void main() {
   }
 
   /// レベル 1 の弱い手持ちの候補。
-  final weakMonsterIDs = ['sample-ringora', 'sample-slippan', 'sample-petbottler'];
+  final weakMonsterIDs = [
+    'sample-ringora',
+    'sample-slippan',
+    'sample-petbottler',
+  ];
 
   /// レベル 60 の強い手持ちの候補。60: レベル 1 の相手に技 1 回で倒され続けない差として十分な値
   final strongMonsterIDs = ['sample-mugmon', 'sample-keybon', 'sample-noton'];
@@ -123,13 +128,10 @@ void main() {
     // null の時は「もう一回対戦する」: CPU トレーナーとの対戦の勝敗の画面には必ず出るため
     Finder? finishedButton,
   }) async {
-    final rematchButton = finishedButton ?? find.byKey(const Key('battle-rematch'));
+    final rematchButton =
+        finishedButton ?? find.byKey(const Key('battle-rematch'));
     // 300 ターン: 3 体ずつの手持ちでも決着する数より十分多く、決着しない不具合でテストが止まらない上限
-    for (
-      var turn = 0;
-      turn < 300 && rematchButton.evaluate().isEmpty;
-      turn++
-    ) {
+    for (var turn = 0; turn < 300 && rematchButton.evaluate().isEmpty; turn++) {
       final move = find.text('わるあがき').evaluate().isEmpty
           ? find.byKey(const Key('move-slot-0'))
           : find.text('わるあがき');
@@ -153,7 +155,9 @@ void main() {
     await tester.pump();
   }
 
-  testWidgets('手持ちが上限に満たないまま負けると、勝敗の画面に案内が出て、遊び方をスクロールできるポップアップで開ける', (tester) async {
+  testWidgets('手持ちが上限に満たないまま負けると、勝敗の画面に案内が出て、遊び方をスクロールできるポップアップで開ける', (
+    tester,
+  ) async {
     await pumpBattle(
       tester: tester,
       playerParty: party(monsterIDs: weakMonsterIDs.take(1).toList(), level: 1),
@@ -204,7 +208,10 @@ void main() {
         monsterIDs: strongMonsterIDs.take(1).toList(),
         level: 60,
       ),
-      opponentParty: party(monsterIDs: weakMonsterIDs.take(1).toList(), level: 1),
+      opponentParty: party(
+        monsterIDs: weakMonsterIDs.take(1).toList(),
+        level: 1,
+      ),
       firstBattleBornMonster: null,
     );
     await playUntilFinished(tester: tester);
@@ -263,7 +270,10 @@ void main() {
         monsterIDs: strongMonsterIDs.take(1).toList(),
         level: 60,
       ),
-      opponentParty: party(monsterIDs: weakMonsterIDs.take(1).toList(), level: 1),
+      opponentParty: party(
+        monsterIDs: weakMonsterIDs.take(1).toList(),
+        level: 1,
+      ),
       firstBattleBornMonster: null,
       opponentKind: BattleOpponentKind.pvp,
     );
@@ -271,7 +281,9 @@ void main() {
     expect(find.byKey(const Key('battle-rematch')), findsNothing);
   });
 
-  testWidgets('初回の 1 戦の勝敗の画面は「図鑑を見る」「もう一回対戦する」「手持ちを増やす」を出し、押した方の値で閉じる', (tester) async {
+  testWidgets('初回の 1 戦の勝敗の画面は「図鑑を見る」「もう一回対戦する」「手持ちを増やす」を出し、押した方の値で閉じる', (
+    tester,
+  ) async {
     for (final (finder, expectedAction) in [
       (find.text('図鑑を見る'), BattleScreenAction.openDex),
       (find.text('もう一回対戦する'), BattleScreenAction.rematch),

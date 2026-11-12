@@ -1090,66 +1090,70 @@ void main() {
       expect(find.text('1 体 · 手持ち 1 体'), findsOneWidget);
     });
 
-    testWidgets('初回のバトルの勝敗の画面の「もう一回対戦する」で、初回の案内の無い CPU トレーナーとのバトルが続けて始まり、「もどる」で撮るのシーンに戻る', (
-      tester,
-    ) async {
-      await pumpHome(
-        tester: tester,
-        hasStartedSession: true,
-        startSessionFailureCount: 0,
-        isDeveloperMenuEnabled: false,
-        startsCameraOnCaptureOpen: false,
-      );
-      await tester.tap(find.byTooltip('アルバムから選ぶ'));
-      await tester.pump();
-      await tester.pump(const Duration(milliseconds: 500));
-      await chooseSubjectCutout(tester: tester, settles: false);
-      await tester.pump(const Duration(seconds: 2));
-      await tester.pump(const Duration(seconds: 1));
-      await playFirstBattleUntilFinished(tester: tester);
-      final firstBattleEventCount = battleCalls.loggedEvents.length;
-
-      final rematch = find.byKey(const Key('battle-rematch'));
-      await tester.ensureVisible(rematch);
-      await tester.tap(rematch);
-      await tester.pump();
-      await tester.pump(const Duration(seconds: 1));
-      await tester.pump(const Duration(seconds: 1));
-      expect(find.byType(BattleScreen), findsOneWidget);
-      // 2 戦目は初回の導線ではない
-      expect(find.byKey(const Key('first-battle-hint')), findsNothing);
-
-      // 100 ターン: レベル 2 同士なら数ターンで決着するため、決着しない不具合でテストが止まらない上限として十分な数
-      for (
-        var turn = 0;
-        turn < 100 && find.text('もどる').evaluate().isEmpty;
-        turn++
-      ) {
-        await tester.tap(
-          find.text('わるあがき').evaluate().isEmpty
-              ? find.byKey(const Key('move-slot-0'))
-              : find.text('わるあがき'),
+    testWidgets(
+      '初回のバトルの勝敗の画面の「もう一回対戦する」で、初回の案内の無い CPU トレーナーとのバトルが続けて始まり、「もどる」で撮るのシーンに戻る',
+      (tester) async {
+        await pumpHome(
+          tester: tester,
+          hasStartedSession: true,
+          startSessionFailureCount: 0,
+          isDeveloperMenuEnabled: false,
+          startsCameraOnCaptureOpen: false,
         );
+        await tester.tap(find.byTooltip('アルバムから選ぶ'));
         await tester.pump();
-        await tester.pump(const Duration(seconds: 5));
-      }
-      expect(find.byKey(const Key('first-battle-capture-again')), findsNothing);
-      // 2 戦目の決着では初回の導線の計測 (first_experience) を送らない
-      expect(
-        battleCalls.loggedEvents
-            .skip(firstBattleEventCount)
-            .map((logged) => logged.event),
-        isNot(contains(AnalyticsEvent.firstExperience)),
-      );
+        await tester.pump(const Duration(milliseconds: 500));
+        await chooseSubjectCutout(tester: tester, settles: false);
+        await tester.pump(const Duration(seconds: 2));
+        await tester.pump(const Duration(seconds: 1));
+        await playFirstBattleUntilFinished(tester: tester);
+        final firstBattleEventCount = battleCalls.loggedEvents.length;
 
-      await tester.ensureVisible(find.text('もどる'));
-      await tester.tap(find.text('もどる'));
-      await tester.pump();
-      await tester.pump(const Duration(seconds: 1));
-      await tester.pump(const Duration(seconds: 1));
-      expect(find.byType(BattleScreen), findsNothing);
-      expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
-    });
+        final rematch = find.byKey(const Key('battle-rematch'));
+        await tester.ensureVisible(rematch);
+        await tester.tap(rematch);
+        await tester.pump();
+        await tester.pump(const Duration(seconds: 1));
+        await tester.pump(const Duration(seconds: 1));
+        expect(find.byType(BattleScreen), findsOneWidget);
+        // 2 戦目は初回の導線ではない
+        expect(find.byKey(const Key('first-battle-hint')), findsNothing);
+
+        // 100 ターン: レベル 2 同士なら数ターンで決着するため、決着しない不具合でテストが止まらない上限として十分な数
+        for (
+          var turn = 0;
+          turn < 100 && find.text('もどる').evaluate().isEmpty;
+          turn++
+        ) {
+          await tester.tap(
+            find.text('わるあがき').evaluate().isEmpty
+                ? find.byKey(const Key('move-slot-0'))
+                : find.text('わるあがき'),
+          );
+          await tester.pump();
+          await tester.pump(const Duration(seconds: 5));
+        }
+        expect(
+          find.byKey(const Key('first-battle-capture-again')),
+          findsNothing,
+        );
+        // 2 戦目の決着では初回の導線の計測 (first_experience) を送らない
+        expect(
+          battleCalls.loggedEvents
+              .skip(firstBattleEventCount)
+              .map((logged) => logged.event),
+          isNot(contains(AnalyticsEvent.firstExperience)),
+        );
+
+        await tester.ensureVisible(find.text('もどる'));
+        await tester.tap(find.text('もどる'));
+        await tester.pump();
+        await tester.pump(const Duration(seconds: 1));
+        await tester.pump(const Duration(seconds: 1));
+        expect(find.byType(BattleScreen), findsNothing);
+        expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
+      },
+    );
   });
 
   group('ホームの画面のシーンと画面の遷移', () {

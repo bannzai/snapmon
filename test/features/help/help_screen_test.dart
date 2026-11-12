@@ -8,7 +8,9 @@ import 'package:snapmon/monster_ui/move_card.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
 
 void main() {
-  testWidgets('遊び方の画面は手持ち・レベル・属性の相性・状態異常の節を出し、状態異常は全種類を名前と説明で並べる', (tester) async {
+  testWidgets('遊び方の画面は手持ち・レベル・属性の相性・状態異常の節を出し、状態異常は全種類を名前と説明で並べる', (
+    tester,
+  ) async {
     tester.view
       ..physicalSize = const Size(390, 844)
       ..devicePixelRatio = 1;

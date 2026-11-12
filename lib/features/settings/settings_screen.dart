@@ -249,9 +249,9 @@ class SettingsScreen extends StatelessWidget {
           key: const Key('settings-open-help'),
           leading: const Icon(Icons.lightbulb_outline),
           title: Text(context.l10n.helpTitle),
-          onTap: () => Navigator.of(context).push(
-            sceneRoute<void>(builder: (context) => const HelpScreen()),
-          ),
+          onTap: () => Navigator.of(
+            context,
+          ).push(sceneRoute<void>(builder: (context) => const HelpScreen())),
         ),
         ListTile(
           leading: const Icon(Icons.mail_outline),

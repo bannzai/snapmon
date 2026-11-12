@@ -167,7 +167,8 @@ class _HelpSection extends StatelessWidget {
           children: [
             Text(
               heading,
-              style: SnapmonTextStyles.cardTitle.copyWith(
+              // cardTitle (28) はモンスターの名前の大きさで、節の見出しには大きすぎて折り返すため、技の名前の大きさにした
+              style: SnapmonTextStyles.moveName.copyWith(
                 color: SnapmonColors.textOnCard,
               ),
             ),
