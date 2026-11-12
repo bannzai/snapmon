@@ -19,6 +19,7 @@ import 'package:snapmon/features/capture/capture_screen.dart';
 import 'package:snapmon/features/capture/monster_generator.dart';
 import 'package:snapmon/features/dex/dex_screen.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
+import 'package:snapmon/features/help/help_screen.dart';
 import 'package:snapmon/features/home/home_shell.dart';
 import 'package:snapmon/features/opponent/pvp_client.dart';
 import 'package:snapmon/features/opponent/pvp_opponent.dart';
@@ -2080,6 +2081,27 @@ void main() {
   });
 
   group('設定画面', () {
+    testWidgets('サポートの「遊び方」で遊び方の画面を開き、戻ると設定画面に戻る', (tester) async {
+      await pumpHome(
+        tester: tester,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
+      );
+      await tester.tap(find.byTooltip('設定'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('settings-open-help')));
+      await tester.pumpAndSettle();
+      expect(find.byType(HelpScreen), findsOneWidget);
+      expect(find.text('属性の相性 (弱点)'), findsOneWidget);
+
+      await tester.pageBack();
+      await tester.pumpAndSettle();
+      expect(find.byType(HelpScreen), findsNothing);
+      expect(find.byKey(const Key('settings-open-help')), findsOneWidget);
+    });
+
     testWidgets('お問い合わせと法務ドキュメントのリンクを開く', (tester) async {
       await pumpHome(
         tester: tester,

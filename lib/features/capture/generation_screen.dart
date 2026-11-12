@@ -559,6 +559,10 @@ class _GenerationScreenState extends State<GenerationScreen> {
     );
     // 2 戦目からは初回の導線の計測 (first_experience) を送らない (prepareRandomCpuBattleScreen は firstBattleBornMonster を null にする)
     while (action == BattleScreenAction.rematch) {
+      // 準備の間に前の相手の「○○ があらわれた」を出したままにすると、乱数で選び直す次の相手と名前が食い違うため、相手を探す表示に戻す
+      if (mounted) {
+        setState(() => _phase = _GenerationPhase.inProgress);
+      }
       final BattleScreen battleScreen;
       try {
         battleScreen = await prepareRandomCpuBattleScreen(
