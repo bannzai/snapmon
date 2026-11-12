@@ -962,6 +962,42 @@ void main() {
     expect(find.text('あたらしい なかま'), findsOneWidget);
   });
 
+  // Web の compute は同じスレッドで動くため、写真を整え直す前に待ちの表示を描いていないと、押した後に画面が止まって見える (#312)
+  testWidgets('写真を整えられずにもう一度試すと、整え直す前に待ちの表示を出し終えている', (tester) async {
+    final shownOnPreparePhotoStart = <({bool retryButton, bool progress})>[];
+    await pumpGenerationScreen(
+      tester: tester,
+      startsFirstBattle: false,
+      generator: fakeMonsterGenerator(
+        calls: calls,
+        albumPhoto: null,
+        uploadError: null,
+        preparePhoto: ({required sourceBytes}) async {
+          shownOnPreparePhotoStart.add((
+            retryButton: tester.any(find.text('もう一度試す')),
+            progress: tester.any(find.byType(CircularProgressIndicator)),
+          ));
+          if (shownOnPreparePhotoStart.length == 1) {
+            throw const FormatException('写真を読めませんでした');
+          }
+          return sourceBytes;
+        },
+        requestGeneration: savedGeneration(
+          monsterID: 'm1',
+          status: GenerationStatus.saved,
+          resultRequestID: null,
+        ),
+        fetchGeneration: unexpectedFetch,
+      ),
+    );
+    expect(find.text('FormatException: 写真を読めませんでした'), findsOneWidget);
+    await tester.tap(find.text('もう一度試す'));
+    await tester.pumpAndSettle();
+    expect(shownOnPreparePhotoStart.last, (retryButton: false, progress: true));
+    expect(shownOnPreparePhotoStart, hasLength(2));
+    expect(find.text('あたらしい なかま'), findsOneWidget);
+  });
+
   testWidgets('サーバーが写真を見つけられなかった時は、もう一度試すと同じ要求 ID で写真を置き直して呼ぶ', (tester) async {
     var remainingFailureCount = 1;
     await pumpGenerationScreen(
