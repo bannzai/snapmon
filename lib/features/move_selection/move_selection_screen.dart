@@ -62,7 +62,7 @@ class _MoveSelectionScreenState extends State<MoveSelectionScreen> {
   }
 
   /// 選んだ技を保存して閉じる。保存に失敗したらエラーをそのまま出して画面に留まる。
-  /// 保存の途中に端のスワイプでこの画面が閉じられていたら、下の画面を閉じないよう pop しない。
+  /// 保存の途中は [PopScope] で閉じさせないため、保存が済んだ時もこの画面が一番上にある。
   Future<void> _save() async {
     final messenger = ScaffoldMessenger.of(context);
     setState(() => _isSaving = true);
@@ -88,109 +88,117 @@ class _MoveSelectionScreenState extends State<MoveSelectionScreen> {
   Widget build(BuildContext context) {
     final monster = widget.monster;
     final definitions = widget.dexStore.definitions;
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 16, 20, 8),
-              child: Row(
-                children: [
-                  SquareIconButton(
-                    icon: Icons.chevron_left,
-                    // AppBar の戻るボタンと同じ文言 (Material の各言語の訳) にする
-                    tooltip: MaterialLocalizations.of(
-                      context,
-                    ).backButtonTooltip,
-                    // 保存の途中は閉じない (保存が済めば閉じるため)
-                    onPressed: () {
-                      if (!_isSaving) {
-                        Navigator.of(context).pop();
-                      }
-                    },
-                    size: 44,
-                  ),
-                  Expanded(
-                    child: Text(
-                      context.l10n.moveSelectionTitle(monster.definition.name),
-                      textAlign: TextAlign.center,
-                      style: SnapmonTextStyles.label.copyWith(
-                        color: SnapmonColors.accent,
+    // 保存の途中は OS の戻る操作・端のスワイプでも閉じない (閉じる途中に保存が済むと、下の画面まで閉じてしまうため)
+    return PopScope(
+      canPop: !_isSaving,
+      child: Scaffold(
+        body: SafeArea(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 16, 20, 8),
+                child: Row(
+                  children: [
+                    SquareIconButton(
+                      icon: Icons.chevron_left,
+                      // AppBar の戻るボタンと同じ文言 (Material の各言語の訳) にする
+                      tooltip: MaterialLocalizations.of(
+                        context,
+                      ).backButtonTooltip,
+                      // 保存の途中は閉じない (保存が済めば閉じるため)
+                      onPressed: () {
+                        if (!_isSaving) {
+                          Navigator.of(context).pop();
+                        }
+                      },
+                      size: 44,
+                    ),
+                    Expanded(
+                      child: Text(
+                        context.l10n.moveSelectionTitle(
+                          monster.definition.name,
+                        ),
+                        textAlign: TextAlign.center,
+                        style: SnapmonTextStyles.label.copyWith(
+                          color: SnapmonColors.accent,
+                        ),
                       ),
                     ),
+                    const SizedBox(width: 44),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  context.l10n.moveSelectionDescription(
+                    maximumEquippedMoveCount,
                   ),
-                  const SizedBox(width: 44),
-                ],
+                  textAlign: TextAlign.center,
+                  style: SnapmonTextStyles.small,
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                context.l10n.moveSelectionDescription(maximumEquippedMoveCount),
-                textAlign: TextAlign.center,
-                style: SnapmonTextStyles.small,
+              Expanded(
+                child: ListView(
+                  padding: const EdgeInsets.fromLTRB(20, 12, 20, 0),
+                  children: [
+                    for (final moveID in availableMoveIDs(
+                      learnset: monster.definition.learnset,
+                      actionCardMoveIDs: monster.actionCardMoveIDs,
+                      level: monster.level,
+                    ))
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: _SelectableMoveRow(
+                          key: Key('move-selection-$moveID'),
+                          moveID: moveID,
+                          slotIndex: _selectedMoveIDs.indexOf(moveID),
+                          dexStore: widget.dexStore,
+                          onTap: () => _toggle(moveID: moveID),
+                          // 保存の途中は詳細を開かない (保存が済んで閉じる時に、上に重ねた詳細を閉じてしまうため)
+                          onLongPress: () {
+                            if (!_isSaving) {
+                              openMoveDetail(
+                                context: context,
+                                move: definitions.moveByID(moveID: moveID),
+                                definitions: definitions,
+                              );
+                            }
+                          },
+                        ),
+                      ),
+                  ],
+                ),
               ),
-            ),
-            Expanded(
-              child: ListView(
-                padding: const EdgeInsets.fromLTRB(20, 12, 20, 0),
-                children: [
-                  for (final moveID in availableMoveIDs(
-                    learnset: monster.definition.learnset,
-                    actionCardMoveIDs: monster.actionCardMoveIDs,
-                    level: monster.level,
-                  ))
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 8),
-                      child: _SelectableMoveRow(
-                        key: Key('move-selection-$moveID'),
-                        moveID: moveID,
-                        slotIndex: _selectedMoveIDs.indexOf(moveID),
-                        dexStore: widget.dexStore,
-                        onTap: () => _toggle(moveID: moveID),
-                        // 保存の途中は詳細を開かない (保存が済んで閉じる時に、上に重ねた詳細を閉じてしまうため)
-                        onLongPress: () {
-                          if (!_isSaving) {
-                            openMoveDetail(
-                              context: context,
-                              move: definitions.moveByID(moveID: moveID),
-                              definitions: definitions,
-                            );
-                          }
-                        },
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: OutlinedButton(
+                        key: const Key('move-selection-reset'),
+                        onPressed: _selectedMoveIDs.isEmpty || _isSaving
+                            ? null
+                            : () => setState(() => _selectedMoveIDs = []),
+                        child: Text(context.l10n.moveSelectionReset),
                       ),
                     ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: OutlinedButton(
-                      key: const Key('move-selection-reset'),
-                      onPressed: _selectedMoveIDs.isEmpty || _isSaving
-                          ? null
-                          : () => setState(() => _selectedMoveIDs = []),
-                      child: Text(context.l10n.moveSelectionReset),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      // 技の枠が空のまま戦えないため、1 つも選んでいない間は押せない
+                      child: FilledButton(
+                        key: const Key('move-selection-save'),
+                        onPressed: _selectedMoveIDs.isEmpty || _isSaving
+                            ? null
+                            : _save,
+                        child: Text(context.l10n.moveSelectionSave),
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    // 技の枠が空のまま戦えないため、1 つも選んでいない間は押せない
-                    child: FilledButton(
-                      key: const Key('move-selection-save'),
-                      onPressed: _selectedMoveIDs.isEmpty || _isSaving
-                          ? null
-                          : _save,
-                      child: Text(context.l10n.moveSelectionSave),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
