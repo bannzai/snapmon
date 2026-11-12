@@ -178,6 +178,35 @@ void main() {
     );
   });
 
+  test('保存を待つ間にレベルが更新されても、保存に失敗したら選ぶ前に戻す', () async {
+    final saveCompleter = Completer<void>();
+    final dexStore = DexStore(definitions: sampleData.definitions)
+      ..connectServer(
+        savePartyMonsterIDs: ({required monsterIDs}) async {},
+        saveSelectedMoveIDs: ({required monsterID, required moveIDs}) =>
+            saveCompleter.future,
+        refreshDefinitions: () async {},
+      )
+      ..applyServerSnapshot(
+        monsters: monsters,
+        partyMonsterIDs: const [],
+        definitions: null,
+      );
+    final monsterID = monsters[0].definition.id;
+    final selection = dexStore.selectMoves(
+      monsterID: monsterID,
+      moveIDs: ['a'],
+    );
+    dexStore.updateLevels(levelsByMonsterID: {monsterID: 99});
+    saveCompleter.completeError(Exception('unavailable'));
+    await expectLater(selection, throwsException);
+    final monster = dexStore.monsters.firstWhere(
+      (monster) => monster.definition.id == monsterID,
+    );
+    expect(monster.selectedMoveIDs, isNull);
+    expect(monster.level, 99);
+  });
+
   test('手持ちの ID のうち図鑑にまだ届いていないモンスターは手持ちに出さない', () {
     final dexStore = DexStore(definitions: sampleData.definitions)
       ..applyServerSnapshot(

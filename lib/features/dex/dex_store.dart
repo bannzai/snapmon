@@ -270,8 +270,9 @@ class DexStore extends ChangeNotifier {
 
   /// 図鑑の [monsterID] のモンスターの対戦の前に選んだ技を [moveIDs] (枠の順) にし、サーバーに繋いでいれば保存する
   /// (端末だけの図鑑ではメモリだけに持つ)。図鑑にいない時は何もしない。
-  /// 画面にはすぐ反映し、保存に失敗した時は、待っている間に図鑑のそのモンスターが変わっていなければ選ぶ前に戻して例外を投げる
-  /// (変わっていれば Firestore から届いた値の方が新しいため戻さない)。
+  /// 画面にはすぐ反映し、保存に失敗した時は、図鑑のそのモンスターの選んだ技がまだこの呼び出しで入れたものなら選ぶ前に戻して例外を投げる
+  /// (Firestore から別の値が届いていればそちらが新しいため戻さない。レベルの更新などで作り直されたモンスターは、
+  /// 選んだ技の一覧をそのまま引き継ぐため、一覧の同一性で見分ける)。
   Future<void> selectMoves({
     required String monsterID,
     required List<String> moveIDs,
@@ -282,16 +283,21 @@ class DexStore extends ChangeNotifier {
     if (previousMonster == null) {
       return;
     }
-    final selectedMonster = _replaceSelectedMoveIDs(
+    final selectedMoveIDs = List<String>.unmodifiable(moveIDs);
+    _replaceSelectedMoveIDs(
       monster: previousMonster,
-      selectedMoveIDs: List.unmodifiable(moveIDs),
+      selectedMoveIDs: selectedMoveIDs,
     );
     try {
       await _saveSelectedMoveIDs?.call(monsterID: monsterID, moveIDs: moveIDs);
     } catch (_) {
-      if (_monsters.any((monster) => identical(monster, selectedMonster))) {
+      final currentMonster = _monsters
+          .where((monster) => monster.definition.id == monsterID)
+          .firstOrNull;
+      if (currentMonster != null &&
+          identical(currentMonster.selectedMoveIDs, selectedMoveIDs)) {
         _replaceSelectedMoveIDs(
-          monster: selectedMonster,
+          monster: currentMonster,
           selectedMoveIDs: previousMonster.selectedMoveIDs,
         );
       }
@@ -299,27 +305,27 @@ class DexStore extends ChangeNotifier {
     }
   }
 
-  /// 図鑑の [monster] を、選んだ技だけを [selectedMoveIDs] に置き換えたモンスターに差し替えて知らせ、差し替えたモンスターを返す。
-  OwnedMonster _replaceSelectedMoveIDs({
+  /// 図鑑の [monster] を、選んだ技だけを [selectedMoveIDs] に置き換えたモンスターに差し替えて知らせる。
+  void _replaceSelectedMoveIDs({
     required OwnedMonster monster,
     required List<String>? selectedMoveIDs,
   }) {
-    final replacedMonster = OwnedMonster(
-      definition: monster.definition,
-      level: monster.level,
-      actionCardMoveIDs: monster.actionCardMoveIDs,
-      selectedMoveIDs: selectedMoveIDs,
-      artPath: monster.artPath,
-      definitionIDs: monster.definitionIDs,
-      decoration: monster.decoration,
-      decorationVersion: monster.decorationVersion,
-    );
     _monsters = [
       for (final dexMonster in _monsters)
-        identical(dexMonster, monster) ? replacedMonster : dexMonster,
+        identical(dexMonster, monster)
+            ? OwnedMonster(
+                definition: monster.definition,
+                level: monster.level,
+                actionCardMoveIDs: monster.actionCardMoveIDs,
+                selectedMoveIDs: selectedMoveIDs,
+                artPath: monster.artPath,
+                definitionIDs: monster.definitionIDs,
+                decoration: monster.decoration,
+                decorationVersion: monster.decorationVersion,
+              )
+            : dexMonster,
     ];
     notifyListeners();
-    return replacedMonster;
   }
 
   /// 図鑑を [monsters] だけにし、先頭から [maximumPartySize] 体を手持ちにする (開発者メニューの見本の投入)。
