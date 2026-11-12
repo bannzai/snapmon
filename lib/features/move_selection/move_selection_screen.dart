@@ -148,11 +148,16 @@ class _MoveSelectionScreenState extends State<MoveSelectionScreen> {
                         slotIndex: _selectedMoveIDs.indexOf(moveID),
                         dexStore: widget.dexStore,
                         onTap: () => _toggle(moveID: moveID),
-                        onLongPress: () => openMoveDetail(
-                          context: context,
-                          move: definitions.moveByID(moveID: moveID),
-                          definitions: definitions,
-                        ),
+                        // 保存の途中は詳細を開かない (保存が済んで閉じる時に、上に重ねた詳細を閉じてしまうため)
+                        onLongPress: () {
+                          if (!_isSaving) {
+                            openMoveDetail(
+                              context: context,
+                              move: definitions.moveByID(moveID: moveID),
+                              definitions: definitions,
+                            );
+                          }
+                        },
                       ),
                     ),
                 ],

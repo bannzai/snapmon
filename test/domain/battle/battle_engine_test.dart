@@ -1942,7 +1942,7 @@ void main() {
       );
     });
 
-    test('Action Card で覚えさせた技は、PP を満タンにして枠の後ろで選べる', () {
+    test('Action Card で覚えさせた技は、PP を満タンにして前の枠で選べる', () {
       final monster = prepare(
         definition: testDefinition(
           id: 'player',
@@ -1962,7 +1962,7 @@ void main() {
           monster: monster,
           master: testMaster,
         ).map((move) => move.id),
-        ['fire_strong', 'grass_strong'],
+        ['grass_strong', 'fire_strong'],
       );
     });
 

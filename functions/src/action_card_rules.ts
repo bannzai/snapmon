@@ -89,8 +89,9 @@ export function availableMoveIDs({
  * [learnset]・[actionCardMoveIDs]・[selectedMoveIDs] (対戦の前に選んだ技の ID。枠の順。選んでいなければ undefined) のモンスターが
  * [level] で使える技 (技の枠) の ID を、枠の順で返す。
  * [selectedMoveIDs] のうち今も持っている技 ([availableMoveIDs]) が 1 つ以上あれば、それを選んだ順で枠にする。無ければ持っている技の列の後ろ
- * [MAXIMUM_EQUIPPED_MOVE_COUNT] 個を、列の i 番目の技を i を [MAXIMUM_EQUIPPED_MOVE_COUNT] で割った余りの枠に置いて返す
- * (新しく覚えた技が外れた技の枠に入り、残る技の枠を変えないため。#309)。規則は documents/game-rules.md「技」。
+ * [MAXIMUM_EQUIPPED_MOVE_COUNT] 個を枠にする。Action Card の技 (m 個) は前の枠で、覚えさせた順で j 番目の技を j mod 4 の枠に、
+ * 覚える技の一覧の技は残りの枠で、列の i 番目の技を m + (i mod 残りの枠の数) の枠に置く
+ * (新しく覚えた技が外れた技の枠に入り、残る技の枠を変えないため。レベルで開放した技は一覧の側の後ろに入るため Action Card の技の枠を動かさない。#309)。規則は documents/game-rules.md「技」。
  * lib/domain/battle/battle_engine.dart の `equippedLearnsetEntries` と同じ技を同じ順で返す (共通のテストケースは test/fixtures/equipped_move_cases.json)。
  */
 export function equippedMoveIDs({
@@ -111,11 +112,17 @@ export function equippedMoveIDs({
   if (selectedAvailableMoveIDs.length > 0) {
     return selectedAvailableMoveIDs;
   }
-  const windowStart = Math.max(0, moveIDs.length - MAXIMUM_EQUIPPED_MOVE_COUNT);
-  return Array.from(
-    { length: moveIDs.length - windowStart },
-    (_, slotIndex) => moveIDs[windowStart + (((slotIndex - windowStart) % MAXIMUM_EQUIPPED_MOVE_COUNT) + MAXIMUM_EQUIPPED_MOVE_COUNT) % MAXIMUM_EQUIPPED_MOVE_COUNT],
-  );
+  const learnsetMoveIDs = moveIDs.slice(0, moveIDs.length - actionCardMoveIDs.length);
+  const actionCardSlotCount = Math.min(actionCardMoveIDs.length, MAXIMUM_EQUIPPED_MOVE_COUNT);
+  const learnsetSlotCount = MAXIMUM_EQUIPPED_MOVE_COUNT - actionCardSlotCount;
+  const slots: (string | undefined)[] = Array.from({ length: MAXIMUM_EQUIPPED_MOVE_COUNT }, () => undefined);
+  for (let actionCardIndex = actionCardMoveIDs.length - actionCardSlotCount; actionCardIndex < actionCardMoveIDs.length; actionCardIndex++) {
+    slots[actionCardIndex % MAXIMUM_EQUIPPED_MOVE_COUNT] = actionCardMoveIDs[actionCardIndex];
+  }
+  for (let learnsetIndex = Math.max(0, learnsetMoveIDs.length - learnsetSlotCount); learnsetIndex < learnsetMoveIDs.length; learnsetIndex++) {
+    slots[actionCardSlotCount + (learnsetIndex % learnsetSlotCount)] = learnsetMoveIDs[learnsetIndex];
+  }
+  return slots.filter((moveID): moveID is string => moveID !== undefined);
 }
 
 /**

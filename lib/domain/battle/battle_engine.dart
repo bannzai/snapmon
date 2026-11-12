@@ -249,9 +249,11 @@ List<String> availableMoveIDs({
 ///
 /// [selectedMoveIDs] のうち今も持っている技 ([availableMoveIDs]) が 1 つ以上あれば、それを選んだ順で枠にする
 /// (技を覚えても選んだ枠は変えない。#309)。無ければ (選んでいない・選んだ技をすべて忘れさせた) 持っている技の列の後ろ
-/// [maximumEquippedMoveCount] 個を枠にし、新しく覚えた技が一番古い技と入れ替わる。この時、列の i 番目 (0 始まり) の技は
-/// i を [maximumEquippedMoveCount] で割った余りの枠に置く。新しく覚えた技は外れた技の枠に入り、残る技の枠は変わらない
-/// (列の位置で枠を詰めると、技を覚えるたびにすべての技の枠がずれるため。#309)。
+/// [maximumEquippedMoveCount] 個を枠にし、新しく覚えた技が一番古い技と入れ替わる。枠の位置は次のとおりで、
+/// 新しく覚えた技は外れた技の枠に入り、残る技の枠は変わらない (列の位置で枠を詰めると、技を覚えるたびにすべての技の枠がずれるため。#309)。
+/// - Action Card の技 (m 個) は前の枠に置き、覚えさせた順で j 番目 (0 始まり) の技を j を [maximumEquippedMoveCount] で割った余りの枠に置く
+/// - 残りの枠 (m 番目から) には覚える技の一覧の技を置き、列の i 番目の技を m + (i を残りの枠の数で割った余り) の枠に置く。
+///   レベルで開放した技は覚える技の一覧の側の後ろに入るため、Action Card の技の枠を動かさない
 /// 規則は documents/game-rules.md「技」で、Functions の functions/src/action_card_rules.ts の `equippedMoveIDs` と
 /// 同じ技を同じ順で返す (共通のテストケースは test/fixtures/equipped_move_cases.json)。
 /// 名前は issue #273 の完了条件が名指しした関数名のまま。Action Card の技は覚える技の一覧の項目 (開放レベル) を持たないため、
@@ -274,16 +276,36 @@ List<String> equippedLearnsetEntries({
   if (selectedAvailableMoveIDs.isNotEmpty) {
     return selectedAvailableMoveIDs;
   }
-  final windowStart = math.max(0, moveIDs.length - maximumEquippedMoveCount);
-  return [
-    for (
-      var slotIndex = 0;
-      slotIndex < moveIDs.length - windowStart;
-      slotIndex++
-    )
-      moveIDs[windowStart +
-          (slotIndex - windowStart) % maximumEquippedMoveCount],
-  ];
+  final learnsetMoveIDs = moveIDs.sublist(
+    0,
+    moveIDs.length - actionCardMoveIDs.length,
+  );
+  final actionCardSlotCount = math.min(
+    actionCardMoveIDs.length,
+    maximumEquippedMoveCount,
+  );
+  final learnsetSlotCount = maximumEquippedMoveCount - actionCardSlotCount;
+  final slots = List<String?>.filled(maximumEquippedMoveCount, null);
+  for (
+    var actionCardIndex = actionCardMoveIDs.length - actionCardSlotCount;
+    actionCardIndex < actionCardMoveIDs.length;
+    actionCardIndex++
+  ) {
+    slots[actionCardIndex % maximumEquippedMoveCount] =
+        actionCardMoveIDs[actionCardIndex];
+  }
+  for (
+    var learnsetIndex = math.max(
+      0,
+      learnsetMoveIDs.length - learnsetSlotCount,
+    );
+    learnsetIndex < learnsetMoveIDs.length;
+    learnsetIndex++
+  ) {
+    slots[actionCardSlotCount + learnsetIndex % learnsetSlotCount] =
+        learnsetMoveIDs[learnsetIndex];
+  }
+  return [for (final moveID in slots) ?moveID];
 }
 
 /// 技の枠 ([equippedLearnsetEntries]) が [previousMoveIDs] から [newMoveIDs] に変わった時の変化を返す。

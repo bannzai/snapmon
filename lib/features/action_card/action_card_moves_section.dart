@@ -136,40 +136,49 @@ class _ActionCardMovesSectionState extends State<ActionCardMovesSection> {
               ListTile(
                 key: Key('action-card-teach-${move.id}'),
                 title: Text(move.displayName),
-                subtitle: Text(switch (equippedMoveChanges(
-                  previousMoveIDs: equippedLearnsetEntries(
-                    learnset: monster.definition.learnset,
-                    actionCardMoveIDs: monster.actionCardMoveIDs,
-                    selectedMoveIDs: monster.selectedMoveIDs,
-                    level: monster.level,
-                  ),
-                  newMoveIDs: equippedLearnsetEntries(
-                    learnset: monster.definition.learnset,
-                    actionCardMoveIDs: [...monster.actionCardMoveIDs, move.id],
-                    selectedMoveIDs: monster.selectedMoveIDs,
-                    level: monster.level,
-                  ),
-                ).forgottenMoveIDs) {
-                  // 技を選んであるモンスターは、覚えさせても選んだ技の枠を変えない (#309)。
-                  // 覚えさせた技は「技を選ぶ」で枠に入れる
-                  [] when monster.selectedMoveIDs != null =>
-                    context.l10n.actionCardTeachNotEquipped,
-                  [] => context.l10n.actionCardTeachNoForgotten,
-                  final forgottenMoveIDs => [
-                    for (final moveID in forgottenMoveIDs)
-                      context.l10n.battleForgotMove(
-                        widget.dexStore.definitions
-                            .moveByID(moveID: moveID)
-                            .displayName,
-                      ),
-                  ].join('\n'),
-                }),
+                subtitle: Text(
+                  _teachSubtitle(context: context, monster: monster, move: move),
+                ),
                 onTap: () => Navigator.of(context).pop(move),
               ),
           ],
         ),
       ),
     );
+  }
+
+  /// [monster] に [move] を覚えさせる前に、技を選ぶ一覧の各技の下に出す説明を返す。覚えさせると技の枠から外れる技、
+  /// 覚えさせた技が枠に入らない時 (技を選んである。#309) は「技を選ぶ」で枠に入れられること、どちらでもなければ入れ替わらないこと。
+  String _teachSubtitle({
+    required BuildContext context,
+    required OwnedMonster monster,
+    required Move move,
+  }) {
+    final newEquippedMoveIDs = equippedLearnsetEntries(
+      learnset: monster.definition.learnset,
+      actionCardMoveIDs: [...monster.actionCardMoveIDs, move.id],
+      selectedMoveIDs: monster.selectedMoveIDs,
+      level: monster.level,
+    );
+    return switch (equippedMoveChanges(
+      previousMoveIDs: equippedLearnsetEntries(
+        learnset: monster.definition.learnset,
+        actionCardMoveIDs: monster.actionCardMoveIDs,
+        selectedMoveIDs: monster.selectedMoveIDs,
+        level: monster.level,
+      ),
+      newMoveIDs: newEquippedMoveIDs,
+    ).forgottenMoveIDs) {
+      [] when !newEquippedMoveIDs.contains(move.id) =>
+        context.l10n.actionCardTeachNotEquipped,
+      [] => context.l10n.actionCardTeachNoForgotten,
+      final forgottenMoveIDs => [
+        for (final moveID in forgottenMoveIDs)
+          context.l10n.battleForgotMove(
+            widget.dexStore.definitions.moveByID(moveID: moveID).displayName,
+          ),
+      ].join('\n'),
+    };
   }
 
   @override
