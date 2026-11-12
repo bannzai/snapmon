@@ -43,8 +43,12 @@ class _MoveSelectionScreenState extends State<MoveSelectionScreen> {
   /// 保存の途中か。途中は決定を押せない。
   bool _isSaving = false;
 
-  /// [moveID] を選んでいれば外し、選んでいなければ空いている最後の枠に入れる。枠が埋まっている時は何もしない。
+  /// [moveID] を選んでいれば外し、選んでいなければ空いている最後の枠に入れる。枠が埋まっている時と保存の途中は何もしない
+  /// (保存の途中に変えた選択は、保存した値と食い違ったまま画面を閉じるため)。
   void _toggle({required String moveID}) {
+    if (_isSaving) {
+      return;
+    }
     setState(() {
       if (_selectedMoveIDs.contains(moveID)) {
         _selectedMoveIDs = [
@@ -58,16 +62,18 @@ class _MoveSelectionScreenState extends State<MoveSelectionScreen> {
   }
 
   /// 選んだ技を保存して閉じる。保存に失敗したらエラーをそのまま出して画面に留まる。
+  /// 保存の途中に端のスワイプでこの画面が閉じられていたら、下の画面を閉じないよう pop しない。
   Future<void> _save() async {
     final messenger = ScaffoldMessenger.of(context);
-    final navigator = Navigator.of(context);
     setState(() => _isSaving = true);
     try {
       await widget.dexStore.selectMoves(
         monsterID: widget.monster.definition.id,
         moveIDs: _selectedMoveIDs,
       );
-      navigator.pop();
+      if (mounted) {
+        Navigator.of(context).pop();
+      }
     } catch (error) {
       messenger
         ..hideCurrentSnackBar()
@@ -96,7 +102,12 @@ class _MoveSelectionScreenState extends State<MoveSelectionScreen> {
                     tooltip: MaterialLocalizations.of(
                       context,
                     ).backButtonTooltip,
-                    onPressed: () => Navigator.of(context).pop(),
+                    // 保存の途中は閉じない (保存が済めば閉じるため)
+                    onPressed: () {
+                      if (!_isSaving) {
+                        Navigator.of(context).pop();
+                      }
+                    },
                     size: 44,
                   ),
                   Expanded(

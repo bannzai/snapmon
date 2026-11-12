@@ -1780,15 +1780,6 @@ class _BattleResultPanel extends StatelessWidget {
         level: newLevel,
       ),
     );
-    final forgottenMoveIDs = equippedMoveChanges(
-      previousMoveIDs: equippedLearnsetEntries(
-        learnset: monster.definition.learnset,
-        actionCardMoveIDs: monster.actionCardMoveIDs,
-        selectedMoveIDs: monster.selectedMoveIDs,
-        level: monster.level,
-      ),
-      newMoveIDs: newEquippedMoveIDs,
-    ).forgottenMoveIDs;
     final style = SnapmonTextStyles.small.copyWith(
       color: SnapmonColors.textOnCard,
     );
@@ -1814,7 +1805,15 @@ class _BattleResultPanel extends StatelessWidget {
           ),
           style: style,
         ),
-      for (final moveID in forgottenMoveIDs)
+      for (final moveID in equippedMoveChanges(
+        previousMoveIDs: equippedLearnsetEntries(
+          learnset: monster.definition.learnset,
+          actionCardMoveIDs: monster.actionCardMoveIDs,
+          selectedMoveIDs: monster.selectedMoveIDs,
+          level: monster.level,
+        ),
+        newMoveIDs: newEquippedMoveIDs,
+      ).forgottenMoveIDs)
         Text(
           context.l10n.battleForgotMove(
             definitions.moveByID(moveID: moveID).displayName,
