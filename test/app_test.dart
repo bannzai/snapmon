@@ -19,6 +19,7 @@ import 'package:snapmon/features/capture/capture_screen.dart';
 import 'package:snapmon/features/capture/monster_generator.dart';
 import 'package:snapmon/features/dex/dex_screen.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
+import 'package:snapmon/features/help/help_screen.dart';
 import 'package:snapmon/features/home/home_shell.dart';
 import 'package:snapmon/features/opponent/pvp_client.dart';
 import 'package:snapmon/features/opponent/pvp_opponent.dart';
@@ -599,7 +600,7 @@ void main() {
       },
     );
 
-    testWidgets('生まれた画面の「もう 1 体撮る」でタイトルではなく撮る画面に進む', (tester) async {
+    testWidgets('生まれた画面の「手持ちを増やす」でタイトルではなく撮る画面に進む', (tester) async {
       await pumpApp(
         tester: tester,
         hasStartedSession: true,
@@ -609,7 +610,7 @@ void main() {
       await seedPartyWithOneMonster(tester: tester);
       await tapStartFromAlbum(tester: tester);
       await chooseSubjectCutout(tester: tester, settles: true);
-      await tester.tap(find.text('もう 1 体撮る'));
+      await tester.tap(find.text('手持ちを増やす'));
       await tester.pumpAndSettle();
       expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
       expect(find.text('図鑑 2'), findsOneWidget);
@@ -898,7 +899,7 @@ void main() {
   });
 
   group('初回の導線 (手持ちが空の時)', () {
-    /// 初回のバトルを決着まで進める (初回のバトルの勝敗の画面には「もどる」の代わりに「もう 1 体撮る」が出る)。
+    /// 初回のバトルを決着まで進める (初回のバトルの勝敗の画面には「もどる」の代わりに「手持ちを増やす」が出る)。
     /// バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める。
     Future<void> playFirstBattleUntilFinished({
       required WidgetTester tester,
@@ -1040,7 +1041,11 @@ void main() {
           AnalyticsEvent.firstExperience,
         );
 
-        // 「もう 1 体撮る」で撮るのシーンに進む。手持ちがあるので、撮るのシーンの初回の案内はもう出ない
+        // 「手持ちを増やす」で撮るのシーンに進む。手持ちがあるので、撮るのシーンの初回の案内はもう出ない。
+        // 負けた時は手持ちを増やす案内が勝敗の画面に入り、ボタンが下にずれるため、画面に入れてから押す
+        await tester.ensureVisible(
+          find.byKey(const Key('first-battle-capture-again')),
+        );
         await tester.tap(find.byKey(const Key('first-battle-capture-again')));
         await tester.pump();
         await tester.pump(const Duration(seconds: 1));
@@ -1078,11 +1083,89 @@ void main() {
       await playFirstBattleUntilFinished(tester: tester);
       expect(battleCalls.loggedEvents.first.parameters?['opponent'], 'cpu');
 
+      // 負けた時は手持ちを増やす案内が勝敗の画面に入り、ボタンが下にずれるため、画面に入れてから押す
+      await tester.ensureVisible(find.text('図鑑を見る'));
       await tester.tap(find.text('図鑑を見る'));
       await tester.pump();
       await tester.pump(const Duration(seconds: 1));
       expect(find.text('1 体 · 手持ち 1 体'), findsOneWidget);
     });
+
+    testWidgets(
+      '初回のバトルの勝敗の画面の「もう一回対戦する」で、初回の案内の無い CPU トレーナーとのバトルが続けて始まり、「もどる」で撮るのシーンに戻る',
+      (tester) async {
+        await pumpHome(
+          tester: tester,
+          hasStartedSession: true,
+          startSessionFailureCount: 0,
+          isDeveloperMenuEnabled: false,
+          startsCameraOnCaptureOpen: false,
+        );
+        await tester.tap(find.byTooltip('アルバムから選ぶ'));
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 500));
+        await chooseSubjectCutout(tester: tester, settles: false);
+        await tester.pump(const Duration(seconds: 2));
+        await tester.pump(const Duration(seconds: 1));
+        await playFirstBattleUntilFinished(tester: tester);
+        final firstBattleEventCount = battleCalls.loggedEvents.length;
+
+        final rematch = find.byKey(const Key('battle-rematch'));
+        await tester.ensureVisible(rematch);
+        await tester.tap(rematch);
+        await tester.pump();
+        // 次の対戦の準備の間、下の生成の画面は 1 戦目の相手の「○○ があらわれた」ではなく相手を探す表示に戻る
+        // (次の相手は乱数で選び直すため、前の相手の名前を出すと食い違う)
+        expect(find.textContaining(RegExp(r'^CPU .+ があらわれた$')), findsNothing);
+        expect(find.byKey(const Key('matchmaking-stage')), findsOneWidget);
+        await tester.pump(const Duration(seconds: 1));
+        await tester.pump(const Duration(seconds: 1));
+        // 1 戦目の画面の破棄を待ってから 2 戦目を開くため、開いた後のフレームをもう 1 秒進める
+        await tester.pump(const Duration(seconds: 1));
+        expect(find.byType(BattleScreen), findsOneWidget);
+        // 1 戦目の画面の破棄 (ホームの BGM に戻す) を待ってから 2 戦目を開くため、最後に流れているのはバトルの BGM
+        expect(
+          audioCalls.playedBackgroundMusicAssetPaths.last,
+          BackgroundMusic.battle.assetPath,
+        );
+        // 2 戦目は初回の導線ではない
+        expect(find.byKey(const Key('first-battle-hint')), findsNothing);
+
+        // 100 ターン: レベル 2 同士なら数ターンで決着するため、決着しない不具合でテストが止まらない上限として十分な数
+        for (
+          var turn = 0;
+          turn < 100 && find.text('もどる').evaluate().isEmpty;
+          turn++
+        ) {
+          await tester.tap(
+            find.text('わるあがき').evaluate().isEmpty
+                ? find.byKey(const Key('move-slot-0'))
+                : find.text('わるあがき'),
+          );
+          await tester.pump();
+          await tester.pump(const Duration(seconds: 5));
+        }
+        expect(
+          find.byKey(const Key('first-battle-capture-again')),
+          findsNothing,
+        );
+        // 2 戦目の決着では初回の導線の計測 (first_experience) を送らない
+        expect(
+          battleCalls.loggedEvents
+              .skip(firstBattleEventCount)
+              .map((logged) => logged.event),
+          isNot(contains(AnalyticsEvent.firstExperience)),
+        );
+
+        await tester.ensureVisible(find.text('もどる'));
+        await tester.tap(find.text('もどる'));
+        await tester.pump();
+        await tester.pump(const Duration(seconds: 1));
+        await tester.pump(const Duration(seconds: 1));
+        expect(find.byType(BattleScreen), findsNothing);
+        expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
+      },
+    );
   });
 
   group('ホームの画面のシーンと画面の遷移', () {
@@ -1218,7 +1301,7 @@ void main() {
       expect(find.text(bornMonster.name), findsNWidgets(2));
     });
 
-    testWidgets('生まれた画面の「もう 1 体撮る」で撮る画面に戻る', (tester) async {
+    testWidgets('生まれた画面の「手持ちを増やす」で撮る画面に戻る', (tester) async {
       await pumpHome(
         tester: tester,
         hasStartedSession: true,
@@ -1230,7 +1313,7 @@ void main() {
       await tester.tap(find.byTooltip('アルバムから選ぶ'));
       await tester.pumpAndSettle();
       await chooseSubjectCutout(tester: tester, settles: true);
-      await tester.tap(find.text('もう 1 体撮る'));
+      await tester.tap(find.text('手持ちを増やす'));
       await tester.pumpAndSettle();
       expect(find.text('身の回りの物を撮る\nモンスターが生まれる'), findsOneWidget);
       expect(find.text('図鑑 2'), findsOneWidget);
@@ -2009,6 +2092,28 @@ void main() {
   });
 
   group('設定画面', () {
+    testWidgets('サポートの「遊び方」で遊び方の画面を開き、戻ると設定画面に戻る', (tester) async {
+      await pumpHome(
+        tester: tester,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+        startsCameraOnCaptureOpen: false,
+      );
+      await tester.tap(find.byTooltip('設定'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('settings-open-help')));
+      await tester.pumpAndSettle();
+      expect(find.byType(HelpScreen), findsOneWidget);
+      expect(find.text('属性の相性 (弱点)'), findsOneWidget);
+
+      // 見出しの戻るはアプリ独自のボタン (#264) で pageBack が探す BackButton ではないため、tooltip で押す
+      await tester.tap(find.byTooltip('戻る'));
+      await tester.pumpAndSettle();
+      expect(find.byType(HelpScreen), findsNothing);
+      expect(find.byKey(const Key('settings-open-help')), findsOneWidget);
+    });
+
     testWidgets('お問い合わせと法務ドキュメントのリンクを開く', (tester) async {
       await pumpHome(
         tester: tester,

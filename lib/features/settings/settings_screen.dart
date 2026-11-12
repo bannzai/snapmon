@@ -14,6 +14,7 @@ import '../capture/monster_generator.dart';
 import '../capture/ticket_purchase_sheet.dart';
 import '../developer_menu/developer_menu_screen.dart';
 import '../dex/dex_store.dart';
+import '../help/help_screen.dart';
 import '../opponent/pvp_client.dart';
 import '../profile/profile_screen.dart';
 import '../session/session_store.dart';
@@ -244,6 +245,14 @@ class SettingsScreen extends StatelessWidget {
         _SectionTitle(title: context.l10n.settingsSoundSection),
         _SoundSwitches(gameAudio: GameAudioScope.of(context)),
         _SectionTitle(title: context.l10n.settingsSupportSection),
+        ListTile(
+          key: const Key('settings-open-help'),
+          leading: const Icon(Icons.lightbulb_outline),
+          title: Text(context.l10n.helpTitle),
+          onTap: () => Navigator.of(
+            context,
+          ).push(sceneRoute<void>(builder: (context) => const HelpScreen())),
+        ),
         ListTile(
           leading: const Icon(Icons.mail_outline),
           title: Text(context.l10n.commonContact),

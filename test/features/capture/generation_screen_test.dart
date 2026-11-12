@@ -737,8 +737,8 @@ void main() {
     expect(dexStore.monsters, hasLength(1));
     expect(calls.loggedEvents, isEmpty);
 
-    // 「もう 1 体撮る」で生まれた画面と生成の画面を閉じ、撮る画面に戻る
-    await tester.tap(find.text('もう 1 体撮る'));
+    // 「手持ちを増やす」で生まれた画面と生成の画面を閉じ、撮る画面に戻る
+    await tester.tap(find.text('手持ちを増やす'));
     await tester.pumpAndSettle();
     expect(find.text('開く'), findsOneWidget);
     expect(closedActions, [null]);
