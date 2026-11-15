@@ -47,6 +47,10 @@ import 'sample_data_fixture.dart';
 void main() {
   final sampleData = loadSampleDataFixture();
 
+  /// 図鑑で手持ちにする先頭の 3 体の次に並ぶ見本のモンスター。手持ちに入っておらず、図鑑を開いた画面の中に見えていてスクロールせずに押せる
+  /// (末尾の見本は一覧の下に並び、画面の外にある。issue #328 で見本が 17 体になったため)。
+  final benchSampleMonster = sampleData.monsters[3];
+
   /// 起動した [SnapmonApp] と、テストから覗く状態。
   late DexStore dexStore;
   late SessionStore sessionStore;
@@ -1259,7 +1263,7 @@ void main() {
       dexStore.replaceAll(monsters: sampleData.monsters);
       await tester.tap(find.byKey(const Key('capture-open-dex')));
       await tester.pumpAndSettle();
-      await tester.tap(find.text(sampleData.monsters.last.definition.name));
+      await tester.tap(find.text(benchSampleMonster.definition.name));
       await tester.pumpAndSettle();
 
       final route = ModalRoute.of(tester.element(find.byType(ResultScreen)));
@@ -1383,7 +1387,7 @@ void main() {
       await tester.tap(find.byKey(const Key('capture-open-dex')));
       await tester.pumpAndSettle();
       // 手持ちにいない (図鑑の一覧にだけ名前が出る) 最後のモンスターを開く
-      await tester.tap(find.text(sampleData.monsters.last.definition.name));
+      await tester.tap(find.text(benchSampleMonster.definition.name));
       await tester.pumpAndSettle();
       await tester.tap(find.text('カードを共有'));
       await tester.pumpAndSettle();
@@ -1409,7 +1413,7 @@ void main() {
       await tester.tap(find.byKey(const Key('capture-open-dex')));
       await tester.pumpAndSettle();
       // 手持ちにいない (図鑑の一覧にだけ名前が出る) 最後のモンスターを開く
-      await tester.tap(find.text(sampleData.monsters.last.definition.name));
+      await tester.tap(find.text(benchSampleMonster.definition.name));
       await tester.pumpAndSettle();
       await tester.tap(find.text('カードを共有'));
       await tester.pumpAndSettle();
@@ -1439,7 +1443,7 @@ void main() {
       await tester.tap(find.byKey(const Key('capture-open-dex')));
       await tester.pumpAndSettle();
       // 手持ちにいない (図鑑の一覧にだけ名前が出る) 最後のモンスターを開く
-      await tester.tap(find.text(sampleData.monsters.last.definition.name));
+      await tester.tap(find.text(benchSampleMonster.definition.name));
       await tester.pumpAndSettle();
       await tester.tap(find.text('カードを共有'));
       await tester.pumpAndSettle();
@@ -1463,11 +1467,11 @@ void main() {
       dexStore.replaceAll(monsters: sampleData.monsters);
       await tester.tap(find.byKey(const Key('capture-open-dex')));
       await tester.pumpAndSettle();
-      await tester.tap(find.text(sampleData.monsters.last.definition.name));
+      await tester.tap(find.text(benchSampleMonster.definition.name));
       await tester.pumpAndSettle();
       expect(find.text('図鑑'), findsOneWidget);
       expect(
-        find.text(sampleData.monsters.last.definition.encyclopediaText),
+        find.text(benchSampleMonster.definition.encyclopediaText),
         findsOneWidget,
       );
     });
@@ -1487,10 +1491,7 @@ void main() {
       await tester.pumpAndSettle();
       // はみ出しは RenderFlex のエラーとして報告されるため、例外が無いことで確かめる
       expect(tester.takeException(), isNull);
-      expect(
-        find.text(sampleData.monsters.last.definition.name),
-        findsOneWidget,
-      );
+      expect(find.text(benchSampleMonster.definition.name), findsOneWidget);
     });
 
     testWidgets('高さの低い画面でも撮る画面がはみ出さず、スクロールしてアルバムから選べる', (tester) async {
@@ -1571,7 +1572,7 @@ void main() {
       final partyBefore = dexStore.party;
       await tester.tap(find.byKey(const Key('capture-open-dex')));
       await tester.pumpAndSettle();
-      final benchMonster = sampleData.monsters.last.definition;
+      final benchMonster = benchSampleMonster.definition;
       await tester.tap(find.text(benchMonster.name));
       await tester.pumpAndSettle();
       await tester.tap(find.text('手持ちと入れ替える'));
@@ -1804,7 +1805,7 @@ void main() {
       await tester.tap(find.byTooltip('戻る'));
       await tester.pumpAndSettle();
 
-      final benchMonster = sampleData.monsters.last.definition;
+      final benchMonster = benchSampleMonster.definition;
       await tester.tap(find.text(benchMonster.name));
       await tester.pumpAndSettle();
       await tester.tap(find.text('手持ちに入れる'));
@@ -2063,7 +2064,7 @@ void main() {
           supportedLocales: AppLocalizations.supportedLocales,
           home: BattleScreen(
             playerParty: sampleData.monsters.take(3).toList(),
-            opponentParty: sampleData.monsters.skip(3).toList(),
+            opponentParty: sampleData.monsters.skip(3).take(3).toList(),
             opponentKind: BattleOpponentKind.cpu,
             definitions: sampleData.definitions,
             randomSeed: 1,
