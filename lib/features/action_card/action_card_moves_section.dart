@@ -115,7 +115,7 @@ class _ActionCardMovesSectionState extends State<ActionCardMovesSection> {
   }
 
   /// 覚えさせる技を [candidateMoves] から選んでもらう。各技に、覚えさせると技の枠から外れる技を出す
-  /// (枠は自動で入れ替わり、選ぶ画面が無いため。#247 の勝敗の画面と同じ文言)。選ばなければ null。
+  /// (枠は自動で入れ替わるため。外れた技は持ったままで、忘れたとは書かない。#325)。選ばなければ null。
   Future<Move?> _chooseMoveToTeach({required List<Move> candidateMoves}) {
     final monster = widget.monster;
     return showModalBottomSheet<Move>(
@@ -178,7 +178,7 @@ class _ActionCardMovesSectionState extends State<ActionCardMovesSection> {
       [] => context.l10n.actionCardTeachNoForgotten,
       final forgottenMoveIDs => [
         for (final moveID in forgottenMoveIDs)
-          context.l10n.battleForgotMove(
+          context.l10n.actionCardTeachReplacedMove(
             widget.dexStore.definitions.moveByID(moveID: moveID).displayName,
           ),
       ].join('\n'),
