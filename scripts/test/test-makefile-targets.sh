@@ -1,13 +1,17 @@
 #!/usr/bin/env bash
 # Makefile の ios-device・web・dart-defines-file・verify と、エディタの実行の設定 (.vscode) のテスト。flutter を差し替えて (呼ばれた引数を記録し、devices --machine には
 # 用意した一覧を返す)、実機の自動選択・実機が無い時の失敗・DEVICE= の指定・web の起動の引数を確かめる。
-# 一時ディレクトリにリポジトリの Makefile を写して実行し、手元の simulator・Chrome には触れない。
+# web が開くブラウザの選択 (scripts/resolve-web-chrome.sh) は、uname・npx を差し替え、Chrome for Testing を探す場所を
+# 作業ディレクトリに向けて確かめる。
+# 一時ディレクトリにリポジトリの Makefile を写して実行し、手元の simulator・Chrome・ブラウザのキャッシュには触れない。
 set -euo pipefail
 
 repo_root="$(cd "$(dirname "$0")/../.." && pwd)"
 failures=0
 # 手元のシェルで export したサイトキー・debug token・RevenueCat の鍵が Makefile の変数に効き、gh の差し替えを使うテストの期待値を変えるため外す
 unset RECAPTCHA_ENTERPRISE_SITE_KEY FIREBASE_APPCHECK_DEBUG_TOKEN_WEB REVENUECAT_PUBLIC_API_KEY_IOS REVENUECAT_PUBLIC_API_KEY_ANDROID
+# 手元のシェルの指定が web のブラウザの選択と差し替えの振る舞いを変えるため外す
+unset CHROME_EXECUTABLE FAKE_UNAME FAKE_UNAME_MACHINE
 
 fail() {
   echo "FAIL: $1"
@@ -28,6 +32,7 @@ prepare_workspace() {
   # 版の検査が読む pubspec は、リポジトリの版を読み直さずに済むよう、差し替えの flutter と同じ固定の版で置く
   printf 'name: snapmon\nenvironment:\n  flutter: 9.9.9\n' > "$work/pubspec.yaml"
   cp "$repo_root/scripts/check-flutter-version.sh" "$work/scripts/check-flutter-version.sh"
+  cp "$repo_root/scripts/resolve-web-chrome.sh" "$work/scripts/resolve-web-chrome.sh"
   cat > "$work/bin/flutter" <<'EOF'
 #!/usr/bin/env bash
 if [ "$1 $2" = "--version --machine" ]; then
@@ -37,11 +42,42 @@ fi
 EOF
   cat >> "$work/bin/flutter" <<'EOF'
 printf '%s\n' "$*" >> "$FLUTTER_ARGS_FILE"
+if [ "$1" = "run" ]; then
+  printf '%s\n' "${CHROME_EXECUTABLE-<unset>}" > "$FLUTTER_CHROME_EXECUTABLE_FILE"
+fi
 if [ "$1 $2" = "devices --machine" ]; then
   printf '%s' "$FLUTTER_DEVICES_JSON"
 fi
 EOF
-  chmod +x "$work/bin/flutter"
+  # CI (Linux) でも macOS の経路を確かめられるよう、uname -s は FAKE_UNAME (既定 Darwin)、uname -m は FAKE_UNAME_MACHINE (既定 arm64) を返す
+  cat > "$work/bin/uname" <<'EOF'
+#!/usr/bin/env bash
+if [ "${1-}" = "-m" ]; then
+  printf '%s\n' "${FAKE_UNAME_MACHINE:-arm64}"
+else
+  printf '%s\n' "${FAKE_UNAME:-Darwin}"
+fi
+EOF
+  # make web が Chrome for Testing の取得 (数百 MB) を自分で始めないことを確かめるため、呼ばれた引数を記録する
+  cat > "$work/bin/npx" <<'EOF'
+#!/usr/bin/env bash
+printf '%s\n' "$*" >> "$NPX_ARGS_FILE"
+EOF
+  chmod +x "$work/bin/flutter" "$work/bin/uname" "$work/bin/npx"
+}
+
+# 引数: 作業ディレクトリ、プラットフォーム (mac_arm 等)、版。Chrome for Testing を探す場所に、その版の実行ファイルを置く
+install_fake_chrome_for_testing() {
+  local work=$1 platform=$2 version=$3
+  mkdir -p "$(dirname "$(fake_chrome_for_testing_path "$work" "$platform" "$version")")"
+  printf '#!/bin/sh\n' > "$(fake_chrome_for_testing_path "$work" "$platform" "$version")"
+  chmod +x "$(fake_chrome_for_testing_path "$work" "$platform" "$version")"
+}
+
+# 引数: 作業ディレクトリ、プラットフォーム、版。install_fake_chrome_for_testing が置く実行ファイルのパスを出す。
+# @puppeteer/browsers の実物と同じく、mac_arm は chrome-mac-arm64、mac は chrome-mac-x64 の下に置く
+fake_chrome_for_testing_path() {
+  printf '%s\n' "$1/browser-cache/chrome/$2-$3/chrome-mac-$([ "$2" = "mac_arm" ] && echo arm64 || echo x64)/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing"
 }
 
 # 引数: 作業ディレクトリ、devices --machine が返す JSON、make の引数...。make の exit code を返し、出力は $work/stdout に残す
@@ -49,7 +85,11 @@ run_make() {
   local work=$1 devices_json=$2
   shift 2
   : > "$work/flutter-args"
+  : > "$work/npx-args"
+  : > "$work/flutter-chrome-executable"
   PATH="$work/bin:$PATH" FLUTTER_ARGS_FILE="$work/flutter-args" FLUTTER_DEVICES_JSON="$devices_json" \
+    FLUTTER_CHROME_EXECUTABLE_FILE="$work/flutter-chrome-executable" NPX_ARGS_FILE="$work/npx-args" \
+    WEB_CHROME_CACHE_DIR="$work/browser-cache" \
     make -C "$work" "$@" > "$work/stdout" 2>&1
 }
 
@@ -194,6 +234,123 @@ test_web_passes_debug_token_from_environment() {
     return
   fi
   pass "web: 環境変数の debug token を --dart-define に渡す"
+}
+
+test_web_opens_newest_installed_chrome_for_testing() {
+  local work
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  prepare_gh_stub "$work" "site-key-from-gh"
+  # 文字列の順では 9.0.0.0 が後ろに来るため、数値の順で 10.0.0.0 を選ぶことを確かめる
+  install_fake_chrome_for_testing "$work" mac_arm 9.0.0.0
+  install_fake_chrome_for_testing "$work" mac_arm 10.0.0.0
+  # Intel 向けの版は、新しくても Apple Silicon では選ばない
+  install_fake_chrome_for_testing "$work" mac 13.0.0.0
+  # 取得が途中で止まって実行できないファイルだけが残った版は、新しくても選ばない
+  install_fake_chrome_for_testing "$work" mac_arm 12.0.0.0
+  chmod -x "$(fake_chrome_for_testing_path "$work" mac_arm 12.0.0.0)"
+  if ! run_make "$work" '[]' web; then
+    fail "web: Chrome for Testing がある時に失敗した ($(cat "$work/stdout"))"
+    return
+  fi
+  if [ "$(cat "$work/flutter-chrome-executable")" != "$(fake_chrome_for_testing_path "$work" mac_arm 10.0.0.0)" ]; then
+    fail "web: 最も新しい版の Chrome for Testing を CHROME_EXECUTABLE に渡していない ($(cat "$work/flutter-chrome-executable"))"
+    return
+  fi
+  pass "web: 取得済みの Chrome for Testing のうち最も新しい版で開く"
+}
+
+test_web_opens_intel_chrome_for_testing_on_intel_mac() {
+  local work
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  prepare_gh_stub "$work" "site-key-from-gh"
+  install_fake_chrome_for_testing "$work" mac 9.0.0.0
+  install_fake_chrome_for_testing "$work" mac_arm 10.0.0.0
+  if ! FAKE_UNAME_MACHINE=x86_64 run_make "$work" '[]' web; then
+    fail "web: Intel の Mac で失敗した ($(cat "$work/stdout"))"
+    return
+  fi
+  if [ "$(cat "$work/flutter-chrome-executable")" != "$(fake_chrome_for_testing_path "$work" mac 9.0.0.0)" ]; then
+    fail "web: Intel の Mac で Intel 向けの Chrome for Testing を渡していない ($(cat "$work/flutter-chrome-executable"))"
+    return
+  fi
+  pass "web: Intel の Mac では、新しい Apple Silicon 向けの版があっても Intel 向けの版で開く"
+}
+
+test_web_falls_back_to_default_chrome_when_chrome_for_testing_is_missing() {
+  local work
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  prepare_gh_stub "$work" "site-key-from-gh"
+  if ! run_make "$work" '[]' web; then
+    fail "web: Chrome for Testing が無い時に失敗した ($(cat "$work/stdout"))"
+    return
+  fi
+  if [ "$(cat "$work/flutter-chrome-executable")" != "<unset>" ]; then
+    fail "web: Chrome for Testing が無い時に CHROME_EXECUTABLE を渡した ($(cat "$work/flutter-chrome-executable"))"
+    return
+  fi
+  if ! grep -qF "次を 1 回実行してください: npx @puppeteer/browsers install chrome@stable --path \"$work/browser-cache\"" "$work/stdout"; then
+    fail "web: Chrome for Testing が無い時に、取得のコマンドを案内していない ($(cat "$work/stdout"))"
+    return
+  fi
+  if [ -s "$work/npx-args" ]; then
+    fail "web: 取得を自分で始めた ($(cat "$work/npx-args"))"
+    return
+  fi
+  pass "web: Chrome for Testing が無ければ、取得のコマンドを案内して Flutter の既定の Chrome で開く (自分では取得しない)"
+}
+
+# Makefile はコマンド置換で exit code を捨てるため、無い時も失敗として返さない約束はスクリプトを直接呼んで確かめる
+test_resolve_web_chrome_succeeds_without_output_when_missing() {
+  local work
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  if ! PATH="$work/bin:$PATH" NPX_ARGS_FILE="$work/npx-args" WEB_CHROME_CACHE_DIR="$work/browser-cache" \
+    bash "$work/scripts/resolve-web-chrome.sh" > "$work/stdout" 2> "$work/stderr"; then
+    fail "resolve-web-chrome: Chrome for Testing が無い時に exit 0 で終えていない ($(cat "$work/stderr"))"
+    return
+  fi
+  if [ -s "$work/stdout" ]; then
+    fail "resolve-web-chrome: Chrome for Testing が無い時に stdout へパスを出した ($(cat "$work/stdout"))"
+    return
+  fi
+  pass "resolve-web-chrome: Chrome for Testing が無ければ、stdout に何も出さずに exit 0 で終える"
+}
+
+test_web_keeps_given_chrome_executable() {
+  local work
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  prepare_gh_stub "$work" "site-key-from-gh"
+  install_fake_chrome_for_testing "$work" mac_arm 10.0.0.0
+  if ! CHROME_EXECUTABLE=/given/browser run_make "$work" '[]' web; then
+    fail "web: CHROME_EXECUTABLE の指定で失敗した ($(cat "$work/stdout"))"
+    return
+  fi
+  if [ "$(cat "$work/flutter-chrome-executable")" != "/given/browser" ]; then
+    fail "web: 環境変数 CHROME_EXECUTABLE の指定を Chrome for Testing で上書きした ($(cat "$work/flutter-chrome-executable"))"
+    return
+  fi
+  pass "web: 環境変数 CHROME_EXECUTABLE の指定をそのまま使う"
+}
+
+test_web_uses_default_chrome_outside_macos() {
+  local work
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  prepare_gh_stub "$work" "site-key-from-gh"
+  install_fake_chrome_for_testing "$work" mac_arm 10.0.0.0
+  if ! FAKE_UNAME=Linux run_make "$work" '[]' web; then
+    fail "web: macOS 以外で失敗した ($(cat "$work/stdout"))"
+    return
+  fi
+  if [ "$(cat "$work/flutter-chrome-executable")" != "<unset>" ]; then
+    fail "web: macOS 以外で CHROME_EXECUTABLE を渡した ($(cat "$work/flutter-chrome-executable"))"
+    return
+  fi
+  pass "web: macOS 以外では Flutter の既定の Chrome で開く"
 }
 
 test_build_web_does_not_pass_debug_token() {
@@ -359,6 +516,12 @@ test_web_enables_web_then_runs_chrome
 test_web_prefers_environment_site_key
 test_web_runs_without_site_key
 test_web_passes_debug_token_from_environment
+test_web_opens_newest_installed_chrome_for_testing
+test_web_opens_intel_chrome_for_testing_on_intel_mac
+test_web_falls_back_to_default_chrome_when_chrome_for_testing_is_missing
+test_resolve_web_chrome_succeeds_without_output_when_missing
+test_web_keeps_given_chrome_executable
+test_web_uses_default_chrome_outside_macos
 test_build_web_does_not_pass_debug_token
 test_dart_defines_file_writes_public_values
 test_dart_defines_file_writes_empty_values_without_keys

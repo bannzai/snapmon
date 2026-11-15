@@ -40,10 +40,14 @@ web_dart_defines = --dart-define=RECAPTCHA_ENTERPRISE_SITE_KEY=$(RECAPTCHA_ENTER
 web_debug_dart_defines = $(web_dart_defines) --dart-define=FIREBASE_APPCHECK_DEBUG_TOKEN_WEB=$(FIREBASE_APPCHECK_DEBUG_TOKEN_WEB)
 
 # Web 版を手元の Chrome で起動する (flutter run が開発サーバーを立てて Chrome を開く。r でホットリロード、q で終了)。
-# flutter config の enable-web が false の環境でも動くよう、先に有効にする (設定は ~/.flutter に残る)
+# flutter config の enable-web が false の環境でも動くよう、先に有効にする (設定は ~/.flutter に残る)。
+# macOS では、アプリケーションスイッチャーで普段使いの Chrome と見分けられるよう Chrome for Testing で開く
+# (scripts/resolve-web-chrome.sh)。環境変数 CHROME_EXECUTABLE を指定した時はそのブラウザで開く
 .PHONY: web
 web: flutter-version-check
 	flutter config --enable-web >/dev/null
+	chrome_executable="$${CHROME_EXECUTABLE:-$$(bash scripts/resolve-web-chrome.sh)}"; \
+	if [ -n "$$chrome_executable" ]; then export CHROME_EXECUTABLE="$$chrome_executable"; fi; \
 	flutter run --debug -d chrome $(web_debug_dart_defines)
 
 # Cursor・VS Code の実行 (.vscode/launch.json) が --dart-define-from-file で読むファイル。flutter run の作業場所 (リポジトリのルート) からの相対パス
