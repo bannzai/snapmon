@@ -65,8 +65,9 @@ const Duration _hitDuration = Duration(
 );
 
 /// ログの帯の 1 行を読ませる間。ログの 1 行は 10〜30 文字のひらがな主体の文 (app_ja.arb の battleLog*) で、
-/// 以前の 0.7 秒 (技のログは前進と被弾の 0.8 秒) では読み切れないと指摘されたため (issue #262)、1 行を読み切れる長さとして 1.5 秒にした。
-const Duration _logReadingDurationPerLine = Duration(milliseconds: 1500);
+/// 以前の 0.7 秒 (技のログは前進と被弾の 0.8 秒) では読み切れないと指摘されたため (issue #262)、1.5 秒に延ばした。
+/// 1.5 秒は遊ぶとゆっくりすぎたため、owner が手元で試して 1.2 秒に決めた (issue #316)。
+const Duration _logReadingDurationPerLine = Duration(milliseconds: 1200);
 
 /// ログの文 [logText] を読ませる間。行が増えるほど長くする (技のログは相性・ステータスの変化が別の行に続くため)。
 Duration battleLogReadingDuration({required String logText}) =>
