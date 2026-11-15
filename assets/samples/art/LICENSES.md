@@ -1,6 +1,6 @@
 # 見本のモンスターの切り出した絵の出典
 
-Wikimedia Commons の CC0 / Public domain の写真 (sample-mugmon.png から sample-slippan.png までは 2026-10-28、動物の sample-haineko.png から sample-uzumai.png までは 2026-11-16 に取得) を、`functions/scripts/build-sample-art.mjs` が本番の生成と同じ切り出し (長辺 1024px に縮小 → IS-Net の自動のマスク → 背景を透明にして被写体の周りで切り詰める) に通したもの。切り出しの前に写真を切り詰めたものは、その旨を「改変」に書く。クレジットの表記はどのライセンスも求めていない。
+Wikimedia Commons の CC0 / Public domain の写真 (sample-mugmon.png から sample-slippan.png までは 2026-10-28、動物の sample-haineko.png から sample-uzumai.png までは 2026-11-16 に取得) を、`functions/scripts/build-sample-art.mjs` が本番の生成と同じ切り出し (長辺 1024px に縮小 → macOS の Vision の前景のマスク (`functions/scripts/subject-mask.swift`) → 背景を透明にして被写体の周りで切り詰める) に通したもの。切り出しの前に写真を切り詰めたものは、その旨を「改変」に書く。クレジットの表記はどのライセンスも求めていない。
 
 | ファイル | 元のファイル | 作者 | ライセンス | 改変 | 出典 |
 | --- | --- | --- | --- | --- | --- |
