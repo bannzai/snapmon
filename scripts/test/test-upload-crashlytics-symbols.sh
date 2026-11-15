@@ -7,7 +7,6 @@
 set -euo pipefail
 
 repo_root="$(cd "$(dirname "$0")/../.." && pwd)"
-target="$repo_root/scripts/upload-crashlytics-symbols.sh"
 run_relative_path="SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run"
 failures=0
 
@@ -52,7 +51,7 @@ run_target() {
     PLATFORM_NAME=iphonesimulator \
     CONFIGURATION=Debug \
     "$@" \
-    /bin/sh "$target" > "$work/out.log" 2>&1
+    /bin/sh "$repo_root/scripts/upload-crashlytics-symbols.sh" > "$work/out.log" 2>&1
 }
 
 uploaded_script_path() {
