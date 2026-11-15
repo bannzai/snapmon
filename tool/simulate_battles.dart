@@ -27,9 +27,9 @@ const List<({int player, int opponent})> levelPairs = [
   (player: 2, opponent: 4),
 ];
 
-/// `--seeds` を省略した時の乱数の数。利用者 36 体 × CPU 5 体 (自分と同じ見本を除く) = 180 組 × 5 で 1 条件 900 戦になり、
-/// issue #240 の計測と同じ戦数で比べられるため。
-const String defaultSeedCount = '5';
+/// `--seeds` を省略した時の乱数の数。利用者 102 体 (見本 17 体 × 種族値 6 通り) × CPU 16 体 (自分と同じ見本を除く) = 1,632 組で、
+/// 1 つでも issue #240・#267 の計測の 1 条件 900 戦を上回るため (見本が 6 体だった時は 180 組 × 5 で 900 戦にしていた。issue #328)。
+const String defaultSeedCount = '1';
 
 /// `--damage-percents` を省略した時に試す CPU のダメージの割合。issue #240 の 50 と補正なしの 100 の間を、切り捨てで 1 に潰れる
 /// 境目を探すために 70・80・90 で刻んだ (issue #267 の 1 回目の計測で 70 でも潰れたため 80・90 を足した)。

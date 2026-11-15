@@ -117,7 +117,7 @@ MonsterDefinition definitionWithBaseStats({
 );
 
 /// 利用者の側の定義。[sampleDefinitions] (見本のモンスター) の属性・技に [productionBaseStatsSample] の各種族値を組み合わせた一覧
-/// (見本 6 体 × 種族値 6 通り = 36 件)。CPU の側は見本のモンスターをそのまま使う。
+/// (見本の体数 × 種族値 6 通り)。CPU の側は見本のモンスターをそのまま使う。
 List<MonsterDefinition> simulationPlayerDefinitions({
   required List<MonsterDefinition> sampleDefinitions,
 }) => [

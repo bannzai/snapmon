@@ -114,6 +114,21 @@ void main() {
     },
   );
 
+  test('見本のモンスターの半分以上は生き物の属性 (獣・鳥・虫・魚・竜) を持つ (CPU の相手が物ばかりにならないため。issue #328)', () {
+    const creatureElementTypeIDs = {'beast', 'bird', 'bug', 'fish', 'dragon'};
+    expect(
+      sampleData.monsters
+              .where(
+                (monster) => monster.definition.elementTypeIDs.any(
+                  creatureElementTypeIDs.contains,
+                ),
+              )
+              .length *
+          2,
+      greaterThanOrEqualTo(sampleData.monsters.length),
+    );
+  });
+
   test('見本の対戦相手は見本のモンスターを 1〜3 体持つ', () {
     expect(sampleData.opponents, isNotEmpty);
     for (final opponent in sampleData.opponents) {
