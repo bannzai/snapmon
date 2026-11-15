@@ -336,8 +336,8 @@ void main() {
       // 炎はリンゴラの菓子・草の両方に 2 倍のため、相性の行も続く
       '${strongPlayer.definition.name} の ゆげのもや\n先に行動すると威力が上がる (今回は 1.3 倍)\nこうかは ばつぐんだ',
     );
-    // 3 行のログは 1 行 1.5 秒の 4.5 秒の間、前進と被弾の演出 (0.8 秒) が終わっても次のログに変わらない
-    await tester.pump(const Duration(milliseconds: 4400));
+    // 3 行のログは 1 行 1.2 秒の 3.6 秒の間、前進と被弾の演出 (0.8 秒) が終わっても次のログに変わらない
+    await tester.pump(const Duration(milliseconds: 3500));
     expect(
       tester.widget<Text>(find.byKey(const Key('battle-log'))).data,
       '${strongPlayer.definition.name} の ゆげのもや\n先に行動すると威力が上がる (今回は 1.3 倍)\nこうかは ばつぐんだ',
