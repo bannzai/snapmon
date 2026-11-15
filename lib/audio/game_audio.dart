@@ -5,8 +5,8 @@ import 'package:flutter/widgets.dart';
 
 /// 繰り返し流す BGM。素材の出どころとライセンスは assets/CREDITS.md。
 enum BackgroundMusic {
-  /// タイトルとホームの画面 (図鑑・撮る・対戦) で流す曲。
-  home('assets/audio/mahjongg_bgm_01_n163.mp3'),
+  /// タイトルとホームの画面 (図鑑・撮る・対戦) で流す落ち着いた曲。
+  home('assets/audio/song18_0.mp3'),
 
   /// バトル画面で流す曲。
   battle('assets/audio/battleThemeA.mp3');
