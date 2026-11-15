@@ -576,7 +576,8 @@ void main() {
       await tester.tap(find.byKey(const Key('action-card-teach')));
       await tester.pumpAndSettle();
       // Lv.7 の mugmon の枠は fire_1・steel_1・fire_1b・steel_1b で、一番古い fire_1 (ほかほかタッチ) が外れる
-      expect(find.text('ほかほかタッチ をわすれた'), findsOneWidget);
+      expect(find.text('ほかほかタッチ が技の枠から外れる'), findsOneWidget);
+      expect(find.textContaining('わすれ'), findsNothing);
       await tester.tap(find.byKey(const Key('action-card-teach-water_3')));
       await tester.pumpAndSettle();
       expect(fakeActionCards.taughtMoves, [

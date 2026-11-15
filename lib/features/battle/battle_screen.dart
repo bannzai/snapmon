@@ -1754,10 +1754,10 @@ class _BattleResultPanel extends StatelessWidget {
   /// バトルの結果の共有に使う関数の組。
   final CardSharer cardSharer;
 
-  /// [monster] が [newLevel] に上がって覚えた技 (新しく選べるようになった技)・入れ替わりで枠から外れた技の行を返す。
+  /// [monster] が [newLevel] に上がって覚えた技 (新しく選べるようになった技) の行を返す。
   /// 覚えた技が枠に入らなかった時 (対戦の前に技を選んである・枠が Action Card の技で埋まっている) は、技を選び直せることを知らせる行も足す。
   /// 覚えた技が無い時は、次に技を覚えるレベルの行 (もう覚える技が無ければ何も返さない)。
-  /// 入れ替えは自動で画面に出ないため、レベルアップの行で知らせる (#247・#309)。
+  /// 入れ替わりで枠から外れた技は出さない (技は持ったままで「技を選ぶ」で枠に戻せ、失ったように見せないため。#325)。
   List<Widget> _learnsetChangeTexts({
     required BuildContext context,
     required OwnedMonster monster,
@@ -1802,21 +1802,6 @@ class _BattleResultPanel extends StatelessWidget {
       for (final moveID in changes.learnedMoveIDs)
         Text(
           context.l10n.battleLearnedMove(
-            definitions.moveByID(moveID: moveID).displayName,
-          ),
-          style: style,
-        ),
-      for (final moveID in equippedMoveChanges(
-        previousMoveIDs: equippedLearnsetEntries(
-          learnset: monster.definition.learnset,
-          actionCardMoveIDs: monster.actionCardMoveIDs,
-          selectedMoveIDs: monster.selectedMoveIDs,
-          level: monster.level,
-        ),
-        newMoveIDs: newEquippedMoveIDs,
-      ).forgottenMoveIDs)
-        Text(
-          context.l10n.battleForgotMove(
             definitions.moveByID(moveID: moveID).displayName,
           ),
           style: style,
