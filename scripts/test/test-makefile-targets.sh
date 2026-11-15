@@ -69,15 +69,15 @@ EOF
 # 引数: 作業ディレクトリ、プラットフォーム (mac_arm 等)、版。Chrome for Testing を探す場所に、その版の実行ファイルを置く
 install_fake_chrome_for_testing() {
   local work=$1 platform=$2 version=$3
-  local macos_dir="$work/browser-cache/chrome/$platform-$version/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS"
-  mkdir -p "$macos_dir"
-  printf '#!/bin/sh\n' > "$macos_dir/Google Chrome for Testing"
-  chmod +x "$macos_dir/Google Chrome for Testing"
+  mkdir -p "$(dirname "$(fake_chrome_for_testing_path "$work" "$platform" "$version")")"
+  printf '#!/bin/sh\n' > "$(fake_chrome_for_testing_path "$work" "$platform" "$version")"
+  chmod +x "$(fake_chrome_for_testing_path "$work" "$platform" "$version")"
 }
 
-# 引数: 作業ディレクトリ、プラットフォーム、版。install_fake_chrome_for_testing が置く実行ファイルのパスを出す
+# 引数: 作業ディレクトリ、プラットフォーム、版。install_fake_chrome_for_testing が置く実行ファイルのパスを出す。
+# @puppeteer/browsers の実物と同じく、mac_arm は chrome-mac-arm64、mac は chrome-mac-x64 の下に置く
 fake_chrome_for_testing_path() {
-  printf '%s\n' "$1/browser-cache/chrome/$2-$3/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing"
+  printf '%s\n' "$1/browser-cache/chrome/$2-$3/chrome-mac-$([ "$2" = "mac_arm" ] && echo arm64 || echo x64)/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing"
 }
 
 # 引数: 作業ディレクトリ、devices --machine が返す JSON、make の引数...。make の exit code を返し、出力は $work/stdout に残す

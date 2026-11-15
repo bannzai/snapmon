@@ -46,7 +46,7 @@ web_debug_dart_defines = $(web_dart_defines) --dart-define=FIREBASE_APPCHECK_DEB
 .PHONY: web
 web: flutter-version-check
 	flutter config --enable-web >/dev/null
-	@chrome_executable="$${CHROME_EXECUTABLE:-$$(bash scripts/resolve-web-chrome.sh)}"; \
+	chrome_executable="$${CHROME_EXECUTABLE:-$$(bash scripts/resolve-web-chrome.sh)}"; \
 	if [ -n "$$chrome_executable" ]; then export CHROME_EXECUTABLE="$$chrome_executable"; fi; \
 	flutter run --debug -d chrome $(web_debug_dart_defines)
 
