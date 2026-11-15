@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Makefile の ios-device・web・verify のテスト。flutter を差し替えて (呼ばれた引数を記録し、devices --machine には
+# Makefile の ios-device・web・dart-defines-file・verify と、エディタの実行の設定 (.vscode) のテスト。flutter を差し替えて (呼ばれた引数を記録し、devices --machine には
 # 用意した一覧を返す)、実機の自動選択・実機が無い時の失敗・DEVICE= の指定・web の起動の引数を確かめる。
 # 一時ディレクトリにリポジトリの Makefile を写して実行し、手元の simulator・Chrome には触れない。
 set -euo pipefail
@@ -251,6 +251,107 @@ test_verify_stops_on_version_mismatch() {
   pass "verify: 手元の版が pubspec と違えば flutter pub get の前に止まる"
 }
 
+# 引数: 作業ディレクトリ。dart-defines-file が書き出したファイルを、キーの順を揃えた 1 行の JSON で出す
+written_dart_defines() {
+  jq -c -S . "$1/build/dart_defines.json"
+}
+
+test_dart_defines_file_writes_public_values() {
+  local work
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  prepare_gh_stub "$work" "site-key-from-gh"
+  # 値に = を含んでも最初の = でキーと値に分かれることを確かめるため、iOS の鍵に = を入れる
+  if ! REVENUECAT_PUBLIC_API_KEY_IOS='ios-key=from-env' REVENUECAT_PUBLIC_API_KEY_ANDROID=android-key-from-env \
+    FIREBASE_APPCHECK_DEBUG_TOKEN_WEB=debug-token-from-env run_make "$work" '[]' dart-defines-file; then
+    fail "dart-defines-file: 失敗した ($(cat "$work/stdout"))"
+    return
+  fi
+  if [ "$(written_dart_defines "$work")" != '{"RECAPTCHA_ENTERPRISE_SITE_KEY":"site-key-from-gh","REVENUECAT_PUBLIC_API_KEY_ANDROID":"android-key-from-env","REVENUECAT_PUBLIC_API_KEY_IOS":"ios-key=from-env"}' ]; then
+    fail "dart-defines-file: 公開値の 3 つだけ (debug token を除く) を書き出していない ($(written_dart_defines "$work"))"
+    return
+  fi
+  if [ -s "$work/flutter-args" ]; then
+    fail "dart-defines-file: ファイルを書くだけなのに flutter を呼んだ ($(cat "$work/flutter-args"))"
+    return
+  fi
+  pass "dart-defines-file: 環境変数と gh の Variable の公開値を書き出し、debug token は書かない"
+}
+
+test_dart_defines_file_writes_empty_values_without_keys() {
+  local work
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  prepare_gh_stub "$work" ""
+  if ! run_make "$work" '[]' dart-defines-file; then
+    fail "dart-defines-file: 鍵が無い時に失敗した ($(cat "$work/stdout"))"
+    return
+  fi
+  if [ "$(written_dart_defines "$work")" != '{"RECAPTCHA_ENTERPRISE_SITE_KEY":"","REVENUECAT_PUBLIC_API_KEY_ANDROID":"","REVENUECAT_PUBLIC_API_KEY_IOS":""}' ]; then
+    fail "dart-defines-file: 鍵が無い時に空の値で書き出していない ($(written_dart_defines "$work"))"
+    return
+  fi
+  pass "dart-defines-file: 鍵が無くても空の値で書き出す (make の各 target と同じ)"
+}
+
+test_dart_defines_file_stops_on_version_mismatch() {
+  local work
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  prepare_gh_stub "$work" "site-key-from-gh"
+  set_flutter_version "$work" "9.9.10"
+  if run_make "$work" '[]' dart-defines-file; then
+    fail "dart-defines-file: 手元の版が pubspec と違うのに成功した"
+    return
+  fi
+  if [ -e "$work/build/dart_defines.json" ]; then
+    fail "dart-defines-file: 版が違うのにファイルを書いた"
+    return
+  fi
+  pass "dart-defines-file: 手元の版が pubspec と違えばファイルを書かずに止まる"
+}
+
+# アプリが String.fromEnvironment で受けるキーは、書き出すキーと、秘匿値のため書き出さない debug token のどちらかに入る
+# (キーを足した時に、エディタの実行にだけ渡らない状態を見つける)
+test_dart_defines_file_covers_keys_read_by_app() {
+  local work
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  prepare_gh_stub "$work" ""
+  if ! run_make "$work" '[]' dart-defines-file; then
+    fail "dart-defines-file: 失敗した ($(cat "$work/stdout"))"
+    return
+  fi
+  if [ "$({ jq -r 'keys[]' "$work/build/dart_defines.json"; echo FIREBASE_APPCHECK_DEBUG_TOKEN_WEB; } | sort)" != "$(find "$repo_root/lib" -name '*.dart' -exec perl -0777 -ne 'print "$1\n" while /fromEnvironment\(\s*\x27([A-Z0-9_]+)\x27/g' {} + | sort -u)" ]; then
+    fail "dart-defines-file: 書き出すキーと debug token の合計が、lib の String.fromEnvironment のキーと一致しない ($(jq -c 'keys' "$work/build/dart_defines.json"))"
+    return
+  fi
+  pass "dart-defines-file: lib が受けるキーを debug token を除いてすべて書き出す"
+}
+
+# エディタの実行の設定が、dart-defines-file を実行の前に呼び、その target が書いたファイルを flutter run に渡す
+test_editor_launch_reads_file_written_by_task() {
+  local work task
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  prepare_gh_stub "$work" ""
+  task="$(jq -r '.configurations[0].preLaunchTask' "$repo_root/.vscode/launch.json")"
+  if [ "$(jq -r --arg label "$task" '.tasks[] | select(.label == $label) | .command' "$repo_root/.vscode/tasks.json")" != "make dart-defines-file" ]; then
+    fail "launch.json: preLaunchTask ($task) が tasks.json で make dart-defines-file を呼んでいない"
+    return
+  fi
+  if ! run_make "$work" '[]' dart-defines-file; then
+    fail "dart-defines-file: 失敗した ($(cat "$work/stdout"))"
+    return
+  fi
+  # toolArgs (flutter run への引数) に置く。args は main() への引数で、flutter run に渡らない (https://dartcode.org/docs/launch-configuration/)
+  if [ ! -f "$work/$(jq -r '.configurations[0].toolArgs[] | select(startswith("--dart-define-from-file=")) | sub("^--dart-define-from-file="; "")' "$repo_root/.vscode/launch.json")" ]; then
+    fail "launch.json: toolArgs の --dart-define-from-file が、dart-defines-file の書くファイルを指していない ($(jq -c '.configurations[0].toolArgs' "$repo_root/.vscode/launch.json"))"
+    return
+  fi
+  pass "launch.json: 実行の前に dart-defines-file を呼び、書かれたファイルを flutter run に渡す"
+}
+
 test_ios_device_selects_supported_physical_device
 test_ios_device_fails_without_physical_device
 test_ios_device_uses_device_variable
@@ -259,6 +360,11 @@ test_web_prefers_environment_site_key
 test_web_runs_without_site_key
 test_web_passes_debug_token_from_environment
 test_build_web_does_not_pass_debug_token
+test_dart_defines_file_writes_public_values
+test_dart_defines_file_writes_empty_values_without_keys
+test_dart_defines_file_stops_on_version_mismatch
+test_dart_defines_file_covers_keys_read_by_app
+test_editor_launch_reads_file_written_by_task
 test_verify_runs_after_version_check_passes
 test_verify_stops_on_version_mismatch
 
