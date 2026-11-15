@@ -1386,7 +1386,7 @@ void main() {
       dexStore.replaceAll(monsters: sampleData.monsters);
       await tester.tap(find.byKey(const Key('capture-open-dex')));
       await tester.pumpAndSettle();
-      // 手持ちにいない (図鑑の一覧にだけ名前が出る) 最後のモンスターを開く
+      // 手持ちにいない (図鑑の一覧にだけ名前が出る) 見本のモンスターを開く
       await tester.tap(find.text(benchSampleMonster.definition.name));
       await tester.pumpAndSettle();
       await tester.tap(find.text('カードを共有'));
@@ -1412,7 +1412,7 @@ void main() {
       dexStore.replaceAll(monsters: sampleData.monsters);
       await tester.tap(find.byKey(const Key('capture-open-dex')));
       await tester.pumpAndSettle();
-      // 手持ちにいない (図鑑の一覧にだけ名前が出る) 最後のモンスターを開く
+      // 手持ちにいない (図鑑の一覧にだけ名前が出る) 見本のモンスターを開く
       await tester.tap(find.text(benchSampleMonster.definition.name));
       await tester.pumpAndSettle();
       await tester.tap(find.text('カードを共有'));
@@ -1442,7 +1442,7 @@ void main() {
       dexStore.replaceAll(monsters: sampleData.monsters);
       await tester.tap(find.byKey(const Key('capture-open-dex')));
       await tester.pumpAndSettle();
-      // 手持ちにいない (図鑑の一覧にだけ名前が出る) 最後のモンスターを開く
+      // 手持ちにいない (図鑑の一覧にだけ名前が出る) 見本のモンスターを開く
       await tester.tap(find.text(benchSampleMonster.definition.name));
       await tester.pumpAndSettle();
       await tester.tap(find.text('カードを共有'));
