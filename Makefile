@@ -1,5 +1,6 @@
-# ios target が flutter run する simulator。sim-boot でプロジェクト固有 simulator を起動して解決する (?= なので ios 以外の target では起動しない)
-SIMULATOR_UDID ?= $(shell SCRIPT_QUIET=1 sim-boot | sed -n 's/^DEVICE_UDID=//p' | tail -n 1)
+# ios target が flutter run する simulator。sim-boot でプロジェクト固有 simulator を起動して解決する (?= なので ios 以外の target では起動しない)。
+# SIMSLIM_EXCEPT に photos を足すのは、sim-boot の既定 (store だけを残す) では写真のサービスが止まり、写真の選択画面で写真を選べないため
+SIMULATOR_UDID ?= $(shell SIMSLIM_EXCEPT=store,photos SCRIPT_QUIET=1 sim-boot | sed -n 's/^DEVICE_UDID=//p' | tail -n 1)
 
 # 引数なしの make で ios を実行する (人が手で動作確認するための入口。検査・テストは CI が行う)
 .DEFAULT_GOAL := ios
