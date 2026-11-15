@@ -666,7 +666,9 @@ void main() {
     });
   });
 
-  testWidgets('レベルが上がって技を覚えた時は、覚えた技と入れ替わりで外れた技をレベルの行の下に出す', (tester) async {
+  testWidgets('レベルが上がって技を覚えた時は、覚えた技だけをレベルの行の下に出し、入れ替わりで枠から外れた技は出さない', (
+    tester,
+  ) async {
     final playerMonster = OwnedMonster(
       definition: MonsterDefinition(
         id: strongPlayer.definition.id,
@@ -708,9 +710,13 @@ void main() {
       find.text('${strongPlayer.definition.name}  Lv. 7 → 9'),
       findsOneWidget,
     );
-    // Lv.1 の 4 つの枠のうち一覧で一番古い fire_1 (ほかほかタッチ) が、Lv.8 の steel_2 (スチールプレス) と入れ替わる
+    // Lv.1 の 4 つの枠のうち一覧で一番古い fire_1 (ほかほかタッチ) が、Lv.8 の steel_2 (スチールプレス) と入れ替わる。
+    // 外れた技は持ったままで、失ったようには見せない (#325)
     expect(find.text('スチールプレス をおぼえた'), findsOneWidget);
-    expect(find.text('ほかほかタッチ をわすれた'), findsOneWidget);
+    expect(find.text('ほかほかタッチ をわすれた'), findsNothing);
+    expect(find.textContaining('わすれ'), findsNothing);
+    // 覚えた技は枠に入っているため、技を選ぶ画面の案内は出さない
+    expect(find.text('技を選ぶで入れ替えられる'), findsNothing);
     // 技を覚えた時は次に覚えるレベルを出さない
     expect(find.textContaining('で新しい技をおぼえる'), findsNothing);
   });
