@@ -11,7 +11,7 @@ failures=0
 # 手元のシェルで export したサイトキー・debug token・RevenueCat の鍵が Makefile の変数に効き、gh の差し替えを使うテストの期待値を変えるため外す
 unset RECAPTCHA_ENTERPRISE_SITE_KEY FIREBASE_APPCHECK_DEBUG_TOKEN_WEB REVENUECAT_PUBLIC_API_KEY_IOS REVENUECAT_PUBLIC_API_KEY_ANDROID
 # 手元のシェルの指定が web のブラウザの選択と差し替えの振る舞いを変えるため外す
-unset CHROME_EXECUTABLE FAKE_UNAME
+unset CHROME_EXECUTABLE FAKE_UNAME FAKE_UNAME_MACHINE
 
 fail() {
   echo "FAIL: $1"
@@ -49,10 +49,14 @@ if [ "$1 $2" = "devices --machine" ]; then
   printf '%s' "$FLUTTER_DEVICES_JSON"
 fi
 EOF
-  # CI (Linux) でも macOS の経路を確かめられるよう、uname -s は FAKE_UNAME (既定 Darwin) を返す
+  # CI (Linux) でも macOS の経路を確かめられるよう、uname -s は FAKE_UNAME (既定 Darwin)、uname -m は FAKE_UNAME_MACHINE (既定 arm64) を返す
   cat > "$work/bin/uname" <<'EOF'
 #!/usr/bin/env bash
-printf '%s\n' "${FAKE_UNAME:-Darwin}"
+if [ "${1-}" = "-m" ]; then
+  printf '%s\n' "${FAKE_UNAME_MACHINE:-arm64}"
+else
+  printf '%s\n' "${FAKE_UNAME:-Darwin}"
+fi
 EOF
   # make web が Chrome for Testing の取得 (数百 MB) を自分で始めないことを確かめるため、呼ばれた引数を記録する
   cat > "$work/bin/npx" <<'EOF'
@@ -240,7 +244,8 @@ test_web_opens_newest_installed_chrome_for_testing() {
   # 文字列の順では 9.0.0.0 が後ろに来るため、数値の順で 10.0.0.0 を選ぶことを確かめる
   install_fake_chrome_for_testing "$work" mac_arm 9.0.0.0
   install_fake_chrome_for_testing "$work" mac_arm 10.0.0.0
-  install_fake_chrome_for_testing "$work" mac 9.5.0.0
+  # Intel 向けの版は、新しくても Apple Silicon では選ばない
+  install_fake_chrome_for_testing "$work" mac 13.0.0.0
   # 取得が途中で止まって実行できないファイルだけが残った版は、新しくても選ばない
   install_fake_chrome_for_testing "$work" mac_arm 12.0.0.0
   chmod -x "$(fake_chrome_for_testing_path "$work" mac_arm 12.0.0.0)"
@@ -253,6 +258,24 @@ test_web_opens_newest_installed_chrome_for_testing() {
     return
   fi
   pass "web: 取得済みの Chrome for Testing のうち最も新しい版で開く"
+}
+
+test_web_opens_intel_chrome_for_testing_on_intel_mac() {
+  local work
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  prepare_gh_stub "$work" "site-key-from-gh"
+  install_fake_chrome_for_testing "$work" mac 9.0.0.0
+  install_fake_chrome_for_testing "$work" mac_arm 10.0.0.0
+  if ! FAKE_UNAME_MACHINE=x86_64 run_make "$work" '[]' web; then
+    fail "web: Intel の Mac で失敗した ($(cat "$work/stdout"))"
+    return
+  fi
+  if [ "$(cat "$work/flutter-chrome-executable")" != "$(fake_chrome_for_testing_path "$work" mac 9.0.0.0)" ]; then
+    fail "web: Intel の Mac で Intel 向けの Chrome for Testing を渡していない ($(cat "$work/flutter-chrome-executable"))"
+    return
+  fi
+  pass "web: Intel の Mac では、新しい Apple Silicon 向けの版があっても Intel 向けの版で開く"
 }
 
 test_web_falls_back_to_default_chrome_when_chrome_for_testing_is_missing() {
@@ -494,6 +517,7 @@ test_web_prefers_environment_site_key
 test_web_runs_without_site_key
 test_web_passes_debug_token_from_environment
 test_web_opens_newest_installed_chrome_for_testing
+test_web_opens_intel_chrome_for_testing_on_intel_mac
 test_web_falls_back_to_default_chrome_when_chrome_for_testing_is_missing
 test_resolve_web_chrome_succeeds_without_output_when_missing
 test_web_keeps_given_chrome_executable
