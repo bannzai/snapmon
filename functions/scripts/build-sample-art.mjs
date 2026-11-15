@@ -5,7 +5,7 @@
 // 出典とライセンスは assets/samples/art/LICENSES.md に書く。写真を変えたらそちらも直す。
 // 同じ写真からは同じ画像を書き直す (Commons の縮小版の画素と Vision の版が変わらない限り)。
 //
-// 使い方: npm run build && node scripts/build-sample-art.mjs
+// 使い方: npm run build && node scripts/build-sample-art.mjs [見本のモンスターの id ...]
 import { execFileSync } from "node:child_process";
 import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -51,7 +51,66 @@ const SAMPLE_PHOTOS = [
     crop: { left: 0.615, top: 0.17, width: 0.315, height: 0.51 },
   },
   { monsterID: "sample-slippan", commonsFile: "Slippers MET 69.108.371a-b CP4.jpg" },
+  {
+    monsterID: "sample-haineko",
+    commonsFile: "Cat (Unsplash).jpg",
+    crop: { left: 0.28, top: 0, width: 0.46, height: 1 },
+  },
+  {
+    monsterID: "sample-korowan",
+    commonsFile: "Jack Russell puppy (Unsplash).jpg",
+    crop: { left: 0.2, top: 0.03, width: 0.52, height: 0.94 },
+  },
+  {
+    monsterID: "sample-medamazuku",
+    commonsFile: "Orange eyed owl (Unsplash).jpg",
+    crop: { left: 0.38, top: 0.08, width: 0.6, height: 0.92 },
+  },
+  {
+    monsterID: "sample-kouradon",
+    commonsFile: "Turtle crawling (Unsplash).jpg",
+    crop: { left: 0, top: 0.36, width: 0.76, height: 0.52 },
+  },
+  {
+    monsterID: "sample-harikoron",
+    commonsFile: "Hedgehog, Poland (Unsplash).jpg",
+    crop: { left: 0.27, top: 0.15, width: 0.5, height: 0.62 },
+  },
+  {
+    monsterID: "sample-petapen",
+    commonsFile: "Penguin on a rock (Unsplash).jpg",
+    crop: { left: 0.33, top: 0.2, width: 0.42, height: 0.68 },
+  },
+  {
+    monsterID: "sample-yukigitsu",
+    commonsFile: "Sitting fox (Unsplash).jpg",
+    crop: { left: 0.45, top: 0.33, width: 0.47, height: 0.6 },
+  },
+  {
+    monsterID: "sample-kururisu",
+    commonsFile: "Squirrel Standing (Unsplash).jpg",
+    crop: { left: 0.45, top: 0.1, width: 0.3, height: 0.62 },
+  },
+  {
+    monsterID: "sample-midorigamo",
+    commonsFile: "Mallard Duck (Unsplash).jpg",
+    crop: { left: 0.04, top: 0.36, width: 0.66, height: 0.42 },
+  },
+  { monsterID: "sample-urokodora", commonsFile: "Lizard on rock (Unsplash).jpg" },
+  {
+    monsterID: "sample-uzumai",
+    commonsFile: "Snail yellow striped shell (Unsplash).jpg",
+    crop: { left: 0.26, top: 0.14, width: 0.38, height: 0.72 },
+  },
 ];
+
+/** 引数で渡した見本のモンスターの id。渡した時はその絵だけを作り、ほかの絵を書き直さない (Vision の版が変わると同じ写真でも画素が変わり、変えていない絵に差分が出るため)。 */
+const requestedMonsterIDs = process.argv.slice(2);
+for (const requestedMonsterID of requestedMonsterIDs) {
+  if (!SAMPLE_PHOTOS.some(({ monsterID }) => monsterID === requestedMonsterID)) {
+    throw new Error(`${requestedMonsterID} は SAMPLE_PHOTOS にありません`);
+  }
+}
 
 /** Commons から取る縮小版の幅 (px)。切り出しは長辺 1024px に縮めてから行う (cutout.ts の CUTOUT_PHOTO_LONG_SIDE_MAXIMUM) ため、切り詰めた後もそれを下回りにくい幅にした。 */
 const COMMONS_THUMBNAIL_WIDTH = 2048;
@@ -115,7 +174,9 @@ function createSubjectMask({ monsterID, photo }) {
 }
 
 mkdirSync(artDirectory, { recursive: true });
-for (const { monsterID, commonsFile, crop } of SAMPLE_PHOTOS) {
+for (const { monsterID, commonsFile, crop } of SAMPLE_PHOTOS.filter(
+  ({ monsterID }) => requestedMonsterIDs.length === 0 || requestedMonsterIDs.includes(monsterID),
+)) {
   const photo = await cutout.downscalePhoto(await cropPhoto({ photo: await fetchCommonsPhoto(commonsFile), crop }));
   // 被写体の画素が無いマスクは applyMask が写真全体を返すため、見本の絵として使わずに止める
   const { cutoutPng, coverage } = await cutout.applyMask({ photo, mask: createSubjectMask({ monsterID, photo }) });

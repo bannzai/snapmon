@@ -35,8 +35,8 @@ void main() {
       opponentDamagePercent: opponentDamagePercent,
       opponentHitPointsPercent: opponentHitPointsPercent,
       playerPolicy: policy,
-      // 180 組 × 5 で 1 条件 900 戦になり、値を決めた tool/simulate_battles.dart の既定と同じ戦数で目標を確かめるため
-      seedCount: 5,
+      // 値を決めた tool/simulate_battles.dart の既定 (defaultSeedCount) と同じ戦数 (1,632 組 × 1) で目標を確かめるため
+      seedCount: 1,
     ),
   );
 

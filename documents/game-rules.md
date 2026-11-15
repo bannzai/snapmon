@@ -505,7 +505,7 @@ Claude が写真から被写体の説明 (何か・色・素材・大きさ・�
 - 威力は技の特殊効果の倍率を掛けた後の値 (上の「技の特殊効果」)
 - 技を使う側がやけどなら半分 (1 以上)、受ける側がやけどなら (10 + 重なり) ÷ 10 倍 (上の「状態」)
 - CPU との対戦では、CPU の手持ちの最大 HP をステータスの計算式の HP の 40% にする (切り捨て、1 以上。`cpuHitPointsPercent`)。始めの HP・回復の上限・毒のダメージ・技の式の変数 (`self.maximumHitPoints`・`opponent.maximumHitPoints`)・HP バーの分母のどれもこの値を使う。CPU の HP の数値は画面に出さない (相手のカードは HP バーだけ)。PvP の相手と利用者には掛けない。CPU が与えるダメージは補正しない (`cpuDamagePercent` は 100。50% にすると低レベルの打撃が切り捨てで 1 に潰れたため)。根拠は DIRECTION.md「決めたこと」の 2026-11-09 の #267 の行
-- CPU の強さは `tool/simulate_battles.dart` (GitHub Actions の `battle-simulation.yml`) で、レベル・技の選び方・補正の割合を変えて 1 条件 900 戦を繰り返して決める。目標は `test/domain/battle/cpu_strength_test.dart` が守る
+- CPU の強さは `tool/simulate_battles.dart` (GitHub Actions の `battle-simulation.yml`) で、レベル・技の選び方・補正の割合を変えて 1 条件 1,632 戦 (見本が 6 体だった 2026-11-09 の計測は 900 戦) を繰り返して決める。目標は `test/domain/battle/cpu_strength_test.dart` が守る
 - 乱数はバトル開始時の seed から引き、同じ seed と同じ行動の列からは同じ結果になる。版 8 までの技 (命中率 100・状態なし) だけのバトルでは、版 9 の前と同じ順で乱数を引いていたが、#279 で命中の乱数を引く場面が増え、2026-11-12 に命中率 100 の技では引かないように戻したため、その間とは順が変わる (上の「命中と先制」)
 - わるあがきは威力 40・属性なし (相性は常に等倍)・PP を使わない
 
