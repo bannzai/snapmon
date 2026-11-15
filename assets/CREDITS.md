@@ -16,11 +16,12 @@
 
 どの画面で流すかは `lib/audio/game_audio.dart` の `BackgroundMusic`。
 
-- `song18_0.mp3` (タイトル・下タブの画面)
-  - 素材名: Crystal Cave (song18)。作者: cynicmusic (The Cynic Project / pixelsphere.org)
-  - 入手先: https://opengameart.org/content/crystal-cave-song18
-  - ライセンス: CC0 (クレジット表記は不要。作者はページで pixelsphere.org / The Cynic Project のクレジットと、使った時の連絡を希望している)
-  - 改変: 入手したファイルのまま
+- `mahjongg_bgm_01_n163.mp3` (タイトル・下タブの画面)
+  - 素材名: Mahjongg NES BGM のうち `Mahjongg BGM 01 N163.ogg`。作者: Spring Spring
+  - 入手先: https://opengameart.org/content/mahjongg-nes-bgm
+  - ライセンス: CC0 (クレジット表記は不要)
+  - 改変: バトルの BGM と同じ形式にそろえるため、Ogg Vorbis の元のファイルを ffmpeg で 96 kbps の MP3 にし、ファイル名を変えた (`ffmpeg -i "Mahjongg BGM 01 N163.ogg" -codec:a libmp3lame -b:a 96k -map_metadata -1 mahjongg_bgm_01_n163.mp3`)。曲そのものは変えていない
+  - 2026-11-16 に Crystal Cave (cynicmusic) から差し替えた (bannzai の選曲)
 - `battleThemeA.mp3` (バトル画面)
   - 素材名: Battle Theme A。作者: cynicmusic (cynicmusic.com / pixelsphere.org)
   - 入手先: https://opengameart.org/content/battle-theme-a
