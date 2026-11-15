@@ -336,8 +336,8 @@ void main() {
       // 炎はリンゴラの菓子・草の両方に 2 倍のため、相性の行も続く
       '${strongPlayer.definition.name} の ゆげのもや\n先に行動すると威力が上がる (今回は 1.3 倍)\nこうかは ばつぐんだ',
     );
-    // 3 行のログは 1 行 1.5 秒の 4.5 秒の間、前進と被弾の演出 (0.8 秒) が終わっても次のログに変わらない
-    await tester.pump(const Duration(milliseconds: 4400));
+    // 3 行のログは 1 行 1.2 秒の 3.6 秒の間、前進と被弾の演出 (0.8 秒) が終わっても次のログに変わらない
+    await tester.pump(const Duration(milliseconds: 3500));
     expect(
       tester.widget<Text>(find.byKey(const Key('battle-log'))).data,
       '${strongPlayer.definition.name} の ゆげのもや\n先に行動すると威力が上がる (今回は 1.3 倍)\nこうかは ばつぐんだ',
@@ -666,7 +666,9 @@ void main() {
     });
   });
 
-  testWidgets('レベルが上がって技を覚えた時は、覚えた技と入れ替わりで外れた技をレベルの行の下に出す', (tester) async {
+  testWidgets('レベルが上がって技を覚えた時は、覚えた技だけをレベルの行の下に出し、入れ替わりで枠から外れた技は出さない', (
+    tester,
+  ) async {
     final playerMonster = OwnedMonster(
       definition: MonsterDefinition(
         id: strongPlayer.definition.id,
@@ -708,9 +710,13 @@ void main() {
       find.text('${strongPlayer.definition.name}  Lv. 7 → 9'),
       findsOneWidget,
     );
-    // Lv.1 の 4 つの枠のうち一覧で一番古い fire_1 (ほかほかタッチ) が、Lv.8 の steel_2 (スチールプレス) と入れ替わる
+    // Lv.1 の 4 つの枠のうち一覧で一番古い fire_1 (ほかほかタッチ) が、Lv.8 の steel_2 (スチールプレス) と入れ替わる。
+    // 外れた技は持ったままで、失ったようには見せない (#325)
     expect(find.text('スチールプレス をおぼえた'), findsOneWidget);
-    expect(find.text('ほかほかタッチ をわすれた'), findsOneWidget);
+    expect(find.text('ほかほかタッチ をわすれた'), findsNothing);
+    expect(find.textContaining('わすれ'), findsNothing);
+    // 覚えた技は枠に入っているため、技を選ぶ画面の案内は出さない
+    expect(find.text('技を選ぶで入れ替えられる'), findsNothing);
     // 技を覚えた時は次に覚えるレベルを出さない
     expect(find.textContaining('で新しい技をおぼえる'), findsNothing);
   });
