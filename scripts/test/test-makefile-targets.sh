@@ -304,6 +304,23 @@ test_web_falls_back_to_default_chrome_when_install_fails() {
   pass "web: Chrome for Testing を取得できなければ、警告を出して Flutter の既定の Chrome で開く"
 }
 
+# Makefile はコマンド置換で exit code を捨てるため、取得の失敗を失敗として返さない約束はスクリプトを直接呼んで確かめる
+test_resolve_web_chrome_succeeds_without_output_when_install_fails() {
+  local work
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  if ! PATH="$work/bin:$PATH" NPX_ARGS_FILE="$work/npx-args" WEB_CHROME_CACHE_DIR="$work/browser-cache" \
+    bash "$work/scripts/resolve-web-chrome.sh" > "$work/stdout" 2> "$work/stderr"; then
+    fail "resolve-web-chrome: Chrome for Testing を取得できない時に exit 0 で終えていない ($(cat "$work/stderr"))"
+    return
+  fi
+  if [ -s "$work/stdout" ]; then
+    fail "resolve-web-chrome: 取得できない時に stdout へパスを出した ($(cat "$work/stdout"))"
+    return
+  fi
+  pass "resolve-web-chrome: Chrome for Testing を取得できなければ、何も出さずに exit 0 で終える"
+}
+
 test_web_keeps_given_chrome_executable() {
   local work
   work="$(mktemp -d)"
@@ -407,6 +424,7 @@ test_web_passes_debug_token_from_environment
 test_web_opens_newest_installed_chrome_for_testing
 test_web_installs_chrome_for_testing_when_missing
 test_web_falls_back_to_default_chrome_when_install_fails
+test_resolve_web_chrome_succeeds_without_output_when_install_fails
 test_web_keeps_given_chrome_executable
 test_web_uses_default_chrome_outside_macos
 test_build_web_does_not_pass_debug_token
