@@ -13363,6 +13363,597 @@
       },
       "level": 5,
       "artPath": "assets/samples/art/sample-slippan.png"
+    },
+    {
+      "definition": {
+        "id": "sample-haineko",
+        "sourcePhotoReference": null,
+        "name": "ハイネコ",
+        "encyclopediaText": "後ろ足で立ち上がって相手をじっと見つめる。前足のパンチは見た目より速い。",
+        "elementTypeIDs": [
+          "beast"
+        ],
+        "learnset": [
+          {
+            "moveID": "beast_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "beast_1b",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "beast_1c",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "beast_1d",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "beast_s2",
+            "unlockLevel": 5
+          },
+          {
+            "moveID": "beast_2",
+            "unlockLevel": 15
+          }
+        ],
+        "baseStats": {
+          "hitPoints": 80,
+          "attack": 80,
+          "defense": 60,
+          "speed": 100
+        },
+        "individualValues": {
+          "hitPoints": 14,
+          "attack": 22,
+          "defense": 9,
+          "speed": 27
+        },
+        "statCalculationVersion": 1,
+        "masterVersion": 6
+      },
+      "level": 4,
+      "artPath": "assets/samples/art/sample-haineko.png"
+    },
+    {
+      "definition": {
+        "id": "sample-korowan",
+        "sourcePhotoReference": null,
+        "name": "コロワン",
+        "encyclopediaText": "首をかしげて見上げるのがくせ。呼ばれるとどこからでも転がるように走ってくる。",
+        "elementTypeIDs": [
+          "beast"
+        ],
+        "learnset": [
+          {
+            "moveID": "beast_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "beast_1b",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "beast_1c",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "beast_1d",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "beast_s2",
+            "unlockLevel": 5
+          },
+          {
+            "moveID": "beast_2",
+            "unlockLevel": 15
+          }
+        ],
+        "baseStats": {
+          "hitPoints": 80,
+          "attack": 100,
+          "defense": 60,
+          "speed": 80
+        },
+        "individualValues": {
+          "hitPoints": 19,
+          "attack": 11,
+          "defense": 16,
+          "speed": 8
+        },
+        "statCalculationVersion": 1,
+        "masterVersion": 6
+      },
+      "level": 2,
+      "artPath": "assets/samples/art/sample-korowan.png"
+    },
+    {
+      "definition": {
+        "id": "sample-medamazuku",
+        "sourcePhotoReference": null,
+        "name": "メダマズク",
+        "encyclopediaText": "オレンジ色の大きな目で暗がりを見通す。羽音を立てずに後ろへ回り込む。",
+        "elementTypeIDs": [
+          "bird",
+          "dark"
+        ],
+        "learnset": [
+          {
+            "moveID": "bird_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "dark_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "bird_1b",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "dark_1b",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "bird_2",
+            "unlockLevel": 15
+          },
+          {
+            "moveID": "dark_2",
+            "unlockLevel": 15
+          }
+        ],
+        "baseStats": {
+          "hitPoints": 60,
+          "attack": 100,
+          "defense": 60,
+          "speed": 100
+        },
+        "individualValues": {
+          "hitPoints": 7,
+          "attack": 26,
+          "defense": 12,
+          "speed": 20
+        },
+        "statCalculationVersion": 1,
+        "masterVersion": 6
+      },
+      "level": 9,
+      "artPath": "assets/samples/art/sample-medamazuku.png"
+    },
+    {
+      "definition": {
+        "id": "sample-kouradon",
+        "sourcePhotoReference": null,
+        "name": "コウラドン",
+        "encyclopediaText": "かたい甲羅に首と足をしまって攻撃をしのぐ。歩みは遅いが止まらない。",
+        "elementTypeIDs": [
+          "water",
+          "earth"
+        ],
+        "learnset": [
+          {
+            "moveID": "water_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "earth_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "water_1b",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "earth_1b",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "water_2",
+            "unlockLevel": 15
+          },
+          {
+            "moveID": "earth_2",
+            "unlockLevel": 15
+          }
+        ],
+        "baseStats": {
+          "hitPoints": 100,
+          "attack": 60,
+          "defense": 120,
+          "speed": 40
+        },
+        "individualValues": {
+          "hitPoints": 23,
+          "attack": 6,
+          "defense": 28,
+          "speed": 4
+        },
+        "statCalculationVersion": 1,
+        "masterVersion": 6
+      },
+      "level": 6,
+      "artPath": "assets/samples/art/sample-kouradon.png"
+    },
+    {
+      "definition": {
+        "id": "sample-harikoron",
+        "sourcePhotoReference": null,
+        "name": "ハリコロン",
+        "encyclopediaText": "落ち葉の中で丸くなって針を立てる。鼻をひくひくさせて虫をさがす。",
+        "elementTypeIDs": [
+          "beast",
+          "grass"
+        ],
+        "learnset": [
+          {
+            "moveID": "beast_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "grass_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "beast_1b",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "grass_1b",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "beast_2",
+            "unlockLevel": 15
+          },
+          {
+            "moveID": "grass_2",
+            "unlockLevel": 15
+          }
+        ],
+        "baseStats": {
+          "hitPoints": 80,
+          "attack": 60,
+          "defense": 100,
+          "speed": 60
+        },
+        "individualValues": {
+          "hitPoints": 11,
+          "attack": 15,
+          "defense": 25,
+          "speed": 10
+        },
+        "statCalculationVersion": 1,
+        "masterVersion": 6
+      },
+      "level": 1,
+      "artPath": "assets/samples/art/sample-harikoron.png"
+    },
+    {
+      "definition": {
+        "id": "sample-petapen",
+        "sourcePhotoReference": null,
+        "name": "ペタペン",
+        "encyclopediaText": "岩の上をぺたぺたと歩く。氷の上では腹ですべって一気に近づく。",
+        "elementTypeIDs": [
+          "bird",
+          "ice"
+        ],
+        "learnset": [
+          {
+            "moveID": "bird_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "ice_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "bird_1b",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "ice_1b",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "bird_2",
+            "unlockLevel": 15
+          },
+          {
+            "moveID": "ice_2",
+            "unlockLevel": 15
+          }
+        ],
+        "baseStats": {
+          "hitPoints": 100,
+          "attack": 60,
+          "defense": 80,
+          "speed": 80
+        },
+        "individualValues": {
+          "hitPoints": 21,
+          "attack": 8,
+          "defense": 17,
+          "speed": 13
+        },
+        "statCalculationVersion": 1,
+        "masterVersion": 6
+      },
+      "level": 8,
+      "artPath": "assets/samples/art/sample-petapen.png"
+    },
+    {
+      "definition": {
+        "id": "sample-yukigitsu",
+        "sourcePhotoReference": null,
+        "name": "ユキギツ",
+        "encyclopediaText": "雪の上にすわって遠くの物音を聞き分ける。ふさふさの尾で体を温める。",
+        "elementTypeIDs": [
+          "beast",
+          "ice"
+        ],
+        "learnset": [
+          {
+            "moveID": "beast_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "ice_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "beast_1b",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "ice_1b",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "beast_2",
+            "unlockLevel": 15
+          },
+          {
+            "moveID": "ice_2",
+            "unlockLevel": 15
+          }
+        ],
+        "baseStats": {
+          "hitPoints": 60,
+          "attack": 80,
+          "defense": 80,
+          "speed": 100
+        },
+        "individualValues": {
+          "hitPoints": 9,
+          "attack": 19,
+          "defense": 13,
+          "speed": 24
+        },
+        "statCalculationVersion": 1,
+        "masterVersion": 6
+      },
+      "level": 11,
+      "artPath": "assets/samples/art/sample-yukigitsu.png"
+    },
+    {
+      "definition": {
+        "id": "sample-kururisu",
+        "sourcePhotoReference": null,
+        "name": "クルリス",
+        "encyclopediaText": "立ち上がってあたりを見回す。木の実を見つけるとほおにつめて木へ駆け上がる。",
+        "elementTypeIDs": [
+          "beast",
+          "wood"
+        ],
+        "learnset": [
+          {
+            "moveID": "beast_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "wood_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "beast_1b",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "wood_1b",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "beast_2",
+            "unlockLevel": 15
+          },
+          {
+            "moveID": "wood_2",
+            "unlockLevel": 15
+          }
+        ],
+        "baseStats": {
+          "hitPoints": 60,
+          "attack": 80,
+          "defense": 60,
+          "speed": 120
+        },
+        "individualValues": {
+          "hitPoints": 6,
+          "attack": 17,
+          "defense": 10,
+          "speed": 30
+        },
+        "statCalculationVersion": 1,
+        "masterVersion": 6
+      },
+      "level": 3,
+      "artPath": "assets/samples/art/sample-kururisu.png"
+    },
+    {
+      "definition": {
+        "id": "sample-midorigamo",
+        "sourcePhotoReference": null,
+        "name": "ミドリガモ",
+        "encyclopediaText": "緑色に光る頭が目印。水面をすべるように泳ぎ、足だけをせわしなく動かす。",
+        "elementTypeIDs": [
+          "bird",
+          "water"
+        ],
+        "learnset": [
+          {
+            "moveID": "bird_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "water_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "bird_1b",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "water_1b",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "bird_2",
+            "unlockLevel": 15
+          },
+          {
+            "moveID": "water_2",
+            "unlockLevel": 15
+          }
+        ],
+        "baseStats": {
+          "hitPoints": 80,
+          "attack": 60,
+          "defense": 80,
+          "speed": 80
+        },
+        "individualValues": {
+          "hitPoints": 18,
+          "attack": 12,
+          "defense": 14,
+          "speed": 16
+        },
+        "statCalculationVersion": 1,
+        "masterVersion": 6
+      },
+      "level": 5,
+      "artPath": "assets/samples/art/sample-midorigamo.png"
+    },
+    {
+      "definition": {
+        "id": "sample-urokodora",
+        "sourcePhotoReference": null,
+        "name": "ウロコドラ",
+        "encyclopediaText": "岩の上で胸を張って日を浴びる。うろこが温まるとすばやく走り出す。",
+        "elementTypeIDs": [
+          "dragon",
+          "earth"
+        ],
+        "learnset": [
+          {
+            "moveID": "dragon_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "earth_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "dragon_1b",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "earth_1b",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "dragon_2",
+            "unlockLevel": 15
+          },
+          {
+            "moveID": "earth_2",
+            "unlockLevel": 15
+          }
+        ],
+        "baseStats": {
+          "hitPoints": 80,
+          "attack": 100,
+          "defense": 100,
+          "speed": 60
+        },
+        "individualValues": {
+          "hitPoints": 13,
+          "attack": 24,
+          "defense": 20,
+          "speed": 7
+        },
+        "statCalculationVersion": 1,
+        "masterVersion": 6
+      },
+      "level": 12,
+      "artPath": "assets/samples/art/sample-urokodora.png"
+    },
+    {
+      "definition": {
+        "id": "sample-uzumai",
+        "sourcePhotoReference": null,
+        "name": "ウズマイ",
+        "encyclopediaText": "うずまきの殻を背負ってガラスものぼる。雨の日は触角をのばしてよく動く。",
+        "elementTypeIDs": [
+          "bug"
+        ],
+        "learnset": [
+          {
+            "moveID": "bug_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "bug_1b",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "bug_1c",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "bug_1d",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "bug_s2",
+            "unlockLevel": 5
+          },
+          {
+            "moveID": "bug_2",
+            "unlockLevel": 15
+          }
+        ],
+        "baseStats": {
+          "hitPoints": 100,
+          "attack": 60,
+          "defense": 100,
+          "speed": 40
+        },
+        "individualValues": {
+          "hitPoints": 26,
+          "attack": 5,
+          "defense": 22,
+          "speed": 3
+        },
+        "statCalculationVersion": 1,
+        "masterVersion": 6
+      },
+      "level": 7,
+      "artPath": "assets/samples/art/sample-uzumai.png"
     }
   ],
   "opponents": [
