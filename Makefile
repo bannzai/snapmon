@@ -46,6 +46,19 @@ web: flutter-version-check
 	flutter config --enable-web >/dev/null
 	flutter run --debug -d chrome $(web_debug_dart_defines)
 
+# Cursor・VS Code の実行 (.vscode/launch.json) が --dart-define-from-file で読むファイル。flutter run の作業場所 (リポジトリのルート) からの相対パス
+dart_defines_file = build/dart_defines.json
+
+# ios・android・web の target が渡す公開値の --dart-define を $(dart_defines_file) に JSON で書き出す (.vscode/tasks.json が実行の前に呼ぶ)。
+# エディタの実行は Makefile を通らず、環境変数が無い時に gh の Variable から取る処理が効かないため、ファイルで同じ値を渡す。何度実行しても同じ結果になる。
+# エディタの task は、Dock から起動した時も .zshrc 等の shell の環境 (PATH) で動く (https://code.visualstudio.com/docs/supporting/faq の Resolving shell environment)
+# FIREBASE_APPCHECK_DEBUG_TOKEN_WEB は秘匿値のためファイルに書かない (人が操作する Chrome は reCAPTCHA のサイトキーで App Check が通る)
+.PHONY: dart-defines-file
+dart-defines-file: flutter-version-check
+	@mkdir -p $(dir $(dart_defines_file))
+	@printf '%s\n' $(foreach define,$(purchases_dart_defines) $(web_dart_defines),'$(patsubst --dart-define=%,%,$(define))') \
+		| jq -R -n '[inputs | capture("^(?<key>[^=]+)=(?<value>.*)$$")] | from_entries' > $(dart_defines_file)
+
 # 起動中の Android Emulator へ flutter run する。DEVICE=<デバイス ID> で対象を指定でき、未指定なら flutter devices から emulator を自動解決する
 .PHONY: android
 android: flutter-version-check
