@@ -11,7 +11,7 @@ failures=0
 # 手元のシェルで export したサイトキー・debug token・RevenueCat の鍵が Makefile の変数に効き、gh の差し替えを使うテストの期待値を変えるため外す
 unset RECAPTCHA_ENTERPRISE_SITE_KEY FIREBASE_APPCHECK_DEBUG_TOKEN_WEB REVENUECAT_PUBLIC_API_KEY_IOS REVENUECAT_PUBLIC_API_KEY_ANDROID
 # 手元のシェルの指定が web のブラウザの選択と差し替えの振る舞いを変えるため外す
-unset CHROME_EXECUTABLE FAKE_UNAME NPX_STUB_MODE
+unset CHROME_EXECUTABLE FAKE_UNAME
 
 fail() {
   echo "FAIL: $1"
@@ -54,15 +54,10 @@ EOF
 #!/usr/bin/env bash
 printf '%s\n' "${FAKE_UNAME:-Darwin}"
 EOF
-  # 呼ばれた引数を記録する。NPX_STUB_MODE=install の時だけ --path の場所へ Chrome for Testing 11.0.0.0 を置き、それ以外は取得の失敗として exit 1
+  # make web が Chrome for Testing の取得 (数百 MB) を自分で始めないことを確かめるため、呼ばれた引数を記録する
   cat > "$work/bin/npx" <<'EOF'
 #!/usr/bin/env bash
 printf '%s\n' "$*" >> "$NPX_ARGS_FILE"
-[ "${NPX_STUB_MODE:-fail}" = "install" ] || exit 1
-macos_dir="${*: -1}/chrome/mac_arm-11.0.0.0/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS"
-mkdir -p "$macos_dir"
-printf '#!/bin/sh\n' > "$macos_dir/Google Chrome for Testing"
-chmod +x "$macos_dir/Google Chrome for Testing"
 EOF
   chmod +x "$work/bin/flutter" "$work/bin/uname" "$work/bin/npx"
 }
@@ -257,68 +252,48 @@ test_web_opens_newest_installed_chrome_for_testing() {
     fail "web: 最も新しい版の Chrome for Testing を CHROME_EXECUTABLE に渡していない ($(cat "$work/flutter-chrome-executable"))"
     return
   fi
-  if [ -s "$work/npx-args" ]; then
-    fail "web: Chrome for Testing があるのに取得を呼んだ ($(cat "$work/npx-args"))"
-    return
-  fi
-  pass "web: 取得済みの Chrome for Testing のうち最も新しい版で開き、取得は呼ばない"
+  pass "web: 取得済みの Chrome for Testing のうち最も新しい版で開く"
 }
 
-test_web_installs_chrome_for_testing_when_missing() {
-  local work
-  work="$(mktemp -d)"
-  prepare_workspace "$work"
-  prepare_gh_stub "$work" "site-key-from-gh"
-  if ! NPX_STUB_MODE=install run_make "$work" '[]' web; then
-    fail "web: Chrome for Testing の取得で失敗した ($(cat "$work/stdout"))"
-    return
-  fi
-  if [ "$(cat "$work/npx-args")" != "--yes @puppeteer/browsers install chrome@stable --path $work/browser-cache" ]; then
-    fail "web: Chrome for Testing が無い時に、探す場所へ 1 回だけ取得していない ($(cat "$work/npx-args"))"
-    return
-  fi
-  if [ "$(cat "$work/flutter-chrome-executable")" != "$(fake_chrome_for_testing_path "$work" mac_arm 11.0.0.0)" ]; then
-    fail "web: 取得した Chrome for Testing を CHROME_EXECUTABLE に渡していない ($(cat "$work/flutter-chrome-executable"))"
-    return
-  fi
-  pass "web: Chrome for Testing が無ければ取得して、それで開く"
-}
-
-test_web_falls_back_to_default_chrome_when_install_fails() {
+test_web_falls_back_to_default_chrome_when_chrome_for_testing_is_missing() {
   local work
   work="$(mktemp -d)"
   prepare_workspace "$work"
   prepare_gh_stub "$work" "site-key-from-gh"
   if ! run_make "$work" '[]' web; then
-    fail "web: Chrome for Testing を取得できない時に失敗した ($(cat "$work/stdout"))"
+    fail "web: Chrome for Testing が無い時に失敗した ($(cat "$work/stdout"))"
     return
   fi
   if [ "$(cat "$work/flutter-chrome-executable")" != "<unset>" ]; then
-    fail "web: 取得できない時に CHROME_EXECUTABLE を渡した ($(cat "$work/flutter-chrome-executable"))"
+    fail "web: Chrome for Testing が無い時に CHROME_EXECUTABLE を渡した ($(cat "$work/flutter-chrome-executable"))"
     return
   fi
-  if ! grep -q 'Chrome for Testing を取得できませんでした。通常の Chrome で起動します' "$work/stdout"; then
-    fail "web: 取得できない時の警告が出ていない ($(cat "$work/stdout"))"
+  if ! grep -qF "次を 1 回実行してください: npx @puppeteer/browsers install chrome@stable --path \"$work/browser-cache\"" "$work/stdout"; then
+    fail "web: Chrome for Testing が無い時に、取得のコマンドを案内していない ($(cat "$work/stdout"))"
     return
   fi
-  pass "web: Chrome for Testing を取得できなければ、警告を出して Flutter の既定の Chrome で開く"
+  if [ -s "$work/npx-args" ]; then
+    fail "web: 取得を自分で始めた ($(cat "$work/npx-args"))"
+    return
+  fi
+  pass "web: Chrome for Testing が無ければ、取得のコマンドを案内して Flutter の既定の Chrome で開く (自分では取得しない)"
 }
 
-# Makefile はコマンド置換で exit code を捨てるため、取得の失敗を失敗として返さない約束はスクリプトを直接呼んで確かめる
-test_resolve_web_chrome_succeeds_without_output_when_install_fails() {
+# Makefile はコマンド置換で exit code を捨てるため、無い時も失敗として返さない約束はスクリプトを直接呼んで確かめる
+test_resolve_web_chrome_succeeds_without_output_when_missing() {
   local work
   work="$(mktemp -d)"
   prepare_workspace "$work"
   if ! PATH="$work/bin:$PATH" NPX_ARGS_FILE="$work/npx-args" WEB_CHROME_CACHE_DIR="$work/browser-cache" \
     bash "$work/scripts/resolve-web-chrome.sh" > "$work/stdout" 2> "$work/stderr"; then
-    fail "resolve-web-chrome: Chrome for Testing を取得できない時に exit 0 で終えていない ($(cat "$work/stderr"))"
+    fail "resolve-web-chrome: Chrome for Testing が無い時に exit 0 で終えていない ($(cat "$work/stderr"))"
     return
   fi
   if [ -s "$work/stdout" ]; then
-    fail "resolve-web-chrome: 取得できない時に stdout へパスを出した ($(cat "$work/stdout"))"
+    fail "resolve-web-chrome: Chrome for Testing が無い時に stdout へパスを出した ($(cat "$work/stdout"))"
     return
   fi
-  pass "resolve-web-chrome: Chrome for Testing を取得できなければ、何も出さずに exit 0 で終える"
+  pass "resolve-web-chrome: Chrome for Testing が無ければ、stdout に何も出さずに exit 0 で終える"
 }
 
 test_web_keeps_given_chrome_executable() {
@@ -344,7 +319,7 @@ test_web_uses_default_chrome_outside_macos() {
   prepare_workspace "$work"
   prepare_gh_stub "$work" "site-key-from-gh"
   install_fake_chrome_for_testing "$work" mac_arm 10.0.0.0
-  if ! FAKE_UNAME=Linux NPX_STUB_MODE=install run_make "$work" '[]' web; then
+  if ! FAKE_UNAME=Linux run_make "$work" '[]' web; then
     fail "web: macOS 以外で失敗した ($(cat "$work/stdout"))"
     return
   fi
@@ -352,11 +327,7 @@ test_web_uses_default_chrome_outside_macos() {
     fail "web: macOS 以外で CHROME_EXECUTABLE を渡した ($(cat "$work/flutter-chrome-executable"))"
     return
   fi
-  if [ -s "$work/npx-args" ]; then
-    fail "web: macOS 以外で取得を呼んだ ($(cat "$work/npx-args"))"
-    return
-  fi
-  pass "web: macOS 以外では取得もせず、Flutter の既定の Chrome で開く"
+  pass "web: macOS 以外では Flutter の既定の Chrome で開く"
 }
 
 test_build_web_does_not_pass_debug_token() {
@@ -422,9 +393,8 @@ test_web_prefers_environment_site_key
 test_web_runs_without_site_key
 test_web_passes_debug_token_from_environment
 test_web_opens_newest_installed_chrome_for_testing
-test_web_installs_chrome_for_testing_when_missing
-test_web_falls_back_to_default_chrome_when_install_fails
-test_resolve_web_chrome_succeeds_without_output_when_install_fails
+test_web_falls_back_to_default_chrome_when_chrome_for_testing_is_missing
+test_resolve_web_chrome_succeeds_without_output_when_missing
 test_web_keeps_given_chrome_executable
 test_web_uses_default_chrome_outside_macos
 test_build_web_does_not_pass_debug_token
