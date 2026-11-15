@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "snapmon",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "preLaunchTask": "dart-defines-file",
+      "toolArgs": ["--dart-define-from-file=build/dart_defines.json"]
+    }
+  ]
+}
