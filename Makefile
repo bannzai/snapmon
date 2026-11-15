@@ -50,7 +50,8 @@ web: flutter-version-check
 dart_defines_file = build/dart_defines.json
 
 # ios・android・web の target が渡す公開値の --dart-define を $(dart_defines_file) に JSON で書き出す (.vscode/tasks.json が実行の前に呼ぶ)。
-# エディタは Makefile を通らず、Dock から起動すると shell の環境変数も継がないため、ファイルで同じ値を渡す。何度実行しても同じ結果になる。
+# エディタの実行は Makefile を通らず、環境変数が無い時に gh の Variable から取る処理が効かないため、ファイルで同じ値を渡す。何度実行しても同じ結果になる。
+# エディタの task は、Dock から起動した時も .zshrc 等の shell の環境 (PATH) で動く (https://code.visualstudio.com/docs/supporting/faq の Resolving shell environment)
 # FIREBASE_APPCHECK_DEBUG_TOKEN_WEB は秘匿値のためファイルに書かない (人が操作する Chrome は reCAPTCHA のサイトキーで App Check が通る)
 .PHONY: dart-defines-file
 dart-defines-file: flutter-version-check
