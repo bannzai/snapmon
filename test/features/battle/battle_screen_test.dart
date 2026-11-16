@@ -1269,8 +1269,9 @@ void main() {
       );
       return scrollable.evaluate().isEmpty
           ? battleLogRect(tester: tester)
-          : battleLogRect(tester: tester)
-                .intersect(tester.getRect(scrollable.first));
+          : battleLogRect(
+              tester: tester,
+            ).intersect(tester.getRect(scrollable.first));
     }
 
     /// フィールドに描いた 2 体 (相手・自分) の絵の、画面の座標での矩形。
