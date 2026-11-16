@@ -8,7 +8,7 @@ import '../theme/snapmon_colors.dart';
 import '../theme/snapmon_text_styles.dart';
 import 'monster_parts.dart';
 
-/// 技の中身を 3 段で描く。1 段目は名前 (幅に入らなければ折り返す) と、右端に固定した属性のアイコン・今の相手への相性のアイコン、2 段目は威力と右に寄せた PP、3 段目は特殊効果の説明 (特殊効果の無い技には無い)。
+/// 技の中身を 3 段で描く。1 段目は名前 (幅に入らなければ折り返す) と、右端に固定した属性のアイコン・今の相手への相性のアイコン、2 段目は威力、3 段目は特殊効果の説明と右に寄せた PP。
 /// 段ごとに書体と色を変え、何が名前で何が属性かを読み分けられるようにする (https://github.com/bannzai/snapmon/issues/123 )。
 /// バトルの技のボタンと、モンスターのカードの覚えている技の行で使う。地はカードの生成りの白を前提にする。
 class MoveCard extends StatelessWidget {
@@ -82,66 +82,67 @@ class MoveCard extends StatelessWidget {
           ],
         ),
       const SizedBox(height: 4),
-      // 威力と PP は同じ段の左右の端に置き、1 行に入らない幅 (大きい文字) では PP を次の行に送る。
-      // Row に並べると大きい文字で段からはみ出して例外になり、幅を半分ずつ分けると片方が 1 文字ずつ折り返して技のボタンが高くなる。
-      // 段の幅から置き方を決めない (LayoutBuilder) のは、技のボタンが IntrinsicHeight の中にあり、
-      // LayoutBuilder が intrinsic の高さを返せず描画が止まるため。
-      // 幅いっぱいにするのは、Wrap が中身の幅に縮むと PP が右端に付かないため
-      SizedBox(
-        width: double.infinity,
-        child: Wrap(
-          alignment: WrapAlignment.spaceBetween,
-          crossAxisAlignment: WrapCrossAlignment.end,
-          spacing: 8,
+      Text.rich(
+        TextSpan(
           children: [
-            Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: '${context.l10n.movePower} ',
-                    style: SnapmonTextStyles.small.copyWith(
-                      fontWeight: FontWeight.w400,
-                      color: SnapmonColors.textOnCardMuted,
-                    ),
-                  ),
-                  TextSpan(
-                    text: '${move.power}',
-                    style: SnapmonTextStyles.label.copyWith(
-                      color: SnapmonColors.textOnCard,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            // PP は技を選ぶ判断に効くことが少ないため、威力より小さく細くする。
-            // 薄さは大きさと太さで出し、色は生成りの地で読める textOnCardMuted にする (暗い地の textMuted はコントラスト比 2.2 で読めない)
-            Text(
-              '${context.l10n.movePowerPoints} ${switch (remainingPowerPoints) {
-                final remainingPowerPoints? => '$remainingPowerPoints/${move.powerPoints}',
-                null => '${move.powerPoints}',
-              }}',
+            TextSpan(
+              text: '${context.l10n.movePower} ',
               style: SnapmonTextStyles.small.copyWith(
-                fontSize: 10,
                 fontWeight: FontWeight.w400,
                 color: SnapmonColors.textOnCardMuted,
+              ),
+            ),
+            TextSpan(
+              text: '${move.power}',
+              style: SnapmonTextStyles.label.copyWith(
+                color: SnapmonColors.textOnCard,
               ),
             ),
           ],
         ),
       ),
-      // 説明は PP と段を分けて幅を全部使う。PP と同じ段で幅を分けると、2 列の技のボタン (390 の画面で中身の幅 142、
-      // 横向きのスマホで 109) では 7 文字の説明 (77) が 2 行に折り返す (https://github.com/bannzai/snapmon/issues/334 )。
-      // 幅に入らない長い説明は折り返し、`...` で切らない
-      if (move.specialEffect case final specialEffect?) ...[
-        const SizedBox(height: 4),
-        Text(
-          specialEffect.summary,
-          style: SnapmonTextStyles.small.copyWith(
-            fontWeight: FontWeight.w400,
-            color: SnapmonColors.textOnCardMuted,
+      const SizedBox(height: 4),
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          if (move.specialEffect case final specialEffect?)
+            Expanded(
+              child: Text(
+                specialEffect.summary,
+                style: SnapmonTextStyles.small.copyWith(
+                  fontWeight: FontWeight.w400,
+                  color: SnapmonColors.textOnCardMuted,
+                ),
+              ),
+            )
+          else
+            const Spacer(),
+          const SizedBox(width: 8),
+          // PP は技を選ぶ判断に効くことが少ないため、威力より小さく細くして右下に置く。
+          // 薄さは大きさと太さで出し、色は生成りの地で読める textOnCardMuted にする (暗い地の textMuted はコントラスト比 2.2 で読めない)。
+          // 説明と PP は幅を半分ずつ分け、PP はその中で右に寄せる。Row の子のままだと大きい文字で PP が段からはみ出して例外になる。
+          // PP の取り分を半分より狭くする (説明 3 : PP 2、上限 80px) と、横向きのスマホで文字を 2 倍にした時に PP が 3〜4 行に
+          // 折り返して技のボタンが高くなり、スクロールしても押せなくなる (battle_screen_test の「横向きのスマホで文字を 2 倍にしても…
+          // 技のボタンを押せる」で測った)。段の幅から上限を求めない (LayoutBuilder) のは、技のボタンが IntrinsicHeight の中にあり、
+          // LayoutBuilder が intrinsic の高さを返せず描画が止まるため
+          Flexible(
+            child: Align(
+              alignment: Alignment.bottomRight,
+              child: Text(
+                '${context.l10n.movePowerPoints} ${switch (remainingPowerPoints) {
+                  final remainingPowerPoints? => '$remainingPowerPoints/${move.powerPoints}',
+                  null => '${move.powerPoints}',
+                }}',
+                style: SnapmonTextStyles.small.copyWith(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w400,
+                  color: SnapmonColors.textOnCardMuted,
+                ),
+              ),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     ],
   );
 }
