@@ -34,6 +34,13 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<!-- 輸出コンプライアンスの申告。無いとビルドを上げるたびに App Store Connect で答える必要がある。
+	     false にしたのは owner の判断 (2026-11-17)。アプリのコードは暗号を直接呼ばず (lib に暗号の呼び出しが無い)、通信は OS の HTTPS を使う。
+	     Apple は OS に組み込まれた暗号を免除の対象としている ("the use of encryption that's built into the operating system ... is exempt"。
+	     https://developer.apple.com/documentation/security/complying-with-encryption-export-regulations 、2026-11-16 に確認)。
+	     Firebase・RevenueCat の SDK の内部の暗号の利用は確かめていない。独自の暗号を使う依存を足した時は見直す -->
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
