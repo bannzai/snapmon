@@ -1,0 +1,39 @@
+# App Store Connect への入稿と審査提出の lane。認証は App Store Connect API key (ASC_API_KEY_ID / ASC_API_KEY_ISSUER_ID /
+# ASC_API_KEY_P8_BASE64。~/.zshenv.local の export から渡る) だけで行い、2FA の対話で止まる Apple ID のログインは使わない。
+# ビルドのアップロードは .github/workflows/ios-deploy.yml が行う。
+
+default_platform(:ios)
+
+# 審査提出の lane `submit_for_review` は bannzai/castle の release-app skill の雛形を読み込む (castle の無い CI では lane が無い状態になる)
+release_app_submit_for_review_fastfile = ENV.fetch('RELEASE_APP_SUBMIT_FOR_REVIEW_FASTFILE', File.expand_path('~/.agents/skills/release-app/templates/submit_for_review/Fastfile'))
+import(release_app_submit_for_review_fastfile) if File.exist?(release_app_submit_for_review_fastfile)
+
+platform :ios do
+  desc 'fastlane/metadata と fastlane/screenshots を App Store Connect の編集中のバージョンに送る (審査には提出しない)'
+  lane :metadata_upload do
+    app_store_connect_api_key(
+      key_id: ENV.fetch('ASC_API_KEY_ID'),
+      issuer_id: ENV.fetch('ASC_API_KEY_ISSUER_ID'),
+      key_content: ENV.fetch('ASC_API_KEY_P8_BASE64'),
+      is_key_content_base64: true
+    )
+    # sync_screenshots はベータの機能で、この環境変数が無いと deliver が使わせない
+    ENV['FASTLANE_ENABLE_BETA_DELIVER_SYNC_SCREENSHOTS'] = 'true'
+    upload_to_app_store(
+      # force: deliver の HTML プレビューの確認 (対話) を出さない
+      force: true,
+      sync_screenshots: true,
+      run_precheck_before_submit: false,
+      metadata_path: 'fastlane/metadata',
+      screenshots_path: 'fastlane/screenshots',
+      skip_binary_upload: true,
+      submit_for_review: false,
+      # 審査が通っても自動で公開しない。購入画面を閉じ直してから手動で公開するため (documents/generation-ticket-release.md「iOS の最初の提出」)
+      automatic_release: false,
+      # fastlane/metadata/android は Google Play (supply) 用で、App Store の言語ではない
+      ignore_language_directory_validation: true
+      # phased_release は渡さない。最初のバージョンには段階的リリースのリソースが無く、渡すと deliver が No data で落ちる
+      # (bannzai/castle の release-app skill「エラーハンドリング」。2026-08-22 に mementomorning で実測)
+    )
+  end
+end

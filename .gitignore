@@ -51,3 +51,8 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# fastlane が実行のたびに書き出すファイルと、審査連絡先 (個人情報) の置き場
+/fastlane/report.xml
+/fastlane/README.md
+/fastlane/metadata/review_information/

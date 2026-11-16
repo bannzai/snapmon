@@ -34,6 +34,9 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<!-- 輸出コンプライアンスの申告。独自の暗号は使わず、通信は OS の HTTPS だけのため false (無いとビルドごとに App Store Connect で答える必要がある) -->
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
