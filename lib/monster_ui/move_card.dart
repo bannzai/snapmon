@@ -129,7 +129,7 @@ class MoveCard extends StatelessWidget {
           ],
         ),
       ),
-      // 説明は PP と段を分けて幅を全部使う。PP と同じ段で幅を分けると、2 列の技のボタン (390 の画面で中身の幅 145、
+      // 説明は PP と段を分けて幅を全部使う。PP と同じ段で幅を分けると、2 列の技のボタン (390 の画面で中身の幅 142、
       // 横向きのスマホで 109) では 7 文字の説明 (77) が 2 行に折り返す (https://github.com/bannzai/snapmon/issues/334 )。
       // 幅に入らない長い説明は折り返し、`...` で切らない
       if (move.specialEffect case final specialEffect?) ...[

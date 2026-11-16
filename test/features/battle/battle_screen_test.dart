@@ -1583,22 +1583,20 @@ void main() {
           rightPadding: 0,
           playerMonster: strongPlayer,
         );
-        // マグモンの覚える技の一覧の 3 番目が ゆげのもや (fire_1b)
-        final summary = find.descendant(
-          of: find.byKey(const Key('move-slot-2')),
-          matching: find.text('先に動くと強い'),
-        );
-        expect(tester.widget<Text>(summary).maxLines, isNull);
-        expect(tester.widget<Text>(summary).overflow, isNull);
-        // 幅の制限が無い時の高さ (1 行の高さ) と同じ。2 行に折り返すと 2 倍になる
-        expect(
-          tester.getSize(summary).height,
-          tester
-              .renderObject<RenderParagraph>(
-                find.descendant(of: summary, matching: find.byType(RichText)),
-              )
-              .getMinIntrinsicHeight(double.infinity),
-        );
+        // マグモンの技のうち、ゆげのもや (fire_1b) と ねじこみ (steel_1b) が特殊効果を持つ
+        for (final summary in [find.text('先に動くと強い'), find.text('硬い相手に強い')]) {
+          expect(tester.widget<Text>(summary).maxLines, isNull);
+          expect(tester.widget<Text>(summary).overflow, isNull);
+          // 幅の制限が無い時の高さ (1 行の高さ) と同じ。2 行に折り返すと 2 倍になる
+          expect(
+            tester.getSize(summary).height,
+            tester
+                .renderObject<RenderParagraph>(
+                  find.descendant(of: summary, matching: find.byType(RichText)),
+                )
+                .getMinIntrinsicHeight(double.infinity),
+          );
+        }
         // 特殊効果の無い技 (ほかほかタッチ) の技のボタンには、説明の段が無い (名前・威力・PP の 3 つの文字だけ)
         expect(
           find.descendant(
