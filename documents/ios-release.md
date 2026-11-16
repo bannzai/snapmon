@@ -11,7 +11,7 @@ gh run watch "$RUN_ID"
 ```
 
 - ビルド番号は run の番号。別の値にする時は `-f build_number=<番号>` を付ける (同じバージョンの中で前より大きい値が要る)
-- Upload to App Store Connect まで進んで失敗した run は Re-run しない (同じビルド番号の再送は拒否される)。原因を直して新しく起動する。それより前の step で失敗した run は Re-run してよい
+- Upload to App Store Connect まで進んで失敗した run は Re-run しない (同じビルド番号の再送は拒否される)。原因を直して新しく起動する。それより前の step で失敗した run は、その後に起動した run がまだアップロードしていない時だけ Re-run してよい (Re-run は元の run の番号をビルド番号に使うため、後の run が先に上げていると前より小さい番号になり拒否される)
 - 署名は手動署名で、証明書 (チームで 1 枚を使い回す。1Password の vault `bannzai`) と provisioning profile `Snapmon.AppStore` (vault `snapmon`) を Secrets から復元する。Secrets の名前は `.env.1password.github-actions` に宣言し、bannzai/castle の onepassword-sync skill で写す
 - profile の名前は workflow の `IOS_PROVISIONING_PROFILE_NAME` と一致させる。App ID の Capability (App Attest・Sign in with Apple・In-App Purchase) を変えた時と証明書を更新した時は、bannzai/castle の ios-deploy-actions skill の `signing-assets.sh create-profile --name Snapmon.AppStore --bundle-id com.bannzai.snapmon --certificate-id <証明書の ID> --out tmp/signing --entitlements ios/Runner/Runner.entitlements --recreate` で作り直し、1Password の item と Secret `IOS_PROVISIONING_PROFILE_BASE64` を更新する
 
