@@ -1,0 +1,131 @@
+name: ios-deploy
+
+# App Store Connect (TestFlight) に上げる署名済みの IPA をビルドしてアップロードする。この Mac では flutter build を実行しないため
+# (CLAUDE.md「ビルド・テスト・検証方法」)。手動署名で、証明書 (チームで 1 枚を使い回す) と provisioning profile `Snapmon.AppStore` を
+# Secrets から復元する。方式の根拠は bannzai/castle の ios-deploy-actions skill の references/signing-design.md。
+# Secrets は 1Password が正で、.env.1password.github-actions に宣言した名前を onepassword-sync skill で写している。
+# 起動は手動だけにする (macOS ランナーの同時実行数の上限をアカウント内の他のリポジトリと共有しているため。CLAUDE.md の iOS のビルドの行):
+#   gh workflow run ios-deploy.yml --ref main
+# Upload to App Store Connect まで進んで失敗した run は Re-run せず、新しく起動する (同じビルド番号の再送は拒否されるため)。
+
+on:
+  workflow_dispatch:
+    inputs:
+      build_number:
+        description: 'ビルド番号 (同じバージョンの中で上げるたびに前より大きい値が要る)。空なら run の番号'
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+# アップロードの途中で次の run を始めない (ビルド番号が前後しないようにする)
+concurrency:
+  group: ios-deploy
+  cancel-in-progress: false
+
+env:
+  IOS_PROVISIONING_PROFILE_NAME: Snapmon.AppStore
+
+jobs:
+  deploy:
+    runs-on: macos-26
+    # キャッシュの無い iOS の simulator 向けビルドが 30 分前後かかる (simulator-session.yml の実測)。archive と export の分の余裕を足した
+    timeout-minutes: 70
+    steps:
+    # 30 分前後かかるビルドの後のアップロードで初めて失敗しないよう、配布に要る Secret と Variable が空でないことを先に確かめる
+    - name: Check required secrets
+      env:
+        IOS_P12_CERTIFICATE_BASE64: ${{ secrets.IOS_P12_CERTIFICATE_BASE64 }}
+        IOS_P12_PASSWORD: ${{ secrets.IOS_P12_PASSWORD }}
+        IOS_PROVISIONING_PROFILE_BASE64: ${{ secrets.IOS_PROVISIONING_PROFILE_BASE64 }}
+        ASC_API_KEY_ID: ${{ secrets.ASC_API_KEY_ID }}
+        ASC_API_KEY_ISSUER_ID: ${{ secrets.ASC_API_KEY_ISSUER_ID }}
+        ASC_API_KEY_P8_BASE64: ${{ secrets.ASC_API_KEY_P8_BASE64 }}
+        REVENUECAT_PUBLIC_API_KEY_IOS: ${{ vars.REVENUECAT_PUBLIC_API_KEY_IOS }}
+      run: |
+        missing=0
+        for name in IOS_P12_CERTIFICATE_BASE64 IOS_P12_PASSWORD IOS_PROVISIONING_PROFILE_BASE64 ASC_API_KEY_ID ASC_API_KEY_ISSUER_ID ASC_API_KEY_P8_BASE64 REVENUECAT_PUBLIC_API_KEY_IOS; do
+          if [ -z "${!name}" ]; then
+            echo "::error::${name} が未登録です (REVENUECAT_PUBLIC_API_KEY_IOS は GitHub Variable、ほかは Secret。鍵なしのビルドは購入画面が出ず再リリースが要る。documents/generation-ticket-release.md)"
+            missing=1
+          fi
+        done
+        exit "$missing"
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
+    - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+      with:
+        flutter-version-file: pubspec.yaml
+        channel: stable
+    - run: scripts/restore-firebase-config.sh dart ios
+      env:
+        FIREBASE_OPTIONS_DART_B64: ${{ secrets.FIREBASE_OPTIONS_DART_B64 }}
+        GOOGLE_SERVICE_INFO_PLIST_B64: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST_B64 }}
+    - uses: apple-actions/import-codesign-certs@77ba2a2a8f5cfc8c405ebf3159f767c323e238f9 # v7.1.0
+      with:
+        p12-file-base64: ${{ secrets.IOS_P12_CERTIFICATE_BASE64 }}
+        p12-password: ${{ secrets.IOS_P12_PASSWORD }}
+    - name: Install provisioning profile
+      env:
+        IOS_PROVISIONING_PROFILE_BASE64: ${{ secrets.IOS_PROVISIONING_PROFILE_BASE64 }}
+      run: |
+        mkdir -p "$HOME/Library/MobileDevice/Provisioning Profiles"
+        printf '%s' "$IOS_PROVISIONING_PROFILE_BASE64" | base64 --decode > "$HOME/Library/MobileDevice/Provisioning Profiles/snapmon.mobileprovision"
+    # 手動署名は CI の中だけで足す。リポジトリの pbxproj は Automatic のままにして、手元の実機ビルド (make ios-device) を変えない
+    - name: Inject manual signing settings
+      run: |
+        cat >> ios/Flutter/Release.xcconfig <<XCCONFIG
+        CODE_SIGN_STYLE = Manual
+        CODE_SIGN_IDENTITY[sdk=iphoneos*] = Apple Distribution
+        PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*] = ${IOS_PROVISIONING_PROFILE_NAME}
+        XCCONFIG
+        cat > ios/ExportOptions.plist <<PLIST
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+        <plist version="1.0">
+        <dict>
+          <key>method</key>
+          <string>app-store-connect</string>
+          <key>signingStyle</key>
+          <string>manual</string>
+          <key>signingCertificate</key>
+          <string>Apple Distribution</string>
+          <key>provisioningProfiles</key>
+          <dict>
+            <key>com.bannzai.snapmon</key>
+            <string>${IOS_PROVISIONING_PROFILE_NAME}</string>
+          </dict>
+          <key>uploadSymbols</key>
+          <true/>
+          <key>destination</key>
+          <string>export</string>
+        </dict>
+        </plist>
+        PLIST
+    - run: flutter pub get
+    - name: Build IPA
+      env:
+        BUILD_NUMBER: ${{ inputs.build_number || github.run_number }}
+        REVENUECAT_PUBLIC_API_KEY_IOS: ${{ vars.REVENUECAT_PUBLIC_API_KEY_IOS }}
+      run: |
+        flutter build ipa --release \
+          --build-number="$BUILD_NUMBER" \
+          --dart-define=REVENUECAT_PUBLIC_API_KEY_IOS="$REVENUECAT_PUBLIC_API_KEY_IOS" \
+          --export-options-plist=ios/ExportOptions.plist
+    - name: Upload to App Store Connect
+      env:
+        ASC_API_KEY_ID: ${{ secrets.ASC_API_KEY_ID }}
+        ASC_API_KEY_ISSUER_ID: ${{ secrets.ASC_API_KEY_ISSUER_ID }}
+        ASC_API_KEY_P8_BASE64: ${{ secrets.ASC_API_KEY_P8_BASE64 }}
+      run: |
+        mkdir -p "$HOME/.appstoreconnect/private_keys"
+        printf '%s' "$ASC_API_KEY_P8_BASE64" | base64 --decode > "$HOME/.appstoreconnect/private_keys/AuthKey_${ASC_API_KEY_ID}.p8"
+        xcrun altool --upload-app -f build/ios/ipa/*.ipa -t ios --apiKey "$ASC_API_KEY_ID" --apiIssuer "$ASC_API_KEY_ISSUER_ID"
+    - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      with:
+        name: ios-ipa
+        path: build/ios/ipa/*.ipa
+        retention-days: 14
+        if-no-files-found: error
