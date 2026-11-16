@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:snapmon/domain/master/move.dart';
@@ -195,8 +196,18 @@ void main() {
         // `...` で切って 1 行にしたものを 1 行で出たと数えない
         expect(summaryText.maxLines, isNull);
         expect(summaryText.overflow, isNull);
-        // 説明の文字 (11) の 1 行の高さ。2 行に折り返すと 22 になる
-        expect(tester.getSize(find.text(summary)).height, 11);
+        // 幅の制限が無い時の高さ (1 行の高さ) と同じ。2 行に折り返すと 2 倍になる
+        expect(
+          tester.getSize(find.text(summary)).height,
+          tester
+              .renderObject<RenderParagraph>(
+                find.descendant(
+                  of: find.text(summary),
+                  matching: find.byType(RichText),
+                ),
+              )
+              .getMinIntrinsicHeight(double.infinity),
+        );
         // 説明は技の中身の幅からはみ出さない
         expect(
           tester.getTopRight(find.text(summary)).dx,
@@ -220,8 +231,17 @@ void main() {
     final summary = find.text('素早さを大きく上げ、防御を下げる');
     expect(tester.widget<Text>(summary).maxLines, isNull);
     expect(tester.widget<Text>(summary).overflow, isNull);
-    // 1 行の高さ 11 より高い (折り返している) まま、幅 109 に収まる
-    expect(tester.getSize(summary).height, greaterThan(11));
+    // 幅の制限が無い時の高さ (1 行の高さ) より高い (折り返している) まま、幅 109 に収まる
+    expect(
+      tester.getSize(summary).height,
+      greaterThan(
+        tester
+            .renderObject<RenderParagraph>(
+              find.descendant(of: summary, matching: find.byType(RichText)),
+            )
+            .getMinIntrinsicHeight(double.infinity),
+      ),
+    );
     expect(tester.getSize(summary).width, lessThanOrEqualTo(109));
   });
 

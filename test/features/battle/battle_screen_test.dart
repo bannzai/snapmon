@@ -1589,8 +1589,15 @@ void main() {
         );
         expect(tester.widget<Text>(summary).maxLines, isNull);
         expect(tester.widget<Text>(summary).overflow, isNull);
-        // 説明の文字 (11) の 1 行の高さ。2 行に折り返すと 22 になる
-        expect(tester.getSize(summary).height, 11);
+        // 幅の制限が無い時の高さ (1 行の高さ) と同じ。2 行に折り返すと 2 倍になる
+        expect(
+          tester.getSize(summary).height,
+          tester
+              .renderObject<RenderParagraph>(
+                find.descendant(of: summary, matching: find.byType(RichText)),
+              )
+              .getMinIntrinsicHeight(double.infinity),
+        );
         // 特殊効果の無い技 (ほかほかタッチ) の技のボタンには、説明の段が無い (名前・威力・PP の 3 つの文字だけ)
         expect(
           find.descendant(
