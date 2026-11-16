@@ -33,6 +33,25 @@ jobs:
     # キャッシュの無い iOS の simulator 向けビルドが 30 分前後かかる (simulator-session.yml の実測)。archive と export の分の余裕を足した
     timeout-minutes: 70
     steps:
+    # 30 分前後かかるビルドの後のアップロードで初めて失敗しないよう、配布に要る Secret と Variable が空でないことを先に確かめる
+    - name: Check required secrets
+      env:
+        IOS_P12_CERTIFICATE_BASE64: ${{ secrets.IOS_P12_CERTIFICATE_BASE64 }}
+        IOS_P12_PASSWORD: ${{ secrets.IOS_P12_PASSWORD }}
+        IOS_PROVISIONING_PROFILE_BASE64: ${{ secrets.IOS_PROVISIONING_PROFILE_BASE64 }}
+        ASC_API_KEY_ID: ${{ secrets.ASC_API_KEY_ID }}
+        ASC_API_KEY_ISSUER_ID: ${{ secrets.ASC_API_KEY_ISSUER_ID }}
+        ASC_API_KEY_P8_BASE64: ${{ secrets.ASC_API_KEY_P8_BASE64 }}
+        REVENUECAT_PUBLIC_API_KEY_IOS: ${{ vars.REVENUECAT_PUBLIC_API_KEY_IOS }}
+      run: |
+        missing=0
+        for name in IOS_P12_CERTIFICATE_BASE64 IOS_P12_PASSWORD IOS_PROVISIONING_PROFILE_BASE64 ASC_API_KEY_ID ASC_API_KEY_ISSUER_ID ASC_API_KEY_P8_BASE64 REVENUECAT_PUBLIC_API_KEY_IOS; do
+          if [ -z "${!name}" ]; then
+            echo "::error::${name} が未登録です (REVENUECAT_PUBLIC_API_KEY_IOS は GitHub Variable、ほかは Secret。鍵なしのビルドは購入画面が出ず再リリースが要る。documents/generation-ticket-release.md)"
+            missing=1
+          fi
+        done
+        exit "$missing"
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         persist-credentials: false
@@ -52,10 +71,6 @@ jobs:
       env:
         IOS_PROVISIONING_PROFILE_BASE64: ${{ secrets.IOS_PROVISIONING_PROFILE_BASE64 }}
       run: |
-        if [ -z "$IOS_PROVISIONING_PROFILE_BASE64" ]; then
-          echo "::error::Secret IOS_PROVISIONING_PROFILE_BASE64 が未登録です"
-          exit 1
-        fi
         mkdir -p "$HOME/Library/MobileDevice/Provisioning Profiles"
         printf '%s' "$IOS_PROVISIONING_PROFILE_BASE64" | base64 --decode > "$HOME/Library/MobileDevice/Provisioning Profiles/snapmon.mobileprovision"
     # 手動署名は CI の中だけで足す。リポジトリの pbxproj は Automatic のままにして、手元の実機ビルド (make ios-device) を変えない
@@ -95,10 +110,6 @@ jobs:
         BUILD_NUMBER: ${{ inputs.build_number || github.run_number }}
         REVENUECAT_PUBLIC_API_KEY_IOS: ${{ vars.REVENUECAT_PUBLIC_API_KEY_IOS }}
       run: |
-        if [ -z "$REVENUECAT_PUBLIC_API_KEY_IOS" ]; then
-          echo "::error::GitHub Variable REVENUECAT_PUBLIC_API_KEY_IOS が未設定です。鍵なしのビルドは購入画面が出ず再リリースが要るため止めます (documents/generation-ticket-release.md)"
-          exit 1
-        fi
         flutter build ipa --release \
           --build-number="$BUILD_NUMBER" \
           --dart-define=REVENUECAT_PUBLIC_API_KEY_IOS="$REVENUECAT_PUBLIC_API_KEY_IOS" \
