@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:snapmon/domain/master/move.dart';
 import 'package:snapmon/l10n/l10n.dart';
 import 'package:snapmon/theme/snapmon_element_icons.dart';
 import 'package:snapmon/theme/snapmon_text_styles.dart';
@@ -141,7 +142,126 @@ void main() {
     expect(find.byIcon(elementTypeFallbackIcon), findsOneWidget);
   });
 
-  testWidgets('名前と属性の札・威力・特殊効果の説明と PP を別の段と書体で描く', (tester) async {
+  /// [textScaleFactor] 倍の文字で、幅 [moveCardWidth] に [move] の [MoveCard] (バトルの技のボタンと同じく残りの PP 12) を描く。
+  Future<void> pumpMoveCardWithWidth({
+    required WidgetTester tester,
+    required Move move,
+    required double moveCardWidth,
+    required double textScaleFactor,
+  }) => tester.pumpWidget(
+    MaterialApp(
+      theme: snapmonThemeData(),
+      locale: const Locale('ja'),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      home: MediaQuery(
+        data: MediaQueryData(textScaler: TextScaler.linear(textScaleFactor)),
+        child: Scaffold(
+          body: Center(
+            child: SizedBox(
+              width: moveCardWidth,
+              child: MoveCard(
+                move: move,
+                remainingPowerPoints: 12,
+                typeMultiplier: null,
+                definitions: sampleData.definitions,
+              ),
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+
+  // 2 列の技のボタンの中身の幅。390 の画面は (390 - 左右の余白 20×2 - 列の間 10) / 2 - ボタンの内側の余白 14×2 = 142、
+  // 横向きのスマホ (内容の幅 600 の右半分 300) は (300 - 余白 8×2 - 列の間 10) / 2 - 14×2 = 109。
+  // 7 文字の説明 (文字 11 × 7 = 77) は、PP と幅を半分ずつ分けるとどちらの幅でも 2 行に折り返す (issue #334)
+  for (final moveCardWidth in [142.0, 109.0]) {
+    for (final (moveID, summary) in [
+      ('fire_1b', '先に動くと強い'),
+      ('grass_1c', '硬い相手に強い'),
+    ]) {
+      testWidgets('2 列の技のボタンの中身の幅 $moveCardWidth で、説明「$summary」を 1 行で省略せずに出す', (
+        tester,
+      ) async {
+        await pumpMoveCardWithWidth(
+          tester: tester,
+          move: sampleData.definitions.moveByID(moveID: moveID),
+          moveCardWidth: moveCardWidth,
+          textScaleFactor: 1,
+        );
+        expect(tester.takeException(), isNull);
+        final summaryText = tester.widget<Text>(find.text(summary));
+        // `...` で切って 1 行にしたものを 1 行で出たと数えない
+        expect(summaryText.maxLines, isNull);
+        expect(summaryText.overflow, isNull);
+        // 説明の文字 (11) の 1 行の高さ。2 行に折り返すと 22 になる
+        expect(tester.getSize(find.text(summary)).height, 11);
+        // 説明は技の中身の幅からはみ出さない
+        expect(
+          tester.getTopRight(find.text(summary)).dx,
+          lessThanOrEqualTo(tester.getTopRight(find.byType(MoveCard)).dx),
+        );
+      });
+    }
+  }
+
+  testWidgets('幅に入らない長い説明は `...` で切らず、折り返して全部出す', (tester) async {
+    // master の最長の説明 (16 文字。文字 11 × 16 = 176) は横向きのスマホの幅 109 に入らない
+    await pumpMoveCardWithWidth(
+      tester: tester,
+      move: sampleData.definitions.moves.firstWhere(
+        (move) => move.specialEffect?.summary == '素早さを大きく上げ、防御を下げる',
+      ),
+      moveCardWidth: 109,
+      textScaleFactor: 1,
+    );
+    expect(tester.takeException(), isNull);
+    final summary = find.text('素早さを大きく上げ、防御を下げる');
+    expect(tester.widget<Text>(summary).maxLines, isNull);
+    expect(tester.widget<Text>(summary).overflow, isNull);
+    // 1 行の高さ 11 より高い (折り返している) まま、幅 109 に収まる
+    expect(tester.getSize(summary).height, greaterThan(11));
+    expect(tester.getSize(summary).width, lessThanOrEqualTo(109));
+  });
+
+  testWidgets(
+    '威力と PP が 1 行に入らない幅 (文字 2 倍の横向きのスマホ) では PP を威力の下の行に送り、どれも幅からはみ出さない',
+    (tester) async {
+      await pumpMoveCardWithWidth(
+        tester: tester,
+        move: effectMove,
+        moveCardWidth: 109,
+        textScaleFactor: 2,
+      );
+      expect(tester.takeException(), isNull);
+      final power = find.text('威力 ${effectMove.power}', findRichText: true);
+      final powerPoints = find.text('PP 12/${effectMove.powerPoints}');
+      final summary = find.text('先に動くと強い');
+      expect(
+        tester.getTopLeft(powerPoints).dy,
+        greaterThanOrEqualTo(tester.getBottomLeft(power).dy),
+      );
+      // 説明は PP の行のさらに下に出る
+      expect(
+        tester.getTopLeft(summary).dy,
+        greaterThanOrEqualTo(tester.getBottomLeft(powerPoints).dy),
+      );
+      final moveCardRect = tester.getRect(find.byType(MoveCard));
+      for (final finder in [power, powerPoints, summary]) {
+        expect(
+          tester.getRect(finder).left,
+          greaterThanOrEqualTo(moveCardRect.left),
+        );
+        expect(
+          tester.getRect(finder).right,
+          lessThanOrEqualTo(moveCardRect.right),
+        );
+      }
+    },
+  );
+
+  testWidgets('名前と属性の札・威力と PP・特殊効果の説明を別の段と書体で描く', (tester) async {
     await pumpMoveCard(
       tester: tester,
       remainingPowerPoints: 12,
@@ -168,7 +288,7 @@ void main() {
       tester.widget<Text>(find.text('先に動くと強い')).style?.fontFamily,
       bodyFontFamily,
     );
-    // 1 段目は名前の右に属性のアイコン、その下に威力、いちばん下に説明と PP が並ぶ
+    // 1 段目は名前の右に属性のアイコン、その下に威力と PP、いちばん下に説明が並ぶ
     expect(
       tester.getTopLeft(find.byType(ElementTypeIcon)).dx,
       greaterThanOrEqualTo(tester.getTopRight(find.text('ゆげのもや')).dx),
@@ -191,11 +311,36 @@ void main() {
             .dy,
       ),
     );
+    // PP は威力と同じ段 (下端が揃う) の右にあり、説明はその段の下で左端から始まる
+    expect(
+      tester.getBottomLeft(find.text('PP 12/${effectMove.powerPoints}')).dy,
+      tester
+          .getBottomLeft(
+            find.text('威力 ${effectMove.power}', findRichText: true),
+          )
+          .dy,
+    );
     expect(
       tester.getTopLeft(find.text('PP 12/${effectMove.powerPoints}')).dx,
-      greaterThanOrEqualTo(tester.getTopRight(find.text('先に動くと強い')).dx),
+      greaterThanOrEqualTo(
+        tester
+            .getTopRight(
+              find.text('威力 ${effectMove.power}', findRichText: true),
+            )
+            .dx,
+      ),
     );
-    // PP は段の右端に付く (説明と幅を分け合って右に空白が残る形にしない)
+    expect(
+      tester.getTopLeft(find.text('先に動くと強い')).dy,
+      greaterThanOrEqualTo(
+        tester.getBottomLeft(find.text('PP 12/${effectMove.powerPoints}')).dy,
+      ),
+    );
+    expect(
+      tester.getTopLeft(find.text('先に動くと強い')).dx,
+      tester.getTopLeft(find.byType(MoveCard)).dx,
+    );
+    // PP は段の右端に付く (右に空白が残る形にしない)
     expect(
       tester.getTopRight(find.text('PP 12/${effectMove.powerPoints}')).dx,
       moreOrLessEquals(tester.getTopRight(find.byType(MoveCard)).dx),

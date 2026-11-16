@@ -25,6 +25,7 @@ import 'package:snapmon/l10n/l10n.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
 import 'package:snapmon/common_ui/app_content_width.dart';
 import 'package:snapmon/monster_ui/monster_parts.dart';
+import 'package:snapmon/monster_ui/move_card.dart';
 
 import '../../battle_recorder_fixture.dart';
 import '../../card_sharer_fixture.dart';
@@ -1268,9 +1269,8 @@ void main() {
       );
       return scrollable.evaluate().isEmpty
           ? battleLogRect(tester: tester)
-          : battleLogRect(
-              tester: tester,
-            ).intersect(tester.getRect(scrollable.first));
+          : battleLogRect(tester: tester)
+                .intersect(tester.getRect(scrollable.first));
     }
 
     /// フィールドに描いた 2 体 (相手・自分) の絵の、画面の座標での矩形。
@@ -1568,6 +1568,43 @@ void main() {
         }
       },
     );
+
+    // リリース前の動作確認で、どちらの画面でも「先に動くと / 強い」と 2 行に折り返していた (issue #334)
+    for (final size in [const Size(390, 844), const Size(844, 390)]) {
+      testWidgets('スマホの画面 ($size) の技のボタンで、特殊効果の短い説明を 1 行で省略せずに出す', (
+        tester,
+      ) async {
+        await pumpBattleScreenWithSize(
+          tester: tester,
+          size: size,
+          bottomPadding: 0,
+          leftPadding: 0,
+          rightPadding: 0,
+          playerMonster: strongPlayer,
+        );
+        // マグモンの覚える技の一覧の 3 番目が ゆげのもや (fire_1b)
+        final summary = find.descendant(
+          of: find.byKey(const Key('move-slot-2')),
+          matching: find.text('先に動くと強い'),
+        );
+        expect(tester.widget<Text>(summary).maxLines, isNull);
+        expect(tester.widget<Text>(summary).overflow, isNull);
+        // 説明の文字 (11) の 1 行の高さ。2 行に折り返すと 22 になる
+        expect(tester.getSize(summary).height, 11);
+        // 特殊効果の無い技 (ほかほかタッチ) の技のボタンには、説明の段が無い (名前・威力・PP の 3 つの文字だけ)
+        expect(
+          find.descendant(
+            of: find.ancestor(
+              of: find.text('ほかほかタッチ'),
+              matching: find.byType(MoveCard),
+            ),
+            matching: find.byType(Text),
+          ),
+          findsNWidgets(3),
+        );
+        await tester.pump(const Duration(seconds: 10));
+      });
+    }
 
     testWidgets('横向きのスマホで文字を 2 倍にしても、ログの帯は高さの 0.3 までに収まり、技のボタンを押せる', (
       tester,
