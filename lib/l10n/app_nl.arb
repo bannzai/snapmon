@@ -315,5 +315,6 @@
   "helpPartyBody": "De monsters in je team gaan het gevecht aan\nValt het actieve monster uit, dan neemt het volgende over\nValt je hele team uit, dan verlies je\nJe kunt je team aanpassen in de dex",
   "helpLevelHeading": "Niveau",
   "helpLevelBody": "Of je nu wint of verliest, monsters die hebben gevochten stijgen in level\nBij een hoger level leren ze nieuwe aanvallen",
-  "helpTypeHeading": "Effectiviteit van types (zwaktes)"
+  "helpTypeHeading": "Effectiviteit van types (zwaktes)",
+  "helpTypeBody": "De schade hangt af van het type van de aanval en het type van de tegenstander\nKies een aanval van een type waar de tegenstander zwak voor is om veel schade te doen\nDe pijl op de aanvalsknop toont de effectiviteit tegen je huidige tegenstander"
 }

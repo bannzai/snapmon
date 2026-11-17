@@ -315,5 +315,6 @@
   "helpPartyBody": "你隊伍裡的怪物會出戰\n場上的怪物倒下後，下一隻會接替上場\n隊伍全員倒下就輸了\n你可以在圖鑑畫面調整隊伍",
   "helpLevelHeading": "等級",
   "helpLevelBody": "不論輸贏，參戰的怪物都會升級\n升級後會學會新招式",
-  "helpTypeHeading": "屬性相剋（弱點）"
+  "helpTypeHeading": "屬性相剋（弱點）",
+  "helpTypeBody": "傷害取決於招式的屬性和對手的屬性\n選擇能相剋對手弱點屬性的招式，就能造成大量傷害\n招式按鈕上的箭頭顯示對目前對手的相剋效果"
 }

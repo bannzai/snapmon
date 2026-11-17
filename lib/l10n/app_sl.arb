@@ -315,5 +315,6 @@
   "helpPartyBody": "Pošasti iz tvoje ekipe gredo v boj\nKo pošast na bojišču pade, jo zamenja naslednja\nČe pade vsa ekipa, izgubiš\nEkipo lahko zamenjaš v enciklopediji",
   "helpLevelHeading": "Stopnja",
   "helpLevelBody": "Če zmagaš ali izgubiš, pošasti, ki so se borile, napredujejo na novo stopnjo\nNa novi stopnji se naučijo novih potez",
-  "helpTypeHeading": "Učinkovitost elementov (šibkosti)"
+  "helpTypeHeading": "Učinkovitost elementov (šibkosti)",
+  "helpTypeBody": "Škoda je odvisna od elementa poteza in elementa nasprotnika\nIzberi potez z elementom, na katerega je nasprotnik šibek, in povzroči veliko škode\nPuščica na gumbu poteza kaže njegovo učinkovitost proti trenutnemu nasprotniku"
 }

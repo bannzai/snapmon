@@ -315,5 +315,6 @@
   "helpPartyBody": "Monster di timmu turun bertarung\nSaat monster di arena tumbang, monster berikutnya maju\nJika seluruh tim tumbang, kamu kalah\nKamu bisa mengubah tim di dex",
   "helpLevelHeading": "Level",
   "helpLevelBody": "Menang atau kalah, monster yang bertarung naik level\nSaat naik level, mereka mempelajari jurus baru",
-  "helpTypeHeading": "Efektivitas elemen (kelemahan)"
+  "helpTypeHeading": "Efektivitas elemen (kelemahan)",
+  "helpTypeBody": "Kerusakan bergantung pada elemen jurus dan elemen lawan\nPilih jurus dengan elemen yang jadi kelemahan lawan untuk memberi kerusakan besar\nPanah pada tombol jurus menunjukkan efektivitasnya terhadap lawan saat ini"
 }

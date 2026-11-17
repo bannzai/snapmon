@@ -315,5 +315,6 @@
   "helpPartyBody": "Čudovišta iz tvog tima ulaze u borbu\nKad čudovište u borbi padne, ulazi sljedeće\nAko padne cijeli tim, gubiš\nTim možeš mijenjati u enciklopediji",
   "helpLevelHeading": "Razina",
   "helpLevelBody": "Pobijediš li ili izgubiš, čudovišta koja su se borila rastu u razini\nKad im razina poraste, uče nove poteze",
-  "helpTypeHeading": "Učinkovitost elemenata (slabosti)"
+  "helpTypeHeading": "Učinkovitost elemenata (slabosti)",
+  "helpTypeBody": "Šteta ovisi o elementu poteza i elementu protivnika\nOdaberi potez s elementom na koji je protivnik slab za veliku štetu\nStrelica na gumbu poteza pokazuje njegovu učinkovitost protiv trenutačnog protivnika"
 }

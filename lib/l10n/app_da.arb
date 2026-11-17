@@ -315,5 +315,6 @@
   "helpPartyBody": "Monstrene på dit hold kæmper i kamp\nNår monstret på banen falder, tager det næste over\nHvis hele holdet falder, taber du\nDu kan ændre dit hold i dex",
   "helpLevelHeading": "Niveau",
   "helpLevelBody": "Uanset om du vinder eller taber, stiger de monstre, der kæmpede, i niveau\nNår de stiger i niveau, lærer de nye angreb",
-  "helpTypeHeading": "Elementers effektivitet (svagheder)"
+  "helpTypeHeading": "Elementers effektivitet (svagheder)",
+  "helpTypeBody": "Skaden afhænger af angrebets element og modstanderens element\nVælg et angreb med et element, som modstanderen er svag over for, og gør stor skade\nPilen på angrebsknappen viser, hvor effektivt det er mod modstanderen"
 }

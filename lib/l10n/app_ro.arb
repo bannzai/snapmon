@@ -315,5 +315,6 @@
   "helpPartyBody": "Monștrii din echipa ta intră în luptă\nCând monstrul de pe teren cade, intră următorul\nDacă toată echipa cade, pierzi\nPoți schimba echipa din enciclopedie",
   "helpLevelHeading": "Nivel",
   "helpLevelBody": "Fie că învingi sau pierzi, monștrii care au luptat cresc în nivel\nCând cresc în nivel, învață mișcări noi",
-  "helpTypeHeading": "Eficacitatea elementelor (slăbiciuni)"
+  "helpTypeHeading": "Eficacitatea elementelor (slăbiciuni)",
+  "helpTypeBody": "Daunele depind de elementul mișcării și de elementul adversarului\nAlege o mișcare cu elementul la care adversarul este vulnerabil ca să provoci daune mari\nSăgeata de pe butonul mișcării arată eficacitatea ei împotriva adversarului actual"
 }

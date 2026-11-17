@@ -315,5 +315,6 @@
   "helpPartyBody": "I mostri della tua squadra entrano in lotta\nSe il mostro in campo va K.O., entra il successivo\nSe tutta la squadra va K.O., perdi\nPuoi cambiare la squadra nel dex",
   "helpLevelHeading": "Livello",
   "helpLevelBody": "Che tu vinca o perda, i mostri che hanno lottato salgono di livello\nSalendo di livello, imparano nuove mosse",
-  "helpTypeHeading": "Efficacia degli elementi (debolezze)"
+  "helpTypeHeading": "Efficacia degli elementi (debolezze)",
+  "helpTypeBody": "Il danno dipende dall’elemento della mossa e dall’elemento dell’avversario\nScegli una mossa dell’elemento a cui l’avversario è debole per infliggere molti danni\nLa freccia sul pulsante della mossa indica la sua efficacia contro l’avversario attuale"
 }

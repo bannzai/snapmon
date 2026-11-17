@@ -315,5 +315,6 @@
   "helpPartyBody": "Do boja nastupujú príšery z tvojho tímu\nKeď príšera na bojisku padne, nastúpi ďalšia\nAk padne celý tím, prehráš\nTím môžeš meniť v encyklopédii",
   "helpLevelHeading": "Úroveň",
   "helpLevelBody": "Či vyhráš, alebo prehráš, príšery, ktoré bojovali, získajú vyššiu úroveň\nS novou úrovňou sa naučia nové útoky",
-  "helpTypeHeading": "Účinnosť elementov (slabiny)"
+  "helpTypeHeading": "Účinnosť elementov (slabiny)",
+  "helpTypeBody": "Poškodenie závisí od elementu útoku a elementu súpera\nVyber útok s elementom, na ktorý je súper slabý, a spôsobíš veľké poškodenie\nŠípka na tlačidle útoku ukazuje jeho účinnosť proti aktuálnemu súperovi"
 }

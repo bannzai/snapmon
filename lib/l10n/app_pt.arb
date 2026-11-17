@@ -315,5 +315,6 @@
   "helpPartyBody": "Os monstros da sua equipe entram na batalha\nSe o monstro em campo cair, o próximo entra\nSe toda a equipe cair, você perde\nVocê pode mudar sua equipe no dex",
   "helpLevelHeading": "Nível",
   "helpLevelBody": "Você ganhe ou perca, os monstros que lutaram sobem de nível\nAo subir de nível, aprendem novos golpes",
-  "helpTypeHeading": "Eficácia dos elementos (fraquezas)"
+  "helpTypeHeading": "Eficácia dos elementos (fraquezas)",
+  "helpTypeBody": "O dano depende do elemento do golpe e do elemento do oponente\nEscolha um golpe do elemento ao qual o oponente é fraco para causar muito dano\nA seta no botão do golpe mostra a eficácia contra o oponente atual"
 }

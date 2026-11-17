@@ -315,5 +315,6 @@
   "helpPartyBody": "Takımındaki canavarlar savaşa katılır\nSahadaki canavar yenilirse sıradaki onun yerini alır\nTüm takım yenilirse kaybedersin\nTakımını ansiklopedi ekranında değiştirebilirsin",
   "helpLevelHeading": "Seviye",
   "helpLevelBody": "Kazansan da kaybetsen de savaşan canavarların seviyesi yükselir\nSeviye atlayınca yeni hamleler öğrenirler",
-  "helpTypeHeading": "Element uyumu (zayıflıklar)"
+  "helpTypeHeading": "Element uyumu (zayıflıklar)",
+  "helpTypeBody": "Hasar, hamlenin elementiyle rakibin elementine göre değişir\nRakibin zayıf olduğu elementten bir hamle seçerek büyük hasar ver\nHamle düğmesindeki ok, mevcut rakibe karşı uyumu gösterir"
 }

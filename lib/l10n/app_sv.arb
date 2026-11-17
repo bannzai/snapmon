@@ -315,5 +315,6 @@
   "helpPartyBody": "Monstren i ditt lag går in i striden\nNär monstret på fältet faller tar nästa över\nOm hela laget faller förlorar du\nDu kan ändra laget i samlingen",
   "helpLevelHeading": "Nivå",
   "helpLevelBody": "Oavsett om du vinner eller förlorar går monster som kämpat upp i nivå\nNär de går upp i nivå lär de sig nya attacker",
-  "helpTypeHeading": "Elementens effektivitet (svagheter)"
+  "helpTypeHeading": "Elementens effektivitet (svagheter)",
+  "helpTypeBody": "Skadan beror på attackens element och motståndarens element\nVälj en attack med ett element som motståndaren är svag mot för att göra stor skada\nPilen på attackknappen visar dess effektivitet mot din nuvarande motståndare"
 }
