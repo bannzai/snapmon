@@ -274,5 +274,6 @@
   "actionCardOfPrice": "Action Card за {price}",
   "actionCardPricesPreparing": "Готуємо ціни на прийоми\nВідкрий екран знову трохи пізніше",
   "actionCardBuyHeading": "Вибери й купи прийом",
-  "actionCardBuyDescription": "Вибери один прийом і купи його раз і назавжди. Потім зможеш навчати ним будь-якого монстра скільки завгодно разів."
+  "actionCardBuyDescription": "Вибери один прийом і купи його раз і назавжди. Потім зможеш навчати ним будь-якого монстра скільки завгодно разів.",
+  "actionCardBuyUnavailable": "Зараз прийоми не продаються"
 }

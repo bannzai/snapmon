@@ -274,5 +274,6 @@
   "actionCardOfPrice": "Action Card {price} áron",
   "actionCardPricesPreparing": "A támadások árait készítjük elő\nNyisd meg újra egy kis idő múlva",
   "actionCardBuyHeading": "Válassz és vegyél támadást",
-  "actionCardBuyDescription": "Válassz egy támadást, és vedd meg egyszer. Utána bármelyik szörnynek megtaníthatod, ahányszor csak akarod."
+  "actionCardBuyDescription": "Válassz egy támadást, és vedd meg egyszer. Utána bármelyik szörnynek megtaníthatod, ahányszor csak akarod.",
+  "actionCardBuyUnavailable": "Most nem kaphatók támadások"
 }

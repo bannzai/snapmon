@@ -274,5 +274,6 @@
   "actionCardOfPrice": "Action Card voor {price}",
   "actionCardPricesPreparing": "We maken de prijzen van aanvallen klaar\nOpen het scherm straks opnieuw",
   "actionCardBuyHeading": "Kies en koop een aanval",
-  "actionCardBuyDescription": "Kies één aanval en koop die eenmalig. Daarna kun je hem elk monster zo vaak leren als je wilt."
+  "actionCardBuyDescription": "Kies één aanval en koop die eenmalig. Daarna kun je hem elk monster zo vaak leren als je wilt.",
+  "actionCardBuyUnavailable": "Er zijn nu geen aanvallen te koop"
 }

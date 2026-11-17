@@ -274,5 +274,6 @@
   "actionCardOfPrice": "Action Card במחיר {price}",
   "actionCardPricesPreparing": "מחירי המתקפות בהכנה\nאפשר לפתוח שוב בעוד רגע",
   "actionCardBuyHeading": "לבחור ולקנות מתקפה",
-  "actionCardBuyDescription": "לבחור מתקפה אחת ולקנות אותה פעם אחת. אחר כך אפשר ללמד אותה לכל מפלצת כמה פעמים שרוצים."
+  "actionCardBuyDescription": "לבחור מתקפה אחת ולקנות אותה פעם אחת. אחר כך אפשר ללמד אותה לכל מפלצת כמה פעמים שרוצים.",
+  "actionCardBuyUnavailable": "אין מתקפות למכירה כרגע"
 }

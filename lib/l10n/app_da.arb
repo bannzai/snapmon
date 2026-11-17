@@ -274,5 +274,6 @@
   "actionCardOfPrice": "Action Card til {price}",
   "actionCardPricesPreparing": "Vi gør priserne på angreb klar\nÅbn skærmen igen om lidt",
   "actionCardBuyHeading": "Vælg og køb et angreb",
-  "actionCardBuyDescription": "Vælg ét angreb, og køb det én gang for alle. Derefter kan du lære det til ethvert monster, så tit du vil."
+  "actionCardBuyDescription": "Vælg ét angreb, og køb det én gang for alle. Derefter kan du lære det til ethvert monster, så tit du vil.",
+  "actionCardBuyUnavailable": "Der er ingen angreb til salg lige nu"
 }

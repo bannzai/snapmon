@@ -274,5 +274,6 @@
   "actionCardOfPrice": "Action Card för {price}",
   "actionCardPricesPreparing": "Vi förbereder priserna för attacker\nÖppna skärmen igen om en stund",
   "actionCardBuyHeading": "Välj och köp en attack",
-  "actionCardBuyDescription": "Välj en attack och köp den en gång. Sedan kan du lära ut den till vilket monster som helst, hur många gånger du vill."
+  "actionCardBuyDescription": "Välj en attack och köp den en gång. Sedan kan du lära ut den till vilket monster som helst, hur många gånger du vill.",
+  "actionCardBuyUnavailable": "Inga attacker är till salu just nu"
 }

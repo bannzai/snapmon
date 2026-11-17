@@ -274,5 +274,6 @@
   "actionCardOfPrice": "Action Card de {price}",
   "actionCardPricesPreparing": "Estem preparant els preus dels moviments\nTorna a obrir la pantalla d’aquí a una estona",
   "actionCardBuyHeading": "Tria i compra un moviment",
-  "actionCardBuyDescription": "Tria un moviment i compra’l una sola vegada. Després el podràs ensenyar a qualsevol monstre tants cops com vulguis."
+  "actionCardBuyDescription": "Tria un moviment i compra’l una sola vegada. Després el podràs ensenyar a qualsevol monstre tants cops com vulguis.",
+  "actionCardBuyUnavailable": "Ara mateix no hi ha moviments a la venda"
 }

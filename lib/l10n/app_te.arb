@@ -274,5 +274,6 @@
   "actionCardOfPrice": "{price} ధర గల Action Card",
   "actionCardPricesPreparing": "మూవ్‌ల ధరలు సిద్ధమవుతున్నాయి\nకాసేపటి తర్వాత మళ్లీ తెరువు",
   "actionCardBuyHeading": "మూవ్ ఎంచుకుని కొనుక్కో",
-  "actionCardBuyDescription": "ఒక మూవ్ ఎంచుకుని ఒక్కసారే కొనుక్కో. ఆ తర్వాత దాన్ని ఏ మాన్స్టర్‌కైనా ఎన్నిసార్లయినా నేర్పించవచ్చు."
+  "actionCardBuyDescription": "ఒక మూవ్ ఎంచుకుని ఒక్కసారే కొనుక్కో. ఆ తర్వాత దాన్ని ఏ మాన్స్టర్‌కైనా ఎన్నిసార్లయినా నేర్పించవచ్చు.",
+  "actionCardBuyUnavailable": "ప్రస్తుతం మూవ్‌లు అమ్మకానికి లేవు"
 }

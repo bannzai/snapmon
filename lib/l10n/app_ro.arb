@@ -274,5 +274,6 @@
   "actionCardOfPrice": "Action Card la {price}",
   "actionCardPricesPreparing": "Pregătim prețurile mișcărilor\nDeschide din nou ecranul peste puțin timp",
   "actionCardBuyHeading": "Alege și cumpără o mișcare",
-  "actionCardBuyDescription": "Alege o mișcare și cumpăr-o o singură dată. Apoi o poți preda oricărui monstru de câte ori vrei."
+  "actionCardBuyDescription": "Alege o mișcare și cumpăr-o o singură dată. Apoi o poți preda oricărui monstru de câte ori vrei.",
+  "actionCardBuyUnavailable": "Momentan nu sunt mișcări de vânzare"
 }

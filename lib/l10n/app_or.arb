@@ -274,5 +274,6 @@
   "actionCardOfPrice": "{price} ମୂଲ୍ୟର Action Card",
   "actionCardPricesPreparing": "ଚାଲଗୁଡ଼ିକର ଦାମ ପ୍ରସ୍ତୁତ ହେଉଛି\nକିଛି ସମୟ ପରେ ପୁଣି ଖୋଲ",
   "actionCardBuyHeading": "ଚାଲ ବାଛି କିଣ",
-  "actionCardBuyDescription": "ଗୋଟିଏ ଚାଲ ବାଛି ଥରେ ମାତ୍ର କିଣ। ତା’ପରେ ତୁମେ ଯେକୌଣସି ମନଷ୍ଟରକୁ ତାହା ଯେତେଥର ଚାହିଁବ ଶିଖାଇପାରିବ।"
+  "actionCardBuyDescription": "ଗୋଟିଏ ଚାଲ ବାଛି ଥରେ ମାତ୍ର କିଣ। ତା’ପରେ ତୁମେ ଯେକୌଣସି ମନଷ୍ଟରକୁ ତାହା ଯେତେଥର ଚାହିଁବ ଶିଖାଇପାରିବ।",
+  "actionCardBuyUnavailable": "ଏବେ କୌଣସି ଚାଲ ବିକ୍ରି ହେଉନାହିଁ"
 }

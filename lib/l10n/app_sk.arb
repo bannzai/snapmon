@@ -274,5 +274,6 @@
   "actionCardOfPrice": "Action Card za {price}",
   "actionCardPricesPreparing": "Pripravujeme ceny útokov\nO chvíľu obrazovku znova otvor",
   "actionCardBuyHeading": "Vyber a kúp útok",
-  "actionCardBuyDescription": "Vyber si jeden útok a kúp si ho raz navždy. Potom ho môžeš učiť ktorúkoľvek príšeru, koľkokrát chceš."
+  "actionCardBuyDescription": "Vyber si jeden útok a kúp si ho raz navždy. Potom ho môžeš učiť ktorúkoľvek príšeru, koľkokrát chceš.",
+  "actionCardBuyUnavailable": "Momentálne nie sú na predaj žiadne útoky"
 }

@@ -274,5 +274,6 @@
   "actionCardOfPrice": "Action Card بسعر {price}",
   "actionCardPricesPreparing": "نجهّز أسعار الحركات\nافتح الصفحة مجددًا بعد قليل",
   "actionCardBuyHeading": "اختر حركة واشتَرها",
-  "actionCardBuyDescription": "اختر حركة واحدة وادفع ثمنها مرة واحدة. بعدها يمكنك تعليمها لأي وحش كما تشاء."
+  "actionCardBuyDescription": "اختر حركة واحدة وادفع ثمنها مرة واحدة. بعدها يمكنك تعليمها لأي وحش كما تشاء.",
+  "actionCardBuyUnavailable": "لا تُباع الحركات حاليًا"
 }

@@ -274,5 +274,6 @@
   "actionCardOfPrice": "{price}ની Action Card",
   "actionCardPricesPreparing": "ચાલની કિંમતો તૈયાર થઈ રહી છે\nથોડી વાર પછી ફરી ખોલો",
   "actionCardBuyHeading": "ચાલ પસંદ કરીને ખરીદો",
-  "actionCardBuyDescription": "એક ચાલ પસંદ કરીને એક જ વાર ખરીદો. પછી તમે તે કોઈપણ મોન્સ્ટરને ગમે તેટલી વાર શીખવી શકો છો."
+  "actionCardBuyDescription": "એક ચાલ પસંદ કરીને એક જ વાર ખરીદો. પછી તમે તે કોઈપણ મોન્સ્ટરને ગમે તેટલી વાર શીખવી શકો છો.",
+  "actionCardBuyUnavailable": "હમણાં કોઈ ચાલ વેચાણ માટે નથી"
 }

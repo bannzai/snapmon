@@ -274,5 +274,6 @@
   "actionCardOfPrice": "Action Card de {price}",
   "actionCardPricesPreparing": "Estamos preparando os preços dos golpes\nAbra a tela de novo daqui a pouco",
   "actionCardBuyHeading": "Escolha e compre um golpe",
-  "actionCardBuyDescription": "Escolha um golpe e compre uma vez só. Depois, você pode ensiná-lo a qualquer monstro quantas vezes quiser."
+  "actionCardBuyDescription": "Escolha um golpe e compre uma vez só. Depois, você pode ensiná-lo a qualquer monstro quantas vezes quiser.",
+  "actionCardBuyUnavailable": "Nenhum golpe à venda no momento"
 }
