@@ -17,5 +17,6 @@
   "reportSheetSubmitting": "Bezig met verzenden",
   "reportSheetSubmit": "Melden",
   "reportSheetOtherTrouble": "Als je nog ergens anders mee zit",
-  "commonCouldNotOpenURL": "Kan {url} niet openen"
+  "commonCouldNotOpenURL": "Kan {url} niet openen",
+  "commonCancel": "Annuleren"
 }

@@ -17,5 +17,6 @@
   "reportSheetSubmitting": "મોકલાઈ રહ્યું છે",
   "reportSheetSubmit": "રિપોર્ટ કરો",
   "reportSheetOtherTrouble": "તમને બીજી કોઈ મુશ્કેલી હોય તો",
-  "commonCouldNotOpenURL": "{url} ખોલી શકાયું નહીં"
+  "commonCouldNotOpenURL": "{url} ખોલી શકાયું નહીં",
+  "commonCancel": "રદ કરો"
 }

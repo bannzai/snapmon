@@ -17,5 +17,6 @@
   "reportSheetSubmitting": "Skickar",
   "reportSheetSubmit": "Rapportera",
   "reportSheetOtherTrouble": "Om du har något annat problem",
-  "commonCouldNotOpenURL": "Kunde inte öppna {url}"
+  "commonCouldNotOpenURL": "Kunde inte öppna {url}",
+  "commonCancel": "Avbryt"
 }

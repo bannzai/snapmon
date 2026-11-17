@@ -17,5 +17,6 @@
   "reportSheetSubmitting": "Odosiela sa",
   "reportSheetSubmit": "Nahlásiť",
   "reportSheetOtherTrouble": "Ak máš ešte nejaký problém",
-  "commonCouldNotOpenURL": "Nepodarilo sa otvoriť {url}"
+  "commonCouldNotOpenURL": "Nepodarilo sa otvoriť {url}",
+  "commonCancel": "Zrušiť"
 }

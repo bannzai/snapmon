@@ -17,5 +17,6 @@
   "reportSheetSubmitting": "Gönderiliyor",
   "reportSheetSubmit": "Bildir",
   "reportSheetOtherTrouble": "Başka bir sorun yaşarsan",
-  "commonCouldNotOpenURL": "{url} açılamadı"
+  "commonCouldNotOpenURL": "{url} açılamadı",
+  "commonCancel": "İptal"
 }

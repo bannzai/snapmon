@@ -17,5 +17,6 @@
   "reportSheetSubmitting": "جارٍ الإرسال",
   "reportSheetSubmit": "إبلاغ",
   "reportSheetOtherTrouble": "إذا واجهتك أي مشكلة أخرى",
-  "commonCouldNotOpenURL": "تعذّر فتح {url}"
+  "commonCouldNotOpenURL": "تعذّر فتح {url}",
+  "commonCancel": "إلغاء"
 }

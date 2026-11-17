@@ -17,5 +17,6 @@
   "reportSheetSubmitting": "Γίνεται αποστολή",
   "reportSheetSubmit": "Αναφορά",
   "reportSheetOtherTrouble": "Αν έχεις κάποιο άλλο πρόβλημα",
-  "commonCouldNotOpenURL": "Δεν ήταν δυνατό το άνοιγμα του {url}"
+  "commonCouldNotOpenURL": "Δεν ήταν δυνατό το άνοιγμα του {url}",
+  "commonCancel": "Ακύρωση"
 }

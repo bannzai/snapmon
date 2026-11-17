@@ -17,5 +17,6 @@
   "reportSheetSubmitting": "Küldés folyamatban",
   "reportSheetSubmit": "Jelentés",
   "reportSheetOtherTrouble": "Ha más problémád is van",
-  "commonCouldNotOpenURL": "Nem sikerült megnyitni: {url}"
+  "commonCouldNotOpenURL": "Nem sikerült megnyitni: {url}",
+  "commonCancel": "Mégse"
 }

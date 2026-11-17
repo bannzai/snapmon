@@ -17,5 +17,6 @@
   "reportSheetSubmitting": "בשליחה",
   "reportSheetSubmit": "דיווח",
   "reportSheetOtherTrouble": "אם יש בעיה נוספת",
-  "commonCouldNotOpenURL": "לא ניתן לפתוח את {url}"
+  "commonCouldNotOpenURL": "לא ניתן לפתוח את {url}",
+  "commonCancel": "ביטול"
 }

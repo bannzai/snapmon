@@ -17,5 +17,6 @@
   "reportSheetSubmitting": "Pošiljanje",
   "reportSheetSubmit": "Prijavi",
   "reportSheetOtherTrouble": "Če imaš še kakšno težavo",
-  "commonCouldNotOpenURL": "Ni bilo mogoče odpreti {url}"
+  "commonCouldNotOpenURL": "Ni bilo mogoče odpreti {url}",
+  "commonCancel": "Prekliči"
 }

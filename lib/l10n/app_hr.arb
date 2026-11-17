@@ -17,5 +17,6 @@
   "reportSheetSubmitting": "Slanje u tijeku",
   "reportSheetSubmit": "Prijavi",
   "reportSheetOtherTrouble": "Ako imaš još neki problem",
-  "commonCouldNotOpenURL": "Nije moguće otvoriti {url}"
+  "commonCouldNotOpenURL": "Nije moguće otvoriti {url}",
+  "commonCancel": "Odustani"
 }

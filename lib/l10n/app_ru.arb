@@ -17,5 +17,6 @@
   "reportSheetSubmitting": "Отправка",
   "reportSheetSubmit": "Подать жалобу",
   "reportSheetOtherTrouble": "Если у тебя возникла другая проблема",
-  "commonCouldNotOpenURL": "Не удалось открыть {url}"
+  "commonCouldNotOpenURL": "Не удалось открыть {url}",
+  "commonCancel": "Отмена"
 }

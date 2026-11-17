@@ -17,5 +17,6 @@
   "reportSheetSubmitting": "Sender",
   "reportSheetSubmit": "Rapporter",
   "reportSheetOtherTrouble": "Hvis du har andre problemer",
-  "commonCouldNotOpenURL": "Kunne ikke åpne {url}"
+  "commonCouldNotOpenURL": "Kunne ikke åpne {url}",
+  "commonCancel": "Avbryt"
 }

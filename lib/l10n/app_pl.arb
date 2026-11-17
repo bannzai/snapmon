@@ -17,5 +17,6 @@
   "reportSheetSubmitting": "Wysyłanie",
   "reportSheetSubmit": "Zgłoś",
   "reportSheetOtherTrouble": "Jeśli masz jeszcze jakiś problem",
-  "commonCouldNotOpenURL": "Nie udało się otworzyć {url}"
+  "commonCouldNotOpenURL": "Nie udało się otworzyć {url}",
+  "commonCancel": "Anuluj"
 }

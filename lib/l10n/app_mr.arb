@@ -17,5 +17,6 @@
   "reportSheetSubmitting": "पाठवत आहे",
   "reportSheetSubmit": "रिपोर्ट कर",
   "reportSheetOtherTrouble": "तुला आणखी काही अडचण असेल तर",
-  "commonCouldNotOpenURL": "{url} उघडता आलं नाही"
+  "commonCouldNotOpenURL": "{url} उघडता आलं नाही",
+  "commonCancel": "रद्द कर"
 }

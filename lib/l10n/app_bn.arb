@@ -17,5 +17,6 @@
   "reportSheetSubmitting": "পাঠানো হচ্ছে",
   "reportSheetSubmit": "রিপোর্ট করো",
   "reportSheetOtherTrouble": "তোমার আর কোনো সমস্যা হলে",
-  "commonCouldNotOpenURL": "{url} খোলা যায়নি"
+  "commonCouldNotOpenURL": "{url} খোলা যায়নি",
+  "commonCancel": "বাতিল"
 }

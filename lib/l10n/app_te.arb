@@ -17,5 +17,6 @@
   "reportSheetSubmitting": "పంపుతోంది",
   "reportSheetSubmit": "రిపోర్ట్ చేయి",
   "reportSheetOtherTrouble": "నీకు ఇంకేదైనా సమస్య ఉంటే",
-  "commonCouldNotOpenURL": "{url} తెరవలేకపోయాం"
+  "commonCouldNotOpenURL": "{url} తెరవలేకపోయాం",
+  "commonCancel": "రద్దు చేయి"
 }

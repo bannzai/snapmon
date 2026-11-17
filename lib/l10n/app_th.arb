@@ -17,5 +17,6 @@
   "reportSheetSubmitting": "กำลังส่ง",
   "reportSheetSubmit": "รายงาน",
   "reportSheetOtherTrouble": "หากมีปัญหาอื่นอีก",
-  "commonCouldNotOpenURL": "เปิด {url} ไม่ได้"
+  "commonCouldNotOpenURL": "เปิด {url} ไม่ได้",
+  "commonCancel": "ยกเลิก"
 }

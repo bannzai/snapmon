@@ -17,5 +17,6 @@
   "reportSheetSubmitting": "ಕಳುಹಿಸಲಾಗುತ್ತಿದೆ",
   "reportSheetSubmit": "ವರದಿ ಮಾಡು",
   "reportSheetOtherTrouble": "ನಿನಗೆ ಬೇರೆ ಏನಾದರೂ ತೊಂದರೆ ಇದ್ದರೆ",
-  "commonCouldNotOpenURL": "{url} ತೆರೆಯಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ"
+  "commonCouldNotOpenURL": "{url} ತೆರೆಯಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ",
+  "commonCancel": "ರದ್ದು ಮಾಡು"
 }

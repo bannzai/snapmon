@@ -17,5 +17,6 @@
   "reportSheetSubmitting": "Se trimite",
   "reportSheetSubmit": "Raportează",
   "reportSheetOtherTrouble": "Dacă mai ai vreo problemă",
-  "commonCouldNotOpenURL": "Nu s-a putut deschide {url}"
+  "commonCouldNotOpenURL": "Nu s-a putut deschide {url}",
+  "commonCancel": "Anulează"
 }

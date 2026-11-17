@@ -17,5 +17,6 @@
   "reportSheetSubmitting": "Надсилання",
   "reportSheetSubmit": "Подати скаргу",
   "reportSheetOtherTrouble": "Якщо в тебе є інша проблема",
-  "commonCouldNotOpenURL": "Не вдалося відкрити {url}"
+  "commonCouldNotOpenURL": "Не вдалося відкрити {url}",
+  "commonCancel": "Скасувати"
 }

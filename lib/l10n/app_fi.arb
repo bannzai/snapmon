@@ -17,5 +17,6 @@
   "reportSheetSubmitting": "Lähetetään",
   "reportSheetSubmit": "Ilmoita",
   "reportSheetOtherTrouble": "Jos sinulla on muita ongelmia",
-  "commonCouldNotOpenURL": "Osoitetta {url} ei voitu avata"
+  "commonCouldNotOpenURL": "Osoitetta {url} ei voitu avata",
+  "commonCancel": "Peruuta"
 }

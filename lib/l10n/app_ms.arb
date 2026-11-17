@@ -17,5 +17,6 @@
   "reportSheetSubmitting": "Sedang menghantar",
   "reportSheetSubmit": "Lapor",
   "reportSheetOtherTrouble": "Kalau kamu ada masalah lain",
-  "commonCouldNotOpenURL": "Tidak dapat membuka {url}"
+  "commonCouldNotOpenURL": "Tidak dapat membuka {url}",
+  "commonCancel": "Batal"
 }
