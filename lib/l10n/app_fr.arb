@@ -251,5 +251,6 @@
   "moveDetailFormula": "Multiplicateur de puissance (%)",
   "moveDetailFormulaNote": "100 = ×1\nPuissance × multiplicateur ÷ 100 (partie décimale ignorée) entre dans le calcul des dégâts",
   "moveDetailSelfStatFormula": "Valeur ajoutée à ton multiplicateur de {statName} (%)",
-  "moveDetailOpponentStatFormula": "Valeur ajoutée au multiplicateur de {statName} de l’adversaire (%)"
+  "moveDetailOpponentStatFormula": "Valeur ajoutée au multiplicateur de {statName} de l’adversaire (%)",
+  "moveDetailStatFormulaNote": "Un multiplicateur de 100 vaut ×1\nContinue jusqu’au K.O. et s’arrête entre 50 et 200"
 }
