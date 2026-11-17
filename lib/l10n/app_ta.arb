@@ -107,5 +107,6 @@
   "generationWaitingMessage": "மான்ஸ்டரின் வகையைத் தீர்மானிக்க இன்னும் சிறிது நேரம் ஆகிறது\nபிறந்ததும் களஞ்சியத்தில் சேர்க்கப்படும்",
   "generationCheckAgain": "மீண்டும் சரிபாருங்கள்",
   "generationSeeLater": "பிறகு பாருங்கள்",
-  "generationNotBornTitle": "மான்ஸ்டர் பிறக்கவில்லை"
+  "generationNotBornTitle": "மான்ஸ்டர் பிறக்கவில்லை",
+  "generationFailedTitle": "அரக்கனை உருவாக்க முடியவில்லை"
 }

@@ -107,5 +107,6 @@
   "generationWaitingMessage": "मॉन्स्टरचं तत्त्व ठरायला आणखी थोडा वेळ लागतोय\nजन्मल्यावर तो संग्रहात जोडला जाईल",
   "generationCheckAgain": "पुन्हा तपास",
   "generationSeeLater": "नंतर पाहा",
-  "generationNotBornTitle": "मॉन्स्टरचा जन्म झाला नाही"
+  "generationNotBornTitle": "मॉन्स्टरचा जन्म झाला नाही",
+  "generationFailedTitle": "मॉन्स्टर तयार झाला नाही"
 }

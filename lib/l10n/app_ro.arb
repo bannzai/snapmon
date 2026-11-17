@@ -107,5 +107,6 @@
   "generationWaitingMessage": "Stabilirea elementului monstrului mai durează puțin\nCând se naște, intră în enciclopedie",
   "generationCheckAgain": "Verifică din nou",
   "generationSeeLater": "Vezi mai târziu",
-  "generationNotBornTitle": "Monstrul nu s-a născut"
+  "generationNotBornTitle": "Monstrul nu s-a născut",
+  "generationFailedTitle": "Monstrul nu a putut fi creat"
 }

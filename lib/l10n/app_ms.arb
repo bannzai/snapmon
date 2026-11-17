@@ -107,5 +107,6 @@
   "generationWaitingMessage": "Menentukan elemen monster mengambil masa sedikit lebih lama\nSebaik lahir, monster akan masuk ke ensiklopedia",
   "generationCheckAgain": "Semak lagi",
   "generationSeeLater": "Lihat nanti",
-  "generationNotBornTitle": "Raksasa itu tidak jadi lahir"
+  "generationNotBornTitle": "Raksasa itu tidak jadi lahir",
+  "generationFailedTitle": "Monster tak dapat dicipta"
 }

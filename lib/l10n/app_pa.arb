@@ -107,5 +107,6 @@
   "generationWaitingMessage": "ਮੌਂਸਟਰ ਦਾ ਤੱਤ ਤੈਅ ਕਰਨ ਵਿੱਚ ਥੋੜ੍ਹਾ ਹੋਰ ਸਮਾਂ ਲੱਗ ਰਿਹਾ ਹੈ\nਜਨਮ ਲੈਂਦੇ ਹੀ ਸੰਗ੍ਰਹਿ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋ ਜਾਵੇਗਾ",
   "generationCheckAgain": "ਦੁਬਾਰਾ ਜਾਂਚੋ",
   "generationSeeLater": "ਬਾਅਦ ਵਿੱਚ ਦੇਖੋ",
-  "generationNotBornTitle": "ਮੌਂਸਟਰ ਦਾ ਜਨਮ ਨਹੀਂ ਹੋਇਆ"
+  "generationNotBornTitle": "ਮੌਂਸਟਰ ਦਾ ਜਨਮ ਨਹੀਂ ਹੋਇਆ",
+  "generationFailedTitle": "ਮੌਂਸਟਰ ਨਹੀਂ ਬਣ ਸਕਿਆ"
 }

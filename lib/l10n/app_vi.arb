@@ -107,5 +107,6 @@
   "generationWaitingMessage": "Việc xác định hệ của quái vật đang mất thêm chút thời gian\nKhi ra đời, quái vật sẽ vào bộ sưu tập",
   "generationCheckAgain": "Kiểm tra lại",
   "generationSeeLater": "Xem sau",
-  "generationNotBornTitle": "Quái vật đã không ra đời"
+  "generationNotBornTitle": "Quái vật đã không ra đời",
+  "generationFailedTitle": "Không thể tạo quái vật"
 }

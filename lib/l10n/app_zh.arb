@@ -107,5 +107,6 @@
   "generationWaitingMessage": "确定怪物的属性还需要一点时间\n诞生后就会加入图鉴",
   "generationCheckAgain": "再确认一次",
   "generationSeeLater": "稍后查看",
-  "generationNotBornTitle": "怪兽没能诞生"
+  "generationNotBornTitle": "怪兽没能诞生",
+  "generationFailedTitle": "无法生成怪兽"
 }

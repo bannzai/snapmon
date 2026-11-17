@@ -107,5 +107,6 @@
   "generationWaitingMessage": "Costa una mica decidir l'element del monstre\nQuan neixi, entrarà a l'enciclopèdia",
   "generationCheckAgain": "Torna-ho a comprovar",
   "generationSeeLater": "Mira-ho més tard",
-  "generationNotBornTitle": "El monstre no ha nascut"
+  "generationNotBornTitle": "El monstre no ha nascut",
+  "generationFailedTitle": "No s'ha pogut crear el monstre"
 }

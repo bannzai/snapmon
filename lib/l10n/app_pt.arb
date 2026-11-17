@@ -107,5 +107,6 @@
   "generationWaitingMessage": "Definir o elemento do monstro está demorando um pouco\nQuando nascer, ele entrará no dex",
   "generationCheckAgain": "Conferir de novo",
   "generationSeeLater": "Ver depois",
-  "generationNotBornTitle": "O monstro não nasceu"
+  "generationNotBornTitle": "O monstro não nasceu",
+  "generationFailedTitle": "Não foi possível criar o monstro"
 }

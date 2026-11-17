@@ -107,5 +107,6 @@
   "generationWaitingMessage": "تحديد عنصر الوحش يستغرق وقتًا أطول\nعندما يظهر، سيُضاف إلى الموسوعة",
   "generationCheckAgain": "تحقّق مرة أخرى",
   "generationSeeLater": "شاهد لاحقًا",
-  "generationNotBornTitle": "لم يولد الوحش"
+  "generationNotBornTitle": "لم يولد الوحش",
+  "generationFailedTitle": "تعذّر إنشاء الوحش"
 }

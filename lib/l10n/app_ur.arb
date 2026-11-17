@@ -107,5 +107,6 @@
   "generationWaitingMessage": "مونسٹر کی ٹائپ طے ہونے میں کچھ زیادہ وقت لگ رہا ہے\nپیدا ہوتے ہی ڈیکس میں شامل ہو جائے گا",
   "generationCheckAgain": "دوبارہ چیک کرو",
   "generationSeeLater": "بعد میں دیکھو",
-  "generationNotBornTitle": "مونسٹر پیدا نہیں ہوا"
+  "generationNotBornTitle": "مونسٹر پیدا نہیں ہوا",
+  "generationFailedTitle": "مونسٹر نہیں بن سکا"
 }

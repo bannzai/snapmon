@@ -107,5 +107,6 @@
   "generationWaitingMessage": "Ο καθορισμός του στοιχείου του τέρατος παίρνει λίγο χρόνο\nΜόλις γεννηθεί, θα μπει στην εγκυκλοπαίδεια",
   "generationCheckAgain": "Έλεγξε ξανά",
   "generationSeeLater": "Δες το αργότερα",
-  "generationNotBornTitle": "Το τέρας δεν γεννήθηκε"
+  "generationNotBornTitle": "Το τέρας δεν γεννήθηκε",
+  "generationFailedTitle": "Δεν ήταν δυνατή η δημιουργία του τέρατος"
 }

@@ -107,5 +107,6 @@
   "generationWaitingMessage": "Det tager lidt tid at finde monstrets element\nNår det er født, kommer det i din dex",
   "generationCheckAgain": "Tjek igen",
   "generationSeeLater": "Se senere",
-  "generationNotBornTitle": "Monsteret blev ikke født"
+  "generationNotBornTitle": "Monsteret blev ikke født",
+  "generationFailedTitle": "Monsteret kunne ikke skabes"
 }

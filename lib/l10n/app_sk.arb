@@ -107,5 +107,6 @@
   "generationWaitingMessage": "Určenie elementu príšery trvá o čosi dlhšie\nKeď sa narodí, pribudne do encyklopédie",
   "generationCheckAgain": "Skontroluj znova",
   "generationSeeLater": "Pozrieť neskôr",
-  "generationNotBornTitle": "Príšerka sa nenarodila"
+  "generationNotBornTitle": "Príšerka sa nenarodila",
+  "generationFailedTitle": "Nepodarilo sa vytvoriť príšeru"
 }

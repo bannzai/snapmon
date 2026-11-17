@@ -107,5 +107,6 @@
   "generationWaitingMessage": "קביעת הסוג של המפלצת לוקחת עוד קצת זמן\nכשתיוולד, היא תצטרף לאוסף",
   "generationCheckAgain": "לבדוק שוב",
   "generationSeeLater": "לצפות אחר כך",
-  "generationNotBornTitle": "המפלצת לא נולדה"
+  "generationNotBornTitle": "המפלצת לא נולדה",
+  "generationFailedTitle": "לא הצלחנו ליצור את המפלצת"
 }

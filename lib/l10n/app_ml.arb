@@ -107,5 +107,6 @@
   "generationWaitingMessage": "മോൺസ്റ്ററിന്റെ മൂലകം തീരുമാനിക്കാൻ കുറച്ച് കൂടി സമയമെടുക്കുന്നു\nപിറന്നാൽ വിജ്ഞാനകോശത്തിൽ ചേർക്കും",
   "generationCheckAgain": "വീണ്ടും പരിശോധിക്കൂ",
   "generationSeeLater": "പിന്നീട് കാണൂ",
-  "generationNotBornTitle": "മോൺസ്റ്റർ ജനിച്ചില്ല"
+  "generationNotBornTitle": "മോൺസ്റ്റർ ജനിച്ചില്ല",
+  "generationFailedTitle": "മോൺസ്റ്ററിനെ സൃഷ്ടിക്കാനായില്ല"
 }

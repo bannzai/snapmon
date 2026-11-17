@@ -107,5 +107,6 @@
   "generationWaitingMessage": "Hirviön elementin määritys vie vielä hetken\nKun se syntyy, se lisätään kokoelmaan",
   "generationCheckAgain": "Tarkista uudelleen",
   "generationSeeLater": "Katso myöhemmin",
-  "generationNotBornTitle": "Hirviö ei syntynyt"
+  "generationNotBornTitle": "Hirviö ei syntynyt",
+  "generationFailedTitle": "Hirviön luominen epäonnistui"
 }

@@ -107,5 +107,6 @@
   "generationWaitingMessage": "Определение элемента монстра занимает чуть больше времени\nКогда он появится, то попадёт в энциклопедию",
   "generationCheckAgain": "Проверить ещё раз",
   "generationSeeLater": "Посмотреть позже",
-  "generationNotBornTitle": "Монстр не родился"
+  "generationNotBornTitle": "Монстр не родился",
+  "generationFailedTitle": "Не удалось создать монстра"
 }

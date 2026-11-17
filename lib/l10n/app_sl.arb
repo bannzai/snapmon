@@ -107,5 +107,6 @@
   "generationWaitingMessage": "Določanje elementa pošasti traja še malo\nKo se rodi, bo dodana v enciklopedijo",
   "generationCheckAgain": "Preveri znova",
   "generationSeeLater": "Poglej pozneje",
-  "generationNotBornTitle": "Pošast se ni rodila"
+  "generationNotBornTitle": "Pošast se ni rodila",
+  "generationFailedTitle": "Pošasti ni bilo mogoče ustvariti"
 }

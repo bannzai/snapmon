@@ -107,5 +107,6 @@
   "generationWaitingMessage": "Ustalenie typu potwora trwa trochę dłużej\nGdy się narodzi, trafi do encyklopedii",
   "generationCheckAgain": "Sprawdź ponownie",
   "generationSeeLater": "Zobacz później",
-  "generationNotBornTitle": "Potwór się nie narodził"
+  "generationNotBornTitle": "Potwór się nie narodził",
+  "generationFailedTitle": "Nie udało się stworzyć potwora"
 }

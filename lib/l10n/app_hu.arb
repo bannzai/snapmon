@@ -107,5 +107,6 @@
   "generationWaitingMessage": "A szörny típusának meghatározása még eltart egy kicsit\nAmint megszületik, bekerül a gyűjteménybe",
   "generationCheckAgain": "Ellenőrizd újra",
   "generationSeeLater": "Nézd meg később",
-  "generationNotBornTitle": "A szörny nem született meg"
+  "generationNotBornTitle": "A szörny nem született meg",
+  "generationFailedTitle": "Nem sikerült létrehozni a szörnyet"
 }

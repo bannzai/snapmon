@@ -107,5 +107,6 @@
   "generationWaitingMessage": "El elemento del monstruo está tardando un poco en definirse\nCuando nazca, aparecerá en tu colección",
   "generationCheckAgain": "Comprobar de nuevo",
   "generationSeeLater": "Ver más tarde",
-  "generationNotBornTitle": "El monstruo no nació"
+  "generationNotBornTitle": "El monstruo no nació",
+  "generationFailedTitle": "No se pudo crear el monstruo"
 }
