@@ -25,5 +25,6 @@
   "opponentBlocked": "차단했어요",
   "blockDialogTitle": "차단",
   "blockDialogMessage": "이제 {displayName}님과 서로 대전 상대로 매칭되지 않아요",
-  "blockDialogConfirm": "차단하기"
+  "blockDialogConfirm": "차단하기",
+  "opponentSafetyMenuTooltip": "신고 · 차단"
 }

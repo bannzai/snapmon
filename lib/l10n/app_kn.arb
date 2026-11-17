@@ -25,5 +25,6 @@
   "opponentBlocked": "ಬ್ಲಾಕ್ ಮಾಡಲಾಗಿದೆ",
   "blockDialogTitle": "ಬ್ಲಾಕ್",
   "blockDialogMessage": "ನೀನು ಮತ್ತು {displayName} ಇನ್ನು ಪರಸ್ಪರ ಎದುರಾಳಿಗಳಾಗಿ ಬರುವುದಿಲ್ಲ",
-  "blockDialogConfirm": "ಬ್ಲಾಕ್ ಮಾಡು"
+  "blockDialogConfirm": "ಬ್ಲಾಕ್ ಮಾಡು",
+  "opponentSafetyMenuTooltip": "ವರದಿ · ಬ್ಲಾಕ್"
 }

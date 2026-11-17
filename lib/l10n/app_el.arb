@@ -25,5 +25,6 @@
   "opponentBlocked": "Έγινε μπλοκ",
   "blockDialogTitle": "μπλοκάρισμα",
   "blockDialogMessage": "Εσύ και ο παίκτης {displayName} δεν θα μπαίνετε πια αντίπαλοι",
-  "blockDialogConfirm": "μπλοκάρισμα"
+  "blockDialogConfirm": "μπλοκάρισμα",
+  "opponentSafetyMenuTooltip": "αναφορά · μπλοκάρισμα"
 }

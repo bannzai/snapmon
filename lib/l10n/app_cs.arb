@@ -25,5 +25,6 @@
   "opponentBlocked": "Zablokováno: blok",
   "blockDialogTitle": "blokovat",
   "blockDialogMessage": "Ty a {displayName} už proti sobě nebudete přiřazeni do souboje",
-  "blockDialogConfirm": "blokovat"
+  "blockDialogConfirm": "blokovat",
+  "opponentSafetyMenuTooltip": "nahlásit · blokovat"
 }

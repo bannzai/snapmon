@@ -25,5 +25,6 @@
   "opponentBlocked": "بلاک کر دیا",
   "blockDialogTitle": "بلاک",
   "blockDialogMessage": "تم اور {displayName} اب ایک دوسرے کے مقابلے میں حریف نہیں بنو گے",
-  "blockDialogConfirm": "بلاک کرو"
+  "blockDialogConfirm": "بلاک کرو",
+  "opponentSafetyMenuTooltip": "رپورٹ · بلاک"
 }

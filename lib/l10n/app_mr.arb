@@ -25,5 +25,6 @@
   "opponentBlocked": "ब्लॉक केलं",
   "blockDialogTitle": "ब्लॉक",
   "blockDialogMessage": "तू आणि {displayName} आता एकमेकांचे प्रतिस्पर्धी म्हणून समोर येणार नाही",
-  "blockDialogConfirm": "ब्लॉक कर"
+  "blockDialogConfirm": "ब्लॉक कर",
+  "opponentSafetyMenuTooltip": "रिपोर्ट · ब्लॉक"
 }

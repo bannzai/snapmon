@@ -25,5 +25,6 @@
   "opponentBlocked": "Berhasil diblokir",
   "blockDialogTitle": "blokir",
   "blockDialogMessage": "Kamu dan {displayName} tidak akan lagi bertemu sebagai lawan",
-  "blockDialogConfirm": "blokir"
+  "blockDialogConfirm": "blokir",
+  "opponentSafetyMenuTooltip": "lapor · blokir"
 }

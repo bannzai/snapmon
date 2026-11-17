@@ -25,5 +25,6 @@
   "opponentBlocked": "تم الحظر",
   "blockDialogTitle": "حظر",
   "blockDialogMessage": "لن تظهر أنت و{displayName} لبعضكما كخصمين في المعارك",
-  "blockDialogConfirm": "حظر"
+  "blockDialogConfirm": "حظر",
+  "opponentSafetyMenuTooltip": "إبلاغ · حظر"
 }

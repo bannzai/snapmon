@@ -25,5 +25,6 @@
   "opponentBlocked": "Blokirano",
   "blockDialogTitle": "blokiranje",
   "blockDialogMessage": "Ti in {displayName} ne bosta več izbrana za nasprotnika",
-  "blockDialogConfirm": "blokiraj"
+  "blockDialogConfirm": "blokiraj",
+  "opponentSafetyMenuTooltip": "prijavi · blokiraj"
 }

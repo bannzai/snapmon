@@ -25,5 +25,6 @@
   "opponentBlocked": "Engellendi",
   "blockDialogTitle": "engelle",
   "blockDialogMessage": "Sen ve {displayName} artık birbirinize rakip olarak eşleşmeyeceksiniz",
-  "blockDialogConfirm": "engelle"
+  "blockDialogConfirm": "engelle",
+  "opponentSafetyMenuTooltip": "bildir · engelle"
 }

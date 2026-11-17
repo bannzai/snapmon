@@ -25,5 +25,6 @@
   "opponentBlocked": "Blockerad",
   "blockDialogTitle": "blockera",
   "blockDialogMessage": "Du och {displayName} matchas inte längre mot varandra",
-  "blockDialogConfirm": "blockera"
+  "blockDialogConfirm": "blockera",
+  "opponentSafetyMenuTooltip": "rapportera · blockera"
 }

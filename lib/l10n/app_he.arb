@@ -25,5 +25,6 @@
   "opponentBlocked": "בוצעה חסימה",
   "blockDialogTitle": "חסימה",
   "blockDialogMessage": "לא תהיה עוד התאמה לקרב בינך לבין {displayName}",
-  "blockDialogConfirm": "חסימה"
+  "blockDialogConfirm": "חסימה",
+  "opponentSafetyMenuTooltip": "דיווח · חסימה"
 }

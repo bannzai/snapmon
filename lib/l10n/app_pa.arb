@@ -25,5 +25,6 @@
   "opponentBlocked": "ਬਲਾਕ ਕਰ ਦਿੱਤਾ",
   "blockDialogTitle": "ਬਲਾਕ",
   "blockDialogMessage": "ਤੁਸੀਂ ਅਤੇ {displayName} ਹੁਣ ਇੱਕ-ਦੂਜੇ ਦੇ ਮੁਕਾਬਲੇ ਵਿੱਚ ਨਹੀਂ ਆਓਗੇ",
-  "blockDialogConfirm": "ਬਲਾਕ ਕਰੋ"
+  "blockDialogConfirm": "ਬਲਾਕ ਕਰੋ",
+  "opponentSafetyMenuTooltip": "ਰਿਪੋਰਟ · ਬਲਾਕ"
 }

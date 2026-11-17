@@ -25,5 +25,6 @@
   "opponentBlocked": "Đã chặn",
   "blockDialogTitle": "chặn",
   "blockDialogMessage": "Bạn và {displayName} sẽ không còn được ghép đấu với nhau",
-  "blockDialogConfirm": "chặn"
+  "blockDialogConfirm": "chặn",
+  "opponentSafetyMenuTooltip": "báo cáo · chặn"
 }
