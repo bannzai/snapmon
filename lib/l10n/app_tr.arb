@@ -309,5 +309,6 @@
   "battleRematch": "Tekrar savaş",
   "battleLostPartyHintTitle": "Takımına daha çok canavar ekle, kazanmak kolaylaşsın",
   "battleLostPartyHintMessage": "Takımında en fazla {maximumPartySize} canavar bulundurabilirsin\nZayıflıkları ve durum etkilerini bilirsen savaşta avantaj kazanırsın",
-  "helpOpen": "Nasıl oynanır"
+  "helpOpen": "Nasıl oynanır",
+  "helpTitle": "Nasıl oynanır"
 }

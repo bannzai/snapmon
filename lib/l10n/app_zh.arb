@@ -309,5 +309,6 @@
   "battleRematch": "再战一次",
   "battleLostPartyHintTitle": "队伍里的怪物越多，越容易获胜",
   "battleLostPartyHintMessage": "你的队伍最多可放入 {maximumPartySize} 只怪物\n了解弱点和异常状态，战斗就更有优势",
-  "helpOpen": "查看玩法"
+  "helpOpen": "查看玩法",
+  "helpTitle": "玩法"
 }

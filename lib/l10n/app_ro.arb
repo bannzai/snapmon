@@ -309,5 +309,6 @@
   "battleRematch": "Luptă din nou",
   "battleLostPartyHintTitle": "Cu mai mulți monștri în echipă, câștigi mai ușor",
   "battleLostPartyHintMessage": "În echipa ta încap până la {maximumPartySize} monștri\nDacă știi slăbiciunile și efectele de stare, ai avantaj în luptă",
-  "helpOpen": "Cum să joci"
+  "helpOpen": "Cum să joci",
+  "helpTitle": "Cum să joci"
 }

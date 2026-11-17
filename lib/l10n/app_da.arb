@@ -309,5 +309,6 @@
   "battleRematch": "Kæmp igen",
   "battleLostPartyHintTitle": "Flere monstre på dit hold gør det lettere at vinde",
   "battleLostPartyHintMessage": "Du kan have op til {maximumPartySize} monstre på dit hold\nKend svagheder og statuseffekter, så står du stærkere i kamp",
-  "helpOpen": "Sådan spiller du"
+  "helpOpen": "Sådan spiller du",
+  "helpTitle": "Sådan spiller du"
 }

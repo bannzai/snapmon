@@ -309,5 +309,6 @@
   "battleRematch": "Combatir de nuevo",
   "battleLostPartyHintTitle": "Con más monstruos en tu equipo, ganarás más fácilmente",
   "battleLostPartyHintMessage": "Puedes llevar hasta {maximumPartySize} monstruos en tu equipo\nConocer sus debilidades y problemas de estado te da ventaja en combate",
-  "helpOpen": "Cómo jugar"
+  "helpOpen": "Cómo jugar",
+  "helpTitle": "Cómo jugar"
 }

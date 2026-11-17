@@ -309,5 +309,6 @@
   "battleRematch": "Taistele uudelleen",
   "battleLostPartyHintTitle": "Kun joukkueessa on enemmän hirviöitä, voitat helpommin",
   "battleLostPartyHintMessage": "Joukkueeseesi mahtuu enintään {maximumPartySize} hirviötä\nKun tunnet heikkoudet ja statustilat, pärjäät taistelussa paremmin",
-  "helpOpen": "Näin pelaat"
+  "helpOpen": "Näin pelaat",
+  "helpTitle": "Näin pelaat"
 }

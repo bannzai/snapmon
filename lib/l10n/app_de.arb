@@ -309,5 +309,6 @@
   "battleRematch": "Noch mal kämpfen",
   "battleLostPartyHintTitle": "Mit mehr Monstern im Team gewinnst du leichter",
   "battleLostPartyHintMessage": "In deinem Team ist Platz für bis zu {maximumPartySize} Monster\nKennst du Schwächen und Statusprobleme, bist du im Kampf im Vorteil",
-  "helpOpen": "So spielst du"
+  "helpOpen": "So spielst du",
+  "helpTitle": "So spielst du"
 }

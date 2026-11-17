@@ -309,5 +309,6 @@
   "battleRematch": "قاتل مجددًا",
   "battleLostPartyHintTitle": "زد عدد الوحوش في فريقك لتفوز بسهولة أكبر",
   "battleLostPartyHintMessage": "يمكنك ضم حتى {maximumPartySize} وحوش إلى فريقك\nمعرفة نقاط الضعف والحالة غير الطبيعية تمنحك أفضلية في القتال",
-  "helpOpen": "شاهد طريقة اللعب"
+  "helpOpen": "شاهد طريقة اللعب",
+  "helpTitle": "كيف تلعب"
 }

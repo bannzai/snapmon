@@ -309,5 +309,6 @@
   "battleRematch": "להילחם שוב",
   "battleLostPartyHintTitle": "עם יותר מפלצות בצוות, קל יותר לנצח",
   "battleLostPartyHintMessage": "בצוות שלך יש מקום לעד {maximumPartySize} מפלצות\nהכרת חולשות ומצב חריג נותנת יתרון בקרב",
-  "helpOpen": "איך משחקים"
+  "helpOpen": "איך משחקים",
+  "helpTitle": "איך משחקים"
 }

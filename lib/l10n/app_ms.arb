@@ -309,5 +309,6 @@
   "battleRematch": "Bertarung lagi",
   "battleLostPartyHintTitle": "Tambah raksasa dalam pasukan kamu, lebih mudah untuk menang",
   "battleLostPartyHintMessage": "Pasukan kamu boleh memuatkan hingga {maximumPartySize} raksasa\nKenali kelemahan dan kesan status untuk kelebihan dalam pertarungan",
-  "helpOpen": "Cara bermain"
+  "helpOpen": "Cara bermain",
+  "helpTitle": "Cara bermain"
 }

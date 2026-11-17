@@ -309,5 +309,6 @@
   "battleRematch": "Walcz ponownie",
   "battleLostPartyHintTitle": "Z większą drużyną łatwiej wygrasz",
   "battleLostPartyHintMessage": "W twojej drużynie zmieści się do {maximumPartySize} potworów\nPoznaj słabości i statusy, by zyskać przewagę w walce",
-  "helpOpen": "Jak grać"
+  "helpOpen": "Jak grać",
+  "helpTitle": "Jak grać"
 }

@@ -309,5 +309,6 @@
   "battleRematch": "Πολέμησε ξανά",
   "battleLostPartyHintTitle": "Με περισσότερα τέρατα στην ομάδa σου, κερδίζεις πιο εύκολα",
   "battleLostPartyHintMessage": "Η ομάδα σου χωρά έως {maximumPartySize} τέρατα\nΑν ξέρεις τις αδυναμίες και τις επιδράσεις κατάστασης, έχεις πλεονέκτημα στη μάχη",
-  "helpOpen": "Πώς να παίξεις"
+  "helpOpen": "Πώς να παίξεις",
+  "helpTitle": "Πώς παίζεις"
 }
