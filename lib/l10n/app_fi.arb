@@ -246,5 +246,6 @@
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "Oppimistaso",
   "moveDetailUnlockLevelValue": "Lv. {level}",
-  "moveDetailSpecialEffect": "Erikoisvaikutus"
+  "moveDetailSpecialEffect": "Erikoisvaikutus",
+  "moveDetailNoSpecialEffect": "Ei mitään"
 }

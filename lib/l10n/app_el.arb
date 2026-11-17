@@ -246,5 +246,6 @@
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "Επίπεδο εκμάθησης",
   "moveDetailUnlockLevelValue": "Lv. {level}",
-  "moveDetailSpecialEffect": "Ειδική επίδραση"
+  "moveDetailSpecialEffect": "Ειδική επίδραση",
+  "moveDetailNoSpecialEffect": "Κανένα"
 }

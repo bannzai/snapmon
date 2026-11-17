@@ -246,5 +246,6 @@
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "चाल शिकण्याची पातळी",
   "moveDetailUnlockLevelValue": "Lv. {level}",
-  "moveDetailSpecialEffect": "विशेष प्रभाव"
+  "moveDetailSpecialEffect": "विशेष प्रभाव",
+  "moveDetailNoSpecialEffect": "काही नाही"
 }

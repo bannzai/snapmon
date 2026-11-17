@@ -246,5 +246,6 @@
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "Poziom nauki ruchu",
   "moveDetailUnlockLevelValue": "Lv. {level}",
-  "moveDetailSpecialEffect": "Efekt specjalny"
+  "moveDetailSpecialEffect": "Efekt specjalny",
+  "moveDetailNoSpecialEffect": "Brak"
 }

@@ -246,5 +246,6 @@
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "Lærenivå",
   "moveDetailUnlockLevelValue": "Lv. {level}",
-  "moveDetailSpecialEffect": "Spesialeffekt"
+  "moveDetailSpecialEffect": "Spesialeffekt",
+  "moveDetailNoSpecialEffect": "Ingen"
 }

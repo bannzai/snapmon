@@ -246,5 +246,6 @@
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "Tahap belajar gerakan",
   "moveDetailUnlockLevelValue": "Lv. {level}",
-  "moveDetailSpecialEffect": "Kesan khas"
+  "moveDetailSpecialEffect": "Kesan khas",
+  "moveDetailNoSpecialEffect": "Tiada"
 }

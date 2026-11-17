@@ -246,5 +246,6 @@
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "เลเวลที่เรียนรู้ท่า",
   "moveDetailUnlockLevelValue": "Lv. {level}",
-  "moveDetailSpecialEffect": "เอฟเฟกต์พิเศษ"
+  "moveDetailSpecialEffect": "เอฟเฟกต์พิเศษ",
+  "moveDetailNoSpecialEffect": "ไม่มี"
 }

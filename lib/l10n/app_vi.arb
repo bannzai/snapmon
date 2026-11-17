@@ -246,5 +246,6 @@
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "Cấp học chiêu",
   "moveDetailUnlockLevelValue": "Lv. {level}",
-  "moveDetailSpecialEffect": "Hiệu ứng đặc biệt"
+  "moveDetailSpecialEffect": "Hiệu ứng đặc biệt",
+  "moveDetailNoSpecialEffect": "Không có"
 }

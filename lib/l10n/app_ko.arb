@@ -246,5 +246,6 @@
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "기술을 배우는 레벨",
   "moveDetailUnlockLevelValue": "Lv. {level}",
-  "moveDetailSpecialEffect": "특수 효과"
+  "moveDetailSpecialEffect": "특수 효과",
+  "moveDetailNoSpecialEffect": "없음"
 }

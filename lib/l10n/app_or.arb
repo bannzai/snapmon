@@ -246,5 +246,6 @@
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "ଚାଲ ଶିଖିବା ସ୍ତର",
   "moveDetailUnlockLevelValue": "Lv. {level}",
-  "moveDetailSpecialEffect": "ବିଶେଷ ପ୍ରଭାବ"
+  "moveDetailSpecialEffect": "ବିଶେଷ ପ୍ରଭାବ",
+  "moveDetailNoSpecialEffect": "କିଛି ନାହିଁ"
 }

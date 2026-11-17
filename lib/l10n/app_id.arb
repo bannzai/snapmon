@@ -246,5 +246,6 @@
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "Level belajar jurus",
   "moveDetailUnlockLevelValue": "Lv. {level}",
-  "moveDetailSpecialEffect": "Efek khusus"
+  "moveDetailSpecialEffect": "Efek khusus",
+  "moveDetailNoSpecialEffect": "Tidak ada"
 }
