@@ -331,5 +331,6 @@
   "helpStatusCurse": "A támadás, a védekezés vagy a sebesség a felére csökken",
   "helpStatusConfusion": "Néhány körig a választott támadás helyett másik támadás indulhat",
   "helpStatusDizzy": "A támadások 3 körig ritkábban találnak",
-  "helpStatusExcited": "A támadás nő, a védekezés csökken"
+  "helpStatusExcited": "A támadás nő, a védekezés csökken",
+  "helpStatusFrozen": "Néhány körig megakadályozhatja a cselekvést\nElmúlik, ha egy támadás sebzést okoz"
 }

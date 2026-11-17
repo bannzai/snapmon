@@ -331,5 +331,6 @@
   "helpStatusCurse": "Saldırı, Savunma veya Hız değerlerinden biri yarıya iner",
   "helpStatusConfusion": "Birkaç tur boyunca seçtiğin hamle yerine başka bir hamle çıkabilir",
   "helpStatusDizzy": "Hamleler 3 tur boyunca daha zor isabet eder",
-  "helpStatusExcited": "Saldırı artar, savunma düşer"
+  "helpStatusExcited": "Saldırı artar, savunma düşer",
+  "helpStatusFrozen": "Birkaç tur boyunca hareket etmeyi engelleyebilir\nHasar veren bir hamle isabet edince geçer"
 }

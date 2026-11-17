@@ -331,5 +331,6 @@
   "helpStatusCurse": "Útok, obrana nebo rychlost se sníží na polovinu",
   "helpStatusConfusion": "Několik kol se může místo vybraného útoku spustit jiný útok",
   "helpStatusDizzy": "Útoky mají 3 tahy nižší přesnost",
-  "helpStatusExcited": "Útok roste, obrana klesá"
+  "helpStatusExcited": "Útok roste, obrana klesá",
+  "helpStatusFrozen": "Několik tahů nemusí být možné jednat\nPomine po zásahu útokem, který způsobí poškození"
 }

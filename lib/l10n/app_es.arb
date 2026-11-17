@@ -331,5 +331,6 @@
   "helpStatusCurse": "El Ataque, la Defensa o la Velocidad se reduce a la mitad",
   "helpStatusConfusion": "Durante unos turnos, puede salir un movimiento distinto al que elegiste",
   "helpStatusDizzy": "Los movimientos aciertan menos durante 3 turnos",
-  "helpStatusExcited": "Sube el ataque y baja la defensa"
+  "helpStatusExcited": "Sube el ataque y baja la defensa",
+  "helpStatusFrozen": "Puede impedir actuar durante varios turnos\nSe cura al recibir daño de un movimiento"
 }

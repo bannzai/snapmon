@@ -331,5 +331,6 @@
   "helpStatusCurse": "Napad, obrana ili brzina smanjuje se na pola",
   "helpStatusConfusion": "Nekoliko poteza može se izvesti drugi potez umjesto odabranog",
   "helpStatusDizzy": "Potezi teže pogađaju tijekom 3 poteza",
-  "helpStatusExcited": "Napad raste, obrana pada"
+  "helpStatusExcited": "Napad raste, obrana pada",
+  "helpStatusFrozen": "Može spriječiti djelovanje nekoliko poteza\nNestaje nakon štete od poteza"
 }

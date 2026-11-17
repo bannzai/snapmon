@@ -331,5 +331,6 @@
   "helpStatusCurse": "Atacul, Apărarea sau Viteza scade la jumătate",
   "helpStatusConfusion": "Timp de câteva ture, poate ieși o altă mișcare decât cea aleasă",
   "helpStatusDizzy": "Mișcările nimeresc mai greu timp de 3 ture",
-  "helpStatusExcited": "Atacul crește, apărarea scade"
+  "helpStatusExcited": "Atacul crește, apărarea scade",
+  "helpStatusFrozen": "Poate împiedica acțiunea câteva ture\nDispare la primirea de daune de la o mișcare"
 }

@@ -331,5 +331,6 @@
   "helpStatusCurse": "Napad, obramba ali hitrost se prepolovi",
   "helpStatusConfusion": "Nekaj potez se lahko namesto izbranega poteza sproži drug potez",
   "helpStatusDizzy": "Potezi težje zadenejo 3 poteze",
-  "helpStatusExcited": "Napad se poveča, obramba zmanjša"
+  "helpStatusExcited": "Napad se poveča, obramba zmanjša",
+  "helpStatusFrozen": "Lahko prepreči delovanje za nekaj potez\nMine ob škodi zaradi poteza"
 }

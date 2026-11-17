@@ -331,5 +331,6 @@
   "helpStatusCurse": "Útok, obrana alebo rýchlosť klesne na polovicu",
   "helpStatusConfusion": "Niekoľko ťahov sa môže namiesto vybraného útoku spustiť iný útok",
   "helpStatusDizzy": "Útoky zasahujú menej často počas 3 ťahov",
-  "helpStatusExcited": "Útok rastie, obrana klesá"
+  "helpStatusExcited": "Útok rastie, obrana klesá",
+  "helpStatusFrozen": "Môže zabrániť v konaní na niekoľko ťahov\nPominie po zásahu útokom, ktorý spôsobí poškodenie"
 }

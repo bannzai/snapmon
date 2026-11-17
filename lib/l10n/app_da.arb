@@ -331,5 +331,6 @@
   "helpStatusCurse": "Enten angreb, forsvar eller fart halveres",
   "helpStatusConfusion": "I nogle ture kan et andet angreb end det valgte blive brugt",
   "helpStatusDizzy": "Angreb rammer sjældnere i 3 ture",
-  "helpStatusExcited": "Angreb stiger, forsvar falder"
+  "helpStatusExcited": "Angreb stiger, forsvar falder",
+  "helpStatusFrozen": "Kan forhindre handling i nogle ture\nOphører ved skade fra et angreb"
 }

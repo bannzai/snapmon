@@ -331,5 +331,6 @@
   "helpStatusCurse": "Hyökkäys, puolustus tai nopeus puolittuu",
   "helpStatusConfusion": "Muutaman vuoron ajan voi lähteä eri liike kuin valitsemasi liike",
   "helpStatusDizzy": "Liikkeet osuvat harvemmin 3 vuoron ajan",
-  "helpStatusExcited": "Hyökkäys nousee, puolustus laskee"
+  "helpStatusExcited": "Hyökkäys nousee, puolustus laskee",
+  "helpStatusFrozen": "Voi estää toimimisen muutaman vuoron ajan\nPoistuu, kun vahingoittava liike osuu"
 }

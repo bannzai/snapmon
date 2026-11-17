@@ -331,5 +331,6 @@
   "helpStatusCurse": "Ataque, Defesa ou Velocidade cai pela metade",
   "helpStatusConfusion": "Por alguns turnos, pode sair um golpe diferente do que você escolheu",
   "helpStatusDizzy": "Os golpes acertam menos por 3 turnos",
-  "helpStatusExcited": "O Ataque sobe e a Defesa cai"
+  "helpStatusExcited": "O Ataque sobe e a Defesa cai",
+  "helpStatusFrozen": "Pode impedir ações por alguns turnos\nPassa ao sofrer dano de um golpe"
 }
