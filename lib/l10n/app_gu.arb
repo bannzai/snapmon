@@ -196,5 +196,6 @@
   "statusConditionParalysis": "લકવો",
   "statusConditionStun": "બેભાન",
   "statusConditionBurn": "દાઝ",
-  "statusConditionDrowsy": "ઘેન"
+  "statusConditionDrowsy": "ઘેન",
+  "statusConditionSleep": "ઊંઘ"
 }

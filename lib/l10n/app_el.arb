@@ -196,5 +196,6 @@
   "statusConditionParalysis": "Παράλυση",
   "statusConditionStun": "Ζάλη",
   "statusConditionBurn": "Έγκαυμα",
-  "statusConditionDrowsy": "Υπνηλία"
+  "statusConditionDrowsy": "Υπνηλία",
+  "statusConditionSleep": "Ύπνος"
 }

@@ -196,5 +196,6 @@
   "statusConditionParalysis": "Tê liệt",
   "statusConditionStun": "Choáng",
   "statusConditionBurn": "Bỏng",
-  "statusConditionDrowsy": "Buồn ngủ"
+  "statusConditionDrowsy": "Buồn ngủ",
+  "statusConditionSleep": "Ngủ"
 }

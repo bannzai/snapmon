@@ -196,5 +196,6 @@
   "statusConditionParalysis": "पक्षाघात",
   "statusConditionStun": "बेशुद्ध",
   "statusConditionBurn": "भाजणे",
-  "statusConditionDrowsy": "डुलकी"
+  "statusConditionDrowsy": "डुलकी",
+  "statusConditionSleep": "झोप"
 }

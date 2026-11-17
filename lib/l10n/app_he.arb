@@ -196,5 +196,6 @@
   "statusConditionParalysis": "שיתוק",
   "statusConditionStun": "עילפון",
   "statusConditionBurn": "כוויה",
-  "statusConditionDrowsy": "נמנום"
+  "statusConditionDrowsy": "נמנום",
+  "statusConditionSleep": "שינה"
 }

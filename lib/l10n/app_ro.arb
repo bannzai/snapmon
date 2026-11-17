@@ -196,5 +196,6 @@
   "statusConditionParalysis": "Paralizie",
   "statusConditionStun": "Amețeală",
   "statusConditionBurn": "Arsură",
-  "statusConditionDrowsy": "Somnolență"
+  "statusConditionDrowsy": "Somnolență",
+  "statusConditionSleep": "Somn"
 }

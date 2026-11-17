@@ -196,5 +196,6 @@
   "statusConditionParalysis": "Paraliż",
   "statusConditionStun": "Ogłuszenie",
   "statusConditionBurn": "Poparzenie",
-  "statusConditionDrowsy": "Senność"
+  "statusConditionDrowsy": "Senność",
+  "statusConditionSleep": "Sen"
 }

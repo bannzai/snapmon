@@ -196,5 +196,6 @@
   "statusConditionParalysis": "തളർച്ച",
   "statusConditionStun": "ബോധക്ഷയം",
   "statusConditionBurn": "പൊള്ളൽ",
-  "statusConditionDrowsy": "മയക്കം"
+  "statusConditionDrowsy": "മയക്കം",
+  "statusConditionSleep": "ഉറക്കം"
 }

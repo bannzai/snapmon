@@ -196,5 +196,6 @@
   "statusConditionParalysis": "लकवा",
   "statusConditionStun": "बेहोशी",
   "statusConditionBurn": "जलन",
-  "statusConditionDrowsy": "उनींदापन"
+  "statusConditionDrowsy": "उनींदापन",
+  "statusConditionSleep": "नींद"
 }

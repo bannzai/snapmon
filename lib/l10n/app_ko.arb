@@ -196,5 +196,6 @@
   "statusConditionParalysis": "마비",
   "statusConditionStun": "기절",
   "statusConditionBurn": "화상",
-  "statusConditionDrowsy": "졸음"
+  "statusConditionDrowsy": "졸음",
+  "statusConditionSleep": "잠듦"
 }

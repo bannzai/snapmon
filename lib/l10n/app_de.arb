@@ -196,5 +196,6 @@
   "statusConditionParalysis": "Paralyse",
   "statusConditionStun": "Betäubt",
   "statusConditionBurn": "Verbrennung",
-  "statusConditionDrowsy": "Schläfrigkeit"
+  "statusConditionDrowsy": "Schläfrigkeit",
+  "statusConditionSleep": "Schlaf"
 }

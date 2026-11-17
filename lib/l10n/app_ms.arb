@@ -196,5 +196,6 @@
   "statusConditionParalysis": "Lumpuh",
   "statusConditionStun": "Pengsan",
   "statusConditionBurn": "Melecur",
-  "statusConditionDrowsy": "Mengantuk"
+  "statusConditionDrowsy": "Mengantuk",
+  "statusConditionSleep": "Tidur"
 }

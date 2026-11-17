@@ -196,5 +196,6 @@
   "statusConditionParalysis": "Halvaus",
   "statusConditionStun": "Tyrmätty",
   "statusConditionBurn": "Palovamma",
-  "statusConditionDrowsy": "Uneliaisuus"
+  "statusConditionDrowsy": "Uneliaisuus",
+  "statusConditionSleep": "Uni"
 }

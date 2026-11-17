@@ -196,5 +196,6 @@
   "statusConditionParalysis": "Paralýza",
   "statusConditionStun": "Omráčení",
   "statusConditionBurn": "Popálení",
-  "statusConditionDrowsy": "Ospalost"
+  "statusConditionDrowsy": "Ospalost",
+  "statusConditionSleep": "Spánek"
 }

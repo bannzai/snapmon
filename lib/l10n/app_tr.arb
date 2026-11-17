@@ -196,5 +196,6 @@
   "statusConditionParalysis": "Felç",
   "statusConditionStun": "Sersemleme",
   "statusConditionBurn": "Yanık",
-  "statusConditionDrowsy": "Uyuklama"
+  "statusConditionDrowsy": "Uyuklama",
+  "statusConditionSleep": "Uyku"
 }

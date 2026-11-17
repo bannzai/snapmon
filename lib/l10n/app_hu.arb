@@ -196,5 +196,6 @@
   "statusConditionParalysis": "Bénulás",
   "statusConditionStun": "Kábulat",
   "statusConditionBurn": "Égés",
-  "statusConditionDrowsy": "Álmosság"
+  "statusConditionDrowsy": "Álmosság",
+  "statusConditionSleep": "Alvás"
 }

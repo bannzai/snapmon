@@ -196,5 +196,6 @@
   "statusConditionParalysis": "Параліч",
   "statusConditionStun": "Оглушення",
   "statusConditionBurn": "Опік",
-  "statusConditionDrowsy": "Сонливість"
+  "statusConditionDrowsy": "Сонливість",
+  "statusConditionSleep": "Сон"
 }

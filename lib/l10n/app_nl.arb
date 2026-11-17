@@ -196,5 +196,6 @@
   "statusConditionParalysis": "Verlamming",
   "statusConditionStun": "Verdoofd",
   "statusConditionBurn": "Brandwond",
-  "statusConditionDrowsy": "Sufheid"
+  "statusConditionDrowsy": "Sufheid",
+  "statusConditionSleep": "Slaap"
 }

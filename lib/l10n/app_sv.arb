@@ -196,5 +196,6 @@
   "statusConditionParalysis": "Förlamning",
   "statusConditionStun": "Bedövad",
   "statusConditionBurn": "Brännskada",
-  "statusConditionDrowsy": "Dåsighet"
+  "statusConditionDrowsy": "Dåsighet",
+  "statusConditionSleep": "Sömn"
 }

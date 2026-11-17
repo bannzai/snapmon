@@ -196,5 +196,6 @@
   "statusConditionParalysis": "麻痹",
   "statusConditionStun": "昏厥",
   "statusConditionBurn": "灼伤",
-  "statusConditionDrowsy": "困倦"
+  "statusConditionDrowsy": "困倦",
+  "statusConditionSleep": "睡眠"
 }

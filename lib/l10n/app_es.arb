@@ -196,5 +196,6 @@
   "statusConditionParalysis": "Parálisis",
   "statusConditionStun": "Aturdimiento",
   "statusConditionBurn": "Quemadura",
-  "statusConditionDrowsy": "Somnolencia"
+  "statusConditionDrowsy": "Somnolencia",
+  "statusConditionSleep": "Dormido"
 }

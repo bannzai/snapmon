@@ -196,5 +196,6 @@
   "statusConditionParalysis": "อัมพาต",
   "statusConditionStun": "หมดสติ",
   "statusConditionBurn": "แผลไหม้",
-  "statusConditionDrowsy": "ง่วงนอน"
+  "statusConditionDrowsy": "ง่วงนอน",
+  "statusConditionSleep": "หลับ"
 }

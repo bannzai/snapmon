@@ -196,5 +196,6 @@
   "statusConditionParalysis": "فالج",
   "statusConditionStun": "بے ہوشی",
   "statusConditionBurn": "جلنا",
-  "statusConditionDrowsy": "غنودگی"
+  "statusConditionDrowsy": "غنودگی",
+  "statusConditionSleep": "نیند"
 }

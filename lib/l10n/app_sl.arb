@@ -196,5 +196,6 @@
   "statusConditionParalysis": "Paraliza",
   "statusConditionStun": "Omamljenost",
   "statusConditionBurn": "Opeklina",
-  "statusConditionDrowsy": "Zaspanost"
+  "statusConditionDrowsy": "Zaspanost",
+  "statusConditionSleep": "Spanec"
 }

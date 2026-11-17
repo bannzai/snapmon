@@ -196,5 +196,6 @@
   "statusConditionParalysis": "ପକ୍ଷାଘାତ",
   "statusConditionStun": "ଅଚେତ",
   "statusConditionBurn": "ପୋଡ଼ା",
-  "statusConditionDrowsy": "ଘୁମଘୁମ ଭାବ"
+  "statusConditionDrowsy": "ଘୁମଘୁମ ଭାବ",
+  "statusConditionSleep": "ନିଦ"
 }
