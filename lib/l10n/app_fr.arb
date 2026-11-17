@@ -2,5 +2,6 @@
   "@@locale": "fr",
   "commonRetry": "Réessayer",
   "commonContact": "Contacte-nous",
-  "tabDex": "dex"
+  "tabDex": "dex",
+  "tabCapture": "Capturer"
 }
