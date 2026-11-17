@@ -206,5 +206,6 @@
   "statusConditionSwitchBlocked": "Changement impossible",
   "moveTypeSuperEffective": "Super efficace ×{multiplier}",
   "moveTypeNotVeryEffective": "Pas très efficace ×{multiplier}",
-  "moveDetailAccuracy": "Précision"
+  "moveDetailAccuracy": "Précision",
+  "moveDetailPriority": "Priorité"
 }
