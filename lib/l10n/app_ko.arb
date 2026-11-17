@@ -132,5 +132,6 @@
   "generationAutoCutoutUnavailable": "자동 오려내기를 사용할 수 없었어요",
   "generationCreateWithRange": "이 영역으로 만들기",
   "generationCropSizeLabel": "테두리 크기",
-  "generationStageFindingSubject": "사진 속 대상을 찾고 있어요"
+  "generationStageFindingSubject": "사진 속 대상을 찾고 있어요",
+  "generationStageCroppingRange": "선택한 영역을 잘라내고 있어요"
 }

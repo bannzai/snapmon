@@ -132,5 +132,6 @@
   "generationAutoCutoutUnavailable": "Automatisk fritlægning kunne ikke bruges",
   "generationCreateWithRange": "Skab ud fra dette område",
   "generationCropSizeLabel": "Rammestørrelse",
-  "generationStageFindingSubject": "Finder motivet"
+  "generationStageFindingSubject": "Finder motivet",
+  "generationStageCroppingRange": "Beskærer det valgte område"
 }

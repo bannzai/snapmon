@@ -132,5 +132,6 @@
   "generationAutoCutoutUnavailable": "無法使用自動去背",
   "generationCreateWithRange": "用這個區域建立",
   "generationCropSizeLabel": "選取框大小",
-  "generationStageFindingSubject": "正在尋找照片中的物件"
+  "generationStageFindingSubject": "正在尋找照片中的物件",
+  "generationStageCroppingRange": "正在裁切選取區域"
 }

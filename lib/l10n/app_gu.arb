@@ -132,5 +132,6 @@
   "generationAutoCutoutUnavailable": "ઑટોમૅટિક કટઆઉટનો ઉપયોગ થઈ શક્યો નહીં",
   "generationCreateWithRange": "આ ભાગમાંથી બનાવો",
   "generationCropSizeLabel": "ફ્રેમનું કદ",
-  "generationStageFindingSubject": "ફોટામાં વિષય શોધાઈ રહ્યો છે"
+  "generationStageFindingSubject": "ફોટામાં વિષય શોધાઈ રહ્યો છે",
+  "generationStageCroppingRange": "પસંદ કરેલો ભાગ કાપવામાં આવી રહ્યો છે"
 }

@@ -132,5 +132,6 @@
   "generationAutoCutoutUnavailable": "യാന്ത്രികമായി ചിത്രം മുറിച്ചെടുക്കാൻ കഴിഞ്ഞില്ല",
   "generationCreateWithRange": "ഈ ഭാഗത്തിൽ നിന്ന് സൃഷ്ടിക്കൂ",
   "generationCropSizeLabel": "ചട്ടക്കൂടിന്റെ വലുപ്പം",
-  "generationStageFindingSubject": "ഫോട്ടോയിലെ വസ്തുവിനെ തിരയുന്നു"
+  "generationStageFindingSubject": "ഫോട്ടോയിലെ വസ്തുവിനെ തിരയുന്നു",
+  "generationStageCroppingRange": "തിരഞ്ഞെടുത്ത ഭാഗം മുറിച്ചെടുക്കുന്നു"
 }

@@ -132,5 +132,6 @@
   "generationAutoCutoutUnavailable": "ਆਪਣੇ ਆਪ ਤਸਵੀਰ ਵਿੱਚੋਂ ਵੱਖਰਾ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ",
   "generationCreateWithRange": "ਇਸ ਹਿੱਸੇ ਤੋਂ ਬਣਾਓ",
   "generationCropSizeLabel": "ਫ਼ਰੇਮ ਦਾ ਆਕਾਰ",
-  "generationStageFindingSubject": "ਫ਼ੋਟੋ ਵਿੱਚ ਵਸਤੂ ਲੱਭੀ ਜਾ ਰਹੀ ਹੈ"
+  "generationStageFindingSubject": "ਫ਼ੋਟੋ ਵਿੱਚ ਵਸਤੂ ਲੱਭੀ ਜਾ ਰਹੀ ਹੈ",
+  "generationStageCroppingRange": "ਚੁਣਿਆ ਹਿੱਸਾ ਕੱਟਿਆ ਜਾ ਰਿਹਾ ਹੈ"
 }

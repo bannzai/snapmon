@@ -132,5 +132,6 @@
   "generationAutoCutoutUnavailable": "Não foi possível usar o recorte automático",
   "generationCreateWithRange": "Criar com esta área",
   "generationCropSizeLabel": "Tamanho da moldura",
-  "generationStageFindingSubject": "Procurando o objeto na foto"
+  "generationStageFindingSubject": "Procurando o objeto na foto",
+  "generationStageCroppingRange": "Recortando a área selecionada"
 }

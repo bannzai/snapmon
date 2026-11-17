@@ -132,5 +132,6 @@
   "generationAutoCutoutUnavailable": "ସ୍ୱୟଂଚାଳିତ ଭାବେ ଚିତ୍ରରୁ ଅଲଗା କରିହେଲା ନାହିଁ",
   "generationCreateWithRange": "ଏହି ଅଞ୍ଚଳରୁ ତିଆରି କର",
   "generationCropSizeLabel": "ଫ୍ରେମ୍‌ର ଆକାର",
-  "generationStageFindingSubject": "ଫଟୋରେ ଥିବା ବସ୍ତୁକୁ ଖୋଜାଯାଉଛି"
+  "generationStageFindingSubject": "ଫଟୋରେ ଥିବା ବସ୍ତୁକୁ ଖୋଜାଯାଉଛି",
+  "generationStageCroppingRange": "ବାଛିଥିବା ଅଂଶ କଟାଯାଉଛି"
 }

@@ -132,5 +132,6 @@
   "generationAutoCutoutUnavailable": "अपने आप विषय को काटकर अलग नहीं किया जा सका",
   "generationCreateWithRange": "इस हिस्से से बनाओ",
   "generationCropSizeLabel": "फ़्रेम का आकार",
-  "generationStageFindingSubject": "फ़ोटो में विषय ढूँढ़ा जा रहा है"
+  "generationStageFindingSubject": "फ़ोटो में विषय ढूँढ़ा जा रहा है",
+  "generationStageCroppingRange": "चुना हुआ हिस्सा काटा जा रहा है"
 }

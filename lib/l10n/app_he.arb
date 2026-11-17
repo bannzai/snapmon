@@ -132,5 +132,6 @@
   "generationAutoCutoutUnavailable": "לא ניתן היה להשתמש בחיתוך האוטומטי",
   "generationCreateWithRange": "ליצור מהאזור הזה",
   "generationCropSizeLabel": "גודל המסגרת",
-  "generationStageFindingSubject": "מחפש את הנושא בתמונה"
+  "generationStageFindingSubject": "מחפש את הנושא בתמונה",
+  "generationStageCroppingRange": "גוזרים את האזור שנבחר"
 }

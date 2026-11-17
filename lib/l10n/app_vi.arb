@@ -132,5 +132,6 @@
   "generationAutoCutoutUnavailable": "Không thể dùng tính năng tách ảnh tự động",
   "generationCreateWithRange": "Tạo từ vùng này",
   "generationCropSizeLabel": "Kích thước khung",
-  "generationStageFindingSubject": "Đang tìm vật thể trong ảnh"
+  "generationStageFindingSubject": "Đang tìm vật thể trong ảnh",
+  "generationStageCroppingRange": "Đang cắt vùng đã chọn"
 }

@@ -132,5 +132,6 @@
   "generationAutoCutoutUnavailable": "Автоматическое вырезание недоступно",
   "generationCreateWithRange": "Создать из этой области",
   "generationCropSizeLabel": "Размер рамки",
-  "generationStageFindingSubject": "Поиск объекта на фото"
+  "generationStageFindingSubject": "Поиск объекта на фото",
+  "generationStageCroppingRange": "Вырезаем выбранную область"
 }

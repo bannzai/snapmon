@@ -132,5 +132,6 @@
   "generationAutoCutoutUnavailable": "Az automatikus kivágás nem volt elérhető",
   "generationCreateWithRange": "Készítsd el ebből a területből",
   "generationCropSizeLabel": "Keret mérete",
-  "generationStageFindingSubject": "A fotó témájának keresése"
+  "generationStageFindingSubject": "A fotó témájának keresése",
+  "generationStageCroppingRange": "A kijelölt terület kivágása folyamatban"
 }

@@ -132,5 +132,6 @@
   "generationAutoCutoutUnavailable": "Automatické vystrihnutie nebolo dostupné",
   "generationCreateWithRange": "Vytvor z tejto oblasti",
   "generationCropSizeLabel": "Veľkosť rámčeka",
-  "generationStageFindingSubject": "Hľadá sa objekt na fotke"
+  "generationStageFindingSubject": "Hľadá sa objekt na fotke",
+  "generationStageCroppingRange": "Vyrezáva sa vybraná oblasť"
 }

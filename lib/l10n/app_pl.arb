@@ -132,5 +132,6 @@
   "generationAutoCutoutUnavailable": "Automatyczne wycinanie było niedostępne",
   "generationCreateWithRange": "Stwórz z tego obszaru",
   "generationCropSizeLabel": "Rozmiar ramki",
-  "generationStageFindingSubject": "Szukanie obiektu na zdjęciu"
+  "generationStageFindingSubject": "Szukanie obiektu na zdjęciu",
+  "generationStageCroppingRange": "Wycinanie wybranego obszaru"
 }

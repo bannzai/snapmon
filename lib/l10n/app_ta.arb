@@ -132,5 +132,6 @@
   "generationAutoCutoutUnavailable": "தானாகப் படத்திலிருந்து பிரித்தெடுக்க முடியவில்லை",
   "generationCreateWithRange": "இந்தப் பகுதியிலிருந்து உருவாக்குங்கள்",
   "generationCropSizeLabel": "சட்டத்தின் அளவு",
-  "generationStageFindingSubject": "படத்தில் உள்ள பொருள் தேடப்படுகிறது"
+  "generationStageFindingSubject": "படத்தில் உள்ள பொருள் தேடப்படுகிறது",
+  "generationStageCroppingRange": "தேர்ந்தெடுத்த பகுதி வெட்டப்படுகிறது"
 }

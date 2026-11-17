@@ -132,5 +132,6 @@
   "generationAutoCutoutUnavailable": "Decuparea automată nu a fost disponibilă",
   "generationCreateWithRange": "Creează din această zonă",
   "generationCropSizeLabel": "Dimensiunea cadrului",
-  "generationStageFindingSubject": "Se caută subiectul din fotografie"
+  "generationStageFindingSubject": "Se caută subiectul din fotografie",
+  "generationStageCroppingRange": "Se decupează zona selectată"
 }

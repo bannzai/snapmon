@@ -132,5 +132,6 @@
   "generationAutoCutoutUnavailable": "Automatisk friläggning var inte tillgänglig",
   "generationCreateWithRange": "Skapa från det här området",
   "generationCropSizeLabel": "Ramens storlek",
-  "generationStageFindingSubject": "Letar efter motivet"
+  "generationStageFindingSubject": "Letar efter motivet",
+  "generationStageCroppingRange": "Beskär det markerade området"
 }

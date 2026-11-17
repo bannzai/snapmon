@@ -132,5 +132,6 @@
   "generationAutoCutoutUnavailable": "చిత్రం నుంచి ఆటోమేటిక్‌గా వేరు చేయడం సాధ్యం కాలేదు",
   "generationCreateWithRange": "ఈ భాగం నుంచి సృష్టించు",
   "generationCropSizeLabel": "ఫ్రేమ్ పరిమాణం",
-  "generationStageFindingSubject": "ఫోటోలోని వస్తువును వెతుకుతోంది"
+  "generationStageFindingSubject": "ఫోటోలోని వస్తువును వెతుకుతోంది",
+  "generationStageCroppingRange": "ఎంచుకున్న భాగాన్ని కత్తిరిస్తోంది"
 }

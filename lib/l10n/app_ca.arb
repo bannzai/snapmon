@@ -132,5 +132,6 @@
   "generationAutoCutoutUnavailable": "No s'ha pogut fer servir la retallada automàtica",
   "generationCreateWithRange": "Crea amb aquesta zona",
   "generationCropSizeLabel": "Mida del marc",
-  "generationStageFindingSubject": "Buscant el subjecte"
+  "generationStageFindingSubject": "Buscant el subjecte",
+  "generationStageCroppingRange": "Retallant la zona seleccionada"
 }

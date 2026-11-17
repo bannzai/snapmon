@@ -132,5 +132,6 @@
   "generationAutoCutoutUnavailable": "ใช้การตัดภาพอัตโนมัติไม่ได้",
   "generationCreateWithRange": "สร้างจากบริเวณนี้",
   "generationCropSizeLabel": "ขนาดกรอบ",
-  "generationStageFindingSubject": "กำลังหาวัตถุในภาพ"
+  "generationStageFindingSubject": "กำลังหาวัตถุในภาพ",
+  "generationStageCroppingRange": "กำลังตัดส่วนที่เลือก"
 }

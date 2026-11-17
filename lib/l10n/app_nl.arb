@@ -132,5 +132,6 @@
   "generationAutoCutoutUnavailable": "Automatisch vrijstaand maken was niet beschikbaar",
   "generationCreateWithRange": "Maak van dit gebied",
   "generationCropSizeLabel": "Grootte van het kader",
-  "generationStageFindingSubject": "Onderwerp op de foto zoeken"
+  "generationStageFindingSubject": "Onderwerp op de foto zoeken",
+  "generationStageCroppingRange": "Geselecteerd gebied uitsnijden"
 }

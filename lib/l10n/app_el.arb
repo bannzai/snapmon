@@ -132,5 +132,6 @@
   "generationAutoCutoutUnavailable": "Δεν ήταν διαθέσιμη η αυτόματη αποκοπή",
   "generationCreateWithRange": "Φτιάξε από αυτή την περιοχή",
   "generationCropSizeLabel": "Μέγεθος πλαισίου",
-  "generationStageFindingSubject": "Αναζήτηση θέματος στη φωτογραφία"
+  "generationStageFindingSubject": "Αναζήτηση θέματος στη φωτογραφία",
+  "generationStageCroppingRange": "Γίνεται περικοπή της επιλεγμένης περιοχής"
 }

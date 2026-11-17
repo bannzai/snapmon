@@ -132,5 +132,6 @@
   "generationAutoCutoutUnavailable": "आपोआप विषय कापून वेगळा करता आला नाही",
   "generationCreateWithRange": "या भागातून तयार कर",
   "generationCropSizeLabel": "चौकटीचा आकार",
-  "generationStageFindingSubject": "फोटोतला विषय शोधत आहे"
+  "generationStageFindingSubject": "फोटोतला विषय शोधत आहे",
+  "generationStageCroppingRange": "निवडलेला भाग कापला जात आहे"
 }
