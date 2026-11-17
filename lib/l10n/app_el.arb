@@ -102,5 +102,6 @@
   "generationAlreadyInDexTitle": "Είναι ήδη στην εγκυκλοπαίδεια",
   "generationAlreadyInDexMessage": "Αυτό το αντικείμενο είναι ήδη στην εγκυκλοπαίδεια ως {monsterName}\nΜπορείς να πολεμήσεις με αυτό το τέρας",
   "generationBattleWithThisMonster": "Πάλεψε με αυτό το τέρας",
-  "generationRetake": "Βγάλε ξανά φωτογραφία"
+  "generationRetake": "Βγάλε ξανά φωτογραφία",
+  "generationWaitingTitle": "Περίμενε λίγο ακόμα"
 }

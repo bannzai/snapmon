@@ -102,5 +102,6 @@
   "generationAlreadyInDexTitle": "Sudah ada di dex",
   "generationAlreadyInDexMessage": "Objek ini sudah ada di dex sebagai {monsterName}\nKamu bisa bertarung dengan monster ini",
   "generationBattleWithThisMonster": "Bertarung dengan monster ini",
-  "generationRetake": "Foto ulang"
+  "generationRetake": "Foto ulang",
+  "generationWaitingTitle": "Tunggu sebentar lagi, ya"
 }

@@ -102,5 +102,6 @@
   "generationAlreadyInDexTitle": "પહેલેથી જ ડેક્સમાં છે",
   "generationAlreadyInDexMessage": "આ વસ્તુ {monsterName} તરીકે ડેક્સમાં પહેલેથી છે\nતમે આ મોન્સ્ટર સાથે લડી શકો છો",
   "generationBattleWithThisMonster": "આ મોન્સ્ટર સાથે લડો",
-  "generationRetake": "ફરી ફોટો લો"
+  "generationRetake": "ફરી ફોટો લો",
+  "generationWaitingTitle": "હજુ થોડી વાર રાહ જુઓ"
 }

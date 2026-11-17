@@ -102,5 +102,6 @@
   "generationAlreadyInDexTitle": "Už je v encyklopédii",
   "generationAlreadyInDexMessage": "Tento predmet už je v encyklopédii ako {monsterName}\nS touto príšerou môžeš bojovať",
   "generationBattleWithThisMonster": "Bojuj s touto príšerou",
-  "generationRetake": "Odfoť znova"
+  "generationRetake": "Odfoť znova",
+  "generationWaitingTitle": "Počkaj ešte chvíľu"
 }

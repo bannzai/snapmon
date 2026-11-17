@@ -102,5 +102,6 @@
   "generationAlreadyInDexTitle": "Já está na enciclopédia",
   "generationAlreadyInDexMessage": "Este objeto já está na enciclopédia como {monsterName}\nPodes combater com este monstro",
   "generationBattleWithThisMonster": "Luta com este monstro",
-  "generationRetake": "Tira outra fotografia"
+  "generationRetake": "Tira outra fotografia",
+  "generationWaitingTitle": "Espera só mais um bocadinho"
 }

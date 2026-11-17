@@ -102,5 +102,6 @@
   "generationAlreadyInDexTitle": "已经在图鉴里了",
   "generationAlreadyInDexMessage": "这个物品已以 {monsterName} 的名字收录在图鉴中\n你可以用这只怪物战斗",
   "generationBattleWithThisMonster": "用这只怪物战斗",
-  "generationRetake": "重新拍照"
+  "generationRetake": "重新拍照",
+  "generationWaitingTitle": "再等一会儿哦"
 }

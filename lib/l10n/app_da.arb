@@ -102,5 +102,6 @@
   "generationAlreadyInDexTitle": "Allerede i din dex",
   "generationAlreadyInDexMessage": "Denne genstand er allerede i din dex som {monsterName}\nDu kan kæmpe med dette monster",
   "generationBattleWithThisMonster": "Kæmp med dette monster",
-  "generationRetake": "Tag billedet igen"
+  "generationRetake": "Tag billedet igen",
+  "generationWaitingTitle": "Vent lidt endnu"
 }

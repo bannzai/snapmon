@@ -102,5 +102,6 @@
   "generationAlreadyInDexTitle": "Đã có trong bộ sưu tập",
   "generationAlreadyInDexMessage": "Vật này đã có trong bộ sưu tập với tên {monsterName}\nBạn có thể chiến đấu cùng quái vật này",
   "generationBattleWithThisMonster": "Chiến đấu cùng quái vật này",
-  "generationRetake": "Chụp lại"
+  "generationRetake": "Chụp lại",
+  "generationWaitingTitle": "Đợi thêm chút nữa nhé"
 }

@@ -102,5 +102,6 @@
   "generationAlreadyInDexTitle": "Schon im Dex",
   "generationAlreadyInDexMessage": "Dieses Motiv ist als {monsterName} in deinem Dex\nDu kannst mit diesem Monster kämpfen",
   "generationBattleWithThisMonster": "Kämpfe mit diesem Monster",
-  "generationRetake": "Foto neu aufnehmen"
+  "generationRetake": "Foto neu aufnehmen",
+  "generationWaitingTitle": "Warte noch einen Moment"
 }

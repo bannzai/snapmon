@@ -102,5 +102,6 @@
   "generationAlreadyInDexTitle": "पहले से संग्रह में है",
   "generationAlreadyInDexMessage": "यह चीज़ {monsterName} के नाम से संग्रह में पहले से है\nइस मॉन्स्टर के साथ लड़ सकते हो",
   "generationBattleWithThisMonster": "इस मॉन्स्टर के साथ लड़ो",
-  "generationRetake": "फिर से फ़ोटो खींचो"
+  "generationRetake": "फिर से फ़ोटो खींचो",
+  "generationWaitingTitle": "थोड़ा और इंतज़ार करो"
 }

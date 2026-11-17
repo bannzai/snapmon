@@ -102,5 +102,6 @@
   "generationAlreadyInDexTitle": "Staat al in je dex",
   "generationAlreadyInDexMessage": "Dit voorwerp staat al als {monsterName} in je dex\nJe kunt met dit monster vechten",
   "generationBattleWithThisMonster": "Vecht met dit monster",
-  "generationRetake": "Maak de foto opnieuw"
+  "generationRetake": "Maak de foto opnieuw",
+  "generationWaitingTitle": "Wacht nog even"
 }

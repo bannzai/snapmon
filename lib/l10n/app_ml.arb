@@ -102,5 +102,6 @@
   "generationAlreadyInDexTitle": "ഇതിനകം വിജ്ഞാനകോശത്തിലുണ്ട്",
   "generationAlreadyInDexMessage": "ഈ വസ്തു {monsterName} എന്ന പേരിൽ വിജ്ഞാനകോശത്തിലുണ്ട്\nഈ മോൺസ്റ്ററുമായി പോരാടാം",
   "generationBattleWithThisMonster": "ഈ മോൺസ്റ്ററുമായി പോരാടൂ",
-  "generationRetake": "വീണ്ടും ഫോട്ടോ എടുക്കുക"
+  "generationRetake": "വീണ്ടും ഫോട്ടോ എടുക്കുക",
+  "generationWaitingTitle": "കുറച്ചുകൂടി കാത്തിരിക്കൂ"
 }

@@ -102,5 +102,6 @@
   "generationAlreadyInDexTitle": "ಈಗಾಗಲೇ ವಿಶ್ವಕೋಶದಲ್ಲಿದೆ",
   "generationAlreadyInDexMessage": "ಈ ವಸ್ತು {monsterName} ಹೆಸರಿನಲ್ಲಿ ವಿಶ್ವಕೋಶದಲ್ಲಿದೆ\nಈ ಮಾನ್ಸ್ಟರ್ ಜೊತೆ ಹೋರಾಡಬಹುದು",
   "generationBattleWithThisMonster": "ಈ ಮಾನ್ಸ್ಟರ್ ಜೊತೆ ಹೋರಾಡು",
-  "generationRetake": "ಮತ್ತೆ ಫೋಟೋ ತೆಗೆ"
+  "generationRetake": "ಮತ್ತೆ ಫೋಟೋ ತೆಗೆ",
+  "generationWaitingTitle": "ಇನ್ನೂ ಸ್ವಲ್ಪ ಕಾಯು"
 }

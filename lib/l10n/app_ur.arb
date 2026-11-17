@@ -102,5 +102,6 @@
   "generationAlreadyInDexTitle": "پہلے سے ڈیکس میں ہے",
   "generationAlreadyInDexMessage": "یہ چیز {monsterName} کے نام سے ڈیکس میں پہلے ہی موجود ہے\nتم اس مونسٹر کے ساتھ لڑ سکتے ہو",
   "generationBattleWithThisMonster": "اس مونسٹر کے ساتھ لڑو",
-  "generationRetake": "دوبارہ تصویر کھینچو"
+  "generationRetake": "دوبارہ تصویر کھینچو",
+  "generationWaitingTitle": "ذرا اور انتظار کرو"
 }
