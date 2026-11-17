@@ -284,5 +284,6 @@
   "actionCardPurchaseArrivedTitle": "Kamu mendapatkan jurus {moveName}!",
   "actionCardPurchaseUnassignedTitle": "Gagal menerima jurus",
   "actionCardPurchaseUnassignedBody": "Harga jurus berubah saat pembelian, atau kamu sudah punya jurus itu\nPilih lagi jurus dari «Action Card yang belum diterima»",
-  "actionCardUnassignedHeading": "Action Card yang belum diklaim"
+  "actionCardUnassignedHeading": "Action Card yang belum diklaim",
+  "actionCardUnassignedChooseMove": "Pilih jurus"
 }

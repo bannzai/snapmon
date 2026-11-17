@@ -284,5 +284,6 @@
   "actionCardPurchaseArrivedTitle": "तुला {moveName} ही चाल मिळाली!",
   "actionCardPurchaseUnassignedTitle": "चाल मिळाली नाही",
   "actionCardPurchaseUnassignedBody": "खरेदी करताना चालीची किंमत बदलली किंवा ती चाल तुझ्याकडे आधीपासून आहे\n«न मिळालेल्या Action Card» मधून पुन्हा चाल निवड",
-  "actionCardUnassignedHeading": "अजून न घेतलेले Action Card"
+  "actionCardUnassignedHeading": "अजून न घेतलेले Action Card",
+  "actionCardUnassignedChooseMove": "चाल निवड"
 }

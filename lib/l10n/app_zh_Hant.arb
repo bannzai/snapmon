@@ -284,5 +284,6 @@
   "actionCardPurchaseArrivedTitle": "獲得招式{moveName}！",
   "actionCardPurchaseUnassignedTitle": "無法收到招式",
   "actionCardPurchaseUnassignedBody": "購買期間招式價格變了，或是你已經擁有該招式\n請從「尚未領取的 Action Card」重新選擇招式",
-  "actionCardUnassignedHeading": "尚未領取的 Action Card"
+  "actionCardUnassignedHeading": "尚未領取的 Action Card",
+  "actionCardUnassignedChooseMove": "選擇招式"
 }

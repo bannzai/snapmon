@@ -284,5 +284,6 @@
   "actionCardPurchaseArrivedTitle": "Ти отримав прийом {moveName}!",
   "actionCardPurchaseUnassignedTitle": "Не вдалося отримати прийом",
   "actionCardPurchaseUnassignedBody": "Ціна прийому змінилася під час покупки або цей прийом у тебе вже є\nЗнову вибери прийом у розділі «Неотримані Action Card»",
-  "actionCardUnassignedHeading": "Неотримані Action Card"
+  "actionCardUnassignedHeading": "Неотримані Action Card",
+  "actionCardUnassignedChooseMove": "Обери прийом"
 }

@@ -284,5 +284,6 @@
   "actionCardPurchaseArrivedTitle": "Bạn đã nhận được chiêu {moveName}!",
   "actionCardPurchaseUnassignedTitle": "Không nhận được chiêu",
   "actionCardPurchaseUnassignedBody": "Giá chiêu đã đổi lúc mua, hoặc bạn đã có chiêu đó rồi\nChọn lại chiêu trong «Action Card chưa nhận»",
-  "actionCardUnassignedHeading": "Action Card chưa nhận"
+  "actionCardUnassignedHeading": "Action Card chưa nhận",
+  "actionCardUnassignedChooseMove": "Chọn chiêu"
 }

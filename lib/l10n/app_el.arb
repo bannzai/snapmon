@@ -284,5 +284,6 @@
   "actionCardPurchaseArrivedTitle": "Απέκτησες την κίνηση {moveName}!",
   "actionCardPurchaseUnassignedTitle": "Δεν ήταν δυνατή η λήψη της τεχνικής",
   "actionCardPurchaseUnassignedBody": "Η τιμή της τεχνικής άλλαξε όσο αγόραζες ή έχεις ήδη αυτή την τεχνική\nΔιάλεξε ξανά τεχνική από τις «Action Card που δεν παρέλαβες»",
-  "actionCardUnassignedHeading": "Action Card που δεν έχεις παραλάβει"
+  "actionCardUnassignedHeading": "Action Card που δεν έχεις παραλάβει",
+  "actionCardUnassignedChooseMove": "Διάλεξε τεχνική"
 }

@@ -284,5 +284,6 @@
   "actionCardPurchaseArrivedTitle": "ನಿನಗೆ {moveName} ದಾಳಿ ಸಿಕ್ಕಿತು!",
   "actionCardPurchaseUnassignedTitle": "ತಂತ್ರವನ್ನು ಪಡೆಯಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ",
   "actionCardPurchaseUnassignedBody": "ಖರೀದಿಸುವಾಗ ತಂತ್ರದ ಬೆಲೆ ಬದಲಾಗಿದೆ, ಅಥವಾ ಆ ತಂತ್ರ ನಿನ್ನ ಬಳಿ ಈಗಾಗಲೇ ಇದೆ\n«ಸ್ವೀಕರಿಸದ Action Card»ನಿಂದ ಮತ್ತೆ ತಂತ್ರ ಆಯ್ಕೆ ಮಾಡು",
-  "actionCardUnassignedHeading": "ಇನ್ನೂ ಪಡೆಯದ Action Card"
+  "actionCardUnassignedHeading": "ಇನ್ನೂ ಪಡೆಯದ Action Card",
+  "actionCardUnassignedChooseMove": "ತಂತ್ರ ಆಯ್ಕೆ ಮಾಡು"
 }

@@ -284,5 +284,6 @@
   "actionCardPurchaseArrivedTitle": "Dobil si potezo {moveName}!",
   "actionCardPurchaseUnassignedTitle": "Poteza ni bilo mogoče prejeti",
   "actionCardPurchaseUnassignedBody": "Cena poteza se je med nakupom spremenila ali pa ta potez že imaš\nZnova izberi potez med »Neprejetimi Action Card«",
-  "actionCardUnassignedHeading": "Neprevzete Action Card"
+  "actionCardUnassignedHeading": "Neprevzete Action Card",
+  "actionCardUnassignedChooseMove": "Izberi potez"
 }

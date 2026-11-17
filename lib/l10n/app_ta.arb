@@ -284,5 +284,6 @@
   "actionCardPurchaseArrivedTitle": "உங்களுக்கு {moveName} என்ற தாக்குதல் கிடைத்தது!",
   "actionCardPurchaseUnassignedTitle": "தாக்குதலைப் பெற முடியவில்லை",
   "actionCardPurchaseUnassignedBody": "வாங்கும்போது தாக்குதலின் விலை மாறியிருக்கலாம் அல்லது அந்தத் தாக்குதல் உங்களிடம் ஏற்கெனவே இருக்கலாம்\n«பெறப்படாத Action Card» இலிருந்து மீண்டும் ஒரு தாக்குதலைத் தேர்ந்தெடுங்கள்",
-  "actionCardUnassignedHeading": "இன்னும் பெறாத Action Card"
+  "actionCardUnassignedHeading": "இன்னும் பெறாத Action Card",
+  "actionCardUnassignedChooseMove": "தாக்குதலைத் தேர்ந்தெடுங்கள்"
 }

@@ -284,5 +284,6 @@
   "actionCardPurchaseArrivedTitle": "Sait liikkeen {moveName}!",
   "actionCardPurchaseUnassignedTitle": "Et saanut liikettä",
   "actionCardPurchaseUnassignedBody": "Liikkeen hinta muuttui oston aikana tai sinulla on jo se liike\nValitse liike uudelleen kohdasta ”Vastaanottamattomat Action Card”",
-  "actionCardUnassignedHeading": "Lunastamattomat Action Card"
+  "actionCardUnassignedHeading": "Lunastamattomat Action Card",
+  "actionCardUnassignedChooseMove": "Valitse liike"
 }

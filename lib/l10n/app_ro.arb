@@ -284,5 +284,6 @@
   "actionCardPurchaseArrivedTitle": "Ai obținut mișcarea {moveName}!",
   "actionCardPurchaseUnassignedTitle": "Nu s-a putut primi mișcarea",
   "actionCardPurchaseUnassignedBody": "Prețul mișcării s-a schimbat în timpul cumpărării sau ai deja acea mișcare\nAlege din nou o mișcare din „Action Card neprimite”",
-  "actionCardUnassignedHeading": "Action Card nerevendicate"
+  "actionCardUnassignedHeading": "Action Card nerevendicate",
+  "actionCardUnassignedChooseMove": "Alege o mișcare"
 }

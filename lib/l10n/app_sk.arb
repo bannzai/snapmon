@@ -284,5 +284,6 @@
   "actionCardPurchaseArrivedTitle": "Získavaš útok {moveName}!",
   "actionCardPurchaseUnassignedTitle": "Nepodarilo sa získať útok",
   "actionCardPurchaseUnassignedBody": "Cena útoku sa počas nákupu zmenila alebo už tento útok máš\nZnova si vyber útok v «Neprijaté Action Card»",
-  "actionCardUnassignedHeading": "Nevyzdvihnuté Action Card"
+  "actionCardUnassignedHeading": "Nevyzdvihnuté Action Card",
+  "actionCardUnassignedChooseMove": "Vyber útok"
 }

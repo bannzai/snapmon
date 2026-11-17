@@ -284,5 +284,6 @@
   "actionCardPurchaseArrivedTitle": "તમને {moveName} ચાલ મળી!",
   "actionCardPurchaseUnassignedTitle": "ચાલ મળી શકી નહીં",
   "actionCardPurchaseUnassignedBody": "ખરીદી દરમિયાન ચાલની કિંમત બદલાઈ ગઈ, અથવા એ ચાલ તમારી પાસે પહેલેથી છે\n«ન મળેલા Action Card»માંથી ફરી ચાલ પસંદ કરો",
-  "actionCardUnassignedHeading": "હજુ ન મેળવેલાં Action Card"
+  "actionCardUnassignedHeading": "હજુ ન મેળવેલાં Action Card",
+  "actionCardUnassignedChooseMove": "ચાલ પસંદ કરો"
 }

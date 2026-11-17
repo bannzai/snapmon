@@ -284,5 +284,6 @@
   "actionCardPurchaseArrivedTitle": "Je hebt de aanval {moveName} gekregen!",
   "actionCardPurchaseUnassignedTitle": "Kon de aanval niet ontvangen",
   "actionCardPurchaseUnassignedBody": "De prijs van de aanval veranderde tijdens de aankoop, of je hebt die aanval al\nKies opnieuw een aanval bij ‘Niet ontvangen Action Card’",
-  "actionCardUnassignedHeading": "Niet opgehaalde Action Card"
+  "actionCardUnassignedHeading": "Niet opgehaalde Action Card",
+  "actionCardUnassignedChooseMove": "Kies een aanval"
 }

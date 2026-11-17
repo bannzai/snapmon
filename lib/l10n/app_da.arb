@@ -284,5 +284,6 @@
   "actionCardPurchaseArrivedTitle": "Du har fået {moveName}!",
   "actionCardPurchaseUnassignedTitle": "Kunne ikke modtage angrebet",
   "actionCardPurchaseUnassignedBody": "Prisen på angrebet ændrede sig under købet, eller du har det allerede\nVælg et angreb igen under «Action Card, du ikke har modtaget»",
-  "actionCardUnassignedHeading": "Action Card, du ikke har hentet"
+  "actionCardUnassignedHeading": "Action Card, du ikke har hentet",
+  "actionCardUnassignedChooseMove": "Vælg et angreb"
 }
