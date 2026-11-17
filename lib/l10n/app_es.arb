@@ -212,5 +212,6 @@
   "battleRecording": "Guardando el resultado",
   "battleRecorded": "Registrado",
   "battleNotRecorded": "El combate no se guardó porque no has iniciado sesión",
-  "battleFirstHint": "Elige un movimiento y el más rápido actuará primero. Cuanto mejor encaje el elemento, mayor será su eficacia"
+  "battleFirstHint": "Elige un movimiento y el más rápido actuará primero. Cuanto mejor encaje el elemento, mayor será su eficacia",
+  "battleChooseMove": "Elige un movimiento para {monsterName}"
 }

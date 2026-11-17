@@ -212,5 +212,6 @@
   "battleRecording": "Ergebnis wird gespeichert",
   "battleRecorded": "Aufgezeichnet",
   "battleNotRecorded": "Der Kampf wurde nicht gespeichert, weil du nicht angemeldet bist",
-  "battleFirstHint": "Wähl eine Attacke, dann ist der Schnellere zuerst dran. Je besser das Element passt, desto höher die Effektivität"
+  "battleFirstHint": "Wähl eine Attacke, dann ist der Schnellere zuerst dran. Je besser das Element passt, desto höher die Effektivität",
+  "battleChooseMove": "Wähle eine Attacke für {monsterName}"
 }

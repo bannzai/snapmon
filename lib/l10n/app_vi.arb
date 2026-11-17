@@ -212,5 +212,6 @@
   "battleRecording": "Đang lưu kết quả",
   "battleRecorded": "Đã ghi lại",
   "battleNotRecorded": "Trận đấu không được lưu vì bạn chưa đăng nhập",
-  "battleFirstHint": "Chọn chiêu, bên nhanh hơn sẽ ra đòn trước. Hệ càng tương khắc có lợi, hiệu quả càng cao"
+  "battleFirstHint": "Chọn chiêu, bên nhanh hơn sẽ ra đòn trước. Hệ càng tương khắc có lợi, hiệu quả càng cao",
+  "battleChooseMove": "Chọn chiêu cho {monsterName}"
 }

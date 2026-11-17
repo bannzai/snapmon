@@ -212,5 +212,6 @@
   "battleRecording": "A guardar o resultado",
   "battleRecorded": "Registado",
   "battleNotRecorded": "O combate não foi guardado porque não iniciaste sessão",
-  "battleFirstHint": "Escolhe um golpe: o mais rápido age primeiro. Quanto melhor combinar o elemento, maior a eficácia"
+  "battleFirstHint": "Escolhe um golpe: o mais rápido age primeiro. Quanto melhor combinar o elemento, maior a eficácia",
+  "battleChooseMove": "Escolhe um golpe para {monsterName}"
 }

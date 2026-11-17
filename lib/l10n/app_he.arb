@@ -212,5 +212,6 @@
   "battleRecording": "התוצאה נשמרת",
   "battleRecorded": "נרשם",
   "battleNotRecorded": "הקרב לא נשמר כי אין חיבור לחשבון",
-  "battleFirstHint": "לבחור מתקפה: המהיר פועל ראשון. ככל שהסוג מתאים יותר, כך היעילות גבוהה יותר"
+  "battleFirstHint": "לבחור מתקפה: המהיר פועל ראשון. ככל שהסוג מתאים יותר, כך היעילות גבוהה יותר",
+  "battleChooseMove": "לבחור מתקפה עבור {monsterName}"
 }

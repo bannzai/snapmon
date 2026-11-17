@@ -212,5 +212,6 @@
   "battleRecording": "Ukládá se výsledek",
   "battleRecorded": "Zaznamenáno",
   "battleNotRecorded": "Souboj se neuložil, protože nejsi přihlášený",
-  "battleFirstHint": "Vyber útok a rychlejší jedná první. Čím výhodnější element, tím vyšší účinnost"
+  "battleFirstHint": "Vyber útok a rychlejší jedná první. Čím výhodnější element, tím vyšší účinnost",
+  "battleChooseMove": "Vyber útok pro {monsterName}"
 }

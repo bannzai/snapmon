@@ -212,5 +212,6 @@
   "battleRecording": "Resultaat opslaan",
   "battleRecorded": "Vastgelegd",
   "battleNotRecorded": "Het gevecht is niet opgeslagen omdat je niet bent ingelogd",
-  "battleFirstHint": "Kies een aanval: de snelste is eerst aan de beurt. Hoe beter het type past, hoe hoger de effectiviteit"
+  "battleFirstHint": "Kies een aanval: de snelste is eerst aan de beurt. Hoe beter het type past, hoe hoger de effectiviteit",
+  "battleChooseMove": "Kies een aanval voor {monsterName}"
 }

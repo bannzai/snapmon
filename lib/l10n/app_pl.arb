@@ -212,5 +212,6 @@
   "battleRecording": "Zapisywanie wyniku",
   "battleRecorded": "Zapisano",
   "battleNotRecorded": "Walka nie została zapisana, bo nie jesteś zalogowany",
-  "battleFirstHint": "Wybierz ruch, a szybszy zadziała pierwszy. Im lepiej pasuje typ, tym większa skuteczność"
+  "battleFirstHint": "Wybierz ruch, a szybszy zadziała pierwszy. Im lepiej pasuje typ, tym większa skuteczność",
+  "battleChooseMove": "Wybierz ruch dla {monsterName}"
 }

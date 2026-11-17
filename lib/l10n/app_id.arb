@@ -212,5 +212,6 @@
   "battleRecording": "Menyimpan hasil",
   "battleRecorded": "Tercatat",
   "battleNotRecorded": "Pertarungan tidak tersimpan karena kamu belum masuk",
-  "battleFirstHint": "Pilih jurus, lalu yang lebih cepat bergerak dulu. Makin cocok elemennya, makin tinggi efektivitasnya"
+  "battleFirstHint": "Pilih jurus, lalu yang lebih cepat bergerak dulu. Makin cocok elemennya, makin tinggi efektivitasnya",
+  "battleChooseMove": "Pilih jurus untuk {monsterName}"
 }

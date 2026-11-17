@@ -212,5 +212,6 @@
   "battleRecording": "Spremanje rezultata",
   "battleRecorded": "Zabilježeno",
   "battleNotRecorded": "Borba nije spremljena jer nisi prijavljen",
-  "battleFirstHint": "Odaberi potez i brži djeluje prvi. Što element bolje odgovara, to je veća učinkovitost"
+  "battleFirstHint": "Odaberi potez i brži djeluje prvi. Što element bolje odgovara, to je veća učinkovitost",
+  "battleChooseMove": "Odaberi potez za {monsterName}"
 }

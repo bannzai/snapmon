@@ -212,5 +212,6 @@
   "battleRecording": "Tallennetaan tulosta",
   "battleRecorded": "Tallennettu",
   "battleNotRecorded": "Taistelua ei tallennettu, koska et ole kirjautunut sisään",
-  "battleFirstHint": "Valitse liike, niin nopeampi toimii ensin. Mitä paremmin elementti sopii, sitä suurempi tehokkuus"
+  "battleFirstHint": "Valitse liike, niin nopeampi toimii ensin. Mitä paremmin elementti sopii, sitä suurempi tehokkuus",
+  "battleChooseMove": "Valitse liike hahmolle {monsterName}"
 }
