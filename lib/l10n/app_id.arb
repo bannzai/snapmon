@@ -26,5 +26,6 @@
   "blockDialogTitle": "blokir",
   "blockDialogMessage": "Kamu dan {displayName} tidak akan lagi bertemu sebagai lawan",
   "blockDialogConfirm": "blokir",
-  "opponentSafetyMenuTooltip": "lapor · blokir"
+  "opponentSafetyMenuTooltip": "lapor · blokir",
+  "opponentBlockTrainer": "Blokir pelatih ini"
 }

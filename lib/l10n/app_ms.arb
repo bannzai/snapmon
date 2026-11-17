@@ -26,5 +26,6 @@
   "blockDialogTitle": "sekat",
   "blockDialogMessage": "Kamu dan {displayName} takkan lagi bertemu sebagai lawan",
   "blockDialogConfirm": "sekat",
-  "opponentSafetyMenuTooltip": "lapor · sekat"
+  "opponentSafetyMenuTooltip": "lapor · sekat",
+  "opponentBlockTrainer": "Sekat jurulatih ini"
 }

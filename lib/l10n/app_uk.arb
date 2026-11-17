@@ -26,5 +26,6 @@
   "blockDialogTitle": "блокування",
   "blockDialogMessage": "Ти й {displayName} більше не випадатимете одне одному як суперники",
   "blockDialogConfirm": "блокувати",
-  "opponentSafetyMenuTooltip": "скарга · блокування"
+  "opponentSafetyMenuTooltip": "скарга · блокування",
+  "opponentBlockTrainer": "Заблокувати цього тренера"
 }

@@ -26,5 +26,6 @@
   "blockDialogTitle": "blocare",
   "blockDialogMessage": "Tu și {displayName} nu veți mai fi potriviți ca adversari",
   "blockDialogConfirm": "blochează",
-  "opponentSafetyMenuTooltip": "raportează · blochează"
+  "opponentSafetyMenuTooltip": "raportează · blochează",
+  "opponentBlockTrainer": "Blochează acest antrenor"
 }

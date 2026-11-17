@@ -26,5 +26,6 @@
   "blockDialogTitle": "esto",
   "blockDialogMessage": "Sinua ja pelaajaa {displayName} ei enää aseteta vastakkain",
   "blockDialogConfirm": "estä",
-  "opponentSafetyMenuTooltip": "ilmoita · estä"
+  "opponentSafetyMenuTooltip": "ilmoita · estä",
+  "opponentBlockTrainer": "Estä tämä kouluttaja"
 }

@@ -26,5 +26,6 @@
   "blockDialogTitle": "blockieren",
   "blockDialogMessage": "Du und {displayName} werdet nicht mehr gegeneinander als Gegner ausgelost",
   "blockDialogConfirm": "blockieren",
-  "opponentSafetyMenuTooltip": "melden · blockieren"
+  "opponentSafetyMenuTooltip": "melden · blockieren",
+  "opponentBlockTrainer": "Diesen Trainer blockieren"
 }

@@ -26,5 +26,6 @@
   "blockDialogTitle": "blokkeren",
   "blockDialogMessage": "Je wordt niet meer aan {displayName} gekoppeld als tegenstander, en andersom",
   "blockDialogConfirm": "blokkeren",
-  "opponentSafetyMenuTooltip": "melden · blokkeren"
+  "opponentSafetyMenuTooltip": "melden · blokkeren",
+  "opponentBlockTrainer": "Blokkeer deze trainer"
 }

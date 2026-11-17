@@ -26,5 +26,6 @@
   "blockDialogTitle": "bloqueig",
   "blockDialogMessage": "Tu i {displayName} ja no us trobareu com a rivals",
   "blockDialogConfirm": "bloquejar",
-  "opponentSafetyMenuTooltip": "denunciar · bloquejar"
+  "opponentSafetyMenuTooltip": "denunciar · bloquejar",
+  "opponentBlockTrainer": "Bloqueja aquest entrenador"
 }

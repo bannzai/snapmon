@@ -26,5 +26,6 @@
   "blockDialogTitle": "blokkering",
   "blockDialogMessage": "Du og {displayName} blir ikke lenger satt opp mot hverandre",
   "blockDialogConfirm": "blokker",
-  "opponentSafetyMenuTooltip": "rapporter · blokker"
+  "opponentSafetyMenuTooltip": "rapporter · blokker",
+  "opponentBlockTrainer": "Blokker denne treneren"
 }

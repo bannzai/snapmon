@@ -26,5 +26,6 @@
   "blockDialogTitle": "chặn",
   "blockDialogMessage": "Bạn và {displayName} sẽ không còn được ghép đấu với nhau",
   "blockDialogConfirm": "chặn",
-  "opponentSafetyMenuTooltip": "báo cáo · chặn"
+  "opponentSafetyMenuTooltip": "báo cáo · chặn",
+  "opponentBlockTrainer": "Chặn nhà huấn luyện này"
 }

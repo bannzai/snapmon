@@ -26,5 +26,6 @@
   "blockDialogTitle": "blokovanie",
   "blockDialogMessage": "Ty a {displayName} už nebudete priradení do súboja proti sebe",
   "blockDialogConfirm": "blokovať",
-  "opponentSafetyMenuTooltip": "nahlásiť · blokovať"
+  "opponentSafetyMenuTooltip": "nahlásiť · blokovať",
+  "opponentBlockTrainer": "Zablokuj tohto trénera"
 }

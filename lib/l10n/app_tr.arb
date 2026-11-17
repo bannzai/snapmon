@@ -26,5 +26,6 @@
   "blockDialogTitle": "engelle",
   "blockDialogMessage": "Sen ve {displayName} artık birbirinize rakip olarak eşleşmeyeceksiniz",
   "blockDialogConfirm": "engelle",
-  "opponentSafetyMenuTooltip": "bildir · engelle"
+  "opponentSafetyMenuTooltip": "bildir · engelle",
+  "opponentBlockTrainer": "Bu eğitmeni engelle"
 }

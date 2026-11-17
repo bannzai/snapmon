@@ -26,5 +26,6 @@
   "blockDialogTitle": "بلاک",
   "blockDialogMessage": "تم اور {displayName} اب ایک دوسرے کے مقابلے میں حریف نہیں بنو گے",
   "blockDialogConfirm": "بلاک کرو",
-  "opponentSafetyMenuTooltip": "رپورٹ · بلاک"
+  "opponentSafetyMenuTooltip": "رپورٹ · بلاک",
+  "opponentBlockTrainer": "اس ٹرینر کو بلاک کرو"
 }

@@ -26,5 +26,6 @@
   "blockDialogTitle": "屏蔽",
   "blockDialogMessage": "你和{displayName}将不会再匹配为对战对手",
   "blockDialogConfirm": "屏蔽",
-  "opponentSafetyMenuTooltip": "举报 · 屏蔽"
+  "opponentSafetyMenuTooltip": "举报 · 屏蔽",
+  "opponentBlockTrainer": "屏蔽这位训练家"
 }

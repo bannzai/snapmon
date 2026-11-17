@@ -26,5 +26,6 @@
   "blockDialogTitle": "letiltás",
   "blockDialogMessage": "Te és {displayName} többé nem kerültök egymással szembe",
   "blockDialogConfirm": "letiltás",
-  "opponentSafetyMenuTooltip": "jelentés · letiltás"
+  "opponentSafetyMenuTooltip": "jelentés · letiltás",
+  "opponentBlockTrainer": "Tiltsd le ezt az edzőt"
 }

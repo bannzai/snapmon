@@ -26,5 +26,6 @@
   "blockDialogTitle": "ब्लॉक",
   "blockDialogMessage": "तू आणि {displayName} आता एकमेकांचे प्रतिस्पर्धी म्हणून समोर येणार नाही",
   "blockDialogConfirm": "ब्लॉक कर",
-  "opponentSafetyMenuTooltip": "रिपोर्ट · ब्लॉक"
+  "opponentSafetyMenuTooltip": "रिपोर्ट · ब्लॉक",
+  "opponentBlockTrainer": "या ट्रेनरला ब्लॉक कर"
 }

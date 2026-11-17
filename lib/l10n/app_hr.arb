@@ -26,5 +26,6 @@
   "blockDialogTitle": "blokiranje",
   "blockDialogMessage": "Ti i {displayName} više nećete biti spojeni kao protivnici",
   "blockDialogConfirm": "blokiraj",
-  "opponentSafetyMenuTooltip": "prijavi · blokiraj"
+  "opponentSafetyMenuTooltip": "prijavi · blokiraj",
+  "opponentBlockTrainer": "Blokiraj ovog trenera"
 }

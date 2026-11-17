@@ -26,5 +26,6 @@
   "blockDialogTitle": "חסימה",
   "blockDialogMessage": "לא תהיה עוד התאמה לקרב בינך לבין {displayName}",
   "blockDialogConfirm": "חסימה",
-  "opponentSafetyMenuTooltip": "דיווח · חסימה"
+  "opponentSafetyMenuTooltip": "דיווח · חסימה",
+  "opponentBlockTrainer": "חסימת המאמן הזה"
 }

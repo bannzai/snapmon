@@ -26,5 +26,6 @@
   "blockDialogTitle": "ব্লক",
   "blockDialogMessage": "তুমি আর {displayName} একে অপরের প্রতিপক্ষ হিসেবে আসবে না",
   "blockDialogConfirm": "ব্লক করো",
-  "opponentSafetyMenuTooltip": "রিপোর্ট · ব্লক"
+  "opponentSafetyMenuTooltip": "রিপোর্ট · ব্লক",
+  "opponentBlockTrainer": "এই ট্রেনারকে ব্লক করো"
 }

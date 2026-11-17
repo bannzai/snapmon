@@ -26,5 +26,6 @@
   "blockDialogTitle": "தடு",
   "blockDialogMessage": "நீங்களும் {displayName}வும் இனி ஒருவருக்கொருவர் எதிராளியாக வரமாட்டீர்கள்",
   "blockDialogConfirm": "தடுங்கள்",
-  "opponentSafetyMenuTooltip": "புகார் · தடு"
+  "opponentSafetyMenuTooltip": "புகார் · தடு",
+  "opponentBlockTrainer": "இந்தப் பயிற்சியாளரைத் தடு"
 }

@@ -26,5 +26,6 @@
   "blockDialogTitle": "บล็อก",
   "blockDialogMessage": "คุณกับ {displayName} จะไม่เจอกันในฐานะคู่ต่อสู้อีก",
   "blockDialogConfirm": "บล็อก",
-  "opponentSafetyMenuTooltip": "รายงาน · บล็อก"
+  "opponentSafetyMenuTooltip": "รายงาน · บล็อก",
+  "opponentBlockTrainer": "บล็อกเทรนเนอร์คนนี้"
 }
