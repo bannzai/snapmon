@@ -59,5 +59,6 @@
   "settingsAccountSection": "Обліковий запис",
   "settingsAboutAccountDeletion": "Про видалення облікового запису",
   "settingsTransferData": "Перенести дані",
-  "settingsTransferDataDescription": "Увійди через {providerName}\nі збережи енциклопедію після зміни телефона"
+  "settingsTransferDataDescription": "Увійди через {providerName}\nі збережи енциклопедію після зміни телефона",
+  "settingsLinkedWith": "Акаунт прив’язано через {providerNames}"
 }

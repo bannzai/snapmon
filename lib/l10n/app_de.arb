@@ -59,5 +59,6 @@
   "settingsAccountSection": "Konto",
   "settingsAboutAccountDeletion": "Über die Kontolöschung",
   "settingsTransferData": "Daten übertragen",
-  "settingsTransferDataDescription": "Melde dich mit {providerName} an\nund behalte deinen Dex beim Gerätewechsel"
+  "settingsTransferDataDescription": "Melde dich mit {providerName} an\nund behalte deinen Dex beim Gerätewechsel",
+  "settingsLinkedWith": "Konto mit {providerNames} verknüpft"
 }

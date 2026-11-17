@@ -59,5 +59,6 @@
   "settingsAccountSection": "Akun",
   "settingsAboutAccountDeletion": "Tentang penghapusan akun",
   "settingsTransferData": "Pindahkan data",
-  "settingsTransferDataDescription": "Masuk dengan {providerName}\nagar dex-mu tetap ada saat ganti perangkat"
+  "settingsTransferDataDescription": "Masuk dengan {providerName}\nagar dex-mu tetap ada saat ganti perangkat",
+  "settingsLinkedWith": "Akun tertaut dengan {providerNames}"
 }

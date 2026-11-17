@@ -59,5 +59,6 @@
   "settingsAccountSection": "Conta",
   "settingsAboutAccountDeletion": "Sobre a exclusão da conta",
   "settingsTransferData": "Transferir dados",
-  "settingsTransferDataDescription": "Entre com {providerName}\ne mantenha seu dex ao trocar de celular"
+  "settingsTransferDataDescription": "Entre com {providerName}\ne mantenha seu dex ao trocar de celular",
+  "settingsLinkedWith": "Conta vinculada com {providerNames}"
 }

@@ -59,5 +59,6 @@
   "settingsAccountSection": "Účet",
   "settingsAboutAccountDeletion": "O smazání účtu",
   "settingsTransferData": "Přenést data",
-  "settingsTransferDataDescription": "Přihlas se přes {providerName}\na uchovej si encyklopedii i při změně telefonu"
+  "settingsTransferDataDescription": "Přihlas se přes {providerName}\na uchovej si encyklopedii i při změně telefonu",
+  "settingsLinkedWith": "Účet propojen přes {providerNames}"
 }

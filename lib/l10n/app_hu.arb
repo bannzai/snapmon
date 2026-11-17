@@ -59,5 +59,6 @@
   "settingsAccountSection": "Fiók",
   "settingsAboutAccountDeletion": "A fiók törléséről",
   "settingsTransferData": "Adatok átvitele",
-  "settingsTransferDataDescription": "Jelentkezz be a {providerName} segítségével,\nhogy telefoncsere után is megmaradjon a gyűjteményed"
+  "settingsTransferDataDescription": "Jelentkezz be a {providerName} segítségével,\nhogy telefoncsere után is megmaradjon a gyűjteményed",
+  "settingsLinkedWith": "A fiók összekapcsolva ezzel: {providerNames}"
 }

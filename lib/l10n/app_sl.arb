@@ -59,5 +59,6 @@
   "settingsAccountSection": "Račun",
   "settingsAboutAccountDeletion": "O izbrisu računa",
   "settingsTransferData": "Prenesi podatke",
-  "settingsTransferDataDescription": "Prijavi se z {providerName}\nin obdrži enciklopedijo, ko zamenjaš telefon"
+  "settingsTransferDataDescription": "Prijavi se z {providerName}\nin obdrži enciklopedijo, ko zamenjaš telefon",
+  "settingsLinkedWith": "Račun povezan prek {providerNames}"
 }

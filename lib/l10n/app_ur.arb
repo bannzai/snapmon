@@ -59,5 +59,6 @@
   "settingsAccountSection": "اکاؤنٹ",
   "settingsAboutAccountDeletion": "اکاؤنٹ حذف کرنے کے بارے میں",
   "settingsTransferData": "ڈیٹا منتقل کرو",
-  "settingsTransferDataDescription": "{providerName} سے سائن اِن کرو\nفون بدلنے پر بھی اپنا ڈیکس محفوظ رکھو"
+  "settingsTransferDataDescription": "{providerName} سے سائن اِن کرو\nفون بدلنے پر بھی اپنا ڈیکس محفوظ رکھو",
+  "settingsLinkedWith": "اکاؤنٹ {providerNames} سے منسلک ہے"
 }

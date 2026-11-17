@@ -59,5 +59,6 @@
   "settingsAccountSection": "ఖాతా",
   "settingsAboutAccountDeletion": "ఖాతా తొలగింపు గురించి",
   "settingsTransferData": "డేటాను బదిలీ చేయి",
-  "settingsTransferDataDescription": "{providerName}తో సైన్ ఇన్ అవ్వు\nఫోన్ మార్చినా నీ డెక్స్‌ను అలాగే ఉంచుకో"
+  "settingsTransferDataDescription": "{providerName}తో సైన్ ఇన్ అవ్వు\nఫోన్ మార్చినా నీ డెక్స్‌ను అలాగే ఉంచుకో",
+  "settingsLinkedWith": "{providerNames}తో ఖాతా లింక్ అయింది"
 }

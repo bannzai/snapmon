@@ -59,5 +59,6 @@
   "settingsAccountSection": "Аккаунт",
   "settingsAboutAccountDeletion": "Об удалении аккаунта",
   "settingsTransferData": "Перенести данные",
-  "settingsTransferDataDescription": "Войди через {providerName}\nи сохрани энциклопедию при смене телефона"
+  "settingsTransferDataDescription": "Войди через {providerName}\nи сохрани энциклопедию при смене телефона",
+  "settingsLinkedWith": "Аккаунт привязан через {providerNames}"
 }
