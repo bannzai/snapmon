@@ -250,5 +250,6 @@
   "moveDetailNoSpecialEffect": "ไม่มี",
   "moveDetailFormula": "ตัวคูณพลัง (%)",
   "moveDetailFormulaNote": "ที่ 100 ตัวคูณคือ ×1\nพลัง × ตัวคูณ ÷ 100 (ตัดทศนิยมทิ้ง) นำไปใช้คำนวณความเสียหาย",
-  "moveDetailSelfStatFormula": "ค่าที่เพิ่มให้ตัวคูณ {statName} ของตัวเอง (%)"
+  "moveDetailSelfStatFormula": "ค่าที่เพิ่มให้ตัวคูณ {statName} ของตัวเอง (%)",
+  "moveDetailOpponentStatFormula": "ค่าที่บวกเพิ่มให้ตัวคูณ {statName} ของคู่ต่อสู้ (%)"
 }

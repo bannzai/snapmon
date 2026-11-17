@@ -250,5 +250,6 @@
   "moveDetailNoSpecialEffect": "કોઈ નથી",
   "moveDetailFormula": "શક્તિનો ગુણક (%)",
   "moveDetailFormulaNote": "100 પર ગુણક ×1 છે\nશક્તિ × ગુણક ÷ 100 (દશાંશ ભાગ કાઢીને) નુકસાનની ગણતરીમાં વપરાય છે",
-  "moveDetailSelfStatFormula": "તમારા {statName}ના ગુણકમાં ઉમેરાતું મૂલ્ય (%)"
+  "moveDetailSelfStatFormula": "તમારા {statName}ના ગુણકમાં ઉમેરાતું મૂલ્ય (%)",
+  "moveDetailOpponentStatFormula": "હરીફના {statName} ગુણકમાં ઉમેરાતું મૂલ્ય (%)"
 }

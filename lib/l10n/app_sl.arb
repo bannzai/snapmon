@@ -250,5 +250,6 @@
   "moveDetailNoSpecialEffect": "Nobenega",
   "moveDetailFormula": "Množilnik moči (%)",
   "moveDetailFormulaNote": "Pri 100 je množilnik ×1\nMoč × množilnik ÷ 100 (brez decimalnega dela) se upošteva pri izračunu škode",
-  "moveDetailSelfStatFormula": "Vrednost, dodana tvojemu množilniku za {statName} (%)"
+  "moveDetailSelfStatFormula": "Vrednost, dodana tvojemu množilniku za {statName} (%)",
+  "moveDetailOpponentStatFormula": "Vrednost, dodana množilniku {statName} nasprotnika (%)"
 }

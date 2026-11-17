@@ -250,5 +250,6 @@
   "moveDetailNoSpecialEffect": "Niciunul",
   "moveDetailFormula": "Multiplicator de putere (%)",
   "moveDetailFormulaNote": "La 100, multiplicatorul este ×1\nPutere × multiplicator ÷ 100 (fără zecimale) intră în calculul daunelor",
-  "moveDetailSelfStatFormula": "Valoarea adăugată la multiplicatorul tău pentru {statName} (%)"
+  "moveDetailSelfStatFormula": "Valoarea adăugată la multiplicatorul tău pentru {statName} (%)",
+  "moveDetailOpponentStatFormula": "Valoare adăugată la multiplicatorul {statName} al adversarului (%)"
 }

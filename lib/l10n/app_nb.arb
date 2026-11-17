@@ -250,5 +250,6 @@
   "moveDetailNoSpecialEffect": "Ingen",
   "moveDetailFormula": "Styrkemultiplikator (%)",
   "moveDetailFormulaNote": "Ved 100 er multiplikatoren ×1\nStyrke × multiplikator ÷ 100 (avrundet ned) inngår i beregningen av skade",
-  "moveDetailSelfStatFormula": "Verdi lagt til din {statName}-multiplikator (%)"
+  "moveDetailSelfStatFormula": "Verdi lagt til din {statName}-multiplikator (%)",
+  "moveDetailOpponentStatFormula": "Verdi som legges til motstanderens {statName}-multiplikator (%)"
 }

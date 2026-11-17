@@ -250,5 +250,6 @@
   "moveDetailNoSpecialEffect": "Tidak ada",
   "moveDetailFormula": "Pengali kekuatan (%)",
   "moveDetailFormulaNote": "Pada 100, pengalinya ×1\nKekuatan × pengali ÷ 100 (desimal dibuang) masuk dalam perhitungan damage",
-  "moveDetailSelfStatFormula": "Nilai yang ditambahkan ke pengali {statName}-mu (%)"
+  "moveDetailSelfStatFormula": "Nilai yang ditambahkan ke pengali {statName}-mu (%)",
+  "moveDetailOpponentStatFormula": "Nilai yang ditambahkan ke pengali {statName} lawan (%)"
 }

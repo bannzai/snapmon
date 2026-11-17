@@ -250,5 +250,6 @@
   "moveDetailNoSpecialEffect": "کوئی نہیں",
   "moveDetailFormula": "طاقت کا ضربی عامل (%)",
   "moveDetailFormulaNote": "100 پر ضربی عدد ×1 ہوتا ہے\nطاقت × ضربی عدد ÷ 100 (اعشاری حصہ چھوڑ کر) نقصان کے حساب میں شامل ہوتا ہے",
-  "moveDetailSelfStatFormula": "تمہارے {statName} کے ضارب میں شامل ہونے والی قدر (%)"
+  "moveDetailSelfStatFormula": "تمہارے {statName} کے ضارب میں شامل ہونے والی قدر (%)",
+  "moveDetailOpponentStatFormula": "حریف کے {statName} کے ضارب میں شامل کی جانے والی قدر (%)"
 }

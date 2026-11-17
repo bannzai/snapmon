@@ -250,5 +250,6 @@
   "moveDetailNoSpecialEffect": "ఏదీ లేదు",
   "moveDetailFormula": "శక్తి గుణకం (%)",
   "moveDetailFormulaNote": "100 అయితే గుణకం ×1\nశక్తి × గుణకం ÷ 100 (దశాంశ భాగం తీసేసి) డ్యామేజ్ లెక్కలో చేరుతుంది",
-  "moveDetailSelfStatFormula": "నీ {statName} గుణకానికి జోడించే విలువ (%)"
+  "moveDetailSelfStatFormula": "నీ {statName} గుణకానికి జోడించే విలువ (%)",
+  "moveDetailOpponentStatFormula": "ప్రత్యర్థి {statName} గుణకానికి జోడించే విలువ (%)"
 }

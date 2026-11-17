@@ -250,5 +250,6 @@
   "moveDetailNoSpecialEffect": "Cap",
   "moveDetailFormula": "Multiplicador de potència (%)",
   "moveDetailFormulaNote": "Amb 100, el multiplicador és ×1\nLa potència × el multiplicador ÷ 100 (sense decimals) entra en el càlcul del dany",
-  "moveDetailSelfStatFormula": "Valor afegit al multiplicador de {statName} propi (%)"
+  "moveDetailSelfStatFormula": "Valor afegit al multiplicador de {statName} propi (%)",
+  "moveDetailOpponentStatFormula": "Valor afegit al multiplicador de {statName} del rival (%)"
 }

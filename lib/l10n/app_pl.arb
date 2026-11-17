@@ -250,5 +250,6 @@
   "moveDetailNoSpecialEffect": "Brak",
   "moveDetailFormula": "Mnożnik mocy (%)",
   "moveDetailFormulaNote": "Przy 100 mnożnik wynosi ×1\nMoc × mnożnik ÷ 100 (bez części dziesiętnej) wchodzi do obliczeń obrażeń",
-  "moveDetailSelfStatFormula": "Wartość dodawana do twojego mnożnika {statName} (%)"
+  "moveDetailSelfStatFormula": "Wartość dodawana do twojego mnożnika {statName} (%)",
+  "moveDetailOpponentStatFormula": "Wartość dodawana do mnożnika {statName} przeciwnika (%)"
 }
