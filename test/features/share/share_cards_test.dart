@@ -260,6 +260,10 @@ void main() {
         }
         await fontLoader.load();
       }
+      // 属性のアイコン (Material のアイコン)。読まないと、書き出す PNG のアイコンが四角になる
+      await (FontLoader(
+        'MaterialIcons',
+      )..addFont(rootBundle.load('fonts/MaterialIcons-Regular.otf'))).load();
     });
 
     /// 見本の定義の技のうち名前の長い 4 つ (長い順)。

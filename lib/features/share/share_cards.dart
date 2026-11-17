@@ -494,7 +494,7 @@ class _PartyMonsterPanel extends StatelessWidget {
       // 横に並べる時は絵の右に左寄せで、縦に並べる時は中央に置いた絵の下に中央で置く
       alignment: switch (direction) {
         Axis.horizontal => Alignment.centerLeft,
-        Axis.vertical => Alignment.center,
+        Axis.vertical => Alignment.topCenter,
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -586,11 +586,14 @@ class _PartyMonsterPanel extends StatelessWidget {
           Axis.vertical => Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              // 絵と文字の高さを枠の高さの決まった割合にする (文字の量で絵の大きさが変わると、並んだ枠の絵が揃わないため)。
+              // 技が 2 列 (文字は 4 行ほど) の時は絵に 2/3 を、1 列 (文字は 6 行ほど) の時は半分を使う
               Expanded(
+                flex: moveColumnCount == 1 ? 1 : 2,
                 child: Center(child: AspectRatio(aspectRatio: 1, child: art)),
               ),
               const SizedBox(height: 8),
-              info,
+              Expanded(child: info),
             ],
           ),
         },
