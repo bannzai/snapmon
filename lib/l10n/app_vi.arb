@@ -240,5 +240,6 @@
   "referenceTypeChartTab": "Bảng tương khắc",
   "referenceMovesTab": "Danh sách chiêu thức",
   "referenceTypeChartNote": "Hàng dọc là hệ của chiêu, hàng ngang là hệ của quái vật trúng chiêu\nNếu quái vật trúng chiêu có hai hệ, hãy nhân hai hệ số với nhau",
-  "referenceTypeChartCorner": "chiêu ／ phòng thủ"
+  "referenceTypeChartCorner": "chiêu ／ phòng thủ",
+  "referenceMoveStats": "Sức mạnh {power}  PP {powerPoints}  Từ Lv. {unlockLevel}"
 }

@@ -240,5 +240,6 @@
   "referenceTypeChartTab": "상성표",
   "referenceMovesTab": "기술 목록",
   "referenceTypeChartNote": "세로는 기술의 속성, 가로는 기술을 받는 몬스터의 속성이에요\n기술을 받는 몬스터의 속성이 두 개라면 배율을 서로 곱해요",
-  "referenceTypeChartCorner": "기술 ／ 방어"
+  "referenceTypeChartCorner": "기술 ／ 방어",
+  "referenceMoveStats": "위력 {power}  PP {powerPoints}  Lv. {unlockLevel}부터"
 }

@@ -240,5 +240,6 @@
   "referenceTypeChartTab": "Tabela učinkovitosti",
   "referenceMovesTab": "Seznam potez",
   "referenceTypeChartNote": "Navpično: element poteze. Vodoravno: element pošasti, ki jo prejme\nČe ima zadeta pošast dva elementa, pomnoži oba množilnika",
-  "referenceTypeChartCorner": "potez ／ obramba"
+  "referenceTypeChartCorner": "potez ／ obramba",
+  "referenceMoveStats": "Moč {power}  PP {powerPoints}  Od Lv. {unlockLevel}"
 }

@@ -240,5 +240,6 @@
   "referenceTypeChartTab": "Effektivitetstabell",
   "referenceMovesTab": "Lista över attacker",
   "referenceTypeChartNote": "Lodrätt: attackens element. Vågrätt: elementet hos monstret som träffas\nHar monstret som träffas två element, multiplicera de två faktorerna",
-  "referenceTypeChartCorner": "attack ／ försvar"
+  "referenceTypeChartCorner": "attack ／ försvar",
+  "referenceMoveStats": "Styrka {power}  PP {powerPoints}  Från Lv. {unlockLevel}"
 }

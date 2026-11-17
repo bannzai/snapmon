@@ -240,5 +240,6 @@
   "referenceTypeChartTab": "Tabla de eficacia",
   "referenceMovesTab": "Lista de movimientos",
   "referenceTypeChartNote": "Vertical: elemento del movimiento. Horizontal: elemento del monstruo que lo recibe\nSi el monstruo que lo recibe tiene dos elementos, multiplica los dos factores",
-  "referenceTypeChartCorner": "movimiento ／ defensa"
+  "referenceTypeChartCorner": "movimiento ／ defensa",
+  "referenceMoveStats": "Potencia {power}  PP {powerPoints}  Desde Lv. {unlockLevel}"
 }

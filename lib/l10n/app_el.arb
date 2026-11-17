@@ -240,5 +240,6 @@
   "referenceTypeChartTab": "Πίνακας αποτελεσματικότητας",
   "referenceMovesTab": "Λίστα τεχνικών",
   "referenceTypeChartNote": "Κάθετα: το στοιχείο της τεχνικής. Οριζόντια: το στοιχείο του τέρατος που τη δέχεται\nΑν το τέρας που δέχεται την επίθεση έχει δύο στοιχεία, πολλαπλασίασε τους δύο συντελεστές",
-  "referenceTypeChartCorner": "τεχνική ／ άμυνα"
+  "referenceTypeChartCorner": "τεχνική ／ άμυνα",
+  "referenceMoveStats": "Ισχύς {power}  PP {powerPoints}  Από Lv. {unlockLevel}"
 }

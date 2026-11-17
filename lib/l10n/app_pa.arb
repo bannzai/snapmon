@@ -240,5 +240,6 @@
   "referenceTypeChartTab": "ਮੇਲ ਸਾਰਣੀ",
   "referenceMovesTab": "ਚਾਲਾਂ ਦੀ ਸੂਚੀ",
   "referenceTypeChartNote": "ਖੜ੍ਹੇ ਪਾਸੇ ਚਾਲ ਦਾ ਤੱਤ, ਲੇਟਵੇਂ ਪਾਸੇ ਚਾਲ ਸਹਿਣ ਵਾਲੇ ਮੌਂਸਟਰ ਦਾ ਤੱਤ\nਜੇ ਚਾਲ ਸਹਿਣ ਵਾਲੇ ਮੌਂਸਟਰ ਦੇ ਦੋ ਤੱਤ ਹਨ, ਤਾਂ ਦੋਵੇਂ ਗੁਣਕ ਆਪਸ ਵਿੱਚ ਗੁਣਾ ਕਰੋ",
-  "referenceTypeChartCorner": "ਚਾਲ ／ ਬਚਾਅ"
+  "referenceTypeChartCorner": "ਚਾਲ ／ ਬਚਾਅ",
+  "referenceMoveStats": "ਤਾਕਤ {power}  PP {powerPoints}  Lv. {unlockLevel} ਤੋਂ"
 }

@@ -240,5 +240,6 @@
   "referenceTypeChartTab": "Tablica učinkovitosti",
   "referenceMovesTab": "Popis poteza",
   "referenceTypeChartNote": "Okomito: element poteza. Vodoravno: element čudovišta koje prima potez\nAko pogođeno čudovište ima dva elementa, pomnoži oba množitelja",
-  "referenceTypeChartCorner": "potez ／ obrana"
+  "referenceTypeChartCorner": "potez ／ obrana",
+  "referenceMoveStats": "Snaga {power}  PP {powerPoints}  Od Lv. {unlockLevel}"
 }

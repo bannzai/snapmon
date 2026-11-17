@@ -240,5 +240,6 @@
   "referenceTypeChartTab": "Tabela skuteczności",
   "referenceMovesTab": "Lista ruchów",
   "referenceTypeChartNote": "Pionowo: typ ruchu. Poziomo: typ potwora, który przyjmuje ruch\nJeśli trafiony potwór ma dwa typy, pomnóż oba mnożniki",
-  "referenceTypeChartCorner": "ruch ／ obrona"
+  "referenceTypeChartCorner": "ruch ／ obrona",
+  "referenceMoveStats": "Moc {power}  PP {powerPoints}  Od Lv. {unlockLevel}"
 }

@@ -240,5 +240,6 @@
   "referenceTypeChartTab": "Таблиця ефективності",
   "referenceMovesTab": "Список прийомів",
   "referenceTypeChartNote": "По вертикалі — елемент прийому, по горизонталі — елемент монстра, який його отримує\nЯкщо в монстра, що отримує удар, два елементи, перемнож обидва множники",
-  "referenceTypeChartCorner": "прийом ／ захист"
+  "referenceTypeChartCorner": "прийом ／ захист",
+  "referenceMoveStats": "Сила {power}  PP {powerPoints}  Від Lv. {unlockLevel}"
 }

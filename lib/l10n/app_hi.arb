@@ -240,5 +240,6 @@
   "referenceTypeChartTab": "प्रभावशीलता तालिका",
   "referenceMovesTab": "चालों की सूची",
   "referenceTypeChartNote": "ऊपर से नीचे: चाल का तत्व। बाएँ से दाएँ: चाल झेलने वाले मॉन्स्टर का तत्व\nअगर चाल झेलने वाले मॉन्स्टर के दो तत्व हैं, तो दोनों गुणकों को आपस में गुणा करो",
-  "referenceTypeChartCorner": "चाल ／ बचाव"
+  "referenceTypeChartCorner": "चाल ／ बचाव",
+  "referenceMoveStats": "ताकत {power}  PP {powerPoints}  Lv. {unlockLevel} से"
 }

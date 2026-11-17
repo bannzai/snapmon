@@ -240,5 +240,6 @@
   "referenceTypeChartTab": "Taula d’eficàcia",
   "referenceMovesTab": "Llista de moviments",
   "referenceTypeChartNote": "Vertical: element del moviment. Horitzontal: element del monstre que el rep\nSi el monstre que el rep té dos elements, multiplica els dos factors",
-  "referenceTypeChartCorner": "moviment ／ rep"
+  "referenceTypeChartCorner": "moviment ／ rep",
+  "referenceMoveStats": "Potència {power}  PP {powerPoints}  Des de Lv. {unlockLevel}"
 }

@@ -240,5 +240,6 @@
   "referenceTypeChartTab": "ഫലപ്രാപ്തി പട്ടിക",
   "referenceMovesTab": "നീക്കങ്ങളുടെ പട്ടിക",
   "referenceTypeChartNote": "കുത്തനെ: നീക്കത്തിന്റെ മൂലകം. കുറുകെ: നീക്കം ഏൽക്കുന്ന മോൺസ്റ്ററിന്റെ മൂലകം\nനീക്കം ഏൽക്കുന്ന മോൺസ്റ്ററിന് രണ്ട് മൂലകങ്ങളുണ്ടെങ്കിൽ, രണ്ട് ഗുണകങ്ങളും തമ്മിൽ ഗുണിക്കുക",
-  "referenceTypeChartCorner": "നീക്കം ／ പ്രതിരോധം"
+  "referenceTypeChartCorner": "നീക്കം ／ പ്രതിരോധം",
+  "referenceMoveStats": "ശക്തി {power}  PP {powerPoints}  Lv. {unlockLevel} മുതൽ"
 }

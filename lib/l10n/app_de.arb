@@ -240,5 +240,6 @@
   "referenceTypeChartTab": "Effektivitätstabelle",
   "referenceMovesTab": "Attackenliste",
   "referenceTypeChartNote": "Senkrecht: Element der Attacke. Waagerecht: Element des getroffenen Monsters\nHat das getroffene Monster zwei Elemente, multipliziere die beiden Faktoren",
-  "referenceTypeChartCorner": "Attacke ／ Verteidigung"
+  "referenceTypeChartCorner": "Attacke ／ Verteidigung",
+  "referenceMoveStats": "Stärke {power}  PP {powerPoints}  Ab Lv. {unlockLevel}"
 }

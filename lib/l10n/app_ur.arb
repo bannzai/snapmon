@@ -240,5 +240,6 @@
   "referenceTypeChartTab": "اثر کی جدول",
   "referenceMovesTab": "چالوں کی فہرست",
   "referenceTypeChartNote": "عمودی رخ پر چال کی ٹائپ، افقی رخ پر چال سہنے والے مونسٹر کی ٹائپ\nچال سہنے والے مونسٹر کی دو ٹائپس ہوں تو دونوں عددی اثرات کو آپس میں ضرب دو",
-  "referenceTypeChartCorner": "چال ／ دفاع"
+  "referenceTypeChartCorner": "چال ／ دفاع",
+  "referenceMoveStats": "طاقت {power}  PP {powerPoints}  Lv. {unlockLevel} سے"
 }

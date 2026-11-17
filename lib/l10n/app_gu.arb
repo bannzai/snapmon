@@ -240,5 +240,6 @@
   "referenceTypeChartTab": "અસરકારકતાનું કોષ્ટક",
   "referenceMovesTab": "ચાલની યાદી",
   "referenceTypeChartNote": "ઊભી બાજુએ ચાલનું તત્ત્વ, આડી બાજુએ ચાલ ઝીલતા મોન્સ્ટરનું તત્ત્વ\nચાલ ઝીલતા મોન્સ્ટર પાસે બે તત્ત્વ હોય, તો બંને ગુણકોનો ગુણાકાર કરો",
-  "referenceTypeChartCorner": "ચાલ ／ બચાવ"
+  "referenceTypeChartCorner": "ચાલ ／ બચાવ",
+  "referenceMoveStats": "શક્તિ {power}  PP {powerPoints}  Lv. {unlockLevel}થી"
 }
