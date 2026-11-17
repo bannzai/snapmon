@@ -170,5 +170,6 @@
   "battleLogStatFell": "Ha baixat {statName} de {monsterName}",
   "battleLogStatUnchanged": "El valor de {statName} de {monsterName} ja no pot canviar",
   "battleLogRecovered": "{monsterName} ha recuperat {amount} HP",
-  "battleLogNoEffect": "Però no ha passat res"
+  "battleLogNoEffect": "Però no ha passat res",
+  "battleStatModifier": "{statName} ×{multiplier}"
 }

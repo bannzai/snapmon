@@ -170,5 +170,6 @@
   "battleLogStatFell": "{statName} milik {monsterName} turun",
   "battleLogStatUnchanged": "{statName} milik {monsterName} tak bisa berubah lagi",
   "battleLogRecovered": "{monsterName} memulihkan {amount} HP",
-  "battleLogNoEffect": "Tapi tidak terjadi apa-apa"
+  "battleLogNoEffect": "Tapi tidak terjadi apa-apa",
+  "battleStatModifier": "{statName} ×{multiplier}"
 }

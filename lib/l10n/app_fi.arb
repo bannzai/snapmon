@@ -170,5 +170,6 @@
   "battleLogStatFell": "{monsterName}: {statName} laski",
   "battleLogStatUnchanged": "Hirviön {monsterName} {statName} ei voi enää muuttua",
   "battleLogRecovered": "{monsterName} sai takaisin {amount} HP",
-  "battleLogNoEffect": "Mutta mitään ei tapahtunut"
+  "battleLogNoEffect": "Mutta mitään ei tapahtunut",
+  "battleStatModifier": "{statName} ×{multiplier}"
 }

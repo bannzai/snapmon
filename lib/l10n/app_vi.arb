@@ -170,5 +170,6 @@
   "battleLogStatFell": "Chỉ số {statName} của {monsterName} đã giảm",
   "battleLogStatUnchanged": "Chỉ số {statName} của {monsterName} không thể thay đổi nữa",
   "battleLogRecovered": "{monsterName} hồi phục {amount} HP",
-  "battleLogNoEffect": "Nhưng chẳng có gì xảy ra"
+  "battleLogNoEffect": "Nhưng chẳng có gì xảy ra",
+  "battleStatModifier": "{statName} ×{multiplier}"
 }

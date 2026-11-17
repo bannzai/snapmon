@@ -170,5 +170,6 @@
   "battleLogStatFell": "{statName} u {monsterName} klesla",
   "battleLogStatUnchanged": "Hodnota {statName} u {monsterName} se už nemůže změnit",
   "battleLogRecovered": "{monsterName} si obnovil {amount} HP",
-  "battleLogNoEffect": "Ale nic se nestalo"
+  "battleLogNoEffect": "Ale nic se nestalo",
+  "battleStatModifier": "{statName} ×{multiplier}"
 }

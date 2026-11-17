@@ -170,5 +170,6 @@
   "battleLogStatFell": "Statistica {statName} a lui {monsterName} a scăzut",
   "battleLogStatUnchanged": "Valoarea {statName} a lui {monsterName} nu se mai poate schimba",
   "battleLogRecovered": "{monsterName} a recuperat {amount} HP",
-  "battleLogNoEffect": "Dar nu s-a întâmplat nimic"
+  "battleLogNoEffect": "Dar nu s-a întâmplat nimic",
+  "battleStatModifier": "{statName} ×{multiplier}"
 }

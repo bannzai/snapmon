@@ -170,5 +170,6 @@
   "battleLogStatFell": "{monsterName}的{statName}下降了",
   "battleLogStatUnchanged": "{monsterName}的{statName}已經無法再變化了",
   "battleLogRecovered": "{monsterName}恢復了{amount} HP",
-  "battleLogNoEffect": "但什麼也沒發生"
+  "battleLogNoEffect": "但什麼也沒發生",
+  "battleStatModifier": "{statName} ×{multiplier}"
 }

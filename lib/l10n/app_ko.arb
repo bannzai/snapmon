@@ -170,5 +170,6 @@
   "battleLogStatFell": "{monsterName}: {statName}이 떨어졌다",
   "battleLogStatUnchanged": "{monsterName}의 {statName}은 더 이상 변하지 않는다",
   "battleLogRecovered": "{monsterName}의 HP가 {amount} 회복됐다",
-  "battleLogNoEffect": "하지만 아무 일도 일어나지 않았다"
+  "battleLogNoEffect": "하지만 아무 일도 일어나지 않았다",
+  "battleStatModifier": "{statName} ×{multiplier}"
 }

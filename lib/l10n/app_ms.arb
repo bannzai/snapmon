@@ -170,5 +170,6 @@
   "battleLogStatFell": "{statName} milik {monsterName} menurun",
   "battleLogStatUnchanged": "{statName} milik {monsterName} tak boleh berubah lagi",
   "battleLogRecovered": "{monsterName} memulihkan {amount} HP",
-  "battleLogNoEffect": "Tapi tiada apa-apa yang berlaku"
+  "battleLogNoEffect": "Tapi tiada apa-apa yang berlaku",
+  "battleStatModifier": "{statName} ×{multiplier}"
 }

@@ -170,5 +170,6 @@
   "battleLogStatFell": "Vrednost {statName} pri {monsterName} je padla",
   "battleLogStatUnchanged": "Vrednost {statName} pri {monsterName} se ne more več spremeniti",
   "battleLogRecovered": "{monsterName} si je povrnil {amount} HP",
-  "battleLogNoEffect": "A zgodilo se ni nič"
+  "battleLogNoEffect": "A zgodilo se ni nič",
+  "battleStatModifier": "{statName} ×{multiplier}"
 }

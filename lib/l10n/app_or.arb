@@ -170,5 +170,6 @@
   "battleLogStatFell": "{monsterName}ର {statName} କମିଗଲା",
   "battleLogStatUnchanged": "{monsterName}ର {statName} ଆଉ ବଦଳିପାରିବ ନାହିଁ",
   "battleLogRecovered": "{monsterName} {amount} HP ଫେରି ପାଇଲା",
-  "battleLogNoEffect": "କିନ୍ତୁ କିଛି ହେଲା ନାହିଁ"
+  "battleLogNoEffect": "କିନ୍ତୁ କିଛି ହେଲା ନାହିଁ",
+  "battleStatModifier": "{statName} ×{multiplier}"
 }

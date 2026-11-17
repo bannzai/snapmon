@@ -170,5 +170,6 @@
   "battleLogStatFell": "{statName} ของ {monsterName} ลดลง",
   "battleLogStatUnchanged": "{statName} ของ {monsterName} เปลี่ยนไปมากกว่านี้ไม่ได้แล้ว",
   "battleLogRecovered": "{monsterName} ฟื้น HP {amount}",
-  "battleLogNoEffect": "แต่ไม่มีอะไรเกิดขึ้น"
+  "battleLogNoEffect": "แต่ไม่มีอะไรเกิดขึ้น",
+  "battleStatModifier": "{statName} ×{multiplier}"
 }

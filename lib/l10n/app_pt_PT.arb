@@ -170,5 +170,6 @@
   "battleLogStatFell": "O atributo {statName} de {monsterName} desceu",
   "battleLogStatUnchanged": "O valor de {statName} de {monsterName} já não pode mudar",
   "battleLogRecovered": "{monsterName} recuperou {amount} HP",
-  "battleLogNoEffect": "Mas não aconteceu nada"
+  "battleLogNoEffect": "Mas não aconteceu nada",
+  "battleStatModifier": "{statName} ×{multiplier}"
 }

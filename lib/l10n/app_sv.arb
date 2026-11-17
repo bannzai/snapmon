@@ -170,5 +170,6 @@
   "battleLogStatFell": "{statName} sjönk för {monsterName}",
   "battleLogStatUnchanged": "{statName} hos {monsterName} kan inte ändras mer",
   "battleLogRecovered": "{monsterName} återfick {amount} HP",
-  "battleLogNoEffect": "Men inget hände"
+  "battleLogNoEffect": "Men inget hände",
+  "battleStatModifier": "{statName} ×{multiplier}"
 }

@@ -170,5 +170,6 @@
   "battleLogStatFell": "{monsterName} için {statName} düştü",
   "battleLogStatUnchanged": "{monsterName} için {statName} artık değişemez",
   "battleLogRecovered": "{monsterName} {amount} HP yeniledi",
-  "battleLogNoEffect": "Ama hiçbir şey olmadı"
+  "battleLogNoEffect": "Ama hiçbir şey olmadı",
+  "battleStatModifier": "{statName} ×{multiplier}"
 }

@@ -170,5 +170,6 @@
   "battleLogStatFell": "{statName} van {monsterName} is gedaald",
   "battleLogStatUnchanged": "{statName} van {monsterName} kan niet verder veranderen",
   "battleLogRecovered": "{monsterName} kreeg {amount} HP terug",
-  "battleLogNoEffect": "Maar er gebeurde niets"
+  "battleLogNoEffect": "Maar er gebeurde niets",
+  "battleStatModifier": "{statName} ×{multiplier}"
 }

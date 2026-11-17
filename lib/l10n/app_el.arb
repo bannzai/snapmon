@@ -170,5 +170,6 @@
   "battleLogStatFell": "Το {statName} του {monsterName} έπεσε",
   "battleLogStatUnchanged": "Το {statName} του {monsterName} δεν μπορεί να αλλάξει άλλο",
   "battleLogRecovered": "Ο {monsterName} ανέκτησε {amount} HP",
-  "battleLogNoEffect": "Αλλά δεν έγινε τίποτα"
+  "battleLogNoEffect": "Αλλά δεν έγινε τίποτα",
+  "battleStatModifier": "{statName} ×{multiplier}"
 }
