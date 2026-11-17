@@ -44,5 +44,6 @@
   "opponentRandomBattle": "Sfida un avversario casuale",
   "settingsLinked": "Collegato a {providerName}",
   "settingsSwitchAccountTitle": "Vuoi passare all'account collegato?",
-  "settingsSwitchAccountMessage": "Questo account {providerName} è già collegato su un altro dispositivo. Se passi a questo account, il dex su questo dispositivo (mostri: {monsterCount}) verrà cancellato e vedrai il dex dell'account collegato."
+  "settingsSwitchAccountMessage": "Questo account {providerName} è già collegato su un altro dispositivo. Se passi a questo account, il dex su questo dispositivo (mostri: {monsterCount}) verrà cancellato e vedrai il dex dell'account collegato.",
+  "settingsSwitchAccountConfirm": "Cambia account"
 }

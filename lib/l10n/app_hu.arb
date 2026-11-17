@@ -44,5 +44,6 @@
   "opponentRandomBattle": "Küzdj egy véletlen ellenféllel",
   "settingsLinked": "Összekapcsolva ezzel: {providerName}",
   "settingsSwitchAccountTitle": "Átváltasz a kapcsolt fiókra?",
-  "settingsSwitchAccountMessage": "Ez a {providerName}-fiók már össze van kapcsolva egy másik eszközön. Ha átváltasz rá, az eszköz gyűjteménye (szörnyek: {monsterCount}) törlődik, és a kapcsolt fiók gyűjteménye jelenik meg."
+  "settingsSwitchAccountMessage": "Ez a {providerName}-fiók már össze van kapcsolva egy másik eszközön. Ha átváltasz rá, az eszköz gyűjteménye (szörnyek: {monsterCount}) törlődik, és a kapcsolt fiók gyűjteménye jelenik meg.",
+  "settingsSwitchAccountConfirm": "Válts fiókot"
 }

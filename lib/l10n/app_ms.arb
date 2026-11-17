@@ -44,5 +44,6 @@
   "opponentRandomBattle": "Lawan musuh rawak",
   "settingsLinked": "Berjaya dipautkan dengan {providerName}",
   "settingsSwitchAccountTitle": "Nak tukar ke akaun yang dipautkan?",
-  "settingsSwitchAccountMessage": "Akaun {providerName} ini sudah dipautkan pada peranti lain. Jika kamu beralih, ensiklopedia pada peranti ini (raksasa: {monsterCount}) akan dipadam dan ensiklopedia akaun yang dipautkan akan dipaparkan."
+  "settingsSwitchAccountMessage": "Akaun {providerName} ini sudah dipautkan pada peranti lain. Jika kamu beralih, ensiklopedia pada peranti ini (raksasa: {monsterCount}) akan dipadam dan ensiklopedia akaun yang dipautkan akan dipaparkan.",
+  "settingsSwitchAccountConfirm": "Tukar akaun"
 }

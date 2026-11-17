@@ -44,5 +44,6 @@
   "opponentRandomBattle": "Combat contra un rival aleatori",
   "settingsLinked": "T'has vinculat amb {providerName}",
   "settingsSwitchAccountTitle": "Vols canviar al compte vinculat?",
-  "settingsSwitchAccountMessage": "Aquest compte de {providerName} ja està vinculat en un altre dispositiu. Si hi canvies, s'esborrarà l'enciclopèdia d'aquest dispositiu (monstres: {monsterCount}) i veuràs la del compte vinculat."
+  "settingsSwitchAccountMessage": "Aquest compte de {providerName} ja està vinculat en un altre dispositiu. Si hi canvies, s'esborrarà l'enciclopèdia d'aquest dispositiu (monstres: {monsterCount}) i veuràs la del compte vinculat.",
+  "settingsSwitchAccountConfirm": "Canvia de compte"
 }

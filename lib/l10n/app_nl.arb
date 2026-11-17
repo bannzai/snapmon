@@ -44,5 +44,6 @@
   "opponentRandomBattle": "Vecht tegen een willekeurige tegenstander",
   "settingsLinked": "Gekoppeld aan {providerName}",
   "settingsSwitchAccountTitle": "Wil je overschakelen naar je gekoppelde account?",
-  "settingsSwitchAccountMessage": "Dit {providerName}-account is al gekoppeld op een ander apparaat. Als je overstapt, wordt de dex op dit apparaat gewist (monsters: {monsterCount}) en zie je de dex van het gekoppelde account."
+  "settingsSwitchAccountMessage": "Dit {providerName}-account is al gekoppeld op een ander apparaat. Als je overstapt, wordt de dex op dit apparaat gewist (monsters: {monsterCount}) en zie je de dex van het gekoppelde account.",
+  "settingsSwitchAccountConfirm": "Wissel van account"
 }

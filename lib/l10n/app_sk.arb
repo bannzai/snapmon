@@ -44,5 +44,6 @@
   "opponentRandomBattle": "Bojuj s náhodným súperom",
   "settingsLinked": "Prepojené s {providerName}",
   "settingsSwitchAccountTitle": "Chceš prepnúť na prepojený účet?",
-  "settingsSwitchAccountMessage": "Tento účet {providerName} je už prepojený na inom zariadení. Ak naň prepneš, miestna encyklopédia (príšerky: {monsterCount}) sa vymaže a zobrazí sa encyklopédia prepojeného účtu."
+  "settingsSwitchAccountMessage": "Tento účet {providerName} je už prepojený na inom zariadení. Ak naň prepneš, miestna encyklopédia (príšerky: {monsterCount}) sa vymaže a zobrazí sa encyklopédia prepojeného účtu.",
+  "settingsSwitchAccountConfirm": "Zmeň účet"
 }
