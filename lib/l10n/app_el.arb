@@ -185,5 +185,6 @@
   "battleLogStatusInflicted": "Ο {monsterName} απέκτησε την κατάσταση {statusName}!",
   "battleLogStatusStacked": "{monsterName}: η κατάσταση {statusName} ενισχύθηκε (×{stackCount})",
   "battleLogStatusReplaced": "Η κατάσταση του {monsterName} άλλαξε από {previousStatusName} σε {statusName}",
-  "battleLogCursedStat": "Η ιδιότητα {statName} του {monsterName} καταράστηκε!"
+  "battleLogCursedStat": "Η ιδιότητα {statName} του {monsterName} καταράστηκε!",
+  "battleLogStatusCured": "Το {monsterName} ανάρρωσε από το {statusName}"
 }

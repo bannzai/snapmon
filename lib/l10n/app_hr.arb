@@ -185,5 +185,6 @@
   "battleLogStatusInflicted": "{monsterName} je dobio stanje {statusName}!",
   "battleLogStatusStacked": "{monsterName}: stanje {statusName} se pojačalo (×{stackCount})",
   "battleLogStatusReplaced": "Stanje čudovišta {monsterName} promijenilo se iz {previousStatusName} u {statusName}",
-  "battleLogCursedStat": "Na {statName} od {monsterName} bačena je kletva!"
+  "battleLogCursedStat": "Na {statName} od {monsterName} bačena je kletva!",
+  "battleLogStatusCured": "{monsterName} se oporavio od stanja {statusName}"
 }

@@ -185,5 +185,6 @@
   "battleLogStatusInflicted": "{monsterName} отримав стан {statusName}!",
   "battleLogStatusStacked": "{monsterName}: стан {statusName} посилився (×{stackCount})",
   "battleLogStatusReplaced": "Стан {monsterName} змінився з {previousStatusName} на {statusName}",
-  "battleLogCursedStat": "На показник {statName} у {monsterName} впало прокляття!"
+  "battleLogCursedStat": "На показник {statName} у {monsterName} впало прокляття!",
+  "battleLogStatusCured": "{monsterName} оговтався від стану {statusName}"
 }

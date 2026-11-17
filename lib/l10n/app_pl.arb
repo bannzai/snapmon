@@ -185,5 +185,6 @@
   "battleLogStatusInflicted": "{monsterName} otrzymał status {statusName}!",
   "battleLogStatusStacked": "{monsterName}: stan {statusName} się nasilił (×{stackCount})",
   "battleLogStatusReplaced": "Status {monsterName} zmienił się z {previousStatusName} na {statusName}",
-  "battleLogCursedStat": "Klątwa spadła na statystykę {statName} u {monsterName}!"
+  "battleLogCursedStat": "Klątwa spadła na statystykę {statName} u {monsterName}!",
+  "battleLogStatusCured": "{monsterName} wyleczył się ze stanu {statusName}"
 }

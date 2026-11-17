@@ -185,5 +185,6 @@
   "battleLogStatusInflicted": "{monsterName} आता {statusName} स्थितीत आहे!",
   "battleLogStatusStacked": "{monsterName}: {statusName} स्थिती आणखी वाढली (×{stackCount})",
   "battleLogStatusReplaced": "{monsterName}ची स्थिती {previousStatusName} वरून {statusName} झाली",
-  "battleLogCursedStat": "{monsterName} च्या {statName} ला शाप लागला!"
+  "battleLogCursedStat": "{monsterName} च्या {statName} ला शाप लागला!",
+  "battleLogStatusCured": "{monsterName} आता {statusName} मधून बरा झाला"
 }

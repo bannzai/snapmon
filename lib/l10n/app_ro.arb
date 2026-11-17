@@ -185,5 +185,6 @@
   "battleLogStatusInflicted": "{monsterName} a primit starea {statusName}!",
   "battleLogStatusStacked": "{monsterName}: starea {statusName} s-a intensificat (×{stackCount})",
   "battleLogStatusReplaced": "Starea lui {monsterName} s-a schimbat din {previousStatusName} în {statusName}",
-  "battleLogCursedStat": "Statistica {statName} a lui {monsterName} a fost blestemată!"
+  "battleLogCursedStat": "Statistica {statName} a lui {monsterName} a fost blestemată!",
+  "battleLogStatusCured": "{monsterName} s-a vindecat de {statusName}"
 }

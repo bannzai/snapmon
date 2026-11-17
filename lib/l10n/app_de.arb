@@ -185,5 +185,6 @@
   "battleLogStatusInflicted": "{monsterName} hat jetzt den Status {statusName}!",
   "battleLogStatusStacked": "{monsterName}: Der Status {statusName} hat sich verstärkt (×{stackCount})",
   "battleLogStatusReplaced": "Der Status von {monsterName} wechselte von {previousStatusName} zu {statusName}",
-  "battleLogCursedStat": "Der Wert {statName} von {monsterName} wurde verflucht!"
+  "battleLogCursedStat": "Der Wert {statName} von {monsterName} wurde verflucht!",
+  "battleLogStatusCured": "{monsterName} hat sich von {statusName} erholt"
 }

@@ -185,5 +185,6 @@
   "battleLogStatusInflicted": "{monsterName}陷入了{statusName}狀態！",
   "battleLogStatusStacked": "{monsterName}的{statusName}狀態疊加了（×{stackCount}）",
   "battleLogStatusReplaced": "{monsterName}的狀態從{previousStatusName}變成了{statusName}",
-  "battleLogCursedStat": "{monsterName}的{statName}被詛咒了！"
+  "battleLogCursedStat": "{monsterName}的{statName}被詛咒了！",
+  "battleLogStatusCured": "{monsterName}的{statusName}狀態治好了"
 }

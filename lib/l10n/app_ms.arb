@@ -185,5 +185,6 @@
   "battleLogStatusInflicted": "{monsterName} terkena status {statusName}!",
   "battleLogStatusStacked": "{monsterName}: status {statusName} bertindan (×{stackCount})",
   "battleLogStatusReplaced": "Status {monsterName} berubah daripada {previousStatusName} kepada {statusName}",
-  "battleLogCursedStat": "{statName} milik {monsterName} terkena sumpahan!"
+  "battleLogCursedStat": "{statName} milik {monsterName} terkena sumpahan!",
+  "battleLogStatusCured": "{monsterName} dah pulih daripada {statusName}"
 }

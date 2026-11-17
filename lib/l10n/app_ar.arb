@@ -185,5 +185,6 @@
   "battleLogStatusInflicted": "أصبح {monsterName} في حالة {statusName}!",
   "battleLogStatusStacked": "{monsterName}: تراكمت حالة {statusName} (×{stackCount})",
   "battleLogStatusReplaced": "تحولت حالة {monsterName} من {previousStatusName} إلى {statusName}",
-  "battleLogCursedStat": "حلت اللعنة على {statName} لدى {monsterName}!"
+  "battleLogCursedStat": "حلت اللعنة على {statName} لدى {monsterName}!",
+  "battleLogStatusCured": "تعافى {monsterName} من {statusName}"
 }

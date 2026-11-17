@@ -185,5 +185,6 @@
   "battleLogStatusInflicted": "{monsterName} fick statusen {statusName}!",
   "battleLogStatusStacked": "{monsterName}: statusen {statusName} förstärktes (×{stackCount})",
   "battleLogStatusReplaced": "{monsterName}s status ändrades från {previousStatusName} till {statusName}",
-  "battleLogCursedStat": "En förbannelse drabbade {statName} hos {monsterName}!"
+  "battleLogCursedStat": "En förbannelse drabbade {statName} hos {monsterName}!",
+  "battleLogStatusCured": "{monsterName} har återhämtat sig från {statusName}"
 }

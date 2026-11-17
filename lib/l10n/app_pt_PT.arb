@@ -185,5 +185,6 @@
   "battleLogStatusInflicted": "{monsterName} ficou com o estado {statusName}!",
   "battleLogStatusStacked": "{monsterName}: o estado {statusName} acumulou-se (×{stackCount})",
   "battleLogStatusReplaced": "O estado de {monsterName} mudou de {previousStatusName} para {statusName}",
-  "battleLogCursedStat": "O atributo {statName} de {monsterName} ficou amaldiçoado!"
+  "battleLogCursedStat": "O atributo {statName} de {monsterName} ficou amaldiçoado!",
+  "battleLogStatusCured": "{monsterName} curou-se de {statusName}"
 }

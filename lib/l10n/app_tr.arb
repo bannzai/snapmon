@@ -185,5 +185,6 @@
   "battleLogStatusInflicted": "{monsterName}, {statusName} durumuna girdi!",
   "battleLogStatusStacked": "{monsterName}: {statusName} durumu birikti (×{stackCount})",
   "battleLogStatusReplaced": "{monsterName} için durum {previousStatusName} yerine {statusName} oldu",
-  "battleLogCursedStat": "{monsterName} için {statName} lanetlendi!"
+  "battleLogCursedStat": "{monsterName} için {statName} lanetlendi!",
+  "battleLogStatusCured": "{monsterName}, {statusName} durumundan kurtuldu"
 }
