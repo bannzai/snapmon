@@ -199,5 +199,6 @@
   "statusConditionDrowsy": "Somnolence",
   "statusConditionSleep": "Sommeil",
   "statusConditionCurse": "Malédiction",
-  "statusConditionConfusion": "Confusion"
+  "statusConditionConfusion": "Confusion",
+  "statusConditionDizzy": "Vertige"
 }
