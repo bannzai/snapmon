@@ -72,5 +72,6 @@
   "profileIconHelper": "Icône visible par ton adversaire\nTu ne peux pas utiliser de photo montrant un visage",
   "profileIconUpdated": "Ton icône a changé !",
   "dexSummary": "Monstres : {monsterCount} · équipe : {partyCount}",
-  "dexReload": "Recharger"
+  "dexReload": "Recharger",
+  "dexParty": "équipe"
 }
