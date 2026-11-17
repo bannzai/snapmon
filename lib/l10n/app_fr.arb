@@ -197,5 +197,6 @@
   "statusConditionStun": "K.O.",
   "statusConditionBurn": "Brûlure",
   "statusConditionDrowsy": "Somnolence",
-  "statusConditionSleep": "Sommeil"
+  "statusConditionSleep": "Sommeil",
+  "statusConditionCurse": "Malédiction"
 }
