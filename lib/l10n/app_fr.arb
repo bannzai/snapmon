@@ -238,5 +238,6 @@
   "referenceOpen": "Efficacité des éléments et liste des capacités",
   "referenceTitle": "éléments et capacités",
   "referenceTypeChartTab": "Tableau d’efficacité",
-  "referenceMovesTab": "Liste des capacités"
+  "referenceMovesTab": "Liste des capacités",
+  "referenceTypeChartNote": "À la verticale : l’élément de la capacité. À l’horizontale : l’élément du monstre touché.\nSi le monstre a deux éléments, multiplie les deux coefficients."
 }
