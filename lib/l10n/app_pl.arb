@@ -226,5 +226,6 @@
   "battleOpenDex": "Zobacz encyklopedię",
   "battleYourMonster": "Twój kompan",
   "battleHitPoints": "HP {current} / {maximum}",
-  "movePower": "Moc"
+  "movePower": "Moc",
+  "movePowerPoints": "PP"
 }

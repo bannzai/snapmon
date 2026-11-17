@@ -226,5 +226,6 @@
   "battleOpenDex": "Pogledaj enciklopediju",
   "battleYourMonster": "Tvoj suputnik",
   "battleHitPoints": "HP {current} / {maximum}",
-  "movePower": "Snaga"
+  "movePower": "Snaga",
+  "movePowerPoints": "PP"
 }

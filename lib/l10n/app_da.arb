@@ -226,5 +226,6 @@
   "battleOpenDex": "Se dex",
   "battleYourMonster": "Din makker",
   "battleHitPoints": "HP {current} / {maximum}",
-  "movePower": "Styrke"
+  "movePower": "Styrke",
+  "movePowerPoints": "PP"
 }

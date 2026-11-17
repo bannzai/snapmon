@@ -226,5 +226,6 @@
   "battleOpenDex": "Vezi enciclopedia",
   "battleYourMonster": "Tovarășul tău",
   "battleHitPoints": "HP {current} / {maximum}",
-  "movePower": "Putere"
+  "movePower": "Putere",
+  "movePowerPoints": "PP"
 }

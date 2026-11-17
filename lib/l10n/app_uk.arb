@@ -226,5 +226,6 @@
   "battleOpenDex": "Переглянь енциклопедію",
   "battleYourMonster": "Твій напарник",
   "battleHitPoints": "HP {current} / {maximum}",
-  "movePower": "Сила"
+  "movePower": "Сила",
+  "movePowerPoints": "PP"
 }

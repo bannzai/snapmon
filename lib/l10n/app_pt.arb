@@ -226,5 +226,6 @@
   "battleOpenDex": "Ver dex",
   "battleYourMonster": "Seu companheiro",
   "battleHitPoints": "HP {current} / {maximum}",
-  "movePower": "Poder"
+  "movePower": "Poder",
+  "movePowerPoints": "PP"
 }

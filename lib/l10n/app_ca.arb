@@ -226,5 +226,6 @@
   "battleOpenDex": "Mira l'enciclopèdia",
   "battleYourMonster": "El teu company",
   "battleHitPoints": "HP {current} / {maximum}",
-  "movePower": "Potència"
+  "movePower": "Potència",
+  "movePowerPoints": "PP"
 }

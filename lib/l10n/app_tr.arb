@@ -226,5 +226,6 @@
   "battleOpenDex": "Ansiklopediye bak",
   "battleYourMonster": "Yoldaşın",
   "battleHitPoints": "HP {current} / {maximum}",
-  "movePower": "Güç"
+  "movePower": "Güç",
+  "movePowerPoints": "PP"
 }

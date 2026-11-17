@@ -226,5 +226,6 @@
   "battleOpenDex": "ਸੰਗ੍ਰਹਿ ਦੇਖੋ",
   "battleYourMonster": "ਤੁਹਾਡਾ ਸਾਥੀ",
   "battleHitPoints": "HP {current} / {maximum}",
-  "movePower": "ਤਾਕਤ"
+  "movePower": "ਤਾਕਤ",
+  "movePowerPoints": "PP"
 }

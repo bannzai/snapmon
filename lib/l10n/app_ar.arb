@@ -226,5 +226,6 @@
   "battleOpenDex": "افتح الموسوعة",
   "battleYourMonster": "رفيقك",
   "battleHitPoints": "HP {current} / {maximum}",
-  "movePower": "القوة"
+  "movePower": "القوة",
+  "movePowerPoints": "PP"
 }

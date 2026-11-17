@@ -226,5 +226,6 @@
   "battleOpenDex": "Lihat dex",
   "battleYourMonster": "Temanmu",
   "battleHitPoints": "HP {current} / {maximum}",
-  "movePower": "Kekuatan"
+  "movePower": "Kekuatan",
+  "movePowerPoints": "PP"
 }

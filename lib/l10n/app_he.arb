@@ -226,5 +226,6 @@
   "battleOpenDex": "לצפות באוסף",
   "battleYourMonster": "השותף שלך",
   "battleHitPoints": "HP {current} / {maximum}",
-  "movePower": "עוצמה"
+  "movePower": "עוצמה",
+  "movePowerPoints": "PP"
 }

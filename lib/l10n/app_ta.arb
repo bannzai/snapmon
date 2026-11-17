@@ -226,5 +226,6 @@
   "battleOpenDex": "களஞ்சியத்தைப் பார்",
   "battleYourMonster": "உங்கள் துணை",
   "battleHitPoints": "HP {current} / {maximum}",
-  "movePower": "வலிமை"
+  "movePower": "வலிமை",
+  "movePowerPoints": "PP"
 }

@@ -226,5 +226,6 @@
   "battleOpenDex": "Katso kokoelmaa",
   "battleYourMonster": "Kaverisi",
   "battleHitPoints": "HP {current} / {maximum}",
-  "movePower": "Voima"
+  "movePower": "Voima",
+  "movePowerPoints": "PP"
 }

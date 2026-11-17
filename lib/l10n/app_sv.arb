@@ -226,5 +226,6 @@
   "battleOpenDex": "Visa samling",
   "battleYourMonster": "Din kompis",
   "battleHitPoints": "HP {current} / {maximum}",
-  "movePower": "Styrka"
+  "movePower": "Styrka",
+  "movePowerPoints": "PP"
 }

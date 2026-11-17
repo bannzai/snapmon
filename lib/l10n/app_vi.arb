@@ -226,5 +226,6 @@
   "battleOpenDex": "Xem bộ sưu tập",
   "battleYourMonster": "Bạn đồng hành của bạn",
   "battleHitPoints": "HP {current} / {maximum}",
-  "movePower": "Sức mạnh"
+  "movePower": "Sức mạnh",
+  "movePowerPoints": "PP"
 }

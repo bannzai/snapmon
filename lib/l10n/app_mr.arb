@@ -226,5 +226,6 @@
   "battleOpenDex": "संग्रह पाहा",
   "battleYourMonster": "तुझा साथीदार",
   "battleHitPoints": "HP {current} / {maximum}",
-  "movePower": "शक्ती"
+  "movePower": "शक्ती",
+  "movePowerPoints": "PP"
 }

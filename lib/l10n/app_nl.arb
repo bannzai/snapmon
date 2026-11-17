@@ -226,5 +226,6 @@
   "battleOpenDex": "Bekijk je dex",
   "battleYourMonster": "Je maatje",
   "battleHitPoints": "HP {current} / {maximum}",
-  "movePower": "Kracht"
+  "movePower": "Kracht",
+  "movePowerPoints": "PP"
 }

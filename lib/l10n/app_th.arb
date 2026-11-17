@@ -226,5 +226,6 @@
   "battleOpenDex": "ดูสารานุกรม",
   "battleYourMonster": "คู่หูของคุณ",
   "battleHitPoints": "HP {current} / {maximum}",
-  "movePower": "พลัง"
+  "movePower": "พลัง",
+  "movePowerPoints": "PP"
 }

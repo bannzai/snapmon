@@ -226,5 +226,6 @@
   "battleOpenDex": "Prohlédni si encyklopedii",
   "battleYourMonster": "Tvůj parťák",
   "battleHitPoints": "HP {current} / {maximum}",
-  "movePower": "Síla"
+  "movePower": "Síla",
+  "movePowerPoints": "PP"
 }

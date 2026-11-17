@@ -226,5 +226,6 @@
   "battleOpenDex": "Poglej enciklopedijo",
   "battleYourMonster": "Tvoj spremljevalec",
   "battleHitPoints": "HP {current} / {maximum}",
-  "movePower": "Moč"
+  "movePower": "Moč",
+  "movePowerPoints": "PP"
 }

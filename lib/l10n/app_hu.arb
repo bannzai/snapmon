@@ -226,5 +226,6 @@
   "battleOpenDex": "Nézd meg a gyűjteményt",
   "battleYourMonster": "A társad",
   "battleHitPoints": "HP {current} / {maximum}",
-  "movePower": "Erő"
+  "movePower": "Erő",
+  "movePowerPoints": "PP"
 }

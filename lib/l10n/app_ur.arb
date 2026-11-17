@@ -226,5 +226,6 @@
   "battleOpenDex": "ڈیکس دیکھو",
   "battleYourMonster": "تمہارا ساتھی",
   "battleHitPoints": "HP {current} / {maximum}",
-  "movePower": "طاقت"
+  "movePower": "طاقت",
+  "movePowerPoints": "PP"
 }
