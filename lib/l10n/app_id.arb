@@ -136,5 +136,6 @@
   "generationStageCroppingRange": "Memotong area yang dipilih",
   "generationRejectedRefused": "Monsternya gagal dibuat\nCoba ambil foto lain",
   "generationFailedMessage": "Monster gagal dibuat\nCoba ambil foto lagi",
-  "resultReplaceTitle": "Ganti dengan {monsterName}"
+  "resultReplaceTitle": "Ganti dengan {monsterName}",
+  "resultNewlyBorn": "Teman baru"
 }

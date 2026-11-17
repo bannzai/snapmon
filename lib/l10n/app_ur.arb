@@ -136,5 +136,6 @@
   "generationStageCroppingRange": "منتخب حصہ کاٹا جا رہا ہے",
   "generationRejectedRefused": "مونسٹر نہیں بن سکا\nایک اور تصویر لے کر دیکھو",
   "generationFailedMessage": "مانسٹر نہیں بن سکا\nدوبارہ تصویر لے کر دیکھو",
-  "resultReplaceTitle": "{monsterName} سے بدلو"
+  "resultReplaceTitle": "{monsterName} سے بدلو",
+  "resultNewlyBorn": "نیا ساتھی"
 }

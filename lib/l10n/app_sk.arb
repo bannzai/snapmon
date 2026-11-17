@@ -136,5 +136,6 @@
   "generationStageCroppingRange": "Vyrezáva sa vybraná oblasť",
   "generationRejectedRefused": "Príšerku sa nepodarilo vytvoriť\nSkús odfotiť niečo iné",
   "generationFailedMessage": "Príšerku sa nepodarilo vytvoriť\nSkús urobiť ďalšiu fotku",
-  "resultReplaceTitle": "Vymeň za {monsterName}"
+  "resultReplaceTitle": "Vymeň za {monsterName}",
+  "resultNewlyBorn": "Nový parťák"
 }

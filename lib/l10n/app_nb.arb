@@ -136,5 +136,6 @@
   "generationStageCroppingRange": "Beskjærer det valgte området",
   "generationRejectedRefused": "Monsteret kunne ikke lages\nPrøv å ta et nytt bilde",
   "generationFailedMessage": "Monsteret kunne ikke lages\nPrøv å ta et nytt bilde",
-  "resultReplaceTitle": "Bytt ut med {monsterName}"
+  "resultReplaceTitle": "Bytt ut med {monsterName}",
+  "resultNewlyBorn": "En ny venn"
 }

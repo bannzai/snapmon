@@ -136,5 +136,6 @@
   "generationStageCroppingRange": "جارٍ قصّ الجزء المحدد",
   "generationRejectedRefused": "تعذّر صنع الوحش\nجرّب التقاط صورة أخرى",
   "generationFailedMessage": "فشل إنشاء الوحش\nجرّب التقاط صورة أخرى",
-  "resultReplaceTitle": "استبدل بـ{monsterName}"
+  "resultReplaceTitle": "استبدل بـ{monsterName}",
+  "resultNewlyBorn": "رفيق جديد"
 }

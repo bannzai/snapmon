@@ -136,5 +136,6 @@
   "generationStageCroppingRange": "Beskär det markerade området",
   "generationRejectedRefused": "Monstret kunde inte skapas\nFörsök ta ett nytt foto",
   "generationFailedMessage": "Monstret kunde inte skapas\nProva att ta en ny bild",
-  "resultReplaceTitle": "Byt ut mot {monsterName}"
+  "resultReplaceTitle": "Byt ut mot {monsterName}",
+  "resultNewlyBorn": "En ny vän"
 }

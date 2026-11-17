@@ -136,5 +136,6 @@
   "generationStageCroppingRange": "Recortando el área seleccionada",
   "generationRejectedRefused": "No se pudo crear el monstruo\nPrueba a tomar otra foto",
   "generationFailedMessage": "No se pudo crear el monstruo\nPrueba a tomar otra foto",
-  "resultReplaceTitle": "Cámbialo por {monsterName}"
+  "resultReplaceTitle": "Cámbialo por {monsterName}",
+  "resultNewlyBorn": "Un nuevo compañero"
 }

@@ -136,5 +136,6 @@
   "generationStageCroppingRange": "নির্বাচিত অংশ কেটে নেওয়া হচ্ছে",
   "generationRejectedRefused": "দানবটা তৈরি করা গেল না\nআরেকটা ছবি তুলে দেখো",
   "generationFailedMessage": "মনস্টার তৈরি করা যায়নি\nআবার ছবি তুলে দেখো",
-  "resultReplaceTitle": "{monsterName} দিয়ে বদলাও"
+  "resultReplaceTitle": "{monsterName} দিয়ে বদলাও",
+  "resultNewlyBorn": "নতুন সঙ্গী"
 }
