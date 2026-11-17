@@ -128,5 +128,6 @@
   "generationCreateWithCutout": "สร้างจากภาพที่ตัดออกมา",
   "generationChooseRangeMyself": "เลือกพื้นที่เอง",
   "generationChooseRangeTitle": "ส่วนที่จะกลายเป็นมอนสเตอร์",
-  "generationChooseRangeMessage": "ลากกรอบให้ล้อมรอบวัตถุ\nปรับขนาดด้วยแถบเลื่อนด้านล่างหรือใช้สองนิ้ว"
+  "generationChooseRangeMessage": "ลากกรอบให้ล้อมรอบวัตถุ\nปรับขนาดด้วยแถบเลื่อนด้านล่างหรือใช้สองนิ้ว",
+  "generationAutoCutoutUnavailable": "ใช้การตัดภาพอัตโนมัติไม่ได้"
 }

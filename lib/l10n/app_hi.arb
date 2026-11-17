@@ -128,5 +128,6 @@
   "generationCreateWithCutout": "कटी हुई तस्वीर से बनाओ",
   "generationChooseRangeMyself": "हिस्सा खुद चुनो",
   "generationChooseRangeTitle": "मॉन्स्टर बनने वाला हिस्सा",
-  "generationChooseRangeMessage": "फ़्रेम खींचकर तस्वीर की चीज़ को घेरो\nनीचे के स्लाइडर या दो उँगलियों से आकार बदलो"
+  "generationChooseRangeMessage": "फ़्रेम खींचकर तस्वीर की चीज़ को घेरो\nनीचे के स्लाइडर या दो उँगलियों से आकार बदलो",
+  "generationAutoCutoutUnavailable": "अपने आप विषय को काटकर अलग नहीं किया जा सका"
 }

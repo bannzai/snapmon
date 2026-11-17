@@ -128,5 +128,6 @@
   "generationCreateWithCutout": "Tạo từ ảnh đã cắt",
   "generationChooseRangeMyself": "Tự chọn vùng",
   "generationChooseRangeTitle": "Vùng sẽ thành quái vật",
-  "generationChooseRangeMessage": "Kéo khung bao quanh vật thể\nĐổi kích thước bằng thanh trượt bên dưới hoặc hai ngón tay"
+  "generationChooseRangeMessage": "Kéo khung bao quanh vật thể\nĐổi kích thước bằng thanh trượt bên dưới hoặc hai ngón tay",
+  "generationAutoCutoutUnavailable": "Không thể dùng tính năng tách ảnh tự động"
 }

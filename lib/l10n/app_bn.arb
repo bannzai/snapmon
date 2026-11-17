@@ -128,5 +128,6 @@
   "generationCreateWithCutout": "কেটে নেওয়া ছবি দিয়ে তৈরি করো",
   "generationChooseRangeMyself": "নিজেই এলাকা বেছে নাও",
   "generationChooseRangeTitle": "যে অংশটা মনস্টার হবে",
-  "generationChooseRangeMessage": "ফ্রেম টেনে ছবির বিষয়টিকে ঘিরে নাও\nনিচের স্লাইডার বা দুই আঙুল দিয়ে আকার বদলাও"
+  "generationChooseRangeMessage": "ফ্রেম টেনে ছবির বিষয়টিকে ঘিরে নাও\nনিচের স্লাইডার বা দুই আঙুল দিয়ে আকার বদলাও",
+  "generationAutoCutoutUnavailable": "স্বয়ংক্রিয়ভাবে বিষয়টি কাটার সুবিধা ব্যবহার করা যায়নি"
 }

@@ -128,5 +128,6 @@
   "generationCreateWithCutout": "کاٹی ہوئی تصویر سے بناؤ",
   "generationChooseRangeMyself": "حصہ خود چنو",
   "generationChooseRangeTitle": "مونسٹر بننے والا حصہ",
-  "generationChooseRangeMessage": "فریم گھسیٹ کر تصویر کی چیز کو گھیر لو\nنیچے کے سلائیڈر یا دو انگلیوں سے سائز بدلو"
+  "generationChooseRangeMessage": "فریم گھسیٹ کر تصویر کی چیز کو گھیر لو\nنیچے کے سلائیڈر یا دو انگلیوں سے سائز بدلو",
+  "generationAutoCutoutUnavailable": "خودکار طور پر تصویر سے الگ نہیں کیا جا سکا"
 }

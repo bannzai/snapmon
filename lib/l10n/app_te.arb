@@ -128,5 +128,6 @@
   "generationCreateWithCutout": "కత్తిరించిన చిత్రంతో సృష్టించు",
   "generationChooseRangeMyself": "ప్రాంతాన్ని నువ్వే ఎంచుకో",
   "generationChooseRangeTitle": "మాన్స్టర్‌గా మారే భాగం",
-  "generationChooseRangeMessage": "వస్తువు చుట్టూ ఫ్రేమ్‌ను లాగు\nకింద ఉన్న స్లైడర్‌తో లేదా రెండు వేళ్లతో పరిమాణం మార్చు"
+  "generationChooseRangeMessage": "వస్తువు చుట్టూ ఫ్రేమ్‌ను లాగు\nకింద ఉన్న స్లైడర్‌తో లేదా రెండు వేళ్లతో పరిమాణం మార్చు",
+  "generationAutoCutoutUnavailable": "చిత్రం నుంచి ఆటోమేటిక్‌గా వేరు చేయడం సాధ్యం కాలేదు"
 }

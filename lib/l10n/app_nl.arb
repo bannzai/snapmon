@@ -128,5 +128,6 @@
   "generationCreateWithCutout": "Maak met de uitgeknipte afbeelding",
   "generationChooseRangeMyself": "Kies zelf het gebied",
   "generationChooseRangeTitle": "Gebied dat een monster wordt",
-  "generationChooseRangeMessage": "Sleep het kader om het onderwerp\nPas de grootte aan met de schuifregelaar hieronder of met twee vingers"
+  "generationChooseRangeMessage": "Sleep het kader om het onderwerp\nPas de grootte aan met de schuifregelaar hieronder of met twee vingers",
+  "generationAutoCutoutUnavailable": "Automatisch vrijstaand maken was niet beschikbaar"
 }

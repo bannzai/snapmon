@@ -128,5 +128,6 @@
   "generationCreateWithCutout": "用抠出的图片创建",
   "generationChooseRangeMyself": "自己选取范围",
   "generationChooseRangeTitle": "要变成怪物的区域",
-  "generationChooseRangeMessage": "拖动边框圈住拍摄对象\n用下方滑块或双指调整大小"
+  "generationChooseRangeMessage": "拖动边框圈住拍摄对象\n用下方滑块或双指调整大小",
+  "generationAutoCutoutUnavailable": "无法使用自动抠图"
 }

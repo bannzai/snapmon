@@ -128,5 +128,6 @@
   "generationCreateWithCutout": "Vytvor z vystrihnutého obrázka",
   "generationChooseRangeMyself": "Vyber oblasť sám",
   "generationChooseRangeTitle": "Oblasť, z ktorej bude príšera",
-  "generationChooseRangeMessage": "Potiahni rámček okolo objektu\nVeľkosť zmeň posuvníkom dole alebo dvoma prstami"
+  "generationChooseRangeMessage": "Potiahni rámček okolo objektu\nVeľkosť zmeň posuvníkom dole alebo dvoma prstami",
+  "generationAutoCutoutUnavailable": "Automatické vystrihnutie nebolo dostupné"
 }

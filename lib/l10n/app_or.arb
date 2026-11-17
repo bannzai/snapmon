@@ -128,5 +128,6 @@
   "generationCreateWithCutout": "କାଟି ବାହାର କରାଯାଇଥିବା ଛବିରୁ ତିଆରି କର",
   "generationChooseRangeMyself": "ଅଞ୍ଚଳ ନିଜେ ବାଛ",
   "generationChooseRangeTitle": "ମନଷ୍ଟର ହେବାକୁ ଥିବା ଅଂଶ",
-  "generationChooseRangeMessage": "ଫ୍ରେମ୍‌କୁ ଟାଣି ଫଟୋର ବସ୍ତୁକୁ ଘେର\nତଳର ସ୍ଲାଇଡର୍ କିମ୍ବା ଦୁଇ ଆଙ୍ଗୁଠିରେ ଆକାର ବଦଳାଅ"
+  "generationChooseRangeMessage": "ଫ୍ରେମ୍‌କୁ ଟାଣି ଫଟୋର ବସ୍ତୁକୁ ଘେର\nତଳର ସ୍ଲାଇଡର୍ କିମ୍ବା ଦୁଇ ଆଙ୍ଗୁଠିରେ ଆକାର ବଦଳାଅ",
+  "generationAutoCutoutUnavailable": "ସ୍ୱୟଂଚାଳିତ ଭାବେ ଚିତ୍ରରୁ ଅଲଗା କରିହେଲା ନାହିଁ"
 }

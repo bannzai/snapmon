@@ -128,5 +128,6 @@
   "generationCreateWithCutout": "कापलेल्या चित्रातून तयार कर",
   "generationChooseRangeMyself": "भाग स्वतः निवड",
   "generationChooseRangeTitle": "मॉन्स्टर बनणारा भाग",
-  "generationChooseRangeMessage": "चौकट ओढून फोटोतील वस्तूला घेर\nखालच्या स्लायडरने किंवा दोन बोटांनी आकार बदल"
+  "generationChooseRangeMessage": "चौकट ओढून फोटोतील वस्तूला घेर\nखालच्या स्लायडरने किंवा दोन बोटांनी आकार बदल",
+  "generationAutoCutoutUnavailable": "आपोआप विषय कापून वेगळा करता आला नाही"
 }

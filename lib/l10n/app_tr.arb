@@ -128,5 +128,6 @@
   "generationCreateWithCutout": "Kesilmiş görselle oluştur",
   "generationChooseRangeMyself": "Alanı kendin seç",
   "generationChooseRangeTitle": "Canavara dönüşecek alan",
-  "generationChooseRangeMessage": "Çerçeveyi sürükleyip nesneyi içine al\nBoyutunu alttaki kaydırıcıyla veya iki parmağınla değiştir"
+  "generationChooseRangeMessage": "Çerçeveyi sürükleyip nesneyi içine al\nBoyutunu alttaki kaydırıcıyla veya iki parmağınla değiştir",
+  "generationAutoCutoutUnavailable": "Otomatik kesip çıkarma kullanılamadı"
 }
