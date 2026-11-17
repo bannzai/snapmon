@@ -53,5 +53,6 @@
   "settingsSoundSection": "Звук",
   "settingsBackgroundMusic": "Фоновая музыка",
   "settingsSoundEffects": "Звуковые эффекты",
-  "settingsSupportSection": "Поддержка"
+  "settingsSupportSection": "Поддержка",
+  "settingsTerms": "Условия использования"
 }

@@ -53,5 +53,6 @@
   "settingsSoundSection": "Äänet",
   "settingsBackgroundMusic": "Taustamusiikki",
   "settingsSoundEffects": "Äänitehosteet",
-  "settingsSupportSection": "Tuki"
+  "settingsSupportSection": "Tuki",
+  "settingsTerms": "Käyttöehdot"
 }
