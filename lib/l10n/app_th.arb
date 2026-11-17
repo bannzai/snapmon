@@ -148,5 +148,6 @@
   "resultAddToParty": "เพิ่มเข้าทีม",
   "resultReplaceInParty": "เปลี่ยนสมาชิกในทีม",
   "resultCaptureAnother": "เพิ่มสมาชิกในทีม",
-  "resultShareText": "{monsterName} ถือกำเนิดใน snapmon\n#snapmon\n{url}"
+  "resultShareText": "{monsterName} ถือกำเนิดใน snapmon\n#snapmon\n{url}",
+  "resultShareCard": "แชร์การ์ด"
 }

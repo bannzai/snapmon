@@ -148,5 +148,6 @@
   "resultAddToParty": "takıma ekle",
   "resultReplaceInParty": "Takımından birini değiştir",
   "resultCaptureAnother": "Takımını büyüt",
-  "resultShareText": "{monsterName}, snapmon'da doğdu\n#snapmon\n{url}"
+  "resultShareText": "{monsterName}, snapmon'da doğdu\n#snapmon\n{url}",
+  "resultShareCard": "Kartı paylaş"
 }

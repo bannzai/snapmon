@@ -148,5 +148,6 @@
   "resultAddToParty": "Dodaj do drużyny",
   "resultReplaceInParty": "Zamień członka drużyny",
   "resultCaptureAnother": "Powiększ swoją drużynę",
-  "resultShareText": "W snapmon narodził się {monsterName}\n#snapmon\n{url}"
+  "resultShareText": "W snapmon narodził się {monsterName}\n#snapmon\n{url}",
+  "resultShareCard": "Udostępnij kartę"
 }

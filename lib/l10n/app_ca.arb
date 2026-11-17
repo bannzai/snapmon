@@ -148,5 +148,6 @@
   "resultAddToParty": "Afegeix a l'equip",
   "resultReplaceInParty": "Canvia un membre de l'equip",
   "resultCaptureAnother": "Amplia el teu equip",
-  "resultShareText": "A snapmon ha nascut {monsterName}\n#snapmon\n{url}"
+  "resultShareText": "A snapmon ha nascut {monsterName}\n#snapmon\n{url}",
+  "resultShareCard": "Comparteix la carta"
 }

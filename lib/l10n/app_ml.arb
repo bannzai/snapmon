@@ -148,5 +148,6 @@
   "resultAddToParty": "പാർട്ടിയിലേക്ക് ചേർക്കുക",
   "resultReplaceInParty": "പാർട്ടിയിലെ അംഗത്തെ മാറ്റുക",
   "resultCaptureAnother": "നിങ്ങളുടെ പാർട്ടി വളർത്തൂ",
-  "resultShareText": "snapmon-ൽ {monsterName} പിറന്നു\n#snapmon\n{url}"
+  "resultShareText": "snapmon-ൽ {monsterName} പിറന്നു\n#snapmon\n{url}",
+  "resultShareCard": "കാർഡ് പങ്കിടൂ"
 }

@@ -148,5 +148,6 @@
   "resultAddToParty": "Tambahkan ke tim",
   "resultReplaceInParty": "Ganti anggota timmu",
   "resultCaptureAnother": "Perbesar timmu",
-  "resultShareText": "{monsterName} lahir di snapmon\n#snapmon\n{url}"
+  "resultShareText": "{monsterName} lahir di snapmon\n#snapmon\n{url}",
+  "resultShareCard": "Bagikan kartu"
 }

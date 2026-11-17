@@ -148,5 +148,6 @@
   "resultAddToParty": "파티에 추가",
   "resultReplaceInParty": "파티 멤버 교체하기",
   "resultCaptureAnother": "파티 늘리기",
-  "resultShareText": "snapmon에서 {monsterName}이 태어났어요\n#snapmon\n{url}"
+  "resultShareText": "snapmon에서 {monsterName}이 태어났어요\n#snapmon\n{url}",
+  "resultShareCard": "카드 공유하기"
 }

@@ -148,5 +148,6 @@
   "resultAddToParty": "टीम में जोड़ो",
   "resultReplaceInParty": "टीम के सदस्य को बदलो",
   "resultCaptureAnother": "अपनी टीम बढ़ाओ",
-  "resultShareText": "snapmon में {monsterName} का जन्म हुआ\n#snapmon\n{url}"
+  "resultShareText": "snapmon में {monsterName} का जन्म हुआ\n#snapmon\n{url}",
+  "resultShareCard": "कार्ड शेयर करो"
 }

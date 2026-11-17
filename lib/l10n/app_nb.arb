@@ -148,5 +148,6 @@
   "resultAddToParty": "Legg til på laget",
   "resultReplaceInParty": "Bytt ut et medlem på laget",
   "resultCaptureAnother": "Utvid laget ditt",
-  "resultShareText": "{monsterName} ble født i snapmon\n#snapmon\n{url}"
+  "resultShareText": "{monsterName} ble født i snapmon\n#snapmon\n{url}",
+  "resultShareCard": "Del kort"
 }

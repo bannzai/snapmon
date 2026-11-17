@@ -148,5 +148,6 @@
   "resultAddToParty": "Добавить в команду",
   "resultReplaceInParty": "Замени участника команды",
   "resultCaptureAnother": "Пополняй команду",
-  "resultShareText": "В snapmon появился {monsterName}\n#snapmon\n{url}"
+  "resultShareText": "В snapmon появился {monsterName}\n#snapmon\n{url}",
+  "resultShareCard": "Поделиться карточкой"
 }

@@ -148,5 +148,6 @@
   "resultAddToParty": "הוספה לצוות",
   "resultReplaceInParty": "להחליף חבר בצוות",
   "resultCaptureAnother": "להגדיל את הצוות",
-  "resultShareText": "{monsterName} נולד בעולם של snapmon\n#snapmon\n{url}"
+  "resultShareText": "{monsterName} נולד בעולם של snapmon\n#snapmon\n{url}",
+  "resultShareCard": "שיתוף קלף"
 }
