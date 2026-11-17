@@ -172,6 +172,7 @@ export const LATER_SUPPORT_MOVE_COUNT = 1;
  * Lv.2 以降は、自分の属性の残りの技から攻撃技を `LATER_ATTACK_MOVE_COUNT` 個、補助技を `LATER_SUPPORT_MOVE_COUNT` 個、確率の高い順に (属性が 2 つなら交互に) 選ぶ。
  * 攻撃技のうち Lv.2 から `EVERY_LEVEL_LEARN_LEVEL_MAXIMUM` までの分は、そのレベルで覚えられる (レベル帯の下限がそのレベル以下の) 技から確率の高い順に先に選ぶ
  * (#345。確率の高い順だけで選ぶと下限が上の技に寄った時に、開放レベルが下限へ上がって技を覚えないレベルができるため)。
+ * 自分の属性にそのレベルで覚えられる攻撃技が残っていない時 (その場で作った属性は技が 3 つ) は、Lv.1 の技と同じく [fallbackMoves] の別の属性の攻撃技から当てはまりの確率が高い順に足す。
  * 残りはそれぞれレベル帯の下限の順に並べて攻撃技 2 つに補助技 1 つの間隔で混ぜ、`laterLearnLevel` の順のレベルで 1 つずつ覚える。開放レベルはそのレベルとレベル帯の下限の大きい方。
  * 並びは開放レベル順 (同じレベルは覚える順)。
  * [fallbackMoves] には master の技を渡す (その場で作った別の属性の技はモンスターの `definitionIDs` に入らず、端末で引けないため)。
@@ -223,12 +224,11 @@ export function buildLearnset({
   const startingMoveIDs = mergeInTurns(elementTypeIDs.map((elementTypeID) => startingMovesByProbability({ elementTypeID, candidates: ownMoves })))
     .slice(0, Math.min(STARTING_OWN_ELEMENT_MOVE_COUNT, STARTING_MOVE_COUNT))
     .map((move) => move.id);
-  for (const move of mergeInTurns(
-    [...new Set(otherMoves.map((move) => move.elementTypeID))]
-      .filter((elementTypeID) => !elementTypeIDs.includes(elementTypeID))
-      .sort((leftID, rightID) => (elementProbabilities[rightID] ?? 0) - (elementProbabilities[leftID] ?? 0) || tieBreakerOf(leftID) - tieBreakerOf(rightID))
-      .map((elementTypeID) => startingMovesByProbability({ elementTypeID, candidates: otherMoves })),
-  )) {
+  /** [fallbackMoves] の属性のうち自分の属性でないものを、当てはまりの確率が高い順 (同じなら `tieBreakerOf` の順) に並べたもの。 */
+  const otherElementTypeIDs = [...new Set(otherMoves.map((move) => move.elementTypeID))]
+    .filter((elementTypeID) => !elementTypeIDs.includes(elementTypeID))
+    .sort((leftID, rightID) => (elementProbabilities[rightID] ?? 0) - (elementProbabilities[leftID] ?? 0) || tieBreakerOf(leftID) - tieBreakerOf(rightID));
+  for (const move of mergeInTurns(otherElementTypeIDs.map((elementTypeID) => startingMovesByProbability({ elementTypeID, candidates: otherMoves })))) {
     if (startingMoveIDs.length < STARTING_MOVE_COUNT && !startingMoveIDs.includes(move.id)) {
       startingMoveIDs.push(move.id);
     }
@@ -248,9 +248,29 @@ export function buildLearnset({
   const sortedByLevelMinimum = ({ candidates, count }: { candidates: MasterMove[]; count: number }) =>
     candidates.slice(0, count).sort((left, right) => left.learnableLevelMinimum - right.learnableLevelMinimum);
   const attackMovesByProbability = laterMovesByProbability({ category: "attack" });
+  /**
+   * 自分の属性の攻撃技が足りないレベルに足す、[fallbackMoves] の別の属性の攻撃技。当てはまりの確率が高い属性から 1 つずつ交互に並べたもの。
+   * 1 レベルごとに覚えるどのレベルでも覚えられ、当てはまりの高い属性から順に使えるよう、Lv.2 で覚えられる技だけにする。
+   */
+  const otherAttackMoves = mergeInTurns(
+    otherElementTypeIDs.map((elementTypeID) =>
+      sortByProbability({
+        elementTypeID,
+        candidates: otherMoves.filter(
+          (move) =>
+            move.elementTypeID === elementTypeID &&
+            move.category === "attack" &&
+            move.learnableLevelMinimum <= STARTING_LEVEL + 1 &&
+            !startingMoveIDs.includes(move.id),
+        ),
+      }),
+    ),
+  );
   const everyLevelMoves: MasterMove[] = [];
   for (let level = STARTING_LEVEL + 1; level <= EVERY_LEVEL_LEARN_LEVEL_MAXIMUM && everyLevelMoves.length < LATER_ATTACK_MOVE_COUNT; level++) {
-    const move = attackMovesByProbability.find((candidate) => candidate.learnableLevelMinimum <= level && !everyLevelMoves.includes(candidate));
+    const move = [...attackMovesByProbability, ...otherAttackMoves].find(
+      (candidate) => candidate.learnableLevelMinimum <= level && !everyLevelMoves.includes(candidate),
+    );
     if (move) {
       everyLevelMoves.push(move);
     }
