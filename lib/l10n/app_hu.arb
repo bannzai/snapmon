@@ -296,5 +296,6 @@
   "actionCardTaughtNone": "Még nem tanítottál meg neki támadást",
   "actionCardTeach": "Támadás megtanítása",
   "actionCardTeachTitle": "Tanítsd meg {monsterName} számára",
-  "actionCardTeachNoForgotten": "Egy támadás sem kerül le"
+  "actionCardTeachNoForgotten": "Egy támadás sem kerül le",
+  "actionCardTeachReplacedMove": "{moveName} kikerül a támadás helyéről"
 }

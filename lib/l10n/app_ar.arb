@@ -296,5 +296,6 @@
   "actionCardTaughtNone": "لم تُعلَّم أي حركة بعد",
   "actionCardTeach": "تعليم حركة",
   "actionCardTeachTitle": "تعليم {monsterName}",
-  "actionCardTeachNoForgotten": "لا توجد حركات ستُزال"
+  "actionCardTeachNoForgotten": "لا توجد حركات ستُزال",
+  "actionCardTeachReplacedMove": "{moveName} ستخرج من خانة الحركات"
 }

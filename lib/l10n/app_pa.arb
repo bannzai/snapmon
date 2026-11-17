@@ -296,5 +296,6 @@
   "actionCardTaughtNone": "ਹਾਲੇ ਕੋਈ ਚਾਲ ਨਹੀਂ ਸਿਖਾਈ",
   "actionCardTeach": "ਚਾਲ ਸਿਖਾਓ",
   "actionCardTeachTitle": "{monsterName} ਨੂੰ ਸਿਖਾਓ",
-  "actionCardTeachNoForgotten": "ਕੋਈ ਚਾਲ ਨਹੀਂ ਹਟੇਗੀ"
+  "actionCardTeachNoForgotten": "ਕੋਈ ਚਾਲ ਨਹੀਂ ਹਟੇਗੀ",
+  "actionCardTeachReplacedMove": "{moveName} ਚਾਲ ਦੇ ਸਲਾਟ ਤੋਂ ਬਾਹਰ ਹੋ ਜਾਵੇਗੀ"
 }

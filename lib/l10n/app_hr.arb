@@ -296,5 +296,6 @@
   "actionCardTaughtNone": "Još ga nisi naučio nijedan potez",
   "actionCardTeach": "Nauči potez",
   "actionCardTeachTitle": "Nauči {monsterName}",
-  "actionCardTeachNoForgotten": "Nijedan potez neće biti uklonjen"
+  "actionCardTeachNoForgotten": "Nijedan potez neće biti uklonjen",
+  "actionCardTeachReplacedMove": "{moveName} izlazi iz mjesta za potez"
 }

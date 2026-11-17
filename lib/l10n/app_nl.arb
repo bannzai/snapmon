@@ -296,5 +296,6 @@
   "actionCardTaughtNone": "Je hebt nog geen aanval aangeleerd",
   "actionCardTeach": "Leer een aanval aan",
   "actionCardTeachTitle": "Leer het aan {monsterName}",
-  "actionCardTeachNoForgotten": "Er wordt geen aanval verwijderd"
+  "actionCardTeachNoForgotten": "Er wordt geen aanval verwijderd",
+  "actionCardTeachReplacedMove": "{moveName} verdwijnt uit een aanvalsvak"
 }

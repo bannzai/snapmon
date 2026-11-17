@@ -296,5 +296,6 @@
   "actionCardTaughtNone": "இன்னும் எந்தத் தாக்குதலும் கற்பிக்கப்படவில்லை",
   "actionCardTeach": "தாக்குதலைக் கற்பிக்கவும்",
   "actionCardTeachTitle": "{monsterName}க்கு கற்றுக்கொடுங்கள்",
-  "actionCardTeachNoForgotten": "எந்தத் தாக்குதலும் நீக்கப்படாது"
+  "actionCardTeachNoForgotten": "எந்தத் தாக்குதலும் நீக்கப்படாது",
+  "actionCardTeachReplacedMove": "{moveName} தாக்குதலுக்கான இடத்திலிருந்து நீங்கும்"
 }

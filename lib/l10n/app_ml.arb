@@ -296,5 +296,6 @@
   "actionCardTaughtNone": "ഇതുവരെ നീക്കങ്ങളൊന്നും പഠിപ്പിച്ചിട്ടില്ല",
   "actionCardTeach": "നീക്കം പഠിപ്പിക്കുക",
   "actionCardTeachTitle": "{monsterName}നെ പഠിപ്പിക്കുക",
-  "actionCardTeachNoForgotten": "ഒരു നീക്കവും നീക്കം ചെയ്യില്ല"
+  "actionCardTeachNoForgotten": "ഒരു നീക്കവും നീക്കം ചെയ്യില്ല",
+  "actionCardTeachReplacedMove": "{moveName} നീക്കത്തിന്റെ സ്ലോട്ടിൽ നിന്ന് മാറും"
 }

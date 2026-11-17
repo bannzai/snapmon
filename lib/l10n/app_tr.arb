@@ -296,5 +296,6 @@
   "actionCardTaughtNone": "Henüz hiç hamle öğretmedin",
   "actionCardTeach": "Hamle öğret",
   "actionCardTeachTitle": "{monsterName} için öğret",
-  "actionCardTeachNoForgotten": "Hiçbir hamle kaldırılmayacak"
+  "actionCardTeachNoForgotten": "Hiçbir hamle kaldırılmayacak",
+  "actionCardTeachReplacedMove": "{moveName} hamle yuvasından çıkacak"
 }

@@ -296,5 +296,6 @@
   "actionCardTaughtNone": "Non gli hai ancora insegnato nessuna mossa",
   "actionCardTeach": "Insegna una mossa",
   "actionCardTeachTitle": "Insegna a {monsterName}",
-  "actionCardTeachNoForgotten": "Nessuna mossa verrà rimossa"
+  "actionCardTeachNoForgotten": "Nessuna mossa verrà rimossa",
+  "actionCardTeachReplacedMove": "{moveName} uscirà dallo slot mosse"
 }

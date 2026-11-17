@@ -296,5 +296,6 @@
   "actionCardTaughtNone": "还没教会任何招式",
   "actionCardTeach": "传授招式",
   "actionCardTeachTitle": "教给 {monsterName}",
-  "actionCardTeachNoForgotten": "没有招式会被移除"
+  "actionCardTeachNoForgotten": "没有招式会被移除",
+  "actionCardTeachReplacedMove": "{moveName}将移出招式栏"
 }

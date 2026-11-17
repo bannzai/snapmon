@@ -296,5 +296,6 @@
   "actionCardTaughtNone": "ଏଯାଏଁ କୌଣସି ଚାଲ ଶିଖାଯାଇନି",
   "actionCardTeach": "ଚାଲ ଶିଖାଅ",
   "actionCardTeachTitle": "{monsterName}କୁ ଶିଖାଅ",
-  "actionCardTeachNoForgotten": "କୌଣସି ଚାଲ ବାହାରିବ ନାହିଁ"
+  "actionCardTeachNoForgotten": "କୌଣସି ଚାଲ ବାହାରିବ ନାହିଁ",
+  "actionCardTeachReplacedMove": "{moveName} ଚାଲ ସ୍ଲଟ୍‌ରୁ ବାହାରିଯିବ"
 }

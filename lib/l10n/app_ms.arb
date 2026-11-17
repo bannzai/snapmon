@@ -296,5 +296,6 @@
   "actionCardTaughtNone": "Belum ada gerakan yang diajar",
   "actionCardTeach": "Ajar gerakan",
   "actionCardTeachTitle": "Ajar {monsterName}",
-  "actionCardTeachNoForgotten": "Tiada gerakan yang akan dibuang"
+  "actionCardTeachNoForgotten": "Tiada gerakan yang akan dibuang",
+  "actionCardTeachReplacedMove": "{moveName} akan keluar daripada slot gerakan"
 }

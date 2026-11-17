@@ -296,5 +296,6 @@
   "actionCardTaughtNone": "Ešte si ho nenaučil žiadny útok",
   "actionCardTeach": "Nauč útok",
   "actionCardTeachTitle": "Nauč {monsterName}",
-  "actionCardTeachNoForgotten": "Žiadny útok sa neodstráni"
+  "actionCardTeachNoForgotten": "Žiadny útok sa neodstráni",
+  "actionCardTeachReplacedMove": "{moveName} vypadne zo slotu na útok"
 }

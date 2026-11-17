@@ -296,5 +296,6 @@
   "actionCardTaughtNone": "Ти ще не навчив його жодного прийому",
   "actionCardTeach": "Навчити прийому",
   "actionCardTeachTitle": "Навчити {monsterName}",
-  "actionCardTeachNoForgotten": "Жоден прийом не буде вилучено"
+  "actionCardTeachNoForgotten": "Жоден прийом не буде вилучено",
+  "actionCardTeachReplacedMove": "{moveName} вийде з комірки прийомів"
 }

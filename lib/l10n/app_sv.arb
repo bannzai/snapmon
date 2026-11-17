@@ -296,5 +296,6 @@
   "actionCardTaughtNone": "Du har inte lärt ut någon attack än",
   "actionCardTeach": "Lär ut en attack",
   "actionCardTeachTitle": "Lär {monsterName}",
-  "actionCardTeachNoForgotten": "Ingen attack tas bort"
+  "actionCardTeachNoForgotten": "Ingen attack tas bort",
+  "actionCardTeachReplacedMove": "{moveName} lämnar en attackplats"
 }

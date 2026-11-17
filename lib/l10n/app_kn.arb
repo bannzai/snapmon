@@ -296,5 +296,6 @@
   "actionCardTaughtNone": "ಇನ್ನೂ ಯಾವುದೇ ತಂತ್ರ ಕಲಿಸಿಲ್ಲ",
   "actionCardTeach": "ತಂತ್ರ ಕಲಿಸು",
   "actionCardTeachTitle": "{monsterName}ಗೆ ಕಲಿಸು",
-  "actionCardTeachNoForgotten": "ಯಾವ ತಂತ್ರವೂ ತೆಗೆದುಹಾಕಲಾಗುವುದಿಲ್ಲ"
+  "actionCardTeachNoForgotten": "ಯಾವ ತಂತ್ರವೂ ತೆಗೆದುಹಾಕಲಾಗುವುದಿಲ್ಲ",
+  "actionCardTeachReplacedMove": "{moveName} ತಂತ್ರದ ಸ್ಲಾಟ್‌ನಿಂದ ಹೊರಹೋಗುತ್ತದೆ"
 }

@@ -296,5 +296,6 @@
   "actionCardTaughtNone": "Belum ada jurus yang diajarkan",
   "actionCardTeach": "Ajarkan jurus",
   "actionCardTeachTitle": "Ajari {monsterName}",
-  "actionCardTeachNoForgotten": "Tidak ada jurus yang dilepas"
+  "actionCardTeachNoForgotten": "Tidak ada jurus yang dilepas",
+  "actionCardTeachReplacedMove": "{moveName} akan keluar dari slot jurus"
 }

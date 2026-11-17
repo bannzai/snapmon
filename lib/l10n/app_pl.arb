@@ -296,5 +296,6 @@
   "actionCardTaughtNone": "Nie nauczyłeś go jeszcze żadnego ruchu",
   "actionCardTeach": "Naucz ruchu",
   "actionCardTeachTitle": "Naucz {monsterName}",
-  "actionCardTeachNoForgotten": "Żaden ruch nie zostanie usunięty"
+  "actionCardTeachNoForgotten": "Żaden ruch nie zostanie usunięty",
+  "actionCardTeachReplacedMove": "{moveName} wypadnie z miejsca na ruch"
 }

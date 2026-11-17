@@ -296,5 +296,6 @@
   "actionCardTaughtNone": "עוד לא נלמדו מתקפות",
   "actionCardTeach": "ללמד מתקפה",
   "actionCardTeachTitle": "ללמד את {monsterName}",
-  "actionCardTeachNoForgotten": "אף מתקפה לא תוסר"
+  "actionCardTeachNoForgotten": "אף מתקפה לא תוסר",
+  "actionCardTeachReplacedMove": "{moveName} תצא ממשבצת המתקפות"
 }

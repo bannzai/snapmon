@@ -296,5 +296,6 @@
   "actionCardTaughtNone": "Ingen angrep lært bort ennå",
   "actionCardTeach": "Lær bort et angrep",
   "actionCardTeachTitle": "Lær {monsterName} det",
-  "actionCardTeachNoForgotten": "Ingen angrep blir fjernet"
+  "actionCardTeachNoForgotten": "Ingen angrep blir fjernet",
+  "actionCardTeachReplacedMove": "{moveName} går ut av angrepsplassen"
 }
