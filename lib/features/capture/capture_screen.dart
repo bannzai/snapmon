@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../../common_ui/scene_route.dart';
 import '../../analytics/analytics_events.dart';
+import '../../app_display_name.dart';
 import '../../l10n/l10n.dart';
 import '../../sample/sample_data.dart';
 import '../../theme/snapmon_colors.dart';
@@ -353,7 +354,7 @@ class _CaptureScreenState extends State<CaptureScreen>
                 alignment: Alignment.centerLeft,
                 child: FittedBox(
                   fit: BoxFit.scaleDown,
-                  child: Text('snapmon', style: SnapmonTextStyles.logo),
+                  child: Text(appDisplayName, style: SnapmonTextStyles.logo),
                 ),
               ),
             ),
