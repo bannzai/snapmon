@@ -38,5 +38,6 @@
   "opponentFindOthers": "Etsi muita vastustajia",
   "opponentAverageLevel": "Keskimääräinen Lv. {level}",
   "opponentReportHelpPrompt": "Ongelma vastustajan hirviön kanssa?",
-  "opponentSearching": "Etsitään kouluttajaa"
+  "opponentSearching": "Etsitään kouluttajaa",
+  "opponentSearchAgain": "Etsi uudelleen"
 }

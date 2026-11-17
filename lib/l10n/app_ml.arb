@@ -38,5 +38,6 @@
   "opponentFindOthers": "മറ്റ് എതിരാളികളെ കണ്ടെത്തൂ",
   "opponentAverageLevel": "ശരാശരി Lv. {level}",
   "opponentReportHelpPrompt": "എതിരാളിയുടെ മോൺസ്റ്ററുമായി എന്തെങ്കിലും പ്രശ്നമുണ്ടോ?",
-  "opponentSearching": "ട്രെയിനറെ തിരയുന്നു"
+  "opponentSearching": "ട്രെയിനറെ തിരയുന്നു",
+  "opponentSearchAgain": "വീണ്ടും തിരയുക"
 }

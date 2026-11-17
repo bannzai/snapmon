@@ -38,5 +38,6 @@
   "opponentFindOthers": "Cerca altri avversari",
   "opponentAverageLevel": "Lv. medio {level}",
   "opponentReportHelpPrompt": "Problemi con il mostro avversario?",
-  "opponentSearching": "Cerco un allenatore"
+  "opponentSearching": "Cerco un allenatore",
+  "opponentSearchAgain": "Cerca di nuovo"
 }

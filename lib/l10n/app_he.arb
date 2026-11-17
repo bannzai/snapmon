@@ -38,5 +38,6 @@
   "opponentFindOthers": "לחפש יריבים אחרים",
   "opponentAverageLevel": "ממוצע Lv. {level}",
   "opponentReportHelpPrompt": "בעיה עם המפלצת של היריב?",
-  "opponentSearching": "מחפשים מאמן"
+  "opponentSearching": "מחפשים מאמן",
+  "opponentSearchAgain": "לחפש שוב"
 }

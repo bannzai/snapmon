@@ -38,5 +38,6 @@
   "opponentFindOthers": "寻找其他对手",
   "opponentAverageLevel": "平均 Lv. {level}",
   "opponentReportHelpPrompt": "对手的怪物有问题？",
-  "opponentSearching": "正在寻找训练家"
+  "opponentSearching": "正在寻找训练家",
+  "opponentSearchAgain": "重新寻找"
 }

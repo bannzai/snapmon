@@ -38,5 +38,6 @@
   "opponentFindOthers": "மற்ற எதிராளிகளைத் தேடுங்கள்",
   "opponentAverageLevel": "சராசரி Lv. {level}",
   "opponentReportHelpPrompt": "எதிராளியின் மான்ஸ்டருடன் ஏதேனும் சிக்கலா?",
-  "opponentSearching": "பயிற்சியாளரைத் தேடுகிறோம்"
+  "opponentSearching": "பயிற்சியாளரைத் தேடுகிறோம்",
+  "opponentSearchAgain": "மீண்டும் தேடுங்கள்"
 }

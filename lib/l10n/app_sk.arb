@@ -38,5 +38,6 @@
   "opponentFindOthers": "Nájdi ďalších súperov",
   "opponentAverageLevel": "Priemerná Lv. {level}",
   "opponentReportHelpPrompt": "Problém s príšerou súpera?",
-  "opponentSearching": "Hľadá sa tréner"
+  "opponentSearching": "Hľadá sa tréner",
+  "opponentSearchAgain": "Hľadaj znova"
 }

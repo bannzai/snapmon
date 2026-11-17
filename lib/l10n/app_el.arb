@@ -38,5 +38,6 @@
   "opponentFindOthers": "Βρες άλλους αντιπάλους",
   "opponentAverageLevel": "Μέση Lv. {level}",
   "opponentReportHelpPrompt": "Πρόβλημα με το τέρας του αντιπάλου;",
-  "opponentSearching": "Αναζήτηση εκπαιδευτή"
+  "opponentSearching": "Αναζήτηση εκπαιδευτή",
+  "opponentSearchAgain": "Ψάξε ξανά"
 }

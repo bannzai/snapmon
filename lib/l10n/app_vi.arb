@@ -38,5 +38,6 @@
   "opponentFindOthers": "Tìm đối thủ khác",
   "opponentAverageLevel": "Lv. trung bình {level}",
   "opponentReportHelpPrompt": "Quái vật của đối thủ có vấn đề?",
-  "opponentSearching": "Đang tìm nhà huấn luyện"
+  "opponentSearching": "Đang tìm nhà huấn luyện",
+  "opponentSearchAgain": "Tìm lại"
 }

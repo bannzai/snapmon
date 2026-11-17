@@ -38,5 +38,6 @@
   "opponentFindOthers": "Znajdź innych rywali",
   "opponentAverageLevel": "Średni Lv. {level}",
   "opponentReportHelpPrompt": "Problem z potworem przeciwnika?",
-  "opponentSearching": "Trwa szukanie trenera"
+  "opponentSearching": "Trwa szukanie trenera",
+  "opponentSearchAgain": "Szukaj ponownie"
 }

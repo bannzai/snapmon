@@ -38,5 +38,6 @@
   "opponentFindOthers": "Başka rakipler bul",
   "opponentAverageLevel": "Ortalama Lv. {level}",
   "opponentReportHelpPrompt": "Rakibin canavarıyla ilgili bir sorun mu var?",
-  "opponentSearching": "eğitmen aranıyor"
+  "opponentSearching": "eğitmen aranıyor",
+  "opponentSearchAgain": "Tekrar ara"
 }

@@ -38,5 +38,6 @@
   "opponentFindOthers": "دوسرے حریف تلاش کرو",
   "opponentAverageLevel": "اوسط Lv. {level}",
   "opponentReportHelpPrompt": "مخالف کے مونسٹر سے کوئی مسئلہ ہے؟",
-  "opponentSearching": "ٹرینر کی تلاش جاری ہے"
+  "opponentSearching": "ٹرینر کی تلاش جاری ہے",
+  "opponentSearchAgain": "پھر سے ڈھونڈو"
 }

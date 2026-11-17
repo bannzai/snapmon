@@ -38,5 +38,6 @@
   "opponentFindOthers": "ಬೇರೆ ಎದುರಾಳಿಗಳನ್ನು ಹುಡುಕು",
   "opponentAverageLevel": "ಸರಾಸರಿ Lv. {level}",
   "opponentReportHelpPrompt": "ಎದುರಾಳಿಯ ಮಾನ್ಸ್ಟರ್ ಬಗ್ಗೆ ಸಮಸ್ಯೆಯಿದೆಯೇ?",
-  "opponentSearching": "ಟ್ರೈನರನ್ನು ಹುಡುಕಲಾಗುತ್ತಿದೆ"
+  "opponentSearching": "ಟ್ರೈನರನ್ನು ಹುಡುಕಲಾಗುತ್ತಿದೆ",
+  "opponentSearchAgain": "ಮತ್ತೆ ಹುಡುಕು"
 }

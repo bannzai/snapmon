@@ -38,5 +38,6 @@
   "opponentFindOthers": "Найди других соперников",
   "opponentAverageLevel": "Средний Lv. {level}",
   "opponentReportHelpPrompt": "Проблема с монстром соперника?",
-  "opponentSearching": "Ищем тренера"
+  "opponentSearching": "Ищем тренера",
+  "opponentSearchAgain": "Искать снова"
 }

@@ -38,5 +38,6 @@
   "opponentFindOthers": "Hitta andra motståndare",
   "opponentAverageLevel": "Genomsnittlig Lv. {level}",
   "opponentReportHelpPrompt": "Problem med motståndarens monster?",
-  "opponentSearching": "Letar efter en tränare"
+  "opponentSearching": "Letar efter en tränare",
+  "opponentSearchAgain": "Sök igen"
 }

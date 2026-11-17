@@ -38,5 +38,6 @@
   "opponentFindOthers": "다른 상대 찾기",
   "opponentAverageLevel": "평균 Lv. {level}",
   "opponentReportHelpPrompt": "상대 몬스터에 문제가 있나요?",
-  "opponentSearching": "트레이너를 찾고 있어요"
+  "opponentSearching": "트레이너를 찾고 있어요",
+  "opponentSearchAgain": "다시 찾기"
 }

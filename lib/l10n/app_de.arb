@@ -38,5 +38,6 @@
   "opponentFindOthers": "Finde andere Gegner",
   "opponentAverageLevel": "Durchschnittliche Lv. {level}",
   "opponentReportHelpPrompt": "Problem mit dem Monster deines Gegners?",
-  "opponentSearching": "Suche nach einem Trainer"
+  "opponentSearching": "Suche nach einem Trainer",
+  "opponentSearchAgain": "Erneut suchen"
 }

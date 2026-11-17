@@ -38,5 +38,6 @@
   "opponentFindOthers": "Pronađi druge protivnike",
   "opponentAverageLevel": "Prosječna Lv. {level}",
   "opponentReportHelpPrompt": "Problem s čudovištem protivnika?",
-  "opponentSearching": "Traži se trener"
+  "opponentSearching": "Traži se trener",
+  "opponentSearchAgain": "Traži ponovno"
 }

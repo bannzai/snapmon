@@ -38,5 +38,6 @@
   "opponentFindOthers": "ابحث عن خصوم آخرين",
   "opponentAverageLevel": "متوسط Lv. {level}",
   "opponentReportHelpPrompt": "هل هناك مشكلة في وحش الخصم؟",
-  "opponentSearching": "جارٍ البحث عن مدرب"
+  "opponentSearching": "جارٍ البحث عن مدرب",
+  "opponentSearchAgain": "ابحث مجددًا"
 }

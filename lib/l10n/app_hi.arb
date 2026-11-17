@@ -38,5 +38,6 @@
   "opponentFindOthers": "दूसरे प्रतिद्वंद्वी खोजो",
   "opponentAverageLevel": "औसत Lv. {level}",
   "opponentReportHelpPrompt": "विरोधी के मॉन्स्टर से कोई समस्या?",
-  "opponentSearching": "ट्रेनर की तलाश जारी है"
+  "opponentSearching": "ट्रेनर की तलाश जारी है",
+  "opponentSearchAgain": "फिर से खोजो"
 }

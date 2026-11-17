@@ -38,5 +38,6 @@
   "opponentFindOthers": "Caută alți adversari",
   "opponentAverageLevel": "Lv. mediu {level}",
   "opponentReportHelpPrompt": "Vreo problemă cu monstrul adversarului?",
-  "opponentSearching": "Se caută un antrenor"
+  "opponentSearching": "Se caută un antrenor",
+  "opponentSearchAgain": "Caută din nou"
 }

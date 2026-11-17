@@ -38,5 +38,6 @@
   "opponentFindOthers": "Cari lawan lain",
   "opponentAverageLevel": "Rata-rata Lv. {level}",
   "opponentReportHelpPrompt": "Ada masalah dengan monster lawan?",
-  "opponentSearching": "Mencari pelatih"
+  "opponentSearching": "Mencari pelatih",
+  "opponentSearchAgain": "Cari lagi"
 }

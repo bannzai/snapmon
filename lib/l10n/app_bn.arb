@@ -38,5 +38,6 @@
   "opponentFindOthers": "অন্য প্রতিপক্ষ খোঁজো",
   "opponentAverageLevel": "গড় Lv. {level}",
   "opponentReportHelpPrompt": "প্রতিপক্ষের মনস্টার নিয়ে সমস্যা?",
-  "opponentSearching": "ট্রেনার খোঁজা হচ্ছে"
+  "opponentSearching": "ট্রেনার খোঁজা হচ্ছে",
+  "opponentSearchAgain": "আবার খোঁজো"
 }

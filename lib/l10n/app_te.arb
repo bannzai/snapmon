@@ -38,5 +38,6 @@
   "opponentFindOthers": "ఇతర ప్రత్యర్థులను వెతుకు",
   "opponentAverageLevel": "సగటు Lv. {level}",
   "opponentReportHelpPrompt": "ప్రత్యర్థి మాన్స్టర్‌తో ఏమైనా సమస్య ఉందా?",
-  "opponentSearching": "ట్రైనర్ కోసం వెతుకుతున్నాం"
+  "opponentSearching": "ట్రైనర్ కోసం వెతుకుతున్నాం",
+  "opponentSearchAgain": "మళ్లీ వెతుకు"
 }

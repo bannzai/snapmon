@@ -38,5 +38,6 @@
   "opponentFindOthers": "Busca altres rivals",
   "opponentAverageLevel": "Mitjana Lv. {level}",
   "opponentReportHelpPrompt": "Algun problema amb el monstre rival?",
-  "opponentSearching": "Buscant un entrenador"
+  "opponentSearching": "Buscant un entrenador",
+  "opponentSearchAgain": "Torna a buscar"
 }

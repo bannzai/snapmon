@@ -38,5 +38,6 @@
   "opponentFindOthers": "Cari lawan lain",
   "opponentAverageLevel": "Purata Lv. {level}",
   "opponentReportHelpPrompt": "Ada masalah dengan monster lawan?",
-  "opponentSearching": "Mencari jurulatih"
+  "opponentSearching": "Mencari jurulatih",
+  "opponentSearchAgain": "Cari lagi"
 }

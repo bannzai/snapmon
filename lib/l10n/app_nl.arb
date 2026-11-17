@@ -38,5 +38,6 @@
   "opponentFindOthers": "Zoek andere tegenstanders",
   "opponentAverageLevel": "Gemiddelde Lv. {level}",
   "opponentReportHelpPrompt": "Probleem met het monster van je tegenstander?",
-  "opponentSearching": "Zoeken naar een trainer"
+  "opponentSearching": "Zoeken naar een trainer",
+  "opponentSearchAgain": "Zoek opnieuw"
 }
