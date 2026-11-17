@@ -58,5 +58,6 @@
   "settingsPrivacyPolicy": "Datenschutzerklärung",
   "settingsAccountSection": "Konto",
   "settingsAboutAccountDeletion": "Über die Kontolöschung",
-  "settingsTransferData": "Daten übertragen"
+  "settingsTransferData": "Daten übertragen",
+  "settingsTransferDataDescription": "Melde dich mit {providerName} an\nund behalte deinen Dex beim Gerätewechsel"
 }

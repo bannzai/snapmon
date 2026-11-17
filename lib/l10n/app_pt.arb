@@ -58,5 +58,6 @@
   "settingsPrivacyPolicy": "Política de privacidade",
   "settingsAccountSection": "Conta",
   "settingsAboutAccountDeletion": "Sobre a exclusão da conta",
-  "settingsTransferData": "Transferir dados"
+  "settingsTransferData": "Transferir dados",
+  "settingsTransferDataDescription": "Entre com {providerName}\ne mantenha seu dex ao trocar de celular"
 }

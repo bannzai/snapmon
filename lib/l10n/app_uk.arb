@@ -58,5 +58,6 @@
   "settingsPrivacyPolicy": "Політика конфіденційності",
   "settingsAccountSection": "Обліковий запис",
   "settingsAboutAccountDeletion": "Про видалення облікового запису",
-  "settingsTransferData": "Перенести дані"
+  "settingsTransferData": "Перенести дані",
+  "settingsTransferDataDescription": "Увійди через {providerName}\nі збережи енциклопедію після зміни телефона"
 }

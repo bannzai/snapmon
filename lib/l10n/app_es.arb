@@ -58,5 +58,6 @@
   "settingsPrivacyPolicy": "Política de privacidad",
   "settingsAccountSection": "Cuenta",
   "settingsAboutAccountDeletion": "Sobre la eliminación de la cuenta",
-  "settingsTransferData": "Transferir datos"
+  "settingsTransferData": "Transferir datos",
+  "settingsTransferDataDescription": "Inicia sesión con {providerName}\ny conserva tu colección al cambiar de dispositivo"
 }

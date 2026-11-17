@@ -58,5 +58,6 @@
   "settingsPrivacyPolicy": "Adatvédelmi szabályzat",
   "settingsAccountSection": "Fiók",
   "settingsAboutAccountDeletion": "A fiók törléséről",
-  "settingsTransferData": "Adatok átvitele"
+  "settingsTransferData": "Adatok átvitele",
+  "settingsTransferDataDescription": "Jelentkezz be a {providerName} segítségével,\nhogy telefoncsere után is megmaradjon a gyűjteményed"
 }

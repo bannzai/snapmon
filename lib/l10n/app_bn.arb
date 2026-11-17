@@ -58,5 +58,6 @@
   "settingsPrivacyPolicy": "গোপনীয়তা নীতি",
   "settingsAccountSection": "অ্যাকাউন্ট",
   "settingsAboutAccountDeletion": "অ্যাকাউন্ট মুছে ফেলা সম্পর্কে",
-  "settingsTransferData": "ডেটা স্থানান্তর করো"
+  "settingsTransferData": "ডেটা স্থানান্তর করো",
+  "settingsTransferDataDescription": "{providerName} দিয়ে সাইন ইন করো\nফোন বদলালেও তোমার সংগ্রহ রেখে দাও"
 }

@@ -58,5 +58,6 @@
   "settingsPrivacyPolicy": "गोपनीयता धोरण",
   "settingsAccountSection": "खाते",
   "settingsAboutAccountDeletion": "खाते हटवण्याबद्दल",
-  "settingsTransferData": "डेटा हस्तांतरित कर"
+  "settingsTransferData": "डेटा हस्तांतरित कर",
+  "settingsTransferDataDescription": "{providerName} ने साइन इन कर\nफोन बदललास तरी तुझा संग्रह जपून ठेव"
 }

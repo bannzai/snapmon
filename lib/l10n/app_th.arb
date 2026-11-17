@@ -58,5 +58,6 @@
   "settingsPrivacyPolicy": "นโยบายความเป็นส่วนตัว",
   "settingsAccountSection": "บัญชี",
   "settingsAboutAccountDeletion": "เกี่ยวกับการลบบัญชี",
-  "settingsTransferData": "โอนย้ายข้อมูล"
+  "settingsTransferData": "โอนย้ายข้อมูล",
+  "settingsTransferDataDescription": "เข้าสู่ระบบด้วย {providerName}\nเปลี่ยนเครื่องก็ยังเก็บสารานุกรมไว้ได้"
 }

@@ -58,5 +58,6 @@
   "settingsPrivacyPolicy": "Kebijakan privasi",
   "settingsAccountSection": "Akun",
   "settingsAboutAccountDeletion": "Tentang penghapusan akun",
-  "settingsTransferData": "Pindahkan data"
+  "settingsTransferData": "Pindahkan data",
+  "settingsTransferDataDescription": "Masuk dengan {providerName}\nagar dex-mu tetap ada saat ganti perangkat"
 }

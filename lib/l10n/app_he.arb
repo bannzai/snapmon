@@ -58,5 +58,6 @@
   "settingsPrivacyPolicy": "מדיניות פרטיות",
   "settingsAccountSection": "חשבון",
   "settingsAboutAccountDeletion": "על מחיקת החשבון",
-  "settingsTransferData": "העברת נתונים"
+  "settingsTransferData": "העברת נתונים",
+  "settingsTransferDataDescription": "להתחבר עם {providerName}\nכדי לשמור את האוסף גם כשמחליפים מכשיר"
 }

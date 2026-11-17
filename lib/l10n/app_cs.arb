@@ -58,5 +58,6 @@
   "settingsPrivacyPolicy": "Zásady ochrany osobních údajů",
   "settingsAccountSection": "Účet",
   "settingsAboutAccountDeletion": "O smazání účtu",
-  "settingsTransferData": "Přenést data"
+  "settingsTransferData": "Přenést data",
+  "settingsTransferDataDescription": "Přihlas se přes {providerName}\na uchovej si encyklopedii i při změně telefonu"
 }

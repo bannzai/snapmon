@@ -58,5 +58,6 @@
   "settingsPrivacyPolicy": "رازداری کی پالیسی",
   "settingsAccountSection": "اکاؤنٹ",
   "settingsAboutAccountDeletion": "اکاؤنٹ حذف کرنے کے بارے میں",
-  "settingsTransferData": "ڈیٹا منتقل کرو"
+  "settingsTransferData": "ڈیٹا منتقل کرو",
+  "settingsTransferDataDescription": "{providerName} سے سائن اِن کرو\nفون بدلنے پر بھی اپنا ڈیکس محفوظ رکھو"
 }

@@ -58,5 +58,6 @@
   "settingsPrivacyPolicy": "സ്വകാര്യതാ നയം",
   "settingsAccountSection": "അക്കൗണ്ട്",
   "settingsAboutAccountDeletion": "അക്കൗണ്ട് ഇല്ലാതാക്കുന്നതിനെക്കുറിച്ച്",
-  "settingsTransferData": "ഡാറ്റ കൈമാറുക"
+  "settingsTransferData": "ഡാറ്റ കൈമാറുക",
+  "settingsTransferDataDescription": "{providerName} ഉപയോഗിച്ച് സൈൻ ഇൻ ചെയ്യൂ\nഫോൺ മാറിയാലും നിങ്ങളുടെ വിജ്ഞാനകോശം നിലനിർത്തൂ"
 }

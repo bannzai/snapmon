@@ -58,5 +58,6 @@
   "settingsPrivacyPolicy": "Политика конфиденциальности",
   "settingsAccountSection": "Аккаунт",
   "settingsAboutAccountDeletion": "Об удалении аккаунта",
-  "settingsTransferData": "Перенести данные"
+  "settingsTransferData": "Перенести данные",
+  "settingsTransferDataDescription": "Войди через {providerName}\nи сохрани энциклопедию при смене телефона"
 }

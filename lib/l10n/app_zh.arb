@@ -58,5 +58,6 @@
   "settingsPrivacyPolicy": "隐私政策",
   "settingsAccountSection": "账号",
   "settingsAboutAccountDeletion": "关于删除账号",
-  "settingsTransferData": "转移数据"
+  "settingsTransferData": "转移数据",
+  "settingsTransferDataDescription": "用 {providerName} 登录\n换手机也能保留图鉴"
 }

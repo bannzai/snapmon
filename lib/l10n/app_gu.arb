@@ -58,5 +58,6 @@
   "settingsPrivacyPolicy": "ગોપનીયતા નીતિ",
   "settingsAccountSection": "એકાઉન્ટ",
   "settingsAboutAccountDeletion": "એકાઉન્ટ કાઢી નાખવા વિશે",
-  "settingsTransferData": "ડેટા ટ્રાન્સફર કરો"
+  "settingsTransferData": "ડેટા ટ્રાન્સફર કરો",
+  "settingsTransferDataDescription": "{providerName} વડે સાઇન ઇન કરો\nફોન બદલો તોય તમારો ડેક્સ સાચવી રાખો"
 }

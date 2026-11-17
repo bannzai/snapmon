@@ -58,5 +58,6 @@
   "settingsPrivacyPolicy": "Informativa sulla privacy",
   "settingsAccountSection": "Account",
   "settingsAboutAccountDeletion": "Informazioni sull'eliminazione dell'account",
-  "settingsTransferData": "Trasferisci i dati"
+  "settingsTransferData": "Trasferisci i dati",
+  "settingsTransferDataDescription": "Accedi con {providerName}\ne conserva il tuo dex quando cambi dispositivo"
 }

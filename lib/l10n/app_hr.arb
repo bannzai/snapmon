@@ -58,5 +58,6 @@
   "settingsPrivacyPolicy": "Pravila privatnosti",
   "settingsAccountSection": "Račun",
   "settingsAboutAccountDeletion": "O brisanju računa",
-  "settingsTransferData": "Prenesi podatke"
+  "settingsTransferData": "Prenesi podatke",
+  "settingsTransferDataDescription": "Prijavi se putem {providerName}\ni sačuvaj enciklopediju kad promijeniš uređaj"
 }

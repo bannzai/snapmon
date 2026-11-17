@@ -58,5 +58,6 @@
   "settingsPrivacyPolicy": "Pravilnik o zasebnosti",
   "settingsAccountSection": "Račun",
   "settingsAboutAccountDeletion": "O izbrisu računa",
-  "settingsTransferData": "Prenesi podatke"
+  "settingsTransferData": "Prenesi podatke",
+  "settingsTransferDataDescription": "Prijavi se z {providerName}\nin obdrži enciklopedijo, ko zamenjaš telefon"
 }

@@ -58,5 +58,6 @@
   "settingsPrivacyPolicy": "Chính sách quyền riêng tư",
   "settingsAccountSection": "Tài khoản",
   "settingsAboutAccountDeletion": "Về việc xóa tài khoản",
-  "settingsTransferData": "Chuyển dữ liệu"
+  "settingsTransferData": "Chuyển dữ liệu",
+  "settingsTransferDataDescription": "Đăng nhập bằng {providerName}\nđể giữ bộ sưu tập khi đổi điện thoại"
 }

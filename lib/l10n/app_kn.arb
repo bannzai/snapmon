@@ -58,5 +58,6 @@
   "settingsPrivacyPolicy": "ಗೌಪ್ಯತಾ ನೀತಿ",
   "settingsAccountSection": "ಖಾತೆ",
   "settingsAboutAccountDeletion": "ಖಾತೆ ಅಳಿಸುವ ಬಗ್ಗೆ",
-  "settingsTransferData": "ಡೇಟಾ ವರ್ಗಾಯಿಸು"
+  "settingsTransferData": "ಡೇಟಾ ವರ್ಗಾಯಿಸು",
+  "settingsTransferDataDescription": "{providerName} ಮೂಲಕ ಸೈನ್ ಇನ್ ಮಾಡು\nಫೋನ್ ಬದಲಿಸಿದರೂ ನಿನ್ನ ವಿಶ್ವಕೋಶ ಉಳಿಸಿಕೋ"
 }

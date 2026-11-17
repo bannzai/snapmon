@@ -58,5 +58,6 @@
   "settingsPrivacyPolicy": "Dasar privasi",
   "settingsAccountSection": "Akaun",
   "settingsAboutAccountDeletion": "Tentang pemadaman akaun",
-  "settingsTransferData": "Pindahkan data"
+  "settingsTransferData": "Pindahkan data",
+  "settingsTransferDataDescription": "Log masuk dengan {providerName}\ndan simpan ensiklopedia kamu walaupun tukar telefon"
 }

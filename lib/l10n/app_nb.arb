@@ -58,5 +58,6 @@
   "settingsPrivacyPolicy": "Personvernerklæring",
   "settingsAccountSection": "Konto",
   "settingsAboutAccountDeletion": "Om sletting av konto",
-  "settingsTransferData": "Overfør data"
+  "settingsTransferData": "Overfør data",
+  "settingsTransferDataDescription": "Logg inn med {providerName}\nog behold samlingen din når du bytter telefon"
 }

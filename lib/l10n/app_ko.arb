@@ -58,5 +58,6 @@
   "settingsPrivacyPolicy": "개인정보 처리방침",
   "settingsAccountSection": "계정",
   "settingsAboutAccountDeletion": "계정 삭제 안내",
-  "settingsTransferData": "데이터 이전하기"
+  "settingsTransferData": "데이터 이전하기",
+  "settingsTransferDataDescription": "{providerName}로 로그인하고\n기기를 바꿔도 도감을 간직해요"
 }

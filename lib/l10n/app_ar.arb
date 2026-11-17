@@ -58,5 +58,6 @@
   "settingsPrivacyPolicy": "سياسة الخصوصية",
   "settingsAccountSection": "الحساب",
   "settingsAboutAccountDeletion": "حول حذف الحساب",
-  "settingsTransferData": "نقل البيانات"
+  "settingsTransferData": "نقل البيانات",
+  "settingsTransferDataDescription": "سجّل الدخول عبر {providerName}\nلتحتفظ بموسوعتك عند تغيير جهازك"
 }

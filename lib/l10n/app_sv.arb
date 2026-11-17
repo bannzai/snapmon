@@ -58,5 +58,6 @@
   "settingsPrivacyPolicy": "Integritetspolicy",
   "settingsAccountSection": "Konto",
   "settingsAboutAccountDeletion": "Om att radera kontot",
-  "settingsTransferData": "Överför data"
+  "settingsTransferData": "Överför data",
+  "settingsTransferDataDescription": "Logga in med {providerName}\noch behåll din samling när du byter telefon"
 }

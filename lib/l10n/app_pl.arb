@@ -58,5 +58,6 @@
   "settingsPrivacyPolicy": "Polityka prywatności",
   "settingsAccountSection": "Konto",
   "settingsAboutAccountDeletion": "O usuwaniu konta",
-  "settingsTransferData": "Przenieś dane"
+  "settingsTransferData": "Przenieś dane",
+  "settingsTransferDataDescription": "Zaloguj się przez {providerName}\ni zachowaj encyklopedię po zmianie telefonu"
 }

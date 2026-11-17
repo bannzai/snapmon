@@ -58,5 +58,6 @@
   "settingsPrivacyPolicy": "Privacybeleid",
   "settingsAccountSection": "Account",
   "settingsAboutAccountDeletion": "Over het verwijderen van je account",
-  "settingsTransferData": "Gegevens overzetten"
+  "settingsTransferData": "Gegevens overzetten",
+  "settingsTransferDataDescription": "Log in met {providerName}\nen behoud je dex als je van telefoon wisselt"
 }

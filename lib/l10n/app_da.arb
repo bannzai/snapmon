@@ -58,5 +58,6 @@
   "settingsPrivacyPolicy": "Privatlivspolitik",
   "settingsAccountSection": "Konto",
   "settingsAboutAccountDeletion": "Om sletning af konto",
-  "settingsTransferData": "Overfør data"
+  "settingsTransferData": "Overfør data",
+  "settingsTransferDataDescription": "Log ind med {providerName}\nog behold din dex, når du skifter telefon"
 }

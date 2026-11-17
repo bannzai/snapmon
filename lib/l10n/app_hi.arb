@@ -58,5 +58,6 @@
   "settingsPrivacyPolicy": "गोपनीयता नीति",
   "settingsAccountSection": "खाता",
   "settingsAboutAccountDeletion": "अकाउंट मिटाने के बारे में",
-  "settingsTransferData": "डेटा ट्रांसफ़र करो"
+  "settingsTransferData": "डेटा ट्रांसफ़र करो",
+  "settingsTransferDataDescription": "{providerName} से साइन इन करो\nफ़ोन बदलने पर भी अपना संग्रह बनाए रखो"
 }

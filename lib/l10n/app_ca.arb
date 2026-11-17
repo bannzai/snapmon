@@ -58,5 +58,6 @@
   "settingsPrivacyPolicy": "Política de privacitat",
   "settingsAccountSection": "Compte",
   "settingsAboutAccountDeletion": "Sobre la supressió del compte",
-  "settingsTransferData": "Transferir dades"
+  "settingsTransferData": "Transferir dades",
+  "settingsTransferDataDescription": "Inicia sessió amb {providerName}\ni conserva la teva enciclopèdia quan canviïs de mòbil"
 }

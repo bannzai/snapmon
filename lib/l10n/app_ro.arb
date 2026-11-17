@@ -58,5 +58,6 @@
   "settingsPrivacyPolicy": "Politica de confidențialitate",
   "settingsAccountSection": "Cont",
   "settingsAboutAccountDeletion": "Despre ștergerea contului",
-  "settingsTransferData": "Transferă datele"
+  "settingsTransferData": "Transferă datele",
+  "settingsTransferDataDescription": "Conectează-te cu {providerName}\nși păstrează enciclopedia când schimbi telefonul"
 }
