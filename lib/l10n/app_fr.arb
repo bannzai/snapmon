@@ -306,5 +306,6 @@
   "moveSelectionSave": "Confirmer",
   "moveSelectionReset": "Rechoisir",
   "actionCardForget": "Faire oublier",
-  "battleRematch": "Rejouer le combat"
+  "battleRematch": "Rejouer le combat",
+  "battleLostPartyHintTitle": "Agrandis ton équipe pour gagner plus facilement"
 }
