@@ -201,5 +201,6 @@
   "statusConditionCurse": "Malédiction",
   "statusConditionConfusion": "Confusion",
   "statusConditionDizzy": "Vertige",
-  "statusConditionExcited": "Excitation"
+  "statusConditionExcited": "Excitation",
+  "statusConditionFrozen": "Gelé"
 }
