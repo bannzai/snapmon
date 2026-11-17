@@ -69,5 +69,6 @@
   "settingsDisplayNameHelper": "Nom affiché à tes adversaires",
   "settingsDisplayNameSave": "Enregistrer",
   "profileChangeIcon": "Changer ton icône",
-  "profileIconHelper": "Icône visible par ton adversaire\nTu ne peux pas utiliser de photo montrant un visage"
+  "profileIconHelper": "Icône visible par ton adversaire\nTu ne peux pas utiliser de photo montrant un visage",
+  "profileIconUpdated": "Ton icône a changé !"
 }
