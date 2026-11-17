@@ -266,5 +266,6 @@
   "ticketPurchaseArrivalDelayed": "Czekamy, aż bilety się pojawią\nOtrzymane bilety zostaną, nawet jeśli zamkniesz ten ekran",
   "ticketPurchasePending": "Czekamy na zakończenie płatności\nNawet jeśli zamkniesz ten ekran, dostaniesz bilet po zakończeniu płatności",
   "ticketPurchaseArrivedTitle": "Bilety dotarły",
-  "ticketPurchaseContinue": "Stwórz potwora z tego zdjęcia"
+  "ticketPurchaseContinue": "Stwórz potwora z tego zdjęcia",
+  "ticketPurchaseSync": "Zsynchronizuj stan zakupu"
 }

@@ -266,5 +266,6 @@
   "ticketPurchaseArrivalDelayed": "ಟಿಕೆಟ್‌ಗಳು ಕಾಣಿಸಿಕೊಳ್ಳಲು ಕಾಯುತ್ತಿದ್ದೇವೆ\nಈ ಪರದೆಯನ್ನು ಮುಚ್ಚಿದರೂ ನಿನಗೆ ಸಿಕ್ಕ ಟಿಕೆಟ್‌ಗಳು ಉಳಿಯುತ್ತವೆ",
   "ticketPurchasePending": "ಪಾವತಿ ಪೂರ್ಣಗೊಳ್ಳಲು ಕಾಯಲಾಗುತ್ತಿದೆ\nನೀನು ಈ ಪರದೆಯನ್ನು ಮುಚ್ಚಿದರೂ ಪಾವತಿ ಪೂರ್ಣಗೊಂಡಾಗ ಟಿಕೆಟ್ ಸಿಗುತ್ತದೆ",
   "ticketPurchaseArrivedTitle": "ಟಿಕೆಟ್‌ಗಳು ಬಂದಿವೆ",
-  "ticketPurchaseContinue": "ಈ ಫೋಟೋದಿಂದ ಮಾನ್ಸ್ಟರ್ ರಚಿಸು"
+  "ticketPurchaseContinue": "ಈ ಫೋಟೋದಿಂದ ಮಾನ್ಸ್ಟರ್ ರಚಿಸು",
+  "ticketPurchaseSync": "ಖರೀದಿಯ ಸ್ಥಿತಿಯನ್ನು ಸಿಂಕ್ ಮಾಡು"
 }

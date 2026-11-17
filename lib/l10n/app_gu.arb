@@ -266,5 +266,6 @@
   "ticketPurchaseArrivalDelayed": "ટિકિટ ઉમેરાવાની રાહ જોઈ રહ્યા છીએ\nતમે આ સ્ક્રીન બંધ કરો તો પણ મળેલી ટિકિટ રહેશે",
   "ticketPurchasePending": "ચુકવણી પૂર્ણ થવાની રાહ જોવાઈ રહી છે\nતમે આ સ્ક્રીન બંધ કરો તો પણ ચુકવણી પૂર્ણ થતાં તમને ટિકિટ મળી જશે",
   "ticketPurchaseArrivedTitle": "ટિકિટ આવી ગઈ છે",
-  "ticketPurchaseContinue": "આ ફોટામાંથી મોન્સ્ટર બનાવો"
+  "ticketPurchaseContinue": "આ ફોટામાંથી મોન્સ્ટર બનાવો",
+  "ticketPurchaseSync": "ખરીદીની સ્થિતિ સિંક કરો"
 }

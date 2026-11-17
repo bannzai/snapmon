@@ -266,5 +266,6 @@
   "ticketPurchaseArrivalDelayed": "तिकिटं दिसण्याची वाट पाहत आहोत\nही स्क्रीन बंद केलीस तरी मिळालेली तिकिटं राहतील",
   "ticketPurchasePending": "पैसे भरणे पूर्ण होण्याची वाट पाहत आहे\nही स्क्रीन बंद केलीस तरी पैसे भरणे पूर्ण झाल्यावर तुला तिकीट मिळेल",
   "ticketPurchaseArrivedTitle": "तिकिटं आली",
-  "ticketPurchaseContinue": "या फोटोवरून मॉन्स्टर बनव"
+  "ticketPurchaseContinue": "या फोटोवरून मॉन्स्टर बनव",
+  "ticketPurchaseSync": "खरेदीची स्थिती सिंक कर"
 }

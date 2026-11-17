@@ -266,5 +266,6 @@
   "ticketPurchaseArrivalDelayed": "Várunk, amíg megjelennek a jegyeid\nA megkapott jegyek akkor is megmaradnak, ha bezárod ezt a képernyőt",
   "ticketPurchasePending": "Várakozás a fizetés befejezésére\nHa bezárod ezt a képernyőt, a fizetés után akkor is megkapod a jegyet",
   "ticketPurchaseArrivedTitle": "Megérkeztek a jegyek",
-  "ticketPurchaseContinue": "Készíts szörnyet ebből a fotóból"
+  "ticketPurchaseContinue": "Készíts szörnyet ebből a fotóból",
+  "ticketPurchaseSync": "Vásárlás állapotának szinkronizálása"
 }

@@ -266,5 +266,6 @@
   "ticketPurchaseArrivalDelayed": "টিকিট যোগ হওয়ার অপেক্ষায়\nএই স্ক্রিন বন্ধ করলেও পাওয়া টিকিট থাকবে",
   "ticketPurchasePending": "পেমেন্ট সম্পূর্ণ হওয়ার অপেক্ষায়\nএই স্ক্রিন বন্ধ করলেও পেমেন্ট সম্পূর্ণ হলে তুমি টিকিট পাবে",
   "ticketPurchaseArrivedTitle": "টিকিট এসে গেছে",
-  "ticketPurchaseContinue": "এই ছবি দিয়ে মনস্টার তৈরি করো"
+  "ticketPurchaseContinue": "এই ছবি দিয়ে মনস্টার তৈরি করো",
+  "ticketPurchaseSync": "কেনাকাটার অবস্থা সিঙ্ক করো"
 }

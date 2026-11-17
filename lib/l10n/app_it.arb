@@ -266,5 +266,6 @@
   "ticketPurchaseArrivalDelayed": "In attesa che compaiano i biglietti\nI biglietti ricevuti resteranno anche se chiudi questa schermata",
   "ticketPurchasePending": "In attesa del completamento del pagamento\nAnche se chiudi questa schermata, riceverai il biglietto appena il pagamento sarà completato",
   "ticketPurchaseArrivedTitle": "I biglietti sono arrivati",
-  "ticketPurchaseContinue": "Crea un mostro da questa foto"
+  "ticketPurchaseContinue": "Crea un mostro da questa foto",
+  "ticketPurchaseSync": "Sincronizza lo stato dell’acquisto"
 }

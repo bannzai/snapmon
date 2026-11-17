@@ -266,5 +266,6 @@
   "ticketPurchaseArrivalDelayed": "티켓이 반영되길 기다리고 있어요\n이 화면을 닫아도 받은 티켓은 그대로 남아요",
   "ticketPurchasePending": "결제가 완료되기를 기다리고 있어요\n이 화면을 닫아도 결제가 완료되면 티켓이 도착해요",
   "ticketPurchaseArrivedTitle": "티켓이 도착했어요",
-  "ticketPurchaseContinue": "이 사진으로 몬스터 만들기"
+  "ticketPurchaseContinue": "이 사진으로 몬스터 만들기",
+  "ticketPurchaseSync": "구매 상태 동기화"
 }

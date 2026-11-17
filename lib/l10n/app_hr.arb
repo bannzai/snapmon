@@ -266,5 +266,6 @@
   "ticketPurchaseArrivalDelayed": "Čeka se prikaz ulaznica\nPrimljene ulaznice ostaju ti i ako zatvoriš ovaj zaslon",
   "ticketPurchasePending": "Čeka se dovršetak plaćanja\nČak i ako zatvoriš ovaj zaslon, dobit ćeš ulaznicu čim plaćanje završi",
   "ticketPurchaseArrivedTitle": "Ulaznice su stigle",
-  "ticketPurchaseContinue": "Stvori čudovište od ove fotke"
+  "ticketPurchaseContinue": "Stvori čudovište od ove fotke",
+  "ticketPurchaseSync": "Sinkroniziraj status kupnje"
 }

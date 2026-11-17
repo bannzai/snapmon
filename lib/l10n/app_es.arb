@@ -266,5 +266,6 @@
   "ticketPurchaseArrivalDelayed": "Esperando a que aparezcan tus boletos\nConservarás los boletos recibidos aunque cierres esta pantalla",
   "ticketPurchasePending": "Esperando a que se complete el pago\nAunque cierres esta pantalla, recibirás el boleto cuando se complete",
   "ticketPurchaseArrivedTitle": "Ya llegaron los tickets",
-  "ticketPurchaseContinue": "Crea un monstruo con esta foto"
+  "ticketPurchaseContinue": "Crea un monstruo con esta foto",
+  "ticketPurchaseSync": "Sincronizar el estado de la compra"
 }

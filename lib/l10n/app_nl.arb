@@ -266,5 +266,6 @@
   "ticketPurchaseArrivalDelayed": "Wachten tot je tickets verschijnen\nOntvangen tickets blijven van jou, ook als je dit scherm sluit",
   "ticketPurchasePending": "Wachten tot de betaling is afgerond\nOok als je dit scherm sluit, krijg je het ticket zodra de betaling is afgerond",
   "ticketPurchaseArrivedTitle": "Je tickets zijn binnen",
-  "ticketPurchaseContinue": "Maak een monster van deze foto"
+  "ticketPurchaseContinue": "Maak een monster van deze foto",
+  "ticketPurchaseSync": "Synchroniseer je aankoopstatus"
 }

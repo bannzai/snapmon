@@ -266,5 +266,6 @@
   "ticketPurchaseArrivalDelayed": "Đang chờ vé xuất hiện\nVé bạn đã nhận vẫn còn dù đóng màn hình này",
   "ticketPurchasePending": "Đang chờ thanh toán hoàn tất\nDù bạn đóng màn hình này, vé vẫn sẽ đến khi thanh toán hoàn tất",
   "ticketPurchaseArrivedTitle": "Vé của bạn đã đến",
-  "ticketPurchaseContinue": "Tạo quái vật từ ảnh này"
+  "ticketPurchaseContinue": "Tạo quái vật từ ảnh này",
+  "ticketPurchaseSync": "Đồng bộ trạng thái mua hàng"
 }

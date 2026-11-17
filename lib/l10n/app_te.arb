@@ -266,5 +266,6 @@
   "ticketPurchaseArrivalDelayed": "టికెట్లు కనిపించే వరకు వేచి ఉన్నాం\nఈ స్క్రీన్ మూసినా నీకు అందిన టికెట్లు అలాగే ఉంటాయి",
   "ticketPurchasePending": "చెల్లింపు పూర్తయ్యే వరకు వేచి ఉన్నాం\nఈ స్క్రీన్ మూసేసినా, చెల్లింపు పూర్తయ్యాక నీకు టికెట్ వస్తుంది",
   "ticketPurchaseArrivedTitle": "టికెట్లు వచ్చేశాయి",
-  "ticketPurchaseContinue": "ఈ ఫోటోతో రాక్షసుణ్ని సృష్టించు"
+  "ticketPurchaseContinue": "ఈ ఫోటోతో రాక్షసుణ్ని సృష్టించు",
+  "ticketPurchaseSync": "కొనుగోలు స్థితిని సింక్ చేయి"
 }

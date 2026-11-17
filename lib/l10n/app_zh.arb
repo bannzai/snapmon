@@ -266,5 +266,6 @@
   "ticketPurchaseArrivalDelayed": "正在等待票券到账\n即使关闭此页面，已收到的票券也会保留",
   "ticketPurchasePending": "正在等待付款完成\n即使关闭此页面，付款完成后你也会收到票券",
   "ticketPurchaseArrivedTitle": "票券已到账",
-  "ticketPurchaseContinue": "用这张照片生成怪兽"
+  "ticketPurchaseContinue": "用这张照片生成怪兽",
+  "ticketPurchaseSync": "同步购买状态"
 }

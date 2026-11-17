@@ -266,5 +266,6 @@
   "ticketPurchaseArrivalDelayed": "Menunggu tiketmu muncul\nTiket yang sudah kamu terima tetap ada meski layar ini ditutup",
   "ticketPurchasePending": "Menunggu pembayaran selesai\nMeski kamu menutup layar ini, tiket akan masuk begitu pembayaran selesai",
   "ticketPurchaseArrivedTitle": "Tiketmu sudah datang",
-  "ticketPurchaseContinue": "Buat monster dari foto ini"
+  "ticketPurchaseContinue": "Buat monster dari foto ini",
+  "ticketPurchaseSync": "Sinkronkan status pembelianmu"
 }

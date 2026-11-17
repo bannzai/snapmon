@@ -266,5 +266,6 @@
   "ticketPurchaseArrivalDelayed": "Menunggu tiket kamu muncul\nTiket yang sudah diterima tetap ada walaupun kamu tutup skrin ini",
   "ticketPurchasePending": "Menunggu pembayaran selesai\nWalaupun kamu tutup skrin ini, tiket akan diterima sebaik sahaja pembayaran selesai",
   "ticketPurchaseArrivedTitle": "Tiket kamu dah sampai",
-  "ticketPurchaseContinue": "Cipta raksasa daripada foto ini"
+  "ticketPurchaseContinue": "Cipta raksasa daripada foto ini",
+  "ticketPurchaseSync": "Segerakkan status pembelian kamu"
 }
