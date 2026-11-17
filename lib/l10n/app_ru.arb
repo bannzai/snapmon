@@ -205,5 +205,6 @@
   "statusConditionFrozen": "Заморозка",
   "statusConditionSwitchBlocked": "Нельзя заменить",
   "moveTypeSuperEffective": "Суперэффективно ×{multiplier}",
-  "moveTypeNotVeryEffective": "Не очень эффективно ×{multiplier}"
+  "moveTypeNotVeryEffective": "Не очень эффективно ×{multiplier}",
+  "moveDetailAccuracy": "Точность"
 }

@@ -205,5 +205,6 @@
   "statusConditionFrozen": "Frosset",
   "statusConditionSwitchBlocked": "Kan ikke skiftes",
   "moveTypeSuperEffective": "Supereffektivt ×{multiplier}",
-  "moveTypeNotVeryEffective": "Ikke særlig effektivt ×{multiplier}"
+  "moveTypeNotVeryEffective": "Ikke særlig effektivt ×{multiplier}",
+  "moveDetailAccuracy": "Træfsikkerhed"
 }

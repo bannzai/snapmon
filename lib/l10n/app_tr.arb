@@ -205,5 +205,6 @@
   "statusConditionFrozen": "Donma",
   "statusConditionSwitchBlocked": "Değiştirilemez",
   "moveTypeSuperEffective": "Çok etkili ×{multiplier}",
-  "moveTypeNotVeryEffective": "Pek etkili değil ×{multiplier}"
+  "moveTypeNotVeryEffective": "Pek etkili değil ×{multiplier}",
+  "moveDetailAccuracy": "İsabet"
 }

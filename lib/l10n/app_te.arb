@@ -205,5 +205,6 @@
   "statusConditionFrozen": "గడ్డకట్టింది",
   "statusConditionSwitchBlocked": "మార్చలేవు",
   "moveTypeSuperEffective": "చాలా ప్రభావవంతం ×{multiplier}",
-  "moveTypeNotVeryEffective": "అంత ప్రభావవంతంగా లేదు ×{multiplier}"
+  "moveTypeNotVeryEffective": "అంత ప్రభావవంతంగా లేదు ×{multiplier}",
+  "moveDetailAccuracy": "కచ్చితత్వం"
 }

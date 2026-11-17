@@ -205,5 +205,6 @@
   "statusConditionFrozen": "જામી ગયું",
   "statusConditionSwitchBlocked": "બદલી શકાતું નથી",
   "moveTypeSuperEffective": "ખૂબ અસરકારક ×{multiplier}",
-  "moveTypeNotVeryEffective": "બહુ અસરકારક નથી ×{multiplier}"
+  "moveTypeNotVeryEffective": "બહુ અસરકારક નથી ×{multiplier}",
+  "moveDetailAccuracy": "ચોકસાઈ"
 }

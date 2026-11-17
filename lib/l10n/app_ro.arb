@@ -205,5 +205,6 @@
   "statusConditionFrozen": "Înghețat",
   "statusConditionSwitchBlocked": "Nu poate fi schimbat",
   "moveTypeSuperEffective": "Super eficient ×{multiplier}",
-  "moveTypeNotVeryEffective": "Nu prea e eficient ×{multiplier}"
+  "moveTypeNotVeryEffective": "Nu prea e eficient ×{multiplier}",
+  "moveDetailAccuracy": "Precizie"
 }

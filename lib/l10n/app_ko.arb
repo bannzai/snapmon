@@ -205,5 +205,6 @@
   "statusConditionFrozen": "얼음",
   "statusConditionSwitchBlocked": "교체 불가",
   "moveTypeSuperEffective": "효과가 굉장했다 ×{multiplier}",
-  "moveTypeNotVeryEffective": "효과가 별로였다 ×{multiplier}"
+  "moveTypeNotVeryEffective": "효과가 별로였다 ×{multiplier}",
+  "moveDetailAccuracy": "명중률"
 }

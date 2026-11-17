@@ -205,5 +205,6 @@
   "statusConditionFrozen": "Παγωμένο",
   "statusConditionSwitchBlocked": "Δεν μπορεί να αλλάξει",
   "moveTypeSuperEffective": "Πολύ αποτελεσματικό ×{multiplier}",
-  "moveTypeNotVeryEffective": "Δεν είναι πολύ αποτελεσματικό ×{multiplier}"
+  "moveTypeNotVeryEffective": "Δεν είναι πολύ αποτελεσματικό ×{multiplier}",
+  "moveDetailAccuracy": "Ακρίβεια"
 }

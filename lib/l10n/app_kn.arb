@@ -205,5 +205,6 @@
   "statusConditionFrozen": "ಹೆಪ್ಪುಗಟ್ಟಿದೆ",
   "statusConditionSwitchBlocked": "ಬದಲಾಯಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ",
   "moveTypeSuperEffective": "ಭಾರಿ ಪರಿಣಾಮಕಾರಿ ×{multiplier}",
-  "moveTypeNotVeryEffective": "ಹೆಚ್ಚು ಪರಿಣಾಮಕಾರಿಯಲ್ಲ ×{multiplier}"
+  "moveTypeNotVeryEffective": "ಹೆಚ್ಚು ಪರಿಣಾಮಕಾರಿಯಲ್ಲ ×{multiplier}",
+  "moveDetailAccuracy": "ನಿಖರತೆ"
 }

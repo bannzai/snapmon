@@ -205,5 +205,6 @@
   "statusConditionFrozen": "Congelado",
   "statusConditionSwitchBlocked": "No se puede cambiar",
   "moveTypeSuperEffective": "Supereficaz ×{multiplier}",
-  "moveTypeNotVeryEffective": "No es muy eficaz ×{multiplier}"
+  "moveTypeNotVeryEffective": "No es muy eficaz ×{multiplier}",
+  "moveDetailAccuracy": "Precisión"
 }

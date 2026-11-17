@@ -205,5 +205,6 @@
   "statusConditionFrozen": "Bevroren",
   "statusConditionSwitchBlocked": "Wisselen niet mogelijk",
   "moveTypeSuperEffective": "Superdoeltreffend ×{multiplier}",
-  "moveTypeNotVeryEffective": "Niet erg effectief ×{multiplier}"
+  "moveTypeNotVeryEffective": "Niet erg effectief ×{multiplier}",
+  "moveDetailAccuracy": "Nauwkeurigheid"
 }

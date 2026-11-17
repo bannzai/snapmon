@@ -205,5 +205,6 @@
   "statusConditionFrozen": "Membeku",
   "statusConditionSwitchBlocked": "Tidak bisa diganti",
   "moveTypeSuperEffective": "Sangat efektif ×{multiplier}",
-  "moveTypeNotVeryEffective": "Kurang efektif ×{multiplier}"
+  "moveTypeNotVeryEffective": "Kurang efektif ×{multiplier}",
+  "moveDetailAccuracy": "Akurasi"
 }

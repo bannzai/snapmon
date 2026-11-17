@@ -205,5 +205,6 @@
   "statusConditionFrozen": "تجمّد",
   "statusConditionSwitchBlocked": "لا يمكن التبديل",
   "moveTypeSuperEffective": "فعّال جدًا ×{multiplier}",
-  "moveTypeNotVeryEffective": "الفعالية ضعيفة ×{multiplier}"
+  "moveTypeNotVeryEffective": "الفعالية ضعيفة ×{multiplier}",
+  "moveDetailAccuracy": "الدقة"
 }

@@ -205,5 +205,6 @@
   "statusConditionFrozen": "ବରଫରେ ଜମିଛି",
   "statusConditionSwitchBlocked": "ବଦଳାଇ ହେବ ନାହିଁ",
   "moveTypeSuperEffective": "ଖୁବ୍ ପ୍ରଭାବଶାଳୀ ×{multiplier}",
-  "moveTypeNotVeryEffective": "ବେଶି ପ୍ରଭାବଶାଳୀ ନୁହେଁ ×{multiplier}"
+  "moveTypeNotVeryEffective": "ବେଶି ପ୍ରଭାବଶାଳୀ ନୁହେଁ ×{multiplier}",
+  "moveDetailAccuracy": "ସଠିକତା"
 }
