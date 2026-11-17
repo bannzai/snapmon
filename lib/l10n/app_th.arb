@@ -236,5 +236,6 @@
   "titlePrivacy": "ความเป็นส่วนตัว",
   "titleHeading": "สิ่งของรอบตัว\nกลายเป็นมอนสเตอร์แล้วต่อสู้",
   "referenceOpen": "ตารางธาตุได้เปรียบและรายชื่อท่า",
-  "referenceTitle": "ธาตุและท่า"
+  "referenceTitle": "ธาตุและท่า",
+  "referenceTypeChartTab": "ตารางความได้เปรียบ"
 }
