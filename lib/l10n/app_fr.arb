@@ -139,5 +139,6 @@
   "resultReplaceTitle": "Qui remplacer par {monsterName} ?",
   "resultNewlyBorn": "Un nouveau compagnon",
   "statHitPoints": "HP",
-  "statAttack": "Attaque"
+  "statAttack": "Attaque",
+  "statDefense": "Défense"
 }
