@@ -134,5 +134,6 @@
   "generationCropSizeLabel": "테두리 크기",
   "generationStageFindingSubject": "사진 속 대상을 찾고 있어요",
   "generationStageCroppingRange": "선택한 영역을 잘라내고 있어요",
-  "generationRejectedRefused": "몬스터를 만들지 못했어요\n다시 사진을 찍어 봐요"
+  "generationRejectedRefused": "몬스터를 만들지 못했어요\n다시 사진을 찍어 봐요",
+  "generationFailedMessage": "몬스터를 만들지 못했어요\n다시 사진을 찍어 보세요"
 }

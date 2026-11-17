@@ -134,5 +134,6 @@
   "generationCropSizeLabel": "Keret mérete",
   "generationStageFindingSubject": "A fotó témájának keresése",
   "generationStageCroppingRange": "A kijelölt terület kivágása folyamatban",
-  "generationRejectedRefused": "Nem sikerült létrehozni a szörnyet\nPróbálj meg új képet készíteni"
+  "generationRejectedRefused": "Nem sikerült létrehozni a szörnyet\nPróbálj meg új képet készíteni",
+  "generationFailedMessage": "Nem sikerült létrehozni a szörnyet\nPróbálj új fotót készíteni"
 }

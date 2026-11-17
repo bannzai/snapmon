@@ -134,5 +134,6 @@
   "generationCropSizeLabel": "选框大小",
   "generationStageFindingSubject": "正在查找照片中的物体",
   "generationStageCroppingRange": "正在裁剪选定区域",
-  "generationRejectedRefused": "怪兽没能生成\n再拍一张试试"
+  "generationRejectedRefused": "怪兽没能生成\n再拍一张试试",
+  "generationFailedMessage": "怪兽生成失败\n再拍一张试试"
 }

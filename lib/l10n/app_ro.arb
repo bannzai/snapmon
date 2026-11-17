@@ -134,5 +134,6 @@
   "generationCropSizeLabel": "Dimensiunea cadrului",
   "generationStageFindingSubject": "Se caută subiectul din fotografie",
   "generationStageCroppingRange": "Se decupează zona selectată",
-  "generationRejectedRefused": "Monstrul nu a putut fi creat\nÎncearcă să faci altă fotografie"
+  "generationRejectedRefused": "Monstrul nu a putut fi creat\nÎncearcă să faci altă fotografie",
+  "generationFailedMessage": "Monstrul nu a putut fi creat\nÎncearcă să faci altă poză"
 }

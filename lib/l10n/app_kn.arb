@@ -134,5 +134,6 @@
   "generationCropSizeLabel": "ಚೌಕಟ್ಟಿನ ಗಾತ್ರ",
   "generationStageFindingSubject": "ಫೋಟೋದಲ್ಲಿನ ವಸ್ತುವನ್ನು ಹುಡುಕಲಾಗುತ್ತಿದೆ",
   "generationStageCroppingRange": "ಆಯ್ಕೆ ಮಾಡಿದ ಭಾಗವನ್ನು ಕತ್ತರಿಸಲಾಗುತ್ತಿದೆ",
-  "generationRejectedRefused": "ಮಾನ್ಸ್ಟರ್ ಅನ್ನು ರಚಿಸಲು ಆಗಲಿಲ್ಲ\nಇನ್ನೊಂದು ಫೋಟೋ ತೆಗೆದು ನೋಡು"
+  "generationRejectedRefused": "ಮಾನ್ಸ್ಟರ್ ಅನ್ನು ರಚಿಸಲು ಆಗಲಿಲ್ಲ\nಇನ್ನೊಂದು ಫೋಟೋ ತೆಗೆದು ನೋಡು",
+  "generationFailedMessage": "ಮಾನ್‌ಸ್ಟರ್ ರಚಿಸಲಾಗಲಿಲ್ಲ\nಮತ್ತೆ ಫೋಟೋ ತೆಗೆದು ನೋಡು"
 }

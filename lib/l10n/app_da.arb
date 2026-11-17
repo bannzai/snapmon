@@ -134,5 +134,6 @@
   "generationCropSizeLabel": "Rammestørrelse",
   "generationStageFindingSubject": "Finder motivet",
   "generationStageCroppingRange": "Beskærer det valgte område",
-  "generationRejectedRefused": "Monsteret kunne ikke skabes\nPrøv at tage et nyt billede"
+  "generationRejectedRefused": "Monsteret kunne ikke skabes\nPrøv at tage et nyt billede",
+  "generationFailedMessage": "Monsteret kunne ikke skabes\nPrøv at tage et nyt billede"
 }

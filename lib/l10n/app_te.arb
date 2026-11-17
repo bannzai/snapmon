@@ -134,5 +134,6 @@
   "generationCropSizeLabel": "ఫ్రేమ్ పరిమాణం",
   "generationStageFindingSubject": "ఫోటోలోని వస్తువును వెతుకుతోంది",
   "generationStageCroppingRange": "ఎంచుకున్న భాగాన్ని కత్తిరిస్తోంది",
-  "generationRejectedRefused": "రాక్షసుడిని సృష్టించలేకపోయాం\nమరో ఫోటో తీసి చూడు"
+  "generationRejectedRefused": "రాక్షసుడిని సృష్టించలేకపోయాం\nమరో ఫోటో తీసి చూడు",
+  "generationFailedMessage": "మాన్‌స్టర్‌ను సృష్టించలేకపోయాం\nమళ్లీ ఫోటో తీసి చూడు"
 }

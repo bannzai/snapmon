@@ -134,5 +134,6 @@
   "generationCropSizeLabel": "Rozmiar ramki",
   "generationStageFindingSubject": "Szukanie obiektu na zdjęciu",
   "generationStageCroppingRange": "Wycinanie wybranego obszaru",
-  "generationRejectedRefused": "Nie udało się stworzyć potwora\nSpróbuj zrobić nowe zdjęcie"
+  "generationRejectedRefused": "Nie udało się stworzyć potwora\nSpróbuj zrobić nowe zdjęcie",
+  "generationFailedMessage": "Nie udało się stworzyć potwora\nSpróbuj zrobić kolejne zdjęcie"
 }

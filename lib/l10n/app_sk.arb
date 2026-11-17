@@ -134,5 +134,6 @@
   "generationCropSizeLabel": "Veľkosť rámčeka",
   "generationStageFindingSubject": "Hľadá sa objekt na fotke",
   "generationStageCroppingRange": "Vyrezáva sa vybraná oblasť",
-  "generationRejectedRefused": "Príšerku sa nepodarilo vytvoriť\nSkús odfotiť niečo iné"
+  "generationRejectedRefused": "Príšerku sa nepodarilo vytvoriť\nSkús odfotiť niečo iné",
+  "generationFailedMessage": "Príšerku sa nepodarilo vytvoriť\nSkús urobiť ďalšiu fotku"
 }

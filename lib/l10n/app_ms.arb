@@ -134,5 +134,6 @@
   "generationCropSizeLabel": "Saiz bingkai",
   "generationStageFindingSubject": "Mencari objek dalam foto",
   "generationStageCroppingRange": "Memotong kawasan yang dipilih",
-  "generationRejectedRefused": "Raksasa tak dapat dicipta\nCuba ambil gambar lain"
+  "generationRejectedRefused": "Raksasa tak dapat dicipta\nCuba ambil gambar lain",
+  "generationFailedMessage": "Monster gagal dicipta\nCuba ambil gambar lagi"
 }

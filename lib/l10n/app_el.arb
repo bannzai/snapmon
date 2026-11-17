@@ -134,5 +134,6 @@
   "generationCropSizeLabel": "Μέγεθος πλαισίου",
   "generationStageFindingSubject": "Αναζήτηση θέματος στη φωτογραφία",
   "generationStageCroppingRange": "Γίνεται περικοπή της επιλεγμένης περιοχής",
-  "generationRejectedRefused": "Το τέρας δεν δημιουργήθηκε\nΔοκίμασε να βγάλεις άλλη φωτογραφία"
+  "generationRejectedRefused": "Το τέρας δεν δημιουργήθηκε\nΔοκίμασε να βγάλεις άλλη φωτογραφία",
+  "generationFailedMessage": "Δεν δημιουργήθηκε το τέρας\nΔοκίμασε να βγάλεις άλλη φωτογραφία"
 }

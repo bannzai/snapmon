@@ -134,5 +134,6 @@
   "generationCropSizeLabel": "فریم کا سائز",
   "generationStageFindingSubject": "تصویر میں موجود چیز تلاش کی جا رہی ہے",
   "generationStageCroppingRange": "منتخب حصہ کاٹا جا رہا ہے",
-  "generationRejectedRefused": "مونسٹر نہیں بن سکا\nایک اور تصویر لے کر دیکھو"
+  "generationRejectedRefused": "مونسٹر نہیں بن سکا\nایک اور تصویر لے کر دیکھو",
+  "generationFailedMessage": "مانسٹر نہیں بن سکا\nدوبارہ تصویر لے کر دیکھو"
 }

@@ -134,5 +134,6 @@
   "generationCropSizeLabel": "ചട്ടക്കൂടിന്റെ വലുപ്പം",
   "generationStageFindingSubject": "ഫോട്ടോയിലെ വസ്തുവിനെ തിരയുന്നു",
   "generationStageCroppingRange": "തിരഞ്ഞെടുത്ത ഭാഗം മുറിച്ചെടുക്കുന്നു",
-  "generationRejectedRefused": "മോൺസ്റ്ററിനെ സൃഷ്ടിക്കാനായില്ല\nമറ്റൊരു ഫോട്ടോ എടുത്തുനോക്കൂ"
+  "generationRejectedRefused": "മോൺസ്റ്ററിനെ സൃഷ്ടിക്കാനായില്ല\nമറ്റൊരു ഫോട്ടോ എടുത്തുനോക്കൂ",
+  "generationFailedMessage": "മോൺസ്റ്ററിനെ സൃഷ്ടിക്കാനായില്ല\nവീണ്ടും ഫോട്ടോ എടുത്തുനോക്കൂ"
 }

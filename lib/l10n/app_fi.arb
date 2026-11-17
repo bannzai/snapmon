@@ -134,5 +134,6 @@
   "generationCropSizeLabel": "Rajauksen koko",
   "generationStageFindingSubject": "Etsitään kuvan kohdetta",
   "generationStageCroppingRange": "Rajataan valittua aluetta",
-  "generationRejectedRefused": "Hirviön luonti ei onnistunut\nKokeile ottaa uusi kuva"
+  "generationRejectedRefused": "Hirviön luonti ei onnistunut\nKokeile ottaa uusi kuva",
+  "generationFailedMessage": "Hirviön luominen epäonnistui\nKokeile ottaa uusi kuva"
 }

@@ -134,5 +134,6 @@
   "generationCropSizeLabel": "फ़्रेम का आकार",
   "generationStageFindingSubject": "फ़ोटो में विषय ढूँढ़ा जा रहा है",
   "generationStageCroppingRange": "चुना हुआ हिस्सा काटा जा रहा है",
-  "generationRejectedRefused": "मॉन्स्टर बन नहीं पाया\nएक और फ़ोटो लेकर देखो"
+  "generationRejectedRefused": "मॉन्स्टर बन नहीं पाया\nएक और फ़ोटो लेकर देखो",
+  "generationFailedMessage": "मॉन्स्टर नहीं बन पाया\nफिर से फ़ोटो लेकर देखो"
 }

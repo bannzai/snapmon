@@ -134,5 +134,6 @@
   "generationCropSizeLabel": "Tamanho da moldura",
   "generationStageFindingSubject": "A procurar o objeto na fotografia",
   "generationStageCroppingRange": "A recortar a área selecionada",
-  "generationRejectedRefused": "Não foi possível criar o monstro\nTenta tirar outra fotografia"
+  "generationRejectedRefused": "Não foi possível criar o monstro\nTenta tirar outra fotografia",
+  "generationFailedMessage": "Não foi possível criar o monstro\nTenta tirar outra fotografia"
 }
