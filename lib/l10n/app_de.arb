@@ -329,5 +329,6 @@
   "helpStatusDrowsy": "Die Initiative wird halbiert\nTrifft der Effekt erneut, schläft das Monster ein",
   "helpStatusSleep": "Kann einige Runden lang nicht handeln",
   "helpStatusCurse": "Angriff, Verteidigung oder Initiative wird halbiert",
-  "helpStatusConfusion": "Einige Runden lang kann statt der gewählten Attacke eine andere Attacke ausgelöst werden"
+  "helpStatusConfusion": "Einige Runden lang kann statt der gewählten Attacke eine andere Attacke ausgelöst werden",
+  "helpStatusDizzy": "Attacken treffen 3 Runden lang seltener"
 }

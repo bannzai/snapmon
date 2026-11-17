@@ -329,5 +329,6 @@
   "helpStatusDrowsy": "Snabbheten halveras\nOm effekten träffar igen somnar monstret",
   "helpStatusSleep": "Kan kanske inte agera på några turer",
   "helpStatusCurse": "Attack, försvar eller snabbhet halveras",
-  "helpStatusConfusion": "Under några turer kan en annan attack än den valda användas"
+  "helpStatusConfusion": "Under några turer kan en annan attack än den valda användas",
+  "helpStatusDizzy": "Attacker träffar mer sällan i 3 omgångar"
 }

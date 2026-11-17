@@ -329,5 +329,6 @@
   "helpStatusDrowsy": "Rýchlosť sa zníži na polovicu\nAk účinok zasiahne znova, príšera zaspí",
   "helpStatusSleep": "Niekoľko ťahov možno nebude môcť konať",
   "helpStatusCurse": "Útok, obrana alebo rýchlosť klesne na polovicu",
-  "helpStatusConfusion": "Niekoľko ťahov sa môže namiesto vybraného útoku spustiť iný útok"
+  "helpStatusConfusion": "Niekoľko ťahov sa môže namiesto vybraného útoku spustiť iný útok",
+  "helpStatusDizzy": "Útoky zasahujú menej často počas 3 ťahov"
 }

@@ -329,5 +329,6 @@
   "helpStatusDrowsy": "Szybkość spada o połowę\nGdy efekt zadziała ponownie, potwór zasypia",
   "helpStatusSleep": "Może nie móc działać przez kilka tur",
   "helpStatusCurse": "Atak, Obrona lub Szybkość spada o połowę",
-  "helpStatusConfusion": "Przez kilka tur zamiast wybranego ruchu może zadziałać inny ruch"
+  "helpStatusConfusion": "Przez kilka tur zamiast wybranego ruchu może zadziałać inny ruch",
+  "helpStatusDizzy": "Ruchy trafiają rzadziej przez 3 tury"
 }

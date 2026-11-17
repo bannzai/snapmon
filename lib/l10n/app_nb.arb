@@ -329,5 +329,6 @@
   "helpStatusDrowsy": "Hastigheten halveres\nHvis effekten treffer igjen, sovner monsteret",
   "helpStatusSleep": "Kan kanskje ikke handle på noen turer",
   "helpStatusCurse": "Angrep, forsvar eller fart halveres",
-  "helpStatusConfusion": "I noen runder kan et annet angrep enn det valgte bli brukt"
+  "helpStatusConfusion": "I noen runder kan et annet angrep enn det valgte bli brukt",
+  "helpStatusDizzy": "Angrep treffer sjeldnere i 3 turer"
 }

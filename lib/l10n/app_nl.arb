@@ -329,5 +329,6 @@
   "helpStatusDrowsy": "Snelheid wordt gehalveerd\nBij een tweede keer valt het monster in slaap",
   "helpStatusSleep": "Kan een paar beurten niet in actie komen",
   "helpStatusCurse": "Aanval, verdediging of snelheid wordt gehalveerd",
-  "helpStatusConfusion": "Een paar beurten lang kan een andere aanval dan de gekozen aanval worden gebruikt"
+  "helpStatusConfusion": "Een paar beurten lang kan een andere aanval dan de gekozen aanval worden gebruikt",
+  "helpStatusDizzy": "Aanvallen raken 3 beurten lang minder vaak"
 }

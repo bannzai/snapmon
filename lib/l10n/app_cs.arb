@@ -329,5 +329,6 @@
   "helpStatusDrowsy": "Rychlost se sníží na polovinu\nPři dalším zásahu tímto efektem usne",
   "helpStatusSleep": "Několik tahů nemusí být schopný jednat",
   "helpStatusCurse": "Útok, obrana nebo rychlost se sníží na polovinu",
-  "helpStatusConfusion": "Několik kol se může místo vybraného útoku spustit jiný útok"
+  "helpStatusConfusion": "Několik kol se může místo vybraného útoku spustit jiný útok",
+  "helpStatusDizzy": "Útoky mají 3 tahy nižší přesnost"
 }

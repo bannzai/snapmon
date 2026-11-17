@@ -329,5 +329,6 @@
   "helpStatusDrowsy": "A Sebesség a felére csökken\nHa újra éri a hatás, elalszik",
   "helpStatusSleep": "Néhány körig lehet, hogy nem tud cselekedni",
   "helpStatusCurse": "A támadás, a védekezés vagy a sebesség a felére csökken",
-  "helpStatusConfusion": "Néhány körig a választott támadás helyett másik támadás indulhat"
+  "helpStatusConfusion": "Néhány körig a választott támadás helyett másik támadás indulhat",
+  "helpStatusDizzy": "A támadások 3 körig ritkábban találnak"
 }

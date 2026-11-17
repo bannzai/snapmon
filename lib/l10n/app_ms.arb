@@ -329,5 +329,6 @@
   "helpStatusDrowsy": "Kelajuan menjadi separuh\nJika terkena kesan ini lagi, monster tertidur",
   "helpStatusSleep": "Mungkin tak boleh bertindak selama beberapa giliran",
   "helpStatusCurse": "Salah satu daripada Serangan, Pertahanan atau Kelajuan menjadi separuh",
-  "helpStatusConfusion": "Untuk beberapa giliran, gerakan lain mungkin keluar menggantikan gerakan pilihan kamu"
+  "helpStatusConfusion": "Untuk beberapa giliran, gerakan lain mungkin keluar menggantikan gerakan pilihan kamu",
+  "helpStatusDizzy": "Gerakan lebih sukar mengena selama 3 giliran"
 }

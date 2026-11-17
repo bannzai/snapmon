@@ -329,5 +329,6 @@
   "helpStatusDrowsy": "Brzina se prepolovi\nAko se učinak ponovi, čudovište zaspi",
   "helpStatusSleep": "Možda neće moći djelovati nekoliko poteza",
   "helpStatusCurse": "Napad, obrana ili brzina smanjuje se na pola",
-  "helpStatusConfusion": "Nekoliko poteza može se izvesti drugi potez umjesto odabranog"
+  "helpStatusConfusion": "Nekoliko poteza može se izvesti drugi potez umjesto odabranog",
+  "helpStatusDizzy": "Potezi teže pogađaju tijekom 3 poteza"
 }

@@ -329,5 +329,6 @@
   "helpStatusDrowsy": "Viteza scade la jumătate\nDacă efectul se repetă, monstrul adoarme",
   "helpStatusSleep": "S-ar putea să nu poată acționa câteva ture",
   "helpStatusCurse": "Atacul, Apărarea sau Viteza scade la jumătate",
-  "helpStatusConfusion": "Timp de câteva ture, poate ieși o altă mișcare decât cea aleasă"
+  "helpStatusConfusion": "Timp de câteva ture, poate ieși o altă mișcare decât cea aleasă",
+  "helpStatusDizzy": "Mișcările nimeresc mai greu timp de 3 ture"
 }
