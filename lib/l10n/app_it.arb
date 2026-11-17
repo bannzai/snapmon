@@ -165,5 +165,6 @@
   "battleStruggle": "Scontro",
   "battleLogSuperEffective": "È superefficace!",
   "battleLogNotVeryEffective": "Non è molto efficace",
-  "battleLogFainted": "{monsterName} è esausto"
+  "battleLogFainted": "{monsterName} è esausto",
+  "battleLogStatRose": "La statistica {statName} di {monsterName} è aumentata!"
 }

@@ -165,5 +165,6 @@
   "battleStruggle": "Desperacka walka",
   "battleLogSuperEffective": "To super skuteczne!",
   "battleLogNotVeryEffective": "To nie było zbyt skuteczne",
-  "battleLogFainted": "{monsterName} traci przytomność"
+  "battleLogFainted": "{monsterName} traci przytomność",
+  "battleLogStatRose": "Statystyka {statName} u {monsterName} wzrosła!"
 }

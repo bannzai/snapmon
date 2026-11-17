@@ -165,5 +165,6 @@
   "battleStruggle": "Zoufalý boj",
   "battleLogSuperEffective": "Je to superúčinné!",
   "battleLogNotVeryEffective": "Není to moc účinné",
-  "battleLogFainted": "{monsterName} omdlel"
+  "battleLogFainted": "{monsterName} omdlel",
+  "battleLogStatRose": "Hodnota {statName} u {monsterName} vzrostla!"
 }

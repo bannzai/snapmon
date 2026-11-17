@@ -165,5 +165,6 @@
   "battleStruggle": "கடைசிப் போராட்டம்",
   "battleLogSuperEffective": "மிகவும் பயனுள்ளதாக இருந்தது!",
   "battleLogNotVeryEffective": "அவ்வளவாகப் பலனளிக்கவில்லை",
-  "battleLogFainted": "{monsterName} மயங்கியது"
+  "battleLogFainted": "{monsterName} மயங்கியது",
+  "battleLogStatRose": "{monsterName}இன் {statName} உயர்ந்தது!"
 }

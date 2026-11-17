@@ -165,5 +165,6 @@
   "battleStruggle": "Vùng vẫy",
   "battleLogSuperEffective": "Siêu hiệu quả!",
   "battleLogNotVeryEffective": "Không hiệu quả lắm",
-  "battleLogFainted": "{monsterName} đã ngất"
+  "battleLogFainted": "{monsterName} đã ngất",
+  "battleLogStatRose": "Chỉ số {statName} của {monsterName} đã tăng!"
 }

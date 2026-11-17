@@ -165,5 +165,6 @@
   "battleStruggle": "Відчайдушна боротьба",
   "battleLogSuperEffective": "Це суперефективно!",
   "battleLogNotVeryEffective": "Це не дуже ефективно",
-  "battleLogFainted": "{monsterName} знепритомнів"
+  "battleLogFainted": "{monsterName} знепритомнів",
+  "battleLogStatRose": "Показник {statName} у {monsterName} зріс!"
 }

@@ -165,5 +165,6 @@
   "battleStruggle": "Očajnička borba",
   "battleLogSuperEffective": "Super je učinkovito!",
   "battleLogNotVeryEffective": "Nije baš učinkovito",
-  "battleLogFainted": "{monsterName} se onesvijestio"
+  "battleLogFainted": "{monsterName} se onesvijestio",
+  "battleLogStatRose": "{statName} za {monsterName} je porastao!"
 }

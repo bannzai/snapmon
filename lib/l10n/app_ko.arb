@@ -165,5 +165,6 @@
   "battleStruggle": "발버둥",
   "battleLogSuperEffective": "효과가 굉장했다!",
   "battleLogNotVeryEffective": "효과가 별로였다",
-  "battleLogFainted": "{monsterName}이 쓰러졌다"
+  "battleLogFainted": "{monsterName}이 쓰러졌다",
+  "battleLogStatRose": "{monsterName}의 {statName}이 올랐다!"
 }

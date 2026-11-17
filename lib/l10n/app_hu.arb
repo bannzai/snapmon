@@ -165,5 +165,6 @@
   "battleStruggle": "Elkeseredett küzdelem",
   "battleLogSuperEffective": "Szuper hatásos!",
   "battleLogNotVeryEffective": "Nem túl hatásos",
-  "battleLogFainted": "{monsterName} elájult"
+  "battleLogFainted": "{monsterName} elájult",
+  "battleLogStatRose": "{monsterName} {statName} értéke nőtt!"
 }

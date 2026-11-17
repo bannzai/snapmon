@@ -165,5 +165,6 @@
   "battleStruggle": "Son Çırpınış",
   "battleLogSuperEffective": "Çok etkili!",
   "battleLogNotVeryEffective": "Pek etkili olmadı",
-  "battleLogFainted": "{monsterName} bayıldı"
+  "battleLogFainted": "{monsterName} bayıldı",
+  "battleLogStatRose": "{monsterName} için {statName} yükseldi!"
 }

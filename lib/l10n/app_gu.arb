@@ -165,5 +165,6 @@
   "battleStruggle": "છેલ્લો પ્રયાસ",
   "battleLogSuperEffective": "ખૂબ જ અસરકારક!",
   "battleLogNotVeryEffective": "ખાસ અસર થઈ નહીં",
-  "battleLogFainted": "{monsterName} બેભાન થઈ ગયું"
+  "battleLogFainted": "{monsterName} બેભાન થઈ ગયું",
+  "battleLogStatRose": "{monsterName}નું {statName} વધ્યું!"
 }

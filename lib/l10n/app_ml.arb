@@ -165,5 +165,6 @@
   "battleStruggle": "അവസാന പോരാട്ടം",
   "battleLogSuperEffective": "വളരെ ഫലപ്രദം!",
   "battleLogNotVeryEffective": "വലിയ ഫലമുണ്ടായില്ല",
-  "battleLogFainted": "{monsterName} ബോധംകെട്ടു"
+  "battleLogFainted": "{monsterName} ബോധംകെട്ടു",
+  "battleLogStatRose": "{monsterName}ന്റെ {statName} ഉയർന്നു!"
 }

@@ -165,5 +165,6 @@
   "battleStruggle": "Epätoivoinen taistelu",
   "battleLogSuperEffective": "Se on supertehokas!",
   "battleLogNotVeryEffective": "Ei ollut kovin tehokas",
-  "battleLogFainted": "{monsterName} pyörtyi"
+  "battleLogFainted": "{monsterName} pyörtyi",
+  "battleLogStatRose": "{monsterName}: {statName} nousi!"
 }

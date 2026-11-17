@@ -165,5 +165,6 @@
   "battleStruggle": "Perlawanan Terakhir",
   "battleLogSuperEffective": "Sangat efektif!",
   "battleLogNotVeryEffective": "Tidak terlalu efektif",
-  "battleLogFainted": "{monsterName} pingsan"
+  "battleLogFainted": "{monsterName} pingsan",
+  "battleLogStatRose": "{statName} milik {monsterName} naik!"
 }

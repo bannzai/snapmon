@@ -165,5 +165,6 @@
   "battleStruggle": "掙扎",
   "battleLogSuperEffective": "效果絕佳！",
   "battleLogNotVeryEffective": "效果不太好",
-  "battleLogFainted": "{monsterName}倒下了"
+  "battleLogFainted": "{monsterName}倒下了",
+  "battleLogStatRose": "{monsterName}的{statName}提高了！"
 }

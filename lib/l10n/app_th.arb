@@ -165,5 +165,6 @@
   "battleStruggle": "ดิ้นรนสุดแรง",
   "battleLogSuperEffective": "ได้ผลสุดยอด!",
   "battleLogNotVeryEffective": "ไม่ค่อยได้ผล",
-  "battleLogFainted": "{monsterName} หมดสติแล้ว"
+  "battleLogFainted": "{monsterName} หมดสติแล้ว",
+  "battleLogStatRose": "ค่า {statName} ของ {monsterName} เพิ่มขึ้น!"
 }

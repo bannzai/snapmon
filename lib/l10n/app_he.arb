@@ -165,5 +165,6 @@
   "battleStruggle": "מאבק נואש",
   "battleLogSuperEffective": "זה יעיל במיוחד!",
   "battleLogNotVeryEffective": "זה לא היה יעיל במיוחד",
-  "battleLogFainted": "{monsterName} התעלף"
+  "battleLogFainted": "{monsterName} התעלף",
+  "battleLogStatRose": "הנתון {statName} של {monsterName} עלה!"
 }

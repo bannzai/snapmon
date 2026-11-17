@@ -165,5 +165,6 @@
   "battleStruggle": "Luptă disperată",
   "battleLogSuperEffective": "E super eficient!",
   "battleLogNotVeryEffective": "Nu a fost prea eficient",
-  "battleLogFainted": "{monsterName} a leșinat"
+  "battleLogFainted": "{monsterName} a leșinat",
+  "battleLogStatRose": "Valoarea {statName} a lui {monsterName} a crescut!"
 }

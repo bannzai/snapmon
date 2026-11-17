@@ -165,5 +165,6 @@
   "battleStruggle": "Lluita desesperada",
   "battleLogSuperEffective": "És supereficaç!",
   "battleLogNotVeryEffective": "No és gaire eficaç",
-  "battleLogFainted": "{monsterName} s'ha debilitat"
+  "battleLogFainted": "{monsterName} s'ha debilitat",
+  "battleLogStatRose": "Ha pujat {statName} de {monsterName}!"
 }

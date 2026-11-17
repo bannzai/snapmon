@@ -165,5 +165,6 @@
   "battleStruggle": "Отчаянная борьба",
   "battleLogSuperEffective": "Это суперэффективно!",
   "battleLogNotVeryEffective": "Это не очень эффективно",
-  "battleLogFainted": "{monsterName} потерял сознание"
+  "battleLogFainted": "{monsterName} потерял сознание",
+  "battleLogStatRose": "Показатель {statName} у {monsterName} вырос!"
 }

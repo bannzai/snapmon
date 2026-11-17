@@ -165,5 +165,6 @@
   "battleStruggle": "ଶେଷ ଲଢ଼େଇ",
   "battleLogSuperEffective": "ବହୁତ ପ୍ରଭାବଶାଳୀ!",
   "battleLogNotVeryEffective": "ବିଶେଷ ପ୍ରଭାବ ପଡ଼ିଲା ନାହିଁ",
-  "battleLogFainted": "{monsterName} ବେହୋସ ହୋଇଗଲା"
+  "battleLogFainted": "{monsterName} ବେହୋସ ହୋଇଗଲା",
+  "battleLogStatRose": "{monsterName}ର {statName} ବଢ଼ିଲା!"
 }

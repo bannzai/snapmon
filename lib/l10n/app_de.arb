@@ -165,5 +165,6 @@
   "battleStruggle": "Verzweifler",
   "battleLogSuperEffective": "Das ist sehr effektiv!",
   "battleLogNotVeryEffective": "Das war nicht sehr effektiv",
-  "battleLogFainted": "{monsterName} ist besiegt"
+  "battleLogFainted": "{monsterName} ist besiegt",
+  "battleLogStatRose": "{statName} von {monsterName} ist gestiegen!"
 }

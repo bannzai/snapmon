@@ -165,5 +165,6 @@
   "battleStruggle": "Luta Desesperada",
   "battleLogSuperEffective": "É supereficaz!",
   "battleLogNotVeryEffective": "Não foi muito eficaz",
-  "battleLogFainted": "{monsterName} desmaiou"
+  "battleLogFainted": "{monsterName} desmaiou",
+  "battleLogStatRose": "O atributo {statName} de {monsterName} aumentou!"
 }

@@ -165,5 +165,6 @@
   "battleStruggle": "Desperat kamp",
   "battleLogSuperEffective": "Det er supereffektivt!",
   "battleLogNotVeryEffective": "Det var ikke særlig effektivt",
-  "battleLogFainted": "{monsterName} besvimte"
+  "battleLogFainted": "{monsterName} besvimte",
+  "battleLogStatRose": "{statName} økte for {monsterName}!"
 }

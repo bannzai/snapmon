@@ -165,5 +165,6 @@
   "battleStruggle": "آخری جدوجہد",
   "battleLogSuperEffective": "بہت مؤثر ہے!",
   "battleLogNotVeryEffective": "زیادہ اثر نہیں ہوا",
-  "battleLogFainted": "{monsterName} بے ہوش ہو گیا"
+  "battleLogFainted": "{monsterName} بے ہوش ہو گیا",
+  "battleLogStatRose": "{monsterName} کا {statName} بڑھ گیا!"
 }

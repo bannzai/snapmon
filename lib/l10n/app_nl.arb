@@ -165,5 +165,6 @@
   "battleStruggle": "Wanhopige strijd",
   "battleLogSuperEffective": "Het is supereffectief!",
   "battleLogNotVeryEffective": "Het was niet erg effectief",
-  "battleLogFainted": "{monsterName} is uitgeschakeld"
+  "battleLogFainted": "{monsterName} is uitgeschakeld",
+  "battleLogStatRose": "{statName} van {monsterName} is gestegen!"
 }

@@ -165,5 +165,6 @@
   "battleStruggle": "মরিয়া লড়াই",
   "battleLogSuperEffective": "দারুণ কার্যকর!",
   "battleLogNotVeryEffective": "খুব একটা কাজ হলো না",
-  "battleLogFainted": "{monsterName} অজ্ঞান হয়ে গেল"
+  "battleLogFainted": "{monsterName} অজ্ঞান হয়ে গেল",
+  "battleLogStatRose": "{monsterName}-এর {statName} বেড়েছে!"
 }

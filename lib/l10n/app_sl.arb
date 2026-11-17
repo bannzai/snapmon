@@ -165,5 +165,6 @@
   "battleStruggle": "Obupen boj",
   "battleLogSuperEffective": "Zelo učinkovito!",
   "battleLogNotVeryEffective": "Ni bilo preveč učinkovito",
-  "battleLogFainted": "{monsterName} je omedlel"
+  "battleLogFainted": "{monsterName} je omedlel",
+  "battleLogStatRose": "Vrednost {statName} pri {monsterName} je zrasla!"
 }

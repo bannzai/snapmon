@@ -165,5 +165,6 @@
   "battleStruggle": "Απεγνωσμένη μάχη",
   "battleLogSuperEffective": "Είναι πολύ αποτελεσματικό!",
   "battleLogNotVeryEffective": "Δεν ήταν πολύ αποτελεσματικό",
-  "battleLogFainted": "Το {monsterName} λιποθύμησε"
+  "battleLogFainted": "Το {monsterName} λιποθύμησε",
+  "battleLogStatRose": "Αυξήθηκε το {statName} του {monsterName}!"
 }

@@ -165,5 +165,6 @@
   "battleStruggle": "هجوم اليأس",
   "battleLogSuperEffective": "إنه فعّال جدًا!",
   "battleLogNotVeryEffective": "لم تكن فعّالة جدًا",
-  "battleLogFainted": "سقط {monsterName}"
+  "battleLogFainted": "سقط {monsterName}",
+  "battleLogStatRose": "ارتفعت قيمة {statName} لدى {monsterName}!"
 }
