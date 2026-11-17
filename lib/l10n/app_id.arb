@@ -333,5 +333,6 @@
   "helpStatusDizzy": "Jurus lebih sulit mengenai sasaran selama 3 giliran",
   "helpStatusExcited": "Serangan naik, pertahanan turun",
   "helpStatusFrozen": "Bisa membuat tidak dapat bertindak selama beberapa giliran\nHilang saat terkena jurus yang menimbulkan damage",
-  "helpStatusSwitchBlocked": "Kamu tidak bisa mengganti monster atas kemauan sendiri selama 3 giliran"
+  "helpStatusSwitchBlocked": "Kamu tidak bisa mengganti monster atas kemauan sendiri selama 3 giliran",
+  "shareOpponentSeparator": " · "
 }

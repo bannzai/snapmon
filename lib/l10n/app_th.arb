@@ -333,5 +333,6 @@
   "helpStatusDizzy": "ท่าโจมตีมีโอกาสโดนลดลง 3 เทิร์น",
   "helpStatusExcited": "พลังโจมตีเพิ่ม พลังป้องกันลด",
   "helpStatusFrozen": "อาจทำให้ขยับไม่ได้หลายเทิร์น\nหายเมื่อได้รับความเสียหายจากท่า",
-  "helpStatusSwitchBlocked": "เปลี่ยนมอนสเตอร์เองไม่ได้เป็นเวลา 3 เทิร์น"
+  "helpStatusSwitchBlocked": "เปลี่ยนมอนสเตอร์เองไม่ได้เป็นเวลา 3 เทิร์น",
+  "shareOpponentSeparator": " · "
 }

@@ -333,5 +333,6 @@
   "helpStatusDizzy": "Angrep treffer sjeldnere i 3 turer",
   "helpStatusExcited": "Angrep øker, forsvar synker",
   "helpStatusFrozen": "Kan hindre handling i noen runder\nOpphører ved skade fra et angrep",
-  "helpStatusSwitchBlocked": "Du kan ikke bytte monster selv i 3 runder"
+  "helpStatusSwitchBlocked": "Du kan ikke bytte monster selv i 3 runder",
+  "shareOpponentSeparator": " · "
 }

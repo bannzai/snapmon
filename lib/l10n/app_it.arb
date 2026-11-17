@@ -333,5 +333,6 @@
   "helpStatusDizzy": "Le mosse vanno a segno meno spesso per 3 turni",
   "helpStatusExcited": "L'attacco sale, la difesa scende",
   "helpStatusFrozen": "Può impedire di agire per alcuni turni\nSvanisce quando una mossa infligge danni",
-  "helpStatusSwitchBlocked": "Non puoi cambiare mostro di tua iniziativa per 3 turni"
+  "helpStatusSwitchBlocked": "Non puoi cambiare mostro di tua iniziativa per 3 turni",
+  "shareOpponentSeparator": " · "
 }

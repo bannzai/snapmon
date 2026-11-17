@@ -333,5 +333,6 @@
   "helpStatusDizzy": "Potezi težje zadenejo 3 poteze",
   "helpStatusExcited": "Napad se poveča, obramba zmanjša",
   "helpStatusFrozen": "Lahko prepreči delovanje za nekaj potez\nMine ob škodi zaradi poteza",
-  "helpStatusSwitchBlocked": "Po 3 poteze ne moreš sam zamenjati pošasti"
+  "helpStatusSwitchBlocked": "Po 3 poteze ne moreš sam zamenjati pošasti",
+  "shareOpponentSeparator": " · "
 }

@@ -333,5 +333,6 @@
   "helpStatusDizzy": "3턴 동안 기술이 빗나가기 쉬워져요",
   "helpStatusExcited": "공격이 오르고 방어가 내려가요",
   "helpStatusFrozen": "몇 턴 동안 행동하지 못할 수 있어요\n기술로 피해를 받으면 풀려요",
-  "helpStatusSwitchBlocked": "3턴 동안 직접 몬스터를 교체할 수 없어요"
+  "helpStatusSwitchBlocked": "3턴 동안 직접 몬스터를 교체할 수 없어요",
+  "shareOpponentSeparator": " · "
 }

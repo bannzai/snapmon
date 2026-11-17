@@ -333,5 +333,6 @@
   "helpStatusDizzy": "המתקפות פוגעות פחות במשך 3 תורות",
   "helpStatusExcited": "ההתקפה עולה וההגנה יורדת",
   "helpStatusFrozen": "ייתכן שלא תהיה אפשרות לפעול במשך כמה תורות\nחולף כשסופגים נזק ממתקפה",
-  "helpStatusSwitchBlocked": "אין אפשרות להחליף מפלצת מרצון במשך 3 תורות"
+  "helpStatusSwitchBlocked": "אין אפשרות להחליף מפלצת מרצון במשך 3 תורות",
+  "shareOpponentSeparator": " · "
 }

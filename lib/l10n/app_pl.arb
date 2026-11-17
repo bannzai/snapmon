@@ -333,5 +333,6 @@
   "helpStatusDizzy": "Ruchy trafiają rzadziej przez 3 tury",
   "helpStatusExcited": "Atak rośnie, obrona spada",
   "helpStatusFrozen": "Może uniemożliwić działanie przez kilka tur\nMija po otrzymaniu obrażeń od ruchu",
-  "helpStatusSwitchBlocked": "Przez 3 tury nie możesz samodzielnie zmienić potwora"
+  "helpStatusSwitchBlocked": "Przez 3 tury nie możesz samodzielnie zmienić potwora",
+  "shareOpponentSeparator": " · "
 }

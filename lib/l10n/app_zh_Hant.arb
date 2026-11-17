@@ -333,5 +333,6 @@
   "helpStatusDizzy": "3回合內招式更容易落空",
   "helpStatusExcited": "攻擊提升，防禦下降",
   "helpStatusFrozen": "可能有幾個回合無法行動\n受到招式傷害後解除",
-  "helpStatusSwitchBlocked": "3回合內不能主動替換怪獸"
+  "helpStatusSwitchBlocked": "3回合內不能主動替換怪獸",
+  "shareOpponentSeparator": " · "
 }

@@ -333,5 +333,6 @@
   "helpStatusDizzy": "Os golpes acertam menos durante 3 turnos",
   "helpStatusExcited": "O Ataque sobe e a Defesa desce",
   "helpStatusFrozen": "Pode impedir ações durante alguns turnos\nPassa ao sofrer dano de um golpe",
-  "helpStatusSwitchBlocked": "Não podes trocar de monstro por tua iniciativa durante 3 turnos"
+  "helpStatusSwitchBlocked": "Não podes trocar de monstro por tua iniciativa durante 3 turnos",
+  "shareOpponentSeparator": " · "
 }

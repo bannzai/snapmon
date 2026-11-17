@@ -333,5 +333,6 @@
   "helpStatusDizzy": "Hamleler 3 tur boyunca daha zor isabet eder",
   "helpStatusExcited": "Saldırı artar, savunma düşer",
   "helpStatusFrozen": "Birkaç tur boyunca hareket etmeyi engelleyebilir\nHasar veren bir hamle isabet edince geçer",
-  "helpStatusSwitchBlocked": "3 tur boyunca kendi isteğinle canavar değiştiremezsin"
+  "helpStatusSwitchBlocked": "3 tur boyunca kendi isteğinle canavar değiştiremezsin",
+  "shareOpponentSeparator": " · "
 }

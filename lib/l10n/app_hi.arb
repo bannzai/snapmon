@@ -333,5 +333,6 @@
   "helpStatusDizzy": "3 टर्न तक चालें कम सटीक होंगी",
   "helpStatusExcited": "हमला बढ़ता है, बचाव घटता है",
   "helpStatusFrozen": "कुछ टर्न तक कार्रवाई नहीं कर पाएगा\nनुकसान पहुँचाने वाली चाल लगने पर असर हट जाता है",
-  "helpStatusSwitchBlocked": "तुम 3 टर्न तक अपनी मर्ज़ी से मॉन्स्टर नहीं बदल सकते"
+  "helpStatusSwitchBlocked": "तुम 3 टर्न तक अपनी मर्ज़ी से मॉन्स्टर नहीं बदल सकते",
+  "shareOpponentSeparator": " · "
 }

@@ -333,5 +333,6 @@
   "helpStatusDizzy": "৩ টার্ন ধরে কৌশল লক্ষ্যভেদে কম সফল হয়",
   "helpStatusExcited": "আক্রমণ বাড়ে, প্রতিরক্ষা কমে",
   "helpStatusFrozen": "কয়েক পালা কাজ করতে নাও পারতে পারে\nকৌশলের আঘাতে কেটে যায়",
-  "helpStatusSwitchBlocked": "৩ টার্ন ধরে নিজে থেকে মনস্টার বদলাতে পারবে না"
+  "helpStatusSwitchBlocked": "৩ টার্ন ধরে নিজে থেকে মনস্টার বদলাতে পারবে না",
+  "shareOpponentSeparator": " · "
 }
