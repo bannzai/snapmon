@@ -204,5 +204,6 @@
   "statusConditionExcited": "Begejstring",
   "statusConditionFrozen": "Frosset",
   "statusConditionSwitchBlocked": "Kan ikke skiftes",
-  "moveTypeSuperEffective": "Supereffektivt ×{multiplier}"
+  "moveTypeSuperEffective": "Supereffektivt ×{multiplier}",
+  "moveTypeNotVeryEffective": "Ikke særlig effektivt ×{multiplier}"
 }

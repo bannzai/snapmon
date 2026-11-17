@@ -204,5 +204,6 @@
   "statusConditionExcited": "Opwinding",
   "statusConditionFrozen": "Bevroren",
   "statusConditionSwitchBlocked": "Wisselen niet mogelijk",
-  "moveTypeSuperEffective": "Superdoeltreffend ×{multiplier}"
+  "moveTypeSuperEffective": "Superdoeltreffend ×{multiplier}",
+  "moveTypeNotVeryEffective": "Niet erg effectief ×{multiplier}"
 }

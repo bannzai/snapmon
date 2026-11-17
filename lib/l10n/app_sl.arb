@@ -204,5 +204,6 @@
   "statusConditionExcited": "Navdušenje",
   "statusConditionFrozen": "Zamrznitev",
   "statusConditionSwitchBlocked": "Menjava ni mogoča",
-  "moveTypeSuperEffective": "Zelo učinkovito ×{multiplier}"
+  "moveTypeSuperEffective": "Zelo učinkovito ×{multiplier}",
+  "moveTypeNotVeryEffective": "Ni zelo učinkovito ×{multiplier}"
 }

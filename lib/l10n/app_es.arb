@@ -204,5 +204,6 @@
   "statusConditionExcited": "Emoción",
   "statusConditionFrozen": "Congelado",
   "statusConditionSwitchBlocked": "No se puede cambiar",
-  "moveTypeSuperEffective": "Supereficaz ×{multiplier}"
+  "moveTypeSuperEffective": "Supereficaz ×{multiplier}",
+  "moveTypeNotVeryEffective": "No es muy eficaz ×{multiplier}"
 }

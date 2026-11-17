@@ -204,5 +204,6 @@
   "statusConditionExcited": "Euforia",
   "statusConditionFrozen": "Congelato",
   "statusConditionSwitchBlocked": "Non può essere sostituito",
-  "moveTypeSuperEffective": "Superefficace ×{multiplier}"
+  "moveTypeSuperEffective": "Superefficace ×{multiplier}",
+  "moveTypeNotVeryEffective": "Non è molto efficace ×{multiplier}"
 }

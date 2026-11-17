@@ -204,5 +204,6 @@
   "statusConditionExcited": "حماس",
   "statusConditionFrozen": "تجمّد",
   "statusConditionSwitchBlocked": "لا يمكن التبديل",
-  "moveTypeSuperEffective": "فعّال جدًا ×{multiplier}"
+  "moveTypeSuperEffective": "فعّال جدًا ×{multiplier}",
+  "moveTypeNotVeryEffective": "الفعالية ضعيفة ×{multiplier}"
 }

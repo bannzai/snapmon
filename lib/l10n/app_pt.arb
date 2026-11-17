@@ -204,5 +204,6 @@
   "statusConditionExcited": "Empolgação",
   "statusConditionFrozen": "Congelado",
   "statusConditionSwitchBlocked": "Não pode trocar",
-  "moveTypeSuperEffective": "Supereficaz ×{multiplier}"
+  "moveTypeSuperEffective": "Supereficaz ×{multiplier}",
+  "moveTypeNotVeryEffective": "Não é muito eficaz ×{multiplier}"
 }

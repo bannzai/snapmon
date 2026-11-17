@@ -204,5 +204,6 @@
   "statusConditionExcited": "Eufòria",
   "statusConditionFrozen": "Congelat",
   "statusConditionSwitchBlocked": "No es pot canviar",
-  "moveTypeSuperEffective": "Supereficaç ×{multiplier}"
+  "moveTypeSuperEffective": "Supereficaç ×{multiplier}",
+  "moveTypeNotVeryEffective": "No és gaire eficaç ×{multiplier}"
 }

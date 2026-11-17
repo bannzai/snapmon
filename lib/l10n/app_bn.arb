@@ -204,5 +204,6 @@
   "statusConditionExcited": "উত্তেজনা",
   "statusConditionFrozen": "জমে গেছে",
   "statusConditionSwitchBlocked": "বদলানো যাবে না",
-  "moveTypeSuperEffective": "দারুণ কার্যকর ×{multiplier}"
+  "moveTypeSuperEffective": "দারুণ কার্যকর ×{multiplier}",
+  "moveTypeNotVeryEffective": "খুব একটা কার্যকর নয় ×{multiplier}"
 }

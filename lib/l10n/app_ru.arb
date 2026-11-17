@@ -204,5 +204,6 @@
   "statusConditionExcited": "Воодушевление",
   "statusConditionFrozen": "Заморозка",
   "statusConditionSwitchBlocked": "Нельзя заменить",
-  "moveTypeSuperEffective": "Суперэффективно ×{multiplier}"
+  "moveTypeSuperEffective": "Суперэффективно ×{multiplier}",
+  "moveTypeNotVeryEffective": "Не очень эффективно ×{multiplier}"
 }

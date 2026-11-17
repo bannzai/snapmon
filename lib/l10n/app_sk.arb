@@ -204,5 +204,6 @@
   "statusConditionExcited": "Nadšenie",
   "statusConditionFrozen": "Zmrazenie",
   "statusConditionSwitchBlocked": "Nedá sa vymeniť",
-  "moveTypeSuperEffective": "Veľmi účinné ×{multiplier}"
+  "moveTypeSuperEffective": "Veľmi účinné ×{multiplier}",
+  "moveTypeNotVeryEffective": "Nie je to veľmi účinné ×{multiplier}"
 }

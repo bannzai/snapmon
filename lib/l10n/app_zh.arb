@@ -204,5 +204,6 @@
   "statusConditionExcited": "兴奋",
   "statusConditionFrozen": "冰冻",
   "statusConditionSwitchBlocked": "无法替换",
-  "moveTypeSuperEffective": "效果绝佳 ×{multiplier}"
+  "moveTypeSuperEffective": "效果绝佳 ×{multiplier}",
+  "moveTypeNotVeryEffective": "效果不太好 ×{multiplier}"
 }

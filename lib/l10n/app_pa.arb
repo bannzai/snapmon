@@ -204,5 +204,6 @@
   "statusConditionExcited": "ਜੋਸ਼",
   "statusConditionFrozen": "ਜੰਮਿਆ ਹੋਇਆ",
   "statusConditionSwitchBlocked": "ਬਦਲਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ",
-  "moveTypeSuperEffective": "ਬਹੁਤ ਅਸਰਦਾਰ ×{multiplier}"
+  "moveTypeSuperEffective": "ਬਹੁਤ ਅਸਰਦਾਰ ×{multiplier}",
+  "moveTypeNotVeryEffective": "ਬਹੁਤਾ ਅਸਰਦਾਰ ਨਹੀਂ ×{multiplier}"
 }

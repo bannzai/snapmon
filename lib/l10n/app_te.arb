@@ -204,5 +204,6 @@
   "statusConditionExcited": "ఉత్సాహం",
   "statusConditionFrozen": "గడ్డకట్టింది",
   "statusConditionSwitchBlocked": "మార్చలేవు",
-  "moveTypeSuperEffective": "చాలా ప్రభావవంతం ×{multiplier}"
+  "moveTypeSuperEffective": "చాలా ప్రభావవంతం ×{multiplier}",
+  "moveTypeNotVeryEffective": "అంత ప్రభావవంతంగా లేదు ×{multiplier}"
 }

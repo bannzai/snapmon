@@ -204,5 +204,6 @@
   "statusConditionExcited": "ആവേശം",
   "statusConditionFrozen": "മരവിപ്പ്",
   "statusConditionSwitchBlocked": "മാറ്റാൻ കഴിയില്ല",
-  "moveTypeSuperEffective": "വളരെ ഫലപ്രദം ×{multiplier}"
+  "moveTypeSuperEffective": "വളരെ ഫലപ്രദം ×{multiplier}",
+  "moveTypeNotVeryEffective": "അത്ര ഫലപ്രദമല്ല ×{multiplier}"
 }

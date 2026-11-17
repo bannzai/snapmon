@@ -204,5 +204,6 @@
   "statusConditionExcited": "ตื่นเต้น",
   "statusConditionFrozen": "แช่แข็ง",
   "statusConditionSwitchBlocked": "สลับตัวไม่ได้",
-  "moveTypeSuperEffective": "ได้ผลสุดยอด ×{multiplier}"
+  "moveTypeSuperEffective": "ได้ผลสุดยอด ×{multiplier}",
+  "moveTypeNotVeryEffective": "ไม่ค่อยได้ผล ×{multiplier}"
 }

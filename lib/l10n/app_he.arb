@@ -204,5 +204,6 @@
   "statusConditionExcited": "התלהבות",
   "statusConditionFrozen": "קיפאון",
   "statusConditionSwitchBlocked": "אי אפשר להחליף",
-  "moveTypeSuperEffective": "יעיל במיוחד ×{multiplier}"
+  "moveTypeSuperEffective": "יעיל במיוחד ×{multiplier}",
+  "moveTypeNotVeryEffective": "לא יעיל במיוחד ×{multiplier}"
 }

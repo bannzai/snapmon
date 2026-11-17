@@ -204,5 +204,6 @@
   "statusConditionExcited": "Semangat",
   "statusConditionFrozen": "Membeku",
   "statusConditionSwitchBlocked": "Tidak bisa diganti",
-  "moveTypeSuperEffective": "Sangat efektif ×{multiplier}"
+  "moveTypeSuperEffective": "Sangat efektif ×{multiplier}",
+  "moveTypeNotVeryEffective": "Kurang efektif ×{multiplier}"
 }

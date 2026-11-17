@@ -204,5 +204,6 @@
   "statusConditionExcited": "Upprymdhet",
   "statusConditionFrozen": "Frusen",
   "statusConditionSwitchBlocked": "Kan inte bytas",
-  "moveTypeSuperEffective": "Supereffektivt ×{multiplier}"
+  "moveTypeSuperEffective": "Supereffektivt ×{multiplier}",
+  "moveTypeNotVeryEffective": "Inte särskilt effektivt ×{multiplier}"
 }

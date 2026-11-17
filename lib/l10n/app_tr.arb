@@ -204,5 +204,6 @@
   "statusConditionExcited": "Heyecan",
   "statusConditionFrozen": "Donma",
   "statusConditionSwitchBlocked": "Değiştirilemez",
-  "moveTypeSuperEffective": "Çok etkili ×{multiplier}"
+  "moveTypeSuperEffective": "Çok etkili ×{multiplier}",
+  "moveTypeNotVeryEffective": "Pek etkili değil ×{multiplier}"
 }

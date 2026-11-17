@@ -204,5 +204,6 @@
   "statusConditionExcited": "Opphisselse",
   "statusConditionFrozen": "Frosset",
   "statusConditionSwitchBlocked": "Kan ikke byttes",
-  "moveTypeSuperEffective": "Supereffektivt ×{multiplier}"
+  "moveTypeSuperEffective": "Supereffektivt ×{multiplier}",
+  "moveTypeNotVeryEffective": "Ikke særlig effektivt ×{multiplier}"
 }

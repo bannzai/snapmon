@@ -204,5 +204,6 @@
   "statusConditionExcited": "जोश",
   "statusConditionFrozen": "जमा हुआ",
   "statusConditionSwitchBlocked": "बदला नहीं जा सकता",
-  "moveTypeSuperEffective": "बहुत असरदार ×{multiplier}"
+  "moveTypeSuperEffective": "बहुत असरदार ×{multiplier}",
+  "moveTypeNotVeryEffective": "ज़्यादा असरदार नहीं ×{multiplier}"
 }

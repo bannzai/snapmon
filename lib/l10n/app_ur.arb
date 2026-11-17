@@ -204,5 +204,6 @@
   "statusConditionExcited": "جوش",
   "statusConditionFrozen": "منجمد",
   "statusConditionSwitchBlocked": "بدلا نہیں جا سکتا",
-  "moveTypeSuperEffective": "بہت مؤثر ×{multiplier}"
+  "moveTypeSuperEffective": "بہت مؤثر ×{multiplier}",
+  "moveTypeNotVeryEffective": "زیادہ مؤثر نہیں ×{multiplier}"
 }

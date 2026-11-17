@@ -204,5 +204,6 @@
   "statusConditionExcited": "Innostus",
   "statusConditionFrozen": "Jäässä",
   "statusConditionSwitchBlocked": "Ei voi vaihtaa",
-  "moveTypeSuperEffective": "Erittäin tehokas ×{multiplier}"
+  "moveTypeSuperEffective": "Erittäin tehokas ×{multiplier}",
+  "moveTypeNotVeryEffective": "Ei kovin tehokas ×{multiplier}"
 }

@@ -204,5 +204,6 @@
   "statusConditionExcited": "ઉત્સાહ",
   "statusConditionFrozen": "જામી ગયું",
   "statusConditionSwitchBlocked": "બદલી શકાતું નથી",
-  "moveTypeSuperEffective": "ખૂબ અસરકારક ×{multiplier}"
+  "moveTypeSuperEffective": "ખૂબ અસરકારક ×{multiplier}",
+  "moveTypeNotVeryEffective": "બહુ અસરકારક નથી ×{multiplier}"
 }

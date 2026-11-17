@@ -204,5 +204,6 @@
   "statusConditionExcited": "Збудження",
   "statusConditionFrozen": "Замороження",
   "statusConditionSwitchBlocked": "Не можна замінити",
-  "moveTypeSuperEffective": "Надзвичайно ефективно ×{multiplier}"
+  "moveTypeSuperEffective": "Надзвичайно ефективно ×{multiplier}",
+  "moveTypeNotVeryEffective": "Не дуже ефективно ×{multiplier}"
 }

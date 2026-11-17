@@ -204,5 +204,6 @@
   "statusConditionExcited": "Entuziasm",
   "statusConditionFrozen": "Înghețat",
   "statusConditionSwitchBlocked": "Nu poate fi schimbat",
-  "moveTypeSuperEffective": "Super eficient ×{multiplier}"
+  "moveTypeSuperEffective": "Super eficient ×{multiplier}",
+  "moveTypeNotVeryEffective": "Nu prea e eficient ×{multiplier}"
 }
