@@ -89,5 +89,6 @@
   "captureGoToBattle": "Kæmp",
   "captureViewfinderGuide": "Placér motivet inden for rammen",
   "captureCameraPermissionRequired": "Du skal give adgang til kameraet",
-  "captureCameraPermissionHint": "Giv adgang til kameraet i indstillingerne"
+  "captureCameraPermissionHint": "Giv adgang til kameraet i indstillingerne",
+  "captureCameraPermissionHintWeb": "Giv adgang til kameraet i webstedets indstillinger i adresselinjen"
 }

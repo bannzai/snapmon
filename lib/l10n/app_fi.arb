@@ -89,5 +89,6 @@
   "captureGoToBattle": "Taistele",
   "captureViewfinderGuide": "Aseta kuvattava kohde kehyksen sisään",
   "captureCameraPermissionRequired": "Kameran käyttöön tarvitaan lupa",
-  "captureCameraPermissionHint": "Salli kameran käyttö asetuksissa"
+  "captureCameraPermissionHint": "Salli kameran käyttö asetuksissa",
+  "captureCameraPermissionHintWeb": "Salli kamera osoiterivin sivustoasetuksista"
 }

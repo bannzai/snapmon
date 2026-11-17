@@ -89,5 +89,6 @@
   "captureGoToBattle": "Μάχη",
   "captureViewfinderGuide": "Βάλε το θέμα σου μέσα στο πλαίσιο",
   "captureCameraPermissionRequired": "Χρειάζεται άδεια πρόσβασης στην κάμερα",
-  "captureCameraPermissionHint": "Επίτρεψε την πρόσβαση στην κάμερα από τις ρυθμίσεις"
+  "captureCameraPermissionHint": "Επίτρεψε την πρόσβαση στην κάμερα από τις ρυθμίσεις",
+  "captureCameraPermissionHintWeb": "Επίτρεψε την κάμερα από τις ρυθμίσεις ιστότοπου στη γραμμή διευθύνσεων"
 }

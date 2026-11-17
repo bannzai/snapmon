@@ -89,5 +89,6 @@
   "captureGoToBattle": "Kämpa",
   "captureViewfinderGuide": "Placera motivet inom ramen",
   "captureCameraPermissionRequired": "Du behöver ge åtkomst till kameran",
-  "captureCameraPermissionHint": "Tillåt åtkomst till kameran i inställningarna"
+  "captureCameraPermissionHint": "Tillåt åtkomst till kameran i inställningarna",
+  "captureCameraPermissionHintWeb": "Tillåt kameran i webbplatsinställningarna i adressfältet"
 }

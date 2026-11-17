@@ -89,5 +89,6 @@
   "captureGoToBattle": "لڑو",
   "captureViewfinderGuide": "جس کی تصویر لے رہے ہو، اسے فریم میں لاؤ",
   "captureCameraPermissionRequired": "کیمرہ استعمال کرنے کی اجازت چاہیے",
-  "captureCameraPermissionHint": "سیٹنگز میں کیمرے کی اجازت دو"
+  "captureCameraPermissionHint": "سیٹنگز میں کیمرے کی اجازت دو",
+  "captureCameraPermissionHintWeb": "ایڈریس بار میں سائٹ کی ترتیبات سے کیمرے کی اجازت دو"
 }

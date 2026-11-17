@@ -89,5 +89,6 @@
   "captureGoToBattle": "Битися",
   "captureViewfinderGuide": "Помісти об’єкт зйомки в рамку",
   "captureCameraPermissionRequired": "Потрібно дозволити доступ до камери",
-  "captureCameraPermissionHint": "Дозволь доступ до камери в налаштуваннях"
+  "captureCameraPermissionHint": "Дозволь доступ до камери в налаштуваннях",
+  "captureCameraPermissionHintWeb": "Дозволь доступ до камери в налаштуваннях сайту в адресному рядку"
 }

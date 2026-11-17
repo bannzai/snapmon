@@ -89,5 +89,6 @@
   "captureGoToBattle": "להילחם",
   "captureViewfinderGuide": "להכניס את מה שמצלמים למסגרת",
   "captureCameraPermissionRequired": "צריך לאפשר גישה למצלמה",
-  "captureCameraPermissionHint": "לאפשר גישה למצלמה בהגדרות"
+  "captureCameraPermissionHint": "לאפשר גישה למצלמה בהגדרות",
+  "captureCameraPermissionHintWeb": "יש לאפשר גישה למצלמה דרך הגדרות האתר בשורת הכתובת"
 }

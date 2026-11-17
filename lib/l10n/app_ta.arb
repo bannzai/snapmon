@@ -89,5 +89,6 @@
   "captureGoToBattle": "போரிடுங்கள்",
   "captureViewfinderGuide": "படம் எடுக்க வேண்டிய பொருளைச் சட்டத்திற்குள் வையுங்கள்",
   "captureCameraPermissionRequired": "கேமராவைப் பயன்படுத்த அனுமதி தேவை",
-  "captureCameraPermissionHint": "அமைப்புகளில் கேமராவை பயன்படுத்த அனுமதியுங்கள்"
+  "captureCameraPermissionHint": "அமைப்புகளில் கேமராவை பயன்படுத்த அனுமதியுங்கள்",
+  "captureCameraPermissionHintWeb": "முகவரிப் பட்டியில் உள்ள தள அமைப்புகளிலிருந்து கேமராவுக்கு அனுமதி வழங்குங்கள்"
 }

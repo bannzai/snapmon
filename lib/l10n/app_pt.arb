@@ -89,5 +89,6 @@
   "captureGoToBattle": "Batalhar",
   "captureViewfinderGuide": "Coloque o que você vai fotografar dentro do quadro",
   "captureCameraPermissionRequired": "Você precisa permitir o acesso à câmera",
-  "captureCameraPermissionHint": "Permita o acesso à câmera nas configurações"
+  "captureCameraPermissionHint": "Permita o acesso à câmera nas configurações",
+  "captureCameraPermissionHintWeb": "Permita o acesso à câmera nas configurações do site na barra de endereço"
 }

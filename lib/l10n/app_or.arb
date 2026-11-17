@@ -89,5 +89,6 @@
   "captureGoToBattle": "ଲଢ଼",
   "captureViewfinderGuide": "ଫଟୋ ଉଠାଇବାକୁ ଥିବା ବସ୍ତୁକୁ ଫ୍ରେମ୍‌ ଭିତରେ ରଖ",
   "captureCameraPermissionRequired": "କ୍ୟାମେରା ବ୍ୟବହାର ପାଇଁ ଅନୁମତି ଦରକାର",
-  "captureCameraPermissionHint": "ସେଟିଂସ୍‌ରେ କ୍ୟାମେରାକୁ ଅନୁମତି ଦିଅ"
+  "captureCameraPermissionHint": "ସେଟିଂସ୍‌ରେ କ୍ୟାମେରାକୁ ଅନୁମତି ଦିଅ",
+  "captureCameraPermissionHintWeb": "ଠିକଣା ପଟିରେ ଥିବା ସାଇଟ୍ ସେଟିଂସ୍‌ରୁ କ୍ୟାମେରାକୁ ଅନୁମତି ଦିଅ"
 }

@@ -89,5 +89,6 @@
   "captureGoToBattle": "Chiến đấu",
   "captureViewfinderGuide": "Đưa vật cần chụp vào khung hình",
   "captureCameraPermissionRequired": "Bạn cần cho phép dùng camera",
-  "captureCameraPermissionHint": "Cho phép dùng camera trong phần cài đặt"
+  "captureCameraPermissionHint": "Cho phép dùng camera trong phần cài đặt",
+  "captureCameraPermissionHintWeb": "Cho phép dùng camera trong phần cài đặt trang web ở thanh địa chỉ"
 }

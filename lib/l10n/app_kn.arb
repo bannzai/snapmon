@@ -89,5 +89,6 @@
   "captureGoToBattle": "ಹೋರಾಡು",
   "captureViewfinderGuide": "ಚಿತ್ರ ತೆಗೆಯುವ ವಸ್ತುವನ್ನು ಚೌಕಟ್ಟಿನೊಳಗೆ ಇರಿಸು",
   "captureCameraPermissionRequired": "ಕ್ಯಾಮೆರಾ ಬಳಸಲು ಅನುಮತಿ ಬೇಕು",
-  "captureCameraPermissionHint": "ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಕ್ಯಾಮೆರಾ ಬಳಕೆಗೆ ಅನುಮತಿ ನೀಡು"
+  "captureCameraPermissionHint": "ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಕ್ಯಾಮೆರಾ ಬಳಕೆಗೆ ಅನುಮತಿ ನೀಡು",
+  "captureCameraPermissionHintWeb": "ವಿಳಾಸ ಪಟ್ಟಿಯಲ್ಲಿರುವ ಸೈಟ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳಿಂದ ಕ್ಯಾಮೆರಾಗೆ ಅನುಮತಿ ಕೊಡು"
 }
