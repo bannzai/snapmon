@@ -276,5 +276,6 @@
   "actionCardBuyHeading": "Vyber a kup útok",
   "actionCardBuyDescription": "Vyber si jeden útok a kup si ho natrvalo. Pak ho můžeš učit jakoukoli příšeru, kolikrát chceš.",
   "actionCardBuyUnavailable": "Teď nejsou v prodeji žádné útoky",
-  "actionCardPurchaseBuy": "Kup za {price}"
+  "actionCardPurchaseBuy": "Kup za {price}",
+  "actionCardPurchasePriceChanged": "Cena tohoto útoku se změnila\nPřed nákupem ji zkontroluj"
 }

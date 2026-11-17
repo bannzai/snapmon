@@ -276,5 +276,6 @@
   "actionCardBuyHeading": "Wybierz i kup ruch",
   "actionCardBuyDescription": "Wybierz jeden ruch i kup go raz na zawsze. Potem możesz uczyć go dowolnego potwora tyle razy, ile chcesz.",
   "actionCardBuyUnavailable": "Teraz żadne ruchy nie są na sprzedaż",
-  "actionCardPurchaseBuy": "Kup za {price}"
+  "actionCardPurchaseBuy": "Kup za {price}",
+  "actionCardPurchasePriceChanged": "Cena tego ruchu się zmieniła\nSprawdź ją przed zakupem"
 }

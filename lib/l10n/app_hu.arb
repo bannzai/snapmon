@@ -276,5 +276,6 @@
   "actionCardBuyHeading": "Válassz és vegyél támadást",
   "actionCardBuyDescription": "Válassz egy támadást, és vedd meg egyszer. Utána bármelyik szörnynek megtaníthatod, ahányszor csak akarod.",
   "actionCardBuyUnavailable": "Most nem kaphatók támadások",
-  "actionCardPurchaseBuy": "Vedd meg {price} áron"
+  "actionCardPurchaseBuy": "Vedd meg {price} áron",
+  "actionCardPurchasePriceChanged": "Megváltozott ennek a támadásnak az ára\nVásárlás előtt ellenőrizd"
 }

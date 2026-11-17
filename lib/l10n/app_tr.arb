@@ -276,5 +276,6 @@
   "actionCardBuyHeading": "Hamle seç ve satın al",
   "actionCardBuyDescription": "Bir hamle seç ve tek seferlik satın al. Sonra onu istediğin canavara istediğin kadar öğretebilirsin.",
   "actionCardBuyUnavailable": "Şu anda satılık hamle yok",
-  "actionCardPurchaseBuy": "{price} karşılığında satın al"
+  "actionCardPurchaseBuy": "{price} karşılığında satın al",
+  "actionCardPurchasePriceChanged": "Bu hamlenin fiyatı değişti\nSatın almadan önce fiyatı kontrol et"
 }

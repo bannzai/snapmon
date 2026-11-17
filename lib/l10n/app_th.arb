@@ -276,5 +276,6 @@
   "actionCardBuyHeading": "เลือกซื้อท่า",
   "actionCardBuyDescription": "เลือกซื้อท่า 1 ท่าแบบจ่ายครั้งเดียว แล้วสอนท่านั้นให้มอนสเตอร์ตัวไหนกี่ครั้งก็ได้",
   "actionCardBuyUnavailable": "ตอนนี้ยังไม่มีท่าวางขาย",
-  "actionCardPurchaseBuy": "ซื้อในราคา {price}"
+  "actionCardPurchaseBuy": "ซื้อในราคา {price}",
+  "actionCardPurchasePriceChanged": "ราคาท่านี้เปลี่ยนแล้ว\nเช็กราคาก่อนซื้อ"
 }

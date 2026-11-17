@@ -276,5 +276,6 @@
   "actionCardBuyHeading": "选择并购买招式",
   "actionCardBuyDescription": "选一个招式，一次买断。之后可以无限次教给任何怪物。",
   "actionCardBuyUnavailable": "现在没有招式出售",
-  "actionCardPurchaseBuy": "花 {price} 购买"
+  "actionCardPurchaseBuy": "花 {price} 购买",
+  "actionCardPurchasePriceChanged": "这个招式的价格变了\n购买前先确认价格"
 }

@@ -276,5 +276,6 @@
   "actionCardBuyHeading": "தாக்குதலைத் தேர்ந்தெடுத்து வாங்குங்கள்",
   "actionCardBuyDescription": "ஒரு தாக்குதலைத் தேர்ந்தெடுத்து ஒரே முறை வாங்குங்கள். பிறகு அதை எந்த மான்ஸ்டருக்கும் எத்தனை முறை வேண்டுமானாலும் கற்றுக்கொடுக்கலாம்.",
   "actionCardBuyUnavailable": "இப்போது தாக்குதல்கள் விற்பனைக்கு இல்லை",
-  "actionCardPurchaseBuy": "{price}க்கு வாங்குங்கள்"
+  "actionCardPurchaseBuy": "{price}க்கு வாங்குங்கள்",
+  "actionCardPurchasePriceChanged": "இந்தத் தாக்குதலின் விலை மாறிவிட்டது\nவாங்கும் முன் விலையைச் சரிபாருங்கள்"
 }

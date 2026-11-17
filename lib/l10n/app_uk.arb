@@ -276,5 +276,6 @@
   "actionCardBuyHeading": "Вибери й купи прийом",
   "actionCardBuyDescription": "Вибери один прийом і купи його раз і назавжди. Потім зможеш навчати ним будь-якого монстра скільки завгодно разів.",
   "actionCardBuyUnavailable": "Зараз прийоми не продаються",
-  "actionCardPurchaseBuy": "Купити за {price}"
+  "actionCardPurchaseBuy": "Купити за {price}",
+  "actionCardPurchasePriceChanged": "Прийом тепер має іншу ціну\nПеревір її перед покупкою"
 }

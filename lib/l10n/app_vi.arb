@@ -276,5 +276,6 @@
   "actionCardBuyHeading": "Chọn và mua chiêu",
   "actionCardBuyDescription": "Chọn một chiêu và mua một lần là sở hữu mãi. Sau đó, bạn có thể dạy chiêu ấy cho bất kỳ quái vật nào, bao nhiêu lần tùy thích.",
   "actionCardBuyUnavailable": "Hiện chưa có chiêu nào được bán",
-  "actionCardPurchaseBuy": "Mua với giá {price}"
+  "actionCardPurchaseBuy": "Mua với giá {price}",
+  "actionCardPurchasePriceChanged": "Giá chiêu này đã thay đổi\nKiểm tra giá trước khi mua"
 }

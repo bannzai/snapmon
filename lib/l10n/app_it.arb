@@ -276,5 +276,6 @@
   "actionCardBuyHeading": "Scegli e compra una mossa",
   "actionCardBuyDescription": "Scegli una mossa e acquistala una volta per tutte. Poi potrai insegnarla a qualsiasi mostro tutte le volte che vuoi.",
   "actionCardBuyUnavailable": "Al momento non ci sono mosse in vendita",
-  "actionCardPurchaseBuy": "Compra a {price}"
+  "actionCardPurchaseBuy": "Compra a {price}",
+  "actionCardPurchasePriceChanged": "Il prezzo di questa mossa è cambiato\nControllalo prima di acquistare"
 }

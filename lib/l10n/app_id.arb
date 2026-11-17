@@ -276,5 +276,6 @@
   "actionCardBuyHeading": "Pilih dan beli jurus",
   "actionCardBuyDescription": "Pilih satu jurus dan beli sekali saja. Setelah itu, kamu bisa mengajarkannya ke monster mana pun sesering yang kamu mau.",
   "actionCardBuyUnavailable": "Jurus sedang tidak dijual",
-  "actionCardPurchaseBuy": "Beli seharga {price}"
+  "actionCardPurchaseBuy": "Beli seharga {price}",
+  "actionCardPurchasePriceChanged": "Harga jurus ini berubah\nCek harganya sebelum membeli"
 }

@@ -276,5 +276,6 @@
   "actionCardBuyHeading": "اختر حركة واشتَرها",
   "actionCardBuyDescription": "اختر حركة واحدة وادفع ثمنها مرة واحدة. بعدها يمكنك تعليمها لأي وحش كما تشاء.",
   "actionCardBuyUnavailable": "لا تُباع الحركات حاليًا",
-  "actionCardPurchaseBuy": "اشترِ بسعر {price}"
+  "actionCardPurchaseBuy": "اشترِ بسعر {price}",
+  "actionCardPurchasePriceChanged": "تغيّر سعر هذه الحركة\nتحقّق من السعر قبل الشراء"
 }

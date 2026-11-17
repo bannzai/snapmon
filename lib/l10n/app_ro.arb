@@ -276,5 +276,6 @@
   "actionCardBuyHeading": "Alege și cumpără o mișcare",
   "actionCardBuyDescription": "Alege o mișcare și cumpăr-o o singură dată. Apoi o poți preda oricărui monstru de câte ori vrei.",
   "actionCardBuyUnavailable": "Momentan nu sunt mișcări de vânzare",
-  "actionCardPurchaseBuy": "Cumpără cu {price}"
+  "actionCardPurchaseBuy": "Cumpără cu {price}",
+  "actionCardPurchasePriceChanged": "Prețul acestei mișcări s-a schimbat\nVerifică-l înainte să cumperi"
 }

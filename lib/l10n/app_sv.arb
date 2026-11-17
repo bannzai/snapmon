@@ -276,5 +276,6 @@
   "actionCardBuyHeading": "Välj och köp en attack",
   "actionCardBuyDescription": "Välj en attack och köp den en gång. Sedan kan du lära ut den till vilket monster som helst, hur många gånger du vill.",
   "actionCardBuyUnavailable": "Inga attacker är till salu just nu",
-  "actionCardPurchaseBuy": "Köp för {price}"
+  "actionCardPurchaseBuy": "Köp för {price}",
+  "actionCardPurchasePriceChanged": "Priset på den här attacken har ändrats\nKolla priset innan du köper"
 }

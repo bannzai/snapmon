@@ -276,5 +276,6 @@
   "actionCardBuyHeading": "ತಂತ್ರ ಆಯ್ಕೆ ಮಾಡಿ ಖರೀದಿಸು",
   "actionCardBuyDescription": "ಒಂದು ತಂತ್ರವನ್ನು ಆಯ್ಕೆ ಮಾಡಿ ಒಮ್ಮೆ ಮಾತ್ರ ಖರೀದಿಸು. ನಂತರ ಅದನ್ನು ಯಾವುದೇ ಮಾನ್ಸ್ಟರ್‌ಗೆ ಎಷ್ಟು ಬಾರಿಯಾದರೂ ಕಲಿಸಬಹುದು.",
   "actionCardBuyUnavailable": "ಈಗ ಯಾವುದೇ ತಂತ್ರ ಮಾರಾಟಕ್ಕಿಲ್ಲ",
-  "actionCardPurchaseBuy": "{price}ಗೆ ಖರೀದಿಸು"
+  "actionCardPurchaseBuy": "{price}ಗೆ ಖರೀದಿಸು",
+  "actionCardPurchasePriceChanged": "ಈ ತಂತ್ರದ ಬೆಲೆ ಬದಲಾಗಿದೆ\nಖರೀದಿಸುವ ಮೊದಲು ಬೆಲೆ ಪರಿಶೀಲಿಸು"
 }
