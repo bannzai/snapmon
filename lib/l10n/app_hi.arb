@@ -265,5 +265,6 @@
   "ticketPurchaseWaiting": "टिकट मिल रहे हैं",
   "ticketPurchaseArrivalDelayed": "टिकट जुड़ने का इंतज़ार है\nयह स्क्रीन बंद करने पर भी मिले हुए टिकट रहेंगे",
   "ticketPurchasePending": "भुगतान पूरा होने का इंतज़ार है\nयह स्क्रीन बंद करने पर भी भुगतान पूरा होते ही तुम्हें टिकट मिल जाएगा",
-  "ticketPurchaseArrivedTitle": "टिकट आ गए"
+  "ticketPurchaseArrivedTitle": "टिकट आ गए",
+  "ticketPurchaseContinue": "इस फ़ोटो से मॉन्स्टर बनाओ"
 }

@@ -265,5 +265,6 @@
   "ticketPurchaseWaiting": "Получение билетов",
   "ticketPurchaseArrivalDelayed": "Ждём, пока появятся билеты\nПолученные билеты останутся у тебя, даже если закроешь этот экран",
   "ticketPurchasePending": "Ждём завершения оплаты\nДаже если ты закроешь этот экран, билет придёт после завершения оплаты",
-  "ticketPurchaseArrivedTitle": "Билеты пришли"
+  "ticketPurchaseArrivedTitle": "Билеты пришли",
+  "ticketPurchaseContinue": "Создай монстра из этого фото"
 }

@@ -265,5 +265,6 @@
   "ticketPurchaseWaiting": "جارٍ استلام التذاكر",
   "ticketPurchaseArrivalDelayed": "بانتظار ظهور التذاكر\nستبقى التذاكر التي تصلك حتى لو أغلقت هذه الشاشة",
   "ticketPurchasePending": "بانتظار اكتمال الدفع\nحتى لو أغلقت هذه الشاشة، ستصلك التذكرة عند اكتماله",
-  "ticketPurchaseArrivedTitle": "وصلت التذاكر"
+  "ticketPurchaseArrivedTitle": "وصلت التذاكر",
+  "ticketPurchaseContinue": "أنشئ وحشًا من هذه الصورة"
 }

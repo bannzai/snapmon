@@ -265,5 +265,6 @@
   "ticketPurchaseWaiting": "Rebent els tiquets",
   "ticketPurchaseArrivalDelayed": "Esperant que apareguin els tiquets\nEls tiquets rebuts es conservaran encara que tanquis aquesta pantalla",
   "ticketPurchasePending": "Esperant que es completi el pagament\nEncara que tanquis aquesta pantalla, rebràs el tiquet quan es completi",
-  "ticketPurchaseArrivedTitle": "Ja tens els tiquets"
+  "ticketPurchaseArrivedTitle": "Ja tens els tiquets",
+  "ticketPurchaseContinue": "Crea un monstre amb aquesta foto"
 }

@@ -265,5 +265,6 @@
   "ticketPurchaseWaiting": "הכרטיסים בדרך",
   "ticketPurchaseArrivalDelayed": "מחכים שהכרטיסים יופיעו\nכרטיסים שהתקבלו יישארו גם אחרי סגירת המסך",
   "ticketPurchasePending": "ממתינים להשלמת התשלום\nאפשר לסגור את המסך הזה. הכרטיס יגיע כשהתשלום יושלם",
-  "ticketPurchaseArrivedTitle": "הכרטיסים הגיעו"
+  "ticketPurchaseArrivedTitle": "הכרטיסים הגיעו",
+  "ticketPurchaseContinue": "ליצור מפלצת מהתמונה הזאת"
 }

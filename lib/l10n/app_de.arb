@@ -265,5 +265,6 @@
   "ticketPurchaseWaiting": "Tickets werden empfangen",
   "ticketPurchaseArrivalDelayed": "Warte, bis deine Tickets angezeigt werden\nErhaltene Tickets bleiben dir auch nach dem Schließen dieses Bildschirms",
   "ticketPurchasePending": "Warte auf den Abschluss der Zahlung\nAuch wenn du diesen Bildschirm schließt, bekommst du das Ticket, sobald die Zahlung abgeschlossen ist",
-  "ticketPurchaseArrivedTitle": "Die Tickets sind da"
+  "ticketPurchaseArrivedTitle": "Die Tickets sind da",
+  "ticketPurchaseContinue": "Erstelle ein Monster aus diesem Foto"
 }

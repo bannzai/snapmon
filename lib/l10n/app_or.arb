@@ -265,5 +265,6 @@
   "ticketPurchaseWaiting": "ଟିକେଟ୍ ମିଳୁଛି",
   "ticketPurchaseArrivalDelayed": "ଟିକେଟ୍ ଦେଖାଯିବାକୁ ଅପେକ୍ଷା କରୁଛୁ\nତୁମେ ଏହି ସ୍କ୍ରିନ୍ ବନ୍ଦ କଲେ ବି ମିଳିଥିବା ଟିକେଟ୍ ରହିବ",
   "ticketPurchasePending": "ଦେୟ ସମ୍ପୂର୍ଣ୍ଣ ହେବାକୁ ଅପେକ୍ଷା କରାଯାଉଛି\nତୁମେ ଏହି ସ୍କ୍ରିନ୍ ବନ୍ଦ କଲେ ବି, ଦେୟ ସମ୍ପୂର୍ଣ୍ଣ ହେଲେ ଟିକେଟ୍ ପାଇବ",
-  "ticketPurchaseArrivedTitle": "ଟିକେଟ୍ ଆସିଗଲା"
+  "ticketPurchaseArrivedTitle": "ଟିକେଟ୍ ଆସିଗଲା",
+  "ticketPurchaseContinue": "ଏହି ଫଟୋରୁ ରାକ୍ଷସ ତିଆରି କର"
 }

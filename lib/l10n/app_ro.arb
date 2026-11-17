@@ -265,5 +265,6 @@
   "ticketPurchaseWaiting": "Se primesc biletele",
   "ticketPurchaseArrivalDelayed": "Așteptăm să apară biletele\nBiletele primite rămân la tine chiar dacă închizi acest ecran",
   "ticketPurchasePending": "Se așteaptă finalizarea plății\nChiar dacă închizi acest ecran, vei primi biletul după finalizarea plății",
-  "ticketPurchaseArrivedTitle": "Biletele au sosit"
+  "ticketPurchaseArrivedTitle": "Biletele au sosit",
+  "ticketPurchaseContinue": "Creează un monstru din această poză"
 }

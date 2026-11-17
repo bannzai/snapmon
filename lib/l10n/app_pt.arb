@@ -265,5 +265,6 @@
   "ticketPurchaseWaiting": "Recebendo seus bilhetes",
   "ticketPurchaseArrivalDelayed": "Aguardando os bilhetes aparecerem\nOs bilhetes recebidos continuam com você mesmo se fechar esta tela",
   "ticketPurchasePending": "Aguardando a conclusão do pagamento\nMesmo que você feche esta tela, receberá o ingresso quando o pagamento for concluído",
-  "ticketPurchaseArrivedTitle": "Seus bilhetes chegaram"
+  "ticketPurchaseArrivedTitle": "Seus bilhetes chegaram",
+  "ticketPurchaseContinue": "Crie um monstro com esta foto"
 }

@@ -265,5 +265,6 @@
   "ticketPurchaseWaiting": "Biletler alınıyor",
   "ticketPurchaseArrivalDelayed": "Biletlerin görünmesini bekliyoruz\nBu ekranı kapatsan da aldığın biletler kalır",
   "ticketPurchasePending": "Ödemenin tamamlanması bekleniyor\nBu ekranı kapatsan da ödeme tamamlandığında biletin gelecek",
-  "ticketPurchaseArrivedTitle": "Biletlerin geldi"
+  "ticketPurchaseArrivedTitle": "Biletlerin geldi",
+  "ticketPurchaseContinue": "Bu fotoğraftan canavar oluştur"
 }

@@ -265,5 +265,6 @@
   "ticketPurchaseWaiting": "Παραλαβή εισιτηρίων",
   "ticketPurchaseArrivalDelayed": "Περιμένουμε να εμφανιστούν τα εισιτήρια\nΤα εισιτήρια που έλαβες μένουν, ακόμα κι αν κλείσεις αυτή την οθόνη",
   "ticketPurchasePending": "Αναμονή ολοκλήρωσης πληρωμής\nΑκόμα κι αν κλείσεις αυτή την οθόνη, θα λάβεις το εισιτήριο μόλις ολοκληρωθεί η πληρωμή",
-  "ticketPurchaseArrivedTitle": "Τα εισιτήρια έφτασαν"
+  "ticketPurchaseArrivedTitle": "Τα εισιτήρια έφτασαν",
+  "ticketPurchaseContinue": "Φτιάξε τέρας από αυτή τη φωτογραφία"
 }

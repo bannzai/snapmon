@@ -265,5 +265,6 @@
   "ticketPurchaseWaiting": "Vastaanotetaan lippuja",
   "ticketPurchaseArrivalDelayed": "Odotetaan lippujen näkymistä\nSaamasi liput säilyvät, vaikka suljet tämän näkymän",
   "ticketPurchasePending": "Odotetaan maksun valmistumista\nSaat lipun maksun valmistuttua, vaikka sulkisit tämän näkymän",
-  "ticketPurchaseArrivedTitle": "Liput saapuivat"
+  "ticketPurchaseArrivedTitle": "Liput saapuivat",
+  "ticketPurchaseContinue": "Luo hirviö tästä kuvasta"
 }
