@@ -295,5 +295,6 @@
   "actionCardMovesHeading": "Capacités d’Action Card",
   "actionCardTaughtNone": "Aucune capacité enseignée",
   "actionCardTeach": "Enseigner une capacité",
-  "actionCardTeachTitle": "Apprendre une capacité à {monsterName}"
+  "actionCardTeachTitle": "Apprendre une capacité à {monsterName}",
+  "actionCardTeachNoForgotten": "Aucune capacité à retirer"
 }
