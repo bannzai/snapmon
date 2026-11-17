@@ -290,5 +290,6 @@
   "actionCardAssignNoMoves": "Tiada gerakan untuk diterima",
   "actionCardAssigned": "Kamu dapat gerakan {moveName}",
   "actionCardFilterAll": "Semua",
-  "actionCardOwnedHeading": "Gerakan yang dibeli"
+  "actionCardOwnedHeading": "Gerakan yang dibeli",
+  "actionCardOwnedEmpty": "Kamu belum beli sebarang gerakan"
 }

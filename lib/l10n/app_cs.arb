@@ -290,5 +290,6 @@
   "actionCardAssignNoMoves": "Nemáš žádný útok k získání",
   "actionCardAssigned": "Získal jsi útok {moveName}",
   "actionCardFilterAll": "Vše",
-  "actionCardOwnedHeading": "Zakoupené útoky"
+  "actionCardOwnedHeading": "Zakoupené útoky",
+  "actionCardOwnedEmpty": "Ještě sis nekoupil žádný útok"
 }

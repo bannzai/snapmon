@@ -290,5 +290,6 @@
   "actionCardAssignNoMoves": "Geen aanvallen om te ontvangen",
   "actionCardAssigned": "Je hebt de aanval {moveName} gekregen",
   "actionCardFilterAll": "Alles",
-  "actionCardOwnedHeading": "Gekochte aanvallen"
+  "actionCardOwnedHeading": "Gekochte aanvallen",
+  "actionCardOwnedEmpty": "Je hebt nog geen aanval gekocht"
 }

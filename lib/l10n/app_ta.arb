@@ -290,5 +290,6 @@
   "actionCardAssignNoMoves": "பெறக்கூடிய தாக்குதல்கள் இல்லை",
   "actionCardAssigned": "புதிய நகர்வு கிடைத்தது: {moveName}",
   "actionCardFilterAll": "அனைத்தும்",
-  "actionCardOwnedHeading": "வாங்கிய தாக்குதல்கள்"
+  "actionCardOwnedHeading": "வாங்கிய தாக்குதல்கள்",
+  "actionCardOwnedEmpty": "நீங்கள் இன்னும் எந்தத் தாக்குதலையும் வாங்கவில்லை"
 }

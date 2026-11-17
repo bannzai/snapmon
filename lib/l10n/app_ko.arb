@@ -290,5 +290,6 @@
   "actionCardAssignNoMoves": "받을 수 있는 기술이 없어요",
   "actionCardAssigned": "새 기술을 받았어요: {moveName}",
   "actionCardFilterAll": "전체",
-  "actionCardOwnedHeading": "구매한 기술"
+  "actionCardOwnedHeading": "구매한 기술",
+  "actionCardOwnedEmpty": "아직 구매한 기술이 없어요"
 }

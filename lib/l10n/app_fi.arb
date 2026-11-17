@@ -290,5 +290,6 @@
   "actionCardAssignNoMoves": "Ei vastaanotettavia liikkeitä",
   "actionCardAssigned": "Sait liikkeen {moveName}",
   "actionCardFilterAll": "Kaikki",
-  "actionCardOwnedHeading": "Ostetut liikkeet"
+  "actionCardOwnedHeading": "Ostetut liikkeet",
+  "actionCardOwnedEmpty": "Et ole vielä ostanut yhtään liikettä"
 }

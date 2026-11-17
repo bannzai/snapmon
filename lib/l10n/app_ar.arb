@@ -290,5 +290,6 @@
   "actionCardAssignNoMoves": "لا توجد حركات يمكنك الحصول عليها",
   "actionCardAssigned": "حصلت على الحركة: {moveName}",
   "actionCardFilterAll": "الكل",
-  "actionCardOwnedHeading": "الحركات المشتراة"
+  "actionCardOwnedHeading": "الحركات المشتراة",
+  "actionCardOwnedEmpty": "لم تشترِ أي حركة بعد"
 }

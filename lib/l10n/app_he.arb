@@ -290,5 +290,6 @@
   "actionCardAssignNoMoves": "אין מתקפות שאפשר לקבל",
   "actionCardAssigned": "התקבלה מתקפה חדשה: {moveName}",
   "actionCardFilterAll": "הכול",
-  "actionCardOwnedHeading": "מתקפות שנרכשו"
+  "actionCardOwnedHeading": "מתקפות שנרכשו",
+  "actionCardOwnedEmpty": "עוד לא קנית אף מתקפה"
 }

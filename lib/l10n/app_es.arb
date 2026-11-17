@@ -290,5 +290,6 @@
   "actionCardAssignNoMoves": "No hay movimientos para recibir",
   "actionCardAssigned": "¡Has recibido el movimiento {moveName}!",
   "actionCardFilterAll": "Todos",
-  "actionCardOwnedHeading": "Movimientos comprados"
+  "actionCardOwnedHeading": "Movimientos comprados",
+  "actionCardOwnedEmpty": "Aún no has comprado ningún movimiento"
 }

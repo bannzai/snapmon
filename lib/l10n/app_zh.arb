@@ -290,5 +290,6 @@
   "actionCardAssignNoMoves": "没有可领取的招式",
   "actionCardAssigned": "你获得了招式：{moveName}",
   "actionCardFilterAll": "全部",
-  "actionCardOwnedHeading": "已买断的招式"
+  "actionCardOwnedHeading": "已买断的招式",
+  "actionCardOwnedEmpty": "你还没有购买任何招式"
 }

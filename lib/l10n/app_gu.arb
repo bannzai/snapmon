@@ -290,5 +290,6 @@
   "actionCardAssignNoMoves": "મેળવવા માટે કોઈ ચાલ નથી",
   "actionCardAssigned": "તમને નવી ચાલ મળી: {moveName}",
   "actionCardFilterAll": "બધા",
-  "actionCardOwnedHeading": "ખરીદેલી ચાલ"
+  "actionCardOwnedHeading": "ખરીદેલી ચાલ",
+  "actionCardOwnedEmpty": "તમે હજી કોઈ ચાલ ખરીદી નથી"
 }

@@ -290,5 +290,6 @@
   "actionCardAssignNoMoves": "حاصل کرنے کے لیے کوئی چال نہیں",
   "actionCardAssigned": "تمہیں نئی چال ملی: {moveName}",
   "actionCardFilterAll": "سب",
-  "actionCardOwnedHeading": "خریدی ہوئی چالیں"
+  "actionCardOwnedHeading": "خریدی ہوئی چالیں",
+  "actionCardOwnedEmpty": "تم نے ابھی تک کوئی چال نہیں خریدی"
 }

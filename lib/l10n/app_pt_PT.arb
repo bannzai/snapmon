@@ -290,5 +290,6 @@
   "actionCardAssignNoMoves": "Não há golpes para receber",
   "actionCardAssigned": "Recebeste o ataque {moveName}",
   "actionCardFilterAll": "Todos",
-  "actionCardOwnedHeading": "Golpes comprados"
+  "actionCardOwnedHeading": "Golpes comprados",
+  "actionCardOwnedEmpty": "Ainda não compraste nenhum golpe"
 }

@@ -290,5 +290,6 @@
   "actionCardAssignNoMoves": "Tidak ada jurus yang bisa kamu terima",
   "actionCardAssigned": "Kamu mendapat jurus {moveName}",
   "actionCardFilterAll": "Semua",
-  "actionCardOwnedHeading": "Jurus yang dibeli"
+  "actionCardOwnedHeading": "Jurus yang dibeli",
+  "actionCardOwnedEmpty": "Kamu belum membeli jurus"
 }

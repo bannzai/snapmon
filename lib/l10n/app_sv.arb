@@ -290,5 +290,6 @@
   "actionCardAssignNoMoves": "Inga attacker att ta emot",
   "actionCardAssigned": "Du fick attacken {moveName}",
   "actionCardFilterAll": "Alla",
-  "actionCardOwnedHeading": "Köpta attacker"
+  "actionCardOwnedHeading": "Köpta attacker",
+  "actionCardOwnedEmpty": "Du har inte köpt någon attack än"
 }

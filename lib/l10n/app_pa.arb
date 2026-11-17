@@ -290,5 +290,6 @@
   "actionCardAssignNoMoves": "ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਕੋਈ ਚਾਲ ਨਹੀਂ",
   "actionCardAssigned": "ਤੁਹਾਨੂੰ ਨਵੀਂ ਚਾਲ ਮਿਲੀ: {moveName}",
   "actionCardFilterAll": "ਸਾਰੇ",
-  "actionCardOwnedHeading": "ਖਰੀਦੀਆਂ ਚਾਲਾਂ"
+  "actionCardOwnedHeading": "ਖਰੀਦੀਆਂ ਚਾਲਾਂ",
+  "actionCardOwnedEmpty": "ਤੁਸੀਂ ਹਾਲੇ ਕੋਈ ਚਾਲ ਨਹੀਂ ਖਰੀਦੀ"
 }
