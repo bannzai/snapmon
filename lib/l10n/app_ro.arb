@@ -9,5 +9,6 @@
   "sessionConnectionFailed": "Conectarea a eșuat",
   "reportReasonInappropriatePicture": "Imagine nepotrivită",
   "reportReasonInappropriateText": "Nume sau text nepotrivit",
-  "reportReasonPersonInPicture": "În poză apare o persoană"
+  "reportReasonPersonInPicture": "În poză apare o persoană",
+  "reportReasonInappropriateIcon": "Pictogramă nepotrivită"
 }

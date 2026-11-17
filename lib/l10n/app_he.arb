@@ -9,5 +9,6 @@
   "sessionConnectionFailed": "החיבור נכשל",
   "reportReasonInappropriatePicture": "תמונה לא הולמת",
   "reportReasonInappropriateText": "שם או טקסט לא הולם",
-  "reportReasonPersonInPicture": "מופיע אדם בתמונה"
+  "reportReasonPersonInPicture": "מופיע אדם בתמונה",
+  "reportReasonInappropriateIcon": "סמל לא הולם"
 }

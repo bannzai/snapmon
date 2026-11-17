@@ -9,5 +9,6 @@
   "sessionConnectionFailed": "연결하지 못했어요",
   "reportReasonInappropriatePicture": "부적절한 사진",
   "reportReasonInappropriateText": "부적절한 이름이나 글",
-  "reportReasonPersonInPicture": "사진에 사람이 나와요"
+  "reportReasonPersonInPicture": "사진에 사람이 나와요",
+  "reportReasonInappropriateIcon": "부적절한 아이콘"
 }

@@ -9,5 +9,6 @@
   "sessionConnectionFailed": "Bağlantı kurulamadı",
   "reportReasonInappropriatePicture": "Uygunsuz görsel",
   "reportReasonInappropriateText": "Uygunsuz ad veya metin",
-  "reportReasonPersonInPicture": "Fotoğrafta bir kişi var"
+  "reportReasonPersonInPicture": "Fotoğrafta bir kişi var",
+  "reportReasonInappropriateIcon": "Uygunsuz simge"
 }

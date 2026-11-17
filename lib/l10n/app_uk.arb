@@ -9,5 +9,6 @@
   "sessionConnectionFailed": "Не вдалося підключитися",
   "reportReasonInappropriatePicture": "Недоречне зображення",
   "reportReasonInappropriateText": "Недоречне ім’я або текст",
-  "reportReasonPersonInPicture": "На фото є людина"
+  "reportReasonPersonInPicture": "На фото є людина",
+  "reportReasonInappropriateIcon": "Неприйнятна іконка"
 }

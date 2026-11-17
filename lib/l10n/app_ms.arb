@@ -9,5 +9,6 @@
   "sessionConnectionFailed": "Gagal menyambung",
   "reportReasonInappropriatePicture": "Gambar tidak sesuai",
   "reportReasonInappropriateText": "Nama atau teks tidak sesuai",
-  "reportReasonPersonInPicture": "Ada orang dalam gambar"
+  "reportReasonPersonInPicture": "Ada orang dalam gambar",
+  "reportReasonInappropriateIcon": "Ikon tidak sesuai"
 }

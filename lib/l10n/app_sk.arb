@@ -9,5 +9,6 @@
   "sessionConnectionFailed": "Nepodarilo sa pripojiť",
   "reportReasonInappropriatePicture": "Nevhodný obrázok",
   "reportReasonInappropriateText": "Nevhodné meno alebo text",
-  "reportReasonPersonInPicture": "Na fotke je človek"
+  "reportReasonPersonInPicture": "Na fotke je človek",
+  "reportReasonInappropriateIcon": "Nevhodná ikona"
 }

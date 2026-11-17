@@ -9,5 +9,6 @@
   "sessionConnectionFailed": "Kunde inte ansluta",
   "reportReasonInappropriatePicture": "Olämplig bild",
   "reportReasonInappropriateText": "Olämpligt namn eller text",
-  "reportReasonPersonInPicture": "En person syns på bilden"
+  "reportReasonPersonInPicture": "En person syns på bilden",
+  "reportReasonInappropriateIcon": "Olämplig ikon"
 }

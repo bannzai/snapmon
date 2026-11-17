@@ -9,5 +9,6 @@
   "sessionConnectionFailed": "رابطہ قائم نہیں ہو سکا",
   "reportReasonInappropriatePicture": "نامناسب تصویر",
   "reportReasonInappropriateText": "نام یا متن نامناسب ہے",
-  "reportReasonPersonInPicture": "تصویر میں ایک شخص ہے"
+  "reportReasonPersonInPicture": "تصویر میں ایک شخص ہے",
+  "reportReasonInappropriateIcon": "نامناسب آئیکن"
 }

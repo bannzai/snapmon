@@ -9,5 +9,6 @@
   "sessionConnectionFailed": "Yhteys epäonnistui",
   "reportReasonInappropriatePicture": "Sopimaton kuva",
   "reportReasonInappropriateText": "Sopimaton nimi tai teksti",
-  "reportReasonPersonInPicture": "Kuvassa näkyy ihminen"
+  "reportReasonPersonInPicture": "Kuvassa näkyy ihminen",
+  "reportReasonInappropriateIcon": "Sopimaton kuvake"
 }

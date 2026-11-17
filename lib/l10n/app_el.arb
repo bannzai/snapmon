@@ -9,5 +9,6 @@
   "sessionConnectionFailed": "Η σύνδεση απέτυχε",
   "reportReasonInappropriatePicture": "Ακατάλληλη εικόνα",
   "reportReasonInappropriateText": "Ακατάλληλο όνομα ή κείμενο",
-  "reportReasonPersonInPicture": "Φαίνεται άτομο στη φωτογραφία"
+  "reportReasonPersonInPicture": "Φαίνεται άτομο στη φωτογραφία",
+  "reportReasonInappropriateIcon": "Ακατάλληλο εικονίδιο"
 }

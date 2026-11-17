@@ -9,5 +9,6 @@
   "sessionConnectionFailed": "કનેક્ટ થઈ શક્યું નહીં",
   "reportReasonInappropriatePicture": "અયોગ્ય ચિત્ર",
   "reportReasonInappropriateText": "અયોગ્ય નામ અથવા લખાણ",
-  "reportReasonPersonInPicture": "ફોટામાં વ્યક્તિ દેખાય છે"
+  "reportReasonPersonInPicture": "ફોટામાં વ્યક્તિ દેખાય છે",
+  "reportReasonInappropriateIcon": "અયોગ્ય ચિહ્ન"
 }

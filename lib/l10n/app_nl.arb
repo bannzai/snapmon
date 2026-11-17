@@ -9,5 +9,6 @@
   "sessionConnectionFailed": "Verbinding mislukt",
   "reportReasonInappropriatePicture": "Ongepaste afbeelding",
   "reportReasonInappropriateText": "Ongepaste naam of tekst",
-  "reportReasonPersonInPicture": "Er staat een persoon op de foto"
+  "reportReasonPersonInPicture": "Er staat een persoon op de foto",
+  "reportReasonInappropriateIcon": "Ongepast pictogram"
 }

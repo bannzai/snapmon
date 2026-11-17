@@ -9,5 +9,6 @@
   "sessionConnectionFailed": "連線失敗",
   "reportReasonInappropriatePicture": "圖片不當",
   "reportReasonInappropriateText": "名稱或文字不當",
-  "reportReasonPersonInPicture": "照片中有人"
+  "reportReasonPersonInPicture": "照片中有人",
+  "reportReasonInappropriateIcon": "圖示不當"
 }

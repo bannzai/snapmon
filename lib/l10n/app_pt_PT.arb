@@ -9,5 +9,6 @@
   "sessionConnectionFailed": "Não foi possível ligar",
   "reportReasonInappropriatePicture": "Imagem imprópria",
   "reportReasonInappropriateText": "Nome ou texto impróprio",
-  "reportReasonPersonInPicture": "Está uma pessoa na fotografia"
+  "reportReasonPersonInPicture": "Está uma pessoa na fotografia",
+  "reportReasonInappropriateIcon": "Ícone inadequado"
 }

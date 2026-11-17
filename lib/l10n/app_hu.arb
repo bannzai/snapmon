@@ -9,5 +9,6 @@
   "sessionConnectionFailed": "Nem sikerült csatlakozni",
   "reportReasonInappropriatePicture": "Nem megfelelő kép",
   "reportReasonInappropriateText": "Nem megfelelő név vagy szöveg",
-  "reportReasonPersonInPicture": "Személy látható a képen"
+  "reportReasonPersonInPicture": "Személy látható a képen",
+  "reportReasonInappropriateIcon": "Nem megfelelő ikon"
 }

@@ -9,5 +9,6 @@
   "sessionConnectionFailed": "No s'ha pogut connectar",
   "reportReasonInappropriatePicture": "Imatge inadequada",
   "reportReasonInappropriateText": "Nom o text inadequat",
-  "reportReasonPersonInPicture": "Hi surt una persona"
+  "reportReasonPersonInPicture": "Hi surt una persona",
+  "reportReasonInappropriateIcon": "Icona inadequada"
 }

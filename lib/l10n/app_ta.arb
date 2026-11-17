@@ -9,5 +9,6 @@
   "sessionConnectionFailed": "இணைக்க முடியவில்லை",
   "reportReasonInappropriatePicture": "பொருத்தமற்ற படம்",
   "reportReasonInappropriateText": "பொருத்தமற்ற பெயர் அல்லது உரை",
-  "reportReasonPersonInPicture": "படத்தில் ஒருவர் இருக்கிறார்"
+  "reportReasonPersonInPicture": "படத்தில் ஒருவர் இருக்கிறார்",
+  "reportReasonInappropriateIcon": "பொருத்தமற்ற சின்னம்"
 }

@@ -9,5 +9,6 @@
   "sessionConnectionFailed": "Kunne ikke oprette forbindelse",
   "reportReasonInappropriatePicture": "Upassende billede",
   "reportReasonInappropriateText": "Upassende navn eller tekst",
-  "reportReasonPersonInPicture": "Der er en person på billedet"
+  "reportReasonPersonInPicture": "Der er en person på billedet",
+  "reportReasonInappropriateIcon": "Upassende ikon"
 }

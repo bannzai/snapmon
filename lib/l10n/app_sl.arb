@@ -9,5 +9,6 @@
   "sessionConnectionFailed": "Povezava ni uspela",
   "reportReasonInappropriatePicture": "Neprimerna slika",
   "reportReasonInappropriateText": "Neprimerno ime ali besedilo",
-  "reportReasonPersonInPicture": "Na fotografiji je oseba"
+  "reportReasonPersonInPicture": "Na fotografiji je oseba",
+  "reportReasonInappropriateIcon": "Neprimerna ikona"
 }

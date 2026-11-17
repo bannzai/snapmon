@@ -9,5 +9,6 @@
   "sessionConnectionFailed": "เชื่อมต่อไม่สำเร็จ",
   "reportReasonInappropriatePicture": "ภาพไม่เหมาะสม",
   "reportReasonInappropriateText": "ชื่อหรือข้อความไม่เหมาะสม",
-  "reportReasonPersonInPicture": "มีคนอยู่ในภาพ"
+  "reportReasonPersonInPicture": "มีคนอยู่ในภาพ",
+  "reportReasonInappropriateIcon": "ไอคอนไม่เหมาะสม"
 }
