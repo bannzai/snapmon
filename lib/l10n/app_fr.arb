@@ -40,5 +40,6 @@
   "opponentReportHelpPrompt": "Un problème avec le monstre adverse ?",
   "opponentSearching": "Recherche d’un dresseur",
   "opponentSearchAgain": "Chercher encore",
-  "opponentNoneAvailable": "Aucun dresseur à affronter pour le moment\nTu peux affronter un dresseur CPU"
+  "opponentNoneAvailable": "Aucun dresseur à affronter pour le moment\nTu peux affronter un dresseur CPU",
+  "opponentRandomBattle": "Affronter un adversaire au hasard"
 }
