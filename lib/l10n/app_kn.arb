@@ -306,5 +306,6 @@
   "moveSelectionSave": "ಖಚಿತಪಡಿಸು",
   "moveSelectionReset": "ಮತ್ತೆ ಆಯ್ಕೆ ಮಾಡು",
   "actionCardForget": "ಚಾಲನ್ನು ಮರೆಸಿಬಿಡು",
-  "battleRematch": "ಮತ್ತೆ ಹೋರಾಡು"
+  "battleRematch": "ಮತ್ತೆ ಹೋರಾಡು",
+  "battleLostPartyHintTitle": "ತಂಡಕ್ಕೆ ಇನ್ನಷ್ಟು ರಾಕ್ಷಸರನ್ನು ಸೇರಿಸು, ಗೆಲ್ಲುವುದು ಸುಲಭವಾಗುತ್ತದೆ"
 }

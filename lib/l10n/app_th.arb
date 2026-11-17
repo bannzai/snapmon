@@ -306,5 +306,6 @@
   "moveSelectionSave": "ยืนยัน",
   "moveSelectionReset": "เลือกใหม่",
   "actionCardForget": "ให้ลืมท่า",
-  "battleRematch": "สู้กันอีกครั้ง"
+  "battleRematch": "สู้กันอีกครั้ง",
+  "battleLostPartyHintTitle": "เพิ่มมอนสเตอร์ในทีม แล้วจะชนะง่ายขึ้น"
 }

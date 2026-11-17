@@ -306,5 +306,6 @@
   "moveSelectionSave": "Potvrď",
   "moveSelectionReset": "Vyber znova",
   "actionCardForget": "Nechaj ho zabudnúť útok",
-  "battleRematch": "Bojuj znova"
+  "battleRematch": "Bojuj znova",
+  "battleLostPartyHintTitle": "S viac príšerami v tíme vyhráš ľahšie"
 }

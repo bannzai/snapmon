@@ -306,5 +306,6 @@
   "moveSelectionSave": "Bevestigen",
   "moveSelectionReset": "Kies opnieuw",
   "actionCardForget": "Laat een aanval vergeten",
-  "battleRematch": "Vecht opnieuw"
+  "battleRematch": "Vecht opnieuw",
+  "battleLostPartyHintTitle": "Met meer monsters in je team win je makkelijker"
 }

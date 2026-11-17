@@ -306,5 +306,6 @@
   "moveSelectionSave": "पक्का करो",
   "moveSelectionReset": "फिर से चुनो",
   "actionCardForget": "चाल भुला दो",
-  "battleRematch": "फिर से लड़ो"
+  "battleRematch": "फिर से लड़ो",
+  "battleLostPartyHintTitle": "टीम में और मॉन्स्टर जोड़ो, जीतना आसान होगा"
 }

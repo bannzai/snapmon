@@ -306,5 +306,6 @@
   "moveSelectionSave": "নিশ্চিত করো",
   "moveSelectionReset": "আবার বেছে নাও",
   "actionCardForget": "চাল ভুলিয়ে দাও",
-  "battleRematch": "আবার লড়াই করো"
+  "battleRematch": "আবার লড়াই করো",
+  "battleLostPartyHintTitle": "দলে আরও দানব রাখলে জেতা সহজ হবে"
 }

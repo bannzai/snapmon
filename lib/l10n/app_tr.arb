@@ -306,5 +306,6 @@
   "moveSelectionSave": "Onayla",
   "moveSelectionReset": "Yeniden seç",
   "actionCardForget": "Hamleyi unuttur",
-  "battleRematch": "Tekrar savaş"
+  "battleRematch": "Tekrar savaş",
+  "battleLostPartyHintTitle": "Takımına daha çok canavar ekle, kazanmak kolaylaşsın"
 }

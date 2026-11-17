@@ -306,5 +306,6 @@
   "moveSelectionSave": "ନିଶ୍ଚିତ କର",
   "moveSelectionReset": "ପୁଣି ବାଛ",
   "actionCardForget": "ଚାଲ ଭୁଲାଇଦିଅ",
-  "battleRematch": "ପୁଣି ଲଢ଼"
+  "battleRematch": "ପୁଣି ଲଢ଼",
+  "battleLostPartyHintTitle": "ଦଳରେ ଆଉ ଦାନବ ରଖ, ଜିତିବା ସହଜ ହେବ"
 }

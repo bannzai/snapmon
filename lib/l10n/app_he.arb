@@ -306,5 +306,6 @@
   "moveSelectionSave": "אישור",
   "moveSelectionReset": "לבחור מחדש",
   "actionCardForget": "לגרום לו לשכוח מהלך",
-  "battleRematch": "להילחם שוב"
+  "battleRematch": "להילחם שוב",
+  "battleLostPartyHintTitle": "עם יותר מפלצות בצוות, קל יותר לנצח"
 }

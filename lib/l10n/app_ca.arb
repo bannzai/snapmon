@@ -306,5 +306,6 @@
   "moveSelectionSave": "Confirma",
   "moveSelectionReset": "Torna a triar",
   "actionCardForget": "Fes-li oblidar el moviment",
-  "battleRematch": "Torna a combatre"
+  "battleRematch": "Torna a combatre",
+  "battleLostPartyHintTitle": "Amb més monstres a l’equip, guanyaràs més fàcilment"
 }

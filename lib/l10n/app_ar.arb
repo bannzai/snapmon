@@ -306,5 +306,6 @@
   "moveSelectionSave": "تأكيد",
   "moveSelectionReset": "اختر من جديد",
   "actionCardForget": "جعله ينسى الحركة",
-  "battleRematch": "قاتل مجددًا"
+  "battleRematch": "قاتل مجددًا",
+  "battleLostPartyHintTitle": "زد عدد الوحوش في فريقك لتفوز بسهولة أكبر"
 }

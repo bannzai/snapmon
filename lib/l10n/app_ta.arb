@@ -306,5 +306,6 @@
   "moveSelectionSave": "உறுதிப்படுத்துங்கள்",
   "moveSelectionReset": "மீண்டும் தேர்ந்தெடுங்கள்",
   "actionCardForget": "நகர்வை மறக்கச் செய்யுங்கள்",
-  "battleRematch": "மீண்டும் போரிடுங்கள்"
+  "battleRematch": "மீண்டும் போரிடுங்கள்",
+  "battleLostPartyHintTitle": "அணியில் இன்னும் பல அரக்கர்களைச் சேருங்கள், வெல்வது எளிதாகும்"
 }

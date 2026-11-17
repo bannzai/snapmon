@@ -306,5 +306,6 @@
   "moveSelectionSave": "Megerősítés",
   "moveSelectionReset": "Válassz újra",
   "actionCardForget": "Felejtesd el vele a támadást",
-  "battleRematch": "Harcolj újra"
+  "battleRematch": "Harcolj újra",
+  "battleLostPartyHintTitle": "Több szörnnyel a csapatban könnyebben nyersz"
 }

@@ -306,5 +306,6 @@
   "moveSelectionSave": "Sahkan",
   "moveSelectionReset": "Pilih semula",
   "actionCardForget": "Buatnya lupa gerakan",
-  "battleRematch": "Bertarung lagi"
+  "battleRematch": "Bertarung lagi",
+  "battleLostPartyHintTitle": "Tambah raksasa dalam pasukan kamu, lebih mudah untuk menang"
 }

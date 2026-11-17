@@ -306,5 +306,6 @@
   "moveSelectionSave": "Подтвердить",
   "moveSelectionReset": "Выбрать заново",
   "actionCardForget": "Заставить забыть приём",
-  "battleRematch": "Сразиться снова"
+  "battleRematch": "Сразиться снова",
+  "battleLostPartyHintTitle": "С большим числом монстров в команде победить легче"
 }

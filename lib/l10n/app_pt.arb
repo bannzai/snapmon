@@ -306,5 +306,6 @@
   "moveSelectionSave": "Confirmar",
   "moveSelectionReset": "Escolher de novo",
   "actionCardForget": "Fazer esquecer o golpe",
-  "battleRematch": "Batalhar de novo"
+  "battleRematch": "Batalhar de novo",
+  "battleLostPartyHintTitle": "Com mais monstros na sua equipe, fica mais fácil vencer"
 }

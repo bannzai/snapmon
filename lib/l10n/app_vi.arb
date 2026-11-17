@@ -306,5 +306,6 @@
   "moveSelectionSave": "Xác nhận",
   "moveSelectionReset": "Chọn lại",
   "actionCardForget": "Cho quên chiêu thức",
-  "battleRematch": "Đấu lại"
+  "battleRematch": "Đấu lại",
+  "battleLostPartyHintTitle": "Thêm quái vật vào đội để dễ thắng hơn"
 }

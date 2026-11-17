@@ -306,5 +306,6 @@
   "moveSelectionSave": "Confirmă",
   "moveSelectionReset": "Alege din nou",
   "actionCardForget": "Fă-l să uite mișcarea",
-  "battleRematch": "Luptă din nou"
+  "battleRematch": "Luptă din nou",
+  "battleLostPartyHintTitle": "Cu mai mulți monștri în echipă, câștigi mai ușor"
 }

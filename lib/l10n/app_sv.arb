@@ -306,5 +306,6 @@
   "moveSelectionSave": "Bekräfta",
   "moveSelectionReset": "Välj igen",
   "actionCardForget": "Låt den glömma en attack",
-  "battleRematch": "Strid igen"
+  "battleRematch": "Strid igen",
+  "battleLostPartyHintTitle": "Med fler monster i ditt lag vinner du lättare"
 }

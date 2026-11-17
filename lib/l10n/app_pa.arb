@@ -306,5 +306,6 @@
   "moveSelectionSave": "ਪੁਸ਼ਟੀ ਕਰੋ",
   "moveSelectionReset": "ਦੁਬਾਰਾ ਚੁਣੋ",
   "actionCardForget": "ਚਾਲ ਭੁਲਾਓ",
-  "battleRematch": "ਫਿਰ ਲੜੋ"
+  "battleRematch": "ਫਿਰ ਲੜੋ",
+  "battleLostPartyHintTitle": "ਟੀਮ ਵਿੱਚ ਹੋਰ ਮੌਂਸਟਰ ਜੋੜੋ, ਜਿੱਤਣਾ ਸੌਖਾ ਹੋਵੇਗਾ"
 }

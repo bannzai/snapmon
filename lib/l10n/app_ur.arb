@@ -306,5 +306,6 @@
   "moveSelectionSave": "تصدیق کرو",
   "moveSelectionReset": "دوبارہ چنو",
   "actionCardForget": "چال بھلوا دو",
-  "battleRematch": "دوبارہ لڑو"
+  "battleRematch": "دوبارہ لڑو",
+  "battleLostPartyHintTitle": "ٹیم میں مزید مونسٹر رکھو، جیتنا آسان ہو جائے گا"
 }

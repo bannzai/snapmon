@@ -306,5 +306,6 @@
   "moveSelectionSave": "Potrdi",
   "moveSelectionReset": "Izberi znova",
   "actionCardForget": "Naj pozabi potezo",
-  "battleRematch": "Bori se znova"
+  "battleRematch": "Bori se znova",
+  "battleLostPartyHintTitle": "Z več pošastmi v ekipi boš lažje zmagal"
 }

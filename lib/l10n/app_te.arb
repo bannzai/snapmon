@@ -306,5 +306,6 @@
   "moveSelectionSave": "నిర్ధారించు",
   "moveSelectionReset": "మళ్లీ ఎంచుకో",
   "actionCardForget": "ఎత్తుగడను మరిచిపోయేలా చేయి",
-  "battleRematch": "మళ్లీ పోరాడు"
+  "battleRematch": "మళ్లీ పోరాడు",
+  "battleLostPartyHintTitle": "జట్టులో మరిన్ని మాన్స్టర్లను చేర్చు, గెలవడం తేలికవుతుంది"
 }

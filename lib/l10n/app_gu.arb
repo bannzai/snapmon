@@ -306,5 +306,6 @@
   "moveSelectionSave": "પુષ્ટિ કરો",
   "moveSelectionReset": "ફરીથી પસંદ કરો",
   "actionCardForget": "ચાલ ભૂલવાડો",
-  "battleRematch": "ફરી લડો"
+  "battleRematch": "ફરી લડો",
+  "battleLostPartyHintTitle": "ટીમમાં વધુ મોન્સ્ટર હોય તો તમે સહેલાઈથી જીતી શકો"
 }

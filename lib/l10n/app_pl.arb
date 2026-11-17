@@ -306,5 +306,6 @@
   "moveSelectionSave": "Potwierdź",
   "moveSelectionReset": "Wybierz ponownie",
   "actionCardForget": "Każ zapomnieć ruch",
-  "battleRematch": "Walcz ponownie"
+  "battleRematch": "Walcz ponownie",
+  "battleLostPartyHintTitle": "Z większą drużyną łatwiej wygrasz"
 }

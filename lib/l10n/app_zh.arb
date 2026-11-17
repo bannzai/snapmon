@@ -306,5 +306,6 @@
   "moveSelectionSave": "确定",
   "moveSelectionReset": "重新选择",
   "actionCardForget": "忘记招式",
-  "battleRematch": "再战一次"
+  "battleRematch": "再战一次",
+  "battleLostPartyHintTitle": "队伍里的怪物越多，越容易获胜"
 }

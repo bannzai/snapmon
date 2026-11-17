@@ -306,5 +306,6 @@
   "moveSelectionSave": "Bestätigen",
   "moveSelectionReset": "Neu auswählen",
   "actionCardForget": "Attacke vergessen lassen",
-  "battleRematch": "Noch mal kämpfen"
+  "battleRematch": "Noch mal kämpfen",
+  "battleLostPartyHintTitle": "Mit mehr Monstern im Team gewinnst du leichter"
 }

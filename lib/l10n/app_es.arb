@@ -306,5 +306,6 @@
   "moveSelectionSave": "Confirmar",
   "moveSelectionReset": "Elegir de nuevo",
   "actionCardForget": "Hacer que olvide el movimiento",
-  "battleRematch": "Combatir de nuevo"
+  "battleRematch": "Combatir de nuevo",
+  "battleLostPartyHintTitle": "Con más monstruos en tu equipo, ganarás más fácilmente"
 }

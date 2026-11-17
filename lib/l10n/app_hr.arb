@@ -306,5 +306,6 @@
   "moveSelectionSave": "Potvrdi",
   "moveSelectionReset": "Odaberi ponovno",
   "actionCardForget": "Neka zaboravi potez",
-  "battleRematch": "Bori se opet"
+  "battleRematch": "Bori se opet",
+  "battleLostPartyHintTitle": "S više čudovišta u timu lakše ćeš pobijediti"
 }

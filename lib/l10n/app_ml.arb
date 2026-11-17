@@ -306,5 +306,6 @@
   "moveSelectionSave": "സ്ഥിരീകരിക്കുക",
   "moveSelectionReset": "വീണ്ടും തിരഞ്ഞെടുക്കുക",
   "actionCardForget": "നീക്കം മറക്കാൻ അനുവദിക്കുക",
-  "battleRematch": "വീണ്ടും പോരാടൂ"
+  "battleRematch": "വീണ്ടും പോരാടൂ",
+  "battleLostPartyHintTitle": "പാർട്ടിയിൽ കൂടുതൽ മോൺസ്റ്ററുകൾ ഉണ്ടെങ്കിൽ ജയിക്കാൻ എളുപ്പമാകും"
 }

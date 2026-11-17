@@ -306,5 +306,6 @@
   "moveSelectionSave": "निश्चित कर",
   "moveSelectionReset": "पुन्हा निवड",
   "actionCardForget": "चाल विसरव",
-  "battleRematch": "पुन्हा लढ"
+  "battleRematch": "पुन्हा लढ",
+  "battleLostPartyHintTitle": "टीममध्ये आणखी मॉन्स्टर जोड, जिंकणं सोपं होईल"
 }

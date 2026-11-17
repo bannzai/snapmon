@@ -306,5 +306,6 @@
   "moveSelectionSave": "Konfirmasi",
   "moveSelectionReset": "Pilih lagi",
   "actionCardForget": "Buat lupakan jurus",
-  "battleRematch": "Bertarung lagi"
+  "battleRematch": "Bertarung lagi",
+  "battleLostPartyHintTitle": "Tambah monster ke timmu agar lebih mudah menang"
 }

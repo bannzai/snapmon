@@ -306,5 +306,6 @@
   "moveSelectionSave": "Bekreft",
   "moveSelectionReset": "Velg på nytt",
   "actionCardForget": "La den glemme et angrep",
-  "battleRematch": "Kjemp igjen"
+  "battleRematch": "Kjemp igjen",
+  "battleLostPartyHintTitle": "Flere monstre på laget gjør det lettere å vinne"
 }
