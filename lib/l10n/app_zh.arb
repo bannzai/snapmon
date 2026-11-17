@@ -2,5 +2,6 @@
   "@@locale": "zh",
   "commonRetry": "再试一次",
   "commonContact": "联系我们",
-  "tabDex": "图鉴"
+  "tabDex": "图鉴",
+  "tabCapture": "拍照"
 }

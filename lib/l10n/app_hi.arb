@@ -2,5 +2,6 @@
   "@@locale": "hi",
   "commonRetry": "फिर से कोशिश करो",
   "commonContact": "हमसे संपर्क करो",
-  "tabDex": "संग्रह"
+  "tabDex": "संग्रह",
+  "tabCapture": "फ़ोटो खींचो"
 }

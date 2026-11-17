@@ -2,5 +2,6 @@
   "@@locale": "cs",
   "commonRetry": "Zkusit znovu",
   "commonContact": "Kontaktuj nás",
-  "tabDex": "encyklopedie"
+  "tabDex": "encyklopedie",
+  "tabCapture": "Vyfoť"
 }

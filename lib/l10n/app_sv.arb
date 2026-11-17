@@ -2,5 +2,6 @@
   "@@locale": "sv",
   "commonRetry": "Försök igen",
   "commonContact": "Kontakta oss",
-  "tabDex": "samling"
+  "tabDex": "samling",
+  "tabCapture": "Ta foto"
 }

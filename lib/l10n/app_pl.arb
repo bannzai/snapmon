@@ -2,5 +2,6 @@
   "@@locale": "pl",
   "commonRetry": "Spróbuj ponownie",
   "commonContact": "Skontaktuj się z nami",
-  "tabDex": "encyklopedia"
+  "tabDex": "encyklopedia",
+  "tabCapture": "Zrób zdjęcie"
 }

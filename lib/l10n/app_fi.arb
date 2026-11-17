@@ -2,5 +2,6 @@
   "@@locale": "fi",
   "commonRetry": "Yritä uudelleen",
   "commonContact": "Ota yhteyttä",
-  "tabDex": "kokoelma"
+  "tabDex": "kokoelma",
+  "tabCapture": "Ota kuva"
 }

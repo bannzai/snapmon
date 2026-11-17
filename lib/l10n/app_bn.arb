@@ -2,5 +2,6 @@
   "@@locale": "bn",
   "commonRetry": "আবার চেষ্টা করো",
   "commonContact": "যোগাযোগ করো",
-  "tabDex": "সংগ্রহ"
+  "tabDex": "সংগ্রহ",
+  "tabCapture": "ছবি তোলো"
 }

@@ -2,5 +2,6 @@
   "@@locale": "ca",
   "commonRetry": "Torna-ho a provar",
   "commonContact": "Contacta'ns",
-  "tabDex": "enciclopèdia"
+  "tabDex": "enciclopèdia",
+  "tabCapture": "Fes una foto"
 }

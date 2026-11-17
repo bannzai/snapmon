@@ -2,5 +2,6 @@
   "@@locale": "da",
   "commonRetry": "Prøv igen",
   "commonContact": "Kontakt os",
-  "tabDex": "dex"
+  "tabDex": "dex",
+  "tabCapture": "Tag et billede"
 }

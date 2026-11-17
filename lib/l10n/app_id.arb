@@ -2,5 +2,6 @@
   "@@locale": "id",
   "commonRetry": "Coba lagi",
   "commonContact": "Hubungi kami",
-  "tabDex": "dex"
+  "tabDex": "dex",
+  "tabCapture": "Ambil foto"
 }

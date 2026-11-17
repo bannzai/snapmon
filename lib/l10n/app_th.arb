@@ -2,5 +2,6 @@
   "@@locale": "th",
   "commonRetry": "ลองอีกครั้ง",
   "commonContact": "ติดต่อเรา",
-  "tabDex": "สารานุกรม"
+  "tabDex": "สารานุกรม",
+  "tabCapture": "ถ่ายรูป"
 }

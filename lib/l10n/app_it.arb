@@ -2,5 +2,6 @@
   "@@locale": "it",
   "commonRetry": "Riprova",
   "commonContact": "Contattaci",
-  "tabDex": "dex"
+  "tabDex": "dex",
+  "tabCapture": "Scatta una foto"
 }
