@@ -291,5 +291,6 @@
   "actionCardAssigned": "Tu as reçu {moveName}",
   "actionCardFilterAll": "Tout",
   "actionCardOwnedHeading": "Tes capacités achetées",
-  "actionCardOwnedEmpty": "Tu n’as encore acheté aucune capacité"
+  "actionCardOwnedEmpty": "Tu n’as encore acheté aucune capacité",
+  "actionCardMovesHeading": "Capacités d’Action Card"
 }
