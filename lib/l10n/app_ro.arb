@@ -192,5 +192,6 @@
   "battleLogFieldStatShuffled": "Câmpul a tremurat, iar {firstStatName} și {secondStatName} și-au schimbat locurile!",
   "battleLogFieldEnded": "Câmpul a revenit la normal",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
-  "statusConditionPoison": "Otravă"
+  "statusConditionPoison": "Otravă",
+  "statusConditionParalysis": "Paralizie"
 }

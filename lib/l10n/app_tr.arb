@@ -192,5 +192,6 @@
   "battleLogFieldStatShuffled": "Saha dalgalandı, {firstStatName} ile {secondStatName} yer değiştirdi!",
   "battleLogFieldEnded": "Saha normale döndü",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
-  "statusConditionPoison": "Zehir"
+  "statusConditionPoison": "Zehir",
+  "statusConditionParalysis": "Felç"
 }

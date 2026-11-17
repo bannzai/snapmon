@@ -192,5 +192,6 @@
   "battleLogFieldStatShuffled": "O campo oscilou e {firstStatName} e {secondStatName} trocaram de lugar!",
   "battleLogFieldEnded": "O campo voltou ao normal",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
-  "statusConditionPoison": "Veneno"
+  "statusConditionPoison": "Veneno",
+  "statusConditionParalysis": "Paralisia"
 }

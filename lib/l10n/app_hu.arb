@@ -192,5 +192,6 @@
   "battleLogFieldStatShuffled": "Megrendült a harcmező, és {firstStatName} meg {secondStatName} helyet cserélt!",
   "battleLogFieldEnded": "A mező visszatért a normális állapotába",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
-  "statusConditionPoison": "Méreg"
+  "statusConditionPoison": "Méreg",
+  "statusConditionParalysis": "Bénulás"
 }

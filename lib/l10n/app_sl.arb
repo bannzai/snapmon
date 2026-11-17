@@ -192,5 +192,6 @@
   "battleLogFieldStatShuffled": "Polje je zanihalo in {firstStatName} ter {secondStatName} sta zamenjala mesti!",
   "battleLogFieldEnded": "Polje se je vrnilo v normalno stanje",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
-  "statusConditionPoison": "Zastrupitev"
+  "statusConditionPoison": "Zastrupitev",
+  "statusConditionParalysis": "Paraliza"
 }

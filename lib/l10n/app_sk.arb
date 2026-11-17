@@ -192,5 +192,6 @@
   "battleLogFieldStatShuffled": "Pole sa zavlnilo a {firstStatName} a {secondStatName} si vymenili miesta!",
   "battleLogFieldEnded": "Pole sa vrátilo do normálu",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
-  "statusConditionPoison": "Jed"
+  "statusConditionPoison": "Jed",
+  "statusConditionParalysis": "Paralýza"
 }

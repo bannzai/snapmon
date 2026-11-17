@@ -192,5 +192,6 @@
   "battleLogFieldStatShuffled": "场地一阵摇晃，{firstStatName}和{secondStatName}的数值对调了！",
   "battleLogFieldEnded": "场地恢复了原状",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
-  "statusConditionPoison": "中毒"
+  "statusConditionPoison": "中毒",
+  "statusConditionParalysis": "麻痹"
 }

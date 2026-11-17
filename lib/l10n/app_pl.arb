@@ -192,5 +192,6 @@
   "battleLogFieldStatShuffled": "Pole zafalowało i {firstStatName} oraz {secondStatName} zamieniły się miejscami!",
   "battleLogFieldEnded": "Pole wróciło do normy",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
-  "statusConditionPoison": "Zatrucie"
+  "statusConditionPoison": "Zatrucie",
+  "statusConditionParalysis": "Paraliż"
 }

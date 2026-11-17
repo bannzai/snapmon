@@ -192,5 +192,6 @@
   "battleLogFieldStatShuffled": "Kenttä väreili, ja {firstStatName} ja {secondStatName} vaihtoivat paikkaa!",
   "battleLogFieldEnded": "Kenttä palautui ennalleen",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
-  "statusConditionPoison": "Myrkky"
+  "statusConditionPoison": "Myrkky",
+  "statusConditionParalysis": "Halvaus"
 }

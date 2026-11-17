@@ -192,5 +192,6 @@
   "battleLogFieldStatShuffled": "Het veld golfde en {firstStatName} en {secondStatName} wisselden van plek!",
   "battleLogFieldEnded": "Het veld is weer normaal",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
-  "statusConditionPoison": "Gif"
+  "statusConditionPoison": "Gif",
+  "statusConditionParalysis": "Verlamming"
 }

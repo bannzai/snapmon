@@ -192,5 +192,6 @@
   "battleLogFieldStatShuffled": "필드가 흔들려 {firstStatName}와 {secondStatName}의 값이 뒤바뀌었다!",
   "battleLogFieldEnded": "필드가 원래대로 돌아왔다",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
-  "statusConditionPoison": "독"
+  "statusConditionPoison": "독",
+  "statusConditionParalysis": "마비"
 }

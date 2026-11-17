@@ -192,5 +192,6 @@
   "battleLogFieldStatShuffled": "میدان ڈگمگایا اور {firstStatName} اور {secondStatName} کی جگہیں بدل گئیں!",
   "battleLogFieldEnded": "میدان پھر معمول پر آ گیا",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
-  "statusConditionPoison": "زہر"
+  "statusConditionPoison": "زہر",
+  "statusConditionParalysis": "فالج"
 }

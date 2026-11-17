@@ -192,5 +192,6 @@
   "battleLogFieldStatShuffled": "మైదానం ఊగడంతో {firstStatName}, {secondStatName} విలువలు తారుమారయ్యాయి!",
   "battleLogFieldEnded": "మైదానం మళ్లీ మామూలు స్థితికి వచ్చింది",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
-  "statusConditionPoison": "విషం"
+  "statusConditionPoison": "విషం",
+  "statusConditionParalysis": "పక్షవాతం"
 }

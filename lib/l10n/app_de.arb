@@ -192,5 +192,6 @@
   "battleLogFieldStatShuffled": "Das Feld flimmerte: {firstStatName} und {secondStatName} wurden vertauscht!",
   "battleLogFieldEnded": "Das Feld ist wieder normal",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
-  "statusConditionPoison": "Gift"
+  "statusConditionPoison": "Gift",
+  "statusConditionParalysis": "Paralyse"
 }

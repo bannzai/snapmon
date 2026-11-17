@@ -192,5 +192,6 @@
   "battleLogFieldStatShuffled": "ପଡ଼ିଆ ଦୋହଲିଲା ଆଉ {firstStatName} ଓ {secondStatName} ଅଦଳବଦଳ ହେଲା!",
   "battleLogFieldEnded": "ପଡ଼ିଆ ପୁଣି ସ୍ୱାଭାବିକ ହେଲା",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
-  "statusConditionPoison": "ବିଷ"
+  "statusConditionPoison": "ବିଷ",
+  "statusConditionParalysis": "ପକ୍ଷାଘାତ"
 }

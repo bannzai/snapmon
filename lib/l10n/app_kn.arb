@@ -192,5 +192,6 @@
   "battleLogFieldStatShuffled": "ಕಣ ಅಲುಗಾಡಿ {firstStatName} ಮತ್ತು {secondStatName} ಸ್ಥಾನ ಬದಲಿಸಿಕೊಂಡವು!",
   "battleLogFieldEnded": "ಕಣ ಮತ್ತೆ ಸಹಜ ಸ್ಥಿತಿಗೆ ಮರಳಿತು",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
-  "statusConditionPoison": "ವಿಷ"
+  "statusConditionPoison": "ವಿಷ",
+  "statusConditionParalysis": "ಪಾರ್ಶ್ವವಾಯು"
 }

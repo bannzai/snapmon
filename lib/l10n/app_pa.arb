@@ -192,5 +192,6 @@
   "battleLogFieldStatShuffled": "ਮੈਦਾਨ ਡੋਲਿਆ ਅਤੇ {firstStatName} ਤੇ {secondStatName} ਦੀ ਅਦਲਾ-ਬਦਲੀ ਹੋ ਗਈ!",
   "battleLogFieldEnded": "ਮੈਦਾਨ ਮੁੜ ਆਮ ਵਾਂਗ ਹੋ ਗਿਆ",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
-  "statusConditionPoison": "ਜ਼ਹਿਰ"
+  "statusConditionPoison": "ਜ਼ਹਿਰ",
+  "statusConditionParalysis": "ਅਧਰੰਗ"
 }

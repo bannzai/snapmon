@@ -192,5 +192,6 @@
   "battleLogFieldStatShuffled": "मैदान डगमगाया और {firstStatName} व {secondStatName} की जगहें बदल गईं!",
   "battleLogFieldEnded": "मैदान फिर सामान्य हो गया",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
-  "statusConditionPoison": "ज़हर"
+  "statusConditionPoison": "ज़हर",
+  "statusConditionParalysis": "लकवा"
 }

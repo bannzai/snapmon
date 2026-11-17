@@ -192,5 +192,6 @@
   "battleLogFieldStatShuffled": "Поле захиталося, і {firstStatName} та {secondStatName} помінялися місцями!",
   "battleLogFieldEnded": "Поле повернулося до норми",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
-  "statusConditionPoison": "Отрута"
+  "statusConditionPoison": "Отрута",
+  "statusConditionParalysis": "Параліч"
 }

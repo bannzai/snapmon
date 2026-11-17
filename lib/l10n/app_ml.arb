@@ -192,5 +192,6 @@
   "battleLogFieldStatShuffled": "കളം ഇളകി {firstStatName}, {secondStatName} എന്നിവയുടെ മൂല്യങ്ങൾ പരസ്പരം മാറി!",
   "battleLogFieldEnded": "കളം വീണ്ടും പഴയപടിയായി",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
-  "statusConditionPoison": "വിഷം"
+  "statusConditionPoison": "വിഷം",
+  "statusConditionParalysis": "തളർച്ച"
 }

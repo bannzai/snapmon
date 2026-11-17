@@ -192,5 +192,6 @@
   "battleLogFieldStatShuffled": "Polje se zaljuljalo pa su {firstStatName} i {secondStatName} zamijenili mjesta!",
   "battleLogFieldEnded": "Polje se vratilo u normalu",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
-  "statusConditionPoison": "Otrov"
+  "statusConditionPoison": "Otrov",
+  "statusConditionParalysis": "Paraliza"
 }

@@ -192,5 +192,6 @@
   "battleLogFieldStatShuffled": "Feltet bølgede, og {firstStatName} og {secondStatName} byttede plads!",
   "battleLogFieldEnded": "Feltet er normalt igen",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
-  "statusConditionPoison": "Gift"
+  "statusConditionPoison": "Gift",
+  "statusConditionParalysis": "Lammelse"
 }

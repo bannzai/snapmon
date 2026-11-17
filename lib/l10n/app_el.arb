@@ -192,5 +192,6 @@
   "battleLogFieldStatShuffled": "Το πεδίο κυμάτισε και οι τιμές {firstStatName} και {secondStatName} αντάλλαξαν θέσεις!",
   "battleLogFieldEnded": "Το πεδίο επανήλθε στο φυσιολογικό",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
-  "statusConditionPoison": "Δηλητήριο"
+  "statusConditionPoison": "Δηλητήριο",
+  "statusConditionParalysis": "Παράλυση"
 }

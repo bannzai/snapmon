@@ -192,5 +192,6 @@
   "battleLogFieldStatShuffled": "Sân đấu chao đảo, khiến {firstStatName} và {secondStatName} đổi chỗ!",
   "battleLogFieldEnded": "Sân đấu đã trở lại bình thường",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
-  "statusConditionPoison": "Độc"
+  "statusConditionPoison": "Độc",
+  "statusConditionParalysis": "Tê liệt"
 }

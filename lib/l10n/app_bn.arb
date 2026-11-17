@@ -192,5 +192,6 @@
   "battleLogFieldStatShuffled": "মাঠের দোলায় {firstStatName} আর {secondStatName} অদলবদল হয়ে গেল!",
   "battleLogFieldEnded": "মাঠ আবার স্বাভাবিক হলো",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
-  "statusConditionPoison": "বিষ"
+  "statusConditionPoison": "বিষ",
+  "statusConditionParalysis": "পক্ষাঘাত"
 }

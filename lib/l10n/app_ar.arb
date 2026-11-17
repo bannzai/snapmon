@@ -192,5 +192,6 @@
   "battleLogFieldStatShuffled": "تذبذب الميدان، فتبادل {firstStatName} و{secondStatName} مكانيهما!",
   "battleLogFieldEnded": "عاد الميدان إلى طبيعته",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
-  "statusConditionPoison": "سم"
+  "statusConditionPoison": "سم",
+  "statusConditionParalysis": "شلل"
 }

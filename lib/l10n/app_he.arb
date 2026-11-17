@@ -192,5 +192,6 @@
   "battleLogFieldStatShuffled": "השדה התערער, והערכים של {firstStatName} ושל {secondStatName} התחלפו!",
   "battleLogFieldEnded": "השדה חזר לקדמותו",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
-  "statusConditionPoison": "רעל"
+  "statusConditionPoison": "רעל",
+  "statusConditionParalysis": "שיתוק"
 }

@@ -192,5 +192,6 @@
   "battleLogFieldStatShuffled": "Поле заколебалось, и {firstStatName} с {secondStatName} поменялись местами!",
   "battleLogFieldEnded": "Поле вернулось в норму",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
-  "statusConditionPoison": "Яд"
+  "statusConditionPoison": "Яд",
+  "statusConditionParalysis": "Паралич"
 }

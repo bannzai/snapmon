@@ -192,5 +192,6 @@
   "battleLogFieldStatShuffled": "Medan bergoyang, lalu {firstStatName} dan {secondStatName} bertukar tempat!",
   "battleLogFieldEnded": "Medan kembali seperti biasa",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
-  "statusConditionPoison": "Racun"
+  "statusConditionPoison": "Racun",
+  "statusConditionParalysis": "Lumpuh"
 }
