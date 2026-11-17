@@ -305,5 +305,6 @@
   "moveSelectionDescription": "Choisis tes capacités pour le combat : {count} max.\nLes boutons des capacités suivent l’ordre de ta sélection",
   "moveSelectionSave": "Confirmer",
   "moveSelectionReset": "Rechoisir",
-  "actionCardForget": "Faire oublier"
+  "actionCardForget": "Faire oublier",
+  "battleRematch": "Rejouer le combat"
 }
