@@ -278,5 +278,6 @@
   "actionCardBuyUnavailable": "आत्ता कोणतीही चाल विक्रीसाठी नाही",
   "actionCardPurchaseBuy": "{price} मध्ये खरेदी कर",
   "actionCardPurchasePriceChanged": "या चालीची किंमत बदलली आहे\nखरेदी करण्याआधी किंमत तपास",
-  "actionCardPurchaseWaiting": "चाल मिळत आहे"
+  "actionCardPurchaseWaiting": "चाल मिळत आहे",
+  "actionCardPurchaseArrivalDelayed": "दिसण्याची वाट पाहत आहोत\nही स्क्रीन बंद केलीस तरी मिळालेली चाल तुझ्याकडे राहील"
 }

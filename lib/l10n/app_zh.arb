@@ -278,5 +278,6 @@
   "actionCardBuyUnavailable": "现在没有招式出售",
   "actionCardPurchaseBuy": "花 {price} 购买",
   "actionCardPurchasePriceChanged": "这个招式的价格变了\n购买前先确认价格",
-  "actionCardPurchaseWaiting": "正在接收招式"
+  "actionCardPurchaseWaiting": "正在接收招式",
+  "actionCardPurchaseArrivalDelayed": "正在等待显示\n关掉此画面后，收到的招式也会保留"
 }

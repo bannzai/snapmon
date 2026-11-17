@@ -278,5 +278,6 @@
   "actionCardBuyUnavailable": "Most nem kaphatók támadások",
   "actionCardPurchaseBuy": "Vedd meg {price} áron",
   "actionCardPurchasePriceChanged": "Megváltozott ennek a támadásnak az ára\nVásárlás előtt ellenőrizd",
-  "actionCardPurchaseWaiting": "Támadás fogadása folyamatban"
+  "actionCardPurchaseWaiting": "Támadás fogadása folyamatban",
+  "actionCardPurchaseArrivalDelayed": "Várjuk, hogy megjelenjen\nA megszerzett támadás akkor is megmarad, ha bezárod ezt a képernyőt"
 }

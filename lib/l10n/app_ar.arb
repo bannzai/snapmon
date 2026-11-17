@@ -278,5 +278,6 @@
   "actionCardBuyUnavailable": "لا تُباع الحركات حاليًا",
   "actionCardPurchaseBuy": "اشترِ بسعر {price}",
   "actionCardPurchasePriceChanged": "تغيّر سعر هذه الحركة\nتحقّق من السعر قبل الشراء",
-  "actionCardPurchaseWaiting": "جارٍ استلام الحركة"
+  "actionCardPurchaseWaiting": "جارٍ استلام الحركة",
+  "actionCardPurchaseArrivalDelayed": "بانتظار ظهورها\nستبقى الحركة التي حصلت عليها حتى لو أغلقت هذه الشاشة"
 }

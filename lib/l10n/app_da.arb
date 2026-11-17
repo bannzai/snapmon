@@ -278,5 +278,6 @@
   "actionCardBuyUnavailable": "Der er ingen angreb til salg lige nu",
   "actionCardPurchaseBuy": "Køb for {price}",
   "actionCardPurchasePriceChanged": "Prisen på dette angreb har ændret sig\nTjek prisen, før du køber",
-  "actionCardPurchaseWaiting": "Modtager angreb"
+  "actionCardPurchaseWaiting": "Modtager angreb",
+  "actionCardPurchaseArrivalDelayed": "Venter på, at det dukker op\nDet angreb, du har fået, bliver hos dig, selvom du lukker skærmen"
 }

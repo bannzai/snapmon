@@ -278,5 +278,6 @@
   "actionCardBuyUnavailable": "Зараз прийоми не продаються",
   "actionCardPurchaseBuy": "Купити за {price}",
   "actionCardPurchasePriceChanged": "Прийом тепер має іншу ціну\nПеревір її перед покупкою",
-  "actionCardPurchaseWaiting": "Отримання прийому"
+  "actionCardPurchaseWaiting": "Отримання прийому",
+  "actionCardPurchaseArrivalDelayed": "Чекаємо на появу\nОтриманий прийом залишиться в тебе, навіть якщо закриєш цей екран"
 }

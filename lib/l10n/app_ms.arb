@@ -278,5 +278,6 @@
   "actionCardBuyUnavailable": "Tiada gerakan untuk dijual sekarang",
   "actionCardPurchaseBuy": "Beli dengan harga {price}",
   "actionCardPurchasePriceChanged": "Harga gerakan ini telah berubah\nSemak harga sebelum membeli",
-  "actionCardPurchaseWaiting": "Sedang menerima gerakan"
+  "actionCardPurchaseWaiting": "Sedang menerima gerakan",
+  "actionCardPurchaseArrivalDelayed": "Menunggu untuk muncul\nGerakan yang kamu dapat akan kekal walaupun skrin ini ditutup"
 }

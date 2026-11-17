@@ -278,5 +278,6 @@
   "actionCardBuyUnavailable": "ప్రస్తుతం మూవ్‌లు అమ్మకానికి లేవు",
   "actionCardPurchaseBuy": "{price}కు కొనుక్కో",
   "actionCardPurchasePriceChanged": "ఈ మూవ్ ధర మారింది\nకొనే ముందు ధర చూసుకో",
-  "actionCardPurchaseWaiting": "మూవ్ అందుతోంది"
+  "actionCardPurchaseWaiting": "మూవ్ అందుతోంది",
+  "actionCardPurchaseArrivalDelayed": "కనిపించే వరకు వేచి చూస్తున్నాం\nఈ స్క్రీన్ మూసినా నీకు వచ్చిన మూవ్ అలాగే ఉంటుంది"
 }

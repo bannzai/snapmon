@@ -278,5 +278,6 @@
   "actionCardBuyUnavailable": "ตอนนี้ยังไม่มีท่าวางขาย",
   "actionCardPurchaseBuy": "ซื้อในราคา {price}",
   "actionCardPurchasePriceChanged": "ราคาท่านี้เปลี่ยนแล้ว\nเช็กราคาก่อนซื้อ",
-  "actionCardPurchaseWaiting": "กำลังรับท่า"
+  "actionCardPurchaseWaiting": "กำลังรับท่า",
+  "actionCardPurchaseArrivalDelayed": "กำลังรอให้แสดงผล\nปิดหน้านี้แล้ว ท่าที่ได้รับก็ยังอยู่"
 }

@@ -278,5 +278,6 @@
   "actionCardBuyUnavailable": "Teď nejsou v prodeji žádné útoky",
   "actionCardPurchaseBuy": "Kup za {price}",
   "actionCardPurchasePriceChanged": "Cena tohoto útoku se změnila\nPřed nákupem ji zkontroluj",
-  "actionCardPurchaseWaiting": "Přijímá se útok"
+  "actionCardPurchaseWaiting": "Přijímá se útok",
+  "actionCardPurchaseArrivalDelayed": "Čekáme, až se objeví\nÚtok, který jsi získal, ti zůstane, i když tuto obrazovku zavřeš"
 }

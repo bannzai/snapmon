@@ -278,5 +278,6 @@
   "actionCardBuyUnavailable": "Ara mateix no hi ha moviments a la venda",
   "actionCardPurchaseBuy": "Compra per {price}",
   "actionCardPurchasePriceChanged": "Ha canviat el preu d'aquest moviment\nComprova'l abans de comprar",
-  "actionCardPurchaseWaiting": "Rebent el moviment"
+  "actionCardPurchaseWaiting": "Rebent el moviment",
+  "actionCardPurchaseArrivalDelayed": "Esperant que aparegui\nEl moviment que has rebut es conservarà encara que tanquis aquesta pantalla"
 }

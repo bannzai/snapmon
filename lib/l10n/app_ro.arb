@@ -278,5 +278,6 @@
   "actionCardBuyUnavailable": "Momentan nu sunt mișcări de vânzare",
   "actionCardPurchaseBuy": "Cumpără cu {price}",
   "actionCardPurchasePriceChanged": "Prețul acestei mișcări s-a schimbat\nVerifică-l înainte să cumperi",
-  "actionCardPurchaseWaiting": "Se primește mișcarea"
+  "actionCardPurchaseWaiting": "Se primește mișcarea",
+  "actionCardPurchaseArrivalDelayed": "Așteptăm să apară\nMișcarea primită rămâne a ta chiar dacă închizi acest ecran"
 }

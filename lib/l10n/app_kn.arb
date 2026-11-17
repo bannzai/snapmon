@@ -278,5 +278,6 @@
   "actionCardBuyUnavailable": "ಈಗ ಯಾವುದೇ ತಂತ್ರ ಮಾರಾಟಕ್ಕಿಲ್ಲ",
   "actionCardPurchaseBuy": "{price}ಗೆ ಖರೀದಿಸು",
   "actionCardPurchasePriceChanged": "ಈ ತಂತ್ರದ ಬೆಲೆ ಬದಲಾಗಿದೆ\nಖರೀದಿಸುವ ಮೊದಲು ಬೆಲೆ ಪರಿಶೀಲಿಸು",
-  "actionCardPurchaseWaiting": "ತಂತ್ರ ಸಿಗುತ್ತಿದೆ"
+  "actionCardPurchaseWaiting": "ತಂತ್ರ ಸಿಗುತ್ತಿದೆ",
+  "actionCardPurchaseArrivalDelayed": "ಕಾಣಿಸಿಕೊಳ್ಳಲು ಕಾಯುತ್ತಿದ್ದೇವೆ\nಈ ಪರದೆ ಮುಚ್ಚಿದರೂ ಪಡೆದ ತಂತ್ರ ನಿನ್ನ ಬಳಿಯೇ ಉಳಿಯುತ್ತದೆ"
 }

@@ -278,5 +278,6 @@
   "actionCardBuyUnavailable": "Ahora mismo no hay movimientos a la venta",
   "actionCardPurchaseBuy": "Compra por {price}",
   "actionCardPurchasePriceChanged": "Cambió el precio de este movimiento\nRevísalo antes de comprar",
-  "actionCardPurchaseWaiting": "Recibiendo el movimiento"
+  "actionCardPurchaseWaiting": "Recibiendo el movimiento",
+  "actionCardPurchaseArrivalDelayed": "Esperando a que aparezca\nEl movimiento que recibiste seguirá contigo aunque cierres esta pantalla"
 }

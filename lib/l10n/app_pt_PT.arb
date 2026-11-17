@@ -278,5 +278,6 @@
   "actionCardBuyUnavailable": "Não há golpes à venda neste momento",
   "actionCardPurchaseBuy": "Comprar por {price}",
   "actionCardPurchasePriceChanged": "O preço deste golpe mudou\nConfirma-o antes de comprar",
-  "actionCardPurchaseWaiting": "A receber o golpe"
+  "actionCardPurchaseWaiting": "A receber o golpe",
+  "actionCardPurchaseArrivalDelayed": "À espera que apareça\nO golpe que recebeste continuará contigo mesmo que feches este ecrã"
 }

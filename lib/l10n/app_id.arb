@@ -278,5 +278,6 @@
   "actionCardBuyUnavailable": "Jurus sedang tidak dijual",
   "actionCardPurchaseBuy": "Beli seharga {price}",
   "actionCardPurchasePriceChanged": "Harga jurus ini berubah\nCek harganya sebelum membeli",
-  "actionCardPurchaseWaiting": "Jurus sedang diterima"
+  "actionCardPurchaseWaiting": "Jurus sedang diterima",
+  "actionCardPurchaseArrivalDelayed": "Menunggu muncul\nJurus yang kamu dapat tetap ada meski layar ini ditutup"
 }

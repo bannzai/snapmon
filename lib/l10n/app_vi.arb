@@ -278,5 +278,6 @@
   "actionCardBuyUnavailable": "Hiện chưa có chiêu nào được bán",
   "actionCardPurchaseBuy": "Mua với giá {price}",
   "actionCardPurchasePriceChanged": "Giá chiêu này đã thay đổi\nKiểm tra giá trước khi mua",
-  "actionCardPurchaseWaiting": "Đang nhận chiêu"
+  "actionCardPurchaseWaiting": "Đang nhận chiêu",
+  "actionCardPurchaseArrivalDelayed": "Đang chờ hiển thị\nChiêu bạn nhận được vẫn còn dù bạn đóng màn hình này"
 }

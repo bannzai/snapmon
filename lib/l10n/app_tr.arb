@@ -278,5 +278,6 @@
   "actionCardBuyUnavailable": "Şu anda satılık hamle yok",
   "actionCardPurchaseBuy": "{price} karşılığında satın al",
   "actionCardPurchasePriceChanged": "Bu hamlenin fiyatı değişti\nSatın almadan önce fiyatı kontrol et",
-  "actionCardPurchaseWaiting": "Hamle alınıyor"
+  "actionCardPurchaseWaiting": "Hamle alınıyor",
+  "actionCardPurchaseArrivalDelayed": "Görünmesini bekliyoruz\nBu ekranı kapatsan da aldığın hamle sende kalacak"
 }

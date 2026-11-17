@@ -278,5 +278,6 @@
   "actionCardBuyUnavailable": "Er zijn nu geen aanvallen te koop",
   "actionCardPurchaseBuy": "Koop voor {price}",
   "actionCardPurchasePriceChanged": "De prijs van deze aanval is veranderd\nControleer hem voordat je koopt",
-  "actionCardPurchaseWaiting": "Aanval wordt ontvangen"
+  "actionCardPurchaseWaiting": "Aanval wordt ontvangen",
+  "actionCardPurchaseArrivalDelayed": "Wachten tot hij verschijnt\nDe aanval die je hebt gekregen, blijft van jou, ook als je dit scherm sluit"
 }

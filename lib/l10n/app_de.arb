@@ -278,5 +278,6 @@
   "actionCardBuyUnavailable": "Gerade stehen keine Attacken zum Verkauf",
   "actionCardPurchaseBuy": "Für {price} kaufen",
   "actionCardPurchasePriceChanged": "Der Preis dieser Attacke hat sich geändert\nPrüfe ihn vor dem Kauf",
-  "actionCardPurchaseWaiting": "Attacke wird empfangen"
+  "actionCardPurchaseWaiting": "Attacke wird empfangen",
+  "actionCardPurchaseArrivalDelayed": "Warte, bis sie erscheint\nDie erhaltene Attacke bleibt dir erhalten, auch wenn du diesen Bildschirm schließt"
 }

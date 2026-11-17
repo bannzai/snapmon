@@ -278,5 +278,6 @@
   "actionCardBuyUnavailable": "Teraz żadne ruchy nie są na sprzedaż",
   "actionCardPurchaseBuy": "Kup za {price}",
   "actionCardPurchasePriceChanged": "Cena tego ruchu się zmieniła\nSprawdź ją przed zakupem",
-  "actionCardPurchaseWaiting": "Odbieranie ruchu"
+  "actionCardPurchaseWaiting": "Odbieranie ruchu",
+  "actionCardPurchaseArrivalDelayed": "Czekamy, aż się pojawi\nZdobyty ruch zostanie z tobą, nawet jeśli zamkniesz ten ekran"
 }

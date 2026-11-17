@@ -278,5 +278,6 @@
   "actionCardBuyUnavailable": "Al momento non ci sono mosse in vendita",
   "actionCardPurchaseBuy": "Compra a {price}",
   "actionCardPurchasePriceChanged": "Il prezzo di questa mossa è cambiato\nControllalo prima di acquistare",
-  "actionCardPurchaseWaiting": "Ricezione della mossa in corso"
+  "actionCardPurchaseWaiting": "Ricezione della mossa in corso",
+  "actionCardPurchaseArrivalDelayed": "In attesa che compaia\nLa mossa che hai ottenuto resterà con te anche se chiudi questa schermata"
 }
