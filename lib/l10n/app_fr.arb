@@ -11,5 +11,6 @@
   "reportReasonInappropriateText": "Nom ou texte inapproprié",
   "reportReasonPersonInPicture": "Une personne apparaît sur la photo",
   "reportReasonInappropriateIcon": "Icône inappropriée",
-  "reportReasonOther": "Autre"
+  "reportReasonOther": "Autre",
+  "reportSheetTitle": "Faire un signalement pour {monsterName}"
 }
