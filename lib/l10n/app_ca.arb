@@ -66,5 +66,6 @@
   "settingsProfileSection": "Perfil",
   "settingsDisplayName": "nom visible",
   "settingsDisplayNameLoading": "S'està carregant",
-  "settingsDisplayNameHelper": "Nom que veuen els teus rivals als combats"
+  "settingsDisplayNameHelper": "Nom que veuen els teus rivals als combats",
+  "settingsDisplayNameSave": "Desa"
 }

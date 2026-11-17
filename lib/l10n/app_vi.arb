@@ -66,5 +66,6 @@
   "settingsProfileSection": "Hồ sơ",
   "settingsDisplayName": "tên hiển thị",
   "settingsDisplayNameLoading": "Đang tải",
-  "settingsDisplayNameHelper": "Tên đối thủ nhìn thấy khi đấu"
+  "settingsDisplayNameHelper": "Tên đối thủ nhìn thấy khi đấu",
+  "settingsDisplayNameSave": "Lưu"
 }

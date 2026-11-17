@@ -66,5 +66,6 @@
   "settingsProfileSection": "Profil",
   "settingsDisplayName": "wyświetlan",
   "settingsDisplayNameLoading": "Wczytywanie",
-  "settingsDisplayNameHelper": "Imię widoczne dla twoich rywali w walce"
+  "settingsDisplayNameHelper": "Imię widoczne dla twoich rywali w walce",
+  "settingsDisplayNameSave": "Zapisz"
 }

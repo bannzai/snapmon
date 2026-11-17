@@ -66,5 +66,6 @@
   "settingsProfileSection": "Profil",
   "settingsDisplayName": "megjelenített",
   "settingsDisplayNameLoading": "Betöltés",
-  "settingsDisplayNameHelper": "A név, amit az ellenfeleid látnak a csatában"
+  "settingsDisplayNameHelper": "A név, amit az ellenfeleid látnak a csatában",
+  "settingsDisplayNameSave": "Mentés"
 }

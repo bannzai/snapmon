@@ -66,5 +66,6 @@
   "settingsProfileSection": "प्रोफाइल",
   "settingsDisplayName": "प्रदर्शन नाव",
   "settingsDisplayNameLoading": "लोड होत आहे",
-  "settingsDisplayNameHelper": "लढाईत प्रतिस्पर्ध्यांना दिसणारे नाव"
+  "settingsDisplayNameHelper": "लढाईत प्रतिस्पर्ध्यांना दिसणारे नाव",
+  "settingsDisplayNameSave": "जतन कर"
 }

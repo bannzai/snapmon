@@ -66,5 +66,6 @@
   "settingsProfileSection": "الملف الشخصي",
   "settingsDisplayName": "اسم العرض",
   "settingsDisplayNameLoading": "جارٍ التحميل",
-  "settingsDisplayNameHelper": "الاسم الذي يراه خصومك في المعارك"
+  "settingsDisplayNameHelper": "الاسم الذي يراه خصومك في المعارك",
+  "settingsDisplayNameSave": "حفظ"
 }

@@ -66,5 +66,6 @@
   "settingsProfileSection": "Profil",
   "settingsDisplayName": "afișat",
   "settingsDisplayNameLoading": "Se încarcă",
-  "settingsDisplayNameHelper": "Numele pe care îl văd adversarii tăi în luptă"
+  "settingsDisplayNameHelper": "Numele pe care îl văd adversarii tăi în luptă",
+  "settingsDisplayNameSave": "Salvează"
 }

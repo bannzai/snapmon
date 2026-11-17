@@ -66,5 +66,6 @@
   "settingsProfileSection": "Профіль",
   "settingsDisplayName": "псевдонім",
   "settingsDisplayNameLoading": "Завантаження",
-  "settingsDisplayNameHelper": "Ім’я, яке бачать твої суперники в бою"
+  "settingsDisplayNameHelper": "Ім’я, яке бачать твої суперники в бою",
+  "settingsDisplayNameSave": "Зберегти"
 }

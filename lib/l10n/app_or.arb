@@ -66,5 +66,6 @@
   "settingsProfileSection": "ପ୍ରୋଫାଇଲ୍",
   "settingsDisplayName": "ପ୍ରଦର୍ଶିତ ନାମ",
   "settingsDisplayNameLoading": "ଲୋଡ୍ ହେଉଛି",
-  "settingsDisplayNameHelper": "ଲଢ଼େଇରେ ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀଙ୍କୁ ଦେଖାଯାଉଥିବା ନାମ"
+  "settingsDisplayNameHelper": "ଲଢ଼େଇରେ ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀଙ୍କୁ ଦେଖାଯାଉଥିବା ନାମ",
+  "settingsDisplayNameSave": "ସଞ୍ଚୟ କର"
 }

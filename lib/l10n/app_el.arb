@@ -66,5 +66,6 @@
   "settingsProfileSection": "Προφίλ",
   "settingsDisplayName": "εμφανιζόμενο όνομα",
   "settingsDisplayNameLoading": "Φόρτωση",
-  "settingsDisplayNameHelper": "Το όνομα που βλέπουν οι αντίπαλοί σου στη μάχη"
+  "settingsDisplayNameHelper": "Το όνομα που βλέπουν οι αντίπαλοί σου στη μάχη",
+  "settingsDisplayNameSave": "Αποθήκευση"
 }

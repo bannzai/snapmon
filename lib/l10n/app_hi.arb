@@ -66,5 +66,6 @@
   "settingsProfileSection": "प्रोफ़ाइल",
   "settingsDisplayName": "डिस्प्ले नाम",
   "settingsDisplayNameLoading": "लोड हो रहा है",
-  "settingsDisplayNameHelper": "लड़ाई में विरोधियों को दिखने वाला नाम"
+  "settingsDisplayNameHelper": "लड़ाई में विरोधियों को दिखने वाला नाम",
+  "settingsDisplayNameSave": "सेव करो"
 }

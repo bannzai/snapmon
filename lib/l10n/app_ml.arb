@@ -66,5 +66,6 @@
   "settingsProfileSection": "പ്രൊഫൈൽ",
   "settingsDisplayName": "പ്രദർശന നാമ",
   "settingsDisplayNameLoading": "ലോഡ് ചെയ്യുന്നു",
-  "settingsDisplayNameHelper": "പോരാട്ടത്തിൽ എതിരാളികൾ കാണുന്ന പേര്"
+  "settingsDisplayNameHelper": "പോരാട്ടത്തിൽ എതിരാളികൾ കാണുന്ന പേര്",
+  "settingsDisplayNameSave": "സേവ് ചെയ്യുക"
 }

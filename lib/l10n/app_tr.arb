@@ -66,5 +66,6 @@
   "settingsProfileSection": "Profil",
   "settingsDisplayName": "görünen ad",
   "settingsDisplayNameLoading": "Yükleniyor",
-  "settingsDisplayNameHelper": "Rakiplerinin savaşta gördüğü ad"
+  "settingsDisplayNameHelper": "Rakiplerinin savaşta gördüğü ad",
+  "settingsDisplayNameSave": "Kaydet"
 }

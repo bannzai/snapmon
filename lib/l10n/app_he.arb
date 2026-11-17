@@ -66,5 +66,6 @@
   "settingsProfileSection": "פרופיל",
   "settingsDisplayName": "שם תצוגה",
   "settingsDisplayNameLoading": "בטעינה",
-  "settingsDisplayNameHelper": "השם שמוצג ליריבים בקרב"
+  "settingsDisplayNameHelper": "השם שמוצג ליריבים בקרב",
+  "settingsDisplayNameSave": "שמירה"
 }

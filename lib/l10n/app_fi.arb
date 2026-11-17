@@ -66,5 +66,6 @@
   "settingsProfileSection": "Profiili",
   "settingsDisplayName": "näyttönim",
   "settingsDisplayNameLoading": "Ladataan",
-  "settingsDisplayNameHelper": "Nimi, jonka vastustajasi näkevät taistelussa"
+  "settingsDisplayNameHelper": "Nimi, jonka vastustajasi näkevät taistelussa",
+  "settingsDisplayNameSave": "Tallenna"
 }

@@ -66,5 +66,6 @@
   "settingsProfileSection": "ಪ್ರೊಫೈಲ್",
   "settingsDisplayName": "ಪ್ರದರ್ಶನ ಹೆಸರ",
   "settingsDisplayNameLoading": "ಲೋಡ್ ಆಗುತ್ತಿದೆ",
-  "settingsDisplayNameHelper": "ಕಾಳಗದಲ್ಲಿ ಎದುರಾಳಿಗಳಿಗೆ ಕಾಣುವ ಹೆಸರು"
+  "settingsDisplayNameHelper": "ಕಾಳಗದಲ್ಲಿ ಎದುರಾಳಿಗಳಿಗೆ ಕಾಣುವ ಹೆಸರು",
+  "settingsDisplayNameSave": "ಉಳಿಸು"
 }

@@ -66,5 +66,6 @@
   "settingsProfileSection": "Profiel",
   "settingsDisplayName": "weergavenaam",
   "settingsDisplayNameLoading": "Laden",
-  "settingsDisplayNameHelper": "Naam die je tegenstanders zien tijdens gevechten"
+  "settingsDisplayNameHelper": "Naam die je tegenstanders zien tijdens gevechten",
+  "settingsDisplayNameSave": "Opslaan"
 }

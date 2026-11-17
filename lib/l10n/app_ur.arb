@@ -66,5 +66,6 @@
   "settingsProfileSection": "پروفائل",
   "settingsDisplayName": "ڈسپلے نام",
   "settingsDisplayNameLoading": "لوڈ ہو رہا ہے",
-  "settingsDisplayNameHelper": "لڑائی میں حریفوں کو نظر آنے والا نام"
+  "settingsDisplayNameHelper": "لڑائی میں حریفوں کو نظر آنے والا نام",
+  "settingsDisplayNameSave": "محفوظ کرو"
 }
