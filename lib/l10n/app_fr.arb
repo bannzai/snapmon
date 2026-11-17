@@ -319,5 +319,6 @@
   "helpTypeBody": "Les dégâts varient selon l’élément de ta capacité et celui de l’adversaire\nChoisis une capacité dont l’élément exploite sa faiblesse pour infliger de gros dégâts\nLa flèche sur le bouton de la capacité indique son efficacité contre l’adversaire actuel",
   "helpTypeSuperEffective": "Super efficace ! Dégâts ×2",
   "helpTypeNotVeryEffective": "Ce n’est pas très efficace Dégâts × 0,5",
-  "helpTypeDualNote": "Contre un adversaire à deux éléments, multiplie les deux coefficients\nRetrouve toutes les efficacités dans « Efficacité des éléments et liste des capacités » du dex"
+  "helpTypeDualNote": "Contre un adversaire à deux éléments, multiplie les deux coefficients\nRetrouve toutes les efficacités dans « Efficacité des éléments et liste des capacités » du dex",
+  "helpStatusHeading": "altérations"
 }
