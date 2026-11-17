@@ -260,5 +260,6 @@
   "moveDetailNotVeryEffective": "അത്ര ഫലപ്രദമല്ല",
   "moveDetailNeutralEverywhere": "എല്ലാ മൂലകങ്ങൾക്കും 1×",
   "ticketBalance": "ടിക്കറ്റുകൾ: {count}",
-  "ticketPurchaseTitle": "സൃഷ്ടിക്കൽ ടിക്കറ്റ"
+  "ticketPurchaseTitle": "സൃഷ്ടിക്കൽ ടിക്കറ്റ",
+  "ticketPurchaseDescription": "ഇന്നത്തെ സൗജന്യ സൃഷ്ടികൾ തീർന്നാലും\n1 ടിക്കറ്റ് ഉപയോഗിച്ച് നിങ്ങൾക്ക് 1 തവണ കൂടി സൃഷ്ടിക്കാം"
 }

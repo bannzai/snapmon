@@ -260,5 +260,6 @@
   "moveDetailNotVeryEffective": "Не очень эффективно",
   "moveDetailNeutralEverywhere": "Каждый элемент: ×1",
   "ticketBalance": "Билеты: {count}",
-  "ticketPurchaseTitle": "билет"
+  "ticketPurchaseTitle": "билет",
+  "ticketPurchaseDescription": "Даже если бесплатные создания на сегодня закончились,\nс 1 билетом ты можешь создать ещё 1 раз"
 }

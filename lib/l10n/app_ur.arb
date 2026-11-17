@@ -260,5 +260,6 @@
   "moveDetailNotVeryEffective": "زیادہ مؤثر نہیں",
   "moveDetailNeutralEverywhere": "ہر ٹائپ پر 1 گنا",
   "ticketBalance": "ٹکٹ: {count}",
-  "ticketPurchaseTitle": "تخلیقی ٹکٹ"
+  "ticketPurchaseTitle": "تخلیقی ٹکٹ",
+  "ticketPurchaseDescription": "آج کے مفت تخلیق کے مواقع ختم ہونے کے بعد بھی\n1 ٹکٹ سے تم 1 بار اور بنا سکتے ہو"
 }

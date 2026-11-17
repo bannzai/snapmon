@@ -260,5 +260,6 @@
   "moveDetailNotVeryEffective": "ବିଶେଷ ପ୍ରଭାବୀ ନୁହେଁ",
   "moveDetailNeutralEverywhere": "ସବୁ ତତ୍ତ୍ୱ ବିରୁଦ୍ଧରେ ୧ ଗୁଣ",
   "ticketBalance": "ଟିକେଟ୍: {count}",
-  "ticketPurchaseTitle": "ତିଆରି ଟିକେଟ"
+  "ticketPurchaseTitle": "ତିଆରି ଟିକେଟ",
+  "ticketPurchaseDescription": "ଆଜିର ମାଗଣା ସୃଷ୍ଟି ସୁଯୋଗ ସରିଗଲେ ବି\n୧ଟି ଟିକେଟ୍‌ରେ ତୁମେ ଆଉ ୧ ଥର ସୃଷ୍ଟି କରିପାରିବ"
 }

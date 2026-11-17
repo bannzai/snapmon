@@ -260,5 +260,6 @@
   "moveDetailNotVeryEffective": "Niet erg effectief",
   "moveDetailNeutralEverywhere": "Alle types: 1×",
   "ticketBalance": "Tickets: {count}",
-  "ticketPurchaseTitle": "creatieticket"
+  "ticketPurchaseTitle": "creatieticket",
+  "ticketPurchaseDescription": "Ook als je gratis creaties voor vandaag op zijn,\nkun je met 1 ticket nog 1 keer iets maken"
 }

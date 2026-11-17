@@ -260,5 +260,6 @@
   "moveDetailNotVeryEffective": "Pouco eficaz",
   "moveDetailNeutralEverywhere": "Todos os elementos: 1×",
   "ticketBalance": "Bilhetes: {count}",
-  "ticketPurchaseTitle": "bilhete"
+  "ticketPurchaseTitle": "bilhete",
+  "ticketPurchaseDescription": "Mesmo depois de esgotares as criações grátis de hoje,\ncom 1 bilhete podes criar mais 1 vez"
 }

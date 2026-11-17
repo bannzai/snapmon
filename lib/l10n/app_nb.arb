@@ -260,5 +260,6 @@
   "moveDetailNotVeryEffective": "Ikke særlig effektiv",
   "moveDetailNeutralEverywhere": "Alle typer: 1×",
   "ticketBalance": "Billetter: {count}",
-  "ticketPurchaseTitle": "genereringsbillett"
+  "ticketPurchaseTitle": "genereringsbillett",
+  "ticketPurchaseDescription": "Selv om du har brukt opp dagens gratis skapelser,\nkan du skape 1 gang til med 1 billett"
 }

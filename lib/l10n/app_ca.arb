@@ -260,5 +260,6 @@
   "moveDetailNotVeryEffective": "Poc eficaç",
   "moveDetailNeutralEverywhere": "Tots els elements: ×1",
   "ticketBalance": "Tiquets: {count}",
-  "ticketPurchaseTitle": "tiquet"
+  "ticketPurchaseTitle": "tiquet",
+  "ticketPurchaseDescription": "Encara que hagis esgotat les creacions gratuïtes d'avui,\namb 1 tiquet en pots fer 1 més"
 }

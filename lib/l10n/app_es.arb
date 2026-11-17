@@ -260,5 +260,6 @@
   "moveDetailNotVeryEffective": "Poco eficaz",
   "moveDetailNeutralEverywhere": "Todos los elementos: ×1",
   "ticketBalance": "Boletos: {count}",
-  "ticketPurchaseTitle": "ticket de creación"
+  "ticketPurchaseTitle": "ticket de creación",
+  "ticketPurchaseDescription": "Aunque hayas agotado las creaciones gratis de hoy,\ncon 1 boleto puedes crear 1 vez más"
 }

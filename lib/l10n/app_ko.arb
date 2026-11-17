@@ -260,5 +260,6 @@
   "moveDetailNotVeryEffective": "효과가 별로",
   "moveDetailNeutralEverywhere": "모든 속성에 1배",
   "ticketBalance": "티켓: {count}",
-  "ticketPurchaseTitle": "생성 티켓"
+  "ticketPurchaseTitle": "생성 티켓",
+  "ticketPurchaseDescription": "오늘의 무료 생성 횟수를 다 써도\n티켓 1장으로 1번 더 생성할 수 있어요"
 }

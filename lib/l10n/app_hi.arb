@@ -260,5 +260,6 @@
   "moveDetailNotVeryEffective": "ज़्यादा असरदार नहीं",
   "moveDetailNeutralEverywhere": "हर तत्व पर 1 गुना",
   "ticketBalance": "टिकट: {count}",
-  "ticketPurchaseTitle": "निर्माण टिकट"
+  "ticketPurchaseTitle": "निर्माण टिकट",
+  "ticketPurchaseDescription": "आज के मुफ़्त बनाने के मौके खत्म होने पर भी\n1 टिकट से 1 बार और बना सकते हो"
 }

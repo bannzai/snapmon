@@ -260,5 +260,6 @@
   "moveDetailNotVeryEffective": "Málo účinné",
   "moveDetailNeutralEverywhere": "Všetky elementy: 1×",
   "ticketBalance": "Lístky: {count}",
-  "ticketPurchaseTitle": "na vytvorenie"
+  "ticketPurchaseTitle": "na vytvorenie",
+  "ticketPurchaseDescription": "Aj keď minieš dnešné bezplatné vytvorenia,\nza 1 lístok môžeš tvoriť ešte 1 raz"
 }

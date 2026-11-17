@@ -260,5 +260,6 @@
   "moveDetailNotVeryEffective": "Ni zelo učinkovito",
   "moveDetailNeutralEverywhere": "Vsi elementi: 1×",
   "ticketBalance": "Vstopnice: {count}",
-  "ticketPurchaseTitle": "žeton"
+  "ticketPurchaseTitle": "žeton",
+  "ticketPurchaseDescription": "Tudi ko porabiš današnja brezplačna ustvarjanja,\nlahko z 1 vstopnico ustvariš še 1-krat"
 }

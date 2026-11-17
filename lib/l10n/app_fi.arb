@@ -260,5 +260,6 @@
   "moveDetailNotVeryEffective": "Ei kovin tehokas",
   "moveDetailNeutralEverywhere": "Kaikki elementit: 1×",
   "ticketBalance": "Liput: {count}",
-  "ticketPurchaseTitle": "luontilip"
+  "ticketPurchaseTitle": "luontilip",
+  "ticketPurchaseDescription": "Vaikka päivän ilmaiset luontikerrat loppuvat,\n1 lipulla voit luoda vielä 1 kerran"
 }

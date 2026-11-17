@@ -260,5 +260,6 @@
   "moveDetailNotVeryEffective": "ಹೆಚ್ಚು ಪರಿಣಾಮಕಾರಿಯಲ್ಲ",
   "moveDetailNeutralEverywhere": "ಎಲ್ಲ ಪ್ರಕಾರಗಳ ವಿರುದ್ಧ 1×",
   "ticketBalance": "ಟಿಕೆಟ್‌ಗಳು: {count}",
-  "ticketPurchaseTitle": "ರಚನೆ ಟಿಕೆಟ"
+  "ticketPurchaseTitle": "ರಚನೆ ಟಿಕೆಟ",
+  "ticketPurchaseDescription": "ಇಂದಿನ ಉಚಿತ ಸೃಷ್ಟಿಗಳು ಮುಗಿದರೂ\n೧ ಟಿಕೆಟ್‌ನಿಂದ ನೀನು ಇನ್ನೂ ೧ ಬಾರಿ ಸೃಷ್ಟಿಸಬಹುದು"
 }

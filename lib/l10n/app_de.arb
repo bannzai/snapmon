@@ -260,5 +260,6 @@
   "moveDetailNotVeryEffective": "Nicht sehr effektiv",
   "moveDetailNeutralEverywhere": "Alle Elemente: 1×",
   "ticketBalance": "Tickets: {count}",
-  "ticketPurchaseTitle": "Erstellungsticket"
+  "ticketPurchaseTitle": "Erstellungsticket",
+  "ticketPurchaseDescription": "Auch wenn deine kostenlosen Erstellungen für heute aufgebraucht sind,\nkannst du mit 1 Ticket noch 1 Mal etwas erstellen"
 }

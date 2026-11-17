@@ -260,5 +260,6 @@
   "moveDetailNotVeryEffective": "效果不太好",
   "moveDetailNeutralEverywhere": "对所有属性均为 1 倍",
   "ticketBalance": "票券：{count}",
-  "ticketPurchaseTitle": "生成券"
+  "ticketPurchaseTitle": "生成券",
+  "ticketPurchaseDescription": "即使用完今天的免费生成次数，\n也能用1张券再生成1次"
 }

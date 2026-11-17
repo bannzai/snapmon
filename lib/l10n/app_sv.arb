@@ -260,5 +260,6 @@
   "moveDetailNotVeryEffective": "Inte särskilt effektiv",
   "moveDetailNeutralEverywhere": "Alla element: 1×",
   "ticketBalance": "Biljetter: {count}",
-  "ticketPurchaseTitle": "skapandebiljett"
+  "ticketPurchaseTitle": "skapandebiljett",
+  "ticketPurchaseDescription": "Även när dagens gratisskapelser är slut\nkan du skapa 1 gång till med 1 biljett"
 }
