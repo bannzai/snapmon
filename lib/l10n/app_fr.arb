@@ -37,5 +37,6 @@
   "opponentEmptyPartyNote": "Ajoute un monstre à ton équipe pour relever le défi",
   "opponentFindOthers": "Trouver d’autres adversaires",
   "opponentAverageLevel": "Lv. moyen : {level}",
-  "opponentReportHelpPrompt": "Un problème avec le monstre adverse ?"
+  "opponentReportHelpPrompt": "Un problème avec le monstre adverse ?",
+  "opponentSearching": "Recherche d’un dresseur"
 }
