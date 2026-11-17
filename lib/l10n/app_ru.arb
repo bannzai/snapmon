@@ -142,5 +142,6 @@
   "statAttack": "Атака",
   "statDefense": "Защита",
   "statSpeed": "Скорость",
-  "statAccuracy": "Точность"
+  "statAccuracy": "Точность",
+  "resultLearnedMoves": "Изученные приёмы"
 }

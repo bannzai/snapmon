@@ -142,5 +142,6 @@
   "statAttack": "ದಾಳಿ",
   "statDefense": "ರಕ್ಷಣೆ",
   "statSpeed": "ವೇಗ",
-  "statAccuracy": "ನಿಖರತೆ"
+  "statAccuracy": "ನಿಖರತೆ",
+  "resultLearnedMoves": "ಕಲಿತ ತಂತ್ರಗಳು"
 }

@@ -142,5 +142,6 @@
   "statAttack": "الهجوم",
   "statDefense": "الدفاع",
   "statSpeed": "السرعة",
-  "statAccuracy": "الدقة"
+  "statAccuracy": "الدقة",
+  "resultLearnedMoves": "الحركات المتعلّمة"
 }

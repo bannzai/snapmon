@@ -142,5 +142,6 @@
   "statAttack": "Serangan",
   "statDefense": "Pertahanan",
   "statSpeed": "Kelajuan",
-  "statAccuracy": "Ketepatan"
+  "statAccuracy": "Ketepatan",
+  "resultLearnedMoves": "gerakan yang dipelajari"
 }

@@ -142,5 +142,6 @@
   "statAttack": "Атака",
   "statDefense": "Захист",
   "statSpeed": "Швидкість",
-  "statAccuracy": "Точність"
+  "statAccuracy": "Точність",
+  "resultLearnedMoves": "Вивчені прийоми"
 }

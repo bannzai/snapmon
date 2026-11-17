@@ -142,5 +142,6 @@
   "statAttack": "ਹਮਲਾ",
   "statDefense": "ਰੱਖਿਆ",
   "statSpeed": "ਰਫ਼ਤਾਰ",
-  "statAccuracy": "ਸਟੀਕਤਾ"
+  "statAccuracy": "ਸਟੀਕਤਾ",
+  "resultLearnedMoves": "ਸਿੱਖੀਆਂ ਚਾਲਾਂ"
 }

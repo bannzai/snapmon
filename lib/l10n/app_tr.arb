@@ -142,5 +142,6 @@
   "statAttack": "Saldırı",
   "statDefense": "Savunma",
   "statSpeed": "Hız",
-  "statAccuracy": "İsabet"
+  "statAccuracy": "İsabet",
+  "resultLearnedMoves": "Öğrenilen hamleler"
 }

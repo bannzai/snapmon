@@ -142,5 +142,6 @@
   "statAttack": "Útok",
   "statDefense": "Obrana",
   "statSpeed": "Rýchlosť",
-  "statAccuracy": "Presnosť"
+  "statAccuracy": "Presnosť",
+  "resultLearnedMoves": "Naučené útoky"
 }

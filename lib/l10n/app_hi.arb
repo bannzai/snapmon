@@ -142,5 +142,6 @@
   "statAttack": "आक्रमण",
   "statDefense": "रक्षा",
   "statSpeed": "गति",
-  "statAccuracy": "सटीकता"
+  "statAccuracy": "सटीकता",
+  "resultLearnedMoves": "सीखी हुई चालें"
 }

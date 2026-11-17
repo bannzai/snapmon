@@ -142,5 +142,6 @@
   "statAttack": "আক্রমণ",
   "statDefense": "প্রতিরক্ষা",
   "statSpeed": "গতি",
-  "statAccuracy": "নির্ভুলতা"
+  "statAccuracy": "নির্ভুলতা",
+  "resultLearnedMoves": "শেখা কৌশল"
 }

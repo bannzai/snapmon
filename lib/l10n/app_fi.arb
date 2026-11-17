@@ -142,5 +142,6 @@
   "statAttack": "Hyökkäys",
   "statDefense": "Puolustus",
   "statSpeed": "Nopeus",
-  "statAccuracy": "Tarkkuus"
+  "statAccuracy": "Tarkkuus",
+  "resultLearnedMoves": "Opitut liikkeet"
 }

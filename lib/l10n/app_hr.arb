@@ -142,5 +142,6 @@
   "statAttack": "Napad",
   "statDefense": "Obrana",
   "statSpeed": "Brzina",
-  "statAccuracy": "Preciznost"
+  "statAccuracy": "Preciznost",
+  "resultLearnedMoves": "Naučeni potezi"
 }

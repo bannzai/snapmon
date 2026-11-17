@@ -142,5 +142,6 @@
   "statAttack": "حملہ",
   "statDefense": "دفاع",
   "statSpeed": "رفتار",
-  "statAccuracy": "درستگی"
+  "statAccuracy": "درستگی",
+  "resultLearnedMoves": "سیکھی ہوئی چالیں"
 }

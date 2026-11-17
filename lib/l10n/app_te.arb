@@ -142,5 +142,6 @@
   "statAttack": "దాడి",
   "statDefense": "రక్షణ",
   "statSpeed": "వేగం",
-  "statAccuracy": "కచ్చితత్వం"
+  "statAccuracy": "కచ్చితత్వం",
+  "resultLearnedMoves": "నేర్చుకున్న మూవ్‌లు"
 }

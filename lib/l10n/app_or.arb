@@ -142,5 +142,6 @@
   "statAttack": "ଆକ୍ରମଣ",
   "statDefense": "ପ୍ରତିରକ୍ଷା",
   "statSpeed": "ବେଗ",
-  "statAccuracy": "ସଠିକତା"
+  "statAccuracy": "ସଠିକତା",
+  "resultLearnedMoves": "ଶିଖିଥିବା ଚାଲ"
 }

@@ -142,5 +142,6 @@
   "statAttack": "Επίθεση",
   "statDefense": "Άμυνα",
   "statSpeed": "Ταχύτητα",
-  "statAccuracy": "Ακρίβεια"
+  "statAccuracy": "Ακρίβεια",
+  "resultLearnedMoves": "Γνωστές τεχνικές"
 }

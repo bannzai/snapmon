@@ -142,5 +142,6 @@
   "statAttack": "Aanval",
   "statDefense": "Verdediging",
   "statSpeed": "Snelheid",
-  "statAccuracy": "Nauwkeurigheid"
+  "statAccuracy": "Nauwkeurigheid",
+  "resultLearnedMoves": "Geleerde aanvallen"
 }

@@ -142,5 +142,6 @@
   "statAttack": "ആക്രമണം",
   "statDefense": "പ്രതിരോധം",
   "statSpeed": "വേഗം",
-  "statAccuracy": "കൃത്യത"
+  "statAccuracy": "കൃത്യത",
+  "resultLearnedMoves": "പഠിച്ച നീക്കങ്ങൾ"
 }

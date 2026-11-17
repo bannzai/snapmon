@@ -142,5 +142,6 @@
   "statAttack": "Tấn công",
   "statDefense": "Phòng thủ",
   "statSpeed": "Tốc độ",
-  "statAccuracy": "Độ chính xác"
+  "statAccuracy": "Độ chính xác",
+  "resultLearnedMoves": "Các chiêu đã học"
 }

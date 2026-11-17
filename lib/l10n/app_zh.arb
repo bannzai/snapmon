@@ -142,5 +142,6 @@
   "statAttack": "攻击",
   "statDefense": "防御",
   "statSpeed": "速度",
-  "statAccuracy": "命中"
+  "statAccuracy": "命中",
+  "resultLearnedMoves": "已学会的招式"
 }

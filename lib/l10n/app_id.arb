@@ -142,5 +142,6 @@
   "statAttack": "Serangan",
   "statDefense": "Pertahanan",
   "statSpeed": "Kecepatan",
-  "statAccuracy": "Akurasi"
+  "statAccuracy": "Akurasi",
+  "resultLearnedMoves": "jurus yang dipelajari"
 }

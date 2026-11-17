@@ -142,5 +142,6 @@
   "statAttack": "Attack",
   "statDefense": "Försvar",
   "statSpeed": "Snabbhet",
-  "statAccuracy": "Träffsäkerhet"
+  "statAccuracy": "Träffsäkerhet",
+  "resultLearnedMoves": "Inlärda attacker"
 }

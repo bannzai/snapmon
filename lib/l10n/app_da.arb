@@ -142,5 +142,6 @@
   "statAttack": "Angreb",
   "statDefense": "Forsvar",
   "statSpeed": "Hastighed",
-  "statAccuracy": "Træfsikkerhed"
+  "statAccuracy": "Træfsikkerhed",
+  "resultLearnedMoves": "Lærte angreb"
 }

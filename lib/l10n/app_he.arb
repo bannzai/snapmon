@@ -142,5 +142,6 @@
   "statAttack": "התקפה",
   "statDefense": "הגנה",
   "statSpeed": "מהירות",
-  "statAccuracy": "דיוק"
+  "statAccuracy": "דיוק",
+  "resultLearnedMoves": "מתקפות שנלמדו"
 }

@@ -142,5 +142,6 @@
   "statAttack": "હુમલો",
   "statDefense": "બચાવ",
   "statSpeed": "ઝડપ",
-  "statAccuracy": "ચોકસાઈ"
+  "statAccuracy": "ચોકસાઈ",
+  "resultLearnedMoves": "શીખેલી ચાલ"
 }

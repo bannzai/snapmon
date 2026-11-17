@@ -142,5 +142,6 @@
   "statAttack": "Atak",
   "statDefense": "Obrona",
   "statSpeed": "Szybkość",
-  "statAccuracy": "Celność"
+  "statAccuracy": "Celność",
+  "resultLearnedMoves": "Poznane ruchy"
 }

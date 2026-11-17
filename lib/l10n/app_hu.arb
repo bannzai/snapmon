@@ -142,5 +142,6 @@
   "statAttack": "Támadás",
   "statDefense": "Védelem",
   "statSpeed": "Gyorsaság",
-  "statAccuracy": "Pontosság"
+  "statAccuracy": "Pontosság",
+  "resultLearnedMoves": "Megtanult támadások"
 }

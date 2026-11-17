@@ -142,5 +142,6 @@
   "statAttack": "โจมตี",
   "statDefense": "พลังป้องกัน",
   "statSpeed": "ความเร็ว",
-  "statAccuracy": "ความแม่นยำ"
+  "statAccuracy": "ความแม่นยำ",
+  "resultLearnedMoves": "ท่าที่เรียนรู้"
 }
