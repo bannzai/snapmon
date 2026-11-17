@@ -127,5 +127,6 @@
   "generationOriginalPhotoLabel": "Originalfoto",
   "generationCreateWithCutout": "Mit dem ausgeschnittenen Bild erstellen",
   "generationChooseRangeMyself": "Bereich selbst auswählen",
-  "generationChooseRangeTitle": "Bereich für dein Monster"
+  "generationChooseRangeTitle": "Bereich für dein Monster",
+  "generationChooseRangeMessage": "Zieh den Rahmen um das Motiv\nÄndere die Größe mit dem Regler unten oder mit zwei Fingern"
 }

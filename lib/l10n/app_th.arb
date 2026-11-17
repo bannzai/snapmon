@@ -127,5 +127,6 @@
   "generationOriginalPhotoLabel": "รูปต้นฉบับ",
   "generationCreateWithCutout": "สร้างจากภาพที่ตัดออกมา",
   "generationChooseRangeMyself": "เลือกพื้นที่เอง",
-  "generationChooseRangeTitle": "ส่วนที่จะกลายเป็นมอนสเตอร์"
+  "generationChooseRangeTitle": "ส่วนที่จะกลายเป็นมอนสเตอร์",
+  "generationChooseRangeMessage": "ลากกรอบให้ล้อมรอบวัตถุ\nปรับขนาดด้วยแถบเลื่อนด้านล่างหรือใช้สองนิ้ว"
 }

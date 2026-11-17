@@ -127,5 +127,6 @@
   "generationOriginalPhotoLabel": "Foto originale",
   "generationCreateWithCutout": "Crea dall'immagine ritagliata",
   "generationChooseRangeMyself": "Scelgo io l’area",
-  "generationChooseRangeTitle": "Area che diventerà un mostro"
+  "generationChooseRangeTitle": "Area che diventerà un mostro",
+  "generationChooseRangeMessage": "Trascina la cornice attorno al soggetto\nCambiane le dimensioni con il cursore qui sotto o con due dita"
 }

@@ -127,5 +127,6 @@
   "generationOriginalPhotoLabel": "Alkuperäinen kuva",
   "generationCreateWithCutout": "Luo irrotetusta kuvasta",
   "generationChooseRangeMyself": "Valitse alue itse",
-  "generationChooseRangeTitle": "Hirviöksi muuttuva alue"
+  "generationChooseRangeTitle": "Hirviöksi muuttuva alue",
+  "generationChooseRangeMessage": "Vedä kehys kohteen ympärille\nMuuta kokoa alla olevalla liukusäätimellä tai kahdella sormella"
 }

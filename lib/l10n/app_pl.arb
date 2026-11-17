@@ -127,5 +127,6 @@
   "generationOriginalPhotoLabel": "Oryginalne zdjęcie",
   "generationCreateWithCutout": "Stwórz z wyciętego obrazka",
   "generationChooseRangeMyself": "Wybierz obszar samodzielnie",
-  "generationChooseRangeTitle": "Obszar, który stanie się potworem"
+  "generationChooseRangeTitle": "Obszar, który stanie się potworem",
+  "generationChooseRangeMessage": "Przeciągnij ramkę wokół obiektu\nZmień jej rozmiar suwakiem poniżej lub dwoma palcami"
 }

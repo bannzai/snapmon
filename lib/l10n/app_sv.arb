@@ -127,5 +127,6 @@
   "generationOriginalPhotoLabel": "Originalfoto",
   "generationCreateWithCutout": "Skapa med den urklippta bilden",
   "generationChooseRangeMyself": "Välj området själv",
-  "generationChooseRangeTitle": "Området som blir ett monster"
+  "generationChooseRangeTitle": "Området som blir ett monster",
+  "generationChooseRangeMessage": "Dra ramen runt motivet\nÄndra storleken med reglaget nedanför eller med två fingrar"
 }

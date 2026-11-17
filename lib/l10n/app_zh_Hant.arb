@@ -127,5 +127,6 @@
   "generationOriginalPhotoLabel": "原始照片",
   "generationCreateWithCutout": "用去背後的圖片建立",
   "generationChooseRangeMyself": "自己選取範圍",
-  "generationChooseRangeTitle": "要變成怪物的範圍"
+  "generationChooseRangeTitle": "要變成怪物的範圍",
+  "generationChooseRangeMessage": "拖曳邊框框住拍攝對象\n用下方滑桿或雙指調整大小"
 }

@@ -127,5 +127,6 @@
   "generationOriginalPhotoLabel": "התמונה המקורית",
   "generationCreateWithCutout": "ליצור מהתמונה הגזורה",
   "generationChooseRangeMyself": "בחירת האזור בעצמי",
-  "generationChooseRangeTitle": "האזור שיהפוך למפלצת"
+  "generationChooseRangeTitle": "האזור שיהפוך למפלצת",
+  "generationChooseRangeMessage": "לגרור את המסגרת סביב האובייקט\nלשנות את הגודל בעזרת המחוון למטה או שתי אצבעות"
 }

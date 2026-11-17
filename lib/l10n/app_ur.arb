@@ -127,5 +127,6 @@
   "generationOriginalPhotoLabel": "اصل تصویر",
   "generationCreateWithCutout": "کاٹی ہوئی تصویر سے بناؤ",
   "generationChooseRangeMyself": "حصہ خود چنو",
-  "generationChooseRangeTitle": "مونسٹر بننے والا حصہ"
+  "generationChooseRangeTitle": "مونسٹر بننے والا حصہ",
+  "generationChooseRangeMessage": "فریم گھسیٹ کر تصویر کی چیز کو گھیر لو\nنیچے کے سلائیڈر یا دو انگلیوں سے سائز بدلو"
 }

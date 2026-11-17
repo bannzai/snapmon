@@ -127,5 +127,6 @@
   "generationOriginalPhotoLabel": "Fotografia original",
   "generationCreateWithCutout": "Criar com a imagem recortada",
   "generationChooseRangeMyself": "Escolher a área por mim",
-  "generationChooseRangeTitle": "Área que se vai tornar monstro"
+  "generationChooseRangeTitle": "Área que se vai tornar monstro",
+  "generationChooseRangeMessage": "Arrasta a moldura à volta do objeto\nAjusta o tamanho com o controlo abaixo ou com dois dedos"
 }

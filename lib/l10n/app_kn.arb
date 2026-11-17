@@ -127,5 +127,6 @@
   "generationOriginalPhotoLabel": "ಮೂಲ ಫೋಟೋ",
   "generationCreateWithCutout": "ಕತ್ತರಿಸಿದ ಚಿತ್ರದಿಂದ ರಚಿಸು",
   "generationChooseRangeMyself": "ಪ್ರದೇಶವನ್ನು ನೀನೇ ಆಯ್ಕೆ ಮಾಡು",
-  "generationChooseRangeTitle": "ಮಾನ್ಸ್ಟರ್ ಆಗುವ ಭಾಗ"
+  "generationChooseRangeTitle": "ಮಾನ್ಸ್ಟರ್ ಆಗುವ ಭಾಗ",
+  "generationChooseRangeMessage": "ವಸ್ತುವಿನ ಸುತ್ತ ಚೌಕಟ್ಟನ್ನು ಎಳೆ\nಕೆಳಗಿನ ಸ್ಲೈಡರ್ ಅಥವಾ ಎರಡು ಬೆರಳುಗಳಿಂದ ಗಾತ್ರ ಬದಲಾಯಿಸು"
 }

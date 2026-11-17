@@ -127,5 +127,6 @@
   "generationOriginalPhotoLabel": "യഥാർത്ഥ ചിത്രം",
   "generationCreateWithCutout": "വെട്ടിയെടുത്ത ചിത്രം ഉപയോഗിച്ച് സൃഷ്ടിക്കൂ",
   "generationChooseRangeMyself": "ഭാഗം സ്വയം തിരഞ്ഞെടുക്കുക",
-  "generationChooseRangeTitle": "മോൺസ്റ്റർ ആകുന്ന ഭാഗം"
+  "generationChooseRangeTitle": "മോൺസ്റ്റർ ആകുന്ന ഭാഗം",
+  "generationChooseRangeMessage": "വിഷയത്തിന് ചുറ്റും ഫ്രെയിം വലിച്ചിടൂ\nതാഴെയുള്ള സ്ലൈഡറോ രണ്ട് വിരലുകളോ ഉപയോഗിച്ച് വലുപ്പം മാറ്റാം"
 }

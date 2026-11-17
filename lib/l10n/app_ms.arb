@@ -127,5 +127,6 @@
   "generationOriginalPhotoLabel": "Foto asal",
   "generationCreateWithCutout": "Cipta daripada gambar yang dipotong",
   "generationChooseRangeMyself": "Pilih kawasan sendiri",
-  "generationChooseRangeTitle": "Kawasan yang akan jadi monster"
+  "generationChooseRangeTitle": "Kawasan yang akan jadi monster",
+  "generationChooseRangeMessage": "Seret bingkai untuk kelilingi objek\nUbah saiz dengan peluncur di bawah atau dua jari"
 }

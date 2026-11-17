@@ -127,5 +127,6 @@
   "generationOriginalPhotoLabel": "Eredeti fotó",
   "generationCreateWithCutout": "Készítsd el a kivágott képből",
   "generationChooseRangeMyself": "Válaszd ki magad a területet",
-  "generationChooseRangeTitle": "A szörnnyé váló terület"
+  "generationChooseRangeTitle": "A szörnnyé váló terület",
+  "generationChooseRangeMessage": "Húzd a keretet a képen lévő tárgy köré\nA méretet az alsó csúszkával vagy két ujjal állíthatod"
 }

@@ -127,5 +127,6 @@
   "generationOriginalPhotoLabel": "Izvorna fotografija",
   "generationCreateWithCutout": "Stvori iz izrezane slike",
   "generationChooseRangeMyself": "Sam odaberi područje",
-  "generationChooseRangeTitle": "Područje koje postaje čudovište"
+  "generationChooseRangeTitle": "Područje koje postaje čudovište",
+  "generationChooseRangeMessage": "Povuci okvir oko objekta\nPromijeni mu veličinu klizačem ispod ili dvama prstima"
 }

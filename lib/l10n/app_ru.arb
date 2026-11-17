@@ -127,5 +127,6 @@
   "generationOriginalPhotoLabel": "Исходное фото",
   "generationCreateWithCutout": "Создать из вырезанного изображения",
   "generationChooseRangeMyself": "Выбрать область самому",
-  "generationChooseRangeTitle": "Область, которая станет монстром"
+  "generationChooseRangeTitle": "Область, которая станет монстром",
+  "generationChooseRangeMessage": "Перетащи рамку вокруг объекта\nИзмени размер ползунком внизу или двумя пальцами"
 }

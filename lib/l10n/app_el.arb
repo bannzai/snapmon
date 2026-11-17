@@ -127,5 +127,6 @@
   "generationOriginalPhotoLabel": "Αρχική φωτογραφία",
   "generationCreateWithCutout": "Φτιάξε το από την αποκομμένη εικόνα",
   "generationChooseRangeMyself": "Επιλογή περιοχής από εμένα",
-  "generationChooseRangeTitle": "Περιοχή που θα γίνει τέρας"
+  "generationChooseRangeTitle": "Περιοχή που θα γίνει τέρας",
+  "generationChooseRangeMessage": "Σύρε το πλαίσιο γύρω από το αντικείμενο\nΆλλαξε το μέγεθος με το ρυθμιστικό κάτω ή με δύο δάχτυλα"
 }

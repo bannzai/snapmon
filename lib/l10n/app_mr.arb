@@ -127,5 +127,6 @@
   "generationOriginalPhotoLabel": "मूळ फोटो",
   "generationCreateWithCutout": "कापलेल्या चित्रातून तयार कर",
   "generationChooseRangeMyself": "भाग स्वतः निवड",
-  "generationChooseRangeTitle": "मॉन्स्टर बनणारा भाग"
+  "generationChooseRangeTitle": "मॉन्स्टर बनणारा भाग",
+  "generationChooseRangeMessage": "चौकट ओढून फोटोतील वस्तूला घेर\nखालच्या स्लायडरने किंवा दोन बोटांनी आकार बदल"
 }

@@ -127,5 +127,6 @@
   "generationOriginalPhotoLabel": "Původní fotka",
   "generationCreateWithCutout": "Vytvoř z oříznutého obrázku",
   "generationChooseRangeMyself": "Vybrat oblast ručně",
-  "generationChooseRangeTitle": "Oblast, ze které bude příšera"
+  "generationChooseRangeTitle": "Oblast, ze které bude příšera",
+  "generationChooseRangeMessage": "Přetáhni rámeček kolem objektu\nVelikost změň posuvníkem dole nebo dvěma prsty"
 }
