@@ -132,5 +132,6 @@
   "generationAutoCutoutUnavailable": "Découpe automatique indisponible",
   "generationCreateWithRange": "Créer avec cette zone",
   "generationCropSizeLabel": "Taille du cadre",
-  "generationStageFindingSubject": "Recherche du sujet"
+  "generationStageFindingSubject": "Recherche du sujet",
+  "generationStageCroppingRange": "Découpage de la zone en cours"
 }
