@@ -219,5 +219,6 @@
   "battleChooseSwitchMonster": "Choisis le monstre à envoyer au combat",
   "battleLevelUpNote": "Victoire ou défaite, les monstres qui ont combattu gagnent un niveau",
   "battleLearnedMove": "Nouvelle capacité : {moveName}",
-  "battleNextLearnLevel": "Apprendra une nouvelle capacité au Lv. {level}"
+  "battleNextLearnLevel": "Apprendra une nouvelle capacité au Lv. {level}",
+  "battleShareTextWon": "J’ai gagné un combat dans snapmon\n#snapmon\n{url}"
 }
