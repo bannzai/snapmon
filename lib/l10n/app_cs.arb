@@ -46,5 +46,6 @@
   "settingsSwitchAccountTitle": "Chceš přepnout na propojený účet?",
   "settingsSwitchAccountMessage": "Tento účet {providerName} už je propojený na jiném zařízení. Když na něj přepneš, místní encyklopedie (příšerky: {monsterCount}) se smaže a zobrazí se encyklopedie propojeného účtu.",
   "settingsSwitchAccountConfirm": "Přepni účet",
-  "settingsSwitchedAccount": "Přepnul ses na propojený účet"
+  "settingsSwitchedAccount": "Přepnul ses na propojený účet",
+  "settingsDeleteAccountTitle": "Chceš smazat svůj účet?"
 }

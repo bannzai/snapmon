@@ -46,5 +46,6 @@
   "settingsSwitchAccountTitle": "연동된 계정으로 전환할까요?",
   "settingsSwitchAccountMessage": "이 {providerName} 계정은 다른 기기에 이미 연동되어 있어요. 계정을 바꾸면 이 기기의 도감(몬스터: {monsterCount})이 삭제되고 연동된 계정의 도감으로 바뀌어요.",
   "settingsSwitchAccountConfirm": "계정 전환하기",
-  "settingsSwitchedAccount": "연동된 계정으로 전환했어요"
+  "settingsSwitchedAccount": "연동된 계정으로 전환했어요",
+  "settingsDeleteAccountTitle": "계정을 삭제할까요?"
 }

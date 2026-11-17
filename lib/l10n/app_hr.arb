@@ -46,5 +46,6 @@
   "settingsSwitchAccountTitle": "Želiš li prijeći na povezani račun?",
   "settingsSwitchAccountMessage": "Ovaj {providerName} račun već je povezan na drugom uređaju. Ako se prebaciš na njega, enciklopedija na ovom uređaju (čudovišta: {monsterCount}) izbrisat će se i prikazat će se enciklopedija povezanog računa.",
   "settingsSwitchAccountConfirm": "Promijeni račun",
-  "settingsSwitchedAccount": "Prešao si na povezani račun"
+  "settingsSwitchedAccount": "Prešao si na povezani račun",
+  "settingsDeleteAccountTitle": "Želiš li izbrisati svoj račun?"
 }

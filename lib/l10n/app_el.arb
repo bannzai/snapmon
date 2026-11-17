@@ -46,5 +46,6 @@
   "settingsSwitchAccountTitle": "Θες να αλλάξεις στον συνδεδεμένο λογαριασμό;",
   "settingsSwitchAccountMessage": "Αυτός ο λογαριασμός {providerName} είναι ήδη συνδεδεμένος σε άλλη συσκευή. Αν αλλάξεις λογαριασμό, η εγκυκλοπαίδεια αυτής της συσκευής (τέρατα: {monsterCount}) θα διαγραφεί και θα εμφανιστεί η εγκυκλοπαίδεια του συνδεδεμένου λογαριασμού.",
   "settingsSwitchAccountConfirm": "Άλλαξε λογαριασμό",
-  "settingsSwitchedAccount": "Άλλαξες σε συνδεδεμένο λογαριασμό"
+  "settingsSwitchedAccount": "Άλλαξες σε συνδεδεμένο λογαριασμό",
+  "settingsDeleteAccountTitle": "Θέλεις να διαγράψεις τον λογαριασμό σου;"
 }

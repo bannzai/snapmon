@@ -46,5 +46,6 @@
   "settingsSwitchAccountTitle": "లింక్ చేసిన ఖాతాకు మారతావా?",
   "settingsSwitchAccountMessage": "ఈ {providerName} ఖాతా ఇప్పటికే మరో పరికరంలో లింక్ అయింది. దీనికి మారితే ఈ పరికరంలోని డెక్స్ (మాన్‌స్టర్లు: {monsterCount}) తొలగిపోతుంది, లింక్ అయిన ఖాతా డెక్స్ కనిపిస్తుంది.",
   "settingsSwitchAccountConfirm": "ఖాతా మార్చు",
-  "settingsSwitchedAccount": "లింక్ చేసిన ఖాతాకు మారావు"
+  "settingsSwitchedAccount": "లింక్ చేసిన ఖాతాకు మారావు",
+  "settingsDeleteAccountTitle": "నీ ఖాతాను తొలగించాలనుకుంటున్నావా?"
 }

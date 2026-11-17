@@ -46,5 +46,6 @@
   "settingsSwitchAccountTitle": "ଲିଙ୍କ୍ ହୋଇଥିବା ଆକାଉଣ୍ଟକୁ ବଦଳାଇବାକୁ ଚାହୁଁଛ କି?",
   "settingsSwitchAccountMessage": "ଏହି {providerName} ଆକାଉଣ୍ଟ ଅନ୍ୟ ଡିଭାଇସ୍‌ରେ ପୂର୍ବରୁ ଲିଙ୍କ୍ ହୋଇଛି। ଏଥିକୁ ବଦଳାଇଲେ ଏହି ଡିଭାଇସ୍‌ର ବିଶ୍ୱକୋଷ (ମନଷ୍ଟର: {monsterCount}) ଲିଭିଯିବ ଏବଂ ଲିଙ୍କ୍ ହୋଇଥିବା ଆକାଉଣ୍ଟର ବିଶ୍ୱକୋଷ ଦେଖାଯିବ।",
   "settingsSwitchAccountConfirm": "ଖାତା ବଦଳାଅ",
-  "settingsSwitchedAccount": "ଲିଙ୍କ୍ ହୋଇଥିବା ଆକାଉଣ୍ଟକୁ ବଦଳାଗଲା"
+  "settingsSwitchedAccount": "ଲିଙ୍କ୍ ହୋଇଥିବା ଆକାଉଣ୍ଟକୁ ବଦଳାଗଲା",
+  "settingsDeleteAccountTitle": "ତୁମେ ତୁମ ଖାତା ବିଲୋପ କରିବାକୁ ଚାହୁଁଛ କି?"
 }

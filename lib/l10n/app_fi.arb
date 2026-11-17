@@ -46,5 +46,6 @@
   "settingsSwitchAccountTitle": "Haluatko vaihtaa linkitettyyn tiliin?",
   "settingsSwitchAccountMessage": "Tämä {providerName}-tili on jo yhdistetty toisella laitteella. Jos vaihdat siihen, tämän laitteen kokoelma (hirviöt: {monsterCount}) poistuu ja tilalle tulee yhdistetyn tilin kokoelma.",
   "settingsSwitchAccountConfirm": "Vaihda tiliä",
-  "settingsSwitchedAccount": "Vaihdoit yhdistettyyn tiliin"
+  "settingsSwitchedAccount": "Vaihdoit yhdistettyyn tiliin",
+  "settingsDeleteAccountTitle": "Haluatko poistaa tilisi?"
 }

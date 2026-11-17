@@ -46,5 +46,6 @@
   "settingsSwitchAccountTitle": "هل تريد التبديل إلى الحساب المرتبط؟",
   "settingsSwitchAccountMessage": "حساب {providerName} هذا مرتبط بجهاز آخر. إذا بدّلت إليه، ستختفي موسوع هذا الجهاز (الوحوش: {monsterCount}) وستظهر موسوع الحساب المرتبط.",
   "settingsSwitchAccountConfirm": "بدّل الحساب",
-  "settingsSwitchedAccount": "تم التبديل إلى حساب مرتبط"
+  "settingsSwitchedAccount": "تم التبديل إلى حساب مرتبط",
+  "settingsDeleteAccountTitle": "هل تريد حذف حسابك؟"
 }

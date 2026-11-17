@@ -46,5 +46,6 @@
   "settingsSwitchAccountTitle": "Vil du skifte til den tilknyttede konto?",
   "settingsSwitchAccountMessage": "Denne {providerName}-konto er allerede knyttet til en anden enhed. Hvis du skifter til den, slettes denne enheds dex (monstre: {monsterCount}), og du får den tilknyttede kontos dex.",
   "settingsSwitchAccountConfirm": "Skift konto",
-  "settingsSwitchedAccount": "Du er skiftet til en tilknyttet konto"
+  "settingsSwitchedAccount": "Du er skiftet til en tilknyttet konto",
+  "settingsDeleteAccountTitle": "Vil du slette din konto?"
 }

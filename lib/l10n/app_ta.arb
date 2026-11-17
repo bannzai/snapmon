@@ -46,5 +46,6 @@
   "settingsSwitchAccountTitle": "இணைக்கப்பட்ட கணக்கிற்கு மாற விரும்புகிறீர்களா?",
   "settingsSwitchAccountMessage": "இந்த {providerName} கணக்கு வேறொரு சாதனத்தில் ஏற்கெனவே இணைக்கப்பட்டுள்ளது. இதற்கு மாறினால், இந்தச் சாதனத்தின் களஞ்சியத்தில் உள்ளவை (அரக்கர்கள்: {monsterCount}) அழிக்கப்படும்; இணைக்கப்பட்ட கணக்கின் களஞ்சியம் காட்டப்படும்.",
   "settingsSwitchAccountConfirm": "கணக்கை மாற்றுங்கள்",
-  "settingsSwitchedAccount": "இணைக்கப்பட்ட கணக்கிற்கு மாறியுள்ளீர்கள்"
+  "settingsSwitchedAccount": "இணைக்கப்பட்ட கணக்கிற்கு மாறியுள்ளீர்கள்",
+  "settingsDeleteAccountTitle": "உங்கள் கணக்கை நீக்க விரும்புகிறீர்களா?"
 }

@@ -46,5 +46,6 @@
   "settingsSwitchAccountTitle": "Vill du byta till det länkade kontot?",
   "settingsSwitchAccountMessage": "Det här {providerName}-kontot är redan länkat på en annan enhet. Om du byter raderas samlingen på den här enheten (monster: {monsterCount}) och den länkade kontosamlingen visas.",
   "settingsSwitchAccountConfirm": "Byt konto",
-  "settingsSwitchedAccount": "Du har bytt till ett länkat konto"
+  "settingsSwitchedAccount": "Du har bytt till ett länkat konto",
+  "settingsDeleteAccountTitle": "Vill du radera ditt konto?"
 }

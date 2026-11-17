@@ -46,5 +46,6 @@
   "settingsSwitchAccountTitle": "Vols canviar al compte vinculat?",
   "settingsSwitchAccountMessage": "Aquest compte de {providerName} ja està vinculat en un altre dispositiu. Si hi canvies, s'esborrarà l'enciclopèdia d'aquest dispositiu (monstres: {monsterCount}) i veuràs la del compte vinculat.",
   "settingsSwitchAccountConfirm": "Canvia de compte",
-  "settingsSwitchedAccount": "Has canviat a un compte vinculat"
+  "settingsSwitchedAccount": "Has canviat a un compte vinculat",
+  "settingsDeleteAccountTitle": "Vols eliminar el teu compte?"
 }

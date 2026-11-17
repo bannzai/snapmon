@@ -46,5 +46,6 @@
   "settingsSwitchAccountTitle": "Queres mudar para a conta associada?",
   "settingsSwitchAccountMessage": "Esta conta {providerName} já está associada noutro dispositivo. Se mudares para ela, a enciclopédia deste dispositivo (monstros: {monsterCount}) será apagada e verás a enciclopédia da conta associada.",
   "settingsSwitchAccountConfirm": "Trocar de conta",
-  "settingsSwitchedAccount": "Mudaste para uma conta associada"
+  "settingsSwitchedAccount": "Mudaste para uma conta associada",
+  "settingsDeleteAccountTitle": "Queres eliminar a tua conta?"
 }

@@ -46,5 +46,6 @@
   "settingsSwitchAccountTitle": "ਕੀ ਤੁਸੀਂ ਲਿੰਕ ਕੀਤੇ ਖਾਤੇ 'ਤੇ ਜਾਣਾ ਚਾਹੁੰਦੇ ਹੋ?",
   "settingsSwitchAccountMessage": "ਇਹ {providerName} ਖਾਤਾ ਕਿਸੇ ਹੋਰ ਡਿਵਾਈਸ 'ਤੇ ਪਹਿਲਾਂ ਹੀ ਲਿੰਕ ਹੈ। ਇਸ 'ਤੇ ਸਵਿੱਚ ਕਰਨ ਨਾਲ ਇਸ ਡਿਵਾਈਸ ਦਾ ਸੰਗ੍ਰਹਿ (ਮੌਂਸਟਰ: {monsterCount}) ਮਿਟ ਜਾਵੇਗਾ ਅਤੇ ਲਿੰਕ ਕੀਤੇ ਖਾਤੇ ਦਾ ਸੰਗ੍ਰਹਿ ਦਿਖੇਗਾ।",
   "settingsSwitchAccountConfirm": "ਖਾਤਾ ਬਦਲੋ",
-  "settingsSwitchedAccount": "ਤੁਸੀਂ ਲਿੰਕ ਕੀਤੇ ਖਾਤੇ 'ਤੇ ਬਦਲ ਗਏ ਹੋ"
+  "settingsSwitchedAccount": "ਤੁਸੀਂ ਲਿੰਕ ਕੀਤੇ ਖਾਤੇ 'ਤੇ ਬਦਲ ਗਏ ਹੋ",
+  "settingsDeleteAccountTitle": "ਕੀ ਤੁਸੀਂ ਆਪਣਾ ਖਾਤਾ ਮਿਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?"
 }

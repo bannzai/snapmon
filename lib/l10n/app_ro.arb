@@ -46,5 +46,6 @@
   "settingsSwitchAccountTitle": "Vrei să treci la contul conectat?",
   "settingsSwitchAccountMessage": "Acest cont {providerName} este deja conectat pe alt dispozitiv. Dacă treci la el, enciclopedia de pe acest dispozitiv (monștri: {monsterCount}) va fi ștearsă și va apărea enciclopedia contului conectat.",
   "settingsSwitchAccountConfirm": "Schimbă contul",
-  "settingsSwitchedAccount": "Ai trecut la un cont conectat"
+  "settingsSwitchedAccount": "Ai trecut la un cont conectat",
+  "settingsDeleteAccountTitle": "Vrei să îți ștergi contul?"
 }
