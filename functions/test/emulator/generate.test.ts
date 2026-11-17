@@ -816,7 +816,11 @@ describe("generate", () => {
     expect(
       monster.definition.learnset.slice(1, 4).every((entry) => entry.unlockLevel === 1 && /^[a-z]+_(1[b-g]?|p1)$/.test(entry.moveID)),
     ).toBe(true);
-    expect(monster.definition.learnset.slice(4)).toEqual([
+    // 自分の属性に Lv.2 から Lv.5 で覚えられる技が無いため、その 4 レベルも master の別の属性の段階 1 の技で 1 つずつ埋める (#345)
+    expect(monster.definition.learnset.slice(4, 8).map((entry) => entry.unlockLevel)).toEqual([2, 3, 4, 5]);
+    expect(monster.definition.learnset.slice(4, 8).every((entry) => /^[a-z]+_(1[b-g]?|p1)$/.test(entry.moveID))).toBe(true);
+    expect(new Set(monster.definition.learnset.map((entry) => entry.moveID)).size).toBe(monster.definition.learnset.length);
+    expect(monster.definition.learnset.slice(8)).toEqual([
       { moveID: `${elementTypeID}_2`, unlockLevel: 15 },
       { moveID: `${elementTypeID}_3`, unlockLevel: 100 },
     ]);

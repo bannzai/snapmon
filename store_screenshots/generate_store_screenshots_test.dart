@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:image/image.dart' as image_codec;
+import 'package:snapmon/app_display_name.dart';
 import 'package:snapmon/audio/game_audio.dart';
 import 'package:snapmon/features/battle/battle_screen.dart';
 import 'package:snapmon/features/capture/monster_generator.dart';
@@ -677,7 +678,7 @@ class _FeatureGraphicCanvas extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'snapmon',
+                      appDisplayName,
                       style: SnapmonTextStyles.logo.copyWith(fontSize: 56),
                     ),
                     const SizedBox(height: 20),

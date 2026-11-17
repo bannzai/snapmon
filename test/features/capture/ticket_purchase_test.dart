@@ -84,7 +84,7 @@ void main() {
         home: GenerationScreen(
           sourcePhoto: testPhotoBytes,
           photoSource: GenerationPhotoSource.album,
-          // 上限に当たるまで操作を挟まずに進めるため、切り抜くかを選ぶ画面を出さない
+          // 上限に当たるまで操作を挟まずに進めるため、範囲を決める画面を出さない
           letsUserChooseSubjectRange: false,
           monsterGenerator: generator,
           dexStore: DexStore(definitions: sampleData.definitions),
