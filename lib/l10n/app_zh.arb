@@ -178,5 +178,6 @@
   "battleLogParalyzed": "{monsterName} 身体麻痹，无法攻击",
   "battleLogStunned": "{monsterName}昏过去了，无法行动",
   "battleLogAsleep": "{monsterName} 正呼呼大睡",
-  "battleLogFrozenSolid": "{monsterName}冻住了，无法行动"
+  "battleLogFrozenSolid": "{monsterName}冻住了，无法行动",
+  "battleLogConfusedMove": "{monsterName}混乱了，使出了{moveName}而不是{selectedMoveName}"
 }

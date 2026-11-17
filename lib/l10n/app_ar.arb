@@ -178,5 +178,6 @@
   "battleLogParalyzed": "{monsterName} مشلول ولا يستطيع الهجوم",
   "battleLogStunned": "{monsterName} فاقد الوعي ولا يستطيع التحرك",
   "battleLogAsleep": "{monsterName} نائم بعمق",
-  "battleLogFrozenSolid": "تجمّد {monsterName} ولا يستطيع الحركة"
+  "battleLogFrozenSolid": "تجمّد {monsterName} ولا يستطيع الحركة",
+  "battleLogConfusedMove": "ارتبك {monsterName} واستخدم {moveName} بدلًا من {selectedMoveName}"
 }

@@ -178,5 +178,6 @@
   "battleLogParalyzed": "{monsterName} অবশ হয়ে গেছে, আক্রমণ করতে পারছে না",
   "battleLogStunned": "{monsterName} অজ্ঞান হয়ে গেছে, নড়তে পারছে না",
   "battleLogAsleep": "{monsterName} ঘুমে কাদা",
-  "battleLogFrozenSolid": "{monsterName} বরফে জমে গেছে, নড়তে পারছে না"
+  "battleLogFrozenSolid": "{monsterName} বরফে জমে গেছে, নড়তে পারছে না",
+  "battleLogConfusedMove": "{monsterName} বিভ্রান্ত হয়ে {selectedMoveName}-এর বদলে {moveName} ব্যবহার করল"
 }

@@ -178,5 +178,6 @@
   "battleLogParalyzed": "{monsterName} മരവിച്ചതിനാൽ ആക്രമിക്കാൻ കഴിയുന്നില്ല",
   "battleLogStunned": "{monsterName} ബോധംകെട്ടു, അനങ്ങാൻ കഴിയുന്നില്ല",
   "battleLogAsleep": "{monsterName} ഗാഢനിദ്രയിലാണ്",
-  "battleLogFrozenSolid": "{monsterName} തണുത്തുറഞ്ഞു, അനങ്ങാൻ കഴിയുന്നില്ല"
+  "battleLogFrozenSolid": "{monsterName} തണുത്തുറഞ്ഞു, അനങ്ങാൻ കഴിയുന്നില്ല",
+  "battleLogConfusedMove": "{monsterName} ആശയക്കുഴപ്പത്തിലായി, {selectedMoveName}ന് പകരം {moveName} ഉപയോഗിച്ചു"
 }

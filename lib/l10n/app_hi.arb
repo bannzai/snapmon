@@ -178,5 +178,6 @@
   "battleLogParalyzed": "{monsterName} का शरीर सुन्न है, हमला नहीं कर सकता",
   "battleLogStunned": "{monsterName} बेहोश है और हिल नहीं सकता",
   "battleLogAsleep": "{monsterName} गहरी नींद में सो रहा है",
-  "battleLogFrozenSolid": "{monsterName} जम गया है और हिल नहीं सकता"
+  "battleLogFrozenSolid": "{monsterName} जम गया है और हिल नहीं सकता",
+  "battleLogConfusedMove": "{monsterName} उलझ गया और {selectedMoveName} की जगह {moveName} चला दी"
 }

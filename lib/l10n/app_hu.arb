@@ -178,5 +178,6 @@
   "battleLogParalyzed": "{monsterName} lebénult, és nem tud támadni",
   "battleLogStunned": "{monsterName} elájult, és nem tud mozogni",
   "battleLogAsleep": "{monsterName} mélyen alszik",
-  "battleLogFrozenSolid": "{monsterName} jéggé dermedt, és nem tud megmozdulni"
+  "battleLogFrozenSolid": "{monsterName} jéggé dermedt, és nem tud megmozdulni",
+  "battleLogConfusedMove": "{monsterName} összezavarodott, és {selectedMoveName} helyett {moveName} támadást használt"
 }

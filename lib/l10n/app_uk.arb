@@ -178,5 +178,6 @@
   "battleLogParalyzed": "{monsterName} паралізований і не може атакувати",
   "battleLogStunned": "{monsterName} знепритомнів і не може рухатися",
   "battleLogAsleep": "{monsterName} міцно спить",
-  "battleLogFrozenSolid": "{monsterName} замерз і не може рухатися"
+  "battleLogFrozenSolid": "{monsterName} замерз і не може рухатися",
+  "battleLogConfusedMove": "{monsterName} заплутався і застосував {moveName} замість {selectedMoveName}"
 }

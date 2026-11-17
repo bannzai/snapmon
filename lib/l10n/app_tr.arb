@@ -178,5 +178,6 @@
   "battleLogParalyzed": "{monsterName} felç oldu ve saldıramıyor",
   "battleLogStunned": "{monsterName} bayıldı ve hareket edemiyor",
   "battleLogAsleep": "{monsterName} mışıl mışıl uyuyor",
-  "battleLogFrozenSolid": "{monsterName} dondu ve hareket edemiyor"
+  "battleLogFrozenSolid": "{monsterName} dondu ve hareket edemiyor",
+  "battleLogConfusedMove": "{monsterName} kafası karışınca {selectedMoveName} yerine {moveName} kullandı"
 }

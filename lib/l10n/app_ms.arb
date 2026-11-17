@@ -178,5 +178,6 @@
   "battleLogParalyzed": "{monsterName} lumpuh dan tak dapat menyerang",
   "battleLogStunned": "{monsterName} pengsan dan tak boleh bergerak",
   "battleLogAsleep": "{monsterName} tidur lena",
-  "battleLogFrozenSolid": "{monsterName} membeku dan tak boleh bergerak"
+  "battleLogFrozenSolid": "{monsterName} membeku dan tak boleh bergerak",
+  "battleLogConfusedMove": "{monsterName} keliru lalu menggunakan {moveName} dan bukannya {selectedMoveName}"
 }

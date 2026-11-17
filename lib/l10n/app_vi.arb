@@ -178,5 +178,6 @@
   "battleLogParalyzed": "{monsterName} bị tê liệt, không thể tấn công",
   "battleLogStunned": "{monsterName} đã ngất và không thể cử động",
   "battleLogAsleep": "{monsterName} đang ngủ say",
-  "battleLogFrozenSolid": "{monsterName} bị đóng băng, không thể di chuyển"
+  "battleLogFrozenSolid": "{monsterName} bị đóng băng, không thể di chuyển",
+  "battleLogConfusedMove": "{monsterName} bối rối nên dùng {moveName} thay vì {selectedMoveName}"
 }

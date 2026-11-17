@@ -178,5 +178,6 @@
   "battleLogParalyzed": "{monsterName} je paraliziran in ne more napasti",
   "battleLogStunned": "{monsterName} je omedlel in se ne more premakniti",
   "battleLogAsleep": "{monsterName} trdno spi",
-  "battleLogFrozenSolid": "{monsterName} je zmrznil in se ne more premakniti"
+  "battleLogFrozenSolid": "{monsterName} je zmrznil in se ne more premakniti",
+  "battleLogConfusedMove": "{monsterName} se je zmedel in namesto {selectedMoveName} uporabil {moveName}"
 }

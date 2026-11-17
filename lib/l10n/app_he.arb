@@ -178,5 +178,6 @@
   "battleLogParalyzed": "{monsterName} משותק ולא יכול לתקוף",
   "battleLogStunned": "{monsterName} התעלף ולא יכול לזוז",
   "battleLogAsleep": "{monsterName} שקוע בשינה עמוקה",
-  "battleLogFrozenSolid": "הקרח לא נותן ל{monsterName} לזוז"
+  "battleLogFrozenSolid": "הקרח לא נותן ל{monsterName} לזוז",
+  "battleLogConfusedMove": "{monsterName} התבלבל והשתמש ב־{moveName} במקום ב־{selectedMoveName}"
 }
