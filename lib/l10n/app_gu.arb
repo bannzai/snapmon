@@ -252,5 +252,6 @@
   "moveDetailFormulaNote": "100 પર ગુણક ×1 છે\nશક્તિ × ગુણક ÷ 100 (દશાંશ ભાગ કાઢીને) નુકસાનની ગણતરીમાં વપરાય છે",
   "moveDetailSelfStatFormula": "તમારા {statName}ના ગુણકમાં ઉમેરાતું મૂલ્ય (%)",
   "moveDetailOpponentStatFormula": "હરીફના {statName} ગુણકમાં ઉમેરાતું મૂલ્ય (%)",
-  "moveDetailStatFormulaNote": "ગુણક 100 એટલે 1 ગણું\nરાક્ષસ ઢળી પડે ત્યાં સુધી ચાલે છે અને 50થી 200 વચ્ચે અટકે છે"
+  "moveDetailStatFormulaNote": "ગુણક 100 એટલે 1 ગણું\nરાક્ષસ ઢળી પડે ત્યાં સુધી ચાલે છે અને 50થી 200 વચ્ચે અટકે છે",
+  "moveDetailRecoveryFormula": "પુનઃપ્રાપ્ત થતું HP"
 }

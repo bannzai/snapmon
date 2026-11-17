@@ -252,5 +252,6 @@
   "moveDetailFormulaNote": "100 पर गुणक ×1 होता है\nताकत × गुणक ÷ 100 (दशमलव हिस्सा हटाकर) डैमेज की गणना में जुड़ता है",
   "moveDetailSelfStatFormula": "तुम्हारे {statName} गुणक में जुड़ने वाला मान (%)",
   "moveDetailOpponentStatFormula": "विरोधी के {statName} गुणक में जुड़ने वाला मान (%)",
-  "moveDetailStatFormulaNote": "गुणक 100 यानी 1 गुना\nराक्षस के गिरने तक चलता है और 50 से 200 के बीच रुकता है"
+  "moveDetailStatFormulaNote": "गुणक 100 यानी 1 गुना\nराक्षस के गिरने तक चलता है और 50 से 200 के बीच रुकता है",
+  "moveDetailRecoveryFormula": "बहाल होने वाला HP"
 }

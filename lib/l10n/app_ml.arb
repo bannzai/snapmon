@@ -252,5 +252,6 @@
   "moveDetailFormulaNote": "100 ആണെങ്കിൽ ഗുണകം ×1\nശക്തി × ഗുണകം ÷ 100 (ദശാംശഭാഗം ഒഴിവാക്കി) ഡാമേജ് കണക്കിൽ ഉൾപ്പെടും",
   "moveDetailSelfStatFormula": "നിങ്ങളുടെ {statName} ഗുണകത്തിലേക്ക് ചേർക്കുന്ന മൂല്യം (%)",
   "moveDetailOpponentStatFormula": "എതിരാളിയുടെ {statName} ഗുണകത്തിലേക്ക് ചേർക്കുന്ന മൂല്യം (%)",
-  "moveDetailStatFormulaNote": "ഗുണകം 100 എന്നാൽ 1 മടങ്ങ്\nമോൺസ്റ്റർ വീഴുന്നതുവരെ തുടരും; 50നും 200നും ഇടയിൽ നിൽക്കും"
+  "moveDetailStatFormulaNote": "ഗുണകം 100 എന്നാൽ 1 മടങ്ങ്\nമോൺസ്റ്റർ വീഴുന്നതുവരെ തുടരും; 50നും 200നും ഇടയിൽ നിൽക്കും",
+  "moveDetailRecoveryFormula": "വീണ്ടെടുക്കുന്ന HP"
 }

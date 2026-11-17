@@ -252,5 +252,6 @@
   "moveDetailFormulaNote": "За 100 множник дорівнює ×1\nСила × множник ÷ 100 (без дробової частини) враховується в розрахунку шкоди",
   "moveDetailSelfStatFormula": "Значення, що додається до твого множника {statName} (%)",
   "moveDetailOpponentStatFormula": "Значення, що додається до множника {statName} суперника (%)",
-  "moveDetailStatFormulaNote": "Множник 100 дорівнює ×1\nТриває, доки монстр не впаде, і зупиняється між 50 та 200"
+  "moveDetailStatFormulaNote": "Множник 100 дорівнює ×1\nТриває, доки монстр не впаде, і зупиняється між 50 та 200",
+  "moveDetailRecoveryFormula": "Відновлені HP"
 }

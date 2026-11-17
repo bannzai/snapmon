@@ -252,5 +252,6 @@
   "moveDetailFormulaNote": "Amb 100, el multiplicador és ×1\nLa potència × el multiplicador ÷ 100 (sense decimals) entra en el càlcul del dany",
   "moveDetailSelfStatFormula": "Valor afegit al multiplicador de {statName} propi (%)",
   "moveDetailOpponentStatFormula": "Valor afegit al multiplicador de {statName} del rival (%)",
-  "moveDetailStatFormulaNote": "Un multiplicador de 100 equival a ×1\nContinua fins que un monstre cau i s'atura entre 50 i 200"
+  "moveDetailStatFormulaNote": "Un multiplicador de 100 equival a ×1\nContinua fins que un monstre cau i s'atura entre 50 i 200",
+  "moveDetailRecoveryFormula": "HP recuperats"
 }

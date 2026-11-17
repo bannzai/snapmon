@@ -252,5 +252,6 @@
   "moveDetailFormulaNote": "Bij 100 is de vermenigvuldiger ×1\nKracht × vermenigvuldiger ÷ 100 (afgerond naar beneden) telt mee bij de schadeberekening",
   "moveDetailSelfStatFormula": "Waarde toegevoegd aan je {statName}-vermenigvuldiger (%)",
   "moveDetailOpponentStatFormula": "Waarde die bij de {statName}-vermenigvuldiger van de tegenstander wordt opgeteld (%)",
-  "moveDetailStatFormulaNote": "Vermenigvuldiger 100 betekent ×1\nGaat door tot een monster neergaat en stopt tussen 50 en 200"
+  "moveDetailStatFormulaNote": "Vermenigvuldiger 100 betekent ×1\nGaat door tot een monster neergaat en stopt tussen 50 en 200",
+  "moveDetailRecoveryFormula": "Herstelde HP"
 }

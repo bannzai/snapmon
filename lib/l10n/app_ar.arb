@@ -252,5 +252,6 @@
   "moveDetailFormulaNote": "عند 100 يكون المضاعف ×1\nتدخل القوة × المضاعف ÷ 100 (مع حذف الكسور) في حساب الضرر",
   "moveDetailSelfStatFormula": "القيمة المضافة إلى مضاعف {statName} لديك (%)",
   "moveDetailOpponentStatFormula": "القيمة المضافة إلى مضاعف {statName} للخصم (%)",
-  "moveDetailStatFormulaNote": "المضاعف 100 يعني ×1\nيستمر حتى يسقط الوحش، ويتوقف بين 50 و200"
+  "moveDetailStatFormulaNote": "المضاعف 100 يعني ×1\nيستمر حتى يسقط الوحش، ويتوقف بين 50 و200",
+  "moveDetailRecoveryFormula": "مقدار HP المستعاد"
 }

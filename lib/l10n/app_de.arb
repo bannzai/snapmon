@@ -252,5 +252,6 @@
   "moveDetailFormulaNote": "Bei 100 beträgt der Faktor ×1\nStärke × Faktor ÷ 100 (abgerundet) fließt in die Schadensberechnung ein",
   "moveDetailSelfStatFormula": "Wert, der deinem {statName}-Multiplikator hinzugefügt wird (%)",
   "moveDetailOpponentStatFormula": "Wert zum {statName}-Multiplikator des Gegners addieren (%)",
-  "moveDetailStatFormulaNote": "Multiplikator 100 entspricht ×1\nLäuft, bis ein Monster besiegt ist, und stoppt zwischen 50 und 200"
+  "moveDetailStatFormulaNote": "Multiplikator 100 entspricht ×1\nLäuft, bis ein Monster besiegt ist, und stoppt zwischen 50 und 200",
+  "moveDetailRecoveryFormula": "Wiederhergestellte HP"
 }

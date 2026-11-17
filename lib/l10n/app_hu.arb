@@ -252,5 +252,6 @@
   "moveDetailFormulaNote": "100-nál a szorzó ×1\nErő × szorzó ÷ 100 (a tizedesrészt elhagyva) beleszámít a sebzésbe",
   "moveDetailSelfStatFormula": "A saját {statName} szorzójához hozzáadott érték (%)",
   "moveDetailOpponentStatFormula": "Az ellenfél {statName}-szorzójához hozzáadott érték (%)",
-  "moveDetailStatFormulaNote": "A 100-as szorzó ×1-et jelent\nAddig tart, míg egy szörny el nem esik, és 50 és 200 között áll meg"
+  "moveDetailStatFormulaNote": "A 100-as szorzó ×1-et jelent\nAddig tart, míg egy szörny el nem esik, és 50 és 200 között áll meg",
+  "moveDetailRecoveryFormula": "Visszatöltött HP"
 }

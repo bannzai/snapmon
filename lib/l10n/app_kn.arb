@@ -252,5 +252,6 @@
   "moveDetailFormulaNote": "100 ಇದ್ದರೆ ಗುಣಕ ×1\nಶಕ್ತಿ × ಗುಣಕ ÷ 100 (ದಶಮಾಂಶ ಭಾಗ ಬಿಟ್ಟು) ಹಾನಿಯ ಲೆಕ್ಕಕ್ಕೆ ಸೇರುತ್ತದೆ",
   "moveDetailSelfStatFormula": "ನಿನ್ನ {statName} ಗುಣಕಕ್ಕೆ ಸೇರುವ ಮೌಲ್ಯ (%)",
   "moveDetailOpponentStatFormula": "ಎದುರಾಳಿಯ {statName} ಗುಣಕಕ್ಕೆ ಸೇರಿಸುವ ಮೌಲ್ಯ (%)",
-  "moveDetailStatFormulaNote": "ಗುಣಕ 100 ಎಂದರೆ 1 ಪಟ್ಟು\nರಾಕ್ಷಸ ಕುಸಿಯುವವರೆಗೆ ಮುಂದುವರಿಯುತ್ತದೆ ಮತ್ತು 50ರಿಂದ 200ರ ನಡುವೆ ನಿಲ್ಲುತ್ತದೆ"
+  "moveDetailStatFormulaNote": "ಗುಣಕ 100 ಎಂದರೆ 1 ಪಟ್ಟು\nರಾಕ್ಷಸ ಕುಸಿಯುವವರೆಗೆ ಮುಂದುವರಿಯುತ್ತದೆ ಮತ್ತು 50ರಿಂದ 200ರ ನಡುವೆ ನಿಲ್ಲುತ್ತದೆ",
+  "moveDetailRecoveryFormula": "ಮರುಪಡೆಯುವ HP"
 }

@@ -252,5 +252,6 @@
   "moveDetailFormulaNote": "При 100 множитель равен ×1\nСила × множитель ÷ 100 (без дробной части) учитывается при расчёте урона",
   "moveDetailSelfStatFormula": "Значение, добавляемое к твоему множителю {statName} (%)",
   "moveDetailOpponentStatFormula": "Значение, добавляемое к множителю {statName} противника (%)",
-  "moveDetailStatFormulaNote": "Множитель 100 равен ×1\nПродолжается, пока монстр не падёт, и останавливается между 50 и 200"
+  "moveDetailStatFormulaNote": "Множитель 100 равен ×1\nПродолжается, пока монстр не падёт, и останавливается между 50 и 200",
+  "moveDetailRecoveryFormula": "Восстановленные HP"
 }

@@ -252,5 +252,6 @@
   "moveDetailFormulaNote": "100 वर गुणक ×1 असतो\nताकद × गुणक ÷ 100 (दशांश भाग वगळून) डॅमेजच्या हिशोबात धरलं जातं",
   "moveDetailSelfStatFormula": "तुझ्या {statName} गुणकात जोडले जाणारे मूल्य (%)",
   "moveDetailOpponentStatFormula": "प्रतिस्पर्ध्याच्या {statName} गुणकात जोडले जाणारे मूल्य (%)",
-  "moveDetailStatFormulaNote": "गुणक 100 म्हणजे 1 पट\nमॉन्स्टर कोसळेपर्यंत सुरू राहते आणि 50 ते 200 दरम्यान थांबते"
+  "moveDetailStatFormulaNote": "गुणक 100 म्हणजे 1 पट\nमॉन्स्टर कोसळेपर्यंत सुरू राहते आणि 50 ते 200 दरम्यान थांबते",
+  "moveDetailRecoveryFormula": "भरून येणारे HP"
 }
