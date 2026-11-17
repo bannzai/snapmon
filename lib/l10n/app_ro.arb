@@ -281,5 +281,6 @@
   "actionCardPurchaseWaiting": "Se primește mișcarea",
   "actionCardPurchaseArrivalDelayed": "Așteptăm să apară\nMișcarea primită rămâne a ta chiar dacă închizi acest ecran",
   "actionCardPurchasePending": "Se așteaptă finalizarea plății\nVei primi mișcarea după finalizare, chiar dacă închizi acest ecran",
-  "actionCardPurchaseArrivedTitle": "Ai obținut mișcarea {moveName}!"
+  "actionCardPurchaseArrivedTitle": "Ai obținut mișcarea {moveName}!",
+  "actionCardPurchaseUnassignedTitle": "Nu s-a putut primi mișcarea"
 }

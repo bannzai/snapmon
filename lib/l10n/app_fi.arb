@@ -281,5 +281,6 @@
   "actionCardPurchaseWaiting": "Liikkeen vastaanotto käynnissä",
   "actionCardPurchaseArrivalDelayed": "Odotetaan sen ilmestymistä\nSaamasi liike säilyy, vaikka suljet tämän näkymän",
   "actionCardPurchasePending": "Odotetaan maksun valmistumista\nSaat liikkeen maksun valmistuttua, vaikka sulkisit tämän näkymän",
-  "actionCardPurchaseArrivedTitle": "Sait liikkeen {moveName}!"
+  "actionCardPurchaseArrivedTitle": "Sait liikkeen {moveName}!",
+  "actionCardPurchaseUnassignedTitle": "Et saanut liikettä"
 }

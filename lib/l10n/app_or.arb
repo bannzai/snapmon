@@ -281,5 +281,6 @@
   "actionCardPurchaseWaiting": "ଚାଲ ମିଳୁଛି",
   "actionCardPurchaseArrivalDelayed": "ଦେଖାଯିବାକୁ ଅପେକ୍ଷା କରୁଛୁ\nଏହି ସ୍କ୍ରିନ୍ ବନ୍ଦ କଲେ ବି ପାଇଥିବା ଚାଲ ତୁମ ପାଖରେ ରହିବ",
   "actionCardPurchasePending": "ଦେୟ ସମ୍ପୂର୍ଣ୍ଣ ହେବାକୁ ଅପେକ୍ଷା କରାଯାଉଛି\nଏହି ପରଦା ବନ୍ଦ କଲେ ବି ଦେୟ ସମ୍ପୂର୍ଣ୍ଣ ହେଲେ ଚାଲ ମିଳିବ",
-  "actionCardPurchaseArrivedTitle": "ତୁମେ {moveName} ଚାଲ ପାଇଲ!"
+  "actionCardPurchaseArrivedTitle": "ତୁମେ {moveName} ଚାଲ ପାଇଲ!",
+  "actionCardPurchaseUnassignedTitle": "ଚାଲ ମିଳିଲା ନାହିଁ"
 }

@@ -281,5 +281,6 @@
   "actionCardPurchaseWaiting": "Получение приёма",
   "actionCardPurchaseArrivalDelayed": "Ждём появления\nПолученный приём останется у тебя, даже если закроешь этот экран",
   "actionCardPurchasePending": "Ожидаем завершения оплаты\nТы получишь приём после её завершения, даже если закроешь этот экран",
-  "actionCardPurchaseArrivedTitle": "Ты получил приём {moveName}!"
+  "actionCardPurchaseArrivedTitle": "Ты получил приём {moveName}!",
+  "actionCardPurchaseUnassignedTitle": "Не удалось получить приём"
 }

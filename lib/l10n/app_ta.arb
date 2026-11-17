@@ -281,5 +281,6 @@
   "actionCardPurchaseWaiting": "தாக்குதலைப் பெறுகிறது",
   "actionCardPurchaseArrivalDelayed": "தோன்றக் காத்திருக்கிறோம்\nஇந்தத் திரையை மூடினாலும் பெற்ற தாக்குதல் உங்களிடம் இருக்கும்",
   "actionCardPurchasePending": "பணம் செலுத்துதல் முடிவடையக் காத்திருக்கிறது\nஇந்தத் திரையை மூடினாலும், பணம் செலுத்துதல் முடிந்ததும் தாக்குதல் கிடைக்கும்",
-  "actionCardPurchaseArrivedTitle": "உங்களுக்கு {moveName} என்ற தாக்குதல் கிடைத்தது!"
+  "actionCardPurchaseArrivedTitle": "உங்களுக்கு {moveName} என்ற தாக்குதல் கிடைத்தது!",
+  "actionCardPurchaseUnassignedTitle": "தாக்குதலைப் பெற முடியவில்லை"
 }

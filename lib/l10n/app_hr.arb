@@ -281,5 +281,6 @@
   "actionCardPurchaseWaiting": "Prima se potez",
   "actionCardPurchaseArrivalDelayed": "Čekamo da se pojavi\nPotez koji si dobio ostaje ti čak i ako zatvoriš ovaj zaslon",
   "actionCardPurchasePending": "Čeka se dovršetak plaćanja\nDobit ćeš potez kad se plaćanje dovrši, čak i ako zatvoriš ovaj zaslon",
-  "actionCardPurchaseArrivedTitle": "Dobivaš potez {moveName}!"
+  "actionCardPurchaseArrivedTitle": "Dobivaš potez {moveName}!",
+  "actionCardPurchaseUnassignedTitle": "Potez nije primljen"
 }

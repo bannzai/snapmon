@@ -281,5 +281,6 @@
   "actionCardPurchaseWaiting": "మూవ్ అందుతోంది",
   "actionCardPurchaseArrivalDelayed": "కనిపించే వరకు వేచి చూస్తున్నాం\nఈ స్క్రీన్ మూసినా నీకు వచ్చిన మూవ్ అలాగే ఉంటుంది",
   "actionCardPurchasePending": "చెల్లింపు పూర్తయ్యే వరకు వేచి చూస్తున్నాం\nఈ స్క్రీన్ మూసినా, చెల్లింపు పూర్తయ్యాక మూవ్ వస్తుంది",
-  "actionCardPurchaseArrivedTitle": "నీకు {moveName} ఎత్తుగడ దొరికింది!"
+  "actionCardPurchaseArrivedTitle": "నీకు {moveName} ఎత్తుగడ దొరికింది!",
+  "actionCardPurchaseUnassignedTitle": "మూవ్ అందలేదు"
 }

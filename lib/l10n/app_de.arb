@@ -281,5 +281,6 @@
   "actionCardPurchaseWaiting": "Attacke wird empfangen",
   "actionCardPurchaseArrivalDelayed": "Warte, bis sie erscheint\nDie erhaltene Attacke bleibt dir erhalten, auch wenn du diesen Bildschirm schließt",
   "actionCardPurchasePending": "Warten auf den Abschluss der Zahlung\nDu erhältst die Attacke nach Abschluss, auch wenn du diesen Bildschirm schließt",
-  "actionCardPurchaseArrivedTitle": "Du hast {moveName} erhalten!"
+  "actionCardPurchaseArrivedTitle": "Du hast {moveName} erhalten!",
+  "actionCardPurchaseUnassignedTitle": "Die Attacke konnte nicht empfangen werden"
 }

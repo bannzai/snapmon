@@ -281,5 +281,6 @@
   "actionCardPurchaseWaiting": "चाल मिल रही है",
   "actionCardPurchaseArrivalDelayed": "दिखने का इंतज़ार है\nयह स्क्रीन बंद करने पर भी मिली हुई चाल तुम्हारे पास रहेगी",
   "actionCardPurchasePending": "भुगतान पूरा होने का इंतज़ार है\nयह स्क्रीन बंद करने पर भी भुगतान पूरा होते ही चाल मिल जाएगी",
-  "actionCardPurchaseArrivedTitle": "तुम्हें {moveName} चाल मिल गई!"
+  "actionCardPurchaseArrivedTitle": "तुम्हें {moveName} चाल मिल गई!",
+  "actionCardPurchaseUnassignedTitle": "चाल नहीं मिल सकी"
 }

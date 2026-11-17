@@ -281,5 +281,6 @@
   "actionCardPurchaseWaiting": "Támadás fogadása folyamatban",
   "actionCardPurchaseArrivalDelayed": "Várjuk, hogy megjelenjen\nA megszerzett támadás akkor is megmarad, ha bezárod ezt a képernyőt",
   "actionCardPurchasePending": "Várakozás a fizetés befejezésére\nA fizetés után megkapod a támadást akkor is, ha bezárod ezt a képernyőt",
-  "actionCardPurchaseArrivedTitle": "Megszerezted ezt a támadást: {moveName}!"
+  "actionCardPurchaseArrivedTitle": "Megszerezted ezt a támadást: {moveName}!",
+  "actionCardPurchaseUnassignedTitle": "Nem sikerült megkapni a támadást"
 }

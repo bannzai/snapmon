@@ -281,5 +281,6 @@
   "actionCardPurchaseWaiting": "Modtager angreb",
   "actionCardPurchaseArrivalDelayed": "Venter på, at det dukker op\nDet angreb, du har fået, bliver hos dig, selvom du lukker skærmen",
   "actionCardPurchasePending": "Venter på, at betalingen gennemføres\nDu får angrebet, når den er gennemført, også hvis du lukker denne skærm",
-  "actionCardPurchaseArrivedTitle": "Du har fået {moveName}!"
+  "actionCardPurchaseArrivedTitle": "Du har fået {moveName}!",
+  "actionCardPurchaseUnassignedTitle": "Kunne ikke modtage angrebet"
 }

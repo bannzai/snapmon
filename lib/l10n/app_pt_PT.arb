@@ -281,5 +281,6 @@
   "actionCardPurchaseWaiting": "A receber o golpe",
   "actionCardPurchaseArrivalDelayed": "À espera que apareça\nO golpe que recebeste continuará contigo mesmo que feches este ecrã",
   "actionCardPurchasePending": "À espera da conclusão do pagamento\nReceberás o golpe quando estiver concluído, mesmo que feches este ecrã",
-  "actionCardPurchaseArrivedTitle": "Conseguiste o golpe {moveName}!"
+  "actionCardPurchaseArrivedTitle": "Conseguiste o golpe {moveName}!",
+  "actionCardPurchaseUnassignedTitle": "Não foi possível receber o golpe"
 }

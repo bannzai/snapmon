@@ -281,5 +281,6 @@
   "actionCardPurchaseWaiting": "Đang nhận chiêu",
   "actionCardPurchaseArrivalDelayed": "Đang chờ hiển thị\nChiêu bạn nhận được vẫn còn dù bạn đóng màn hình này",
   "actionCardPurchasePending": "Đang chờ thanh toán hoàn tất\nBạn vẫn nhận được chiêu khi thanh toán xong, dù đã đóng màn hình này",
-  "actionCardPurchaseArrivedTitle": "Bạn đã nhận được chiêu {moveName}!"
+  "actionCardPurchaseArrivedTitle": "Bạn đã nhận được chiêu {moveName}!",
+  "actionCardPurchaseUnassignedTitle": "Không nhận được chiêu"
 }

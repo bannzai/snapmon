@@ -281,5 +281,6 @@
   "actionCardPurchaseWaiting": "กำลังรับท่า",
   "actionCardPurchaseArrivalDelayed": "กำลังรอให้แสดงผล\nปิดหน้านี้แล้ว ท่าที่ได้รับก็ยังอยู่",
   "actionCardPurchasePending": "กำลังรอให้ชำระเงินเสร็จ\nปิดหน้านี้ไปก็ยังได้รับท่าเมื่อชำระเงินเสร็จ",
-  "actionCardPurchaseArrivedTitle": "ได้รับท่า {moveName} แล้ว!"
+  "actionCardPurchaseArrivedTitle": "ได้รับท่า {moveName} แล้ว!",
+  "actionCardPurchaseUnassignedTitle": "รับท่าไม่ได้"
 }

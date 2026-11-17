@@ -281,5 +281,6 @@
   "actionCardPurchaseWaiting": "Přijímá se útok",
   "actionCardPurchaseArrivalDelayed": "Čekáme, až se objeví\nÚtok, který jsi získal, ti zůstane, i když tuto obrazovku zavřeš",
   "actionCardPurchasePending": "Čeká se na dokončení platby\nÚtok dostaneš po dokončení platby, i když tuto obrazovku zavřeš",
-  "actionCardPurchaseArrivedTitle": "Získáváš útok {moveName}!"
+  "actionCardPurchaseArrivedTitle": "Získáváš útok {moveName}!",
+  "actionCardPurchaseUnassignedTitle": "Útok se nepodařilo získat"
 }

@@ -281,5 +281,6 @@
   "actionCardPurchaseWaiting": "Mottar angrep",
   "actionCardPurchaseArrivalDelayed": "Venter på at det skal dukke opp\nAngrepet du fikk, blir værende selv om du lukker denne skjermen",
   "actionCardPurchasePending": "Venter på at betalingen fullføres\nDu får angrepet når den er fullført, selv om du lukker denne skjermen",
-  "actionCardPurchaseArrivedTitle": "Du fikk angrepet {moveName}!"
+  "actionCardPurchaseArrivedTitle": "Du fikk angrepet {moveName}!",
+  "actionCardPurchaseUnassignedTitle": "Kunne ikke motta angrepet"
 }

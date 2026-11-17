@@ -281,5 +281,6 @@
   "actionCardPurchaseWaiting": "Recibiendo el movimiento",
   "actionCardPurchaseArrivalDelayed": "Esperando a que aparezca\nEl movimiento que recibiste seguirá contigo aunque cierres esta pantalla",
   "actionCardPurchasePending": "Esperando a que se complete el pago\nRecibirás el movimiento cuando se complete, aunque cierres esta pantalla",
-  "actionCardPurchaseArrivedTitle": "¡Conseguiste el movimiento {moveName}!"
+  "actionCardPurchaseArrivedTitle": "¡Conseguiste el movimiento {moveName}!",
+  "actionCardPurchaseUnassignedTitle": "No se pudo recibir el movimiento"
 }
