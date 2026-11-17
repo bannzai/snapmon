@@ -190,5 +190,6 @@
   "battleLogStatusDamage": "{monsterName} subit des dégâts à cause de {statusName} !",
   "battleLogFieldStatShuffleStarted": "Le terrain se met à fluctuer",
   "battleLogFieldStatShuffled": "Les fluctuations du terrain ont échangé {firstStatName} et {secondStatName} !",
-  "battleLogFieldEnded": "Le terrain est revenu à la normale"
+  "battleLogFieldEnded": "Le terrain est revenu à la normale",
+  "battleStatusStackCount": "{statusName} ×{stackCount}"
 }
