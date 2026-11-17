@@ -221,5 +221,6 @@
   "battleLearnedMove": "Har lært angrebet {moveName}!",
   "battleNextLearnLevel": "Lærer et nyt angreb på Lv. {level}",
   "battleShareTextWon": "Jeg vandt en kamp i snapmon\n#snapmon\n{url}",
-  "battleShareTextLost": "Jeg tabte en kamp i snapmon\n#snapmon\n{url}"
+  "battleShareTextLost": "Jeg tabte en kamp i snapmon\n#snapmon\n{url}",
+  "battleShareResult": "Del resultatet"
 }

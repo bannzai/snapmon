@@ -221,5 +221,6 @@
   "battleLearnedMove": "Oppi uuden liikkeen: {moveName}!",
   "battleNextLearnLevel": "Oppii uuden liikkeen tasolla Lv. {level}",
   "battleShareTextWon": "Voitin taistelun snapmonissa\n#snapmon\n{url}",
-  "battleShareTextLost": "Hävisin taistelun snapmonissa\n#snapmon\n{url}"
+  "battleShareTextLost": "Hävisin taistelun snapmonissa\n#snapmon\n{url}",
+  "battleShareResult": "Jaa tulos"
 }

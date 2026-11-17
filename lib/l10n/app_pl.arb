@@ -221,5 +221,6 @@
   "battleLearnedMove": "Nauczył się nowego ruchu: {moveName}!",
   "battleNextLearnLevel": "Na Lv. {level} poznaje nowy ruch",
   "battleShareTextWon": "Udało mi się wygrać walkę w snapmon\n#snapmon\n{url}",
-  "battleShareTextLost": "Przegrałem walkę w snapmon\n#snapmon\n{url}"
+  "battleShareTextLost": "Przegrałem walkę w snapmon\n#snapmon\n{url}",
+  "battleShareResult": "Udostępnij wynik"
 }

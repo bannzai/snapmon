@@ -221,5 +221,6 @@
   "battleLearnedMove": "Aprendeu o golpe {moveName}!",
   "battleNextLearnLevel": "Aprende um golpe novo no Lv. {level}",
   "battleShareTextWon": "Venci uma batalha no snapmon\n#snapmon\n{url}",
-  "battleShareTextLost": "Perdi uma batalha no snapmon\n#snapmon\n{url}"
+  "battleShareTextLost": "Perdi uma batalha no snapmon\n#snapmon\n{url}",
+  "battleShareResult": "Compartilhe o resultado"
 }

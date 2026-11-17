@@ -221,5 +221,6 @@
   "battleLearnedMove": "נלמד מהלך חדש: {moveName}!",
   "battleNextLearnLevel": "מתקפה חדשה נלמדת ב־Lv. {level}",
   "battleShareTextWon": "ניצחתי בקרב ב־snapmon\n#snapmon\n{url}",
-  "battleShareTextLost": "הפסדתי בקרב ב-snapmon\n#snapmon\n{url}"
+  "battleShareTextLost": "הפסדתי בקרב ב-snapmon\n#snapmon\n{url}",
+  "battleShareResult": "שיתוף התוצאה"
 }

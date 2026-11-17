@@ -221,5 +221,6 @@
   "battleLearnedMove": "Đã học chiêu mới: {moveName}!",
   "battleNextLearnLevel": "Học chiêu mới ở Lv. {level}",
   "battleShareTextWon": "Mình đã thắng một trận trong snapmon\n#snapmon\n{url}",
-  "battleShareTextLost": "Mình thua một trận trong snapmon rồi\n#snapmon\n{url}"
+  "battleShareTextLost": "Mình thua một trận trong snapmon rồi\n#snapmon\n{url}",
+  "battleShareResult": "Chia sẻ kết quả"
 }

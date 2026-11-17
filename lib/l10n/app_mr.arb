@@ -221,5 +221,6 @@
   "battleLearnedMove": "नवीन चाल शिकला: {moveName}!",
   "battleNextLearnLevel": "Lv. {level} वर नवी चाल शिकेल",
   "battleShareTextWon": "snapmon मधली लढाई जिंकली\n#snapmon\n{url}",
-  "battleShareTextLost": "snapmon मध्ये लढाई हरलो\n#snapmon\n{url}"
+  "battleShareTextLost": "snapmon मध्ये लढाई हरलो\n#snapmon\n{url}",
+  "battleShareResult": "निकाल शेअर कर"
 }

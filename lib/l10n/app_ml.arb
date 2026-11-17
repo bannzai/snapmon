@@ -221,5 +221,6 @@
   "battleLearnedMove": "പുതിയ നീക്കം പഠിച്ചു: {moveName}!",
   "battleNextLearnLevel": "Lv. {level}-ൽ പുതിയ നീക്കം പഠിക്കും",
   "battleShareTextWon": "snapmon-ൽ ഒരു പോരാട്ടം ജയിച്ചു\n#snapmon\n{url}",
-  "battleShareTextLost": "snapmon-ൽ ഒരു പോരാട്ടം തോറ്റു\n#snapmon\n{url}"
+  "battleShareTextLost": "snapmon-ൽ ഒരു പോരാട്ടം തോറ്റു\n#snapmon\n{url}",
+  "battleShareResult": "ഫലം പങ്കിടൂ"
 }

@@ -221,5 +221,6 @@
   "battleLearnedMove": "Naučil se nový útok: {moveName}!",
   "battleNextLearnLevel": "Na Lv. {level} se naučí nový útok",
   "battleShareTextWon": "Vyhrál jsem bitvu ve snapmon\n#snapmon\n{url}",
-  "battleShareTextLost": "Prohrál jsem souboj ve snapmon\n#snapmon\n{url}"
+  "battleShareTextLost": "Prohrál jsem souboj ve snapmon\n#snapmon\n{url}",
+  "battleShareResult": "Sdílej výsledek"
 }

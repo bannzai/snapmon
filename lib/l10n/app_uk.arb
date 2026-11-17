@@ -221,5 +221,6 @@
   "battleLearnedMove": "Вивчив новий прийом: {moveName}!",
   "battleNextLearnLevel": "На Lv. {level} вивчить новий прийом",
   "battleShareTextWon": "Я виграв бій у snapmon\n#snapmon\n{url}",
-  "battleShareTextLost": "Програв битву в snapmon\n#snapmon\n{url}"
+  "battleShareTextLost": "Програв битву в snapmon\n#snapmon\n{url}",
+  "battleShareResult": "Поділитися результатом"
 }

@@ -221,5 +221,6 @@
   "battleLearnedMove": "కొత్త ఎత్తు నేర్చుకుంది: {moveName}!",
   "battleNextLearnLevel": "Lv. {level} వద్ద కొత్త మూవ్ నేర్చుకుంటుంది",
   "battleShareTextWon": "snapmonలో యుద్ధం గెలిచా\n#snapmon\n{url}",
-  "battleShareTextLost": "snapmonలో పోరాటం ఓడిపోయా\n#snapmon\n{url}"
+  "battleShareTextLost": "snapmonలో పోరాటం ఓడిపోయా\n#snapmon\n{url}",
+  "battleShareResult": "ఫలితాన్ని పంచుకో"
 }

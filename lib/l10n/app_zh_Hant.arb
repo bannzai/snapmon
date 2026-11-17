@@ -221,5 +221,6 @@
   "battleLearnedMove": "學會了新招式：{moveName}！",
   "battleNextLearnLevel": "在 Lv. {level} 學會新招式",
   "battleShareTextWon": "我在 snapmon 的對戰中贏了\n#snapmon\n{url}",
-  "battleShareTextLost": "在 snapmon 對戰中輸了\n#snapmon\n{url}"
+  "battleShareTextLost": "在 snapmon 對戰中輸了\n#snapmon\n{url}",
+  "battleShareResult": "分享結果"
 }
