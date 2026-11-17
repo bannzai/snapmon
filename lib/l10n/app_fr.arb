@@ -298,5 +298,6 @@
   "actionCardTeachTitle": "Apprendre une capacité à {monsterName}",
   "actionCardTeachNoForgotten": "Aucune capacité à retirer",
   "actionCardTeachReplacedMove": "{moveName} n’occupe plus d’emplacement de capacité",
-  "actionCardTeachNotEquipped": "Tu peux placer cette capacité dans un emplacement via « Choisir les capacités »"
+  "actionCardTeachNotEquipped": "Tu peux placer cette capacité dans un emplacement via « Choisir les capacités »",
+  "battleLearnedMoveNotEquipped": "Tu peux l’équiper dans « Choisir une capacité »"
 }
