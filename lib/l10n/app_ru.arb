@@ -302,5 +302,6 @@
   "battleLearnedMoveNotEquipped": "Можешь заменить его в разделе «Выбрать приём»",
   "moveSelectionOpen": "Выбери приёмы",
   "moveSelectionTitle": "Приёмы {monsterName}",
-  "moveSelectionDescription": "Выбери для боя не больше {count} приёмов\nКнопки приёмов появятся в том порядке, в котором ты их выберешь"
+  "moveSelectionDescription": "Выбери для боя не больше {count} приёмов\nКнопки приёмов появятся в том порядке, в котором ты их выберешь",
+  "moveSelectionSave": "Подтвердить"
 }

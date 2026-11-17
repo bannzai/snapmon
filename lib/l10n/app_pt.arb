@@ -302,5 +302,6 @@
   "battleLearnedMoveNotEquipped": "Você pode trocar em «Escolher golpe»",
   "moveSelectionOpen": "Escolha os golpes",
   "moveSelectionTitle": "Golpes de {monsterName}",
-  "moveSelectionDescription": "Escolha até {count} golpes para a batalha\nOs botões dos golpes aparecem na ordem em que você os escolher"
+  "moveSelectionDescription": "Escolha até {count} golpes para a batalha\nOs botões dos golpes aparecem na ordem em que você os escolher",
+  "moveSelectionSave": "Confirmar"
 }

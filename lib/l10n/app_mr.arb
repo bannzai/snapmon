@@ -302,5 +302,6 @@
   "battleLearnedMoveNotEquipped": "‘चाल निवड’मध्ये ती बदलू शकतोस",
   "moveSelectionOpen": "चाली निवड",
   "moveSelectionTitle": "{monsterName}च्या चाली",
-  "moveSelectionDescription": "लढाईसाठी जास्तीत जास्त {count} चाली निवड\nलढाईत चालींची बटणे निवडलेल्या क्रमाने दिसतील"
+  "moveSelectionDescription": "लढाईसाठी जास्तीत जास्त {count} चाली निवड\nलढाईत चालींची बटणे निवडलेल्या क्रमाने दिसतील",
+  "moveSelectionSave": "निश्चित कर"
 }

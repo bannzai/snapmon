@@ -302,5 +302,6 @@
   "battleLearnedMoveNotEquipped": "Kamu bisa menggantinya di «Pilih jurus»",
   "moveSelectionOpen": "Pilih jurus",
   "moveSelectionTitle": "Jurus {monsterName}",
-  "moveSelectionDescription": "Pilih hingga {count} jurus untuk bertarung\nTombol jurus saat bertarung akan mengikuti urutan pilihanmu"
+  "moveSelectionDescription": "Pilih hingga {count} jurus untuk bertarung\nTombol jurus saat bertarung akan mengikuti urutan pilihanmu",
+  "moveSelectionSave": "Konfirmasi"
 }

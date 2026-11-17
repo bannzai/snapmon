@@ -302,5 +302,6 @@
   "battleLearnedMoveNotEquipped": "‘ચાલ પસંદ કરો’માં તેને બદલી શકો છો",
   "moveSelectionOpen": "ચાલ પસંદ કરો",
   "moveSelectionTitle": "{monsterName}ની ચાલ",
-  "moveSelectionDescription": "લડાઈ માટે વધુમાં વધુ {count} ચાલ પસંદ કરો\nલડાઈમાં ચાલનાં બટન તમે પસંદ કરેલા ક્રમમાં દેખાશે"
+  "moveSelectionDescription": "લડાઈ માટે વધુમાં વધુ {count} ચાલ પસંદ કરો\nલડાઈમાં ચાલનાં બટન તમે પસંદ કરેલા ક્રમમાં દેખાશે",
+  "moveSelectionSave": "પુષ્ટિ કરો"
 }

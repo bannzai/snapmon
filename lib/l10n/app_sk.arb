@@ -302,5 +302,6 @@
   "battleLearnedMoveNotEquipped": "Môžeš ho vymeniť v ponuke „Vybrať útok“",
   "moveSelectionOpen": "Vyber útoky",
   "moveSelectionTitle": "Útoky {monsterName}",
-  "moveSelectionDescription": "Vyber si do boja najviac {count} útokov\nTlačidlá útokov budú v poradí, v akom ich vyberieš"
+  "moveSelectionDescription": "Vyber si do boja najviac {count} útokov\nTlačidlá útokov budú v poradí, v akom ich vyberieš",
+  "moveSelectionSave": "Potvrď"
 }

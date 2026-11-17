@@ -302,5 +302,6 @@
   "battleLearnedMoveNotEquipped": "Du kan byta den under ”Välj attack”",
   "moveSelectionOpen": "Välj attacker",
   "moveSelectionTitle": "Attacker för {monsterName}",
-  "moveSelectionDescription": "Välj upp till {count} attacker för striden\nAttackknapparna visas i den ordning du väljer dem"
+  "moveSelectionDescription": "Välj upp till {count} attacker för striden\nAttackknapparna visas i den ordning du väljer dem",
+  "moveSelectionSave": "Bekräfta"
 }

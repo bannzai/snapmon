@@ -302,5 +302,6 @@
   "battleLearnedMoveNotEquipped": "’چال چنو‘ میں اسے بدل سکتے ہو",
   "moveSelectionOpen": "چالیں چنو",
   "moveSelectionTitle": "{monsterName} کی چالیں",
-  "moveSelectionDescription": "لڑائی کے لیے زیادہ سے زیادہ {count} چالیں چنو\nلڑائی میں چالوں کے بٹن تمہارے چنے ہوئے ترتیب سے دکھیں گے"
+  "moveSelectionDescription": "لڑائی کے لیے زیادہ سے زیادہ {count} چالیں چنو\nلڑائی میں چالوں کے بٹن تمہارے چنے ہوئے ترتیب سے دکھیں گے",
+  "moveSelectionSave": "تصدیق کرو"
 }

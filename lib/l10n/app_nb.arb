@@ -302,5 +302,6 @@
   "battleLearnedMoveNotEquipped": "Du kan bytte det under «Velg angrep»",
   "moveSelectionOpen": "Velg angrep",
   "moveSelectionTitle": "Angrep for {monsterName}",
-  "moveSelectionDescription": "Velg opptil {count} angrep til kamp\nAngrepsknappene vises i rekkefølgen du velger dem"
+  "moveSelectionDescription": "Velg opptil {count} angrep til kamp\nAngrepsknappene vises i rekkefølgen du velger dem",
+  "moveSelectionSave": "Bekreft"
 }

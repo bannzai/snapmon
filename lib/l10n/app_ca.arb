@@ -302,5 +302,6 @@
   "battleLearnedMoveNotEquipped": "La pots canviar a «Tria un moviment»",
   "moveSelectionOpen": "Tria moviments",
   "moveSelectionTitle": "Moviments de {monsterName}",
-  "moveSelectionDescription": "Tria fins a {count} moviments per al combat\nEls botons dels moviments sortiran en l'ordre que els triïs"
+  "moveSelectionDescription": "Tria fins a {count} moviments per al combat\nEls botons dels moviments sortiran en l'ordre que els triïs",
+  "moveSelectionSave": "Confirma"
 }

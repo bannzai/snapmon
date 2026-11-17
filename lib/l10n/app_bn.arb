@@ -302,5 +302,6 @@
   "battleLearnedMoveNotEquipped": "‘কৌশল বেছে নাও’ থেকে বদলাতে পারো",
   "moveSelectionOpen": "কৌশল বেছে নাও",
   "moveSelectionTitle": "{monsterName}-এর কৌশল",
-  "moveSelectionDescription": "লড়াইয়ের জন্য সর্বোচ্চ {count}টি কৌশল বেছে নাও\nবেছে নেওয়ার ক্রমেই লড়াইয়ের কৌশল বোতামগুলো সাজানো থাকবে"
+  "moveSelectionDescription": "লড়াইয়ের জন্য সর্বোচ্চ {count}টি কৌশল বেছে নাও\nবেছে নেওয়ার ক্রমেই লড়াইয়ের কৌশল বোতামগুলো সাজানো থাকবে",
+  "moveSelectionSave": "নিশ্চিত করো"
 }

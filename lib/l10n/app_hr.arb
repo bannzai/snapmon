@@ -302,5 +302,6 @@
   "battleLearnedMoveNotEquipped": "Možeš ga zamijeniti pod „Odaberi potez”",
   "moveSelectionOpen": "Odaberi poteze",
   "moveSelectionTitle": "Potezi za {monsterName}",
-  "moveSelectionDescription": "Odaberi najviše {count} poteza za borbu\nGumbi poteza u borbi bit će poredani redom kojim ih odabereš"
+  "moveSelectionDescription": "Odaberi najviše {count} poteza za borbu\nGumbi poteza u borbi bit će poredani redom kojim ih odabereš",
+  "moveSelectionSave": "Potvrdi"
 }

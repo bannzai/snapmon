@@ -302,5 +302,6 @@
   "battleLearnedMoveNotEquipped": "«Hamle seç» bölümünden değiştirebilirsin",
   "moveSelectionOpen": "Hamle seç",
   "moveSelectionTitle": "{monsterName} hamleleri",
-  "moveSelectionDescription": "Savaş için en fazla {count} hamle seç\nHamle düğmeleri seçtiğin sırayla dizilir"
+  "moveSelectionDescription": "Savaş için en fazla {count} hamle seç\nHamle düğmeleri seçtiğin sırayla dizilir",
+  "moveSelectionSave": "Onayla"
 }

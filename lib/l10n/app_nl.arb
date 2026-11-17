@@ -302,5 +302,6 @@
   "battleLearnedMoveNotEquipped": "Je kunt hem wisselen bij ‘Kies een aanval’",
   "moveSelectionOpen": "Kies aanvallen",
   "moveSelectionTitle": "Aanvallen van {monsterName}",
-  "moveSelectionDescription": "Kies maximaal {count} aanvallen voor het gevecht\nDe aanvalsknoppen verschijnen in de volgorde waarin je ze kiest"
+  "moveSelectionDescription": "Kies maximaal {count} aanvallen voor het gevecht\nDe aanvalsknoppen verschijnen in de volgorde waarin je ze kiest",
+  "moveSelectionSave": "Bevestigen"
 }

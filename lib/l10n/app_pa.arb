@@ -302,5 +302,6 @@
   "battleLearnedMoveNotEquipped": "‘ਚਾਲ ਚੁਣੋ’ ਵਿੱਚ ਇਸਨੂੰ ਬਦਲ ਸਕਦੇ ਹੋ",
   "moveSelectionOpen": "ਚਾਲਾਂ ਚੁਣੋ",
   "moveSelectionTitle": "{monsterName} ਦੀਆਂ ਚਾਲਾਂ",
-  "moveSelectionDescription": "ਲੜਾਈ ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ {count} ਚਾਲਾਂ ਚੁਣੋ\nਲੜਾਈ ਵਿੱਚ ਚਾਲਾਂ ਦੇ ਬਟਨ ਤੁਹਾਡੇ ਚੁਣੇ ਕ੍ਰਮ ਵਿੱਚ ਦਿਖਣਗੇ"
+  "moveSelectionDescription": "ਲੜਾਈ ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ {count} ਚਾਲਾਂ ਚੁਣੋ\nਲੜਾਈ ਵਿੱਚ ਚਾਲਾਂ ਦੇ ਬਟਨ ਤੁਹਾਡੇ ਚੁਣੇ ਕ੍ਰਮ ਵਿੱਚ ਦਿਖਣਗੇ",
+  "moveSelectionSave": "ਪੁਸ਼ਟੀ ਕਰੋ"
 }

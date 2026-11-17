@@ -302,5 +302,6 @@
   "battleLearnedMoveNotEquipped": "يمكنك تبديلها من «اختيار الحركات»",
   "moveSelectionOpen": "اختر الحركات",
   "moveSelectionTitle": "حركات {monsterName}",
-  "moveSelectionDescription": "اختر حركات للقتال، بحد أقصى {count}\nستظهر أزرار الحركات في القتال حسب ترتيب اختيارك"
+  "moveSelectionDescription": "اختر حركات للقتال، بحد أقصى {count}\nستظهر أزرار الحركات في القتال حسب ترتيب اختيارك",
+  "moveSelectionSave": "تأكيد"
 }

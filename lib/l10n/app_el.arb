@@ -302,5 +302,6 @@
   "battleLearnedMoveNotEquipped": "Μπορείς να την αλλάξεις από την «Επιλογή τεχνικών»",
   "moveSelectionOpen": "Διάλεξε τεχνικές",
   "moveSelectionTitle": "Τεχνικές του {monsterName}",
-  "moveSelectionDescription": "Διάλεξε έως {count} τεχνικές για τη μάχη\nΤα κουμπιά των τεχνικών θα μπουν στη σειρά που τις διάλεξες"
+  "moveSelectionDescription": "Διάλεξε έως {count} τεχνικές για τη μάχη\nΤα κουμπιά των τεχνικών θα μπουν στη σειρά που τις διάλεξες",
+  "moveSelectionSave": "Επιβεβαίωση"
 }

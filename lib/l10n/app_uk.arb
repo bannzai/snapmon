@@ -302,5 +302,6 @@
   "battleLearnedMoveNotEquipped": "Можеш замінити його в розділі «Вибрати прийом»",
   "moveSelectionOpen": "Вибери прийоми",
   "moveSelectionTitle": "Прийоми {monsterName}",
-  "moveSelectionDescription": "Вибери для бою щонайбільше {count} прийомів\nКнопки прийомів з’являться в тому порядку, у якому ти їх вибереш"
+  "moveSelectionDescription": "Вибери для бою щонайбільше {count} прийомів\nКнопки прийомів з’являться в тому порядку, у якому ти їх вибереш",
+  "moveSelectionSave": "Підтвердити"
 }

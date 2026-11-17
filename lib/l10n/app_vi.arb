@@ -302,5 +302,6 @@
   "battleLearnedMoveNotEquipped": "Bạn có thể đổi ở mục «Chọn chiêu»",
   "moveSelectionOpen": "Chọn chiêu",
   "moveSelectionTitle": "Chiêu của {monsterName}",
-  "moveSelectionDescription": "Chọn tối đa {count} chiêu để chiến đấu\nNút chiêu trong trận sẽ xếp theo thứ tự bạn chọn"
+  "moveSelectionDescription": "Chọn tối đa {count} chiêu để chiến đấu\nNút chiêu trong trận sẽ xếp theo thứ tự bạn chọn",
+  "moveSelectionSave": "Xác nhận"
 }

@@ -302,5 +302,6 @@
   "battleLearnedMoveNotEquipped": "‘మూవ్ ఎంచుకో’లో దీన్ని మార్చుకోవచ్చు",
   "moveSelectionOpen": "మూవ్‌లు ఎంచుకో",
   "moveSelectionTitle": "{monsterName} మూవ్‌లు",
-  "moveSelectionDescription": "పోరాటానికి గరిష్ఠంగా {count} మూవ్‌లు ఎంచుకో\nమూవ్ బటన్‌లు నువ్వు ఎంచుకున్న క్రమంలో కనిపిస్తాయి"
+  "moveSelectionDescription": "పోరాటానికి గరిష్ఠంగా {count} మూవ్‌లు ఎంచుకో\nమూవ్ బటన్‌లు నువ్వు ఎంచుకున్న క్రమంలో కనిపిస్తాయి",
+  "moveSelectionSave": "నిర్ధారించు"
 }
