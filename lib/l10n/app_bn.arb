@@ -152,5 +152,6 @@
   "resultShareCard": "কার্ড শেয়ার করো",
   "shareChooseFormat": "কার্ডের ছবির আকার বেছে নাও",
   "shareFormatPortrait": "লম্বালম্বি",
-  "shareFormatLandscape": "আড়াআড়ি"
+  "shareFormatLandscape": "আড়াআড়ি",
+  "shareFormatPortraitDescription": "স্টোরির জন্য 1080×1920"
 }

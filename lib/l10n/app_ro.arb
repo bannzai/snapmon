@@ -152,5 +152,6 @@
   "resultShareCard": "Distribuie cardul",
   "shareChooseFormat": "Alege forma imaginii cărții",
   "shareFormatPortrait": "Portret",
-  "shareFormatLandscape": "Orizontal"
+  "shareFormatLandscape": "Orizontal",
+  "shareFormatPortraitDescription": "Pentru povești 1080×1920"
 }

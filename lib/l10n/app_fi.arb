@@ -152,5 +152,6 @@
   "resultShareCard": "Jaa kortti",
   "shareChooseFormat": "Valitse korttikuvan muoto",
   "shareFormatPortrait": "Pysty",
-  "shareFormatLandscape": "Vaaka"
+  "shareFormatLandscape": "Vaaka",
+  "shareFormatPortraitDescription": "Tarinoihin 1080×1920"
 }

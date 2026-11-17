@@ -152,5 +152,6 @@
   "resultShareCard": "Bagikan kartu",
   "shareChooseFormat": "Pilih bentuk gambar kartu",
   "shareFormatPortrait": "Potret",
-  "shareFormatLandscape": "Lanskap"
+  "shareFormatLandscape": "Lanskap",
+  "shareFormatPortraitDescription": "Untuk story 1080×1920"
 }

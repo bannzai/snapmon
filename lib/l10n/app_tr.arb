@@ -152,5 +152,6 @@
   "resultShareCard": "Kartı paylaş",
   "shareChooseFormat": "Kart görselinin şeklini seç",
   "shareFormatPortrait": "Dikey",
-  "shareFormatLandscape": "Yatay"
+  "shareFormatLandscape": "Yatay",
+  "shareFormatPortraitDescription": "Hikâyeler için 1080×1920"
 }

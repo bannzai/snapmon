@@ -152,5 +152,6 @@
   "resultShareCard": "Del kort",
   "shareChooseFormat": "Vælg kortbilledets form",
   "shareFormatPortrait": "Stående",
-  "shareFormatLandscape": "Vandret"
+  "shareFormatLandscape": "Vandret",
+  "shareFormatPortraitDescription": "Til stories 1080×1920"
 }

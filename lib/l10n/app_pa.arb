@@ -152,5 +152,6 @@
   "resultShareCard": "ਕਾਰਡ ਸਾਂਝਾ ਕਰੋ",
   "shareChooseFormat": "ਕਾਰਡ ਦੀ ਤਸਵੀਰ ਦਾ ਆਕਾਰ ਚੁਣੋ",
   "shareFormatPortrait": "ਲੰਬਕਾਰੀ",
-  "shareFormatLandscape": "ਲੇਟਵਾਂ"
+  "shareFormatLandscape": "ਲੇਟਵਾਂ",
+  "shareFormatPortraitDescription": "ਸਟੋਰੀਆਂ ਲਈ 1080×1920"
 }

@@ -152,5 +152,6 @@
   "resultShareCard": "Μοιράσου την κάρτα",
   "shareChooseFormat": "Διάλεξε σχήμα για την εικόνα της κάρτας",
   "shareFormatPortrait": "Κατακόρυφο",
-  "shareFormatLandscape": "Οριζόντιο"
+  "shareFormatLandscape": "Οριζόντιο",
+  "shareFormatPortraitDescription": "Για ιστορίες 1080×1920"
 }

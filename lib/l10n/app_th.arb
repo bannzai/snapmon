@@ -152,5 +152,6 @@
   "resultShareCard": "แชร์การ์ด",
   "shareChooseFormat": "เลือกรูปทรงภาพการ์ด",
   "shareFormatPortrait": "แนวตั้ง",
-  "shareFormatLandscape": "แนวนอน"
+  "shareFormatLandscape": "แนวนอน",
+  "shareFormatPortraitDescription": "สำหรับสตอรี่ 1080×1920"
 }

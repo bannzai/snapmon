@@ -152,5 +152,6 @@
   "resultShareCard": "Deli kartico",
   "shareChooseFormat": "Izberi obliko slike kartice",
   "shareFormatPortrait": "Pokončno",
-  "shareFormatLandscape": "Ležeče"
+  "shareFormatLandscape": "Ležeče",
+  "shareFormatPortraitDescription": "Za zgodbe 1080×1920"
 }

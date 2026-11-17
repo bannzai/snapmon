@@ -152,5 +152,6 @@
   "resultShareCard": "Dela kort",
   "shareChooseFormat": "Välj form på kortbilden",
   "shareFormatPortrait": "Stående",
-  "shareFormatLandscape": "Liggande"
+  "shareFormatLandscape": "Liggande",
+  "shareFormatPortraitDescription": "För stories 1080×1920"
 }

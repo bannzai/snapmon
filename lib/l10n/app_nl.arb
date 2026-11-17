@@ -152,5 +152,6 @@
   "resultShareCard": "Deel de kaart",
   "shareChooseFormat": "Kies de vorm van de kaartafbeelding",
   "shareFormatPortrait": "Staand",
-  "shareFormatLandscape": "Liggend"
+  "shareFormatLandscape": "Liggend",
+  "shareFormatPortraitDescription": "Voor stories 1080×1920"
 }

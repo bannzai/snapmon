@@ -152,5 +152,6 @@
   "resultShareCard": "Поділися карткою",
   "shareChooseFormat": "Вибери форму зображення картки",
   "shareFormatPortrait": "Вертикально",
-  "shareFormatLandscape": "Горизонтально"
+  "shareFormatLandscape": "Горизонтально",
+  "shareFormatPortraitDescription": "Для історій 1080×1920"
 }

@@ -152,5 +152,6 @@
   "resultShareCard": "Oszd meg a kártyát",
   "shareChooseFormat": "Válaszd ki a kártyakép formáját",
   "shareFormatPortrait": "Álló",
-  "shareFormatLandscape": "Fekvő"
+  "shareFormatLandscape": "Fekvő",
+  "shareFormatPortraitDescription": "Sztorikhoz 1080×1920"
 }

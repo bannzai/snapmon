@@ -152,5 +152,6 @@
   "resultShareCard": "Udostępnij kartę",
   "shareChooseFormat": "Wybierz kształt obrazka karty",
   "shareFormatPortrait": "Pionowo",
-  "shareFormatLandscape": "Poziomo"
+  "shareFormatLandscape": "Poziomo",
+  "shareFormatPortraitDescription": "Do relacji 1080×1920"
 }

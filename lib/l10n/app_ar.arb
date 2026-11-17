@@ -152,5 +152,6 @@
   "resultShareCard": "مشاركة البطاقة",
   "shareChooseFormat": "اختر شكل صورة البطاقة",
   "shareFormatPortrait": "عمودي",
-  "shareFormatLandscape": "أفقي"
+  "shareFormatLandscape": "أفقي",
+  "shareFormatPortraitDescription": "للستوري 1080×1920"
 }

@@ -152,5 +152,6 @@
   "resultShareCard": "କାର୍ଡ ସେୟାର କର",
   "shareChooseFormat": "କାର୍ଡ ଛବିର ଆକାର ବାଛ",
   "shareFormatPortrait": "ଭୂଲମ୍ବ",
-  "shareFormatLandscape": "ଭୂସମାନ୍ତର"
+  "shareFormatLandscape": "ଭୂସମାନ୍ତର",
+  "shareFormatPortraitDescription": "ଷ୍ଟୋରି ପାଇଁ 1080×1920"
 }

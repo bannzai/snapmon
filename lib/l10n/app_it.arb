@@ -152,5 +152,6 @@
   "resultShareCard": "Condividi la carta",
   "shareChooseFormat": "Scegli la forma dell’immagine della carta",
   "shareFormatPortrait": "Verticale",
-  "shareFormatLandscape": "Orizzontale"
+  "shareFormatLandscape": "Orizzontale",
+  "shareFormatPortraitDescription": "Per le storie 1080×1920"
 }

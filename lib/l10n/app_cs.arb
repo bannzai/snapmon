@@ -152,5 +152,6 @@
   "resultShareCard": "Sdílej kartu",
   "shareChooseFormat": "Vyber tvar obrázku karty",
   "shareFormatPortrait": "Na výšku",
-  "shareFormatLandscape": "Na šířku"
+  "shareFormatLandscape": "Na šířku",
+  "shareFormatPortraitDescription": "Pro příběhy 1080×1920"
 }

@@ -152,5 +152,6 @@
   "resultShareCard": "שיתוף קלף",
   "shareChooseFormat": "בחירת צורה לתמונת הקלף",
   "shareFormatPortrait": "לאורך",
-  "shareFormatLandscape": "לרוחב"
+  "shareFormatLandscape": "לרוחב",
+  "shareFormatPortraitDescription": "לסטוריז 1080×1920"
 }

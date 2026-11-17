@@ -152,5 +152,6 @@
   "resultShareCard": "Comparteix la carta",
   "shareChooseFormat": "Tria la forma de la imatge de la carta",
   "shareFormatPortrait": "Vertical",
-  "shareFormatLandscape": "Horitzontal"
+  "shareFormatLandscape": "Horitzontal",
+  "shareFormatPortraitDescription": "Per a històries 1080×1920"
 }

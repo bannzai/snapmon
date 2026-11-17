@@ -152,5 +152,6 @@
   "resultShareCard": "Podijeli kartu",
   "shareChooseFormat": "Odaberi oblik slike kartice",
   "shareFormatPortrait": "Okomito",
-  "shareFormatLandscape": "Vodoravno"
+  "shareFormatLandscape": "Vodoravno",
+  "shareFormatPortraitDescription": "Za priče 1080×1920"
 }

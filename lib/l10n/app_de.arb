@@ -152,5 +152,6 @@
   "resultShareCard": "Karte teilen",
   "shareChooseFormat": "Wähle die Form des Kartenbilds",
   "shareFormatPortrait": "Hochformat",
-  "shareFormatLandscape": "Querformat"
+  "shareFormatLandscape": "Querformat",
+  "shareFormatPortraitDescription": "Für Storys 1080×1920"
 }

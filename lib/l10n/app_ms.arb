@@ -152,5 +152,6 @@
   "resultShareCard": "Kongsi kad",
   "shareChooseFormat": "Pilih bentuk imej kad",
   "shareFormatPortrait": "Potret",
-  "shareFormatLandscape": "Melintang"
+  "shareFormatLandscape": "Melintang",
+  "shareFormatPortraitDescription": "Untuk cerita 1080×1920"
 }

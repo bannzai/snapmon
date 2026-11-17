@@ -152,5 +152,6 @@
   "resultShareCard": "Partilha a carta",
   "shareChooseFormat": "Escolhe a forma da imagem da carta",
   "shareFormatPortrait": "Vertical",
-  "shareFormatLandscape": "Horizontal"
+  "shareFormatLandscape": "Horizontal",
+  "shareFormatPortraitDescription": "Para stories 1080×1920"
 }
