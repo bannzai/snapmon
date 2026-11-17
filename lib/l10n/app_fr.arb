@@ -235,5 +235,6 @@
   "titleMinimumAge": "À partir de {age} ans",
   "titlePrivacy": "Confidentialité",
   "titleHeading": "Les objets du quotidien\ndeviennent des monstres et se battent",
-  "referenceOpen": "Efficacité des éléments et liste des capacités"
+  "referenceOpen": "Efficacité des éléments et liste des capacités",
+  "referenceTitle": "éléments et capacités"
 }
