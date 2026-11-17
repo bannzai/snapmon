@@ -162,5 +162,6 @@
   "shareVersusOpponents": "VS {opponentNames}",
   "battleLogChallenged": "{monsterName} te défie !",
   "battleLogMoveUsed": "{monsterName} utilise {moveName} !",
-  "battleStruggle": "Lutte"
+  "battleStruggle": "Lutte",
+  "battleLogSuperEffective": "C'est super efficace !"
 }
