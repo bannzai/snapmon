@@ -5,5 +5,6 @@
   "tabDex": "களஞ்சியம்",
   "tabCapture": "படம் எடுங்கள்",
   "tabOpponent": "போர்",
-  "sessionPreparing": "தயாராகிறது"
+  "sessionPreparing": "தயாராகிறது",
+  "sessionConnectionFailed": "இணைக்க முடியவில்லை"
 }

@@ -5,5 +5,6 @@
   "tabDex": "संग्रह",
   "tabCapture": "फोटो काढ",
   "tabOpponent": "लढाई",
-  "sessionPreparing": "तयारी सुरू आहे"
+  "sessionPreparing": "तयारी सुरू आहे",
+  "sessionConnectionFailed": "कनेक्ट होता आलं नाही"
 }

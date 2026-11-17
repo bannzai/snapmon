@@ -5,5 +5,6 @@
   "tabDex": "encyklopédia",
   "tabCapture": "Odfoť",
   "tabOpponent": "Súboj",
-  "sessionPreparing": "Pripravuje sa"
+  "sessionPreparing": "Pripravuje sa",
+  "sessionConnectionFailed": "Nepodarilo sa pripojiť"
 }

@@ -5,5 +5,6 @@
   "tabDex": "gyűjtemény",
   "tabCapture": "Fotózz",
   "tabOpponent": "Csata",
-  "sessionPreparing": "Előkészület folyamatban"
+  "sessionPreparing": "Előkészület folyamatban",
+  "sessionConnectionFailed": "Nem sikerült csatlakozni"
 }

@@ -5,5 +5,6 @@
   "tabDex": "图鉴",
   "tabCapture": "拍照",
   "tabOpponent": "对战",
-  "sessionPreparing": "准备中"
+  "sessionPreparing": "准备中",
+  "sessionConnectionFailed": "连接失败"
 }

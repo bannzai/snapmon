@@ -5,5 +5,6 @@
   "tabDex": "bộ sưu tập",
   "tabCapture": "Chụp ảnh",
   "tabOpponent": "Đấu",
-  "sessionPreparing": "Đang chuẩn bị"
+  "sessionPreparing": "Đang chuẩn bị",
+  "sessionConnectionFailed": "Không thể kết nối"
 }

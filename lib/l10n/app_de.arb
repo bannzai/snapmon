@@ -5,5 +5,6 @@
   "tabDex": "Dex",
   "tabCapture": "Foto machen",
   "tabOpponent": "Kampf",
-  "sessionPreparing": "Alles wird vorbereitet"
+  "sessionPreparing": "Alles wird vorbereitet",
+  "sessionConnectionFailed": "Verbindung fehlgeschlagen"
 }

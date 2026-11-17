@@ -5,5 +5,6 @@
   "tabDex": "colección",
   "tabCapture": "Toma una foto",
   "tabOpponent": "Combate",
-  "sessionPreparing": "Preparando todo"
+  "sessionPreparing": "Preparando todo",
+  "sessionConnectionFailed": "No se pudo conectar"
 }

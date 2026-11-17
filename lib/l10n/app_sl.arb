@@ -5,5 +5,6 @@
   "tabDex": "enciklopedija",
   "tabCapture": "Fotografiraj",
   "tabOpponent": "Dvoboj",
-  "sessionPreparing": "Pripravljamo"
+  "sessionPreparing": "Pripravljamo",
+  "sessionConnectionFailed": "Povezava ni uspela"
 }

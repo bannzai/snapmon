@@ -5,5 +5,6 @@
   "tabDex": "dex",
   "tabCapture": "Maak een foto",
   "tabOpponent": "Gevecht",
-  "sessionPreparing": "Alles wordt klaargemaakt"
+  "sessionPreparing": "Alles wordt klaargemaakt",
+  "sessionConnectionFailed": "Verbinding mislukt"
 }

@@ -5,5 +5,6 @@
   "tabDex": "enciclopèdia",
   "tabCapture": "Fes una foto",
   "tabOpponent": "Combat",
-  "sessionPreparing": "Preparant-ho tot"
+  "sessionPreparing": "Preparant-ho tot",
+  "sessionConnectionFailed": "No s'ha pogut connectar"
 }

@@ -5,5 +5,6 @@
   "tabDex": "ವಿಶ್ವಕೋಶ",
   "tabCapture": "ಫೋಟೋ ತೆಗೆ",
   "tabOpponent": "ಕಾಳಗ",
-  "sessionPreparing": "ಸಿದ್ಧತೆ ನಡೆಯುತ್ತಿದೆ"
+  "sessionPreparing": "ಸಿದ್ಧತೆ ನಡೆಯುತ್ತಿದೆ",
+  "sessionConnectionFailed": "ಸಂಪರ್ಕಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ"
 }

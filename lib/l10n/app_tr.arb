@@ -5,5 +5,6 @@
   "tabDex": "ansiklopedi",
   "tabCapture": "Fotoğraf çek",
   "tabOpponent": "Savaş",
-  "sessionPreparing": "Hazırlanıyor"
+  "sessionPreparing": "Hazırlanıyor",
+  "sessionConnectionFailed": "Bağlantı kurulamadı"
 }

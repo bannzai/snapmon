@@ -5,5 +5,6 @@
   "tabDex": "সংগ্রহ",
   "tabCapture": "ছবি তোলো",
   "tabOpponent": "লড়াই",
-  "sessionPreparing": "প্রস্তুতি চলছে"
+  "sessionPreparing": "প্রস্তুতি চলছে",
+  "sessionConnectionFailed": "সংযোগ করা যায়নি"
 }

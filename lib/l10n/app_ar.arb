@@ -5,5 +5,6 @@
   "tabDex": "موسوعة",
   "tabCapture": "التقط صورة",
   "tabOpponent": "المعركة",
-  "sessionPreparing": "جارٍ التحضير"
+  "sessionPreparing": "جارٍ التحضير",
+  "sessionConnectionFailed": "تعذّر الاتصال"
 }

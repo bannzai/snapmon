@@ -5,5 +5,6 @@
   "tabDex": "dex",
   "tabCapture": "Ambil foto",
   "tabOpponent": "Pertarungan",
-  "sessionPreparing": "Sedang bersiap"
+  "sessionPreparing": "Sedang bersiap",
+  "sessionConnectionFailed": "Gagal terhubung"
 }

@@ -5,5 +5,6 @@
   "tabDex": "ડેક્સ",
   "tabCapture": "ફોટો પાડો",
   "tabOpponent": "લડાઈ",
-  "sessionPreparing": "તૈયારી ચાલી રહી છે"
+  "sessionPreparing": "તૈયારી ચાલી રહી છે",
+  "sessionConnectionFailed": "કનેક્ટ થઈ શક્યું નહીં"
 }

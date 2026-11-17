@@ -5,5 +5,6 @@
   "tabDex": "도감",
   "tabCapture": "사진 찍기",
   "tabOpponent": "배틀",
-  "sessionPreparing": "준비하고 있어요"
+  "sessionPreparing": "준비하고 있어요",
+  "sessionConnectionFailed": "연결하지 못했어요"
 }
