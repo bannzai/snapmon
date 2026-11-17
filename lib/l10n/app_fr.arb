@@ -88,5 +88,6 @@
   "capturePickFromAlbum": "Choisir dans l’album",
   "captureGoToBattle": "Combattre",
   "captureViewfinderGuide": "Place ton sujet dans le cadre",
-  "captureCameraPermissionRequired": "Autorise l’accès à la caméra"
+  "captureCameraPermissionRequired": "Autorise l’accès à la caméra",
+  "captureCameraPermissionHint": "Autorise l’accès à l’appareil photo dans les paramètres"
 }
