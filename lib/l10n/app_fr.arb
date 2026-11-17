@@ -115,5 +115,6 @@
   "generationStageCheckingPhoto": "Vérification de ta photo en cours",
   "generationStageCuttingOut": "Détourage du sujet en cours",
   "generationStageWritingName": "On imagine un nom et une description pour le dex",
-  "generationStageDecidingElements": "On choisit les éléments et les capacités"
+  "generationStageDecidingElements": "On choisit les éléments et les capacités",
+  "generationStageBeingBorn": "Un monstre va naître"
 }
