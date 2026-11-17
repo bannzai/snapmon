@@ -199,5 +199,6 @@
   "statusConditionDrowsy": "困倦",
   "statusConditionSleep": "睡眠",
   "statusConditionCurse": "诅咒",
-  "statusConditionConfusion": "混乱"
+  "statusConditionConfusion": "混乱",
+  "statusConditionDizzy": "眩晕"
 }

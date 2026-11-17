@@ -199,5 +199,6 @@
   "statusConditionDrowsy": "Somnolență",
   "statusConditionSleep": "Somn",
   "statusConditionCurse": "Blestem",
-  "statusConditionConfusion": "Confuzie"
+  "statusConditionConfusion": "Confuzie",
+  "statusConditionDizzy": "Amețeală"
 }

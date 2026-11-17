@@ -199,5 +199,6 @@
   "statusConditionDrowsy": "Somnolència",
   "statusConditionSleep": "Adormit",
   "statusConditionCurse": "Maledicció",
-  "statusConditionConfusion": "Confusió"
+  "statusConditionConfusion": "Confusió",
+  "statusConditionDizzy": "Mareig"
 }

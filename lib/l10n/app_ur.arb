@@ -199,5 +199,6 @@
   "statusConditionDrowsy": "غنودگی",
   "statusConditionSleep": "نیند",
   "statusConditionCurse": "لعنت",
-  "statusConditionConfusion": "الجھن"
+  "statusConditionConfusion": "الجھن",
+  "statusConditionDizzy": "چکر"
 }

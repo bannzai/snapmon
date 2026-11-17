@@ -199,5 +199,6 @@
   "statusConditionDrowsy": "Senność",
   "statusConditionSleep": "Sen",
   "statusConditionCurse": "Klątwa",
-  "statusConditionConfusion": "Dezorientacja"
+  "statusConditionConfusion": "Dezorientacja",
+  "statusConditionDizzy": "Zawroty głowy"
 }

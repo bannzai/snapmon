@@ -199,5 +199,6 @@
   "statusConditionDrowsy": "נמנום",
   "statusConditionSleep": "שינה",
   "statusConditionCurse": "קללה",
-  "statusConditionConfusion": "בלבול"
+  "statusConditionConfusion": "בלבול",
+  "statusConditionDizzy": "סחרחורת"
 }

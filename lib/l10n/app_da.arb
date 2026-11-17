@@ -199,5 +199,6 @@
   "statusConditionDrowsy": "Døsighed",
   "statusConditionSleep": "Søvn",
   "statusConditionCurse": "Forbandelse",
-  "statusConditionConfusion": "Forvirring"
+  "statusConditionConfusion": "Forvirring",
+  "statusConditionDizzy": "Svimmelhed"
 }

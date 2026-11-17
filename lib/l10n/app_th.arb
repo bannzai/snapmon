@@ -199,5 +199,6 @@
   "statusConditionDrowsy": "ง่วงนอน",
   "statusConditionSleep": "หลับ",
   "statusConditionCurse": "คำสาป",
-  "statusConditionConfusion": "สับสน"
+  "statusConditionConfusion": "สับสน",
+  "statusConditionDizzy": "เวียนหัว"
 }

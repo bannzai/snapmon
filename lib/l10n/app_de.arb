@@ -199,5 +199,6 @@
   "statusConditionDrowsy": "Schläfrigkeit",
   "statusConditionSleep": "Schlaf",
   "statusConditionCurse": "Fluch",
-  "statusConditionConfusion": "Verwirrung"
+  "statusConditionConfusion": "Verwirrung",
+  "statusConditionDizzy": "Schwindel"
 }

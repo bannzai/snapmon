@@ -199,5 +199,6 @@
   "statusConditionDrowsy": "కునుకుపాటు",
   "statusConditionSleep": "నిద్ర",
   "statusConditionCurse": "శాపం",
-  "statusConditionConfusion": "గందరగోళం"
+  "statusConditionConfusion": "గందరగోళం",
+  "statusConditionDizzy": "తలతిరగడం"
 }

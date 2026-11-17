@@ -199,5 +199,6 @@
   "statusConditionDrowsy": "তন্দ্রা",
   "statusConditionSleep": "ঘুম",
   "statusConditionCurse": "অভিশাপ",
-  "statusConditionConfusion": "বিভ্রান্তি"
+  "statusConditionConfusion": "বিভ্রান্তি",
+  "statusConditionDizzy": "মাথা ঘোরা"
 }

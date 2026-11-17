@@ -199,5 +199,6 @@
   "statusConditionDrowsy": "Zaspanost",
   "statusConditionSleep": "Spanec",
   "statusConditionCurse": "Prekletstvo",
-  "statusConditionConfusion": "Zmedenost"
+  "statusConditionConfusion": "Zmedenost",
+  "statusConditionDizzy": "Omotica"
 }

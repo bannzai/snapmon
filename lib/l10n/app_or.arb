@@ -199,5 +199,6 @@
   "statusConditionDrowsy": "ଘୁମଘୁମ ଭାବ",
   "statusConditionSleep": "ନିଦ",
   "statusConditionCurse": "ଅଭିଶାପ",
-  "statusConditionConfusion": "ଦ୍ୱନ୍ଦ୍ୱ"
+  "statusConditionConfusion": "ଦ୍ୱନ୍ଦ୍ୱ",
+  "statusConditionDizzy": "ମୁଣ୍ଡ ବୁଲାଇବା"
 }

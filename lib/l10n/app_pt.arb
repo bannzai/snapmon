@@ -199,5 +199,6 @@
   "statusConditionDrowsy": "Sonolência",
   "statusConditionSleep": "Sono",
   "statusConditionCurse": "Maldição",
-  "statusConditionConfusion": "Confusão"
+  "statusConditionConfusion": "Confusão",
+  "statusConditionDizzy": "Tontura"
 }

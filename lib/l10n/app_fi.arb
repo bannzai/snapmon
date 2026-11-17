@@ -199,5 +199,6 @@
   "statusConditionDrowsy": "Uneliaisuus",
   "statusConditionSleep": "Uni",
   "statusConditionCurse": "Kirous",
-  "statusConditionConfusion": "Sekavuus"
+  "statusConditionConfusion": "Sekavuus",
+  "statusConditionDizzy": "Huimaus"
 }

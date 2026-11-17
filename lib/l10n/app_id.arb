@@ -199,5 +199,6 @@
   "statusConditionDrowsy": "Mengantuk",
   "statusConditionSleep": "Tidur",
   "statusConditionCurse": "Kutukan",
-  "statusConditionConfusion": "Kebingungan"
+  "statusConditionConfusion": "Kebingungan",
+  "statusConditionDizzy": "Pusing"
 }

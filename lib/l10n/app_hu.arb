@@ -199,5 +199,6 @@
   "statusConditionDrowsy": "Álmosság",
   "statusConditionSleep": "Alvás",
   "statusConditionCurse": "Átok",
-  "statusConditionConfusion": "Zavarodottság"
+  "statusConditionConfusion": "Zavarodottság",
+  "statusConditionDizzy": "Szédülés"
 }

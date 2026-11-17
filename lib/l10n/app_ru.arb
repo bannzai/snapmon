@@ -199,5 +199,6 @@
   "statusConditionDrowsy": "Сонливость",
   "statusConditionSleep": "Сон",
   "statusConditionCurse": "Проклятие",
-  "statusConditionConfusion": "Замешательство"
+  "statusConditionConfusion": "Замешательство",
+  "statusConditionDizzy": "Головокружение"
 }

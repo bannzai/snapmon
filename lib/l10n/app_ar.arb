@@ -199,5 +199,6 @@
   "statusConditionDrowsy": "نعاس",
   "statusConditionSleep": "نائم",
   "statusConditionCurse": "لعنة",
-  "statusConditionConfusion": "ارتباك"
+  "statusConditionConfusion": "ارتباك",
+  "statusConditionDizzy": "دوار"
 }

@@ -199,5 +199,6 @@
   "statusConditionDrowsy": "Uyuklama",
   "statusConditionSleep": "Uyku",
   "statusConditionCurse": "Lanet",
-  "statusConditionConfusion": "Şaşkınlık"
+  "statusConditionConfusion": "Şaşkınlık",
+  "statusConditionDizzy": "Baş dönmesi"
 }

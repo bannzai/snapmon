@@ -199,5 +199,6 @@
   "statusConditionDrowsy": "졸음",
   "statusConditionSleep": "잠듦",
   "statusConditionCurse": "저주",
-  "statusConditionConfusion": "혼란"
+  "statusConditionConfusion": "혼란",
+  "statusConditionDizzy": "어지러움"
 }

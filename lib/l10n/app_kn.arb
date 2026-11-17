@@ -199,5 +199,6 @@
   "statusConditionDrowsy": "ತೂಕಡಿಕೆ",
   "statusConditionSleep": "ನಿದ್ರೆ",
   "statusConditionCurse": "ಶಾಪ",
-  "statusConditionConfusion": "ಗೊಂದಲ"
+  "statusConditionConfusion": "ಗೊಂದಲ",
+  "statusConditionDizzy": "ತಲೆಸುತ್ತು"
 }

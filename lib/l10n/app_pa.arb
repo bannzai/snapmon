@@ -199,5 +199,6 @@
   "statusConditionDrowsy": "ਊਂਘ",
   "statusConditionSleep": "ਨੀਂਦ",
   "statusConditionCurse": "ਸਰਾਪ",
-  "statusConditionConfusion": "ਉਲਝਣ"
+  "statusConditionConfusion": "ਉਲਝਣ",
+  "statusConditionDizzy": "ਚੱਕਰ"
 }

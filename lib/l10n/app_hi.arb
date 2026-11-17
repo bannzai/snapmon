@@ -199,5 +199,6 @@
   "statusConditionDrowsy": "उनींदापन",
   "statusConditionSleep": "नींद",
   "statusConditionCurse": "श्राप",
-  "statusConditionConfusion": "भ्रम"
+  "statusConditionConfusion": "भ्रम",
+  "statusConditionDizzy": "चक्कर"
 }

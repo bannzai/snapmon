@@ -199,5 +199,6 @@
   "statusConditionDrowsy": "മയക്കം",
   "statusConditionSleep": "ഉറക്കം",
   "statusConditionCurse": "ശാപം",
-  "statusConditionConfusion": "ആശയക്കുഴപ്പം"
+  "statusConditionConfusion": "ആശയക്കുഴപ്പം",
+  "statusConditionDizzy": "തലകറക്കം"
 }
