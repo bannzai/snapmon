@@ -125,5 +125,6 @@
   "generationChooseCutoutMessage": "Διάλεξε αν θα χρησιμοποιήσεις το αποκομμένο θέμα\nή θα ορίσεις μια περιοχή στη φωτογραφία",
   "generationCutoutLabel": "Αποκοπή",
   "generationOriginalPhotoLabel": "Αρχική φωτογραφία",
-  "generationCreateWithCutout": "Φτιάξε το από την αποκομμένη εικόνα"
+  "generationCreateWithCutout": "Φτιάξε το από την αποκομμένη εικόνα",
+  "generationChooseRangeMyself": "Επιλογή περιοχής από εμένα"
 }

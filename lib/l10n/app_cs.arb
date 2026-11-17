@@ -125,5 +125,6 @@
   "generationChooseCutoutMessage": "Vyber si, jestli ho vytvoříš z výřezu,\nnebo označíš oblast na fotce",
   "generationCutoutLabel": "Výřez",
   "generationOriginalPhotoLabel": "Původní fotka",
-  "generationCreateWithCutout": "Vytvoř z oříznutého obrázku"
+  "generationCreateWithCutout": "Vytvoř z oříznutého obrázku",
+  "generationChooseRangeMyself": "Vybrat oblast ručně"
 }

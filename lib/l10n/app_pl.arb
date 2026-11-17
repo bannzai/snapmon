@@ -125,5 +125,6 @@
   "generationChooseCutoutMessage": "Wybierz, czy chcesz użyć wyciętego obiektu,\nczy zaznaczyć obszar na zdjęciu",
   "generationCutoutLabel": "Wycięty obraz",
   "generationOriginalPhotoLabel": "Oryginalne zdjęcie",
-  "generationCreateWithCutout": "Stwórz z wyciętego obrazka"
+  "generationCreateWithCutout": "Stwórz z wyciętego obrazka",
+  "generationChooseRangeMyself": "Wybierz obszar samodzielnie"
 }

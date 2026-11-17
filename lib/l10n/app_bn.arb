@@ -125,5 +125,6 @@
   "generationChooseCutoutMessage": "কেটে নেওয়া ছবি দিয়ে বানাবে,\nনাকি ছবিতে জায়গা বেছে নেবে—তুমি ঠিক করো",
   "generationCutoutLabel": "কেটে নেওয়া ছবি",
   "generationOriginalPhotoLabel": "আসল ছবি",
-  "generationCreateWithCutout": "কেটে নেওয়া ছবি দিয়ে তৈরি করো"
+  "generationCreateWithCutout": "কেটে নেওয়া ছবি দিয়ে তৈরি করো",
+  "generationChooseRangeMyself": "নিজেই এলাকা বেছে নাও"
 }

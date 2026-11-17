@@ -125,5 +125,6 @@
   "generationChooseCutoutMessage": "કાપેલી છબીથી બનાવવું છે કે\nફોટામાં વિસ્તાર પસંદ કરવો છે, તે તમે નક્કી કરો",
   "generationCutoutLabel": "કાપેલી છબી",
   "generationOriginalPhotoLabel": "મૂળ ફોટો",
-  "generationCreateWithCutout": "કાપેલી છબીમાંથી બનાવો"
+  "generationCreateWithCutout": "કાપેલી છબીમાંથી બનાવો",
+  "generationChooseRangeMyself": "જગ્યા જાતે પસંદ કરો"
 }

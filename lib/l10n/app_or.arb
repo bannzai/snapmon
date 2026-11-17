@@ -125,5 +125,6 @@
   "generationChooseCutoutMessage": "କଟା ଛବିରୁ ତିଆରି କରିବାକୁ ଚାହୁଁଛ\nନା ଫଟୋରେ ଏକ ଅଂଶ ବାଛିବାକୁ, ତୁମେ ବାଛ",
   "generationCutoutLabel": "କଟା ଛବି",
   "generationOriginalPhotoLabel": "ମୂଳ ଫଟୋ",
-  "generationCreateWithCutout": "କାଟି ବାହାର କରାଯାଇଥିବା ଛବିରୁ ତିଆରି କର"
+  "generationCreateWithCutout": "କାଟି ବାହାର କରାଯାଇଥିବା ଛବିରୁ ତିଆରି କର",
+  "generationChooseRangeMyself": "ଅଞ୍ଚଳ ନିଜେ ବାଛ"
 }

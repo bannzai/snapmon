@@ -125,5 +125,6 @@
   "generationChooseCutoutMessage": "Elige si quieres usar el recorte\no marcar una zona en la foto",
   "generationCutoutLabel": "Recorte",
   "generationOriginalPhotoLabel": "Foto original",
-  "generationCreateWithCutout": "Crear con la imagen recortada"
+  "generationCreateWithCutout": "Crear con la imagen recortada",
+  "generationChooseRangeMyself": "Elegir el área por mi cuenta"
 }

@@ -125,5 +125,6 @@
   "generationChooseCutoutMessage": "Välj om du vill använda det frilagda motivet\neller markera ett område i bilden",
   "generationCutoutLabel": "Utklipp",
   "generationOriginalPhotoLabel": "Originalfoto",
-  "generationCreateWithCutout": "Skapa med den urklippta bilden"
+  "generationCreateWithCutout": "Skapa med den urklippta bilden",
+  "generationChooseRangeMyself": "Välj området själv"
 }

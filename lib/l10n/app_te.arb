@@ -125,5 +125,6 @@
   "generationChooseCutoutMessage": "కత్తిరించిన బొమ్మతో చేయాలా\nలేదా ఫొటోలో భాగాన్ని ఎంచుకోవాలా నిర్ణయించుకో",
   "generationCutoutLabel": "కత్తిరించిన చిత్రం",
   "generationOriginalPhotoLabel": "అసలు ఫోటో",
-  "generationCreateWithCutout": "కత్తిరించిన చిత్రంతో సృష్టించు"
+  "generationCreateWithCutout": "కత్తిరించిన చిత్రంతో సృష్టించు",
+  "generationChooseRangeMyself": "ప్రాంతాన్ని నువ్వే ఎంచుకో"
 }

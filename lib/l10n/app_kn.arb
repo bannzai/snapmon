@@ -125,5 +125,6 @@
   "generationChooseCutoutMessage": "ಕತ್ತರಿಸಿದ ಚಿತ್ರದಿಂದ ಮಾಡಬೇಕೋ\nಫೋಟೋದಲ್ಲಿ ಭಾಗವನ್ನು ಆಯ್ಕೆ ಮಾಡಬೇಕೋ ನೀನು ಆರಿಸು",
   "generationCutoutLabel": "ಕತ್ತರಿಸಿದ ಚಿತ್ರ",
   "generationOriginalPhotoLabel": "ಮೂಲ ಫೋಟೋ",
-  "generationCreateWithCutout": "ಕತ್ತರಿಸಿದ ಚಿತ್ರದಿಂದ ರಚಿಸು"
+  "generationCreateWithCutout": "ಕತ್ತರಿಸಿದ ಚಿತ್ರದಿಂದ ರಚಿಸು",
+  "generationChooseRangeMyself": "ಪ್ರದೇಶವನ್ನು ನೀನೇ ಆಯ್ಕೆ ಮಾಡು"
 }

@@ -125,5 +125,6 @@
   "generationChooseCutoutMessage": "เลือกใช้ภาพที่ตัดออกมา\nหรือกำหนดพื้นที่บนรูปถ่าย",
   "generationCutoutLabel": "ภาพตัดพื้นหลัง",
   "generationOriginalPhotoLabel": "รูปต้นฉบับ",
-  "generationCreateWithCutout": "สร้างจากภาพที่ตัดออกมา"
+  "generationCreateWithCutout": "สร้างจากภาพที่ตัดออกมา",
+  "generationChooseRangeMyself": "เลือกพื้นที่เอง"
 }

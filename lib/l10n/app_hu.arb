@@ -125,5 +125,6 @@
   "generationChooseCutoutMessage": "Válaszd ki, hogy a kivágott képből készíted el,\nvagy kijelölsz egy részt a fotón",
   "generationCutoutLabel": "Kivágás",
   "generationOriginalPhotoLabel": "Eredeti fotó",
-  "generationCreateWithCutout": "Készítsd el a kivágott képből"
+  "generationCreateWithCutout": "Készítsd el a kivágott képből",
+  "generationChooseRangeMyself": "Válaszd ki magad a területet"
 }

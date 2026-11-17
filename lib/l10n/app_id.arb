@@ -125,5 +125,6 @@
   "generationChooseCutoutMessage": "Pilih gambar yang sudah dipotong\natau tentukan area di foto",
   "generationCutoutLabel": "Potongan gambar",
   "generationOriginalPhotoLabel": "Foto asli",
-  "generationCreateWithCutout": "Buat dari gambar yang dipotong"
+  "generationCreateWithCutout": "Buat dari gambar yang dipotong",
+  "generationChooseRangeMyself": "Pilih area sendiri"
 }

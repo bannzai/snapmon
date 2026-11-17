@@ -125,5 +125,6 @@
   "generationChooseCutoutMessage": "Vyber si, či ho vytvoríš z vystrihnutého obrázka,\nalebo označíš oblasť na fotke",
   "generationCutoutLabel": "Výrez",
   "generationOriginalPhotoLabel": "Pôvodná fotka",
-  "generationCreateWithCutout": "Vytvor z vystrihnutého obrázka"
+  "generationCreateWithCutout": "Vytvor z vystrihnutého obrázka",
+  "generationChooseRangeMyself": "Vyber oblasť sám"
 }

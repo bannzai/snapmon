@@ -125,5 +125,6 @@
   "generationChooseCutoutMessage": "Kesilmiş görselle oluşturmayı\nveya fotoğrafta bir alan seçmeyi tercih et",
   "generationCutoutLabel": "Kesilmiş görsel",
   "generationOriginalPhotoLabel": "Orijinal fotoğraf",
-  "generationCreateWithCutout": "Kesilmiş görselle oluştur"
+  "generationCreateWithCutout": "Kesilmiş görselle oluştur",
+  "generationChooseRangeMyself": "Alanı kendin seç"
 }

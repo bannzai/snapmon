@@ -125,5 +125,6 @@
   "generationChooseCutoutMessage": "Scegli se crearlo dal soggetto ritagliato\no selezionare un’area della foto",
   "generationCutoutLabel": "Ritaglio",
   "generationOriginalPhotoLabel": "Foto originale",
-  "generationCreateWithCutout": "Crea dall'immagine ritagliata"
+  "generationCreateWithCutout": "Crea dall'immagine ritagliata",
+  "generationChooseRangeMyself": "Scelgo io l’area"
 }

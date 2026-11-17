@@ -125,5 +125,6 @@
   "generationChooseCutoutMessage": "你可以用去背後的圖片來製作\n也可以在照片上選取範圍",
   "generationCutoutLabel": "去背圖片",
   "generationOriginalPhotoLabel": "原始照片",
-  "generationCreateWithCutout": "用去背後的圖片建立"
+  "generationCreateWithCutout": "用去背後的圖片建立",
+  "generationChooseRangeMyself": "自己選取範圍"
 }

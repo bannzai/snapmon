@@ -125,5 +125,6 @@
   "generationChooseCutoutMessage": "אפשר לבחור אם ליצור מהתמונה הגזורה\nאו לסמן אזור בתמונה",
   "generationCutoutLabel": "גזירה",
   "generationOriginalPhotoLabel": "התמונה המקורית",
-  "generationCreateWithCutout": "ליצור מהתמונה הגזורה"
+  "generationCreateWithCutout": "ליצור מהתמונה הגזורה",
+  "generationChooseRangeMyself": "בחירת האזור בעצמי"
 }
