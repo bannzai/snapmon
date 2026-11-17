@@ -33,5 +33,6 @@
   "opponentBattleRecordLabel": "Ιστορικό μαχών",
   "opponentBattleRecord": "Νίκες: {wins}  Ήττες: {losses}",
   "opponentMyParty": "Η ομάδα μου",
-  "opponentSwapParty": "Αλλαγή"
+  "opponentSwapParty": "Αλλαγή",
+  "opponentEmptyPartyNote": "Βάλε ένα τέρας στην ομάδα σου για να προκαλέσεις"
 }

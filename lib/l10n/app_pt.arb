@@ -33,5 +33,6 @@
   "opponentBattleRecordLabel": "Histórico de batalhas",
   "opponentBattleRecord": "Vitórias: {wins}  Derrotas: {losses}",
   "opponentMyParty": "Minha equipe",
-  "opponentSwapParty": "Trocar"
+  "opponentSwapParty": "Trocar",
+  "opponentEmptyPartyNote": "Adicione um monstro à sua equipe para poder desafiar"
 }

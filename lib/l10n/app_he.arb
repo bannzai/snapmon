@@ -33,5 +33,6 @@
   "opponentBattleRecordLabel": "מאזן קרבות",
   "opponentBattleRecord": "ניצחונות: {wins}  הפסדים: {losses}",
   "opponentMyParty": "הצוות שלי",
-  "opponentSwapParty": "החלפה"
+  "opponentSwapParty": "החלפה",
+  "opponentEmptyPartyNote": "כדי לצאת לאתגר, צריך להוסיף מפלצת לצוות"
 }

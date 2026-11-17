@@ -33,5 +33,6 @@
   "opponentBattleRecordLabel": "Statistika bojev",
   "opponentBattleRecord": "Zmage: {wins}  Porazi: {losses}",
   "opponentMyParty": "Moja ekipa",
-  "opponentSwapParty": "Zamenjaj"
+  "opponentSwapParty": "Zamenjaj",
+  "opponentEmptyPartyNote": "Dodaj pošast v ekipo, da lahko izzoveš nasprotnika"
 }

@@ -33,5 +33,6 @@
   "opponentBattleRecordLabel": "Stridsstatistik",
   "opponentBattleRecord": "Vinster: {wins}  Förluster: {losses}",
   "opponentMyParty": "Ditt lag",
-  "opponentSwapParty": "Byt"
+  "opponentSwapParty": "Byt",
+  "opponentEmptyPartyNote": "Lägg till ett monster i ditt lag för att kunna utmana"
 }

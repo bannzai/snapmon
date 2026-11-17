@@ -33,5 +33,6 @@
   "opponentBattleRecordLabel": "배틀 전적",
   "opponentBattleRecord": "승리: {wins}  패배: {losses}",
   "opponentMyParty": "내 파티",
-  "opponentSwapParty": "교체"
+  "opponentSwapParty": "교체",
+  "opponentEmptyPartyNote": "파티에 몬스터를 넣으면 도전할 수 있어요"
 }

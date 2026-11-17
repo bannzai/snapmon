@@ -33,5 +33,6 @@
   "opponentBattleRecordLabel": "Rekor Pertarungan",
   "opponentBattleRecord": "Menang: {wins}  Kalah: {losses}",
   "opponentMyParty": "Tim kamu",
-  "opponentSwapParty": "Ganti"
+  "opponentSwapParty": "Ganti",
+  "opponentEmptyPartyNote": "Tambahkan monster ke timmu untuk bisa menantang"
 }

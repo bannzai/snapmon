@@ -33,5 +33,6 @@
   "opponentBattleRecordLabel": "Historial de combats",
   "opponentBattleRecord": "Victòries: {wins}  Derrotes: {losses}",
   "opponentMyParty": "El meu equip",
-  "opponentSwapParty": "Canvia"
+  "opponentSwapParty": "Canvia",
+  "opponentEmptyPartyNote": "Afegeix un monstre a l'equip per poder desafiar"
 }

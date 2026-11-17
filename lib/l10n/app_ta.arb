@@ -33,5 +33,6 @@
   "opponentBattleRecordLabel": "போர் சாதனை",
   "opponentBattleRecord": "வெற்றி: {wins}  தோல்வி: {losses}",
   "opponentMyParty": "உங்கள் அணி",
-  "opponentSwapParty": "மாற்றுங்கள்"
+  "opponentSwapParty": "மாற்றுங்கள்",
+  "opponentEmptyPartyNote": "அணியில் ஒரு அரக்கனைச் சேருங்கள்; பிறகு சவால் விடலாம்"
 }

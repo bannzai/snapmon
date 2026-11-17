@@ -33,5 +33,6 @@
   "opponentBattleRecordLabel": "لڑائیوں کا ریکارڈ",
   "opponentBattleRecord": "جیت: {wins}  ہار: {losses}",
   "opponentMyParty": "میری ٹیم",
-  "opponentSwapParty": "بدلو"
+  "opponentSwapParty": "بدلو",
+  "opponentEmptyPartyNote": "ٹیم میں مونسٹر شامل کرو، پھر چیلنج کر سکو گے"
 }

@@ -33,5 +33,6 @@
   "opponentBattleRecordLabel": "Bilancia súbojov",
   "opponentBattleRecord": "Výhry: {wins}  Prehry: {losses}",
   "opponentMyParty": "Môj tím",
-  "opponentSwapParty": "Vymeň"
+  "opponentSwapParty": "Vymeň",
+  "opponentEmptyPartyNote": "Pridaj príšeru do tímu a môžeš vyzvať súpera"
 }

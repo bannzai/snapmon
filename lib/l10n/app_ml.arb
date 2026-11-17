@@ -33,5 +33,6 @@
   "opponentBattleRecordLabel": "പോരാട്ട റെക്കോർഡ്",
   "opponentBattleRecord": "ജയം: {wins}  തോൽവി: {losses}",
   "opponentMyParty": "എന്റെ പാർട്ടി",
-  "opponentSwapParty": "മാറ്റുക"
+  "opponentSwapParty": "മാറ്റുക",
+  "opponentEmptyPartyNote": "പാർട്ടിയിൽ ഒരു മോൺസ്റ്ററിനെ ചേർത്താൽ വെല്ലുവിളിക്കാം"
 }

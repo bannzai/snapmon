@@ -33,5 +33,6 @@
   "opponentBattleRecordLabel": "લડાઈનો રેકોર્ડ",
   "opponentBattleRecord": "જીત: {wins}  હાર: {losses}",
   "opponentMyParty": "મારી ટીમ",
-  "opponentSwapParty": "બદલો"
+  "opponentSwapParty": "બદલો",
+  "opponentEmptyPartyNote": "ટીમમાં મોન્સ્ટર ઉમેરો, પછી પડકાર આપી શકશો"
 }

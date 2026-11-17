@@ -33,5 +33,6 @@
   "opponentBattleRecordLabel": "Kampstatistikk",
   "opponentBattleRecord": "Seire: {wins}  Tap: {losses}",
   "opponentMyParty": "Laget ditt",
-  "opponentSwapParty": "Bytt"
+  "opponentSwapParty": "Bytt",
+  "opponentEmptyPartyNote": "Legg et monster på laget ditt, så kan du utfordre"
 }

@@ -33,5 +33,6 @@
   "opponentBattleRecordLabel": "Kampfbilanz",
   "opponentBattleRecord": "Siege: {wins}  Niederlagen: {losses}",
   "opponentMyParty": "Mein Team",
-  "opponentSwapParty": "Wechseln"
+  "opponentSwapParty": "Wechseln",
+  "opponentEmptyPartyNote": "Nimm ein Monster ins Team auf, dann kannst du herausfordern"
 }

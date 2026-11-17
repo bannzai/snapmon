@@ -33,5 +33,6 @@
   "opponentBattleRecordLabel": "Gevechtsstatistieken",
   "opponentBattleRecord": "Overwinningen: {wins}  Nederlagen: {losses}",
   "opponentMyParty": "Jouw team",
-  "opponentSwapParty": "Wisselen"
+  "opponentSwapParty": "Wisselen",
+  "opponentEmptyPartyNote": "Zet een monster in je team om te kunnen uitdagen"
 }

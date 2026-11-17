@@ -33,5 +33,6 @@
   "opponentBattleRecordLabel": "Omjer pobjeda i poraza",
   "opponentBattleRecord": "Pobjede: {wins}  Porazi: {losses}",
   "opponentMyParty": "Moj tim",
-  "opponentSwapParty": "Zamijeni"
+  "opponentSwapParty": "Zamijeni",
+  "opponentEmptyPartyNote": "Dodaj čudovište u tim pa možeš izazvati protivnika"
 }

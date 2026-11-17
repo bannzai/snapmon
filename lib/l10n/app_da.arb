@@ -33,5 +33,6 @@
   "opponentBattleRecordLabel": "Kampstatistik",
   "opponentBattleRecord": "Sejre: {wins}  Nederlag: {losses}",
   "opponentMyParty": "Mit hold",
-  "opponentSwapParty": "Skift"
+  "opponentSwapParty": "Skift",
+  "opponentEmptyPartyNote": "Føj et monster til dit hold, så kan du udfordre"
 }

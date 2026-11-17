@@ -33,5 +33,6 @@
   "opponentBattleRecordLabel": "สถิติการต่อสู้",
   "opponentBattleRecord": "ชนะ: {wins}  แพ้: {losses}",
   "opponentMyParty": "ทีมของเรา",
-  "opponentSwapParty": "สลับ"
+  "opponentSwapParty": "สลับ",
+  "opponentEmptyPartyNote": "เพิ่มมอนสเตอร์เข้าทีมแล้วจะท้าสู้ได้"
 }

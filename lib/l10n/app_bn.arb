@@ -33,5 +33,6 @@
   "opponentBattleRecordLabel": "লড়াইয়ের রেকর্ড",
   "opponentBattleRecord": "জয়: {wins}  হার: {losses}",
   "opponentMyParty": "আমার দল",
-  "opponentSwapParty": "বদলাও"
+  "opponentSwapParty": "বদলাও",
+  "opponentEmptyPartyNote": "দলে দানব যোগ করলে চ্যালেঞ্জ করতে পারবে"
 }

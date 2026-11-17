@@ -33,5 +33,6 @@
   "opponentBattleRecordLabel": "పోరాట రికార్డు",
   "opponentBattleRecord": "గెలుపు: {wins}  ఓటమి: {losses}",
   "opponentMyParty": "నీ జట్టు",
-  "opponentSwapParty": "మార్చు"
+  "opponentSwapParty": "మార్చు",
+  "opponentEmptyPartyNote": "జట్టులో రాక్షసుడిని చేర్చు, అప్పుడు సవాలు చేయొచ్చు"
 }

@@ -33,5 +33,6 @@
   "opponentBattleRecordLabel": "लड़ाई का रिकॉर्ड",
   "opponentBattleRecord": "जीत: {wins}  हार: {losses}",
   "opponentMyParty": "मेरी टीम",
-  "opponentSwapParty": "बदलो"
+  "opponentSwapParty": "बदलो",
+  "opponentEmptyPartyNote": "टीम में मॉन्स्टर जोड़ो, फिर चुनौती दे सकोगे"
 }

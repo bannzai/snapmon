@@ -33,5 +33,6 @@
   "opponentBattleRecordLabel": "Thành tích chiến đấu",
   "opponentBattleRecord": "Thắng: {wins}  Thua: {losses}",
   "opponentMyParty": "Đội của bạn",
-  "opponentSwapParty": "Đổi"
+  "opponentSwapParty": "Đổi",
+  "opponentEmptyPartyNote": "Thêm quái vật vào đội để có thể thách đấu"
 }

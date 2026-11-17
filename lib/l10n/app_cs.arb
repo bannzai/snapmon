@@ -33,5 +33,6 @@
   "opponentBattleRecordLabel": "Bilance zápasů",
   "opponentBattleRecord": "Výhry: {wins}  Prohry: {losses}",
   "opponentMyParty": "Můj tým",
-  "opponentSwapParty": "Vyměnit"
+  "opponentSwapParty": "Vyměnit",
+  "opponentEmptyPartyNote": "Přidej příšeru do týmu a můžeš vyzvat soupeře"
 }

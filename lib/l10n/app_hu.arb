@@ -33,5 +33,6 @@
   "opponentBattleRecordLabel": "Csatamérleg",
   "opponentBattleRecord": "Győzelmek: {wins}  Vereségek: {losses}",
   "opponentMyParty": "A csapatom",
-  "opponentSwapParty": "Csere"
+  "opponentSwapParty": "Csere",
+  "opponentEmptyPartyNote": "Tegyél szörnyet a csapatodba, és már kihívhatod az ellenfelet"
 }

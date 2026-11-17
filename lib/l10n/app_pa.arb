@@ -33,5 +33,6 @@
   "opponentBattleRecordLabel": "ਲੜਾਈ ਦਾ ਰਿਕਾਰਡ",
   "opponentBattleRecord": "ਜਿੱਤ: {wins}  ਹਾਰ: {losses}",
   "opponentMyParty": "ਮੇਰੀ ਟੀਮ",
-  "opponentSwapParty": "ਬਦਲੋ"
+  "opponentSwapParty": "ਬਦਲੋ",
+  "opponentEmptyPartyNote": "ਟੀਮ ਵਿੱਚ ਮੌਂਸਟਰ ਸ਼ਾਮਲ ਕਰੋ, ਫਿਰ ਚੁਣੌਤੀ ਦੇ ਸਕੋਗੇ"
 }

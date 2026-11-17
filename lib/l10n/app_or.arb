@@ -33,5 +33,6 @@
   "opponentBattleRecordLabel": "ଯୁଦ୍ଧ ରେକର୍ଡ",
   "opponentBattleRecord": "ଜିତ: {wins}  ହାର: {losses}",
   "opponentMyParty": "ମୋ ଦଳ",
-  "opponentSwapParty": "ବଦଳ"
+  "opponentSwapParty": "ବଦଳ",
+  "opponentEmptyPartyNote": "ଦଳରେ ମନଷ୍ଟର ଯୋଡ଼, ତା’ପରେ ଆହ୍ୱାନ କରିପାରିବ"
 }
