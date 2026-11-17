@@ -220,5 +220,6 @@
   "battleLevelUpNote": "जीतो या हारो, लड़ने वाले मॉन्स्टर का लेवल बढ़ता है",
   "battleLearnedMove": "नई चाल सीखी: {moveName}!",
   "battleNextLearnLevel": "Lv. {level} पर नई चाल सीखेगा",
-  "battleShareTextWon": "मैंने snapmon में लड़ाई जीती\n#snapmon\n{url}"
+  "battleShareTextWon": "मैंने snapmon में लड़ाई जीती\n#snapmon\n{url}",
+  "battleShareTextLost": "snapmon में लड़ाई हार गया\n#snapmon\n{url}"
 }

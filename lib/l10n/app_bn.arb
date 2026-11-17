@@ -220,5 +220,6 @@
   "battleLevelUpNote": "জিতো বা হারো, লড়াই করা মনস্টারদের লেভেল বাড়ে",
   "battleLearnedMove": "নতুন চাল শিখেছে: {moveName}!",
   "battleNextLearnLevel": "Lv. {level}-এ নতুন কৌশল শিখবে",
-  "battleShareTextWon": "তুমি snapmon-এর লড়াই জিতেছ\n#snapmon\n{url}"
+  "battleShareTextWon": "তুমি snapmon-এর লড়াই জিতেছ\n#snapmon\n{url}",
+  "battleShareTextLost": "snapmon-এ লড়াইয়ে হেরে গেলাম\n#snapmon\n{url}"
 }

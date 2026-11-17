@@ -220,5 +220,6 @@
   "battleLevelUpNote": "Είτε κερδίσεις είτε χάσεις, τα τέρατα που πολέμησαν ανεβαίνουν επίπεδο",
   "battleLearnedMove": "Έμαθε την κίνηση {moveName}!",
   "battleNextLearnLevel": "Μαθαίνει νέα τεχνική στο Lv. {level}",
-  "battleShareTextWon": "Κέρδισα μια μάχη στο snapmon\n#snapmon\n{url}"
+  "battleShareTextWon": "Κέρδισα μια μάχη στο snapmon\n#snapmon\n{url}",
+  "battleShareTextLost": "Έχασα μια μάχη στο snapmon\n#snapmon\n{url}"
 }

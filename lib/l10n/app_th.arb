@@ -220,5 +220,6 @@
   "battleLevelUpNote": "ไม่ว่าจะแพ้หรือชนะ มอนสเตอร์ที่ต่อสู้จะเลเวลอัป",
   "battleLearnedMove": "เรียนรู้ท่าใหม่: {moveName}!",
   "battleNextLearnLevel": "เรียนรู้ท่าใหม่ที่ Lv. {level}",
-  "battleShareTextWon": "ชนะการต่อสู้ใน snapmon แล้ว\n#snapmon\n{url}"
+  "battleShareTextWon": "ชนะการต่อสู้ใน snapmon แล้ว\n#snapmon\n{url}",
+  "battleShareTextLost": "แพ้การต่อสู้ใน snapmon แล้ว\n#snapmon\n{url}"
 }

@@ -220,5 +220,6 @@
   "battleLevelUpNote": "Победишь или проиграешь — монстры, участвовавшие в бою, повысят уровень",
   "battleLearnedMove": "Выучил новый приём: {moveName}!",
   "battleNextLearnLevel": "На Lv. {level} выучит новый приём",
-  "battleShareTextWon": "Я выиграл бой в snapmon\n#snapmon\n{url}"
+  "battleShareTextWon": "Я выиграл бой в snapmon\n#snapmon\n{url}",
+  "battleShareTextLost": "Проиграл битву в snapmon\n#snapmon\n{url}"
 }

@@ -220,5 +220,6 @@
   "battleLevelUpNote": "Guanyis o perdis, els monstres que han lluitat pugen de nivell",
   "battleLearnedMove": "Ha après el moviment {moveName}!",
   "battleNextLearnLevel": "Aprèn un moviment nou al Lv. {level}",
-  "battleShareTextWon": "He guanyat una batalla a snapmon\n#snapmon\n{url}"
+  "battleShareTextWon": "He guanyat una batalla a snapmon\n#snapmon\n{url}",
+  "battleShareTextLost": "He perdut un combat a snapmon\n#snapmon\n{url}"
 }

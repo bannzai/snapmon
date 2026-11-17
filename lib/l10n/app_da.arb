@@ -220,5 +220,6 @@
   "battleLevelUpNote": "Uanset om du vinder eller taber, stiger de monstres niveau, når de har kæmpet",
   "battleLearnedMove": "Har lært angrebet {moveName}!",
   "battleNextLearnLevel": "Lærer et nyt angreb på Lv. {level}",
-  "battleShareTextWon": "Jeg vandt en kamp i snapmon\n#snapmon\n{url}"
+  "battleShareTextWon": "Jeg vandt en kamp i snapmon\n#snapmon\n{url}",
+  "battleShareTextLost": "Jeg tabte en kamp i snapmon\n#snapmon\n{url}"
 }

@@ -220,5 +220,6 @@
   "battleLevelUpNote": "Ganes o pierdas, los monstruos que lucharon suben de nivel",
   "battleLearnedMove": "¡Aprendió el movimiento {moveName}!",
   "battleNextLearnLevel": "Aprende un movimiento nuevo en Lv. {level}",
-  "battleShareTextWon": "Gané una batalla en snapmon\n#snapmon\n{url}"
+  "battleShareTextWon": "Gané una batalla en snapmon\n#snapmon\n{url}",
+  "battleShareTextLost": "Perdí un combate en snapmon\n#snapmon\n{url}"
 }

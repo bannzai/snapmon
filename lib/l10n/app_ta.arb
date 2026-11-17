@@ -220,5 +220,6 @@
   "battleLevelUpNote": "வென்றாலும் தோற்றாலும், போரிட்ட மான்ஸ்டர்களின் லெவல் உயரும்",
   "battleLearnedMove": "புதிய நகர்வைக் கற்றது: {moveName}!",
   "battleNextLearnLevel": "Lv. {level}-இல் புதிய தாக்குதலைக் கற்கும்",
-  "battleShareTextWon": "snapmon-இல் ஒரு போரில் வென்றேன்\n#snapmon\n{url}"
+  "battleShareTextWon": "snapmon-இல் ஒரு போரில் வென்றேன்\n#snapmon\n{url}",
+  "battleShareTextLost": "snapmon-இல் நடந்த போரில் தோற்றுவிட்டேன்\n#snapmon\n{url}"
 }
