@@ -31,5 +31,6 @@
   "opponentReportHelpBody": "Ilmoita vastustajan hirviöstä pitämällä sitä painettuna\nKortin oikean yläkulman painikkeesta voit ilmoittaa tai estää",
   "opponentLevelUpNote": "Taso nousee 1:llä jokaisen taistelun jälkeen",
   "opponentBattleRecordLabel": "Taistelutilasto",
-  "opponentBattleRecord": "Voitot: {wins}  Tappiot: {losses}"
+  "opponentBattleRecord": "Voitot: {wins}  Tappiot: {losses}",
+  "opponentMyParty": "Oma joukkue"
 }

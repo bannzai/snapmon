@@ -31,5 +31,6 @@
   "opponentReportHelpBody": "ప్రత్యర్థి మాన్స్టర్‌ను నొక్కి పట్టుకుని రిపోర్ట్ చేయి\nకార్డ్ కుడి ఎగువ బటన్‌తో రిపోర్ట్ లేదా బ్లాక్ చేయి",
   "opponentLevelUpNote": "ప్రతి పోరాటం తర్వాత లెవల్ 1 పెరుగుతుంది",
   "opponentBattleRecordLabel": "పోరాట రికార్డు",
-  "opponentBattleRecord": "గెలుపు: {wins}  ఓటమి: {losses}"
+  "opponentBattleRecord": "గెలుపు: {wins}  ఓటమి: {losses}",
+  "opponentMyParty": "నీ జట్టు"
 }

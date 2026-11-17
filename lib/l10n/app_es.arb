@@ -31,5 +31,6 @@
   "opponentReportHelpBody": "Mantén presionado el monstruo rival para denunciarlo\nUsa el botón de la esquina superior derecha de la carta para denunciar o bloquear",
   "opponentLevelUpNote": "Sube 1 nivel tras cada combate",
   "opponentBattleRecordLabel": "Historial de combates",
-  "opponentBattleRecord": "Victorias: {wins}  Derrotas: {losses}"
+  "opponentBattleRecord": "Victorias: {wins}  Derrotas: {losses}",
+  "opponentMyParty": "Mi equipo"
 }

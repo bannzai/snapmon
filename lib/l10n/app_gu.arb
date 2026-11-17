@@ -31,5 +31,6 @@
   "opponentReportHelpBody": "સામેના મોન્સ્ટરને લાંબું દબાવીને રિપોર્ટ કરો\nકાર્ડના ઉપર જમણા ખૂણાના બટનથી રિપોર્ટ અથવા બ્લોક કરો",
   "opponentLevelUpNote": "દરેક લડાઈ પછી લેવલ 1 વધે છે",
   "opponentBattleRecordLabel": "લડાઈનો રેકોર્ડ",
-  "opponentBattleRecord": "જીત: {wins}  હાર: {losses}"
+  "opponentBattleRecord": "જીત: {wins}  હાર: {losses}",
+  "opponentMyParty": "મારી ટીમ"
 }

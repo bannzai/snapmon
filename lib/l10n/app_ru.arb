@@ -31,5 +31,6 @@
   "opponentReportHelpBody": "Удерживай монстра соперника, чтобы отправить жалобу\nКнопка справа вверху на карточке позволяет отправить жалобу или блокировать",
   "opponentLevelUpNote": "После каждого боя уровень растёт на 1",
   "opponentBattleRecordLabel": "Статистика боёв",
-  "opponentBattleRecord": "Победы: {wins}  Поражения: {losses}"
+  "opponentBattleRecord": "Победы: {wins}  Поражения: {losses}",
+  "opponentMyParty": "Моя команда"
 }

@@ -31,5 +31,6 @@
   "opponentReportHelpBody": "എതിരാളിയുടെ മോൺസ്റ്ററിനെ അമർത്തിപ്പിടിച്ച് റിപ്പോർട്ട് ചെയ്യാം\nകാർഡിന്റെ മുകളിൽ വലതുവശത്തെ ബട്ടൺ വഴി റിപ്പോർട്ട് ചെയ്യുകയോ ബ്ലോക്ക് ചെയ്യുകയോ ചെയ്യാം",
   "opponentLevelUpNote": "ഓരോ പോരാട്ടത്തിനു ശേഷവും ലെവൽ 1 കൂടും",
   "opponentBattleRecordLabel": "പോരാട്ട റെക്കോർഡ്",
-  "opponentBattleRecord": "ജയം: {wins}  തോൽവി: {losses}"
+  "opponentBattleRecord": "ജയം: {wins}  തോൽവി: {losses}",
+  "opponentMyParty": "എന്റെ പാർട്ടി"
 }

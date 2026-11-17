@@ -31,5 +31,6 @@
   "opponentReportHelpBody": "Dugo pritisni protivnikovo čudovište da ga prijaviš\nGumbom gore desno na kartici možeš ga prijaviti ili blokirati",
   "opponentLevelUpNote": "Nakon svake borbe razina raste za 1",
   "opponentBattleRecordLabel": "Omjer pobjeda i poraza",
-  "opponentBattleRecord": "Pobjede: {wins}  Porazi: {losses}"
+  "opponentBattleRecord": "Pobjede: {wins}  Porazi: {losses}",
+  "opponentMyParty": "Moj tim"
 }

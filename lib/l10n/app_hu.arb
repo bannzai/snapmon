@@ -31,5 +31,6 @@
   "opponentReportHelpBody": "Tartsd lenyomva az ellenfél szörnyét a jelentéshez\nA kártya jobb felső gombjával jelentheted vagy letilthatod",
   "opponentLevelUpNote": "Minden csata után 1 szintet lép",
   "opponentBattleRecordLabel": "Csatamérleg",
-  "opponentBattleRecord": "Győzelmek: {wins}  Vereségek: {losses}"
+  "opponentBattleRecord": "Győzelmek: {wins}  Vereségek: {losses}",
+  "opponentMyParty": "A csapatom"
 }

@@ -31,5 +31,6 @@
   "opponentReportHelpBody": "Podrž soupeřovu příšeru a můžeš ji nahlásit\nTlačítkem vpravo nahoře na kartě ji můžeš nahlásit nebo blokovat",
   "opponentLevelUpNote": "Po každém souboji se úroveň zvýší o 1",
   "opponentBattleRecordLabel": "Bilance zápasů",
-  "opponentBattleRecord": "Výhry: {wins}  Prohry: {losses}"
+  "opponentBattleRecord": "Výhry: {wins}  Prohry: {losses}",
+  "opponentMyParty": "Můj tým"
 }

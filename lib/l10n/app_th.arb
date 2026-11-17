@@ -31,5 +31,6 @@
   "opponentReportHelpBody": "กดมอนสเตอร์ของคู่ต่อสู้ค้างไว้เพื่อรายงาน\nใช้ปุ่มมุมขวาบนของการ์ดเพื่อรายงานหรือบล็อก",
   "opponentLevelUpNote": "เลเวลเพิ่ม 1 หลังจบแต่ละศึก",
   "opponentBattleRecordLabel": "สถิติการต่อสู้",
-  "opponentBattleRecord": "ชนะ: {wins}  แพ้: {losses}"
+  "opponentBattleRecord": "ชนะ: {wins}  แพ้: {losses}",
+  "opponentMyParty": "ทีมของเรา"
 }

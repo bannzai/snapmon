@@ -31,5 +31,6 @@
   "opponentReportHelpBody": "Tekan lama monster lawan untuk laporkan\nGuna butang di kanan atas kad untuk lapor atau sekat",
   "opponentLevelUpNote": "Naik 1 tahap selepas setiap pertarungan",
   "opponentBattleRecordLabel": "Rekod Pertarungan",
-  "opponentBattleRecord": "Menang: {wins}  Kalah: {losses}"
+  "opponentBattleRecord": "Menang: {wins}  Kalah: {losses}",
+  "opponentMyParty": "Pasukan kamu"
 }
