@@ -231,5 +231,6 @@
   "titleStartFromAlbum": "Foto auswählen und loslegen",
   "titleStartFromCamera": "Mach ein Foto und leg los",
   "titleContinue": "Fortsetzen",
-  "titleContinueWithCount": "Weiterspielen (Dex {monsterCount})"
+  "titleContinueWithCount": "Weiterspielen (Dex {monsterCount})",
+  "titleMinimumAge": "Ab {age} Jahren"
 }

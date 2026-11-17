@@ -231,5 +231,6 @@
   "titleStartFromAlbum": "Alege o poză și începe",
   "titleStartFromCamera": "Fă o poză și începe",
   "titleContinue": "Continuă",
-  "titleContinueWithCount": "Continuă (enciclopedie {monsterCount})"
+  "titleContinueWithCount": "Continuă (enciclopedie {monsterCount})",
+  "titleMinimumAge": "De la {age} ani"
 }

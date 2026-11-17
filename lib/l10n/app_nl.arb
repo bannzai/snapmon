@@ -231,5 +231,6 @@
   "titleStartFromAlbum": "Kies een foto en begin",
   "titleStartFromCamera": "Maak een foto en begin",
   "titleContinue": "Verder spelen",
-  "titleContinueWithCount": "Verder spelen (dex {monsterCount})"
+  "titleContinueWithCount": "Verder spelen (dex {monsterCount})",
+  "titleMinimumAge": "Vanaf {age} jaar"
 }

@@ -231,5 +231,6 @@
   "titleStartFromAlbum": "ছবি বেছে শুরু করো",
   "titleStartFromCamera": "ছবি তুলে শুরু করো",
   "titleContinue": "খেলা চালিয়ে যাও",
-  "titleContinueWithCount": "চালিয়ে যাও (সংগ্রহ {monsterCount})"
+  "titleContinueWithCount": "চালিয়ে যাও (সংগ্রহ {monsterCount})",
+  "titleMinimumAge": "{age} বছর বা তার বেশি বয়সীদের জন্য"
 }

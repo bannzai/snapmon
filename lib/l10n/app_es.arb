@@ -231,5 +231,6 @@
   "titleStartFromAlbum": "Elige una foto para empezar",
   "titleStartFromCamera": "Toma una foto para empezar",
   "titleContinue": "Continuar",
-  "titleContinueWithCount": "Continuar (colección {monsterCount})"
+  "titleContinueWithCount": "Continuar (colección {monsterCount})",
+  "titleMinimumAge": "A partir de {age} años"
 }

@@ -231,5 +231,6 @@
   "titleStartFromAlbum": "Vyber fotku a začni",
   "titleStartFromCamera": "Odfoť a začni",
   "titleContinue": "Pokračovať",
-  "titleContinueWithCount": "Pokračuj (encyklopédia {monsterCount})"
+  "titleContinueWithCount": "Pokračuj (encyklopédia {monsterCount})",
+  "titleMinimumAge": "Od {age} rokov"
 }

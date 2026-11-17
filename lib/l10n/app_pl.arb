@@ -231,5 +231,6 @@
   "titleStartFromAlbum": "Wybierz zdjęcie i zacznij",
   "titleStartFromCamera": "Zrób zdjęcie i zacznij",
   "titleContinue": "Kontynuuj",
-  "titleContinueWithCount": "Kontynuuj (encyklopedia {monsterCount})"
+  "titleContinueWithCount": "Kontynuuj (encyklopedia {monsterCount})",
+  "titleMinimumAge": "Od {age} lat"
 }

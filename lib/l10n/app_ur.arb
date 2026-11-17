@@ -231,5 +231,6 @@
   "titleStartFromAlbum": "تصویر چن کر شروع کرو",
   "titleStartFromCamera": "تصویر کھینچ کر شروع کرو",
   "titleContinue": "کھیل جاری رکھو",
-  "titleContinueWithCount": "آگے کھیلو (ڈیکس {monsterCount})"
+  "titleContinueWithCount": "آگے کھیلو (ڈیکس {monsterCount})",
+  "titleMinimumAge": "{age} سال یا اس سے زیادہ عمر کے لیے"
 }

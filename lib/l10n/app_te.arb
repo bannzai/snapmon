@@ -231,5 +231,6 @@
   "titleStartFromAlbum": "ఫోటో ఎంచుకుని మొదలుపెట్టు",
   "titleStartFromCamera": "ఫోటో తీసి మొదలుపెట్టు",
   "titleContinue": "ఆట కొనసాగించు",
-  "titleContinueWithCount": "కొనసాగించు (డెక్స్ {monsterCount})"
+  "titleContinueWithCount": "కొనసాగించు (డెక్స్ {monsterCount})",
+  "titleMinimumAge": "{age} ఏళ్లు, అంతకంటే ఎక్కువ వయసు వారికి"
 }

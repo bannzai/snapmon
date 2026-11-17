@@ -231,5 +231,6 @@
   "titleStartFromAlbum": "Выбери фото и начни",
   "titleStartFromCamera": "Сделай фото и начни",
   "titleContinue": "Продолжить",
-  "titleContinueWithCount": "Продолжить (энциклопедия {monsterCount})"
+  "titleContinueWithCount": "Продолжить (энциклопедия {monsterCount})",
+  "titleMinimumAge": "Для игроков от {age} лет"
 }

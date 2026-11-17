@@ -231,5 +231,6 @@
   "titleStartFromAlbum": "படத்தைத் தேர்ந்தெடுத்து தொடங்குங்கள்",
   "titleStartFromCamera": "படம் எடுத்து தொடங்குங்கள்",
   "titleContinue": "விளையாட்டைத் தொடருங்கள்",
-  "titleContinueWithCount": "தொடருங்கள் (களஞ்சியம் {monsterCount})"
+  "titleContinueWithCount": "தொடருங்கள் (களஞ்சியம் {monsterCount})",
+  "titleMinimumAge": "{age} வயது மற்றும் அதற்கு மேற்பட்டவர்களுக்கு"
 }

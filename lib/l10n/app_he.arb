@@ -231,5 +231,6 @@
   "titleStartFromAlbum": "לבחור תמונה ולהתחיל",
   "titleStartFromCamera": "לצלם ולהתחיל",
   "titleContinue": "המשך משחק",
-  "titleContinueWithCount": "להמשיך (אוסף {monsterCount})"
+  "titleContinueWithCount": "להמשיך (אוסף {monsterCount})",
+  "titleMinimumAge": "מגיל {age} ומעלה"
 }

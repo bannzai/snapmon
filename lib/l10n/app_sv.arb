@@ -231,5 +231,6 @@
   "titleStartFromAlbum": "Välj en bild och börja",
   "titleStartFromCamera": "Ta ett foto och börja",
   "titleContinue": "Fortsätt",
-  "titleContinueWithCount": "Fortsätt (samling {monsterCount})"
+  "titleContinueWithCount": "Fortsätt (samling {monsterCount})",
+  "titleMinimumAge": "Från {age} år"
 }

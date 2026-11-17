@@ -231,5 +231,6 @@
   "titleStartFromAlbum": "Вибери фото й почни",
   "titleStartFromCamera": "Зроби фото й почни",
   "titleContinue": "Продовжити",
-  "titleContinueWithCount": "Продовжити (енциклопедія {monsterCount})"
+  "titleContinueWithCount": "Продовжити (енциклопедія {monsterCount})",
+  "titleMinimumAge": "Для гравців від {age} років"
 }

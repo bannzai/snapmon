@@ -231,5 +231,6 @@
   "titleStartFromAlbum": "Fotoğraf seç ve başla",
   "titleStartFromCamera": "Fotoğraf çekip başla",
   "titleContinue": "Devam et",
-  "titleContinueWithCount": "Devam et (ansiklopedi {monsterCount})"
+  "titleContinueWithCount": "Devam et (ansiklopedi {monsterCount})",
+  "titleMinimumAge": "{age} yaş ve üzeri için"
 }

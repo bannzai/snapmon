@@ -231,5 +231,6 @@
   "titleStartFromAlbum": "Valitse kuva ja aloita",
   "titleStartFromCamera": "Ota kuva ja aloita",
   "titleContinue": "Jatka",
-  "titleContinueWithCount": "Jatka (kokoelma {monsterCount})"
+  "titleContinueWithCount": "Jatka (kokoelma {monsterCount})",
+  "titleMinimumAge": "Vähintään {age}-vuotiaille"
 }

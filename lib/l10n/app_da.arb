@@ -231,5 +231,6 @@
   "titleStartFromAlbum": "Vælg et billede, og start",
   "titleStartFromCamera": "Tag et billede, og kom i gang",
   "titleContinue": "Fortsæt",
-  "titleContinueWithCount": "Fortsæt (dex {monsterCount})"
+  "titleContinueWithCount": "Fortsæt (dex {monsterCount})",
+  "titleMinimumAge": "Fra {age} år"
 }

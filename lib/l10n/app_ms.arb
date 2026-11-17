@@ -231,5 +231,6 @@
   "titleStartFromAlbum": "Pilih foto untuk mula",
   "titleStartFromCamera": "Ambil gambar dan mula",
   "titleContinue": "Teruskan",
-  "titleContinueWithCount": "Teruskan (ensiklopedia {monsterCount})"
+  "titleContinueWithCount": "Teruskan (ensiklopedia {monsterCount})",
+  "titleMinimumAge": "Untuk umur {age} tahun ke atas"
 }

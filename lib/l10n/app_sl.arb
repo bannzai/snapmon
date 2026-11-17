@@ -231,5 +231,6 @@
   "titleStartFromAlbum": "Izberi fotografijo in začni",
   "titleStartFromCamera": "Fotografiraj in začni",
   "titleContinue": "Nadaljuj",
-  "titleContinueWithCount": "Nadaljuj (enciklopedija {monsterCount})"
+  "titleContinueWithCount": "Nadaljuj (enciklopedija {monsterCount})",
+  "titleMinimumAge": "Od {age} let"
 }
