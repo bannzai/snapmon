@@ -50,5 +50,6 @@
   "settingsDeleteAccountTitle": "Chcesz usunąć swoje konto?",
   "settingsDeleteAccountMessage": "Twoje potwory, encyklopedia, oryginalne zdjęcia i zapisy walk zostaną trwale usunięte. Potem zaczniesz z nowym kontem.",
   "settingsDeleteAccountConfirm": "Usuń",
-  "settingsSoundSection": "Dźwięk"
+  "settingsSoundSection": "Dźwięk",
+  "settingsBackgroundMusic": "Muzyka w tle"
 }

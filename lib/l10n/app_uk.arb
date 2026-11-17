@@ -50,5 +50,6 @@
   "settingsDeleteAccountTitle": "Хочеш видалити свій обліковий запис?",
   "settingsDeleteAccountMessage": "Твої монстри, енциклопедія, оригінальні фото та записи боїв будуть видалені назавжди. Після цього ти почнеш із новим акаунтом.",
   "settingsDeleteAccountConfirm": "Видалити",
-  "settingsSoundSection": "Звук"
+  "settingsSoundSection": "Звук",
+  "settingsBackgroundMusic": "Фонова музика"
 }

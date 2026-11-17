@@ -50,5 +50,6 @@
   "settingsDeleteAccountTitle": "Chceš odstrániť svoj účet?",
   "settingsDeleteAccountMessage": "Tvoje príšery, encyklopédia, pôvodné fotky a záznamy súbojov sa natrvalo vymažú. Potom začneš s novým účtom.",
   "settingsDeleteAccountConfirm": "Odstrániť",
-  "settingsSoundSection": "Zvuk"
+  "settingsSoundSection": "Zvuk",
+  "settingsBackgroundMusic": "Hudba na pozadí"
 }

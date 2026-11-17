@@ -50,5 +50,6 @@
   "settingsDeleteAccountTitle": "¿Quieres eliminar tu cuenta?",
   "settingsDeleteAccountMessage": "Se borrarán tus monstruos, tu colección, las fotos originales y el historial de combates. No podrás recuperarlos. Después empezarás con una cuenta nueva.",
   "settingsDeleteAccountConfirm": "Eliminar",
-  "settingsSoundSection": "Sonido"
+  "settingsSoundSection": "Sonido",
+  "settingsBackgroundMusic": "Música de fondo"
 }

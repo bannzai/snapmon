@@ -50,5 +50,6 @@
   "settingsDeleteAccountTitle": "Bạn muốn xóa tài khoản?",
   "settingsDeleteAccountMessage": "Quái vật, bộ sưu tập, ảnh gốc và lịch sử trận đấu của bạn sẽ bị xóa vĩnh viễn. Sau đó, bạn sẽ bắt đầu với tài khoản mới.",
   "settingsDeleteAccountConfirm": "Xóa",
-  "settingsSoundSection": "Âm thanh"
+  "settingsSoundSection": "Âm thanh",
+  "settingsBackgroundMusic": "Nhạc nền"
 }

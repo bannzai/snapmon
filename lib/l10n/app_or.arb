@@ -50,5 +50,6 @@
   "settingsDeleteAccountTitle": "ତୁମେ ତୁମ ଖାତା ବିଲୋପ କରିବାକୁ ଚାହୁଁଛ କି?",
   "settingsDeleteAccountMessage": "ତୁମର ମନଷ୍ଟର, ବିଶ୍ୱକୋଷ, ମୂଳ ଫଟୋ ଓ ଯୁଦ୍ଧ ରେକର୍ଡ ସବୁଦିନ ପାଇଁ ଲିଭିଯିବ। ତା’ପରେ ତୁମେ ନୂଆ ଆକାଉଣ୍ଟରୁ ଆରମ୍ଭ କରିବ।",
   "settingsDeleteAccountConfirm": "ଲିଭାଇ ଦିଅ",
-  "settingsSoundSection": "ଶବ୍ଦ"
+  "settingsSoundSection": "ଶବ୍ଦ",
+  "settingsBackgroundMusic": "ପୃଷ୍ଠଭୂମି ସଙ୍ଗୀତ"
 }

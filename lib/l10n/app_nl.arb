@@ -50,5 +50,6 @@
   "settingsDeleteAccountTitle": "Wil je je account verwijderen?",
   "settingsDeleteAccountMessage": "Je monsters, dex, originele foto's en gevechtsgegevens worden voorgoed verwijderd. Daarna begin je met een nieuw account.",
   "settingsDeleteAccountConfirm": "Verwijderen",
-  "settingsSoundSection": "Geluid"
+  "settingsSoundSection": "Geluid",
+  "settingsBackgroundMusic": "Achtergrondmuziek"
 }

@@ -50,5 +50,6 @@
   "settingsDeleteAccountTitle": "Vil du slette kontoen din?",
   "settingsDeleteAccountMessage": "Monstrene dine, samlingen, originalbildene og kampdataene slettes for godt. Etterpå starter du med en ny konto.",
   "settingsDeleteAccountConfirm": "Slett",
-  "settingsSoundSection": "Lyd"
+  "settingsSoundSection": "Lyd",
+  "settingsBackgroundMusic": "Bakgrunnsmusikk"
 }

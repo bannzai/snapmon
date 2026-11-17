@@ -50,5 +50,6 @@
   "settingsDeleteAccountTitle": "هل تريد حذف حسابك؟",
   "settingsDeleteAccountMessage": "ستُحذف الوحوش من نوع وحش، والموسوعة موسوع، والصور الأصلية، وسجلات المعارك نهائيًا. بعد الحذف، ستبدأ بحساب جديد.",
   "settingsDeleteAccountConfirm": "حذف",
-  "settingsSoundSection": "الصوت"
+  "settingsSoundSection": "الصوت",
+  "settingsBackgroundMusic": "موسيقى الخلفية"
 }

@@ -50,5 +50,6 @@
   "settingsDeleteAccountTitle": "Θέλεις να διαγράψεις τον λογαριασμό σου;",
   "settingsDeleteAccountMessage": "Τα τέρατα, η εγκυκλοπαίδεια, οι αρχικές φωτογραφίες και το ιστορικό μαχών θα διαγραφούν οριστικά. Μετά θα ξεκινήσεις με νέο λογαριασμό.",
   "settingsDeleteAccountConfirm": "Διαγραφή",
-  "settingsSoundSection": "Ήχος"
+  "settingsSoundSection": "Ήχος",
+  "settingsBackgroundMusic": "Μουσική υπόκρουση"
 }

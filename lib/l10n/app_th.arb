@@ -50,5 +50,6 @@
   "settingsDeleteAccountTitle": "ต้องการลบบัญชีไหม?",
   "settingsDeleteAccountMessage": "มอนสเตอร์ สารานุกรม รูปต้นฉบับ และบันทึกการต่อสู้จะถูกลบถาวร จากนั้นจะเริ่มใหม่ด้วยบัญชีใหม่",
   "settingsDeleteAccountConfirm": "ลบ",
-  "settingsSoundSection": "เสียง"
+  "settingsSoundSection": "เสียง",
+  "settingsBackgroundMusic": "เพลงประกอบ"
 }

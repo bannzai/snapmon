@@ -50,5 +50,6 @@
   "settingsDeleteAccountTitle": "Želiš izbrisati svoj račun?",
   "settingsDeleteAccountMessage": "Tvoje pošasti, enciklopedija, izvirne fotografije in zapisi bitk bodo trajno izbrisani. Nato začneš z novim računom.",
   "settingsDeleteAccountConfirm": "Izbriši",
-  "settingsSoundSection": "Zvok"
+  "settingsSoundSection": "Zvok",
+  "settingsBackgroundMusic": "Glasba v ozadju"
 }
