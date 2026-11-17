@@ -311,5 +311,6 @@
   "battleLostPartyHintMessage": "Ton équipe peut compter jusqu’à {maximumPartySize} monstres\nConnaître les faiblesses et les altérations te donne l’avantage au combat",
   "helpOpen": "Voir comment jouer",
   "helpTitle": "Comment jouer",
-  "helpPartyHeading": "Monstres dans ton équipe : max. {maximumPartySize}"
+  "helpPartyHeading": "Monstres dans ton équipe : max. {maximumPartySize}",
+  "helpPartyBody": "Les monstres de ton équipe combattent\nSi le monstre en jeu tombe K.O., le suivant prend sa place\nSi toute ton équipe est K.O., tu perds\nTu peux changer ton équipe dans le dex"
 }
