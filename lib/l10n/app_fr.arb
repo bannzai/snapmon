@@ -180,5 +180,6 @@
   "battleLogAsleep": "{monsterName} dort à poings fermés",
   "battleLogFrozenSolid": "La glace empêche {monsterName} de bouger !",
   "battleLogConfusedMove": "Dans la confusion, {monsterName} a lancé {moveName} au lieu de {selectedMoveName}",
-  "battleLogOneHitKnockout": "K.O. en un coup !"
+  "battleLogOneHitKnockout": "K.O. en un coup !",
+  "battleLogSelfDestructed": "{monsterName} s’autodétruit !"
 }
