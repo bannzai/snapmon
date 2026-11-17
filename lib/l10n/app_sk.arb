@@ -256,5 +256,6 @@
   "moveDetailRecoveryFormula": "Obnovené HP",
   "moveDetailRecoveryFormulaNote": "HP sa neobnoví nad maximum",
   "moveDetailEffectiveness": "účinnosť",
-  "moveDetailSuperEffective": "Veľmi účinné"
+  "moveDetailSuperEffective": "Veľmi účinné",
+  "moveDetailNotVeryEffective": "Málo účinné"
 }

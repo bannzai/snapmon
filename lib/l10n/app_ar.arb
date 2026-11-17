@@ -256,5 +256,6 @@
   "moveDetailRecoveryFormula": "مقدار HP المستعاد",
   "moveDetailRecoveryFormulaNote": "لا يمكن استعادة HP فوق الحد الأقصى",
   "moveDetailEffectiveness": "فعالية",
-  "moveDetailSuperEffective": "فعّال جدًا"
+  "moveDetailSuperEffective": "فعّال جدًا",
+  "moveDetailNotVeryEffective": "ليس فعّالًا جدًا"
 }

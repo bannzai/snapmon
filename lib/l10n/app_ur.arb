@@ -256,5 +256,6 @@
   "moveDetailRecoveryFormula": "بحال ہونے والے HP",
   "moveDetailRecoveryFormulaNote": "زیادہ سے زیادہ HP سے بڑھ کر بحال نہیں ہوتا",
   "moveDetailEffectiveness": "اثر",
-  "moveDetailSuperEffective": "بہت مؤثر"
+  "moveDetailSuperEffective": "بہت مؤثر",
+  "moveDetailNotVeryEffective": "زیادہ مؤثر نہیں"
 }

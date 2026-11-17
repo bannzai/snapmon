@@ -256,5 +256,6 @@
   "moveDetailRecoveryFormula": "ପୁନରୁଦ୍ଧାର ହେଉଥିବା HP",
   "moveDetailRecoveryFormulaNote": "ସର୍ବାଧିକ HP ଠାରୁ ଅଧିକ ପୁନରୁଦ୍ଧାର ହୁଏ ନାହିଁ",
   "moveDetailEffectiveness": "ପ୍ରଭାବ",
-  "moveDetailSuperEffective": "ଖୁବ୍ ପ୍ରଭାବଶାଳୀ"
+  "moveDetailSuperEffective": "ଖୁବ୍ ପ୍ରଭାବଶାଳୀ",
+  "moveDetailNotVeryEffective": "ବିଶେଷ ପ୍ରଭାବୀ ନୁହେଁ"
 }

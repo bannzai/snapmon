@@ -256,5 +256,6 @@
   "moveDetailRecoveryFormula": "HP ที่ฟื้นฟู",
   "moveDetailRecoveryFormulaNote": "ฟื้นฟู HP ไม่เกินค่าสูงสุด",
   "moveDetailEffectiveness": "ได้เปรียบ",
-  "moveDetailSuperEffective": "ได้ผลดีมาก"
+  "moveDetailSuperEffective": "ได้ผลดีมาก",
+  "moveDetailNotVeryEffective": "ไม่ค่อยได้ผล"
 }

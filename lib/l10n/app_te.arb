@@ -256,5 +256,6 @@
   "moveDetailRecoveryFormula": "తిరిగి పొందే HP",
   "moveDetailRecoveryFormulaNote": "గరిష్ఠ HP కంటే ఎక్కువగా పునరుద్ధరణ జరగదు",
   "moveDetailEffectiveness": "అనుకూలత",
-  "moveDetailSuperEffective": "చాలా ప్రభావవంతం"
+  "moveDetailSuperEffective": "చాలా ప్రభావవంతం",
+  "moveDetailNotVeryEffective": "అంత ప్రభావవంతం కాదు"
 }

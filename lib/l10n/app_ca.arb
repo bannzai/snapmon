@@ -256,5 +256,6 @@
   "moveDetailRecoveryFormula": "HP recuperats",
   "moveDetailRecoveryFormulaNote": "No recupera HP més enllà del màxim",
   "moveDetailEffectiveness": "eficàcia",
-  "moveDetailSuperEffective": "Supereficaç"
+  "moveDetailSuperEffective": "Supereficaç",
+  "moveDetailNotVeryEffective": "Poc eficaç"
 }

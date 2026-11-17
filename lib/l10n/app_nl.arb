@@ -256,5 +256,6 @@
   "moveDetailRecoveryFormula": "Herstelde HP",
   "moveDetailRecoveryFormulaNote": "HP herstelt niet boven het maximum",
   "moveDetailEffectiveness": "effectiviteit",
-  "moveDetailSuperEffective": "Superdoeltreffend"
+  "moveDetailSuperEffective": "Superdoeltreffend",
+  "moveDetailNotVeryEffective": "Niet erg effectief"
 }

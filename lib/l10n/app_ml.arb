@@ -256,5 +256,6 @@
   "moveDetailRecoveryFormula": "വീണ്ടെടുക്കുന്ന HP",
   "moveDetailRecoveryFormulaNote": "പരമാവധി HP-യെക്കാൾ കൂടുതൽ വീണ്ടെടുക്കാനാവില്ല",
   "moveDetailEffectiveness": "ഫലപ്രാപ്തി",
-  "moveDetailSuperEffective": "വളരെ ഫലപ്രദം"
+  "moveDetailSuperEffective": "വളരെ ഫലപ്രദം",
+  "moveDetailNotVeryEffective": "അത്ര ഫലപ്രദമല്ല"
 }

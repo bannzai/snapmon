@@ -256,5 +256,6 @@
   "moveDetailRecoveryFormula": "Yenilenen HP",
   "moveDetailRecoveryFormulaNote": "HP, maksimum değerin üzerine çıkacak kadar yenilenmez",
   "moveDetailEffectiveness": "uyum",
-  "moveDetailSuperEffective": "Çok etkili"
+  "moveDetailSuperEffective": "Çok etkili",
+  "moveDetailNotVeryEffective": "Pek etkili değil"
 }

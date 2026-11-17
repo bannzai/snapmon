@@ -256,5 +256,6 @@
   "moveDetailRecoveryFormula": "Återställd HP",
   "moveDetailRecoveryFormulaNote": "HP kan inte återställas över maxgränsen",
   "moveDetailEffectiveness": "effektivitet",
-  "moveDetailSuperEffective": "Supereffektivt"
+  "moveDetailSuperEffective": "Supereffektivt",
+  "moveDetailNotVeryEffective": "Inte särskilt effektiv"
 }

@@ -256,5 +256,6 @@
   "moveDetailRecoveryFormula": "Восстановленные HP",
   "moveDetailRecoveryFormulaNote": "HP не восстанавливаются выше максимума",
   "moveDetailEffectiveness": "эффективность",
-  "moveDetailSuperEffective": "Очень эффективно"
+  "moveDetailSuperEffective": "Очень эффективно",
+  "moveDetailNotVeryEffective": "Не очень эффективно"
 }

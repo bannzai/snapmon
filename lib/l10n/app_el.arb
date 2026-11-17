@@ -256,5 +256,6 @@
   "moveDetailRecoveryFormula": "HP που ανακτώνται",
   "moveDetailRecoveryFormulaNote": "Τα HP δεν αναπληρώνονται πάνω από το μέγιστο",
   "moveDetailEffectiveness": "αποτελεσματικότητα",
-  "moveDetailSuperEffective": "Πολύ αποτελεσματικό"
+  "moveDetailSuperEffective": "Πολύ αποτελεσματικό",
+  "moveDetailNotVeryEffective": "Όχι πολύ αποτελεσματικό"
 }

@@ -256,5 +256,6 @@
   "moveDetailRecoveryFormula": "Obnovljeni HP",
   "moveDetailRecoveryFormulaNote": "HP ni mogoče obnoviti nad največjo vrednost",
   "moveDetailEffectiveness": "učinkovitost",
-  "moveDetailSuperEffective": "Zelo učinkovito"
+  "moveDetailSuperEffective": "Zelo učinkovito",
+  "moveDetailNotVeryEffective": "Ni zelo učinkovito"
 }

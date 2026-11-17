@@ -256,5 +256,6 @@
   "moveDetailRecoveryFormula": "Wiederhergestellte HP",
   "moveDetailRecoveryFormulaNote": "HP können nicht über das Maximum hinaus geheilt werden",
   "moveDetailEffectiveness": "Effektivität",
-  "moveDetailSuperEffective": "Sehr effektiv"
+  "moveDetailSuperEffective": "Sehr effektiv",
+  "moveDetailNotVeryEffective": "Nicht sehr effektiv"
 }

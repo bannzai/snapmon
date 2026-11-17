@@ -256,5 +256,6 @@
   "moveDetailRecoveryFormula": "Palautuva HP",
   "moveDetailRecoveryFormulaNote": "HP ei palaudu enimmäismäärän yli",
   "moveDetailEffectiveness": "tehokkuus",
-  "moveDetailSuperEffective": "Erittäin tehokas"
+  "moveDetailSuperEffective": "Erittäin tehokas",
+  "moveDetailNotVeryEffective": "Ei kovin tehokas"
 }
