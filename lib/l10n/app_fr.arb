@@ -6,5 +6,6 @@
   "tabCapture": "Capturer",
   "tabOpponent": "Combat",
   "sessionPreparing": "Préparation en cours",
-  "sessionConnectionFailed": "Connexion impossible"
+  "sessionConnectionFailed": "Connexion impossible",
+  "reportReasonInappropriatePicture": "Image inappropriée"
 }
