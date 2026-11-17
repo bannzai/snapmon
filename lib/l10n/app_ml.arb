@@ -126,5 +126,6 @@
   "generationCutoutLabel": "മുറിച്ചെടുത്ത ചിത്രം",
   "generationOriginalPhotoLabel": "യഥാർത്ഥ ചിത്രം",
   "generationCreateWithCutout": "വെട്ടിയെടുത്ത ചിത്രം ഉപയോഗിച്ച് സൃഷ്ടിക്കൂ",
-  "generationChooseRangeMyself": "ഭാഗം സ്വയം തിരഞ്ഞെടുക്കുക"
+  "generationChooseRangeMyself": "ഭാഗം സ്വയം തിരഞ്ഞെടുക്കുക",
+  "generationChooseRangeTitle": "മോൺസ്റ്റർ ആകുന്ന ഭാഗം"
 }

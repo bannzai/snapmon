@@ -126,5 +126,6 @@
   "generationCutoutLabel": "Decupaj",
   "generationOriginalPhotoLabel": "Fotografia originală",
   "generationCreateWithCutout": "Creează din imaginea decupată",
-  "generationChooseRangeMyself": "Alege singur zona"
+  "generationChooseRangeMyself": "Alege singur zona",
+  "generationChooseRangeTitle": "Zona care va deveni monstru"
 }

@@ -126,5 +126,6 @@
   "generationCutoutLabel": "कटी हुई तस्वीर",
   "generationOriginalPhotoLabel": "मूल फ़ोटो",
   "generationCreateWithCutout": "कटी हुई तस्वीर से बनाओ",
-  "generationChooseRangeMyself": "हिस्सा खुद चुनो"
+  "generationChooseRangeMyself": "हिस्सा खुद चुनो",
+  "generationChooseRangeTitle": "मॉन्स्टर बनने वाला हिस्सा"
 }

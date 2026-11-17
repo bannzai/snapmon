@@ -126,5 +126,6 @@
   "generationCutoutLabel": "ಕತ್ತರಿಸಿದ ಚಿತ್ರ",
   "generationOriginalPhotoLabel": "ಮೂಲ ಫೋಟೋ",
   "generationCreateWithCutout": "ಕತ್ತರಿಸಿದ ಚಿತ್ರದಿಂದ ರಚಿಸು",
-  "generationChooseRangeMyself": "ಪ್ರದೇಶವನ್ನು ನೀನೇ ಆಯ್ಕೆ ಮಾಡು"
+  "generationChooseRangeMyself": "ಪ್ರದೇಶವನ್ನು ನೀನೇ ಆಯ್ಕೆ ಮಾಡು",
+  "generationChooseRangeTitle": "ಮಾನ್ಸ್ಟರ್ ಆಗುವ ಭಾಗ"
 }

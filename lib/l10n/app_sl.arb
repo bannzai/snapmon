@@ -126,5 +126,6 @@
   "generationCutoutLabel": "Izrez",
   "generationOriginalPhotoLabel": "Izvirna fotografija",
   "generationCreateWithCutout": "Ustvari iz izrezane slike",
-  "generationChooseRangeMyself": "Sam izberi območje"
+  "generationChooseRangeMyself": "Sam izberi območje",
+  "generationChooseRangeTitle": "Območje, ki bo postalo pošast"
 }

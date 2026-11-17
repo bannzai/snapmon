@@ -126,5 +126,6 @@
   "generationCutoutLabel": "오려낸 그림",
   "generationOriginalPhotoLabel": "원본 사진",
   "generationCreateWithCutout": "오려낸 이미지로 만들기",
-  "generationChooseRangeMyself": "범위 직접 정하기"
+  "generationChooseRangeMyself": "범위 직접 정하기",
+  "generationChooseRangeTitle": "몬스터로 만들 영역"
 }

@@ -126,5 +126,6 @@
   "generationCutoutLabel": "کاٹی ہوئی تصویر",
   "generationOriginalPhotoLabel": "اصل تصویر",
   "generationCreateWithCutout": "کاٹی ہوئی تصویر سے بناؤ",
-  "generationChooseRangeMyself": "حصہ خود چنو"
+  "generationChooseRangeMyself": "حصہ خود چنو",
+  "generationChooseRangeTitle": "مونسٹر بننے والا حصہ"
 }

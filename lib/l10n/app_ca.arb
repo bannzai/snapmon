@@ -126,5 +126,6 @@
   "generationCutoutLabel": "Retall",
   "generationOriginalPhotoLabel": "Foto original",
   "generationCreateWithCutout": "Crea'l amb la imatge retallada",
-  "generationChooseRangeMyself": "Triar l’àrea jo mateix"
+  "generationChooseRangeMyself": "Triar l’àrea jo mateix",
+  "generationChooseRangeTitle": "Zona que serà un monstre"
 }

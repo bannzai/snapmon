@@ -126,5 +126,6 @@
   "generationCutoutLabel": "ਕੱਟੀ ਹੋਈ ਤਸਵੀਰ",
   "generationOriginalPhotoLabel": "ਅਸਲ ਫ਼ੋਟੋ",
   "generationCreateWithCutout": "ਕੱਟੀ ਹੋਈ ਤਸਵੀਰ ਤੋਂ ਬਣਾਓ",
-  "generationChooseRangeMyself": "ਹਿੱਸਾ ਆਪ ਚੁਣੋ"
+  "generationChooseRangeMyself": "ਹਿੱਸਾ ਆਪ ਚੁਣੋ",
+  "generationChooseRangeTitle": "ਮੌਂਸਟਰ ਬਣਨ ਵਾਲਾ ਹਿੱਸਾ"
 }

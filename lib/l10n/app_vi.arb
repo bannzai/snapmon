@@ -126,5 +126,6 @@
   "generationCutoutLabel": "Hình cắt",
   "generationOriginalPhotoLabel": "Ảnh gốc",
   "generationCreateWithCutout": "Tạo từ ảnh đã cắt",
-  "generationChooseRangeMyself": "Tự chọn vùng"
+  "generationChooseRangeMyself": "Tự chọn vùng",
+  "generationChooseRangeTitle": "Vùng sẽ thành quái vật"
 }

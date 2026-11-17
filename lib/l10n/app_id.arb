@@ -126,5 +126,6 @@
   "generationCutoutLabel": "Potongan gambar",
   "generationOriginalPhotoLabel": "Foto asli",
   "generationCreateWithCutout": "Buat dari gambar yang dipotong",
-  "generationChooseRangeMyself": "Pilih area sendiri"
+  "generationChooseRangeMyself": "Pilih area sendiri",
+  "generationChooseRangeTitle": "Area yang akan jadi monster"
 }

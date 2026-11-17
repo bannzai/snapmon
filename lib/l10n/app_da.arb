@@ -126,5 +126,6 @@
   "generationCutoutLabel": "Fritlægning",
   "generationOriginalPhotoLabel": "Originalfoto",
   "generationCreateWithCutout": "Skab med det udklippede billede",
-  "generationChooseRangeMyself": "Vælg området selv"
+  "generationChooseRangeMyself": "Vælg området selv",
+  "generationChooseRangeTitle": "Området, der bliver til et monster"
 }

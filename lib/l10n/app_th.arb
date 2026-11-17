@@ -126,5 +126,6 @@
   "generationCutoutLabel": "ภาพตัดพื้นหลัง",
   "generationOriginalPhotoLabel": "รูปต้นฉบับ",
   "generationCreateWithCutout": "สร้างจากภาพที่ตัดออกมา",
-  "generationChooseRangeMyself": "เลือกพื้นที่เอง"
+  "generationChooseRangeMyself": "เลือกพื้นที่เอง",
+  "generationChooseRangeTitle": "ส่วนที่จะกลายเป็นมอนสเตอร์"
 }

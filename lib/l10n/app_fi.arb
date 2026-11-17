@@ -126,5 +126,6 @@
   "generationCutoutLabel": "Rajaus",
   "generationOriginalPhotoLabel": "Alkuperäinen kuva",
   "generationCreateWithCutout": "Luo irrotetusta kuvasta",
-  "generationChooseRangeMyself": "Valitse alue itse"
+  "generationChooseRangeMyself": "Valitse alue itse",
+  "generationChooseRangeTitle": "Hirviöksi muuttuva alue"
 }

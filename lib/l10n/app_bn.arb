@@ -126,5 +126,6 @@
   "generationCutoutLabel": "কেটে নেওয়া ছবি",
   "generationOriginalPhotoLabel": "আসল ছবি",
   "generationCreateWithCutout": "কেটে নেওয়া ছবি দিয়ে তৈরি করো",
-  "generationChooseRangeMyself": "নিজেই এলাকা বেছে নাও"
+  "generationChooseRangeMyself": "নিজেই এলাকা বেছে নাও",
+  "generationChooseRangeTitle": "যে অংশটা মনস্টার হবে"
 }

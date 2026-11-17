@@ -126,5 +126,6 @@
   "generationCutoutLabel": "Kesilmiş görsel",
   "generationOriginalPhotoLabel": "Orijinal fotoğraf",
   "generationCreateWithCutout": "Kesilmiş görselle oluştur",
-  "generationChooseRangeMyself": "Alanı kendin seç"
+  "generationChooseRangeMyself": "Alanı kendin seç",
+  "generationChooseRangeTitle": "Canavara dönüşecek alan"
 }

@@ -126,5 +126,6 @@
   "generationCutoutLabel": "Uitknipsel",
   "generationOriginalPhotoLabel": "Originele foto",
   "generationCreateWithCutout": "Maak met de uitgeknipte afbeelding",
-  "generationChooseRangeMyself": "Kies zelf het gebied"
+  "generationChooseRangeMyself": "Kies zelf het gebied",
+  "generationChooseRangeTitle": "Gebied dat een monster wordt"
 }

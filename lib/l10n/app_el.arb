@@ -126,5 +126,6 @@
   "generationCutoutLabel": "Αποκοπή",
   "generationOriginalPhotoLabel": "Αρχική φωτογραφία",
   "generationCreateWithCutout": "Φτιάξε το από την αποκομμένη εικόνα",
-  "generationChooseRangeMyself": "Επιλογή περιοχής από εμένα"
+  "generationChooseRangeMyself": "Επιλογή περιοχής από εμένα",
+  "generationChooseRangeTitle": "Περιοχή που θα γίνει τέρας"
 }

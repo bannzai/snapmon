@@ -126,5 +126,6 @@
   "generationCutoutLabel": "Wycięty obraz",
   "generationOriginalPhotoLabel": "Oryginalne zdjęcie",
   "generationCreateWithCutout": "Stwórz z wyciętego obrazka",
-  "generationChooseRangeMyself": "Wybierz obszar samodzielnie"
+  "generationChooseRangeMyself": "Wybierz obszar samodzielnie",
+  "generationChooseRangeTitle": "Obszar, który stanie się potworem"
 }

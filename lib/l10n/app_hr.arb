@@ -126,5 +126,6 @@
   "generationCutoutLabel": "Izrez",
   "generationOriginalPhotoLabel": "Izvorna fotografija",
   "generationCreateWithCutout": "Stvori iz izrezane slike",
-  "generationChooseRangeMyself": "Sam odaberi područje"
+  "generationChooseRangeMyself": "Sam odaberi područje",
+  "generationChooseRangeTitle": "Područje koje postaje čudovište"
 }

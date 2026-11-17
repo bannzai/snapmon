@@ -126,5 +126,6 @@
   "generationCutoutLabel": "Freisteller",
   "generationOriginalPhotoLabel": "Originalfoto",
   "generationCreateWithCutout": "Mit dem ausgeschnittenen Bild erstellen",
-  "generationChooseRangeMyself": "Bereich selbst auswählen"
+  "generationChooseRangeMyself": "Bereich selbst auswählen",
+  "generationChooseRangeTitle": "Bereich für dein Monster"
 }

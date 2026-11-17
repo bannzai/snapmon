@@ -126,5 +126,6 @@
   "generationCutoutLabel": "抠图",
   "generationOriginalPhotoLabel": "原始照片",
   "generationCreateWithCutout": "用抠出的图片创建",
-  "generationChooseRangeMyself": "自己选取范围"
+  "generationChooseRangeMyself": "自己选取范围",
+  "generationChooseRangeTitle": "要变成怪物的区域"
 }

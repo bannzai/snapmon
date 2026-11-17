@@ -126,5 +126,6 @@
   "generationCutoutLabel": "Výřez",
   "generationOriginalPhotoLabel": "Původní fotka",
   "generationCreateWithCutout": "Vytvoř z oříznutého obrázku",
-  "generationChooseRangeMyself": "Vybrat oblast ručně"
+  "generationChooseRangeMyself": "Vybrat oblast ručně",
+  "generationChooseRangeTitle": "Oblast, ze které bude příšera"
 }

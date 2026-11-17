@@ -126,5 +126,6 @@
   "generationCutoutLabel": "Recorte",
   "generationOriginalPhotoLabel": "Foto original",
   "generationCreateWithCutout": "Crear con la imagen recortada",
-  "generationChooseRangeMyself": "Elegir el área por mi cuenta"
+  "generationChooseRangeMyself": "Elegir el área por mi cuenta",
+  "generationChooseRangeTitle": "Zona que será un monstruo"
 }

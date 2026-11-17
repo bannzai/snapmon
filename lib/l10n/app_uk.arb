@@ -126,5 +126,6 @@
   "generationCutoutLabel": "Вирізане зображення",
   "generationOriginalPhotoLabel": "Оригінальне фото",
   "generationCreateWithCutout": "Створи з вирізаного зображення",
-  "generationChooseRangeMyself": "Вибрати область самостійно"
+  "generationChooseRangeMyself": "Вибрати область самостійно",
+  "generationChooseRangeTitle": "Область, яка стане монстром"
 }
