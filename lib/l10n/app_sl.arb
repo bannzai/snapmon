@@ -135,5 +135,6 @@
   "generationStageFindingSubject": "Iskanje predmeta na fotografiji",
   "generationStageCroppingRange": "Izrezovanje izbranega območja",
   "generationRejectedRefused": "Pošasti ni uspelo ustvariti\nPoskusi posneti novo fotografijo",
-  "generationFailedMessage": "Pošasti ni bilo mogoče ustvariti\nPoskusi znova fotografirati"
+  "generationFailedMessage": "Pošasti ni bilo mogoče ustvariti\nPoskusi znova fotografirati",
+  "resultReplaceTitle": "Zamenjaj za {monsterName}"
 }

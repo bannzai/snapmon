@@ -135,5 +135,6 @@
   "generationStageFindingSubject": "กำลังหาวัตถุในภาพ",
   "generationStageCroppingRange": "กำลังตัดส่วนที่เลือก",
   "generationRejectedRefused": "สร้างมอนสเตอร์ไม่สำเร็จ\nลองถ่ายรูปอีกครั้ง",
-  "generationFailedMessage": "สร้างมอนสเตอร์ไม่สำเร็จ\nลองถ่ายรูปอีกครั้ง"
+  "generationFailedMessage": "สร้างมอนสเตอร์ไม่สำเร็จ\nลองถ่ายรูปอีกครั้ง",
+  "resultReplaceTitle": "สลับกับ {monsterName}"
 }

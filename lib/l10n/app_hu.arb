@@ -135,5 +135,6 @@
   "generationStageFindingSubject": "A fotó témájának keresése",
   "generationStageCroppingRange": "A kijelölt terület kivágása folyamatban",
   "generationRejectedRefused": "Nem sikerült létrehozni a szörnyet\nPróbálj meg új képet készíteni",
-  "generationFailedMessage": "Nem sikerült létrehozni a szörnyet\nPróbálj új fotót készíteni"
+  "generationFailedMessage": "Nem sikerült létrehozni a szörnyet\nPróbálj új fotót készíteni",
+  "resultReplaceTitle": "Cseréld le erre: {monsterName}"
 }

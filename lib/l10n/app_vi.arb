@@ -135,5 +135,6 @@
   "generationStageFindingSubject": "Đang tìm vật thể trong ảnh",
   "generationStageCroppingRange": "Đang cắt vùng đã chọn",
   "generationRejectedRefused": "Không tạo được quái vật\nThử chụp ảnh khác nhé",
-  "generationFailedMessage": "Không tạo được quái vật\nBạn hãy thử chụp lại ảnh"
+  "generationFailedMessage": "Không tạo được quái vật\nBạn hãy thử chụp lại ảnh",
+  "resultReplaceTitle": "Đổi lấy {monsterName}"
 }

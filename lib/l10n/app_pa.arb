@@ -135,5 +135,6 @@
   "generationStageFindingSubject": "ਫ਼ੋਟੋ ਵਿੱਚ ਵਸਤੂ ਲੱਭੀ ਜਾ ਰਹੀ ਹੈ",
   "generationStageCroppingRange": "ਚੁਣਿਆ ਹਿੱਸਾ ਕੱਟਿਆ ਜਾ ਰਿਹਾ ਹੈ",
   "generationRejectedRefused": "ਮੌਂਸਟਰ ਨਹੀਂ ਬਣ ਸਕਿਆ\nਇੱਕ ਹੋਰ ਫ਼ੋਟੋ ਖਿੱਚ ਕੇ ਦੇਖੋ",
-  "generationFailedMessage": "ਮੌਂਸਟਰ ਨਹੀਂ ਬਣ ਸਕਿਆ\nਦੁਬਾਰਾ ਫ਼ੋਟੋ ਖਿੱਚ ਕੇ ਵੇਖੋ"
+  "generationFailedMessage": "ਮੌਂਸਟਰ ਨਹੀਂ ਬਣ ਸਕਿਆ\nਦੁਬਾਰਾ ਫ਼ੋਟੋ ਖਿੱਚ ਕੇ ਵੇਖੋ",
+  "resultReplaceTitle": "{monsterName} ਨਾਲ ਬਦਲੋ"
 }

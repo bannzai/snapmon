@@ -135,5 +135,6 @@
   "generationStageFindingSubject": "Szukanie obiektu na zdjęciu",
   "generationStageCroppingRange": "Wycinanie wybranego obszaru",
   "generationRejectedRefused": "Nie udało się stworzyć potwora\nSpróbuj zrobić nowe zdjęcie",
-  "generationFailedMessage": "Nie udało się stworzyć potwora\nSpróbuj zrobić kolejne zdjęcie"
+  "generationFailedMessage": "Nie udało się stworzyć potwora\nSpróbuj zrobić kolejne zdjęcie",
+  "resultReplaceTitle": "Zamień na {monsterName}"
 }

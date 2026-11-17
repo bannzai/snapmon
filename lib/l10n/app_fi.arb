@@ -135,5 +135,6 @@
   "generationStageFindingSubject": "Etsitään kuvan kohdetta",
   "generationStageCroppingRange": "Rajataan valittua aluetta",
   "generationRejectedRefused": "Hirviön luonti ei onnistunut\nKokeile ottaa uusi kuva",
-  "generationFailedMessage": "Hirviön luominen epäonnistui\nKokeile ottaa uusi kuva"
+  "generationFailedMessage": "Hirviön luominen epäonnistui\nKokeile ottaa uusi kuva",
+  "resultReplaceTitle": "Vaihda tilalle {monsterName}"
 }

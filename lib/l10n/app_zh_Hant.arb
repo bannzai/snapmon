@@ -135,5 +135,6 @@
   "generationStageFindingSubject": "正在尋找照片中的物件",
   "generationStageCroppingRange": "正在裁切選取區域",
   "generationRejectedRefused": "怪獸沒能生成\n再拍一張試試",
-  "generationFailedMessage": "怪獸生成失敗\n再拍一張試試"
+  "generationFailedMessage": "怪獸生成失敗\n再拍一張試試",
+  "resultReplaceTitle": "換成{monsterName}"
 }

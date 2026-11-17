@@ -135,5 +135,6 @@
   "generationStageFindingSubject": "फोटोतला विषय शोधत आहे",
   "generationStageCroppingRange": "निवडलेला भाग कापला जात आहे",
   "generationRejectedRefused": "मॉन्स्टर बनवता आला नाही\nपुन्हा फोटो काढून बघ",
-  "generationFailedMessage": "मॉन्स्टर तयार झाला नाही\nपुन्हा फोटो काढून बघ"
+  "generationFailedMessage": "मॉन्स्टर तयार झाला नाही\nपुन्हा फोटो काढून बघ",
+  "resultReplaceTitle": "{monsterName} सोबत अदलाबदल कर"
 }

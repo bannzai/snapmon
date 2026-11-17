@@ -135,5 +135,6 @@
   "generationStageFindingSubject": "מחפש את הנושא בתמונה",
   "generationStageCroppingRange": "גוזרים את האזור שנבחר",
   "generationRejectedRefused": "לא הצלחנו ליצור את המפלצת\nכדאי לנסות לצלם שוב",
-  "generationFailedMessage": "יצירת המפלצת נכשלה\nכדאי לצלם שוב"
+  "generationFailedMessage": "יצירת המפלצת נכשלה\nכדאי לצלם שוב",
+  "resultReplaceTitle": "החלפה עם {monsterName}"
 }

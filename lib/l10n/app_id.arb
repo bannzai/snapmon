@@ -135,5 +135,6 @@
   "generationStageFindingSubject": "Mencari objek di foto",
   "generationStageCroppingRange": "Memotong area yang dipilih",
   "generationRejectedRefused": "Monsternya gagal dibuat\nCoba ambil foto lain",
-  "generationFailedMessage": "Monster gagal dibuat\nCoba ambil foto lagi"
+  "generationFailedMessage": "Monster gagal dibuat\nCoba ambil foto lagi",
+  "resultReplaceTitle": "Ganti dengan {monsterName}"
 }

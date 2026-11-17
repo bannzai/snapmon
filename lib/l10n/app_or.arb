@@ -135,5 +135,6 @@
   "generationStageFindingSubject": "ଫଟୋରେ ଥିବା ବସ୍ତୁକୁ ଖୋଜାଯାଉଛି",
   "generationStageCroppingRange": "ବାଛିଥିବା ଅଂଶ କଟାଯାଉଛି",
   "generationRejectedRefused": "ମନଷ୍ଟର ତିଆରି ହୋଇପାରିଲା ନାହିଁ\nଆଉ ଥରେ ଫଟୋ ଉଠାଇ ଦେଖ",
-  "generationFailedMessage": "ମନଷ୍ଟର ତିଆରି ହୋଇପାରିଲା ନାହିଁ\nପୁଣି ଫଟୋ ଉଠାଇ ଦେଖ"
+  "generationFailedMessage": "ମନଷ୍ଟର ତିଆରି ହୋଇପାରିଲା ନାହିଁ\nପୁଣି ଫଟୋ ଉଠାଇ ଦେଖ",
+  "resultReplaceTitle": "{monsterName} ସହ ବଦଳାଅ"
 }

@@ -135,5 +135,6 @@
   "generationStageFindingSubject": "Поиск объекта на фото",
   "generationStageCroppingRange": "Вырезаем выбранную область",
   "generationRejectedRefused": "Не удалось создать монстра\nПопробуй сделать другое фото",
-  "generationFailedMessage": "Не удалось создать монстра\nПопробуй сделать ещё одно фото"
+  "generationFailedMessage": "Не удалось создать монстра\nПопробуй сделать ещё одно фото",
+  "resultReplaceTitle": "Замени на {monsterName}"
 }

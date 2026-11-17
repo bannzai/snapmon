@@ -135,5 +135,6 @@
   "generationStageFindingSubject": "Traži se predmet na fotografiji",
   "generationStageCroppingRange": "Izrezivanje odabranog područja",
   "generationRejectedRefused": "Čudovište se nije uspjelo stvoriti\nPokušaj snimiti novu fotografiju",
-  "generationFailedMessage": "Čudovište nije stvoreno\nPokušaj ponovno snimiti fotografiju"
+  "generationFailedMessage": "Čudovište nije stvoreno\nPokušaj ponovno snimiti fotografiju",
+  "resultReplaceTitle": "Zamijeni za {monsterName}"
 }

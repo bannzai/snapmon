@@ -135,5 +135,6 @@
   "generationStageFindingSubject": "Ricerca del soggetto",
   "generationStageCroppingRange": "Ritaglio dell'area selezionata",
   "generationRejectedRefused": "Non è stato possibile creare il mostro\nProva a scattare un'altra foto",
-  "generationFailedMessage": "Non è stato possibile creare il mostro\nProva a scattare un'altra foto"
+  "generationFailedMessage": "Non è stato possibile creare il mostro\nProva a scattare un'altra foto",
+  "resultReplaceTitle": "Sostituiscilo con {monsterName}"
 }
