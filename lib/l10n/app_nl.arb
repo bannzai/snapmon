@@ -149,5 +149,6 @@
   "resultReplaceInParty": "Wissel een lid van je team",
   "resultCaptureAnother": "Breid je team uit",
   "resultShareText": "{monsterName} is geboren in snapmon\n#snapmon\n{url}",
-  "resultShareCard": "Deel de kaart"
+  "resultShareCard": "Deel de kaart",
+  "shareChooseFormat": "Kies de vorm van de kaartafbeelding"
 }

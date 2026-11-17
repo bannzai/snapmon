@@ -149,5 +149,6 @@
   "resultReplaceInParty": "Zamenjaj člana ekipe",
   "resultCaptureAnother": "Razširi svojo ekipo",
   "resultShareText": "V snapmon se je rodil {monsterName}\n#snapmon\n{url}",
-  "resultShareCard": "Deli kartico"
+  "resultShareCard": "Deli kartico",
+  "shareChooseFormat": "Izberi obliko slike kartice"
 }

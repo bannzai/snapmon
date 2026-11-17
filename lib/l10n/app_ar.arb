@@ -149,5 +149,6 @@
   "resultReplaceInParty": "استبدل عضوًا من فريقك",
   "resultCaptureAnother": "زد فريقك",
   "resultShareText": "وُلد {monsterName} في snapmon\n#snapmon\n{url}",
-  "resultShareCard": "مشاركة البطاقة"
+  "resultShareCard": "مشاركة البطاقة",
+  "shareChooseFormat": "اختر شكل صورة البطاقة"
 }

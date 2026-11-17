@@ -149,5 +149,6 @@
   "resultReplaceInParty": "Ganti ahli pasukan kamu",
   "resultCaptureAnother": "Besarkan pasukan kamu",
   "resultShareText": "{monsterName} lahir dalam snapmon\n#snapmon\n{url}",
-  "resultShareCard": "Kongsi kad"
+  "resultShareCard": "Kongsi kad",
+  "shareChooseFormat": "Pilih bentuk imej kad"
 }

@@ -149,5 +149,6 @@
   "resultReplaceInParty": "Vaihda joukkueen jäsen",
   "resultCaptureAnother": "Kasvata joukkuetta",
   "resultShareText": "{monsterName} syntyi snapmonissa\n#snapmon\n{url}",
-  "resultShareCard": "Jaa kortti"
+  "resultShareCard": "Jaa kortti",
+  "shareChooseFormat": "Valitse korttikuvan muoto"
 }

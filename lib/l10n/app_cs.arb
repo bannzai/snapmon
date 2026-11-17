@@ -149,5 +149,6 @@
   "resultReplaceInParty": "Vyměň člena týmu",
   "resultCaptureAnother": "Rozšiř svůj tým",
   "resultShareText": "V snapmon se zrodil {monsterName}\n#snapmon\n{url}",
-  "resultShareCard": "Sdílej kartu"
+  "resultShareCard": "Sdílej kartu",
+  "shareChooseFormat": "Vyber tvar obrázku karty"
 }

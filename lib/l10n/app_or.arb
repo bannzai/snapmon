@@ -149,5 +149,6 @@
   "resultReplaceInParty": "ଦଳର ଜଣେ ସଦସ୍ୟକୁ ବଦଳାଅ",
   "resultCaptureAnother": "ତୁମ ଦଳ ବଢ଼ାଅ",
   "resultShareText": "snapmonରେ {monsterName}ର ଜନ୍ମ ହେଲା\n#snapmon\n{url}",
-  "resultShareCard": "କାର୍ଡ ସେୟାର କର"
+  "resultShareCard": "କାର୍ଡ ସେୟାର କର",
+  "shareChooseFormat": "କାର୍ଡ ଛବିର ଆକାର ବାଛ"
 }

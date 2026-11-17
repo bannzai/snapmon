@@ -149,5 +149,6 @@
   "resultReplaceInParty": "替换队伍成员",
   "resultCaptureAnother": "壮大队伍",
   "resultShareText": "{monsterName} 在 snapmon 中诞生了\n#snapmon\n{url}",
-  "resultShareCard": "分享卡片"
+  "resultShareCard": "分享卡片",
+  "shareChooseFormat": "选择卡片图片的形状"
 }

@@ -149,5 +149,6 @@
   "resultReplaceInParty": "జట్టు సభ్యుడిని మార్చు",
   "resultCaptureAnother": "నీ జట్టును పెంచు",
   "resultShareText": "snapmonలో {monsterName} పుట్టింది\n#snapmon\n{url}",
-  "resultShareCard": "కార్డ్‌ను పంచుకో"
+  "resultShareCard": "కార్డ్‌ను పంచుకో",
+  "shareChooseFormat": "కార్డు చిత్రం ఆకారాన్ని ఎంచుకో"
 }

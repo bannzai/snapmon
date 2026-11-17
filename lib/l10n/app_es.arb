@@ -149,5 +149,6 @@
   "resultReplaceInParty": "Cambia a un miembro de tu equipo",
   "resultCaptureAnother": "Amplía tu equipo",
   "resultShareText": "¡{monsterName} nació en snapmon!\n#snapmon\n{url}",
-  "resultShareCard": "Comparte la carta"
+  "resultShareCard": "Comparte la carta",
+  "shareChooseFormat": "Elige la forma de la imagen de la carta"
 }

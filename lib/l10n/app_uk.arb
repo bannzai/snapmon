@@ -149,5 +149,6 @@
   "resultReplaceInParty": "Заміни учасника команди",
   "resultCaptureAnother": "Поповнюй команду",
   "resultShareText": "У snapmon з’явився {monsterName}\n#snapmon\n{url}",
-  "resultShareCard": "Поділися карткою"
+  "resultShareCard": "Поділися карткою",
+  "shareChooseFormat": "Вибери форму зображення картки"
 }

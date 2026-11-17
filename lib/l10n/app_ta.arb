@@ -149,5 +149,6 @@
   "resultReplaceInParty": "அணி உறுப்பினரை மாற்றுங்கள்",
   "resultCaptureAnother": "உங்கள் அணியைப் பெருக்குங்கள்",
   "resultShareText": "snapmon-இல் {monsterName} பிறந்தது\n#snapmon\n{url}",
-  "resultShareCard": "அட்டையைப் பகிருங்கள்"
+  "resultShareCard": "அட்டையைப் பகிருங்கள்",
+  "shareChooseFormat": "அட்டைப் படத்தின் வடிவத்தைத் தேர்ந்தெடுங்கள்"
 }

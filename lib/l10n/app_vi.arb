@@ -149,5 +149,6 @@
   "resultReplaceInParty": "Đổi một thành viên trong đội",
   "resultCaptureAnother": "Mở rộng đội của bạn",
   "resultShareText": "{monsterName} đã ra đời trong snapmon\n#snapmon\n{url}",
-  "resultShareCard": "Chia sẻ thẻ"
+  "resultShareCard": "Chia sẻ thẻ",
+  "shareChooseFormat": "Chọn hình dạng ảnh thẻ"
 }

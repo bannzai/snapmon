@@ -149,5 +149,6 @@
   "resultReplaceInParty": "Skift et medlem på dit hold ud",
   "resultCaptureAnother": "Udvid dit hold",
   "resultShareText": "{monsterName} blev født i snapmon\n#snapmon\n{url}",
-  "resultShareCard": "Del kort"
+  "resultShareCard": "Del kort",
+  "shareChooseFormat": "Vælg kortbilledets form"
 }

@@ -149,5 +149,6 @@
   "resultReplaceInParty": "ટીમના સભ્યને બદલો",
   "resultCaptureAnother": "તમારી ટીમ વધારો",
   "resultShareText": "snapmonમાં {monsterName}નો જન્મ થયો\n#snapmon\n{url}",
-  "resultShareCard": "કાર્ડ શેર કરો"
+  "resultShareCard": "કાર્ડ શેર કરો",
+  "shareChooseFormat": "કાર્ડની છબીનો આકાર પસંદ કરો"
 }

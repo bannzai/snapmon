@@ -149,5 +149,6 @@
   "resultReplaceInParty": "Tausche ein Mitglied deines Teams aus",
   "resultCaptureAnother": "Vergrößere dein Team",
   "resultShareText": "In snapmon wurde {monsterName} geboren\n#snapmon\n{url}",
-  "resultShareCard": "Karte teilen"
+  "resultShareCard": "Karte teilen",
+  "shareChooseFormat": "Wähle die Form des Kartenbilds"
 }

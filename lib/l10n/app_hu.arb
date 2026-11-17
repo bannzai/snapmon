@@ -149,5 +149,6 @@
   "resultReplaceInParty": "Cseréld le a csapat egyik tagját",
   "resultCaptureAnother": "Bővítsd a csapatod",
   "resultShareText": "A snapmon világában megszületett {monsterName}\n#snapmon\n{url}",
-  "resultShareCard": "Oszd meg a kártyát"
+  "resultShareCard": "Oszd meg a kártyát",
+  "shareChooseFormat": "Válaszd ki a kártyakép formáját"
 }
