@@ -35,7 +35,7 @@ void main() {
   /// [startsFirstBattle] が true なら初回の導線 (生まれたらそのまま戦う) にする。初回の導線は相手を探す表示が止まらないため、
   /// 開いた後は pumpAndSettle ではなく時間を指定して進める。[sourcePhoto]・[photoSource]・[letsUserChooseSubjectRange] は
   /// 生成の画面にそのまま渡す (範囲を決める画面を確かめるテストだけが、画像として読める写真を渡す)。
-  /// [letsUserChooseSubjectRange] の既定は false (切り抜くか・範囲を選ぶ操作を挟まずに生成まで通す)。選ぶ画面は「被写体の範囲」の
+  /// [letsUserChooseSubjectRange] の既定は false (範囲を決める操作を挟まずに生成まで通す)。範囲を決める画面は「被写体の範囲」の
   /// テストが true を渡して確かめる。
   /// [pvpClient] が null ならログインが無い時の [PvpClient] を渡す (プロフィールを確かめるテストだけが渡す)。
   /// [settlesAfterOpening] が false なら、開いた直後で止める (人が写っている注意のダイアログや、途中の状態の結果を取り直している間の
@@ -331,48 +331,92 @@ void main() {
       fetchGeneration: unexpectedFetch,
     );
 
-    testWidgets('OS の切り出しが被写体を見つけても自動では送らず、切り抜いた絵と元の写真を並べて選んでもらう', (
-      tester,
-    ) async {
-      await pumpGenerationScreen(
-        tester: tester,
-        startsFirstBattle: false,
-        letsUserChooseSubjectRange: true,
-        generator: generatorWithSubjectMask(
-          createSubjectMask: ({required photo}) async => testSubjectMaskBytes,
-        ),
-      );
-      expect(find.text('被写体を切り抜きました'), findsOneWidget);
-      expect(find.byKey(const Key('cutout-choice-cutout')), findsOneWidget);
-      expect(find.byKey(const Key('cutout-choice-photo')), findsOneWidget);
-      expect(find.text('切り抜いた絵で作る'), findsOneWidget);
-      expect(find.text('範囲を自分で決める'), findsOneWidget);
-      expect(calls.uploadedRequestIDs, isEmpty);
-      expect(calls.uploadedMasks, isEmpty);
-      expect(calls.requestedMaskSources, isEmpty);
-    });
+    testWidgets(
+      'OS の切り出しが被写体を見つけても自動では送らず、範囲を決める画面に被写体だけを切り抜く切り替えを切った状態で出す (#345)',
+      (tester) async {
+        await pumpGenerationScreen(
+          tester: tester,
+          startsFirstBattle: false,
+          letsUserChooseSubjectRange: true,
+          sourcePhoto: readablePhoto,
+          generator: generatorWithSubjectMask(
+            createSubjectMask: ({required photo}) async => testSubjectMaskBytes,
+          ),
+        );
+        expect(find.text('モンスターにする範囲'), findsOneWidget);
+        expect(find.byKey(const Key('square-crop-area')), findsOneWidget);
+        expect(
+          tester
+              .widget<SwitchListTile>(
+                find.byKey(const Key('subject-cutout-switch')),
+              )
+              .value,
+          isFalse,
+        );
+        expect(find.text('被写体だけを切り抜く'), findsOneWidget);
+        expect(find.text('この範囲で作る'), findsOneWidget);
+        expect(find.text('切り抜いた絵で作る'), findsNothing);
+        expect(find.textContaining('自動の切り出しを使えませんでした'), findsNothing);
+        expect(calls.uploadedRequestIDs, isEmpty);
+        expect(calls.uploadedMasks, isEmpty);
+        expect(calls.requestedMaskSources, isEmpty);
+      },
+    );
 
-    testWidgets('切り抜いた絵を選ぶと、OS の切り出しのマスクを置いて ios_subject で生成する', (
-      tester,
-    ) async {
-      await pumpGenerationScreen(
-        tester: tester,
-        startsFirstBattle: false,
-        letsUserChooseSubjectRange: true,
-        generator: generatorWithSubjectMask(
-          createSubjectMask: ({required photo}) async => testSubjectMaskBytes,
-        ),
-      );
-      await tester.tap(find.text('切り抜いた絵で作る'));
-      await tester.pumpAndSettle();
-      expect(find.text('あたらしい なかま'), findsOneWidget);
-      expect(calls.uploadedMasks, [
-        (requestID: 'request-1', mask: testSubjectMaskBytes),
-      ]);
-      expect(calls.requestedMaskSources, [GenerationMaskSource.iosSubject]);
-    });
+    testWidgets(
+      '被写体だけを切り抜く切り替えを入れると枠の代わりに切り抜いた絵を見せ、OS の切り出しのマスクを置いて ios_subject で生成する',
+      (tester) async {
+        await pumpGenerationScreen(
+          tester: tester,
+          startsFirstBattle: false,
+          letsUserChooseSubjectRange: true,
+          sourcePhoto: readablePhoto,
+          generator: generatorWithSubjectMask(
+            createSubjectMask: ({required photo}) async => testSubjectMaskBytes,
+          ),
+        );
+        await tester.tap(find.byKey(const Key('subject-cutout-switch')));
+        await tester.pump();
+        expect(find.byKey(const Key('square-crop-area')), findsNothing);
+        expect(find.byKey(const Key('cutout-preview')), findsOneWidget);
+        expect(find.text('背景を消して被写体だけの絵で作ります'), findsOneWidget);
+        expect(find.text('この範囲で作る'), findsNothing);
+        expect(calls.uploadedRequestIDs, isEmpty);
+        await tester.tap(find.text('切り抜いた絵で作る'));
+        await tester.pumpAndSettle();
+        expect(find.text('あたらしい なかま'), findsOneWidget);
+        expect(calls.squareMaskCrops, isEmpty);
+        expect(calls.uploadedMasks, [
+          (requestID: 'request-1', mask: testSubjectMaskBytes),
+        ]);
+        expect(calls.requestedMaskSources, [GenerationMaskSource.iosSubject]);
+      },
+    );
 
-    testWidgets('範囲を自分で決めると選ぶと、範囲を決める画面を出し、OS の切り出しのマスクではなく決めた枠を crop で生成する', (
+    testWidgets(
+      '被写体が見つかっても切り替えを入れなければ、OS の切り出しのマスクではなく決めた枠を crop で生成する',
+      (tester) async {
+        await pumpGenerationScreen(
+          tester: tester,
+          startsFirstBattle: false,
+          letsUserChooseSubjectRange: true,
+          sourcePhoto: readablePhoto,
+          generator: generatorWithSubjectMask(
+            createSubjectMask: ({required photo}) async => testSubjectMaskBytes,
+          ),
+        );
+        await tester.tap(find.text('この範囲で作る'));
+        await tester.pumpAndSettle();
+        expect(calls.squareMaskCrops, [(left: 5.0, top: 0.0, side: 30.0)]);
+        expect(calls.uploadedMasks, [
+          (requestID: 'request-1', mask: testSquareMaskBytes),
+        ]);
+        expect(calls.requestedMaskSources, [GenerationMaskSource.crop]);
+        expect(find.text('あたらしい なかま'), findsOneWidget);
+      },
+    );
+
+    testWidgets('切り替えを入れてから切ると、枠で範囲を決める表示に戻り、決めた枠を crop で生成する', (
       tester,
     ) async {
       await pumpGenerationScreen(
@@ -384,22 +428,21 @@ void main() {
           createSubjectMask: ({required photo}) async => testSubjectMaskBytes,
         ),
       );
-      await tester.tap(find.text('範囲を自分で決める'));
-      await tester.pumpAndSettle();
-      expect(find.text('モンスターにする範囲'), findsOneWidget);
-      expect(find.textContaining('自動の切り出しを使えませんでした'), findsNothing);
-      expect(calls.uploadedRequestIDs, isEmpty);
+      await tester.tap(find.byKey(const Key('subject-cutout-switch')));
+      await tester.pump();
+      await tester.tap(find.byKey(const Key('subject-cutout-switch')));
+      await tester.pump();
+      expect(find.byKey(const Key('square-crop-area')), findsOneWidget);
+      expect(find.text('切り抜いた絵で作る'), findsNothing);
       await tester.tap(find.text('この範囲で作る'));
       await tester.pumpAndSettle();
-      expect(calls.squareMaskCrops, [(left: 5.0, top: 0.0, side: 30.0)]);
       expect(calls.uploadedMasks, [
         (requestID: 'request-1', mask: testSquareMaskBytes),
       ]);
       expect(calls.requestedMaskSources, [GenerationMaskSource.crop]);
-      expect(find.text('あたらしい なかま'), findsOneWidget);
     });
 
-    testWidgets('切り抜いた絵を選んだ後の失敗からもう一度試す時は、選ぶ画面に戻さず同じマスクで送り直す', (tester) async {
+    testWidgets('切り抜いた絵で作った後の失敗からもう一度試す時は、範囲を決める画面に戻さず同じマスクで送り直す', (tester) async {
       var requestCount = 0;
       var subjectMaskCount = 0;
       await pumpGenerationScreen(
@@ -429,12 +472,14 @@ void main() {
           fetchGeneration: unexpectedFetch,
         ),
       );
+      await tester.tap(find.byKey(const Key('subject-cutout-switch')));
+      await tester.pump();
       await tester.tap(find.text('切り抜いた絵で作る'));
       await tester.pumpAndSettle();
       expect(find.text('写真が見つかりません'), findsOneWidget);
       await tester.tap(find.text('もう一度試す'));
       await tester.pumpAndSettle();
-      expect(find.text('被写体を切り抜きました'), findsNothing);
+      expect(find.text('モンスターにする範囲'), findsNothing);
       expect(subjectMaskCount, 1);
       expect(calls.uploadedMasks, [
         (requestID: 'request-1', mask: testSubjectMaskBytes),
@@ -447,7 +492,7 @@ void main() {
       expect(find.text('あたらしい なかま'), findsOneWidget);
     });
 
-    testWidgets('初回の導線でも、切り抜くかを選ぶまでは相手を探さず、切り抜いた絵を選ぶと相手を探す表示に進む', (
+    testWidgets('初回の導線でも、範囲を決めるまでは相手を探さず、切り抜いた絵で作ると相手を探す表示に進む', (
       tester,
     ) async {
       await pumpGenerationScreen(
@@ -465,13 +510,15 @@ void main() {
           fetchGeneration: unexpectedFetch,
         ),
       );
-      expect(find.text('被写体を切り抜きました'), findsOneWidget);
+      expect(find.text('モンスターにする範囲'), findsOneWidget);
       expect(find.text('相手を探しています'), findsNothing);
       expect(calls.requestedMaskSources, isEmpty);
+      await tester.tap(find.byKey(const Key('subject-cutout-switch')));
+      await tester.pump();
       await tester.tap(find.text('切り抜いた絵で作る'));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 100));
-      expect(find.text('被写体を切り抜きました'), findsNothing);
+      expect(find.text('モンスターにする範囲'), findsNothing);
       expect(find.text('相手を探しています'), findsOneWidget);
       expect(calls.requestedMaskSources, [GenerationMaskSource.iosSubject]);
     });
@@ -487,7 +534,7 @@ void main() {
             createSubjectMask: ({required photo}) async => testSubjectMaskBytes,
           ),
         );
-        expect(find.text('被写体を切り抜きました'), findsNothing);
+        expect(find.text('モンスターにする範囲'), findsNothing);
         expect(calls.uploadedMasks, [
           (requestID: 'request-1', mask: testSubjectMaskBytes),
         ]);
@@ -509,6 +556,7 @@ void main() {
         ),
       );
       expect(find.text('モンスターにする範囲'), findsOneWidget);
+      expect(find.text('被写体だけを切り抜く'), findsNothing);
       expect(find.textContaining('自動の切り出しを使えませんでした'), findsNothing);
       expect(calls.uploadedRequestIDs, isEmpty);
 

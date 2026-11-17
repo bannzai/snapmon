@@ -349,13 +349,20 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  /// 生成の画面で、OS の切り出しが見つけた被写体 ([fakeMonsterGenerator] の既定) を「切り抜いた絵で作る」と選ぶ
-  /// (自動では切り抜かないため。#242)。[settles] が false なら、初回の導線の相手を探す表示が止まらないため時間を指定して進める。
+  /// 生成の画面の範囲を決める画面で、OS の切り出しが見つけた被写体 ([fakeMonsterGenerator] の既定) だけを切り抜く切り替えを入れ、
+  /// 「切り抜いた絵で作る」を押す (切り抜きは任意のため。#345)。[settles] が false なら、初回の導線の相手を探す表示が止まらないため時間を指定して進める。
   Future<void> chooseSubjectCutout({
     required WidgetTester tester,
     required bool settles,
   }) async {
-    // 高さの低い画面では選ぶボタンが ListView の画面外にあって作られていないため、見える所までスクロールしてから押す
+    // 高さの低い画面では切り替えとボタンが ListView の画面外にあって作られていないため、見える所までスクロールしてから押す
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('subject-cutout-switch')),
+      100,
+      scrollable: find.byType(Scrollable).last,
+    );
+    await tester.tap(find.byKey(const Key('subject-cutout-switch')));
+    await tester.pump();
     await tester.scrollUntilVisible(
       find.text('切り抜いた絵で作る'),
       100,
@@ -965,7 +972,7 @@ void main() {
         await tester.tap(find.byKey(const Key('title-album')));
         await tester.pump();
         await tester.pump(const Duration(milliseconds: 500));
-        // 切り抜くかを選ぶまでは、生成を始めず相手も探さない
+        // 範囲を決めるまでは、生成を始めず相手も探さない
         expect(generationCalls.requestedRequestIDs, isEmpty);
         expect(find.text('相手を探しています'), findsNothing);
         // 相手を探す表示の進捗は止まらないため、pumpAndSettle を使わず時間を指定して進める
@@ -2931,7 +2938,7 @@ void main() {
     });
 
     testWidgets(
-      '開発者メニューの見本の写真から切り抜くかを選んで生成すると、中央の正方形を被写体として選ぶ画面を出し、切り抜いた絵で ios_subject を送る',
+      '開発者メニューの見本の写真から切り抜くかを選んで生成すると、中央の正方形を被写体として範囲を決める画面に切り替えを出し、切り抜いた絵で ios_subject を送る',
       (tester) async {
         await pumpHome(
           tester: tester,
@@ -2952,7 +2959,8 @@ void main() {
         );
         await tester.tap(find.text('見本の写真から切り抜くかを選んで生成: マグカップ'));
         await tester.pumpAndSettle();
-        expect(find.text('被写体を切り抜きました'), findsOneWidget);
+        expect(find.text('モンスターにする範囲'), findsOneWidget);
+        expect(find.text('被写体だけを切り抜く'), findsOneWidget);
         expect(generationCalls.squareMaskCrops, hasLength(1));
         expect(generationCalls.requestedMaskSources, isEmpty);
         await chooseSubjectCutout(tester: tester, settles: true);

@@ -58,9 +58,9 @@ Future<void> _waitUntilPainted() async {
 /// 写真 1 枚から生成する画面。写真を整えて送り、段階ごとの待ち時間を出し、結果に応じて生まれた画面を開くか、
 /// 判定待ち・生成しなかった理由・エラーを出す。生まれた画面を閉じたら、その画面の [ResultScreenAction] を返して閉じる。
 ///
-/// 送る前に被写体の範囲を決める。[letsUserChooseSubjectRange] なら、OS の切り出し ([MonsterGenerator.createSubjectMask]) が
-/// 被写体を見つけた時は切り出した絵と元の写真を並べ、切り抜いた絵で作るか正方形の枠で範囲を決めるかを選んでもらい
-/// (自動では切り抜かない。#242)、見つからない・使えない時は正方形の枠で範囲を決めてもらう。
+/// 送る前に被写体の範囲を決める。[letsUserChooseSubjectRange] なら、どの環境でも正方形の枠で範囲を決める画面を出す。
+/// OS の切り出し ([MonsterGenerator.createSubjectMask]) が被写体を見つけた時だけ、その画面に被写体だけを切り抜く切り替えを足し、
+/// 入れた時は切り抜いた絵で作る (自動では切り抜かず、切り抜きは任意。#345)。
 /// [letsUserChooseSubjectRange] でなければ、操作を挟まず OS の切り出しのマスクで、それも無ければマスク無し (写真全体) で送る。
 ///
 /// 初回の導線 ([startsFirstBattle]) では、生成を待つ間は「相手を探しています」を出し、生まれたら手持ちに入れて相手を決め、
@@ -102,8 +102,8 @@ class GenerationScreen extends StatefulWidget {
   /// 写真がどこから来たか。
   final GenerationPhotoSource photoSource;
 
-  /// 被写体の範囲を利用者に決めてもらうか (OS の切り出しが被写体を見つけた時は切り抜くかを選び、見つけられない・使えない時は
-  /// 正方形の枠で範囲を決める)。false なら操作を挟まず、OS の切り出しのマスクか、それも無ければマスク無し (写真全体) で送る
+  /// 被写体の範囲を利用者に決めてもらうか (正方形の枠で範囲を決め、OS の切り出しが被写体を見つけた時は被写体だけを切り抜くことも選べる)。
+  /// false なら操作を挟まず、OS の切り出しのマスクか、それも無ければマスク無し (写真全体) で送る
   /// (開発者メニューの見本の写真は、操作を挟まずに生成まで通すため false にする)。
   final bool letsUserChooseSubjectRange;
 
@@ -125,10 +125,7 @@ enum _GenerationPhase {
   /// 写真を整えている・被写体を探している・送っている・サーバーが処理している・途中の状態の結果を取り直している。
   inProgress,
 
-  /// OS の切り出しが被写体を見つけ、切り抜いた絵で作るか正方形の枠で範囲を決めるかを選んでもらっている。
-  choosingCutout,
-
-  /// 正方形の枠で範囲を決めてもらっている (OS の切り出しが被写体を見つけられなかった・使えなかった時と、切り抜かないと選んだ時)。
+  /// 正方形の枠で範囲を決めてもらっている。OS の切り出しが被写体を見つけた時は、被写体だけを切り抜くかもここで選ぶ。
   choosingRange,
 
   /// 結果を [_pollingDuration] の間取り直しても、サーバーが判定を待っている (pending_judge) か、まだ処理している。
@@ -162,9 +159,14 @@ class _GenerationScreenState extends State<GenerationScreen> {
   /// マスクで切り出した絵のプレビュー。マスクが無い時は null (写真をそのまま出す)。
   Uint8List? _cutoutPreview;
 
-  /// OS の切り出しが見つけた被写体のマスクと、それで切り出した絵のプレビュー。切り抜くかを選んでもらう間
-  /// ([_GenerationPhase.choosingCutout]) に使い、切り抜くと選んだら [_mask]・[_cutoutPreview] に移す。見つけていない時は null。
+  /// OS の切り出しが見つけた被写体のマスクと、それで切り出した絵のプレビュー。範囲を決める画面
+  /// ([_GenerationPhase.choosingRange]) の被写体だけを切り抜く切り替えに使い、切り抜いた絵で作る時に [_mask]・[_cutoutPreview] に移す。
+  /// 見つけていない時は null (切り替えを出さない)。
   ({Uint8List mask, Uint8List cutoutPreview})? _subjectCutout;
+
+  /// 範囲を決める画面で、被写体だけを切り抜く切り替えを入れているか。
+  /// 初めは false (#345。owner「ユーザー任意に選ばせよう。背景をそのまま入れたい人もいると思う」。自動では切り抜かない #242 とも揃う)。
+  bool _usesSubjectCutout = false;
 
   /// 範囲を決めている写真の画素の大きさ ([_GenerationPhase.choosingRange] の間だけ使う)。
   ({int width, int height})? _photoSize;
@@ -246,9 +248,8 @@ class _GenerationScreenState extends State<GenerationScreen> {
   );
 
   /// 済んでいない手順 (写真を整える・範囲を決める・送る) から生成を進める。もう一度試す時も同じ要求 ID で呼び直す。
-  /// 範囲を決めてもらう時は [_GenerationPhase.choosingRange] にして止まり、決まったら [_confirmCrop] から呼び直される。
-  /// 切り抜くかを選んでもらう時は [_GenerationPhase.choosingCutout] にして止まり、切り抜くと選んだら [_useSubjectCutout] から
-  /// 呼び直される (範囲を自分で決めると選んだら [_GenerationPhase.choosingRange] に移る)。
+  /// 範囲を決めてもらう時は [_GenerationPhase.choosingRange] にして止まり、決まったら [_confirmCrop] か、
+  /// 被写体だけを切り抜くと選んでいれば [_useSubjectCutout] から呼び直される。
   Future<void> _generate() async {
     setState(() {
       _phase = _GenerationPhase.inProgress;
@@ -353,7 +354,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
   }
 
   /// OS の切り出しで [photo] のマスクを決める。決まった (範囲を決めてもらわない設定で、被写体が見つかった・マスク無しにした) 時は true、
-  /// 切り抜くかを選んでもらう画面か範囲を決めてもらう画面にした時は false を返す。
+  /// 範囲を決めてもらう画面にした時は false を返す。
   Future<bool> _decideMask({required Uint8List photo}) async {
     // 範囲を決めた後の失敗 (crop のマスクを作れなかった) からもう一度試す時は、OS の切り出しをやり直さず決めた枠のまま範囲を決める画面に戻す
     if (_crop != null) {
@@ -387,10 +388,13 @@ class _GenerationScreenState extends State<GenerationScreen> {
         });
         return true;
       }
-      setState(() {
-        _subjectCutout = (mask: foundSubjectMask, cutoutPreview: cutoutPreview);
-        _phase = _GenerationPhase.choosingCutout;
-      });
+      setState(
+        () => _subjectCutout = (
+          mask: foundSubjectMask,
+          cutoutPreview: cutoutPreview,
+        ),
+      );
+      _startChoosingRange(photo: photo, subjectMaskError: null);
       return false;
     }
     if (!widget.letsUserChooseSubjectRange) {
@@ -789,7 +793,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
             ],
           ),
           const SizedBox(height: 16),
-          if (_phase == _GenerationPhase.choosingRange)
+          if (_phase == _GenerationPhase.choosingRange && !_usesSubjectCutout)
             SquareCropEditor(
               photo: _preparedPhoto!,
               photoWidth: _photoSize!.width,
@@ -797,18 +801,16 @@ class _GenerationScreenState extends State<GenerationScreen> {
               crop: _crop!,
               onCropChanged: ({required crop}) => setState(() => _crop = crop),
             )
-          else if (_phase == _GenerationPhase.choosingCutout)
-            _CutoutChoicePreview(
-              cutoutPreview: _subjectCutout!.cutoutPreview,
-              photo: _preparedPhoto!,
-            )
           else
             Center(
               child: SizedBox.square(
                 dimension: 200,
                 child: ClipRRect(
                   borderRadius: SnapmonRadii.card,
-                  child: switch (_cutoutPreview) {
+                  // 被写体だけを切り抜くと選んでいる間は、送る前でも切り抜いた絵を見せる
+                  child: switch (_phase == _GenerationPhase.choosingRange
+                      ? _subjectCutout!.cutoutPreview
+                      : _cutoutPreview) {
                     // 切り出した絵は形を崩さず、透明な背景を地の色で見せる
                     final cutoutPreview? => ColoredBox(
                       key: const Key('cutout-preview'),
@@ -871,35 +873,6 @@ class _GenerationScreenState extends State<GenerationScreen> {
       const SizedBox(height: 24),
       const Center(child: CircularProgressIndicator()),
     ],
-    _GenerationPhase.choosingCutout => [
-      Text(
-        l10n.generationChooseCutoutTitle,
-        textAlign: TextAlign.center,
-        style: SnapmonTextStyles.hero,
-      ),
-      const SizedBox(height: 12),
-      Text(
-        l10n.generationChooseCutoutMessage,
-        textAlign: TextAlign.center,
-        style: SnapmonTextStyles.body,
-      ),
-      const SizedBox(height: 28),
-      FilledButton(
-        onPressed: _useSubjectCutout,
-        child: Text(l10n.generationCreateWithCutout),
-      ),
-      const SizedBox(height: 12),
-      OutlinedButton(
-        onPressed: () =>
-            _startChoosingRange(photo: _preparedPhoto!, subjectMaskError: null),
-        child: Text(l10n.generationChooseRangeMyself),
-      ),
-      const SizedBox(height: 12),
-      OutlinedButton(
-        onPressed: () => Navigator.of(context).pop(),
-        child: Text(l10n.generationRetake),
-      ),
-    ],
     _GenerationPhase.choosingRange => [
       Text(
         l10n.generationChooseRangeTitle,
@@ -908,10 +881,22 @@ class _GenerationScreenState extends State<GenerationScreen> {
       ),
       const SizedBox(height: 12),
       Text(
-        l10n.generationChooseRangeMessage,
+        _usesSubjectCutout
+            ? l10n.generationSubjectCutoutMessage
+            : l10n.generationChooseRangeMessage,
         textAlign: TextAlign.center,
         style: SnapmonTextStyles.body,
       ),
+      if (_subjectCutout != null) ...[
+        const SizedBox(height: 12),
+        SwitchListTile(
+          key: const Key('subject-cutout-switch'),
+          title: Text(l10n.generationCutOutSubjectOnly),
+          value: _usesSubjectCutout,
+          onChanged: (usesSubjectCutout) =>
+              setState(() => _usesSubjectCutout = usesSubjectCutout),
+        ),
+      ],
       if (_subjectMaskError != null) ...[
         const SizedBox(height: 12),
         Text(
@@ -922,8 +907,12 @@ class _GenerationScreenState extends State<GenerationScreen> {
       ],
       const SizedBox(height: 28),
       FilledButton(
-        onPressed: _confirmCrop,
-        child: Text(l10n.generationCreateWithRange),
+        onPressed: _usesSubjectCutout ? _useSubjectCutout : _confirmCrop,
+        child: Text(
+          _usesSubjectCutout
+              ? l10n.generationCreateWithCutout
+              : l10n.generationCreateWithRange,
+        ),
       ),
       const SizedBox(height: 12),
       OutlinedButton(
@@ -1096,79 +1085,4 @@ class _GenerationScreenState extends State<GenerationScreen> {
     GenerationRejectionReason.refused => l10n.generationRejectedRefused,
     null => l10n.generationFailedMessage,
   };
-}
-
-/// 切り抜くかを選んでもらう間に、OS の切り出しで切り抜いた絵と元の写真を横に並べて見比べさせる。
-class _CutoutChoicePreview extends StatelessWidget {
-  const _CutoutChoicePreview({
-    required this.cutoutPreview,
-    required this.photo,
-  });
-
-  /// OS の切り出しのマスクで切り抜いた絵 (背景が透明な PNG)。
-  final Uint8List cutoutPreview;
-
-  /// 生成に送る写真 (切り抜く前)。
-  final Uint8List photo;
-
-  @override
-  Widget build(BuildContext context) => Row(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Expanded(
-        child: _CutoutChoiceTile(
-          label: context.l10n.generationCutoutLabel,
-          // 切り出した絵は形を崩さず、透明な背景を地の色で見せる (生成を待つ間のプレビューと同じ)
-          image: ColoredBox(
-            key: const Key('cutout-choice-cutout'),
-            color: SnapmonColors.artBackground,
-            child: Image.memory(
-              cutoutPreview,
-              fit: BoxFit.contain,
-              gaplessPlayback: true,
-              errorBuilder: (context, error, stackTrace) =>
-                  const SizedBox.shrink(),
-            ),
-          ),
-        ),
-      ),
-      const SizedBox(width: 12),
-      Expanded(
-        child: _CutoutChoiceTile(
-          label: context.l10n.generationOriginalPhotoLabel,
-          image: Image.memory(
-            photo,
-            key: const Key('cutout-choice-photo'),
-            fit: BoxFit.cover,
-            gaplessPlayback: true,
-            errorBuilder: (context, error, stackTrace) =>
-                const ColoredBox(color: SnapmonColors.surfaceRaised),
-          ),
-        ),
-      ),
-    ],
-  );
-}
-
-/// [_CutoutChoicePreview] の 1 枚。正方形の [image] の下に [label] を出す。
-class _CutoutChoiceTile extends StatelessWidget {
-  const _CutoutChoiceTile({required this.label, required this.image});
-
-  /// 絵の下に出す名前。
-  final String label;
-
-  /// 正方形の枠に収める絵。
-  final Widget image;
-
-  @override
-  Widget build(BuildContext context) => Column(
-    children: [
-      AspectRatio(
-        aspectRatio: 1,
-        child: ClipRRect(borderRadius: SnapmonRadii.card, child: image),
-      ),
-      const SizedBox(height: 8),
-      Text(label, textAlign: TextAlign.center, style: SnapmonTextStyles.label),
-    ],
-  );
 }
