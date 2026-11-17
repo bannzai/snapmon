@@ -299,5 +299,6 @@
   "actionCardTeachNoForgotten": "Nenhum golpe será removido",
   "actionCardTeachReplacedMove": "{moveName} sairá de um espaço de golpe",
   "actionCardTeachNotEquipped": "Você pode colocar no espaço em «Escolher golpe»",
-  "battleLearnedMoveNotEquipped": "Você pode trocar em «Escolher golpe»"
+  "battleLearnedMoveNotEquipped": "Você pode trocar em «Escolher golpe»",
+  "moveSelectionOpen": "Escolha os golpes"
 }

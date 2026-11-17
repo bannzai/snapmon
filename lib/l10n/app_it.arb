@@ -299,5 +299,6 @@
   "actionCardTeachNoForgotten": "Nessuna mossa verrà rimossa",
   "actionCardTeachReplacedMove": "{moveName} uscirà dallo slot mosse",
   "actionCardTeachNotEquipped": "Puoi inserirla in uno slot da «Scegli mossa»",
-  "battleLearnedMoveNotEquipped": "Puoi sostituirla in «Scegli una mossa»"
+  "battleLearnedMoveNotEquipped": "Puoi sostituirla in «Scegli una mossa»",
+  "moveSelectionOpen": "Scegli le mosse"
 }

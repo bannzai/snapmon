@@ -299,5 +299,6 @@
   "actionCardTeachNoForgotten": "Egy támadás sem kerül le",
   "actionCardTeachReplacedMove": "{moveName} kikerül a támadás helyéről",
   "actionCardTeachNotEquipped": "A támadás kiválasztásánál helyezheted egy helyre",
-  "battleLearnedMoveNotEquipped": "A „Támadás kiválasztása” menüben lecserélheted"
+  "battleLearnedMoveNotEquipped": "A „Támadás kiválasztása” menüben lecserélheted",
+  "moveSelectionOpen": "Válassz támadásokat"
 }

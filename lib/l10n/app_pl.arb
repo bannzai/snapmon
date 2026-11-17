@@ -299,5 +299,6 @@
   "actionCardTeachNoForgotten": "Żaden ruch nie zostanie usunięty",
   "actionCardTeachReplacedMove": "{moveName} wypadnie z miejsca na ruch",
   "actionCardTeachNotEquipped": "Możesz umieścić go w slocie przez wybór ruchu",
-  "battleLearnedMoveNotEquipped": "Możesz go zamienić w „Wybierz ruch”"
+  "battleLearnedMoveNotEquipped": "Możesz go zamienić w „Wybierz ruch”",
+  "moveSelectionOpen": "Wybierz ruchy"
 }

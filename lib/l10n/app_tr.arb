@@ -299,5 +299,6 @@
   "actionCardTeachNoForgotten": "Hiçbir hamle kaldırılmayacak",
   "actionCardTeachReplacedMove": "{moveName} hamle yuvasından çıkacak",
   "actionCardTeachNotEquipped": "Hamle seçerek yuvaya koyabilirsin",
-  "battleLearnedMoveNotEquipped": "«Hamle seç» bölümünden değiştirebilirsin"
+  "battleLearnedMoveNotEquipped": "«Hamle seç» bölümünden değiştirebilirsin",
+  "moveSelectionOpen": "Hamle seç"
 }

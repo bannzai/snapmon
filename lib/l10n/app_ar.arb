@@ -299,5 +299,6 @@
   "actionCardTeachNoForgotten": "لا توجد حركات ستُزال",
   "actionCardTeachReplacedMove": "{moveName} ستخرج من خانة الحركات",
   "actionCardTeachNotEquipped": "يمكنك وضعها في الخانة عبر اختيار الحركات",
-  "battleLearnedMoveNotEquipped": "يمكنك تبديلها من «اختيار الحركات»"
+  "battleLearnedMoveNotEquipped": "يمكنك تبديلها من «اختيار الحركات»",
+  "moveSelectionOpen": "اختر الحركات"
 }

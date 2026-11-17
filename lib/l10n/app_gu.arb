@@ -299,5 +299,6 @@
   "actionCardTeachNoForgotten": "કોઈ ચાલ દૂર નહીં થાય",
   "actionCardTeachReplacedMove": "{moveName} ચાલના સ્લોટમાંથી દૂર થશે",
   "actionCardTeachNotEquipped": "ચાલ પસંદ કરીને તેને સ્લોટમાં મૂકી શકો છો",
-  "battleLearnedMoveNotEquipped": "‘ચાલ પસંદ કરો’માં તેને બદલી શકો છો"
+  "battleLearnedMoveNotEquipped": "‘ચાલ પસંદ કરો’માં તેને બદલી શકો છો",
+  "moveSelectionOpen": "ચાલ પસંદ કરો"
 }

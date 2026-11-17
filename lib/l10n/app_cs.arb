@@ -299,5 +299,6 @@
   "actionCardTeachNoForgotten": "Žádný útok se neodebere",
   "actionCardTeachReplacedMove": "{moveName} opustí slot pro útok",
   "actionCardTeachNotEquipped": "Do slotu ho dáš přes výběr útoku",
-  "battleLearnedMoveNotEquipped": "Můžeš ho vyměnit v nabídce „Vybrat útok“"
+  "battleLearnedMoveNotEquipped": "Můžeš ho vyměnit v nabídce „Vybrat útok“",
+  "moveSelectionOpen": "Vyber útoky"
 }

@@ -299,5 +299,6 @@
   "actionCardTeachNoForgotten": "Tidak ada jurus yang dilepas",
   "actionCardTeachReplacedMove": "{moveName} akan keluar dari slot jurus",
   "actionCardTeachNotEquipped": "Kamu bisa memasukkannya ke slot lewat Pilih jurus",
-  "battleLearnedMoveNotEquipped": "Kamu bisa menggantinya di «Pilih jurus»"
+  "battleLearnedMoveNotEquipped": "Kamu bisa menggantinya di «Pilih jurus»",
+  "moveSelectionOpen": "Pilih jurus"
 }

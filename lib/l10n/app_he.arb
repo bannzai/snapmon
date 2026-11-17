@@ -299,5 +299,6 @@
   "actionCardTeachNoForgotten": "אף מתקפה לא תוסר",
   "actionCardTeachReplacedMove": "{moveName} תצא ממשבצת המתקפות",
   "actionCardTeachNotEquipped": "אפשר להכניס למשבצת דרך בחירת מתקפה",
-  "battleLearnedMoveNotEquipped": "אפשר להחליף דרך ״בחירת מתקפות״"
+  "battleLearnedMoveNotEquipped": "אפשר להחליף דרך ״בחירת מתקפות״",
+  "moveSelectionOpen": "בחירת מתקפות"
 }

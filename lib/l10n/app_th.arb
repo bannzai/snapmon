@@ -299,5 +299,6 @@
   "actionCardTeachNoForgotten": "ไม่มีท่าที่จะถูกถอดออก",
   "actionCardTeachReplacedMove": "{moveName} จะออกจากช่องท่า",
   "actionCardTeachNotEquipped": "ใส่ในช่องได้จากเมนูเลือกท่า",
-  "battleLearnedMoveNotEquipped": "เปลี่ยนได้ที่ «เลือกท่า»"
+  "battleLearnedMoveNotEquipped": "เปลี่ยนได้ที่ «เลือกท่า»",
+  "moveSelectionOpen": "เลือกท่า"
 }

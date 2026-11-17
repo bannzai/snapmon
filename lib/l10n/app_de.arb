@@ -299,5 +299,6 @@
   "actionCardTeachNoForgotten": "Keine Attacke wird entfernt",
   "actionCardTeachReplacedMove": "{moveName} verlässt einen Attackenplatz",
   "actionCardTeachNotEquipped": "Du kannst sie unter „Attacke wählen“ in einen Platz setzen",
-  "battleLearnedMoveNotEquipped": "Du kannst sie unter „Attacke wählen“ austauschen"
+  "battleLearnedMoveNotEquipped": "Du kannst sie unter „Attacke wählen“ austauschen",
+  "moveSelectionOpen": "Attacken wählen"
 }

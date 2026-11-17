@@ -299,5 +299,6 @@
   "actionCardTeachNoForgotten": "कोई चाल नहीं हटेगी",
   "actionCardTeachReplacedMove": "{moveName} चाल के स्लॉट से हट जाएगी",
   "actionCardTeachNotEquipped": "चाल चुनकर इसे स्लॉट में रख सकते हो",
-  "battleLearnedMoveNotEquipped": "‘चाल चुनो’ में इसे बदल सकते हो"
+  "battleLearnedMoveNotEquipped": "‘चाल चुनो’ में इसे बदल सकते हो",
+  "moveSelectionOpen": "चालें चुनो"
 }
