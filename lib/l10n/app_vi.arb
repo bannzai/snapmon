@@ -79,5 +79,6 @@
   "dexEmptySlot": "Trống",
   "dexAddMonster": "Thêm",
   "dexAddToPartyTitle": "Thêm vào đội",
-  "dexNoPartyCandidates": "Bạn không có quái vật nào để thêm vào đội"
+  "dexNoPartyCandidates": "Bạn không có quái vật nào để thêm vào đội",
+  "captureCameraUnavailable": "Không dùng được camera\nChọn ảnh từ album"
 }

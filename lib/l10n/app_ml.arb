@@ -79,5 +79,6 @@
   "dexEmptySlot": "ഒഴിഞ്ഞത്",
   "dexAddMonster": "ചേർക്കുക",
   "dexAddToPartyTitle": "പാർട്ടിയിൽ ചേർക്കുക",
-  "dexNoPartyCandidates": "പാർട്ടിയിൽ ചേർക്കാൻ മോൺസ്റ്ററുകളൊന്നുമില്ല"
+  "dexNoPartyCandidates": "പാർട്ടിയിൽ ചേർക്കാൻ മോൺസ്റ്ററുകളൊന്നുമില്ല",
+  "captureCameraUnavailable": "ക്യാമറ ഉപയോഗിക്കാനാകുന്നില്ല\nആൽബത്തിൽ നിന്ന് ഫോട്ടോ തിരഞ്ഞെടുക്കൂ"
 }

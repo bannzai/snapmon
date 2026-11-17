@@ -79,5 +79,6 @@
   "dexEmptySlot": "ಖಾಲಿ",
   "dexAddMonster": "ಸೇರಿಸು",
   "dexAddToPartyTitle": "ತಂಡಕ್ಕೆ ಸೇರಿಸು",
-  "dexNoPartyCandidates": "ತಂಡಕ್ಕೆ ಸೇರಿಸಲು ಮಾನ್ಸ್ಟರಗಳಿಲ್ಲ"
+  "dexNoPartyCandidates": "ತಂಡಕ್ಕೆ ಸೇರಿಸಲು ಮಾನ್ಸ್ಟರಗಳಿಲ್ಲ",
+  "captureCameraUnavailable": "ಕ್ಯಾಮೆರಾ ಬಳಸಲು ಸಾಧ್ಯವಾಗುತ್ತಿಲ್ಲ\nಆಲ್ಬಮ್‌ನಿಂದ ಫೋಟೋ ಆಯ್ಕೆ ಮಾಡು"
 }

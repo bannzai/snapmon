@@ -79,5 +79,6 @@
   "dexEmptySlot": "காலி",
   "dexAddMonster": "சேர்க்கவும்",
   "dexAddToPartyTitle": "அணியில் சேருங்கள்",
-  "dexNoPartyCandidates": "அணியில் சேர்க்க மான்ஸ்டர்கள் இல்லை"
+  "dexNoPartyCandidates": "அணியில் சேர்க்க மான்ஸ்டர்கள் இல்லை",
+  "captureCameraUnavailable": "கேமராவைப் பயன்படுத்த முடியவில்லை\nஆல்பத்திலிருந்து படத்தைத் தேர்ந்தெடுங்கள்"
 }

@@ -79,5 +79,6 @@
   "dexEmptySlot": "빈자리",
   "dexAddMonster": "추가하기",
   "dexAddToPartyTitle": "파티에 추가하기",
-  "dexNoPartyCandidates": "파티에 넣을 수 있는 몬스터가 없어요"
+  "dexNoPartyCandidates": "파티에 넣을 수 있는 몬스터가 없어요",
+  "captureCameraUnavailable": "카메라를 사용할 수 없어요\n앨범에서 사진을 골라 주세요"
 }

@@ -79,5 +79,6 @@
   "dexEmptySlot": "Prazno",
   "dexAddMonster": "Dodaj",
   "dexAddToPartyTitle": "Dodaj v ekipo",
-  "dexNoPartyCandidates": "Nimaš pošasti, ki bi jih lahko dodal v ekipo"
+  "dexNoPartyCandidates": "Nimaš pošasti, ki bi jih lahko dodal v ekipo",
+  "captureCameraUnavailable": "Kamera ni na voljo\nIzberi fotografijo iz albuma"
 }

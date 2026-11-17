@@ -79,5 +79,6 @@
   "dexEmptySlot": "Пусто",
   "dexAddMonster": "Добавить",
   "dexAddToPartyTitle": "Добавить в команду",
-  "dexNoPartyCandidates": "У тебя нет монстров, которых можно добавить в команду"
+  "dexNoPartyCandidates": "У тебя нет монстров, которых можно добавить в команду",
+  "captureCameraUnavailable": "Камера недоступна\nВыбери фото из альбома"
 }

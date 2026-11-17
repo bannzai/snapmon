@@ -79,5 +79,6 @@
   "dexEmptySlot": "Tom",
   "dexAddMonster": "Legg til",
   "dexAddToPartyTitle": "Legg til på laget",
-  "dexNoPartyCandidates": "Du har ingen monstre å legge til på laget"
+  "dexNoPartyCandidates": "Du har ingen monstre å legge til på laget",
+  "captureCameraUnavailable": "Kameraet er ikke tilgjengelig\nVelg et bilde fra albumet"
 }

@@ -79,5 +79,6 @@
   "dexEmptySlot": "Boş",
   "dexAddMonster": "Ekle",
   "dexAddToPartyTitle": "Takıma ekle",
-  "dexNoPartyCandidates": "Takımına ekleyebileceğin canavar yok"
+  "dexNoPartyCandidates": "Takımına ekleyebileceğin canavar yok",
+  "captureCameraUnavailable": "Kamera kullanılamıyor\nAlbümden bir fotoğraf seç"
 }

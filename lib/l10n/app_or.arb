@@ -79,5 +79,6 @@
   "dexEmptySlot": "ଖାଲି",
   "dexAddMonster": "ଯୋଡ଼",
   "dexAddToPartyTitle": "ଦଳରେ ଯୋଡ଼",
-  "dexNoPartyCandidates": "ଦଳରେ ଯୋଡ଼ିବାକୁ କୌଣସି ମନଷ୍ଟର ନାହିଁ"
+  "dexNoPartyCandidates": "ଦଳରେ ଯୋଡ଼ିବାକୁ କୌଣସି ମନଷ୍ଟର ନାହିଁ",
+  "captureCameraUnavailable": "କ୍ୟାମେରା ବ୍ୟବହାର କରିହେଉନାହିଁ\nଆଲବମରୁ ଫଟୋ ବାଛ"
 }

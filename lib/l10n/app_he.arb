@@ -79,5 +79,6 @@
   "dexEmptySlot": "פנוי",
   "dexAddMonster": "הוספה",
   "dexAddToPartyTitle": "הוספה לצוות",
-  "dexNoPartyCandidates": "אין מפלצות שאפשר להוסיף לצוות"
+  "dexNoPartyCandidates": "אין מפלצות שאפשר להוסיף לצוות",
+  "captureCameraUnavailable": "המצלמה לא זמינה\nאפשר לבחור תמונה מהאלבום"
 }

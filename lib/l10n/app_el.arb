@@ -79,5 +79,6 @@
   "dexEmptySlot": "Κενό",
   "dexAddMonster": "Προσθήκη",
   "dexAddToPartyTitle": "Προσθήκη στην ομάδα",
-  "dexNoPartyCandidates": "Δεν έχεις τέρατα για να προσθέσεις στην ομάδα σου"
+  "dexNoPartyCandidates": "Δεν έχεις τέρατα για να προσθέσεις στην ομάδα σου",
+  "captureCameraUnavailable": "Η κάμερα δεν είναι διαθέσιμη\nΔιάλεξε φωτογραφία από το άλμπουμ"
 }

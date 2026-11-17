@@ -79,5 +79,6 @@
   "dexEmptySlot": "रिकामे",
   "dexAddMonster": "जोड",
   "dexAddToPartyTitle": "टीममध्ये जोड",
-  "dexNoPartyCandidates": "टीममध्ये घालण्यासाठी मॉन्स्टर नाहीत"
+  "dexNoPartyCandidates": "टीममध्ये घालण्यासाठी मॉन्स्टर नाहीत",
+  "captureCameraUnavailable": "कॅमेरा वापरता येत नाही\nअल्बममधून फोटो निवड"
 }

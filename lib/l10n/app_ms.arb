@@ -79,5 +79,6 @@
   "dexEmptySlot": "Kosong",
   "dexAddMonster": "Tambah",
   "dexAddToPartyTitle": "Tambah ke pasukan",
-  "dexNoPartyCandidates": "Tiada monster untuk kamu tambah ke pasukan"
+  "dexNoPartyCandidates": "Tiada monster untuk kamu tambah ke pasukan",
+  "captureCameraUnavailable": "Kamera tak dapat digunakan\nPilih foto daripada album"
 }

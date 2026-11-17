@@ -79,5 +79,6 @@
   "dexEmptySlot": "Leer",
   "dexAddMonster": "Hinzufügen",
   "dexAddToPartyTitle": "Zum Team hinzufügen",
-  "dexNoPartyCandidates": "Du hast keine Monster, die du deinem Team hinzufügen kannst"
+  "dexNoPartyCandidates": "Du hast keine Monster, die du deinem Team hinzufügen kannst",
+  "captureCameraUnavailable": "Die Kamera ist nicht verfügbar\nWähle ein Foto aus deinem Album"
 }

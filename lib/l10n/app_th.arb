@@ -79,5 +79,6 @@
   "dexEmptySlot": "ว่าง",
   "dexAddMonster": "เพิ่ม",
   "dexAddToPartyTitle": "เพิ่มเข้าทีม",
-  "dexNoPartyCandidates": "ไม่มีมอนสเตอร์ที่เพิ่มเข้าทีมได้"
+  "dexNoPartyCandidates": "ไม่มีมอนสเตอร์ที่เพิ่มเข้าทีมได้",
+  "captureCameraUnavailable": "ใช้กล้องไม่ได้\nเลือกรูปจากอัลบั้ม"
 }
