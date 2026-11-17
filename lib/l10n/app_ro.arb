@@ -311,5 +311,6 @@
   "battleLostPartyHintMessage": "În echipa ta încap până la {maximumPartySize} monștri\nDacă știi slăbiciunile și efectele de stare, ai avantaj în luptă",
   "helpOpen": "Cum să joci",
   "helpTitle": "Cum să joci",
-  "helpPartyHeading": "În echipa ta încap până la {maximumPartySize} monștri"
+  "helpPartyHeading": "În echipa ta încap până la {maximumPartySize} monștri",
+  "helpPartyBody": "Monștrii din echipa ta intră în luptă\nCând monstrul de pe teren cade, intră următorul\nDacă toată echipa cade, pierzi\nPoți schimba echipa din enciclopedie"
 }

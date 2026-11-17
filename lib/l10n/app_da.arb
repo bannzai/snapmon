@@ -311,5 +311,6 @@
   "battleLostPartyHintMessage": "Du kan have op til {maximumPartySize} monstre på dit hold\nKend svagheder og statuseffekter, så står du stærkere i kamp",
   "helpOpen": "Sådan spiller du",
   "helpTitle": "Sådan spiller du",
-  "helpPartyHeading": "Du kan have op til {maximumPartySize} monstre på dit hold"
+  "helpPartyHeading": "Du kan have op til {maximumPartySize} monstre på dit hold",
+  "helpPartyBody": "Monstrene på dit hold kæmper i kamp\nNår monstret på banen falder, tager det næste over\nHvis hele holdet falder, taber du\nDu kan ændre dit hold i dex"
 }

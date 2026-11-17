@@ -311,5 +311,6 @@
   "battleLostPartyHintMessage": "V tvojom tíme môže byť až {maximumPartySize} príšer\nKeď poznáš slabiny a stavové efekty, máš v boji výhodu",
   "helpOpen": "Ako hrať",
   "helpTitle": "Ako hrať",
-  "helpPartyHeading": "V tvojom tíme môže byť až {maximumPartySize} príšer"
+  "helpPartyHeading": "V tvojom tíme môže byť až {maximumPartySize} príšer",
+  "helpPartyBody": "Do boja nastupujú príšery z tvojho tímu\nKeď príšera na bojisku padne, nastúpi ďalšia\nAk padne celý tím, prehráš\nTím môžeš meniť v encyklopédii"
 }

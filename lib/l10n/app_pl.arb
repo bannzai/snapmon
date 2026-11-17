@@ -311,5 +311,6 @@
   "battleLostPartyHintMessage": "W twojej drużynie zmieści się do {maximumPartySize} potworów\nPoznaj słabości i statusy, by zyskać przewagę w walce",
   "helpOpen": "Jak grać",
   "helpTitle": "Jak grać",
-  "helpPartyHeading": "W twojej drużynie zmieści się do {maximumPartySize} potworów"
+  "helpPartyHeading": "W twojej drużynie zmieści się do {maximumPartySize} potworów",
+  "helpPartyBody": "Potwory z twojej drużyny ruszają do walki\nGdy potwór na polu padnie, wchodzi następny\nJeśli padnie cała drużyna, przegrywasz\nDrużynę możesz zmienić w encyklopedii"
 }

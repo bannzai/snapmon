@@ -311,5 +311,6 @@
   "battleLostPartyHintMessage": "Tim kamu bisa berisi hingga {maximumPartySize} monster\nKenali kelemahan dan efek status agar kamu lebih unggul saat bertarung",
   "helpOpen": "Cara bermain",
   "helpTitle": "Cara bermain",
-  "helpPartyHeading": "Tim kamu bisa berisi hingga {maximumPartySize} monster"
+  "helpPartyHeading": "Tim kamu bisa berisi hingga {maximumPartySize} monster",
+  "helpPartyBody": "Monster di timmu turun bertarung\nSaat monster di arena tumbang, monster berikutnya maju\nJika seluruh tim tumbang, kamu kalah\nKamu bisa mengubah tim di dex"
 }

@@ -311,5 +311,6 @@
   "battleLostPartyHintMessage": "Đội của bạn có thể có tối đa {maximumPartySize} quái vật\nBiết điểm yếu và trạng thái bất thường sẽ giúp bạn chiếm ưu thế khi chiến đấu",
   "helpOpen": "Cách chơi",
   "helpTitle": "Cách chơi",
-  "helpPartyHeading": "Đội của bạn có tối đa {maximumPartySize} quái vật"
+  "helpPartyHeading": "Đội của bạn có tối đa {maximumPartySize} quái vật",
+  "helpPartyBody": "Quái vật trong đội của bạn sẽ ra trận\nNếu quái vật trên sân gục ngã, con tiếp theo sẽ vào thay\nNếu cả đội gục ngã, bạn thua\nBạn có thể đổi đội trong bộ sưu tập"
 }

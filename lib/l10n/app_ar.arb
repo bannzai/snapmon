@@ -311,5 +311,6 @@
   "battleLostPartyHintMessage": "يمكنك ضم حتى {maximumPartySize} وحوش إلى فريقك\nمعرفة نقاط الضعف والحالة غير الطبيعية تمنحك أفضلية في القتال",
   "helpOpen": "شاهد طريقة اللعب",
   "helpTitle": "كيف تلعب",
-  "helpPartyHeading": "فريقك: حتى {maximumPartySize} وحوش"
+  "helpPartyHeading": "فريقك: حتى {maximumPartySize} وحوش",
+  "helpPartyBody": "تدخل وحوش فريقك المعركة\nإذا سقط الوحش في الميدان، يحل محله الوحش التالي\nإذا سقط فريقك كله، تخسر\nيمكنك تغيير فريقك من شاشة الموسوعة"
 }

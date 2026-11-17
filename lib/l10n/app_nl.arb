@@ -311,5 +311,6 @@
   "battleLostPartyHintMessage": "Je kunt maximaal {maximumPartySize} monsters in je team hebben\nKen de zwaktes en statuseffecten om sterker te staan in gevechten",
   "helpOpen": "Zo speel je",
   "helpTitle": "Zo speel je",
-  "helpPartyHeading": "In je team passen maximaal {maximumPartySize} monsters"
+  "helpPartyHeading": "In je team passen maximaal {maximumPartySize} monsters",
+  "helpPartyBody": "De monsters in je team gaan het gevecht aan\nValt het actieve monster uit, dan neemt het volgende over\nValt je hele team uit, dan verlies je\nJe kunt je team aanpassen in de dex"
 }

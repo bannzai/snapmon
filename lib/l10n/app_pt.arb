@@ -311,5 +311,6 @@
   "battleLostPartyHintMessage": "Sua equipe pode ter até {maximumPartySize} monstros\nConhecer fraquezas e efeitos de status dá vantagem na batalha",
   "helpOpen": "Como jogar",
   "helpTitle": "Como jogar",
-  "helpPartyHeading": "Sua equipe pode ter até {maximumPartySize} monstros"
+  "helpPartyHeading": "Sua equipe pode ter até {maximumPartySize} monstros",
+  "helpPartyBody": "Os monstros da sua equipe entram na batalha\nSe o monstro em campo cair, o próximo entra\nSe toda a equipe cair, você perde\nVocê pode mudar sua equipe no dex"
 }

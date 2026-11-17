@@ -311,5 +311,6 @@
   "battleLostPartyHintMessage": "Pasukan kamu boleh memuatkan hingga {maximumPartySize} raksasa\nKenali kelemahan dan kesan status untuk kelebihan dalam pertarungan",
   "helpOpen": "Cara bermain",
   "helpTitle": "Cara bermain",
-  "helpPartyHeading": "Pasukan kamu boleh ada hingga {maximumPartySize} raksasa"
+  "helpPartyHeading": "Pasukan kamu boleh ada hingga {maximumPartySize} raksasa",
+  "helpPartyBody": "Monster dalam pasukan kamu turun bertarung\nBila monster di medan tumbang, yang seterusnya masuk\nJika seluruh pasukan tumbang, kamu kalah\nKamu boleh tukar pasukan dalam ensiklopedia"
 }

@@ -311,5 +311,6 @@
   "battleLostPartyHintMessage": "A csapatodban legfeljebb {maximumPartySize} szörny lehet\nHa ismered a gyengeségeket és az állapothatásokat, előnybe kerülsz a harcban",
   "helpOpen": "Így játssz",
   "helpTitle": "Így játssz",
-  "helpPartyHeading": "A csapatodban legfeljebb {maximumPartySize} szörny lehet"
+  "helpPartyHeading": "A csapatodban legfeljebb {maximumPartySize} szörny lehet",
+  "helpPartyBody": "A csapatod szörnyei lépnek harcba\nHa a harcoló szörny kidől, a következő váltja\nHa az egész csapat kidől, veszítesz\nA gyűjteményben módosíthatod a csapatodat"
 }

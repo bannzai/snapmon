@@ -311,5 +311,6 @@
   "battleLostPartyHintMessage": "Takımında en fazla {maximumPartySize} canavar bulundurabilirsin\nZayıflıkları ve durum etkilerini bilirsen savaşta avantaj kazanırsın",
   "helpOpen": "Nasıl oynanır",
   "helpTitle": "Nasıl oynanır",
-  "helpPartyHeading": "Takımında en fazla {maximumPartySize} canavar olabilir"
+  "helpPartyHeading": "Takımında en fazla {maximumPartySize} canavar olabilir",
+  "helpPartyBody": "Takımındaki canavarlar savaşa katılır\nSahadaki canavar yenilirse sıradaki onun yerini alır\nTüm takım yenilirse kaybedersin\nTakımını ansiklopedi ekranında değiştirebilirsin"
 }

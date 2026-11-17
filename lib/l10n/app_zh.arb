@@ -311,5 +311,6 @@
   "battleLostPartyHintMessage": "你的队伍最多可放入 {maximumPartySize} 只怪物\n了解弱点和异常状态，战斗就更有优势",
   "helpOpen": "查看玩法",
   "helpTitle": "玩法",
-  "helpPartyHeading": "你的队伍最多可有 {maximumPartySize} 只怪兽"
+  "helpPartyHeading": "你的队伍最多可有 {maximumPartySize} 只怪兽",
+  "helpPartyBody": "你队伍里的怪物会出战\n场上的怪物倒下后，下一只会接替出场\n队伍全员倒下就输了\n你可以在图鉴页面调整队伍"
 }

@@ -311,5 +311,6 @@
   "battleLostPartyHintMessage": "V tvoji ekipi je prostora za največ {maximumPartySize} pošasti\nČe poznaš slabosti in statusne učinke, imaš v boju prednost",
   "helpOpen": "Kako igrati",
   "helpTitle": "Kako igrati",
-  "helpPartyHeading": "V tvoji ekipi je prostora za največ {maximumPartySize} pošasti"
+  "helpPartyHeading": "V tvoji ekipi je prostora za največ {maximumPartySize} pošasti",
+  "helpPartyBody": "Pošasti iz tvoje ekipe gredo v boj\nKo pošast na bojišču pade, jo zamenja naslednja\nČe pade vsa ekipa, izgubiš\nEkipo lahko zamenjaš v enciklopediji"
 }

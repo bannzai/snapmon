@@ -311,5 +311,6 @@
   "battleLostPartyHintMessage": "Du kan ha upp till {maximumPartySize} monster i ditt lag\nKänn till svagheter och statuseffekter för att få övertaget i strid",
   "helpOpen": "Så spelar du",
   "helpTitle": "Så spelar du",
-  "helpPartyHeading": "Du kan ha upp till {maximumPartySize} monster i ditt lag"
+  "helpPartyHeading": "Du kan ha upp till {maximumPartySize} monster i ditt lag",
+  "helpPartyBody": "Monstren i ditt lag går in i striden\nNär monstret på fältet faller tar nästa över\nOm hela laget faller förlorar du\nDu kan ändra laget i samlingen"
 }

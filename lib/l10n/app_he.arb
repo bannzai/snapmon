@@ -311,5 +311,6 @@
   "battleLostPartyHintMessage": "בצוות שלך יש מקום לעד {maximumPartySize} מפלצות\nהכרת חולשות ומצב חריג נותנת יתרון בקרב",
   "helpOpen": "איך משחקים",
   "helpTitle": "איך משחקים",
-  "helpPartyHeading": "בצוות שלך יש מקום לעד {maximumPartySize} מפלצות"
+  "helpPartyHeading": "בצוות שלך יש מקום לעד {maximumPartySize} מפלצות",
+  "helpPartyBody": "המפלצות בצוות שלך יוצאות לקרב\nכשמפלצת בזירה נופלת, הבאה תופסת את מקומה\nאם כל הצוות נופל, הקרב אבוד\nאפשר לשנות את הצוות במסך האוסף"
 }

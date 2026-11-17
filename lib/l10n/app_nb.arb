@@ -311,5 +311,6 @@
   "battleLostPartyHintMessage": "Du kan ha opptil {maximumPartySize} monstre på laget ditt\nKjenn til svakheter og statuseffekter, så får du overtaket i kamp",
   "helpOpen": "Slik spiller du",
   "helpTitle": "Slik spiller du",
-  "helpPartyHeading": "Du kan ha opptil {maximumPartySize} monstre på laget ditt"
+  "helpPartyHeading": "Du kan ha opptil {maximumPartySize} monstre på laget ditt",
+  "helpPartyBody": "Monstrene på laget ditt går i kamp\nNår monsteret på banen faller, tar det neste over\nHvis hele laget faller, taper du\nDu kan endre laget i samlingen"
 }
