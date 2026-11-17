@@ -181,5 +181,6 @@
   "battleLogFrozenSolid": "{monsterName}凍住了，無法行動",
   "battleLogConfusedMove": "{monsterName}陷入混亂，沒有使出{selectedMoveName}，而是使出了{moveName}",
   "battleLogOneHitKnockout": "一擊必殺！",
-  "battleLogSelfDestructed": "{monsterName} 自爆了！"
+  "battleLogSelfDestructed": "{monsterName} 自爆了！",
+  "battleLogStatusInflicted": "{monsterName}陷入了{statusName}狀態！"
 }

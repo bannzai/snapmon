@@ -181,5 +181,6 @@
   "battleLogFrozenSolid": "{monsterName} zamarzł i nie może się ruszyć",
   "battleLogConfusedMove": "{monsterName} się pogubił i użył {moveName} zamiast {selectedMoveName}",
   "battleLogOneHitKnockout": "K.O. jednym ciosem!",
-  "battleLogSelfDestructed": "{monsterName} wysadził się w powietrze!"
+  "battleLogSelfDestructed": "{monsterName} wysadził się w powietrze!",
+  "battleLogStatusInflicted": "{monsterName} otrzymał status {statusName}!"
 }

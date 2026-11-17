@@ -181,5 +181,6 @@
   "battleLogFrozenSolid": "{monsterName} membeku dan tak bisa bergerak",
   "battleLogConfusedMove": "{monsterName} bingung dan memakai {moveName} alih-alih {selectedMoveName}",
   "battleLogOneHitKnockout": "KO dalam satu serangan!",
-  "battleLogSelfDestructed": "{monsterName} meledakkan diri!"
+  "battleLogSelfDestructed": "{monsterName} meledakkan diri!",
+  "battleLogStatusInflicted": "{monsterName} terkena status {statusName}!"
 }

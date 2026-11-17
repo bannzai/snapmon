@@ -181,5 +181,6 @@
   "battleLogFrozenSolid": "{monsterName} är fastfrusen och kan inte röra sig",
   "battleLogConfusedMove": "{monsterName} blev förvirrad och använde {moveName} i stället för {selectedMoveName}",
   "battleLogOneHitKnockout": "K.O. på ett slag!",
-  "battleLogSelfDestructed": "{monsterName} sprängde sig själv!"
+  "battleLogSelfDestructed": "{monsterName} sprängde sig själv!",
+  "battleLogStatusInflicted": "{monsterName} fick statusen {statusName}!"
 }

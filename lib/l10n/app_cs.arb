@@ -181,5 +181,6 @@
   "battleLogFrozenSolid": "{monsterName} je zmrzlý a nemůže se hýbat",
   "battleLogConfusedMove": "{monsterName} je zmatený a místo {selectedMoveName} použil {moveName}",
   "battleLogOneHitKnockout": "K. O. jednou ranou!",
-  "battleLogSelfDestructed": "{monsterName} se samo zničil!"
+  "battleLogSelfDestructed": "{monsterName} se samo zničil!",
+  "battleLogStatusInflicted": "{monsterName} získal stav {statusName}!"
 }

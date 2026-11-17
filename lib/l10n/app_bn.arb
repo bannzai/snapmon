@@ -181,5 +181,6 @@
   "battleLogFrozenSolid": "{monsterName} বরফে জমে গেছে, নড়তে পারছে না",
   "battleLogConfusedMove": "{monsterName} বিভ্রান্ত হয়ে {selectedMoveName}-এর বদলে {moveName} ব্যবহার করল",
   "battleLogOneHitKnockout": "এক আঘাতেই কাবু!",
-  "battleLogSelfDestructed": "{monsterName} নিজেই বিস্ফোরিত হলো!"
+  "battleLogSelfDestructed": "{monsterName} নিজেই বিস্ফোরিত হলো!",
+  "battleLogStatusInflicted": "{monsterName} এখন {statusName} অবস্থায়!"
 }

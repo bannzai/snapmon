@@ -181,5 +181,6 @@
   "battleLogFrozenSolid": "{monsterName} dondu ve hareket edemiyor",
   "battleLogConfusedMove": "{monsterName} kafası karışınca {selectedMoveName} yerine {moveName} kullandı",
   "battleLogOneHitKnockout": "Tek vuruşta nakavt!",
-  "battleLogSelfDestructed": "{monsterName} kendini patlattı!"
+  "battleLogSelfDestructed": "{monsterName} kendini patlattı!",
+  "battleLogStatusInflicted": "{monsterName}, {statusName} durumuna girdi!"
 }

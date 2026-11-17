@@ -181,5 +181,6 @@
   "battleLogFrozenSolid": "{monsterName} గడ్డకట్టిపోయింది, కదలలేకపోతోంది",
   "battleLogConfusedMove": "{monsterName} అయోమయంలో పడి {selectedMoveName} బదులు {moveName} ఉపయోగించింది",
   "battleLogOneHitKnockout": "ఒక్క దెబ్బకే ఓటమి!",
-  "battleLogSelfDestructed": "{monsterName} తనను తాను పేల్చుకుంది!"
+  "battleLogSelfDestructed": "{monsterName} తనను తాను పేల్చుకుంది!",
+  "battleLogStatusInflicted": "{monsterName} ఇప్పుడు {statusName} స్థితిలో ఉంది!"
 }

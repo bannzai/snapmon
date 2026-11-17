@@ -181,5 +181,6 @@
   "battleLogFrozenSolid": "{monsterName} a înghețat și nu se poate mișca",
   "battleLogConfusedMove": "{monsterName} s-a zăpăcit și a folosit {moveName} în loc de {selectedMoveName}",
   "battleLogOneHitKnockout": "K.O. dintr-o singură lovitură!",
-  "battleLogSelfDestructed": "{monsterName} s-a autodistrus!"
+  "battleLogSelfDestructed": "{monsterName} s-a autodistrus!",
+  "battleLogStatusInflicted": "{monsterName} a primit starea {statusName}!"
 }

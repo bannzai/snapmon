@@ -181,5 +181,6 @@
   "battleLogFrozenSolid": "{monsterName} je zmrznil in se ne more premakniti",
   "battleLogConfusedMove": "{monsterName} se je zmedel in namesto {selectedMoveName} uporabil {moveName}",
   "battleLogOneHitKnockout": "Nokavt z enim udarcem!",
-  "battleLogSelfDestructed": "{monsterName} se je samouničil!"
+  "battleLogSelfDestructed": "{monsterName} se je samouničil!",
+  "battleLogStatusInflicted": "{monsterName} je dobil stanje {statusName}!"
 }

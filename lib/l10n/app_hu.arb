@@ -181,5 +181,6 @@
   "battleLogFrozenSolid": "{monsterName} jéggé dermedt, és nem tud megmozdulni",
   "battleLogConfusedMove": "{monsterName} összezavarodott, és {selectedMoveName} helyett {moveName} támadást használt",
   "battleLogOneHitKnockout": "K. O. egyetlen ütéssel!",
-  "battleLogSelfDestructed": "{monsterName} felrobbantotta magát!"
+  "battleLogSelfDestructed": "{monsterName} felrobbantotta magát!",
+  "battleLogStatusInflicted": "{monsterName} most {statusName} állapotba került!"
 }

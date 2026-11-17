@@ -181,5 +181,6 @@
   "battleLogFrozenSolid": "{monsterName} തണുത്തുറഞ്ഞു, അനങ്ങാൻ കഴിയുന്നില്ല",
   "battleLogConfusedMove": "{monsterName} ആശയക്കുഴപ്പത്തിലായി, {selectedMoveName}ന് പകരം {moveName} ഉപയോഗിച്ചു",
   "battleLogOneHitKnockout": "ഒറ്റയടിക്ക് വീഴ്ത്തി!",
-  "battleLogSelfDestructed": "{monsterName} സ്വയം പൊട്ടിത്തെറിച്ചു!"
+  "battleLogSelfDestructed": "{monsterName} സ്വയം പൊട്ടിത്തെറിച്ചു!",
+  "battleLogStatusInflicted": "{monsterName} ഇപ്പോൾ {statusName} അവസ്ഥയിലാണ്!"
 }

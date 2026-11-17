@@ -181,5 +181,6 @@
   "battleLogFrozenSolid": "{monsterName} s'ha congelat i no es pot moure",
   "battleLogConfusedMove": "{monsterName} s'ha confós i ha fet servir {moveName} en lloc de {selectedMoveName}",
   "battleLogOneHitKnockout": "KO d'un sol cop!",
-  "battleLogSelfDestructed": "{monsterName} s'ha autodestruït!"
+  "battleLogSelfDestructed": "{monsterName} s'ha autodestruït!",
+  "battleLogStatusInflicted": "{monsterName} ha quedat en estat {statusName}!"
 }

@@ -181,5 +181,6 @@
   "battleLogFrozenSolid": "הקרח לא נותן ל{monsterName} לזוז",
   "battleLogConfusedMove": "{monsterName} התבלבל והשתמש ב־{moveName} במקום ב־{selectedMoveName}",
   "battleLogOneHitKnockout": "נוקאאוט במכה אחת!",
-  "battleLogSelfDestructed": "{monsterName} השמיד את עצמו!"
+  "battleLogSelfDestructed": "{monsterName} השמיד את עצמו!",
+  "battleLogStatusInflicted": "{monsterName} נכנס למצב {statusName}!"
 }

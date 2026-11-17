@@ -181,5 +181,6 @@
   "battleLogFrozenSolid": "Το {monsterName} πάγωσε και δεν μπορεί να κινηθεί",
   "battleLogConfusedMove": "Ο {monsterName} μπερδεύτηκε και χρησιμοποίησε την κίνηση {moveName} αντί για την {selectedMoveName}",
   "battleLogOneHitKnockout": "Νοκ άουτ με ένα χτύπημα!",
-  "battleLogSelfDestructed": "Το {monsterName} αυτοκαταστράφηκε!"
+  "battleLogSelfDestructed": "Το {monsterName} αυτοκαταστράφηκε!",
+  "battleLogStatusInflicted": "Ο {monsterName} απέκτησε την κατάσταση {statusName}!"
 }

@@ -181,5 +181,6 @@
   "battleLogFrozenSolid": "{monsterName} on jäässä eikä pysty liikkumaan",
   "battleLogConfusedMove": "{monsterName} meni sekaisin ja käytti liikkeen {moveName} liikkeen {selectedMoveName} sijaan",
   "battleLogOneHitKnockout": "Tyrmäys yhdellä iskulla!",
-  "battleLogSelfDestructed": "{monsterName} räjäytti itsensä!"
+  "battleLogSelfDestructed": "{monsterName} räjäytti itsensä!",
+  "battleLogStatusInflicted": "{monsterName} sai tilan {statusName}!"
 }

@@ -181,5 +181,6 @@
   "battleLogFrozenSolid": "{monsterName} जम गया है और हिल नहीं सकता",
   "battleLogConfusedMove": "{monsterName} उलझ गया और {selectedMoveName} की जगह {moveName} चला दी",
   "battleLogOneHitKnockout": "एक ही वार में ढेर!",
-  "battleLogSelfDestructed": "{monsterName} ने खुद को उड़ा लिया!"
+  "battleLogSelfDestructed": "{monsterName} ने खुद को उड़ा लिया!",
+  "battleLogStatusInflicted": "{monsterName} अब {statusName} स्थिति में है!"
 }
