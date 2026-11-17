@@ -263,5 +263,6 @@
   "ticketPurchaseTitle": "alkotójegy",
   "ticketPurchaseDescription": "Ha el is fogytak a mai ingyenes alkotásaid,\n1 jeggyel még 1 alkalommal alkothatsz",
   "ticketPurchaseWaiting": "Jegyek fogadása",
-  "ticketPurchaseArrivalDelayed": "Várunk, amíg megjelennek a jegyeid\nA megkapott jegyek akkor is megmaradnak, ha bezárod ezt a képernyőt"
+  "ticketPurchaseArrivalDelayed": "Várunk, amíg megjelennek a jegyeid\nA megkapott jegyek akkor is megmaradnak, ha bezárod ezt a képernyőt",
+  "ticketPurchasePending": "Várakozás a fizetés befejezésére\nHa bezárod ezt a képernyőt, a fizetés után akkor is megkapod a jegyet"
 }

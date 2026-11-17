@@ -263,5 +263,6 @@
   "ticketPurchaseTitle": "na vytvorenie",
   "ticketPurchaseDescription": "Aj keď minieš dnešné bezplatné vytvorenia,\nza 1 lístok môžeš tvoriť ešte 1 raz",
   "ticketPurchaseWaiting": "Prijímanie lístkov",
-  "ticketPurchaseArrivalDelayed": "Čakáme, kým sa zobrazia lístky\nZískané lístky ti zostanú, aj keď túto obrazovku zavrieš"
+  "ticketPurchaseArrivalDelayed": "Čakáme, kým sa zobrazia lístky\nZískané lístky ti zostanú, aj keď túto obrazovku zavrieš",
+  "ticketPurchasePending": "Čaká sa na dokončenie platby\nAj keď túto obrazovku zavrieš, po dokončení platby dostaneš lístok"
 }

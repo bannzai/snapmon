@@ -263,5 +263,6 @@
   "ticketPurchaseTitle": "oluşturma bilet",
   "ticketPurchaseDescription": "Bugünkü ücretsiz oluşturma hakların bitse bile\n1 biletle 1 kez daha oluşturabilirsin",
   "ticketPurchaseWaiting": "Biletler alınıyor",
-  "ticketPurchaseArrivalDelayed": "Biletlerin görünmesini bekliyoruz\nBu ekranı kapatsan da aldığın biletler kalır"
+  "ticketPurchaseArrivalDelayed": "Biletlerin görünmesini bekliyoruz\nBu ekranı kapatsan da aldığın biletler kalır",
+  "ticketPurchasePending": "Ödemenin tamamlanması bekleniyor\nBu ekranı kapatsan da ödeme tamamlandığında biletin gelecek"
 }

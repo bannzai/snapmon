@@ -263,5 +263,6 @@
   "ticketPurchaseTitle": "vé tạo",
   "ticketPurchaseDescription": "Dù đã dùng hết lượt tạo miễn phí hôm nay,\nbạn vẫn có thể tạo thêm 1 lần bằng 1 vé",
   "ticketPurchaseWaiting": "Đang nhận vé",
-  "ticketPurchaseArrivalDelayed": "Đang chờ vé xuất hiện\nVé bạn đã nhận vẫn còn dù đóng màn hình này"
+  "ticketPurchaseArrivalDelayed": "Đang chờ vé xuất hiện\nVé bạn đã nhận vẫn còn dù đóng màn hình này",
+  "ticketPurchasePending": "Đang chờ thanh toán hoàn tất\nDù bạn đóng màn hình này, vé vẫn sẽ đến khi thanh toán hoàn tất"
 }

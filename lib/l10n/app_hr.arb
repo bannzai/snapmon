@@ -263,5 +263,6 @@
   "ticketPurchaseTitle": "kupon",
   "ticketPurchaseDescription": "Čak i kad potrošiš današnja besplatna stvaranja,\ns 1 ulaznicom možeš stvoriti još 1",
   "ticketPurchaseWaiting": "Preuzimanje ulaznica",
-  "ticketPurchaseArrivalDelayed": "Čeka se prikaz ulaznica\nPrimljene ulaznice ostaju ti i ako zatvoriš ovaj zaslon"
+  "ticketPurchaseArrivalDelayed": "Čeka se prikaz ulaznica\nPrimljene ulaznice ostaju ti i ako zatvoriš ovaj zaslon",
+  "ticketPurchasePending": "Čeka se dovršetak plaćanja\nČak i ako zatvoriš ovaj zaslon, dobit ćeš ulaznicu čim plaćanje završi"
 }

@@ -263,5 +263,6 @@
   "ticketPurchaseTitle": "כרטיס יצירה",
   "ticketPurchaseDescription": "גם אחרי שנגמרות היצירות החינמיות של היום,\nכרטיס אחד מאפשר ליצור עוד פעם אחת",
   "ticketPurchaseWaiting": "הכרטיסים בדרך",
-  "ticketPurchaseArrivalDelayed": "מחכים שהכרטיסים יופיעו\nכרטיסים שהתקבלו יישארו גם אחרי סגירת המסך"
+  "ticketPurchaseArrivalDelayed": "מחכים שהכרטיסים יופיעו\nכרטיסים שהתקבלו יישארו גם אחרי סגירת המסך",
+  "ticketPurchasePending": "ממתינים להשלמת התשלום\nאפשר לסגור את המסך הזה. הכרטיס יגיע כשהתשלום יושלם"
 }

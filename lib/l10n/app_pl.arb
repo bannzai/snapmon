@@ -263,5 +263,6 @@
   "ticketPurchaseTitle": "bilet",
   "ticketPurchaseDescription": "Nawet gdy wykorzystasz dzisiejsze darmowe tworzenie,\nza 1 bilet możesz stworzyć jeszcze 1 raz",
   "ticketPurchaseWaiting": "Odbieranie biletów",
-  "ticketPurchaseArrivalDelayed": "Czekamy, aż bilety się pojawią\nOtrzymane bilety zostaną, nawet jeśli zamkniesz ten ekran"
+  "ticketPurchaseArrivalDelayed": "Czekamy, aż bilety się pojawią\nOtrzymane bilety zostaną, nawet jeśli zamkniesz ten ekran",
+  "ticketPurchasePending": "Czekamy na zakończenie płatności\nNawet jeśli zamkniesz ten ekran, dostaniesz bilet po zakończeniu płatności"
 }

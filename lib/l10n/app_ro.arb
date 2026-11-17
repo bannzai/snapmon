@@ -263,5 +263,6 @@
   "ticketPurchaseTitle": "de creare",
   "ticketPurchaseDescription": "Chiar dacă ai epuizat creările gratuite de azi,\ncu 1 bilet mai poți crea încă 1 dată",
   "ticketPurchaseWaiting": "Se primesc biletele",
-  "ticketPurchaseArrivalDelayed": "Așteptăm să apară biletele\nBiletele primite rămân la tine chiar dacă închizi acest ecran"
+  "ticketPurchaseArrivalDelayed": "Așteptăm să apară biletele\nBiletele primite rămân la tine chiar dacă închizi acest ecran",
+  "ticketPurchasePending": "Se așteaptă finalizarea plății\nChiar dacă închizi acest ecran, vei primi biletul după finalizarea plății"
 }

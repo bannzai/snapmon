@@ -263,5 +263,6 @@
   "ticketPurchaseTitle": "生成券",
   "ticketPurchaseDescription": "就算用完今天的免費生成次數，\n也能用1張券再生成1次",
   "ticketPurchaseWaiting": "正在領取票券",
-  "ticketPurchaseArrivalDelayed": "正在等待票券入帳\n就算關閉這個畫面，已收到的票券也會保留"
+  "ticketPurchaseArrivalDelayed": "正在等待票券入帳\n就算關閉這個畫面，已收到的票券也會保留",
+  "ticketPurchasePending": "正在等待付款完成\n就算關閉這個畫面，付款完成後你還是會收到票券"
 }
