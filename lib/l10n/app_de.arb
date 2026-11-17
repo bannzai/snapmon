@@ -15,5 +15,6 @@
   "reportSheetTitle": "{monsterName} melden",
   "reportSheetDescription": "Ein Trainer, den du meldest, erscheint nicht mehr als Kampfgegner",
   "reportSheetSubmitting": "Wird gesendet",
-  "reportSheetSubmit": "Melden"
+  "reportSheetSubmit": "Melden",
+  "reportSheetOtherTrouble": "Falls du noch ein Problem hast"
 }

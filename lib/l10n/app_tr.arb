@@ -15,5 +15,6 @@
   "reportSheetTitle": "{monsterName} için bildir",
   "reportSheetDescription": "Bildirdiğin eğitmen artık savaşlarda rakip olarak karşına çıkmaz",
   "reportSheetSubmitting": "Gönderiliyor",
-  "reportSheetSubmit": "Bildir"
+  "reportSheetSubmit": "Bildir",
+  "reportSheetOtherTrouble": "Başka bir sorun yaşarsan"
 }

@@ -15,5 +15,6 @@
   "reportSheetTitle": "Zgłoś {monsterName}",
   "reportSheetDescription": "Gdy zgłosisz trenera, nie spotkasz go już jako przeciwnika w walce",
   "reportSheetSubmitting": "Wysyłanie",
-  "reportSheetSubmit": "Zgłoś"
+  "reportSheetSubmit": "Zgłoś",
+  "reportSheetOtherTrouble": "Jeśli masz jeszcze jakiś problem"
 }

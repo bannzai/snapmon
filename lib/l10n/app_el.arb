@@ -15,5 +15,6 @@
   "reportSheetTitle": "Αναφορά για {monsterName}",
   "reportSheetDescription": "Μετά την αναφορά σου, ο εκπαιδευτής δεν θα εμφανίζεται πια ως αντίπαλος σε μάχες",
   "reportSheetSubmitting": "Γίνεται αποστολή",
-  "reportSheetSubmit": "Αναφορά"
+  "reportSheetSubmit": "Αναφορά",
+  "reportSheetOtherTrouble": "Αν έχεις κάποιο άλλο πρόβλημα"
 }

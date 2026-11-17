@@ -15,5 +15,6 @@
   "reportSheetTitle": "Жалоба на {monsterName}",
   "reportSheetDescription": "Тренер, на которого ты отправишь жалобу, больше не появится среди соперников в боях",
   "reportSheetSubmitting": "Отправка",
-  "reportSheetSubmit": "Подать жалобу"
+  "reportSheetSubmit": "Подать жалобу",
+  "reportSheetOtherTrouble": "Если у тебя возникла другая проблема"
 }

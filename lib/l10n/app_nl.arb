@@ -15,5 +15,6 @@
   "reportSheetTitle": "{monsterName} melden",
   "reportSheetDescription": "Een trainer die je meldt, verschijnt niet meer als tegenstander in gevechten",
   "reportSheetSubmitting": "Bezig met verzenden",
-  "reportSheetSubmit": "Melden"
+  "reportSheetSubmit": "Melden",
+  "reportSheetOtherTrouble": "Als je nog ergens anders mee zit"
 }

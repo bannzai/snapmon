@@ -15,5 +15,6 @@
   "reportSheetTitle": "{monsterName}നെ റിപ്പോർട്ട് ചെയ്യുക",
   "reportSheetDescription": "നിങ്ങൾ റിപ്പോർട്ട് ചെയ്ത ട്രെയിനർ ഇനി പോരാട്ടത്തിൽ എതിരാളിയായി വരില്ല",
   "reportSheetSubmitting": "അയയ്ക്കുന്നു",
-  "reportSheetSubmit": "റിപ്പോർട്ട് ചെയ്യുക"
+  "reportSheetSubmit": "റിപ്പോർട്ട് ചെയ്യുക",
+  "reportSheetOtherTrouble": "നിങ്ങൾക്ക് മറ്റെന്തെങ്കിലും പ്രശ്നമുണ്ടെങ്കിൽ"
 }

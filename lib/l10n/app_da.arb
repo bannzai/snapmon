@@ -15,5 +15,6 @@
   "reportSheetTitle": "Rapportér {monsterName}",
   "reportSheetDescription": "En træner, du rapporterer, dukker ikke længere op som modstander i kamp",
   "reportSheetSubmitting": "Sender",
-  "reportSheetSubmit": "Rapportér"
+  "reportSheetSubmit": "Rapportér",
+  "reportSheetOtherTrouble": "Hvis du har andre problemer"
 }

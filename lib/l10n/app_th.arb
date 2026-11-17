@@ -15,5 +15,6 @@
   "reportSheetTitle": "รายงาน {monsterName}",
   "reportSheetDescription": "เทรนเนอร์ที่รายงานแล้วจะไม่ปรากฏเป็นคู่ต่อสู้อีก",
   "reportSheetSubmitting": "กำลังส่ง",
-  "reportSheetSubmit": "รายงาน"
+  "reportSheetSubmit": "รายงาน",
+  "reportSheetOtherTrouble": "หากมีปัญหาอื่นอีก"
 }

@@ -15,5 +15,6 @@
   "reportSheetTitle": "דיווח על {monsterName}",
   "reportSheetDescription": "מאמן שהתקבל עליו דיווח לא יופיע עוד מולך בקרב",
   "reportSheetSubmitting": "בשליחה",
-  "reportSheetSubmit": "דיווח"
+  "reportSheetSubmit": "דיווח",
+  "reportSheetOtherTrouble": "אם יש בעיה נוספת"
 }

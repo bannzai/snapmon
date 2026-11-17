@@ -15,5 +15,6 @@
   "reportSheetTitle": "Ilmoita kohteesta {monsterName}",
   "reportSheetDescription": "Ilmoittamasi kouluttaja ei enää tule vastaasi taisteluissa",
   "reportSheetSubmitting": "Lähetetään",
-  "reportSheetSubmit": "Ilmoita"
+  "reportSheetSubmit": "Ilmoita",
+  "reportSheetOtherTrouble": "Jos sinulla on muita ongelmia"
 }

@@ -15,5 +15,6 @@
   "reportSheetTitle": "Nahlásiť {monsterName}",
   "reportSheetDescription": "Tréner, ktorého nahlásiš, sa už neobjaví ako tvoj súper v súboji",
   "reportSheetSubmitting": "Odosiela sa",
-  "reportSheetSubmit": "Nahlásiť"
+  "reportSheetSubmit": "Nahlásiť",
+  "reportSheetOtherTrouble": "Ak máš ešte nejaký problém"
 }

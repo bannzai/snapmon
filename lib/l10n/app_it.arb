@@ -15,5 +15,6 @@
   "reportSheetTitle": "Segnala {monsterName}",
   "reportSheetDescription": "L'allenatore che segnali non comparirà più tra i tuoi avversari",
   "reportSheetSubmitting": "Invio in corso",
-  "reportSheetSubmit": "Segnala"
+  "reportSheetSubmit": "Segnala",
+  "reportSheetOtherTrouble": "Se hai altri problemi"
 }

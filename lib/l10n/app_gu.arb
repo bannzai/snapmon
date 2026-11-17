@@ -15,5 +15,6 @@
   "reportSheetTitle": "{monsterName}નો રિપોર્ટ કરો",
   "reportSheetDescription": "તમે રિપોર્ટ કરેલો ટ્રેનર હવે લડાઈમાં તમારા હરીફ તરીકે નહીં આવે",
   "reportSheetSubmitting": "મોકલાઈ રહ્યું છે",
-  "reportSheetSubmit": "રિપોર્ટ કરો"
+  "reportSheetSubmit": "રિપોર્ટ કરો",
+  "reportSheetOtherTrouble": "તમને બીજી કોઈ મુશ્કેલી હોય તો"
 }

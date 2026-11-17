@@ -15,5 +15,6 @@
   "reportSheetTitle": "Denuncia {monsterName}",
   "reportSheetDescription": "L'entrenador que denunciïs ja no apareixerà com a rival als combats",
   "reportSheetSubmitting": "S'està enviant",
-  "reportSheetSubmit": "Denunciar"
+  "reportSheetSubmit": "Denunciar",
+  "reportSheetOtherTrouble": "Si tens cap altre problema"
 }

@@ -15,5 +15,6 @@
   "reportSheetTitle": "{monsterName}-কে রিপোর্ট করো",
   "reportSheetDescription": "তুমি যে ট্রেনারকে রিপোর্ট করবে, সে আর লড়াইয়ে তোমার প্রতিপক্ষ হবে না",
   "reportSheetSubmitting": "পাঠানো হচ্ছে",
-  "reportSheetSubmit": "রিপোর্ট করো"
+  "reportSheetSubmit": "রিপোর্ট করো",
+  "reportSheetOtherTrouble": "তোমার আর কোনো সমস্যা হলে"
 }

@@ -15,5 +15,6 @@
   "reportSheetTitle": "Laporkan {monsterName}",
   "reportSheetDescription": "Jurulatih yang kamu laporkan tidak akan muncul lagi sebagai lawan bertarung",
   "reportSheetSubmitting": "Sedang menghantar",
-  "reportSheetSubmit": "Lapor"
+  "reportSheetSubmit": "Lapor",
+  "reportSheetOtherTrouble": "Kalau kamu ada masalah lain"
 }

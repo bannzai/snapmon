@@ -15,5 +15,6 @@
   "reportSheetTitle": "إبلاغ عن {monsterName}",
   "reportSheetDescription": "المدرب الذي تُقدّم عنه إبلاغًا لن يظهر خصمًا لك في المعارك بعد الآن",
   "reportSheetSubmitting": "جارٍ الإرسال",
-  "reportSheetSubmit": "إبلاغ"
+  "reportSheetSubmit": "إبلاغ",
+  "reportSheetOtherTrouble": "إذا واجهتك أي مشكلة أخرى"
 }

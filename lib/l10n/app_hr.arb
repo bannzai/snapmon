@@ -15,5 +15,6 @@
   "reportSheetTitle": "Prijavi {monsterName}",
   "reportSheetDescription": "Trener kojeg prijaviš više ti se neće pojavljivati kao protivnik u borbi",
   "reportSheetSubmitting": "Slanje u tijeku",
-  "reportSheetSubmit": "Prijavi"
+  "reportSheetSubmit": "Prijavi",
+  "reportSheetOtherTrouble": "Ako imaš još neki problem"
 }

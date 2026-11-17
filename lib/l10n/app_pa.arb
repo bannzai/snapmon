@@ -15,5 +15,6 @@
   "reportSheetTitle": "{monsterName} ਦੀ ਰਿਪੋਰਟ ਕਰੋ",
   "reportSheetDescription": "ਜਿਸ ਟ੍ਰੇਨਰ ਨੂੰ ਤੁਸੀਂ ਰਿਪੋਰਟ ਕਰਦੇ ਹੋ, ਉਹ ਹੁਣ ਲੜਾਈ ਵਿੱਚ ਵਿਰੋਧੀ ਵਜੋਂ ਨਹੀਂ ਆਵੇਗਾ",
   "reportSheetSubmitting": "ਭੇਜਿਆ ਜਾ ਰਿਹਾ ਹੈ",
-  "reportSheetSubmit": "ਰਿਪੋਰਟ ਕਰੋ"
+  "reportSheetSubmit": "ਰਿਪੋਰਟ ਕਰੋ",
+  "reportSheetOtherTrouble": "ਜੇ ਤੁਹਾਨੂੰ ਕੋਈ ਹੋਰ ਸਮੱਸਿਆ ਹੋਵੇ"
 }
