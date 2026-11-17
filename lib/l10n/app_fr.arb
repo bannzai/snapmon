@@ -7,5 +7,6 @@
   "tabOpponent": "Combat",
   "sessionPreparing": "Préparation en cours",
   "sessionConnectionFailed": "Connexion impossible",
-  "reportReasonInappropriatePicture": "Image inappropriée"
+  "reportReasonInappropriatePicture": "Image inappropriée",
+  "reportReasonInappropriateText": "Nom ou texte inapproprié"
 }
