@@ -321,5 +321,6 @@
   "helpTypeNotVeryEffective": "Ce n’est pas très efficace Dégâts × 0,5",
   "helpTypeDualNote": "Contre un adversaire à deux éléments, multiplie les deux coefficients\nRetrouve toutes les efficacités dans « Efficacité des éléments et liste des capacités » du dex",
   "helpStatusHeading": "altérations",
-  "helpStatusBody": "Certaines capacités infligent une altération à l’adversaire\nL’altération persiste même après un changement"
+  "helpStatusBody": "Certaines capacités infligent une altération à l’adversaire\nL’altération persiste même après un changement",
+  "helpStatusPoison": "Dégâts à la fin de chaque tour\nPlus le poison s’accumule, plus les dégâts augmentent"
 }
