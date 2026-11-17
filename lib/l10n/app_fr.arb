@@ -301,5 +301,6 @@
   "actionCardTeachNotEquipped": "Tu peux placer cette capacité dans un emplacement via « Choisir les capacités »",
   "battleLearnedMoveNotEquipped": "Tu peux l’équiper dans « Choisir une capacité »",
   "moveSelectionOpen": "Choisir une capacité",
-  "moveSelectionTitle": "Capacités de {monsterName}"
+  "moveSelectionTitle": "Capacités de {monsterName}",
+  "moveSelectionDescription": "Choisis tes capacités pour le combat : {count} max.\nLes boutons des capacités suivent l’ordre de ta sélection"
 }
