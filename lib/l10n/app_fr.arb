@@ -218,5 +218,6 @@
   "battleSwitchMonster": "Changer de monstre",
   "battleChooseSwitchMonster": "Choisis le monstre à envoyer au combat",
   "battleLevelUpNote": "Victoire ou défaite, les monstres qui ont combattu gagnent un niveau",
-  "battleLearnedMove": "Nouvelle capacité : {moveName}"
+  "battleLearnedMove": "Nouvelle capacité : {moveName}",
+  "battleNextLearnLevel": "Apprendra une nouvelle capacité au Lv. {level}"
 }
