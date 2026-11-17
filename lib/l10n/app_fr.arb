@@ -83,5 +83,6 @@
   "captureCameraUnavailable": "Appareil photo indisponible\nChoisis une photo dans ta galerie",
   "captureDexCount": "dex {monsterCount}",
   "captureFirstHintAlbum": "Choisis une photo d’un objet autour de toi",
-  "captureFirstHintCamera": "Prends en photo un objet autour de toi"
+  "captureFirstHintCamera": "Prends en photo un objet autour de toi",
+  "captureHero": "Prends en photo un objet autour de toi\nUn monstre prend vie"
 }
