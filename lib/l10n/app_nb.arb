@@ -188,5 +188,6 @@
   "battleLogCursedStat": "En forbannelse rammet {statName} hos {monsterName}!",
   "battleLogStatusCured": "{monsterName} er frisk igjen etter {statusName}",
   "battleLogStatusDamage": "{monsterName} tok skade av {statusName}",
-  "battleLogFieldStatShuffleStarted": "Slagmarken begynte å bølge"
+  "battleLogFieldStatShuffleStarted": "Slagmarken begynte å bølge",
+  "battleLogFieldStatShuffled": "Feltet bølget, og {firstStatName} og {secondStatName} byttet plass!"
 }

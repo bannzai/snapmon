@@ -188,5 +188,6 @@
   "battleLogCursedStat": "Átok sújtotta {monsterName} {statName} értékét!",
   "battleLogStatusCured": "{monsterName} kigyógyult ebből: {statusName}",
   "battleLogStatusDamage": "{monsterName} sebződött a következő miatt: {statusName}",
-  "battleLogFieldStatShuffleStarted": "A csatatér ingadozni kezdett"
+  "battleLogFieldStatShuffleStarted": "A csatatér ingadozni kezdett",
+  "battleLogFieldStatShuffled": "Megrendült a harcmező, és {firstStatName} meg {secondStatName} helyet cserélt!"
 }

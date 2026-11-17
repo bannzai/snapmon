@@ -188,5 +188,6 @@
   "battleLogCursedStat": "{monsterName}ന്റെ {statName} ശപിക്കപ്പെട്ടു!",
   "battleLogStatusCured": "{monsterName} ഇപ്പോൾ {statusName} അവസ്ഥയിൽ നിന്ന് സുഖപ്പെട്ടു",
   "battleLogStatusDamage": "{statusName} കാരണം {monsterName} നാശം ഏറ്റുവാങ്ങി",
-  "battleLogFieldStatShuffleStarted": "യുദ്ധക്കളം ഇളകിത്തുടങ്ങി"
+  "battleLogFieldStatShuffleStarted": "യുദ്ധക്കളം ഇളകിത്തുടങ്ങി",
+  "battleLogFieldStatShuffled": "കളം ഇളകി {firstStatName}, {secondStatName} എന്നിവയുടെ മൂല്യങ്ങൾ പരസ്പരം മാറി!"
 }

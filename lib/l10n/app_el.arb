@@ -188,5 +188,6 @@
   "battleLogCursedStat": "Η ιδιότητα {statName} του {monsterName} καταράστηκε!",
   "battleLogStatusCured": "Το {monsterName} ανάρρωσε από το {statusName}",
   "battleLogStatusDamage": "Το {monsterName} δέχτηκε ζημιά από {statusName}",
-  "battleLogFieldStatShuffleStarted": "Το πεδίο μάχης άρχισε να πάλλεται"
+  "battleLogFieldStatShuffleStarted": "Το πεδίο μάχης άρχισε να πάλλεται",
+  "battleLogFieldStatShuffled": "Το πεδίο κυμάτισε και οι τιμές {firstStatName} και {secondStatName} αντάλλαξαν θέσεις!"
 }

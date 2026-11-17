@@ -188,5 +188,6 @@
   "battleLogCursedStat": "На показник {statName} у {monsterName} впало прокляття!",
   "battleLogStatusCured": "{monsterName} оговтався від стану {statusName}",
   "battleLogStatusDamage": "{monsterName} зазнав шкоди через {statusName}",
-  "battleLogFieldStatShuffleStarted": "Поле бою почало коливатися"
+  "battleLogFieldStatShuffleStarted": "Поле бою почало коливатися",
+  "battleLogFieldStatShuffled": "Поле захиталося, і {firstStatName} та {secondStatName} помінялися місцями!"
 }

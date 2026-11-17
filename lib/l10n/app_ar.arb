@@ -188,5 +188,6 @@
   "battleLogCursedStat": "حلت اللعنة على {statName} لدى {monsterName}!",
   "battleLogStatusCured": "تعافى {monsterName} من {statusName}",
   "battleLogStatusDamage": "تلقى {monsterName} ضررًا بسبب {statusName}",
-  "battleLogFieldStatShuffleStarted": "بدأت ساحة المعركة تتقلب"
+  "battleLogFieldStatShuffleStarted": "بدأت ساحة المعركة تتقلب",
+  "battleLogFieldStatShuffled": "تذبذب الميدان، فتبادل {firstStatName} و{secondStatName} مكانيهما!"
 }

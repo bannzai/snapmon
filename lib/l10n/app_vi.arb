@@ -188,5 +188,6 @@
   "battleLogCursedStat": "Chỉ số {statName} của {monsterName} đã bị nguyền rủa!",
   "battleLogStatusCured": "{monsterName} đã hồi phục khỏi {statusName}",
   "battleLogStatusDamage": "{monsterName} chịu sát thương do {statusName}",
-  "battleLogFieldStatShuffleStarted": "Chiến trường bắt đầu dao động"
+  "battleLogFieldStatShuffleStarted": "Chiến trường bắt đầu dao động",
+  "battleLogFieldStatShuffled": "Sân đấu chao đảo, khiến {firstStatName} và {secondStatName} đổi chỗ!"
 }

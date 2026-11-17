@@ -188,5 +188,6 @@
   "battleLogCursedStat": "ค่า {statName} ของ {monsterName} ถูกสาปแล้ว!",
   "battleLogStatusCured": "{monsterName} หายจากสถานะ {statusName} แล้ว",
   "battleLogStatusDamage": "{monsterName} ได้รับความเสียหายจาก {statusName}",
-  "battleLogFieldStatShuffleStarted": "สนามต่อสู้เริ่มสั่นไหว"
+  "battleLogFieldStatShuffleStarted": "สนามต่อสู้เริ่มสั่นไหว",
+  "battleLogFieldStatShuffled": "สนามสั่นไหวจนค่า {firstStatName} กับ {secondStatName} สลับกัน!"
 }

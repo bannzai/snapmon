@@ -188,5 +188,6 @@
   "battleLogCursedStat": "Hodnotu {statName} u {monsterName} postihla kletba!",
   "battleLogStatusCured": "{monsterName} se zbavil stavu {statusName}",
   "battleLogStatusDamage": "{monsterName} utrpěl poškození kvůli {statusName}",
-  "battleLogFieldStatShuffleStarted": "Bojové pole se začalo vlnit"
+  "battleLogFieldStatShuffleStarted": "Bojové pole se začalo vlnit",
+  "battleLogFieldStatShuffled": "Pole se zavlnilo a {firstStatName} a {secondStatName} si vyměnily místa!"
 }

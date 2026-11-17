@@ -188,5 +188,6 @@
   "battleLogCursedStat": "{monsterName} کے {statName} پر لعنت لگ گئی!",
   "battleLogStatusCured": "{monsterName} اب {statusName} سے ٹھیک ہو گیا",
   "battleLogStatusDamage": "{statusName} کی وجہ سے {monsterName} کو نقصان پہنچا",
-  "battleLogFieldStatShuffleStarted": "میدانِ جنگ ڈولنے لگا"
+  "battleLogFieldStatShuffleStarted": "میدانِ جنگ ڈولنے لگا",
+  "battleLogFieldStatShuffled": "میدان ڈگمگایا اور {firstStatName} اور {secondStatName} کی جگہیں بدل گئیں!"
 }

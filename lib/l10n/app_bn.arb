@@ -188,5 +188,6 @@
   "battleLogCursedStat": "{monsterName}-এর {statName} অভিশপ্ত হলো!",
   "battleLogStatusCured": "{monsterName} এখন {statusName} থেকে সেরে উঠেছে",
   "battleLogStatusDamage": "{statusName}-এর কারণে {monsterName} ক্ষতি পেল",
-  "battleLogFieldStatShuffleStarted": "যুদ্ধক্ষেত্র দুলতে শুরু করল"
+  "battleLogFieldStatShuffleStarted": "যুদ্ধক্ষেত্র দুলতে শুরু করল",
+  "battleLogFieldStatShuffled": "মাঠের দোলায় {firstStatName} আর {secondStatName} অদলবদল হয়ে গেল!"
 }

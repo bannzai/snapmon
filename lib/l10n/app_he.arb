@@ -188,5 +188,6 @@
   "battleLogCursedStat": "קללה נפלה על {statName} של {monsterName}!",
   "battleLogStatusCured": "{monsterName} החלים מהמצב {statusName}",
   "battleLogStatusDamage": "{monsterName} ספג נזק בגלל {statusName}",
-  "battleLogFieldStatShuffleStarted": "שדה הקרב התחיל להתערער"
+  "battleLogFieldStatShuffleStarted": "שדה הקרב התחיל להתערער",
+  "battleLogFieldStatShuffled": "השדה התערער, והערכים של {firstStatName} ושל {secondStatName} התחלפו!"
 }

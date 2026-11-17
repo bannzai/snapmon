@@ -188,5 +188,6 @@
   "battleLogCursedStat": "{statName} milik {monsterName} terkena kutukan!",
   "battleLogStatusCured": "{monsterName} sudah pulih dari {statusName}",
   "battleLogStatusDamage": "{monsterName} terkena damage akibat {statusName}",
-  "battleLogFieldStatShuffleStarted": "Arena pertarungan mulai bergejolak"
+  "battleLogFieldStatShuffleStarted": "Arena pertarungan mulai bergejolak",
+  "battleLogFieldStatShuffled": "Arena bergoyang, lalu {firstStatName} dan {secondStatName} bertukar tempat!"
 }

@@ -188,5 +188,6 @@
   "battleLogCursedStat": "Der Wert {statName} von {monsterName} wurde verflucht!",
   "battleLogStatusCured": "{monsterName} hat sich von {statusName} erholt",
   "battleLogStatusDamage": "{monsterName} erlitt Schaden durch {statusName}",
-  "battleLogFieldStatShuffleStarted": "Das Kampffeld begann zu schwanken"
+  "battleLogFieldStatShuffleStarted": "Das Kampffeld begann zu schwanken",
+  "battleLogFieldStatShuffled": "Das Feld flimmerte: {firstStatName} und {secondStatName} wurden vertauscht!"
 }

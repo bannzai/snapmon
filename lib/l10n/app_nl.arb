@@ -188,5 +188,6 @@
   "battleLogCursedStat": "Er rust een vloek op {statName} van {monsterName}!",
   "battleLogStatusCured": "{monsterName} is hersteld van {statusName}",
   "battleLogStatusDamage": "{monsterName} kreeg schade door {statusName}",
-  "battleLogFieldStatShuffleStarted": "Het strijdveld begon te golven"
+  "battleLogFieldStatShuffleStarted": "Het strijdveld begon te golven",
+  "battleLogFieldStatShuffled": "Het veld golfde en {firstStatName} en {secondStatName} wisselden van plek!"
 }

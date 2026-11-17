@@ -188,5 +188,6 @@
   "battleLogCursedStat": "{monsterName}ನ {statName}ಗೆ ಶಾಪ ತಟ್ಟಿತು!",
   "battleLogStatusCured": "{monsterName} ಈಗ {statusName} ಸ್ಥಿತಿಯಿಂದ ಚೇತರಿಸಿಕೊಂಡಿದೆ",
   "battleLogStatusDamage": "{statusName} ಕಾರಣದಿಂದ {monsterName} ಹಾನಿ ಅನುಭವಿಸಿತು",
-  "battleLogFieldStatShuffleStarted": "ಯುದ್ಧಭೂಮಿ ಅಲುಗಾಡಲು ಶುರುವಾಯಿತು"
+  "battleLogFieldStatShuffleStarted": "ಯುದ್ಧಭೂಮಿ ಅಲುಗಾಡಲು ಶುರುವಾಯಿತು",
+  "battleLogFieldStatShuffled": "ಕಣ ಅಲುಗಾಡಿ {firstStatName} ಮತ್ತು {secondStatName} ಸ್ಥಾನ ಬದಲಿಸಿಕೊಂಡವು!"
 }

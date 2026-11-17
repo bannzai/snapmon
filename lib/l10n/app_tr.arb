@@ -188,5 +188,6 @@
   "battleLogCursedStat": "{monsterName} için {statName} lanetlendi!",
   "battleLogStatusCured": "{monsterName}, {statusName} durumundan kurtuldu",
   "battleLogStatusDamage": "{monsterName}, {statusName} yüzünden hasar aldı",
-  "battleLogFieldStatShuffleStarted": "Savaş alanı dalgalanmaya başladı"
+  "battleLogFieldStatShuffleStarted": "Savaş alanı dalgalanmaya başladı",
+  "battleLogFieldStatShuffled": "Saha dalgalandı, {firstStatName} ile {secondStatName} yer değiştirdi!"
 }

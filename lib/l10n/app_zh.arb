@@ -188,5 +188,6 @@
   "battleLogCursedStat": "{monsterName}的{statName}被诅咒了！",
   "battleLogStatusCured": "{monsterName}的{statusName}状态治好了",
   "battleLogStatusDamage": "{monsterName}因{statusName}受到了伤害",
-  "battleLogFieldStatShuffleStarted": "战场开始波动了"
+  "battleLogFieldStatShuffleStarted": "战场开始波动了",
+  "battleLogFieldStatShuffled": "场地一阵摇晃，{firstStatName}和{secondStatName}的数值对调了！"
 }

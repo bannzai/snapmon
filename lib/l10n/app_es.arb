@@ -188,5 +188,6 @@
   "battleLogCursedStat": "¡La característica {statName} de {monsterName} quedó maldita!",
   "battleLogStatusCured": "{monsterName} se curó de {statusName}",
   "battleLogStatusDamage": "{monsterName} recibió daño por {statusName}",
-  "battleLogFieldStatShuffleStarted": "El campo de batalla empezó a fluctuar"
+  "battleLogFieldStatShuffleStarted": "El campo de batalla empezó a fluctuar",
+  "battleLogFieldStatShuffled": "¡El campo se agitó y {firstStatName} y {secondStatName} intercambiaron sus valores!"
 }
