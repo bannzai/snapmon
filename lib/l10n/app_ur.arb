@@ -308,5 +308,6 @@
   "actionCardForget": "چال بھلوا دو",
   "battleRematch": "دوبارہ لڑو",
   "battleLostPartyHintTitle": "ٹیم میں مزید مونسٹر رکھو، جیتنا آسان ہو جائے گا",
-  "battleLostPartyHintMessage": "تم اپنی ٹیم میں زیادہ سے زیادہ {maximumPartySize} مونسٹر رکھ سکتے ہو\nکمزوریاں اور غیر معمولی حالت جان کر لڑائی میں برتری پا سکتے ہو"
+  "battleLostPartyHintMessage": "تم اپنی ٹیم میں زیادہ سے زیادہ {maximumPartySize} مونسٹر رکھ سکتے ہو\nکمزوریاں اور غیر معمولی حالت جان کر لڑائی میں برتری پا سکتے ہو",
+  "helpOpen": "کھیلنے کا طریقہ دیکھو"
 }

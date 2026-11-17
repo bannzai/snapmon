@@ -308,5 +308,6 @@
   "actionCardForget": "La den glemme et angrep",
   "battleRematch": "Kjemp igjen",
   "battleLostPartyHintTitle": "Flere monstre på laget gjør det lettere å vinne",
-  "battleLostPartyHintMessage": "Du kan ha opptil {maximumPartySize} monstre på laget ditt\nKjenn til svakheter og statuseffekter, så får du overtaket i kamp"
+  "battleLostPartyHintMessage": "Du kan ha opptil {maximumPartySize} monstre på laget ditt\nKjenn til svakheter og statuseffekter, så får du overtaket i kamp",
+  "helpOpen": "Slik spiller du"
 }

@@ -308,5 +308,6 @@
   "actionCardForget": "Felejtesd el vele a támadást",
   "battleRematch": "Harcolj újra",
   "battleLostPartyHintTitle": "Több szörnnyel a csapatban könnyebben nyersz",
-  "battleLostPartyHintMessage": "A csapatodban legfeljebb {maximumPartySize} szörny lehet\nHa ismered a gyengeségeket és az állapothatásokat, előnybe kerülsz a harcban"
+  "battleLostPartyHintMessage": "A csapatodban legfeljebb {maximumPartySize} szörny lehet\nHa ismered a gyengeségeket és az állapothatásokat, előnybe kerülsz a harcban",
+  "helpOpen": "Így játssz"
 }

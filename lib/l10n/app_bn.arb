@@ -308,5 +308,6 @@
   "actionCardForget": "চাল ভুলিয়ে দাও",
   "battleRematch": "আবার লড়াই করো",
   "battleLostPartyHintTitle": "দলে আরও দানব রাখলে জেতা সহজ হবে",
-  "battleLostPartyHintMessage": "তোমার দলে সর্বোচ্চ {maximumPartySize}টি মনস্টার রাখতে পারো\nদুর্বলতা আর অস্বাভাবিক অবস্থা জানলে লড়াইয়ে সুবিধা পাবে"
+  "battleLostPartyHintMessage": "তোমার দলে সর্বোচ্চ {maximumPartySize}টি মনস্টার রাখতে পারো\nদুর্বলতা আর অস্বাভাবিক অবস্থা জানলে লড়াইয়ে সুবিধা পাবে",
+  "helpOpen": "কীভাবে খেলবে দেখো"
 }

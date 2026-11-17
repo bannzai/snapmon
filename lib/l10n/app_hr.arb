@@ -308,5 +308,6 @@
   "actionCardForget": "Neka zaboravi potez",
   "battleRematch": "Bori se opet",
   "battleLostPartyHintTitle": "S više čudovišta u timu lakše ćeš pobijediti",
-  "battleLostPartyHintMessage": "U svom timu možeš imati do {maximumPartySize} čudovišta\nPoznavanje slabosti i statusnih učinaka daje ti prednost u borbi"
+  "battleLostPartyHintMessage": "U svom timu možeš imati do {maximumPartySize} čudovišta\nPoznavanje slabosti i statusnih učinaka daje ti prednost u borbi",
+  "helpOpen": "Kako igrati"
 }

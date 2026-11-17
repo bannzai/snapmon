@@ -308,5 +308,6 @@
   "actionCardForget": "Nechaj ho zabudnúť útok",
   "battleRematch": "Bojuj znova",
   "battleLostPartyHintTitle": "S viac príšerami v tíme vyhráš ľahšie",
-  "battleLostPartyHintMessage": "V tvojom tíme môže byť až {maximumPartySize} príšer\nKeď poznáš slabiny a stavové efekty, máš v boji výhodu"
+  "battleLostPartyHintMessage": "V tvojom tíme môže byť až {maximumPartySize} príšer\nKeď poznáš slabiny a stavové efekty, máš v boji výhodu",
+  "helpOpen": "Ako hrať"
 }

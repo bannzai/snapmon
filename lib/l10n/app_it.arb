@@ -308,5 +308,6 @@
   "actionCardForget": "Fagli dimenticare la mossa",
   "battleRematch": "Combatti di nuovo",
   "battleLostPartyHintTitle": "Con più mostri nella tua squadra, vincerai più facilmente",
-  "battleLostPartyHintMessage": "Puoi tenere fino a {maximumPartySize} mostri nella tua squadra\nConoscere debolezze e problemi di stato ti dà un vantaggio in lotta"
+  "battleLostPartyHintMessage": "Puoi tenere fino a {maximumPartySize} mostri nella tua squadra\nConoscere debolezze e problemi di stato ti dà un vantaggio in lotta",
+  "helpOpen": "Come si gioca"
 }

@@ -308,5 +308,6 @@
   "actionCardForget": "Naj pozabi potezo",
   "battleRematch": "Bori se znova",
   "battleLostPartyHintTitle": "Z več pošastmi v ekipi boš lažje zmagal",
-  "battleLostPartyHintMessage": "V tvoji ekipi je prostora za največ {maximumPartySize} pošasti\nČe poznaš slabosti in statusne učinke, imaš v boju prednost"
+  "battleLostPartyHintMessage": "V tvoji ekipi je prostora za največ {maximumPartySize} pošasti\nČe poznaš slabosti in statusne učinke, imaš v boju prednost",
+  "helpOpen": "Kako igrati"
 }

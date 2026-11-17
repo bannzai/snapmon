@@ -308,5 +308,6 @@
   "actionCardForget": "Fazer esquecer o golpe",
   "battleRematch": "Batalhar de novo",
   "battleLostPartyHintTitle": "Com mais monstros na sua equipe, fica mais fácil vencer",
-  "battleLostPartyHintMessage": "Sua equipe pode ter até {maximumPartySize} monstros\nConhecer fraquezas e efeitos de status dá vantagem na batalha"
+  "battleLostPartyHintMessage": "Sua equipe pode ter até {maximumPartySize} monstros\nConhecer fraquezas e efeitos de status dá vantagem na batalha",
+  "helpOpen": "Como jogar"
 }

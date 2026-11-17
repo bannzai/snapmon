@@ -308,5 +308,6 @@
   "actionCardForget": "Låt den glömma en attack",
   "battleRematch": "Strid igen",
   "battleLostPartyHintTitle": "Med fler monster i ditt lag vinner du lättare",
-  "battleLostPartyHintMessage": "Du kan ha upp till {maximumPartySize} monster i ditt lag\nKänn till svagheter och statuseffekter för att få övertaget i strid"
+  "battleLostPartyHintMessage": "Du kan ha upp till {maximumPartySize} monster i ditt lag\nKänn till svagheter och statuseffekter för att få övertaget i strid",
+  "helpOpen": "Så spelar du"
 }
