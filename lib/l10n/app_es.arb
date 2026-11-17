@@ -211,5 +211,6 @@
   "moveDetailPriorityValue": "Se usa primero, sin importar la Velocidad",
   "battleRecording": "Guardando el resultado",
   "battleRecorded": "Registrado",
-  "battleNotRecorded": "El combate no se guardó porque no has iniciado sesión"
+  "battleNotRecorded": "El combate no se guardó porque no has iniciado sesión",
+  "battleFirstHint": "Elige un movimiento y el más rápido actuará primero. Cuanto mejor encaje el elemento, mayor será su eficacia"
 }

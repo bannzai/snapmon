@@ -211,5 +211,6 @@
   "moveDetailPriorityValue": "Digunakan dahulu tanpa mengira Kelajuan",
   "battleRecording": "Menyimpan keputusan",
   "battleRecorded": "Direkodkan",
-  "battleNotRecorded": "Pertarungan tidak direkodkan kerana kamu belum log masuk"
+  "battleNotRecorded": "Pertarungan tidak direkodkan kerana kamu belum log masuk",
+  "battleFirstHint": "Pilih gerakan, yang lebih pantas akan bertindak dulu. Semakin sesuai elemen, semakin tinggi keberkesanan"
 }

@@ -211,5 +211,6 @@
   "moveDetailPriorityValue": "Si usa per prima, indipendentemente dalla Velocità",
   "battleRecording": "Salvataggio del risultato",
   "battleRecorded": "Registrato",
-  "battleNotRecorded": "La lotta non è stata salvata perché non hai effettuato l’accesso"
+  "battleNotRecorded": "La lotta non è stata salvata perché non hai effettuato l’accesso",
+  "battleFirstHint": "Scegli una mossa: il più veloce agisce per primo. Più l’elemento è favorevole, maggiore è l’efficacia"
 }

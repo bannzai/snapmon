@@ -211,5 +211,6 @@
   "moveDetailPriorityValue": "S'utilitza primer, sigui quina sigui la velocitat",
   "battleRecording": "Desant el resultat",
   "battleRecorded": "Registrat",
-  "battleNotRecorded": "No s’ha registrat el combat perquè no has iniciat sessió"
+  "battleNotRecorded": "No s’ha registrat el combat perquè no has iniciat sessió",
+  "battleFirstHint": "Tria un moviment i actuarà primer el més ràpid. Com més favorable sigui l’element, més eficàcia tindrà"
 }

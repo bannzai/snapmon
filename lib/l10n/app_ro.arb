@@ -211,5 +211,6 @@
   "moveDetailPriorityValue": "Se folosește prima, indiferent de Viteză",
   "battleRecording": "Se salvează rezultatul",
   "battleRecorded": "Înregistrat",
-  "battleNotRecorded": "Lupta nu a fost salvată fiindcă nu te-ai conectat"
+  "battleNotRecorded": "Lupta nu a fost salvată fiindcă nu te-ai conectat",
+  "battleFirstHint": "Alege o mișcare, iar cel mai rapid acționează primul. Cu cât elementul se potrivește mai bine, cu atât crește eficacitatea"
 }

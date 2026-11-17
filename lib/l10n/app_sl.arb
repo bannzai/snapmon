@@ -211,5 +211,6 @@
   "moveDetailPriorityValue": "Uporabi se prvi, ne glede na hitrost",
   "battleRecording": "Shranjevanje rezultata",
   "battleRecorded": "Zabeleženo",
-  "battleNotRecorded": "Boj ni bil shranjen, ker nisi prijavljen"
+  "battleNotRecorded": "Boj ni bil shranjen, ker nisi prijavljen",
+  "battleFirstHint": "Izberi potez in hitrejši ukrepa prvi. Bolj ko element ustreza, večja je učinkovitost"
 }

@@ -211,5 +211,6 @@
   "moveDetailPriorityValue": "無論速度如何，都會搶先使出",
   "battleRecording": "正在記錄結果",
   "battleRecorded": "已記錄",
-  "battleNotRecorded": "你還沒登入，這場對戰沒有記錄"
+  "battleNotRecorded": "你還沒登入，這場對戰沒有記錄",
+  "battleFirstHint": "選好招式後，速度快的一方先行動。屬性越相剋，效果越強"
 }

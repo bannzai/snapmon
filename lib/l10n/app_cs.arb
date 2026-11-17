@@ -211,5 +211,6 @@
   "moveDetailPriorityValue": "Použije se jako první bez ohledu na rychlost",
   "battleRecording": "Ukládá se výsledek",
   "battleRecorded": "Zaznamenáno",
-  "battleNotRecorded": "Souboj se neuložil, protože nejsi přihlášený"
+  "battleNotRecorded": "Souboj se neuložil, protože nejsi přihlášený",
+  "battleFirstHint": "Vyber útok a rychlejší jedná první. Čím výhodnější element, tím vyšší účinnost"
 }

@@ -211,5 +211,6 @@
   "moveDetailPriorityValue": "Sebességtől függetlenül elsőként hajtódik végre",
   "battleRecording": "Eredmény mentése",
   "battleRecorded": "Rögzítve",
-  "battleNotRecorded": "A csata nem lett mentve, mert nem vagy bejelentkezve"
+  "battleNotRecorded": "A csata nem lett mentve, mert nem vagy bejelentkezve",
+  "battleFirstHint": "Válassz támadást, és a gyorsabb lép először. Minél jobb a típus párosítása, annál nagyobb a hatékonyság"
 }

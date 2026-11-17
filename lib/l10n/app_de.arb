@@ -211,5 +211,6 @@
   "moveDetailPriorityValue": "Kommt unabhängig von der Initiative zuerst zum Zug",
   "battleRecording": "Ergebnis wird gespeichert",
   "battleRecorded": "Aufgezeichnet",
-  "battleNotRecorded": "Der Kampf wurde nicht gespeichert, weil du nicht angemeldet bist"
+  "battleNotRecorded": "Der Kampf wurde nicht gespeichert, weil du nicht angemeldet bist",
+  "battleFirstHint": "Wähl eine Attacke, dann ist der Schnellere zuerst dran. Je besser das Element passt, desto höher die Effektivität"
 }

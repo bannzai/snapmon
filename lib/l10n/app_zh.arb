@@ -211,5 +211,6 @@
   "moveDetailPriorityValue": "无论速度如何，都会率先使出",
   "battleRecording": "正在记录结果",
   "battleRecorded": "已记录",
-  "battleNotRecorded": "你还没登录，这场对战没有记录"
+  "battleNotRecorded": "你还没登录，这场对战没有记录",
+  "battleFirstHint": "选好招式后，速度快的一方先行动。属性越克制对手，效果越强"
 }

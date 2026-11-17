@@ -211,5 +211,6 @@
   "moveDetailPriorityValue": "Bruges først uanset hastighed",
   "battleRecording": "Gemmer resultatet",
   "battleRecorded": "Registreret",
-  "battleNotRecorded": "Kampen blev ikke gemt, fordi du ikke er logget ind"
+  "battleNotRecorded": "Kampen blev ikke gemt, fordi du ikke er logget ind",
+  "battleFirstHint": "Vælg et angreb, så handler den hurtigste først. Jo bedre elementet passer, desto mere effektivt er det"
 }

@@ -211,5 +211,6 @@
   "moveDetailPriorityValue": "Digunakan lebih dulu, berapa pun Kecepatannya",
   "battleRecording": "Menyimpan hasil",
   "battleRecorded": "Tercatat",
-  "battleNotRecorded": "Pertarungan tidak tersimpan karena kamu belum masuk"
+  "battleNotRecorded": "Pertarungan tidak tersimpan karena kamu belum masuk",
+  "battleFirstHint": "Pilih jurus, lalu yang lebih cepat bergerak dulu. Makin cocok elemennya, makin tinggi efektivitasnya"
 }
