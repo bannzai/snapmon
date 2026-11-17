@@ -21,5 +21,6 @@
   "commonCancel": "ਰੱਦ ਕਰੋ",
   "commonLevel": "Lv. {level}",
   "settingsTitle": "ਸੈਟਿੰਗਾਂ",
-  "opponentReported": "ਰਿਪੋਰਟ ਭੇਜ ਦਿੱਤੀ"
+  "opponentReported": "ਰਿਪੋਰਟ ਭੇਜ ਦਿੱਤੀ",
+  "opponentBlocked": "ਬਲਾਕ ਕਰ ਦਿੱਤਾ"
 }

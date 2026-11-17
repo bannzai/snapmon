@@ -21,5 +21,6 @@
   "commonCancel": "ரத்துசெய்யுங்கள்",
   "commonLevel": "Lv. {level}",
   "settingsTitle": "அமைப்புகள்",
-  "opponentReported": "புகார் அனுப்பப்பட்டது"
+  "opponentReported": "புகார் அனுப்பப்பட்டது",
+  "opponentBlocked": "தடுக்கப்பட்டது (தடு)"
 }

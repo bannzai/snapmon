@@ -21,5 +21,6 @@
   "commonCancel": "ยกเลิก",
   "commonLevel": "Lv. {level}",
   "settingsTitle": "การตั้งค่า",
-  "opponentReported": "ส่งรายงานแล้ว"
+  "opponentReported": "ส่งรายงานแล้ว",
+  "opponentBlocked": "บล็อกแล้ว"
 }

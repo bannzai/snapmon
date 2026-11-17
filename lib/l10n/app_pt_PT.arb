@@ -21,5 +21,6 @@
   "commonCancel": "Cancelar",
   "commonLevel": "Lv. {level}",
   "settingsTitle": "Definições",
-  "opponentReported": "Denúncia enviada"
+  "opponentReported": "Denúncia enviada",
+  "opponentBlocked": "Bloqueado"
 }
