@@ -161,5 +161,6 @@
   "battleLost": "Przegrywasz",
   "shareVersusOpponents": "przeciwko {opponentNames}",
   "battleLogChallenged": "{monsterName} wyzywa cię na pojedynek!",
-  "battleLogMoveUsed": "{monsterName} używa ruchu {moveName}!"
+  "battleLogMoveUsed": "{monsterName} używa ruchu {moveName}!",
+  "battleStruggle": "Desperacka walka"
 }

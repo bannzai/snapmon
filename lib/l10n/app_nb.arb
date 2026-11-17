@@ -161,5 +161,6 @@
   "battleLost": "Du tapte",
   "shareVersusOpponents": "mot {opponentNames}",
   "battleLogChallenged": "{monsterName} utfordrer deg til kamp!",
-  "battleLogMoveUsed": "{monsterName} bruker {moveName}!"
+  "battleLogMoveUsed": "{monsterName} bruker {moveName}!",
+  "battleStruggle": "Desperat kamp"
 }

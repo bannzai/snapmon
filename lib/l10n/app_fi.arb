@@ -161,5 +161,6 @@
   "battleLost": "Hävisit",
   "shareVersusOpponents": "vastaan {opponentNames}",
   "battleLogChallenged": "{monsterName} haastaa sinut taisteluun!",
-  "battleLogMoveUsed": "{monsterName} käyttää liikettä {moveName}!"
+  "battleLogMoveUsed": "{monsterName} käyttää liikettä {moveName}!",
+  "battleStruggle": "Epätoivoinen taistelu"
 }

@@ -161,5 +161,6 @@
   "battleLost": "তুমি হেরে গেছ",
   "shareVersusOpponents": "{opponentNames}-এর বিরুদ্ধে",
   "battleLogChallenged": "{monsterName} তোমাকে লড়াইয়ের চ্যালেঞ্জ জানিয়েছে!",
-  "battleLogMoveUsed": "{monsterName} ব্যবহার করল {moveName}!"
+  "battleLogMoveUsed": "{monsterName} ব্যবহার করল {moveName}!",
+  "battleStruggle": "মরিয়া লড়াই"
 }

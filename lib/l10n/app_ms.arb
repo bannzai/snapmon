@@ -161,5 +161,6 @@
   "battleLost": "Kamu kalah",
   "shareVersusOpponents": "lawan {opponentNames}",
   "battleLogChallenged": "{monsterName} cabar kamu bertarung!",
-  "battleLogMoveUsed": "{monsterName} menggunakan {moveName}!"
+  "battleLogMoveUsed": "{monsterName} menggunakan {moveName}!",
+  "battleStruggle": "Perjuangan Terakhir"
 }

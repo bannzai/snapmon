@@ -161,5 +161,6 @@
   "battleLost": "Du tabte",
   "shareVersusOpponents": "mod {opponentNames}",
   "battleLogChallenged": "{monsterName} udfordrer dig til kamp!",
-  "battleLogMoveUsed": "{monsterName} bruger {moveName}!"
+  "battleLogMoveUsed": "{monsterName} bruger {moveName}!",
+  "battleStruggle": "Desperat kamp"
 }

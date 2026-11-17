@@ -161,5 +161,6 @@
   "battleLost": "Perdiste",
   "shareVersusOpponents": "contra {opponentNames}",
   "battleLogChallenged": "¡{monsterName} te desafía a un combate!",
-  "battleLogMoveUsed": "¡{monsterName} usa {moveName}!"
+  "battleLogMoveUsed": "¡{monsterName} usa {moveName}!",
+  "battleStruggle": "Combate"
 }

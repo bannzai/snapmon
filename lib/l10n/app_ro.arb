@@ -161,5 +161,6 @@
   "battleLost": "Ai pierdut",
   "shareVersusOpponents": "contra {opponentNames}",
   "battleLogChallenged": "{monsterName} te provoacă la luptă!",
-  "battleLogMoveUsed": "{monsterName} folosește {moveName}!"
+  "battleLogMoveUsed": "{monsterName} folosește {moveName}!",
+  "battleStruggle": "Luptă disperată"
 }

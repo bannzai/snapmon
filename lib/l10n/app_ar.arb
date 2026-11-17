@@ -161,5 +161,6 @@
   "battleLost": "خسرت",
   "shareVersusOpponents": "ضد {opponentNames}",
   "battleLogChallenged": "تحدّاك {monsterName}!",
-  "battleLogMoveUsed": "استخدم {monsterName} حركة {moveName}!"
+  "battleLogMoveUsed": "استخدم {monsterName} حركة {moveName}!",
+  "battleStruggle": "هجوم اليأس"
 }

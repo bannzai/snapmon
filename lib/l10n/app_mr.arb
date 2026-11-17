@@ -161,5 +161,6 @@
   "battleLost": "तू हरलास",
   "shareVersusOpponents": "{opponentNames} विरुद्ध",
   "battleLogChallenged": "{monsterName} ने तुला लढाईचं आव्हान दिलं!",
-  "battleLogMoveUsed": "{monsterName}ने {moveName} वापरले!"
+  "battleLogMoveUsed": "{monsterName}ने {moveName} वापरले!",
+  "battleStruggle": "अखेरची झुंज"
 }

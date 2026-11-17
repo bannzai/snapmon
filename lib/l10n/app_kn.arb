@@ -161,5 +161,6 @@
   "battleLost": "ನೀನು ಸೋತೆ",
   "shareVersusOpponents": "{opponentNames} ವಿರುದ್ಧ",
   "battleLogChallenged": "{monsterName} ನಿನಗೆ ಕಾಳಗಕ್ಕೆ ಸವಾಲು ಹಾಕಿದೆ!",
-  "battleLogMoveUsed": "{monsterName} {moveName} ಬಳಸಿತು!"
+  "battleLogMoveUsed": "{monsterName} {moveName} ಬಳಸಿತು!",
+  "battleStruggle": "ಕೊನೆಯ ಹೋರಾಟ"
 }

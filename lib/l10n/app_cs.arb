@@ -161,5 +161,6 @@
   "battleLost": "Prohrál jsi",
   "shareVersusOpponents": "proti {opponentNames}",
   "battleLogChallenged": "{monsterName} tě vyzývá k souboji!",
-  "battleLogMoveUsed": "{monsterName} použil útok {moveName}!"
+  "battleLogMoveUsed": "{monsterName} použil útok {moveName}!",
+  "battleStruggle": "Zoufalý boj"
 }

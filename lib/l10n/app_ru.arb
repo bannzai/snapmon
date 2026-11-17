@@ -161,5 +161,6 @@
   "battleLost": "Ты проиграл",
   "shareVersusOpponents": "против {opponentNames}",
   "battleLogChallenged": "{monsterName} вызывает тебя на бой!",
-  "battleLogMoveUsed": "{monsterName} применяет приём {moveName}!"
+  "battleLogMoveUsed": "{monsterName} применяет приём {moveName}!",
+  "battleStruggle": "Отчаянная борьба"
 }

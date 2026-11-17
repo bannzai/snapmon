@@ -161,5 +161,6 @@
   "battleLost": "Izgubio si",
   "shareVersusOpponents": "protiv {opponentNames}",
   "battleLogChallenged": "{monsterName} te izaziva na borbu!",
-  "battleLogMoveUsed": "{monsterName} koristi potez {moveName}!"
+  "battleLogMoveUsed": "{monsterName} koristi potez {moveName}!",
+  "battleStruggle": "Očajnička borba"
 }

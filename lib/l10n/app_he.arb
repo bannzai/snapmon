@@ -161,5 +161,6 @@
   "battleLost": "הפסד",
   "shareVersusOpponents": "נגד {opponentNames}",
   "battleLogChallenged": "קרב מול {monsterName} מתחיל!",
-  "battleLogMoveUsed": "{monsterName} השתמש במהלך {moveName}!"
+  "battleLogMoveUsed": "{monsterName} השתמש במהלך {moveName}!",
+  "battleStruggle": "מאבק נואש"
 }
