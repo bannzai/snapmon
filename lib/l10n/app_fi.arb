@@ -174,5 +174,6 @@
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "{monsterName} ilmestyi!",
   "battleLogSwitchedOut": "Vedit {withdrawnMonsterName} takaisin ja lähetit {monsterName} taisteluun",
-  "battleLogMissed": "Mutta hyökkäys meni ohi!"
+  "battleLogMissed": "Mutta hyökkäys meni ohi!",
+  "battleLogParalyzed": "{monsterName} on halvaantunut eikä voi hyökätä"
 }

@@ -174,5 +174,6 @@
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "{monsterName} ปรากฏตัวแล้ว!",
   "battleLogSwitchedOut": "เรียก {withdrawnMonsterName} กลับ แล้วส่ง {monsterName} ลงสนาม",
-  "battleLogMissed": "แต่การโจมตีพลาดเป้า!"
+  "battleLogMissed": "แต่การโจมตีพลาดเป้า!",
+  "battleLogParalyzed": "{monsterName} เป็นอัมพาตจนโจมตีไม่ได้"
 }

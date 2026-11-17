@@ -174,5 +174,6 @@
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "З’являється {monsterName}!",
   "battleLogSwitchedOut": "Ти відкликав {withdrawnMonsterName} і випустив у бій {monsterName}",
-  "battleLogMissed": "Але атака не влучила!"
+  "battleLogMissed": "Але атака не влучила!",
+  "battleLogParalyzed": "{monsterName} паралізований і не може атакувати"
 }

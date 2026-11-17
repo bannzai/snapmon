@@ -174,5 +174,6 @@
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "Do boje nastupuje {monsterName}!",
   "battleLogSwitchedOut": "Stáhl jsi {withdrawnMonsterName} a poslal do boje {monsterName}",
-  "battleLogMissed": "Ale útok minul!"
+  "battleLogMissed": "Ale útok minul!",
+  "battleLogParalyzed": "{monsterName} je ochromený a nemůže zaútočit"
 }

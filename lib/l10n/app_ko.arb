@@ -174,5 +174,6 @@
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "{monsterName} 등장했다!",
   "battleLogSwitchedOut": "{withdrawnMonsterName}을 불러들이고 {monsterName}을 내보냈다",
-  "battleLogMissed": "하지만 공격은 빗나갔다!"
+  "battleLogMissed": "하지만 공격은 빗나갔다!",
+  "battleLogParalyzed": "{monsterName}은 몸이 마비돼 공격하지 못했다"
 }

@@ -174,5 +174,6 @@
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "{monsterName}登場了！",
   "battleLogSwitchedOut": "你收回了{withdrawnMonsterName}，派出了{monsterName}",
-  "battleLogMissed": "但是攻擊落空了！"
+  "battleLogMissed": "但是攻擊落空了！",
+  "battleLogParalyzed": "{monsterName} 身體麻痺，無法攻擊"
 }

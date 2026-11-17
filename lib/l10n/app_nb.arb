@@ -174,5 +174,6 @@
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "{monsterName} dukket opp!",
   "battleLogSwitchedOut": "Du trakk {withdrawnMonsterName} tilbake og sendte inn {monsterName}",
-  "battleLogMissed": "Men angrepet bommet!"
+  "battleLogMissed": "Men angrepet bommet!",
+  "battleLogParalyzed": "{monsterName} er lammet og kan ikke angripe"
 }

@@ -174,5 +174,6 @@
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "Megjelent {monsterName}!",
   "battleLogSwitchedOut": "Visszahívtad {withdrawnMonsterName} lényt, és beküldted {monsterName} lényt",
-  "battleLogMissed": "De a támadás célt tévesztett!"
+  "battleLogMissed": "De a támadás célt tévesztett!",
+  "battleLogParalyzed": "{monsterName} lebénult, és nem tud támadni"
 }

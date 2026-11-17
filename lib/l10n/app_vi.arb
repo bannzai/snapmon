@@ -174,5 +174,6 @@
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "{monsterName} xuất hiện!",
   "battleLogSwitchedOut": "Bạn thu hồi {withdrawnMonsterName} và cho {monsterName} ra trận",
-  "battleLogMissed": "Nhưng đòn đánh đã trượt!"
+  "battleLogMissed": "Nhưng đòn đánh đã trượt!",
+  "battleLogParalyzed": "{monsterName} bị tê liệt, không thể tấn công"
 }

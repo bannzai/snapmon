@@ -174,5 +174,6 @@
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "{monsterName} הופיע!",
   "battleLogSwitchedOut": "{withdrawnMonsterName} חזר, ו-{monsterName} יצא לקרב",
-  "battleLogMissed": "אבל המתקפה החטיאה!"
+  "battleLogMissed": "אבל המתקפה החטיאה!",
+  "battleLogParalyzed": "{monsterName} משותק ולא יכול לתקוף"
 }

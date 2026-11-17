@@ -174,5 +174,6 @@
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "ظهر {monsterName}!",
   "battleLogSwitchedOut": "تم سحب {withdrawnMonsterName} وإرسال {monsterName}",
-  "battleLogMissed": "لكن الهجوم أخطأ!"
+  "battleLogMissed": "لكن الهجوم أخطأ!",
+  "battleLogParalyzed": "{monsterName} مشلول ولا يستطيع الهجوم"
 }

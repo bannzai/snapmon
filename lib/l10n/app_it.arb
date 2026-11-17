@@ -174,5 +174,6 @@
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "È apparso {monsterName}!",
   "battleLogSwitchedOut": "Hai ritirato {withdrawnMonsterName} e mandato in campo {monsterName}",
-  "battleLogMissed": "Ma l'attacco è andato a vuoto!"
+  "battleLogMissed": "Ma l'attacco è andato a vuoto!",
+  "battleLogParalyzed": "{monsterName} è paralizzato e non può attaccare"
 }

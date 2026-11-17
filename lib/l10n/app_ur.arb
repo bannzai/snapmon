@@ -174,5 +174,6 @@
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "میدان میں آیا {monsterName}!",
   "battleLogSwitchedOut": "تم نے {withdrawnMonsterName} کو واپس بلا کر {monsterName} کو میدان میں اتارا",
-  "battleLogMissed": "لیکن حملہ نشانے سے چوک گیا!"
+  "battleLogMissed": "لیکن حملہ نشانے سے چوک گیا!",
+  "battleLogParalyzed": "{monsterName} کا جسم سن ہو گیا ہے، حملہ نہیں کر سکتا"
 }

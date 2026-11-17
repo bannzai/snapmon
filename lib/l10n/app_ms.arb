@@ -174,5 +174,6 @@
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "{monsterName} muncul!",
   "battleLogSwitchedOut": "Kamu menarik balik {withdrawnMonsterName} dan menghantar {monsterName} ke gelanggang",
-  "battleLogMissed": "Tapi serangan itu tersasar!"
+  "battleLogMissed": "Tapi serangan itu tersasar!",
+  "battleLogParalyzed": "{monsterName} lumpuh dan tak dapat menyerang"
 }

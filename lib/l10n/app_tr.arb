@@ -174,5 +174,6 @@
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "{monsterName} ortaya çıktı!",
   "battleLogSwitchedOut": "{withdrawnMonsterName} geri çekildi, {monsterName} savaşa çıktı",
-  "battleLogMissed": "Ama saldırı ıskaladı!"
+  "battleLogMissed": "Ama saldırı ıskaladı!",
+  "battleLogParalyzed": "{monsterName} felç oldu ve saldıramıyor"
 }
