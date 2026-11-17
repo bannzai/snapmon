@@ -29,5 +29,6 @@
   "opponentSafetyMenuTooltip": "lapor · sekat",
   "opponentBlockTrainer": "Sekat jurulatih ini",
   "opponentReportHelpBody": "Tekan lama monster lawan untuk laporkan\nGuna butang di kanan atas kad untuk lapor atau sekat",
-  "opponentLevelUpNote": "Naik 1 tahap selepas setiap pertarungan"
+  "opponentLevelUpNote": "Naik 1 tahap selepas setiap pertarungan",
+  "opponentBattleRecordLabel": "Rekod Pertarungan"
 }

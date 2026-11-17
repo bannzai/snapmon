@@ -29,5 +29,6 @@
   "opponentSafetyMenuTooltip": "ilmoita · estä",
   "opponentBlockTrainer": "Estä tämä kouluttaja",
   "opponentReportHelpBody": "Ilmoita vastustajan hirviöstä pitämällä sitä painettuna\nKortin oikean yläkulman painikkeesta voit ilmoittaa tai estää",
-  "opponentLevelUpNote": "Taso nousee 1:llä jokaisen taistelun jälkeen"
+  "opponentLevelUpNote": "Taso nousee 1:llä jokaisen taistelun jälkeen",
+  "opponentBattleRecordLabel": "Taistelutilasto"
 }

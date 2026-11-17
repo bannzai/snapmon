@@ -29,5 +29,6 @@
   "opponentSafetyMenuTooltip": "nahlásit · blokovat",
   "opponentBlockTrainer": "Zablokuj tohoto trenéra",
   "opponentReportHelpBody": "Podrž soupeřovu příšeru a můžeš ji nahlásit\nTlačítkem vpravo nahoře na kartě ji můžeš nahlásit nebo blokovat",
-  "opponentLevelUpNote": "Po každém souboji se úroveň zvýší o 1"
+  "opponentLevelUpNote": "Po každém souboji se úroveň zvýší o 1",
+  "opponentBattleRecordLabel": "Bilance zápasů"
 }

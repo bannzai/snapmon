@@ -29,5 +29,6 @@
   "opponentSafetyMenuTooltip": "ವರದಿ · ಬ್ಲಾಕ್",
   "opponentBlockTrainer": "ಈ ಟ್ರೈನರನ್ನು ಬ್ಲಾಕ್ ಮಾಡು",
   "opponentReportHelpBody": "ಎದುರಾಳಿಯ ಮಾನ್ಸ್ಟರ್ ಅನ್ನು ಒತ್ತಿಹಿಡಿದು ವರದಿ ಮಾಡು\nಕಾರ್ಡ್‌ನ ಮೇಲಿನ ಬಲ ಮೂಲೆಯ ಬಟನ್‌ನಿಂದ ವರದಿ ಅಥವಾ ಬ್ಲಾಕ್ ಮಾಡು",
-  "opponentLevelUpNote": "ಪ್ರತಿ ಕಾಳಗದ ಬಳಿಕ ಲೆವೆಲ್ 1 ಹೆಚ್ಚುತ್ತದೆ"
+  "opponentLevelUpNote": "ಪ್ರತಿ ಕಾಳಗದ ಬಳಿಕ ಲೆವೆಲ್ 1 ಹೆಚ್ಚುತ್ತದೆ",
+  "opponentBattleRecordLabel": "ಕಾಳಗದ ದಾಖಲೆ"
 }

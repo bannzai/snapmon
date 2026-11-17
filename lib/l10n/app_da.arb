@@ -29,5 +29,6 @@
   "opponentSafetyMenuTooltip": "rapportér · blokér",
   "opponentBlockTrainer": "Bloker denne træner",
   "opponentReportHelpBody": "Hold fingeren på modstanderens monster for at rapportere det\nBrug knappen øverst til højre på kortet til at rapportere eller blokere",
-  "opponentLevelUpNote": "Stiger 1 niveau efter hver kamp"
+  "opponentLevelUpNote": "Stiger 1 niveau efter hver kamp",
+  "opponentBattleRecordLabel": "Kampstatistik"
 }

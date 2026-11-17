@@ -29,5 +29,6 @@
   "opponentSafetyMenuTooltip": "रिपोर्ट · ब्लॉक",
   "opponentBlockTrainer": "या ट्रेनरला ब्लॉक कर",
   "opponentReportHelpBody": "समोरच्या मॉन्स्टरवर जास्त वेळ दाबून रिपोर्ट कर\nकार्डच्या वर उजवीकडील बटणातून रिपोर्ट किंवा ब्लॉक कर",
-  "opponentLevelUpNote": "प्रत्येक लढाईनंतर लेव्हल 1 ने वाढते"
+  "opponentLevelUpNote": "प्रत्येक लढाईनंतर लेव्हल 1 ने वाढते",
+  "opponentBattleRecordLabel": "लढाईचा विक्रम"
 }

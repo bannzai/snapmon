@@ -29,5 +29,6 @@
   "opponentSafetyMenuTooltip": "denunciar · bloquear",
   "opponentBlockTrainer": "Bloquear a este entrenador",
   "opponentReportHelpBody": "Mantén presionado el monstruo rival para denunciarlo\nUsa el botón de la esquina superior derecha de la carta para denunciar o bloquear",
-  "opponentLevelUpNote": "Sube 1 nivel tras cada combate"
+  "opponentLevelUpNote": "Sube 1 nivel tras cada combate",
+  "opponentBattleRecordLabel": "Historial de combates"
 }
