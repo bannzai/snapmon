@@ -33,5 +33,6 @@
   "opponentBattleRecordLabel": "Palmarès",
   "opponentBattleRecord": "Victoires : {wins} · Défaites : {losses}",
   "opponentMyParty": "Ton équipe",
-  "opponentSwapParty": "Changer"
+  "opponentSwapParty": "Changer",
+  "opponentEmptyPartyNote": "Ajoute un monstre à ton équipe pour relever le défi"
 }
