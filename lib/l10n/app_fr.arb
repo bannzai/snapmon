@@ -111,5 +111,6 @@
   "generationFailedTitle": "La création a échoué",
   "generationBattlePreparationFailedTitle": "Impossible de préparer le combat",
   "generationStagePreparingPhoto": "On prépare ta photo",
-  "generationStageUploadingPhoto": "Envoi de la photo en cours"
+  "generationStageUploadingPhoto": "Envoi de la photo en cours",
+  "generationStageCheckingPhoto": "Vérification de ta photo en cours"
 }
