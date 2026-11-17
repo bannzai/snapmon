@@ -138,7 +138,7 @@ void main() {
       );
 
   testWidgets(
-    'ログインしていても他のユーザーの手持ちを読まず、戦績と「ランダムな相手と戦う」だけを出し、CPU トレーナーの一覧・「ほかの相手をさがす」・通報・ブロックを出さない',
+    'ログインしていても他のユーザーの手持ちを読まず、戦績と「ランダムな相手と戦う」「CPU と戦う」の 2 つの入口だけを出し、CPU トレーナーの一覧・「ほかの相手をさがす」・通報・ブロックを出さない',
     (tester) async {
       final calls = RecordedPvpCalls();
       await pumpOpponentScreen(
@@ -174,6 +174,34 @@ void main() {
         isNotNull,
       );
       expect(find.byType(FilledButton, skipOffstage: false), findsOneWidget);
+      // 「ランダムな相手と戦う」とは別のボタンとして「CPU と戦う」を出す (issue #347)
+      final l10n = await AppLocalizations.delegate.load(const Locale('ja'));
+      expect(
+        find.descendant(
+          of: find.byKey(const Key('random-battle')),
+          matching: find.text(l10n.opponentRandomBattle),
+        ),
+        findsOneWidget,
+      );
+      expect(
+        find.descendant(
+          of: find.byKey(const Key('cpu-battle'), skipOffstage: false),
+          matching: find.text(l10n.opponentCpuBattle, skipOffstage: false),
+        ),
+        findsOneWidget,
+      );
+      expect(
+        tester
+            .widget<ButtonStyleButton>(
+              find.byKey(const Key('cpu-battle'), skipOffstage: false),
+            )
+            .onPressed,
+        isNotNull,
+      );
+      expect(
+        find.byType(ButtonStyleButton, skipOffstage: false),
+        findsNWidgets(2),
+      );
       for (final text in ['相手をえらぶ', '挑む', 'ほかの相手をさがす']) {
         expect(
           find.text(text, skipOffstage: false),
@@ -568,7 +596,78 @@ void main() {
     },
   );
 
-  testWidgets('手持ちが空の時は「ランダムな相手と戦う」を押せない', (tester) async {
+  testWidgets(
+    '「CPU と戦う」は、他のユーザーの手持ちを読まず、CPU トレーナーの名前と自分の手持ちと同じ数の見本のモンスターを相手にしてバトルに入る',
+    (tester) async {
+      final calls = RecordedPvpCalls();
+      await pumpOpponentScreen(
+        tester: tester,
+        pvpClient: signedInPvpClient(calls: calls),
+        onOpenSettings: () async {},
+      );
+      await tester.ensureVisible(find.byKey(const Key('cpu-battle')));
+      await tester.tap(find.byKey(const Key('cpu-battle')));
+      // バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
+      final battleScreen = tester.widget<BattleScreen>(
+        find.byType(BattleScreen),
+      );
+      expect(battleScreen.opponentKind, BattleOpponentKind.cpu);
+      expect(
+        sampleData.cpuTrainerNames,
+        contains(battleScreen.opponentDisplayName),
+      );
+      // 手持ちは pumpOpponentScreen が入れる 3 体
+      expect(battleScreen.opponentParty, hasLength(3));
+      expect(calls.fetchOpponentsCount, 0);
+    },
+  );
+
+  for (final challengeKey in ['random-battle', 'cpu-battle']) {
+    testWidgets('$challengeKey で挑んでいる間は、2 つの入口のどちらも押せず、バトルを閉じると押せるように戻る', (
+      tester,
+    ) async {
+      await pumpOpponentScreen(
+        tester: tester,
+        pvpClient: signedInPvpClient(calls: RecordedPvpCalls()),
+        onOpenSettings: () async {},
+      );
+      await tester.ensureVisible(find.byKey(Key(challengeKey)));
+      await tester.tap(find.byKey(Key(challengeKey)));
+      // バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
+      expect(find.byType(BattleScreen), findsOneWidget);
+      for (final key in ['random-battle', 'cpu-battle']) {
+        expect(
+          tester
+              .widget<ButtonStyleButton>(
+                find.byKey(Key(key), skipOffstage: false),
+              )
+              .onPressed,
+          isNull,
+          reason: key,
+        );
+      }
+      Navigator.of(tester.element(find.byType(BattleScreen))).pop();
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
+      for (final key in ['random-battle', 'cpu-battle']) {
+        expect(
+          tester
+              .widget<ButtonStyleButton>(
+                find.byKey(Key(key), skipOffstage: false),
+              )
+              .onPressed,
+          isNotNull,
+          reason: key,
+        );
+      }
+    });
+  }
+
+  testWidgets('手持ちが空の時は「ランダムな相手と戦う」も「CPU と戦う」も押せない', (tester) async {
     tester.view
       ..physicalSize = const Size(390, 844)
       ..devicePixelRatio = 1;
@@ -612,6 +711,14 @@ void main() {
     expect(
       tester
           .widget<ButtonStyleButton>(find.byKey(const Key('random-battle')))
+          .onPressed,
+      isNull,
+    );
+    expect(
+      tester
+          .widget<ButtonStyleButton>(
+            find.byKey(const Key('cpu-battle'), skipOffstage: false),
+          )
           .onPressed,
       isNull,
     );

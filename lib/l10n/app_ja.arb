@@ -59,6 +59,8 @@
   "opponentNoneAvailable": "いま戦えるトレーナーがいません\nCPU トレーナーと戦えます",
   "opponentRandomBattle": "ランダムな相手と戦う",
   "@opponentRandomBattle": {"description": "対戦のシーンで、CPU の相手 (名前と手持ち) を乱数で決めてバトルに入るボタン"},
+  "opponentCpuBattle": "CPU と戦う",
+  "@opponentCpuBattle": {"description": "対戦のシーンで、「ランダムな相手と戦う」とは別に置く CPU トレーナーとの対戦の入口のボタン"},
   "settingsLinked": "{providerName} と連携しました",
   "@settingsLinked": {"placeholders": {"providerName": {"type": "String", "example": "Apple"}}},
   "settingsSwitchAccountTitle": "連携済みのアカウントに切り替えますか",
