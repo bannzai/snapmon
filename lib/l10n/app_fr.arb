@@ -131,5 +131,6 @@
   "generationChooseRangeMessage": "Fais glisser le cadre autour du sujet\nAjuste sa taille avec le curseur ci-dessous ou avec deux doigts",
   "generationAutoCutoutUnavailable": "Découpe automatique indisponible",
   "generationCreateWithRange": "Créer avec cette zone",
-  "generationCropSizeLabel": "Taille du cadre"
+  "generationCropSizeLabel": "Taille du cadre",
+  "generationStageFindingSubject": "Recherche du sujet"
 }
