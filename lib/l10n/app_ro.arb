@@ -157,5 +157,6 @@
   "shareFormatLandscapeDescription": "Pentru postări 1200×630",
   "shareConfirm": "Distribuie",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
-  "battleWon": "Ai câștigat!"
+  "battleWon": "Ai câștigat!",
+  "battleLost": "Ai pierdut"
 }

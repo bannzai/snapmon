@@ -157,5 +157,6 @@
   "shareFormatLandscapeDescription": "สำหรับโพสต์ 1200×630",
   "shareConfirm": "แชร์",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
-  "battleWon": "ชนะแล้ว!"
+  "battleWon": "ชนะแล้ว!",
+  "battleLost": "แพ้แล้ว"
 }

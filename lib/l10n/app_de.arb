@@ -157,5 +157,6 @@
   "shareFormatLandscapeDescription": "Für Beiträge 1200×630",
   "shareConfirm": "Teilen",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
-  "battleWon": "Du hast gewonnen!"
+  "battleWon": "Du hast gewonnen!",
+  "battleLost": "Du hast verloren"
 }

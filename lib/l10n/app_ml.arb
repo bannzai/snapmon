@@ -157,5 +157,6 @@
   "shareFormatLandscapeDescription": "പോസ്റ്റുകൾക്ക് 1200×630",
   "shareConfirm": "പങ്കിടുക",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
-  "battleWon": "നിങ്ങൾ ജയിച്ചു!"
+  "battleWon": "നിങ്ങൾ ജയിച്ചു!",
+  "battleLost": "നിങ്ങൾ തോറ്റു"
 }

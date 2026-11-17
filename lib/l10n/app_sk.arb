@@ -157,5 +157,6 @@
   "shareFormatLandscapeDescription": "Na príspevky 1200×630",
   "shareConfirm": "Zdieľaj",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
-  "battleWon": "Vyhral si!"
+  "battleWon": "Vyhral si!",
+  "battleLost": "Prehral si"
 }

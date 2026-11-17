@@ -157,5 +157,6 @@
   "shareFormatLandscapeDescription": "לפוסטים 1200×630",
   "shareConfirm": "שיתוף",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
-  "battleWon": "ניצחון!"
+  "battleWon": "ניצחון!",
+  "battleLost": "הפסד"
 }

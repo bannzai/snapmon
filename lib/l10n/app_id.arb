@@ -157,5 +157,6 @@
   "shareFormatLandscapeDescription": "Untuk postingan 1200×630",
   "shareConfirm": "Bagikan",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
-  "battleWon": "Kamu menang!"
+  "battleWon": "Kamu menang!",
+  "battleLost": "Kamu kalah"
 }

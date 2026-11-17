@@ -157,5 +157,6 @@
   "shareFormatLandscapeDescription": "पोस्टसाठी 1200×630",
   "shareConfirm": "शेअर कर",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
-  "battleWon": "तू जिंकलास!"
+  "battleWon": "तू जिंकलास!",
+  "battleLost": "तू हरलास"
 }

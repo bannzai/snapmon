@@ -157,5 +157,6 @@
   "shareFormatLandscapeDescription": "Cho bài đăng 1200×630",
   "shareConfirm": "Chia sẻ",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
-  "battleWon": "Bạn thắng rồi!"
+  "battleWon": "Bạn thắng rồi!",
+  "battleLost": "Bạn đã thua"
 }

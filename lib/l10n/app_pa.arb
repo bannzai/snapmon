@@ -157,5 +157,6 @@
   "shareFormatLandscapeDescription": "ਪੋਸਟਾਂ ਲਈ 1200×630",
   "shareConfirm": "ਸਾਂਝਾ ਕਰੋ",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
-  "battleWon": "ਤੁਸੀਂ ਜਿੱਤ ਗਏ!"
+  "battleWon": "ਤੁਸੀਂ ਜਿੱਤ ਗਏ!",
+  "battleLost": "ਤੁਸੀਂ ਹਾਰ ਗਏ"
 }

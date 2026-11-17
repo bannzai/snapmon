@@ -157,5 +157,6 @@
   "shareFormatLandscapeDescription": "للنشر 1200×630",
   "shareConfirm": "مشاركة",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
-  "battleWon": "فزت!"
+  "battleWon": "فزت!",
+  "battleLost": "خسرت"
 }

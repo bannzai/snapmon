@@ -157,5 +157,6 @@
   "shareFormatLandscapeDescription": "পোস্টের জন্য 1200×630",
   "shareConfirm": "শেয়ার করো",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
-  "battleWon": "জিতেছ!"
+  "battleWon": "জিতেছ!",
+  "battleLost": "তুমি হেরে গেছ"
 }

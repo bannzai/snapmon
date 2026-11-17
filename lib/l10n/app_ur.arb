@@ -157,5 +157,6 @@
   "shareFormatLandscapeDescription": "پوسٹس کے لیے 1200×630",
   "shareConfirm": "شیئر کرو",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
-  "battleWon": "تم جیت گئے!"
+  "battleWon": "تم جیت گئے!",
+  "battleLost": "تم ہار گئے"
 }

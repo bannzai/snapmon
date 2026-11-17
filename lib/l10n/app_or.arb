@@ -157,5 +157,6 @@
   "shareFormatLandscapeDescription": "ପୋଷ୍ଟ ପାଇଁ 1200×630",
   "shareConfirm": "ସେୟାର କର",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
-  "battleWon": "ତୁମେ ଜିତିଲ!"
+  "battleWon": "ତୁମେ ଜିତିଲ!",
+  "battleLost": "ତୁମେ ହାରିଗଲ"
 }

@@ -157,5 +157,6 @@
   "shareFormatLandscapeDescription": "Per i post 1200×630",
   "shareConfirm": "Condividi",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
-  "battleWon": "Hai vinto!"
+  "battleWon": "Hai vinto!",
+  "battleLost": "Hai perso"
 }

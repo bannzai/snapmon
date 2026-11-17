@@ -157,5 +157,6 @@
   "shareFormatLandscapeDescription": "Для публикаций 1200×630",
   "shareConfirm": "Поделиться",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
-  "battleWon": "Победа!"
+  "battleWon": "Победа!",
+  "battleLost": "Ты проиграл"
 }

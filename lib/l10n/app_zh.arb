@@ -157,5 +157,6 @@
   "shareFormatLandscapeDescription": "发布用 1200×630",
   "shareConfirm": "分享",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
-  "battleWon": "你赢了！"
+  "battleWon": "你赢了！",
+  "battleLost": "你输了"
 }

@@ -157,5 +157,6 @@
   "shareFormatLandscapeDescription": "Για αναρτήσεις 1200×630",
   "shareConfirm": "Κοινοποίηση",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
-  "battleWon": "Νίκησες!"
+  "battleWon": "Νίκησες!",
+  "battleLost": "Έχασες"
 }

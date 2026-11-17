@@ -157,5 +157,6 @@
   "shareFormatLandscapeDescription": "Для дописів 1200×630",
   "shareConfirm": "Поділитися",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
-  "battleWon": "Перемога!"
+  "battleWon": "Перемога!",
+  "battleLost": "Ти програв"
 }

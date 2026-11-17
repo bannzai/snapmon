@@ -157,5 +157,6 @@
   "shareFormatLandscapeDescription": "Za objave 1200×630",
   "shareConfirm": "Podijeli",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
-  "battleWon": "Pobijedio si!"
+  "battleWon": "Pobijedio si!",
+  "battleLost": "Izgubio si"
 }

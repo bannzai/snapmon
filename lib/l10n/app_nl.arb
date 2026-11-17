@@ -157,5 +157,6 @@
   "shareFormatLandscapeDescription": "Voor berichten 1200×630",
   "shareConfirm": "Delen",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
-  "battleWon": "Je hebt gewonnen!"
+  "battleWon": "Je hebt gewonnen!",
+  "battleLost": "Je hebt verloren"
 }

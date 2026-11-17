@@ -157,5 +157,6 @@
   "shareFormatLandscapeDescription": "Bejegyzésekhez 1200×630",
   "shareConfirm": "Megosztás",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
-  "battleWon": "Győztél!"
+  "battleWon": "Győztél!",
+  "battleLost": "Vesztettél"
 }
