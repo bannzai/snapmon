@@ -14,5 +14,6 @@
   "reportReasonOther": "ଅନ୍ୟାନ୍ୟ",
   "reportSheetTitle": "{monsterName} ବିଷୟରେ ରିପୋର୍ଟ କର",
   "reportSheetDescription": "ତୁମେ ରିପୋର୍ଟ କରିଥିବା ଟ୍ରେନର ଆଉ ଲଢ଼େଇରେ ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ ଭାବେ ଆସିବେ ନାହିଁ",
-  "reportSheetSubmitting": "ପଠାଯାଉଛି"
+  "reportSheetSubmitting": "ପଠାଯାଉଛି",
+  "reportSheetSubmit": "ରିପୋର୍ଟ କର"
 }

@@ -14,5 +14,6 @@
   "reportReasonOther": "Jiné",
   "reportSheetTitle": "Nahlásit {monsterName}",
   "reportSheetDescription": "Když nahlásíš trenéra, už se ti v soubojích neobjeví jako soupeř",
-  "reportSheetSubmitting": "Odesílání"
+  "reportSheetSubmitting": "Odesílání",
+  "reportSheetSubmit": "Nahlásit"
 }

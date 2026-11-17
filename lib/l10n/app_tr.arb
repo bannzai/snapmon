@@ -14,5 +14,6 @@
   "reportReasonOther": "Diğer",
   "reportSheetTitle": "{monsterName} için bildir",
   "reportSheetDescription": "Bildirdiğin eğitmen artık savaşlarda rakip olarak karşına çıkmaz",
-  "reportSheetSubmitting": "Gönderiliyor"
+  "reportSheetSubmitting": "Gönderiliyor",
+  "reportSheetSubmit": "Bildir"
 }

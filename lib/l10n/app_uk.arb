@@ -14,5 +14,6 @@
   "reportReasonOther": "Інше",
   "reportSheetTitle": "Скарга на {monsterName}",
   "reportSheetDescription": "Тренер, на якого ти подаси скаргу, більше не буде твоїм суперником у боях",
-  "reportSheetSubmitting": "Надсилання"
+  "reportSheetSubmitting": "Надсилання",
+  "reportSheetSubmit": "Подати скаргу"
 }

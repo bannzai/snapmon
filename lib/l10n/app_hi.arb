@@ -14,5 +14,6 @@
   "reportReasonOther": "अन्य",
   "reportSheetTitle": "{monsterName} को रिपोर्ट करो",
   "reportSheetDescription": "जिस ट्रेनर को तुम रिपोर्ट करोगे, वह अब लड़ाई में तुम्हारा प्रतिद्वंद्वी नहीं बनेगा",
-  "reportSheetSubmitting": "भेजा जा रहा है"
+  "reportSheetSubmitting": "भेजा जा रहा है",
+  "reportSheetSubmit": "रिपोर्ट करो"
 }

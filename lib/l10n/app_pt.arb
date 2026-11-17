@@ -14,5 +14,6 @@
   "reportReasonOther": "Outro",
   "reportSheetTitle": "Denunciar {monsterName}",
   "reportSheetDescription": "O treinador que você denunciar não aparecerá mais como adversário nas batalhas",
-  "reportSheetSubmitting": "Enviando"
+  "reportSheetSubmitting": "Enviando",
+  "reportSheetSubmit": "Denunciar"
 }

@@ -14,5 +14,6 @@
   "reportReasonOther": "Lainnya",
   "reportSheetTitle": "Laporkan {monsterName}",
   "reportSheetDescription": "Pelatih yang kamu laporkan tidak akan muncul lagi sebagai lawan bertarungmu",
-  "reportSheetSubmitting": "Mengirim"
+  "reportSheetSubmitting": "Mengirim",
+  "reportSheetSubmit": "Laporkan"
 }

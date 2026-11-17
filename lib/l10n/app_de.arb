@@ -14,5 +14,6 @@
   "reportReasonOther": "Sonstiges",
   "reportSheetTitle": "{monsterName} melden",
   "reportSheetDescription": "Ein Trainer, den du meldest, erscheint nicht mehr als Kampfgegner",
-  "reportSheetSubmitting": "Wird gesendet"
+  "reportSheetSubmitting": "Wird gesendet",
+  "reportSheetSubmit": "Melden"
 }

@@ -14,5 +14,6 @@
   "reportReasonOther": "Egyéb",
   "reportSheetTitle": "{monsterName} jelentése",
   "reportSheetDescription": "Az edző, akit jelentesz, többé nem lesz az ellenfeled a csatákban",
-  "reportSheetSubmitting": "Küldés folyamatban"
+  "reportSheetSubmitting": "Küldés folyamatban",
+  "reportSheetSubmit": "Jelentés"
 }

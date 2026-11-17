@@ -14,5 +14,6 @@
   "reportReasonOther": "மற்றவை",
   "reportSheetTitle": "{monsterName} குறித்து புகார் அளியுங்கள்",
   "reportSheetDescription": "நீங்கள் புகார் அளித்த பயிற்சியாளர் இனி போர்களில் எதிராளியாக வரமாட்டார்",
-  "reportSheetSubmitting": "அனுப்பப்படுகிறது"
+  "reportSheetSubmitting": "அனுப்பப்படுகிறது",
+  "reportSheetSubmit": "புகார் அளிக்கவும்"
 }

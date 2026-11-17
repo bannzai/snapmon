@@ -14,5 +14,6 @@
   "reportReasonOther": "इतर",
   "reportSheetTitle": "{monsterName}ची रिपोर्ट कर",
   "reportSheetDescription": "तू रिपोर्ट केलेला ट्रेनर आता लढाईत प्रतिस्पर्धी म्हणून दिसणार नाही",
-  "reportSheetSubmitting": "पाठवत आहे"
+  "reportSheetSubmitting": "पाठवत आहे",
+  "reportSheetSubmit": "रिपोर्ट कर"
 }

@@ -14,5 +14,6 @@
   "reportReasonOther": "Iné",
   "reportSheetTitle": "Nahlásiť {monsterName}",
   "reportSheetDescription": "Tréner, ktorého nahlásiš, sa už neobjaví ako tvoj súper v súboji",
-  "reportSheetSubmitting": "Odosiela sa"
+  "reportSheetSubmitting": "Odosiela sa",
+  "reportSheetSubmit": "Nahlásiť"
 }
