@@ -134,5 +134,6 @@
   "generationCropSizeLabel": "Taille du cadre",
   "generationStageFindingSubject": "Recherche du sujet",
   "generationStageCroppingRange": "Découpage de la zone en cours",
-  "generationRejectedRefused": "Impossible de créer le monstre\nEssaie de prendre une autre photo"
+  "generationRejectedRefused": "Impossible de créer le monstre\nEssaie de prendre une autre photo",
+  "generationFailedMessage": "La création a échoué\nEssaie de prendre une autre photo"
 }
