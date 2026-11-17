@@ -304,5 +304,6 @@
   "moveSelectionTitle": "Capacités de {monsterName}",
   "moveSelectionDescription": "Choisis tes capacités pour le combat : {count} max.\nLes boutons des capacités suivent l’ordre de ta sélection",
   "moveSelectionSave": "Confirmer",
-  "moveSelectionReset": "Rechoisir"
+  "moveSelectionReset": "Rechoisir",
+  "actionCardForget": "Faire oublier"
 }
