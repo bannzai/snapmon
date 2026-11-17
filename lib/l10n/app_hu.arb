@@ -119,5 +119,6 @@
   "generationStageBeingBorn": "Egy szörny születik",
   "generationRejectedExplicitContent": "Ebből a fotóból nem lehet szörnyet alkotni",
   "generationRejectedPerson": "Embert ábrázoló fotóból nem készíthetsz szörnyet\nCsak tárgyakat fotózz",
-  "generationPersonNoticeTitle": "Egy ember van a képen"
+  "generationPersonNoticeTitle": "Egy ember van a képen",
+  "generationPersonNoticeMessage": "Mások is láthatják a szörnyed képét a csatákban.\nHa rajtad kívül más is szerepel a fotón, kérd a beleegyezését, mielőtt felhasználod."
 }

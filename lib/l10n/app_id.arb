@@ -119,5 +119,6 @@
   "generationStageBeingBorn": "Monster sedang lahir",
   "generationRejectedExplicitContent": "Kamu tidak bisa membuat monster dari foto ini",
   "generationRejectedPerson": "Kamu tidak bisa membuat monster dari foto yang menampilkan orang\nFoto benda saja",
-  "generationPersonNoticeTitle": "Ada orang di foto"
+  "generationPersonNoticeTitle": "Ada orang di foto",
+  "generationPersonNoticeMessage": "Orang lain juga bisa melihat gambar monstermu saat bertarung.\nJika ada orang lain selain kamu di foto, minta persetujuannya sebelum menggunakannya."
 }

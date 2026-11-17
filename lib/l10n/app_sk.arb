@@ -119,5 +119,6 @@
   "generationStageBeingBorn": "Rodí sa príšera",
   "generationRejectedExplicitContent": "Z tejto fotky sa nedá vytvoriť príšera",
   "generationRejectedPerson": "Z fotky, na ktorej je človek, príšeru nevytvoríš\nFoť len predmety",
-  "generationPersonNoticeTitle": "Na fotke je človek"
+  "generationPersonNoticeTitle": "Na fotke je človek",
+  "generationPersonNoticeMessage": "Obrázok tvojej príšery uvidia v súbojoch aj ostatní.\nAk je na fotke okrem teba niekto ďalší, pred použitím si vypýtaj jeho súhlas."
 }

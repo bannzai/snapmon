@@ -119,5 +119,6 @@
   "generationStageBeingBorn": "Ένα τέρας γεννιέται",
   "generationRejectedExplicitContent": "Δεν μπορεί να γεννηθεί τέρας από αυτή τη φωτογραφία",
   "generationRejectedPerson": "Δεν μπορείς να φτιάξεις τέρας από φωτογραφία με άνθρωπο\nΦωτογράφισε μόνο αντικείμενα",
-  "generationPersonNoticeTitle": "Στη φωτογραφία φαίνεται ένα άτομο"
+  "generationPersonNoticeTitle": "Στη φωτογραφία φαίνεται ένα άτομο",
+  "generationPersonNoticeMessage": "Την εικόνα του τέρατος μπορούν να τη δουν κι άλλοι στις μάχες.\nΑν στη φωτογραφία φαίνεται κάποιος άλλος, ζήτησε την άδειά του πριν τη χρησιμοποιήσεις."
 }

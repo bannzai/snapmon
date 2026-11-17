@@ -119,5 +119,6 @@
   "generationStageBeingBorn": "ಒಂದು ಮಾನ್ಸ್ಟರ ಹುಟ್ಟುತ್ತಿದೆ",
   "generationRejectedExplicitContent": "ಈ ಫೋಟೋದಿಂದ ಮಾನ್ಸ್ಟರ್ ಸೃಷ್ಟಿಸಲು ಆಗುವುದಿಲ್ಲ",
   "generationRejectedPerson": "ವ್ಯಕ್ತಿ ಇರುವ ಫೋಟೋದಿಂದ ಮಾನ್‌ಸ್ಟರ್ ಸೃಷ್ಟಿಸಲು ಆಗುವುದಿಲ್ಲ\nವಸ್ತುಗಳ ಫೋಟೋ ಮಾತ್ರ ತೆಗೆ",
-  "generationPersonNoticeTitle": "ಫೋಟೋದಲ್ಲಿ ಒಬ್ಬ ವ್ಯಕ್ತಿ ಇದ್ದಾರೆ"
+  "generationPersonNoticeTitle": "ಫೋಟೋದಲ್ಲಿ ಒಬ್ಬ ವ್ಯಕ್ತಿ ಇದ್ದಾರೆ",
+  "generationPersonNoticeMessage": "ಯುದ್ಧದಲ್ಲಿ ನಿನ್ನ ಮಾನ್ಸ್ಟರಿನ ಚಿತ್ರವನ್ನು ಇತರರೂ ನೋಡಬಹುದು.\nಫೋಟೋದಲ್ಲಿ ನಿನ್ನ ಹೊರತಾಗಿ ಬೇರೆ ಯಾರಾದರೂ ಇದ್ದರೆ, ಅದನ್ನು ಬಳಸುವ ಮೊದಲು ಅವರ ಒಪ್ಪಿಗೆ ಪಡೆ."
 }

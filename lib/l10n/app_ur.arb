@@ -119,5 +119,6 @@
   "generationStageBeingBorn": "ایک مونسٹر جنم لے رہا ہے",
   "generationRejectedExplicitContent": "اس تصویر سے مونسٹر نہیں بنایا جا سکتا",
   "generationRejectedPerson": "جس تصویر میں کوئی شخص ہو، اس سے مونسٹر نہیں بنا سکتے\nصرف چیزوں کی تصویر کھینچو",
-  "generationPersonNoticeTitle": "تصویر میں ایک شخص ہے"
+  "generationPersonNoticeTitle": "تصویر میں ایک شخص ہے",
+  "generationPersonNoticeMessage": "لڑائی میں دوسرے لوگ بھی تمہارے مونسٹر کی تصویر دیکھ سکتے ہیں۔\nاگر تصویر میں تمہارے علاوہ کوئی اور ہے، تو اسے استعمال کرنے سے پہلے اس کی رضامندی لے لو۔"
 }
