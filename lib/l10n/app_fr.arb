@@ -101,5 +101,6 @@
   "generationLetsBattleWith": "Au combat avec {monsterName}",
   "generationAlreadyInDexTitle": "Déjà dans le dex",
   "generationAlreadyInDexMessage": "Ce sujet est déjà dans le dex sous le nom de {monsterName}\nTu peux combattre avec ce monstre",
-  "generationBattleWithThisMonster": "Combattre avec ce monstre"
+  "generationBattleWithThisMonster": "Combattre avec ce monstre",
+  "generationRetake": "Reprendre la photo"
 }
