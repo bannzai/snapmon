@@ -123,6 +123,7 @@
   "generationPersonNoticeTitle": "फ़ोटो में एक व्यक्ति है",
   "generationPersonNoticeMessage": "लड़ाई में दूसरे लोग भी तुम्हारे मॉन्स्टर की तस्वीर देख सकते हैं\nअगर फ़ोटो में तुम्हारे अलावा कोई और है\nतो इस्तेमाल से पहले उसकी सहमति लो",
   "generationCutOutSubjectOnly": "सिर्फ़ मुख्य चीज़ को काटो",
+  "generationSubjectCutoutMessage": "बैकग्राउंड हटाकर सिर्फ़ फ़ोटो की चीज़ से बनाया जाएगा",
   "generationCreateWithCutout": "कटी हुई तस्वीर से बनाओ",
   "generationChooseRangeTitle": "मॉन्स्टर बनने वाला हिस्सा",
   "generationChooseRangeMessage": "फ़्रेम खींचकर तस्वीर की चीज़ को घेरो\nनीचे के स्लाइडर या दो उँगलियों से आकार बदलो",

@@ -123,6 +123,7 @@
   "generationPersonNoticeTitle": "تصویر میں ایک شخص ہے",
   "generationPersonNoticeMessage": "لڑائی میں دوسرے لوگ بھی تمہارے مونسٹر کی تصویر دیکھ سکتے ہیں\nاگر تصویر میں تمہارے علاوہ کوئی اور ہے\nتو اسے استعمال کرنے سے پہلے اس کی رضامندی لے لو",
   "generationCutOutSubjectOnly": "صرف تصویر کا مرکزی حصہ کاٹو",
+  "generationSubjectCutoutMessage": "پس منظر ہٹا کر صرف تصویر میں موجود چیز سے بنایا جائے گا",
   "generationCreateWithCutout": "کاٹی ہوئی تصویر سے بناؤ",
   "generationChooseRangeTitle": "مونسٹر بننے والا حصہ",
   "generationChooseRangeMessage": "فریم گھسیٹ کر تصویر کی چیز کو گھیر لو\nنیچے کے سلائیڈر یا دو انگلیوں سے سائز بدلو",

@@ -123,6 +123,7 @@
   "generationPersonNoticeTitle": "ಫೋಟೋದಲ್ಲಿ ಒಬ್ಬ ವ್ಯಕ್ತಿ ಇದ್ದಾರೆ",
   "generationPersonNoticeMessage": "ಯುದ್ಧದಲ್ಲಿ ನಿನ್ನ ಮಾನ್ಸ್ಟರ್‌ನ ಚಿತ್ರವನ್ನು ಇತರರೂ ನೋಡಬಹುದು\nಫೋಟೋದಲ್ಲಿ ನಿನ್ನ ಹೊರತಾಗಿ ಬೇರೆ ಯಾರಾದರೂ ಇದ್ದರೆ\nಬಳಸುವ ಮೊದಲು ಅವರ ಒಪ್ಪಿಗೆ ಪಡೆ",
   "generationCutOutSubjectOnly": "ಚಿತ್ರದ ವಿಷಯವನ್ನು ಮಾತ್ರ ಕತ್ತರಿಸು",
+  "generationSubjectCutoutMessage": "ಹಿನ್ನೆಲೆಯನ್ನು ತೆಗೆದು, ಫೋಟೋದಲ್ಲಿರುವ ವಸ್ತುವಿನ ಚಿತ್ರದಿಂದ ಮಾತ್ರ ರಚಿಸಲಾಗುತ್ತದೆ",
   "generationCreateWithCutout": "ಕತ್ತರಿಸಿದ ಚಿತ್ರದಿಂದ ರಚಿಸು",
   "generationChooseRangeTitle": "ಮಾನ್ಸ್ಟರ್ ಆಗುವ ಭಾಗ",
   "generationChooseRangeMessage": "ವಸ್ತುವಿನ ಸುತ್ತ ಚೌಕಟ್ಟನ್ನು ಎಳೆ\nಕೆಳಗಿನ ಸ್ಲೈಡರ್ ಅಥವಾ ಎರಡು ಬೆರಳುಗಳಿಂದ ಗಾತ್ರ ಬದಲಾಯಿಸು",

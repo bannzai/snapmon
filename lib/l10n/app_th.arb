@@ -123,6 +123,7 @@
   "generationPersonNoticeTitle": "มีคนอยู่ในรูป",
   "generationPersonNoticeMessage": "คนอื่นอาจเห็นภาพมอนสเตอร์ของคุณระหว่างการต่อสู้\nถ้าในรูปมีคนอื่นนอกจากคุณ\nขอความยินยอมจากคนนั้นก่อนนำรูปไปใช้",
   "generationCutOutSubjectOnly": "ตัดเฉพาะตัวแบบ",
+  "generationSubjectCutoutMessage": "ลบพื้นหลัง แล้วสร้างจากภาพของวัตถุในรูปเท่านั้น",
   "generationCreateWithCutout": "สร้างจากภาพที่ตัดออกมา",
   "generationChooseRangeTitle": "ส่วนที่จะกลายเป็นมอนสเตอร์",
   "generationChooseRangeMessage": "ลากกรอบให้ล้อมรอบวัตถุ\nปรับขนาดด้วยแถบเลื่อนด้านล่างหรือใช้สองนิ้ว",

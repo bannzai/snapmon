@@ -123,6 +123,7 @@
   "generationPersonNoticeTitle": "На фото есть человек",
   "generationPersonNoticeMessage": "Другие игроки тоже увидят изображение твоего монстра в боях\nЕсли на фото есть кто-то кроме тебя\nполучи его согласие перед использованием",
   "generationCutOutSubjectOnly": "Вырезать только объект",
+  "generationSubjectCutoutMessage": "Уберём фон и создадим его только из объекта на фото",
   "generationCreateWithCutout": "Создать из вырезанного изображения",
   "generationChooseRangeTitle": "Область, которая станет монстром",
   "generationChooseRangeMessage": "Перетащи рамку вокруг объекта\nИзмени размер ползунком внизу или двумя пальцами",

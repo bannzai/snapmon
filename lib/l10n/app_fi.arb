@@ -123,6 +123,7 @@
   "generationPersonNoticeTitle": "Kuvassa näkyy henkilö",
   "generationPersonNoticeMessage": "Muutkin näkevät hirviön kuvan taisteluissa\nJos kuvassa näkyy joku muu kuin sinä,\npyydä häneltä lupa ennen kuvan käyttöä",
   "generationCutOutSubjectOnly": "Irrota vain kohde",
+  "generationSubjectCutoutMessage": "Poistamme taustan ja luomme sen pelkästä kuvan kohteesta",
   "generationCreateWithCutout": "Luo irrotetusta kuvasta",
   "generationChooseRangeTitle": "Hirviöksi muuttuva alue",
   "generationChooseRangeMessage": "Vedä kehys kohteen ympärille\nMuuta kokoa alla olevalla liukusäätimellä tai kahdella sormella",

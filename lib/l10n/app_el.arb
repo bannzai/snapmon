@@ -123,6 +123,7 @@
   "generationPersonNoticeTitle": "Στη φωτογραφία φαίνεται ένα άτομο",
   "generationPersonNoticeMessage": "Την εικόνα του τέρατος μπορούν να τη δουν κι άλλοι στις μάχες\nΑν στη φωτογραφία φαίνεται κάποιος άλλος εκτός από σένα,\nζήτησε την άδειά του πριν τη χρησιμοποιήσεις",
   "generationCutOutSubjectOnly": "Αποκοπή μόνο του θέματος",
+  "generationSubjectCutoutMessage": "Αφαιρούμε το φόντο και το φτιάχνουμε μόνο από το θέμα της φωτογραφίας",
   "generationCreateWithCutout": "Φτιάξε το από την αποκομμένη εικόνα",
   "generationChooseRangeTitle": "Περιοχή που θα γίνει τέρας",
   "generationChooseRangeMessage": "Σύρε το πλαίσιο γύρω από το αντικείμενο\nΆλλαξε το μέγεθος με το ρυθμιστικό κάτω ή με δύο δάχτυλα",

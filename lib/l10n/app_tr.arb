@@ -123,6 +123,7 @@
   "generationPersonNoticeTitle": "Fotoğrafta bir kişi var",
   "generationPersonNoticeMessage": "Canavarının görselini savaşlarda başkaları da görebilir\nFotoğrafta senden başka biri varsa\nkullanmadan önce ondan izin al",
   "generationCutOutSubjectOnly": "Yalnızca nesneyi kes",
+  "generationSubjectCutoutMessage": "Arka planı kaldırıp yalnızca fotoğraftaki nesneden oluşturacağız",
   "generationCreateWithCutout": "Kesilmiş görselle oluştur",
   "generationChooseRangeTitle": "Canavara dönüşecek alan",
   "generationChooseRangeMessage": "Çerçeveyi sürükleyip nesneyi içine al\nBoyutunu alttaki kaydırıcıyla veya iki parmağınla değiştir",

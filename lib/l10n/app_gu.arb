@@ -123,6 +123,7 @@
   "generationPersonNoticeTitle": "ફોટામાં એક વ્યક્તિ દેખાય છે",
   "generationPersonNoticeMessage": "લડાઈમાં બીજા લોકો પણ તમારા મોન્સ્ટરની તસવીર જોઈ શકે છે.\nફોટામાં તમારા સિવાય બીજું કોઈ હોય, તો તેનો ઉપયોગ કરતા પહેલાં તેની સંમતિ લો.",
   "generationCutOutSubjectOnly": "ફક્ત મુખ્ય વસ્તુને કાપી કાઢો",
+  "generationSubjectCutoutMessage": "પૃષ્ઠભૂમિ દૂર કરીને ફક્ત ફોટામાંની વસ્તુના ચિત્રથી બનાવાશે",
   "generationCreateWithCutout": "કાપેલી છબીમાંથી બનાવો",
   "generationChooseRangeTitle": "મોન્સ્ટર બનવાનો ભાગ",
   "generationChooseRangeMessage": "ફ્રેમ ખેંચીને વિષયને ઘેરી લો\nનીચેના સ્લાઇડરથી અથવા બે આંગળીઓથી તેનું કદ બદલો",

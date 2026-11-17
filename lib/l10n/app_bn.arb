@@ -123,6 +123,7 @@
   "generationPersonNoticeTitle": "ছবিতে একজন মানুষ আছে",
   "generationPersonNoticeMessage": "লড়াইয়ে অন্যরাও মনস্টারের ছবি দেখতে পাবে।\nছবিতে তুমি ছাড়া অন্য কেউ থাকলে, ব্যবহার করার আগে তার সম্মতি নাও।",
   "generationCutOutSubjectOnly": "শুধু ছবির বিষয়টি কেটে নাও",
+  "generationSubjectCutoutMessage": "পটভূমি সরিয়ে শুধু ছবির বিষয়টি দিয়ে তৈরি হবে",
   "generationCreateWithCutout": "কেটে নেওয়া ছবি দিয়ে তৈরি করো",
   "generationChooseRangeTitle": "যে অংশটা মনস্টার হবে",
   "generationChooseRangeMessage": "ফ্রেম টেনে ছবির বিষয়টিকে ঘিরে নাও\nনিচের স্লাইডার বা দুই আঙুল দিয়ে আকার বদলাও",

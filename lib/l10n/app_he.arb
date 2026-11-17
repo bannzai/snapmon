@@ -123,6 +123,7 @@
   "generationPersonNoticeTitle": "יש אדם בתמונה",
   "generationPersonNoticeMessage": "גם אחרים יכולים לראות את תמונת המפלצת בקרבות\nאם מופיע בתמונה מישהו מלבדך\nיש לקבל את הסכמתו לפני השימוש בה",
   "generationCutOutSubjectOnly": "לגזור רק את נושא התמונה",
+  "generationSubjectCutoutMessage": "הרקע יוסר, והיצירה תתבסס רק על מה שצולם",
   "generationCreateWithCutout": "ליצור מהתמונה הגזורה",
   "generationChooseRangeTitle": "האזור שיהפוך למפלצת",
   "generationChooseRangeMessage": "לגרור את המסגרת סביב האובייקט\nלשנות את הגודל בעזרת המחוון למטה או שתי אצבעות",

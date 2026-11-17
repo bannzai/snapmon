@@ -123,6 +123,7 @@
   "generationPersonNoticeTitle": "Có người trong ảnh",
   "generationPersonNoticeMessage": "Người khác cũng có thể thấy ảnh quái vật của bạn trong trận đấu\nNếu ảnh có người khác ngoài bạn\nhãy xin họ đồng ý trước khi dùng",
   "generationCutOutSubjectOnly": "Chỉ tách chủ thể",
+  "generationSubjectCutoutMessage": "Xóa nền rồi tạo chỉ từ chủ thể trong ảnh",
   "generationCreateWithCutout": "Tạo từ ảnh đã cắt",
   "generationChooseRangeTitle": "Vùng sẽ thành quái vật",
   "generationChooseRangeMessage": "Kéo khung bao quanh vật thể\nĐổi kích thước bằng thanh trượt bên dưới hoặc hai ngón tay",

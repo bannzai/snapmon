@@ -123,6 +123,7 @@
   "generationPersonNoticeTitle": "Na fotografiji je oseba",
   "generationPersonNoticeMessage": "Drugi lahko med boji vidijo sliko tvoje pošasti\nČe je na fotografiji poleg tebe še kdo\nga pred uporabo prosi za dovoljenje",
   "generationCutOutSubjectOnly": "Izreži samo predmet",
+  "generationSubjectCutoutMessage": "Odstranili bomo ozadje in ga ustvarili samo iz motiva na fotografiji",
   "generationCreateWithCutout": "Ustvari iz izrezane slike",
   "generationChooseRangeTitle": "Območje, ki bo postalo pošast",
   "generationChooseRangeMessage": "Povleci okvir okoli predmeta\nVelikost spremeni z drsnikom spodaj ali z dvema prstoma",

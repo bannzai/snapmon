@@ -123,6 +123,7 @@
   "generationPersonNoticeTitle": "照片裡有人",
   "generationPersonNoticeMessage": "對戰時，其他人也看得到你的怪物圖片\n如果照片裡有你以外的人\n使用前先徵得對方同意",
   "generationCutOutSubjectOnly": "只擷取主體",
+  "generationSubjectCutoutMessage": "去掉背景，只用照片中的主體來生成",
   "generationCreateWithCutout": "用去背後的圖片建立",
   "generationChooseRangeTitle": "要變成怪物的範圍",
   "generationChooseRangeMessage": "拖曳邊框框住拍攝對象\n用下方滑桿或雙指調整大小",

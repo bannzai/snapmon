@@ -123,6 +123,7 @@
   "generationPersonNoticeTitle": "Eine Person ist auf dem Foto",
   "generationPersonNoticeMessage": "Andere können das Bild deines Monsters im Kampf sehen\nWenn außer dir noch jemand auf dem Foto ist,\nhol vor der Verwendung die Zustimmung dieser Person ein",
   "generationCutOutSubjectOnly": "Nur das Motiv freistellen",
+  "generationSubjectCutoutMessage": "Wir entfernen den Hintergrund und erstellen es nur aus dem Motiv",
   "generationCreateWithCutout": "Mit dem ausgeschnittenen Bild erstellen",
   "generationChooseRangeTitle": "Bereich für dein Monster",
   "generationChooseRangeMessage": "Zieh den Rahmen um das Motiv\nÄndere die Größe mit dem Regler unten oder mit zwei Fingern",

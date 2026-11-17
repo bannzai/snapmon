@@ -123,6 +123,7 @@
   "generationPersonNoticeTitle": "Une personne apparaît sur la photo",
   "generationPersonNoticeMessage": "L’image de ton monstre est aussi visible par les autres pendant les combats.\nSi une autre personne apparaît sur la photo,\ndemande son accord avant de l’utiliser.",
   "generationCutOutSubjectOnly": "Détourer seulement le sujet",
+  "generationSubjectCutoutMessage": "On enlève le fond et on le crée à partir du sujet seul",
   "generationCreateWithCutout": "Créer à partir de l’image détourée",
   "generationChooseRangeTitle": "Zone à transformer en monstre",
   "generationChooseRangeMessage": "Fais glisser le cadre autour du sujet\nAjuste sa taille avec le curseur ci-dessous ou avec deux doigts",

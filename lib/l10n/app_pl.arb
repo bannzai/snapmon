@@ -123,6 +123,7 @@
   "generationPersonNoticeTitle": "Na zdjęciu jest osoba",
   "generationPersonNoticeMessage": "Inni mogą zobaczyć obraz twojego potwora podczas walk\nJeśli na zdjęciu jest ktoś poza tobą\npoproś tę osobę o zgodę przed użyciem zdjęcia",
   "generationCutOutSubjectOnly": "Wytnij tylko obiekt",
+  "generationSubjectCutoutMessage": "Usuniemy tło i stworzymy go tylko z obiektu na zdjęciu",
   "generationCreateWithCutout": "Stwórz z wyciętego obrazka",
   "generationChooseRangeTitle": "Obszar, który stanie się potworem",
   "generationChooseRangeMessage": "Przeciągnij ramkę wokół obiektu\nZmień jej rozmiar suwakiem poniżej lub dwoma palcami",

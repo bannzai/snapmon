@@ -123,6 +123,7 @@
   "generationPersonNoticeTitle": "Na fotografiji je osoba",
   "generationPersonNoticeMessage": "Drugi mogu vidjeti sliku tvog čudovišta u borbi\nAko je na fotografiji još netko osim tebe\nzatraži njegov pristanak prije upotrebe",
   "generationCutOutSubjectOnly": "Izreži samo objekt",
+  "generationSubjectCutoutMessage": "Uklonit ćemo pozadinu i stvoriti ga samo od motiva na slici",
   "generationCreateWithCutout": "Stvori iz izrezane slike",
   "generationChooseRangeTitle": "Područje koje postaje čudovište",
   "generationChooseRangeMessage": "Povuci okvir oko objekta\nPromijeni mu veličinu klizačem ispod ili dvama prstima",

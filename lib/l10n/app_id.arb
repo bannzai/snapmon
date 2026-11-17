@@ -123,6 +123,7 @@
   "generationPersonNoticeTitle": "Ada orang di foto",
   "generationPersonNoticeMessage": "Orang lain juga bisa melihat gambar monstermu saat bertarung\nJika ada orang lain selain kamu di foto,\nminta persetujuannya sebelum menggunakannya",
   "generationCutOutSubjectOnly": "Potong objek saja",
+  "generationSubjectCutoutMessage": "Latar belakang akan dihapus, lalu dibuat hanya dari objek foto",
   "generationCreateWithCutout": "Buat dari gambar yang dipotong",
   "generationChooseRangeTitle": "Area yang akan jadi monster",
   "generationChooseRangeMessage": "Seret bingkai hingga mengelilingi objek\nUbah ukurannya dengan penggeser di bawah atau dua jari",

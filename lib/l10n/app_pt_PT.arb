@@ -123,6 +123,7 @@
   "generationPersonNoticeTitle": "Há uma pessoa na fotografia",
   "generationPersonNoticeMessage": "Outras pessoas também podem ver a imagem do teu monstro nos combates\nSe aparecer alguém além de ti na fotografia,\npede-lhe autorização antes de a usares",
   "generationCutOutSubjectOnly": "Recortar só o objeto",
+  "generationSubjectCutoutMessage": "Vamos remover o fundo e criar usando apenas o objeto da foto",
   "generationCreateWithCutout": "Criar com a imagem recortada",
   "generationChooseRangeTitle": "Área que se vai tornar monstro",
   "generationChooseRangeMessage": "Arrasta a moldura à volta do objeto\nAjusta o tamanho com o controlo abaixo ou com dois dedos",

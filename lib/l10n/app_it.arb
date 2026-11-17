@@ -123,6 +123,7 @@
   "generationPersonNoticeTitle": "C'è una persona nella foto",
   "generationPersonNoticeMessage": "Anche gli altri possono vedere l'immagine del tuo mostro durante le lotte\nSe nella foto c'è qualcun altro oltre a te\nchiedigli il permesso prima di usarla",
   "generationCutOutSubjectOnly": "Ritaglia solo il soggetto",
+  "generationSubjectCutoutMessage": "Rimuoveremo lo sfondo e lo creeremo solo dal soggetto della foto",
   "generationCreateWithCutout": "Crea dall'immagine ritagliata",
   "generationChooseRangeTitle": "Area che diventerà un mostro",
   "generationChooseRangeMessage": "Trascina la cornice attorno al soggetto\nCambiane le dimensioni con il cursore qui sotto o con due dita",

@@ -123,6 +123,7 @@
   "generationPersonNoticeTitle": "Na fotce je člověk",
   "generationPersonNoticeMessage": "Obrázek příšery uvidí během soubojů i ostatní\nPokud je na fotce někdo kromě tebe\npožádej ho před použitím o souhlas",
   "generationCutOutSubjectOnly": "Vyříznout jen objekt",
+  "generationSubjectCutoutMessage": "Odstraníme pozadí a vytvoříme ho jen z vyfoceného objektu",
   "generationCreateWithCutout": "Vytvoř z oříznutého obrázku",
   "generationChooseRangeTitle": "Oblast, ze které bude příšera",
   "generationChooseRangeMessage": "Přetáhni rámeček kolem objektu\nVelikost změň posuvníkem dole nebo dvěma prsty",

@@ -123,6 +123,7 @@
   "generationPersonNoticeTitle": "На фото є людина",
   "generationPersonNoticeMessage": "Інші теж можуть бачити зображення твого монстра в боях\nЯкщо на фото є хтось, окрім тебе\nпопроси його згоди перед використанням",
   "generationCutOutSubjectOnly": "Вирізати лише об’єкт",
+  "generationSubjectCutoutMessage": "Приберемо тло й створимо його лише з об’єкта на фото",
   "generationCreateWithCutout": "Створи з вирізаного зображення",
   "generationChooseRangeTitle": "Область, яка стане монстром",
   "generationChooseRangeMessage": "Перетягни рамку навколо об’єкта\nЗміни розмір повзунком унизу або двома пальцями",

@@ -123,6 +123,7 @@
   "generationPersonNoticeTitle": "Hi surt una persona",
   "generationPersonNoticeMessage": "Els altres també poden veure la imatge del monstre durant els combats\nSi a la foto hi surt algú més,\ndemana-li permís abans de fer-la servir",
   "generationCutOutSubjectOnly": "Retalla només el subjecte",
+  "generationSubjectCutoutMessage": "Traurem el fons i el crearem només amb la imatge del subjecte",
   "generationCreateWithCutout": "Crea'l amb la imatge retallada",
   "generationChooseRangeTitle": "Zona que serà un monstre",
   "generationChooseRangeMessage": "Arrossega el marc per envoltar l'objecte\nCanvia'n la mida amb el control de sota o amb dos dits",

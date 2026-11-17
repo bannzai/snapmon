@@ -123,6 +123,7 @@
   "generationPersonNoticeTitle": "사진에 사람이 있어요",
   "generationPersonNoticeMessage": "배틀에서는 다른 사람도 몬스터 이미지를 볼 수 있어요\n사진에 본인 외의 사람이 있다면\n사용하기 전에 그 사람의 동의를 받아 주세요",
   "generationCutOutSubjectOnly": "피사체만 오려내기",
+  "generationSubjectCutoutMessage": "배경을 지우고 피사체만으로 만들어요",
   "generationCreateWithCutout": "오려낸 이미지로 만들기",
   "generationChooseRangeTitle": "몬스터로 만들 영역",
   "generationChooseRangeMessage": "테두리를 끌어 피사체를 둘러 주세요\n아래 슬라이더나 두 손가락으로 크기를 바꿀 수 있어요",
