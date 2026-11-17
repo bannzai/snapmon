@@ -115,5 +115,6 @@
   "generationStageCheckingPhoto": "กำลังตรวจสอบรูปของคุณ",
   "generationStageCuttingOut": "กำลังตัดวัตถุออกจากภาพ",
   "generationStageWritingName": "กำลังคิดชื่อและคำอธิบายสำหรับสารานุกรม",
-  "generationStageDecidingElements": "กำลังเลือกธาตุและท่า"
+  "generationStageDecidingElements": "กำลังเลือกธาตุและท่า",
+  "generationStageBeingBorn": "มอนสเตอร์กำลังถือกำเนิด"
 }

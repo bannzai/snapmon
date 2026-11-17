@@ -115,5 +115,6 @@
   "generationStageCheckingPhoto": "Sprawdzamy twoje zdjęcie",
   "generationStageCuttingOut": "Wycinanie obiektu ze zdjęcia",
   "generationStageWritingName": "Wymyślamy imię i opis do encyklopedii",
-  "generationStageDecidingElements": "Wybieramy typy i ruchy"
+  "generationStageDecidingElements": "Wybieramy typy i ruchy",
+  "generationStageBeingBorn": "Rodzi się potwór"
 }

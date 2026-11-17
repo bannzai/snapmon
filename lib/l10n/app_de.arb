@@ -115,5 +115,6 @@
   "generationStageCheckingPhoto": "Wir prüfen dein Foto",
   "generationStageCuttingOut": "Motiv wird freigestellt",
   "generationStageWritingName": "Denke mir einen Namen und einen Dex-Eintrag aus",
-  "generationStageDecidingElements": "Elemente und Attacken werden ausgewählt"
+  "generationStageDecidingElements": "Elemente und Attacken werden ausgewählt",
+  "generationStageBeingBorn": "Ein Monster wird geboren"
 }

@@ -115,5 +115,6 @@
   "generationStageCheckingPhoto": "Estamos a verificar a tua foto",
   "generationStageCuttingOut": "A recortar o objeto da fotografia",
   "generationStageWritingName": "A pensar num nome e numa descrição para a enciclopédia",
-  "generationStageDecidingElements": "A escolher elementos e golpes"
+  "generationStageDecidingElements": "A escolher elementos e golpes",
+  "generationStageBeingBorn": "Está a nascer um monstro"
 }

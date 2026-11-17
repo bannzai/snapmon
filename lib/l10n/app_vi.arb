@@ -115,5 +115,6 @@
   "generationStageCheckingPhoto": "Đang kiểm tra ảnh của bạn",
   "generationStageCuttingOut": "Đang tách vật thể khỏi ảnh",
   "generationStageWritingName": "Đang nghĩ tên và mô tả cho bộ sưu tập",
-  "generationStageDecidingElements": "Đang chọn hệ và chiêu"
+  "generationStageDecidingElements": "Đang chọn hệ và chiêu",
+  "generationStageBeingBorn": "Một quái vật đang ra đời"
 }

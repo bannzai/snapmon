@@ -115,5 +115,6 @@
   "generationStageCheckingPhoto": "Vi kollar ditt foto",
   "generationStageCuttingOut": "Klipper ut motivet",
   "generationStageWritingName": "Hittar på ett namn och en text till samlingen",
-  "generationStageDecidingElements": "Väljer element och attacker"
+  "generationStageDecidingElements": "Väljer element och attacker",
+  "generationStageBeingBorn": "Ett monster föds"
 }

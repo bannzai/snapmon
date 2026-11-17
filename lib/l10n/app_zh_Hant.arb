@@ -115,5 +115,6 @@
   "generationStageCheckingPhoto": "正在檢查你的照片",
   "generationStageCuttingOut": "正在把照片中的物體去背",
   "generationStageWritingName": "正在構思名字和圖鑑介紹",
-  "generationStageDecidingElements": "正在決定屬性和招式"
+  "generationStageDecidingElements": "正在決定屬性和招式",
+  "generationStageBeingBorn": "怪物即將誕生"
 }

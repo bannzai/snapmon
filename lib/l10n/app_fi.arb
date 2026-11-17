@@ -115,5 +115,6 @@
   "generationStageCheckingPhoto": "Tarkistamme kuvaasi",
   "generationStageCuttingOut": "Kohdetta irrotetaan kuvasta",
   "generationStageWritingName": "Keksitään nimeä ja kuvausta kokoelmaan",
-  "generationStageDecidingElements": "Valitaan elementit ja liikkeet"
+  "generationStageDecidingElements": "Valitaan elementit ja liikkeet",
+  "generationStageBeingBorn": "Hirviö syntyy"
 }

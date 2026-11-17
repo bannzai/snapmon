@@ -115,5 +115,6 @@
   "generationStageCheckingPhoto": "Перевіряємо твоє фото",
   "generationStageCuttingOut": "Вирізаємо об’єкт із фото",
   "generationStageWritingName": "Вигадуємо ім’я та опис для енциклопедії",
-  "generationStageDecidingElements": "Обираємо елементи й прийоми"
+  "generationStageDecidingElements": "Обираємо елементи й прийоми",
+  "generationStageBeingBorn": "Народжується монстр"
 }

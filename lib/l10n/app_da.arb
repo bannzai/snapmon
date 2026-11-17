@@ -115,5 +115,6 @@
   "generationStageCheckingPhoto": "Vi tjekker dit foto",
   "generationStageCuttingOut": "Klipper motivet ud",
   "generationStageWritingName": "Finder på et navn og en tekst til dex",
-  "generationStageDecidingElements": "Vælger elementer og angreb"
+  "generationStageDecidingElements": "Vælger elementer og angreb",
+  "generationStageBeingBorn": "Et monster bliver født"
 }

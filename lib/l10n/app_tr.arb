@@ -115,5 +115,6 @@
   "generationStageCheckingPhoto": "Fotoğrafın kontrol ediliyor",
   "generationStageCuttingOut": "Fotoğraftaki nesne kesilip çıkarılıyor",
   "generationStageWritingName": "İsim ve ansiklopedi açıklaması düşünüyoruz",
-  "generationStageDecidingElements": "Elementleri ve hamleleri seçiyoruz"
+  "generationStageDecidingElements": "Elementleri ve hamleleri seçiyoruz",
+  "generationStageBeingBorn": "Bir canavar doğuyor"
 }

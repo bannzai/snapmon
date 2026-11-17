@@ -115,5 +115,6 @@
   "generationStageCheckingPhoto": "Kontrolujeme tvoji fotku",
   "generationStageCuttingOut": "Vyřezávání objektu z fotky",
   "generationStageWritingName": "Vymýšlíme jméno a popis do encyklopedie",
-  "generationStageDecidingElements": "Vybíráme elementy a útoky"
+  "generationStageDecidingElements": "Vybíráme elementy a útoky",
+  "generationStageBeingBorn": "Rodí se příšera"
 }

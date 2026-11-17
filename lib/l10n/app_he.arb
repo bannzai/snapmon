@@ -115,5 +115,6 @@
   "generationStageCheckingPhoto": "בודקים את התמונה שלך",
   "generationStageCuttingOut": "גוזרים את האובייקט מהתמונה",
   "generationStageWritingName": "חושבים על שם ותיאור לאוסף",
-  "generationStageDecidingElements": "בוחרים סוג ומתקפות"
+  "generationStageDecidingElements": "בוחרים סוג ומתקפות",
+  "generationStageBeingBorn": "מפלצת נולדת"
 }
