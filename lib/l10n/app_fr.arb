@@ -240,5 +240,6 @@
   "referenceTypeChartTab": "Tableau d’efficacité",
   "referenceMovesTab": "Liste des capacités",
   "referenceTypeChartNote": "À la verticale : l’élément de la capacité. À l’horizontale : l’élément du monstre touché.\nSi le monstre a deux éléments, multiplie les deux coefficients.",
-  "referenceTypeChartCorner": "capacité / défense"
+  "referenceTypeChartCorner": "capacité / défense",
+  "referenceMoveStats": "Puissance {power}  PP {powerPoints}  dès le Lv. {unlockLevel}"
 }
