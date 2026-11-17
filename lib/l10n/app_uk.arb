@@ -180,5 +180,6 @@
   "battleLogAsleep": "{monsterName} міцно спить",
   "battleLogFrozenSolid": "{monsterName} замерз і не може рухатися",
   "battleLogConfusedMove": "{monsterName} заплутався і застосував {moveName} замість {selectedMoveName}",
-  "battleLogOneHitKnockout": "Нокаут одним ударом!"
+  "battleLogOneHitKnockout": "Нокаут одним ударом!",
+  "battleLogSelfDestructed": "{monsterName} підірвав себе!"
 }

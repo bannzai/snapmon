@@ -180,5 +180,6 @@
   "battleLogAsleep": "{monsterName} ಗಾಢ ನಿದ್ರೆಯಲ್ಲಿದೆ",
   "battleLogFrozenSolid": "{monsterName} ಮಂಜುಗಡ್ಡೆಯಾಗಿ ಹೆಪ್ಪುಗಟ್ಟಿದೆ, ಚಲಿಸಲಾರದು",
   "battleLogConfusedMove": "{monsterName} ಗೊಂದಲಗೊಂಡು {selectedMoveName} ಬದಲು {moveName} ಬಳಸಿತು",
-  "battleLogOneHitKnockout": "ಒಂದೇ ಹೊಡೆತಕ್ಕೆ ಸೋಲು!"
+  "battleLogOneHitKnockout": "ಒಂದೇ ಹೊಡೆತಕ್ಕೆ ಸೋಲು!",
+  "battleLogSelfDestructed": "{monsterName} ತನ್ನನ್ನೇ ಸ್ಫೋಟಿಸಿಕೊಂಡಿತು!"
 }

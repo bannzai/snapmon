@@ -180,5 +180,6 @@
   "battleLogAsleep": "{monsterName} čvrsto spava",
   "battleLogFrozenSolid": "{monsterName} je zaleđen i ne može se pomaknuti",
   "battleLogConfusedMove": "{monsterName} se zbunio i upotrijebio {moveName} umjesto {selectedMoveName}",
-  "battleLogOneHitKnockout": "K. O. jednim udarcem!"
+  "battleLogOneHitKnockout": "K. O. jednim udarcem!",
+  "battleLogSelfDestructed": "{monsterName} se samouništio!"
 }

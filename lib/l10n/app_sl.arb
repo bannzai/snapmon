@@ -180,5 +180,6 @@
   "battleLogAsleep": "{monsterName} trdno spi",
   "battleLogFrozenSolid": "{monsterName} je zmrznil in se ne more premakniti",
   "battleLogConfusedMove": "{monsterName} se je zmedel in namesto {selectedMoveName} uporabil {moveName}",
-  "battleLogOneHitKnockout": "Nokavt z enim udarcem!"
+  "battleLogOneHitKnockout": "Nokavt z enim udarcem!",
+  "battleLogSelfDestructed": "{monsterName} se je samouničil!"
 }

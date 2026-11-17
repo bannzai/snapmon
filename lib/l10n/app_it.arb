@@ -180,5 +180,6 @@
   "battleLogAsleep": "{monsterName} dorme della grossa",
   "battleLogFrozenSolid": "{monsterName} è congelato e non può muoversi",
   "battleLogConfusedMove": "{monsterName} si è confuso e ha usato {moveName} invece di {selectedMoveName}",
-  "battleLogOneHitKnockout": "K.O. in un colpo!"
+  "battleLogOneHitKnockout": "K.O. in un colpo!",
+  "battleLogSelfDestructed": "{monsterName} si è autodistrutto!"
 }

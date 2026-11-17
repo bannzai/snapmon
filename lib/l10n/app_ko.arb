@@ -180,5 +180,6 @@
   "battleLogAsleep": "{monsterName}은(는) 쿨쿨 잠들어 있다",
   "battleLogFrozenSolid": "{monsterName}: 꽁꽁 얼어 움직일 수 없었다",
   "battleLogConfusedMove": "{monsterName}은(는) 혼란에 빠져 {selectedMoveName} 대신 {moveName}을(를) 썼다",
-  "battleLogOneHitKnockout": "일격 필살!"
+  "battleLogOneHitKnockout": "일격 필살!",
+  "battleLogSelfDestructed": "{monsterName}의 자폭!"
 }

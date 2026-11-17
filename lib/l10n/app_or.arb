@@ -180,5 +180,6 @@
   "battleLogAsleep": "{monsterName} ଘୋର ନିଦରେ ଶୋଇଛି",
   "battleLogFrozenSolid": "{monsterName} ବରଫରେ ଜମିଯାଇଛି, ହଲି ପାରୁନାହିଁ",
   "battleLogConfusedMove": "{monsterName} ଦ୍ୱନ୍ଦ୍ୱରେ ପଡ଼ି {selectedMoveName} ବଦଳରେ {moveName} ବ୍ୟବହାର କଲା",
-  "battleLogOneHitKnockout": "ଗୋଟିଏ ଆଘାତରେ ପରାସ୍ତ!"
+  "battleLogOneHitKnockout": "ଗୋଟିଏ ଆଘାତରେ ପରାସ୍ତ!",
+  "battleLogSelfDestructed": "{monsterName} ନିଜକୁ ବିସ୍ଫୋରଣ କରିଦେଲା!"
 }

@@ -180,5 +180,6 @@
   "battleLogAsleep": "{monsterName} slaapt als een roos",
   "battleLogFrozenSolid": "{monsterName} is bevroren en kan niet bewegen",
   "battleLogConfusedMove": "{monsterName} raakte in de war en gebruikte {moveName} in plaats van {selectedMoveName}",
-  "battleLogOneHitKnockout": "K.O. in één klap!"
+  "battleLogOneHitKnockout": "K.O. in één klap!",
+  "battleLogSelfDestructed": "{monsterName} blies zichzelf op!"
 }

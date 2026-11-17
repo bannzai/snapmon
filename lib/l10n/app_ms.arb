@@ -180,5 +180,6 @@
   "battleLogAsleep": "{monsterName} tidur lena",
   "battleLogFrozenSolid": "{monsterName} membeku dan tak boleh bergerak",
   "battleLogConfusedMove": "{monsterName} keliru lalu menggunakan {moveName} dan bukannya {selectedMoveName}",
-  "battleLogOneHitKnockout": "KO dengan satu serangan!"
+  "battleLogOneHitKnockout": "KO dengan satu serangan!",
+  "battleLogSelfDestructed": "{monsterName} meletupkan diri!"
 }

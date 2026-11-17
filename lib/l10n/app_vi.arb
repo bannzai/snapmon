@@ -180,5 +180,6 @@
   "battleLogAsleep": "{monsterName} đang ngủ say",
   "battleLogFrozenSolid": "{monsterName} bị đóng băng, không thể di chuyển",
   "battleLogConfusedMove": "{monsterName} bối rối nên dùng {moveName} thay vì {selectedMoveName}",
-  "battleLogOneHitKnockout": "Hạ gục chỉ bằng một đòn!"
+  "battleLogOneHitKnockout": "Hạ gục chỉ bằng một đòn!",
+  "battleLogSelfDestructed": "{monsterName} tự phát nổ!"
 }

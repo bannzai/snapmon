@@ -180,5 +180,6 @@
   "battleLogAsleep": "{monsterName} ஆழ்ந்த உறக்கத்தில் இருக்கிறது",
   "battleLogFrozenSolid": "{monsterName} உறைந்துவிட்டதால் அசைய முடியவில்லை",
   "battleLogConfusedMove": "{monsterName} குழம்பி, {selectedMoveName}க்குப் பதிலாக {moveName} பயன்படுத்தியது",
-  "battleLogOneHitKnockout": "ஒரே அடியில் வீழ்த்தியது!"
+  "battleLogOneHitKnockout": "ஒரே அடியில் வீழ்த்தியது!",
+  "battleLogSelfDestructed": "{monsterName} தன்னைத்தானே வெடிக்கச் செய்தது!"
 }

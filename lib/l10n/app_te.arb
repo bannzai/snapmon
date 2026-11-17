@@ -180,5 +180,6 @@
   "battleLogAsleep": "{monsterName} గాఢ నిద్రలో ఉంది",
   "battleLogFrozenSolid": "{monsterName} గడ్డకట్టిపోయింది, కదలలేకపోతోంది",
   "battleLogConfusedMove": "{monsterName} అయోమయంలో పడి {selectedMoveName} బదులు {moveName} ఉపయోగించింది",
-  "battleLogOneHitKnockout": "ఒక్క దెబ్బకే ఓటమి!"
+  "battleLogOneHitKnockout": "ఒక్క దెబ్బకే ఓటమి!",
+  "battleLogSelfDestructed": "{monsterName} తనను తాను పేల్చుకుంది!"
 }

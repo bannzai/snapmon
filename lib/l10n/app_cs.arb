@@ -180,5 +180,6 @@
   "battleLogAsleep": "{monsterName} tvrdě spí",
   "battleLogFrozenSolid": "{monsterName} je zmrzlý a nemůže se hýbat",
   "battleLogConfusedMove": "{monsterName} je zmatený a místo {selectedMoveName} použil {moveName}",
-  "battleLogOneHitKnockout": "K. O. jednou ranou!"
+  "battleLogOneHitKnockout": "K. O. jednou ranou!",
+  "battleLogSelfDestructed": "{monsterName} se samo zničil!"
 }

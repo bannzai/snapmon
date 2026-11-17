@@ -180,5 +180,6 @@
   "battleLogAsleep": "{monsterName} 正呼呼大睡",
   "battleLogFrozenSolid": "{monsterName}冻住了，无法行动",
   "battleLogConfusedMove": "{monsterName}混乱了，使出了{moveName}而不是{selectedMoveName}",
-  "battleLogOneHitKnockout": "一击必杀！"
+  "battleLogOneHitKnockout": "一击必杀！",
+  "battleLogSelfDestructed": "{monsterName} 自爆了！"
 }

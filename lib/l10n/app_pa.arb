@@ -180,5 +180,6 @@
   "battleLogAsleep": "{monsterName} ਘੂਕ ਸੁੱਤਾ ਪਿਆ ਹੈ",
   "battleLogFrozenSolid": "{monsterName} ਬਰਫ਼ ਵਿੱਚ ਜੰਮ ਗਿਆ ਹੈ ਅਤੇ ਹਿੱਲ ਨਹੀਂ ਸਕਦਾ",
   "battleLogConfusedMove": "{monsterName} ਉਲਝ ਗਿਆ ਅਤੇ {selectedMoveName} ਦੀ ਥਾਂ {moveName} ਵਰਤਿਆ",
-  "battleLogOneHitKnockout": "ਇੱਕੋ ਵਾਰ ਵਿੱਚ ਢੇਰ!"
+  "battleLogOneHitKnockout": "ਇੱਕੋ ਵਾਰ ਵਿੱਚ ਢੇਰ!",
+  "battleLogSelfDestructed": "{monsterName} ਨੇ ਆਪਣੇ ਆਪ ਨੂੰ ਉਡਾ ਲਿਆ!"
 }

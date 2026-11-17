@@ -180,5 +180,6 @@
   "battleLogAsleep": "{monsterName} กำลังหลับปุ๋ย",
   "battleLogFrozenSolid": "{monsterName} ถูกแช่แข็งจนขยับไม่ได้",
   "battleLogConfusedMove": "{monsterName} สับสน เลยใช้ {moveName} แทน {selectedMoveName}",
-  "battleLogOneHitKnockout": "น็อกในหมัดเดียว!"
+  "battleLogOneHitKnockout": "น็อกในหมัดเดียว!",
+  "battleLogSelfDestructed": "{monsterName} ระเบิดตัวเอง!"
 }

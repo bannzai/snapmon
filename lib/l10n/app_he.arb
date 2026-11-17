@@ -180,5 +180,6 @@
   "battleLogAsleep": "{monsterName} שקוע בשינה עמוקה",
   "battleLogFrozenSolid": "הקרח לא נותן ל{monsterName} לזוז",
   "battleLogConfusedMove": "{monsterName} התבלבל והשתמש ב־{moveName} במקום ב־{selectedMoveName}",
-  "battleLogOneHitKnockout": "נוקאאוט במכה אחת!"
+  "battleLogOneHitKnockout": "נוקאאוט במכה אחת!",
+  "battleLogSelfDestructed": "{monsterName} השמיד את עצמו!"
 }

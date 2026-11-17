@@ -180,5 +180,6 @@
   "battleLogAsleep": "{monsterName} sover som en stock",
   "battleLogFrozenSolid": "{monsterName} är fastfrusen och kan inte röra sig",
   "battleLogConfusedMove": "{monsterName} blev förvirrad och använde {moveName} i stället för {selectedMoveName}",
-  "battleLogOneHitKnockout": "K.O. på ett slag!"
+  "battleLogOneHitKnockout": "K.O. på ett slag!",
+  "battleLogSelfDestructed": "{monsterName} sprängde sig själv!"
 }
