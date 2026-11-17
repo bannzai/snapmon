@@ -261,5 +261,6 @@
   "moveDetailNeutralEverywhere": "對所有屬性都是 1 倍",
   "ticketBalance": "票券：{count}",
   "ticketPurchaseTitle": "生成券",
-  "ticketPurchaseDescription": "就算用完今天的免費生成次數，\n也能用1張券再生成1次"
+  "ticketPurchaseDescription": "就算用完今天的免費生成次數，\n也能用1張券再生成1次",
+  "ticketPurchaseWaiting": "正在領取票券"
 }

@@ -261,5 +261,6 @@
   "moveDetailNeutralEverywhere": "Każdy typ: 1×",
   "ticketBalance": "Bilety: {count}",
   "ticketPurchaseTitle": "bilet",
-  "ticketPurchaseDescription": "Nawet gdy wykorzystasz dzisiejsze darmowe tworzenie,\nza 1 bilet możesz stworzyć jeszcze 1 raz"
+  "ticketPurchaseDescription": "Nawet gdy wykorzystasz dzisiejsze darmowe tworzenie,\nza 1 bilet możesz stworzyć jeszcze 1 raz",
+  "ticketPurchaseWaiting": "Odbieranie biletów"
 }

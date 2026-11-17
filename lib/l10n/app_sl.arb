@@ -261,5 +261,6 @@
   "moveDetailNeutralEverywhere": "Vsi elementi: 1×",
   "ticketBalance": "Vstopnice: {count}",
   "ticketPurchaseTitle": "žeton",
-  "ticketPurchaseDescription": "Tudi ko porabiš današnja brezplačna ustvarjanja,\nlahko z 1 vstopnico ustvariš še 1-krat"
+  "ticketPurchaseDescription": "Tudi ko porabiš današnja brezplačna ustvarjanja,\nlahko z 1 vstopnico ustvariš še 1-krat",
+  "ticketPurchaseWaiting": "Prejemanje vstopnic"
 }

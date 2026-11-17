@@ -261,5 +261,6 @@
   "moveDetailNeutralEverywhere": "Alle Elemente: 1×",
   "ticketBalance": "Tickets: {count}",
   "ticketPurchaseTitle": "Erstellungsticket",
-  "ticketPurchaseDescription": "Auch wenn deine kostenlosen Erstellungen für heute aufgebraucht sind,\nkannst du mit 1 Ticket noch 1 Mal etwas erstellen"
+  "ticketPurchaseDescription": "Auch wenn deine kostenlosen Erstellungen für heute aufgebraucht sind,\nkannst du mit 1 Ticket noch 1 Mal etwas erstellen",
+  "ticketPurchaseWaiting": "Tickets werden empfangen"
 }

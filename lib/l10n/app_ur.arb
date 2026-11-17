@@ -261,5 +261,6 @@
   "moveDetailNeutralEverywhere": "ہر ٹائپ پر 1 گنا",
   "ticketBalance": "ٹکٹ: {count}",
   "ticketPurchaseTitle": "تخلیقی ٹکٹ",
-  "ticketPurchaseDescription": "آج کے مفت تخلیق کے مواقع ختم ہونے کے بعد بھی\n1 ٹکٹ سے تم 1 بار اور بنا سکتے ہو"
+  "ticketPurchaseDescription": "آج کے مفت تخلیق کے مواقع ختم ہونے کے بعد بھی\n1 ٹکٹ سے تم 1 بار اور بنا سکتے ہو",
+  "ticketPurchaseWaiting": "ٹکٹ موصول ہو رہے ہیں"
 }

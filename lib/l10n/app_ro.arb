@@ -261,5 +261,6 @@
   "moveDetailNeutralEverywhere": "Toate elementele: 1×",
   "ticketBalance": "Bilete: {count}",
   "ticketPurchaseTitle": "de creare",
-  "ticketPurchaseDescription": "Chiar dacă ai epuizat creările gratuite de azi,\ncu 1 bilet mai poți crea încă 1 dată"
+  "ticketPurchaseDescription": "Chiar dacă ai epuizat creările gratuite de azi,\ncu 1 bilet mai poți crea încă 1 dată",
+  "ticketPurchaseWaiting": "Se primesc biletele"
 }

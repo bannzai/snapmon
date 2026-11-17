@@ -261,5 +261,6 @@
   "moveDetailNeutralEverywhere": "Všetky elementy: 1×",
   "ticketBalance": "Lístky: {count}",
   "ticketPurchaseTitle": "na vytvorenie",
-  "ticketPurchaseDescription": "Aj keď minieš dnešné bezplatné vytvorenia,\nza 1 lístok môžeš tvoriť ešte 1 raz"
+  "ticketPurchaseDescription": "Aj keď minieš dnešné bezplatné vytvorenia,\nza 1 lístok môžeš tvoriť ešte 1 raz",
+  "ticketPurchaseWaiting": "Prijímanie lístkov"
 }

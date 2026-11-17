@@ -261,5 +261,6 @@
   "moveDetailNeutralEverywhere": "Alle types: 1×",
   "ticketBalance": "Tickets: {count}",
   "ticketPurchaseTitle": "creatieticket",
-  "ticketPurchaseDescription": "Ook als je gratis creaties voor vandaag op zijn,\nkun je met 1 ticket nog 1 keer iets maken"
+  "ticketPurchaseDescription": "Ook als je gratis creaties voor vandaag op zijn,\nkun je met 1 ticket nog 1 keer iets maken",
+  "ticketPurchaseWaiting": "Tickets worden ontvangen"
 }

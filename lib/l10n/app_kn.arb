@@ -261,5 +261,6 @@
   "moveDetailNeutralEverywhere": "ಎಲ್ಲ ಪ್ರಕಾರಗಳ ವಿರುದ್ಧ 1×",
   "ticketBalance": "ಟಿಕೆಟ್‌ಗಳು: {count}",
   "ticketPurchaseTitle": "ರಚನೆ ಟಿಕೆಟ",
-  "ticketPurchaseDescription": "ಇಂದಿನ ಉಚಿತ ಸೃಷ್ಟಿಗಳು ಮುಗಿದರೂ\n೧ ಟಿಕೆಟ್‌ನಿಂದ ನೀನು ಇನ್ನೂ ೧ ಬಾರಿ ಸೃಷ್ಟಿಸಬಹುದು"
+  "ticketPurchaseDescription": "ಇಂದಿನ ಉಚಿತ ಸೃಷ್ಟಿಗಳು ಮುಗಿದರೂ\n೧ ಟಿಕೆಟ್‌ನಿಂದ ನೀನು ಇನ್ನೂ ೧ ಬಾರಿ ಸೃಷ್ಟಿಸಬಹುದು",
+  "ticketPurchaseWaiting": "ಟಿಕೆಟ್‌ಗಳು ಬರುತ್ತಿವೆ"
 }

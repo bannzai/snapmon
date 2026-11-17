@@ -261,5 +261,6 @@
   "moveDetailNeutralEverywhere": "Alle elementer: 1×",
   "ticketBalance": "Billetter: {count}",
   "ticketPurchaseTitle": "skabelsesbillet",
-  "ticketPurchaseDescription": "Selv når du har brugt dagens gratis skabelser,\nkan du skabe 1 gang mere med 1 billet"
+  "ticketPurchaseDescription": "Selv når du har brugt dagens gratis skabelser,\nkan du skabe 1 gang mere med 1 billet",
+  "ticketPurchaseWaiting": "Modtager billetter"
 }

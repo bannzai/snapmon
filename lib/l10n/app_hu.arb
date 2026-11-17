@@ -261,5 +261,6 @@
   "moveDetailNeutralEverywhere": "Minden típus ellen: 1×",
   "ticketBalance": "Jegyek: {count}",
   "ticketPurchaseTitle": "alkotójegy",
-  "ticketPurchaseDescription": "Ha el is fogytak a mai ingyenes alkotásaid,\n1 jeggyel még 1 alkalommal alkothatsz"
+  "ticketPurchaseDescription": "Ha el is fogytak a mai ingyenes alkotásaid,\n1 jeggyel még 1 alkalommal alkothatsz",
+  "ticketPurchaseWaiting": "Jegyek fogadása"
 }

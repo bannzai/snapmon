@@ -261,5 +261,6 @@
   "moveDetailNeutralEverywhere": "Todos os elementos: 1×",
   "ticketBalance": "Bilhetes: {count}",
   "ticketPurchaseTitle": "ticket",
-  "ticketPurchaseDescription": "Mesmo depois de usar suas criações grátis de hoje,\ncom 1 bilhete você pode criar mais 1 vez"
+  "ticketPurchaseDescription": "Mesmo depois de usar suas criações grátis de hoje,\ncom 1 bilhete você pode criar mais 1 vez",
+  "ticketPurchaseWaiting": "Recebendo seus bilhetes"
 }

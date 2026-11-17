@@ -261,5 +261,6 @@
   "moveDetailNeutralEverywhere": "Semua elemen: 1×",
   "ticketBalance": "Tiket: {count}",
   "ticketPurchaseTitle": "tiket pembuatan",
-  "ticketPurchaseDescription": "Meski jatah kreasi gratis hari ini habis,\n1 tiket bisa dipakai untuk membuat 1 kali lagi"
+  "ticketPurchaseDescription": "Meski jatah kreasi gratis hari ini habis,\n1 tiket bisa dipakai untuk membuat 1 kali lagi",
+  "ticketPurchaseWaiting": "Menerima tiketmu"
 }

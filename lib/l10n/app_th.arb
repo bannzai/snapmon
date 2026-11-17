@@ -261,5 +261,6 @@
   "moveDetailNeutralEverywhere": "ทุกธาตุ: 1 เท่า",
   "ticketBalance": "ตั๋ว: {count}",
   "ticketPurchaseTitle": "ตั๋วสร้าง",
-  "ticketPurchaseDescription": "แม้ใช้สิทธิ์สร้างฟรีของวันนี้หมดแล้ว\nตั๋ว 1 ใบก็สร้างได้อีก 1 ครั้ง"
+  "ticketPurchaseDescription": "แม้ใช้สิทธิ์สร้างฟรีของวันนี้หมดแล้ว\nตั๋ว 1 ใบก็สร้างได้อีก 1 ครั้ง",
+  "ticketPurchaseWaiting": "กำลังรับตั๋ว"
 }

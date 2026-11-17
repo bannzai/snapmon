@@ -261,5 +261,6 @@
   "moveDetailNeutralEverywhere": "Tutti gli elementi: ×1",
   "ticketBalance": "Biglietti: {count}",
   "ticketPurchaseTitle": "ticket di creazione",
-  "ticketPurchaseDescription": "Anche se hai esaurito le creazioni gratis di oggi,\ncon 1 biglietto puoi crearne ancora 1"
+  "ticketPurchaseDescription": "Anche se hai esaurito le creazioni gratis di oggi,\ncon 1 biglietto puoi crearne ancora 1",
+  "ticketPurchaseWaiting": "Ricezione dei biglietti"
 }

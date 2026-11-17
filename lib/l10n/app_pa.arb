@@ -261,5 +261,6 @@
   "moveDetailNeutralEverywhere": "ਸਾਰੇ ਤੱਤਾਂ ਵਿਰੁੱਧ 1 ਗੁਣਾ",
   "ticketBalance": "ਟਿਕਟਾਂ: {count}",
   "ticketPurchaseTitle": "ਰਚਨਾ ਟਿਕਟ",
-  "ticketPurchaseDescription": "ਅੱਜ ਦੇ ਮੁਫ਼ਤ ਬਣਾਉਣ ਦੇ ਮੌਕੇ ਮੁੱਕਣ ਤੋਂ ਬਾਅਦ ਵੀ\n੧ ਟਿਕਟ ਨਾਲ ਤੁਸੀਂ ੧ ਵਾਰ ਹੋਰ ਬਣਾ ਸਕਦੇ ਹੋ"
+  "ticketPurchaseDescription": "ਅੱਜ ਦੇ ਮੁਫ਼ਤ ਬਣਾਉਣ ਦੇ ਮੌਕੇ ਮੁੱਕਣ ਤੋਂ ਬਾਅਦ ਵੀ\n੧ ਟਿਕਟ ਨਾਲ ਤੁਸੀਂ ੧ ਵਾਰ ਹੋਰ ਬਣਾ ਸਕਦੇ ਹੋ",
+  "ticketPurchaseWaiting": "ਟਿਕਟਾਂ ਮਿਲ ਰਹੀਆਂ ਹਨ"
 }

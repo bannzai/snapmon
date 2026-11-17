@@ -261,5 +261,6 @@
   "moveDetailNeutralEverywhere": "Kaikki elementit: 1×",
   "ticketBalance": "Liput: {count}",
   "ticketPurchaseTitle": "luontilip",
-  "ticketPurchaseDescription": "Vaikka päivän ilmaiset luontikerrat loppuvat,\n1 lipulla voit luoda vielä 1 kerran"
+  "ticketPurchaseDescription": "Vaikka päivän ilmaiset luontikerrat loppuvat,\n1 lipulla voit luoda vielä 1 kerran",
+  "ticketPurchaseWaiting": "Vastaanotetaan lippuja"
 }

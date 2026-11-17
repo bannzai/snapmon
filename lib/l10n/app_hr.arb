@@ -261,5 +261,6 @@
   "moveDetailNeutralEverywhere": "Svi elementi: 1×",
   "ticketBalance": "Ulaznice: {count}",
   "ticketPurchaseTitle": "kupon",
-  "ticketPurchaseDescription": "Čak i kad potrošiš današnja besplatna stvaranja,\ns 1 ulaznicom možeš stvoriti još 1"
+  "ticketPurchaseDescription": "Čak i kad potrošiš današnja besplatna stvaranja,\ns 1 ulaznicom možeš stvoriti još 1",
+  "ticketPurchaseWaiting": "Preuzimanje ulaznica"
 }

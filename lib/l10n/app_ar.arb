@@ -261,5 +261,6 @@
   "moveDetailNeutralEverywhere": "كل عنصر: ×1",
   "ticketBalance": "التذاكر: {count}",
   "ticketPurchaseTitle": "تذكرة الإنشاء",
-  "ticketPurchaseDescription": "حتى بعد نفاد مرات الإنشاء المجانية اليوم،\nتتيح لك تذكرة واحدة إنشاء وحش مرة واحدة"
+  "ticketPurchaseDescription": "حتى بعد نفاد مرات الإنشاء المجانية اليوم،\nتتيح لك تذكرة واحدة إنشاء وحش مرة واحدة",
+  "ticketPurchaseWaiting": "جارٍ استلام التذاكر"
 }

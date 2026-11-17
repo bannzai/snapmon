@@ -261,5 +261,6 @@
   "moveDetailNeutralEverywhere": "সব এলিমেন্টে ১ গুণ",
   "ticketBalance": "টিকিট: {count}",
   "ticketPurchaseTitle": "তৈরির টিকিট",
-  "ticketPurchaseDescription": "আজকের বিনামূল্যের তৈরির সুযোগ শেষ হলেও\n১টি টিকিটে আরও একবার তৈরি করতে পারবে"
+  "ticketPurchaseDescription": "আজকের বিনামূল্যের তৈরির সুযোগ শেষ হলেও\n১টি টিকিটে আরও একবার তৈরি করতে পারবে",
+  "ticketPurchaseWaiting": "টিকিট পাওয়া যাচ্ছে"
 }

@@ -261,5 +261,6 @@
   "moveDetailNeutralEverywhere": "सर्व तत्त्वांवर 1 पट",
   "ticketBalance": "तिकिटे: {count}",
   "ticketPurchaseTitle": "निर्मिती तिकिट",
-  "ticketPurchaseDescription": "आजच्या मोफत निर्मितीच्या संधी संपल्या तरी\n1 तिकिटाने तू आणखी 1 वेळा तयार करू शकतोस"
+  "ticketPurchaseDescription": "आजच्या मोफत निर्मितीच्या संधी संपल्या तरी\n1 तिकिटाने तू आणखी 1 वेळा तयार करू शकतोस",
+  "ticketPurchaseWaiting": "तिकिटं मिळत आहेत"
 }

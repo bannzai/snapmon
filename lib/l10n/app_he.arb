@@ -261,5 +261,6 @@
   "moveDetailNeutralEverywhere": "כל סוג: פי 1",
   "ticketBalance": "כרטיסים: {count}",
   "ticketPurchaseTitle": "כרטיס יצירה",
-  "ticketPurchaseDescription": "גם אחרי שנגמרות היצירות החינמיות של היום,\nכרטיס אחד מאפשר ליצור עוד פעם אחת"
+  "ticketPurchaseDescription": "גם אחרי שנגמרות היצירות החינמיות של היום,\nכרטיס אחד מאפשר ליצור עוד פעם אחת",
+  "ticketPurchaseWaiting": "הכרטיסים בדרך"
 }

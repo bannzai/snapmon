@@ -261,5 +261,6 @@
   "moveDetailNeutralEverywhere": "Všechny elementy: 1×",
   "ticketBalance": "Vstupenky: {count}",
   "ticketPurchaseTitle": "tiket na vytvoření",
-  "ticketPurchaseDescription": "I když vyčerpáš dnešní tvorbu zdarma,\nza 1 lístek můžeš tvořit ještě 1×"
+  "ticketPurchaseDescription": "I když vyčerpáš dnešní tvorbu zdarma,\nza 1 lístek můžeš tvořit ještě 1×",
+  "ticketPurchaseWaiting": "Přijímají se vstupenky"
 }

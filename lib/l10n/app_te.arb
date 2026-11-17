@@ -261,5 +261,6 @@
   "moveDetailNeutralEverywhere": "అన్ని మూలకాలకు 1 రెట్టు",
   "ticketBalance": "టికెట్లు: {count}",
   "ticketPurchaseTitle": "సృష్టి టికెట్",
-  "ticketPurchaseDescription": "ఈ రోజు ఉచితంగా సృష్టించే అవకాశాలు అయిపోయినా\n1 టికెట్‌తో నువ్వు మరో 1 సారి సృష్టించవచ్చు"
+  "ticketPurchaseDescription": "ఈ రోజు ఉచితంగా సృష్టించే అవకాశాలు అయిపోయినా\n1 టికెట్‌తో నువ్వు మరో 1 సారి సృష్టించవచ్చు",
+  "ticketPurchaseWaiting": "టికెట్లు అందుతున్నాయి"
 }

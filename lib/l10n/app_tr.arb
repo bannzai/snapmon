@@ -261,5 +261,6 @@
   "moveDetailNeutralEverywhere": "Tüm elementlere karşı 1×",
   "ticketBalance": "Bilet: {count}",
   "ticketPurchaseTitle": "oluşturma bilet",
-  "ticketPurchaseDescription": "Bugünkü ücretsiz oluşturma hakların bitse bile\n1 biletle 1 kez daha oluşturabilirsin"
+  "ticketPurchaseDescription": "Bugünkü ücretsiz oluşturma hakların bitse bile\n1 biletle 1 kez daha oluşturabilirsin",
+  "ticketPurchaseWaiting": "Biletler alınıyor"
 }

@@ -261,5 +261,6 @@
   "moveDetailNeutralEverywhere": "Кожен елемент: ×1",
   "ticketBalance": "Квитки: {count}",
   "ticketPurchaseTitle": "квит",
-  "ticketPurchaseDescription": "Навіть коли безкоштовні створення на сьогодні скінчаться,\nза 1 квиток ти зможеш створити ще 1 раз"
+  "ticketPurchaseDescription": "Навіть коли безкоштовні створення на сьогодні скінчаться,\nза 1 квиток ти зможеш створити ще 1 раз",
+  "ticketPurchaseWaiting": "Отримання квитків"
 }

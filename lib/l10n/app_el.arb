@@ -261,5 +261,6 @@
   "moveDetailNeutralEverywhere": "Όλα τα στοιχεία: ×1",
   "ticketBalance": "Εισιτήρια: {count}",
   "ticketPurchaseTitle": "εισιτήριο δημιουργίας",
-  "ticketPurchaseDescription": "Ακόμα κι αν εξαντλήσεις τις δωρεάν δημιουργίες της ημέρας,\nμε 1 εισιτήριο μπορείς να δημιουργήσεις άλλη 1 φορά"
+  "ticketPurchaseDescription": "Ακόμα κι αν εξαντλήσεις τις δωρεάν δημιουργίες της ημέρας,\nμε 1 εισιτήριο μπορείς να δημιουργήσεις άλλη 1 φορά",
+  "ticketPurchaseWaiting": "Παραλαβή εισιτηρίων"
 }

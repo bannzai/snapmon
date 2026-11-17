@@ -261,5 +261,6 @@
   "moveDetailNeutralEverywhere": "બધાં તત્ત્વ સામે ૧ ગણું",
   "ticketBalance": "ટિકિટ: {count}",
   "ticketPurchaseTitle": "બનાવવાની ટિકિટ",
-  "ticketPurchaseDescription": "આજના મફત સર્જન પૂરા થયા પછી પણ\n૧ ટિકિટથી તમે વધુ ૧ વાર બનાવી શકો"
+  "ticketPurchaseDescription": "આજના મફત સર્જન પૂરા થયા પછી પણ\n૧ ટિકિટથી તમે વધુ ૧ વાર બનાવી શકો",
+  "ticketPurchaseWaiting": "ટિકિટ મળી રહી છે"
 }

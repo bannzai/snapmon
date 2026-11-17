@@ -261,5 +261,6 @@
   "moveDetailNeutralEverywhere": "Mọi hệ: ×1",
   "ticketBalance": "Vé: {count}",
   "ticketPurchaseTitle": "vé tạo",
-  "ticketPurchaseDescription": "Dù đã dùng hết lượt tạo miễn phí hôm nay,\nbạn vẫn có thể tạo thêm 1 lần bằng 1 vé"
+  "ticketPurchaseDescription": "Dù đã dùng hết lượt tạo miễn phí hôm nay,\nbạn vẫn có thể tạo thêm 1 lần bằng 1 vé",
+  "ticketPurchaseWaiting": "Đang nhận vé"
 }
