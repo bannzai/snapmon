@@ -32,5 +32,6 @@
   "opponentLevelUpNote": "ஒவ்வொரு போருக்குப் பிறகும் நிலை 1 உயரும்",
   "opponentBattleRecordLabel": "போர் சாதனை",
   "opponentBattleRecord": "வெற்றி: {wins}  தோல்வி: {losses}",
-  "opponentMyParty": "உங்கள் அணி"
+  "opponentMyParty": "உங்கள் அணி",
+  "opponentSwapParty": "மாற்றுங்கள்"
 }

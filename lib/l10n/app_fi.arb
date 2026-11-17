@@ -32,5 +32,6 @@
   "opponentLevelUpNote": "Taso nousee 1:llä jokaisen taistelun jälkeen",
   "opponentBattleRecordLabel": "Taistelutilasto",
   "opponentBattleRecord": "Voitot: {wins}  Tappiot: {losses}",
-  "opponentMyParty": "Oma joukkue"
+  "opponentMyParty": "Oma joukkue",
+  "opponentSwapParty": "Vaihda"
 }

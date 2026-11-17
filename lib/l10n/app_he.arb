@@ -32,5 +32,6 @@
   "opponentLevelUpNote": "עולים רמה אחת אחרי כל קרב",
   "opponentBattleRecordLabel": "מאזן קרבות",
   "opponentBattleRecord": "ניצחונות: {wins}  הפסדים: {losses}",
-  "opponentMyParty": "הצוות שלי"
+  "opponentMyParty": "הצוות שלי",
+  "opponentSwapParty": "החלפה"
 }

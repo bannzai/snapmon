@@ -32,5 +32,6 @@
   "opponentLevelUpNote": "เลเวลเพิ่ม 1 หลังจบแต่ละศึก",
   "opponentBattleRecordLabel": "สถิติการต่อสู้",
   "opponentBattleRecord": "ชนะ: {wins}  แพ้: {losses}",
-  "opponentMyParty": "ทีมของเรา"
+  "opponentMyParty": "ทีมของเรา",
+  "opponentSwapParty": "สลับ"
 }

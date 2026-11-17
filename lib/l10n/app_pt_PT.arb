@@ -32,5 +32,6 @@
   "opponentLevelUpNote": "Sobe 1 nível após cada combate",
   "opponentBattleRecordLabel": "Histórico de combates",
   "opponentBattleRecord": "Vitórias: {wins}  Derrotas: {losses}",
-  "opponentMyParty": "A minha equipa"
+  "opponentMyParty": "A minha equipa",
+  "opponentSwapParty": "Trocar"
 }

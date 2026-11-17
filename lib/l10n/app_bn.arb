@@ -32,5 +32,6 @@
   "opponentLevelUpNote": "প্রতি লড়াইয়ের পর লেভেল ১ বাড়ে",
   "opponentBattleRecordLabel": "লড়াইয়ের রেকর্ড",
   "opponentBattleRecord": "জয়: {wins}  হার: {losses}",
-  "opponentMyParty": "আমার দল"
+  "opponentMyParty": "আমার দল",
+  "opponentSwapParty": "বদলাও"
 }

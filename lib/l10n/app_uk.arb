@@ -32,5 +32,6 @@
   "opponentLevelUpNote": "Після кожного бою рівень зростає на 1",
   "opponentBattleRecordLabel": "Статистика боїв",
   "opponentBattleRecord": "Перемоги: {wins}  Поразки: {losses}",
-  "opponentMyParty": "Моя команда"
+  "opponentMyParty": "Моя команда",
+  "opponentSwapParty": "Замінити"
 }

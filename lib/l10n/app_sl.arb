@@ -32,5 +32,6 @@
   "opponentLevelUpNote": "Po vsaki bitki se raven zviša za 1",
   "opponentBattleRecordLabel": "Statistika bojev",
   "opponentBattleRecord": "Zmage: {wins}  Porazi: {losses}",
-  "opponentMyParty": "Moja ekipa"
+  "opponentMyParty": "Moja ekipa",
+  "opponentSwapParty": "Zamenjaj"
 }

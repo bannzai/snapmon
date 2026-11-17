@@ -32,5 +32,6 @@
   "opponentLevelUpNote": "يرتفع المستوى درجة واحدة بعد كل معركة",
   "opponentBattleRecordLabel": "سجل المعارك",
   "opponentBattleRecord": "فوز: {wins}  خسارة: {losses}",
-  "opponentMyParty": "فريقي"
+  "opponentMyParty": "فريقي",
+  "opponentSwapParty": "تبديل"
 }

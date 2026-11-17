@@ -32,5 +32,6 @@
   "opponentLevelUpNote": "Steigt nach jedem Kampf um 1 Level",
   "opponentBattleRecordLabel": "Kampfbilanz",
   "opponentBattleRecord": "Siege: {wins}  Niederlagen: {losses}",
-  "opponentMyParty": "Mein Team"
+  "opponentMyParty": "Mein Team",
+  "opponentSwapParty": "Wechseln"
 }

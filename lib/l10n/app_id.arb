@@ -32,5 +32,6 @@
   "opponentLevelUpNote": "Naik 1 level setiap selesai bertarung",
   "opponentBattleRecordLabel": "Rekor Pertarungan",
   "opponentBattleRecord": "Menang: {wins}  Kalah: {losses}",
-  "opponentMyParty": "Tim kamu"
+  "opponentMyParty": "Tim kamu",
+  "opponentSwapParty": "Ganti"
 }

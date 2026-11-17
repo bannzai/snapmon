@@ -32,5 +32,6 @@
   "opponentLevelUpNote": "हर लड़ाई के बाद लेवल 1 बढ़ता है",
   "opponentBattleRecordLabel": "लड़ाई का रिकॉर्ड",
   "opponentBattleRecord": "जीत: {wins}  हार: {losses}",
-  "opponentMyParty": "मेरी टीम"
+  "opponentMyParty": "मेरी टीम",
+  "opponentSwapParty": "बदलो"
 }

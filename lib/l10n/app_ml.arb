@@ -32,5 +32,6 @@
   "opponentLevelUpNote": "ഓരോ പോരാട്ടത്തിനു ശേഷവും ലെവൽ 1 കൂടും",
   "opponentBattleRecordLabel": "പോരാട്ട റെക്കോർഡ്",
   "opponentBattleRecord": "ജയം: {wins}  തോൽവി: {losses}",
-  "opponentMyParty": "എന്റെ പാർട്ടി"
+  "opponentMyParty": "എന്റെ പാർട്ടി",
+  "opponentSwapParty": "മാറ്റുക"
 }

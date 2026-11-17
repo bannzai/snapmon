@@ -32,5 +32,6 @@
   "opponentLevelUpNote": "Stiger 1 niveau efter hver kamp",
   "opponentBattleRecordLabel": "Kampstatistik",
   "opponentBattleRecord": "Sejre: {wins}  Nederlag: {losses}",
-  "opponentMyParty": "Mit hold"
+  "opponentMyParty": "Mit hold",
+  "opponentSwapParty": "Skift"
 }

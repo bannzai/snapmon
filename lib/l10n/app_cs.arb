@@ -32,5 +32,6 @@
   "opponentLevelUpNote": "Po každém souboji se úroveň zvýší o 1",
   "opponentBattleRecordLabel": "Bilance zápasů",
   "opponentBattleRecord": "Výhry: {wins}  Prohry: {losses}",
-  "opponentMyParty": "Můj tým"
+  "opponentMyParty": "Můj tým",
+  "opponentSwapParty": "Vyměnit"
 }

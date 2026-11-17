@@ -32,5 +32,6 @@
   "opponentLevelUpNote": "배틀할 때마다 레벨이 1 올라요",
   "opponentBattleRecordLabel": "배틀 전적",
   "opponentBattleRecord": "승리: {wins}  패배: {losses}",
-  "opponentMyParty": "내 파티"
+  "opponentMyParty": "내 파티",
+  "opponentSwapParty": "교체"
 }

@@ -32,5 +32,6 @@
   "opponentLevelUpNote": "प्रत्येक लढाईनंतर लेव्हल 1 ने वाढते",
   "opponentBattleRecordLabel": "लढाईचा विक्रम",
   "opponentBattleRecord": "विजय: {wins}  पराभव: {losses}",
-  "opponentMyParty": "माझी टीम"
+  "opponentMyParty": "माझी टीम",
+  "opponentSwapParty": "बदल"
 }

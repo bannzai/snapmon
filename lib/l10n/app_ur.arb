@@ -32,5 +32,6 @@
   "opponentLevelUpNote": "ہر لڑائی کے بعد لیول 1 بڑھتا ہے",
   "opponentBattleRecordLabel": "لڑائیوں کا ریکارڈ",
   "opponentBattleRecord": "جیت: {wins}  ہار: {losses}",
-  "opponentMyParty": "میری ٹیم"
+  "opponentMyParty": "میری ٹیم",
+  "opponentSwapParty": "بدلو"
 }

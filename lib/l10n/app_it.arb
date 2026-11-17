@@ -32,5 +32,6 @@
   "opponentLevelUpNote": "Sale di 1 livello dopo ogni lotta",
   "opponentBattleRecordLabel": "Bilancio lotte",
   "opponentBattleRecord": "Vittorie: {wins}  Sconfitte: {losses}",
-  "opponentMyParty": "La mia squadra"
+  "opponentMyParty": "La mia squadra",
+  "opponentSwapParty": "Cambia"
 }

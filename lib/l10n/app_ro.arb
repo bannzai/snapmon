@@ -32,5 +32,6 @@
   "opponentLevelUpNote": "Crește cu 1 nivel după fiecare luptă",
   "opponentBattleRecordLabel": "Bilanțul luptelor",
   "opponentBattleRecord": "Victorii: {wins}  Înfrângeri: {losses}",
-  "opponentMyParty": "Echipa mea"
+  "opponentMyParty": "Echipa mea",
+  "opponentSwapParty": "Schimbă"
 }

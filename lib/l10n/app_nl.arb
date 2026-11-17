@@ -32,5 +32,6 @@
   "opponentLevelUpNote": "Stijgt 1 level na elk gevecht",
   "opponentBattleRecordLabel": "Gevechtsstatistieken",
   "opponentBattleRecord": "Overwinningen: {wins}  Nederlagen: {losses}",
-  "opponentMyParty": "Jouw team"
+  "opponentMyParty": "Jouw team",
+  "opponentSwapParty": "Wisselen"
 }

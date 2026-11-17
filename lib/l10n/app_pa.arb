@@ -32,5 +32,6 @@
   "opponentLevelUpNote": "ਹਰ ਲੜਾਈ ਤੋਂ ਬਾਅਦ ਲੈਵਲ 1 ਵਧਦਾ ਹੈ",
   "opponentBattleRecordLabel": "ਲੜਾਈ ਦਾ ਰਿਕਾਰਡ",
   "opponentBattleRecord": "ਜਿੱਤ: {wins}  ਹਾਰ: {losses}",
-  "opponentMyParty": "ਮੇਰੀ ਟੀਮ"
+  "opponentMyParty": "ਮੇਰੀ ਟੀਮ",
+  "opponentSwapParty": "ਬਦਲੋ"
 }

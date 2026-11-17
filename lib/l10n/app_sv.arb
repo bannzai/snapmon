@@ -32,5 +32,6 @@
   "opponentLevelUpNote": "Går upp 1 nivå efter varje strid",
   "opponentBattleRecordLabel": "Stridsstatistik",
   "opponentBattleRecord": "Vinster: {wins}  Förluster: {losses}",
-  "opponentMyParty": "Ditt lag"
+  "opponentMyParty": "Ditt lag",
+  "opponentSwapParty": "Byt"
 }

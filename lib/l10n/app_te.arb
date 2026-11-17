@@ -32,5 +32,6 @@
   "opponentLevelUpNote": "ప్రతి పోరాటం తర్వాత లెవల్ 1 పెరుగుతుంది",
   "opponentBattleRecordLabel": "పోరాట రికార్డు",
   "opponentBattleRecord": "గెలుపు: {wins}  ఓటమి: {losses}",
-  "opponentMyParty": "నీ జట్టు"
+  "opponentMyParty": "నీ జట్టు",
+  "opponentSwapParty": "మార్చు"
 }

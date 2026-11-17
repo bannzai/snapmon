@@ -32,5 +32,6 @@
   "opponentLevelUpNote": "Po każdej walce poziom rośnie o 1",
   "opponentBattleRecordLabel": "Bilans walk",
   "opponentBattleRecord": "Wygrane: {wins}  Przegrane: {losses}",
-  "opponentMyParty": "Moja drużyna"
+  "opponentMyParty": "Moja drużyna",
+  "opponentSwapParty": "Zamień"
 }

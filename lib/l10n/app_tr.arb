@@ -32,5 +32,6 @@
   "opponentLevelUpNote": "Her savaştan sonra 1 seviye yükselir",
   "opponentBattleRecordLabel": "Savaş İstatistikleri",
   "opponentBattleRecord": "Galibiyet: {wins}  Mağlubiyet: {losses}",
-  "opponentMyParty": "Takımın"
+  "opponentMyParty": "Takımın",
+  "opponentSwapParty": "Değiştir"
 }

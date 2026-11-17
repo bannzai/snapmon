@@ -32,5 +32,6 @@
   "opponentLevelUpNote": "Går opp 1 nivå etter hver kamp",
   "opponentBattleRecordLabel": "Kampstatistikk",
   "opponentBattleRecord": "Seire: {wins}  Tap: {losses}",
-  "opponentMyParty": "Laget ditt"
+  "opponentMyParty": "Laget ditt",
+  "opponentSwapParty": "Bytt"
 }

@@ -32,5 +32,6 @@
   "opponentLevelUpNote": "每战升 1 级",
   "opponentBattleRecordLabel": "对战记录",
   "opponentBattleRecord": "胜：{wins}  负：{losses}",
-  "opponentMyParty": "我的队伍"
+  "opponentMyParty": "我的队伍",
+  "opponentSwapParty": "替换"
 }

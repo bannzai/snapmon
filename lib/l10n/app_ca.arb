@@ -32,5 +32,6 @@
   "opponentLevelUpNote": "Puja 1 nivell després de cada combat",
   "opponentBattleRecordLabel": "Historial de combats",
   "opponentBattleRecord": "Victòries: {wins}  Derrotes: {losses}",
-  "opponentMyParty": "El meu equip"
+  "opponentMyParty": "El meu equip",
+  "opponentSwapParty": "Canvia"
 }

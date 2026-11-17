@@ -32,5 +32,6 @@
   "opponentLevelUpNote": "Nakon svake borbe razina raste za 1",
   "opponentBattleRecordLabel": "Omjer pobjeda i poraza",
   "opponentBattleRecord": "Pobjede: {wins}  Porazi: {losses}",
-  "opponentMyParty": "Moj tim"
+  "opponentMyParty": "Moj tim",
+  "opponentSwapParty": "Zamijeni"
 }

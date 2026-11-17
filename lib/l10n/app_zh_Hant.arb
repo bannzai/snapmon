@@ -32,5 +32,6 @@
   "opponentLevelUpNote": "每場戰鬥升 1 級",
   "opponentBattleRecordLabel": "對戰紀錄",
   "opponentBattleRecord": "勝：{wins}  敗：{losses}",
-  "opponentMyParty": "我的隊伍"
+  "opponentMyParty": "我的隊伍",
+  "opponentSwapParty": "更換"
 }

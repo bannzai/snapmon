@@ -32,5 +32,6 @@
   "opponentLevelUpNote": "ಪ್ರತಿ ಕಾಳಗದ ಬಳಿಕ ಲೆವೆಲ್ 1 ಹೆಚ್ಚುತ್ತದೆ",
   "opponentBattleRecordLabel": "ಕಾಳಗದ ದಾಖಲೆ",
   "opponentBattleRecord": "ಗೆಲುವು: {wins}  ಸೋಲು: {losses}",
-  "opponentMyParty": "ನನ್ನ ತಂಡ"
+  "opponentMyParty": "ನನ್ನ ತಂಡ",
+  "opponentSwapParty": "ಬದಲಾಯಿಸು"
 }
