@@ -168,5 +168,6 @@
   "battleLogFainted": "{monsterName} بے ہوش ہو گیا",
   "battleLogStatRose": "{monsterName} کا {statName} بڑھ گیا!",
   "battleLogStatFell": "{monsterName} کا {statName} کم ہو گیا",
-  "battleLogStatUnchanged": "{monsterName} کا {statName} اب مزید نہیں بدل سکتا"
+  "battleLogStatUnchanged": "{monsterName} کا {statName} اب مزید نہیں بدل سکتا",
+  "battleLogRecovered": "{monsterName} نے {amount} HP بحال کیے"
 }

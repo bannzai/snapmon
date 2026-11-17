@@ -168,5 +168,6 @@
   "battleLogFainted": "{monsterName} omdlel",
   "battleLogStatRose": "Hodnota {statName} u {monsterName} stúpla!",
   "battleLogStatFell": "Hodnota {statName} u {monsterName} klesla",
-  "battleLogStatUnchanged": "Hodnota {statName} u {monsterName} sa už nemôže zmeniť"
+  "battleLogStatUnchanged": "Hodnota {statName} u {monsterName} sa už nemôže zmeniť",
+  "battleLogRecovered": "{monsterName} si obnovil {amount} HP"
 }

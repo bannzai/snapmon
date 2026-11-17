@@ -168,5 +168,6 @@
   "battleLogFainted": "{monsterName} besvimede",
   "battleLogStatRose": "{statName} steg for {monsterName}!",
   "battleLogStatFell": "{statName} faldt for {monsterName}",
-  "battleLogStatUnchanged": "{statName} hos {monsterName} kan ikke ændres mere"
+  "battleLogStatUnchanged": "{statName} hos {monsterName} kan ikke ændres mere",
+  "battleLogRecovered": "{monsterName} fik {amount} HP tilbage"
 }

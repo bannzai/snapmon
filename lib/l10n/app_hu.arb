@@ -168,5 +168,6 @@
   "battleLogFainted": "{monsterName} elájult",
   "battleLogStatRose": "{monsterName} {statName} értéke nőtt!",
   "battleLogStatFell": "{monsterName}: {statName} csökkent",
-  "battleLogStatUnchanged": "{monsterName} {statName} értéke már nem változhat"
+  "battleLogStatUnchanged": "{monsterName} {statName} értéke már nem változhat",
+  "battleLogRecovered": "{monsterName} visszanyert {amount} HP-t"
 }

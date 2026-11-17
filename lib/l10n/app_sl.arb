@@ -168,5 +168,6 @@
   "battleLogFainted": "{monsterName} je omedlel",
   "battleLogStatRose": "Vrednost {statName} pri {monsterName} je zrasla!",
   "battleLogStatFell": "Vrednost {statName} pri {monsterName} je padla",
-  "battleLogStatUnchanged": "Vrednost {statName} pri {monsterName} se ne more več spremeniti"
+  "battleLogStatUnchanged": "Vrednost {statName} pri {monsterName} se ne more več spremeniti",
+  "battleLogRecovered": "{monsterName} si je povrnil {amount} HP"
 }

@@ -168,5 +168,6 @@
   "battleLogFainted": "{monsterName} बेशुद्ध पडला",
   "battleLogStatRose": "{monsterName}चा {statName} वाढला!",
   "battleLogStatFell": "{monsterName}चे {statName} कमी झाले",
-  "battleLogStatUnchanged": "{monsterName}चा {statName} आता बदलू शकत नाही"
+  "battleLogStatUnchanged": "{monsterName}चा {statName} आता बदलू शकत नाही",
+  "battleLogRecovered": "{monsterName} ने {amount} HP परत मिळवले"
 }

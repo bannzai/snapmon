@@ -168,5 +168,6 @@
   "battleLogFainted": "{monsterName} đã ngất",
   "battleLogStatRose": "Chỉ số {statName} của {monsterName} đã tăng!",
   "battleLogStatFell": "Chỉ số {statName} của {monsterName} đã giảm",
-  "battleLogStatUnchanged": "Chỉ số {statName} của {monsterName} không thể thay đổi nữa"
+  "battleLogStatUnchanged": "Chỉ số {statName} của {monsterName} không thể thay đổi nữa",
+  "battleLogRecovered": "{monsterName} hồi phục {amount} HP"
 }

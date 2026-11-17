@@ -168,5 +168,6 @@
   "battleLogFainted": "{monsterName} ist besiegt",
   "battleLogStatRose": "{statName} von {monsterName} ist gestiegen!",
   "battleLogStatFell": "{statName} von {monsterName} ist gesunken",
-  "battleLogStatUnchanged": "{statName} von {monsterName} kann sich nicht weiter ändern"
+  "battleLogStatUnchanged": "{statName} von {monsterName} kann sich nicht weiter ändern",
+  "battleLogRecovered": "{monsterName} hat {amount} HP zurückgewonnen"
 }

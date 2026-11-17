@@ -168,5 +168,6 @@
   "battleLogFainted": "{monsterName} is uitgeschakeld",
   "battleLogStatRose": "{statName} van {monsterName} is gestegen!",
   "battleLogStatFell": "{statName} van {monsterName} is gedaald",
-  "battleLogStatUnchanged": "{statName} van {monsterName} kan niet verder veranderen"
+  "battleLogStatUnchanged": "{statName} van {monsterName} kan niet verder veranderen",
+  "battleLogRecovered": "{monsterName} kreeg {amount} HP terug"
 }

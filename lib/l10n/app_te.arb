@@ -168,5 +168,6 @@
   "battleLogFainted": "{monsterName} స్పృహ తప్పింది",
   "battleLogStatRose": "{monsterName} యొక్క {statName} పెరిగింది!",
   "battleLogStatFell": "{monsterName} యొక్క {statName} తగ్గింది",
-  "battleLogStatUnchanged": "{monsterName} యొక్క {statName} ఇక మారదు"
+  "battleLogStatUnchanged": "{monsterName} యొక్క {statName} ఇక మారదు",
+  "battleLogRecovered": "{monsterName} {amount} HP తిరిగి పొందింది"
 }

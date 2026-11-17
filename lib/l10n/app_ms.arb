@@ -168,5 +168,6 @@
   "battleLogFainted": "{monsterName} pengsan",
   "battleLogStatRose": "{statName} milik {monsterName} meningkat!",
   "battleLogStatFell": "{statName} milik {monsterName} menurun",
-  "battleLogStatUnchanged": "{statName} milik {monsterName} tak boleh berubah lagi"
+  "battleLogStatUnchanged": "{statName} milik {monsterName} tak boleh berubah lagi",
+  "battleLogRecovered": "{monsterName} memulihkan {amount} HP"
 }

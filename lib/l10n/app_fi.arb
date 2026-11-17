@@ -168,5 +168,6 @@
   "battleLogFainted": "{monsterName} pyörtyi",
   "battleLogStatRose": "{monsterName}: {statName} nousi!",
   "battleLogStatFell": "{monsterName}: {statName} laski",
-  "battleLogStatUnchanged": "Hirviön {monsterName} {statName} ei voi enää muuttua"
+  "battleLogStatUnchanged": "Hirviön {monsterName} {statName} ei voi enää muuttua",
+  "battleLogRecovered": "{monsterName} sai takaisin {amount} HP"
 }

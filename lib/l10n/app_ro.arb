@@ -168,5 +168,6 @@
   "battleLogFainted": "{monsterName} a leșinat",
   "battleLogStatRose": "Valoarea {statName} a lui {monsterName} a crescut!",
   "battleLogStatFell": "Statistica {statName} a lui {monsterName} a scăzut",
-  "battleLogStatUnchanged": "Valoarea {statName} a lui {monsterName} nu se mai poate schimba"
+  "battleLogStatUnchanged": "Valoarea {statName} a lui {monsterName} nu se mai poate schimba",
+  "battleLogRecovered": "{monsterName} a recuperat {amount} HP"
 }

@@ -168,5 +168,6 @@
   "battleLogFainted": "{monsterName} s'ha debilitat",
   "battleLogStatRose": "Ha pujat {statName} de {monsterName}!",
   "battleLogStatFell": "Ha baixat {statName} de {monsterName}",
-  "battleLogStatUnchanged": "El valor de {statName} de {monsterName} ja no pot canviar"
+  "battleLogStatUnchanged": "El valor de {statName} de {monsterName} ja no pot canviar",
+  "battleLogRecovered": "{monsterName} ha recuperat {amount} HP"
 }

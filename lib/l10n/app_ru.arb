@@ -168,5 +168,6 @@
   "battleLogFainted": "{monsterName} потерял сознание",
   "battleLogStatRose": "Показатель {statName} у {monsterName} вырос!",
   "battleLogStatFell": "Показатель {statName} у {monsterName} снизился",
-  "battleLogStatUnchanged": "Показатель {statName} у {monsterName} больше не может измениться"
+  "battleLogStatUnchanged": "Показатель {statName} у {monsterName} больше не может измениться",
+  "battleLogRecovered": "{monsterName} восстановил {amount} HP"
 }

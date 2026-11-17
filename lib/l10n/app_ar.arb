@@ -168,5 +168,6 @@
   "battleLogFainted": "سقط {monsterName}",
   "battleLogStatRose": "ارتفعت قيمة {statName} لدى {monsterName}!",
   "battleLogStatFell": "انخفض مستوى {statName} لدى {monsterName}",
-  "battleLogStatUnchanged": "لم يعد بالإمكان تغيير {statName} لدى {monsterName}"
+  "battleLogStatUnchanged": "لم يعد بالإمكان تغيير {statName} لدى {monsterName}",
+  "battleLogRecovered": "استعاد {monsterName} مقدار {amount} من HP"
 }

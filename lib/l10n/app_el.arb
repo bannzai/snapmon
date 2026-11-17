@@ -168,5 +168,6 @@
   "battleLogFainted": "Το {monsterName} λιποθύμησε",
   "battleLogStatRose": "Αυξήθηκε το {statName} του {monsterName}!",
   "battleLogStatFell": "Το {statName} του {monsterName} έπεσε",
-  "battleLogStatUnchanged": "Το {statName} του {monsterName} δεν μπορεί να αλλάξει άλλο"
+  "battleLogStatUnchanged": "Το {statName} του {monsterName} δεν μπορεί να αλλάξει άλλο",
+  "battleLogRecovered": "Ο {monsterName} ανέκτησε {amount} HP"
 }

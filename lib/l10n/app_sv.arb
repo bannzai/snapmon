@@ -168,5 +168,6 @@
   "battleLogFainted": "{monsterName} svimmade",
   "battleLogStatRose": "{statName} ökade för {monsterName}!",
   "battleLogStatFell": "{statName} sjönk för {monsterName}",
-  "battleLogStatUnchanged": "{statName} hos {monsterName} kan inte ändras mer"
+  "battleLogStatUnchanged": "{statName} hos {monsterName} kan inte ändras mer",
+  "battleLogRecovered": "{monsterName} återfick {amount} HP"
 }

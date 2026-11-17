@@ -168,5 +168,6 @@
   "battleLogFainted": "{monsterName} se onesvijestio",
   "battleLogStatRose": "{statName} za {monsterName} je porastao!",
   "battleLogStatFell": "{statName} za {monsterName} je pao",
-  "battleLogStatUnchanged": "Vrijednost {statName} kod {monsterName} više se ne može promijeniti"
+  "battleLogStatUnchanged": "Vrijednost {statName} kod {monsterName} više se ne može promijeniti",
+  "battleLogRecovered": "{monsterName} je obnovio {amount} HP"
 }
