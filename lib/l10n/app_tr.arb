@@ -101,5 +101,6 @@
   "generationLetsBattleWith": "{monsterName} ile savaş",
   "generationAlreadyInDexTitle": "Zaten ansiklopedide",
   "generationAlreadyInDexMessage": "Bu nesne {monsterName} adıyla ansiklopedide zaten var\nBu canavarla savaşabilirsin",
-  "generationBattleWithThisMonster": "Bu canavarla savaş"
+  "generationBattleWithThisMonster": "Bu canavarla savaş",
+  "generationRetake": "Yeniden fotoğraf çek"
 }

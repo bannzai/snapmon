@@ -101,5 +101,6 @@
   "generationLetsBattleWith": "{monsterName} के साथ लड़ो",
   "generationAlreadyInDexTitle": "पहले से संग्रह में है",
   "generationAlreadyInDexMessage": "यह चीज़ {monsterName} के नाम से संग्रह में पहले से है\nइस मॉन्स्टर के साथ लड़ सकते हो",
-  "generationBattleWithThisMonster": "इस मॉन्स्टर के साथ लड़ो"
+  "generationBattleWithThisMonster": "इस मॉन्स्टर के साथ लड़ो",
+  "generationRetake": "फिर से फ़ोटो खींचो"
 }

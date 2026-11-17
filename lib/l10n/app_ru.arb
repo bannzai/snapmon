@@ -101,5 +101,6 @@
   "generationLetsBattleWith": "Сражайся вместе с {monsterName}",
   "generationAlreadyInDexTitle": "Уже есть в энциклопедии",
   "generationAlreadyInDexMessage": "Этот предмет уже есть в энциклопедии под именем {monsterName}\nТы можешь сражаться с этим монстром",
-  "generationBattleWithThisMonster": "Сражайся с этим монстром"
+  "generationBattleWithThisMonster": "Сражайся с этим монстром",
+  "generationRetake": "Сфотографировать снова"
 }

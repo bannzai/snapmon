@@ -101,5 +101,6 @@
   "generationLetsBattleWith": "Strid med {monsterName}",
   "generationAlreadyInDexTitle": "Finns redan i samlingen",
   "generationAlreadyInDexMessage": "Det här föremålet finns redan i din samling som {monsterName}\nDu kan strida med det här monstret",
-  "generationBattleWithThisMonster": "Strid med detta monster"
+  "generationBattleWithThisMonster": "Strid med detta monster",
+  "generationRetake": "Ta bilden igen"
 }

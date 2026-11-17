@@ -101,5 +101,6 @@
   "generationLetsBattleWith": "Bojuj s {monsterName}",
   "generationAlreadyInDexTitle": "Už je v encyklopedii",
   "generationAlreadyInDexMessage": "Tento předmět už je v encyklopedii jako {monsterName}\nS touto příšerou můžeš bojovat",
-  "generationBattleWithThisMonster": "Bojuj s touto příšerou"
+  "generationBattleWithThisMonster": "Bojuj s touto příšerou",
+  "generationRetake": "Vyfoť znovu"
 }

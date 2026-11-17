@@ -101,5 +101,6 @@
   "generationLetsBattleWith": "สู้ไปกับ {monsterName}",
   "generationAlreadyInDexTitle": "อยู่ในสารานุกรมแล้ว",
   "generationAlreadyInDexMessage": "สิ่งนี้อยู่ในสารานุกรมในชื่อ {monsterName} แล้ว\nใช้มอนสเตอร์ตัวนี้ต่อสู้ได้",
-  "generationBattleWithThisMonster": "สู้ด้วยมอนสเตอร์ตัวนี้"
+  "generationBattleWithThisMonster": "สู้ด้วยมอนสเตอร์ตัวนี้",
+  "generationRetake": "ถ่ายใหม่"
 }

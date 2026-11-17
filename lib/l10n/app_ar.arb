@@ -101,5 +101,6 @@
   "generationLetsBattleWith": "لنخض المعركة مع {monsterName}",
   "generationAlreadyInDexTitle": "موجود بالفعل في الموسوعة",
   "generationAlreadyInDexMessage": "هذا الشيء موجود في الموسوعة باسم {monsterName}\nيمكنك القتال بهذا الوحش",
-  "generationBattleWithThisMonster": "قاتل بهذا الوحش"
+  "generationBattleWithThisMonster": "قاتل بهذا الوحش",
+  "generationRetake": "التقط صورة من جديد"
 }

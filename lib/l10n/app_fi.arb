@@ -101,5 +101,6 @@
   "generationLetsBattleWith": "Taistele {monsterName} rinnallasi",
   "generationAlreadyInDexTitle": "On jo kokoelmassa",
   "generationAlreadyInDexMessage": "Tämä kohde on jo kokoelmassa nimellä {monsterName}\nVoit taistella tällä hirviöllä",
-  "generationBattleWithThisMonster": "Taistele tällä hirviöllä"
+  "generationBattleWithThisMonster": "Taistele tällä hirviöllä",
+  "generationRetake": "Ota kuva uudelleen"
 }
