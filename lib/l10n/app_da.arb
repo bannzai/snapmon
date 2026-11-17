@@ -215,5 +215,6 @@
   "battleFirstHint": "Vælg et angreb, så handler den hurtigste først. Jo bedre elementet passer, desto mere effektivt er det",
   "battleChooseMove": "Vælg et angreb til {monsterName}",
   "battleTurn": "Tur {turnNumber}",
-  "battleSwitchMonster": "Skift monster"
+  "battleSwitchMonster": "Skift monster",
+  "battleChooseSwitchMonster": "Vælg et monster til kamp"
 }

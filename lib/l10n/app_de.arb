@@ -215,5 +215,6 @@
   "battleFirstHint": "Wähl eine Attacke, dann ist der Schnellere zuerst dran. Je besser das Element passt, desto höher die Effektivität",
   "battleChooseMove": "Wähle eine Attacke für {monsterName}",
   "battleTurn": "Runde {turnNumber}",
-  "battleSwitchMonster": "Monster wechseln"
+  "battleSwitchMonster": "Monster wechseln",
+  "battleChooseSwitchMonster": "Wähle ein Monster für den Kampf"
 }

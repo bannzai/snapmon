@@ -215,5 +215,6 @@
   "battleFirstHint": "Válassz támadást, és a gyorsabb lép először. Minél jobb a típus párosítása, annál nagyobb a hatékonyság",
   "battleChooseMove": "Válassz támadást {monsterName} számára",
   "battleTurn": "Kör {turnNumber}",
-  "battleSwitchMonster": "Cserélj szörnyet"
+  "battleSwitchMonster": "Cserélj szörnyet",
+  "battleChooseSwitchMonster": "Válassz szörnyet a csatába"
 }

@@ -215,5 +215,6 @@
   "battleFirstHint": "Vyber útok a rýchlejší koná prvý. Čím vhodnejší element, tým vyššia účinnosť",
   "battleChooseMove": "Vyber útok pre {monsterName}",
   "battleTurn": "Ťah {turnNumber}",
-  "battleSwitchMonster": "Vymeň príšeru"
+  "battleSwitchMonster": "Vymeň príšeru",
+  "battleChooseSwitchMonster": "Vyber príšeru do boja"
 }

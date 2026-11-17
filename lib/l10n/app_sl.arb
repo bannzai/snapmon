@@ -215,5 +215,6 @@
   "battleFirstHint": "Izberi potez in hitrejši ukrepa prvi. Bolj ko element ustreza, večja je učinkovitost",
   "battleChooseMove": "Izberi potez za {monsterName}",
   "battleTurn": "Poteza {turnNumber}",
-  "battleSwitchMonster": "Zamenjaj pošast"
+  "battleSwitchMonster": "Zamenjaj pošast",
+  "battleChooseSwitchMonster": "Izberi pošast za boj"
 }

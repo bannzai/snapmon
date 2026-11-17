@@ -215,5 +215,6 @@
   "battleFirstHint": "לבחור מתקפה: המהיר פועל ראשון. ככל שהסוג מתאים יותר, כך היעילות גבוהה יותר",
   "battleChooseMove": "לבחור מתקפה עבור {monsterName}",
   "battleTurn": "תור {turnNumber}",
-  "battleSwitchMonster": "החלפת מפלצת"
+  "battleSwitchMonster": "החלפת מפלצת",
+  "battleChooseSwitchMonster": "לבחור מפלצת לקרב"
 }

@@ -215,5 +215,6 @@
   "battleFirstHint": "Вибери прийом — швидший ходить першим. Чим краще підходить елемент, тим прийом ефективніший",
   "battleChooseMove": "Вибери прийом для {monsterName}",
   "battleTurn": "Хід {turnNumber}",
-  "battleSwitchMonster": "Змінити монстра"
+  "battleSwitchMonster": "Змінити монстра",
+  "battleChooseSwitchMonster": "Обери монстра для бою"
 }

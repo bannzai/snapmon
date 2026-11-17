@@ -215,5 +215,6 @@
   "battleFirstHint": "选好招式后，速度快的一方先行动。属性越克制对手，效果越强",
   "battleChooseMove": "选择{monsterName}的招式",
   "battleTurn": "回合 {turnNumber}",
-  "battleSwitchMonster": "更换怪物"
+  "battleSwitchMonster": "更换怪物",
+  "battleChooseSwitchMonster": "选择要上场的怪物"
 }

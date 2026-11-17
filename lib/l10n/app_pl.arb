@@ -215,5 +215,6 @@
   "battleFirstHint": "Wybierz ruch, a szybszy zadziała pierwszy. Im lepiej pasuje typ, tym większa skuteczność",
   "battleChooseMove": "Wybierz ruch dla {monsterName}",
   "battleTurn": "Tura {turnNumber}",
-  "battleSwitchMonster": "Zmień potwora"
+  "battleSwitchMonster": "Zmień potwora",
+  "battleChooseSwitchMonster": "Wybierz potwora do walki"
 }

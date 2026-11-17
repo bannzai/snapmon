@@ -215,5 +215,6 @@
   "battleFirstHint": "اختر حركة، فيتحرك الأسرع أولًا. كلما كان العنصر أنسب، زادت الفعالية",
   "battleChooseMove": "اختر حركة لـ{monsterName}",
   "battleTurn": "الدور {turnNumber}",
-  "battleSwitchMonster": "بدّل الوحش"
+  "battleSwitchMonster": "بدّل الوحش",
+  "battleChooseSwitchMonster": "اختر وحشًا لإرساله إلى المعركة"
 }

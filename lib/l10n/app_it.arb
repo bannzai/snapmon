@@ -215,5 +215,6 @@
   "battleFirstHint": "Scegli una mossa: il più veloce agisce per primo. Più l’elemento è favorevole, maggiore è l’efficacia",
   "battleChooseMove": "Scegli una mossa per {monsterName}",
   "battleTurn": "Turno {turnNumber}",
-  "battleSwitchMonster": "Cambia mostro"
+  "battleSwitchMonster": "Cambia mostro",
+  "battleChooseSwitchMonster": "Scegli un mostro da mandare in campo"
 }

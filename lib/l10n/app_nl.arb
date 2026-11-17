@@ -215,5 +215,6 @@
   "battleFirstHint": "Kies een aanval: de snelste is eerst aan de beurt. Hoe beter het type past, hoe hoger de effectiviteit",
   "battleChooseMove": "Kies een aanval voor {monsterName}",
   "battleTurn": "Beurt {turnNumber}",
-  "battleSwitchMonster": "Wissel van monster"
+  "battleSwitchMonster": "Wissel van monster",
+  "battleChooseSwitchMonster": "Kies een monster voor het gevecht"
 }

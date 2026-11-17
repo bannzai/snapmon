@@ -215,5 +215,6 @@
   "battleFirstHint": "Escolhe um golpe: o mais rápido age primeiro. Quanto melhor combinar o elemento, maior a eficácia",
   "battleChooseMove": "Escolhe um golpe para {monsterName}",
   "battleTurn": "Turno {turnNumber}",
-  "battleSwitchMonster": "Trocar de monstro"
+  "battleSwitchMonster": "Trocar de monstro",
+  "battleChooseSwitchMonster": "Escolhe um monstro para o combate"
 }

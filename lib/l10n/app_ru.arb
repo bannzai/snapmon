@@ -215,5 +215,6 @@
   "battleFirstHint": "Выбери приём — более быстрый ходит первым. Чем лучше подходит элемент, тем приём эффективнее",
   "battleChooseMove": "Выбери приём для {monsterName}",
   "battleTurn": "Ход {turnNumber}",
-  "battleSwitchMonster": "Сменить монстра"
+  "battleSwitchMonster": "Сменить монстра",
+  "battleChooseSwitchMonster": "Выбери монстра для боя"
 }

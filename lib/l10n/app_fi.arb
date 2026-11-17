@@ -215,5 +215,6 @@
   "battleFirstHint": "Valitse liike, niin nopeampi toimii ensin. Mitä paremmin elementti sopii, sitä suurempi tehokkuus",
   "battleChooseMove": "Valitse liike hahmolle {monsterName}",
   "battleTurn": "Vuoro {turnNumber}",
-  "battleSwitchMonster": "Vaihda hirviö"
+  "battleSwitchMonster": "Vaihda hirviö",
+  "battleChooseSwitchMonster": "Valitse hirviö taisteluun"
 }

@@ -215,5 +215,6 @@
   "battleFirstHint": "మూవ్ ఎంచుకో, వేగమైనది ముందుగా కదులుతుంది. మూలక అనుకూలత ఎంత బాగుంటే, ప్రభావం అంత ఎక్కువ",
   "battleChooseMove": "{monsterName} కోసం మూవ్ ఎంచుకో",
   "battleTurn": "వంతు {turnNumber}",
-  "battleSwitchMonster": "మాన్స్టర్‌ని మార్చు"
+  "battleSwitchMonster": "మాన్స్టర్‌ని మార్చు",
+  "battleChooseSwitchMonster": "పోరాటానికి మాన్స్టర్‌ను ఎంచుకో"
 }

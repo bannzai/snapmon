@@ -215,5 +215,6 @@
   "battleFirstHint": "ચાલ પસંદ કરો, પછી ઝડપી મોન્સ્ટર પહેલા ચાલશે. તત્ત્વ જેટલું અનુકૂળ, અસરકારકતા એટલી વધુ",
   "battleChooseMove": "{monsterName} માટે ચાલ પસંદ કરો",
   "battleTurn": "વારો {turnNumber}",
-  "battleSwitchMonster": "મોન્સ્ટર બદલો"
+  "battleSwitchMonster": "મોન્સ્ટર બદલો",
+  "battleChooseSwitchMonster": "મેદાનમાં ઉતારવા મોન્સ્ટર પસંદ કરો"
 }

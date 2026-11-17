@@ -215,5 +215,6 @@
   "battleFirstHint": "কৌশল বেছে নিলে দ্রুততর জন আগে চাল দেবে। এলিমেন্টের মিল যত ভালো, কার্যকারিতা তত বেশি",
   "battleChooseMove": "{monsterName}: কৌশল বেছে নাও",
   "battleTurn": "টার্ন {turnNumber}",
-  "battleSwitchMonster": "মনস্টার বদলাও"
+  "battleSwitchMonster": "মনস্টার বদলাও",
+  "battleChooseSwitchMonster": "মাঠে নামানোর জন্য মনস্টার বেছে নাও"
 }

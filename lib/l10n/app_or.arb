@@ -215,5 +215,6 @@
   "battleFirstHint": "ଚାଲ ବାଛ, ତା’ପରେ ଦ୍ରୁତ ମନଷ୍ଟର ଆଗେ ଚାଲିବ। ତତ୍ତ୍ୱ ଯେତେ ଅନୁକୂଳ, ପ୍ରଭାବ ସେତେ ଅଧିକ",
   "battleChooseMove": "{monsterName} ପାଇଁ ଚାଲ ବାଛ",
   "battleTurn": "ପାଳି {turnNumber}",
-  "battleSwitchMonster": "ମନଷ୍ଟର ବଦଳାଅ"
+  "battleSwitchMonster": "ମନଷ୍ଟର ବଦଳାଅ",
+  "battleChooseSwitchMonster": "ଲଢ଼େଇକୁ ପଠାଇବା ପାଇଁ ମନଷ୍ଟର ବାଛ"
 }

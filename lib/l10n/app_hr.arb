@@ -215,5 +215,6 @@
   "battleFirstHint": "Odaberi potez i brži djeluje prvi. Što element bolje odgovara, to je veća učinkovitost",
   "battleChooseMove": "Odaberi potez za {monsterName}",
   "battleTurn": "Potez {turnNumber}",
-  "battleSwitchMonster": "Zamijeni čudovište"
+  "battleSwitchMonster": "Zamijeni čudovište",
+  "battleChooseSwitchMonster": "Odaberi čudovište za borbu"
 }

@@ -215,5 +215,6 @@
   "battleFirstHint": "നീക്കം തിരഞ്ഞെടുക്കൂ; വേഗമുള്ളത് ആദ്യം നീങ്ങും. മൂലകം കൂടുതൽ അനുകൂലമായാൽ ഫലപ്രാപ്തിയും കൂടും",
   "battleChooseMove": "{monsterName}: നീക്കം തിരഞ്ഞെടുക്കൂ",
   "battleTurn": "ഊഴം {turnNumber}",
-  "battleSwitchMonster": "മോൺസ്റ്ററിനെ മാറ്റുക"
+  "battleSwitchMonster": "മോൺസ്റ്ററിനെ മാറ്റുക",
+  "battleChooseSwitchMonster": "പോരാട്ടത്തിനിറക്കാൻ മോൺസ്റ്ററെ തിരഞ്ഞെടുക്കൂ"
 }

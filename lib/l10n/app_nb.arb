@@ -215,5 +215,6 @@
   "battleFirstHint": "Velg et angrep, så handler den raskeste først. Jo bedre typen passer, desto høyere effektivitet",
   "battleChooseMove": "Velg et angrep for {monsterName}",
   "battleTurn": "Tur {turnNumber}",
-  "battleSwitchMonster": "Bytt monster"
+  "battleSwitchMonster": "Bytt monster",
+  "battleChooseSwitchMonster": "Velg et monster til kamp"
 }

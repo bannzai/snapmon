@@ -215,5 +215,6 @@
   "battleFirstHint": "चाल निवड, मग वेगवान मॉन्स्टर आधी कृती करेल. तत्त्व जितकं अनुकूल, तितकी परिणामकारकता जास्त",
   "battleChooseMove": "{monsterName}: चाल निवड",
   "battleTurn": "चाल {turnNumber}",
-  "battleSwitchMonster": "मॉन्स्टर बदल"
+  "battleSwitchMonster": "मॉन्स्टर बदल",
+  "battleChooseSwitchMonster": "मैदानात उतरवण्यासाठी मॉन्स्टर निवड"
 }

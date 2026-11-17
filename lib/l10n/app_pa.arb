@@ -215,5 +215,6 @@
   "battleFirstHint": "ਚਾਲ ਚੁਣੋ, ਫਿਰ ਤੇਜ਼ ਮੌਂਸਟਰ ਪਹਿਲਾਂ ਚੱਲੇਗਾ। ਤੱਤ ਦਾ ਮੇਲ ਜਿੰਨਾ ਵਧੀਆ, ਅਸਰ ਓਨਾ ਵੱਧ",
   "battleChooseMove": "{monsterName} ਲਈ ਚਾਲ ਚੁਣੋ",
   "battleTurn": "ਵਾਰੀ {turnNumber}",
-  "battleSwitchMonster": "ਮੌਂਸਟਰ ਬਦਲੋ"
+  "battleSwitchMonster": "ਮੌਂਸਟਰ ਬਦਲੋ",
+  "battleChooseSwitchMonster": "ਮੈਦਾਨ ਵਿੱਚ ਉਤਾਰਨ ਲਈ ਮੌਂਸਟਰ ਚੁਣੋ"
 }

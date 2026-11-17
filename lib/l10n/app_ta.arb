@@ -215,5 +215,6 @@
   "battleFirstHint": "தாக்குதலைத் தேர்ந்தெடுங்கள்; வேகமானது முதலில் செயல்படும். வகை எவ்வளவு பொருத்தமாக இருக்கிறதோ, அவ்வளவு அதிக தாக்கம்",
   "battleChooseMove": "{monsterName}: தாக்குதலைத் தேர்ந்தெடுங்கள்",
   "battleTurn": "முறை {turnNumber}",
-  "battleSwitchMonster": "மான்ஸ்டரை மாற்றுங்கள்"
+  "battleSwitchMonster": "மான்ஸ்டரை மாற்றுங்கள்",
+  "battleChooseSwitchMonster": "களமிறக்க ஒரு மான்ஸ்டரைத் தேர்ந்தெடுங்கள்"
 }

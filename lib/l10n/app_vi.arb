@@ -215,5 +215,6 @@
   "battleFirstHint": "Chọn chiêu, bên nhanh hơn sẽ ra đòn trước. Hệ càng tương khắc có lợi, hiệu quả càng cao",
   "battleChooseMove": "Chọn chiêu cho {monsterName}",
   "battleTurn": "Lượt {turnNumber}",
-  "battleSwitchMonster": "Đổi quái vật"
+  "battleSwitchMonster": "Đổi quái vật",
+  "battleChooseSwitchMonster": "Chọn quái vật ra trận"
 }

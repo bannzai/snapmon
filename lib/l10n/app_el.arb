@@ -215,5 +215,6 @@
   "battleFirstHint": "Διάλεξε τεχνική και ο πιο γρήγορος δρα πρώτος. Όσο καλύτερα ταιριάζει το στοιχείο, τόσο μεγαλύτερη η αποτελεσματικότητα",
   "battleChooseMove": "Διάλεξε τεχνική για {monsterName}",
   "battleTurn": "Γύρος {turnNumber}",
-  "battleSwitchMonster": "Αλλαγή τέρατος"
+  "battleSwitchMonster": "Αλλαγή τέρατος",
+  "battleChooseSwitchMonster": "Διάλεξε τέρας για τη μάχη"
 }

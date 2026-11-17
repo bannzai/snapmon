@@ -215,5 +215,6 @@
   "battleFirstHint": "Pilih gerakan, yang lebih pantas akan bertindak dulu. Semakin sesuai elemen, semakin tinggi keberkesanan",
   "battleChooseMove": "Pilih gerakan untuk {monsterName}",
   "battleTurn": "Giliran {turnNumber}",
-  "battleSwitchMonster": "Tukar monster"
+  "battleSwitchMonster": "Tukar monster",
+  "battleChooseSwitchMonster": "Pilih monster untuk bertarung"
 }

@@ -215,5 +215,6 @@
   "battleFirstHint": "เลือกท่าแล้วฝ่ายที่เร็วกว่าจะออกก่อน ธาตุยิ่งได้เปรียบ ยิ่งได้ผลแรง",
   "battleChooseMove": "เลือกท่าให้ {monsterName}",
   "battleTurn": "เทิร์น {turnNumber}",
-  "battleSwitchMonster": "เปลี่ยนมอนสเตอร์"
+  "battleSwitchMonster": "เปลี่ยนมอนสเตอร์",
+  "battleChooseSwitchMonster": "เลือกมอนสเตอร์ลงสนาม"
 }

@@ -215,5 +215,6 @@
   "battleFirstHint": "چال چنو، پھر تیز مونسٹر پہلے چلے گا۔ ٹائپ جتنی موافق ہو، اثر اتنا زیادہ ہوگا",
   "battleChooseMove": "{monsterName} کے لیے چال چنو",
   "battleTurn": "باری {turnNumber}",
-  "battleSwitchMonster": "مونسٹر بدلو"
+  "battleSwitchMonster": "مونسٹر بدلو",
+  "battleChooseSwitchMonster": "مقابلے میں اتارنے کے لیے مونسٹر چنو"
 }

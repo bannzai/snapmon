@@ -215,5 +215,6 @@
   "battleFirstHint": "ತಂತ್ರ ಆಯ್ಕೆ ಮಾಡು, ವೇಗವಾದದ್ದು ಮೊದಲು ಚಲಿಸುತ್ತದೆ. ಪ್ರಕಾರ ಎಷ್ಟು ಅನುಕೂಲವೋ ಪರಿಣಾಮಕಾರಿತ್ವ ಅಷ್ಟು ಹೆಚ್ಚು",
   "battleChooseMove": "{monsterName}: ತಂತ್ರ ಆಯ್ಕೆ ಮಾಡು",
   "battleTurn": "ಸರದಿ {turnNumber}",
-  "battleSwitchMonster": "ಮಾನ್ಸ್ಟರ್ ಬದಲಾಯಿಸು"
+  "battleSwitchMonster": "ಮಾನ್ಸ್ಟರ್ ಬದಲಾಯಿಸು",
+  "battleChooseSwitchMonster": "ಕಣಕ್ಕಿಳಿಸಲು ಮಾನ್ಸ್ಟರ್ ಆಯ್ಕೆ ಮಾಡು"
 }

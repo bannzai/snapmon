@@ -215,5 +215,6 @@
   "battleFirstHint": "Elige un movimiento y el más rápido actuará primero. Cuanto mejor encaje el elemento, mayor será su eficacia",
   "battleChooseMove": "Elige un movimiento para {monsterName}",
   "battleTurn": "Turno {turnNumber}",
-  "battleSwitchMonster": "Cambiar monstruo"
+  "battleSwitchMonster": "Cambiar monstruo",
+  "battleChooseSwitchMonster": "Elige un monstruo para el combate"
 }

@@ -215,5 +215,6 @@
   "battleFirstHint": "Alege o mișcare, iar cel mai rapid acționează primul. Cu cât elementul se potrivește mai bine, cu atât crește eficacitatea",
   "battleChooseMove": "Alege o mișcare pentru {monsterName}",
   "battleTurn": "Tura {turnNumber}",
-  "battleSwitchMonster": "Schimbă monstrul"
+  "battleSwitchMonster": "Schimbă monstrul",
+  "battleChooseSwitchMonster": "Alege un monstru pentru luptă"
 }
