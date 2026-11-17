@@ -268,5 +268,6 @@
   "ticketPurchaseArrivedTitle": "Tes tickets sont arrivés",
   "ticketPurchaseContinue": "Créer à partir de cette photo",
   "ticketPurchaseSync": "Synchroniser l’état des achats",
-  "ticketPurchaseSynced": "L’état de ton achat a été synchronisé"
+  "ticketPurchaseSynced": "L’état de ton achat a été synchronisé",
+  "actionCardTitle": "Action Card"
 }
