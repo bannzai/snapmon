@@ -75,5 +75,6 @@
   "dexReload": "Torna a carregar",
   "dexParty": "equip",
   "dexAll": "Tots",
-  "dexEmpty": "Encara no tens cap monstre\nProva de fer una foto d'un objecte del teu voltant des de la pantalla de captura"
+  "dexEmpty": "Encara no tens cap monstre\nProva de fer una foto d'un objecte del teu voltant des de la pantalla de captura",
+  "dexEmptySlot": "Buit"
 }

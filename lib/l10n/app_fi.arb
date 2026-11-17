@@ -75,5 +75,6 @@
   "dexReload": "Lataa uudelleen",
   "dexParty": "joukkue",
   "dexAll": "Kaikki",
-  "dexEmpty": "Sinulla ei ole vielä hirviöitä\nKokeile kuvata jotain ympäriltäsi kuvausnäytössä"
+  "dexEmpty": "Sinulla ei ole vielä hirviöitä\nKokeile kuvata jotain ympäriltäsi kuvausnäytössä",
+  "dexEmptySlot": "Tyhjä"
 }

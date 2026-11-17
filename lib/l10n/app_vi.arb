@@ -75,5 +75,6 @@
   "dexReload": "Tải lại",
   "dexParty": "đội",
   "dexAll": "Tất cả",
-  "dexEmpty": "Bạn chưa có quái vật nào\nThử chụp một món đồ quanh bạn từ màn hình chụp ảnh"
+  "dexEmpty": "Bạn chưa có quái vật nào\nThử chụp một món đồ quanh bạn từ màn hình chụp ảnh",
+  "dexEmptySlot": "Trống"
 }

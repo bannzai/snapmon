@@ -75,5 +75,6 @@
   "dexReload": "Last inn på nytt",
   "dexParty": "lag",
   "dexAll": "Alle",
-  "dexEmpty": "Du har ingen monstre ennå\nPrøv å ta bilde av noe rundt deg på fotoskjermen"
+  "dexEmpty": "Du har ingen monstre ennå\nPrøv å ta bilde av noe rundt deg på fotoskjermen",
+  "dexEmptySlot": "Tom"
 }

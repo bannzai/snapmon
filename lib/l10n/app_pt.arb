@@ -75,5 +75,6 @@
   "dexReload": "Carregar de novo",
   "dexParty": "equipe",
   "dexAll": "Todos",
-  "dexEmpty": "Você ainda não tem monstros\nTente fotografar algo ao seu redor na tela de captura"
+  "dexEmpty": "Você ainda não tem monstros\nTente fotografar algo ao seu redor na tela de captura",
+  "dexEmptySlot": "Vazio"
 }

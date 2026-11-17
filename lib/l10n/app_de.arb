@@ -75,5 +75,6 @@
   "dexReload": "Erneut laden",
   "dexParty": "Team",
   "dexAll": "Alle",
-  "dexEmpty": "Du hast noch keine Monster\nFotografiere auf dem Aufnahmebildschirm etwas aus deiner Umgebung"
+  "dexEmpty": "Du hast noch keine Monster\nFotografiere auf dem Aufnahmebildschirm etwas aus deiner Umgebung",
+  "dexEmptySlot": "Leer"
 }

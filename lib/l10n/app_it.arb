@@ -75,5 +75,6 @@
   "dexReload": "Ricarica",
   "dexParty": "squadra",
   "dexAll": "Tutti",
-  "dexEmpty": "Non hai ancora mostri\nProva a fotografare qualcosa vicino a te dalla schermata di scatto"
+  "dexEmpty": "Non hai ancora mostri\nProva a fotografare qualcosa vicino a te dalla schermata di scatto",
+  "dexEmptySlot": "Vuoto"
 }

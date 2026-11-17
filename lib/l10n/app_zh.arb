@@ -75,5 +75,6 @@
   "dexReload": "重新加载",
   "dexParty": "队伍",
   "dexAll": "全部",
-  "dexEmpty": "还没有怪物\n去拍摄画面给身边的物品拍张照吧"
+  "dexEmpty": "还没有怪物\n去拍摄画面给身边的物品拍张照吧",
+  "dexEmptySlot": "空位"
 }

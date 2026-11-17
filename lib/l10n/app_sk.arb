@@ -75,5 +75,6 @@
   "dexReload": "Načítaj znova",
   "dexParty": "tím",
   "dexAll": "Všetci",
-  "dexEmpty": "Zatiaľ nemáš žiadne príšery\nNa obrazovke fotenia skús odfotiť niečo okolo seba"
+  "dexEmpty": "Zatiaľ nemáš žiadne príšery\nNa obrazovke fotenia skús odfotiť niečo okolo seba",
+  "dexEmptySlot": "Prázdne"
 }
