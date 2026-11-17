@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../../app_display_name.dart';
 import '../../l10n/l10n.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_text_styles.dart';
@@ -56,7 +57,7 @@ class _SessionScreenState extends State<SessionScreen> {
           return ListView(
             padding: const EdgeInsets.fromLTRB(20, 56, 20, 40),
             children: [
-              const Text('snapmon', style: SnapmonTextStyles.logo),
+              const Text(appDisplayName, style: SnapmonTextStyles.logo),
               const SizedBox(height: 32),
               if (error == null) ...[
                 Text(

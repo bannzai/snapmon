@@ -2,6 +2,7 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 
+import '../../app_display_name.dart';
 import '../../domain/battle/battle_state.dart';
 import '../../domain/master/master_data.dart';
 import '../../domain/monster/stat_calculation.dart';
@@ -14,7 +15,7 @@ import '../dex/owned_monster.dart';
 import '../settings/settings_screen.dart';
 import 'card_sharer.dart';
 
-/// 共有する図鑑のカード。モンスターの絵・名前・レベル・属性・ステータスと、snapmon のロゴ・紹介ページの URL を描く。
+/// 共有する図鑑のカード。モンスターの絵・名前・レベル・属性・ステータスと、アプリ名のロゴ・紹介ページの URL を描く。
 /// 絵は [artImagesByPath] の切り出した被写体の画像 (元の写真の一部または全体のこともある) を使い、Storage から読む部品
 /// (StorageImage) を使わない (画面に出さずに PNG に描くため、読み込み済みの画像だけで描く)。名前と図鑑の文章が AI の生成である表示は描かない
 /// (アプリのどの画面にも出さず、開示は利用規約・プライバシーポリシー・ストアの説明文で行うため。DIRECTION.md「決めたこと」2026-10-29・2026-10-30)。
@@ -232,7 +233,7 @@ class MonsterShareCard extends StatelessWidget {
 }
 
 /// 共有するバトルの結果のカード。勝ち負け・相手の手持ちの名前・自分の手持ちの絵と名前とレベルと、
-/// snapmon のロゴ・紹介ページの URL を描く。絵の扱いは [MonsterShareCard] と同じで、AI の生成である表示も描かない。
+/// アプリ名のロゴ・紹介ページの URL を描く。絵の扱いは [MonsterShareCard] と同じで、AI の生成である表示も描かない。
 class BattleResultShareCard extends StatelessWidget {
   /// バトルの結果の共有するカードを作る。
   const BattleResultShareCard({
@@ -479,13 +480,13 @@ class BattleResultShareCard extends StatelessWidget {
   }
 }
 
-/// カードの左上の snapmon のロゴ。
+/// カードの左上のアプリ名のロゴ。
 class _Logo extends StatelessWidget {
   const _Logo();
 
   @override
   Widget build(BuildContext context) => Text(
-    'snapmon',
+    appDisplayName,
     style: SnapmonTextStyles.logo.copyWith(color: SnapmonColors.accent),
   );
 }
