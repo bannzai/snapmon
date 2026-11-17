@@ -194,5 +194,6 @@
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "Méreg",
   "statusConditionParalysis": "Bénulás",
-  "statusConditionStun": "Kábulat"
+  "statusConditionStun": "Kábulat",
+  "statusConditionBurn": "Égés"
 }

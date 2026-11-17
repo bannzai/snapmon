@@ -194,5 +194,6 @@
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "Otravă",
   "statusConditionParalysis": "Paralizie",
-  "statusConditionStun": "Amețeală"
+  "statusConditionStun": "Amețeală",
+  "statusConditionBurn": "Arsură"
 }

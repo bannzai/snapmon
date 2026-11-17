@@ -194,5 +194,6 @@
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "Racun",
   "statusConditionParalysis": "Lumpuh",
-  "statusConditionStun": "Pingsan"
+  "statusConditionStun": "Pingsan",
+  "statusConditionBurn": "Luka bakar"
 }

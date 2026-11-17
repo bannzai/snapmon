@@ -194,5 +194,6 @@
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "Độc",
   "statusConditionParalysis": "Tê liệt",
-  "statusConditionStun": "Choáng"
+  "statusConditionStun": "Choáng",
+  "statusConditionBurn": "Bỏng"
 }

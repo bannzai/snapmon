@@ -194,5 +194,6 @@
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "Zehir",
   "statusConditionParalysis": "Felç",
-  "statusConditionStun": "Sersemleme"
+  "statusConditionStun": "Sersemleme",
+  "statusConditionBurn": "Yanık"
 }

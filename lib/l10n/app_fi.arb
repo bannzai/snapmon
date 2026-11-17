@@ -194,5 +194,6 @@
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "Myrkky",
   "statusConditionParalysis": "Halvaus",
-  "statusConditionStun": "Tyrmätty"
+  "statusConditionStun": "Tyrmätty",
+  "statusConditionBurn": "Palovamma"
 }

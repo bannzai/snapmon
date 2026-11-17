@@ -194,5 +194,6 @@
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "中毒",
   "statusConditionParalysis": "麻痹",
-  "statusConditionStun": "昏厥"
+  "statusConditionStun": "昏厥",
+  "statusConditionBurn": "灼伤"
 }

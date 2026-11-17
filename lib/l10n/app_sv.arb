@@ -194,5 +194,6 @@
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "Gift",
   "statusConditionParalysis": "Förlamning",
-  "statusConditionStun": "Bedövad"
+  "statusConditionStun": "Bedövad",
+  "statusConditionBurn": "Brännskada"
 }

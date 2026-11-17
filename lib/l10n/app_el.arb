@@ -194,5 +194,6 @@
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "Δηλητήριο",
   "statusConditionParalysis": "Παράλυση",
-  "statusConditionStun": "Ζάλη"
+  "statusConditionStun": "Ζάλη",
+  "statusConditionBurn": "Έγκαυμα"
 }

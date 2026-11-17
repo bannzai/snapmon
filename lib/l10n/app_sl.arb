@@ -194,5 +194,6 @@
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "Zastrupitev",
   "statusConditionParalysis": "Paraliza",
-  "statusConditionStun": "Omamljenost"
+  "statusConditionStun": "Omamljenost",
+  "statusConditionBurn": "Opeklina"
 }

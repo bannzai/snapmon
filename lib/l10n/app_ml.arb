@@ -194,5 +194,6 @@
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "വിഷം",
   "statusConditionParalysis": "തളർച്ച",
-  "statusConditionStun": "ബോധക്ഷയം"
+  "statusConditionStun": "ബോധക്ഷയം",
+  "statusConditionBurn": "പൊള്ളൽ"
 }

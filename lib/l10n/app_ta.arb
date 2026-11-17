@@ -194,5 +194,6 @@
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "நஞ்சு",
   "statusConditionParalysis": "பக்கவாதம்",
-  "statusConditionStun": "மயக்கம்"
+  "statusConditionStun": "மயக்கம்",
+  "statusConditionBurn": "தீக்காயம்"
 }

@@ -194,5 +194,6 @@
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "Verí",
   "statusConditionParalysis": "Paràlisi",
-  "statusConditionStun": "Atordiment"
+  "statusConditionStun": "Atordiment",
+  "statusConditionBurn": "Cremada"
 }

@@ -194,5 +194,6 @@
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "Veleno",
   "statusConditionParalysis": "Paralisi",
-  "statusConditionStun": "Stordimento"
+  "statusConditionStun": "Stordimento",
+  "statusConditionBurn": "Scottatura"
 }

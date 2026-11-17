@@ -194,5 +194,6 @@
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "רעל",
   "statusConditionParalysis": "שיתוק",
-  "statusConditionStun": "עילפון"
+  "statusConditionStun": "עילפון",
+  "statusConditionBurn": "כוויה"
 }

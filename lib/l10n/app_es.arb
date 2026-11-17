@@ -194,5 +194,6 @@
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "Veneno",
   "statusConditionParalysis": "Parálisis",
-  "statusConditionStun": "Aturdimiento"
+  "statusConditionStun": "Aturdimiento",
+  "statusConditionBurn": "Quemadura"
 }

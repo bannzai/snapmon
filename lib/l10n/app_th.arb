@@ -194,5 +194,6 @@
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "พิษ",
   "statusConditionParalysis": "อัมพาต",
-  "statusConditionStun": "หมดสติ"
+  "statusConditionStun": "หมดสติ",
+  "statusConditionBurn": "แผลไหม้"
 }

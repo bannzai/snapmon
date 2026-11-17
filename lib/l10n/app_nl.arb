@@ -194,5 +194,6 @@
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "Gif",
   "statusConditionParalysis": "Verlamming",
-  "statusConditionStun": "Verdoofd"
+  "statusConditionStun": "Verdoofd",
+  "statusConditionBurn": "Brandwond"
 }

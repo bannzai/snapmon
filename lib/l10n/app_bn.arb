@@ -194,5 +194,6 @@
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "বিষ",
   "statusConditionParalysis": "পক্ষাঘাত",
-  "statusConditionStun": "অজ্ঞান"
+  "statusConditionStun": "অজ্ঞান",
+  "statusConditionBurn": "পোড়া"
 }

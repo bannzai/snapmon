@@ -194,5 +194,6 @@
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "سم",
   "statusConditionParalysis": "شلل",
-  "statusConditionStun": "إغماء"
+  "statusConditionStun": "إغماء",
+  "statusConditionBurn": "حرق"
 }

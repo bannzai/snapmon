@@ -194,5 +194,6 @@
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "زہر",
   "statusConditionParalysis": "فالج",
-  "statusConditionStun": "بے ہوشی"
+  "statusConditionStun": "بے ہوشی",
+  "statusConditionBurn": "جلنا"
 }

@@ -194,5 +194,6 @@
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "Jed",
   "statusConditionParalysis": "Paralýza",
-  "statusConditionStun": "Omráčenie"
+  "statusConditionStun": "Omráčenie",
+  "statusConditionBurn": "Popálenie"
 }

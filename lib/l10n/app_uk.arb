@@ -194,5 +194,6 @@
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "Отрута",
   "statusConditionParalysis": "Параліч",
-  "statusConditionStun": "Оглушення"
+  "statusConditionStun": "Оглушення",
+  "statusConditionBurn": "Опік"
 }
