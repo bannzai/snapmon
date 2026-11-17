@@ -157,5 +157,6 @@
   "shareFormatLandscapeDescription": "Pour les publications 1200×630",
   "shareConfirm": "Partager",
   "commonLevelUp": "Niv. {oldLevel} → {newLevel}",
-  "battleWon": "Victoire !"
+  "battleWon": "Victoire !",
+  "battleLost": "Défaite"
 }
