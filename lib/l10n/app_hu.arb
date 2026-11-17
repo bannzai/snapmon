@@ -18,5 +18,6 @@
   "reportSheetSubmit": "Jelentés",
   "reportSheetOtherTrouble": "Ha más problémád is van",
   "commonCouldNotOpenURL": "Nem sikerült megnyitni: {url}",
-  "commonCancel": "Mégse"
+  "commonCancel": "Mégse",
+  "commonLevel": "Lv. {level}"
 }

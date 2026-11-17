@@ -18,5 +18,6 @@
   "reportSheetSubmit": "Αναφορά",
   "reportSheetOtherTrouble": "Αν έχεις κάποιο άλλο πρόβλημα",
   "commonCouldNotOpenURL": "Δεν ήταν δυνατό το άνοιγμα του {url}",
-  "commonCancel": "Ακύρωση"
+  "commonCancel": "Ακύρωση",
+  "commonLevel": "Lv. {level}"
 }

@@ -18,5 +18,6 @@
   "reportSheetSubmit": "דיווח",
   "reportSheetOtherTrouble": "אם יש בעיה נוספת",
   "commonCouldNotOpenURL": "לא ניתן לפתוח את {url}",
-  "commonCancel": "ביטול"
+  "commonCancel": "ביטול",
+  "commonLevel": "Lv. {level}"
 }

@@ -18,5 +18,6 @@
   "reportSheetSubmit": "Laporkan",
   "reportSheetOtherTrouble": "Kalau kamu punya masalah lain",
   "commonCouldNotOpenURL": "Tidak bisa membuka {url}",
-  "commonCancel": "Batal"
+  "commonCancel": "Batal",
+  "commonLevel": "Lv. {level}"
 }

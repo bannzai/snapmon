@@ -18,5 +18,6 @@
   "reportSheetSubmit": "રિપોર્ટ કરો",
   "reportSheetOtherTrouble": "તમને બીજી કોઈ મુશ્કેલી હોય તો",
   "commonCouldNotOpenURL": "{url} ખોલી શકાયું નહીં",
-  "commonCancel": "રદ કરો"
+  "commonCancel": "રદ કરો",
+  "commonLevel": "Lv. {level}"
 }

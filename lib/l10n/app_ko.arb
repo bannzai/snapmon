@@ -18,5 +18,6 @@
   "reportSheetSubmit": "신고하기",
   "reportSheetOtherTrouble": "다른 문제가 있다면",
   "commonCouldNotOpenURL": "{url} 주소를 열지 못했어요",
-  "commonCancel": "취소"
+  "commonCancel": "취소",
+  "commonLevel": "Lv. {level}"
 }

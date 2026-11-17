@@ -18,5 +18,6 @@
   "reportSheetSubmit": "Denunciar",
   "reportSheetOtherTrouble": "Se tiveres mais algum problema",
   "commonCouldNotOpenURL": "Não foi possível abrir {url}",
-  "commonCancel": "Cancelar"
+  "commonCancel": "Cancelar",
+  "commonLevel": "Lv. {level}"
 }

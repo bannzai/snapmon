@@ -18,5 +18,6 @@
   "reportSheetSubmit": "檢舉",
   "reportSheetOtherTrouble": "如果你還有其他問題",
   "commonCouldNotOpenURL": "無法開啟 {url}",
-  "commonCancel": "取消"
+  "commonCancel": "取消",
+  "commonLevel": "Lv. {level}"
 }

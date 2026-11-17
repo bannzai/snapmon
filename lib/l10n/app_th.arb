@@ -18,5 +18,6 @@
   "reportSheetSubmit": "รายงาน",
   "reportSheetOtherTrouble": "หากมีปัญหาอื่นอีก",
   "commonCouldNotOpenURL": "เปิด {url} ไม่ได้",
-  "commonCancel": "ยกเลิก"
+  "commonCancel": "ยกเลิก",
+  "commonLevel": "Lv. {level}"
 }

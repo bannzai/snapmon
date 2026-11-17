@@ -18,5 +18,6 @@
   "reportSheetSubmit": "Nahlásit",
   "reportSheetOtherTrouble": "Když narazíš na další problém",
   "commonCouldNotOpenURL": "Nepodařilo se otevřít {url}",
-  "commonCancel": "Zrušit"
+  "commonCancel": "Zrušit",
+  "commonLevel": "Lv. {level}"
 }

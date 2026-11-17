@@ -18,5 +18,6 @@
   "reportSheetSubmit": "ରିପୋର୍ଟ କର",
   "reportSheetOtherTrouble": "ତୁମର ଆଉ କିଛି ଅସୁବିଧା ଥିଲେ",
   "commonCouldNotOpenURL": "{url} ଖୋଲିହେଲା ନାହିଁ",
-  "commonCancel": "ବାତିଲ କର"
+  "commonCancel": "ବାତିଲ କର",
+  "commonLevel": "Lv. {level}"
 }

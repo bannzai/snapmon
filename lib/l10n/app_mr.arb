@@ -18,5 +18,6 @@
   "reportSheetSubmit": "रिपोर्ट कर",
   "reportSheetOtherTrouble": "तुला आणखी काही अडचण असेल तर",
   "commonCouldNotOpenURL": "{url} उघडता आलं नाही",
-  "commonCancel": "रद्द कर"
+  "commonCancel": "रद्द कर",
+  "commonLevel": "Lv. {level}"
 }

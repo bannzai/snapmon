@@ -18,5 +18,6 @@
   "reportSheetSubmit": "Báo cáo",
   "reportSheetOtherTrouble": "Nếu bạn gặp vấn đề khác",
   "commonCouldNotOpenURL": "Không mở được {url}",
-  "commonCancel": "Hủy"
+  "commonCancel": "Hủy",
+  "commonLevel": "Lv. {level}"
 }

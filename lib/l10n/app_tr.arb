@@ -18,5 +18,6 @@
   "reportSheetSubmit": "Bildir",
   "reportSheetOtherTrouble": "Başka bir sorun yaşarsan",
   "commonCouldNotOpenURL": "{url} açılamadı",
-  "commonCancel": "İptal"
+  "commonCancel": "İptal",
+  "commonLevel": "Lv. {level}"
 }

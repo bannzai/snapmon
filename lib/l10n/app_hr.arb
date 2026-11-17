@@ -18,5 +18,6 @@
   "reportSheetSubmit": "Prijavi",
   "reportSheetOtherTrouble": "Ako imaš još neki problem",
   "commonCouldNotOpenURL": "Nije moguće otvoriti {url}",
-  "commonCancel": "Odustani"
+  "commonCancel": "Odustani",
+  "commonLevel": "Lv. {level}"
 }

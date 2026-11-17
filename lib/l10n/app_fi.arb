@@ -18,5 +18,6 @@
   "reportSheetSubmit": "Ilmoita",
   "reportSheetOtherTrouble": "Jos sinulla on muita ongelmia",
   "commonCouldNotOpenURL": "Osoitetta {url} ei voitu avata",
-  "commonCancel": "Peruuta"
+  "commonCancel": "Peruuta",
+  "commonLevel": "Lv. {level}"
 }
