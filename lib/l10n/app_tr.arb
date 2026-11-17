@@ -160,5 +160,6 @@
   "battleWon": "Kazandın!",
   "battleLost": "Kaybettin",
   "shareVersusOpponents": "{opponentNames} ile karşılaş",
-  "battleLogChallenged": "{monsterName} seni düelloya çağırıyor!"
+  "battleLogChallenged": "{monsterName} seni düelloya çağırıyor!",
+  "battleLogMoveUsed": "{monsterName}, {moveName} kullandı!"
 }

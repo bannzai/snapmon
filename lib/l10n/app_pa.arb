@@ -160,5 +160,6 @@
   "battleWon": "ਤੁਸੀਂ ਜਿੱਤ ਗਏ!",
   "battleLost": "ਤੁਸੀਂ ਹਾਰ ਗਏ",
   "shareVersusOpponents": "{opponentNames} ਦੇ ਵਿਰੁੱਧ",
-  "battleLogChallenged": "{monsterName} ਨੇ ਤੁਹਾਨੂੰ ਲੜਾਈ ਲਈ ਚੁਣੌਤੀ ਦਿੱਤੀ!"
+  "battleLogChallenged": "{monsterName} ਨੇ ਤੁਹਾਨੂੰ ਲੜਾਈ ਲਈ ਚੁਣੌਤੀ ਦਿੱਤੀ!",
+  "battleLogMoveUsed": "{monsterName} ਨੇ {moveName} ਵਰਤਿਆ!"
 }

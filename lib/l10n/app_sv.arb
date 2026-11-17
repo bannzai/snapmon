@@ -160,5 +160,6 @@
   "battleWon": "Du vann!",
   "battleLost": "Du förlorade",
   "shareVersusOpponents": "mot {opponentNames}",
-  "battleLogChallenged": "{monsterName} utmanar dig på strid!"
+  "battleLogChallenged": "{monsterName} utmanar dig på strid!",
+  "battleLogMoveUsed": "{monsterName} använder {moveName}!"
 }

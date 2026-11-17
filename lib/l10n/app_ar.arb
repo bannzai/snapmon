@@ -160,5 +160,6 @@
   "battleWon": "فزت!",
   "battleLost": "خسرت",
   "shareVersusOpponents": "ضد {opponentNames}",
-  "battleLogChallenged": "تحدّاك {monsterName}!"
+  "battleLogChallenged": "تحدّاك {monsterName}!",
+  "battleLogMoveUsed": "استخدم {monsterName} حركة {moveName}!"
 }

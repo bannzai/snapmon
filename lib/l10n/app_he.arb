@@ -160,5 +160,6 @@
   "battleWon": "ניצחון!",
   "battleLost": "הפסד",
   "shareVersusOpponents": "נגד {opponentNames}",
-  "battleLogChallenged": "קרב מול {monsterName} מתחיל!"
+  "battleLogChallenged": "קרב מול {monsterName} מתחיל!",
+  "battleLogMoveUsed": "{monsterName} השתמש במהלך {moveName}!"
 }

@@ -160,5 +160,6 @@
   "battleWon": "Bạn thắng rồi!",
   "battleLost": "Bạn đã thua",
   "shareVersusOpponents": "đấu với {opponentNames}",
-  "battleLogChallenged": "{monsterName} thách bạn đấu một trận!"
+  "battleLogChallenged": "{monsterName} thách bạn đấu một trận!",
+  "battleLogMoveUsed": "{monsterName} dùng {moveName}!"
 }

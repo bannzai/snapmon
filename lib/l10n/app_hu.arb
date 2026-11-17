@@ -160,5 +160,6 @@
   "battleWon": "Győztél!",
   "battleLost": "Vesztettél",
   "shareVersusOpponents": "{opponentNames} ellen",
-  "battleLogChallenged": "{monsterName} párbajra hív!"
+  "battleLogChallenged": "{monsterName} párbajra hív!",
+  "battleLogMoveUsed": "{monsterName} beveti a(z) {moveName} támadást!"
 }

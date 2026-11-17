@@ -160,5 +160,6 @@
   "battleWon": "Kamu menang!",
   "battleLost": "Kamu kalah",
   "shareVersusOpponents": "lawan {opponentNames}",
-  "battleLogChallenged": "{monsterName} menantangmu bertarung!"
+  "battleLogChallenged": "{monsterName} menantangmu bertarung!",
+  "battleLogMoveUsed": "{monsterName} memakai {moveName}!"
 }

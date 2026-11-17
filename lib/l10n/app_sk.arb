@@ -160,5 +160,6 @@
   "battleWon": "Vyhral si!",
   "battleLost": "Prehral si",
   "shareVersusOpponents": "proti {opponentNames}",
-  "battleLogChallenged": "{monsterName} ťa vyzýva na súboj!"
+  "battleLogChallenged": "{monsterName} ťa vyzýva na súboj!",
+  "battleLogMoveUsed": "{monsterName} použil útok {moveName}!"
 }

@@ -160,5 +160,6 @@
   "battleWon": "Du hast gewonnen!",
   "battleLost": "Du hast verloren",
   "shareVersusOpponents": "gegen {opponentNames}",
-  "battleLogChallenged": "{monsterName} fordert dich zum Kampf heraus!"
+  "battleLogChallenged": "{monsterName} fordert dich zum Kampf heraus!",
+  "battleLogMoveUsed": "{monsterName} setzt {moveName} ein!"
 }

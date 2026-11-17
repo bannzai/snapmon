@@ -160,5 +160,6 @@
   "battleWon": "Νίκησες!",
   "battleLost": "Έχασες",
   "shareVersusOpponents": "εναντίον {opponentNames}",
-  "battleLogChallenged": "Ο {monsterName} σε προκαλεί σε μάχη!"
+  "battleLogChallenged": "Ο {monsterName} σε προκαλεί σε μάχη!",
+  "battleLogMoveUsed": "Ο {monsterName} χρησιμοποίησε την κίνηση {moveName}!"
 }

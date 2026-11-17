@@ -160,5 +160,6 @@
   "battleWon": "Zmagal si!",
   "battleLost": "Izgubil si",
   "shareVersusOpponents": "proti {opponentNames}",
-  "battleLogChallenged": "{monsterName} te izziva na dvoboj!"
+  "battleLogChallenged": "{monsterName} te izziva na dvoboj!",
+  "battleLogMoveUsed": "{monsterName} uporabi potezo {moveName}!"
 }

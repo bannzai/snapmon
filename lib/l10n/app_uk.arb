@@ -160,5 +160,6 @@
   "battleWon": "Перемога!",
   "battleLost": "Ти програв",
   "shareVersusOpponents": "проти {opponentNames}",
-  "battleLogChallenged": "{monsterName} викликає тебе на бій!"
+  "battleLogChallenged": "{monsterName} викликає тебе на бій!",
+  "battleLogMoveUsed": "{monsterName} застосовує прийом {moveName}!"
 }
