@@ -86,5 +86,6 @@
   "captureFirstHintCamera": "ചുറ്റുമുള്ള ഒരു വസ്തുവിന്റെ ഫോട്ടോ എടുക്കൂ",
   "captureHero": "ചുറ്റുമുള്ള ഒരു വസ്തുവിന്റെ ഫോട്ടോ എടുക്കൂ\nഒരു മോൺസ്റ്റർ പിറക്കും!",
   "capturePickFromAlbum": "ആൽബത്തിൽ നിന്ന് തിരഞ്ഞെടുക്കുക",
-  "captureGoToBattle": "പോരാടുക"
+  "captureGoToBattle": "പോരാടുക",
+  "captureViewfinderGuide": "പകർത്തുന്ന വസ്തുവിനെ ഫ്രെയിമിനുള്ളിൽ വയ്ക്കൂ"
 }

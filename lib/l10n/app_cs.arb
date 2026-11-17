@@ -86,5 +86,6 @@
   "captureFirstHintCamera": "Vyfoť jednu věc kolem sebe",
   "captureHero": "Vyfoť věc kolem sebe\nZrodí se příšera!",
   "capturePickFromAlbum": "Vyber z alba",
-  "captureGoToBattle": "Bojuj"
+  "captureGoToBattle": "Bojuj",
+  "captureViewfinderGuide": "Umísti focený objekt do rámečku"
 }

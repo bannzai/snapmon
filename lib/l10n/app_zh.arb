@@ -86,5 +86,6 @@
   "captureFirstHintCamera": "拍一件身边的东西",
   "captureHero": "拍下身边的物品\n怪物诞生了！",
   "capturePickFromAlbum": "从相册选择",
-  "captureGoToBattle": "对战"
+  "captureGoToBattle": "对战",
+  "captureViewfinderGuide": "把拍摄对象放进框内"
 }

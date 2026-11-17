@@ -86,5 +86,6 @@
   "captureFirstHintCamera": "Сфотографируй один предмет вокруг себя",
   "captureHero": "Сфотографируй предмет рядом с собой\nРодится монстр!",
   "capturePickFromAlbum": "Выбери из альбома",
-  "captureGoToBattle": "Сразиться"
+  "captureGoToBattle": "Сразиться",
+  "captureViewfinderGuide": "Помести объект съёмки в рамку"
 }

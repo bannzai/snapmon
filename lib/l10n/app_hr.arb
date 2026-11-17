@@ -86,5 +86,6 @@
   "captureFirstHintCamera": "Fotografiraj jedan predmet oko sebe",
   "captureHero": "Fotografiraj predmet oko sebe\nRađa se čudovište!",
   "capturePickFromAlbum": "Odaberi iz albuma",
-  "captureGoToBattle": "Bori se"
+  "captureGoToBattle": "Bori se",
+  "captureViewfinderGuide": "Smjesti motiv u okvir"
 }

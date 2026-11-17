@@ -86,5 +86,6 @@
   "captureFirstHintCamera": "आसपास की किसी एक चीज़ की फ़ोटो लो",
   "captureHero": "आसपास की किसी चीज़ की फ़ोटो लो\nमॉन्स्टर जन्म लेगा!",
   "capturePickFromAlbum": "एल्बम से चुनो",
-  "captureGoToBattle": "लड़ो"
+  "captureGoToBattle": "लड़ो",
+  "captureViewfinderGuide": "जिसकी फ़ोटो ले रहे हो, उसे फ़्रेम में लाओ"
 }

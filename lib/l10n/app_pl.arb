@@ -86,5 +86,6 @@
   "captureFirstHintCamera": "Zrób zdjęcie jednej rzeczy w pobliżu",
   "captureHero": "Zrób zdjęcie przedmiotu obok siebie\nRodzi się potwór!",
   "capturePickFromAlbum": "Wybierz z albumu",
-  "captureGoToBattle": "Walcz"
+  "captureGoToBattle": "Walcz",
+  "captureViewfinderGuide": "Umieść fotografowany obiekt w kadrze"
 }

@@ -86,5 +86,6 @@
   "captureFirstHintCamera": "Fotózz le egy tárgyat magad körül",
   "captureHero": "Fotózz le egy tárgyat magad körül\nMegszületik egy szörny!",
   "capturePickFromAlbum": "Válassz az albumból",
-  "captureGoToBattle": "Harcolj"
+  "captureGoToBattle": "Harcolj",
+  "captureViewfinderGuide": "Helyezd a témát a keretbe"
 }

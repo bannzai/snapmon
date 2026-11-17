@@ -86,5 +86,6 @@
   "captureFirstHintCamera": "Tira uma foto de um objeto à tua volta",
   "captureHero": "Fotografa um objeto à tua volta\nNasce um monstro!",
   "capturePickFromAlbum": "Escolher do álbum",
-  "captureGoToBattle": "Combater"
+  "captureGoToBattle": "Combater",
+  "captureViewfinderGuide": "Põe o que vais fotografar dentro do enquadramento"
 }
