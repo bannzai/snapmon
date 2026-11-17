@@ -78,5 +78,6 @@
   "dexEmpty": "ఇంకా మాన్స్టర్‌లు లేవు\nఫోటో తీసే స్క్రీన్‌లో నీ చుట్టూ ఉన్న వస్తువు ఫోటో తీయి",
   "dexEmptySlot": "ఖాళీ",
   "dexAddMonster": "జోడించు",
-  "dexAddToPartyTitle": "జట్టులో చేర్చు"
+  "dexAddToPartyTitle": "జట్టులో చేర్చు",
+  "dexNoPartyCandidates": "జట్టులో చేర్చడానికి మాన్స్టర్లు లేవు"
 }

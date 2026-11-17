@@ -78,5 +78,6 @@
   "dexEmpty": "Zatím nemáš žádné příšery\nNa obrazovce focení zkus vyfotit něco kolem sebe",
   "dexEmptySlot": "Prázdné",
   "dexAddMonster": "Přidat",
-  "dexAddToPartyTitle": "Přidej do týmu"
+  "dexAddToPartyTitle": "Přidej do týmu",
+  "dexNoPartyCandidates": "Nemáš žádné příšery, které bys mohl přidat do týmu"
 }

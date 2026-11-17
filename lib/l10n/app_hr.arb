@@ -78,5 +78,6 @@
   "dexEmpty": "Još nemaš čudovišta\nNa zaslonu za fotografiranje uslikaj nešto oko sebe",
   "dexEmptySlot": "Prazno",
   "dexAddMonster": "Dodaj",
-  "dexAddToPartyTitle": "Dodaj u tim"
+  "dexAddToPartyTitle": "Dodaj u tim",
+  "dexNoPartyCandidates": "Nemaš čudovišta koja možeš dodati u tim"
 }

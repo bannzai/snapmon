@@ -78,5 +78,6 @@
   "dexEmpty": "अभी कोई मॉन्स्टर नहीं है\nफ़ोटो लेने वाली स्क्रीन से आसपास की किसी चीज़ की फ़ोटो खींचो",
   "dexEmptySlot": "खाली",
   "dexAddMonster": "जोड़ो",
-  "dexAddToPartyTitle": "टीम में जोड़ो"
+  "dexAddToPartyTitle": "टीम में जोड़ो",
+  "dexNoPartyCandidates": "टीम में जोड़ने के लिए कोई मॉन्स्टर नहीं है"
 }

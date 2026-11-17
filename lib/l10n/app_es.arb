@@ -78,5 +78,6 @@
   "dexEmpty": "Aún no tienes monstruos\nPrueba a fotografiar algo que tengas cerca desde la pantalla de captura",
   "dexEmptySlot": "Vacío",
   "dexAddMonster": "Añadir",
-  "dexAddToPartyTitle": "Añadir al equipo"
+  "dexAddToPartyTitle": "Añadir al equipo",
+  "dexNoPartyCandidates": "No tienes monstruos para añadir a tu equipo"
 }

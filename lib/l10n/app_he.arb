@@ -78,5 +78,6 @@
   "dexEmpty": "עוד אין לך מפלצות\nאפשר לצלם חפץ בסביבה דרך מסך הצילום",
   "dexEmptySlot": "פנוי",
   "dexAddMonster": "הוספה",
-  "dexAddToPartyTitle": "הוספה לצוות"
+  "dexAddToPartyTitle": "הוספה לצוות",
+  "dexNoPartyCandidates": "אין מפלצות שאפשר להוסיף לצוות"
 }

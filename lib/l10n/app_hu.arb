@@ -78,5 +78,6 @@
   "dexEmpty": "Még nincsenek szörnyeid\nPróbálj lefotózni valamit magad körül a fotózás képernyőjén",
   "dexEmptySlot": "Üres",
   "dexAddMonster": "Hozzáadás",
-  "dexAddToPartyTitle": "Add a csapathoz"
+  "dexAddToPartyTitle": "Add a csapathoz",
+  "dexNoPartyCandidates": "Nincs szörny, akit felvehetnél a csapatodba"
 }

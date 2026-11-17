@@ -78,5 +78,6 @@
   "dexEmpty": "لا يوجد لديك وحش بعد\nجرّب تصوير شيء من حولك من شاشة التصوير",
   "dexEmptySlot": "فارغ",
   "dexAddMonster": "إضافة",
-  "dexAddToPartyTitle": "أضف إلى فريقك"
+  "dexAddToPartyTitle": "أضف إلى فريقك",
+  "dexNoPartyCandidates": "لا يوجد وحش يمكنك إضافته إلى فريقك"
 }

@@ -78,5 +78,6 @@
   "dexEmpty": "아직 몬스터가 없어요\n촬영 화면에서 주변 물건을 찍어 봐요",
   "dexEmptySlot": "빈자리",
   "dexAddMonster": "추가하기",
-  "dexAddToPartyTitle": "파티에 추가하기"
+  "dexAddToPartyTitle": "파티에 추가하기",
+  "dexNoPartyCandidates": "파티에 넣을 수 있는 몬스터가 없어요"
 }

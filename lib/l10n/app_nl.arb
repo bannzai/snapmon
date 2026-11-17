@@ -78,5 +78,6 @@
   "dexEmpty": "Je hebt nog geen monsters\nMaak op het fotoscherm eens een foto van iets om je heen",
   "dexEmptySlot": "Leeg",
   "dexAddMonster": "Toevoegen",
-  "dexAddToPartyTitle": "Voeg toe aan je team"
+  "dexAddToPartyTitle": "Voeg toe aan je team",
+  "dexNoPartyCandidates": "Je hebt geen monsters om aan je team toe te voegen"
 }

@@ -78,5 +78,6 @@
   "dexEmpty": "ยังไม่มีมอนสเตอร์\nลองถ่ายรูปสิ่งของรอบตัวจากหน้าถ่ายรูปดูสิ",
   "dexEmptySlot": "ว่าง",
   "dexAddMonster": "เพิ่ม",
-  "dexAddToPartyTitle": "เพิ่มเข้าทีม"
+  "dexAddToPartyTitle": "เพิ่มเข้าทีม",
+  "dexNoPartyCandidates": "ไม่มีมอนสเตอร์ที่เพิ่มเข้าทีมได้"
 }

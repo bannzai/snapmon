@@ -78,5 +78,6 @@
   "dexEmpty": "Ainda não tens monstros\nExperimenta fotografar algo à tua volta no ecrã de captura",
   "dexEmptySlot": "Vazio",
   "dexAddMonster": "Adicionar",
-  "dexAddToPartyTitle": "Adicionar à equipa"
+  "dexAddToPartyTitle": "Adicionar à equipa",
+  "dexNoPartyCandidates": "Não tens monstros para juntar à tua equipa"
 }

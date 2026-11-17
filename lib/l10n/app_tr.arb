@@ -78,5 +78,6 @@
   "dexEmpty": "Henüz canavarın yok\nFotoğraf ekranından çevrendeki bir eşyanın fotoğrafını çekmeyi dene",
   "dexEmptySlot": "Boş",
   "dexAddMonster": "Ekle",
-  "dexAddToPartyTitle": "Takıma ekle"
+  "dexAddToPartyTitle": "Takıma ekle",
+  "dexNoPartyCandidates": "Takımına ekleyebileceğin canavar yok"
 }

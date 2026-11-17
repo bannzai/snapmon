@@ -78,5 +78,6 @@
   "dexEmpty": "Nimaš še nobene pošasti\nNa zaslonu za fotografiranje poskusi slikati kaj okoli sebe",
   "dexEmptySlot": "Prazno",
   "dexAddMonster": "Dodaj",
-  "dexAddToPartyTitle": "Dodaj v ekipo"
+  "dexAddToPartyTitle": "Dodaj v ekipo",
+  "dexNoPartyCandidates": "Nimaš pošasti, ki bi jih lahko dodal v ekipo"
 }

@@ -78,5 +78,6 @@
   "dexEmpty": "Du har ingen monstre endnu\nPrøv at tage et billede af noget omkring dig på fotoskærmen",
   "dexEmptySlot": "Tom",
   "dexAddMonster": "Tilføj",
-  "dexAddToPartyTitle": "Føj til dit hold"
+  "dexAddToPartyTitle": "Føj til dit hold",
+  "dexNoPartyCandidates": "Du har ingen monstre, du kan føje til dit hold"
 }

@@ -78,5 +78,6 @@
   "dexEmpty": "Kamu belum punya monster\nCoba foto benda di sekitarmu dari layar kamera",
   "dexEmptySlot": "Kosong",
   "dexAddMonster": "Tambahkan",
-  "dexAddToPartyTitle": "Tambahkan ke tim"
+  "dexAddToPartyTitle": "Tambahkan ke tim",
+  "dexNoPartyCandidates": "Tidak ada monster yang bisa kamu masukkan ke tim"
 }

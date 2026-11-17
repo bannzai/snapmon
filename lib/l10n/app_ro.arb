@@ -78,5 +78,6 @@
   "dexEmpty": "Nu ai încă monștri\nÎncearcă să fotografiezi ceva din jurul tău pe ecranul de fotografiere",
   "dexEmptySlot": "Gol",
   "dexAddMonster": "Adaugă",
-  "dexAddToPartyTitle": "Adaugă în echipă"
+  "dexAddToPartyTitle": "Adaugă în echipă",
+  "dexNoPartyCandidates": "Nu ai monștri de adăugat în echipă"
 }

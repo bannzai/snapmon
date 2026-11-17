@@ -78,5 +78,6 @@
   "dexEmpty": "ابھی تمہارے پاس کوئی مونسٹر نہیں\nتصویر لینے والی اسکرین سے آس پاس کی کسی چیز کی تصویر کھینچو",
   "dexEmptySlot": "خالی",
   "dexAddMonster": "شامل کرو",
-  "dexAddToPartyTitle": "ٹیم میں شامل کرو"
+  "dexAddToPartyTitle": "ٹیم میں شامل کرو",
+  "dexNoPartyCandidates": "تمہاری ٹیم میں شامل کرنے کے لیے کوئی مونسٹر نہیں ہے"
 }

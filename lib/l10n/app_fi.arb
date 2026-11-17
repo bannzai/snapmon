@@ -78,5 +78,6 @@
   "dexEmpty": "Sinulla ei ole vielä hirviöitä\nKokeile kuvata jotain ympäriltäsi kuvausnäytössä",
   "dexEmptySlot": "Tyhjä",
   "dexAddMonster": "Lisää",
-  "dexAddToPartyTitle": "Lisää joukkueeseen"
+  "dexAddToPartyTitle": "Lisää joukkueeseen",
+  "dexNoPartyCandidates": "Sinulla ei ole hirviöitä, joita voisit lisätä joukkueeseesi"
 }

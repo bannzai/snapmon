@@ -78,5 +78,6 @@
   "dexEmpty": "ಇನ್ನೂ ಮಾನ್ಸ್ಟರ್‌ಗಳು ಇಲ್ಲ\nಫೋಟೋ ತೆಗೆಯುವ ಪರದೆಯಲ್ಲಿ ಸುತ್ತಲಿನ ಯಾವುದಾದರೂ ವಸ್ತುವಿನ ಫೋಟೋ ತೆಗೆ",
   "dexEmptySlot": "ಖಾಲಿ",
   "dexAddMonster": "ಸೇರಿಸು",
-  "dexAddToPartyTitle": "ತಂಡಕ್ಕೆ ಸೇರಿಸು"
+  "dexAddToPartyTitle": "ತಂಡಕ್ಕೆ ಸೇರಿಸು",
+  "dexNoPartyCandidates": "ತಂಡಕ್ಕೆ ಸೇರಿಸಲು ಮಾನ್ಸ್ಟರಗಳಿಲ್ಲ"
 }
