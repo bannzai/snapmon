@@ -241,5 +241,6 @@
   "referenceMovesTab": "قائمة الحركات",
   "referenceTypeChartNote": "عموديًا: عنصر الحركة، أفقيًا: عنصر الوحش الذي يتلقى الحركة\nإذا كان لدى الوحش المتلقي عنصران، اضرب معاملي التأثير معًا",
   "referenceTypeChartCorner": "حركة ／ يتلقى",
-  "referenceMoveStats": "القوة {power}  PP {powerPoints}  من Lv. {unlockLevel}"
+  "referenceMoveStats": "القوة {power}  PP {powerPoints}  من Lv. {unlockLevel}",
+  "moveDetailPower": "القوة"
 }

@@ -241,5 +241,6 @@
   "referenceMovesTab": "Liste over angreb",
   "referenceTypeChartNote": "Lodret: angrebets element. Vandret: elementet hos det monster, der rammes\nHar det ramte monster to elementer, ganger du de to multiplikatorer",
   "referenceTypeChartCorner": "angreb ／ forsvar",
-  "referenceMoveStats": "Styrke {power}  PP {powerPoints}  Fra Lv. {unlockLevel}"
+  "referenceMoveStats": "Styrke {power}  PP {powerPoints}  Fra Lv. {unlockLevel}",
+  "moveDetailPower": "Styrke"
 }

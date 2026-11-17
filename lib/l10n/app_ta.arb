@@ -241,5 +241,6 @@
   "referenceMovesTab": "தாக்குதல்களின் பட்டியல்",
   "referenceTypeChartNote": "செங்குத்தாக: தாக்குதலின் வகை. கிடைமட்டமாக: தாக்குதலைப் பெறும் மான்ஸ்டரின் வகை\nதாக்குதலைப் பெறும் மான்ஸ்டருக்கு இரண்டு வகைகள் இருந்தால், இரு பெருக்கிகளையும் பெருக்குங்கள்",
   "referenceTypeChartCorner": "தாக்குதல் ／ தற்காப்பு",
-  "referenceMoveStats": "வலிமை {power}  PP {powerPoints}  Lv. {unlockLevel} முதல்"
+  "referenceMoveStats": "வலிமை {power}  PP {powerPoints}  Lv. {unlockLevel} முதல்",
+  "moveDetailPower": "சக்தி"
 }

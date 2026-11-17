@@ -241,5 +241,6 @@
   "referenceMovesTab": "Daftar jurus",
   "referenceTypeChartNote": "Vertikal: elemen jurus. Horizontal: elemen monster yang terkena jurus\nKalau monster yang terkena punya dua elemen, kalikan kedua pengalinya",
   "referenceTypeChartCorner": "jurus ／ bertahan",
-  "referenceMoveStats": "Daya {power}  PP {powerPoints}  Mulai Lv. {unlockLevel}"
+  "referenceMoveStats": "Daya {power}  PP {powerPoints}  Mulai Lv. {unlockLevel}",
+  "moveDetailPower": "Kekuatan"
 }

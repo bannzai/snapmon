@@ -241,5 +241,6 @@
   "referenceMovesTab": "Zoznam útokov",
   "referenceTypeChartNote": "Zvislo: element útoku. Vodorovne: element príšery, ktorá ho dostane\nAk má zasiahnutá príšera dva elementy, vynásob oba násobitele",
   "referenceTypeChartCorner": "útok ／ obrana",
-  "referenceMoveStats": "Sila {power}  PP {powerPoints}  Od Lv. {unlockLevel}"
+  "referenceMoveStats": "Sila {power}  PP {powerPoints}  Od Lv. {unlockLevel}",
+  "moveDetailPower": "Sila"
 }

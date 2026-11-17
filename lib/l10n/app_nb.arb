@@ -241,5 +241,6 @@
   "referenceMovesTab": "Liste over angrep",
   "referenceTypeChartNote": "Loddrett: angrepets element. Vannrett: typen til monsteret som blir truffet\nHar monsteret som blir truffet to typer, ganger du de to faktorene",
   "referenceTypeChartCorner": "angrep ／ forsvar",
-  "referenceMoveStats": "Styrke {power}  PP {powerPoints}  Fra Lv. {unlockLevel}"
+  "referenceMoveStats": "Styrke {power}  PP {powerPoints}  Fra Lv. {unlockLevel}",
+  "moveDetailPower": "Styrke"
 }

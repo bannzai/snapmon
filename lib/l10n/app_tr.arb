@@ -241,5 +241,6 @@
   "referenceMovesTab": "Tüm hamleler",
   "referenceTypeChartNote": "Dikeyde hamlenin elementi, yatayda hamleyi alan canavarın elementi var\nHamleyi alan canavarın iki elementi varsa iki çarpanı birbiriyle çarp",
   "referenceTypeChartCorner": "hamle ／ savunma",
-  "referenceMoveStats": "Güç {power}  PP {powerPoints}  Lv. {unlockLevel} itibarıyla"
+  "referenceMoveStats": "Güç {power}  PP {powerPoints}  Lv. {unlockLevel} itibarıyla",
+  "moveDetailPower": "Güç"
 }

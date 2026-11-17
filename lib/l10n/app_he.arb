@@ -241,5 +241,6 @@
   "referenceMovesTab": "רשימת מתקפות",
   "referenceTypeChartNote": "לאורך: הסוג של המתקפה. לרוחב: הסוג של המפלצת שסופגת אותה\nאם למפלצת שסופגת יש שני סוגים, יש להכפיל את שני המכפילים",
   "referenceTypeChartCorner": "מתקפה ／ הגנה",
-  "referenceMoveStats": "עוצמה {power}  PP {powerPoints}  החל מ־Lv. {unlockLevel}"
+  "referenceMoveStats": "עוצמה {power}  PP {powerPoints}  החל מ־Lv. {unlockLevel}",
+  "moveDetailPower": "עוצמה"
 }

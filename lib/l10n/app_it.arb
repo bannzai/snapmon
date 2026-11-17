@@ -241,5 +241,6 @@
   "referenceMovesTab": "Elenco delle mosse",
   "referenceTypeChartNote": "In verticale: elemento della mossa. In orizzontale: elemento del mostro che la subisce\nSe il mostro colpito ha due elementi, moltiplica i due fattori",
   "referenceTypeChartCorner": "mossa ／ difesa",
-  "referenceMoveStats": "Potenza {power}  PP {powerPoints}  Da Lv. {unlockLevel}"
+  "referenceMoveStats": "Potenza {power}  PP {powerPoints}  Da Lv. {unlockLevel}",
+  "moveDetailPower": "Potenza"
 }

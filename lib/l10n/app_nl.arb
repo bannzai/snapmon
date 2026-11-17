@@ -241,5 +241,6 @@
   "referenceMovesTab": "Lijst met aanvallen",
   "referenceTypeChartNote": "Verticaal: het type van de aanval. Horizontaal: het type van het monster dat geraakt wordt\nHeeft het geraakte monster twee types, vermenigvuldig dan de twee factoren",
   "referenceTypeChartCorner": "aanval ／ verdediging",
-  "referenceMoveStats": "Kracht {power}  PP {powerPoints}  Vanaf Lv. {unlockLevel}"
+  "referenceMoveStats": "Kracht {power}  PP {powerPoints}  Vanaf Lv. {unlockLevel}",
+  "moveDetailPower": "Kracht"
 }

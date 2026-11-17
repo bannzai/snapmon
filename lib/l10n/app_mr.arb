@@ -241,5 +241,6 @@
   "referenceMovesTab": "चालींची यादी",
   "referenceTypeChartNote": "उभे: चालीचे तत्त्व। आडवे: चाल झेलणाऱ्या मॉन्स्टरचे तत्त्व\nचाल झेलणाऱ्या मॉन्स्टरची दोन तत्त्वे असतील, तर दोन्ही गुणकांचा गुणाकार कर",
   "referenceTypeChartCorner": "चाल ／ बचाव",
-  "referenceMoveStats": "ताकद {power}  PP {powerPoints}  Lv. {unlockLevel} पासून"
+  "referenceMoveStats": "ताकद {power}  PP {powerPoints}  Lv. {unlockLevel} पासून",
+  "moveDetailPower": "शक्ती"
 }

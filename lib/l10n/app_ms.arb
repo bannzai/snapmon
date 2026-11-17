@@ -241,5 +241,6 @@
   "referenceMovesTab": "Senarai gerakan",
   "referenceTypeChartNote": "Menegak: elemen gerakan. Melintang: elemen monster yang terkena gerakan\nJika monster yang terkena ada dua elemen, darabkan kedua-dua pengganda",
   "referenceTypeChartCorner": "gerakan ／ pertahanan",
-  "referenceMoveStats": "Kuasa {power}  PP {powerPoints}  Dari Lv. {unlockLevel}"
+  "referenceMoveStats": "Kuasa {power}  PP {powerPoints}  Dari Lv. {unlockLevel}",
+  "moveDetailPower": "Kuasa"
 }

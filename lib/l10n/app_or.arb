@@ -241,5 +241,6 @@
   "referenceMovesTab": "ଚାଲର ତାଲିକା",
   "referenceTypeChartNote": "ଲମ୍ବରେ ଚାଲର ତତ୍ତ୍ୱ, ଆଡ଼ରେ ଚାଲ ଲାଗୁଥିବା ମନଷ୍ଟରର ତତ୍ତ୍ୱ\nଚାଲ ଲାଗୁଥିବା ମନଷ୍ଟରର ଦୁଇଟି ତତ୍ତ୍ୱ ଥିଲେ, ଦୁଇ ଗୁଣକକୁ ଗୁଣ କର",
   "referenceTypeChartCorner": "ଚାଲ ／ ପ୍ରତିରକ୍ଷା",
-  "referenceMoveStats": "ଶକ୍ତି {power}  PP {powerPoints}  Lv. {unlockLevel}ରୁ"
+  "referenceMoveStats": "ଶକ୍ତି {power}  PP {powerPoints}  Lv. {unlockLevel}ରୁ",
+  "moveDetailPower": "ଶକ୍ତି"
 }

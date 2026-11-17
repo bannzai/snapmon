@@ -241,5 +241,6 @@
   "referenceMovesTab": "কৌশলের তালিকা",
   "referenceTypeChartNote": "লম্বে কৌশলের এলিমেন্ট, আড়াআড়ি কৌশলটি নেওয়া মনস্টারের এলিমেন্ট\nআঘাত নেওয়া মনস্টারের ২টি এলিমেন্ট থাকলে, দুটি গুণক একসঙ্গে গুণ করো",
   "referenceTypeChartCorner": "কৌশল ／ প্রতিরক্ষা",
-  "referenceMoveStats": "শক্তি {power}  PP {powerPoints}  Lv. {unlockLevel} থেকে"
+  "referenceMoveStats": "শক্তি {power}  PP {powerPoints}  Lv. {unlockLevel} থেকে",
+  "moveDetailPower": "শক্তি"
 }
