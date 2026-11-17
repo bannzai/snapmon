@@ -213,5 +213,6 @@
   "battleRecorded": "Καταγράφηκε",
   "battleNotRecorded": "Η μάχη δεν καταγράφηκε επειδή δεν έχεις συνδεθεί",
   "battleFirstHint": "Διάλεξε τεχνική και ο πιο γρήγορος δρα πρώτος. Όσο καλύτερα ταιριάζει το στοιχείο, τόσο μεγαλύτερη η αποτελεσματικότητα",
-  "battleChooseMove": "Διάλεξε τεχνική για {monsterName}"
+  "battleChooseMove": "Διάλεξε τεχνική για {monsterName}",
+  "battleTurn": "Γύρος {turnNumber}"
 }

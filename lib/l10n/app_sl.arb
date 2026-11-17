@@ -213,5 +213,6 @@
   "battleRecorded": "Zabeleženo",
   "battleNotRecorded": "Boj ni bil shranjen, ker nisi prijavljen",
   "battleFirstHint": "Izberi potez in hitrejši ukrepa prvi. Bolj ko element ustreza, večja je učinkovitost",
-  "battleChooseMove": "Izberi potez za {monsterName}"
+  "battleChooseMove": "Izberi potez za {monsterName}",
+  "battleTurn": "Poteza {turnNumber}"
 }

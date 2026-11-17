@@ -213,5 +213,6 @@
   "battleRecorded": "నమోదైంది",
   "battleNotRecorded": "నువ్వు లాగిన్ కాలేదు, అందుకే పోరాటం రికార్డ్ కాలేదు",
   "battleFirstHint": "మూవ్ ఎంచుకో, వేగమైనది ముందుగా కదులుతుంది. మూలక అనుకూలత ఎంత బాగుంటే, ప్రభావం అంత ఎక్కువ",
-  "battleChooseMove": "{monsterName} కోసం మూవ్ ఎంచుకో"
+  "battleChooseMove": "{monsterName} కోసం మూవ్ ఎంచుకో",
+  "battleTurn": "వంతు {turnNumber}"
 }

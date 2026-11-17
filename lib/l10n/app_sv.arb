@@ -213,5 +213,6 @@
   "battleRecorded": "Registrerat",
   "battleNotRecorded": "Striden sparades inte eftersom du inte är inloggad",
   "battleFirstHint": "Välj en attack, så agerar den snabbaste först. Ju bättre elementet passar, desto högre effektivitet",
-  "battleChooseMove": "Välj en attack för {monsterName}"
+  "battleChooseMove": "Välj en attack för {monsterName}",
+  "battleTurn": "Tur {turnNumber}"
 }

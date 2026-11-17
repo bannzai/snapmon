@@ -213,5 +213,6 @@
   "battleRecorded": "ریکارڈ ہو گیا",
   "battleNotRecorded": "تم لاگ اِن نہیں ہو، اس لیے لڑائی ریکارڈ نہیں ہوئی",
   "battleFirstHint": "چال چنو، پھر تیز مونسٹر پہلے چلے گا۔ ٹائپ جتنی موافق ہو، اثر اتنا زیادہ ہوگا",
-  "battleChooseMove": "{monsterName} کے لیے چال چنو"
+  "battleChooseMove": "{monsterName} کے لیے چال چنو",
+  "battleTurn": "باری {turnNumber}"
 }

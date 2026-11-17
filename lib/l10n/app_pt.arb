@@ -213,5 +213,6 @@
   "battleRecorded": "Registrado",
   "battleNotRecorded": "A batalha não foi salva porque você não fez login",
   "battleFirstHint": "Escolha um golpe: o mais rápido age primeiro. Quanto melhor a combinação de elementos, maior a eficácia",
-  "battleChooseMove": "Escolha um golpe para {monsterName}"
+  "battleChooseMove": "Escolha um golpe para {monsterName}",
+  "battleTurn": "Turno {turnNumber}"
 }

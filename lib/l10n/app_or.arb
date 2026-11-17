@@ -213,5 +213,6 @@
   "battleRecorded": "ରେକର୍ଡ ହୋଇଛି",
   "battleNotRecorded": "ତୁମେ ଲଗ୍ ଇନ୍ କରିନାହଁ, ତେଣୁ ଲଢ଼େଇ ରେକର୍ଡ ହୋଇନାହିଁ",
   "battleFirstHint": "ଚାଲ ବାଛ, ତା’ପରେ ଦ୍ରୁତ ମନଷ୍ଟର ଆଗେ ଚାଲିବ। ତତ୍ତ୍ୱ ଯେତେ ଅନୁକୂଳ, ପ୍ରଭାବ ସେତେ ଅଧିକ",
-  "battleChooseMove": "{monsterName} ପାଇଁ ଚାଲ ବାଛ"
+  "battleChooseMove": "{monsterName} ପାଇଁ ଚାଲ ବାଛ",
+  "battleTurn": "ପାଳି {turnNumber}"
 }

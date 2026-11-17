@@ -213,5 +213,6 @@
   "battleRecorded": "ದಾಖಲಾಗಿದೆ",
   "battleNotRecorded": "ನೀನು ಲಾಗ್ ಇನ್ ಆಗಿಲ್ಲ, ಆದ್ದರಿಂದ ಕಾಳಗ ದಾಖಲಾಗಿಲ್ಲ",
   "battleFirstHint": "ತಂತ್ರ ಆಯ್ಕೆ ಮಾಡು, ವೇಗವಾದದ್ದು ಮೊದಲು ಚಲಿಸುತ್ತದೆ. ಪ್ರಕಾರ ಎಷ್ಟು ಅನುಕೂಲವೋ ಪರಿಣಾಮಕಾರಿತ್ವ ಅಷ್ಟು ಹೆಚ್ಚು",
-  "battleChooseMove": "{monsterName}: ತಂತ್ರ ಆಯ್ಕೆ ಮಾಡು"
+  "battleChooseMove": "{monsterName}: ತಂತ್ರ ಆಯ್ಕೆ ಮಾಡು",
+  "battleTurn": "ಸರದಿ {turnNumber}"
 }

@@ -213,5 +213,6 @@
   "battleRecorded": "রেকর্ড করা হয়েছে",
   "battleNotRecorded": "লগ ইন করোনি, তাই লড়াইটি রেকর্ড হয়নি",
   "battleFirstHint": "কৌশল বেছে নিলে দ্রুততর জন আগে চাল দেবে। এলিমেন্টের মিল যত ভালো, কার্যকারিতা তত বেশি",
-  "battleChooseMove": "{monsterName}: কৌশল বেছে নাও"
+  "battleChooseMove": "{monsterName}: কৌশল বেছে নাও",
+  "battleTurn": "টার্ন {turnNumber}"
 }

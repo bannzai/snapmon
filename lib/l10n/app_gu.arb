@@ -213,5 +213,6 @@
   "battleRecorded": "નોંધાઈ ગયું",
   "battleNotRecorded": "તમે લૉગ ઇન નથી, તેથી લડાઈનો રેકોર્ડ થયો નથી",
   "battleFirstHint": "ચાલ પસંદ કરો, પછી ઝડપી મોન્સ્ટર પહેલા ચાલશે. તત્ત્વ જેટલું અનુકૂળ, અસરકારકતા એટલી વધુ",
-  "battleChooseMove": "{monsterName} માટે ચાલ પસંદ કરો"
+  "battleChooseMove": "{monsterName} માટે ચાલ પસંદ કરો",
+  "battleTurn": "વારો {turnNumber}"
 }

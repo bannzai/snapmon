@@ -213,5 +213,6 @@
   "battleRecorded": "Direkodkan",
   "battleNotRecorded": "Pertarungan tidak direkodkan kerana kamu belum log masuk",
   "battleFirstHint": "Pilih gerakan, yang lebih pantas akan bertindak dulu. Semakin sesuai elemen, semakin tinggi keberkesanan",
-  "battleChooseMove": "Pilih gerakan untuk {monsterName}"
+  "battleChooseMove": "Pilih gerakan untuk {monsterName}",
+  "battleTurn": "Giliran {turnNumber}"
 }

@@ -213,5 +213,6 @@
   "battleRecorded": "Zaznamenáno",
   "battleNotRecorded": "Souboj se neuložil, protože nejsi přihlášený",
   "battleFirstHint": "Vyber útok a rychlejší jedná první. Čím výhodnější element, tím vyšší účinnost",
-  "battleChooseMove": "Vyber útok pro {monsterName}"
+  "battleChooseMove": "Vyber útok pro {monsterName}",
+  "battleTurn": "Tah {turnNumber}"
 }
