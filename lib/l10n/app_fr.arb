@@ -225,5 +225,6 @@
   "battleShareResult": "Partager le résultat",
   "battleOpenDex": "Voir le dex",
   "battleYourMonster": "Ton compagnon",
-  "battleHitPoints": "HP {current} / {maximum}"
+  "battleHitPoints": "HP {current} / {maximum}",
+  "movePower": "Puissance"
 }
