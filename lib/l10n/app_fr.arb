@@ -29,5 +29,6 @@
   "opponentSafetyMenuTooltip": "signaler · bloquer",
   "opponentBlockTrainer": "Bloquer ce dresseur",
   "opponentReportHelpBody": "Appuie longuement sur le monstre adverse pour le signaler\nLe bouton en haut à droite de la carte te permet de signaler ou de bloquer ton adversaire",
-  "opponentLevelUpNote": "Gagne 1 niveau à chaque combat"
+  "opponentLevelUpNote": "Gagne 1 niveau à chaque combat",
+  "opponentBattleRecordLabel": "Palmarès"
 }
