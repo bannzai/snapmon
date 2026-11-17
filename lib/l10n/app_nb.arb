@@ -191,5 +191,6 @@
   "battleLogFieldStatShuffleStarted": "Slagmarken begynte å bølge",
   "battleLogFieldStatShuffled": "Feltet bølget, og {firstStatName} og {secondStatName} byttet plass!",
   "battleLogFieldEnded": "Feltet er tilbake til normalen",
-  "battleStatusStackCount": "{statusName} ×{stackCount}"
+  "battleStatusStackCount": "{statusName} ×{stackCount}",
+  "statusConditionPoison": "Gift"
 }

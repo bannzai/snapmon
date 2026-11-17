@@ -191,5 +191,6 @@
   "battleLogFieldStatShuffleStarted": "యుద్ధభూమి ఊగడం మొదలైంది",
   "battleLogFieldStatShuffled": "మైదానం ఊగడంతో {firstStatName}, {secondStatName} విలువలు తారుమారయ్యాయి!",
   "battleLogFieldEnded": "మైదానం మళ్లీ మామూలు స్థితికి వచ్చింది",
-  "battleStatusStackCount": "{statusName} ×{stackCount}"
+  "battleStatusStackCount": "{statusName} ×{stackCount}",
+  "statusConditionPoison": "విషం"
 }

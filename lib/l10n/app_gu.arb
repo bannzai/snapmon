@@ -191,5 +191,6 @@
   "battleLogFieldStatShuffleStarted": "યુદ્ધનું મેદાન ડોલવા લાગ્યું",
   "battleLogFieldStatShuffled": "મેદાન ડોલ્યું અને {firstStatName} તથા {secondStatName} અદલાબદલી થઈ ગયા!",
   "battleLogFieldEnded": "મેદાન ફરી સામાન્ય થયું",
-  "battleStatusStackCount": "{statusName} ×{stackCount}"
+  "battleStatusStackCount": "{statusName} ×{stackCount}",
+  "statusConditionPoison": "ઝેર"
 }

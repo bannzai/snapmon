@@ -191,5 +191,6 @@
   "battleLogFieldStatShuffleStarted": "Il campo di battaglia ha iniziato a oscillare",
   "battleLogFieldStatShuffled": "Il campo ha oscillato: {firstStatName} e {secondStatName} si sono scambiati!",
   "battleLogFieldEnded": "Il campo è tornato normale",
-  "battleStatusStackCount": "{statusName} ×{stackCount}"
+  "battleStatusStackCount": "{statusName} ×{stackCount}",
+  "statusConditionPoison": "Veleno"
 }

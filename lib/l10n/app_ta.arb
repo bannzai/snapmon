@@ -191,5 +191,6 @@
   "battleLogFieldStatShuffleStarted": "போர்க்களம் அசையத் தொடங்கியது",
   "battleLogFieldStatShuffled": "களம் அதிர்ந்ததால் {firstStatName}, {secondStatName} ஆகியவற்றின் மதிப்புகள் இடம் மாறின!",
   "battleLogFieldEnded": "களம் மீண்டும் இயல்பு நிலைக்குத் திரும்பியது",
-  "battleStatusStackCount": "{statusName} ×{stackCount}"
+  "battleStatusStackCount": "{statusName} ×{stackCount}",
+  "statusConditionPoison": "நஞ்சு"
 }

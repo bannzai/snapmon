@@ -191,5 +191,6 @@
   "battleLogFieldStatShuffleStarted": "A csatatér ingadozni kezdett",
   "battleLogFieldStatShuffled": "Megrendült a harcmező, és {firstStatName} meg {secondStatName} helyet cserélt!",
   "battleLogFieldEnded": "A mező visszatért a normális állapotába",
-  "battleStatusStackCount": "{statusName} ×{stackCount}"
+  "battleStatusStackCount": "{statusName} ×{stackCount}",
+  "statusConditionPoison": "Méreg"
 }

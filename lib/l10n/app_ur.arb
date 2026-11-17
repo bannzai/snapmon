@@ -191,5 +191,6 @@
   "battleLogFieldStatShuffleStarted": "میدانِ جنگ ڈولنے لگا",
   "battleLogFieldStatShuffled": "میدان ڈگمگایا اور {firstStatName} اور {secondStatName} کی جگہیں بدل گئیں!",
   "battleLogFieldEnded": "میدان پھر معمول پر آ گیا",
-  "battleStatusStackCount": "{statusName} ×{stackCount}"
+  "battleStatusStackCount": "{statusName} ×{stackCount}",
+  "statusConditionPoison": "زہر"
 }

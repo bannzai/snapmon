@@ -191,5 +191,6 @@
   "battleLogFieldStatShuffleStarted": "Das Kampffeld begann zu schwanken",
   "battleLogFieldStatShuffled": "Das Feld flimmerte: {firstStatName} und {secondStatName} wurden vertauscht!",
   "battleLogFieldEnded": "Das Feld ist wieder normal",
-  "battleStatusStackCount": "{statusName} ×{stackCount}"
+  "battleStatusStackCount": "{statusName} ×{stackCount}",
+  "statusConditionPoison": "Gift"
 }

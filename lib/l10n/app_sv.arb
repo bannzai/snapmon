@@ -191,5 +191,6 @@
   "battleLogFieldStatShuffleStarted": "Slagfältet började svaja",
   "battleLogFieldStatShuffled": "Fältet svajade, och {firstStatName} och {secondStatName} bytte plats!",
   "battleLogFieldEnded": "Fältet är som vanligt igen",
-  "battleStatusStackCount": "{statusName} ×{stackCount}"
+  "battleStatusStackCount": "{statusName} ×{stackCount}",
+  "statusConditionPoison": "Gift"
 }

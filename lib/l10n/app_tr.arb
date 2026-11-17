@@ -191,5 +191,6 @@
   "battleLogFieldStatShuffleStarted": "Savaş alanı dalgalanmaya başladı",
   "battleLogFieldStatShuffled": "Saha dalgalandı, {firstStatName} ile {secondStatName} yer değiştirdi!",
   "battleLogFieldEnded": "Saha normale döndü",
-  "battleStatusStackCount": "{statusName} ×{stackCount}"
+  "battleStatusStackCount": "{statusName} ×{stackCount}",
+  "statusConditionPoison": "Zehir"
 }

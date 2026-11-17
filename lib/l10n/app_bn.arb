@@ -191,5 +191,6 @@
   "battleLogFieldStatShuffleStarted": "যুদ্ধক্ষেত্র দুলতে শুরু করল",
   "battleLogFieldStatShuffled": "মাঠের দোলায় {firstStatName} আর {secondStatName} অদলবদল হয়ে গেল!",
   "battleLogFieldEnded": "মাঠ আবার স্বাভাবিক হলো",
-  "battleStatusStackCount": "{statusName} ×{stackCount}"
+  "battleStatusStackCount": "{statusName} ×{stackCount}",
+  "statusConditionPoison": "বিষ"
 }

@@ -191,5 +191,6 @@
   "battleLogFieldStatShuffleStarted": "Kamppladsen begyndte at bølge",
   "battleLogFieldStatShuffled": "Feltet bølgede, og {firstStatName} og {secondStatName} byttede plads!",
   "battleLogFieldEnded": "Feltet er normalt igen",
-  "battleStatusStackCount": "{statusName} ×{stackCount}"
+  "battleStatusStackCount": "{statusName} ×{stackCount}",
+  "statusConditionPoison": "Gift"
 }

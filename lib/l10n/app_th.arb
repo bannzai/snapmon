@@ -191,5 +191,6 @@
   "battleLogFieldStatShuffleStarted": "สนามต่อสู้เริ่มสั่นไหว",
   "battleLogFieldStatShuffled": "สนามสั่นไหวจนค่า {firstStatName} กับ {secondStatName} สลับกัน!",
   "battleLogFieldEnded": "สนามกลับเป็นปกติแล้ว",
-  "battleStatusStackCount": "{statusName} ×{stackCount}"
+  "battleStatusStackCount": "{statusName} ×{stackCount}",
+  "statusConditionPoison": "พิษ"
 }

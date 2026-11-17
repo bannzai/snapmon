@@ -191,5 +191,6 @@
   "battleLogFieldStatShuffleStarted": "El campo de batalla empezó a fluctuar",
   "battleLogFieldStatShuffled": "¡El campo se agitó y {firstStatName} y {secondStatName} intercambiaron sus valores!",
   "battleLogFieldEnded": "El campo volvió a la normalidad",
-  "battleStatusStackCount": "{statusName} ×{stackCount}"
+  "battleStatusStackCount": "{statusName} ×{stackCount}",
+  "statusConditionPoison": "Veneno"
 }

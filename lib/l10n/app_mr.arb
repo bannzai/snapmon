@@ -191,5 +191,6 @@
   "battleLogFieldStatShuffleStarted": "युद्धभूमी डळमळू लागली",
   "battleLogFieldStatShuffled": "मैदान डळमळलं आणि {firstStatName} व {secondStatName} यांची अदलाबदल झाली!",
   "battleLogFieldEnded": "मैदान पुन्हा पूर्ववत झालं",
-  "battleStatusStackCount": "{statusName} ×{stackCount}"
+  "battleStatusStackCount": "{statusName} ×{stackCount}",
+  "statusConditionPoison": "विष"
 }

@@ -191,5 +191,6 @@
   "battleLogFieldStatShuffleStarted": "Το πεδίο μάχης άρχισε να πάλλεται",
   "battleLogFieldStatShuffled": "Το πεδίο κυμάτισε και οι τιμές {firstStatName} και {secondStatName} αντάλλαξαν θέσεις!",
   "battleLogFieldEnded": "Το πεδίο επανήλθε στο φυσιολογικό",
-  "battleStatusStackCount": "{statusName} ×{stackCount}"
+  "battleStatusStackCount": "{statusName} ×{stackCount}",
+  "statusConditionPoison": "Δηλητήριο"
 }

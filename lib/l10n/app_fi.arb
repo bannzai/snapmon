@@ -191,5 +191,6 @@
   "battleLogFieldStatShuffleStarted": "Taistelukenttä alkoi ailahdella",
   "battleLogFieldStatShuffled": "Kenttä väreili, ja {firstStatName} ja {secondStatName} vaihtoivat paikkaa!",
   "battleLogFieldEnded": "Kenttä palautui ennalleen",
-  "battleStatusStackCount": "{statusName} ×{stackCount}"
+  "battleStatusStackCount": "{statusName} ×{stackCount}",
+  "statusConditionPoison": "Myrkky"
 }
