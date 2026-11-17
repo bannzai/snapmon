@@ -248,5 +248,6 @@
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "ବିଶେଷ ପ୍ରଭାବ",
   "moveDetailNoSpecialEffect": "କିଛି ନାହିଁ",
-  "moveDetailFormula": "ଶକ୍ତି ଗୁଣକ (%)"
+  "moveDetailFormula": "ଶକ୍ତି ଗୁଣକ (%)",
+  "moveDetailFormulaNote": "୧୦୦ ହେଲେ ଗୁଣକ ×୧\nଶକ୍ତି × ଗୁଣକ ÷ ୧୦୦ (ଦଶମିକ ଅଂଶ ଛାଡ଼ି) କ୍ଷତିର ହିସାବରେ ଲାଗେ"
 }

@@ -248,5 +248,6 @@
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "특수 효과",
   "moveDetailNoSpecialEffect": "없음",
-  "moveDetailFormula": "위력 배율 (%)"
+  "moveDetailFormula": "위력 배율 (%)",
+  "moveDetailFormulaNote": "100이면 배율은 ×1\n위력 × 배율 ÷ 100(소수점 이하 버림)이 데미지 계산에 들어가요"
 }

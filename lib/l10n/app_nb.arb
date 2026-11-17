@@ -248,5 +248,6 @@
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "Spesialeffekt",
   "moveDetailNoSpecialEffect": "Ingen",
-  "moveDetailFormula": "Styrkemultiplikator (%)"
+  "moveDetailFormula": "Styrkemultiplikator (%)",
+  "moveDetailFormulaNote": "Ved 100 er multiplikatoren ×1\nStyrke × multiplikator ÷ 100 (avrundet ned) inngår i beregningen av skade"
 }

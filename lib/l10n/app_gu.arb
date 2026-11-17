@@ -248,5 +248,6 @@
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "ખાસ અસર",
   "moveDetailNoSpecialEffect": "કોઈ નથી",
-  "moveDetailFormula": "શક્તિનો ગુણક (%)"
+  "moveDetailFormula": "શક્તિનો ગુણક (%)",
+  "moveDetailFormulaNote": "100 પર ગુણક ×1 છે\nશક્તિ × ગુણક ÷ 100 (દશાંશ ભાગ કાઢીને) નુકસાનની ગણતરીમાં વપરાય છે"
 }

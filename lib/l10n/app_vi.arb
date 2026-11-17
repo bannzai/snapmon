@@ -248,5 +248,6 @@
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "Hiệu ứng đặc biệt",
   "moveDetailNoSpecialEffect": "Không có",
-  "moveDetailFormula": "Hệ số sức mạnh (%)"
+  "moveDetailFormula": "Hệ số sức mạnh (%)",
+  "moveDetailFormulaNote": "Ở mức 100, hệ số là ×1\nSức mạnh × hệ số ÷ 100 (bỏ phần thập phân) được tính vào sát thương"
 }

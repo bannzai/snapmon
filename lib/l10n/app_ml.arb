@@ -248,5 +248,6 @@
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "പ്രത്യേക പ്രഭാവം",
   "moveDetailNoSpecialEffect": "ഒന്നുമില്ല",
-  "moveDetailFormula": "ശക്തി ഗുണകം (%)"
+  "moveDetailFormula": "ശക്തി ഗുണകം (%)",
+  "moveDetailFormulaNote": "100 ആണെങ്കിൽ ഗുണകം ×1\nശക്തി × ഗുണകം ÷ 100 (ദശാംശഭാഗം ഒഴിവാക്കി) ഡാമേജ് കണക്കിൽ ഉൾപ്പെടും"
 }

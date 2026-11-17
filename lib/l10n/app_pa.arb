@@ -248,5 +248,6 @@
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "ਖ਼ਾਸ ਪ੍ਰਭਾਵ",
   "moveDetailNoSpecialEffect": "ਕੋਈ ਨਹੀਂ",
-  "moveDetailFormula": "ਤਾਕਤ ਦਾ ਗੁਣਕ (%)"
+  "moveDetailFormula": "ਤਾਕਤ ਦਾ ਗੁਣਕ (%)",
+  "moveDetailFormulaNote": "100 'ਤੇ ਗੁਣਕ ×1 ਹੈ\nਤਾਕਤ × ਗੁਣਕ ÷ 100 (ਦਸ਼ਮਲਵ ਹਿੱਸਾ ਛੱਡ ਕੇ) ਨੁਕਸਾਨ ਦੇ ਹਿਸਾਬ ਵਿੱਚ ਆਉਂਦਾ ਹੈ"
 }

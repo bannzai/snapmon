@@ -248,5 +248,6 @@
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "Poseban učinak",
   "moveDetailNoSpecialEffect": "Nema",
-  "moveDetailFormula": "Množitelj snage (%)"
+  "moveDetailFormula": "Množitelj snage (%)",
+  "moveDetailFormulaNote": "Na 100 množitelj je ×1\nSnaga × množitelj ÷ 100 (bez decimalnog dijela) ulazi u izračun štete"
 }

@@ -248,5 +248,6 @@
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "Efeito especial",
   "moveDetailNoSpecialEffect": "Nenhum",
-  "moveDetailFormula": "Multiplicador de poder (%)"
+  "moveDetailFormula": "Multiplicador de poder (%)",
+  "moveDetailFormulaNote": "Com 100, o multiplicador é ×1\nPoder × multiplicador ÷ 100 (sem casas decimais) entra no cálculo do dano"
 }

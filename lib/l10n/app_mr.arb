@@ -248,5 +248,6 @@
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "विशेष प्रभाव",
   "moveDetailNoSpecialEffect": "काही नाही",
-  "moveDetailFormula": "शक्तीचा गुणक (%)"
+  "moveDetailFormula": "शक्तीचा गुणक (%)",
+  "moveDetailFormulaNote": "100 वर गुणक ×1 असतो\nताकद × गुणक ÷ 100 (दशांश भाग वगळून) डॅमेजच्या हिशोबात धरलं जातं"
 }

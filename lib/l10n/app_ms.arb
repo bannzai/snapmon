@@ -248,5 +248,6 @@
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "Kesan khas",
   "moveDetailNoSpecialEffect": "Tiada",
-  "moveDetailFormula": "Pengganda kuasa (%)"
+  "moveDetailFormula": "Pengganda kuasa (%)",
+  "moveDetailFormulaNote": "Pada 100, pengganda ialah ×1\nKuasa × pengganda ÷ 100 (bahagian perpuluhan dibuang) masuk dalam kiraan kerosakan"
 }

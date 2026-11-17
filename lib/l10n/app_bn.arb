@@ -248,5 +248,6 @@
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "বিশেষ প্রভাব",
   "moveDetailNoSpecialEffect": "নেই",
-  "moveDetailFormula": "শক্তির গুণক (%)"
+  "moveDetailFormula": "শক্তির গুণক (%)",
+  "moveDetailFormulaNote": "100 হলে গুণক ×1\nক্ষমতা × গুণক ÷ 100 (দশমিক অংশ বাদ দিয়ে) ক্ষতি গণনায় যোগ হয়"
 }

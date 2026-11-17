@@ -248,5 +248,6 @@
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "特殊效果",
   "moveDetailNoSpecialEffect": "无",
-  "moveDetailFormula": "威力倍率 (%)"
+  "moveDetailFormula": "威力倍率 (%)",
+  "moveDetailFormulaNote": "100 时倍率为 ×1\n威力 × 倍率 ÷ 100（舍去小数）会计入伤害计算"
 }

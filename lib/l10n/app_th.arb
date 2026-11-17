@@ -248,5 +248,6 @@
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "เอฟเฟกต์พิเศษ",
   "moveDetailNoSpecialEffect": "ไม่มี",
-  "moveDetailFormula": "ตัวคูณพลัง (%)"
+  "moveDetailFormula": "ตัวคูณพลัง (%)",
+  "moveDetailFormulaNote": "ที่ 100 ตัวคูณคือ ×1\nพลัง × ตัวคูณ ÷ 100 (ตัดทศนิยมทิ้ง) นำไปใช้คำนวณความเสียหาย"
 }

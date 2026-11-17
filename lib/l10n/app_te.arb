@@ -248,5 +248,6 @@
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "ప్రత్యేక ప్రభావం",
   "moveDetailNoSpecialEffect": "ఏదీ లేదు",
-  "moveDetailFormula": "శక్తి గుణకం (%)"
+  "moveDetailFormula": "శక్తి గుణకం (%)",
+  "moveDetailFormulaNote": "100 అయితే గుణకం ×1\nశక్తి × గుణకం ÷ 100 (దశాంశ భాగం తీసేసి) డ్యామేజ్ లెక్కలో చేరుతుంది"
 }

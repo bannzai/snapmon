@@ -248,5 +248,6 @@
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "Erikoisvaikutus",
   "moveDetailNoSpecialEffect": "Ei mitään",
-  "moveDetailFormula": "Voimakerroin (%)"
+  "moveDetailFormula": "Voimakerroin (%)",
+  "moveDetailFormulaNote": "Arvolla 100 kerroin on ×1\nVoima × kerroin ÷ 100 (desimaalit pois) otetaan mukaan vahingon laskentaan"
 }

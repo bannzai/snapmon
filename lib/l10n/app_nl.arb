@@ -248,5 +248,6 @@
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "Speciaal effect",
   "moveDetailNoSpecialEffect": "Geen",
-  "moveDetailFormula": "Krachtvermenigvuldiger (%)"
+  "moveDetailFormula": "Krachtvermenigvuldiger (%)",
+  "moveDetailFormulaNote": "Bij 100 is de vermenigvuldiger ×1\nKracht × vermenigvuldiger ÷ 100 (afgerond naar beneden) telt mee bij de schadeberekening"
 }

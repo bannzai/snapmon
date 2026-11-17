@@ -248,5 +248,6 @@
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "Poseben učinek",
   "moveDetailNoSpecialEffect": "Nobenega",
-  "moveDetailFormula": "Množilnik moči (%)"
+  "moveDetailFormula": "Množilnik moči (%)",
+  "moveDetailFormulaNote": "Pri 100 je množilnik ×1\nMoč × množilnik ÷ 100 (brez decimalnega dela) se upošteva pri izračunu škode"
 }

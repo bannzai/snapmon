@@ -248,5 +248,6 @@
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "Ειδική επίδραση",
   "moveDetailNoSpecialEffect": "Κανένα",
-  "moveDetailFormula": "Πολλαπλασιαστής ισχύος (%)"
+  "moveDetailFormula": "Πολλαπλασιαστής ισχύος (%)",
+  "moveDetailFormulaNote": "Στο 100, ο πολλαπλασιαστής είναι ×1\nΙσχύς × πολλαπλασιαστής ÷ 100 (χωρίς δεκαδικά) μπαίνει στον υπολογισμό της ζημιάς"
 }

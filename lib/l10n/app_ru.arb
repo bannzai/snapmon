@@ -248,5 +248,6 @@
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "Особый эффект",
   "moveDetailNoSpecialEffect": "Нет",
-  "moveDetailFormula": "Множитель силы (%)"
+  "moveDetailFormula": "Множитель силы (%)",
+  "moveDetailFormulaNote": "При 100 множитель равен ×1\nСила × множитель ÷ 100 (без дробной части) учитывается при расчёте урона"
 }
