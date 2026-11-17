@@ -164,7 +164,7 @@
   "battleStruggle": "ಕೊನೆಯ ಹೋರಾಟ",
   "battleLogSuperEffective": "ತುಂಬ ಪರಿಣಾಮಕಾರಿ!",
   "battleLogNotVeryEffective": "ಹೆಚ್ಚು ಪರಿಣಾಮ ಬೀರಲಿಲ್ಲ",
-  "battleLogFainted": "{monsterName} ಪ್ರಜ್ಞೆ ತಪ್ಪಿತು",
+  "battleLogFainted": "{monsterName} ಕುಸಿದು ಬಿದ್ದಿತು",
   "battleLogStatRose": "{monsterName}: {statName} ಹೆಚ್ಚಾಯಿತು!",
   "battleLogStatFell": "{monsterName}: {statName} ಕಡಿಮೆಯಾಯಿತು",
   "battleLogStatUnchanged": "{monsterName}: {statName} ಇನ್ನು ಬದಲಾಗುವುದಿಲ್ಲ",

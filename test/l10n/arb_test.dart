@@ -53,8 +53,14 @@ void main() {
     test('$path の文言は原文と同じプレースホルダーを使い、空でない', () {
       for (final entry in japaneseMessages.entries) {
         final translatedMessage = translatedMessages[entry.key]!;
-        // 区切りの文言 (settingsProviderSeparator 等) は空白だけの言語があるため、trim せずに確かめる
-        expect(translatedMessage, isNotEmpty, reason: entry.key);
+        // 区切りの文言 (settingsProviderSeparator・shareOpponentSeparator) は空白だけの言語があり得るため、trim せずに確かめる
+        expect(
+          entry.key.endsWith('Separator')
+              ? translatedMessage
+              : translatedMessage.trim(),
+          isNotEmpty,
+          reason: entry.key,
+        );
         expect(
           _placeholders(message: translatedMessage),
           _placeholders(message: entry.value),
