@@ -225,5 +225,6 @@
   "battleShareResult": "Del resultatet",
   "battleOpenDex": "Se samling",
   "battleYourMonster": "Kompisen din",
-  "battleHitPoints": "HP {current} / {maximum}"
+  "battleHitPoints": "HP {current} / {maximum}",
+  "movePower": "Styrke"
 }

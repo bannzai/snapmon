@@ -225,5 +225,6 @@
   "battleShareResult": "முடிவைப் பகிருங்கள்",
   "battleOpenDex": "களஞ்சியத்தைப் பார்",
   "battleYourMonster": "உங்கள் துணை",
-  "battleHitPoints": "HP {current} / {maximum}"
+  "battleHitPoints": "HP {current} / {maximum}",
+  "movePower": "வலிமை"
 }

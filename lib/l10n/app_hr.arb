@@ -225,5 +225,6 @@
   "battleShareResult": "Podijeli rezultat",
   "battleOpenDex": "Pogledaj enciklopediju",
   "battleYourMonster": "Tvoj suputnik",
-  "battleHitPoints": "HP {current} / {maximum}"
+  "battleHitPoints": "HP {current} / {maximum}",
+  "movePower": "Snaga"
 }

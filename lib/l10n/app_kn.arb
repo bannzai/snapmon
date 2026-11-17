@@ -225,5 +225,6 @@
   "battleShareResult": "ಫಲಿತಾಂಶ ಹಂಚಿಕೊ",
   "battleOpenDex": "ವಿಶ್ವಕೋಶ ನೋಡು",
   "battleYourMonster": "ನಿನ್ನ ಸಂಗಾತಿ",
-  "battleHitPoints": "HP {current} / {maximum}"
+  "battleHitPoints": "HP {current} / {maximum}",
+  "movePower": "ಶಕ್ತಿ"
 }

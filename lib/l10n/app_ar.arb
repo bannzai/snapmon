@@ -225,5 +225,6 @@
   "battleShareResult": "شارك النتيجة",
   "battleOpenDex": "افتح الموسوعة",
   "battleYourMonster": "رفيقك",
-  "battleHitPoints": "HP {current} / {maximum}"
+  "battleHitPoints": "HP {current} / {maximum}",
+  "movePower": "القوة"
 }

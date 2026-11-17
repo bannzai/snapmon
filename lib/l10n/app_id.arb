@@ -225,5 +225,6 @@
   "battleShareResult": "Bagikan hasil",
   "battleOpenDex": "Lihat dex",
   "battleYourMonster": "Temanmu",
-  "battleHitPoints": "HP {current} / {maximum}"
+  "battleHitPoints": "HP {current} / {maximum}",
+  "movePower": "Kekuatan"
 }

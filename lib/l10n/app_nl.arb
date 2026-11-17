@@ -225,5 +225,6 @@
   "battleShareResult": "Deel het resultaat",
   "battleOpenDex": "Bekijk je dex",
   "battleYourMonster": "Je maatje",
-  "battleHitPoints": "HP {current} / {maximum}"
+  "battleHitPoints": "HP {current} / {maximum}",
+  "movePower": "Kracht"
 }

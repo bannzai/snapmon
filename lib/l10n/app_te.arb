@@ -225,5 +225,6 @@
   "battleShareResult": "ఫలితాన్ని పంచుకో",
   "battleOpenDex": "డెక్స్ చూడు",
   "battleYourMonster": "నీ తోడు",
-  "battleHitPoints": "HP {current} / {maximum}"
+  "battleHitPoints": "HP {current} / {maximum}",
+  "movePower": "శక్తి"
 }

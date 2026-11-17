@@ -225,5 +225,6 @@
   "battleShareResult": "Sonucu paylaş",
   "battleOpenDex": "Ansiklopediye bak",
   "battleYourMonster": "Yoldaşın",
-  "battleHitPoints": "HP {current} / {maximum}"
+  "battleHitPoints": "HP {current} / {maximum}",
+  "movePower": "Güç"
 }

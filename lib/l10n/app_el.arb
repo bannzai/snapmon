@@ -225,5 +225,6 @@
   "battleShareResult": "Μοιράσου το αποτέλεσμα",
   "battleOpenDex": "Δες την εγκυκλοπαίδεια",
   "battleYourMonster": "Ο σύντροφός σου",
-  "battleHitPoints": "HP {current} / {maximum}"
+  "battleHitPoints": "HP {current} / {maximum}",
+  "movePower": "Ισχύς"
 }

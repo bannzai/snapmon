@@ -225,5 +225,6 @@
   "battleShareResult": "Chia sẻ kết quả",
   "battleOpenDex": "Xem bộ sưu tập",
   "battleYourMonster": "Bạn đồng hành của bạn",
-  "battleHitPoints": "HP {current} / {maximum}"
+  "battleHitPoints": "HP {current} / {maximum}",
+  "movePower": "Sức mạnh"
 }

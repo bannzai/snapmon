@@ -225,5 +225,6 @@
   "battleShareResult": "שיתוף התוצאה",
   "battleOpenDex": "לצפות באוסף",
   "battleYourMonster": "השותף שלך",
-  "battleHitPoints": "HP {current} / {maximum}"
+  "battleHitPoints": "HP {current} / {maximum}",
+  "movePower": "עוצמה"
 }

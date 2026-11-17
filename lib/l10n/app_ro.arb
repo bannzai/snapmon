@@ -225,5 +225,6 @@
   "battleShareResult": "Distribuie rezultatul",
   "battleOpenDex": "Vezi enciclopedia",
   "battleYourMonster": "Tovarășul tău",
-  "battleHitPoints": "HP {current} / {maximum}"
+  "battleHitPoints": "HP {current} / {maximum}",
+  "movePower": "Putere"
 }

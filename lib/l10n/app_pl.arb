@@ -225,5 +225,6 @@
   "battleShareResult": "Udostępnij wynik",
   "battleOpenDex": "Zobacz encyklopedię",
   "battleYourMonster": "Twój kompan",
-  "battleHitPoints": "HP {current} / {maximum}"
+  "battleHitPoints": "HP {current} / {maximum}",
+  "movePower": "Moc"
 }

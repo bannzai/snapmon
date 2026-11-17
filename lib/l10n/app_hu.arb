@@ -225,5 +225,6 @@
   "battleShareResult": "Oszd meg az eredményt",
   "battleOpenDex": "Nézd meg a gyűjteményt",
   "battleYourMonster": "A társad",
-  "battleHitPoints": "HP {current} / {maximum}"
+  "battleHitPoints": "HP {current} / {maximum}",
+  "movePower": "Erő"
 }

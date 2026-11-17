@@ -225,5 +225,6 @@
   "battleShareResult": "Jaa tulos",
   "battleOpenDex": "Katso kokoelmaa",
   "battleYourMonster": "Kaverisi",
-  "battleHitPoints": "HP {current} / {maximum}"
+  "battleHitPoints": "HP {current} / {maximum}",
+  "movePower": "Voima"
 }

@@ -225,5 +225,6 @@
   "battleShareResult": "Поділитися результатом",
   "battleOpenDex": "Переглянь енциклопедію",
   "battleYourMonster": "Твій напарник",
-  "battleHitPoints": "HP {current} / {maximum}"
+  "battleHitPoints": "HP {current} / {maximum}",
+  "movePower": "Сила"
 }

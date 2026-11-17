@@ -225,5 +225,6 @@
   "battleShareResult": "Sdílej výsledek",
   "battleOpenDex": "Prohlédni si encyklopedii",
   "battleYourMonster": "Tvůj parťák",
-  "battleHitPoints": "HP {current} / {maximum}"
+  "battleHitPoints": "HP {current} / {maximum}",
+  "movePower": "Síla"
 }

@@ -225,5 +225,6 @@
   "battleShareResult": "Kongsi keputusan",
   "battleOpenDex": "Lihat ensiklopedia",
   "battleYourMonster": "Teman kamu",
-  "battleHitPoints": "HP {current} / {maximum}"
+  "battleHitPoints": "HP {current} / {maximum}",
+  "movePower": "Kuasa"
 }

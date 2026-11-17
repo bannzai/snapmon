@@ -225,5 +225,6 @@
   "battleShareResult": "แชร์ผลการต่อสู้",
   "battleOpenDex": "ดูสารานุกรม",
   "battleYourMonster": "คู่หูของคุณ",
-  "battleHitPoints": "HP {current} / {maximum}"
+  "battleHitPoints": "HP {current} / {maximum}",
+  "movePower": "พลัง"
 }

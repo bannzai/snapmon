@@ -225,5 +225,6 @@
   "battleShareResult": "ਨਤੀਜਾ ਸਾਂਝਾ ਕਰੋ",
   "battleOpenDex": "ਸੰਗ੍ਰਹਿ ਦੇਖੋ",
   "battleYourMonster": "ਤੁਹਾਡਾ ਸਾਥੀ",
-  "battleHitPoints": "HP {current} / {maximum}"
+  "battleHitPoints": "HP {current} / {maximum}",
+  "movePower": "ਤਾਕਤ"
 }

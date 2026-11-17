@@ -225,5 +225,6 @@
   "battleShareResult": "Del resultatet",
   "battleOpenDex": "Se dex",
   "battleYourMonster": "Din makker",
-  "battleHitPoints": "HP {current} / {maximum}"
+  "battleHitPoints": "HP {current} / {maximum}",
+  "movePower": "Styrke"
 }

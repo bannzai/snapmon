@@ -225,5 +225,6 @@
   "battleShareResult": "Comparteix el resultat",
   "battleOpenDex": "Mira l'enciclopèdia",
   "battleYourMonster": "El teu company",
-  "battleHitPoints": "HP {current} / {maximum}"
+  "battleHitPoints": "HP {current} / {maximum}",
+  "movePower": "Potència"
 }
