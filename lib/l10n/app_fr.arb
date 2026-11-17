@@ -315,5 +315,6 @@
   "helpPartyBody": "Les monstres de ton équipe combattent\nSi le monstre en jeu tombe K.O., le suivant prend sa place\nSi toute ton équipe est K.O., tu perds\nTu peux changer ton équipe dans le dex",
   "helpLevelHeading": "Niveau",
   "helpLevelBody": "Que tu gagnes ou perdes, les monstres qui ont combattu montent de niveau\nEn montant de niveau, ils apprennent de nouvelles capacités",
-  "helpTypeHeading": "Efficacité des éléments (faiblesses)"
+  "helpTypeHeading": "Efficacité des éléments (faiblesses)",
+  "helpTypeBody": "Les dégâts varient selon l’élément de ta capacité et celui de l’adversaire\nChoisis une capacité dont l’élément exploite sa faiblesse pour infliger de gros dégâts\nLa flèche sur le bouton de la capacité indique son efficacité contre l’adversaire actuel"
 }
