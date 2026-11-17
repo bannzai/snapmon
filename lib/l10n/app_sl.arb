@@ -268,5 +268,6 @@
   "ticketPurchaseArrivedTitle": "Vstopnice so prispele",
   "ticketPurchaseContinue": "Ustvari pošast iz te fotografije",
   "ticketPurchaseSync": "Sinhroniziraj stanje nakupa",
-  "ticketPurchaseSynced": "Stanje nakupa je sinhronizirano"
+  "ticketPurchaseSynced": "Stanje nakupa je sinhronizirano",
+  "actionCardTitle": "Action Card"
 }

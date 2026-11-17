@@ -268,5 +268,6 @@
   "ticketPurchaseArrivedTitle": "Билеты пришли",
   "ticketPurchaseContinue": "Создай монстра из этого фото",
   "ticketPurchaseSync": "Синхронизировать статус покупки",
-  "ticketPurchaseSynced": "Статус покупки синхронизирован"
+  "ticketPurchaseSynced": "Статус покупки синхронизирован",
+  "actionCardTitle": "Action Card"
 }

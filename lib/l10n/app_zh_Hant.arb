@@ -268,5 +268,6 @@
   "ticketPurchaseArrivedTitle": "票券已到帳",
   "ticketPurchaseContinue": "用這張照片生成怪獸",
   "ticketPurchaseSync": "同步購買狀態",
-  "ticketPurchaseSynced": "購買狀態已同步"
+  "ticketPurchaseSynced": "購買狀態已同步",
+  "actionCardTitle": "Action Card"
 }

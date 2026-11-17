@@ -268,5 +268,6 @@
   "ticketPurchaseArrivedTitle": "ಟಿಕೆಟ್‌ಗಳು ಬಂದಿವೆ",
   "ticketPurchaseContinue": "ಈ ಫೋಟೋದಿಂದ ಮಾನ್ಸ್ಟರ್ ರಚಿಸು",
   "ticketPurchaseSync": "ಖರೀದಿಯ ಸ್ಥಿತಿಯನ್ನು ಸಿಂಕ್ ಮಾಡು",
-  "ticketPurchaseSynced": "ಖರೀದಿಯ ಸ್ಥಿತಿ ಸಿಂಕ್ ಆಗಿದೆ"
+  "ticketPurchaseSynced": "ಖರೀದಿಯ ಸ್ಥಿತಿ ಸಿಂಕ್ ಆಗಿದೆ",
+  "actionCardTitle": "Action Card"
 }

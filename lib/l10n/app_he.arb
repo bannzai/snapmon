@@ -268,5 +268,6 @@
   "ticketPurchaseArrivedTitle": "הכרטיסים הגיעו",
   "ticketPurchaseContinue": "ליצור מפלצת מהתמונה הזאת",
   "ticketPurchaseSync": "סנכרון מצב הרכישה",
-  "ticketPurchaseSynced": "סטטוס הרכישה סונכרן"
+  "ticketPurchaseSynced": "סטטוס הרכישה סונכרן",
+  "actionCardTitle": "Action Card"
 }

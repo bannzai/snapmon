@@ -268,5 +268,6 @@
   "ticketPurchaseArrivedTitle": "Vé của bạn đã đến",
   "ticketPurchaseContinue": "Tạo quái vật từ ảnh này",
   "ticketPurchaseSync": "Đồng bộ trạng thái mua hàng",
-  "ticketPurchaseSynced": "Đã đồng bộ trạng thái mua hàng"
+  "ticketPurchaseSynced": "Đã đồng bộ trạng thái mua hàng",
+  "actionCardTitle": "Action Card"
 }

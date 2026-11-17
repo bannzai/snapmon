@@ -268,5 +268,6 @@
   "ticketPurchaseArrivedTitle": "Ja tens els tiquets",
   "ticketPurchaseContinue": "Crea un monstre amb aquesta foto",
   "ticketPurchaseSync": "Sincronitza l’estat de la compra",
-  "ticketPurchaseSynced": "S'ha sincronitzat l'estat de la compra"
+  "ticketPurchaseSynced": "S'ha sincronitzat l'estat de la compra",
+  "actionCardTitle": "Action Card"
 }

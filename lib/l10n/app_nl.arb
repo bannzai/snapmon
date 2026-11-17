@@ -268,5 +268,6 @@
   "ticketPurchaseArrivedTitle": "Je tickets zijn binnen",
   "ticketPurchaseContinue": "Maak een monster van deze foto",
   "ticketPurchaseSync": "Synchroniseer je aankoopstatus",
-  "ticketPurchaseSynced": "Aankoopstatus gesynchroniseerd"
+  "ticketPurchaseSynced": "Aankoopstatus gesynchroniseerd",
+  "actionCardTitle": "Action Card"
 }

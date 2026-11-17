@@ -268,5 +268,6 @@
   "ticketPurchaseArrivedTitle": "ടിക്കറ്റുകൾ എത്തി",
   "ticketPurchaseContinue": "ഈ ഫോട്ടോയിൽ നിന്ന് മോൺസ്റ്ററിനെ സൃഷ്ടിക്കൂ",
   "ticketPurchaseSync": "വാങ്ങലിന്റെ നില സമന്വയിപ്പിക്കുക",
-  "ticketPurchaseSynced": "വാങ്ങലിന്റെ നില സമന്വയിപ്പിച്ചു"
+  "ticketPurchaseSynced": "വാങ്ങലിന്റെ നില സമന്വയിപ്പിച്ചു",
+  "actionCardTitle": "Action Card"
 }

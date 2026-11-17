@@ -268,5 +268,6 @@
   "ticketPurchaseArrivedTitle": "Liput saapuivat",
   "ticketPurchaseContinue": "Luo hirviö tästä kuvasta",
   "ticketPurchaseSync": "Synkronoi ostoksen tila",
-  "ticketPurchaseSynced": "Ostoksen tila synkronoitu"
+  "ticketPurchaseSynced": "Ostoksen tila synkronoitu",
+  "actionCardTitle": "Action Card"
 }

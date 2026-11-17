@@ -268,5 +268,6 @@
   "ticketPurchaseArrivedTitle": "Tiket kamu dah sampai",
   "ticketPurchaseContinue": "Cipta raksasa daripada foto ini",
   "ticketPurchaseSync": "Segerakkan status pembelian kamu",
-  "ticketPurchaseSynced": "Status pembelian telah disegerakkan"
+  "ticketPurchaseSynced": "Status pembelian telah disegerakkan",
+  "actionCardTitle": "Action Card"
 }

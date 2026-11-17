@@ -268,5 +268,6 @@
   "ticketPurchaseArrivedTitle": "Ulaznice su stigle",
   "ticketPurchaseContinue": "Stvori čudovište od ove fotke",
   "ticketPurchaseSync": "Sinkroniziraj status kupnje",
-  "ticketPurchaseSynced": "Status kupnje je sinkroniziran"
+  "ticketPurchaseSynced": "Status kupnje je sinkroniziran",
+  "actionCardTitle": "Action Card"
 }

@@ -268,5 +268,6 @@
   "ticketPurchaseArrivedTitle": "Lístky dorazili",
   "ticketPurchaseContinue": "Vytvor príšeru z tejto fotky",
   "ticketPurchaseSync": "Synchronizuj stav nákupu",
-  "ticketPurchaseSynced": "Stav nákupu bol synchronizovaný"
+  "ticketPurchaseSynced": "Stav nákupu bol synchronizovaný",
+  "actionCardTitle": "Action Card"
 }

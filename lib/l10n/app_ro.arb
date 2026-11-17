@@ -268,5 +268,6 @@
   "ticketPurchaseArrivedTitle": "Biletele au sosit",
   "ticketPurchaseContinue": "Creează un monstru din această poză",
   "ticketPurchaseSync": "Sincronizează starea achiziției",
-  "ticketPurchaseSynced": "Starea achiziției a fost sincronizată"
+  "ticketPurchaseSynced": "Starea achiziției a fost sincronizată",
+  "actionCardTitle": "Action Card"
 }

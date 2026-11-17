@@ -268,5 +268,6 @@
   "ticketPurchaseArrivedTitle": "وصلت التذاكر",
   "ticketPurchaseContinue": "أنشئ وحشًا من هذه الصورة",
   "ticketPurchaseSync": "مزامنة حالة الشراء",
-  "ticketPurchaseSynced": "تمت مزامنة حالة الشراء"
+  "ticketPurchaseSynced": "تمت مزامنة حالة الشراء",
+  "actionCardTitle": "Action Card"
 }

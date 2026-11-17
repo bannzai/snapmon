@@ -268,5 +268,6 @@
   "ticketPurchaseArrivedTitle": "Biletlerin geldi",
   "ticketPurchaseContinue": "Bu fotoğraftan canavar oluştur",
   "ticketPurchaseSync": "Satın alma durumunu eşitle",
-  "ticketPurchaseSynced": "Satın alma durumu eşitlendi"
+  "ticketPurchaseSynced": "Satın alma durumu eşitlendi",
+  "actionCardTitle": "Action Card"
 }

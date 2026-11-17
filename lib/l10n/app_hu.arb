@@ -268,5 +268,6 @@
   "ticketPurchaseArrivedTitle": "Megérkeztek a jegyek",
   "ticketPurchaseContinue": "Készíts szörnyet ebből a fotóból",
   "ticketPurchaseSync": "Vásárlás állapotának szinkronizálása",
-  "ticketPurchaseSynced": "A vásárlás állapota szinkronizálva"
+  "ticketPurchaseSynced": "A vásárlás állapota szinkronizálva",
+  "actionCardTitle": "Action Card"
 }

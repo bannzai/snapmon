@@ -268,5 +268,6 @@
   "ticketPurchaseArrivedTitle": "Lístky dorazily",
   "ticketPurchaseContinue": "Vytvoř monstrum z této fotky",
   "ticketPurchaseSync": "Synchronizuj stav nákupu",
-  "ticketPurchaseSynced": "Stav nákupu byl synchronizován"
+  "ticketPurchaseSynced": "Stav nákupu byl synchronizován",
+  "actionCardTitle": "Action Card"
 }

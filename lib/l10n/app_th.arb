@@ -268,5 +268,6 @@
   "ticketPurchaseArrivedTitle": "ตั๋วมาถึงแล้ว",
   "ticketPurchaseContinue": "สร้างมอนสเตอร์จากรูปนี้",
   "ticketPurchaseSync": "ซิงก์สถานะการซื้อ",
-  "ticketPurchaseSynced": "ซิงก์สถานะการซื้อแล้ว"
+  "ticketPurchaseSynced": "ซิงก์สถานะการซื้อแล้ว",
+  "actionCardTitle": "Action Card"
 }

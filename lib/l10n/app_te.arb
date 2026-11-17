@@ -268,5 +268,6 @@
   "ticketPurchaseArrivedTitle": "టికెట్లు వచ్చేశాయి",
   "ticketPurchaseContinue": "ఈ ఫోటోతో రాక్షసుణ్ని సృష్టించు",
   "ticketPurchaseSync": "కొనుగోలు స్థితిని సింక్ చేయి",
-  "ticketPurchaseSynced": "కొనుగోలు స్థితి సమకాలీకరించబడింది"
+  "ticketPurchaseSynced": "కొనుగోలు స్థితి సమకాలీకరించబడింది",
+  "actionCardTitle": "Action Card"
 }

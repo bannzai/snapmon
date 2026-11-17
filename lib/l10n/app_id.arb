@@ -268,5 +268,6 @@
   "ticketPurchaseArrivedTitle": "Tiketmu sudah datang",
   "ticketPurchaseContinue": "Buat monster dari foto ini",
   "ticketPurchaseSync": "Sinkronkan status pembelianmu",
-  "ticketPurchaseSynced": "Status pembelian sudah disinkronkan"
+  "ticketPurchaseSynced": "Status pembelian sudah disinkronkan",
+  "actionCardTitle": "Action Card"
 }

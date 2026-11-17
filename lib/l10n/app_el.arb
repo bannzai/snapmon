@@ -268,5 +268,6 @@
   "ticketPurchaseArrivedTitle": "Τα εισιτήρια έφτασαν",
   "ticketPurchaseContinue": "Φτιάξε τέρας από αυτή τη φωτογραφία",
   "ticketPurchaseSync": "Συγχρόνισε την κατάσταση αγοράς",
-  "ticketPurchaseSynced": "Η κατάσταση αγοράς συγχρονίστηκε"
+  "ticketPurchaseSynced": "Η κατάσταση αγοράς συγχρονίστηκε",
+  "actionCardTitle": "Action Card"
 }

@@ -268,5 +268,6 @@
   "ticketPurchaseArrivedTitle": "Billetterne er kommet",
   "ticketPurchaseContinue": "Skab et monster ud fra dette foto",
   "ticketPurchaseSync": "Synkroniser købsstatus",
-  "ticketPurchaseSynced": "Købsstatus er synkroniseret"
+  "ticketPurchaseSynced": "Købsstatus er synkroniseret",
+  "actionCardTitle": "Action Card"
 }

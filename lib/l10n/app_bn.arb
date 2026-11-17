@@ -268,5 +268,6 @@
   "ticketPurchaseArrivedTitle": "টিকিট এসে গেছে",
   "ticketPurchaseContinue": "এই ছবি দিয়ে মনস্টার তৈরি করো",
   "ticketPurchaseSync": "কেনাকাটার অবস্থা সিঙ্ক করো",
-  "ticketPurchaseSynced": "কেনাকাটার অবস্থা সিঙ্ক হয়েছে"
+  "ticketPurchaseSynced": "কেনাকাটার অবস্থা সিঙ্ক হয়েছে",
+  "actionCardTitle": "Action Card"
 }

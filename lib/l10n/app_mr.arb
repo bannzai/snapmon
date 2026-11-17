@@ -268,5 +268,6 @@
   "ticketPurchaseArrivedTitle": "तिकिटं आली",
   "ticketPurchaseContinue": "या फोटोवरून मॉन्स्टर बनव",
   "ticketPurchaseSync": "खरेदीची स्थिती सिंक कर",
-  "ticketPurchaseSynced": "खरेदीची स्थिती सिंक झाली"
+  "ticketPurchaseSynced": "खरेदीची स्थिती सिंक झाली",
+  "actionCardTitle": "Action Card"
 }

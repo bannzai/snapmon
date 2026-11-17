@@ -268,5 +268,6 @@
   "ticketPurchaseArrivedTitle": "Os teus bilhetes chegaram",
   "ticketPurchaseContinue": "Cria um monstro com esta foto",
   "ticketPurchaseSync": "Sincronizar o estado da compra",
-  "ticketPurchaseSynced": "Estado da compra sincronizado"
+  "ticketPurchaseSynced": "Estado da compra sincronizado",
+  "actionCardTitle": "Action Card"
 }

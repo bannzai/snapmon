@@ -268,5 +268,6 @@
   "ticketPurchaseArrivedTitle": "Bilety dotarły",
   "ticketPurchaseContinue": "Stwórz potwora z tego zdjęcia",
   "ticketPurchaseSync": "Zsynchronizuj stan zakupu",
-  "ticketPurchaseSynced": "Stan zakupu zsynchronizowany"
+  "ticketPurchaseSynced": "Stan zakupu zsynchronizowany",
+  "actionCardTitle": "Action Card"
 }

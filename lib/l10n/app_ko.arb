@@ -268,5 +268,6 @@
   "ticketPurchaseArrivedTitle": "티켓이 도착했어요",
   "ticketPurchaseContinue": "이 사진으로 몬스터 만들기",
   "ticketPurchaseSync": "구매 상태 동기화",
-  "ticketPurchaseSynced": "구매 상태를 동기화했어요"
+  "ticketPurchaseSynced": "구매 상태를 동기화했어요",
+  "actionCardTitle": "Action Card"
 }

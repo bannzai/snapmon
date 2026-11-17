@@ -268,5 +268,6 @@
   "ticketPurchaseArrivedTitle": "ਟਿਕਟਾਂ ਆ ਗਈਆਂ",
   "ticketPurchaseContinue": "ਇਸ ਫੋਟੋ ਤੋਂ ਮੌਂਸਟਰ ਬਣਾਓ",
   "ticketPurchaseSync": "ਖਰੀਦ ਦੀ ਸਥਿਤੀ ਸਿੰਕ ਕਰੋ",
-  "ticketPurchaseSynced": "ਖਰੀਦ ਦੀ ਸਥਿਤੀ ਸਿੰਕ ਹੋ ਗਈ ਹੈ"
+  "ticketPurchaseSynced": "ਖਰੀਦ ਦੀ ਸਥਿਤੀ ਸਿੰਕ ਹੋ ਗਈ ਹੈ",
+  "actionCardTitle": "Action Card"
 }
