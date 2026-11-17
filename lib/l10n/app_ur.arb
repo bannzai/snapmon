@@ -277,5 +277,6 @@
   "actionCardBuyDescription": "ایک چال چنو اور اسے صرف ایک بار خریدو۔ پھر تم اسے کسی بھی مونسٹر کو جتنی بار چاہو سکھا سکتے ہو۔",
   "actionCardBuyUnavailable": "ابھی کوئی چال فروخت کے لیے نہیں ہے",
   "actionCardPurchaseBuy": "{price} میں خریدو",
-  "actionCardPurchasePriceChanged": "اس چال کی قیمت بدل گئی ہے\nخریدنے سے پہلے قیمت چیک کر لو"
+  "actionCardPurchasePriceChanged": "اس چال کی قیمت بدل گئی ہے\nخریدنے سے پہلے قیمت چیک کر لو",
+  "actionCardPurchaseWaiting": "چال موصول ہو رہی ہے"
 }

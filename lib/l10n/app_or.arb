@@ -277,5 +277,6 @@
   "actionCardBuyDescription": "ଗୋଟିଏ ଚାଲ ବାଛି ଥରେ ମାତ୍ର କିଣ। ତା’ପରେ ତୁମେ ଯେକୌଣସି ମନଷ୍ଟରକୁ ତାହା ଯେତେଥର ଚାହିଁବ ଶିଖାଇପାରିବ।",
   "actionCardBuyUnavailable": "ଏବେ କୌଣସି ଚାଲ ବିକ୍ରି ହେଉନାହିଁ",
   "actionCardPurchaseBuy": "{price}ରେ କିଣ",
-  "actionCardPurchasePriceChanged": "ଏହି ଚାଲର ଦାମ ବଦଳିଛି\nକିଣିବା ଆଗରୁ ଦାମ ଦେଖ"
+  "actionCardPurchasePriceChanged": "ଏହି ଚାଲର ଦାମ ବଦଳିଛି\nକିଣିବା ଆଗରୁ ଦାମ ଦେଖ",
+  "actionCardPurchaseWaiting": "ଚାଲ ମିଳୁଛି"
 }

@@ -277,5 +277,6 @@
   "actionCardBuyDescription": "לבחור מתקפה אחת ולקנות אותה פעם אחת. אחר כך אפשר ללמד אותה לכל מפלצת כמה פעמים שרוצים.",
   "actionCardBuyUnavailable": "אין מתקפות למכירה כרגע",
   "actionCardPurchaseBuy": "לקנות ב-{price}",
-  "actionCardPurchasePriceChanged": "המחיר של המתקפה הזו השתנה\nכדאי לבדוק את המחיר לפני הקנייה"
+  "actionCardPurchasePriceChanged": "המחיר של המתקפה הזו השתנה\nכדאי לבדוק את המחיר לפני הקנייה",
+  "actionCardPurchaseWaiting": "המתקפה בדרך אליך"
 }

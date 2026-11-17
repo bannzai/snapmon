@@ -277,5 +277,6 @@
   "actionCardBuyDescription": "Выбери один приём и купи его раз и навсегда. Потом сможешь обучать ему любого монстра сколько угодно раз.",
   "actionCardBuyUnavailable": "Сейчас приёмы не продаются",
   "actionCardPurchaseBuy": "Купить за {price}",
-  "actionCardPurchasePriceChanged": "Приём теперь стоит иначе\nПроверь цену перед покупкой"
+  "actionCardPurchasePriceChanged": "Приём теперь стоит иначе\nПроверь цену перед покупкой",
+  "actionCardPurchaseWaiting": "Получение приёма"
 }

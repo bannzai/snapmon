@@ -277,5 +277,6 @@
   "actionCardBuyDescription": "একটি কৌশল একবারেই কিনে নাও। তারপর যেকোনো মনস্টারকে যতবার খুশি সেটি শেখাতে পারবে।",
   "actionCardBuyUnavailable": "এখন কোনো কৌশল বিক্রি হচ্ছে না",
   "actionCardPurchaseBuy": "{price} দিয়ে কেনো",
-  "actionCardPurchasePriceChanged": "এই কৌশলের দাম বদলেছে\nকেনার আগে দাম দেখে নাও"
+  "actionCardPurchasePriceChanged": "এই কৌশলের দাম বদলেছে\nকেনার আগে দাম দেখে নাও",
+  "actionCardPurchaseWaiting": "কৌশলটি পাওয়া যাচ্ছে"
 }

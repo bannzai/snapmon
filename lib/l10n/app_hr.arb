@@ -277,5 +277,6 @@
   "actionCardBuyDescription": "Odaberi jedan potez i kupi ga jednom zauvijek. Zatim ga možeš učiti bilo koje čudovište koliko god puta želiš.",
   "actionCardBuyUnavailable": "Trenutačno nema poteza na prodaju",
   "actionCardPurchaseBuy": "Kupi za {price}",
-  "actionCardPurchasePriceChanged": "Cijena ovog poteza se promijenila\nProvjeri je prije kupnje"
+  "actionCardPurchasePriceChanged": "Cijena ovog poteza se promijenila\nProvjeri je prije kupnje",
+  "actionCardPurchaseWaiting": "Prima se potez"
 }

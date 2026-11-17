@@ -277,5 +277,6 @@
   "actionCardBuyDescription": "選一個招式，一次買斷。之後可以不限次數教給任何怪物。",
   "actionCardBuyUnavailable": "現在沒有招式販售",
   "actionCardPurchaseBuy": "花 {price} 購買",
-  "actionCardPurchasePriceChanged": "這個招式的價格變了\n購買前先確認價格"
+  "actionCardPurchasePriceChanged": "這個招式的價格變了\n購買前先確認價格",
+  "actionCardPurchaseWaiting": "正在接收招式"
 }

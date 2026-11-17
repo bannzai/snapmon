@@ -277,5 +277,6 @@
   "actionCardBuyDescription": "Escolha um golpe e compre uma vez só. Depois, você pode ensiná-lo a qualquer monstro quantas vezes quiser.",
   "actionCardBuyUnavailable": "Nenhum golpe à venda no momento",
   "actionCardPurchaseBuy": "Comprar por {price}",
-  "actionCardPurchasePriceChanged": "O preço deste golpe mudou\nConfira antes de comprar"
+  "actionCardPurchasePriceChanged": "O preço deste golpe mudou\nConfira antes de comprar",
+  "actionCardPurchaseWaiting": "Recebendo o golpe"
 }

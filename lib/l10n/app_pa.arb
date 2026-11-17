@@ -277,5 +277,6 @@
   "actionCardBuyDescription": "ਇੱਕ ਚਾਲ ਚੁਣ ਕੇ ਸਿਰਫ਼ ਇੱਕ ਵਾਰ ਖਰੀਦੋ। ਫਿਰ ਤੁਸੀਂ ਉਹ ਕਿਸੇ ਵੀ ਮੌਂਸਟਰ ਨੂੰ ਜਿੰਨੀ ਵਾਰ ਚਾਹੋ ਸਿਖਾ ਸਕਦੇ ਹੋ।",
   "actionCardBuyUnavailable": "ਇਸ ਵੇਲੇ ਕੋਈ ਚਾਲ ਵਿਕਰੀ ਲਈ ਨਹੀਂ ਹੈ",
   "actionCardPurchaseBuy": "{price} ਵਿੱਚ ਖਰੀਦੋ",
-  "actionCardPurchasePriceChanged": "ਇਸ ਚਾਲ ਦੀ ਕੀਮਤ ਬਦਲ ਗਈ ਹੈ\nਖਰੀਦਣ ਤੋਂ ਪਹਿਲਾਂ ਕੀਮਤ ਦੇਖ ਲਓ"
+  "actionCardPurchasePriceChanged": "ਇਸ ਚਾਲ ਦੀ ਕੀਮਤ ਬਦਲ ਗਈ ਹੈ\nਖਰੀਦਣ ਤੋਂ ਪਹਿਲਾਂ ਕੀਮਤ ਦੇਖ ਲਓ",
+  "actionCardPurchaseWaiting": "ਚਾਲ ਮਿਲ ਰਹੀ ਹੈ"
 }

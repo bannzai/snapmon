@@ -277,5 +277,6 @@
   "actionCardBuyDescription": "Kies één aanval en koop die eenmalig. Daarna kun je hem elk monster zo vaak leren als je wilt.",
   "actionCardBuyUnavailable": "Er zijn nu geen aanvallen te koop",
   "actionCardPurchaseBuy": "Koop voor {price}",
-  "actionCardPurchasePriceChanged": "De prijs van deze aanval is veranderd\nControleer hem voordat je koopt"
+  "actionCardPurchasePriceChanged": "De prijs van deze aanval is veranderd\nControleer hem voordat je koopt",
+  "actionCardPurchaseWaiting": "Aanval wordt ontvangen"
 }

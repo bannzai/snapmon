@@ -277,5 +277,6 @@
   "actionCardBuyDescription": "ഒരു നീക്കം തിരഞ്ഞെടുത്ത് ഒറ്റത്തവണ വാങ്ങൂ. പിന്നെ ഏത് മോൺസ്റ്ററിനെയും അത് എത്ര തവണ വേണമെങ്കിലും പഠിപ്പിക്കാം.",
   "actionCardBuyUnavailable": "ഇപ്പോൾ നീക്കങ്ങൾ വിൽപ്പനയ്ക്കില്ല",
   "actionCardPurchaseBuy": "{price}യ്ക്ക് വാങ്ങൂ",
-  "actionCardPurchasePriceChanged": "ഈ നീക്കത്തിന്റെ വില മാറി\nവാങ്ങും മുമ്പ് വില പരിശോധിക്കൂ"
+  "actionCardPurchasePriceChanged": "ഈ നീക്കത്തിന്റെ വില മാറി\nവാങ്ങും മുമ്പ് വില പരിശോധിക്കൂ",
+  "actionCardPurchaseWaiting": "നീക്കം ലഭിച്ചുകൊണ്ടിരിക്കുന്നു"
 }

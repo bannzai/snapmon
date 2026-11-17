@@ -277,5 +277,6 @@
   "actionCardBuyDescription": "એક ચાલ પસંદ કરીને એક જ વાર ખરીદો. પછી તમે તે કોઈપણ મોન્સ્ટરને ગમે તેટલી વાર શીખવી શકો છો.",
   "actionCardBuyUnavailable": "હમણાં કોઈ ચાલ વેચાણ માટે નથી",
   "actionCardPurchaseBuy": "{price}માં ખરીદો",
-  "actionCardPurchasePriceChanged": "આ ચાલની કિંમત બદલાઈ છે\nખરીદતા પહેલાં કિંમત તપાસો"
+  "actionCardPurchasePriceChanged": "આ ચાલની કિંમત બદલાઈ છે\nખરીદતા પહેલાં કિંમત તપાસો",
+  "actionCardPurchaseWaiting": "ચાલ મળી રહી છે"
 }

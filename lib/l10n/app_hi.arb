@@ -277,5 +277,6 @@
   "actionCardBuyDescription": "एक चाल चुनो और उसे एक बार खरीद लो। फिर किसी भी मॉन्स्टर को वह चाल जितनी बार चाहो सिखा सकते हो।",
   "actionCardBuyUnavailable": "अभी कोई चाल बिक्री के लिए नहीं है",
   "actionCardPurchaseBuy": "{price} में खरीदो",
-  "actionCardPurchasePriceChanged": "इस चाल की कीमत बदल गई है\nखरीदने से पहले कीमत जाँच लो"
+  "actionCardPurchasePriceChanged": "इस चाल की कीमत बदल गई है\nखरीदने से पहले कीमत जाँच लो",
+  "actionCardPurchaseWaiting": "चाल मिल रही है"
 }

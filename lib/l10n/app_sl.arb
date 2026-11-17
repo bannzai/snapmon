@@ -277,5 +277,6 @@
   "actionCardBuyDescription": "Izberi en potez in ga kupi za vedno. Nato ga lahko naučiš katerokoli pošast, kolikorkrat želiš.",
   "actionCardBuyUnavailable": "Trenutno ni potezov naprodaj",
   "actionCardPurchaseBuy": "Kupi za {price}",
-  "actionCardPurchasePriceChanged": "Cena te poteze se je spremenila\nPred nakupom jo preveri"
+  "actionCardPurchasePriceChanged": "Cena te poteze se je spremenila\nPred nakupom jo preveri",
+  "actionCardPurchaseWaiting": "Prejemanje poteza"
 }
