@@ -190,5 +190,6 @@
   "battleLogStatusDamage": "{monsterName} ได้รับความเสียหายจาก {statusName}",
   "battleLogFieldStatShuffleStarted": "สนามต่อสู้เริ่มสั่นไหว",
   "battleLogFieldStatShuffled": "สนามสั่นไหวจนค่า {firstStatName} กับ {secondStatName} สลับกัน!",
-  "battleLogFieldEnded": "สนามกลับเป็นปกติแล้ว"
+  "battleLogFieldEnded": "สนามกลับเป็นปกติแล้ว",
+  "battleStatusStackCount": "{statusName} ×{stackCount}"
 }

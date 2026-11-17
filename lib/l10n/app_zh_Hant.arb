@@ -190,5 +190,6 @@
   "battleLogStatusDamage": "{monsterName}因{statusName}受到了傷害",
   "battleLogFieldStatShuffleStarted": "戰場開始波動了",
   "battleLogFieldStatShuffled": "場地一陣搖晃，{firstStatName}和{secondStatName}的數值對調了！",
-  "battleLogFieldEnded": "場地恢復原狀了"
+  "battleLogFieldEnded": "場地恢復原狀了",
+  "battleStatusStackCount": "{statusName} ×{stackCount}"
 }

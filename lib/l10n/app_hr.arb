@@ -190,5 +190,6 @@
   "battleLogStatusDamage": "{monsterName} je pretrpio štetu zbog {statusName}",
   "battleLogFieldStatShuffleStarted": "Bojno polje počelo je podrhtavati",
   "battleLogFieldStatShuffled": "Polje se zaljuljalo pa su {firstStatName} i {secondStatName} zamijenili mjesta!",
-  "battleLogFieldEnded": "Polje se vratilo u normalu"
+  "battleLogFieldEnded": "Polje se vratilo u normalu",
+  "battleStatusStackCount": "{statusName} ×{stackCount}"
 }

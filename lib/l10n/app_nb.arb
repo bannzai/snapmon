@@ -190,5 +190,6 @@
   "battleLogStatusDamage": "{monsterName} tok skade av {statusName}",
   "battleLogFieldStatShuffleStarted": "Slagmarken begynte å bølge",
   "battleLogFieldStatShuffled": "Feltet bølget, og {firstStatName} og {secondStatName} byttet plass!",
-  "battleLogFieldEnded": "Feltet er tilbake til normalen"
+  "battleLogFieldEnded": "Feltet er tilbake til normalen",
+  "battleStatusStackCount": "{statusName} ×{stackCount}"
 }

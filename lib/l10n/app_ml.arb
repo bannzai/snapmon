@@ -190,5 +190,6 @@
   "battleLogStatusDamage": "{statusName} കാരണം {monsterName} നാശം ഏറ്റുവാങ്ങി",
   "battleLogFieldStatShuffleStarted": "യുദ്ധക്കളം ഇളകിത്തുടങ്ങി",
   "battleLogFieldStatShuffled": "കളം ഇളകി {firstStatName}, {secondStatName} എന്നിവയുടെ മൂല്യങ്ങൾ പരസ്പരം മാറി!",
-  "battleLogFieldEnded": "കളം വീണ്ടും പഴയപടിയായി"
+  "battleLogFieldEnded": "കളം വീണ്ടും പഴയപടിയായി",
+  "battleStatusStackCount": "{statusName} ×{stackCount}"
 }

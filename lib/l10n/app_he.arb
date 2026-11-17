@@ -190,5 +190,6 @@
   "battleLogStatusDamage": "{monsterName} ספג נזק בגלל {statusName}",
   "battleLogFieldStatShuffleStarted": "שדה הקרב התחיל להתערער",
   "battleLogFieldStatShuffled": "השדה התערער, והערכים של {firstStatName} ושל {secondStatName} התחלפו!",
-  "battleLogFieldEnded": "השדה חזר לקדמותו"
+  "battleLogFieldEnded": "השדה חזר לקדמותו",
+  "battleStatusStackCount": "{statusName} ×{stackCount}"
 }

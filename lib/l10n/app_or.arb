@@ -190,5 +190,6 @@
   "battleLogStatusDamage": "{statusName} ଯୋଗୁଁ {monsterName} କ୍ଷତି ପାଇଲା",
   "battleLogFieldStatShuffleStarted": "ଯୁଦ୍ଧକ୍ଷେତ୍ର ଦୋହଲିବାକୁ ଲାଗିଲା",
   "battleLogFieldStatShuffled": "ପଡ଼ିଆ ଦୋହଲିଲା ଆଉ {firstStatName} ଓ {secondStatName} ଅଦଳବଦଳ ହେଲା!",
-  "battleLogFieldEnded": "ପଡ଼ିଆ ପୁଣି ସ୍ୱାଭାବିକ ହେଲା"
+  "battleLogFieldEnded": "ପଡ଼ିଆ ପୁଣି ସ୍ୱାଭାବିକ ହେଲା",
+  "battleStatusStackCount": "{statusName} ×{stackCount}"
 }

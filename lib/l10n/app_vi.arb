@@ -190,5 +190,6 @@
   "battleLogStatusDamage": "{monsterName} chịu sát thương do {statusName}",
   "battleLogFieldStatShuffleStarted": "Chiến trường bắt đầu dao động",
   "battleLogFieldStatShuffled": "Sân đấu chao đảo, khiến {firstStatName} và {secondStatName} đổi chỗ!",
-  "battleLogFieldEnded": "Sân đấu đã trở lại bình thường"
+  "battleLogFieldEnded": "Sân đấu đã trở lại bình thường",
+  "battleStatusStackCount": "{statusName} ×{stackCount}"
 }

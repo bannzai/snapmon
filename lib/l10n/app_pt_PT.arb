@@ -190,5 +190,6 @@
   "battleLogStatusDamage": "{monsterName} sofreu dano devido a {statusName}",
   "battleLogFieldStatShuffleStarted": "O campo de batalha começou a oscilar",
   "battleLogFieldStatShuffled": "O campo oscilou e {firstStatName} e {secondStatName} trocaram de lugar!",
-  "battleLogFieldEnded": "O campo voltou ao normal"
+  "battleLogFieldEnded": "O campo voltou ao normal",
+  "battleStatusStackCount": "{statusName} ×{stackCount}"
 }

@@ -190,5 +190,6 @@
   "battleLogStatusDamage": "{monsterName} kreeg schade door {statusName}",
   "battleLogFieldStatShuffleStarted": "Het strijdveld begon te golven",
   "battleLogFieldStatShuffled": "Het veld golfde en {firstStatName} en {secondStatName} wisselden van plek!",
-  "battleLogFieldEnded": "Het veld is weer normaal"
+  "battleLogFieldEnded": "Het veld is weer normaal",
+  "battleStatusStackCount": "{statusName} ×{stackCount}"
 }

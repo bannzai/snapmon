@@ -190,5 +190,6 @@
   "battleLogStatusDamage": "{monsterName} terkena damage akibat {statusName}",
   "battleLogFieldStatShuffleStarted": "Arena pertarungan mulai bergejolak",
   "battleLogFieldStatShuffled": "Arena bergoyang, lalu {firstStatName} dan {secondStatName} bertukar tempat!",
-  "battleLogFieldEnded": "Arena kembali normal"
+  "battleLogFieldEnded": "Arena kembali normal",
+  "battleStatusStackCount": "{statusName} ×{stackCount}"
 }

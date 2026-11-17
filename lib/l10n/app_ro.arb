@@ -190,5 +190,6 @@
   "battleLogStatusDamage": "{monsterName} a suferit daune din cauza {statusName}",
   "battleLogFieldStatShuffleStarted": "Câmpul de luptă a început să oscileze",
   "battleLogFieldStatShuffled": "Câmpul a tremurat, iar {firstStatName} și {secondStatName} și-au schimbat locurile!",
-  "battleLogFieldEnded": "Câmpul a revenit la normal"
+  "battleLogFieldEnded": "Câmpul a revenit la normal",
+  "battleStatusStackCount": "{statusName} ×{stackCount}"
 }
