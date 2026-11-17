@@ -322,5 +322,6 @@
   "helpTypeDualNote": "Jeśli rywal ma dwa typy, pomnóż oba mnożniki\nCałą skuteczność sprawdzisz w encyklopedii w „Skuteczność typów i lista ruchów”",
   "helpStatusHeading": "statusy",
   "helpStatusBody": "Niektóre ruchy nakładają na rywala status\nStatus pozostaje nawet po zmianie potwora",
-  "helpStatusPoison": "Otrzymuje obrażenia na koniec każdej tury\nIm więcej trucizny się nagromadzi, tym większe obrażenia"
+  "helpStatusPoison": "Otrzymuje obrażenia na koniec każdej tury\nIm więcej trucizny się nagromadzi, tym większe obrażenia",
+  "helpStatusParalysis": "Ruchy atakujące mogą czasem zawieść"
 }

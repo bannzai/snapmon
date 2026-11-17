@@ -322,5 +322,6 @@
   "helpTypeDualNote": "Če ima nasprotnik dva elementa, pomnoži oba množitelja\nVso učinkovitost najdeš v enciklopediji pod »Učinkovitost elementov in seznam potez«",
   "helpStatusHeading": "statusni učinki",
   "helpStatusBody": "Nekateri potezi nasprotniku povzročijo statusno težavo\nStatusna težava ostane tudi po zamenjavi",
-  "helpStatusPoison": "Na koncu vsake poteze utrpi škodo\nVeč ko se nabere strupa, večja je škoda"
+  "helpStatusPoison": "Na koncu vsake poteze utrpi škodo\nVeč ko se nabere strupa, večja je škoda",
+  "helpStatusParalysis": "Napadalni potezi lahko včasih spodletijo"
 }

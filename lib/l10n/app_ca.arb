@@ -322,5 +322,6 @@
   "helpTypeDualNote": "Si el rival té dos elements, multiplica els dos factors\nConsulta tota l’eficàcia a «Eficàcia dels elements i llista de moviments» de l’enciclopèdia",
   "helpStatusHeading": "alteracions d'estat",
   "helpStatusBody": "Alguns moviments causen alteracions d'estat al rival\nLes alteracions persisteixen encara que canviïs de monstre",
-  "helpStatusPoison": "Rep mal al final de cada torn\nCom més s'acumula, més mal fa"
+  "helpStatusPoison": "Rep mal al final de cada torn\nCom més s'acumula, més mal fa",
+  "helpStatusParalysis": "Els moviments d'atac poden fallar"
 }

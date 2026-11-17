@@ -322,5 +322,6 @@
   "helpTypeDualNote": "Har motståndaren två element, multiplicera de två faktorerna\nSe all effektivitet i samlingen under ”Elementens effektivitet och attacker”",
   "helpStatusHeading": "statuseffekter",
   "helpStatusBody": "Vissa attacker ger motståndaren en statuseffekt\nStatuseffekten finns kvar även när du byter monster",
-  "helpStatusPoison": "Tar skada i slutet av varje tur\nJu mer gift som samlas, desto större skada"
+  "helpStatusPoison": "Tar skada i slutet av varje tur\nJu mer gift som samlas, desto större skada",
+  "helpStatusParalysis": "Attackattacker kan ibland misslyckas"
 }

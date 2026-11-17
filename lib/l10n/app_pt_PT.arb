@@ -322,5 +322,6 @@
   "helpTypeDualNote": "Se o adversário tiver dois elementos, multiplica os dois fatores\nVê toda a eficácia na enciclopédia, em «Eficácia dos elementos e lista de golpes»",
   "helpStatusHeading": "efeitos de estado",
   "helpStatusBody": "Alguns golpes causam um estado ao adversário\nO estado mantém-se mesmo após a troca",
-  "helpStatusPoison": "Sofre dano no fim de cada turno\nQuanto mais veneno se acumula, maior o dano"
+  "helpStatusPoison": "Sofre dano no fim de cada turno\nQuanto mais veneno se acumula, maior o dano",
+  "helpStatusParalysis": "Os golpes de ataque podem falhar às vezes"
 }

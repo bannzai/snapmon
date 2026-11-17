@@ -322,5 +322,6 @@
   "helpTypeDualNote": "Nếu đối thủ có hai hệ, hãy nhân hai hệ số với nhau\nXem mọi tương khắc trong bộ sưu tập, mục «Tương khắc giữa các hệ và danh sách chiêu»",
   "helpStatusHeading": "trạng thái bất thường",
   "helpStatusBody": "Một số chiêu gây trạng thái bất thường cho đối thủ\nTrạng thái bất thường vẫn còn sau khi đổi quái",
-  "helpStatusPoison": "Chịu sát thương vào cuối mỗi lượt\nĐộc càng tích tụ, sát thương càng tăng"
+  "helpStatusPoison": "Chịu sát thương vào cuối mỗi lượt\nĐộc càng tích tụ, sát thương càng tăng",
+  "helpStatusParalysis": "Chiêu tấn công đôi khi có thể thất bại"
 }

@@ -322,5 +322,6 @@
   "helpTypeDualNote": "Se l’avversario ha due elementi, moltiplica i due valori\nTrovi ogni efficacia nel dex, alla voce «Efficacia degli elementi e lista delle mosse»",
   "helpStatusHeading": "problemi di stato",
   "helpStatusBody": "Alcune mosse causano problemi di stato all'avversario\nI problemi di stato restano anche dopo il cambio",
-  "helpStatusPoison": "Subisce danni alla fine di ogni turno\nPiù veleno si accumula, più danni subisce"
+  "helpStatusPoison": "Subisce danni alla fine di ogni turno\nPiù veleno si accumula, più danni subisce",
+  "helpStatusParalysis": "Le mosse d'attacco a volte possono fallire"
 }

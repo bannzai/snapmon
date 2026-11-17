@@ -322,5 +322,6 @@
   "helpTypeDualNote": "Má-li soupeř dva elementy, vynásob oba násobitele\nVeškerou účinnost najdeš v encyklopedii v části „Účinnost elementů a seznam útoků“",
   "helpStatusHeading": "stavové efekty",
   "helpStatusBody": "Některé útoky způsobí soupeři stavové potíže\nStavové potíže zůstanou i po vystřídání",
-  "helpStatusPoison": "Na konci tahu utrpí poškození\nČím víc se jed nahromadí, tím víc bolí"
+  "helpStatusPoison": "Na konci tahu utrpí poškození\nČím víc se jed nahromadí, tím víc bolí",
+  "helpStatusParalysis": "Útočné útoky mohou někdy selhat"
 }

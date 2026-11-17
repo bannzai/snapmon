@@ -322,5 +322,6 @@
   "helpTypeDualNote": "Hat dein Gegner zwei Elemente, werden beide Faktoren miteinander multipliziert\nAlle Effektivitäten findest du im Dex unter „Element-Effektivität und Attacken“",
   "helpStatusHeading": "Statusprobleme",
   "helpStatusBody": "Manche Attacken verursachen beim Gegner Statusprobleme\nStatusprobleme bleiben auch nach dem Wechsel",
-  "helpStatusPoison": "Erleidet am Ende jeder Runde Schaden\nJe mehr Gift sich ansammelt, desto höher der Schaden"
+  "helpStatusPoison": "Erleidet am Ende jeder Runde Schaden\nJe mehr Gift sich ansammelt, desto höher der Schaden",
+  "helpStatusParalysis": "Angriffs-Attacken können manchmal fehlschlagen"
 }

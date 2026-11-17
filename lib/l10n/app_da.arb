@@ -322,5 +322,6 @@
   "helpTypeDualNote": "Har modstanderen to elementer, ganges de to faktorer sammen\nSe al effektivitet i »Elementers effektivitet og angreb« i din dex",
   "helpStatusHeading": "statuseffekter",
   "helpStatusBody": "Nogle angreb giver modstanderen en statuseffekt\nStatuseffekten bliver, selv når du skifter",
-  "helpStatusPoison": "Tager skade sidst i hver tur\nJo mere gift der ophobes, jo større skade"
+  "helpStatusPoison": "Tager skade sidst i hver tur\nJo mere gift der ophobes, jo større skade",
+  "helpStatusParalysis": "Angrebsangreb kan nogle gange slå fejl"
 }

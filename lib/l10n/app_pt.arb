@@ -322,5 +322,6 @@
   "helpTypeDualNote": "Se o oponente tiver dois elementos, multiplique os dois fatores\nVeja toda a eficácia no dex, em «Eficácia dos elementos e lista de golpes»",
   "helpStatusHeading": "efeitos de status",
   "helpStatusBody": "Alguns golpes causam status no adversário\nO status continua mesmo após a troca",
-  "helpStatusPoison": "Sofre dano no fim de cada turno\nQuanto mais veneno se acumula, maior o dano"
+  "helpStatusPoison": "Sofre dano no fim de cada turno\nQuanto mais veneno se acumula, maior o dano",
+  "helpStatusParalysis": "Golpes de ataque às vezes podem falhar"
 }

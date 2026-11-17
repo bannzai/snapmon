@@ -322,5 +322,6 @@
   "helpTypeDualNote": "Jika lawan punya dua elemen, kalikan kedua pengalinya\nLihat semua efektivitas di dex pada «Efektivitas elemen dan daftar jurus»",
   "helpStatusHeading": "efek status",
   "helpStatusBody": "Beberapa jurus memberi efek status pada lawan\nEfek status tetap ada meski kamu berganti monster",
-  "helpStatusPoison": "Terkena damage di akhir setiap giliran\nMakin banyak racun menumpuk, makin besar damage-nya"
+  "helpStatusPoison": "Terkena damage di akhir setiap giliran\nMakin banyak racun menumpuk, makin besar damage-nya",
+  "helpStatusParalysis": "Jurus serangan kadang bisa gagal"
 }

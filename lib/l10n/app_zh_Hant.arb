@@ -322,5 +322,6 @@
   "helpTypeDualNote": "對手有兩種屬性時，將兩個倍率相乘\n所有相剋關係都能在圖鑑的「屬性相剋與招式一覽」查看",
   "helpStatusHeading": "異常狀態",
   "helpStatusBody": "有些招式會讓對手陷入異常狀態\n換下場後，異常狀態仍會保留",
-  "helpStatusPoison": "每回合結束時受到傷害\n中毒累積越多，傷害越大"
+  "helpStatusPoison": "每回合結束時受到傷害\n中毒累積越多，傷害越大",
+  "helpStatusParalysis": "攻擊招式有時會失敗"
 }
