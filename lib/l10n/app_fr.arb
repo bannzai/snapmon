@@ -12,5 +12,6 @@
   "reportReasonPersonInPicture": "Une personne apparaît sur la photo",
   "reportReasonInappropriateIcon": "Icône inappropriée",
   "reportReasonOther": "Autre",
-  "reportSheetTitle": "Faire un signalement pour {monsterName}"
+  "reportSheetTitle": "Faire un signalement pour {monsterName}",
+  "reportSheetDescription": "Le dresseur que tu signales n’apparaîtra plus parmi tes adversaires"
 }
