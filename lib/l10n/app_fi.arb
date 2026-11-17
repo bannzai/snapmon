@@ -316,5 +316,6 @@
   "helpLevelHeading": "Taso",
   "helpLevelBody": "Voitit tai hävisit, taistelleiden hirviöiden taso nousee\nTason noustessa ne oppivat uusia liikkeitä",
   "helpTypeHeading": "Elementtien tehokkuus (heikkoudet)",
-  "helpTypeBody": "Vahinko riippuu liikkeen elementistä ja vastustajan elementistä\nValitse liike, jonka elementille vastustaja on heikko, niin teet paljon vahinkoa\nLiikepainikkeen nuoli näyttää liikkeen tehokkuuden nykyistä vastustajaa vastaan"
+  "helpTypeBody": "Vahinko riippuu liikkeen elementistä ja vastustajan elementistä\nValitse liike, jonka elementille vastustaja on heikko, niin teet paljon vahinkoa\nLiikepainikkeen nuoli näyttää liikkeen tehokkuuden nykyistä vastustajaa vastaan",
+  "helpTypeSuperEffective": "Todella tehokas! Vahinko ×2"
 }

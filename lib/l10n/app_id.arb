@@ -316,5 +316,6 @@
   "helpLevelHeading": "Level",
   "helpLevelBody": "Menang atau kalah, monster yang bertarung naik level\nSaat naik level, mereka mempelajari jurus baru",
   "helpTypeHeading": "Efektivitas elemen (kelemahan)",
-  "helpTypeBody": "Kerusakan bergantung pada elemen jurus dan elemen lawan\nPilih jurus dengan elemen yang jadi kelemahan lawan untuk memberi kerusakan besar\nPanah pada tombol jurus menunjukkan efektivitasnya terhadap lawan saat ini"
+  "helpTypeBody": "Kerusakan bergantung pada elemen jurus dan elemen lawan\nPilih jurus dengan elemen yang jadi kelemahan lawan untuk memberi kerusakan besar\nPanah pada tombol jurus menunjukkan efektivitasnya terhadap lawan saat ini",
+  "helpTypeSuperEffective": "Sangat efektif! Kerusakan 2 kali lipat"
 }

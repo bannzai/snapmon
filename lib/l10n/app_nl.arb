@@ -316,5 +316,6 @@
   "helpLevelHeading": "Niveau",
   "helpLevelBody": "Of je nu wint of verliest, monsters die hebben gevochten stijgen in level\nBij een hoger level leren ze nieuwe aanvallen",
   "helpTypeHeading": "Effectiviteit van types (zwaktes)",
-  "helpTypeBody": "De schade hangt af van het type van de aanval en het type van de tegenstander\nKies een aanval van een type waar de tegenstander zwak voor is om veel schade te doen\nDe pijl op de aanvalsknop toont de effectiviteit tegen je huidige tegenstander"
+  "helpTypeBody": "De schade hangt af van het type van de aanval en het type van de tegenstander\nKies een aanval van een type waar de tegenstander zwak voor is om veel schade te doen\nDe pijl op de aanvalsknop toont de effectiviteit tegen je huidige tegenstander",
+  "helpTypeSuperEffective": "Supereffectief! Schade ×2"
 }

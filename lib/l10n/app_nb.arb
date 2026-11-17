@@ -316,5 +316,6 @@
   "helpLevelHeading": "Nivå",
   "helpLevelBody": "Enten du vinner eller taper, går monstre som kjempet opp i nivå\nNår de går opp i nivå, lærer de nye angrep",
   "helpTypeHeading": "Typers effektivitet (svakheter)",
-  "helpTypeBody": "Skaden avhenger av angrepets type og motstanderens type\nVelg et angrep med en type motstanderen er svak mot, så gjør du stor skade\nPilen på angrepsknappen viser effektivitet mot motstanderen du møter nå"
+  "helpTypeBody": "Skaden avhenger av angrepets type og motstanderens type\nVelg et angrep med en type motstanderen er svak mot, så gjør du stor skade\nPilen på angrepsknappen viser effektivitet mot motstanderen du møter nå",
+  "helpTypeSuperEffective": "Supereffektivt! Skade ×2"
 }

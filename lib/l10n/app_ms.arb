@@ -316,5 +316,6 @@
   "helpLevelHeading": "Tahap",
   "helpLevelBody": "Menang atau kalah, monster yang bertarung naik tahap\nBila naik tahap, mereka belajar gerakan baharu",
   "helpTypeHeading": "Keberkesanan elemen (kelemahan)",
-  "helpTypeBody": "Kerosakan bergantung pada elemen gerakan dan elemen lawan\nPilih gerakan dengan elemen yang menjadi kelemahan lawan untuk kerosakan besar\nAnak panah pada butang gerakan menunjukkan keberkesanan terhadap lawan sekarang"
+  "helpTypeBody": "Kerosakan bergantung pada elemen gerakan dan elemen lawan\nPilih gerakan dengan elemen yang menjadi kelemahan lawan untuk kerosakan besar\nAnak panah pada butang gerakan menunjukkan keberkesanan terhadap lawan sekarang",
+  "helpTypeSuperEffective": "Sangat berkesan! Kerosakan 2 kali ganda"
 }

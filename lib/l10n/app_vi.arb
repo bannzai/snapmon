@@ -316,5 +316,6 @@
   "helpLevelHeading": "Cấp độ",
   "helpLevelBody": "Dù bạn thắng hay thua, quái vật đã chiến đấu đều lên cấp\nKhi lên cấp, chúng học được chiêu mới",
   "helpTypeHeading": "Tương khắc giữa các hệ (điểm yếu)",
-  "helpTypeBody": "Sát thương thay đổi tùy theo hệ của chiêu và hệ của đối thủ\nChọn chiêu thuộc hệ khắc điểm yếu của đối thủ để gây sát thương lớn\nMũi tên trên nút chiêu cho biết tương khắc với đối thủ hiện tại"
+  "helpTypeBody": "Sát thương thay đổi tùy theo hệ của chiêu và hệ của đối thủ\nChọn chiêu thuộc hệ khắc điểm yếu của đối thủ để gây sát thương lớn\nMũi tên trên nút chiêu cho biết tương khắc với đối thủ hiện tại",
+  "helpTypeSuperEffective": "Siêu hiệu quả! Sát thương gấp 2"
 }

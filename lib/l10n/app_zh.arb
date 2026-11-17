@@ -316,5 +316,6 @@
   "helpLevelHeading": "等级",
   "helpLevelBody": "无论输赢，参战的怪物都会升级\n升级后会学会新招式",
   "helpTypeHeading": "属性克制（弱点）",
-  "helpTypeBody": "伤害取决于招式的属性和对手的属性\n选择克制对手弱点属性的招式，就能造成大量伤害\n招式按钮上的箭头表示对当前对手的克制效果"
+  "helpTypeBody": "伤害取决于招式的属性和对手的属性\n选择克制对手弱点属性的招式，就能造成大量伤害\n招式按钮上的箭头表示对当前对手的克制效果",
+  "helpTypeSuperEffective": "效果绝佳！伤害 2 倍"
 }
