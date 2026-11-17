@@ -122,6 +122,7 @@
   "generationRejectedPerson": "אי אפשר ליצור מפלצת מתמונה שמופיע בה אדם\nיש לצלם רק חפצים",
   "generationPersonNoticeTitle": "יש אדם בתמונה",
   "generationPersonNoticeMessage": "גם אחרים יכולים לראות את תמונת המפלצת בקרבות\nאם מופיע בתמונה מישהו מלבדך\nיש לקבל את הסכמתו לפני השימוש בה",
+  "generationCutOutSubjectOnly": "לגזור רק את נושא התמונה",
   "generationCreateWithCutout": "ליצור מהתמונה הגזורה",
   "generationChooseRangeTitle": "האזור שיהפוך למפלצת",
   "generationChooseRangeMessage": "לגרור את המסגרת סביב האובייקט\nלשנות את הגודל בעזרת המחוון למטה או שתי אצבעות",

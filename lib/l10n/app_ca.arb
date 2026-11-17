@@ -122,6 +122,7 @@
   "generationRejectedPerson": "No pots crear un monstre amb una foto on surti algú\nFes fotos només d'objectes",
   "generationPersonNoticeTitle": "Hi surt una persona",
   "generationPersonNoticeMessage": "Els altres també poden veure la imatge del monstre durant els combats\nSi a la foto hi surt algú més,\ndemana-li permís abans de fer-la servir",
+  "generationCutOutSubjectOnly": "Retalla només el subjecte",
   "generationCreateWithCutout": "Crea'l amb la imatge retallada",
   "generationChooseRangeTitle": "Zona que serà un monstre",
   "generationChooseRangeMessage": "Arrossega el marc per envoltar l'objecte\nCanvia'n la mida amb el control de sota o amb dos dits",

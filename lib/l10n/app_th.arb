@@ -122,6 +122,7 @@
   "generationRejectedPerson": "สร้างมอนสเตอร์จากรูปที่มีคนไม่ได้\nถ่ายเฉพาะสิ่งของ",
   "generationPersonNoticeTitle": "มีคนอยู่ในรูป",
   "generationPersonNoticeMessage": "คนอื่นอาจเห็นภาพมอนสเตอร์ของคุณระหว่างการต่อสู้\nถ้าในรูปมีคนอื่นนอกจากคุณ\nขอความยินยอมจากคนนั้นก่อนนำรูปไปใช้",
+  "generationCutOutSubjectOnly": "ตัดเฉพาะตัวแบบ",
   "generationCreateWithCutout": "สร้างจากภาพที่ตัดออกมา",
   "generationChooseRangeTitle": "ส่วนที่จะกลายเป็นมอนสเตอร์",
   "generationChooseRangeMessage": "ลากกรอบให้ล้อมรอบวัตถุ\nปรับขนาดด้วยแถบเลื่อนด้านล่างหรือใช้สองนิ้ว",

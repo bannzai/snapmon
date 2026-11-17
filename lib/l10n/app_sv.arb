@@ -122,6 +122,7 @@
   "generationRejectedPerson": "Du kan inte skapa ett monster av ett foto där någon syns\nFotografera bara föremål",
   "generationPersonNoticeTitle": "Det finns en person på bilden",
   "generationPersonNoticeMessage": "Andra kan också se bilden på ditt monster i strider\nOm någon annan än du syns på fotot,\nbe om personens tillåtelse innan du använder det",
+  "generationCutOutSubjectOnly": "Klipp ut bara motivet",
   "generationCreateWithCutout": "Skapa med den urklippta bilden",
   "generationChooseRangeTitle": "Området som blir ett monster",
   "generationChooseRangeMessage": "Dra ramen runt motivet\nÄndra storleken med reglaget nedanför eller med två fingrar",

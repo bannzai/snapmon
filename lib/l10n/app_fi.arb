@@ -122,6 +122,7 @@
   "generationRejectedPerson": "Et voi luoda hirviötä kuvasta, jossa näkyy ihminen\nKuvaa vain esineitä",
   "generationPersonNoticeTitle": "Kuvassa näkyy henkilö",
   "generationPersonNoticeMessage": "Muutkin näkevät hirviön kuvan taisteluissa\nJos kuvassa näkyy joku muu kuin sinä,\npyydä häneltä lupa ennen kuvan käyttöä",
+  "generationCutOutSubjectOnly": "Irrota vain kohde",
   "generationCreateWithCutout": "Luo irrotetusta kuvasta",
   "generationChooseRangeTitle": "Hirviöksi muuttuva alue",
   "generationChooseRangeMessage": "Vedä kehys kohteen ympärille\nMuuta kokoa alla olevalla liukusäätimellä tai kahdella sormella",

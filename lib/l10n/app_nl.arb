@@ -122,6 +122,7 @@
   "generationRejectedPerson": "Je kunt geen monster maken van een foto waar iemand op staat\nFotografeer alleen voorwerpen",
   "generationPersonNoticeTitle": "Er staat een persoon op de foto",
   "generationPersonNoticeMessage": "Anderen kunnen de afbeelding van je monster ook zien tijdens gevechten\nStaat er iemand anders dan jij op de foto?\nVraag die persoon dan om toestemming voordat je de foto gebruikt",
+  "generationCutOutSubjectOnly": "Alleen het onderwerp uitknippen",
   "generationCreateWithCutout": "Maak met de uitgeknipte afbeelding",
   "generationChooseRangeTitle": "Gebied dat een monster wordt",
   "generationChooseRangeMessage": "Sleep het kader om het onderwerp\nPas de grootte aan met de schuifregelaar hieronder of met twee vingers",

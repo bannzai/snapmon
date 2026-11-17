@@ -122,6 +122,7 @@
   "generationRejectedPerson": "Nie stworzysz potwora ze zdjęcia, na którym jest człowiek\nFotografuj tylko przedmioty",
   "generationPersonNoticeTitle": "Na zdjęciu jest osoba",
   "generationPersonNoticeMessage": "Inni mogą zobaczyć obraz twojego potwora podczas walk\nJeśli na zdjęciu jest ktoś poza tobą\npoproś tę osobę o zgodę przed użyciem zdjęcia",
+  "generationCutOutSubjectOnly": "Wytnij tylko obiekt",
   "generationCreateWithCutout": "Stwórz z wyciętego obrazka",
   "generationChooseRangeTitle": "Obszar, który stanie się potworem",
   "generationChooseRangeMessage": "Przeciągnij ramkę wokół obiektu\nZmień jej rozmiar suwakiem poniżej lub dwoma palcami",

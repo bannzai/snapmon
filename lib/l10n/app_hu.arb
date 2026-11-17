@@ -122,6 +122,7 @@
   "generationRejectedPerson": "Embert ábrázoló fotóból nem készíthetsz szörnyet\nCsak tárgyakat fotózz",
   "generationPersonNoticeTitle": "Egy ember van a képen",
   "generationPersonNoticeMessage": "Mások is láthatják a szörnyed képét a csatákban\nHa rajtad kívül más is szerepel a fotón,\nkérd a beleegyezését, mielőtt felhasználod",
+  "generationCutOutSubjectOnly": "Csak a témát vágd körbe",
   "generationCreateWithCutout": "Készítsd el a kivágott képből",
   "generationChooseRangeTitle": "A szörnnyé váló terület",
   "generationChooseRangeMessage": "Húzd a keretet a képen lévő tárgy köré\nA méretet az alsó csúszkával vagy két ujjal állíthatod",

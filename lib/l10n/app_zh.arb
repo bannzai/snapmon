@@ -122,6 +122,7 @@
   "generationRejectedPerson": "有人的照片无法生成怪物\n请只拍摄物品",
   "generationPersonNoticeTitle": "照片里有人",
   "generationPersonNoticeMessage": "对战时，其他人也能看到你的怪物图片\n如果照片里有你以外的人\n使用前请先征得对方同意",
+  "generationCutOutSubjectOnly": "只抠出主体",
   "generationCreateWithCutout": "用抠出的图片创建",
   "generationChooseRangeTitle": "要变成怪物的区域",
   "generationChooseRangeMessage": "拖动边框圈住拍摄对象\n用下方滑块或双指调整大小",

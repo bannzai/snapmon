@@ -122,6 +122,7 @@
   "generationRejectedPerson": "Non puoi creare un mostro da una foto in cui compare una persona\nFotografa solo oggetti",
   "generationPersonNoticeTitle": "C'è una persona nella foto",
   "generationPersonNoticeMessage": "Anche gli altri possono vedere l'immagine del tuo mostro durante le lotte\nSe nella foto c'è qualcun altro oltre a te\nchiedigli il permesso prima di usarla",
+  "generationCutOutSubjectOnly": "Ritaglia solo il soggetto",
   "generationCreateWithCutout": "Crea dall'immagine ritagliata",
   "generationChooseRangeTitle": "Area che diventerà un mostro",
   "generationChooseRangeMessage": "Trascina la cornice attorno al soggetto\nCambiane le dimensioni con il cursore qui sotto o con due dita",

@@ -122,6 +122,7 @@
   "generationRejectedPerson": "İnsan görünen bir fotoğraftan canavar oluşturamazsın\nYalnızca eşyaların fotoğrafını çek",
   "generationPersonNoticeTitle": "Fotoğrafta bir kişi var",
   "generationPersonNoticeMessage": "Canavarının görselini savaşlarda başkaları da görebilir\nFotoğrafta senden başka biri varsa\nkullanmadan önce ondan izin al",
+  "generationCutOutSubjectOnly": "Yalnızca nesneyi kes",
   "generationCreateWithCutout": "Kesilmiş görselle oluştur",
   "generationChooseRangeTitle": "Canavara dönüşecek alan",
   "generationChooseRangeMessage": "Çerçeveyi sürükleyip nesneyi içine al\nBoyutunu alttaki kaydırıcıyla veya iki parmağınla değiştir",

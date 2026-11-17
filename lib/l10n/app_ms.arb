@@ -122,6 +122,7 @@
   "generationRejectedPerson": "Kamu tak boleh cipta monster daripada foto yang ada orang\nAmbil gambar objek sahaja",
   "generationPersonNoticeTitle": "Ada orang dalam foto",
   "generationPersonNoticeMessage": "Orang lain juga boleh melihat imej monster kamu semasa bertarung\nJika ada orang lain selain kamu dalam foto,\ndapatkan persetujuan mereka sebelum menggunakannya",
+  "generationCutOutSubjectOnly": "Potong subjek sahaja",
   "generationCreateWithCutout": "Cipta daripada gambar yang dipotong",
   "generationChooseRangeTitle": "Kawasan yang akan jadi monster",
   "generationChooseRangeMessage": "Seret bingkai untuk kelilingi objek\nUbah saiz dengan peluncur di bawah atau dua jari",

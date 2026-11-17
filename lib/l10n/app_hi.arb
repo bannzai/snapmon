@@ -122,6 +122,7 @@
   "generationRejectedPerson": "जिस फ़ोटो में कोई व्यक्ति हो, उससे मॉन्स्टर नहीं बना सकते\nसिर्फ़ चीज़ों की फ़ोटो खींचो",
   "generationPersonNoticeTitle": "फ़ोटो में एक व्यक्ति है",
   "generationPersonNoticeMessage": "लड़ाई में दूसरे लोग भी तुम्हारे मॉन्स्टर की तस्वीर देख सकते हैं\nअगर फ़ोटो में तुम्हारे अलावा कोई और है\nतो इस्तेमाल से पहले उसकी सहमति लो",
+  "generationCutOutSubjectOnly": "सिर्फ़ मुख्य चीज़ को काटो",
   "generationCreateWithCutout": "कटी हुई तस्वीर से बनाओ",
   "generationChooseRangeTitle": "मॉन्स्टर बनने वाला हिस्सा",
   "generationChooseRangeMessage": "फ़्रेम खींचकर तस्वीर की चीज़ को घेरो\nनीचे के स्लाइडर या दो उँगलियों से आकार बदलो",

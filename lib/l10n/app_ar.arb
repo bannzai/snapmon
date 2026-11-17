@@ -122,6 +122,7 @@
   "generationRejectedPerson": "لا يمكن صنع وحش من صورة يظهر فيها شخص\nصوّر الأشياء فقط",
   "generationPersonNoticeTitle": "يظهر شخص في الصورة",
   "generationPersonNoticeMessage": "صورة الوحش تظهر للآخرين أثناء المعارك\nإذا ظهر شخص غيرك في الصورة\nفاحصل على موافقته قبل استخدامها",
+  "generationCutOutSubjectOnly": "قصّ العنصر فقط",
   "generationCreateWithCutout": "أنشئ من الصورة المقصوصة",
   "generationChooseRangeTitle": "الجزء الذي سيصبح وحشًا",
   "generationChooseRangeMessage": "اسحب الإطار ليحيط بالشيء المصوَّر\nغيّر حجمه بالمؤشر أدناه أو بإصبعين",

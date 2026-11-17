@@ -122,6 +122,7 @@
   "generationRejectedPerson": "మనిషి ఉన్న ఫోటో నుంచి మాన్స్టర్‌ను సృష్టించలేవు\nవస్తువుల ఫోటోలు మాత్రమే తీయి",
   "generationPersonNoticeTitle": "ఫోటోలో ఒక వ్యక్తి ఉన్నారు",
   "generationPersonNoticeMessage": "పోరాటాల్లో నీ మాన్స్టర్ చిత్రాన్ని ఇతరులు కూడా చూడగలరు\nఫోటోలో నువ్వు కాకుండా ఇంకెవరైనా ఉంటే\nదాన్ని ఉపయోగించే ముందు వారి అనుమతి తీసుకో",
+  "generationCutOutSubjectOnly": "చిత్రంలోని వస్తువును మాత్రమే కత్తిరించు",
   "generationCreateWithCutout": "కత్తిరించిన చిత్రంతో సృష్టించు",
   "generationChooseRangeTitle": "మాన్స్టర్‌గా మారే భాగం",
   "generationChooseRangeMessage": "వస్తువు చుట్టూ ఫ్రేమ్‌ను లాగు\nకింద ఉన్న స్లైడర్‌తో లేదా రెండు వేళ్లతో పరిమాణం మార్చు",
