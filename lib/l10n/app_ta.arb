@@ -166,5 +166,6 @@
   "battleLogSuperEffective": "மிகவும் பயனுள்ளதாக இருந்தது!",
   "battleLogNotVeryEffective": "அவ்வளவாகப் பலனளிக்கவில்லை",
   "battleLogFainted": "{monsterName} மயங்கியது",
-  "battleLogStatRose": "{monsterName}இன் {statName} உயர்ந்தது!"
+  "battleLogStatRose": "{monsterName}இன் {statName} உயர்ந்தது!",
+  "battleLogStatFell": "{monsterName} இன் {statName} குறைந்தது"
 }

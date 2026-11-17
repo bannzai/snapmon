@@ -166,5 +166,6 @@
   "battleLogSuperEffective": "És supereficaç!",
   "battleLogNotVeryEffective": "No és gaire eficaç",
   "battleLogFainted": "{monsterName} s'ha debilitat",
-  "battleLogStatRose": "Ha pujat {statName} de {monsterName}!"
+  "battleLogStatRose": "Ha pujat {statName} de {monsterName}!",
+  "battleLogStatFell": "Ha baixat {statName} de {monsterName}"
 }

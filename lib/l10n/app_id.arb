@@ -166,5 +166,6 @@
   "battleLogSuperEffective": "Sangat efektif!",
   "battleLogNotVeryEffective": "Tidak terlalu efektif",
   "battleLogFainted": "{monsterName} pingsan",
-  "battleLogStatRose": "{statName} milik {monsterName} naik!"
+  "battleLogStatRose": "{statName} milik {monsterName} naik!",
+  "battleLogStatFell": "{statName} milik {monsterName} turun"
 }

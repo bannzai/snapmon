@@ -166,5 +166,6 @@
   "battleLogSuperEffective": "Je to superúčinné!",
   "battleLogNotVeryEffective": "Není to moc účinné",
   "battleLogFainted": "{monsterName} omdlel",
-  "battleLogStatRose": "Hodnota {statName} u {monsterName} vzrostla!"
+  "battleLogStatRose": "Hodnota {statName} u {monsterName} vzrostla!",
+  "battleLogStatFell": "{statName} u {monsterName} klesla"
 }

@@ -166,5 +166,6 @@
   "battleLogSuperEffective": "Szuper hatásos!",
   "battleLogNotVeryEffective": "Nem túl hatásos",
   "battleLogFainted": "{monsterName} elájult",
-  "battleLogStatRose": "{monsterName} {statName} értéke nőtt!"
+  "battleLogStatRose": "{monsterName} {statName} értéke nőtt!",
+  "battleLogStatFell": "{monsterName}: {statName} csökkent"
 }

@@ -166,5 +166,6 @@
   "battleLogSuperEffective": "效果绝佳！",
   "battleLogNotVeryEffective": "效果不太好",
   "battleLogFainted": "{monsterName}倒下了",
-  "battleLogStatRose": "{monsterName}的{statName}提高了！"
+  "battleLogStatRose": "{monsterName}的{statName}提高了！",
+  "battleLogStatFell": "{monsterName}的{statName}下降了"
 }

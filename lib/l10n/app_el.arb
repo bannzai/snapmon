@@ -166,5 +166,6 @@
   "battleLogSuperEffective": "Είναι πολύ αποτελεσματικό!",
   "battleLogNotVeryEffective": "Δεν ήταν πολύ αποτελεσματικό",
   "battleLogFainted": "Το {monsterName} λιποθύμησε",
-  "battleLogStatRose": "Αυξήθηκε το {statName} του {monsterName}!"
+  "battleLogStatRose": "Αυξήθηκε το {statName} του {monsterName}!",
+  "battleLogStatFell": "Το {statName} του {monsterName} έπεσε"
 }

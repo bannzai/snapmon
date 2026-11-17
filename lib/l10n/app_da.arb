@@ -166,5 +166,6 @@
   "battleLogSuperEffective": "Det er supereffektivt!",
   "battleLogNotVeryEffective": "Det var ikke særlig effektivt",
   "battleLogFainted": "{monsterName} besvimede",
-  "battleLogStatRose": "{statName} steg for {monsterName}!"
+  "battleLogStatRose": "{statName} steg for {monsterName}!",
+  "battleLogStatFell": "{statName} faldt for {monsterName}"
 }

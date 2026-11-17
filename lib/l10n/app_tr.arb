@@ -166,5 +166,6 @@
   "battleLogSuperEffective": "Çok etkili!",
   "battleLogNotVeryEffective": "Pek etkili olmadı",
   "battleLogFainted": "{monsterName} bayıldı",
-  "battleLogStatRose": "{monsterName} için {statName} yükseldi!"
+  "battleLogStatRose": "{monsterName} için {statName} yükseldi!",
+  "battleLogStatFell": "{monsterName} için {statName} düştü"
 }

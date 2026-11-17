@@ -166,5 +166,6 @@
   "battleLogSuperEffective": "Se on supertehokas!",
   "battleLogNotVeryEffective": "Ei ollut kovin tehokas",
   "battleLogFainted": "{monsterName} pyörtyi",
-  "battleLogStatRose": "{monsterName}: {statName} nousi!"
+  "battleLogStatRose": "{monsterName}: {statName} nousi!",
+  "battleLogStatFell": "{monsterName}: {statName} laski"
 }

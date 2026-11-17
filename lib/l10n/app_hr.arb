@@ -166,5 +166,6 @@
   "battleLogSuperEffective": "Super je učinkovito!",
   "battleLogNotVeryEffective": "Nije baš učinkovito",
   "battleLogFainted": "{monsterName} se onesvijestio",
-  "battleLogStatRose": "{statName} za {monsterName} je porastao!"
+  "battleLogStatRose": "{statName} za {monsterName} je porastao!",
+  "battleLogStatFell": "{statName} za {monsterName} je pao"
 }

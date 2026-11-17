@@ -166,5 +166,6 @@
   "battleLogSuperEffective": "చాలా ప్రభావవంతంగా ఉంది!",
   "battleLogNotVeryEffective": "పెద్దగా ప్రభావం చూపలేదు",
   "battleLogFainted": "{monsterName} స్పృహ తప్పింది",
-  "battleLogStatRose": "{monsterName} యొక్క {statName} పెరిగింది!"
+  "battleLogStatRose": "{monsterName} యొక్క {statName} పెరిగింది!",
+  "battleLogStatFell": "{monsterName} యొక్క {statName} తగ్గింది"
 }

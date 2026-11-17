@@ -166,5 +166,6 @@
   "battleLogSuperEffective": "Це суперефективно!",
   "battleLogNotVeryEffective": "Це не дуже ефективно",
   "battleLogFainted": "{monsterName} знепритомнів",
-  "battleLogStatRose": "Показник {statName} у {monsterName} зріс!"
+  "battleLogStatRose": "Показник {statName} у {monsterName} зріс!",
+  "battleLogStatFell": "Показник {statName} у {monsterName} знизився"
 }
