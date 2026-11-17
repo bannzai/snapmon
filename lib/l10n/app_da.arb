@@ -112,5 +112,6 @@
   "generationBattlePreparationFailedTitle": "Kampen kunne ikke gøres klar",
   "generationStagePreparingPhoto": "Gør billedet klar",
   "generationStageUploadingPhoto": "Uploader foto",
-  "generationStageCheckingPhoto": "Vi tjekker dit foto"
+  "generationStageCheckingPhoto": "Vi tjekker dit foto",
+  "generationStageCuttingOut": "Klipper motivet ud"
 }

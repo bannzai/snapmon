@@ -112,5 +112,6 @@
   "generationBattlePreparationFailedTitle": "ଲଢ଼େଇ ପାଇଁ ପ୍ରସ୍ତୁତି ହୋଇପାରିଲା ନାହିଁ",
   "generationStagePreparingPhoto": "ଫଟୋ ପ୍ରସ୍ତୁତ ହେଉଛି",
   "generationStageUploadingPhoto": "ଫଟୋ ଅପଲୋଡ୍ ହେଉଛି",
-  "generationStageCheckingPhoto": "ତୁମର ଫଟୋ ଯାଞ୍ଚ କରାଯାଉଛି"
+  "generationStageCheckingPhoto": "ତୁମର ଫଟୋ ଯାଞ୍ଚ କରାଯାଉଛି",
+  "generationStageCuttingOut": "ଫଟୋରୁ ବସ୍ତୁଟିକୁ ଅଲଗା କରାଯାଉଛି"
 }

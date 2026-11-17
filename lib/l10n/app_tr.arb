@@ -112,5 +112,6 @@
   "generationBattlePreparationFailedTitle": "Savaş hazırlanamadı",
   "generationStagePreparingPhoto": "Fotoğraf hazırlanıyor",
   "generationStageUploadingPhoto": "Fotoğraf yükleniyor",
-  "generationStageCheckingPhoto": "Fotoğrafın kontrol ediliyor"
+  "generationStageCheckingPhoto": "Fotoğrafın kontrol ediliyor",
+  "generationStageCuttingOut": "Fotoğraftaki nesne kesilip çıkarılıyor"
 }

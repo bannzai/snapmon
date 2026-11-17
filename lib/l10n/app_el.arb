@@ -112,5 +112,6 @@
   "generationBattlePreparationFailedTitle": "Δεν ήταν δυνατή η προετοιμασία της μάχης",
   "generationStagePreparingPhoto": "Προετοιμασία φωτογραφίας",
   "generationStageUploadingPhoto": "Ανεβαίνει η φωτογραφία",
-  "generationStageCheckingPhoto": "Ελέγχουμε τη φωτογραφία σου"
+  "generationStageCheckingPhoto": "Ελέγχουμε τη φωτογραφία σου",
+  "generationStageCuttingOut": "Αποκοπή του θέματος από τη φωτογραφία"
 }

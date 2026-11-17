@@ -112,5 +112,6 @@
   "generationBattlePreparationFailedTitle": "Nem sikerült előkészíteni a csatát",
   "generationStagePreparingPhoto": "Fotó előkészítése",
   "generationStageUploadingPhoto": "Fotó feltöltése",
-  "generationStageCheckingPhoto": "Ellenőrizzük a fotódat"
+  "generationStageCheckingPhoto": "Ellenőrizzük a fotódat",
+  "generationStageCuttingOut": "A képen lévő tárgy kivágása"
 }

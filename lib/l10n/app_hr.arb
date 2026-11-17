@@ -112,5 +112,6 @@
   "generationBattlePreparationFailedTitle": "Borba se nije mogla pripremiti",
   "generationStagePreparingPhoto": "Pripremamo fotografiju",
   "generationStageUploadingPhoto": "Fotografija se prenosi",
-  "generationStageCheckingPhoto": "Provjeravamo tvoju fotografiju"
+  "generationStageCheckingPhoto": "Provjeravamo tvoju fotografiju",
+  "generationStageCuttingOut": "Izdvajanje predmeta s fotografije"
 }

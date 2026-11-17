@@ -112,5 +112,6 @@
   "generationBattlePreparationFailedTitle": "לא ניתן היה להכין את הקרב",
   "generationStagePreparingPhoto": "מכינים את התמונה",
   "generationStageUploadingPhoto": "התמונה נשלחת",
-  "generationStageCheckingPhoto": "בודקים את התמונה שלך"
+  "generationStageCheckingPhoto": "בודקים את התמונה שלך",
+  "generationStageCuttingOut": "גוזרים את האובייקט מהתמונה"
 }

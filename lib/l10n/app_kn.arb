@@ -112,5 +112,6 @@
   "generationBattlePreparationFailedTitle": "ಕದನಕ್ಕೆ ಸಿದ್ಧತೆ ಮಾಡಲಾಗಲಿಲ್ಲ",
   "generationStagePreparingPhoto": "ಫೋಟೋ ಸಿದ್ಧವಾಗುತ್ತಿದೆ",
   "generationStageUploadingPhoto": "ಫೋಟೋ ಅಪ್‌ಲೋಡ್ ಆಗುತ್ತಿದೆ",
-  "generationStageCheckingPhoto": "ನಿನ್ನ ಫೋಟೋ ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ"
+  "generationStageCheckingPhoto": "ನಿನ್ನ ಫೋಟೋ ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ",
+  "generationStageCuttingOut": "ಚಿತ್ರದಿಂದ ವಸ್ತುವನ್ನು ಬೇರ್ಪಡಿಸಲಾಗುತ್ತಿದೆ"
 }

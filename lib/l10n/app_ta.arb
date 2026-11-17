@@ -112,5 +112,6 @@
   "generationBattlePreparationFailedTitle": "போருக்குத் தயாராக முடியவில்லை",
   "generationStagePreparingPhoto": "படம் தயாராகிறது",
   "generationStageUploadingPhoto": "படம் பதிவேற்றப்படுகிறது",
-  "generationStageCheckingPhoto": "உங்கள் புகைப்படத்தைச் சரிபார்க்கிறோம்"
+  "generationStageCheckingPhoto": "உங்கள் புகைப்படத்தைச் சரிபார்க்கிறோம்",
+  "generationStageCuttingOut": "படத்திலிருந்து பொருள் தனியாகப் பிரிக்கப்படுகிறது"
 }

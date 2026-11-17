@@ -112,5 +112,6 @@
   "generationBattlePreparationFailedTitle": "పోరాటానికి సిద్ధం కాలేకపోయాం",
   "generationStagePreparingPhoto": "ఫోటో సిద్ధమవుతోంది",
   "generationStageUploadingPhoto": "ఫోటో అప్‌లోడ్ అవుతోంది",
-  "generationStageCheckingPhoto": "నీ ఫోటోను తనిఖీ చేస్తున్నాం"
+  "generationStageCheckingPhoto": "నీ ఫోటోను తనిఖీ చేస్తున్నాం",
+  "generationStageCuttingOut": "ఫొటో నుంచి వస్తువును వేరు చేస్తున్నాం"
 }

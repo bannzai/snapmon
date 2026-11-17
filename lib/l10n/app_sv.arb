@@ -112,5 +112,6 @@
   "generationBattlePreparationFailedTitle": "Striden kunde inte förberedas",
   "generationStagePreparingPhoto": "Förbereder fotot",
   "generationStageUploadingPhoto": "Laddar upp foto",
-  "generationStageCheckingPhoto": "Vi kollar ditt foto"
+  "generationStageCheckingPhoto": "Vi kollar ditt foto",
+  "generationStageCuttingOut": "Klipper ut motivet"
 }

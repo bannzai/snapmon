@@ -112,5 +112,6 @@
   "generationBattlePreparationFailedTitle": "Súboj sa nepodarilo pripraviť",
   "generationStagePreparingPhoto": "Pripravujeme fotku",
   "generationStageUploadingPhoto": "Nahráva sa fotka",
-  "generationStageCheckingPhoto": "Kontrolujeme tvoju fotku"
+  "generationStageCheckingPhoto": "Kontrolujeme tvoju fotku",
+  "generationStageCuttingOut": "Vyrezávanie objektu z fotky"
 }

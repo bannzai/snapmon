@@ -112,5 +112,6 @@
   "generationBattlePreparationFailedTitle": "Không thể chuẩn bị trận đấu",
   "generationStagePreparingPhoto": "Đang chuẩn bị ảnh",
   "generationStageUploadingPhoto": "Đang tải ảnh lên",
-  "generationStageCheckingPhoto": "Đang kiểm tra ảnh của bạn"
+  "generationStageCheckingPhoto": "Đang kiểm tra ảnh của bạn",
+  "generationStageCuttingOut": "Đang tách vật thể khỏi ảnh"
 }

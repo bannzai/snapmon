@@ -112,5 +112,6 @@
   "generationBattlePreparationFailedTitle": "Pertarungan gagal disiapkan",
   "generationStagePreparingPhoto": "Menyiapkan foto",
   "generationStageUploadingPhoto": "Mengunggah foto",
-  "generationStageCheckingPhoto": "Sedang memeriksa fotomu"
+  "generationStageCheckingPhoto": "Sedang memeriksa fotomu",
+  "generationStageCuttingOut": "Memotong objek dari foto"
 }

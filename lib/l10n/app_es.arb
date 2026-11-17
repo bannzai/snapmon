@@ -112,5 +112,6 @@
   "generationBattlePreparationFailedTitle": "No se pudo preparar el combate",
   "generationStagePreparingPhoto": "Preparando la foto",
   "generationStageUploadingPhoto": "Subiendo foto",
-  "generationStageCheckingPhoto": "Estamos revisando tu foto"
+  "generationStageCheckingPhoto": "Estamos revisando tu foto",
+  "generationStageCuttingOut": "Recortando el objeto de la foto"
 }

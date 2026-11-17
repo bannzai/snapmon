@@ -112,5 +112,6 @@
   "generationBattlePreparationFailedTitle": "Het gevecht kon niet worden voorbereid",
   "generationStagePreparingPhoto": "Foto voorbereiden",
   "generationStageUploadingPhoto": "Foto wordt geüpload",
-  "generationStageCheckingPhoto": "We controleren je foto"
+  "generationStageCheckingPhoto": "We controleren je foto",
+  "generationStageCuttingOut": "Onderwerp uit de foto knippen"
 }

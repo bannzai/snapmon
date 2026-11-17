@@ -112,5 +112,6 @@
   "generationBattlePreparationFailedTitle": "Lupta nu a putut fi pregătită",
   "generationStagePreparingPhoto": "Se pregătește fotografia",
   "generationStageUploadingPhoto": "Se încarcă fotografia",
-  "generationStageCheckingPhoto": "Îți verificăm fotografia"
+  "generationStageCheckingPhoto": "Îți verificăm fotografia",
+  "generationStageCuttingOut": "Decupăm obiectul din fotografie"
 }

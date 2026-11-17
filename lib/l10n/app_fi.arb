@@ -112,5 +112,6 @@
   "generationBattlePreparationFailedTitle": "Taistelua ei voitu valmistella",
   "generationStagePreparingPhoto": "Valmistellaan kuvaa",
   "generationStageUploadingPhoto": "Kuvaa ladataan",
-  "generationStageCheckingPhoto": "Tarkistamme kuvaasi"
+  "generationStageCheckingPhoto": "Tarkistamme kuvaasi",
+  "generationStageCuttingOut": "Kohdetta irrotetaan kuvasta"
 }

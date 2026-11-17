@@ -112,5 +112,6 @@
   "generationBattlePreparationFailedTitle": "無法準備對戰",
   "generationStagePreparingPhoto": "正在準備照片",
   "generationStageUploadingPhoto": "正在上傳照片",
-  "generationStageCheckingPhoto": "正在檢查你的照片"
+  "generationStageCheckingPhoto": "正在檢查你的照片",
+  "generationStageCuttingOut": "正在把照片中的物體去背"
 }

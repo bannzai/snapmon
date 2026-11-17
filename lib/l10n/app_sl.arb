@@ -112,5 +112,6 @@
   "generationBattlePreparationFailedTitle": "Bitke ni bilo mogoče pripraviti",
   "generationStagePreparingPhoto": "Pripravljamo fotografijo",
   "generationStageUploadingPhoto": "Nalaganje fotografije",
-  "generationStageCheckingPhoto": "Preverjamo tvojo fotografijo"
+  "generationStageCheckingPhoto": "Preverjamo tvojo fotografijo",
+  "generationStageCuttingOut": "Izrezovanje predmeta s fotografije"
 }

@@ -112,5 +112,6 @@
   "generationBattlePreparationFailedTitle": "Не вдалося підготувати бій",
   "generationStagePreparingPhoto": "Готуємо фото",
   "generationStageUploadingPhoto": "Завантажуємо фото",
-  "generationStageCheckingPhoto": "Перевіряємо твоє фото"
+  "generationStageCheckingPhoto": "Перевіряємо твоє фото",
+  "generationStageCuttingOut": "Вирізаємо об’єкт із фото"
 }

@@ -112,5 +112,6 @@
   "generationBattlePreparationFailedTitle": "เตรียมการต่อสู้ไม่สำเร็จ",
   "generationStagePreparingPhoto": "กำลังเตรียมรูปภาพ",
   "generationStageUploadingPhoto": "กำลังอัปโหลดรูปภาพ",
-  "generationStageCheckingPhoto": "กำลังตรวจสอบรูปของคุณ"
+  "generationStageCheckingPhoto": "กำลังตรวจสอบรูปของคุณ",
+  "generationStageCuttingOut": "กำลังตัดวัตถุออกจากภาพ"
 }

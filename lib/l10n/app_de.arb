@@ -112,5 +112,6 @@
   "generationBattlePreparationFailedTitle": "Der Kampf konnte nicht vorbereitet werden",
   "generationStagePreparingPhoto": "Foto wird vorbereitet",
   "generationStageUploadingPhoto": "Foto wird hochgeladen",
-  "generationStageCheckingPhoto": "Wir prüfen dein Foto"
+  "generationStageCheckingPhoto": "Wir prüfen dein Foto",
+  "generationStageCuttingOut": "Motiv wird freigestellt"
 }

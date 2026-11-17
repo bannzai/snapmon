@@ -112,5 +112,6 @@
   "generationBattlePreparationFailedTitle": "લડાઈની તૈયારી થઈ શકી નહીં",
   "generationStagePreparingPhoto": "ફોટો તૈયાર થઈ રહ્યો છે",
   "generationStageUploadingPhoto": "ફોટો અપલોડ થઈ રહ્યો છે",
-  "generationStageCheckingPhoto": "તમારો ફોટો તપાસી રહ્યા છીએ"
+  "generationStageCheckingPhoto": "તમારો ફોટો તપાસી રહ્યા છીએ",
+  "generationStageCuttingOut": "ફોટામાંથી વસ્તુને અલગ કરવામાં આવી રહી છે"
 }
