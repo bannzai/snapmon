@@ -310,5 +310,6 @@
   "battleLostPartyHintTitle": "Agrandis ton équipe pour gagner plus facilement",
   "battleLostPartyHintMessage": "Ton équipe peut compter jusqu’à {maximumPartySize} monstres\nConnaître les faiblesses et les altérations te donne l’avantage au combat",
   "helpOpen": "Voir comment jouer",
-  "helpTitle": "Comment jouer"
+  "helpTitle": "Comment jouer",
+  "helpPartyHeading": "Monstres dans ton équipe : max. {maximumPartySize}"
 }
