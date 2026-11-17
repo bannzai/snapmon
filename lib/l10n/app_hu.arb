@@ -219,5 +219,6 @@
   "battleChooseSwitchMonster": "Válassz szörnyet a csatába",
   "battleLevelUpNote": "Akár nyersz, akár veszítesz, a harcoló szörnyek szintet lépnek",
   "battleLearnedMove": "Új támadást tanult: {moveName}!",
-  "battleNextLearnLevel": "Lv. {level} szinten új támadást tanul"
+  "battleNextLearnLevel": "Lv. {level} szinten új támadást tanul",
+  "battleShareTextWon": "Megnyertem egy csatát a snapmonban\n#snapmon\n{url}"
 }

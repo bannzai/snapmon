@@ -219,5 +219,6 @@
   "battleChooseSwitchMonster": "ಕಣಕ್ಕಿಳಿಸಲು ಮಾನ್ಸ್ಟರ್ ಆಯ್ಕೆ ಮಾಡು",
   "battleLevelUpNote": "ಗೆದ್ದರೂ ಸೋತರೂ, ಹೋರಾಡಿದ ಮಾನ್ಸ್ಟರ್‌ಗಳ ಲೆವೆಲ್ ಏರುತ್ತದೆ",
   "battleLearnedMove": "ಹೊಸ ನಡೆ ಕಲಿತಿದೆ: {moveName}!",
-  "battleNextLearnLevel": "Lv. {level} ನಲ್ಲಿ ಹೊಸ ತಂತ್ರ ಕಲಿಯುತ್ತದೆ"
+  "battleNextLearnLevel": "Lv. {level} ನಲ್ಲಿ ಹೊಸ ತಂತ್ರ ಕಲಿಯುತ್ತದೆ",
+  "battleShareTextWon": "snapmonನಲ್ಲಿ ಯುದ್ಧ ಗೆದ್ದೆ\n#snapmon\n{url}"
 }

@@ -219,5 +219,6 @@
   "battleChooseSwitchMonster": "Vyber príšeru do boja",
   "battleLevelUpNote": "Či vyhráš, alebo prehráš, príšerám z boja stúpne úroveň",
   "battleLearnedMove": "Naučil sa nový útok: {moveName}!",
-  "battleNextLearnLevel": "Na Lv. {level} sa naučí nový útok"
+  "battleNextLearnLevel": "Na Lv. {level} sa naučí nový útok",
+  "battleShareTextWon": "Vyhral som súboj v snapmon\n#snapmon\n{url}"
 }

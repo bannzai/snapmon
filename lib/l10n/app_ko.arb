@@ -219,5 +219,6 @@
   "battleChooseSwitchMonster": "내보낼 몬스터 고르기",
   "battleLevelUpNote": "이기든 지든, 배틀에 참가한 몬스터의 레벨이 올라요",
   "battleLearnedMove": "새 기술을 배웠다: {moveName}!",
-  "battleNextLearnLevel": "Lv. {level}에 새로운 기술을 배워요"
+  "battleNextLearnLevel": "Lv. {level}에 새로운 기술을 배워요",
+  "battleShareTextWon": "snapmon 배틀에서 이겼어요\n#snapmon\n{url}"
 }

@@ -219,5 +219,6 @@
   "battleChooseSwitchMonster": "ଲଢ଼େଇକୁ ପଠାଇବା ପାଇଁ ମନଷ୍ଟର ବାଛ",
   "battleLevelUpNote": "ଜିତ ବା ହାର, ଲଢ଼ିଥିବା ମନଷ୍ଟରଙ୍କ ଲେଭଲ ବଢ଼େ",
   "battleLearnedMove": "ନୂଆ ଚାଲ ଶିଖିଲା: {moveName}!",
-  "battleNextLearnLevel": "Lv. {level} ରେ ନୂଆ ଚାଲ ଶିଖିବ"
+  "battleNextLearnLevel": "Lv. {level} ରେ ନୂଆ ଚାଲ ଶିଖିବ",
+  "battleShareTextWon": "snapmonରେ ଲଢ଼େଇ ଜିତିଲି\n#snapmon\n{url}"
 }

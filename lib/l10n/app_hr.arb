@@ -219,5 +219,6 @@
   "battleChooseSwitchMonster": "Odaberi čudovište za borbu",
   "battleLevelUpNote": "Pobijediš li ili izgubiš, čudovištima koja su se borila raste razina",
   "battleLearnedMove": "Naučio je novi potez: {moveName}!",
-  "battleNextLearnLevel": "Na Lv. {level} uči novi potez"
+  "battleNextLearnLevel": "Na Lv. {level} uči novi potez",
+  "battleShareTextWon": "Pobijedio sam u borbi u snapmonu\n#snapmon\n{url}"
 }

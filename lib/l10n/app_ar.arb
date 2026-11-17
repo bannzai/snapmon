@@ -219,5 +219,6 @@
   "battleChooseSwitchMonster": "اختر وحشًا لإرساله إلى المعركة",
   "battleLevelUpNote": "سواء فزت أم خسرت، يرتفع مستوى الوحوش التي قاتلت",
   "battleLearnedMove": "تعلّم حركة {moveName}!",
-  "battleNextLearnLevel": "يتعلم حركة جديدة عند Lv. {level}"
+  "battleNextLearnLevel": "يتعلم حركة جديدة عند Lv. {level}",
+  "battleShareTextWon": "فزت في معركة في snapmon\n#snapmon\n{url}"
 }

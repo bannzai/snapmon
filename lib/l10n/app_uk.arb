@@ -219,5 +219,6 @@
   "battleChooseSwitchMonster": "Обери монстра для бою",
   "battleLevelUpNote": "Переможеш чи програєш — монстри, що билися, підвищать рівень",
   "battleLearnedMove": "Вивчив новий прийом: {moveName}!",
-  "battleNextLearnLevel": "На Lv. {level} вивчить новий прийом"
+  "battleNextLearnLevel": "На Lv. {level} вивчить новий прийом",
+  "battleShareTextWon": "Я виграв бій у snapmon\n#snapmon\n{url}"
 }

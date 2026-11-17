@@ -219,5 +219,6 @@
   "battleChooseSwitchMonster": "Alege un monstru pentru luptă",
   "battleLevelUpNote": "Fie că învingi sau pierzi, monștrii care au luptat cresc în nivel",
   "battleLearnedMove": "A învățat mișcarea {moveName}!",
-  "battleNextLearnLevel": "Învață o mișcare nouă la Lv. {level}"
+  "battleNextLearnLevel": "Învață o mișcare nouă la Lv. {level}",
+  "battleShareTextWon": "Am câștigat o luptă în snapmon\n#snapmon\n{url}"
 }

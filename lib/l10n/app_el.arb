@@ -219,5 +219,6 @@
   "battleChooseSwitchMonster": "Διάλεξε τέρας για τη μάχη",
   "battleLevelUpNote": "Είτε κερδίσεις είτε χάσεις, τα τέρατα που πολέμησαν ανεβαίνουν επίπεδο",
   "battleLearnedMove": "Έμαθε την κίνηση {moveName}!",
-  "battleNextLearnLevel": "Μαθαίνει νέα τεχνική στο Lv. {level}"
+  "battleNextLearnLevel": "Μαθαίνει νέα τεχνική στο Lv. {level}",
+  "battleShareTextWon": "Κέρδισα μια μάχη στο snapmon\n#snapmon\n{url}"
 }

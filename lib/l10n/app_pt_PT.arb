@@ -219,5 +219,6 @@
   "battleChooseSwitchMonster": "Escolhe um monstro para o combate",
   "battleLevelUpNote": "Quer ganhes ou percas, os monstros que lutaram sobem de nível",
   "battleLearnedMove": "Aprendeu o movimento {moveName}!",
-  "battleNextLearnLevel": "Aprende um golpe novo no Lv. {level}"
+  "battleNextLearnLevel": "Aprende um golpe novo no Lv. {level}",
+  "battleShareTextWon": "Ganhei uma batalha no snapmon\n#snapmon\n{url}"
 }

@@ -219,5 +219,6 @@
   "battleChooseSwitchMonster": "לבחור מפלצת לקרב",
   "battleLevelUpNote": "ניצחון או הפסד, מפלצות שהשתתפו בקרב עולות רמה",
   "battleLearnedMove": "נלמד מהלך חדש: {moveName}!",
-  "battleNextLearnLevel": "מתקפה חדשה נלמדת ב־Lv. {level}"
+  "battleNextLearnLevel": "מתקפה חדשה נלמדת ב־Lv. {level}",
+  "battleShareTextWon": "ניצחתי בקרב ב־snapmon\n#snapmon\n{url}"
 }

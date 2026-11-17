@@ -219,5 +219,6 @@
   "battleChooseSwitchMonster": "मैदानात उतरवण्यासाठी मॉन्स्टर निवड",
   "battleLevelUpNote": "जिंकलास किंवा हरलास तरी, लढलेल्या मॉन्स्टरची लेव्हल वाढते",
   "battleLearnedMove": "नवीन चाल शिकला: {moveName}!",
-  "battleNextLearnLevel": "Lv. {level} वर नवी चाल शिकेल"
+  "battleNextLearnLevel": "Lv. {level} वर नवी चाल शिकेल",
+  "battleShareTextWon": "snapmon मधली लढाई जिंकली\n#snapmon\n{url}"
 }

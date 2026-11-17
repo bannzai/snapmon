@@ -219,5 +219,6 @@
   "battleChooseSwitchMonster": "ਮੈਦਾਨ ਵਿੱਚ ਉਤਾਰਨ ਲਈ ਮੌਂਸਟਰ ਚੁਣੋ",
   "battleLevelUpNote": "ਜਿੱਤ ਹੋਵੇ ਜਾਂ ਹਾਰ, ਲੜੇ ਹੋਏ ਮੌਂਸਟਰਾਂ ਦਾ ਲੈਵਲ ਵਧਦਾ ਹੈ",
   "battleLearnedMove": "ਨਵੀਂ ਚਾਲ ਸਿੱਖ ਲਈ: {moveName}!",
-  "battleNextLearnLevel": "Lv. {level} 'ਤੇ ਨਵੀਂ ਚਾਲ ਸਿੱਖੇਗਾ"
+  "battleNextLearnLevel": "Lv. {level} 'ਤੇ ਨਵੀਂ ਚਾਲ ਸਿੱਖੇਗਾ",
+  "battleShareTextWon": "snapmon ਵਿੱਚ ਲੜਾਈ ਜਿੱਤ ਲਈ\n#snapmon\n{url}"
 }

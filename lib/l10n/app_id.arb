@@ -219,5 +219,6 @@
   "battleChooseSwitchMonster": "Pilih monster untuk bertarung",
   "battleLevelUpNote": "Menang atau kalah, monster yang bertarung naik level",
   "battleLearnedMove": "Mempelajari jurus baru: {moveName}!",
-  "battleNextLearnLevel": "Belajar jurus baru di Lv. {level}"
+  "battleNextLearnLevel": "Belajar jurus baru di Lv. {level}",
+  "battleShareTextWon": "Aku menang bertarung di snapmon\n#snapmon\n{url}"
 }

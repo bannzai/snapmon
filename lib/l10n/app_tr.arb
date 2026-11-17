@@ -219,5 +219,6 @@
   "battleChooseSwitchMonster": "Savaşa çıkaracağın canavarı seç",
   "battleLevelUpNote": "Kazansan da kaybetsen de savaşan canavarlar seviye atlar",
   "battleLearnedMove": "Yeni hareket öğrendi: {moveName}!",
-  "battleNextLearnLevel": "Lv. {level} seviyesinde yeni bir hamle öğrenir"
+  "battleNextLearnLevel": "Lv. {level} seviyesinde yeni bir hamle öğrenir",
+  "battleShareTextWon": "snapmon'da bir savaşı kazandım\n#snapmon\n{url}"
 }

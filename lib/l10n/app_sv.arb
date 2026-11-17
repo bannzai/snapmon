@@ -219,5 +219,6 @@
   "battleChooseSwitchMonster": "Välj ett monster till striden",
   "battleLevelUpNote": "Oavsett om du vinner eller förlorar går monster som stridit upp i nivå",
   "battleLearnedMove": "Lärde sig en ny attack: {moveName}!",
-  "battleNextLearnLevel": "Lär sig en ny attack på Lv. {level}"
+  "battleNextLearnLevel": "Lär sig en ny attack på Lv. {level}",
+  "battleShareTextWon": "Jag vann en strid i snapmon\n#snapmon\n{url}"
 }
