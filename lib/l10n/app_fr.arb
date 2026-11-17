@@ -182,5 +182,6 @@
   "battleLogConfusedMove": "Dans la confusion, {monsterName} a lancé {moveName} au lieu de {selectedMoveName}",
   "battleLogOneHitKnockout": "K.O. en un coup !",
   "battleLogSelfDestructed": "{monsterName} s’autodétruit !",
-  "battleLogStatusInflicted": "{monsterName} subit l’effet {statusName} !"
+  "battleLogStatusInflicted": "{monsterName} subit l’effet {statusName} !",
+  "battleLogStatusStacked": "L’effet {statusName} sur {monsterName} s’est cumulé (×{stackCount})"
 }
