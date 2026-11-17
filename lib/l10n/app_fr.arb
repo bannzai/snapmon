@@ -51,5 +51,6 @@
   "settingsDeleteAccountMessage": "Tes monstres, ton dex, tes photos d’origine et ton historique des combats seront supprimés sans possibilité de les récupérer. Après la suppression, tu repartiras avec un nouveau compte.",
   "settingsDeleteAccountConfirm": "Supprimer",
   "settingsSoundSection": "Son",
-  "settingsBackgroundMusic": "Musique de fond"
+  "settingsBackgroundMusic": "Musique de fond",
+  "settingsSoundEffects": "Effets sonores"
 }
