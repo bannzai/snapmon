@@ -253,5 +253,6 @@
   "moveDetailSelfStatFormula": "加到自身{statName}倍率上的数值 (%)",
   "moveDetailOpponentStatFormula": "加到对手{statName}倍率上的数值 (%)",
   "moveDetailStatFormulaNote": "倍率 100 相当于 1 倍\n持续到怪物倒下，并在 50 到 200 之间停止",
-  "moveDetailRecoveryFormula": "恢复的 HP"
+  "moveDetailRecoveryFormula": "恢复的 HP",
+  "moveDetailRecoveryFormulaNote": "HP 不会恢复到最大值以上"
 }

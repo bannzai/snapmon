@@ -253,5 +253,6 @@
   "moveDetailSelfStatFormula": "Kendi {statName} çarpanına eklenen değer (%)",
   "moveDetailOpponentStatFormula": "Rakibin {statName} çarpanına eklenen değer (%)",
   "moveDetailStatFormulaNote": "Çarpan 100, ×1 demek\nBir canavar bayılana kadar sürer ve 50 ile 200 arasında durur",
-  "moveDetailRecoveryFormula": "Yenilenen HP"
+  "moveDetailRecoveryFormula": "Yenilenen HP",
+  "moveDetailRecoveryFormulaNote": "HP, maksimum değerin üzerine çıkacak kadar yenilenmez"
 }

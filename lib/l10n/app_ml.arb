@@ -253,5 +253,6 @@
   "moveDetailSelfStatFormula": "നിങ്ങളുടെ {statName} ഗുണകത്തിലേക്ക് ചേർക്കുന്ന മൂല്യം (%)",
   "moveDetailOpponentStatFormula": "എതിരാളിയുടെ {statName} ഗുണകത്തിലേക്ക് ചേർക്കുന്ന മൂല്യം (%)",
   "moveDetailStatFormulaNote": "ഗുണകം 100 എന്നാൽ 1 മടങ്ങ്\nമോൺസ്റ്റർ വീഴുന്നതുവരെ തുടരും; 50നും 200നും ഇടയിൽ നിൽക്കും",
-  "moveDetailRecoveryFormula": "വീണ്ടെടുക്കുന്ന HP"
+  "moveDetailRecoveryFormula": "വീണ്ടെടുക്കുന്ന HP",
+  "moveDetailRecoveryFormulaNote": "പരമാവധി HP-യെക്കാൾ കൂടുതൽ വീണ്ടെടുക്കാനാവില്ല"
 }

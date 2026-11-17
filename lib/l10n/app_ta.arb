@@ -253,5 +253,6 @@
   "moveDetailSelfStatFormula": "உங்கள் {statName} பெருக்கியில் சேர்க்கப்படும் மதிப்பு (%)",
   "moveDetailOpponentStatFormula": "எதிரியின் {statName} பெருக்கியில் சேர்க்கப்படும் மதிப்பு (%)",
   "moveDetailStatFormulaNote": "பெருக்கி 100 என்றால் 1 மடங்கு\nஅரக்கன் வீழும் வரை தொடரும்; 50 முதல் 200 வரை உள்ள மதிப்பில் நிற்கும்",
-  "moveDetailRecoveryFormula": "மீட்கப்படும் HP"
+  "moveDetailRecoveryFormula": "மீட்கப்படும் HP",
+  "moveDetailRecoveryFormulaNote": "அதிகபட்ச HP-க்கு மேல் மீட்க முடியாது"
 }

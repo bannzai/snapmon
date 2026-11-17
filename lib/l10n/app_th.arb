@@ -253,5 +253,6 @@
   "moveDetailSelfStatFormula": "ค่าที่เพิ่มให้ตัวคูณ {statName} ของตัวเอง (%)",
   "moveDetailOpponentStatFormula": "ค่าที่บวกเพิ่มให้ตัวคูณ {statName} ของคู่ต่อสู้ (%)",
   "moveDetailStatFormulaNote": "ตัวคูณ 100 เท่ากับ 1 เท่า\nดำเนินต่อจนมอนสเตอร์ล้ม แล้วหยุดที่ค่าระหว่าง 50 ถึง 200",
-  "moveDetailRecoveryFormula": "HP ที่ฟื้นฟู"
+  "moveDetailRecoveryFormula": "HP ที่ฟื้นฟู",
+  "moveDetailRecoveryFormulaNote": "ฟื้นฟู HP ไม่เกินค่าสูงสุด"
 }

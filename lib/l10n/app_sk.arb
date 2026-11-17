@@ -253,5 +253,6 @@
   "moveDetailSelfStatFormula": "Hodnota pripočítaná k tvojmu násobiteľu {statName} (%)",
   "moveDetailOpponentStatFormula": "Hodnota pripočítaná k násobiteľu {statName} súpera (%)",
   "moveDetailStatFormulaNote": "Násobiteľ 100 znamená ×1\nTrvá, kým príšera nepadne, a zastaví sa medzi 50 a 200",
-  "moveDetailRecoveryFormula": "Obnovené HP"
+  "moveDetailRecoveryFormula": "Obnovené HP",
+  "moveDetailRecoveryFormulaNote": "HP sa neobnoví nad maximum"
 }

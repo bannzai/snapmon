@@ -253,5 +253,6 @@
   "moveDetailSelfStatFormula": "Valor somado ao teu multiplicador de {statName} (%)",
   "moveDetailOpponentStatFormula": "Valor adicionado ao multiplicador de {statName} do adversário (%)",
   "moveDetailStatFormulaNote": "Multiplicador 100 equivale a ×1\nContinua até um monstro cair e pára entre 50 e 200",
-  "moveDetailRecoveryFormula": "HP recuperado"
+  "moveDetailRecoveryFormula": "HP recuperado",
+  "moveDetailRecoveryFormulaNote": "Não recupera HP acima do máximo"
 }

@@ -253,5 +253,6 @@
   "moveDetailSelfStatFormula": "Τιμή που προστίθεται στον δικό σου πολλαπλασιαστή {statName} (%)",
   "moveDetailOpponentStatFormula": "Τιμή που προστίθεται στον πολλαπλασιαστή {statName} του αντιπάλου (%)",
   "moveDetailStatFormulaNote": "Πολλαπλασιαστής 100 σημαίνει ×1\nΣυνεχίζεται ώσπου να πέσει ένα τέρας και σταματά μεταξύ 50 και 200",
-  "moveDetailRecoveryFormula": "HP που ανακτώνται"
+  "moveDetailRecoveryFormula": "HP που ανακτώνται",
+  "moveDetailRecoveryFormulaNote": "Τα HP δεν αναπληρώνονται πάνω από το μέγιστο"
 }

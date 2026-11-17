@@ -253,5 +253,6 @@
   "moveDetailSelfStatFormula": "Nilai yang ditambahkan ke pengali {statName}-mu (%)",
   "moveDetailOpponentStatFormula": "Nilai yang ditambahkan ke pengali {statName} lawan (%)",
   "moveDetailStatFormulaNote": "Pengali 100 berarti ×1\nBerlanjut sampai monster tumbang dan berhenti antara 50 dan 200",
-  "moveDetailRecoveryFormula": "HP yang pulih"
+  "moveDetailRecoveryFormula": "HP yang pulih",
+  "moveDetailRecoveryFormulaNote": "HP tidak bisa pulih melebihi batas maksimum"
 }

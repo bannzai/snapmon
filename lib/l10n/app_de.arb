@@ -253,5 +253,6 @@
   "moveDetailSelfStatFormula": "Wert, der deinem {statName}-Multiplikator hinzugefügt wird (%)",
   "moveDetailOpponentStatFormula": "Wert zum {statName}-Multiplikator des Gegners addieren (%)",
   "moveDetailStatFormulaNote": "Multiplikator 100 entspricht ×1\nLäuft, bis ein Monster besiegt ist, und stoppt zwischen 50 und 200",
-  "moveDetailRecoveryFormula": "Wiederhergestellte HP"
+  "moveDetailRecoveryFormula": "Wiederhergestellte HP",
+  "moveDetailRecoveryFormulaNote": "HP können nicht über das Maximum hinaus geheilt werden"
 }

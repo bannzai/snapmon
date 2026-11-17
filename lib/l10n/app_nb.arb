@@ -253,5 +253,6 @@
   "moveDetailSelfStatFormula": "Verdi lagt til din {statName}-multiplikator (%)",
   "moveDetailOpponentStatFormula": "Verdi som legges til motstanderens {statName}-multiplikator (%)",
   "moveDetailStatFormulaNote": "Multiplikator 100 betyr ×1\nFortsetter til et monster faller, og stopper mellom 50 og 200",
-  "moveDetailRecoveryFormula": "Gjenopprettet HP"
+  "moveDetailRecoveryFormula": "Gjenopprettet HP",
+  "moveDetailRecoveryFormulaNote": "HP kan ikke gjenopprettes over maksgrensen"
 }
