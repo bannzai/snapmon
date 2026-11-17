@@ -51,5 +51,6 @@
   "settingsDeleteAccountMessage": "Tvoje příšery, encyklopedie, původní fotky a záznamy soubojů budou smazány. Nepůjde je obnovit. Pak začneš s novým účtem.",
   "settingsDeleteAccountConfirm": "Smazat",
   "settingsSoundSection": "Zvuk",
-  "settingsBackgroundMusic": "Hudba na pozadí"
+  "settingsBackgroundMusic": "Hudba na pozadí",
+  "settingsSoundEffects": "Zvukové efekty"
 }

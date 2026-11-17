@@ -51,5 +51,6 @@
   "settingsDeleteAccountMessage": "S'esborraran els monstres, l'enciclopèdia, les fotos originals i els registres de combat. No els podràs recuperar. Després, començaràs amb un compte nou.",
   "settingsDeleteAccountConfirm": "Suprimeix",
   "settingsSoundSection": "So",
-  "settingsBackgroundMusic": "Música de fons"
+  "settingsBackgroundMusic": "Música de fons",
+  "settingsSoundEffects": "Efectes de so"
 }

@@ -51,5 +51,6 @@
   "settingsDeleteAccountMessage": "Monștrii tăi, enciclopedia, fotografiile originale și istoricul luptelor vor fi șterse definitiv. Apoi vei începe cu un cont nou.",
   "settingsDeleteAccountConfirm": "Șterge",
   "settingsSoundSection": "Sunet",
-  "settingsBackgroundMusic": "Muzică de fundal"
+  "settingsBackgroundMusic": "Muzică de fundal",
+  "settingsSoundEffects": "Efecte sonore"
 }

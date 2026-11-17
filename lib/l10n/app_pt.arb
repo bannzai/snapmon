@@ -51,5 +51,6 @@
   "settingsDeleteAccountMessage": "Seus monstros, seu dex, as fotos originais e os registros de batalha serão excluídos para sempre. Depois, você começará com uma nova conta.",
   "settingsDeleteAccountConfirm": "Excluir",
   "settingsSoundSection": "Som",
-  "settingsBackgroundMusic": "Música de fundo"
+  "settingsBackgroundMusic": "Música de fundo",
+  "settingsSoundEffects": "Efeitos sonoros"
 }

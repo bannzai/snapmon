@@ -51,5 +51,6 @@
   "settingsDeleteAccountMessage": "ನಿನ್ನ ಮಾನ್ಸ್ಟರಗಳು, ವಿಶ್ವಕೋಶ, ಮೂಲ ಫೋಟೋಗಳು ಮತ್ತು ಕಾಳಗದ ದಾಖಲೆಗಳು ಶಾಶ್ವತವಾಗಿ ಅಳಿದುಹೋಗುತ್ತವೆ. ನಂತರ ಹೊಸ ಖಾತೆಯಿಂದ ಆರಂಭಿಸುತ್ತೀಯ.",
   "settingsDeleteAccountConfirm": "ಅಳಿಸು",
   "settingsSoundSection": "ಧ್ವನಿ",
-  "settingsBackgroundMusic": "ಹಿನ್ನೆಲೆ ಸಂಗೀತ"
+  "settingsBackgroundMusic": "ಹಿನ್ನೆಲೆ ಸಂಗೀತ",
+  "settingsSoundEffects": "ಧ್ವನಿ ಪರಿಣಾಮಗಳು"
 }

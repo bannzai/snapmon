@@ -51,5 +51,6 @@
   "settingsDeleteAccountMessage": "Tvoje pošasti, enciklopedija, izvirne fotografije in zapisi bitk bodo trajno izbrisani. Nato začneš z novim računom.",
   "settingsDeleteAccountConfirm": "Izbriši",
   "settingsSoundSection": "Zvok",
-  "settingsBackgroundMusic": "Glasba v ozadju"
+  "settingsBackgroundMusic": "Glasba v ozadju",
+  "settingsSoundEffects": "Zvočni učinki"
 }

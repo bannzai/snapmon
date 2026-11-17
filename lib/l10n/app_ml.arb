@@ -51,5 +51,6 @@
   "settingsDeleteAccountMessage": "നിങ്ങളുടെ മോൺസ്റ്ററുകൾ, വിജ്ഞാനകോശം, യഥാർഥ ഫോട്ടോകൾ, പോരാട്ട രേഖകൾ എന്നിവ എന്നെന്നേക്കുമായി ഇല്ലാതാകും. തുടർന്ന് പുതിയ അക്കൗണ്ടിൽ തുടങ്ങും.",
   "settingsDeleteAccountConfirm": "ഇല്ലാതാക്കുക",
   "settingsSoundSection": "ശബ്ദം",
-  "settingsBackgroundMusic": "പശ്ചാത്തല സംഗീതം"
+  "settingsBackgroundMusic": "പശ്ചാത്തല സംഗീതം",
+  "settingsSoundEffects": "ശബ്ദ ഇഫക്റ്റുകൾ"
 }

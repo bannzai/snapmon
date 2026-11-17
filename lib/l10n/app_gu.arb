@@ -51,5 +51,6 @@
   "settingsDeleteAccountMessage": "તમારા મોન્સ્ટર, ડેક્સ, મૂળ ફોટા અને લડાઈના રેકોર્ડ કાયમ માટે કાઢી નાખવામાં આવશે. પછી તમે નવા એકાઉન્ટથી શરૂ કરશો.",
   "settingsDeleteAccountConfirm": "કાઢી નાખો",
   "settingsSoundSection": "અવાજ",
-  "settingsBackgroundMusic": "પાર્શ્વસંગીત"
+  "settingsBackgroundMusic": "પાર્શ્વસંગીત",
+  "settingsSoundEffects": "ધ્વનિ અસરો"
 }

@@ -51,5 +51,6 @@
   "settingsDeleteAccountMessage": "המפלצות, האוסף, התמונות המקוריות ורישומי הקרבות יימחקו לצמיתות. לאחר המחיקה מתחילים עם חשבון חדש.",
   "settingsDeleteAccountConfirm": "למחוק",
   "settingsSoundSection": "צלילים",
-  "settingsBackgroundMusic": "מוזיקת רקע"
+  "settingsBackgroundMusic": "מוזיקת רקע",
+  "settingsSoundEffects": "אפקטים קוליים"
 }

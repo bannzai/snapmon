@@ -51,5 +51,6 @@
   "settingsDeleteAccountMessage": "ਤੁਹਾਡੇ ਮੌਂਸਟਰ, ਸੰਗ੍ਰਹਿ, ਅਸਲੀ ਫ਼ੋਟੋਆਂ ਅਤੇ ਲੜਾਈਆਂ ਦੇ ਰਿਕਾਰਡ ਹਮੇਸ਼ਾ ਲਈ ਮਿਟ ਜਾਣਗੇ। ਇਸ ਤੋਂ ਬਾਅਦ ਤੁਸੀਂ ਨਵੇਂ ਖਾਤੇ ਨਾਲ ਸ਼ੁਰੂ ਕਰੋਗੇ।",
   "settingsDeleteAccountConfirm": "ਮਿਟਾਓ",
   "settingsSoundSection": "ਆਵਾਜ਼",
-  "settingsBackgroundMusic": "ਬੈਕਗ੍ਰਾਊਂਡ ਸੰਗੀਤ"
+  "settingsBackgroundMusic": "ਬੈਕਗ੍ਰਾਊਂਡ ਸੰਗੀਤ",
+  "settingsSoundEffects": "ਧੁਨੀ ਪ੍ਰਭਾਵ"
 }

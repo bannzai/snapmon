@@ -51,5 +51,6 @@
   "settingsDeleteAccountMessage": "Hirviöt, kokoelma, alkuperäiset kuvat ja taistelutiedot poistetaan pysyvästi. Sen jälkeen aloitat uudella tilillä.",
   "settingsDeleteAccountConfirm": "Poista",
   "settingsSoundSection": "Äänet",
-  "settingsBackgroundMusic": "Taustamusiikki"
+  "settingsBackgroundMusic": "Taustamusiikki",
+  "settingsSoundEffects": "Äänitehosteet"
 }

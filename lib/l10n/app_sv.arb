@@ -51,5 +51,6 @@
   "settingsDeleteAccountMessage": "Dina monster, din samling, originalbilderna och stridsloggen raderas för gott. Sedan börjar du med ett nytt konto.",
   "settingsDeleteAccountConfirm": "Radera",
   "settingsSoundSection": "Ljud",
-  "settingsBackgroundMusic": "Bakgrundsmusik"
+  "settingsBackgroundMusic": "Bakgrundsmusik",
+  "settingsSoundEffects": "Ljudeffekter"
 }

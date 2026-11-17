@@ -51,5 +51,6 @@
   "settingsDeleteAccountMessage": "Твої монстри, енциклопедія, оригінальні фото та записи боїв будуть видалені назавжди. Після цього ти почнеш із новим акаунтом.",
   "settingsDeleteAccountConfirm": "Видалити",
   "settingsSoundSection": "Звук",
-  "settingsBackgroundMusic": "Фонова музика"
+  "settingsBackgroundMusic": "Фонова музика",
+  "settingsSoundEffects": "Звукові ефекти"
 }

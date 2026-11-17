@@ -51,5 +51,6 @@
   "settingsDeleteAccountMessage": "तुझे मॉन्स्टर, संग्रह, मूळ फोटो आणि लढाईचे रेकॉर्ड कायमचे हटतील. त्यानंतर तू नवीन खात्याने सुरुवात करशील.",
   "settingsDeleteAccountConfirm": "हटव",
   "settingsSoundSection": "आवाज",
-  "settingsBackgroundMusic": "पार्श्वसंगीत"
+  "settingsBackgroundMusic": "पार्श्वसंगीत",
+  "settingsSoundEffects": "ध्वनी प्रभाव"
 }

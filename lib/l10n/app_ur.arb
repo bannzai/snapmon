@@ -51,5 +51,6 @@
   "settingsDeleteAccountMessage": "تمہارے مونسٹر، ڈیکس، اصل تصاویر اور لڑائیوں کا ریکارڈ ہمیشہ کے لیے مٹ جائے گا۔ اس کے بعد تم نئے اکاؤنٹ سے شروع کرو گے۔",
   "settingsDeleteAccountConfirm": "حذف کرو",
   "settingsSoundSection": "آواز",
-  "settingsBackgroundMusic": "پس منظر کی موسیقی"
+  "settingsBackgroundMusic": "پس منظر کی موسیقی",
+  "settingsSoundEffects": "صوتی اثرات"
 }

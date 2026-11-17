@@ -51,5 +51,6 @@
   "settingsDeleteAccountMessage": "Monster, ensiklopedia, foto asal dan rekod pertarungan kamu akan dipadam buat selamanya. Selepas itu, kamu akan bermula dengan akaun baharu.",
   "settingsDeleteAccountConfirm": "Padam",
   "settingsSoundSection": "Bunyi",
-  "settingsBackgroundMusic": "Muzik latar"
+  "settingsBackgroundMusic": "Muzik latar",
+  "settingsSoundEffects": "Kesan bunyi"
 }

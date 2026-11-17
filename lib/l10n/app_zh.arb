@@ -51,5 +51,6 @@
   "settingsDeleteAccountMessage": "你的怪物、图鉴、原始照片和对战记录将被永久删除。之后你会用新账号重新开始。",
   "settingsDeleteAccountConfirm": "删除",
   "settingsSoundSection": "声音",
-  "settingsBackgroundMusic": "背景音乐"
+  "settingsBackgroundMusic": "背景音乐",
+  "settingsSoundEffects": "音效"
 }

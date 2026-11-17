@@ -51,5 +51,6 @@
   "settingsDeleteAccountMessage": "몬스터와 도감, 원본 사진, 배틀 기록이 삭제되며 복구할 수 없어요. 삭제 후에는 새 계정으로 시작해요.",
   "settingsDeleteAccountConfirm": "삭제하기",
   "settingsSoundSection": "사운드",
-  "settingsBackgroundMusic": "배경 음악"
+  "settingsBackgroundMusic": "배경 음악",
+  "settingsSoundEffects": "효과음"
 }

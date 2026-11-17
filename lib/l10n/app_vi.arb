@@ -51,5 +51,6 @@
   "settingsDeleteAccountMessage": "Quái vật, bộ sưu tập, ảnh gốc và lịch sử trận đấu của bạn sẽ bị xóa vĩnh viễn. Sau đó, bạn sẽ bắt đầu với tài khoản mới.",
   "settingsDeleteAccountConfirm": "Xóa",
   "settingsSoundSection": "Âm thanh",
-  "settingsBackgroundMusic": "Nhạc nền"
+  "settingsBackgroundMusic": "Nhạc nền",
+  "settingsSoundEffects": "Hiệu ứng âm thanh"
 }

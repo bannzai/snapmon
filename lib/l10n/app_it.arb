@@ -51,5 +51,6 @@
   "settingsDeleteAccountMessage": "I tuoi mostri, il dex, le foto originali e i registri delle lotte verranno eliminati definitivamente. Poi inizierai con un nuovo account.",
   "settingsDeleteAccountConfirm": "Elimina",
   "settingsSoundSection": "Audio",
-  "settingsBackgroundMusic": "Musica di sottofondo"
+  "settingsBackgroundMusic": "Musica di sottofondo",
+  "settingsSoundEffects": "Effetti sonori"
 }

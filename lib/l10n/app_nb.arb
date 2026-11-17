@@ -51,5 +51,6 @@
   "settingsDeleteAccountMessage": "Monstrene dine, samlingen, originalbildene og kampdataene slettes for godt. Etterpå starter du med en ny konto.",
   "settingsDeleteAccountConfirm": "Slett",
   "settingsSoundSection": "Lyd",
-  "settingsBackgroundMusic": "Bakgrunnsmusikk"
+  "settingsBackgroundMusic": "Bakgrunnsmusikk",
+  "settingsSoundEffects": "Lydeffekter"
 }

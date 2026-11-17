@@ -51,5 +51,6 @@
   "settingsDeleteAccountMessage": "Tvoja čudovišta, enciklopedija, izvorne fotografije i zapisi borbi bit će trajno izbrisani. Nakon toga krećeš s novim računom.",
   "settingsDeleteAccountConfirm": "Izbriši",
   "settingsSoundSection": "Zvuk",
-  "settingsBackgroundMusic": "Pozadinska glazba"
+  "settingsBackgroundMusic": "Pozadinska glazba",
+  "settingsSoundEffects": "Zvučni efekti"
 }

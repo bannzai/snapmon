@@ -51,5 +51,6 @@
   "settingsDeleteAccountMessage": "Τα τέρατα, η εγκυκλοπαίδεια, οι αρχικές φωτογραφίες και το ιστορικό μαχών θα διαγραφούν οριστικά. Μετά θα ξεκινήσεις με νέο λογαριασμό.",
   "settingsDeleteAccountConfirm": "Διαγραφή",
   "settingsSoundSection": "Ήχος",
-  "settingsBackgroundMusic": "Μουσική υπόκρουση"
+  "settingsBackgroundMusic": "Μουσική υπόκρουση",
+  "settingsSoundEffects": "Ηχητικά εφέ"
 }

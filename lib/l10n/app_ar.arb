@@ -51,5 +51,6 @@
   "settingsDeleteAccountMessage": "ستُحذف الوحوش من نوع وحش، والموسوعة موسوع، والصور الأصلية، وسجلات المعارك نهائيًا. بعد الحذف، ستبدأ بحساب جديد.",
   "settingsDeleteAccountConfirm": "حذف",
   "settingsSoundSection": "الصوت",
-  "settingsBackgroundMusic": "موسيقى الخلفية"
+  "settingsBackgroundMusic": "موسيقى الخلفية",
+  "settingsSoundEffects": "المؤثرات الصوتية"
 }

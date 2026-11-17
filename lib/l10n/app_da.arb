@@ -51,5 +51,6 @@
   "settingsDeleteAccountMessage": "Dine monstre, din dex, de originale billeder og kampdata slettes og kan ikke gendannes. Bagefter starter du med en ny konto.",
   "settingsDeleteAccountConfirm": "Slet",
   "settingsSoundSection": "Lyd",
-  "settingsBackgroundMusic": "Baggrundsmusik"
+  "settingsBackgroundMusic": "Baggrundsmusik",
+  "settingsSoundEffects": "Lydeffekter"
 }
