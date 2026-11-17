@@ -34,6 +34,14 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<!-- 輸出コンプライアンスの申告。無いとビルドを上げるたびに App Store Connect で答える必要がある。
+	     false にしたのは owner の判断 (2026-11-17)。アプリのコードは暗号を直接呼ばない (lib に暗号の呼び出しが無い)。
+	     ただし iOS のビルドは Firestore の gRPC 経由で BoringSSL (google/grpc-binary の openssl_grpc) を含む。Apple の表は
+	     「OS が提供しない業界標準の暗号を使う」場合、フランスで配信する時にフランスの暗号申告書を求めている
+	     (https://developer.apple.com/help/app-store-connect/reference/export-compliance-documentation-for-encryption/ 、2026-11-17 に確認)。
+	     owner はこれを知った上で false のまま進めると決めた。独自の暗号を使う依存を足した時と、Apple から指摘を受けた時は見直す -->
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
