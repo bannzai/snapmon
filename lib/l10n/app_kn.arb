@@ -6,5 +6,6 @@
   "tabCapture": "ಫೋಟೋ ತೆಗೆ",
   "tabOpponent": "ಕಾಳಗ",
   "sessionPreparing": "ಸಿದ್ಧತೆ ನಡೆಯುತ್ತಿದೆ",
-  "sessionConnectionFailed": "ಸಂಪರ್ಕಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ"
+  "sessionConnectionFailed": "ಸಂಪರ್ಕಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ",
+  "reportReasonInappropriatePicture": "ಅನುಚಿತ ಚಿತ್ರ"
 }

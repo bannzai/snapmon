@@ -6,5 +6,6 @@
   "tabCapture": "ఫోటో తీయి",
   "tabOpponent": "పోరాటం",
   "sessionPreparing": "సిద్ధమవుతోంది",
-  "sessionConnectionFailed": "కనెక్ట్ కాలేదు"
+  "sessionConnectionFailed": "కనెక్ట్ కాలేదు",
+  "reportReasonInappropriatePicture": "అనుచితమైన చిత్రం"
 }

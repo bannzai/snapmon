@@ -6,5 +6,6 @@
   "tabCapture": "Tirar foto",
   "tabOpponent": "Batalha",
   "sessionPreparing": "Preparando tudo",
-  "sessionConnectionFailed": "Não foi possível conectar"
+  "sessionConnectionFailed": "Não foi possível conectar",
+  "reportReasonInappropriatePicture": "Imagem imprópria"
 }

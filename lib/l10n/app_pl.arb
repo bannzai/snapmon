@@ -6,5 +6,6 @@
   "tabCapture": "Zrób zdjęcie",
   "tabOpponent": "Walka",
   "sessionPreparing": "Trwa przygotowanie",
-  "sessionConnectionFailed": "Nie udało się połączyć"
+  "sessionConnectionFailed": "Nie udało się połączyć",
+  "reportReasonInappropriatePicture": "Nieodpowiedni obraz"
 }

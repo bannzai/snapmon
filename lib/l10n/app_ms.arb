@@ -6,5 +6,6 @@
   "tabCapture": "Ambil gambar",
   "tabOpponent": "Pertarungan",
   "sessionPreparing": "Sedang bersiap",
-  "sessionConnectionFailed": "Gagal menyambung"
+  "sessionConnectionFailed": "Gagal menyambung",
+  "reportReasonInappropriatePicture": "Gambar tidak sesuai"
 }

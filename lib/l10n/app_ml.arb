@@ -6,5 +6,6 @@
   "tabCapture": "ഫോട്ടോ എടുക്കൂ",
   "tabOpponent": "പോരാട്ടം",
   "sessionPreparing": "തയ്യാറെടുക്കുന്നു",
-  "sessionConnectionFailed": "കണക്റ്റ് ചെയ്യാനായില്ല"
+  "sessionConnectionFailed": "കണക്റ്റ് ചെയ്യാനായില്ല",
+  "reportReasonInappropriatePicture": "അനുചിതമായ ചിത്രം"
 }

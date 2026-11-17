@@ -6,5 +6,6 @@
   "tabCapture": "Ota kuva",
   "tabOpponent": "Taistelu",
   "sessionPreparing": "Valmistellaan",
-  "sessionConnectionFailed": "Yhteys epäonnistui"
+  "sessionConnectionFailed": "Yhteys epäonnistui",
+  "reportReasonInappropriatePicture": "Sopimaton kuva"
 }

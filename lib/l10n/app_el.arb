@@ -6,5 +6,6 @@
   "tabCapture": "Βγάλε φωτογραφία",
   "tabOpponent": "Μάχη",
   "sessionPreparing": "Γίνεται προετοιμασία",
-  "sessionConnectionFailed": "Η σύνδεση απέτυχε"
+  "sessionConnectionFailed": "Η σύνδεση απέτυχε",
+  "reportReasonInappropriatePicture": "Ακατάλληλη εικόνα"
 }

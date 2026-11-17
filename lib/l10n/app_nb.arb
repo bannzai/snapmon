@@ -6,5 +6,6 @@
   "tabCapture": "Ta bilde",
   "tabOpponent": "Kamp",
   "sessionPreparing": "Gjør klart",
-  "sessionConnectionFailed": "Kunne ikke koble til"
+  "sessionConnectionFailed": "Kunne ikke koble til",
+  "reportReasonInappropriatePicture": "Upassende bilde"
 }

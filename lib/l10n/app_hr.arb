@@ -6,5 +6,6 @@
   "tabCapture": "Fotografiraj",
   "tabOpponent": "Borba",
   "sessionPreparing": "Priprema se",
-  "sessionConnectionFailed": "Povezivanje nije uspjelo"
+  "sessionConnectionFailed": "Povezivanje nije uspjelo",
+  "reportReasonInappropriatePicture": "Neprimjerena slika"
 }

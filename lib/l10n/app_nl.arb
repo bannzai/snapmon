@@ -6,5 +6,6 @@
   "tabCapture": "Maak een foto",
   "tabOpponent": "Gevecht",
   "sessionPreparing": "Alles wordt klaargemaakt",
-  "sessionConnectionFailed": "Verbinding mislukt"
+  "sessionConnectionFailed": "Verbinding mislukt",
+  "reportReasonInappropriatePicture": "Ongepaste afbeelding"
 }

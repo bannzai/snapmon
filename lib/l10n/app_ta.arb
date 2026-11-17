@@ -6,5 +6,6 @@
   "tabCapture": "படம் எடுங்கள்",
   "tabOpponent": "போர்",
   "sessionPreparing": "தயாராகிறது",
-  "sessionConnectionFailed": "இணைக்க முடியவில்லை"
+  "sessionConnectionFailed": "இணைக்க முடியவில்லை",
+  "reportReasonInappropriatePicture": "பொருத்தமற்ற படம்"
 }

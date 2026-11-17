@@ -6,5 +6,6 @@
   "tabCapture": "Fes una foto",
   "tabOpponent": "Combat",
   "sessionPreparing": "Preparant-ho tot",
-  "sessionConnectionFailed": "No s'ha pogut connectar"
+  "sessionConnectionFailed": "No s'ha pogut connectar",
+  "reportReasonInappropriatePicture": "Imatge inadequada"
 }

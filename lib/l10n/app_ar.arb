@@ -6,5 +6,6 @@
   "tabCapture": "التقط صورة",
   "tabOpponent": "المعركة",
   "sessionPreparing": "جارٍ التحضير",
-  "sessionConnectionFailed": "تعذّر الاتصال"
+  "sessionConnectionFailed": "تعذّر الاتصال",
+  "reportReasonInappropriatePicture": "صورة غير لائقة"
 }

@@ -6,5 +6,6 @@
   "tabCapture": "צילום",
   "tabOpponent": "קרב",
   "sessionPreparing": "מתכוננים",
-  "sessionConnectionFailed": "החיבור נכשל"
+  "sessionConnectionFailed": "החיבור נכשל",
+  "reportReasonInappropriatePicture": "תמונה לא הולמת"
 }

@@ -6,5 +6,6 @@
   "tabCapture": "फोटो काढ",
   "tabOpponent": "लढाई",
   "sessionPreparing": "तयारी सुरू आहे",
-  "sessionConnectionFailed": "कनेक्ट होता आलं नाही"
+  "sessionConnectionFailed": "कनेक्ट होता आलं नाही",
+  "reportReasonInappropriatePicture": "अयोग्य चित्र"
 }

@@ -6,5 +6,6 @@
   "tabCapture": "Scatta una foto",
   "tabOpponent": "Lotta",
   "sessionPreparing": "Preparativi in corso",
-  "sessionConnectionFailed": "Connessione non riuscita"
+  "sessionConnectionFailed": "Connessione non riuscita",
+  "reportReasonInappropriatePicture": "Immagine inappropriata"
 }

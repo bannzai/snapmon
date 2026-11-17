@@ -6,5 +6,6 @@
   "tabCapture": "फ़ोटो खींचो",
   "tabOpponent": "मुकाबला",
   "sessionPreparing": "तैयारी चल रही है",
-  "sessionConnectionFailed": "कनेक्ट नहीं हो पाया"
+  "sessionConnectionFailed": "कनेक्ट नहीं हो पाया",
+  "reportReasonInappropriatePicture": "अनुचित तस्वीर"
 }

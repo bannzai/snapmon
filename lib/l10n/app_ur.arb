@@ -6,5 +6,6 @@
   "tabCapture": "تصویر کھینچو",
   "tabOpponent": "مقابلہ",
   "sessionPreparing": "تیاری ہو رہی ہے",
-  "sessionConnectionFailed": "رابطہ قائم نہیں ہو سکا"
+  "sessionConnectionFailed": "رابطہ قائم نہیں ہو سکا",
+  "reportReasonInappropriatePicture": "نامناسب تصویر"
 }

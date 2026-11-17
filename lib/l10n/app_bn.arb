@@ -6,5 +6,6 @@
   "tabCapture": "ছবি তোলো",
   "tabOpponent": "লড়াই",
   "sessionPreparing": "প্রস্তুতি চলছে",
-  "sessionConnectionFailed": "সংযোগ করা যায়নি"
+  "sessionConnectionFailed": "সংযোগ করা যায়নি",
+  "reportReasonInappropriatePicture": "অনুপযুক্ত ছবি"
 }

@@ -6,5 +6,6 @@
   "tabCapture": "Odfoť",
   "tabOpponent": "Súboj",
   "sessionPreparing": "Pripravuje sa",
-  "sessionConnectionFailed": "Nepodarilo sa pripojiť"
+  "sessionConnectionFailed": "Nepodarilo sa pripojiť",
+  "reportReasonInappropriatePicture": "Nevhodný obrázok"
 }

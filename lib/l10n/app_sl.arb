@@ -6,5 +6,6 @@
   "tabCapture": "Fotografiraj",
   "tabOpponent": "Dvoboj",
   "sessionPreparing": "Pripravljamo",
-  "sessionConnectionFailed": "Povezava ni uspela"
+  "sessionConnectionFailed": "Povezava ni uspela",
+  "reportReasonInappropriatePicture": "Neprimerna slika"
 }

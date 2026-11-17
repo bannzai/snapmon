@@ -6,5 +6,6 @@
   "tabCapture": "Сфотографуй",
   "tabOpponent": "Битва",
   "sessionPreparing": "Підготовка",
-  "sessionConnectionFailed": "Не вдалося підключитися"
+  "sessionConnectionFailed": "Не вдалося підключитися",
+  "reportReasonInappropriatePicture": "Недоречне зображення"
 }

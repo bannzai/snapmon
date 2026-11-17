@@ -6,5 +6,6 @@
   "tabCapture": "拍照",
   "tabOpponent": "對戰",
   "sessionPreparing": "準備中",
-  "sessionConnectionFailed": "連線失敗"
+  "sessionConnectionFailed": "連線失敗",
+  "reportReasonInappropriatePicture": "圖片不當"
 }

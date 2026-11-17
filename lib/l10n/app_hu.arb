@@ -6,5 +6,6 @@
   "tabCapture": "Fotózz",
   "tabOpponent": "Csata",
   "sessionPreparing": "Előkészület folyamatban",
-  "sessionConnectionFailed": "Nem sikerült csatlakozni"
+  "sessionConnectionFailed": "Nem sikerült csatlakozni",
+  "reportReasonInappropriatePicture": "Nem megfelelő kép"
 }

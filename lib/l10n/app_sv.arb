@@ -6,5 +6,6 @@
   "tabCapture": "Ta foto",
   "tabOpponent": "Strid",
   "sessionPreparing": "Gör klart",
-  "sessionConnectionFailed": "Kunde inte ansluta"
+  "sessionConnectionFailed": "Kunde inte ansluta",
+  "reportReasonInappropriatePicture": "Olämplig bild"
 }

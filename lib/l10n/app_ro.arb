@@ -6,5 +6,6 @@
   "tabCapture": "Fă o poză",
   "tabOpponent": "Luptă",
   "sessionPreparing": "Se pregătește",
-  "sessionConnectionFailed": "Conectarea a eșuat"
+  "sessionConnectionFailed": "Conectarea a eșuat",
+  "reportReasonInappropriatePicture": "Imagine nepotrivită"
 }

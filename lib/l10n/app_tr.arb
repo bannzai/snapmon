@@ -6,5 +6,6 @@
   "tabCapture": "Fotoğraf çek",
   "tabOpponent": "Savaş",
   "sessionPreparing": "Hazırlanıyor",
-  "sessionConnectionFailed": "Bağlantı kurulamadı"
+  "sessionConnectionFailed": "Bağlantı kurulamadı",
+  "reportReasonInappropriatePicture": "Uygunsuz görsel"
 }
