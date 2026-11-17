@@ -12,5 +12,6 @@
   "reportReasonPersonInPicture": "Személy látható a képen",
   "reportReasonInappropriateIcon": "Nem megfelelő ikon",
   "reportReasonOther": "Egyéb",
-  "reportSheetTitle": "{monsterName} jelentése"
+  "reportSheetTitle": "{monsterName} jelentése",
+  "reportSheetDescription": "Az edző, akit jelentesz, többé nem lesz az ellenfeled a csatákban"
 }

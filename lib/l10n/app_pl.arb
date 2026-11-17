@@ -12,5 +12,6 @@
   "reportReasonPersonInPicture": "Na zdjęciu jest osoba",
   "reportReasonInappropriateIcon": "Nieodpowiednia ikona",
   "reportReasonOther": "Inne",
-  "reportSheetTitle": "Zgłoś {monsterName}"
+  "reportSheetTitle": "Zgłoś {monsterName}",
+  "reportSheetDescription": "Gdy zgłosisz trenera, nie spotkasz go już jako przeciwnika w walce"
 }

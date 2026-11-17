@@ -12,5 +12,6 @@
   "reportReasonPersonInPicture": "ફોટામાં વ્યક્તિ દેખાય છે",
   "reportReasonInappropriateIcon": "અયોગ્ય ચિહ્ન",
   "reportReasonOther": "અન્ય",
-  "reportSheetTitle": "{monsterName}નો રિપોર્ટ કરો"
+  "reportSheetTitle": "{monsterName}નો રિપોર્ટ કરો",
+  "reportSheetDescription": "તમે રિપોર્ટ કરેલો ટ્રેનર હવે લડાઈમાં તમારા હરીફ તરીકે નહીં આવે"
 }

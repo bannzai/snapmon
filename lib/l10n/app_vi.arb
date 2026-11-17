@@ -12,5 +12,6 @@
   "reportReasonPersonInPicture": "Có người trong ảnh",
   "reportReasonInappropriateIcon": "Biểu tượng không phù hợp",
   "reportReasonOther": "Khác",
-  "reportSheetTitle": "Báo cáo {monsterName}"
+  "reportSheetTitle": "Báo cáo {monsterName}",
+  "reportSheetDescription": "Nhà huấn luyện mà bạn báo cáo sẽ không còn xuất hiện làm đối thủ trong trận đấu"
 }

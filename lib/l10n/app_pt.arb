@@ -12,5 +12,6 @@
   "reportReasonPersonInPicture": "Há uma pessoa na foto",
   "reportReasonInappropriateIcon": "Ícone inadequado",
   "reportReasonOther": "Outro",
-  "reportSheetTitle": "Denunciar {monsterName}"
+  "reportSheetTitle": "Denunciar {monsterName}",
+  "reportSheetDescription": "O treinador que você denunciar não aparecerá mais como adversário nas batalhas"
 }

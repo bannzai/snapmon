@@ -12,5 +12,6 @@
   "reportReasonPersonInPicture": "फ़ोटो में कोई व्यक्ति है",
   "reportReasonInappropriateIcon": "अनुचित आइकन",
   "reportReasonOther": "अन्य",
-  "reportSheetTitle": "{monsterName} को रिपोर्ट करो"
+  "reportSheetTitle": "{monsterName} को रिपोर्ट करो",
+  "reportSheetDescription": "जिस ट्रेनर को तुम रिपोर्ट करोगे, वह अब लड़ाई में तुम्हारा प्रतिद्वंद्वी नहीं बनेगा"
 }

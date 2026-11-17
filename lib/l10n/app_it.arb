@@ -12,5 +12,6 @@
   "reportReasonPersonInPicture": "C'è una persona nella foto",
   "reportReasonInappropriateIcon": "Icona inappropriata",
   "reportReasonOther": "Altro",
-  "reportSheetTitle": "Segnala {monsterName}"
+  "reportSheetTitle": "Segnala {monsterName}",
+  "reportSheetDescription": "L'allenatore che segnali non comparirà più tra i tuoi avversari"
 }

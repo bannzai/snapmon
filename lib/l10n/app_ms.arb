@@ -12,5 +12,6 @@
   "reportReasonPersonInPicture": "Ada orang dalam gambar",
   "reportReasonInappropriateIcon": "Ikon tidak sesuai",
   "reportReasonOther": "Lain-lain",
-  "reportSheetTitle": "Laporkan {monsterName}"
+  "reportSheetTitle": "Laporkan {monsterName}",
+  "reportSheetDescription": "Jurulatih yang kamu laporkan tidak akan muncul lagi sebagai lawan bertarung"
 }

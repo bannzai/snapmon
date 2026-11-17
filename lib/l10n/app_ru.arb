@@ -12,5 +12,6 @@
   "reportReasonPersonInPicture": "На фото есть человек",
   "reportReasonInappropriateIcon": "Неподходящий значок",
   "reportReasonOther": "Другое",
-  "reportSheetTitle": "Жалоба на {monsterName}"
+  "reportSheetTitle": "Жалоба на {monsterName}",
+  "reportSheetDescription": "Тренер, на которого ты отправишь жалобу, больше не появится среди соперников в боях"
 }

@@ -12,5 +12,6 @@
   "reportReasonPersonInPicture": "Der er en person på billedet",
   "reportReasonInappropriateIcon": "Upassende ikon",
   "reportReasonOther": "Andet",
-  "reportSheetTitle": "Rapportér {monsterName}"
+  "reportSheetTitle": "Rapportér {monsterName}",
+  "reportSheetDescription": "En træner, du rapporterer, dukker ikke længere op som modstander i kamp"
 }

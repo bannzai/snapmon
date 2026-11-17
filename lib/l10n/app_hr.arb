@@ -12,5 +12,6 @@
   "reportReasonPersonInPicture": "Na slici je osoba",
   "reportReasonInappropriateIcon": "Neprikladna ikona",
   "reportReasonOther": "Ostalo",
-  "reportSheetTitle": "Prijavi {monsterName}"
+  "reportSheetTitle": "Prijavi {monsterName}",
+  "reportSheetDescription": "Trener kojeg prijaviš više ti se neće pojavljivati kao protivnik u borbi"
 }

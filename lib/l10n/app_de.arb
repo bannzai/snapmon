@@ -12,5 +12,6 @@
   "reportReasonPersonInPicture": "Eine Person ist auf dem Bild",
   "reportReasonInappropriateIcon": "Unangemessenes Symbol",
   "reportReasonOther": "Sonstiges",
-  "reportSheetTitle": "{monsterName} melden"
+  "reportSheetTitle": "{monsterName} melden",
+  "reportSheetDescription": "Ein Trainer, den du meldest, erscheint nicht mehr als Kampfgegner"
 }

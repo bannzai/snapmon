@@ -12,5 +12,6 @@
   "reportReasonPersonInPicture": "Er staat een persoon op de foto",
   "reportReasonInappropriateIcon": "Ongepast pictogram",
   "reportReasonOther": "Overig",
-  "reportSheetTitle": "{monsterName} melden"
+  "reportSheetTitle": "{monsterName} melden",
+  "reportSheetDescription": "Een trainer die je meldt, verschijnt niet meer als tegenstander in gevechten"
 }

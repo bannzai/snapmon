@@ -12,5 +12,6 @@
   "reportReasonPersonInPicture": "Hi surt una persona",
   "reportReasonInappropriateIcon": "Icona inadequada",
   "reportReasonOther": "Altres",
-  "reportSheetTitle": "Denuncia {monsterName}"
+  "reportSheetTitle": "Denuncia {monsterName}",
+  "reportSheetDescription": "L'entrenador que denunciïs ja no apareixerà com a rival als combats"
 }

@@ -12,5 +12,6 @@
   "reportReasonPersonInPicture": "Kuvassa näkyy ihminen",
   "reportReasonInappropriateIcon": "Sopimaton kuvake",
   "reportReasonOther": "Muu",
-  "reportSheetTitle": "Ilmoita kohteesta {monsterName}"
+  "reportSheetTitle": "Ilmoita kohteesta {monsterName}",
+  "reportSheetDescription": "Ilmoittamasi kouluttaja ei enää tule vastaasi taisteluissa"
 }

@@ -12,5 +12,6 @@
   "reportReasonPersonInPicture": "照片中有人",
   "reportReasonInappropriateIcon": "圖示不當",
   "reportReasonOther": "其他",
-  "reportSheetTitle": "檢舉 {monsterName}"
+  "reportSheetTitle": "檢舉 {monsterName}",
+  "reportSheetDescription": "檢舉過的訓練家不會再成為你的對戰對手"
 }

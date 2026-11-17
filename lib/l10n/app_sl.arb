@@ -12,5 +12,6 @@
   "reportReasonPersonInPicture": "Na fotografiji je oseba",
   "reportReasonInappropriateIcon": "Neprimerna ikona",
   "reportReasonOther": "Drugo",
-  "reportSheetTitle": "Prijavi {monsterName}"
+  "reportSheetTitle": "Prijavi {monsterName}",
+  "reportSheetDescription": "Trener, ki ga prijaviš, se ne bo več pojavil kot tvoj nasprotnik v boju"
 }

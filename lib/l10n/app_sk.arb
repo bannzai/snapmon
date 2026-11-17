@@ -12,5 +12,6 @@
   "reportReasonPersonInPicture": "Na fotke je človek",
   "reportReasonInappropriateIcon": "Nevhodná ikona",
   "reportReasonOther": "Iné",
-  "reportSheetTitle": "Nahlásiť {monsterName}"
+  "reportSheetTitle": "Nahlásiť {monsterName}",
+  "reportSheetDescription": "Tréner, ktorého nahlásiš, sa už neobjaví ako tvoj súper v súboji"
 }

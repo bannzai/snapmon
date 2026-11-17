@@ -12,5 +12,6 @@
   "reportReasonPersonInPicture": "படத்தில் ஒருவர் இருக்கிறார்",
   "reportReasonInappropriateIcon": "பொருத்தமற்ற சின்னம்",
   "reportReasonOther": "மற்றவை",
-  "reportSheetTitle": "{monsterName} குறித்து புகார் அளியுங்கள்"
+  "reportSheetTitle": "{monsterName} குறித்து புகார் அளியுங்கள்",
+  "reportSheetDescription": "நீங்கள் புகார் அளித்த பயிற்சியாளர் இனி போர்களில் எதிராளியாக வரமாட்டார்"
 }

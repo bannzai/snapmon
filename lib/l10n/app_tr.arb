@@ -12,5 +12,6 @@
   "reportReasonPersonInPicture": "Fotoğrafta bir kişi var",
   "reportReasonInappropriateIcon": "Uygunsuz simge",
   "reportReasonOther": "Diğer",
-  "reportSheetTitle": "{monsterName} için bildir"
+  "reportSheetTitle": "{monsterName} için bildir",
+  "reportSheetDescription": "Bildirdiğin eğitmen artık savaşlarda rakip olarak karşına çıkmaz"
 }
