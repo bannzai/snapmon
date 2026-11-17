@@ -314,5 +314,6 @@
   "helpPartyHeading": "Du kan have op til {maximumPartySize} monstre på dit hold",
   "helpPartyBody": "Monstrene på dit hold kæmper i kamp\nNår monstret på banen falder, tager det næste over\nHvis hele holdet falder, taber du\nDu kan ændre dit hold i dex",
   "helpLevelHeading": "Niveau",
-  "helpLevelBody": "Uanset om du vinder eller taber, stiger de monstre, der kæmpede, i niveau\nNår de stiger i niveau, lærer de nye angreb"
+  "helpLevelBody": "Uanset om du vinder eller taber, stiger de monstre, der kæmpede, i niveau\nNår de stiger i niveau, lærer de nye angreb",
+  "helpTypeHeading": "Elementers effektivitet (svagheder)"
 }

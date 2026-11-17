@@ -314,5 +314,6 @@
   "helpPartyHeading": "Tim kamu bisa berisi hingga {maximumPartySize} monster",
   "helpPartyBody": "Monster di timmu turun bertarung\nSaat monster di arena tumbang, monster berikutnya maju\nJika seluruh tim tumbang, kamu kalah\nKamu bisa mengubah tim di dex",
   "helpLevelHeading": "Level",
-  "helpLevelBody": "Menang atau kalah, monster yang bertarung naik level\nSaat naik level, mereka mempelajari jurus baru"
+  "helpLevelBody": "Menang atau kalah, monster yang bertarung naik level\nSaat naik level, mereka mempelajari jurus baru",
+  "helpTypeHeading": "Efektivitas elemen (kelemahan)"
 }

@@ -314,5 +314,6 @@
   "helpPartyHeading": "Du kan ha upp till {maximumPartySize} monster i ditt lag",
   "helpPartyBody": "Monstren i ditt lag går in i striden\nNär monstret på fältet faller tar nästa över\nOm hela laget faller förlorar du\nDu kan ändra laget i samlingen",
   "helpLevelHeading": "Nivå",
-  "helpLevelBody": "Oavsett om du vinner eller förlorar går monster som kämpat upp i nivå\nNär de går upp i nivå lär de sig nya attacker"
+  "helpLevelBody": "Oavsett om du vinner eller förlorar går monster som kämpat upp i nivå\nNär de går upp i nivå lär de sig nya attacker",
+  "helpTypeHeading": "Elementens effektivitet (svagheter)"
 }

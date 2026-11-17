@@ -314,5 +314,6 @@
   "helpPartyHeading": "Joukkueeseesi mahtuu enintään {maximumPartySize} hirviötä",
   "helpPartyBody": "Joukkueesi hirviöt lähtevät taisteluun\nKun kentällä oleva hirviö kaatuu, seuraava astuu tilalle\nJos koko joukkue kaatuu, häviät\nVoit vaihtaa joukkuetta kokoelmassa",
   "helpLevelHeading": "Taso",
-  "helpLevelBody": "Voitit tai hävisit, taistelleiden hirviöiden taso nousee\nTason noustessa ne oppivat uusia liikkeitä"
+  "helpLevelBody": "Voitit tai hävisit, taistelleiden hirviöiden taso nousee\nTason noustessa ne oppivat uusia liikkeitä",
+  "helpTypeHeading": "Elementtien tehokkuus (heikkoudet)"
 }

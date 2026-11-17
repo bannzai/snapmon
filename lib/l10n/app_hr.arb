@@ -314,5 +314,6 @@
   "helpPartyHeading": "U tvom timu može biti do {maximumPartySize} čudovišta",
   "helpPartyBody": "Čudovišta iz tvog tima ulaze u borbu\nKad čudovište u borbi padne, ulazi sljedeće\nAko padne cijeli tim, gubiš\nTim možeš mijenjati u enciklopediji",
   "helpLevelHeading": "Razina",
-  "helpLevelBody": "Pobijediš li ili izgubiš, čudovišta koja su se borila rastu u razini\nKad im razina poraste, uče nove poteze"
+  "helpLevelBody": "Pobijediš li ili izgubiš, čudovišta koja su se borila rastu u razini\nKad im razina poraste, uče nove poteze",
+  "helpTypeHeading": "Učinkovitost elemenata (slabosti)"
 }

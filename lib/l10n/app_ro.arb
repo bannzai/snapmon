@@ -314,5 +314,6 @@
   "helpPartyHeading": "În echipa ta încap până la {maximumPartySize} monștri",
   "helpPartyBody": "Monștrii din echipa ta intră în luptă\nCând monstrul de pe teren cade, intră următorul\nDacă toată echipa cade, pierzi\nPoți schimba echipa din enciclopedie",
   "helpLevelHeading": "Nivel",
-  "helpLevelBody": "Fie că învingi sau pierzi, monștrii care au luptat cresc în nivel\nCând cresc în nivel, învață mișcări noi"
+  "helpLevelBody": "Fie că învingi sau pierzi, monștrii care au luptat cresc în nivel\nCând cresc în nivel, învață mișcări noi",
+  "helpTypeHeading": "Eficacitatea elementelor (slăbiciuni)"
 }

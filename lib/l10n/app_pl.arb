@@ -314,5 +314,6 @@
   "helpPartyHeading": "W twojej drużynie zmieści się do {maximumPartySize} potworów",
   "helpPartyBody": "Potwory z twojej drużyny ruszają do walki\nGdy potwór na polu padnie, wchodzi następny\nJeśli padnie cała drużyna, przegrywasz\nDrużynę możesz zmienić w encyklopedii",
   "helpLevelHeading": "Poziom",
-  "helpLevelBody": "Wygrasz czy przegrasz, potwory, które walczyły, awansują na wyższy poziom\nGdy awansują, uczą się nowych ruchów"
+  "helpLevelBody": "Wygrasz czy przegrasz, potwory, które walczyły, awansują na wyższy poziom\nGdy awansują, uczą się nowych ruchów",
+  "helpTypeHeading": "Skuteczność typów (słabości)"
 }

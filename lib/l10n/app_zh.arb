@@ -314,5 +314,6 @@
   "helpPartyHeading": "你的队伍最多可有 {maximumPartySize} 只怪兽",
   "helpPartyBody": "你队伍里的怪物会出战\n场上的怪物倒下后，下一只会接替出场\n队伍全员倒下就输了\n你可以在图鉴页面调整队伍",
   "helpLevelHeading": "等级",
-  "helpLevelBody": "无论输赢，参战的怪物都会升级\n升级后会学会新招式"
+  "helpLevelBody": "无论输赢，参战的怪物都会升级\n升级后会学会新招式",
+  "helpTypeHeading": "属性克制（弱点）"
 }

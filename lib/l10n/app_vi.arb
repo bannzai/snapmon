@@ -314,5 +314,6 @@
   "helpPartyHeading": "Đội của bạn có tối đa {maximumPartySize} quái vật",
   "helpPartyBody": "Quái vật trong đội của bạn sẽ ra trận\nNếu quái vật trên sân gục ngã, con tiếp theo sẽ vào thay\nNếu cả đội gục ngã, bạn thua\nBạn có thể đổi đội trong bộ sưu tập",
   "helpLevelHeading": "Cấp độ",
-  "helpLevelBody": "Dù bạn thắng hay thua, quái vật đã chiến đấu đều lên cấp\nKhi lên cấp, chúng học được chiêu mới"
+  "helpLevelBody": "Dù bạn thắng hay thua, quái vật đã chiến đấu đều lên cấp\nKhi lên cấp, chúng học được chiêu mới",
+  "helpTypeHeading": "Tương khắc giữa các hệ (điểm yếu)"
 }

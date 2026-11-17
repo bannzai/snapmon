@@ -314,5 +314,6 @@
   "helpPartyHeading": "V týmu můžeš mít až {maximumPartySize} příšer",
   "helpPartyBody": "Do boje nastupují příšery z tvého týmu\nKdyž příšera v boji padne, vystřídá ji další\nKdyž padne celý tým, prohraješ\nTým můžeš měnit v encyklopedii",
   "helpLevelHeading": "Úroveň",
-  "helpLevelBody": "Ať vyhraješ, nebo prohraješ, příšery, které bojovaly, získají úroveň\nS novou úrovní se naučí nové útoky"
+  "helpLevelBody": "Ať vyhraješ, nebo prohraješ, příšery, které bojovaly, získají úroveň\nS novou úrovní se naučí nové útoky",
+  "helpTypeHeading": "Účinnost elementů (slabiny)"
 }

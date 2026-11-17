@@ -314,5 +314,6 @@
   "helpPartyHeading": "A tua equipa pode ter até {maximumPartySize} monstros",
   "helpPartyBody": "Os monstros da tua equipa entram em combate\nSe o monstro em campo cair, entra o seguinte\nSe toda a equipa cair, perdes\nPodes mudar a equipa na enciclopédia",
   "helpLevelHeading": "Nível",
-  "helpLevelBody": "Quer ganhes ou percas, os monstros que lutaram sobem de nível\nAo subir de nível, aprendem novos golpes"
+  "helpLevelBody": "Quer ganhes ou percas, os monstros que lutaram sobem de nível\nAo subir de nível, aprendem novos golpes",
+  "helpTypeHeading": "Eficácia dos elementos (fraquezas)"
 }

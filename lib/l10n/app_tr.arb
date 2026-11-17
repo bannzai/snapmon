@@ -314,5 +314,6 @@
   "helpPartyHeading": "Takımında en fazla {maximumPartySize} canavar olabilir",
   "helpPartyBody": "Takımındaki canavarlar savaşa katılır\nSahadaki canavar yenilirse sıradaki onun yerini alır\nTüm takım yenilirse kaybedersin\nTakımını ansiklopedi ekranında değiştirebilirsin",
   "helpLevelHeading": "Seviye",
-  "helpLevelBody": "Kazansan da kaybetsen de savaşan canavarların seviyesi yükselir\nSeviye atlayınca yeni hamleler öğrenirler"
+  "helpLevelBody": "Kazansan da kaybetsen de savaşan canavarların seviyesi yükselir\nSeviye atlayınca yeni hamleler öğrenirler",
+  "helpTypeHeading": "Element uyumu (zayıflıklar)"
 }
