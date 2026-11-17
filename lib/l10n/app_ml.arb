@@ -227,5 +227,6 @@
   "battleYourMonster": "നിങ്ങളുടെ കൂട്ടുകാരൻ",
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "ശക്തി",
-  "movePowerPoints": "PP"
+  "movePowerPoints": "PP",
+  "titleStartFromAlbum": "ഫോട്ടോ തിരഞ്ഞെടുത്ത് തുടങ്ങൂ"
 }

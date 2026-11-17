@@ -227,5 +227,6 @@
   "battleYourMonster": "El teu company",
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "Potència",
-  "movePowerPoints": "PP"
+  "movePowerPoints": "PP",
+  "titleStartFromAlbum": "Tria una foto per començar"
 }

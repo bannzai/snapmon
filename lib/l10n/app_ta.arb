@@ -227,5 +227,6 @@
   "battleYourMonster": "உங்கள் துணை",
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "வலிமை",
-  "movePowerPoints": "PP"
+  "movePowerPoints": "PP",
+  "titleStartFromAlbum": "படத்தைத் தேர்ந்தெடுத்து தொடங்குங்கள்"
 }

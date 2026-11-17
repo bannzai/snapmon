@@ -227,5 +227,6 @@
   "battleYourMonster": "Kaverisi",
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "Voima",
-  "movePowerPoints": "PP"
+  "movePowerPoints": "PP",
+  "titleStartFromAlbum": "Valitse kuva ja aloita"
 }

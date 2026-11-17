@@ -227,5 +227,6 @@
   "battleYourMonster": "Din makker",
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "Styrke",
-  "movePowerPoints": "PP"
+  "movePowerPoints": "PP",
+  "titleStartFromAlbum": "Vælg et billede, og start"
 }

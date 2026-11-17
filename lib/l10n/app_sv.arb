@@ -227,5 +227,6 @@
   "battleYourMonster": "Din kompis",
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "Styrka",
-  "movePowerPoints": "PP"
+  "movePowerPoints": "PP",
+  "titleStartFromAlbum": "Välj en bild och börja"
 }

@@ -227,5 +227,6 @@
   "battleYourMonster": "رفيقك",
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "القوة",
-  "movePowerPoints": "PP"
+  "movePowerPoints": "PP",
+  "titleStartFromAlbum": "اختر صورة وابدأ"
 }

@@ -227,5 +227,6 @@
   "battleYourMonster": "Bạn đồng hành của bạn",
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "Sức mạnh",
-  "movePowerPoints": "PP"
+  "movePowerPoints": "PP",
+  "titleStartFromAlbum": "Chọn ảnh để bắt đầu"
 }

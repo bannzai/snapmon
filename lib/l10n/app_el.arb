@@ -227,5 +227,6 @@
   "battleYourMonster": "Ο σύντροφός σου",
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "Ισχύς",
-  "movePowerPoints": "PP"
+  "movePowerPoints": "PP",
+  "titleStartFromAlbum": "Διάλεξε φωτογραφία και ξεκίνα"
 }

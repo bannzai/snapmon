@@ -227,5 +227,6 @@
   "battleYourMonster": "Tvůj parťák",
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "Síla",
-  "movePowerPoints": "PP"
+  "movePowerPoints": "PP",
+  "titleStartFromAlbum": "Vyber fotku a začni"
 }

@@ -227,5 +227,6 @@
   "battleYourMonster": "Yoldaşın",
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "Güç",
-  "movePowerPoints": "PP"
+  "movePowerPoints": "PP",
+  "titleStartFromAlbum": "Fotoğraf seç ve başla"
 }

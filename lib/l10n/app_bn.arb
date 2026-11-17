@@ -227,5 +227,6 @@
   "battleYourMonster": "তোমার সঙ্গী",
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "শক্তি",
-  "movePowerPoints": "PP"
+  "movePowerPoints": "PP",
+  "titleStartFromAlbum": "ছবি বেছে শুরু করো"
 }

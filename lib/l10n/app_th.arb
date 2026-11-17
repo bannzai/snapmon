@@ -227,5 +227,6 @@
   "battleYourMonster": "คู่หูของคุณ",
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "พลัง",
-  "movePowerPoints": "PP"
+  "movePowerPoints": "PP",
+  "titleStartFromAlbum": "เลือกรูปแล้วเริ่มเลย"
 }

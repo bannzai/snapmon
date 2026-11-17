@@ -227,5 +227,6 @@
   "battleYourMonster": "నీ తోడు",
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "శక్తి",
-  "movePowerPoints": "PP"
+  "movePowerPoints": "PP",
+  "titleStartFromAlbum": "ఫోటో ఎంచుకుని మొదలుపెట్టు"
 }

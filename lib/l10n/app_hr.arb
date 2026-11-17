@@ -227,5 +227,6 @@
   "battleYourMonster": "Tvoj suputnik",
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "Snaga",
-  "movePowerPoints": "PP"
+  "movePowerPoints": "PP",
+  "titleStartFromAlbum": "Odaberi fotografiju i kreni"
 }

@@ -227,5 +227,6 @@
   "battleYourMonster": "ତୁମର ସାଥୀ",
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "ଶକ୍ତି",
-  "movePowerPoints": "PP"
+  "movePowerPoints": "PP",
+  "titleStartFromAlbum": "ଫଟୋ ବାଛି ଆରମ୍ଭ କର"
 }

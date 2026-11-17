@@ -227,5 +227,6 @@
   "battleYourMonster": "तुम्हारा साथी",
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "शक्ति",
-  "movePowerPoints": "PP"
+  "movePowerPoints": "PP",
+  "titleStartFromAlbum": "फ़ोटो चुनकर शुरू करो"
 }

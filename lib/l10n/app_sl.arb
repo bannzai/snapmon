@@ -227,5 +227,6 @@
   "battleYourMonster": "Tvoj spremljevalec",
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "Moč",
-  "movePowerPoints": "PP"
+  "movePowerPoints": "PP",
+  "titleStartFromAlbum": "Izberi fotografijo in začni"
 }

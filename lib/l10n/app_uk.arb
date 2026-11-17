@@ -227,5 +227,6 @@
   "battleYourMonster": "Твій напарник",
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "Сила",
-  "movePowerPoints": "PP"
+  "movePowerPoints": "PP",
+  "titleStartFromAlbum": "Вибери фото й почни"
 }

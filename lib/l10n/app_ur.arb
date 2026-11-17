@@ -227,5 +227,6 @@
   "battleYourMonster": "تمہارا ساتھی",
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "طاقت",
-  "movePowerPoints": "PP"
+  "movePowerPoints": "PP",
+  "titleStartFromAlbum": "تصویر چن کر شروع کرو"
 }

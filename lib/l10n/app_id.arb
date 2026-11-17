@@ -227,5 +227,6 @@
   "battleYourMonster": "Temanmu",
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "Kekuatan",
-  "movePowerPoints": "PP"
+  "movePowerPoints": "PP",
+  "titleStartFromAlbum": "Pilih foto untuk mulai"
 }

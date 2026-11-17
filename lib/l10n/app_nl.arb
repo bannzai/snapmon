@@ -227,5 +227,6 @@
   "battleYourMonster": "Je maatje",
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "Kracht",
-  "movePowerPoints": "PP"
+  "movePowerPoints": "PP",
+  "titleStartFromAlbum": "Kies een foto en begin"
 }

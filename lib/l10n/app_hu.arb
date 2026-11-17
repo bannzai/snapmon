@@ -227,5 +227,6 @@
   "battleYourMonster": "A társad",
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "Erő",
-  "movePowerPoints": "PP"
+  "movePowerPoints": "PP",
+  "titleStartFromAlbum": "Válassz képet, és kezdj bele"
 }

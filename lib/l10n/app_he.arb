@@ -227,5 +227,6 @@
   "battleYourMonster": "השותף שלך",
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "עוצמה",
-  "movePowerPoints": "PP"
+  "movePowerPoints": "PP",
+  "titleStartFromAlbum": "לבחור תמונה ולהתחיל"
 }

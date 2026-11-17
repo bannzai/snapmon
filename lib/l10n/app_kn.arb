@@ -227,5 +227,6 @@
   "battleYourMonster": "ನಿನ್ನ ಸಂಗಾತಿ",
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "ಶಕ್ತಿ",
-  "movePowerPoints": "PP"
+  "movePowerPoints": "PP",
+  "titleStartFromAlbum": "ಫೋಟೋ ಆಯ್ಕೆ ಮಾಡಿ ಶುರು ಮಾಡು"
 }

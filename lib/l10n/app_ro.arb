@@ -227,5 +227,6 @@
   "battleYourMonster": "Tovarășul tău",
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "Putere",
-  "movePowerPoints": "PP"
+  "movePowerPoints": "PP",
+  "titleStartFromAlbum": "Alege o poză și începe"
 }

@@ -227,5 +227,6 @@
   "battleYourMonster": "Il tuo compagno",
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "Potenza",
-  "movePowerPoints": "PP"
+  "movePowerPoints": "PP",
+  "titleStartFromAlbum": "Scegli una foto e inizia"
 }
