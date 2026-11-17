@@ -210,5 +210,6 @@
   "moveDetailPriority": "Priorité",
   "moveDetailPriorityValue": "Agit en premier, quelle que soit la Vitesse",
   "battleRecording": "Enregistrement en cours",
-  "battleRecorded": "Enregistré"
+  "battleRecorded": "Enregistré",
+  "battleNotRecorded": "Combat non enregistré : tu n’es pas connecté"
 }
