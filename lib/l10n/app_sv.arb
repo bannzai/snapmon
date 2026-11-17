@@ -249,5 +249,6 @@
   "moveDetailSpecialEffect": "Specialeffekt",
   "moveDetailNoSpecialEffect": "Ingen",
   "moveDetailFormula": "Styrkemultiplikator (%)",
-  "moveDetailFormulaNote": "Vid 100 är multiplikatorn ×1\nStyrka × multiplikator ÷ 100 (avrundat nedåt) ingår i beräkningen av skada"
+  "moveDetailFormulaNote": "Vid 100 är multiplikatorn ×1\nStyrka × multiplikator ÷ 100 (avrundat nedåt) ingår i beräkningen av skada",
+  "moveDetailSelfStatFormula": "Värde som läggs till din {statName}-multiplikator (%)"
 }

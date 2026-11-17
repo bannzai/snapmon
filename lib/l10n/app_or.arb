@@ -249,5 +249,6 @@
   "moveDetailSpecialEffect": "ବିଶେଷ ପ୍ରଭାବ",
   "moveDetailNoSpecialEffect": "କିଛି ନାହିଁ",
   "moveDetailFormula": "ଶକ୍ତି ଗୁଣକ (%)",
-  "moveDetailFormulaNote": "୧୦୦ ହେଲେ ଗୁଣକ ×୧\nଶକ୍ତି × ଗୁଣକ ÷ ୧୦୦ (ଦଶମିକ ଅଂଶ ଛାଡ଼ି) କ୍ଷତିର ହିସାବରେ ଲାଗେ"
+  "moveDetailFormulaNote": "୧୦୦ ହେଲେ ଗୁଣକ ×୧\nଶକ୍ତି × ଗୁଣକ ÷ ୧୦୦ (ଦଶମିକ ଅଂଶ ଛାଡ଼ି) କ୍ଷତିର ହିସାବରେ ଲାଗେ",
+  "moveDetailSelfStatFormula": "ତୁମର {statName} ଗୁଣକରେ ଯୋଗ ହେଉଥିବା ମୂଲ୍ୟ (%)"
 }

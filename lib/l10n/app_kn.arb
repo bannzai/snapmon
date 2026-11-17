@@ -249,5 +249,6 @@
   "moveDetailSpecialEffect": "ವಿಶೇಷ ಪರಿಣಾಮ",
   "moveDetailNoSpecialEffect": "ಯಾವುದೂ ಇಲ್ಲ",
   "moveDetailFormula": "ಶಕ್ತಿಯ ಗುಣಕ (%)",
-  "moveDetailFormulaNote": "100 ಇದ್ದರೆ ಗುಣಕ ×1\nಶಕ್ತಿ × ಗುಣಕ ÷ 100 (ದಶಮಾಂಶ ಭಾಗ ಬಿಟ್ಟು) ಹಾನಿಯ ಲೆಕ್ಕಕ್ಕೆ ಸೇರುತ್ತದೆ"
+  "moveDetailFormulaNote": "100 ಇದ್ದರೆ ಗುಣಕ ×1\nಶಕ್ತಿ × ಗುಣಕ ÷ 100 (ದಶಮಾಂಶ ಭಾಗ ಬಿಟ್ಟು) ಹಾನಿಯ ಲೆಕ್ಕಕ್ಕೆ ಸೇರುತ್ತದೆ",
+  "moveDetailSelfStatFormula": "ನಿನ್ನ {statName} ಗುಣಕಕ್ಕೆ ಸೇರುವ ಮೌಲ್ಯ (%)"
 }

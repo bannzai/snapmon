@@ -249,5 +249,6 @@
   "moveDetailSpecialEffect": "Speciaal effect",
   "moveDetailNoSpecialEffect": "Geen",
   "moveDetailFormula": "Krachtvermenigvuldiger (%)",
-  "moveDetailFormulaNote": "Bij 100 is de vermenigvuldiger ×1\nKracht × vermenigvuldiger ÷ 100 (afgerond naar beneden) telt mee bij de schadeberekening"
+  "moveDetailFormulaNote": "Bij 100 is de vermenigvuldiger ×1\nKracht × vermenigvuldiger ÷ 100 (afgerond naar beneden) telt mee bij de schadeberekening",
+  "moveDetailSelfStatFormula": "Waarde toegevoegd aan je {statName}-vermenigvuldiger (%)"
 }

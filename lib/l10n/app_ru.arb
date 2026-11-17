@@ -249,5 +249,6 @@
   "moveDetailSpecialEffect": "Особый эффект",
   "moveDetailNoSpecialEffect": "Нет",
   "moveDetailFormula": "Множитель силы (%)",
-  "moveDetailFormulaNote": "При 100 множитель равен ×1\nСила × множитель ÷ 100 (без дробной части) учитывается при расчёте урона"
+  "moveDetailFormulaNote": "При 100 множитель равен ×1\nСила × множитель ÷ 100 (без дробной части) учитывается при расчёте урона",
+  "moveDetailSelfStatFormula": "Значение, добавляемое к твоему множителю {statName} (%)"
 }

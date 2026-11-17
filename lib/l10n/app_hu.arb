@@ -249,5 +249,6 @@
   "moveDetailSpecialEffect": "Különleges hatás",
   "moveDetailNoSpecialEffect": "Nincs",
   "moveDetailFormula": "Erőszorzó (%)",
-  "moveDetailFormulaNote": "100-nál a szorzó ×1\nErő × szorzó ÷ 100 (a tizedesrészt elhagyva) beleszámít a sebzésbe"
+  "moveDetailFormulaNote": "100-nál a szorzó ×1\nErő × szorzó ÷ 100 (a tizedesrészt elhagyva) beleszámít a sebzésbe",
+  "moveDetailSelfStatFormula": "A saját {statName} szorzójához hozzáadott érték (%)"
 }

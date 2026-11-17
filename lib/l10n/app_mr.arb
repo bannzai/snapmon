@@ -249,5 +249,6 @@
   "moveDetailSpecialEffect": "विशेष प्रभाव",
   "moveDetailNoSpecialEffect": "काही नाही",
   "moveDetailFormula": "शक्तीचा गुणक (%)",
-  "moveDetailFormulaNote": "100 वर गुणक ×1 असतो\nताकद × गुणक ÷ 100 (दशांश भाग वगळून) डॅमेजच्या हिशोबात धरलं जातं"
+  "moveDetailFormulaNote": "100 वर गुणक ×1 असतो\nताकद × गुणक ÷ 100 (दशांश भाग वगळून) डॅमेजच्या हिशोबात धरलं जातं",
+  "moveDetailSelfStatFormula": "तुझ्या {statName} गुणकात जोडले जाणारे मूल्य (%)"
 }

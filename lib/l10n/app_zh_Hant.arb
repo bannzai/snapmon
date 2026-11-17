@@ -249,5 +249,6 @@
   "moveDetailSpecialEffect": "特殊效果",
   "moveDetailNoSpecialEffect": "無",
   "moveDetailFormula": "威力倍率 (%)",
-  "moveDetailFormulaNote": "100 時倍率為 ×1\n威力 × 倍率 ÷ 100（捨去小數）會計入傷害計算"
+  "moveDetailFormulaNote": "100 時倍率為 ×1\n威力 × 倍率 ÷ 100（捨去小數）會計入傷害計算",
+  "moveDetailSelfStatFormula": "加到自身{statName}倍率上的數值 (%)"
 }

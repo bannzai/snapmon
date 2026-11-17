@@ -249,5 +249,6 @@
   "moveDetailSpecialEffect": "Особливий ефект",
   "moveDetailNoSpecialEffect": "Немає",
   "moveDetailFormula": "Множник сили (%)",
-  "moveDetailFormulaNote": "За 100 множник дорівнює ×1\nСила × множник ÷ 100 (без дробової частини) враховується в розрахунку шкоди"
+  "moveDetailFormulaNote": "За 100 множник дорівнює ×1\nСила × множник ÷ 100 (без дробової частини) враховується в розрахунку шкоди",
+  "moveDetailSelfStatFormula": "Значення, що додається до твого множника {statName} (%)"
 }

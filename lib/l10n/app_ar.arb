@@ -249,5 +249,6 @@
   "moveDetailSpecialEffect": "تأثير خاص",
   "moveDetailNoSpecialEffect": "لا يوجد",
   "moveDetailFormula": "مضاعف القوة (%)",
-  "moveDetailFormulaNote": "عند 100 يكون المضاعف ×1\nتدخل القوة × المضاعف ÷ 100 (مع حذف الكسور) في حساب الضرر"
+  "moveDetailFormulaNote": "عند 100 يكون المضاعف ×1\nتدخل القوة × المضاعف ÷ 100 (مع حذف الكسور) في حساب الضرر",
+  "moveDetailSelfStatFormula": "القيمة المضافة إلى مضاعف {statName} لديك (%)"
 }

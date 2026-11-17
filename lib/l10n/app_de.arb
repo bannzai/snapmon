@@ -249,5 +249,6 @@
   "moveDetailSpecialEffect": "Spezialeffekt",
   "moveDetailNoSpecialEffect": "Keiner",
   "moveDetailFormula": "Stärke-Multiplikator (%)",
-  "moveDetailFormulaNote": "Bei 100 beträgt der Faktor ×1\nStärke × Faktor ÷ 100 (abgerundet) fließt in die Schadensberechnung ein"
+  "moveDetailFormulaNote": "Bei 100 beträgt der Faktor ×1\nStärke × Faktor ÷ 100 (abgerundet) fließt in die Schadensberechnung ein",
+  "moveDetailSelfStatFormula": "Wert, der deinem {statName}-Multiplikator hinzugefügt wird (%)"
 }

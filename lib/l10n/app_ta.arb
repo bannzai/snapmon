@@ -249,5 +249,6 @@
   "moveDetailSpecialEffect": "சிறப்பு விளைவு",
   "moveDetailNoSpecialEffect": "எதுவும் இல்லை",
   "moveDetailFormula": "வலிமைப் பெருக்கி (%)",
-  "moveDetailFormulaNote": "100 என்றால் பெருக்கி ×1\nஆற்றல் × பெருக்கி ÷ 100 (தசமப் பகுதியை நீக்கி) சேதக் கணக்கில் சேரும்"
+  "moveDetailFormulaNote": "100 என்றால் பெருக்கி ×1\nஆற்றல் × பெருக்கி ÷ 100 (தசமப் பகுதியை நீக்கி) சேதக் கணக்கில் சேரும்",
+  "moveDetailSelfStatFormula": "உங்கள் {statName} பெருக்கியில் சேர்க்கப்படும் மதிப்பு (%)"
 }

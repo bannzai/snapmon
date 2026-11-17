@@ -249,5 +249,6 @@
   "moveDetailSpecialEffect": "Špeciálny účinok",
   "moveDetailNoSpecialEffect": "Žiadny",
   "moveDetailFormula": "Násobiteľ sily (%)",
-  "moveDetailFormulaNote": "Pri 100 je násobiteľ ×1\nSila × násobiteľ ÷ 100 (bez desatinnej časti) vstupuje do výpočtu poškodenia"
+  "moveDetailFormulaNote": "Pri 100 je násobiteľ ×1\nSila × násobiteľ ÷ 100 (bez desatinnej časti) vstupuje do výpočtu poškodenia",
+  "moveDetailSelfStatFormula": "Hodnota pripočítaná k tvojmu násobiteľu {statName} (%)"
 }

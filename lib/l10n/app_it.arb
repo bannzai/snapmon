@@ -249,5 +249,6 @@
   "moveDetailSpecialEffect": "Effetto speciale",
   "moveDetailNoSpecialEffect": "Nessuno",
   "moveDetailFormula": "Moltiplicatore di potenza (%)",
-  "moveDetailFormulaNote": "A 100, il moltiplicatore è ×1\nPotenza × moltiplicatore ÷ 100 (senza decimali) entra nel calcolo dei danni"
+  "moveDetailFormulaNote": "A 100, il moltiplicatore è ×1\nPotenza × moltiplicatore ÷ 100 (senza decimali) entra nel calcolo dei danni",
+  "moveDetailSelfStatFormula": "Valore aggiunto al tuo moltiplicatore di {statName} (%)"
 }

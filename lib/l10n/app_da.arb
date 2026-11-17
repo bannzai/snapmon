@@ -249,5 +249,6 @@
   "moveDetailSpecialEffect": "Særlig effekt",
   "moveDetailNoSpecialEffect": "Ingen",
   "moveDetailFormula": "Styrkemultiplikator (%)",
-  "moveDetailFormulaNote": "Ved 100 er multiplikatoren ×1\nStyrke × multiplikator ÷ 100 (rundet ned) indgår i beregningen af skade"
+  "moveDetailFormulaNote": "Ved 100 er multiplikatoren ×1\nStyrke × multiplikator ÷ 100 (rundet ned) indgår i beregningen af skade",
+  "moveDetailSelfStatFormula": "Værdi lagt til din {statName}-multiplikator (%)"
 }

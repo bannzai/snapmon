@@ -249,5 +249,6 @@
   "moveDetailSpecialEffect": "Efect special",
   "moveDetailNoSpecialEffect": "Niciunul",
   "moveDetailFormula": "Multiplicator de putere (%)",
-  "moveDetailFormulaNote": "La 100, multiplicatorul este ×1\nPutere × multiplicator ÷ 100 (fără zecimale) intră în calculul daunelor"
+  "moveDetailFormulaNote": "La 100, multiplicatorul este ×1\nPutere × multiplicator ÷ 100 (fără zecimale) intră în calculul daunelor",
+  "moveDetailSelfStatFormula": "Valoarea adăugată la multiplicatorul tău pentru {statName} (%)"
 }

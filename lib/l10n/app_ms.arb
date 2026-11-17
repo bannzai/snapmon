@@ -249,5 +249,6 @@
   "moveDetailSpecialEffect": "Kesan khas",
   "moveDetailNoSpecialEffect": "Tiada",
   "moveDetailFormula": "Pengganda kuasa (%)",
-  "moveDetailFormulaNote": "Pada 100, pengganda ialah ×1\nKuasa × pengganda ÷ 100 (bahagian perpuluhan dibuang) masuk dalam kiraan kerosakan"
+  "moveDetailFormulaNote": "Pada 100, pengganda ialah ×1\nKuasa × pengganda ÷ 100 (bahagian perpuluhan dibuang) masuk dalam kiraan kerosakan",
+  "moveDetailSelfStatFormula": "Nilai yang ditambah pada pengganda {statName} kamu (%)"
 }

@@ -249,5 +249,6 @@
   "moveDetailSpecialEffect": "Poseban učinak",
   "moveDetailNoSpecialEffect": "Nema",
   "moveDetailFormula": "Množitelj snage (%)",
-  "moveDetailFormulaNote": "Na 100 množitelj je ×1\nSnaga × množitelj ÷ 100 (bez decimalnog dijela) ulazi u izračun štete"
+  "moveDetailFormulaNote": "Na 100 množitelj je ×1\nSnaga × množitelj ÷ 100 (bez decimalnog dijela) ulazi u izračun štete",
+  "moveDetailSelfStatFormula": "Vrijednost dodana vlastitom množitelju za {statName} (%)"
 }
