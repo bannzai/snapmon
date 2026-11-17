@@ -92,5 +92,6 @@
   "captureCameraPermissionHint": "Permita o acesso à câmera nas configurações",
   "captureCameraPermissionHintWeb": "Permita o acesso à câmera nas configurações do site na barra de endereço",
   "captureOpenSettings": "Abrir configurações",
-  "captureUseCamera": "Usar a câmera"
+  "captureUseCamera": "Usar a câmera",
+  "commonClose": "Fechar"
 }

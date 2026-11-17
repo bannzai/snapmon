@@ -92,5 +92,6 @@
   "captureCameraPermissionHint": "Cho phép dùng camera trong phần cài đặt",
   "captureCameraPermissionHintWeb": "Cho phép dùng camera trong phần cài đặt trang web ở thanh địa chỉ",
   "captureOpenSettings": "Mở cài đặt",
-  "captureUseCamera": "Dùng camera"
+  "captureUseCamera": "Dùng camera",
+  "commonClose": "Đóng"
 }

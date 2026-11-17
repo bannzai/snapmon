@@ -92,5 +92,6 @@
   "captureCameraPermissionHint": "Tillåt åtkomst till kameran i inställningarna",
   "captureCameraPermissionHintWeb": "Tillåt kameran i webbplatsinställningarna i adressfältet",
   "captureOpenSettings": "Öppna inställningar",
-  "captureUseCamera": "Använd kameran"
+  "captureUseCamera": "Använd kameran",
+  "commonClose": "Stäng"
 }

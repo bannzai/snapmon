@@ -92,5 +92,6 @@
   "captureCameraPermissionHint": "Permite o acesso à câmara nas definições",
   "captureCameraPermissionHintWeb": "Permite o acesso à câmara nas definições do site na barra de endereços",
   "captureOpenSettings": "Abrir definições",
-  "captureUseCamera": "Usa a câmara"
+  "captureUseCamera": "Usa a câmara",
+  "commonClose": "Fechar"
 }

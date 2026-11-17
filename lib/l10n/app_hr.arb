@@ -92,5 +92,6 @@
   "captureCameraPermissionHint": "Dopusti pristup kameri u postavkama",
   "captureCameraPermissionHintWeb": "Dopusti pristup kameri u postavkama web-mjesta na adresnoj traci",
   "captureOpenSettings": "Otvori postavke",
-  "captureUseCamera": "Upotrijebi kameru"
+  "captureUseCamera": "Upotrijebi kameru",
+  "commonClose": "Zatvori"
 }

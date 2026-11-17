@@ -92,5 +92,6 @@
   "captureCameraPermissionHint": "సెట్టింగ్‌లలో కెమెరాకు అనుమతి ఇవ్వు",
   "captureCameraPermissionHintWeb": "అడ్రస్ బార్‌లోని సైట్ సెట్టింగ్‌లలో కెమెరాకు అనుమతి ఇవ్వు",
   "captureOpenSettings": "సెట్టింగ్‌లను తెరువు",
-  "captureUseCamera": "కెమెరా వాడు"
+  "captureUseCamera": "కెమెరా వాడు",
+  "commonClose": "మూసేయి"
 }

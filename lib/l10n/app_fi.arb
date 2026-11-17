@@ -92,5 +92,6 @@
   "captureCameraPermissionHint": "Salli kameran käyttö asetuksissa",
   "captureCameraPermissionHintWeb": "Salli kamera osoiterivin sivustoasetuksista",
   "captureOpenSettings": "Avaa asetukset",
-  "captureUseCamera": "Käytä kameraa"
+  "captureUseCamera": "Käytä kameraa",
+  "commonClose": "Sulje"
 }

@@ -92,5 +92,6 @@
   "captureCameraPermissionHint": "Geef toegang tot de camera via de instellingen",
   "captureCameraPermissionHintWeb": "Sta de camera toe via de site-instellingen in de adresbalk",
   "captureOpenSettings": "Instellingen openen",
-  "captureUseCamera": "Gebruik de camera"
+  "captureUseCamera": "Gebruik de camera",
+  "commonClose": "Sluiten"
 }

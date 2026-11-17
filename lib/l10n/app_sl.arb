@@ -92,5 +92,6 @@
   "captureCameraPermissionHint": "Dovoli dostop do kamere v nastavitvah",
   "captureCameraPermissionHintWeb": "Dovoli dostop do kamere v nastavitvah spletnega mesta v naslovni vrstici",
   "captureOpenSettings": "Odpri nastavitve",
-  "captureUseCamera": "Uporabi kamero"
+  "captureUseCamera": "Uporabi kamero",
+  "commonClose": "Zapri"
 }

@@ -92,5 +92,6 @@
   "captureCameraPermissionHint": "সেটিংসে ক্যামেরার অনুমতি দাও",
   "captureCameraPermissionHintWeb": "অ্যাড্রেস বারের সাইট সেটিংস থেকে ক্যামেরার অনুমতি দাও",
   "captureOpenSettings": "সেটিংস খোলো",
-  "captureUseCamera": "ক্যামেরা ব্যবহার করো"
+  "captureUseCamera": "ক্যামেরা ব্যবহার করো",
+  "commonClose": "বন্ধ করো"
 }

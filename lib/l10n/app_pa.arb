@@ -92,5 +92,6 @@
   "captureCameraPermissionHint": "ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਕੈਮਰੇ ਦੀ ਇਜਾਜ਼ਤ ਦਿਓ",
   "captureCameraPermissionHintWeb": "ਐਡਰੈੱਸ ਬਾਰ ਵਿੱਚ ਸਾਈਟ ਸੈਟਿੰਗਾਂ ਤੋਂ ਕੈਮਰੇ ਦੀ ਇਜਾਜ਼ਤ ਦਿਓ",
   "captureOpenSettings": "ਸੈਟਿੰਗਾਂ ਖੋਲ੍ਹੋ",
-  "captureUseCamera": "ਕੈਮਰਾ ਵਰਤੋ"
+  "captureUseCamera": "ਕੈਮਰਾ ਵਰਤੋ",
+  "commonClose": "ਬੰਦ ਕਰੋ"
 }

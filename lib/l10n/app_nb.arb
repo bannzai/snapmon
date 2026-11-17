@@ -92,5 +92,6 @@
   "captureCameraPermissionHint": "Gi tilgang til kameraet i innstillingene",
   "captureCameraPermissionHintWeb": "Tillat kamera i nettstedinnstillingene i adressefeltet",
   "captureOpenSettings": "Åpne innstillinger",
-  "captureUseCamera": "Bruk kameraet"
+  "captureUseCamera": "Bruk kameraet",
+  "commonClose": "Lukk"
 }

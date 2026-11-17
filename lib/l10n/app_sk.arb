@@ -92,5 +92,6 @@
   "captureCameraPermissionHint": "Povoľ prístup ku kamere v nastaveniach",
   "captureCameraPermissionHintWeb": "Povoľ kameru v nastaveniach stránky v adresnom riadku",
   "captureOpenSettings": "Otvoriť nastavenia",
-  "captureUseCamera": "Použi fotoaparát"
+  "captureUseCamera": "Použi fotoaparát",
+  "commonClose": "Zavrieť"
 }

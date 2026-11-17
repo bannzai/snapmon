@@ -92,5 +92,6 @@
   "captureCameraPermissionHint": "설정에서 카메라 사용을 허용해 주세요",
   "captureCameraPermissionHintWeb": "주소 표시줄의 사이트 설정에서 카메라를 허용해 주세요",
   "captureOpenSettings": "설정 열기",
-  "captureUseCamera": "카메라 사용하기"
+  "captureUseCamera": "카메라 사용하기",
+  "commonClose": "닫기"
 }

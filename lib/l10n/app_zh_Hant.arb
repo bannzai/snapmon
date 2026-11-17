@@ -92,5 +92,6 @@
   "captureCameraPermissionHint": "在設定中允許使用相機",
   "captureCameraPermissionHintWeb": "在網址列的網站設定中允許使用相機",
   "captureOpenSettings": "開啟設定",
-  "captureUseCamera": "使用相機"
+  "captureUseCamera": "使用相機",
+  "commonClose": "關閉"
 }

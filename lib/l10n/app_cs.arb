@@ -92,5 +92,6 @@
   "captureCameraPermissionHint": "Povol kameru v nastavení",
   "captureCameraPermissionHintWeb": "Povol kameru v nastavení webu v adresním řádku",
   "captureOpenSettings": "Otevřít nastavení",
-  "captureUseCamera": "Použij fotoaparát"
+  "captureUseCamera": "Použij fotoaparát",
+  "commonClose": "Zavřít"
 }

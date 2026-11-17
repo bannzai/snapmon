@@ -92,5 +92,6 @@
   "captureCameraPermissionHint": "Engedélyezd a kamerát a beállításokban",
   "captureCameraPermissionHintWeb": "Engedélyezd a kamerát a címsávban lévő webhelybeállításoknál",
   "captureOpenSettings": "Beállítások megnyitása",
-  "captureUseCamera": "Használd a kamerát"
+  "captureUseCamera": "Használd a kamerát",
+  "commonClose": "Bezárás"
 }
