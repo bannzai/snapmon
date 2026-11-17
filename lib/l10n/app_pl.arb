@@ -210,5 +210,6 @@
   "moveDetailPriority": "Priorytet",
   "moveDetailPriorityValue": "Wykonywany jako pierwszy, niezależnie od Szybkości",
   "battleRecording": "Zapisywanie wyniku",
-  "battleRecorded": "Zapisano"
+  "battleRecorded": "Zapisano",
+  "battleNotRecorded": "Walka nie została zapisana, bo nie jesteś zalogowany"
 }

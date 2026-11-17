@@ -210,5 +210,6 @@
   "moveDetailPriority": "Prioritate",
   "moveDetailPriorityValue": "Se folosește prima, indiferent de Viteză",
   "battleRecording": "Se salvează rezultatul",
-  "battleRecorded": "Înregistrat"
+  "battleRecorded": "Înregistrat",
+  "battleNotRecorded": "Lupta nu a fost salvată fiindcă nu te-ai conectat"
 }

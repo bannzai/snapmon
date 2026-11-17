@@ -210,5 +210,6 @@
   "moveDetailPriority": "Prioridade",
   "moveDetailPriorityValue": "Usado primeiro, independentemente da Velocidade",
   "battleRecording": "Salvando o resultado",
-  "battleRecorded": "Registrado"
+  "battleRecorded": "Registrado",
+  "battleNotRecorded": "A batalha não foi salva porque você não fez login"
 }

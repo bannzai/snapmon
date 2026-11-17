@@ -210,5 +210,6 @@
   "moveDetailPriority": "प्राधान्य",
   "moveDetailPriorityValue": "वेग कितीही असो, ही चाल आधी वापरली जाते",
   "battleRecording": "निकाल जतन होत आहे",
-  "battleRecorded": "नोंद झाली"
+  "battleRecorded": "नोंद झाली",
+  "battleNotRecorded": "तू लॉग इन केलेलं नाहीस, म्हणून लढाईची नोंद झाली नाही"
 }

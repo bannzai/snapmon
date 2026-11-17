@@ -210,5 +210,6 @@
   "moveDetailPriority": "ترجیح",
   "moveDetailPriorityValue": "رفتار چاہے جو بھی ہو، یہ پہلے استعمال ہوتا ہے",
   "battleRecording": "نتیجہ محفوظ ہو رہا ہے",
-  "battleRecorded": "ریکارڈ ہو گیا"
+  "battleRecorded": "ریکارڈ ہو گیا",
+  "battleNotRecorded": "تم لاگ اِن نہیں ہو، اس لیے لڑائی ریکارڈ نہیں ہوئی"
 }

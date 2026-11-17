@@ -210,5 +210,6 @@
   "moveDetailPriority": "Prioritet",
   "moveDetailPriorityValue": "Brukes først uansett hastighet",
   "battleRecording": "Lagrer resultatet",
-  "battleRecorded": "Registrert"
+  "battleRecorded": "Registrert",
+  "battleNotRecorded": "Kampen ble ikke lagret fordi du ikke er logget inn"
 }

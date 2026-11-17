@@ -210,5 +210,6 @@
   "moveDetailPriority": "Prioritet",
   "moveDetailPriorityValue": "Bruges først uanset hastighed",
   "battleRecording": "Gemmer resultatet",
-  "battleRecorded": "Registreret"
+  "battleRecorded": "Registreret",
+  "battleNotRecorded": "Kampen blev ikke gemt, fordi du ikke er logget ind"
 }

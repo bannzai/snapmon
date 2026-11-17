@@ -210,5 +210,6 @@
   "moveDetailPriority": "Prednost",
   "moveDetailPriorityValue": "Uporabi se prvi, ne glede na hitrost",
   "battleRecording": "Shranjevanje rezultata",
-  "battleRecorded": "Zabeleženo"
+  "battleRecorded": "Zabeleženo",
+  "battleNotRecorded": "Boj ni bil shranjen, ker nisi prijavljen"
 }

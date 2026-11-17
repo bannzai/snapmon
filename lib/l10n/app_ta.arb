@@ -210,5 +210,6 @@
   "moveDetailPriority": "முன்னுரிமை",
   "moveDetailPriorityValue": "வேகம் எவ்வளவு இருந்தாலும் முதலில் பயன்படுத்தப்படும்",
   "battleRecording": "முடிவு சேமிக்கப்படுகிறது",
-  "battleRecorded": "பதிவு செய்யப்பட்டது"
+  "battleRecorded": "பதிவு செய்யப்பட்டது",
+  "battleNotRecorded": "நீங்கள் உள்நுழையாததால் போர் பதிவு செய்யப்படவில்லை"
 }

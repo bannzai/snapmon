@@ -210,5 +210,6 @@
   "moveDetailPriority": "प्राथमिकता",
   "moveDetailPriorityValue": "स्पीड चाहे जो हो, यह पहले चलता है",
   "battleRecording": "नतीजा सहेजा जा रहा है",
-  "battleRecorded": "रिकॉर्ड हो गया"
+  "battleRecorded": "रिकॉर्ड हो गया",
+  "battleNotRecorded": "लॉग इन नहीं हो, इसलिए लड़ाई रिकॉर्ड नहीं हुई"
 }

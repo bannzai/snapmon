@@ -210,5 +210,6 @@
   "moveDetailPriority": "Etusija",
   "moveDetailPriorityValue": "Käytetään ensin nopeudesta riippumatta",
   "battleRecording": "Tallennetaan tulosta",
-  "battleRecorded": "Tallennettu"
+  "battleRecorded": "Tallennettu",
+  "battleNotRecorded": "Taistelua ei tallennettu, koska et ole kirjautunut sisään"
 }

@@ -210,5 +210,6 @@
   "moveDetailPriority": "অগ্রাধিকার",
   "moveDetailPriorityValue": "গতি যা-ই হোক, আগে ব্যবহার হবে",
   "battleRecording": "ফলাফল সংরক্ষণ হচ্ছে",
-  "battleRecorded": "রেকর্ড করা হয়েছে"
+  "battleRecorded": "রেকর্ড করা হয়েছে",
+  "battleNotRecorded": "লগ ইন করোনি, তাই লড়াইটি রেকর্ড হয়নি"
 }

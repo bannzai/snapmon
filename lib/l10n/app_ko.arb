@@ -210,5 +210,6 @@
   "moveDetailPriority": "우선도",
   "moveDetailPriorityValue": "스피드와 관계없이 먼저 나가요",
   "battleRecording": "결과를 기록하고 있어요",
-  "battleRecorded": "기록했어요"
+  "battleRecorded": "기록했어요",
+  "battleNotRecorded": "로그인하지 않아 배틀 기록이 저장되지 않았어요"
 }

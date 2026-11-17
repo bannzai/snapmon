@@ -210,5 +210,6 @@
   "moveDetailPriority": "Προτεραιότητα",
   "moveDetailPriorityValue": "Εκτελείται πρώτο, ανεξάρτητα από την Ταχύτητα",
   "battleRecording": "Αποθήκευση αποτελέσματος",
-  "battleRecorded": "Καταγράφηκε"
+  "battleRecorded": "Καταγράφηκε",
+  "battleNotRecorded": "Η μάχη δεν καταγράφηκε επειδή δεν έχεις συνδεθεί"
 }

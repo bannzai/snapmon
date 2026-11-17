@@ -210,5 +210,6 @@
   "moveDetailPriority": "Priorita",
   "moveDetailPriorityValue": "Použije sa ako prvý bez ohľadu na rýchlosť",
   "battleRecording": "Ukladá sa výsledok",
-  "battleRecorded": "Zaznamenané"
+  "battleRecorded": "Zaznamenané",
+  "battleNotRecorded": "Súboj sa neuložil, lebo nie si prihlásený"
 }

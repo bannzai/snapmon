@@ -210,5 +210,6 @@
   "moveDetailPriority": "Prioritet",
   "moveDetailPriorityValue": "Används först oavsett snabbhet",
   "battleRecording": "Sparar resultatet",
-  "battleRecorded": "Registrerat"
+  "battleRecorded": "Registrerat",
+  "battleNotRecorded": "Striden sparades inte eftersom du inte är inloggad"
 }

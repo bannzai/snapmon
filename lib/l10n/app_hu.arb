@@ -210,5 +210,6 @@
   "moveDetailPriority": "Elsőbbség",
   "moveDetailPriorityValue": "Sebességtől függetlenül elsőként hajtódik végre",
   "battleRecording": "Eredmény mentése",
-  "battleRecorded": "Rögzítve"
+  "battleRecorded": "Rögzítve",
+  "battleNotRecorded": "A csata nem lett mentve, mert nem vagy bejelentkezve"
 }

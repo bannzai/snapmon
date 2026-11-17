@@ -210,5 +210,6 @@
   "moveDetailPriority": "Prioriteit",
   "moveDetailPriorityValue": "Wordt als eerste gebruikt, ongeacht de Snelheid",
   "battleRecording": "Resultaat opslaan",
-  "battleRecorded": "Vastgelegd"
+  "battleRecorded": "Vastgelegd",
+  "battleNotRecorded": "Het gevecht is niet opgeslagen omdat je niet bent ingelogd"
 }

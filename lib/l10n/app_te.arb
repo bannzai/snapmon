@@ -210,5 +210,6 @@
   "moveDetailPriority": "ప్రాధాన్యం",
   "moveDetailPriorityValue": "వేగం ఎంతైనా, ముందే ఉపయోగిస్తారు",
   "battleRecording": "ఫలితం సేవ్ అవుతోంది",
-  "battleRecorded": "నమోదైంది"
+  "battleRecorded": "నమోదైంది",
+  "battleNotRecorded": "నువ్వు లాగిన్ కాలేదు, అందుకే పోరాటం రికార్డ్ కాలేదు"
 }

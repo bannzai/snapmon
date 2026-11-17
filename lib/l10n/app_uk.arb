@@ -210,5 +210,6 @@
   "moveDetailPriority": "Пріоритет",
   "moveDetailPriorityValue": "Застосовується першим незалежно від Швидкості",
   "battleRecording": "Збереження результату",
-  "battleRecorded": "Записано"
+  "battleRecorded": "Записано",
+  "battleNotRecorded": "Бій не записано, бо ти не ввійшов в обліковий запис"
 }

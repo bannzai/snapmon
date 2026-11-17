@@ -210,5 +210,6 @@
   "moveDetailPriority": "עדיפות",
   "moveDetailPriorityValue": "יוצא ראשון בלי קשר למהירות",
   "battleRecording": "התוצאה נשמרת",
-  "battleRecorded": "נרשם"
+  "battleRecorded": "נרשם",
+  "battleNotRecorded": "הקרב לא נשמר כי אין חיבור לחשבון"
 }

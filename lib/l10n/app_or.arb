@@ -210,5 +210,6 @@
   "moveDetailPriority": "ଅଗ୍ରାଧିକାର",
   "moveDetailPriorityValue": "ବେଗ ଯେତେ ହେଉ, ଏହା ଆଗେ ବ୍ୟବହାର ହୁଏ",
   "battleRecording": "ଫଳାଫଳ ସଂରକ୍ଷଣ ହେଉଛି",
-  "battleRecorded": "ରେକର୍ଡ ହୋଇଛି"
+  "battleRecorded": "ରେକର୍ଡ ହୋଇଛି",
+  "battleNotRecorded": "ତୁମେ ଲଗ୍ ଇନ୍ କରିନାହଁ, ତେଣୁ ଲଢ଼େଇ ରେକର୍ଡ ହୋଇନାହିଁ"
 }

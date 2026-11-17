@@ -210,5 +210,6 @@
   "moveDetailPriority": "Prioritas",
   "moveDetailPriorityValue": "Digunakan lebih dulu, berapa pun Kecepatannya",
   "battleRecording": "Menyimpan hasil",
-  "battleRecorded": "Tercatat"
+  "battleRecorded": "Tercatat",
+  "battleNotRecorded": "Pertarungan tidak tersimpan karena kamu belum masuk"
 }

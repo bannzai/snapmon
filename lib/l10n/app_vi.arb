@@ -210,5 +210,6 @@
   "moveDetailPriority": "Độ ưu tiên",
   "moveDetailPriorityValue": "Ra đòn trước, bất kể Tốc độ",
   "battleRecording": "Đang lưu kết quả",
-  "battleRecorded": "Đã ghi lại"
+  "battleRecorded": "Đã ghi lại",
+  "battleNotRecorded": "Trận đấu không được lưu vì bạn chưa đăng nhập"
 }

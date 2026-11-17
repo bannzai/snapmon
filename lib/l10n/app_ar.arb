@@ -210,5 +210,6 @@
   "moveDetailPriority": "الأولوية",
   "moveDetailPriorityValue": "يُنفّذ أولًا مهما كانت السرعة",
   "battleRecording": "جارٍ تسجيل النتيجة",
-  "battleRecorded": "تم تسجيلها"
+  "battleRecorded": "تم تسجيلها",
+  "battleNotRecorded": "لم تُسجَّل المعركة لأنك لم تسجّل الدخول"
 }

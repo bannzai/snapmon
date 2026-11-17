@@ -210,5 +210,6 @@
   "moveDetailPriority": "Keutamaan",
   "moveDetailPriorityValue": "Digunakan dahulu tanpa mengira Kelajuan",
   "battleRecording": "Menyimpan keputusan",
-  "battleRecorded": "Direkodkan"
+  "battleRecorded": "Direkodkan",
+  "battleNotRecorded": "Pertarungan tidak direkodkan kerana kamu belum log masuk"
 }

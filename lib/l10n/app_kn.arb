@@ -210,5 +210,6 @@
   "moveDetailPriority": "ಆದ್ಯತೆ",
   "moveDetailPriorityValue": "ವೇಗ ಏನೇ ಇರಲಿ, ಮೊದಲು ಬಳಸಲಾಗುತ್ತದೆ",
   "battleRecording": "ಫಲಿತಾಂಶವನ್ನು ಉಳಿಸಲಾಗುತ್ತಿದೆ",
-  "battleRecorded": "ದಾಖಲಾಗಿದೆ"
+  "battleRecorded": "ದಾಖಲಾಗಿದೆ",
+  "battleNotRecorded": "ನೀನು ಲಾಗ್ ಇನ್ ಆಗಿಲ್ಲ, ಆದ್ದರಿಂದ ಕಾಳಗ ದಾಖಲಾಗಿಲ್ಲ"
 }

@@ -210,5 +210,6 @@
   "moveDetailPriority": "Prioritet",
   "moveDetailPriorityValue": "Izvodi se prvi bez obzira na brzinu",
   "battleRecording": "Spremanje rezultata",
-  "battleRecorded": "Zabilježeno"
+  "battleRecorded": "Zabilježeno",
+  "battleNotRecorded": "Borba nije spremljena jer nisi prijavljen"
 }
