@@ -1,5 +1,5 @@
 {
-  "version": 12,
+  "version": 13,
   "elementTypes": [
     {
       "id": "fire",
@@ -141,7 +141,8 @@
       "sweets": 2,
       "ghost": 1,
       "dragon": 0.5,
-      "paper": 2
+      "paper": 2,
+      "element_357cac2f": 1
     },
     "water": {
       "fire": 2,
@@ -166,7 +167,8 @@
       "sweets": 1,
       "ghost": 1,
       "dragon": 1,
-      "paper": 1
+      "paper": 1,
+      "element_357cac2f": 2
     },
     "grass": {
       "fire": 0.5,
@@ -191,7 +193,8 @@
       "sweets": 1,
       "ghost": 1,
       "dragon": 1,
-      "paper": 1
+      "paper": 1,
+      "element_357cac2f": 1
     },
     "thunder": {
       "fire": 1,
@@ -216,7 +219,8 @@
       "sweets": 1,
       "ghost": 1,
       "dragon": 1,
-      "paper": 1
+      "paper": 1,
+      "element_357cac2f": 0.5
     },
     "earth": {
       "fire": 2,
@@ -241,7 +245,8 @@
       "sweets": 1,
       "ghost": 1,
       "dragon": 1,
-      "paper": 1
+      "paper": 1,
+      "element_357cac2f": 1
     },
     "steel": {
       "fire": 1,
@@ -266,7 +271,8 @@
       "sweets": 1,
       "ghost": 1,
       "dragon": 2,
-      "paper": 1
+      "paper": 1,
+      "element_357cac2f": 1
     },
     "wood": {
       "fire": 0.5,
@@ -291,7 +297,8 @@
       "sweets": 1,
       "ghost": 1,
       "dragon": 1,
-      "paper": 1
+      "paper": 1,
+      "element_357cac2f": 1
     },
     "light": {
       "fire": 1,
@@ -316,7 +323,8 @@
       "sweets": 1,
       "ghost": 2,
       "dragon": 1,
-      "paper": 0.5
+      "paper": 0.5,
+      "element_357cac2f": 1
     },
     "dark": {
       "fire": 1,
@@ -341,7 +349,8 @@
       "sweets": 1,
       "ghost": 1,
       "dragon": 1,
-      "paper": 1
+      "paper": 1,
+      "element_357cac2f": 1
     },
     "poison": {
       "fire": 1,
@@ -366,7 +375,8 @@
       "sweets": 1,
       "ghost": 0.5,
       "dragon": 1,
-      "paper": 1
+      "paper": 1,
+      "element_357cac2f": 2
     },
     "sound": {
       "fire": 1,
@@ -391,7 +401,8 @@
       "sweets": 1,
       "ghost": 2,
       "dragon": 1,
-      "paper": 0.5
+      "paper": 0.5,
+      "element_357cac2f": 1
     },
     "beast": {
       "fire": 1,
@@ -416,7 +427,8 @@
       "sweets": 2,
       "ghost": 0.5,
       "dragon": 0.5,
-      "paper": 1
+      "paper": 1,
+      "element_357cac2f": 2
     },
     "bug": {
       "fire": 0.5,
@@ -441,7 +453,8 @@
       "sweets": 1,
       "ghost": 1,
       "dragon": 1,
-      "paper": 2
+      "paper": 2,
+      "element_357cac2f": 2
     },
     "bird": {
       "fire": 1,
@@ -466,7 +479,8 @@
       "sweets": 1,
       "ghost": 1,
       "dragon": 1,
-      "paper": 1
+      "paper": 1,
+      "element_357cac2f": 1
     },
     "fish": {
       "fire": 2,
@@ -491,7 +505,8 @@
       "sweets": 1,
       "ghost": 1,
       "dragon": 2,
-      "paper": 1
+      "paper": 1,
+      "element_357cac2f": 1
     },
     "ice": {
       "fire": 0.5,
@@ -516,7 +531,8 @@
       "sweets": 0.5,
       "ghost": 1,
       "dragon": 2,
-      "paper": 1
+      "paper": 1,
+      "element_357cac2f": 1
     },
     "wind": {
       "fire": 1,
@@ -541,7 +557,8 @@
       "sweets": 1,
       "ghost": 1,
       "dragon": 1,
-      "paper": 2
+      "paper": 2,
+      "element_357cac2f": 0.5
     },
     "flower": {
       "fire": 1,
@@ -566,7 +583,8 @@
       "sweets": 1,
       "ghost": 2,
       "dragon": 1,
-      "paper": 1
+      "paper": 1,
+      "element_357cac2f": 1
     },
     "machine": {
       "fire": 1,
@@ -591,7 +609,8 @@
       "sweets": 1,
       "ghost": 1,
       "dragon": 2,
-      "paper": 2
+      "paper": 2,
+      "element_357cac2f": 1
     },
     "sweets": {
       "fire": 0.5,
@@ -616,7 +635,8 @@
       "sweets": 1,
       "ghost": 2,
       "dragon": 1,
-      "paper": 1
+      "paper": 1,
+      "element_357cac2f": 0.5
     },
     "ghost": {
       "fire": 1,
@@ -641,7 +661,8 @@
       "sweets": 0.5,
       "ghost": 1,
       "dragon": 1,
-      "paper": 1
+      "paper": 1,
+      "element_357cac2f": 1
     },
     "dragon": {
       "fire": 2,
@@ -666,7 +687,8 @@
       "sweets": 1,
       "ghost": 1,
       "dragon": 0.5,
-      "paper": 1
+      "paper": 1,
+      "element_357cac2f": 1
     },
     "paper": {
       "fire": 0.5,
@@ -691,7 +713,34 @@
       "sweets": 2,
       "ghost": 2,
       "dragon": 1,
-      "paper": 1
+      "paper": 1,
+      "element_357cac2f": 1
+    },
+    "element_357cac2f": {
+      "fire": 0.5,
+      "water": 0.5,
+      "grass": 1,
+      "thunder": 1,
+      "earth": 1,
+      "steel": 0.5,
+      "wood": 1,
+      "light": 1,
+      "dark": 1,
+      "poison": 0.5,
+      "sound": 1,
+      "beast": 2,
+      "bug": 1,
+      "bird": 1,
+      "fish": 1,
+      "ice": 2,
+      "wind": 1,
+      "flower": 1,
+      "machine": 1,
+      "sweets": 2,
+      "ghost": 2,
+      "dragon": 1,
+      "paper": 1,
+      "element_357cac2f": 1
     }
   },
   "moves": [
