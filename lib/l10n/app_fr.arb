@@ -193,5 +193,6 @@
   "battleLogFieldEnded": "Le terrain est revenu à la normale",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "Poison",
-  "statusConditionParalysis": "Paralysie"
+  "statusConditionParalysis": "Paralysie",
+  "statusConditionStun": "K.O."
 }
