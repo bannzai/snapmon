@@ -150,5 +150,6 @@
   "resultCaptureAnother": "നിങ്ങളുടെ പാർട്ടി വളർത്തൂ",
   "resultShareText": "snapmon-ൽ {monsterName} പിറന്നു\n#snapmon\n{url}",
   "resultShareCard": "കാർഡ് പങ്കിടൂ",
-  "shareChooseFormat": "കാർഡ് ചിത്രത്തിന്റെ ആകൃതി തിരഞ്ഞെടുക്കൂ"
+  "shareChooseFormat": "കാർഡ് ചിത്രത്തിന്റെ ആകൃതി തിരഞ്ഞെടുക്കൂ",
+  "shareFormatPortrait": "ലംബം"
 }

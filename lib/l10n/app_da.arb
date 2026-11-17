@@ -150,5 +150,6 @@
   "resultCaptureAnother": "Udvid dit hold",
   "resultShareText": "{monsterName} blev født i snapmon\n#snapmon\n{url}",
   "resultShareCard": "Del kort",
-  "shareChooseFormat": "Vælg kortbilledets form"
+  "shareChooseFormat": "Vælg kortbilledets form",
+  "shareFormatPortrait": "Stående"
 }

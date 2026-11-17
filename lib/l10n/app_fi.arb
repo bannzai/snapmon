@@ -150,5 +150,6 @@
   "resultCaptureAnother": "Kasvata joukkuetta",
   "resultShareText": "{monsterName} syntyi snapmonissa\n#snapmon\n{url}",
   "resultShareCard": "Jaa kortti",
-  "shareChooseFormat": "Valitse korttikuvan muoto"
+  "shareChooseFormat": "Valitse korttikuvan muoto",
+  "shareFormatPortrait": "Pysty"
 }

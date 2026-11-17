@@ -150,5 +150,6 @@
   "resultCaptureAnother": "壯大隊伍",
   "resultShareText": "{monsterName} 在 snapmon 誕生了\n#snapmon\n{url}",
   "resultShareCard": "分享卡片",
-  "shareChooseFormat": "選擇卡片圖片的形狀"
+  "shareChooseFormat": "選擇卡片圖片的形狀",
+  "shareFormatPortrait": "直式"
 }

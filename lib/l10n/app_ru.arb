@@ -150,5 +150,6 @@
   "resultCaptureAnother": "Пополняй команду",
   "resultShareText": "В snapmon появился {monsterName}\n#snapmon\n{url}",
   "resultShareCard": "Поделиться карточкой",
-  "shareChooseFormat": "Выбери форму изображения карточки"
+  "shareChooseFormat": "Выбери форму изображения карточки",
+  "shareFormatPortrait": "Вертикально"
 }

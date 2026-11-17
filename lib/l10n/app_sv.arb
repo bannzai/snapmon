@@ -150,5 +150,6 @@
   "resultCaptureAnother": "Utöka ditt lag",
   "resultShareText": "{monsterName} föddes i snapmon\n#snapmon\n{url}",
   "resultShareCard": "Dela kort",
-  "shareChooseFormat": "Välj form på kortbilden"
+  "shareChooseFormat": "Välj form på kortbilden",
+  "shareFormatPortrait": "Stående"
 }

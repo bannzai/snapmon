@@ -150,5 +150,6 @@
   "resultCaptureAnother": "Amplia el teu equip",
   "resultShareText": "A snapmon ha nascut {monsterName}\n#snapmon\n{url}",
   "resultShareCard": "Comparteix la carta",
-  "shareChooseFormat": "Tria la forma de la imatge de la carta"
+  "shareChooseFormat": "Tria la forma de la imatge de la carta",
+  "shareFormatPortrait": "Vertical"
 }

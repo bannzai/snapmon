@@ -150,5 +150,6 @@
   "resultCaptureAnother": "তোমার দল বাড়াও",
   "resultShareText": "snapmon-এ জন্ম নিল {monsterName}\n#snapmon\n{url}",
   "resultShareCard": "কার্ড শেয়ার করো",
-  "shareChooseFormat": "কার্ডের ছবির আকার বেছে নাও"
+  "shareChooseFormat": "কার্ডের ছবির আকার বেছে নাও",
+  "shareFormatPortrait": "লম্বালম্বি"
 }

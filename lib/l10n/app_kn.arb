@@ -150,5 +150,6 @@
   "resultCaptureAnother": "ನಿನ್ನ ತಂಡವನ್ನು ಬೆಳೆಸು",
   "resultShareText": "snapmonನಲ್ಲಿ {monsterName} ಹುಟ್ಟಿತು\n#snapmon\n{url}",
   "resultShareCard": "ಕಾರ್ಡ್ ಹಂಚಿಕೊ",
-  "shareChooseFormat": "ಕಾರ್ಡ್ ಚಿತ್ರದ ಆಕಾರ ಆಯ್ಕೆ ಮಾಡು"
+  "shareChooseFormat": "ಕಾರ್ಡ್ ಚಿತ್ರದ ಆಕಾರ ಆಯ್ಕೆ ಮಾಡು",
+  "shareFormatPortrait": "ಲಂಬ"
 }

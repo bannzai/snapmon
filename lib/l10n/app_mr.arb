@@ -150,5 +150,6 @@
   "resultCaptureAnother": "तुझी टीम वाढव",
   "resultShareText": "snapmon मध्ये {monsterName} जन्माला आला\n#snapmon\n{url}",
   "resultShareCard": "कार्ड शेअर कर",
-  "shareChooseFormat": "कार्डच्या चित्राचा आकार निवड"
+  "shareChooseFormat": "कार्डच्या चित्राचा आकार निवड",
+  "shareFormatPortrait": "उभे"
 }

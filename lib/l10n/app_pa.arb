@@ -150,5 +150,6 @@
   "resultCaptureAnother": "ਆਪਣੀ ਟੀਮ ਵਧਾਓ",
   "resultShareText": "snapmon ਵਿੱਚ {monsterName} ਦਾ ਜਨਮ ਹੋਇਆ\n#snapmon\n{url}",
   "resultShareCard": "ਕਾਰਡ ਸਾਂਝਾ ਕਰੋ",
-  "shareChooseFormat": "ਕਾਰਡ ਦੀ ਤਸਵੀਰ ਦਾ ਆਕਾਰ ਚੁਣੋ"
+  "shareChooseFormat": "ਕਾਰਡ ਦੀ ਤਸਵੀਰ ਦਾ ਆਕਾਰ ਚੁਣੋ",
+  "shareFormatPortrait": "ਲੰਬਕਾਰੀ"
 }

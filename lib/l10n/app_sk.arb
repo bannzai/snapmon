@@ -150,5 +150,6 @@
   "resultCaptureAnother": "Rozšír svoj tím",
   "resultShareText": "V snapmon sa zrodil {monsterName}\n#snapmon\n{url}",
   "resultShareCard": "Zdieľaj kartu",
-  "shareChooseFormat": "Vyber tvar obrázka karty"
+  "shareChooseFormat": "Vyber tvar obrázka karty",
+  "shareFormatPortrait": "Na výšku"
 }

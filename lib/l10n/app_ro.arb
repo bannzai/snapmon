@@ -150,5 +150,6 @@
   "resultCaptureAnother": "Mărește-ți echipa",
   "resultShareText": "În snapmon s-a născut {monsterName}\n#snapmon\n{url}",
   "resultShareCard": "Distribuie cardul",
-  "shareChooseFormat": "Alege forma imaginii cărții"
+  "shareChooseFormat": "Alege forma imaginii cărții",
+  "shareFormatPortrait": "Portret"
 }

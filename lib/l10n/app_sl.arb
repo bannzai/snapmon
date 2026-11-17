@@ -150,5 +150,6 @@
   "resultCaptureAnother": "Razširi svojo ekipo",
   "resultShareText": "V snapmon se je rodil {monsterName}\n#snapmon\n{url}",
   "resultShareCard": "Deli kartico",
-  "shareChooseFormat": "Izberi obliko slike kartice"
+  "shareChooseFormat": "Izberi obliko slike kartice",
+  "shareFormatPortrait": "Pokončno"
 }
