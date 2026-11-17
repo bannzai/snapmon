@@ -298,5 +298,6 @@
   "actionCardTeachTitle": "{monsterName} ਨੂੰ ਸਿਖਾਓ",
   "actionCardTeachNoForgotten": "ਕੋਈ ਚਾਲ ਨਹੀਂ ਹਟੇਗੀ",
   "actionCardTeachReplacedMove": "{moveName} ਚਾਲ ਦੇ ਸਲਾਟ ਤੋਂ ਬਾਹਰ ਹੋ ਜਾਵੇਗੀ",
-  "actionCardTeachNotEquipped": "ਚਾਲ ਚੁਣ ਕੇ ਇਸਨੂੰ ਸਲਾਟ ਵਿੱਚ ਰੱਖ ਸਕਦੇ ਹੋ"
+  "actionCardTeachNotEquipped": "ਚਾਲ ਚੁਣ ਕੇ ਇਸਨੂੰ ਸਲਾਟ ਵਿੱਚ ਰੱਖ ਸਕਦੇ ਹੋ",
+  "battleLearnedMoveNotEquipped": "‘ਚਾਲ ਚੁਣੋ’ ਵਿੱਚ ਇਸਨੂੰ ਬਦਲ ਸਕਦੇ ਹੋ"
 }

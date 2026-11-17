@@ -298,5 +298,6 @@
   "actionCardTeachTitle": "{monsterName}ला शिकव",
   "actionCardTeachNoForgotten": "कोणतीही चाल काढली जाणार नाही",
   "actionCardTeachReplacedMove": "{moveName} चालच्या स्लॉटमधून बाहेर पडेल",
-  "actionCardTeachNotEquipped": "चाल निवडून स्लॉटमध्ये ठेवू शकतोस"
+  "actionCardTeachNotEquipped": "चाल निवडून स्लॉटमध्ये ठेवू शकतोस",
+  "battleLearnedMoveNotEquipped": "‘चाल निवड’मध्ये ती बदलू शकतोस"
 }

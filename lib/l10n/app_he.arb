@@ -298,5 +298,6 @@
   "actionCardTeachTitle": "ללמד את {monsterName}",
   "actionCardTeachNoForgotten": "אף מתקפה לא תוסר",
   "actionCardTeachReplacedMove": "{moveName} תצא ממשבצת המתקפות",
-  "actionCardTeachNotEquipped": "אפשר להכניס למשבצת דרך בחירת מתקפה"
+  "actionCardTeachNotEquipped": "אפשר להכניס למשבצת דרך בחירת מתקפה",
+  "battleLearnedMoveNotEquipped": "אפשר להחליף דרך ״בחירת מתקפות״"
 }

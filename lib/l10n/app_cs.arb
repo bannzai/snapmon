@@ -298,5 +298,6 @@
   "actionCardTeachTitle": "Nauč {monsterName}",
   "actionCardTeachNoForgotten": "Žádný útok se neodebere",
   "actionCardTeachReplacedMove": "{moveName} opustí slot pro útok",
-  "actionCardTeachNotEquipped": "Do slotu ho dáš přes výběr útoku"
+  "actionCardTeachNotEquipped": "Do slotu ho dáš přes výběr útoku",
+  "battleLearnedMoveNotEquipped": "Můžeš ho vyměnit v nabídce „Vybrat útok“"
 }

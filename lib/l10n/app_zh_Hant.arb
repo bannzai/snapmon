@@ -298,5 +298,6 @@
   "actionCardTeachTitle": "教給 {monsterName}",
   "actionCardTeachNoForgotten": "沒有招式會被移除",
   "actionCardTeachReplacedMove": "{moveName}將移出招式欄",
-  "actionCardTeachNotEquipped": "在選擇招式中就能放進欄位"
+  "actionCardTeachNotEquipped": "在選擇招式中就能放進欄位",
+  "battleLearnedMoveNotEquipped": "可以在「選擇招式」中替換"
 }

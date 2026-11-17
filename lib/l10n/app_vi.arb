@@ -298,5 +298,6 @@
   "actionCardTeachTitle": "Dạy cho {monsterName}",
   "actionCardTeachNoForgotten": "Không có chiêu nào bị bỏ",
   "actionCardTeachReplacedMove": "{moveName} sẽ rời khỏi ô chiêu",
-  "actionCardTeachNotEquipped": "Bạn có thể đưa vào ô qua mục Chọn chiêu"
+  "actionCardTeachNotEquipped": "Bạn có thể đưa vào ô qua mục Chọn chiêu",
+  "battleLearnedMoveNotEquipped": "Bạn có thể đổi ở mục «Chọn chiêu»"
 }

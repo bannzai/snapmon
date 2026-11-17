@@ -298,5 +298,6 @@
   "actionCardTeachTitle": "Навчити {monsterName}",
   "actionCardTeachNoForgotten": "Жоден прийом не буде вилучено",
   "actionCardTeachReplacedMove": "{moveName} вийде з комірки прийомів",
-  "actionCardTeachNotEquipped": "Ти можеш додати його в комірку через вибір прийому"
+  "actionCardTeachNotEquipped": "Ти можеш додати його в комірку через вибір прийому",
+  "battleLearnedMoveNotEquipped": "Можеш замінити його в розділі «Вибрати прийом»"
 }

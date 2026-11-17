@@ -298,5 +298,6 @@
   "actionCardTeachTitle": "{monsterName}നെ പഠിപ്പിക്കുക",
   "actionCardTeachNoForgotten": "ഒരു നീക്കവും നീക്കം ചെയ്യില്ല",
   "actionCardTeachReplacedMove": "{moveName} നീക്കത്തിന്റെ സ്ലോട്ടിൽ നിന്ന് മാറും",
-  "actionCardTeachNotEquipped": "നീക്കം തിരഞ്ഞെടുത്ത് സ്ലോട്ടിൽ ഇടാം"
+  "actionCardTeachNotEquipped": "നീക്കം തിരഞ്ഞെടുത്ത് സ്ലോട്ടിൽ ഇടാം",
+  "battleLearnedMoveNotEquipped": "‘നീക്കം തിരഞ്ഞെടുക്കുക’ എന്നതിൽ മാറ്റാം"
 }

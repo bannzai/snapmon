@@ -298,5 +298,6 @@
   "actionCardTeachTitle": "{monsterName} için öğret",
   "actionCardTeachNoForgotten": "Hiçbir hamle kaldırılmayacak",
   "actionCardTeachReplacedMove": "{moveName} hamle yuvasından çıkacak",
-  "actionCardTeachNotEquipped": "Hamle seçerek yuvaya koyabilirsin"
+  "actionCardTeachNotEquipped": "Hamle seçerek yuvaya koyabilirsin",
+  "battleLearnedMoveNotEquipped": "«Hamle seç» bölümünden değiştirebilirsin"
 }

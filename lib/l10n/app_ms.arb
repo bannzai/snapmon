@@ -298,5 +298,6 @@
   "actionCardTeachTitle": "Ajar {monsterName}",
   "actionCardTeachNoForgotten": "Tiada gerakan yang akan dibuang",
   "actionCardTeachReplacedMove": "{moveName} akan keluar daripada slot gerakan",
-  "actionCardTeachNotEquipped": "Kamu boleh masukkannya ke slot melalui Pilih gerakan"
+  "actionCardTeachNotEquipped": "Kamu boleh masukkannya ke slot melalui Pilih gerakan",
+  "battleLearnedMoveNotEquipped": "Kamu boleh tukar di «Pilih gerakan»"
 }

@@ -298,5 +298,6 @@
   "actionCardTeachTitle": "{monsterName}க்கு கற்றுக்கொடுங்கள்",
   "actionCardTeachNoForgotten": "எந்தத் தாக்குதலும் நீக்கப்படாது",
   "actionCardTeachReplacedMove": "{moveName} தாக்குதலுக்கான இடத்திலிருந்து நீங்கும்",
-  "actionCardTeachNotEquipped": "தாக்குதலைத் தேர்ந்தெடுத்து இடத்தில் சேர்க்கலாம்"
+  "actionCardTeachNotEquipped": "தாக்குதலைத் தேர்ந்தெடுத்து இடத்தில் சேர்க்கலாம்",
+  "battleLearnedMoveNotEquipped": "‘தாக்குதலைத் தேர்ந்தெடு’ என்பதில் இதை மாற்றலாம்"
 }

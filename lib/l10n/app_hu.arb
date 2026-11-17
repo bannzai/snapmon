@@ -298,5 +298,6 @@
   "actionCardTeachTitle": "Tanítsd meg {monsterName} számára",
   "actionCardTeachNoForgotten": "Egy támadás sem kerül le",
   "actionCardTeachReplacedMove": "{moveName} kikerül a támadás helyéről",
-  "actionCardTeachNotEquipped": "A támadás kiválasztásánál helyezheted egy helyre"
+  "actionCardTeachNotEquipped": "A támadás kiválasztásánál helyezheted egy helyre",
+  "battleLearnedMoveNotEquipped": "A „Támadás kiválasztása” menüben lecserélheted"
 }

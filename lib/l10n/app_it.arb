@@ -298,5 +298,6 @@
   "actionCardTeachTitle": "Insegna a {monsterName}",
   "actionCardTeachNoForgotten": "Nessuna mossa verrà rimossa",
   "actionCardTeachReplacedMove": "{moveName} uscirà dallo slot mosse",
-  "actionCardTeachNotEquipped": "Puoi inserirla in uno slot da «Scegli mossa»"
+  "actionCardTeachNotEquipped": "Puoi inserirla in uno slot da «Scegli mossa»",
+  "battleLearnedMoveNotEquipped": "Puoi sostituirla in «Scegli una mossa»"
 }

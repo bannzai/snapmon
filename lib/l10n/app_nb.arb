@@ -298,5 +298,6 @@
   "actionCardTeachTitle": "Lær {monsterName} det",
   "actionCardTeachNoForgotten": "Ingen angrep blir fjernet",
   "actionCardTeachReplacedMove": "{moveName} går ut av angrepsplassen",
-  "actionCardTeachNotEquipped": "Du kan sette det i en plass via Velg angrep"
+  "actionCardTeachNotEquipped": "Du kan sette det i en plass via Velg angrep",
+  "battleLearnedMoveNotEquipped": "Du kan bytte det under «Velg angrep»"
 }

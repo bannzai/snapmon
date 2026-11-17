@@ -298,5 +298,6 @@
   "actionCardTeachTitle": "Leer het aan {monsterName}",
   "actionCardTeachNoForgotten": "Er wordt geen aanval verwijderd",
   "actionCardTeachReplacedMove": "{moveName} verdwijnt uit een aanvalsvak",
-  "actionCardTeachNotEquipped": "Je kunt hem in een vak zetten via Aanval kiezen"
+  "actionCardTeachNotEquipped": "Je kunt hem in een vak zetten via Aanval kiezen",
+  "battleLearnedMoveNotEquipped": "Je kunt hem wisselen bij ‘Kies een aanval’"
 }

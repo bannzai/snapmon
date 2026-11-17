@@ -298,5 +298,6 @@
   "actionCardTeachTitle": "Обучить {monsterName}",
   "actionCardTeachNoForgotten": "Ни один приём не будет удалён",
   "actionCardTeachReplacedMove": "{moveName} выйдет из ячейки приёмов",
-  "actionCardTeachNotEquipped": "Ты можешь поставить его в слот через выбор приёма"
+  "actionCardTeachNotEquipped": "Ты можешь поставить его в слот через выбор приёма",
+  "battleLearnedMoveNotEquipped": "Можешь заменить его в разделе «Выбрать приём»"
 }
