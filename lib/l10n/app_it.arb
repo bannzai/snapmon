@@ -291,5 +291,6 @@
   "actionCardAssigned": "Hai ricevuto la mossa {moveName}",
   "actionCardFilterAll": "Tutte",
   "actionCardOwnedHeading": "Mosse acquistate",
-  "actionCardOwnedEmpty": "Non hai ancora comprato nessuna mossa"
+  "actionCardOwnedEmpty": "Non hai ancora comprato nessuna mossa",
+  "actionCardMovesHeading": "Mosse di Action Card"
 }

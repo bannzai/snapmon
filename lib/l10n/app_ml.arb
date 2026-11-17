@@ -291,5 +291,6 @@
   "actionCardAssigned": "പുതിയ നീക്കം ലഭിച്ചു: {moveName}",
   "actionCardFilterAll": "എല്ലാം",
   "actionCardOwnedHeading": "വാങ്ങിയ നീക്കങ്ങൾ",
-  "actionCardOwnedEmpty": "നിങ്ങൾ ഇതുവരെ ഒരു നീക്കവും വാങ്ങിയിട്ടില്ല"
+  "actionCardOwnedEmpty": "നിങ്ങൾ ഇതുവരെ ഒരു നീക്കവും വാങ്ങിയിട്ടില്ല",
+  "actionCardMovesHeading": "Action Card നീക്കങ്ങൾ"
 }

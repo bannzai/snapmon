@@ -291,5 +291,6 @@
   "actionCardAssigned": "حصلت على الحركة: {moveName}",
   "actionCardFilterAll": "الكل",
   "actionCardOwnedHeading": "الحركات المشتراة",
-  "actionCardOwnedEmpty": "لم تشترِ أي حركة بعد"
+  "actionCardOwnedEmpty": "لم تشترِ أي حركة بعد",
+  "actionCardMovesHeading": "حركات Action Card"
 }

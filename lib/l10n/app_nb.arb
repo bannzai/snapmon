@@ -291,5 +291,6 @@
   "actionCardAssigned": "Du fikk angrepet {moveName}",
   "actionCardFilterAll": "Alle",
   "actionCardOwnedHeading": "Kjøpte angrep",
-  "actionCardOwnedEmpty": "Du har ikke kjøpt noen angrep ennå"
+  "actionCardOwnedEmpty": "Du har ikke kjøpt noen angrep ennå",
+  "actionCardMovesHeading": "Action Card-angrep"
 }

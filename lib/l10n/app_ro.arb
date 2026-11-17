@@ -291,5 +291,6 @@
   "actionCardAssigned": "Ai primit atacul {moveName}",
   "actionCardFilterAll": "Toate",
   "actionCardOwnedHeading": "Mișcări cumpărate",
-  "actionCardOwnedEmpty": "Nu ai cumpărat încă nicio mișcare"
+  "actionCardOwnedEmpty": "Nu ai cumpărat încă nicio mișcare",
+  "actionCardMovesHeading": "Mișcări Action Card"
 }

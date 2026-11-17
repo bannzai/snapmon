@@ -291,5 +291,6 @@
   "actionCardAssigned": "Zdobywasz atak {moveName}",
   "actionCardFilterAll": "Wszystkie",
   "actionCardOwnedHeading": "Kupione ruchy",
-  "actionCardOwnedEmpty": "Nie masz jeszcze kupionego żadnego ruchu"
+  "actionCardOwnedEmpty": "Nie masz jeszcze kupionego żadnego ruchu",
+  "actionCardMovesHeading": "Ruchy z Action Card"
 }

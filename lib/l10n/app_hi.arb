@@ -291,5 +291,6 @@
   "actionCardAssigned": "तुम्हें नई चाल मिली: {moveName}",
   "actionCardFilterAll": "सभी",
   "actionCardOwnedHeading": "खरीदी हुई चालें",
-  "actionCardOwnedEmpty": "तुमने अभी तक कोई चाल नहीं खरीदी"
+  "actionCardOwnedEmpty": "तुमने अभी तक कोई चाल नहीं खरीदी",
+  "actionCardMovesHeading": "Action Card की चालें"
 }

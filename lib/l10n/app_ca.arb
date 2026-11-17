@@ -291,5 +291,6 @@
   "actionCardAssigned": "Has rebut el moviment {moveName}",
   "actionCardFilterAll": "Tots",
   "actionCardOwnedHeading": "Moviments comprats",
-  "actionCardOwnedEmpty": "Encara no has comprat cap moviment"
+  "actionCardOwnedEmpty": "Encara no has comprat cap moviment",
+  "actionCardMovesHeading": "Moviments d'Action Card"
 }

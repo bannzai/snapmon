@@ -291,5 +291,6 @@
   "actionCardAssigned": "Recebeste o ataque {moveName}",
   "actionCardFilterAll": "Todos",
   "actionCardOwnedHeading": "Golpes comprados",
-  "actionCardOwnedEmpty": "Ainda não compraste nenhum golpe"
+  "actionCardOwnedEmpty": "Ainda não compraste nenhum golpe",
+  "actionCardMovesHeading": "Golpes do Action Card"
 }

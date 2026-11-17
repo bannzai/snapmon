@@ -291,5 +291,6 @@
   "actionCardAssigned": "Bạn nhận được chiêu {moveName}",
   "actionCardFilterAll": "Tất cả",
   "actionCardOwnedHeading": "Chiêu đã mua",
-  "actionCardOwnedEmpty": "Bạn chưa mua chiêu nào"
+  "actionCardOwnedEmpty": "Bạn chưa mua chiêu nào",
+  "actionCardMovesHeading": "Chiêu từ Action Card"
 }

@@ -291,5 +291,6 @@
   "actionCardAssigned": "নতুন চাল পেয়েছ: {moveName}",
   "actionCardFilterAll": "সব",
   "actionCardOwnedHeading": "কেনা কৌশল",
-  "actionCardOwnedEmpty": "তুমি এখনও কোনো কৌশল কেনোনি"
+  "actionCardOwnedEmpty": "তুমি এখনও কোনো কৌশল কেনোনি",
+  "actionCardMovesHeading": "Action Card-এর কৌশল"
 }

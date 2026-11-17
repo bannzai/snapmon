@@ -291,5 +291,6 @@
   "actionCardAssigned": "Du fik angrebet {moveName}",
   "actionCardFilterAll": "Alle",
   "actionCardOwnedHeading": "Købte angreb",
-  "actionCardOwnedEmpty": "Du har ikke købt nogen angreb endnu"
+  "actionCardOwnedEmpty": "Du har ikke købt nogen angreb endnu",
+  "actionCardMovesHeading": "Action Card-angreb"
 }

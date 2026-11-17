@@ -291,5 +291,6 @@
   "actionCardAssigned": "ନୂଆ ଚାଲ ମିଳିଲା: {moveName}",
   "actionCardFilterAll": "ସବୁ",
   "actionCardOwnedHeading": "କିଣିଥିବା ଚାଲ",
-  "actionCardOwnedEmpty": "ତୁମେ ଏଯାଏଁ କୌଣସି ଚାଲ କିଣିନାହଁ"
+  "actionCardOwnedEmpty": "ତୁମେ ଏଯାଏଁ କୌଣସି ଚାଲ କିଣିନାହଁ",
+  "actionCardMovesHeading": "Action Cardର ଚାଲ"
 }

@@ -291,5 +291,6 @@
   "actionCardAssigned": "Du hast die Attacke {moveName} erhalten",
   "actionCardFilterAll": "Alle",
   "actionCardOwnedHeading": "Gekaufte Attacken",
-  "actionCardOwnedEmpty": "Du hast noch keine Attacke gekauft"
+  "actionCardOwnedEmpty": "Du hast noch keine Attacke gekauft",
+  "actionCardMovesHeading": "Attacken der Action Card"
 }

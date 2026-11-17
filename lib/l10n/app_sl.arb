@@ -291,5 +291,6 @@
   "actionCardAssigned": "Dobil si napad {moveName}",
   "actionCardFilterAll": "Vse",
   "actionCardOwnedHeading": "Kupljeni potezi",
-  "actionCardOwnedEmpty": "Nisi še kupil nobenega poteza"
+  "actionCardOwnedEmpty": "Nisi še kupil nobenega poteza",
+  "actionCardMovesHeading": "Potezi z Action Card"
 }

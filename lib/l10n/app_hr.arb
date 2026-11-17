@@ -291,5 +291,6 @@
   "actionCardAssigned": "Dobio si potez {moveName}",
   "actionCardFilterAll": "Sve",
   "actionCardOwnedHeading": "Kupljeni potezi",
-  "actionCardOwnedEmpty": "Još nisi kupio nijedan potez"
+  "actionCardOwnedEmpty": "Još nisi kupio nijedan potez",
+  "actionCardMovesHeading": "Potezi s Action Card"
 }

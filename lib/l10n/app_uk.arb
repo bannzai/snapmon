@@ -291,5 +291,6 @@
   "actionCardAssigned": "Ти отримав прийом {moveName}",
   "actionCardFilterAll": "Усі",
   "actionCardOwnedHeading": "Куплені прийоми",
-  "actionCardOwnedEmpty": "Ти ще не купив жодного прийому"
+  "actionCardOwnedEmpty": "Ти ще не купив жодного прийому",
+  "actionCardMovesHeading": "Прийоми Action Card"
 }

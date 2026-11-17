@@ -291,5 +291,6 @@
   "actionCardAssigned": "Získal jsi útok {moveName}",
   "actionCardFilterAll": "Vše",
   "actionCardOwnedHeading": "Zakoupené útoky",
-  "actionCardOwnedEmpty": "Ještě sis nekoupil žádný útok"
+  "actionCardOwnedEmpty": "Ještě sis nekoupil žádný útok",
+  "actionCardMovesHeading": "Útoky z Action Card"
 }

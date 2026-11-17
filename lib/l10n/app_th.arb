@@ -291,5 +291,6 @@
   "actionCardAssigned": "ได้รับท่าใหม่: {moveName}",
   "actionCardFilterAll": "ทั้งหมด",
   "actionCardOwnedHeading": "ท่าที่ซื้อแล้ว",
-  "actionCardOwnedEmpty": "ยังไม่ได้ซื้อท่าเลย"
+  "actionCardOwnedEmpty": "ยังไม่ได้ซื้อท่าเลย",
+  "actionCardMovesHeading": "ท่าของ Action Card"
 }

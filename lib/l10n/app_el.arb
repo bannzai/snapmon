@@ -291,5 +291,6 @@
   "actionCardAssigned": "Πήρες την κίνηση {moveName}",
   "actionCardFilterAll": "Όλα",
   "actionCardOwnedHeading": "Αγορασμένες τεχνικές",
-  "actionCardOwnedEmpty": "Δεν έχεις αγοράσει ακόμα καμία τεχνική"
+  "actionCardOwnedEmpty": "Δεν έχεις αγοράσει ακόμα καμία τεχνική",
+  "actionCardMovesHeading": "Τεχνικές της Action Card"
 }

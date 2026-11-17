@@ -291,5 +291,6 @@
   "actionCardAssigned": "Ты получил приём {moveName}",
   "actionCardFilterAll": "Все",
   "actionCardOwnedHeading": "Купленные приёмы",
-  "actionCardOwnedEmpty": "Ты ещё не купил ни один приём"
+  "actionCardOwnedEmpty": "Ты ещё не купил ни один приём",
+  "actionCardMovesHeading": "Приёмы Action Card"
 }

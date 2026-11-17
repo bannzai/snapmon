@@ -291,5 +291,6 @@
   "actionCardAssigned": "ಹೊಸ ನಡೆ ಸಿಕ್ಕಿತು: {moveName}",
   "actionCardFilterAll": "ಎಲ್ಲಾ",
   "actionCardOwnedHeading": "ಖರೀದಿಸಿದ ತಂತ್ರಗಳು",
-  "actionCardOwnedEmpty": "ನೀನು ಇನ್ನೂ ಯಾವುದೇ ತಂತ್ರವನ್ನು ಖರೀದಿಸಿಲ್ಲ"
+  "actionCardOwnedEmpty": "ನೀನು ಇನ್ನೂ ಯಾವುದೇ ತಂತ್ರವನ್ನು ಖರೀದಿಸಿಲ್ಲ",
+  "actionCardMovesHeading": "Action Cardನ ತಂತ್ರಗಳು"
 }

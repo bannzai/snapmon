@@ -291,5 +291,6 @@
   "actionCardAssigned": "{moveName} hareketini aldın",
   "actionCardFilterAll": "Tümü",
   "actionCardOwnedHeading": "Satın alınan hamleler",
-  "actionCardOwnedEmpty": "Henüz hiç hamle satın almadın"
+  "actionCardOwnedEmpty": "Henüz hiç hamle satın almadın",
+  "actionCardMovesHeading": "Action Card hamleleri"
 }

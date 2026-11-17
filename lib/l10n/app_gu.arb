@@ -291,5 +291,6 @@
   "actionCardAssigned": "તમને નવી ચાલ મળી: {moveName}",
   "actionCardFilterAll": "બધા",
   "actionCardOwnedHeading": "ખરીદેલી ચાલ",
-  "actionCardOwnedEmpty": "તમે હજી કોઈ ચાલ ખરીદી નથી"
+  "actionCardOwnedEmpty": "તમે હજી કોઈ ચાલ ખરીદી નથી",
+  "actionCardMovesHeading": "Action Cardની ચાલ"
 }

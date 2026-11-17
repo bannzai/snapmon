@@ -291,5 +291,6 @@
   "actionCardAssigned": "Kamu mendapat jurus {moveName}",
   "actionCardFilterAll": "Semua",
   "actionCardOwnedHeading": "Jurus yang dibeli",
-  "actionCardOwnedEmpty": "Kamu belum membeli jurus"
+  "actionCardOwnedEmpty": "Kamu belum membeli jurus",
+  "actionCardMovesHeading": "Jurus Action Card"
 }

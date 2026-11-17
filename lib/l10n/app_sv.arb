@@ -291,5 +291,6 @@
   "actionCardAssigned": "Du fick attacken {moveName}",
   "actionCardFilterAll": "Alla",
   "actionCardOwnedHeading": "Köpta attacker",
-  "actionCardOwnedEmpty": "Du har inte köpt någon attack än"
+  "actionCardOwnedEmpty": "Du har inte köpt någon attack än",
+  "actionCardMovesHeading": "Action Card-attacker"
 }

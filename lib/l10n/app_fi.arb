@@ -291,5 +291,6 @@
   "actionCardAssigned": "Sait liikkeen {moveName}",
   "actionCardFilterAll": "Kaikki",
   "actionCardOwnedHeading": "Ostetut liikkeet",
-  "actionCardOwnedEmpty": "Et ole vielä ostanut yhtään liikettä"
+  "actionCardOwnedEmpty": "Et ole vielä ostanut yhtään liikettä",
+  "actionCardMovesHeading": "Action Cardin liikkeet"
 }
