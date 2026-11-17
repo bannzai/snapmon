@@ -143,5 +143,6 @@
   "statDefense": "الدفاع",
   "statSpeed": "السرعة",
   "statAccuracy": "الدقة",
-  "resultLearnedMoves": "الحركات المتعلّمة"
+  "resultLearnedMoves": "الحركات المتعلّمة",
+  "resultRemoveFromParty": "إزالة من الفريق"
 }

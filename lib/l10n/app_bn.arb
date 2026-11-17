@@ -143,5 +143,6 @@
   "statDefense": "প্রতিরক্ষা",
   "statSpeed": "গতি",
   "statAccuracy": "নির্ভুলতা",
-  "resultLearnedMoves": "শেখা কৌশল"
+  "resultLearnedMoves": "শেখা কৌশল",
+  "resultRemoveFromParty": "দল থেকে সরাও"
 }

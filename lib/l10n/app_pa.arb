@@ -143,5 +143,6 @@
   "statDefense": "ਰੱਖਿਆ",
   "statSpeed": "ਰਫ਼ਤਾਰ",
   "statAccuracy": "ਸਟੀਕਤਾ",
-  "resultLearnedMoves": "ਸਿੱਖੀਆਂ ਚਾਲਾਂ"
+  "resultLearnedMoves": "ਸਿੱਖੀਆਂ ਚਾਲਾਂ",
+  "resultRemoveFromParty": "ਟੀਮ ਵਿੱਚੋਂ ਹਟਾਓ"
 }

@@ -143,5 +143,6 @@
   "statDefense": "Άμυνα",
   "statSpeed": "Ταχύτητα",
   "statAccuracy": "Ακρίβεια",
-  "resultLearnedMoves": "Γνωστές τεχνικές"
+  "resultLearnedMoves": "Γνωστές τεχνικές",
+  "resultRemoveFromParty": "Βγάλε από την ομάδα"
 }

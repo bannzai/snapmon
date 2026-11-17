@@ -143,5 +143,6 @@
   "statDefense": "ପ୍ରତିରକ୍ଷା",
   "statSpeed": "ବେଗ",
   "statAccuracy": "ସଠିକତା",
-  "resultLearnedMoves": "ଶିଖିଥିବା ଚାଲ"
+  "resultLearnedMoves": "ଶିଖିଥିବା ଚାଲ",
+  "resultRemoveFromParty": "ଦଳରୁ କାଢ଼"
 }

@@ -143,5 +143,6 @@
   "statDefense": "Obramba",
   "statSpeed": "Hitrost",
   "statAccuracy": "Natančnost",
-  "resultLearnedMoves": "Naučeni potezi"
+  "resultLearnedMoves": "Naučeni potezi",
+  "resultRemoveFromParty": "Odstrani iz ekipe"
 }

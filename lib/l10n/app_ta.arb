@@ -143,5 +143,6 @@
   "statDefense": "தற்காப்பு",
   "statSpeed": "வேகம்",
   "statAccuracy": "துல்லியம்",
-  "resultLearnedMoves": "கற்ற தாக்குதல்கள்"
+  "resultLearnedMoves": "கற்ற தாக்குதல்கள்",
+  "resultRemoveFromParty": "அணியிலிருந்து நீக்குங்கள்"
 }

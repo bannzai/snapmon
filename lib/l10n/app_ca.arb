@@ -143,5 +143,6 @@
   "statDefense": "Defensa",
   "statSpeed": "Velocitat",
   "statAccuracy": "Precisió",
-  "resultLearnedMoves": "moviments apresos"
+  "resultLearnedMoves": "moviments apresos",
+  "resultRemoveFromParty": "Treure de l'equip"
 }

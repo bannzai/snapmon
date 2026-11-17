@@ -143,5 +143,6 @@
   "statDefense": "Savunma",
   "statSpeed": "Hız",
   "statAccuracy": "İsabet",
-  "resultLearnedMoves": "Öğrenilen hamleler"
+  "resultLearnedMoves": "Öğrenilen hamleler",
+  "resultRemoveFromParty": "Takımından çıkar"
 }

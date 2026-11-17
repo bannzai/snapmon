@@ -143,5 +143,6 @@
   "statDefense": "Захист",
   "statSpeed": "Швидкість",
   "statAccuracy": "Точність",
-  "resultLearnedMoves": "Вивчені прийоми"
+  "resultLearnedMoves": "Вивчені прийоми",
+  "resultRemoveFromParty": "Прибрати з команди"
 }

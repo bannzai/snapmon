@@ -143,5 +143,6 @@
   "statDefense": "防禦",
   "statSpeed": "速度",
   "statAccuracy": "命中",
-  "resultLearnedMoves": "已學會的招式"
+  "resultLearnedMoves": "已學會的招式",
+  "resultRemoveFromParty": "移出隊伍"
 }

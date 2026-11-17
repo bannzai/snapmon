@@ -143,5 +143,6 @@
   "statDefense": "Защита",
   "statSpeed": "Скорость",
   "statAccuracy": "Точность",
-  "resultLearnedMoves": "Изученные приёмы"
+  "resultLearnedMoves": "Изученные приёмы",
+  "resultRemoveFromParty": "Убрать из команды"
 }

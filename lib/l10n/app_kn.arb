@@ -143,5 +143,6 @@
   "statDefense": "ರಕ್ಷಣೆ",
   "statSpeed": "ವೇಗ",
   "statAccuracy": "ನಿಖರತೆ",
-  "resultLearnedMoves": "ಕಲಿತ ತಂತ್ರಗಳು"
+  "resultLearnedMoves": "ಕಲಿತ ತಂತ್ರಗಳು",
+  "resultRemoveFromParty": "ತಂಡದಿಂದ ತೆಗೆ"
 }

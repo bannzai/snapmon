@@ -143,5 +143,6 @@
   "statDefense": "พลังป้องกัน",
   "statSpeed": "ความเร็ว",
   "statAccuracy": "ความแม่นยำ",
-  "resultLearnedMoves": "ท่าที่เรียนรู้"
+  "resultLearnedMoves": "ท่าที่เรียนรู้",
+  "resultRemoveFromParty": "นำออกจากทีม"
 }

@@ -143,5 +143,6 @@
   "statDefense": "Obrana",
   "statSpeed": "Rýchlosť",
   "statAccuracy": "Presnosť",
-  "resultLearnedMoves": "Naučené útoky"
+  "resultLearnedMoves": "Naučené útoky",
+  "resultRemoveFromParty": "Odober z tímu"
 }

@@ -143,5 +143,6 @@
   "statDefense": "Verteidigung",
   "statSpeed": "Initiative",
   "statAccuracy": "Genauigkeit",
-  "resultLearnedMoves": "Erlernte Attacken"
+  "resultLearnedMoves": "Erlernte Attacken",
+  "resultRemoveFromParty": "Aus dem Team nehmen"
 }

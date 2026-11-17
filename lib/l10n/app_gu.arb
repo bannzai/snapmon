@@ -143,5 +143,6 @@
   "statDefense": "બચાવ",
   "statSpeed": "ઝડપ",
   "statAccuracy": "ચોકસાઈ",
-  "resultLearnedMoves": "શીખેલી ચાલ"
+  "resultLearnedMoves": "શીખેલી ચાલ",
+  "resultRemoveFromParty": "ટીમમાંથી દૂર કરો"
 }

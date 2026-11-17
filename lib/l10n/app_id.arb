@@ -143,5 +143,6 @@
   "statDefense": "Pertahanan",
   "statSpeed": "Kecepatan",
   "statAccuracy": "Akurasi",
-  "resultLearnedMoves": "jurus yang dipelajari"
+  "resultLearnedMoves": "jurus yang dipelajari",
+  "resultRemoveFromParty": "Keluarkan dari tim"
 }

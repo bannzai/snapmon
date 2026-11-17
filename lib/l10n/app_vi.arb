@@ -143,5 +143,6 @@
   "statDefense": "Phòng thủ",
   "statSpeed": "Tốc độ",
   "statAccuracy": "Độ chính xác",
-  "resultLearnedMoves": "Các chiêu đã học"
+  "resultLearnedMoves": "Các chiêu đã học",
+  "resultRemoveFromParty": "Bỏ khỏi đội"
 }

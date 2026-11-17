@@ -143,5 +143,6 @@
   "statDefense": "रक्षा",
   "statSpeed": "गति",
   "statAccuracy": "सटीकता",
-  "resultLearnedMoves": "सीखी हुई चालें"
+  "resultLearnedMoves": "सीखी हुई चालें",
+  "resultRemoveFromParty": "टीम से हटाओ"
 }

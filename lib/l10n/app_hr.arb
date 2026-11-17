@@ -143,5 +143,6 @@
   "statDefense": "Obrana",
   "statSpeed": "Brzina",
   "statAccuracy": "Preciznost",
-  "resultLearnedMoves": "Naučeni potezi"
+  "resultLearnedMoves": "Naučeni potezi",
+  "resultRemoveFromParty": "Ukloni iz tima"
 }

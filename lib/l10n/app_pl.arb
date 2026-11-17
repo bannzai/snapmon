@@ -143,5 +143,6 @@
   "statDefense": "Obrona",
   "statSpeed": "Szybkość",
   "statAccuracy": "Celność",
-  "resultLearnedMoves": "Poznane ruchy"
+  "resultLearnedMoves": "Poznane ruchy",
+  "resultRemoveFromParty": "Usuń z drużyny"
 }

@@ -143,5 +143,6 @@
   "statDefense": "बचाव",
   "statSpeed": "वेग",
   "statAccuracy": "अचूकता",
-  "resultLearnedMoves": "शिकलेल्या चाली"
+  "resultLearnedMoves": "शिकलेल्या चाली",
+  "resultRemoveFromParty": "टीममधून काढ"
 }

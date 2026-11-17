@@ -143,5 +143,6 @@
   "statDefense": "הגנה",
   "statSpeed": "מהירות",
   "statAccuracy": "דיוק",
-  "resultLearnedMoves": "מתקפות שנלמדו"
+  "resultLearnedMoves": "מתקפות שנלמדו",
+  "resultRemoveFromParty": "להוציא מהצוות"
 }

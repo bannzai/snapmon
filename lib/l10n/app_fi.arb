@@ -143,5 +143,6 @@
   "statDefense": "Puolustus",
   "statSpeed": "Nopeus",
   "statAccuracy": "Tarkkuus",
-  "resultLearnedMoves": "Opitut liikkeet"
+  "resultLearnedMoves": "Opitut liikkeet",
+  "resultRemoveFromParty": "Poista joukkueesta"
 }

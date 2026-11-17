@@ -143,5 +143,6 @@
   "statDefense": "Forsvar",
   "statSpeed": "Hastighet",
   "statAccuracy": "Treffsikkerhet",
-  "resultLearnedMoves": "Lærte angrep"
+  "resultLearnedMoves": "Lærte angrep",
+  "resultRemoveFromParty": "Fjern fra laget"
 }

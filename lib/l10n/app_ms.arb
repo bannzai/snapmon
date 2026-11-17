@@ -143,5 +143,6 @@
   "statDefense": "Pertahanan",
   "statSpeed": "Kelajuan",
   "statAccuracy": "Ketepatan",
-  "resultLearnedMoves": "gerakan yang dipelajari"
+  "resultLearnedMoves": "gerakan yang dipelajari",
+  "resultRemoveFromParty": "Keluarkan daripada pasukan"
 }

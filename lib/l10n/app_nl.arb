@@ -143,5 +143,6 @@
   "statDefense": "Verdediging",
   "statSpeed": "Snelheid",
   "statAccuracy": "Nauwkeurigheid",
-  "resultLearnedMoves": "Geleerde aanvallen"
+  "resultLearnedMoves": "Geleerde aanvallen",
+  "resultRemoveFromParty": "Uit je team halen"
 }

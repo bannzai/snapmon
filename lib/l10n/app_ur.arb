@@ -143,5 +143,6 @@
   "statDefense": "دفاع",
   "statSpeed": "رفتار",
   "statAccuracy": "درستگی",
-  "resultLearnedMoves": "سیکھی ہوئی چالیں"
+  "resultLearnedMoves": "سیکھی ہوئی چالیں",
+  "resultRemoveFromParty": "ٹیم سے ہٹاؤ"
 }

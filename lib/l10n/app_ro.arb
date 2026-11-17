@@ -143,5 +143,6 @@
   "statDefense": "Apărare",
   "statSpeed": "Viteză",
   "statAccuracy": "Precizie",
-  "resultLearnedMoves": "mișcări învățate"
+  "resultLearnedMoves": "mișcări învățate",
+  "resultRemoveFromParty": "Scoate din echipă"
 }

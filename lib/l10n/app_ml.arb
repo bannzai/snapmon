@@ -143,5 +143,6 @@
   "statDefense": "പ്രതിരോധം",
   "statSpeed": "വേഗം",
   "statAccuracy": "കൃത്യത",
-  "resultLearnedMoves": "പഠിച്ച നീക്കങ്ങൾ"
+  "resultLearnedMoves": "പഠിച്ച നീക്കങ്ങൾ",
+  "resultRemoveFromParty": "പാർട്ടിയിൽ നിന്ന് നീക്കുക"
 }
