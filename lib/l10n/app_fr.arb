@@ -259,5 +259,6 @@
   "moveDetailSuperEffective": "Super efficace",
   "moveDetailNotVeryEffective": "Peu efficace",
   "moveDetailNeutralEverywhere": "Dégâts ×1 contre tous les éléments",
-  "ticketBalance": "Tickets : {count}"
+  "ticketBalance": "Tickets : {count}",
+  "ticketPurchaseTitle": "ticket de génération"
 }
