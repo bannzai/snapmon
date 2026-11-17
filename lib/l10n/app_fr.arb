@@ -144,5 +144,6 @@
   "statSpeed": "Vitesse",
   "statAccuracy": "Précision",
   "resultLearnedMoves": "capacités apprises",
-  "resultRemoveFromParty": "Retirer de l’équipe"
+  "resultRemoveFromParty": "Retirer de l’équipe",
+  "resultAddToParty": "Ajouter à l’équipe"
 }
