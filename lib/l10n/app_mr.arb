@@ -123,5 +123,6 @@
   "generationPersonNoticeMessage": "लढाईत इतरांनाही तुझ्या मॉन्स्टरचा फोटो दिसू शकतो.\nफोटोमध्ये तुझ्याशिवाय दुसरे कोणी असेल, तर वापरण्यापूर्वी त्यांची संमती घे.",
   "generationChooseCutoutTitle": "फोटोतील वस्तू कापून वेगळी केली",
   "generationChooseCutoutMessage": "कापलेल्या चित्रातून बनवायचं की\nफोटोत भाग निवडायचा, ते तू ठरव",
-  "generationCutoutLabel": "कापलेली प्रतिमा"
+  "generationCutoutLabel": "कापलेली प्रतिमा",
+  "generationOriginalPhotoLabel": "मूळ फोटो"
 }

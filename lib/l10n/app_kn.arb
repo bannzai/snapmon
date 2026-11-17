@@ -123,5 +123,6 @@
   "generationPersonNoticeMessage": "ಯುದ್ಧದಲ್ಲಿ ನಿನ್ನ ಮಾನ್ಸ್ಟರಿನ ಚಿತ್ರವನ್ನು ಇತರರೂ ನೋಡಬಹುದು.\nಫೋಟೋದಲ್ಲಿ ನಿನ್ನ ಹೊರತಾಗಿ ಬೇರೆ ಯಾರಾದರೂ ಇದ್ದರೆ, ಅದನ್ನು ಬಳಸುವ ಮೊದಲು ಅವರ ಒಪ್ಪಿಗೆ ಪಡೆ.",
   "generationChooseCutoutTitle": "ಚಿತ್ರದಿಂದ ವಸ್ತುವನ್ನು ಕತ್ತರಿಸಲಾಗಿದೆ",
   "generationChooseCutoutMessage": "ಕತ್ತರಿಸಿದ ಚಿತ್ರದಿಂದ ಮಾಡಬೇಕೋ\nಫೋಟೋದಲ್ಲಿ ಭಾಗವನ್ನು ಆಯ್ಕೆ ಮಾಡಬೇಕೋ ನೀನು ಆರಿಸು",
-  "generationCutoutLabel": "ಕತ್ತರಿಸಿದ ಚಿತ್ರ"
+  "generationCutoutLabel": "ಕತ್ತರಿಸಿದ ಚಿತ್ರ",
+  "generationOriginalPhotoLabel": "ಮೂಲ ಫೋಟೋ"
 }

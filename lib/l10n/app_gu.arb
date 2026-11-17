@@ -123,5 +123,6 @@
   "generationPersonNoticeMessage": "લડાઈમાં બીજા લોકો પણ તમારા મોન્સ્ટરની તસવીર જોઈ શકે છે.\nફોટામાં તમારા સિવાય બીજું કોઈ હોય, તો તેનો ઉપયોગ કરતા પહેલાં તેની સંમતિ લો.",
   "generationChooseCutoutTitle": "ફોટામાંથી વસ્તુ કાપી લેવામાં આવી છે",
   "generationChooseCutoutMessage": "કાપેલી છબીથી બનાવવું છે કે\nફોટામાં વિસ્તાર પસંદ કરવો છે, તે તમે નક્કી કરો",
-  "generationCutoutLabel": "કાપેલી છબી"
+  "generationCutoutLabel": "કાપેલી છબી",
+  "generationOriginalPhotoLabel": "મૂળ ફોટો"
 }

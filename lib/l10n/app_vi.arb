@@ -123,5 +123,6 @@
   "generationPersonNoticeMessage": "Người khác cũng có thể thấy ảnh quái vật của bạn trong trận đấu.\nNếu ảnh có người khác ngoài bạn, hãy xin họ đồng ý trước khi dùng.",
   "generationChooseCutoutTitle": "Đã tách chủ thể khỏi ảnh",
   "generationChooseCutoutMessage": "Bạn có thể dùng hình đã tách nền\nhoặc chọn một vùng trên ảnh",
-  "generationCutoutLabel": "Hình cắt"
+  "generationCutoutLabel": "Hình cắt",
+  "generationOriginalPhotoLabel": "Ảnh gốc"
 }

@@ -123,5 +123,6 @@
   "generationPersonNoticeMessage": "Mások is láthatják a szörnyed képét a csatákban.\nHa rajtad kívül más is szerepel a fotón, kérd a beleegyezését, mielőtt felhasználod.",
   "generationChooseCutoutTitle": "A téma kivágva",
   "generationChooseCutoutMessage": "Válaszd ki, hogy a kivágott képből készíted el,\nvagy kijelölsz egy részt a fotón",
-  "generationCutoutLabel": "Kivágás"
+  "generationCutoutLabel": "Kivágás",
+  "generationOriginalPhotoLabel": "Eredeti fotó"
 }

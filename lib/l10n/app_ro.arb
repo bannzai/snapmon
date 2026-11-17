@@ -123,5 +123,6 @@
   "generationPersonNoticeMessage": "Și alții pot vedea imaginea monstrului tău în lupte.\nDacă în fotografie apare altcineva în afară de tine, cere-i acordul înainte să o folosești.",
   "generationChooseCutoutTitle": "Subiectul a fost decupat",
   "generationChooseCutoutMessage": "Alege dacă vrei să folosești imaginea decupată\nsau să marchezi o zonă din fotografie",
-  "generationCutoutLabel": "Decupaj"
+  "generationCutoutLabel": "Decupaj",
+  "generationOriginalPhotoLabel": "Fotografia originală"
 }

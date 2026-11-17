@@ -123,5 +123,6 @@
   "generationPersonNoticeMessage": "Την εικόνα του τέρατος μπορούν να τη δουν κι άλλοι στις μάχες.\nΑν στη φωτογραφία φαίνεται κάποιος άλλος, ζήτησε την άδειά του πριν τη χρησιμοποιήσεις.",
   "generationChooseCutoutTitle": "Το θέμα αποκόπηκε",
   "generationChooseCutoutMessage": "Διάλεξε αν θα χρησιμοποιήσεις το αποκομμένο θέμα\nή θα ορίσεις μια περιοχή στη φωτογραφία",
-  "generationCutoutLabel": "Αποκοπή"
+  "generationCutoutLabel": "Αποκοπή",
+  "generationOriginalPhotoLabel": "Αρχική φωτογραφία"
 }

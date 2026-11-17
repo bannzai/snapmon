@@ -123,5 +123,6 @@
   "generationPersonNoticeMessage": "Andere können das Bild deines Monsters im Kampf sehen.\nWenn außer dir noch jemand auf dem Foto ist, hol vor der Verwendung die Zustimmung dieser Person ein.",
   "generationChooseCutoutTitle": "Motiv freigestellt",
   "generationChooseCutoutMessage": "Wähle, ob du das ausgeschnittene Motiv nutzt\noder einen Bereich auf dem Foto markierst",
-  "generationCutoutLabel": "Freisteller"
+  "generationCutoutLabel": "Freisteller",
+  "generationOriginalPhotoLabel": "Originalfoto"
 }

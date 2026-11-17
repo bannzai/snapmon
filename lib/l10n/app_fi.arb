@@ -123,5 +123,6 @@
   "generationPersonNoticeMessage": "Muutkin näkevät hirviön kuvan taisteluissa.\nJos kuvassa näkyy joku muu kuin sinä, pyydä häneltä lupa ennen kuvan käyttöä.",
   "generationChooseCutoutTitle": "Kohde on irrotettu kuvasta",
   "generationChooseCutoutMessage": "Valitse, käytätkö irrotettua kohdetta\nvai rajaatko alueen kuvasta",
-  "generationCutoutLabel": "Rajaus"
+  "generationCutoutLabel": "Rajaus",
+  "generationOriginalPhotoLabel": "Alkuperäinen kuva"
 }

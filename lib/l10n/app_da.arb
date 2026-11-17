@@ -123,5 +123,6 @@
   "generationPersonNoticeMessage": "Andre kan også se billedet af dit monster i kamp.\nHvis der er andre end dig på billedet, så få deres samtykke, før du bruger det.",
   "generationChooseCutoutTitle": "Motivet er klippet ud",
   "generationChooseCutoutMessage": "Vælg, om du vil bruge det fritlagte motiv\neller markere et område på billedet",
-  "generationCutoutLabel": "Fritlægning"
+  "generationCutoutLabel": "Fritlægning",
+  "generationOriginalPhotoLabel": "Originalfoto"
 }

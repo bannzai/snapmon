@@ -123,5 +123,6 @@
   "generationPersonNoticeMessage": "لڑائی میں دوسرے لوگ بھی تمہارے مونسٹر کی تصویر دیکھ سکتے ہیں۔\nاگر تصویر میں تمہارے علاوہ کوئی اور ہے، تو اسے استعمال کرنے سے پہلے اس کی رضامندی لے لو۔",
   "generationChooseCutoutTitle": "تصویر سے شے کاٹ لی گئی ہے",
   "generationChooseCutoutMessage": "تم کٹی ہوئی تصویر سے بنا سکتے ہو\nیا تصویر میں کوئی حصہ چن سکتے ہو",
-  "generationCutoutLabel": "کاٹی ہوئی تصویر"
+  "generationCutoutLabel": "کاٹی ہوئی تصویر",
+  "generationOriginalPhotoLabel": "اصل تصویر"
 }
