@@ -269,5 +269,6 @@
   "ticketPurchaseContinue": "Crea un monstruo con esta foto",
   "ticketPurchaseSync": "Sincronizar el estado de la compra",
   "ticketPurchaseSynced": "Se sincronizó el estado de la compra",
-  "actionCardTitle": "Action Card"
+  "actionCardTitle": "Action Card",
+  "actionCardEntrySubtitle": "Compra movimientos para siempre y enséñaselos a tus monstruos"
 }

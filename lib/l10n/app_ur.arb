@@ -269,5 +269,6 @@
   "ticketPurchaseContinue": "اس تصویر سے مونسٹر بناؤ",
   "ticketPurchaseSync": "خریداری کی حالت ہم آہنگ کرو",
   "ticketPurchaseSynced": "خریداری کی صورتحال ہم آہنگ ہو گئی",
-  "actionCardTitle": "Action Card"
+  "actionCardTitle": "Action Card",
+  "actionCardEntrySubtitle": "چالیں ایک بار خریدو اور اپنے مونسٹر کو سکھاؤ"
 }

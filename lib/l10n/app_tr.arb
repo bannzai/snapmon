@@ -269,5 +269,6 @@
   "ticketPurchaseContinue": "Bu fotoğraftan canavar oluştur",
   "ticketPurchaseSync": "Satın alma durumunu eşitle",
   "ticketPurchaseSynced": "Satın alma durumu eşitlendi",
-  "actionCardTitle": "Action Card"
+  "actionCardTitle": "Action Card",
+  "actionCardEntrySubtitle": "Hamleleri kalıcı olarak satın al, canavarlarına öğret"
 }

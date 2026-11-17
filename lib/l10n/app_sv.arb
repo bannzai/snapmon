@@ -269,5 +269,6 @@
   "ticketPurchaseContinue": "Skapa ett monster av det här fotot",
   "ticketPurchaseSync": "Synka köpstatus",
   "ticketPurchaseSynced": "Köpstatus synkroniserad",
-  "actionCardTitle": "Action Card"
+  "actionCardTitle": "Action Card",
+  "actionCardEntrySubtitle": "Köp attacker en gång och lär dina monster dem"
 }

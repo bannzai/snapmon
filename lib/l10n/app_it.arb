@@ -269,5 +269,6 @@
   "ticketPurchaseContinue": "Crea un mostro da questa foto",
   "ticketPurchaseSync": "Sincronizza lo stato dell’acquisto",
   "ticketPurchaseSynced": "Stato dell'acquisto sincronizzato",
-  "actionCardTitle": "Action Card"
+  "actionCardTitle": "Action Card",
+  "actionCardEntrySubtitle": "Compra le mosse una volta e insegnale ai tuoi mostri"
 }

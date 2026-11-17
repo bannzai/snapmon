@@ -269,5 +269,6 @@
   "ticketPurchaseContinue": "Vytvoř monstrum z této fotky",
   "ticketPurchaseSync": "Synchronizuj stav nákupu",
   "ticketPurchaseSynced": "Stav nákupu byl synchronizován",
-  "actionCardTitle": "Action Card"
+  "actionCardTitle": "Action Card",
+  "actionCardEntrySubtitle": "Kup si útok natrvalo a nauč ho svou příšeru"
 }

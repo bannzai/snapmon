@@ -269,5 +269,6 @@
   "ticketPurchaseContinue": "用這張照片生成怪獸",
   "ticketPurchaseSync": "同步購買狀態",
   "ticketPurchaseSynced": "購買狀態已同步",
-  "actionCardTitle": "Action Card"
+  "actionCardTitle": "Action Card",
+  "actionCardEntrySubtitle": "買斷招式，教給你的怪物"
 }

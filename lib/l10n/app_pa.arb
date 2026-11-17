@@ -269,5 +269,6 @@
   "ticketPurchaseContinue": "ਇਸ ਫੋਟੋ ਤੋਂ ਮੌਂਸਟਰ ਬਣਾਓ",
   "ticketPurchaseSync": "ਖਰੀਦ ਦੀ ਸਥਿਤੀ ਸਿੰਕ ਕਰੋ",
   "ticketPurchaseSynced": "ਖਰੀਦ ਦੀ ਸਥਿਤੀ ਸਿੰਕ ਹੋ ਗਈ ਹੈ",
-  "actionCardTitle": "Action Card"
+  "actionCardTitle": "Action Card",
+  "actionCardEntrySubtitle": "ਚਾਲ ਇੱਕ ਵਾਰ ਖਰੀਦੋ ਤੇ ਆਪਣੇ ਮੌਂਸਟਰ ਨੂੰ ਸਿਖਾਓ"
 }

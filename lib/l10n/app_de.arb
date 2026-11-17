@@ -269,5 +269,6 @@
   "ticketPurchaseContinue": "Erstelle ein Monster aus diesem Foto",
   "ticketPurchaseSync": "Kaufstatus synchronisieren",
   "ticketPurchaseSynced": "Kaufstatus synchronisiert",
-  "actionCardTitle": "Action Card"
+  "actionCardTitle": "Action Card",
+  "actionCardEntrySubtitle": "Kauf Attacken einmalig und bring sie deinen Monstern bei"
 }

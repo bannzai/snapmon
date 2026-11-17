@@ -269,5 +269,6 @@
   "ticketPurchaseContinue": "இந்தப் படத்திலிருந்து அரக்கனை உருவாக்குங்கள்",
   "ticketPurchaseSync": "வாங்கியதன் நிலையை ஒத்திசையுங்கள்",
   "ticketPurchaseSynced": "வாங்கிய நிலை ஒத்திசைக்கப்பட்டது",
-  "actionCardTitle": "Action Card"
+  "actionCardTitle": "Action Card",
+  "actionCardEntrySubtitle": "தாக்குதல்களை ஒருமுறை வாங்கி உங்கள் மான்ஸ்டருக்குக் கற்றுக்கொடுங்கள்"
 }

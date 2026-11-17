@@ -269,5 +269,6 @@
   "ticketPurchaseContinue": "Luo hirviö tästä kuvasta",
   "ticketPurchaseSync": "Synkronoi ostoksen tila",
   "ticketPurchaseSynced": "Ostoksen tila synkronoitu",
-  "actionCardTitle": "Action Card"
+  "actionCardTitle": "Action Card",
+  "actionCardEntrySubtitle": "Osta liikkeet pysyvästi ja opeta ne hirviöillesi"
 }

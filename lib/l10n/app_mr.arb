@@ -269,5 +269,6 @@
   "ticketPurchaseContinue": "या फोटोवरून मॉन्स्टर बनव",
   "ticketPurchaseSync": "खरेदीची स्थिती सिंक कर",
   "ticketPurchaseSynced": "खरेदीची स्थिती सिंक झाली",
-  "actionCardTitle": "Action Card"
+  "actionCardTitle": "Action Card",
+  "actionCardEntrySubtitle": "चाल एकदाच विकत घे आणि तुझ्या मॉन्स्टरला शिकव"
 }

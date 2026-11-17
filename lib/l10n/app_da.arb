@@ -269,5 +269,6 @@
   "ticketPurchaseContinue": "Skab et monster ud fra dette foto",
   "ticketPurchaseSync": "Synkroniser købsstatus",
   "ticketPurchaseSynced": "Købsstatus er synkroniseret",
-  "actionCardTitle": "Action Card"
+  "actionCardTitle": "Action Card",
+  "actionCardEntrySubtitle": "Køb angreb én gang, og lær dem til dine monstre"
 }

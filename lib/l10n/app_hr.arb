@@ -269,5 +269,6 @@
   "ticketPurchaseContinue": "Stvori čudovište od ove fotke",
   "ticketPurchaseSync": "Sinkroniziraj status kupnje",
   "ticketPurchaseSynced": "Status kupnje je sinkroniziran",
-  "actionCardTitle": "Action Card"
+  "actionCardTitle": "Action Card",
+  "actionCardEntrySubtitle": "Kupi poteze zauvijek i nauči ih svoja čudovišta"
 }
