@@ -104,5 +104,6 @@
   "generationBattleWithThisMonster": "Combattre avec ce monstre",
   "generationRetake": "Reprendre la photo",
   "generationWaitingTitle": "Encore un petit instant !",
-  "generationWaitingMessage": "Ton monstre met du temps à trouver son élément\nUne fois né, il rejoindra ton dex"
+  "generationWaitingMessage": "Ton monstre met du temps à trouver son élément\nUne fois né, il rejoindra ton dex",
+  "generationCheckAgain": "Vérifier à nouveau"
 }
