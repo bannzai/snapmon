@@ -149,5 +149,6 @@
   "resultReplaceInParty": "Remplacer dans l’équipe",
   "resultCaptureAnother": "Agrandis ton équipe",
   "resultShareText": "Sur snapmon, {monsterName} a pris vie\n#snapmon\n{url}",
-  "resultShareCard": "Partager la carte"
+  "resultShareCard": "Partager la carte",
+  "shareChooseFormat": "Choisis le format de l’image de la carte"
 }
