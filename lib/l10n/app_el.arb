@@ -243,5 +243,6 @@
   "referenceTypeChartCorner": "τεχνική ／ άμυνα",
   "referenceMoveStats": "Ισχύς {power}  PP {powerPoints}  Από Lv. {unlockLevel}",
   "moveDetailPower": "Ισχύς",
-  "moveDetailPowerPoints": "PP"
+  "moveDetailPowerPoints": "PP",
+  "moveDetailUnlockLevel": "Επίπεδο εκμάθησης"
 }

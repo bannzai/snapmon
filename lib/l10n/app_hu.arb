@@ -243,5 +243,6 @@
   "referenceTypeChartCorner": "támadás ／ védekezés",
   "referenceMoveStats": "Erő {power}  PP {powerPoints}  Lv. {unlockLevel} szinttől",
   "moveDetailPower": "Erő",
-  "moveDetailPowerPoints": "PP"
+  "moveDetailPowerPoints": "PP",
+  "moveDetailUnlockLevel": "Megtanulási szint"
 }

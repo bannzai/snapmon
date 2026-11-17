@@ -243,5 +243,6 @@
   "referenceTypeChartCorner": "útok ／ obrana",
   "referenceMoveStats": "Sila {power}  PP {powerPoints}  Od Lv. {unlockLevel}",
   "moveDetailPower": "Sila",
-  "moveDetailPowerPoints": "PP"
+  "moveDetailPowerPoints": "PP",
+  "moveDetailUnlockLevel": "Úroveň naučenia"
 }

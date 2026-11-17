@@ -243,5 +243,6 @@
   "referenceTypeChartCorner": "liike ／ puolustus",
   "referenceMoveStats": "Voima {power}  PP {powerPoints}  Alkaen Lv. {unlockLevel}",
   "moveDetailPower": "Voima",
-  "moveDetailPowerPoints": "PP"
+  "moveDetailPowerPoints": "PP",
+  "moveDetailUnlockLevel": "Oppimistaso"
 }

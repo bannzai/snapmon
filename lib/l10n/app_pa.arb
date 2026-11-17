@@ -243,5 +243,6 @@
   "referenceTypeChartCorner": "ਚਾਲ ／ ਬਚਾਅ",
   "referenceMoveStats": "ਤਾਕਤ {power}  PP {powerPoints}  Lv. {unlockLevel} ਤੋਂ",
   "moveDetailPower": "ਤਾਕਤ",
-  "moveDetailPowerPoints": "PP"
+  "moveDetailPowerPoints": "PP",
+  "moveDetailUnlockLevel": "ਚਾਲ ਸਿੱਖਣ ਦਾ ਲੈਵਲ"
 }

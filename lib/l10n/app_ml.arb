@@ -243,5 +243,6 @@
   "referenceTypeChartCorner": "നീക്കം ／ പ്രതിരോധം",
   "referenceMoveStats": "ശക്തി {power}  PP {powerPoints}  Lv. {unlockLevel} മുതൽ",
   "moveDetailPower": "ശക്തി",
-  "moveDetailPowerPoints": "PP"
+  "moveDetailPowerPoints": "PP",
+  "moveDetailUnlockLevel": "നീക്കം പഠിക്കുന്ന ലെവൽ"
 }

@@ -243,5 +243,6 @@
   "referenceTypeChartCorner": "ଚାଲ ／ ପ୍ରତିରକ୍ଷା",
   "referenceMoveStats": "ଶକ୍ତି {power}  PP {powerPoints}  Lv. {unlockLevel}ରୁ",
   "moveDetailPower": "ଶକ୍ତି",
-  "moveDetailPowerPoints": "PP"
+  "moveDetailPowerPoints": "PP",
+  "moveDetailUnlockLevel": "ଚାଲ ଶିଖିବା ସ୍ତର"
 }

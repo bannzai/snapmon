@@ -243,5 +243,6 @@
   "referenceTypeChartCorner": "ruch ／ obrona",
   "referenceMoveStats": "Moc {power}  PP {powerPoints}  Od Lv. {unlockLevel}",
   "moveDetailPower": "Moc",
-  "moveDetailPowerPoints": "PP"
+  "moveDetailPowerPoints": "PP",
+  "moveDetailUnlockLevel": "Poziom nauki ruchu"
 }

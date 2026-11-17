@@ -243,5 +243,6 @@
   "referenceTypeChartCorner": "चाल ／ बचाव",
   "referenceMoveStats": "ताकद {power}  PP {powerPoints}  Lv. {unlockLevel} पासून",
   "moveDetailPower": "शक्ती",
-  "moveDetailPowerPoints": "PP"
+  "moveDetailPowerPoints": "PP",
+  "moveDetailUnlockLevel": "चाल शिकण्याची पातळी"
 }

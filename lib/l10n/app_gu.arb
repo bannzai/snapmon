@@ -243,5 +243,6 @@
   "referenceTypeChartCorner": "ચાલ ／ બચાવ",
   "referenceMoveStats": "શક્તિ {power}  PP {powerPoints}  Lv. {unlockLevel}થી",
   "moveDetailPower": "શક્તિ",
-  "moveDetailPowerPoints": "PP"
+  "moveDetailPowerPoints": "PP",
+  "moveDetailUnlockLevel": "ચાલ શીખવાનું લેવલ"
 }

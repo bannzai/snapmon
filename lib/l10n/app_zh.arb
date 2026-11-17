@@ -243,5 +243,6 @@
   "referenceTypeChartCorner": "招式 ／ 防守",
   "referenceMoveStats": "威力 {power}  PP {powerPoints}  Lv. {unlockLevel}起",
   "moveDetailPower": "威力",
-  "moveDetailPowerPoints": "PP"
+  "moveDetailPowerPoints": "PP",
+  "moveDetailUnlockLevel": "学会招式的等级"
 }

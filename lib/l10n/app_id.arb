@@ -243,5 +243,6 @@
   "referenceTypeChartCorner": "jurus ／ bertahan",
   "referenceMoveStats": "Daya {power}  PP {powerPoints}  Mulai Lv. {unlockLevel}",
   "moveDetailPower": "Kekuatan",
-  "moveDetailPowerPoints": "PP"
+  "moveDetailPowerPoints": "PP",
+  "moveDetailUnlockLevel": "Level belajar jurus"
 }

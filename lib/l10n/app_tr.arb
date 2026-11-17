@@ -243,5 +243,6 @@
   "referenceTypeChartCorner": "hamle ／ savunma",
   "referenceMoveStats": "Güç {power}  PP {powerPoints}  Lv. {unlockLevel} itibarıyla",
   "moveDetailPower": "Güç",
-  "moveDetailPowerPoints": "PP"
+  "moveDetailPowerPoints": "PP",
+  "moveDetailUnlockLevel": "Öğrenme seviyesi"
 }

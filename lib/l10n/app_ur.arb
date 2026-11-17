@@ -243,5 +243,6 @@
   "referenceTypeChartCorner": "چال ／ دفاع",
   "referenceMoveStats": "طاقت {power}  PP {powerPoints}  Lv. {unlockLevel} سے",
   "moveDetailPower": "طاقت",
-  "moveDetailPowerPoints": "PP"
+  "moveDetailPowerPoints": "PP",
+  "moveDetailUnlockLevel": "چال سیکھنے کی سطح"
 }

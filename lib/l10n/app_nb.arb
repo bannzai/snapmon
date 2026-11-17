@@ -243,5 +243,6 @@
   "referenceTypeChartCorner": "angrep ／ forsvar",
   "referenceMoveStats": "Styrke {power}  PP {powerPoints}  Fra Lv. {unlockLevel}",
   "moveDetailPower": "Styrke",
-  "moveDetailPowerPoints": "PP"
+  "moveDetailPowerPoints": "PP",
+  "moveDetailUnlockLevel": "Lærenivå"
 }

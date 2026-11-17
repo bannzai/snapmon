@@ -243,5 +243,6 @@
   "referenceTypeChartCorner": "מתקפה ／ הגנה",
   "referenceMoveStats": "עוצמה {power}  PP {powerPoints}  החל מ־Lv. {unlockLevel}",
   "moveDetailPower": "עוצמה",
-  "moveDetailPowerPoints": "PP"
+  "moveDetailPowerPoints": "PP",
+  "moveDetailUnlockLevel": "רמת לימוד המהלך"
 }

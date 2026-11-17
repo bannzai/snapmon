@@ -243,5 +243,6 @@
   "referenceTypeChartCorner": "potez ／ obrana",
   "referenceMoveStats": "Snaga {power}  PP {powerPoints}  Od Lv. {unlockLevel}",
   "moveDetailPower": "Snaga",
-  "moveDetailPowerPoints": "PP"
+  "moveDetailPowerPoints": "PP",
+  "moveDetailUnlockLevel": "Razina učenja"
 }

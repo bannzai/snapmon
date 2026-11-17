@@ -243,5 +243,6 @@
   "referenceTypeChartCorner": "ท่า ／ ป้องกัน",
   "referenceMoveStats": "พลัง {power}  PP {powerPoints}  ตั้งแต่ Lv. {unlockLevel}",
   "moveDetailPower": "พลัง",
-  "moveDetailPowerPoints": "PP"
+  "moveDetailPowerPoints": "PP",
+  "moveDetailUnlockLevel": "เลเวลที่เรียนรู้ท่า"
 }

@@ -243,5 +243,6 @@
   "referenceTypeChartCorner": "mossa ／ difesa",
   "referenceMoveStats": "Potenza {power}  PP {powerPoints}  Da Lv. {unlockLevel}",
   "moveDetailPower": "Potenza",
-  "moveDetailPowerPoints": "PP"
+  "moveDetailPowerPoints": "PP",
+  "moveDetailUnlockLevel": "Livello di apprendimento"
 }

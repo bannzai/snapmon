@@ -243,5 +243,6 @@
   "referenceTypeChartCorner": "حركة ／ يتلقى",
   "referenceMoveStats": "القوة {power}  PP {powerPoints}  من Lv. {unlockLevel}",
   "moveDetailPower": "القوة",
-  "moveDetailPowerPoints": "PP"
+  "moveDetailPowerPoints": "PP",
+  "moveDetailUnlockLevel": "مستوى تعلّم الحركة"
 }

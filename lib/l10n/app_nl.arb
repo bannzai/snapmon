@@ -243,5 +243,6 @@
   "referenceTypeChartCorner": "aanval ／ verdediging",
   "referenceMoveStats": "Kracht {power}  PP {powerPoints}  Vanaf Lv. {unlockLevel}",
   "moveDetailPower": "Kracht",
-  "moveDetailPowerPoints": "PP"
+  "moveDetailPowerPoints": "PP",
+  "moveDetailUnlockLevel": "Leerniveau"
 }

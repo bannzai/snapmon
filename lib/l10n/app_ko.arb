@@ -243,5 +243,6 @@
   "referenceTypeChartCorner": "기술 ／ 방어",
   "referenceMoveStats": "위력 {power}  PP {powerPoints}  Lv. {unlockLevel}부터",
   "moveDetailPower": "위력",
-  "moveDetailPowerPoints": "PP"
+  "moveDetailPowerPoints": "PP",
+  "moveDetailUnlockLevel": "기술을 배우는 레벨"
 }

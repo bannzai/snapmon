@@ -243,5 +243,6 @@
   "referenceTypeChartCorner": "прийом ／ захист",
   "referenceMoveStats": "Сила {power}  PP {powerPoints}  Від Lv. {unlockLevel}",
   "moveDetailPower": "Сила",
-  "moveDetailPowerPoints": "PP"
+  "moveDetailPowerPoints": "PP",
+  "moveDetailUnlockLevel": "Рівень вивчення"
 }

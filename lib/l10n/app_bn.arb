@@ -243,5 +243,6 @@
   "referenceTypeChartCorner": "কৌশল ／ প্রতিরক্ষা",
   "referenceMoveStats": "শক্তি {power}  PP {powerPoints}  Lv. {unlockLevel} থেকে",
   "moveDetailPower": "শক্তি",
-  "moveDetailPowerPoints": "PP"
+  "moveDetailPowerPoints": "PP",
+  "moveDetailUnlockLevel": "চাল শেখার লেভেল"
 }

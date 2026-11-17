@@ -243,5 +243,6 @@
   "referenceTypeChartCorner": "ತಂತ್ರ ／ ರಕ್ಷಣೆ",
   "referenceMoveStats": "ಶಕ್ತಿ {power}  PP {powerPoints}  Lv. {unlockLevel}ರಿಂದ",
   "moveDetailPower": "ಶಕ್ತಿ",
-  "moveDetailPowerPoints": "PP"
+  "moveDetailPowerPoints": "PP",
+  "moveDetailUnlockLevel": "ಚಲನೆ ಕಲಿಯುವ ಹಂತ"
 }

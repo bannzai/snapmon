@@ -243,5 +243,6 @@
   "referenceTypeChartCorner": "మూవ్ ／ రక్షణ",
   "referenceMoveStats": "శక్తి {power}  PP {powerPoints}  Lv. {unlockLevel} నుంచి",
   "moveDetailPower": "శక్తి",
-  "moveDetailPowerPoints": "PP"
+  "moveDetailPowerPoints": "PP",
+  "moveDetailUnlockLevel": "కదలిక నేర్చుకునే స్థాయి"
 }

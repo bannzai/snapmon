@@ -243,5 +243,6 @@
   "referenceTypeChartCorner": "தாக்குதல் ／ தற்காப்பு",
   "referenceMoveStats": "வலிமை {power}  PP {powerPoints}  Lv. {unlockLevel} முதல்",
   "moveDetailPower": "சக்தி",
-  "moveDetailPowerPoints": "PP"
+  "moveDetailPowerPoints": "PP",
+  "moveDetailUnlockLevel": "நகர்வைக் கற்கும் நிலை"
 }

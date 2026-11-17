@@ -243,5 +243,6 @@
   "referenceTypeChartCorner": "moviment ／ rep",
   "referenceMoveStats": "Potència {power}  PP {powerPoints}  Des de Lv. {unlockLevel}",
   "moveDetailPower": "Potència",
-  "moveDetailPowerPoints": "PP"
+  "moveDetailPowerPoints": "PP",
+  "moveDetailUnlockLevel": "Nivell d'aprenentatge"
 }

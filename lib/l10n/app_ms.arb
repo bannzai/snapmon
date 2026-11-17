@@ -243,5 +243,6 @@
   "referenceTypeChartCorner": "gerakan ／ pertahanan",
   "referenceMoveStats": "Kuasa {power}  PP {powerPoints}  Dari Lv. {unlockLevel}",
   "moveDetailPower": "Kuasa",
-  "moveDetailPowerPoints": "PP"
+  "moveDetailPowerPoints": "PP",
+  "moveDetailUnlockLevel": "Tahap belajar gerakan"
 }

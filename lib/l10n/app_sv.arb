@@ -243,5 +243,6 @@
   "referenceTypeChartCorner": "attack ／ försvar",
   "referenceMoveStats": "Styrka {power}  PP {powerPoints}  Från Lv. {unlockLevel}",
   "moveDetailPower": "Kraft",
-  "moveDetailPowerPoints": "PP"
+  "moveDetailPowerPoints": "PP",
+  "moveDetailUnlockLevel": "Inlärningsnivå"
 }
