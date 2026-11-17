@@ -141,5 +141,6 @@
   "statHitPoints": "HP",
   "statAttack": "حملہ",
   "statDefense": "دفاع",
-  "statSpeed": "رفتار"
+  "statSpeed": "رفتار",
+  "statAccuracy": "درستگی"
 }

@@ -141,5 +141,6 @@
   "statHitPoints": "HP",
   "statAttack": "공격",
   "statDefense": "방어",
-  "statSpeed": "스피드"
+  "statSpeed": "스피드",
+  "statAccuracy": "명중률"
 }

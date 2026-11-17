@@ -141,5 +141,6 @@
   "statHitPoints": "HP",
   "statAttack": "Hyökkäys",
   "statDefense": "Puolustus",
-  "statSpeed": "Nopeus"
+  "statSpeed": "Nopeus",
+  "statAccuracy": "Tarkkuus"
 }

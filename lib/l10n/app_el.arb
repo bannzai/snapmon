@@ -141,5 +141,6 @@
   "statHitPoints": "HP",
   "statAttack": "Επίθεση",
   "statDefense": "Άμυνα",
-  "statSpeed": "Ταχύτητα"
+  "statSpeed": "Ταχύτητα",
+  "statAccuracy": "Ακρίβεια"
 }

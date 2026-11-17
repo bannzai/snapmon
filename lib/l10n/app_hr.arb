@@ -141,5 +141,6 @@
   "statHitPoints": "HP",
   "statAttack": "Napad",
   "statDefense": "Obrana",
-  "statSpeed": "Brzina"
+  "statSpeed": "Brzina",
+  "statAccuracy": "Preciznost"
 }

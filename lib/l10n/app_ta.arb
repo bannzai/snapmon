@@ -141,5 +141,6 @@
   "statHitPoints": "HP",
   "statAttack": "தாக்குதல்",
   "statDefense": "தற்காப்பு",
-  "statSpeed": "வேகம்"
+  "statSpeed": "வேகம்",
+  "statAccuracy": "துல்லியம்"
 }

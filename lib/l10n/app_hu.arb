@@ -141,5 +141,6 @@
   "statHitPoints": "HP",
   "statAttack": "Támadás",
   "statDefense": "Védelem",
-  "statSpeed": "Gyorsaság"
+  "statSpeed": "Gyorsaság",
+  "statAccuracy": "Pontosság"
 }

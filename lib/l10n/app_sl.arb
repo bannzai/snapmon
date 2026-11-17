@@ -141,5 +141,6 @@
   "statHitPoints": "HP",
   "statAttack": "Napad",
   "statDefense": "Obramba",
-  "statSpeed": "Hitrost"
+  "statSpeed": "Hitrost",
+  "statAccuracy": "Natančnost"
 }

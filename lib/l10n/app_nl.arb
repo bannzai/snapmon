@@ -141,5 +141,6 @@
   "statHitPoints": "HP",
   "statAttack": "Aanval",
   "statDefense": "Verdediging",
-  "statSpeed": "Snelheid"
+  "statSpeed": "Snelheid",
+  "statAccuracy": "Nauwkeurigheid"
 }

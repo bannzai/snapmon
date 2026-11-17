@@ -141,5 +141,6 @@
   "statHitPoints": "HP",
   "statAttack": "ആക്രമണം",
   "statDefense": "പ്രതിരോധം",
-  "statSpeed": "വേഗം"
+  "statSpeed": "വേഗം",
+  "statAccuracy": "കൃത്യത"
 }

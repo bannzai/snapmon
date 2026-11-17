@@ -141,5 +141,6 @@
   "statHitPoints": "HP",
   "statAttack": "Атака",
   "statDefense": "Захист",
-  "statSpeed": "Швидкість"
+  "statSpeed": "Швидкість",
+  "statAccuracy": "Точність"
 }

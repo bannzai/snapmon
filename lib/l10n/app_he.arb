@@ -141,5 +141,6 @@
   "statHitPoints": "HP",
   "statAttack": "התקפה",
   "statDefense": "הגנה",
-  "statSpeed": "מהירות"
+  "statSpeed": "מהירות",
+  "statAccuracy": "דיוק"
 }

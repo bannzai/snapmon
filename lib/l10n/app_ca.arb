@@ -141,5 +141,6 @@
   "statHitPoints": "HP",
   "statAttack": "Atac",
   "statDefense": "Defensa",
-  "statSpeed": "Velocitat"
+  "statSpeed": "Velocitat",
+  "statAccuracy": "Precisió"
 }

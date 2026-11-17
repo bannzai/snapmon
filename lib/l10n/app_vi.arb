@@ -141,5 +141,6 @@
   "statHitPoints": "HP",
   "statAttack": "Tấn công",
   "statDefense": "Phòng thủ",
-  "statSpeed": "Tốc độ"
+  "statSpeed": "Tốc độ",
+  "statAccuracy": "Độ chính xác"
 }

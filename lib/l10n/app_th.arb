@@ -141,5 +141,6 @@
   "statHitPoints": "HP",
   "statAttack": "โจมตี",
   "statDefense": "พลังป้องกัน",
-  "statSpeed": "ความเร็ว"
+  "statSpeed": "ความเร็ว",
+  "statAccuracy": "ความแม่นยำ"
 }

@@ -141,5 +141,6 @@
   "statHitPoints": "HP",
   "statAttack": "Útok",
   "statDefense": "Obrana",
-  "statSpeed": "Rýchlosť"
+  "statSpeed": "Rýchlosť",
+  "statAccuracy": "Presnosť"
 }

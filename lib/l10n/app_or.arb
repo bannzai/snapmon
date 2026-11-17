@@ -141,5 +141,6 @@
   "statHitPoints": "HP",
   "statAttack": "ଆକ୍ରମଣ",
   "statDefense": "ପ୍ରତିରକ୍ଷା",
-  "statSpeed": "ବେଗ"
+  "statSpeed": "ବେଗ",
+  "statAccuracy": "ସଠିକତା"
 }

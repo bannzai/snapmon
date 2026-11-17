@@ -141,5 +141,6 @@
   "statHitPoints": "HP",
   "statAttack": "હુમલો",
   "statDefense": "બચાવ",
-  "statSpeed": "ઝડપ"
+  "statSpeed": "ઝડપ",
+  "statAccuracy": "ચોકસાઈ"
 }

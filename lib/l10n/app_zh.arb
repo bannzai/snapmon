@@ -141,5 +141,6 @@
   "statHitPoints": "HP",
   "statAttack": "攻击",
   "statDefense": "防御",
-  "statSpeed": "速度"
+  "statSpeed": "速度",
+  "statAccuracy": "命中"
 }

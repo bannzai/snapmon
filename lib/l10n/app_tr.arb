@@ -141,5 +141,6 @@
   "statHitPoints": "HP",
   "statAttack": "Saldırı",
   "statDefense": "Savunma",
-  "statSpeed": "Hız"
+  "statSpeed": "Hız",
+  "statAccuracy": "İsabet"
 }

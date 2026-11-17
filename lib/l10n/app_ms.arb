@@ -141,5 +141,6 @@
   "statHitPoints": "HP",
   "statAttack": "Serangan",
   "statDefense": "Pertahanan",
-  "statSpeed": "Kelajuan"
+  "statSpeed": "Kelajuan",
+  "statAccuracy": "Ketepatan"
 }
