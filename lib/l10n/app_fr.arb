@@ -81,5 +81,6 @@
   "dexAddToPartyTitle": "Ajouter à l'équipe",
   "dexNoPartyCandidates": "Aucun monstre à ajouter à ton équipe",
   "captureCameraUnavailable": "Appareil photo indisponible\nChoisis une photo dans ta galerie",
-  "captureDexCount": "dex {monsterCount}"
+  "captureDexCount": "dex {monsterCount}",
+  "captureFirstHintAlbum": "Choisis une photo d’un objet autour de toi"
 }
