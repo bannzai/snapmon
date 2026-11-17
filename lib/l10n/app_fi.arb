@@ -39,5 +39,6 @@
   "opponentAverageLevel": "Keskimääräinen Lv. {level}",
   "opponentReportHelpPrompt": "Ongelma vastustajan hirviön kanssa?",
   "opponentSearching": "Etsitään kouluttajaa",
-  "opponentSearchAgain": "Etsi uudelleen"
+  "opponentSearchAgain": "Etsi uudelleen",
+  "opponentNoneAvailable": "Yhtään kouluttajaa ei ole nyt vastassa\nVoit taistella CPU-kouluttajaa vastaan"
 }

@@ -39,5 +39,6 @@
   "opponentAverageLevel": "ממוצע Lv. {level}",
   "opponentReportHelpPrompt": "בעיה עם המפלצת של היריב?",
   "opponentSearching": "מחפשים מאמן",
-  "opponentSearchAgain": "לחפש שוב"
+  "opponentSearchAgain": "לחפש שוב",
+  "opponentNoneAvailable": "אין כרגע מאמן זמין לקרב\nאפשר להילחם מול מאמן CPU"
 }

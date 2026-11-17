@@ -39,5 +39,6 @@
   "opponentAverageLevel": "Średni Lv. {level}",
   "opponentReportHelpPrompt": "Problem z potworem przeciwnika?",
   "opponentSearching": "Trwa szukanie trenera",
-  "opponentSearchAgain": "Szukaj ponownie"
+  "opponentSearchAgain": "Szukaj ponownie",
+  "opponentNoneAvailable": "Teraz nie ma trenera, z którym możesz walczyć\nMożesz walczyć z trenerem CPU"
 }

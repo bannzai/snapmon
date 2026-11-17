@@ -39,5 +39,6 @@
   "opponentAverageLevel": "Átlagos Lv. {level}",
   "opponentReportHelpPrompt": "Gond van az ellenfél szörnyével?",
   "opponentSearching": "Edző keresése",
-  "opponentSearchAgain": "Keress újra"
+  "opponentSearchAgain": "Keress újra",
+  "opponentNoneAvailable": "Most nincs elérhető edző, akivel megküzdhetnél\nMegküzdhetsz egy CPU-edzővel"
 }

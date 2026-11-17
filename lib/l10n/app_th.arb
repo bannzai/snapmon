@@ -39,5 +39,6 @@
   "opponentAverageLevel": "Lv. เฉลี่ย {level}",
   "opponentReportHelpPrompt": "มอนสเตอร์ของคู่ต่อสู้มีปัญหาหรือเปล่า?",
   "opponentSearching": "กำลังหาเทรนเนอร์",
-  "opponentSearchAgain": "ค้นหาอีกครั้ง"
+  "opponentSearchAgain": "ค้นหาอีกครั้ง",
+  "opponentNoneAvailable": "ตอนนี้ยังไม่มีเทรนเนอร์ให้สู้ด้วย\nสู้กับเทรนเนอร์ CPU ได้"
 }

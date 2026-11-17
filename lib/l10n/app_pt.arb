@@ -39,5 +39,6 @@
   "opponentAverageLevel": "Lv. médio {level}",
   "opponentReportHelpPrompt": "Problema com o monstro adversário?",
   "opponentSearching": "Procurando um treinador",
-  "opponentSearchAgain": "Buscar de novo"
+  "opponentSearchAgain": "Buscar de novo",
+  "opponentNoneAvailable": "Não há treinador disponível para batalhar agora\nVocê pode batalhar com um treinador CPU"
 }

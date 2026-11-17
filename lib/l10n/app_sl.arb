@@ -39,5 +39,6 @@
   "opponentAverageLevel": "Povprečna Lv. {level}",
   "opponentReportHelpPrompt": "Težava s pošastjo nasprotnika?",
   "opponentSearching": "Iščemo trenerja",
-  "opponentSearchAgain": "Poišči znova"
+  "opponentSearchAgain": "Poišči znova",
+  "opponentNoneAvailable": "Trenutno ni trenerja, s katerim bi se boril\nLahko se boriš s CPU-trenerjem"
 }

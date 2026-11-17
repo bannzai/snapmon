@@ -39,5 +39,6 @@
   "opponentAverageLevel": "ശരാശരി Lv. {level}",
   "opponentReportHelpPrompt": "എതിരാളിയുടെ മോൺസ്റ്ററുമായി എന്തെങ്കിലും പ്രശ്നമുണ്ടോ?",
   "opponentSearching": "ട്രെയിനറെ തിരയുന്നു",
-  "opponentSearchAgain": "വീണ്ടും തിരയുക"
+  "opponentSearchAgain": "വീണ്ടും തിരയുക",
+  "opponentNoneAvailable": "ഇപ്പോൾ പോരാടാൻ ട്രെയിനർ ആരുമില്ല\nനിങ്ങൾക്ക് CPU ട്രെയിനറുമായി പോരാടാം"
 }

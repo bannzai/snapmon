@@ -39,5 +39,6 @@
   "opponentAverageLevel": "சராசரி Lv. {level}",
   "opponentReportHelpPrompt": "எதிராளியின் மான்ஸ்டருடன் ஏதேனும் சிக்கலா?",
   "opponentSearching": "பயிற்சியாளரைத் தேடுகிறோம்",
-  "opponentSearchAgain": "மீண்டும் தேடுங்கள்"
+  "opponentSearchAgain": "மீண்டும் தேடுங்கள்",
+  "opponentNoneAvailable": "இப்போது போரிடப் பயிற்சியாளர் யாரும் இல்லை\nநீங்கள் CPU பயிற்சியாளருடன் போரிடலாம்"
 }

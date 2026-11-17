@@ -39,5 +39,6 @@
   "opponentAverageLevel": "औसत Lv. {level}",
   "opponentReportHelpPrompt": "विरोधी के मॉन्स्टर से कोई समस्या?",
   "opponentSearching": "ट्रेनर की तलाश जारी है",
-  "opponentSearchAgain": "फिर से खोजो"
+  "opponentSearchAgain": "फिर से खोजो",
+  "opponentNoneAvailable": "अभी लड़ने के लिए कोई ट्रेनर नहीं है\nतुम CPU ट्रेनर से लड़ सकते हो"
 }

@@ -39,5 +39,6 @@
   "opponentAverageLevel": "متوسط Lv. {level}",
   "opponentReportHelpPrompt": "هل هناك مشكلة في وحش الخصم؟",
   "opponentSearching": "جارٍ البحث عن مدرب",
-  "opponentSearchAgain": "ابحث مجددًا"
+  "opponentSearchAgain": "ابحث مجددًا",
+  "opponentNoneAvailable": "لا يوجد مدرب متاح للقتال الآن\nيمكنك قتال مدرب CPU"
 }

@@ -39,5 +39,6 @@
   "opponentAverageLevel": "सरासरी Lv. {level}",
   "opponentReportHelpPrompt": "प्रतिस्पर्ध्याच्या मॉन्स्टरबाबत काही समस्या आहे का?",
   "opponentSearching": "ट्रेनरचा शोध सुरू आहे",
-  "opponentSearchAgain": "पुन्हा शोध"
+  "opponentSearchAgain": "पुन्हा शोध",
+  "opponentNoneAvailable": "आत्ता लढायला कोणताही ट्रेनर नाही\nतू CPU ट्रेनरशी लढू शकतोस"
 }

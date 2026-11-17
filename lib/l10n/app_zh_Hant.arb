@@ -39,5 +39,6 @@
   "opponentAverageLevel": "平均 Lv. {level}",
   "opponentReportHelpPrompt": "對手的怪物有問題？",
   "opponentSearching": "正在尋找訓練家",
-  "opponentSearchAgain": "再找一次"
+  "opponentSearchAgain": "再找一次",
+  "opponentNoneAvailable": "現在沒有可以對戰的訓練家\n你可以和 CPU 訓練家對戰"
 }

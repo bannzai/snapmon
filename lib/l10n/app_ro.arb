@@ -39,5 +39,6 @@
   "opponentAverageLevel": "Lv. mediu {level}",
   "opponentReportHelpPrompt": "Vreo problemă cu monstrul adversarului?",
   "opponentSearching": "Se caută un antrenor",
-  "opponentSearchAgain": "Caută din nou"
+  "opponentSearchAgain": "Caută din nou",
+  "opponentNoneAvailable": "Acum nu e niciun antrenor disponibil pentru luptă\nPoți lupta cu un antrenor CPU"
 }

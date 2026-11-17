@@ -39,5 +39,6 @@
   "opponentAverageLevel": "Lv. trung bình {level}",
   "opponentReportHelpPrompt": "Quái vật của đối thủ có vấn đề?",
   "opponentSearching": "Đang tìm nhà huấn luyện",
-  "opponentSearchAgain": "Tìm lại"
+  "opponentSearchAgain": "Tìm lại",
+  "opponentNoneAvailable": "Hiện chưa có nhà huấn luyện nào để đấu\nBạn có thể đấu với nhà huấn luyện CPU"
 }

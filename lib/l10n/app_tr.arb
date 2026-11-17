@@ -39,5 +39,6 @@
   "opponentAverageLevel": "Ortalama Lv. {level}",
   "opponentReportHelpPrompt": "Rakibin canavarıyla ilgili bir sorun mu var?",
   "opponentSearching": "eğitmen aranıyor",
-  "opponentSearchAgain": "Tekrar ara"
+  "opponentSearchAgain": "Tekrar ara",
+  "opponentNoneAvailable": "Şu anda savaşacak eğitmen yok\nBir CPU eğitmeniyle savaşabilirsin"
 }

@@ -39,5 +39,6 @@
   "opponentAverageLevel": "Gennemsnitlig Lv. {level}",
   "opponentReportHelpPrompt": "Problemer med modstanderens monster?",
   "opponentSearching": "Leder efter en træner",
-  "opponentSearchAgain": "Søg igen"
+  "opponentSearchAgain": "Søg igen",
+  "opponentNoneAvailable": "Der er ingen træner at kæmpe mod lige nu\nDu kan kæmpe mod en CPU-træner"
 }

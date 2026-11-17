@@ -39,5 +39,6 @@
   "opponentAverageLevel": "Purata Lv. {level}",
   "opponentReportHelpPrompt": "Ada masalah dengan monster lawan?",
   "opponentSearching": "Mencari jurulatih",
-  "opponentSearchAgain": "Cari lagi"
+  "opponentSearchAgain": "Cari lagi",
+  "opponentNoneAvailable": "Tiada jurulatih untuk dilawan sekarang\nKamu boleh lawan jurulatih CPU"
 }

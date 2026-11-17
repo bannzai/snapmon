@@ -39,5 +39,6 @@
   "opponentAverageLevel": "اوسط Lv. {level}",
   "opponentReportHelpPrompt": "مخالف کے مونسٹر سے کوئی مسئلہ ہے؟",
   "opponentSearching": "ٹرینر کی تلاش جاری ہے",
-  "opponentSearchAgain": "پھر سے ڈھونڈو"
+  "opponentSearchAgain": "پھر سے ڈھونڈو",
+  "opponentNoneAvailable": "ابھی لڑنے کے لیے کوئی ٹرینر نہیں ہے\nتم CPU ٹرینر سے لڑ سکتے ہو"
 }

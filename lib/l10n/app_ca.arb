@@ -39,5 +39,6 @@
   "opponentAverageLevel": "Mitjana Lv. {level}",
   "opponentReportHelpPrompt": "Algun problema amb el monstre rival?",
   "opponentSearching": "Buscant un entrenador",
-  "opponentSearchAgain": "Torna a buscar"
+  "opponentSearchAgain": "Torna a buscar",
+  "opponentNoneAvailable": "Ara no hi ha cap entrenador disponible\nPots lluitar contra un entrenador CPU"
 }

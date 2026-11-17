@@ -39,5 +39,6 @@
   "opponentAverageLevel": "Μέση Lv. {level}",
   "opponentReportHelpPrompt": "Πρόβλημα με το τέρας του αντιπάλου;",
   "opponentSearching": "Αναζήτηση εκπαιδευτή",
-  "opponentSearchAgain": "Ψάξε ξανά"
+  "opponentSearchAgain": "Ψάξε ξανά",
+  "opponentNoneAvailable": "Δεν υπάρχει διαθέσιμος εκπαιδευτής για μάχη τώρα\nΜπορείς να πολεμήσεις με εκπαιδευτή CPU"
 }

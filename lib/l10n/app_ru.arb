@@ -39,5 +39,6 @@
   "opponentAverageLevel": "Средний Lv. {level}",
   "opponentReportHelpPrompt": "Проблема с монстром соперника?",
   "opponentSearching": "Ищем тренера",
-  "opponentSearchAgain": "Искать снова"
+  "opponentSearchAgain": "Искать снова",
+  "opponentNoneAvailable": "Сейчас нет тренера, с которым можно сразиться\nТы можешь сразиться с CPU-тренером"
 }

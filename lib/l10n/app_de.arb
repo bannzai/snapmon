@@ -39,5 +39,6 @@
   "opponentAverageLevel": "Durchschnittliche Lv. {level}",
   "opponentReportHelpPrompt": "Problem mit dem Monster deines Gegners?",
   "opponentSearching": "Suche nach einem Trainer",
-  "opponentSearchAgain": "Erneut suchen"
+  "opponentSearchAgain": "Erneut suchen",
+  "opponentNoneAvailable": "Gerade ist kein Trainer für einen Kampf da\nDu kannst gegen einen CPU-Trainer kämpfen"
 }

@@ -39,5 +39,6 @@
   "opponentAverageLevel": "평균 Lv. {level}",
   "opponentReportHelpPrompt": "상대 몬스터에 문제가 있나요?",
   "opponentSearching": "트레이너를 찾고 있어요",
-  "opponentSearchAgain": "다시 찾기"
+  "opponentSearchAgain": "다시 찾기",
+  "opponentNoneAvailable": "지금 배틀할 수 있는 트레이너가 없어요\nCPU 트레이너와 배틀할 수 있어요"
 }

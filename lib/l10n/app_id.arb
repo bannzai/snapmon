@@ -39,5 +39,6 @@
   "opponentAverageLevel": "Rata-rata Lv. {level}",
   "opponentReportHelpPrompt": "Ada masalah dengan monster lawan?",
   "opponentSearching": "Mencari pelatih",
-  "opponentSearchAgain": "Cari lagi"
+  "opponentSearchAgain": "Cari lagi",
+  "opponentNoneAvailable": "Belum ada pelatih yang bisa dilawan sekarang\nKamu bisa melawan pelatih CPU"
 }

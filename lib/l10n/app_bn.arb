@@ -39,5 +39,6 @@
   "opponentAverageLevel": "গড় Lv. {level}",
   "opponentReportHelpPrompt": "প্রতিপক্ষের মনস্টার নিয়ে সমস্যা?",
   "opponentSearching": "ট্রেনার খোঁজা হচ্ছে",
-  "opponentSearchAgain": "আবার খোঁজো"
+  "opponentSearchAgain": "আবার খোঁজো",
+  "opponentNoneAvailable": "এখন লড়ার মতো কোনো ট্রেনার নেই\nতুমি CPU ট্রেনারের সঙ্গে লড়তে পারো"
 }

@@ -39,5 +39,6 @@
   "opponentAverageLevel": "Gemiddelde Lv. {level}",
   "opponentReportHelpPrompt": "Probleem met het monster van je tegenstander?",
   "opponentSearching": "Zoeken naar een trainer",
-  "opponentSearchAgain": "Zoek opnieuw"
+  "opponentSearchAgain": "Zoek opnieuw",
+  "opponentNoneAvailable": "Er is nu geen trainer om tegen te vechten\nJe kunt tegen een CPU-trainer vechten"
 }

@@ -39,5 +39,6 @@
   "opponentAverageLevel": "Průměrná Lv. {level}",
   "opponentReportHelpPrompt": "Problém s příšerou soupeře?",
   "opponentSearching": "Hledá se trenér",
-  "opponentSearchAgain": "Hledej znovu"
+  "opponentSearchAgain": "Hledej znovu",
+  "opponentNoneAvailable": "Teď není k dispozici žádný trenér k boji\nMůžeš bojovat s trenérem CPU"
 }
