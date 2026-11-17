@@ -117,5 +117,6 @@
   "generationStageWritingName": "On imagine un nom et une description pour le dex",
   "generationStageDecidingElements": "On choisit les éléments et les capacités",
   "generationStageBeingBorn": "Un monstre va naître",
-  "generationRejectedExplicitContent": "Impossible de créer un monstre à partir de cette photo"
+  "generationRejectedExplicitContent": "Impossible de créer un monstre à partir de cette photo",
+  "generationRejectedPerson": "Impossible de créer un monstre à partir d’une photo où l’on voit une personne\nPrends seulement des objets en photo"
 }
