@@ -40,5 +40,6 @@
   "opponentReportHelpPrompt": "Ongelma vastustajan hirviön kanssa?",
   "opponentSearching": "Etsitään kouluttajaa",
   "opponentSearchAgain": "Etsi uudelleen",
-  "opponentNoneAvailable": "Yhtään kouluttajaa ei ole nyt vastassa\nVoit taistella CPU-kouluttajaa vastaan"
+  "opponentNoneAvailable": "Yhtään kouluttajaa ei ole nyt vastassa\nVoit taistella CPU-kouluttajaa vastaan",
+  "opponentRandomBattle": "Taistele satunnaista vastustajaa vastaan"
 }

@@ -40,5 +40,6 @@
   "opponentReportHelpPrompt": "בעיה עם המפלצת של היריב?",
   "opponentSearching": "מחפשים מאמן",
   "opponentSearchAgain": "לחפש שוב",
-  "opponentNoneAvailable": "אין כרגע מאמן זמין לקרב\nאפשר להילחם מול מאמן CPU"
+  "opponentNoneAvailable": "אין כרגע מאמן זמין לקרב\nאפשר להילחם מול מאמן CPU",
+  "opponentRandomBattle": "קרב נגד יריב אקראי"
 }

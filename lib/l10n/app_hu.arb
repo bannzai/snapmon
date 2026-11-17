@@ -40,5 +40,6 @@
   "opponentReportHelpPrompt": "Gond van az ellenfél szörnyével?",
   "opponentSearching": "Edző keresése",
   "opponentSearchAgain": "Keress újra",
-  "opponentNoneAvailable": "Most nincs elérhető edző, akivel megküzdhetnél\nMegküzdhetsz egy CPU-edzővel"
+  "opponentNoneAvailable": "Most nincs elérhető edző, akivel megküzdhetnél\nMegküzdhetsz egy CPU-edzővel",
+  "opponentRandomBattle": "Küzdj egy véletlen ellenféllel"
 }

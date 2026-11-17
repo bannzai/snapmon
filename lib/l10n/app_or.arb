@@ -40,5 +40,6 @@
   "opponentReportHelpPrompt": "ପ୍ରତିପକ୍ଷର ମନଷ୍ଟରକୁ ନେଇ କିଛି ସମସ୍ୟା ଅଛି?",
   "opponentSearching": "ଟ୍ରେନର ଖୋଜା ଚାଲିଛି",
   "opponentSearchAgain": "ପୁଣି ଖୋଜ",
-  "opponentNoneAvailable": "ଏବେ ଲଢ଼ିବାକୁ କୌଣସି ଟ୍ରେନର ନାହାନ୍ତି\nତୁମେ CPU ଟ୍ରେନର ସହ ଲଢ଼ିପାରିବ"
+  "opponentNoneAvailable": "ଏବେ ଲଢ଼ିବାକୁ କୌଣସି ଟ୍ରେନର ନାହାନ୍ତି\nତୁମେ CPU ଟ୍ରେନର ସହ ଲଢ଼ିପାରିବ",
+  "opponentRandomBattle": "ଯାଦୃଚ୍ଛିକ ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ ସହ ଲଢ଼"
 }

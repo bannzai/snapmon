@@ -40,5 +40,6 @@
   "opponentReportHelpPrompt": "Проблема з монстром суперника?",
   "opponentSearching": "Шукаємо тренера",
   "opponentSearchAgain": "Шукай знову",
-  "opponentNoneAvailable": "Зараз немає тренера, з яким можна битися\nТи можеш битися з CPU-тренером"
+  "opponentNoneAvailable": "Зараз немає тренера, з яким можна битися\nТи можеш битися з CPU-тренером",
+  "opponentRandomBattle": "Бийся з випадковим суперником"
 }

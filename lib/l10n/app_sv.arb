@@ -40,5 +40,6 @@
   "opponentReportHelpPrompt": "Problem med motståndarens monster?",
   "opponentSearching": "Letar efter en tränare",
   "opponentSearchAgain": "Sök igen",
-  "opponentNoneAvailable": "Ingen tränare är redo för strid just nu\nDu kan strida mot en CPU-tränare"
+  "opponentNoneAvailable": "Ingen tränare är redo för strid just nu\nDu kan strida mot en CPU-tränare",
+  "opponentRandomBattle": "Strid mot en slumpad motståndare"
 }

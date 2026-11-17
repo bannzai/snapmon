@@ -40,5 +40,6 @@
   "opponentReportHelpPrompt": "Problema com o monstro adversário?",
   "opponentSearching": "Procurando um treinador",
   "opponentSearchAgain": "Buscar de novo",
-  "opponentNoneAvailable": "Não há treinador disponível para batalhar agora\nVocê pode batalhar com um treinador CPU"
+  "opponentNoneAvailable": "Não há treinador disponível para batalhar agora\nVocê pode batalhar com um treinador CPU",
+  "opponentRandomBattle": "Batalhe contra um oponente aleatório"
 }

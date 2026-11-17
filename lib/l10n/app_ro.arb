@@ -40,5 +40,6 @@
   "opponentReportHelpPrompt": "Vreo problemă cu monstrul adversarului?",
   "opponentSearching": "Se caută un antrenor",
   "opponentSearchAgain": "Caută din nou",
-  "opponentNoneAvailable": "Acum nu e niciun antrenor disponibil pentru luptă\nPoți lupta cu un antrenor CPU"
+  "opponentNoneAvailable": "Acum nu e niciun antrenor disponibil pentru luptă\nPoți lupta cu un antrenor CPU",
+  "opponentRandomBattle": "Luptă cu un adversar aleatoriu"
 }

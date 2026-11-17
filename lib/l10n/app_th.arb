@@ -40,5 +40,6 @@
   "opponentReportHelpPrompt": "มอนสเตอร์ของคู่ต่อสู้มีปัญหาหรือเปล่า?",
   "opponentSearching": "กำลังหาเทรนเนอร์",
   "opponentSearchAgain": "ค้นหาอีกครั้ง",
-  "opponentNoneAvailable": "ตอนนี้ยังไม่มีเทรนเนอร์ให้สู้ด้วย\nสู้กับเทรนเนอร์ CPU ได้"
+  "opponentNoneAvailable": "ตอนนี้ยังไม่มีเทรนเนอร์ให้สู้ด้วย\nสู้กับเทรนเนอร์ CPU ได้",
+  "opponentRandomBattle": "สู้กับคู่ต่อสู้แบบสุ่ม"
 }

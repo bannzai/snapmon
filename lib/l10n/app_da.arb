@@ -40,5 +40,6 @@
   "opponentReportHelpPrompt": "Problemer med modstanderens monster?",
   "opponentSearching": "Leder efter en træner",
   "opponentSearchAgain": "Søg igen",
-  "opponentNoneAvailable": "Der er ingen træner at kæmpe mod lige nu\nDu kan kæmpe mod en CPU-træner"
+  "opponentNoneAvailable": "Der er ingen træner at kæmpe mod lige nu\nDu kan kæmpe mod en CPU-træner",
+  "opponentRandomBattle": "Kæmp mod en tilfældig modstander"
 }

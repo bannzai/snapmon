@@ -40,5 +40,6 @@
   "opponentReportHelpPrompt": "Težava s pošastjo nasprotnika?",
   "opponentSearching": "Iščemo trenerja",
   "opponentSearchAgain": "Poišči znova",
-  "opponentNoneAvailable": "Trenutno ni trenerja, s katerim bi se boril\nLahko se boriš s CPU-trenerjem"
+  "opponentNoneAvailable": "Trenutno ni trenerja, s katerim bi se boril\nLahko se boriš s CPU-trenerjem",
+  "opponentRandomBattle": "Bori se z naključnim nasprotnikom"
 }

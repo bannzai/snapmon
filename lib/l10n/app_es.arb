@@ -40,5 +40,6 @@
   "opponentReportHelpPrompt": "¿Hay algún problema con el monstruo rival?",
   "opponentSearching": "Buscando entrenador",
   "opponentSearchAgain": "Buscar de nuevo",
-  "opponentNoneAvailable": "Ahora no hay ningún entrenador disponible para combatir\nPuedes combatir contra un entrenador CPU"
+  "opponentNoneAvailable": "Ahora no hay ningún entrenador disponible para combatir\nPuedes combatir contra un entrenador CPU",
+  "opponentRandomBattle": "Combate contra un rival aleatorio"
 }

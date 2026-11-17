@@ -40,5 +40,6 @@
   "opponentReportHelpPrompt": "Problém s príšerou súpera?",
   "opponentSearching": "Hľadá sa tréner",
   "opponentSearchAgain": "Hľadaj znova",
-  "opponentNoneAvailable": "Teraz nie je dostupný žiadny tréner na súboj\nMôžeš bojovať s CPU trénerom"
+  "opponentNoneAvailable": "Teraz nie je dostupný žiadny tréner na súboj\nMôžeš bojovať s CPU trénerom",
+  "opponentRandomBattle": "Bojuj s náhodným súperom"
 }

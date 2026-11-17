@@ -40,5 +40,6 @@
   "opponentReportHelpPrompt": "Ada masalah dengan monster lawan?",
   "opponentSearching": "Mencari pelatih",
   "opponentSearchAgain": "Cari lagi",
-  "opponentNoneAvailable": "Belum ada pelatih yang bisa dilawan sekarang\nKamu bisa melawan pelatih CPU"
+  "opponentNoneAvailable": "Belum ada pelatih yang bisa dilawan sekarang\nKamu bisa melawan pelatih CPU",
+  "opponentRandomBattle": "Lawan musuh acak"
 }

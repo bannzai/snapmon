@@ -40,5 +40,6 @@
   "opponentReportHelpPrompt": "Quái vật của đối thủ có vấn đề?",
   "opponentSearching": "Đang tìm nhà huấn luyện",
   "opponentSearchAgain": "Tìm lại",
-  "opponentNoneAvailable": "Hiện chưa có nhà huấn luyện nào để đấu\nBạn có thể đấu với nhà huấn luyện CPU"
+  "opponentNoneAvailable": "Hiện chưa có nhà huấn luyện nào để đấu\nBạn có thể đấu với nhà huấn luyện CPU",
+  "opponentRandomBattle": "Đấu với đối thủ ngẫu nhiên"
 }

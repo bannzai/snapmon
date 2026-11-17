@@ -40,5 +40,6 @@
   "opponentReportHelpPrompt": "هل هناك مشكلة في وحش الخصم؟",
   "opponentSearching": "جارٍ البحث عن مدرب",
   "opponentSearchAgain": "ابحث مجددًا",
-  "opponentNoneAvailable": "لا يوجد مدرب متاح للقتال الآن\nيمكنك قتال مدرب CPU"
+  "opponentNoneAvailable": "لا يوجد مدرب متاح للقتال الآن\nيمكنك قتال مدرب CPU",
+  "opponentRandomBattle": "قاتل خصمًا عشوائيًا"
 }

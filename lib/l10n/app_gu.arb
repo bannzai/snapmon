@@ -40,5 +40,6 @@
   "opponentReportHelpPrompt": "હરીફના મોન્સ્ટર સાથે કોઈ સમસ્યા?",
   "opponentSearching": "ટ્રેનર શોધાઈ રહ્યો છે",
   "opponentSearchAgain": "ફરી શોધો",
-  "opponentNoneAvailable": "અત્યારે લડવા માટે કોઈ ટ્રેનર નથી\nતમે CPU ટ્રેનર સાથે લડી શકો છો"
+  "opponentNoneAvailable": "અત્યારે લડવા માટે કોઈ ટ્રેનર નથી\nતમે CPU ટ્રેનર સાથે લડી શકો છો",
+  "opponentRandomBattle": "રેન્ડમ હરીફ સામે લડો"
 }
