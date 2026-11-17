@@ -142,5 +142,6 @@
   "statAttack": "Attaque",
   "statDefense": "Défense",
   "statSpeed": "Vitesse",
-  "statAccuracy": "Précision"
+  "statAccuracy": "Précision",
+  "resultLearnedMoves": "capacités apprises"
 }
