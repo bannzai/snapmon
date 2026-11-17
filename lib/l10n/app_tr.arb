@@ -69,5 +69,6 @@
   "settingsDisplayNameHelper": "Rakiplerinin savaşta gördüğü ad",
   "settingsDisplayNameSave": "Kaydet",
   "profileChangeIcon": "Simgeyi değiştir",
-  "profileIconHelper": "Rakibinin savaşta gördüğü simge\nBirinin yüzünün göründüğü fotoğrafları kullanamazsın"
+  "profileIconHelper": "Rakibinin savaşta gördüğü simge\nBirinin yüzünün göründüğü fotoğrafları kullanamazsın",
+  "profileIconUpdated": "Simge değiştirildi"
 }

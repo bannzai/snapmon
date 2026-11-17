@@ -69,5 +69,6 @@
   "settingsDisplayNameHelper": "A név, amit az ellenfeleid látnak a csatában",
   "settingsDisplayNameSave": "Mentés",
   "profileChangeIcon": "Ikon módosítása",
-  "profileIconHelper": "Az ikon, amit az ellenfeled lát a csatában\nEmberi arcot ábrázoló fotót nem használhatsz"
+  "profileIconHelper": "Az ikon, amit az ellenfeled lát a csatában\nEmberi arcot ábrázoló fotót nem használhatsz",
+  "profileIconUpdated": "Az ikon megváltozott"
 }

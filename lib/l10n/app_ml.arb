@@ -69,5 +69,6 @@
   "settingsDisplayNameHelper": "പോരാട്ടത്തിൽ എതിരാളികൾ കാണുന്ന പേര്",
   "settingsDisplayNameSave": "സേവ് ചെയ്യുക",
   "profileChangeIcon": "ഐക്കൺ മാറ്റുക",
-  "profileIconHelper": "പോരാട്ടത്തിൽ എതിരാളി കാണുന്ന ഐക്കൺ\nആളുകളുടെ മുഖം കാണുന്ന ഫോട്ടോകൾ ഉപയോഗിക്കാനാവില്ല"
+  "profileIconHelper": "പോരാട്ടത്തിൽ എതിരാളി കാണുന്ന ഐക്കൺ\nആളുകളുടെ മുഖം കാണുന്ന ഫോട്ടോകൾ ഉപയോഗിക്കാനാവില്ല",
+  "profileIconUpdated": "ഐക്കൺ മാറ്റി"
 }

@@ -69,5 +69,6 @@
   "settingsDisplayNameHelper": "Tên đối thủ nhìn thấy khi đấu",
   "settingsDisplayNameSave": "Lưu",
   "profileChangeIcon": "Đổi biểu tượng",
-  "profileIconHelper": "Biểu tượng đối thủ thấy khi đấu\nBạn không thể dùng ảnh có khuôn mặt người"
+  "profileIconHelper": "Biểu tượng đối thủ thấy khi đấu\nBạn không thể dùng ảnh có khuôn mặt người",
+  "profileIconUpdated": "Đã đổi biểu tượng"
 }

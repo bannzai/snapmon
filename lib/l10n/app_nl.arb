@@ -69,5 +69,6 @@
   "settingsDisplayNameHelper": "Naam die je tegenstanders zien tijdens gevechten",
   "settingsDisplayNameSave": "Opslaan",
   "profileChangeIcon": "Pictogram wijzigen",
-  "profileIconHelper": "Het pictogram dat je tegenstander in een gevecht ziet\nJe kunt geen foto's gebruiken waarop iemands gezicht te zien is"
+  "profileIconHelper": "Het pictogram dat je tegenstander in een gevecht ziet\nJe kunt geen foto's gebruiken waarop iemands gezicht te zien is",
+  "profileIconUpdated": "Je hebt je pictogram gewijzigd"
 }

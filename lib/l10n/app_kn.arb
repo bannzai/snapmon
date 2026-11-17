@@ -69,5 +69,6 @@
   "settingsDisplayNameHelper": "ಕಾಳಗದಲ್ಲಿ ಎದುರಾಳಿಗಳಿಗೆ ಕಾಣುವ ಹೆಸರು",
   "settingsDisplayNameSave": "ಉಳಿಸು",
   "profileChangeIcon": "ಐಕಾನ್ ಬದಲಾಯಿಸು",
-  "profileIconHelper": "ಕಾಳಗದಲ್ಲಿ ನಿನ್ನ ಎದುರಾಳಿಗೆ ಕಾಣುವ ಐಕಾನ್\nವ್ಯಕ್ತಿಯ ಮುಖ ಕಾಣುವ ಫೋಟೋ ಬಳಸಬೇಡ"
+  "profileIconHelper": "ಕಾಳಗದಲ್ಲಿ ನಿನ್ನ ಎದುರಾಳಿಗೆ ಕಾಣುವ ಐಕಾನ್\nವ್ಯಕ್ತಿಯ ಮುಖ ಕಾಣುವ ಫೋಟೋ ಬಳಸಬೇಡ",
+  "profileIconUpdated": "ಐಕಾನ್ ಬದಲಾಗಿದೆ"
 }

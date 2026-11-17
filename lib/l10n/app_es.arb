@@ -69,5 +69,6 @@
   "settingsDisplayNameHelper": "Nombre que ven tus rivales en combate",
   "settingsDisplayNameSave": "Guardar",
   "profileChangeIcon": "Cambiar icono",
-  "profileIconHelper": "El ícono que ve tu rival en combate\nNo puedes usar fotos en las que se vea una cara"
+  "profileIconHelper": "El ícono que ve tu rival en combate\nNo puedes usar fotos en las que se vea una cara",
+  "profileIconUpdated": "Cambiaste el icono"
 }

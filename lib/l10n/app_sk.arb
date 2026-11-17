@@ -69,5 +69,6 @@
   "settingsDisplayNameHelper": "Meno, ktoré tvoji súperi uvidia v súboji",
   "settingsDisplayNameSave": "Ulož",
   "profileChangeIcon": "Zmeň ikonu",
-  "profileIconHelper": "Ikona, ktorú tvoj súper vidí v súboji\nNemôžeš použiť fotky, na ktorých vidno ľudskú tvár"
+  "profileIconHelper": "Ikona, ktorú tvoj súper vidí v súboji\nNemôžeš použiť fotky, na ktorých vidno ľudskú tvár",
+  "profileIconUpdated": "Ikona je zmenená"
 }

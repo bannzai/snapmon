@@ -69,5 +69,6 @@
   "settingsDisplayNameHelper": "लड़ाई में विरोधियों को दिखने वाला नाम",
   "settingsDisplayNameSave": "सेव करो",
   "profileChangeIcon": "आइकन बदलो",
-  "profileIconHelper": "लड़ाई में प्रतिद्वंद्वी को दिखने वाला आइकन\nकिसी का चेहरा दिखने वाली फ़ोटो इस्तेमाल नहीं कर सकते"
+  "profileIconHelper": "लड़ाई में प्रतिद्वंद्वी को दिखने वाला आइकन\nकिसी का चेहरा दिखने वाली फ़ोटो इस्तेमाल नहीं कर सकते",
+  "profileIconUpdated": "आइकन बदल गया"
 }

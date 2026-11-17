@@ -69,5 +69,6 @@
   "settingsDisplayNameHelper": "Numele pe care îl văd adversarii tăi în luptă",
   "settingsDisplayNameSave": "Salvează",
   "profileChangeIcon": "Schimbă pictograma",
-  "profileIconHelper": "Pictograma pe care o vede adversarul tău în luptă\nNu poți folosi poze în care se vede fața unei persoane"
+  "profileIconHelper": "Pictograma pe care o vede adversarul tău în luptă\nNu poți folosi poze în care se vede fața unei persoane",
+  "profileIconUpdated": "Ai schimbat pictograma"
 }

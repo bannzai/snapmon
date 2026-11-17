@@ -69,5 +69,6 @@
   "settingsDisplayNameHelper": "Imię widoczne dla twoich rywali w walce",
   "settingsDisplayNameSave": "Zapisz",
   "profileChangeIcon": "Zmień ikonę",
-  "profileIconHelper": "Ikona, którą widzi twój przeciwnik w walce\nNie możesz używać zdjęć, na których widać czyjąś twarz"
+  "profileIconHelper": "Ikona, którą widzi twój przeciwnik w walce\nNie możesz używać zdjęć, na których widać czyjąś twarz",
+  "profileIconUpdated": "Ikona została zmieniona"
 }

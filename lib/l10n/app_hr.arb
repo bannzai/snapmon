@@ -69,5 +69,6 @@
   "settingsDisplayNameHelper": "Ime koje tvoji protivnici vide u borbi",
   "settingsDisplayNameSave": "Spremi",
   "profileChangeIcon": "Promijeni ikonu",
-  "profileIconHelper": "Ikona koju tvoj protivnik vidi u borbi\nNe možeš koristiti fotografije na kojima se vidi nečije lice"
+  "profileIconHelper": "Ikona koju tvoj protivnik vidi u borbi\nNe možeš koristiti fotografije na kojima se vidi nečije lice",
+  "profileIconUpdated": "Ikona je promijenjena"
 }
