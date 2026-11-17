@@ -154,5 +154,6 @@
   "shareFormatPortrait": "Álló",
   "shareFormatLandscape": "Fekvő",
   "shareFormatPortraitDescription": "Sztorikhoz 1080×1920",
-  "shareFormatLandscapeDescription": "Bejegyzésekhez 1200×630"
+  "shareFormatLandscapeDescription": "Bejegyzésekhez 1200×630",
+  "shareConfirm": "Megosztás"
 }

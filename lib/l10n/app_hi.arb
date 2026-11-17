@@ -154,5 +154,6 @@
   "shareFormatPortrait": "पोर्ट्रेट",
   "shareFormatLandscape": "लैंडस्केप",
   "shareFormatPortraitDescription": "स्टोरी के लिए 1080×1920",
-  "shareFormatLandscapeDescription": "पोस्ट के लिए 1200×630"
+  "shareFormatLandscapeDescription": "पोस्ट के लिए 1200×630",
+  "shareConfirm": "शेयर करो"
 }

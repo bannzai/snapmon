@@ -154,5 +154,6 @@
   "shareFormatPortrait": "Okomito",
   "shareFormatLandscape": "Vodoravno",
   "shareFormatPortraitDescription": "Za priče 1080×1920",
-  "shareFormatLandscapeDescription": "Za objave 1200×630"
+  "shareFormatLandscapeDescription": "Za objave 1200×630",
+  "shareConfirm": "Podijeli"
 }

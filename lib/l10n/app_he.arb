@@ -154,5 +154,6 @@
   "shareFormatPortrait": "לאורך",
   "shareFormatLandscape": "לרוחב",
   "shareFormatPortraitDescription": "לסטוריז 1080×1920",
-  "shareFormatLandscapeDescription": "לפוסטים 1200×630"
+  "shareFormatLandscapeDescription": "לפוסטים 1200×630",
+  "shareConfirm": "שיתוף"
 }
