@@ -56,5 +56,6 @@
   "settingsSupportSection": "Підтримка",
   "settingsTerms": "Умови користування",
   "settingsPrivacyPolicy": "Політика конфіденційності",
-  "settingsAccountSection": "Обліковий запис"
+  "settingsAccountSection": "Обліковий запис",
+  "settingsAboutAccountDeletion": "Про видалення облікового запису"
 }

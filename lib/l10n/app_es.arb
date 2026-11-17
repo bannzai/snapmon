@@ -56,5 +56,6 @@
   "settingsSupportSection": "Ayuda",
   "settingsTerms": "Términos de uso",
   "settingsPrivacyPolicy": "Política de privacidad",
-  "settingsAccountSection": "Cuenta"
+  "settingsAccountSection": "Cuenta",
+  "settingsAboutAccountDeletion": "Sobre la eliminación de la cuenta"
 }

@@ -56,5 +56,6 @@
   "settingsSupportSection": "Támogatás",
   "settingsTerms": "Felhasználási feltételek",
   "settingsPrivacyPolicy": "Adatvédelmi szabályzat",
-  "settingsAccountSection": "Fiók"
+  "settingsAccountSection": "Fiók",
+  "settingsAboutAccountDeletion": "A fiók törléséről"
 }

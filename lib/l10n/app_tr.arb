@@ -56,5 +56,6 @@
   "settingsSupportSection": "Destek",
   "settingsTerms": "Kullanım Koşulları",
   "settingsPrivacyPolicy": "Gizlilik politikası",
-  "settingsAccountSection": "Hesap"
+  "settingsAccountSection": "Hesap",
+  "settingsAboutAccountDeletion": "Hesap silme hakkında"
 }

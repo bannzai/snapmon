@@ -56,5 +56,6 @@
   "settingsSupportSection": "고객 지원",
   "settingsTerms": "이용 약관",
   "settingsPrivacyPolicy": "개인정보 처리방침",
-  "settingsAccountSection": "계정"
+  "settingsAccountSection": "계정",
+  "settingsAboutAccountDeletion": "계정 삭제 안내"
 }

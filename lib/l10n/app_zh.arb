@@ -56,5 +56,6 @@
   "settingsSupportSection": "帮助",
   "settingsTerms": "使用条款",
   "settingsPrivacyPolicy": "隐私政策",
-  "settingsAccountSection": "账号"
+  "settingsAccountSection": "账号",
+  "settingsAboutAccountDeletion": "关于删除账号"
 }

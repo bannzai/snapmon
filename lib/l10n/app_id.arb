@@ -56,5 +56,6 @@
   "settingsSupportSection": "Bantuan",
   "settingsTerms": "Ketentuan Penggunaan",
   "settingsPrivacyPolicy": "Kebijakan privasi",
-  "settingsAccountSection": "Akun"
+  "settingsAccountSection": "Akun",
+  "settingsAboutAccountDeletion": "Tentang penghapusan akun"
 }

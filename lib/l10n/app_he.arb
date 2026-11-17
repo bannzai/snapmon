@@ -56,5 +56,6 @@
   "settingsSupportSection": "תמיכה",
   "settingsTerms": "תנאי שימוש",
   "settingsPrivacyPolicy": "מדיניות פרטיות",
-  "settingsAccountSection": "חשבון"
+  "settingsAccountSection": "חשבון",
+  "settingsAboutAccountDeletion": "על מחיקת החשבון"
 }

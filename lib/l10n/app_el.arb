@@ -56,5 +56,6 @@
   "settingsSupportSection": "Υποστήριξη",
   "settingsTerms": "Όροι χρήσης",
   "settingsPrivacyPolicy": "Πολιτική απορρήτου",
-  "settingsAccountSection": "Λογαριασμός"
+  "settingsAccountSection": "Λογαριασμός",
+  "settingsAboutAccountDeletion": "Σχετικά με τη διαγραφή λογαριασμού"
 }

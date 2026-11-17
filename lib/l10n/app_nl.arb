@@ -56,5 +56,6 @@
   "settingsSupportSection": "Hulp",
   "settingsTerms": "Gebruiksvoorwaarden",
   "settingsPrivacyPolicy": "Privacybeleid",
-  "settingsAccountSection": "Account"
+  "settingsAccountSection": "Account",
+  "settingsAboutAccountDeletion": "Over het verwijderen van je account"
 }

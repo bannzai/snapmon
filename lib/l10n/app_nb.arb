@@ -56,5 +56,6 @@
   "settingsSupportSection": "Hjelp",
   "settingsTerms": "Bruksvilkår",
   "settingsPrivacyPolicy": "Personvernerklæring",
-  "settingsAccountSection": "Konto"
+  "settingsAccountSection": "Konto",
+  "settingsAboutAccountDeletion": "Om sletting av konto"
 }

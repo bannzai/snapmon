@@ -56,5 +56,6 @@
   "settingsSupportSection": "Podpora",
   "settingsTerms": "Podmínky používání",
   "settingsPrivacyPolicy": "Zásady ochrany osobních údajů",
-  "settingsAccountSection": "Účet"
+  "settingsAccountSection": "Účet",
+  "settingsAboutAccountDeletion": "O smazání účtu"
 }

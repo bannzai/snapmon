@@ -56,5 +56,6 @@
   "settingsSupportSection": "Tuki",
   "settingsTerms": "Käyttöehdot",
   "settingsPrivacyPolicy": "Tietosuojakäytäntö",
-  "settingsAccountSection": "Tili"
+  "settingsAccountSection": "Tili",
+  "settingsAboutAccountDeletion": "Tietoa tilin poistamisesta"
 }

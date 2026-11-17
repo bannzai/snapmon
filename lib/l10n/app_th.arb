@@ -56,5 +56,6 @@
   "settingsSupportSection": "ช่วยเหลือ",
   "settingsTerms": "ข้อกำหนดการใช้งาน",
   "settingsPrivacyPolicy": "นโยบายความเป็นส่วนตัว",
-  "settingsAccountSection": "บัญชี"
+  "settingsAccountSection": "บัญชี",
+  "settingsAboutAccountDeletion": "เกี่ยวกับการลบบัญชี"
 }

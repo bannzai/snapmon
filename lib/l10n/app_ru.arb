@@ -56,5 +56,6 @@
   "settingsSupportSection": "Поддержка",
   "settingsTerms": "Условия использования",
   "settingsPrivacyPolicy": "Политика конфиденциальности",
-  "settingsAccountSection": "Аккаунт"
+  "settingsAccountSection": "Аккаунт",
+  "settingsAboutAccountDeletion": "Об удалении аккаунта"
 }

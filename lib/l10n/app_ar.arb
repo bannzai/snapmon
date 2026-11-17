@@ -56,5 +56,6 @@
   "settingsSupportSection": "الدعم",
   "settingsTerms": "شروط الاستخدام",
   "settingsPrivacyPolicy": "سياسة الخصوصية",
-  "settingsAccountSection": "الحساب"
+  "settingsAccountSection": "الحساب",
+  "settingsAboutAccountDeletion": "حول حذف الحساب"
 }
