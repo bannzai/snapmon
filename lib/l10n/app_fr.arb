@@ -23,5 +23,6 @@
   "settingsTitle": "Paramètres",
   "opponentReported": "Signalement envoyé",
   "opponentBlocked": "Adversaire bloqué",
-  "blockDialogTitle": "bloquer"
+  "blockDialogTitle": "bloquer",
+  "blockDialogMessage": "Tu ne rencontreras plus {displayName} comme adversaire, et inversement"
 }
