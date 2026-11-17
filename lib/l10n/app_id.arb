@@ -144,5 +144,6 @@
   "statSpeed": "Kecepatan",
   "statAccuracy": "Akurasi",
   "resultLearnedMoves": "jurus yang dipelajari",
-  "resultRemoveFromParty": "Keluarkan dari tim"
+  "resultRemoveFromParty": "Keluarkan dari tim",
+  "resultAddToParty": "Tambahkan ke tim"
 }

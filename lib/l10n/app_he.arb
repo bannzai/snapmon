@@ -144,5 +144,6 @@
   "statSpeed": "מהירות",
   "statAccuracy": "דיוק",
   "resultLearnedMoves": "מתקפות שנלמדו",
-  "resultRemoveFromParty": "להוציא מהצוות"
+  "resultRemoveFromParty": "להוציא מהצוות",
+  "resultAddToParty": "הוספה לצוות"
 }

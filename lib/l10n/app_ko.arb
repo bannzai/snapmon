@@ -144,5 +144,6 @@
   "statSpeed": "스피드",
   "statAccuracy": "명중률",
   "resultLearnedMoves": "배운 기술",
-  "resultRemoveFromParty": "파티에서 빼기"
+  "resultRemoveFromParty": "파티에서 빼기",
+  "resultAddToParty": "파티에 추가"
 }

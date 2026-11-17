@@ -144,5 +144,6 @@
   "statSpeed": "வேகம்",
   "statAccuracy": "துல்லியம்",
   "resultLearnedMoves": "கற்ற தாக்குதல்கள்",
-  "resultRemoveFromParty": "அணியிலிருந்து நீக்குங்கள்"
+  "resultRemoveFromParty": "அணியிலிருந்து நீக்குங்கள்",
+  "resultAddToParty": "அணியில் சேர்க்கவும்"
 }

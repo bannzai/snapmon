@@ -144,5 +144,6 @@
   "statSpeed": "ความเร็ว",
   "statAccuracy": "ความแม่นยำ",
   "resultLearnedMoves": "ท่าที่เรียนรู้",
-  "resultRemoveFromParty": "นำออกจากทีม"
+  "resultRemoveFromParty": "นำออกจากทีม",
+  "resultAddToParty": "เพิ่มเข้าทีม"
 }

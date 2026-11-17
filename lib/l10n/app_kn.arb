@@ -144,5 +144,6 @@
   "statSpeed": "ವೇಗ",
   "statAccuracy": "ನಿಖರತೆ",
   "resultLearnedMoves": "ಕಲಿತ ತಂತ್ರಗಳು",
-  "resultRemoveFromParty": "ತಂಡದಿಂದ ತೆಗೆ"
+  "resultRemoveFromParty": "ತಂಡದಿಂದ ತೆಗೆ",
+  "resultAddToParty": "ತಂಡಕ್ಕೆ ಸೇರಿಸು"
 }

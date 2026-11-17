@@ -144,5 +144,6 @@
   "statSpeed": "Snabbhet",
   "statAccuracy": "Träffsäkerhet",
   "resultLearnedMoves": "Inlärda attacker",
-  "resultRemoveFromParty": "Ta bort från laget"
+  "resultRemoveFromParty": "Ta bort från laget",
+  "resultAddToParty": "Lägg till i laget"
 }

@@ -144,5 +144,6 @@
   "statSpeed": "Hastighed",
   "statAccuracy": "Træfsikkerhed",
   "resultLearnedMoves": "Lærte angreb",
-  "resultRemoveFromParty": "Fjern fra holdet"
+  "resultRemoveFromParty": "Fjern fra holdet",
+  "resultAddToParty": "Føj til dit hold"
 }

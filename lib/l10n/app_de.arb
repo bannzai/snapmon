@@ -144,5 +144,6 @@
   "statSpeed": "Initiative",
   "statAccuracy": "Genauigkeit",
   "resultLearnedMoves": "Erlernte Attacken",
-  "resultRemoveFromParty": "Aus dem Team nehmen"
+  "resultRemoveFromParty": "Aus dem Team nehmen",
+  "resultAddToParty": "Zum Team hinzufügen"
 }

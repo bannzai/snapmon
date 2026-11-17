@@ -144,5 +144,6 @@
   "statSpeed": "Rýchlosť",
   "statAccuracy": "Presnosť",
   "resultLearnedMoves": "Naučené útoky",
-  "resultRemoveFromParty": "Odober z tímu"
+  "resultRemoveFromParty": "Odober z tímu",
+  "resultAddToParty": "Pridaj do tímu"
 }

@@ -144,5 +144,6 @@
   "statSpeed": "Viteză",
   "statAccuracy": "Precizie",
   "resultLearnedMoves": "mișcări învățate",
-  "resultRemoveFromParty": "Scoate din echipă"
+  "resultRemoveFromParty": "Scoate din echipă",
+  "resultAddToParty": "Adaugă în echipă"
 }

@@ -144,5 +144,6 @@
   "statSpeed": "Velocitat",
   "statAccuracy": "Precisió",
   "resultLearnedMoves": "moviments apresos",
-  "resultRemoveFromParty": "Treure de l'equip"
+  "resultRemoveFromParty": "Treure de l'equip",
+  "resultAddToParty": "Afegeix a l'equip"
 }

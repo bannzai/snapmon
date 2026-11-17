@@ -144,5 +144,6 @@
   "statSpeed": "वेग",
   "statAccuracy": "अचूकता",
   "resultLearnedMoves": "शिकलेल्या चाली",
-  "resultRemoveFromParty": "टीममधून काढ"
+  "resultRemoveFromParty": "टीममधून काढ",
+  "resultAddToParty": "टीममध्ये सामील कर"
 }

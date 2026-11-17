@@ -144,5 +144,6 @@
   "statSpeed": "Tốc độ",
   "statAccuracy": "Độ chính xác",
   "resultLearnedMoves": "Các chiêu đã học",
-  "resultRemoveFromParty": "Bỏ khỏi đội"
+  "resultRemoveFromParty": "Bỏ khỏi đội",
+  "resultAddToParty": "Thêm vào đội"
 }

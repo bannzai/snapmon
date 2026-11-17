@@ -144,5 +144,6 @@
   "statSpeed": "ਰਫ਼ਤਾਰ",
   "statAccuracy": "ਸਟੀਕਤਾ",
   "resultLearnedMoves": "ਸਿੱਖੀਆਂ ਚਾਲਾਂ",
-  "resultRemoveFromParty": "ਟੀਮ ਵਿੱਚੋਂ ਹਟਾਓ"
+  "resultRemoveFromParty": "ਟੀਮ ਵਿੱਚੋਂ ਹਟਾਓ",
+  "resultAddToParty": "ਟੀਮ ਵਿੱਚ ਸ਼ਾਮਲ ਕਰੋ"
 }

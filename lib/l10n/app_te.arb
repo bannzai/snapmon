@@ -144,5 +144,6 @@
   "statSpeed": "వేగం",
   "statAccuracy": "కచ్చితత్వం",
   "resultLearnedMoves": "నేర్చుకున్న మూవ్‌లు",
-  "resultRemoveFromParty": "జట్టు నుంచి తీసేయి"
+  "resultRemoveFromParty": "జట్టు నుంచి తీసేయి",
+  "resultAddToParty": "జట్టులో చేర్చు"
 }

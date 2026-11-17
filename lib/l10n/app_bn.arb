@@ -144,5 +144,6 @@
   "statSpeed": "গতি",
   "statAccuracy": "নির্ভুলতা",
   "resultLearnedMoves": "শেখা কৌশল",
-  "resultRemoveFromParty": "দল থেকে সরাও"
+  "resultRemoveFromParty": "দল থেকে সরাও",
+  "resultAddToParty": "দলে যোগ করো"
 }

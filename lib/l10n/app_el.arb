@@ -144,5 +144,6 @@
   "statSpeed": "Ταχύτητα",
   "statAccuracy": "Ακρίβεια",
   "resultLearnedMoves": "Γνωστές τεχνικές",
-  "resultRemoveFromParty": "Βγάλε από την ομάδα"
+  "resultRemoveFromParty": "Βγάλε από την ομάδα",
+  "resultAddToParty": "Προσθήκη στην ομάδα"
 }

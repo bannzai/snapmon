@@ -144,5 +144,6 @@
   "statSpeed": "Hastighet",
   "statAccuracy": "Treffsikkerhet",
   "resultLearnedMoves": "Lærte angrep",
-  "resultRemoveFromParty": "Fjern fra laget"
+  "resultRemoveFromParty": "Fjern fra laget",
+  "resultAddToParty": "Legg til på laget"
 }

@@ -144,5 +144,6 @@
   "statSpeed": "ઝડપ",
   "statAccuracy": "ચોકસાઈ",
   "resultLearnedMoves": "શીખેલી ચાલ",
-  "resultRemoveFromParty": "ટીમમાંથી દૂર કરો"
+  "resultRemoveFromParty": "ટીમમાંથી દૂર કરો",
+  "resultAddToParty": "ટીમમાં ઉમેરો"
 }

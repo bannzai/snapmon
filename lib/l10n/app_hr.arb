@@ -144,5 +144,6 @@
   "statSpeed": "Brzina",
   "statAccuracy": "Preciznost",
   "resultLearnedMoves": "Naučeni potezi",
-  "resultRemoveFromParty": "Ukloni iz tima"
+  "resultRemoveFromParty": "Ukloni iz tima",
+  "resultAddToParty": "Dodaj u tim"
 }

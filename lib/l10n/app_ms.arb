@@ -144,5 +144,6 @@
   "statSpeed": "Kelajuan",
   "statAccuracy": "Ketepatan",
   "resultLearnedMoves": "gerakan yang dipelajari",
-  "resultRemoveFromParty": "Keluarkan daripada pasukan"
+  "resultRemoveFromParty": "Keluarkan daripada pasukan",
+  "resultAddToParty": "Tambah ke pasukan"
 }

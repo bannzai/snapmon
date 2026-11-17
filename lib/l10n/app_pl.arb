@@ -144,5 +144,6 @@
   "statSpeed": "Szybkość",
   "statAccuracy": "Celność",
   "resultLearnedMoves": "Poznane ruchy",
-  "resultRemoveFromParty": "Usuń z drużyny"
+  "resultRemoveFromParty": "Usuń z drużyny",
+  "resultAddToParty": "Dodaj do drużyny"
 }

@@ -144,5 +144,6 @@
   "statSpeed": "ବେଗ",
   "statAccuracy": "ସଠିକତା",
   "resultLearnedMoves": "ଶିଖିଥିବା ଚାଲ",
-  "resultRemoveFromParty": "ଦଳରୁ କାଢ଼"
+  "resultRemoveFromParty": "ଦଳରୁ କାଢ଼",
+  "resultAddToParty": "ଦଳରେ ଯୋଗ କର"
 }
