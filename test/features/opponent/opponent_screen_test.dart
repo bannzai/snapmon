@@ -199,7 +199,11 @@ void main() {
         isNotNull,
       );
       expect(
-        find.byType(ButtonStyleButton, skipOffstage: false),
+        // find.byType は型の完全一致で、FilledButton と OutlinedButton の親の型では見つからない
+        find.byWidgetPredicate(
+          (widget) => widget is ButtonStyleButton,
+          skipOffstage: false,
+        ),
         findsNWidgets(2),
       );
       for (final text in ['相手をえらぶ', '挑む', 'ほかの相手をさがす']) {
