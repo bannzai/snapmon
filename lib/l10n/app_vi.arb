@@ -294,5 +294,6 @@
   "actionCardOwnedEmpty": "Bạn chưa mua chiêu nào",
   "actionCardMovesHeading": "Chiêu từ Action Card",
   "actionCardTaughtNone": "Bạn chưa dạy chiêu nào",
-  "actionCardTeach": "Dạy chiêu"
+  "actionCardTeach": "Dạy chiêu",
+  "actionCardTeachTitle": "Dạy cho {monsterName}"
 }

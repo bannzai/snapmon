@@ -294,5 +294,6 @@
   "actionCardOwnedEmpty": "Nisi še kupil nobenega poteza",
   "actionCardMovesHeading": "Potezi z Action Card",
   "actionCardTaughtNone": "Nisi ga še naučil nobenega poteza",
-  "actionCardTeach": "Nauči potez"
+  "actionCardTeach": "Nauči potez",
+  "actionCardTeachTitle": "Nauči {monsterName}"
 }

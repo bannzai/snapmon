@@ -294,5 +294,6 @@
   "actionCardOwnedEmpty": "Ты ещё не купил ни один приём",
   "actionCardMovesHeading": "Приёмы Action Card",
   "actionCardTaughtNone": "Ты ещё не обучил его ни одному приёму",
-  "actionCardTeach": "Обучить приёму"
+  "actionCardTeach": "Обучить приёму",
+  "actionCardTeachTitle": "Обучить {monsterName}"
 }

@@ -294,5 +294,6 @@
   "actionCardOwnedEmpty": "Du har inte köpt någon attack än",
   "actionCardMovesHeading": "Action Card-attacker",
   "actionCardTaughtNone": "Du har inte lärt ut någon attack än",
-  "actionCardTeach": "Lär ut en attack"
+  "actionCardTeach": "Lär ut en attack",
+  "actionCardTeachTitle": "Lär {monsterName}"
 }

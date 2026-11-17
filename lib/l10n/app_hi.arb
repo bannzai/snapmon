@@ -294,5 +294,6 @@
   "actionCardOwnedEmpty": "तुमने अभी तक कोई चाल नहीं खरीदी",
   "actionCardMovesHeading": "Action Card की चालें",
   "actionCardTaughtNone": "अभी कोई चाल नहीं सिखाई",
-  "actionCardTeach": "चाल सिखाओ"
+  "actionCardTeach": "चाल सिखाओ",
+  "actionCardTeachTitle": "{monsterName} को सिखाओ"
 }

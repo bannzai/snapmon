@@ -294,5 +294,6 @@
   "actionCardOwnedEmpty": "Você ainda não comprou nenhum golpe",
   "actionCardMovesHeading": "Golpes do Action Card",
   "actionCardTaughtNone": "Você ainda não ensinou nenhum golpe",
-  "actionCardTeach": "Ensinar um golpe"
+  "actionCardTeach": "Ensinar um golpe",
+  "actionCardTeachTitle": "Ensinar a {monsterName}"
 }

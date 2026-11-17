@@ -294,5 +294,6 @@
   "actionCardOwnedEmpty": "Du hast noch keine Attacke gekauft",
   "actionCardMovesHeading": "Attacken der Action Card",
   "actionCardTaughtNone": "Noch keine Attacke beigebracht",
-  "actionCardTeach": "Attacke beibringen"
+  "actionCardTeach": "Attacke beibringen",
+  "actionCardTeachTitle": "{monsterName} etwas beibringen"
 }

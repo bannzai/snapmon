@@ -294,5 +294,6 @@
   "actionCardOwnedEmpty": "ನೀನು ಇನ್ನೂ ಯಾವುದೇ ತಂತ್ರವನ್ನು ಖರೀದಿಸಿಲ್ಲ",
   "actionCardMovesHeading": "Action Cardನ ತಂತ್ರಗಳು",
   "actionCardTaughtNone": "ಇನ್ನೂ ಯಾವುದೇ ತಂತ್ರ ಕಲಿಸಿಲ್ಲ",
-  "actionCardTeach": "ತಂತ್ರ ಕಲಿಸು"
+  "actionCardTeach": "ತಂತ್ರ ಕಲಿಸು",
+  "actionCardTeachTitle": "{monsterName}ಗೆ ಕಲಿಸು"
 }

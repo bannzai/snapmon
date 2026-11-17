@@ -294,5 +294,6 @@
   "actionCardOwnedEmpty": "Je hebt nog geen aanval gekocht",
   "actionCardMovesHeading": "Action Card-aanvallen",
   "actionCardTaughtNone": "Je hebt nog geen aanval aangeleerd",
-  "actionCardTeach": "Leer een aanval aan"
+  "actionCardTeach": "Leer een aanval aan",
+  "actionCardTeachTitle": "Leer het aan {monsterName}"
 }

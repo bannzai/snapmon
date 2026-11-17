@@ -294,5 +294,6 @@
   "actionCardOwnedEmpty": "لم تشترِ أي حركة بعد",
   "actionCardMovesHeading": "حركات Action Card",
   "actionCardTaughtNone": "لم تُعلَّم أي حركة بعد",
-  "actionCardTeach": "تعليم حركة"
+  "actionCardTeach": "تعليم حركة",
+  "actionCardTeachTitle": "تعليم {monsterName}"
 }

@@ -294,5 +294,6 @@
   "actionCardOwnedEmpty": "তুমি এখনও কোনো কৌশল কেনোনি",
   "actionCardMovesHeading": "Action Card-এর কৌশল",
   "actionCardTaughtNone": "এখনও কোনো কৌশল শেখানো হয়নি",
-  "actionCardTeach": "কৌশল শেখাও"
+  "actionCardTeach": "কৌশল শেখাও",
+  "actionCardTeachTitle": "{monsterName}-কে শেখাও"
 }

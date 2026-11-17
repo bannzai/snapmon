@@ -294,5 +294,6 @@
   "actionCardOwnedEmpty": "Kamu belum membeli jurus",
   "actionCardMovesHeading": "Jurus Action Card",
   "actionCardTaughtNone": "Belum ada jurus yang diajarkan",
-  "actionCardTeach": "Ajarkan jurus"
+  "actionCardTeach": "Ajarkan jurus",
+  "actionCardTeachTitle": "Ajari {monsterName}"
 }

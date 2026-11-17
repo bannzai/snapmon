@@ -294,5 +294,6 @@
   "actionCardOwnedEmpty": "Još nisi kupio nijedan potez",
   "actionCardMovesHeading": "Potezi s Action Card",
   "actionCardTaughtNone": "Još ga nisi naučio nijedan potez",
-  "actionCardTeach": "Nauči potez"
+  "actionCardTeach": "Nauči potez",
+  "actionCardTeachTitle": "Nauči {monsterName}"
 }

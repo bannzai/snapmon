@@ -294,5 +294,6 @@
   "actionCardOwnedEmpty": "Et ole vielä ostanut yhtään liikettä",
   "actionCardMovesHeading": "Action Cardin liikkeet",
   "actionCardTaughtNone": "Et ole vielä opettanut liikkeitä",
-  "actionCardTeach": "Opeta liike"
+  "actionCardTeach": "Opeta liike",
+  "actionCardTeachTitle": "Opeta se {monsterName}-hahmolle"
 }

@@ -294,5 +294,6 @@
   "actionCardOwnedEmpty": "Δεν έχεις αγοράσει ακόμα καμία τεχνική",
   "actionCardMovesHeading": "Τεχνικές της Action Card",
   "actionCardTaughtNone": "Δεν έχει μάθει καμία τεχνική ακόμα",
-  "actionCardTeach": "Δίδαξε τεχνική"
+  "actionCardTeach": "Δίδαξε τεχνική",
+  "actionCardTeachTitle": "Δίδαξέ το στο {monsterName}"
 }

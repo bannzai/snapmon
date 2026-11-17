@@ -294,5 +294,6 @@
   "actionCardOwnedEmpty": "ยังไม่ได้ซื้อท่าเลย",
   "actionCardMovesHeading": "ท่าของ Action Card",
   "actionCardTaughtNone": "ยังไม่ได้สอนท่าไหนเลย",
-  "actionCardTeach": "สอนท่า"
+  "actionCardTeach": "สอนท่า",
+  "actionCardTeachTitle": "สอนให้ {monsterName}"
 }

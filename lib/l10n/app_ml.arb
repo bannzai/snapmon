@@ -294,5 +294,6 @@
   "actionCardOwnedEmpty": "നിങ്ങൾ ഇതുവരെ ഒരു നീക്കവും വാങ്ങിയിട്ടില്ല",
   "actionCardMovesHeading": "Action Card നീക്കങ്ങൾ",
   "actionCardTaughtNone": "ഇതുവരെ നീക്കങ്ങളൊന്നും പഠിപ്പിച്ചിട്ടില്ല",
-  "actionCardTeach": "നീക്കം പഠിപ്പിക്കുക"
+  "actionCardTeach": "നീക്കം പഠിപ്പിക്കുക",
+  "actionCardTeachTitle": "{monsterName}നെ പഠിപ്പിക്കുക"
 }

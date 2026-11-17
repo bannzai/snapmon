@@ -294,5 +294,6 @@
   "actionCardOwnedEmpty": "Aún no has comprado ningún movimiento",
   "actionCardMovesHeading": "Movimientos de Action Card",
   "actionCardTaughtNone": "Aún no le has enseñado ningún movimiento",
-  "actionCardTeach": "Enseñar un movimiento"
+  "actionCardTeach": "Enseñar un movimiento",
+  "actionCardTeachTitle": "Enséñaselo a {monsterName}"
 }

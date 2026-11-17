@@ -294,5 +294,6 @@
   "actionCardOwnedEmpty": "עוד לא קנית אף מתקפה",
   "actionCardMovesHeading": "מתקפות Action Card",
   "actionCardTaughtNone": "עוד לא נלמדו מתקפות",
-  "actionCardTeach": "ללמד מתקפה"
+  "actionCardTeach": "ללמד מתקפה",
+  "actionCardTeachTitle": "ללמד את {monsterName}"
 }

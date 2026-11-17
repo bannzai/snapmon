@@ -294,5 +294,6 @@
   "actionCardOwnedEmpty": "你还没有购买任何招式",
   "actionCardMovesHeading": "Action Card 招式",
   "actionCardTaughtNone": "还没教会任何招式",
-  "actionCardTeach": "传授招式"
+  "actionCardTeach": "传授招式",
+  "actionCardTeachTitle": "教给 {monsterName}"
 }

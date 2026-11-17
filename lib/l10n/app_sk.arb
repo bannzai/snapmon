@@ -294,5 +294,6 @@
   "actionCardOwnedEmpty": "Ešte si si nekúpil žiadny útok",
   "actionCardMovesHeading": "Útoky z Action Card",
   "actionCardTaughtNone": "Ešte si ho nenaučil žiadny útok",
-  "actionCardTeach": "Nauč útok"
+  "actionCardTeach": "Nauč útok",
+  "actionCardTeachTitle": "Nauč {monsterName}"
 }

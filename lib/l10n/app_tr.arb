@@ -294,5 +294,6 @@
   "actionCardOwnedEmpty": "Henüz hiç hamle satın almadın",
   "actionCardMovesHeading": "Action Card hamleleri",
   "actionCardTaughtNone": "Henüz hiç hamle öğretmedin",
-  "actionCardTeach": "Hamle öğret"
+  "actionCardTeach": "Hamle öğret",
+  "actionCardTeachTitle": "{monsterName} için öğret"
 }

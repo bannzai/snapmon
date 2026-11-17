@@ -294,5 +294,6 @@
   "actionCardOwnedEmpty": "நீங்கள் இன்னும் எந்தத் தாக்குதலையும் வாங்கவில்லை",
   "actionCardMovesHeading": "Action Card தாக்குதல்கள்",
   "actionCardTaughtNone": "இன்னும் எந்தத் தாக்குதலும் கற்பிக்கப்படவில்லை",
-  "actionCardTeach": "தாக்குதலைக் கற்பிக்கவும்"
+  "actionCardTeach": "தாக்குதலைக் கற்பிக்கவும்",
+  "actionCardTeachTitle": "{monsterName}க்கு கற்றுக்கொடுங்கள்"
 }

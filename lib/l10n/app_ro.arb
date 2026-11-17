@@ -294,5 +294,6 @@
   "actionCardOwnedEmpty": "Nu ai cumpărat încă nicio mișcare",
   "actionCardMovesHeading": "Mișcări Action Card",
   "actionCardTaughtNone": "Nu i-ai predat încă nicio mișcare",
-  "actionCardTeach": "Învață o mișcare"
+  "actionCardTeach": "Învață o mișcare",
+  "actionCardTeachTitle": "Învață-l pe {monsterName}"
 }
