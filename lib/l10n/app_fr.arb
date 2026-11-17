@@ -150,5 +150,6 @@
   "resultCaptureAnother": "Agrandis ton équipe",
   "resultShareText": "Sur snapmon, {monsterName} a pris vie\n#snapmon\n{url}",
   "resultShareCard": "Partager la carte",
-  "shareChooseFormat": "Choisis le format de l’image de la carte"
+  "shareChooseFormat": "Choisis le format de l’image de la carte",
+  "shareFormatPortrait": "Portrait"
 }
