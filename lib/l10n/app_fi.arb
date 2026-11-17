@@ -186,5 +186,6 @@
   "battleLogStatusStacked": "{monsterName}: tila {statusName} vahvistui (×{stackCount})",
   "battleLogStatusReplaced": "Monsterin {monsterName} tila vaihtui: {previousStatusName} → {statusName}",
   "battleLogCursedStat": "Kirous iski {monsterName}-hirviön ominaisuuteen {statName}!",
-  "battleLogStatusCured": "{monsterName} parani tilasta {statusName}"
+  "battleLogStatusCured": "{monsterName} parani tilasta {statusName}",
+  "battleLogStatusDamage": "{monsterName} kärsi vahinkoa tilasta {statusName}"
 }

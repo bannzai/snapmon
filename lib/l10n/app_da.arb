@@ -186,5 +186,6 @@
   "battleLogStatusStacked": "{monsterName}: statussen {statusName} blev forstærket (×{stackCount})",
   "battleLogStatusReplaced": "{monsterName}s status skiftede fra {previousStatusName} til {statusName}",
   "battleLogCursedStat": "En forbandelse ramte {statName} hos {monsterName}!",
-  "battleLogStatusCured": "{monsterName} er kommet sig over {statusName}"
+  "battleLogStatusCured": "{monsterName} er kommet sig over {statusName}",
+  "battleLogStatusDamage": "{monsterName} tog skade af {statusName}"
 }

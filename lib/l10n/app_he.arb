@@ -186,5 +186,6 @@
   "battleLogStatusStacked": "{monsterName}: מצב {statusName} הצטבר (×{stackCount})",
   "battleLogStatusReplaced": "המצב של {monsterName} השתנה מ־{previousStatusName} ל־{statusName}",
   "battleLogCursedStat": "קללה נפלה על {statName} של {monsterName}!",
-  "battleLogStatusCured": "{monsterName} החלים מהמצב {statusName}"
+  "battleLogStatusCured": "{monsterName} החלים מהמצב {statusName}",
+  "battleLogStatusDamage": "{monsterName} ספג נזק בגלל {statusName}"
 }

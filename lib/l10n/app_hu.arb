@@ -186,5 +186,6 @@
   "battleLogStatusStacked": "{monsterName}: a(z) {statusName} állapot erősödött (×{stackCount})",
   "battleLogStatusReplaced": "{monsterName} állapota megváltozott: {previousStatusName} → {statusName}",
   "battleLogCursedStat": "Átok sújtotta {monsterName} {statName} értékét!",
-  "battleLogStatusCured": "{monsterName} kigyógyult ebből: {statusName}"
+  "battleLogStatusCured": "{monsterName} kigyógyult ebből: {statusName}",
+  "battleLogStatusDamage": "{monsterName} sebződött a következő miatt: {statusName}"
 }

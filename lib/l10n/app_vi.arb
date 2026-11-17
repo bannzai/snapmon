@@ -186,5 +186,6 @@
   "battleLogStatusStacked": "{monsterName}: trạng thái {statusName} cộng dồn (×{stackCount})",
   "battleLogStatusReplaced": "Trạng thái của {monsterName} đổi từ {previousStatusName} sang {statusName}",
   "battleLogCursedStat": "Chỉ số {statName} của {monsterName} đã bị nguyền rủa!",
-  "battleLogStatusCured": "{monsterName} đã hồi phục khỏi {statusName}"
+  "battleLogStatusCured": "{monsterName} đã hồi phục khỏi {statusName}",
+  "battleLogStatusDamage": "{monsterName} chịu sát thương do {statusName}"
 }

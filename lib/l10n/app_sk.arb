@@ -186,5 +186,6 @@
   "battleLogStatusStacked": "{monsterName}: stav {statusName} sa zosilnil (×{stackCount})",
   "battleLogStatusReplaced": "Stav príšery {monsterName} sa zmenil z {previousStatusName} na {statusName}",
   "battleLogCursedStat": "Na hodnotu {statName} u {monsterName} padla kliatba!",
-  "battleLogStatusCured": "{monsterName} sa vyliečil zo stavu {statusName}"
+  "battleLogStatusCured": "{monsterName} sa vyliečil zo stavu {statusName}",
+  "battleLogStatusDamage": "{monsterName} utrpel poškodenie kvôli {statusName}"
 }

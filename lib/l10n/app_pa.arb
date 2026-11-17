@@ -186,5 +186,6 @@
   "battleLogStatusStacked": "{monsterName}: {statusName} ਹਾਲਤ ਹੋਰ ਵਧ ਗਈ (×{stackCount})",
   "battleLogStatusReplaced": "{monsterName} ਦੀ ਹਾਲਤ {previousStatusName} ਤੋਂ {statusName} ਹੋ ਗਈ",
   "battleLogCursedStat": "{monsterName} ਦੇ {statName} ਨੂੰ ਸਰਾਪ ਲੱਗ ਗਿਆ!",
-  "battleLogStatusCured": "{monsterName} ਹੁਣ {statusName} ਤੋਂ ਠੀਕ ਹੋ ਗਿਆ"
+  "battleLogStatusCured": "{monsterName} ਹੁਣ {statusName} ਤੋਂ ਠੀਕ ਹੋ ਗਿਆ",
+  "battleLogStatusDamage": "{statusName} ਕਾਰਨ {monsterName} ਨੂੰ ਨੁਕਸਾਨ ਹੋਇਆ"
 }

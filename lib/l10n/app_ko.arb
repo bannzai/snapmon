@@ -186,5 +186,6 @@
   "battleLogStatusStacked": "{monsterName}의 {statusName} 상태가 중첩됐다 (×{stackCount})",
   "battleLogStatusReplaced": "{monsterName}의 상태가 {previousStatusName}에서 {statusName}(으)로 바뀌었다",
   "battleLogCursedStat": "{monsterName}의 {statName}에 저주가 걸렸다!",
-  "battleLogStatusCured": "{monsterName}의 {statusName} 상태가 나았다"
+  "battleLogStatusCured": "{monsterName}의 {statusName} 상태가 나았다",
+  "battleLogStatusDamage": "{monsterName}은 {statusName} 때문에 피해를 입었다"
 }
