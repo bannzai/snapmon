@@ -286,5 +286,6 @@
   "actionCardPurchaseUnassignedBody": "Le prix de cette capacité a changé pendant l’achat, ou tu la possèdes déjà.\nChoisis à nouveau une capacité dans « Action Card à récupérer ».",
   "actionCardUnassignedHeading": "Action Card à récupérer",
   "actionCardUnassignedChooseMove": "Choisir une capacité",
-  "actionCardAssignTitle": "Choisis la capacité à recevoir avec cette Action Card"
+  "actionCardAssignTitle": "Choisis la capacité à recevoir avec cette Action Card",
+  "actionCardAssignNoMoves": "Aucune capacité à recevoir"
 }
