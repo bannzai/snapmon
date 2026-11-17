@@ -20,5 +20,6 @@
   "commonCouldNotOpenURL": "Kunne ikke åbne {url}",
   "commonCancel": "Annuller",
   "commonLevel": "Lv. {level}",
-  "settingsTitle": "Indstillinger"
+  "settingsTitle": "Indstillinger",
+  "opponentReported": "Din rapport er sendt"
 }

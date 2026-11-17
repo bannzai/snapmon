@@ -20,5 +20,6 @@
   "commonCouldNotOpenURL": "Nije moguće otvoriti {url}",
   "commonCancel": "Odustani",
   "commonLevel": "Lv. {level}",
-  "settingsTitle": "Postavke"
+  "settingsTitle": "Postavke",
+  "opponentReported": "Prijava je poslana"
 }

@@ -20,5 +20,6 @@
   "commonCouldNotOpenURL": "לא ניתן לפתוח את {url}",
   "commonCancel": "ביטול",
   "commonLevel": "Lv. {level}",
-  "settingsTitle": "הגדרות"
+  "settingsTitle": "הגדרות",
+  "opponentReported": "הדיווח נשלח"
 }

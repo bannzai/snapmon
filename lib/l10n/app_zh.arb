@@ -20,5 +20,6 @@
   "commonCouldNotOpenURL": "无法打开 {url}",
   "commonCancel": "取消",
   "commonLevel": "Lv. {level}",
-  "settingsTitle": "设置"
+  "settingsTitle": "设置",
+  "opponentReported": "已举报"
 }

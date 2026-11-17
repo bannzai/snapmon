@@ -20,5 +20,6 @@
   "commonCouldNotOpenURL": "{url} 주소를 열지 못했어요",
   "commonCancel": "취소",
   "commonLevel": "Lv. {level}",
-  "settingsTitle": "설정"
+  "settingsTitle": "설정",
+  "opponentReported": "신고했어요"
 }

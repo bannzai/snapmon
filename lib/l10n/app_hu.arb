@@ -20,5 +20,6 @@
   "commonCouldNotOpenURL": "Nem sikerült megnyitni: {url}",
   "commonCancel": "Mégse",
   "commonLevel": "Lv. {level}",
-  "settingsTitle": "Beállítások"
+  "settingsTitle": "Beállítások",
+  "opponentReported": "Jelentés elküldve"
 }

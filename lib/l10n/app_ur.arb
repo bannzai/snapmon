@@ -20,5 +20,6 @@
   "commonCouldNotOpenURL": "{url} نہیں کھل سکا",
   "commonCancel": "منسوخ کرو",
   "commonLevel": "Lv. {level}",
-  "settingsTitle": "ترتیبات"
+  "settingsTitle": "ترتیبات",
+  "opponentReported": "رپورٹ بھیج دی گئی"
 }

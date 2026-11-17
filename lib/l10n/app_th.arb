@@ -20,5 +20,6 @@
   "commonCouldNotOpenURL": "เปิด {url} ไม่ได้",
   "commonCancel": "ยกเลิก",
   "commonLevel": "Lv. {level}",
-  "settingsTitle": "การตั้งค่า"
+  "settingsTitle": "การตั้งค่า",
+  "opponentReported": "ส่งรายงานแล้ว"
 }

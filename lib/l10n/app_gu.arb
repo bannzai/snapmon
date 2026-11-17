@@ -20,5 +20,6 @@
   "commonCouldNotOpenURL": "{url} ખોલી શકાયું નહીં",
   "commonCancel": "રદ કરો",
   "commonLevel": "Lv. {level}",
-  "settingsTitle": "સેટિંગ્સ"
+  "settingsTitle": "સેટિંગ્સ",
+  "opponentReported": "રિપોર્ટ મોકલાયો"
 }

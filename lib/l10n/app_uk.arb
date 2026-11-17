@@ -20,5 +20,6 @@
   "commonCouldNotOpenURL": "Не вдалося відкрити {url}",
   "commonCancel": "Скасувати",
   "commonLevel": "Lv. {level}",
-  "settingsTitle": "Налаштування"
+  "settingsTitle": "Налаштування",
+  "opponentReported": "Скаргу надіслано"
 }

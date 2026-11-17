@@ -20,5 +20,6 @@
   "commonCouldNotOpenURL": "Kunde inte öppna {url}",
   "commonCancel": "Avbryt",
   "commonLevel": "Lv. {level}",
-  "settingsTitle": "Inställningar"
+  "settingsTitle": "Inställningar",
+  "opponentReported": "Rapport skickad"
 }

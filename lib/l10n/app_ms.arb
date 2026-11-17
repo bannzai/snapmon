@@ -20,5 +20,6 @@
   "commonCouldNotOpenURL": "Tidak dapat membuka {url}",
   "commonCancel": "Batal",
   "commonLevel": "Lv. {level}",
-  "settingsTitle": "Tetapan"
+  "settingsTitle": "Tetapan",
+  "opponentReported": "Laporan dihantar"
 }

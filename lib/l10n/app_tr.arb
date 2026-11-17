@@ -20,5 +20,6 @@
   "commonCouldNotOpenURL": "{url} açılamadı",
   "commonCancel": "İptal",
   "commonLevel": "Lv. {level}",
-  "settingsTitle": "Ayarlar"
+  "settingsTitle": "Ayarlar",
+  "opponentReported": "Bildirim gönderildi"
 }

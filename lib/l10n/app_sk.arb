@@ -20,5 +20,6 @@
   "commonCouldNotOpenURL": "Nepodarilo sa otvoriť {url}",
   "commonCancel": "Zrušiť",
   "commonLevel": "Lv. {level}",
-  "settingsTitle": "Nastavenia"
+  "settingsTitle": "Nastavenia",
+  "opponentReported": "Nahlásenie odoslané"
 }

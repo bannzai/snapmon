@@ -20,5 +20,6 @@
   "commonCouldNotOpenURL": "Osoitetta {url} ei voitu avata",
   "commonCancel": "Peruuta",
   "commonLevel": "Lv. {level}",
-  "settingsTitle": "Asetukset"
+  "settingsTitle": "Asetukset",
+  "opponentReported": "Ilmoitus lähetetty"
 }

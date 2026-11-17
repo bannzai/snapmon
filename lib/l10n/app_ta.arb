@@ -20,5 +20,6 @@
   "commonCouldNotOpenURL": "{url} முகவரியைத் திறக்க முடியவில்லை",
   "commonCancel": "ரத்துசெய்யுங்கள்",
   "commonLevel": "Lv. {level}",
-  "settingsTitle": "அமைப்புகள்"
+  "settingsTitle": "அமைப்புகள்",
+  "opponentReported": "புகார் அனுப்பப்பட்டது"
 }

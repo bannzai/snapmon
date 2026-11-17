@@ -20,5 +20,6 @@
   "commonCouldNotOpenURL": "{url} తెరవలేకపోయాం",
   "commonCancel": "రద్దు చేయి",
   "commonLevel": "Lv. {level}",
-  "settingsTitle": "సెట్టింగ్‌లు"
+  "settingsTitle": "సెట్టింగ్‌లు",
+  "opponentReported": "రిపోర్ట్ పంపించాం"
 }

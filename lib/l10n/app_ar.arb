@@ -20,5 +20,6 @@
   "commonCouldNotOpenURL": "تعذّر فتح {url}",
   "commonCancel": "إلغاء",
   "commonLevel": "Lv. {level}",
-  "settingsTitle": "الإعدادات"
+  "settingsTitle": "الإعدادات",
+  "opponentReported": "تم إرسال إبلاغ"
 }

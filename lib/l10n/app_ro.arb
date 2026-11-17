@@ -20,5 +20,6 @@
   "commonCouldNotOpenURL": "Nu s-a putut deschide {url}",
   "commonCancel": "Anulează",
   "commonLevel": "Lv. {level}",
-  "settingsTitle": "Setări"
+  "settingsTitle": "Setări",
+  "opponentReported": "Raport trimis"
 }

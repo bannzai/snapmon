@@ -20,5 +20,6 @@
   "commonCouldNotOpenURL": "Δεν ήταν δυνατό το άνοιγμα του {url}",
   "commonCancel": "Ακύρωση",
   "commonLevel": "Lv. {level}",
-  "settingsTitle": "Ρυθμίσεις"
+  "settingsTitle": "Ρυθμίσεις",
+  "opponentReported": "Η αναφορά στάλθηκε"
 }

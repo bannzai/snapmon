@@ -20,5 +20,6 @@
   "commonCouldNotOpenURL": "Không mở được {url}",
   "commonCancel": "Hủy",
   "commonLevel": "Lv. {level}",
-  "settingsTitle": "Cài đặt"
+  "settingsTitle": "Cài đặt",
+  "opponentReported": "Đã gửi báo cáo"
 }

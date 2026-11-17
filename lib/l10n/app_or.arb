@@ -20,5 +20,6 @@
   "commonCouldNotOpenURL": "{url} ଖୋଲିହେଲା ନାହିଁ",
   "commonCancel": "ବାତିଲ କର",
   "commonLevel": "Lv. {level}",
-  "settingsTitle": "ସେଟିଂସ୍"
+  "settingsTitle": "ସେଟିଂସ୍",
+  "opponentReported": "ରିପୋର୍ଟ ପଠାଗଲା"
 }
