@@ -153,5 +153,6 @@
   "shareChooseFormat": "Choisis le format de l’image de la carte",
   "shareFormatPortrait": "Portrait",
   "shareFormatLandscape": "Paysage",
-  "shareFormatPortraitDescription": "Pour les stories 1080×1920"
+  "shareFormatPortraitDescription": "Pour les stories 1080×1920",
+  "shareFormatLandscapeDescription": "Pour les publications 1200×630"
 }
