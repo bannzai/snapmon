@@ -173,5 +173,6 @@
   "battleLogNoEffect": "Però no ha passat res",
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "Ha sortit {monsterName}!",
-  "battleLogSwitchedOut": "Has retirat {withdrawnMonsterName} i has enviat {monsterName}"
+  "battleLogSwitchedOut": "Has retirat {withdrawnMonsterName} i has enviat {monsterName}",
+  "battleLogMissed": "Però l'atac ha fallat!"
 }

@@ -173,5 +173,6 @@
   "battleLogNoEffect": "אבל שום דבר לא קרה",
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "{monsterName} הופיע!",
-  "battleLogSwitchedOut": "{withdrawnMonsterName} חזר, ו-{monsterName} יצא לקרב"
+  "battleLogSwitchedOut": "{withdrawnMonsterName} חזר, ו-{monsterName} יצא לקרב",
+  "battleLogMissed": "אבל המתקפה החטיאה!"
 }

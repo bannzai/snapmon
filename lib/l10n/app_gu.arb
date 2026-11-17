@@ -173,5 +173,6 @@
   "battleLogNoEffect": "પણ કંઈ થયું નહીં",
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "મેદાનમાં આવ્યું {monsterName}!",
-  "battleLogSwitchedOut": "તમે {withdrawnMonsterName}ને પાછું બોલાવી {monsterName}ને મેદાનમાં ઉતાર્યું"
+  "battleLogSwitchedOut": "તમે {withdrawnMonsterName}ને પાછું બોલાવી {monsterName}ને મેદાનમાં ઉતાર્યું",
+  "battleLogMissed": "પણ હુમલો નિશાન ચૂકી ગયો!"
 }

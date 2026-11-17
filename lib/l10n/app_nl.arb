@@ -173,5 +173,6 @@
   "battleLogNoEffect": "Maar er gebeurde niets",
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "{monsterName} verscheen!",
-  "battleLogSwitchedOut": "Je riep {withdrawnMonsterName} terug en stuurde {monsterName} het veld in"
+  "battleLogSwitchedOut": "Je riep {withdrawnMonsterName} terug en stuurde {monsterName} het veld in",
+  "battleLogMissed": "Maar de aanval miste!"
 }

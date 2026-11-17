@@ -173,5 +173,6 @@
   "battleLogNoEffect": "لكن لم يحدث شيء",
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "ظهر {monsterName}!",
-  "battleLogSwitchedOut": "تم سحب {withdrawnMonsterName} وإرسال {monsterName}"
+  "battleLogSwitchedOut": "تم سحب {withdrawnMonsterName} وإرسال {monsterName}",
+  "battleLogMissed": "لكن الهجوم أخطأ!"
 }

@@ -173,5 +173,6 @@
   "battleLogNoEffect": "Ama hiçbir şey olmadı",
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "{monsterName} ortaya çıktı!",
-  "battleLogSwitchedOut": "{withdrawnMonsterName} geri çekildi, {monsterName} savaşa çıktı"
+  "battleLogSwitchedOut": "{withdrawnMonsterName} geri çekildi, {monsterName} savaşa çıktı",
+  "battleLogMissed": "Ama saldırı ıskaladı!"
 }

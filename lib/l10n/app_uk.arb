@@ -173,5 +173,6 @@
   "battleLogNoEffect": "Але нічого не сталося",
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "З’являється {monsterName}!",
-  "battleLogSwitchedOut": "Ти відкликав {withdrawnMonsterName} і випустив у бій {monsterName}"
+  "battleLogSwitchedOut": "Ти відкликав {withdrawnMonsterName} і випустив у бій {monsterName}",
+  "battleLogMissed": "Але атака не влучила!"
 }

@@ -173,5 +173,6 @@
   "battleLogNoEffect": "Αλλά δεν έγινε τίποτα",
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "Εμφανίστηκε το {monsterName}!",
-  "battleLogSwitchedOut": "Απέσυρες το {withdrawnMonsterName} και έστειλες το {monsterName}"
+  "battleLogSwitchedOut": "Απέσυρες το {withdrawnMonsterName} και έστειλες το {monsterName}",
+  "battleLogMissed": "Όμως η επίθεση αστόχησε!"
 }

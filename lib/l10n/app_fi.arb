@@ -173,5 +173,6 @@
   "battleLogNoEffect": "Mutta mitään ei tapahtunut",
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "{monsterName} ilmestyi!",
-  "battleLogSwitchedOut": "Vedit {withdrawnMonsterName} takaisin ja lähetit {monsterName} taisteluun"
+  "battleLogSwitchedOut": "Vedit {withdrawnMonsterName} takaisin ja lähetit {monsterName} taisteluun",
+  "battleLogMissed": "Mutta hyökkäys meni ohi!"
 }

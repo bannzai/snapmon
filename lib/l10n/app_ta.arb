@@ -173,5 +173,6 @@
   "battleLogNoEffect": "ஆனால் எதுவும் நடக்கவில்லை",
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "களத்தில் {monsterName} தோன்றியது!",
-  "battleLogSwitchedOut": "நீங்கள் {withdrawnMonsterName}ஐத் திரும்ப அழைத்து {monsterName}ஐக் களமிறக்கினீர்கள்"
+  "battleLogSwitchedOut": "நீங்கள் {withdrawnMonsterName}ஐத் திரும்ப அழைத்து {monsterName}ஐக் களமிறக்கினீர்கள்",
+  "battleLogMissed": "ஆனால் தாக்குதல் குறி தவறியது!"
 }

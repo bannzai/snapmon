@@ -173,5 +173,6 @@
   "battleLogNoEffect": "A zgodilo se ni nič",
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "V boj prihaja {monsterName}!",
-  "battleLogSwitchedOut": "Umaknil si {withdrawnMonsterName} in v boj poslal {monsterName}"
+  "battleLogSwitchedOut": "Umaknil si {withdrawnMonsterName} in v boj poslal {monsterName}",
+  "battleLogMissed": "A napad je zgrešil!"
 }

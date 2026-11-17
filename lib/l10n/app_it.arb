@@ -173,5 +173,6 @@
   "battleLogNoEffect": "Ma non è successo niente",
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "È apparso {monsterName}!",
-  "battleLogSwitchedOut": "Hai ritirato {withdrawnMonsterName} e mandato in campo {monsterName}"
+  "battleLogSwitchedOut": "Hai ritirato {withdrawnMonsterName} e mandato in campo {monsterName}",
+  "battleLogMissed": "Ma l'attacco è andato a vuoto!"
 }

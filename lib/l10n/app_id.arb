@@ -173,5 +173,6 @@
   "battleLogNoEffect": "Tapi tidak terjadi apa-apa",
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "{monsterName} muncul!",
-  "battleLogSwitchedOut": "Kamu menarik {withdrawnMonsterName} dan mengirim {monsterName} ke arena"
+  "battleLogSwitchedOut": "Kamu menarik {withdrawnMonsterName} dan mengirim {monsterName} ke arena",
+  "battleLogMissed": "Tapi serangannya meleset!"
 }

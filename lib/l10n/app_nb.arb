@@ -173,5 +173,6 @@
   "battleLogNoEffect": "Men ingenting skjedde",
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "{monsterName} dukket opp!",
-  "battleLogSwitchedOut": "Du trakk {withdrawnMonsterName} tilbake og sendte inn {monsterName}"
+  "battleLogSwitchedOut": "Du trakk {withdrawnMonsterName} tilbake og sendte inn {monsterName}",
+  "battleLogMissed": "Men angrepet bommet!"
 }

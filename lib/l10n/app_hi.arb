@@ -173,5 +173,6 @@
   "battleLogNoEffect": "लेकिन कुछ नहीं हुआ",
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "मैदान में आया {monsterName}!",
-  "battleLogSwitchedOut": "तुमने {withdrawnMonsterName} को वापस बुलाकर {monsterName} को मैदान में उतारा"
+  "battleLogSwitchedOut": "तुमने {withdrawnMonsterName} को वापस बुलाकर {monsterName} को मैदान में उतारा",
+  "battleLogMissed": "लेकिन वार चूक गया!"
 }

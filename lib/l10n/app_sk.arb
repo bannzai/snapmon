@@ -173,5 +173,6 @@
   "battleLogNoEffect": "Ale nič sa nestalo",
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "Do boja vstupuje {monsterName}!",
-  "battleLogSwitchedOut": "Stiahol si {withdrawnMonsterName} a poslal do boja {monsterName}"
+  "battleLogSwitchedOut": "Stiahol si {withdrawnMonsterName} a poslal do boja {monsterName}",
+  "battleLogMissed": "Ale útok minul!"
 }

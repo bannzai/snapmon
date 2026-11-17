@@ -173,5 +173,6 @@
   "battleLogNoEffect": "Nhưng chẳng có gì xảy ra",
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "{monsterName} xuất hiện!",
-  "battleLogSwitchedOut": "Bạn thu hồi {withdrawnMonsterName} và cho {monsterName} ra trận"
+  "battleLogSwitchedOut": "Bạn thu hồi {withdrawnMonsterName} và cho {monsterName} ra trận",
+  "battleLogMissed": "Nhưng đòn đánh đã trượt!"
 }

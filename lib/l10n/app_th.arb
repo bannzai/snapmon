@@ -173,5 +173,6 @@
   "battleLogNoEffect": "แต่ไม่มีอะไรเกิดขึ้น",
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "{monsterName} ปรากฏตัวแล้ว!",
-  "battleLogSwitchedOut": "เรียก {withdrawnMonsterName} กลับ แล้วส่ง {monsterName} ลงสนาม"
+  "battleLogSwitchedOut": "เรียก {withdrawnMonsterName} กลับ แล้วส่ง {monsterName} ลงสนาม",
+  "battleLogMissed": "แต่การโจมตีพลาดเป้า!"
 }

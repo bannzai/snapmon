@@ -173,5 +173,6 @@
   "battleLogNoEffect": "Ali ništa se nije dogodilo",
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "U borbu ulazi {monsterName}!",
-  "battleLogSwitchedOut": "Povukao si {withdrawnMonsterName} i poslao {monsterName} u borbu"
+  "battleLogSwitchedOut": "Povukao si {withdrawnMonsterName} i poslao {monsterName} u borbu",
+  "battleLogMissed": "Ali napad je promašio!"
 }

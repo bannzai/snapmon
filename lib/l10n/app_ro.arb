@@ -173,5 +173,6 @@
   "battleLogNoEffect": "Dar nu s-a întâmplat nimic",
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "A apărut {monsterName}!",
-  "battleLogSwitchedOut": "L-ai retras pe {withdrawnMonsterName} și l-ai trimis în luptă pe {monsterName}"
+  "battleLogSwitchedOut": "L-ai retras pe {withdrawnMonsterName} și l-ai trimis în luptă pe {monsterName}",
+  "battleLogMissed": "Dar atacul a ratat!"
 }
