@@ -107,5 +107,6 @@
   "generationWaitingMessage": "Ton monstre met du temps à trouver son élément\nUne fois né, il rejoindra ton dex",
   "generationCheckAgain": "Vérifier à nouveau",
   "generationSeeLater": "Voir plus tard",
-  "generationNotBornTitle": "Il n’est pas né"
+  "generationNotBornTitle": "Il n’est pas né",
+  "generationFailedTitle": "La création a échoué"
 }
