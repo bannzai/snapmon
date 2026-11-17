@@ -133,5 +133,6 @@
   "generationCreateWithRange": "ליצור מהאזור הזה",
   "generationCropSizeLabel": "גודל המסגרת",
   "generationStageFindingSubject": "מחפש את הנושא בתמונה",
-  "generationStageCroppingRange": "גוזרים את האזור שנבחר"
+  "generationStageCroppingRange": "גוזרים את האזור שנבחר",
+  "generationRejectedRefused": "לא הצלחנו ליצור את המפלצת\nכדאי לנסות לצלם שוב"
 }

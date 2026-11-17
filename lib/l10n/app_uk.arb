@@ -133,5 +133,6 @@
   "generationCreateWithRange": "Створи з цієї області",
   "generationCropSizeLabel": "Розмір рамки",
   "generationStageFindingSubject": "Пошук об’єкта на фото",
-  "generationStageCroppingRange": "Вирізаємо вибрану ділянку"
+  "generationStageCroppingRange": "Вирізаємо вибрану ділянку",
+  "generationRejectedRefused": "Не вдалося створити монстра\nСпробуй зробити інше фото"
 }

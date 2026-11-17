@@ -133,5 +133,6 @@
   "generationCreateWithRange": "આ ભાગમાંથી બનાવો",
   "generationCropSizeLabel": "ફ્રેમનું કદ",
   "generationStageFindingSubject": "ફોટામાં વિષય શોધાઈ રહ્યો છે",
-  "generationStageCroppingRange": "પસંદ કરેલો ભાગ કાપવામાં આવી રહ્યો છે"
+  "generationStageCroppingRange": "પસંદ કરેલો ભાગ કાપવામાં આવી રહ્યો છે",
+  "generationRejectedRefused": "મોન્સ્ટર બનાવી શકાયું નહીં\nફરી એક ફોટો પાડીને જુઓ"
 }

@@ -133,5 +133,6 @@
   "generationCreateWithRange": "ਇਸ ਹਿੱਸੇ ਤੋਂ ਬਣਾਓ",
   "generationCropSizeLabel": "ਫ਼ਰੇਮ ਦਾ ਆਕਾਰ",
   "generationStageFindingSubject": "ਫ਼ੋਟੋ ਵਿੱਚ ਵਸਤੂ ਲੱਭੀ ਜਾ ਰਹੀ ਹੈ",
-  "generationStageCroppingRange": "ਚੁਣਿਆ ਹਿੱਸਾ ਕੱਟਿਆ ਜਾ ਰਿਹਾ ਹੈ"
+  "generationStageCroppingRange": "ਚੁਣਿਆ ਹਿੱਸਾ ਕੱਟਿਆ ਜਾ ਰਿਹਾ ਹੈ",
+  "generationRejectedRefused": "ਮੌਂਸਟਰ ਨਹੀਂ ਬਣ ਸਕਿਆ\nਇੱਕ ਹੋਰ ਫ਼ੋਟੋ ਖਿੱਚ ਕੇ ਦੇਖੋ"
 }

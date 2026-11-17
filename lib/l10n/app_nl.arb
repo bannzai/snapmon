@@ -133,5 +133,6 @@
   "generationCreateWithRange": "Maak van dit gebied",
   "generationCropSizeLabel": "Grootte van het kader",
   "generationStageFindingSubject": "Onderwerp op de foto zoeken",
-  "generationStageCroppingRange": "Geselecteerd gebied uitsnijden"
+  "generationStageCroppingRange": "Geselecteerd gebied uitsnijden",
+  "generationRejectedRefused": "Het monster kon niet worden gemaakt\nProbeer nog een foto te maken"
 }

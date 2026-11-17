@@ -133,5 +133,6 @@
   "generationCreateWithRange": "Ustvari iz tega območja",
   "generationCropSizeLabel": "Velikost okvirja",
   "generationStageFindingSubject": "Iskanje predmeta na fotografiji",
-  "generationStageCroppingRange": "Izrezovanje izbranega območja"
+  "generationStageCroppingRange": "Izrezovanje izbranega območja",
+  "generationRejectedRefused": "Pošasti ni uspelo ustvariti\nPoskusi posneti novo fotografijo"
 }

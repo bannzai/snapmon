@@ -133,5 +133,6 @@
   "generationCreateWithRange": "Buat dari area ini",
   "generationCropSizeLabel": "Ukuran bingkai",
   "generationStageFindingSubject": "Mencari objek di foto",
-  "generationStageCroppingRange": "Memotong area yang dipilih"
+  "generationStageCroppingRange": "Memotong area yang dipilih",
+  "generationRejectedRefused": "Monsternya gagal dibuat\nCoba ambil foto lain"
 }

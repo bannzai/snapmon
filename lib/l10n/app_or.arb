@@ -133,5 +133,6 @@
   "generationCreateWithRange": "ଏହି ଅଞ୍ଚଳରୁ ତିଆରି କର",
   "generationCropSizeLabel": "ଫ୍ରେମ୍‌ର ଆକାର",
   "generationStageFindingSubject": "ଫଟୋରେ ଥିବା ବସ୍ତୁକୁ ଖୋଜାଯାଉଛି",
-  "generationStageCroppingRange": "ବାଛିଥିବା ଅଂଶ କଟାଯାଉଛି"
+  "generationStageCroppingRange": "ବାଛିଥିବା ଅଂଶ କଟାଯାଉଛି",
+  "generationRejectedRefused": "ମନଷ୍ଟର ତିଆରି ହୋଇପାରିଲା ନାହିଁ\nଆଉ ଥରେ ଫଟୋ ଉଠାଇ ଦେଖ"
 }

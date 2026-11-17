@@ -133,5 +133,6 @@
   "generationCreateWithRange": "Tạo từ vùng này",
   "generationCropSizeLabel": "Kích thước khung",
   "generationStageFindingSubject": "Đang tìm vật thể trong ảnh",
-  "generationStageCroppingRange": "Đang cắt vùng đã chọn"
+  "generationStageCroppingRange": "Đang cắt vùng đã chọn",
+  "generationRejectedRefused": "Không tạo được quái vật\nThử chụp ảnh khác nhé"
 }

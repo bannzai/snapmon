@@ -133,5 +133,6 @@
   "generationCreateWithRange": "Bu alandan oluştur",
   "generationCropSizeLabel": "Çerçeve boyutu",
   "generationStageFindingSubject": "Fotoğraftaki nesne aranıyor",
-  "generationStageCroppingRange": "Seçilen alan kesiliyor"
+  "generationStageCroppingRange": "Seçilen alan kesiliyor",
+  "generationRejectedRefused": "Canavar oluşturulamadı\nYeni bir fotoğraf çekmeyi dene"
 }

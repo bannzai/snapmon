@@ -133,5 +133,6 @@
   "generationCreateWithRange": "用這個區域建立",
   "generationCropSizeLabel": "選取框大小",
   "generationStageFindingSubject": "正在尋找照片中的物件",
-  "generationStageCroppingRange": "正在裁切選取區域"
+  "generationStageCroppingRange": "正在裁切選取區域",
+  "generationRejectedRefused": "怪獸沒能生成\n再拍一張試試"
 }

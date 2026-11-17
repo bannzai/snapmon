@@ -133,5 +133,6 @@
   "generationCreateWithRange": "Vytvor z tejto oblasti",
   "generationCropSizeLabel": "Veľkosť rámčeka",
   "generationStageFindingSubject": "Hľadá sa objekt na fotke",
-  "generationStageCroppingRange": "Vyrezáva sa vybraná oblasť"
+  "generationStageCroppingRange": "Vyrezáva sa vybraná oblasť",
+  "generationRejectedRefused": "Príšerku sa nepodarilo vytvoriť\nSkús odfotiť niečo iné"
 }

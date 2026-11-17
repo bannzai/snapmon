@@ -133,5 +133,6 @@
   "generationCreateWithRange": "Skapa från det här området",
   "generationCropSizeLabel": "Ramens storlek",
   "generationStageFindingSubject": "Letar efter motivet",
-  "generationStageCroppingRange": "Beskär det markerade området"
+  "generationStageCroppingRange": "Beskär det markerade området",
+  "generationRejectedRefused": "Monstret kunde inte skapas\nFörsök ta ett nytt foto"
 }

@@ -133,5 +133,6 @@
   "generationCreateWithRange": "Crea da quest'area",
   "generationCropSizeLabel": "Dimensione del riquadro",
   "generationStageFindingSubject": "Ricerca del soggetto",
-  "generationStageCroppingRange": "Ritaglio dell'area selezionata"
+  "generationStageCroppingRange": "Ritaglio dell'area selezionata",
+  "generationRejectedRefused": "Non è stato possibile creare il mostro\nProva a scattare un'altra foto"
 }

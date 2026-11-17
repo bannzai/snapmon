@@ -133,5 +133,6 @@
   "generationCreateWithRange": "أنشئ من هذه المنطقة",
   "generationCropSizeLabel": "حجم الإطار",
   "generationStageFindingSubject": "جارٍ البحث عن العنصر في الصورة",
-  "generationStageCroppingRange": "جارٍ قصّ الجزء المحدد"
+  "generationStageCroppingRange": "جارٍ قصّ الجزء المحدد",
+  "generationRejectedRefused": "تعذّر صنع الوحش\nجرّب التقاط صورة أخرى"
 }

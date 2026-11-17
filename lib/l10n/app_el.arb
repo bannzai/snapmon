@@ -133,5 +133,6 @@
   "generationCreateWithRange": "Φτιάξε από αυτή την περιοχή",
   "generationCropSizeLabel": "Μέγεθος πλαισίου",
   "generationStageFindingSubject": "Αναζήτηση θέματος στη φωτογραφία",
-  "generationStageCroppingRange": "Γίνεται περικοπή της επιλεγμένης περιοχής"
+  "generationStageCroppingRange": "Γίνεται περικοπή της επιλεγμένης περιοχής",
+  "generationRejectedRefused": "Το τέρας δεν δημιουργήθηκε\nΔοκίμασε να βγάλεις άλλη φωτογραφία"
 }

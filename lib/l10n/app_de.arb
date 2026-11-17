@@ -133,5 +133,6 @@
   "generationCreateWithRange": "Aus diesem Bereich erstellen",
   "generationCropSizeLabel": "Rahmengröße",
   "generationStageFindingSubject": "Motiv wird gesucht",
-  "generationStageCroppingRange": "Ausgewählter Bereich wird ausgeschnitten"
+  "generationStageCroppingRange": "Ausgewählter Bereich wird ausgeschnitten",
+  "generationRejectedRefused": "Das Monster konnte nicht erstellt werden\nVersuch, ein neues Foto zu machen"
 }

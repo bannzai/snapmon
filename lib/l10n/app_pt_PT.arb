@@ -133,5 +133,6 @@
   "generationCreateWithRange": "Criar a partir desta área",
   "generationCropSizeLabel": "Tamanho da moldura",
   "generationStageFindingSubject": "A procurar o objeto na fotografia",
-  "generationStageCroppingRange": "A recortar a área selecionada"
+  "generationStageCroppingRange": "A recortar a área selecionada",
+  "generationRejectedRefused": "Não foi possível criar o monstro\nTenta tirar outra fotografia"
 }

@@ -133,5 +133,6 @@
   "generationCreateWithRange": "এই অংশ থেকে তৈরি করো",
   "generationCropSizeLabel": "ফ্রেমের আকার",
   "generationStageFindingSubject": "ছবির বিষয় খোঁজা হচ্ছে",
-  "generationStageCroppingRange": "নির্বাচিত অংশ কেটে নেওয়া হচ্ছে"
+  "generationStageCroppingRange": "নির্বাচিত অংশ কেটে নেওয়া হচ্ছে",
+  "generationRejectedRefused": "দানবটা তৈরি করা গেল না\nআরেকটা ছবি তুলে দেখো"
 }

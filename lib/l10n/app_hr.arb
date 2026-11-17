@@ -133,5 +133,6 @@
   "generationCreateWithRange": "Stvori iz ovog područja",
   "generationCropSizeLabel": "Veličina okvira",
   "generationStageFindingSubject": "Traži se predmet na fotografiji",
-  "generationStageCroppingRange": "Izrezivanje odabranog područja"
+  "generationStageCroppingRange": "Izrezivanje odabranog područja",
+  "generationRejectedRefused": "Čudovište se nije uspjelo stvoriti\nPokušaj snimiti novu fotografiju"
 }

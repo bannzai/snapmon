@@ -133,5 +133,6 @@
   "generationCreateWithRange": "Cipta daripada kawasan ini",
   "generationCropSizeLabel": "Saiz bingkai",
   "generationStageFindingSubject": "Mencari objek dalam foto",
-  "generationStageCroppingRange": "Memotong kawasan yang dipilih"
+  "generationStageCroppingRange": "Memotong kawasan yang dipilih",
+  "generationRejectedRefused": "Raksasa tak dapat dicipta\nCuba ambil gambar lain"
 }

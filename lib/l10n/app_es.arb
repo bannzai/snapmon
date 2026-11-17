@@ -133,5 +133,6 @@
   "generationCreateWithRange": "Crear con esta zona",
   "generationCropSizeLabel": "Tamaño del marco",
   "generationStageFindingSubject": "Buscando el objeto de la foto",
-  "generationStageCroppingRange": "Recortando el área seleccionada"
+  "generationStageCroppingRange": "Recortando el área seleccionada",
+  "generationRejectedRefused": "No se pudo crear el monstruo\nPrueba a tomar otra foto"
 }
