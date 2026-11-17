@@ -49,5 +49,6 @@
   "settingsSwitchedAccount": "ਤੁਸੀਂ ਲਿੰਕ ਕੀਤੇ ਖਾਤੇ 'ਤੇ ਬਦਲ ਗਏ ਹੋ",
   "settingsDeleteAccountTitle": "ਕੀ ਤੁਸੀਂ ਆਪਣਾ ਖਾਤਾ ਮਿਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?",
   "settingsDeleteAccountMessage": "ਤੁਹਾਡੇ ਮੌਂਸਟਰ, ਸੰਗ੍ਰਹਿ, ਅਸਲੀ ਫ਼ੋਟੋਆਂ ਅਤੇ ਲੜਾਈਆਂ ਦੇ ਰਿਕਾਰਡ ਹਮੇਸ਼ਾ ਲਈ ਮਿਟ ਜਾਣਗੇ। ਇਸ ਤੋਂ ਬਾਅਦ ਤੁਸੀਂ ਨਵੇਂ ਖਾਤੇ ਨਾਲ ਸ਼ੁਰੂ ਕਰੋਗੇ।",
-  "settingsDeleteAccountConfirm": "ਮਿਟਾਓ"
+  "settingsDeleteAccountConfirm": "ਮਿਟਾਓ",
+  "settingsSoundSection": "ਆਵਾਜ਼"
 }

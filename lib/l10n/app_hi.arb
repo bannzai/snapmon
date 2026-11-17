@@ -49,5 +49,6 @@
   "settingsSwitchedAccount": "तुम लिंक किए गए खाते पर आ गए हो",
   "settingsDeleteAccountTitle": "क्या तुम अपना खाता हटाना चाहते हो?",
   "settingsDeleteAccountMessage": "तुम्हारे मॉन्स्टर, संग्रह, मूल फ़ोटो और लड़ाइयों के रिकॉर्ड हमेशा के लिए मिट जाएँगे। इसके बाद तुम नए अकाउंट से शुरुआत करोगे।",
-  "settingsDeleteAccountConfirm": "मिटाओ"
+  "settingsDeleteAccountConfirm": "मिटाओ",
+  "settingsSoundSection": "आवाज़"
 }

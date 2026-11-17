@@ -49,5 +49,6 @@
   "settingsSwitchedAccount": "Du hast zu einem verknüpften Konto gewechselt",
   "settingsDeleteAccountTitle": "Möchtest du dein Konto löschen?",
   "settingsDeleteAccountMessage": "Deine Monster, dein Dex, die Originalfotos und Kampfaufzeichnungen werden gelöscht. Du kannst sie nicht wiederherstellen. Danach startest du mit einem neuen Konto.",
-  "settingsDeleteAccountConfirm": "Löschen"
+  "settingsDeleteAccountConfirm": "Löschen",
+  "settingsSoundSection": "Ton"
 }

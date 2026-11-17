@@ -49,5 +49,6 @@
   "settingsSwitchedAccount": "Mudaste para uma conta associada",
   "settingsDeleteAccountTitle": "Queres eliminar a tua conta?",
   "settingsDeleteAccountMessage": "Os teus monstros, a tua enciclopédia, as fotos originais e os registos de batalha serão apagados de vez. Depois, começarás com uma conta nova.",
-  "settingsDeleteAccountConfirm": "Eliminar"
+  "settingsDeleteAccountConfirm": "Eliminar",
+  "settingsSoundSection": "Som"
 }

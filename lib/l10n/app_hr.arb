@@ -49,5 +49,6 @@
   "settingsSwitchedAccount": "Prešao si na povezani račun",
   "settingsDeleteAccountTitle": "Želiš li izbrisati svoj račun?",
   "settingsDeleteAccountMessage": "Tvoja čudovišta, enciklopedija, izvorne fotografije i zapisi borbi bit će trajno izbrisani. Nakon toga krećeš s novim računom.",
-  "settingsDeleteAccountConfirm": "Izbriši"
+  "settingsDeleteAccountConfirm": "Izbriši",
+  "settingsSoundSection": "Zvuk"
 }

@@ -49,5 +49,6 @@
   "settingsSwitchedAccount": "המעבר לחשבון מקושר הושלם",
   "settingsDeleteAccountTitle": "למחוק את החשבון?",
   "settingsDeleteAccountMessage": "המפלצות, האוסף, התמונות המקוריות ורישומי הקרבות יימחקו לצמיתות. לאחר המחיקה מתחילים עם חשבון חדש.",
-  "settingsDeleteAccountConfirm": "למחוק"
+  "settingsDeleteAccountConfirm": "למחוק",
+  "settingsSoundSection": "צלילים"
 }

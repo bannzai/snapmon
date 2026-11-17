@@ -49,5 +49,6 @@
   "settingsSwitchedAccount": "இணைக்கப்பட்ட கணக்கிற்கு மாறியுள்ளீர்கள்",
   "settingsDeleteAccountTitle": "உங்கள் கணக்கை நீக்க விரும்புகிறீர்களா?",
   "settingsDeleteAccountMessage": "உங்கள் மான்ஸ்டர்கள், களஞ்சியம், அசல் படங்கள், போர் பதிவுகள் அனைத்தும் நிரந்தரமாக நீக்கப்படும். அதன் பிறகு புதிய கணக்கில் தொடங்குவீர்கள்.",
-  "settingsDeleteAccountConfirm": "நீக்குங்கள்"
+  "settingsDeleteAccountConfirm": "நீக்குங்கள்",
+  "settingsSoundSection": "ஒலி"
 }

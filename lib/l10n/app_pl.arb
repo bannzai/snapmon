@@ -49,5 +49,6 @@
   "settingsSwitchedAccount": "Przełączono na połączone konto",
   "settingsDeleteAccountTitle": "Chcesz usunąć swoje konto?",
   "settingsDeleteAccountMessage": "Twoje potwory, encyklopedia, oryginalne zdjęcia i zapisy walk zostaną trwale usunięte. Potem zaczniesz z nowym kontem.",
-  "settingsDeleteAccountConfirm": "Usuń"
+  "settingsDeleteAccountConfirm": "Usuń",
+  "settingsSoundSection": "Dźwięk"
 }

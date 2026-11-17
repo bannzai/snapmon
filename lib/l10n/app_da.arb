@@ -49,5 +49,6 @@
   "settingsSwitchedAccount": "Du er skiftet til en tilknyttet konto",
   "settingsDeleteAccountTitle": "Vil du slette din konto?",
   "settingsDeleteAccountMessage": "Dine monstre, din dex, de originale billeder og kampdata slettes og kan ikke gendannes. Bagefter starter du med en ny konto.",
-  "settingsDeleteAccountConfirm": "Slet"
+  "settingsDeleteAccountConfirm": "Slet",
+  "settingsSoundSection": "Lyd"
 }

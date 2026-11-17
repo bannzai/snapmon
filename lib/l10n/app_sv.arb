@@ -49,5 +49,6 @@
   "settingsSwitchedAccount": "Du har bytt till ett länkat konto",
   "settingsDeleteAccountTitle": "Vill du radera ditt konto?",
   "settingsDeleteAccountMessage": "Dina monster, din samling, originalbilderna och stridsloggen raderas för gott. Sedan börjar du med ett nytt konto.",
-  "settingsDeleteAccountConfirm": "Radera"
+  "settingsDeleteAccountConfirm": "Radera",
+  "settingsSoundSection": "Ljud"
 }

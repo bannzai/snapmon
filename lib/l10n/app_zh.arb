@@ -49,5 +49,6 @@
   "settingsSwitchedAccount": "已切换到关联的账号",
   "settingsDeleteAccountTitle": "要删除你的账号吗？",
   "settingsDeleteAccountMessage": "你的怪物、图鉴、原始照片和对战记录将被永久删除。之后你会用新账号重新开始。",
-  "settingsDeleteAccountConfirm": "删除"
+  "settingsDeleteAccountConfirm": "删除",
+  "settingsSoundSection": "声音"
 }

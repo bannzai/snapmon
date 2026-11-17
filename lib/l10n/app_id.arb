@@ -49,5 +49,6 @@
   "settingsSwitchedAccount": "Kamu beralih ke akun tertaut",
   "settingsDeleteAccountTitle": "Mau hapus akunmu?",
   "settingsDeleteAccountMessage": "Monster, dex, foto asli, dan riwayat pertarunganmu akan dihapus permanen. Setelah itu, kamu akan mulai dengan akun baru.",
-  "settingsDeleteAccountConfirm": "Hapus"
+  "settingsDeleteAccountConfirm": "Hapus",
+  "settingsSoundSection": "Suara"
 }

@@ -49,5 +49,6 @@
   "settingsSwitchedAccount": "Preklopil si na povezan račun",
   "settingsDeleteAccountTitle": "Želiš izbrisati svoj račun?",
   "settingsDeleteAccountMessage": "Tvoje pošasti, enciklopedija, izvirne fotografije in zapisi bitk bodo trajno izbrisani. Nato začneš z novim računom.",
-  "settingsDeleteAccountConfirm": "Izbriši"
+  "settingsDeleteAccountConfirm": "Izbriši",
+  "settingsSoundSection": "Zvok"
 }

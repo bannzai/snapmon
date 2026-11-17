@@ -49,5 +49,6 @@
   "settingsSwitchedAccount": "તમે લિંક કરેલા એકાઉન્ટ પર સ્વિચ કર્યું",
   "settingsDeleteAccountTitle": "શું તમે તમારું ખાતું કાઢી નાખવા માંગો છો?",
   "settingsDeleteAccountMessage": "તમારા મોન્સ્ટર, ડેક્સ, મૂળ ફોટા અને લડાઈના રેકોર્ડ કાયમ માટે કાઢી નાખવામાં આવશે. પછી તમે નવા એકાઉન્ટથી શરૂ કરશો.",
-  "settingsDeleteAccountConfirm": "કાઢી નાખો"
+  "settingsDeleteAccountConfirm": "કાઢી નાખો",
+  "settingsSoundSection": "અવાજ"
 }

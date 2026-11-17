@@ -49,5 +49,6 @@
   "settingsSwitchedAccount": "সংযুক্ত অ্যাকাউন্টে বদলানো হয়েছে",
   "settingsDeleteAccountTitle": "তুমি কি তোমার অ্যাকাউন্ট মুছতে চাও?",
   "settingsDeleteAccountMessage": "তোমার মনস্টার, সংগ্রহ, আসল ছবি আর লড়াইয়ের রেকর্ড মুছে যাবে। এগুলো আর ফেরানো যাবে না। মুছে ফেলার পর নতুন অ্যাকাউন্ট দিয়ে শুরু করবে।",
-  "settingsDeleteAccountConfirm": "মুছে ফেলো"
+  "settingsDeleteAccountConfirm": "মুছে ফেলো",
+  "settingsSoundSection": "শব্দ"
 }

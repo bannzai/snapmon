@@ -49,5 +49,6 @@
   "settingsSwitchedAccount": "Vaihdoit yhdistettyyn tiliin",
   "settingsDeleteAccountTitle": "Haluatko poistaa tilisi?",
   "settingsDeleteAccountMessage": "Hirviöt, kokoelma, alkuperäiset kuvat ja taistelutiedot poistetaan pysyvästi. Sen jälkeen aloitat uudella tilillä.",
-  "settingsDeleteAccountConfirm": "Poista"
+  "settingsDeleteAccountConfirm": "Poista",
+  "settingsSoundSection": "Äänet"
 }

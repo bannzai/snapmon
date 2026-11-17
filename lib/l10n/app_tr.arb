@@ -49,5 +49,6 @@
   "settingsSwitchedAccount": "Bağlı bir hesaba geçtin",
   "settingsDeleteAccountTitle": "Hesabını silmek istiyor musun?",
   "settingsDeleteAccountMessage": "Canavarların, ansiklopedin, orijinal fotoğrafların ve savaş kayıtların kalıcı olarak silinecek. Ardından yeni bir hesapla başlayacaksın.",
-  "settingsDeleteAccountConfirm": "Sil"
+  "settingsDeleteAccountConfirm": "Sil",
+  "settingsSoundSection": "Ses"
 }
