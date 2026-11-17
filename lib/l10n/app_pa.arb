@@ -131,5 +131,6 @@
   "generationChooseRangeMessage": "ਫ੍ਰੇਮ ਖਿੱਚ ਕੇ ਤਸਵੀਰ ਵਾਲੀ ਚੀਜ਼ ਨੂੰ ਘੇਰੋ\nਹੇਠਾਂ ਦਿੱਤੇ ਸਲਾਈਡਰ ਜਾਂ ਦੋ ਉਂਗਲਾਂ ਨਾਲ ਆਕਾਰ ਬਦਲੋ",
   "generationAutoCutoutUnavailable": "ਆਪਣੇ ਆਪ ਤਸਵੀਰ ਵਿੱਚੋਂ ਵੱਖਰਾ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ",
   "generationCreateWithRange": "ਇਸ ਹਿੱਸੇ ਤੋਂ ਬਣਾਓ",
-  "generationCropSizeLabel": "ਫ਼ਰੇਮ ਦਾ ਆਕਾਰ"
+  "generationCropSizeLabel": "ਫ਼ਰੇਮ ਦਾ ਆਕਾਰ",
+  "generationStageFindingSubject": "ਫ਼ੋਟੋ ਵਿੱਚ ਵਸਤੂ ਲੱਭੀ ਜਾ ਰਹੀ ਹੈ"
 }

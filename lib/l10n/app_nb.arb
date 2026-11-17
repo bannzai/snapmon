@@ -131,5 +131,6 @@
   "generationChooseRangeMessage": "Dra rammen rundt motivet\nEndre størrelsen med glidebryteren under eller med to fingre",
   "generationAutoCutoutUnavailable": "Automatisk utklipping var ikke tilgjengelig",
   "generationCreateWithRange": "Lag fra dette området",
-  "generationCropSizeLabel": "Rammestørrelse"
+  "generationCropSizeLabel": "Rammestørrelse",
+  "generationStageFindingSubject": "Finner motivet"
 }

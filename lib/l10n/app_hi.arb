@@ -131,5 +131,6 @@
   "generationChooseRangeMessage": "फ़्रेम खींचकर तस्वीर की चीज़ को घेरो\nनीचे के स्लाइडर या दो उँगलियों से आकार बदलो",
   "generationAutoCutoutUnavailable": "अपने आप विषय को काटकर अलग नहीं किया जा सका",
   "generationCreateWithRange": "इस हिस्से से बनाओ",
-  "generationCropSizeLabel": "फ़्रेम का आकार"
+  "generationCropSizeLabel": "फ़्रेम का आकार",
+  "generationStageFindingSubject": "फ़ोटो में विषय ढूँढ़ा जा रहा है"
 }

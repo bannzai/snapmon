@@ -131,5 +131,6 @@
   "generationChooseRangeMessage": "Træk rammen rundt om motivet\nJuster størrelsen med skyderen nedenfor eller med to fingre",
   "generationAutoCutoutUnavailable": "Automatisk fritlægning kunne ikke bruges",
   "generationCreateWithRange": "Skab ud fra dette område",
-  "generationCropSizeLabel": "Rammestørrelse"
+  "generationCropSizeLabel": "Rammestørrelse",
+  "generationStageFindingSubject": "Finder motivet"
 }

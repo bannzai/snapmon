@@ -131,5 +131,6 @@
   "generationChooseRangeMessage": "Trascina la cornice attorno al soggetto\nCambiane le dimensioni con il cursore qui sotto o con due dita",
   "generationAutoCutoutUnavailable": "Impossibile usare il ritaglio automatico",
   "generationCreateWithRange": "Crea da quest'area",
-  "generationCropSizeLabel": "Dimensione del riquadro"
+  "generationCropSizeLabel": "Dimensione del riquadro",
+  "generationStageFindingSubject": "Ricerca del soggetto"
 }

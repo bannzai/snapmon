@@ -131,5 +131,6 @@
   "generationChooseRangeMessage": "Dra ramen runt motivet\nÄndra storleken med reglaget nedanför eller med två fingrar",
   "generationAutoCutoutUnavailable": "Automatisk friläggning var inte tillgänglig",
   "generationCreateWithRange": "Skapa från det här området",
-  "generationCropSizeLabel": "Ramens storlek"
+  "generationCropSizeLabel": "Ramens storlek",
+  "generationStageFindingSubject": "Letar efter motivet"
 }

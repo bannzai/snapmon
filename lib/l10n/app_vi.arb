@@ -131,5 +131,6 @@
   "generationChooseRangeMessage": "Kéo khung bao quanh vật thể\nĐổi kích thước bằng thanh trượt bên dưới hoặc hai ngón tay",
   "generationAutoCutoutUnavailable": "Không thể dùng tính năng tách ảnh tự động",
   "generationCreateWithRange": "Tạo từ vùng này",
-  "generationCropSizeLabel": "Kích thước khung"
+  "generationCropSizeLabel": "Kích thước khung",
+  "generationStageFindingSubject": "Đang tìm vật thể trong ảnh"
 }

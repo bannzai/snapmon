@@ -131,5 +131,6 @@
   "generationChooseRangeMessage": "ଫ୍ରେମ୍‌କୁ ଟାଣି ଫଟୋର ବସ୍ତୁକୁ ଘେର\nତଳର ସ୍ଲାଇଡର୍ କିମ୍ବା ଦୁଇ ଆଙ୍ଗୁଠିରେ ଆକାର ବଦଳାଅ",
   "generationAutoCutoutUnavailable": "ସ୍ୱୟଂଚାଳିତ ଭାବେ ଚିତ୍ରରୁ ଅଲଗା କରିହେଲା ନାହିଁ",
   "generationCreateWithRange": "ଏହି ଅଞ୍ଚଳରୁ ତିଆରି କର",
-  "generationCropSizeLabel": "ଫ୍ରେମ୍‌ର ଆକାର"
+  "generationCropSizeLabel": "ଫ୍ରେମ୍‌ର ଆକାର",
+  "generationStageFindingSubject": "ଫଟୋରେ ଥିବା ବସ୍ତୁକୁ ଖୋଜାଯାଉଛି"
 }

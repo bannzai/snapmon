@@ -131,5 +131,6 @@
   "generationChooseRangeMessage": "Перетягни рамку навколо об’єкта\nЗміни розмір повзунком унизу або двома пальцями",
   "generationAutoCutoutUnavailable": "Автоматичне вирізання недоступне",
   "generationCreateWithRange": "Створи з цієї області",
-  "generationCropSizeLabel": "Розмір рамки"
+  "generationCropSizeLabel": "Розмір рамки",
+  "generationStageFindingSubject": "Пошук об’єкта на фото"
 }

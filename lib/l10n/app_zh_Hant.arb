@@ -131,5 +131,6 @@
   "generationChooseRangeMessage": "拖曳邊框框住拍攝對象\n用下方滑桿或雙指調整大小",
   "generationAutoCutoutUnavailable": "無法使用自動去背",
   "generationCreateWithRange": "用這個區域建立",
-  "generationCropSizeLabel": "選取框大小"
+  "generationCropSizeLabel": "選取框大小",
+  "generationStageFindingSubject": "正在尋找照片中的物件"
 }

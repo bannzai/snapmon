@@ -131,5 +131,6 @@
   "generationChooseRangeMessage": "ફ્રેમ ખેંચીને વિષયને ઘેરી લો\nનીચેના સ્લાઇડરથી અથવા બે આંગળીઓથી તેનું કદ બદલો",
   "generationAutoCutoutUnavailable": "ઑટોમૅટિક કટઆઉટનો ઉપયોગ થઈ શક્યો નહીં",
   "generationCreateWithRange": "આ ભાગમાંથી બનાવો",
-  "generationCropSizeLabel": "ફ્રેમનું કદ"
+  "generationCropSizeLabel": "ફ્રેમનું કદ",
+  "generationStageFindingSubject": "ફોટામાં વિષય શોધાઈ રહ્યો છે"
 }

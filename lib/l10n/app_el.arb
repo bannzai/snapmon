@@ -131,5 +131,6 @@
   "generationChooseRangeMessage": "Σύρε το πλαίσιο γύρω από το αντικείμενο\nΆλλαξε το μέγεθος με το ρυθμιστικό κάτω ή με δύο δάχτυλα",
   "generationAutoCutoutUnavailable": "Δεν ήταν διαθέσιμη η αυτόματη αποκοπή",
   "generationCreateWithRange": "Φτιάξε από αυτή την περιοχή",
-  "generationCropSizeLabel": "Μέγεθος πλαισίου"
+  "generationCropSizeLabel": "Μέγεθος πλαισίου",
+  "generationStageFindingSubject": "Αναζήτηση θέματος στη φωτογραφία"
 }

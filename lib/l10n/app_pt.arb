@@ -131,5 +131,6 @@
   "generationChooseRangeMessage": "Arraste a moldura para contornar o objeto\nAjuste o tamanho com o controle abaixo ou com dois dedos",
   "generationAutoCutoutUnavailable": "Não foi possível usar o recorte automático",
   "generationCreateWithRange": "Criar com esta área",
-  "generationCropSizeLabel": "Tamanho da moldura"
+  "generationCropSizeLabel": "Tamanho da moldura",
+  "generationStageFindingSubject": "Procurando o objeto na foto"
 }

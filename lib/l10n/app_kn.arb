@@ -131,5 +131,6 @@
   "generationChooseRangeMessage": "ವಸ್ತುವಿನ ಸುತ್ತ ಚೌಕಟ್ಟನ್ನು ಎಳೆ\nಕೆಳಗಿನ ಸ್ಲೈಡರ್ ಅಥವಾ ಎರಡು ಬೆರಳುಗಳಿಂದ ಗಾತ್ರ ಬದಲಾಯಿಸು",
   "generationAutoCutoutUnavailable": "ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಚಿತ್ರದಿಂದ ಬೇರ್ಪಡಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ",
   "generationCreateWithRange": "ಈ ಭಾಗದಿಂದ ರಚಿಸು",
-  "generationCropSizeLabel": "ಚೌಕಟ್ಟಿನ ಗಾತ್ರ"
+  "generationCropSizeLabel": "ಚೌಕಟ್ಟಿನ ಗಾತ್ರ",
+  "generationStageFindingSubject": "ಫೋಟೋದಲ್ಲಿನ ವಸ್ತುವನ್ನು ಹುಡುಕಲಾಗುತ್ತಿದೆ"
 }

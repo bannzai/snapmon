@@ -131,5 +131,6 @@
   "generationChooseRangeMessage": "Povuci okvir oko objekta\nPromijeni mu veličinu klizačem ispod ili dvama prstima",
   "generationAutoCutoutUnavailable": "Automatsko izrezivanje nije bilo dostupno",
   "generationCreateWithRange": "Stvori iz ovog područja",
-  "generationCropSizeLabel": "Veličina okvira"
+  "generationCropSizeLabel": "Veličina okvira",
+  "generationStageFindingSubject": "Traži se predmet na fotografiji"
 }

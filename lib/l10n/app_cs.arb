@@ -131,5 +131,6 @@
   "generationChooseRangeMessage": "Přetáhni rámeček kolem objektu\nVelikost změň posuvníkem dole nebo dvěma prsty",
   "generationAutoCutoutUnavailable": "Automatické vyříznutí nešlo použít",
   "generationCreateWithRange": "Vytvoř z této oblasti",
-  "generationCropSizeLabel": "Velikost rámečku"
+  "generationCropSizeLabel": "Velikost rámečku",
+  "generationStageFindingSubject": "Hledá se objekt na fotce"
 }

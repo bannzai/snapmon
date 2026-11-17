@@ -131,5 +131,6 @@
   "generationChooseRangeMessage": "Çerçeveyi sürükleyip nesneyi içine al\nBoyutunu alttaki kaydırıcıyla veya iki parmağınla değiştir",
   "generationAutoCutoutUnavailable": "Otomatik kesip çıkarma kullanılamadı",
   "generationCreateWithRange": "Bu alandan oluştur",
-  "generationCropSizeLabel": "Çerçeve boyutu"
+  "generationCropSizeLabel": "Çerçeve boyutu",
+  "generationStageFindingSubject": "Fotoğraftaki nesne aranıyor"
 }

@@ -131,5 +131,6 @@
   "generationChooseRangeMessage": "Potiahni rámček okolo objektu\nVeľkosť zmeň posuvníkom dole alebo dvoma prstami",
   "generationAutoCutoutUnavailable": "Automatické vystrihnutie nebolo dostupné",
   "generationCreateWithRange": "Vytvor z tejto oblasti",
-  "generationCropSizeLabel": "Veľkosť rámčeka"
+  "generationCropSizeLabel": "Veľkosť rámčeka",
+  "generationStageFindingSubject": "Hľadá sa objekt na fotke"
 }

@@ -131,5 +131,6 @@
   "generationChooseRangeMessage": "Arrastra el marco para rodear el objeto\nCambia su tamaño con el control de abajo o con dos dedos",
   "generationAutoCutoutUnavailable": "No se pudo usar el recorte automático",
   "generationCreateWithRange": "Crear con esta zona",
-  "generationCropSizeLabel": "Tamaño del marco"
+  "generationCropSizeLabel": "Tamaño del marco",
+  "generationStageFindingSubject": "Buscando el objeto de la foto"
 }

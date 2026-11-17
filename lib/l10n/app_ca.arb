@@ -131,5 +131,6 @@
   "generationChooseRangeMessage": "Arrossega el marc per envoltar l'objecte\nCanvia'n la mida amb el control de sota o amb dos dits",
   "generationAutoCutoutUnavailable": "No s'ha pogut fer servir la retallada automàtica",
   "generationCreateWithRange": "Crea amb aquesta zona",
-  "generationCropSizeLabel": "Mida del marc"
+  "generationCropSizeLabel": "Mida del marc",
+  "generationStageFindingSubject": "Buscant el subjecte"
 }
