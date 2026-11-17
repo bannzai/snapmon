@@ -126,5 +126,6 @@
   "generationCutoutLabel": "Détourage",
   "generationOriginalPhotoLabel": "Photo d’origine",
   "generationCreateWithCutout": "Créer à partir de l’image détourée",
-  "generationChooseRangeMyself": "Choisir moi-même la zone"
+  "generationChooseRangeMyself": "Choisir moi-même la zone",
+  "generationChooseRangeTitle": "Zone à transformer en monstre"
 }
