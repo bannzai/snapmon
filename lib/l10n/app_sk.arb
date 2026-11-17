@@ -147,5 +147,6 @@
   "resultRemoveFromParty": "Odober z tímu",
   "resultAddToParty": "Pridaj do tímu",
   "resultReplaceInParty": "Vymeň člena tímu",
-  "resultCaptureAnother": "Rozšír svoj tím"
+  "resultCaptureAnother": "Rozšír svoj tím",
+  "resultShareText": "V snapmon sa zrodil {monsterName}\n#snapmon\n{url}"
 }

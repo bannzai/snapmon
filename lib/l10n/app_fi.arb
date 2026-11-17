@@ -147,5 +147,6 @@
   "resultRemoveFromParty": "Poista joukkueesta",
   "resultAddToParty": "Lisää joukkueeseen",
   "resultReplaceInParty": "Vaihda joukkueen jäsen",
-  "resultCaptureAnother": "Kasvata joukkuetta"
+  "resultCaptureAnother": "Kasvata joukkuetta",
+  "resultShareText": "{monsterName} syntyi snapmonissa\n#snapmon\n{url}"
 }

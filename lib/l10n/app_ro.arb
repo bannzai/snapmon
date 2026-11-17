@@ -147,5 +147,6 @@
   "resultRemoveFromParty": "Scoate din echipă",
   "resultAddToParty": "Adaugă în echipă",
   "resultReplaceInParty": "Schimbă un membru al echipei",
-  "resultCaptureAnother": "Mărește-ți echipa"
+  "resultCaptureAnother": "Mărește-ți echipa",
+  "resultShareText": "În snapmon s-a născut {monsterName}\n#snapmon\n{url}"
 }

@@ -147,5 +147,6 @@
   "resultRemoveFromParty": "Takımından çıkar",
   "resultAddToParty": "takıma ekle",
   "resultReplaceInParty": "Takımından birini değiştir",
-  "resultCaptureAnother": "Takımını büyüt"
+  "resultCaptureAnother": "Takımını büyüt",
+  "resultShareText": "{monsterName}, snapmon'da doğdu\n#snapmon\n{url}"
 }

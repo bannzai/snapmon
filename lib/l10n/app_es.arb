@@ -147,5 +147,6 @@
   "resultRemoveFromParty": "Quitar del equipo",
   "resultAddToParty": "Añadir al equipo",
   "resultReplaceInParty": "Cambia a un miembro de tu equipo",
-  "resultCaptureAnother": "Amplía tu equipo"
+  "resultCaptureAnother": "Amplía tu equipo",
+  "resultShareText": "¡{monsterName} nació en snapmon!\n#snapmon\n{url}"
 }

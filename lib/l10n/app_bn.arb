@@ -147,5 +147,6 @@
   "resultRemoveFromParty": "দল থেকে সরাও",
   "resultAddToParty": "দলে যোগ করো",
   "resultReplaceInParty": "দলের একজনকে বদলাও",
-  "resultCaptureAnother": "তোমার দল বাড়াও"
+  "resultCaptureAnother": "তোমার দল বাড়াও",
+  "resultShareText": "snapmon-এ জন্ম নিল {monsterName}\n#snapmon\n{url}"
 }

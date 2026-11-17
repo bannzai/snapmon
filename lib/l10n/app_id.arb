@@ -147,5 +147,6 @@
   "resultRemoveFromParty": "Keluarkan dari tim",
   "resultAddToParty": "Tambahkan ke tim",
   "resultReplaceInParty": "Ganti anggota timmu",
-  "resultCaptureAnother": "Perbesar timmu"
+  "resultCaptureAnother": "Perbesar timmu",
+  "resultShareText": "{monsterName} lahir di snapmon\n#snapmon\n{url}"
 }

@@ -147,5 +147,6 @@
   "resultRemoveFromParty": "Uit je team halen",
   "resultAddToParty": "Voeg toe aan je team",
   "resultReplaceInParty": "Wissel een lid van je team",
-  "resultCaptureAnother": "Breid je team uit"
+  "resultCaptureAnother": "Breid je team uit",
+  "resultShareText": "{monsterName} is geboren in snapmon\n#snapmon\n{url}"
 }

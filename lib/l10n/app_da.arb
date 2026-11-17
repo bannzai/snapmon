@@ -147,5 +147,6 @@
   "resultRemoveFromParty": "Fjern fra holdet",
   "resultAddToParty": "Føj til dit hold",
   "resultReplaceInParty": "Skift et medlem på dit hold ud",
-  "resultCaptureAnother": "Udvid dit hold"
+  "resultCaptureAnother": "Udvid dit hold",
+  "resultShareText": "{monsterName} blev født i snapmon\n#snapmon\n{url}"
 }

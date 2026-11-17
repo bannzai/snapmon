@@ -147,5 +147,6 @@
   "resultRemoveFromParty": "Vedd ki a csapatból",
   "resultAddToParty": "Add a csapathoz",
   "resultReplaceInParty": "Cseréld le a csapat egyik tagját",
-  "resultCaptureAnother": "Bővítsd a csapatod"
+  "resultCaptureAnother": "Bővítsd a csapatod",
+  "resultShareText": "A snapmon világában megszületett {monsterName}\n#snapmon\n{url}"
 }

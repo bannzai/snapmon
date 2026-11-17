@@ -147,5 +147,6 @@
   "resultRemoveFromParty": "Treure de l'equip",
   "resultAddToParty": "Afegeix a l'equip",
   "resultReplaceInParty": "Canvia un membre de l'equip",
-  "resultCaptureAnother": "Amplia el teu equip"
+  "resultCaptureAnother": "Amplia el teu equip",
+  "resultShareText": "A snapmon ha nascut {monsterName}\n#snapmon\n{url}"
 }

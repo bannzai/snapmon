@@ -147,5 +147,6 @@
   "resultRemoveFromParty": "Ta bort från laget",
   "resultAddToParty": "Lägg till i laget",
   "resultReplaceInParty": "Byt ut en medlem i ditt lag",
-  "resultCaptureAnother": "Utöka ditt lag"
+  "resultCaptureAnother": "Utöka ditt lag",
+  "resultShareText": "{monsterName} föddes i snapmon\n#snapmon\n{url}"
 }

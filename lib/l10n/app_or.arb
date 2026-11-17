@@ -147,5 +147,6 @@
   "resultRemoveFromParty": "ଦଳରୁ କାଢ଼",
   "resultAddToParty": "ଦଳରେ ଯୋଗ କର",
   "resultReplaceInParty": "ଦଳର ଜଣେ ସଦସ୍ୟକୁ ବଦଳାଅ",
-  "resultCaptureAnother": "ତୁମ ଦଳ ବଢ଼ାଅ"
+  "resultCaptureAnother": "ତୁମ ଦଳ ବଢ଼ାଅ",
+  "resultShareText": "snapmonରେ {monsterName}ର ଜନ୍ମ ହେଲା\n#snapmon\n{url}"
 }

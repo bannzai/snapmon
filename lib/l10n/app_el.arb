@@ -147,5 +147,6 @@
   "resultRemoveFromParty": "Βγάλε από την ομάδα",
   "resultAddToParty": "Προσθήκη στην ομάδα",
   "resultReplaceInParty": "Αντικατάστησε μέλος της ομάδας",
-  "resultCaptureAnother": "Μεγάλωσε την ομάδα σου"
+  "resultCaptureAnother": "Μεγάλωσε την ομάδα σου",
+  "resultShareText": "Στο snapmon γεννήθηκε το {monsterName}\n#snapmon\n{url}"
 }

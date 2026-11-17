@@ -147,5 +147,6 @@
   "resultRemoveFromParty": "टीममधून काढ",
   "resultAddToParty": "टीममध्ये सामील कर",
   "resultReplaceInParty": "टीममधला सदस्य बदल",
-  "resultCaptureAnother": "तुझी टीम वाढव"
+  "resultCaptureAnother": "तुझी टीम वाढव",
+  "resultShareText": "snapmon मध्ये {monsterName} जन्माला आला\n#snapmon\n{url}"
 }

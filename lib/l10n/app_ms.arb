@@ -147,5 +147,6 @@
   "resultRemoveFromParty": "Keluarkan daripada pasukan",
   "resultAddToParty": "Tambah ke pasukan",
   "resultReplaceInParty": "Ganti ahli pasukan kamu",
-  "resultCaptureAnother": "Besarkan pasukan kamu"
+  "resultCaptureAnother": "Besarkan pasukan kamu",
+  "resultShareText": "{monsterName} lahir dalam snapmon\n#snapmon\n{url}"
 }

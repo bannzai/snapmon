@@ -147,5 +147,6 @@
   "resultRemoveFromParty": "அணியிலிருந்து நீக்குங்கள்",
   "resultAddToParty": "அணியில் சேர்க்கவும்",
   "resultReplaceInParty": "அணி உறுப்பினரை மாற்றுங்கள்",
-  "resultCaptureAnother": "உங்கள் அணியைப் பெருக்குங்கள்"
+  "resultCaptureAnother": "உங்கள் அணியைப் பெருக்குங்கள்",
+  "resultShareText": "snapmon-இல் {monsterName} பிறந்தது\n#snapmon\n{url}"
 }

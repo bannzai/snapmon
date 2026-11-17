@@ -147,5 +147,6 @@
   "resultRemoveFromParty": "Убрать из команды",
   "resultAddToParty": "Добавить в команду",
   "resultReplaceInParty": "Замени участника команды",
-  "resultCaptureAnother": "Пополняй команду"
+  "resultCaptureAnother": "Пополняй команду",
+  "resultShareText": "В snapmon появился {monsterName}\n#snapmon\n{url}"
 }

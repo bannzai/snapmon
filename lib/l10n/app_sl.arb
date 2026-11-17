@@ -147,5 +147,6 @@
   "resultRemoveFromParty": "Odstrani iz ekipe",
   "resultAddToParty": "Dodaj v ekipo",
   "resultReplaceInParty": "Zamenjaj člana ekipe",
-  "resultCaptureAnother": "Razširi svojo ekipo"
+  "resultCaptureAnother": "Razširi svojo ekipo",
+  "resultShareText": "V snapmon se je rodil {monsterName}\n#snapmon\n{url}"
 }
