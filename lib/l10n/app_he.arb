@@ -163,5 +163,6 @@
   "battleLogChallenged": "קרב מול {monsterName} מתחיל!",
   "battleLogMoveUsed": "{monsterName} השתמש במהלך {moveName}!",
   "battleStruggle": "מאבק נואש",
-  "battleLogSuperEffective": "זה יעיל במיוחד!"
+  "battleLogSuperEffective": "זה יעיל במיוחד!",
+  "battleLogNotVeryEffective": "זה לא היה יעיל במיוחד"
 }

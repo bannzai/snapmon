@@ -163,5 +163,6 @@
   "battleLogChallenged": "{monsterName} párbajra hív!",
   "battleLogMoveUsed": "{monsterName} beveti a(z) {moveName} támadást!",
   "battleStruggle": "Elkeseredett küzdelem",
-  "battleLogSuperEffective": "Szuper hatásos!"
+  "battleLogSuperEffective": "Szuper hatásos!",
+  "battleLogNotVeryEffective": "Nem túl hatásos"
 }

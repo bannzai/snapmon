@@ -163,5 +163,6 @@
   "battleLogChallenged": "{monsterName} 向你发起了挑战！",
   "battleLogMoveUsed": "{monsterName}使出了{moveName}！",
   "battleStruggle": "挣扎",
-  "battleLogSuperEffective": "效果绝佳！"
+  "battleLogSuperEffective": "效果绝佳！",
+  "battleLogNotVeryEffective": "效果不太好"
 }

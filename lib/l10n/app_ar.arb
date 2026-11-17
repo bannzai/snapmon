@@ -163,5 +163,6 @@
   "battleLogChallenged": "تحدّاك {monsterName}!",
   "battleLogMoveUsed": "استخدم {monsterName} حركة {moveName}!",
   "battleStruggle": "هجوم اليأس",
-  "battleLogSuperEffective": "إنه فعّال جدًا!"
+  "battleLogSuperEffective": "إنه فعّال جدًا!",
+  "battleLogNotVeryEffective": "لم تكن فعّالة جدًا"
 }

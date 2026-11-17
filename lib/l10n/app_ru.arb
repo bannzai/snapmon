@@ -163,5 +163,6 @@
   "battleLogChallenged": "{monsterName} вызывает тебя на бой!",
   "battleLogMoveUsed": "{monsterName} применяет приём {moveName}!",
   "battleStruggle": "Отчаянная борьба",
-  "battleLogSuperEffective": "Это суперэффективно!"
+  "battleLogSuperEffective": "Это суперэффективно!",
+  "battleLogNotVeryEffective": "Это не очень эффективно"
 }

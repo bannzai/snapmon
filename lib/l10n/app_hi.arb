@@ -163,5 +163,6 @@
   "battleLogChallenged": "{monsterName} ने तुम्हें मुकाबले की चुनौती दी!",
   "battleLogMoveUsed": "{monsterName} ने {moveName} इस्तेमाल किया!",
   "battleStruggle": "आख़िरी दाँव",
-  "battleLogSuperEffective": "यह बेहद असरदार है!"
+  "battleLogSuperEffective": "यह बेहद असरदार है!",
+  "battleLogNotVeryEffective": "ज़्यादा असर नहीं हुआ"
 }

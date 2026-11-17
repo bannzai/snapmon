@@ -163,5 +163,6 @@
   "battleLogChallenged": "{monsterName} te izziva na dvoboj!",
   "battleLogMoveUsed": "{monsterName} uporabi potezo {moveName}!",
   "battleStruggle": "Obupen boj",
-  "battleLogSuperEffective": "Zelo učinkovito!"
+  "battleLogSuperEffective": "Zelo učinkovito!",
+  "battleLogNotVeryEffective": "Ni bilo preveč učinkovito"
 }

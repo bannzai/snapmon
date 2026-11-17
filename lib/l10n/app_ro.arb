@@ -163,5 +163,6 @@
   "battleLogChallenged": "{monsterName} te provoacă la luptă!",
   "battleLogMoveUsed": "{monsterName} folosește {moveName}!",
   "battleStruggle": "Luptă disperată",
-  "battleLogSuperEffective": "E super eficient!"
+  "battleLogSuperEffective": "E super eficient!",
+  "battleLogNotVeryEffective": "Nu a fost prea eficient"
 }

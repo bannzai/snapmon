@@ -163,5 +163,6 @@
   "battleLogChallenged": "{monsterName} utfordrer deg til kamp!",
   "battleLogMoveUsed": "{monsterName} bruker {moveName}!",
   "battleStruggle": "Desperat kamp",
-  "battleLogSuperEffective": "Det er supereffektivt!"
+  "battleLogSuperEffective": "Det er supereffektivt!",
+  "battleLogNotVeryEffective": "Det var ikke særlig effektivt"
 }

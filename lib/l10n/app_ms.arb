@@ -163,5 +163,6 @@
   "battleLogChallenged": "{monsterName} cabar kamu bertarung!",
   "battleLogMoveUsed": "{monsterName} menggunakan {moveName}!",
   "battleStruggle": "Perjuangan Terakhir",
-  "battleLogSuperEffective": "Sangat berkesan!"
+  "battleLogSuperEffective": "Sangat berkesan!",
+  "battleLogNotVeryEffective": "Tak begitu berkesan"
 }

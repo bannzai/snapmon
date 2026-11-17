@@ -163,5 +163,6 @@
   "battleLogChallenged": "{monsterName} thách bạn đấu một trận!",
   "battleLogMoveUsed": "{monsterName} dùng {moveName}!",
   "battleStruggle": "Vùng vẫy",
-  "battleLogSuperEffective": "Siêu hiệu quả!"
+  "battleLogSuperEffective": "Siêu hiệu quả!",
+  "battleLogNotVeryEffective": "Không hiệu quả lắm"
 }

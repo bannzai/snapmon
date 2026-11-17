@@ -163,5 +163,6 @@
   "battleLogChallenged": "{monsterName}의 도전이 시작됐다!",
   "battleLogMoveUsed": "{monsterName}의 {moveName}!",
   "battleStruggle": "발버둥",
-  "battleLogSuperEffective": "효과가 굉장했다!"
+  "battleLogSuperEffective": "효과가 굉장했다!",
+  "battleLogNotVeryEffective": "효과가 별로였다"
 }

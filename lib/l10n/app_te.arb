@@ -163,5 +163,6 @@
   "battleLogChallenged": "{monsterName} నిన్ను పోరాటానికి సవాలు చేసింది!",
   "battleLogMoveUsed": "{monsterName} {moveName} వాడింది!",
   "battleStruggle": "చివరి పోరాటం",
-  "battleLogSuperEffective": "చాలా ప్రభావవంతంగా ఉంది!"
+  "battleLogSuperEffective": "చాలా ప్రభావవంతంగా ఉంది!",
+  "battleLogNotVeryEffective": "పెద్దగా ప్రభావం చూపలేదు"
 }

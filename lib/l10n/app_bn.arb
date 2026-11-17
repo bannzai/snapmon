@@ -163,5 +163,6 @@
   "battleLogChallenged": "{monsterName} তোমাকে লড়াইয়ের চ্যালেঞ্জ জানিয়েছে!",
   "battleLogMoveUsed": "{monsterName} ব্যবহার করল {moveName}!",
   "battleStruggle": "মরিয়া লড়াই",
-  "battleLogSuperEffective": "দারুণ কার্যকর!"
+  "battleLogSuperEffective": "দারুণ কার্যকর!",
+  "battleLogNotVeryEffective": "খুব একটা কাজ হলো না"
 }

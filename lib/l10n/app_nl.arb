@@ -163,5 +163,6 @@
   "battleLogChallenged": "{monsterName} daagt je uit voor een gevecht!",
   "battleLogMoveUsed": "{monsterName} gebruikt {moveName}!",
   "battleStruggle": "Wanhopige strijd",
-  "battleLogSuperEffective": "Het is supereffectief!"
+  "battleLogSuperEffective": "Het is supereffectief!",
+  "battleLogNotVeryEffective": "Het was niet erg effectief"
 }

@@ -163,5 +163,6 @@
   "battleLogChallenged": "{monsterName} ท้าให้สู้!",
   "battleLogMoveUsed": "{monsterName} ใช้ท่า {moveName}!",
   "battleStruggle": "ดิ้นรนสุดแรง",
-  "battleLogSuperEffective": "ได้ผลสุดยอด!"
+  "battleLogSuperEffective": "ได้ผลสุดยอด!",
+  "battleLogNotVeryEffective": "ไม่ค่อยได้ผล"
 }

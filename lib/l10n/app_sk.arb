@@ -163,5 +163,6 @@
   "battleLogChallenged": "{monsterName} ťa vyzýva na súboj!",
   "battleLogMoveUsed": "{monsterName} použil útok {moveName}!",
   "battleStruggle": "Zúfalý boj",
-  "battleLogSuperEffective": "Je to super účinné!"
+  "battleLogSuperEffective": "Je to super účinné!",
+  "battleLogNotVeryEffective": "Nie je to veľmi účinné"
 }

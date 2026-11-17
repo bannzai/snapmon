@@ -163,5 +163,6 @@
   "battleLogChallenged": "{monsterName} ti sfida a una lotta!",
   "battleLogMoveUsed": "{monsterName} usa {moveName}!",
   "battleStruggle": "Scontro",
-  "battleLogSuperEffective": "È superefficace!"
+  "battleLogSuperEffective": "È superefficace!",
+  "battleLogNotVeryEffective": "Non è molto efficace"
 }
