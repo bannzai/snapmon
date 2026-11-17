@@ -95,5 +95,6 @@
   "captureUseCamera": "Kamerayı kullan",
   "commonClose": "Kapat",
   "commonBack": "Geri",
-  "generationSearchingOpponent": "Rakip aranıyor"
+  "generationSearchingOpponent": "Rakip aranıyor",
+  "generationBattleWith": "{monsterName} ile savaşacaksın"
 }

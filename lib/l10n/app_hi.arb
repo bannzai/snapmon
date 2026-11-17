@@ -95,5 +95,6 @@
   "captureUseCamera": "कैमरा इस्तेमाल करो",
   "commonClose": "बंद करो",
   "commonBack": "वापस",
-  "generationSearchingOpponent": "प्रतिद्वंद्वी की तलाश जारी है"
+  "generationSearchingOpponent": "प्रतिद्वंद्वी की तलाश जारी है",
+  "generationBattleWith": "तुम {monsterName} के साथ लड़ोगे"
 }

@@ -95,5 +95,6 @@
   "captureUseCamera": "Brug kameraet",
   "commonClose": "Luk",
   "commonBack": "Tilbage",
-  "generationSearchingOpponent": "Leder efter en modstander"
+  "generationSearchingOpponent": "Leder efter en modstander",
+  "generationBattleWith": "Du kæmper med {monsterName}"
 }

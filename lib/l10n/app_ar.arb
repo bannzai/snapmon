@@ -95,5 +95,6 @@
   "captureUseCamera": "استخدم الكاميرا",
   "commonClose": "إغلاق",
   "commonBack": "رجوع",
-  "generationSearchingOpponent": "جارٍ البحث عن خصم"
+  "generationSearchingOpponent": "جارٍ البحث عن خصم",
+  "generationBattleWith": "ستقاتل مع {monsterName}"
 }

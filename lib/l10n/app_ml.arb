@@ -95,5 +95,6 @@
   "captureUseCamera": "ക്യാമറ ഉപയോഗിക്കൂ",
   "commonClose": "അടയ്ക്കുക",
   "commonBack": "തിരികെ",
-  "generationSearchingOpponent": "എതിരാളിയെ തിരയുന്നു"
+  "generationSearchingOpponent": "എതിരാളിയെ തിരയുന്നു",
+  "generationBattleWith": "നിങ്ങൾ {monsterName} ഒപ്പം പോരാടും"
 }

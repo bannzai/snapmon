@@ -95,5 +95,6 @@
   "captureUseCamera": "Fes servir la càmera",
   "commonClose": "Tanca",
   "commonBack": "Torna",
-  "generationSearchingOpponent": "Buscant un rival"
+  "generationSearchingOpponent": "Buscant un rival",
+  "generationBattleWith": "Lluitaràs amb {monsterName}"
 }

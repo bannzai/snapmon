@@ -95,5 +95,6 @@
   "captureUseCamera": "ਕੈਮਰਾ ਵਰਤੋ",
   "commonClose": "ਬੰਦ ਕਰੋ",
   "commonBack": "ਵਾਪਸ",
-  "generationSearchingOpponent": "ਵਿਰੋਧੀ ਲੱਭਿਆ ਜਾ ਰਿਹਾ ਹੈ"
+  "generationSearchingOpponent": "ਵਿਰੋਧੀ ਲੱਭਿਆ ਜਾ ਰਿਹਾ ਹੈ",
+  "generationBattleWith": "ਤੁਸੀਂ {monsterName} ਨਾਲ ਲੜੋਗੇ"
 }

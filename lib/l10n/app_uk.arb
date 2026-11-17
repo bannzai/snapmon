@@ -95,5 +95,6 @@
   "captureUseCamera": "Використай камеру",
   "commonClose": "Закрити",
   "commonBack": "Назад",
-  "generationSearchingOpponent": "Пошук суперника"
+  "generationSearchingOpponent": "Пошук суперника",
+  "generationBattleWith": "Ти битимешся разом із {monsterName}"
 }

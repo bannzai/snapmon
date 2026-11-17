@@ -95,5 +95,6 @@
   "captureUseCamera": "କ୍ୟାମେରା ବ୍ୟବହାର କର",
   "commonClose": "ବନ୍ଦ କର",
   "commonBack": "ପଛକୁ",
-  "generationSearchingOpponent": "ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ ଖୋଜା ଚାଲିଛି"
+  "generationSearchingOpponent": "ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ ଖୋଜା ଚାଲିଛି",
+  "generationBattleWith": "ତୁମେ {monsterName} ସହ ଲଢ଼ିବ"
 }

@@ -95,5 +95,6 @@
   "captureUseCamera": "카메라 사용하기",
   "commonClose": "닫기",
   "commonBack": "뒤로 가기",
-  "generationSearchingOpponent": "상대를 찾고 있어요"
+  "generationSearchingOpponent": "상대를 찾고 있어요",
+  "generationBattleWith": "{monsterName}(으)로 싸워요"
 }

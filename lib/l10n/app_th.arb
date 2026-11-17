@@ -95,5 +95,6 @@
   "captureUseCamera": "ใช้กล้อง",
   "commonClose": "ปิด",
   "commonBack": "กลับ",
-  "generationSearchingOpponent": "กำลังค้นหาคู่ต่อสู้"
+  "generationSearchingOpponent": "กำลังค้นหาคู่ต่อสู้",
+  "generationBattleWith": "จะต่อสู้ไปพร้อมกับ {monsterName}"
 }

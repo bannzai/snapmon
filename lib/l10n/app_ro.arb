@@ -95,5 +95,6 @@
   "captureUseCamera": "Folosește camera",
   "commonClose": "Închide",
   "commonBack": "Înapoi",
-  "generationSearchingOpponent": "Se caută un adversar"
+  "generationSearchingOpponent": "Se caută un adversar",
+  "generationBattleWith": "Vei lupta alături de {monsterName}"
 }

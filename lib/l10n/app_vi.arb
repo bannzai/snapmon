@@ -95,5 +95,6 @@
   "captureUseCamera": "Dùng camera",
   "commonClose": "Đóng",
   "commonBack": "Quay lại",
-  "generationSearchingOpponent": "Đang tìm đối thủ"
+  "generationSearchingOpponent": "Đang tìm đối thủ",
+  "generationBattleWith": "Bạn sẽ chiến đấu cùng {monsterName}"
 }

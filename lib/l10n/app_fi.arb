@@ -95,5 +95,6 @@
   "captureUseCamera": "Käytä kameraa",
   "commonClose": "Sulje",
   "commonBack": "Takaisin",
-  "generationSearchingOpponent": "Etsitään vastustajaa"
+  "generationSearchingOpponent": "Etsitään vastustajaa",
+  "generationBattleWith": "Taistelet yhdessä {monsterName} kanssa"
 }

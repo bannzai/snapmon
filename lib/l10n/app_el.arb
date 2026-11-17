@@ -95,5 +95,6 @@
   "captureUseCamera": "Χρησιμοποίησε την κάμερα",
   "commonClose": "Κλείσιμο",
   "commonBack": "Πίσω",
-  "generationSearchingOpponent": "Αναζήτηση αντιπάλου"
+  "generationSearchingOpponent": "Αναζήτηση αντιπάλου",
+  "generationBattleWith": "Θα πολεμήσεις με το {monsterName}"
 }

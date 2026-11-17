@@ -95,5 +95,6 @@
   "captureUseCamera": "Használd a kamerát",
   "commonClose": "Bezárás",
   "commonBack": "Vissza",
-  "generationSearchingOpponent": "Ellenfél keresése"
+  "generationSearchingOpponent": "Ellenfél keresése",
+  "generationBattleWith": "A harcban {monsterName} lesz veled"
 }

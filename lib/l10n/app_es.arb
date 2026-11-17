@@ -95,5 +95,6 @@
   "captureUseCamera": "Usar la cámara",
   "commonClose": "Cerrar",
   "commonBack": "Volver",
-  "generationSearchingOpponent": "Buscando un rival"
+  "generationSearchingOpponent": "Buscando un rival",
+  "generationBattleWith": "Lucharás con {monsterName}"
 }

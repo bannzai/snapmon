@@ -95,5 +95,6 @@
   "captureUseCamera": "להשתמש במצלמה",
   "commonClose": "סגירה",
   "commonBack": "חזרה",
-  "generationSearchingOpponent": "מחפשים יריב"
+  "generationSearchingOpponent": "מחפשים יריב",
+  "generationBattleWith": "יוצאים לקרב עם {monsterName}"
 }

@@ -95,5 +95,6 @@
   "captureUseCamera": "Använd kameran",
   "commonClose": "Stäng",
   "commonBack": "Tillbaka",
-  "generationSearchingOpponent": "Letar efter en motståndare"
+  "generationSearchingOpponent": "Letar efter en motståndare",
+  "generationBattleWith": "Du slåss med {monsterName}"
 }

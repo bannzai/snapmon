@@ -95,5 +95,6 @@
   "captureUseCamera": "Použij fotoaparát",
   "commonClose": "Zavřít",
   "commonBack": "Zpět",
-  "generationSearchingOpponent": "Hledá se soupeř"
+  "generationSearchingOpponent": "Hledá se soupeř",
+  "generationBattleWith": "Budeš bojovat s {monsterName}"
 }

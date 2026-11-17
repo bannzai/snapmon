@@ -95,5 +95,6 @@
   "captureUseCamera": "Upotrijebi kameru",
   "commonClose": "Zatvori",
   "commonBack": "Natrag",
-  "generationSearchingOpponent": "Traži se protivnik"
+  "generationSearchingOpponent": "Traži se protivnik",
+  "generationBattleWith": "Borit ćeš se uz {monsterName}"
 }
