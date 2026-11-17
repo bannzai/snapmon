@@ -16,5 +16,6 @@
   "reportSheetDescription": "Le dresseur que tu signales n’apparaîtra plus parmi tes adversaires",
   "reportSheetSubmitting": "Envoi en cours",
   "reportSheetSubmit": "Faire un signalement",
-  "reportSheetOtherTrouble": "Si tu as un autre souci"
+  "reportSheetOtherTrouble": "Si tu as un autre souci",
+  "commonCouldNotOpenURL": "Impossible d’ouvrir {url}"
 }
