@@ -430,6 +430,12 @@ void main() {
         final logoRect = tester.getRect(logo);
         expect(logoRect.left, greaterThanOrEqualTo(0));
         expect(logoRect.right, lessThanOrEqualTo(screenWidth));
+        expect(
+          logoRect.overlaps(
+            tester.getRect(find.byIcon(Icons.settings_outlined)),
+          ),
+          isFalse,
+        );
       });
     }
 
