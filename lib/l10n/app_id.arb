@@ -24,5 +24,6 @@
   "opponentReported": "Laporan terkirim",
   "opponentBlocked": "Berhasil diblokir",
   "blockDialogTitle": "blokir",
-  "blockDialogMessage": "Kamu dan {displayName} tidak akan lagi bertemu sebagai lawan"
+  "blockDialogMessage": "Kamu dan {displayName} tidak akan lagi bertemu sebagai lawan",
+  "blockDialogConfirm": "blokir"
 }

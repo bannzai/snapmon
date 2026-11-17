@@ -24,5 +24,6 @@
   "opponentReported": "ವರದಿ ಕಳುಹಿಸಲಾಗಿದೆ",
   "opponentBlocked": "ಬ್ಲಾಕ್ ಮಾಡಲಾಗಿದೆ",
   "blockDialogTitle": "ಬ್ಲಾಕ್",
-  "blockDialogMessage": "ನೀನು ಮತ್ತು {displayName} ಇನ್ನು ಪರಸ್ಪರ ಎದುರಾಳಿಗಳಾಗಿ ಬರುವುದಿಲ್ಲ"
+  "blockDialogMessage": "ನೀನು ಮತ್ತು {displayName} ಇನ್ನು ಪರಸ್ಪರ ಎದುರಾಳಿಗಳಾಗಿ ಬರುವುದಿಲ್ಲ",
+  "blockDialogConfirm": "ಬ್ಲಾಕ್ ಮಾಡು"
 }

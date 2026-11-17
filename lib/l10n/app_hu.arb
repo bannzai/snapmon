@@ -24,5 +24,6 @@
   "opponentReported": "Jelentés elküldve",
   "opponentBlocked": "Sikerült letiltani",
   "blockDialogTitle": "letiltás",
-  "blockDialogMessage": "Te és {displayName} többé nem kerültök egymással szembe"
+  "blockDialogMessage": "Te és {displayName} többé nem kerültök egymással szembe",
+  "blockDialogConfirm": "letiltás"
 }

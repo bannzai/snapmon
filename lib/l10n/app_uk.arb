@@ -24,5 +24,6 @@
   "opponentReported": "Скаргу надіслано",
   "opponentBlocked": "Заблоковано",
   "blockDialogTitle": "блокування",
-  "blockDialogMessage": "Ти й {displayName} більше не випадатимете одне одному як суперники"
+  "blockDialogMessage": "Ти й {displayName} більше не випадатимете одне одному як суперники",
+  "blockDialogConfirm": "блокувати"
 }

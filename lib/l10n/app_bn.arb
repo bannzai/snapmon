@@ -24,5 +24,6 @@
   "opponentReported": "রিপোর্ট করা হয়েছে",
   "opponentBlocked": "ব্লক করা হয়েছে",
   "blockDialogTitle": "ব্লক",
-  "blockDialogMessage": "তুমি আর {displayName} একে অপরের প্রতিপক্ষ হিসেবে আসবে না"
+  "blockDialogMessage": "তুমি আর {displayName} একে অপরের প্রতিপক্ষ হিসেবে আসবে না",
+  "blockDialogConfirm": "ব্লক করো"
 }

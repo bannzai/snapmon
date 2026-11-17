@@ -24,5 +24,6 @@
   "opponentReported": "Η αναφορά στάλθηκε",
   "opponentBlocked": "Έγινε μπλοκ",
   "blockDialogTitle": "μπλοκάρισμα",
-  "blockDialogMessage": "Εσύ και ο παίκτης {displayName} δεν θα μπαίνετε πια αντίπαλοι"
+  "blockDialogMessage": "Εσύ και ο παίκτης {displayName} δεν θα μπαίνετε πια αντίπαλοι",
+  "blockDialogConfirm": "μπλοκάρισμα"
 }

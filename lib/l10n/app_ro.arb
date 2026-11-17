@@ -24,5 +24,6 @@
   "opponentReported": "Raport trimis",
   "opponentBlocked": "Blocat",
   "blockDialogTitle": "blocare",
-  "blockDialogMessage": "Tu și {displayName} nu veți mai fi potriviți ca adversari"
+  "blockDialogMessage": "Tu și {displayName} nu veți mai fi potriviți ca adversari",
+  "blockDialogConfirm": "blochează"
 }

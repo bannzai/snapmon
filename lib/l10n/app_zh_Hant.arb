@@ -24,5 +24,6 @@
   "opponentReported": "已檢舉",
   "opponentBlocked": "已封鎖",
   "blockDialogTitle": "封鎖",
-  "blockDialogMessage": "你和{displayName}之後不會再配對成對戰對手"
+  "blockDialogMessage": "你和{displayName}之後不會再配對成對戰對手",
+  "blockDialogConfirm": "封鎖"
 }

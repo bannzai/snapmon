@@ -24,5 +24,6 @@
   "opponentReported": "Nahlásenie odoslané",
   "opponentBlocked": "Zablokované (blok)",
   "blockDialogTitle": "blokovanie",
-  "blockDialogMessage": "Ty a {displayName} už nebudete priradení do súboja proti sebe"
+  "blockDialogMessage": "Ty a {displayName} už nebudete priradení do súboja proti sebe",
+  "blockDialogConfirm": "blokovať"
 }

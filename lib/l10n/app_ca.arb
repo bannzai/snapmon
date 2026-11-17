@@ -24,5 +24,6 @@
   "opponentReported": "S'ha enviat el denunci",
   "opponentBlocked": "S'ha bloquejat",
   "blockDialogTitle": "bloqueig",
-  "blockDialogMessage": "Tu i {displayName} ja no us trobareu com a rivals"
+  "blockDialogMessage": "Tu i {displayName} ja no us trobareu com a rivals",
+  "blockDialogConfirm": "bloquejar"
 }

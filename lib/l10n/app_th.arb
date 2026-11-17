@@ -24,5 +24,6 @@
   "opponentReported": "ส่งรายงานแล้ว",
   "opponentBlocked": "บล็อกแล้ว",
   "blockDialogTitle": "บล็อก",
-  "blockDialogMessage": "คุณกับ {displayName} จะไม่เจอกันในฐานะคู่ต่อสู้อีก"
+  "blockDialogMessage": "คุณกับ {displayName} จะไม่เจอกันในฐานะคู่ต่อสู้อีก",
+  "blockDialogConfirm": "บล็อก"
 }

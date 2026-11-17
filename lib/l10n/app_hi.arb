@@ -24,5 +24,6 @@
   "opponentReported": "रिपोर्ट भेज दी गई",
   "opponentBlocked": "ब्लॉक कर दिया",
   "blockDialogTitle": "ब्लॉक",
-  "blockDialogMessage": "तुम और {displayName} अब एक-दूसरे के मुकाबले में नहीं आओगे"
+  "blockDialogMessage": "तुम और {displayName} अब एक-दूसरे के मुकाबले में नहीं आओगे",
+  "blockDialogConfirm": "ब्लॉक करो"
 }

@@ -24,5 +24,6 @@
   "opponentReported": "రిపోర్ట్ పంపించాం",
   "opponentBlocked": "బ్లాక్ చేశాం",
   "blockDialogTitle": "బ్లాక్",
-  "blockDialogMessage": "నువ్వూ {displayName} ఇకపై ఒకరికొకరు ప్రత్యర్థులుగా రారు"
+  "blockDialogMessage": "నువ్వూ {displayName} ఇకపై ఒకరికొకరు ప్రత్యర్థులుగా రారు",
+  "blockDialogConfirm": "బ్లాక్ చేయి"
 }

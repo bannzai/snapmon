@@ -24,5 +24,6 @@
   "opponentReported": "Melding verstuurd",
   "opponentBlocked": "Geblokkeerd",
   "blockDialogTitle": "blokkeren",
-  "blockDialogMessage": "Je wordt niet meer aan {displayName} gekoppeld als tegenstander, en andersom"
+  "blockDialogMessage": "Je wordt niet meer aan {displayName} gekoppeld als tegenstander, en andersom",
+  "blockDialogConfirm": "blokkeren"
 }

@@ -24,5 +24,6 @@
   "opponentReported": "Deine Meldung wurde gesendet",
   "opponentBlocked": "Erfolgreich blockiert",
   "blockDialogTitle": "blockieren",
-  "blockDialogMessage": "Du und {displayName} werdet nicht mehr gegeneinander als Gegner ausgelost"
+  "blockDialogMessage": "Du und {displayName} werdet nicht mehr gegeneinander als Gegner ausgelost",
+  "blockDialogConfirm": "blockieren"
 }

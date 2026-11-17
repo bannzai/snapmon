@@ -24,5 +24,6 @@
   "opponentReported": "Rapport sendt",
   "opponentBlocked": "Blokkert (blokker)",
   "blockDialogTitle": "blokkering",
-  "blockDialogMessage": "Du og {displayName} blir ikke lenger satt opp mot hverandre"
+  "blockDialogMessage": "Du og {displayName} blir ikke lenger satt opp mot hverandre",
+  "blockDialogConfirm": "blokker"
 }

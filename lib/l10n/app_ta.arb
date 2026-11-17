@@ -24,5 +24,6 @@
   "opponentReported": "புகார் அனுப்பப்பட்டது",
   "opponentBlocked": "தடுக்கப்பட்டது (தடு)",
   "blockDialogTitle": "தடு",
-  "blockDialogMessage": "நீங்களும் {displayName}வும் இனி ஒருவருக்கொருவர் எதிராளியாக வரமாட்டீர்கள்"
+  "blockDialogMessage": "நீங்களும் {displayName}வும் இனி ஒருவருக்கொருவர் எதிராளியாக வரமாட்டீர்கள்",
+  "blockDialogConfirm": "தடுங்கள்"
 }

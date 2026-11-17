@@ -24,5 +24,6 @@
   "opponentReported": "Denúncia enviada",
   "opponentBlocked": "Bloqueado",
   "blockDialogTitle": "bloquear",
-  "blockDialogMessage": "Você e {displayName} não vão mais se enfrentar nas batalhas"
+  "blockDialogMessage": "Você e {displayName} não vão mais se enfrentar nas batalhas",
+  "blockDialogConfirm": "bloquear"
 }

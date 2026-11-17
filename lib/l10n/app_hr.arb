@@ -24,5 +24,6 @@
   "opponentReported": "Prijava je poslana",
   "opponentBlocked": "Blokirano (blokir)",
   "blockDialogTitle": "blokiranje",
-  "blockDialogMessage": "Ti i {displayName} više nećete biti spojeni kao protivnici"
+  "blockDialogMessage": "Ti i {displayName} više nećete biti spojeni kao protivnici",
+  "blockDialogConfirm": "blokiraj"
 }

@@ -24,5 +24,6 @@
   "opponentReported": "Zgłoszenie wysłane",
   "opponentBlocked": "Zablokowano (blok)",
   "blockDialogTitle": "blokada",
-  "blockDialogMessage": "Ty i {displayName} nie będziecie już dobierani do walki przeciwko sobie"
+  "blockDialogMessage": "Ty i {displayName} nie będziecie już dobierani do walki przeciwko sobie",
+  "blockDialogConfirm": "blokuj"
 }

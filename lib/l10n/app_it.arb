@@ -24,5 +24,6 @@
   "opponentReported": "Segnalazione inviata",
   "opponentBlocked": "Bloccato",
   "blockDialogTitle": "blocca",
-  "blockDialogMessage": "Tu e {displayName} non vi ritroverete più come avversari"
+  "blockDialogMessage": "Tu e {displayName} non vi ritroverete più come avversari",
+  "blockDialogConfirm": "bloccare"
 }

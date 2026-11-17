@@ -24,5 +24,6 @@
   "opponentReported": "Đã gửi báo cáo",
   "opponentBlocked": "Đã chặn",
   "blockDialogTitle": "chặn",
-  "blockDialogMessage": "Bạn và {displayName} sẽ không còn được ghép đấu với nhau"
+  "blockDialogMessage": "Bạn và {displayName} sẽ không còn được ghép đấu với nhau",
+  "blockDialogConfirm": "chặn"
 }

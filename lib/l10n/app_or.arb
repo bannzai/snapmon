@@ -24,5 +24,6 @@
   "opponentReported": "ରିପୋର୍ଟ ପଠାଗଲା",
   "opponentBlocked": "ବ୍ଲକ କରାଗଲା",
   "blockDialogTitle": "ବ୍ଲକ",
-  "blockDialogMessage": "ତୁମେ ଓ {displayName} ଆଉ ପରସ୍ପରର ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ ଭାବେ ଆସିବ ନାହିଁ"
+  "blockDialogMessage": "ତୁମେ ଓ {displayName} ଆଉ ପରସ୍ପରର ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ ଭାବେ ଆସିବ ନାହିଁ",
+  "blockDialogConfirm": "ବ୍ଲକ କର"
 }
