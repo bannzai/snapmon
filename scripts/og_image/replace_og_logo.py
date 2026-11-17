@@ -15,9 +15,12 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 
+# リポジトリのルート。実行した場所に関係なく、同じファイルを読み書きするために使う
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
+# 描き直す OGP 画像。読んだファイルに上書きする
 OG_IMAGE_PATH = REPOSITORY_ROOT / "docs/og.png"
-LOGO_FONT_PATH = "/System/Library/Fonts/ヒラギノ角ゴシック W6.ttc"
+# ロゴを描く書体のファイル (ヒラギノ角ゴシック W6。選んだ理由は冒頭の説明)
+LOGO_FONT_PATH ="/System/Library/Fonts/ヒラギノ角ゴシック W6.ttc"
 
 # 以下の座標は docs/og.png (1200×630) の画素の位置で、名前を変える前の画像を測った値
 # (ロゴ「snapmon」の外接の四角は 84,226〜619,313、下の 2 行の上端は 335、右端は 668、右の絵の左端は 710)。
@@ -31,6 +34,7 @@ LOGO_BASELINE = 292
 LOGO_MAX_RIGHT = 668
 # 元のロゴの文字の大きさ (ヒラギノ角ゴシック W6 で「snapmon」が元と同じ幅 535 になる大きさ)。名前が短ければこの大きさで描く
 LOGO_MAX_FONT_SIZE = 108
+# ロゴの文字の色。元のロゴ「snapmon」の文字の色 (白) に揃える
 LOGO_COLOR = (255, 255, 255)
 
 
