@@ -116,5 +116,6 @@
   "generationStageCuttingOut": "تصویر سے چیز کو الگ کیا جا رہا ہے",
   "generationStageWritingName": "نام اور ڈیکس کی تفصیل سوچ رہے ہیں",
   "generationStageDecidingElements": "ٹائپ اور چالیں چن رہے ہیں",
-  "generationStageBeingBorn": "ایک مونسٹر جنم لے رہا ہے"
+  "generationStageBeingBorn": "ایک مونسٹر جنم لے رہا ہے",
+  "generationRejectedExplicitContent": "اس تصویر سے مونسٹر نہیں بنایا جا سکتا"
 }

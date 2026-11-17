@@ -116,5 +116,6 @@
   "generationStageCuttingOut": "Decupăm obiectul din fotografie",
   "generationStageWritingName": "Gândim un nume și o descriere pentru enciclopedie",
   "generationStageDecidingElements": "Alegem elementele și mișcările",
-  "generationStageBeingBorn": "Se naște un monstru"
+  "generationStageBeingBorn": "Se naște un monstru",
+  "generationRejectedExplicitContent": "Nu poți crea un monstru din această poză"
 }

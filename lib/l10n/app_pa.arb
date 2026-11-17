@@ -116,5 +116,6 @@
   "generationStageCuttingOut": "ਫ਼ੋਟੋ ਵਿੱਚੋਂ ਚੀਜ਼ ਨੂੰ ਵੱਖ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ",
   "generationStageWritingName": "ਨਾਮ ਅਤੇ ਸੰਗ੍ਰਹਿ ਲਈ ਵੇਰਵਾ ਸੋਚ ਰਹੇ ਹਾਂ",
   "generationStageDecidingElements": "ਤੱਤ ਅਤੇ ਚਾਲਾਂ ਚੁਣੀਆਂ ਜਾ ਰਹੀਆਂ ਹਨ",
-  "generationStageBeingBorn": "ਇੱਕ ਮੌਂਸਟਰ ਜਨਮ ਲੈ ਰਿਹਾ ਹੈ"
+  "generationStageBeingBorn": "ਇੱਕ ਮੌਂਸਟਰ ਜਨਮ ਲੈ ਰਿਹਾ ਹੈ",
+  "generationRejectedExplicitContent": "ਇਸ ਫੋਟੋ ਤੋਂ ਮੌਂਸਟਰ ਨਹੀਂ ਬਣਾਇਆ ਜਾ ਸਕਦਾ"
 }

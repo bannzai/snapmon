@@ -116,5 +116,6 @@
   "generationStageCuttingOut": "Mengasingkan objek daripada foto",
   "generationStageWritingName": "Memikirkan nama dan keterangan ensiklopedia",
   "generationStageDecidingElements": "Memilih elemen dan gerakan",
-  "generationStageBeingBorn": "Monster sedang lahir"
+  "generationStageBeingBorn": "Monster sedang lahir",
+  "generationRejectedExplicitContent": "Kamu tak boleh cipta monster daripada foto ini"
 }

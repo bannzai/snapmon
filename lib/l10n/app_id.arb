@@ -116,5 +116,6 @@
   "generationStageCuttingOut": "Memotong objek dari foto",
   "generationStageWritingName": "Memikirkan nama dan deskripsi untuk dex",
   "generationStageDecidingElements": "Memilih elemen dan jurus",
-  "generationStageBeingBorn": "Monster sedang lahir"
+  "generationStageBeingBorn": "Monster sedang lahir",
+  "generationRejectedExplicitContent": "Kamu tidak bisa membuat monster dari foto ini"
 }

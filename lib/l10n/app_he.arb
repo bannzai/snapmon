@@ -116,5 +116,6 @@
   "generationStageCuttingOut": "גוזרים את האובייקט מהתמונה",
   "generationStageWritingName": "חושבים על שם ותיאור לאוסף",
   "generationStageDecidingElements": "בוחרים סוג ומתקפות",
-  "generationStageBeingBorn": "מפלצת נולדת"
+  "generationStageBeingBorn": "מפלצת נולדת",
+  "generationRejectedExplicitContent": "אי אפשר ליצור מפלצת מהתמונה הזו"
 }

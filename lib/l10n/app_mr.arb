@@ -116,5 +116,6 @@
   "generationStageCuttingOut": "फोटोतील वस्तू वेगळी काढली जात आहे",
   "generationStageWritingName": "नाव आणि संग्रहासाठी वर्णन सुचवत आहोत",
   "generationStageDecidingElements": "तत्त्वं आणि चाली निवडत आहोत",
-  "generationStageBeingBorn": "एक मॉन्स्टर जन्माला येत आहे"
+  "generationStageBeingBorn": "एक मॉन्स्टर जन्माला येत आहे",
+  "generationRejectedExplicitContent": "या फोटोतून मॉन्स्टर बनवता येणार नाही"
 }

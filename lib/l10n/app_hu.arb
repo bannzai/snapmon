@@ -116,5 +116,6 @@
   "generationStageCuttingOut": "A képen lévő tárgy kivágása",
   "generationStageWritingName": "Neven és gyűjteménybe illő leíráson gondolkodunk",
   "generationStageDecidingElements": "Típusok és támadások kiválasztása",
-  "generationStageBeingBorn": "Egy szörny születik"
+  "generationStageBeingBorn": "Egy szörny születik",
+  "generationRejectedExplicitContent": "Ebből a fotóból nem lehet szörnyet alkotni"
 }

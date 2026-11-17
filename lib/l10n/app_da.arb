@@ -116,5 +116,6 @@
   "generationStageCuttingOut": "Klipper motivet ud",
   "generationStageWritingName": "Finder på et navn og en tekst til dex",
   "generationStageDecidingElements": "Vælger elementer og angreb",
-  "generationStageBeingBorn": "Et monster bliver født"
+  "generationStageBeingBorn": "Et monster bliver født",
+  "generationRejectedExplicitContent": "Du kan ikke skabe et monster ud fra dette foto"
 }

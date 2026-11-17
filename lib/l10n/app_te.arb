@@ -116,5 +116,6 @@
   "generationStageCuttingOut": "ఫొటో నుంచి వస్తువును వేరు చేస్తున్నాం",
   "generationStageWritingName": "పేరు, డెక్స్ వివరణ గురించి ఆలోచిస్తున్నాం",
   "generationStageDecidingElements": "మూలకాలు, మూవ్‌లు ఎంచుకుంటున్నాం",
-  "generationStageBeingBorn": "ఒక మాన్స్టర్ పుడుతోంది"
+  "generationStageBeingBorn": "ఒక మాన్స్టర్ పుడుతోంది",
+  "generationRejectedExplicitContent": "ఈ ఫోటోతో మాన్స్టర్‌ను సృష్టించలేం"
 }

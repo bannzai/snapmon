@@ -116,5 +116,6 @@
   "generationStageCuttingOut": "Αποκοπή του θέματος από τη φωτογραφία",
   "generationStageWritingName": "Σκεφτόμαστε όνομα και περιγραφή για την εγκυκλοπαίδεια",
   "generationStageDecidingElements": "Διαλέγουμε στοιχεία και τεχνικές",
-  "generationStageBeingBorn": "Ένα τέρας γεννιέται"
+  "generationStageBeingBorn": "Ένα τέρας γεννιέται",
+  "generationRejectedExplicitContent": "Δεν μπορεί να γεννηθεί τέρας από αυτή τη φωτογραφία"
 }

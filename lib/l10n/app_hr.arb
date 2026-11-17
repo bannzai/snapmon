@@ -116,5 +116,6 @@
   "generationStageCuttingOut": "Izdvajanje predmeta s fotografije",
   "generationStageWritingName": "Smišljamo ime i opis za enciklopediju",
   "generationStageDecidingElements": "Biramo elemente i poteze",
-  "generationStageBeingBorn": "Rađa se čudovište"
+  "generationStageBeingBorn": "Rađa se čudovište",
+  "generationRejectedExplicitContent": "Od ove fotografije ne možeš stvoriti čudovište"
 }

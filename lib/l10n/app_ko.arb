@@ -116,5 +116,6 @@
   "generationStageCuttingOut": "사진에서 피사체를 분리하고 있어요",
   "generationStageWritingName": "이름과 도감 설명을 생각하고 있어요",
   "generationStageDecidingElements": "속성과 기술을 정하고 있어요",
-  "generationStageBeingBorn": "몬스터가 태어나고 있어요"
+  "generationStageBeingBorn": "몬스터가 태어나고 있어요",
+  "generationRejectedExplicitContent": "이 사진으로는 몬스터를 만들 수 없어요"
 }

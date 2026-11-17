@@ -116,5 +116,6 @@
   "generationStageCuttingOut": "ಚಿತ್ರದಿಂದ ವಸ್ತುವನ್ನು ಬೇರ್ಪಡಿಸಲಾಗುತ್ತಿದೆ",
   "generationStageWritingName": "ಹೆಸರು ಮತ್ತು ವಿಶ್ವಕೋಶದ ವಿವರಣೆಯನ್ನು ಯೋಚಿಸುತ್ತಿದ್ದೇವೆ",
   "generationStageDecidingElements": "ಪ್ರಕಾರಗಳು ಮತ್ತು ತಂತ್ರಗಳನ್ನು ಆಯ್ಕೆ ಮಾಡುತ್ತಿದ್ದೇವೆ",
-  "generationStageBeingBorn": "ಒಂದು ಮಾನ್ಸ್ಟರ ಹುಟ್ಟುತ್ತಿದೆ"
+  "generationStageBeingBorn": "ಒಂದು ಮಾನ್ಸ್ಟರ ಹುಟ್ಟುತ್ತಿದೆ",
+  "generationRejectedExplicitContent": "ಈ ಫೋಟೋದಿಂದ ಮಾನ್ಸ್ಟರ್ ಸೃಷ್ಟಿಸಲು ಆಗುವುದಿಲ್ಲ"
 }

@@ -116,5 +116,6 @@
   "generationStageCuttingOut": "ছবির বিষয়টি কেটে আলাদা করা হচ্ছে",
   "generationStageWritingName": "নাম আর সংগ্রহের বর্ণনা ভাবছি",
   "generationStageDecidingElements": "এলিমেন্ট আর কৌশল বেছে নেওয়া হচ্ছে",
-  "generationStageBeingBorn": "একটি মনস্টার জন্ম নিচ্ছে"
+  "generationStageBeingBorn": "একটি মনস্টার জন্ম নিচ্ছে",
+  "generationRejectedExplicitContent": "এই ছবি থেকে মনস্টার বানানো যাবে না"
 }

@@ -116,5 +116,6 @@
   "generationStageCuttingOut": "படத்திலிருந்து பொருள் தனியாகப் பிரிக்கப்படுகிறது",
   "generationStageWritingName": "பெயரும் களஞ்சியத்திற்கான விளக்கமும் யோசிக்கப்படுகின்றன",
   "generationStageDecidingElements": "வகைகளும் தாக்குதல்களும் தேர்ந்தெடுக்கப்படுகின்றன",
-  "generationStageBeingBorn": "ஒரு மான்ஸ்டர் பிறக்கிறது"
+  "generationStageBeingBorn": "ஒரு மான்ஸ்டர் பிறக்கிறது",
+  "generationRejectedExplicitContent": "இந்தப் படத்திலிருந்து மான்ஸ்டர் உருவாக்க முடியாது"
 }

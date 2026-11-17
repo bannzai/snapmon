@@ -116,5 +116,6 @@
   "generationStageCuttingOut": "Recortando el objeto de la foto",
   "generationStageWritingName": "Pensando un nombre y una descripción para la colección",
   "generationStageDecidingElements": "Eligiendo elementos y movimientos",
-  "generationStageBeingBorn": "Está naciendo un monstruo"
+  "generationStageBeingBorn": "Está naciendo un monstruo",
+  "generationRejectedExplicitContent": "No se puede crear un monstruo con esta foto"
 }

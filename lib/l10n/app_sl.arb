@@ -116,5 +116,6 @@
   "generationStageCuttingOut": "Izrezovanje predmeta s fotografije",
   "generationStageWritingName": "Smišljamo ime in opis za enciklopedijo",
   "generationStageDecidingElements": "Izbiramo elemente in poteze",
-  "generationStageBeingBorn": "Raja se pošast"
+  "generationStageBeingBorn": "Raja se pošast",
+  "generationRejectedExplicitContent": "Iz te fotografije ne moreš ustvariti pošasti"
 }

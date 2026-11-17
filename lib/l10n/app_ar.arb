@@ -116,5 +116,6 @@
   "generationStageCuttingOut": "جارٍ قصّ العنصر من الصورة",
   "generationStageWritingName": "نفكر في اسم ووصف للموسوعة",
   "generationStageDecidingElements": "نختار العناصر والحركات",
-  "generationStageBeingBorn": "وحش يولد الآن"
+  "generationStageBeingBorn": "وحش يولد الآن",
+  "generationRejectedExplicitContent": "لا يمكن صنع وحش من هذه الصورة"
 }

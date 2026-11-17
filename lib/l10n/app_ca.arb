@@ -116,5 +116,6 @@
   "generationStageCuttingOut": "Retallant el subjecte",
   "generationStageWritingName": "Pensant un nom i una descripció per a l'enciclopèdia",
   "generationStageDecidingElements": "Triant elements i moviments",
-  "generationStageBeingBorn": "Neix un monstre"
+  "generationStageBeingBorn": "Neix un monstre",
+  "generationRejectedExplicitContent": "No es pot crear un monstre amb aquesta foto"
 }

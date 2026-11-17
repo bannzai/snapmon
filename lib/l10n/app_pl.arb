@@ -116,5 +116,6 @@
   "generationStageCuttingOut": "Wycinanie obiektu ze zdjęcia",
   "generationStageWritingName": "Wymyślamy imię i opis do encyklopedii",
   "generationStageDecidingElements": "Wybieramy typy i ruchy",
-  "generationStageBeingBorn": "Rodzi się potwór"
+  "generationStageBeingBorn": "Rodzi się potwór",
+  "generationRejectedExplicitContent": "Z tego zdjęcia nie da się stworzyć potwora"
 }

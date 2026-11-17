@@ -116,5 +116,6 @@
   "generationStageCuttingOut": "Вирізаємо об’єкт із фото",
   "generationStageWritingName": "Вигадуємо ім’я та опис для енциклопедії",
   "generationStageDecidingElements": "Обираємо елементи й прийоми",
-  "generationStageBeingBorn": "Народжується монстр"
+  "generationStageBeingBorn": "Народжується монстр",
+  "generationRejectedExplicitContent": "Із цього фото не вийде створити монстра"
 }

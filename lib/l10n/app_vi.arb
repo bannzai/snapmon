@@ -116,5 +116,6 @@
   "generationStageCuttingOut": "Đang tách vật thể khỏi ảnh",
   "generationStageWritingName": "Đang nghĩ tên và mô tả cho bộ sưu tập",
   "generationStageDecidingElements": "Đang chọn hệ và chiêu",
-  "generationStageBeingBorn": "Một quái vật đang ra đời"
+  "generationStageBeingBorn": "Một quái vật đang ra đời",
+  "generationRejectedExplicitContent": "Không thể tạo quái vật từ ảnh này"
 }

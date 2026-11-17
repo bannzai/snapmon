@@ -116,5 +116,6 @@
   "generationStageCuttingOut": "Vyřezávání objektu z fotky",
   "generationStageWritingName": "Vymýšlíme jméno a popis do encyklopedie",
   "generationStageDecidingElements": "Vybíráme elementy a útoky",
-  "generationStageBeingBorn": "Rodí se příšera"
+  "generationStageBeingBorn": "Rodí se příšera",
+  "generationRejectedExplicitContent": "Z této fotky nejde vytvořit příšeru"
 }

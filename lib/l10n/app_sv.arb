@@ -116,5 +116,6 @@
   "generationStageCuttingOut": "Klipper ut motivet",
   "generationStageWritingName": "Hittar på ett namn och en text till samlingen",
   "generationStageDecidingElements": "Väljer element och attacker",
-  "generationStageBeingBorn": "Ett monster föds"
+  "generationStageBeingBorn": "Ett monster föds",
+  "generationRejectedExplicitContent": "Du kan inte skapa ett monster av det här fotot"
 }
