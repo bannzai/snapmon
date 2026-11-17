@@ -8,5 +8,6 @@
   "sessionPreparing": "Préparation en cours",
   "sessionConnectionFailed": "Connexion impossible",
   "reportReasonInappropriatePicture": "Image inappropriée",
-  "reportReasonInappropriateText": "Nom ou texte inapproprié"
+  "reportReasonInappropriateText": "Nom ou texte inapproprié",
+  "reportReasonPersonInPicture": "Une personne apparaît sur la photo"
 }
