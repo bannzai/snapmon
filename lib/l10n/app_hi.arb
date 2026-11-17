@@ -45,5 +45,6 @@
   "settingsLinked": "{providerName} से जुड़ गया",
   "settingsSwitchAccountTitle": "लिंक किए गए खाते पर जाना चाहते हो?",
   "settingsSwitchAccountMessage": "यह {providerName} खाता दूसरे डिवाइस पर पहले से लिंक है। इस पर स्विच करोगे तो इस डिवाइस का संग्रह (मॉन्स्टर: {monsterCount}) मिट जाएगा और लिंक किए गए खाते का संग्रह दिखेगा।",
-  "settingsSwitchAccountConfirm": "खाता बदलो"
+  "settingsSwitchAccountConfirm": "खाता बदलो",
+  "settingsSwitchedAccount": "तुम लिंक किए गए खाते पर आ गए हो"
 }

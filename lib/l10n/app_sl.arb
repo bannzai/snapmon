@@ -45,5 +45,6 @@
   "settingsLinked": "Povezano s {providerName}",
   "settingsSwitchAccountTitle": "Želiš preklopiti na povezani račun?",
   "settingsSwitchAccountMessage": "Ta račun {providerName} je že povezan na drugi napravi. Če preklopiš nanj, bo enciklopedija v tej napravi (pošasti: {monsterCount}) izbrisana in prikazala se bo enciklopedija povezanega računa.",
-  "settingsSwitchAccountConfirm": "Zamenjaj račun"
+  "settingsSwitchAccountConfirm": "Zamenjaj račun",
+  "settingsSwitchedAccount": "Preklopil si na povezan račun"
 }

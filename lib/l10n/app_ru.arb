@@ -45,5 +45,6 @@
   "settingsLinked": "Подключено к {providerName}",
   "settingsSwitchAccountTitle": "Хочешь переключиться на привязанный аккаунт?",
   "settingsSwitchAccountMessage": "Этот аккаунт {providerName} уже привязан на другом устройстве. Если переключишься на него, энциклопедия на этом устройстве (монстры: {monsterCount}) удалится и появится энциклопедия привязанного аккаунта.",
-  "settingsSwitchAccountConfirm": "Сменить аккаунт"
+  "settingsSwitchAccountConfirm": "Сменить аккаунт",
+  "settingsSwitchedAccount": "Ты переключился на привязанный аккаунт"
 }

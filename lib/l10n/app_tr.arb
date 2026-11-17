@@ -45,5 +45,6 @@
   "settingsLinked": "{providerName} ile bağlantı kuruldu",
   "settingsSwitchAccountTitle": "Bağlı hesaba geçmek ister misin?",
   "settingsSwitchAccountMessage": "Bu {providerName} hesabı başka bir cihazda zaten bağlı. Bu hesaba geçersen bu cihazdaki ansiklopedi (canavar: {monsterCount}) silinir ve bağlı hesabın ansiklopedisi açılır.",
-  "settingsSwitchAccountConfirm": "Hesabı değiştir"
+  "settingsSwitchAccountConfirm": "Hesabı değiştir",
+  "settingsSwitchedAccount": "Bağlı bir hesaba geçtin"
 }

@@ -45,5 +45,6 @@
   "settingsLinked": "已关联 {providerName}",
   "settingsSwitchAccountTitle": "要切换到已关联的账号吗？",
   "settingsSwitchAccountMessage": "这个 {providerName} 账号已在其他设备上关联。切换后，这台设备的图鉴（怪物：{monsterCount}）将被清除，并显示已关联账号的图鉴。",
-  "settingsSwitchAccountConfirm": "切换账号"
+  "settingsSwitchAccountConfirm": "切换账号",
+  "settingsSwitchedAccount": "已切换到关联的账号"
 }

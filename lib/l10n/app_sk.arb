@@ -45,5 +45,6 @@
   "settingsLinked": "Prepojené s {providerName}",
   "settingsSwitchAccountTitle": "Chceš prepnúť na prepojený účet?",
   "settingsSwitchAccountMessage": "Tento účet {providerName} je už prepojený na inom zariadení. Ak naň prepneš, miestna encyklopédia (príšerky: {monsterCount}) sa vymaže a zobrazí sa encyklopédia prepojeného účtu.",
-  "settingsSwitchAccountConfirm": "Zmeň účet"
+  "settingsSwitchAccountConfirm": "Zmeň účet",
+  "settingsSwitchedAccount": "Prepol si sa na prepojený účet"
 }

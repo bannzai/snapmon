@@ -45,5 +45,6 @@
   "settingsLinked": "{providerName} سے منسلک ہو گیا",
   "settingsSwitchAccountTitle": "کیا تم منسلک اکاؤنٹ پر جانا چاہتے ہو؟",
   "settingsSwitchAccountMessage": "یہ {providerName} اکاؤنٹ پہلے ہی کسی اور ڈیوائس پر منسلک ہے۔ اس پر سوئچ کرو گے تو اس ڈیوائس کا ڈیکس (مانسٹر: {monsterCount}) مٹ جائے گا اور منسلک اکاؤنٹ کا ڈیکس نظر آئے گا۔",
-  "settingsSwitchAccountConfirm": "اکاؤنٹ بدلو"
+  "settingsSwitchAccountConfirm": "اکاؤنٹ بدلو",
+  "settingsSwitchedAccount": "تم منسلک اکاؤنٹ پر منتقل ہو گئے ہو"
 }

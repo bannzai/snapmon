@@ -45,5 +45,6 @@
   "settingsLinked": "Berjaya dipautkan dengan {providerName}",
   "settingsSwitchAccountTitle": "Nak tukar ke akaun yang dipautkan?",
   "settingsSwitchAccountMessage": "Akaun {providerName} ini sudah dipautkan pada peranti lain. Jika kamu beralih, ensiklopedia pada peranti ini (raksasa: {monsterCount}) akan dipadam dan ensiklopedia akaun yang dipautkan akan dipaparkan.",
-  "settingsSwitchAccountConfirm": "Tukar akaun"
+  "settingsSwitchAccountConfirm": "Tukar akaun",
+  "settingsSwitchedAccount": "Kamu sudah beralih ke akaun yang dipautkan"
 }

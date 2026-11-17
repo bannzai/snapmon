@@ -45,5 +45,6 @@
   "settingsLinked": "{providerName} સાથે જોડાઈ ગયું",
   "settingsSwitchAccountTitle": "શું તમે લિંક કરેલા એકાઉન્ટ પર સ્વિચ કરવા માંગો છો?",
   "settingsSwitchAccountMessage": "આ {providerName} એકાઉન્ટ બીજા ઉપકરણ પર પહેલેથી જોડાયેલું છે. તેના પર સ્વિચ કરશો તો આ ઉપકરણનો ડેક્સ (મોન્સ્ટર: {monsterCount}) ભૂંસાઈ જશે અને જોડાયેલા એકાઉન્ટનો ડેક્સ દેખાશે.",
-  "settingsSwitchAccountConfirm": "ખાતું બદલો"
+  "settingsSwitchAccountConfirm": "ખાતું બદલો",
+  "settingsSwitchedAccount": "તમે લિંક કરેલા એકાઉન્ટ પર સ્વિચ કર્યું"
 }

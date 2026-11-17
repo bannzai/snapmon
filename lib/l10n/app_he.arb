@@ -45,5 +45,6 @@
   "settingsLinked": "החיבור אל {providerName} הושלם",
   "settingsSwitchAccountTitle": "לעבור לחשבון המקושר?",
   "settingsSwitchAccountMessage": "חשבון {providerName} הזה כבר מקושר במכשיר אחר. מעבר אליו ימחק את האוסף במכשיר הזה (מפלצות: {monsterCount}) ויציג את האוסף של החשבון המקושר.",
-  "settingsSwitchAccountConfirm": "להחליף חשבון"
+  "settingsSwitchAccountConfirm": "להחליף חשבון",
+  "settingsSwitchedAccount": "המעבר לחשבון מקושר הושלם"
 }

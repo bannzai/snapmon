@@ -45,5 +45,6 @@
   "settingsLinked": "Conectado ao {providerName}",
   "settingsSwitchAccountTitle": "Quer mudar para a conta vinculada?",
   "settingsSwitchAccountMessage": "Esta conta {providerName} já está vinculada em outro dispositivo. Se você trocar de conta, o dex deste dispositivo (monstros: {monsterCount}) será apagado e aparecerá o dex da conta vinculada.",
-  "settingsSwitchAccountConfirm": "Trocar de conta"
+  "settingsSwitchAccountConfirm": "Trocar de conta",
+  "settingsSwitchedAccount": "Você mudou para uma conta vinculada"
 }

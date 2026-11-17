@@ -45,5 +45,6 @@
   "settingsLinked": "Terhubung dengan {providerName}",
   "settingsSwitchAccountTitle": "Mau beralih ke akun yang tertaut?",
   "settingsSwitchAccountMessage": "Akun {providerName} ini sudah tertaut di perangkat lain. Jika kamu beralih, dex di perangkat ini (monster: {monsterCount}) akan terhapus dan diganti dengan dex akun tertaut.",
-  "settingsSwitchAccountConfirm": "Ganti akun"
+  "settingsSwitchAccountConfirm": "Ganti akun",
+  "settingsSwitchedAccount": "Kamu beralih ke akun tertaut"
 }
