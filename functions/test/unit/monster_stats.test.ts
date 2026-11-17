@@ -79,8 +79,61 @@ describe("buildLearnset", () => {
     }
   });
 
-  it("Lv.2 以降に技を覚えるレベルは 2・3、以降 2 と 3 を交互に足したレベル", () => {
-    expect([...Array(10).keys()].map((index) => laterLearnLevel({ index }))).toEqual([2, 3, 5, 8, 10, 13, 15, 18, 20, 23]);
+  it("Lv.2 以降に技を覚えるレベルは Lv.5 まで 1 レベルごと、以降 3 と 2 を交互に足したレベル", () => {
+    expect([...Array(10).keys()].map((index) => laterLearnLevel({ index }))).toEqual([2, 3, 4, 5, 8, 10, 13, 15, 18, 20]);
+  });
+
+  it("どの属性の組でも、Lv.2 から Lv.5 まで 1 レベルごとに技をちょうど 1 つ覚える (#345)", () => {
+    for (const first of master.elementTypes) {
+      for (const second of master.elementTypes) {
+        const elementTypeIDs = first.id === second.id ? [first.id] : [first.id, second.id];
+        for (const subjectDescriptionText of descriptions.slice(0, 3)) {
+          expect(
+            buildLearnset({
+              elementTypeIDs,
+              elementProbabilities: {},
+              moveProbabilitiesByElement: {},
+              moves: master.moves,
+              fallbackMoves: master.moves,
+              subjectDescriptionText,
+            })
+              .map((entry) => entry.unlockLevel)
+              .filter((unlockLevel) => unlockLevel > 1 && unlockLevel <= 5),
+            elementTypeIDs.join(","),
+          ).toEqual([2, 3, 4, 5]);
+        }
+      }
+    }
+  });
+
+  it("Jev の確率がレベル帯の下限の高い技に寄っていても、Lv.2 から Lv.5 はそのレベルで覚えられる技を確率の高い順に覚える (#345)", () => {
+    const paperAttackMoves = learnableMoves(master.moves).filter((move) => move.elementTypeID === "paper" && move.category === "attack");
+    const later = buildLearnset({
+      elementTypeIDs: ["paper"],
+      elementProbabilities: { paper: 0.9 },
+      // 下限が高い技ほど確率を高くし、Lv.1 の帯では paper_1d・paper_1b を生まれた時の技に、残りを paper_1c・paper_1 の順にする
+      moveProbabilitiesByElement: {
+        paper: {
+          ...Object.fromEntries(paperAttackMoves.map((move) => [move.id, move.learnableLevelMinimum >= 15 ? 0.9 : move.learnableLevelMinimum === 5 ? 0.5 : 0])),
+          paper_1d: 0.4,
+          paper_1b: 0.3,
+          paper_1c: 0.2,
+          paper_1: 0.1,
+        },
+      },
+      moves: master.moves,
+      fallbackMoves: master.moves,
+      subjectDescriptionText: descriptions[0],
+    }).slice(STARTING_MOVE_COUNT);
+    expect(later.slice(0, 2)).toEqual([
+      { moveID: "paper_1c", unlockLevel: 2 },
+      { moveID: "paper_1", unlockLevel: 3 },
+    ]);
+    expect(later.slice(2, 4).map((entry) => entry.unlockLevel)).toEqual([4, 5]);
+    expect(moveOf(later[2].moveID).learnableLevelMinimum).toBe(1);
+    // Lv.5 は下限が 5 の技も覚えられるため、確率の高い下限 5 の技が Lv.1 の帯の残りより先に来る
+    expect(moveOf(later[3].moveID).learnableLevelMinimum).toBe(5);
+    expect(later.filter((entry) => moveOf(entry.moveID).category === "attack")).toHaveLength(LATER_ATTACK_MOVE_COUNT);
   });
 
   it("learnableMoves は別の技の replacesMoveID が指す補助技だけを除く", () => {

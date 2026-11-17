@@ -132,16 +132,20 @@ export const STARTING_OWN_ELEMENT_MOVE_COUNT = 2;
 /** 生まれた時から使える技のレベル帯の下限 (master の段階 1 とその場で作った定義の段階 1 の `learnableLevelMinimum`)。 */
 const STARTING_LEVEL = 1;
 
+/** 1 レベル上がるごとに技を 1 つ覚える最後のレベル (#345。owner「Lv. 5までは1レベル上がるごとに技を手に入れましょう」)。 */
+export const EVERY_LEVEL_LEARN_LEVEL_MAXIMUM = 5;
+
 /**
- * Lv.2 以降に技を覚えるレベルを順に返す。Lv.2・Lv.3 で 1 つずつ、以降は 2 と 3 を交互に足したレベル (5, 8, 10, 13, 15, 18, 20, ...) で 1 つずつ覚える
- * (#224。1 戦でレベルが 1 上がるため、序盤は数戦ごとに新しい技が増え、慣れた後はおよそ 5 レベルに 2 つの速さにした)。
+ * Lv.2 以降に技を覚えるレベルを順に返す。Lv.2 から `EVERY_LEVEL_LEARN_LEVEL_MAXIMUM` までは 1 レベルごとに 1 つずつ (#345)、
+ * 以降は 3 と 2 を交互に足したレベル (8, 10, 13, 15, 18, 20, ...) で 1 つずつ覚える
+ * (#224。1 戦でレベルが 1 上がるため、慣れた後はおよそ 5 レベルに 2 つの速さにした)。
  */
 export function laterLearnLevel({ index }: { index: number }): number {
-  if (index < 2) {
-    return index + 2;
+  const everyLevelCount = EVERY_LEVEL_LEARN_LEVEL_MAXIMUM - STARTING_LEVEL;
+  if (index < everyLevelCount) {
+    return index + STARTING_LEVEL + 1;
   }
-  const pairs = Math.floor((index - 2) / 2);
-  return 5 + pairs * 5 + ((index - 2) % 2 === 0 ? 0 : 3);
+  return EVERY_LEVEL_LEARN_LEVEL_MAXIMUM + Math.floor((index - everyLevelCount) / 2) * 5 + ((index - everyLevelCount) % 2 === 0 ? 3 : 5);
 }
 
 /** 覚える技の一覧で、攻撃技の間に補助技を挟む間隔。攻撃技 2 つにつき補助技 1 つにし、開放の新しい 4 つ (技の枠) に攻撃技が 2 つ以上残るようにする。 */
@@ -165,8 +169,10 @@ export const LATER_SUPPORT_MOVE_COUNT = 1;
  * (#257。確率が同じ時に ID・master の順にすると、同じ属性のモンスターがどれも同じ技を同じ順に覚えるため)。説明文が同じなら同じ一覧になる。
  * Lv.1 の技は `STARTING_MOVE_COUNT` 個そろえる: 自分の属性の段階 1 の技を確率の高い順に属性の順に 1 つずつ交互に
  * `STARTING_OWN_ELEMENT_MOVE_COUNT` 個まで取り、残りは [fallbackMoves] の別の属性の段階 1 の技から、当てはまりの確率 [elementProbabilities] が高い順に 1 つずつ足す。
- * Lv.2 以降は、自分の属性の残りの技から攻撃技を `LATER_ATTACK_MOVE_COUNT` 個、補助技を `LATER_SUPPORT_MOVE_COUNT` 個、確率の高い順に (属性が 2 つなら交互に) 選び、
- * それぞれレベル帯の下限の順に並べて攻撃技 2 つに補助技 1 つの間隔で混ぜ、`laterLearnLevel` の順のレベルで 1 つずつ覚える。開放レベルはそのレベルとレベル帯の下限の大きい方。
+ * Lv.2 以降は、自分の属性の残りの技から攻撃技を `LATER_ATTACK_MOVE_COUNT` 個、補助技を `LATER_SUPPORT_MOVE_COUNT` 個、確率の高い順に (属性が 2 つなら交互に) 選ぶ。
+ * 攻撃技のうち Lv.2 から `EVERY_LEVEL_LEARN_LEVEL_MAXIMUM` までの分は、そのレベルで覚えられる (レベル帯の下限がそのレベル以下の) 技から確率の高い順に先に選ぶ
+ * (#345。確率の高い順だけで選ぶと下限が上の技に寄った時に、開放レベルが下限へ上がって技を覚えないレベルができるため)。
+ * 残りはそれぞれレベル帯の下限の順に並べて攻撃技 2 つに補助技 1 つの間隔で混ぜ、`laterLearnLevel` の順のレベルで 1 つずつ覚える。開放レベルはそのレベルとレベル帯の下限の大きい方。
  * 並びは開放レベル順 (同じレベルは覚える順)。
  * [fallbackMoves] には master の技を渡す (その場で作った別の属性の技はモンスターの `definitionIDs` に入らず、端末で引けないため)。
  */
@@ -228,8 +234,8 @@ export function buildLearnset({
     }
   }
 
-  /** 自分の属性の残りの [category] の技から、確率の高い順に (属性が 2 つなら交互に) [count] 個を選び、レベル帯の下限の順 (同じなら選んだ順) に並べて返す。 */
-  const laterCandidates = ({ category, count }: { category: "attack" | "support"; count: number }) =>
+  /** 自分の属性の残りの [category] の技を、確率の高い順に (属性が 2 つなら交互に) 並べて返す。 */
+  const laterMovesByProbability = ({ category }: { category: "attack" | "support" }) =>
     mergeInTurns(
       elementTypeIDs.map((elementTypeID) =>
         sortByProbability({
@@ -237,15 +243,33 @@ export function buildLearnset({
           candidates: ownMoves.filter((move) => move.elementTypeID === elementTypeID && move.category === category && !startingMoveIDs.includes(move.id)),
         }),
       ),
-    )
-      .slice(0, count)
-      .sort((left, right) => left.learnableLevelMinimum - right.learnableLevelMinimum);
-  const attackCandidates = laterCandidates({ category: "attack", count: LATER_ATTACK_MOVE_COUNT });
-  const supportCandidates = laterCandidates({ category: "support", count: LATER_SUPPORT_MOVE_COUNT });
+    );
+  /** [candidates] の先頭から [count] 個を、レベル帯の下限の順 (同じなら選んだ順) に並べて返す。 */
+  const sortedByLevelMinimum = ({ candidates, count }: { candidates: MasterMove[]; count: number }) =>
+    candidates.slice(0, count).sort((left, right) => left.learnableLevelMinimum - right.learnableLevelMinimum);
+  const attackMovesByProbability = laterMovesByProbability({ category: "attack" });
+  const everyLevelMoves: MasterMove[] = [];
+  for (let level = STARTING_LEVEL + 1; level <= EVERY_LEVEL_LEARN_LEVEL_MAXIMUM && everyLevelMoves.length < LATER_ATTACK_MOVE_COUNT; level++) {
+    const move = attackMovesByProbability.find((candidate) => candidate.learnableLevelMinimum <= level && !everyLevelMoves.includes(candidate));
+    if (move) {
+      everyLevelMoves.push(move);
+    }
+  }
+  const attackCandidates = everyLevelMoves.concat(
+    sortedByLevelMinimum({
+      candidates: attackMovesByProbability.filter((move) => !everyLevelMoves.includes(move)),
+      count: LATER_ATTACK_MOVE_COUNT - everyLevelMoves.length,
+    }),
+  );
+  const supportCandidates = sortedByLevelMinimum({ candidates: laterMovesByProbability({ category: "support" }), count: LATER_SUPPORT_MOVE_COUNT });
   const laterLearnset: LearnsetEntry[] = [];
   for (let index = 0; attackCandidates.length > 0 || supportCandidates.length > 0; index++) {
-    const preferSupport = (index + 1) % SUPPORT_MOVE_INTERVAL === 0;
-    const move = (preferSupport ? supportCandidates.shift() ?? attackCandidates.shift() : attackCandidates.shift() ?? supportCandidates.shift())!;
+    // 1 レベルごとに覚える間は、そのレベルで覚えられると確かめた攻撃技を並べた順に置くため、補助技を挟まない
+    const move = (
+      index >= everyLevelMoves.length && (index + 1) % SUPPORT_MOVE_INTERVAL === 0
+        ? supportCandidates.shift() ?? attackCandidates.shift()
+        : attackCandidates.shift() ?? supportCandidates.shift()
+    )!;
     laterLearnset.push({ moveID: move.id, unlockLevel: Math.max(laterLearnLevel({ index }), move.learnableLevelMinimum) });
   }
   return [
