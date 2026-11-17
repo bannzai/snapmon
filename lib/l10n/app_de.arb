@@ -324,5 +324,6 @@
   "helpStatusBody": "Manche Attacken verursachen beim Gegner Statusprobleme\nStatusprobleme bleiben auch nach dem Wechsel",
   "helpStatusPoison": "Erleidet am Ende jeder Runde Schaden\nJe mehr Gift sich ansammelt, desto höher der Schaden",
   "helpStatusParalysis": "Angriffs-Attacken können manchmal fehlschlagen",
-  "helpStatusStun": "Kann in der nächsten Runde möglicherweise nicht handeln"
+  "helpStatusStun": "Kann in der nächsten Runde möglicherweise nicht handeln",
+  "helpStatusBurn": "Dein verursachter Schaden wird halbiert und dein erlittener Schaden erhöht"
 }

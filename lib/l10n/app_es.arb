@@ -324,5 +324,6 @@
   "helpStatusBody": "Algunos movimientos causan problemas de estado al rival\nLos problemas de estado persisten aunque cambies de monstruo",
   "helpStatusPoison": "Recibe daño al final de cada turno\nCuanto más veneno se acumula, más daño causa",
   "helpStatusParalysis": "Los movimientos de ataque pueden fallar",
-  "helpStatusStun": "Puede que no pueda actuar en el siguiente turno"
+  "helpStatusStun": "Puede que no pueda actuar en el siguiente turno",
+  "helpStatusBurn": "El daño que causas se reduce a la mitad y el que recibes aumenta"
 }

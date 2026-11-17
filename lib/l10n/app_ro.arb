@@ -324,5 +324,6 @@
   "helpStatusBody": "Unele mișcări provoacă probleme de stare adversarului\nProblemele de stare rămân și după schimbare",
   "helpStatusPoison": "Primește daune la sfârșitul fiecărei ture\nCu cât se acumulează mai multă otravă, cu atât cresc daunele",
   "helpStatusParalysis": "Mișcările de atac pot eșua uneori",
-  "helpStatusStun": "S-ar putea să nu poată acționa în tura următoare"
+  "helpStatusStun": "S-ar putea să nu poată acționa în tura următoare",
+  "helpStatusBurn": "Daunele pe care le provoci se înjumătățesc, iar cele pe care le primești cresc"
 }

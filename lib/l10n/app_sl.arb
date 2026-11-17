@@ -324,5 +324,6 @@
   "helpStatusBody": "Nekateri potezi nasprotniku povzročijo statusno težavo\nStatusna težava ostane tudi po zamenjavi",
   "helpStatusPoison": "Na koncu vsake poteze utrpi škodo\nVeč ko se nabere strupa, večja je škoda",
   "helpStatusParalysis": "Napadalni potezi lahko včasih spodletijo",
-  "helpStatusStun": "V naslednji potezi morda ne bo mogel ukrepati"
+  "helpStatusStun": "V naslednji potezi morda ne bo mogel ukrepati",
+  "helpStatusBurn": "Škoda, ki jo povzročiš, se prepolovi, škoda, ki jo prejmeš, pa poveča"
 }

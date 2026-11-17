@@ -324,5 +324,6 @@
   "helpStatusBody": "Niektoré útoky spôsobia súperovi stavové ťažkosti\nStavové ťažkosti zostanú aj po výmene",
   "helpStatusPoison": "Na konci každého ťahu utrpí poškodenie\nČím viac jedu sa nahromadí, tým väčšie poškodenie",
   "helpStatusParalysis": "Útočné útoky môžu niekedy zlyhať",
-  "helpStatusStun": "V ďalšom ťahu možno nebude môcť konať"
+  "helpStatusStun": "V ďalšom ťahu možno nebude môcť konať",
+  "helpStatusBurn": "Poškodenie, ktoré spôsobíš, sa zníži na polovicu a prijaté poškodenie sa zvýši"
 }

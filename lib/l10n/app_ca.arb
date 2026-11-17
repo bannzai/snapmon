@@ -324,5 +324,6 @@
   "helpStatusBody": "Alguns moviments causen alteracions d'estat al rival\nLes alteracions persisteixen encara que canviïs de monstre",
   "helpStatusPoison": "Rep mal al final de cada torn\nCom més s'acumula, més mal fa",
   "helpStatusParalysis": "Els moviments d'atac poden fallar",
-  "helpStatusStun": "Pot ser que no pugui actuar al torn següent"
+  "helpStatusStun": "Pot ser que no pugui actuar al torn següent",
+  "helpStatusBurn": "El dany que fas es redueix a la meitat i el que reps augmenta"
 }

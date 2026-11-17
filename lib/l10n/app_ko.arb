@@ -324,5 +324,6 @@
   "helpStatusBody": "일부 기술은 상대에게 상태 이상을 일으켜요\n교체해도 상태 이상은 남아요",
   "helpStatusPoison": "매 턴이 끝날 때 데미지를 받아요\n독이 쌓일수록 데미지가 커져요",
   "helpStatusParalysis": "공격 기술이 실패할 때도 있어요",
-  "helpStatusStun": "다음 턴에 행동하지 못할 수도 있어요"
+  "helpStatusStun": "다음 턴에 행동하지 못할 수도 있어요",
+  "helpStatusBurn": "주는 피해가 절반으로 줄고 받는 피해가 늘어나요"
 }

@@ -324,5 +324,6 @@
   "helpStatusBody": "有些招式会让对手陷入异常状态\n换下场后，异常状态仍会保留",
   "helpStatusPoison": "每回合结束时受到伤害\n中毒层数越高，伤害越大",
   "helpStatusParalysis": "攻击招式有时会失败",
-  "helpStatusStun": "下一回合可能无法行动"
+  "helpStatusStun": "下一回合可能无法行动",
+  "helpStatusBurn": "造成的伤害减半，受到的伤害增加"
 }

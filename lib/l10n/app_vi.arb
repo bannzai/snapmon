@@ -324,5 +324,6 @@
   "helpStatusBody": "Một số chiêu gây trạng thái bất thường cho đối thủ\nTrạng thái bất thường vẫn còn sau khi đổi quái",
   "helpStatusPoison": "Chịu sát thương vào cuối mỗi lượt\nĐộc càng tích tụ, sát thương càng tăng",
   "helpStatusParalysis": "Chiêu tấn công đôi khi có thể thất bại",
-  "helpStatusStun": "Có thể không hành động được ở lượt tiếp theo"
+  "helpStatusStun": "Có thể không hành động được ở lượt tiếp theo",
+  "helpStatusBurn": "Sát thương bạn gây ra giảm một nửa, còn sát thương nhận vào tăng lên"
 }

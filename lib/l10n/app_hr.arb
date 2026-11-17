@@ -324,5 +324,6 @@
   "helpStatusBody": "Neki potezi izazivaju statusne probleme kod protivnika\nStatusni problemi ostaju i nakon zamjene",
   "helpStatusPoison": "Prima štetu na kraju svakog poteza\nŠto se više otrova nakupi, šteta je veća",
   "helpStatusParalysis": "Napadački potezi ponekad mogu podbaciti",
-  "helpStatusStun": "Možda neće moći djelovati u sljedećem potezu"
+  "helpStatusStun": "Možda neće moći djelovati u sljedećem potezu",
+  "helpStatusBurn": "Šteta koju nanosiš se prepolovi, a šteta koju primaš raste"
 }

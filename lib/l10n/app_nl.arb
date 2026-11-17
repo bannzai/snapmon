@@ -324,5 +324,6 @@
   "helpStatusBody": "Sommige aanvallen geven de tegenstander een statuseffect\nHet statuseffect blijft, ook als je van monster wisselt",
   "helpStatusPoison": "Krijgt schade aan het einde van elke beurt\nHoe meer gif zich opstapelt, hoe groter de schade",
   "helpStatusParalysis": "Aanvallen kunnen soms mislukken",
-  "helpStatusStun": "Kan in de volgende beurt misschien niet handelen"
+  "helpStatusStun": "Kan in de volgende beurt misschien niet handelen",
+  "helpStatusBurn": "De schade die je toebrengt wordt gehalveerd en de schade die je oploopt neemt toe"
 }

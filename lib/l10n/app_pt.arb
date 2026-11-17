@@ -324,5 +324,6 @@
   "helpStatusBody": "Alguns golpes causam status no adversário\nO status continua mesmo após a troca",
   "helpStatusPoison": "Sofre dano no fim de cada turno\nQuanto mais veneno se acumula, maior o dano",
   "helpStatusParalysis": "Golpes de ataque às vezes podem falhar",
-  "helpStatusStun": "Pode não conseguir agir no próximo turno"
+  "helpStatusStun": "Pode não conseguir agir no próximo turno",
+  "helpStatusBurn": "O dano que você causa cai pela metade, e o dano que recebe aumenta"
 }

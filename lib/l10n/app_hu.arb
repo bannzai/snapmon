@@ -324,5 +324,6 @@
   "helpStatusBody": "Egyes támadások állapothatást okoznak az ellenfélnél\nAz állapothatás váltás után is megmarad",
   "helpStatusPoison": "Minden kör végén sebződik\nMinél több méreg halmozódik fel, annál nagyobb a sebzés",
   "helpStatusParalysis": "A támadó támadások néha kudarcot vallhatnak",
-  "helpStatusStun": "Lehet, hogy a következő körben nem tud cselekedni"
+  "helpStatusStun": "Lehet, hogy a következő körben nem tud cselekedni",
+  "helpStatusBurn": "Az okozott sebzésed a felére csökken, a kapott sebzésed nő"
 }

@@ -324,5 +324,6 @@
   "helpStatusBody": "Sesetengah gerakan mengenakan kesan status pada lawan\nKesan status kekal walaupun kamu bertukar monster",
   "helpStatusPoison": "Terima kerosakan di akhir setiap giliran\nSemakin banyak racun terkumpul, semakin besar kerosakan",
   "helpStatusParalysis": "Gerakan serangan kadang-kadang boleh gagal",
-  "helpStatusStun": "Mungkin tak dapat bertindak pada giliran seterusnya"
+  "helpStatusStun": "Mungkin tak dapat bertindak pada giliran seterusnya",
+  "helpStatusBurn": "Kerosakan yang kamu beri jadi separuh, dan kerosakan yang kamu terima meningkat"
 }

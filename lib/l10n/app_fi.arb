@@ -324,5 +324,6 @@
   "helpStatusBody": "Jotkin liikkeet aiheuttavat vastustajalle statustilan\nStatustila säilyy, vaikka vaihdat hirviötä",
   "helpStatusPoison": "Ottaa vahinkoa vuoron lopussa\nMyrkyn kertyessä vahinko kasvaa",
   "helpStatusParalysis": "Hyökkäysliikkeet voivat joskus epäonnistua",
-  "helpStatusStun": "Ei ehkä pysty toimimaan seuraavalla vuorolla"
+  "helpStatusStun": "Ei ehkä pysty toimimaan seuraavalla vuorolla",
+  "helpStatusBurn": "Tekemäsi vahinko puolittuu ja saamasi vahinko kasvaa"
 }
