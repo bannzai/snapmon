@@ -85,5 +85,6 @@
   "captureFirstHintAlbum": "Etrafındaki bir eşyanın 1 fotoğrafını seç",
   "captureFirstHintCamera": "Etrafındaki bir eşyanın fotoğrafını çek",
   "captureHero": "Etrafındaki bir eşyanın fotoğrafını çek\nBir canavar doğar!",
-  "capturePickFromAlbum": "Albümden seç"
+  "capturePickFromAlbum": "Albümden seç",
+  "captureGoToBattle": "Savaş"
 }

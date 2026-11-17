@@ -85,5 +85,6 @@
   "captureFirstHintAlbum": "Valitse yksi kuva lähelläsi olevasta esineestä",
   "captureFirstHintCamera": "Ota kuva yhdestä esineestä ympärilläsi",
   "captureHero": "Kuvaa esine ympäriltäsi\nHirviö syntyy!",
-  "capturePickFromAlbum": "Valitse albumista"
+  "capturePickFromAlbum": "Valitse albumista",
+  "captureGoToBattle": "Taistele"
 }

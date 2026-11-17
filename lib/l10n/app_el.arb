@@ -85,5 +85,6 @@
   "captureFirstHintAlbum": "Διάλεξε μια φωτογραφία από ένα αντικείμενο γύρω σου",
   "captureFirstHintCamera": "Βγάλε φωτογραφία ένα αντικείμενο γύρω σου",
   "captureHero": "Φωτογράφισε κάτι γύρω σου\nΓεννιέται ένα τέρας!",
-  "capturePickFromAlbum": "Διάλεξε από το άλμπουμ"
+  "capturePickFromAlbum": "Διάλεξε από το άλμπουμ",
+  "captureGoToBattle": "Μάχη"
 }

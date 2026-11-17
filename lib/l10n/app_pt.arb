@@ -85,5 +85,6 @@
   "captureFirstHintAlbum": "Escolha 1 foto de um objeto ao seu redor",
   "captureFirstHintCamera": "Tire uma foto de um objeto ao seu redor",
   "captureHero": "Fotografe um objeto perto de você\nNasce um monstro!",
-  "capturePickFromAlbum": "Escolher do álbum"
+  "capturePickFromAlbum": "Escolher do álbum",
+  "captureGoToBattle": "Batalhar"
 }
