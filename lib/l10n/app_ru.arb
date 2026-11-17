@@ -62,5 +62,6 @@
   "settingsTransferDataDescription": "Войди через {providerName}\nи сохрани энциклопедию при смене телефона",
   "settingsLinkedWith": "Аккаунт привязан через {providerNames}",
   "settingsProviderSeparator": " и ",
-  "settingsDeleteAccount": "Удалить аккаунт"
+  "settingsDeleteAccount": "Удалить аккаунт",
+  "settingsProfileSection": "Профиль"
 }

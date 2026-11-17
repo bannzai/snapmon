@@ -62,5 +62,6 @@
   "settingsTransferDataDescription": "{providerName} વડે સાઇન ઇન કરો\nફોન બદલો તોય તમારો ડેક્સ સાચવી રાખો",
   "settingsLinkedWith": "{providerNames} સાથે એકાઉન્ટ લિંક છે",
   "settingsProviderSeparator": " અને ",
-  "settingsDeleteAccount": "એકાઉન્ટ કાઢી નાખો"
+  "settingsDeleteAccount": "એકાઉન્ટ કાઢી નાખો",
+  "settingsProfileSection": "પ્રોફાઇલ"
 }

@@ -62,5 +62,6 @@
   "settingsTransferDataDescription": "{providerName} ने साइन इन कर\nफोन बदललास तरी तुझा संग्रह जपून ठेव",
   "settingsLinkedWith": "{providerNames} द्वारे खाते लिंक केले आहे",
   "settingsProviderSeparator": " आणि ",
-  "settingsDeleteAccount": "खाते हटव"
+  "settingsDeleteAccount": "खाते हटव",
+  "settingsProfileSection": "प्रोफाइल"
 }

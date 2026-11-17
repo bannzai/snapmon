@@ -62,5 +62,6 @@
   "settingsTransferDataDescription": "Inicia sessió amb {providerName}\ni conserva la teva enciclopèdia quan canviïs de mòbil",
   "settingsLinkedWith": "Compte vinculat amb {providerNames}",
   "settingsProviderSeparator": " i ",
-  "settingsDeleteAccount": "Elimina el compte"
+  "settingsDeleteAccount": "Elimina el compte",
+  "settingsProfileSection": "Perfil"
 }

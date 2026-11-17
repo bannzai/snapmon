@@ -62,5 +62,6 @@
   "settingsTransferDataDescription": "Prijavi se z {providerName}\nin obdrži enciklopedijo, ko zamenjaš telefon",
   "settingsLinkedWith": "Račun povezan prek {providerNames}",
   "settingsProviderSeparator": " in ",
-  "settingsDeleteAccount": "Izbriši račun"
+  "settingsDeleteAccount": "Izbriši račun",
+  "settingsProfileSection": "Profil"
 }

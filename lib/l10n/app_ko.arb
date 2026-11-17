@@ -62,5 +62,6 @@
   "settingsTransferDataDescription": "{providerName}로 로그인하고\n기기를 바꿔도 도감을 간직해요",
   "settingsLinkedWith": "{providerNames} 계정과 연동했어요",
   "settingsProviderSeparator": "과 ",
-  "settingsDeleteAccount": "계정 삭제"
+  "settingsDeleteAccount": "계정 삭제",
+  "settingsProfileSection": "프로필"
 }

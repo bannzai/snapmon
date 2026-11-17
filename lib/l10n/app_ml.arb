@@ -62,5 +62,6 @@
   "settingsTransferDataDescription": "{providerName} ഉപയോഗിച്ച് സൈൻ ഇൻ ചെയ്യൂ\nഫോൺ മാറിയാലും നിങ്ങളുടെ വിജ്ഞാനകോശം നിലനിർത്തൂ",
   "settingsLinkedWith": "{providerNames} വഴി അക്കൗണ്ട് ലിങ്ക് ചെയ്തിട്ടുണ്ട്",
   "settingsProviderSeparator": "യും ",
-  "settingsDeleteAccount": "അക്കൗണ്ട് ഇല്ലാതാക്കുക"
+  "settingsDeleteAccount": "അക്കൗണ്ട് ഇല്ലാതാക്കുക",
+  "settingsProfileSection": "പ്രൊഫൈൽ"
 }

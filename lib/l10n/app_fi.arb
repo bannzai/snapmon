@@ -62,5 +62,6 @@
   "settingsTransferDataDescription": "Kirjaudu sisään {providerName}-tilillä\nja säilytä kokoelmasi, kun vaihdat puhelinta",
   "settingsLinkedWith": "Tili yhdistetty palveluun {providerNames}",
   "settingsProviderSeparator": " ja ",
-  "settingsDeleteAccount": "Poista tili"
+  "settingsDeleteAccount": "Poista tili",
+  "settingsProfileSection": "Profiili"
 }

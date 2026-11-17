@@ -62,5 +62,6 @@
   "settingsTransferDataDescription": "Đăng nhập bằng {providerName}\nđể giữ bộ sưu tập khi đổi điện thoại",
   "settingsLinkedWith": "Tài khoản đã liên kết với {providerNames}",
   "settingsProviderSeparator": " và ",
-  "settingsDeleteAccount": "Xóa tài khoản"
+  "settingsDeleteAccount": "Xóa tài khoản",
+  "settingsProfileSection": "Hồ sơ"
 }

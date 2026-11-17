@@ -62,5 +62,6 @@
   "settingsTransferDataDescription": "להתחבר עם {providerName}\nכדי לשמור את האוסף גם כשמחליפים מכשיר",
   "settingsLinkedWith": "החשבון מקושר דרך {providerNames}",
   "settingsProviderSeparator": " ו",
-  "settingsDeleteAccount": "מחיקת חשבון"
+  "settingsDeleteAccount": "מחיקת חשבון",
+  "settingsProfileSection": "פרופיל"
 }

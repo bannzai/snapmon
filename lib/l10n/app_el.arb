@@ -62,5 +62,6 @@
   "settingsTransferDataDescription": "Συνδέσου με {providerName}\nκαι κράτα την εγκυκλοπαίδειά σου όταν αλλάξεις συσκευή",
   "settingsLinkedWith": "Ο λογαριασμός συνδέθηκε μέσω {providerNames}",
   "settingsProviderSeparator": " και ",
-  "settingsDeleteAccount": "Διαγραφή λογαριασμού"
+  "settingsDeleteAccount": "Διαγραφή λογαριασμού",
+  "settingsProfileSection": "Προφίλ"
 }

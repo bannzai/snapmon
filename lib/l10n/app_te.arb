@@ -62,5 +62,6 @@
   "settingsTransferDataDescription": "{providerName}తో సైన్ ఇన్ అవ్వు\nఫోన్ మార్చినా నీ డెక్స్‌ను అలాగే ఉంచుకో",
   "settingsLinkedWith": "{providerNames}తో ఖాతా లింక్ అయింది",
   "settingsProviderSeparator": " మరియు ",
-  "settingsDeleteAccount": "ఖాతాను తొలగించు"
+  "settingsDeleteAccount": "ఖాతాను తొలగించు",
+  "settingsProfileSection": "ప్రొఫైల్"
 }

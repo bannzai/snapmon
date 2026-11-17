@@ -62,5 +62,6 @@
   "settingsTransferDataDescription": "Jelentkezz be a {providerName} segítségével,\nhogy telefoncsere után is megmaradjon a gyűjteményed",
   "settingsLinkedWith": "A fiók összekapcsolva ezzel: {providerNames}",
   "settingsProviderSeparator": " és ",
-  "settingsDeleteAccount": "Fiók törlése"
+  "settingsDeleteAccount": "Fiók törlése",
+  "settingsProfileSection": "Profil"
 }

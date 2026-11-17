@@ -62,5 +62,6 @@
   "settingsTransferDataDescription": "เข้าสู่ระบบด้วย {providerName}\nเปลี่ยนเครื่องก็ยังเก็บสารานุกรมไว้ได้",
   "settingsLinkedWith": "เชื่อมบัญชีผ่าน {providerNames} แล้ว",
   "settingsProviderSeparator": " และ ",
-  "settingsDeleteAccount": "ลบบัญชี"
+  "settingsDeleteAccount": "ลบบัญชี",
+  "settingsProfileSection": "โปรไฟล์"
 }

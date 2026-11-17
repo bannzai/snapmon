@@ -62,5 +62,6 @@
   "settingsTransferDataDescription": "{providerName} سے سائن اِن کرو\nفون بدلنے پر بھی اپنا ڈیکس محفوظ رکھو",
   "settingsLinkedWith": "اکاؤنٹ {providerNames} سے منسلک ہے",
   "settingsProviderSeparator": " اور ",
-  "settingsDeleteAccount": "اکاؤنٹ حذف کرو"
+  "settingsDeleteAccount": "اکاؤنٹ حذف کرو",
+  "settingsProfileSection": "پروفائل"
 }

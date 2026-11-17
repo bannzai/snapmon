@@ -62,5 +62,6 @@
   "settingsTransferDataDescription": "سجّل الدخول عبر {providerName}\nلتحتفظ بموسوعتك عند تغيير جهازك",
   "settingsLinkedWith": "تم ربط الحساب عبر {providerNames}",
   "settingsProviderSeparator": " و",
-  "settingsDeleteAccount": "حذف الحساب"
+  "settingsDeleteAccount": "حذف الحساب",
+  "settingsProfileSection": "الملف الشخصي"
 }

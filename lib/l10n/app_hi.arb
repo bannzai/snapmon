@@ -62,5 +62,6 @@
   "settingsTransferDataDescription": "{providerName} से साइन इन करो\nफ़ोन बदलने पर भी अपना संग्रह बनाए रखो",
   "settingsLinkedWith": "खाता {providerNames} से लिंक है",
   "settingsProviderSeparator": " और ",
-  "settingsDeleteAccount": "अकाउंट हटाओ"
+  "settingsDeleteAccount": "अकाउंट हटाओ",
+  "settingsProfileSection": "प्रोफ़ाइल"
 }

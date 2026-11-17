@@ -62,5 +62,6 @@
   "settingsTransferDataDescription": "Prihlás sa cez {providerName}\na zachovaj si encyklopédiu aj po zmene telefónu",
   "settingsLinkedWith": "Účet prepojený cez {providerNames}",
   "settingsProviderSeparator": " a ",
-  "settingsDeleteAccount": "Odstrániť účet"
+  "settingsDeleteAccount": "Odstrániť účet",
+  "settingsProfileSection": "Profil"
 }

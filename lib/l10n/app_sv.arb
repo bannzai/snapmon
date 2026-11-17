@@ -62,5 +62,6 @@
   "settingsTransferDataDescription": "Logga in med {providerName}\noch behåll din samling när du byter telefon",
   "settingsLinkedWith": "Konto länkat via {providerNames}",
   "settingsProviderSeparator": " och ",
-  "settingsDeleteAccount": "Radera konto"
+  "settingsDeleteAccount": "Radera konto",
+  "settingsProfileSection": "Profil"
 }
