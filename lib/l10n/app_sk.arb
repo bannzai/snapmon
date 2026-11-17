@@ -255,5 +255,6 @@
   "moveDetailStatFormulaNote": "Násobiteľ 100 znamená ×1\nTrvá, kým príšera nepadne, a zastaví sa medzi 50 a 200",
   "moveDetailRecoveryFormula": "Obnovené HP",
   "moveDetailRecoveryFormulaNote": "HP sa neobnoví nad maximum",
-  "moveDetailEffectiveness": "účinnosť"
+  "moveDetailEffectiveness": "účinnosť",
+  "moveDetailSuperEffective": "Veľmi účinné"
 }

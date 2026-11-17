@@ -255,5 +255,6 @@
   "moveDetailStatFormulaNote": "Mnożnik 100 oznacza ×1\nTrwa, aż potwór padnie, i zatrzymuje się między 50 a 200",
   "moveDetailRecoveryFormula": "Przywrócone HP",
   "moveDetailRecoveryFormulaNote": "HP nie można przywrócić ponad maksimum",
-  "moveDetailEffectiveness": "skuteczność"
+  "moveDetailEffectiveness": "skuteczność",
+  "moveDetailSuperEffective": "Bardzo skuteczne"
 }

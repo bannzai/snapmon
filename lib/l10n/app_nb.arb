@@ -255,5 +255,6 @@
   "moveDetailStatFormulaNote": "Multiplikator 100 betyr ×1\nFortsetter til et monster faller, og stopper mellom 50 og 200",
   "moveDetailRecoveryFormula": "Gjenopprettet HP",
   "moveDetailRecoveryFormulaNote": "HP kan ikke gjenopprettes over maksgrensen",
-  "moveDetailEffectiveness": "effektivitet"
+  "moveDetailEffectiveness": "effektivitet",
+  "moveDetailSuperEffective": "Supereffektivt"
 }

@@ -255,5 +255,6 @@
   "moveDetailStatFormulaNote": "المضاعف 100 يعني ×1\nيستمر حتى يسقط الوحش، ويتوقف بين 50 و200",
   "moveDetailRecoveryFormula": "مقدار HP المستعاد",
   "moveDetailRecoveryFormulaNote": "لا يمكن استعادة HP فوق الحد الأقصى",
-  "moveDetailEffectiveness": "فعالية"
+  "moveDetailEffectiveness": "فعالية",
+  "moveDetailSuperEffective": "فعّال جدًا"
 }

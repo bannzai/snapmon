@@ -255,5 +255,6 @@
   "moveDetailStatFormulaNote": "倍率 100 等於 1 倍\n持續到怪物倒下，並在 50 到 200 之間停止",
   "moveDetailRecoveryFormula": "回復的 HP",
   "moveDetailRecoveryFormulaNote": "HP 不會恢復到最大值以上",
-  "moveDetailEffectiveness": "相剋"
+  "moveDetailEffectiveness": "相剋",
+  "moveDetailSuperEffective": "效果絕佳"
 }

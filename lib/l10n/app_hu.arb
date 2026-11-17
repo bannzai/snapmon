@@ -255,5 +255,6 @@
   "moveDetailStatFormulaNote": "A 100-as szorzó ×1-et jelent\nAddig tart, míg egy szörny el nem esik, és 50 és 200 között áll meg",
   "moveDetailRecoveryFormula": "Visszatöltött HP",
   "moveDetailRecoveryFormulaNote": "A HP nem állítható vissza a maximum fölé",
-  "moveDetailEffectiveness": "hatékonyság"
+  "moveDetailEffectiveness": "hatékonyság",
+  "moveDetailSuperEffective": "Szuperhatásos"
 }

@@ -255,5 +255,6 @@
   "moveDetailStatFormulaNote": "Multiplikator 100 entspricht ×1\nLäuft, bis ein Monster besiegt ist, und stoppt zwischen 50 und 200",
   "moveDetailRecoveryFormula": "Wiederhergestellte HP",
   "moveDetailRecoveryFormulaNote": "HP können nicht über das Maximum hinaus geheilt werden",
-  "moveDetailEffectiveness": "Effektivität"
+  "moveDetailEffectiveness": "Effektivität",
+  "moveDetailSuperEffective": "Sehr effektiv"
 }

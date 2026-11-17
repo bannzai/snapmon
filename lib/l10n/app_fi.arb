@@ -255,5 +255,6 @@
   "moveDetailStatFormulaNote": "Kerroin 100 vastaa ×1\nJatkuu, kunnes hirviö kaatuu, ja pysähtyy välille 50–200",
   "moveDetailRecoveryFormula": "Palautuva HP",
   "moveDetailRecoveryFormulaNote": "HP ei palaudu enimmäismäärän yli",
-  "moveDetailEffectiveness": "tehokkuus"
+  "moveDetailEffectiveness": "tehokkuus",
+  "moveDetailSuperEffective": "Erittäin tehokas"
 }

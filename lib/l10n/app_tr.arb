@@ -255,5 +255,6 @@
   "moveDetailStatFormulaNote": "Çarpan 100, ×1 demek\nBir canavar bayılana kadar sürer ve 50 ile 200 arasında durur",
   "moveDetailRecoveryFormula": "Yenilenen HP",
   "moveDetailRecoveryFormulaNote": "HP, maksimum değerin üzerine çıkacak kadar yenilenmez",
-  "moveDetailEffectiveness": "uyum"
+  "moveDetailEffectiveness": "uyum",
+  "moveDetailSuperEffective": "Çok etkili"
 }

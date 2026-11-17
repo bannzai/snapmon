@@ -255,5 +255,6 @@
   "moveDetailStatFormulaNote": "배율 100은 1배예요\n몬스터가 쓰러질 때까지 이어지고 50에서 200 사이에서 멈춰요",
   "moveDetailRecoveryFormula": "회복하는 HP",
   "moveDetailRecoveryFormulaNote": "최대 HP를 넘어서 회복하지 않아요",
-  "moveDetailEffectiveness": "상성"
+  "moveDetailEffectiveness": "상성",
+  "moveDetailSuperEffective": "효과가 굉장함"
 }

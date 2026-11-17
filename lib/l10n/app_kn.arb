@@ -255,5 +255,6 @@
   "moveDetailStatFormulaNote": "ಗುಣಕ 100 ಎಂದರೆ 1 ಪಟ್ಟು\nರಾಕ್ಷಸ ಕುಸಿಯುವವರೆಗೆ ಮುಂದುವರಿಯುತ್ತದೆ ಮತ್ತು 50ರಿಂದ 200ರ ನಡುವೆ ನಿಲ್ಲುತ್ತದೆ",
   "moveDetailRecoveryFormula": "ಮರುಪಡೆಯುವ HP",
   "moveDetailRecoveryFormulaNote": "ಗರಿಷ್ಠ HP ಮೀರಿಸಿ ಚೇತರಿಸಿಕೊಳ್ಳುವುದಿಲ್ಲ",
-  "moveDetailEffectiveness": "ಪರಿಣಾಮಕಾರಿತ್ವ"
+  "moveDetailEffectiveness": "ಪರಿಣಾಮಕಾರಿತ್ವ",
+  "moveDetailSuperEffective": "ತುಂಬಾ ಪರಿಣಾಮಕಾರಿ"
 }

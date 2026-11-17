@@ -255,5 +255,6 @@
   "moveDetailStatFormulaNote": "গুণক 100 মানে 1 গুণ\nদানব অজ্ঞান হওয়া পর্যন্ত চলবে, 50 থেকে 200-এর মধ্যে থামবে",
   "moveDetailRecoveryFormula": "পুনরুদ্ধার হওয়া HP",
   "moveDetailRecoveryFormulaNote": "সর্বোচ্চ HP-এর বেশি পুনরুদ্ধার হয় না",
-  "moveDetailEffectiveness": "কার্যকারিতা"
+  "moveDetailEffectiveness": "কার্যকারিতা",
+  "moveDetailSuperEffective": "দারুণ কার্যকর"
 }

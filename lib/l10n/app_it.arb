@@ -255,5 +255,6 @@
   "moveDetailStatFormulaNote": "Un moltiplicatore di 100 equivale a ×1\nContinua finché un mostro non va KO e si ferma tra 50 e 200",
   "moveDetailRecoveryFormula": "HP recuperati",
   "moveDetailRecoveryFormulaNote": "Non recupera HP oltre il massimo",
-  "moveDetailEffectiveness": "efficacia"
+  "moveDetailEffectiveness": "efficacia",
+  "moveDetailSuperEffective": "Superefficace"
 }

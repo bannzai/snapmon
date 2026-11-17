@@ -255,5 +255,6 @@
   "moveDetailStatFormulaNote": "गुणक 100 यानी 1 गुना\nराक्षस के गिरने तक चलता है और 50 से 200 के बीच रुकता है",
   "moveDetailRecoveryFormula": "बहाल होने वाला HP",
   "moveDetailRecoveryFormulaNote": "अधिकतम HP से ज़्यादा बहाल नहीं होता",
-  "moveDetailEffectiveness": "प्रभावशीलता"
+  "moveDetailEffectiveness": "प्रभावशीलता",
+  "moveDetailSuperEffective": "बहुत असरदार"
 }

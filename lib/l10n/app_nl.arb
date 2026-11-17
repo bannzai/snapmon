@@ -255,5 +255,6 @@
   "moveDetailStatFormulaNote": "Vermenigvuldiger 100 betekent ×1\nGaat door tot een monster neergaat en stopt tussen 50 en 200",
   "moveDetailRecoveryFormula": "Herstelde HP",
   "moveDetailRecoveryFormulaNote": "HP herstelt niet boven het maximum",
-  "moveDetailEffectiveness": "effectiviteit"
+  "moveDetailEffectiveness": "effectiviteit",
+  "moveDetailSuperEffective": "Superdoeltreffend"
 }

@@ -255,5 +255,6 @@
   "moveDetailStatFormulaNote": "Multiplicatorul 100 înseamnă ×1\nContinuă până când un monstru cade și se oprește între 50 și 200",
   "moveDetailRecoveryFormula": "HP recuperat",
   "moveDetailRecoveryFormulaNote": "HP nu se poate reface peste limita maximă",
-  "moveDetailEffectiveness": "eficacitate"
+  "moveDetailEffectiveness": "eficacitate",
+  "moveDetailSuperEffective": "Foarte eficient"
 }

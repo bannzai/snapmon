@@ -255,5 +255,6 @@
   "moveDetailStatFormulaNote": "Pengganda 100 bermaksud ×1\nBerterusan hingga raksasa tumbang dan berhenti antara 50 hingga 200",
   "moveDetailRecoveryFormula": "HP yang pulih",
   "moveDetailRecoveryFormulaNote": "HP tak boleh pulih melebihi tahap maksimum",
-  "moveDetailEffectiveness": "keberkesanan"
+  "moveDetailEffectiveness": "keberkesanan",
+  "moveDetailSuperEffective": "Sangat berkesan"
 }

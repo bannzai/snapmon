@@ -255,5 +255,6 @@
   "moveDetailStatFormulaNote": "Pengali 100 berarti ×1\nBerlanjut sampai monster tumbang dan berhenti antara 50 dan 200",
   "moveDetailRecoveryFormula": "HP yang pulih",
   "moveDetailRecoveryFormulaNote": "HP tidak bisa pulih melebihi batas maksimum",
-  "moveDetailEffectiveness": "efektivitas"
+  "moveDetailEffectiveness": "efektivitas",
+  "moveDetailSuperEffective": "Sangat efektif"
 }

@@ -255,5 +255,6 @@
   "moveDetailStatFormulaNote": "Множник 100 дорівнює ×1\nТриває, доки монстр не впаде, і зупиняється між 50 та 200",
   "moveDetailRecoveryFormula": "Відновлені HP",
   "moveDetailRecoveryFormulaNote": "HP не відновлюються понад максимум",
-  "moveDetailEffectiveness": "ефективність"
+  "moveDetailEffectiveness": "ефективність",
+  "moveDetailSuperEffective": "Дуже ефективно"
 }
