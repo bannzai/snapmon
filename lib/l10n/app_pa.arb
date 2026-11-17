@@ -179,5 +179,6 @@
   "battleLogStunned": "{monsterName} ਬੇਹੋਸ਼ ਹੋ ਗਿਆ ਹੈ ਅਤੇ ਹਿੱਲ ਨਹੀਂ ਸਕਦਾ",
   "battleLogAsleep": "{monsterName} ਘੂਕ ਸੁੱਤਾ ਪਿਆ ਹੈ",
   "battleLogFrozenSolid": "{monsterName} ਬਰਫ਼ ਵਿੱਚ ਜੰਮ ਗਿਆ ਹੈ ਅਤੇ ਹਿੱਲ ਨਹੀਂ ਸਕਦਾ",
-  "battleLogConfusedMove": "{monsterName} ਉਲਝ ਗਿਆ ਅਤੇ {selectedMoveName} ਦੀ ਥਾਂ {moveName} ਵਰਤਿਆ"
+  "battleLogConfusedMove": "{monsterName} ਉਲਝ ਗਿਆ ਅਤੇ {selectedMoveName} ਦੀ ਥਾਂ {moveName} ਵਰਤਿਆ",
+  "battleLogOneHitKnockout": "ਇੱਕੋ ਵਾਰ ਵਿੱਚ ਢੇਰ!"
 }

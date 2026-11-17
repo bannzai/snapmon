@@ -179,5 +179,6 @@
   "battleLogStunned": "{monsterName} omdlel a nemôže sa hýbať",
   "battleLogAsleep": "{monsterName} tvrdo spí",
   "battleLogFrozenSolid": "{monsterName} zamrzol a nemôže sa hýbať",
-  "battleLogConfusedMove": "{monsterName} sa zmiatol a namiesto {selectedMoveName} použil {moveName}"
+  "battleLogConfusedMove": "{monsterName} sa zmiatol a namiesto {selectedMoveName} použil {moveName}",
+  "battleLogOneHitKnockout": "K. O. jedným úderom!"
 }

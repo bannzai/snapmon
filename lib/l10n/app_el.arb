@@ -179,5 +179,6 @@
   "battleLogStunned": "Το {monsterName} λιποθύμησε και δεν μπορεί να κινηθεί",
   "battleLogAsleep": "Το {monsterName} κοιμάται του καλού καιρού",
   "battleLogFrozenSolid": "Το {monsterName} πάγωσε και δεν μπορεί να κινηθεί",
-  "battleLogConfusedMove": "Ο {monsterName} μπερδεύτηκε και χρησιμοποίησε την κίνηση {moveName} αντί για την {selectedMoveName}"
+  "battleLogConfusedMove": "Ο {monsterName} μπερδεύτηκε και χρησιμοποίησε την κίνηση {moveName} αντί για την {selectedMoveName}",
+  "battleLogOneHitKnockout": "Νοκ άουτ με ένα χτύπημα!"
 }

@@ -179,5 +179,6 @@
   "battleLogStunned": "{monsterName} se onesvijestio i ne može se pomaknuti",
   "battleLogAsleep": "{monsterName} čvrsto spava",
   "battleLogFrozenSolid": "{monsterName} je zaleđen i ne može se pomaknuti",
-  "battleLogConfusedMove": "{monsterName} se zbunio i upotrijebio {moveName} umjesto {selectedMoveName}"
+  "battleLogConfusedMove": "{monsterName} se zbunio i upotrijebio {moveName} umjesto {selectedMoveName}",
+  "battleLogOneHitKnockout": "K. O. jednim udarcem!"
 }

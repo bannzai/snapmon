@@ -179,5 +179,6 @@
   "battleLogStunned": "{monsterName} অজ্ঞান হয়ে গেছে, নড়তে পারছে না",
   "battleLogAsleep": "{monsterName} ঘুমে কাদা",
   "battleLogFrozenSolid": "{monsterName} বরফে জমে গেছে, নড়তে পারছে না",
-  "battleLogConfusedMove": "{monsterName} বিভ্রান্ত হয়ে {selectedMoveName}-এর বদলে {moveName} ব্যবহার করল"
+  "battleLogConfusedMove": "{monsterName} বিভ্রান্ত হয়ে {selectedMoveName}-এর বদলে {moveName} ব্যবহার করল",
+  "battleLogOneHitKnockout": "এক আঘাতেই কাবু!"
 }

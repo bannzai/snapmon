@@ -179,5 +179,6 @@
   "battleLogStunned": "{monsterName} pyörtyi eikä pysty liikkumaan",
   "battleLogAsleep": "{monsterName} nukkuu sikeästi",
   "battleLogFrozenSolid": "{monsterName} on jäässä eikä pysty liikkumaan",
-  "battleLogConfusedMove": "{monsterName} meni sekaisin ja käytti liikkeen {moveName} liikkeen {selectedMoveName} sijaan"
+  "battleLogConfusedMove": "{monsterName} meni sekaisin ja käytti liikkeen {moveName} liikkeen {selectedMoveName} sijaan",
+  "battleLogOneHitKnockout": "Tyrmäys yhdellä iskulla!"
 }

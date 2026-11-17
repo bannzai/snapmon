@@ -179,5 +179,6 @@
   "battleLogStunned": "{monsterName} فاقد الوعي ولا يستطيع التحرك",
   "battleLogAsleep": "{monsterName} نائم بعمق",
   "battleLogFrozenSolid": "تجمّد {monsterName} ولا يستطيع الحركة",
-  "battleLogConfusedMove": "ارتبك {monsterName} واستخدم {moveName} بدلًا من {selectedMoveName}"
+  "battleLogConfusedMove": "ارتبك {monsterName} واستخدم {moveName} بدلًا من {selectedMoveName}",
+  "battleLogOneHitKnockout": "ضربة قاضية واحدة!"
 }

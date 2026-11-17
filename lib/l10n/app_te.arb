@@ -179,5 +179,6 @@
   "battleLogStunned": "{monsterName} స్పృహ తప్పి కదలలేకపోతోంది",
   "battleLogAsleep": "{monsterName} గాఢ నిద్రలో ఉంది",
   "battleLogFrozenSolid": "{monsterName} గడ్డకట్టిపోయింది, కదలలేకపోతోంది",
-  "battleLogConfusedMove": "{monsterName} అయోమయంలో పడి {selectedMoveName} బదులు {moveName} ఉపయోగించింది"
+  "battleLogConfusedMove": "{monsterName} అయోమయంలో పడి {selectedMoveName} బదులు {moveName} ఉపయోగించింది",
+  "battleLogOneHitKnockout": "ఒక్క దెబ్బకే ఓటమి!"
 }

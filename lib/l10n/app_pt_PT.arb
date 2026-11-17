@@ -179,5 +179,6 @@
   "battleLogStunned": "{monsterName} desmaiou e não se consegue mexer",
   "battleLogAsleep": "{monsterName} dorme a sono solto",
   "battleLogFrozenSolid": "{monsterName} congelou e não se consegue mexer",
-  "battleLogConfusedMove": "{monsterName} ficou confuso e usou {moveName} em vez de {selectedMoveName}"
+  "battleLogConfusedMove": "{monsterName} ficou confuso e usou {moveName} em vez de {selectedMoveName}",
+  "battleLogOneHitKnockout": "Nocaute com um só golpe!"
 }

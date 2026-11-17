@@ -179,5 +179,6 @@
   "battleLogStunned": "{monsterName} pengsan dan tak boleh bergerak",
   "battleLogAsleep": "{monsterName} tidur lena",
   "battleLogFrozenSolid": "{monsterName} membeku dan tak boleh bergerak",
-  "battleLogConfusedMove": "{monsterName} keliru lalu menggunakan {moveName} dan bukannya {selectedMoveName}"
+  "battleLogConfusedMove": "{monsterName} keliru lalu menggunakan {moveName} dan bukannya {selectedMoveName}",
+  "battleLogOneHitKnockout": "KO dengan satu serangan!"
 }

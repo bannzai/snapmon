@@ -179,5 +179,6 @@
   "battleLogStunned": "{monsterName} بے ہوش ہے اور ہل نہیں سکتا",
   "battleLogAsleep": "{monsterName} گہری نیند میں ہے",
   "battleLogFrozenSolid": "{monsterName} جم گیا ہے اور ہل نہیں سکتا",
-  "battleLogConfusedMove": "{monsterName} الجھ گیا اور {selectedMoveName} کی جگہ {moveName} استعمال کیا"
+  "battleLogConfusedMove": "{monsterName} الجھ گیا اور {selectedMoveName} کی جگہ {moveName} استعمال کیا",
+  "battleLogOneHitKnockout": "ایک ہی وار میں شکست!"
 }

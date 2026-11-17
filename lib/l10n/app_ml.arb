@@ -179,5 +179,6 @@
   "battleLogStunned": "{monsterName} ബോധംകെട്ടു, അനങ്ങാൻ കഴിയുന്നില്ല",
   "battleLogAsleep": "{monsterName} ഗാഢനിദ്രയിലാണ്",
   "battleLogFrozenSolid": "{monsterName} തണുത്തുറഞ്ഞു, അനങ്ങാൻ കഴിയുന്നില്ല",
-  "battleLogConfusedMove": "{monsterName} ആശയക്കുഴപ്പത്തിലായി, {selectedMoveName}ന് പകരം {moveName} ഉപയോഗിച്ചു"
+  "battleLogConfusedMove": "{monsterName} ആശയക്കുഴപ്പത്തിലായി, {selectedMoveName}ന് പകരം {moveName} ഉപയോഗിച്ചു",
+  "battleLogOneHitKnockout": "ഒറ്റയടിക്ക് വീഴ്ത്തി!"
 }

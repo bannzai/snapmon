@@ -179,5 +179,6 @@
   "battleLogStunned": "{monsterName} s'ha desmaiat i no es pot moure",
   "battleLogAsleep": "{monsterName} dorm com un tronc",
   "battleLogFrozenSolid": "{monsterName} s'ha congelat i no es pot moure",
-  "battleLogConfusedMove": "{monsterName} s'ha confós i ha fet servir {moveName} en lloc de {selectedMoveName}"
+  "battleLogConfusedMove": "{monsterName} s'ha confós i ha fet servir {moveName} en lloc de {selectedMoveName}",
+  "battleLogOneHitKnockout": "KO d'un sol cop!"
 }

@@ -179,5 +179,6 @@
   "battleLogStunned": "{monsterName} er besvimet og kan ikke bevæge sig",
   "battleLogAsleep": "{monsterName} sover tungt",
   "battleLogFrozenSolid": "{monsterName} er frosset fast og kan ikke bevæge sig",
-  "battleLogConfusedMove": "{monsterName} blev forvirret og brugte {moveName} i stedet for {selectedMoveName}"
+  "battleLogConfusedMove": "{monsterName} blev forvirret og brugte {moveName} i stedet for {selectedMoveName}",
+  "battleLogOneHitKnockout": "K.O. med ét slag!"
 }
