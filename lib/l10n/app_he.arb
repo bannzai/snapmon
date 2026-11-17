@@ -74,5 +74,6 @@
   "dexSummary": "מפלצות: {monsterCount} · צוות: {partyCount}",
   "dexReload": "לטעון שוב",
   "dexParty": "צוות",
-  "dexAll": "הכול"
+  "dexAll": "הכול",
+  "dexEmpty": "עוד אין לך מפלצות\nאפשר לצלם חפץ בסביבה דרך מסך הצילום"
 }

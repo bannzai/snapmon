@@ -74,5 +74,6 @@
   "dexSummary": "Τέρατα: {monsterCount} · ομάδα: {partyCount}",
   "dexReload": "Φόρτωσε ξανά",
   "dexParty": "ομάδα",
-  "dexAll": "Όλα"
+  "dexAll": "Όλα",
+  "dexEmpty": "Δεν έχεις ακόμα τέρατα\nΔοκίμασε να φωτογραφίσεις κάτι γύρω σου από την οθόνη λήψης"
 }

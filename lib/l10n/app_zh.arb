@@ -74,5 +74,6 @@
   "dexSummary": "怪物：{monsterCount} · 队伍：{partyCount}",
   "dexReload": "重新加载",
   "dexParty": "队伍",
-  "dexAll": "全部"
+  "dexAll": "全部",
+  "dexEmpty": "还没有怪物\n去拍摄画面给身边的物品拍张照吧"
 }

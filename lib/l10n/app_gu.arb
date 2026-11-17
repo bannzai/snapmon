@@ -74,5 +74,6 @@
   "dexSummary": "રાક્ષસો: {monsterCount} · ટીમ: {partyCount}",
   "dexReload": "ફરી લોડ કરો",
   "dexParty": "ટીમ",
-  "dexAll": "બધા"
+  "dexAll": "બધા",
+  "dexEmpty": "હજી કોઈ મોન્સ્ટર નથી\nફોટો પાડવાની સ્ક્રીન પરથી તમારી આસપાસની કોઈ વસ્તુનો ફોટો પાડો"
 }

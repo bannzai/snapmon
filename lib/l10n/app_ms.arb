@@ -74,5 +74,6 @@
   "dexSummary": "Raksasa: {monsterCount} · pasukan: {partyCount}",
   "dexReload": "Muat semula",
   "dexParty": "pasukan",
-  "dexAll": "Semua"
+  "dexAll": "Semua",
+  "dexEmpty": "Kamu belum ada monster\nCuba ambil gambar benda di sekelilingmu dari skrin kamera"
 }

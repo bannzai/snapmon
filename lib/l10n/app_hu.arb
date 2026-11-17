@@ -74,5 +74,6 @@
   "dexSummary": "Szörnyek: {monsterCount} · csapat: {partyCount}",
   "dexReload": "Töltsd be újra",
   "dexParty": "csapat",
-  "dexAll": "Összes"
+  "dexAll": "Összes",
+  "dexEmpty": "Még nincsenek szörnyeid\nPróbálj lefotózni valamit magad körül a fotózás képernyőjén"
 }

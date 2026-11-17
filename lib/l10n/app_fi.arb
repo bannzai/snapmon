@@ -74,5 +74,6 @@
   "dexSummary": "Hirviöt: {monsterCount} · joukkue: {partyCount}",
   "dexReload": "Lataa uudelleen",
   "dexParty": "joukkue",
-  "dexAll": "Kaikki"
+  "dexAll": "Kaikki",
+  "dexEmpty": "Sinulla ei ole vielä hirviöitä\nKokeile kuvata jotain ympäriltäsi kuvausnäytössä"
 }

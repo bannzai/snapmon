@@ -74,5 +74,6 @@
   "dexSummary": "Canavar: {monsterCount} · takım: {partyCount}",
   "dexReload": "Yeniden yükle",
   "dexParty": "takım",
-  "dexAll": "Tümü"
+  "dexAll": "Tümü",
+  "dexEmpty": "Henüz canavarın yok\nFotoğraf ekranından çevrendeki bir eşyanın fotoğrafını çekmeyi dene"
 }

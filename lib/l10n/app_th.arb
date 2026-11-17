@@ -74,5 +74,6 @@
   "dexSummary": "มอนสเตอร์: {monsterCount} · ทีม: {partyCount}",
   "dexReload": "โหลดอีกครั้ง",
   "dexParty": "ทีม",
-  "dexAll": "ทั้งหมด"
+  "dexAll": "ทั้งหมด",
+  "dexEmpty": "ยังไม่มีมอนสเตอร์\nลองถ่ายรูปสิ่งของรอบตัวจากหน้าถ่ายรูปดูสิ"
 }

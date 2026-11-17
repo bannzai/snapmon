@@ -74,5 +74,6 @@
   "dexSummary": "Monster: {monsterCount} · tim: {partyCount}",
   "dexReload": "Muat lagi",
   "dexParty": "tim",
-  "dexAll": "Semua"
+  "dexAll": "Semua",
+  "dexEmpty": "Kamu belum punya monster\nCoba foto benda di sekitarmu dari layar kamera"
 }

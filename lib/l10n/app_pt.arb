@@ -74,5 +74,6 @@
   "dexSummary": "Monstros: {monsterCount} · equipe: {partyCount}",
   "dexReload": "Carregar de novo",
   "dexParty": "equipe",
-  "dexAll": "Todos"
+  "dexAll": "Todos",
+  "dexEmpty": "Você ainda não tem monstros\nTente fotografar algo ao seu redor na tela de captura"
 }

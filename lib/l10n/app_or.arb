@@ -74,5 +74,6 @@
   "dexSummary": "ରାକ୍ଷସ: {monsterCount} · ଦଳ: {partyCount}",
   "dexReload": "ପୁଣି ଲୋଡ୍ କର",
   "dexParty": "ଦଳ",
-  "dexAll": "ସମସ୍ତେ"
+  "dexAll": "ସମସ୍ତେ",
+  "dexEmpty": "ଏଯାଏଁ ତୁମର କୌଣସି ମନଷ୍ଟର ନାହିଁ\nଫଟୋ ଉଠାଇବା ପରଦାରୁ ଆଖପାଖର କୌଣସି ଜିନିଷର ଫଟୋ ଉଠାଅ"
 }

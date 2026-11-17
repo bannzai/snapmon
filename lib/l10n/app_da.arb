@@ -74,5 +74,6 @@
   "dexSummary": "Monstre: {monsterCount} · hold: {partyCount}",
   "dexReload": "Indlæs igen",
   "dexParty": "hold",
-  "dexAll": "Alle"
+  "dexAll": "Alle",
+  "dexEmpty": "Du har ingen monstre endnu\nPrøv at tage et billede af noget omkring dig på fotoskærmen"
 }

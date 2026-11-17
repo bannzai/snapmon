@@ -74,5 +74,6 @@
   "dexSummary": "Příšery: {monsterCount} · tým: {partyCount}",
   "dexReload": "Načti znovu",
   "dexParty": "tým",
-  "dexAll": "Všichni"
+  "dexAll": "Všichni",
+  "dexEmpty": "Zatím nemáš žádné příšery\nNa obrazovce focení zkus vyfotit něco kolem sebe"
 }

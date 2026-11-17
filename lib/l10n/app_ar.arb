@@ -74,5 +74,6 @@
   "dexSummary": "الوحوش: {monsterCount} · فريق: {partyCount}",
   "dexReload": "أعد التحميل",
   "dexParty": "فريق",
-  "dexAll": "الكل"
+  "dexAll": "الكل",
+  "dexEmpty": "لا يوجد لديك وحش بعد\nجرّب تصوير شيء من حولك من شاشة التصوير"
 }

@@ -74,5 +74,6 @@
   "dexSummary": "Monsters: {monsterCount} · team: {partyCount}",
   "dexReload": "Opnieuw laden",
   "dexParty": "team",
-  "dexAll": "Alle"
+  "dexAll": "Alle",
+  "dexEmpty": "Je hebt nog geen monsters\nMaak op het fotoscherm eens een foto van iets om je heen"
 }
