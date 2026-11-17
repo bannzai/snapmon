@@ -72,5 +72,6 @@
   "profileIconHelper": "הסמל שהיריב רואה בקרב\nאי אפשר להשתמש בתמונות שמופיעים בהן פנים של אדם",
   "profileIconUpdated": "הסמל השתנה",
   "dexSummary": "מפלצות: {monsterCount} · צוות: {partyCount}",
-  "dexReload": "לטעון שוב"
+  "dexReload": "לטעון שוב",
+  "dexParty": "צוות"
 }

@@ -72,5 +72,6 @@
   "profileIconHelper": "Ícone que seu adversário vê na batalha\nVocê não pode usar fotos em que apareça o rosto de alguém",
   "profileIconUpdated": "Você mudou o ícone",
   "dexSummary": "Monstros: {monsterCount} · equipe: {partyCount}",
-  "dexReload": "Carregar de novo"
+  "dexReload": "Carregar de novo",
+  "dexParty": "equipe"
 }

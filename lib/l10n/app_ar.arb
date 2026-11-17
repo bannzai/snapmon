@@ -72,5 +72,6 @@
   "profileIconHelper": "الأيقونة التي يراها خصمك في المعركة\nلا يمكنك استخدام صورة يظهر فيها وجه شخص",
   "profileIconUpdated": "تم تغيير الأيقونة",
   "dexSummary": "الوحوش: {monsterCount} · فريق: {partyCount}",
-  "dexReload": "أعد التحميل"
+  "dexReload": "أعد التحميل",
+  "dexParty": "فريق"
 }

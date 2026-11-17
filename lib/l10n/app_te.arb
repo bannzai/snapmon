@@ -72,5 +72,6 @@
   "profileIconHelper": "పోరులో నీ ప్రత్యర్థికి కనిపించే ఐకాన్\nమనిషి ముఖం కనిపించే ఫోటోను ఉపయోగించలేవు",
   "profileIconUpdated": "ఐకాన్ మారింది",
   "dexSummary": "రాక్షసులు: {monsterCount} · జట్టు: {partyCount}",
-  "dexReload": "మళ్లీ లోడ్ చేయి"
+  "dexReload": "మళ్లీ లోడ్ చేయి",
+  "dexParty": "జట్టు"
 }

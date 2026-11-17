@@ -72,5 +72,6 @@
   "profileIconHelper": "Значок, который видит твой соперник в бою\nНельзя использовать фото, где видно лицо человека",
   "profileIconUpdated": "Значок изменён",
   "dexSummary": "Монстры: {monsterCount} · команда: {partyCount}",
-  "dexReload": "Загрузить снова"
+  "dexReload": "Загрузить снова",
+  "dexParty": "команда"
 }

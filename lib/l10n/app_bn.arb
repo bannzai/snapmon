@@ -72,5 +72,6 @@
   "profileIconHelper": "লড়াইয়ে প্রতিপক্ষ যে আইকন দেখবে\nকারও মুখ দেখা যায় এমন ছবি ব্যবহার করা যাবে না",
   "profileIconUpdated": "আইকন বদলে গেছে",
   "dexSummary": "দানব: {monsterCount} · দল: {partyCount}",
-  "dexReload": "আবার লোড করো"
+  "dexReload": "আবার লোড করো",
+  "dexParty": "দল"
 }

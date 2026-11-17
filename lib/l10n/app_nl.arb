@@ -72,5 +72,6 @@
   "profileIconHelper": "Het pictogram dat je tegenstander in een gevecht ziet\nJe kunt geen foto's gebruiken waarop iemands gezicht te zien is",
   "profileIconUpdated": "Je hebt je pictogram gewijzigd",
   "dexSummary": "Monsters: {monsterCount} · team: {partyCount}",
-  "dexReload": "Opnieuw laden"
+  "dexReload": "Opnieuw laden",
+  "dexParty": "team"
 }

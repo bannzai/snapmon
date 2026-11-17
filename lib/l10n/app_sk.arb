@@ -72,5 +72,6 @@
   "profileIconHelper": "Ikona, ktorú tvoj súper vidí v súboji\nNemôžeš použiť fotky, na ktorých vidno ľudskú tvár",
   "profileIconUpdated": "Ikona je zmenená",
   "dexSummary": "Príšery: {monsterCount} · tím: {partyCount}",
-  "dexReload": "Načítaj znova"
+  "dexReload": "Načítaj znova",
+  "dexParty": "tím"
 }

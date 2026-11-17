@@ -72,5 +72,6 @@
   "profileIconHelper": "ಕಾಳಗದಲ್ಲಿ ನಿನ್ನ ಎದುರಾಳಿಗೆ ಕಾಣುವ ಐಕಾನ್\nವ್ಯಕ್ತಿಯ ಮುಖ ಕಾಣುವ ಫೋಟೋ ಬಳಸಬೇಡ",
   "profileIconUpdated": "ಐಕಾನ್ ಬದಲಾಗಿದೆ",
   "dexSummary": "ರಾಕ್ಷಸರು: {monsterCount} · ತಂಡ: {partyCount}",
-  "dexReload": "ಮತ್ತೆ ಲೋಡ್ ಮಾಡು"
+  "dexReload": "ಮತ್ತೆ ಲೋಡ್ ಮಾಡು",
+  "dexParty": "ತಂಡ"
 }

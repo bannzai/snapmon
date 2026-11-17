@@ -72,5 +72,6 @@
   "profileIconHelper": "Pictograma pe care o vede adversarul tău în luptă\nNu poți folosi poze în care se vede fața unei persoane",
   "profileIconUpdated": "Ai schimbat pictograma",
   "dexSummary": "Monștri: {monsterCount} · echipă: {partyCount}",
-  "dexReload": "Încarcă din nou"
+  "dexReload": "Încarcă din nou",
+  "dexParty": "echipă"
 }

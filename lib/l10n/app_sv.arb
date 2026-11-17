@@ -72,5 +72,6 @@
   "profileIconHelper": "Ikonen som din motståndare ser i strid\nDu kan inte använda bilder där ett ansikte syns",
   "profileIconUpdated": "Ikonen har ändrats",
   "dexSummary": "Monster: {monsterCount} · lag: {partyCount}",
-  "dexReload": "Ladda igen"
+  "dexReload": "Ladda igen",
+  "dexParty": "lag"
 }

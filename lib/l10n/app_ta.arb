@@ -72,5 +72,6 @@
   "profileIconHelper": "போரில் உங்கள் எதிரிக்குத் தெரியும் சின்னம்\nஒருவரின் முகம் தெரியும் படத்தைப் பயன்படுத்த முடியாது",
   "profileIconUpdated": "ஐகான் மாற்றப்பட்டது",
   "dexSummary": "அரக்கர்கள்: {monsterCount} · அணி: {partyCount}",
-  "dexReload": "மீண்டும் ஏற்றுங்கள்"
+  "dexReload": "மீண்டும் ஏற்றுங்கள்",
+  "dexParty": "அணி"
 }

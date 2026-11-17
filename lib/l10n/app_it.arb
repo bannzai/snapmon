@@ -72,5 +72,6 @@
   "profileIconHelper": "L'icona che il tuo avversario vede in battaglia\nNon puoi usare foto in cui si vede il volto di una persona",
   "profileIconUpdated": "Hai cambiato l'icona",
   "dexSummary": "Mostri: {monsterCount} · squadra: {partyCount}",
-  "dexReload": "Ricarica"
+  "dexReload": "Ricarica",
+  "dexParty": "squadra"
 }

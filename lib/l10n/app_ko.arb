@@ -72,5 +72,6 @@
   "profileIconHelper": "대전 상대에게 보이는 아이콘\n사람 얼굴이 나온 사진은 사용할 수 없어요",
   "profileIconUpdated": "아이콘을 바꿨어요",
   "dexSummary": "몬스터: {monsterCount} · 파티: {partyCount}",
-  "dexReload": "다시 불러오기"
+  "dexReload": "다시 불러오기",
+  "dexParty": "파티"
 }

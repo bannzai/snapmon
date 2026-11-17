@@ -72,5 +72,6 @@
   "profileIconHelper": "लड़ाई में प्रतिद्वंद्वी को दिखने वाला आइकन\nकिसी का चेहरा दिखने वाली फ़ोटो इस्तेमाल नहीं कर सकते",
   "profileIconUpdated": "आइकन बदल गया",
   "dexSummary": "मॉन्स्टर: {monsterCount} · टीम: {partyCount}",
-  "dexReload": "फिर से लोड करो"
+  "dexReload": "फिर से लोड करो",
+  "dexParty": "टीम"
 }

@@ -72,5 +72,6 @@
   "profileIconHelper": "Rakibinin savaşta gördüğü simge\nBirinin yüzünün göründüğü fotoğrafları kullanamazsın",
   "profileIconUpdated": "Simge değiştirildi",
   "dexSummary": "Canavar: {monsterCount} · takım: {partyCount}",
-  "dexReload": "Yeniden yükle"
+  "dexReload": "Yeniden yükle",
+  "dexParty": "takım"
 }

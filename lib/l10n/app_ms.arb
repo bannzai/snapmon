@@ -72,5 +72,6 @@
   "profileIconHelper": "Ikon yang lawan kamu lihat semasa bertarung\nKamu tak boleh guna foto yang menampakkan wajah seseorang",
   "profileIconUpdated": "Ikon sudah ditukar",
   "dexSummary": "Raksasa: {monsterCount} · pasukan: {partyCount}",
-  "dexReload": "Muat semula"
+  "dexReload": "Muat semula",
+  "dexParty": "pasukan"
 }

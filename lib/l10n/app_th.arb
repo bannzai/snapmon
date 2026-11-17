@@ -72,5 +72,6 @@
   "profileIconHelper": "ไอคอนที่คู่ต่อสู้เห็นในการแบตเทิล\nใช้รูปที่เห็นใบหน้าคนไม่ได้",
   "profileIconUpdated": "เปลี่ยนไอคอนแล้ว",
   "dexSummary": "มอนสเตอร์: {monsterCount} · ทีม: {partyCount}",
-  "dexReload": "โหลดอีกครั้ง"
+  "dexReload": "โหลดอีกครั้ง",
+  "dexParty": "ทีม"
 }

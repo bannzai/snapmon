@@ -72,5 +72,6 @@
   "profileIconHelper": "Ikonet, din modstander ser i kamp\nDu kan ikke bruge billeder med ansigter",
   "profileIconUpdated": "Ikonet er ændret",
   "dexSummary": "Monstre: {monsterCount} · hold: {partyCount}",
-  "dexReload": "Indlæs igen"
+  "dexReload": "Indlæs igen",
+  "dexParty": "hold"
 }
