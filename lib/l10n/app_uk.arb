@@ -137,5 +137,6 @@
   "generationRejectedRefused": "Не вдалося створити монстра\nСпробуй зробити інше фото",
   "generationFailedMessage": "Не вдалося створити монстра\nСпробуй зробити ще одне фото",
   "resultReplaceTitle": "Заміни на {monsterName}",
-  "resultNewlyBorn": "Новий друг"
+  "resultNewlyBorn": "Новий друг",
+  "statHitPoints": "HP"
 }

@@ -137,5 +137,6 @@
   "generationRejectedRefused": "Hirviön luonti ei onnistunut\nKokeile ottaa uusi kuva",
   "generationFailedMessage": "Hirviön luominen epäonnistui\nKokeile ottaa uusi kuva",
   "resultReplaceTitle": "Vaihda tilalle {monsterName}",
-  "resultNewlyBorn": "Uusi ystävä"
+  "resultNewlyBorn": "Uusi ystävä",
+  "statHitPoints": "HP"
 }

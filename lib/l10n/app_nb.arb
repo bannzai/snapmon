@@ -137,5 +137,6 @@
   "generationRejectedRefused": "Monsteret kunne ikke lages\nPrøv å ta et nytt bilde",
   "generationFailedMessage": "Monsteret kunne ikke lages\nPrøv å ta et nytt bilde",
   "resultReplaceTitle": "Bytt ut med {monsterName}",
-  "resultNewlyBorn": "En ny venn"
+  "resultNewlyBorn": "En ny venn",
+  "statHitPoints": "HP"
 }

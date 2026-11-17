@@ -137,5 +137,6 @@
   "generationRejectedRefused": "Monsteret kunne ikke skabes\nPrøv at tage et nyt billede",
   "generationFailedMessage": "Monsteret kunne ikke skabes\nPrøv at tage et nyt billede",
   "resultReplaceTitle": "Byt ud med {monsterName}",
-  "resultNewlyBorn": "En ny ven"
+  "resultNewlyBorn": "En ny ven",
+  "statHitPoints": "HP"
 }

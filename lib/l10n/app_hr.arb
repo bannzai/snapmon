@@ -137,5 +137,6 @@
   "generationRejectedRefused": "Čudovište se nije uspjelo stvoriti\nPokušaj snimiti novu fotografiju",
   "generationFailedMessage": "Čudovište nije stvoreno\nPokušaj ponovno snimiti fotografiju",
   "resultReplaceTitle": "Zamijeni za {monsterName}",
-  "resultNewlyBorn": "Novi prijatelj"
+  "resultNewlyBorn": "Novi prijatelj",
+  "statHitPoints": "HP"
 }

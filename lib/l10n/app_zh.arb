@@ -137,5 +137,6 @@
   "generationRejectedRefused": "怪兽没能生成\n再拍一张试试",
   "generationFailedMessage": "怪兽生成失败\n再拍一张试试",
   "resultReplaceTitle": "换成{monsterName}",
-  "resultNewlyBorn": "新伙伴"
+  "resultNewlyBorn": "新伙伴",
+  "statHitPoints": "HP"
 }

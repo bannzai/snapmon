@@ -137,5 +137,6 @@
   "generationRejectedRefused": "ਮੌਂਸਟਰ ਨਹੀਂ ਬਣ ਸਕਿਆ\nਇੱਕ ਹੋਰ ਫ਼ੋਟੋ ਖਿੱਚ ਕੇ ਦੇਖੋ",
   "generationFailedMessage": "ਮੌਂਸਟਰ ਨਹੀਂ ਬਣ ਸਕਿਆ\nਦੁਬਾਰਾ ਫ਼ੋਟੋ ਖਿੱਚ ਕੇ ਵੇਖੋ",
   "resultReplaceTitle": "{monsterName} ਨਾਲ ਬਦਲੋ",
-  "resultNewlyBorn": "ਨਵਾਂ ਸਾਥੀ"
+  "resultNewlyBorn": "ਨਵਾਂ ਸਾਥੀ",
+  "statHitPoints": "HP"
 }

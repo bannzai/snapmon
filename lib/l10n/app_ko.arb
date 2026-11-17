@@ -137,5 +137,6 @@
   "generationRejectedRefused": "몬스터를 만들지 못했어요\n다시 사진을 찍어 봐요",
   "generationFailedMessage": "몬스터를 만들지 못했어요\n다시 사진을 찍어 보세요",
   "resultReplaceTitle": "{monsterName}(으)로 교체하기",
-  "resultNewlyBorn": "새로운 친구"
+  "resultNewlyBorn": "새로운 친구",
+  "statHitPoints": "HP"
 }

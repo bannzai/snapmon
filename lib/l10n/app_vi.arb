@@ -137,5 +137,6 @@
   "generationRejectedRefused": "Không tạo được quái vật\nThử chụp ảnh khác nhé",
   "generationFailedMessage": "Không tạo được quái vật\nBạn hãy thử chụp lại ảnh",
   "resultReplaceTitle": "Đổi lấy {monsterName}",
-  "resultNewlyBorn": "Bạn đồng hành mới"
+  "resultNewlyBorn": "Bạn đồng hành mới",
+  "statHitPoints": "HP"
 }

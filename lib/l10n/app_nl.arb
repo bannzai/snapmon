@@ -137,5 +137,6 @@
   "generationRejectedRefused": "Het monster kon niet worden gemaakt\nProbeer nog een foto te maken",
   "generationFailedMessage": "Het monster kon niet worden gemaakt\nProbeer nog een foto te maken",
   "resultReplaceTitle": "Ruil voor {monsterName}",
-  "resultNewlyBorn": "Een nieuwe vriend"
+  "resultNewlyBorn": "Een nieuwe vriend",
+  "statHitPoints": "HP"
 }

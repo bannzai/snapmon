@@ -137,5 +137,6 @@
   "generationRejectedRefused": "Não foi possível criar o monstro\nTenta tirar outra fotografia",
   "generationFailedMessage": "Não foi possível criar o monstro\nTenta tirar outra fotografia",
   "resultReplaceTitle": "Trocar por {monsterName}",
-  "resultNewlyBorn": "Um novo amigo"
+  "resultNewlyBorn": "Um novo amigo",
+  "statHitPoints": "HP"
 }

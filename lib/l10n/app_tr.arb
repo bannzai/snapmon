@@ -137,5 +137,6 @@
   "generationRejectedRefused": "Canavar oluşturulamadı\nYeni bir fotoğraf çekmeyi dene",
   "generationFailedMessage": "Canavar oluşturulamadı\nBir fotoğraf daha çekmeyi dene",
   "resultReplaceTitle": "{monsterName} ile değiştir",
-  "resultNewlyBorn": "Yeni bir dost"
+  "resultNewlyBorn": "Yeni bir dost",
+  "statHitPoints": "HP"
 }

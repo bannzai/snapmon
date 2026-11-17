@@ -137,5 +137,6 @@
   "generationRejectedRefused": "Το τέρας δεν δημιουργήθηκε\nΔοκίμασε να βγάλεις άλλη φωτογραφία",
   "generationFailedMessage": "Δεν δημιουργήθηκε το τέρας\nΔοκίμασε να βγάλεις άλλη φωτογραφία",
   "resultReplaceTitle": "Άλλαξε με το {monsterName}",
-  "resultNewlyBorn": "Νέος σύντροφος"
+  "resultNewlyBorn": "Νέος σύντροφος",
+  "statHitPoints": "HP"
 }

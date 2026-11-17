@@ -137,5 +137,6 @@
   "generationRejectedRefused": "Monstrul nu a putut fi creat\nÎncearcă să faci altă fotografie",
   "generationFailedMessage": "Monstrul nu a putut fi creat\nÎncearcă să faci altă poză",
   "resultReplaceTitle": "Schimbă cu {monsterName}",
-  "resultNewlyBorn": "Un nou prieten"
+  "resultNewlyBorn": "Un nou prieten",
+  "statHitPoints": "HP"
 }

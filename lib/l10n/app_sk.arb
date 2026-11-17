@@ -137,5 +137,6 @@
   "generationRejectedRefused": "Príšerku sa nepodarilo vytvoriť\nSkús odfotiť niečo iné",
   "generationFailedMessage": "Príšerku sa nepodarilo vytvoriť\nSkús urobiť ďalšiu fotku",
   "resultReplaceTitle": "Vymeň za {monsterName}",
-  "resultNewlyBorn": "Nový parťák"
+  "resultNewlyBorn": "Nový parťák",
+  "statHitPoints": "HP"
 }

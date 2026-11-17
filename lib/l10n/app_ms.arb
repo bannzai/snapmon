@@ -137,5 +137,6 @@
   "generationRejectedRefused": "Raksasa tak dapat dicipta\nCuba ambil gambar lain",
   "generationFailedMessage": "Monster gagal dicipta\nCuba ambil gambar lagi",
   "resultReplaceTitle": "Gantikan dengan {monsterName}",
-  "resultNewlyBorn": "Kawan baru"
+  "resultNewlyBorn": "Kawan baru",
+  "statHitPoints": "HP"
 }

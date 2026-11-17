@@ -137,5 +137,6 @@
   "generationRejectedRefused": "Nie udało się stworzyć potwora\nSpróbuj zrobić nowe zdjęcie",
   "generationFailedMessage": "Nie udało się stworzyć potwora\nSpróbuj zrobić kolejne zdjęcie",
   "resultReplaceTitle": "Zamień na {monsterName}",
-  "resultNewlyBorn": "Nowy kompan"
+  "resultNewlyBorn": "Nowy kompan",
+  "statHitPoints": "HP"
 }

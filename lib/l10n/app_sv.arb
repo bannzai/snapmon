@@ -137,5 +137,6 @@
   "generationRejectedRefused": "Monstret kunde inte skapas\nFörsök ta ett nytt foto",
   "generationFailedMessage": "Monstret kunde inte skapas\nProva att ta en ny bild",
   "resultReplaceTitle": "Byt ut mot {monsterName}",
-  "resultNewlyBorn": "En ny vän"
+  "resultNewlyBorn": "En ny vän",
+  "statHitPoints": "HP"
 }

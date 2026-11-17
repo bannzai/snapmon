@@ -137,5 +137,6 @@
   "generationRejectedRefused": "לא הצלחנו ליצור את המפלצת\nכדאי לנסות לצלם שוב",
   "generationFailedMessage": "יצירת המפלצת נכשלה\nכדאי לצלם שוב",
   "resultReplaceTitle": "החלפה עם {monsterName}",
-  "resultNewlyBorn": "חבר חדש"
+  "resultNewlyBorn": "חבר חדש",
+  "statHitPoints": "HP"
 }

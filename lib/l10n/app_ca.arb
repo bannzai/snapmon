@@ -137,5 +137,6 @@
   "generationRejectedRefused": "No s'ha pogut crear el monstre\nProva de fer una altra foto",
   "generationFailedMessage": "No s'ha pogut crear el monstre\nTorna a fer una foto",
   "resultReplaceTitle": "Canvia'l per {monsterName}",
-  "resultNewlyBorn": "Un nou company"
+  "resultNewlyBorn": "Un nou company",
+  "statHitPoints": "HP"
 }

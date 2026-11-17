@@ -137,5 +137,6 @@
   "generationRejectedRefused": "ಮಾನ್ಸ್ಟರ್ ಅನ್ನು ರಚಿಸಲು ಆಗಲಿಲ್ಲ\nಇನ್ನೊಂದು ಫೋಟೋ ತೆಗೆದು ನೋಡು",
   "generationFailedMessage": "ಮಾನ್‌ಸ್ಟರ್ ರಚಿಸಲಾಗಲಿಲ್ಲ\nಮತ್ತೆ ಫೋಟೋ ತೆಗೆದು ನೋಡು",
   "resultReplaceTitle": "{monsterName} ಜೊತೆ ಬದಲಾಯಿಸು",
-  "resultNewlyBorn": "ಹೊಸ ಸಂಗಾತಿ"
+  "resultNewlyBorn": "ಹೊಸ ಸಂಗಾತಿ",
+  "statHitPoints": "HP"
 }
