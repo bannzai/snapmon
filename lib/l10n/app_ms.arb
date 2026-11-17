@@ -208,5 +208,6 @@
   "moveTypeNotVeryEffective": "Kurang berkesan ×{multiplier}",
   "moveDetailAccuracy": "Ketepatan",
   "moveDetailPriority": "Keutamaan",
-  "moveDetailPriorityValue": "Digunakan dahulu tanpa mengira Kelajuan"
+  "moveDetailPriorityValue": "Digunakan dahulu tanpa mengira Kelajuan",
+  "battleRecording": "Menyimpan keputusan"
 }

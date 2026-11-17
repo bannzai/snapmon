@@ -208,5 +208,6 @@
   "moveTypeNotVeryEffective": "খুব একটা কার্যকর নয় ×{multiplier}",
   "moveDetailAccuracy": "নির্ভুলতা",
   "moveDetailPriority": "অগ্রাধিকার",
-  "moveDetailPriorityValue": "গতি যা-ই হোক, আগে ব্যবহার হবে"
+  "moveDetailPriorityValue": "গতি যা-ই হোক, আগে ব্যবহার হবে",
+  "battleRecording": "ফলাফল সংরক্ষণ হচ্ছে"
 }

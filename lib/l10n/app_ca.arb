@@ -208,5 +208,6 @@
   "moveTypeNotVeryEffective": "No és gaire eficaç ×{multiplier}",
   "moveDetailAccuracy": "Precisió",
   "moveDetailPriority": "Prioritat",
-  "moveDetailPriorityValue": "S'utilitza primer, sigui quina sigui la velocitat"
+  "moveDetailPriorityValue": "S'utilitza primer, sigui quina sigui la velocitat",
+  "battleRecording": "Desant el resultat"
 }

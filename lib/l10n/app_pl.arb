@@ -208,5 +208,6 @@
   "moveTypeNotVeryEffective": "Niezbyt skuteczne ×{multiplier}",
   "moveDetailAccuracy": "Celność",
   "moveDetailPriority": "Priorytet",
-  "moveDetailPriorityValue": "Wykonywany jako pierwszy, niezależnie od Szybkości"
+  "moveDetailPriorityValue": "Wykonywany jako pierwszy, niezależnie od Szybkości",
+  "battleRecording": "Zapisywanie wyniku"
 }

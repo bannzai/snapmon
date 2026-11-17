@@ -208,5 +208,6 @@
   "moveTypeNotVeryEffective": "Niet erg effectief ×{multiplier}",
   "moveDetailAccuracy": "Nauwkeurigheid",
   "moveDetailPriority": "Prioriteit",
-  "moveDetailPriorityValue": "Wordt als eerste gebruikt, ongeacht de Snelheid"
+  "moveDetailPriorityValue": "Wordt als eerste gebruikt, ongeacht de Snelheid",
+  "battleRecording": "Resultaat opslaan"
 }

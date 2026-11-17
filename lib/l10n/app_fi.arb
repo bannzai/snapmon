@@ -208,5 +208,6 @@
   "moveTypeNotVeryEffective": "Ei kovin tehokas ×{multiplier}",
   "moveDetailAccuracy": "Tarkkuus",
   "moveDetailPriority": "Etusija",
-  "moveDetailPriorityValue": "Käytetään ensin nopeudesta riippumatta"
+  "moveDetailPriorityValue": "Käytetään ensin nopeudesta riippumatta",
+  "battleRecording": "Tallennetaan tulosta"
 }

@@ -208,5 +208,6 @@
   "moveTypeNotVeryEffective": "ज़्यादा असरदार नहीं ×{multiplier}",
   "moveDetailAccuracy": "सटीकता",
   "moveDetailPriority": "प्राथमिकता",
-  "moveDetailPriorityValue": "स्पीड चाहे जो हो, यह पहले चलता है"
+  "moveDetailPriorityValue": "स्पीड चाहे जो हो, यह पहले चलता है",
+  "battleRecording": "नतीजा सहेजा जा रहा है"
 }

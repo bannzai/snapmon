@@ -208,5 +208,6 @@
   "moveTypeNotVeryEffective": "Nie je to veľmi účinné ×{multiplier}",
   "moveDetailAccuracy": "Presnosť",
   "moveDetailPriority": "Priorita",
-  "moveDetailPriorityValue": "Použije sa ako prvý bez ohľadu na rýchlosť"
+  "moveDetailPriorityValue": "Použije sa ako prvý bez ohľadu na rýchlosť",
+  "battleRecording": "Ukladá sa výsledok"
 }

@@ -208,5 +208,6 @@
   "moveTypeNotVeryEffective": "效果不太好 ×{multiplier}",
   "moveDetailAccuracy": "命中率",
   "moveDetailPriority": "优先度",
-  "moveDetailPriorityValue": "无论速度如何，都会率先使出"
+  "moveDetailPriorityValue": "无论速度如何，都会率先使出",
+  "battleRecording": "正在记录结果"
 }

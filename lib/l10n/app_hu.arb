@@ -208,5 +208,6 @@
   "moveTypeNotVeryEffective": "Nem túl hatásos ×{multiplier}",
   "moveDetailAccuracy": "Pontosság",
   "moveDetailPriority": "Elsőbbség",
-  "moveDetailPriorityValue": "Sebességtől függetlenül elsőként hajtódik végre"
+  "moveDetailPriorityValue": "Sebességtől függetlenül elsőként hajtódik végre",
+  "battleRecording": "Eredmény mentése"
 }

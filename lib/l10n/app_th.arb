@@ -208,5 +208,6 @@
   "moveTypeNotVeryEffective": "ไม่ค่อยได้ผล ×{multiplier}",
   "moveDetailAccuracy": "ความแม่นยำ",
   "moveDetailPriority": "ลำดับความสำคัญ",
-  "moveDetailPriorityValue": "ออกท่าก่อนเสมอ ไม่ว่าความเร็วจะเท่าไร"
+  "moveDetailPriorityValue": "ออกท่าก่อนเสมอ ไม่ว่าความเร็วจะเท่าไร",
+  "battleRecording": "กำลังบันทึกผล"
 }

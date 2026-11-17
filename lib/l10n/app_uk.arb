@@ -208,5 +208,6 @@
   "moveTypeNotVeryEffective": "Не дуже ефективно ×{multiplier}",
   "moveDetailAccuracy": "Точність",
   "moveDetailPriority": "Пріоритет",
-  "moveDetailPriorityValue": "Застосовується першим незалежно від Швидкості"
+  "moveDetailPriorityValue": "Застосовується першим незалежно від Швидкості",
+  "battleRecording": "Збереження результату"
 }

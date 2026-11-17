@@ -208,5 +208,6 @@
   "moveTypeNotVeryEffective": "అంత ప్రభావవంతంగా లేదు ×{multiplier}",
   "moveDetailAccuracy": "కచ్చితత్వం",
   "moveDetailPriority": "ప్రాధాన్యం",
-  "moveDetailPriorityValue": "వేగం ఎంతైనా, ముందే ఉపయోగిస్తారు"
+  "moveDetailPriorityValue": "వేగం ఎంతైనా, ముందే ఉపయోగిస్తారు",
+  "battleRecording": "ఫలితం సేవ్ అవుతోంది"
 }

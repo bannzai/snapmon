@@ -208,5 +208,6 @@
   "moveTypeNotVeryEffective": "Nije baš učinkovito ×{multiplier}",
   "moveDetailAccuracy": "Preciznost",
   "moveDetailPriority": "Prioritet",
-  "moveDetailPriorityValue": "Izvodi se prvi bez obzira na brzinu"
+  "moveDetailPriorityValue": "Izvodi se prvi bez obzira na brzinu",
+  "battleRecording": "Spremanje rezultata"
 }

@@ -208,5 +208,6 @@
   "moveTypeNotVeryEffective": "Δεν είναι πολύ αποτελεσματικό ×{multiplier}",
   "moveDetailAccuracy": "Ακρίβεια",
   "moveDetailPriority": "Προτεραιότητα",
-  "moveDetailPriorityValue": "Εκτελείται πρώτο, ανεξάρτητα από την Ταχύτητα"
+  "moveDetailPriorityValue": "Εκτελείται πρώτο, ανεξάρτητα από την Ταχύτητα",
+  "battleRecording": "Αποθήκευση αποτελέσματος"
 }

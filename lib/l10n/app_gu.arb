@@ -208,5 +208,6 @@
   "moveTypeNotVeryEffective": "બહુ અસરકારક નથી ×{multiplier}",
   "moveDetailAccuracy": "ચોકસાઈ",
   "moveDetailPriority": "અગ્રતા",
-  "moveDetailPriorityValue": "ઝડપ ગમે તેટલી હોય, પહેલાં વપરાય છે"
+  "moveDetailPriorityValue": "ઝડપ ગમે તેટલી હોય, પહેલાં વપરાય છે",
+  "battleRecording": "પરિણામ સાચવી રહ્યું છે"
 }

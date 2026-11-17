@@ -208,5 +208,6 @@
   "moveTypeNotVeryEffective": "Pek etkili değil ×{multiplier}",
   "moveDetailAccuracy": "İsabet",
   "moveDetailPriority": "Öncelik",
-  "moveDetailPriorityValue": "Hız ne olursa olsun önce kullanılır"
+  "moveDetailPriorityValue": "Hız ne olursa olsun önce kullanılır",
+  "battleRecording": "Sonuç kaydediliyor"
 }

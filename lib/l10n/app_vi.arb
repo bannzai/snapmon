@@ -208,5 +208,6 @@
   "moveTypeNotVeryEffective": "Không mấy hiệu quả ×{multiplier}",
   "moveDetailAccuracy": "Độ chính xác",
   "moveDetailPriority": "Độ ưu tiên",
-  "moveDetailPriorityValue": "Ra đòn trước, bất kể Tốc độ"
+  "moveDetailPriorityValue": "Ra đòn trước, bất kể Tốc độ",
+  "battleRecording": "Đang lưu kết quả"
 }

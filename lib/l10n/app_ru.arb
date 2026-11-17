@@ -208,5 +208,6 @@
   "moveTypeNotVeryEffective": "Не очень эффективно ×{multiplier}",
   "moveDetailAccuracy": "Точность",
   "moveDetailPriority": "Приоритет",
-  "moveDetailPriorityValue": "Применяется первым независимо от Скорости"
+  "moveDetailPriorityValue": "Применяется первым независимо от Скорости",
+  "battleRecording": "Сохранение результата"
 }

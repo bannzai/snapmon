@@ -208,5 +208,6 @@
   "moveTypeNotVeryEffective": "ବେଶି ପ୍ରଭାବଶାଳୀ ନୁହେଁ ×{multiplier}",
   "moveDetailAccuracy": "ସଠିକତା",
   "moveDetailPriority": "ଅଗ୍ରାଧିକାର",
-  "moveDetailPriorityValue": "ବେଗ ଯେତେ ହେଉ, ଏହା ଆଗେ ବ୍ୟବହାର ହୁଏ"
+  "moveDetailPriorityValue": "ବେଗ ଯେତେ ହେଉ, ଏହା ଆଗେ ବ୍ୟବହାର ହୁଏ",
+  "battleRecording": "ଫଳାଫଳ ସଂରକ୍ଷଣ ହେଉଛି"
 }

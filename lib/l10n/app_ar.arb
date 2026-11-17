@@ -208,5 +208,6 @@
   "moveTypeNotVeryEffective": "الفعالية ضعيفة ×{multiplier}",
   "moveDetailAccuracy": "الدقة",
   "moveDetailPriority": "الأولوية",
-  "moveDetailPriorityValue": "يُنفّذ أولًا مهما كانت السرعة"
+  "moveDetailPriorityValue": "يُنفّذ أولًا مهما كانت السرعة",
+  "battleRecording": "جارٍ تسجيل النتيجة"
 }

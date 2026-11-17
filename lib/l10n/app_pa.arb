@@ -208,5 +208,6 @@
   "moveTypeNotVeryEffective": "ਬਹੁਤਾ ਅਸਰਦਾਰ ਨਹੀਂ ×{multiplier}",
   "moveDetailAccuracy": "ਸਟੀਕਤਾ",
   "moveDetailPriority": "ਤਰਜੀਹ",
-  "moveDetailPriorityValue": "ਰਫ਼ਤਾਰ ਭਾਵੇਂ ਜੋ ਵੀ ਹੋਵੇ, ਇਹ ਪਹਿਲਾਂ ਵਰਤੀ ਜਾਂਦੀ ਹੈ"
+  "moveDetailPriorityValue": "ਰਫ਼ਤਾਰ ਭਾਵੇਂ ਜੋ ਵੀ ਹੋਵੇ, ਇਹ ਪਹਿਲਾਂ ਵਰਤੀ ਜਾਂਦੀ ਹੈ",
+  "battleRecording": "ਨਤੀਜਾ ਸੰਭਾਲਿਆ ਜਾ ਰਿਹਾ ਹੈ"
 }

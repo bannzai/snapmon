@@ -208,5 +208,6 @@
   "moveTypeNotVeryEffective": "زیادہ مؤثر نہیں ×{multiplier}",
   "moveDetailAccuracy": "درستگی",
   "moveDetailPriority": "ترجیح",
-  "moveDetailPriorityValue": "رفتار چاہے جو بھی ہو، یہ پہلے استعمال ہوتا ہے"
+  "moveDetailPriorityValue": "رفتار چاہے جو بھی ہو، یہ پہلے استعمال ہوتا ہے",
+  "battleRecording": "نتیجہ محفوظ ہو رہا ہے"
 }

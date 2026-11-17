@@ -208,5 +208,6 @@
   "moveTypeNotVeryEffective": "לא יעיל במיוחד ×{multiplier}",
   "moveDetailAccuracy": "דיוק",
   "moveDetailPriority": "עדיפות",
-  "moveDetailPriorityValue": "יוצא ראשון בלי קשר למהירות"
+  "moveDetailPriorityValue": "יוצא ראשון בלי קשר למהירות",
+  "battleRecording": "התוצאה נשמרת"
 }

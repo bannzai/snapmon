@@ -208,5 +208,6 @@
   "moveTypeNotVeryEffective": "Ikke særlig effektivt ×{multiplier}",
   "moveDetailAccuracy": "Træfsikkerhed",
   "moveDetailPriority": "Prioritet",
-  "moveDetailPriorityValue": "Bruges først uanset hastighed"
+  "moveDetailPriorityValue": "Bruges først uanset hastighed",
+  "battleRecording": "Gemmer resultatet"
 }
