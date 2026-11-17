@@ -16,5 +16,6 @@
   "reportSheetDescription": "ତୁମେ ରିପୋର୍ଟ କରିଥିବା ଟ୍ରେନର ଆଉ ଲଢ଼େଇରେ ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ ଭାବେ ଆସିବେ ନାହିଁ",
   "reportSheetSubmitting": "ପଠାଯାଉଛି",
   "reportSheetSubmit": "ରିପୋର୍ଟ କର",
-  "reportSheetOtherTrouble": "ତୁମର ଆଉ କିଛି ଅସୁବିଧା ଥିଲେ"
+  "reportSheetOtherTrouble": "ତୁମର ଆଉ କିଛି ଅସୁବିଧା ଥିଲେ",
+  "commonCouldNotOpenURL": "{url} ଖୋଲିହେଲା ନାହିଁ"
 }

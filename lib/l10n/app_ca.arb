@@ -16,5 +16,6 @@
   "reportSheetDescription": "L'entrenador que denunciïs ja no apareixerà com a rival als combats",
   "reportSheetSubmitting": "S'està enviant",
   "reportSheetSubmit": "Denunciar",
-  "reportSheetOtherTrouble": "Si tens cap altre problema"
+  "reportSheetOtherTrouble": "Si tens cap altre problema",
+  "commonCouldNotOpenURL": "No s'ha pogut obrir {url}"
 }

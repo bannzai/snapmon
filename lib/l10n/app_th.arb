@@ -16,5 +16,6 @@
   "reportSheetDescription": "เทรนเนอร์ที่รายงานแล้วจะไม่ปรากฏเป็นคู่ต่อสู้อีก",
   "reportSheetSubmitting": "กำลังส่ง",
   "reportSheetSubmit": "รายงาน",
-  "reportSheetOtherTrouble": "หากมีปัญหาอื่นอีก"
+  "reportSheetOtherTrouble": "หากมีปัญหาอื่นอีก",
+  "commonCouldNotOpenURL": "เปิด {url} ไม่ได้"
 }

@@ -16,5 +16,6 @@
   "reportSheetDescription": "Ein Trainer, den du meldest, erscheint nicht mehr als Kampfgegner",
   "reportSheetSubmitting": "Wird gesendet",
   "reportSheetSubmit": "Melden",
-  "reportSheetOtherTrouble": "Falls du noch ein Problem hast"
+  "reportSheetOtherTrouble": "Falls du noch ein Problem hast",
+  "commonCouldNotOpenURL": "{url} konnte nicht geöffnet werden"
 }

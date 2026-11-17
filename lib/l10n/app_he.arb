@@ -16,5 +16,6 @@
   "reportSheetDescription": "מאמן שהתקבל עליו דיווח לא יופיע עוד מולך בקרב",
   "reportSheetSubmitting": "בשליחה",
   "reportSheetSubmit": "דיווח",
-  "reportSheetOtherTrouble": "אם יש בעיה נוספת"
+  "reportSheetOtherTrouble": "אם יש בעיה נוספת",
+  "commonCouldNotOpenURL": "לא ניתן לפתוח את {url}"
 }

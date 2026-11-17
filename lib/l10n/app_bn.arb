@@ -16,5 +16,6 @@
   "reportSheetDescription": "তুমি যে ট্রেনারকে রিপোর্ট করবে, সে আর লড়াইয়ে তোমার প্রতিপক্ষ হবে না",
   "reportSheetSubmitting": "পাঠানো হচ্ছে",
   "reportSheetSubmit": "রিপোর্ট করো",
-  "reportSheetOtherTrouble": "তোমার আর কোনো সমস্যা হলে"
+  "reportSheetOtherTrouble": "তোমার আর কোনো সমস্যা হলে",
+  "commonCouldNotOpenURL": "{url} খোলা যায়নি"
 }

@@ -16,5 +16,6 @@
   "reportSheetDescription": "ਜਿਸ ਟ੍ਰੇਨਰ ਨੂੰ ਤੁਸੀਂ ਰਿਪੋਰਟ ਕਰਦੇ ਹੋ, ਉਹ ਹੁਣ ਲੜਾਈ ਵਿੱਚ ਵਿਰੋਧੀ ਵਜੋਂ ਨਹੀਂ ਆਵੇਗਾ",
   "reportSheetSubmitting": "ਭੇਜਿਆ ਜਾ ਰਿਹਾ ਹੈ",
   "reportSheetSubmit": "ਰਿਪੋਰਟ ਕਰੋ",
-  "reportSheetOtherTrouble": "ਜੇ ਤੁਹਾਨੂੰ ਕੋਈ ਹੋਰ ਸਮੱਸਿਆ ਹੋਵੇ"
+  "reportSheetOtherTrouble": "ਜੇ ਤੁਹਾਨੂੰ ਕੋਈ ਹੋਰ ਸਮੱਸਿਆ ਹੋਵੇ",
+  "commonCouldNotOpenURL": "{url} ਖੋਲ੍ਹਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ"
 }

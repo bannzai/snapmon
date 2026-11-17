@@ -16,5 +16,6 @@
   "reportSheetDescription": "O treinador que você denunciar não aparecerá mais como adversário nas batalhas",
   "reportSheetSubmitting": "Enviando",
   "reportSheetSubmit": "Denunciar",
-  "reportSheetOtherTrouble": "Se você tiver algum outro problema"
+  "reportSheetOtherTrouble": "Se você tiver algum outro problema",
+  "commonCouldNotOpenURL": "Não foi possível abrir {url}"
 }

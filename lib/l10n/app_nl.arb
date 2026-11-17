@@ -16,5 +16,6 @@
   "reportSheetDescription": "Een trainer die je meldt, verschijnt niet meer als tegenstander in gevechten",
   "reportSheetSubmitting": "Bezig met verzenden",
   "reportSheetSubmit": "Melden",
-  "reportSheetOtherTrouble": "Als je nog ergens anders mee zit"
+  "reportSheetOtherTrouble": "Als je nog ergens anders mee zit",
+  "commonCouldNotOpenURL": "Kan {url} niet openen"
 }

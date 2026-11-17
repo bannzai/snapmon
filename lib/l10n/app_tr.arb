@@ -16,5 +16,6 @@
   "reportSheetDescription": "Bildirdiğin eğitmen artık savaşlarda rakip olarak karşına çıkmaz",
   "reportSheetSubmitting": "Gönderiliyor",
   "reportSheetSubmit": "Bildir",
-  "reportSheetOtherTrouble": "Başka bir sorun yaşarsan"
+  "reportSheetOtherTrouble": "Başka bir sorun yaşarsan",
+  "commonCouldNotOpenURL": "{url} açılamadı"
 }

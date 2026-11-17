@@ -16,5 +16,6 @@
   "reportSheetDescription": "En trener du rapporterer, dukker ikke lenger opp som motstander i kamp",
   "reportSheetSubmitting": "Sender",
   "reportSheetSubmit": "Rapporter",
-  "reportSheetOtherTrouble": "Hvis du har andre problemer"
+  "reportSheetOtherTrouble": "Hvis du har andre problemer",
+  "commonCouldNotOpenURL": "Kunne ikke åpne {url}"
 }

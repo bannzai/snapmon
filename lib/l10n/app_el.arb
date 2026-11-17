@@ -16,5 +16,6 @@
   "reportSheetDescription": "Μετά την αναφορά σου, ο εκπαιδευτής δεν θα εμφανίζεται πια ως αντίπαλος σε μάχες",
   "reportSheetSubmitting": "Γίνεται αποστολή",
   "reportSheetSubmit": "Αναφορά",
-  "reportSheetOtherTrouble": "Αν έχεις κάποιο άλλο πρόβλημα"
+  "reportSheetOtherTrouble": "Αν έχεις κάποιο άλλο πρόβλημα",
+  "commonCouldNotOpenURL": "Δεν ήταν δυνατό το άνοιγμα του {url}"
 }

@@ -16,5 +16,6 @@
   "reportSheetDescription": "Tréner, ktorého nahlásiš, sa už neobjaví ako tvoj súper v súboji",
   "reportSheetSubmitting": "Odosiela sa",
   "reportSheetSubmit": "Nahlásiť",
-  "reportSheetOtherTrouble": "Ak máš ešte nejaký problém"
+  "reportSheetOtherTrouble": "Ak máš ešte nejaký problém",
+  "commonCouldNotOpenURL": "Nepodarilo sa otvoriť {url}"
 }

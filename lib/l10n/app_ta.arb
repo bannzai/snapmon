@@ -16,5 +16,6 @@
   "reportSheetDescription": "நீங்கள் புகார் அளித்த பயிற்சியாளர் இனி போர்களில் எதிராளியாக வரமாட்டார்",
   "reportSheetSubmitting": "அனுப்பப்படுகிறது",
   "reportSheetSubmit": "புகார் அளிக்கவும்",
-  "reportSheetOtherTrouble": "உங்களுக்கு வேறு ஏதேனும் சிக்கல் இருந்தால்"
+  "reportSheetOtherTrouble": "உங்களுக்கு வேறு ஏதேனும் சிக்கல் இருந்தால்",
+  "commonCouldNotOpenURL": "{url} முகவரியைத் திறக்க முடியவில்லை"
 }

@@ -16,5 +16,6 @@
   "reportSheetDescription": "المدرب الذي تُقدّم عنه إبلاغًا لن يظهر خصمًا لك في المعارك بعد الآن",
   "reportSheetSubmitting": "جارٍ الإرسال",
   "reportSheetSubmit": "إبلاغ",
-  "reportSheetOtherTrouble": "إذا واجهتك أي مشكلة أخرى"
+  "reportSheetOtherTrouble": "إذا واجهتك أي مشكلة أخرى",
+  "commonCouldNotOpenURL": "تعذّر فتح {url}"
 }

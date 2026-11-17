@@ -16,5 +16,6 @@
   "reportSheetDescription": "En tränare som du rapporterar dyker inte längre upp som motståndare i strider",
   "reportSheetSubmitting": "Skickar",
   "reportSheetSubmit": "Rapportera",
-  "reportSheetOtherTrouble": "Om du har något annat problem"
+  "reportSheetOtherTrouble": "Om du har något annat problem",
+  "commonCouldNotOpenURL": "Kunde inte öppna {url}"
 }

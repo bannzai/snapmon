@@ -16,5 +16,6 @@
   "reportSheetDescription": "Nhà huấn luyện mà bạn báo cáo sẽ không còn xuất hiện làm đối thủ trong trận đấu",
   "reportSheetSubmitting": "Đang gửi",
   "reportSheetSubmit": "Báo cáo",
-  "reportSheetOtherTrouble": "Nếu bạn gặp vấn đề khác"
+  "reportSheetOtherTrouble": "Nếu bạn gặp vấn đề khác",
+  "commonCouldNotOpenURL": "Không mở được {url}"
 }

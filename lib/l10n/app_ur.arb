@@ -16,5 +16,6 @@
   "reportSheetDescription": "جس ٹرینر کو تم رپورٹ کرو گے، وہ اب لڑائی میں تمہارا حریف نہیں بنے گا",
   "reportSheetSubmitting": "بھیجا جا رہا ہے",
   "reportSheetSubmit": "رپورٹ کرو",
-  "reportSheetOtherTrouble": "اگر تمہیں کوئی اور مسئلہ ہو"
+  "reportSheetOtherTrouble": "اگر تمہیں کوئی اور مسئلہ ہو",
+  "commonCouldNotOpenURL": "{url} نہیں کھل سکا"
 }

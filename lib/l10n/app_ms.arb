@@ -16,5 +16,6 @@
   "reportSheetDescription": "Jurulatih yang kamu laporkan tidak akan muncul lagi sebagai lawan bertarung",
   "reportSheetSubmitting": "Sedang menghantar",
   "reportSheetSubmit": "Lapor",
-  "reportSheetOtherTrouble": "Kalau kamu ada masalah lain"
+  "reportSheetOtherTrouble": "Kalau kamu ada masalah lain",
+  "commonCouldNotOpenURL": "Tidak dapat membuka {url}"
 }

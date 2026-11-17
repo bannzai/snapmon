@@ -16,5 +16,6 @@
   "reportSheetDescription": "举报过的训练家将不再成为你的对战对手",
   "reportSheetSubmitting": "正在发送",
   "reportSheetSubmit": "举报",
-  "reportSheetOtherTrouble": "如果你还有其他问题"
+  "reportSheetOtherTrouble": "如果你还有其他问题",
+  "commonCouldNotOpenURL": "无法打开 {url}"
 }

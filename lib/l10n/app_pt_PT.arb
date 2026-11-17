@@ -16,5 +16,6 @@
   "reportSheetDescription": "O treinador que denunciares deixará de aparecer como adversário nos combates",
   "reportSheetSubmitting": "A enviar",
   "reportSheetSubmit": "Denunciar",
-  "reportSheetOtherTrouble": "Se tiveres mais algum problema"
+  "reportSheetOtherTrouble": "Se tiveres mais algum problema",
+  "commonCouldNotOpenURL": "Não foi possível abrir {url}"
 }

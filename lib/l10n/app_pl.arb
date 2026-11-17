@@ -16,5 +16,6 @@
   "reportSheetDescription": "Gdy zgłosisz trenera, nie spotkasz go już jako przeciwnika w walce",
   "reportSheetSubmitting": "Wysyłanie",
   "reportSheetSubmit": "Zgłoś",
-  "reportSheetOtherTrouble": "Jeśli masz jeszcze jakiś problem"
+  "reportSheetOtherTrouble": "Jeśli masz jeszcze jakiś problem",
+  "commonCouldNotOpenURL": "Nie udało się otworzyć {url}"
 }

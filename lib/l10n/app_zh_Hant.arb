@@ -16,5 +16,6 @@
   "reportSheetDescription": "檢舉過的訓練家不會再成為你的對戰對手",
   "reportSheetSubmitting": "傳送中",
   "reportSheetSubmit": "檢舉",
-  "reportSheetOtherTrouble": "如果你還有其他問題"
+  "reportSheetOtherTrouble": "如果你還有其他問題",
+  "commonCouldNotOpenURL": "無法開啟 {url}"
 }

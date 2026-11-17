@@ -16,5 +16,6 @@
   "reportSheetDescription": "Ilmoittamasi kouluttaja ei enää tule vastaasi taisteluissa",
   "reportSheetSubmitting": "Lähetetään",
   "reportSheetSubmit": "Ilmoita",
-  "reportSheetOtherTrouble": "Jos sinulla on muita ongelmia"
+  "reportSheetOtherTrouble": "Jos sinulla on muita ongelmia",
+  "commonCouldNotOpenURL": "Osoitetta {url} ei voitu avata"
 }

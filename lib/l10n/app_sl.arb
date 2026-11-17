@@ -16,5 +16,6 @@
   "reportSheetDescription": "Trener, ki ga prijaviš, se ne bo več pojavil kot tvoj nasprotnik v boju",
   "reportSheetSubmitting": "Pošiljanje",
   "reportSheetSubmit": "Prijavi",
-  "reportSheetOtherTrouble": "Če imaš še kakšno težavo"
+  "reportSheetOtherTrouble": "Če imaš še kakšno težavo",
+  "commonCouldNotOpenURL": "Ni bilo mogoče odpreti {url}"
 }
