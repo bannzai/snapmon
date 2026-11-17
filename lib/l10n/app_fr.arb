@@ -166,5 +166,6 @@
   "battleLogSuperEffective": "C'est super efficace !",
   "battleLogNotVeryEffective": "Ce n'est pas très efficace",
   "battleLogFainted": "{monsterName} est K.O.",
-  "battleLogStatRose": "La stat {statName} de {monsterName} augmente !"
+  "battleLogStatRose": "La stat {statName} de {monsterName} augmente !",
+  "battleLogStatFell": "La stat {statName} de {monsterName} a baissé"
 }
