@@ -179,5 +179,6 @@
   "battleLogStunned": "{monsterName} a perdu connaissance et ne peut pas bouger",
   "battleLogAsleep": "{monsterName} dort à poings fermés",
   "battleLogFrozenSolid": "La glace empêche {monsterName} de bouger !",
-  "battleLogConfusedMove": "Dans la confusion, {monsterName} a lancé {moveName} au lieu de {selectedMoveName}"
+  "battleLogConfusedMove": "Dans la confusion, {monsterName} a lancé {moveName} au lieu de {selectedMoveName}",
+  "battleLogOneHitKnockout": "K.O. en un coup !"
 }
