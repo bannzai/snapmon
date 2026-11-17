@@ -207,5 +207,6 @@
   "moveTypeSuperEffective": "Надзвичайно ефективно ×{multiplier}",
   "moveTypeNotVeryEffective": "Не дуже ефективно ×{multiplier}",
   "moveDetailAccuracy": "Точність",
-  "moveDetailPriority": "Пріоритет"
+  "moveDetailPriority": "Пріоритет",
+  "moveDetailPriorityValue": "Застосовується першим незалежно від Швидкості"
 }

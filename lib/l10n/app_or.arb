@@ -207,5 +207,6 @@
   "moveTypeSuperEffective": "ଖୁବ୍ ପ୍ରଭାବଶାଳୀ ×{multiplier}",
   "moveTypeNotVeryEffective": "ବେଶି ପ୍ରଭାବଶାଳୀ ନୁହେଁ ×{multiplier}",
   "moveDetailAccuracy": "ସଠିକତା",
-  "moveDetailPriority": "ଅଗ୍ରାଧିକାର"
+  "moveDetailPriority": "ଅଗ୍ରାଧିକାର",
+  "moveDetailPriorityValue": "ବେଗ ଯେତେ ହେଉ, ଏହା ଆଗେ ବ୍ୟବହାର ହୁଏ"
 }

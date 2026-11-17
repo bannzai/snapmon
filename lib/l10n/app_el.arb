@@ -207,5 +207,6 @@
   "moveTypeSuperEffective": "Πολύ αποτελεσματικό ×{multiplier}",
   "moveTypeNotVeryEffective": "Δεν είναι πολύ αποτελεσματικό ×{multiplier}",
   "moveDetailAccuracy": "Ακρίβεια",
-  "moveDetailPriority": "Προτεραιότητα"
+  "moveDetailPriority": "Προτεραιότητα",
+  "moveDetailPriorityValue": "Εκτελείται πρώτο, ανεξάρτητα από την Ταχύτητα"
 }

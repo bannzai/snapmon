@@ -207,5 +207,6 @@
   "moveTypeSuperEffective": "بہت مؤثر ×{multiplier}",
   "moveTypeNotVeryEffective": "زیادہ مؤثر نہیں ×{multiplier}",
   "moveDetailAccuracy": "درستگی",
-  "moveDetailPriority": "ترجیح"
+  "moveDetailPriority": "ترجیح",
+  "moveDetailPriorityValue": "رفتار چاہے جو بھی ہو، یہ پہلے استعمال ہوتا ہے"
 }

@@ -207,5 +207,6 @@
   "moveTypeSuperEffective": "Szuperhatásos ×{multiplier}",
   "moveTypeNotVeryEffective": "Nem túl hatásos ×{multiplier}",
   "moveDetailAccuracy": "Pontosság",
-  "moveDetailPriority": "Elsőbbség"
+  "moveDetailPriority": "Elsőbbség",
+  "moveDetailPriorityValue": "Sebességtől függetlenül elsőként hajtódik végre"
 }

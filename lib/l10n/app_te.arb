@@ -207,5 +207,6 @@
   "moveTypeSuperEffective": "చాలా ప్రభావవంతం ×{multiplier}",
   "moveTypeNotVeryEffective": "అంత ప్రభావవంతంగా లేదు ×{multiplier}",
   "moveDetailAccuracy": "కచ్చితత్వం",
-  "moveDetailPriority": "ప్రాధాన్యం"
+  "moveDetailPriority": "ప్రాధాన్యం",
+  "moveDetailPriorityValue": "వేగం ఎంతైనా, ముందే ఉపయోగిస్తారు"
 }

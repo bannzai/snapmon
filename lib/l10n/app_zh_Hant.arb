@@ -207,5 +207,6 @@
   "moveTypeSuperEffective": "效果絕佳 ×{multiplier}",
   "moveTypeNotVeryEffective": "效果不太好 ×{multiplier}",
   "moveDetailAccuracy": "命中率",
-  "moveDetailPriority": "優先度"
+  "moveDetailPriority": "優先度",
+  "moveDetailPriorityValue": "無論速度如何，都會搶先使出"
 }

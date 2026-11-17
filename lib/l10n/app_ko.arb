@@ -207,5 +207,6 @@
   "moveTypeSuperEffective": "효과가 굉장했다 ×{multiplier}",
   "moveTypeNotVeryEffective": "효과가 별로였다 ×{multiplier}",
   "moveDetailAccuracy": "명중률",
-  "moveDetailPriority": "우선도"
+  "moveDetailPriority": "우선도",
+  "moveDetailPriorityValue": "스피드와 관계없이 먼저 나가요"
 }

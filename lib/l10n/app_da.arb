@@ -207,5 +207,6 @@
   "moveTypeSuperEffective": "Supereffektivt ×{multiplier}",
   "moveTypeNotVeryEffective": "Ikke særlig effektivt ×{multiplier}",
   "moveDetailAccuracy": "Træfsikkerhed",
-  "moveDetailPriority": "Prioritet"
+  "moveDetailPriority": "Prioritet",
+  "moveDetailPriorityValue": "Bruges først uanset hastighed"
 }

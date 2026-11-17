@@ -207,5 +207,6 @@
   "moveTypeSuperEffective": "Erittäin tehokas ×{multiplier}",
   "moveTypeNotVeryEffective": "Ei kovin tehokas ×{multiplier}",
   "moveDetailAccuracy": "Tarkkuus",
-  "moveDetailPriority": "Etusija"
+  "moveDetailPriority": "Etusija",
+  "moveDetailPriorityValue": "Käytetään ensin nopeudesta riippumatta"
 }

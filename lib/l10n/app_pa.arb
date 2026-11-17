@@ -207,5 +207,6 @@
   "moveTypeSuperEffective": "ਬਹੁਤ ਅਸਰਦਾਰ ×{multiplier}",
   "moveTypeNotVeryEffective": "ਬਹੁਤਾ ਅਸਰਦਾਰ ਨਹੀਂ ×{multiplier}",
   "moveDetailAccuracy": "ਸਟੀਕਤਾ",
-  "moveDetailPriority": "ਤਰਜੀਹ"
+  "moveDetailPriority": "ਤਰਜੀਹ",
+  "moveDetailPriorityValue": "ਰਫ਼ਤਾਰ ਭਾਵੇਂ ਜੋ ਵੀ ਹੋਵੇ, ਇਹ ਪਹਿਲਾਂ ਵਰਤੀ ਜਾਂਦੀ ਹੈ"
 }

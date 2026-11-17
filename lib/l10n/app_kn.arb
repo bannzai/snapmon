@@ -207,5 +207,6 @@
   "moveTypeSuperEffective": "ಭಾರಿ ಪರಿಣಾಮಕಾರಿ ×{multiplier}",
   "moveTypeNotVeryEffective": "ಹೆಚ್ಚು ಪರಿಣಾಮಕಾರಿಯಲ್ಲ ×{multiplier}",
   "moveDetailAccuracy": "ನಿಖರತೆ",
-  "moveDetailPriority": "ಆದ್ಯತೆ"
+  "moveDetailPriority": "ಆದ್ಯತೆ",
+  "moveDetailPriorityValue": "ವೇಗ ಏನೇ ಇರಲಿ, ಮೊದಲು ಬಳಸಲಾಗುತ್ತದೆ"
 }

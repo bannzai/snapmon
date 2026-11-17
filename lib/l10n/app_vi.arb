@@ -207,5 +207,6 @@
   "moveTypeSuperEffective": "Cực kỳ hiệu quả ×{multiplier}",
   "moveTypeNotVeryEffective": "Không mấy hiệu quả ×{multiplier}",
   "moveDetailAccuracy": "Độ chính xác",
-  "moveDetailPriority": "Độ ưu tiên"
+  "moveDetailPriority": "Độ ưu tiên",
+  "moveDetailPriorityValue": "Ra đòn trước, bất kể Tốc độ"
 }

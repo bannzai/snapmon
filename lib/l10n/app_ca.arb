@@ -207,5 +207,6 @@
   "moveTypeSuperEffective": "Supereficaç ×{multiplier}",
   "moveTypeNotVeryEffective": "No és gaire eficaç ×{multiplier}",
   "moveDetailAccuracy": "Precisió",
-  "moveDetailPriority": "Prioritat"
+  "moveDetailPriority": "Prioritat",
+  "moveDetailPriorityValue": "S'utilitza primer, sigui quina sigui la velocitat"
 }

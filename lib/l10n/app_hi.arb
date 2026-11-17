@@ -207,5 +207,6 @@
   "moveTypeSuperEffective": "बहुत असरदार ×{multiplier}",
   "moveTypeNotVeryEffective": "ज़्यादा असरदार नहीं ×{multiplier}",
   "moveDetailAccuracy": "सटीकता",
-  "moveDetailPriority": "प्राथमिकता"
+  "moveDetailPriority": "प्राथमिकता",
+  "moveDetailPriorityValue": "स्पीड चाहे जो हो, यह पहले चलता है"
 }

@@ -207,5 +207,6 @@
   "moveTypeSuperEffective": "Sehr effektiv ×{multiplier}",
   "moveTypeNotVeryEffective": "Nicht sehr effektiv ×{multiplier}",
   "moveDetailAccuracy": "Genauigkeit",
-  "moveDetailPriority": "Priorität"
+  "moveDetailPriority": "Priorität",
+  "moveDetailPriorityValue": "Kommt unabhängig von der Initiative zuerst zum Zug"
 }

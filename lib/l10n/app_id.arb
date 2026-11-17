@@ -207,5 +207,6 @@
   "moveTypeSuperEffective": "Sangat efektif ×{multiplier}",
   "moveTypeNotVeryEffective": "Kurang efektif ×{multiplier}",
   "moveDetailAccuracy": "Akurasi",
-  "moveDetailPriority": "Prioritas"
+  "moveDetailPriority": "Prioritas",
+  "moveDetailPriorityValue": "Digunakan lebih dulu, berapa pun Kecepatannya"
 }

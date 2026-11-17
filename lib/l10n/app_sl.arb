@@ -207,5 +207,6 @@
   "moveTypeSuperEffective": "Zelo učinkovito ×{multiplier}",
   "moveTypeNotVeryEffective": "Ni zelo učinkovito ×{multiplier}",
   "moveDetailAccuracy": "Natančnost",
-  "moveDetailPriority": "Prednost"
+  "moveDetailPriority": "Prednost",
+  "moveDetailPriorityValue": "Uporabi se prvi, ne glede na hitrost"
 }

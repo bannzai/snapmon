@@ -207,5 +207,6 @@
   "moveTypeSuperEffective": "فعّال جدًا ×{multiplier}",
   "moveTypeNotVeryEffective": "الفعالية ضعيفة ×{multiplier}",
   "moveDetailAccuracy": "الدقة",
-  "moveDetailPriority": "الأولوية"
+  "moveDetailPriority": "الأولوية",
+  "moveDetailPriorityValue": "يُنفّذ أولًا مهما كانت السرعة"
 }

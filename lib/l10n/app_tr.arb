@@ -207,5 +207,6 @@
   "moveTypeSuperEffective": "Çok etkili ×{multiplier}",
   "moveTypeNotVeryEffective": "Pek etkili değil ×{multiplier}",
   "moveDetailAccuracy": "İsabet",
-  "moveDetailPriority": "Öncelik"
+  "moveDetailPriority": "Öncelik",
+  "moveDetailPriorityValue": "Hız ne olursa olsun önce kullanılır"
 }

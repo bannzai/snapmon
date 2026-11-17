@@ -207,5 +207,6 @@
   "moveTypeSuperEffective": "Super skuteczne ×{multiplier}",
   "moveTypeNotVeryEffective": "Niezbyt skuteczne ×{multiplier}",
   "moveDetailAccuracy": "Celność",
-  "moveDetailPriority": "Priorytet"
+  "moveDetailPriority": "Priorytet",
+  "moveDetailPriorityValue": "Wykonywany jako pierwszy, niezależnie od Szybkości"
 }
