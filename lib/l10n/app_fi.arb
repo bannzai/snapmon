@@ -118,5 +118,6 @@
   "generationStageDecidingElements": "Valitaan elementit ja liikkeet",
   "generationStageBeingBorn": "Hirviö syntyy",
   "generationRejectedExplicitContent": "Tästä kuvasta ei voi luoda hirviötä",
-  "generationRejectedPerson": "Et voi luoda hirviötä kuvasta, jossa näkyy ihminen\nKuvaa vain esineitä"
+  "generationRejectedPerson": "Et voi luoda hirviötä kuvasta, jossa näkyy ihminen\nKuvaa vain esineitä",
+  "generationPersonNoticeTitle": "Kuvassa näkyy henkilö"
 }

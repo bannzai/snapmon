@@ -118,5 +118,6 @@
   "generationStageDecidingElements": "בוחרים סוג ומתקפות",
   "generationStageBeingBorn": "מפלצת נולדת",
   "generationRejectedExplicitContent": "אי אפשר ליצור מפלצת מהתמונה הזו",
-  "generationRejectedPerson": "אי אפשר ליצור מפלצת מתמונה שמופיע בה אדם\nיש לצלם רק חפצים"
+  "generationRejectedPerson": "אי אפשר ליצור מפלצת מתמונה שמופיע בה אדם\nיש לצלם רק חפצים",
+  "generationPersonNoticeTitle": "יש אדם בתמונה"
 }

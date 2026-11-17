@@ -118,5 +118,6 @@
   "generationStageDecidingElements": "ಪ್ರಕಾರಗಳು ಮತ್ತು ತಂತ್ರಗಳನ್ನು ಆಯ್ಕೆ ಮಾಡುತ್ತಿದ್ದೇವೆ",
   "generationStageBeingBorn": "ಒಂದು ಮಾನ್ಸ್ಟರ ಹುಟ್ಟುತ್ತಿದೆ",
   "generationRejectedExplicitContent": "ಈ ಫೋಟೋದಿಂದ ಮಾನ್ಸ್ಟರ್ ಸೃಷ್ಟಿಸಲು ಆಗುವುದಿಲ್ಲ",
-  "generationRejectedPerson": "ವ್ಯಕ್ತಿ ಇರುವ ಫೋಟೋದಿಂದ ಮಾನ್‌ಸ್ಟರ್ ಸೃಷ್ಟಿಸಲು ಆಗುವುದಿಲ್ಲ\nವಸ್ತುಗಳ ಫೋಟೋ ಮಾತ್ರ ತೆಗೆ"
+  "generationRejectedPerson": "ವ್ಯಕ್ತಿ ಇರುವ ಫೋಟೋದಿಂದ ಮಾನ್‌ಸ್ಟರ್ ಸೃಷ್ಟಿಸಲು ಆಗುವುದಿಲ್ಲ\nವಸ್ತುಗಳ ಫೋಟೋ ಮಾತ್ರ ತೆಗೆ",
+  "generationPersonNoticeTitle": "ಫೋಟೋದಲ್ಲಿ ಒಬ್ಬ ವ್ಯಕ್ತಿ ಇದ್ದಾರೆ"
 }

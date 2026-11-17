@@ -118,5 +118,6 @@
   "generationStageDecidingElements": "Memilih elemen dan gerakan",
   "generationStageBeingBorn": "Monster sedang lahir",
   "generationRejectedExplicitContent": "Kamu tak boleh cipta monster daripada foto ini",
-  "generationRejectedPerson": "Kamu tak boleh cipta raksasa daripada foto yang ada orang\nAmbil gambar objek sahaja"
+  "generationRejectedPerson": "Kamu tak boleh cipta raksasa daripada foto yang ada orang\nAmbil gambar objek sahaja",
+  "generationPersonNoticeTitle": "Ada orang dalam foto"
 }

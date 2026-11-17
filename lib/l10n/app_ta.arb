@@ -118,5 +118,6 @@
   "generationStageDecidingElements": "வகைகளும் தாக்குதல்களும் தேர்ந்தெடுக்கப்படுகின்றன",
   "generationStageBeingBorn": "ஒரு மான்ஸ்டர் பிறக்கிறது",
   "generationRejectedExplicitContent": "இந்தப் படத்திலிருந்து மான்ஸ்டர் உருவாக்க முடியாது",
-  "generationRejectedPerson": "மனிதர் இருக்கும் படத்திலிருந்து மான்ஸ்டரை உருவாக்க முடியாது\nபொருட்களை மட்டும் படம் எடுங்கள்"
+  "generationRejectedPerson": "மனிதர் இருக்கும் படத்திலிருந்து மான்ஸ்டரை உருவாக்க முடியாது\nபொருட்களை மட்டும் படம் எடுங்கள்",
+  "generationPersonNoticeTitle": "படத்தில் ஒருவர் இருக்கிறார்"
 }

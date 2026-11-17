@@ -118,5 +118,6 @@
   "generationStageDecidingElements": "Triant elements i moviments",
   "generationStageBeingBorn": "Neix un monstre",
   "generationRejectedExplicitContent": "No es pot crear un monstre amb aquesta foto",
-  "generationRejectedPerson": "No pots crear un monstre amb una foto on surti algú\nFes fotos només d'objectes"
+  "generationRejectedPerson": "No pots crear un monstre amb una foto on surti algú\nFes fotos només d'objectes",
+  "generationPersonNoticeTitle": "Hi surt una persona"
 }

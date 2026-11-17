@@ -118,5 +118,6 @@
   "generationStageDecidingElements": "Biramo elemente i poteze",
   "generationStageBeingBorn": "Rađa se čudovište",
   "generationRejectedExplicitContent": "Od ove fotografije ne možeš stvoriti čudovište",
-  "generationRejectedPerson": "Ne možeš stvoriti čudovište iz fotografije na kojoj je osoba\nFotografiraj samo predmete"
+  "generationRejectedPerson": "Ne možeš stvoriti čudovište iz fotografije na kojoj je osoba\nFotografiraj samo predmete",
+  "generationPersonNoticeTitle": "Na fotografiji je osoba"
 }

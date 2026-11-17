@@ -118,5 +118,6 @@
   "generationStageDecidingElements": "Velger typer og angrep",
   "generationStageBeingBorn": "Et monster blir født",
   "generationRejectedExplicitContent": "Du kan ikke lage et monster av dette bildet",
-  "generationRejectedPerson": "Du kan ikke lage et monster av et bilde med personer\nTa bare bilder av ting"
+  "generationRejectedPerson": "Du kan ikke lage et monster av et bilde med personer\nTa bare bilder av ting",
+  "generationPersonNoticeTitle": "Det er en person på bildet"
 }

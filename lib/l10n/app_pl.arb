@@ -118,5 +118,6 @@
   "generationStageDecidingElements": "Wybieramy typy i ruchy",
   "generationStageBeingBorn": "Rodzi się potwór",
   "generationRejectedExplicitContent": "Z tego zdjęcia nie da się stworzyć potwora",
-  "generationRejectedPerson": "Nie stworzysz potwora ze zdjęcia, na którym jest człowiek\nFotografuj tylko przedmioty"
+  "generationRejectedPerson": "Nie stworzysz potwora ze zdjęcia, na którym jest człowiek\nFotografuj tylko przedmioty",
+  "generationPersonNoticeTitle": "Na zdjęciu jest osoba"
 }

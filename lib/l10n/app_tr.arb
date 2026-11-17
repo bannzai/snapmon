@@ -118,5 +118,6 @@
   "generationStageDecidingElements": "Elementleri ve hamleleri seçiyoruz",
   "generationStageBeingBorn": "Bir canavar doğuyor",
   "generationRejectedExplicitContent": "Bu fotoğraftan canavar oluşturamazsın",
-  "generationRejectedPerson": "İnsan görünen bir fotoğraftan canavar oluşturamazsın\nYalnızca eşyaların fotoğrafını çek"
+  "generationRejectedPerson": "İnsan görünen bir fotoğraftan canavar oluşturamazsın\nYalnızca eşyaların fotoğrafını çek",
+  "generationPersonNoticeTitle": "Fotoğrafta bir kişi var"
 }

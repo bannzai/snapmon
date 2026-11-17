@@ -118,5 +118,6 @@
   "generationStageDecidingElements": "Đang chọn hệ và chiêu",
   "generationStageBeingBorn": "Một quái vật đang ra đời",
   "generationRejectedExplicitContent": "Không thể tạo quái vật từ ảnh này",
-  "generationRejectedPerson": "Bạn không thể tạo quái vật từ ảnh có người\nChỉ chụp đồ vật thôi"
+  "generationRejectedPerson": "Bạn không thể tạo quái vật từ ảnh có người\nChỉ chụp đồ vật thôi",
+  "generationPersonNoticeTitle": "Có người trong ảnh"
 }

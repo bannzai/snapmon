@@ -118,5 +118,6 @@
   "generationStageDecidingElements": "Elemente und Attacken werden ausgewählt",
   "generationStageBeingBorn": "Ein Monster wird geboren",
   "generationRejectedExplicitContent": "Aus diesem Foto lässt sich kein Monster erschaffen",
-  "generationRejectedPerson": "Aus Fotos mit Personen kannst du keine Monster erschaffen\nFotografiere nur Gegenstände"
+  "generationRejectedPerson": "Aus Fotos mit Personen kannst du keine Monster erschaffen\nFotografiere nur Gegenstände",
+  "generationPersonNoticeTitle": "Eine Person ist auf dem Foto"
 }

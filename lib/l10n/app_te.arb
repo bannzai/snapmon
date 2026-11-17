@@ -118,5 +118,6 @@
   "generationStageDecidingElements": "మూలకాలు, మూవ్‌లు ఎంచుకుంటున్నాం",
   "generationStageBeingBorn": "ఒక మాన్స్టర్ పుడుతోంది",
   "generationRejectedExplicitContent": "ఈ ఫోటోతో మాన్స్టర్‌ను సృష్టించలేం",
-  "generationRejectedPerson": "మనిషి ఉన్న ఫోటో నుంచి మాన్‌స్టర్‌ను సృష్టించలేవు\nవస్తువుల ఫోటోలు మాత్రమే తీయి"
+  "generationRejectedPerson": "మనిషి ఉన్న ఫోటో నుంచి మాన్‌స్టర్‌ను సృష్టించలేవు\nవస్తువుల ఫోటోలు మాత్రమే తీయి",
+  "generationPersonNoticeTitle": "ఫోటోలో ఒక వ్యక్తి ఉన్నారు"
 }

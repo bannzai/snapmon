@@ -118,5 +118,6 @@
   "generationStageDecidingElements": "正在决定属性和招式",
   "generationStageBeingBorn": "怪物即将诞生",
   "generationRejectedExplicitContent": "无法用这张照片创造怪物",
-  "generationRejectedPerson": "有人的照片无法生成怪兽\n请只拍摄物品"
+  "generationRejectedPerson": "有人的照片无法生成怪兽\n请只拍摄物品",
+  "generationPersonNoticeTitle": "照片里有人"
 }

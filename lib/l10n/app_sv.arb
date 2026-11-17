@@ -118,5 +118,6 @@
   "generationStageDecidingElements": "Väljer element och attacker",
   "generationStageBeingBorn": "Ett monster föds",
   "generationRejectedExplicitContent": "Du kan inte skapa ett monster av det här fotot",
-  "generationRejectedPerson": "Du kan inte skapa ett monster av ett foto där någon syns\nFotografera bara föremål"
+  "generationRejectedPerson": "Du kan inte skapa ett monster av ett foto där någon syns\nFotografera bara föremål",
+  "generationPersonNoticeTitle": "Det finns en person på bilden"
 }

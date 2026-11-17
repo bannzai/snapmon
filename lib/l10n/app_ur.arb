@@ -118,5 +118,6 @@
   "generationStageDecidingElements": "ٹائپ اور چالیں چن رہے ہیں",
   "generationStageBeingBorn": "ایک مونسٹر جنم لے رہا ہے",
   "generationRejectedExplicitContent": "اس تصویر سے مونسٹر نہیں بنایا جا سکتا",
-  "generationRejectedPerson": "جس تصویر میں کوئی شخص ہو، اس سے مونسٹر نہیں بنا سکتے\nصرف چیزوں کی تصویر کھینچو"
+  "generationRejectedPerson": "جس تصویر میں کوئی شخص ہو، اس سے مونسٹر نہیں بنا سکتے\nصرف چیزوں کی تصویر کھینچو",
+  "generationPersonNoticeTitle": "تصویر میں ایک شخص ہے"
 }

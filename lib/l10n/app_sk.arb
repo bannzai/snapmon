@@ -118,5 +118,6 @@
   "generationStageDecidingElements": "Vyberáme elementy a útoky",
   "generationStageBeingBorn": "Rodí sa príšera",
   "generationRejectedExplicitContent": "Z tejto fotky sa nedá vytvoriť príšera",
-  "generationRejectedPerson": "Z fotky, na ktorej je človek, príšeru nevytvoríš\nFoť len predmety"
+  "generationRejectedPerson": "Z fotky, na ktorej je človek, príšeru nevytvoríš\nFoť len predmety",
+  "generationPersonNoticeTitle": "Na fotke je človek"
 }

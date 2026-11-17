@@ -118,5 +118,6 @@
   "generationStageDecidingElements": "Eligiendo elementos y movimientos",
   "generationStageBeingBorn": "Está naciendo un monstruo",
   "generationRejectedExplicitContent": "No se puede crear un monstruo con esta foto",
-  "generationRejectedPerson": "No puedes crear un monstruo con una foto en la que salga alguien\nFotografía solo objetos"
+  "generationRejectedPerson": "No puedes crear un monstruo con una foto en la que salga alguien\nFotografía solo objetos",
+  "generationPersonNoticeTitle": "Hay una persona en la foto"
 }

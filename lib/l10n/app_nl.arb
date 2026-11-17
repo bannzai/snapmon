@@ -118,5 +118,6 @@
   "generationStageDecidingElements": "Types en aanvallen kiezen",
   "generationStageBeingBorn": "Er wordt een monster geboren",
   "generationRejectedExplicitContent": "Je kunt van deze foto geen monster maken",
-  "generationRejectedPerson": "Je kunt geen monster maken van een foto waar iemand op staat\nFotografeer alleen voorwerpen"
+  "generationRejectedPerson": "Je kunt geen monster maken van een foto waar iemand op staat\nFotografeer alleen voorwerpen",
+  "generationPersonNoticeTitle": "Er staat een persoon op de foto"
 }

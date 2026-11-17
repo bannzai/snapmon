@@ -118,5 +118,6 @@
   "generationStageDecidingElements": "तत्त्वं आणि चाली निवडत आहोत",
   "generationStageBeingBorn": "एक मॉन्स्टर जन्माला येत आहे",
   "generationRejectedExplicitContent": "या फोटोतून मॉन्स्टर बनवता येणार नाही",
-  "generationRejectedPerson": "माणूस दिसत असलेल्या फोटोमधून मॉन्स्टर बनवता येणार नाही\nफक्त वस्तूंचे फोटो काढ"
+  "generationRejectedPerson": "माणूस दिसत असलेल्या फोटोमधून मॉन्स्टर बनवता येणार नाही\nफक्त वस्तूंचे फोटो काढ",
+  "generationPersonNoticeTitle": "फोटोमध्ये एक व्यक्ती आहे"
 }

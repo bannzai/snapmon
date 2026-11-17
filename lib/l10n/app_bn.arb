@@ -118,5 +118,6 @@
   "generationStageDecidingElements": "এলিমেন্ট আর কৌশল বেছে নেওয়া হচ্ছে",
   "generationStageBeingBorn": "একটি মনস্টার জন্ম নিচ্ছে",
   "generationRejectedExplicitContent": "এই ছবি থেকে মনস্টার বানানো যাবে না",
-  "generationRejectedPerson": "মানুষ আছে এমন ছবি থেকে মনস্টার বানানো যাবে না\nশুধু জিনিসপত্রের ছবি তোলো"
+  "generationRejectedPerson": "মানুষ আছে এমন ছবি থেকে মনস্টার বানানো যাবে না\nশুধু জিনিসপত্রের ছবি তোলো",
+  "generationPersonNoticeTitle": "ছবিতে একজন মানুষ আছে"
 }

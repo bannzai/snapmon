@@ -118,5 +118,6 @@
   "generationStageDecidingElements": "속성과 기술을 정하고 있어요",
   "generationStageBeingBorn": "몬스터가 태어나고 있어요",
   "generationRejectedExplicitContent": "이 사진으로는 몬스터를 만들 수 없어요",
-  "generationRejectedPerson": "사람이 나온 사진으로는 몬스터를 만들 수 없어요\n물건만 찍어 주세요"
+  "generationRejectedPerson": "사람이 나온 사진으로는 몬스터를 만들 수 없어요\n물건만 찍어 주세요",
+  "generationPersonNoticeTitle": "사진에 사람이 있어요"
 }

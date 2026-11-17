@@ -118,5 +118,6 @@
   "generationStageDecidingElements": "Izbiramo elemente in poteze",
   "generationStageBeingBorn": "Raja se pošast",
   "generationRejectedExplicitContent": "Iz te fotografije ne moreš ustvariti pošasti",
-  "generationRejectedPerson": "Iz fotografije, na kateri je človek, ne moreš ustvariti pošasti\nFotografiraj samo predmete"
+  "generationRejectedPerson": "Iz fotografije, na kateri je človek, ne moreš ustvariti pošasti\nFotografiraj samo predmete",
+  "generationPersonNoticeTitle": "Na fotografiji je oseba"
 }

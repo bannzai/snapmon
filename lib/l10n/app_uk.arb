@@ -118,5 +118,6 @@
   "generationStageDecidingElements": "Обираємо елементи й прийоми",
   "generationStageBeingBorn": "Народжується монстр",
   "generationRejectedExplicitContent": "Із цього фото не вийде створити монстра",
-  "generationRejectedPerson": "Не можна створити монстра з фото, на якому є людина\nФотографуй лише предмети"
+  "generationRejectedPerson": "Не можна створити монстра з фото, на якому є людина\nФотографуй лише предмети",
+  "generationPersonNoticeTitle": "На фото є людина"
 }
