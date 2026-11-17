@@ -76,7 +76,7 @@ class DeveloperMenuScreen extends StatelessWidget {
 
   /// [monsterGenerator] の OS の切り出しだけを、写真の中央の短辺いっぱいの正方形を被写体として返すものに替えた [MonsterGenerator]。
   /// Simulator では Vision の前景のマスクが返らず (#242 の simtunnel で確かめた)、OS の切り出しが被写体を見つけた時の画面
-  /// (切り抜くかを選ぶ画面) に届かないため、被写体が見つかったことにして確かめる。
+  /// (範囲を決める画面の被写体だけを切り抜く切り替え) に届かないため、被写体が見つかったことにして確かめる。
   MonsterGenerator _monsterGeneratorWithSubjectFound() => MonsterGenerator(
     listCameras: monsterGenerator.listCameras,
     openAppSettings: monsterGenerator.openAppSettings,
@@ -276,14 +276,14 @@ class DeveloperMenuScreen extends StatelessWidget {
               ).whenComplete(sampleGenerationTickets.close);
             },
           ),
-          // アルバムのファイル選択を自動の操作で通しにくい Web (webtunnel) と Simulator で、切り抜くかを選ぶ画面と範囲を決める画面を確かめるため
+          // アルバムのファイル選択を自動の操作で通しにくい Web (webtunnel) と Simulator で、範囲を決める画面を確かめるため
           ListTile(
             leading: const Icon(Icons.crop_outlined),
             title: Text(
               '見本の写真から範囲を決めて生成: ${_samplePhotoAssetPaths.keys.first}',
             ),
             subtitle: const Text(
-              'アルバムから選んだ時と同じく 自動の切り出しで被写体が見つかれば切り抜くかを選ぶ画面を\n見つからない・使えない時は範囲を決める画面を出す',
+              'アルバムから選んだ時と同じく 範囲を決める画面を出す\n自動の切り出しで被写体が見つかれば 被写体だけを切り抜く切り替えも出る',
             ),
             onTap: () => _generateFromSamplePhoto(
               context: context,
@@ -292,14 +292,14 @@ class DeveloperMenuScreen extends StatelessWidget {
               generator: monsterGenerator,
             ),
           ),
-          // Simulator では Vision の前景のマスクが返らないため、被写体が見つかった時の切り抜くかを選ぶ画面を確かめる
+          // Simulator では Vision の前景のマスクが返らないため、被写体が見つかった時の被写体だけを切り抜く切り替えを確かめる
           ListTile(
             leading: const Icon(Icons.content_cut_outlined),
             title: Text(
               '見本の写真から切り抜くかを選んで生成: ${_samplePhotoAssetPaths.keys.first}',
             ),
             subtitle: const Text(
-              '写真の中央の正方形を自動の切り出しが見つけた被写体として\n切り抜くかを選ぶ画面を出す\n切り抜いた絵で作ると 正方形のマスクが ios_subject として生成のレコードに残る',
+              '写真の中央の正方形を自動の切り出しが見つけた被写体として\n範囲を決める画面に被写体だけを切り抜く切り替えを出す\n切り抜いた絵で作ると 正方形のマスクが ios_subject として生成のレコードに残る',
             ),
             onTap: () => _generateFromSamplePhoto(
               context: context,
