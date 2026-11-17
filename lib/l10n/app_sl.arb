@@ -289,5 +289,6 @@
   "actionCardAssignTitle": "Potez, ki ga dobiš s to Action Card",
   "actionCardAssignNoMoves": "Ni potezov za prejem",
   "actionCardAssigned": "Dobil si napad {moveName}",
-  "actionCardFilterAll": "Vse"
+  "actionCardFilterAll": "Vse",
+  "actionCardOwnedHeading": "Kupljeni potezi"
 }

@@ -289,5 +289,6 @@
   "actionCardAssignTitle": "Приём, который ты получишь с этой Action Card",
   "actionCardAssignNoMoves": "Нет приёмов, которые можно получить",
   "actionCardAssigned": "Ты получил приём {moveName}",
-  "actionCardFilterAll": "Все"
+  "actionCardFilterAll": "Все",
+  "actionCardOwnedHeading": "Купленные приёмы"
 }

@@ -289,5 +289,6 @@
   "actionCardAssignTitle": "આ Action Cardથી તમને મળતી ચાલ",
   "actionCardAssignNoMoves": "મેળવવા માટે કોઈ ચાલ નથી",
   "actionCardAssigned": "તમને નવી ચાલ મળી: {moveName}",
-  "actionCardFilterAll": "બધા"
+  "actionCardFilterAll": "બધા",
+  "actionCardOwnedHeading": "ખરીદેલી ચાલ"
 }

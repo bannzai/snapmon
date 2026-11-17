@@ -289,5 +289,6 @@
   "actionCardAssignTitle": "Angreb, du får med dette Action Card",
   "actionCardAssignNoMoves": "Ingen angreb at modtage",
   "actionCardAssigned": "Du fik angrebet {moveName}",
-  "actionCardFilterAll": "Alle"
+  "actionCardFilterAll": "Alle",
+  "actionCardOwnedHeading": "Købte angreb"
 }

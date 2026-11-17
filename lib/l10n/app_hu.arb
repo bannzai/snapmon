@@ -289,5 +289,6 @@
   "actionCardAssignTitle": "Támadás, amit ezzel az Action Carddal kapsz",
   "actionCardAssignNoMoves": "Nincs megszerezhető támadás",
   "actionCardAssigned": "Megkaptad a {moveName} támadást",
-  "actionCardFilterAll": "Összes"
+  "actionCardFilterAll": "Összes",
+  "actionCardOwnedHeading": "Megvásárolt támadások"
 }

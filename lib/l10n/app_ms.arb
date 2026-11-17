@@ -289,5 +289,6 @@
   "actionCardAssignTitle": "Gerakan yang kamu dapat dengan Action Card ini",
   "actionCardAssignNoMoves": "Tiada gerakan untuk diterima",
   "actionCardAssigned": "Kamu dapat gerakan {moveName}",
-  "actionCardFilterAll": "Semua"
+  "actionCardFilterAll": "Semua",
+  "actionCardOwnedHeading": "Gerakan yang dibeli"
 }

@@ -289,5 +289,6 @@
   "actionCardAssignTitle": "Прийом, який ти отримаєш із цією Action Card",
   "actionCardAssignNoMoves": "Немає прийомів, які можна отримати",
   "actionCardAssigned": "Ти отримав прийом {moveName}",
-  "actionCardFilterAll": "Усі"
+  "actionCardFilterAll": "Усі",
+  "actionCardOwnedHeading": "Куплені прийоми"
 }

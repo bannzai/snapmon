@@ -289,5 +289,6 @@
   "actionCardAssignTitle": "Potez koji dobivaš ovom Action Card",
   "actionCardAssignNoMoves": "Nema poteza za primanje",
   "actionCardAssigned": "Dobio si potez {moveName}",
-  "actionCardFilterAll": "Sve"
+  "actionCardFilterAll": "Sve",
+  "actionCardOwnedHeading": "Kupljeni potezi"
 }

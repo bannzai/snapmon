@@ -289,5 +289,6 @@
   "actionCardAssignTitle": "Liike, jonka saat tällä Action Cardilla",
   "actionCardAssignNoMoves": "Ei vastaanotettavia liikkeitä",
   "actionCardAssigned": "Sait liikkeen {moveName}",
-  "actionCardFilterAll": "Kaikki"
+  "actionCardFilterAll": "Kaikki",
+  "actionCardOwnedHeading": "Ostetut liikkeet"
 }

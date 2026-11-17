@@ -289,5 +289,6 @@
   "actionCardAssignTitle": "الحركة التي تحصل عليها بهذه Action Card",
   "actionCardAssignNoMoves": "لا توجد حركات يمكنك الحصول عليها",
   "actionCardAssigned": "حصلت على الحركة: {moveName}",
-  "actionCardFilterAll": "الكل"
+  "actionCardFilterAll": "الكل",
+  "actionCardOwnedHeading": "الحركات المشتراة"
 }

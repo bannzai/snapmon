@@ -289,5 +289,6 @@
   "actionCardAssignTitle": "ଏହି Action Cardରୁ ମିଳିବା ଚାଲ",
   "actionCardAssignNoMoves": "ପାଇବାକୁ କୌଣସି ଚାଲ ନାହିଁ",
   "actionCardAssigned": "ନୂଆ ଚାଲ ମିଳିଲା: {moveName}",
-  "actionCardFilterAll": "ସବୁ"
+  "actionCardFilterAll": "ସବୁ",
+  "actionCardOwnedHeading": "କିଣିଥିବା ଚାଲ"
 }

@@ -289,5 +289,6 @@
   "actionCardAssignTitle": "Moviment que obtindràs amb aquesta Action Card",
   "actionCardAssignNoMoves": "No hi ha cap moviment per rebre",
   "actionCardAssigned": "Has rebut el moviment {moveName}",
-  "actionCardFilterAll": "Tots"
+  "actionCardFilterAll": "Tots",
+  "actionCardOwnedHeading": "Moviments comprats"
 }

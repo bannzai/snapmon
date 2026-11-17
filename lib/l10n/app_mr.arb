@@ -289,5 +289,6 @@
   "actionCardAssignTitle": "या Action Card मधून मिळणारी चाल",
   "actionCardAssignNoMoves": "मिळवण्यासाठी कोणतीही चाल नाही",
   "actionCardAssigned": "तुला नवा डाव मिळाला: {moveName}",
-  "actionCardFilterAll": "सर्व"
+  "actionCardFilterAll": "सर्व",
+  "actionCardOwnedHeading": "विकत घेतलेल्या चाली"
 }

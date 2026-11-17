@@ -289,5 +289,6 @@
   "actionCardAssignTitle": "ఈ Action Cardతో పొందే మూవ్",
   "actionCardAssignNoMoves": "అందుకోవడానికి మూవ్‌లు లేవు",
   "actionCardAssigned": "కొత్త ఎత్తుగడ దొరికింది: {moveName}",
-  "actionCardFilterAll": "అన్నీ"
+  "actionCardFilterAll": "అన్నీ",
+  "actionCardOwnedHeading": "కొన్న మూవ్‌లు"
 }

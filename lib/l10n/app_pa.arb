@@ -289,5 +289,6 @@
   "actionCardAssignTitle": "ਇਸ Action Card ਨਾਲ ਮਿਲਣ ਵਾਲੀ ਚਾਲ",
   "actionCardAssignNoMoves": "ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਕੋਈ ਚਾਲ ਨਹੀਂ",
   "actionCardAssigned": "ਤੁਹਾਨੂੰ ਨਵੀਂ ਚਾਲ ਮਿਲੀ: {moveName}",
-  "actionCardFilterAll": "ਸਾਰੇ"
+  "actionCardFilterAll": "ਸਾਰੇ",
+  "actionCardOwnedHeading": "ਖਰੀਦੀਆਂ ਚਾਲਾਂ"
 }

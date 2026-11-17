@@ -289,5 +289,6 @@
   "actionCardAssignTitle": "Ruch, który dostaniesz dzięki tej Action Card",
   "actionCardAssignNoMoves": "Brak ruchów do odebrania",
   "actionCardAssigned": "Zdobywasz atak {moveName}",
-  "actionCardFilterAll": "Wszystkie"
+  "actionCardFilterAll": "Wszystkie",
+  "actionCardOwnedHeading": "Kupione ruchy"
 }

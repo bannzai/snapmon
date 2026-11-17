@@ -289,5 +289,6 @@
   "actionCardAssignTitle": "Útok, ktorý získaš s touto Action Card",
   "actionCardAssignNoMoves": "Nemáš žiadny útok na získanie",
   "actionCardAssigned": "Získal si útok {moveName}",
-  "actionCardFilterAll": "Všetky"
+  "actionCardFilterAll": "Všetky",
+  "actionCardOwnedHeading": "Kúpené útoky"
 }

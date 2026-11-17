@@ -289,5 +289,6 @@
   "actionCardAssignTitle": "Angrep du får med dette Action Card",
   "actionCardAssignNoMoves": "Ingen angrep å motta",
   "actionCardAssigned": "Du fikk angrepet {moveName}",
-  "actionCardFilterAll": "Alle"
+  "actionCardFilterAll": "Alle",
+  "actionCardOwnedHeading": "Kjøpte angrep"
 }
