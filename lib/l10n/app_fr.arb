@@ -130,5 +130,6 @@
   "generationChooseRangeTitle": "Zone à transformer en monstre",
   "generationChooseRangeMessage": "Fais glisser le cadre autour du sujet\nAjuste sa taille avec le curseur ci-dessous ou avec deux doigts",
   "generationAutoCutoutUnavailable": "Découpe automatique indisponible",
-  "generationCreateWithRange": "Créer avec cette zone"
+  "generationCreateWithRange": "Créer avec cette zone",
+  "generationCropSizeLabel": "Taille du cadre"
 }
