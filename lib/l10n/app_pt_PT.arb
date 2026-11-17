@@ -317,5 +317,6 @@
   "helpLevelBody": "Quer ganhes ou percas, os monstros que lutaram sobem de nível\nAo subir de nível, aprendem novos golpes",
   "helpTypeHeading": "Eficácia dos elementos (fraquezas)",
   "helpTypeBody": "O dano depende do elemento do golpe e do elemento do adversário\nEscolhe um golpe do elemento a que o adversário é vulnerável para causar muito dano\nA seta no botão do golpe mostra a eficácia contra o adversário atual",
-  "helpTypeSuperEffective": "É supereficaz! Dano ×2"
+  "helpTypeSuperEffective": "É supereficaz! Dano ×2",
+  "helpTypeNotVeryEffective": "Não é muito eficaz, dano ×0.5"
 }

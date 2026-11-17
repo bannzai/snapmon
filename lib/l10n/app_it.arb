@@ -317,5 +317,6 @@
   "helpLevelBody": "Che tu vinca o perda, i mostri che hanno lottato salgono di livello\nSalendo di livello, imparano nuove mosse",
   "helpTypeHeading": "Efficacia degli elementi (debolezze)",
   "helpTypeBody": "Il danno dipende dall’elemento della mossa e dall’elemento dell’avversario\nScegli una mossa dell’elemento a cui l’avversario è debole per infliggere molti danni\nLa freccia sul pulsante della mossa indica la sua efficacia contro l’avversario attuale",
-  "helpTypeSuperEffective": "È superefficace! Danni ×2"
+  "helpTypeSuperEffective": "È superefficace! Danni ×2",
+  "helpTypeNotVeryEffective": "Non è molto efficace, danni ×0.5"
 }

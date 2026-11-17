@@ -317,5 +317,6 @@
   "helpLevelBody": "Guanyis o perdis, els monstres que han lluitat pugen de nivell\nEn pujar de nivell, aprenen moviments nous",
   "helpTypeHeading": "Eficàcia dels elements (punts febles)",
   "helpTypeBody": "El dany depèn de l’element del moviment i del rival\nTria un moviment d’un element que sigui el punt feble del rival per fer molt de mal\nLa fletxa del botó del moviment mostra l’eficàcia contra el rival actual",
-  "helpTypeSuperEffective": "És supereficaç! Dany ×2"
+  "helpTypeSuperEffective": "És supereficaç! Dany ×2",
+  "helpTypeNotVeryEffective": "No és gaire eficaç, dany ×0.5"
 }

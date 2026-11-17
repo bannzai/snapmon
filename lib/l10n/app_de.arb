@@ -317,5 +317,6 @@
   "helpLevelBody": "Ob du gewinnst oder verlierst: Monster, die gekämpft haben, steigen im Level auf\nBeim Levelaufstieg lernen sie neue Attacken",
   "helpTypeHeading": "Element-Effektivität (Schwächen)",
   "helpTypeBody": "Der Schaden hängt vom Element der Attacke und vom Element des Gegners ab\nWähle eine Attacke mit einem Element, gegen das der Gegner schwach ist, und richte großen Schaden an\nDer Pfeil auf der Attacken-Taste zeigt ihre Effektivität gegen den aktuellen Gegner",
-  "helpTypeSuperEffective": "Sehr effektiv! Schaden ×2"
+  "helpTypeSuperEffective": "Sehr effektiv! Schaden ×2",
+  "helpTypeNotVeryEffective": "Nicht sehr effektiv, Schaden ×0.5"
 }

@@ -317,5 +317,6 @@
   "helpLevelBody": "Ať vyhraješ, nebo prohraješ, příšery, které bojovaly, získají úroveň\nS novou úrovní se naučí nové útoky",
   "helpTypeHeading": "Účinnost elementů (slabiny)",
   "helpTypeBody": "Poškození závisí na elementu útoku a elementu soupeře\nVyber útok s elementem, na který je soupeř slabý, a způsobíš velké poškození\nŠipka na tlačítku útoku ukazuje jeho účinnost proti současnému soupeři",
-  "helpTypeSuperEffective": "Je to superúčinné! Poškození ×2"
+  "helpTypeSuperEffective": "Je to superúčinné! Poškození ×2",
+  "helpTypeNotVeryEffective": "Není to moc účinné, poškození ×0.5"
 }

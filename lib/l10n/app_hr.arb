@@ -317,5 +317,6 @@
   "helpLevelBody": "Pobijediš li ili izgubiš, čudovišta koja su se borila rastu u razini\nKad im razina poraste, uče nove poteze",
   "helpTypeHeading": "Učinkovitost elemenata (slabosti)",
   "helpTypeBody": "Šteta ovisi o elementu poteza i elementu protivnika\nOdaberi potez s elementom na koji je protivnik slab za veliku štetu\nStrelica na gumbu poteza pokazuje njegovu učinkovitost protiv trenutačnog protivnika",
-  "helpTypeSuperEffective": "Superučinkovito! Šteta ×2"
+  "helpTypeSuperEffective": "Superučinkovito! Šteta ×2",
+  "helpTypeNotVeryEffective": "Nije baš učinkovito, šteta ×0.5"
 }

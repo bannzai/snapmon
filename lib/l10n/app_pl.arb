@@ -317,5 +317,6 @@
   "helpLevelBody": "Wygrasz czy przegrasz, potwory, które walczyły, awansują na wyższy poziom\nGdy awansują, uczą się nowych ruchów",
   "helpTypeHeading": "Skuteczność typów (słabości)",
   "helpTypeBody": "Obrażenia zależą od typu ruchu i typu przeciwnika\nWybierz ruch typu, na który przeciwnik jest słaby, by zadać duże obrażenia\nStrzałka na przycisku ruchu pokazuje jego skuteczność przeciw obecnemu przeciwnikowi",
-  "helpTypeSuperEffective": "To super skuteczne! Obrażenia ×2"
+  "helpTypeSuperEffective": "To super skuteczne! Obrażenia ×2",
+  "helpTypeNotVeryEffective": "Niezbyt skuteczne, obrażenia ×0.5"
 }

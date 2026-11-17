@@ -317,5 +317,6 @@
   "helpLevelBody": "Če zmagaš ali izgubiš, pošasti, ki so se borile, napredujejo na novo stopnjo\nNa novi stopnji se naučijo novih potez",
   "helpTypeHeading": "Učinkovitost elementov (šibkosti)",
   "helpTypeBody": "Škoda je odvisna od elementa poteza in elementa nasprotnika\nIzberi potez z elementom, na katerega je nasprotnik šibek, in povzroči veliko škode\nPuščica na gumbu poteza kaže njegovo učinkovitost proti trenutnemu nasprotniku",
-  "helpTypeSuperEffective": "Zelo učinkovito! Škoda ×2"
+  "helpTypeSuperEffective": "Zelo učinkovito! Škoda ×2",
+  "helpTypeNotVeryEffective": "Ni zelo učinkovito, škoda ×0.5"
 }

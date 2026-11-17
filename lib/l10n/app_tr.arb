@@ -317,5 +317,6 @@
   "helpLevelBody": "Kazansan da kaybetsen de savaşan canavarların seviyesi yükselir\nSeviye atlayınca yeni hamleler öğrenirler",
   "helpTypeHeading": "Element uyumu (zayıflıklar)",
   "helpTypeBody": "Hasar, hamlenin elementiyle rakibin elementine göre değişir\nRakibin zayıf olduğu elementten bir hamle seçerek büyük hasar ver\nHamle düğmesindeki ok, mevcut rakibe karşı uyumu gösterir",
-  "helpTypeSuperEffective": "Çok etkili! Hasar ×2"
+  "helpTypeSuperEffective": "Çok etkili! Hasar ×2",
+  "helpTypeNotVeryEffective": "Pek etkili değil, hasar ×0.5"
 }
