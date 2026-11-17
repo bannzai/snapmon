@@ -113,5 +113,6 @@
   "generationStagePreparingPhoto": "On prépare ta photo",
   "generationStageUploadingPhoto": "Envoi de la photo en cours",
   "generationStageCheckingPhoto": "Vérification de ta photo en cours",
-  "generationStageCuttingOut": "Détourage du sujet en cours"
+  "generationStageCuttingOut": "Détourage du sujet en cours",
+  "generationStageWritingName": "On imagine un nom et une description pour le dex"
 }
