@@ -173,5 +173,6 @@
   "battleLogNoEffect": "Mais rien ne s’est passé !",
   "battleStatModifier": "{statName} ×{multiplier}",
   "battleLogSwitchedIn": "{monsterName} entre en scène !",
-  "battleLogSwitchedOut": "{withdrawnMonsterName} cède sa place à {monsterName} !"
+  "battleLogSwitchedOut": "{withdrawnMonsterName} cède sa place à {monsterName} !",
+  "battleLogMissed": "Mais l’attaque a raté !"
 }
