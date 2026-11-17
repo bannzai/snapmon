@@ -46,5 +46,6 @@
   "settingsSwitchAccountTitle": "Tu veux passer à ton compte déjà associé ?",
   "settingsSwitchAccountMessage": "Ce compte {providerName} est déjà lié à un autre appareil. Si tu y passes, le dex de cet appareil (monstres : {monsterCount}) sera effacé et tu retrouveras le dex du compte lié.",
   "settingsSwitchAccountConfirm": "Changer de compte",
-  "settingsSwitchedAccount": "Tu es passé à un compte déjà associé"
+  "settingsSwitchedAccount": "Tu es passé à un compte déjà associé",
+  "settingsDeleteAccountTitle": "Supprimer ton compte ?"
 }
