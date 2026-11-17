@@ -165,5 +165,6 @@
   "battleStruggle": "Lutte",
   "battleLogSuperEffective": "C'est super efficace !",
   "battleLogNotVeryEffective": "Ce n'est pas très efficace",
-  "battleLogFainted": "{monsterName} est K.O."
+  "battleLogFainted": "{monsterName} est K.O.",
+  "battleLogStatRose": "La stat {statName} de {monsterName} augmente !"
 }
