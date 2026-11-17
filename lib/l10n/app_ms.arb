@@ -202,5 +202,6 @@
   "statusConditionConfusion": "Keliru",
   "statusConditionDizzy": "Pening",
   "statusConditionExcited": "Teruja",
-  "statusConditionFrozen": "Beku"
+  "statusConditionFrozen": "Beku",
+  "statusConditionSwitchBlocked": "Tak boleh ditukar"
 }

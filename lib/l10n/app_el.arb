@@ -202,5 +202,6 @@
   "statusConditionConfusion": "Σύγχυση",
   "statusConditionDizzy": "Ζάλη",
   "statusConditionExcited": "Ενθουσιασμός",
-  "statusConditionFrozen": "Παγωμένο"
+  "statusConditionFrozen": "Παγωμένο",
+  "statusConditionSwitchBlocked": "Δεν μπορεί να αλλάξει"
 }

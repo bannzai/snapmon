@@ -202,5 +202,6 @@
   "statusConditionConfusion": "भ्रम",
   "statusConditionDizzy": "चक्कर",
   "statusConditionExcited": "जोश",
-  "statusConditionFrozen": "जमा हुआ"
+  "statusConditionFrozen": "जमा हुआ",
+  "statusConditionSwitchBlocked": "बदला नहीं जा सकता"
 }

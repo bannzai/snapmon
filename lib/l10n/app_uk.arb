@@ -202,5 +202,6 @@
   "statusConditionConfusion": "Збентеження",
   "statusConditionDizzy": "Запаморочення",
   "statusConditionExcited": "Збудження",
-  "statusConditionFrozen": "Замороження"
+  "statusConditionFrozen": "Замороження",
+  "statusConditionSwitchBlocked": "Не можна замінити"
 }

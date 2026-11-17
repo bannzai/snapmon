@@ -202,5 +202,6 @@
   "statusConditionConfusion": "Bối rối",
   "statusConditionDizzy": "Chóng mặt",
   "statusConditionExcited": "Phấn khích",
-  "statusConditionFrozen": "Đóng băng"
+  "statusConditionFrozen": "Đóng băng",
+  "statusConditionSwitchBlocked": "Không thể đổi"
 }

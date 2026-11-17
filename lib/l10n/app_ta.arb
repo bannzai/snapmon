@@ -202,5 +202,6 @@
   "statusConditionConfusion": "குழப்பம்",
   "statusConditionDizzy": "தலைச்சுற்றல்",
   "statusConditionExcited": "உற்சாகம்",
-  "statusConditionFrozen": "உறைநிலை"
+  "statusConditionFrozen": "உறைநிலை",
+  "statusConditionSwitchBlocked": "மாற்ற முடியாது"
 }

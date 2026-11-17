@@ -202,5 +202,6 @@
   "statusConditionConfusion": "Confuzie",
   "statusConditionDizzy": "Amețeală",
   "statusConditionExcited": "Entuziasm",
-  "statusConditionFrozen": "Înghețat"
+  "statusConditionFrozen": "Înghețat",
+  "statusConditionSwitchBlocked": "Nu poate fi schimbat"
 }

@@ -202,5 +202,6 @@
   "statusConditionConfusion": "Sekavuus",
   "statusConditionDizzy": "Huimaus",
   "statusConditionExcited": "Innostus",
-  "statusConditionFrozen": "Jäässä"
+  "statusConditionFrozen": "Jäässä",
+  "statusConditionSwitchBlocked": "Ei voi vaihtaa"
 }

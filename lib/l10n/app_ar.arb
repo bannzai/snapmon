@@ -202,5 +202,6 @@
   "statusConditionConfusion": "ارتباك",
   "statusConditionDizzy": "دوار",
   "statusConditionExcited": "حماس",
-  "statusConditionFrozen": "تجمّد"
+  "statusConditionFrozen": "تجمّد",
+  "statusConditionSwitchBlocked": "لا يمكن التبديل"
 }

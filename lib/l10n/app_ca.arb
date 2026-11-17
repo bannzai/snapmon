@@ -202,5 +202,6 @@
   "statusConditionConfusion": "Confusió",
   "statusConditionDizzy": "Mareig",
   "statusConditionExcited": "Eufòria",
-  "statusConditionFrozen": "Congelat"
+  "statusConditionFrozen": "Congelat",
+  "statusConditionSwitchBlocked": "No es pot canviar"
 }

@@ -202,5 +202,6 @@
   "statusConditionConfusion": "Şaşkınlık",
   "statusConditionDizzy": "Baş dönmesi",
   "statusConditionExcited": "Heyecan",
-  "statusConditionFrozen": "Donma"
+  "statusConditionFrozen": "Donma",
+  "statusConditionSwitchBlocked": "Değiştirilemez"
 }

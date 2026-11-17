@@ -202,5 +202,6 @@
   "statusConditionConfusion": "గందరగోళం",
   "statusConditionDizzy": "తలతిరగడం",
   "statusConditionExcited": "ఉత్సాహం",
-  "statusConditionFrozen": "గడ్డకట్టింది"
+  "statusConditionFrozen": "గడ్డకట్టింది",
+  "statusConditionSwitchBlocked": "మార్చలేవు"
 }

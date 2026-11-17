@@ -202,5 +202,6 @@
   "statusConditionConfusion": "ആശയക്കുഴപ്പം",
   "statusConditionDizzy": "തലകറക്കം",
   "statusConditionExcited": "ആവേശം",
-  "statusConditionFrozen": "മരവിപ്പ്"
+  "statusConditionFrozen": "മരവിപ്പ്",
+  "statusConditionSwitchBlocked": "മാറ്റാൻ കഴിയില്ല"
 }

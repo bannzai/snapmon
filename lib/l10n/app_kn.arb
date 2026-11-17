@@ -202,5 +202,6 @@
   "statusConditionConfusion": "ಗೊಂದಲ",
   "statusConditionDizzy": "ತಲೆಸುತ್ತು",
   "statusConditionExcited": "ಉತ್ಸಾಹ",
-  "statusConditionFrozen": "ಹೆಪ್ಪುಗಟ್ಟಿದೆ"
+  "statusConditionFrozen": "ಹೆಪ್ಪುಗಟ್ಟಿದೆ",
+  "statusConditionSwitchBlocked": "ಬದಲಾಯಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ"
 }

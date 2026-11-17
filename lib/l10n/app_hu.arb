@@ -202,5 +202,6 @@
   "statusConditionConfusion": "Zavarodottság",
   "statusConditionDizzy": "Szédülés",
   "statusConditionExcited": "Izgalom",
-  "statusConditionFrozen": "Fagyott"
+  "statusConditionFrozen": "Fagyott",
+  "statusConditionSwitchBlocked": "Nem cserélhető le"
 }

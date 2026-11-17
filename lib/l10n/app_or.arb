@@ -202,5 +202,6 @@
   "statusConditionConfusion": "ଦ୍ୱନ୍ଦ୍ୱ",
   "statusConditionDizzy": "ମୁଣ୍ଡ ବୁଲାଇବା",
   "statusConditionExcited": "ଉତ୍ସାହ",
-  "statusConditionFrozen": "ବରଫରେ ଜମିଛି"
+  "statusConditionFrozen": "ବରଫରେ ଜମିଛି",
+  "statusConditionSwitchBlocked": "ବଦଳାଇ ହେବ ନାହିଁ"
 }

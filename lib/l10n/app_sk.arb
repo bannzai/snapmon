@@ -202,5 +202,6 @@
   "statusConditionConfusion": "Zmätenie",
   "statusConditionDizzy": "Závrat",
   "statusConditionExcited": "Nadšenie",
-  "statusConditionFrozen": "Zmrazenie"
+  "statusConditionFrozen": "Zmrazenie",
+  "statusConditionSwitchBlocked": "Nedá sa vymeniť"
 }

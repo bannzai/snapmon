@@ -202,5 +202,6 @@
   "statusConditionConfusion": "ਉਲਝਣ",
   "statusConditionDizzy": "ਚੱਕਰ",
   "statusConditionExcited": "ਜੋਸ਼",
-  "statusConditionFrozen": "ਜੰਮਿਆ ਹੋਇਆ"
+  "statusConditionFrozen": "ਜੰਮਿਆ ਹੋਇਆ",
+  "statusConditionSwitchBlocked": "ਬਦਲਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ"
 }

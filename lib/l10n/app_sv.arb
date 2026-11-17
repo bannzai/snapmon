@@ -202,5 +202,6 @@
   "statusConditionConfusion": "Förvirring",
   "statusConditionDizzy": "Yrsel",
   "statusConditionExcited": "Upprymdhet",
-  "statusConditionFrozen": "Frusen"
+  "statusConditionFrozen": "Frusen",
+  "statusConditionSwitchBlocked": "Kan inte bytas"
 }

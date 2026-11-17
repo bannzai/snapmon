@@ -202,5 +202,6 @@
   "statusConditionConfusion": "Zbunjenost",
   "statusConditionDizzy": "Vrtoglavica",
   "statusConditionExcited": "Uzbuđenje",
-  "statusConditionFrozen": "Smrznut"
+  "statusConditionFrozen": "Smrznut",
+  "statusConditionSwitchBlocked": "Nije moguća zamjena"
 }

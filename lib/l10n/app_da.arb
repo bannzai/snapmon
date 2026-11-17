@@ -202,5 +202,6 @@
   "statusConditionConfusion": "Forvirring",
   "statusConditionDizzy": "Svimmelhed",
   "statusConditionExcited": "Begejstring",
-  "statusConditionFrozen": "Frosset"
+  "statusConditionFrozen": "Frosset",
+  "statusConditionSwitchBlocked": "Kan ikke skiftes"
 }

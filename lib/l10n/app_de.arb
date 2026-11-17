@@ -202,5 +202,6 @@
   "statusConditionConfusion": "Verwirrung",
   "statusConditionDizzy": "Schwindel",
   "statusConditionExcited": "Aufregung",
-  "statusConditionFrozen": "Eingefroren"
+  "statusConditionFrozen": "Eingefroren",
+  "statusConditionSwitchBlocked": "Wechsel nicht möglich"
 }

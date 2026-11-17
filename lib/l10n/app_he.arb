@@ -202,5 +202,6 @@
   "statusConditionConfusion": "בלבול",
   "statusConditionDizzy": "סחרחורת",
   "statusConditionExcited": "התלהבות",
-  "statusConditionFrozen": "קיפאון"
+  "statusConditionFrozen": "קיפאון",
+  "statusConditionSwitchBlocked": "אי אפשר להחליף"
 }

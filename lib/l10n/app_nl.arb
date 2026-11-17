@@ -202,5 +202,6 @@
   "statusConditionConfusion": "Verwarring",
   "statusConditionDizzy": "Duizeligheid",
   "statusConditionExcited": "Opwinding",
-  "statusConditionFrozen": "Bevroren"
+  "statusConditionFrozen": "Bevroren",
+  "statusConditionSwitchBlocked": "Wisselen niet mogelijk"
 }

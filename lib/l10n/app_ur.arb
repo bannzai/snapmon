@@ -202,5 +202,6 @@
   "statusConditionConfusion": "الجھن",
   "statusConditionDizzy": "چکر",
   "statusConditionExcited": "جوش",
-  "statusConditionFrozen": "منجمد"
+  "statusConditionFrozen": "منجمد",
+  "statusConditionSwitchBlocked": "بدلا نہیں جا سکتا"
 }

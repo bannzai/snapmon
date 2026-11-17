@@ -202,5 +202,6 @@
   "statusConditionConfusion": "મૂંઝવણ",
   "statusConditionDizzy": "ચક્કર",
   "statusConditionExcited": "ઉત્સાહ",
-  "statusConditionFrozen": "જામી ગયું"
+  "statusConditionFrozen": "જામી ગયું",
+  "statusConditionSwitchBlocked": "બદલી શકાતું નથી"
 }

@@ -202,5 +202,6 @@
   "statusConditionConfusion": "Confusão",
   "statusConditionDizzy": "Tontura",
   "statusConditionExcited": "Empolgação",
-  "statusConditionFrozen": "Congelado"
+  "statusConditionFrozen": "Congelado",
+  "statusConditionSwitchBlocked": "Não pode trocar"
 }

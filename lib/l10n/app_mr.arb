@@ -202,5 +202,6 @@
   "statusConditionConfusion": "गोंधळ",
   "statusConditionDizzy": "चक्कर",
   "statusConditionExcited": "उत्साह",
-  "statusConditionFrozen": "गोठलेला"
+  "statusConditionFrozen": "गोठलेला",
+  "statusConditionSwitchBlocked": "बदलता येणार नाही"
 }

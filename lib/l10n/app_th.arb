@@ -202,5 +202,6 @@
   "statusConditionConfusion": "สับสน",
   "statusConditionDizzy": "เวียนหัว",
   "statusConditionExcited": "ตื่นเต้น",
-  "statusConditionFrozen": "แช่แข็ง"
+  "statusConditionFrozen": "แช่แข็ง",
+  "statusConditionSwitchBlocked": "สลับตัวไม่ได้"
 }

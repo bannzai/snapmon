@@ -202,5 +202,6 @@
   "statusConditionConfusion": "Confusión",
   "statusConditionDizzy": "Mareo",
   "statusConditionExcited": "Emoción",
-  "statusConditionFrozen": "Congelado"
+  "statusConditionFrozen": "Congelado",
+  "statusConditionSwitchBlocked": "No se puede cambiar"
 }

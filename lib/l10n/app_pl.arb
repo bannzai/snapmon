@@ -202,5 +202,6 @@
   "statusConditionConfusion": "Dezorientacja",
   "statusConditionDizzy": "Zawroty głowy",
   "statusConditionExcited": "Ekscytacja",
-  "statusConditionFrozen": "Zamrożenie"
+  "statusConditionFrozen": "Zamrożenie",
+  "statusConditionSwitchBlocked": "Nie można zmienić"
 }

@@ -202,5 +202,6 @@
   "statusConditionConfusion": "Kebingungan",
   "statusConditionDizzy": "Pusing",
   "statusConditionExcited": "Semangat",
-  "statusConditionFrozen": "Membeku"
+  "statusConditionFrozen": "Membeku",
+  "statusConditionSwitchBlocked": "Tidak bisa diganti"
 }

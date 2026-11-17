@@ -202,5 +202,6 @@
   "statusConditionConfusion": "Замешательство",
   "statusConditionDizzy": "Головокружение",
   "statusConditionExcited": "Воодушевление",
-  "statusConditionFrozen": "Заморозка"
+  "statusConditionFrozen": "Заморозка",
+  "statusConditionSwitchBlocked": "Нельзя заменить"
 }

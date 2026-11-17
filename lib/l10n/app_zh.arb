@@ -202,5 +202,6 @@
   "statusConditionConfusion": "混乱",
   "statusConditionDizzy": "眩晕",
   "statusConditionExcited": "兴奋",
-  "statusConditionFrozen": "冰冻"
+  "statusConditionFrozen": "冰冻",
+  "statusConditionSwitchBlocked": "无法替换"
 }
