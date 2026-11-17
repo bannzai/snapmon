@@ -66,5 +66,6 @@
   "settingsProfileSection": "Profil",
   "settingsDisplayName": "pseudo",
   "settingsDisplayNameLoading": "Chargement en cours",
-  "settingsDisplayNameHelper": "Nom affiché à tes adversaires"
+  "settingsDisplayNameHelper": "Nom affiché à tes adversaires",
+  "settingsDisplayNameSave": "Enregistrer"
 }
