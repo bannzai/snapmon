@@ -100,5 +100,6 @@
   "generationOpponentAppeared": "Εμφανίστηκε ο αντίπαλος: {opponentName}!",
   "generationLetsBattleWith": "Πάλεψε με το {monsterName}",
   "generationAlreadyInDexTitle": "Είναι ήδη στην εγκυκλοπαίδεια",
-  "generationAlreadyInDexMessage": "Αυτό το αντικείμενο είναι ήδη στην εγκυκλοπαίδεια ως {monsterName}\nΜπορείς να πολεμήσεις με αυτό το τέρας"
+  "generationAlreadyInDexMessage": "Αυτό το αντικείμενο είναι ήδη στην εγκυκλοπαίδεια ως {monsterName}\nΜπορείς να πολεμήσεις με αυτό το τέρας",
+  "generationBattleWithThisMonster": "Πάλεψε με αυτό το τέρας"
 }

@@ -100,5 +100,6 @@
   "generationOpponentAppeared": "{opponentName} தோன்றியது!",
   "generationLetsBattleWith": "{monsterName} உடன் போரிடுங்கள்",
   "generationAlreadyInDexTitle": "ஏற்கெனவே களஞ்சியத்தில் உள்ளது",
-  "generationAlreadyInDexMessage": "இந்தப் பொருள் {monsterName} என்ற பெயரில் களஞ்சியத்தில் ஏற்கெனவே உள்ளது\nஇந்த மான்ஸ்டருடன் போரிடலாம்"
+  "generationAlreadyInDexMessage": "இந்தப் பொருள் {monsterName} என்ற பெயரில் களஞ்சியத்தில் ஏற்கெனவே உள்ளது\nஇந்த மான்ஸ்டருடன் போரிடலாம்",
+  "generationBattleWithThisMonster": "இந்த மான்ஸ்டருடன் போராடுங்கள்"
 }

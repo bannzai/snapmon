@@ -100,5 +100,6 @@
   "generationOpponentAppeared": "{opponentName} dukket opp!",
   "generationLetsBattleWith": "Kjemp med {monsterName}",
   "generationAlreadyInDexTitle": "Allerede i samlingen",
-  "generationAlreadyInDexMessage": "Denne gjenstanden er allerede i samlingen som {monsterName}\nDu kan kjempe med dette monsteret"
+  "generationAlreadyInDexMessage": "Denne gjenstanden er allerede i samlingen som {monsterName}\nDu kan kjempe med dette monsteret",
+  "generationBattleWithThisMonster": "Kjemp med dette monsteret"
 }

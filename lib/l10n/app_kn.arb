@@ -100,5 +100,6 @@
   "generationOpponentAppeared": "{opponentName} ಕಾಣಿಸಿಕೊಂಡಿತು!",
   "generationLetsBattleWith": "{monsterName} ಜೊತೆ ಹೋರಾಡು",
   "generationAlreadyInDexTitle": "ಈಗಾಗಲೇ ವಿಶ್ವಕೋಶದಲ್ಲಿದೆ",
-  "generationAlreadyInDexMessage": "ಈ ವಸ್ತು {monsterName} ಹೆಸರಿನಲ್ಲಿ ವಿಶ್ವಕೋಶದಲ್ಲಿದೆ\nಈ ಮಾನ್ಸ್ಟರ್ ಜೊತೆ ಹೋರಾಡಬಹುದು"
+  "generationAlreadyInDexMessage": "ಈ ವಸ್ತು {monsterName} ಹೆಸರಿನಲ್ಲಿ ವಿಶ್ವಕೋಶದಲ್ಲಿದೆ\nಈ ಮಾನ್ಸ್ಟರ್ ಜೊತೆ ಹೋರಾಡಬಹುದು",
+  "generationBattleWithThisMonster": "ಈ ಮಾನ್ಸ್ಟರ್ ಜೊತೆ ಹೋರಾಡು"
 }

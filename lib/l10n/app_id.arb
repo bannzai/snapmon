@@ -100,5 +100,6 @@
   "generationOpponentAppeared": "{opponentName} muncul!",
   "generationLetsBattleWith": "Bertarunglah bersama {monsterName}",
   "generationAlreadyInDexTitle": "Sudah ada di dex",
-  "generationAlreadyInDexMessage": "Objek ini sudah ada di dex sebagai {monsterName}\nKamu bisa bertarung dengan monster ini"
+  "generationAlreadyInDexMessage": "Objek ini sudah ada di dex sebagai {monsterName}\nKamu bisa bertarung dengan monster ini",
+  "generationBattleWithThisMonster": "Bertarung dengan monster ini"
 }

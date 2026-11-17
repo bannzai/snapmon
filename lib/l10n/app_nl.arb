@@ -100,5 +100,6 @@
   "generationOpponentAppeared": "{opponentName} verscheen!",
   "generationLetsBattleWith": "Vecht met {monsterName}",
   "generationAlreadyInDexTitle": "Staat al in je dex",
-  "generationAlreadyInDexMessage": "Dit voorwerp staat al als {monsterName} in je dex\nJe kunt met dit monster vechten"
+  "generationAlreadyInDexMessage": "Dit voorwerp staat al als {monsterName} in je dex\nJe kunt met dit monster vechten",
+  "generationBattleWithThisMonster": "Vecht met dit monster"
 }

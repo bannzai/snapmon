@@ -100,5 +100,6 @@
   "generationOpponentAppeared": "Objavil sa {opponentName}!",
   "generationLetsBattleWith": "Bojuj po boku {monsterName}",
   "generationAlreadyInDexTitle": "Už je v encyklopédii",
-  "generationAlreadyInDexMessage": "Tento predmet už je v encyklopédii ako {monsterName}\nS touto príšerou môžeš bojovať"
+  "generationAlreadyInDexMessage": "Tento predmet už je v encyklopédii ako {monsterName}\nS touto príšerou môžeš bojovať",
+  "generationBattleWithThisMonster": "Bojuj s touto príšerou"
 }

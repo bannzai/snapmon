@@ -100,5 +100,6 @@
   "generationOpponentAppeared": "{opponentName} समोर आलं!",
   "generationLetsBattleWith": "{monsterName}सोबत लढ",
   "generationAlreadyInDexTitle": "आधीच संग्रहात आहे",
-  "generationAlreadyInDexMessage": "ही वस्तू {monsterName} म्हणून संग्रहात आधीच आहे\nया मॉन्स्टरसोबत लढू शकतोस"
+  "generationAlreadyInDexMessage": "ही वस्तू {monsterName} म्हणून संग्रहात आधीच आहे\nया मॉन्स्टरसोबत लढू शकतोस",
+  "generationBattleWithThisMonster": "या मॉन्स्टरसोबत लढ"
 }

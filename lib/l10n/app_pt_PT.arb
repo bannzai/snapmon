@@ -100,5 +100,6 @@
   "generationOpponentAppeared": "{opponentName} apareceu!",
   "generationLetsBattleWith": "Combate com {monsterName}",
   "generationAlreadyInDexTitle": "Já está na enciclopédia",
-  "generationAlreadyInDexMessage": "Este objeto já está na enciclopédia como {monsterName}\nPodes combater com este monstro"
+  "generationAlreadyInDexMessage": "Este objeto já está na enciclopédia como {monsterName}\nPodes combater com este monstro",
+  "generationBattleWithThisMonster": "Luta com este monstro"
 }

@@ -100,5 +100,6 @@
   "generationOpponentAppeared": "Pojawia się {opponentName}!",
   "generationLetsBattleWith": "Walcz u boku {monsterName}",
   "generationAlreadyInDexTitle": "Już jest w encyklopedii",
-  "generationAlreadyInDexMessage": "Ten przedmiot jest już w encyklopedii jako {monsterName}\nMożesz walczyć z tym potworem"
+  "generationAlreadyInDexMessage": "Ten przedmiot jest już w encyklopedii jako {monsterName}\nMożesz walczyć z tym potworem",
+  "generationBattleWithThisMonster": "Walcz z tym potworem"
 }
