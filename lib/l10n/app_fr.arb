@@ -64,5 +64,6 @@
   "settingsProviderSeparator": " et ",
   "settingsDeleteAccount": "Supprimer ton compte",
   "settingsProfileSection": "Profil",
-  "settingsDisplayName": "pseudo"
+  "settingsDisplayName": "pseudo",
+  "settingsDisplayNameLoading": "Chargement en cours"
 }
