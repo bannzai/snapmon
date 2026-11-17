@@ -319,5 +319,6 @@
   "helpTypeBody": "Škoda je odvisna od elementa poteza in elementa nasprotnika\nIzberi potez z elementom, na katerega je nasprotnik šibek, in povzroči veliko škode\nPuščica na gumbu poteza kaže njegovo učinkovitost proti trenutnemu nasprotniku",
   "helpTypeSuperEffective": "Zelo učinkovito! Škoda ×2",
   "helpTypeNotVeryEffective": "Ni zelo učinkovito, škoda ×0.5",
-  "helpTypeDualNote": "Če ima nasprotnik dva elementa, pomnoži oba množitelja\nVso učinkovitost najdeš v enciklopediji pod »Učinkovitost elementov in seznam potez«"
+  "helpTypeDualNote": "Če ima nasprotnik dva elementa, pomnoži oba množitelja\nVso učinkovitost najdeš v enciklopediji pod »Učinkovitost elementov in seznam potez«",
+  "helpStatusHeading": "statusni učinki"
 }

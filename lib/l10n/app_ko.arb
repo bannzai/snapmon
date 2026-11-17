@@ -319,5 +319,6 @@
   "helpTypeBody": "기술의 속성과 상대의 속성에 따라 피해량이 달라져요\n상대의 약점을 찌르는 속성의 기술을 고르면 큰 피해를 줄 수 있어요\n기술 버튼의 화살표는 현재 상대와의 상성을 나타내요",
   "helpTypeSuperEffective": "효과가 굉장했다! 피해 2배",
   "helpTypeNotVeryEffective": "효과가 별로였다, 데미지 ×0.5",
-  "helpTypeDualNote": "상대에게 속성이 두 개라면 배율 두 개를 곱해요\n모든 상성은 도감의 ‘속성 상성과 기술 목록’에서 볼 수 있어요"
+  "helpTypeDualNote": "상대에게 속성이 두 개라면 배율 두 개를 곱해요\n모든 상성은 도감의 ‘속성 상성과 기술 목록’에서 볼 수 있어요",
+  "helpStatusHeading": "상태 이상"
 }

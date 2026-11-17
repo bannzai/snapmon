@@ -319,5 +319,6 @@
   "helpTypeBody": "Kerusakan bergantung pada elemen jurus dan elemen lawan\nPilih jurus dengan elemen yang jadi kelemahan lawan untuk memberi kerusakan besar\nPanah pada tombol jurus menunjukkan efektivitasnya terhadap lawan saat ini",
   "helpTypeSuperEffective": "Sangat efektif! Kerusakan 2 kali lipat",
   "helpTypeNotVeryEffective": "Kurang efektif, damage ×0.5",
-  "helpTypeDualNote": "Jika lawan punya dua elemen, kalikan kedua pengalinya\nLihat semua efektivitas di dex pada «Efektivitas elemen dan daftar jurus»"
+  "helpTypeDualNote": "Jika lawan punya dua elemen, kalikan kedua pengalinya\nLihat semua efektivitas di dex pada «Efektivitas elemen dan daftar jurus»",
+  "helpStatusHeading": "efek status"
 }

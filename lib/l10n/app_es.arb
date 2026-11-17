@@ -319,5 +319,6 @@
   "helpTypeBody": "El daño depende del elemento del movimiento y del elemento del rival\nElige un movimiento de un elemento al que el rival sea débil para causar mucho daño\nLa flecha del botón del movimiento indica su eficacia contra el rival actual",
   "helpTypeSuperEffective": "¡Es supereficaz! Daño ×2",
   "helpTypeNotVeryEffective": "No es muy eficaz, daño ×0.5",
-  "helpTypeDualNote": "Si el rival tiene dos elementos, multiplica ambos factores\nConsulta toda la eficacia en «Eficacia de elementos y lista de movimientos» de la colección"
+  "helpTypeDualNote": "Si el rival tiene dos elementos, multiplica ambos factores\nConsulta toda la eficacia en «Eficacia de elementos y lista de movimientos» de la colección",
+  "helpStatusHeading": "problemas de estado"
 }

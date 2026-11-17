@@ -319,5 +319,6 @@
   "helpTypeBody": "El dany depèn de l’element del moviment i del rival\nTria un moviment d’un element que sigui el punt feble del rival per fer molt de mal\nLa fletxa del botó del moviment mostra l’eficàcia contra el rival actual",
   "helpTypeSuperEffective": "És supereficaç! Dany ×2",
   "helpTypeNotVeryEffective": "No és gaire eficaç, dany ×0.5",
-  "helpTypeDualNote": "Si el rival té dos elements, multiplica els dos factors\nConsulta tota l’eficàcia a «Eficàcia dels elements i llista de moviments» de l’enciclopèdia"
+  "helpTypeDualNote": "Si el rival té dos elements, multiplica els dos factors\nConsulta tota l’eficàcia a «Eficàcia dels elements i llista de moviments» de l’enciclopèdia",
+  "helpStatusHeading": "alteracions d'estat"
 }

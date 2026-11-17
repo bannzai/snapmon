@@ -319,5 +319,6 @@
   "helpTypeBody": "Skadan beror på attackens element och motståndarens element\nVälj en attack med ett element som motståndaren är svag mot för att göra stor skada\nPilen på attackknappen visar dess effektivitet mot din nuvarande motståndare",
   "helpTypeSuperEffective": "Supereffektivt! Skada ×2",
   "helpTypeNotVeryEffective": "Inte särskilt effektivt, skada ×0.5",
-  "helpTypeDualNote": "Har motståndaren två element, multiplicera de två faktorerna\nSe all effektivitet i samlingen under ”Elementens effektivitet och attacker”"
+  "helpTypeDualNote": "Har motståndaren två element, multiplicera de två faktorerna\nSe all effektivitet i samlingen under ”Elementens effektivitet och attacker”",
+  "helpStatusHeading": "statuseffekter"
 }

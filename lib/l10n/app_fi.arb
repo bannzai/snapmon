@@ -319,5 +319,6 @@
   "helpTypeBody": "Vahinko riippuu liikkeen elementistä ja vastustajan elementistä\nValitse liike, jonka elementille vastustaja on heikko, niin teet paljon vahinkoa\nLiikepainikkeen nuoli näyttää liikkeen tehokkuuden nykyistä vastustajaa vastaan",
   "helpTypeSuperEffective": "Todella tehokas! Vahinko ×2",
   "helpTypeNotVeryEffective": "Ei kovin tehokas, vahinko ×0.5",
-  "helpTypeDualNote": "Jos vastustajalla on kaksi elementtiä, kerro kertoimet keskenään\nKaikki tehokkuus löytyy kokoelmasta kohdasta ”Elementtien tehokkuus ja liikkeet”"
+  "helpTypeDualNote": "Jos vastustajalla on kaksi elementtiä, kerro kertoimet keskenään\nKaikki tehokkuus löytyy kokoelmasta kohdasta ”Elementtien tehokkuus ja liikkeet”",
+  "helpStatusHeading": "statustilat"
 }

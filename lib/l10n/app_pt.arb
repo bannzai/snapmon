@@ -319,5 +319,6 @@
   "helpTypeBody": "O dano depende do elemento do golpe e do elemento do oponente\nEscolha um golpe do elemento ao qual o oponente é fraco para causar muito dano\nA seta no botão do golpe mostra a eficácia contra o oponente atual",
   "helpTypeSuperEffective": "É supereficaz! Dano ×2",
   "helpTypeNotVeryEffective": "Não é muito eficaz, dano ×0.5",
-  "helpTypeDualNote": "Se o oponente tiver dois elementos, multiplique os dois fatores\nVeja toda a eficácia no dex, em «Eficácia dos elementos e lista de golpes»"
+  "helpTypeDualNote": "Se o oponente tiver dois elementos, multiplique os dois fatores\nVeja toda a eficácia no dex, em «Eficácia dos elementos e lista de golpes»",
+  "helpStatusHeading": "efeitos de status"
 }

@@ -319,5 +319,6 @@
   "helpTypeBody": "Il danno dipende dall’elemento della mossa e dall’elemento dell’avversario\nScegli una mossa dell’elemento a cui l’avversario è debole per infliggere molti danni\nLa freccia sul pulsante della mossa indica la sua efficacia contro l’avversario attuale",
   "helpTypeSuperEffective": "È superefficace! Danni ×2",
   "helpTypeNotVeryEffective": "Non è molto efficace, danni ×0.5",
-  "helpTypeDualNote": "Se l’avversario ha due elementi, moltiplica i due valori\nTrovi ogni efficacia nel dex, alla voce «Efficacia degli elementi e lista delle mosse»"
+  "helpTypeDualNote": "Se l’avversario ha due elementi, moltiplica i due valori\nTrovi ogni efficacia nel dex, alla voce «Efficacia degli elementi e lista delle mosse»",
+  "helpStatusHeading": "problemi di stato"
 }

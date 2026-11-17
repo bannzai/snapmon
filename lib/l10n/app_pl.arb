@@ -319,5 +319,6 @@
   "helpTypeBody": "Obrażenia zależą od typu ruchu i typu przeciwnika\nWybierz ruch typu, na który przeciwnik jest słaby, by zadać duże obrażenia\nStrzałka na przycisku ruchu pokazuje jego skuteczność przeciw obecnemu przeciwnikowi",
   "helpTypeSuperEffective": "To super skuteczne! Obrażenia ×2",
   "helpTypeNotVeryEffective": "Niezbyt skuteczne, obrażenia ×0.5",
-  "helpTypeDualNote": "Jeśli rywal ma dwa typy, pomnóż oba mnożniki\nCałą skuteczność sprawdzisz w encyklopedii w „Skuteczność typów i lista ruchów”"
+  "helpTypeDualNote": "Jeśli rywal ma dwa typy, pomnóż oba mnożniki\nCałą skuteczność sprawdzisz w encyklopedii w „Skuteczność typów i lista ruchów”",
+  "helpStatusHeading": "statusy"
 }

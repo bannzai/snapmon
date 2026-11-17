@@ -319,5 +319,6 @@
   "helpTypeBody": "Poškození závisí na elementu útoku a elementu soupeře\nVyber útok s elementem, na který je soupeř slabý, a způsobíš velké poškození\nŠipka na tlačítku útoku ukazuje jeho účinnost proti současnému soupeři",
   "helpTypeSuperEffective": "Je to superúčinné! Poškození ×2",
   "helpTypeNotVeryEffective": "Není to moc účinné, poškození ×0.5",
-  "helpTypeDualNote": "Má-li soupeř dva elementy, vynásob oba násobitele\nVeškerou účinnost najdeš v encyklopedii v části „Účinnost elementů a seznam útoků“"
+  "helpTypeDualNote": "Má-li soupeř dva elementy, vynásob oba násobitele\nVeškerou účinnost najdeš v encyklopedii v části „Účinnost elementů a seznam útoků“",
+  "helpStatusHeading": "stavové efekty"
 }

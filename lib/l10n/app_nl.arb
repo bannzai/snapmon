@@ -319,5 +319,6 @@
   "helpTypeBody": "De schade hangt af van het type van de aanval en het type van de tegenstander\nKies een aanval van een type waar de tegenstander zwak voor is om veel schade te doen\nDe pijl op de aanvalsknop toont de effectiviteit tegen je huidige tegenstander",
   "helpTypeSuperEffective": "Supereffectief! Schade ×2",
   "helpTypeNotVeryEffective": "Niet erg effectief, schade ×0.5",
-  "helpTypeDualNote": "Heeft je tegenstander twee types? Vermenigvuldig dan beide factoren\nBekijk alle effectiviteit in de dex bij ‘Type-effectiviteit en aanvallen’"
+  "helpTypeDualNote": "Heeft je tegenstander twee types? Vermenigvuldig dan beide factoren\nBekijk alle effectiviteit in de dex bij ‘Type-effectiviteit en aanvallen’",
+  "helpStatusHeading": "statuseffecten"
 }
