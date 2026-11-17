@@ -47,5 +47,6 @@
   "settingsSwitchAccountMessage": "To konto {providerName} jest już połączone na innym urządzeniu. Jeśli na nie przejdziesz, encyklopedia na tym urządzeniu (potwory: {monsterCount}) zostanie usunięta, a pojawi się encyklopedia połączonego konta.",
   "settingsSwitchAccountConfirm": "Zmień konto",
   "settingsSwitchedAccount": "Przełączono na połączone konto",
-  "settingsDeleteAccountTitle": "Chcesz usunąć swoje konto?"
+  "settingsDeleteAccountTitle": "Chcesz usunąć swoje konto?",
+  "settingsDeleteAccountMessage": "Twoje potwory, encyklopedia, oryginalne zdjęcia i zapisy walk zostaną trwale usunięte. Potem zaczniesz z nowym kontem."
 }

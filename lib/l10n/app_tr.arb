@@ -47,5 +47,6 @@
   "settingsSwitchAccountMessage": "Bu {providerName} hesabı başka bir cihazda zaten bağlı. Bu hesaba geçersen bu cihazdaki ansiklopedi (canavar: {monsterCount}) silinir ve bağlı hesabın ansiklopedisi açılır.",
   "settingsSwitchAccountConfirm": "Hesabı değiştir",
   "settingsSwitchedAccount": "Bağlı bir hesaba geçtin",
-  "settingsDeleteAccountTitle": "Hesabını silmek istiyor musun?"
+  "settingsDeleteAccountTitle": "Hesabını silmek istiyor musun?",
+  "settingsDeleteAccountMessage": "Canavarların, ansiklopedin, orijinal fotoğrafların ve savaş kayıtların kalıcı olarak silinecek. Ardından yeni bir hesapla başlayacaksın."
 }

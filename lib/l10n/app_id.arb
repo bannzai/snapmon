@@ -47,5 +47,6 @@
   "settingsSwitchAccountMessage": "Akun {providerName} ini sudah tertaut di perangkat lain. Jika kamu beralih, dex di perangkat ini (monster: {monsterCount}) akan terhapus dan diganti dengan dex akun tertaut.",
   "settingsSwitchAccountConfirm": "Ganti akun",
   "settingsSwitchedAccount": "Kamu beralih ke akun tertaut",
-  "settingsDeleteAccountTitle": "Mau hapus akunmu?"
+  "settingsDeleteAccountTitle": "Mau hapus akunmu?",
+  "settingsDeleteAccountMessage": "Monster, dex, foto asli, dan riwayat pertarunganmu akan dihapus permanen. Setelah itu, kamu akan mulai dengan akun baru."
 }

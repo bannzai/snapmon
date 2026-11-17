@@ -47,5 +47,6 @@
   "settingsSwitchAccountMessage": "這個 {providerName} 帳號已在其他裝置上連結。切換後，這台裝置的圖鑑（怪物：{monsterCount}）會被清除，並顯示已連結帳號的圖鑑。",
   "settingsSwitchAccountConfirm": "切換帳號",
   "settingsSwitchedAccount": "已切換至已連結的帳號",
-  "settingsDeleteAccountTitle": "要刪除你的帳號嗎？"
+  "settingsDeleteAccountTitle": "要刪除你的帳號嗎？",
+  "settingsDeleteAccountMessage": "你的怪物、圖鑑、原始照片和對戰紀錄將永久刪除。之後你會用新帳號重新開始。"
 }

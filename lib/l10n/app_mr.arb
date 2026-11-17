@@ -47,5 +47,6 @@
   "settingsSwitchAccountMessage": "हे {providerName} खाते दुसऱ्या डिव्हाइसवर आधीच जोडलेले आहे. त्यावर स्विच केलंस तर या डिव्हाइसचा संग्रह (मॉन्स्टर: {monsterCount}) पुसला जाईल आणि जोडलेल्या खात्याचा संग्रह दिसेल.",
   "settingsSwitchAccountConfirm": "खाते बदल",
   "settingsSwitchedAccount": "तू लिंक केलेल्या खात्यावर स्विच केलं आहेस",
-  "settingsDeleteAccountTitle": "तुला तुझं खातं हटवायचं आहे का?"
+  "settingsDeleteAccountTitle": "तुला तुझं खातं हटवायचं आहे का?",
+  "settingsDeleteAccountMessage": "तुझे मॉन्स्टर, संग्रह, मूळ फोटो आणि लढाईचे रेकॉर्ड कायमचे हटतील. त्यानंतर तू नवीन खात्याने सुरुवात करशील."
 }

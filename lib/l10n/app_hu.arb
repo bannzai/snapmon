@@ -47,5 +47,6 @@
   "settingsSwitchAccountMessage": "Ez a {providerName}-fiók már össze van kapcsolva egy másik eszközön. Ha átváltasz rá, az eszköz gyűjteménye (szörnyek: {monsterCount}) törlődik, és a kapcsolt fiók gyűjteménye jelenik meg.",
   "settingsSwitchAccountConfirm": "Válts fiókot",
   "settingsSwitchedAccount": "Átváltottál egy összekapcsolt fiókra",
-  "settingsDeleteAccountTitle": "Törölni szeretnéd a fiókodat?"
+  "settingsDeleteAccountTitle": "Törölni szeretnéd a fiókodat?",
+  "settingsDeleteAccountMessage": "A szörnyeid, a gyűjteményed, az eredeti fotók és a csaták adatai végleg törlődnek. Ezután új fiókkal kezdhetsz."
 }

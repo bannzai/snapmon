@@ -47,5 +47,6 @@
   "settingsSwitchAccountMessage": "บัญชี {providerName} นี้เชื่อมกับอุปกรณ์อื่นแล้ว หากสลับบัญชี สารานุกรมบนอุปกรณ์นี้ (มอนสเตอร์: {monsterCount}) จะถูกลบ และจะแสดงสารานุกรมของบัญชีที่เชื่อมไว้",
   "settingsSwitchAccountConfirm": "เปลี่ยนบัญชี",
   "settingsSwitchedAccount": "สลับไปยังบัญชีที่เชื่อมไว้แล้ว",
-  "settingsDeleteAccountTitle": "ต้องการลบบัญชีไหม?"
+  "settingsDeleteAccountTitle": "ต้องการลบบัญชีไหม?",
+  "settingsDeleteAccountMessage": "มอนสเตอร์ สารานุกรม รูปต้นฉบับ และบันทึกการต่อสู้จะถูกลบถาวร จากนั้นจะเริ่มใหม่ด้วยบัญชีใหม่"
 }

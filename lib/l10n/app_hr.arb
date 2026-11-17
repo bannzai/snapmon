@@ -47,5 +47,6 @@
   "settingsSwitchAccountMessage": "Ovaj {providerName} račun već je povezan na drugom uređaju. Ako se prebaciš na njega, enciklopedija na ovom uređaju (čudovišta: {monsterCount}) izbrisat će se i prikazat će se enciklopedija povezanog računa.",
   "settingsSwitchAccountConfirm": "Promijeni račun",
   "settingsSwitchedAccount": "Prešao si na povezani račun",
-  "settingsDeleteAccountTitle": "Želiš li izbrisati svoj račun?"
+  "settingsDeleteAccountTitle": "Želiš li izbrisati svoj račun?",
+  "settingsDeleteAccountMessage": "Tvoja čudovišta, enciklopedija, izvorne fotografije i zapisi borbi bit će trajno izbrisani. Nakon toga krećeš s novim računom."
 }

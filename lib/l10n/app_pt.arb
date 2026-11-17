@@ -47,5 +47,6 @@
   "settingsSwitchAccountMessage": "Esta conta {providerName} já está vinculada em outro dispositivo. Se você trocar de conta, o dex deste dispositivo (monstros: {monsterCount}) será apagado e aparecerá o dex da conta vinculada.",
   "settingsSwitchAccountConfirm": "Trocar de conta",
   "settingsSwitchedAccount": "Você mudou para uma conta vinculada",
-  "settingsDeleteAccountTitle": "Você quer excluir sua conta?"
+  "settingsDeleteAccountTitle": "Você quer excluir sua conta?",
+  "settingsDeleteAccountMessage": "Seus monstros, seu dex, as fotos originais e os registros de batalha serão excluídos para sempre. Depois, você começará com uma nova conta."
 }

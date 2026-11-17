@@ -47,5 +47,6 @@
   "settingsSwitchAccountMessage": "Tài khoản {providerName} này đã được liên kết trên thiết bị khác. Nếu bạn chuyển sang tài khoản đó, bộ sưu tập trên thiết bị này (quái vật: {monsterCount}) sẽ bị xóa và bộ sưu tập của tài khoản đã liên kết sẽ hiện ra.",
   "settingsSwitchAccountConfirm": "Đổi tài khoản",
   "settingsSwitchedAccount": "Bạn đã chuyển sang tài khoản được liên kết",
-  "settingsDeleteAccountTitle": "Bạn muốn xóa tài khoản?"
+  "settingsDeleteAccountTitle": "Bạn muốn xóa tài khoản?",
+  "settingsDeleteAccountMessage": "Quái vật, bộ sưu tập, ảnh gốc và lịch sử trận đấu của bạn sẽ bị xóa vĩnh viễn. Sau đó, bạn sẽ bắt đầu với tài khoản mới."
 }

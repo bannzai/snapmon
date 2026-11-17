@@ -47,5 +47,6 @@
   "settingsSwitchAccountMessage": "حساب {providerName} هذا مرتبط بجهاز آخر. إذا بدّلت إليه، ستختفي موسوع هذا الجهاز (الوحوش: {monsterCount}) وستظهر موسوع الحساب المرتبط.",
   "settingsSwitchAccountConfirm": "بدّل الحساب",
   "settingsSwitchedAccount": "تم التبديل إلى حساب مرتبط",
-  "settingsDeleteAccountTitle": "هل تريد حذف حسابك؟"
+  "settingsDeleteAccountTitle": "هل تريد حذف حسابك؟",
+  "settingsDeleteAccountMessage": "ستُحذف الوحوش من نوع وحش، والموسوعة موسوع، والصور الأصلية، وسجلات المعارك نهائيًا. بعد الحذف، ستبدأ بحساب جديد."
 }

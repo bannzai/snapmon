@@ -47,5 +47,6 @@
   "settingsSwitchAccountMessage": "Dieses {providerName}-Konto ist bereits auf einem anderen Gerät verknüpft. Wenn du wechselst, wird der Dex auf diesem Gerät gelöscht (Monster: {monsterCount}) und der Dex des verknüpften Kontos angezeigt.",
   "settingsSwitchAccountConfirm": "Konto wechseln",
   "settingsSwitchedAccount": "Du hast zu einem verknüpften Konto gewechselt",
-  "settingsDeleteAccountTitle": "Möchtest du dein Konto löschen?"
+  "settingsDeleteAccountTitle": "Möchtest du dein Konto löschen?",
+  "settingsDeleteAccountMessage": "Deine Monster, dein Dex, die Originalfotos und Kampfaufzeichnungen werden gelöscht. Du kannst sie nicht wiederherstellen. Danach startest du mit einem neuen Konto."
 }

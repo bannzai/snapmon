@@ -47,5 +47,6 @@
   "settingsSwitchAccountMessage": "Aquest compte de {providerName} ja està vinculat en un altre dispositiu. Si hi canvies, s'esborrarà l'enciclopèdia d'aquest dispositiu (monstres: {monsterCount}) i veuràs la del compte vinculat.",
   "settingsSwitchAccountConfirm": "Canvia de compte",
   "settingsSwitchedAccount": "Has canviat a un compte vinculat",
-  "settingsDeleteAccountTitle": "Vols eliminar el teu compte?"
+  "settingsDeleteAccountTitle": "Vols eliminar el teu compte?",
+  "settingsDeleteAccountMessage": "S'esborraran els monstres, l'enciclopèdia, les fotos originals i els registres de combat. No els podràs recuperar. Després, començaràs amb un compte nou."
 }

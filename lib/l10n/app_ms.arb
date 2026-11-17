@@ -47,5 +47,6 @@
   "settingsSwitchAccountMessage": "Akaun {providerName} ini sudah dipautkan pada peranti lain. Jika kamu beralih, ensiklopedia pada peranti ini (raksasa: {monsterCount}) akan dipadam dan ensiklopedia akaun yang dipautkan akan dipaparkan.",
   "settingsSwitchAccountConfirm": "Tukar akaun",
   "settingsSwitchedAccount": "Kamu sudah beralih ke akaun yang dipautkan",
-  "settingsDeleteAccountTitle": "Nak padam akaun kamu?"
+  "settingsDeleteAccountTitle": "Nak padam akaun kamu?",
+  "settingsDeleteAccountMessage": "Monster, ensiklopedia, foto asal dan rekod pertarungan kamu akan dipadam buat selamanya. Selepas itu, kamu akan bermula dengan akaun baharu."
 }

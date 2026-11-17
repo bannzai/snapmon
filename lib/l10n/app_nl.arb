@@ -47,5 +47,6 @@
   "settingsSwitchAccountMessage": "Dit {providerName}-account is al gekoppeld op een ander apparaat. Als je overstapt, wordt de dex op dit apparaat gewist (monsters: {monsterCount}) en zie je de dex van het gekoppelde account.",
   "settingsSwitchAccountConfirm": "Wissel van account",
   "settingsSwitchedAccount": "Je bent overgeschakeld naar een gekoppeld account",
-  "settingsDeleteAccountTitle": "Wil je je account verwijderen?"
+  "settingsDeleteAccountTitle": "Wil je je account verwijderen?",
+  "settingsDeleteAccountMessage": "Je monsters, dex, originele foto's en gevechtsgegevens worden voorgoed verwijderd. Daarna begin je met een nieuw account."
 }

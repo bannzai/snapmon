@@ -47,5 +47,6 @@
   "settingsSwitchAccountMessage": "Esta conta {providerName} já está associada noutro dispositivo. Se mudares para ela, a enciclopédia deste dispositivo (monstros: {monsterCount}) será apagada e verás a enciclopédia da conta associada.",
   "settingsSwitchAccountConfirm": "Trocar de conta",
   "settingsSwitchedAccount": "Mudaste para uma conta associada",
-  "settingsDeleteAccountTitle": "Queres eliminar a tua conta?"
+  "settingsDeleteAccountTitle": "Queres eliminar a tua conta?",
+  "settingsDeleteAccountMessage": "Os teus monstros, a tua enciclopédia, as fotos originais e os registos de batalha serão apagados de vez. Depois, começarás com uma conta nova."
 }

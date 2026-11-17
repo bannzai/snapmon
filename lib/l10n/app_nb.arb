@@ -47,5 +47,6 @@
   "settingsSwitchAccountMessage": "Denne {providerName}-kontoen er allerede koblet til på en annen enhet. Hvis du bytter, slettes samlingen på denne enheten (monstre: {monsterCount}), og du får se samlingen til den tilknyttede kontoen.",
   "settingsSwitchAccountConfirm": "Bytt konto",
   "settingsSwitchedAccount": "Du har byttet til en tilknyttet konto",
-  "settingsDeleteAccountTitle": "Vil du slette kontoen din?"
+  "settingsDeleteAccountTitle": "Vil du slette kontoen din?",
+  "settingsDeleteAccountMessage": "Monstrene dine, samlingen, originalbildene og kampdataene slettes for godt. Etterpå starter du med en ny konto."
 }

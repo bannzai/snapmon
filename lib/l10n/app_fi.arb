@@ -47,5 +47,6 @@
   "settingsSwitchAccountMessage": "Tämä {providerName}-tili on jo yhdistetty toisella laitteella. Jos vaihdat siihen, tämän laitteen kokoelma (hirviöt: {monsterCount}) poistuu ja tilalle tulee yhdistetyn tilin kokoelma.",
   "settingsSwitchAccountConfirm": "Vaihda tiliä",
   "settingsSwitchedAccount": "Vaihdoit yhdistettyyn tiliin",
-  "settingsDeleteAccountTitle": "Haluatko poistaa tilisi?"
+  "settingsDeleteAccountTitle": "Haluatko poistaa tilisi?",
+  "settingsDeleteAccountMessage": "Hirviöt, kokoelma, alkuperäiset kuvat ja taistelutiedot poistetaan pysyvästi. Sen jälkeen aloitat uudella tilillä."
 }

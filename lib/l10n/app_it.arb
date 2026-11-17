@@ -47,5 +47,6 @@
   "settingsSwitchAccountMessage": "Questo account {providerName} è già collegato su un altro dispositivo. Se passi a questo account, il dex su questo dispositivo (mostri: {monsterCount}) verrà cancellato e vedrai il dex dell'account collegato.",
   "settingsSwitchAccountConfirm": "Cambia account",
   "settingsSwitchedAccount": "Hai effettuato il passaggio a un account collegato",
-  "settingsDeleteAccountTitle": "Vuoi eliminare il tuo account?"
+  "settingsDeleteAccountTitle": "Vuoi eliminare il tuo account?",
+  "settingsDeleteAccountMessage": "I tuoi mostri, il dex, le foto originali e i registri delle lotte verranno eliminati definitivamente. Poi inizierai con un nuovo account."
 }

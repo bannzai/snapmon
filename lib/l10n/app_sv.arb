@@ -47,5 +47,6 @@
   "settingsSwitchAccountMessage": "Det här {providerName}-kontot är redan länkat på en annan enhet. Om du byter raderas samlingen på den här enheten (monster: {monsterCount}) och den länkade kontosamlingen visas.",
   "settingsSwitchAccountConfirm": "Byt konto",
   "settingsSwitchedAccount": "Du har bytt till ett länkat konto",
-  "settingsDeleteAccountTitle": "Vill du radera ditt konto?"
+  "settingsDeleteAccountTitle": "Vill du radera ditt konto?",
+  "settingsDeleteAccountMessage": "Dina monster, din samling, originalbilderna och stridsloggen raderas för gott. Sedan börjar du med ett nytt konto."
 }
