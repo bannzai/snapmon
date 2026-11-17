@@ -264,5 +264,6 @@
   "ticketPurchaseDescription": "Même après avoir épuisé tes créations gratuites du jour,\n1 ticket te permet de créer 1 monstre",
   "ticketPurchaseWaiting": "Réception de tes tickets en cours",
   "ticketPurchaseArrivalDelayed": "En attente de tes tickets\nLes tickets reçus restent disponibles même si tu fermes cet écran",
-  "ticketPurchasePending": "En attente de la confirmation du paiement\nTu recevras tes tickets dès qu’il sera confirmé, même si tu fermes cet écran"
+  "ticketPurchasePending": "En attente de la confirmation du paiement\nTu recevras tes tickets dès qu’il sera confirmé, même si tu fermes cet écran",
+  "ticketPurchaseArrivedTitle": "Tes tickets sont arrivés"
 }
