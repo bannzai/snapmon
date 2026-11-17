@@ -330,5 +330,6 @@
   "helpStatusSleep": "Peut empêcher d’agir pendant plusieurs tours",
   "helpStatusCurse": "Une seule stat parmi l'Attaque, la Défense et la Vitesse est réduite de moitié",
   "helpStatusConfusion": "Pendant quelques tours, une autre capacité que celle choisie peut se déclencher",
-  "helpStatusDizzy": "Précision des capacités réduite pendant 3 tours"
+  "helpStatusDizzy": "Précision des capacités réduite pendant 3 tours",
+  "helpStatusExcited": "L’Attaque augmente et la Défense diminue"
 }
