@@ -216,5 +216,6 @@
   "battleChooseMove": "เลือกท่าให้ {monsterName}",
   "battleTurn": "เทิร์น {turnNumber}",
   "battleSwitchMonster": "เปลี่ยนมอนสเตอร์",
-  "battleChooseSwitchMonster": "เลือกมอนสเตอร์ลงสนาม"
+  "battleChooseSwitchMonster": "เลือกมอนสเตอร์ลงสนาม",
+  "battleLevelUpNote": "ไม่ว่าจะแพ้หรือชนะ มอนสเตอร์ที่ต่อสู้จะเลเวลอัป"
 }

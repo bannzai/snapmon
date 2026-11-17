@@ -216,5 +216,6 @@
   "battleChooseMove": "Välj en attack för {monsterName}",
   "battleTurn": "Tur {turnNumber}",
   "battleSwitchMonster": "Byt monster",
-  "battleChooseSwitchMonster": "Välj ett monster till striden"
+  "battleChooseSwitchMonster": "Välj ett monster till striden",
+  "battleLevelUpNote": "Oavsett om du vinner eller förlorar går monster som stridit upp i nivå"
 }

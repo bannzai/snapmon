@@ -216,5 +216,6 @@
   "battleChooseMove": "Διάλεξε τεχνική για {monsterName}",
   "battleTurn": "Γύρος {turnNumber}",
   "battleSwitchMonster": "Αλλαγή τέρατος",
-  "battleChooseSwitchMonster": "Διάλεξε τέρας για τη μάχη"
+  "battleChooseSwitchMonster": "Διάλεξε τέρας για τη μάχη",
+  "battleLevelUpNote": "Είτε κερδίσεις είτε χάσεις, τα τέρατα που πολέμησαν ανεβαίνουν επίπεδο"
 }

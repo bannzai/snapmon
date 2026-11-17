@@ -216,5 +216,6 @@
   "battleChooseMove": "{monsterName} માટે ચાલ પસંદ કરો",
   "battleTurn": "વારો {turnNumber}",
   "battleSwitchMonster": "મોન્સ્ટર બદલો",
-  "battleChooseSwitchMonster": "મેદાનમાં ઉતારવા મોન્સ્ટર પસંદ કરો"
+  "battleChooseSwitchMonster": "મેદાનમાં ઉતારવા મોન્સ્ટર પસંદ કરો",
+  "battleLevelUpNote": "જીતો કે હારો, લડેલા મોન્સ્ટરનું લેવલ વધે છે"
 }

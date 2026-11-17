@@ -216,5 +216,6 @@
   "battleChooseMove": "{monsterName}: ತಂತ್ರ ಆಯ್ಕೆ ಮಾಡು",
   "battleTurn": "ಸರದಿ {turnNumber}",
   "battleSwitchMonster": "ಮಾನ್ಸ್ಟರ್ ಬದಲಾಯಿಸು",
-  "battleChooseSwitchMonster": "ಕಣಕ್ಕಿಳಿಸಲು ಮಾನ್ಸ್ಟರ್ ಆಯ್ಕೆ ಮಾಡು"
+  "battleChooseSwitchMonster": "ಕಣಕ್ಕಿಳಿಸಲು ಮಾನ್ಸ್ಟರ್ ಆಯ್ಕೆ ಮಾಡು",
+  "battleLevelUpNote": "ಗೆದ್ದರೂ ಸೋತರೂ, ಹೋರಾಡಿದ ಮಾನ್ಸ್ಟರ್‌ಗಳ ಲೆವೆಲ್ ಏರುತ್ತದೆ"
 }

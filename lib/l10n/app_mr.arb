@@ -216,5 +216,6 @@
   "battleChooseMove": "{monsterName}: चाल निवड",
   "battleTurn": "चाल {turnNumber}",
   "battleSwitchMonster": "मॉन्स्टर बदल",
-  "battleChooseSwitchMonster": "मैदानात उतरवण्यासाठी मॉन्स्टर निवड"
+  "battleChooseSwitchMonster": "मैदानात उतरवण्यासाठी मॉन्स्टर निवड",
+  "battleLevelUpNote": "जिंकलास किंवा हरलास तरी, लढलेल्या मॉन्स्टरची लेव्हल वाढते"
 }

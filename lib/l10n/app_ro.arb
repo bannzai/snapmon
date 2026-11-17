@@ -216,5 +216,6 @@
   "battleChooseMove": "Alege o mișcare pentru {monsterName}",
   "battleTurn": "Tura {turnNumber}",
   "battleSwitchMonster": "Schimbă monstrul",
-  "battleChooseSwitchMonster": "Alege un monstru pentru luptă"
+  "battleChooseSwitchMonster": "Alege un monstru pentru luptă",
+  "battleLevelUpNote": "Fie că învingi sau pierzi, monștrii care au luptat cresc în nivel"
 }

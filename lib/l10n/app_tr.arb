@@ -216,5 +216,6 @@
   "battleChooseMove": "{monsterName} için hamle seç",
   "battleTurn": "Tur {turnNumber}",
   "battleSwitchMonster": "Canavar değiştir",
-  "battleChooseSwitchMonster": "Savaşa çıkaracağın canavarı seç"
+  "battleChooseSwitchMonster": "Savaşa çıkaracağın canavarı seç",
+  "battleLevelUpNote": "Kazansan da kaybetsen de savaşan canavarlar seviye atlar"
 }

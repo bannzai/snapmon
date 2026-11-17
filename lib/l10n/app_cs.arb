@@ -216,5 +216,6 @@
   "battleChooseMove": "Vyber útok pro {monsterName}",
   "battleTurn": "Tah {turnNumber}",
   "battleSwitchMonster": "Vyměň příšeru",
-  "battleChooseSwitchMonster": "Vyber příšeru do boje"
+  "battleChooseSwitchMonster": "Vyber příšeru do boje",
+  "battleLevelUpNote": "Ať vyhraješ, nebo prohraješ, příšerám z boje stoupne úroveň"
 }

@@ -216,5 +216,6 @@
   "battleChooseMove": "{monsterName}: 기술 고르기",
   "battleTurn": "턴 {turnNumber}",
   "battleSwitchMonster": "몬스터 교체",
-  "battleChooseSwitchMonster": "내보낼 몬스터 고르기"
+  "battleChooseSwitchMonster": "내보낼 몬스터 고르기",
+  "battleLevelUpNote": "이기든 지든, 배틀에 참가한 몬스터의 레벨이 올라요"
 }

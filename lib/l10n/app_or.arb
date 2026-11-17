@@ -216,5 +216,6 @@
   "battleChooseMove": "{monsterName} ପାଇଁ ଚାଲ ବାଛ",
   "battleTurn": "ପାଳି {turnNumber}",
   "battleSwitchMonster": "ମନଷ୍ଟର ବଦଳାଅ",
-  "battleChooseSwitchMonster": "ଲଢ଼େଇକୁ ପଠାଇବା ପାଇଁ ମନଷ୍ଟର ବାଛ"
+  "battleChooseSwitchMonster": "ଲଢ଼େଇକୁ ପଠାଇବା ପାଇଁ ମନଷ୍ଟର ବାଛ",
+  "battleLevelUpNote": "ଜିତ ବା ହାର, ଲଢ଼ିଥିବା ମନଷ୍ଟରଙ୍କ ଲେଭଲ ବଢ଼େ"
 }

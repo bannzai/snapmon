@@ -216,5 +216,6 @@
   "battleChooseMove": "Pilih jurus untuk {monsterName}",
   "battleTurn": "Giliran {turnNumber}",
   "battleSwitchMonster": "Ganti monster",
-  "battleChooseSwitchMonster": "Pilih monster untuk bertarung"
+  "battleChooseSwitchMonster": "Pilih monster untuk bertarung",
+  "battleLevelUpNote": "Menang atau kalah, monster yang bertarung naik level"
 }

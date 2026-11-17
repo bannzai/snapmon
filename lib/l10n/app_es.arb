@@ -216,5 +216,6 @@
   "battleChooseMove": "Elige un movimiento para {monsterName}",
   "battleTurn": "Turno {turnNumber}",
   "battleSwitchMonster": "Cambiar monstruo",
-  "battleChooseSwitchMonster": "Elige un monstruo para el combate"
+  "battleChooseSwitchMonster": "Elige un monstruo para el combate",
+  "battleLevelUpNote": "Ganes o pierdas, los monstruos que lucharon suben de nivel"
 }

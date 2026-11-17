@@ -216,5 +216,6 @@
   "battleChooseMove": "選擇{monsterName}的招式",
   "battleTurn": "回合 {turnNumber}",
   "battleSwitchMonster": "更換怪物",
-  "battleChooseSwitchMonster": "選擇要上場的怪物"
+  "battleChooseSwitchMonster": "選擇要上場的怪物",
+  "battleLevelUpNote": "不論輸贏，參戰的怪物都會升級"
 }

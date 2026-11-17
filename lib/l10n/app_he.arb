@@ -216,5 +216,6 @@
   "battleChooseMove": "לבחור מתקפה עבור {monsterName}",
   "battleTurn": "תור {turnNumber}",
   "battleSwitchMonster": "החלפת מפלצת",
-  "battleChooseSwitchMonster": "לבחור מפלצת לקרב"
+  "battleChooseSwitchMonster": "לבחור מפלצת לקרב",
+  "battleLevelUpNote": "ניצחון או הפסד, מפלצות שהשתתפו בקרב עולות רמה"
 }

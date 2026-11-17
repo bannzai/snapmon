@@ -216,5 +216,6 @@
   "battleChooseMove": "Chọn chiêu cho {monsterName}",
   "battleTurn": "Lượt {turnNumber}",
   "battleSwitchMonster": "Đổi quái vật",
-  "battleChooseSwitchMonster": "Chọn quái vật ra trận"
+  "battleChooseSwitchMonster": "Chọn quái vật ra trận",
+  "battleLevelUpNote": "Dù bạn thắng hay thua, quái vật đã chiến đấu vẫn lên cấp"
 }

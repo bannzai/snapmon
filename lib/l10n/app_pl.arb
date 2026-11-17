@@ -216,5 +216,6 @@
   "battleChooseMove": "Wybierz ruch dla {monsterName}",
   "battleTurn": "Tura {turnNumber}",
   "battleSwitchMonster": "Zmień potwora",
-  "battleChooseSwitchMonster": "Wybierz potwora do walki"
+  "battleChooseSwitchMonster": "Wybierz potwora do walki",
+  "battleLevelUpNote": "Czy wygrasz, czy przegrasz, potwory biorące udział w walce awansują na wyższy poziom"
 }

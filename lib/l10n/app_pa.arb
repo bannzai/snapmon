@@ -216,5 +216,6 @@
   "battleChooseMove": "{monsterName} ਲਈ ਚਾਲ ਚੁਣੋ",
   "battleTurn": "ਵਾਰੀ {turnNumber}",
   "battleSwitchMonster": "ਮੌਂਸਟਰ ਬਦਲੋ",
-  "battleChooseSwitchMonster": "ਮੈਦਾਨ ਵਿੱਚ ਉਤਾਰਨ ਲਈ ਮੌਂਸਟਰ ਚੁਣੋ"
+  "battleChooseSwitchMonster": "ਮੈਦਾਨ ਵਿੱਚ ਉਤਾਰਨ ਲਈ ਮੌਂਸਟਰ ਚੁਣੋ",
+  "battleLevelUpNote": "ਜਿੱਤ ਹੋਵੇ ਜਾਂ ਹਾਰ, ਲੜੇ ਹੋਏ ਮੌਂਸਟਰਾਂ ਦਾ ਲੈਵਲ ਵਧਦਾ ਹੈ"
 }

@@ -216,5 +216,6 @@
   "battleChooseMove": "Vælg et angreb til {monsterName}",
   "battleTurn": "Tur {turnNumber}",
   "battleSwitchMonster": "Skift monster",
-  "battleChooseSwitchMonster": "Vælg et monster til kamp"
+  "battleChooseSwitchMonster": "Vælg et monster til kamp",
+  "battleLevelUpNote": "Uanset om du vinder eller taber, stiger de monstres niveau, når de har kæmpet"
 }

@@ -216,5 +216,6 @@
   "battleChooseMove": "Вибери прийом для {monsterName}",
   "battleTurn": "Хід {turnNumber}",
   "battleSwitchMonster": "Змінити монстра",
-  "battleChooseSwitchMonster": "Обери монстра для бою"
+  "battleChooseSwitchMonster": "Обери монстра для бою",
+  "battleLevelUpNote": "Переможеш чи програєш — монстри, що билися, підвищать рівень"
 }
