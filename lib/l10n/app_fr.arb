@@ -248,5 +248,6 @@
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "Effet spécial",
   "moveDetailNoSpecialEffect": "Aucun",
-  "moveDetailFormula": "Multiplicateur de puissance (%)"
+  "moveDetailFormula": "Multiplicateur de puissance (%)",
+  "moveDetailFormulaNote": "100 = ×1\nPuissance × multiplicateur ÷ 100 (partie décimale ignorée) entre dans le calcul des dégâts"
 }
