@@ -62,5 +62,6 @@
   "settingsTransferDataDescription": "Connecte-toi avec {providerName}\npour garder ton dex même si tu changes d’appareil",
   "settingsLinkedWith": "Compte lié à {providerNames}",
   "settingsProviderSeparator": " et ",
-  "settingsDeleteAccount": "Supprimer ton compte"
+  "settingsDeleteAccount": "Supprimer ton compte",
+  "settingsProfileSection": "Profil"
 }
