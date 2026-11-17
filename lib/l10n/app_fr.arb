@@ -316,5 +316,6 @@
   "helpLevelHeading": "Niveau",
   "helpLevelBody": "Que tu gagnes ou perdes, les monstres qui ont combattu montent de niveau\nEn montant de niveau, ils apprennent de nouvelles capacités",
   "helpTypeHeading": "Efficacité des éléments (faiblesses)",
-  "helpTypeBody": "Les dégâts varient selon l’élément de ta capacité et celui de l’adversaire\nChoisis une capacité dont l’élément exploite sa faiblesse pour infliger de gros dégâts\nLa flèche sur le bouton de la capacité indique son efficacité contre l’adversaire actuel"
+  "helpTypeBody": "Les dégâts varient selon l’élément de ta capacité et celui de l’adversaire\nChoisis une capacité dont l’élément exploite sa faiblesse pour infliger de gros dégâts\nLa flèche sur le bouton de la capacité indique son efficacité contre l’adversaire actuel",
+  "helpTypeSuperEffective": "Super efficace ! Dégâts ×2"
 }
