@@ -38,5 +38,6 @@
   "opponentFindOthers": "Trouver d’autres adversaires",
   "opponentAverageLevel": "Lv. moyen : {level}",
   "opponentReportHelpPrompt": "Un problème avec le monstre adverse ?",
-  "opponentSearching": "Recherche d’un dresseur"
+  "opponentSearching": "Recherche d’un dresseur",
+  "opponentSearchAgain": "Chercher encore"
 }
