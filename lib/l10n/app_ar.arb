@@ -187,5 +187,6 @@
   "battleLogStatusReplaced": "تحولت حالة {monsterName} من {previousStatusName} إلى {statusName}",
   "battleLogCursedStat": "حلت اللعنة على {statName} لدى {monsterName}!",
   "battleLogStatusCured": "تعافى {monsterName} من {statusName}",
-  "battleLogStatusDamage": "تلقى {monsterName} ضررًا بسبب {statusName}"
+  "battleLogStatusDamage": "تلقى {monsterName} ضررًا بسبب {statusName}",
+  "battleLogFieldStatShuffleStarted": "بدأت ساحة المعركة تتقلب"
 }

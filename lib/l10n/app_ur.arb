@@ -187,5 +187,6 @@
   "battleLogStatusReplaced": "{monsterName} کی حالت {previousStatusName} سے بدل کر {statusName} ہو گئی",
   "battleLogCursedStat": "{monsterName} کے {statName} پر لعنت لگ گئی!",
   "battleLogStatusCured": "{monsterName} اب {statusName} سے ٹھیک ہو گیا",
-  "battleLogStatusDamage": "{statusName} کی وجہ سے {monsterName} کو نقصان پہنچا"
+  "battleLogStatusDamage": "{statusName} کی وجہ سے {monsterName} کو نقصان پہنچا",
+  "battleLogFieldStatShuffleStarted": "میدانِ جنگ ڈولنے لگا"
 }

@@ -187,5 +187,6 @@
   "battleLogStatusReplaced": "Stanje pošasti {monsterName} se je spremenilo iz {previousStatusName} v {statusName}",
   "battleLogCursedStat": "Na lastnost {statName} pri {monsterName} je padlo prekletstvo!",
   "battleLogStatusCured": "{monsterName} si je opomogel od stanja {statusName}",
-  "battleLogStatusDamage": "{monsterName} je utrpel škodo zaradi {statusName}"
+  "battleLogStatusDamage": "{monsterName} je utrpel škodo zaradi {statusName}",
+  "battleLogFieldStatShuffleStarted": "Bojno polje je začelo valovati"
 }

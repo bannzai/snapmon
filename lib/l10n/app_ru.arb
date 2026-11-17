@@ -187,5 +187,6 @@
   "battleLogStatusReplaced": "Состояние {monsterName} сменилось с {previousStatusName} на {statusName}",
   "battleLogCursedStat": "На показатель {statName} у {monsterName} легло проклятие!",
   "battleLogStatusCured": "{monsterName} оправился от состояния {statusName}",
-  "battleLogStatusDamage": "{monsterName} получил урон из-за {statusName}"
+  "battleLogStatusDamage": "{monsterName} получил урон из-за {statusName}",
+  "battleLogFieldStatShuffleStarted": "Поле боя начало колебаться"
 }

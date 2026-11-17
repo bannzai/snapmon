@@ -187,5 +187,6 @@
   "battleLogStatusReplaced": "{monsterName}s status skiftede fra {previousStatusName} til {statusName}",
   "battleLogCursedStat": "En forbandelse ramte {statName} hos {monsterName}!",
   "battleLogStatusCured": "{monsterName} er kommet sig over {statusName}",
-  "battleLogStatusDamage": "{monsterName} tog skade af {statusName}"
+  "battleLogStatusDamage": "{monsterName} tog skade af {statusName}",
+  "battleLogFieldStatShuffleStarted": "Kamppladsen begyndte at bølge"
 }

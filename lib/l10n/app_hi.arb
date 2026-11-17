@@ -187,5 +187,6 @@
   "battleLogStatusReplaced": "{monsterName} की स्थिति {previousStatusName} से बदलकर {statusName} हो गई",
   "battleLogCursedStat": "{monsterName} के {statName} पर शाप लग गया!",
   "battleLogStatusCured": "{monsterName} अब {statusName} से ठीक हो गया",
-  "battleLogStatusDamage": "{statusName} से {monsterName} को नुकसान हुआ"
+  "battleLogStatusDamage": "{statusName} से {monsterName} को नुकसान हुआ",
+  "battleLogFieldStatShuffleStarted": "युद्ध का मैदान डगमगाने लगा"
 }

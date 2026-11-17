@@ -187,5 +187,6 @@
   "battleLogStatusReplaced": "Stav {monsterName}: {previousStatusName} se změnil na {statusName}",
   "battleLogCursedStat": "Hodnotu {statName} u {monsterName} postihla kletba!",
   "battleLogStatusCured": "{monsterName} se zbavil stavu {statusName}",
-  "battleLogStatusDamage": "{monsterName} utrpěl poškození kvůli {statusName}"
+  "battleLogStatusDamage": "{monsterName} utrpěl poškození kvůli {statusName}",
+  "battleLogFieldStatShuffleStarted": "Bojové pole se začalo vlnit"
 }

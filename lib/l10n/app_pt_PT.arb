@@ -187,5 +187,6 @@
   "battleLogStatusReplaced": "O estado de {monsterName} mudou de {previousStatusName} para {statusName}",
   "battleLogCursedStat": "O atributo {statName} de {monsterName} ficou amaldiçoado!",
   "battleLogStatusCured": "{monsterName} curou-se de {statusName}",
-  "battleLogStatusDamage": "{monsterName} sofreu dano devido a {statusName}"
+  "battleLogStatusDamage": "{monsterName} sofreu dano devido a {statusName}",
+  "battleLogFieldStatShuffleStarted": "O campo de batalha começou a oscilar"
 }

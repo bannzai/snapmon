@@ -187,5 +187,6 @@
   "battleLogStatusReplaced": "Status {monsterName} zmienił się z {previousStatusName} na {statusName}",
   "battleLogCursedStat": "Klątwa spadła na statystykę {statName} u {monsterName}!",
   "battleLogStatusCured": "{monsterName} wyleczył się ze stanu {statusName}",
-  "battleLogStatusDamage": "{monsterName} otrzymał obrażenia przez {statusName}"
+  "battleLogStatusDamage": "{monsterName} otrzymał obrażenia przez {statusName}",
+  "battleLogFieldStatShuffleStarted": "Pole bitwy zaczęło falować"
 }

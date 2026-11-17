@@ -187,5 +187,6 @@
   "battleLogStatusReplaced": "{monsterName}的狀態從{previousStatusName}變成了{statusName}",
   "battleLogCursedStat": "{monsterName}的{statName}被詛咒了！",
   "battleLogStatusCured": "{monsterName}的{statusName}狀態治好了",
-  "battleLogStatusDamage": "{monsterName}因{statusName}受到了傷害"
+  "battleLogStatusDamage": "{monsterName}因{statusName}受到了傷害",
+  "battleLogFieldStatShuffleStarted": "戰場開始波動了"
 }

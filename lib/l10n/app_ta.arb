@@ -187,5 +187,6 @@
   "battleLogStatusReplaced": "{monsterName}ன் நிலை {previousStatusName} இலிருந்து {statusName} ஆக மாறியது",
   "battleLogCursedStat": "{monsterName} இன் {statName} மீது சாபம் விழுந்தது!",
   "battleLogStatusCured": "{monsterName} இப்போது {statusName} நிலையில் இருந்து குணமடைந்தது",
-  "battleLogStatusDamage": "{statusName} காரணமாக {monsterName} சேதம் அடைந்தது"
+  "battleLogStatusDamage": "{statusName} காரணமாக {monsterName} சேதம் அடைந்தது",
+  "battleLogFieldStatShuffleStarted": "போர்க்களம் அசையத் தொடங்கியது"
 }

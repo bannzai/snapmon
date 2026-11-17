@@ -187,5 +187,6 @@
   "battleLogStatusReplaced": "De status van {monsterName} veranderde van {previousStatusName} naar {statusName}",
   "battleLogCursedStat": "Er rust een vloek op {statName} van {monsterName}!",
   "battleLogStatusCured": "{monsterName} is hersteld van {statusName}",
-  "battleLogStatusDamage": "{monsterName} kreeg schade door {statusName}"
+  "battleLogStatusDamage": "{monsterName} kreeg schade door {statusName}",
+  "battleLogFieldStatShuffleStarted": "Het strijdveld begon te golven"
 }

@@ -187,5 +187,6 @@
   "battleLogStatusReplaced": "{monsterName} స్థితి {previousStatusName} నుంచి {statusName}గా మారింది",
   "battleLogCursedStat": "{monsterName} యొక్క {statName}కు శాపం తగిలింది!",
   "battleLogStatusCured": "{monsterName} ఇప్పుడు {statusName} నుంచి కోలుకుంది",
-  "battleLogStatusDamage": "{statusName} వల్ల {monsterName} నష్టపోయింది"
+  "battleLogStatusDamage": "{statusName} వల్ల {monsterName} నష్టపోయింది",
+  "battleLogFieldStatShuffleStarted": "యుద్ధభూమి ఊగడం మొదలైంది"
 }

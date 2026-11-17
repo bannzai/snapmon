@@ -187,5 +187,6 @@
   "battleLogStatusReplaced": "สถานะของ {monsterName} เปลี่ยนจาก {previousStatusName} เป็น {statusName}",
   "battleLogCursedStat": "ค่า {statName} ของ {monsterName} ถูกสาปแล้ว!",
   "battleLogStatusCured": "{monsterName} หายจากสถานะ {statusName} แล้ว",
-  "battleLogStatusDamage": "{monsterName} ได้รับความเสียหายจาก {statusName}"
+  "battleLogStatusDamage": "{monsterName} ได้รับความเสียหายจาก {statusName}",
+  "battleLogFieldStatShuffleStarted": "สนามต่อสู้เริ่มสั่นไหว"
 }

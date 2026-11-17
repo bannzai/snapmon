@@ -187,5 +187,6 @@
   "battleLogStatusReplaced": "{monsterName}ന്റെ അവസ്ഥ {previousStatusName} എന്നതിൽ നിന്ന് {statusName} ആയി മാറി",
   "battleLogCursedStat": "{monsterName}ന്റെ {statName} ശപിക്കപ്പെട്ടു!",
   "battleLogStatusCured": "{monsterName} ഇപ്പോൾ {statusName} അവസ്ഥയിൽ നിന്ന് സുഖപ്പെട്ടു",
-  "battleLogStatusDamage": "{statusName} കാരണം {monsterName} നാശം ഏറ്റുവാങ്ങി"
+  "battleLogStatusDamage": "{statusName} കാരണം {monsterName} നാശം ഏറ്റുവാങ്ങി",
+  "battleLogFieldStatShuffleStarted": "യുദ്ധക്കളം ഇളകിത്തുടങ്ങി"
 }

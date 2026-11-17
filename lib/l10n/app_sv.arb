@@ -187,5 +187,6 @@
   "battleLogStatusReplaced": "{monsterName}s status ändrades från {previousStatusName} till {statusName}",
   "battleLogCursedStat": "En förbannelse drabbade {statName} hos {monsterName}!",
   "battleLogStatusCured": "{monsterName} har återhämtat sig från {statusName}",
-  "battleLogStatusDamage": "{monsterName} tog skada av {statusName}"
+  "battleLogStatusDamage": "{monsterName} tog skada av {statusName}",
+  "battleLogFieldStatShuffleStarted": "Slagfältet började svaja"
 }
