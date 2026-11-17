@@ -297,5 +297,6 @@
   "actionCardTeach": "Lær et angreb fra dig",
   "actionCardTeachTitle": "Lær {monsterName} det",
   "actionCardTeachNoForgotten": "Ingen angreb bliver fjernet",
-  "actionCardTeachReplacedMove": "{moveName} ryger ud af en angrebsplads"
+  "actionCardTeachReplacedMove": "{moveName} ryger ud af en angrebsplads",
+  "actionCardTeachNotEquipped": "Du kan sætte det i en plads under Vælg angreb"
 }

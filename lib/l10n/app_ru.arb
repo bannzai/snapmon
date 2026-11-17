@@ -297,5 +297,6 @@
   "actionCardTeach": "Обучить приёму",
   "actionCardTeachTitle": "Обучить {monsterName}",
   "actionCardTeachNoForgotten": "Ни один приём не будет удалён",
-  "actionCardTeachReplacedMove": "{moveName} выйдет из ячейки приёмов"
+  "actionCardTeachReplacedMove": "{moveName} выйдет из ячейки приёмов",
+  "actionCardTeachNotEquipped": "Ты можешь поставить его в слот через выбор приёма"
 }

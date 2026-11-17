@@ -297,5 +297,6 @@
   "actionCardTeach": "Δίδαξε τεχνική",
   "actionCardTeachTitle": "Δίδαξέ το στο {monsterName}",
   "actionCardTeachNoForgotten": "Δεν θα αφαιρεθεί καμία τεχνική",
-  "actionCardTeachReplacedMove": "Το {moveName} βγαίνει από τη θέση τεχνικής"
+  "actionCardTeachReplacedMove": "Το {moveName} βγαίνει από τη θέση τεχνικής",
+  "actionCardTeachNotEquipped": "Μπορείς να τη βάλεις σε θέση από την επιλογή τεχνικής"
 }

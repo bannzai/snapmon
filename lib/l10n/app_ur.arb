@@ -297,5 +297,6 @@
   "actionCardTeach": "چال سکھاؤ",
   "actionCardTeachTitle": "{monsterName} کو سکھاؤ",
   "actionCardTeachNoForgotten": "کوئی چال نہیں ہٹائی جائے گی",
-  "actionCardTeachReplacedMove": "{moveName} چال کے خانے سے نکل جائے گی"
+  "actionCardTeachReplacedMove": "{moveName} چال کے خانے سے نکل جائے گی",
+  "actionCardTeachNotEquipped": "چال چن کر اسے سلاٹ میں رکھ سکتے ہو"
 }

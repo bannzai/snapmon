@@ -297,5 +297,6 @@
   "actionCardTeach": "কৌশল শেখাও",
   "actionCardTeachTitle": "{monsterName}-কে শেখাও",
   "actionCardTeachNoForgotten": "কোনো কৌশল বাদ যাবে না",
-  "actionCardTeachReplacedMove": "{moveName} কৌশলের স্লট থেকে সরে যাবে"
+  "actionCardTeachReplacedMove": "{moveName} কৌশলের স্লট থেকে সরে যাবে",
+  "actionCardTeachNotEquipped": "কৌশল বেছে নিয়ে স্লটে রাখতে পারো"
 }

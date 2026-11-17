@@ -297,5 +297,6 @@
   "actionCardTeach": "Attacke beibringen",
   "actionCardTeachTitle": "{monsterName} etwas beibringen",
   "actionCardTeachNoForgotten": "Keine Attacke wird entfernt",
-  "actionCardTeachReplacedMove": "{moveName} verlässt einen Attackenplatz"
+  "actionCardTeachReplacedMove": "{moveName} verlässt einen Attackenplatz",
+  "actionCardTeachNotEquipped": "Du kannst sie unter „Attacke wählen“ in einen Platz setzen"
 }

@@ -297,5 +297,6 @@
   "actionCardTeach": "Naucz ruchu",
   "actionCardTeachTitle": "Naucz {monsterName}",
   "actionCardTeachNoForgotten": "Żaden ruch nie zostanie usunięty",
-  "actionCardTeachReplacedMove": "{moveName} wypadnie z miejsca na ruch"
+  "actionCardTeachReplacedMove": "{moveName} wypadnie z miejsca na ruch",
+  "actionCardTeachNotEquipped": "Możesz umieścić go w slocie przez wybór ruchu"
 }

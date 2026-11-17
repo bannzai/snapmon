@@ -297,5 +297,6 @@
   "actionCardTeach": "기술 가르치기",
   "actionCardTeachTitle": "{monsterName}에게 가르치기",
   "actionCardTeachNoForgotten": "빠지는 기술이 없어요",
-  "actionCardTeachReplacedMove": "{moveName}이(가) 기술 칸에서 빠져요"
+  "actionCardTeachReplacedMove": "{moveName}이(가) 기술 칸에서 빠져요",
+  "actionCardTeachNotEquipped": "기술 선택에서 슬롯에 넣을 수 있어요"
 }

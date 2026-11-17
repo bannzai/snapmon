@@ -297,5 +297,6 @@
   "actionCardTeach": "Opeta liike",
   "actionCardTeachTitle": "Opeta se {monsterName}-hahmolle",
   "actionCardTeachNoForgotten": "Yhtään liikettä ei poisteta",
-  "actionCardTeachReplacedMove": "{moveName} poistuu liikepaikasta"
+  "actionCardTeachReplacedMove": "{moveName} poistuu liikepaikasta",
+  "actionCardTeachNotEquipped": "Saat sen paikkaan valitsemalla liikkeen"
 }

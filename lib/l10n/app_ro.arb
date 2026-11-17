@@ -297,5 +297,6 @@
   "actionCardTeach": "Învață o mișcare",
   "actionCardTeachTitle": "Învață-l pe {monsterName}",
   "actionCardTeachNoForgotten": "Nu va fi eliminată nicio mișcare",
-  "actionCardTeachReplacedMove": "{moveName} va ieși din spațiul pentru mișcări"
+  "actionCardTeachReplacedMove": "{moveName} va ieși din spațiul pentru mișcări",
+  "actionCardTeachNotEquipped": "Îl poți pune într-un slot din selecția de mișcări"
 }

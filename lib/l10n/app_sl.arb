@@ -297,5 +297,6 @@
   "actionCardTeach": "Nauči potez",
   "actionCardTeachTitle": "Nauči {monsterName}",
   "actionCardTeachNoForgotten": "Noben potez ne bo odstranjen",
-  "actionCardTeachReplacedMove": "{moveName} bo zapustil mesto za potez"
+  "actionCardTeachReplacedMove": "{moveName} bo zapustil mesto za potez",
+  "actionCardTeachNotEquipped": "V režo ga lahko daš pri izbiri poteza"
 }

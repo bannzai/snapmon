@@ -297,5 +297,6 @@
   "actionCardTeach": "Ensinar um golpe",
   "actionCardTeachTitle": "Ensinar a {monsterName}",
   "actionCardTeachNoForgotten": "Nenhum golpe será removido",
-  "actionCardTeachReplacedMove": "{moveName} sairá de um espaço de golpe"
+  "actionCardTeachReplacedMove": "{moveName} sairá de um espaço de golpe",
+  "actionCardTeachNotEquipped": "Podes pô-lo num espaço em «Escolher golpe»"
 }

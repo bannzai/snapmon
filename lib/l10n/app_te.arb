@@ -297,5 +297,6 @@
   "actionCardTeach": "మూవ్ నేర్పు",
   "actionCardTeachTitle": "{monsterName}కి నేర్పు",
   "actionCardTeachNoForgotten": "ఏ మూవ్ కూడా తీసివేయబడదు",
-  "actionCardTeachReplacedMove": "{moveName} మూవ్ స్లాట్ నుంచి బయటకు వస్తుంది"
+  "actionCardTeachReplacedMove": "{moveName} మూవ్ స్లాట్ నుంచి బయటకు వస్తుంది",
+  "actionCardTeachNotEquipped": "మూవ్ ఎంచుకుని స్లాట్‌లో పెట్టవచ్చు"
 }

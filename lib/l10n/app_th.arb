@@ -297,5 +297,6 @@
   "actionCardTeach": "สอนท่า",
   "actionCardTeachTitle": "สอนให้ {monsterName}",
   "actionCardTeachNoForgotten": "ไม่มีท่าที่จะถูกถอดออก",
-  "actionCardTeachReplacedMove": "{moveName} จะออกจากช่องท่า"
+  "actionCardTeachReplacedMove": "{moveName} จะออกจากช่องท่า",
+  "actionCardTeachNotEquipped": "ใส่ในช่องได้จากเมนูเลือกท่า"
 }

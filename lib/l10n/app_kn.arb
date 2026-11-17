@@ -297,5 +297,6 @@
   "actionCardTeach": "ತಂತ್ರ ಕಲಿಸು",
   "actionCardTeachTitle": "{monsterName}ಗೆ ಕಲಿಸು",
   "actionCardTeachNoForgotten": "ಯಾವ ತಂತ್ರವೂ ತೆಗೆದುಹಾಕಲಾಗುವುದಿಲ್ಲ",
-  "actionCardTeachReplacedMove": "{moveName} ತಂತ್ರದ ಸ್ಲಾಟ್‌ನಿಂದ ಹೊರಹೋಗುತ್ತದೆ"
+  "actionCardTeachReplacedMove": "{moveName} ತಂತ್ರದ ಸ್ಲಾಟ್‌ನಿಂದ ಹೊರಹೋಗುತ್ತದೆ",
+  "actionCardTeachNotEquipped": "ತಂತ್ರ ಆಯ್ಕೆ ಮಾಡಿ ಸ್ಲಾಟ್‌ಗೆ ಸೇರಿಸಬಹುದು"
 }

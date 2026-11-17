@@ -297,5 +297,6 @@
   "actionCardTeach": "Lär ut en attack",
   "actionCardTeachTitle": "Lär {monsterName}",
   "actionCardTeachNoForgotten": "Ingen attack tas bort",
-  "actionCardTeachReplacedMove": "{moveName} lämnar en attackplats"
+  "actionCardTeachReplacedMove": "{moveName} lämnar en attackplats",
+  "actionCardTeachNotEquipped": "Du kan sätta den i en plats via Välj attack"
 }

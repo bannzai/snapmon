@@ -297,5 +297,6 @@
   "actionCardTeach": "Insegna una mossa",
   "actionCardTeachTitle": "Insegna a {monsterName}",
   "actionCardTeachNoForgotten": "Nessuna mossa verrà rimossa",
-  "actionCardTeachReplacedMove": "{moveName} uscirà dallo slot mosse"
+  "actionCardTeachReplacedMove": "{moveName} uscirà dallo slot mosse",
+  "actionCardTeachNotEquipped": "Puoi inserirla in uno slot da «Scegli mossa»"
 }

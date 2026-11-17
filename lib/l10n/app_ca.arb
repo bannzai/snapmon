@@ -297,5 +297,6 @@
   "actionCardTeach": "Ensenya un moviment",
   "actionCardTeachTitle": "Ensenya-ho a {monsterName}",
   "actionCardTeachNoForgotten": "No s'eliminarà cap moviment",
-  "actionCardTeachReplacedMove": "{moveName} sortirà d'una ranura de moviment"
+  "actionCardTeachReplacedMove": "{moveName} sortirà d'una ranura de moviment",
+  "actionCardTeachNotEquipped": "Pots posar-lo a la ranura a «Tria un moviment»"
 }
