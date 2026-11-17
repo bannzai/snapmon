@@ -172,5 +172,6 @@
   "battleLogRecovered": "{monsterName}의 HP가 {amount} 회복됐다",
   "battleLogNoEffect": "하지만 아무 일도 일어나지 않았다",
   "battleStatModifier": "{statName} ×{multiplier}",
-  "battleLogSwitchedIn": "{monsterName} 등장했다!"
+  "battleLogSwitchedIn": "{monsterName} 등장했다!",
+  "battleLogSwitchedOut": "{withdrawnMonsterName}을 불러들이고 {monsterName}을 내보냈다"
 }

@@ -172,5 +172,6 @@
   "battleLogRecovered": "{monsterName} si obnovil {amount} HP",
   "battleLogNoEffect": "Ale nic se nestalo",
   "battleStatModifier": "{statName} ×{multiplier}",
-  "battleLogSwitchedIn": "Do boje nastupuje {monsterName}!"
+  "battleLogSwitchedIn": "Do boje nastupuje {monsterName}!",
+  "battleLogSwitchedOut": "Stáhl jsi {withdrawnMonsterName} a poslal do boje {monsterName}"
 }

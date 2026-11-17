@@ -172,5 +172,6 @@
   "battleLogRecovered": "استعاد {monsterName} مقدار {amount} من HP",
   "battleLogNoEffect": "لكن لم يحدث شيء",
   "battleStatModifier": "{statName} ×{multiplier}",
-  "battleLogSwitchedIn": "ظهر {monsterName}!"
+  "battleLogSwitchedIn": "ظهر {monsterName}!",
+  "battleLogSwitchedOut": "تم سحب {withdrawnMonsterName} وإرسال {monsterName}"
 }

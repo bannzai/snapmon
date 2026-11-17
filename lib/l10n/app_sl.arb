@@ -172,5 +172,6 @@
   "battleLogRecovered": "{monsterName} si je povrnil {amount} HP",
   "battleLogNoEffect": "A zgodilo se ni nič",
   "battleStatModifier": "{statName} ×{multiplier}",
-  "battleLogSwitchedIn": "V boj prihaja {monsterName}!"
+  "battleLogSwitchedIn": "V boj prihaja {monsterName}!",
+  "battleLogSwitchedOut": "Umaknil si {withdrawnMonsterName} in v boj poslal {monsterName}"
 }

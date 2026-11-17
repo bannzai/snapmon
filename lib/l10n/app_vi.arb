@@ -172,5 +172,6 @@
   "battleLogRecovered": "{monsterName} hồi phục {amount} HP",
   "battleLogNoEffect": "Nhưng chẳng có gì xảy ra",
   "battleStatModifier": "{statName} ×{multiplier}",
-  "battleLogSwitchedIn": "{monsterName} xuất hiện!"
+  "battleLogSwitchedIn": "{monsterName} xuất hiện!",
+  "battleLogSwitchedOut": "Bạn thu hồi {withdrawnMonsterName} và cho {monsterName} ra trận"
 }

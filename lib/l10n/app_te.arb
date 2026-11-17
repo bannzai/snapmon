@@ -172,5 +172,6 @@
   "battleLogRecovered": "{monsterName} {amount} HP తిరిగి పొందింది",
   "battleLogNoEffect": "కానీ ఏమీ జరగలేదు",
   "battleStatModifier": "{statName} ×{multiplier}",
-  "battleLogSwitchedIn": "బరిలోకి వచ్చింది {monsterName}!"
+  "battleLogSwitchedIn": "బరిలోకి వచ్చింది {monsterName}!",
+  "battleLogSwitchedOut": "నువ్వు {withdrawnMonsterName}ని వెనక్కి పిలిచి {monsterName}ని బరిలోకి దింపావు"
 }

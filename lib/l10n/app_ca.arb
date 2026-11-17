@@ -172,5 +172,6 @@
   "battleLogRecovered": "{monsterName} ha recuperat {amount} HP",
   "battleLogNoEffect": "Però no ha passat res",
   "battleStatModifier": "{statName} ×{multiplier}",
-  "battleLogSwitchedIn": "Ha sortit {monsterName}!"
+  "battleLogSwitchedIn": "Ha sortit {monsterName}!",
+  "battleLogSwitchedOut": "Has retirat {withdrawnMonsterName} i has enviat {monsterName}"
 }

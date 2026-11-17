@@ -172,5 +172,6 @@
   "battleLogRecovered": "ל־{monsterName} חזרו {amount} HP",
   "battleLogNoEffect": "אבל שום דבר לא קרה",
   "battleStatModifier": "{statName} ×{multiplier}",
-  "battleLogSwitchedIn": "{monsterName} הופיע!"
+  "battleLogSwitchedIn": "{monsterName} הופיע!",
+  "battleLogSwitchedOut": "{withdrawnMonsterName} חזר, ו-{monsterName} יצא לקרב"
 }

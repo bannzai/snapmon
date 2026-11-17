@@ -172,5 +172,6 @@
   "battleLogRecovered": "{monsterName}恢复了{amount} HP",
   "battleLogNoEffect": "但什么也没发生",
   "battleStatModifier": "{statName} ×{multiplier}",
-  "battleLogSwitchedIn": "{monsterName}登场了！"
+  "battleLogSwitchedIn": "{monsterName}登场了！",
+  "battleLogSwitchedOut": "你收回了{withdrawnMonsterName}，派出了{monsterName}"
 }

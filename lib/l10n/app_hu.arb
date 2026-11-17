@@ -172,5 +172,6 @@
   "battleLogRecovered": "{monsterName} visszanyert {amount} HP-t",
   "battleLogNoEffect": "De nem történt semmi",
   "battleStatModifier": "{statName} ×{multiplier}",
-  "battleLogSwitchedIn": "Megjelent {monsterName}!"
+  "battleLogSwitchedIn": "Megjelent {monsterName}!",
+  "battleLogSwitchedOut": "Visszahívtad {withdrawnMonsterName} lényt, és beküldted {monsterName} lényt"
 }

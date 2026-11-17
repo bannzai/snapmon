@@ -172,5 +172,6 @@
   "battleLogRecovered": "{monsterName} sai takaisin {amount} HP",
   "battleLogNoEffect": "Mutta mitään ei tapahtunut",
   "battleStatModifier": "{statName} ×{multiplier}",
-  "battleLogSwitchedIn": "{monsterName} ilmestyi!"
+  "battleLogSwitchedIn": "{monsterName} ilmestyi!",
+  "battleLogSwitchedOut": "Vedit {withdrawnMonsterName} takaisin ja lähetit {monsterName} taisteluun"
 }

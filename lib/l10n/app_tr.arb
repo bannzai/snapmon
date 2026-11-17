@@ -172,5 +172,6 @@
   "battleLogRecovered": "{monsterName} {amount} HP yeniledi",
   "battleLogNoEffect": "Ama hiçbir şey olmadı",
   "battleStatModifier": "{statName} ×{multiplier}",
-  "battleLogSwitchedIn": "{monsterName} ortaya çıktı!"
+  "battleLogSwitchedIn": "{monsterName} ortaya çıktı!",
+  "battleLogSwitchedOut": "{withdrawnMonsterName} geri çekildi, {monsterName} savaşa çıktı"
 }

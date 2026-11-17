@@ -172,5 +172,6 @@
   "battleLogRecovered": "Ο {monsterName} ανέκτησε {amount} HP",
   "battleLogNoEffect": "Αλλά δεν έγινε τίποτα",
   "battleStatModifier": "{statName} ×{multiplier}",
-  "battleLogSwitchedIn": "Εμφανίστηκε το {monsterName}!"
+  "battleLogSwitchedIn": "Εμφανίστηκε το {monsterName}!",
+  "battleLogSwitchedOut": "Απέσυρες το {withdrawnMonsterName} και έστειλες το {monsterName}"
 }
