@@ -237,5 +237,6 @@
   "titleHeading": "身边的物品\n化身怪物，展开战斗",
   "referenceOpen": "属性克制与招式一览",
   "referenceTitle": "属性与招式",
-  "referenceTypeChartTab": "克制表"
+  "referenceTypeChartTab": "克制表",
+  "referenceMovesTab": "招式一览"
 }

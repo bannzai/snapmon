@@ -237,5 +237,6 @@
   "titleHeading": "أشياء من حولك\nتصير وحوشًا وتقاتل",
   "referenceOpen": "فعالية العنصر وقائمة الحركات",
   "referenceTitle": "العناصر والحركات",
-  "referenceTypeChartTab": "جدول الفعالية"
+  "referenceTypeChartTab": "جدول الفعالية",
+  "referenceMovesTab": "قائمة الحركات"
 }

@@ -237,5 +237,6 @@
   "titleHeading": "Ting rundt deg\nblir monstre og kjemper",
   "referenceOpen": "Typeeffektivitet og liste over angrep",
   "referenceTitle": "type og angrep",
-  "referenceTypeChartTab": "Effektivitetstabell"
+  "referenceTypeChartTab": "Effektivitetstabell",
+  "referenceMovesTab": "Liste over angrep"
 }

@@ -237,5 +237,6 @@
   "titleHeading": "주변의 물건이\n몬스터가 되어 싸워요",
   "referenceOpen": "속성 상성과 기술 목록",
   "referenceTitle": "속성과 기술",
-  "referenceTypeChartTab": "상성표"
+  "referenceTypeChartTab": "상성표",
+  "referenceMovesTab": "기술 목록"
 }

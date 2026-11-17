@@ -237,5 +237,6 @@
   "titleHeading": "आसपास की चीज़ें\nमॉन्स्टर बनकर लड़ती हैं",
   "referenceOpen": "तत्वों की प्रभावशीलता और चालों की सूची",
   "referenceTitle": "तत्व और चालें",
-  "referenceTypeChartTab": "प्रभावशीलता तालिका"
+  "referenceTypeChartTab": "प्रभावशीलता तालिका",
+  "referenceMovesTab": "चालों की सूची"
 }

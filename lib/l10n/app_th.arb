@@ -237,5 +237,6 @@
   "titleHeading": "สิ่งของรอบตัว\nกลายเป็นมอนสเตอร์แล้วต่อสู้",
   "referenceOpen": "ตารางธาตุได้เปรียบและรายชื่อท่า",
   "referenceTitle": "ธาตุและท่า",
-  "referenceTypeChartTab": "ตารางความได้เปรียบ"
+  "referenceTypeChartTab": "ตารางความได้เปรียบ",
+  "referenceMovesTab": "รายชื่อท่า"
 }

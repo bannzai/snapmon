@@ -237,5 +237,6 @@
   "titleHeading": "ചുറ്റുമുള്ള വസ്തുക്കൾ\nമോൺസ്റ്ററുകളായി പോരാടുന്നു",
   "referenceOpen": "മൂലകങ്ങളുടെ ഫലപ്രാപ്തിയും നീക്കങ്ങളുടെ പട്ടികയും",
   "referenceTitle": "മൂലകങ്ങളും നീക്കങ്ങളും",
-  "referenceTypeChartTab": "ഫലപ്രാപ്തി പട്ടിക"
+  "referenceTypeChartTab": "ഫലപ്രാപ്തി പട്ടിക",
+  "referenceMovesTab": "നീക്കങ്ങളുടെ പട്ടിക"
 }

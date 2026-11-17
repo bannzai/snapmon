@@ -237,5 +237,6 @@
   "titleHeading": "Saker omkring dig\nblir monster och slåss",
   "referenceOpen": "Elementens effektivitet och lista över attacker",
   "referenceTitle": "Element och attacker",
-  "referenceTypeChartTab": "Effektivitetstabell"
+  "referenceTypeChartTab": "Effektivitetstabell",
+  "referenceMovesTab": "Lista över attacker"
 }

@@ -237,5 +237,6 @@
   "titleHeading": "Gli oggetti intorno a te\ndiventano mostri e combattono",
   "referenceOpen": "Efficacia degli elementi e lista delle mosse",
   "referenceTitle": "Elementi e mosse",
-  "referenceTypeChartTab": "Tabella dell’efficacia"
+  "referenceTypeChartTab": "Tabella dell’efficacia",
+  "referenceMovesTab": "Elenco delle mosse"
 }

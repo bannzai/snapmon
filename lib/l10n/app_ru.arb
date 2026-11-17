@@ -237,5 +237,6 @@
   "titleHeading": "Вещи вокруг тебя\nстановятся монстрами и сражаются",
   "referenceOpen": "Эффективность элементов и список приёмов",
   "referenceTitle": "Элементы и приёмы",
-  "referenceTypeChartTab": "Таблица эффективности"
+  "referenceTypeChartTab": "Таблица эффективности",
+  "referenceMovesTab": "Список приёмов"
 }

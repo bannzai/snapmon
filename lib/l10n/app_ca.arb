@@ -237,5 +237,6 @@
   "titleHeading": "Els objectes del teu voltant\nes tornen monstres i lluiten",
   "referenceOpen": "Eficàcia dels elements i llista de moviments",
   "referenceTitle": "Elements i moviments",
-  "referenceTypeChartTab": "Taula d’eficàcia"
+  "referenceTypeChartTab": "Taula d’eficàcia",
+  "referenceMovesTab": "Llista de moviments"
 }
