@@ -61,5 +61,6 @@
   "settingsTransferData": "Transferă datele",
   "settingsTransferDataDescription": "Conectează-te cu {providerName}\nși păstrează enciclopedia când schimbi telefonul",
   "settingsLinkedWith": "Cont conectat prin {providerNames}",
-  "settingsProviderSeparator": " și "
+  "settingsProviderSeparator": " și ",
+  "settingsDeleteAccount": "Șterge contul"
 }

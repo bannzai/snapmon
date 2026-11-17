@@ -61,5 +61,6 @@
   "settingsTransferData": "Transferir dados",
   "settingsTransferDataDescription": "Inicia sessão com {providerName}\ne mantém a tua enciclopédia ao mudares de telemóvel",
   "settingsLinkedWith": "Conta associada a {providerNames}",
-  "settingsProviderSeparator": " e "
+  "settingsProviderSeparator": " e ",
+  "settingsDeleteAccount": "Eliminar conta"
 }

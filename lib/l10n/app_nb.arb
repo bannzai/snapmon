@@ -61,5 +61,6 @@
   "settingsTransferData": "Overfør data",
   "settingsTransferDataDescription": "Logg inn med {providerName}\nog behold samlingen din når du bytter telefon",
   "settingsLinkedWith": "Konto koblet til via {providerNames}",
-  "settingsProviderSeparator": " og "
+  "settingsProviderSeparator": " og ",
+  "settingsDeleteAccount": "Slett konto"
 }

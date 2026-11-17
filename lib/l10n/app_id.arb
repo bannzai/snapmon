@@ -61,5 +61,6 @@
   "settingsTransferData": "Pindahkan data",
   "settingsTransferDataDescription": "Masuk dengan {providerName}\nagar dex-mu tetap ada saat ganti perangkat",
   "settingsLinkedWith": "Akun tertaut dengan {providerNames}",
-  "settingsProviderSeparator": " dan "
+  "settingsProviderSeparator": " dan ",
+  "settingsDeleteAccount": "Hapus akun"
 }

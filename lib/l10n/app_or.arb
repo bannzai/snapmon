@@ -61,5 +61,6 @@
   "settingsTransferData": "ଡାଟା ସ୍ଥାନାନ୍ତର କର",
   "settingsTransferDataDescription": "{providerName} ସହ ସାଇନ୍ ଇନ୍ କର\nଫୋନ୍ ବଦଳାଇଲେ ବି ତୁମ ବିଶ୍ୱକୋଷ ରଖ",
   "settingsLinkedWith": "{providerNames} ସହ ଆକାଉଣ୍ଟ ଲିଙ୍କ୍ ହୋଇଛି",
-  "settingsProviderSeparator": " ଓ "
+  "settingsProviderSeparator": " ଓ ",
+  "settingsDeleteAccount": "ଆକାଉଣ୍ଟ ଡିଲିଟ୍ କର"
 }

@@ -61,5 +61,6 @@
   "settingsTransferData": "Daten übertragen",
   "settingsTransferDataDescription": "Melde dich mit {providerName} an\nund behalte deinen Dex beim Gerätewechsel",
   "settingsLinkedWith": "Konto mit {providerNames} verknüpft",
-  "settingsProviderSeparator": " und "
+  "settingsProviderSeparator": " und ",
+  "settingsDeleteAccount": "Konto löschen"
 }

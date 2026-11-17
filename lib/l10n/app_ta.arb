@@ -61,5 +61,6 @@
   "settingsTransferData": "தரவை மாற்றுங்கள்",
   "settingsTransferDataDescription": "{providerName} மூலம் உள்நுழையுங்கள்\nதொலைபேசியை மாற்றினாலும் உங்கள் களஞ்சியத்தை வைத்திருங்கள்",
   "settingsLinkedWith": "{providerNames} மூலம் கணக்கு இணைக்கப்பட்டுள்ளது",
-  "settingsProviderSeparator": " மற்றும் "
+  "settingsProviderSeparator": " மற்றும் ",
+  "settingsDeleteAccount": "கணக்கை நீக்குங்கள்"
 }

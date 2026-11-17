@@ -61,5 +61,6 @@
   "settingsTransferData": "ডেটা স্থানান্তর করো",
   "settingsTransferDataDescription": "{providerName} দিয়ে সাইন ইন করো\nফোন বদলালেও তোমার সংগ্রহ রেখে দাও",
   "settingsLinkedWith": "{providerNames} দিয়ে অ্যাকাউন্ট লিঙ্ক করা আছে",
-  "settingsProviderSeparator": " ও "
+  "settingsProviderSeparator": " ও ",
+  "settingsDeleteAccount": "অ্যাকাউন্ট মুছে ফেলো"
 }

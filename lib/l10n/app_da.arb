@@ -61,5 +61,6 @@
   "settingsTransferData": "Overfør data",
   "settingsTransferDataDescription": "Log ind med {providerName}\nog behold din dex, når du skifter telefon",
   "settingsLinkedWith": "Konto tilknyttet via {providerNames}",
-  "settingsProviderSeparator": " og "
+  "settingsProviderSeparator": " og ",
+  "settingsDeleteAccount": "Slet konto"
 }

@@ -61,5 +61,6 @@
   "settingsTransferData": "Trasferisci i dati",
   "settingsTransferDataDescription": "Accedi con {providerName}\ne conserva il tuo dex quando cambi dispositivo",
   "settingsLinkedWith": "Account collegato con {providerNames}",
-  "settingsProviderSeparator": " e "
+  "settingsProviderSeparator": " e ",
+  "settingsDeleteAccount": "Elimina account"
 }

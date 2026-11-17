@@ -61,5 +61,6 @@
   "settingsTransferData": "Transferir dados",
   "settingsTransferDataDescription": "Entre com {providerName}\ne mantenha seu dex ao trocar de celular",
   "settingsLinkedWith": "Conta vinculada com {providerNames}",
-  "settingsProviderSeparator": " e "
+  "settingsProviderSeparator": " e ",
+  "settingsDeleteAccount": "Excluir conta"
 }

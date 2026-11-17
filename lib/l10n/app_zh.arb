@@ -61,5 +61,6 @@
   "settingsTransferData": "转移数据",
   "settingsTransferDataDescription": "用 {providerName} 登录\n换手机也能保留图鉴",
   "settingsLinkedWith": "已通过 {providerNames} 关联账号",
-  "settingsProviderSeparator": "和"
+  "settingsProviderSeparator": "和",
+  "settingsDeleteAccount": "删除账号"
 }

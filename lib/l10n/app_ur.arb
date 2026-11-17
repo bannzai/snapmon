@@ -61,5 +61,6 @@
   "settingsTransferData": "ڈیٹا منتقل کرو",
   "settingsTransferDataDescription": "{providerName} سے سائن اِن کرو\nفون بدلنے پر بھی اپنا ڈیکس محفوظ رکھو",
   "settingsLinkedWith": "اکاؤنٹ {providerNames} سے منسلک ہے",
-  "settingsProviderSeparator": " اور "
+  "settingsProviderSeparator": " اور ",
+  "settingsDeleteAccount": "اکاؤنٹ حذف کرو"
 }
