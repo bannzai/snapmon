@@ -47,5 +47,6 @@
   "settingsSwitchAccountMessage": "Ce compte {providerName} est déjà lié à un autre appareil. Si tu y passes, le dex de cet appareil (monstres : {monsterCount}) sera effacé et tu retrouveras le dex du compte lié.",
   "settingsSwitchAccountConfirm": "Changer de compte",
   "settingsSwitchedAccount": "Tu es passé à un compte déjà associé",
-  "settingsDeleteAccountTitle": "Supprimer ton compte ?"
+  "settingsDeleteAccountTitle": "Supprimer ton compte ?",
+  "settingsDeleteAccountMessage": "Tes monstres, ton dex, tes photos d’origine et ton historique des combats seront supprimés sans possibilité de les récupérer. Après la suppression, tu repartiras avec un nouveau compte."
 }
