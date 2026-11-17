@@ -8,5 +8,6 @@
   "sessionPreparing": "Valmistellaan",
   "sessionConnectionFailed": "Yhteys epäonnistui",
   "reportReasonInappropriatePicture": "Sopimaton kuva",
-  "reportReasonInappropriateText": "Sopimaton nimi tai teksti"
+  "reportReasonInappropriateText": "Sopimaton nimi tai teksti",
+  "reportReasonPersonInPicture": "Kuvassa näkyy ihminen"
 }

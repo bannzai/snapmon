@@ -8,5 +8,6 @@
   "sessionPreparing": "Gør klar",
   "sessionConnectionFailed": "Kunne ikke oprette forbindelse",
   "reportReasonInappropriatePicture": "Upassende billede",
-  "reportReasonInappropriateText": "Upassende navn eller tekst"
+  "reportReasonInappropriateText": "Upassende navn eller tekst",
+  "reportReasonPersonInPicture": "Der er en person på billedet"
 }

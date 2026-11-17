@@ -8,5 +8,6 @@
   "sessionPreparing": "Đang chuẩn bị",
   "sessionConnectionFailed": "Không thể kết nối",
   "reportReasonInappropriatePicture": "Hình ảnh không phù hợp",
-  "reportReasonInappropriateText": "Tên hoặc nội dung không phù hợp"
+  "reportReasonInappropriateText": "Tên hoặc nội dung không phù hợp",
+  "reportReasonPersonInPicture": "Có người trong ảnh"
 }

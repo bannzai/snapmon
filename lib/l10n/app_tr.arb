@@ -8,5 +8,6 @@
   "sessionPreparing": "Hazırlanıyor",
   "sessionConnectionFailed": "Bağlantı kurulamadı",
   "reportReasonInappropriatePicture": "Uygunsuz görsel",
-  "reportReasonInappropriateText": "Uygunsuz ad veya metin"
+  "reportReasonInappropriateText": "Uygunsuz ad veya metin",
+  "reportReasonPersonInPicture": "Fotoğrafta bir kişi var"
 }

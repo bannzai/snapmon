@@ -8,5 +8,6 @@
   "sessionPreparing": "Priprema se",
   "sessionConnectionFailed": "Povezivanje nije uspjelo",
   "reportReasonInappropriatePicture": "Neprimjerena slika",
-  "reportReasonInappropriateText": "Neprimjereno ime ili tekst"
+  "reportReasonInappropriateText": "Neprimjereno ime ili tekst",
+  "reportReasonPersonInPicture": "Na slici je osoba"
 }

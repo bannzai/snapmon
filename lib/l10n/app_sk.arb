@@ -8,5 +8,6 @@
   "sessionPreparing": "Pripravuje sa",
   "sessionConnectionFailed": "Nepodarilo sa pripojiť",
   "reportReasonInappropriatePicture": "Nevhodný obrázok",
-  "reportReasonInappropriateText": "Nevhodné meno alebo text"
+  "reportReasonInappropriateText": "Nevhodné meno alebo text",
+  "reportReasonPersonInPicture": "Na fotke je človek"
 }

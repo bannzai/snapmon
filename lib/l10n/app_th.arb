@@ -8,5 +8,6 @@
   "sessionPreparing": "กำลังเตรียมพร้อม",
   "sessionConnectionFailed": "เชื่อมต่อไม่สำเร็จ",
   "reportReasonInappropriatePicture": "ภาพไม่เหมาะสม",
-  "reportReasonInappropriateText": "ชื่อหรือข้อความไม่เหมาะสม"
+  "reportReasonInappropriateText": "ชื่อหรือข้อความไม่เหมาะสม",
+  "reportReasonPersonInPicture": "มีคนอยู่ในภาพ"
 }

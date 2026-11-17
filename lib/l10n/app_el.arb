@@ -8,5 +8,6 @@
   "sessionPreparing": "Γίνεται προετοιμασία",
   "sessionConnectionFailed": "Η σύνδεση απέτυχε",
   "reportReasonInappropriatePicture": "Ακατάλληλη εικόνα",
-  "reportReasonInappropriateText": "Ακατάλληλο όνομα ή κείμενο"
+  "reportReasonInappropriateText": "Ακατάλληλο όνομα ή κείμενο",
+  "reportReasonPersonInPicture": "Φαίνεται άτομο στη φωτογραφία"
 }

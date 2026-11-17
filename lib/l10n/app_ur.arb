@@ -8,5 +8,6 @@
   "sessionPreparing": "تیاری ہو رہی ہے",
   "sessionConnectionFailed": "رابطہ قائم نہیں ہو سکا",
   "reportReasonInappropriatePicture": "نامناسب تصویر",
-  "reportReasonInappropriateText": "نام یا متن نامناسب ہے"
+  "reportReasonInappropriateText": "نام یا متن نامناسب ہے",
+  "reportReasonPersonInPicture": "تصویر میں ایک شخص ہے"
 }

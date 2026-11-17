@@ -8,5 +8,6 @@
   "sessionPreparing": "প্রস্তুতি চলছে",
   "sessionConnectionFailed": "সংযোগ করা যায়নি",
   "reportReasonInappropriatePicture": "অনুপযুক্ত ছবি",
-  "reportReasonInappropriateText": "নাম বা লেখা অনুপযুক্ত"
+  "reportReasonInappropriateText": "নাম বা লেখা অনুপযুক্ত",
+  "reportReasonPersonInPicture": "ছবিতে একজন মানুষ আছে"
 }

@@ -8,5 +8,6 @@
   "sessionPreparing": "جارٍ التحضير",
   "sessionConnectionFailed": "تعذّر الاتصال",
   "reportReasonInappropriatePicture": "صورة غير لائقة",
-  "reportReasonInappropriateText": "اسم أو نص غير لائق"
+  "reportReasonInappropriateText": "اسم أو نص غير لائق",
+  "reportReasonPersonInPicture": "تظهر صورة لشخص"
 }

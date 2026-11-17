@@ -8,5 +8,6 @@
   "sessionPreparing": "సిద్ధమవుతోంది",
   "sessionConnectionFailed": "కనెక్ట్ కాలేదు",
   "reportReasonInappropriatePicture": "అనుచితమైన చిత్రం",
-  "reportReasonInappropriateText": "అనుచితమైన పేరు లేదా వచనం"
+  "reportReasonInappropriateText": "అనుచితమైన పేరు లేదా వచనం",
+  "reportReasonPersonInPicture": "ఫోటోలో ఒక వ్యక్తి ఉన్నారు"
 }

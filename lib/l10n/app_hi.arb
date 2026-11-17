@@ -8,5 +8,6 @@
   "sessionPreparing": "तैयारी चल रही है",
   "sessionConnectionFailed": "कनेक्ट नहीं हो पाया",
   "reportReasonInappropriatePicture": "अनुचित तस्वीर",
-  "reportReasonInappropriateText": "अनुचित नाम या लिखा हुआ टेक्स्ट"
+  "reportReasonInappropriateText": "अनुचित नाम या लिखा हुआ टेक्स्ट",
+  "reportReasonPersonInPicture": "फ़ोटो में कोई व्यक्ति है"
 }

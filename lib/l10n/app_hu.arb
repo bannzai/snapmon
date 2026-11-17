@@ -8,5 +8,6 @@
   "sessionPreparing": "Előkészület folyamatban",
   "sessionConnectionFailed": "Nem sikerült csatlakozni",
   "reportReasonInappropriatePicture": "Nem megfelelő kép",
-  "reportReasonInappropriateText": "Nem megfelelő név vagy szöveg"
+  "reportReasonInappropriateText": "Nem megfelelő név vagy szöveg",
+  "reportReasonPersonInPicture": "Személy látható a képen"
 }

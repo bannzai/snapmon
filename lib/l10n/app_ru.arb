@@ -8,5 +8,6 @@
   "sessionPreparing": "Подготовка",
   "sessionConnectionFailed": "Не удалось подключиться",
   "reportReasonInappropriatePicture": "Неподходящее изображение",
-  "reportReasonInappropriateText": "Недопустимое имя или текст"
+  "reportReasonInappropriateText": "Недопустимое имя или текст",
+  "reportReasonPersonInPicture": "На фото есть человек"
 }

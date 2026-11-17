@@ -8,5 +8,6 @@
   "sessionPreparing": "מתכוננים",
   "sessionConnectionFailed": "החיבור נכשל",
   "reportReasonInappropriatePicture": "תמונה לא הולמת",
-  "reportReasonInappropriateText": "שם או טקסט לא הולם"
+  "reportReasonInappropriateText": "שם או טקסט לא הולם",
+  "reportReasonPersonInPicture": "מופיע אדם בתמונה"
 }

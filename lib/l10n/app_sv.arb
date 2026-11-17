@@ -8,5 +8,6 @@
   "sessionPreparing": "Gör klart",
   "sessionConnectionFailed": "Kunde inte ansluta",
   "reportReasonInappropriatePicture": "Olämplig bild",
-  "reportReasonInappropriateText": "Olämpligt namn eller text"
+  "reportReasonInappropriateText": "Olämpligt namn eller text",
+  "reportReasonPersonInPicture": "En person syns på bilden"
 }

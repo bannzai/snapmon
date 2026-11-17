@@ -8,5 +8,6 @@
   "sessionPreparing": "Sedang bersiap",
   "sessionConnectionFailed": "Gagal terhubung",
   "reportReasonInappropriatePicture": "Gambar tidak pantas",
-  "reportReasonInappropriateText": "Nama atau teks tidak pantas"
+  "reportReasonInappropriateText": "Nama atau teks tidak pantas",
+  "reportReasonPersonInPicture": "Ada orang di foto"
 }

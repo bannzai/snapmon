@@ -8,5 +8,6 @@
   "sessionPreparing": "A preparar tudo",
   "sessionConnectionFailed": "Não foi possível ligar",
   "reportReasonInappropriatePicture": "Imagem imprópria",
-  "reportReasonInappropriateText": "Nome ou texto impróprio"
+  "reportReasonInappropriateText": "Nome ou texto impróprio",
+  "reportReasonPersonInPicture": "Está uma pessoa na fotografia"
 }
