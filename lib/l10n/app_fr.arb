@@ -184,5 +184,6 @@
   "battleLogSelfDestructed": "{monsterName} s’autodétruit !",
   "battleLogStatusInflicted": "{monsterName} subit l’effet {statusName} !",
   "battleLogStatusStacked": "L’effet {statusName} sur {monsterName} s’est cumulé (×{stackCount})",
-  "battleLogStatusReplaced": "Le statut de {monsterName} passe de {previousStatusName} à {statusName}"
+  "battleLogStatusReplaced": "Le statut de {monsterName} passe de {previousStatusName} à {statusName}",
+  "battleLogCursedStat": "Malédiction sur {statName} de {monsterName} !"
 }
