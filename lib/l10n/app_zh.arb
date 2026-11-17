@@ -138,5 +138,6 @@
   "generationFailedMessage": "怪兽生成失败\n再拍一张试试",
   "resultReplaceTitle": "换成{monsterName}",
   "resultNewlyBorn": "新伙伴",
-  "statHitPoints": "HP"
+  "statHitPoints": "HP",
+  "statAttack": "攻击"
 }

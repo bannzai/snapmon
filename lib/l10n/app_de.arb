@@ -138,5 +138,6 @@
   "generationFailedMessage": "Das Monster konnte nicht erstellt werden\nMach noch ein Foto",
   "resultReplaceTitle": "Gegen {monsterName} tauschen",
   "resultNewlyBorn": "Ein neuer Freund",
-  "statHitPoints": "HP"
+  "statHitPoints": "HP",
+  "statAttack": "Angriff"
 }

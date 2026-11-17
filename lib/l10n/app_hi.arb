@@ -138,5 +138,6 @@
   "generationFailedMessage": "मॉन्स्टर नहीं बन पाया\nफिर से फ़ोटो लेकर देखो",
   "resultReplaceTitle": "{monsterName} से बदलो",
   "resultNewlyBorn": "नया साथी",
-  "statHitPoints": "HP"
+  "statHitPoints": "HP",
+  "statAttack": "आक्रमण"
 }

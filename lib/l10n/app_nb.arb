@@ -138,5 +138,6 @@
   "generationFailedMessage": "Monsteret kunne ikke lages\nPrøv å ta et nytt bilde",
   "resultReplaceTitle": "Bytt ut med {monsterName}",
   "resultNewlyBorn": "En ny venn",
-  "statHitPoints": "HP"
+  "statHitPoints": "HP",
+  "statAttack": "Angrep"
 }

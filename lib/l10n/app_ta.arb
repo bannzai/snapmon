@@ -138,5 +138,6 @@
   "generationFailedMessage": "அரக்கனை உருவாக்க முடியவில்லை\nமீண்டும் படம் எடுத்துப் பாருங்கள்",
   "resultReplaceTitle": "{monsterName} உடன் மாற்றுங்கள்",
   "resultNewlyBorn": "புதிய தோழன்",
-  "statHitPoints": "HP"
+  "statHitPoints": "HP",
+  "statAttack": "தாக்குதல்"
 }

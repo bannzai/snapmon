@@ -138,5 +138,6 @@
   "generationFailedMessage": "Monstret kunde inte skapas\nProva att ta en ny bild",
   "resultReplaceTitle": "Byt ut mot {monsterName}",
   "resultNewlyBorn": "En ny vän",
-  "statHitPoints": "HP"
+  "statHitPoints": "HP",
+  "statAttack": "Attack"
 }

@@ -138,5 +138,6 @@
   "generationFailedMessage": "मॉन्स्टर तयार झाला नाही\nपुन्हा फोटो काढून बघ",
   "resultReplaceTitle": "{monsterName} सोबत अदलाबदल कर",
   "resultNewlyBorn": "नवा सोबती",
-  "statHitPoints": "HP"
+  "statHitPoints": "HP",
+  "statAttack": "हल्ला"
 }

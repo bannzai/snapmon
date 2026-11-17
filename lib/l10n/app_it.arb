@@ -138,5 +138,6 @@
   "generationFailedMessage": "Non è stato possibile creare il mostro\nProva a scattare un'altra foto",
   "resultReplaceTitle": "Sostituiscilo con {monsterName}",
   "resultNewlyBorn": "Un nuovo amico",
-  "statHitPoints": "HP"
+  "statHitPoints": "HP",
+  "statAttack": "Attacco"
 }

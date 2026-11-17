@@ -138,5 +138,6 @@
   "generationFailedMessage": "Čudovište nije stvoreno\nPokušaj ponovno snimiti fotografiju",
   "resultReplaceTitle": "Zamijeni za {monsterName}",
   "resultNewlyBorn": "Novi prijatelj",
-  "statHitPoints": "HP"
+  "statHitPoints": "HP",
+  "statAttack": "Napad"
 }

@@ -138,5 +138,6 @@
   "generationFailedMessage": "Canavar oluşturulamadı\nBir fotoğraf daha çekmeyi dene",
   "resultReplaceTitle": "{monsterName} ile değiştir",
   "resultNewlyBorn": "Yeni bir dost",
-  "statHitPoints": "HP"
+  "statHitPoints": "HP",
+  "statAttack": "Saldırı"
 }

@@ -138,5 +138,6 @@
   "generationFailedMessage": "יצירת המפלצת נכשלה\nכדאי לצלם שוב",
   "resultReplaceTitle": "החלפה עם {monsterName}",
   "resultNewlyBorn": "חבר חדש",
-  "statHitPoints": "HP"
+  "statHitPoints": "HP",
+  "statAttack": "התקפה"
 }

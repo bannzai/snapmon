@@ -138,5 +138,6 @@
   "generationFailedMessage": "Príšerku sa nepodarilo vytvoriť\nSkús urobiť ďalšiu fotku",
   "resultReplaceTitle": "Vymeň za {monsterName}",
   "resultNewlyBorn": "Nový parťák",
-  "statHitPoints": "HP"
+  "statHitPoints": "HP",
+  "statAttack": "Útok"
 }

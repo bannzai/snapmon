@@ -138,5 +138,6 @@
   "generationFailedMessage": "No s'ha pogut crear el monstre\nTorna a fer una foto",
   "resultReplaceTitle": "Canvia'l per {monsterName}",
   "resultNewlyBorn": "Un nou company",
-  "statHitPoints": "HP"
+  "statHitPoints": "HP",
+  "statAttack": "Atac"
 }

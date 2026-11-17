@@ -138,5 +138,6 @@
   "generationFailedMessage": "মনস্টার তৈরি করা যায়নি\nআবার ছবি তুলে দেখো",
   "resultReplaceTitle": "{monsterName} দিয়ে বদলাও",
   "resultNewlyBorn": "নতুন সঙ্গী",
-  "statHitPoints": "HP"
+  "statHitPoints": "HP",
+  "statAttack": "আক্রমণ"
 }

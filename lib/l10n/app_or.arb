@@ -138,5 +138,6 @@
   "generationFailedMessage": "ମନଷ୍ଟର ତିଆରି ହୋଇପାରିଲା ନାହିଁ\nପୁଣି ଫଟୋ ଉଠାଇ ଦେଖ",
   "resultReplaceTitle": "{monsterName} ସହ ବଦଳାଅ",
   "resultNewlyBorn": "ନୂଆ ସାଥୀ",
-  "statHitPoints": "HP"
+  "statHitPoints": "HP",
+  "statAttack": "ଆକ୍ରମଣ"
 }

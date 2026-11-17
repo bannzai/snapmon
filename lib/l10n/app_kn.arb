@@ -138,5 +138,6 @@
   "generationFailedMessage": "ಮಾನ್‌ಸ್ಟರ್ ರಚಿಸಲಾಗಲಿಲ್ಲ\nಮತ್ತೆ ಫೋಟೋ ತೆಗೆದು ನೋಡು",
   "resultReplaceTitle": "{monsterName} ಜೊತೆ ಬದಲಾಯಿಸು",
   "resultNewlyBorn": "ಹೊಸ ಸಂಗಾತಿ",
-  "statHitPoints": "HP"
+  "statHitPoints": "HP",
+  "statAttack": "ದಾಳಿ"
 }

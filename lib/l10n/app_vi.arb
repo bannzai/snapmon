@@ -138,5 +138,6 @@
   "generationFailedMessage": "Không tạo được quái vật\nBạn hãy thử chụp lại ảnh",
   "resultReplaceTitle": "Đổi lấy {monsterName}",
   "resultNewlyBorn": "Bạn đồng hành mới",
-  "statHitPoints": "HP"
+  "statHitPoints": "HP",
+  "statAttack": "Tấn công"
 }

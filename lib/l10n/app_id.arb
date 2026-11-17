@@ -138,5 +138,6 @@
   "generationFailedMessage": "Monster gagal dibuat\nCoba ambil foto lagi",
   "resultReplaceTitle": "Ganti dengan {monsterName}",
   "resultNewlyBorn": "Teman baru",
-  "statHitPoints": "HP"
+  "statHitPoints": "HP",
+  "statAttack": "Serangan"
 }

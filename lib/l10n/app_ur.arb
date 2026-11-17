@@ -138,5 +138,6 @@
   "generationFailedMessage": "مانسٹر نہیں بن سکا\nدوبارہ تصویر لے کر دیکھو",
   "resultReplaceTitle": "{monsterName} سے بدلو",
   "resultNewlyBorn": "نیا ساتھی",
-  "statHitPoints": "HP"
+  "statHitPoints": "HP",
+  "statAttack": "حملہ"
 }

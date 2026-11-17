@@ -138,5 +138,6 @@
   "generationFailedMessage": "Příšerku se nepodařilo vytvořit\nZkus vyfotit něco znovu",
   "resultReplaceTitle": "Vyměň za {monsterName}",
   "resultNewlyBorn": "Nový parťák",
-  "statHitPoints": "HP"
+  "statHitPoints": "HP",
+  "statAttack": "Útok"
 }

@@ -138,5 +138,6 @@
   "generationFailedMessage": "Nem sikerült létrehozni a szörnyet\nPróbálj új fotót készíteni",
   "resultReplaceTitle": "Cseréld le erre: {monsterName}",
   "resultNewlyBorn": "Új társ",
-  "statHitPoints": "HP"
+  "statHitPoints": "HP",
+  "statAttack": "Támadás"
 }

@@ -138,5 +138,6 @@
   "generationFailedMessage": "મોન્સ્ટર બનાવી શકાયું નહીં\nફરી ફોટો પાડીને જુઓ",
   "resultReplaceTitle": "{monsterName} સાથે બદલો",
   "resultNewlyBorn": "નવો સાથી",
-  "statHitPoints": "HP"
+  "statHitPoints": "HP",
+  "statAttack": "હુમલો"
 }

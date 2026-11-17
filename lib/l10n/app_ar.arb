@@ -138,5 +138,6 @@
   "generationFailedMessage": "فشل إنشاء الوحش\nجرّب التقاط صورة أخرى",
   "resultReplaceTitle": "استبدل بـ{monsterName}",
   "resultNewlyBorn": "رفيق جديد",
-  "statHitPoints": "HP"
+  "statHitPoints": "HP",
+  "statAttack": "الهجوم"
 }

@@ -138,5 +138,6 @@
   "generationFailedMessage": "മോൺസ്റ്ററിനെ സൃഷ്ടിക്കാനായില്ല\nവീണ്ടും ഫോട്ടോ എടുത്തുനോക്കൂ",
   "resultReplaceTitle": "{monsterName} ഉപയോഗിച്ച് മാറ്റൂ",
   "resultNewlyBorn": "പുതിയ കൂട്ടുകാരൻ",
-  "statHitPoints": "HP"
+  "statHitPoints": "HP",
+  "statAttack": "ആക്രമണം"
 }

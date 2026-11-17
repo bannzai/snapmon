@@ -138,5 +138,6 @@
   "generationFailedMessage": "మాన్‌స్టర్‌ను సృష్టించలేకపోయాం\nమళ్లీ ఫోటో తీసి చూడు",
   "resultReplaceTitle": "{monsterName}తో మార్చుకో",
   "resultNewlyBorn": "కొత్త స్నేహితుడు",
-  "statHitPoints": "HP"
+  "statHitPoints": "HP",
+  "statAttack": "దాడి"
 }

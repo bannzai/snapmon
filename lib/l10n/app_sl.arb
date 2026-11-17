@@ -138,5 +138,6 @@
   "generationFailedMessage": "Pošasti ni bilo mogoče ustvariti\nPoskusi znova fotografirati",
   "resultReplaceTitle": "Zamenjaj za {monsterName}",
   "resultNewlyBorn": "Nov prijatelj",
-  "statHitPoints": "HP"
+  "statHitPoints": "HP",
+  "statAttack": "Napad"
 }

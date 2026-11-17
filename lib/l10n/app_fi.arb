@@ -138,5 +138,6 @@
   "generationFailedMessage": "Hirviön luominen epäonnistui\nKokeile ottaa uusi kuva",
   "resultReplaceTitle": "Vaihda tilalle {monsterName}",
   "resultNewlyBorn": "Uusi ystävä",
-  "statHitPoints": "HP"
+  "statHitPoints": "HP",
+  "statAttack": "Hyökkäys"
 }

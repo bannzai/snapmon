@@ -138,5 +138,6 @@
   "generationFailedMessage": "Не удалось создать монстра\nПопробуй сделать ещё одно фото",
   "resultReplaceTitle": "Замени на {monsterName}",
   "resultNewlyBorn": "Новый друг",
-  "statHitPoints": "HP"
+  "statHitPoints": "HP",
+  "statAttack": "Атака"
 }
