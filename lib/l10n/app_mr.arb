@@ -90,5 +90,6 @@
   "captureViewfinderGuide": "ज्याचा फोटो काढतोस, त्याला चौकटीत आण",
   "captureCameraPermissionRequired": "कॅमेरा वापरण्याची परवानगी हवी",
   "captureCameraPermissionHint": "सेटिंग्जमध्ये कॅमेऱ्याला परवानगी दे",
-  "captureCameraPermissionHintWeb": "अ‍ॅड्रेस बारमधील साइट सेटिंग्जमध्ये कॅमेऱ्याला परवानगी दे"
+  "captureCameraPermissionHintWeb": "अ‍ॅड्रेस बारमधील साइट सेटिंग्जमध्ये कॅमेऱ्याला परवानगी दे",
+  "captureOpenSettings": "सेटिंग्ज उघड"
 }

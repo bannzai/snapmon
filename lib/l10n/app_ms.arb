@@ -90,5 +90,6 @@
   "captureViewfinderGuide": "Letakkan subjek dalam bingkai",
   "captureCameraPermissionRequired": "Kamu perlu benarkan akses kamera",
   "captureCameraPermissionHint": "Benarkan akses kamera dalam tetapan",
-  "captureCameraPermissionHintWeb": "Benarkan kamera melalui tetapan laman dalam bar alamat"
+  "captureCameraPermissionHintWeb": "Benarkan kamera melalui tetapan laman dalam bar alamat",
+  "captureOpenSettings": "Buka tetapan"
 }

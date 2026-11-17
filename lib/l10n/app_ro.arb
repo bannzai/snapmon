@@ -90,5 +90,6 @@
   "captureViewfinderGuide": "Pune subiectul în cadru",
   "captureCameraPermissionRequired": "Trebuie să permiți accesul la cameră",
   "captureCameraPermissionHint": "Permite accesul la cameră din setări",
-  "captureCameraPermissionHintWeb": "Permite accesul la cameră din setările site-ului din bara de adrese"
+  "captureCameraPermissionHintWeb": "Permite accesul la cameră din setările site-ului din bara de adrese",
+  "captureOpenSettings": "Deschide setările"
 }

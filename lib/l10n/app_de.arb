@@ -90,5 +90,6 @@
   "captureViewfinderGuide": "Bring dein Motiv in den Rahmen",
   "captureCameraPermissionRequired": "Du musst den Kamerazugriff erlauben",
   "captureCameraPermissionHint": "Erlaube den Kamerazugriff in den Einstellungen",
-  "captureCameraPermissionHintWeb": "Erlaube die Kamera in den Website-Einstellungen der Adressleiste"
+  "captureCameraPermissionHintWeb": "Erlaube die Kamera in den Website-Einstellungen der Adressleiste",
+  "captureOpenSettings": "Einstellungen öffnen"
 }

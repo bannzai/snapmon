@@ -90,5 +90,6 @@
   "captureViewfinderGuide": "Helyezd a témát a keretbe",
   "captureCameraPermissionRequired": "Engedélyezned kell a kamera használatát",
   "captureCameraPermissionHint": "Engedélyezd a kamerát a beállításokban",
-  "captureCameraPermissionHintWeb": "Engedélyezd a kamerát a címsávban lévő webhelybeállításoknál"
+  "captureCameraPermissionHintWeb": "Engedélyezd a kamerát a címsávban lévő webhelybeállításoknál",
+  "captureOpenSettings": "Beállítások megnyitása"
 }

@@ -90,5 +90,6 @@
   "captureViewfinderGuide": "Smjesti motiv u okvir",
   "captureCameraPermissionRequired": "Trebaš dopustiti pristup kameri",
   "captureCameraPermissionHint": "Dopusti pristup kameri u postavkama",
-  "captureCameraPermissionHintWeb": "Dopusti pristup kameri u postavkama web-mjesta na adresnoj traci"
+  "captureCameraPermissionHintWeb": "Dopusti pristup kameri u postavkama web-mjesta na adresnoj traci",
+  "captureOpenSettings": "Otvori postavke"
 }

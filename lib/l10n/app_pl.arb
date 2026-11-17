@@ -90,5 +90,6 @@
   "captureViewfinderGuide": "Umieść fotografowany obiekt w kadrze",
   "captureCameraPermissionRequired": "Musisz zezwolić na dostęp do aparatu",
   "captureCameraPermissionHint": "Zezwól na dostęp do aparatu w ustawieniach",
-  "captureCameraPermissionHintWeb": "Zezwól na dostęp do aparatu w ustawieniach witryny na pasku adresu"
+  "captureCameraPermissionHintWeb": "Zezwól na dostęp do aparatu w ustawieniach witryny na pasku adresu",
+  "captureOpenSettings": "Otwórz ustawienia"
 }

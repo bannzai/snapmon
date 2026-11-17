@@ -90,5 +90,6 @@
   "captureViewfinderGuide": "把拍攝對象放進框內",
   "captureCameraPermissionRequired": "需要允許使用相機",
   "captureCameraPermissionHint": "在設定中允許使用相機",
-  "captureCameraPermissionHintWeb": "在網址列的網站設定中允許使用相機"
+  "captureCameraPermissionHintWeb": "在網址列的網站設定中允許使用相機",
+  "captureOpenSettings": "開啟設定"
 }

@@ -90,5 +90,6 @@
   "captureViewfinderGuide": "Plasser motivet innenfor rammen",
   "captureCameraPermissionRequired": "Du må gi tilgang til kameraet",
   "captureCameraPermissionHint": "Gi tilgang til kameraet i innstillingene",
-  "captureCameraPermissionHintWeb": "Tillat kamera i nettstedinnstillingene i adressefeltet"
+  "captureCameraPermissionHintWeb": "Tillat kamera i nettstedinnstillingene i adressefeltet",
+  "captureOpenSettings": "Åpne innstillinger"
 }

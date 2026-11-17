@@ -90,5 +90,6 @@
   "captureViewfinderGuide": "Põe o que vais fotografar dentro do enquadramento",
   "captureCameraPermissionRequired": "Tens de permitir o acesso à câmara",
   "captureCameraPermissionHint": "Permite o acesso à câmara nas definições",
-  "captureCameraPermissionHintWeb": "Permite o acesso à câmara nas definições do site na barra de endereços"
+  "captureCameraPermissionHintWeb": "Permite o acesso à câmara nas definições do site na barra de endereços",
+  "captureOpenSettings": "Abrir definições"
 }

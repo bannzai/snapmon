@@ -90,5 +90,6 @@
   "captureViewfinderGuide": "જેનો ફોટો પાડવો છે, તેને ફ્રેમમાં લાવો",
   "captureCameraPermissionRequired": "કૅમેરાનો ઉપયોગ કરવાની પરવાનગી જરૂરી છે",
   "captureCameraPermissionHint": "સેટિંગ્સમાં કૅમેરાની પરવાનગી આપો",
-  "captureCameraPermissionHintWeb": "એડ્રેસ બારમાં સાઇટની સેટિંગ્સમાંથી કૅમેરાને મંજૂરી આપો"
+  "captureCameraPermissionHintWeb": "એડ્રેસ બારમાં સાઇટની સેટિંગ્સમાંથી કૅમેરાને મંજૂરી આપો",
+  "captureOpenSettings": "સેટિંગ્સ ખોલો"
 }

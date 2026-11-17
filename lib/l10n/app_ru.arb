@@ -90,5 +90,6 @@
   "captureViewfinderGuide": "Помести объект съёмки в рамку",
   "captureCameraPermissionRequired": "Нужно разрешить доступ к камере",
   "captureCameraPermissionHint": "Разреши доступ к камере в настройках",
-  "captureCameraPermissionHintWeb": "Разреши доступ к камере в настройках сайта в адресной строке"
+  "captureCameraPermissionHintWeb": "Разреши доступ к камере в настройках сайта в адресной строке",
+  "captureOpenSettings": "Открыть настройки"
 }

@@ -90,5 +90,6 @@
   "captureViewfinderGuide": "Đưa vật cần chụp vào khung hình",
   "captureCameraPermissionRequired": "Bạn cần cho phép dùng camera",
   "captureCameraPermissionHint": "Cho phép dùng camera trong phần cài đặt",
-  "captureCameraPermissionHintWeb": "Cho phép dùng camera trong phần cài đặt trang web ở thanh địa chỉ"
+  "captureCameraPermissionHintWeb": "Cho phép dùng camera trong phần cài đặt trang web ở thanh địa chỉ",
+  "captureOpenSettings": "Mở cài đặt"
 }
