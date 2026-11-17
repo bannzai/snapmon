@@ -28,7 +28,10 @@ void main() {
       _resolve(preferredLocales: [const Locale('zh', 'CN')]),
       const Locale('zh'),
     );
-    expect(_resolve(preferredLocales: [const Locale('zh')]), const Locale('zh'));
+    expect(
+      _resolve(preferredLocales: [const Locale('zh')]),
+      const Locale('zh'),
+    );
   });
 
   test('文字の種類が付いた中国語は、地域より文字の種類で選ぶ', () {
@@ -74,7 +77,10 @@ void main() {
   });
 
   test('対応していない言語と優先言語が無い時は英語で出す', () {
-    expect(_resolve(preferredLocales: [const Locale('sw')]), const Locale('en'));
+    expect(
+      _resolve(preferredLocales: [const Locale('sw')]),
+      const Locale('en'),
+    );
     expect(_resolve(preferredLocales: null), const Locale('en'));
   });
 }

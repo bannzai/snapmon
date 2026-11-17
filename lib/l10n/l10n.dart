@@ -25,7 +25,7 @@ Locale resolveAppLocale({
             locale.languageCode == 'zh' &&
                 locale.scriptCode == null &&
                 // 繁体字を使う地域 (台湾・香港・マカオ)。Unicode CLDR の likely subtags が zh-TW・zh-HK・zh-MO を Hant に対応付けている
-                const <String>{}.contains(locale.countryCode)
+                const {'TW', 'HK', 'MO'}.contains(locale.countryCode)
             ? Locale.fromSubtags(
                 languageCode: 'zh',
                 scriptCode: 'Hant',
