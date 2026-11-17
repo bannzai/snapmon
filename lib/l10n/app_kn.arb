@@ -60,5 +60,6 @@
   "settingsAboutAccountDeletion": "ಖಾತೆ ಅಳಿಸುವ ಬಗ್ಗೆ",
   "settingsTransferData": "ಡೇಟಾ ವರ್ಗಾಯಿಸು",
   "settingsTransferDataDescription": "{providerName} ಮೂಲಕ ಸೈನ್ ಇನ್ ಮಾಡು\nಫೋನ್ ಬದಲಿಸಿದರೂ ನಿನ್ನ ವಿಶ್ವಕೋಶ ಉಳಿಸಿಕೋ",
-  "settingsLinkedWith": "{providerNames} ಮೂಲಕ ಖಾತೆ ಲಿಂಕ್ ಆಗಿದೆ"
+  "settingsLinkedWith": "{providerNames} ಮೂಲಕ ಖಾತೆ ಲಿಂಕ್ ಆಗಿದೆ",
+  "settingsProviderSeparator": " ಮತ್ತು "
 }

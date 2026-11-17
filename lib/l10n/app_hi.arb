@@ -60,5 +60,6 @@
   "settingsAboutAccountDeletion": "अकाउंट मिटाने के बारे में",
   "settingsTransferData": "डेटा ट्रांसफ़र करो",
   "settingsTransferDataDescription": "{providerName} से साइन इन करो\nफ़ोन बदलने पर भी अपना संग्रह बनाए रखो",
-  "settingsLinkedWith": "खाता {providerNames} से लिंक है"
+  "settingsLinkedWith": "खाता {providerNames} से लिंक है",
+  "settingsProviderSeparator": " और "
 }

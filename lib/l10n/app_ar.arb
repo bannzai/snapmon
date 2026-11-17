@@ -60,5 +60,6 @@
   "settingsAboutAccountDeletion": "حول حذف الحساب",
   "settingsTransferData": "نقل البيانات",
   "settingsTransferDataDescription": "سجّل الدخول عبر {providerName}\nلتحتفظ بموسوعتك عند تغيير جهازك",
-  "settingsLinkedWith": "تم ربط الحساب عبر {providerNames}"
+  "settingsLinkedWith": "تم ربط الحساب عبر {providerNames}",
+  "settingsProviderSeparator": " و"
 }

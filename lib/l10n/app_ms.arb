@@ -60,5 +60,6 @@
   "settingsAboutAccountDeletion": "Tentang pemadaman akaun",
   "settingsTransferData": "Pindahkan data",
   "settingsTransferDataDescription": "Log masuk dengan {providerName}\ndan simpan ensiklopedia kamu walaupun tukar telefon",
-  "settingsLinkedWith": "Akaun dipautkan dengan {providerNames}"
+  "settingsLinkedWith": "Akaun dipautkan dengan {providerNames}",
+  "settingsProviderSeparator": " dan "
 }

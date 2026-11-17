@@ -60,5 +60,6 @@
   "settingsAboutAccountDeletion": "ਖਾਤਾ ਮਿਟਾਉਣ ਬਾਰੇ",
   "settingsTransferData": "ਡਾਟਾ ਟ੍ਰਾਂਸਫ਼ਰ ਕਰੋ",
   "settingsTransferDataDescription": "{providerName} ਨਾਲ ਸਾਈਨ ਇਨ ਕਰੋ\nਫ਼ੋਨ ਬਦਲਣ 'ਤੇ ਵੀ ਆਪਣਾ ਸੰਗ੍ਰਹਿ ਸੰਭਾਲ ਕੇ ਰੱਖੋ",
-  "settingsLinkedWith": "ਖਾਤਾ {providerNames} ਨਾਲ ਲਿੰਕ ਹੈ"
+  "settingsLinkedWith": "ਖਾਤਾ {providerNames} ਨਾਲ ਲਿੰਕ ਹੈ",
+  "settingsProviderSeparator": " ਅਤੇ "
 }

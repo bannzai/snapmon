@@ -60,5 +60,6 @@
   "settingsAboutAccountDeletion": "關於刪除帳號",
   "settingsTransferData": "轉移資料",
   "settingsTransferDataDescription": "用 {providerName} 登入\n換手機也能保留圖鑑",
-  "settingsLinkedWith": "已透過 {providerNames} 連結帳號"
+  "settingsLinkedWith": "已透過 {providerNames} 連結帳號",
+  "settingsProviderSeparator": "和"
 }

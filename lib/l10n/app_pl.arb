@@ -60,5 +60,6 @@
   "settingsAboutAccountDeletion": "O usuwaniu konta",
   "settingsTransferData": "Przenieś dane",
   "settingsTransferDataDescription": "Zaloguj się przez {providerName}\ni zachowaj encyklopedię po zmianie telefonu",
-  "settingsLinkedWith": "Konto połączone przez {providerNames}"
+  "settingsLinkedWith": "Konto połączone przez {providerNames}",
+  "settingsProviderSeparator": " i "
 }

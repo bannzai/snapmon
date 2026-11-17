@@ -60,5 +60,6 @@
   "settingsAboutAccountDeletion": "Hesap silme hakkında",
   "settingsTransferData": "Verileri aktar",
   "settingsTransferDataDescription": "{providerName} ile giriş yap\ntelefon değiştirsen de ansiklopedini koru",
-  "settingsLinkedWith": "Hesap {providerNames} ile bağlandı"
+  "settingsLinkedWith": "Hesap {providerNames} ile bağlandı",
+  "settingsProviderSeparator": " ve "
 }

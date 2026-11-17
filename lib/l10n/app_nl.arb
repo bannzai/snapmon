@@ -60,5 +60,6 @@
   "settingsAboutAccountDeletion": "Over het verwijderen van je account",
   "settingsTransferData": "Gegevens overzetten",
   "settingsTransferDataDescription": "Log in met {providerName}\nen behoud je dex als je van telefoon wisselt",
-  "settingsLinkedWith": "Account gekoppeld via {providerNames}"
+  "settingsLinkedWith": "Account gekoppeld via {providerNames}",
+  "settingsProviderSeparator": " en "
 }

@@ -60,5 +60,6 @@
   "settingsAboutAccountDeletion": "O brisanju računa",
   "settingsTransferData": "Prenesi podatke",
   "settingsTransferDataDescription": "Prijavi se putem {providerName}\ni sačuvaj enciklopediju kad promijeniš uređaj",
-  "settingsLinkedWith": "Račun povezan putem {providerNames}"
+  "settingsLinkedWith": "Račun povezan putem {providerNames}",
+  "settingsProviderSeparator": " i "
 }

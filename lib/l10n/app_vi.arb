@@ -60,5 +60,6 @@
   "settingsAboutAccountDeletion": "Về việc xóa tài khoản",
   "settingsTransferData": "Chuyển dữ liệu",
   "settingsTransferDataDescription": "Đăng nhập bằng {providerName}\nđể giữ bộ sưu tập khi đổi điện thoại",
-  "settingsLinkedWith": "Tài khoản đã liên kết với {providerNames}"
+  "settingsLinkedWith": "Tài khoản đã liên kết với {providerNames}",
+  "settingsProviderSeparator": " và "
 }

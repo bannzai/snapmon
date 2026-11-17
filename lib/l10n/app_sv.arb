@@ -60,5 +60,6 @@
   "settingsAboutAccountDeletion": "Om att radera kontot",
   "settingsTransferData": "Överför data",
   "settingsTransferDataDescription": "Logga in med {providerName}\noch behåll din samling när du byter telefon",
-  "settingsLinkedWith": "Konto länkat via {providerNames}"
+  "settingsLinkedWith": "Konto länkat via {providerNames}",
+  "settingsProviderSeparator": " och "
 }

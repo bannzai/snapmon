@@ -60,5 +60,6 @@
   "settingsAboutAccountDeletion": "Sobre la eliminación de la cuenta",
   "settingsTransferData": "Transferir datos",
   "settingsTransferDataDescription": "Inicia sesión con {providerName}\ny conserva tu colección al cambiar de dispositivo",
-  "settingsLinkedWith": "Cuenta vinculada con {providerNames}"
+  "settingsLinkedWith": "Cuenta vinculada con {providerNames}",
+  "settingsProviderSeparator": " y "
 }
