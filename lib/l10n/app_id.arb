@@ -286,5 +286,6 @@
   "actionCardPurchaseUnassignedBody": "Harga jurus berubah saat pembelian, atau kamu sudah punya jurus itu\nPilih lagi jurus dari «Action Card yang belum diterima»",
   "actionCardUnassignedHeading": "Action Card yang belum diklaim",
   "actionCardUnassignedChooseMove": "Pilih jurus",
-  "actionCardAssignTitle": "Jurus yang kamu dapat dari Action Card ini"
+  "actionCardAssignTitle": "Jurus yang kamu dapat dari Action Card ini",
+  "actionCardAssignNoMoves": "Tidak ada jurus yang bisa kamu terima"
 }

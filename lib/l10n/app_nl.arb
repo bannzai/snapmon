@@ -286,5 +286,6 @@
   "actionCardPurchaseUnassignedBody": "De prijs van de aanval veranderde tijdens de aankoop, of je hebt die aanval al\nKies opnieuw een aanval bij ‘Niet ontvangen Action Card’",
   "actionCardUnassignedHeading": "Niet opgehaalde Action Card",
   "actionCardUnassignedChooseMove": "Kies een aanval",
-  "actionCardAssignTitle": "Aanval die je met deze Action Card krijgt"
+  "actionCardAssignTitle": "Aanval die je met deze Action Card krijgt",
+  "actionCardAssignNoMoves": "Geen aanvallen om te ontvangen"
 }

@@ -286,5 +286,6 @@
   "actionCardPurchaseUnassignedBody": "Cena poteza se je med nakupom spremenila ali pa ta potez že imaš\nZnova izberi potez med »Neprejetimi Action Card«",
   "actionCardUnassignedHeading": "Neprevzete Action Card",
   "actionCardUnassignedChooseMove": "Izberi potez",
-  "actionCardAssignTitle": "Potez, ki ga dobiš s to Action Card"
+  "actionCardAssignTitle": "Potez, ki ga dobiš s to Action Card",
+  "actionCardAssignNoMoves": "Ni potezov za prejem"
 }

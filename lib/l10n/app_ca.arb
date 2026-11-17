@@ -286,5 +286,6 @@
   "actionCardPurchaseUnassignedBody": "El preu del moviment ha canviat durant la compra, o ja el tens\nTorna a triar un moviment a «Action Card pendents de rebre»",
   "actionCardUnassignedHeading": "Action Card pendents de recollir",
   "actionCardUnassignedChooseMove": "Tria un moviment",
-  "actionCardAssignTitle": "Moviment que obtindràs amb aquesta Action Card"
+  "actionCardAssignTitle": "Moviment que obtindràs amb aquesta Action Card",
+  "actionCardAssignNoMoves": "No hi ha cap moviment per rebre"
 }

@@ -286,5 +286,6 @@
   "actionCardPurchaseUnassignedBody": "Prețul mișcării s-a schimbat în timpul cumpărării sau ai deja acea mișcare\nAlege din nou o mișcare din „Action Card neprimite”",
   "actionCardUnassignedHeading": "Action Card nerevendicate",
   "actionCardUnassignedChooseMove": "Alege o mișcare",
-  "actionCardAssignTitle": "Mișcare pe care o primești cu acest Action Card"
+  "actionCardAssignTitle": "Mișcare pe care o primești cu acest Action Card",
+  "actionCardAssignNoMoves": "Nu există mișcări de primit"
 }

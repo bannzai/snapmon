@@ -286,5 +286,6 @@
   "actionCardPurchaseUnassignedBody": "Ціна прийому змінилася під час покупки або цей прийом у тебе вже є\nЗнову вибери прийом у розділі «Неотримані Action Card»",
   "actionCardUnassignedHeading": "Неотримані Action Card",
   "actionCardUnassignedChooseMove": "Обери прийом",
-  "actionCardAssignTitle": "Прийом, який ти отримаєш із цією Action Card"
+  "actionCardAssignTitle": "Прийом, який ти отримаєш із цією Action Card",
+  "actionCardAssignNoMoves": "Немає прийомів, які можна отримати"
 }

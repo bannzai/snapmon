@@ -286,5 +286,6 @@
   "actionCardPurchaseUnassignedBody": "Harga gerakan berubah semasa pembelian, atau kamu sudah ada gerakan itu\nPilih semula gerakan daripada «Action Card yang belum diterima»",
   "actionCardUnassignedHeading": "Action Card yang belum dituntut",
   "actionCardUnassignedChooseMove": "Pilih gerakan",
-  "actionCardAssignTitle": "Gerakan yang kamu dapat dengan Action Card ini"
+  "actionCardAssignTitle": "Gerakan yang kamu dapat dengan Action Card ini",
+  "actionCardAssignNoMoves": "Tiada gerakan untuk diterima"
 }

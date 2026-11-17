@@ -286,5 +286,6 @@
   "actionCardPurchaseUnassignedBody": "ربما تغيّر سعر الحركة أثناء الشراء، أو أنك تملكها بالفعل\nاختر حركة من «Action Card التي لم تستلمها» من جديد",
   "actionCardUnassignedHeading": "بطاقات Action Card غير المستلمة",
   "actionCardUnassignedChooseMove": "اختر حركة",
-  "actionCardAssignTitle": "الحركة التي تحصل عليها بهذه Action Card"
+  "actionCardAssignTitle": "الحركة التي تحصل عليها بهذه Action Card",
+  "actionCardAssignNoMoves": "لا توجد حركات يمكنك الحصول عليها"
 }

@@ -286,5 +286,6 @@
   "actionCardPurchaseUnassignedBody": "కొనే సమయంలో మూవ్ ధర మారింది, లేదా ఆ మూవ్ నీ దగ్గర ఇప్పటికే ఉంది\n«అందుకోని Action Card» నుంచి మళ్లీ మూవ్ ఎంచుకో",
   "actionCardUnassignedHeading": "ఇంకా తీసుకోని Action Card",
   "actionCardUnassignedChooseMove": "మూవ్ ఎంచుకో",
-  "actionCardAssignTitle": "ఈ Action Cardతో పొందే మూవ్"
+  "actionCardAssignTitle": "ఈ Action Cardతో పొందే మూవ్",
+  "actionCardAssignNoMoves": "అందుకోవడానికి మూవ్‌లు లేవు"
 }

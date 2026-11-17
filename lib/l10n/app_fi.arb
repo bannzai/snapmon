@@ -286,5 +286,6 @@
   "actionCardPurchaseUnassignedBody": "Liikkeen hinta muuttui oston aikana tai sinulla on jo se liike\nValitse liike uudelleen kohdasta ”Vastaanottamattomat Action Card”",
   "actionCardUnassignedHeading": "Lunastamattomat Action Card",
   "actionCardUnassignedChooseMove": "Valitse liike",
-  "actionCardAssignTitle": "Liike, jonka saat tällä Action Cardilla"
+  "actionCardAssignTitle": "Liike, jonka saat tällä Action Cardilla",
+  "actionCardAssignNoMoves": "Ei vastaanotettavia liikkeitä"
 }

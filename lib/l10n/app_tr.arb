@@ -286,5 +286,6 @@
   "actionCardPurchaseUnassignedBody": "Satın alırken hamlenin fiyatı değişti ya da bu hamle sende zaten var\n«Alınmamış Action Card» bölümünden yeniden bir hamle seç",
   "actionCardUnassignedHeading": "Henüz alınmamış Action Card",
   "actionCardUnassignedChooseMove": "Hamle seç",
-  "actionCardAssignTitle": "Bu Action Card ile alacağın hamle"
+  "actionCardAssignTitle": "Bu Action Card ile alacağın hamle",
+  "actionCardAssignNoMoves": "Alınabilecek hamle yok"
 }

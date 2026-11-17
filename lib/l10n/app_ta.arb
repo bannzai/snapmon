@@ -286,5 +286,6 @@
   "actionCardPurchaseUnassignedBody": "வாங்கும்போது தாக்குதலின் விலை மாறியிருக்கலாம் அல்லது அந்தத் தாக்குதல் உங்களிடம் ஏற்கெனவே இருக்கலாம்\n«பெறப்படாத Action Card» இலிருந்து மீண்டும் ஒரு தாக்குதலைத் தேர்ந்தெடுங்கள்",
   "actionCardUnassignedHeading": "இன்னும் பெறாத Action Card",
   "actionCardUnassignedChooseMove": "தாக்குதலைத் தேர்ந்தெடுங்கள்",
-  "actionCardAssignTitle": "இந்த Action Card மூலம் பெறும் தாக்குதல்"
+  "actionCardAssignTitle": "இந்த Action Card மூலம் பெறும் தாக்குதல்",
+  "actionCardAssignNoMoves": "பெறக்கூடிய தாக்குதல்கள் இல்லை"
 }

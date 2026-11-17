@@ -286,5 +286,6 @@
   "actionCardPurchaseUnassignedBody": "କିଣିବା ବେଳେ ଚାଲର ଦାମ ବଦଳିଗଲା, କିମ୍ବା ସେହି ଚାଲ ତୁମ ପାଖରେ ଆଗରୁ ଅଛି\n«ମିଳିନଥିବା Action Card»ରୁ ପୁଣି ଚାଲ ବାଛ",
   "actionCardUnassignedHeading": "ଏପର୍ଯ୍ୟନ୍ତ ନେଇନଥିବା Action Card",
   "actionCardUnassignedChooseMove": "ଚାଲ ବାଛ",
-  "actionCardAssignTitle": "ଏହି Action Cardରୁ ମିଳିବା ଚାଲ"
+  "actionCardAssignTitle": "ଏହି Action Cardରୁ ମିଳିବା ଚାଲ",
+  "actionCardAssignNoMoves": "ପାଇବାକୁ କୌଣସି ଚାଲ ନାହିଁ"
 }

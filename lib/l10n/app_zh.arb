@@ -286,5 +286,6 @@
   "actionCardPurchaseUnassignedBody": "购买期间招式价格发生了变化，或者你已经拥有该招式\n请从「未领取的 Action Card」中重新选择招式",
   "actionCardUnassignedHeading": "尚未领取的 Action Card",
   "actionCardUnassignedChooseMove": "选择招式",
-  "actionCardAssignTitle": "用这张 Action Card 获得的招式"
+  "actionCardAssignTitle": "用这张 Action Card 获得的招式",
+  "actionCardAssignNoMoves": "没有可领取的招式"
 }

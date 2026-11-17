@@ -286,5 +286,6 @@
   "actionCardPurchaseUnassignedBody": "Priset på attacken ändrades under köpet, eller så har du redan attacken\nVälj en attack igen under ”Action Card som inte hämtats ut”",
   "actionCardUnassignedHeading": "Action Card du inte har hämtat",
   "actionCardUnassignedChooseMove": "Välj en attack",
-  "actionCardAssignTitle": "Attack du får med detta Action Card"
+  "actionCardAssignTitle": "Attack du får med detta Action Card",
+  "actionCardAssignNoMoves": "Inga attacker att ta emot"
 }

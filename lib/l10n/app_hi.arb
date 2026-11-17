@@ -286,5 +286,6 @@
   "actionCardPurchaseUnassignedBody": "खरीदते समय चाल की कीमत बदल गई, या वह चाल तुम्हारे पास पहले से है\n«न मिले Action Card» से फिर कोई चाल चुनो",
   "actionCardUnassignedHeading": "अभी तक नहीं मिले Action Card",
   "actionCardUnassignedChooseMove": "चाल चुनो",
-  "actionCardAssignTitle": "इस Action Card से मिलने वाली चाल"
+  "actionCardAssignTitle": "इस Action Card से मिलने वाली चाल",
+  "actionCardAssignNoMoves": "पाने के लिए कोई चाल नहीं है"
 }

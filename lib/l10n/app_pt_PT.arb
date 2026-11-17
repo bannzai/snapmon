@@ -286,5 +286,6 @@
   "actionCardPurchaseUnassignedBody": "O preço do golpe mudou durante a compra, ou já tens esse golpe\nEscolhe novamente um golpe em «Action Card por receber»",
   "actionCardUnassignedHeading": "Action Card por resgatar",
   "actionCardUnassignedChooseMove": "Escolhe um golpe",
-  "actionCardAssignTitle": "Golpe que recebes com esta Action Card"
+  "actionCardAssignTitle": "Golpe que recebes com esta Action Card",
+  "actionCardAssignNoMoves": "Não há golpes para receber"
 }

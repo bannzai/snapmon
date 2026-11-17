@@ -286,5 +286,6 @@
   "actionCardPurchaseUnassignedBody": "Η τιμή της τεχνικής άλλαξε όσο αγόραζες ή έχεις ήδη αυτή την τεχνική\nΔιάλεξε ξανά τεχνική από τις «Action Card που δεν παρέλαβες»",
   "actionCardUnassignedHeading": "Action Card που δεν έχεις παραλάβει",
   "actionCardUnassignedChooseMove": "Διάλεξε τεχνική",
-  "actionCardAssignTitle": "Τεχνική που παίρνεις με αυτή την Action Card"
+  "actionCardAssignTitle": "Τεχνική που παίρνεις με αυτή την Action Card",
+  "actionCardAssignNoMoves": "Δεν υπάρχουν τεχνικές για να λάβεις"
 }
