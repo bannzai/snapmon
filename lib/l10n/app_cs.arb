@@ -279,5 +279,6 @@
   "actionCardPurchaseBuy": "Kup za {price}",
   "actionCardPurchasePriceChanged": "Cena tohoto útoku se změnila\nPřed nákupem ji zkontroluj",
   "actionCardPurchaseWaiting": "Přijímá se útok",
-  "actionCardPurchaseArrivalDelayed": "Čekáme, až se objeví\nÚtok, který jsi získal, ti zůstane, i když tuto obrazovku zavřeš"
+  "actionCardPurchaseArrivalDelayed": "Čekáme, až se objeví\nÚtok, který jsi získal, ti zůstane, i když tuto obrazovku zavřeš",
+  "actionCardPurchasePending": "Čeká se na dokončení platby\nÚtok dostaneš po dokončení platby, i když tuto obrazovku zavřeš"
 }

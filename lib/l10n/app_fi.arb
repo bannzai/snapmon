@@ -279,5 +279,6 @@
   "actionCardPurchaseBuy": "Osta hintaan {price}",
   "actionCardPurchasePriceChanged": "Tämän liikkeen hinta muuttui\nTarkista hinta ennen ostoa",
   "actionCardPurchaseWaiting": "Liikkeen vastaanotto käynnissä",
-  "actionCardPurchaseArrivalDelayed": "Odotetaan sen ilmestymistä\nSaamasi liike säilyy, vaikka suljet tämän näkymän"
+  "actionCardPurchaseArrivalDelayed": "Odotetaan sen ilmestymistä\nSaamasi liike säilyy, vaikka suljet tämän näkymän",
+  "actionCardPurchasePending": "Odotetaan maksun valmistumista\nSaat liikkeen maksun valmistuttua, vaikka sulkisit tämän näkymän"
 }

@@ -279,5 +279,6 @@
   "actionCardPurchaseBuy": "Beli seharga {price}",
   "actionCardPurchasePriceChanged": "Harga jurus ini berubah\nCek harganya sebelum membeli",
   "actionCardPurchaseWaiting": "Jurus sedang diterima",
-  "actionCardPurchaseArrivalDelayed": "Menunggu muncul\nJurus yang kamu dapat tetap ada meski layar ini ditutup"
+  "actionCardPurchaseArrivalDelayed": "Menunggu muncul\nJurus yang kamu dapat tetap ada meski layar ini ditutup",
+  "actionCardPurchasePending": "Menunggu pembayaran selesai\nJurus akan kamu terima setelah pembayaran selesai, meski layar ini ditutup"
 }

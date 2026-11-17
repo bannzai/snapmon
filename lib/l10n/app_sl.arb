@@ -279,5 +279,6 @@
   "actionCardPurchaseBuy": "Kupi za {price}",
   "actionCardPurchasePriceChanged": "Cena te poteze se je spremenila\nPred nakupom jo preveri",
   "actionCardPurchaseWaiting": "Prejemanje poteza",
-  "actionCardPurchaseArrivalDelayed": "Čakamo, da se prikaže\nPotez, ki si ga dobil, ti ostane, tudi če zapreš ta zaslon"
+  "actionCardPurchaseArrivalDelayed": "Čakamo, da se prikaže\nPotez, ki si ga dobil, ti ostane, tudi če zapreš ta zaslon",
+  "actionCardPurchasePending": "Čakamo na zaključek plačila\nPotez dobiš po zaključku plačila, tudi če zapreš ta zaslon"
 }

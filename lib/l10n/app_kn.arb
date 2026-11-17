@@ -279,5 +279,6 @@
   "actionCardPurchaseBuy": "{price}ಗೆ ಖರೀದಿಸು",
   "actionCardPurchasePriceChanged": "ಈ ತಂತ್ರದ ಬೆಲೆ ಬದಲಾಗಿದೆ\nಖರೀದಿಸುವ ಮೊದಲು ಬೆಲೆ ಪರಿಶೀಲಿಸು",
   "actionCardPurchaseWaiting": "ತಂತ್ರ ಸಿಗುತ್ತಿದೆ",
-  "actionCardPurchaseArrivalDelayed": "ಕಾಣಿಸಿಕೊಳ್ಳಲು ಕಾಯುತ್ತಿದ್ದೇವೆ\nಈ ಪರದೆ ಮುಚ್ಚಿದರೂ ಪಡೆದ ತಂತ್ರ ನಿನ್ನ ಬಳಿಯೇ ಉಳಿಯುತ್ತದೆ"
+  "actionCardPurchaseArrivalDelayed": "ಕಾಣಿಸಿಕೊಳ್ಳಲು ಕಾಯುತ್ತಿದ್ದೇವೆ\nಈ ಪರದೆ ಮುಚ್ಚಿದರೂ ಪಡೆದ ತಂತ್ರ ನಿನ್ನ ಬಳಿಯೇ ಉಳಿಯುತ್ತದೆ",
+  "actionCardPurchasePending": "ಪಾವತಿ ಪೂರ್ಣಗೊಳ್ಳಲು ಕಾಯಲಾಗುತ್ತಿದೆ\nಈ ಪರದೆ ಮುಚ್ಚಿದರೂ ಪಾವತಿ ಪೂರ್ಣಗೊಂಡಾಗ ತಂತ್ರ ಸಿಗುತ್ತದೆ"
 }

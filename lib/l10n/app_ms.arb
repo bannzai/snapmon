@@ -279,5 +279,6 @@
   "actionCardPurchaseBuy": "Beli dengan harga {price}",
   "actionCardPurchasePriceChanged": "Harga gerakan ini telah berubah\nSemak harga sebelum membeli",
   "actionCardPurchaseWaiting": "Sedang menerima gerakan",
-  "actionCardPurchaseArrivalDelayed": "Menunggu untuk muncul\nGerakan yang kamu dapat akan kekal walaupun skrin ini ditutup"
+  "actionCardPurchaseArrivalDelayed": "Menunggu untuk muncul\nGerakan yang kamu dapat akan kekal walaupun skrin ini ditutup",
+  "actionCardPurchasePending": "Menunggu bayaran selesai\nKamu akan dapat gerakan selepas bayaran selesai, walaupun skrin ini ditutup"
 }

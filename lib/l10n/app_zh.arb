@@ -279,5 +279,6 @@
   "actionCardPurchaseBuy": "花 {price} 购买",
   "actionCardPurchasePriceChanged": "这个招式的价格变了\n购买前先确认价格",
   "actionCardPurchaseWaiting": "正在接收招式",
-  "actionCardPurchaseArrivalDelayed": "正在等待显示\n关掉此画面后，收到的招式也会保留"
+  "actionCardPurchaseArrivalDelayed": "正在等待显示\n关掉此画面后，收到的招式也会保留",
+  "actionCardPurchasePending": "正在等待付款完成\n即使关闭此页面，付款完成后你也会收到招式"
 }

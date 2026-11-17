@@ -279,5 +279,6 @@
   "actionCardPurchaseBuy": "{price}માં ખરીદો",
   "actionCardPurchasePriceChanged": "આ ચાલની કિંમત બદલાઈ છે\nખરીદતા પહેલાં કિંમત તપાસો",
   "actionCardPurchaseWaiting": "ચાલ મળી રહી છે",
-  "actionCardPurchaseArrivalDelayed": "દેખાવાની રાહ જોઈ રહ્યાં છીએ\nઆ સ્ક્રીન બંધ કરશો તો પણ મળેલી ચાલ તમારી પાસે રહેશે"
+  "actionCardPurchaseArrivalDelayed": "દેખાવાની રાહ જોઈ રહ્યાં છીએ\nઆ સ્ક્રીન બંધ કરશો તો પણ મળેલી ચાલ તમારી પાસે રહેશે",
+  "actionCardPurchasePending": "ચુકવણી પૂર્ણ થવાની રાહ જોવાઈ રહી છે\nતમે આ સ્ક્રીન બંધ કરો તો પણ ચુકવણી પૂર્ણ થતાં ચાલ મળશે"
 }

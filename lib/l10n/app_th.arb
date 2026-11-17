@@ -279,5 +279,6 @@
   "actionCardPurchaseBuy": "ซื้อในราคา {price}",
   "actionCardPurchasePriceChanged": "ราคาท่านี้เปลี่ยนแล้ว\nเช็กราคาก่อนซื้อ",
   "actionCardPurchaseWaiting": "กำลังรับท่า",
-  "actionCardPurchaseArrivalDelayed": "กำลังรอให้แสดงผล\nปิดหน้านี้แล้ว ท่าที่ได้รับก็ยังอยู่"
+  "actionCardPurchaseArrivalDelayed": "กำลังรอให้แสดงผล\nปิดหน้านี้แล้ว ท่าที่ได้รับก็ยังอยู่",
+  "actionCardPurchasePending": "กำลังรอให้ชำระเงินเสร็จ\nปิดหน้านี้ไปก็ยังได้รับท่าเมื่อชำระเงินเสร็จ"
 }

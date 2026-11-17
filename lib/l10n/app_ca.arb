@@ -279,5 +279,6 @@
   "actionCardPurchaseBuy": "Compra per {price}",
   "actionCardPurchasePriceChanged": "Ha canviat el preu d'aquest moviment\nComprova'l abans de comprar",
   "actionCardPurchaseWaiting": "Rebent el moviment",
-  "actionCardPurchaseArrivalDelayed": "Esperant que aparegui\nEl moviment que has rebut es conservarà encara que tanquis aquesta pantalla"
+  "actionCardPurchaseArrivalDelayed": "Esperant que aparegui\nEl moviment que has rebut es conservarà encara que tanquis aquesta pantalla",
+  "actionCardPurchasePending": "Esperant que es completi el pagament\nRebràs el moviment quan es completi, encara que tanquis aquesta pantalla"
 }

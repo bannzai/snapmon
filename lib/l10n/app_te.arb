@@ -279,5 +279,6 @@
   "actionCardPurchaseBuy": "{price}కు కొనుక్కో",
   "actionCardPurchasePriceChanged": "ఈ మూవ్ ధర మారింది\nకొనే ముందు ధర చూసుకో",
   "actionCardPurchaseWaiting": "మూవ్ అందుతోంది",
-  "actionCardPurchaseArrivalDelayed": "కనిపించే వరకు వేచి చూస్తున్నాం\nఈ స్క్రీన్ మూసినా నీకు వచ్చిన మూవ్ అలాగే ఉంటుంది"
+  "actionCardPurchaseArrivalDelayed": "కనిపించే వరకు వేచి చూస్తున్నాం\nఈ స్క్రీన్ మూసినా నీకు వచ్చిన మూవ్ అలాగే ఉంటుంది",
+  "actionCardPurchasePending": "చెల్లింపు పూర్తయ్యే వరకు వేచి చూస్తున్నాం\nఈ స్క్రీన్ మూసినా, చెల్లింపు పూర్తయ్యాక మూవ్ వస్తుంది"
 }

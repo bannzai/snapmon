@@ -279,5 +279,6 @@
   "actionCardPurchaseBuy": "Köp för {price}",
   "actionCardPurchasePriceChanged": "Priset på den här attacken har ändrats\nKolla priset innan du köper",
   "actionCardPurchaseWaiting": "Tar emot attack",
-  "actionCardPurchaseArrivalDelayed": "Väntar på att den ska dyka upp\nAttacken du fick finns kvar även om du stänger den här skärmen"
+  "actionCardPurchaseArrivalDelayed": "Väntar på att den ska dyka upp\nAttacken du fick finns kvar även om du stänger den här skärmen",
+  "actionCardPurchasePending": "Väntar på att betalningen slutförs\nDu får attacken när den är klar, även om du stänger den här skärmen"
 }
