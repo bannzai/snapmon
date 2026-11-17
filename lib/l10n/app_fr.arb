@@ -212,5 +212,6 @@
   "battleRecording": "Enregistrement en cours",
   "battleRecorded": "Enregistré",
   "battleNotRecorded": "Combat non enregistré : tu n’es pas connecté",
-  "battleFirstHint": "Choisis une capacité : le plus rapide agit d’abord. Plus l’efficacité de l’élément est élevée, plus les dégâts sont importants"
+  "battleFirstHint": "Choisis une capacité : le plus rapide agit d’abord. Plus l’efficacité de l’élément est élevée, plus les dégâts sont importants",
+  "battleChooseMove": "Choisis une capacité pour {monsterName}"
 }
