@@ -203,5 +203,6 @@
   "statusConditionDizzy": "Vertige",
   "statusConditionExcited": "Excitation",
   "statusConditionFrozen": "Gelé",
-  "statusConditionSwitchBlocked": "Changement impossible"
+  "statusConditionSwitchBlocked": "Changement impossible",
+  "moveTypeSuperEffective": "Super efficace ×{multiplier}"
 }
