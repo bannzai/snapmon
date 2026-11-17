@@ -273,5 +273,6 @@
   "actionCardEntrySubtitle": "Cumpără mișcări definitiv și învață-ți monștrii să le folosească",
   "actionCardOfPrice": "Action Card la {price}",
   "actionCardPricesPreparing": "Pregătim prețurile mișcărilor\nDeschide din nou ecranul peste puțin timp",
-  "actionCardBuyHeading": "Alege și cumpără o mișcare"
+  "actionCardBuyHeading": "Alege și cumpără o mișcare",
+  "actionCardBuyDescription": "Alege o mișcare și cumpăr-o o singură dată. Apoi o poți preda oricărui monstru de câte ori vrei."
 }

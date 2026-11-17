@@ -273,5 +273,6 @@
   "actionCardEntrySubtitle": "Compra moviments per sempre i ensenya’ls al teu monstre",
   "actionCardOfPrice": "Action Card de {price}",
   "actionCardPricesPreparing": "Estem preparant els preus dels moviments\nTorna a obrir la pantalla d’aquí a una estona",
-  "actionCardBuyHeading": "Tria i compra un moviment"
+  "actionCardBuyHeading": "Tria i compra un moviment",
+  "actionCardBuyDescription": "Tria un moviment i compra’l una sola vegada. Després el podràs ensenyar a qualsevol monstre tants cops com vulguis."
 }

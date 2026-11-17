@@ -273,5 +273,6 @@
   "actionCardEntrySubtitle": "Kúp si útok natrvalo a nauč ho svoju príšeru",
   "actionCardOfPrice": "Action Card za {price}",
   "actionCardPricesPreparing": "Pripravujeme ceny útokov\nO chvíľu obrazovku znova otvor",
-  "actionCardBuyHeading": "Vyber a kúp útok"
+  "actionCardBuyHeading": "Vyber a kúp útok",
+  "actionCardBuyDescription": "Vyber si jeden útok a kúp si ho raz navždy. Potom ho môžeš učiť ktorúkoľvek príšeru, koľkokrát chceš."
 }

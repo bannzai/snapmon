@@ -273,5 +273,6 @@
   "actionCardEntrySubtitle": "चाल एक बार खरीदो और अपने मॉन्स्टर को सिखाओ",
   "actionCardOfPrice": "{price} वाला Action Card",
   "actionCardPricesPreparing": "चालों की कीमतें तैयार हो रही हैं\nथोड़ी देर बाद फिर से खोलो",
-  "actionCardBuyHeading": "चाल चुनकर खरीदो"
+  "actionCardBuyHeading": "चाल चुनकर खरीदो",
+  "actionCardBuyDescription": "एक चाल चुनो और उसे एक बार खरीद लो। फिर किसी भी मॉन्स्टर को वह चाल जितनी बार चाहो सिखा सकते हो।"
 }

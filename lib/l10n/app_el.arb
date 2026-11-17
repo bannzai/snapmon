@@ -273,5 +273,6 @@
   "actionCardEntrySubtitle": "Αγόρασε τεχνικές μια για πάντα και μάθε τες στα τέρατά σου",
   "actionCardOfPrice": "Action Card με τιμή {price}",
   "actionCardPricesPreparing": "Ετοιμάζουμε τις τιμές των τεχνικών\nΆνοιξε ξανά την οθόνη σε λίγο",
-  "actionCardBuyHeading": "Διάλεξε και αγόρασε τεχνική"
+  "actionCardBuyHeading": "Διάλεξε και αγόρασε τεχνική",
+  "actionCardBuyDescription": "Διάλεξε μία τεχνική και αγόρασέ την μία φορά. Μετά μπορείς να τη διδάσκεις σε όποιο τέρας θέλεις, όσες φορές θέλεις."
 }

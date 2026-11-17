@@ -273,5 +273,6 @@
   "actionCardEntrySubtitle": "Hamleleri kalıcı olarak satın al, canavarlarına öğret",
   "actionCardOfPrice": "{price} tutarında Action Card",
   "actionCardPricesPreparing": "Hamle fiyatları hazırlanıyor\nBiraz sonra ekranı yeniden aç",
-  "actionCardBuyHeading": "Hamle seç ve satın al"
+  "actionCardBuyHeading": "Hamle seç ve satın al",
+  "actionCardBuyDescription": "Bir hamle seç ve tek seferlik satın al. Sonra onu istediğin canavara istediğin kadar öğretebilirsin."
 }

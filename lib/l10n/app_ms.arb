@@ -273,5 +273,6 @@
   "actionCardEntrySubtitle": "Beli gerakan sekali, lalu ajar monstermu",
   "actionCardOfPrice": "Action Card berharga {price}",
   "actionCardPricesPreparing": "Harga gerakan sedang disediakan\nBuka semula sebentar lagi",
-  "actionCardBuyHeading": "Pilih dan beli gerakan"
+  "actionCardBuyHeading": "Pilih dan beli gerakan",
+  "actionCardBuyDescription": "Pilih satu gerakan dan beli sekali saja. Selepas itu, kamu boleh ajarkannya kepada mana-mana monster sebanyak mana kali yang kamu mahu."
 }

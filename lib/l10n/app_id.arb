@@ -273,5 +273,6 @@
   "actionCardEntrySubtitle": "Beli jurus sekali, lalu ajarkan ke monstermu",
   "actionCardOfPrice": "Action Card seharga {price}",
   "actionCardPricesPreparing": "Harga jurus sedang disiapkan\nBuka lagi sebentar lagi",
-  "actionCardBuyHeading": "Pilih dan beli jurus"
+  "actionCardBuyHeading": "Pilih dan beli jurus",
+  "actionCardBuyDescription": "Pilih satu jurus dan beli sekali saja. Setelah itu, kamu bisa mengajarkannya ke monster mana pun sesering yang kamu mau."
 }

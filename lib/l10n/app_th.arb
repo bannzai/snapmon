@@ -273,5 +273,6 @@
   "actionCardEntrySubtitle": "ซื้อท่าขาดแล้วสอนให้มอนสเตอร์",
   "actionCardOfPrice": "Action Card ราคา {price}",
   "actionCardPricesPreparing": "กำลังเตรียมราคาท่า\nรอสักครู่แล้วเปิดหน้านี้อีกครั้ง",
-  "actionCardBuyHeading": "เลือกซื้อท่า"
+  "actionCardBuyHeading": "เลือกซื้อท่า",
+  "actionCardBuyDescription": "เลือกซื้อท่า 1 ท่าแบบจ่ายครั้งเดียว แล้วสอนท่านั้นให้มอนสเตอร์ตัวไหนกี่ครั้งก็ได้"
 }

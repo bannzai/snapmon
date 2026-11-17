@@ -273,5 +273,6 @@
   "actionCardEntrySubtitle": "Mua đứt chiêu rồi dạy cho quái vật của bạn",
   "actionCardOfPrice": "Action Card giá {price}",
   "actionCardPricesPreparing": "Đang chuẩn bị giá các chiêu\nMột lát nữa hãy mở lại",
-  "actionCardBuyHeading": "Chọn và mua chiêu"
+  "actionCardBuyHeading": "Chọn và mua chiêu",
+  "actionCardBuyDescription": "Chọn một chiêu và mua một lần là sở hữu mãi. Sau đó, bạn có thể dạy chiêu ấy cho bất kỳ quái vật nào, bao nhiêu lần tùy thích."
 }

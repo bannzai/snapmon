@@ -273,5 +273,6 @@
   "actionCardEntrySubtitle": "ચાલ એક વાર ખરીદો અને તમારા મોન્સ્ટરને શીખવો",
   "actionCardOfPrice": "{price}ની Action Card",
   "actionCardPricesPreparing": "ચાલની કિંમતો તૈયાર થઈ રહી છે\nથોડી વાર પછી ફરી ખોલો",
-  "actionCardBuyHeading": "ચાલ પસંદ કરીને ખરીદો"
+  "actionCardBuyHeading": "ચાલ પસંદ કરીને ખરીદો",
+  "actionCardBuyDescription": "એક ચાલ પસંદ કરીને એક જ વાર ખરીદો. પછી તમે તે કોઈપણ મોન્સ્ટરને ગમે તેટલી વાર શીખવી શકો છો."
 }

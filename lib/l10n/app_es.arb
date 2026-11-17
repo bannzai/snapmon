@@ -273,5 +273,6 @@
   "actionCardEntrySubtitle": "Compra movimientos para siempre y enséñaselos a tus monstruos",
   "actionCardOfPrice": "Action Card de {price}",
   "actionCardPricesPreparing": "Estamos preparando los precios de los movimientos\nVuelve a abrir la pantalla en un rato",
-  "actionCardBuyHeading": "Elige y compra un movimiento"
+  "actionCardBuyHeading": "Elige y compra un movimiento",
+  "actionCardBuyDescription": "Elige un movimiento y cómpralo una sola vez. Después podrás enseñárselo a cualquier monstruo tantas veces como quieras."
 }

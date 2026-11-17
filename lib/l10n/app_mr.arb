@@ -273,5 +273,6 @@
   "actionCardEntrySubtitle": "चाल एकदाच विकत घे आणि तुझ्या मॉन्स्टरला शिकव",
   "actionCardOfPrice": "{price} किमतीचे Action Card",
   "actionCardPricesPreparing": "चालींच्या किमती तयार होत आहेत\nथोड्या वेळाने पुन्हा उघड",
-  "actionCardBuyHeading": "चाल निवडून विकत घे"
+  "actionCardBuyHeading": "चाल निवडून विकत घे",
+  "actionCardBuyDescription": "एक चाल निवडून एकदाच विकत घे. मग कोणत्याही मॉन्स्टरला ती कितीही वेळा शिकवू शकतोस."
 }

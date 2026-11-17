@@ -273,5 +273,6 @@
   "actionCardEntrySubtitle": "നീക്കങ്ങൾ ഒറ്റത്തവണ വാങ്ങി നിങ്ങളുടെ മോൺസ്റ്ററുകളെ പഠിപ്പിക്കൂ",
   "actionCardOfPrice": "{price} വിലയുള്ള Action Card",
   "actionCardPricesPreparing": "നീക്കങ്ങളുടെ വിലകൾ തയ്യാറാക്കുന്നു\nകുറച്ച് കഴിഞ്ഞ് വീണ്ടും തുറക്കൂ",
-  "actionCardBuyHeading": "നീക്കം തിരഞ്ഞെടുത്ത് വാങ്ങുക"
+  "actionCardBuyHeading": "നീക്കം തിരഞ്ഞെടുത്ത് വാങ്ങുക",
+  "actionCardBuyDescription": "ഒരു നീക്കം തിരഞ്ഞെടുത്ത് ഒറ്റത്തവണ വാങ്ങൂ. പിന്നെ ഏത് മോൺസ്റ്ററിനെയും അത് എത്ര തവണ വേണമെങ്കിലും പഠിപ്പിക്കാം."
 }

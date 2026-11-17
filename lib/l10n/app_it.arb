@@ -273,5 +273,6 @@
   "actionCardEntrySubtitle": "Compra le mosse una volta e insegnale ai tuoi mostri",
   "actionCardOfPrice": "Action Card da {price}",
   "actionCardPricesPreparing": "Stiamo preparando i prezzi delle mosse\nRiapri la schermata tra poco",
-  "actionCardBuyHeading": "Scegli e compra una mossa"
+  "actionCardBuyHeading": "Scegli e compra una mossa",
+  "actionCardBuyDescription": "Scegli una mossa e acquistala una volta per tutte. Poi potrai insegnarla a qualsiasi mostro tutte le volte che vuoi."
 }

@@ -273,5 +273,6 @@
   "actionCardEntrySubtitle": "Kupi poteze zauvijek i nauči ih svoja čudovišta",
   "actionCardOfPrice": "Action Card za {price}",
   "actionCardPricesPreparing": "Pripremamo cijene poteza\nOtvori zaslon ponovno za koji trenutak",
-  "actionCardBuyHeading": "Odaberi i kupi potez"
+  "actionCardBuyHeading": "Odaberi i kupi potez",
+  "actionCardBuyDescription": "Odaberi jedan potez i kupi ga jednom zauvijek. Zatim ga možeš učiti bilo koje čudovište koliko god puta želiš."
 }

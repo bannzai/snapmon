@@ -273,5 +273,6 @@
   "actionCardEntrySubtitle": "Compra golpes de vez e ensina-os aos teus monstros",
   "actionCardOfPrice": "Action Card por {price}",
   "actionCardPricesPreparing": "Estamos a preparar os preços dos golpes\nAbre o ecrã de novo daqui a pouco",
-  "actionCardBuyHeading": "Escolhe e compra um golpe"
+  "actionCardBuyHeading": "Escolhe e compra um golpe",
+  "actionCardBuyDescription": "Escolhe um golpe e compra-o uma única vez. Depois, podes ensiná-lo a qualquer monstro as vezes que quiseres."
 }

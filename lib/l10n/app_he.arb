@@ -273,5 +273,6 @@
   "actionCardEntrySubtitle": "לקנות מתקפות לתמיד וללמד את המפלצות שלך",
   "actionCardOfPrice": "Action Card במחיר {price}",
   "actionCardPricesPreparing": "מחירי המתקפות בהכנה\nאפשר לפתוח שוב בעוד רגע",
-  "actionCardBuyHeading": "לבחור ולקנות מתקפה"
+  "actionCardBuyHeading": "לבחור ולקנות מתקפה",
+  "actionCardBuyDescription": "לבחור מתקפה אחת ולקנות אותה פעם אחת. אחר כך אפשר ללמד אותה לכל מפלצת כמה פעמים שרוצים."
 }

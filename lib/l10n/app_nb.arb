@@ -273,5 +273,6 @@
   "actionCardEntrySubtitle": "Kjøp angrep én gang og lær dem til monstrene dine",
   "actionCardOfPrice": "Action Card til {price}",
   "actionCardPricesPreparing": "Vi gjør prisene på angrep klare\nÅpne skjermen igjen om litt",
-  "actionCardBuyHeading": "Velg og kjøp et angrep"
+  "actionCardBuyHeading": "Velg og kjøp et angrep",
+  "actionCardBuyDescription": "Velg ett angrep og kjøp det én gang. Deretter kan du lære det til hvilket som helst monster så mange ganger du vil."
 }
