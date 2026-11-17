@@ -106,5 +106,6 @@
   "generationWaitingTitle": "હજુ થોડી વાર રાહ જુઓ",
   "generationWaitingMessage": "મોન્સ્ટરનું તત્ત્વ નક્કી કરવામાં થોડો વધુ સમય લાગી રહ્યો છે\nતે જન્મશે એટલે ડેક્સમાં ઉમેરાશે",
   "generationCheckAgain": "ફરી તપાસો",
-  "generationSeeLater": "પછી જુઓ"
+  "generationSeeLater": "પછી જુઓ",
+  "generationNotBornTitle": "મોન્સ્ટરનો જન્મ થયો નહીં"
 }

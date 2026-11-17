@@ -106,5 +106,6 @@
   "generationWaitingTitle": "再等一会儿哦",
   "generationWaitingMessage": "确定怪物的属性还需要一点时间\n诞生后就会加入图鉴",
   "generationCheckAgain": "再确认一次",
-  "generationSeeLater": "稍后查看"
+  "generationSeeLater": "稍后查看",
+  "generationNotBornTitle": "怪兽没能诞生"
 }

@@ -106,5 +106,6 @@
   "generationWaitingTitle": "Mai așteaptă puțin",
   "generationWaitingMessage": "Stabilirea elementului monstrului mai durează puțin\nCând se naște, intră în enciclopedie",
   "generationCheckAgain": "Verifică din nou",
-  "generationSeeLater": "Vezi mai târziu"
+  "generationSeeLater": "Vezi mai târziu",
+  "generationNotBornTitle": "Monstrul nu s-a născut"
 }

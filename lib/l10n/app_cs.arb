@@ -106,5 +106,6 @@
   "generationWaitingTitle": "Ještě chvilku počkej",
   "generationWaitingMessage": "Určení elementu příšery chvíli trvá\nAž se narodí, přibude do encyklopedie",
   "generationCheckAgain": "Zkontroluj znovu",
-  "generationSeeLater": "Podívat se později"
+  "generationSeeLater": "Podívat se později",
+  "generationNotBornTitle": "Příšerka se nenarodila"
 }

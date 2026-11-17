@@ -106,5 +106,6 @@
   "generationWaitingTitle": "Warte noch einen Moment",
   "generationWaitingMessage": "Das Element deines Monsters braucht noch etwas Zeit\nSobald es geboren ist, kommt es in deinen Dex",
   "generationCheckAgain": "Noch mal prüfen",
-  "generationSeeLater": "Später ansehen"
+  "generationSeeLater": "Später ansehen",
+  "generationNotBornTitle": "Das Monster wurde nicht geboren"
 }

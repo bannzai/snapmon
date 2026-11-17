@@ -106,5 +106,6 @@
   "generationWaitingTitle": "Odota vielä hetki",
   "generationWaitingMessage": "Hirviön elementin määritys vie vielä hetken\nKun se syntyy, se lisätään kokoelmaan",
   "generationCheckAgain": "Tarkista uudelleen",
-  "generationSeeLater": "Katso myöhemmin"
+  "generationSeeLater": "Katso myöhemmin",
+  "generationNotBornTitle": "Hirviö ei syntynyt"
 }

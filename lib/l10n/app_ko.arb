@@ -106,5 +106,6 @@
   "generationWaitingTitle": "조금만 더 기다려 주세요",
   "generationWaitingMessage": "몬스터의 속성을 정하는 데 시간이 좀 더 걸리고 있어요\n태어나면 도감에 들어가요",
   "generationCheckAgain": "다시 확인하기",
-  "generationSeeLater": "나중에 보기"
+  "generationSeeLater": "나중에 보기",
+  "generationNotBornTitle": "몬스터가 태어나지 못했어요"
 }

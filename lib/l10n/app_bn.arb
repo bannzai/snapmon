@@ -106,5 +106,6 @@
   "generationWaitingTitle": "আর একটু অপেক্ষা করো",
   "generationWaitingMessage": "মনস্টারের এলিমেন্ট ঠিক করতে একটু বেশি সময় লাগছে\nজন্মালেই সংগ্রহে যোগ হবে",
   "generationCheckAgain": "আবার দেখো",
-  "generationSeeLater": "পরে দেখো"
+  "generationSeeLater": "পরে দেখো",
+  "generationNotBornTitle": "দানবটা জন্মায়নি"
 }

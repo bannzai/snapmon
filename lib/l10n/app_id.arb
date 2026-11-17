@@ -106,5 +106,6 @@
   "generationWaitingTitle": "Tunggu sebentar lagi, ya",
   "generationWaitingMessage": "Menentukan elemen monster butuh waktu sedikit lebih lama\nBegitu lahir, monster akan masuk ke dex",
   "generationCheckAgain": "Cek lagi",
-  "generationSeeLater": "Lihat nanti"
+  "generationSeeLater": "Lihat nanti",
+  "generationNotBornTitle": "Monsternya tidak jadi lahir"
 }

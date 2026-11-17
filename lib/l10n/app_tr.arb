@@ -106,5 +106,6 @@
   "generationWaitingTitle": "Biraz daha bekle",
   "generationWaitingMessage": "Canavarın elementini belirlemek biraz zaman alıyor\nDoğduğunda ansiklopediye eklenecek",
   "generationCheckAgain": "Tekrar kontrol et",
-  "generationSeeLater": "Sonra bak"
+  "generationSeeLater": "Sonra bak",
+  "generationNotBornTitle": "Canavar doğmadı"
 }

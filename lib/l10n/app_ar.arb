@@ -106,5 +106,6 @@
   "generationWaitingTitle": "انتظر قليلًا بعد",
   "generationWaitingMessage": "تحديد عنصر الوحش يستغرق وقتًا أطول\nعندما يظهر، سيُضاف إلى الموسوعة",
   "generationCheckAgain": "تحقّق مرة أخرى",
-  "generationSeeLater": "شاهد لاحقًا"
+  "generationSeeLater": "شاهد لاحقًا",
+  "generationNotBornTitle": "لم يولد الوحش"
 }

@@ -106,5 +106,6 @@
   "generationWaitingTitle": "Περίμενε λίγο ακόμα",
   "generationWaitingMessage": "Ο καθορισμός του στοιχείου του τέρατος παίρνει λίγο χρόνο\nΜόλις γεννηθεί, θα μπει στην εγκυκλοπαίδεια",
   "generationCheckAgain": "Έλεγξε ξανά",
-  "generationSeeLater": "Δες το αργότερα"
+  "generationSeeLater": "Δες το αργότερα",
+  "generationNotBornTitle": "Το τέρας δεν γεννήθηκε"
 }

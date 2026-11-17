@@ -106,5 +106,6 @@
   "generationWaitingTitle": "Vent litt til",
   "generationWaitingMessage": "Det tar litt tid å bestemme monsterets type\nNår det er født, havner det i samlingen",
   "generationCheckAgain": "Sjekk igjen",
-  "generationSeeLater": "Se senere"
+  "generationSeeLater": "Se senere",
+  "generationNotBornTitle": "Monsteret ble ikke født"
 }

@@ -106,5 +106,6 @@
   "generationWaitingTitle": "Počakaj še malo",
   "generationWaitingMessage": "Določanje elementa pošasti traja še malo\nKo se rodi, bo dodana v enciklopedijo",
   "generationCheckAgain": "Preveri znova",
-  "generationSeeLater": "Poglej pozneje"
+  "generationSeeLater": "Poglej pozneje",
+  "generationNotBornTitle": "Pošast se ni rodila"
 }

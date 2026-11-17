@@ -106,5 +106,6 @@
   "generationWaitingTitle": "Espera una mica més",
   "generationWaitingMessage": "Costa una mica decidir l'element del monstre\nQuan neixi, entrarà a l'enciclopèdia",
   "generationCheckAgain": "Torna-ho a comprovar",
-  "generationSeeLater": "Mira-ho més tard"
+  "generationSeeLater": "Mira-ho més tard",
+  "generationNotBornTitle": "El monstre no ha nascut"
 }

@@ -106,5 +106,6 @@
   "generationWaitingTitle": "Wacht nog even",
   "generationWaitingMessage": "Het bepalen van het type van je monster duurt iets langer\nZodra het geboren is, komt het in je dex",
   "generationCheckAgain": "Controleer opnieuw",
-  "generationSeeLater": "Later bekijken"
+  "generationSeeLater": "Later bekijken",
+  "generationNotBornTitle": "Het monster is niet geboren"
 }
