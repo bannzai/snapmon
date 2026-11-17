@@ -271,5 +271,6 @@
   "ticketPurchaseSynced": "L’état de ton achat a été synchronisé",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Achète une capacité une fois pour toutes et apprends-la à tes monstres",
-  "actionCardOfPrice": "Action Card à {price}"
+  "actionCardOfPrice": "Action Card à {price}",
+  "actionCardPricesPreparing": "Les prix des capacités sont en préparation\nReviens un peu plus tard"
 }
