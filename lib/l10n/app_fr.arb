@@ -200,5 +200,6 @@
   "statusConditionSleep": "Sommeil",
   "statusConditionCurse": "Malédiction",
   "statusConditionConfusion": "Confusion",
-  "statusConditionDizzy": "Vertige"
+  "statusConditionDizzy": "Vertige",
+  "statusConditionExcited": "Excitation"
 }
