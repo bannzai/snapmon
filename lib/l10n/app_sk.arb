@@ -84,5 +84,6 @@
   "captureDexCount": "encyklopédia {monsterCount}",
   "captureFirstHintAlbum": "Vyber jednu fotku predmetu okolo seba",
   "captureFirstHintCamera": "Odfoť jednu vec vo svojom okolí",
-  "captureHero": "Odfoť vec okolo seba\nZrodí sa príšera!"
+  "captureHero": "Odfoť vec okolo seba\nZrodí sa príšera!",
+  "capturePickFromAlbum": "Vyber z albumu"
 }

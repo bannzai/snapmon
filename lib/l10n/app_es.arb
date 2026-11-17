@@ -84,5 +84,6 @@
   "captureDexCount": "colección {monsterCount}",
   "captureFirstHintAlbum": "Elige una foto de un objeto que tengas cerca",
   "captureFirstHintCamera": "Toma una foto de un objeto a tu alrededor",
-  "captureHero": "Fotografía algo que tengas cerca\n¡Nace un monstruo!"
+  "captureHero": "Fotografía algo que tengas cerca\n¡Nace un monstruo!",
+  "capturePickFromAlbum": "Elige del álbum"
 }

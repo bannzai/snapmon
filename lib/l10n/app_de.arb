@@ -84,5 +84,6 @@
   "captureDexCount": "Dex {monsterCount}",
   "captureFirstHintAlbum": "Such ein Foto von einem Gegenstand aus deinem Alltag aus",
   "captureFirstHintCamera": "Fotografiere einen Gegenstand um dich herum",
-  "captureHero": "Fotografiere etwas um dich herum\nEin Monster wird geboren!"
+  "captureHero": "Fotografiere etwas um dich herum\nEin Monster wird geboren!",
+  "capturePickFromAlbum": "Aus dem Album auswählen"
 }

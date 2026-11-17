@@ -84,5 +84,6 @@
   "captureDexCount": "সংগ্রহ {monsterCount}",
   "captureFirstHintAlbum": "চারপাশের কোনো জিনিসের ১টি ছবি বেছে নাও",
   "captureFirstHintCamera": "চারপাশের একটা জিনিসের ছবি তোলো",
-  "captureHero": "চারপাশের জিনিসের ছবি তোলো\nজন্ম নেবে এক মনস্টার!"
+  "captureHero": "চারপাশের জিনিসের ছবি তোলো\nজন্ম নেবে এক মনস্টার!",
+  "capturePickFromAlbum": "অ্যালবাম থেকে বেছে নাও"
 }

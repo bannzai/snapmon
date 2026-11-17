@@ -84,5 +84,6 @@
   "captureDexCount": "enciklopedija {monsterCount}",
   "captureFirstHintAlbum": "Odaberi jednu fotku predmeta oko sebe",
   "captureFirstHintCamera": "Fotografiraj jedan predmet oko sebe",
-  "captureHero": "Fotografiraj predmet oko sebe\nRađa se čudovište!"
+  "captureHero": "Fotografiraj predmet oko sebe\nRađa se čudovište!",
+  "capturePickFromAlbum": "Odaberi iz albuma"
 }

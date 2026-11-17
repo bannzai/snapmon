@@ -84,5 +84,6 @@
   "captureDexCount": "ڈیکس {monsterCount}",
   "captureFirstHintAlbum": "آس پاس کی کسی چیز کی 1 تصویر چنو",
   "captureFirstHintCamera": "اپنے آس پاس کی ایک چیز کی تصویر کھینچو",
-  "captureHero": "آس پاس کی کسی چیز کی تصویر لو\nمونسٹر جنم لے گا!"
+  "captureHero": "آس پاس کی کسی چیز کی تصویر لو\nمونسٹر جنم لے گا!",
+  "capturePickFromAlbum": "البم سے چنو"
 }

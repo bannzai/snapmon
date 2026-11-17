@@ -84,5 +84,6 @@
   "captureDexCount": "kokoelma {monsterCount}",
   "captureFirstHintAlbum": "Valitse yksi kuva lähelläsi olevasta esineestä",
   "captureFirstHintCamera": "Ota kuva yhdestä esineestä ympärilläsi",
-  "captureHero": "Kuvaa esine ympäriltäsi\nHirviö syntyy!"
+  "captureHero": "Kuvaa esine ympäriltäsi\nHirviö syntyy!",
+  "capturePickFromAlbum": "Valitse albumista"
 }

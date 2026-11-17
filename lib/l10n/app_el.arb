@@ -84,5 +84,6 @@
   "captureDexCount": "εγκυκλοπαίδεια {monsterCount}",
   "captureFirstHintAlbum": "Διάλεξε μια φωτογραφία από ένα αντικείμενο γύρω σου",
   "captureFirstHintCamera": "Βγάλε φωτογραφία ένα αντικείμενο γύρω σου",
-  "captureHero": "Φωτογράφισε κάτι γύρω σου\nΓεννιέται ένα τέρας!"
+  "captureHero": "Φωτογράφισε κάτι γύρω σου\nΓεννιέται ένα τέρας!",
+  "capturePickFromAlbum": "Διάλεξε από το άλμπουμ"
 }
