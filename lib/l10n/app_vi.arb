@@ -300,5 +300,6 @@
   "actionCardTeachReplacedMove": "{moveName} sẽ rời khỏi ô chiêu",
   "actionCardTeachNotEquipped": "Bạn có thể đưa vào ô qua mục Chọn chiêu",
   "battleLearnedMoveNotEquipped": "Bạn có thể đổi ở mục «Chọn chiêu»",
-  "moveSelectionOpen": "Chọn chiêu"
+  "moveSelectionOpen": "Chọn chiêu",
+  "moveSelectionTitle": "Chiêu của {monsterName}"
 }

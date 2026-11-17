@@ -300,5 +300,6 @@
   "actionCardTeachReplacedMove": "{moveName} sairá de um espaço de golpe",
   "actionCardTeachNotEquipped": "Podes pô-lo num espaço em «Escolher golpe»",
   "battleLearnedMoveNotEquipped": "Podes trocá-lo em «Escolher golpe»",
-  "moveSelectionOpen": "Escolhe os golpes"
+  "moveSelectionOpen": "Escolhe os golpes",
+  "moveSelectionTitle": "Golpes de {monsterName}"
 }

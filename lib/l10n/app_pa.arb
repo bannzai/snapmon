@@ -300,5 +300,6 @@
   "actionCardTeachReplacedMove": "{moveName} ਚਾਲ ਦੇ ਸਲਾਟ ਤੋਂ ਬਾਹਰ ਹੋ ਜਾਵੇਗੀ",
   "actionCardTeachNotEquipped": "ਚਾਲ ਚੁਣ ਕੇ ਇਸਨੂੰ ਸਲਾਟ ਵਿੱਚ ਰੱਖ ਸਕਦੇ ਹੋ",
   "battleLearnedMoveNotEquipped": "‘ਚਾਲ ਚੁਣੋ’ ਵਿੱਚ ਇਸਨੂੰ ਬਦਲ ਸਕਦੇ ਹੋ",
-  "moveSelectionOpen": "ਚਾਲਾਂ ਚੁਣੋ"
+  "moveSelectionOpen": "ਚਾਲਾਂ ਚੁਣੋ",
+  "moveSelectionTitle": "{monsterName} ਦੀਆਂ ਚਾਲਾਂ"
 }

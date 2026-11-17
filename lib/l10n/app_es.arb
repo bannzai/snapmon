@@ -300,5 +300,6 @@
   "actionCardTeachReplacedMove": "{moveName} saldrá de una ranura de movimiento",
   "actionCardTeachNotEquipped": "Puedes ponerlo en una ranura desde «Elegir movimiento»",
   "battleLearnedMoveNotEquipped": "Puedes cambiarlo en «Elegir movimiento»",
-  "moveSelectionOpen": "Elige movimientos"
+  "moveSelectionOpen": "Elige movimientos",
+  "moveSelectionTitle": "Movimientos de {monsterName}"
 }

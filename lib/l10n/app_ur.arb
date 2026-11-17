@@ -300,5 +300,6 @@
   "actionCardTeachReplacedMove": "{moveName} چال کے خانے سے نکل جائے گی",
   "actionCardTeachNotEquipped": "چال چن کر اسے سلاٹ میں رکھ سکتے ہو",
   "battleLearnedMoveNotEquipped": "’چال چنو‘ میں اسے بدل سکتے ہو",
-  "moveSelectionOpen": "چالیں چنو"
+  "moveSelectionOpen": "چالیں چنو",
+  "moveSelectionTitle": "{monsterName} کی چالیں"
 }

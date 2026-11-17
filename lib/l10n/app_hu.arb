@@ -300,5 +300,6 @@
   "actionCardTeachReplacedMove": "{moveName} kikerül a támadás helyéről",
   "actionCardTeachNotEquipped": "A támadás kiválasztásánál helyezheted egy helyre",
   "battleLearnedMoveNotEquipped": "A „Támadás kiválasztása” menüben lecserélheted",
-  "moveSelectionOpen": "Válassz támadásokat"
+  "moveSelectionOpen": "Válassz támadásokat",
+  "moveSelectionTitle": "{monsterName} támadásai"
 }

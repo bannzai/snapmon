@@ -300,5 +300,6 @@
   "actionCardTeachReplacedMove": "{moveName} opustí slot pro útok",
   "actionCardTeachNotEquipped": "Do slotu ho dáš přes výběr útoku",
   "battleLearnedMoveNotEquipped": "Můžeš ho vyměnit v nabídce „Vybrat útok“",
-  "moveSelectionOpen": "Vyber útoky"
+  "moveSelectionOpen": "Vyber útoky",
+  "moveSelectionTitle": "Útoky {monsterName}"
 }

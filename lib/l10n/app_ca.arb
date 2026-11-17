@@ -300,5 +300,6 @@
   "actionCardTeachReplacedMove": "{moveName} sortirà d'una ranura de moviment",
   "actionCardTeachNotEquipped": "Pots posar-lo a la ranura a «Tria un moviment»",
   "battleLearnedMoveNotEquipped": "La pots canviar a «Tria un moviment»",
-  "moveSelectionOpen": "Tria moviments"
+  "moveSelectionOpen": "Tria moviments",
+  "moveSelectionTitle": "Moviments de {monsterName}"
 }

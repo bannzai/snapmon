@@ -300,5 +300,6 @@
   "actionCardTeachReplacedMove": "{moveName} wypadnie z miejsca na ruch",
   "actionCardTeachNotEquipped": "Możesz umieścić go w slocie przez wybór ruchu",
   "battleLearnedMoveNotEquipped": "Możesz go zamienić w „Wybierz ruch”",
-  "moveSelectionOpen": "Wybierz ruchy"
+  "moveSelectionOpen": "Wybierz ruchy",
+  "moveSelectionTitle": "Ruchy {monsterName}"
 }

@@ -300,5 +300,6 @@
   "actionCardTeachReplacedMove": "{moveName}将移出招式栏",
   "actionCardTeachNotEquipped": "在选择招式中就能放进栏位",
   "battleLearnedMoveNotEquipped": "可以在“选择招式”中替换",
-  "moveSelectionOpen": "选择招式"
+  "moveSelectionOpen": "选择招式",
+  "moveSelectionTitle": "{monsterName}的招式"
 }

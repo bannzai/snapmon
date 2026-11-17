@@ -300,5 +300,6 @@
   "actionCardTeachReplacedMove": "{moveName} går ut av angrepsplassen",
   "actionCardTeachNotEquipped": "Du kan sette det i en plass via Velg angrep",
   "battleLearnedMoveNotEquipped": "Du kan bytte det under «Velg angrep»",
-  "moveSelectionOpen": "Velg angrep"
+  "moveSelectionOpen": "Velg angrep",
+  "moveSelectionTitle": "Angrep for {monsterName}"
 }

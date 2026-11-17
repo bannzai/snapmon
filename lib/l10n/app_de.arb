@@ -300,5 +300,6 @@
   "actionCardTeachReplacedMove": "{moveName} verlässt einen Attackenplatz",
   "actionCardTeachNotEquipped": "Du kannst sie unter „Attacke wählen“ in einen Platz setzen",
   "battleLearnedMoveNotEquipped": "Du kannst sie unter „Attacke wählen“ austauschen",
-  "moveSelectionOpen": "Attacken wählen"
+  "moveSelectionOpen": "Attacken wählen",
+  "moveSelectionTitle": "Attacken von {monsterName}"
 }

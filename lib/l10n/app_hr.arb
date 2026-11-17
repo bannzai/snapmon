@@ -300,5 +300,6 @@
   "actionCardTeachReplacedMove": "{moveName} izlazi iz mjesta za potez",
   "actionCardTeachNotEquipped": "Možeš ga staviti u utor odabirom poteza",
   "battleLearnedMoveNotEquipped": "Možeš ga zamijeniti pod „Odaberi potez”",
-  "moveSelectionOpen": "Odaberi poteze"
+  "moveSelectionOpen": "Odaberi poteze",
+  "moveSelectionTitle": "Potezi za {monsterName}"
 }

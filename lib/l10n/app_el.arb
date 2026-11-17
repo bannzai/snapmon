@@ -300,5 +300,6 @@
   "actionCardTeachReplacedMove": "Το {moveName} βγαίνει από τη θέση τεχνικής",
   "actionCardTeachNotEquipped": "Μπορείς να τη βάλεις σε θέση από την επιλογή τεχνικής",
   "battleLearnedMoveNotEquipped": "Μπορείς να την αλλάξεις από την «Επιλογή τεχνικών»",
-  "moveSelectionOpen": "Διάλεξε τεχνικές"
+  "moveSelectionOpen": "Διάλεξε τεχνικές",
+  "moveSelectionTitle": "Τεχνικές του {monsterName}"
 }

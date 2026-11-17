@@ -300,5 +300,6 @@
   "actionCardTeachReplacedMove": "{moveName} poistuu liikepaikasta",
   "actionCardTeachNotEquipped": "Saat sen paikkaan valitsemalla liikkeen",
   "battleLearnedMoveNotEquipped": "Voit vaihtaa sen kohdassa ”Valitse liike”",
-  "moveSelectionOpen": "Valitse liikkeet"
+  "moveSelectionOpen": "Valitse liikkeet",
+  "moveSelectionTitle": "Hahmon {monsterName} liikkeet"
 }

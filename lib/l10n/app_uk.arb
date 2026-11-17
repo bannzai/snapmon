@@ -300,5 +300,6 @@
   "actionCardTeachReplacedMove": "{moveName} вийде з комірки прийомів",
   "actionCardTeachNotEquipped": "Ти можеш додати його в комірку через вибір прийому",
   "battleLearnedMoveNotEquipped": "Можеш замінити його в розділі «Вибрати прийом»",
-  "moveSelectionOpen": "Вибери прийоми"
+  "moveSelectionOpen": "Вибери прийоми",
+  "moveSelectionTitle": "Прийоми {monsterName}"
 }

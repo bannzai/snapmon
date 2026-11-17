@@ -300,5 +300,6 @@
   "actionCardTeachReplacedMove": "{moveName} ستخرج من خانة الحركات",
   "actionCardTeachNotEquipped": "يمكنك وضعها في الخانة عبر اختيار الحركات",
   "battleLearnedMoveNotEquipped": "يمكنك تبديلها من «اختيار الحركات»",
-  "moveSelectionOpen": "اختر الحركات"
+  "moveSelectionOpen": "اختر الحركات",
+  "moveSelectionTitle": "حركات {monsterName}"
 }

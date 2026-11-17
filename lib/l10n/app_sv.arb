@@ -300,5 +300,6 @@
   "actionCardTeachReplacedMove": "{moveName} lämnar en attackplats",
   "actionCardTeachNotEquipped": "Du kan sätta den i en plats via Välj attack",
   "battleLearnedMoveNotEquipped": "Du kan byta den under ”Välj attack”",
-  "moveSelectionOpen": "Välj attacker"
+  "moveSelectionOpen": "Välj attacker",
+  "moveSelectionTitle": "Attacker för {monsterName}"
 }

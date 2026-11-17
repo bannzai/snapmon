@@ -300,5 +300,6 @@
   "actionCardTeachReplacedMove": "{moveName} תצא ממשבצת המתקפות",
   "actionCardTeachNotEquipped": "אפשר להכניס למשבצת דרך בחירת מתקפה",
   "battleLearnedMoveNotEquipped": "אפשר להחליף דרך ״בחירת מתקפות״",
-  "moveSelectionOpen": "בחירת מתקפות"
+  "moveSelectionOpen": "בחירת מתקפות",
+  "moveSelectionTitle": "מתקפות של {monsterName}"
 }

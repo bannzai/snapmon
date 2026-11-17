@@ -300,5 +300,6 @@
   "actionCardTeachReplacedMove": "{moveName} നീക്കത്തിന്റെ സ്ലോട്ടിൽ നിന്ന് മാറും",
   "actionCardTeachNotEquipped": "നീക്കം തിരഞ്ഞെടുത്ത് സ്ലോട്ടിൽ ഇടാം",
   "battleLearnedMoveNotEquipped": "‘നീക്കം തിരഞ്ഞെടുക്കുക’ എന്നതിൽ മാറ്റാം",
-  "moveSelectionOpen": "നീക്കങ്ങൾ തിരഞ്ഞെടുക്കൂ"
+  "moveSelectionOpen": "നീക്കങ്ങൾ തിരഞ്ഞെടുക്കൂ",
+  "moveSelectionTitle": "{monsterName}യുടെ നീക്കങ്ങൾ"
 }

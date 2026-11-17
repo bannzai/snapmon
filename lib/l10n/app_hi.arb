@@ -300,5 +300,6 @@
   "actionCardTeachReplacedMove": "{moveName} चाल के स्लॉट से हट जाएगी",
   "actionCardTeachNotEquipped": "चाल चुनकर इसे स्लॉट में रख सकते हो",
   "battleLearnedMoveNotEquipped": "‘चाल चुनो’ में इसे बदल सकते हो",
-  "moveSelectionOpen": "चालें चुनो"
+  "moveSelectionOpen": "चालें चुनो",
+  "moveSelectionTitle": "{monsterName} की चालें"
 }

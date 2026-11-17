@@ -300,5 +300,6 @@
   "actionCardTeachReplacedMove": "{moveName} మూవ్ స్లాట్ నుంచి బయటకు వస్తుంది",
   "actionCardTeachNotEquipped": "మూవ్ ఎంచుకుని స్లాట్‌లో పెట్టవచ్చు",
   "battleLearnedMoveNotEquipped": "‘మూవ్ ఎంచుకో’లో దీన్ని మార్చుకోవచ్చు",
-  "moveSelectionOpen": "మూవ్‌లు ఎంచుకో"
+  "moveSelectionOpen": "మూవ్‌లు ఎంచుకో",
+  "moveSelectionTitle": "{monsterName} మూవ్‌లు"
 }

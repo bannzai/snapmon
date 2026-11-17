@@ -300,5 +300,6 @@
   "actionCardTeachReplacedMove": "{moveName} hamle yuvasından çıkacak",
   "actionCardTeachNotEquipped": "Hamle seçerek yuvaya koyabilirsin",
   "battleLearnedMoveNotEquipped": "«Hamle seç» bölümünden değiştirebilirsin",
-  "moveSelectionOpen": "Hamle seç"
+  "moveSelectionOpen": "Hamle seç",
+  "moveSelectionTitle": "{monsterName} hamleleri"
 }

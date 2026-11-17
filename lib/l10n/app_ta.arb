@@ -300,5 +300,6 @@
   "actionCardTeachReplacedMove": "{moveName} தாக்குதலுக்கான இடத்திலிருந்து நீங்கும்",
   "actionCardTeachNotEquipped": "தாக்குதலைத் தேர்ந்தெடுத்து இடத்தில் சேர்க்கலாம்",
   "battleLearnedMoveNotEquipped": "‘தாக்குதலைத் தேர்ந்தெடு’ என்பதில் இதை மாற்றலாம்",
-  "moveSelectionOpen": "தாக்குதல்களைத் தேர்ந்தெடுங்கள்"
+  "moveSelectionOpen": "தாக்குதல்களைத் தேர்ந்தெடுங்கள்",
+  "moveSelectionTitle": "{monsterName} இன் தாக்குதல்கள்"
 }

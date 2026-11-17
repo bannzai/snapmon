@@ -300,5 +300,6 @@
   "actionCardTeachReplacedMove": "{moveName} ತಂತ್ರದ ಸ್ಲಾಟ್‌ನಿಂದ ಹೊರಹೋಗುತ್ತದೆ",
   "actionCardTeachNotEquipped": "ತಂತ್ರ ಆಯ್ಕೆ ಮಾಡಿ ಸ್ಲಾಟ್‌ಗೆ ಸೇರಿಸಬಹುದು",
   "battleLearnedMoveNotEquipped": "‘ತಂತ್ರ ಆಯ್ಕೆ ಮಾಡು’ನಲ್ಲಿ ಅದನ್ನು ಬದಲಾಯಿಸಬಹುದು",
-  "moveSelectionOpen": "ತಂತ್ರಗಳನ್ನು ಆಯ್ಕೆ ಮಾಡು"
+  "moveSelectionOpen": "ತಂತ್ರಗಳನ್ನು ಆಯ್ಕೆ ಮಾಡು",
+  "moveSelectionTitle": "{monsterName}ನ ತಂತ್ರಗಳು"
 }
