@@ -285,5 +285,6 @@
   "actionCardPurchaseUnassignedTitle": "Kunne ikke motta angrepet",
   "actionCardPurchaseUnassignedBody": "Prisen på angrepet endret seg under kjøpet, eller du har angrepet fra før\nVelg et angrep på nytt under «Action Card du ikke har mottatt»",
   "actionCardUnassignedHeading": "Action Card du ikke har hentet",
-  "actionCardUnassignedChooseMove": "Velg angrep"
+  "actionCardUnassignedChooseMove": "Velg angrep",
+  "actionCardAssignTitle": "Angrep du får med dette Action Card"
 }

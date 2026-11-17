@@ -285,5 +285,6 @@
   "actionCardPurchaseUnassignedTitle": "Не удалось получить приём",
   "actionCardPurchaseUnassignedBody": "Цена приёма изменилась во время покупки, или этот приём у тебя уже есть\nСнова выбери приём в разделе «Неполученные Action Card»",
   "actionCardUnassignedHeading": "Неполученные Action Card",
-  "actionCardUnassignedChooseMove": "Выбери приём"
+  "actionCardUnassignedChooseMove": "Выбери приём",
+  "actionCardAssignTitle": "Приём, который ты получишь с этой Action Card"
 }

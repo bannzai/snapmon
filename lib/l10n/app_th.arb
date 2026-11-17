@@ -285,5 +285,6 @@
   "actionCardPurchaseUnassignedTitle": "รับท่าไม่ได้",
   "actionCardPurchaseUnassignedBody": "ราคาท่าเปลี่ยนไประหว่างซื้อ หรือมีท่านั้นอยู่แล้ว\nเลือกท่าอีกครั้งจาก «Action Card ที่ยังไม่ได้รับ»",
   "actionCardUnassignedHeading": "Action Card ที่ยังไม่ได้รับ",
-  "actionCardUnassignedChooseMove": "เลือกท่า"
+  "actionCardUnassignedChooseMove": "เลือกท่า",
+  "actionCardAssignTitle": "ท่าที่จะได้รับจาก Action Card ใบนี้"
 }

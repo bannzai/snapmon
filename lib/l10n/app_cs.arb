@@ -285,5 +285,6 @@
   "actionCardPurchaseUnassignedTitle": "Útok se nepodařilo získat",
   "actionCardPurchaseUnassignedBody": "Během nákupu se změnila cena útoku, nebo už ten útok máš\nVyber si útok znovu v «Nevyzvednuté Action Card»",
   "actionCardUnassignedHeading": "Nevyzvednuté Action Card",
-  "actionCardUnassignedChooseMove": "Vyber útok"
+  "actionCardUnassignedChooseMove": "Vyber útok",
+  "actionCardAssignTitle": "Útok, který získáš s touto Action Card"
 }

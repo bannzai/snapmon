@@ -285,5 +285,6 @@
   "actionCardPurchaseUnassignedTitle": "Die Attacke konnte nicht empfangen werden",
   "actionCardPurchaseUnassignedBody": "Der Preis der Attacke hat sich beim Kauf geändert, oder du hast sie schon\nWähle unter „Nicht erhaltene Action Card“ erneut eine Attacke",
   "actionCardUnassignedHeading": "Nicht abgeholte Action Card",
-  "actionCardUnassignedChooseMove": "Wähle eine Attacke"
+  "actionCardUnassignedChooseMove": "Wähle eine Attacke",
+  "actionCardAssignTitle": "Attacke, die du mit dieser Action Card erhältst"
 }

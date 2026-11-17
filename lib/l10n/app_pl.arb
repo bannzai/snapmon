@@ -285,5 +285,6 @@
   "actionCardPurchaseUnassignedTitle": "Nie udało się odebrać ruchu",
   "actionCardPurchaseUnassignedBody": "Cena ruchu zmieniła się podczas zakupu albo masz już ten ruch\nWybierz ruch ponownie w „Nieodebranych Action Card”",
   "actionCardUnassignedHeading": "Nieodebrane Action Card",
-  "actionCardUnassignedChooseMove": "Wybierz ruch"
+  "actionCardUnassignedChooseMove": "Wybierz ruch",
+  "actionCardAssignTitle": "Ruch, który dostaniesz dzięki tej Action Card"
 }

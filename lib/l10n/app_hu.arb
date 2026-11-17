@@ -285,5 +285,6 @@
   "actionCardPurchaseUnassignedTitle": "Nem sikerült megkapni a támadást",
   "actionCardPurchaseUnassignedBody": "Vásárlás közben megváltozott a támadás ára, vagy ez a támadás már megvan neked\nVálassz újra támadást az „Át nem vett Action Card” között",
   "actionCardUnassignedHeading": "Át nem vett Action Card",
-  "actionCardUnassignedChooseMove": "Válassz támadást"
+  "actionCardUnassignedChooseMove": "Válassz támadást",
+  "actionCardAssignTitle": "Támadás, amit ezzel az Action Carddal kapsz"
 }

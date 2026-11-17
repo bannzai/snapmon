@@ -285,5 +285,6 @@
   "actionCardPurchaseUnassignedTitle": "Non è stato possibile ricevere la mossa",
   "actionCardPurchaseUnassignedBody": "Il prezzo della mossa è cambiato durante l’acquisto, oppure hai già quella mossa\nScegli di nuovo una mossa tra le «Action Card non ricevute»",
   "actionCardUnassignedHeading": "Action Card non riscattate",
-  "actionCardUnassignedChooseMove": "Scegli una mossa"
+  "actionCardUnassignedChooseMove": "Scegli una mossa",
+  "actionCardAssignTitle": "Mossa che ottieni con questa Action Card"
 }

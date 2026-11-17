@@ -285,5 +285,6 @@
   "actionCardPurchaseUnassignedTitle": "Potez nije primljen",
   "actionCardPurchaseUnassignedBody": "Cijena poteza promijenila se tijekom kupnje ili već imaš taj potez\nPonovno odaberi potez među „Neprimljenim Action Card”",
   "actionCardUnassignedHeading": "Nepreuzete Action Card",
-  "actionCardUnassignedChooseMove": "Odaberi potez"
+  "actionCardUnassignedChooseMove": "Odaberi potez",
+  "actionCardAssignTitle": "Potez koji dobivaš ovom Action Card"
 }

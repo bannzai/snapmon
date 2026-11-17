@@ -285,5 +285,6 @@
   "actionCardPurchaseUnassignedTitle": "چال موصول نہیں ہوئی",
   "actionCardPurchaseUnassignedBody": "خریدتے وقت چال کی قیمت بدل گئی، یا وہ چال تمہارے پاس پہلے سے ہے\n«نہ ملے ہوئے Action Card» میں سے دوبارہ چال چنو",
   "actionCardUnassignedHeading": "ابھی تک حاصل نہ کیے گئے Action Card",
-  "actionCardUnassignedChooseMove": "چال چنو"
+  "actionCardUnassignedChooseMove": "چال چنو",
+  "actionCardAssignTitle": "اس Action Card سے ملنے والی چال"
 }
