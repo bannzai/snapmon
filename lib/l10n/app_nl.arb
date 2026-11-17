@@ -310,5 +310,6 @@
   "battleLostPartyHintTitle": "Met meer monsters in je team win je makkelijker",
   "battleLostPartyHintMessage": "Je kunt maximaal {maximumPartySize} monsters in je team hebben\nKen de zwaktes en statuseffecten om sterker te staan in gevechten",
   "helpOpen": "Zo speel je",
-  "helpTitle": "Zo speel je"
+  "helpTitle": "Zo speel je",
+  "helpPartyHeading": "In je team passen maximaal {maximumPartySize} monsters"
 }

@@ -310,5 +310,6 @@
   "battleLostPartyHintTitle": "Több szörnnyel a csapatban könnyebben nyersz",
   "battleLostPartyHintMessage": "A csapatodban legfeljebb {maximumPartySize} szörny lehet\nHa ismered a gyengeségeket és az állapothatásokat, előnybe kerülsz a harcban",
   "helpOpen": "Így játssz",
-  "helpTitle": "Így játssz"
+  "helpTitle": "Így játssz",
+  "helpPartyHeading": "A csapatodban legfeljebb {maximumPartySize} szörny lehet"
 }

@@ -310,5 +310,6 @@
   "battleLostPartyHintTitle": "Με περισσότερα τέρατα στην ομάδa σου, κερδίζεις πιο εύκολα",
   "battleLostPartyHintMessage": "Η ομάδα σου χωρά έως {maximumPartySize} τέρατα\nΑν ξέρεις τις αδυναμίες και τις επιδράσεις κατάστασης, έχεις πλεονέκτημα στη μάχη",
   "helpOpen": "Πώς να παίξεις",
-  "helpTitle": "Πώς παίζεις"
+  "helpTitle": "Πώς παίζεις",
+  "helpPartyHeading": "Στην ομάδα σου χωρούν έως {maximumPartySize} τέρατα"
 }

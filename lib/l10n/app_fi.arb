@@ -310,5 +310,6 @@
   "battleLostPartyHintTitle": "Kun joukkueessa on enemmän hirviöitä, voitat helpommin",
   "battleLostPartyHintMessage": "Joukkueeseesi mahtuu enintään {maximumPartySize} hirviötä\nKun tunnet heikkoudet ja statustilat, pärjäät taistelussa paremmin",
   "helpOpen": "Näin pelaat",
-  "helpTitle": "Näin pelaat"
+  "helpTitle": "Näin pelaat",
+  "helpPartyHeading": "Joukkueeseesi mahtuu enintään {maximumPartySize} hirviötä"
 }

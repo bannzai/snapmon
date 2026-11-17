@@ -310,5 +310,6 @@
   "battleLostPartyHintTitle": "Com mais monstros na sua equipe, fica mais fácil vencer",
   "battleLostPartyHintMessage": "Sua equipe pode ter até {maximumPartySize} monstros\nConhecer fraquezas e efeitos de status dá vantagem na batalha",
   "helpOpen": "Como jogar",
-  "helpTitle": "Como jogar"
+  "helpTitle": "Como jogar",
+  "helpPartyHeading": "Sua equipe pode ter até {maximumPartySize} monstros"
 }

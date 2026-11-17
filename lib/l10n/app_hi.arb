@@ -310,5 +310,6 @@
   "battleLostPartyHintTitle": "टीम में और मॉन्स्टर जोड़ो, जीतना आसान होगा",
   "battleLostPartyHintMessage": "अपनी टीम में ज़्यादा से ज़्यादा {maximumPartySize} मॉन्स्टर रख सकते हो\nकमज़ोरियाँ और असामान्य स्थिति जानोगे तो लड़ाई में बढ़त मिलेगी",
   "helpOpen": "कैसे खेलें, देखो",
-  "helpTitle": "कैसे खेलें"
+  "helpTitle": "कैसे खेलें",
+  "helpPartyHeading": "तुम्हारी टीम में अधिकतम {maximumPartySize} मॉन्स्टर"
 }

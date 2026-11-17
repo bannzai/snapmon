@@ -310,5 +310,6 @@
   "battleLostPartyHintTitle": "Tambah monster ke timmu agar lebih mudah menang",
   "battleLostPartyHintMessage": "Tim kamu bisa berisi hingga {maximumPartySize} monster\nKenali kelemahan dan efek status agar kamu lebih unggul saat bertarung",
   "helpOpen": "Cara bermain",
-  "helpTitle": "Cara bermain"
+  "helpTitle": "Cara bermain",
+  "helpPartyHeading": "Tim kamu bisa berisi hingga {maximumPartySize} monster"
 }

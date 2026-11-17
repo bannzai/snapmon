@@ -310,5 +310,6 @@
   "battleLostPartyHintTitle": "เพิ่มมอนสเตอร์ในทีม แล้วจะชนะง่ายขึ้น",
   "battleLostPartyHintMessage": "ใส่มอนสเตอร์ในทีมได้สูงสุด {maximumPartySize} ตัว\nรู้จุดอ่อนและสถานะผิดปกติแล้วจะได้เปรียบในการต่อสู้",
   "helpOpen": "วิธีเล่น",
-  "helpTitle": "วิธีเล่น"
+  "helpTitle": "วิธีเล่น",
+  "helpPartyHeading": "ทีมมีมอนสเตอร์ได้สูงสุด {maximumPartySize} ตัว"
 }

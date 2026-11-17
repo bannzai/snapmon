@@ -310,5 +310,6 @@
   "battleLostPartyHintTitle": "দলে আরও দানব রাখলে জেতা সহজ হবে",
   "battleLostPartyHintMessage": "তোমার দলে সর্বোচ্চ {maximumPartySize}টি মনস্টার রাখতে পারো\nদুর্বলতা আর অস্বাভাবিক অবস্থা জানলে লড়াইয়ে সুবিধা পাবে",
   "helpOpen": "কীভাবে খেলবে দেখো",
-  "helpTitle": "কীভাবে খেলবে"
+  "helpTitle": "কীভাবে খেলবে",
+  "helpPartyHeading": "তোমার দল: সর্বোচ্চ {maximumPartySize}টি মনস্টার"
 }

@@ -310,5 +310,6 @@
   "battleLostPartyHintTitle": "З більшою кількістю монстрів у команді перемогти легше",
   "battleLostPartyHintMessage": "У твоїй команді може бути до {maximumPartySize} монстрів\nЗнай слабкості й статусні ефекти, щоб здобути перевагу в бою",
   "helpOpen": "Як грати",
-  "helpTitle": "Як грати"
+  "helpTitle": "Як грати",
+  "helpPartyHeading": "У твоїй команді може бути до {maximumPartySize} монстрів"
 }

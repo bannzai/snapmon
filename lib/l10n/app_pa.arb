@@ -310,5 +310,6 @@
   "battleLostPartyHintTitle": "ਟੀਮ ਵਿੱਚ ਹੋਰ ਮੌਂਸਟਰ ਜੋੜੋ, ਜਿੱਤਣਾ ਸੌਖਾ ਹੋਵੇਗਾ",
   "battleLostPartyHintMessage": "ਤੁਸੀਂ ਆਪਣੀ ਟੀਮ ਵਿੱਚ ਵੱਧ ਤੋਂ ਵੱਧ {maximumPartySize} ਮੌਂਸਟਰ ਰੱਖ ਸਕਦੇ ਹੋ\nਕਮਜ਼ੋਰੀਆਂ ਤੇ ਅਸਧਾਰਨ ਹਾਲਤ ਜਾਣ ਕੇ ਲੜਾਈ ਵਿੱਚ ਫ਼ਾਇਦਾ ਮਿਲਦਾ ਹੈ",
   "helpOpen": "ਕਿਵੇਂ ਖੇਡਣਾ ਹੈ ਦੇਖੋ",
-  "helpTitle": "ਕਿਵੇਂ ਖੇਡਣਾ ਹੈ"
+  "helpTitle": "ਕਿਵੇਂ ਖੇਡਣਾ ਹੈ",
+  "helpPartyHeading": "ਤੁਹਾਡੀ ਟੀਮ ਵਿੱਚ ਵੱਧ ਤੋਂ ਵੱਧ {maximumPartySize} ਮੌਂਸਟਰ"
 }

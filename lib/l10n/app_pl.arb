@@ -310,5 +310,6 @@
   "battleLostPartyHintTitle": "Z większą drużyną łatwiej wygrasz",
   "battleLostPartyHintMessage": "W twojej drużynie zmieści się do {maximumPartySize} potworów\nPoznaj słabości i statusy, by zyskać przewagę w walce",
   "helpOpen": "Jak grać",
-  "helpTitle": "Jak grać"
+  "helpTitle": "Jak grać",
+  "helpPartyHeading": "W twojej drużynie zmieści się do {maximumPartySize} potworów"
 }

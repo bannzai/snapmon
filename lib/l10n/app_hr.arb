@@ -310,5 +310,6 @@
   "battleLostPartyHintTitle": "S više čudovišta u timu lakše ćeš pobijediti",
   "battleLostPartyHintMessage": "U svom timu možeš imati do {maximumPartySize} čudovišta\nPoznavanje slabosti i statusnih učinaka daje ti prednost u borbi",
   "helpOpen": "Kako igrati",
-  "helpTitle": "Kako igrati"
+  "helpTitle": "Kako igrati",
+  "helpPartyHeading": "U tvom timu može biti do {maximumPartySize} čudovišta"
 }

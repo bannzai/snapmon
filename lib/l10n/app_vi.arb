@@ -310,5 +310,6 @@
   "battleLostPartyHintTitle": "Thêm quái vật vào đội để dễ thắng hơn",
   "battleLostPartyHintMessage": "Đội của bạn có thể có tối đa {maximumPartySize} quái vật\nBiết điểm yếu và trạng thái bất thường sẽ giúp bạn chiếm ưu thế khi chiến đấu",
   "helpOpen": "Cách chơi",
-  "helpTitle": "Cách chơi"
+  "helpTitle": "Cách chơi",
+  "helpPartyHeading": "Đội của bạn có tối đa {maximumPartySize} quái vật"
 }

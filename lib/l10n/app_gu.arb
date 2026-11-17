@@ -310,5 +310,6 @@
   "battleLostPartyHintTitle": "ટીમમાં વધુ મોન્સ્ટર હોય તો તમે સહેલાઈથી જીતી શકો",
   "battleLostPartyHintMessage": "તમારી ટીમમાં વધુમાં વધુ {maximumPartySize} મોન્સ્ટર રાખી શકો છો\nનબળાઈઓ અને અસામાન્ય સ્થિતિ જાણશો તો લડાઈમાં ફાયદો થશે",
   "helpOpen": "કેવી રીતે રમવું તે જુઓ",
-  "helpTitle": "કેવી રીતે રમવું"
+  "helpTitle": "કેવી રીતે રમવું",
+  "helpPartyHeading": "તમારી ટીમમાં વધુમાં વધુ {maximumPartySize} મોન્સ્ટર"
 }
