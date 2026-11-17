@@ -200,5 +200,6 @@
   "statusConditionSleep": "Slaap",
   "statusConditionCurse": "Vervloeking",
   "statusConditionConfusion": "Verwarring",
-  "statusConditionDizzy": "Duizeligheid"
+  "statusConditionDizzy": "Duizeligheid",
+  "statusConditionExcited": "Opwinding"
 }

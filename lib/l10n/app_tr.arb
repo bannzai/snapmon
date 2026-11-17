@@ -200,5 +200,6 @@
   "statusConditionSleep": "Uyku",
   "statusConditionCurse": "Lanet",
   "statusConditionConfusion": "Şaşkınlık",
-  "statusConditionDizzy": "Baş dönmesi"
+  "statusConditionDizzy": "Baş dönmesi",
+  "statusConditionExcited": "Heyecan"
 }

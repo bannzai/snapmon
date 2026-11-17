@@ -200,5 +200,6 @@
   "statusConditionSleep": "Uni",
   "statusConditionCurse": "Kirous",
   "statusConditionConfusion": "Sekavuus",
-  "statusConditionDizzy": "Huimaus"
+  "statusConditionDizzy": "Huimaus",
+  "statusConditionExcited": "Innostus"
 }

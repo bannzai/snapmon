@@ -200,5 +200,6 @@
   "statusConditionSleep": "Adormit",
   "statusConditionCurse": "Maledicció",
   "statusConditionConfusion": "Confusió",
-  "statusConditionDizzy": "Mareig"
+  "statusConditionDizzy": "Mareig",
+  "statusConditionExcited": "Eufòria"
 }

@@ -200,5 +200,6 @@
   "statusConditionSleep": "Ngủ",
   "statusConditionCurse": "Lời nguyền",
   "statusConditionConfusion": "Bối rối",
-  "statusConditionDizzy": "Chóng mặt"
+  "statusConditionDizzy": "Chóng mặt",
+  "statusConditionExcited": "Phấn khích"
 }

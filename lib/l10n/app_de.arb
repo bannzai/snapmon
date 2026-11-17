@@ -200,5 +200,6 @@
   "statusConditionSleep": "Schlaf",
   "statusConditionCurse": "Fluch",
   "statusConditionConfusion": "Verwirrung",
-  "statusConditionDizzy": "Schwindel"
+  "statusConditionDizzy": "Schwindel",
+  "statusConditionExcited": "Aufregung"
 }

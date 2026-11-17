@@ -200,5 +200,6 @@
   "statusConditionSleep": "Dormido",
   "statusConditionCurse": "Maldición",
   "statusConditionConfusion": "Confusión",
-  "statusConditionDizzy": "Mareo"
+  "statusConditionDizzy": "Mareo",
+  "statusConditionExcited": "Emoción"
 }

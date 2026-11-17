@@ -200,5 +200,6 @@
   "statusConditionSleep": "Tidur",
   "statusConditionCurse": "Sumpahan",
   "statusConditionConfusion": "Keliru",
-  "statusConditionDizzy": "Pening"
+  "statusConditionDizzy": "Pening",
+  "statusConditionExcited": "Teruja"
 }

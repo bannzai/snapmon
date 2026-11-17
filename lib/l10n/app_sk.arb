@@ -200,5 +200,6 @@
   "statusConditionSleep": "Spánok",
   "statusConditionCurse": "Kliatba",
   "statusConditionConfusion": "Zmätenie",
-  "statusConditionDizzy": "Závrat"
+  "statusConditionDizzy": "Závrat",
+  "statusConditionExcited": "Nadšenie"
 }

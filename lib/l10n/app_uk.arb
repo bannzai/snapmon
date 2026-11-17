@@ -200,5 +200,6 @@
   "statusConditionSleep": "Сон",
   "statusConditionCurse": "Прокляття",
   "statusConditionConfusion": "Збентеження",
-  "statusConditionDizzy": "Запаморочення"
+  "statusConditionDizzy": "Запаморочення",
+  "statusConditionExcited": "Збудження"
 }

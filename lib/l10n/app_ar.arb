@@ -200,5 +200,6 @@
   "statusConditionSleep": "نائم",
   "statusConditionCurse": "لعنة",
   "statusConditionConfusion": "ارتباك",
-  "statusConditionDizzy": "دوار"
+  "statusConditionDizzy": "دوار",
+  "statusConditionExcited": "حماس"
 }

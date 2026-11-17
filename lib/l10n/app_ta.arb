@@ -200,5 +200,6 @@
   "statusConditionSleep": "தூக்கம்",
   "statusConditionCurse": "சாபம்",
   "statusConditionConfusion": "குழப்பம்",
-  "statusConditionDizzy": "தலைச்சுற்றல்"
+  "statusConditionDizzy": "தலைச்சுற்றல்",
+  "statusConditionExcited": "உற்சாகம்"
 }

@@ -200,5 +200,6 @@
   "statusConditionSleep": "Ύπνος",
   "statusConditionCurse": "Κατάρα",
   "statusConditionConfusion": "Σύγχυση",
-  "statusConditionDizzy": "Ζάλη"
+  "statusConditionDizzy": "Ζάλη",
+  "statusConditionExcited": "Ενθουσιασμός"
 }

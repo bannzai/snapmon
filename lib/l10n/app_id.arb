@@ -200,5 +200,6 @@
   "statusConditionSleep": "Tidur",
   "statusConditionCurse": "Kutukan",
   "statusConditionConfusion": "Kebingungan",
-  "statusConditionDizzy": "Pusing"
+  "statusConditionDizzy": "Pusing",
+  "statusConditionExcited": "Semangat"
 }

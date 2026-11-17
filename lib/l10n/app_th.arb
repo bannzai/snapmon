@@ -200,5 +200,6 @@
   "statusConditionSleep": "หลับ",
   "statusConditionCurse": "คำสาป",
   "statusConditionConfusion": "สับสน",
-  "statusConditionDizzy": "เวียนหัว"
+  "statusConditionDizzy": "เวียนหัว",
+  "statusConditionExcited": "ตื่นเต้น"
 }

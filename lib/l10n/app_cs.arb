@@ -200,5 +200,6 @@
   "statusConditionSleep": "Spánek",
   "statusConditionCurse": "Prokletí",
   "statusConditionConfusion": "Zmatení",
-  "statusConditionDizzy": "Závrať"
+  "statusConditionDizzy": "Závrať",
+  "statusConditionExcited": "Vzrušení"
 }

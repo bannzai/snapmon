@@ -200,5 +200,6 @@
   "statusConditionSleep": "Sömn",
   "statusConditionCurse": "Förbannelse",
   "statusConditionConfusion": "Förvirring",
-  "statusConditionDizzy": "Yrsel"
+  "statusConditionDizzy": "Yrsel",
+  "statusConditionExcited": "Upprymdhet"
 }
