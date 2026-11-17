@@ -327,5 +327,6 @@
   "helpStatusStun": "Kann in der nächsten Runde möglicherweise nicht handeln",
   "helpStatusBurn": "Dein verursachter Schaden wird halbiert und dein erlittener Schaden erhöht",
   "helpStatusDrowsy": "Die Initiative wird halbiert\nTrifft der Effekt erneut, schläft das Monster ein",
-  "helpStatusSleep": "Kann einige Runden lang nicht handeln"
+  "helpStatusSleep": "Kann einige Runden lang nicht handeln",
+  "helpStatusCurse": "Angriff, Verteidigung oder Initiative wird halbiert"
 }

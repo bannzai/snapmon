@@ -327,5 +327,6 @@
   "helpStatusStun": "V naslednji potezi morda ne bo mogel ukrepati",
   "helpStatusBurn": "Škoda, ki jo povzročiš, se prepolovi, škoda, ki jo prejmeš, pa poveča",
   "helpStatusDrowsy": "Hitrost se prepolovi\nČe učinek zadene še enkrat, pošast zaspi",
-  "helpStatusSleep": "Nekaj potez morda ne bo mogel ukrepati"
+  "helpStatusSleep": "Nekaj potez morda ne bo mogel ukrepati",
+  "helpStatusCurse": "Napad, obramba ali hitrost se prepolovi"
 }

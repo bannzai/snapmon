@@ -327,5 +327,6 @@
   "helpStatusStun": "Może nie móc wykonać ruchu w następnej turze",
   "helpStatusBurn": "Zadawane obrażenia spadają o połowę, a otrzymywane rosną",
   "helpStatusDrowsy": "Szybkość spada o połowę\nGdy efekt zadziała ponownie, potwór zasypia",
-  "helpStatusSleep": "Może nie móc działać przez kilka tur"
+  "helpStatusSleep": "Może nie móc działać przez kilka tur",
+  "helpStatusCurse": "Atak, Obrona lub Szybkość spada o połowę"
 }

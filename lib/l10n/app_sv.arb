@@ -327,5 +327,6 @@
   "helpStatusStun": "Kan kanske inte agera nästa tur",
   "helpStatusBurn": "Skadan du gör halveras, och skadan du tar ökar",
   "helpStatusDrowsy": "Snabbheten halveras\nOm effekten träffar igen somnar monstret",
-  "helpStatusSleep": "Kan kanske inte agera på några turer"
+  "helpStatusSleep": "Kan kanske inte agera på några turer",
+  "helpStatusCurse": "Attack, försvar eller snabbhet halveras"
 }

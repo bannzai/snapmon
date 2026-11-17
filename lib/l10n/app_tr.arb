@@ -327,5 +327,6 @@
   "helpStatusStun": "Sonraki turda hareket edemeyebilir",
   "helpStatusBurn": "Verdiğin hasar yarıya iner, aldığın hasar artar",
   "helpStatusDrowsy": "Hız yarıya düşer\nEtki bir kez daha uygulanırsa canavar uyur",
-  "helpStatusSleep": "Birkaç tur boyunca hareket edemeyebilir"
+  "helpStatusSleep": "Birkaç tur boyunca hareket edemeyebilir",
+  "helpStatusCurse": "Saldırı, Savunma veya Hız değerlerinden biri yarıya iner"
 }

@@ -327,5 +327,6 @@
   "helpStatusStun": "Kan måske ikke handle i næste tur",
   "helpStatusBurn": "Skade, du giver, halveres, og skade, du tager, øges",
   "helpStatusDrowsy": "Hastighed halveres\nRammer effekten igen, falder monsteret i søvn",
-  "helpStatusSleep": "Kan måske ikke handle i nogle få ture"
+  "helpStatusSleep": "Kan måske ikke handle i nogle få ture",
+  "helpStatusCurse": "Enten angreb, forsvar eller fart halveres"
 }

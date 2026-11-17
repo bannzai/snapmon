@@ -327,5 +327,6 @@
   "helpStatusStun": "Lehet, hogy a következő körben nem tud cselekedni",
   "helpStatusBurn": "Az okozott sebzésed a felére csökken, a kapott sebzésed nő",
   "helpStatusDrowsy": "A Sebesség a felére csökken\nHa újra éri a hatás, elalszik",
-  "helpStatusSleep": "Néhány körig lehet, hogy nem tud cselekedni"
+  "helpStatusSleep": "Néhány körig lehet, hogy nem tud cselekedni",
+  "helpStatusCurse": "A támadás, a védekezés vagy a sebesség a felére csökken"
 }

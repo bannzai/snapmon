@@ -327,5 +327,6 @@
   "helpStatusStun": "Ei ehkä pysty toimimaan seuraavalla vuorolla",
   "helpStatusBurn": "Tekemäsi vahinko puolittuu ja saamasi vahinko kasvaa",
   "helpStatusDrowsy": "Nopeus puolittuu\nJos vaikutus osuu uudelleen, hirviö nukahtaa",
-  "helpStatusSleep": "Ei välttämättä pysty toimimaan muutamaan vuoroon"
+  "helpStatusSleep": "Ei välttämättä pysty toimimaan muutamaan vuoroon",
+  "helpStatusCurse": "Hyökkäys, puolustus tai nopeus puolittuu"
 }

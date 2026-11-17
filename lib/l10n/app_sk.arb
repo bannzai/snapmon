@@ -327,5 +327,6 @@
   "helpStatusStun": "V ďalšom ťahu možno nebude môcť konať",
   "helpStatusBurn": "Poškodenie, ktoré spôsobíš, sa zníži na polovicu a prijaté poškodenie sa zvýši",
   "helpStatusDrowsy": "Rýchlosť sa zníži na polovicu\nAk účinok zasiahne znova, príšera zaspí",
-  "helpStatusSleep": "Niekoľko ťahov možno nebude môcť konať"
+  "helpStatusSleep": "Niekoľko ťahov možno nebude môcť konať",
+  "helpStatusCurse": "Útok, obrana alebo rýchlosť klesne na polovicu"
 }

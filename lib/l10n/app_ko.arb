@@ -327,5 +327,6 @@
   "helpStatusStun": "다음 턴에 행동하지 못할 수도 있어요",
   "helpStatusBurn": "주는 피해가 절반으로 줄고 받는 피해가 늘어나요",
   "helpStatusDrowsy": "스피드가 절반으로 줄어들어요\n이 효과를 다시 받으면 잠들어요",
-  "helpStatusSleep": "몇 턴 동안 행동하지 못할 수 있어요"
+  "helpStatusSleep": "몇 턴 동안 행동하지 못할 수 있어요",
+  "helpStatusCurse": "공격, 방어, 스피드 중 하나가 절반이 돼요"
 }

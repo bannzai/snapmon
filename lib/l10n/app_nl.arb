@@ -327,5 +327,6 @@
   "helpStatusStun": "Kan in de volgende beurt misschien niet handelen",
   "helpStatusBurn": "De schade die je toebrengt wordt gehalveerd en de schade die je oploopt neemt toe",
   "helpStatusDrowsy": "Snelheid wordt gehalveerd\nBij een tweede keer valt het monster in slaap",
-  "helpStatusSleep": "Kan een paar beurten niet in actie komen"
+  "helpStatusSleep": "Kan een paar beurten niet in actie komen",
+  "helpStatusCurse": "Aanval, verdediging of snelheid wordt gehalveerd"
 }

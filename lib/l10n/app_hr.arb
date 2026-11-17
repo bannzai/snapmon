@@ -327,5 +327,6 @@
   "helpStatusStun": "Možda neće moći djelovati u sljedećem potezu",
   "helpStatusBurn": "Šteta koju nanosiš se prepolovi, a šteta koju primaš raste",
   "helpStatusDrowsy": "Brzina se prepolovi\nAko se učinak ponovi, čudovište zaspi",
-  "helpStatusSleep": "Možda neće moći djelovati nekoliko poteza"
+  "helpStatusSleep": "Možda neće moći djelovati nekoliko poteza",
+  "helpStatusCurse": "Napad, obrana ili brzina smanjuje se na pola"
 }
