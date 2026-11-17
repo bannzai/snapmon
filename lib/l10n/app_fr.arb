@@ -262,5 +262,6 @@
   "ticketBalance": "Tickets : {count}",
   "ticketPurchaseTitle": "ticket de génération",
   "ticketPurchaseDescription": "Même après avoir épuisé tes créations gratuites du jour,\n1 ticket te permet de créer 1 monstre",
-  "ticketPurchaseWaiting": "Réception de tes tickets en cours"
+  "ticketPurchaseWaiting": "Réception de tes tickets en cours",
+  "ticketPurchaseArrivalDelayed": "En attente de tes tickets\nLes tickets reçus restent disponibles même si tu fermes cet écran"
 }
