@@ -110,5 +110,6 @@
   "generationNotBornTitle": "Il n’est pas né",
   "generationFailedTitle": "La création a échoué",
   "generationBattlePreparationFailedTitle": "Impossible de préparer le combat",
-  "generationStagePreparingPhoto": "On prépare ta photo"
+  "generationStagePreparingPhoto": "On prépare ta photo",
+  "generationStageUploadingPhoto": "Envoi de la photo en cours"
 }
