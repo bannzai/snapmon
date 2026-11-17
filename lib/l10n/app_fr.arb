@@ -143,5 +143,6 @@
   "statDefense": "Défense",
   "statSpeed": "Vitesse",
   "statAccuracy": "Précision",
-  "resultLearnedMoves": "capacités apprises"
+  "resultLearnedMoves": "capacités apprises",
+  "resultRemoveFromParty": "Retirer de l’équipe"
 }
