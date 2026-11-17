@@ -323,5 +323,6 @@
   "helpStatusHeading": "altérations",
   "helpStatusBody": "Certaines capacités infligent une altération à l’adversaire\nL’altération persiste même après un changement",
   "helpStatusPoison": "Dégâts à la fin de chaque tour\nPlus le poison s’accumule, plus les dégâts augmentent",
-  "helpStatusParalysis": "Une capacité d’attaque peut parfois échouer"
+  "helpStatusParalysis": "Une capacité d’attaque peut parfois échouer",
+  "helpStatusStun": "Peut être incapable d’agir au prochain tour"
 }
