@@ -64,5 +64,6 @@
   "settingsProviderSeparator": "和",
   "settingsDeleteAccount": "刪除帳號",
   "settingsProfileSection": "個人資料",
-  "settingsDisplayName": "顯示名稱"
+  "settingsDisplayName": "顯示名稱",
+  "settingsDisplayNameLoading": "載入中"
 }

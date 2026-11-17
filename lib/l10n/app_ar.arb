@@ -64,5 +64,6 @@
   "settingsProviderSeparator": " و",
   "settingsDeleteAccount": "حذف الحساب",
   "settingsProfileSection": "الملف الشخصي",
-  "settingsDisplayName": "اسم العرض"
+  "settingsDisplayName": "اسم العرض",
+  "settingsDisplayNameLoading": "جارٍ التحميل"
 }

@@ -64,5 +64,6 @@
   "settingsProviderSeparator": " a ",
   "settingsDeleteAccount": "Odstrániť účet",
   "settingsProfileSection": "Profil",
-  "settingsDisplayName": "zobrazovan"
+  "settingsDisplayName": "zobrazovan",
+  "settingsDisplayNameLoading": "Načítava sa"
 }

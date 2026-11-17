@@ -64,5 +64,6 @@
   "settingsProviderSeparator": " in ",
   "settingsDeleteAccount": "Izbriši račun",
   "settingsProfileSection": "Profil",
-  "settingsDisplayName": "prikazno ime"
+  "settingsDisplayName": "prikazno ime",
+  "settingsDisplayNameLoading": "Nalaganje"
 }

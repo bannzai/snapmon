@@ -64,5 +64,6 @@
   "settingsProviderSeparator": " dan ",
   "settingsDeleteAccount": "Hapus akun",
   "settingsProfileSection": "Profil",
-  "settingsDisplayName": "nama tampilan"
+  "settingsDisplayName": "nama tampilan",
+  "settingsDisplayNameLoading": "Memuat"
 }

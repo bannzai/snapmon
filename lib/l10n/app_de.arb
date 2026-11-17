@@ -64,5 +64,6 @@
   "settingsProviderSeparator": " und ",
   "settingsDeleteAccount": "Konto löschen",
   "settingsProfileSection": "Profil",
-  "settingsDisplayName": "Anzeigename"
+  "settingsDisplayName": "Anzeigename",
+  "settingsDisplayNameLoading": "Lädt"
 }

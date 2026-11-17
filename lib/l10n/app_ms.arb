@@ -64,5 +64,6 @@
   "settingsProviderSeparator": " dan ",
   "settingsDeleteAccount": "Padam akaun",
   "settingsProfileSection": "Profil",
-  "settingsDisplayName": "nama paparan"
+  "settingsDisplayName": "nama paparan",
+  "settingsDisplayNameLoading": "Memuatkan"
 }

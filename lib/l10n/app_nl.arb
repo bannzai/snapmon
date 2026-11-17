@@ -64,5 +64,6 @@
   "settingsProviderSeparator": " en ",
   "settingsDeleteAccount": "Account verwijderen",
   "settingsProfileSection": "Profiel",
-  "settingsDisplayName": "weergavenaam"
+  "settingsDisplayName": "weergavenaam",
+  "settingsDisplayNameLoading": "Laden"
 }

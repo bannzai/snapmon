@@ -64,5 +64,6 @@
   "settingsProviderSeparator": " మరియు ",
   "settingsDeleteAccount": "ఖాతాను తొలగించు",
   "settingsProfileSection": "ప్రొఫైల్",
-  "settingsDisplayName": "ప్రదర్శన పేరు"
+  "settingsDisplayName": "ప్రదర్శన పేరు",
+  "settingsDisplayNameLoading": "లోడ్ అవుతోంది"
 }

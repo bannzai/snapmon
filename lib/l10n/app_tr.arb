@@ -64,5 +64,6 @@
   "settingsProviderSeparator": " ve ",
   "settingsDeleteAccount": "Hesabı sil",
   "settingsProfileSection": "Profil",
-  "settingsDisplayName": "görünen ad"
+  "settingsDisplayName": "görünen ad",
+  "settingsDisplayNameLoading": "Yükleniyor"
 }

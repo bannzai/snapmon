@@ -64,5 +64,6 @@
   "settingsProviderSeparator": " και ",
   "settingsDeleteAccount": "Διαγραφή λογαριασμού",
   "settingsProfileSection": "Προφίλ",
-  "settingsDisplayName": "εμφανιζόμενο όνομα"
+  "settingsDisplayName": "εμφανιζόμενο όνομα",
+  "settingsDisplayNameLoading": "Φόρτωση"
 }

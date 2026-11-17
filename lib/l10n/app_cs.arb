@@ -64,5 +64,6 @@
   "settingsProviderSeparator": " a ",
   "settingsDeleteAccount": "Smazat účet",
   "settingsProfileSection": "Profil",
-  "settingsDisplayName": "zobrazované jméno"
+  "settingsDisplayName": "zobrazované jméno",
+  "settingsDisplayNameLoading": "Načítání"
 }

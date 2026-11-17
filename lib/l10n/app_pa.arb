@@ -64,5 +64,6 @@
   "settingsProviderSeparator": " ਅਤੇ ",
   "settingsDeleteAccount": "ਖਾਤਾ ਮਿਟਾਓ",
   "settingsProfileSection": "ਪ੍ਰੋਫਾਈਲ",
-  "settingsDisplayName": "ਪ੍ਰਦਰਸ਼ਿਤ ਨਾਮ"
+  "settingsDisplayName": "ਪ੍ਰਦਰਸ਼ਿਤ ਨਾਮ",
+  "settingsDisplayNameLoading": "ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ"
 }

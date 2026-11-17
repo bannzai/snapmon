@@ -64,5 +64,6 @@
   "settingsProviderSeparator": " и ",
   "settingsDeleteAccount": "Удалить аккаунт",
   "settingsProfileSection": "Профиль",
-  "settingsDisplayName": "ник"
+  "settingsDisplayName": "ник",
+  "settingsDisplayNameLoading": "Загрузка"
 }

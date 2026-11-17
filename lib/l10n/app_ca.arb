@@ -64,5 +64,6 @@
   "settingsProviderSeparator": " i ",
   "settingsDeleteAccount": "Elimina el compte",
   "settingsProfileSection": "Perfil",
-  "settingsDisplayName": "nom visible"
+  "settingsDisplayName": "nom visible",
+  "settingsDisplayNameLoading": "S'està carregant"
 }

@@ -64,5 +64,6 @@
   "settingsProviderSeparator": "和",
   "settingsDeleteAccount": "删除账号",
   "settingsProfileSection": "个人资料",
-  "settingsDisplayName": "昵称"
+  "settingsDisplayName": "昵称",
+  "settingsDisplayNameLoading": "加载中"
 }

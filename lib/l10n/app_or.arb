@@ -64,5 +64,6 @@
   "settingsProviderSeparator": " ଓ ",
   "settingsDeleteAccount": "ଆକାଉଣ୍ଟ ଡିଲିଟ୍ କର",
   "settingsProfileSection": "ପ୍ରୋଫାଇଲ୍",
-  "settingsDisplayName": "ପ୍ରଦର୍ଶିତ ନାମ"
+  "settingsDisplayName": "ପ୍ରଦର୍ଶିତ ନାମ",
+  "settingsDisplayNameLoading": "ଲୋଡ୍ ହେଉଛି"
 }

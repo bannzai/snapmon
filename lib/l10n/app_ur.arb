@@ -64,5 +64,6 @@
   "settingsProviderSeparator": " اور ",
   "settingsDeleteAccount": "اکاؤنٹ حذف کرو",
   "settingsProfileSection": "پروفائل",
-  "settingsDisplayName": "ڈسپلے نام"
+  "settingsDisplayName": "ڈسپلے نام",
+  "settingsDisplayNameLoading": "لوڈ ہو رہا ہے"
 }

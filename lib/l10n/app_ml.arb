@@ -64,5 +64,6 @@
   "settingsProviderSeparator": "യും ",
   "settingsDeleteAccount": "അക്കൗണ്ട് ഇല്ലാതാക്കുക",
   "settingsProfileSection": "പ്രൊഫൈൽ",
-  "settingsDisplayName": "പ്രദർശന നാമ"
+  "settingsDisplayName": "പ്രദർശന നാമ",
+  "settingsDisplayNameLoading": "ലോഡ് ചെയ്യുന്നു"
 }

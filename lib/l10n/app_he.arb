@@ -64,5 +64,6 @@
   "settingsProviderSeparator": " ו",
   "settingsDeleteAccount": "מחיקת חשבון",
   "settingsProfileSection": "פרופיל",
-  "settingsDisplayName": "שם תצוגה"
+  "settingsDisplayName": "שם תצוגה",
+  "settingsDisplayNameLoading": "בטעינה"
 }

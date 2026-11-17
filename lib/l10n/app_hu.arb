@@ -64,5 +64,6 @@
   "settingsProviderSeparator": " és ",
   "settingsDeleteAccount": "Fiók törlése",
   "settingsProfileSection": "Profil",
-  "settingsDisplayName": "megjelenített"
+  "settingsDisplayName": "megjelenített",
+  "settingsDisplayNameLoading": "Betöltés"
 }

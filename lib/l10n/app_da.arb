@@ -64,5 +64,6 @@
   "settingsProviderSeparator": " og ",
   "settingsDeleteAccount": "Slet konto",
   "settingsProfileSection": "Profil",
-  "settingsDisplayName": "visningsnavn"
+  "settingsDisplayName": "visningsnavn",
+  "settingsDisplayNameLoading": "Indlæser"
 }

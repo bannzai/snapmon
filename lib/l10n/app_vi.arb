@@ -64,5 +64,6 @@
   "settingsProviderSeparator": " và ",
   "settingsDeleteAccount": "Xóa tài khoản",
   "settingsProfileSection": "Hồ sơ",
-  "settingsDisplayName": "tên hiển thị"
+  "settingsDisplayName": "tên hiển thị",
+  "settingsDisplayNameLoading": "Đang tải"
 }

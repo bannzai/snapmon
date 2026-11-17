@@ -64,5 +64,6 @@
   "settingsProviderSeparator": " і ",
   "settingsDeleteAccount": "Видалити акаунт",
   "settingsProfileSection": "Профіль",
-  "settingsDisplayName": "псевдонім"
+  "settingsDisplayName": "псевдонім",
+  "settingsDisplayNameLoading": "Завантаження"
 }

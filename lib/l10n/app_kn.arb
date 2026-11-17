@@ -64,5 +64,6 @@
   "settingsProviderSeparator": " ಮತ್ತು ",
   "settingsDeleteAccount": "ಖಾತೆ ಅಳಿಸು",
   "settingsProfileSection": "ಪ್ರೊಫೈಲ್",
-  "settingsDisplayName": "ಪ್ರದರ್ಶನ ಹೆಸರ"
+  "settingsDisplayName": "ಪ್ರದರ್ಶನ ಹೆಸರ",
+  "settingsDisplayNameLoading": "ಲೋಡ್ ಆಗುತ್ತಿದೆ"
 }

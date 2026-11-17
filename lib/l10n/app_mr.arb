@@ -64,5 +64,6 @@
   "settingsProviderSeparator": " आणि ",
   "settingsDeleteAccount": "खाते हटव",
   "settingsProfileSection": "प्रोफाइल",
-  "settingsDisplayName": "प्रदर्शन नाव"
+  "settingsDisplayName": "प्रदर्शन नाव",
+  "settingsDisplayNameLoading": "लोड होत आहे"
 }

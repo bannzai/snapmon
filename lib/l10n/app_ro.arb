@@ -64,5 +64,6 @@
   "settingsProviderSeparator": " și ",
   "settingsDeleteAccount": "Șterge contul",
   "settingsProfileSection": "Profil",
-  "settingsDisplayName": "afișat"
+  "settingsDisplayName": "afișat",
+  "settingsDisplayNameLoading": "Se încarcă"
 }

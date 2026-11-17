@@ -64,5 +64,6 @@
   "settingsProviderSeparator": "과 ",
   "settingsDeleteAccount": "계정 삭제",
   "settingsProfileSection": "프로필",
-  "settingsDisplayName": "표시 이름"
+  "settingsDisplayName": "표시 이름",
+  "settingsDisplayNameLoading": "불러오는 중"
 }

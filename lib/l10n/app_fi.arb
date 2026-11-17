@@ -64,5 +64,6 @@
   "settingsProviderSeparator": " ja ",
   "settingsDeleteAccount": "Poista tili",
   "settingsProfileSection": "Profiili",
-  "settingsDisplayName": "näyttönim"
+  "settingsDisplayName": "näyttönim",
+  "settingsDisplayNameLoading": "Ladataan"
 }

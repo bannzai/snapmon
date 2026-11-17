@@ -64,5 +64,6 @@
   "settingsProviderSeparator": " ও ",
   "settingsDeleteAccount": "অ্যাকাউন্ট মুছে ফেলো",
   "settingsProfileSection": "প্রোফাইল",
-  "settingsDisplayName": "প্রদর্শিত নাম"
+  "settingsDisplayName": "প্রদর্শিত নাম",
+  "settingsDisplayNameLoading": "লোড হচ্ছে"
 }

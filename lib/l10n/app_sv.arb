@@ -64,5 +64,6 @@
   "settingsProviderSeparator": " och ",
   "settingsDeleteAccount": "Radera konto",
   "settingsProfileSection": "Profil",
-  "settingsDisplayName": "visningsnamn"
+  "settingsDisplayName": "visningsnamn",
+  "settingsDisplayNameLoading": "Laddar"
 }
