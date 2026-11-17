@@ -52,5 +52,6 @@
   "settingsDeleteAccountConfirm": "Törlés",
   "settingsSoundSection": "Hang",
   "settingsBackgroundMusic": "Háttérzene",
-  "settingsSoundEffects": "Hangeffektek"
+  "settingsSoundEffects": "Hangeffektek",
+  "settingsSupportSection": "Támogatás"
 }

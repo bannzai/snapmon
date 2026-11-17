@@ -52,5 +52,6 @@
   "settingsDeleteAccountConfirm": "حذف",
   "settingsSoundSection": "الصوت",
   "settingsBackgroundMusic": "موسيقى الخلفية",
-  "settingsSoundEffects": "المؤثرات الصوتية"
+  "settingsSoundEffects": "المؤثرات الصوتية",
+  "settingsSupportSection": "الدعم"
 }

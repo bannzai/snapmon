@@ -52,5 +52,6 @@
   "settingsDeleteAccountConfirm": "Видалити",
   "settingsSoundSection": "Звук",
   "settingsBackgroundMusic": "Фонова музика",
-  "settingsSoundEffects": "Звукові ефекти"
+  "settingsSoundEffects": "Звукові ефекти",
+  "settingsSupportSection": "Підтримка"
 }

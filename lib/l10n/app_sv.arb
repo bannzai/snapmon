@@ -52,5 +52,6 @@
   "settingsDeleteAccountConfirm": "Radera",
   "settingsSoundSection": "Ljud",
   "settingsBackgroundMusic": "Bakgrundsmusik",
-  "settingsSoundEffects": "Ljudeffekter"
+  "settingsSoundEffects": "Ljudeffekter",
+  "settingsSupportSection": "Hjälp"
 }

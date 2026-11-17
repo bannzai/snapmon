@@ -52,5 +52,6 @@
   "settingsDeleteAccountConfirm": "Izbriši",
   "settingsSoundSection": "Zvok",
   "settingsBackgroundMusic": "Glasba v ozadju",
-  "settingsSoundEffects": "Zvočni učinki"
+  "settingsSoundEffects": "Zvočni učinki",
+  "settingsSupportSection": "Pomoč"
 }

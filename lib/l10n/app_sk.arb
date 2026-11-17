@@ -52,5 +52,6 @@
   "settingsDeleteAccountConfirm": "Odstrániť",
   "settingsSoundSection": "Zvuk",
   "settingsBackgroundMusic": "Hudba na pozadí",
-  "settingsSoundEffects": "Zvukové efekty"
+  "settingsSoundEffects": "Zvukové efekty",
+  "settingsSupportSection": "Pomoc"
 }

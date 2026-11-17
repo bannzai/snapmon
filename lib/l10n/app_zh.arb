@@ -52,5 +52,6 @@
   "settingsDeleteAccountConfirm": "删除",
   "settingsSoundSection": "声音",
   "settingsBackgroundMusic": "背景音乐",
-  "settingsSoundEffects": "音效"
+  "settingsSoundEffects": "音效",
+  "settingsSupportSection": "帮助"
 }

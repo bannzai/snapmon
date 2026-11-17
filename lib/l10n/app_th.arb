@@ -52,5 +52,6 @@
   "settingsDeleteAccountConfirm": "ลบ",
   "settingsSoundSection": "เสียง",
   "settingsBackgroundMusic": "เพลงประกอบ",
-  "settingsSoundEffects": "เอฟเฟกต์เสียง"
+  "settingsSoundEffects": "เอฟเฟกต์เสียง",
+  "settingsSupportSection": "ช่วยเหลือ"
 }

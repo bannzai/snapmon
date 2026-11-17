@@ -52,5 +52,6 @@
   "settingsDeleteAccountConfirm": "Șterge",
   "settingsSoundSection": "Sunet",
   "settingsBackgroundMusic": "Muzică de fundal",
-  "settingsSoundEffects": "Efecte sonore"
+  "settingsSoundEffects": "Efecte sonore",
+  "settingsSupportSection": "Asistență"
 }

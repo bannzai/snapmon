@@ -52,5 +52,6 @@
   "settingsDeleteAccountConfirm": "Poista",
   "settingsSoundSection": "Äänet",
   "settingsBackgroundMusic": "Taustamusiikki",
-  "settingsSoundEffects": "Äänitehosteet"
+  "settingsSoundEffects": "Äänitehosteet",
+  "settingsSupportSection": "Tuki"
 }

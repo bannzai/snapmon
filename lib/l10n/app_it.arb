@@ -52,5 +52,6 @@
   "settingsDeleteAccountConfirm": "Elimina",
   "settingsSoundSection": "Audio",
   "settingsBackgroundMusic": "Musica di sottofondo",
-  "settingsSoundEffects": "Effetti sonori"
+  "settingsSoundEffects": "Effetti sonori",
+  "settingsSupportSection": "Assistenza"
 }

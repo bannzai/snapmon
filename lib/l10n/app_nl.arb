@@ -52,5 +52,6 @@
   "settingsDeleteAccountConfirm": "Verwijderen",
   "settingsSoundSection": "Geluid",
   "settingsBackgroundMusic": "Achtergrondmuziek",
-  "settingsSoundEffects": "Geluidseffecten"
+  "settingsSoundEffects": "Geluidseffecten",
+  "settingsSupportSection": "Hulp"
 }

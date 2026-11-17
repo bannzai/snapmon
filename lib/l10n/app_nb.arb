@@ -52,5 +52,6 @@
   "settingsDeleteAccountConfirm": "Slett",
   "settingsSoundSection": "Lyd",
   "settingsBackgroundMusic": "Bakgrunnsmusikk",
-  "settingsSoundEffects": "Lydeffekter"
+  "settingsSoundEffects": "Lydeffekter",
+  "settingsSupportSection": "Hjelp"
 }

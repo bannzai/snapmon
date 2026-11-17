@@ -52,5 +52,6 @@
   "settingsDeleteAccountConfirm": "Sil",
   "settingsSoundSection": "Ses",
   "settingsBackgroundMusic": "Arka plan müziği",
-  "settingsSoundEffects": "Ses efektleri"
+  "settingsSoundEffects": "Ses efektleri",
+  "settingsSupportSection": "Destek"
 }

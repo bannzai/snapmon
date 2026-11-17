@@ -52,5 +52,6 @@
   "settingsDeleteAccountConfirm": "Padam",
   "settingsSoundSection": "Bunyi",
   "settingsBackgroundMusic": "Muzik latar",
-  "settingsSoundEffects": "Kesan bunyi"
+  "settingsSoundEffects": "Kesan bunyi",
+  "settingsSupportSection": "Bantuan"
 }

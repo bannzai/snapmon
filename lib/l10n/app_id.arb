@@ -52,5 +52,6 @@
   "settingsDeleteAccountConfirm": "Hapus",
   "settingsSoundSection": "Suara",
   "settingsBackgroundMusic": "Musik latar",
-  "settingsSoundEffects": "Efek suara"
+  "settingsSoundEffects": "Efek suara",
+  "settingsSupportSection": "Bantuan"
 }
