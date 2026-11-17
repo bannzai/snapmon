@@ -93,5 +93,6 @@
   "captureCameraPermissionHintWeb": "એડ્રેસ બારમાં સાઇટની સેટિંગ્સમાંથી કૅમેરાને મંજૂરી આપો",
   "captureOpenSettings": "સેટિંગ્સ ખોલો",
   "captureUseCamera": "કૅમેરાનો ઉપયોગ કરો",
-  "commonClose": "બંધ કરો"
+  "commonClose": "બંધ કરો",
+  "commonBack": "પાછા જાઓ"
 }

@@ -93,5 +93,6 @@
   "captureCameraPermissionHintWeb": "Adres çubuğundaki site ayarlarından kameraya izin ver",
   "captureOpenSettings": "Ayarları aç",
   "captureUseCamera": "Kamerayı kullan",
-  "commonClose": "Kapat"
+  "commonClose": "Kapat",
+  "commonBack": "Geri"
 }

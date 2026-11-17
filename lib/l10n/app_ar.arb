@@ -93,5 +93,6 @@
   "captureCameraPermissionHintWeb": "من إعدادات الموقع في شريط العنوان، اسمح باستخدام الكاميرا",
   "captureOpenSettings": "افتح الإعدادات",
   "captureUseCamera": "استخدم الكاميرا",
-  "commonClose": "إغلاق"
+  "commonClose": "إغلاق",
+  "commonBack": "رجوع"
 }

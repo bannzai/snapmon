@@ -93,5 +93,6 @@
   "captureCameraPermissionHintWeb": "Sta de camera toe via de site-instellingen in de adresbalk",
   "captureOpenSettings": "Instellingen openen",
   "captureUseCamera": "Gebruik de camera",
-  "commonClose": "Sluiten"
+  "commonClose": "Sluiten",
+  "commonBack": "Terug"
 }

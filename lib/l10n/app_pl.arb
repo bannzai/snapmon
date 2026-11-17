@@ -93,5 +93,6 @@
   "captureCameraPermissionHintWeb": "Zezwól na dostęp do aparatu w ustawieniach witryny na pasku adresu",
   "captureOpenSettings": "Otwórz ustawienia",
   "captureUseCamera": "Użyj aparatu",
-  "commonClose": "Zamknij"
+  "commonClose": "Zamknij",
+  "commonBack": "Wróć"
 }

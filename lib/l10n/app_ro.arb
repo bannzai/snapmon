@@ -93,5 +93,6 @@
   "captureCameraPermissionHintWeb": "Permite accesul la cameră din setările site-ului din bara de adrese",
   "captureOpenSettings": "Deschide setările",
   "captureUseCamera": "Folosește camera",
-  "commonClose": "Închide"
+  "commonClose": "Închide",
+  "commonBack": "Înapoi"
 }

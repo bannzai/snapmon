@@ -93,5 +93,6 @@
   "captureCameraPermissionHintWeb": "Benarkan kamera melalui tetapan laman dalam bar alamat",
   "captureOpenSettings": "Buka tetapan",
   "captureUseCamera": "Guna kamera",
-  "commonClose": "Tutup"
+  "commonClose": "Tutup",
+  "commonBack": "Kembali"
 }

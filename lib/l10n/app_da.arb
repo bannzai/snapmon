@@ -93,5 +93,6 @@
   "captureCameraPermissionHintWeb": "Giv adgang til kameraet i webstedets indstillinger i adresselinjen",
   "captureOpenSettings": "Åbn indstillinger",
   "captureUseCamera": "Brug kameraet",
-  "commonClose": "Luk"
+  "commonClose": "Luk",
+  "commonBack": "Tilbage"
 }

@@ -93,5 +93,6 @@
   "captureCameraPermissionHintWeb": "Izinkan kamera lewat setelan situs di bilah alamat",
   "captureOpenSettings": "Buka pengaturan",
   "captureUseCamera": "Pakai kamera",
-  "commonClose": "Tutup"
+  "commonClose": "Tutup",
+  "commonBack": "Kembali"
 }

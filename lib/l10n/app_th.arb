@@ -93,5 +93,6 @@
   "captureCameraPermissionHintWeb": "อนุญาตให้ใช้กล้องในการตั้งค่าเว็บไซต์ที่แถบที่อยู่",
   "captureOpenSettings": "เปิดการตั้งค่า",
   "captureUseCamera": "ใช้กล้อง",
-  "commonClose": "ปิด"
+  "commonClose": "ปิด",
+  "commonBack": "กลับ"
 }

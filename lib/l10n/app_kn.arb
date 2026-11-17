@@ -93,5 +93,6 @@
   "captureCameraPermissionHintWeb": "ವಿಳಾಸ ಪಟ್ಟಿಯಲ್ಲಿರುವ ಸೈಟ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳಿಂದ ಕ್ಯಾಮೆರಾಗೆ ಅನುಮತಿ ಕೊಡು",
   "captureOpenSettings": "ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ತೆರೆ",
   "captureUseCamera": "ಕ್ಯಾಮೆರಾ ಬಳಸು",
-  "commonClose": "ಮುಚ್ಚು"
+  "commonClose": "ಮುಚ್ಚು",
+  "commonBack": "ಹಿಂದೆ"
 }

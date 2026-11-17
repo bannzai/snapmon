@@ -93,5 +93,6 @@
   "captureCameraPermissionHintWeb": "Erlaube die Kamera in den Website-Einstellungen der Adressleiste",
   "captureOpenSettings": "Einstellungen öffnen",
   "captureUseCamera": "Kamera verwenden",
-  "commonClose": "Schließen"
+  "commonClose": "Schließen",
+  "commonBack": "Zurück"
 }

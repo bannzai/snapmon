@@ -93,5 +93,6 @@
   "captureCameraPermissionHintWeb": "Permet l'accés a la càmera des de la configuració del lloc a la barra d'adreces",
   "captureOpenSettings": "Obre la configuració",
   "captureUseCamera": "Fes servir la càmera",
-  "commonClose": "Tanca"
+  "commonClose": "Tanca",
+  "commonBack": "Torna"
 }

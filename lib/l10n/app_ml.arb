@@ -93,5 +93,6 @@
   "captureCameraPermissionHintWeb": "വിലാസ ബാറിലെ സൈറ്റ് ക്രമീകരണങ്ങളിൽ ക്യാമറയ്ക്ക് അനുമതി നൽകൂ",
   "captureOpenSettings": "ക്രമീകരണങ്ങൾ തുറക്കുക",
   "captureUseCamera": "ക്യാമറ ഉപയോഗിക്കൂ",
-  "commonClose": "അടയ്ക്കുക"
+  "commonClose": "അടയ്ക്കുക",
+  "commonBack": "തിരികെ"
 }

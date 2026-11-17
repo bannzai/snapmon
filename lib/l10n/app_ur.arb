@@ -93,5 +93,6 @@
   "captureCameraPermissionHintWeb": "ایڈریس بار میں سائٹ کی ترتیبات سے کیمرے کی اجازت دو",
   "captureOpenSettings": "ترتیبات کھولو",
   "captureUseCamera": "کیمرہ استعمال کرو",
-  "commonClose": "بند کرو"
+  "commonClose": "بند کرو",
+  "commonBack": "واپس"
 }

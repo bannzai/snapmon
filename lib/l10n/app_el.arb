@@ -93,5 +93,6 @@
   "captureCameraPermissionHintWeb": "Επίτρεψε την κάμερα από τις ρυθμίσεις ιστότοπου στη γραμμή διευθύνσεων",
   "captureOpenSettings": "Άνοιγμα ρυθμίσεων",
   "captureUseCamera": "Χρησιμοποίησε την κάμερα",
-  "commonClose": "Κλείσιμο"
+  "commonClose": "Κλείσιμο",
+  "commonBack": "Πίσω"
 }

@@ -93,5 +93,6 @@
   "captureCameraPermissionHintWeb": "ଠିକଣା ପଟିରେ ଥିବା ସାଇଟ୍ ସେଟିଂସ୍‌ରୁ କ୍ୟାମେରାକୁ ଅନୁମତି ଦିଅ",
   "captureOpenSettings": "ସେଟିଂସ୍ ଖୋଲ",
   "captureUseCamera": "କ୍ୟାମେରା ବ୍ୟବହାର କର",
-  "commonClose": "ବନ୍ଦ କର"
+  "commonClose": "ବନ୍ଦ କର",
+  "commonBack": "ପଛକୁ"
 }

@@ -93,5 +93,6 @@
   "captureCameraPermissionHintWeb": "Permite el acceso a la cámara desde la configuración del sitio en la barra de direcciones",
   "captureOpenSettings": "Abrir ajustes",
   "captureUseCamera": "Usar la cámara",
-  "commonClose": "Cerrar"
+  "commonClose": "Cerrar",
+  "commonBack": "Volver"
 }

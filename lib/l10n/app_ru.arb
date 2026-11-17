@@ -93,5 +93,6 @@
   "captureCameraPermissionHintWeb": "Разреши доступ к камере в настройках сайта в адресной строке",
   "captureOpenSettings": "Открыть настройки",
   "captureUseCamera": "Используй камеру",
-  "commonClose": "Закрыть"
+  "commonClose": "Закрыть",
+  "commonBack": "Назад"
 }
