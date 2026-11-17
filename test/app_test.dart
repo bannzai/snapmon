@@ -349,13 +349,31 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  /// 生成の画面で、OS の切り出しが見つけた被写体 ([fakeMonsterGenerator] の既定) を「切り抜いた絵で作る」と選ぶ
-  /// (自動では切り抜かないため。#242)。[settles] が false なら、初回の導線の相手を探す表示が止まらないため時間を指定して進める。
+  /// 生成の画面の範囲を決める画面で、OS の切り出しが見つけた被写体 ([fakeMonsterGenerator] の既定) だけを切り抜く切り替えを入れ、
+  /// 「切り抜いた絵で作る」を押す (切り抜きは任意のため。#345)。[settles] が false なら、初回の導線の相手を探す表示が止まらないため時間を指定して進める。
   Future<void> chooseSubjectCutout({
     required WidgetTester tester,
     required bool settles,
   }) async {
-    // 高さの低い画面では選ぶボタンが ListView の画面外にあって作られていないため、見える所までスクロールしてから押す
+    // 高さの低い画面では切り替えとボタンが ListView の画面外にあって作られていないため、見える所までスクロールしてから押す
+    // 写真の上の操作は枠の操作として受け取られスクロールしないため (横向きでは写真が画面の中央を占める)、写真の外の左の余白を引いて送る
+    for (
+      var dragCount = 0;
+      dragCount < 20 &&
+          find.byKey(const Key('subject-cutout-switch')).evaluate().isEmpty;
+      dragCount++
+    ) {
+      await tester.dragFrom(
+        tester.getRect(find.byType(Scrollable).last).centerLeft +
+            const Offset(10, 0),
+        const Offset(0, -100),
+      );
+      await tester.pump();
+    }
+    await tester.ensureVisible(find.byKey(const Key('subject-cutout-switch')));
+    await tester.pump();
+    await tester.tap(find.byKey(const Key('subject-cutout-switch')));
+    await tester.pump();
     await tester.scrollUntilVisible(
       find.text('切り抜いた絵で作る'),
       100,
@@ -393,7 +411,7 @@ void main() {
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
       );
-      expect(find.text('snapmon'), findsOneWidget);
+      expect(find.text('SnapMonster'), findsOneWidget);
       expect(find.text('身の回りの物が\nモンスターになって戦う'), findsOneWidget);
       expect(find.text('写真から選んではじめる'), findsOneWidget);
       expect(find.text('$minimumAge 歳以上が対象 · '), findsOneWidget);
@@ -411,6 +429,34 @@ void main() {
       ]);
     });
 
+    // 幅 320 は Flutter の Web 版を開ける狭いスマホの幅、390 は iPhone の幅。高さは幅だけを変えて確かめるため 844 のままにする
+    for (final screenWidth in [320.0, 390.0]) {
+      testWidgets('幅 $screenWidth の画面で、ロゴ「SnapMonster」が 1 行のまま画面の幅に収まる', (
+        tester,
+      ) async {
+        await pumpApp(
+          tester: tester,
+          hasStartedSession: false,
+          startSessionFailureCount: 0,
+          isDeveloperMenuEnabled: false,
+        );
+        tester.view.physicalSize = Size(screenWidth, 844);
+        await tester.pumpAndSettle();
+        final logo = find.text('SnapMonster');
+        // ロゴは 44px・行の高さ 1 倍のため、1 行なら高さは 44。語の途中で折り返すと 88 になる
+        expect(tester.renderObject<RenderParagraph>(logo).size.height, 44);
+        final logoRect = tester.getRect(logo);
+        expect(logoRect.left, greaterThanOrEqualTo(0));
+        expect(logoRect.right, lessThanOrEqualTo(screenWidth));
+        expect(
+          logoRect.overlaps(
+            tester.getRect(find.byIcon(Icons.settings_outlined)),
+          ),
+          isFalse,
+        );
+      });
+    }
+
     testWidgets('Web のように最初の操作を待つ時、タイトルでは BGM を流さず、画面のどこかを押した時に流す', (
       tester,
     ) async {
@@ -424,7 +470,7 @@ void main() {
       expect(audioCalls.playedBackgroundMusicAssetPaths, isEmpty);
       // タッチは指を置いただけではブラウザが操作に数えないため、離すまで流さない
       final gesture = await tester.startGesture(
-        tester.getCenter(find.text('snapmon')),
+        tester.getCenter(find.text('SnapMonster')),
         kind: PointerDeviceKind.touch,
       );
       await tester.pump();
@@ -446,7 +492,7 @@ void main() {
         isDeveloperMenuEnabled: false,
       );
       final gesture = await tester.startGesture(
-        tester.getCenter(find.text('snapmon')),
+        tester.getCenter(find.text('SnapMonster')),
         kind: PointerDeviceKind.mouse,
       );
       await tester.pumpAndSettle();
@@ -965,7 +1011,7 @@ void main() {
         await tester.tap(find.byKey(const Key('title-album')));
         await tester.pump();
         await tester.pump(const Duration(milliseconds: 500));
-        // 切り抜くかを選ぶまでは、生成を始めず相手も探さない
+        // 範囲を決めるまでは、生成を始めず相手も探さない
         expect(generationCalls.requestedRequestIDs, isEmpty);
         expect(find.text('相手を探しています'), findsNothing);
         // 相手を探す表示の進捗は止まらないため、pumpAndSettle を使わず時間を指定して進める
@@ -1366,6 +1412,8 @@ void main() {
       expect(shared.fileName, 'snapmon-${bornMonster.id}-portrait.png');
       expect(shared.text, contains(bornMonster.name));
       expect(shared.text, contains(landingPageUri.toString()));
+      expect(shared.text, contains('SnapMonster で'));
+      expect(shared.text, contains('#SnapMonster'));
       final logged = shareCalls.loggedEvents.single;
       expect(logged.event, AnalyticsEvent.contentShared);
       expect(logged.parameters, {
@@ -2931,7 +2979,7 @@ void main() {
     });
 
     testWidgets(
-      '開発者メニューの見本の写真から切り抜くかを選んで生成すると、中央の正方形を被写体として選ぶ画面を出し、切り抜いた絵で ios_subject を送る',
+      '開発者メニューの見本の写真から切り抜くかを選んで生成すると、中央の正方形を被写体として範囲を決める画面に切り替えを出し、切り抜いた絵で ios_subject を送る',
       (tester) async {
         await pumpHome(
           tester: tester,
@@ -2952,7 +3000,8 @@ void main() {
         );
         await tester.tap(find.text('見本の写真から切り抜くかを選んで生成: マグカップ'));
         await tester.pumpAndSettle();
-        expect(find.text('被写体を切り抜きました'), findsOneWidget);
+        expect(find.text('モンスターにする範囲'), findsOneWidget);
+        expect(find.text('被写体だけを切り抜く'), findsOneWidget);
         expect(generationCalls.squareMaskCrops, hasLength(1));
         expect(generationCalls.requestedMaskSources, isEmpty);
         await chooseSubjectCutout(tester: tester, settles: true);

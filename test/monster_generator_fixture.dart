@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:image/image.dart' as img;
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:snapmon/analytics/analytics_events.dart';
 import 'package:snapmon/domain/master/master_data.dart';
@@ -54,8 +55,10 @@ const Package testTicketPackage = Package(
   PresentedOfferingContext('generation_tickets', null, null),
 );
 
-/// テストの写真の中身 (preparePhoto はそのまま返すため、画像として読める必要はない)。
-final Uint8List testPhotoBytes = Uint8List.fromList([1, 2, 3]);
+/// テストの写真の中身。幅 40・高さ 30 の画像として読める PNG (アルバムから選んだ写真は範囲を決める画面が大きさを読むため。#345)。
+final Uint8List testPhotoBytes = Uint8List.fromList(
+  img.encodePng(img.Image(width: 40, height: 30)),
+);
 
 /// テストの OS の切り出しのマスクの中身 (createCutoutPreview は写真をそのまま返すため、画像として読める必要はない)。
 final Uint8List testSubjectMaskBytes = Uint8List.fromList([4, 5, 6]);

@@ -52,7 +52,18 @@ jobs:
     - run: scripts/restore-firebase-config.sh dart
     - run: flutter pub get
     - run: flutter gen-l10n
+    # 共有するバトルの結果のカードを PNG に書き出す (test/features/share/share_cards_test.dart)。カードは画面に出さずに描く画像で、
+    # この Mac で flutter test を実行しないため (CLAUDE.md「ビルド・テスト・検証方法」)、見た目は成果物で確かめる
+    # (gh run download <run ID> -n share-cards -D tmp/share-cards)
     - run: flutter test
+      env:
+        SHARE_CARD_PNG_DIRECTORY: build/share-cards
+    - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      with:
+        name: share-cards
+        path: build/share-cards
+        if-no-files-found: error
+        retention-days: 7
     - run: bash scripts/test/test-set-webtunnel-setup-env-secret.sh
     - run: bash scripts/test/test-restore-android-signing.sh
     - run: bash scripts/test/test-makefile-targets.sh

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'analytics/analytics_events.dart';
+import 'app_display_name.dart';
 import 'audio/game_audio.dart';
 import 'features/action_card/action_card_store.dart';
 import 'features/battle/battle_recorder.dart';
@@ -174,7 +175,7 @@ class _SnapmonAppState extends State<SnapmonApp> {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
-    title: 'snapmon',
+    title: appDisplayName,
     theme: snapmonThemeData(),
     localizationsDelegates: AppLocalizations.localizationsDelegates,
     supportedLocales: AppLocalizations.supportedLocales,

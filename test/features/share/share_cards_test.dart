@@ -115,6 +115,7 @@ void main() {
         expectOnlyArtImage(tester: tester, artImage: artImage);
         expect(find.textContaining(sourcePhotoReference), findsNothing);
         expectNoGeneratedByAiText();
+        expect(find.text('SnapMonster'), findsOneWidget);
       });
 
       testWidgets('バトルの結果のカード (${format.name})', (tester) async {
@@ -138,6 +139,114 @@ void main() {
         expect(find.textContaining(sourcePhotoReference), findsNothing);
         expectNoGeneratedByAiText();
         expect(find.text('Lv. 7 → 8'), findsOneWidget);
+        expect(find.text('SnapMonster'), findsOneWidget);
+      });
+    }
+  });
+
+  group('バトルの結果のカードに技の枠の技を描く', () {
+    /// マグモン (見本の Lv. 7。Lv. 1 の技が 4 つ、Lv. 15 で覚える技が 2 つ) を [level] と [selectedMoveIDs] にした 1 体。
+    OwnedMonster mugmon({
+      required int level,
+      required List<String>? selectedMoveIDs,
+    }) => OwnedMonster(
+      definition: monsterWithArt.definition,
+      level: level,
+      actionCardMoveIDs: const [],
+      selectedMoveIDs: selectedMoveIDs,
+      artPath: monsterWithArt.artPath,
+      definitionIDs: monsterWithArt.definitionIDs,
+      decoration: monsterWithArt.decoration,
+      decorationVersion: monsterWithArt.decorationVersion,
+    );
+
+    /// [monster] 1 体の勝ったバトルの結果のカードを [format] で開く。
+    Future<void> pumpBattleResultCard({
+      required WidgetTester tester,
+      required OwnedMonster monster,
+      required Map<String, int> appliedLevels,
+      required ShareCardFormat format,
+    }) async => pumpCard(
+      tester: tester,
+      card: BattleResultShareCard(
+        winner: BattleSideID.player,
+        playerParty: [monster],
+        appliedLevels: appliedLevels,
+        opponentParty: [sampleData.monsterByID(monsterID: 'sample-ringora')],
+        artImagesByPath: {artPath: await createArtImage(tester: tester)},
+        definitions: sampleData.definitions,
+        format: format,
+      ),
+      format: format,
+    );
+
+    for (final format in ShareCardFormat.values) {
+      testWidgets('技の枠の 4 つの技の名前を描く (${format.name})', (tester) async {
+        await pumpBattleResultCard(
+          tester: tester,
+          monster: mugmon(level: 7, selectedMoveIDs: null),
+          appliedLevels: const {},
+          format: format,
+        );
+        for (final moveName in ['ほかほかタッチ', 'ブリキパンチ', 'ゆげのもや', 'ねじこみ']) {
+          expect(find.text(moveName), findsOneWidget);
+        }
+        // Lv. 15 で覚える技はまだ描かない
+        expect(find.text('ねつふうしゃ'), findsNothing);
+        expect(find.text('スチールプレス'), findsNothing);
+      });
+
+      testWidgets('確定したレベルがあれば、上がった後のレベルの技の枠を描く (${format.name})', (
+        tester,
+      ) async {
+        final monster = mugmon(level: 14, selectedMoveIDs: null);
+        await pumpBattleResultCard(
+          tester: tester,
+          monster: monster,
+          appliedLevels: {monster.definition.id: 15},
+          format: format,
+        );
+        expect(find.text('Lv. 14 → 15'), findsOneWidget);
+        // Lv. 15 で覚えた 2 つが、一番古い 2 つ (ほかほかタッチ・ブリキパンチ) の枠に入る
+        for (final moveName in ['ねつふうしゃ', 'スチールプレス', 'ゆげのもや', 'ねじこみ']) {
+          expect(find.text(moveName), findsOneWidget);
+        }
+        expect(find.text('ほかほかタッチ'), findsNothing);
+        expect(find.text('ブリキパンチ'), findsNothing);
+      });
+
+      testWidgets('レベルが確定していなければ、バトルの前のレベルの技の枠を描く (${format.name})', (
+        tester,
+      ) async {
+        await pumpBattleResultCard(
+          tester: tester,
+          monster: mugmon(level: 14, selectedMoveIDs: null),
+          appliedLevels: const {},
+          format: format,
+        );
+        expect(find.text('Lv. 14'), findsOneWidget);
+        expect(find.text('ほかほかタッチ'), findsOneWidget);
+        expect(find.text('ねつふうしゃ'), findsNothing);
+      });
+
+      testWidgets('対戦の前に選んだ技だけを選んだ順に描く (${format.name})', (tester) async {
+        await pumpBattleResultCard(
+          tester: tester,
+          monster: mugmon(level: 7, selectedMoveIDs: ['steel_1b', 'fire_1']),
+          appliedLevels: const {},
+          format: format,
+        );
+        // 技を 2 列に並べる形では同じ行の左右に、1 列に並べる形では上下に並ぶ
+        final firstMoveTopLeft = tester.getTopLeft(find.text('ねじこみ'));
+        final secondMoveTopLeft = tester.getTopLeft(find.text('ほかほかタッチ'));
+        expect(
+          firstMoveTopLeft.dy < secondMoveTopLeft.dy ||
+              (firstMoveTopLeft.dy == secondMoveTopLeft.dy &&
+                  firstMoveTopLeft.dx < secondMoveTopLeft.dx),
+          isTrue,
+        );
+        expect(find.text('ブリキパンチ'), findsNothing);
+        expect(find.text('ゆげのもや'), findsNothing);
       });
     }
   });
@@ -153,9 +262,23 @@ void main() {
         }
         await fontLoader.load();
       }
+      // 属性のアイコン (Material のアイコン)。読まないと、書き出す PNG のアイコンが四角になる
+      await (FontLoader(
+        'MaterialIcons',
+      )..addFont(rootBundle.load('fonts/MaterialIcons-Regular.otf'))).load();
     });
 
-    /// 見本のモンスターのうち名前の長い 3 体に、属性を 4 つずつ持たせたもの (はみ出しやすい手持ち。属性の札が折り返す)。
+    /// 見本の定義の技のうち名前の長い 4 つ (長い順)。
+    final longestNamedMoves =
+        ([...sampleData.definitions.moves]..sort(
+              (first, second) =>
+                  second.displayName.length.compareTo(first.displayName.length),
+            ))
+            .take(4)
+            .toList();
+
+    /// 見本のモンスターのうち名前の長い 3 体に、属性を 4 つずつと、名前の長い 4 つの技 ([longestNamedMoves]) を持たせたもの
+    /// (文字が入りにくい手持ち)。
     List<OwnedMonster> longestNamedMonsters() =>
         ([...sampleData.monsters]..sort(
               (first, second) => second.definition.name.length.compareTo(
@@ -175,7 +298,10 @@ void main() {
                         in sampleData.definitions.elementTypes.take(4))
                       elementType.id,
                   ],
-                  learnset: monster.definition.learnset,
+                  learnset: [
+                    for (final move in longestNamedMoves)
+                      LearnsetEntry(moveID: move.id, unlockLevel: 1),
+                  ],
                   baseStats: monster.definition.baseStats,
                   individualValues: monster.definition.individualValues,
                   statCalculationVersion:
@@ -310,11 +436,17 @@ void main() {
           },
         );
 
-        for (final winner in BattleSideID.values) {
+        for (final (winner, partySize) in [
+          for (final winner in BattleSideID.values)
+            for (var partySize = 1; partySize <= maximumPartySize; partySize++)
+              (winner, partySize),
+        ]) {
           testWidgets(
-            'バトルの結果のカード (${winner.name}・$locale) が ${expectedSize.$1}×${expectedSize.$2} の PNG になり、はみ出さない',
+            '手持ち $partySize 体のバトルの結果のカード (${winner.name}・$locale) が ${expectedSize.$1}×${expectedSize.$2} の PNG になり、はみ出さない',
             (tester) async {
-              final playerParty = longestNamedMonsters();
+              final playerParty = longestNamedMonsters()
+                  .take(partySize)
+                  .toList();
               final artImagesByPath = await createArtImagesByPath(
                 tester: tester,
                 monsters: playerParty,
@@ -344,6 +476,183 @@ void main() {
               expect(tester.takeException(), isNull);
             },
           );
+        }
+      }
+    }
+
+    /// 手持ちの数ごとの、絵の一辺の下限 (論理の大きさ)。直す前の縦長の絵は手持ちの数によらず 92 で、
+    /// 横長の 3 体は枠の幅 (約 112) が上限のため 100 にした (https://github.com/bannzai/snapmon/issues/346 )。
+    const minimumArtSizes = {
+      ShareCardFormat.portrait: {1: 200.0, 2: 150.0, 3: 93.0},
+      ShareCardFormat.landscape: {1: 200.0, 2: 150.0, 3: 100.0},
+    };
+
+    /// 見本のモンスターのうち、Lv. 1 の技が 4 つで、見本のレベルではまだ次の技を覚えていない 3 体
+    /// (技の枠が Lv. 1 の 4 つの技のままの、標準の長さの名前と技の手持ち)。
+    List<OwnedMonster> typicalMonsters() => [
+      for (final monsterID in [
+        'sample-mugmon',
+        'sample-petbottler',
+        'sample-ringora',
+      ])
+        sampleData.monsterByID(monsterID: monsterID),
+    ];
+
+    for (final format in ShareCardFormat.values) {
+      for (var partySize = 1; partySize <= maximumPartySize; partySize++) {
+        /// 手持ち [playerParty] のバトルの結果のカードを [format] で開く。
+        Future<void> pumpBattleResultCard({
+          required WidgetTester tester,
+          required List<OwnedMonster> playerParty,
+        }) async => pumpCard(
+          tester: tester,
+          card: BattleResultShareCard(
+            winner: BattleSideID.player,
+            playerParty: playerParty,
+            appliedLevels: const {},
+            opponentParty: playerParty,
+            artImagesByPath: await createArtImagesByPath(
+              tester: tester,
+              monsters: playerParty,
+            ),
+            definitions: sampleData.definitions,
+            format: format,
+          ),
+          format: format,
+        );
+
+        testWidgets(
+          '手持ち $partySize 体のバトルの結果のカード (${format.name}) は、文字が入りにくい手持ちでも絵を大きく描き、名前と技をカードの中に切らずに描く',
+          (tester) async {
+            final playerParty = longestNamedMonsters().take(partySize).toList();
+            await pumpBattleResultCard(
+              tester: tester,
+              playerParty: playerParty,
+            );
+            expect(tester.takeException(), isNull);
+            final cardRect = tester.getRect(find.byType(BattleResultShareCard));
+            final artImages = find.byType(MonsterArtImage);
+            expect(artImages, findsNWidgets(partySize));
+            for (var index = 0; index < partySize; index++) {
+              final artRect = tester.getRect(artImages.at(index));
+              expect(artRect.width, closeTo(artRect.height, 0.01));
+              expect(
+                artRect.width,
+                greaterThanOrEqualTo(minimumArtSizes[format]![partySize]!),
+              );
+              expect(cardRect.contains(artRect.topLeft), isTrue);
+              expect(cardRect.contains(artRect.bottomRight), isTrue);
+            }
+            for (final text in [
+              for (final monster in playerParty) monster.definition.name,
+              for (final move in longestNamedMoves) move.displayName,
+            ]) {
+              // 相手の名前は「VS 〇〇・〇〇」の 1 つの文字列のため、名前だけの文字列は自分の手持ちの枠にしか無い
+              expect(find.text(text), findsAtLeastNWidgets(1));
+              for (final element in find.text(text).evaluate()) {
+                final paragraph = element.renderObject! as RenderParagraph;
+                expect(paragraph.didExceedMaxLines, isFalse);
+                expect(
+                  cardRect.contains(paragraph.localToGlobal(Offset.zero)),
+                  isTrue,
+                );
+                expect(
+                  cardRect.contains(
+                    paragraph.localToGlobal(
+                      paragraph.size.bottomRight(Offset.zero),
+                    ),
+                  ),
+                  isTrue,
+                );
+              }
+            }
+            // 技は手持ちの全員が同じ 4 つを持つ
+            for (final move in longestNamedMoves) {
+              expect(find.text(move.displayName), findsNWidgets(partySize));
+            }
+          },
+        );
+
+        testWidgets(
+          '手持ち $partySize 体のバトルの結果のカード (${format.name}) は、標準の手持ちの技の名前を元の 6 割以上の大きさで描く',
+          (tester) async {
+            final playerParty = typicalMonsters().take(partySize).toList();
+            await pumpBattleResultCard(
+              tester: tester,
+              playerParty: playerParty,
+            );
+            for (final monster in playerParty) {
+              for (final learnsetEntry in monster.definition.learnset.where(
+                (learnsetEntry) => learnsetEntry.unlockLevel == 1,
+              )) {
+                final moveName = find.text(
+                  sampleData.definitions
+                      .moveByID(moveID: learnsetEntry.moveID)
+                      .displayName,
+                );
+                expect(moveName, findsOneWidget);
+                expect(
+                  tester.getRect(moveName).height /
+                      tester.getSize(moveName).height,
+                  greaterThanOrEqualTo(0.6),
+                );
+              }
+            }
+          },
+        );
+      }
+    }
+
+    // 見た目を人と agent が確かめるための画像。環境変数 SHARE_CARD_PNG_DIRECTORY があれば、見本の手持ち 1〜3 体の
+    // バトルの結果のカードを見本の絵で描いて書き出す (flutter-ci.yml が成果物 share-cards に残す)。
+    if (Platform.environment['SHARE_CARD_PNG_DIRECTORY']
+        case final pngDirectory?) {
+      for (final format in ShareCardFormat.values) {
+        for (var partySize = 1; partySize <= maximumPartySize; partySize++) {
+          testWidgets('手持ち $partySize 体のバトルの結果のカード (${format.name}) を書き出す', (
+            tester,
+          ) async {
+            final playerParty = typicalMonsters().take(partySize).toList();
+            final pngBytes = await tester.runAsync(() async {
+              final artImagesByPath = {
+                for (final monster in playerParty)
+                  monster.artPath!: await decodeImageFromList(
+                    File(monster.artPath!).readAsBytesSync(),
+                  ),
+              };
+              try {
+                return await renderWidgetToPng(
+                  view: tester.view,
+                  card: localizedCard(
+                    locale: const Locale('ja'),
+                    card: BattleResultShareCard(
+                      winner: BattleSideID.player,
+                      playerParty: playerParty,
+                      appliedLevels: {
+                        for (final monster in playerParty)
+                          monster.definition.id: monster.level + 1,
+                      },
+                      opponentParty: sampleData.monsters
+                          .skip(maximumPartySize)
+                          .take(partySize)
+                          .toList(),
+                      artImagesByPath: artImagesByPath,
+                      definitions: sampleData.definitions,
+                      format: format,
+                    ),
+                  ),
+                  format: format,
+                );
+              } finally {
+                for (final artImage in artImagesByPath.values) {
+                  artImage.dispose();
+                }
+              }
+            });
+            File('$pngDirectory/battle-result-${format.name}-$partySize.png')
+              ..createSync(recursive: true)
+              ..writeAsBytesSync(pngBytes!);
+          });
         }
       }
     }
