@@ -275,5 +275,6 @@
   "actionCardPricesPreparing": "Przygotowujemy ceny ruchów\nOtwórz ekran ponownie za chwilę",
   "actionCardBuyHeading": "Wybierz i kup ruch",
   "actionCardBuyDescription": "Wybierz jeden ruch i kup go raz na zawsze. Potem możesz uczyć go dowolnego potwora tyle razy, ile chcesz.",
-  "actionCardBuyUnavailable": "Teraz żadne ruchy nie są na sprzedaż"
+  "actionCardBuyUnavailable": "Teraz żadne ruchy nie są na sprzedaż",
+  "actionCardPurchaseBuy": "Kup za {price}"
 }

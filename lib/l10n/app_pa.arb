@@ -275,5 +275,6 @@
   "actionCardPricesPreparing": "ਚਾਲਾਂ ਦੀਆਂ ਕੀਮਤਾਂ ਤਿਆਰ ਹੋ ਰਹੀਆਂ ਹਨ\nਥੋੜ੍ਹੀ ਦੇਰ ਬਾਅਦ ਦੁਬਾਰਾ ਖੋਲ੍ਹੋ",
   "actionCardBuyHeading": "ਚਾਲ ਚੁਣ ਕੇ ਖਰੀਦੋ",
   "actionCardBuyDescription": "ਇੱਕ ਚਾਲ ਚੁਣ ਕੇ ਸਿਰਫ਼ ਇੱਕ ਵਾਰ ਖਰੀਦੋ। ਫਿਰ ਤੁਸੀਂ ਉਹ ਕਿਸੇ ਵੀ ਮੌਂਸਟਰ ਨੂੰ ਜਿੰਨੀ ਵਾਰ ਚਾਹੋ ਸਿਖਾ ਸਕਦੇ ਹੋ।",
-  "actionCardBuyUnavailable": "ਇਸ ਵੇਲੇ ਕੋਈ ਚਾਲ ਵਿਕਰੀ ਲਈ ਨਹੀਂ ਹੈ"
+  "actionCardBuyUnavailable": "ਇਸ ਵੇਲੇ ਕੋਈ ਚਾਲ ਵਿਕਰੀ ਲਈ ਨਹੀਂ ਹੈ",
+  "actionCardPurchaseBuy": "{price} ਵਿੱਚ ਖਰੀਦੋ"
 }

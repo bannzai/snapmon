@@ -275,5 +275,6 @@
   "actionCardPricesPreparing": "Estamos preparando los precios de los movimientos\nVuelve a abrir la pantalla en un rato",
   "actionCardBuyHeading": "Elige y compra un movimiento",
   "actionCardBuyDescription": "Elige un movimiento y cómpralo una sola vez. Después podrás enseñárselo a cualquier monstruo tantas veces como quieras.",
-  "actionCardBuyUnavailable": "Ahora mismo no hay movimientos a la venta"
+  "actionCardBuyUnavailable": "Ahora mismo no hay movimientos a la venta",
+  "actionCardPurchaseBuy": "Compra por {price}"
 }

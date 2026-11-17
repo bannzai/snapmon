@@ -275,5 +275,6 @@
   "actionCardPricesPreparing": "Vi gjør prisene på angrep klare\nÅpne skjermen igjen om litt",
   "actionCardBuyHeading": "Velg og kjøp et angrep",
   "actionCardBuyDescription": "Velg ett angrep og kjøp det én gang. Deretter kan du lære det til hvilket som helst monster så mange ganger du vil.",
-  "actionCardBuyUnavailable": "Ingen angrep er til salgs akkurat nå"
+  "actionCardBuyUnavailable": "Ingen angrep er til salgs akkurat nå",
+  "actionCardPurchaseBuy": "Kjøp for {price}"
 }

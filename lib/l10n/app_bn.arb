@@ -275,5 +275,6 @@
   "actionCardPricesPreparing": "কৌশলের দাম প্রস্তুত হচ্ছে\nকিছুক্ষণ পর আবার খোলো",
   "actionCardBuyHeading": "কৌশল বেছে কিনো",
   "actionCardBuyDescription": "একটি কৌশল একবারেই কিনে নাও। তারপর যেকোনো মনস্টারকে যতবার খুশি সেটি শেখাতে পারবে।",
-  "actionCardBuyUnavailable": "এখন কোনো কৌশল বিক্রি হচ্ছে না"
+  "actionCardBuyUnavailable": "এখন কোনো কৌশল বিক্রি হচ্ছে না",
+  "actionCardPurchaseBuy": "{price} দিয়ে কেনো"
 }

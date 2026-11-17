@@ -275,5 +275,6 @@
   "actionCardPricesPreparing": "Liikkeiden hintoja valmistellaan\nAvaa näkymä uudelleen hetken kuluttua",
   "actionCardBuyHeading": "Valitse ja osta liike",
   "actionCardBuyDescription": "Valitse yksi liike ja osta se pysyvästi. Sen jälkeen voit opettaa sen mille tahansa hirviölle niin monta kertaa kuin haluat.",
-  "actionCardBuyUnavailable": "Liikkeitä ei ole juuri nyt myynnissä"
+  "actionCardBuyUnavailable": "Liikkeitä ei ole juuri nyt myynnissä",
+  "actionCardPurchaseBuy": "Osta hintaan {price}"
 }

@@ -275,5 +275,6 @@
   "actionCardPricesPreparing": "Připravujeme ceny útoků\nZa chvíli obrazovku znovu otevři",
   "actionCardBuyHeading": "Vyber a kup útok",
   "actionCardBuyDescription": "Vyber si jeden útok a kup si ho natrvalo. Pak ho můžeš učit jakoukoli příšeru, kolikrát chceš.",
-  "actionCardBuyUnavailable": "Teď nejsou v prodeji žádné útoky"
+  "actionCardBuyUnavailable": "Teď nejsou v prodeji žádné útoky",
+  "actionCardPurchaseBuy": "Kup za {price}"
 }

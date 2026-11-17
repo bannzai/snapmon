@@ -275,5 +275,6 @@
   "actionCardPricesPreparing": "Stiamo preparando i prezzi delle mosse\nRiapri la schermata tra poco",
   "actionCardBuyHeading": "Scegli e compra una mossa",
   "actionCardBuyDescription": "Scegli una mossa e acquistala una volta per tutte. Poi potrai insegnarla a qualsiasi mostro tutte le volte che vuoi.",
-  "actionCardBuyUnavailable": "Al momento non ci sono mosse in vendita"
+  "actionCardBuyUnavailable": "Al momento non ci sono mosse in vendita",
+  "actionCardPurchaseBuy": "Compra a {price}"
 }

@@ -275,5 +275,6 @@
   "actionCardPricesPreparing": "Pripravljamo cene potez\nČez nekaj časa znova odpri zaslon",
   "actionCardBuyHeading": "Izberi in kupi potez",
   "actionCardBuyDescription": "Izberi en potez in ga kupi za vedno. Nato ga lahko naučiš katerokoli pošast, kolikorkrat želiš.",
-  "actionCardBuyUnavailable": "Trenutno ni potezov naprodaj"
+  "actionCardBuyUnavailable": "Trenutno ni potezov naprodaj",
+  "actionCardPurchaseBuy": "Kupi za {price}"
 }

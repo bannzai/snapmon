@@ -275,5 +275,6 @@
   "actionCardPricesPreparing": "기술 가격을 준비하고 있어요\n잠시 후 다시 열어 주세요",
   "actionCardBuyHeading": "기술 선택해 구매하기",
   "actionCardBuyDescription": "기술 하나를 골라 한 번만 구매해요. 구매한 기술은 어떤 몬스터에게든 몇 번이고 가르칠 수 있어요.",
-  "actionCardBuyUnavailable": "지금은 기술을 판매하지 않아요"
+  "actionCardBuyUnavailable": "지금은 기술을 판매하지 않아요",
+  "actionCardPurchaseBuy": "{price}에 구매하기"
 }

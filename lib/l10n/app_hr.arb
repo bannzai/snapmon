@@ -275,5 +275,6 @@
   "actionCardPricesPreparing": "Pripremamo cijene poteza\nOtvori zaslon ponovno za koji trenutak",
   "actionCardBuyHeading": "Odaberi i kupi potez",
   "actionCardBuyDescription": "Odaberi jedan potez i kupi ga jednom zauvijek. Zatim ga možeš učiti bilo koje čudovište koliko god puta želiš.",
-  "actionCardBuyUnavailable": "Trenutačno nema poteza na prodaju"
+  "actionCardBuyUnavailable": "Trenutačno nema poteza na prodaju",
+  "actionCardPurchaseBuy": "Kupi za {price}"
 }

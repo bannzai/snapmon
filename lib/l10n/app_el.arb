@@ -275,5 +275,6 @@
   "actionCardPricesPreparing": "Ετοιμάζουμε τις τιμές των τεχνικών\nΆνοιξε ξανά την οθόνη σε λίγο",
   "actionCardBuyHeading": "Διάλεξε και αγόρασε τεχνική",
   "actionCardBuyDescription": "Διάλεξε μία τεχνική και αγόρασέ την μία φορά. Μετά μπορείς να τη διδάσκεις σε όποιο τέρας θέλεις, όσες φορές θέλεις.",
-  "actionCardBuyUnavailable": "Δεν πωλούνται τεχνικές αυτή τη στιγμή"
+  "actionCardBuyUnavailable": "Δεν πωλούνται τεχνικές αυτή τη στιγμή",
+  "actionCardPurchaseBuy": "Αγόρασε με {price}"
 }

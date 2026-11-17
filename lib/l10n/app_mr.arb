@@ -275,5 +275,6 @@
   "actionCardPricesPreparing": "चालींच्या किमती तयार होत आहेत\nथोड्या वेळाने पुन्हा उघड",
   "actionCardBuyHeading": "चाल निवडून विकत घे",
   "actionCardBuyDescription": "एक चाल निवडून एकदाच विकत घे. मग कोणत्याही मॉन्स्टरला ती कितीही वेळा शिकवू शकतोस.",
-  "actionCardBuyUnavailable": "आत्ता कोणतीही चाल विक्रीसाठी नाही"
+  "actionCardBuyUnavailable": "आत्ता कोणतीही चाल विक्रीसाठी नाही",
+  "actionCardPurchaseBuy": "{price} मध्ये खरेदी कर"
 }

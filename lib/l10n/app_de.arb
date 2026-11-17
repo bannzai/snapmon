@@ -275,5 +275,6 @@
   "actionCardPricesPreparing": "Die Preise der Attacken werden vorbereitet\nÖffne die Seite gleich noch mal",
   "actionCardBuyHeading": "Attacke auswählen und kaufen",
   "actionCardBuyDescription": "Wähle eine Attacke und kaufe sie einmalig. Danach kannst du sie jedem Monster beliebig oft beibringen.",
-  "actionCardBuyUnavailable": "Gerade stehen keine Attacken zum Verkauf"
+  "actionCardBuyUnavailable": "Gerade stehen keine Attacken zum Verkauf",
+  "actionCardPurchaseBuy": "Für {price} kaufen"
 }

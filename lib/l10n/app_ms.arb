@@ -275,5 +275,6 @@
   "actionCardPricesPreparing": "Harga gerakan sedang disediakan\nBuka semula sebentar lagi",
   "actionCardBuyHeading": "Pilih dan beli gerakan",
   "actionCardBuyDescription": "Pilih satu gerakan dan beli sekali saja. Selepas itu, kamu boleh ajarkannya kepada mana-mana monster sebanyak mana kali yang kamu mahu.",
-  "actionCardBuyUnavailable": "Tiada gerakan untuk dijual sekarang"
+  "actionCardBuyUnavailable": "Tiada gerakan untuk dijual sekarang",
+  "actionCardPurchaseBuy": "Beli dengan harga {price}"
 }
