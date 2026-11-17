@@ -287,5 +287,6 @@
   "actionCardUnassignedHeading": "尚未領取的 Action Card",
   "actionCardUnassignedChooseMove": "選擇招式",
   "actionCardAssignTitle": "用這張 Action Card 獲得的招式",
-  "actionCardAssignNoMoves": "沒有可領取的招式"
+  "actionCardAssignNoMoves": "沒有可領取的招式",
+  "actionCardAssigned": "你獲得了招式：{moveName}"
 }

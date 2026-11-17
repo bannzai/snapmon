@@ -287,5 +287,6 @@
   "actionCardUnassignedHeading": "Action Card שטרם נאספו",
   "actionCardUnassignedChooseMove": "לבחור מתקפה",
   "actionCardAssignTitle": "מתקפה שמקבלים עם ה־Action Card הזו",
-  "actionCardAssignNoMoves": "אין מתקפות שאפשר לקבל"
+  "actionCardAssignNoMoves": "אין מתקפות שאפשר לקבל",
+  "actionCardAssigned": "התקבלה מתקפה חדשה: {moveName}"
 }

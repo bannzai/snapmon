@@ -287,5 +287,6 @@
   "actionCardUnassignedHeading": "Action Card pendents de recollir",
   "actionCardUnassignedChooseMove": "Tria un moviment",
   "actionCardAssignTitle": "Moviment que obtindràs amb aquesta Action Card",
-  "actionCardAssignNoMoves": "No hi ha cap moviment per rebre"
+  "actionCardAssignNoMoves": "No hi ha cap moviment per rebre",
+  "actionCardAssigned": "Has rebut el moviment {moveName}"
 }

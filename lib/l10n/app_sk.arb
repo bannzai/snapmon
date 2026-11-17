@@ -287,5 +287,6 @@
   "actionCardUnassignedHeading": "Nevyzdvihnuté Action Card",
   "actionCardUnassignedChooseMove": "Vyber útok",
   "actionCardAssignTitle": "Útok, ktorý získaš s touto Action Card",
-  "actionCardAssignNoMoves": "Nemáš žiadny útok na získanie"
+  "actionCardAssignNoMoves": "Nemáš žiadny útok na získanie",
+  "actionCardAssigned": "Získal si útok {moveName}"
 }

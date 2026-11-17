@@ -287,5 +287,6 @@
   "actionCardUnassignedHeading": "Action Card du inte har hämtat",
   "actionCardUnassignedChooseMove": "Välj en attack",
   "actionCardAssignTitle": "Attack du får med detta Action Card",
-  "actionCardAssignNoMoves": "Inga attacker att ta emot"
+  "actionCardAssignNoMoves": "Inga attacker att ta emot",
+  "actionCardAssigned": "Du fick attacken {moveName}"
 }

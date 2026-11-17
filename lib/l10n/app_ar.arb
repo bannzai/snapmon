@@ -287,5 +287,6 @@
   "actionCardUnassignedHeading": "بطاقات Action Card غير المستلمة",
   "actionCardUnassignedChooseMove": "اختر حركة",
   "actionCardAssignTitle": "الحركة التي تحصل عليها بهذه Action Card",
-  "actionCardAssignNoMoves": "لا توجد حركات يمكنك الحصول عليها"
+  "actionCardAssignNoMoves": "لا توجد حركات يمكنك الحصول عليها",
+  "actionCardAssigned": "حصلت على الحركة: {moveName}"
 }

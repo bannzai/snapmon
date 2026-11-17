@@ -287,5 +287,6 @@
   "actionCardUnassignedHeading": "Henüz alınmamış Action Card",
   "actionCardUnassignedChooseMove": "Hamle seç",
   "actionCardAssignTitle": "Bu Action Card ile alacağın hamle",
-  "actionCardAssignNoMoves": "Alınabilecek hamle yok"
+  "actionCardAssignNoMoves": "Alınabilecek hamle yok",
+  "actionCardAssigned": "{moveName} hareketini aldın"
 }

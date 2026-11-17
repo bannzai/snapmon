@@ -287,5 +287,6 @@
   "actionCardUnassignedHeading": "Át nem vett Action Card",
   "actionCardUnassignedChooseMove": "Válassz támadást",
   "actionCardAssignTitle": "Támadás, amit ezzel az Action Carddal kapsz",
-  "actionCardAssignNoMoves": "Nincs megszerezhető támadás"
+  "actionCardAssignNoMoves": "Nincs megszerezhető támadás",
+  "actionCardAssigned": "Megkaptad a {moveName} támadást"
 }

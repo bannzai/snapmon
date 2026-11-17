@@ -287,5 +287,6 @@
   "actionCardUnassignedHeading": "Nicht abgeholte Action Card",
   "actionCardUnassignedChooseMove": "Wähle eine Attacke",
   "actionCardAssignTitle": "Attacke, die du mit dieser Action Card erhältst",
-  "actionCardAssignNoMoves": "Keine Attacken zum Erhalten verfügbar"
+  "actionCardAssignNoMoves": "Keine Attacken zum Erhalten verfügbar",
+  "actionCardAssigned": "Du hast die Attacke {moveName} erhalten"
 }

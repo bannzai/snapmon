@@ -287,5 +287,6 @@
   "actionCardUnassignedHeading": "अभी तक नहीं मिले Action Card",
   "actionCardUnassignedChooseMove": "चाल चुनो",
   "actionCardAssignTitle": "इस Action Card से मिलने वाली चाल",
-  "actionCardAssignNoMoves": "पाने के लिए कोई चाल नहीं है"
+  "actionCardAssignNoMoves": "पाने के लिए कोई चाल नहीं है",
+  "actionCardAssigned": "तुम्हें नई चाल मिली: {moveName}"
 }

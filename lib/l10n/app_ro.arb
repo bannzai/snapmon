@@ -287,5 +287,6 @@
   "actionCardUnassignedHeading": "Action Card nerevendicate",
   "actionCardUnassignedChooseMove": "Alege o mișcare",
   "actionCardAssignTitle": "Mișcare pe care o primești cu acest Action Card",
-  "actionCardAssignNoMoves": "Nu există mișcări de primit"
+  "actionCardAssignNoMoves": "Nu există mișcări de primit",
+  "actionCardAssigned": "Ai primit atacul {moveName}"
 }

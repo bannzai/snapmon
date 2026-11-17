@@ -287,5 +287,6 @@
   "actionCardUnassignedHeading": "Neprevzete Action Card",
   "actionCardUnassignedChooseMove": "Izberi potez",
   "actionCardAssignTitle": "Potez, ki ga dobiš s to Action Card",
-  "actionCardAssignNoMoves": "Ni potezov za prejem"
+  "actionCardAssignNoMoves": "Ni potezov za prejem",
+  "actionCardAssigned": "Dobil si napad {moveName}"
 }

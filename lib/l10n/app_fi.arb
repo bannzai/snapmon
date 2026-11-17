@@ -287,5 +287,6 @@
   "actionCardUnassignedHeading": "Lunastamattomat Action Card",
   "actionCardUnassignedChooseMove": "Valitse liike",
   "actionCardAssignTitle": "Liike, jonka saat tällä Action Cardilla",
-  "actionCardAssignNoMoves": "Ei vastaanotettavia liikkeitä"
+  "actionCardAssignNoMoves": "Ei vastaanotettavia liikkeitä",
+  "actionCardAssigned": "Sait liikkeen {moveName}"
 }

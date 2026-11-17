@@ -287,5 +287,6 @@
   "actionCardUnassignedHeading": "இன்னும் பெறாத Action Card",
   "actionCardUnassignedChooseMove": "தாக்குதலைத் தேர்ந்தெடுங்கள்",
   "actionCardAssignTitle": "இந்த Action Card மூலம் பெறும் தாக்குதல்",
-  "actionCardAssignNoMoves": "பெறக்கூடிய தாக்குதல்கள் இல்லை"
+  "actionCardAssignNoMoves": "பெறக்கூடிய தாக்குதல்கள் இல்லை",
+  "actionCardAssigned": "புதிய நகர்வு கிடைத்தது: {moveName}"
 }

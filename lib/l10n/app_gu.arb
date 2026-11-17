@@ -287,5 +287,6 @@
   "actionCardUnassignedHeading": "હજુ ન મેળવેલાં Action Card",
   "actionCardUnassignedChooseMove": "ચાલ પસંદ કરો",
   "actionCardAssignTitle": "આ Action Cardથી તમને મળતી ચાલ",
-  "actionCardAssignNoMoves": "મેળવવા માટે કોઈ ચાલ નથી"
+  "actionCardAssignNoMoves": "મેળવવા માટે કોઈ ચાલ નથી",
+  "actionCardAssigned": "તમને નવી ચાલ મળી: {moveName}"
 }

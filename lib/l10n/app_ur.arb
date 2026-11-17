@@ -287,5 +287,6 @@
   "actionCardUnassignedHeading": "ابھی تک حاصل نہ کیے گئے Action Card",
   "actionCardUnassignedChooseMove": "چال چنو",
   "actionCardAssignTitle": "اس Action Card سے ملنے والی چال",
-  "actionCardAssignNoMoves": "حاصل کرنے کے لیے کوئی چال نہیں"
+  "actionCardAssignNoMoves": "حاصل کرنے کے لیے کوئی چال نہیں",
+  "actionCardAssigned": "تمہیں نئی چال ملی: {moveName}"
 }

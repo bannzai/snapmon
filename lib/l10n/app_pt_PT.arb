@@ -287,5 +287,6 @@
   "actionCardUnassignedHeading": "Action Card por resgatar",
   "actionCardUnassignedChooseMove": "Escolhe um golpe",
   "actionCardAssignTitle": "Golpe que recebes com esta Action Card",
-  "actionCardAssignNoMoves": "Não há golpes para receber"
+  "actionCardAssignNoMoves": "Não há golpes para receber",
+  "actionCardAssigned": "Recebeste o ataque {moveName}"
 }

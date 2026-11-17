@@ -287,5 +287,6 @@
   "actionCardUnassignedHeading": "Неполученные Action Card",
   "actionCardUnassignedChooseMove": "Выбери приём",
   "actionCardAssignTitle": "Приём, который ты получишь с этой Action Card",
-  "actionCardAssignNoMoves": "Нет приёмов, которые можно получить"
+  "actionCardAssignNoMoves": "Нет приёмов, которые можно получить",
+  "actionCardAssigned": "Ты получил приём {moveName}"
 }

@@ -287,5 +287,6 @@
   "actionCardUnassignedHeading": "Action Card yang belum dituntut",
   "actionCardUnassignedChooseMove": "Pilih gerakan",
   "actionCardAssignTitle": "Gerakan yang kamu dapat dengan Action Card ini",
-  "actionCardAssignNoMoves": "Tiada gerakan untuk diterima"
+  "actionCardAssignNoMoves": "Tiada gerakan untuk diterima",
+  "actionCardAssigned": "Kamu dapat gerakan {moveName}"
 }

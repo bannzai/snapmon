@@ -287,5 +287,6 @@
   "actionCardUnassignedHeading": "Action Card, du ikke har hentet",
   "actionCardUnassignedChooseMove": "Vælg et angreb",
   "actionCardAssignTitle": "Angreb, du får med dette Action Card",
-  "actionCardAssignNoMoves": "Ingen angreb at modtage"
+  "actionCardAssignNoMoves": "Ingen angreb at modtage",
+  "actionCardAssigned": "Du fik angrebet {moveName}"
 }
