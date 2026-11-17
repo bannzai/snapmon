@@ -189,5 +189,6 @@
   "battleLogStatusCured": "{monsterName} wyleczył się ze stanu {statusName}",
   "battleLogStatusDamage": "{monsterName} otrzymał obrażenia przez {statusName}",
   "battleLogFieldStatShuffleStarted": "Pole bitwy zaczęło falować",
-  "battleLogFieldStatShuffled": "Pole zafalowało i {firstStatName} oraz {secondStatName} zamieniły się miejscami!"
+  "battleLogFieldStatShuffled": "Pole zafalowało i {firstStatName} oraz {secondStatName} zamieniły się miejscami!",
+  "battleLogFieldEnded": "Pole wróciło do normy"
 }

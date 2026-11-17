@@ -189,5 +189,6 @@
   "battleLogStatusCured": "{monsterName} હવે {statusName}માંથી સાજું થઈ ગયું",
   "battleLogStatusDamage": "{statusName} ને કારણે {monsterName} ને નુકસાન થયું",
   "battleLogFieldStatShuffleStarted": "યુદ્ધનું મેદાન ડોલવા લાગ્યું",
-  "battleLogFieldStatShuffled": "મેદાન ડોલ્યું અને {firstStatName} તથા {secondStatName} અદલાબદલી થઈ ગયા!"
+  "battleLogFieldStatShuffled": "મેદાન ડોલ્યું અને {firstStatName} તથા {secondStatName} અદલાબદલી થઈ ગયા!",
+  "battleLogFieldEnded": "મેદાન ફરી સામાન્ય થયું"
 }

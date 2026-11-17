@@ -189,5 +189,6 @@
   "battleLogStatusCured": "{monsterName} har återhämtat sig från {statusName}",
   "battleLogStatusDamage": "{monsterName} tog skada av {statusName}",
   "battleLogFieldStatShuffleStarted": "Slagfältet började svaja",
-  "battleLogFieldStatShuffled": "Fältet svajade, och {firstStatName} och {secondStatName} bytte plats!"
+  "battleLogFieldStatShuffled": "Fältet svajade, och {firstStatName} och {secondStatName} bytte plats!",
+  "battleLogFieldEnded": "Fältet är som vanligt igen"
 }

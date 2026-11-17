@@ -189,5 +189,6 @@
   "battleLogStatusCured": "{monsterName} er frisk igjen etter {statusName}",
   "battleLogStatusDamage": "{monsterName} tok skade av {statusName}",
   "battleLogFieldStatShuffleStarted": "Slagmarken begynte å bølge",
-  "battleLogFieldStatShuffled": "Feltet bølget, og {firstStatName} og {secondStatName} byttet plass!"
+  "battleLogFieldStatShuffled": "Feltet bølget, og {firstStatName} og {secondStatName} byttet plass!",
+  "battleLogFieldEnded": "Feltet er tilbake til normalen"
 }

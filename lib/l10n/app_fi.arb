@@ -189,5 +189,6 @@
   "battleLogStatusCured": "{monsterName} parani tilasta {statusName}",
   "battleLogStatusDamage": "{monsterName} kärsi vahinkoa tilasta {statusName}",
   "battleLogFieldStatShuffleStarted": "Taistelukenttä alkoi ailahdella",
-  "battleLogFieldStatShuffled": "Kenttä väreili, ja {firstStatName} ja {secondStatName} vaihtoivat paikkaa!"
+  "battleLogFieldStatShuffled": "Kenttä väreili, ja {firstStatName} ja {secondStatName} vaihtoivat paikkaa!",
+  "battleLogFieldEnded": "Kenttä palautui ennalleen"
 }

@@ -189,5 +189,6 @@
   "battleLogStatusCured": "{monsterName} ఇప్పుడు {statusName} నుంచి కోలుకుంది",
   "battleLogStatusDamage": "{statusName} వల్ల {monsterName} నష్టపోయింది",
   "battleLogFieldStatShuffleStarted": "యుద్ధభూమి ఊగడం మొదలైంది",
-  "battleLogFieldStatShuffled": "మైదానం ఊగడంతో {firstStatName}, {secondStatName} విలువలు తారుమారయ్యాయి!"
+  "battleLogFieldStatShuffled": "మైదానం ఊగడంతో {firstStatName}, {secondStatName} విలువలు తారుమారయ్యాయి!",
+  "battleLogFieldEnded": "మైదానం మళ్లీ మామూలు స్థితికి వచ్చింది"
 }

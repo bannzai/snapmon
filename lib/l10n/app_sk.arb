@@ -189,5 +189,6 @@
   "battleLogStatusCured": "{monsterName} sa vyliečil zo stavu {statusName}",
   "battleLogStatusDamage": "{monsterName} utrpel poškodenie kvôli {statusName}",
   "battleLogFieldStatShuffleStarted": "Bojové pole sa začalo vlniť",
-  "battleLogFieldStatShuffled": "Pole sa zavlnilo a {firstStatName} a {secondStatName} si vymenili miesta!"
+  "battleLogFieldStatShuffled": "Pole sa zavlnilo a {firstStatName} a {secondStatName} si vymenili miesta!",
+  "battleLogFieldEnded": "Pole sa vrátilo do normálu"
 }

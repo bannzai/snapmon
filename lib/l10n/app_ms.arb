@@ -189,5 +189,6 @@
   "battleLogStatusCured": "{monsterName} dah pulih daripada {statusName}",
   "battleLogStatusDamage": "{monsterName} menerima kerosakan akibat {statusName}",
   "battleLogFieldStatShuffleStarted": "Medan tempur mula bergolak",
-  "battleLogFieldStatShuffled": "Medan bergoyang, lalu {firstStatName} dan {secondStatName} bertukar tempat!"
+  "battleLogFieldStatShuffled": "Medan bergoyang, lalu {firstStatName} dan {secondStatName} bertukar tempat!",
+  "battleLogFieldEnded": "Medan kembali seperti biasa"
 }

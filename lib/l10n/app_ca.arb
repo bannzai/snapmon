@@ -189,5 +189,6 @@
   "battleLogStatusCured": "{monsterName} s'ha curat de {statusName}",
   "battleLogStatusDamage": "{monsterName} ha rebut dany per {statusName}",
   "battleLogFieldStatShuffleStarted": "El camp de batalla ha començat a fluctuar",
-  "battleLogFieldStatShuffled": "El camp ha tremolat i {firstStatName} i {secondStatName} s'han intercanviat!"
+  "battleLogFieldStatShuffled": "El camp ha tremolat i {firstStatName} i {secondStatName} s'han intercanviat!",
+  "battleLogFieldEnded": "El camp ha tornat a la normalitat"
 }

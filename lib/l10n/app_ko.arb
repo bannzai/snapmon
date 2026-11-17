@@ -189,5 +189,6 @@
   "battleLogStatusCured": "{monsterName}의 {statusName} 상태가 나았다",
   "battleLogStatusDamage": "{monsterName}은 {statusName} 때문에 피해를 입었다",
   "battleLogFieldStatShuffleStarted": "배틀필드가 흔들리기 시작했다",
-  "battleLogFieldStatShuffled": "필드가 흔들려 {firstStatName}와 {secondStatName}의 값이 뒤바뀌었다!"
+  "battleLogFieldStatShuffled": "필드가 흔들려 {firstStatName}와 {secondStatName}의 값이 뒤바뀌었다!",
+  "battleLogFieldEnded": "필드가 원래대로 돌아왔다"
 }

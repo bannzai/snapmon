@@ -189,5 +189,6 @@
   "battleLogStatusCured": "{monsterName} اب {statusName} سے ٹھیک ہو گیا",
   "battleLogStatusDamage": "{statusName} کی وجہ سے {monsterName} کو نقصان پہنچا",
   "battleLogFieldStatShuffleStarted": "میدانِ جنگ ڈولنے لگا",
-  "battleLogFieldStatShuffled": "میدان ڈگمگایا اور {firstStatName} اور {secondStatName} کی جگہیں بدل گئیں!"
+  "battleLogFieldStatShuffled": "میدان ڈگمگایا اور {firstStatName} اور {secondStatName} کی جگہیں بدل گئیں!",
+  "battleLogFieldEnded": "میدان پھر معمول پر آ گیا"
 }

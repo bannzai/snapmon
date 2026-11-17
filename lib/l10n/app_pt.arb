@@ -189,5 +189,6 @@
   "battleLogStatusCured": "{monsterName} se curou de {statusName}",
   "battleLogStatusDamage": "{monsterName} sofreu dano por {statusName}",
   "battleLogFieldStatShuffleStarted": "O campo de batalha começou a oscilar",
-  "battleLogFieldStatShuffled": "O campo oscilou, e {firstStatName} e {secondStatName} trocaram de lugar!"
+  "battleLogFieldStatShuffled": "O campo oscilou, e {firstStatName} e {secondStatName} trocaram de lugar!",
+  "battleLogFieldEnded": "O campo voltou ao normal"
 }

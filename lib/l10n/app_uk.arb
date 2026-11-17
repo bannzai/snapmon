@@ -189,5 +189,6 @@
   "battleLogStatusCured": "{monsterName} оговтався від стану {statusName}",
   "battleLogStatusDamage": "{monsterName} зазнав шкоди через {statusName}",
   "battleLogFieldStatShuffleStarted": "Поле бою почало коливатися",
-  "battleLogFieldStatShuffled": "Поле захиталося, і {firstStatName} та {secondStatName} помінялися місцями!"
+  "battleLogFieldStatShuffled": "Поле захиталося, і {firstStatName} та {secondStatName} помінялися місцями!",
+  "battleLogFieldEnded": "Поле повернулося до норми"
 }
