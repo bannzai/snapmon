@@ -93,5 +93,6 @@
   "captureCameraPermissionHintWeb": "Dans les paramètres du site, accessibles depuis la barre d’adresse,\nautorise la caméra",
   "captureOpenSettings": "Ouvrir les paramètres",
   "captureUseCamera": "Utiliser l’appareil photo",
-  "commonClose": "Fermer"
+  "commonClose": "Fermer",
+  "commonBack": "Retour"
 }
