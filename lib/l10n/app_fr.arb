@@ -273,5 +273,6 @@
   "actionCardEntrySubtitle": "Achète une capacité une fois pour toutes et apprends-la à tes monstres",
   "actionCardOfPrice": "Action Card à {price}",
   "actionCardPricesPreparing": "Les prix des capacités sont en préparation\nReviens un peu plus tard",
-  "actionCardBuyHeading": "Choisis une capacité à acheter"
+  "actionCardBuyHeading": "Choisis une capacité à acheter",
+  "actionCardBuyDescription": "Choisis une capacité à acheter. Une fois achetée, tu peux l’enseigner à n’importe quel monstre autant de fois que tu veux."
 }
