@@ -55,5 +55,6 @@
   "settingsSoundEffects": "Äänitehosteet",
   "settingsSupportSection": "Tuki",
   "settingsTerms": "Käyttöehdot",
-  "settingsPrivacyPolicy": "Tietosuojakäytäntö"
+  "settingsPrivacyPolicy": "Tietosuojakäytäntö",
+  "settingsAccountSection": "Tili"
 }

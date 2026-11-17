@@ -55,5 +55,6 @@
   "settingsSoundEffects": "เอฟเฟกต์เสียง",
   "settingsSupportSection": "ช่วยเหลือ",
   "settingsTerms": "ข้อกำหนดการใช้งาน",
-  "settingsPrivacyPolicy": "นโยบายความเป็นส่วนตัว"
+  "settingsPrivacyPolicy": "นโยบายความเป็นส่วนตัว",
+  "settingsAccountSection": "บัญชี"
 }

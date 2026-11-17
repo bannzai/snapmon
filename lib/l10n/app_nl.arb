@@ -55,5 +55,6 @@
   "settingsSoundEffects": "Geluidseffecten",
   "settingsSupportSection": "Hulp",
   "settingsTerms": "Gebruiksvoorwaarden",
-  "settingsPrivacyPolicy": "Privacybeleid"
+  "settingsPrivacyPolicy": "Privacybeleid",
+  "settingsAccountSection": "Account"
 }

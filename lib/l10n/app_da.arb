@@ -55,5 +55,6 @@
   "settingsSoundEffects": "Lydeffekter",
   "settingsSupportSection": "Hjælp",
   "settingsTerms": "Brugsvilkår",
-  "settingsPrivacyPolicy": "Privatlivspolitik"
+  "settingsPrivacyPolicy": "Privatlivspolitik",
+  "settingsAccountSection": "Konto"
 }

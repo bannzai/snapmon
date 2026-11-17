@@ -55,5 +55,6 @@
   "settingsSoundEffects": "Звуковые эффекты",
   "settingsSupportSection": "Поддержка",
   "settingsTerms": "Условия использования",
-  "settingsPrivacyPolicy": "Политика конфиденциальности"
+  "settingsPrivacyPolicy": "Политика конфиденциальности",
+  "settingsAccountSection": "Аккаунт"
 }
