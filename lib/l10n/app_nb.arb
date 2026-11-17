@@ -318,5 +318,6 @@
   "helpTypeHeading": "Typers effektivitet (svakheter)",
   "helpTypeBody": "Skaden avhenger av angrepets type og motstanderens type\nVelg et angrep med en type motstanderen er svak mot, så gjør du stor skade\nPilen på angrepsknappen viser effektivitet mot motstanderen du møter nå",
   "helpTypeSuperEffective": "Supereffektivt! Skade ×2",
-  "helpTypeNotVeryEffective": "Ikke særlig effektivt, skade ×0.5"
+  "helpTypeNotVeryEffective": "Ikke særlig effektivt, skade ×0.5",
+  "helpTypeDualNote": "Har motstanderen to typer, ganger du de to faktorene sammen\nSe all effektivitet i «Typeeffektivitet og angrep» i samlingen"
 }

@@ -318,5 +318,6 @@
   "helpTypeHeading": "屬性相剋（弱點）",
   "helpTypeBody": "傷害取決於招式的屬性和對手的屬性\n選擇能相剋對手弱點屬性的招式，就能造成大量傷害\n招式按鈕上的箭頭顯示對目前對手的相剋效果",
   "helpTypeSuperEffective": "效果絕佳！傷害 2 倍",
-  "helpTypeNotVeryEffective": "效果不太好，傷害 ×0.5"
+  "helpTypeNotVeryEffective": "效果不太好，傷害 ×0.5",
+  "helpTypeDualNote": "對手有兩種屬性時，將兩個倍率相乘\n所有相剋關係都能在圖鑑的「屬性相剋與招式一覽」查看"
 }

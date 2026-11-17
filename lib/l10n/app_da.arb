@@ -318,5 +318,6 @@
   "helpTypeHeading": "Elementers effektivitet (svagheder)",
   "helpTypeBody": "Skaden afhænger af angrebets element og modstanderens element\nVælg et angreb med et element, som modstanderen er svag over for, og gør stor skade\nPilen på angrebsknappen viser, hvor effektivt det er mod modstanderen",
   "helpTypeSuperEffective": "Det er supereffektivt! Skade ×2",
-  "helpTypeNotVeryEffective": "Ikke særlig effektivt, skade ×0.5"
+  "helpTypeNotVeryEffective": "Ikke særlig effektivt, skade ×0.5",
+  "helpTypeDualNote": "Har modstanderen to elementer, ganges de to faktorer sammen\nSe al effektivitet i »Elementers effektivitet og angreb« i din dex"
 }

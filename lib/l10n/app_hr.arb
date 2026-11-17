@@ -318,5 +318,6 @@
   "helpTypeHeading": "Učinkovitost elemenata (slabosti)",
   "helpTypeBody": "Šteta ovisi o elementu poteza i elementu protivnika\nOdaberi potez s elementom na koji je protivnik slab za veliku štetu\nStrelica na gumbu poteza pokazuje njegovu učinkovitost protiv trenutačnog protivnika",
   "helpTypeSuperEffective": "Superučinkovito! Šteta ×2",
-  "helpTypeNotVeryEffective": "Nije baš učinkovito, šteta ×0.5"
+  "helpTypeNotVeryEffective": "Nije baš učinkovito, šteta ×0.5",
+  "helpTypeDualNote": "Ako protivnik ima dva elementa, pomnoži oba množitelja\nSvu učinkovitost pogledaj u enciklopediji pod „Učinkovitost elemenata i popis poteza”"
 }

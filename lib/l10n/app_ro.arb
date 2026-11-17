@@ -318,5 +318,6 @@
   "helpTypeHeading": "Eficacitatea elementelor (slăbiciuni)",
   "helpTypeBody": "Daunele depind de elementul mișcării și de elementul adversarului\nAlege o mișcare cu elementul la care adversarul este vulnerabil ca să provoci daune mari\nSăgeata de pe butonul mișcării arată eficacitatea ei împotriva adversarului actual",
   "helpTypeSuperEffective": "E foarte eficient! Daune ×2",
-  "helpTypeNotVeryEffective": "Nu e prea eficient, daune ×0.5"
+  "helpTypeNotVeryEffective": "Nu e prea eficient, daune ×0.5",
+  "helpTypeDualNote": "Dacă adversarul are două elemente, înmulțește cei doi multiplicatori\nVezi toată eficacitatea în enciclopedie, la „Eficacitatea elementelor și lista de mișcări”"
 }

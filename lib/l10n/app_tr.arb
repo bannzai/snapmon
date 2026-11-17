@@ -318,5 +318,6 @@
   "helpTypeHeading": "Element uyumu (zayıflıklar)",
   "helpTypeBody": "Hasar, hamlenin elementiyle rakibin elementine göre değişir\nRakibin zayıf olduğu elementten bir hamle seçerek büyük hasar ver\nHamle düğmesindeki ok, mevcut rakibe karşı uyumu gösterir",
   "helpTypeSuperEffective": "Çok etkili! Hasar ×2",
-  "helpTypeNotVeryEffective": "Pek etkili değil, hasar ×0.5"
+  "helpTypeNotVeryEffective": "Pek etkili değil, hasar ×0.5",
+  "helpTypeDualNote": "Rakibin iki elementi varsa iki çarpanı birbiriyle çarp\nTüm uyumları ansiklopedideki “Element uyumu ve hamle listesi” bölümünde gör"
 }
