@@ -83,5 +83,6 @@
   "captureCameraUnavailable": "La càmera no està disponible\nTria una foto de l'àlbum",
   "captureDexCount": "enciclopèdia {monsterCount}",
   "captureFirstHintAlbum": "Tria una foto d'un objecte que tinguis a prop",
-  "captureFirstHintCamera": "Fes una foto a un objecte del teu voltant"
+  "captureFirstHintCamera": "Fes una foto a un objecte del teu voltant",
+  "captureHero": "Fes una foto a un objecte del teu voltant\nNeix un monstre!"
 }

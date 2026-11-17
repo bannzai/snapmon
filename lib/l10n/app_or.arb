@@ -83,5 +83,6 @@
   "captureCameraUnavailable": "କ୍ୟାମେରା ବ୍ୟବହାର କରିହେଉନାହିଁ\nଆଲବମରୁ ଫଟୋ ବାଛ",
   "captureDexCount": "ବିଶ୍ୱକୋଷ {monsterCount}",
   "captureFirstHintAlbum": "ଆଖପାଖର କୌଣସି ଜିନିଷର 1ଟି ଫଟୋ ବାଛ",
-  "captureFirstHintCamera": "ଆଖପାଖର ଗୋଟିଏ ଜିନିଷର ଫଟୋ ଉଠାଅ"
+  "captureFirstHintCamera": "ଆଖପାଖର ଗୋଟିଏ ଜିନିଷର ଫଟୋ ଉଠାଅ",
+  "captureHero": "ଆଖପାଖର କୌଣସି ଜିନିଷର ଫଟୋ ଉଠାଅ\nମନଷ୍ଟର ଜନ୍ମ ନେବ!"
 }

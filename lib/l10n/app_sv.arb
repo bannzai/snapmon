@@ -83,5 +83,6 @@
   "captureCameraUnavailable": "Kameran är inte tillgänglig\nVälj en bild från albumet",
   "captureDexCount": "samling {monsterCount}",
   "captureFirstHintAlbum": "Välj en bild på ett föremål i din närhet",
-  "captureFirstHintCamera": "Ta en bild på en sak i din närhet"
+  "captureFirstHintCamera": "Ta en bild på en sak i din närhet",
+  "captureHero": "Fota en sak omkring dig\nEtt monster föds!"
 }

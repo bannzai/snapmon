@@ -83,5 +83,6 @@
   "captureCameraUnavailable": "Kamera nije dostupna\nOdaberi fotografiju iz albuma",
   "captureDexCount": "enciklopedija {monsterCount}",
   "captureFirstHintAlbum": "Odaberi jednu fotku predmeta oko sebe",
-  "captureFirstHintCamera": "Fotografiraj jedan predmet oko sebe"
+  "captureFirstHintCamera": "Fotografiraj jedan predmet oko sebe",
+  "captureHero": "Fotografiraj predmet oko sebe\nRađa se čudovište!"
 }

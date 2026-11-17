@@ -83,5 +83,6 @@
   "captureCameraUnavailable": "相机无法使用\n请从相册中选一张照片",
   "captureDexCount": "图鉴 {monsterCount}",
   "captureFirstHintAlbum": "选一张身边物品的照片吧",
-  "captureFirstHintCamera": "拍一件身边的东西"
+  "captureFirstHintCamera": "拍一件身边的东西",
+  "captureHero": "拍下身边的物品\n怪物诞生了！"
 }

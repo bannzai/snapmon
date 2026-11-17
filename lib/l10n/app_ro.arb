@@ -83,5 +83,6 @@
   "captureCameraUnavailable": "Camera nu este disponibilă\nAlege o fotografie din album",
   "captureDexCount": "enciclopedie {monsterCount}",
   "captureFirstHintAlbum": "Alege o poză cu un obiect din jurul tău",
-  "captureFirstHintCamera": "Fotografiază un obiect din jurul tău"
+  "captureFirstHintCamera": "Fotografiază un obiect din jurul tău",
+  "captureHero": "Fotografiază un obiect din jurul tău\nSe naște un monstru!"
 }

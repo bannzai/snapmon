@@ -83,5 +83,6 @@
   "captureCameraUnavailable": "카메라를 사용할 수 없어요\n앨범에서 사진을 골라 주세요",
   "captureDexCount": "도감 {monsterCount}",
   "captureFirstHintAlbum": "주변 물건의 사진 1장을 골라요",
-  "captureFirstHintCamera": "주변 물건 하나를 찍어봐요"
+  "captureFirstHintCamera": "주변 물건 하나를 찍어봐요",
+  "captureHero": "주변 물건을 찍어요\n몬스터가 태어나요!"
 }

@@ -83,5 +83,6 @@
   "captureCameraUnavailable": "ใช้กล้องไม่ได้\nเลือกรูปจากอัลบั้ม",
   "captureDexCount": "สารานุกรม {monsterCount}",
   "captureFirstHintAlbum": "เลือกรูปสิ่งของรอบตัวมา 1 รูป",
-  "captureFirstHintCamera": "ถ่ายรูปสิ่งของใกล้ตัวสักชิ้น"
+  "captureFirstHintCamera": "ถ่ายรูปสิ่งของใกล้ตัวสักชิ้น",
+  "captureHero": "ถ่ายรูปสิ่งของรอบตัว\nมอนสเตอร์ถือกำเนิด!"
 }

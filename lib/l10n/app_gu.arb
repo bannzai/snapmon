@@ -83,5 +83,6 @@
   "captureCameraUnavailable": "કૅમેરા વાપરી શકાતો નથી\nઆલ્બમમાંથી ફોટો પસંદ કરો",
   "captureDexCount": "ડેક્સ {monsterCount}",
   "captureFirstHintAlbum": "આસપાસની કોઈ વસ્તુનો 1 ફોટો પસંદ કરો",
-  "captureFirstHintCamera": "આસપાસની એક વસ્તુનો ફોટો પાડો"
+  "captureFirstHintCamera": "આસપાસની એક વસ્તુનો ફોટો પાડો",
+  "captureHero": "આસપાસની કોઈ વસ્તુનો ફોટો પાડો\nમોન્સ્ટર જન્મે છે!"
 }

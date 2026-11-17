@@ -83,5 +83,6 @@
   "captureCameraUnavailable": "Камера недоступна\nВибери фото з альбому",
   "captureDexCount": "енциклопедія {monsterCount}",
   "captureFirstHintAlbum": "Вибери одне фото предмета навколо себе",
-  "captureFirstHintCamera": "Сфотографуй один предмет навколо себе"
+  "captureFirstHintCamera": "Сфотографуй один предмет навколо себе",
+  "captureHero": "Сфотографуй предмет поруч із собою\nНародиться монстр!"
 }

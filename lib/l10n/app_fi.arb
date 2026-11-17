@@ -83,5 +83,6 @@
   "captureCameraUnavailable": "Kamera ei ole käytettävissä\nValitse kuva albumista",
   "captureDexCount": "kokoelma {monsterCount}",
   "captureFirstHintAlbum": "Valitse yksi kuva lähelläsi olevasta esineestä",
-  "captureFirstHintCamera": "Ota kuva yhdestä esineestä ympärilläsi"
+  "captureFirstHintCamera": "Ota kuva yhdestä esineestä ympärilläsi",
+  "captureHero": "Kuvaa esine ympäriltäsi\nHirviö syntyy!"
 }

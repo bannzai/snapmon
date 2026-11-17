@@ -83,5 +83,6 @@
   "captureCameraUnavailable": "Kamera tak dapat digunakan\nPilih foto daripada album",
   "captureDexCount": "ensiklopedia {monsterCount}",
   "captureFirstHintAlbum": "Pilih 1 foto barang di sekeliling kamu",
-  "captureFirstHintCamera": "Ambil gambar satu benda di sekeliling kamu"
+  "captureFirstHintCamera": "Ambil gambar satu benda di sekeliling kamu",
+  "captureHero": "Ambil gambar benda di sekelilingmu\nMonster pun lahir!"
 }

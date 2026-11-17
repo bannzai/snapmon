@@ -83,5 +83,6 @@
   "captureCameraUnavailable": "De camera is niet beschikbaar\nKies een foto uit je album",
   "captureDexCount": "dex {monsterCount}",
   "captureFirstHintAlbum": "Kies één foto van een voorwerp om je heen",
-  "captureFirstHintCamera": "Maak een foto van één voorwerp om je heen"
+  "captureFirstHintCamera": "Maak een foto van één voorwerp om je heen",
+  "captureHero": "Fotografeer iets om je heen\nEr wordt een monster geboren!"
 }

@@ -83,5 +83,6 @@
   "captureCameraUnavailable": "Kamera kullanılamıyor\nAlbümden bir fotoğraf seç",
   "captureDexCount": "ansiklopedi {monsterCount}",
   "captureFirstHintAlbum": "Etrafındaki bir eşyanın 1 fotoğrafını seç",
-  "captureFirstHintCamera": "Etrafındaki bir eşyanın fotoğrafını çek"
+  "captureFirstHintCamera": "Etrafındaki bir eşyanın fotoğrafını çek",
+  "captureHero": "Etrafındaki bir eşyanın fotoğrafını çek\nBir canavar doğar!"
 }

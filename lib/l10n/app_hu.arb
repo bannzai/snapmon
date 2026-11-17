@@ -83,5 +83,6 @@
   "captureCameraUnavailable": "A kamera nem érhető el\nVálassz képet az albumból",
   "captureDexCount": "gyűjtemény {monsterCount}",
   "captureFirstHintAlbum": "Válassz egy fotót egy körülötted lévő tárgyról",
-  "captureFirstHintCamera": "Fotózz le egy tárgyat magad körül"
+  "captureFirstHintCamera": "Fotózz le egy tárgyat magad körül",
+  "captureHero": "Fotózz le egy tárgyat magad körül\nMegszületik egy szörny!"
 }

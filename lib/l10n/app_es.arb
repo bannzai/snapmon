@@ -83,5 +83,6 @@
   "captureCameraUnavailable": "La cámara no está disponible\nElige una foto del álbum",
   "captureDexCount": "colección {monsterCount}",
   "captureFirstHintAlbum": "Elige una foto de un objeto que tengas cerca",
-  "captureFirstHintCamera": "Toma una foto de un objeto a tu alrededor"
+  "captureFirstHintCamera": "Toma una foto de un objeto a tu alrededor",
+  "captureHero": "Fotografía algo que tengas cerca\n¡Nace un monstruo!"
 }

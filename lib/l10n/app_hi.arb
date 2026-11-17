@@ -83,5 +83,6 @@
   "captureCameraUnavailable": "कैमरा इस्तेमाल नहीं हो पा रहा है\nएल्बम से फ़ोटो चुनो",
   "captureDexCount": "संग्रह {monsterCount}",
   "captureFirstHintAlbum": "आसपास की किसी चीज़ की 1 फ़ोटो चुनो",
-  "captureFirstHintCamera": "आसपास की किसी एक चीज़ की फ़ोटो लो"
+  "captureFirstHintCamera": "आसपास की किसी एक चीज़ की फ़ोटो लो",
+  "captureHero": "आसपास की किसी चीज़ की फ़ोटो लो\nमॉन्स्टर जन्म लेगा!"
 }

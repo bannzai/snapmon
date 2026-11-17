@@ -83,5 +83,6 @@
   "captureCameraUnavailable": "Die Kamera ist nicht verfügbar\nWähle ein Foto aus deinem Album",
   "captureDexCount": "Dex {monsterCount}",
   "captureFirstHintAlbum": "Such ein Foto von einem Gegenstand aus deinem Alltag aus",
-  "captureFirstHintCamera": "Fotografiere einen Gegenstand um dich herum"
+  "captureFirstHintCamera": "Fotografiere einen Gegenstand um dich herum",
+  "captureHero": "Fotografiere etwas um dich herum\nEin Monster wird geboren!"
 }

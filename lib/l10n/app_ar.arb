@@ -83,5 +83,6 @@
   "captureCameraUnavailable": "الكاميرا غير متاحة\nاختر صورة من ألبوم الصور",
   "captureDexCount": "موسوعة {monsterCount}",
   "captureFirstHintAlbum": "اختر صورة واحدة لشيء من حولك",
-  "captureFirstHintCamera": "صوّر شيئًا واحدًا من حولك"
+  "captureFirstHintCamera": "صوّر شيئًا واحدًا من حولك",
+  "captureHero": "صوّر شيئًا من حولك\nيولد وحش!"
 }

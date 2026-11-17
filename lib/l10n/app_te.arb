@@ -83,5 +83,6 @@
   "captureCameraUnavailable": "కెమెరా ఉపయోగించలేకపోతున్నాం\nఆల్బమ్ నుంచి ఫోటో ఎంచుకో",
   "captureDexCount": "డెక్స్ {monsterCount}",
   "captureFirstHintAlbum": "చుట్టూ ఉన్న ఏదైనా వస్తువు ఫోటో 1టి ఎంచుకో",
-  "captureFirstHintCamera": "చుట్టూ ఉన్న ఒక వస్తువును ఫోటో తీయి"
+  "captureFirstHintCamera": "చుట్టూ ఉన్న ఒక వస్తువును ఫోటో తీయి",
+  "captureHero": "చుట్టూ ఉన్న వస్తువును ఫోటో తీయి\nమాన్స్టర్ పుడుతుంది!"
 }

@@ -83,5 +83,6 @@
   "captureCameraUnavailable": "ক্যামেরা ব্যবহার করা যাচ্ছে না\nঅ্যালবাম থেকে ছবি বেছে নাও",
   "captureDexCount": "সংগ্রহ {monsterCount}",
   "captureFirstHintAlbum": "চারপাশের কোনো জিনিসের ১টি ছবি বেছে নাও",
-  "captureFirstHintCamera": "চারপাশের একটা জিনিসের ছবি তোলো"
+  "captureFirstHintCamera": "চারপাশের একটা জিনিসের ছবি তোলো",
+  "captureHero": "চারপাশের জিনিসের ছবি তোলো\nজন্ম নেবে এক মনস্টার!"
 }
