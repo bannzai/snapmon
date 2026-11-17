@@ -195,5 +195,6 @@
   "statusConditionPoison": "독",
   "statusConditionParalysis": "마비",
   "statusConditionStun": "기절",
-  "statusConditionBurn": "화상"
+  "statusConditionBurn": "화상",
+  "statusConditionDrowsy": "졸음"
 }

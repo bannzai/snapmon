@@ -195,5 +195,6 @@
   "statusConditionPoison": "Racun",
   "statusConditionParalysis": "Lumpuh",
   "statusConditionStun": "Pingsan",
-  "statusConditionBurn": "Luka bakar"
+  "statusConditionBurn": "Luka bakar",
+  "statusConditionDrowsy": "Mengantuk"
 }

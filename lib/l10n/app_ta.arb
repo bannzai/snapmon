@@ -195,5 +195,6 @@
   "statusConditionPoison": "நஞ்சு",
   "statusConditionParalysis": "பக்கவாதம்",
   "statusConditionStun": "மயக்கம்",
-  "statusConditionBurn": "தீக்காயம்"
+  "statusConditionBurn": "தீக்காயம்",
+  "statusConditionDrowsy": "தூக்கக் கலக்கம்"
 }

@@ -195,5 +195,6 @@
   "statusConditionPoison": "Zastrupitev",
   "statusConditionParalysis": "Paraliza",
   "statusConditionStun": "Omamljenost",
-  "statusConditionBurn": "Opeklina"
+  "statusConditionBurn": "Opeklina",
+  "statusConditionDrowsy": "Zaspanost"
 }

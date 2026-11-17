@@ -195,5 +195,6 @@
   "statusConditionPoison": "Racun",
   "statusConditionParalysis": "Lumpuh",
   "statusConditionStun": "Pengsan",
-  "statusConditionBurn": "Melecur"
+  "statusConditionBurn": "Melecur",
+  "statusConditionDrowsy": "Mengantuk"
 }

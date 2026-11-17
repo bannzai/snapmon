@@ -195,5 +195,6 @@
   "statusConditionPoison": "Méreg",
   "statusConditionParalysis": "Bénulás",
   "statusConditionStun": "Kábulat",
-  "statusConditionBurn": "Égés"
+  "statusConditionBurn": "Égés",
+  "statusConditionDrowsy": "Álmosság"
 }

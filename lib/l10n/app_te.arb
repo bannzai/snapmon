@@ -195,5 +195,6 @@
   "statusConditionPoison": "విషం",
   "statusConditionParalysis": "పక్షవాతం",
   "statusConditionStun": "స్పృహ తప్పడం",
-  "statusConditionBurn": "కాలిన గాయం"
+  "statusConditionBurn": "కాలిన గాయం",
+  "statusConditionDrowsy": "కునుకుపాటు"
 }

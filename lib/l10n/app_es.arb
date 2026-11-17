@@ -195,5 +195,6 @@
   "statusConditionPoison": "Veneno",
   "statusConditionParalysis": "Parálisis",
   "statusConditionStun": "Aturdimiento",
-  "statusConditionBurn": "Quemadura"
+  "statusConditionBurn": "Quemadura",
+  "statusConditionDrowsy": "Somnolencia"
 }

@@ -195,5 +195,6 @@
   "statusConditionPoison": "ज़हर",
   "statusConditionParalysis": "लकवा",
   "statusConditionStun": "बेहोशी",
-  "statusConditionBurn": "जलन"
+  "statusConditionBurn": "जलन",
+  "statusConditionDrowsy": "उनींदापन"
 }

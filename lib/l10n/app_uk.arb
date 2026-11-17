@@ -195,5 +195,6 @@
   "statusConditionPoison": "Отрута",
   "statusConditionParalysis": "Параліч",
   "statusConditionStun": "Оглушення",
-  "statusConditionBurn": "Опік"
+  "statusConditionBurn": "Опік",
+  "statusConditionDrowsy": "Сонливість"
 }

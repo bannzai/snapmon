@@ -195,5 +195,6 @@
   "statusConditionPoison": "Otravă",
   "statusConditionParalysis": "Paralizie",
   "statusConditionStun": "Amețeală",
-  "statusConditionBurn": "Arsură"
+  "statusConditionBurn": "Arsură",
+  "statusConditionDrowsy": "Somnolență"
 }

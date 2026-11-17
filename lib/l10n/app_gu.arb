@@ -195,5 +195,6 @@
   "statusConditionPoison": "ઝેર",
   "statusConditionParalysis": "લકવો",
   "statusConditionStun": "બેભાન",
-  "statusConditionBurn": "દાઝ"
+  "statusConditionBurn": "દાઝ",
+  "statusConditionDrowsy": "ઘેન"
 }

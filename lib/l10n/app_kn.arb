@@ -195,5 +195,6 @@
   "statusConditionPoison": "ವಿಷ",
   "statusConditionParalysis": "ಪಾರ್ಶ್ವವಾಯು",
   "statusConditionStun": "ಪ್ರಜ್ಞಾಹೀನ",
-  "statusConditionBurn": "ಸುಟ್ಟ ಗಾಯ"
+  "statusConditionBurn": "ಸುಟ್ಟ ಗಾಯ",
+  "statusConditionDrowsy": "ತೂಕಡಿಕೆ"
 }

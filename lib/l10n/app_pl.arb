@@ -195,5 +195,6 @@
   "statusConditionPoison": "Zatrucie",
   "statusConditionParalysis": "Paraliż",
   "statusConditionStun": "Ogłuszenie",
-  "statusConditionBurn": "Poparzenie"
+  "statusConditionBurn": "Poparzenie",
+  "statusConditionDrowsy": "Senność"
 }

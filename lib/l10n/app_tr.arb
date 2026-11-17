@@ -195,5 +195,6 @@
   "statusConditionPoison": "Zehir",
   "statusConditionParalysis": "Felç",
   "statusConditionStun": "Sersemleme",
-  "statusConditionBurn": "Yanık"
+  "statusConditionBurn": "Yanık",
+  "statusConditionDrowsy": "Uyuklama"
 }

@@ -195,5 +195,6 @@
   "statusConditionPoison": "พิษ",
   "statusConditionParalysis": "อัมพาต",
   "statusConditionStun": "หมดสติ",
-  "statusConditionBurn": "แผลไหม้"
+  "statusConditionBurn": "แผลไหม้",
+  "statusConditionDrowsy": "ง่วงนอน"
 }

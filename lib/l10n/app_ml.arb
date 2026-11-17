@@ -195,5 +195,6 @@
   "statusConditionPoison": "വിഷം",
   "statusConditionParalysis": "തളർച്ച",
   "statusConditionStun": "ബോധക്ഷയം",
-  "statusConditionBurn": "പൊള്ളൽ"
+  "statusConditionBurn": "പൊള്ളൽ",
+  "statusConditionDrowsy": "മയക്കം"
 }

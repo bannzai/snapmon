@@ -195,5 +195,6 @@
   "statusConditionPoison": "ਜ਼ਹਿਰ",
   "statusConditionParalysis": "ਅਧਰੰਗ",
   "statusConditionStun": "ਬੇਹੋਸ਼",
-  "statusConditionBurn": "ਸੜਨ"
+  "statusConditionBurn": "ਸੜਨ",
+  "statusConditionDrowsy": "ਊਂਘ"
 }

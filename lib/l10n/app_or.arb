@@ -195,5 +195,6 @@
   "statusConditionPoison": "ବିଷ",
   "statusConditionParalysis": "ପକ୍ଷାଘାତ",
   "statusConditionStun": "ଅଚେତ",
-  "statusConditionBurn": "ପୋଡ଼ା"
+  "statusConditionBurn": "ପୋଡ଼ା",
+  "statusConditionDrowsy": "ଘୁମଘୁମ ଭାବ"
 }

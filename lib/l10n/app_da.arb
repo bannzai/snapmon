@@ -195,5 +195,6 @@
   "statusConditionPoison": "Gift",
   "statusConditionParalysis": "Lammelse",
   "statusConditionStun": "Bedøvet",
-  "statusConditionBurn": "Forbrænding"
+  "statusConditionBurn": "Forbrænding",
+  "statusConditionDrowsy": "Døsighed"
 }

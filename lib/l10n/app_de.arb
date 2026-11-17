@@ -195,5 +195,6 @@
   "statusConditionPoison": "Gift",
   "statusConditionParalysis": "Paralyse",
   "statusConditionStun": "Betäubt",
-  "statusConditionBurn": "Verbrennung"
+  "statusConditionBurn": "Verbrennung",
+  "statusConditionDrowsy": "Schläfrigkeit"
 }

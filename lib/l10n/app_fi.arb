@@ -195,5 +195,6 @@
   "statusConditionPoison": "Myrkky",
   "statusConditionParalysis": "Halvaus",
   "statusConditionStun": "Tyrmätty",
-  "statusConditionBurn": "Palovamma"
+  "statusConditionBurn": "Palovamma",
+  "statusConditionDrowsy": "Uneliaisuus"
 }
