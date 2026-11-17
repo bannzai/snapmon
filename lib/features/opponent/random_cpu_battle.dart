@@ -10,7 +10,7 @@ import 'cpu_party.dart';
 import 'pvp_client.dart';
 
 /// 定義を読み直し、乱数で決めた CPU の相手と [dexStore] の今の手持ちで戦う対戦の画面を作る。
-/// 対戦のシーンの「ランダムな相手と戦う」と、勝敗の画面の「もう一回対戦する」が開く。
+/// 対戦のシーンの「ランダムな相手と戦う」「CPU と戦う」と、勝敗の画面の「もう一回対戦する」が開く。
 /// 図鑑の定義を読み直せない時 ([prepareBattleDefinitions]) と手持ちが空の時は例外を投げる。
 /// [playerProfile] は自分の札に出すアイコンと表示名で、読めていない時は null。
 Future<BattleScreen> prepareRandomCpuBattleScreen({

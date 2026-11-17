@@ -39,6 +39,7 @@
   "opponentSearchAgain": "Search again",
   "opponentNoneAvailable": "No trainers available to battle right now\nYou can battle a CPU trainer",
   "opponentRandomBattle": "Battle a random opponent",
+  "opponentCpuBattle": "Battle the CPU",
   "settingsLinked": "Linked with {providerName}",
   "settingsSwitchAccountMessage": "This {providerName} account is already linked on another device. If you switch, this device's Dex ({monsterCount, plural, =1{1 monster} other{{monsterCount} monsters}}) will be deleted, and you'll switch to the linked account's Dex.",
   "settingsSwitchAccountConfirm": "Switch",

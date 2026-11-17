@@ -26,6 +26,8 @@ import 'random_cpu_battle.dart';
 /// 初回のバトルと同じ決め方 ([chooseRandomCpuOpponent]) で CPU の相手を決めて挑む。相手の一覧は出さない
 /// (対戦の相手は毎回ランダム。issue #217)。他のユーザーの手持ち (Functions の fetchOpponents) は相手にしない
 /// (本人の操作なしに他人の手持ちを CPU に操作させないため。issue #130)。
+/// 「CPU と戦う」は CPU との対戦の入口を「ランダムな相手と戦う」と分けて置いたもの (issue #347)。
+/// PvP の形が決まるまで相手は CPU だけのため、2 つの入口は同じ対戦に入る。
 class OpponentScreen extends StatefulWidget {
   /// 対戦相手の画面を作る。
   const OpponentScreen({
@@ -367,6 +369,13 @@ class _OpponentScreenState extends State<OpponentScreen> {
             onPressed: canChallenge ? _challengeRandomOpponent : null,
             icon: const Icon(Icons.shuffle),
             label: Text(context.l10n.opponentRandomBattle),
+          ),
+          const SizedBox(height: 12),
+          OutlinedButton.icon(
+            key: const Key('cpu-battle'),
+            onPressed: canChallenge ? _challengeRandomOpponent : null,
+            icon: const Icon(Icons.smart_toy_outlined),
+            label: Text(context.l10n.opponentCpuBattle),
           ),
         ],
       );
