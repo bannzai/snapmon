@@ -37,5 +37,6 @@
   "opponentEmptyPartyNote": "ଦଳରେ ମନଷ୍ଟର ଯୋଡ଼, ତା’ପରେ ଆହ୍ୱାନ କରିପାରିବ",
   "opponentFindOthers": "ଅନ୍ୟ ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀଙ୍କୁ ଖୋଜ",
   "opponentAverageLevel": "ହାରାହାରି Lv. {level}",
-  "opponentReportHelpPrompt": "ପ୍ରତିପକ୍ଷର ମନଷ୍ଟରକୁ ନେଇ କିଛି ସମସ୍ୟା ଅଛି?"
+  "opponentReportHelpPrompt": "ପ୍ରତିପକ୍ଷର ମନଷ୍ଟରକୁ ନେଇ କିଛି ସମସ୍ୟା ଅଛି?",
+  "opponentSearching": "ଟ୍ରେନର ଖୋଜା ଚାଲିଛି"
 }

@@ -37,5 +37,6 @@
   "opponentEmptyPartyNote": "Dodaj čudovište u tim pa možeš izazvati protivnika",
   "opponentFindOthers": "Pronađi druge protivnike",
   "opponentAverageLevel": "Prosječna Lv. {level}",
-  "opponentReportHelpPrompt": "Problem s čudovištem protivnika?"
+  "opponentReportHelpPrompt": "Problem s čudovištem protivnika?",
+  "opponentSearching": "Traži se trener"
 }

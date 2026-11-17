@@ -37,5 +37,6 @@
   "opponentEmptyPartyNote": "Tegyél szörnyet a csapatodba, és már kihívhatod az ellenfelet",
   "opponentFindOthers": "Keress más ellenfeleket",
   "opponentAverageLevel": "Átlagos Lv. {level}",
-  "opponentReportHelpPrompt": "Gond van az ellenfél szörnyével?"
+  "opponentReportHelpPrompt": "Gond van az ellenfél szörnyével?",
+  "opponentSearching": "Edző keresése"
 }

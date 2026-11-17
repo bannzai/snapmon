@@ -37,5 +37,6 @@
   "opponentEmptyPartyNote": "Додай монстра до команди, щоб кинути виклик",
   "opponentFindOthers": "Знайди інших суперників",
   "opponentAverageLevel": "Середній Lv. {level}",
-  "opponentReportHelpPrompt": "Проблема з монстром суперника?"
+  "opponentReportHelpPrompt": "Проблема з монстром суперника?",
+  "opponentSearching": "Шукаємо тренера"
 }

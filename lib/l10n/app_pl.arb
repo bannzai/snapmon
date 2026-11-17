@@ -37,5 +37,6 @@
   "opponentEmptyPartyNote": "Dodaj potwora do drużyny, by móc rzucić wyzwanie",
   "opponentFindOthers": "Znajdź innych rywali",
   "opponentAverageLevel": "Średni Lv. {level}",
-  "opponentReportHelpPrompt": "Problem z potworem przeciwnika?"
+  "opponentReportHelpPrompt": "Problem z potworem przeciwnika?",
+  "opponentSearching": "Trwa szukanie trenera"
 }

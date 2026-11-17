@@ -37,5 +37,6 @@
   "opponentEmptyPartyNote": "Zet een monster in je team om te kunnen uitdagen",
   "opponentFindOthers": "Zoek andere tegenstanders",
   "opponentAverageLevel": "Gemiddelde Lv. {level}",
-  "opponentReportHelpPrompt": "Probleem met het monster van je tegenstander?"
+  "opponentReportHelpPrompt": "Probleem met het monster van je tegenstander?",
+  "opponentSearching": "Zoeken naar een trainer"
 }

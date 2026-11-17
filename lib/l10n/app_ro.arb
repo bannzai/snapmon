@@ -37,5 +37,6 @@
   "opponentEmptyPartyNote": "Adaugă un monstru în echipă ca să poți provoca",
   "opponentFindOthers": "Caută alți adversari",
   "opponentAverageLevel": "Lv. mediu {level}",
-  "opponentReportHelpPrompt": "Vreo problemă cu monstrul adversarului?"
+  "opponentReportHelpPrompt": "Vreo problemă cu monstrul adversarului?",
+  "opponentSearching": "Se caută un antrenor"
 }

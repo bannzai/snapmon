@@ -37,5 +37,6 @@
   "opponentEmptyPartyNote": "Lisää hirviö joukkueeseesi, niin voit haastaa",
   "opponentFindOthers": "Etsi muita vastustajia",
   "opponentAverageLevel": "Keskimääräinen Lv. {level}",
-  "opponentReportHelpPrompt": "Ongelma vastustajan hirviön kanssa?"
+  "opponentReportHelpPrompt": "Ongelma vastustajan hirviön kanssa?",
+  "opponentSearching": "Etsitään kouluttajaa"
 }

@@ -37,5 +37,6 @@
   "opponentEmptyPartyNote": "Aggiungi un mostro alla squadra per poter sfidare",
   "opponentFindOthers": "Cerca altri avversari",
   "opponentAverageLevel": "Lv. medio {level}",
-  "opponentReportHelpPrompt": "Problemi con il mostro avversario?"
+  "opponentReportHelpPrompt": "Problemi con il mostro avversario?",
+  "opponentSearching": "Cerco un allenatore"
 }

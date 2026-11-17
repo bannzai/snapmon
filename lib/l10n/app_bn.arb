@@ -37,5 +37,6 @@
   "opponentEmptyPartyNote": "দলে দানব যোগ করলে চ্যালেঞ্জ করতে পারবে",
   "opponentFindOthers": "অন্য প্রতিপক্ষ খোঁজো",
   "opponentAverageLevel": "গড় Lv. {level}",
-  "opponentReportHelpPrompt": "প্রতিপক্ষের মনস্টার নিয়ে সমস্যা?"
+  "opponentReportHelpPrompt": "প্রতিপক্ষের মনস্টার নিয়ে সমস্যা?",
+  "opponentSearching": "ট্রেনার খোঁজা হচ্ছে"
 }

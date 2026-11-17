@@ -37,5 +37,6 @@
   "opponentEmptyPartyNote": "Tambah raksasa ke dalam pasukan untuk mencabar",
   "opponentFindOthers": "Cari lawan lain",
   "opponentAverageLevel": "Purata Lv. {level}",
-  "opponentReportHelpPrompt": "Ada masalah dengan monster lawan?"
+  "opponentReportHelpPrompt": "Ada masalah dengan monster lawan?",
+  "opponentSearching": "Mencari jurulatih"
 }

@@ -37,5 +37,6 @@
   "opponentEmptyPartyNote": "Føj et monster til dit hold, så kan du udfordre",
   "opponentFindOthers": "Find andre modstandere",
   "opponentAverageLevel": "Gennemsnitlig Lv. {level}",
-  "opponentReportHelpPrompt": "Problemer med modstanderens monster?"
+  "opponentReportHelpPrompt": "Problemer med modstanderens monster?",
+  "opponentSearching": "Leder efter en træner"
 }

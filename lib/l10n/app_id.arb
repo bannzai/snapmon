@@ -37,5 +37,6 @@
   "opponentEmptyPartyNote": "Tambahkan monster ke timmu untuk bisa menantang",
   "opponentFindOthers": "Cari lawan lain",
   "opponentAverageLevel": "Rata-rata Lv. {level}",
-  "opponentReportHelpPrompt": "Ada masalah dengan monster lawan?"
+  "opponentReportHelpPrompt": "Ada masalah dengan monster lawan?",
+  "opponentSearching": "Mencari pelatih"
 }

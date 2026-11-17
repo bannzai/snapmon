@@ -37,5 +37,6 @@
   "opponentEmptyPartyNote": "ਟੀਮ ਵਿੱਚ ਮੌਂਸਟਰ ਸ਼ਾਮਲ ਕਰੋ, ਫਿਰ ਚੁਣੌਤੀ ਦੇ ਸਕੋਗੇ",
   "opponentFindOthers": "ਹੋਰ ਵਿਰੋਧੀ ਲੱਭੋ",
   "opponentAverageLevel": "ਔਸਤ Lv. {level}",
-  "opponentReportHelpPrompt": "ਵਿਰੋਧੀ ਦੇ ਮੌਂਸਟਰ ਨਾਲ ਕੋਈ ਸਮੱਸਿਆ ਹੈ?"
+  "opponentReportHelpPrompt": "ਵਿਰੋਧੀ ਦੇ ਮੌਂਸਟਰ ਨਾਲ ਕੋਈ ਸਮੱਸਿਆ ਹੈ?",
+  "opponentSearching": "ਟ੍ਰੇਨਰ ਦੀ ਭਾਲ ਜਾਰੀ ਹੈ"
 }

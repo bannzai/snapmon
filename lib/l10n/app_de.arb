@@ -37,5 +37,6 @@
   "opponentEmptyPartyNote": "Nimm ein Monster ins Team auf, dann kannst du herausfordern",
   "opponentFindOthers": "Finde andere Gegner",
   "opponentAverageLevel": "Durchschnittliche Lv. {level}",
-  "opponentReportHelpPrompt": "Problem mit dem Monster deines Gegners?"
+  "opponentReportHelpPrompt": "Problem mit dem Monster deines Gegners?",
+  "opponentSearching": "Suche nach einem Trainer"
 }

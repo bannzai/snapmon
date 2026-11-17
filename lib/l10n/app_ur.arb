@@ -37,5 +37,6 @@
   "opponentEmptyPartyNote": "ٹیم میں مونسٹر شامل کرو، پھر چیلنج کر سکو گے",
   "opponentFindOthers": "دوسرے حریف تلاش کرو",
   "opponentAverageLevel": "اوسط Lv. {level}",
-  "opponentReportHelpPrompt": "مخالف کے مونسٹر سے کوئی مسئلہ ہے؟"
+  "opponentReportHelpPrompt": "مخالف کے مونسٹر سے کوئی مسئلہ ہے؟",
+  "opponentSearching": "ٹرینر کی تلاش جاری ہے"
 }

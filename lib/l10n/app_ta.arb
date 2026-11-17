@@ -37,5 +37,6 @@
   "opponentEmptyPartyNote": "அணியில் ஒரு அரக்கனைச் சேருங்கள்; பிறகு சவால் விடலாம்",
   "opponentFindOthers": "மற்ற எதிராளிகளைத் தேடுங்கள்",
   "opponentAverageLevel": "சராசரி Lv. {level}",
-  "opponentReportHelpPrompt": "எதிராளியின் மான்ஸ்டருடன் ஏதேனும் சிக்கலா?"
+  "opponentReportHelpPrompt": "எதிராளியின் மான்ஸ்டருடன் ஏதேனும் சிக்கலா?",
+  "opponentSearching": "பயிற்சியாளரைத் தேடுகிறோம்"
 }
