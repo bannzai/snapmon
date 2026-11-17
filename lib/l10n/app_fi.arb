@@ -238,5 +238,6 @@
   "referenceOpen": "Elementtien tehokkuus ja liikkeiden lista",
   "referenceTitle": "Elementit ja liikkeet",
   "referenceTypeChartTab": "Tehokkuustaulukko",
-  "referenceMovesTab": "Liikkeiden lista"
+  "referenceMovesTab": "Liikkeiden lista",
+  "referenceTypeChartNote": "Pystyssä liikkeen elementti, vaakasuunnassa osuman saavan hirviön elementti\nJos osuman saavalla hirviöllä on kaksi elementtiä, kerro kertoimet keskenään"
 }

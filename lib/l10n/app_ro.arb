@@ -238,5 +238,6 @@
   "referenceOpen": "Eficacitatea elementelor și lista de mișcări",
   "referenceTitle": "Elemente și mișcări",
   "referenceTypeChartTab": "Tabel de eficacitate",
-  "referenceMovesTab": "Listă de mișcări"
+  "referenceMovesTab": "Listă de mișcări",
+  "referenceTypeChartNote": "Pe verticală: elementul mișcării. Pe orizontală: elementul monstrului care o primește\nDacă monstrul lovit are două elemente, înmulțește cei doi multiplicatori"
 }

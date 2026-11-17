@@ -238,5 +238,6 @@
   "referenceOpen": "Učinkovitost elemenata i popis poteza",
   "referenceTitle": "Elementi i potezi",
   "referenceTypeChartTab": "Tablica učinkovitosti",
-  "referenceMovesTab": "Popis poteza"
+  "referenceMovesTab": "Popis poteza",
+  "referenceTypeChartNote": "Okomito: element poteza. Vodoravno: element čudovišta koje prima potez\nAko pogođeno čudovište ima dva elementa, pomnoži oba množitelja"
 }

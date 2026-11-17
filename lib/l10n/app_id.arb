@@ -238,5 +238,6 @@
   "referenceOpen": "Efektivitas elemen dan daftar jurus",
   "referenceTitle": "Elemen dan jurus",
   "referenceTypeChartTab": "Tabel efektivitas",
-  "referenceMovesTab": "Daftar jurus"
+  "referenceMovesTab": "Daftar jurus",
+  "referenceTypeChartNote": "Vertikal: elemen jurus. Horizontal: elemen monster yang terkena jurus\nKalau monster yang terkena punya dua elemen, kalikan kedua pengalinya"
 }

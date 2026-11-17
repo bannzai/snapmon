@@ -238,5 +238,6 @@
   "referenceOpen": "Typeeffektivitet og liste over angrep",
   "referenceTitle": "type og angrep",
   "referenceTypeChartTab": "Effektivitetstabell",
-  "referenceMovesTab": "Liste over angrep"
+  "referenceMovesTab": "Liste over angrep",
+  "referenceTypeChartNote": "Loddrett: angrepets element. Vannrett: typen til monsteret som blir truffet\nHar monsteret som blir truffet to typer, ganger du de to faktorene"
 }

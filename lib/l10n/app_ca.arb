@@ -238,5 +238,6 @@
   "referenceOpen": "Eficàcia dels elements i llista de moviments",
   "referenceTitle": "Elements i moviments",
   "referenceTypeChartTab": "Taula d’eficàcia",
-  "referenceMovesTab": "Llista de moviments"
+  "referenceMovesTab": "Llista de moviments",
+  "referenceTypeChartNote": "Vertical: element del moviment. Horitzontal: element del monstre que el rep\nSi el monstre que el rep té dos elements, multiplica els dos factors"
 }

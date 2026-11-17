@@ -238,5 +238,6 @@
   "referenceOpen": "Element uyumu ve hamle listesi",
   "referenceTitle": "Elementler ve hamleler",
   "referenceTypeChartTab": "Uyum tablosu",
-  "referenceMovesTab": "Tüm hamleler"
+  "referenceMovesTab": "Tüm hamleler",
+  "referenceTypeChartNote": "Dikeyde hamlenin elementi, yatayda hamleyi alan canavarın elementi var\nHamleyi alan canavarın iki elementi varsa iki çarpanı birbiriyle çarp"
 }

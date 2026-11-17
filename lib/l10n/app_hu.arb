@@ -238,5 +238,6 @@
   "referenceOpen": "Típusok hatékonysága és támadások listája",
   "referenceTitle": "Típusok és támadások",
   "referenceTypeChartTab": "Hatékonysági táblázat",
-  "referenceMovesTab": "A támadások listája"
+  "referenceMovesTab": "A támadások listája",
+  "referenceTypeChartNote": "Függőlegesen a támadás típusa, vízszintesen a támadást elszenvedő szörny típusa\nHa az eltalált szörnynek két típusa van, szorozd össze a két szorzót"
 }

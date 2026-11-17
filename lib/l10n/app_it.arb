@@ -238,5 +238,6 @@
   "referenceOpen": "Efficacia degli elementi e lista delle mosse",
   "referenceTitle": "Elementi e mosse",
   "referenceTypeChartTab": "Tabella dell’efficacia",
-  "referenceMovesTab": "Elenco delle mosse"
+  "referenceMovesTab": "Elenco delle mosse",
+  "referenceTypeChartNote": "In verticale: elemento della mossa. In orizzontale: elemento del mostro che la subisce\nSe il mostro colpito ha due elementi, moltiplica i due fattori"
 }

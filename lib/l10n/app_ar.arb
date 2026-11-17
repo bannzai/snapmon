@@ -238,5 +238,6 @@
   "referenceOpen": "فعالية العنصر وقائمة الحركات",
   "referenceTitle": "العناصر والحركات",
   "referenceTypeChartTab": "جدول الفعالية",
-  "referenceMovesTab": "قائمة الحركات"
+  "referenceMovesTab": "قائمة الحركات",
+  "referenceTypeChartNote": "عموديًا: عنصر الحركة، أفقيًا: عنصر الوحش الذي يتلقى الحركة\nإذا كان لدى الوحش المتلقي عنصران، اضرب معاملي التأثير معًا"
 }

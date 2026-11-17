@@ -238,5 +238,6 @@
   "referenceOpen": "Účinnosť elementov a zoznam útokov",
   "referenceTitle": "Elementy a útoky",
   "referenceTypeChartTab": "Tabuľka účinnosti",
-  "referenceMovesTab": "Zoznam útokov"
+  "referenceMovesTab": "Zoznam útokov",
+  "referenceTypeChartNote": "Zvislo: element útoku. Vodorovne: element príšery, ktorá ho dostane\nAk má zasiahnutá príšera dva elementy, vynásob oba násobitele"
 }

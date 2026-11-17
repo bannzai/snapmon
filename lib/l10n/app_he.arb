@@ -238,5 +238,6 @@
   "referenceOpen": "יעילות סוגים ורשימת מתקפות",
   "referenceTitle": "סוגים ומתקפות",
   "referenceTypeChartTab": "טבלת יעילות",
-  "referenceMovesTab": "רשימת מתקפות"
+  "referenceMovesTab": "רשימת מתקפות",
+  "referenceTypeChartNote": "לאורך: הסוג של המתקפה. לרוחב: הסוג של המפלצת שסופגת אותה\nאם למפלצת שסופגת יש שני סוגים, יש להכפיל את שני המכפילים"
 }

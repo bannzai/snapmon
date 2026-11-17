@@ -238,5 +238,6 @@
   "referenceOpen": "Keberkesanan elemen dan senarai gerakan",
   "referenceTitle": "Elemen dan gerakan",
   "referenceTypeChartTab": "Jadual keberkesanan",
-  "referenceMovesTab": "Senarai gerakan"
+  "referenceMovesTab": "Senarai gerakan",
+  "referenceTypeChartNote": "Menegak: elemen gerakan. Melintang: elemen monster yang terkena gerakan\nJika monster yang terkena ada dua elemen, darabkan kedua-dua pengganda"
 }

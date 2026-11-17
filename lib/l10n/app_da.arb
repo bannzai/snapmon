@@ -238,5 +238,6 @@
   "referenceOpen": "Elementers effektivitet og liste over angreb",
   "referenceTitle": "Elementer og angreb",
   "referenceTypeChartTab": "Effektivitetstabel",
-  "referenceMovesTab": "Liste over angreb"
+  "referenceMovesTab": "Liste over angreb",
+  "referenceTypeChartNote": "Lodret: angrebets element. Vandret: elementet hos det monster, der rammes\nHar det ramte monster to elementer, ganger du de to multiplikatorer"
 }
