@@ -70,5 +70,6 @@
   "settingsDisplayNameSave": "Simpan",
   "profileChangeIcon": "Ganti ikon",
   "profileIconHelper": "Ikon yang dilihat lawanmu saat bertarung\nKamu tidak bisa memakai foto yang menampilkan wajah seseorang",
-  "profileIconUpdated": "Ikon berhasil diganti"
+  "profileIconUpdated": "Ikon berhasil diganti",
+  "dexSummary": "Monster: {monsterCount} · tim: {partyCount}"
 }

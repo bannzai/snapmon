@@ -70,5 +70,6 @@
   "settingsDisplayNameSave": "ਸੇਵ ਕਰੋ",
   "profileChangeIcon": "ਆਈਕਨ ਬਦਲੋ",
   "profileIconHelper": "ਲੜਾਈ ਵਿੱਚ ਤੁਹਾਡੇ ਵਿਰੋਧੀ ਨੂੰ ਦਿਸਣ ਵਾਲਾ ਆਈਕਨ\nਕਿਸੇ ਦਾ ਚਿਹਰਾ ਦਿਸਦੀ ਫੋਟੋ ਤੁਸੀਂ ਨਹੀਂ ਵਰਤ ਸਕਦੇ",
-  "profileIconUpdated": "ਆਈਕਨ ਬਦਲ ਗਿਆ"
+  "profileIconUpdated": "ਆਈਕਨ ਬਦਲ ਗਿਆ",
+  "dexSummary": "ਰਾਖਸ਼: {monsterCount} · ਟੀਮ: {partyCount}"
 }

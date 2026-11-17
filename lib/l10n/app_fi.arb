@@ -70,5 +70,6 @@
   "settingsDisplayNameSave": "Tallenna",
   "profileChangeIcon": "Vaihda kuvake",
   "profileIconHelper": "Kuvake, jonka vastustajasi näkee taistelussa\nEt voi käyttää kuvia, joissa näkyy ihmisen kasvot",
-  "profileIconUpdated": "Kuvake vaihdettu"
+  "profileIconUpdated": "Kuvake vaihdettu",
+  "dexSummary": "Hirviöt: {monsterCount} · joukkue: {partyCount}"
 }

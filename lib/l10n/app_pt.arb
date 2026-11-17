@@ -70,5 +70,6 @@
   "settingsDisplayNameSave": "Salvar",
   "profileChangeIcon": "Trocar ícone",
   "profileIconHelper": "Ícone que seu adversário vê na batalha\nVocê não pode usar fotos em que apareça o rosto de alguém",
-  "profileIconUpdated": "Você mudou o ícone"
+  "profileIconUpdated": "Você mudou o ícone",
+  "dexSummary": "Monstros: {monsterCount} · equipe: {partyCount}"
 }

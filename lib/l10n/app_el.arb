@@ -70,5 +70,6 @@
   "settingsDisplayNameSave": "Αποθήκευση",
   "profileChangeIcon": "Άλλαξε εικονίδιο",
   "profileIconHelper": "Το εικονίδιο που βλέπει ο αντίπαλός σου στη μάχη\nΔεν μπορείς να χρησιμοποιήσεις φωτογραφίες με πρόσωπα",
-  "profileIconUpdated": "Το εικονίδιο άλλαξε"
+  "profileIconUpdated": "Το εικονίδιο άλλαξε",
+  "dexSummary": "Τέρατα: {monsterCount} · ομάδα: {partyCount}"
 }

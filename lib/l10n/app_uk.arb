@@ -70,5 +70,6 @@
   "settingsDisplayNameSave": "Зберегти",
   "profileChangeIcon": "Змінити значок",
   "profileIconHelper": "Значок, який бачить твій суперник у бою\nНе можна використовувати фото, де видно обличчя людини",
-  "profileIconUpdated": "Значок змінено"
+  "profileIconUpdated": "Значок змінено",
+  "dexSummary": "Монстри: {monsterCount} · команда: {partyCount}"
 }

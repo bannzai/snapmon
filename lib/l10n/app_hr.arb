@@ -70,5 +70,6 @@
   "settingsDisplayNameSave": "Spremi",
   "profileChangeIcon": "Promijeni ikonu",
   "profileIconHelper": "Ikona koju tvoj protivnik vidi u borbi\nNe možeš koristiti fotografije na kojima se vidi nečije lice",
-  "profileIconUpdated": "Ikona je promijenjena"
+  "profileIconUpdated": "Ikona je promijenjena",
+  "dexSummary": "Čudovišta: {monsterCount} · tim: {partyCount}"
 }

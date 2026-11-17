@@ -70,5 +70,6 @@
   "settingsDisplayNameSave": "Simpan",
   "profileChangeIcon": "Tukar ikon",
   "profileIconHelper": "Ikon yang lawan kamu lihat semasa bertarung\nKamu tak boleh guna foto yang menampakkan wajah seseorang",
-  "profileIconUpdated": "Ikon sudah ditukar"
+  "profileIconUpdated": "Ikon sudah ditukar",
+  "dexSummary": "Raksasa: {monsterCount} · pasukan: {partyCount}"
 }

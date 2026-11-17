@@ -70,5 +70,6 @@
   "settingsDisplayNameSave": "Shrani",
   "profileChangeIcon": "Spremeni ikono",
   "profileIconHelper": "Ikona, ki jo tvoj nasprotnik vidi v boju\nNe moreš uporabiti fotografij, na katerih je viden obraz osebe",
-  "profileIconUpdated": "Ikona je spremenjena"
+  "profileIconUpdated": "Ikona je spremenjena",
+  "dexSummary": "Pošasti: {monsterCount} · ekipa: {partyCount}"
 }

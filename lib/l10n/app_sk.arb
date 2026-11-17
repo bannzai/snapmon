@@ -70,5 +70,6 @@
   "settingsDisplayNameSave": "Ulož",
   "profileChangeIcon": "Zmeň ikonu",
   "profileIconHelper": "Ikona, ktorú tvoj súper vidí v súboji\nNemôžeš použiť fotky, na ktorých vidno ľudskú tvár",
-  "profileIconUpdated": "Ikona je zmenená"
+  "profileIconUpdated": "Ikona je zmenená",
+  "dexSummary": "Príšery: {monsterCount} · tím: {partyCount}"
 }

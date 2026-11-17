@@ -70,5 +70,6 @@
   "settingsDisplayNameSave": "ସଞ୍ଚୟ କର",
   "profileChangeIcon": "ଆଇକନ୍ ବଦଳାଅ",
   "profileIconHelper": "ଲଢ଼େଇରେ ତୁମ ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ ଦେଖିବା ଚିହ୍ନ\nକାହାରି ମୁହଁ ଦେଖାଯାଉଥିବା ଫଟୋ ବ୍ୟବହାର କରିପାରିବ ନାହିଁ",
-  "profileIconUpdated": "ଆଇକନ୍ ବଦଳିଗଲା"
+  "profileIconUpdated": "ଆଇକନ୍ ବଦଳିଗଲା",
+  "dexSummary": "ରାକ୍ଷସ: {monsterCount} · ଦଳ: {partyCount}"
 }

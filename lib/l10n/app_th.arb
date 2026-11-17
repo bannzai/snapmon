@@ -70,5 +70,6 @@
   "settingsDisplayNameSave": "บันทึก",
   "profileChangeIcon": "เปลี่ยนไอคอน",
   "profileIconHelper": "ไอคอนที่คู่ต่อสู้เห็นในการแบตเทิล\nใช้รูปที่เห็นใบหน้าคนไม่ได้",
-  "profileIconUpdated": "เปลี่ยนไอคอนแล้ว"
+  "profileIconUpdated": "เปลี่ยนไอคอนแล้ว",
+  "dexSummary": "มอนสเตอร์: {monsterCount} · ทีม: {partyCount}"
 }

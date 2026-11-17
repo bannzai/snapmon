@@ -70,5 +70,6 @@
   "settingsDisplayNameSave": "சேமியுங்கள்",
   "profileChangeIcon": "ஐகானை மாற்றுங்கள்",
   "profileIconHelper": "போரில் உங்கள் எதிரிக்குத் தெரியும் சின்னம்\nஒருவரின் முகம் தெரியும் படத்தைப் பயன்படுத்த முடியாது",
-  "profileIconUpdated": "ஐகான் மாற்றப்பட்டது"
+  "profileIconUpdated": "ஐகான் மாற்றப்பட்டது",
+  "dexSummary": "அரக்கர்கள்: {monsterCount} · அணி: {partyCount}"
 }

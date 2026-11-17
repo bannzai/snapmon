@@ -70,5 +70,6 @@
   "settingsDisplayNameSave": "محفوظ کرو",
   "profileChangeIcon": "آئیکن بدلو",
   "profileIconHelper": "لڑائی میں تمہارے حریف کو نظر آنے والا آئیکن\nکسی کا چہرہ نظر آنے والی تصویر استعمال نہیں کر سکتے",
-  "profileIconUpdated": "آئیکن بدل گیا"
+  "profileIconUpdated": "آئیکن بدل گیا",
+  "dexSummary": "مونسٹر: {monsterCount} · ٹیم: {partyCount}"
 }

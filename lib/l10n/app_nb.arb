@@ -70,5 +70,6 @@
   "settingsDisplayNameSave": "Lagre",
   "profileChangeIcon": "Bytt ikon",
   "profileIconHelper": "Ikonet motstanderen din ser i kamp\nDu kan ikke bruke bilder der ansikter er synlige",
-  "profileIconUpdated": "Ikonet er endret"
+  "profileIconUpdated": "Ikonet er endret",
+  "dexSummary": "Monstre: {monsterCount} · lag: {partyCount}"
 }

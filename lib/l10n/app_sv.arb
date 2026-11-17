@@ -70,5 +70,6 @@
   "settingsDisplayNameSave": "Spara",
   "profileChangeIcon": "Byt ikon",
   "profileIconHelper": "Ikonen som din motståndare ser i strid\nDu kan inte använda bilder där ett ansikte syns",
-  "profileIconUpdated": "Ikonen har ändrats"
+  "profileIconUpdated": "Ikonen har ändrats",
+  "dexSummary": "Monster: {monsterCount} · lag: {partyCount}"
 }

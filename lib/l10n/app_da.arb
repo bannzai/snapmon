@@ -70,5 +70,6 @@
   "settingsDisplayNameSave": "Gem",
   "profileChangeIcon": "Skift ikon",
   "profileIconHelper": "Ikonet, din modstander ser i kamp\nDu kan ikke bruge billeder med ansigter",
-  "profileIconUpdated": "Ikonet er ændret"
+  "profileIconUpdated": "Ikonet er ændret",
+  "dexSummary": "Monstre: {monsterCount} · hold: {partyCount}"
 }

@@ -70,5 +70,6 @@
   "settingsDisplayNameSave": "שמירה",
   "profileChangeIcon": "שינוי סמל",
   "profileIconHelper": "הסמל שהיריב רואה בקרב\nאי אפשר להשתמש בתמונות שמופיעים בהן פנים של אדם",
-  "profileIconUpdated": "הסמל השתנה"
+  "profileIconUpdated": "הסמל השתנה",
+  "dexSummary": "מפלצות: {monsterCount} · צוות: {partyCount}"
 }
