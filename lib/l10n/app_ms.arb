@@ -272,5 +272,6 @@
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Beli gerakan sekali, lalu ajar monstermu",
   "actionCardOfPrice": "Action Card berharga {price}",
-  "actionCardPricesPreparing": "Harga gerakan sedang disediakan\nBuka semula sebentar lagi"
+  "actionCardPricesPreparing": "Harga gerakan sedang disediakan\nBuka semula sebentar lagi",
+  "actionCardBuyHeading": "Pilih dan beli gerakan"
 }

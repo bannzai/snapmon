@@ -272,5 +272,6 @@
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "기술을 영구 구매해 몬스터에게 가르치기",
   "actionCardOfPrice": "{price} Action Card",
-  "actionCardPricesPreparing": "기술 가격을 준비하고 있어요\n잠시 후 다시 열어 주세요"
+  "actionCardPricesPreparing": "기술 가격을 준비하고 있어요\n잠시 후 다시 열어 주세요",
+  "actionCardBuyHeading": "기술 선택해 구매하기"
 }

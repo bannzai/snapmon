@@ -272,5 +272,6 @@
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Compra le mosse una volta e insegnale ai tuoi mostri",
   "actionCardOfPrice": "Action Card da {price}",
-  "actionCardPricesPreparing": "Stiamo preparando i prezzi delle mosse\nRiapri la schermata tra poco"
+  "actionCardPricesPreparing": "Stiamo preparando i prezzi delle mosse\nRiapri la schermata tra poco",
+  "actionCardBuyHeading": "Scegli e compra una mossa"
 }

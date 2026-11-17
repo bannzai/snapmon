@@ -272,5 +272,6 @@
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Kupi poteze zauvijek i nauči ih svoja čudovišta",
   "actionCardOfPrice": "Action Card za {price}",
-  "actionCardPricesPreparing": "Pripremamo cijene poteza\nOtvori zaslon ponovno za koji trenutak"
+  "actionCardPricesPreparing": "Pripremamo cijene poteza\nOtvori zaslon ponovno za koji trenutak",
+  "actionCardBuyHeading": "Odaberi i kupi potez"
 }

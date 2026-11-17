@@ -272,5 +272,6 @@
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Koop aanvallen voorgoed en leer ze je monsters",
   "actionCardOfPrice": "Action Card voor {price}",
-  "actionCardPricesPreparing": "We maken de prijzen van aanvallen klaar\nOpen het scherm straks opnieuw"
+  "actionCardPricesPreparing": "We maken de prijzen van aanvallen klaar\nOpen het scherm straks opnieuw",
+  "actionCardBuyHeading": "Kies en koop een aanval"
 }

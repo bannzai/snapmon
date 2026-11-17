@@ -272,5 +272,6 @@
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "কৌশল একবার কিনে মনস্টারকে শেখাও",
   "actionCardOfPrice": "{price} দামের Action Card",
-  "actionCardPricesPreparing": "কৌশলের দাম প্রস্তুত হচ্ছে\nকিছুক্ষণ পর আবার খোলো"
+  "actionCardPricesPreparing": "কৌশলের দাম প্রস্তুত হচ্ছে\nকিছুক্ষণ পর আবার খোলো",
+  "actionCardBuyHeading": "কৌশল বেছে কিনো"
 }

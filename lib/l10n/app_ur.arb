@@ -272,5 +272,6 @@
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "چالیں ایک بار خریدو اور اپنے مونسٹر کو سکھاؤ",
   "actionCardOfPrice": "{price} قیمت کا Action Card",
-  "actionCardPricesPreparing": "چالوں کی قیمتیں تیار ہو رہی ہیں\nتھوڑی دیر بعد دوبارہ کھولو"
+  "actionCardPricesPreparing": "چالوں کی قیمتیں تیار ہو رہی ہیں\nتھوڑی دیر بعد دوبارہ کھولو",
+  "actionCardBuyHeading": "چال چن کر خریدو"
 }

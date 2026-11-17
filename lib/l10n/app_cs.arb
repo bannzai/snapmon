@@ -272,5 +272,6 @@
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Kup si útok natrvalo a nauč ho svou příšeru",
   "actionCardOfPrice": "Action Card za {price}",
-  "actionCardPricesPreparing": "Připravujeme ceny útoků\nZa chvíli obrazovku znovu otevři"
+  "actionCardPricesPreparing": "Připravujeme ceny útoků\nZa chvíli obrazovku znovu otevři",
+  "actionCardBuyHeading": "Vyber a kup útok"
 }

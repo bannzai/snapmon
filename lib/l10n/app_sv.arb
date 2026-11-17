@@ -272,5 +272,6 @@
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Köp attacker en gång och lär dina monster dem",
   "actionCardOfPrice": "Action Card för {price}",
-  "actionCardPricesPreparing": "Vi förbereder priserna för attacker\nÖppna skärmen igen om en stund"
+  "actionCardPricesPreparing": "Vi förbereder priserna för attacker\nÖppna skärmen igen om en stund",
+  "actionCardBuyHeading": "Välj och köp en attack"
 }

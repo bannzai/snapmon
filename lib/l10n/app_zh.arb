@@ -272,5 +272,6 @@
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "买断招式，教给你的怪物",
   "actionCardOfPrice": "价格为 {price} 的 Action Card",
-  "actionCardPricesPreparing": "正在准备招式价格\n请稍后重新打开"
+  "actionCardPricesPreparing": "正在准备招式价格\n请稍后重新打开",
+  "actionCardBuyHeading": "选择并购买招式"
 }

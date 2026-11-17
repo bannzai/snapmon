@@ -272,5 +272,6 @@
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Beli jurus sekali, lalu ajarkan ke monstermu",
   "actionCardOfPrice": "Action Card seharga {price}",
-  "actionCardPricesPreparing": "Harga jurus sedang disiapkan\nBuka lagi sebentar lagi"
+  "actionCardPricesPreparing": "Harga jurus sedang disiapkan\nBuka lagi sebentar lagi",
+  "actionCardBuyHeading": "Pilih dan beli jurus"
 }

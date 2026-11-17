@@ -272,5 +272,6 @@
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Kupi poteze za vedno in jih nauči svoje pošasti",
   "actionCardOfPrice": "Action Card za {price}",
-  "actionCardPricesPreparing": "Pripravljamo cene potez\nČez nekaj časa znova odpri zaslon"
+  "actionCardPricesPreparing": "Pripravljamo cene potez\nČez nekaj časa znova odpri zaslon",
+  "actionCardBuyHeading": "Izberi in kupi potez"
 }

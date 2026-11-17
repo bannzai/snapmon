@@ -272,5 +272,6 @@
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Купи приёмы навсегда и обучи им своих монстров",
   "actionCardOfPrice": "Action Card за {price}",
-  "actionCardPricesPreparing": "Готовим цены на приёмы\nОткрой экран снова чуть позже"
+  "actionCardPricesPreparing": "Готовим цены на приёмы\nОткрой экран снова чуть позже",
+  "actionCardBuyHeading": "Выбери и купи приём"
 }

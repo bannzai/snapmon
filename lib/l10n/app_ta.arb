@@ -272,5 +272,6 @@
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "தாக்குதல்களை ஒருமுறை வாங்கி உங்கள் மான்ஸ்டருக்குக் கற்றுக்கொடுங்கள்",
   "actionCardOfPrice": "{price} விலையுள்ள Action Card",
-  "actionCardPricesPreparing": "தாக்குதல்களின் விலைகள் தயாராகின்றன\nசிறிது நேரம் கழித்து மீண்டும் திறங்கள்"
+  "actionCardPricesPreparing": "தாக்குதல்களின் விலைகள் தயாராகின்றன\nசிறிது நேரம் கழித்து மீண்டும் திறங்கள்",
+  "actionCardBuyHeading": "தாக்குதலைத் தேர்ந்தெடுத்து வாங்குங்கள்"
 }

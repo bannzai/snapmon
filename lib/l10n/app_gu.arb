@@ -272,5 +272,6 @@
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "ચાલ એક વાર ખરીદો અને તમારા મોન્સ્ટરને શીખવો",
   "actionCardOfPrice": "{price}ની Action Card",
-  "actionCardPricesPreparing": "ચાલની કિંમતો તૈયાર થઈ રહી છે\nથોડી વાર પછી ફરી ખોલો"
+  "actionCardPricesPreparing": "ચાલની કિંમતો તૈયાર થઈ રહી છે\nથોડી વાર પછી ફરી ખોલો",
+  "actionCardBuyHeading": "ચાલ પસંદ કરીને ખરીદો"
 }

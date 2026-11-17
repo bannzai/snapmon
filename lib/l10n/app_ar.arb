@@ -272,5 +272,6 @@
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "اشترِ الحركات مرة واحدة وعلّمها لوحشك",
   "actionCardOfPrice": "Action Card بسعر {price}",
-  "actionCardPricesPreparing": "نجهّز أسعار الحركات\nافتح الصفحة مجددًا بعد قليل"
+  "actionCardPricesPreparing": "نجهّز أسعار الحركات\nافتح الصفحة مجددًا بعد قليل",
+  "actionCardBuyHeading": "اختر حركة واشتَرها"
 }

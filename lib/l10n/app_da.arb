@@ -272,5 +272,6 @@
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Køb angreb én gang, og lær dem til dine monstre",
   "actionCardOfPrice": "Action Card til {price}",
-  "actionCardPricesPreparing": "Vi gør priserne på angreb klar\nÅbn skærmen igen om lidt"
+  "actionCardPricesPreparing": "Vi gør priserne på angreb klar\nÅbn skærmen igen om lidt",
+  "actionCardBuyHeading": "Vælg og køb et angreb"
 }

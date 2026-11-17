@@ -272,5 +272,6 @@
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Mua đứt chiêu rồi dạy cho quái vật của bạn",
   "actionCardOfPrice": "Action Card giá {price}",
-  "actionCardPricesPreparing": "Đang chuẩn bị giá các chiêu\nMột lát nữa hãy mở lại"
+  "actionCardPricesPreparing": "Đang chuẩn bị giá các chiêu\nMột lát nữa hãy mở lại",
+  "actionCardBuyHeading": "Chọn và mua chiêu"
 }

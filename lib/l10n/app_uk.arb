@@ -272,5 +272,6 @@
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Купи прийоми назавжди й навчи їх своїх монстрів",
   "actionCardOfPrice": "Action Card за {price}",
-  "actionCardPricesPreparing": "Готуємо ціни на прийоми\nВідкрий екран знову трохи пізніше"
+  "actionCardPricesPreparing": "Готуємо ціни на прийоми\nВідкрий екран знову трохи пізніше",
+  "actionCardBuyHeading": "Вибери й купи прийом"
 }
