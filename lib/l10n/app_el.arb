@@ -167,5 +167,6 @@
   "battleLogNotVeryEffective": "Δεν ήταν πολύ αποτελεσματικό",
   "battleLogFainted": "Το {monsterName} λιποθύμησε",
   "battleLogStatRose": "Αυξήθηκε το {statName} του {monsterName}!",
-  "battleLogStatFell": "Το {statName} του {monsterName} έπεσε"
+  "battleLogStatFell": "Το {statName} του {monsterName} έπεσε",
+  "battleLogStatUnchanged": "Το {statName} του {monsterName} δεν μπορεί να αλλάξει άλλο"
 }

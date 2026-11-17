@@ -167,5 +167,6 @@
   "battleLogNotVeryEffective": "Ei ollut kovin tehokas",
   "battleLogFainted": "{monsterName} pyörtyi",
   "battleLogStatRose": "{monsterName}: {statName} nousi!",
-  "battleLogStatFell": "{monsterName}: {statName} laski"
+  "battleLogStatFell": "{monsterName}: {statName} laski",
+  "battleLogStatUnchanged": "Hirviön {monsterName} {statName} ei voi enää muuttua"
 }

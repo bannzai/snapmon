@@ -167,5 +167,6 @@
   "battleLogNotVeryEffective": "효과가 별로였다",
   "battleLogFainted": "{monsterName}이 쓰러졌다",
   "battleLogStatRose": "{monsterName}의 {statName}이 올랐다!",
-  "battleLogStatFell": "{monsterName}: {statName}이 떨어졌다"
+  "battleLogStatFell": "{monsterName}: {statName}이 떨어졌다",
+  "battleLogStatUnchanged": "{monsterName}의 {statName}은 더 이상 변하지 않는다"
 }

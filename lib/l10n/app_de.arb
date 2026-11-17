@@ -167,5 +167,6 @@
   "battleLogNotVeryEffective": "Das war nicht sehr effektiv",
   "battleLogFainted": "{monsterName} ist besiegt",
   "battleLogStatRose": "{statName} von {monsterName} ist gestiegen!",
-  "battleLogStatFell": "{statName} von {monsterName} ist gesunken"
+  "battleLogStatFell": "{statName} von {monsterName} ist gesunken",
+  "battleLogStatUnchanged": "{statName} von {monsterName} kann sich nicht weiter ändern"
 }

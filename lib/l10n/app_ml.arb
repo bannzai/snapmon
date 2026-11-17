@@ -167,5 +167,6 @@
   "battleLogNotVeryEffective": "വലിയ ഫലമുണ്ടായില്ല",
   "battleLogFainted": "{monsterName} ബോധംകെട്ടു",
   "battleLogStatRose": "{monsterName}ന്റെ {statName} ഉയർന്നു!",
-  "battleLogStatFell": "{monsterName}ന്റെ {statName} കുറഞ്ഞു"
+  "battleLogStatFell": "{monsterName}ന്റെ {statName} കുറഞ്ഞു",
+  "battleLogStatUnchanged": "{monsterName}ന്റെ {statName} ഇനി മാറില്ല"
 }

@@ -167,5 +167,6 @@
   "battleLogNotVeryEffective": "Nije baš učinkovito",
   "battleLogFainted": "{monsterName} se onesvijestio",
   "battleLogStatRose": "{statName} za {monsterName} je porastao!",
-  "battleLogStatFell": "{statName} za {monsterName} je pao"
+  "battleLogStatFell": "{statName} za {monsterName} je pao",
+  "battleLogStatUnchanged": "Vrijednost {statName} kod {monsterName} više se ne može promijeniti"
 }

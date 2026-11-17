@@ -167,5 +167,6 @@
   "battleLogNotVeryEffective": "Nu a fost prea eficient",
   "battleLogFainted": "{monsterName} a leșinat",
   "battleLogStatRose": "Valoarea {statName} a lui {monsterName} a crescut!",
-  "battleLogStatFell": "Statistica {statName} a lui {monsterName} a scăzut"
+  "battleLogStatFell": "Statistica {statName} a lui {monsterName} a scăzut",
+  "battleLogStatUnchanged": "Valoarea {statName} a lui {monsterName} nu se mai poate schimba"
 }

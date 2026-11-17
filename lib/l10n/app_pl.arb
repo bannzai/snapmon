@@ -167,5 +167,6 @@
   "battleLogNotVeryEffective": "To nie było zbyt skuteczne",
   "battleLogFainted": "{monsterName} traci przytomność",
   "battleLogStatRose": "Statystyka {statName} u {monsterName} wzrosła!",
-  "battleLogStatFell": "Statystyka {statName} u {monsterName} spadła"
+  "battleLogStatFell": "Statystyka {statName} u {monsterName} spadła",
+  "battleLogStatUnchanged": "Wartość {statName} u {monsterName} nie może się już zmienić"
 }

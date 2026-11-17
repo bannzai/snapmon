@@ -167,5 +167,6 @@
   "battleLogNotVeryEffective": "Det var ikke særlig effektivt",
   "battleLogFainted": "{monsterName} besvimte",
   "battleLogStatRose": "{statName} økte for {monsterName}!",
-  "battleLogStatFell": "{statName} sank for {monsterName}"
+  "battleLogStatFell": "{statName} sank for {monsterName}",
+  "battleLogStatUnchanged": "{statName} til {monsterName} kan ikke endres mer"
 }

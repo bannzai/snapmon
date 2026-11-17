@@ -167,5 +167,6 @@
   "battleLogNotVeryEffective": "Không hiệu quả lắm",
   "battleLogFainted": "{monsterName} đã ngất",
   "battleLogStatRose": "Chỉ số {statName} của {monsterName} đã tăng!",
-  "battleLogStatFell": "Chỉ số {statName} của {monsterName} đã giảm"
+  "battleLogStatFell": "Chỉ số {statName} của {monsterName} đã giảm",
+  "battleLogStatUnchanged": "Chỉ số {statName} của {monsterName} không thể thay đổi nữa"
 }

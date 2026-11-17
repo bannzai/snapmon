@@ -167,5 +167,6 @@
   "battleLogNotVeryEffective": "Це не дуже ефективно",
   "battleLogFainted": "{monsterName} знепритомнів",
   "battleLogStatRose": "Показник {statName} у {monsterName} зріс!",
-  "battleLogStatFell": "Показник {statName} у {monsterName} знизився"
+  "battleLogStatFell": "Показник {statName} у {monsterName} знизився",
+  "battleLogStatUnchanged": "Показник {statName} у {monsterName} більше не може змінитися"
 }

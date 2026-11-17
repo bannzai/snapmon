@@ -167,5 +167,6 @@
   "battleLogNotVeryEffective": "Není to moc účinné",
   "battleLogFainted": "{monsterName} omdlel",
   "battleLogStatRose": "Hodnota {statName} u {monsterName} vzrostla!",
-  "battleLogStatFell": "{statName} u {monsterName} klesla"
+  "battleLogStatFell": "{statName} u {monsterName} klesla",
+  "battleLogStatUnchanged": "Hodnota {statName} u {monsterName} se už nemůže změnit"
 }

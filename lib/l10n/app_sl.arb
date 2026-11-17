@@ -167,5 +167,6 @@
   "battleLogNotVeryEffective": "Ni bilo preveč učinkovito",
   "battleLogFainted": "{monsterName} je omedlel",
   "battleLogStatRose": "Vrednost {statName} pri {monsterName} je zrasla!",
-  "battleLogStatFell": "Vrednost {statName} pri {monsterName} je padla"
+  "battleLogStatFell": "Vrednost {statName} pri {monsterName} je padla",
+  "battleLogStatUnchanged": "Vrednost {statName} pri {monsterName} se ne more več spremeniti"
 }

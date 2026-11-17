@@ -167,5 +167,6 @@
   "battleLogNotVeryEffective": "ବିଶେଷ ପ୍ରଭାବ ପଡ଼ିଲା ନାହିଁ",
   "battleLogFainted": "{monsterName} ବେହୋସ ହୋଇଗଲା",
   "battleLogStatRose": "{monsterName}ର {statName} ବଢ଼ିଲା!",
-  "battleLogStatFell": "{monsterName}ର {statName} କମିଗଲା"
+  "battleLogStatFell": "{monsterName}ର {statName} କମିଗଲା",
+  "battleLogStatUnchanged": "{monsterName}ର {statName} ଆଉ ବଦଳିପାରିବ ନାହିଁ"
 }

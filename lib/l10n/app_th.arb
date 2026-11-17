@@ -167,5 +167,6 @@
   "battleLogNotVeryEffective": "ไม่ค่อยได้ผล",
   "battleLogFainted": "{monsterName} หมดสติแล้ว",
   "battleLogStatRose": "ค่า {statName} ของ {monsterName} เพิ่มขึ้น!",
-  "battleLogStatFell": "{statName} ของ {monsterName} ลดลง"
+  "battleLogStatFell": "{statName} ของ {monsterName} ลดลง",
+  "battleLogStatUnchanged": "{statName} ของ {monsterName} เปลี่ยนไปมากกว่านี้ไม่ได้แล้ว"
 }

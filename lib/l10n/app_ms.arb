@@ -167,5 +167,6 @@
   "battleLogNotVeryEffective": "Tak begitu berkesan",
   "battleLogFainted": "{monsterName} pengsan",
   "battleLogStatRose": "{statName} milik {monsterName} meningkat!",
-  "battleLogStatFell": "{statName} milik {monsterName} menurun"
+  "battleLogStatFell": "{statName} milik {monsterName} menurun",
+  "battleLogStatUnchanged": "{statName} milik {monsterName} tak boleh berubah lagi"
 }
