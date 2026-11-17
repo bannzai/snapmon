@@ -63,5 +63,6 @@
   "settingsLinkedWith": "تم ربط الحساب عبر {providerNames}",
   "settingsProviderSeparator": " و",
   "settingsDeleteAccount": "حذف الحساب",
-  "settingsProfileSection": "الملف الشخصي"
+  "settingsProfileSection": "الملف الشخصي",
+  "settingsDisplayName": "اسم العرض"
 }

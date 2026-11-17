@@ -63,5 +63,6 @@
   "settingsLinkedWith": "เชื่อมบัญชีผ่าน {providerNames} แล้ว",
   "settingsProviderSeparator": " และ ",
   "settingsDeleteAccount": "ลบบัญชี",
-  "settingsProfileSection": "โปรไฟล์"
+  "settingsProfileSection": "โปรไฟล์",
+  "settingsDisplayName": "ชื่อที่แสดง"
 }

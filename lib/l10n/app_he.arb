@@ -63,5 +63,6 @@
   "settingsLinkedWith": "החשבון מקושר דרך {providerNames}",
   "settingsProviderSeparator": " ו",
   "settingsDeleteAccount": "מחיקת חשבון",
-  "settingsProfileSection": "פרופיל"
+  "settingsProfileSection": "פרופיל",
+  "settingsDisplayName": "שם תצוגה"
 }

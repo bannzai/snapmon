@@ -63,5 +63,6 @@
   "settingsLinkedWith": "Tài khoản đã liên kết với {providerNames}",
   "settingsProviderSeparator": " và ",
   "settingsDeleteAccount": "Xóa tài khoản",
-  "settingsProfileSection": "Hồ sơ"
+  "settingsProfileSection": "Hồ sơ",
+  "settingsDisplayName": "tên hiển thị"
 }

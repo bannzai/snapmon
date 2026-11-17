@@ -63,5 +63,6 @@
   "settingsLinkedWith": "{providerNames} द्वारे खाते लिंक केले आहे",
   "settingsProviderSeparator": " आणि ",
   "settingsDeleteAccount": "खाते हटव",
-  "settingsProfileSection": "प्रोफाइल"
+  "settingsProfileSection": "प्रोफाइल",
+  "settingsDisplayName": "प्रदर्शन नाव"
 }

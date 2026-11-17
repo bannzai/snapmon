@@ -63,5 +63,6 @@
   "settingsLinkedWith": "Conta vinculada com {providerNames}",
   "settingsProviderSeparator": " e ",
   "settingsDeleteAccount": "Excluir conta",
-  "settingsProfileSection": "Perfil"
+  "settingsProfileSection": "Perfil",
+  "settingsDisplayName": "nome de exibição"
 }

@@ -63,5 +63,6 @@
   "settingsLinkedWith": "खाता {providerNames} से लिंक है",
   "settingsProviderSeparator": " और ",
   "settingsDeleteAccount": "अकाउंट हटाओ",
-  "settingsProfileSection": "प्रोफ़ाइल"
+  "settingsProfileSection": "प्रोफ़ाइल",
+  "settingsDisplayName": "डिस्प्ले नाम"
 }

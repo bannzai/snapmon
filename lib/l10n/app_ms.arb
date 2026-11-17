@@ -63,5 +63,6 @@
   "settingsLinkedWith": "Akaun dipautkan dengan {providerNames}",
   "settingsProviderSeparator": " dan ",
   "settingsDeleteAccount": "Padam akaun",
-  "settingsProfileSection": "Profil"
+  "settingsProfileSection": "Profil",
+  "settingsDisplayName": "nama paparan"
 }

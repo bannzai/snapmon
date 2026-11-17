@@ -63,5 +63,6 @@
   "settingsLinkedWith": "Hesap {providerNames} ile bağlandı",
   "settingsProviderSeparator": " ve ",
   "settingsDeleteAccount": "Hesabı sil",
-  "settingsProfileSection": "Profil"
+  "settingsProfileSection": "Profil",
+  "settingsDisplayName": "görünen ad"
 }

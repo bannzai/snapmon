@@ -63,5 +63,6 @@
   "settingsLinkedWith": "{providerNames} மூலம் கணக்கு இணைக்கப்பட்டுள்ளது",
   "settingsProviderSeparator": " மற்றும் ",
   "settingsDeleteAccount": "கணக்கை நீக்குங்கள்",
-  "settingsProfileSection": "சுயவிவரம்"
+  "settingsProfileSection": "சுயவிவரம்",
+  "settingsDisplayName": "காட்சிப் பெயர"
 }

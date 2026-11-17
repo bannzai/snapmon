@@ -63,5 +63,6 @@
   "settingsLinkedWith": "ਖਾਤਾ {providerNames} ਨਾਲ ਲਿੰਕ ਹੈ",
   "settingsProviderSeparator": " ਅਤੇ ",
   "settingsDeleteAccount": "ਖਾਤਾ ਮਿਟਾਓ",
-  "settingsProfileSection": "ਪ੍ਰੋਫਾਈਲ"
+  "settingsProfileSection": "ਪ੍ਰੋਫਾਈਲ",
+  "settingsDisplayName": "ਪ੍ਰਦਰਸ਼ਿਤ ਨਾਮ"
 }

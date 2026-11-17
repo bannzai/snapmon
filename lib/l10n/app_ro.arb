@@ -63,5 +63,6 @@
   "settingsLinkedWith": "Cont conectat prin {providerNames}",
   "settingsProviderSeparator": " și ",
   "settingsDeleteAccount": "Șterge contul",
-  "settingsProfileSection": "Profil"
+  "settingsProfileSection": "Profil",
+  "settingsDisplayName": "afișat"
 }

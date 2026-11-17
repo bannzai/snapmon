@@ -63,5 +63,6 @@
   "settingsLinkedWith": "Konto länkat via {providerNames}",
   "settingsProviderSeparator": " och ",
   "settingsDeleteAccount": "Radera konto",
-  "settingsProfileSection": "Profil"
+  "settingsProfileSection": "Profil",
+  "settingsDisplayName": "visningsnamn"
 }

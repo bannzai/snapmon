@@ -63,5 +63,6 @@
   "settingsLinkedWith": "已透過 {providerNames} 連結帳號",
   "settingsProviderSeparator": "和",
   "settingsDeleteAccount": "刪除帳號",
-  "settingsProfileSection": "個人資料"
+  "settingsProfileSection": "個人資料",
+  "settingsDisplayName": "顯示名稱"
 }

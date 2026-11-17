@@ -63,5 +63,6 @@
   "settingsLinkedWith": "A fiók összekapcsolva ezzel: {providerNames}",
   "settingsProviderSeparator": " és ",
   "settingsDeleteAccount": "Fiók törlése",
-  "settingsProfileSection": "Profil"
+  "settingsProfileSection": "Profil",
+  "settingsDisplayName": "megjelenített"
 }

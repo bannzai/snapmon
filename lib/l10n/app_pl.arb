@@ -63,5 +63,6 @@
   "settingsLinkedWith": "Konto połączone przez {providerNames}",
   "settingsProviderSeparator": " i ",
   "settingsDeleteAccount": "Usuń konto",
-  "settingsProfileSection": "Profil"
+  "settingsProfileSection": "Profil",
+  "settingsDisplayName": "wyświetlan"
 }

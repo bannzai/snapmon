@@ -63,5 +63,6 @@
   "settingsLinkedWith": "{providerNames} 계정과 연동했어요",
   "settingsProviderSeparator": "과 ",
   "settingsDeleteAccount": "계정 삭제",
-  "settingsProfileSection": "프로필"
+  "settingsProfileSection": "프로필",
+  "settingsDisplayName": "표시 이름"
 }

@@ -63,5 +63,6 @@
   "settingsLinkedWith": "Ο λογαριασμός συνδέθηκε μέσω {providerNames}",
   "settingsProviderSeparator": " και ",
   "settingsDeleteAccount": "Διαγραφή λογαριασμού",
-  "settingsProfileSection": "Προφίλ"
+  "settingsProfileSection": "Προφίλ",
+  "settingsDisplayName": "εμφανιζόμενο όνομα"
 }

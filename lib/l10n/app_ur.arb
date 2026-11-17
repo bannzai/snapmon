@@ -63,5 +63,6 @@
   "settingsLinkedWith": "اکاؤنٹ {providerNames} سے منسلک ہے",
   "settingsProviderSeparator": " اور ",
   "settingsDeleteAccount": "اکاؤنٹ حذف کرو",
-  "settingsProfileSection": "پروفائل"
+  "settingsProfileSection": "پروفائل",
+  "settingsDisplayName": "ڈسپلے نام"
 }

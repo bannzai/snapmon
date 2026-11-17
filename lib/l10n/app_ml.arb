@@ -63,5 +63,6 @@
   "settingsLinkedWith": "{providerNames} വഴി അക്കൗണ്ട് ലിങ്ക് ചെയ്തിട്ടുണ്ട്",
   "settingsProviderSeparator": "യും ",
   "settingsDeleteAccount": "അക്കൗണ്ട് ഇല്ലാതാക്കുക",
-  "settingsProfileSection": "പ്രൊഫൈൽ"
+  "settingsProfileSection": "പ്രൊഫൈൽ",
+  "settingsDisplayName": "പ്രദർശന നാമ"
 }

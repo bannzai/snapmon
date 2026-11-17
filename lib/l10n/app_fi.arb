@@ -63,5 +63,6 @@
   "settingsLinkedWith": "Tili yhdistetty palveluun {providerNames}",
   "settingsProviderSeparator": " ja ",
   "settingsDeleteAccount": "Poista tili",
-  "settingsProfileSection": "Profiili"
+  "settingsProfileSection": "Profiili",
+  "settingsDisplayName": "näyttönim"
 }

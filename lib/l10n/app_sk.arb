@@ -63,5 +63,6 @@
   "settingsLinkedWith": "Účet prepojený cez {providerNames}",
   "settingsProviderSeparator": " a ",
   "settingsDeleteAccount": "Odstrániť účet",
-  "settingsProfileSection": "Profil"
+  "settingsProfileSection": "Profil",
+  "settingsDisplayName": "zobrazovan"
 }

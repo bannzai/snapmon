@@ -63,5 +63,6 @@
   "settingsLinkedWith": "{providerNames}తో ఖాతా లింక్ అయింది",
   "settingsProviderSeparator": " మరియు ",
   "settingsDeleteAccount": "ఖాతాను తొలగించు",
-  "settingsProfileSection": "ప్రొఫైల్"
+  "settingsProfileSection": "ప్రొఫైల్",
+  "settingsDisplayName": "ప్రదర్శన పేరు"
 }

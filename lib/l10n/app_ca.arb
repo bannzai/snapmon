@@ -63,5 +63,6 @@
   "settingsLinkedWith": "Compte vinculat amb {providerNames}",
   "settingsProviderSeparator": " i ",
   "settingsDeleteAccount": "Elimina el compte",
-  "settingsProfileSection": "Perfil"
+  "settingsProfileSection": "Perfil",
+  "settingsDisplayName": "nom visible"
 }

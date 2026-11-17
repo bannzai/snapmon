@@ -63,5 +63,6 @@
   "settingsLinkedWith": "{providerNames} ସହ ଆକାଉଣ୍ଟ ଲିଙ୍କ୍ ହୋଇଛି",
   "settingsProviderSeparator": " ଓ ",
   "settingsDeleteAccount": "ଆକାଉଣ୍ଟ ଡିଲିଟ୍ କର",
-  "settingsProfileSection": "ପ୍ରୋଫାଇଲ୍"
+  "settingsProfileSection": "ପ୍ରୋଫାଇଲ୍",
+  "settingsDisplayName": "ପ୍ରଦର୍ଶିତ ନାମ"
 }

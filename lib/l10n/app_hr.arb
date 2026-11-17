@@ -63,5 +63,6 @@
   "settingsLinkedWith": "Račun povezan putem {providerNames}",
   "settingsProviderSeparator": " i ",
   "settingsDeleteAccount": "Izbriši račun",
-  "settingsProfileSection": "Profil"
+  "settingsProfileSection": "Profil",
+  "settingsDisplayName": "prikazno ime"
 }

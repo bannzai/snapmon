@@ -63,5 +63,6 @@
   "settingsLinkedWith": "Akun tertaut dengan {providerNames}",
   "settingsProviderSeparator": " dan ",
   "settingsDeleteAccount": "Hapus akun",
-  "settingsProfileSection": "Profil"
+  "settingsProfileSection": "Profil",
+  "settingsDisplayName": "nama tampilan"
 }

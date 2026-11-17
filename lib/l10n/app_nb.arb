@@ -63,5 +63,6 @@
   "settingsLinkedWith": "Konto koblet til via {providerNames}",
   "settingsProviderSeparator": " og ",
   "settingsDeleteAccount": "Slett konto",
-  "settingsProfileSection": "Profil"
+  "settingsProfileSection": "Profil",
+  "settingsDisplayName": "visningsnavn"
 }

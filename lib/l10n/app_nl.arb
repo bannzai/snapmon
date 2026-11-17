@@ -63,5 +63,6 @@
   "settingsLinkedWith": "Account gekoppeld via {providerNames}",
   "settingsProviderSeparator": " en ",
   "settingsDeleteAccount": "Account verwijderen",
-  "settingsProfileSection": "Profiel"
+  "settingsProfileSection": "Profiel",
+  "settingsDisplayName": "weergavenaam"
 }

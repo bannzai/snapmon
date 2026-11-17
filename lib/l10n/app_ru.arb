@@ -63,5 +63,6 @@
   "settingsLinkedWith": "Аккаунт привязан через {providerNames}",
   "settingsProviderSeparator": " и ",
   "settingsDeleteAccount": "Удалить аккаунт",
-  "settingsProfileSection": "Профиль"
+  "settingsProfileSection": "Профиль",
+  "settingsDisplayName": "ник"
 }
