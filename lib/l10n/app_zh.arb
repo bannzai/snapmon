@@ -223,5 +223,6 @@
   "battleShareTextWon": "我在 snapmon 的对战中赢了\n#snapmon\n{url}",
   "battleShareTextLost": "在 snapmon 对战中输了\n#snapmon\n{url}",
   "battleShareResult": "分享结果",
-  "battleOpenDex": "查看图鉴"
+  "battleOpenDex": "查看图鉴",
+  "battleYourMonster": "你的伙伴"
 }

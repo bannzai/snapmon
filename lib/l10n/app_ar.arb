@@ -223,5 +223,6 @@
   "battleShareTextWon": "فزت في معركة في snapmon\n#snapmon\n{url}",
   "battleShareTextLost": "خسرت معركة في snapmon\n#snapmon\n{url}",
   "battleShareResult": "شارك النتيجة",
-  "battleOpenDex": "افتح الموسوعة"
+  "battleOpenDex": "افتح الموسوعة",
+  "battleYourMonster": "رفيقك"
 }

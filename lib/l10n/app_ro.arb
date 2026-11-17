@@ -223,5 +223,6 @@
   "battleShareTextWon": "Am câștigat o luptă în snapmon\n#snapmon\n{url}",
   "battleShareTextLost": "Am pierdut o luptă în snapmon\n#snapmon\n{url}",
   "battleShareResult": "Distribuie rezultatul",
-  "battleOpenDex": "Vezi enciclopedia"
+  "battleOpenDex": "Vezi enciclopedia",
+  "battleYourMonster": "Tovarășul tău"
 }

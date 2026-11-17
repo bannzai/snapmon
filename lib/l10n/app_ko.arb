@@ -223,5 +223,6 @@
   "battleShareTextWon": "snapmon 배틀에서 이겼어요\n#snapmon\n{url}",
   "battleShareTextLost": "snapmon 배틀에서 졌어요\n#snapmon\n{url}",
   "battleShareResult": "결과 공유하기",
-  "battleOpenDex": "도감 보기"
+  "battleOpenDex": "도감 보기",
+  "battleYourMonster": "내 몬스터"
 }

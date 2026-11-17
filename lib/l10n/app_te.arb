@@ -223,5 +223,6 @@
   "battleShareTextWon": "snapmonలో యుద్ధం గెలిచా\n#snapmon\n{url}",
   "battleShareTextLost": "snapmonలో పోరాటం ఓడిపోయా\n#snapmon\n{url}",
   "battleShareResult": "ఫలితాన్ని పంచుకో",
-  "battleOpenDex": "డెక్స్ చూడు"
+  "battleOpenDex": "డెక్స్ చూడు",
+  "battleYourMonster": "నీ తోడు"
 }

@@ -223,5 +223,6 @@
   "battleShareTextWon": "Mình đã thắng một trận trong snapmon\n#snapmon\n{url}",
   "battleShareTextLost": "Mình thua một trận trong snapmon rồi\n#snapmon\n{url}",
   "battleShareResult": "Chia sẻ kết quả",
-  "battleOpenDex": "Xem bộ sưu tập"
+  "battleOpenDex": "Xem bộ sưu tập",
+  "battleYourMonster": "Bạn đồng hành của bạn"
 }

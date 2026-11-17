@@ -223,5 +223,6 @@
   "battleShareTextWon": "Aku menang bertarung di snapmon\n#snapmon\n{url}",
   "battleShareTextLost": "Kalah bertarung di snapmon\n#snapmon\n{url}",
   "battleShareResult": "Bagikan hasil",
-  "battleOpenDex": "Lihat dex"
+  "battleOpenDex": "Lihat dex",
+  "battleYourMonster": "Temanmu"
 }

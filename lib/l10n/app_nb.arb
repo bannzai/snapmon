@@ -223,5 +223,6 @@
   "battleShareTextWon": "Jeg vant en kamp i snapmon\n#snapmon\n{url}",
   "battleShareTextLost": "Jeg tapte en kamp i snapmon\n#snapmon\n{url}",
   "battleShareResult": "Del resultatet",
-  "battleOpenDex": "Se samling"
+  "battleOpenDex": "Se samling",
+  "battleYourMonster": "Kompisen din"
 }

@@ -223,5 +223,6 @@
   "battleShareTextWon": "snapmonನಲ್ಲಿ ಯುದ್ಧ ಗೆದ್ದೆ\n#snapmon\n{url}",
   "battleShareTextLost": "snapmonನಲ್ಲಿ ಯುದ್ಧ ಸೋತೆ\n#snapmon\n{url}",
   "battleShareResult": "ಫಲಿತಾಂಶ ಹಂಚಿಕೊ",
-  "battleOpenDex": "ವಿಶ್ವಕೋಶ ನೋಡು"
+  "battleOpenDex": "ವಿಶ್ವಕೋಶ ನೋಡು",
+  "battleYourMonster": "ನಿನ್ನ ಸಂಗಾತಿ"
 }

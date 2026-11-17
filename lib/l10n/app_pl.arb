@@ -223,5 +223,6 @@
   "battleShareTextWon": "Udało mi się wygrać walkę w snapmon\n#snapmon\n{url}",
   "battleShareTextLost": "Przegrałem walkę w snapmon\n#snapmon\n{url}",
   "battleShareResult": "Udostępnij wynik",
-  "battleOpenDex": "Zobacz encyklopedię"
+  "battleOpenDex": "Zobacz encyklopedię",
+  "battleYourMonster": "Twój kompan"
 }

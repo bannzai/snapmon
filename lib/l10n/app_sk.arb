@@ -223,5 +223,6 @@
   "battleShareTextWon": "Vyhral som súboj v snapmon\n#snapmon\n{url}",
   "battleShareTextLost": "Prehral som súboj v snapmon\n#snapmon\n{url}",
   "battleShareResult": "Zdieľaj výsledok",
-  "battleOpenDex": "Pozri si encyklopédiu"
+  "battleOpenDex": "Pozri si encyklopédiu",
+  "battleYourMonster": "Tvoj parťák"
 }

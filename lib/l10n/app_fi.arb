@@ -223,5 +223,6 @@
   "battleShareTextWon": "Voitin taistelun snapmonissa\n#snapmon\n{url}",
   "battleShareTextLost": "Hävisin taistelun snapmonissa\n#snapmon\n{url}",
   "battleShareResult": "Jaa tulos",
-  "battleOpenDex": "Katso kokoelmaa"
+  "battleOpenDex": "Katso kokoelmaa",
+  "battleYourMonster": "Kaverisi"
 }

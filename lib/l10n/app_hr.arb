@@ -223,5 +223,6 @@
   "battleShareTextWon": "Pobijedio sam u borbi u snapmonu\n#snapmon\n{url}",
   "battleShareTextLost": "Izgubio sam bitku u snapmonu\n#snapmon\n{url}",
   "battleShareResult": "Podijeli rezultat",
-  "battleOpenDex": "Pogledaj enciklopediju"
+  "battleOpenDex": "Pogledaj enciklopediju",
+  "battleYourMonster": "Tvoj suputnik"
 }

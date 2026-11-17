@@ -223,5 +223,6 @@
   "battleShareTextWon": "मैंने snapmon में लड़ाई जीती\n#snapmon\n{url}",
   "battleShareTextLost": "snapmon में लड़ाई हार गया\n#snapmon\n{url}",
   "battleShareResult": "नतीजा शेयर करो",
-  "battleOpenDex": "संग्रह देखो"
+  "battleOpenDex": "संग्रह देखो",
+  "battleYourMonster": "तुम्हारा साथी"
 }
