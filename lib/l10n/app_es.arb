@@ -67,5 +67,6 @@
   "settingsDisplayName": "nombre visible",
   "settingsDisplayNameLoading": "Cargando",
   "settingsDisplayNameHelper": "Nombre que ven tus rivales en combate",
-  "settingsDisplayNameSave": "Guardar"
+  "settingsDisplayNameSave": "Guardar",
+  "profileChangeIcon": "Cambiar icono"
 }

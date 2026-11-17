@@ -67,5 +67,6 @@
   "settingsDisplayName": "प्रदर्शन नाव",
   "settingsDisplayNameLoading": "लोड होत आहे",
   "settingsDisplayNameHelper": "लढाईत प्रतिस्पर्ध्यांना दिसणारे नाव",
-  "settingsDisplayNameSave": "जतन कर"
+  "settingsDisplayNameSave": "जतन कर",
+  "profileChangeIcon": "आयकॉन बदल"
 }

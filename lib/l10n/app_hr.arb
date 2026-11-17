@@ -67,5 +67,6 @@
   "settingsDisplayName": "prikazno ime",
   "settingsDisplayNameLoading": "Učitavanje",
   "settingsDisplayNameHelper": "Ime koje tvoji protivnici vide u borbi",
-  "settingsDisplayNameSave": "Spremi"
+  "settingsDisplayNameSave": "Spremi",
+  "profileChangeIcon": "Promijeni ikonu"
 }

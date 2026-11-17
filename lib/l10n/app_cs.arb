@@ -67,5 +67,6 @@
   "settingsDisplayName": "zobrazované jméno",
   "settingsDisplayNameLoading": "Načítání",
   "settingsDisplayNameHelper": "Jméno, které uvidí tví soupeři v souboji",
-  "settingsDisplayNameSave": "Uložit"
+  "settingsDisplayNameSave": "Uložit",
+  "profileChangeIcon": "Změň ikonu"
 }

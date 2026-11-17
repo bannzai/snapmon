@@ -67,5 +67,6 @@
   "settingsDisplayName": "nome de apresentação",
   "settingsDisplayNameLoading": "A carregar",
   "settingsDisplayNameHelper": "Nome que os teus adversários veem nas batalhas",
-  "settingsDisplayNameSave": "Guardar"
+  "settingsDisplayNameSave": "Guardar",
+  "profileChangeIcon": "Mudar ícone"
 }

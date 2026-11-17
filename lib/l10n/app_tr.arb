@@ -67,5 +67,6 @@
   "settingsDisplayName": "görünen ad",
   "settingsDisplayNameLoading": "Yükleniyor",
   "settingsDisplayNameHelper": "Rakiplerinin savaşta gördüğü ad",
-  "settingsDisplayNameSave": "Kaydet"
+  "settingsDisplayNameSave": "Kaydet",
+  "profileChangeIcon": "Simgeyi değiştir"
 }

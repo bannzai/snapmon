@@ -67,5 +67,6 @@
   "settingsDisplayName": "prikazno ime",
   "settingsDisplayNameLoading": "Nalaganje",
   "settingsDisplayNameHelper": "Ime, ki ga tvoji nasprotniki vidijo v boju",
-  "settingsDisplayNameSave": "Shrani"
+  "settingsDisplayNameSave": "Shrani",
+  "profileChangeIcon": "Spremeni ikono"
 }

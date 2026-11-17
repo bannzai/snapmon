@@ -67,5 +67,6 @@
   "settingsDisplayName": "اسم العرض",
   "settingsDisplayNameLoading": "جارٍ التحميل",
   "settingsDisplayNameHelper": "الاسم الذي يراه خصومك في المعارك",
-  "settingsDisplayNameSave": "حفظ"
+  "settingsDisplayNameSave": "حفظ",
+  "profileChangeIcon": "تغيير الأيقونة"
 }

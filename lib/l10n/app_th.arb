@@ -67,5 +67,6 @@
   "settingsDisplayName": "ชื่อที่แสดง",
   "settingsDisplayNameLoading": "กำลังโหลด",
   "settingsDisplayNameHelper": "ชื่อที่คู่ต่อสู้เห็นในการต่อสู้",
-  "settingsDisplayNameSave": "บันทึก"
+  "settingsDisplayNameSave": "บันทึก",
+  "profileChangeIcon": "เปลี่ยนไอคอน"
 }

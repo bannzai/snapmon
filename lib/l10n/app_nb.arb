@@ -67,5 +67,6 @@
   "settingsDisplayName": "visningsnavn",
   "settingsDisplayNameLoading": "Laster inn",
   "settingsDisplayNameHelper": "Navnet motstanderne dine ser i kamp",
-  "settingsDisplayNameSave": "Lagre"
+  "settingsDisplayNameSave": "Lagre",
+  "profileChangeIcon": "Bytt ikon"
 }

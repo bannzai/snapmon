@@ -67,5 +67,6 @@
   "settingsDisplayName": "visningsnamn",
   "settingsDisplayNameLoading": "Laddar",
   "settingsDisplayNameHelper": "Namnet dina motståndare ser i strid",
-  "settingsDisplayNameSave": "Spara"
+  "settingsDisplayNameSave": "Spara",
+  "profileChangeIcon": "Byt ikon"
 }

@@ -67,5 +67,6 @@
   "settingsDisplayName": "ник",
   "settingsDisplayNameLoading": "Загрузка",
   "settingsDisplayNameHelper": "Имя, которое видят твои соперники в бою",
-  "settingsDisplayNameSave": "Сохранить"
+  "settingsDisplayNameSave": "Сохранить",
+  "profileChangeIcon": "Сменить значок"
 }

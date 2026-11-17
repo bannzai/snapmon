@@ -67,5 +67,6 @@
   "settingsDisplayName": "visningsnavn",
   "settingsDisplayNameLoading": "Indlæser",
   "settingsDisplayNameHelper": "Navnet dine modstandere ser i kamp",
-  "settingsDisplayNameSave": "Gem"
+  "settingsDisplayNameSave": "Gem",
+  "profileChangeIcon": "Skift ikon"
 }

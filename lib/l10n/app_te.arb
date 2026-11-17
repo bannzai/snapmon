@@ -67,5 +67,6 @@
   "settingsDisplayName": "ప్రదర్శన పేరు",
   "settingsDisplayNameLoading": "లోడ్ అవుతోంది",
   "settingsDisplayNameHelper": "పోరులో ప్రత్యర్థులకు కనిపించే పేరు",
-  "settingsDisplayNameSave": "సేవ్ చేయి"
+  "settingsDisplayNameSave": "సేవ్ చేయి",
+  "profileChangeIcon": "ఐకాన్ మార్చు"
 }

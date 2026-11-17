@@ -67,5 +67,6 @@
   "settingsDisplayName": "wyświetlan",
   "settingsDisplayNameLoading": "Wczytywanie",
   "settingsDisplayNameHelper": "Imię widoczne dla twoich rywali w walce",
-  "settingsDisplayNameSave": "Zapisz"
+  "settingsDisplayNameSave": "Zapisz",
+  "profileChangeIcon": "Zmień ikonę"
 }

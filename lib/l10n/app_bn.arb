@@ -67,5 +67,6 @@
   "settingsDisplayName": "প্রদর্শিত নাম",
   "settingsDisplayNameLoading": "লোড হচ্ছে",
   "settingsDisplayNameHelper": "লড়াইয়ে প্রতিপক্ষ যে নাম দেখবে",
-  "settingsDisplayNameSave": "সেভ করো"
+  "settingsDisplayNameSave": "সেভ করো",
+  "profileChangeIcon": "আইকন বদলাও"
 }

@@ -67,5 +67,6 @@
   "settingsDisplayName": "nama tampilan",
   "settingsDisplayNameLoading": "Memuat",
   "settingsDisplayNameHelper": "Nama yang dilihat lawanmu saat bertarung",
-  "settingsDisplayNameSave": "Simpan"
+  "settingsDisplayNameSave": "Simpan",
+  "profileChangeIcon": "Ganti ikon"
 }

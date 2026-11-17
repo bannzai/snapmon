@@ -67,5 +67,6 @@
   "settingsDisplayName": "顯示名稱",
   "settingsDisplayNameLoading": "載入中",
   "settingsDisplayNameHelper": "對戰時對手看到的名字",
-  "settingsDisplayNameSave": "儲存"
+  "settingsDisplayNameSave": "儲存",
+  "profileChangeIcon": "更換圖示"
 }

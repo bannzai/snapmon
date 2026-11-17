@@ -67,5 +67,6 @@
   "settingsDisplayName": "પ્રદર્શિત નામ",
   "settingsDisplayNameLoading": "લોડ થઈ રહ્યું છે",
   "settingsDisplayNameHelper": "લડાઈમાં હરીફોને દેખાતું નામ",
-  "settingsDisplayNameSave": "સાચવો"
+  "settingsDisplayNameSave": "સાચવો",
+  "profileChangeIcon": "આઇકન બદલો"
 }

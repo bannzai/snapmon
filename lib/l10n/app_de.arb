@@ -67,5 +67,6 @@
   "settingsDisplayName": "Anzeigename",
   "settingsDisplayNameLoading": "Lädt",
   "settingsDisplayNameHelper": "Name, den deine Gegner im Kampf sehen",
-  "settingsDisplayNameSave": "Speichern"
+  "settingsDisplayNameSave": "Speichern",
+  "profileChangeIcon": "Icon ändern"
 }
