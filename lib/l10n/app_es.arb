@@ -156,5 +156,6 @@
   "shareFormatPortraitDescription": "Para historias 1080×1920",
   "shareFormatLandscapeDescription": "Para publicaciones 1200×630",
   "shareConfirm": "Compartir",
-  "commonLevelUp": "Lv. {oldLevel} → {newLevel}"
+  "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
+  "battleWon": "¡Ganaste!"
 }

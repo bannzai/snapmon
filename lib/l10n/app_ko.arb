@@ -156,5 +156,6 @@
   "shareFormatPortraitDescription": "스토리용 1080×1920",
   "shareFormatLandscapeDescription": "게시물용 1200×630",
   "shareConfirm": "공유하기",
-  "commonLevelUp": "Lv. {oldLevel} → {newLevel}"
+  "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
+  "battleWon": "승리했다!"
 }

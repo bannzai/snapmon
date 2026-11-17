@@ -156,5 +156,6 @@
   "shareFormatPortraitDescription": "Pro příběhy 1080×1920",
   "shareFormatLandscapeDescription": "Pro příspěvky 1200×630",
   "shareConfirm": "Sdílej",
-  "commonLevelUp": "Lv. {oldLevel} → {newLevel}"
+  "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
+  "battleWon": "Vyhrál jsi!"
 }

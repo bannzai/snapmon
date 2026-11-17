@@ -156,5 +156,6 @@
   "shareFormatPortraitDescription": "Per a històries 1080×1920",
   "shareFormatLandscapeDescription": "Per a publicacions 1200×630",
   "shareConfirm": "Comparteix",
-  "commonLevelUp": "Lv. {oldLevel} → {newLevel}"
+  "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
+  "battleWon": "Has guanyat!"
 }

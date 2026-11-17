@@ -156,5 +156,6 @@
   "shareFormatPortraitDescription": "Do relacji 1080×1920",
   "shareFormatLandscapeDescription": "Do postów 1200×630",
   "shareConfirm": "Udostępnij",
-  "commonLevelUp": "Lv. {oldLevel} → {newLevel}"
+  "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
+  "battleWon": "Wygrana!"
 }

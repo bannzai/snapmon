@@ -156,5 +156,6 @@
   "shareFormatPortraitDescription": "Hikâyeler için 1080×1920",
   "shareFormatLandscapeDescription": "Gönderiler için 1200×630",
   "shareConfirm": "Paylaş",
-  "commonLevelUp": "Lv. {oldLevel} → {newLevel}"
+  "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
+  "battleWon": "Kazandın!"
 }

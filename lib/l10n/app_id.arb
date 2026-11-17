@@ -156,5 +156,6 @@
   "shareFormatPortraitDescription": "Untuk story 1080×1920",
   "shareFormatLandscapeDescription": "Untuk postingan 1200×630",
   "shareConfirm": "Bagikan",
-  "commonLevelUp": "Lv. {oldLevel} → {newLevel}"
+  "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
+  "battleWon": "Kamu menang!"
 }

@@ -156,5 +156,6 @@
   "shareFormatPortraitDescription": "Sztorikhoz 1080×1920",
   "shareFormatLandscapeDescription": "Bejegyzésekhez 1200×630",
   "shareConfirm": "Megosztás",
-  "commonLevelUp": "Lv. {oldLevel} → {newLevel}"
+  "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
+  "battleWon": "Győztél!"
 }

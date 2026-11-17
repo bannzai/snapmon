@@ -156,5 +156,6 @@
   "shareFormatPortraitDescription": "För stories 1080×1920",
   "shareFormatLandscapeDescription": "För inlägg 1200×630",
   "shareConfirm": "Dela",
-  "commonLevelUp": "Lv. {oldLevel} → {newLevel}"
+  "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
+  "battleWon": "Du vann!"
 }

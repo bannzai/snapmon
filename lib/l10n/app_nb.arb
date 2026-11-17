@@ -156,5 +156,6 @@
   "shareFormatPortraitDescription": "For historier 1080×1920",
   "shareFormatLandscapeDescription": "Til innlegg 1200×630",
   "shareConfirm": "Del",
-  "commonLevelUp": "Lv. {oldLevel} → {newLevel}"
+  "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
+  "battleWon": "Du vant!"
 }

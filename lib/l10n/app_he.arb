@@ -156,5 +156,6 @@
   "shareFormatPortraitDescription": "לסטוריז 1080×1920",
   "shareFormatLandscapeDescription": "לפוסטים 1200×630",
   "shareConfirm": "שיתוף",
-  "commonLevelUp": "Lv. {oldLevel} → {newLevel}"
+  "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
+  "battleWon": "ניצחון!"
 }

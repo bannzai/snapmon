@@ -156,5 +156,6 @@
   "shareFormatPortraitDescription": "Til stories 1080×1920",
   "shareFormatLandscapeDescription": "Til opslag 1200×630",
   "shareConfirm": "Del",
-  "commonLevelUp": "Lv. {oldLevel} → {newLevel}"
+  "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
+  "battleWon": "Du vandt!"
 }
