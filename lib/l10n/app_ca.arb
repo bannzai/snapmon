@@ -98,5 +98,6 @@
   "generationSearchingOpponent": "Buscant un rival",
   "generationBattleWith": "Lluitaràs amb {monsterName}",
   "generationOpponentAppeared": "Ha aparegut {opponentName}!",
-  "generationLetsBattleWith": "Lluita amb {monsterName}"
+  "generationLetsBattleWith": "Lluita amb {monsterName}",
+  "generationAlreadyInDexTitle": "Ja és a l’enciclopèdia"
 }

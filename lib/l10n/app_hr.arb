@@ -98,5 +98,6 @@
   "generationSearchingOpponent": "Traži se protivnik",
   "generationBattleWith": "Borit ćeš se uz {monsterName}",
   "generationOpponentAppeared": "Pojavio se {opponentName}!",
-  "generationLetsBattleWith": "Bori se uz {monsterName}"
+  "generationLetsBattleWith": "Bori se uz {monsterName}",
+  "generationAlreadyInDexTitle": "Već je u enciklopediji"
 }

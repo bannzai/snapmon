@@ -98,5 +98,6 @@
   "generationSearchingOpponent": "Mencari lawan",
   "generationBattleWith": "Kamu bertarung bersama {monsterName}",
   "generationOpponentAppeared": "{opponentName} muncul!",
-  "generationLetsBattleWith": "Bertarung bersama {monsterName}"
+  "generationLetsBattleWith": "Bertarung bersama {monsterName}",
+  "generationAlreadyInDexTitle": "Sudah ada dalam ensiklopedia"
 }

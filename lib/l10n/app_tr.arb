@@ -98,5 +98,6 @@
   "generationSearchingOpponent": "Rakip aranıyor",
   "generationBattleWith": "{monsterName} ile savaşacaksın",
   "generationOpponentAppeared": "{opponentName} ortaya çıktı!",
-  "generationLetsBattleWith": "{monsterName} ile savaş"
+  "generationLetsBattleWith": "{monsterName} ile savaş",
+  "generationAlreadyInDexTitle": "Zaten ansiklopedide"
 }

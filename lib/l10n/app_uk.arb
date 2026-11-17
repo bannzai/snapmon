@@ -98,5 +98,6 @@
   "generationSearchingOpponent": "Пошук суперника",
   "generationBattleWith": "Ти битимешся разом із {monsterName}",
   "generationOpponentAppeared": "З’являється {opponentName}!",
-  "generationLetsBattleWith": "Бийся разом із {monsterName}"
+  "generationLetsBattleWith": "Бийся разом із {monsterName}",
+  "generationAlreadyInDexTitle": "Уже є в енциклопедії"
 }

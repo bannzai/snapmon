@@ -98,5 +98,6 @@
   "generationSearchingOpponent": "എതിരാളിയെ തിരയുന്നു",
   "generationBattleWith": "നിങ്ങൾ {monsterName} ഒപ്പം പോരാടും",
   "generationOpponentAppeared": "{opponentName} പ്രത്യക്ഷപ്പെട്ടു!",
-  "generationLetsBattleWith": "{monsterName} ഒപ്പം പോരാടൂ"
+  "generationLetsBattleWith": "{monsterName} ഒപ്പം പോരാടൂ",
+  "generationAlreadyInDexTitle": "ഇതിനകം വിജ്ഞാനകോശത്തിലുണ്ട്"
 }

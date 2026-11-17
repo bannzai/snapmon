@@ -98,5 +98,6 @@
   "generationSearchingOpponent": "ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ ଖୋଜା ଚାଲିଛି",
   "generationBattleWith": "ତୁମେ {monsterName} ସହ ଲଢ଼ିବ",
   "generationOpponentAppeared": "{opponentName} ଦେଖାଦେଲା!",
-  "generationLetsBattleWith": "{monsterName} ସହ ଲଢ଼"
+  "generationLetsBattleWith": "{monsterName} ସହ ଲଢ଼",
+  "generationAlreadyInDexTitle": "ଆଗରୁ ବିଶ୍ୱକୋଷରେ ଅଛି"
 }

@@ -98,5 +98,6 @@
   "generationSearchingOpponent": "Gegner wird gesucht",
   "generationBattleWith": "Du kämpfst mit {monsterName}",
   "generationOpponentAppeared": "{opponentName} ist aufgetaucht!",
-  "generationLetsBattleWith": "Kämpfe mit {monsterName}"
+  "generationLetsBattleWith": "Kämpfe mit {monsterName}",
+  "generationAlreadyInDexTitle": "Schon im Dex"
 }

@@ -98,5 +98,6 @@
   "generationSearchingOpponent": "Mencari lawan",
   "generationBattleWith": "Kamu bertarung bersama {monsterName}",
   "generationOpponentAppeared": "{opponentName} muncul!",
-  "generationLetsBattleWith": "Bertarunglah bersama {monsterName}"
+  "generationLetsBattleWith": "Bertarunglah bersama {monsterName}",
+  "generationAlreadyInDexTitle": "Sudah ada di dex"
 }

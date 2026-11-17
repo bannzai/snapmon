@@ -98,5 +98,6 @@
   "generationSearchingOpponent": "Cerco un avversario",
   "generationBattleWith": "Combatterai con {monsterName}",
   "generationOpponentAppeared": "È apparso {opponentName}!",
-  "generationLetsBattleWith": "Combatti con {monsterName}"
+  "generationLetsBattleWith": "Combatti con {monsterName}",
+  "generationAlreadyInDexTitle": "È già nel dex"
 }

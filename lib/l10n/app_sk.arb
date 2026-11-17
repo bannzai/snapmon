@@ -98,5 +98,6 @@
   "generationSearchingOpponent": "Hľadá sa súper",
   "generationBattleWith": "Budeš bojovať s {monsterName}",
   "generationOpponentAppeared": "Objavil sa {opponentName}!",
-  "generationLetsBattleWith": "Bojuj po boku {monsterName}"
+  "generationLetsBattleWith": "Bojuj po boku {monsterName}",
+  "generationAlreadyInDexTitle": "Už je v encyklopédii"
 }

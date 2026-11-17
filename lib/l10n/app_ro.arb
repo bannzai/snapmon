@@ -98,5 +98,6 @@
   "generationSearchingOpponent": "Se caută un adversar",
   "generationBattleWith": "Vei lupta alături de {monsterName}",
   "generationOpponentAppeared": "A apărut {opponentName}!",
-  "generationLetsBattleWith": "Luptă alături de {monsterName}"
+  "generationLetsBattleWith": "Luptă alături de {monsterName}",
+  "generationAlreadyInDexTitle": "Este deja în enciclopedie"
 }

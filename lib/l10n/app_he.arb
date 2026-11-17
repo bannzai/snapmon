@@ -98,5 +98,6 @@
   "generationSearchingOpponent": "מחפשים יריב",
   "generationBattleWith": "יוצאים לקרב עם {monsterName}",
   "generationOpponentAppeared": "הופיע יריב: {opponentName}!",
-  "generationLetsBattleWith": "לקרב עם {monsterName}"
+  "generationLetsBattleWith": "לקרב עם {monsterName}",
+  "generationAlreadyInDexTitle": "כבר באוסף"
 }

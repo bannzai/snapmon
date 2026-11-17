@@ -98,5 +98,6 @@
   "generationSearchingOpponent": "正在寻找对手",
   "generationBattleWith": "你将和 {monsterName} 一起战斗",
   "generationOpponentAppeared": "{opponentName}出现了！",
-  "generationLetsBattleWith": "和{monsterName}一起战斗吧"
+  "generationLetsBattleWith": "和{monsterName}一起战斗吧",
+  "generationAlreadyInDexTitle": "已经在图鉴里了"
 }

@@ -98,5 +98,6 @@
   "generationSearchingOpponent": "Đang tìm đối thủ",
   "generationBattleWith": "Bạn sẽ chiến đấu cùng {monsterName}",
   "generationOpponentAppeared": "{opponentName} xuất hiện!",
-  "generationLetsBattleWith": "Chiến đấu cùng {monsterName}"
+  "generationLetsBattleWith": "Chiến đấu cùng {monsterName}",
+  "generationAlreadyInDexTitle": "Đã có trong bộ sưu tập"
 }

@@ -98,5 +98,6 @@
   "generationSearchingOpponent": "กำลังค้นหาคู่ต่อสู้",
   "generationBattleWith": "จะต่อสู้ไปพร้อมกับ {monsterName}",
   "generationOpponentAppeared": "{opponentName} ปรากฏตัว!",
-  "generationLetsBattleWith": "สู้ไปกับ {monsterName}"
+  "generationLetsBattleWith": "สู้ไปกับ {monsterName}",
+  "generationAlreadyInDexTitle": "อยู่ในสารานุกรมแล้ว"
 }

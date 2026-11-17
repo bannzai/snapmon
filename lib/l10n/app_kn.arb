@@ -98,5 +98,6 @@
   "generationSearchingOpponent": "ಎದುರಾಳಿಯನ್ನು ಹುಡುಕಲಾಗುತ್ತಿದೆ",
   "generationBattleWith": "ನೀನು {monsterName} ಜೊತೆ ಹೋರಾಡುತ್ತೀಯ",
   "generationOpponentAppeared": "{opponentName} ಕಾಣಿಸಿಕೊಂಡಿತು!",
-  "generationLetsBattleWith": "{monsterName} ಜೊತೆ ಹೋರಾಡು"
+  "generationLetsBattleWith": "{monsterName} ಜೊತೆ ಹೋರಾಡು",
+  "generationAlreadyInDexTitle": "ಈಗಾಗಲೇ ವಿಶ್ವಕೋಶದಲ್ಲಿದೆ"
 }

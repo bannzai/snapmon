@@ -98,5 +98,6 @@
   "generationSearchingOpponent": "ਵਿਰੋਧੀ ਲੱਭਿਆ ਜਾ ਰਿਹਾ ਹੈ",
   "generationBattleWith": "ਤੁਸੀਂ {monsterName} ਨਾਲ ਲੜੋਗੇ",
   "generationOpponentAppeared": "{opponentName} ਸਾਹਮਣੇ ਆ ਗਿਆ!",
-  "generationLetsBattleWith": "{monsterName} ਨਾਲ ਲੜੋ"
+  "generationLetsBattleWith": "{monsterName} ਨਾਲ ਲੜੋ",
+  "generationAlreadyInDexTitle": "ਪਹਿਲਾਂ ਹੀ ਸੰਗ੍ਰਹਿ ਵਿੱਚ ਹੈ"
 }

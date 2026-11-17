@@ -98,5 +98,6 @@
   "generationSearchingOpponent": "상대를 찾고 있어요",
   "generationBattleWith": "{monsterName}(으)로 싸워요",
   "generationOpponentAppeared": "{opponentName} 등장!",
-  "generationLetsBattleWith": "{monsterName}(으)로 배틀해요"
+  "generationLetsBattleWith": "{monsterName}(으)로 배틀해요",
+  "generationAlreadyInDexTitle": "이미 도감에 있어요"
 }

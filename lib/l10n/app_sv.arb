@@ -98,5 +98,6 @@
   "generationSearchingOpponent": "Letar efter en motståndare",
   "generationBattleWith": "Du slåss med {monsterName}",
   "generationOpponentAppeared": "{opponentName} dök upp!",
-  "generationLetsBattleWith": "Strid med {monsterName}"
+  "generationLetsBattleWith": "Strid med {monsterName}",
+  "generationAlreadyInDexTitle": "Finns redan i samlingen"
 }

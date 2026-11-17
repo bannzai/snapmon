@@ -98,5 +98,6 @@
   "generationSearchingOpponent": "எதிராளியைத் தேடுகிறது",
   "generationBattleWith": "நீங்கள் {monsterName} உடன் போரிடுவீர்கள்",
   "generationOpponentAppeared": "{opponentName} தோன்றியது!",
-  "generationLetsBattleWith": "{monsterName} உடன் போரிடுங்கள்"
+  "generationLetsBattleWith": "{monsterName} உடன் போரிடுங்கள்",
+  "generationAlreadyInDexTitle": "ஏற்கெனவே களஞ்சியத்தில் உள்ளது"
 }

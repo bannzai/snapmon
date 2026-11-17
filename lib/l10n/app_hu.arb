@@ -98,5 +98,6 @@
   "generationSearchingOpponent": "Ellenfél keresése",
   "generationBattleWith": "A harcban {monsterName} lesz veled",
   "generationOpponentAppeared": "Felbukkant {opponentName}!",
-  "generationLetsBattleWith": "Harcolj {monsterName} oldalán"
+  "generationLetsBattleWith": "Harcolj {monsterName} oldalán",
+  "generationAlreadyInDexTitle": "Már a gyűjteményben van"
 }

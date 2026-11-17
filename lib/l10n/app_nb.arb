@@ -98,5 +98,6 @@
   "generationSearchingOpponent": "Leter etter en motstander",
   "generationBattleWith": "Du kjemper med {monsterName}",
   "generationOpponentAppeared": "{opponentName} dukket opp!",
-  "generationLetsBattleWith": "Kjemp med {monsterName}"
+  "generationLetsBattleWith": "Kjemp med {monsterName}",
+  "generationAlreadyInDexTitle": "Allerede i samlingen"
 }

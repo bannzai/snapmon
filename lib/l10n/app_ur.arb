@@ -98,5 +98,6 @@
   "generationSearchingOpponent": "حریف کی تلاش جاری ہے",
   "generationBattleWith": "تم {monsterName} کے ساتھ لڑو گے",
   "generationOpponentAppeared": "{opponentName} سامنے آ گیا!",
-  "generationLetsBattleWith": "{monsterName} کے ساتھ لڑو"
+  "generationLetsBattleWith": "{monsterName} کے ساتھ لڑو",
+  "generationAlreadyInDexTitle": "پہلے سے ڈیکس میں ہے"
 }
