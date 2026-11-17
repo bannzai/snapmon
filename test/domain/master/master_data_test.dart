@@ -7,6 +7,7 @@ import 'package:snapmon/domain/battle/status_condition.dart';
 import 'package:snapmon/domain/master/master_data.dart';
 import 'package:snapmon/domain/master/move.dart';
 import 'package:snapmon/domain/monster/monster_stats.dart';
+import 'package:snapmon/domain/random/deterministic_random.dart';
 
 void main() {
   final master = MasterData.fromJson(
@@ -19,21 +20,126 @@ void main() {
     expect(master.version, greaterThanOrEqualTo(1));
   });
 
-  test('相性表は属性数 × 属性数のすべての組に 0.5 / 1 / 2 の倍率を持つ', () {
-    final elementTypeIDs = master.elementTypes.map(
-      (elementType) => elementType.id,
-    );
-    expect(master.typeChart.keys.toSet(), elementTypeIDs.toSet());
-    for (final attackerElementTypeID in elementTypeIDs) {
+  test('相性表は master の属性と、相性を決めたその場で作った属性のすべての組に 0.5 / 1 / 2 の倍率を持つ', () {
+    final chartElementTypeIDs = master.typeChart.keys.toSet();
+    final masterElementTypeIDs = {
+      for (final elementType in master.elementTypes) elementType.id,
+    };
+    expect(chartElementTypeIDs, containsAll(masterElementTypeIDs));
+    // master の属性ではない行は、その場で作った属性の ID の形 (functions/src/generation/pipeline.ts の
+    // `element_<名前の FNV-1a の 16 進>`) だけを許す。打ち間違えた master の属性 ID の行を通さないため
+    for (final elementTypeID in chartElementTypeIDs.difference(
+      masterElementTypeIDs,
+    )) {
+      expect(elementTypeID, matches(RegExp(r'^element_[0-9a-f]{1,8}$')));
+    }
+    for (final attackerElementTypeID in chartElementTypeIDs) {
       final row = master.typeChart[attackerElementTypeID]!;
       expect(
         row.keys.toSet(),
-        elementTypeIDs.toSet(),
+        chartElementTypeIDs,
         reason: '$attackerElementTypeID の行に抜けか余分な列がある',
       );
       for (final multiplier in row.values) {
         expect([0.5, 1.0, 2.0], contains(multiplier));
       }
+    }
+  });
+
+  test('版 13 で、その場で作られた属性「料理」に相性を足した (#348)', () {
+    expect(master.version, greaterThanOrEqualTo(13));
+    // その場で作った属性の ID は名前から決まる (functions/src/generation/pipeline.ts)。
+    // 本番の definitions/ の「料理」の ID (element_357cac2f) と同じ値になる
+    final cookingElementTypeID =
+        'element_${fnv1a32(text: '料理').toRadixString(16)}';
+    expect(cookingElementTypeID, 'element_357cac2f');
+    final merged = mergeMasterData(
+      base: master,
+      additional: MasterData.fromJson(
+        json: {
+          'version': 1,
+          'elementTypes': [
+            {'id': cookingElementTypeID, 'displayName': '料理'},
+          ],
+          'moves': <dynamic>[],
+        },
+      ),
+    );
+
+    /// 料理を足した定義で、属性 [attacker] の技が属性 [defender] のモンスターに与える倍率を返す。
+    double multiplier({required String attacker, required String defender}) =>
+        merged.typeMultiplier(
+          attackerElementTypeID: attacker,
+          defenderElementTypeID: defender,
+        );
+
+    for (final defender in ['beast', 'ice', 'sweets', 'ghost']) {
+      expect(
+        multiplier(attacker: cookingElementTypeID, defender: defender),
+        2,
+        reason: '料理 → $defender',
+      );
+    }
+    for (final defender in ['fire', 'water', 'steel', 'poison']) {
+      expect(
+        multiplier(attacker: cookingElementTypeID, defender: defender),
+        0.5,
+        reason: '料理 → $defender',
+      );
+    }
+    for (final attacker in ['water', 'poison', 'bug', 'beast']) {
+      expect(
+        multiplier(attacker: attacker, defender: cookingElementTypeID),
+        2,
+        reason: '$attacker → 料理',
+      );
+    }
+    for (final attacker in ['thunder', 'wind', 'sweets']) {
+      expect(
+        multiplier(attacker: attacker, defender: cookingElementTypeID),
+        0.5,
+        reason: '$attacker → 料理',
+      );
+    }
+    // 有利・不利に挙げていない組は等倍のまま
+    expect(multiplier(attacker: cookingElementTypeID, defender: 'grass'), 1);
+    expect(multiplier(attacker: 'fire', defender: cookingElementTypeID), 1);
+    expect(
+      multiplier(
+        attacker: cookingElementTypeID,
+        defender: cookingElementTypeID,
+      ),
+      1,
+    );
+  });
+
+  test('相性表の有利・不利の数は覚えられる範囲に収まる (documents/game-rules.md「相性表」)', () {
+    for (final elementTypeID in master.typeChart.keys) {
+      final row = master.typeChart[elementTypeID]!.values;
+      final column = [
+        for (final attackerRow in master.typeChart.values)
+          attackerRow[elementTypeID]!,
+      ];
+      expect(
+        row.where((multiplier) => multiplier == 2).length,
+        inInclusiveRange(3, 6),
+        reason: '$elementTypeID の有利',
+      );
+      expect(
+        row.where((multiplier) => multiplier == 0.5).length,
+        inInclusiveRange(4, 5),
+        reason: '$elementTypeID の不利',
+      );
+      expect(
+        column.where((multiplier) => multiplier == 2).length,
+        inInclusiveRange(2, 6),
+        reason: '$elementTypeID の弱点',
+      );
+      expect(
+        column.where((multiplier) => multiplier == 0.5).length,
+        inInclusiveRange(2, 7),
+        reason: '$elementTypeID の耐性',
+      );
     }
   });
 

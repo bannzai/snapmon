@@ -147,6 +147,7 @@ class MasterData {
   }) =>
       typeChart[attackerElementTypeID]?[defenderElementTypeID] ??
       // その場で作った属性の相性は、既存の全属性と等倍を既定にする (ADR 0001「master に無い属性・技」)。
+      // master の相性表に行と列を足したその場で作った属性 (版 13 の「料理」。#348) だけが、等倍ではない相性を持つ。
       // master 自体の組の抜けはテスト (test/domain/master/master_data_test.dart) で防ぐ。
       1;
 }
@@ -171,8 +172,9 @@ MasterData mergeMasterData({
         (elementType) => !baseElementTypeIDs.contains(elementType.id),
       ),
     ],
-    // その場で作った属性の相性は等倍に固定するため (ADR 0001「master に無い属性・技」)、
-    // [additional] が相性表を持っていても取り込まず、[typeMultiplier] の等倍の既定に任せる。
+    // その場で作った属性の相性は定義の側では決めないため (ADR 0001「master に無い属性・技」)、
+    // [additional] が相性表を持っていても取り込まない。[base] の相性表に行と列がある属性はその値、
+    // 無い属性は [typeMultiplier] の等倍の既定になる。
     typeChart: base.typeChart,
     moves: [
       ...base.moves,
