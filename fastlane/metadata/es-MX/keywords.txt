@@ -1,0 +1,1 @@
+monstruo,batalla,foto,cámara,coleccionar,criatura,turnos,rpg,entrenador,elemento,combate,colección

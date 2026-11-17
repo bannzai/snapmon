@@ -1,0 +1,25 @@
+Îndreaptă camera spre orice din jurul tău și se naște un monstru care arată exact la fel. Colecționează monștri, luptă cu ei și laudă-te cu ei.
+
+POZA TA DEVINE MONSTRU
+Fă o poză sau alege una din bibliotecă. Subiectul decupat din poză (sau zona pe care o alegi pe poză) devine monstrul, exact așa cum e. Numele, fișa din enciclopedie, elementele, mișcările și statisticile vin din ceea ce este subiectul. Odată născut, un monstru nu-și mai schimbă niciodată aspectul și abilitățile.
+
+LUPTE PE TURE ÎN CARE STATISTICILE CONTEAZĂ
+Monștrii acționează în ordinea vitezei. Puterea mișcărilor, slăbiciunile elementelor, atacul și apărarea și PP rămași decid rezultatul. Ia-ți echipa de trei monștri la luptă împotriva antrenorilor CPU și crește în nivel după fiecare luptă.
+
+COMPLETEAZĂ-ȚI ENCICLOPEDIA
+Fiecare monstru pe care îl creezi rămâne în enciclopedia ta.
+
+DISTRIBUIE
+Transformă cărțile din enciclopedie și rezultatele luptelor în imagini și distribuie-le pe rețelele sociale. Imaginea unui monstru poate fi o parte din poza originală sau toată poza, iar oricine vede o carte distribuită o poate vedea.
+
+JOACĂ ÎN SIGURANȚĂ
+• Numele monștrilor și fișele din enciclopedie sunt generate de AI
+• Din poze nepotrivite nu se generează monștri
+• Primești o notificare când un monstru e făcut dintr-o poză în care apare o persoană
+• Cere-i mai întâi acordul dacă în poză apare altcineva
+• Asociază-ți Apple ID ca să-ți păstrezi enciclopedia când schimbi dispozitivul
+• Pentru vârste de la 13 ani în sus
+• Oferă achiziții în aplicație (bilete de creare) ca să creezi monștri și după limita zilnică gratuită
+
+Contact: bannzai.app@gmail.com
+Termeni de utilizare (în japoneză): https://bannzai.github.io/snapmon/Terms

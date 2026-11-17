@@ -1,0 +1,25 @@
+Aponta a câmara para qualquer coisa à tua volta e nasce um monstro igualzinho a ela. Coleciona-os, põe-nos a combater e mostra-os a toda a gente.
+
+A TUA FOTO TORNA-SE UM MONSTRO
+Tira uma foto ou escolhe uma da tua fototeca. O objeto recortado da foto (ou a área que escolheres na foto) torna-se o monstro tal como está. O nome, o texto da enciclopédia, os elementos, os golpes e os atributos vêm daquilo que o objeto é. Depois de um monstro nascer, o seu aspeto e as suas habilidades nunca mudam.
+
+BATALHAS POR TURNOS EM QUE OS ATRIBUTOS CONTAM
+Os monstros agem por ordem de velocidade. O poder dos golpes, as fraquezas de elemento, o ataque e a defesa e os PP restantes decidem o resultado. Leva a tua equipa de três monstros para batalhas contra treinadores CPU e sobe de nível depois de cada batalha.
+
+ENCHE A TUA ENCICLOPÉDIA
+Cada monstro que crias fica guardado na tua enciclopédia.
+
+PARTILHA
+Transforma as cartas da enciclopédia e os resultados das batalhas em imagens e partilha-as nas redes sociais. A imagem de um monstro pode ser uma parte ou a totalidade da foto original, e qualquer pessoa que veja uma carta partilhada consegue vê-la.
+
+JOGA EM SEGURANÇA
+• Os nomes dos monstros e os textos da enciclopédia são gerados por AI
+• Não são gerados monstros a partir de fotos inadequadas
+• Recebes um aviso quando um monstro é criado a partir de uma foto com uma pessoa
+• Pede autorização primeiro se aparecer outra pessoa na foto
+• Associa o teu Apple ID para manteres a enciclopédia quando mudares de dispositivo
+• Para maiores de 13 anos
+• Oferece compras na app (bilhetes) para continuares a criar monstros depois do limite diário gratuito
+
+Contacto: bannzai.app@gmail.com
+Termos de Utilização (em japonês): https://bannzai.github.io/snapmon/Terms

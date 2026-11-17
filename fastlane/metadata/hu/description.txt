@@ -1,0 +1,25 @@
+Irányítsd a kamerát bármire magad körül, és megszületik egy szörny, ami pont úgy néz ki. Gyűjtsd a szörnyeket, harcolj velük, és mutasd meg őket másoknak.
+
+A FOTÓDBÓL SZÖRNY LESZ
+Készíts egy fotót, vagy válassz egyet a könyvtáradból. A fotóból kivágott téma (vagy a fotón kijelölt terület) úgy válik szörnnyé, ahogy van. A neve, a gyűjteménybeli leírása, a típusai, a támadásai és az értékei abból fakadnak, hogy mi van a képen. Ha egy szörny megszületett, a külseje és a képességei soha többé nem változnak.
+
+KÖRÖKRE OSZTOTT CSATÁK, AHOL SZÁMÍTANAK AZ ÉRTÉKEK
+A szörnyek gyorsaság szerinti sorrendben cselekszenek. A támadások ereje, a típusok gyengeségei, a támadás és a védekezés, valamint a megmaradt PP mind beleszól a végeredménybe. Vidd csatába háromfős csapatodat a CPU edzők ellen, és lépj szintet minden csata után.
+
+TÖLTSD MEG A GYŰJTEMÉNYED
+Minden szörny, amit létrehozol, megmarad a gyűjteményedben.
+
+OSZD MEG
+Készíts képet a gyűjtemény kártyáiból és a csaták eredményeiből, és oszd meg őket a közösségi médiában. A szörny képe az eredeti fotó egy része vagy az egész fotó is lehet, és bárki láthatja, aki a megosztott kártyát látja.
+
+JÁTSSZ BIZTONSÁGBAN
+• A szörnyek nevét és gyűjteménybeli leírását AI generálja
+• Nem megfelelő fotókból nem készül szörny
+• Értesítést kapsz, ha egy szörny olyan fotóból készül, amin ember látható
+• Ha más is szerepel a fotón, előbb kérd az engedélyét
+• Kapcsold hozzá az Apple ID azonosítódat, hogy eszközváltáskor is megmaradjon a gyűjteményed
+• 13 éves kortól
+• Alkalmazáson belüli vásárlást kínál (alkotójegyek), hogy a napi ingyenes keret után is létrehozhass szörnyeket
+
+Kapcsolat: bannzai.app@gmail.com
+Felhasználási feltételek (japánul): https://bannzai.github.io/snapmon/Terms

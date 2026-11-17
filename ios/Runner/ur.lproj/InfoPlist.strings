@@ -1,0 +1,4 @@
+/* 権限の確認の文言 (اردو)。Info.plist の同じキーの値を言語ごとに置き換える */
+"NSCameraUsageDescription" = "snapmon آپ کے آس پاس کی چیزوں کی تصویر لے کر انہیں مونسٹر میں بدلنے کے لیے کیمرا استعمال کرتا ہے";
+"NSPhotoLibraryAddUsageDescription" = "snapmon آپ کی شیئر کی ہوئی کارڈ تصاویر آپ کی فوٹو لائبریری میں محفوظ کرتا ہے";
+"NSPhotoLibraryUsageDescription" = "snapmon تصاویر کو مونسٹر میں بدلنے کے لیے آپ کی لائبریری سے تصاویر پڑھتا ہے";

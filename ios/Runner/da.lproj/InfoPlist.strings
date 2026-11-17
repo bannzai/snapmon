@@ -1,0 +1,4 @@
+/* 権限の確認の文言 (dansk)。Info.plist の同じキーの値を言語ごとに置き換える */
+"NSCameraUsageDescription" = "snapmon bruger kameraet til at tage billeder af ting omkring dig og forvandle dem til monstre";
+"NSPhotoLibraryAddUsageDescription" = "snapmon gemmer de kortbilleder du deler i dit fotobibliotek";
+"NSPhotoLibraryUsageDescription" = "snapmon læser billeder fra dit bibliotek for at forvandle dem til monstre";

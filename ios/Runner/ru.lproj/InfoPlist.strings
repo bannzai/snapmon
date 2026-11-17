@@ -1,0 +1,4 @@
+/* 権限の確認の文言 (русский)。Info.plist の同じキーの値を言語ごとに置き換える */
+"NSCameraUsageDescription" = "snapmon использует камеру, чтобы снимать предметы вокруг вас и превращать их в монстров";
+"NSPhotoLibraryAddUsageDescription" = "snapmon сохраняет в медиатеку изображения карточек, которыми вы делитесь";
+"NSPhotoLibraryUsageDescription" = "snapmon читает фото из вашей медиатеки, чтобы превращать их в монстров";

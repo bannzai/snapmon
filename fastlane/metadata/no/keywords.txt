@@ -1,0 +1,1 @@
+monster,kamp,bilde,kamera,samle,vesen,turbasert,rpg,samling,trener,type,angrep,foto

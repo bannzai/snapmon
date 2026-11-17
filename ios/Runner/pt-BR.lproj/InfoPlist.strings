@@ -1,0 +1,4 @@
+/* 権限の確認の文言 (português (Brasil))。Info.plist の同じキーの値を言語ごとに置き換える */
+"NSCameraUsageDescription" = "O snapmon usa a câmera para fotografar as coisas ao seu redor e transformá-las em monstros";
+"NSPhotoLibraryAddUsageDescription" = "O snapmon salva na sua fototeca as imagens de cartas que você compartilha";
+"NSPhotoLibraryUsageDescription" = "O snapmon lê fotos da sua fototeca para transformá-las em monstros";

@@ -1,0 +1,4 @@
+/* 権限の確認の文言 (Tiếng Việt)。Info.plist の同じキーの値を言語ごとに置き換える */
+"NSCameraUsageDescription" = "snapmon dùng camera để chụp những đồ vật quanh bạn và biến chúng thành quái vật";
+"NSPhotoLibraryAddUsageDescription" = "snapmon lưu ảnh thẻ bạn chia sẻ vào thư viện ảnh của bạn";
+"NSPhotoLibraryUsageDescription" = "snapmon đọc ảnh từ thư viện của bạn để biến chúng thành quái vật";

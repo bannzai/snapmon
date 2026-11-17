@@ -333,5 +333,6 @@
   "helpStatusDizzy": "Précision des capacités réduite pendant 3 tours",
   "helpStatusExcited": "L’Attaque augmente et la Défense diminue",
   "helpStatusFrozen": "Peut empêcher d’agir pendant quelques tours\nSe dissipe si une capacité inflige des dégâts",
-  "helpStatusSwitchBlocked": "Tu ne peux pas changer de monstre volontairement pendant 3 tours"
+  "helpStatusSwitchBlocked": "Tu ne peux pas changer de monstre volontairement pendant 3 tours",
+  "shareOpponentSeparator": " · "
 }
