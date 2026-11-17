@@ -257,5 +257,6 @@
   "moveDetailRecoveryFormulaNote": "గరిష్ఠ HP కంటే ఎక్కువగా పునరుద్ధరణ జరగదు",
   "moveDetailEffectiveness": "అనుకూలత",
   "moveDetailSuperEffective": "చాలా ప్రభావవంతం",
-  "moveDetailNotVeryEffective": "అంత ప్రభావవంతం కాదు"
+  "moveDetailNotVeryEffective": "అంత ప్రభావవంతం కాదు",
+  "moveDetailNeutralEverywhere": "అన్ని మూలకాలకు 1 రెట్టు"
 }

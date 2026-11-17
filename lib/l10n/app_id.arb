@@ -257,5 +257,6 @@
   "moveDetailRecoveryFormulaNote": "HP tidak bisa pulih melebihi batas maksimum",
   "moveDetailEffectiveness": "efektivitas",
   "moveDetailSuperEffective": "Sangat efektif",
-  "moveDetailNotVeryEffective": "Kurang efektif"
+  "moveDetailNotVeryEffective": "Kurang efektif",
+  "moveDetailNeutralEverywhere": "Semua elemen: 1×"
 }

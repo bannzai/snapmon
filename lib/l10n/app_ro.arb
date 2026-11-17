@@ -257,5 +257,6 @@
   "moveDetailRecoveryFormulaNote": "HP nu se poate reface peste limita maximă",
   "moveDetailEffectiveness": "eficacitate",
   "moveDetailSuperEffective": "Foarte eficient",
-  "moveDetailNotVeryEffective": "Puțin eficient"
+  "moveDetailNotVeryEffective": "Puțin eficient",
+  "moveDetailNeutralEverywhere": "Toate elementele: 1×"
 }

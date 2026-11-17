@@ -257,5 +257,6 @@
   "moveDetailRecoveryFormulaNote": "Không hồi phục HP vượt mức tối đa",
   "moveDetailEffectiveness": "tương khắc",
   "moveDetailSuperEffective": "Siêu hiệu quả",
-  "moveDetailNotVeryEffective": "Không hiệu quả lắm"
+  "moveDetailNotVeryEffective": "Không hiệu quả lắm",
+  "moveDetailNeutralEverywhere": "Mọi hệ: ×1"
 }

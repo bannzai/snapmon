@@ -257,5 +257,6 @@
   "moveDetailRecoveryFormulaNote": "HP kan inte återställas över maxgränsen",
   "moveDetailEffectiveness": "effektivitet",
   "moveDetailSuperEffective": "Supereffektivt",
-  "moveDetailNotVeryEffective": "Inte särskilt effektiv"
+  "moveDetailNotVeryEffective": "Inte särskilt effektiv",
+  "moveDetailNeutralEverywhere": "Alla element: 1×"
 }

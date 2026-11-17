@@ -257,5 +257,6 @@
   "moveDetailRecoveryFormulaNote": "সর্বোচ্চ HP-এর বেশি পুনরুদ্ধার হয় না",
   "moveDetailEffectiveness": "কার্যকারিতা",
   "moveDetailSuperEffective": "দারুণ কার্যকর",
-  "moveDetailNotVeryEffective": "তেমন কার্যকর নয়"
+  "moveDetailNotVeryEffective": "তেমন কার্যকর নয়",
+  "moveDetailNeutralEverywhere": "সব এলিমেন্টে ১ গুণ"
 }

@@ -257,5 +257,6 @@
   "moveDetailRecoveryFormulaNote": "HP 不会恢复到最大值以上",
   "moveDetailEffectiveness": "克制",
   "moveDetailSuperEffective": "效果绝佳",
-  "moveDetailNotVeryEffective": "效果不太好"
+  "moveDetailNotVeryEffective": "效果不太好",
+  "moveDetailNeutralEverywhere": "对所有属性均为 1 倍"
 }

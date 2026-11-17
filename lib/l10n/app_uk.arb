@@ -257,5 +257,6 @@
   "moveDetailRecoveryFormulaNote": "HP не відновлюються понад максимум",
   "moveDetailEffectiveness": "ефективність",
   "moveDetailSuperEffective": "Дуже ефективно",
-  "moveDetailNotVeryEffective": "Не дуже ефективно"
+  "moveDetailNotVeryEffective": "Не дуже ефективно",
+  "moveDetailNeutralEverywhere": "Кожен елемент: ×1"
 }

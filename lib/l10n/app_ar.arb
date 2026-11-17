@@ -257,5 +257,6 @@
   "moveDetailRecoveryFormulaNote": "لا يمكن استعادة HP فوق الحد الأقصى",
   "moveDetailEffectiveness": "فعالية",
   "moveDetailSuperEffective": "فعّال جدًا",
-  "moveDetailNotVeryEffective": "ليس فعّالًا جدًا"
+  "moveDetailNotVeryEffective": "ليس فعّالًا جدًا",
+  "moveDetailNeutralEverywhere": "كل عنصر: ×1"
 }

@@ -257,5 +257,6 @@
   "moveDetailRecoveryFormulaNote": "HP kan ikke gendannes over maksimum",
   "moveDetailEffectiveness": "effektivitet",
   "moveDetailSuperEffective": "Super effektiv",
-  "moveDetailNotVeryEffective": "Ikke særlig effektiv"
+  "moveDetailNotVeryEffective": "Ikke særlig effektiv",
+  "moveDetailNeutralEverywhere": "Alle elementer: 1×"
 }

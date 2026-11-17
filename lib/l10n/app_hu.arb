@@ -257,5 +257,6 @@
   "moveDetailRecoveryFormulaNote": "A HP nem állítható vissza a maximum fölé",
   "moveDetailEffectiveness": "hatékonyság",
   "moveDetailSuperEffective": "Szuperhatásos",
-  "moveDetailNotVeryEffective": "Nem túl hatásos"
+  "moveDetailNotVeryEffective": "Nem túl hatásos",
+  "moveDetailNeutralEverywhere": "Minden típus ellen: 1×"
 }

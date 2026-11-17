@@ -257,5 +257,6 @@
   "moveDetailRecoveryFormulaNote": "ಗರಿಷ್ಠ HP ಮೀರಿಸಿ ಚೇತರಿಸಿಕೊಳ್ಳುವುದಿಲ್ಲ",
   "moveDetailEffectiveness": "ಪರಿಣಾಮಕಾರಿತ್ವ",
   "moveDetailSuperEffective": "ತುಂಬಾ ಪರಿಣಾಮಕಾರಿ",
-  "moveDetailNotVeryEffective": "ಹೆಚ್ಚು ಪರಿಣಾಮಕಾರಿಯಲ್ಲ"
+  "moveDetailNotVeryEffective": "ಹೆಚ್ಚು ಪರಿಣಾಮಕಾರಿಯಲ್ಲ",
+  "moveDetailNeutralEverywhere": "ಎಲ್ಲ ಪ್ರಕಾರಗಳ ವಿರುದ್ಧ 1×"
 }

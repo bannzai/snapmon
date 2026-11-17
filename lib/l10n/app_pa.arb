@@ -257,5 +257,6 @@
   "moveDetailRecoveryFormulaNote": "ਵੱਧ ਤੋਂ ਵੱਧ HP ਤੋਂ ਵੱਧ ਠੀਕ ਨਹੀਂ ਹੁੰਦਾ",
   "moveDetailEffectiveness": "ਮੇਲ",
   "moveDetailSuperEffective": "ਬਹੁਤ ਅਸਰਦਾਰ",
-  "moveDetailNotVeryEffective": "ਬਹੁਤਾ ਅਸਰਦਾਰ ਨਹੀਂ"
+  "moveDetailNotVeryEffective": "ਬਹੁਤਾ ਅਸਰਦਾਰ ਨਹੀਂ",
+  "moveDetailNeutralEverywhere": "ਸਾਰੇ ਤੱਤਾਂ ਵਿਰੁੱਧ 1 ਗੁਣਾ"
 }

@@ -257,5 +257,6 @@
   "moveDetailRecoveryFormulaNote": "최대 HP를 넘어서 회복하지 않아요",
   "moveDetailEffectiveness": "상성",
   "moveDetailSuperEffective": "효과가 굉장함",
-  "moveDetailNotVeryEffective": "효과가 별로"
+  "moveDetailNotVeryEffective": "효과가 별로",
+  "moveDetailNeutralEverywhere": "모든 속성에 1배"
 }

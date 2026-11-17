@@ -257,5 +257,6 @@
   "moveDetailRecoveryFormulaNote": "HP, maksimum değerin üzerine çıkacak kadar yenilenmez",
   "moveDetailEffectiveness": "uyum",
   "moveDetailSuperEffective": "Çok etkili",
-  "moveDetailNotVeryEffective": "Pek etkili değil"
+  "moveDetailNotVeryEffective": "Pek etkili değil",
+  "moveDetailNeutralEverywhere": "Tüm elementlere karşı 1×"
 }

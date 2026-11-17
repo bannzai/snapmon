@@ -257,5 +257,6 @@
   "moveDetailRecoveryFormulaNote": "HP nie można przywrócić ponad maksimum",
   "moveDetailEffectiveness": "skuteczność",
   "moveDetailSuperEffective": "Bardzo skuteczne",
-  "moveDetailNotVeryEffective": "Mało skuteczne"
+  "moveDetailNotVeryEffective": "Mało skuteczne",
+  "moveDetailNeutralEverywhere": "Każdy typ: 1×"
 }

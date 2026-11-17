@@ -257,5 +257,6 @@
   "moveDetailRecoveryFormulaNote": "कमाल HP पेक्षा जास्त भरून निघत नाही",
   "moveDetailEffectiveness": "परिणामकारकता",
   "moveDetailSuperEffective": "खूप प्रभावी",
-  "moveDetailNotVeryEffective": "फारसा परिणामकारक नाही"
+  "moveDetailNotVeryEffective": "फारसा परिणामकारक नाही",
+  "moveDetailNeutralEverywhere": "सर्व तत्त्वांवर 1 पट"
 }

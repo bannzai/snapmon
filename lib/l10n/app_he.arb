@@ -257,5 +257,6 @@
   "moveDetailRecoveryFormulaNote": "אי אפשר לשחזר HP מעבר למקסימום",
   "moveDetailEffectiveness": "יעילות",
   "moveDetailSuperEffective": "יעיל במיוחד",
-  "moveDetailNotVeryEffective": "לא יעיל במיוחד"
+  "moveDetailNotVeryEffective": "לא יעיל במיוחד",
+  "moveDetailNeutralEverywhere": "כל סוג: פי 1"
 }

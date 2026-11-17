@@ -257,5 +257,6 @@
   "moveDetailRecoveryFormulaNote": "મહત્તમ HPથી વધુ પુનઃપ્રાપ્ત થતું નથી",
   "moveDetailEffectiveness": "અસરકારકતા",
   "moveDetailSuperEffective": "ખૂબ અસરકારક",
-  "moveDetailNotVeryEffective": "ખાસ અસરકારક નથી"
+  "moveDetailNotVeryEffective": "ખાસ અસરકારક નથી",
+  "moveDetailNeutralEverywhere": "બધાં તત્ત્વ સામે ૧ ગણું"
 }
