@@ -267,5 +267,6 @@
   "ticketPurchasePending": "Αναμονή ολοκλήρωσης πληρωμής\nΑκόμα κι αν κλείσεις αυτή την οθόνη, θα λάβεις το εισιτήριο μόλις ολοκληρωθεί η πληρωμή",
   "ticketPurchaseArrivedTitle": "Τα εισιτήρια έφτασαν",
   "ticketPurchaseContinue": "Φτιάξε τέρας από αυτή τη φωτογραφία",
-  "ticketPurchaseSync": "Συγχρόνισε την κατάσταση αγοράς"
+  "ticketPurchaseSync": "Συγχρόνισε την κατάσταση αγοράς",
+  "ticketPurchaseSynced": "Η κατάσταση αγοράς συγχρονίστηκε"
 }

@@ -267,5 +267,6 @@
   "ticketPurchasePending": "Esperant que es completi el pagament\nEncara que tanquis aquesta pantalla, rebràs el tiquet quan es completi",
   "ticketPurchaseArrivedTitle": "Ja tens els tiquets",
   "ticketPurchaseContinue": "Crea un monstre amb aquesta foto",
-  "ticketPurchaseSync": "Sincronitza l’estat de la compra"
+  "ticketPurchaseSync": "Sincronitza l’estat de la compra",
+  "ticketPurchaseSynced": "S'ha sincronitzat l'estat de la compra"
 }

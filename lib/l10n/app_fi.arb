@@ -267,5 +267,6 @@
   "ticketPurchasePending": "Odotetaan maksun valmistumista\nSaat lipun maksun valmistuttua, vaikka sulkisit tämän näkymän",
   "ticketPurchaseArrivedTitle": "Liput saapuivat",
   "ticketPurchaseContinue": "Luo hirviö tästä kuvasta",
-  "ticketPurchaseSync": "Synkronoi ostoksen tila"
+  "ticketPurchaseSync": "Synkronoi ostoksen tila",
+  "ticketPurchaseSynced": "Ostoksen tila synkronoitu"
 }

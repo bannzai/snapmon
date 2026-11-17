@@ -267,5 +267,6 @@
   "ticketPurchasePending": "正在等待付款完成\n就算關閉這個畫面，付款完成後你還是會收到票券",
   "ticketPurchaseArrivedTitle": "票券已到帳",
   "ticketPurchaseContinue": "用這張照片生成怪獸",
-  "ticketPurchaseSync": "同步購買狀態"
+  "ticketPurchaseSync": "同步購買狀態",
+  "ticketPurchaseSynced": "購買狀態已同步"
 }

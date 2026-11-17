@@ -267,5 +267,6 @@
   "ticketPurchasePending": "Čeká se na dokončení platby\nI když tuto obrazovku zavřeš, po dokončení platby dostaneš lístek",
   "ticketPurchaseArrivedTitle": "Lístky dorazily",
   "ticketPurchaseContinue": "Vytvoř monstrum z této fotky",
-  "ticketPurchaseSync": "Synchronizuj stav nákupu"
+  "ticketPurchaseSync": "Synchronizuj stav nákupu",
+  "ticketPurchaseSynced": "Stav nákupu byl synchronizován"
 }

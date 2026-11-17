@@ -267,5 +267,6 @@
   "ticketPurchasePending": "भुगतान पूरा होने का इंतज़ार है\nयह स्क्रीन बंद करने पर भी भुगतान पूरा होते ही तुम्हें टिकट मिल जाएगा",
   "ticketPurchaseArrivedTitle": "टिकट आ गए",
   "ticketPurchaseContinue": "इस फ़ोटो से मॉन्स्टर बनाओ",
-  "ticketPurchaseSync": "खरीद की स्थिति सिंक करो"
+  "ticketPurchaseSync": "खरीद की स्थिति सिंक करो",
+  "ticketPurchaseSynced": "खरीदारी की स्थिति सिंक हो गई"
 }

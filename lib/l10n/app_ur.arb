@@ -267,5 +267,6 @@
   "ticketPurchasePending": "ادائیگی مکمل ہونے کا انتظار ہے\nتم یہ اسکرین بند بھی کر دو تو ادائیگی مکمل ہوتے ہی ٹکٹ مل جائے گا",
   "ticketPurchaseArrivedTitle": "ٹکٹ آ گئے ہیں",
   "ticketPurchaseContinue": "اس تصویر سے مونسٹر بناؤ",
-  "ticketPurchaseSync": "خریداری کی حالت ہم آہنگ کرو"
+  "ticketPurchaseSync": "خریداری کی حالت ہم آہنگ کرو",
+  "ticketPurchaseSynced": "خریداری کی صورتحال ہم آہنگ ہو گئی"
 }

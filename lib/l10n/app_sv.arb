@@ -267,5 +267,6 @@
   "ticketPurchasePending": "Väntar på att betalningen ska slutföras\nÄven om du stänger den här skärmen får du biljetten när betalningen är klar",
   "ticketPurchaseArrivedTitle": "Biljetterna har kommit",
   "ticketPurchaseContinue": "Skapa ett monster av det här fotot",
-  "ticketPurchaseSync": "Synka köpstatus"
+  "ticketPurchaseSync": "Synka köpstatus",
+  "ticketPurchaseSynced": "Köpstatus synkroniserad"
 }

@@ -267,5 +267,6 @@
   "ticketPurchasePending": "Várakozás a fizetés befejezésére\nHa bezárod ezt a képernyőt, a fizetés után akkor is megkapod a jegyet",
   "ticketPurchaseArrivedTitle": "Megérkeztek a jegyek",
   "ticketPurchaseContinue": "Készíts szörnyet ebből a fotóból",
-  "ticketPurchaseSync": "Vásárlás állapotának szinkronizálása"
+  "ticketPurchaseSync": "Vásárlás állapotának szinkronizálása",
+  "ticketPurchaseSynced": "A vásárlás állapota szinkronizálva"
 }

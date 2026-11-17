@@ -267,5 +267,6 @@
   "ticketPurchasePending": "กำลังรอให้ชำระเงินสำเร็จ\nปิดหน้าจอนี้ได้เลย เมื่อชำระเงินสำเร็จ ตั๋วจะส่งถึงคุณ",
   "ticketPurchaseArrivedTitle": "ตั๋วมาถึงแล้ว",
   "ticketPurchaseContinue": "สร้างมอนสเตอร์จากรูปนี้",
-  "ticketPurchaseSync": "ซิงก์สถานะการซื้อ"
+  "ticketPurchaseSync": "ซิงก์สถานะการซื้อ",
+  "ticketPurchaseSynced": "ซิงก์สถานะการซื้อแล้ว"
 }

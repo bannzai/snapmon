@@ -267,5 +267,6 @@
   "ticketPurchasePending": "Ödemenin tamamlanması bekleniyor\nBu ekranı kapatsan da ödeme tamamlandığında biletin gelecek",
   "ticketPurchaseArrivedTitle": "Biletlerin geldi",
   "ticketPurchaseContinue": "Bu fotoğraftan canavar oluştur",
-  "ticketPurchaseSync": "Satın alma durumunu eşitle"
+  "ticketPurchaseSync": "Satın alma durumunu eşitle",
+  "ticketPurchaseSynced": "Satın alma durumu eşitlendi"
 }

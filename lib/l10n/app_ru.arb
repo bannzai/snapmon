@@ -267,5 +267,6 @@
   "ticketPurchasePending": "Ждём завершения оплаты\nДаже если ты закроешь этот экран, билет придёт после завершения оплаты",
   "ticketPurchaseArrivedTitle": "Билеты пришли",
   "ticketPurchaseContinue": "Создай монстра из этого фото",
-  "ticketPurchaseSync": "Синхронизировать статус покупки"
+  "ticketPurchaseSync": "Синхронизировать статус покупки",
+  "ticketPurchaseSynced": "Статус покупки синхронизирован"
 }

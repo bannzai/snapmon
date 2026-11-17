@@ -267,5 +267,6 @@
   "ticketPurchasePending": "ଦେୟ ସମ୍ପୂର୍ଣ୍ଣ ହେବାକୁ ଅପେକ୍ଷା କରାଯାଉଛି\nତୁମେ ଏହି ସ୍କ୍ରିନ୍ ବନ୍ଦ କଲେ ବି, ଦେୟ ସମ୍ପୂର୍ଣ୍ଣ ହେଲେ ଟିକେଟ୍ ପାଇବ",
   "ticketPurchaseArrivedTitle": "ଟିକେଟ୍ ଆସିଗଲା",
   "ticketPurchaseContinue": "ଏହି ଫଟୋରୁ ରାକ୍ଷସ ତିଆରି କର",
-  "ticketPurchaseSync": "କିଣାକିଣିର ସ୍ଥିତି ସମନ୍ୱୟ କର"
+  "ticketPurchaseSync": "କିଣାକିଣିର ସ୍ଥିତି ସମନ୍ୱୟ କର",
+  "ticketPurchaseSynced": "କ୍ରୟର ସ୍ଥିତି ସିଙ୍କ୍ ହୋଇଛି"
 }

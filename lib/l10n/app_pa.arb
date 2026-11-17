@@ -267,5 +267,6 @@
   "ticketPurchasePending": "ਭੁਗਤਾਨ ਪੂਰਾ ਹੋਣ ਦੀ ਉਡੀਕ ਹੈ\nਤੁਸੀਂ ਇਹ ਸਕ੍ਰੀਨ ਬੰਦ ਕਰ ਦਿਓ ਤਾਂ ਵੀ ਭੁਗਤਾਨ ਪੂਰਾ ਹੋਣ 'ਤੇ ਟਿਕਟ ਮਿਲ ਜਾਵੇਗੀ",
   "ticketPurchaseArrivedTitle": "ਟਿਕਟਾਂ ਆ ਗਈਆਂ",
   "ticketPurchaseContinue": "ਇਸ ਫੋਟੋ ਤੋਂ ਮੌਂਸਟਰ ਬਣਾਓ",
-  "ticketPurchaseSync": "ਖਰੀਦ ਦੀ ਸਥਿਤੀ ਸਿੰਕ ਕਰੋ"
+  "ticketPurchaseSync": "ਖਰੀਦ ਦੀ ਸਥਿਤੀ ਸਿੰਕ ਕਰੋ",
+  "ticketPurchaseSynced": "ਖਰੀਦ ਦੀ ਸਥਿਤੀ ਸਿੰਕ ਹੋ ਗਈ ਹੈ"
 }

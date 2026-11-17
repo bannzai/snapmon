@@ -267,5 +267,6 @@
   "ticketPurchasePending": "Warte auf den Abschluss der Zahlung\nAuch wenn du diesen Bildschirm schließt, bekommst du das Ticket, sobald die Zahlung abgeschlossen ist",
   "ticketPurchaseArrivedTitle": "Die Tickets sind da",
   "ticketPurchaseContinue": "Erstelle ein Monster aus diesem Foto",
-  "ticketPurchaseSync": "Kaufstatus synchronisieren"
+  "ticketPurchaseSync": "Kaufstatus synchronisieren",
+  "ticketPurchaseSynced": "Kaufstatus synchronisiert"
 }

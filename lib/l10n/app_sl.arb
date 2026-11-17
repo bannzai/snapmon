@@ -267,5 +267,6 @@
   "ticketPurchasePending": "Čakamo na dokončanje plačila\nTudi če zapreš ta zaslon, boš po dokončanem plačilu dobil vstopnico",
   "ticketPurchaseArrivedTitle": "Vstopnice so prispele",
   "ticketPurchaseContinue": "Ustvari pošast iz te fotografije",
-  "ticketPurchaseSync": "Sinhroniziraj stanje nakupa"
+  "ticketPurchaseSync": "Sinhroniziraj stanje nakupa",
+  "ticketPurchaseSynced": "Stanje nakupa je sinhronizirano"
 }
