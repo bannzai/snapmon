@@ -95,5 +95,6 @@
   "captureUseCamera": "Utiliser l’appareil photo",
   "commonClose": "Fermer",
   "commonBack": "Retour",
-  "generationSearchingOpponent": "Recherche d’un adversaire…"
+  "generationSearchingOpponent": "Recherche d’un adversaire…",
+  "generationBattleWith": "Tu vas combattre avec {monsterName}"
 }
