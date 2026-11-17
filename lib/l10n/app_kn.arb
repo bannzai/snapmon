@@ -34,5 +34,6 @@
   "opponentBattleRecord": "ಗೆಲುವು: {wins}  ಸೋಲು: {losses}",
   "opponentMyParty": "ನನ್ನ ತಂಡ",
   "opponentSwapParty": "ಬದಲಾಯಿಸು",
-  "opponentEmptyPartyNote": "ತಂಡಕ್ಕೆ ಮಾನ್‌ಸ್ಟರ್ ಸೇರಿಸು, ನಂತರ ಸವಾಲು ಹಾಕಬಹುದು"
+  "opponentEmptyPartyNote": "ತಂಡಕ್ಕೆ ಮಾನ್‌ಸ್ಟರ್ ಸೇರಿಸು, ನಂತರ ಸವಾಲು ಹಾಕಬಹುದು",
+  "opponentFindOthers": "ಬೇರೆ ಎದುರಾಳಿಗಳನ್ನು ಹುಡುಕು"
 }

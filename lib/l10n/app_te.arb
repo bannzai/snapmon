@@ -34,5 +34,6 @@
   "opponentBattleRecord": "గెలుపు: {wins}  ఓటమి: {losses}",
   "opponentMyParty": "నీ జట్టు",
   "opponentSwapParty": "మార్చు",
-  "opponentEmptyPartyNote": "జట్టులో రాక్షసుడిని చేర్చు, అప్పుడు సవాలు చేయొచ్చు"
+  "opponentEmptyPartyNote": "జట్టులో రాక్షసుడిని చేర్చు, అప్పుడు సవాలు చేయొచ్చు",
+  "opponentFindOthers": "ఇతర ప్రత్యర్థులను వెతుకు"
 }

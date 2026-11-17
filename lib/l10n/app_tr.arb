@@ -34,5 +34,6 @@
   "opponentBattleRecord": "Galibiyet: {wins}  Mağlubiyet: {losses}",
   "opponentMyParty": "Takımın",
   "opponentSwapParty": "Değiştir",
-  "opponentEmptyPartyNote": "Takımına bir canavar ekle, sonra meydan okuyabilirsin"
+  "opponentEmptyPartyNote": "Takımına bir canavar ekle, sonra meydan okuyabilirsin",
+  "opponentFindOthers": "Başka rakipler bul"
 }

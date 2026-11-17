@@ -34,5 +34,6 @@
   "opponentBattleRecord": "Победы: {wins}  Поражения: {losses}",
   "opponentMyParty": "Моя команда",
   "opponentSwapParty": "Заменить",
-  "opponentEmptyPartyNote": "Добавь монстра в команду, чтобы бросить вызов"
+  "opponentEmptyPartyNote": "Добавь монстра в команду, чтобы бросить вызов",
+  "opponentFindOthers": "Найди других соперников"
 }

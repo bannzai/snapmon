@@ -34,5 +34,6 @@
   "opponentBattleRecord": "جیت: {wins}  ہار: {losses}",
   "opponentMyParty": "میری ٹیم",
   "opponentSwapParty": "بدلو",
-  "opponentEmptyPartyNote": "ٹیم میں مونسٹر شامل کرو، پھر چیلنج کر سکو گے"
+  "opponentEmptyPartyNote": "ٹیم میں مونسٹر شامل کرو، پھر چیلنج کر سکو گے",
+  "opponentFindOthers": "دوسرے حریف تلاش کرو"
 }

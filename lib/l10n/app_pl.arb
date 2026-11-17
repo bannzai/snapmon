@@ -34,5 +34,6 @@
   "opponentBattleRecord": "Wygrane: {wins}  Przegrane: {losses}",
   "opponentMyParty": "Moja drużyna",
   "opponentSwapParty": "Zamień",
-  "opponentEmptyPartyNote": "Dodaj potwora do drużyny, by móc rzucić wyzwanie"
+  "opponentEmptyPartyNote": "Dodaj potwora do drużyny, by móc rzucić wyzwanie",
+  "opponentFindOthers": "Znajdź innych rywali"
 }

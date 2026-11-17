@@ -34,5 +34,6 @@
   "opponentBattleRecord": "Győzelmek: {wins}  Vereségek: {losses}",
   "opponentMyParty": "A csapatom",
   "opponentSwapParty": "Csere",
-  "opponentEmptyPartyNote": "Tegyél szörnyet a csapatodba, és már kihívhatod az ellenfelet"
+  "opponentEmptyPartyNote": "Tegyél szörnyet a csapatodba, és már kihívhatod az ellenfelet",
+  "opponentFindOthers": "Keress más ellenfeleket"
 }

@@ -34,5 +34,6 @@
   "opponentBattleRecord": "Overwinningen: {wins}  Nederlagen: {losses}",
   "opponentMyParty": "Jouw team",
   "opponentSwapParty": "Wisselen",
-  "opponentEmptyPartyNote": "Zet een monster in je team om te kunnen uitdagen"
+  "opponentEmptyPartyNote": "Zet een monster in je team om te kunnen uitdagen",
+  "opponentFindOthers": "Zoek andere tegenstanders"
 }

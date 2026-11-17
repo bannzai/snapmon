@@ -34,5 +34,6 @@
   "opponentBattleRecord": "Vitórias: {wins}  Derrotas: {losses}",
   "opponentMyParty": "A minha equipa",
   "opponentSwapParty": "Trocar",
-  "opponentEmptyPartyNote": "Adiciona um monstro à tua equipa para poderes desafiar"
+  "opponentEmptyPartyNote": "Adiciona um monstro à tua equipa para poderes desafiar",
+  "opponentFindOthers": "Procura outros adversários"
 }

@@ -34,5 +34,6 @@
   "opponentBattleRecord": "Siege: {wins}  Niederlagen: {losses}",
   "opponentMyParty": "Mein Team",
   "opponentSwapParty": "Wechseln",
-  "opponentEmptyPartyNote": "Nimm ein Monster ins Team auf, dann kannst du herausfordern"
+  "opponentEmptyPartyNote": "Nimm ein Monster ins Team auf, dann kannst du herausfordern",
+  "opponentFindOthers": "Finde andere Gegner"
 }

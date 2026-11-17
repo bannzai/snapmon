@@ -34,5 +34,6 @@
   "opponentBattleRecord": "Menang: {wins}  Kalah: {losses}",
   "opponentMyParty": "Pasukan kamu",
   "opponentSwapParty": "Tukar",
-  "opponentEmptyPartyNote": "Tambah raksasa ke dalam pasukan untuk mencabar"
+  "opponentEmptyPartyNote": "Tambah raksasa ke dalam pasukan untuk mencabar",
+  "opponentFindOthers": "Cari lawan lain"
 }

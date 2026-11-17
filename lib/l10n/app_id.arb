@@ -34,5 +34,6 @@
   "opponentBattleRecord": "Menang: {wins}  Kalah: {losses}",
   "opponentMyParty": "Tim kamu",
   "opponentSwapParty": "Ganti",
-  "opponentEmptyPartyNote": "Tambahkan monster ke timmu untuk bisa menantang"
+  "opponentEmptyPartyNote": "Tambahkan monster ke timmu untuk bisa menantang",
+  "opponentFindOthers": "Cari lawan lain"
 }

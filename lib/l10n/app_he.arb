@@ -34,5 +34,6 @@
   "opponentBattleRecord": "ניצחונות: {wins}  הפסדים: {losses}",
   "opponentMyParty": "הצוות שלי",
   "opponentSwapParty": "החלפה",
-  "opponentEmptyPartyNote": "כדי לצאת לאתגר, צריך להוסיף מפלצת לצוות"
+  "opponentEmptyPartyNote": "כדי לצאת לאתגר, צריך להוסיף מפלצת לצוות",
+  "opponentFindOthers": "לחפש יריבים אחרים"
 }

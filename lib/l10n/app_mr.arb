@@ -34,5 +34,6 @@
   "opponentBattleRecord": "विजय: {wins}  पराभव: {losses}",
   "opponentMyParty": "माझी टीम",
   "opponentSwapParty": "बदल",
-  "opponentEmptyPartyNote": "टीममध्ये मॉन्स्टर घाल, मग आव्हान देता येईल"
+  "opponentEmptyPartyNote": "टीममध्ये मॉन्स्टर घाल, मग आव्हान देता येईल",
+  "opponentFindOthers": "इतर प्रतिस्पर्धी शोध"
 }

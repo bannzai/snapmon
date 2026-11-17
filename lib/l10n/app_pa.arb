@@ -34,5 +34,6 @@
   "opponentBattleRecord": "ਜਿੱਤ: {wins}  ਹਾਰ: {losses}",
   "opponentMyParty": "ਮੇਰੀ ਟੀਮ",
   "opponentSwapParty": "ਬਦਲੋ",
-  "opponentEmptyPartyNote": "ਟੀਮ ਵਿੱਚ ਮੌਂਸਟਰ ਸ਼ਾਮਲ ਕਰੋ, ਫਿਰ ਚੁਣੌਤੀ ਦੇ ਸਕੋਗੇ"
+  "opponentEmptyPartyNote": "ਟੀਮ ਵਿੱਚ ਮੌਂਸਟਰ ਸ਼ਾਮਲ ਕਰੋ, ਫਿਰ ਚੁਣੌਤੀ ਦੇ ਸਕੋਗੇ",
+  "opponentFindOthers": "ਹੋਰ ਵਿਰੋਧੀ ਲੱਭੋ"
 }

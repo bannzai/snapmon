@@ -34,5 +34,6 @@
   "opponentBattleRecord": "Victorii: {wins}  Înfrângeri: {losses}",
   "opponentMyParty": "Echipa mea",
   "opponentSwapParty": "Schimbă",
-  "opponentEmptyPartyNote": "Adaugă un monstru în echipă ca să poți provoca"
+  "opponentEmptyPartyNote": "Adaugă un monstru în echipă ca să poți provoca",
+  "opponentFindOthers": "Caută alți adversari"
 }

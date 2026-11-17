@@ -34,5 +34,6 @@
   "opponentBattleRecord": "Voitot: {wins}  Tappiot: {losses}",
   "opponentMyParty": "Oma joukkue",
   "opponentSwapParty": "Vaihda",
-  "opponentEmptyPartyNote": "Lisää hirviö joukkueeseesi, niin voit haastaa"
+  "opponentEmptyPartyNote": "Lisää hirviö joukkueeseesi, niin voit haastaa",
+  "opponentFindOthers": "Etsi muita vastustajia"
 }

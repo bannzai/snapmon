@@ -34,5 +34,6 @@
   "opponentBattleRecord": "Pobjede: {wins}  Porazi: {losses}",
   "opponentMyParty": "Moj tim",
   "opponentSwapParty": "Zamijeni",
-  "opponentEmptyPartyNote": "Dodaj čudovište u tim pa možeš izazvati protivnika"
+  "opponentEmptyPartyNote": "Dodaj čudovište u tim pa možeš izazvati protivnika",
+  "opponentFindOthers": "Pronađi druge protivnike"
 }

@@ -34,5 +34,6 @@
   "opponentBattleRecord": "જીત: {wins}  હાર: {losses}",
   "opponentMyParty": "મારી ટીમ",
   "opponentSwapParty": "બદલો",
-  "opponentEmptyPartyNote": "ટીમમાં મોન્સ્ટર ઉમેરો, પછી પડકાર આપી શકશો"
+  "opponentEmptyPartyNote": "ટીમમાં મોન્સ્ટર ઉમેરો, પછી પડકાર આપી શકશો",
+  "opponentFindOthers": "બીજા હરીફો શોધો"
 }

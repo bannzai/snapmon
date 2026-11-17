@@ -34,5 +34,6 @@
   "opponentBattleRecord": "胜：{wins}  负：{losses}",
   "opponentMyParty": "我的队伍",
   "opponentSwapParty": "替换",
-  "opponentEmptyPartyNote": "把怪物加入队伍，就能发起挑战"
+  "opponentEmptyPartyNote": "把怪物加入队伍，就能发起挑战",
+  "opponentFindOthers": "寻找其他对手"
 }

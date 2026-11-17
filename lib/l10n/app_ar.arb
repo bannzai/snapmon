@@ -34,5 +34,6 @@
   "opponentBattleRecord": "فوز: {wins}  خسارة: {losses}",
   "opponentMyParty": "فريقي",
   "opponentSwapParty": "تبديل",
-  "opponentEmptyPartyNote": "أضف وحشًا إلى فريقك لتتمكن من التحدي"
+  "opponentEmptyPartyNote": "أضف وحشًا إلى فريقك لتتمكن من التحدي",
+  "opponentFindOthers": "ابحث عن خصوم آخرين"
 }
