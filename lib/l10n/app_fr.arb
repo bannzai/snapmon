@@ -177,5 +177,6 @@
   "battleLogMissed": "Mais l’attaque a raté !",
   "battleLogParalyzed": "La paralysie empêche {monsterName} d’attaquer !",
   "battleLogStunned": "{monsterName} a perdu connaissance et ne peut pas bouger",
-  "battleLogAsleep": "{monsterName} dort à poings fermés"
+  "battleLogAsleep": "{monsterName} dort à poings fermés",
+  "battleLogFrozenSolid": "La glace empêche {monsterName} de bouger !"
 }
