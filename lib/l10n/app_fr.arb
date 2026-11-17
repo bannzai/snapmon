@@ -67,5 +67,6 @@
   "settingsDisplayName": "pseudo",
   "settingsDisplayNameLoading": "Chargement en cours",
   "settingsDisplayNameHelper": "Nom affiché à tes adversaires",
-  "settingsDisplayNameSave": "Enregistrer"
+  "settingsDisplayNameSave": "Enregistrer",
+  "profileChangeIcon": "Changer ton icône"
 }
