@@ -326,5 +326,6 @@
   "helpStatusParalysis": "攻击招式有时会失败",
   "helpStatusStun": "下一回合可能无法行动",
   "helpStatusBurn": "造成的伤害减半，受到的伤害增加",
-  "helpStatusDrowsy": "速度减半\n再次受到此效果时会陷入睡眠"
+  "helpStatusDrowsy": "速度减半\n再次受到此效果时会陷入睡眠",
+  "helpStatusSleep": "接下来几回合可能无法行动"
 }

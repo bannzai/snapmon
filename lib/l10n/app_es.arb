@@ -326,5 +326,6 @@
   "helpStatusParalysis": "Los movimientos de ataque pueden fallar",
   "helpStatusStun": "Puede que no pueda actuar en el siguiente turno",
   "helpStatusBurn": "El daño que causas se reduce a la mitad y el que recibes aumenta",
-  "helpStatusDrowsy": "La Velocidad se reduce a la mitad\nSi recibe el efecto otra vez, se duerme"
+  "helpStatusDrowsy": "La Velocidad se reduce a la mitad\nSi recibe el efecto otra vez, se duerme",
+  "helpStatusSleep": "Puede que no actúe durante unos turnos"
 }

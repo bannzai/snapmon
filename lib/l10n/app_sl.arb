@@ -326,5 +326,6 @@
   "helpStatusParalysis": "Napadalni potezi lahko včasih spodletijo",
   "helpStatusStun": "V naslednji potezi morda ne bo mogel ukrepati",
   "helpStatusBurn": "Škoda, ki jo povzročiš, se prepolovi, škoda, ki jo prejmeš, pa poveča",
-  "helpStatusDrowsy": "Hitrost se prepolovi\nČe učinek zadene še enkrat, pošast zaspi"
+  "helpStatusDrowsy": "Hitrost se prepolovi\nČe učinek zadene še enkrat, pošast zaspi",
+  "helpStatusSleep": "Nekaj potez morda ne bo mogel ukrepati"
 }

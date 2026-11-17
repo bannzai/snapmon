@@ -326,5 +326,6 @@
   "helpStatusParalysis": "Ruchy atakujące mogą czasem zawieść",
   "helpStatusStun": "Może nie móc wykonać ruchu w następnej turze",
   "helpStatusBurn": "Zadawane obrażenia spadają o połowę, a otrzymywane rosną",
-  "helpStatusDrowsy": "Szybkość spada o połowę\nGdy efekt zadziała ponownie, potwór zasypia"
+  "helpStatusDrowsy": "Szybkość spada o połowę\nGdy efekt zadziała ponownie, potwór zasypia",
+  "helpStatusSleep": "Może nie móc działać przez kilka tur"
 }

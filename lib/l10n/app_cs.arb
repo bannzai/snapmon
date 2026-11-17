@@ -326,5 +326,6 @@
   "helpStatusParalysis": "Útočné útoky mohou někdy selhat",
   "helpStatusStun": "V příštím tahu možná nebude moct jednat",
   "helpStatusBurn": "Způsobené poškození klesne na polovinu a utržené poškození vzroste",
-  "helpStatusDrowsy": "Rychlost se sníží na polovinu\nPři dalším zásahu tímto efektem usne"
+  "helpStatusDrowsy": "Rychlost se sníží na polovinu\nPři dalším zásahu tímto efektem usne",
+  "helpStatusSleep": "Několik tahů nemusí být schopný jednat"
 }

@@ -326,5 +326,6 @@
   "helpStatusParalysis": "Le mosse d'attacco a volte possono fallire",
   "helpStatusStun": "Potrebbe non riuscire ad agire nel prossimo turno",
   "helpStatusBurn": "I danni che infliggi si dimezzano e quelli che subisci aumentano",
-  "helpStatusDrowsy": "La Velocità si dimezza\nSe subisce di nuovo l’effetto, si addormenta"
+  "helpStatusDrowsy": "La Velocità si dimezza\nSe subisce di nuovo l’effetto, si addormenta",
+  "helpStatusSleep": "Potrebbe non agire per alcuni turni"
 }

@@ -326,5 +326,6 @@
   "helpStatusParalysis": "Els moviments d'atac poden fallar",
   "helpStatusStun": "Pot ser que no pugui actuar al torn següent",
   "helpStatusBurn": "El dany que fas es redueix a la meitat i el que reps augmenta",
-  "helpStatusDrowsy": "La Velocitat es redueix a la meitat\nSi rep l’efecte un altre cop, s’adorm"
+  "helpStatusDrowsy": "La Velocitat es redueix a la meitat\nSi rep l’efecte un altre cop, s’adorm",
+  "helpStatusSleep": "Pot quedar-se sense actuar durant uns quants torns"
 }

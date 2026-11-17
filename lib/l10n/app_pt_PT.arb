@@ -326,5 +326,6 @@
   "helpStatusParalysis": "Os golpes de ataque podem falhar às vezes",
   "helpStatusStun": "Pode não conseguir agir no próximo turno",
   "helpStatusBurn": "O dano que causas reduz-se a metade e o dano que recebes aumenta",
-  "helpStatusDrowsy": "A Velocidade reduz-se a metade\nSe sofrer o efeito outra vez, o monstro adormece"
+  "helpStatusDrowsy": "A Velocidade reduz-se a metade\nSe sofrer o efeito outra vez, o monstro adormece",
+  "helpStatusSleep": "Pode ficar sem agir durante alguns turnos"
 }

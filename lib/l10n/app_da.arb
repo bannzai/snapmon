@@ -326,5 +326,6 @@
   "helpStatusParalysis": "Angrebsangreb kan nogle gange slå fejl",
   "helpStatusStun": "Kan måske ikke handle i næste tur",
   "helpStatusBurn": "Skade, du giver, halveres, og skade, du tager, øges",
-  "helpStatusDrowsy": "Hastighed halveres\nRammer effekten igen, falder monsteret i søvn"
+  "helpStatusDrowsy": "Hastighed halveres\nRammer effekten igen, falder monsteret i søvn",
+  "helpStatusSleep": "Kan måske ikke handle i nogle få ture"
 }

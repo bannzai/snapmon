@@ -326,5 +326,6 @@
   "helpStatusParalysis": "Chiêu tấn công đôi khi có thể thất bại",
   "helpStatusStun": "Có thể không hành động được ở lượt tiếp theo",
   "helpStatusBurn": "Sát thương bạn gây ra giảm một nửa, còn sát thương nhận vào tăng lên",
-  "helpStatusDrowsy": "Tốc độ giảm một nửa\nNếu trúng hiệu ứng này lần nữa, quái vật sẽ ngủ"
+  "helpStatusDrowsy": "Tốc độ giảm một nửa\nNếu trúng hiệu ứng này lần nữa, quái vật sẽ ngủ",
+  "helpStatusSleep": "Có thể không hành động được trong vài lượt"
 }

@@ -326,5 +326,6 @@
   "helpStatusParalysis": "Gerakan serangan kadang-kadang boleh gagal",
   "helpStatusStun": "Mungkin tak dapat bertindak pada giliran seterusnya",
   "helpStatusBurn": "Kerosakan yang kamu beri jadi separuh, dan kerosakan yang kamu terima meningkat",
-  "helpStatusDrowsy": "Kelajuan menjadi separuh\nJika terkena kesan ini lagi, monster tertidur"
+  "helpStatusDrowsy": "Kelajuan menjadi separuh\nJika terkena kesan ini lagi, monster tertidur",
+  "helpStatusSleep": "Mungkin tak boleh bertindak selama beberapa giliran"
 }

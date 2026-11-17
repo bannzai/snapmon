@@ -326,5 +326,6 @@
   "helpStatusParalysis": "Angrep kan noen ganger mislykkes",
   "helpStatusStun": "Kan kanskje ikke handle i neste tur",
   "helpStatusBurn": "Skaden du gjør halveres, og skaden du tar øker",
-  "helpStatusDrowsy": "Hastigheten halveres\nHvis effekten treffer igjen, sovner monsteret"
+  "helpStatusDrowsy": "Hastigheten halveres\nHvis effekten treffer igjen, sovner monsteret",
+  "helpStatusSleep": "Kan kanskje ikke handle på noen turer"
 }
