@@ -162,5 +162,6 @@
   "shareVersusOpponents": "{opponentNames} 상대",
   "battleLogChallenged": "{monsterName}의 도전이 시작됐다!",
   "battleLogMoveUsed": "{monsterName}의 {moveName}!",
-  "battleStruggle": "발버둥"
+  "battleStruggle": "발버둥",
+  "battleLogSuperEffective": "효과가 굉장했다!"
 }

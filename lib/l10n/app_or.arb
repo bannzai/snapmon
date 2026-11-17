@@ -162,5 +162,6 @@
   "shareVersusOpponents": "{opponentNames} ବିପକ୍ଷରେ",
   "battleLogChallenged": "{monsterName} ତୁମକୁ ଲଢ଼େଇ ପାଇଁ ଆହ୍ୱାନ କରିଛି!",
   "battleLogMoveUsed": "{monsterName} {moveName} ବ୍ୟବହାର କଲା!",
-  "battleStruggle": "ଶେଷ ଲଢ଼େଇ"
+  "battleStruggle": "ଶେଷ ଲଢ଼େଇ",
+  "battleLogSuperEffective": "ବହୁତ ପ୍ରଭାବଶାଳୀ!"
 }

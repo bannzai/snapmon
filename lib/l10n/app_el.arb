@@ -162,5 +162,6 @@
   "shareVersusOpponents": "εναντίον {opponentNames}",
   "battleLogChallenged": "Ο {monsterName} σε προκαλεί σε μάχη!",
   "battleLogMoveUsed": "Ο {monsterName} χρησιμοποίησε την κίνηση {moveName}!",
-  "battleStruggle": "Απεγνωσμένη μάχη"
+  "battleStruggle": "Απεγνωσμένη μάχη",
+  "battleLogSuperEffective": "Είναι πολύ αποτελεσματικό!"
 }

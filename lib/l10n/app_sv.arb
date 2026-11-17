@@ -162,5 +162,6 @@
   "shareVersusOpponents": "mot {opponentNames}",
   "battleLogChallenged": "{monsterName} utmanar dig på strid!",
   "battleLogMoveUsed": "{monsterName} använder {moveName}!",
-  "battleStruggle": "Desperat kamp"
+  "battleStruggle": "Desperat kamp",
+  "battleLogSuperEffective": "Det är supereffektivt!"
 }

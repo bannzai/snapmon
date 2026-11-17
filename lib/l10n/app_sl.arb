@@ -162,5 +162,6 @@
   "shareVersusOpponents": "proti {opponentNames}",
   "battleLogChallenged": "{monsterName} te izziva na dvoboj!",
   "battleLogMoveUsed": "{monsterName} uporabi potezo {moveName}!",
-  "battleStruggle": "Obupen boj"
+  "battleStruggle": "Obupen boj",
+  "battleLogSuperEffective": "Zelo učinkovito!"
 }

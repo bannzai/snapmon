@@ -162,5 +162,6 @@
   "shareVersusOpponents": "對戰 {opponentNames}",
   "battleLogChallenged": "{monsterName} 向你發起挑戰！",
   "battleLogMoveUsed": "{monsterName}使出了{moveName}！",
-  "battleStruggle": "掙扎"
+  "battleStruggle": "掙扎",
+  "battleLogSuperEffective": "效果絕佳！"
 }

@@ -162,5 +162,6 @@
   "shareVersusOpponents": "{opponentNames} ile karşılaş",
   "battleLogChallenged": "{monsterName} seni düelloya çağırıyor!",
   "battleLogMoveUsed": "{monsterName}, {moveName} kullandı!",
-  "battleStruggle": "Son Çırpınış"
+  "battleStruggle": "Son Çırpınış",
+  "battleLogSuperEffective": "Çok etkili!"
 }

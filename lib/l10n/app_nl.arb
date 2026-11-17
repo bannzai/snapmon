@@ -162,5 +162,6 @@
   "shareVersusOpponents": "tegen {opponentNames}",
   "battleLogChallenged": "{monsterName} daagt je uit voor een gevecht!",
   "battleLogMoveUsed": "{monsterName} gebruikt {moveName}!",
-  "battleStruggle": "Wanhopige strijd"
+  "battleStruggle": "Wanhopige strijd",
+  "battleLogSuperEffective": "Het is supereffectief!"
 }

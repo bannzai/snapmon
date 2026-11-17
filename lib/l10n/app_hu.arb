@@ -162,5 +162,6 @@
   "shareVersusOpponents": "{opponentNames} ellen",
   "battleLogChallenged": "{monsterName} párbajra hív!",
   "battleLogMoveUsed": "{monsterName} beveti a(z) {moveName} támadást!",
-  "battleStruggle": "Elkeseredett küzdelem"
+  "battleStruggle": "Elkeseredett küzdelem",
+  "battleLogSuperEffective": "Szuper hatásos!"
 }

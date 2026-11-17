@@ -162,5 +162,6 @@
   "shareVersusOpponents": "protiv {opponentNames}",
   "battleLogChallenged": "{monsterName} te izaziva na borbu!",
   "battleLogMoveUsed": "{monsterName} koristi potez {moveName}!",
-  "battleStruggle": "Očajnička borba"
+  "battleStruggle": "Očajnička borba",
+  "battleLogSuperEffective": "Super je učinkovito!"
 }

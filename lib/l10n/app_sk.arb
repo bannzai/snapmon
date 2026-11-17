@@ -162,5 +162,6 @@
   "shareVersusOpponents": "proti {opponentNames}",
   "battleLogChallenged": "{monsterName} ťa vyzýva na súboj!",
   "battleLogMoveUsed": "{monsterName} použil útok {moveName}!",
-  "battleStruggle": "Zúfalý boj"
+  "battleStruggle": "Zúfalý boj",
+  "battleLogSuperEffective": "Je to super účinné!"
 }

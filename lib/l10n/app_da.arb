@@ -162,5 +162,6 @@
   "shareVersusOpponents": "mod {opponentNames}",
   "battleLogChallenged": "{monsterName} udfordrer dig til kamp!",
   "battleLogMoveUsed": "{monsterName} bruger {moveName}!",
-  "battleStruggle": "Desperat kamp"
+  "battleStruggle": "Desperat kamp",
+  "battleLogSuperEffective": "Det er supereffektivt!"
 }

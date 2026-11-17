@@ -162,5 +162,6 @@
   "shareVersusOpponents": "contra {opponentNames}",
   "battleLogChallenged": "{monsterName} te provoacă la luptă!",
   "battleLogMoveUsed": "{monsterName} folosește {moveName}!",
-  "battleStruggle": "Luptă disperată"
+  "battleStruggle": "Luptă disperată",
+  "battleLogSuperEffective": "E super eficient!"
 }

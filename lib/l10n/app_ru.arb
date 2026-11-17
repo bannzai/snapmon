@@ -162,5 +162,6 @@
   "shareVersusOpponents": "против {opponentNames}",
   "battleLogChallenged": "{monsterName} вызывает тебя на бой!",
   "battleLogMoveUsed": "{monsterName} применяет приём {moveName}!",
-  "battleStruggle": "Отчаянная борьба"
+  "battleStruggle": "Отчаянная борьба",
+  "battleLogSuperEffective": "Это суперэффективно!"
 }

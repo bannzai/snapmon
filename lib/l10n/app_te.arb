@@ -162,5 +162,6 @@
   "shareVersusOpponents": "{opponentNames}తో పోరు",
   "battleLogChallenged": "{monsterName} నిన్ను పోరాటానికి సవాలు చేసింది!",
   "battleLogMoveUsed": "{monsterName} {moveName} వాడింది!",
-  "battleStruggle": "చివరి పోరాటం"
+  "battleStruggle": "చివరి పోరాటం",
+  "battleLogSuperEffective": "చాలా ప్రభావవంతంగా ఉంది!"
 }

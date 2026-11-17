@@ -162,5 +162,6 @@
   "shareVersusOpponents": "ضد {opponentNames}",
   "battleLogChallenged": "تحدّاك {monsterName}!",
   "battleLogMoveUsed": "استخدم {monsterName} حركة {moveName}!",
-  "battleStruggle": "هجوم اليأس"
+  "battleStruggle": "هجوم اليأس",
+  "battleLogSuperEffective": "إنه فعّال جدًا!"
 }

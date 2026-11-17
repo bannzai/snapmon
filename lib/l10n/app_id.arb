@@ -162,5 +162,6 @@
   "shareVersusOpponents": "lawan {opponentNames}",
   "battleLogChallenged": "{monsterName} menantangmu bertarung!",
   "battleLogMoveUsed": "{monsterName} memakai {moveName}!",
-  "battleStruggle": "Perlawanan Terakhir"
+  "battleStruggle": "Perlawanan Terakhir",
+  "battleLogSuperEffective": "Sangat efektif!"
 }
