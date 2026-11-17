@@ -176,5 +176,6 @@
   "battleLogSwitchedOut": "L-ai retras pe {withdrawnMonsterName} și l-ai trimis în luptă pe {monsterName}",
   "battleLogMissed": "Dar atacul a ratat!",
   "battleLogParalyzed": "{monsterName} e paralizat și nu poate ataca",
-  "battleLogStunned": "{monsterName} a leșinat și nu se poate mișca"
+  "battleLogStunned": "{monsterName} a leșinat și nu se poate mișca",
+  "battleLogAsleep": "{monsterName} doarme dus"
 }

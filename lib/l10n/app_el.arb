@@ -176,5 +176,6 @@
   "battleLogSwitchedOut": "Απέσυρες το {withdrawnMonsterName} και έστειλες το {monsterName}",
   "battleLogMissed": "Όμως η επίθεση αστόχησε!",
   "battleLogParalyzed": "Το {monsterName} έχει παραλύσει και δεν μπορεί να επιτεθεί",
-  "battleLogStunned": "Το {monsterName} λιποθύμησε και δεν μπορεί να κινηθεί"
+  "battleLogStunned": "Το {monsterName} λιποθύμησε και δεν μπορεί να κινηθεί",
+  "battleLogAsleep": "Το {monsterName} κοιμάται του καλού καιρού"
 }

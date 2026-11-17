@@ -176,5 +176,6 @@
   "battleLogSwitchedOut": "तुमने {withdrawnMonsterName} को वापस बुलाकर {monsterName} को मैदान में उतारा",
   "battleLogMissed": "लेकिन वार चूक गया!",
   "battleLogParalyzed": "{monsterName} का शरीर सुन्न है, हमला नहीं कर सकता",
-  "battleLogStunned": "{monsterName} बेहोश है और हिल नहीं सकता"
+  "battleLogStunned": "{monsterName} बेहोश है और हिल नहीं सकता",
+  "battleLogAsleep": "{monsterName} गहरी नींद में सो रहा है"
 }

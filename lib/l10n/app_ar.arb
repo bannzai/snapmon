@@ -176,5 +176,6 @@
   "battleLogSwitchedOut": "تم سحب {withdrawnMonsterName} وإرسال {monsterName}",
   "battleLogMissed": "لكن الهجوم أخطأ!",
   "battleLogParalyzed": "{monsterName} مشلول ولا يستطيع الهجوم",
-  "battleLogStunned": "{monsterName} فاقد الوعي ولا يستطيع التحرك"
+  "battleLogStunned": "{monsterName} فاقد الوعي ولا يستطيع التحرك",
+  "battleLogAsleep": "{monsterName} نائم بعمق"
 }

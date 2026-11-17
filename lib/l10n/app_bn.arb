@@ -176,5 +176,6 @@
   "battleLogSwitchedOut": "{withdrawnMonsterName} ফিরিয়ে {monsterName} নামানো হলো",
   "battleLogMissed": "কিন্তু আঘাতটা লাগল না!",
   "battleLogParalyzed": "{monsterName} অবশ হয়ে গেছে, আক্রমণ করতে পারছে না",
-  "battleLogStunned": "{monsterName} অজ্ঞান হয়ে গেছে, নড়তে পারছে না"
+  "battleLogStunned": "{monsterName} অজ্ঞান হয়ে গেছে, নড়তে পারছে না",
+  "battleLogAsleep": "{monsterName} ঘুমে কাদা"
 }

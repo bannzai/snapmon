@@ -176,5 +176,6 @@
   "battleLogSwitchedOut": "{withdrawnMonsterName} חזר, ו-{monsterName} יצא לקרב",
   "battleLogMissed": "אבל המתקפה החטיאה!",
   "battleLogParalyzed": "{monsterName} משותק ולא יכול לתקוף",
-  "battleLogStunned": "{monsterName} התעלף ולא יכול לזוז"
+  "battleLogStunned": "{monsterName} התעלף ולא יכול לזוז",
+  "battleLogAsleep": "{monsterName} שקוע בשינה עמוקה"
 }

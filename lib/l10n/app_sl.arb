@@ -176,5 +176,6 @@
   "battleLogSwitchedOut": "Umaknil si {withdrawnMonsterName} in v boj poslal {monsterName}",
   "battleLogMissed": "A napad je zgrešil!",
   "battleLogParalyzed": "{monsterName} je paraliziran in ne more napasti",
-  "battleLogStunned": "{monsterName} je omedlel in se ne more premakniti"
+  "battleLogStunned": "{monsterName} je omedlel in se ne more premakniti",
+  "battleLogAsleep": "{monsterName} trdno spi"
 }

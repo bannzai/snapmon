@@ -176,5 +176,6 @@
   "battleLogSwitchedOut": "Du kallade tillbaka {withdrawnMonsterName} och skickade in {monsterName}",
   "battleLogMissed": "Men attacken missade!",
   "battleLogParalyzed": "{monsterName} är förlamad och kan inte anfalla",
-  "battleLogStunned": "{monsterName} har svimmat och kan inte röra sig"
+  "battleLogStunned": "{monsterName} har svimmat och kan inte röra sig",
+  "battleLogAsleep": "{monsterName} sover som en stock"
 }

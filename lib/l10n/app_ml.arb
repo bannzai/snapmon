@@ -176,5 +176,6 @@
   "battleLogSwitchedOut": "നിങ്ങൾ {withdrawnMonsterName}നെ തിരികെ വിളിച്ച് {monsterName}നെ കളത്തിലിറക്കി",
   "battleLogMissed": "പക്ഷേ ആക്രമണം ലക്ഷ്യം തെറ്റി!",
   "battleLogParalyzed": "{monsterName} മരവിച്ചതിനാൽ ആക്രമിക്കാൻ കഴിയുന്നില്ല",
-  "battleLogStunned": "{monsterName} ബോധംകെട്ടു, അനങ്ങാൻ കഴിയുന്നില്ല"
+  "battleLogStunned": "{monsterName} ബോധംകെട്ടു, അനങ്ങാൻ കഴിയുന്നില്ല",
+  "battleLogAsleep": "{monsterName} ഗാഢനിദ്രയിലാണ്"
 }

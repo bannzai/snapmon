@@ -176,5 +176,6 @@
   "battleLogSwitchedOut": "เรียก {withdrawnMonsterName} กลับ แล้วส่ง {monsterName} ลงสนาม",
   "battleLogMissed": "แต่การโจมตีพลาดเป้า!",
   "battleLogParalyzed": "{monsterName} เป็นอัมพาตจนโจมตีไม่ได้",
-  "battleLogStunned": "{monsterName} หมดสติจนขยับไม่ได้"
+  "battleLogStunned": "{monsterName} หมดสติจนขยับไม่ได้",
+  "battleLogAsleep": "{monsterName} กำลังหลับปุ๋ย"
 }

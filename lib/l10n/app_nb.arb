@@ -176,5 +176,6 @@
   "battleLogSwitchedOut": "Du trakk {withdrawnMonsterName} tilbake og sendte inn {monsterName}",
   "battleLogMissed": "Men angrepet bommet!",
   "battleLogParalyzed": "{monsterName} er lammet og kan ikke angripe",
-  "battleLogStunned": "{monsterName} har besvimt og kan ikke bevege seg"
+  "battleLogStunned": "{monsterName} har besvimt og kan ikke bevege seg",
+  "battleLogAsleep": "{monsterName} sover tungt"
 }

@@ -176,5 +176,6 @@
   "battleLogSwitchedOut": "Hai ritirato {withdrawnMonsterName} e mandato in campo {monsterName}",
   "battleLogMissed": "Ma l'attacco è andato a vuoto!",
   "battleLogParalyzed": "{monsterName} è paralizzato e non può attaccare",
-  "battleLogStunned": "{monsterName} è svenuto e non può muoversi"
+  "battleLogStunned": "{monsterName} è svenuto e non può muoversi",
+  "battleLogAsleep": "{monsterName} dorme della grossa"
 }

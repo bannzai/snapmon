@@ -176,5 +176,6 @@
   "battleLogSwitchedOut": "你收回了{withdrawnMonsterName}，派出了{monsterName}",
   "battleLogMissed": "但是攻击落空了！",
   "battleLogParalyzed": "{monsterName} 身体麻痹，无法攻击",
-  "battleLogStunned": "{monsterName}昏过去了，无法行动"
+  "battleLogStunned": "{monsterName}昏过去了，无法行动",
+  "battleLogAsleep": "{monsterName} 正呼呼大睡"
 }

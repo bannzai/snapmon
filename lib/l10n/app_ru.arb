@@ -176,5 +176,6 @@
   "battleLogSwitchedOut": "Ты отозвал {withdrawnMonsterName} и отправил в бой {monsterName}",
   "battleLogMissed": "Но атака не попала в цель!",
   "battleLogParalyzed": "{monsterName} парализован и не может атаковать",
-  "battleLogStunned": "{monsterName} потерял сознание и не может двигаться"
+  "battleLogStunned": "{monsterName} потерял сознание и не может двигаться",
+  "battleLogAsleep": "{monsterName} крепко спит"
 }

@@ -176,5 +176,6 @@
   "battleLogSwitchedOut": "నువ్వు {withdrawnMonsterName}ని వెనక్కి పిలిచి {monsterName}ని బరిలోకి దింపావు",
   "battleLogMissed": "కానీ దాడి గురి తప్పింది!",
   "battleLogParalyzed": "{monsterName} శరీరం మొద్దుబారింది, దాడి చేయలేకపోయింది",
-  "battleLogStunned": "{monsterName} స్పృహ తప్పి కదలలేకపోతోంది"
+  "battleLogStunned": "{monsterName} స్పృహ తప్పి కదలలేకపోతోంది",
+  "battleLogAsleep": "{monsterName} గాఢ నిద్రలో ఉంది"
 }
