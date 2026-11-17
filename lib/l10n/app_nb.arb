@@ -68,5 +68,6 @@
   "settingsDisplayNameLoading": "Laster inn",
   "settingsDisplayNameHelper": "Navnet motstanderne dine ser i kamp",
   "settingsDisplayNameSave": "Lagre",
-  "profileChangeIcon": "Bytt ikon"
+  "profileChangeIcon": "Bytt ikon",
+  "profileIconHelper": "Ikonet motstanderen din ser i kamp\nDu kan ikke bruke bilder der ansikter er synlige"
 }

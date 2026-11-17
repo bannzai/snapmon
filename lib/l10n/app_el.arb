@@ -68,5 +68,6 @@
   "settingsDisplayNameLoading": "Φόρτωση",
   "settingsDisplayNameHelper": "Το όνομα που βλέπουν οι αντίπαλοί σου στη μάχη",
   "settingsDisplayNameSave": "Αποθήκευση",
-  "profileChangeIcon": "Άλλαξε εικονίδιο"
+  "profileChangeIcon": "Άλλαξε εικονίδιο",
+  "profileIconHelper": "Το εικονίδιο που βλέπει ο αντίπαλός σου στη μάχη\nΔεν μπορείς να χρησιμοποιήσεις φωτογραφίες με πρόσωπα"
 }

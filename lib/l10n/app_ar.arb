@@ -68,5 +68,6 @@
   "settingsDisplayNameLoading": "جارٍ التحميل",
   "settingsDisplayNameHelper": "الاسم الذي يراه خصومك في المعارك",
   "settingsDisplayNameSave": "حفظ",
-  "profileChangeIcon": "تغيير الأيقونة"
+  "profileChangeIcon": "تغيير الأيقونة",
+  "profileIconHelper": "الأيقونة التي يراها خصمك في المعركة\nلا يمكنك استخدام صورة يظهر فيها وجه شخص"
 }

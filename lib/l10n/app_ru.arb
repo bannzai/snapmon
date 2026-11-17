@@ -68,5 +68,6 @@
   "settingsDisplayNameLoading": "Загрузка",
   "settingsDisplayNameHelper": "Имя, которое видят твои соперники в бою",
   "settingsDisplayNameSave": "Сохранить",
-  "profileChangeIcon": "Сменить значок"
+  "profileChangeIcon": "Сменить значок",
+  "profileIconHelper": "Значок, который видит твой соперник в бою\nНельзя использовать фото, где видно лицо человека"
 }

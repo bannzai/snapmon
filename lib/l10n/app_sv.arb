@@ -68,5 +68,6 @@
   "settingsDisplayNameLoading": "Laddar",
   "settingsDisplayNameHelper": "Namnet dina motståndare ser i strid",
   "settingsDisplayNameSave": "Spara",
-  "profileChangeIcon": "Byt ikon"
+  "profileChangeIcon": "Byt ikon",
+  "profileIconHelper": "Ikonen som din motståndare ser i strid\nDu kan inte använda bilder där ett ansikte syns"
 }

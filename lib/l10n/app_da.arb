@@ -68,5 +68,6 @@
   "settingsDisplayNameLoading": "Indlæser",
   "settingsDisplayNameHelper": "Navnet dine modstandere ser i kamp",
   "settingsDisplayNameSave": "Gem",
-  "profileChangeIcon": "Skift ikon"
+  "profileChangeIcon": "Skift ikon",
+  "profileIconHelper": "Ikonet, din modstander ser i kamp\nDu kan ikke bruge billeder med ansigter"
 }

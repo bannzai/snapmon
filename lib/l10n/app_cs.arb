@@ -68,5 +68,6 @@
   "settingsDisplayNameLoading": "Načítání",
   "settingsDisplayNameHelper": "Jméno, které uvidí tví soupeři v souboji",
   "settingsDisplayNameSave": "Uložit",
-  "profileChangeIcon": "Změň ikonu"
+  "profileChangeIcon": "Změň ikonu",
+  "profileIconHelper": "Ikona, kterou uvidí tvůj soupeř v souboji\nFotky s lidským obličejem použít nemůžeš"
 }

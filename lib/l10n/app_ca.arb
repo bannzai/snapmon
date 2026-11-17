@@ -68,5 +68,6 @@
   "settingsDisplayNameLoading": "S'està carregant",
   "settingsDisplayNameHelper": "Nom que veuen els teus rivals als combats",
   "settingsDisplayNameSave": "Desa",
-  "profileChangeIcon": "Canvia la icona"
+  "profileChangeIcon": "Canvia la icona",
+  "profileIconHelper": "La icona que veu el teu rival en combat\nNo pots fer servir fotos on es vegi la cara d'algú"
 }

@@ -68,5 +68,6 @@
   "settingsDisplayNameLoading": "Caricamento",
   "settingsDisplayNameHelper": "Nome che i tuoi avversari vedono in battaglia",
   "settingsDisplayNameSave": "Salva",
-  "profileChangeIcon": "Cambia icona"
+  "profileChangeIcon": "Cambia icona",
+  "profileIconHelper": "L'icona che il tuo avversario vede in battaglia\nNon puoi usare foto in cui si vede il volto di una persona"
 }

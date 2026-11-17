@@ -68,5 +68,6 @@
   "settingsDisplayNameLoading": "Nalaganje",
   "settingsDisplayNameHelper": "Ime, ki ga tvoji nasprotniki vidijo v boju",
   "settingsDisplayNameSave": "Shrani",
-  "profileChangeIcon": "Spremeni ikono"
+  "profileChangeIcon": "Spremeni ikono",
+  "profileIconHelper": "Ikona, ki jo tvoj nasprotnik vidi v boju\nNe moreš uporabiti fotografij, na katerih je viden obraz osebe"
 }

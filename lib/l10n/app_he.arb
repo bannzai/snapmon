@@ -68,5 +68,6 @@
   "settingsDisplayNameLoading": "בטעינה",
   "settingsDisplayNameHelper": "השם שמוצג ליריבים בקרב",
   "settingsDisplayNameSave": "שמירה",
-  "profileChangeIcon": "שינוי סמל"
+  "profileChangeIcon": "שינוי סמל",
+  "profileIconHelper": "הסמל שהיריב רואה בקרב\nאי אפשר להשתמש בתמונות שמופיעים בהן פנים של אדם"
 }

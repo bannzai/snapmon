@@ -68,5 +68,6 @@
   "settingsDisplayNameLoading": "ଲୋଡ୍ ହେଉଛି",
   "settingsDisplayNameHelper": "ଲଢ଼େଇରେ ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀଙ୍କୁ ଦେଖାଯାଉଥିବା ନାମ",
   "settingsDisplayNameSave": "ସଞ୍ଚୟ କର",
-  "profileChangeIcon": "ଆଇକନ୍ ବଦଳାଅ"
+  "profileChangeIcon": "ଆଇକନ୍ ବଦଳାଅ",
+  "profileIconHelper": "ଲଢ଼େଇରେ ତୁମ ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ ଦେଖିବା ଚିହ୍ନ\nକାହାରି ମୁହଁ ଦେଖାଯାଉଥିବା ଫଟୋ ବ୍ୟବହାର କରିପାରିବ ନାହିଁ"
 }

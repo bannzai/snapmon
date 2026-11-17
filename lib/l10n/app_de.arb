@@ -68,5 +68,6 @@
   "settingsDisplayNameLoading": "Lädt",
   "settingsDisplayNameHelper": "Name, den deine Gegner im Kampf sehen",
   "settingsDisplayNameSave": "Speichern",
-  "profileChangeIcon": "Icon ändern"
+  "profileChangeIcon": "Icon ändern",
+  "profileIconHelper": "Das Icon, das dein Gegner im Kampf sieht\nFotos mit Gesichtern kannst du nicht verwenden"
 }

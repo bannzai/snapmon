@@ -68,5 +68,6 @@
   "settingsDisplayNameLoading": "লোড হচ্ছে",
   "settingsDisplayNameHelper": "লড়াইয়ে প্রতিপক্ষ যে নাম দেখবে",
   "settingsDisplayNameSave": "সেভ করো",
-  "profileChangeIcon": "আইকন বদলাও"
+  "profileChangeIcon": "আইকন বদলাও",
+  "profileIconHelper": "লড়াইয়ে প্রতিপক্ষ যে আইকন দেখবে\nকারও মুখ দেখা যায় এমন ছবি ব্যবহার করা যাবে না"
 }

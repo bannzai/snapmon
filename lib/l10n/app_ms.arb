@@ -68,5 +68,6 @@
   "settingsDisplayNameLoading": "Memuatkan",
   "settingsDisplayNameHelper": "Nama yang lawan kamu nampak semasa bertarung",
   "settingsDisplayNameSave": "Simpan",
-  "profileChangeIcon": "Tukar ikon"
+  "profileChangeIcon": "Tukar ikon",
+  "profileIconHelper": "Ikon yang lawan kamu lihat semasa bertarung\nKamu tak boleh guna foto yang menampakkan wajah seseorang"
 }

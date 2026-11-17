@@ -68,5 +68,6 @@
   "settingsDisplayNameLoading": "લોડ થઈ રહ્યું છે",
   "settingsDisplayNameHelper": "લડાઈમાં હરીફોને દેખાતું નામ",
   "settingsDisplayNameSave": "સાચવો",
-  "profileChangeIcon": "આઇકન બદલો"
+  "profileChangeIcon": "આઇકન બદલો",
+  "profileIconHelper": "લડાઈમાં તમારો હરીફ જે આઇકન જોશે\nવ્યક્તિનો ચહેરો દેખાતો હોય એવો ફોટો તમે વાપરી શકતા નથી"
 }

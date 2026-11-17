@@ -68,5 +68,6 @@
   "settingsDisplayNameLoading": "لوڈ ہو رہا ہے",
   "settingsDisplayNameHelper": "لڑائی میں حریفوں کو نظر آنے والا نام",
   "settingsDisplayNameSave": "محفوظ کرو",
-  "profileChangeIcon": "آئیکن بدلو"
+  "profileChangeIcon": "آئیکن بدلو",
+  "profileIconHelper": "لڑائی میں تمہارے حریف کو نظر آنے والا آئیکن\nکسی کا چہرہ نظر آنے والی تصویر استعمال نہیں کر سکتے"
 }

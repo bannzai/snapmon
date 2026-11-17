@@ -68,5 +68,6 @@
   "settingsDisplayNameLoading": "กำลังโหลด",
   "settingsDisplayNameHelper": "ชื่อที่คู่ต่อสู้เห็นในการต่อสู้",
   "settingsDisplayNameSave": "บันทึก",
-  "profileChangeIcon": "เปลี่ยนไอคอน"
+  "profileChangeIcon": "เปลี่ยนไอคอน",
+  "profileIconHelper": "ไอคอนที่คู่ต่อสู้เห็นในการแบตเทิล\nใช้รูปที่เห็นใบหน้าคนไม่ได้"
 }
