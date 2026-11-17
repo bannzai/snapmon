@@ -323,5 +323,6 @@
   "helpStatusHeading": "statuseffekter",
   "helpStatusBody": "Nogle angreb giver modstanderen en statuseffekt\nStatuseffekten bliver, selv når du skifter",
   "helpStatusPoison": "Tager skade sidst i hver tur\nJo mere gift der ophobes, jo større skade",
-  "helpStatusParalysis": "Angrebsangreb kan nogle gange slå fejl"
+  "helpStatusParalysis": "Angrebsangreb kan nogle gange slå fejl",
+  "helpStatusStun": "Kan måske ikke handle i næste tur"
 }

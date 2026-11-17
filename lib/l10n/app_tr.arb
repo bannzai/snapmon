@@ -323,5 +323,6 @@
   "helpStatusHeading": "durum etkileri",
   "helpStatusBody": "Bazı hamleler rakibe durum etkisi uygular\nDurum etkisi, canavar değişse de kalır",
   "helpStatusPoison": "Her turun sonunda hasar alır\nZehir biriktikçe hasar artar",
-  "helpStatusParalysis": "Saldırı hamleleri bazen başarısız olabilir"
+  "helpStatusParalysis": "Saldırı hamleleri bazen başarısız olabilir",
+  "helpStatusStun": "Sonraki turda hareket edemeyebilir"
 }

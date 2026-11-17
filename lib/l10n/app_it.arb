@@ -323,5 +323,6 @@
   "helpStatusHeading": "problemi di stato",
   "helpStatusBody": "Alcune mosse causano problemi di stato all'avversario\nI problemi di stato restano anche dopo il cambio",
   "helpStatusPoison": "Subisce danni alla fine di ogni turno\nPiù veleno si accumula, più danni subisce",
-  "helpStatusParalysis": "Le mosse d'attacco a volte possono fallire"
+  "helpStatusParalysis": "Le mosse d'attacco a volte possono fallire",
+  "helpStatusStun": "Potrebbe non riuscire ad agire nel prossimo turno"
 }

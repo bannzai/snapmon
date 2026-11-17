@@ -323,5 +323,6 @@
   "helpStatusHeading": "efeitos de estado",
   "helpStatusBody": "Alguns golpes causam um estado ao adversário\nO estado mantém-se mesmo após a troca",
   "helpStatusPoison": "Sofre dano no fim de cada turno\nQuanto mais veneno se acumula, maior o dano",
-  "helpStatusParalysis": "Os golpes de ataque podem falhar às vezes"
+  "helpStatusParalysis": "Os golpes de ataque podem falhar às vezes",
+  "helpStatusStun": "Pode não conseguir agir no próximo turno"
 }

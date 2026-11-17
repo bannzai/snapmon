@@ -323,5 +323,6 @@
   "helpStatusHeading": "statuseffekter",
   "helpStatusBody": "Vissa attacker ger motståndaren en statuseffekt\nStatuseffekten finns kvar även när du byter monster",
   "helpStatusPoison": "Tar skada i slutet av varje tur\nJu mer gift som samlas, desto större skada",
-  "helpStatusParalysis": "Attackattacker kan ibland misslyckas"
+  "helpStatusParalysis": "Attackattacker kan ibland misslyckas",
+  "helpStatusStun": "Kan kanske inte agera nästa tur"
 }

@@ -323,5 +323,6 @@
   "helpStatusHeading": "statusy",
   "helpStatusBody": "Niektóre ruchy nakładają na rywala status\nStatus pozostaje nawet po zmianie potwora",
   "helpStatusPoison": "Otrzymuje obrażenia na koniec każdej tury\nIm więcej trucizny się nagromadzi, tym większe obrażenia",
-  "helpStatusParalysis": "Ruchy atakujące mogą czasem zawieść"
+  "helpStatusParalysis": "Ruchy atakujące mogą czasem zawieść",
+  "helpStatusStun": "Może nie móc wykonać ruchu w następnej turze"
 }

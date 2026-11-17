@@ -323,5 +323,6 @@
   "helpStatusHeading": "efek status",
   "helpStatusBody": "Beberapa jurus memberi efek status pada lawan\nEfek status tetap ada meski kamu berganti monster",
   "helpStatusPoison": "Terkena damage di akhir setiap giliran\nMakin banyak racun menumpuk, makin besar damage-nya",
-  "helpStatusParalysis": "Jurus serangan kadang bisa gagal"
+  "helpStatusParalysis": "Jurus serangan kadang bisa gagal",
+  "helpStatusStun": "Mungkin tidak bisa bertindak pada giliran berikutnya"
 }
