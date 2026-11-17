@@ -164,5 +164,6 @@
   "battleLogMoveUsed": "{monsterName} použil útok {moveName}!",
   "battleStruggle": "Zoufalý boj",
   "battleLogSuperEffective": "Je to superúčinné!",
-  "battleLogNotVeryEffective": "Není to moc účinné"
+  "battleLogNotVeryEffective": "Není to moc účinné",
+  "battleLogFainted": "{monsterName} omdlel"
 }

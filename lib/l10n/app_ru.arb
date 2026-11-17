@@ -164,5 +164,6 @@
   "battleLogMoveUsed": "{monsterName} применяет приём {moveName}!",
   "battleStruggle": "Отчаянная борьба",
   "battleLogSuperEffective": "Это суперэффективно!",
-  "battleLogNotVeryEffective": "Это не очень эффективно"
+  "battleLogNotVeryEffective": "Это не очень эффективно",
+  "battleLogFainted": "{monsterName} потерял сознание"
 }

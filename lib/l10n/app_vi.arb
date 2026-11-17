@@ -164,5 +164,6 @@
   "battleLogMoveUsed": "{monsterName} dùng {moveName}!",
   "battleStruggle": "Vùng vẫy",
   "battleLogSuperEffective": "Siêu hiệu quả!",
-  "battleLogNotVeryEffective": "Không hiệu quả lắm"
+  "battleLogNotVeryEffective": "Không hiệu quả lắm",
+  "battleLogFainted": "{monsterName} đã ngất"
 }

@@ -164,5 +164,6 @@
   "battleLogMoveUsed": "{monsterName}, {moveName} kullandı!",
   "battleStruggle": "Son Çırpınış",
   "battleLogSuperEffective": "Çok etkili!",
-  "battleLogNotVeryEffective": "Pek etkili olmadı"
+  "battleLogNotVeryEffective": "Pek etkili olmadı",
+  "battleLogFainted": "{monsterName} bayıldı"
 }

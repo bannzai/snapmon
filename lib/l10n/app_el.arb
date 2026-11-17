@@ -164,5 +164,6 @@
   "battleLogMoveUsed": "Ο {monsterName} χρησιμοποίησε την κίνηση {moveName}!",
   "battleStruggle": "Απεγνωσμένη μάχη",
   "battleLogSuperEffective": "Είναι πολύ αποτελεσματικό!",
-  "battleLogNotVeryEffective": "Δεν ήταν πολύ αποτελεσματικό"
+  "battleLogNotVeryEffective": "Δεν ήταν πολύ αποτελεσματικό",
+  "battleLogFainted": "Το {monsterName} λιποθύμησε"
 }

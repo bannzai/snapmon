@@ -164,5 +164,6 @@
   "battleLogMoveUsed": "{monsterName} {moveName} ବ୍ୟବହାର କଲା!",
   "battleStruggle": "ଶେଷ ଲଢ଼େଇ",
   "battleLogSuperEffective": "ବହୁତ ପ୍ରଭାବଶାଳୀ!",
-  "battleLogNotVeryEffective": "ବିଶେଷ ପ୍ରଭାବ ପଡ଼ିଲା ନାହିଁ"
+  "battleLogNotVeryEffective": "ବିଶେଷ ପ୍ରଭାବ ପଡ଼ିଲା ନାହିଁ",
+  "battleLogFainted": "{monsterName} ବେହୋସ ହୋଇଗଲା"
 }

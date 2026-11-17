@@ -164,5 +164,6 @@
   "battleLogMoveUsed": "استخدم {monsterName} حركة {moveName}!",
   "battleStruggle": "هجوم اليأس",
   "battleLogSuperEffective": "إنه فعّال جدًا!",
-  "battleLogNotVeryEffective": "لم تكن فعّالة جدًا"
+  "battleLogNotVeryEffective": "لم تكن فعّالة جدًا",
+  "battleLogFainted": "سقط {monsterName}"
 }

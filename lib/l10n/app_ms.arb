@@ -164,5 +164,6 @@
   "battleLogMoveUsed": "{monsterName} menggunakan {moveName}!",
   "battleStruggle": "Perjuangan Terakhir",
   "battleLogSuperEffective": "Sangat berkesan!",
-  "battleLogNotVeryEffective": "Tak begitu berkesan"
+  "battleLogNotVeryEffective": "Tak begitu berkesan",
+  "battleLogFainted": "{monsterName} pengsan"
 }

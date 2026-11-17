@@ -164,5 +164,6 @@
   "battleLogMoveUsed": "{monsterName} {moveName} பயன்படுத்தியது!",
   "battleStruggle": "கடைசிப் போராட்டம்",
   "battleLogSuperEffective": "மிகவும் பயனுள்ளதாக இருந்தது!",
-  "battleLogNotVeryEffective": "அவ்வளவாகப் பலனளிக்கவில்லை"
+  "battleLogNotVeryEffective": "அவ்வளவாகப் பலனளிக்கவில்லை",
+  "battleLogFainted": "{monsterName} மயங்கியது"
 }

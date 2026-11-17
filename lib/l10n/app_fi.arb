@@ -164,5 +164,6 @@
   "battleLogMoveUsed": "{monsterName} käyttää liikettä {moveName}!",
   "battleStruggle": "Epätoivoinen taistelu",
   "battleLogSuperEffective": "Se on supertehokas!",
-  "battleLogNotVeryEffective": "Ei ollut kovin tehokas"
+  "battleLogNotVeryEffective": "Ei ollut kovin tehokas",
+  "battleLogFainted": "{monsterName} pyörtyi"
 }

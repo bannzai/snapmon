@@ -164,5 +164,6 @@
   "battleLogMoveUsed": "{monsterName} beveti a(z) {moveName} támadást!",
   "battleStruggle": "Elkeseredett küzdelem",
   "battleLogSuperEffective": "Szuper hatásos!",
-  "battleLogNotVeryEffective": "Nem túl hatásos"
+  "battleLogNotVeryEffective": "Nem túl hatásos",
+  "battleLogFainted": "{monsterName} elájult"
 }

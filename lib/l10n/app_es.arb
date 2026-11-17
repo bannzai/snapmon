@@ -164,5 +164,6 @@
   "battleLogMoveUsed": "¡{monsterName} usa {moveName}!",
   "battleStruggle": "Combate",
   "battleLogSuperEffective": "¡Es supereficaz!",
-  "battleLogNotVeryEffective": "No es muy eficaz"
+  "battleLogNotVeryEffective": "No es muy eficaz",
+  "battleLogFainted": "{monsterName} se debilitó"
 }

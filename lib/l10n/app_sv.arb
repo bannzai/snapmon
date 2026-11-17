@@ -164,5 +164,6 @@
   "battleLogMoveUsed": "{monsterName} använder {moveName}!",
   "battleStruggle": "Desperat kamp",
   "battleLogSuperEffective": "Det är supereffektivt!",
-  "battleLogNotVeryEffective": "Det var inte särskilt effektivt"
+  "battleLogNotVeryEffective": "Det var inte särskilt effektivt",
+  "battleLogFainted": "{monsterName} svimmade"
 }

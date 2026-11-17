@@ -164,5 +164,6 @@
   "battleLogMoveUsed": "{monsterName} gebruikt {moveName}!",
   "battleStruggle": "Wanhopige strijd",
   "battleLogSuperEffective": "Het is supereffectief!",
-  "battleLogNotVeryEffective": "Het was niet erg effectief"
+  "battleLogNotVeryEffective": "Het was niet erg effectief",
+  "battleLogFainted": "{monsterName} is uitgeschakeld"
 }

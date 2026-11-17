@@ -164,5 +164,6 @@
   "battleLogMoveUsed": "{monsterName} folosește {moveName}!",
   "battleStruggle": "Luptă disperată",
   "battleLogSuperEffective": "E super eficient!",
-  "battleLogNotVeryEffective": "Nu a fost prea eficient"
+  "battleLogNotVeryEffective": "Nu a fost prea eficient",
+  "battleLogFainted": "{monsterName} a leșinat"
 }

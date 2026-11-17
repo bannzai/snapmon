@@ -164,5 +164,6 @@
   "battleLogMoveUsed": "{monsterName} השתמש במהלך {moveName}!",
   "battleStruggle": "מאבק נואש",
   "battleLogSuperEffective": "זה יעיל במיוחד!",
-  "battleLogNotVeryEffective": "זה לא היה יעיל במיוחד"
+  "battleLogNotVeryEffective": "זה לא היה יעיל במיוחד",
+  "battleLogFainted": "{monsterName} התעלף"
 }

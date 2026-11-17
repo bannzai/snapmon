@@ -164,5 +164,6 @@
   "battleLogMoveUsed": "{monsterName} uporabi potezo {moveName}!",
   "battleStruggle": "Obupen boj",
   "battleLogSuperEffective": "Zelo učinkovito!",
-  "battleLogNotVeryEffective": "Ni bilo preveč učinkovito"
+  "battleLogNotVeryEffective": "Ni bilo preveč učinkovito",
+  "battleLogFainted": "{monsterName} je omedlel"
 }
