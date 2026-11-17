@@ -184,5 +184,6 @@
   "battleLogSelfDestructed": "{monsterName} wysadził się w powietrze!",
   "battleLogStatusInflicted": "{monsterName} otrzymał status {statusName}!",
   "battleLogStatusStacked": "{monsterName}: stan {statusName} się nasilił (×{stackCount})",
-  "battleLogStatusReplaced": "Status {monsterName} zmienił się z {previousStatusName} na {statusName}"
+  "battleLogStatusReplaced": "Status {monsterName} zmienił się z {previousStatusName} na {statusName}",
+  "battleLogCursedStat": "Klątwa spadła na statystykę {statName} u {monsterName}!"
 }

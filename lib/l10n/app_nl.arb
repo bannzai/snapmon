@@ -184,5 +184,6 @@
   "battleLogSelfDestructed": "{monsterName} blies zichzelf op!",
   "battleLogStatusInflicted": "{monsterName} heeft nu de status {statusName}!",
   "battleLogStatusStacked": "{monsterName}: de status {statusName} is versterkt (×{stackCount})",
-  "battleLogStatusReplaced": "De status van {monsterName} veranderde van {previousStatusName} naar {statusName}"
+  "battleLogStatusReplaced": "De status van {monsterName} veranderde van {previousStatusName} naar {statusName}",
+  "battleLogCursedStat": "Er rust een vloek op {statName} van {monsterName}!"
 }

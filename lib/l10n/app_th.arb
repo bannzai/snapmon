@@ -184,5 +184,6 @@
   "battleLogSelfDestructed": "{monsterName} ระเบิดตัวเอง!",
   "battleLogStatusInflicted": "{monsterName} ติดสถานะ {statusName}!",
   "battleLogStatusStacked": "{monsterName}: สถานะ {statusName} ทับซ้อนเพิ่มขึ้น (×{stackCount})",
-  "battleLogStatusReplaced": "สถานะของ {monsterName} เปลี่ยนจาก {previousStatusName} เป็น {statusName}"
+  "battleLogStatusReplaced": "สถานะของ {monsterName} เปลี่ยนจาก {previousStatusName} เป็น {statusName}",
+  "battleLogCursedStat": "ค่า {statName} ของ {monsterName} ถูกสาปแล้ว!"
 }

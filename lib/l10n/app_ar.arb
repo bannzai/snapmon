@@ -184,5 +184,6 @@
   "battleLogSelfDestructed": "{monsterName} فجّر نفسه!",
   "battleLogStatusInflicted": "أصبح {monsterName} في حالة {statusName}!",
   "battleLogStatusStacked": "{monsterName}: تراكمت حالة {statusName} (×{stackCount})",
-  "battleLogStatusReplaced": "تحولت حالة {monsterName} من {previousStatusName} إلى {statusName}"
+  "battleLogStatusReplaced": "تحولت حالة {monsterName} من {previousStatusName} إلى {statusName}",
+  "battleLogCursedStat": "حلت اللعنة على {statName} لدى {monsterName}!"
 }

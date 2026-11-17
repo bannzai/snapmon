@@ -184,5 +184,6 @@
   "battleLogSelfDestructed": "{monsterName} ਨੇ ਆਪਣੇ ਆਪ ਨੂੰ ਉਡਾ ਲਿਆ!",
   "battleLogStatusInflicted": "{monsterName} ਹੁਣ {statusName} ਹਾਲਤ ਵਿੱਚ ਹੈ!",
   "battleLogStatusStacked": "{monsterName}: {statusName} ਹਾਲਤ ਹੋਰ ਵਧ ਗਈ (×{stackCount})",
-  "battleLogStatusReplaced": "{monsterName} ਦੀ ਹਾਲਤ {previousStatusName} ਤੋਂ {statusName} ਹੋ ਗਈ"
+  "battleLogStatusReplaced": "{monsterName} ਦੀ ਹਾਲਤ {previousStatusName} ਤੋਂ {statusName} ਹੋ ਗਈ",
+  "battleLogCursedStat": "{monsterName} ਦੇ {statName} ਨੂੰ ਸਰਾਪ ਲੱਗ ਗਿਆ!"
 }

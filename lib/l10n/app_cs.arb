@@ -184,5 +184,6 @@
   "battleLogSelfDestructed": "{monsterName} se samo zničil!",
   "battleLogStatusInflicted": "{monsterName} získal stav {statusName}!",
   "battleLogStatusStacked": "{monsterName}: stav {statusName} se nahromadil (×{stackCount})",
-  "battleLogStatusReplaced": "Stav {monsterName}: {previousStatusName} se změnil na {statusName}"
+  "battleLogStatusReplaced": "Stav {monsterName}: {previousStatusName} se změnil na {statusName}",
+  "battleLogCursedStat": "Hodnotu {statName} u {monsterName} postihla kletba!"
 }

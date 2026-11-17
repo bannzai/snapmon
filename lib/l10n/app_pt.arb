@@ -184,5 +184,6 @@
   "battleLogSelfDestructed": "{monsterName} se autodestruiu!",
   "battleLogStatusInflicted": "{monsterName} recebeu o status {statusName}!",
   "battleLogStatusStacked": "{monsterName}: o estado {statusName} se acumulou (×{stackCount})",
-  "battleLogStatusReplaced": "O estado de {monsterName} mudou de {previousStatusName} para {statusName}"
+  "battleLogStatusReplaced": "O estado de {monsterName} mudou de {previousStatusName} para {statusName}",
+  "battleLogCursedStat": "O atributo {statName} de {monsterName} foi amaldiçoado!"
 }

@@ -184,5 +184,6 @@
   "battleLogSelfDestructed": "{monsterName} взорвал себя!",
   "battleLogStatusInflicted": "{monsterName} получил статус {statusName}!",
   "battleLogStatusStacked": "{monsterName}: эффект {statusName} усилился (×{stackCount})",
-  "battleLogStatusReplaced": "Состояние {monsterName} сменилось с {previousStatusName} на {statusName}"
+  "battleLogStatusReplaced": "Состояние {monsterName} сменилось с {previousStatusName} на {statusName}",
+  "battleLogCursedStat": "На показатель {statName} у {monsterName} легло проклятие!"
 }

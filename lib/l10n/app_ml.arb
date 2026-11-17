@@ -184,5 +184,6 @@
   "battleLogSelfDestructed": "{monsterName} സ്വയം പൊട്ടിത്തെറിച്ചു!",
   "battleLogStatusInflicted": "{monsterName} ഇപ്പോൾ {statusName} അവസ്ഥയിലാണ്!",
   "battleLogStatusStacked": "{monsterName}: {statusName} അവസ്ഥ കൂടുതൽ അടിഞ്ഞുകൂടി (×{stackCount})",
-  "battleLogStatusReplaced": "{monsterName}ന്റെ അവസ്ഥ {previousStatusName} എന്നതിൽ നിന്ന് {statusName} ആയി മാറി"
+  "battleLogStatusReplaced": "{monsterName}ന്റെ അവസ്ഥ {previousStatusName} എന്നതിൽ നിന്ന് {statusName} ആയി മാറി",
+  "battleLogCursedStat": "{monsterName}ന്റെ {statName} ശപിക്കപ്പെട്ടു!"
 }

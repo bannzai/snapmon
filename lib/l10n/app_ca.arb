@@ -184,5 +184,6 @@
   "battleLogSelfDestructed": "{monsterName} s'ha autodestruït!",
   "battleLogStatusInflicted": "{monsterName} ha quedat en estat {statusName}!",
   "battleLogStatusStacked": "{monsterName}: s'ha acumulat l'estat {statusName} (×{stackCount})",
-  "battleLogStatusReplaced": "L’estat de {monsterName} ha canviat de {previousStatusName} a {statusName}"
+  "battleLogStatusReplaced": "L’estat de {monsterName} ha canviat de {previousStatusName} a {statusName}",
+  "battleLogCursedStat": "La característica {statName} de {monsterName} ha quedat maleïda!"
 }

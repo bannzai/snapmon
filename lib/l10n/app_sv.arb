@@ -184,5 +184,6 @@
   "battleLogSelfDestructed": "{monsterName} sprängde sig själv!",
   "battleLogStatusInflicted": "{monsterName} fick statusen {statusName}!",
   "battleLogStatusStacked": "{monsterName}: statusen {statusName} förstärktes (×{stackCount})",
-  "battleLogStatusReplaced": "{monsterName}s status ändrades från {previousStatusName} till {statusName}"
+  "battleLogStatusReplaced": "{monsterName}s status ändrades från {previousStatusName} till {statusName}",
+  "battleLogCursedStat": "En förbannelse drabbade {statName} hos {monsterName}!"
 }

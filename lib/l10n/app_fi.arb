@@ -184,5 +184,6 @@
   "battleLogSelfDestructed": "{monsterName} räjäytti itsensä!",
   "battleLogStatusInflicted": "{monsterName} sai tilan {statusName}!",
   "battleLogStatusStacked": "{monsterName}: tila {statusName} vahvistui (×{stackCount})",
-  "battleLogStatusReplaced": "Monsterin {monsterName} tila vaihtui: {previousStatusName} → {statusName}"
+  "battleLogStatusReplaced": "Monsterin {monsterName} tila vaihtui: {previousStatusName} → {statusName}",
+  "battleLogCursedStat": "Kirous iski {monsterName}-hirviön ominaisuuteen {statName}!"
 }

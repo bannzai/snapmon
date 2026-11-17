@@ -184,5 +184,6 @@
   "battleLogSelfDestructed": "{monsterName} తనను తాను పేల్చుకుంది!",
   "battleLogStatusInflicted": "{monsterName} ఇప్పుడు {statusName} స్థితిలో ఉంది!",
   "battleLogStatusStacked": "{monsterName}: {statusName} స్థితి మరింత పెరిగింది (×{stackCount})",
-  "battleLogStatusReplaced": "{monsterName} స్థితి {previousStatusName} నుంచి {statusName}గా మారింది"
+  "battleLogStatusReplaced": "{monsterName} స్థితి {previousStatusName} నుంచి {statusName}గా మారింది",
+  "battleLogCursedStat": "{monsterName} యొక్క {statName}కు శాపం తగిలింది!"
 }

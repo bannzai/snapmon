@@ -184,5 +184,6 @@
   "battleLogSelfDestructed": "{monsterName} meletupkan diri!",
   "battleLogStatusInflicted": "{monsterName} terkena status {statusName}!",
   "battleLogStatusStacked": "{monsterName}: status {statusName} bertindan (×{stackCount})",
-  "battleLogStatusReplaced": "Status {monsterName} berubah daripada {previousStatusName} kepada {statusName}"
+  "battleLogStatusReplaced": "Status {monsterName} berubah daripada {previousStatusName} kepada {statusName}",
+  "battleLogCursedStat": "{statName} milik {monsterName} terkena sumpahan!"
 }

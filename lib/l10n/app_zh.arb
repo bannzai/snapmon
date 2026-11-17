@@ -184,5 +184,6 @@
   "battleLogSelfDestructed": "{monsterName} 自爆了！",
   "battleLogStatusInflicted": "{monsterName}陷入了{statusName}状态！",
   "battleLogStatusStacked": "{monsterName}的{statusName}状态叠加了（×{stackCount}）",
-  "battleLogStatusReplaced": "{monsterName}的状态从{previousStatusName}变成了{statusName}"
+  "battleLogStatusReplaced": "{monsterName}的状态从{previousStatusName}变成了{statusName}",
+  "battleLogCursedStat": "{monsterName}的{statName}被诅咒了！"
 }
