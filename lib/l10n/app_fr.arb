@@ -307,5 +307,6 @@
   "moveSelectionReset": "Rechoisir",
   "actionCardForget": "Faire oublier",
   "battleRematch": "Rejouer le combat",
-  "battleLostPartyHintTitle": "Agrandis ton équipe pour gagner plus facilement"
+  "battleLostPartyHintTitle": "Agrandis ton équipe pour gagner plus facilement",
+  "battleLostPartyHintMessage": "Ton équipe peut compter jusqu’à {maximumPartySize} monstres\nConnaître les faiblesses et les altérations te donne l’avantage au combat"
 }
