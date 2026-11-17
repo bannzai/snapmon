@@ -35,5 +35,6 @@
   "opponentMyParty": "મારી ટીમ",
   "opponentSwapParty": "બદલો",
   "opponentEmptyPartyNote": "ટીમમાં મોન્સ્ટર ઉમેરો, પછી પડકાર આપી શકશો",
-  "opponentFindOthers": "બીજા હરીફો શોધો"
+  "opponentFindOthers": "બીજા હરીફો શોધો",
+  "opponentAverageLevel": "સરેરાશ Lv. {level}"
 }

@@ -35,5 +35,6 @@
   "opponentMyParty": "ਮੇਰੀ ਟੀਮ",
   "opponentSwapParty": "ਬਦਲੋ",
   "opponentEmptyPartyNote": "ਟੀਮ ਵਿੱਚ ਮੌਂਸਟਰ ਸ਼ਾਮਲ ਕਰੋ, ਫਿਰ ਚੁਣੌਤੀ ਦੇ ਸਕੋਗੇ",
-  "opponentFindOthers": "ਹੋਰ ਵਿਰੋਧੀ ਲੱਭੋ"
+  "opponentFindOthers": "ਹੋਰ ਵਿਰੋਧੀ ਲੱਭੋ",
+  "opponentAverageLevel": "ਔਸਤ Lv. {level}"
 }

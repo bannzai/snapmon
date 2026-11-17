@@ -35,5 +35,6 @@
   "opponentMyParty": "Echipa mea",
   "opponentSwapParty": "Schimbă",
   "opponentEmptyPartyNote": "Adaugă un monstru în echipă ca să poți provoca",
-  "opponentFindOthers": "Caută alți adversari"
+  "opponentFindOthers": "Caută alți adversari",
+  "opponentAverageLevel": "Lv. mediu {level}"
 }

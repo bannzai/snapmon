@@ -35,5 +35,6 @@
   "opponentMyParty": "Моя команда",
   "opponentSwapParty": "Заменить",
   "opponentEmptyPartyNote": "Добавь монстра в команду, чтобы бросить вызов",
-  "opponentFindOthers": "Найди других соперников"
+  "opponentFindOthers": "Найди других соперников",
+  "opponentAverageLevel": "Средний Lv. {level}"
 }

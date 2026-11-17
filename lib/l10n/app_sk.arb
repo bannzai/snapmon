@@ -35,5 +35,6 @@
   "opponentMyParty": "Môj tím",
   "opponentSwapParty": "Vymeň",
   "opponentEmptyPartyNote": "Pridaj príšeru do tímu a môžeš vyzvať súpera",
-  "opponentFindOthers": "Nájdi ďalších súperov"
+  "opponentFindOthers": "Nájdi ďalších súperov",
+  "opponentAverageLevel": "Priemerná Lv. {level}"
 }

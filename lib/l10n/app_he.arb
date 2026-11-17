@@ -35,5 +35,6 @@
   "opponentMyParty": "הצוות שלי",
   "opponentSwapParty": "החלפה",
   "opponentEmptyPartyNote": "כדי לצאת לאתגר, צריך להוסיף מפלצת לצוות",
-  "opponentFindOthers": "לחפש יריבים אחרים"
+  "opponentFindOthers": "לחפש יריבים אחרים",
+  "opponentAverageLevel": "ממוצע Lv. {level}"
 }

@@ -35,5 +35,6 @@
   "opponentMyParty": "ನನ್ನ ತಂಡ",
   "opponentSwapParty": "ಬದಲಾಯಿಸು",
   "opponentEmptyPartyNote": "ತಂಡಕ್ಕೆ ಮಾನ್‌ಸ್ಟರ್ ಸೇರಿಸು, ನಂತರ ಸವಾಲು ಹಾಕಬಹುದು",
-  "opponentFindOthers": "ಬೇರೆ ಎದುರಾಳಿಗಳನ್ನು ಹುಡುಕು"
+  "opponentFindOthers": "ಬೇರೆ ಎದುರಾಳಿಗಳನ್ನು ಹುಡುಕು",
+  "opponentAverageLevel": "ಸರಾಸರಿ Lv. {level}"
 }

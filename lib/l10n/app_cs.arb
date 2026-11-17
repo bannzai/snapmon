@@ -35,5 +35,6 @@
   "opponentMyParty": "Můj tým",
   "opponentSwapParty": "Vyměnit",
   "opponentEmptyPartyNote": "Přidej příšeru do týmu a můžeš vyzvat soupeře",
-  "opponentFindOthers": "Najdi další soupeře"
+  "opponentFindOthers": "Najdi další soupeře",
+  "opponentAverageLevel": "Průměrná Lv. {level}"
 }

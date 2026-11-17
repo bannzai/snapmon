@@ -35,5 +35,6 @@
   "opponentMyParty": "Oma joukkue",
   "opponentSwapParty": "Vaihda",
   "opponentEmptyPartyNote": "Lisää hirviö joukkueeseesi, niin voit haastaa",
-  "opponentFindOthers": "Etsi muita vastustajia"
+  "opponentFindOthers": "Etsi muita vastustajia",
+  "opponentAverageLevel": "Keskimääräinen Lv. {level}"
 }

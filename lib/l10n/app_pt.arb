@@ -35,5 +35,6 @@
   "opponentMyParty": "Minha equipe",
   "opponentSwapParty": "Trocar",
   "opponentEmptyPartyNote": "Adicione um monstro à sua equipe para poder desafiar",
-  "opponentFindOthers": "Buscar outros adversários"
+  "opponentFindOthers": "Buscar outros adversários",
+  "opponentAverageLevel": "Lv. médio {level}"
 }

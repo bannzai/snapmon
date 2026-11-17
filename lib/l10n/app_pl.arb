@@ -35,5 +35,6 @@
   "opponentMyParty": "Moja drużyna",
   "opponentSwapParty": "Zamień",
   "opponentEmptyPartyNote": "Dodaj potwora do drużyny, by móc rzucić wyzwanie",
-  "opponentFindOthers": "Znajdź innych rywali"
+  "opponentFindOthers": "Znajdź innych rywali",
+  "opponentAverageLevel": "Średni Lv. {level}"
 }

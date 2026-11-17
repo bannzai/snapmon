@@ -35,5 +35,6 @@
   "opponentMyParty": "Η ομάδα μου",
   "opponentSwapParty": "Αλλαγή",
   "opponentEmptyPartyNote": "Βάλε ένα τέρας στην ομάδα σου για να προκαλέσεις",
-  "opponentFindOthers": "Βρες άλλους αντιπάλους"
+  "opponentFindOthers": "Βρες άλλους αντιπάλους",
+  "opponentAverageLevel": "Μέση Lv. {level}"
 }

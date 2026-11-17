@@ -35,5 +35,6 @@
   "opponentMyParty": "میری ٹیم",
   "opponentSwapParty": "بدلو",
   "opponentEmptyPartyNote": "ٹیم میں مونسٹر شامل کرو، پھر چیلنج کر سکو گے",
-  "opponentFindOthers": "دوسرے حریف تلاش کرو"
+  "opponentFindOthers": "دوسرے حریف تلاش کرو",
+  "opponentAverageLevel": "اوسط Lv. {level}"
 }

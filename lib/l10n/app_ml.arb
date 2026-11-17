@@ -35,5 +35,6 @@
   "opponentMyParty": "എന്റെ പാർട്ടി",
   "opponentSwapParty": "മാറ്റുക",
   "opponentEmptyPartyNote": "പാർട്ടിയിൽ ഒരു മോൺസ്റ്ററിനെ ചേർത്താൽ വെല്ലുവിളിക്കാം",
-  "opponentFindOthers": "മറ്റ് എതിരാളികളെ കണ്ടെത്തൂ"
+  "opponentFindOthers": "മറ്റ് എതിരാളികളെ കണ്ടെത്തൂ",
+  "opponentAverageLevel": "ശരാശരി Lv. {level}"
 }

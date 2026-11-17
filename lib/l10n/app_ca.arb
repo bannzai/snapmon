@@ -35,5 +35,6 @@
   "opponentMyParty": "El meu equip",
   "opponentSwapParty": "Canvia",
   "opponentEmptyPartyNote": "Afegeix un monstre a l'equip per poder desafiar",
-  "opponentFindOthers": "Busca altres rivals"
+  "opponentFindOthers": "Busca altres rivals",
+  "opponentAverageLevel": "Mitjana Lv. {level}"
 }

@@ -35,5 +35,6 @@
   "opponentMyParty": "உங்கள் அணி",
   "opponentSwapParty": "மாற்றுங்கள்",
   "opponentEmptyPartyNote": "அணியில் ஒரு அரக்கனைச் சேருங்கள்; பிறகு சவால் விடலாம்",
-  "opponentFindOthers": "மற்ற எதிராளிகளைத் தேடுங்கள்"
+  "opponentFindOthers": "மற்ற எதிராளிகளைத் தேடுங்கள்",
+  "opponentAverageLevel": "சராசரி Lv. {level}"
 }

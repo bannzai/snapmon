@@ -35,5 +35,6 @@
   "opponentMyParty": "Moj tim",
   "opponentSwapParty": "Zamijeni",
   "opponentEmptyPartyNote": "Dodaj čudovište u tim pa možeš izazvati protivnika",
-  "opponentFindOthers": "Pronađi druge protivnike"
+  "opponentFindOthers": "Pronađi druge protivnike",
+  "opponentAverageLevel": "Prosječna Lv. {level}"
 }

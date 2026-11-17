@@ -35,5 +35,6 @@
   "opponentMyParty": "فريقي",
   "opponentSwapParty": "تبديل",
   "opponentEmptyPartyNote": "أضف وحشًا إلى فريقك لتتمكن من التحدي",
-  "opponentFindOthers": "ابحث عن خصوم آخرين"
+  "opponentFindOthers": "ابحث عن خصوم آخرين",
+  "opponentAverageLevel": "متوسط Lv. {level}"
 }

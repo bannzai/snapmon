@@ -35,5 +35,6 @@
   "opponentMyParty": "Tim kamu",
   "opponentSwapParty": "Ganti",
   "opponentEmptyPartyNote": "Tambahkan monster ke timmu untuk bisa menantang",
-  "opponentFindOthers": "Cari lawan lain"
+  "opponentFindOthers": "Cari lawan lain",
+  "opponentAverageLevel": "Rata-rata Lv. {level}"
 }

@@ -35,5 +35,6 @@
   "opponentMyParty": "Jouw team",
   "opponentSwapParty": "Wisselen",
   "opponentEmptyPartyNote": "Zet een monster in je team om te kunnen uitdagen",
-  "opponentFindOthers": "Zoek andere tegenstanders"
+  "opponentFindOthers": "Zoek andere tegenstanders",
+  "opponentAverageLevel": "Gemiddelde Lv. {level}"
 }

@@ -35,5 +35,6 @@
   "opponentMyParty": "내 파티",
   "opponentSwapParty": "교체",
   "opponentEmptyPartyNote": "파티에 몬스터를 넣으면 도전할 수 있어요",
-  "opponentFindOthers": "다른 상대 찾기"
+  "opponentFindOthers": "다른 상대 찾기",
+  "opponentAverageLevel": "평균 Lv. {level}"
 }
