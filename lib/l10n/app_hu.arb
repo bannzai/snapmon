@@ -171,5 +171,6 @@
   "battleLogStatUnchanged": "{monsterName} {statName} értéke már nem változhat",
   "battleLogRecovered": "{monsterName} visszanyert {amount} HP-t",
   "battleLogNoEffect": "De nem történt semmi",
-  "battleStatModifier": "{statName} ×{multiplier}"
+  "battleStatModifier": "{statName} ×{multiplier}",
+  "battleLogSwitchedIn": "Megjelent {monsterName}!"
 }

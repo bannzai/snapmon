@@ -171,5 +171,6 @@
   "battleLogStatUnchanged": "{statName} milik {monsterName} tak bisa berubah lagi",
   "battleLogRecovered": "{monsterName} memulihkan {amount} HP",
   "battleLogNoEffect": "Tapi tidak terjadi apa-apa",
-  "battleStatModifier": "{statName} ×{multiplier}"
+  "battleStatModifier": "{statName} ×{multiplier}",
+  "battleLogSwitchedIn": "{monsterName} muncul!"
 }

@@ -171,5 +171,6 @@
   "battleLogStatUnchanged": "{monsterName}ನ {statName} ಇನ್ನು ಬದಲಾಗುವುದಿಲ್ಲ",
   "battleLogRecovered": "{monsterName} {amount} HP ಮರಳಿ ಪಡೆದಿದೆ",
   "battleLogNoEffect": "ಆದರೆ ಏನೂ ಆಗಲಿಲ್ಲ",
-  "battleStatModifier": "{statName} ×{multiplier}"
+  "battleStatModifier": "{statName} ×{multiplier}",
+  "battleLogSwitchedIn": "ಕಣಕ್ಕೆ ಬಂತು {monsterName}!"
 }

@@ -171,5 +171,6 @@
   "battleLogStatUnchanged": "Показатель {statName} у {monsterName} больше не может измениться",
   "battleLogRecovered": "{monsterName} восстановил {amount} HP",
   "battleLogNoEffect": "Но ничего не произошло",
-  "battleStatModifier": "{statName} ×{multiplier}"
+  "battleStatModifier": "{statName} ×{multiplier}",
+  "battleLogSwitchedIn": "Появляется {monsterName}!"
 }

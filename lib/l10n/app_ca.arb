@@ -171,5 +171,6 @@
   "battleLogStatUnchanged": "El valor de {statName} de {monsterName} ja no pot canviar",
   "battleLogRecovered": "{monsterName} ha recuperat {amount} HP",
   "battleLogNoEffect": "Però no ha passat res",
-  "battleStatModifier": "{statName} ×{multiplier}"
+  "battleStatModifier": "{statName} ×{multiplier}",
+  "battleLogSwitchedIn": "Ha sortit {monsterName}!"
 }

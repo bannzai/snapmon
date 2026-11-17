@@ -171,5 +171,6 @@
   "battleLogStatUnchanged": "Hodnota {statName} u {monsterName} sa už nemôže zmeniť",
   "battleLogRecovered": "{monsterName} si obnovil {amount} HP",
   "battleLogNoEffect": "Ale nič sa nestalo",
-  "battleStatModifier": "{statName} ×{multiplier}"
+  "battleStatModifier": "{statName} ×{multiplier}",
+  "battleLogSwitchedIn": "Do boja vstupuje {monsterName}!"
 }

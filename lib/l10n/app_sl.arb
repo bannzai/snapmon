@@ -171,5 +171,6 @@
   "battleLogStatUnchanged": "Vrednost {statName} pri {monsterName} se ne more več spremeniti",
   "battleLogRecovered": "{monsterName} si je povrnil {amount} HP",
   "battleLogNoEffect": "A zgodilo se ni nič",
-  "battleStatModifier": "{statName} ×{multiplier}"
+  "battleStatModifier": "{statName} ×{multiplier}",
+  "battleLogSwitchedIn": "V boj prihaja {monsterName}!"
 }

@@ -171,5 +171,6 @@
   "battleLogStatUnchanged": "{statName} van {monsterName} kan niet verder veranderen",
   "battleLogRecovered": "{monsterName} kreeg {amount} HP terug",
   "battleLogNoEffect": "Maar er gebeurde niets",
-  "battleStatModifier": "{statName} ×{multiplier}"
+  "battleStatModifier": "{statName} ×{multiplier}",
+  "battleLogSwitchedIn": "{monsterName} verscheen!"
 }
