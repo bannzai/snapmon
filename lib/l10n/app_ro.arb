@@ -262,5 +262,6 @@
   "ticketBalance": "Bilete: {count}",
   "ticketPurchaseTitle": "de creare",
   "ticketPurchaseDescription": "Chiar dacă ai epuizat creările gratuite de azi,\ncu 1 bilet mai poți crea încă 1 dată",
-  "ticketPurchaseWaiting": "Se primesc biletele"
+  "ticketPurchaseWaiting": "Se primesc biletele",
+  "ticketPurchaseArrivalDelayed": "Așteptăm să apară biletele\nBiletele primite rămân la tine chiar dacă închizi acest ecran"
 }

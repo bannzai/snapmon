@@ -262,5 +262,6 @@
   "ticketBalance": "Tickets: {count}",
   "ticketPurchaseTitle": "creatieticket",
   "ticketPurchaseDescription": "Ook als je gratis creaties voor vandaag op zijn,\nkun je met 1 ticket nog 1 keer iets maken",
-  "ticketPurchaseWaiting": "Tickets worden ontvangen"
+  "ticketPurchaseWaiting": "Tickets worden ontvangen",
+  "ticketPurchaseArrivalDelayed": "Wachten tot je tickets verschijnen\nOntvangen tickets blijven van jou, ook als je dit scherm sluit"
 }

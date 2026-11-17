@@ -262,5 +262,6 @@
   "ticketBalance": "Tiquets: {count}",
   "ticketPurchaseTitle": "tiquet",
   "ticketPurchaseDescription": "Encara que hagis esgotat les creacions gratuïtes d'avui,\namb 1 tiquet en pots fer 1 més",
-  "ticketPurchaseWaiting": "Rebent els tiquets"
+  "ticketPurchaseWaiting": "Rebent els tiquets",
+  "ticketPurchaseArrivalDelayed": "Esperant que apareguin els tiquets\nEls tiquets rebuts es conservaran encara que tanquis aquesta pantalla"
 }

@@ -262,5 +262,6 @@
   "ticketBalance": "Jegyek: {count}",
   "ticketPurchaseTitle": "alkotójegy",
   "ticketPurchaseDescription": "Ha el is fogytak a mai ingyenes alkotásaid,\n1 jeggyel még 1 alkalommal alkothatsz",
-  "ticketPurchaseWaiting": "Jegyek fogadása"
+  "ticketPurchaseWaiting": "Jegyek fogadása",
+  "ticketPurchaseArrivalDelayed": "Várunk, amíg megjelennek a jegyeid\nA megkapott jegyek akkor is megmaradnak, ha bezárod ezt a képernyőt"
 }

@@ -262,5 +262,6 @@
   "ticketBalance": "ટિકિટ: {count}",
   "ticketPurchaseTitle": "બનાવવાની ટિકિટ",
   "ticketPurchaseDescription": "આજના મફત સર્જન પૂરા થયા પછી પણ\n૧ ટિકિટથી તમે વધુ ૧ વાર બનાવી શકો",
-  "ticketPurchaseWaiting": "ટિકિટ મળી રહી છે"
+  "ticketPurchaseWaiting": "ટિકિટ મળી રહી છે",
+  "ticketPurchaseArrivalDelayed": "ટિકિટ ઉમેરાવાની રાહ જોઈ રહ્યા છીએ\nતમે આ સ્ક્રીન બંધ કરો તો પણ મળેલી ટિકિટ રહેશે"
 }

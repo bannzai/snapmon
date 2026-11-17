@@ -262,5 +262,6 @@
   "ticketBalance": "ٹکٹ: {count}",
   "ticketPurchaseTitle": "تخلیقی ٹکٹ",
   "ticketPurchaseDescription": "آج کے مفت تخلیق کے مواقع ختم ہونے کے بعد بھی\n1 ٹکٹ سے تم 1 بار اور بنا سکتے ہو",
-  "ticketPurchaseWaiting": "ٹکٹ موصول ہو رہے ہیں"
+  "ticketPurchaseWaiting": "ٹکٹ موصول ہو رہے ہیں",
+  "ticketPurchaseArrivalDelayed": "ٹکٹ ظاہر ہونے کا انتظار ہے\nیہ اسکرین بند کر دو، تب بھی ملے ہوئے ٹکٹ تمہارے پاس رہیں گے"
 }

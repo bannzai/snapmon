@@ -262,5 +262,6 @@
   "ticketBalance": "Билеты: {count}",
   "ticketPurchaseTitle": "билет",
   "ticketPurchaseDescription": "Даже если бесплатные создания на сегодня закончились,\nс 1 билетом ты можешь создать ещё 1 раз",
-  "ticketPurchaseWaiting": "Получение билетов"
+  "ticketPurchaseWaiting": "Получение билетов",
+  "ticketPurchaseArrivalDelayed": "Ждём, пока появятся билеты\nПолученные билеты останутся у тебя, даже если закроешь этот экран"
 }

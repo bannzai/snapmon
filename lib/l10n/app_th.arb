@@ -262,5 +262,6 @@
   "ticketBalance": "ตั๋ว: {count}",
   "ticketPurchaseTitle": "ตั๋วสร้าง",
   "ticketPurchaseDescription": "แม้ใช้สิทธิ์สร้างฟรีของวันนี้หมดแล้ว\nตั๋ว 1 ใบก็สร้างได้อีก 1 ครั้ง",
-  "ticketPurchaseWaiting": "กำลังรับตั๋ว"
+  "ticketPurchaseWaiting": "กำลังรับตั๋ว",
+  "ticketPurchaseArrivalDelayed": "กำลังรอให้ตั๋วแสดงขึ้นมา\nตั๋วที่ได้รับแล้วจะยังอยู่ แม้ปิดหน้าจอนี้"
 }

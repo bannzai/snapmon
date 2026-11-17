@@ -262,5 +262,6 @@
   "ticketBalance": "כרטיסים: {count}",
   "ticketPurchaseTitle": "כרטיס יצירה",
   "ticketPurchaseDescription": "גם אחרי שנגמרות היצירות החינמיות של היום,\nכרטיס אחד מאפשר ליצור עוד פעם אחת",
-  "ticketPurchaseWaiting": "הכרטיסים בדרך"
+  "ticketPurchaseWaiting": "הכרטיסים בדרך",
+  "ticketPurchaseArrivalDelayed": "מחכים שהכרטיסים יופיעו\nכרטיסים שהתקבלו יישארו גם אחרי סגירת המסך"
 }

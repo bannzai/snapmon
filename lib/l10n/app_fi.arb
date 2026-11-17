@@ -262,5 +262,6 @@
   "ticketBalance": "Liput: {count}",
   "ticketPurchaseTitle": "luontilip",
   "ticketPurchaseDescription": "Vaikka päivän ilmaiset luontikerrat loppuvat,\n1 lipulla voit luoda vielä 1 kerran",
-  "ticketPurchaseWaiting": "Vastaanotetaan lippuja"
+  "ticketPurchaseWaiting": "Vastaanotetaan lippuja",
+  "ticketPurchaseArrivalDelayed": "Odotetaan lippujen näkymistä\nSaamasi liput säilyvät, vaikka suljet tämän näkymän"
 }

@@ -262,5 +262,6 @@
   "ticketBalance": "Lístky: {count}",
   "ticketPurchaseTitle": "na vytvorenie",
   "ticketPurchaseDescription": "Aj keď minieš dnešné bezplatné vytvorenia,\nza 1 lístok môžeš tvoriť ešte 1 raz",
-  "ticketPurchaseWaiting": "Prijímanie lístkov"
+  "ticketPurchaseWaiting": "Prijímanie lístkov",
+  "ticketPurchaseArrivalDelayed": "Čakáme, kým sa zobrazia lístky\nZískané lístky ti zostanú, aj keď túto obrazovku zavrieš"
 }

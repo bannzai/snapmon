@@ -262,5 +262,6 @@
   "ticketBalance": "Boletos: {count}",
   "ticketPurchaseTitle": "ticket de creación",
   "ticketPurchaseDescription": "Aunque hayas agotado las creaciones gratis de hoy,\ncon 1 boleto puedes crear 1 vez más",
-  "ticketPurchaseWaiting": "Recibiendo tus boletos"
+  "ticketPurchaseWaiting": "Recibiendo tus boletos",
+  "ticketPurchaseArrivalDelayed": "Esperando a que aparezcan tus boletos\nConservarás los boletos recibidos aunque cierres esta pantalla"
 }

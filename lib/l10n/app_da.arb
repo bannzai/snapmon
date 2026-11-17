@@ -262,5 +262,6 @@
   "ticketBalance": "Billetter: {count}",
   "ticketPurchaseTitle": "skabelsesbillet",
   "ticketPurchaseDescription": "Selv når du har brugt dagens gratis skabelser,\nkan du skabe 1 gang mere med 1 billet",
-  "ticketPurchaseWaiting": "Modtager billetter"
+  "ticketPurchaseWaiting": "Modtager billetter",
+  "ticketPurchaseArrivalDelayed": "Venter på, at billetterne bliver tilføjet\nDu beholder modtagne billetter, selv hvis du lukker skærmen"
 }

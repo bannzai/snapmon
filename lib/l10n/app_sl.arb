@@ -262,5 +262,6 @@
   "ticketBalance": "Vstopnice: {count}",
   "ticketPurchaseTitle": "žeton",
   "ticketPurchaseDescription": "Tudi ko porabiš današnja brezplačna ustvarjanja,\nlahko z 1 vstopnico ustvariš še 1-krat",
-  "ticketPurchaseWaiting": "Prejemanje vstopnic"
+  "ticketPurchaseWaiting": "Prejemanje vstopnic",
+  "ticketPurchaseArrivalDelayed": "Čakamo, da se prikažejo vstopnice\nPrejete vstopnice ti ostanejo, tudi če zapreš ta zaslon"
 }

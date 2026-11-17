@@ -262,5 +262,6 @@
   "ticketBalance": "ടിക്കറ്റുകൾ: {count}",
   "ticketPurchaseTitle": "സൃഷ്ടിക്കൽ ടിക്കറ്റ",
   "ticketPurchaseDescription": "ഇന്നത്തെ സൗജന്യ സൃഷ്ടികൾ തീർന്നാലും\n1 ടിക്കറ്റ് ഉപയോഗിച്ച് നിങ്ങൾക്ക് 1 തവണ കൂടി സൃഷ്ടിക്കാം",
-  "ticketPurchaseWaiting": "ടിക്കറ്റുകൾ ലഭിക്കുന്നു"
+  "ticketPurchaseWaiting": "ടിക്കറ്റുകൾ ലഭിക്കുന്നു",
+  "ticketPurchaseArrivalDelayed": "ടിക്കറ്റുകൾ ചേർക്കപ്പെടാൻ കാത്തിരിക്കുന്നു\nഈ സ്ക്രീൻ അടച്ചാലും നിങ്ങൾക്ക് ലഭിച്ച ടിക്കറ്റുകൾ നിലനിൽക്കും"
 }

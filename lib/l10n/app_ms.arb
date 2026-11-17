@@ -262,5 +262,6 @@
   "ticketBalance": "Tiket: {count}",
   "ticketPurchaseTitle": "tiket jana",
   "ticketPurchaseDescription": "Walaupun peluang cipta percuma hari ini dah habis,\n1 tiket boleh digunakan untuk cipta 1 kali lagi",
-  "ticketPurchaseWaiting": "Sedang menerima tiket"
+  "ticketPurchaseWaiting": "Sedang menerima tiket",
+  "ticketPurchaseArrivalDelayed": "Menunggu tiket kamu muncul\nTiket yang sudah diterima tetap ada walaupun kamu tutup skrin ini"
 }

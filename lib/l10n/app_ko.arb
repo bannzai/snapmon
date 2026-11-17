@@ -262,5 +262,6 @@
   "ticketBalance": "티켓: {count}",
   "ticketPurchaseTitle": "생성 티켓",
   "ticketPurchaseDescription": "오늘의 무료 생성 횟수를 다 써도\n티켓 1장으로 1번 더 생성할 수 있어요",
-  "ticketPurchaseWaiting": "티켓을 받고 있어요"
+  "ticketPurchaseWaiting": "티켓을 받고 있어요",
+  "ticketPurchaseArrivalDelayed": "티켓이 반영되길 기다리고 있어요\n이 화면을 닫아도 받은 티켓은 그대로 남아요"
 }

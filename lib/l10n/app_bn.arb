@@ -262,5 +262,6 @@
   "ticketBalance": "টিকিট: {count}",
   "ticketPurchaseTitle": "তৈরির টিকিট",
   "ticketPurchaseDescription": "আজকের বিনামূল্যের তৈরির সুযোগ শেষ হলেও\n১টি টিকিটে আরও একবার তৈরি করতে পারবে",
-  "ticketPurchaseWaiting": "টিকিট পাওয়া যাচ্ছে"
+  "ticketPurchaseWaiting": "টিকিট পাওয়া যাচ্ছে",
+  "ticketPurchaseArrivalDelayed": "টিকিট যোগ হওয়ার অপেক্ষায়\nএই স্ক্রিন বন্ধ করলেও পাওয়া টিকিট থাকবে"
 }

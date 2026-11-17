@@ -262,5 +262,6 @@
   "ticketBalance": "ಟಿಕೆಟ್‌ಗಳು: {count}",
   "ticketPurchaseTitle": "ರಚನೆ ಟಿಕೆಟ",
   "ticketPurchaseDescription": "ಇಂದಿನ ಉಚಿತ ಸೃಷ್ಟಿಗಳು ಮುಗಿದರೂ\n೧ ಟಿಕೆಟ್‌ನಿಂದ ನೀನು ಇನ್ನೂ ೧ ಬಾರಿ ಸೃಷ್ಟಿಸಬಹುದು",
-  "ticketPurchaseWaiting": "ಟಿಕೆಟ್‌ಗಳು ಬರುತ್ತಿವೆ"
+  "ticketPurchaseWaiting": "ಟಿಕೆಟ್‌ಗಳು ಬರುತ್ತಿವೆ",
+  "ticketPurchaseArrivalDelayed": "ಟಿಕೆಟ್‌ಗಳು ಕಾಣಿಸಿಕೊಳ್ಳಲು ಕಾಯುತ್ತಿದ್ದೇವೆ\nಈ ಪರದೆಯನ್ನು ಮುಚ್ಚಿದರೂ ನಿನಗೆ ಸಿಕ್ಕ ಟಿಕೆಟ್‌ಗಳು ಉಳಿಯುತ್ತವೆ"
 }

@@ -262,5 +262,6 @@
   "ticketBalance": "Biljetter: {count}",
   "ticketPurchaseTitle": "skapandebiljett",
   "ticketPurchaseDescription": "Även när dagens gratisskapelser är slut\nkan du skapa 1 gång till med 1 biljett",
-  "ticketPurchaseWaiting": "Tar emot biljetter"
+  "ticketPurchaseWaiting": "Tar emot biljetter",
+  "ticketPurchaseArrivalDelayed": "Väntar på att biljetterna ska dyka upp\nDu behåller mottagna biljetter även om du stänger den här skärmen"
 }

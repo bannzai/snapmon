@@ -262,5 +262,6 @@
   "ticketBalance": "Tiket: {count}",
   "ticketPurchaseTitle": "tiket pembuatan",
   "ticketPurchaseDescription": "Meski jatah kreasi gratis hari ini habis,\n1 tiket bisa dipakai untuk membuat 1 kali lagi",
-  "ticketPurchaseWaiting": "Menerima tiketmu"
+  "ticketPurchaseWaiting": "Menerima tiketmu",
+  "ticketPurchaseArrivalDelayed": "Menunggu tiketmu muncul\nTiket yang sudah kamu terima tetap ada meski layar ini ditutup"
 }

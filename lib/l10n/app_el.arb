@@ -262,5 +262,6 @@
   "ticketBalance": "Εισιτήρια: {count}",
   "ticketPurchaseTitle": "εισιτήριο δημιουργίας",
   "ticketPurchaseDescription": "Ακόμα κι αν εξαντλήσεις τις δωρεάν δημιουργίες της ημέρας,\nμε 1 εισιτήριο μπορείς να δημιουργήσεις άλλη 1 φορά",
-  "ticketPurchaseWaiting": "Παραλαβή εισιτηρίων"
+  "ticketPurchaseWaiting": "Παραλαβή εισιτηρίων",
+  "ticketPurchaseArrivalDelayed": "Περιμένουμε να εμφανιστούν τα εισιτήρια\nΤα εισιτήρια που έλαβες μένουν, ακόμα κι αν κλείσεις αυτή την οθόνη"
 }

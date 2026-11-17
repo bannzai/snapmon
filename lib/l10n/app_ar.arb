@@ -262,5 +262,6 @@
   "ticketBalance": "التذاكر: {count}",
   "ticketPurchaseTitle": "تذكرة الإنشاء",
   "ticketPurchaseDescription": "حتى بعد نفاد مرات الإنشاء المجانية اليوم،\nتتيح لك تذكرة واحدة إنشاء وحش مرة واحدة",
-  "ticketPurchaseWaiting": "جارٍ استلام التذاكر"
+  "ticketPurchaseWaiting": "جارٍ استلام التذاكر",
+  "ticketPurchaseArrivalDelayed": "بانتظار ظهور التذاكر\nستبقى التذاكر التي تصلك حتى لو أغلقت هذه الشاشة"
 }
