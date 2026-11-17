@@ -301,5 +301,6 @@
   "actionCardTeachNotEquipped": "Hamle seçerek yuvaya koyabilirsin",
   "battleLearnedMoveNotEquipped": "«Hamle seç» bölümünden değiştirebilirsin",
   "moveSelectionOpen": "Hamle seç",
-  "moveSelectionTitle": "{monsterName} hamleleri"
+  "moveSelectionTitle": "{monsterName} hamleleri",
+  "moveSelectionDescription": "Savaş için en fazla {count} hamle seç\nHamle düğmeleri seçtiğin sırayla dizilir"
 }

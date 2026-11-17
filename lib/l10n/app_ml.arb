@@ -301,5 +301,6 @@
   "actionCardTeachNotEquipped": "നീക്കം തിരഞ്ഞെടുത്ത് സ്ലോട്ടിൽ ഇടാം",
   "battleLearnedMoveNotEquipped": "‘നീക്കം തിരഞ്ഞെടുക്കുക’ എന്നതിൽ മാറ്റാം",
   "moveSelectionOpen": "നീക്കങ്ങൾ തിരഞ്ഞെടുക്കൂ",
-  "moveSelectionTitle": "{monsterName}യുടെ നീക്കങ്ങൾ"
+  "moveSelectionTitle": "{monsterName}യുടെ നീക്കങ്ങൾ",
+  "moveSelectionDescription": "പോരാട്ടത്തിന് പരമാവധി {count} നീക്കങ്ങൾ തിരഞ്ഞെടുക്കൂ\nനീക്കങ്ങളുടെ ബട്ടണുകൾ തിരഞ്ഞെടുത്ത ക്രമത്തിൽ കാണാം"
 }

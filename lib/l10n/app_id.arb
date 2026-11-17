@@ -301,5 +301,6 @@
   "actionCardTeachNotEquipped": "Kamu bisa memasukkannya ke slot lewat Pilih jurus",
   "battleLearnedMoveNotEquipped": "Kamu bisa menggantinya di «Pilih jurus»",
   "moveSelectionOpen": "Pilih jurus",
-  "moveSelectionTitle": "Jurus {monsterName}"
+  "moveSelectionTitle": "Jurus {monsterName}",
+  "moveSelectionDescription": "Pilih hingga {count} jurus untuk bertarung\nTombol jurus saat bertarung akan mengikuti urutan pilihanmu"
 }

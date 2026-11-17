@@ -301,5 +301,6 @@
   "actionCardTeachNotEquipped": "ใส่ในช่องได้จากเมนูเลือกท่า",
   "battleLearnedMoveNotEquipped": "เปลี่ยนได้ที่ «เลือกท่า»",
   "moveSelectionOpen": "เลือกท่า",
-  "moveSelectionTitle": "ท่าของ {monsterName}"
+  "moveSelectionTitle": "ท่าของ {monsterName}",
+  "moveSelectionDescription": "เลือกท่าสำหรับต่อสู้ได้สูงสุด {count} ท่า\nปุ่มท่าต่อสู้จะเรียงตามลำดับที่เลือก"
 }

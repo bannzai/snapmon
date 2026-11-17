@@ -301,5 +301,6 @@
   "actionCardTeachNotEquipped": "தாக்குதலைத் தேர்ந்தெடுத்து இடத்தில் சேர்க்கலாம்",
   "battleLearnedMoveNotEquipped": "‘தாக்குதலைத் தேர்ந்தெடு’ என்பதில் இதை மாற்றலாம்",
   "moveSelectionOpen": "தாக்குதல்களைத் தேர்ந்தெடுங்கள்",
-  "moveSelectionTitle": "{monsterName} இன் தாக்குதல்கள்"
+  "moveSelectionTitle": "{monsterName} இன் தாக்குதல்கள்",
+  "moveSelectionDescription": "போருக்கு அதிகபட்சம் {count} தாக்குதல்களைத் தேர்ந்தெடுங்கள்\nதாக்குதல் பொத்தான்கள் நீங்கள் தேர்ந்தெடுத்த வரிசையில் தோன்றும்"
 }

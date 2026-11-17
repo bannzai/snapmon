@@ -301,5 +301,6 @@
   "actionCardTeachNotEquipped": "يمكنك وضعها في الخانة عبر اختيار الحركات",
   "battleLearnedMoveNotEquipped": "يمكنك تبديلها من «اختيار الحركات»",
   "moveSelectionOpen": "اختر الحركات",
-  "moveSelectionTitle": "حركات {monsterName}"
+  "moveSelectionTitle": "حركات {monsterName}",
+  "moveSelectionDescription": "اختر حركات للقتال، بحد أقصى {count}\nستظهر أزرار الحركات في القتال حسب ترتيب اختيارك"
 }

@@ -301,5 +301,6 @@
   "actionCardTeachNotEquipped": "V režo ga lahko daš pri izbiri poteza",
   "battleLearnedMoveNotEquipped": "Zamenjaš ga lahko pri »Izberi potez«",
   "moveSelectionOpen": "Izberi poteze",
-  "moveSelectionTitle": "Potezi za {monsterName}"
+  "moveSelectionTitle": "Potezi za {monsterName}",
+  "moveSelectionDescription": "Za boj izberi največ {count} potez\nGumbi potez bodo razvrščeni po vrstnem redu tvoje izbire"
 }

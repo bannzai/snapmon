@@ -301,5 +301,6 @@
   "actionCardTeachNotEquipped": "Puoi inserirla in uno slot da «Scegli mossa»",
   "battleLearnedMoveNotEquipped": "Puoi sostituirla in «Scegli una mossa»",
   "moveSelectionOpen": "Scegli le mosse",
-  "moveSelectionTitle": "Mosse di {monsterName}"
+  "moveSelectionTitle": "Mosse di {monsterName}",
+  "moveSelectionDescription": "Scegli fino a {count} mosse per la lotta\nI pulsanti delle mosse seguiranno l'ordine in cui le scegli"
 }

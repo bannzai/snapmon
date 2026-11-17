@@ -301,5 +301,6 @@
   "actionCardTeachNotEquipped": "ચાલ પસંદ કરીને તેને સ્લોટમાં મૂકી શકો છો",
   "battleLearnedMoveNotEquipped": "‘ચાલ પસંદ કરો’માં તેને બદલી શકો છો",
   "moveSelectionOpen": "ચાલ પસંદ કરો",
-  "moveSelectionTitle": "{monsterName}ની ચાલ"
+  "moveSelectionTitle": "{monsterName}ની ચાલ",
+  "moveSelectionDescription": "લડાઈ માટે વધુમાં વધુ {count} ચાલ પસંદ કરો\nલડાઈમાં ચાલનાં બટન તમે પસંદ કરેલા ક્રમમાં દેખાશે"
 }

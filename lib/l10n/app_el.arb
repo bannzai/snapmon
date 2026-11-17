@@ -301,5 +301,6 @@
   "actionCardTeachNotEquipped": "Μπορείς να τη βάλεις σε θέση από την επιλογή τεχνικής",
   "battleLearnedMoveNotEquipped": "Μπορείς να την αλλάξεις από την «Επιλογή τεχνικών»",
   "moveSelectionOpen": "Διάλεξε τεχνικές",
-  "moveSelectionTitle": "Τεχνικές του {monsterName}"
+  "moveSelectionTitle": "Τεχνικές του {monsterName}",
+  "moveSelectionDescription": "Διάλεξε έως {count} τεχνικές για τη μάχη\nΤα κουμπιά των τεχνικών θα μπουν στη σειρά που τις διάλεξες"
 }

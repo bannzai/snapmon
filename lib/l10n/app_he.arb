@@ -301,5 +301,6 @@
   "actionCardTeachNotEquipped": "אפשר להכניס למשבצת דרך בחירת מתקפה",
   "battleLearnedMoveNotEquipped": "אפשר להחליף דרך ״בחירת מתקפות״",
   "moveSelectionOpen": "בחירת מתקפות",
-  "moveSelectionTitle": "מתקפות של {monsterName}"
+  "moveSelectionTitle": "מתקפות של {monsterName}",
+  "moveSelectionDescription": "לבחור עד {count} מתקפות לקרב\nכפתורי המתקפות בקרב יופיעו לפי סדר הבחירה"
 }

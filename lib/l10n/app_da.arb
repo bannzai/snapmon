@@ -301,5 +301,6 @@
   "actionCardTeachNotEquipped": "Du kan sætte det i en plads under Vælg angreb",
   "battleLearnedMoveNotEquipped": "Du kan skifte det under »Vælg angreb«",
   "moveSelectionOpen": "Vælg angreb",
-  "moveSelectionTitle": "Angreb til {monsterName}"
+  "moveSelectionTitle": "Angreb til {monsterName}",
+  "moveSelectionDescription": "Vælg op til {count} angreb til kamp\nAngrebsknapperne vises i den rækkefølge, du vælger dem"
 }

@@ -301,5 +301,6 @@
   "actionCardTeachNotEquipped": "चाल निवडून स्लॉटमध्ये ठेवू शकतोस",
   "battleLearnedMoveNotEquipped": "‘चाल निवड’मध्ये ती बदलू शकतोस",
   "moveSelectionOpen": "चाली निवड",
-  "moveSelectionTitle": "{monsterName}च्या चाली"
+  "moveSelectionTitle": "{monsterName}च्या चाली",
+  "moveSelectionDescription": "लढाईसाठी जास्तीत जास्त {count} चाली निवड\nलढाईत चालींची बटणे निवडलेल्या क्रमाने दिसतील"
 }

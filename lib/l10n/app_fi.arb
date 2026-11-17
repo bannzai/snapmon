@@ -301,5 +301,6 @@
   "actionCardTeachNotEquipped": "Saat sen paikkaan valitsemalla liikkeen",
   "battleLearnedMoveNotEquipped": "Voit vaihtaa sen kohdassa ”Valitse liike”",
   "moveSelectionOpen": "Valitse liikkeet",
-  "moveSelectionTitle": "Hahmon {monsterName} liikkeet"
+  "moveSelectionTitle": "Hahmon {monsterName} liikkeet",
+  "moveSelectionDescription": "Valitse taisteluun enintään {count} liikettä\nLiikkeiden painikkeet näkyvät valitsemassasi järjestyksessä"
 }

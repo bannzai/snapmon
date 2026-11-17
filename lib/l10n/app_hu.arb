@@ -301,5 +301,6 @@
   "actionCardTeachNotEquipped": "A támadás kiválasztásánál helyezheted egy helyre",
   "battleLearnedMoveNotEquipped": "A „Támadás kiválasztása” menüben lecserélheted",
   "moveSelectionOpen": "Válassz támadásokat",
-  "moveSelectionTitle": "{monsterName} támadásai"
+  "moveSelectionTitle": "{monsterName} támadásai",
+  "moveSelectionDescription": "Válassz legfeljebb {count} támadást a csatához\nA támadások gombjai a választásod sorrendjében jelennek meg"
 }

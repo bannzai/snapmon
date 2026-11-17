@@ -301,5 +301,6 @@
   "actionCardTeachNotEquipped": "在选择招式中就能放进栏位",
   "battleLearnedMoveNotEquipped": "可以在“选择招式”中替换",
   "moveSelectionOpen": "选择招式",
-  "moveSelectionTitle": "{monsterName}的招式"
+  "moveSelectionTitle": "{monsterName}的招式",
+  "moveSelectionDescription": "选择最多 {count} 个对战招式\n对战中的招式按钮会按选择顺序排列"
 }

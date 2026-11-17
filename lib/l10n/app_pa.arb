@@ -301,5 +301,6 @@
   "actionCardTeachNotEquipped": "ਚਾਲ ਚੁਣ ਕੇ ਇਸਨੂੰ ਸਲਾਟ ਵਿੱਚ ਰੱਖ ਸਕਦੇ ਹੋ",
   "battleLearnedMoveNotEquipped": "‘ਚਾਲ ਚੁਣੋ’ ਵਿੱਚ ਇਸਨੂੰ ਬਦਲ ਸਕਦੇ ਹੋ",
   "moveSelectionOpen": "ਚਾਲਾਂ ਚੁਣੋ",
-  "moveSelectionTitle": "{monsterName} ਦੀਆਂ ਚਾਲਾਂ"
+  "moveSelectionTitle": "{monsterName} ਦੀਆਂ ਚਾਲਾਂ",
+  "moveSelectionDescription": "ਲੜਾਈ ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ {count} ਚਾਲਾਂ ਚੁਣੋ\nਲੜਾਈ ਵਿੱਚ ਚਾਲਾਂ ਦੇ ਬਟਨ ਤੁਹਾਡੇ ਚੁਣੇ ਕ੍ਰਮ ਵਿੱਚ ਦਿਖਣਗੇ"
 }

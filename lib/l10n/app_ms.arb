@@ -301,5 +301,6 @@
   "actionCardTeachNotEquipped": "Kamu boleh masukkannya ke slot melalui Pilih gerakan",
   "battleLearnedMoveNotEquipped": "Kamu boleh tukar di «Pilih gerakan»",
   "moveSelectionOpen": "Pilih gerakan",
-  "moveSelectionTitle": "Gerakan {monsterName}"
+  "moveSelectionTitle": "Gerakan {monsterName}",
+  "moveSelectionDescription": "Pilih hingga {count} gerakan untuk bertarung\nButang gerakan dalam pertarungan ikut turutan pilihan kamu"
 }
