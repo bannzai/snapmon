@@ -123,5 +123,6 @@
   "generationPersonNoticeMessage": "L’image de ton monstre est aussi visible par les autres pendant les combats.\nSi une autre personne apparaît sur la photo,\ndemande son accord avant de l’utiliser.",
   "generationChooseCutoutTitle": "Le sujet a été détouré",
   "generationChooseCutoutMessage": "Tu peux créer ton monstre avec l’image découpée\nou choisir une zone sur la photo",
-  "generationCutoutLabel": "Détourage"
+  "generationCutoutLabel": "Détourage",
+  "generationOriginalPhotoLabel": "Photo d’origine"
 }
