@@ -96,5 +96,6 @@
   "commonClose": "Tanca",
   "commonBack": "Torna",
   "generationSearchingOpponent": "Buscant un rival",
-  "generationBattleWith": "Lluitaràs amb {monsterName}"
+  "generationBattleWith": "Lluitaràs amb {monsterName}",
+  "generationOpponentAppeared": "Ha aparegut {opponentName}!"
 }

@@ -96,5 +96,6 @@
   "commonClose": "Kapat",
   "commonBack": "Geri",
   "generationSearchingOpponent": "Rakip aranıyor",
-  "generationBattleWith": "{monsterName} ile savaşacaksın"
+  "generationBattleWith": "{monsterName} ile savaşacaksın",
+  "generationOpponentAppeared": "{opponentName} ortaya çıktı!"
 }

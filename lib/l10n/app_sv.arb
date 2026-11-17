@@ -96,5 +96,6 @@
   "commonClose": "Stäng",
   "commonBack": "Tillbaka",
   "generationSearchingOpponent": "Letar efter en motståndare",
-  "generationBattleWith": "Du slåss med {monsterName}"
+  "generationBattleWith": "Du slåss med {monsterName}",
+  "generationOpponentAppeared": "{opponentName} dök upp!"
 }

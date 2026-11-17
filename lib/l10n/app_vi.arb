@@ -96,5 +96,6 @@
   "commonClose": "Đóng",
   "commonBack": "Quay lại",
   "generationSearchingOpponent": "Đang tìm đối thủ",
-  "generationBattleWith": "Bạn sẽ chiến đấu cùng {monsterName}"
+  "generationBattleWith": "Bạn sẽ chiến đấu cùng {monsterName}",
+  "generationOpponentAppeared": "{opponentName} xuất hiện!"
 }

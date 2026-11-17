@@ -96,5 +96,6 @@
   "commonClose": "Κλείσιμο",
   "commonBack": "Πίσω",
   "generationSearchingOpponent": "Αναζήτηση αντιπάλου",
-  "generationBattleWith": "Θα πολεμήσεις με το {monsterName}"
+  "generationBattleWith": "Θα πολεμήσεις με το {monsterName}",
+  "generationOpponentAppeared": "Εμφανίστηκε ο αντίπαλος: {opponentName}!"
 }

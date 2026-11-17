@@ -96,5 +96,6 @@
   "commonClose": "Bezárás",
   "commonBack": "Vissza",
   "generationSearchingOpponent": "Ellenfél keresése",
-  "generationBattleWith": "A harcban {monsterName} lesz veled"
+  "generationBattleWith": "A harcban {monsterName} lesz veled",
+  "generationOpponentAppeared": "Felbukkant {opponentName}!"
 }

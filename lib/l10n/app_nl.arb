@@ -96,5 +96,6 @@
   "commonClose": "Sluiten",
   "commonBack": "Terug",
   "generationSearchingOpponent": "Op zoek naar een tegenstander",
-  "generationBattleWith": "Je vecht met {monsterName}"
+  "generationBattleWith": "Je vecht met {monsterName}",
+  "generationOpponentAppeared": "{opponentName} verscheen!"
 }

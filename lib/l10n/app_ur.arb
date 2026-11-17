@@ -96,5 +96,6 @@
   "commonClose": "بند کرو",
   "commonBack": "واپس",
   "generationSearchingOpponent": "حریف کی تلاش جاری ہے",
-  "generationBattleWith": "تم {monsterName} کے ساتھ لڑو گے"
+  "generationBattleWith": "تم {monsterName} کے ساتھ لڑو گے",
+  "generationOpponentAppeared": "{opponentName} سامنے آ گیا!"
 }

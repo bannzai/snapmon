@@ -96,5 +96,6 @@
   "commonClose": "Fechar",
   "commonBack": "Voltar",
   "generationSearchingOpponent": "À procura de um adversário",
-  "generationBattleWith": "Vais lutar com {monsterName}"
+  "generationBattleWith": "Vais lutar com {monsterName}",
+  "generationOpponentAppeared": "{opponentName} apareceu!"
 }

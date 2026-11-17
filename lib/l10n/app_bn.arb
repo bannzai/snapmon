@@ -96,5 +96,6 @@
   "commonClose": "বন্ধ করো",
   "commonBack": "ফিরে যাও",
   "generationSearchingOpponent": "প্রতিপক্ষ খোঁজা হচ্ছে",
-  "generationBattleWith": "তুমি {monsterName} নিয়ে লড়বে"
+  "generationBattleWith": "তুমি {monsterName} নিয়ে লড়বে",
+  "generationOpponentAppeared": "হাজির হলো {opponentName}!"
 }

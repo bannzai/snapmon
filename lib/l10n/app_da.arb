@@ -96,5 +96,6 @@
   "commonClose": "Luk",
   "commonBack": "Tilbage",
   "generationSearchingOpponent": "Leder efter en modstander",
-  "generationBattleWith": "Du kæmper med {monsterName}"
+  "generationBattleWith": "Du kæmper med {monsterName}",
+  "generationOpponentAppeared": "{opponentName} dukkede op!"
 }

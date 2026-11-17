@@ -96,5 +96,6 @@
   "commonClose": "మూసేయి",
   "commonBack": "వెనక్కి",
   "generationSearchingOpponent": "ప్రత్యర్థి కోసం వెతుకుతోంది",
-  "generationBattleWith": "నువ్వు {monsterName}తో పోరాడతావు"
+  "generationBattleWith": "నువ్వు {monsterName}తో పోరాడతావు",
+  "generationOpponentAppeared": "{opponentName} కనిపించింది!"
 }

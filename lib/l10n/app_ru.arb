@@ -96,5 +96,6 @@
   "commonClose": "Закрыть",
   "commonBack": "Назад",
   "generationSearchingOpponent": "Поиск соперника",
-  "generationBattleWith": "Ты будешь сражаться с {monsterName}"
+  "generationBattleWith": "Ты будешь сражаться с {monsterName}",
+  "generationOpponentAppeared": "Появляется {opponentName}!"
 }

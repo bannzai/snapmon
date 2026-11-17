@@ -96,5 +96,6 @@
   "commonClose": "மூடுங்கள்",
   "commonBack": "திரும்பு",
   "generationSearchingOpponent": "எதிராளியைத் தேடுகிறது",
-  "generationBattleWith": "நீங்கள் {monsterName} உடன் போரிடுவீர்கள்"
+  "generationBattleWith": "நீங்கள் {monsterName} உடன் போரிடுவீர்கள்",
+  "generationOpponentAppeared": "{opponentName} தோன்றியது!"
 }

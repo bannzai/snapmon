@@ -96,5 +96,6 @@
   "commonClose": "סגירה",
   "commonBack": "חזרה",
   "generationSearchingOpponent": "מחפשים יריב",
-  "generationBattleWith": "יוצאים לקרב עם {monsterName}"
+  "generationBattleWith": "יוצאים לקרב עם {monsterName}",
+  "generationOpponentAppeared": "הופיע יריב: {opponentName}!"
 }

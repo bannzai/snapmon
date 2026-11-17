@@ -96,5 +96,6 @@
   "commonClose": "Zapri",
   "commonBack": "Nazaj",
   "generationSearchingOpponent": "Iskanje nasprotnika",
-  "generationBattleWith": "Boril se boš z {monsterName}"
+  "generationBattleWith": "Boril se boš z {monsterName}",
+  "generationOpponentAppeared": "Pojavil se je {opponentName}!"
 }

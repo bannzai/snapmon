@@ -96,5 +96,6 @@
   "commonClose": "Sulje",
   "commonBack": "Takaisin",
   "generationSearchingOpponent": "Etsitään vastustajaa",
-  "generationBattleWith": "Taistelet yhdessä {monsterName} kanssa"
+  "generationBattleWith": "Taistelet yhdessä {monsterName} kanssa",
+  "generationOpponentAppeared": "{opponentName} ilmestyi!"
 }

@@ -96,5 +96,6 @@
   "commonClose": "Zavřít",
   "commonBack": "Zpět",
   "generationSearchingOpponent": "Hledá se soupeř",
-  "generationBattleWith": "Budeš bojovat s {monsterName}"
+  "generationBattleWith": "Budeš bojovat s {monsterName}",
+  "generationOpponentAppeared": "Objevil se {opponentName}!"
 }

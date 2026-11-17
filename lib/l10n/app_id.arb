@@ -96,5 +96,6 @@
   "commonClose": "Tutup",
   "commonBack": "Kembali",
   "generationSearchingOpponent": "Mencari lawan",
-  "generationBattleWith": "Kamu bertarung bersama {monsterName}"
+  "generationBattleWith": "Kamu bertarung bersama {monsterName}",
+  "generationOpponentAppeared": "{opponentName} muncul!"
 }

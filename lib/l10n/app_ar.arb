@@ -96,5 +96,6 @@
   "commonClose": "إغلاق",
   "commonBack": "رجوع",
   "generationSearchingOpponent": "جارٍ البحث عن خصم",
-  "generationBattleWith": "ستقاتل مع {monsterName}"
+  "generationBattleWith": "ستقاتل مع {monsterName}",
+  "generationOpponentAppeared": "ظهر {opponentName}!"
 }

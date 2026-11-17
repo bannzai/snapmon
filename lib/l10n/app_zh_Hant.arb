@@ -96,5 +96,6 @@
   "commonClose": "關閉",
   "commonBack": "返回",
   "generationSearchingOpponent": "正在尋找對手",
-  "generationBattleWith": "你將和 {monsterName} 一起戰鬥"
+  "generationBattleWith": "你將和 {monsterName} 一起戰鬥",
+  "generationOpponentAppeared": "{opponentName}出現了！"
 }

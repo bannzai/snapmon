@@ -96,5 +96,6 @@
   "commonClose": "Zamknij",
   "commonBack": "Wróć",
   "generationSearchingOpponent": "Szukanie przeciwnika",
-  "generationBattleWith": "Walczysz u boku {monsterName}"
+  "generationBattleWith": "Walczysz u boku {monsterName}",
+  "generationOpponentAppeared": "Pojawia się {opponentName}!"
 }

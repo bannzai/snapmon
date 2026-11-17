@@ -96,5 +96,6 @@
   "commonClose": "Închide",
   "commonBack": "Înapoi",
   "generationSearchingOpponent": "Se caută un adversar",
-  "generationBattleWith": "Vei lupta alături de {monsterName}"
+  "generationBattleWith": "Vei lupta alături de {monsterName}",
+  "generationOpponentAppeared": "A apărut {opponentName}!"
 }

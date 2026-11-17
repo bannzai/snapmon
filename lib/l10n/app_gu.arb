@@ -96,5 +96,6 @@
   "commonClose": "બંધ કરો",
   "commonBack": "પાછા જાઓ",
   "generationSearchingOpponent": "હરીફની શોધ ચાલી રહી છે",
-  "generationBattleWith": "તમે {monsterName} સાથે લડશો"
+  "generationBattleWith": "તમે {monsterName} સાથે લડશો",
+  "generationOpponentAppeared": "{opponentName} દેખાયો!"
 }
