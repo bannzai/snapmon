@@ -3,6 +3,7 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 
+import '../../app_display_name.dart';
 import '../../domain/battle/battle_engine.dart';
 import '../../domain/battle/battle_state.dart';
 import '../../domain/master/master_data.dart';
@@ -17,7 +18,7 @@ import '../dex/owned_monster.dart';
 import '../settings/settings_screen.dart';
 import 'card_sharer.dart';
 
-/// 共有する図鑑のカード。モンスターの絵・名前・レベル・属性・ステータスと、snapmon のロゴ・紹介ページの URL を描く。
+/// 共有する図鑑のカード。モンスターの絵・名前・レベル・属性・ステータスと、アプリ名のロゴ・紹介ページの URL を描く。
 /// 絵は [artImagesByPath] の切り出した被写体の画像 (元の写真の一部または全体のこともある) を使い、Storage から読む部品
 /// (StorageImage) を使わない (画面に出さずに PNG に描くため、読み込み済みの画像だけで描く)。名前と図鑑の文章が AI の生成である表示は描かない
 /// (アプリのどの画面にも出さず、開示は利用規約・プライバシーポリシー・ストアの説明文で行うため。DIRECTION.md「決めたこと」2026-10-29・2026-10-30)。
@@ -235,7 +236,7 @@ class MonsterShareCard extends StatelessWidget {
 }
 
 /// 共有するバトルの結果のカード。勝ち負け・相手の手持ちの名前と、自分の手持ちの絵・名前・レベル・属性・技の枠の技、
-/// snapmon のロゴ・紹介ページの URL を描く。自分の手持ちの絵を主役にし、勝ち負けと相手の名前の残りの面を手持ちに使う
+/// アプリ名のロゴ・紹介ページの URL を描く。自分の手持ちの絵を主役にし、勝ち負けと相手の名前の残りの面を手持ちに使う
 /// (https://github.com/bannzai/snapmon/issues/346 )。絵の扱いは [MonsterShareCard] と同じで、AI の生成である表示も描かない。
 class BattleResultShareCard extends StatelessWidget {
   /// バトルの結果の共有するカードを作る。
@@ -387,13 +388,13 @@ class BattleResultShareCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               // 勝ち負けと相手の名前を左の列に寄せ、手持ちの枠にカードの高さを全部使う。
-              // 幅 140 は、ロゴ (約 110) が入り、3 体の時の絵の一辺 (約 110) を残せる幅
+              // 幅 140 は、3 体の時の絵の一辺 (約 112) を残せる幅。ロゴ・勝ち負け・URL はこの幅に入らない時に縮める
               SizedBox(
                 width: 140,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const _Logo(),
+                    const FittedBox(fit: BoxFit.scaleDown, child: _Logo()),
                     const SizedBox(height: 12),
                     FittedBox(fit: BoxFit.scaleDown, child: resultText),
                     const SizedBox(height: 6),
@@ -602,13 +603,13 @@ class _PartyMonsterPanel extends StatelessWidget {
   }
 }
 
-/// カードの左上の snapmon のロゴ。
+/// カードの左上のアプリ名のロゴ。
 class _Logo extends StatelessWidget {
   const _Logo();
 
   @override
   Widget build(BuildContext context) => Text(
-    'snapmon',
+    appDisplayName,
     style: SnapmonTextStyles.logo.copyWith(color: SnapmonColors.accent),
   );
 }

@@ -1,6 +1,6 @@
 {
-    "name": "snapmon",
-    "short_name": "snapmon",
+    "name": "SnapMonster",
+    "short_name": "SnapMonster",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#15121C",

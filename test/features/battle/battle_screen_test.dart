@@ -844,6 +844,7 @@ void main() {
     final shared = shareCalls.sharedImages.single;
     expect(shared.fileName, 'snapmon-battle-portrait.png');
     expect(shared.text, contains('かった'));
+    expect(shared.text, contains('#SnapMonster'));
     final logged = shareCalls.loggedEvents.single;
     expect(logged.event, AnalyticsEvent.contentShared);
     expect(logged.parameters, {
