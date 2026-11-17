@@ -293,5 +293,6 @@
   "actionCardOwnedHeading": "Købte angreb",
   "actionCardOwnedEmpty": "Du har ikke købt nogen angreb endnu",
   "actionCardMovesHeading": "Action Card-angreb",
-  "actionCardTaughtNone": "Ingen angreb lært endnu"
+  "actionCardTaughtNone": "Ingen angreb lært endnu",
+  "actionCardTeach": "Lær et angreb fra dig"
 }

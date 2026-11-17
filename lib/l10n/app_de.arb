@@ -293,5 +293,6 @@
   "actionCardOwnedHeading": "Gekaufte Attacken",
   "actionCardOwnedEmpty": "Du hast noch keine Attacke gekauft",
   "actionCardMovesHeading": "Attacken der Action Card",
-  "actionCardTaughtNone": "Noch keine Attacke beigebracht"
+  "actionCardTaughtNone": "Noch keine Attacke beigebracht",
+  "actionCardTeach": "Attacke beibringen"
 }

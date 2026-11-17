@@ -293,5 +293,6 @@
   "actionCardOwnedHeading": "కొన్న మూవ్‌లు",
   "actionCardOwnedEmpty": "నువ్వు ఇంకా ఏ మూవ్‌నూ కొనలేదు",
   "actionCardMovesHeading": "Action Card మూవ్‌లు",
-  "actionCardTaughtNone": "ఇంకా ఏ మూవ్ నేర్పలేదు"
+  "actionCardTaughtNone": "ఇంకా ఏ మూవ్ నేర్పలేదు",
+  "actionCardTeach": "మూవ్ నేర్పు"
 }

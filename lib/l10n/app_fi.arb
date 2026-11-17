@@ -293,5 +293,6 @@
   "actionCardOwnedHeading": "Ostetut liikkeet",
   "actionCardOwnedEmpty": "Et ole vielä ostanut yhtään liikettä",
   "actionCardMovesHeading": "Action Cardin liikkeet",
-  "actionCardTaughtNone": "Et ole vielä opettanut liikkeitä"
+  "actionCardTaughtNone": "Et ole vielä opettanut liikkeitä",
+  "actionCardTeach": "Opeta liike"
 }

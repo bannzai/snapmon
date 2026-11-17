@@ -293,5 +293,6 @@
   "actionCardOwnedHeading": "ખરીદેલી ચાલ",
   "actionCardOwnedEmpty": "તમે હજી કોઈ ચાલ ખરીદી નથી",
   "actionCardMovesHeading": "Action Cardની ચાલ",
-  "actionCardTaughtNone": "હજુ કોઈ ચાલ શીખવાડી નથી"
+  "actionCardTaughtNone": "હજુ કોઈ ચાલ શીખવાડી નથી",
+  "actionCardTeach": "ચાલ શીખવો"
 }

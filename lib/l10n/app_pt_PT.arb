@@ -293,5 +293,6 @@
   "actionCardOwnedHeading": "Golpes comprados",
   "actionCardOwnedEmpty": "Ainda não compraste nenhum golpe",
   "actionCardMovesHeading": "Golpes do Action Card",
-  "actionCardTaughtNone": "Ainda não lhe ensinaste nenhum golpe"
+  "actionCardTaughtNone": "Ainda não lhe ensinaste nenhum golpe",
+  "actionCardTeach": "Ensinar um golpe"
 }

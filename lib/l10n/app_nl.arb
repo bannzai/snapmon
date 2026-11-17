@@ -293,5 +293,6 @@
   "actionCardOwnedHeading": "Gekochte aanvallen",
   "actionCardOwnedEmpty": "Je hebt nog geen aanval gekocht",
   "actionCardMovesHeading": "Action Card-aanvallen",
-  "actionCardTaughtNone": "Je hebt nog geen aanval aangeleerd"
+  "actionCardTaughtNone": "Je hebt nog geen aanval aangeleerd",
+  "actionCardTeach": "Leer een aanval aan"
 }

@@ -293,5 +293,6 @@
   "actionCardOwnedHeading": "ਖਰੀਦੀਆਂ ਚਾਲਾਂ",
   "actionCardOwnedEmpty": "ਤੁਸੀਂ ਹਾਲੇ ਕੋਈ ਚਾਲ ਨਹੀਂ ਖਰੀਦੀ",
   "actionCardMovesHeading": "Action Card ਦੀਆਂ ਚਾਲਾਂ",
-  "actionCardTaughtNone": "ਹਾਲੇ ਕੋਈ ਚਾਲ ਨਹੀਂ ਸਿਖਾਈ"
+  "actionCardTaughtNone": "ਹਾਲੇ ਕੋਈ ਚਾਲ ਨਹੀਂ ਸਿਖਾਈ",
+  "actionCardTeach": "ਚਾਲ ਸਿਖਾਓ"
 }

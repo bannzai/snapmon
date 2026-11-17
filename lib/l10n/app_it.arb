@@ -293,5 +293,6 @@
   "actionCardOwnedHeading": "Mosse acquistate",
   "actionCardOwnedEmpty": "Non hai ancora comprato nessuna mossa",
   "actionCardMovesHeading": "Mosse di Action Card",
-  "actionCardTaughtNone": "Non gli hai ancora insegnato nessuna mossa"
+  "actionCardTaughtNone": "Non gli hai ancora insegnato nessuna mossa",
+  "actionCardTeach": "Insegna una mossa"
 }

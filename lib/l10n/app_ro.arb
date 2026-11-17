@@ -293,5 +293,6 @@
   "actionCardOwnedHeading": "Mișcări cumpărate",
   "actionCardOwnedEmpty": "Nu ai cumpărat încă nicio mișcare",
   "actionCardMovesHeading": "Mișcări Action Card",
-  "actionCardTaughtNone": "Nu i-ai predat încă nicio mișcare"
+  "actionCardTaughtNone": "Nu i-ai predat încă nicio mișcare",
+  "actionCardTeach": "Învață o mișcare"
 }

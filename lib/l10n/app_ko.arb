@@ -293,5 +293,6 @@
   "actionCardOwnedHeading": "구매한 기술",
   "actionCardOwnedEmpty": "아직 구매한 기술이 없어요",
   "actionCardMovesHeading": "Action Card 기술",
-  "actionCardTaughtNone": "아직 가르친 기술이 없어요"
+  "actionCardTaughtNone": "아직 가르친 기술이 없어요",
+  "actionCardTeach": "기술 가르치기"
 }

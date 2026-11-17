@@ -293,5 +293,6 @@
   "actionCardOwnedHeading": "خریدی ہوئی چالیں",
   "actionCardOwnedEmpty": "تم نے ابھی تک کوئی چال نہیں خریدی",
   "actionCardMovesHeading": "Action Card کی چالیں",
-  "actionCardTaughtNone": "ابھی کوئی چال نہیں سکھائی"
+  "actionCardTaughtNone": "ابھی کوئی چال نہیں سکھائی",
+  "actionCardTeach": "چال سکھاؤ"
 }

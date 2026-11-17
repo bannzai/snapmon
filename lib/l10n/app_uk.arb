@@ -293,5 +293,6 @@
   "actionCardOwnedHeading": "Куплені прийоми",
   "actionCardOwnedEmpty": "Ти ще не купив жодного прийому",
   "actionCardMovesHeading": "Прийоми Action Card",
-  "actionCardTaughtNone": "Ти ще не навчив його жодного прийому"
+  "actionCardTaughtNone": "Ти ще не навчив його жодного прийому",
+  "actionCardTeach": "Навчити прийому"
 }

@@ -293,5 +293,6 @@
   "actionCardOwnedHeading": "Kupione ruchy",
   "actionCardOwnedEmpty": "Nie masz jeszcze kupionego żadnego ruchu",
   "actionCardMovesHeading": "Ruchy z Action Card",
-  "actionCardTaughtNone": "Nie nauczyłeś go jeszcze żadnego ruchu"
+  "actionCardTaughtNone": "Nie nauczyłeś go jeszcze żadnego ruchu",
+  "actionCardTeach": "Naucz ruchu"
 }

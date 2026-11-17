@@ -293,5 +293,6 @@
   "actionCardOwnedHeading": "Jurus yang dibeli",
   "actionCardOwnedEmpty": "Kamu belum membeli jurus",
   "actionCardMovesHeading": "Jurus Action Card",
-  "actionCardTaughtNone": "Belum ada jurus yang diajarkan"
+  "actionCardTaughtNone": "Belum ada jurus yang diajarkan",
+  "actionCardTeach": "Ajarkan jurus"
 }

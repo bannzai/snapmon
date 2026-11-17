@@ -293,5 +293,6 @@
   "actionCardOwnedHeading": "Megvásárolt támadások",
   "actionCardOwnedEmpty": "Még nem vettél támadást",
   "actionCardMovesHeading": "Action Card-támadások",
-  "actionCardTaughtNone": "Még nem tanítottál meg neki támadást"
+  "actionCardTaughtNone": "Még nem tanítottál meg neki támadást",
+  "actionCardTeach": "Támadás megtanítása"
 }

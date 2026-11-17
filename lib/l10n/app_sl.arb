@@ -293,5 +293,6 @@
   "actionCardOwnedHeading": "Kupljeni potezi",
   "actionCardOwnedEmpty": "Nisi še kupil nobenega poteza",
   "actionCardMovesHeading": "Potezi z Action Card",
-  "actionCardTaughtNone": "Nisi ga še naučil nobenega poteza"
+  "actionCardTaughtNone": "Nisi ga še naučil nobenega poteza",
+  "actionCardTeach": "Nauči potez"
 }

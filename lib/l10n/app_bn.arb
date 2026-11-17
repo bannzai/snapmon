@@ -293,5 +293,6 @@
   "actionCardOwnedHeading": "কেনা কৌশল",
   "actionCardOwnedEmpty": "তুমি এখনও কোনো কৌশল কেনোনি",
   "actionCardMovesHeading": "Action Card-এর কৌশল",
-  "actionCardTaughtNone": "এখনও কোনো কৌশল শেখানো হয়নি"
+  "actionCardTaughtNone": "এখনও কোনো কৌশল শেখানো হয়নি",
+  "actionCardTeach": "কৌশল শেখাও"
 }
