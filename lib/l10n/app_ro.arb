@@ -217,5 +217,6 @@
   "battleTurn": "Tura {turnNumber}",
   "battleSwitchMonster": "Schimbă monstrul",
   "battleChooseSwitchMonster": "Alege un monstru pentru luptă",
-  "battleLevelUpNote": "Fie că învingi sau pierzi, monștrii care au luptat cresc în nivel"
+  "battleLevelUpNote": "Fie că învingi sau pierzi, monștrii care au luptat cresc în nivel",
+  "battleLearnedMove": "A învățat mișcarea {moveName}!"
 }

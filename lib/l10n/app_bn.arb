@@ -217,5 +217,6 @@
   "battleTurn": "টার্ন {turnNumber}",
   "battleSwitchMonster": "মনস্টার বদলাও",
   "battleChooseSwitchMonster": "মাঠে নামানোর জন্য মনস্টার বেছে নাও",
-  "battleLevelUpNote": "জিতো বা হারো, লড়াই করা মনস্টারদের লেভেল বাড়ে"
+  "battleLevelUpNote": "জিতো বা হারো, লড়াই করা মনস্টারদের লেভেল বাড়ে",
+  "battleLearnedMove": "নতুন চাল শিখেছে: {moveName}!"
 }

@@ -217,5 +217,6 @@
   "battleTurn": "Ход {turnNumber}",
   "battleSwitchMonster": "Сменить монстра",
   "battleChooseSwitchMonster": "Выбери монстра для боя",
-  "battleLevelUpNote": "Победишь или проиграешь — монстры, участвовавшие в бою, повысят уровень"
+  "battleLevelUpNote": "Победишь или проиграешь — монстры, участвовавшие в бою, повысят уровень",
+  "battleLearnedMove": "Выучил новый приём: {moveName}!"
 }

@@ -217,5 +217,6 @@
   "battleTurn": "Kör {turnNumber}",
   "battleSwitchMonster": "Cserélj szörnyet",
   "battleChooseSwitchMonster": "Válassz szörnyet a csatába",
-  "battleLevelUpNote": "Akár nyersz, akár veszítesz, a harcoló szörnyek szintet lépnek"
+  "battleLevelUpNote": "Akár nyersz, akár veszítesz, a harcoló szörnyek szintet lépnek",
+  "battleLearnedMove": "Új támadást tanult: {moveName}!"
 }

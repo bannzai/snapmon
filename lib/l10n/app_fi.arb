@@ -217,5 +217,6 @@
   "battleTurn": "Vuoro {turnNumber}",
   "battleSwitchMonster": "Vaihda hirviö",
   "battleChooseSwitchMonster": "Valitse hirviö taisteluun",
-  "battleLevelUpNote": "Voitit tai hävisit, taistelleiden hirviöiden taso nousee"
+  "battleLevelUpNote": "Voitit tai hävisit, taistelleiden hirviöiden taso nousee",
+  "battleLearnedMove": "Oppi uuden liikkeen: {moveName}!"
 }

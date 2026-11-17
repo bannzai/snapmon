@@ -217,5 +217,6 @@
   "battleTurn": "Tah {turnNumber}",
   "battleSwitchMonster": "Vyměň příšeru",
   "battleChooseSwitchMonster": "Vyber příšeru do boje",
-  "battleLevelUpNote": "Ať vyhraješ, nebo prohraješ, příšerám z boje stoupne úroveň"
+  "battleLevelUpNote": "Ať vyhraješ, nebo prohraješ, příšerám z boje stoupne úroveň",
+  "battleLearnedMove": "Naučil se nový útok: {moveName}!"
 }

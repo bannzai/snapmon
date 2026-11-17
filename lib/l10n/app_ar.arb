@@ -217,5 +217,6 @@
   "battleTurn": "الدور {turnNumber}",
   "battleSwitchMonster": "بدّل الوحش",
   "battleChooseSwitchMonster": "اختر وحشًا لإرساله إلى المعركة",
-  "battleLevelUpNote": "سواء فزت أم خسرت، يرتفع مستوى الوحوش التي قاتلت"
+  "battleLevelUpNote": "سواء فزت أم خسرت، يرتفع مستوى الوحوش التي قاتلت",
+  "battleLearnedMove": "تعلّم حركة {moveName}!"
 }

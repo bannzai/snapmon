@@ -217,5 +217,6 @@
   "battleTurn": "باری {turnNumber}",
   "battleSwitchMonster": "مونسٹر بدلو",
   "battleChooseSwitchMonster": "مقابلے میں اتارنے کے لیے مونسٹر چنو",
-  "battleLevelUpNote": "جیتو یا ہارو، لڑنے والے مونسٹر کا لیول بڑھے گا"
+  "battleLevelUpNote": "جیتو یا ہارو، لڑنے والے مونسٹر کا لیول بڑھے گا",
+  "battleLearnedMove": "نئی چال سیکھی: {moveName}!"
 }

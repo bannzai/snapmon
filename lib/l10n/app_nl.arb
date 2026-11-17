@@ -217,5 +217,6 @@
   "battleTurn": "Beurt {turnNumber}",
   "battleSwitchMonster": "Wissel van monster",
   "battleChooseSwitchMonster": "Kies een monster voor het gevecht",
-  "battleLevelUpNote": "Of je nu wint of verliest, monsters die hebben gevochten gaan een level omhoog"
+  "battleLevelUpNote": "Of je nu wint of verliest, monsters die hebben gevochten gaan een level omhoog",
+  "battleLearnedMove": "Heeft de aanval {moveName} geleerd!"
 }

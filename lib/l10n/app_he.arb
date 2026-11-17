@@ -217,5 +217,6 @@
   "battleTurn": "תור {turnNumber}",
   "battleSwitchMonster": "החלפת מפלצת",
   "battleChooseSwitchMonster": "לבחור מפלצת לקרב",
-  "battleLevelUpNote": "ניצחון או הפסד, מפלצות שהשתתפו בקרב עולות רמה"
+  "battleLevelUpNote": "ניצחון או הפסד, מפלצות שהשתתפו בקרב עולות רמה",
+  "battleLearnedMove": "נלמד מהלך חדש: {moveName}!"
 }

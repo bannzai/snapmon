@@ -217,5 +217,6 @@
   "battleTurn": "Potez {turnNumber}",
   "battleSwitchMonster": "Zamijeni čudovište",
   "battleChooseSwitchMonster": "Odaberi čudovište za borbu",
-  "battleLevelUpNote": "Pobijediš li ili izgubiš, čudovištima koja su se borila raste razina"
+  "battleLevelUpNote": "Pobijediš li ili izgubiš, čudovištima koja su se borila raste razina",
+  "battleLearnedMove": "Naučio je novi potez: {moveName}!"
 }

@@ -217,5 +217,6 @@
   "battleTurn": "Torn {turnNumber}",
   "battleSwitchMonster": "Canvia de monstre",
   "battleChooseSwitchMonster": "Tria un monstre per enviar al combat",
-  "battleLevelUpNote": "Guanyis o perdis, els monstres que han lluitat pugen de nivell"
+  "battleLevelUpNote": "Guanyis o perdis, els monstres que han lluitat pugen de nivell",
+  "battleLearnedMove": "Ha après el moviment {moveName}!"
 }

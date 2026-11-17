@@ -217,5 +217,6 @@
   "battleTurn": "Tur {turnNumber}",
   "battleSwitchMonster": "Canavar değiştir",
   "battleChooseSwitchMonster": "Savaşa çıkaracağın canavarı seç",
-  "battleLevelUpNote": "Kazansan da kaybetsen de savaşan canavarlar seviye atlar"
+  "battleLevelUpNote": "Kazansan da kaybetsen de savaşan canavarlar seviye atlar",
+  "battleLearnedMove": "Yeni hareket öğrendi: {moveName}!"
 }

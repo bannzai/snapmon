@@ -217,5 +217,6 @@
   "battleTurn": "ಸರದಿ {turnNumber}",
   "battleSwitchMonster": "ಮಾನ್ಸ್ಟರ್ ಬದಲಾಯಿಸು",
   "battleChooseSwitchMonster": "ಕಣಕ್ಕಿಳಿಸಲು ಮಾನ್ಸ್ಟರ್ ಆಯ್ಕೆ ಮಾಡು",
-  "battleLevelUpNote": "ಗೆದ್ದರೂ ಸೋತರೂ, ಹೋರಾಡಿದ ಮಾನ್ಸ್ಟರ್‌ಗಳ ಲೆವೆಲ್ ಏರುತ್ತದೆ"
+  "battleLevelUpNote": "ಗೆದ್ದರೂ ಸೋತರೂ, ಹೋರಾಡಿದ ಮಾನ್ಸ್ಟರ್‌ಗಳ ಲೆವೆಲ್ ಏರುತ್ತದೆ",
+  "battleLearnedMove": "ಹೊಸ ನಡೆ ಕಲಿತಿದೆ: {moveName}!"
 }

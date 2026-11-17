@@ -217,5 +217,6 @@
   "battleTurn": "Хід {turnNumber}",
   "battleSwitchMonster": "Змінити монстра",
   "battleChooseSwitchMonster": "Обери монстра для бою",
-  "battleLevelUpNote": "Переможеш чи програєш — монстри, що билися, підвищать рівень"
+  "battleLevelUpNote": "Переможеш чи програєш — монстри, що билися, підвищать рівень",
+  "battleLearnedMove": "Вивчив новий прийом: {moveName}!"
 }

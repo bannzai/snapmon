@@ -217,5 +217,6 @@
   "battleTurn": "Giliran {turnNumber}",
   "battleSwitchMonster": "Tukar monster",
   "battleChooseSwitchMonster": "Pilih monster untuk bertarung",
-  "battleLevelUpNote": "Menang atau kalah, monster yang bertarung naik level"
+  "battleLevelUpNote": "Menang atau kalah, monster yang bertarung naik level",
+  "battleLearnedMove": "Belajar gerakan baharu: {moveName}!"
 }

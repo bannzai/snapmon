@@ -217,5 +217,6 @@
   "battleTurn": "Tur {turnNumber}",
   "battleSwitchMonster": "Skift monster",
   "battleChooseSwitchMonster": "Vælg et monster til kamp",
-  "battleLevelUpNote": "Uanset om du vinder eller taber, stiger de monstres niveau, når de har kæmpet"
+  "battleLevelUpNote": "Uanset om du vinder eller taber, stiger de monstres niveau, når de har kæmpet",
+  "battleLearnedMove": "Har lært angrebet {moveName}!"
 }
