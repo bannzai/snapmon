@@ -1,9 +1,12 @@
+import 'dart:math' as math;
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 
+import '../../domain/battle/battle_engine.dart';
 import '../../domain/battle/battle_state.dart';
 import '../../domain/master/master_data.dart';
+import '../../domain/master/move.dart';
 import '../../domain/monster/stat_calculation.dart';
 import '../../l10n/l10n.dart';
 import '../../theme/snapmon_colors.dart';
@@ -231,8 +234,9 @@ class MonsterShareCard extends StatelessWidget {
   }
 }
 
-/// 共有するバトルの結果のカード。勝ち負け・相手の手持ちの名前・自分の手持ちの絵と名前とレベルと、
-/// snapmon のロゴ・紹介ページの URL を描く。絵の扱いは [MonsterShareCard] と同じで、AI の生成である表示も描かない。
+/// 共有するバトルの結果のカード。勝ち負け・相手の手持ちの名前と、自分の手持ちの絵・名前・レベル・属性・技の枠の技、
+/// snapmon のロゴ・紹介ページの URL を描く。自分の手持ちの絵を主役にし、勝ち負けと相手の名前の残りの面を手持ちに使う
+/// (https://github.com/bannzai/snapmon/issues/346 )。絵の扱いは [MonsterShareCard] と同じで、AI の生成である表示も描かない。
 class BattleResultShareCard extends StatelessWidget {
   /// バトルの結果の共有するカードを作る。
   const BattleResultShareCard({
@@ -268,14 +272,38 @@ class BattleResultShareCard extends StatelessWidget {
   /// カード画像の形。
   final ShareCardFormat format;
 
-  /// [monster] のレベルの表示。確定したレベルがあれば上がり方を出す。
-  String _levelText({
+  /// [monster] 1 体の枠。絵と、名前・レベル (確定したレベルがあれば上がり方)・属性・技の枠の技を描く。
+  /// 技は描くレベルと同じレベル (確定したレベルがあればそのレベル) の技の枠 ([equippedLearnsetEntries]) で引く。
+  /// [direction] は絵と文字を並べる向き、[moveColumnCount] は技を並べる列の数、[nameStyle] は名前の文字。
+  Widget _partyMonsterPanel({
     required AppLocalizations l10n,
     required OwnedMonster monster,
-  }) => switch (appliedLevels[monster.definition.id]) {
-    final newLevel? => l10n.commonLevelUp(monster.level, newLevel),
-    null => l10n.commonLevel(monster.level),
-  };
+    required Axis direction,
+    required int moveColumnCount,
+    required TextStyle nameStyle,
+  }) {
+    final appliedLevel = appliedLevels[monster.definition.id];
+    return _PartyMonsterPanel(
+      monster: monster,
+      levelText: appliedLevel == null
+          ? l10n.commonLevel(monster.level)
+          : l10n.commonLevelUp(monster.level, appliedLevel),
+      moves: [
+        for (final moveID in equippedLearnsetEntries(
+          learnset: monster.definition.learnset,
+          actionCardMoveIDs: monster.actionCardMoveIDs,
+          selectedMoveIDs: monster.selectedMoveIDs,
+          level: appliedLevel ?? monster.level,
+        ))
+          definitions.moveByID(moveID: moveID),
+      ],
+      artImagesByPath: artImagesByPath,
+      definitions: definitions,
+      direction: direction,
+      moveColumnCount: moveColumnCount,
+      nameStyle: nameStyle,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -301,10 +329,14 @@ class BattleResultShareCard extends StatelessWidget {
       ),
       maxLines: switch (format) {
         ShareCardFormat.portrait => 2,
-        ShareCardFormat.landscape => 1,
+        ShareCardFormat.landscape => 3,
       },
       overflow: TextOverflow.ellipsis,
       style: SnapmonTextStyles.label,
+    );
+    // 2 体以上の時の名前の文字。1 体の時は図鑑のカードと同じ大きな名前 (cardTitle) にする
+    final partyNameStyle = SnapmonTextStyles.label.copyWith(
+      color: SnapmonColors.textOnCard,
     );
     return ColoredBox(
       color: SnapmonColors.background,
@@ -315,166 +347,254 @@ class BattleResultShareCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const _Logo(),
-              const SizedBox(height: 24),
+              const SizedBox(height: 16),
               resultText,
               const SizedBox(height: 6),
               opponentText,
-              const SizedBox(height: 20),
-              for (final (index, monster) in playerParty.indexed) ...[
-                if (index > 0) const SizedBox(height: 10),
-                // 行の高さは中身に合わせる (属性の札が 2 行に折り返しても切れないように)
-                DecoratedBox(
-                  decoration: const BoxDecoration(
-                    color: SnapmonColors.card,
-                    borderRadius: SnapmonRadii.card,
+              const SizedBox(height: 16),
+              // 1 体の時は絵を上に大きく置き、2 体以上の時は残りの高さを分けた行の左に絵を置く
+              if (playerParty.length == 1)
+                Expanded(
+                  child: _partyMonsterPanel(
+                    l10n: context.l10n,
+                    monster: playerParty.single,
+                    direction: Axis.vertical,
+                    moveColumnCount: 2,
+                    nameStyle: SnapmonTextStyles.cardTitle,
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Row(
-                      children: [
-                        SizedBox.square(
-                          dimension: 92,
-                          child: _ShareCardMonsterArt(
-                            monster: monster,
-                            artImagesByPath: artImagesByPath,
-                            backgroundColor: SnapmonColors.cardSubtle,
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                monster.definition.name,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: SnapmonTextStyles.label.copyWith(
-                                  color: SnapmonColors.textOnCard,
-                                ),
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                _levelText(
-                                  l10n: context.l10n,
-                                  monster: monster,
-                                ),
-                                style: SnapmonTextStyles.caption.copyWith(
-                                  color: SnapmonColors.textOnCardMuted,
-                                ),
-                              ),
-                              const SizedBox(height: 6),
-                              Wrap(
-                                spacing: 6,
-                                runSpacing: 6,
-                                children: [
-                                  for (final elementTypeID
-                                      in monster.definition.elementTypeIDs)
-                                    ElementTypeTag(
-                                      elementTypeID: elementTypeID,
-                                      definitions: definitions,
-                                    ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                )
+              else
+                for (final (index, monster) in playerParty.indexed) ...[
+                  if (index > 0) const SizedBox(height: 10),
+                  Expanded(
+                    child: _partyMonsterPanel(
+                      l10n: context.l10n,
+                      monster: monster,
+                      direction: Axis.horizontal,
+                      moveColumnCount: 1,
+                      nameStyle: partyNameStyle,
                     ),
                   ),
-                ),
-              ],
-              const Spacer(),
+                ],
+              const SizedBox(height: 12),
               const _LandingPageAddress(textAlign: TextAlign.center),
             ],
           ),
         ),
         ShareCardFormat.landscape => Padding(
           padding: const EdgeInsets.all(20),
-          child: Column(
+          child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Row(
-                children: [
-                  _Logo(),
-                  Spacer(),
-                  _LandingPageAddress(textAlign: TextAlign.end),
-                ],
-              ),
-              const SizedBox(height: 8),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  resultText,
-                  const SizedBox(width: 16),
-                  Expanded(child: opponentText),
-                ],
-              ),
-              const SizedBox(height: 12),
-              Expanded(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+              // 勝ち負けと相手の名前を左の列に寄せ、手持ちの枠にカードの高さを全部使う。
+              // 幅 140 は、ロゴ (約 110) が入り、3 体の時の絵の一辺 (約 110) を残せる幅
+              SizedBox(
+                width: 140,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    for (final (index, monster) in playerParty.indexed) ...[
-                      if (index > 0) const SizedBox(width: 10),
-                      Expanded(
-                        child: DecoratedBox(
-                          decoration: const BoxDecoration(
-                            color: SnapmonColors.card,
-                            borderRadius: SnapmonRadii.card,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child: Center(
-                                    child: AspectRatio(
-                                      aspectRatio: 1,
-                                      child: _ShareCardMonsterArt(
-                                        monster: monster,
-                                        artImagesByPath: artImagesByPath,
-                                        backgroundColor:
-                                            SnapmonColors.cardSubtle,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 6),
-                                Text(
-                                  monster.definition.name,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: SnapmonTextStyles.caption.copyWith(
-                                    color: SnapmonColors.textOnCard,
-                                  ),
-                                ),
-                                Text(
-                                  _levelText(
-                                    l10n: context.l10n,
-                                    monster: monster,
-                                  ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: SnapmonTextStyles.small.copyWith(
-                                    color: SnapmonColors.textOnCardMuted,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                    const _Logo(),
+                    const SizedBox(height: 12),
+                    FittedBox(fit: BoxFit.scaleDown, child: resultText),
+                    const SizedBox(height: 6),
+                    opponentText,
+                    const Spacer(),
+                    const FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: _LandingPageAddress(textAlign: TextAlign.start),
+                    ),
                   ],
                 ),
               ),
+              const SizedBox(width: 16),
+              // 1 体の時は絵を左に大きく置き、2 体以上の時は残りの幅を分けた列の上に絵を置く
+              if (playerParty.length == 1)
+                Expanded(
+                  child: _partyMonsterPanel(
+                    l10n: context.l10n,
+                    monster: playerParty.single,
+                    direction: Axis.horizontal,
+                    moveColumnCount: 1,
+                    nameStyle: partyNameStyle,
+                  ),
+                )
+              else
+                for (final (index, monster) in playerParty.indexed) ...[
+                  if (index > 0) const SizedBox(width: 10),
+                  Expanded(
+                    child: _partyMonsterPanel(
+                      l10n: context.l10n,
+                      monster: monster,
+                      direction: Axis.vertical,
+                      // 2 体の時は技を 2 列にして絵の高さを残し、3 体の時は枠の幅が狭いため 1 列にして文字の大きさを残す
+                      moveColumnCount: playerParty.length == 2 ? 2 : 1,
+                      nameStyle: partyNameStyle,
+                    ),
+                  ),
+                ],
             ],
           ),
         ),
       },
+    );
+  }
+}
+
+/// バトルの結果のカードの、自分の手持ち 1 体の枠。絵を枠に入る最大の正方形で描き、残りに名前・レベル・属性・技を描く。
+/// 文字は枠に入らない時に全体を縮める (名前や技を `...` で切らず、枠からはみ出させないため)。
+class _PartyMonsterPanel extends StatelessWidget {
+  const _PartyMonsterPanel({
+    required this.monster,
+    required this.levelText,
+    required this.moves,
+    required this.artImagesByPath,
+    required this.definitions,
+    required this.direction,
+    required this.moveColumnCount,
+    required this.nameStyle,
+  });
+
+  /// 描くモンスター。
+  final OwnedMonster monster;
+
+  /// レベルの表示 (確定したレベルがあれば上がり方)。
+  final String levelText;
+
+  /// 技の枠の技 (枠の順)。
+  final List<Move> moves;
+
+  /// 切り出した被写体の画像 (デコード済み) を Storage のパス ([OwnedMonster.artPath]) ごとに引く表。
+  final Map<String, ui.Image> artImagesByPath;
+
+  /// 属性の名前を引く定義。
+  final MasterData definitions;
+
+  /// 絵と文字を並べる向き。横は絵を左に、縦は絵を上に置く。
+  final Axis direction;
+
+  /// 技を並べる列の数。
+  final int moveColumnCount;
+
+  /// 名前の文字。
+  final TextStyle nameStyle;
+
+  /// 横に並べる時に、絵の一辺が枠の幅に占める割合の上限。文字の側に枠の幅の 4 割を残し、
+  /// 名前と技 (標準で幅 130 ほど) を読める大きさで描けるようにする。
+  static const double maximumHorizontalArtWidthRatio = 0.6;
+
+  @override
+  Widget build(BuildContext context) {
+    final art = _ShareCardMonsterArt(
+      monster: monster,
+      artImagesByPath: artImagesByPath,
+      backgroundColor: SnapmonColors.cardSubtle,
+    );
+    final info = FittedBox(
+      fit: BoxFit.scaleDown,
+      // 横に並べる時は絵の右に左寄せで、縦に並べる時は中央に置いた絵の下に中央で置く
+      alignment: switch (direction) {
+        Axis.horizontal => Alignment.centerLeft,
+        Axis.vertical => Alignment.center,
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(monster.definition.name, style: nameStyle),
+          const SizedBox(height: 3),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                levelText,
+                style: SnapmonTextStyles.caption.copyWith(
+                  color: SnapmonColors.textOnCardMuted,
+                ),
+              ),
+              for (final elementTypeID
+                  in monster.definition.elementTypeIDs) ...[
+                const SizedBox(width: 6),
+                ElementTypeTag(
+                  elementTypeID: elementTypeID,
+                  definitions: definitions,
+                ),
+              ],
+            ],
+          ),
+          const SizedBox(height: 6),
+          // 技の枠 (2 列 × 2 行) と同じく左上から右へ並べる。空の枠は描かない
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              for (var column = 0; column < moveColumnCount; column++) ...[
+                if (column > 0) const SizedBox(width: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  spacing: 3,
+                  children: [
+                    for (final (index, move) in moves.indexed)
+                      if (index % moveColumnCount == column)
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            ElementTypeIcon(
+                              elementTypeID: move.elementTypeID,
+                              definitions: definitions,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              move.displayName,
+                              style: SnapmonTextStyles.caption.copyWith(
+                                color: SnapmonColors.textOnCard,
+                              ),
+                            ),
+                          ],
+                        ),
+                  ],
+                ),
+              ],
+            ],
+          ),
+        ],
+      ),
+    );
+    return DecoratedBox(
+      decoration: const BoxDecoration(
+        color: SnapmonColors.card,
+        borderRadius: SnapmonRadii.card,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: switch (direction) {
+          Axis.horizontal => LayoutBuilder(
+            builder: (context, constraints) => Row(
+              children: [
+                SizedBox.square(
+                  dimension: math.min(
+                    constraints.maxHeight,
+                    constraints.maxWidth * maximumHorizontalArtWidthRatio,
+                  ),
+                  child: art,
+                ),
+                const SizedBox(width: 12),
+                Expanded(child: info),
+              ],
+            ),
+          ),
+          Axis.vertical => Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: Center(child: AspectRatio(aspectRatio: 1, child: art)),
+              ),
+              const SizedBox(height: 8),
+              info,
+            ],
+          ),
+        },
+      ),
     );
   }
 }
