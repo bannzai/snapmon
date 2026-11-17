@@ -182,5 +182,6 @@
   "battleLogConfusedMove": "{monsterName} kafası karışınca {selectedMoveName} yerine {moveName} kullandı",
   "battleLogOneHitKnockout": "Tek vuruşta nakavt!",
   "battleLogSelfDestructed": "{monsterName} kendini patlattı!",
-  "battleLogStatusInflicted": "{monsterName}, {statusName} durumuna girdi!"
+  "battleLogStatusInflicted": "{monsterName}, {statusName} durumuna girdi!",
+  "battleLogStatusStacked": "{monsterName}: {statusName} durumu birikti (×{stackCount})"
 }

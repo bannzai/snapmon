@@ -182,5 +182,6 @@
   "battleLogConfusedMove": "{monsterName} sa zmiatol a namiesto {selectedMoveName} použil {moveName}",
   "battleLogOneHitKnockout": "K. O. jedným úderom!",
   "battleLogSelfDestructed": "{monsterName} sa samo zničil!",
-  "battleLogStatusInflicted": "{monsterName} získal stav {statusName}!"
+  "battleLogStatusInflicted": "{monsterName} získal stav {statusName}!",
+  "battleLogStatusStacked": "{monsterName}: stav {statusName} sa zosilnil (×{stackCount})"
 }

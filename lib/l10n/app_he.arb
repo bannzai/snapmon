@@ -182,5 +182,6 @@
   "battleLogConfusedMove": "{monsterName} התבלבל והשתמש ב־{moveName} במקום ב־{selectedMoveName}",
   "battleLogOneHitKnockout": "נוקאאוט במכה אחת!",
   "battleLogSelfDestructed": "{monsterName} השמיד את עצמו!",
-  "battleLogStatusInflicted": "{monsterName} נכנס למצב {statusName}!"
+  "battleLogStatusInflicted": "{monsterName} נכנס למצב {statusName}!",
+  "battleLogStatusStacked": "{monsterName}: מצב {statusName} הצטבר (×{stackCount})"
 }

@@ -182,5 +182,6 @@
   "battleLogConfusedMove": "{monsterName} สับสน เลยใช้ {moveName} แทน {selectedMoveName}",
   "battleLogOneHitKnockout": "น็อกในหมัดเดียว!",
   "battleLogSelfDestructed": "{monsterName} ระเบิดตัวเอง!",
-  "battleLogStatusInflicted": "{monsterName} ติดสถานะ {statusName}!"
+  "battleLogStatusInflicted": "{monsterName} ติดสถานะ {statusName}!",
+  "battleLogStatusStacked": "{monsterName}: สถานะ {statusName} ทับซ้อนเพิ่มขึ้น (×{stackCount})"
 }

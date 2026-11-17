@@ -182,5 +182,6 @@
   "battleLogConfusedMove": "{monsterName} ficou confuso e usou {moveName} em vez de {selectedMoveName}",
   "battleLogOneHitKnockout": "Nocaute com um só golpe!",
   "battleLogSelfDestructed": "{monsterName} se autodestruiu!",
-  "battleLogStatusInflicted": "{monsterName} recebeu o status {statusName}!"
+  "battleLogStatusInflicted": "{monsterName} recebeu o status {statusName}!",
+  "battleLogStatusStacked": "{monsterName}: o estado {statusName} se acumulou (×{stackCount})"
 }

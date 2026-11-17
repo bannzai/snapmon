@@ -182,5 +182,6 @@
   "battleLogConfusedMove": "{monsterName} összezavarodott, és {selectedMoveName} helyett {moveName} támadást használt",
   "battleLogOneHitKnockout": "K. O. egyetlen ütéssel!",
   "battleLogSelfDestructed": "{monsterName} felrobbantotta magát!",
-  "battleLogStatusInflicted": "{monsterName} most {statusName} állapotba került!"
+  "battleLogStatusInflicted": "{monsterName} most {statusName} állapotba került!",
+  "battleLogStatusStacked": "{monsterName}: a(z) {statusName} állapot erősödött (×{stackCount})"
 }

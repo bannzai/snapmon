@@ -182,5 +182,6 @@
   "battleLogConfusedMove": "{monsterName} ble forvirret og brukte {moveName} i stedet for {selectedMoveName}",
   "battleLogOneHitKnockout": "K.O. med ett slag!",
   "battleLogSelfDestructed": "{monsterName} sprengte seg selv!",
-  "battleLogStatusInflicted": "{monsterName} fikk statusen {statusName}!"
+  "battleLogStatusInflicted": "{monsterName} fikk statusen {statusName}!",
+  "battleLogStatusStacked": "{monsterName}: statusen {statusName} ble forsterket (×{stackCount})"
 }

@@ -182,5 +182,6 @@
   "battleLogConfusedMove": "{monsterName}은(는) 혼란에 빠져 {selectedMoveName} 대신 {moveName}을(를) 썼다",
   "battleLogOneHitKnockout": "일격 필살!",
   "battleLogSelfDestructed": "{monsterName}의 자폭!",
-  "battleLogStatusInflicted": "{monsterName}에게 {statusName} 상태가 걸렸다!"
+  "battleLogStatusInflicted": "{monsterName}에게 {statusName} 상태가 걸렸다!",
+  "battleLogStatusStacked": "{monsterName}의 {statusName} 상태가 중첩됐다 (×{stackCount})"
 }

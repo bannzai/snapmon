@@ -182,5 +182,6 @@
   "battleLogConfusedMove": "{monsterName} ਉਲਝ ਗਿਆ ਅਤੇ {selectedMoveName} ਦੀ ਥਾਂ {moveName} ਵਰਤਿਆ",
   "battleLogOneHitKnockout": "ਇੱਕੋ ਵਾਰ ਵਿੱਚ ਢੇਰ!",
   "battleLogSelfDestructed": "{monsterName} ਨੇ ਆਪਣੇ ਆਪ ਨੂੰ ਉਡਾ ਲਿਆ!",
-  "battleLogStatusInflicted": "{monsterName} ਹੁਣ {statusName} ਹਾਲਤ ਵਿੱਚ ਹੈ!"
+  "battleLogStatusInflicted": "{monsterName} ਹੁਣ {statusName} ਹਾਲਤ ਵਿੱਚ ਹੈ!",
+  "battleLogStatusStacked": "{monsterName}: {statusName} ਹਾਲਤ ਹੋਰ ਵਧ ਗਈ (×{stackCount})"
 }

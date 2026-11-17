@@ -182,5 +182,6 @@
   "battleLogConfusedMove": "{monsterName} запутался и применил {moveName} вместо {selectedMoveName}",
   "battleLogOneHitKnockout": "Нокаут одним ударом!",
   "battleLogSelfDestructed": "{monsterName} взорвал себя!",
-  "battleLogStatusInflicted": "{monsterName} получил статус {statusName}!"
+  "battleLogStatusInflicted": "{monsterName} получил статус {statusName}!",
+  "battleLogStatusStacked": "{monsterName}: эффект {statusName} усилился (×{stackCount})"
 }

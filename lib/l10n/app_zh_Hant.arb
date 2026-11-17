@@ -182,5 +182,6 @@
   "battleLogConfusedMove": "{monsterName}陷入混亂，沒有使出{selectedMoveName}，而是使出了{moveName}",
   "battleLogOneHitKnockout": "一擊必殺！",
   "battleLogSelfDestructed": "{monsterName} 自爆了！",
-  "battleLogStatusInflicted": "{monsterName}陷入了{statusName}狀態！"
+  "battleLogStatusInflicted": "{monsterName}陷入了{statusName}狀態！",
+  "battleLogStatusStacked": "{monsterName}的{statusName}狀態疊加了（×{stackCount}）"
 }

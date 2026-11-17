@@ -182,5 +182,6 @@
   "battleLogConfusedMove": "ارتبك {monsterName} واستخدم {moveName} بدلًا من {selectedMoveName}",
   "battleLogOneHitKnockout": "ضربة قاضية واحدة!",
   "battleLogSelfDestructed": "{monsterName} فجّر نفسه!",
-  "battleLogStatusInflicted": "أصبح {monsterName} في حالة {statusName}!"
+  "battleLogStatusInflicted": "أصبح {monsterName} في حالة {statusName}!",
+  "battleLogStatusStacked": "{monsterName}: تراكمت حالة {statusName} (×{stackCount})"
 }

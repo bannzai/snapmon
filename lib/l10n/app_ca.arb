@@ -182,5 +182,6 @@
   "battleLogConfusedMove": "{monsterName} s'ha confós i ha fet servir {moveName} en lloc de {selectedMoveName}",
   "battleLogOneHitKnockout": "KO d'un sol cop!",
   "battleLogSelfDestructed": "{monsterName} s'ha autodestruït!",
-  "battleLogStatusInflicted": "{monsterName} ha quedat en estat {statusName}!"
+  "battleLogStatusInflicted": "{monsterName} ha quedat en estat {statusName}!",
+  "battleLogStatusStacked": "{monsterName}: s'ha acumulat l'estat {statusName} (×{stackCount})"
 }

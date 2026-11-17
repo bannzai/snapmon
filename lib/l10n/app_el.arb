@@ -182,5 +182,6 @@
   "battleLogConfusedMove": "Ο {monsterName} μπερδεύτηκε και χρησιμοποίησε την κίνηση {moveName} αντί για την {selectedMoveName}",
   "battleLogOneHitKnockout": "Νοκ άουτ με ένα χτύπημα!",
   "battleLogSelfDestructed": "Το {monsterName} αυτοκαταστράφηκε!",
-  "battleLogStatusInflicted": "Ο {monsterName} απέκτησε την κατάσταση {statusName}!"
+  "battleLogStatusInflicted": "Ο {monsterName} απέκτησε την κατάσταση {statusName}!",
+  "battleLogStatusStacked": "{monsterName}: η κατάσταση {statusName} ενισχύθηκε (×{stackCount})"
 }

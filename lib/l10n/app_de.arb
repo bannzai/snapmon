@@ -182,5 +182,6 @@
   "battleLogConfusedMove": "{monsterName} war verwirrt und setzte statt {selectedMoveName} die Attacke {moveName} ein",
   "battleLogOneHitKnockout": "K. o. mit einem Treffer!",
   "battleLogSelfDestructed": "{monsterName} hat sich selbst zerstört!",
-  "battleLogStatusInflicted": "{monsterName} hat jetzt den Status {statusName}!"
+  "battleLogStatusInflicted": "{monsterName} hat jetzt den Status {statusName}!",
+  "battleLogStatusStacked": "{monsterName}: Der Status {statusName} hat sich verstärkt (×{stackCount})"
 }

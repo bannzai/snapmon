@@ -182,5 +182,6 @@
   "battleLogConfusedMove": "{monsterName} se zbunio i upotrijebio {moveName} umjesto {selectedMoveName}",
   "battleLogOneHitKnockout": "K. O. jednim udarcem!",
   "battleLogSelfDestructed": "{monsterName} se samouništio!",
-  "battleLogStatusInflicted": "{monsterName} je dobio stanje {statusName}!"
+  "battleLogStatusInflicted": "{monsterName} je dobio stanje {statusName}!",
+  "battleLogStatusStacked": "{monsterName}: stanje {statusName} se pojačalo (×{stackCount})"
 }

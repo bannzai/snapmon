@@ -182,5 +182,6 @@
   "battleLogConfusedMove": "{monsterName} meni sekaisin ja käytti liikkeen {moveName} liikkeen {selectedMoveName} sijaan",
   "battleLogOneHitKnockout": "Tyrmäys yhdellä iskulla!",
   "battleLogSelfDestructed": "{monsterName} räjäytti itsensä!",
-  "battleLogStatusInflicted": "{monsterName} sai tilan {statusName}!"
+  "battleLogStatusInflicted": "{monsterName} sai tilan {statusName}!",
+  "battleLogStatusStacked": "{monsterName}: tila {statusName} vahvistui (×{stackCount})"
 }

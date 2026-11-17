@@ -182,5 +182,6 @@
   "battleLogConfusedMove": "{monsterName} s-a zăpăcit și a folosit {moveName} în loc de {selectedMoveName}",
   "battleLogOneHitKnockout": "K.O. dintr-o singură lovitură!",
   "battleLogSelfDestructed": "{monsterName} s-a autodistrus!",
-  "battleLogStatusInflicted": "{monsterName} a primit starea {statusName}!"
+  "battleLogStatusInflicted": "{monsterName} a primit starea {statusName}!",
+  "battleLogStatusStacked": "{monsterName}: starea {statusName} s-a intensificat (×{stackCount})"
 }

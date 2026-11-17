@@ -182,5 +182,6 @@
   "battleLogConfusedMove": "{monsterName} raakte in de war en gebruikte {moveName} in plaats van {selectedMoveName}",
   "battleLogOneHitKnockout": "K.O. in één klap!",
   "battleLogSelfDestructed": "{monsterName} blies zichzelf op!",
-  "battleLogStatusInflicted": "{monsterName} heeft nu de status {statusName}!"
+  "battleLogStatusInflicted": "{monsterName} heeft nu de status {statusName}!",
+  "battleLogStatusStacked": "{monsterName}: de status {statusName} is versterkt (×{stackCount})"
 }

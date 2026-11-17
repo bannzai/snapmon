@@ -182,5 +182,6 @@
   "battleLogConfusedMove": "{monsterName} bingung dan memakai {moveName} alih-alih {selectedMoveName}",
   "battleLogOneHitKnockout": "KO dalam satu serangan!",
   "battleLogSelfDestructed": "{monsterName} meledakkan diri!",
-  "battleLogStatusInflicted": "{monsterName} terkena status {statusName}!"
+  "battleLogStatusInflicted": "{monsterName} terkena status {statusName}!",
+  "battleLogStatusStacked": "{monsterName}: efek {statusName} menumpuk (×{stackCount})"
 }

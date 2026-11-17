@@ -182,5 +182,6 @@
   "battleLogConfusedMove": "{monsterName} అయోమయంలో పడి {selectedMoveName} బదులు {moveName} ఉపయోగించింది",
   "battleLogOneHitKnockout": "ఒక్క దెబ్బకే ఓటమి!",
   "battleLogSelfDestructed": "{monsterName} తనను తాను పేల్చుకుంది!",
-  "battleLogStatusInflicted": "{monsterName} ఇప్పుడు {statusName} స్థితిలో ఉంది!"
+  "battleLogStatusInflicted": "{monsterName} ఇప్పుడు {statusName} స్థితిలో ఉంది!",
+  "battleLogStatusStacked": "{monsterName}: {statusName} స్థితి మరింత పెరిగింది (×{stackCount})"
 }
