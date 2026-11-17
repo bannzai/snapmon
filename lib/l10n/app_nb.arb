@@ -282,5 +282,6 @@
   "actionCardPurchaseArrivalDelayed": "Venter på at det skal dukke opp\nAngrepet du fikk, blir værende selv om du lukker denne skjermen",
   "actionCardPurchasePending": "Venter på at betalingen fullføres\nDu får angrepet når den er fullført, selv om du lukker denne skjermen",
   "actionCardPurchaseArrivedTitle": "Du fikk angrepet {moveName}!",
-  "actionCardPurchaseUnassignedTitle": "Kunne ikke motta angrepet"
+  "actionCardPurchaseUnassignedTitle": "Kunne ikke motta angrepet",
+  "actionCardPurchaseUnassignedBody": "Prisen på angrepet endret seg under kjøpet, eller du har angrepet fra før\nVelg et angrep på nytt under «Action Card du ikke har mottatt»"
 }

@@ -282,5 +282,6 @@
   "actionCardPurchaseArrivalDelayed": "Menunggu untuk muncul\nGerakan yang kamu dapat akan kekal walaupun skrin ini ditutup",
   "actionCardPurchasePending": "Menunggu bayaran selesai\nKamu akan dapat gerakan selepas bayaran selesai, walaupun skrin ini ditutup",
   "actionCardPurchaseArrivedTitle": "Kamu dapat jurus {moveName}!",
-  "actionCardPurchaseUnassignedTitle": "Gagal menerima gerakan"
+  "actionCardPurchaseUnassignedTitle": "Gagal menerima gerakan",
+  "actionCardPurchaseUnassignedBody": "Harga gerakan berubah semasa pembelian, atau kamu sudah ada gerakan itu\nPilih semula gerakan daripada «Action Card yang belum diterima»"
 }

@@ -282,5 +282,6 @@
   "actionCardPurchaseArrivalDelayed": "Esperant que aparegui\nEl moviment que has rebut es conservarà encara que tanquis aquesta pantalla",
   "actionCardPurchasePending": "Esperant que es completi el pagament\nRebràs el moviment quan es completi, encara que tanquis aquesta pantalla",
   "actionCardPurchaseArrivedTitle": "Has aconseguit {moveName}!",
-  "actionCardPurchaseUnassignedTitle": "No s'ha pogut rebre el moviment"
+  "actionCardPurchaseUnassignedTitle": "No s'ha pogut rebre el moviment",
+  "actionCardPurchaseUnassignedBody": "El preu del moviment ha canviat durant la compra, o ja el tens\nTorna a triar un moviment a «Action Card pendents de rebre»"
 }

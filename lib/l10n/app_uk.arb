@@ -282,5 +282,6 @@
   "actionCardPurchaseArrivalDelayed": "Чекаємо на появу\nОтриманий прийом залишиться в тебе, навіть якщо закриєш цей екран",
   "actionCardPurchasePending": "Очікуємо завершення оплати\nТи отримаєш прийом після її завершення, навіть якщо закриєш цей екран",
   "actionCardPurchaseArrivedTitle": "Ти отримав прийом {moveName}!",
-  "actionCardPurchaseUnassignedTitle": "Не вдалося отримати прийом"
+  "actionCardPurchaseUnassignedTitle": "Не вдалося отримати прийом",
+  "actionCardPurchaseUnassignedBody": "Ціна прийому змінилася під час покупки або цей прийом у тебе вже є\nЗнову вибери прийом у розділі «Неотримані Action Card»"
 }

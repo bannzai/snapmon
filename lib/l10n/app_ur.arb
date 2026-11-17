@@ -282,5 +282,6 @@
   "actionCardPurchaseArrivalDelayed": "ظاہر ہونے کا انتظار ہے\nیہ اسکرین بند کر دو تب بھی ملی ہوئی چال تمہارے پاس رہے گی",
   "actionCardPurchasePending": "ادائیگی مکمل ہونے کا انتظار ہے\nتم یہ اسکرین بند بھی کر دو تو ادائیگی مکمل ہونے پر چال مل جائے گی",
   "actionCardPurchaseArrivedTitle": "تمہیں {moveName} چال مل گئی!",
-  "actionCardPurchaseUnassignedTitle": "چال موصول نہیں ہوئی"
+  "actionCardPurchaseUnassignedTitle": "چال موصول نہیں ہوئی",
+  "actionCardPurchaseUnassignedBody": "خریدتے وقت چال کی قیمت بدل گئی، یا وہ چال تمہارے پاس پہلے سے ہے\n«نہ ملے ہوئے Action Card» میں سے دوبارہ چال چنو"
 }

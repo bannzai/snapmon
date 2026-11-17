@@ -282,5 +282,6 @@
   "actionCardPurchaseArrivalDelayed": "Wachten tot hij verschijnt\nDe aanval die je hebt gekregen, blijft van jou, ook als je dit scherm sluit",
   "actionCardPurchasePending": "Wachten tot de betaling is afgerond\nJe krijgt de aanval zodra de betaling rond is, ook als je dit scherm sluit",
   "actionCardPurchaseArrivedTitle": "Je hebt de aanval {moveName} gekregen!",
-  "actionCardPurchaseUnassignedTitle": "Kon de aanval niet ontvangen"
+  "actionCardPurchaseUnassignedTitle": "Kon de aanval niet ontvangen",
+  "actionCardPurchaseUnassignedBody": "De prijs van de aanval veranderde tijdens de aankoop, of je hebt die aanval al\nKies opnieuw een aanval bij ‘Niet ontvangen Action Card’"
 }

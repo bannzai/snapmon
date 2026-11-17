@@ -282,5 +282,6 @@
   "actionCardPurchaseArrivalDelayed": "Czekamy, aż się pojawi\nZdobyty ruch zostanie z tobą, nawet jeśli zamkniesz ten ekran",
   "actionCardPurchasePending": "Czekamy na zakończenie płatności\nDostaniesz ruch po jej zakończeniu, nawet jeśli zamkniesz ten ekran",
   "actionCardPurchaseArrivedTitle": "Zdobywasz ruch {moveName}!",
-  "actionCardPurchaseUnassignedTitle": "Nie udało się odebrać ruchu"
+  "actionCardPurchaseUnassignedTitle": "Nie udało się odebrać ruchu",
+  "actionCardPurchaseUnassignedBody": "Cena ruchu zmieniła się podczas zakupu albo masz już ten ruch\nWybierz ruch ponownie w „Nieodebranych Action Card”"
 }

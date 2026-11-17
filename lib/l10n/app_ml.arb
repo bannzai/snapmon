@@ -282,5 +282,6 @@
   "actionCardPurchaseArrivalDelayed": "കാണിക്കാൻ കാത്തിരിക്കുന്നു\nഈ സ്ക്രീൻ അടച്ചാലും ലഭിച്ച നീക്കം നിലനിൽക്കും",
   "actionCardPurchasePending": "പണമടയ്ക്കൽ പൂർത്തിയാകാൻ കാത്തിരിക്കുന്നു\nഈ സ്ക്രീൻ അടച്ചാലും പണമടയ്ക്കൽ പൂർത്തിയായാൽ നീക്കം ലഭിക്കും",
   "actionCardPurchaseArrivedTitle": "നിങ്ങൾക്ക് {moveName} എന്ന നീക്കം കിട്ടി!",
-  "actionCardPurchaseUnassignedTitle": "നീക്കം ലഭിച്ചില്ല"
+  "actionCardPurchaseUnassignedTitle": "നീക്കം ലഭിച്ചില്ല",
+  "actionCardPurchaseUnassignedBody": "വാങ്ങുന്നതിനിടെ നീക്കത്തിന്റെ വില മാറി, അല്ലെങ്കിൽ ആ നീക്കം നിങ്ങൾക്ക് ഇതിനകം ഉണ്ട്\n«ലഭിക്കാത്ത Action Card» എന്നതിൽ നിന്ന് വീണ്ടും ഒരു നീക്കം തിരഞ്ഞെടുക്കൂ"
 }

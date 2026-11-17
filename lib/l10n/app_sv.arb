@@ -282,5 +282,6 @@
   "actionCardPurchaseArrivalDelayed": "Väntar på att den ska dyka upp\nAttacken du fick finns kvar även om du stänger den här skärmen",
   "actionCardPurchasePending": "Väntar på att betalningen slutförs\nDu får attacken när den är klar, även om du stänger den här skärmen",
   "actionCardPurchaseArrivedTitle": "Du fick attacken {moveName}!",
-  "actionCardPurchaseUnassignedTitle": "Kunde inte ta emot attacken"
+  "actionCardPurchaseUnassignedTitle": "Kunde inte ta emot attacken",
+  "actionCardPurchaseUnassignedBody": "Priset på attacken ändrades under köpet, eller så har du redan attacken\nVälj en attack igen under ”Action Card som inte hämtats ut”"
 }

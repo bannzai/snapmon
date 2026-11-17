@@ -282,5 +282,6 @@
   "actionCardPurchaseArrivalDelayed": "Menunggu muncul\nJurus yang kamu dapat tetap ada meski layar ini ditutup",
   "actionCardPurchasePending": "Menunggu pembayaran selesai\nJurus akan kamu terima setelah pembayaran selesai, meski layar ini ditutup",
   "actionCardPurchaseArrivedTitle": "Kamu mendapatkan jurus {moveName}!",
-  "actionCardPurchaseUnassignedTitle": "Gagal menerima jurus"
+  "actionCardPurchaseUnassignedTitle": "Gagal menerima jurus",
+  "actionCardPurchaseUnassignedBody": "Harga jurus berubah saat pembelian, atau kamu sudah punya jurus itu\nPilih lagi jurus dari «Action Card yang belum diterima»"
 }

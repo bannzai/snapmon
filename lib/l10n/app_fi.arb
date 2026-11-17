@@ -282,5 +282,6 @@
   "actionCardPurchaseArrivalDelayed": "Odotetaan sen ilmestymistä\nSaamasi liike säilyy, vaikka suljet tämän näkymän",
   "actionCardPurchasePending": "Odotetaan maksun valmistumista\nSaat liikkeen maksun valmistuttua, vaikka sulkisit tämän näkymän",
   "actionCardPurchaseArrivedTitle": "Sait liikkeen {moveName}!",
-  "actionCardPurchaseUnassignedTitle": "Et saanut liikettä"
+  "actionCardPurchaseUnassignedTitle": "Et saanut liikettä",
+  "actionCardPurchaseUnassignedBody": "Liikkeen hinta muuttui oston aikana tai sinulla on jo se liike\nValitse liike uudelleen kohdasta ”Vastaanottamattomat Action Card”"
 }

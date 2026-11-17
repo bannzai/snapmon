@@ -282,5 +282,6 @@
   "actionCardPurchaseArrivalDelayed": "반영되기를 기다리고 있어요\n이 화면을 닫아도 받은 기술은 그대로 남아요",
   "actionCardPurchasePending": "결제가 완료되길 기다리고 있어요\n이 화면을 닫아도 결제가 완료되면 기술을 받을 수 있어요",
   "actionCardPurchaseArrivedTitle": "기술 {moveName}을 손에 넣었어요!",
-  "actionCardPurchaseUnassignedTitle": "기술을 받지 못했어요"
+  "actionCardPurchaseUnassignedTitle": "기술을 받지 못했어요",
+  "actionCardPurchaseUnassignedBody": "구매 중 기술 가격이 바뀌었거나 이미 가진 기술이에요\n‘받지 못한 Action Card’에서 기술을 다시 골라 주세요"
 }

@@ -282,5 +282,6 @@
   "actionCardPurchaseArrivalDelayed": "מחכים שהיא תופיע\nהמתקפה שהתקבלה תישאר גם אחרי סגירת המסך הזה",
   "actionCardPurchasePending": "ממתינים להשלמת התשלום\nהמתקפה תגיע כשהתשלום יושלם, גם אם סוגרים את המסך הזה",
   "actionCardPurchaseArrivedTitle": "המתקפה {moveName} התקבלה!",
-  "actionCardPurchaseUnassignedTitle": "לא ניתן לקבל את המתקפה"
+  "actionCardPurchaseUnassignedTitle": "לא ניתן לקבל את המתקפה",
+  "actionCardPurchaseUnassignedBody": "מחיר המתקפה השתנה בזמן הקנייה, או שהמתקפה כבר אצלך\nיש לבחור מתקפה מחדש מתוך ״Action Card שטרם התקבלו״"
 }

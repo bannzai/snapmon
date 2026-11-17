@@ -282,5 +282,6 @@
   "actionCardPurchaseArrivalDelayed": "Görünmesini bekliyoruz\nBu ekranı kapatsan da aldığın hamle sende kalacak",
   "actionCardPurchasePending": "Ödemenin tamamlanması bekleniyor\nBu ekranı kapatsan da ödeme tamamlanınca hamleyi alacaksın",
   "actionCardPurchaseArrivedTitle": "{moveName} hamlesini kazandın!",
-  "actionCardPurchaseUnassignedTitle": "hamle alınamadı"
+  "actionCardPurchaseUnassignedTitle": "hamle alınamadı",
+  "actionCardPurchaseUnassignedBody": "Satın alırken hamlenin fiyatı değişti ya da bu hamle sende zaten var\n«Alınmamış Action Card» bölümünden yeniden bir hamle seç"
 }

@@ -282,5 +282,6 @@
   "actionCardPurchaseArrivalDelayed": "Čekáme, až se objeví\nÚtok, který jsi získal, ti zůstane, i když tuto obrazovku zavřeš",
   "actionCardPurchasePending": "Čeká se na dokončení platby\nÚtok dostaneš po dokončení platby, i když tuto obrazovku zavřeš",
   "actionCardPurchaseArrivedTitle": "Získáváš útok {moveName}!",
-  "actionCardPurchaseUnassignedTitle": "Útok se nepodařilo získat"
+  "actionCardPurchaseUnassignedTitle": "Útok se nepodařilo získat",
+  "actionCardPurchaseUnassignedBody": "Během nákupu se změnila cena útoku, nebo už ten útok máš\nVyber si útok znovu v «Nevyzvednuté Action Card»"
 }

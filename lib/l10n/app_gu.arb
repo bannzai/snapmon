@@ -282,5 +282,6 @@
   "actionCardPurchaseArrivalDelayed": "દેખાવાની રાહ જોઈ રહ્યાં છીએ\nઆ સ્ક્રીન બંધ કરશો તો પણ મળેલી ચાલ તમારી પાસે રહેશે",
   "actionCardPurchasePending": "ચુકવણી પૂર્ણ થવાની રાહ જોવાઈ રહી છે\nતમે આ સ્ક્રીન બંધ કરો તો પણ ચુકવણી પૂર્ણ થતાં ચાલ મળશે",
   "actionCardPurchaseArrivedTitle": "તમને {moveName} ચાલ મળી!",
-  "actionCardPurchaseUnassignedTitle": "ચાલ મળી શકી નહીં"
+  "actionCardPurchaseUnassignedTitle": "ચાલ મળી શકી નહીં",
+  "actionCardPurchaseUnassignedBody": "ખરીદી દરમિયાન ચાલની કિંમત બદલાઈ ગઈ, અથવા એ ચાલ તમારી પાસે પહેલેથી છે\n«ન મળેલા Action Card»માંથી ફરી ચાલ પસંદ કરો"
 }

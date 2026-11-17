@@ -282,5 +282,6 @@
   "actionCardPurchaseArrivalDelayed": "正在等待顯示\n關閉此畫面後，收到的招式也會保留",
   "actionCardPurchasePending": "正在等待付款完成\n即使關閉此畫面，付款完成後你也會收到招式",
   "actionCardPurchaseArrivedTitle": "獲得招式{moveName}！",
-  "actionCardPurchaseUnassignedTitle": "無法收到招式"
+  "actionCardPurchaseUnassignedTitle": "無法收到招式",
+  "actionCardPurchaseUnassignedBody": "購買期間招式價格變了，或是你已經擁有該招式\n請從「尚未領取的 Action Card」重新選擇招式"
 }
