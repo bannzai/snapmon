@@ -155,5 +155,6 @@
   "shareFormatLandscape": "Querformat",
   "shareFormatPortraitDescription": "Für Storys 1080×1920",
   "shareFormatLandscapeDescription": "Für Beiträge 1200×630",
-  "shareConfirm": "Teilen"
+  "shareConfirm": "Teilen",
+  "commonLevelUp": "Lv. {oldLevel} → {newLevel}"
 }

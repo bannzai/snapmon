@@ -155,5 +155,6 @@
   "shareFormatLandscape": "Horizontal",
   "shareFormatPortraitDescription": "Para stories 1080×1920",
   "shareFormatLandscapeDescription": "Para publicações 1200×630",
-  "shareConfirm": "Compartilhar"
+  "shareConfirm": "Compartilhar",
+  "commonLevelUp": "Lv. {oldLevel} → {newLevel}"
 }

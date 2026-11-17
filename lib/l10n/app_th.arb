@@ -155,5 +155,6 @@
   "shareFormatLandscape": "แนวนอน",
   "shareFormatPortraitDescription": "สำหรับสตอรี่ 1080×1920",
   "shareFormatLandscapeDescription": "สำหรับโพสต์ 1200×630",
-  "shareConfirm": "แชร์"
+  "shareConfirm": "แชร์",
+  "commonLevelUp": "Lv. {oldLevel} → {newLevel}"
 }

@@ -155,5 +155,6 @@
   "shareFormatLandscape": "Горизонтально",
   "shareFormatPortraitDescription": "Для історій 1080×1920",
   "shareFormatLandscapeDescription": "Для дописів 1200×630",
-  "shareConfirm": "Поділитися"
+  "shareConfirm": "Поділитися",
+  "commonLevelUp": "Lv. {oldLevel} → {newLevel}"
 }

@@ -155,5 +155,6 @@
   "shareFormatLandscape": "Οριζόντιο",
   "shareFormatPortraitDescription": "Για ιστορίες 1080×1920",
   "shareFormatLandscapeDescription": "Για αναρτήσεις 1200×630",
-  "shareConfirm": "Κοινοποίηση"
+  "shareConfirm": "Κοινοποίηση",
+  "commonLevelUp": "Lv. {oldLevel} → {newLevel}"
 }

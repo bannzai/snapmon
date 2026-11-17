@@ -155,5 +155,6 @@
   "shareFormatLandscape": "Fekvő",
   "shareFormatPortraitDescription": "Sztorikhoz 1080×1920",
   "shareFormatLandscapeDescription": "Bejegyzésekhez 1200×630",
-  "shareConfirm": "Megosztás"
+  "shareConfirm": "Megosztás",
+  "commonLevelUp": "Lv. {oldLevel} → {newLevel}"
 }

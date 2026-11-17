@@ -155,5 +155,6 @@
   "shareFormatLandscape": "Vaaka",
   "shareFormatPortraitDescription": "Tarinoihin 1080×1920",
   "shareFormatLandscapeDescription": "Julkaisuihin 1200×630",
-  "shareConfirm": "Jaa"
+  "shareConfirm": "Jaa",
+  "commonLevelUp": "Lv. {oldLevel} → {newLevel}"
 }

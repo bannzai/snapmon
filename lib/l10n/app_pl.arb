@@ -155,5 +155,6 @@
   "shareFormatLandscape": "Poziomo",
   "shareFormatPortraitDescription": "Do relacji 1080×1920",
   "shareFormatLandscapeDescription": "Do postów 1200×630",
-  "shareConfirm": "Udostępnij"
+  "shareConfirm": "Udostępnij",
+  "commonLevelUp": "Lv. {oldLevel} → {newLevel}"
 }

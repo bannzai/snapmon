@@ -155,5 +155,6 @@
   "shareFormatLandscape": "افقی",
   "shareFormatPortraitDescription": "اسٹوریز کے لیے 1080×1920",
   "shareFormatLandscapeDescription": "پوسٹس کے لیے 1200×630",
-  "shareConfirm": "شیئر کرو"
+  "shareConfirm": "شیئر کرو",
+  "commonLevelUp": "Lv. {oldLevel} → {newLevel}"
 }

@@ -155,5 +155,6 @@
   "shareFormatLandscape": "Na šírku",
   "shareFormatPortraitDescription": "Pre príbehy 1080×1920",
   "shareFormatLandscapeDescription": "Na príspevky 1200×630",
-  "shareConfirm": "Zdieľaj"
+  "shareConfirm": "Zdieľaj",
+  "commonLevelUp": "Lv. {oldLevel} → {newLevel}"
 }

@@ -155,5 +155,6 @@
   "shareFormatLandscape": "ਲੇਟਵਾਂ",
   "shareFormatPortraitDescription": "ਸਟੋਰੀਆਂ ਲਈ 1080×1920",
   "shareFormatLandscapeDescription": "ਪੋਸਟਾਂ ਲਈ 1200×630",
-  "shareConfirm": "ਸਾਂਝਾ ਕਰੋ"
+  "shareConfirm": "ਸਾਂਝਾ ਕਰੋ",
+  "commonLevelUp": "Lv. {oldLevel} → {newLevel}"
 }

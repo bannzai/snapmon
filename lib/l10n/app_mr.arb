@@ -155,5 +155,6 @@
   "shareFormatLandscape": "आडवे",
   "shareFormatPortraitDescription": "स्टोरीसाठी 1080×1920",
   "shareFormatLandscapeDescription": "पोस्टसाठी 1200×630",
-  "shareConfirm": "शेअर कर"
+  "shareConfirm": "शेअर कर",
+  "commonLevelUp": "Lv. {oldLevel} → {newLevel}"
 }

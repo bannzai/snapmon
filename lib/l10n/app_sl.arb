@@ -155,5 +155,6 @@
   "shareFormatLandscape": "Ležeče",
   "shareFormatPortraitDescription": "Za zgodbe 1080×1920",
   "shareFormatLandscapeDescription": "Za objave 1200×630",
-  "shareConfirm": "Deli"
+  "shareConfirm": "Deli",
+  "commonLevelUp": "Lv. {oldLevel} → {newLevel}"
 }

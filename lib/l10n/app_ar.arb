@@ -155,5 +155,6 @@
   "shareFormatLandscape": "أفقي",
   "shareFormatPortraitDescription": "للستوري 1080×1920",
   "shareFormatLandscapeDescription": "للنشر 1200×630",
-  "shareConfirm": "مشاركة"
+  "shareConfirm": "مشاركة",
+  "commonLevelUp": "Lv. {oldLevel} → {newLevel}"
 }

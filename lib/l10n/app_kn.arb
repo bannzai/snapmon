@@ -155,5 +155,6 @@
   "shareFormatLandscape": "ಅಡ್ಡ",
   "shareFormatPortraitDescription": "ಸ್ಟೋರಿಗಳಿಗಾಗಿ 1080×1920",
   "shareFormatLandscapeDescription": "ಪೋಸ್ಟ್‌ಗಳಿಗೆ 1200×630",
-  "shareConfirm": "ಹಂಚಿಕೊಳ್ಳು"
+  "shareConfirm": "ಹಂಚಿಕೊಳ್ಳು",
+  "commonLevelUp": "Lv. {oldLevel} → {newLevel}"
 }

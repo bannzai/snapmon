@@ -155,5 +155,6 @@
   "shareFormatLandscape": "આડું",
   "shareFormatPortraitDescription": "સ્ટોરી માટે 1080×1920",
   "shareFormatLandscapeDescription": "પોસ્ટ માટે 1200×630",
-  "shareConfirm": "શેર કરો"
+  "shareConfirm": "શેર કરો",
+  "commonLevelUp": "Lv. {oldLevel} → {newLevel}"
 }

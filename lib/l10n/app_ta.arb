@@ -155,5 +155,6 @@
   "shareFormatLandscape": "கிடைமட்டம்",
   "shareFormatPortraitDescription": "ஸ்டோரிகளுக்கு 1080×1920",
   "shareFormatLandscapeDescription": "பதிவுகளுக்கு 1200×630",
-  "shareConfirm": "பகிருங்கள்"
+  "shareConfirm": "பகிருங்கள்",
+  "commonLevelUp": "Lv. {oldLevel} → {newLevel}"
 }

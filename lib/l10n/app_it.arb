@@ -155,5 +155,6 @@
   "shareFormatLandscape": "Orizzontale",
   "shareFormatPortraitDescription": "Per le storie 1080×1920",
   "shareFormatLandscapeDescription": "Per i post 1200×630",
-  "shareConfirm": "Condividi"
+  "shareConfirm": "Condividi",
+  "commonLevelUp": "Lv. {oldLevel} → {newLevel}"
 }

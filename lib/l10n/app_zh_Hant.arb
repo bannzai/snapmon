@@ -155,5 +155,6 @@
   "shareFormatLandscape": "橫式",
   "shareFormatPortraitDescription": "適合限時動態 1080×1920",
   "shareFormatLandscapeDescription": "貼文用 1200×630",
-  "shareConfirm": "分享"
+  "shareConfirm": "分享",
+  "commonLevelUp": "Lv. {oldLevel} → {newLevel}"
 }
