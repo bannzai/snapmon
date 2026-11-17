@@ -186,5 +186,6 @@
   "battleLogStatusStacked": "L’effet {statusName} sur {monsterName} s’est cumulé (×{stackCount})",
   "battleLogStatusReplaced": "Le statut de {monsterName} passe de {previousStatusName} à {statusName}",
   "battleLogCursedStat": "Malédiction sur {statName} de {monsterName} !",
-  "battleLogStatusCured": "Fin de {statusName} pour {monsterName} !"
+  "battleLogStatusCured": "Fin de {statusName} pour {monsterName} !",
+  "battleLogStatusDamage": "{monsterName} subit des dégâts à cause de {statusName} !"
 }
