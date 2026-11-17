@@ -169,5 +169,6 @@
   "battleLogStatRose": "Показатель {statName} у {monsterName} вырос!",
   "battleLogStatFell": "Показатель {statName} у {monsterName} снизился",
   "battleLogStatUnchanged": "Показатель {statName} у {monsterName} больше не может измениться",
-  "battleLogRecovered": "{monsterName} восстановил {amount} HP"
+  "battleLogRecovered": "{monsterName} восстановил {amount} HP",
+  "battleLogNoEffect": "Но ничего не произошло"
 }

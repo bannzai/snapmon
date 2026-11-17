@@ -169,5 +169,6 @@
   "battleLogStatRose": "O atributo {statName} de {monsterName} aumentou!",
   "battleLogStatFell": "O atributo {statName} de {monsterName} caiu",
   "battleLogStatUnchanged": "O valor de {statName} de {monsterName} não pode mais mudar",
-  "battleLogRecovered": "{monsterName} recuperou {amount} HP"
+  "battleLogRecovered": "{monsterName} recuperou {amount} HP",
+  "battleLogNoEffect": "Mas nada aconteceu"
 }

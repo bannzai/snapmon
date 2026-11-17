@@ -169,5 +169,6 @@
   "battleLogStatRose": "הנתון {statName} של {monsterName} עלה!",
   "battleLogStatFell": "הנתון {statName} של {monsterName} ירד",
   "battleLogStatUnchanged": "אי אפשר עוד לשנות את {statName} של {monsterName}",
-  "battleLogRecovered": "ל־{monsterName} חזרו {amount} HP"
+  "battleLogRecovered": "ל־{monsterName} חזרו {amount} HP",
+  "battleLogNoEffect": "אבל שום דבר לא קרה"
 }

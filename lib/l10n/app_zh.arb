@@ -169,5 +169,6 @@
   "battleLogStatRose": "{monsterName}的{statName}提高了！",
   "battleLogStatFell": "{monsterName}的{statName}下降了",
   "battleLogStatUnchanged": "{monsterName}的{statName}已经无法再变化了",
-  "battleLogRecovered": "{monsterName}恢复了{amount} HP"
+  "battleLogRecovered": "{monsterName}恢复了{amount} HP",
+  "battleLogNoEffect": "但什么也没发生"
 }

@@ -169,5 +169,6 @@
   "battleLogStatRose": "{monsterName} {statName} értéke nőtt!",
   "battleLogStatFell": "{monsterName}: {statName} csökkent",
   "battleLogStatUnchanged": "{monsterName} {statName} értéke már nem változhat",
-  "battleLogRecovered": "{monsterName} visszanyert {amount} HP-t"
+  "battleLogRecovered": "{monsterName} visszanyert {amount} HP-t",
+  "battleLogNoEffect": "De nem történt semmi"
 }

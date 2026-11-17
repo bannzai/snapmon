@@ -169,5 +169,6 @@
   "battleLogStatRose": "{statName} milik {monsterName} naik!",
   "battleLogStatFell": "{statName} milik {monsterName} turun",
   "battleLogStatUnchanged": "{statName} milik {monsterName} tak bisa berubah lagi",
-  "battleLogRecovered": "{monsterName} memulihkan {amount} HP"
+  "battleLogRecovered": "{monsterName} memulihkan {amount} HP",
+  "battleLogNoEffect": "Tapi tidak terjadi apa-apa"
 }

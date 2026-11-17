@@ -169,5 +169,6 @@
   "battleLogStatRose": "{monsterName}નું {statName} વધ્યું!",
   "battleLogStatFell": "{monsterName}નું {statName} ઘટ્યું",
   "battleLogStatUnchanged": "{monsterName}નું {statName} હવે બદલાઈ શકતું નથી",
-  "battleLogRecovered": "{monsterName}એ {amount} HP પાછા મેળવ્યા"
+  "battleLogRecovered": "{monsterName}એ {amount} HP પાછા મેળવ્યા",
+  "battleLogNoEffect": "પણ કંઈ થયું નહીં"
 }
