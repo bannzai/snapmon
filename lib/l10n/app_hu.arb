@@ -233,5 +233,6 @@
   "titleContinue": "Folytatás",
   "titleContinueWithCount": "Folytatás (gyűjtemény {monsterCount})",
   "titleMinimumAge": "{age} éves kortól",
-  "titlePrivacy": "Adatvédelem"
+  "titlePrivacy": "Adatvédelem",
+  "titleHeading": "A körülötted lévő tárgyak\nszörnyekké válnak és harcolnak"
 }

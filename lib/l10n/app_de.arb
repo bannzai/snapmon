@@ -233,5 +233,6 @@
   "titleContinue": "Fortsetzen",
   "titleContinueWithCount": "Weiterspielen (Dex {monsterCount})",
   "titleMinimumAge": "Ab {age} Jahren",
-  "titlePrivacy": "Datenschutz"
+  "titlePrivacy": "Datenschutz",
+  "titleHeading": "Dinge um dich herum\nwerden zu Monstern und kämpfen"
 }

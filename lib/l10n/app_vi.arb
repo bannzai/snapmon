@@ -233,5 +233,6 @@
   "titleContinue": "Chơi tiếp",
   "titleContinueWithCount": "Chơi tiếp (bộ sưu tập {monsterCount})",
   "titleMinimumAge": "Dành cho người từ {age} tuổi",
-  "titlePrivacy": "Quyền riêng tư"
+  "titlePrivacy": "Quyền riêng tư",
+  "titleHeading": "Đồ vật quanh bạn\nbiến thành quái vật và chiến đấu"
 }

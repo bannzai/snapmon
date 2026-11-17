@@ -233,5 +233,6 @@
   "titleContinue": "متابعة اللعب",
   "titleContinueWithCount": "تابع (الموسوعة {monsterCount})",
   "titleMinimumAge": "للأعمار من {age} سنة فما فوق",
-  "titlePrivacy": "الخصوصية"
+  "titlePrivacy": "الخصوصية",
+  "titleHeading": "أشياء من حولك\nتصير وحوشًا وتقاتل"
 }

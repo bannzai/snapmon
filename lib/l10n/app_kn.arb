@@ -233,5 +233,6 @@
   "titleContinue": "ಆಟ ಮುಂದುವರಿಸು",
   "titleContinueWithCount": "ಮುಂದುವರಿಸು (ವಿಶ್ವಕೋಶ {monsterCount})",
   "titleMinimumAge": "{age} ವರ್ಷ ಮತ್ತು ಮೇಲ್ಪಟ್ಟವರಿಗೆ",
-  "titlePrivacy": "ಗೌಪ್ಯತೆ"
+  "titlePrivacy": "ಗೌಪ್ಯತೆ",
+  "titleHeading": "ನಿನ್ನ ಸುತ್ತಲಿನ ವಸ್ತುಗಳು\nಮಾನ್ಸ್ಟರ್‌ಗಳಾಗಿ ಹೋರಾಡುತ್ತವೆ"
 }

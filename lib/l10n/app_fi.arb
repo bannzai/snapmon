@@ -233,5 +233,6 @@
   "titleContinue": "Jatka",
   "titleContinueWithCount": "Jatka (kokoelma {monsterCount})",
   "titleMinimumAge": "Vähintään {age}-vuotiaille",
-  "titlePrivacy": "Tietosuoja"
+  "titlePrivacy": "Tietosuoja",
+  "titleHeading": "Arjen esineistä tulee\nhirviöitä, jotka taistelevat"
 }

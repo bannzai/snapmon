@@ -233,5 +233,6 @@
   "titleContinue": "விளையாட்டைத் தொடருங்கள்",
   "titleContinueWithCount": "தொடருங்கள் (களஞ்சியம் {monsterCount})",
   "titleMinimumAge": "{age} வயது மற்றும் அதற்கு மேற்பட்டவர்களுக்கு",
-  "titlePrivacy": "தனியுரிமை"
+  "titlePrivacy": "தனியுரிமை",
+  "titleHeading": "உங்களைச் சுற்றியுள்ள பொருட்கள்\nமான்ஸ்டர்களாக மாறிப் போரிடும்"
 }

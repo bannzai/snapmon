@@ -233,5 +233,6 @@
   "titleContinue": "کھیل جاری رکھو",
   "titleContinueWithCount": "آگے کھیلو (ڈیکس {monsterCount})",
   "titleMinimumAge": "{age} سال یا اس سے زیادہ عمر کے لیے",
-  "titlePrivacy": "رازداری"
+  "titlePrivacy": "رازداری",
+  "titleHeading": "تمہارے آس پاس کی چیزیں\nمونسٹر بن کر لڑتی ہیں"
 }

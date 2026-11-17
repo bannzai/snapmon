@@ -233,5 +233,6 @@
   "titleContinue": "Continuar",
   "titleContinueWithCount": "Continuar (enciclopédia {monsterCount})",
   "titleMinimumAge": "A partir dos {age} anos",
-  "titlePrivacy": "Privacidade"
+  "titlePrivacy": "Privacidade",
+  "titleHeading": "Os objetos à tua volta\nviram monstros e combatem"
 }

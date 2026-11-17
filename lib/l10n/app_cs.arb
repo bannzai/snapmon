@@ -233,5 +233,6 @@
   "titleContinue": "Pokračovat",
   "titleContinueWithCount": "Pokračuj (encyklopedie {monsterCount})",
   "titleMinimumAge": "Od {age} let",
-  "titlePrivacy": "Soukromí"
+  "titlePrivacy": "Soukromí",
+  "titleHeading": "Věci kolem tebe\nse mění v příšery a bojují"
 }

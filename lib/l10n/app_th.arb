@@ -233,5 +233,6 @@
   "titleContinue": "เล่นต่อ",
   "titleContinueWithCount": "เล่นต่อ (สารานุกรม {monsterCount})",
   "titleMinimumAge": "สำหรับผู้มีอายุ {age} ปีขึ้นไป",
-  "titlePrivacy": "ความเป็นส่วนตัว"
+  "titlePrivacy": "ความเป็นส่วนตัว",
+  "titleHeading": "สิ่งของรอบตัว\nกลายเป็นมอนสเตอร์แล้วต่อสู้"
 }

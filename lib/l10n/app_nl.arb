@@ -233,5 +233,6 @@
   "titleContinue": "Verder spelen",
   "titleContinueWithCount": "Verder spelen (dex {monsterCount})",
   "titleMinimumAge": "Vanaf {age} jaar",
-  "titlePrivacy": "Privacy"
+  "titlePrivacy": "Privacy",
+  "titleHeading": "Spullen om je heen\nworden monsters en vechten"
 }

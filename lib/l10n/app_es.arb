@@ -233,5 +233,6 @@
   "titleContinue": "Continuar",
   "titleContinueWithCount": "Continuar (colección {monsterCount})",
   "titleMinimumAge": "A partir de {age} años",
-  "titlePrivacy": "Privacidad"
+  "titlePrivacy": "Privacidad",
+  "titleHeading": "Los objetos que te rodean\nse vuelven monstruos y luchan"
 }

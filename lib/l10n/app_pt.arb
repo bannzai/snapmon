@@ -233,5 +233,6 @@
   "titleContinue": "Continuar",
   "titleContinueWithCount": "Continuar (dex {monsterCount})",
   "titleMinimumAge": "A partir de {age} anos",
-  "titlePrivacy": "Privacidade"
+  "titlePrivacy": "Privacidade",
+  "titleHeading": "Objetos ao seu redor\nviram monstros e batalham"
 }

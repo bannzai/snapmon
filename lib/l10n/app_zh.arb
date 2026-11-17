@@ -233,5 +233,6 @@
   "titleContinue": "继续游戏",
   "titleContinueWithCount": "继续游戏（图鉴 {monsterCount}）",
   "titleMinimumAge": "适合{age}岁及以上",
-  "titlePrivacy": "隐私"
+  "titlePrivacy": "隐私",
+  "titleHeading": "身边的物品\n化身怪物，展开战斗"
 }

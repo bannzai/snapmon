@@ -233,5 +233,6 @@
   "titleContinue": "રમત આગળ ચાલુ રાખો",
   "titleContinueWithCount": "આગળ રમો (ડેક્સ {monsterCount})",
   "titleMinimumAge": "{age} વર્ષ કે તેથી વધુ ઉંમર માટે",
-  "titlePrivacy": "ગોપનીયતા"
+  "titlePrivacy": "ગોપનીયતા",
+  "titleHeading": "આસપાસની વસ્તુઓ\nમોન્સ્ટર બનીને લડે"
 }

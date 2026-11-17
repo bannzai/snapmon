@@ -233,5 +233,6 @@
   "titleContinue": "Lanjutkan",
   "titleContinueWithCount": "Lanjutkan (dex {monsterCount})",
   "titleMinimumAge": "Untuk usia {age} tahun ke atas",
-  "titlePrivacy": "Privasi"
+  "titlePrivacy": "Privasi",
+  "titleHeading": "Benda di sekitarmu\njadi monster dan bertarung"
 }

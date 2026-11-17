@@ -233,5 +233,6 @@
   "titleContinue": "Συνέχεια",
   "titleContinueWithCount": "Συνέχεια (εγκυκλοπαίδεια {monsterCount})",
   "titleMinimumAge": "Από {age} ετών",
-  "titlePrivacy": "Απόρρητο"
+  "titlePrivacy": "Απόρρητο",
+  "titleHeading": "Πράγματα γύρω σου\nγίνονται τέρατα και μάχονται"
 }

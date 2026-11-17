@@ -233,5 +233,6 @@
   "titleContinue": "Devam et",
   "titleContinueWithCount": "Devam et (ansiklopedi {monsterCount})",
   "titleMinimumAge": "{age} yaş ve üzeri için",
-  "titlePrivacy": "Gizlilik"
+  "titlePrivacy": "Gizlilik",
+  "titleHeading": "Etrafındaki eşyalar\ncanavara dönüşüp savaşıyor"
 }

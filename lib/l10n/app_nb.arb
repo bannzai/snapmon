@@ -233,5 +233,6 @@
   "titleContinue": "Fortsett",
   "titleContinueWithCount": "Fortsett (samling {monsterCount})",
   "titleMinimumAge": "Fra {age} år",
-  "titlePrivacy": "Personvern"
+  "titlePrivacy": "Personvern",
+  "titleHeading": "Ting rundt deg\nblir monstre og kjemper"
 }

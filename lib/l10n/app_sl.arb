@@ -233,5 +233,6 @@
   "titleContinue": "Nadaljuj",
   "titleContinueWithCount": "Nadaljuj (enciklopedija {monsterCount})",
   "titleMinimumAge": "Od {age} let",
-  "titlePrivacy": "Zasebnost"
+  "titlePrivacy": "Zasebnost",
+  "titleHeading": "Stvari okoli tebe\npostanejo pošasti in se borijo"
 }

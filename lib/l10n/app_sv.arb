@@ -233,5 +233,6 @@
   "titleContinue": "Fortsätt",
   "titleContinueWithCount": "Fortsätt (samling {monsterCount})",
   "titleMinimumAge": "Från {age} år",
-  "titlePrivacy": "Integritet"
+  "titlePrivacy": "Integritet",
+  "titleHeading": "Saker omkring dig\nblir monster och slåss"
 }

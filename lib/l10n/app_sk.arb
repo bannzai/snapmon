@@ -233,5 +233,6 @@
   "titleContinue": "Pokračovať",
   "titleContinueWithCount": "Pokračuj (encyklopédia {monsterCount})",
   "titleMinimumAge": "Od {age} rokov",
-  "titlePrivacy": "Súkromie"
+  "titlePrivacy": "Súkromie",
+  "titleHeading": "Veci okolo teba\nsa menia na príšery a bojujú"
 }

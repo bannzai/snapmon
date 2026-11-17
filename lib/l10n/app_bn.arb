@@ -233,5 +233,6 @@
   "titleContinue": "খেলা চালিয়ে যাও",
   "titleContinueWithCount": "চালিয়ে যাও (সংগ্রহ {monsterCount})",
   "titleMinimumAge": "{age} বছর বা তার বেশি বয়সীদের জন্য",
-  "titlePrivacy": "গোপনীয়তা"
+  "titlePrivacy": "গোপনীয়তা",
+  "titleHeading": "চারপাশের জিনিস\nমনস্টার হয়ে লড়ে"
 }

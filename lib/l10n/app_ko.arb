@@ -233,5 +233,6 @@
   "titleContinue": "이어하기",
   "titleContinueWithCount": "이어하기 (도감 {monsterCount})",
   "titleMinimumAge": "{age}세 이상 이용가",
-  "titlePrivacy": "개인정보 보호"
+  "titlePrivacy": "개인정보 보호",
+  "titleHeading": "주변의 물건이\n몬스터가 되어 싸워요"
 }

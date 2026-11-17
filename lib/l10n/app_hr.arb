@@ -233,5 +233,6 @@
   "titleContinue": "Nastavi",
   "titleContinueWithCount": "Nastavi (enciklopedija {monsterCount})",
   "titleMinimumAge": "Za dob od {age} godina",
-  "titlePrivacy": "Privatnost"
+  "titlePrivacy": "Privatnost",
+  "titleHeading": "Stvari oko tebe\npostaju čudovišta i bore se"
 }

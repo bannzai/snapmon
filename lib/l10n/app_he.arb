@@ -233,5 +233,6 @@
   "titleContinue": "המשך משחק",
   "titleContinueWithCount": "להמשיך (אוסף {monsterCount})",
   "titleMinimumAge": "מגיל {age} ומעלה",
-  "titlePrivacy": "פרטיות"
+  "titlePrivacy": "פרטיות",
+  "titleHeading": "חפצים מסביבך\nהופכים למפלצות ונלחמים"
 }
