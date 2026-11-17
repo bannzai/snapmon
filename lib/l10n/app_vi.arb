@@ -244,5 +244,6 @@
   "referenceMoveStats": "Sức mạnh {power}  PP {powerPoints}  Từ Lv. {unlockLevel}",
   "moveDetailPower": "Sức mạnh",
   "moveDetailPowerPoints": "PP",
-  "moveDetailUnlockLevel": "Cấp học chiêu"
+  "moveDetailUnlockLevel": "Cấp học chiêu",
+  "moveDetailUnlockLevelValue": "Lv. {level}"
 }

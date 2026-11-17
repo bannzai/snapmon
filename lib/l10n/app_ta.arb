@@ -244,5 +244,6 @@
   "referenceMoveStats": "வலிமை {power}  PP {powerPoints}  Lv. {unlockLevel} முதல்",
   "moveDetailPower": "சக்தி",
   "moveDetailPowerPoints": "PP",
-  "moveDetailUnlockLevel": "நகர்வைக் கற்கும் நிலை"
+  "moveDetailUnlockLevel": "நகர்வைக் கற்கும் நிலை",
+  "moveDetailUnlockLevelValue": "Lv. {level}"
 }

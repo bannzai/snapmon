@@ -244,5 +244,6 @@
   "referenceMoveStats": "القوة {power}  PP {powerPoints}  من Lv. {unlockLevel}",
   "moveDetailPower": "القوة",
   "moveDetailPowerPoints": "PP",
-  "moveDetailUnlockLevel": "مستوى تعلّم الحركة"
+  "moveDetailUnlockLevel": "مستوى تعلّم الحركة",
+  "moveDetailUnlockLevelValue": "Lv. {level}"
 }

@@ -244,5 +244,6 @@
   "referenceMoveStats": "Kracht {power}  PP {powerPoints}  Vanaf Lv. {unlockLevel}",
   "moveDetailPower": "Kracht",
   "moveDetailPowerPoints": "PP",
-  "moveDetailUnlockLevel": "Leerniveau"
+  "moveDetailUnlockLevel": "Leerniveau",
+  "moveDetailUnlockLevelValue": "Lv. {level}"
 }

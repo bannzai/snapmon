@@ -244,5 +244,6 @@
   "referenceMoveStats": "Güç {power}  PP {powerPoints}  Lv. {unlockLevel} itibarıyla",
   "moveDetailPower": "Güç",
   "moveDetailPowerPoints": "PP",
-  "moveDetailUnlockLevel": "Öğrenme seviyesi"
+  "moveDetailUnlockLevel": "Öğrenme seviyesi",
+  "moveDetailUnlockLevelValue": "Lv. {level}"
 }

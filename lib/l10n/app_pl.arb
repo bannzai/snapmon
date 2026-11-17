@@ -244,5 +244,6 @@
   "referenceMoveStats": "Moc {power}  PP {powerPoints}  Od Lv. {unlockLevel}",
   "moveDetailPower": "Moc",
   "moveDetailPowerPoints": "PP",
-  "moveDetailUnlockLevel": "Poziom nauki ruchu"
+  "moveDetailUnlockLevel": "Poziom nauki ruchu",
+  "moveDetailUnlockLevelValue": "Lv. {level}"
 }

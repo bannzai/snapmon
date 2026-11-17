@@ -244,5 +244,6 @@
   "referenceMoveStats": "威力 {power}  PP {powerPoints}  Lv. {unlockLevel}起",
   "moveDetailPower": "威力",
   "moveDetailPowerPoints": "PP",
-  "moveDetailUnlockLevel": "学会招式的等级"
+  "moveDetailUnlockLevel": "学会招式的等级",
+  "moveDetailUnlockLevelValue": "Lv. {level}"
 }

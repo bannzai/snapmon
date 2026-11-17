@@ -244,5 +244,6 @@
   "referenceMoveStats": "طاقت {power}  PP {powerPoints}  Lv. {unlockLevel} سے",
   "moveDetailPower": "طاقت",
   "moveDetailPowerPoints": "PP",
-  "moveDetailUnlockLevel": "چال سیکھنے کی سطح"
+  "moveDetailUnlockLevel": "چال سیکھنے کی سطح",
+  "moveDetailUnlockLevelValue": "Lv. {level}"
 }

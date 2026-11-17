@@ -244,5 +244,6 @@
   "referenceMoveStats": "עוצמה {power}  PP {powerPoints}  החל מ־Lv. {unlockLevel}",
   "moveDetailPower": "עוצמה",
   "moveDetailPowerPoints": "PP",
-  "moveDetailUnlockLevel": "רמת לימוד המהלך"
+  "moveDetailUnlockLevel": "רמת לימוד המהלך",
+  "moveDetailUnlockLevelValue": "Lv. {level}"
 }

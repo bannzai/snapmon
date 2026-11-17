@@ -244,5 +244,6 @@
   "referenceMoveStats": "Snaga {power}  PP {powerPoints}  Od Lv. {unlockLevel}",
   "moveDetailPower": "Snaga",
   "moveDetailPowerPoints": "PP",
-  "moveDetailUnlockLevel": "Razina učenja"
+  "moveDetailUnlockLevel": "Razina učenja",
+  "moveDetailUnlockLevelValue": "Lv. {level}"
 }

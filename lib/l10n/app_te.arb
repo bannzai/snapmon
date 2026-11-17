@@ -244,5 +244,6 @@
   "referenceMoveStats": "శక్తి {power}  PP {powerPoints}  Lv. {unlockLevel} నుంచి",
   "moveDetailPower": "శక్తి",
   "moveDetailPowerPoints": "PP",
-  "moveDetailUnlockLevel": "కదలిక నేర్చుకునే స్థాయి"
+  "moveDetailUnlockLevel": "కదలిక నేర్చుకునే స్థాయి",
+  "moveDetailUnlockLevelValue": "Lv. {level}"
 }

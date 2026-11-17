@@ -244,5 +244,6 @@
   "referenceMoveStats": "Erő {power}  PP {powerPoints}  Lv. {unlockLevel} szinttől",
   "moveDetailPower": "Erő",
   "moveDetailPowerPoints": "PP",
-  "moveDetailUnlockLevel": "Megtanulási szint"
+  "moveDetailUnlockLevel": "Megtanulási szint",
+  "moveDetailUnlockLevelValue": "Lv. {level}"
 }

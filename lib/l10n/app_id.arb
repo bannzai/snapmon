@@ -244,5 +244,6 @@
   "referenceMoveStats": "Daya {power}  PP {powerPoints}  Mulai Lv. {unlockLevel}",
   "moveDetailPower": "Kekuatan",
   "moveDetailPowerPoints": "PP",
-  "moveDetailUnlockLevel": "Level belajar jurus"
+  "moveDetailUnlockLevel": "Level belajar jurus",
+  "moveDetailUnlockLevelValue": "Lv. {level}"
 }

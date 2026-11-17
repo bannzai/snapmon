@@ -244,5 +244,6 @@
   "referenceMoveStats": "Сила {power}  PP {powerPoints}  Від Lv. {unlockLevel}",
   "moveDetailPower": "Сила",
   "moveDetailPowerPoints": "PP",
-  "moveDetailUnlockLevel": "Рівень вивчення"
+  "moveDetailUnlockLevel": "Рівень вивчення",
+  "moveDetailUnlockLevelValue": "Lv. {level}"
 }

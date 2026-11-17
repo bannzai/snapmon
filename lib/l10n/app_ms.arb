@@ -244,5 +244,6 @@
   "referenceMoveStats": "Kuasa {power}  PP {powerPoints}  Dari Lv. {unlockLevel}",
   "moveDetailPower": "Kuasa",
   "moveDetailPowerPoints": "PP",
-  "moveDetailUnlockLevel": "Tahap belajar gerakan"
+  "moveDetailUnlockLevel": "Tahap belajar gerakan",
+  "moveDetailUnlockLevelValue": "Lv. {level}"
 }

@@ -244,5 +244,6 @@
   "referenceMoveStats": "Voima {power}  PP {powerPoints}  Alkaen Lv. {unlockLevel}",
   "moveDetailPower": "Voima",
   "moveDetailPowerPoints": "PP",
-  "moveDetailUnlockLevel": "Oppimistaso"
+  "moveDetailUnlockLevel": "Oppimistaso",
+  "moveDetailUnlockLevelValue": "Lv. {level}"
 }

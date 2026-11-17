@@ -244,5 +244,6 @@
   "referenceMoveStats": "Styrke {power}  PP {powerPoints}  Fra Lv. {unlockLevel}",
   "moveDetailPower": "Styrke",
   "moveDetailPowerPoints": "PP",
-  "moveDetailUnlockLevel": "Niveau for indlæring"
+  "moveDetailUnlockLevel": "Niveau for indlæring",
+  "moveDetailUnlockLevelValue": "Lv. {level}"
 }

@@ -244,5 +244,6 @@
   "referenceMoveStats": "Stärke {power}  PP {powerPoints}  Ab Lv. {unlockLevel}",
   "moveDetailPower": "Stärke",
   "moveDetailPowerPoints": "PP",
-  "moveDetailUnlockLevel": "Erlernlevel"
+  "moveDetailUnlockLevel": "Erlernlevel",
+  "moveDetailUnlockLevelValue": "Lv. {level}"
 }
