@@ -129,5 +129,6 @@
   "generationChooseRangeMyself": "Alege singur zona",
   "generationChooseRangeTitle": "Zona care va deveni monstru",
   "generationChooseRangeMessage": "Trage cadrul în jurul obiectului\nSchimbă-i mărimea cu glisorul de jos sau cu două degete",
-  "generationAutoCutoutUnavailable": "Decuparea automată nu a fost disponibilă"
+  "generationAutoCutoutUnavailable": "Decuparea automată nu a fost disponibilă",
+  "generationCreateWithRange": "Creează din această zonă"
 }

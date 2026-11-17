@@ -129,5 +129,6 @@
   "generationChooseRangeMyself": "Elegir el área por mi cuenta",
   "generationChooseRangeTitle": "Zona que será un monstruo",
   "generationChooseRangeMessage": "Arrastra el marco para rodear el objeto\nCambia su tamaño con el control de abajo o con dos dedos",
-  "generationAutoCutoutUnavailable": "No se pudo usar el recorte automático"
+  "generationAutoCutoutUnavailable": "No se pudo usar el recorte automático",
+  "generationCreateWithRange": "Crear con esta zona"
 }

@@ -129,5 +129,6 @@
   "generationChooseRangeMyself": "જગ્યા જાતે પસંદ કરો",
   "generationChooseRangeTitle": "મોન્સ્ટર બનવાનો ભાગ",
   "generationChooseRangeMessage": "ફ્રેમ ખેંચીને વિષયને ઘેરી લો\nનીચેના સ્લાઇડરથી અથવા બે આંગળીઓથી તેનું કદ બદલો",
-  "generationAutoCutoutUnavailable": "ઑટોમૅટિક કટઆઉટનો ઉપયોગ થઈ શક્યો નહીં"
+  "generationAutoCutoutUnavailable": "ઑટોમૅટિક કટઆઉટનો ઉપયોગ થઈ શક્યો નહીં",
+  "generationCreateWithRange": "આ ભાગમાંથી બનાવો"
 }

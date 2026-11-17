@@ -129,5 +129,6 @@
   "generationChooseRangeMyself": "Bereich selbst auswählen",
   "generationChooseRangeTitle": "Bereich für dein Monster",
   "generationChooseRangeMessage": "Zieh den Rahmen um das Motiv\nÄndere die Größe mit dem Regler unten oder mit zwei Fingern",
-  "generationAutoCutoutUnavailable": "Automatisches Freistellen war nicht verfügbar"
+  "generationAutoCutoutUnavailable": "Automatisches Freistellen war nicht verfügbar",
+  "generationCreateWithRange": "Aus diesem Bereich erstellen"
 }

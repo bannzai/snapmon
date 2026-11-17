@@ -129,5 +129,6 @@
   "generationChooseRangeMyself": "Pilih kawasan sendiri",
   "generationChooseRangeTitle": "Kawasan yang akan jadi monster",
   "generationChooseRangeMessage": "Seret bingkai untuk kelilingi objek\nUbah saiz dengan peluncur di bawah atau dua jari",
-  "generationAutoCutoutUnavailable": "Potongan automatik tidak dapat digunakan"
+  "generationAutoCutoutUnavailable": "Potongan automatik tidak dapat digunakan",
+  "generationCreateWithRange": "Cipta daripada kawasan ini"
 }

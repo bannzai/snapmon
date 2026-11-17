@@ -129,5 +129,6 @@
   "generationChooseRangeMyself": "تحديد المنطقة بنفسي",
   "generationChooseRangeTitle": "الجزء الذي سيصبح وحشًا",
   "generationChooseRangeMessage": "اسحب الإطار ليحيط بالعنصر\nغيّر حجمه بالمؤشر أدناه أو بإصبعين",
-  "generationAutoCutoutUnavailable": "تعذّر استخدام القص التلقائي"
+  "generationAutoCutoutUnavailable": "تعذّر استخدام القص التلقائي",
+  "generationCreateWithRange": "أنشئ من هذه المنطقة"
 }

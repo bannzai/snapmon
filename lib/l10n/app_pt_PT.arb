@@ -129,5 +129,6 @@
   "generationChooseRangeMyself": "Escolher a área por mim",
   "generationChooseRangeTitle": "Área que se vai tornar monstro",
   "generationChooseRangeMessage": "Arrasta a moldura à volta do objeto\nAjusta o tamanho com o controlo abaixo ou com dois dedos",
-  "generationAutoCutoutUnavailable": "Não foi possível usar o recorte automático"
+  "generationAutoCutoutUnavailable": "Não foi possível usar o recorte automático",
+  "generationCreateWithRange": "Criar a partir desta área"
 }

@@ -129,5 +129,6 @@
   "generationChooseRangeMyself": "범위 직접 정하기",
   "generationChooseRangeTitle": "몬스터로 만들 영역",
   "generationChooseRangeMessage": "테두리를 끌어 피사체를 둘러 주세요\n아래 슬라이더나 두 손가락으로 크기를 바꿀 수 있어요",
-  "generationAutoCutoutUnavailable": "자동 오려내기를 사용할 수 없었어요"
+  "generationAutoCutoutUnavailable": "자동 오려내기를 사용할 수 없었어요",
+  "generationCreateWithRange": "이 영역으로 만들기"
 }

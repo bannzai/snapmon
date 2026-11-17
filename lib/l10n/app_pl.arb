@@ -129,5 +129,6 @@
   "generationChooseRangeMyself": "Wybierz obszar samodzielnie",
   "generationChooseRangeTitle": "Obszar, który stanie się potworem",
   "generationChooseRangeMessage": "Przeciągnij ramkę wokół obiektu\nZmień jej rozmiar suwakiem poniżej lub dwoma palcami",
-  "generationAutoCutoutUnavailable": "Automatyczne wycinanie było niedostępne"
+  "generationAutoCutoutUnavailable": "Automatyczne wycinanie było niedostępne",
+  "generationCreateWithRange": "Stwórz z tego obszaru"
 }

@@ -129,5 +129,6 @@
   "generationChooseRangeMyself": "Sam izberi območje",
   "generationChooseRangeTitle": "Območje, ki bo postalo pošast",
   "generationChooseRangeMessage": "Povleci okvir okoli predmeta\nVelikost spremeni z drsnikom spodaj ali z dvema prstoma",
-  "generationAutoCutoutUnavailable": "Samodejni izrez ni bil na voljo"
+  "generationAutoCutoutUnavailable": "Samodejni izrez ni bil na voljo",
+  "generationCreateWithRange": "Ustvari iz tega območja"
 }

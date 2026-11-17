@@ -129,5 +129,6 @@
   "generationChooseRangeMyself": "Выбрать область самому",
   "generationChooseRangeTitle": "Область, которая станет монстром",
   "generationChooseRangeMessage": "Перетащи рамку вокруг объекта\nИзмени размер ползунком внизу или двумя пальцами",
-  "generationAutoCutoutUnavailable": "Автоматическое вырезание недоступно"
+  "generationAutoCutoutUnavailable": "Автоматическое вырезание недоступно",
+  "generationCreateWithRange": "Создать из этой области"
 }

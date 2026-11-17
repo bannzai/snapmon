@@ -129,5 +129,6 @@
   "generationChooseRangeMyself": "自己選取範圍",
   "generationChooseRangeTitle": "要變成怪物的範圍",
   "generationChooseRangeMessage": "拖曳邊框框住拍攝對象\n用下方滑桿或雙指調整大小",
-  "generationAutoCutoutUnavailable": "無法使用自動去背"
+  "generationAutoCutoutUnavailable": "無法使用自動去背",
+  "generationCreateWithRange": "用這個區域建立"
 }

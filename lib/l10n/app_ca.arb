@@ -129,5 +129,6 @@
   "generationChooseRangeMyself": "Triar l’àrea jo mateix",
   "generationChooseRangeTitle": "Zona que serà un monstre",
   "generationChooseRangeMessage": "Arrossega el marc per envoltar l'objecte\nCanvia'n la mida amb el control de sota o amb dos dits",
-  "generationAutoCutoutUnavailable": "No s'ha pogut fer servir la retallada automàtica"
+  "generationAutoCutoutUnavailable": "No s'ha pogut fer servir la retallada automàtica",
+  "generationCreateWithRange": "Crea amb aquesta zona"
 }

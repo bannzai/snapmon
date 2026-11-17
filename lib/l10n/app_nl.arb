@@ -129,5 +129,6 @@
   "generationChooseRangeMyself": "Kies zelf het gebied",
   "generationChooseRangeTitle": "Gebied dat een monster wordt",
   "generationChooseRangeMessage": "Sleep het kader om het onderwerp\nPas de grootte aan met de schuifregelaar hieronder of met twee vingers",
-  "generationAutoCutoutUnavailable": "Automatisch vrijstaand maken was niet beschikbaar"
+  "generationAutoCutoutUnavailable": "Automatisch vrijstaand maken was niet beschikbaar",
+  "generationCreateWithRange": "Maak van dit gebied"
 }

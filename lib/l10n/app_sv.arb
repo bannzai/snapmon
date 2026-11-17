@@ -129,5 +129,6 @@
   "generationChooseRangeMyself": "Välj området själv",
   "generationChooseRangeTitle": "Området som blir ett monster",
   "generationChooseRangeMessage": "Dra ramen runt motivet\nÄndra storleken med reglaget nedanför eller med två fingrar",
-  "generationAutoCutoutUnavailable": "Automatisk friläggning var inte tillgänglig"
+  "generationAutoCutoutUnavailable": "Automatisk friläggning var inte tillgänglig",
+  "generationCreateWithRange": "Skapa från det här området"
 }
