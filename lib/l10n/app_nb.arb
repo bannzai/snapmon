@@ -104,5 +104,6 @@
   "generationBattleWithThisMonster": "Kjemp med dette monsteret",
   "generationRetake": "Ta bildet på nytt",
   "generationWaitingTitle": "Vent litt til",
-  "generationWaitingMessage": "Det tar litt tid å bestemme monsterets type\nNår det er født, havner det i samlingen"
+  "generationWaitingMessage": "Det tar litt tid å bestemme monsterets type\nNår det er født, havner det i samlingen",
+  "generationCheckAgain": "Sjekk igjen"
 }

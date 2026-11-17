@@ -104,5 +104,6 @@
   "generationBattleWithThisMonster": "اس مونسٹر کے ساتھ لڑو",
   "generationRetake": "دوبارہ تصویر کھینچو",
   "generationWaitingTitle": "ذرا اور انتظار کرو",
-  "generationWaitingMessage": "مونسٹر کی ٹائپ طے ہونے میں کچھ زیادہ وقت لگ رہا ہے\nپیدا ہوتے ہی ڈیکس میں شامل ہو جائے گا"
+  "generationWaitingMessage": "مونسٹر کی ٹائپ طے ہونے میں کچھ زیادہ وقت لگ رہا ہے\nپیدا ہوتے ہی ڈیکس میں شامل ہو جائے گا",
+  "generationCheckAgain": "دوبارہ چیک کرو"
 }

@@ -104,5 +104,6 @@
   "generationBattleWithThisMonster": "Πάλεψε με αυτό το τέρας",
   "generationRetake": "Βγάλε ξανά φωτογραφία",
   "generationWaitingTitle": "Περίμενε λίγο ακόμα",
-  "generationWaitingMessage": "Ο καθορισμός του στοιχείου του τέρατος παίρνει λίγο χρόνο\nΜόλις γεννηθεί, θα μπει στην εγκυκλοπαίδεια"
+  "generationWaitingMessage": "Ο καθορισμός του στοιχείου του τέρατος παίρνει λίγο χρόνο\nΜόλις γεννηθεί, θα μπει στην εγκυκλοπαίδεια",
+  "generationCheckAgain": "Έλεγξε ξανά"
 }

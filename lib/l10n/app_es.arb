@@ -104,5 +104,6 @@
   "generationBattleWithThisMonster": "Combate con este monstruo",
   "generationRetake": "Tomar otra foto",
   "generationWaitingTitle": "Espera un poquito más",
-  "generationWaitingMessage": "El elemento del monstruo está tardando un poco en definirse\nCuando nazca, aparecerá en tu colección"
+  "generationWaitingMessage": "El elemento del monstruo está tardando un poco en definirse\nCuando nazca, aparecerá en tu colección",
+  "generationCheckAgain": "Comprobar de nuevo"
 }

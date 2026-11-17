@@ -104,5 +104,6 @@
   "generationBattleWithThisMonster": "Strid med detta monster",
   "generationRetake": "Ta bilden igen",
   "generationWaitingTitle": "Vänta lite till",
-  "generationWaitingMessage": "Det tar lite längre tid att bestämma monstrets element\nNär det föds läggs det till i din samling"
+  "generationWaitingMessage": "Det tar lite längre tid att bestämma monstrets element\nNär det föds läggs det till i din samling",
+  "generationCheckAgain": "Kolla igen"
 }

@@ -104,5 +104,6 @@
   "generationBattleWithThisMonster": "Bojuj s touto příšerou",
   "generationRetake": "Vyfoť znovu",
   "generationWaitingTitle": "Ještě chvilku počkej",
-  "generationWaitingMessage": "Určení elementu příšery chvíli trvá\nAž se narodí, přibude do encyklopedie"
+  "generationWaitingMessage": "Určení elementu příšery chvíli trvá\nAž se narodí, přibude do encyklopedie",
+  "generationCheckAgain": "Zkontroluj znovu"
 }

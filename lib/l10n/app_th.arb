@@ -104,5 +104,6 @@
   "generationBattleWithThisMonster": "สู้ด้วยมอนสเตอร์ตัวนี้",
   "generationRetake": "ถ่ายใหม่",
   "generationWaitingTitle": "รออีกนิดนะ",
-  "generationWaitingMessage": "กำลังกำหนดธาตุของมอนสเตอร์ ใช้เวลานานกว่านิดหน่อย\nพอเกิดแล้วจะเข้าไปอยู่ในสารานุกรม"
+  "generationWaitingMessage": "กำลังกำหนดธาตุของมอนสเตอร์ ใช้เวลานานกว่านิดหน่อย\nพอเกิดแล้วจะเข้าไปอยู่ในสารานุกรม",
+  "generationCheckAgain": "ตรวจสอบอีกครั้ง"
 }

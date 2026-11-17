@@ -104,5 +104,6 @@
   "generationBattleWithThisMonster": "Bu canavarla savaş",
   "generationRetake": "Yeniden fotoğraf çek",
   "generationWaitingTitle": "Biraz daha bekle",
-  "generationWaitingMessage": "Canavarın elementini belirlemek biraz zaman alıyor\nDoğduğunda ansiklopediye eklenecek"
+  "generationWaitingMessage": "Canavarın elementini belirlemek biraz zaman alıyor\nDoğduğunda ansiklopediye eklenecek",
+  "generationCheckAgain": "Tekrar kontrol et"
 }

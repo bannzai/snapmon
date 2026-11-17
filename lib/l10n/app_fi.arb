@@ -104,5 +104,6 @@
   "generationBattleWithThisMonster": "Taistele tällä hirviöllä",
   "generationRetake": "Ota kuva uudelleen",
   "generationWaitingTitle": "Odota vielä hetki",
-  "generationWaitingMessage": "Hirviön elementin määritys vie vielä hetken\nKun se syntyy, se lisätään kokoelmaan"
+  "generationWaitingMessage": "Hirviön elementin määritys vie vielä hetken\nKun se syntyy, se lisätään kokoelmaan",
+  "generationCheckAgain": "Tarkista uudelleen"
 }

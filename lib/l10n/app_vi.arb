@@ -104,5 +104,6 @@
   "generationBattleWithThisMonster": "Chiến đấu cùng quái vật này",
   "generationRetake": "Chụp lại",
   "generationWaitingTitle": "Đợi thêm chút nữa nhé",
-  "generationWaitingMessage": "Việc xác định hệ của quái vật đang mất thêm chút thời gian\nKhi ra đời, quái vật sẽ vào bộ sưu tập"
+  "generationWaitingMessage": "Việc xác định hệ của quái vật đang mất thêm chút thời gian\nKhi ra đời, quái vật sẽ vào bộ sưu tập",
+  "generationCheckAgain": "Kiểm tra lại"
 }

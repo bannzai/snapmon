@@ -104,5 +104,6 @@
   "generationBattleWithThisMonster": "इस मॉन्स्टर के साथ लड़ो",
   "generationRetake": "फिर से फ़ोटो खींचो",
   "generationWaitingTitle": "थोड़ा और इंतज़ार करो",
-  "generationWaitingMessage": "मॉन्स्टर का तत्व तय होने में थोड़ा और समय लग रहा है\nजन्म लेते ही वह संग्रह में जुड़ जाएगा"
+  "generationWaitingMessage": "मॉन्स्टर का तत्व तय होने में थोड़ा और समय लग रहा है\nजन्म लेते ही वह संग्रह में जुड़ जाएगा",
+  "generationCheckAgain": "फिर से जाँचो"
 }

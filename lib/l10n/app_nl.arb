@@ -104,5 +104,6 @@
   "generationBattleWithThisMonster": "Vecht met dit monster",
   "generationRetake": "Maak de foto opnieuw",
   "generationWaitingTitle": "Wacht nog even",
-  "generationWaitingMessage": "Het bepalen van het type van je monster duurt iets langer\nZodra het geboren is, komt het in je dex"
+  "generationWaitingMessage": "Het bepalen van het type van je monster duurt iets langer\nZodra het geboren is, komt het in je dex",
+  "generationCheckAgain": "Controleer opnieuw"
 }

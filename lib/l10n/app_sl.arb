@@ -104,5 +104,6 @@
   "generationBattleWithThisMonster": "Bori se s to pošastjo",
   "generationRetake": "Fotografiraj znova",
   "generationWaitingTitle": "Počakaj še malo",
-  "generationWaitingMessage": "Določanje elementa pošasti traja še malo\nKo se rodi, bo dodana v enciklopedijo"
+  "generationWaitingMessage": "Določanje elementa pošasti traja še malo\nKo se rodi, bo dodana v enciklopedijo",
+  "generationCheckAgain": "Preveri znova"
 }

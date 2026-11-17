@@ -104,5 +104,6 @@
   "generationBattleWithThisMonster": "Combat amb aquest monstre",
   "generationRetake": "Torna a fer la foto",
   "generationWaitingTitle": "Espera una mica més",
-  "generationWaitingMessage": "Costa una mica decidir l'element del monstre\nQuan neixi, entrarà a l'enciclopèdia"
+  "generationWaitingMessage": "Costa una mica decidir l'element del monstre\nQuan neixi, entrarà a l'enciclopèdia",
+  "generationCheckAgain": "Torna-ho a comprovar"
 }

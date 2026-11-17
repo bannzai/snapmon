@@ -104,5 +104,6 @@
   "generationBattleWithThisMonster": "ಈ ಮಾನ್ಸ್ಟರ್ ಜೊತೆ ಹೋರಾಡು",
   "generationRetake": "ಮತ್ತೆ ಫೋಟೋ ತೆಗೆ",
   "generationWaitingTitle": "ಇನ್ನೂ ಸ್ವಲ್ಪ ಕಾಯು",
-  "generationWaitingMessage": "ಮಾನ್ಸ್ಟರನ ಪ್ರಕಾರ ನಿರ್ಧರಿಸಲು ಇನ್ನೂ ಸ್ವಲ್ಪ ಸಮಯ ಬೇಕು\nಹುಟ್ಟಿದ ತಕ್ಷಣ ವಿಶ್ವಕೋಶಕ್ಕೆ ಸೇರುತ್ತದೆ"
+  "generationWaitingMessage": "ಮಾನ್ಸ್ಟರನ ಪ್ರಕಾರ ನಿರ್ಧರಿಸಲು ಇನ್ನೂ ಸ್ವಲ್ಪ ಸಮಯ ಬೇಕು\nಹುಟ್ಟಿದ ತಕ್ಷಣ ವಿಶ್ವಕೋಶಕ್ಕೆ ಸೇರುತ್ತದೆ",
+  "generationCheckAgain": "ಮತ್ತೆ ಪರಿಶೀಲಿಸು"
 }

@@ -104,5 +104,6 @@
   "generationBattleWithThisMonster": "Luptă cu acest monstru",
   "generationRetake": "Fă din nou poza",
   "generationWaitingTitle": "Mai așteaptă puțin",
-  "generationWaitingMessage": "Stabilirea elementului monstrului mai durează puțin\nCând se naște, intră în enciclopedie"
+  "generationWaitingMessage": "Stabilirea elementului monstrului mai durează puțin\nCând se naște, intră în enciclopedie",
+  "generationCheckAgain": "Verifică din nou"
 }

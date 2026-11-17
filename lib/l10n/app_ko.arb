@@ -104,5 +104,6 @@
   "generationBattleWithThisMonster": "이 몬스터로 싸우기",
   "generationRetake": "다시 찍기",
   "generationWaitingTitle": "조금만 더 기다려 주세요",
-  "generationWaitingMessage": "몬스터의 속성을 정하는 데 시간이 좀 더 걸리고 있어요\n태어나면 도감에 들어가요"
+  "generationWaitingMessage": "몬스터의 속성을 정하는 데 시간이 좀 더 걸리고 있어요\n태어나면 도감에 들어가요",
+  "generationCheckAgain": "다시 확인하기"
 }

@@ -104,5 +104,6 @@
   "generationBattleWithThisMonster": "Luta com este monstro",
   "generationRetake": "Tira outra fotografia",
   "generationWaitingTitle": "Espera só mais um bocadinho",
-  "generationWaitingMessage": "Definir o elemento do monstro está a demorar um pouco\nQuando nascer, entrará na enciclopédia"
+  "generationWaitingMessage": "Definir o elemento do monstro está a demorar um pouco\nQuando nascer, entrará na enciclopédia",
+  "generationCheckAgain": "Verifica novamente"
 }

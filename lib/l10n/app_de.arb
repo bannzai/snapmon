@@ -104,5 +104,6 @@
   "generationBattleWithThisMonster": "Kämpfe mit diesem Monster",
   "generationRetake": "Foto neu aufnehmen",
   "generationWaitingTitle": "Warte noch einen Moment",
-  "generationWaitingMessage": "Das Element deines Monsters braucht noch etwas Zeit\nSobald es geboren ist, kommt es in deinen Dex"
+  "generationWaitingMessage": "Das Element deines Monsters braucht noch etwas Zeit\nSobald es geboren ist, kommt es in deinen Dex",
+  "generationCheckAgain": "Noch mal prüfen"
 }

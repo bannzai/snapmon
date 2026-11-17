@@ -104,5 +104,6 @@
   "generationBattleWithThisMonster": "Сражайся с этим монстром",
   "generationRetake": "Сфотографировать снова",
   "generationWaitingTitle": "Подожди ещё немного",
-  "generationWaitingMessage": "Определение элемента монстра занимает чуть больше времени\nКогда он появится, то попадёт в энциклопедию"
+  "generationWaitingMessage": "Определение элемента монстра занимает чуть больше времени\nКогда он появится, то попадёт в энциклопедию",
+  "generationCheckAgain": "Проверить ещё раз"
 }
