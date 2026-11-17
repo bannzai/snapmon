@@ -303,5 +303,6 @@
   "moveSelectionOpen": "Alege mișcări",
   "moveSelectionTitle": "Mișcările lui {monsterName}",
   "moveSelectionDescription": "Alege cel mult {count} mișcări pentru luptă\nButoanele mișcărilor vor apărea în ordinea în care le alegi",
-  "moveSelectionSave": "Confirmă"
+  "moveSelectionSave": "Confirmă",
+  "moveSelectionReset": "Alege din nou"
 }

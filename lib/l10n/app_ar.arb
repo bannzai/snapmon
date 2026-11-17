@@ -303,5 +303,6 @@
   "moveSelectionOpen": "اختر الحركات",
   "moveSelectionTitle": "حركات {monsterName}",
   "moveSelectionDescription": "اختر حركات للقتال، بحد أقصى {count}\nستظهر أزرار الحركات في القتال حسب ترتيب اختيارك",
-  "moveSelectionSave": "تأكيد"
+  "moveSelectionSave": "تأكيد",
+  "moveSelectionReset": "اختر من جديد"
 }

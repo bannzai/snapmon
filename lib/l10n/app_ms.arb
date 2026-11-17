@@ -303,5 +303,6 @@
   "moveSelectionOpen": "Pilih gerakan",
   "moveSelectionTitle": "Gerakan {monsterName}",
   "moveSelectionDescription": "Pilih hingga {count} gerakan untuk bertarung\nButang gerakan dalam pertarungan ikut turutan pilihan kamu",
-  "moveSelectionSave": "Sahkan"
+  "moveSelectionSave": "Sahkan",
+  "moveSelectionReset": "Pilih semula"
 }

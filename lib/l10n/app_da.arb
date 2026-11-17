@@ -303,5 +303,6 @@
   "moveSelectionOpen": "Vælg angreb",
   "moveSelectionTitle": "Angreb til {monsterName}",
   "moveSelectionDescription": "Vælg op til {count} angreb til kamp\nAngrebsknapperne vises i den rækkefølge, du vælger dem",
-  "moveSelectionSave": "Bekræft"
+  "moveSelectionSave": "Bekræft",
+  "moveSelectionReset": "Vælg igen"
 }

@@ -303,5 +303,6 @@
   "moveSelectionOpen": "Izberi poteze",
   "moveSelectionTitle": "Potezi za {monsterName}",
   "moveSelectionDescription": "Za boj izberi največ {count} potez\nGumbi potez bodo razvrščeni po vrstnem redu tvoje izbire",
-  "moveSelectionSave": "Potrdi"
+  "moveSelectionSave": "Potrdi",
+  "moveSelectionReset": "Izberi znova"
 }

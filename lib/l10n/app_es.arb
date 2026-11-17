@@ -303,5 +303,6 @@
   "moveSelectionOpen": "Elige movimientos",
   "moveSelectionTitle": "Movimientos de {monsterName}",
   "moveSelectionDescription": "Elige hasta {count} movimientos para combatir\nLos botones de movimientos aparecerán en el orden en que los elijas",
-  "moveSelectionSave": "Confirmar"
+  "moveSelectionSave": "Confirmar",
+  "moveSelectionReset": "Elegir de nuevo"
 }

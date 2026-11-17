@@ -303,5 +303,6 @@
   "moveSelectionOpen": "기술 선택",
   "moveSelectionTitle": "{monsterName}의 기술",
   "moveSelectionDescription": "배틀에서 쓸 기술을 최대 {count}개 골라요\n기술 버튼은 고른 순서대로 배치돼요",
-  "moveSelectionSave": "확인"
+  "moveSelectionSave": "확인",
+  "moveSelectionReset": "다시 선택하기"
 }

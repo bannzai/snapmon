@@ -303,5 +303,6 @@
   "moveSelectionOpen": "בחירת מתקפות",
   "moveSelectionTitle": "מתקפות של {monsterName}",
   "moveSelectionDescription": "לבחור עד {count} מתקפות לקרב\nכפתורי המתקפות בקרב יופיעו לפי סדר הבחירה",
-  "moveSelectionSave": "אישור"
+  "moveSelectionSave": "אישור",
+  "moveSelectionReset": "לבחור מחדש"
 }

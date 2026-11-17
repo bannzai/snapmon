@@ -303,5 +303,6 @@
   "moveSelectionOpen": "Tria moviments",
   "moveSelectionTitle": "Moviments de {monsterName}",
   "moveSelectionDescription": "Tria fins a {count} moviments per al combat\nEls botons dels moviments sortiran en l'ordre que els triïs",
-  "moveSelectionSave": "Confirma"
+  "moveSelectionSave": "Confirma",
+  "moveSelectionReset": "Torna a triar"
 }

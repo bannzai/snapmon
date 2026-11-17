@@ -303,5 +303,6 @@
   "moveSelectionOpen": "Scegli le mosse",
   "moveSelectionTitle": "Mosse di {monsterName}",
   "moveSelectionDescription": "Scegli fino a {count} mosse per la lotta\nI pulsanti delle mosse seguiranno l'ordine in cui le scegli",
-  "moveSelectionSave": "Conferma"
+  "moveSelectionSave": "Conferma",
+  "moveSelectionReset": "Scegli di nuovo"
 }

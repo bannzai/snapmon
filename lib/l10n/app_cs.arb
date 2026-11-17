@@ -303,5 +303,6 @@
   "moveSelectionOpen": "Vyber útoky",
   "moveSelectionTitle": "Útoky {monsterName}",
   "moveSelectionDescription": "Vyber si do boje nejvýš {count} útoků\nTlačítka útoků budou v pořadí, v jakém je vybereš",
-  "moveSelectionSave": "Potvrdit"
+  "moveSelectionSave": "Potvrdit",
+  "moveSelectionReset": "Vybrat znovu"
 }

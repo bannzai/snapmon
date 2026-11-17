@@ -303,5 +303,6 @@
   "moveSelectionOpen": "Attacken wählen",
   "moveSelectionTitle": "Attacken von {monsterName}",
   "moveSelectionDescription": "Wähle bis zu {count} Attacken für den Kampf\nDie Attacken-Buttons erscheinen in deiner Auswahlreihenfolge",
-  "moveSelectionSave": "Bestätigen"
+  "moveSelectionSave": "Bestätigen",
+  "moveSelectionReset": "Neu auswählen"
 }

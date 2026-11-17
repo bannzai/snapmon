@@ -303,5 +303,6 @@
   "moveSelectionOpen": "ଚାଲ ବାଛ",
   "moveSelectionTitle": "{monsterName}ର ଚାଲ",
   "moveSelectionDescription": "ଯୁଦ୍ଧ ପାଇଁ ସର୍ବାଧିକ {count} ଚାଲ ବାଛ\nଯୁଦ୍ଧରେ ଚାଲ ବଟନ୍‌ଗୁଡ଼ିକ ତୁମେ ବାଛିଥିବା କ୍ରମରେ ଦେଖାଯିବ",
-  "moveSelectionSave": "ନିଶ୍ଚିତ କର"
+  "moveSelectionSave": "ନିଶ୍ଚିତ କର",
+  "moveSelectionReset": "ପୁଣି ବାଛ"
 }

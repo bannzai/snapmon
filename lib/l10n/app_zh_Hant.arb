@@ -303,5 +303,6 @@
   "moveSelectionOpen": "選擇招式",
   "moveSelectionTitle": "{monsterName}的招式",
   "moveSelectionDescription": "選擇最多 {count} 個對戰招式\n對戰中的招式按鈕會依選擇順序排列",
-  "moveSelectionSave": "確定"
+  "moveSelectionSave": "確定",
+  "moveSelectionReset": "重新選擇"
 }

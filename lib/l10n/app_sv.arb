@@ -303,5 +303,6 @@
   "moveSelectionOpen": "Välj attacker",
   "moveSelectionTitle": "Attacker för {monsterName}",
   "moveSelectionDescription": "Välj upp till {count} attacker för striden\nAttackknapparna visas i den ordning du väljer dem",
-  "moveSelectionSave": "Bekräfta"
+  "moveSelectionSave": "Bekräfta",
+  "moveSelectionReset": "Välj igen"
 }

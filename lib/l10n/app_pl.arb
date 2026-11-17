@@ -303,5 +303,6 @@
   "moveSelectionOpen": "Wybierz ruchy",
   "moveSelectionTitle": "Ruchy {monsterName}",
   "moveSelectionDescription": "Wybierz do walki maksymalnie {count} ruchów\nPrzyciski ruchów pojawią się w kolejności, w jakiej je wybierzesz",
-  "moveSelectionSave": "Potwierdź"
+  "moveSelectionSave": "Potwierdź",
+  "moveSelectionReset": "Wybierz ponownie"
 }

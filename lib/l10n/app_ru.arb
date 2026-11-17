@@ -303,5 +303,6 @@
   "moveSelectionOpen": "Выбери приёмы",
   "moveSelectionTitle": "Приёмы {monsterName}",
   "moveSelectionDescription": "Выбери для боя не больше {count} приёмов\nКнопки приёмов появятся в том порядке, в котором ты их выберешь",
-  "moveSelectionSave": "Подтвердить"
+  "moveSelectionSave": "Подтвердить",
+  "moveSelectionReset": "Выбрать заново"
 }

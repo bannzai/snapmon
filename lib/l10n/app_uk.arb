@@ -303,5 +303,6 @@
   "moveSelectionOpen": "Вибери прийоми",
   "moveSelectionTitle": "Прийоми {monsterName}",
   "moveSelectionDescription": "Вибери для бою щонайбільше {count} прийомів\nКнопки прийомів з’являться в тому порядку, у якому ти їх вибереш",
-  "moveSelectionSave": "Підтвердити"
+  "moveSelectionSave": "Підтвердити",
+  "moveSelectionReset": "Вибрати знову"
 }
