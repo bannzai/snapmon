@@ -276,5 +276,6 @@
   "actionCardBuyHeading": "Choisis une capacité à acheter",
   "actionCardBuyDescription": "Choisis une capacité à acheter. Une fois achetée, tu peux l’enseigner à n’importe quel monstre autant de fois que tu veux.",
   "actionCardBuyUnavailable": "Aucune capacité en vente pour le moment",
-  "actionCardPurchaseBuy": "Acheter pour {price}"
+  "actionCardPurchaseBuy": "Acheter pour {price}",
+  "actionCardPurchasePriceChanged": "Le prix de cette capacité a changé\nVérifie le prix avant d’acheter"
 }
