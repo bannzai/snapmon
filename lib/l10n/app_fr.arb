@@ -79,5 +79,6 @@
   "dexEmptySlot": "Place libre",
   "dexAddMonster": "Ajouter",
   "dexAddToPartyTitle": "Ajouter à l'équipe",
-  "dexNoPartyCandidates": "Aucun monstre à ajouter à ton équipe"
+  "dexNoPartyCandidates": "Aucun monstre à ajouter à ton équipe",
+  "captureCameraUnavailable": "Appareil photo indisponible\nChoisis une photo dans ta galerie"
 }
