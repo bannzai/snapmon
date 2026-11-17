@@ -215,5 +215,6 @@
   "battleFirstHint": "Choisis une capacité : le plus rapide agit d’abord. Plus l’efficacité de l’élément est élevée, plus les dégâts sont importants",
   "battleChooseMove": "Choisis une capacité pour {monsterName}",
   "battleTurn": "Tour {turnNumber}",
-  "battleSwitchMonster": "Changer de monstre"
+  "battleSwitchMonster": "Changer de monstre",
+  "battleChooseSwitchMonster": "Choisis le monstre à envoyer au combat"
 }
