@@ -307,5 +307,6 @@
   "moveSelectionReset": "לבחור מחדש",
   "actionCardForget": "לגרום לו לשכוח מהלך",
   "battleRematch": "להילחם שוב",
-  "battleLostPartyHintTitle": "עם יותר מפלצות בצוות, קל יותר לנצח"
+  "battleLostPartyHintTitle": "עם יותר מפלצות בצוות, קל יותר לנצח",
+  "battleLostPartyHintMessage": "בצוות שלך יש מקום לעד {maximumPartySize} מפלצות\nהכרת חולשות ומצב חריג נותנת יתרון בקרב"
 }

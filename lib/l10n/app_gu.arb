@@ -307,5 +307,6 @@
   "moveSelectionReset": "ફરીથી પસંદ કરો",
   "actionCardForget": "ચાલ ભૂલવાડો",
   "battleRematch": "ફરી લડો",
-  "battleLostPartyHintTitle": "ટીમમાં વધુ મોન્સ્ટર હોય તો તમે સહેલાઈથી જીતી શકો"
+  "battleLostPartyHintTitle": "ટીમમાં વધુ મોન્સ્ટર હોય તો તમે સહેલાઈથી જીતી શકો",
+  "battleLostPartyHintMessage": "તમારી ટીમમાં વધુમાં વધુ {maximumPartySize} મોન્સ્ટર રાખી શકો છો\nનબળાઈઓ અને અસામાન્ય સ્થિતિ જાણશો તો લડાઈમાં ફાયદો થશે"
 }

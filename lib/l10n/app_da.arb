@@ -307,5 +307,6 @@
   "moveSelectionReset": "Vælg igen",
   "actionCardForget": "Lad den glemme et angreb",
   "battleRematch": "Kæmp igen",
-  "battleLostPartyHintTitle": "Flere monstre på dit hold gør det lettere at vinde"
+  "battleLostPartyHintTitle": "Flere monstre på dit hold gør det lettere at vinde",
+  "battleLostPartyHintMessage": "Du kan have op til {maximumPartySize} monstre på dit hold\nKend svagheder og statuseffekter, så står du stærkere i kamp"
 }

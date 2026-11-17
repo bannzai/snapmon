@@ -307,5 +307,6 @@
   "moveSelectionReset": "Escolher de novo",
   "actionCardForget": "Fazer esquecer o ataque",
   "battleRematch": "Combate outra vez",
-  "battleLostPartyHintTitle": "Com mais monstros na tua equipa, é mais fácil vencer"
+  "battleLostPartyHintTitle": "Com mais monstros na tua equipa, é mais fácil vencer",
+  "battleLostPartyHintMessage": "Podes ter até {maximumPartySize} monstros na tua equipa\nConhecer as fraquezas e os efeitos de estado dá-te vantagem em combate"
 }

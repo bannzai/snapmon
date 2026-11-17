@@ -307,5 +307,6 @@
   "moveSelectionReset": "Вибрати знову",
   "actionCardForget": "Дати забути прийом",
   "battleRematch": "Бийся знову",
-  "battleLostPartyHintTitle": "З більшою кількістю монстрів у команді перемогти легше"
+  "battleLostPartyHintTitle": "З більшою кількістю монстрів у команді перемогти легше",
+  "battleLostPartyHintMessage": "У твоїй команді може бути до {maximumPartySize} монстрів\nЗнай слабкості й статусні ефекти, щоб здобути перевагу в бою"
 }

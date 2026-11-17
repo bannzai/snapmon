@@ -307,5 +307,6 @@
   "moveSelectionReset": "Vybrat znovu",
   "actionCardForget": "Nech ho zapomenout útok",
   "battleRematch": "Bojuj znovu",
-  "battleLostPartyHintTitle": "S více příšerami v týmu vyhraješ snáz"
+  "battleLostPartyHintTitle": "S více příšerami v týmu vyhraješ snáz",
+  "battleLostPartyHintMessage": "V týmu můžeš mít až {maximumPartySize} příšer\nZnalost slabin a stavových efektů ti dá v boji výhodu"
 }

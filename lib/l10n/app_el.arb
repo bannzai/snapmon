@@ -307,5 +307,6 @@
   "moveSelectionReset": "Διάλεξε ξανά",
   "actionCardForget": "Κάν’ το να ξεχάσει την κίνηση",
   "battleRematch": "Πολέμησε ξανά",
-  "battleLostPartyHintTitle": "Με περισσότερα τέρατα στην ομάδa σου, κερδίζεις πιο εύκολα"
+  "battleLostPartyHintTitle": "Με περισσότερα τέρατα στην ομάδa σου, κερδίζεις πιο εύκολα",
+  "battleLostPartyHintMessage": "Η ομάδα σου χωρά έως {maximumPartySize} τέρατα\nΑν ξέρεις τις αδυναμίες και τις επιδράσεις κατάστασης, έχεις πλεονέκτημα στη μάχη"
 }

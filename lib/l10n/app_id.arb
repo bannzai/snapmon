@@ -307,5 +307,6 @@
   "moveSelectionReset": "Pilih lagi",
   "actionCardForget": "Buat lupakan jurus",
   "battleRematch": "Bertarung lagi",
-  "battleLostPartyHintTitle": "Tambah monster ke timmu agar lebih mudah menang"
+  "battleLostPartyHintTitle": "Tambah monster ke timmu agar lebih mudah menang",
+  "battleLostPartyHintMessage": "Tim kamu bisa berisi hingga {maximumPartySize} monster\nKenali kelemahan dan efek status agar kamu lebih unggul saat bertarung"
 }

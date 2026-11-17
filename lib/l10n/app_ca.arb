@@ -307,5 +307,6 @@
   "moveSelectionReset": "Torna a triar",
   "actionCardForget": "Fes-li oblidar el moviment",
   "battleRematch": "Torna a combatre",
-  "battleLostPartyHintTitle": "Amb més monstres a l’equip, guanyaràs més fàcilment"
+  "battleLostPartyHintTitle": "Amb més monstres a l’equip, guanyaràs més fàcilment",
+  "battleLostPartyHintMessage": "Pots tenir fins a {maximumPartySize} monstres a l'equip\nConèixer les debilitats i les alteracions d'estat et dona avantatge"
 }

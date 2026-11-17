@@ -307,5 +307,6 @@
   "moveSelectionReset": "पुन्हा निवड",
   "actionCardForget": "चाल विसरव",
   "battleRematch": "पुन्हा लढ",
-  "battleLostPartyHintTitle": "टीममध्ये आणखी मॉन्स्टर जोड, जिंकणं सोपं होईल"
+  "battleLostPartyHintTitle": "टीममध्ये आणखी मॉन्स्टर जोड, जिंकणं सोपं होईल",
+  "battleLostPartyHintMessage": "तुझ्या टीममध्ये जास्तीत जास्त {maximumPartySize} मॉन्स्टर ठेवता येतील\nकमकुवत बाजू आणि असामान्य स्थिती माहीत असेल तर लढाईत वरचढ राहशील"
 }

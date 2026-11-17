@@ -307,5 +307,6 @@
   "moveSelectionReset": "다시 선택하기",
   "actionCardForget": "기술 잊게 하기",
   "battleRematch": "다시 대결하기",
-  "battleLostPartyHintTitle": "파티에 몬스터가 많을수록 이기기 쉬워져요"
+  "battleLostPartyHintTitle": "파티에 몬스터가 많을수록 이기기 쉬워져요",
+  "battleLostPartyHintMessage": "파티에는 최대 {maximumPartySize}마리까지 넣을 수 있어요\n약점과 상태 이상을 알면 배틀에서 유리해요"
 }

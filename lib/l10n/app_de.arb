@@ -307,5 +307,6 @@
   "moveSelectionReset": "Neu auswählen",
   "actionCardForget": "Attacke vergessen lassen",
   "battleRematch": "Noch mal kämpfen",
-  "battleLostPartyHintTitle": "Mit mehr Monstern im Team gewinnst du leichter"
+  "battleLostPartyHintTitle": "Mit mehr Monstern im Team gewinnst du leichter",
+  "battleLostPartyHintMessage": "In deinem Team ist Platz für bis zu {maximumPartySize} Monster\nKennst du Schwächen und Statusprobleme, bist du im Kampf im Vorteil"
 }

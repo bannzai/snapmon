@@ -307,5 +307,6 @@
   "moveSelectionReset": "اختر من جديد",
   "actionCardForget": "جعله ينسى الحركة",
   "battleRematch": "قاتل مجددًا",
-  "battleLostPartyHintTitle": "زد عدد الوحوش في فريقك لتفوز بسهولة أكبر"
+  "battleLostPartyHintTitle": "زد عدد الوحوش في فريقك لتفوز بسهولة أكبر",
+  "battleLostPartyHintMessage": "يمكنك ضم حتى {maximumPartySize} وحوش إلى فريقك\nمعرفة نقاط الضعف والحالة غير الطبيعية تمنحك أفضلية في القتال"
 }

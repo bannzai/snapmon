@@ -307,5 +307,6 @@
   "moveSelectionReset": "Valitse uudelleen",
   "actionCardForget": "Anna unohtaa liike",
   "battleRematch": "Taistele uudelleen",
-  "battleLostPartyHintTitle": "Kun joukkueessa on enemmän hirviöitä, voitat helpommin"
+  "battleLostPartyHintTitle": "Kun joukkueessa on enemmän hirviöitä, voitat helpommin",
+  "battleLostPartyHintMessage": "Joukkueeseesi mahtuu enintään {maximumPartySize} hirviötä\nKun tunnet heikkoudet ja statustilat, pärjäät taistelussa paremmin"
 }

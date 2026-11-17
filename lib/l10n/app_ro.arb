@@ -307,5 +307,6 @@
   "moveSelectionReset": "Alege din nou",
   "actionCardForget": "Fă-l să uite mișcarea",
   "battleRematch": "Luptă din nou",
-  "battleLostPartyHintTitle": "Cu mai mulți monștri în echipă, câștigi mai ușor"
+  "battleLostPartyHintTitle": "Cu mai mulți monștri în echipă, câștigi mai ușor",
+  "battleLostPartyHintMessage": "În echipa ta încap până la {maximumPartySize} monștri\nDacă știi slăbiciunile și efectele de stare, ai avantaj în luptă"
 }
