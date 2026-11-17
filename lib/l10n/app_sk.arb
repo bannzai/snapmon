@@ -82,5 +82,6 @@
   "dexNoPartyCandidates": "Nemáš príšery, ktoré by si mohol pridať do tímu",
   "captureCameraUnavailable": "Fotoaparát nie je dostupný\nVyber fotku z albumu",
   "captureDexCount": "encyklopédia {monsterCount}",
-  "captureFirstHintAlbum": "Vyber jednu fotku predmetu okolo seba"
+  "captureFirstHintAlbum": "Vyber jednu fotku predmetu okolo seba",
+  "captureFirstHintCamera": "Odfoť jednu vec vo svojom okolí"
 }

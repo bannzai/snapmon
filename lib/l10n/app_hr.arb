@@ -82,5 +82,6 @@
   "dexNoPartyCandidates": "Nemaš čudovišta koja možeš dodati u tim",
   "captureCameraUnavailable": "Kamera nije dostupna\nOdaberi fotografiju iz albuma",
   "captureDexCount": "enciklopedija {monsterCount}",
-  "captureFirstHintAlbum": "Odaberi jednu fotku predmeta oko sebe"
+  "captureFirstHintAlbum": "Odaberi jednu fotku predmeta oko sebe",
+  "captureFirstHintCamera": "Fotografiraj jedan predmet oko sebe"
 }

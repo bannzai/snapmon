@@ -82,5 +82,6 @@
   "dexNoPartyCandidates": "പാർട്ടിയിൽ ചേർക്കാൻ മോൺസ്റ്ററുകളൊന്നുമില്ല",
   "captureCameraUnavailable": "ക്യാമറ ഉപയോഗിക്കാനാകുന്നില്ല\nആൽബത്തിൽ നിന്ന് ഫോട്ടോ തിരഞ്ഞെടുക്കൂ",
   "captureDexCount": "വിജ്ഞാനകോശം {monsterCount}",
-  "captureFirstHintAlbum": "ചുറ്റുമുള്ള ഒരു വസ്തുവിന്റെ 1 ഫോട്ടോ തിരഞ്ഞെടുക്കൂ"
+  "captureFirstHintAlbum": "ചുറ്റുമുള്ള ഒരു വസ്തുവിന്റെ 1 ഫോട്ടോ തിരഞ്ഞെടുക്കൂ",
+  "captureFirstHintCamera": "ചുറ്റുമുള്ള ഒരു വസ്തുവിന്റെ ഫോട്ടോ എടുക്കൂ"
 }

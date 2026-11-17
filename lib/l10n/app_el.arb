@@ -82,5 +82,6 @@
   "dexNoPartyCandidates": "Δεν έχεις τέρατα για να προσθέσεις στην ομάδα σου",
   "captureCameraUnavailable": "Η κάμερα δεν είναι διαθέσιμη\nΔιάλεξε φωτογραφία από το άλμπουμ",
   "captureDexCount": "εγκυκλοπαίδεια {monsterCount}",
-  "captureFirstHintAlbum": "Διάλεξε μια φωτογραφία από ένα αντικείμενο γύρω σου"
+  "captureFirstHintAlbum": "Διάλεξε μια φωτογραφία από ένα αντικείμενο γύρω σου",
+  "captureFirstHintCamera": "Βγάλε φωτογραφία ένα αντικείμενο γύρω σου"
 }

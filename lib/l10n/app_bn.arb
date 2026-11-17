@@ -82,5 +82,6 @@
   "dexNoPartyCandidates": "দলে যোগ করার মতো কোনো মনস্টার নেই",
   "captureCameraUnavailable": "ক্যামেরা ব্যবহার করা যাচ্ছে না\nঅ্যালবাম থেকে ছবি বেছে নাও",
   "captureDexCount": "সংগ্রহ {monsterCount}",
-  "captureFirstHintAlbum": "চারপাশের কোনো জিনিসের ১টি ছবি বেছে নাও"
+  "captureFirstHintAlbum": "চারপাশের কোনো জিনিসের ১টি ছবি বেছে নাও",
+  "captureFirstHintCamera": "চারপাশের একটা জিনিসের ছবি তোলো"
 }

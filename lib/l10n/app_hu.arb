@@ -82,5 +82,6 @@
   "dexNoPartyCandidates": "Nincs szörny, akit felvehetnél a csapatodba",
   "captureCameraUnavailable": "A kamera nem érhető el\nVálassz képet az albumból",
   "captureDexCount": "gyűjtemény {monsterCount}",
-  "captureFirstHintAlbum": "Válassz egy fotót egy körülötted lévő tárgyról"
+  "captureFirstHintAlbum": "Válassz egy fotót egy körülötted lévő tárgyról",
+  "captureFirstHintCamera": "Fotózz le egy tárgyat magad körül"
 }

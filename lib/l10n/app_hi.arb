@@ -82,5 +82,6 @@
   "dexNoPartyCandidates": "टीम में जोड़ने के लिए कोई मॉन्स्टर नहीं है",
   "captureCameraUnavailable": "कैमरा इस्तेमाल नहीं हो पा रहा है\nएल्बम से फ़ोटो चुनो",
   "captureDexCount": "संग्रह {monsterCount}",
-  "captureFirstHintAlbum": "आसपास की किसी चीज़ की 1 फ़ोटो चुनो"
+  "captureFirstHintAlbum": "आसपास की किसी चीज़ की 1 फ़ोटो चुनो",
+  "captureFirstHintCamera": "आसपास की किसी एक चीज़ की फ़ोटो लो"
 }

@@ -82,5 +82,6 @@
   "dexNoPartyCandidates": "Du har ingen monstre å legge til på laget",
   "captureCameraUnavailable": "Kameraet er ikke tilgjengelig\nVelg et bilde fra albumet",
   "captureDexCount": "samling {monsterCount}",
-  "captureFirstHintAlbum": "Velg ett bilde av en ting du har rundt deg"
+  "captureFirstHintAlbum": "Velg ett bilde av en ting du har rundt deg",
+  "captureFirstHintCamera": "Ta bilde av én ting rundt deg"
 }

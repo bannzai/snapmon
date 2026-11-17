@@ -82,5 +82,6 @@
   "dexNoPartyCandidates": "파티에 넣을 수 있는 몬스터가 없어요",
   "captureCameraUnavailable": "카메라를 사용할 수 없어요\n앨범에서 사진을 골라 주세요",
   "captureDexCount": "도감 {monsterCount}",
-  "captureFirstHintAlbum": "주변 물건의 사진 1장을 골라요"
+  "captureFirstHintAlbum": "주변 물건의 사진 1장을 골라요",
+  "captureFirstHintCamera": "주변 물건 하나를 찍어봐요"
 }

@@ -82,5 +82,6 @@
   "dexNoPartyCandidates": "ਟੀਮ ਵਿੱਚ ਸ਼ਾਮਲ ਕਰਨ ਲਈ ਕੋਈ ਮੌਂਸਟਰ ਨਹੀਂ ਹੈ",
   "captureCameraUnavailable": "ਕੈਮਰਾ ਵਰਤਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ\nਐਲਬਮ ਵਿੱਚੋਂ ਫ਼ੋਟੋ ਚੁਣੋ",
   "captureDexCount": "ਸੰਗ੍ਰਹਿ {monsterCount}",
-  "captureFirstHintAlbum": "ਆਲੇ-ਦੁਆਲੇ ਦੀ ਕਿਸੇ ਚੀਜ਼ ਦੀ 1 ਫ਼ੋਟੋ ਚੁਣੋ"
+  "captureFirstHintAlbum": "ਆਲੇ-ਦੁਆਲੇ ਦੀ ਕਿਸੇ ਚੀਜ਼ ਦੀ 1 ਫ਼ੋਟੋ ਚੁਣੋ",
+  "captureFirstHintCamera": "ਆਲੇ-ਦੁਆਲੇ ਦੀ ਇੱਕ ਚੀਜ਼ ਦੀ ਫ਼ੋਟੋ ਖਿੱਚੋ"
 }

@@ -82,5 +82,6 @@
   "dexNoPartyCandidates": "அணியில் சேர்க்க மான்ஸ்டர்கள் இல்லை",
   "captureCameraUnavailable": "கேமராவைப் பயன்படுத்த முடியவில்லை\nஆல்பத்திலிருந்து படத்தைத் தேர்ந்தெடுங்கள்",
   "captureDexCount": "களஞ்சியம் {monsterCount}",
-  "captureFirstHintAlbum": "உங்களைச் சுற்றியுள்ள ஒரு பொருளின் 1 படத்தைத் தேர்ந்தெடுங்கள்"
+  "captureFirstHintAlbum": "உங்களைச் சுற்றியுள்ள ஒரு பொருளின் 1 படத்தைத் தேர்ந்தெடுங்கள்",
+  "captureFirstHintCamera": "சுற்றியுள்ள ஒரு பொருளைப் படம் எடுங்கள்"
 }

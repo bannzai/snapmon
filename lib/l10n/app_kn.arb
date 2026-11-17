@@ -82,5 +82,6 @@
   "dexNoPartyCandidates": "ತಂಡಕ್ಕೆ ಸೇರಿಸಲು ಮಾನ್ಸ್ಟರಗಳಿಲ್ಲ",
   "captureCameraUnavailable": "ಕ್ಯಾಮೆರಾ ಬಳಸಲು ಸಾಧ್ಯವಾಗುತ್ತಿಲ್ಲ\nಆಲ್ಬಮ್‌ನಿಂದ ಫೋಟೋ ಆಯ್ಕೆ ಮಾಡು",
   "captureDexCount": "ವಿಶ್ವಕೋಶ {monsterCount}",
-  "captureFirstHintAlbum": "ಸುತ್ತಮುತ್ತಲಿನ ಒಂದು ವಸ್ತುವಿನ 1 ಫೋಟೋ ಆಯ್ಕೆ ಮಾಡು"
+  "captureFirstHintAlbum": "ಸುತ್ತಮುತ್ತಲಿನ ಒಂದು ವಸ್ತುವಿನ 1 ಫೋಟೋ ಆಯ್ಕೆ ಮಾಡು",
+  "captureFirstHintCamera": "ಸುತ್ತಲಿನ ಒಂದು ವಸ್ತುವಿನ ಫೋಟೋ ತೆಗೆ"
 }

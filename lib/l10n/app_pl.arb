@@ -82,5 +82,6 @@
   "dexNoPartyCandidates": "Nie masz potworów do dodania do drużyny",
   "captureCameraUnavailable": "Aparat jest niedostępny\nWybierz zdjęcie z albumu",
   "captureDexCount": "encyklopedia {monsterCount}",
-  "captureFirstHintAlbum": "Wybierz jedno zdjęcie przedmiotu z twojego otoczenia"
+  "captureFirstHintAlbum": "Wybierz jedno zdjęcie przedmiotu z twojego otoczenia",
+  "captureFirstHintCamera": "Zrób zdjęcie jednej rzeczy w pobliżu"
 }

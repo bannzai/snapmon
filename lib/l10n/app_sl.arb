@@ -82,5 +82,6 @@
   "dexNoPartyCandidates": "Nimaš pošasti, ki bi jih lahko dodal v ekipo",
   "captureCameraUnavailable": "Kamera ni na voljo\nIzberi fotografijo iz albuma",
   "captureDexCount": "enciklopedija {monsterCount}",
-  "captureFirstHintAlbum": "Izberi eno fotografijo predmeta okoli sebe"
+  "captureFirstHintAlbum": "Izberi eno fotografijo predmeta okoli sebe",
+  "captureFirstHintCamera": "Fotografiraj en predmet okoli sebe"
 }

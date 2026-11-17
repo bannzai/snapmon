@@ -82,5 +82,6 @@
   "dexNoPartyCandidates": "تمہاری ٹیم میں شامل کرنے کے لیے کوئی مونسٹر نہیں ہے",
   "captureCameraUnavailable": "کیمرہ استعمال نہیں ہو سکتا\nالبم سے تصویر چنو",
   "captureDexCount": "ڈیکس {monsterCount}",
-  "captureFirstHintAlbum": "آس پاس کی کسی چیز کی 1 تصویر چنو"
+  "captureFirstHintAlbum": "آس پاس کی کسی چیز کی 1 تصویر چنو",
+  "captureFirstHintCamera": "اپنے آس پاس کی ایک چیز کی تصویر کھینچو"
 }

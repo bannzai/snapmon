@@ -82,5 +82,6 @@
   "dexNoPartyCandidates": "Du har inga monster att lägga till i ditt lag",
   "captureCameraUnavailable": "Kameran är inte tillgänglig\nVälj en bild från albumet",
   "captureDexCount": "samling {monsterCount}",
-  "captureFirstHintAlbum": "Välj en bild på ett föremål i din närhet"
+  "captureFirstHintAlbum": "Välj en bild på ett föremål i din närhet",
+  "captureFirstHintCamera": "Ta en bild på en sak i din närhet"
 }

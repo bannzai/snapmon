@@ -82,5 +82,6 @@
   "dexNoPartyCandidates": "لا يوجد وحش يمكنك إضافته إلى فريقك",
   "captureCameraUnavailable": "الكاميرا غير متاحة\nاختر صورة من ألبوم الصور",
   "captureDexCount": "موسوعة {monsterCount}",
-  "captureFirstHintAlbum": "اختر صورة واحدة لشيء من حولك"
+  "captureFirstHintAlbum": "اختر صورة واحدة لشيء من حولك",
+  "captureFirstHintCamera": "صوّر شيئًا واحدًا من حولك"
 }

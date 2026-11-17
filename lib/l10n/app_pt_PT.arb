@@ -82,5 +82,6 @@
   "dexNoPartyCandidates": "Não tens monstros para juntar à tua equipa",
   "captureCameraUnavailable": "A câmara não está disponível\nEscolhe uma foto do álbum",
   "captureDexCount": "enciclopédia {monsterCount}",
-  "captureFirstHintAlbum": "Escolhe uma foto de um objeto à tua volta"
+  "captureFirstHintAlbum": "Escolhe uma foto de um objeto à tua volta",
+  "captureFirstHintCamera": "Tira uma foto de um objeto à tua volta"
 }

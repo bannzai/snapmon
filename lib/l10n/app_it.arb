@@ -82,5 +82,6 @@
   "dexNoPartyCandidates": "Non hai mostri da aggiungere alla squadra",
   "captureCameraUnavailable": "La fotocamera non è disponibile\nScegli una foto dall'album",
   "captureDexCount": "dex {monsterCount}",
-  "captureFirstHintAlbum": "Scegli una foto di un oggetto che hai vicino"
+  "captureFirstHintAlbum": "Scegli una foto di un oggetto che hai vicino",
+  "captureFirstHintCamera": "Fotografa un oggetto intorno a te"
 }

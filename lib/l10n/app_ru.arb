@@ -82,5 +82,6 @@
   "dexNoPartyCandidates": "У тебя нет монстров, которых можно добавить в команду",
   "captureCameraUnavailable": "Камера недоступна\nВыбери фото из альбома",
   "captureDexCount": "энциклопедия {monsterCount}",
-  "captureFirstHintAlbum": "Выбери одно фото предмета вокруг тебя"
+  "captureFirstHintAlbum": "Выбери одно фото предмета вокруг тебя",
+  "captureFirstHintCamera": "Сфотографируй один предмет вокруг себя"
 }
