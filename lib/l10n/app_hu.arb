@@ -105,5 +105,6 @@
   "generationRetake": "Fotózd le újra",
   "generationWaitingTitle": "Várj még egy kicsit",
   "generationWaitingMessage": "A szörny típusának meghatározása még eltart egy kicsit\nAmint megszületik, bekerül a gyűjteménybe",
-  "generationCheckAgain": "Ellenőrizd újra"
+  "generationCheckAgain": "Ellenőrizd újra",
+  "generationSeeLater": "Nézd meg később"
 }

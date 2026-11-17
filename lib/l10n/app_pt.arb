@@ -105,5 +105,6 @@
   "generationRetake": "Tirar outra foto",
   "generationWaitingTitle": "Espere só mais um pouquinho",
   "generationWaitingMessage": "Definir o elemento do monstro está demorando um pouco\nQuando nascer, ele entrará no dex",
-  "generationCheckAgain": "Conferir de novo"
+  "generationCheckAgain": "Conferir de novo",
+  "generationSeeLater": "Ver depois"
 }

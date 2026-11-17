@@ -105,5 +105,6 @@
   "generationRetake": "Foto ulang",
   "generationWaitingTitle": "Tunggu sebentar lagi, ya",
   "generationWaitingMessage": "Menentukan elemen monster butuh waktu sedikit lebih lama\nBegitu lahir, monster akan masuk ke dex",
-  "generationCheckAgain": "Cek lagi"
+  "generationCheckAgain": "Cek lagi",
+  "generationSeeLater": "Lihat nanti"
 }

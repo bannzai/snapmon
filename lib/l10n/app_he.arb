@@ -105,5 +105,6 @@
   "generationRetake": "לצלם שוב",
   "generationWaitingTitle": "עוד קצת סבלנות",
   "generationWaitingMessage": "קביעת הסוג של המפלצת לוקחת עוד קצת זמן\nכשתיוולד, היא תצטרף לאוסף",
-  "generationCheckAgain": "לבדוק שוב"
+  "generationCheckAgain": "לבדוק שוב",
+  "generationSeeLater": "לצפות אחר כך"
 }

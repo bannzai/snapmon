@@ -105,5 +105,6 @@
   "generationRetake": "Ambil gambar semula",
   "generationWaitingTitle": "Tunggu sekejap lagi, ya",
   "generationWaitingMessage": "Menentukan elemen monster mengambil masa sedikit lebih lama\nSebaik lahir, monster akan masuk ke ensiklopedia",
-  "generationCheckAgain": "Semak lagi"
+  "generationCheckAgain": "Semak lagi",
+  "generationSeeLater": "Lihat nanti"
 }

@@ -105,5 +105,6 @@
   "generationRetake": "Сфотографуй ще раз",
   "generationWaitingTitle": "Зачекай ще трохи",
   "generationWaitingMessage": "Визначення елемента монстра триває трохи довше\nКоли він народиться, то потрапить до енциклопедії",
-  "generationCheckAgain": "Перевір ще раз"
+  "generationCheckAgain": "Перевір ще раз",
+  "generationSeeLater": "Переглянути пізніше"
 }

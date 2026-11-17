@@ -105,5 +105,6 @@
   "generationRetake": "Ta bilden igen",
   "generationWaitingTitle": "Vänta lite till",
   "generationWaitingMessage": "Det tar lite längre tid att bestämma monstrets element\nNär det föds läggs det till i din samling",
-  "generationCheckAgain": "Kolla igen"
+  "generationCheckAgain": "Kolla igen",
+  "generationSeeLater": "Visa senare"
 }

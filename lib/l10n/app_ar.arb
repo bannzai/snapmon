@@ -105,5 +105,6 @@
   "generationRetake": "التقط صورة من جديد",
   "generationWaitingTitle": "انتظر قليلًا بعد",
   "generationWaitingMessage": "تحديد عنصر الوحش يستغرق وقتًا أطول\nعندما يظهر، سيُضاف إلى الموسوعة",
-  "generationCheckAgain": "تحقّق مرة أخرى"
+  "generationCheckAgain": "تحقّق مرة أخرى",
+  "generationSeeLater": "شاهد لاحقًا"
 }

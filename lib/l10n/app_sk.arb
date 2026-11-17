@@ -105,5 +105,6 @@
   "generationRetake": "Odfoť znova",
   "generationWaitingTitle": "Počkaj ešte chvíľu",
   "generationWaitingMessage": "Určenie elementu príšery trvá o čosi dlhšie\nKeď sa narodí, pribudne do encyklopédie",
-  "generationCheckAgain": "Skontroluj znova"
+  "generationCheckAgain": "Skontroluj znova",
+  "generationSeeLater": "Pozrieť neskôr"
 }

@@ -105,5 +105,6 @@
   "generationRetake": "Tomar otra foto",
   "generationWaitingTitle": "Espera un poquito más",
   "generationWaitingMessage": "El elemento del monstruo está tardando un poco en definirse\nCuando nazca, aparecerá en tu colección",
-  "generationCheckAgain": "Comprobar de nuevo"
+  "generationCheckAgain": "Comprobar de nuevo",
+  "generationSeeLater": "Ver más tarde"
 }

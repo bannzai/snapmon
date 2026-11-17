@@ -105,5 +105,6 @@
   "generationRetake": "Tag billedet igen",
   "generationWaitingTitle": "Vent lidt endnu",
   "generationWaitingMessage": "Det tager lidt tid at finde monstrets element\nNår det er født, kommer det i din dex",
-  "generationCheckAgain": "Tjek igen"
+  "generationCheckAgain": "Tjek igen",
+  "generationSeeLater": "Se senere"
 }

@@ -105,5 +105,6 @@
   "generationRetake": "重新拍照",
   "generationWaitingTitle": "再等一下喔",
   "generationWaitingMessage": "決定怪物的屬性還需要一點時間\n誕生後就會加入圖鑑",
-  "generationCheckAgain": "再確認一次"
+  "generationCheckAgain": "再確認一次",
+  "generationSeeLater": "稍後查看"
 }

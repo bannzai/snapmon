@@ -105,5 +105,6 @@
   "generationRetake": "Ota kuva uudelleen",
   "generationWaitingTitle": "Odota vielä hetki",
   "generationWaitingMessage": "Hirviön elementin määritys vie vielä hetken\nKun se syntyy, se lisätään kokoelmaan",
-  "generationCheckAgain": "Tarkista uudelleen"
+  "generationCheckAgain": "Tarkista uudelleen",
+  "generationSeeLater": "Katso myöhemmin"
 }

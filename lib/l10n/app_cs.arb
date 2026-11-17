@@ -105,5 +105,6 @@
   "generationRetake": "Vyfoť znovu",
   "generationWaitingTitle": "Ještě chvilku počkej",
   "generationWaitingMessage": "Určení elementu příšery chvíli trvá\nAž se narodí, přibude do encyklopedie",
-  "generationCheckAgain": "Zkontroluj znovu"
+  "generationCheckAgain": "Zkontroluj znovu",
+  "generationSeeLater": "Podívat se později"
 }

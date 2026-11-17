@@ -105,5 +105,6 @@
   "generationRetake": "Fotografiraj ponovno",
   "generationWaitingTitle": "Pričekaj još malo",
   "generationWaitingMessage": "Određivanje elementa čudovišta traje malo dulje\nKad se rodi, stići će u enciklopediju",
-  "generationCheckAgain": "Provjeri opet"
+  "generationCheckAgain": "Provjeri opet",
+  "generationSeeLater": "Pogledaj kasnije"
 }

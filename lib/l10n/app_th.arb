@@ -105,5 +105,6 @@
   "generationRetake": "ถ่ายใหม่",
   "generationWaitingTitle": "รออีกนิดนะ",
   "generationWaitingMessage": "กำลังกำหนดธาตุของมอนสเตอร์ ใช้เวลานานกว่านิดหน่อย\nพอเกิดแล้วจะเข้าไปอยู่ในสารานุกรม",
-  "generationCheckAgain": "ตรวจสอบอีกครั้ง"
+  "generationCheckAgain": "ตรวจสอบอีกครั้ง",
+  "generationSeeLater": "ดูทีหลัง"
 }

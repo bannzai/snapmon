@@ -105,5 +105,6 @@
   "generationRetake": "Zrób zdjęcie ponownie",
   "generationWaitingTitle": "Poczekaj jeszcze chwilę",
   "generationWaitingMessage": "Ustalenie typu potwora trwa trochę dłużej\nGdy się narodzi, trafi do encyklopedii",
-  "generationCheckAgain": "Sprawdź ponownie"
+  "generationCheckAgain": "Sprawdź ponownie",
+  "generationSeeLater": "Zobacz później"
 }
