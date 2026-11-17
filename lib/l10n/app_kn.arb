@@ -175,5 +175,6 @@
   "battleLogSwitchedIn": "ಕಣಕ್ಕೆ ಬಂತು {monsterName}!",
   "battleLogSwitchedOut": "ನೀನು {withdrawnMonsterName} ಅನ್ನು ಹಿಂದಕ್ಕೆ ಕರೆದು {monsterName} ಅನ್ನು ಕಣಕ್ಕಿಳಿಸಿದೆ",
   "battleLogMissed": "ಆದರೆ ದಾಳಿ ಗುರಿ ತಪ್ಪಿತು!",
-  "battleLogParalyzed": "{monsterName} ಪಾರ್ಶ್ವವಾಯುವಿನಿಂದ ದಾಳಿ ಮಾಡಲು ಸಾಧ್ಯವಾಗುತ್ತಿಲ್ಲ"
+  "battleLogParalyzed": "{monsterName} ಪಾರ್ಶ್ವವಾಯುವಿನಿಂದ ದಾಳಿ ಮಾಡಲು ಸಾಧ್ಯವಾಗುತ್ತಿಲ್ಲ",
+  "battleLogStunned": "{monsterName} ಪ್ರಜ್ಞೆ ತಪ್ಪಿದೆ, ಚಲಿಸಲು ಆಗುತ್ತಿಲ್ಲ"
 }

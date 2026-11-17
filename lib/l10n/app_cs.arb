@@ -175,5 +175,6 @@
   "battleLogSwitchedIn": "Do boje nastupuje {monsterName}!",
   "battleLogSwitchedOut": "Stáhl jsi {withdrawnMonsterName} a poslal do boje {monsterName}",
   "battleLogMissed": "Ale útok minul!",
-  "battleLogParalyzed": "{monsterName} je ochromený a nemůže zaútočit"
+  "battleLogParalyzed": "{monsterName} je ochromený a nemůže zaútočit",
+  "battleLogStunned": "{monsterName} omdlel a nemůže se hýbat"
 }

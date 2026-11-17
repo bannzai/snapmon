@@ -175,5 +175,6 @@
   "battleLogSwitchedIn": "{monsterName} הופיע!",
   "battleLogSwitchedOut": "{withdrawnMonsterName} חזר, ו-{monsterName} יצא לקרב",
   "battleLogMissed": "אבל המתקפה החטיאה!",
-  "battleLogParalyzed": "{monsterName} משותק ולא יכול לתקוף"
+  "battleLogParalyzed": "{monsterName} משותק ולא יכול לתקוף",
+  "battleLogStunned": "{monsterName} התעלף ולא יכול לזוז"
 }

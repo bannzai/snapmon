@@ -175,5 +175,6 @@
   "battleLogSwitchedIn": "મેદાનમાં આવ્યું {monsterName}!",
   "battleLogSwitchedOut": "તમે {withdrawnMonsterName}ને પાછું બોલાવી {monsterName}ને મેદાનમાં ઉતાર્યું",
   "battleLogMissed": "પણ હુમલો નિશાન ચૂકી ગયો!",
-  "battleLogParalyzed": "{monsterName} લકવાગ્રસ્ત છે અને હુમલો કરી શકતું નથી"
+  "battleLogParalyzed": "{monsterName} લકવાગ્રસ્ત છે અને હુમલો કરી શકતું નથી",
+  "battleLogStunned": "{monsterName} બેભાન થઈ ગયું છે અને હલી શકતું નથી"
 }

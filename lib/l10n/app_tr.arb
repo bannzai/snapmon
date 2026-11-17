@@ -175,5 +175,6 @@
   "battleLogSwitchedIn": "{monsterName} ortaya çıktı!",
   "battleLogSwitchedOut": "{withdrawnMonsterName} geri çekildi, {monsterName} savaşa çıktı",
   "battleLogMissed": "Ama saldırı ıskaladı!",
-  "battleLogParalyzed": "{monsterName} felç oldu ve saldıramıyor"
+  "battleLogParalyzed": "{monsterName} felç oldu ve saldıramıyor",
+  "battleLogStunned": "{monsterName} bayıldı ve hareket edemiyor"
 }

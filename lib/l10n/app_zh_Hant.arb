@@ -175,5 +175,6 @@
   "battleLogSwitchedIn": "{monsterName}登場了！",
   "battleLogSwitchedOut": "你收回了{withdrawnMonsterName}，派出了{monsterName}",
   "battleLogMissed": "但是攻擊落空了！",
-  "battleLogParalyzed": "{monsterName} 身體麻痺，無法攻擊"
+  "battleLogParalyzed": "{monsterName} 身體麻痺，無法攻擊",
+  "battleLogStunned": "{monsterName}昏過去了，無法行動"
 }

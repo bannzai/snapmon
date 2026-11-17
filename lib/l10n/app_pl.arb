@@ -175,5 +175,6 @@
   "battleLogSwitchedIn": "Na arenę wkracza {monsterName}!",
   "battleLogSwitchedOut": "Wycofałeś {withdrawnMonsterName} i wysłałeś do walki {monsterName}",
   "battleLogMissed": "Ale atak chybił!",
-  "battleLogParalyzed": "{monsterName} jest sparaliżowany i nie może zaatakować"
+  "battleLogParalyzed": "{monsterName} jest sparaliżowany i nie może zaatakować",
+  "battleLogStunned": "{monsterName} zemdlał i nie może się ruszyć"
 }

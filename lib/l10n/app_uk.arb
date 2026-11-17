@@ -175,5 +175,6 @@
   "battleLogSwitchedIn": "З’являється {monsterName}!",
   "battleLogSwitchedOut": "Ти відкликав {withdrawnMonsterName} і випустив у бій {monsterName}",
   "battleLogMissed": "Але атака не влучила!",
-  "battleLogParalyzed": "{monsterName} паралізований і не може атакувати"
+  "battleLogParalyzed": "{monsterName} паралізований і не може атакувати",
+  "battleLogStunned": "{monsterName} знепритомнів і не може рухатися"
 }

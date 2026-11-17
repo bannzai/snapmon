@@ -175,5 +175,6 @@
   "battleLogSwitchedIn": "{monsterName} muncul!",
   "battleLogSwitchedOut": "Kamu menarik {withdrawnMonsterName} dan mengirim {monsterName} ke arena",
   "battleLogMissed": "Tapi serangannya meleset!",
-  "battleLogParalyzed": "{monsterName} lumpuh dan tidak bisa menyerang"
+  "battleLogParalyzed": "{monsterName} lumpuh dan tidak bisa menyerang",
+  "battleLogStunned": "{monsterName} pingsan dan tidak bisa bergerak"
 }

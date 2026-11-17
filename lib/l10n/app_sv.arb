@@ -175,5 +175,6 @@
   "battleLogSwitchedIn": "{monsterName} dök upp!",
   "battleLogSwitchedOut": "Du kallade tillbaka {withdrawnMonsterName} och skickade in {monsterName}",
   "battleLogMissed": "Men attacken missade!",
-  "battleLogParalyzed": "{monsterName} är förlamad och kan inte anfalla"
+  "battleLogParalyzed": "{monsterName} är förlamad och kan inte anfalla",
+  "battleLogStunned": "{monsterName} har svimmat och kan inte röra sig"
 }

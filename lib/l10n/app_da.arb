@@ -175,5 +175,6 @@
   "battleLogSwitchedIn": "Så er {monsterName} på banen!",
   "battleLogSwitchedOut": "Du trak {withdrawnMonsterName} tilbage og sendte {monsterName} ind",
   "battleLogMissed": "Men angrebet ramte ikke!",
-  "battleLogParalyzed": "{monsterName} er lammet og kan ikke angribe"
+  "battleLogParalyzed": "{monsterName} er lammet og kan ikke angribe",
+  "battleLogStunned": "{monsterName} er besvimet og kan ikke bevæge sig"
 }

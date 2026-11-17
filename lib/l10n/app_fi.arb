@@ -175,5 +175,6 @@
   "battleLogSwitchedIn": "{monsterName} ilmestyi!",
   "battleLogSwitchedOut": "Vedit {withdrawnMonsterName} takaisin ja lähetit {monsterName} taisteluun",
   "battleLogMissed": "Mutta hyökkäys meni ohi!",
-  "battleLogParalyzed": "{monsterName} on halvaantunut eikä voi hyökätä"
+  "battleLogParalyzed": "{monsterName} on halvaantunut eikä voi hyökätä",
+  "battleLogStunned": "{monsterName} pyörtyi eikä pysty liikkumaan"
 }

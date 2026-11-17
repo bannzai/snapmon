@@ -175,5 +175,6 @@
   "battleLogSwitchedIn": "मैदानात आला {monsterName}!",
   "battleLogSwitchedOut": "तू {withdrawnMonsterName}ला परत बोलावून {monsterName}ला मैदानात उतरवलंस",
   "battleLogMissed": "पण हल्ला चुकला!",
-  "battleLogParalyzed": "{monsterName} चे अंग बधिर झाले आहे, हल्ला करता येत नाही"
+  "battleLogParalyzed": "{monsterName} चे अंग बधिर झाले आहे, हल्ला करता येत नाही",
+  "battleLogStunned": "{monsterName} बेशुद्ध झालंय, हलू शकत नाही"
 }

@@ -175,5 +175,6 @@
   "battleLogSwitchedIn": "{monsterName} xuất hiện!",
   "battleLogSwitchedOut": "Bạn thu hồi {withdrawnMonsterName} và cho {monsterName} ra trận",
   "battleLogMissed": "Nhưng đòn đánh đã trượt!",
-  "battleLogParalyzed": "{monsterName} bị tê liệt, không thể tấn công"
+  "battleLogParalyzed": "{monsterName} bị tê liệt, không thể tấn công",
+  "battleLogStunned": "{monsterName} đã ngất và không thể cử động"
 }

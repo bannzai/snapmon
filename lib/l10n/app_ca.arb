@@ -175,5 +175,6 @@
   "battleLogSwitchedIn": "Ha sortit {monsterName}!",
   "battleLogSwitchedOut": "Has retirat {withdrawnMonsterName} i has enviat {monsterName}",
   "battleLogMissed": "Però l'atac ha fallat!",
-  "battleLogParalyzed": "{monsterName} està paralitzat i no pot atacar"
+  "battleLogParalyzed": "{monsterName} està paralitzat i no pot atacar",
+  "battleLogStunned": "{monsterName} s'ha desmaiat i no es pot moure"
 }

@@ -175,5 +175,6 @@
   "battleLogSwitchedIn": "U borbu ulazi {monsterName}!",
   "battleLogSwitchedOut": "Povukao si {withdrawnMonsterName} i poslao {monsterName} u borbu",
   "battleLogMissed": "Ali napad je promašio!",
-  "battleLogParalyzed": "{monsterName} je paraliziran i ne može napasti"
+  "battleLogParalyzed": "{monsterName} je paraliziran i ne može napasti",
+  "battleLogStunned": "{monsterName} se onesvijestio i ne može se pomaknuti"
 }
