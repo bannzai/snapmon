@@ -232,5 +232,6 @@
   "titleStartFromCamera": "Fotografiraj in začni",
   "titleContinue": "Nadaljuj",
   "titleContinueWithCount": "Nadaljuj (enciklopedija {monsterCount})",
-  "titleMinimumAge": "Od {age} let"
+  "titleMinimumAge": "Od {age} let",
+  "titlePrivacy": "Zasebnost"
 }

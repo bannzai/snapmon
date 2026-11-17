@@ -232,5 +232,6 @@
   "titleStartFromCamera": "拍张照，开始冒险",
   "titleContinue": "继续游戏",
   "titleContinueWithCount": "继续游戏（图鉴 {monsterCount}）",
-  "titleMinimumAge": "适合{age}岁及以上"
+  "titleMinimumAge": "适合{age}岁及以上",
+  "titlePrivacy": "隐私"
 }

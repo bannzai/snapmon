@@ -232,5 +232,6 @@
   "titleStartFromCamera": "Foto dulu, lalu mulai",
   "titleContinue": "Lanjutkan",
   "titleContinueWithCount": "Lanjutkan (dex {monsterCount})",
-  "titleMinimumAge": "Untuk usia {age} tahun ke atas"
+  "titleMinimumAge": "Untuk usia {age} tahun ke atas",
+  "titlePrivacy": "Privasi"
 }

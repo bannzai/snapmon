@@ -232,5 +232,6 @@
   "titleStartFromCamera": "फ़ोटो खींचकर शुरू करो",
   "titleContinue": "खेल जारी रखो",
   "titleContinueWithCount": "आगे खेलो (संग्रह {monsterCount})",
-  "titleMinimumAge": "{age} साल और उससे ज़्यादा उम्र के लिए"
+  "titleMinimumAge": "{age} साल और उससे ज़्यादा उम्र के लिए",
+  "titlePrivacy": "गोपनीयता"
 }

@@ -232,5 +232,6 @@
   "titleStartFromCamera": "ถ่ายรูปแล้วเริ่มเลย",
   "titleContinue": "เล่นต่อ",
   "titleContinueWithCount": "เล่นต่อ (สารานุกรม {monsterCount})",
-  "titleMinimumAge": "สำหรับผู้มีอายุ {age} ปีขึ้นไป"
+  "titleMinimumAge": "สำหรับผู้มีอายุ {age} ปีขึ้นไป",
+  "titlePrivacy": "ความเป็นส่วนตัว"
 }

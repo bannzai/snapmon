@@ -232,5 +232,6 @@
   "titleStartFromCamera": "Ota kuva ja aloita",
   "titleContinue": "Jatka",
   "titleContinueWithCount": "Jatka (kokoelma {monsterCount})",
-  "titleMinimumAge": "Vähintään {age}-vuotiaille"
+  "titleMinimumAge": "Vähintään {age}-vuotiaille",
+  "titlePrivacy": "Tietosuoja"
 }

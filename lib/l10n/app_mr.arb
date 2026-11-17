@@ -232,5 +232,6 @@
   "titleStartFromCamera": "फोटो काढून सुरुवात कर",
   "titleContinue": "पुढे खेळ",
   "titleContinueWithCount": "पुढे खेळ (संग्रह {monsterCount})",
-  "titleMinimumAge": "{age} वर्षे आणि त्याहून अधिक वयासाठी"
+  "titleMinimumAge": "{age} वर्षे आणि त्याहून अधिक वयासाठी",
+  "titlePrivacy": "गोपनीयता"
 }

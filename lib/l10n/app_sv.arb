@@ -232,5 +232,6 @@
   "titleStartFromCamera": "Ta ett foto och börja",
   "titleContinue": "Fortsätt",
   "titleContinueWithCount": "Fortsätt (samling {monsterCount})",
-  "titleMinimumAge": "Från {age} år"
+  "titleMinimumAge": "Från {age} år",
+  "titlePrivacy": "Integritet"
 }

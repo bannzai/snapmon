@@ -232,5 +232,6 @@
   "titleStartFromCamera": "ছবি তুলে শুরু করো",
   "titleContinue": "খেলা চালিয়ে যাও",
   "titleContinueWithCount": "চালিয়ে যাও (সংগ্রহ {monsterCount})",
-  "titleMinimumAge": "{age} বছর বা তার বেশি বয়সীদের জন্য"
+  "titleMinimumAge": "{age} বছর বা তার বেশি বয়সীদের জন্য",
+  "titlePrivacy": "গোপনীয়তা"
 }

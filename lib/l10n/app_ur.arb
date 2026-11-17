@@ -232,5 +232,6 @@
   "titleStartFromCamera": "تصویر کھینچ کر شروع کرو",
   "titleContinue": "کھیل جاری رکھو",
   "titleContinueWithCount": "آگے کھیلو (ڈیکس {monsterCount})",
-  "titleMinimumAge": "{age} سال یا اس سے زیادہ عمر کے لیے"
+  "titleMinimumAge": "{age} سال یا اس سے زیادہ عمر کے لیے",
+  "titlePrivacy": "رازداری"
 }

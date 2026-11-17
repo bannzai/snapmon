@@ -232,5 +232,6 @@
   "titleStartFromCamera": "Scatta una foto e inizia",
   "titleContinue": "Continua",
   "titleContinueWithCount": "Continua (dex {monsterCount})",
-  "titleMinimumAge": "Dai {age} anni in su"
+  "titleMinimumAge": "Dai {age} anni in su",
+  "titlePrivacy": "Privacy"
 }

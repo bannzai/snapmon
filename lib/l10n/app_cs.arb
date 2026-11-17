@@ -232,5 +232,6 @@
   "titleStartFromCamera": "Vyfoť a začni",
   "titleContinue": "Pokračovat",
   "titleContinueWithCount": "Pokračuj (encyklopedie {monsterCount})",
-  "titleMinimumAge": "Od {age} let"
+  "titleMinimumAge": "Od {age} let",
+  "titlePrivacy": "Soukromí"
 }

@@ -232,5 +232,6 @@
   "titleStartFromCamera": "Chụp ảnh để bắt đầu",
   "titleContinue": "Chơi tiếp",
   "titleContinueWithCount": "Chơi tiếp (bộ sưu tập {monsterCount})",
-  "titleMinimumAge": "Dành cho người từ {age} tuổi"
+  "titleMinimumAge": "Dành cho người từ {age} tuổi",
+  "titlePrivacy": "Quyền riêng tư"
 }

@@ -232,5 +232,6 @@
   "titleStartFromCamera": "Βγάλε φωτογραφία και ξεκίνα",
   "titleContinue": "Συνέχεια",
   "titleContinueWithCount": "Συνέχεια (εγκυκλοπαίδεια {monsterCount})",
-  "titleMinimumAge": "Από {age} ετών"
+  "titleMinimumAge": "Από {age} ετών",
+  "titlePrivacy": "Απόρρητο"
 }

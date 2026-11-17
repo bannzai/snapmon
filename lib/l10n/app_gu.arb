@@ -232,5 +232,6 @@
   "titleStartFromCamera": "ફોટો પાડીને શરૂ કરો",
   "titleContinue": "રમત આગળ ચાલુ રાખો",
   "titleContinueWithCount": "આગળ રમો (ડેક્સ {monsterCount})",
-  "titleMinimumAge": "{age} વર્ષ કે તેથી વધુ ઉંમર માટે"
+  "titleMinimumAge": "{age} વર્ષ કે તેથી વધુ ઉંમર માટે",
+  "titlePrivacy": "ગોપનીયતા"
 }

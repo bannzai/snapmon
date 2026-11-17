@@ -232,5 +232,6 @@
   "titleStartFromCamera": "ଫଟୋ ଉଠାଇ ଆରମ୍ଭ କର",
   "titleContinue": "ଖେଳ ଜାରି ରଖ",
   "titleContinueWithCount": "ଆଗକୁ ଖେଳ (ବିଶ୍ୱକୋଷ {monsterCount})",
-  "titleMinimumAge": "{age} ବର୍ଷ ବା ତାଠାରୁ ଅଧିକ ବୟସ ପାଇଁ"
+  "titleMinimumAge": "{age} ବର୍ଷ ବା ତାଠାରୁ ଅଧିକ ବୟସ ପାଇଁ",
+  "titlePrivacy": "ଗୋପନୀୟତା"
 }

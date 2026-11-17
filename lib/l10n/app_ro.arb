@@ -232,5 +232,6 @@
   "titleStartFromCamera": "Fă o poză și începe",
   "titleContinue": "Continuă",
   "titleContinueWithCount": "Continuă (enciclopedie {monsterCount})",
-  "titleMinimumAge": "De la {age} ani"
+  "titleMinimumAge": "De la {age} ani",
+  "titlePrivacy": "Confidențialitate"
 }

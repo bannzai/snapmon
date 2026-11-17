@@ -232,5 +232,6 @@
   "titleStartFromCamera": "Ta et bilde og start",
   "titleContinue": "Fortsett",
   "titleContinueWithCount": "Fortsett (samling {monsterCount})",
-  "titleMinimumAge": "Fra {age} år"
+  "titleMinimumAge": "Fra {age} år",
+  "titlePrivacy": "Personvern"
 }

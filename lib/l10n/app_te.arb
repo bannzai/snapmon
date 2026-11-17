@@ -232,5 +232,6 @@
   "titleStartFromCamera": "ఫోటో తీసి మొదలుపెట్టు",
   "titleContinue": "ఆట కొనసాగించు",
   "titleContinueWithCount": "కొనసాగించు (డెక్స్ {monsterCount})",
-  "titleMinimumAge": "{age} ఏళ్లు, అంతకంటే ఎక్కువ వయసు వారికి"
+  "titleMinimumAge": "{age} ఏళ్లు, అంతకంటే ఎక్కువ వయసు వారికి",
+  "titlePrivacy": "గోప్యత"
 }

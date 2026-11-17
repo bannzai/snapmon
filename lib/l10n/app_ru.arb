@@ -232,5 +232,6 @@
   "titleStartFromCamera": "Сделай фото и начни",
   "titleContinue": "Продолжить",
   "titleContinueWithCount": "Продолжить (энциклопедия {monsterCount})",
-  "titleMinimumAge": "Для игроков от {age} лет"
+  "titleMinimumAge": "Для игроков от {age} лет",
+  "titlePrivacy": "Конфиденциальность"
 }

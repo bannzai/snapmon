@@ -232,5 +232,6 @@
   "titleStartFromCamera": "לצלם ולהתחיל",
   "titleContinue": "המשך משחק",
   "titleContinueWithCount": "להמשיך (אוסף {monsterCount})",
-  "titleMinimumAge": "מגיל {age} ומעלה"
+  "titleMinimumAge": "מגיל {age} ומעלה",
+  "titlePrivacy": "פרטיות"
 }

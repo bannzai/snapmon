@@ -232,5 +232,6 @@
   "titleStartFromCamera": "Tira uma foto e começa",
   "titleContinue": "Continuar",
   "titleContinueWithCount": "Continuar (enciclopédia {monsterCount})",
-  "titleMinimumAge": "A partir dos {age} anos"
+  "titleMinimumAge": "A partir dos {age} anos",
+  "titlePrivacy": "Privacidade"
 }

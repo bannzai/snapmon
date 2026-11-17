@@ -232,5 +232,6 @@
   "titleStartFromCamera": "Tag et billede, og kom i gang",
   "titleContinue": "Fortsæt",
   "titleContinueWithCount": "Fortsæt (dex {monsterCount})",
-  "titleMinimumAge": "Fra {age} år"
+  "titleMinimumAge": "Fra {age} år",
+  "titlePrivacy": "Privatliv"
 }

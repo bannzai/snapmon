@@ -232,5 +232,6 @@
   "titleStartFromCamera": "ಫೋಟೋ ತೆಗೆದು ಶುರು ಮಾಡು",
   "titleContinue": "ಆಟ ಮುಂದುವರಿಸು",
   "titleContinueWithCount": "ಮುಂದುವರಿಸು (ವಿಶ್ವಕೋಶ {monsterCount})",
-  "titleMinimumAge": "{age} ವರ್ಷ ಮತ್ತು ಮೇಲ್ಪಟ್ಟವರಿಗೆ"
+  "titleMinimumAge": "{age} ವರ್ಷ ಮತ್ತು ಮೇಲ್ಪಟ್ಟವರಿಗೆ",
+  "titlePrivacy": "ಗೌಪ್ಯತೆ"
 }

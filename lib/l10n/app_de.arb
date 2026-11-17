@@ -232,5 +232,6 @@
   "titleStartFromCamera": "Mach ein Foto und leg los",
   "titleContinue": "Fortsetzen",
   "titleContinueWithCount": "Weiterspielen (Dex {monsterCount})",
-  "titleMinimumAge": "Ab {age} Jahren"
+  "titleMinimumAge": "Ab {age} Jahren",
+  "titlePrivacy": "Datenschutz"
 }

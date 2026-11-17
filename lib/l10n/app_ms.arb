@@ -232,5 +232,6 @@
   "titleStartFromCamera": "Ambil gambar dan mula",
   "titleContinue": "Teruskan",
   "titleContinueWithCount": "Teruskan (ensiklopedia {monsterCount})",
-  "titleMinimumAge": "Untuk umur {age} tahun ke atas"
+  "titleMinimumAge": "Untuk umur {age} tahun ke atas",
+  "titlePrivacy": "Privasi"
 }

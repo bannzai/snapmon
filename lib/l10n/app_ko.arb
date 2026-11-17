@@ -232,5 +232,6 @@
   "titleStartFromCamera": "사진 찍고 시작하기",
   "titleContinue": "이어하기",
   "titleContinueWithCount": "이어하기 (도감 {monsterCount})",
-  "titleMinimumAge": "{age}세 이상 이용가"
+  "titleMinimumAge": "{age}세 이상 이용가",
+  "titlePrivacy": "개인정보 보호"
 }

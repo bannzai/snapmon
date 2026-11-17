@@ -232,5 +232,6 @@
   "titleStartFromCamera": "Fotoğraf çekip başla",
   "titleContinue": "Devam et",
   "titleContinueWithCount": "Devam et (ansiklopedi {monsterCount})",
-  "titleMinimumAge": "{age} yaş ve üzeri için"
+  "titleMinimumAge": "{age} yaş ve üzeri için",
+  "titlePrivacy": "Gizlilik"
 }

@@ -232,5 +232,6 @@
   "titleStartFromCamera": "Odfoť a začni",
   "titleContinue": "Pokračovať",
   "titleContinueWithCount": "Pokračuj (encyklopédia {monsterCount})",
-  "titleMinimumAge": "Od {age} rokov"
+  "titleMinimumAge": "Od {age} rokov",
+  "titlePrivacy": "Súkromie"
 }

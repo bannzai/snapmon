@@ -232,5 +232,6 @@
   "titleStartFromCamera": "Zrób zdjęcie i zacznij",
   "titleContinue": "Kontynuuj",
   "titleContinueWithCount": "Kontynuuj (encyklopedia {monsterCount})",
-  "titleMinimumAge": "Od {age} lat"
+  "titleMinimumAge": "Od {age} lat",
+  "titlePrivacy": "Prywatność"
 }

@@ -232,5 +232,6 @@
   "titleStartFromCamera": "Fotózz, és kezdj bele",
   "titleContinue": "Folytatás",
   "titleContinueWithCount": "Folytatás (gyűjtemény {monsterCount})",
-  "titleMinimumAge": "{age} éves kortól"
+  "titleMinimumAge": "{age} éves kortól",
+  "titlePrivacy": "Adatvédelem"
 }

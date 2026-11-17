@@ -232,5 +232,6 @@
   "titleStartFromCamera": "Maak een foto en begin",
   "titleContinue": "Verder spelen",
   "titleContinueWithCount": "Verder spelen (dex {monsterCount})",
-  "titleMinimumAge": "Vanaf {age} jaar"
+  "titleMinimumAge": "Vanaf {age} jaar",
+  "titlePrivacy": "Privacy"
 }

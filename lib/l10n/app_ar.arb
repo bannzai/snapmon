@@ -232,5 +232,6 @@
   "titleStartFromCamera": "ابدأ بالتقاط صورة",
   "titleContinue": "متابعة اللعب",
   "titleContinueWithCount": "تابع (الموسوعة {monsterCount})",
-  "titleMinimumAge": "للأعمار من {age} سنة فما فوق"
+  "titleMinimumAge": "للأعمار من {age} سنة فما فوق",
+  "titlePrivacy": "الخصوصية"
 }

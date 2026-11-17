@@ -232,5 +232,6 @@
   "titleStartFromCamera": "Fotkaj i kreni",
   "titleContinue": "Nastavi",
   "titleContinueWithCount": "Nastavi (enciklopedija {monsterCount})",
-  "titleMinimumAge": "Za dob od {age} godina"
+  "titleMinimumAge": "Za dob od {age} godina",
+  "titlePrivacy": "Privatnost"
 }
