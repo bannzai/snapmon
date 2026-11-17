@@ -197,5 +197,6 @@
   "statusConditionStun": "기절",
   "statusConditionBurn": "화상",
   "statusConditionDrowsy": "졸음",
-  "statusConditionSleep": "잠듦"
+  "statusConditionSleep": "잠듦",
+  "statusConditionCurse": "저주"
 }

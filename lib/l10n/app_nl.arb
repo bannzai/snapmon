@@ -197,5 +197,6 @@
   "statusConditionStun": "Verdoofd",
   "statusConditionBurn": "Brandwond",
   "statusConditionDrowsy": "Sufheid",
-  "statusConditionSleep": "Slaap"
+  "statusConditionSleep": "Slaap",
+  "statusConditionCurse": "Vervloeking"
 }

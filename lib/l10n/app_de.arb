@@ -197,5 +197,6 @@
   "statusConditionStun": "Betäubt",
   "statusConditionBurn": "Verbrennung",
   "statusConditionDrowsy": "Schläfrigkeit",
-  "statusConditionSleep": "Schlaf"
+  "statusConditionSleep": "Schlaf",
+  "statusConditionCurse": "Fluch"
 }

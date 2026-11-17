@@ -197,5 +197,6 @@
   "statusConditionStun": "Aturdimiento",
   "statusConditionBurn": "Quemadura",
   "statusConditionDrowsy": "Somnolencia",
-  "statusConditionSleep": "Dormido"
+  "statusConditionSleep": "Dormido",
+  "statusConditionCurse": "Maldición"
 }

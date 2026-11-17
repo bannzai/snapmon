@@ -197,5 +197,6 @@
   "statusConditionStun": "बेहोशी",
   "statusConditionBurn": "जलन",
   "statusConditionDrowsy": "उनींदापन",
-  "statusConditionSleep": "नींद"
+  "statusConditionSleep": "नींद",
+  "statusConditionCurse": "श्राप"
 }

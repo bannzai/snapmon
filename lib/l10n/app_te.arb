@@ -197,5 +197,6 @@
   "statusConditionStun": "స్పృహ తప్పడం",
   "statusConditionBurn": "కాలిన గాయం",
   "statusConditionDrowsy": "కునుకుపాటు",
-  "statusConditionSleep": "నిద్ర"
+  "statusConditionSleep": "నిద్ర",
+  "statusConditionCurse": "శాపం"
 }

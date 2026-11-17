@@ -197,5 +197,6 @@
   "statusConditionStun": "Оглушення",
   "statusConditionBurn": "Опік",
   "statusConditionDrowsy": "Сонливість",
-  "statusConditionSleep": "Сон"
+  "statusConditionSleep": "Сон",
+  "statusConditionCurse": "Прокляття"
 }

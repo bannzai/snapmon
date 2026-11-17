@@ -197,5 +197,6 @@
   "statusConditionStun": "Ogłuszenie",
   "statusConditionBurn": "Poparzenie",
   "statusConditionDrowsy": "Senność",
-  "statusConditionSleep": "Sen"
+  "statusConditionSleep": "Sen",
+  "statusConditionCurse": "Klątwa"
 }

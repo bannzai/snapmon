@@ -197,5 +197,6 @@
   "statusConditionStun": "Ošamućenost",
   "statusConditionBurn": "Opeklina",
   "statusConditionDrowsy": "Pospanost",
-  "statusConditionSleep": "San"
+  "statusConditionSleep": "San",
+  "statusConditionCurse": "Prokletstvo"
 }

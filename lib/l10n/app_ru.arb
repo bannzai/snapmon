@@ -197,5 +197,6 @@
   "statusConditionStun": "Оглушение",
   "statusConditionBurn": "Ожог",
   "statusConditionDrowsy": "Сонливость",
-  "statusConditionSleep": "Сон"
+  "statusConditionSleep": "Сон",
+  "statusConditionCurse": "Проклятие"
 }

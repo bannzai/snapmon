@@ -197,5 +197,6 @@
   "statusConditionStun": "অজ্ঞান",
   "statusConditionBurn": "পোড়া",
   "statusConditionDrowsy": "তন্দ্রা",
-  "statusConditionSleep": "ঘুম"
+  "statusConditionSleep": "ঘুম",
+  "statusConditionCurse": "অভিশাপ"
 }

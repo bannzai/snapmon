@@ -197,5 +197,6 @@
   "statusConditionStun": "மயக்கம்",
   "statusConditionBurn": "தீக்காயம்",
   "statusConditionDrowsy": "தூக்கக் கலக்கம்",
-  "statusConditionSleep": "தூக்கம்"
+  "statusConditionSleep": "தூக்கம்",
+  "statusConditionCurse": "சாபம்"
 }

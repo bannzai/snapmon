@@ -197,5 +197,6 @@
   "statusConditionStun": "Kábulat",
   "statusConditionBurn": "Égés",
   "statusConditionDrowsy": "Álmosság",
-  "statusConditionSleep": "Alvás"
+  "statusConditionSleep": "Alvás",
+  "statusConditionCurse": "Átok"
 }

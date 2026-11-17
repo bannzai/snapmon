@@ -197,5 +197,6 @@
   "statusConditionStun": "Sersemleme",
   "statusConditionBurn": "Yanık",
   "statusConditionDrowsy": "Uyuklama",
-  "statusConditionSleep": "Uyku"
+  "statusConditionSleep": "Uyku",
+  "statusConditionCurse": "Lanet"
 }

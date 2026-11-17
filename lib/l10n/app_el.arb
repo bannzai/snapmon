@@ -197,5 +197,6 @@
   "statusConditionStun": "Ζάλη",
   "statusConditionBurn": "Έγκαυμα",
   "statusConditionDrowsy": "Υπνηλία",
-  "statusConditionSleep": "Ύπνος"
+  "statusConditionSleep": "Ύπνος",
+  "statusConditionCurse": "Κατάρα"
 }

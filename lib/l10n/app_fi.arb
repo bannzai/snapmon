@@ -197,5 +197,6 @@
   "statusConditionStun": "Tyrmätty",
   "statusConditionBurn": "Palovamma",
   "statusConditionDrowsy": "Uneliaisuus",
-  "statusConditionSleep": "Uni"
+  "statusConditionSleep": "Uni",
+  "statusConditionCurse": "Kirous"
 }

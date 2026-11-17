@@ -197,5 +197,6 @@
   "statusConditionStun": "昏厥",
   "statusConditionBurn": "燒傷",
   "statusConditionDrowsy": "睏倦",
-  "statusConditionSleep": "睡眠"
+  "statusConditionSleep": "睡眠",
+  "statusConditionCurse": "詛咒"
 }

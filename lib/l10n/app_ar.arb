@@ -197,5 +197,6 @@
   "statusConditionStun": "إغماء",
   "statusConditionBurn": "حرق",
   "statusConditionDrowsy": "نعاس",
-  "statusConditionSleep": "نائم"
+  "statusConditionSleep": "نائم",
+  "statusConditionCurse": "لعنة"
 }

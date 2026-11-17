@@ -197,5 +197,6 @@
   "statusConditionStun": "עילפון",
   "statusConditionBurn": "כוויה",
   "statusConditionDrowsy": "נמנום",
-  "statusConditionSleep": "שינה"
+  "statusConditionSleep": "שינה",
+  "statusConditionCurse": "קללה"
 }

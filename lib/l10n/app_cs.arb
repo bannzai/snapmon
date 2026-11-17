@@ -197,5 +197,6 @@
   "statusConditionStun": "Omráčení",
   "statusConditionBurn": "Popálení",
   "statusConditionDrowsy": "Ospalost",
-  "statusConditionSleep": "Spánek"
+  "statusConditionSleep": "Spánek",
+  "statusConditionCurse": "Prokletí"
 }

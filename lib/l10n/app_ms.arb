@@ -197,5 +197,6 @@
   "statusConditionStun": "Pengsan",
   "statusConditionBurn": "Melecur",
   "statusConditionDrowsy": "Mengantuk",
-  "statusConditionSleep": "Tidur"
+  "statusConditionSleep": "Tidur",
+  "statusConditionCurse": "Sumpahan"
 }

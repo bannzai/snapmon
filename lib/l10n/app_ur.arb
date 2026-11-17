@@ -197,5 +197,6 @@
   "statusConditionStun": "بے ہوشی",
   "statusConditionBurn": "جلنا",
   "statusConditionDrowsy": "غنودگی",
-  "statusConditionSleep": "نیند"
+  "statusConditionSleep": "نیند",
+  "statusConditionCurse": "لعنت"
 }
