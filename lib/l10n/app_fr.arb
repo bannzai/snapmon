@@ -42,7 +42,7 @@
   "opponentSearchAgain": "Chercher encore",
   "opponentNoneAvailable": "Aucun dresseur à affronter pour le moment\nTu peux affronter un dresseur CPU",
   "opponentRandomBattle": "Affronter un adversaire au hasard",
-  "opponentCpuBattle": "Combats le CPU",
+  "opponentCpuBattle": "Affronter le CPU",
   "settingsLinked": "Ton compte est lié à {providerName}",
   "settingsSwitchAccountTitle": "Tu veux passer à ton compte déjà associé ?",
   "settingsSwitchAccountMessage": "Ce compte {providerName} est déjà lié à un autre appareil. Si tu y passes, le dex de cet appareil (monstres : {monsterCount}) sera effacé et tu retrouveras le dex du compte lié.",
