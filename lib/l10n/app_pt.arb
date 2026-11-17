@@ -328,5 +328,6 @@
   "helpStatusBurn": "O dano que você causa cai pela metade, e o dano que recebe aumenta",
   "helpStatusDrowsy": "A Velocidade cai pela metade\nSe sofrer o efeito de novo, o monstro adormece",
   "helpStatusSleep": "Pode ficar sem agir por alguns turnos",
-  "helpStatusCurse": "Ataque, Defesa ou Velocidade cai pela metade"
+  "helpStatusCurse": "Ataque, Defesa ou Velocidade cai pela metade",
+  "helpStatusConfusion": "Por alguns turnos, pode sair um golpe diferente do que você escolheu"
 }

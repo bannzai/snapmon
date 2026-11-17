@@ -328,5 +328,6 @@
   "helpStatusBurn": "Sát thương bạn gây ra giảm một nửa, còn sát thương nhận vào tăng lên",
   "helpStatusDrowsy": "Tốc độ giảm một nửa\nNếu trúng hiệu ứng này lần nữa, quái vật sẽ ngủ",
   "helpStatusSleep": "Có thể không hành động được trong vài lượt",
-  "helpStatusCurse": "Một trong ba chỉ số Tấn công, Phòng thủ hoặc Tốc độ giảm một nửa"
+  "helpStatusCurse": "Một trong ba chỉ số Tấn công, Phòng thủ hoặc Tốc độ giảm một nửa",
+  "helpStatusConfusion": "Trong vài lượt, có thể tung chiêu khác với chiêu bạn đã chọn"
 }

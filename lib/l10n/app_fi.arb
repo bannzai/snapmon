@@ -328,5 +328,6 @@
   "helpStatusBurn": "Tekemäsi vahinko puolittuu ja saamasi vahinko kasvaa",
   "helpStatusDrowsy": "Nopeus puolittuu\nJos vaikutus osuu uudelleen, hirviö nukahtaa",
   "helpStatusSleep": "Ei välttämättä pysty toimimaan muutamaan vuoroon",
-  "helpStatusCurse": "Hyökkäys, puolustus tai nopeus puolittuu"
+  "helpStatusCurse": "Hyökkäys, puolustus tai nopeus puolittuu",
+  "helpStatusConfusion": "Muutaman vuoron ajan voi lähteä eri liike kuin valitsemasi liike"
 }

@@ -328,5 +328,6 @@
   "helpStatusBurn": "Damage yang kamu berikan jadi setengah, dan damage yang kamu terima meningkat",
   "helpStatusDrowsy": "Kecepatan berkurang setengah\nJika terkena efek ini lagi, monster tertidur",
   "helpStatusSleep": "Mungkin tidak bisa bertindak selama beberapa giliran",
-  "helpStatusCurse": "Salah satu dari Serangan, Pertahanan, atau Kecepatan berkurang setengah"
+  "helpStatusCurse": "Salah satu dari Serangan, Pertahanan, atau Kecepatan berkurang setengah",
+  "helpStatusConfusion": "Selama beberapa giliran, jurus yang keluar bisa berbeda dari jurus pilihanmu"
 }

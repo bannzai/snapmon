@@ -328,5 +328,6 @@
   "helpStatusBurn": "造成的傷害減半，受到的傷害增加",
   "helpStatusDrowsy": "速度減半\n再次受到此效果時會陷入睡眠",
   "helpStatusSleep": "接下來幾回合可能無法行動",
-  "helpStatusCurse": "攻擊、防禦或速度其中一項減半"
+  "helpStatusCurse": "攻擊、防禦或速度其中一項減半",
+  "helpStatusConfusion": "接下來幾回合，可能使出與你選擇的招式不同的招式"
 }

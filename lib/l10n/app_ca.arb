@@ -328,5 +328,6 @@
   "helpStatusBurn": "El dany que fas es redueix a la meitat i el que reps augmenta",
   "helpStatusDrowsy": "La Velocitat es redueix a la meitat\nSi rep l’efecte un altre cop, s’adorm",
   "helpStatusSleep": "Pot quedar-se sense actuar durant uns quants torns",
-  "helpStatusCurse": "L'atac, la defensa o la velocitat es redueix a la meitat"
+  "helpStatusCurse": "L'atac, la defensa o la velocitat es redueix a la meitat",
+  "helpStatusConfusion": "Durant uns quants torns, pot sortir un moviment diferent del que has triat"
 }

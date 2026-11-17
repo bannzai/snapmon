@@ -328,5 +328,6 @@
   "helpStatusBurn": "El daño que causas se reduce a la mitad y el que recibes aumenta",
   "helpStatusDrowsy": "La Velocidad se reduce a la mitad\nSi recibe el efecto otra vez, se duerme",
   "helpStatusSleep": "Puede que no actúe durante unos turnos",
-  "helpStatusCurse": "El Ataque, la Defensa o la Velocidad se reduce a la mitad"
+  "helpStatusCurse": "El Ataque, la Defensa o la Velocidad se reduce a la mitad",
+  "helpStatusConfusion": "Durante unos turnos, puede salir un movimiento distinto al que elegiste"
 }
