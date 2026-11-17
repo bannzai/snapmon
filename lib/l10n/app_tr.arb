@@ -145,5 +145,6 @@
   "statAccuracy": "İsabet",
   "resultLearnedMoves": "Öğrenilen hamleler",
   "resultRemoveFromParty": "Takımından çıkar",
-  "resultAddToParty": "takıma ekle"
+  "resultAddToParty": "takıma ekle",
+  "resultReplaceInParty": "Takımından birini değiştir"
 }

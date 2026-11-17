@@ -145,5 +145,6 @@
   "statAccuracy": "Độ chính xác",
   "resultLearnedMoves": "Các chiêu đã học",
   "resultRemoveFromParty": "Bỏ khỏi đội",
-  "resultAddToParty": "Thêm vào đội"
+  "resultAddToParty": "Thêm vào đội",
+  "resultReplaceInParty": "Đổi một thành viên trong đội"
 }

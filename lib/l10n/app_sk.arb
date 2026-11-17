@@ -145,5 +145,6 @@
   "statAccuracy": "Presnosť",
   "resultLearnedMoves": "Naučené útoky",
   "resultRemoveFromParty": "Odober z tímu",
-  "resultAddToParty": "Pridaj do tímu"
+  "resultAddToParty": "Pridaj do tímu",
+  "resultReplaceInParty": "Vymeň člena tímu"
 }

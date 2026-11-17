@@ -145,5 +145,6 @@
   "statAccuracy": "ସଠିକତା",
   "resultLearnedMoves": "ଶିଖିଥିବା ଚାଲ",
   "resultRemoveFromParty": "ଦଳରୁ କାଢ଼",
-  "resultAddToParty": "ଦଳରେ ଯୋଗ କର"
+  "resultAddToParty": "ଦଳରେ ଯୋଗ କର",
+  "resultReplaceInParty": "ଦଳର ଜଣେ ସଦସ୍ୟକୁ ବଦଳାଅ"
 }

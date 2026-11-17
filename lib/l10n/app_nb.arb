@@ -145,5 +145,6 @@
   "statAccuracy": "Treffsikkerhet",
   "resultLearnedMoves": "Lærte angrep",
   "resultRemoveFromParty": "Fjern fra laget",
-  "resultAddToParty": "Legg til på laget"
+  "resultAddToParty": "Legg til på laget",
+  "resultReplaceInParty": "Bytt ut et medlem på laget"
 }

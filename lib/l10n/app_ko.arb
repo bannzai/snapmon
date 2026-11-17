@@ -145,5 +145,6 @@
   "statAccuracy": "명중률",
   "resultLearnedMoves": "배운 기술",
   "resultRemoveFromParty": "파티에서 빼기",
-  "resultAddToParty": "파티에 추가"
+  "resultAddToParty": "파티에 추가",
+  "resultReplaceInParty": "파티 멤버 교체하기"
 }

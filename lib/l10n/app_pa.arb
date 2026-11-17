@@ -145,5 +145,6 @@
   "statAccuracy": "ਸਟੀਕਤਾ",
   "resultLearnedMoves": "ਸਿੱਖੀਆਂ ਚਾਲਾਂ",
   "resultRemoveFromParty": "ਟੀਮ ਵਿੱਚੋਂ ਹਟਾਓ",
-  "resultAddToParty": "ਟੀਮ ਵਿੱਚ ਸ਼ਾਮਲ ਕਰੋ"
+  "resultAddToParty": "ਟੀਮ ਵਿੱਚ ਸ਼ਾਮਲ ਕਰੋ",
+  "resultReplaceInParty": "ਟੀਮ ਦਾ ਮੈਂਬਰ ਬਦਲੋ"
 }

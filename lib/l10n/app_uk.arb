@@ -145,5 +145,6 @@
   "statAccuracy": "Точність",
   "resultLearnedMoves": "Вивчені прийоми",
   "resultRemoveFromParty": "Прибрати з команди",
-  "resultAddToParty": "Додати до команди"
+  "resultAddToParty": "Додати до команди",
+  "resultReplaceInParty": "Заміни учасника команди"
 }

@@ -145,5 +145,6 @@
   "statAccuracy": "درستگی",
   "resultLearnedMoves": "سیکھی ہوئی چالیں",
   "resultRemoveFromParty": "ٹیم سے ہٹاؤ",
-  "resultAddToParty": "ٹیم میں شامل کرو"
+  "resultAddToParty": "ٹیم میں شامل کرو",
+  "resultReplaceInParty": "ٹیم کے ایک رکن کو بدلو"
 }

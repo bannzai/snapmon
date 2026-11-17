@@ -145,5 +145,6 @@
   "statAccuracy": "Træfsikkerhed",
   "resultLearnedMoves": "Lærte angreb",
   "resultRemoveFromParty": "Fjern fra holdet",
-  "resultAddToParty": "Føj til dit hold"
+  "resultAddToParty": "Føj til dit hold",
+  "resultReplaceInParty": "Skift et medlem på dit hold ud"
 }

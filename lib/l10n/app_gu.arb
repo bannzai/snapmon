@@ -145,5 +145,6 @@
   "statAccuracy": "ચોકસાઈ",
   "resultLearnedMoves": "શીખેલી ચાલ",
   "resultRemoveFromParty": "ટીમમાંથી દૂર કરો",
-  "resultAddToParty": "ટીમમાં ઉમેરો"
+  "resultAddToParty": "ટીમમાં ઉમેરો",
+  "resultReplaceInParty": "ટીમના સભ્યને બદલો"
 }

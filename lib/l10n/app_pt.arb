@@ -145,5 +145,6 @@
   "statAccuracy": "Precisão",
   "resultLearnedMoves": "golpes aprendidos",
   "resultRemoveFromParty": "Remover da equipe",
-  "resultAddToParty": "Adicionar à equipe"
+  "resultAddToParty": "Adicionar à equipe",
+  "resultReplaceInParty": "Troque um membro da sua equipe"
 }

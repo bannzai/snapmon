@@ -145,5 +145,6 @@
   "statAccuracy": "الدقة",
   "resultLearnedMoves": "الحركات المتعلّمة",
   "resultRemoveFromParty": "إزالة من الفريق",
-  "resultAddToParty": "إضافة إلى فريقك"
+  "resultAddToParty": "إضافة إلى فريقك",
+  "resultReplaceInParty": "استبدل عضوًا من فريقك"
 }

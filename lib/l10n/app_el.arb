@@ -145,5 +145,6 @@
   "statAccuracy": "Ακρίβεια",
   "resultLearnedMoves": "Γνωστές τεχνικές",
   "resultRemoveFromParty": "Βγάλε από την ομάδα",
-  "resultAddToParty": "Προσθήκη στην ομάδα"
+  "resultAddToParty": "Προσθήκη στην ομάδα",
+  "resultReplaceInParty": "Αντικατάστησε μέλος της ομάδας"
 }

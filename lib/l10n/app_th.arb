@@ -145,5 +145,6 @@
   "statAccuracy": "ความแม่นยำ",
   "resultLearnedMoves": "ท่าที่เรียนรู้",
   "resultRemoveFromParty": "นำออกจากทีม",
-  "resultAddToParty": "เพิ่มเข้าทีม"
+  "resultAddToParty": "เพิ่มเข้าทีม",
+  "resultReplaceInParty": "เปลี่ยนสมาชิกในทีม"
 }

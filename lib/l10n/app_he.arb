@@ -145,5 +145,6 @@
   "statAccuracy": "דיוק",
   "resultLearnedMoves": "מתקפות שנלמדו",
   "resultRemoveFromParty": "להוציא מהצוות",
-  "resultAddToParty": "הוספה לצוות"
+  "resultAddToParty": "הוספה לצוות",
+  "resultReplaceInParty": "להחליף חבר בצוות"
 }

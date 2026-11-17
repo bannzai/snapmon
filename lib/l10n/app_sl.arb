@@ -145,5 +145,6 @@
   "statAccuracy": "Natančnost",
   "resultLearnedMoves": "Naučeni potezi",
   "resultRemoveFromParty": "Odstrani iz ekipe",
-  "resultAddToParty": "Dodaj v ekipo"
+  "resultAddToParty": "Dodaj v ekipo",
+  "resultReplaceInParty": "Zamenjaj člana ekipe"
 }

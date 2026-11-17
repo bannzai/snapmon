@@ -145,5 +145,6 @@
   "statAccuracy": "Ketepatan",
   "resultLearnedMoves": "gerakan yang dipelajari",
   "resultRemoveFromParty": "Keluarkan daripada pasukan",
-  "resultAddToParty": "Tambah ke pasukan"
+  "resultAddToParty": "Tambah ke pasukan",
+  "resultReplaceInParty": "Ganti ahli pasukan kamu"
 }

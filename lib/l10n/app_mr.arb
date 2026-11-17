@@ -145,5 +145,6 @@
   "statAccuracy": "अचूकता",
   "resultLearnedMoves": "शिकलेल्या चाली",
   "resultRemoveFromParty": "टीममधून काढ",
-  "resultAddToParty": "टीममध्ये सामील कर"
+  "resultAddToParty": "टीममध्ये सामील कर",
+  "resultReplaceInParty": "टीममधला सदस्य बदल"
 }

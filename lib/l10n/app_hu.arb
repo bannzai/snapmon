@@ -145,5 +145,6 @@
   "statAccuracy": "Pontosság",
   "resultLearnedMoves": "Megtanult támadások",
   "resultRemoveFromParty": "Vedd ki a csapatból",
-  "resultAddToParty": "Add a csapathoz"
+  "resultAddToParty": "Add a csapathoz",
+  "resultReplaceInParty": "Cseréld le a csapat egyik tagját"
 }

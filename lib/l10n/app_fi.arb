@@ -145,5 +145,6 @@
   "statAccuracy": "Tarkkuus",
   "resultLearnedMoves": "Opitut liikkeet",
   "resultRemoveFromParty": "Poista joukkueesta",
-  "resultAddToParty": "Lisää joukkueeseen"
+  "resultAddToParty": "Lisää joukkueeseen",
+  "resultReplaceInParty": "Vaihda joukkueen jäsen"
 }

@@ -145,5 +145,6 @@
   "statAccuracy": "Precisió",
   "resultLearnedMoves": "moviments apresos",
   "resultRemoveFromParty": "Treure de l'equip",
-  "resultAddToParty": "Afegeix a l'equip"
+  "resultAddToParty": "Afegeix a l'equip",
+  "resultReplaceInParty": "Canvia un membre de l'equip"
 }

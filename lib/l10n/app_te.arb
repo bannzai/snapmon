@@ -145,5 +145,6 @@
   "statAccuracy": "కచ్చితత్వం",
   "resultLearnedMoves": "నేర్చుకున్న మూవ్‌లు",
   "resultRemoveFromParty": "జట్టు నుంచి తీసేయి",
-  "resultAddToParty": "జట్టులో చేర్చు"
+  "resultAddToParty": "జట్టులో చేర్చు",
+  "resultReplaceInParty": "జట్టు సభ్యుడిని మార్చు"
 }

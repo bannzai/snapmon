@@ -145,5 +145,6 @@
   "statAccuracy": "ನಿಖರತೆ",
   "resultLearnedMoves": "ಕಲಿತ ತಂತ್ರಗಳು",
   "resultRemoveFromParty": "ತಂಡದಿಂದ ತೆಗೆ",
-  "resultAddToParty": "ತಂಡಕ್ಕೆ ಸೇರಿಸು"
+  "resultAddToParty": "ತಂಡಕ್ಕೆ ಸೇರಿಸು",
+  "resultReplaceInParty": "ತಂಡದ ಸದಸ್ಯನನ್ನು ಬದಲಾಯಿಸು"
 }
