@@ -373,9 +373,9 @@ class _OpponentScreenState extends State<OpponentScreen> {
           const SizedBox(height: 12),
           OutlinedButton.icon(
             key: const Key('cpu-battle'),
-            onPressed: canChallenge ? _challengeRandomOpponent : null,
+            onPressed: () {},
             icon: const Icon(Icons.smart_toy_outlined),
-            label: Text(context.l10n.opponentCpuBattle),
+            label: Text(context.l10n.opponentRandomBattle),
           ),
         ],
       );
