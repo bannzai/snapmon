@@ -73,5 +73,6 @@
   "profileIconUpdated": "Το εικονίδιο άλλαξε",
   "dexSummary": "Τέρατα: {monsterCount} · ομάδα: {partyCount}",
   "dexReload": "Φόρτωσε ξανά",
-  "dexParty": "ομάδα"
+  "dexParty": "ομάδα",
+  "dexAll": "Όλα"
 }

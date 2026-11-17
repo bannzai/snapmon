@@ -73,5 +73,6 @@
   "profileIconUpdated": "ഐക്കൺ മാറ്റി",
   "dexSummary": "മോൺസ്റ്ററുകൾ: {monsterCount} · പാർട്ടി: {partyCount}",
   "dexReload": "വീണ്ടും ലോഡ് ചെയ്യൂ",
-  "dexParty": "പാർട്ടി"
+  "dexParty": "പാർട്ടി",
+  "dexAll": "എല്ലാം"
 }

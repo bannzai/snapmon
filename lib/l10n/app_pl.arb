@@ -73,5 +73,6 @@
   "profileIconUpdated": "Ikona została zmieniona",
   "dexSummary": "Potwory: {monsterCount} · drużyna: {partyCount}",
   "dexReload": "Wczytaj ponownie",
-  "dexParty": "drużyna"
+  "dexParty": "drużyna",
+  "dexAll": "Wszystkie"
 }

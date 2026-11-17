@@ -73,5 +73,6 @@
   "profileIconUpdated": "Ikona je změněná",
   "dexSummary": "Příšery: {monsterCount} · tým: {partyCount}",
   "dexReload": "Načti znovu",
-  "dexParty": "tým"
+  "dexParty": "tým",
+  "dexAll": "Všichni"
 }

@@ -73,5 +73,6 @@
   "profileIconUpdated": "Simge değiştirildi",
   "dexSummary": "Canavar: {monsterCount} · takım: {partyCount}",
   "dexReload": "Yeniden yükle",
-  "dexParty": "takım"
+  "dexParty": "takım",
+  "dexAll": "Tümü"
 }

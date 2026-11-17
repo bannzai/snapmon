@@ -73,5 +73,6 @@
   "profileIconUpdated": "아이콘을 바꿨어요",
   "dexSummary": "몬스터: {monsterCount} · 파티: {partyCount}",
   "dexReload": "다시 불러오기",
-  "dexParty": "파티"
+  "dexParty": "파티",
+  "dexAll": "전체"
 }

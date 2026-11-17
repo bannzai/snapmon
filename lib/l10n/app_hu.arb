@@ -73,5 +73,6 @@
   "profileIconUpdated": "Az ikon megváltozott",
   "dexSummary": "Szörnyek: {monsterCount} · csapat: {partyCount}",
   "dexReload": "Töltsd be újra",
-  "dexParty": "csapat"
+  "dexParty": "csapat",
+  "dexAll": "Összes"
 }

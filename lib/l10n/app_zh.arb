@@ -73,5 +73,6 @@
   "profileIconUpdated": "图标已更换",
   "dexSummary": "怪物：{monsterCount} · 队伍：{partyCount}",
   "dexReload": "重新加载",
-  "dexParty": "队伍"
+  "dexParty": "队伍",
+  "dexAll": "全部"
 }

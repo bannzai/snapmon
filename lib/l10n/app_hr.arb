@@ -73,5 +73,6 @@
   "profileIconUpdated": "Ikona je promijenjena",
   "dexSummary": "Čudovišta: {monsterCount} · tim: {partyCount}",
   "dexReload": "Učitaj ponovno",
-  "dexParty": "tim"
+  "dexParty": "tim",
+  "dexAll": "Svi"
 }

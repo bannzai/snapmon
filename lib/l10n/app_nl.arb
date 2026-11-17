@@ -73,5 +73,6 @@
   "profileIconUpdated": "Je hebt je pictogram gewijzigd",
   "dexSummary": "Monsters: {monsterCount} · team: {partyCount}",
   "dexReload": "Opnieuw laden",
-  "dexParty": "team"
+  "dexParty": "team",
+  "dexAll": "Alle"
 }

@@ -73,5 +73,6 @@
   "profileIconUpdated": "ஐகான் மாற்றப்பட்டது",
   "dexSummary": "அரக்கர்கள்: {monsterCount} · அணி: {partyCount}",
   "dexReload": "மீண்டும் ஏற்றுங்கள்",
-  "dexParty": "அணி"
+  "dexParty": "அணி",
+  "dexAll": "அனைத்தும்"
 }

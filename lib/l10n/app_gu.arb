@@ -73,5 +73,6 @@
   "profileIconUpdated": "આઇકન બદલાઈ ગયું",
   "dexSummary": "રાક્ષસો: {monsterCount} · ટીમ: {partyCount}",
   "dexReload": "ફરી લોડ કરો",
-  "dexParty": "ટીમ"
+  "dexParty": "ટીમ",
+  "dexAll": "બધા"
 }

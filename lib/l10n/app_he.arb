@@ -73,5 +73,6 @@
   "profileIconUpdated": "הסמל השתנה",
   "dexSummary": "מפלצות: {monsterCount} · צוות: {partyCount}",
   "dexReload": "לטעון שוב",
-  "dexParty": "צוות"
+  "dexParty": "צוות",
+  "dexAll": "הכול"
 }

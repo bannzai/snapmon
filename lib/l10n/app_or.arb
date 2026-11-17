@@ -73,5 +73,6 @@
   "profileIconUpdated": "ଆଇକନ୍ ବଦଳିଗଲା",
   "dexSummary": "ରାକ୍ଷସ: {monsterCount} · ଦଳ: {partyCount}",
   "dexReload": "ପୁଣି ଲୋଡ୍ କର",
-  "dexParty": "ଦଳ"
+  "dexParty": "ଦଳ",
+  "dexAll": "ସମସ୍ତେ"
 }

@@ -73,5 +73,6 @@
   "profileIconUpdated": "ಐಕಾನ್ ಬದಲಾಗಿದೆ",
   "dexSummary": "ರಾಕ್ಷಸರು: {monsterCount} · ತಂಡ: {partyCount}",
   "dexReload": "ಮತ್ತೆ ಲೋಡ್ ಮಾಡು",
-  "dexParty": "ತಂಡ"
+  "dexParty": "ತಂಡ",
+  "dexAll": "ಎಲ್ಲಾ"
 }

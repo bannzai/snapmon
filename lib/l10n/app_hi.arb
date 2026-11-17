@@ -73,5 +73,6 @@
   "profileIconUpdated": "आइकन बदल गया",
   "dexSummary": "मॉन्स्टर: {monsterCount} · टीम: {partyCount}",
   "dexReload": "फिर से लोड करो",
-  "dexParty": "टीम"
+  "dexParty": "टीम",
+  "dexAll": "सभी"
 }

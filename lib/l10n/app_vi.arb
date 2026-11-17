@@ -73,5 +73,6 @@
   "profileIconUpdated": "Đã đổi biểu tượng",
   "dexSummary": "Quái vật: {monsterCount} · đội: {partyCount}",
   "dexReload": "Tải lại",
-  "dexParty": "đội"
+  "dexParty": "đội",
+  "dexAll": "Tất cả"
 }

@@ -73,5 +73,6 @@
   "profileIconUpdated": "Kuvake vaihdettu",
   "dexSummary": "Hirviöt: {monsterCount} · joukkue: {partyCount}",
   "dexReload": "Lataa uudelleen",
-  "dexParty": "joukkue"
+  "dexParty": "joukkue",
+  "dexAll": "Kaikki"
 }

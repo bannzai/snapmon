@@ -73,5 +73,6 @@
   "profileIconUpdated": "Значок изменён",
   "dexSummary": "Монстры: {monsterCount} · команда: {partyCount}",
   "dexReload": "Загрузить снова",
-  "dexParty": "команда"
+  "dexParty": "команда",
+  "dexAll": "Все"
 }

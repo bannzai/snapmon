@@ -73,5 +73,6 @@
   "profileIconUpdated": "Ikonet er endret",
   "dexSummary": "Monstre: {monsterCount} · lag: {partyCount}",
   "dexReload": "Last inn på nytt",
-  "dexParty": "lag"
+  "dexParty": "lag",
+  "dexAll": "Alle"
 }

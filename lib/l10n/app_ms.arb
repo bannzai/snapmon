@@ -73,5 +73,6 @@
   "profileIconUpdated": "Ikon sudah ditukar",
   "dexSummary": "Raksasa: {monsterCount} · pasukan: {partyCount}",
   "dexReload": "Muat semula",
-  "dexParty": "pasukan"
+  "dexParty": "pasukan",
+  "dexAll": "Semua"
 }

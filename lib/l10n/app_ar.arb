@@ -73,5 +73,6 @@
   "profileIconUpdated": "تم تغيير الأيقونة",
   "dexSummary": "الوحوش: {monsterCount} · فريق: {partyCount}",
   "dexReload": "أعد التحميل",
-  "dexParty": "فريق"
+  "dexParty": "فريق",
+  "dexAll": "الكل"
 }

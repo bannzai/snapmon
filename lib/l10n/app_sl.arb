@@ -73,5 +73,6 @@
   "profileIconUpdated": "Ikona je spremenjena",
   "dexSummary": "Pošasti: {monsterCount} · ekipa: {partyCount}",
   "dexReload": "Naloži znova",
-  "dexParty": "ekipa"
+  "dexParty": "ekipa",
+  "dexAll": "Vsi"
 }

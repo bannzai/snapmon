@@ -73,5 +73,6 @@
   "profileIconUpdated": "آئیکن بدل گیا",
   "dexSummary": "مونسٹر: {monsterCount} · ٹیم: {partyCount}",
   "dexReload": "دوبارہ لوڈ کرو",
-  "dexParty": "ٹیم"
+  "dexParty": "ٹیم",
+  "dexAll": "سب"
 }

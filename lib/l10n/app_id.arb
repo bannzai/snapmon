@@ -73,5 +73,6 @@
   "profileIconUpdated": "Ikon berhasil diganti",
   "dexSummary": "Monster: {monsterCount} · tim: {partyCount}",
   "dexReload": "Muat lagi",
-  "dexParty": "tim"
+  "dexParty": "tim",
+  "dexAll": "Semua"
 }

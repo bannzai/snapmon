@@ -73,5 +73,6 @@
   "profileIconUpdated": "ఐకాన్ మారింది",
   "dexSummary": "రాక్షసులు: {monsterCount} · జట్టు: {partyCount}",
   "dexReload": "మళ్లీ లోడ్ చేయి",
-  "dexParty": "జట్టు"
+  "dexParty": "జట్టు",
+  "dexAll": "అన్నీ"
 }

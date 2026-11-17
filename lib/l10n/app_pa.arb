@@ -73,5 +73,6 @@
   "profileIconUpdated": "ਆਈਕਨ ਬਦਲ ਗਿਆ",
   "dexSummary": "ਰਾਖਸ਼: {monsterCount} · ਟੀਮ: {partyCount}",
   "dexReload": "ਦੁਬਾਰਾ ਲੋਡ ਕਰੋ",
-  "dexParty": "ਟੀਮ"
+  "dexParty": "ਟੀਮ",
+  "dexAll": "ਸਾਰੇ"
 }

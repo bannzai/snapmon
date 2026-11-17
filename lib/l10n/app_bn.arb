@@ -73,5 +73,6 @@
   "profileIconUpdated": "আইকন বদলে গেছে",
   "dexSummary": "দানব: {monsterCount} · দল: {partyCount}",
   "dexReload": "আবার লোড করো",
-  "dexParty": "দল"
+  "dexParty": "দল",
+  "dexAll": "সব"
 }
