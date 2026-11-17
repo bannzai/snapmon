@@ -234,5 +234,6 @@
   "titleContinueWithCount": "Pokračuj (encyklopédia {monsterCount})",
   "titleMinimumAge": "Od {age} rokov",
   "titlePrivacy": "Súkromie",
-  "titleHeading": "Veci okolo teba\nsa menia na príšery a bojujú"
+  "titleHeading": "Veci okolo teba\nsa menia na príšery a bojujú",
+  "referenceOpen": "Účinnosť elementov a zoznam útokov"
 }

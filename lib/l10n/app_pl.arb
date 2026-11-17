@@ -234,5 +234,6 @@
   "titleContinueWithCount": "Kontynuuj (encyklopedia {monsterCount})",
   "titleMinimumAge": "Od {age} lat",
   "titlePrivacy": "Prywatność",
-  "titleHeading": "Przedmioty wokół ciebie\nzmieniają się w potwory i walczą"
+  "titleHeading": "Przedmioty wokół ciebie\nzmieniają się w potwory i walczą",
+  "referenceOpen": "Skuteczność typów i lista ruchów"
 }

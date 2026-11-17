@@ -234,5 +234,6 @@
   "titleContinueWithCount": "Folytatás (gyűjtemény {monsterCount})",
   "titleMinimumAge": "{age} éves kortól",
   "titlePrivacy": "Adatvédelem",
-  "titleHeading": "A körülötted lévő tárgyak\nszörnyekké válnak és harcolnak"
+  "titleHeading": "A körülötted lévő tárgyak\nszörnyekké válnak és harcolnak",
+  "referenceOpen": "Típusok hatékonysága és támadások listája"
 }

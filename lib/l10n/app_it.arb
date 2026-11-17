@@ -234,5 +234,6 @@
   "titleContinueWithCount": "Continua (dex {monsterCount})",
   "titleMinimumAge": "Dai {age} anni in su",
   "titlePrivacy": "Privacy",
-  "titleHeading": "Gli oggetti intorno a te\ndiventano mostri e combattono"
+  "titleHeading": "Gli oggetti intorno a te\ndiventano mostri e combattono",
+  "referenceOpen": "Efficacia degli elementi e lista delle mosse"
 }

@@ -234,5 +234,6 @@
   "titleContinueWithCount": "Продолжить (энциклопедия {monsterCount})",
   "titleMinimumAge": "Для игроков от {age} лет",
   "titlePrivacy": "Конфиденциальность",
-  "titleHeading": "Вещи вокруг тебя\nстановятся монстрами и сражаются"
+  "titleHeading": "Вещи вокруг тебя\nстановятся монстрами и сражаются",
+  "referenceOpen": "Эффективность элементов и список приёмов"
 }

@@ -234,5 +234,6 @@
   "titleContinueWithCount": "이어하기 (도감 {monsterCount})",
   "titleMinimumAge": "{age}세 이상 이용가",
   "titlePrivacy": "개인정보 보호",
-  "titleHeading": "주변의 물건이\n몬스터가 되어 싸워요"
+  "titleHeading": "주변의 물건이\n몬스터가 되어 싸워요",
+  "referenceOpen": "속성 상성과 기술 목록"
 }

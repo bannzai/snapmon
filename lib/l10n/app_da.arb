@@ -234,5 +234,6 @@
   "titleContinueWithCount": "Fortsæt (dex {monsterCount})",
   "titleMinimumAge": "Fra {age} år",
   "titlePrivacy": "Privatliv",
-  "titleHeading": "Ting omkring dig\nbliver til monstre og kæmper"
+  "titleHeading": "Ting omkring dig\nbliver til monstre og kæmper",
+  "referenceOpen": "Elementers effektivitet og liste over angreb"
 }

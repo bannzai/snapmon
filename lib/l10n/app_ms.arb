@@ -234,5 +234,6 @@
   "titleContinueWithCount": "Teruskan (ensiklopedia {monsterCount})",
   "titleMinimumAge": "Untuk umur {age} tahun ke atas",
   "titlePrivacy": "Privasi",
-  "titleHeading": "Barang di sekeliling kamu\njadi monster dan bertarung"
+  "titleHeading": "Barang di sekeliling kamu\njadi monster dan bertarung",
+  "referenceOpen": "Keberkesanan elemen dan senarai gerakan"
 }

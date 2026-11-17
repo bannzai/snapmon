@@ -234,5 +234,6 @@
   "titleContinueWithCount": "เล่นต่อ (สารานุกรม {monsterCount})",
   "titleMinimumAge": "สำหรับผู้มีอายุ {age} ปีขึ้นไป",
   "titlePrivacy": "ความเป็นส่วนตัว",
-  "titleHeading": "สิ่งของรอบตัว\nกลายเป็นมอนสเตอร์แล้วต่อสู้"
+  "titleHeading": "สิ่งของรอบตัว\nกลายเป็นมอนสเตอร์แล้วต่อสู้",
+  "referenceOpen": "ตารางธาตุได้เปรียบและรายชื่อท่า"
 }

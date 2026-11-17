@@ -234,5 +234,6 @@
   "titleContinueWithCount": "تابع (الموسوعة {monsterCount})",
   "titleMinimumAge": "للأعمار من {age} سنة فما فوق",
   "titlePrivacy": "الخصوصية",
-  "titleHeading": "أشياء من حولك\nتصير وحوشًا وتقاتل"
+  "titleHeading": "أشياء من حولك\nتصير وحوشًا وتقاتل",
+  "referenceOpen": "فعالية العنصر وقائمة الحركات"
 }

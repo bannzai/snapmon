@@ -234,5 +234,6 @@
   "titleContinueWithCount": "繼續遊戲（圖鑑 {monsterCount}）",
   "titleMinimumAge": "適合{age}歲以上",
   "titlePrivacy": "隱私",
-  "titleHeading": "身邊的物品\n化身怪物，展開戰鬥"
+  "titleHeading": "身邊的物品\n化身怪物，展開戰鬥",
+  "referenceOpen": "屬性相剋與招式一覽"
 }

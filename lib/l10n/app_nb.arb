@@ -234,5 +234,6 @@
   "titleContinueWithCount": "Fortsett (samling {monsterCount})",
   "titleMinimumAge": "Fra {age} år",
   "titlePrivacy": "Personvern",
-  "titleHeading": "Ting rundt deg\nblir monstre og kjemper"
+  "titleHeading": "Ting rundt deg\nblir monstre og kjemper",
+  "referenceOpen": "Typeeffektivitet og liste over angrep"
 }

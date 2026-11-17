@@ -234,5 +234,6 @@
   "titleContinueWithCount": "Continua (enciclopèdia {monsterCount})",
   "titleMinimumAge": "A partir de {age} anys",
   "titlePrivacy": "Privacitat",
-  "titleHeading": "Els objectes del teu voltant\nes tornen monstres i lluiten"
+  "titleHeading": "Els objectes del teu voltant\nes tornen monstres i lluiten",
+  "referenceOpen": "Eficàcia dels elements i llista de moviments"
 }

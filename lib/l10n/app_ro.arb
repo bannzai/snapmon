@@ -234,5 +234,6 @@
   "titleContinueWithCount": "Continuă (enciclopedie {monsterCount})",
   "titleMinimumAge": "De la {age} ani",
   "titlePrivacy": "Confidențialitate",
-  "titleHeading": "Lucrurile din jurul tău\ndevin monștri și luptă"
+  "titleHeading": "Lucrurile din jurul tău\ndevin monștri și luptă",
+  "referenceOpen": "Eficacitatea elementelor și lista de mișcări"
 }

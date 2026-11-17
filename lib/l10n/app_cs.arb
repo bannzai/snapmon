@@ -234,5 +234,6 @@
   "titleContinueWithCount": "Pokračuj (encyklopedie {monsterCount})",
   "titleMinimumAge": "Od {age} let",
   "titlePrivacy": "Soukromí",
-  "titleHeading": "Věci kolem tebe\nse mění v příšery a bojují"
+  "titleHeading": "Věci kolem tebe\nse mění v příšery a bojují",
+  "referenceOpen": "Účinnost elementů a seznam útoků"
 }
