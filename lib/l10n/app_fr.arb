@@ -24,5 +24,6 @@
   "opponentReported": "Signalement envoyé",
   "opponentBlocked": "Adversaire bloqué",
   "blockDialogTitle": "bloquer",
-  "blockDialogMessage": "Tu ne rencontreras plus {displayName} comme adversaire, et inversement"
+  "blockDialogMessage": "Tu ne rencontreras plus {displayName} comme adversaire, et inversement",
+  "blockDialogConfirm": "bloquer"
 }
