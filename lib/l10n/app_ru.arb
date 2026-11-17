@@ -224,5 +224,6 @@
   "battleShareTextLost": "Проиграл битву в snapmon\n#snapmon\n{url}",
   "battleShareResult": "Поделиться результатом",
   "battleOpenDex": "Открой энциклопедию",
-  "battleYourMonster": "Твой напарник"
+  "battleYourMonster": "Твой напарник",
+  "battleHitPoints": "HP {current} / {maximum}"
 }

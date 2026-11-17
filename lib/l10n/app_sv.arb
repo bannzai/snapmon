@@ -224,5 +224,6 @@
   "battleShareTextLost": "Jag förlorade en strid i snapmon\n#snapmon\n{url}",
   "battleShareResult": "Dela resultatet",
   "battleOpenDex": "Visa samling",
-  "battleYourMonster": "Din kompis"
+  "battleYourMonster": "Din kompis",
+  "battleHitPoints": "HP {current} / {maximum}"
 }

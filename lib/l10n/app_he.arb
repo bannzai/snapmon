@@ -224,5 +224,6 @@
   "battleShareTextLost": "הפסדתי בקרב ב-snapmon\n#snapmon\n{url}",
   "battleShareResult": "שיתוף התוצאה",
   "battleOpenDex": "לצפות באוסף",
-  "battleYourMonster": "השותף שלך"
+  "battleYourMonster": "השותף שלך",
+  "battleHitPoints": "HP {current} / {maximum}"
 }

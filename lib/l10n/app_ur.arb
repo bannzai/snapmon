@@ -224,5 +224,6 @@
   "battleShareTextLost": "snapmon میں مقابلہ ہار گیا\n#snapmon\n{url}",
   "battleShareResult": "نتیجہ شیئر کرو",
   "battleOpenDex": "ڈیکس دیکھو",
-  "battleYourMonster": "تمہارا ساتھی"
+  "battleYourMonster": "تمہارا ساتھی",
+  "battleHitPoints": "HP {current} / {maximum}"
 }

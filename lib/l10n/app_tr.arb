@@ -224,5 +224,6 @@
   "battleShareTextLost": "snapmon'da bir savaşı kaybettim\n#snapmon\n{url}",
   "battleShareResult": "Sonucu paylaş",
   "battleOpenDex": "Ansiklopediye bak",
-  "battleYourMonster": "Yoldaşın"
+  "battleYourMonster": "Yoldaşın",
+  "battleHitPoints": "HP {current} / {maximum}"
 }

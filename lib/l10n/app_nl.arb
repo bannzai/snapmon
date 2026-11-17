@@ -224,5 +224,6 @@
   "battleShareTextLost": "Ik heb een gevecht verloren in snapmon\n#snapmon\n{url}",
   "battleShareResult": "Deel het resultaat",
   "battleOpenDex": "Bekijk je dex",
-  "battleYourMonster": "Je maatje"
+  "battleYourMonster": "Je maatje",
+  "battleHitPoints": "HP {current} / {maximum}"
 }

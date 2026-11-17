@@ -224,5 +224,6 @@
   "battleShareTextLost": "snapmonನಲ್ಲಿ ಯುದ್ಧ ಸೋತೆ\n#snapmon\n{url}",
   "battleShareResult": "ಫಲಿತಾಂಶ ಹಂಚಿಕೊ",
   "battleOpenDex": "ವಿಶ್ವಕೋಶ ನೋಡು",
-  "battleYourMonster": "ನಿನ್ನ ಸಂಗಾತಿ"
+  "battleYourMonster": "ನಿನ್ನ ಸಂಗಾತಿ",
+  "battleHitPoints": "HP {current} / {maximum}"
 }

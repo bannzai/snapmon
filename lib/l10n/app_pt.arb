@@ -224,5 +224,6 @@
   "battleShareTextLost": "Perdi uma batalha no snapmon\n#snapmon\n{url}",
   "battleShareResult": "Compartilhe o resultado",
   "battleOpenDex": "Ver dex",
-  "battleYourMonster": "Seu companheiro"
+  "battleYourMonster": "Seu companheiro",
+  "battleHitPoints": "HP {current} / {maximum}"
 }

@@ -224,5 +224,6 @@
   "battleShareTextLost": "خسرت معركة في snapmon\n#snapmon\n{url}",
   "battleShareResult": "شارك النتيجة",
   "battleOpenDex": "افتح الموسوعة",
-  "battleYourMonster": "رفيقك"
+  "battleYourMonster": "رفيقك",
+  "battleHitPoints": "HP {current} / {maximum}"
 }

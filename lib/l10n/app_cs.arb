@@ -224,5 +224,6 @@
   "battleShareTextLost": "Prohrál jsem souboj ve snapmon\n#snapmon\n{url}",
   "battleShareResult": "Sdílej výsledek",
   "battleOpenDex": "Prohlédni si encyklopedii",
-  "battleYourMonster": "Tvůj parťák"
+  "battleYourMonster": "Tvůj parťák",
+  "battleHitPoints": "HP {current} / {maximum}"
 }

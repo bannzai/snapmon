@@ -224,5 +224,6 @@
   "battleShareTextLost": "Hävisin taistelun snapmonissa\n#snapmon\n{url}",
   "battleShareResult": "Jaa tulos",
   "battleOpenDex": "Katso kokoelmaa",
-  "battleYourMonster": "Kaverisi"
+  "battleYourMonster": "Kaverisi",
+  "battleHitPoints": "HP {current} / {maximum}"
 }

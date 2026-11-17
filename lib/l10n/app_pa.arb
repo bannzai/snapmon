@@ -224,5 +224,6 @@
   "battleShareTextLost": "snapmon ਵਿੱਚ ਲੜਾਈ ਹਾਰ ਗਿਆ\n#snapmon\n{url}",
   "battleShareResult": "ਨਤੀਜਾ ਸਾਂਝਾ ਕਰੋ",
   "battleOpenDex": "ਸੰਗ੍ਰਹਿ ਦੇਖੋ",
-  "battleYourMonster": "ਤੁਹਾਡਾ ਸਾਥੀ"
+  "battleYourMonster": "ਤੁਹਾਡਾ ਸਾਥੀ",
+  "battleHitPoints": "HP {current} / {maximum}"
 }

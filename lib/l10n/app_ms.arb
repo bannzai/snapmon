@@ -224,5 +224,6 @@
   "battleShareTextLost": "Kalah dalam pertempuran di snapmon\n#snapmon\n{url}",
   "battleShareResult": "Kongsi keputusan",
   "battleOpenDex": "Lihat ensiklopedia",
-  "battleYourMonster": "Teman kamu"
+  "battleYourMonster": "Teman kamu",
+  "battleHitPoints": "HP {current} / {maximum}"
 }

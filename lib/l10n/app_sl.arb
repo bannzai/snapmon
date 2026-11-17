@@ -224,5 +224,6 @@
   "battleShareTextLost": "Izgubil sem bitko v snapmonu\n#snapmon\n{url}",
   "battleShareResult": "Deli rezultat",
   "battleOpenDex": "Poglej enciklopedijo",
-  "battleYourMonster": "Tvoj spremljevalec"
+  "battleYourMonster": "Tvoj spremljevalec",
+  "battleHitPoints": "HP {current} / {maximum}"
 }

@@ -224,5 +224,6 @@
   "battleShareTextLost": "Jeg tapte en kamp i snapmon\n#snapmon\n{url}",
   "battleShareResult": "Del resultatet",
   "battleOpenDex": "Se samling",
-  "battleYourMonster": "Kompisen din"
+  "battleYourMonster": "Kompisen din",
+  "battleHitPoints": "HP {current} / {maximum}"
 }
