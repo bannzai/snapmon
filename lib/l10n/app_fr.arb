@@ -228,5 +228,6 @@
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "Puissance",
   "movePowerPoints": "PP",
-  "titleStartFromAlbum": "Choisir une photo pour commencer"
+  "titleStartFromAlbum": "Choisir une photo pour commencer",
+  "titleStartFromCamera": "Prends une photo pour commencer"
 }
