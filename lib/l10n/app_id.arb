@@ -27,5 +27,6 @@
   "blockDialogMessage": "Kamu dan {displayName} tidak akan lagi bertemu sebagai lawan",
   "blockDialogConfirm": "blokir",
   "opponentSafetyMenuTooltip": "lapor · blokir",
-  "opponentBlockTrainer": "Blokir pelatih ini"
+  "opponentBlockTrainer": "Blokir pelatih ini",
+  "opponentReportHelpBody": "Tekan lama monster lawan untuk melaporkannya\nPakai tombol di kanan atas kartu untuk melapor atau memblokir"
 }

@@ -27,5 +27,6 @@
   "blockDialogMessage": "Sinua ja pelaajaa {displayName} ei enää aseteta vastakkain",
   "blockDialogConfirm": "estä",
   "opponentSafetyMenuTooltip": "ilmoita · estä",
-  "opponentBlockTrainer": "Estä tämä kouluttaja"
+  "opponentBlockTrainer": "Estä tämä kouluttaja",
+  "opponentReportHelpBody": "Ilmoita vastustajan hirviöstä pitämällä sitä painettuna\nKortin oikean yläkulman painikkeesta voit ilmoittaa tai estää"
 }

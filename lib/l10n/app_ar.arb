@@ -27,5 +27,6 @@
   "blockDialogMessage": "لن تظهر أنت و{displayName} لبعضكما كخصمين في المعارك",
   "blockDialogConfirm": "حظر",
   "opponentSafetyMenuTooltip": "إبلاغ · حظر",
-  "opponentBlockTrainer": "حظر هذا المدرب"
+  "opponentBlockTrainer": "حظر هذا المدرب",
+  "opponentReportHelpBody": "اضغط مطولًا على وحش الخصم لإرسال إبلاغ\nيمكنك إرسال إبلاغ أو حظر الخصم من الزر أعلى يمين البطاقة"
 }

@@ -27,5 +27,6 @@
   "blockDialogMessage": "Ty i {displayName} nie będziecie już dobierani do walki przeciwko sobie",
   "blockDialogConfirm": "blokuj",
   "opponentSafetyMenuTooltip": "zgłoś · blokuj",
-  "opponentBlockTrainer": "Zablokuj tego trenera"
+  "opponentBlockTrainer": "Zablokuj tego trenera",
+  "opponentReportHelpBody": "Przytrzymaj potwora rywala, aby go zgłosić\nPrzyciskiem w prawym górnym rogu karty możesz go zgłosić lub zablokować"
 }

@@ -27,5 +27,6 @@
   "blockDialogMessage": "Kamu dan {displayName} takkan lagi bertemu sebagai lawan",
   "blockDialogConfirm": "sekat",
   "opponentSafetyMenuTooltip": "lapor · sekat",
-  "opponentBlockTrainer": "Sekat jurulatih ini"
+  "opponentBlockTrainer": "Sekat jurulatih ini",
+  "opponentReportHelpBody": "Tekan lama monster lawan untuk laporkan\nGuna butang di kanan atas kad untuk lapor atau sekat"
 }

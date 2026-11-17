@@ -27,5 +27,6 @@
   "blockDialogMessage": "Tu e {displayName} já não vão ser emparelhados como adversários",
   "blockDialogConfirm": "bloquear",
   "opponentSafetyMenuTooltip": "denunciar · bloquear",
-  "opponentBlockTrainer": "Bloquear este treinador"
+  "opponentBlockTrainer": "Bloquear este treinador",
+  "opponentReportHelpBody": "Mantém premido o monstro do adversário para denunciar\nUsa o botão no canto superior direito da carta para denunciar ou bloquear"
 }

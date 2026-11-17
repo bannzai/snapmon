@@ -27,5 +27,6 @@
   "blockDialogMessage": "ਤੁਸੀਂ ਅਤੇ {displayName} ਹੁਣ ਇੱਕ-ਦੂਜੇ ਦੇ ਮੁਕਾਬਲੇ ਵਿੱਚ ਨਹੀਂ ਆਓਗੇ",
   "blockDialogConfirm": "ਬਲਾਕ ਕਰੋ",
   "opponentSafetyMenuTooltip": "ਰਿਪੋਰਟ · ਬਲਾਕ",
-  "opponentBlockTrainer": "ਇਸ ਟ੍ਰੇਨਰ ਨੂੰ ਬਲਾਕ ਕਰੋ"
+  "opponentBlockTrainer": "ਇਸ ਟ੍ਰੇਨਰ ਨੂੰ ਬਲਾਕ ਕਰੋ",
+  "opponentReportHelpBody": "ਵਿਰੋਧੀ ਦੇ ਮੌਂਸਟਰ ਨੂੰ ਦੇਰ ਤੱਕ ਦਬਾ ਕੇ ਰਿਪੋਰਟ ਕਰੋ\nਕਾਰਡ ਦੇ ਉੱਪਰ ਸੱਜੇ ਬਟਨ ਤੋਂ ਰਿਪੋਰਟ ਜਾਂ ਬਲਾਕ ਕਰੋ"
 }

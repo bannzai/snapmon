@@ -27,5 +27,6 @@
   "blockDialogMessage": "Te és {displayName} többé nem kerültök egymással szembe",
   "blockDialogConfirm": "letiltás",
   "opponentSafetyMenuTooltip": "jelentés · letiltás",
-  "opponentBlockTrainer": "Tiltsd le ezt az edzőt"
+  "opponentBlockTrainer": "Tiltsd le ezt az edzőt",
+  "opponentReportHelpBody": "Tartsd lenyomva az ellenfél szörnyét a jelentéshez\nA kártya jobb felső gombjával jelentheted vagy letilthatod"
 }

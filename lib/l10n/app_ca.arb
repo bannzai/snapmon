@@ -27,5 +27,6 @@
   "blockDialogMessage": "Tu i {displayName} ja no us trobareu com a rivals",
   "blockDialogConfirm": "bloquejar",
   "opponentSafetyMenuTooltip": "denunciar · bloquejar",
-  "opponentBlockTrainer": "Bloqueja aquest entrenador"
+  "opponentBlockTrainer": "Bloqueja aquest entrenador",
+  "opponentReportHelpBody": "Mantén premut el monstre rival per fer un denunci\nPots fer un denunci o bloquejar-lo amb el botó de dalt a la dreta de la carta"
 }

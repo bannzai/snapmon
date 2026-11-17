@@ -27,5 +27,6 @@
   "blockDialogMessage": "Du og {displayName} blir ikke lenger satt opp mot hverandre",
   "blockDialogConfirm": "blokker",
   "opponentSafetyMenuTooltip": "rapporter · blokker",
-  "opponentBlockTrainer": "Blokker denne treneren"
+  "opponentBlockTrainer": "Blokker denne treneren",
+  "opponentReportHelpBody": "Hold inne motstanderens monster for å rapportere det\nBruk knappen øverst til høyre på kortet for å rapportere eller blokkere"
 }

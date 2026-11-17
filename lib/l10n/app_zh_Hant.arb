@@ -27,5 +27,6 @@
   "blockDialogMessage": "你和{displayName}之後不會再配對成對戰對手",
   "blockDialogConfirm": "封鎖",
   "opponentSafetyMenuTooltip": "檢舉 · 封鎖",
-  "opponentBlockTrainer": "封鎖這位訓練家"
+  "opponentBlockTrainer": "封鎖這位訓練家",
+  "opponentReportHelpBody": "長按對手的怪物即可檢舉\n點擊卡片右上角的按鈕可檢舉或封鎖"
 }

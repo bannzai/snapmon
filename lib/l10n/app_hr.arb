@@ -27,5 +27,6 @@
   "blockDialogMessage": "Ti i {displayName} više nećete biti spojeni kao protivnici",
   "blockDialogConfirm": "blokiraj",
   "opponentSafetyMenuTooltip": "prijavi · blokiraj",
-  "opponentBlockTrainer": "Blokiraj ovog trenera"
+  "opponentBlockTrainer": "Blokiraj ovog trenera",
+  "opponentReportHelpBody": "Dugo pritisni protivnikovo čudovište da ga prijaviš\nGumbom gore desno na kartici možeš ga prijaviti ili blokirati"
 }

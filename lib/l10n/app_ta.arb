@@ -27,5 +27,6 @@
   "blockDialogMessage": "நீங்களும் {displayName}வும் இனி ஒருவருக்கொருவர் எதிராளியாக வரமாட்டீர்கள்",
   "blockDialogConfirm": "தடுங்கள்",
   "opponentSafetyMenuTooltip": "புகார் · தடு",
-  "opponentBlockTrainer": "இந்தப் பயிற்சியாளரைத் தடு"
+  "opponentBlockTrainer": "இந்தப் பயிற்சியாளரைத் தடு",
+  "opponentReportHelpBody": "எதிராளியின் மான்ஸ்டரை அழுத்திப் பிடித்துப் புகார் அளிக்கலாம்\nஅட்டையின் மேல் வலது பொத்தானில் புகார் அளிக்கலாம் அல்லது தடுக்கலாம்"
 }

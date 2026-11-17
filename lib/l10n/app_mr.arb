@@ -27,5 +27,6 @@
   "blockDialogMessage": "तू आणि {displayName} आता एकमेकांचे प्रतिस्पर्धी म्हणून समोर येणार नाही",
   "blockDialogConfirm": "ब्लॉक कर",
   "opponentSafetyMenuTooltip": "रिपोर्ट · ब्लॉक",
-  "opponentBlockTrainer": "या ट्रेनरला ब्लॉक कर"
+  "opponentBlockTrainer": "या ट्रेनरला ब्लॉक कर",
+  "opponentReportHelpBody": "समोरच्या मॉन्स्टरवर जास्त वेळ दाबून रिपोर्ट कर\nकार्डच्या वर उजवीकडील बटणातून रिपोर्ट किंवा ब्लॉक कर"
 }

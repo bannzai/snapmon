@@ -27,5 +27,6 @@
   "blockDialogMessage": "તમે અને {displayName} હવે એકબીજાના હરીફ તરીકે નહીં આવો",
   "blockDialogConfirm": "બ્લોક કરો",
   "opponentSafetyMenuTooltip": "રિપોર્ટ · બ્લોક",
-  "opponentBlockTrainer": "આ ટ્રેનરને બ્લોક કરો"
+  "opponentBlockTrainer": "આ ટ્રેનરને બ્લોક કરો",
+  "opponentReportHelpBody": "સામેના મોન્સ્ટરને લાંબું દબાવીને રિપોર્ટ કરો\nકાર્ડના ઉપર જમણા ખૂણાના બટનથી રિપોર્ટ અથવા બ્લોક કરો"
 }

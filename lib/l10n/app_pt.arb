@@ -27,5 +27,6 @@
   "blockDialogMessage": "Você e {displayName} não vão mais se enfrentar nas batalhas",
   "blockDialogConfirm": "bloquear",
   "opponentSafetyMenuTooltip": "denunciar · bloquear",
-  "opponentBlockTrainer": "Bloquear este treinador"
+  "opponentBlockTrainer": "Bloquear este treinador",
+  "opponentReportHelpBody": "Pressione o monstro do adversário para denunciar\nUse o botão no canto superior direito da carta para denunciar ou bloquear"
 }

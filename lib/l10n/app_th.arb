@@ -27,5 +27,6 @@
   "blockDialogMessage": "คุณกับ {displayName} จะไม่เจอกันในฐานะคู่ต่อสู้อีก",
   "blockDialogConfirm": "บล็อก",
   "opponentSafetyMenuTooltip": "รายงาน · บล็อก",
-  "opponentBlockTrainer": "บล็อกเทรนเนอร์คนนี้"
+  "opponentBlockTrainer": "บล็อกเทรนเนอร์คนนี้",
+  "opponentReportHelpBody": "กดมอนสเตอร์ของคู่ต่อสู้ค้างไว้เพื่อรายงาน\nใช้ปุ่มมุมขวาบนของการ์ดเพื่อรายงานหรือบล็อก"
 }

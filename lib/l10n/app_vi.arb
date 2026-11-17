@@ -27,5 +27,6 @@
   "blockDialogMessage": "Bạn và {displayName} sẽ không còn được ghép đấu với nhau",
   "blockDialogConfirm": "chặn",
   "opponentSafetyMenuTooltip": "báo cáo · chặn",
-  "opponentBlockTrainer": "Chặn nhà huấn luyện này"
+  "opponentBlockTrainer": "Chặn nhà huấn luyện này",
+  "opponentReportHelpBody": "Nhấn giữ quái vật của đối thủ để báo cáo\nDùng nút ở góc trên bên phải thẻ để báo cáo hoặc chặn"
 }

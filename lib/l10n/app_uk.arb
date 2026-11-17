@@ -27,5 +27,6 @@
   "blockDialogMessage": "Ти й {displayName} більше не випадатимете одне одному як суперники",
   "blockDialogConfirm": "блокувати",
   "opponentSafetyMenuTooltip": "скарга · блокування",
-  "opponentBlockTrainer": "Заблокувати цього тренера"
+  "opponentBlockTrainer": "Заблокувати цього тренера",
+  "opponentReportHelpBody": "Утримуй монстра суперника, щоб надіслати скаргу\nКнопкою вгорі праворуч на картці можна надіслати скаргу або блокувати"
 }

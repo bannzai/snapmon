@@ -27,5 +27,6 @@
   "blockDialogMessage": "నువ్వూ {displayName} ఇకపై ఒకరికొకరు ప్రత్యర్థులుగా రారు",
   "blockDialogConfirm": "బ్లాక్ చేయి",
   "opponentSafetyMenuTooltip": "రిపోర్ట్ · బ్లాక్",
-  "opponentBlockTrainer": "ఈ ట్రైనర్‌ను బ్లాక్ చేయి"
+  "opponentBlockTrainer": "ఈ ట్రైనర్‌ను బ్లాక్ చేయి",
+  "opponentReportHelpBody": "ప్రత్యర్థి మాన్స్టర్‌ను నొక్కి పట్టుకుని రిపోర్ట్ చేయి\nకార్డ్ కుడి ఎగువ బటన్‌తో రిపోర్ట్ లేదా బ్లాక్ చేయి"
 }

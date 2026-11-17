@@ -27,5 +27,6 @@
   "blockDialogMessage": "ତୁମେ ଓ {displayName} ଆଉ ପରସ୍ପରର ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ ଭାବେ ଆସିବ ନାହିଁ",
   "blockDialogConfirm": "ବ୍ଲକ କର",
   "opponentSafetyMenuTooltip": "ରିପୋର୍ଟ · ବ୍ଲକ",
-  "opponentBlockTrainer": "ଏହି ଟ୍ରେନରକୁ ବ୍ଲକ କର"
+  "opponentBlockTrainer": "ଏହି ଟ୍ରେନରକୁ ବ୍ଲକ କର",
+  "opponentReportHelpBody": "ପ୍ରତିପକ୍ଷର ମନଷ୍ଟରକୁ ଚାପି ଧରି ରିପୋର୍ଟ କର\nକାର୍ଡର ଉପର ଡାହାଣ ବଟନ୍‌ରୁ ରିପୋର୍ଟ କିମ୍ବା ବ୍ଲକ କର"
 }

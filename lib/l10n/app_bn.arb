@@ -27,5 +27,6 @@
   "blockDialogMessage": "তুমি আর {displayName} একে অপরের প্রতিপক্ষ হিসেবে আসবে না",
   "blockDialogConfirm": "ব্লক করো",
   "opponentSafetyMenuTooltip": "রিপোর্ট · ব্লক",
-  "opponentBlockTrainer": "এই ট্রেনারকে ব্লক করো"
+  "opponentBlockTrainer": "এই ট্রেনারকে ব্লক করো",
+  "opponentReportHelpBody": "প্রতিপক্ষের মনস্টার চেপে ধরে রিপোর্ট করতে পারো\nকার্ডের ওপরের ডান দিকের বোতাম থেকে রিপোর্ট বা ব্লক করতে পারো"
 }

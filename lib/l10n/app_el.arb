@@ -27,5 +27,6 @@
   "blockDialogMessage": "Εσύ και ο παίκτης {displayName} δεν θα μπαίνετε πια αντίπαλοι",
   "blockDialogConfirm": "μπλοκάρισμα",
   "opponentSafetyMenuTooltip": "αναφορά · μπλοκάρισμα",
-  "opponentBlockTrainer": "Μπλοκάρισμα αυτού του εκπαιδευτή"
+  "opponentBlockTrainer": "Μπλοκάρισμα αυτού του εκπαιδευτή",
+  "opponentReportHelpBody": "Κράτα πατημένο το τέρας του αντιπάλου για να κάνεις αναφορά\nΑπό το κουμπί πάνω δεξιά στην κάρτα μπορείς να κάνεις αναφορά ή μπλοκ"
 }
