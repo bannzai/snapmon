@@ -124,5 +124,6 @@
   "generationChooseCutoutTitle": "फ़ोटो से वस्तु काट ली गई है",
   "generationChooseCutoutMessage": "कटी हुई तस्वीर से बनाना है\nया फ़ोटो में हिस्सा चुनना है—तुम तय करो",
   "generationCutoutLabel": "कटी हुई तस्वीर",
-  "generationOriginalPhotoLabel": "मूल फ़ोटो"
+  "generationOriginalPhotoLabel": "मूल फ़ोटो",
+  "generationCreateWithCutout": "कटी हुई तस्वीर से बनाओ"
 }

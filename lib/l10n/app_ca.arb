@@ -124,5 +124,6 @@
   "generationChooseCutoutTitle": "Hem retallat el subjecte",
   "generationChooseCutoutMessage": "Tria si vols crear-lo amb el retall\n o marcar una zona de la foto",
   "generationCutoutLabel": "Retall",
-  "generationOriginalPhotoLabel": "Foto original"
+  "generationOriginalPhotoLabel": "Foto original",
+  "generationCreateWithCutout": "Crea'l amb la imatge retallada"
 }

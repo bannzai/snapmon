@@ -124,5 +124,6 @@
   "generationChooseCutoutTitle": "Objeto recortado",
   "generationChooseCutoutMessage": "Escolha se quer usar a imagem recortada\nou marcar uma área na foto",
   "generationCutoutLabel": "Recorte",
-  "generationOriginalPhotoLabel": "Foto original"
+  "generationOriginalPhotoLabel": "Foto original",
+  "generationCreateWithCutout": "Criar com a imagem recortada"
 }

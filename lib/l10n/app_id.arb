@@ -124,5 +124,6 @@
   "generationChooseCutoutTitle": "Objek foto berhasil dipotong",
   "generationChooseCutoutMessage": "Pilih gambar yang sudah dipotong\natau tentukan area di foto",
   "generationCutoutLabel": "Potongan gambar",
-  "generationOriginalPhotoLabel": "Foto asli"
+  "generationOriginalPhotoLabel": "Foto asli",
+  "generationCreateWithCutout": "Buat dari gambar yang dipotong"
 }

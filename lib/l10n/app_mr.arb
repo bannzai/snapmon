@@ -124,5 +124,6 @@
   "generationChooseCutoutTitle": "फोटोतील वस्तू कापून वेगळी केली",
   "generationChooseCutoutMessage": "कापलेल्या चित्रातून बनवायचं की\nफोटोत भाग निवडायचा, ते तू ठरव",
   "generationCutoutLabel": "कापलेली प्रतिमा",
-  "generationOriginalPhotoLabel": "मूळ फोटो"
+  "generationOriginalPhotoLabel": "मूळ फोटो",
+  "generationCreateWithCutout": "कापलेल्या चित्रातून तयार कर"
 }

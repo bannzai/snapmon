@@ -124,5 +124,6 @@
   "generationChooseCutoutTitle": "已抠出拍摄对象",
   "generationChooseCutoutMessage": "你可以用抠出的图像来制作\n也可以在照片上选取范围",
   "generationCutoutLabel": "抠图",
-  "generationOriginalPhotoLabel": "原始照片"
+  "generationOriginalPhotoLabel": "原始照片",
+  "generationCreateWithCutout": "用抠出的图片创建"
 }

@@ -124,5 +124,6 @@
   "generationChooseCutoutTitle": "Το θέμα αποκόπηκε",
   "generationChooseCutoutMessage": "Διάλεξε αν θα χρησιμοποιήσεις το αποκομμένο θέμα\nή θα ορίσεις μια περιοχή στη φωτογραφία",
   "generationCutoutLabel": "Αποκοπή",
-  "generationOriginalPhotoLabel": "Αρχική φωτογραφία"
+  "generationOriginalPhotoLabel": "Αρχική φωτογραφία",
+  "generationCreateWithCutout": "Φτιάξε το από την αποκομμένη εικόνα"
 }

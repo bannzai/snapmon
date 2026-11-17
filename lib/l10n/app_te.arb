@@ -124,5 +124,6 @@
   "generationChooseCutoutTitle": "ఫోటోలోని వస్తువును కత్తిరించి వేరు చేశాం",
   "generationChooseCutoutMessage": "కత్తిరించిన బొమ్మతో చేయాలా\nలేదా ఫొటోలో భాగాన్ని ఎంచుకోవాలా నిర్ణయించుకో",
   "generationCutoutLabel": "కత్తిరించిన చిత్రం",
-  "generationOriginalPhotoLabel": "అసలు ఫోటో"
+  "generationOriginalPhotoLabel": "అసలు ఫోటో",
+  "generationCreateWithCutout": "కత్తిరించిన చిత్రంతో సృష్టించు"
 }

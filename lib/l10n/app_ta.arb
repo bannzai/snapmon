@@ -124,5 +124,6 @@
   "generationChooseCutoutTitle": "படத்திலிருந்து பொருள் வெட்டி எடுக்கப்பட்டது",
   "generationChooseCutoutMessage": "வெட்டியெடுத்த படத்தைப் பயன்படுத்துவதா\nஅல்லது புகைப்படத்தில் பகுதியைத் தேர்ந்தெடுப்பதா என்பதைத் தேர்ந்தெடுங்கள்",
   "generationCutoutLabel": "வெட்டியெடுத்த படம்",
-  "generationOriginalPhotoLabel": "அசல் படம்"
+  "generationOriginalPhotoLabel": "அசல் படம்",
+  "generationCreateWithCutout": "வெட்டியெடுத்த படத்திலிருந்து உருவாக்குங்கள்"
 }

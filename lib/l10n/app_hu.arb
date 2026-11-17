@@ -124,5 +124,6 @@
   "generationChooseCutoutTitle": "A téma kivágva",
   "generationChooseCutoutMessage": "Válaszd ki, hogy a kivágott képből készíted el,\nvagy kijelölsz egy részt a fotón",
   "generationCutoutLabel": "Kivágás",
-  "generationOriginalPhotoLabel": "Eredeti fotó"
+  "generationOriginalPhotoLabel": "Eredeti fotó",
+  "generationCreateWithCutout": "Készítsd el a kivágott képből"
 }

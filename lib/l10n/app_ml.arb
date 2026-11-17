@@ -124,5 +124,6 @@
   "generationChooseCutoutTitle": "ചിത്രത്തിലെ വസ്തു മുറിച്ചെടുത്തു",
   "generationChooseCutoutMessage": "മുറിച്ചെടുത്ത ചിത്രം ഉപയോഗിക്കണോ\nഫോട്ടോയിൽ ഒരു ഭാഗം തിരഞ്ഞെടുക്കണോ എന്ന് നിങ്ങൾക്ക് തീരുമാനിക്കാം",
   "generationCutoutLabel": "മുറിച്ചെടുത്ത ചിത്രം",
-  "generationOriginalPhotoLabel": "യഥാർത്ഥ ചിത്രം"
+  "generationOriginalPhotoLabel": "യഥാർത്ഥ ചിത്രം",
+  "generationCreateWithCutout": "വെട്ടിയെടുത്ത ചിത്രം ഉപയോഗിച്ച് സൃഷ്ടിക്കൂ"
 }

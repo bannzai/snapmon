@@ -124,5 +124,6 @@
   "generationChooseCutoutTitle": "Motivet er klippet ut",
   "generationChooseCutoutMessage": "Velg om du vil bruke det utskårne motivet\neller markere et område i bildet",
   "generationCutoutLabel": "Utsnitt",
-  "generationOriginalPhotoLabel": "Originalbilde"
+  "generationOriginalPhotoLabel": "Originalbilde",
+  "generationCreateWithCutout": "Lag med det utklipte bildet"
 }

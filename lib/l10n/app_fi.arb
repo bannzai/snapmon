@@ -124,5 +124,6 @@
   "generationChooseCutoutTitle": "Kohde on irrotettu kuvasta",
   "generationChooseCutoutMessage": "Valitse, käytätkö irrotettua kohdetta\nvai rajaatko alueen kuvasta",
   "generationCutoutLabel": "Rajaus",
-  "generationOriginalPhotoLabel": "Alkuperäinen kuva"
+  "generationOriginalPhotoLabel": "Alkuperäinen kuva",
+  "generationCreateWithCutout": "Luo irrotetusta kuvasta"
 }

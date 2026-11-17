@@ -124,5 +124,6 @@
   "generationChooseCutoutTitle": "تصویر سے شے کاٹ لی گئی ہے",
   "generationChooseCutoutMessage": "تم کٹی ہوئی تصویر سے بنا سکتے ہو\nیا تصویر میں کوئی حصہ چن سکتے ہو",
   "generationCutoutLabel": "کاٹی ہوئی تصویر",
-  "generationOriginalPhotoLabel": "اصل تصویر"
+  "generationOriginalPhotoLabel": "اصل تصویر",
+  "generationCreateWithCutout": "کاٹی ہوئی تصویر سے بناؤ"
 }

@@ -124,5 +124,6 @@
   "generationChooseCutoutTitle": "Đã tách chủ thể khỏi ảnh",
   "generationChooseCutoutMessage": "Bạn có thể dùng hình đã tách nền\nhoặc chọn một vùng trên ảnh",
   "generationCutoutLabel": "Hình cắt",
-  "generationOriginalPhotoLabel": "Ảnh gốc"
+  "generationOriginalPhotoLabel": "Ảnh gốc",
+  "generationCreateWithCutout": "Tạo từ ảnh đã cắt"
 }

@@ -124,5 +124,6 @@
   "generationChooseCutoutTitle": "Onderwerp uitgeknipt",
   "generationChooseCutoutMessage": "Kies of je de uitgesneden afbeelding gebruikt\nof een gebied op de foto selecteert",
   "generationCutoutLabel": "Uitknipsel",
-  "generationOriginalPhotoLabel": "Originele foto"
+  "generationOriginalPhotoLabel": "Originele foto",
+  "generationCreateWithCutout": "Maak met de uitgeknipte afbeelding"
 }

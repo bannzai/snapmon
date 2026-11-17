@@ -124,5 +124,6 @@
   "generationChooseCutoutTitle": "Objekt je vyrezaný",
   "generationChooseCutoutMessage": "Vyber si, či ho vytvoríš z vystrihnutého obrázka,\nalebo označíš oblasť na fotke",
   "generationCutoutLabel": "Výrez",
-  "generationOriginalPhotoLabel": "Pôvodná fotka"
+  "generationOriginalPhotoLabel": "Pôvodná fotka",
+  "generationCreateWithCutout": "Vytvor z vystrihnutého obrázka"
 }

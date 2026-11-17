@@ -124,5 +124,6 @@
   "generationChooseCutoutTitle": "Motivet er klippet ud",
   "generationChooseCutoutMessage": "Vælg, om du vil bruge det fritlagte motiv\neller markere et område på billedet",
   "generationCutoutLabel": "Fritlægning",
-  "generationOriginalPhotoLabel": "Originalfoto"
+  "generationOriginalPhotoLabel": "Originalfoto",
+  "generationCreateWithCutout": "Skab med det udklippede billede"
 }

@@ -124,5 +124,6 @@
   "generationChooseCutoutTitle": "تم قصّ العنصر من الصورة",
   "generationChooseCutoutMessage": "يمكنك اختيار صنع الوحش من الصورة المقصوصة\nأو تحديد جزء من الصورة الأصلية",
   "generationCutoutLabel": "الصورة المقصوصة",
-  "generationOriginalPhotoLabel": "الصورة الأصلية"
+  "generationOriginalPhotoLabel": "الصورة الأصلية",
+  "generationCreateWithCutout": "أنشئ من الصورة المقصوصة"
 }

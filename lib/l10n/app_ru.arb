@@ -124,5 +124,6 @@
   "generationChooseCutoutTitle": "Объект вырезан",
   "generationChooseCutoutMessage": "Выбери: создать его из вырезанного объекта\nили выделить область на фото",
   "generationCutoutLabel": "Вырезанное изображение",
-  "generationOriginalPhotoLabel": "Исходное фото"
+  "generationOriginalPhotoLabel": "Исходное фото",
+  "generationCreateWithCutout": "Создать из вырезанного изображения"
 }

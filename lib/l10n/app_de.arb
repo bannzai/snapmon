@@ -124,5 +124,6 @@
   "generationChooseCutoutTitle": "Motiv freigestellt",
   "generationChooseCutoutMessage": "Wähle, ob du das ausgeschnittene Motiv nutzt\noder einen Bereich auf dem Foto markierst",
   "generationCutoutLabel": "Freisteller",
-  "generationOriginalPhotoLabel": "Originalfoto"
+  "generationOriginalPhotoLabel": "Originalfoto",
+  "generationCreateWithCutout": "Mit dem ausgeschnittenen Bild erstellen"
 }

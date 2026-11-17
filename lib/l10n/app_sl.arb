@@ -124,5 +124,6 @@
   "generationChooseCutoutTitle": "Predmet je izrezan",
   "generationChooseCutoutMessage": "Izberi, ali ga želiš ustvariti iz izrezanega motiva\nali označiti območje na fotografiji",
   "generationCutoutLabel": "Izrez",
-  "generationOriginalPhotoLabel": "Izvirna fotografija"
+  "generationOriginalPhotoLabel": "Izvirna fotografija",
+  "generationCreateWithCutout": "Ustvari iz izrezane slike"
 }

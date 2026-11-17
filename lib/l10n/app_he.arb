@@ -124,5 +124,6 @@
   "generationChooseCutoutTitle": "האובייקט נחתך מהתמונה",
   "generationChooseCutoutMessage": "אפשר לבחור אם ליצור מהתמונה הגזורה\nאו לסמן אזור בתמונה",
   "generationCutoutLabel": "גזירה",
-  "generationOriginalPhotoLabel": "התמונה המקורית"
+  "generationOriginalPhotoLabel": "התמונה המקורית",
+  "generationCreateWithCutout": "ליצור מהתמונה הגזורה"
 }

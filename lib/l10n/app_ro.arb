@@ -124,5 +124,6 @@
   "generationChooseCutoutTitle": "Subiectul a fost decupat",
   "generationChooseCutoutMessage": "Alege dacă vrei să folosești imaginea decupată\nsau să marchezi o zonă din fotografie",
   "generationCutoutLabel": "Decupaj",
-  "generationOriginalPhotoLabel": "Fotografia originală"
+  "generationOriginalPhotoLabel": "Fotografia originală",
+  "generationCreateWithCutout": "Creează din imaginea decupată"
 }
