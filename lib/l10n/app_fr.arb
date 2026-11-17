@@ -146,5 +146,6 @@
   "resultLearnedMoves": "capacités apprises",
   "resultRemoveFromParty": "Retirer de l’équipe",
   "resultAddToParty": "Ajouter à l’équipe",
-  "resultReplaceInParty": "Remplacer dans l’équipe"
+  "resultReplaceInParty": "Remplacer dans l’équipe",
+  "resultCaptureAnother": "Agrandis ton équipe"
 }
