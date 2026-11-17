@@ -292,5 +292,6 @@
   "actionCardFilterAll": "Tutte",
   "actionCardOwnedHeading": "Mosse acquistate",
   "actionCardOwnedEmpty": "Non hai ancora comprato nessuna mossa",
-  "actionCardMovesHeading": "Mosse di Action Card"
+  "actionCardMovesHeading": "Mosse di Action Card",
+  "actionCardTaughtNone": "Non gli hai ancora insegnato nessuna mossa"
 }

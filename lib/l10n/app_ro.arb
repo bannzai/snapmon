@@ -292,5 +292,6 @@
   "actionCardFilterAll": "Toate",
   "actionCardOwnedHeading": "Mișcări cumpărate",
   "actionCardOwnedEmpty": "Nu ai cumpărat încă nicio mișcare",
-  "actionCardMovesHeading": "Mișcări Action Card"
+  "actionCardMovesHeading": "Mișcări Action Card",
+  "actionCardTaughtNone": "Nu i-ai predat încă nicio mișcare"
 }

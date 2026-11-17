@@ -292,5 +292,6 @@
   "actionCardFilterAll": "הכול",
   "actionCardOwnedHeading": "מתקפות שנרכשו",
   "actionCardOwnedEmpty": "עוד לא קנית אף מתקפה",
-  "actionCardMovesHeading": "מתקפות Action Card"
+  "actionCardMovesHeading": "מתקפות Action Card",
+  "actionCardTaughtNone": "עוד לא נלמדו מתקפות"
 }

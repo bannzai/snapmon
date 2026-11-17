@@ -292,5 +292,6 @@
   "actionCardFilterAll": "ସବୁ",
   "actionCardOwnedHeading": "କିଣିଥିବା ଚାଲ",
   "actionCardOwnedEmpty": "ତୁମେ ଏଯାଏଁ କୌଣସି ଚାଲ କିଣିନାହଁ",
-  "actionCardMovesHeading": "Action Cardର ଚାଲ"
+  "actionCardMovesHeading": "Action Cardର ଚାଲ",
+  "actionCardTaughtNone": "ଏଯାଏଁ କୌଣସି ଚାଲ ଶିଖାଯାଇନି"
 }

@@ -292,5 +292,6 @@
   "actionCardFilterAll": "全部",
   "actionCardOwnedHeading": "已買斷的招式",
   "actionCardOwnedEmpty": "你還沒購買任何招式",
-  "actionCardMovesHeading": "Action Card 招式"
+  "actionCardMovesHeading": "Action Card 招式",
+  "actionCardTaughtNone": "還沒教會任何招式"
 }

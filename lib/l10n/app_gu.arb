@@ -292,5 +292,6 @@
   "actionCardFilterAll": "બધા",
   "actionCardOwnedHeading": "ખરીદેલી ચાલ",
   "actionCardOwnedEmpty": "તમે હજી કોઈ ચાલ ખરીદી નથી",
-  "actionCardMovesHeading": "Action Cardની ચાલ"
+  "actionCardMovesHeading": "Action Cardની ચાલ",
+  "actionCardTaughtNone": "હજુ કોઈ ચાલ શીખવાડી નથી"
 }

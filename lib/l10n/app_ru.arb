@@ -292,5 +292,6 @@
   "actionCardFilterAll": "Все",
   "actionCardOwnedHeading": "Купленные приёмы",
   "actionCardOwnedEmpty": "Ты ещё не купил ни один приём",
-  "actionCardMovesHeading": "Приёмы Action Card"
+  "actionCardMovesHeading": "Приёмы Action Card",
+  "actionCardTaughtNone": "Ты ещё не обучил его ни одному приёму"
 }

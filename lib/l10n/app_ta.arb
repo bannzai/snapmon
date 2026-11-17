@@ -292,5 +292,6 @@
   "actionCardFilterAll": "அனைத்தும்",
   "actionCardOwnedHeading": "வாங்கிய தாக்குதல்கள்",
   "actionCardOwnedEmpty": "நீங்கள் இன்னும் எந்தத் தாக்குதலையும் வாங்கவில்லை",
-  "actionCardMovesHeading": "Action Card தாக்குதல்கள்"
+  "actionCardMovesHeading": "Action Card தாக்குதல்கள்",
+  "actionCardTaughtNone": "இன்னும் எந்தத் தாக்குதலும் கற்பிக்கப்படவில்லை"
 }

@@ -292,5 +292,6 @@
   "actionCardFilterAll": "Alle",
   "actionCardOwnedHeading": "Købte angreb",
   "actionCardOwnedEmpty": "Du har ikke købt nogen angreb endnu",
-  "actionCardMovesHeading": "Action Card-angreb"
+  "actionCardMovesHeading": "Action Card-angreb",
+  "actionCardTaughtNone": "Ingen angreb lært endnu"
 }

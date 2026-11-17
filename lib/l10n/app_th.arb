@@ -292,5 +292,6 @@
   "actionCardFilterAll": "ทั้งหมด",
   "actionCardOwnedHeading": "ท่าที่ซื้อแล้ว",
   "actionCardOwnedEmpty": "ยังไม่ได้ซื้อท่าเลย",
-  "actionCardMovesHeading": "ท่าของ Action Card"
+  "actionCardMovesHeading": "ท่าของ Action Card",
+  "actionCardTaughtNone": "ยังไม่ได้สอนท่าไหนเลย"
 }

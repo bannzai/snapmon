@@ -292,5 +292,6 @@
   "actionCardFilterAll": "Tất cả",
   "actionCardOwnedHeading": "Chiêu đã mua",
   "actionCardOwnedEmpty": "Bạn chưa mua chiêu nào",
-  "actionCardMovesHeading": "Chiêu từ Action Card"
+  "actionCardMovesHeading": "Chiêu từ Action Card",
+  "actionCardTaughtNone": "Bạn chưa dạy chiêu nào"
 }

@@ -292,5 +292,6 @@
   "actionCardFilterAll": "Semua",
   "actionCardOwnedHeading": "Jurus yang dibeli",
   "actionCardOwnedEmpty": "Kamu belum membeli jurus",
-  "actionCardMovesHeading": "Jurus Action Card"
+  "actionCardMovesHeading": "Jurus Action Card",
+  "actionCardTaughtNone": "Belum ada jurus yang diajarkan"
 }

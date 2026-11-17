@@ -292,5 +292,6 @@
   "actionCardFilterAll": "Vše",
   "actionCardOwnedHeading": "Zakoupené útoky",
   "actionCardOwnedEmpty": "Ještě sis nekoupil žádný útok",
-  "actionCardMovesHeading": "Útoky z Action Card"
+  "actionCardMovesHeading": "Útoky z Action Card",
+  "actionCardTaughtNone": "Zatím jsi ho nenaučil žádný útok"
 }

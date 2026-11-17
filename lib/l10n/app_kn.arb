@@ -292,5 +292,6 @@
   "actionCardFilterAll": "ಎಲ್ಲಾ",
   "actionCardOwnedHeading": "ಖರೀದಿಸಿದ ತಂತ್ರಗಳು",
   "actionCardOwnedEmpty": "ನೀನು ಇನ್ನೂ ಯಾವುದೇ ತಂತ್ರವನ್ನು ಖರೀದಿಸಿಲ್ಲ",
-  "actionCardMovesHeading": "Action Cardನ ತಂತ್ರಗಳು"
+  "actionCardMovesHeading": "Action Cardನ ತಂತ್ರಗಳು",
+  "actionCardTaughtNone": "ಇನ್ನೂ ಯಾವುದೇ ತಂತ್ರ ಕಲಿಸಿಲ್ಲ"
 }

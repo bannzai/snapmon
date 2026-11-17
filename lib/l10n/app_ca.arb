@@ -292,5 +292,6 @@
   "actionCardFilterAll": "Tots",
   "actionCardOwnedHeading": "Moviments comprats",
   "actionCardOwnedEmpty": "Encara no has comprat cap moviment",
-  "actionCardMovesHeading": "Moviments d'Action Card"
+  "actionCardMovesHeading": "Moviments d'Action Card",
+  "actionCardTaughtNone": "Encara no li has ensenyat cap moviment"
 }

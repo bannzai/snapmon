@@ -292,5 +292,6 @@
   "actionCardFilterAll": "Alles",
   "actionCardOwnedHeading": "Gekochte aanvallen",
   "actionCardOwnedEmpty": "Je hebt nog geen aanval gekocht",
-  "actionCardMovesHeading": "Action Card-aanvallen"
+  "actionCardMovesHeading": "Action Card-aanvallen",
+  "actionCardTaughtNone": "Je hebt nog geen aanval aangeleerd"
 }

@@ -292,5 +292,6 @@
   "actionCardFilterAll": "Semua",
   "actionCardOwnedHeading": "Gerakan yang dibeli",
   "actionCardOwnedEmpty": "Kamu belum beli sebarang gerakan",
-  "actionCardMovesHeading": "Gerakan Action Card"
+  "actionCardMovesHeading": "Gerakan Action Card",
+  "actionCardTaughtNone": "Belum ada gerakan yang diajar"
 }

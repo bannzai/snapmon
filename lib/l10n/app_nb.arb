@@ -292,5 +292,6 @@
   "actionCardFilterAll": "Alle",
   "actionCardOwnedHeading": "Kjøpte angrep",
   "actionCardOwnedEmpty": "Du har ikke kjøpt noen angrep ennå",
-  "actionCardMovesHeading": "Action Card-angrep"
+  "actionCardMovesHeading": "Action Card-angrep",
+  "actionCardTaughtNone": "Ingen angrep lært bort ennå"
 }

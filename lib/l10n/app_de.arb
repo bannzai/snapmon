@@ -292,5 +292,6 @@
   "actionCardFilterAll": "Alle",
   "actionCardOwnedHeading": "Gekaufte Attacken",
   "actionCardOwnedEmpty": "Du hast noch keine Attacke gekauft",
-  "actionCardMovesHeading": "Attacken der Action Card"
+  "actionCardMovesHeading": "Attacken der Action Card",
+  "actionCardTaughtNone": "Noch keine Attacke beigebracht"
 }

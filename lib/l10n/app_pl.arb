@@ -292,5 +292,6 @@
   "actionCardFilterAll": "Wszystkie",
   "actionCardOwnedHeading": "Kupione ruchy",
   "actionCardOwnedEmpty": "Nie masz jeszcze kupionego żadnego ruchu",
-  "actionCardMovesHeading": "Ruchy z Action Card"
+  "actionCardMovesHeading": "Ruchy z Action Card",
+  "actionCardTaughtNone": "Nie nauczyłeś go jeszcze żadnego ruchu"
 }

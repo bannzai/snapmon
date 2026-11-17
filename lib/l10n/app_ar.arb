@@ -292,5 +292,6 @@
   "actionCardFilterAll": "الكل",
   "actionCardOwnedHeading": "الحركات المشتراة",
   "actionCardOwnedEmpty": "لم تشترِ أي حركة بعد",
-  "actionCardMovesHeading": "حركات Action Card"
+  "actionCardMovesHeading": "حركات Action Card",
+  "actionCardTaughtNone": "لم تُعلَّم أي حركة بعد"
 }

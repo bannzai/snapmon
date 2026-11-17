@@ -292,5 +292,6 @@
   "actionCardFilterAll": "Усі",
   "actionCardOwnedHeading": "Куплені прийоми",
   "actionCardOwnedEmpty": "Ти ще не купив жодного прийому",
-  "actionCardMovesHeading": "Прийоми Action Card"
+  "actionCardMovesHeading": "Прийоми Action Card",
+  "actionCardTaughtNone": "Ти ще не навчив його жодного прийому"
 }

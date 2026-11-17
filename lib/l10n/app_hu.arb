@@ -292,5 +292,6 @@
   "actionCardFilterAll": "Összes",
   "actionCardOwnedHeading": "Megvásárolt támadások",
   "actionCardOwnedEmpty": "Még nem vettél támadást",
-  "actionCardMovesHeading": "Action Card-támadások"
+  "actionCardMovesHeading": "Action Card-támadások",
+  "actionCardTaughtNone": "Még nem tanítottál meg neki támadást"
 }

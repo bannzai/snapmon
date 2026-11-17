@@ -292,5 +292,6 @@
   "actionCardFilterAll": "Όλα",
   "actionCardOwnedHeading": "Αγορασμένες τεχνικές",
   "actionCardOwnedEmpty": "Δεν έχεις αγοράσει ακόμα καμία τεχνική",
-  "actionCardMovesHeading": "Τεχνικές της Action Card"
+  "actionCardMovesHeading": "Τεχνικές της Action Card",
+  "actionCardTaughtNone": "Δεν έχει μάθει καμία τεχνική ακόμα"
 }

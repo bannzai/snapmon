@@ -292,5 +292,6 @@
   "actionCardFilterAll": "Sve",
   "actionCardOwnedHeading": "Kupljeni potezi",
   "actionCardOwnedEmpty": "Još nisi kupio nijedan potez",
-  "actionCardMovesHeading": "Potezi s Action Card"
+  "actionCardMovesHeading": "Potezi s Action Card",
+  "actionCardTaughtNone": "Još ga nisi naučio nijedan potez"
 }
