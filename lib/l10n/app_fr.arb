@@ -202,5 +202,6 @@
   "statusConditionConfusion": "Confusion",
   "statusConditionDizzy": "Vertige",
   "statusConditionExcited": "Excitation",
-  "statusConditionFrozen": "Gelé"
+  "statusConditionFrozen": "Gelé",
+  "statusConditionSwitchBlocked": "Changement impossible"
 }
