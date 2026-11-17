@@ -218,5 +218,6 @@
   "battleSwitchMonster": "Đổi quái vật",
   "battleChooseSwitchMonster": "Chọn quái vật ra trận",
   "battleLevelUpNote": "Dù bạn thắng hay thua, quái vật đã chiến đấu vẫn lên cấp",
-  "battleLearnedMove": "Đã học chiêu mới: {moveName}!"
+  "battleLearnedMove": "Đã học chiêu mới: {moveName}!",
+  "battleNextLearnLevel": "Học chiêu mới ở Lv. {level}"
 }

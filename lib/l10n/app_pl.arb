@@ -218,5 +218,6 @@
   "battleSwitchMonster": "Zmień potwora",
   "battleChooseSwitchMonster": "Wybierz potwora do walki",
   "battleLevelUpNote": "Czy wygrasz, czy przegrasz, potwory biorące udział w walce awansują na wyższy poziom",
-  "battleLearnedMove": "Nauczył się nowego ruchu: {moveName}!"
+  "battleLearnedMove": "Nauczył się nowego ruchu: {moveName}!",
+  "battleNextLearnLevel": "Na Lv. {level} poznaje nowy ruch"
 }

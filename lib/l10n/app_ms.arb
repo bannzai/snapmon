@@ -218,5 +218,6 @@
   "battleSwitchMonster": "Tukar monster",
   "battleChooseSwitchMonster": "Pilih monster untuk bertarung",
   "battleLevelUpNote": "Menang atau kalah, monster yang bertarung naik level",
-  "battleLearnedMove": "Belajar gerakan baharu: {moveName}!"
+  "battleLearnedMove": "Belajar gerakan baharu: {moveName}!",
+  "battleNextLearnLevel": "Belajar gerakan baharu pada Lv. {level}"
 }

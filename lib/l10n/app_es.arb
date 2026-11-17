@@ -218,5 +218,6 @@
   "battleSwitchMonster": "Cambiar monstruo",
   "battleChooseSwitchMonster": "Elige un monstruo para el combate",
   "battleLevelUpNote": "Ganes o pierdas, los monstruos que lucharon suben de nivel",
-  "battleLearnedMove": "¡Aprendió el movimiento {moveName}!"
+  "battleLearnedMove": "¡Aprendió el movimiento {moveName}!",
+  "battleNextLearnLevel": "Aprende un movimiento nuevo en Lv. {level}"
 }

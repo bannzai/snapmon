@@ -218,5 +218,6 @@
   "battleSwitchMonster": "ମନଷ୍ଟର ବଦଳାଅ",
   "battleChooseSwitchMonster": "ଲଢ଼େଇକୁ ପଠାଇବା ପାଇଁ ମନଷ୍ଟର ବାଛ",
   "battleLevelUpNote": "ଜିତ ବା ହାର, ଲଢ଼ିଥିବା ମନଷ୍ଟରଙ୍କ ଲେଭଲ ବଢ଼େ",
-  "battleLearnedMove": "ନୂଆ ଚାଲ ଶିଖିଲା: {moveName}!"
+  "battleLearnedMove": "ନୂଆ ଚାଲ ଶିଖିଲା: {moveName}!",
+  "battleNextLearnLevel": "Lv. {level} ରେ ନୂଆ ଚାଲ ଶିଖିବ"
 }

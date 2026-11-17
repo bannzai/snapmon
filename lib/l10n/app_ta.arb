@@ -218,5 +218,6 @@
   "battleSwitchMonster": "மான்ஸ்டரை மாற்றுங்கள்",
   "battleChooseSwitchMonster": "களமிறக்க ஒரு மான்ஸ்டரைத் தேர்ந்தெடுங்கள்",
   "battleLevelUpNote": "வென்றாலும் தோற்றாலும், போரிட்ட மான்ஸ்டர்களின் லெவல் உயரும்",
-  "battleLearnedMove": "புதிய நகர்வைக் கற்றது: {moveName}!"
+  "battleLearnedMove": "புதிய நகர்வைக் கற்றது: {moveName}!",
+  "battleNextLearnLevel": "Lv. {level}-இல் புதிய தாக்குதலைக் கற்கும்"
 }

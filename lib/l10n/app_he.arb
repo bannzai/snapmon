@@ -218,5 +218,6 @@
   "battleSwitchMonster": "החלפת מפלצת",
   "battleChooseSwitchMonster": "לבחור מפלצת לקרב",
   "battleLevelUpNote": "ניצחון או הפסד, מפלצות שהשתתפו בקרב עולות רמה",
-  "battleLearnedMove": "נלמד מהלך חדש: {moveName}!"
+  "battleLearnedMove": "נלמד מהלך חדש: {moveName}!",
+  "battleNextLearnLevel": "מתקפה חדשה נלמדת ב־Lv. {level}"
 }

@@ -218,5 +218,6 @@
   "battleSwitchMonster": "Ganti monster",
   "battleChooseSwitchMonster": "Pilih monster untuk bertarung",
   "battleLevelUpNote": "Menang atau kalah, monster yang bertarung naik level",
-  "battleLearnedMove": "Mempelajari jurus baru: {moveName}!"
+  "battleLearnedMove": "Mempelajari jurus baru: {moveName}!",
+  "battleNextLearnLevel": "Belajar jurus baru di Lv. {level}"
 }

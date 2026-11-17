@@ -218,5 +218,6 @@
   "battleSwitchMonster": "Сменить монстра",
   "battleChooseSwitchMonster": "Выбери монстра для боя",
   "battleLevelUpNote": "Победишь или проиграешь — монстры, участвовавшие в бою, повысят уровень",
-  "battleLearnedMove": "Выучил новый приём: {moveName}!"
+  "battleLearnedMove": "Выучил новый приём: {moveName}!",
+  "battleNextLearnLevel": "На Lv. {level} выучит новый приём"
 }

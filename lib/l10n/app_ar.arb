@@ -218,5 +218,6 @@
   "battleSwitchMonster": "بدّل الوحش",
   "battleChooseSwitchMonster": "اختر وحشًا لإرساله إلى المعركة",
   "battleLevelUpNote": "سواء فزت أم خسرت، يرتفع مستوى الوحوش التي قاتلت",
-  "battleLearnedMove": "تعلّم حركة {moveName}!"
+  "battleLearnedMove": "تعلّم حركة {moveName}!",
+  "battleNextLearnLevel": "يتعلم حركة جديدة عند Lv. {level}"
 }

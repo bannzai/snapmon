@@ -218,5 +218,6 @@
   "battleSwitchMonster": "Zamenjaj pošast",
   "battleChooseSwitchMonster": "Izberi pošast za boj",
   "battleLevelUpNote": "Če zmagaš ali izgubiš, pošasti, ki so se borile, napredujejo na višjo stopnjo",
-  "battleLearnedMove": "Naučil se je nove poteze: {moveName}!"
+  "battleLearnedMove": "Naučil se je nove poteze: {moveName}!",
+  "battleNextLearnLevel": "Na Lv. {level} se nauči nov potez"
 }

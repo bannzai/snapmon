@@ -218,5 +218,6 @@
   "battleSwitchMonster": "Vaihda hirviö",
   "battleChooseSwitchMonster": "Valitse hirviö taisteluun",
   "battleLevelUpNote": "Voitit tai hävisit, taistelleiden hirviöiden taso nousee",
-  "battleLearnedMove": "Oppi uuden liikkeen: {moveName}!"
+  "battleLearnedMove": "Oppi uuden liikkeen: {moveName}!",
+  "battleNextLearnLevel": "Oppii uuden liikkeen tasolla Lv. {level}"
 }

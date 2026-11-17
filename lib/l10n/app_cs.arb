@@ -218,5 +218,6 @@
   "battleSwitchMonster": "Vyměň příšeru",
   "battleChooseSwitchMonster": "Vyber příšeru do boje",
   "battleLevelUpNote": "Ať vyhraješ, nebo prohraješ, příšerám z boje stoupne úroveň",
-  "battleLearnedMove": "Naučil se nový útok: {moveName}!"
+  "battleLearnedMove": "Naučil se nový útok: {moveName}!",
+  "battleNextLearnLevel": "Na Lv. {level} se naučí nový útok"
 }

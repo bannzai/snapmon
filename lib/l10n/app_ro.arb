@@ -218,5 +218,6 @@
   "battleSwitchMonster": "Schimbă monstrul",
   "battleChooseSwitchMonster": "Alege un monstru pentru luptă",
   "battleLevelUpNote": "Fie că învingi sau pierzi, monștrii care au luptat cresc în nivel",
-  "battleLearnedMove": "A învățat mișcarea {moveName}!"
+  "battleLearnedMove": "A învățat mișcarea {moveName}!",
+  "battleNextLearnLevel": "Învață o mișcare nouă la Lv. {level}"
 }

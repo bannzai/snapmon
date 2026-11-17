@@ -218,5 +218,6 @@
   "battleSwitchMonster": "मॉन्स्टर बदलो",
   "battleChooseSwitchMonster": "मैदान में उतारने के लिए मॉन्स्टर चुनो",
   "battleLevelUpNote": "जीतो या हारो, लड़ने वाले मॉन्स्टर का लेवल बढ़ता है",
-  "battleLearnedMove": "नई चाल सीखी: {moveName}!"
+  "battleLearnedMove": "नई चाल सीखी: {moveName}!",
+  "battleNextLearnLevel": "Lv. {level} पर नई चाल सीखेगा"
 }

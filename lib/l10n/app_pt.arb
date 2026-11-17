@@ -218,5 +218,6 @@
   "battleSwitchMonster": "Trocar de monstro",
   "battleChooseSwitchMonster": "Escolha um monstro para a batalha",
   "battleLevelUpNote": "Você ganhando ou perdendo, os monstros que lutaram sobem de nível",
-  "battleLearnedMove": "Aprendeu o golpe {moveName}!"
+  "battleLearnedMove": "Aprendeu o golpe {moveName}!",
+  "battleNextLearnLevel": "Aprende um golpe novo no Lv. {level}"
 }

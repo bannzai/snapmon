@@ -218,5 +218,6 @@
   "battleSwitchMonster": "మాన్స్టర్‌ని మార్చు",
   "battleChooseSwitchMonster": "పోరాటానికి మాన్స్టర్‌ను ఎంచుకో",
   "battleLevelUpNote": "గెలిచినా ఓడినా, పోరాడిన మాన్స్టర్‌ల లెవెల్ పెరుగుతుంది",
-  "battleLearnedMove": "కొత్త ఎత్తు నేర్చుకుంది: {moveName}!"
+  "battleLearnedMove": "కొత్త ఎత్తు నేర్చుకుంది: {moveName}!",
+  "battleNextLearnLevel": "Lv. {level} వద్ద కొత్త మూవ్ నేర్చుకుంటుంది"
 }

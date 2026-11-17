@@ -218,5 +218,6 @@
   "battleSwitchMonster": "Monster wechseln",
   "battleChooseSwitchMonster": "Wähle ein Monster für den Kampf",
   "battleLevelUpNote": "Ob Sieg oder Niederlage: Monster, die gekämpft haben, steigen im Level auf",
-  "battleLearnedMove": "Hat die Attacke {moveName} gelernt!"
+  "battleLearnedMove": "Hat die Attacke {moveName} gelernt!",
+  "battleNextLearnLevel": "Lernt auf Lv. {level} eine neue Attacke"
 }

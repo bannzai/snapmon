@@ -218,5 +218,6 @@
   "battleSwitchMonster": "മോൺസ്റ്ററിനെ മാറ്റുക",
   "battleChooseSwitchMonster": "പോരാട്ടത്തിനിറക്കാൻ മോൺസ്റ്ററെ തിരഞ്ഞെടുക്കൂ",
   "battleLevelUpNote": "ജയിച്ചാലും തോറ്റാലും, പോരാടിയ മോൺസ്റ്ററുകളുടെ ലെവൽ ഉയരും",
-  "battleLearnedMove": "പുതിയ നീക്കം പഠിച്ചു: {moveName}!"
+  "battleLearnedMove": "പുതിയ നീക്കം പഠിച്ചു: {moveName}!",
+  "battleNextLearnLevel": "Lv. {level}-ൽ പുതിയ നീക്കം പഠിക്കും"
 }

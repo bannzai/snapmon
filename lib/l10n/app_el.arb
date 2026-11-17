@@ -218,5 +218,6 @@
   "battleSwitchMonster": "Αλλαγή τέρατος",
   "battleChooseSwitchMonster": "Διάλεξε τέρας για τη μάχη",
   "battleLevelUpNote": "Είτε κερδίσεις είτε χάσεις, τα τέρατα που πολέμησαν ανεβαίνουν επίπεδο",
-  "battleLearnedMove": "Έμαθε την κίνηση {moveName}!"
+  "battleLearnedMove": "Έμαθε την κίνηση {moveName}!",
+  "battleNextLearnLevel": "Μαθαίνει νέα τεχνική στο Lv. {level}"
 }

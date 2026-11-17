@@ -218,5 +218,6 @@
   "battleSwitchMonster": "Canavar değiştir",
   "battleChooseSwitchMonster": "Savaşa çıkaracağın canavarı seç",
   "battleLevelUpNote": "Kazansan da kaybetsen de savaşan canavarlar seviye atlar",
-  "battleLearnedMove": "Yeni hareket öğrendi: {moveName}!"
+  "battleLearnedMove": "Yeni hareket öğrendi: {moveName}!",
+  "battleNextLearnLevel": "Lv. {level} seviyesinde yeni bir hamle öğrenir"
 }

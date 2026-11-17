@@ -218,5 +218,6 @@
   "battleSwitchMonster": "Skift monster",
   "battleChooseSwitchMonster": "Vælg et monster til kamp",
   "battleLevelUpNote": "Uanset om du vinder eller taber, stiger de monstres niveau, når de har kæmpet",
-  "battleLearnedMove": "Har lært angrebet {moveName}!"
+  "battleLearnedMove": "Har lært angrebet {moveName}!",
+  "battleNextLearnLevel": "Lærer et nyt angreb på Lv. {level}"
 }

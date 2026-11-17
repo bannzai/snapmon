@@ -218,5 +218,6 @@
   "battleSwitchMonster": "更换怪物",
   "battleChooseSwitchMonster": "选择要上场的怪物",
   "battleLevelUpNote": "无论输赢，参战的怪物都会升级",
-  "battleLearnedMove": "学会了新招式：{moveName}！"
+  "battleLearnedMove": "学会了新招式：{moveName}！",
+  "battleNextLearnLevel": "在 Lv. {level} 学会新招式"
 }
