@@ -235,5 +235,6 @@
   "titleMinimumAge": "Från {age} år",
   "titlePrivacy": "Integritet",
   "titleHeading": "Saker omkring dig\nblir monster och slåss",
-  "referenceOpen": "Elementens effektivitet och lista över attacker"
+  "referenceOpen": "Elementens effektivitet och lista över attacker",
+  "referenceTitle": "Element och attacker"
 }

@@ -235,5 +235,6 @@
   "titleMinimumAge": "Od {age} let",
   "titlePrivacy": "Zasebnost",
   "titleHeading": "Stvari okoli tebe\npostanejo pošasti in se borijo",
-  "referenceOpen": "Učinkovitost elementov in seznam potez"
+  "referenceOpen": "Učinkovitost elementov in seznam potez",
+  "referenceTitle": "Elementi in poteze"
 }

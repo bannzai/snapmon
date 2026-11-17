@@ -235,5 +235,6 @@
   "titleMinimumAge": "Fra {age} år",
   "titlePrivacy": "Personvern",
   "titleHeading": "Ting rundt deg\nblir monstre og kjemper",
-  "referenceOpen": "Typeeffektivitet og liste over angrep"
+  "referenceOpen": "Typeeffektivitet og liste over angrep",
+  "referenceTitle": "type og angrep"
 }

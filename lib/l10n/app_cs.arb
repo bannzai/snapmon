@@ -235,5 +235,6 @@
   "titleMinimumAge": "Od {age} let",
   "titlePrivacy": "Soukromí",
   "titleHeading": "Věci kolem tebe\nse mění v příšery a bojují",
-  "referenceOpen": "Účinnost elementů a seznam útoků"
+  "referenceOpen": "Účinnost elementů a seznam útoků",
+  "referenceTitle": "Elementy a útoky"
 }

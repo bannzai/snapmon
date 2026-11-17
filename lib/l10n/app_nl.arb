@@ -235,5 +235,6 @@
   "titleMinimumAge": "Vanaf {age} jaar",
   "titlePrivacy": "Privacy",
   "titleHeading": "Spullen om je heen\nworden monsters en vechten",
-  "referenceOpen": "Effectiviteit van types en lijst met aanvallen"
+  "referenceOpen": "Effectiviteit van types en lijst met aanvallen",
+  "referenceTitle": "typen en aanvallen"
 }

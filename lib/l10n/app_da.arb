@@ -235,5 +235,6 @@
   "titleMinimumAge": "Fra {age} år",
   "titlePrivacy": "Privatliv",
   "titleHeading": "Ting omkring dig\nbliver til monstre og kæmper",
-  "referenceOpen": "Elementers effektivitet og liste over angreb"
+  "referenceOpen": "Elementers effektivitet og liste over angreb",
+  "referenceTitle": "Elementer og angreb"
 }

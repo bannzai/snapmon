@@ -235,5 +235,6 @@
   "titleMinimumAge": "A partir de {age} años",
   "titlePrivacy": "Privacidad",
   "titleHeading": "Los objetos que te rodean\nse vuelven monstruos y luchan",
-  "referenceOpen": "Eficacia de elementos y lista de movimientos"
+  "referenceOpen": "Eficacia de elementos y lista de movimientos",
+  "referenceTitle": "Elementos y movimientos"
 }

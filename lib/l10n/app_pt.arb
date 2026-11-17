@@ -235,5 +235,6 @@
   "titleMinimumAge": "A partir de {age} anos",
   "titlePrivacy": "Privacidade",
   "titleHeading": "Objetos ao seu redor\nviram monstros e batalham",
-  "referenceOpen": "Eficácia dos elementos e lista de golpes"
+  "referenceOpen": "Eficácia dos elementos e lista de golpes",
+  "referenceTitle": "Elementos e golpes"
 }

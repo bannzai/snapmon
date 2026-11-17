@@ -235,5 +235,6 @@
   "titleMinimumAge": "Za dob od {age} godina",
   "titlePrivacy": "Privatnost",
   "titleHeading": "Stvari oko tebe\npostaju čudovišta i bore se",
-  "referenceOpen": "Učinkovitost elemenata i popis poteza"
+  "referenceOpen": "Učinkovitost elemenata i popis poteza",
+  "referenceTitle": "Elementi i potezi"
 }

@@ -235,5 +235,6 @@
   "titleMinimumAge": "Untuk umur {age} tahun ke atas",
   "titlePrivacy": "Privasi",
   "titleHeading": "Barang di sekeliling kamu\njadi monster dan bertarung",
-  "referenceOpen": "Keberkesanan elemen dan senarai gerakan"
+  "referenceOpen": "Keberkesanan elemen dan senarai gerakan",
+  "referenceTitle": "Elemen dan gerakan"
 }

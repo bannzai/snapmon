@@ -235,5 +235,6 @@
   "titleMinimumAge": "Od {age} lat",
   "titlePrivacy": "Prywatność",
   "titleHeading": "Przedmioty wokół ciebie\nzmieniają się w potwory i walczą",
-  "referenceOpen": "Skuteczność typów i lista ruchów"
+  "referenceOpen": "Skuteczność typów i lista ruchów",
+  "referenceTitle": "Typy i ruchy"
 }

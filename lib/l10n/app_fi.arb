@@ -235,5 +235,6 @@
   "titleMinimumAge": "Vähintään {age}-vuotiaille",
   "titlePrivacy": "Tietosuoja",
   "titleHeading": "Arjen esineistä tulee\nhirviöitä, jotka taistelevat",
-  "referenceOpen": "Elementtien tehokkuus ja liikkeiden lista"
+  "referenceOpen": "Elementtien tehokkuus ja liikkeiden lista",
+  "referenceTitle": "Elementit ja liikkeet"
 }

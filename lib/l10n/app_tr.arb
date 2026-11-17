@@ -235,5 +235,6 @@
   "titleMinimumAge": "{age} yaş ve üzeri için",
   "titlePrivacy": "Gizlilik",
   "titleHeading": "Etrafındaki eşyalar\ncanavara dönüşüp savaşıyor",
-  "referenceOpen": "Element uyumu ve hamle listesi"
+  "referenceOpen": "Element uyumu ve hamle listesi",
+  "referenceTitle": "Elementler ve hamleler"
 }
