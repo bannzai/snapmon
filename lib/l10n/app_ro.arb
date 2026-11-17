@@ -153,5 +153,6 @@
   "shareChooseFormat": "Alege forma imaginii cărții",
   "shareFormatPortrait": "Portret",
   "shareFormatLandscape": "Orizontal",
-  "shareFormatPortraitDescription": "Pentru povești 1080×1920"
+  "shareFormatPortraitDescription": "Pentru povești 1080×1920",
+  "shareFormatLandscapeDescription": "Pentru postări 1200×630"
 }

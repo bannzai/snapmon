@@ -153,5 +153,6 @@
   "shareChooseFormat": "کارڈ کی تصویر کی شکل چنو",
   "shareFormatPortrait": "عمودی",
   "shareFormatLandscape": "افقی",
-  "shareFormatPortraitDescription": "اسٹوریز کے لیے 1080×1920"
+  "shareFormatPortraitDescription": "اسٹوریز کے لیے 1080×1920",
+  "shareFormatLandscapeDescription": "پوسٹس کے لیے 1200×630"
 }

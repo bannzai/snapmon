@@ -153,5 +153,6 @@
   "shareChooseFormat": "Chọn hình dạng ảnh thẻ",
   "shareFormatPortrait": "Dọc",
   "shareFormatLandscape": "Ngang",
-  "shareFormatPortraitDescription": "Cho tin 1080×1920"
+  "shareFormatPortraitDescription": "Cho tin 1080×1920",
+  "shareFormatLandscapeDescription": "Cho bài đăng 1200×630"
 }

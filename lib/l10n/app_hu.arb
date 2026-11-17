@@ -153,5 +153,6 @@
   "shareChooseFormat": "Válaszd ki a kártyakép formáját",
   "shareFormatPortrait": "Álló",
   "shareFormatLandscape": "Fekvő",
-  "shareFormatPortraitDescription": "Sztorikhoz 1080×1920"
+  "shareFormatPortraitDescription": "Sztorikhoz 1080×1920",
+  "shareFormatLandscapeDescription": "Bejegyzésekhez 1200×630"
 }

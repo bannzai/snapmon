@@ -153,5 +153,6 @@
   "shareChooseFormat": "Valitse korttikuvan muoto",
   "shareFormatPortrait": "Pysty",
   "shareFormatLandscape": "Vaaka",
-  "shareFormatPortraitDescription": "Tarinoihin 1080×1920"
+  "shareFormatPortraitDescription": "Tarinoihin 1080×1920",
+  "shareFormatLandscapeDescription": "Julkaisuihin 1200×630"
 }

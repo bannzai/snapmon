@@ -153,5 +153,6 @@
   "shareChooseFormat": "Välj form på kortbilden",
   "shareFormatPortrait": "Stående",
   "shareFormatLandscape": "Liggande",
-  "shareFormatPortraitDescription": "För stories 1080×1920"
+  "shareFormatPortraitDescription": "För stories 1080×1920",
+  "shareFormatLandscapeDescription": "För inlägg 1200×630"
 }

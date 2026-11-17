@@ -153,5 +153,6 @@
   "shareChooseFormat": "Vyber tvar obrázka karty",
   "shareFormatPortrait": "Na výšku",
   "shareFormatLandscape": "Na šírku",
-  "shareFormatPortraitDescription": "Pre príbehy 1080×1920"
+  "shareFormatPortraitDescription": "Pre príbehy 1080×1920",
+  "shareFormatLandscapeDescription": "Na príspevky 1200×630"
 }

@@ -153,5 +153,6 @@
   "shareChooseFormat": "Kies de vorm van de kaartafbeelding",
   "shareFormatPortrait": "Staand",
   "shareFormatLandscape": "Liggend",
-  "shareFormatPortraitDescription": "Voor stories 1080×1920"
+  "shareFormatPortraitDescription": "Voor stories 1080×1920",
+  "shareFormatLandscapeDescription": "Voor berichten 1200×630"
 }

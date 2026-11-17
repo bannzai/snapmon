@@ -153,5 +153,6 @@
   "shareChooseFormat": "कार्ड की तस्वीर का आकार चुनो",
   "shareFormatPortrait": "पोर्ट्रेट",
   "shareFormatLandscape": "लैंडस्केप",
-  "shareFormatPortraitDescription": "स्टोरी के लिए 1080×1920"
+  "shareFormatPortraitDescription": "स्टोरी के लिए 1080×1920",
+  "shareFormatLandscapeDescription": "पोस्ट के लिए 1200×630"
 }

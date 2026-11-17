@@ -153,5 +153,6 @@
   "shareChooseFormat": "કાર્ડની છબીનો આકાર પસંદ કરો",
   "shareFormatPortrait": "ઊભું",
   "shareFormatLandscape": "આડું",
-  "shareFormatPortraitDescription": "સ્ટોરી માટે 1080×1920"
+  "shareFormatPortraitDescription": "સ્ટોરી માટે 1080×1920",
+  "shareFormatLandscapeDescription": "પોસ્ટ માટે 1200×630"
 }

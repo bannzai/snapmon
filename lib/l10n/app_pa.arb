@@ -153,5 +153,6 @@
   "shareChooseFormat": "ਕਾਰਡ ਦੀ ਤਸਵੀਰ ਦਾ ਆਕਾਰ ਚੁਣੋ",
   "shareFormatPortrait": "ਲੰਬਕਾਰੀ",
   "shareFormatLandscape": "ਲੇਟਵਾਂ",
-  "shareFormatPortraitDescription": "ਸਟੋਰੀਆਂ ਲਈ 1080×1920"
+  "shareFormatPortraitDescription": "ਸਟੋਰੀਆਂ ਲਈ 1080×1920",
+  "shareFormatLandscapeDescription": "ਪੋਸਟਾਂ ਲਈ 1200×630"
 }

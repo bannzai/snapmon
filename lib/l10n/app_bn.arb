@@ -153,5 +153,6 @@
   "shareChooseFormat": "কার্ডের ছবির আকার বেছে নাও",
   "shareFormatPortrait": "লম্বালম্বি",
   "shareFormatLandscape": "আড়াআড়ি",
-  "shareFormatPortraitDescription": "স্টোরির জন্য 1080×1920"
+  "shareFormatPortraitDescription": "স্টোরির জন্য 1080×1920",
+  "shareFormatLandscapeDescription": "পোস্টের জন্য 1200×630"
 }

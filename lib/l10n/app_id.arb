@@ -153,5 +153,6 @@
   "shareChooseFormat": "Pilih bentuk gambar kartu",
   "shareFormatPortrait": "Potret",
   "shareFormatLandscape": "Lanskap",
-  "shareFormatPortraitDescription": "Untuk story 1080×1920"
+  "shareFormatPortraitDescription": "Untuk story 1080×1920",
+  "shareFormatLandscapeDescription": "Untuk postingan 1200×630"
 }

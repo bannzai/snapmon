@@ -153,5 +153,6 @@
   "shareChooseFormat": "Διάλεξε σχήμα για την εικόνα της κάρτας",
   "shareFormatPortrait": "Κατακόρυφο",
   "shareFormatLandscape": "Οριζόντιο",
-  "shareFormatPortraitDescription": "Για ιστορίες 1080×1920"
+  "shareFormatPortraitDescription": "Για ιστορίες 1080×1920",
+  "shareFormatLandscapeDescription": "Για αναρτήσεις 1200×630"
 }

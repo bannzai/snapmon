@@ -153,5 +153,6 @@
   "shareChooseFormat": "Wybierz kształt obrazka karty",
   "shareFormatPortrait": "Pionowo",
   "shareFormatLandscape": "Poziomo",
-  "shareFormatPortraitDescription": "Do relacji 1080×1920"
+  "shareFormatPortraitDescription": "Do relacji 1080×1920",
+  "shareFormatLandscapeDescription": "Do postów 1200×630"
 }

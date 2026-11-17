@@ -153,5 +153,6 @@
   "shareChooseFormat": "選擇卡片圖片的形狀",
   "shareFormatPortrait": "直式",
   "shareFormatLandscape": "橫式",
-  "shareFormatPortraitDescription": "適合限時動態 1080×1920"
+  "shareFormatPortraitDescription": "適合限時動態 1080×1920",
+  "shareFormatLandscapeDescription": "貼文用 1200×630"
 }

@@ -153,5 +153,6 @@
   "shareChooseFormat": "കാർഡ് ചിത്രത്തിന്റെ ആകൃതി തിരഞ്ഞെടുക്കൂ",
   "shareFormatPortrait": "ലംബം",
   "shareFormatLandscape": "തിരശ്ചീനം",
-  "shareFormatPortraitDescription": "സ്റ്റോറികൾക്കായി 1080×1920"
+  "shareFormatPortraitDescription": "സ്റ്റോറികൾക്കായി 1080×1920",
+  "shareFormatLandscapeDescription": "പോസ്റ്റുകൾക്ക് 1200×630"
 }

@@ -153,5 +153,6 @@
   "shareChooseFormat": "కార్డు చిత్రం ఆకారాన్ని ఎంచుకో",
   "shareFormatPortrait": "నిలువు",
   "shareFormatLandscape": "అడ్డంగా",
-  "shareFormatPortraitDescription": "స్టోరీల కోసం 1080×1920"
+  "shareFormatPortraitDescription": "స్టోరీల కోసం 1080×1920",
+  "shareFormatLandscapeDescription": "పోస్ట్‌ల కోసం 1200×630"
 }

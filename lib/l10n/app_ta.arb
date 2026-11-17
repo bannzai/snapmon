@@ -153,5 +153,6 @@
   "shareChooseFormat": "அட்டைப் படத்தின் வடிவத்தைத் தேர்ந்தெடுங்கள்",
   "shareFormatPortrait": "செங்குத்து",
   "shareFormatLandscape": "கிடைமட்டம்",
-  "shareFormatPortraitDescription": "ஸ்டோரிகளுக்கு 1080×1920"
+  "shareFormatPortraitDescription": "ஸ்டோரிகளுக்கு 1080×1920",
+  "shareFormatLandscapeDescription": "பதிவுகளுக்கு 1200×630"
 }

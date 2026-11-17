@@ -153,5 +153,6 @@
   "shareChooseFormat": "Kart görselinin şeklini seç",
   "shareFormatPortrait": "Dikey",
   "shareFormatLandscape": "Yatay",
-  "shareFormatPortraitDescription": "Hikâyeler için 1080×1920"
+  "shareFormatPortraitDescription": "Hikâyeler için 1080×1920",
+  "shareFormatLandscapeDescription": "Gönderiler için 1200×630"
 }

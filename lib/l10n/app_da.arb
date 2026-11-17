@@ -153,5 +153,6 @@
   "shareChooseFormat": "Vælg kortbilledets form",
   "shareFormatPortrait": "Stående",
   "shareFormatLandscape": "Vandret",
-  "shareFormatPortraitDescription": "Til stories 1080×1920"
+  "shareFormatPortraitDescription": "Til stories 1080×1920",
+  "shareFormatLandscapeDescription": "Til opslag 1200×630"
 }

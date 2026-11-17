@@ -153,5 +153,6 @@
   "shareChooseFormat": "कार्डच्या चित्राचा आकार निवड",
   "shareFormatPortrait": "उभे",
   "shareFormatLandscape": "आडवे",
-  "shareFormatPortraitDescription": "स्टोरीसाठी 1080×1920"
+  "shareFormatPortraitDescription": "स्टोरीसाठी 1080×1920",
+  "shareFormatLandscapeDescription": "पोस्टसाठी 1200×630"
 }

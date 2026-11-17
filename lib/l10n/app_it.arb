@@ -153,5 +153,6 @@
   "shareChooseFormat": "Scegli la forma dell’immagine della carta",
   "shareFormatPortrait": "Verticale",
   "shareFormatLandscape": "Orizzontale",
-  "shareFormatPortraitDescription": "Per le storie 1080×1920"
+  "shareFormatPortraitDescription": "Per le storie 1080×1920",
+  "shareFormatLandscapeDescription": "Per i post 1200×630"
 }

@@ -153,5 +153,6 @@
   "shareChooseFormat": "เลือกรูปทรงภาพการ์ด",
   "shareFormatPortrait": "แนวตั้ง",
   "shareFormatLandscape": "แนวนอน",
-  "shareFormatPortraitDescription": "สำหรับสตอรี่ 1080×1920"
+  "shareFormatPortraitDescription": "สำหรับสตอรี่ 1080×1920",
+  "shareFormatLandscapeDescription": "สำหรับโพสต์ 1200×630"
 }

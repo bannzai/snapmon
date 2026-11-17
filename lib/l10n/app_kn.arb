@@ -153,5 +153,6 @@
   "shareChooseFormat": "ಕಾರ್ಡ್ ಚಿತ್ರದ ಆಕಾರ ಆಯ್ಕೆ ಮಾಡು",
   "shareFormatPortrait": "ಲಂಬ",
   "shareFormatLandscape": "ಅಡ್ಡ",
-  "shareFormatPortraitDescription": "ಸ್ಟೋರಿಗಳಿಗಾಗಿ 1080×1920"
+  "shareFormatPortraitDescription": "ಸ್ಟೋರಿಗಳಿಗಾಗಿ 1080×1920",
+  "shareFormatLandscapeDescription": "ಪೋಸ್ಟ್‌ಗಳಿಗೆ 1200×630"
 }

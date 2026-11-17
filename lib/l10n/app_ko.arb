@@ -153,5 +153,6 @@
   "shareChooseFormat": "카드 이미지 모양 고르기",
   "shareFormatPortrait": "세로",
   "shareFormatLandscape": "가로",
-  "shareFormatPortraitDescription": "스토리용 1080×1920"
+  "shareFormatPortraitDescription": "스토리용 1080×1920",
+  "shareFormatLandscapeDescription": "게시물용 1200×630"
 }
