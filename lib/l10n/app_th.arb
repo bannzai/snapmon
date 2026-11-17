@@ -22,5 +22,6 @@
   "commonLevel": "Lv. {level}",
   "settingsTitle": "การตั้งค่า",
   "opponentReported": "ส่งรายงานแล้ว",
-  "opponentBlocked": "บล็อกแล้ว"
+  "opponentBlocked": "บล็อกแล้ว",
+  "blockDialogTitle": "บล็อก"
 }

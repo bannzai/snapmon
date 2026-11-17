@@ -22,5 +22,6 @@
   "commonLevel": "Lv. {level}",
   "settingsTitle": "সেটিংস",
   "opponentReported": "রিপোর্ট করা হয়েছে",
-  "opponentBlocked": "ব্লক করা হয়েছে"
+  "opponentBlocked": "ব্লক করা হয়েছে",
+  "blockDialogTitle": "ব্লক"
 }

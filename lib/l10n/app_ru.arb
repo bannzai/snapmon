@@ -22,5 +22,6 @@
   "commonLevel": "Lv. {level}",
   "settingsTitle": "Настройки",
   "opponentReported": "Жалоба отправлена",
-  "opponentBlocked": "Заблокировано"
+  "opponentBlocked": "Заблокировано",
+  "blockDialogTitle": "блокировка"
 }

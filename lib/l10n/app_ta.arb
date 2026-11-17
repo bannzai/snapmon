@@ -22,5 +22,6 @@
   "commonLevel": "Lv. {level}",
   "settingsTitle": "அமைப்புகள்",
   "opponentReported": "புகார் அனுப்பப்பட்டது",
-  "opponentBlocked": "தடுக்கப்பட்டது (தடு)"
+  "opponentBlocked": "தடுக்கப்பட்டது (தடு)",
+  "blockDialogTitle": "தடு"
 }

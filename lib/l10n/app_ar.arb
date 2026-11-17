@@ -22,5 +22,6 @@
   "commonLevel": "Lv. {level}",
   "settingsTitle": "الإعدادات",
   "opponentReported": "تم إرسال إبلاغ",
-  "opponentBlocked": "تم الحظر"
+  "opponentBlocked": "تم الحظر",
+  "blockDialogTitle": "حظر"
 }

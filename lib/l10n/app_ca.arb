@@ -22,5 +22,6 @@
   "commonLevel": "Lv. {level}",
   "settingsTitle": "Configuració",
   "opponentReported": "S'ha enviat el denunci",
-  "opponentBlocked": "S'ha bloquejat"
+  "opponentBlocked": "S'ha bloquejat",
+  "blockDialogTitle": "bloqueig"
 }

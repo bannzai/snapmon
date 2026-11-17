@@ -22,5 +22,6 @@
   "commonLevel": "Lv. {level}",
   "settingsTitle": "Tetapan",
   "opponentReported": "Laporan dihantar",
-  "opponentBlocked": "Berjaya disekat"
+  "opponentBlocked": "Berjaya disekat",
+  "blockDialogTitle": "sekat"
 }

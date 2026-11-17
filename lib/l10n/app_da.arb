@@ -22,5 +22,6 @@
   "commonLevel": "Lv. {level}",
   "settingsTitle": "Indstillinger",
   "opponentReported": "Din rapport er sendt",
-  "opponentBlocked": "Blokeret: blok"
+  "opponentBlocked": "Blokeret: blok",
+  "blockDialogTitle": "blokér"
 }

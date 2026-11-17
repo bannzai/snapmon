@@ -22,5 +22,6 @@
   "commonLevel": "Lv. {level}",
   "settingsTitle": "Налаштування",
   "opponentReported": "Скаргу надіслано",
-  "opponentBlocked": "Заблоковано"
+  "opponentBlocked": "Заблоковано",
+  "blockDialogTitle": "блокування"
 }

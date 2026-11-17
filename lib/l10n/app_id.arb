@@ -22,5 +22,6 @@
   "commonLevel": "Lv. {level}",
   "settingsTitle": "Pengaturan",
   "opponentReported": "Laporan terkirim",
-  "opponentBlocked": "Berhasil diblokir"
+  "opponentBlocked": "Berhasil diblokir",
+  "blockDialogTitle": "blokir"
 }

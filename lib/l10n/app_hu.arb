@@ -22,5 +22,6 @@
   "commonLevel": "Lv. {level}",
   "settingsTitle": "Beállítások",
   "opponentReported": "Jelentés elküldve",
-  "opponentBlocked": "Sikerült letiltani"
+  "opponentBlocked": "Sikerült letiltani",
+  "blockDialogTitle": "letiltás"
 }

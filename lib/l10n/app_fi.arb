@@ -22,5 +22,6 @@
   "commonLevel": "Lv. {level}",
   "settingsTitle": "Asetukset",
   "opponentReported": "Ilmoitus lähetetty",
-  "opponentBlocked": "Estetty (est)"
+  "opponentBlocked": "Estetty (est)",
+  "blockDialogTitle": "esto"
 }

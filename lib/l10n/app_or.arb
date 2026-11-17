@@ -22,5 +22,6 @@
   "commonLevel": "Lv. {level}",
   "settingsTitle": "ସେଟିଂସ୍",
   "opponentReported": "ରିପୋର୍ଟ ପଠାଗଲା",
-  "opponentBlocked": "ବ୍ଲକ କରାଗଲା"
+  "opponentBlocked": "ବ୍ଲକ କରାଗଲା",
+  "blockDialogTitle": "ବ୍ଲକ"
 }

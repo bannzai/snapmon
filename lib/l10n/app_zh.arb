@@ -22,5 +22,6 @@
   "commonLevel": "Lv. {level}",
   "settingsTitle": "设置",
   "opponentReported": "已举报",
-  "opponentBlocked": "已屏蔽"
+  "opponentBlocked": "已屏蔽",
+  "blockDialogTitle": "屏蔽"
 }

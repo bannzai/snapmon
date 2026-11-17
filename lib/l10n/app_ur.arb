@@ -22,5 +22,6 @@
   "commonLevel": "Lv. {level}",
   "settingsTitle": "ترتیبات",
   "opponentReported": "رپورٹ بھیج دی گئی",
-  "opponentBlocked": "بلاک کر دیا"
+  "opponentBlocked": "بلاک کر دیا",
+  "blockDialogTitle": "بلاک"
 }

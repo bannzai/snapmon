@@ -22,5 +22,6 @@
   "commonLevel": "Lv. {level}",
   "settingsTitle": "Nastavení",
   "opponentReported": "Úspěšně nahlášeno",
-  "opponentBlocked": "Zablokováno: blok"
+  "opponentBlocked": "Zablokováno: blok",
+  "blockDialogTitle": "blokovat"
 }

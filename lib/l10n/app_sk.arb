@@ -22,5 +22,6 @@
   "commonLevel": "Lv. {level}",
   "settingsTitle": "Nastavenia",
   "opponentReported": "Nahlásenie odoslané",
-  "opponentBlocked": "Zablokované (blok)"
+  "opponentBlocked": "Zablokované (blok)",
+  "blockDialogTitle": "blokovanie"
 }

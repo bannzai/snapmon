@@ -22,5 +22,6 @@
   "commonLevel": "Lv. {level}",
   "settingsTitle": "Ρυθμίσεις",
   "opponentReported": "Η αναφορά στάλθηκε",
-  "opponentBlocked": "Έγινε μπλοκ"
+  "opponentBlocked": "Έγινε μπλοκ",
+  "blockDialogTitle": "μπλοκάρισμα"
 }

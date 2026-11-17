@@ -22,5 +22,6 @@
   "commonLevel": "Lv. {level}",
   "settingsTitle": "Instellingen",
   "opponentReported": "Melding verstuurd",
-  "opponentBlocked": "Geblokkeerd"
+  "opponentBlocked": "Geblokkeerd",
+  "blockDialogTitle": "blokkeren"
 }

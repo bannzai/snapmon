@@ -22,5 +22,6 @@
   "commonLevel": "Lv. {level}",
   "settingsTitle": "設定",
   "opponentReported": "已檢舉",
-  "opponentBlocked": "已封鎖"
+  "opponentBlocked": "已封鎖",
+  "blockDialogTitle": "封鎖"
 }

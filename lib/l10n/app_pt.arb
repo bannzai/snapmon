@@ -22,5 +22,6 @@
   "commonLevel": "Lv. {level}",
   "settingsTitle": "Configurações",
   "opponentReported": "Denúncia enviada",
-  "opponentBlocked": "Bloqueado"
+  "opponentBlocked": "Bloqueado",
+  "blockDialogTitle": "bloquear"
 }

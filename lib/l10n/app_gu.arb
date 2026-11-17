@@ -22,5 +22,6 @@
   "commonLevel": "Lv. {level}",
   "settingsTitle": "સેટિંગ્સ",
   "opponentReported": "રિપોર્ટ મોકલાયો",
-  "opponentBlocked": "બ્લોક કર્યું"
+  "opponentBlocked": "બ્લોક કર્યું",
+  "blockDialogTitle": "બ્લોક"
 }

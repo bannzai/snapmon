@@ -22,5 +22,6 @@
   "commonLevel": "Lv. {level}",
   "settingsTitle": "Cài đặt",
   "opponentReported": "Đã gửi báo cáo",
-  "opponentBlocked": "Đã chặn"
+  "opponentBlocked": "Đã chặn",
+  "blockDialogTitle": "chặn"
 }

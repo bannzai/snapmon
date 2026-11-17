@@ -22,5 +22,6 @@
   "commonLevel": "Lv. {level}",
   "settingsTitle": "Setări",
   "opponentReported": "Raport trimis",
-  "opponentBlocked": "Blocat"
+  "opponentBlocked": "Blocat",
+  "blockDialogTitle": "blocare"
 }

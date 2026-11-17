@@ -22,5 +22,6 @@
   "commonLevel": "Lv. {level}",
   "settingsTitle": "הגדרות",
   "opponentReported": "הדיווח נשלח",
-  "opponentBlocked": "בוצעה חסימה"
+  "opponentBlocked": "בוצעה חסימה",
+  "blockDialogTitle": "חסימה"
 }

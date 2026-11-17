@@ -22,5 +22,6 @@
   "commonLevel": "Lv. {level}",
   "settingsTitle": "Nastavitve",
   "opponentReported": "Prijava poslana",
-  "opponentBlocked": "Blokirano"
+  "opponentBlocked": "Blokirano",
+  "blockDialogTitle": "blokiranje"
 }

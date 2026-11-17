@@ -22,5 +22,6 @@
   "commonLevel": "Lv. {level}",
   "settingsTitle": "Ayarlar",
   "opponentReported": "Bildirim gönderildi",
-  "opponentBlocked": "Engellendi"
+  "opponentBlocked": "Engellendi",
+  "blockDialogTitle": "engelle"
 }

@@ -22,5 +22,6 @@
   "commonLevel": "Lv. {level}",
   "settingsTitle": "설정",
   "opponentReported": "신고했어요",
-  "opponentBlocked": "차단했어요"
+  "opponentBlocked": "차단했어요",
+  "blockDialogTitle": "차단"
 }
