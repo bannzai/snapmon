@@ -283,5 +283,6 @@
   "actionCardPurchasePending": "กำลังรอให้ชำระเงินเสร็จ\nปิดหน้านี้ไปก็ยังได้รับท่าเมื่อชำระเงินเสร็จ",
   "actionCardPurchaseArrivedTitle": "ได้รับท่า {moveName} แล้ว!",
   "actionCardPurchaseUnassignedTitle": "รับท่าไม่ได้",
-  "actionCardPurchaseUnassignedBody": "ราคาท่าเปลี่ยนไประหว่างซื้อ หรือมีท่านั้นอยู่แล้ว\nเลือกท่าอีกครั้งจาก «Action Card ที่ยังไม่ได้รับ»"
+  "actionCardPurchaseUnassignedBody": "ราคาท่าเปลี่ยนไประหว่างซื้อ หรือมีท่านั้นอยู่แล้ว\nเลือกท่าอีกครั้งจาก «Action Card ที่ยังไม่ได้รับ»",
+  "actionCardUnassignedHeading": "Action Card ที่ยังไม่ได้รับ"
 }

@@ -283,5 +283,6 @@
   "actionCardPurchasePending": "Ожидаем завершения оплаты\nТы получишь приём после её завершения, даже если закроешь этот экран",
   "actionCardPurchaseArrivedTitle": "Ты получил приём {moveName}!",
   "actionCardPurchaseUnassignedTitle": "Не удалось получить приём",
-  "actionCardPurchaseUnassignedBody": "Цена приёма изменилась во время покупки, или этот приём у тебя уже есть\nСнова выбери приём в разделе «Неполученные Action Card»"
+  "actionCardPurchaseUnassignedBody": "Цена приёма изменилась во время покупки, или этот приём у тебя уже есть\nСнова выбери приём в разделе «Неполученные Action Card»",
+  "actionCardUnassignedHeading": "Неполученные Action Card"
 }

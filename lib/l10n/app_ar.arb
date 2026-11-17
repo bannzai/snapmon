@@ -283,5 +283,6 @@
   "actionCardPurchasePending": "بانتظار اكتمال الدفع\nستصلك الحركة عند اكتماله، حتى لو أغلقت هذه الشاشة",
   "actionCardPurchaseArrivedTitle": "حصلت على الحركة {moveName}!",
   "actionCardPurchaseUnassignedTitle": "تعذّر استلام الحركة",
-  "actionCardPurchaseUnassignedBody": "ربما تغيّر سعر الحركة أثناء الشراء، أو أنك تملكها بالفعل\nاختر حركة من «Action Card التي لم تستلمها» من جديد"
+  "actionCardPurchaseUnassignedBody": "ربما تغيّر سعر الحركة أثناء الشراء، أو أنك تملكها بالفعل\nاختر حركة من «Action Card التي لم تستلمها» من جديد",
+  "actionCardUnassignedHeading": "بطاقات Action Card غير المستلمة"
 }

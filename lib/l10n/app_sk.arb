@@ -283,5 +283,6 @@
   "actionCardPurchasePending": "Čaká sa na dokončenie platby\nÚtok dostaneš po dokončení platby, aj keď túto obrazovku zavrieš",
   "actionCardPurchaseArrivedTitle": "Získavaš útok {moveName}!",
   "actionCardPurchaseUnassignedTitle": "Nepodarilo sa získať útok",
-  "actionCardPurchaseUnassignedBody": "Cena útoku sa počas nákupu zmenila alebo už tento útok máš\nZnova si vyber útok v «Neprijaté Action Card»"
+  "actionCardPurchaseUnassignedBody": "Cena útoku sa počas nákupu zmenila alebo už tento útok máš\nZnova si vyber útok v «Neprijaté Action Card»",
+  "actionCardUnassignedHeading": "Nevyzdvihnuté Action Card"
 }

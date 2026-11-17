@@ -283,5 +283,6 @@
   "actionCardPurchasePending": "ממתינים להשלמת התשלום\nהמתקפה תגיע כשהתשלום יושלם, גם אם סוגרים את המסך הזה",
   "actionCardPurchaseArrivedTitle": "המתקפה {moveName} התקבלה!",
   "actionCardPurchaseUnassignedTitle": "לא ניתן לקבל את המתקפה",
-  "actionCardPurchaseUnassignedBody": "מחיר המתקפה השתנה בזמן הקנייה, או שהמתקפה כבר אצלך\nיש לבחור מתקפה מחדש מתוך ״Action Card שטרם התקבלו״"
+  "actionCardPurchaseUnassignedBody": "מחיר המתקפה השתנה בזמן הקנייה, או שהמתקפה כבר אצלך\nיש לבחור מתקפה מחדש מתוך ״Action Card שטרם התקבלו״",
+  "actionCardUnassignedHeading": "Action Card שטרם נאספו"
 }

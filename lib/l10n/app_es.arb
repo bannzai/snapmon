@@ -283,5 +283,6 @@
   "actionCardPurchasePending": "Esperando a que se complete el pago\nRecibirás el movimiento cuando se complete, aunque cierres esta pantalla",
   "actionCardPurchaseArrivedTitle": "¡Conseguiste el movimiento {moveName}!",
   "actionCardPurchaseUnassignedTitle": "No se pudo recibir el movimiento",
-  "actionCardPurchaseUnassignedBody": "El precio del movimiento cambió durante la compra, o ya lo tienes\nVuelve a elegir un movimiento en «Action Card sin recibir»"
+  "actionCardPurchaseUnassignedBody": "El precio del movimiento cambió durante la compra, o ya lo tienes\nVuelve a elegir un movimiento en «Action Card sin recibir»",
+  "actionCardUnassignedHeading": "Action Card sin reclamar"
 }

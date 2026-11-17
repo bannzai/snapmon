@@ -283,5 +283,6 @@
   "actionCardPurchasePending": "ਭੁਗਤਾਨ ਪੂਰਾ ਹੋਣ ਦੀ ਉਡੀਕ ਹੈ\nਤੁਸੀਂ ਇਹ ਸਕ੍ਰੀਨ ਬੰਦ ਕਰ ਦਿਓ ਤਾਂ ਵੀ ਭੁਗਤਾਨ ਪੂਰਾ ਹੋਣ ਤੇ ਚਾਲ ਮਿਲ ਜਾਵੇਗੀ",
   "actionCardPurchaseArrivedTitle": "ਤੁਹਾਨੂੰ {moveName} ਚਾਲ ਮਿਲ ਗਈ!",
   "actionCardPurchaseUnassignedTitle": "ਚਾਲ ਨਹੀਂ ਮਿਲੀ",
-  "actionCardPurchaseUnassignedBody": "ਖਰੀਦਦੇ ਸਮੇਂ ਚਾਲ ਦੀ ਕੀਮਤ ਬਦਲ ਗਈ, ਜਾਂ ਉਹ ਚਾਲ ਤੁਹਾਡੇ ਕੋਲ ਪਹਿਲਾਂ ਹੀ ਹੈ\n«ਨਾ ਮਿਲੇ Action Card» ਵਿੱਚੋਂ ਮੁੜ ਚਾਲ ਚੁਣੋ"
+  "actionCardPurchaseUnassignedBody": "ਖਰੀਦਦੇ ਸਮੇਂ ਚਾਲ ਦੀ ਕੀਮਤ ਬਦਲ ਗਈ, ਜਾਂ ਉਹ ਚਾਲ ਤੁਹਾਡੇ ਕੋਲ ਪਹਿਲਾਂ ਹੀ ਹੈ\n«ਨਾ ਮਿਲੇ Action Card» ਵਿੱਚੋਂ ਮੁੜ ਚਾਲ ਚੁਣੋ",
+  "actionCardUnassignedHeading": "ਹਾਲੇ ਨਾ ਲਏ Action Card"
 }

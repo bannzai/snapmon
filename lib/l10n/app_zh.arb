@@ -283,5 +283,6 @@
   "actionCardPurchasePending": "正在等待付款完成\n即使关闭此页面，付款完成后你也会收到招式",
   "actionCardPurchaseArrivedTitle": "获得了招式{moveName}！",
   "actionCardPurchaseUnassignedTitle": "未能收到招式",
-  "actionCardPurchaseUnassignedBody": "购买期间招式价格发生了变化，或者你已经拥有该招式\n请从「未领取的 Action Card」中重新选择招式"
+  "actionCardPurchaseUnassignedBody": "购买期间招式价格发生了变化，或者你已经拥有该招式\n请从「未领取的 Action Card」中重新选择招式",
+  "actionCardUnassignedHeading": "尚未领取的 Action Card"
 }

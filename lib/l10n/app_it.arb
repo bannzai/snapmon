@@ -283,5 +283,6 @@
   "actionCardPurchasePending": "In attesa del completamento del pagamento\nRiceverai la mossa a pagamento completato, anche se chiudi questa schermata",
   "actionCardPurchaseArrivedTitle": "Hai ottenuto la mossa {moveName}!",
   "actionCardPurchaseUnassignedTitle": "Non è stato possibile ricevere la mossa",
-  "actionCardPurchaseUnassignedBody": "Il prezzo della mossa è cambiato durante l’acquisto, oppure hai già quella mossa\nScegli di nuovo una mossa tra le «Action Card non ricevute»"
+  "actionCardPurchaseUnassignedBody": "Il prezzo della mossa è cambiato durante l’acquisto, oppure hai già quella mossa\nScegli di nuovo una mossa tra le «Action Card non ricevute»",
+  "actionCardUnassignedHeading": "Action Card non riscattate"
 }

@@ -283,5 +283,6 @@
   "actionCardPurchasePending": "Αναμονή ολοκλήρωσης πληρωμής\nΘα πάρεις την τεχνική μόλις ολοκληρωθεί, ακόμα κι αν κλείσεις αυτή την οθόνη",
   "actionCardPurchaseArrivedTitle": "Απέκτησες την κίνηση {moveName}!",
   "actionCardPurchaseUnassignedTitle": "Δεν ήταν δυνατή η λήψη της τεχνικής",
-  "actionCardPurchaseUnassignedBody": "Η τιμή της τεχνικής άλλαξε όσο αγόραζες ή έχεις ήδη αυτή την τεχνική\nΔιάλεξε ξανά τεχνική από τις «Action Card που δεν παρέλαβες»"
+  "actionCardPurchaseUnassignedBody": "Η τιμή της τεχνικής άλλαξε όσο αγόραζες ή έχεις ήδη αυτή την τεχνική\nΔιάλεξε ξανά τεχνική από τις «Action Card που δεν παρέλαβες»",
+  "actionCardUnassignedHeading": "Action Card που δεν έχεις παραλάβει"
 }

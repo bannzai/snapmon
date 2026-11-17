@@ -283,5 +283,6 @@
   "actionCardPurchasePending": "Warten auf den Abschluss der Zahlung\nDu erhältst die Attacke nach Abschluss, auch wenn du diesen Bildschirm schließt",
   "actionCardPurchaseArrivedTitle": "Du hast {moveName} erhalten!",
   "actionCardPurchaseUnassignedTitle": "Die Attacke konnte nicht empfangen werden",
-  "actionCardPurchaseUnassignedBody": "Der Preis der Attacke hat sich beim Kauf geändert, oder du hast sie schon\nWähle unter „Nicht erhaltene Action Card“ erneut eine Attacke"
+  "actionCardPurchaseUnassignedBody": "Der Preis der Attacke hat sich beim Kauf geändert, oder du hast sie schon\nWähle unter „Nicht erhaltene Action Card“ erneut eine Attacke",
+  "actionCardUnassignedHeading": "Nicht abgeholte Action Card"
 }

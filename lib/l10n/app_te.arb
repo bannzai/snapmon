@@ -283,5 +283,6 @@
   "actionCardPurchasePending": "చెల్లింపు పూర్తయ్యే వరకు వేచి చూస్తున్నాం\nఈ స్క్రీన్ మూసినా, చెల్లింపు పూర్తయ్యాక మూవ్ వస్తుంది",
   "actionCardPurchaseArrivedTitle": "నీకు {moveName} ఎత్తుగడ దొరికింది!",
   "actionCardPurchaseUnassignedTitle": "మూవ్ అందలేదు",
-  "actionCardPurchaseUnassignedBody": "కొనే సమయంలో మూవ్ ధర మారింది, లేదా ఆ మూవ్ నీ దగ్గర ఇప్పటికే ఉంది\n«అందుకోని Action Card» నుంచి మళ్లీ మూవ్ ఎంచుకో"
+  "actionCardPurchaseUnassignedBody": "కొనే సమయంలో మూవ్ ధర మారింది, లేదా ఆ మూవ్ నీ దగ్గర ఇప్పటికే ఉంది\n«అందుకోని Action Card» నుంచి మళ్లీ మూవ్ ఎంచుకో",
+  "actionCardUnassignedHeading": "ఇంకా తీసుకోని Action Card"
 }

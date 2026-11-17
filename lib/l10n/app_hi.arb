@@ -283,5 +283,6 @@
   "actionCardPurchasePending": "भुगतान पूरा होने का इंतज़ार है\nयह स्क्रीन बंद करने पर भी भुगतान पूरा होते ही चाल मिल जाएगी",
   "actionCardPurchaseArrivedTitle": "तुम्हें {moveName} चाल मिल गई!",
   "actionCardPurchaseUnassignedTitle": "चाल नहीं मिल सकी",
-  "actionCardPurchaseUnassignedBody": "खरीदते समय चाल की कीमत बदल गई, या वह चाल तुम्हारे पास पहले से है\n«न मिले Action Card» से फिर कोई चाल चुनो"
+  "actionCardPurchaseUnassignedBody": "खरीदते समय चाल की कीमत बदल गई, या वह चाल तुम्हारे पास पहले से है\n«न मिले Action Card» से फिर कोई चाल चुनो",
+  "actionCardUnassignedHeading": "अभी तक नहीं मिले Action Card"
 }

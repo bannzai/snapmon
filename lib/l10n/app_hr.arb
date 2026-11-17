@@ -283,5 +283,6 @@
   "actionCardPurchasePending": "Čeka se dovršetak plaćanja\nDobit ćeš potez kad se plaćanje dovrši, čak i ako zatvoriš ovaj zaslon",
   "actionCardPurchaseArrivedTitle": "Dobivaš potez {moveName}!",
   "actionCardPurchaseUnassignedTitle": "Potez nije primljen",
-  "actionCardPurchaseUnassignedBody": "Cijena poteza promijenila se tijekom kupnje ili već imaš taj potez\nPonovno odaberi potez među „Neprimljenim Action Card”"
+  "actionCardPurchaseUnassignedBody": "Cijena poteza promijenila se tijekom kupnje ili već imaš taj potez\nPonovno odaberi potez među „Neprimljenim Action Card”",
+  "actionCardUnassignedHeading": "Nepreuzete Action Card"
 }

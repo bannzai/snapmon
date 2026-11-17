@@ -283,5 +283,6 @@
   "actionCardPurchasePending": "পেমেন্ট সম্পূর্ণ হওয়ার অপেক্ষায়\nএই স্ক্রিন বন্ধ করলেও পেমেন্ট সম্পূর্ণ হলে কৌশলটি পাবে",
   "actionCardPurchaseArrivedTitle": "চাল পেয়েছ: {moveName}!",
   "actionCardPurchaseUnassignedTitle": "কৌশলটি পাওয়া যায়নি",
-  "actionCardPurchaseUnassignedBody": "কেনার সময় কৌশলের দাম বদলে গেছে, অথবা কৌশলটি তোমার আগেই আছে\n«না পাওয়া Action Card» থেকে আবার কৌশল বেছে নাও"
+  "actionCardPurchaseUnassignedBody": "কেনার সময় কৌশলের দাম বদলে গেছে, অথবা কৌশলটি তোমার আগেই আছে\n«না পাওয়া Action Card» থেকে আবার কৌশল বেছে নাও",
+  "actionCardUnassignedHeading": "এখনও না নেওয়া Action Card"
 }
