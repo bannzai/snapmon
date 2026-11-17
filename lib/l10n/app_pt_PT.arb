@@ -239,5 +239,6 @@
   "referenceTitle": "Elementos e golpes",
   "referenceTypeChartTab": "Tabela de eficácia",
   "referenceMovesTab": "Lista de golpes",
-  "referenceTypeChartNote": "Na vertical: elemento do golpe. Na horizontal: elemento do monstro que recebe o golpe\nSe o monstro atingido tiver dois elementos, multiplica os dois fatores"
+  "referenceTypeChartNote": "Na vertical: elemento do golpe. Na horizontal: elemento do monstro que recebe o golpe\nSe o monstro atingido tiver dois elementos, multiplica os dois fatores",
+  "referenceTypeChartCorner": "golpe ／ defesa"
 }

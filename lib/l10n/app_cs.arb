@@ -239,5 +239,6 @@
   "referenceTitle": "Elementy a útoky",
   "referenceTypeChartTab": "Tabulka účinnosti",
   "referenceMovesTab": "Seznam útoků",
-  "referenceTypeChartNote": "Svisle: element útoku. Vodorovně: element příšery, která ho schytá\nMá-li zasažená příšera dva elementy, vynásob oba násobitele"
+  "referenceTypeChartNote": "Svisle: element útoku. Vodorovně: element příšery, která ho schytá\nMá-li zasažená příšera dva elementy, vynásob oba násobitele",
+  "referenceTypeChartCorner": "útok ／ obrana"
 }

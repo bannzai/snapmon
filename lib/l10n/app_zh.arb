@@ -239,5 +239,6 @@
   "referenceTitle": "属性与招式",
   "referenceTypeChartTab": "克制表",
   "referenceMovesTab": "招式一览",
-  "referenceTypeChartNote": "纵向是招式的属性，横向是承受招式的怪物的属性\n承受招式的怪物有两种属性时，将两个倍率相乘"
+  "referenceTypeChartNote": "纵向是招式的属性，横向是承受招式的怪物的属性\n承受招式的怪物有两种属性时，将两个倍率相乘",
+  "referenceTypeChartCorner": "招式 ／ 防守"
 }

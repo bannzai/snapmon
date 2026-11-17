@@ -239,5 +239,6 @@
   "referenceTitle": "typen en aanvallen",
   "referenceTypeChartTab": "Effectiviteitstabel",
   "referenceMovesTab": "Lijst met aanvallen",
-  "referenceTypeChartNote": "Verticaal: het type van de aanval. Horizontaal: het type van het monster dat geraakt wordt\nHeeft het geraakte monster twee types, vermenigvuldig dan de twee factoren"
+  "referenceTypeChartNote": "Verticaal: het type van de aanval. Horizontaal: het type van het monster dat geraakt wordt\nHeeft het geraakte monster twee types, vermenigvuldig dan de twee factoren",
+  "referenceTypeChartCorner": "aanval ／ verdediging"
 }

@@ -239,5 +239,6 @@
   "referenceTitle": "Elementi in poteze",
   "referenceTypeChartTab": "Tabela učinkovitosti",
   "referenceMovesTab": "Seznam potez",
-  "referenceTypeChartNote": "Navpično: element poteze. Vodoravno: element pošasti, ki jo prejme\nČe ima zadeta pošast dva elementa, pomnoži oba množilnika"
+  "referenceTypeChartNote": "Navpično: element poteze. Vodoravno: element pošasti, ki jo prejme\nČe ima zadeta pošast dva elementa, pomnoži oba množilnika",
+  "referenceTypeChartCorner": "potez ／ obramba"
 }

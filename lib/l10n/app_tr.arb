@@ -239,5 +239,6 @@
   "referenceTitle": "Elementler ve hamleler",
   "referenceTypeChartTab": "Uyum tablosu",
   "referenceMovesTab": "Tüm hamleler",
-  "referenceTypeChartNote": "Dikeyde hamlenin elementi, yatayda hamleyi alan canavarın elementi var\nHamleyi alan canavarın iki elementi varsa iki çarpanı birbiriyle çarp"
+  "referenceTypeChartNote": "Dikeyde hamlenin elementi, yatayda hamleyi alan canavarın elementi var\nHamleyi alan canavarın iki elementi varsa iki çarpanı birbiriyle çarp",
+  "referenceTypeChartCorner": "hamle ／ savunma"
 }

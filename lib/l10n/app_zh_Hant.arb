@@ -239,5 +239,6 @@
   "referenceTitle": "屬性與招式",
   "referenceTypeChartTab": "相剋表",
   "referenceMovesTab": "招式一覽",
-  "referenceTypeChartNote": "縱向是招式的屬性，橫向是承受招式的怪物的屬性\n承受招式的怪物有兩種屬性時，將兩個倍率相乘"
+  "referenceTypeChartNote": "縱向是招式的屬性，橫向是承受招式的怪物的屬性\n承受招式的怪物有兩種屬性時，將兩個倍率相乘",
+  "referenceTypeChartCorner": "招式 ／ 防守"
 }

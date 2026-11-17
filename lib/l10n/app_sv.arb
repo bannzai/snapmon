@@ -239,5 +239,6 @@
   "referenceTitle": "Element och attacker",
   "referenceTypeChartTab": "Effektivitetstabell",
   "referenceMovesTab": "Lista över attacker",
-  "referenceTypeChartNote": "Lodrätt: attackens element. Vågrätt: elementet hos monstret som träffas\nHar monstret som träffas två element, multiplicera de två faktorerna"
+  "referenceTypeChartNote": "Lodrätt: attackens element. Vågrätt: elementet hos monstret som träffas\nHar monstret som träffas två element, multiplicera de två faktorerna",
+  "referenceTypeChartCorner": "attack ／ försvar"
 }
