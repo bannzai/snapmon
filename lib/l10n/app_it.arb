@@ -13,5 +13,6 @@
   "reportReasonInappropriateIcon": "Icona inappropriata",
   "reportReasonOther": "Altro",
   "reportSheetTitle": "Segnala {monsterName}",
-  "reportSheetDescription": "L'allenatore che segnali non comparirà più tra i tuoi avversari"
+  "reportSheetDescription": "L'allenatore che segnali non comparirà più tra i tuoi avversari",
+  "reportSheetSubmitting": "Invio in corso"
 }

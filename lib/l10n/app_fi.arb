@@ -13,5 +13,6 @@
   "reportReasonInappropriateIcon": "Sopimaton kuvake",
   "reportReasonOther": "Muu",
   "reportSheetTitle": "Ilmoita kohteesta {monsterName}",
-  "reportSheetDescription": "Ilmoittamasi kouluttaja ei enää tule vastaasi taisteluissa"
+  "reportSheetDescription": "Ilmoittamasi kouluttaja ei enää tule vastaasi taisteluissa",
+  "reportSheetSubmitting": "Lähetetään"
 }

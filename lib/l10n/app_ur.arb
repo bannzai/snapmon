@@ -13,5 +13,6 @@
   "reportReasonInappropriateIcon": "نامناسب آئیکن",
   "reportReasonOther": "دیگر",
   "reportSheetTitle": "{monsterName} کو رپورٹ کرو",
-  "reportSheetDescription": "جس ٹرینر کو تم رپورٹ کرو گے، وہ اب لڑائی میں تمہارا حریف نہیں بنے گا"
+  "reportSheetDescription": "جس ٹرینر کو تم رپورٹ کرو گے، وہ اب لڑائی میں تمہارا حریف نہیں بنے گا",
+  "reportSheetSubmitting": "بھیجا جا رہا ہے"
 }

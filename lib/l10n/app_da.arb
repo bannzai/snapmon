@@ -13,5 +13,6 @@
   "reportReasonInappropriateIcon": "Upassende ikon",
   "reportReasonOther": "Andet",
   "reportSheetTitle": "Rapportér {monsterName}",
-  "reportSheetDescription": "En træner, du rapporterer, dukker ikke længere op som modstander i kamp"
+  "reportSheetDescription": "En træner, du rapporterer, dukker ikke længere op som modstander i kamp",
+  "reportSheetSubmitting": "Sender"
 }

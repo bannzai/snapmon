@@ -13,5 +13,6 @@
   "reportReasonInappropriateIcon": "Pictogramă nepotrivită",
   "reportReasonOther": "Altele",
   "reportSheetTitle": "Raportează {monsterName}",
-  "reportSheetDescription": "Un antrenor pe care îl raportezi nu va mai apărea ca adversar în luptele tale"
+  "reportSheetDescription": "Un antrenor pe care îl raportezi nu va mai apărea ca adversar în luptele tale",
+  "reportSheetSubmitting": "Se trimite"
 }

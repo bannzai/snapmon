@@ -13,5 +13,6 @@
   "reportReasonInappropriateIcon": "סמל לא הולם",
   "reportReasonOther": "אחר",
   "reportSheetTitle": "דיווח על {monsterName}",
-  "reportSheetDescription": "מאמן שהתקבל עליו דיווח לא יופיע עוד מולך בקרב"
+  "reportSheetDescription": "מאמן שהתקבל עליו דיווח לא יופיע עוד מולך בקרב",
+  "reportSheetSubmitting": "בשליחה"
 }

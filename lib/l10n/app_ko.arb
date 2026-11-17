@@ -13,5 +13,6 @@
   "reportReasonInappropriateIcon": "부적절한 아이콘",
   "reportReasonOther": "기타",
   "reportSheetTitle": "{monsterName} 신고하기",
-  "reportSheetDescription": "신고한 트레이너는 더 이상 배틀 상대로 나오지 않아요"
+  "reportSheetDescription": "신고한 트레이너는 더 이상 배틀 상대로 나오지 않아요",
+  "reportSheetSubmitting": "보내고 있어요"
 }

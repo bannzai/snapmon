@@ -13,5 +13,6 @@
   "reportReasonInappropriateIcon": "ಅನುಚಿತ ಐಕಾನ್",
   "reportReasonOther": "ಇತರೆ",
   "reportSheetTitle": "{monsterName} ಬಗ್ಗೆ ವರದಿ ಮಾಡು",
-  "reportSheetDescription": "ನೀನು ವರದಿ ಮಾಡಿದ ಟ್ರೈನರ್ ಇನ್ನು ಯುದ್ಧದಲ್ಲಿ ಎದುರಾಳಿಯಾಗಿ ಬರುವುದಿಲ್ಲ"
+  "reportSheetDescription": "ನೀನು ವರದಿ ಮಾಡಿದ ಟ್ರೈನರ್ ಇನ್ನು ಯುದ್ಧದಲ್ಲಿ ಎದುರಾಳಿಯಾಗಿ ಬರುವುದಿಲ್ಲ",
+  "reportSheetSubmitting": "ಕಳುಹಿಸಲಾಗುತ್ತಿದೆ"
 }

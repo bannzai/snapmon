@@ -13,5 +13,6 @@
   "reportReasonInappropriateIcon": "అనుచితమైన ఐకాన్",
   "reportReasonOther": "ఇతర",
   "reportSheetTitle": "{monsterName}పై రిపోర్ట్ చేయి",
-  "reportSheetDescription": "నువ్వు రిపోర్ట్ చేసిన ట్రైనర్ ఇకపై పోరాటాల్లో ప్రత్యర్థిగా రాడు"
+  "reportSheetDescription": "నువ్వు రిపోర్ట్ చేసిన ట్రైనర్ ఇకపై పోరాటాల్లో ప్రత్యర్థిగా రాడు",
+  "reportSheetSubmitting": "పంపుతోంది"
 }

@@ -13,5 +13,6 @@
   "reportReasonInappropriateIcon": "Neprikladna ikona",
   "reportReasonOther": "Ostalo",
   "reportSheetTitle": "Prijavi {monsterName}",
-  "reportSheetDescription": "Trener kojeg prijaviš više ti se neće pojavljivati kao protivnik u borbi"
+  "reportSheetDescription": "Trener kojeg prijaviš više ti se neće pojavljivati kao protivnik u borbi",
+  "reportSheetSubmitting": "Slanje u tijeku"
 }

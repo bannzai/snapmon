@@ -13,5 +13,6 @@
   "reportReasonInappropriateIcon": "Неподходящий значок",
   "reportReasonOther": "Другое",
   "reportSheetTitle": "Жалоба на {monsterName}",
-  "reportSheetDescription": "Тренер, на которого ты отправишь жалобу, больше не появится среди соперников в боях"
+  "reportSheetDescription": "Тренер, на которого ты отправишь жалобу, больше не появится среди соперников в боях",
+  "reportSheetSubmitting": "Отправка"
 }

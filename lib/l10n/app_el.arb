@@ -13,5 +13,6 @@
   "reportReasonInappropriateIcon": "Ακατάλληλο εικονίδιο",
   "reportReasonOther": "Άλλο",
   "reportSheetTitle": "Αναφορά για {monsterName}",
-  "reportSheetDescription": "Μετά την αναφορά σου, ο εκπαιδευτής δεν θα εμφανίζεται πια ως αντίπαλος σε μάχες"
+  "reportSheetDescription": "Μετά την αναφορά σου, ο εκπαιδευτής δεν θα εμφανίζεται πια ως αντίπαλος σε μάχες",
+  "reportSheetSubmitting": "Γίνεται αποστολή"
 }

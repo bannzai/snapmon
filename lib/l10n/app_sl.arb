@@ -13,5 +13,6 @@
   "reportReasonInappropriateIcon": "Neprimerna ikona",
   "reportReasonOther": "Drugo",
   "reportSheetTitle": "Prijavi {monsterName}",
-  "reportSheetDescription": "Trener, ki ga prijaviš, se ne bo več pojavil kot tvoj nasprotnik v boju"
+  "reportSheetDescription": "Trener, ki ga prijaviš, se ne bo več pojavil kot tvoj nasprotnik v boju",
+  "reportSheetSubmitting": "Pošiljanje"
 }

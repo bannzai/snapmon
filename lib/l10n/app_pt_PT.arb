@@ -13,5 +13,6 @@
   "reportReasonInappropriateIcon": "Ícone inadequado",
   "reportReasonOther": "Outro",
   "reportSheetTitle": "Denunciar {monsterName}",
-  "reportSheetDescription": "O treinador que denunciares deixará de aparecer como adversário nos combates"
+  "reportSheetDescription": "O treinador que denunciares deixará de aparecer como adversário nos combates",
+  "reportSheetSubmitting": "A enviar"
 }

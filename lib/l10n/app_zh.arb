@@ -13,5 +13,6 @@
   "reportReasonInappropriateIcon": "图标不恰当",
   "reportReasonOther": "其他",
   "reportSheetTitle": "举报 {monsterName}",
-  "reportSheetDescription": "举报过的训练家将不再成为你的对战对手"
+  "reportSheetDescription": "举报过的训练家将不再成为你的对战对手",
+  "reportSheetSubmitting": "正在发送"
 }

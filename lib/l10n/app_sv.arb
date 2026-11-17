@@ -13,5 +13,6 @@
   "reportReasonInappropriateIcon": "Olämplig ikon",
   "reportReasonOther": "Annat",
   "reportSheetTitle": "Rapportera {monsterName}",
-  "reportSheetDescription": "En tränare som du rapporterar dyker inte längre upp som motståndare i strider"
+  "reportSheetDescription": "En tränare som du rapporterar dyker inte längre upp som motståndare i strider",
+  "reportSheetSubmitting": "Skickar"
 }

@@ -13,5 +13,6 @@
   "reportReasonInappropriateIcon": "Ikon tidak pantas",
   "reportReasonOther": "Lainnya",
   "reportSheetTitle": "Laporkan {monsterName}",
-  "reportSheetDescription": "Pelatih yang kamu laporkan tidak akan muncul lagi sebagai lawan bertarungmu"
+  "reportSheetDescription": "Pelatih yang kamu laporkan tidak akan muncul lagi sebagai lawan bertarungmu",
+  "reportSheetSubmitting": "Mengirim"
 }

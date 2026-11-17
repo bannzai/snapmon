@@ -13,5 +13,6 @@
   "reportReasonInappropriateIcon": "Nieodpowiednia ikona",
   "reportReasonOther": "Inne",
   "reportSheetTitle": "Zgłoś {monsterName}",
-  "reportSheetDescription": "Gdy zgłosisz trenera, nie spotkasz go już jako przeciwnika w walce"
+  "reportSheetDescription": "Gdy zgłosisz trenera, nie spotkasz go już jako przeciwnika w walce",
+  "reportSheetSubmitting": "Wysyłanie"
 }
