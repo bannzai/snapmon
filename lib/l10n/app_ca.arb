@@ -71,5 +71,6 @@
   "profileChangeIcon": "Canvia la icona",
   "profileIconHelper": "La icona que veu el teu rival en combat\nNo pots fer servir fotos on es vegi la cara d'algú",
   "profileIconUpdated": "Has canviat la icona",
-  "dexSummary": "Monstres: {monsterCount} · equip: {partyCount}"
+  "dexSummary": "Monstres: {monsterCount} · equip: {partyCount}",
+  "dexReload": "Torna a carregar"
 }

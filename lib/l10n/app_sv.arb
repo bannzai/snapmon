@@ -71,5 +71,6 @@
   "profileChangeIcon": "Byt ikon",
   "profileIconHelper": "Ikonen som din motståndare ser i strid\nDu kan inte använda bilder där ett ansikte syns",
   "profileIconUpdated": "Ikonen har ändrats",
-  "dexSummary": "Monster: {monsterCount} · lag: {partyCount}"
+  "dexSummary": "Monster: {monsterCount} · lag: {partyCount}",
+  "dexReload": "Ladda igen"
 }

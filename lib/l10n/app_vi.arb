@@ -71,5 +71,6 @@
   "profileChangeIcon": "Đổi biểu tượng",
   "profileIconHelper": "Biểu tượng đối thủ thấy khi đấu\nBạn không thể dùng ảnh có khuôn mặt người",
   "profileIconUpdated": "Đã đổi biểu tượng",
-  "dexSummary": "Quái vật: {monsterCount} · đội: {partyCount}"
+  "dexSummary": "Quái vật: {monsterCount} · đội: {partyCount}",
+  "dexReload": "Tải lại"
 }

@@ -71,5 +71,6 @@
   "profileChangeIcon": "Mudar ícone",
   "profileIconHelper": "Ícone que o teu adversário vê em combate\nNão podes usar fotos em que apareça o rosto de alguém",
   "profileIconUpdated": "Mudaste o ícone",
-  "dexSummary": "Monstros: {monsterCount} · equipa: {partyCount}"
+  "dexSummary": "Monstros: {monsterCount} · equipa: {partyCount}",
+  "dexReload": "Carregar novamente"
 }

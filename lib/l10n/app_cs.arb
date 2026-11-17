@@ -71,5 +71,6 @@
   "profileChangeIcon": "Změň ikonu",
   "profileIconHelper": "Ikona, kterou uvidí tvůj soupeř v souboji\nFotky s lidským obličejem použít nemůžeš",
   "profileIconUpdated": "Ikona je změněná",
-  "dexSummary": "Příšery: {monsterCount} · tým: {partyCount}"
+  "dexSummary": "Příšery: {monsterCount} · tým: {partyCount}",
+  "dexReload": "Načti znovu"
 }

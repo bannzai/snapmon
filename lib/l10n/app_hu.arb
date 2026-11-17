@@ -71,5 +71,6 @@
   "profileChangeIcon": "Ikon módosítása",
   "profileIconHelper": "Az ikon, amit az ellenfeled lát a csatában\nEmberi arcot ábrázoló fotót nem használhatsz",
   "profileIconUpdated": "Az ikon megváltozott",
-  "dexSummary": "Szörnyek: {monsterCount} · csapat: {partyCount}"
+  "dexSummary": "Szörnyek: {monsterCount} · csapat: {partyCount}",
+  "dexReload": "Töltsd be újra"
 }

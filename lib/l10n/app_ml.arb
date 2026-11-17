@@ -71,5 +71,6 @@
   "profileChangeIcon": "ഐക്കൺ മാറ്റുക",
   "profileIconHelper": "പോരാട്ടത്തിൽ എതിരാളി കാണുന്ന ഐക്കൺ\nആളുകളുടെ മുഖം കാണുന്ന ഫോട്ടോകൾ ഉപയോഗിക്കാനാവില്ല",
   "profileIconUpdated": "ഐക്കൺ മാറ്റി",
-  "dexSummary": "മോൺസ്റ്ററുകൾ: {monsterCount} · പാർട്ടി: {partyCount}"
+  "dexSummary": "മോൺസ്റ്ററുകൾ: {monsterCount} · പാർട്ടി: {partyCount}",
+  "dexReload": "വീണ്ടും ലോഡ് ചെയ്യൂ"
 }

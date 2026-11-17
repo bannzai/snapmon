@@ -71,5 +71,6 @@
   "profileChangeIcon": "更換圖示",
   "profileIconHelper": "對戰時對手看到的頭像\n不能使用拍到人臉的照片",
   "profileIconUpdated": "圖示已更換",
-  "dexSummary": "怪物：{monsterCount} · 隊伍：{partyCount}"
+  "dexSummary": "怪物：{monsterCount} · 隊伍：{partyCount}",
+  "dexReload": "重新載入"
 }

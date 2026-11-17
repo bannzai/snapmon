@@ -71,5 +71,6 @@
   "profileChangeIcon": "આઇકન બદલો",
   "profileIconHelper": "લડાઈમાં તમારો હરીફ જે આઇકન જોશે\nવ્યક્તિનો ચહેરો દેખાતો હોય એવો ફોટો તમે વાપરી શકતા નથી",
   "profileIconUpdated": "આઇકન બદલાઈ ગયું",
-  "dexSummary": "રાક્ષસો: {monsterCount} · ટીમ: {partyCount}"
+  "dexSummary": "રાક્ષસો: {monsterCount} · ટીમ: {partyCount}",
+  "dexReload": "ફરી લોડ કરો"
 }
