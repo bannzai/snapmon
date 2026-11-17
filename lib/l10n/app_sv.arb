@@ -19,5 +19,6 @@
   "reportSheetOtherTrouble": "Om du har något annat problem",
   "commonCouldNotOpenURL": "Kunde inte öppna {url}",
   "commonCancel": "Avbryt",
-  "commonLevel": "Lv. {level}"
+  "commonLevel": "Lv. {level}",
+  "settingsTitle": "Inställningar"
 }

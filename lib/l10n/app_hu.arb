@@ -19,5 +19,6 @@
   "reportSheetOtherTrouble": "Ha más problémád is van",
   "commonCouldNotOpenURL": "Nem sikerült megnyitni: {url}",
   "commonCancel": "Mégse",
-  "commonLevel": "Lv. {level}"
+  "commonLevel": "Lv. {level}",
+  "settingsTitle": "Beállítások"
 }

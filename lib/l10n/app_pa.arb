@@ -19,5 +19,6 @@
   "reportSheetOtherTrouble": "ਜੇ ਤੁਹਾਨੂੰ ਕੋਈ ਹੋਰ ਸਮੱਸਿਆ ਹੋਵੇ",
   "commonCouldNotOpenURL": "{url} ਖੋਲ੍ਹਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ",
   "commonCancel": "ਰੱਦ ਕਰੋ",
-  "commonLevel": "Lv. {level}"
+  "commonLevel": "Lv. {level}",
+  "settingsTitle": "ਸੈਟਿੰਗਾਂ"
 }

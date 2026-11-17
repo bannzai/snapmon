@@ -19,5 +19,6 @@
   "reportSheetOtherTrouble": "Kalau kamu punya masalah lain",
   "commonCouldNotOpenURL": "Tidak bisa membuka {url}",
   "commonCancel": "Batal",
-  "commonLevel": "Lv. {level}"
+  "commonLevel": "Lv. {level}",
+  "settingsTitle": "Pengaturan"
 }

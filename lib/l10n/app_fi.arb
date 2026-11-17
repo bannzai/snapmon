@@ -19,5 +19,6 @@
   "reportSheetOtherTrouble": "Jos sinulla on muita ongelmia",
   "commonCouldNotOpenURL": "Osoitetta {url} ei voitu avata",
   "commonCancel": "Peruuta",
-  "commonLevel": "Lv. {level}"
+  "commonLevel": "Lv. {level}",
+  "settingsTitle": "Asetukset"
 }

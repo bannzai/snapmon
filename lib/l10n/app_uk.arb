@@ -19,5 +19,6 @@
   "reportSheetOtherTrouble": "Якщо в тебе є інша проблема",
   "commonCouldNotOpenURL": "Не вдалося відкрити {url}",
   "commonCancel": "Скасувати",
-  "commonLevel": "Lv. {level}"
+  "commonLevel": "Lv. {level}",
+  "settingsTitle": "Налаштування"
 }

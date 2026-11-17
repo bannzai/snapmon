@@ -19,5 +19,6 @@
   "reportSheetOtherTrouble": "Nếu bạn gặp vấn đề khác",
   "commonCouldNotOpenURL": "Không mở được {url}",
   "commonCancel": "Hủy",
-  "commonLevel": "Lv. {level}"
+  "commonLevel": "Lv. {level}",
+  "settingsTitle": "Cài đặt"
 }

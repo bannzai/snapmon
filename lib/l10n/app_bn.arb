@@ -19,5 +19,6 @@
   "reportSheetOtherTrouble": "তোমার আর কোনো সমস্যা হলে",
   "commonCouldNotOpenURL": "{url} খোলা যায়নি",
   "commonCancel": "বাতিল",
-  "commonLevel": "Lv. {level}"
+  "commonLevel": "Lv. {level}",
+  "settingsTitle": "সেটিংস"
 }

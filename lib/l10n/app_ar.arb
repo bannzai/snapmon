@@ -19,5 +19,6 @@
   "reportSheetOtherTrouble": "إذا واجهتك أي مشكلة أخرى",
   "commonCouldNotOpenURL": "تعذّر فتح {url}",
   "commonCancel": "إلغاء",
-  "commonLevel": "Lv. {level}"
+  "commonLevel": "Lv. {level}",
+  "settingsTitle": "الإعدادات"
 }

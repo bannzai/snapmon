@@ -19,5 +19,6 @@
   "reportSheetOtherTrouble": "உங்களுக்கு வேறு ஏதேனும் சிக்கல் இருந்தால்",
   "commonCouldNotOpenURL": "{url} முகவரியைத் திறக்க முடியவில்லை",
   "commonCancel": "ரத்துசெய்யுங்கள்",
-  "commonLevel": "Lv. {level}"
+  "commonLevel": "Lv. {level}",
+  "settingsTitle": "அமைப்புகள்"
 }

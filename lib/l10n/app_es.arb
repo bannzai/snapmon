@@ -19,5 +19,6 @@
   "reportSheetOtherTrouble": "Si tienes algún otro problema",
   "commonCouldNotOpenURL": "No se pudo abrir {url}",
   "commonCancel": "Cancelar",
-  "commonLevel": "Lv. {level}"
+  "commonLevel": "Lv. {level}",
+  "settingsTitle": "Configuración"
 }

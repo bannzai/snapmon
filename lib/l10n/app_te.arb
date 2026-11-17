@@ -19,5 +19,6 @@
   "reportSheetOtherTrouble": "నీకు ఇంకేదైనా సమస్య ఉంటే",
   "commonCouldNotOpenURL": "{url} తెరవలేకపోయాం",
   "commonCancel": "రద్దు చేయి",
-  "commonLevel": "Lv. {level}"
+  "commonLevel": "Lv. {level}",
+  "settingsTitle": "సెట్టింగ్‌లు"
 }

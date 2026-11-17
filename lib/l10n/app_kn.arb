@@ -19,5 +19,6 @@
   "reportSheetOtherTrouble": "ನಿನಗೆ ಬೇರೆ ಏನಾದರೂ ತೊಂದರೆ ಇದ್ದರೆ",
   "commonCouldNotOpenURL": "{url} ತೆರೆಯಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ",
   "commonCancel": "ರದ್ದು ಮಾಡು",
-  "commonLevel": "Lv. {level}"
+  "commonLevel": "Lv. {level}",
+  "settingsTitle": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು"
 }

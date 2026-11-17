@@ -19,5 +19,6 @@
   "reportSheetOtherTrouble": "Başka bir sorun yaşarsan",
   "commonCouldNotOpenURL": "{url} açılamadı",
   "commonCancel": "İptal",
-  "commonLevel": "Lv. {level}"
+  "commonLevel": "Lv. {level}",
+  "settingsTitle": "Ayarlar"
 }

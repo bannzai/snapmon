@@ -19,5 +19,6 @@
   "reportSheetOtherTrouble": "Ak máš ešte nejaký problém",
   "commonCouldNotOpenURL": "Nepodarilo sa otvoriť {url}",
   "commonCancel": "Zrušiť",
-  "commonLevel": "Lv. {level}"
+  "commonLevel": "Lv. {level}",
+  "settingsTitle": "Nastavenia"
 }

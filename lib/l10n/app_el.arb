@@ -19,5 +19,6 @@
   "reportSheetOtherTrouble": "Αν έχεις κάποιο άλλο πρόβλημα",
   "commonCouldNotOpenURL": "Δεν ήταν δυνατό το άνοιγμα του {url}",
   "commonCancel": "Ακύρωση",
-  "commonLevel": "Lv. {level}"
+  "commonLevel": "Lv. {level}",
+  "settingsTitle": "Ρυθμίσεις"
 }

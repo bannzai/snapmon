@@ -19,5 +19,6 @@
   "reportSheetOtherTrouble": "Če imaš še kakšno težavo",
   "commonCouldNotOpenURL": "Ni bilo mogoče odpreti {url}",
   "commonCancel": "Prekliči",
-  "commonLevel": "Lv. {level}"
+  "commonLevel": "Lv. {level}",
+  "settingsTitle": "Nastavitve"
 }

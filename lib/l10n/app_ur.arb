@@ -19,5 +19,6 @@
   "reportSheetOtherTrouble": "اگر تمہیں کوئی اور مسئلہ ہو",
   "commonCouldNotOpenURL": "{url} نہیں کھل سکا",
   "commonCancel": "منسوخ کرو",
-  "commonLevel": "Lv. {level}"
+  "commonLevel": "Lv. {level}",
+  "settingsTitle": "ترتیبات"
 }

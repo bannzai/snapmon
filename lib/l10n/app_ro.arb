@@ -19,5 +19,6 @@
   "reportSheetOtherTrouble": "Dacă mai ai vreo problemă",
   "commonCouldNotOpenURL": "Nu s-a putut deschide {url}",
   "commonCancel": "Anulează",
-  "commonLevel": "Lv. {level}"
+  "commonLevel": "Lv. {level}",
+  "settingsTitle": "Setări"
 }

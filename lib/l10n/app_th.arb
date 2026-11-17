@@ -19,5 +19,6 @@
   "reportSheetOtherTrouble": "หากมีปัญหาอื่นอีก",
   "commonCouldNotOpenURL": "เปิด {url} ไม่ได้",
   "commonCancel": "ยกเลิก",
-  "commonLevel": "Lv. {level}"
+  "commonLevel": "Lv. {level}",
+  "settingsTitle": "การตั้งค่า"
 }

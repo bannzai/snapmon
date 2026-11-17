@@ -19,5 +19,6 @@
   "reportSheetOtherTrouble": "अगर तुम्हें कोई और परेशानी हो",
   "commonCouldNotOpenURL": "{url} नहीं खुल सका",
   "commonCancel": "रद्द करो",
-  "commonLevel": "Lv. {level}"
+  "commonLevel": "Lv. {level}",
+  "settingsTitle": "सेटिंग्स"
 }

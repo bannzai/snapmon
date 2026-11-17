@@ -19,5 +19,6 @@
   "reportSheetOtherTrouble": "Falls du noch ein Problem hast",
   "commonCouldNotOpenURL": "{url} konnte nicht geöffnet werden",
   "commonCancel": "Abbrechen",
-  "commonLevel": "Lv. {level}"
+  "commonLevel": "Lv. {level}",
+  "settingsTitle": "Einstellungen"
 }
