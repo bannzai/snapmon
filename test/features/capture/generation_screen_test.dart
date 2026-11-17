@@ -393,32 +393,29 @@ void main() {
       },
     );
 
-    testWidgets(
-      '被写体が見つかっても切り替えを入れなければ、OS の切り出しのマスクではなく決めた枠を crop で生成する',
-      (tester) async {
-        await pumpGenerationScreen(
-          tester: tester,
-          startsFirstBattle: false,
-          letsUserChooseSubjectRange: true,
-          sourcePhoto: readablePhoto,
-          generator: generatorWithSubjectMask(
-            createSubjectMask: ({required photo}) async => testSubjectMaskBytes,
-          ),
-        );
-        await tester.tap(find.text('この範囲で作る'));
-        await tester.pumpAndSettle();
-        expect(calls.squareMaskCrops, [(left: 5.0, top: 0.0, side: 30.0)]);
-        expect(calls.uploadedMasks, [
-          (requestID: 'request-1', mask: testSquareMaskBytes),
-        ]);
-        expect(calls.requestedMaskSources, [GenerationMaskSource.crop]);
-        expect(find.text('あたらしい なかま'), findsOneWidget);
-      },
-    );
-
-    testWidgets('切り替えを入れてから切ると、枠で範囲を決める表示に戻り、決めた枠を crop で生成する', (
+    testWidgets('被写体が見つかっても切り替えを入れなければ、OS の切り出しのマスクではなく決めた枠を crop で生成する', (
       tester,
     ) async {
+      await pumpGenerationScreen(
+        tester: tester,
+        startsFirstBattle: false,
+        letsUserChooseSubjectRange: true,
+        sourcePhoto: readablePhoto,
+        generator: generatorWithSubjectMask(
+          createSubjectMask: ({required photo}) async => testSubjectMaskBytes,
+        ),
+      );
+      await tester.tap(find.text('この範囲で作る'));
+      await tester.pumpAndSettle();
+      expect(calls.squareMaskCrops, [(left: 5.0, top: 0.0, side: 30.0)]);
+      expect(calls.uploadedMasks, [
+        (requestID: 'request-1', mask: testSquareMaskBytes),
+      ]);
+      expect(calls.requestedMaskSources, [GenerationMaskSource.crop]);
+      expect(find.text('あたらしい なかま'), findsOneWidget);
+    });
+
+    testWidgets('切り替えを入れてから切ると、枠で範囲を決める表示に戻り、決めた枠を crop で生成する', (tester) async {
       await pumpGenerationScreen(
         tester: tester,
         startsFirstBattle: false,
@@ -442,7 +439,9 @@ void main() {
       expect(calls.requestedMaskSources, [GenerationMaskSource.crop]);
     });
 
-    testWidgets('切り抜いた絵で作った後の失敗からもう一度試す時は、範囲を決める画面に戻さず同じマスクで送り直す', (tester) async {
+    testWidgets('切り抜いた絵で作った後の失敗からもう一度試す時は、範囲を決める画面に戻さず同じマスクで送り直す', (
+      tester,
+    ) async {
       var requestCount = 0;
       var subjectMaskCount = 0;
       await pumpGenerationScreen(
@@ -492,9 +491,7 @@ void main() {
       expect(find.text('あたらしい なかま'), findsOneWidget);
     });
 
-    testWidgets('初回の導線でも、範囲を決めるまでは相手を探さず、切り抜いた絵で作ると相手を探す表示に進む', (
-      tester,
-    ) async {
+    testWidgets('初回の導線でも、範囲を決めるまでは相手を探さず、切り抜いた絵で作ると相手を探す表示に進む', (tester) async {
       await pumpGenerationScreen(
         tester: tester,
         startsFirstBattle: true,

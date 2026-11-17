@@ -356,11 +356,22 @@ void main() {
     required bool settles,
   }) async {
     // 高さの低い画面では切り替えとボタンが ListView の画面外にあって作られていないため、見える所までスクロールしてから押す
-    await tester.scrollUntilVisible(
-      find.byKey(const Key('subject-cutout-switch')),
-      100,
-      scrollable: find.byType(Scrollable).last,
-    );
+    // 写真の上の操作は枠の操作として受け取られスクロールしないため (横向きでは写真が画面の中央を占める)、写真の外の左の余白を引いて送る
+    for (
+      var dragCount = 0;
+      dragCount < 20 &&
+          find.byKey(const Key('subject-cutout-switch')).evaluate().isEmpty;
+      dragCount++
+    ) {
+      await tester.dragFrom(
+        tester.getRect(find.byType(Scrollable).last).centerLeft +
+            const Offset(10, 0),
+        const Offset(0, -100),
+      );
+      await tester.pump();
+    }
+    await tester.ensureVisible(find.byKey(const Key('subject-cutout-switch')));
+    await tester.pump();
     await tester.tap(find.byKey(const Key('subject-cutout-switch')));
     await tester.pump();
     await tester.scrollUntilVisible(
