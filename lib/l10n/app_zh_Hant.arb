@@ -146,5 +146,6 @@
   "resultLearnedMoves": "已學會的招式",
   "resultRemoveFromParty": "移出隊伍",
   "resultAddToParty": "加入隊伍",
-  "resultReplaceInParty": "替換隊伍成員"
+  "resultReplaceInParty": "替換隊伍成員",
+  "resultCaptureAnother": "壯大隊伍"
 }

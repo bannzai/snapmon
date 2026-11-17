@@ -146,5 +146,6 @@
   "resultLearnedMoves": "מתקפות שנלמדו",
   "resultRemoveFromParty": "להוציא מהצוות",
   "resultAddToParty": "הוספה לצוות",
-  "resultReplaceInParty": "להחליף חבר בצוות"
+  "resultReplaceInParty": "להחליף חבר בצוות",
+  "resultCaptureAnother": "להגדיל את הצוות"
 }

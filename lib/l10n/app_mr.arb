@@ -146,5 +146,6 @@
   "resultLearnedMoves": "शिकलेल्या चाली",
   "resultRemoveFromParty": "टीममधून काढ",
   "resultAddToParty": "टीममध्ये सामील कर",
-  "resultReplaceInParty": "टीममधला सदस्य बदल"
+  "resultReplaceInParty": "टीममधला सदस्य बदल",
+  "resultCaptureAnother": "तुझी टीम वाढव"
 }

@@ -146,5 +146,6 @@
   "resultLearnedMoves": "Megtanult támadások",
   "resultRemoveFromParty": "Vedd ki a csapatból",
   "resultAddToParty": "Add a csapathoz",
-  "resultReplaceInParty": "Cseréld le a csapat egyik tagját"
+  "resultReplaceInParty": "Cseréld le a csapat egyik tagját",
+  "resultCaptureAnother": "Bővítsd a csapatod"
 }

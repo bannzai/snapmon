@@ -146,5 +146,6 @@
   "resultLearnedMoves": "jurus yang dipelajari",
   "resultRemoveFromParty": "Keluarkan dari tim",
   "resultAddToParty": "Tambahkan ke tim",
-  "resultReplaceInParty": "Ganti anggota timmu"
+  "resultReplaceInParty": "Ganti anggota timmu",
+  "resultCaptureAnother": "Perbesar timmu"
 }

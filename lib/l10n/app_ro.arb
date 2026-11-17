@@ -146,5 +146,6 @@
   "resultLearnedMoves": "mișcări învățate",
   "resultRemoveFromParty": "Scoate din echipă",
   "resultAddToParty": "Adaugă în echipă",
-  "resultReplaceInParty": "Schimbă un membru al echipei"
+  "resultReplaceInParty": "Schimbă un membru al echipei",
+  "resultCaptureAnother": "Mărește-ți echipa"
 }

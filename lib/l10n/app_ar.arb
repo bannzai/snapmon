@@ -146,5 +146,6 @@
   "resultLearnedMoves": "الحركات المتعلّمة",
   "resultRemoveFromParty": "إزالة من الفريق",
   "resultAddToParty": "إضافة إلى فريقك",
-  "resultReplaceInParty": "استبدل عضوًا من فريقك"
+  "resultReplaceInParty": "استبدل عضوًا من فريقك",
+  "resultCaptureAnother": "زد فريقك"
 }

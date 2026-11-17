@@ -146,5 +146,6 @@
   "resultLearnedMoves": "Lærte angrep",
   "resultRemoveFromParty": "Fjern fra laget",
   "resultAddToParty": "Legg til på laget",
-  "resultReplaceInParty": "Bytt ut et medlem på laget"
+  "resultReplaceInParty": "Bytt ut et medlem på laget",
+  "resultCaptureAnother": "Utvid laget ditt"
 }

@@ -146,5 +146,6 @@
   "resultLearnedMoves": "Opitut liikkeet",
   "resultRemoveFromParty": "Poista joukkueesta",
   "resultAddToParty": "Lisää joukkueeseen",
-  "resultReplaceInParty": "Vaihda joukkueen jäsen"
+  "resultReplaceInParty": "Vaihda joukkueen jäsen",
+  "resultCaptureAnother": "Kasvata joukkuetta"
 }

@@ -146,5 +146,6 @@
   "resultLearnedMoves": "gerakan yang dipelajari",
   "resultRemoveFromParty": "Keluarkan daripada pasukan",
   "resultAddToParty": "Tambah ke pasukan",
-  "resultReplaceInParty": "Ganti ahli pasukan kamu"
+  "resultReplaceInParty": "Ganti ahli pasukan kamu",
+  "resultCaptureAnother": "Besarkan pasukan kamu"
 }

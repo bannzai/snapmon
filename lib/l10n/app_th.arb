@@ -146,5 +146,6 @@
   "resultLearnedMoves": "ท่าที่เรียนรู้",
   "resultRemoveFromParty": "นำออกจากทีม",
   "resultAddToParty": "เพิ่มเข้าทีม",
-  "resultReplaceInParty": "เปลี่ยนสมาชิกในทีม"
+  "resultReplaceInParty": "เปลี่ยนสมาชิกในทีม",
+  "resultCaptureAnother": "เพิ่มสมาชิกในทีม"
 }

@@ -146,5 +146,6 @@
   "resultLearnedMoves": "Изученные приёмы",
   "resultRemoveFromParty": "Убрать из команды",
   "resultAddToParty": "Добавить в команду",
-  "resultReplaceInParty": "Замени участника команды"
+  "resultReplaceInParty": "Замени участника команды",
+  "resultCaptureAnother": "Пополняй команду"
 }

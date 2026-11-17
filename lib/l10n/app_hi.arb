@@ -146,5 +146,6 @@
   "resultLearnedMoves": "सीखी हुई चालें",
   "resultRemoveFromParty": "टीम से हटाओ",
   "resultAddToParty": "टीम में जोड़ो",
-  "resultReplaceInParty": "टीम के सदस्य को बदलो"
+  "resultReplaceInParty": "टीम के सदस्य को बदलो",
+  "resultCaptureAnother": "अपनी टीम बढ़ाओ"
 }

@@ -146,5 +146,6 @@
   "resultLearnedMoves": "నేర్చుకున్న మూవ్‌లు",
   "resultRemoveFromParty": "జట్టు నుంచి తీసేయి",
   "resultAddToParty": "జట్టులో చేర్చు",
-  "resultReplaceInParty": "జట్టు సభ్యుడిని మార్చు"
+  "resultReplaceInParty": "జట్టు సభ్యుడిని మార్చు",
+  "resultCaptureAnother": "నీ జట్టును పెంచు"
 }

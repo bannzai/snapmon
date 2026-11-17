@@ -146,5 +146,6 @@
   "resultLearnedMoves": "golpes aprendidos",
   "resultRemoveFromParty": "Remover da equipe",
   "resultAddToParty": "Adicionar à equipe",
-  "resultReplaceInParty": "Troque um membro da sua equipe"
+  "resultReplaceInParty": "Troque um membro da sua equipe",
+  "resultCaptureAnother": "Aumente sua equipe"
 }

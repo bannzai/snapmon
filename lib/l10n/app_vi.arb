@@ -146,5 +146,6 @@
   "resultLearnedMoves": "Các chiêu đã học",
   "resultRemoveFromParty": "Bỏ khỏi đội",
   "resultAddToParty": "Thêm vào đội",
-  "resultReplaceInParty": "Đổi một thành viên trong đội"
+  "resultReplaceInParty": "Đổi một thành viên trong đội",
+  "resultCaptureAnother": "Mở rộng đội của bạn"
 }

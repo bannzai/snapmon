@@ -146,5 +146,6 @@
   "resultLearnedMoves": "Naučené útoky",
   "resultRemoveFromParty": "Odebrat z týmu",
   "resultAddToParty": "Přidej do týmu",
-  "resultReplaceInParty": "Vyměň člena týmu"
+  "resultReplaceInParty": "Vyměň člena týmu",
+  "resultCaptureAnother": "Rozšiř svůj tým"
 }

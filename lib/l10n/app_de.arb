@@ -146,5 +146,6 @@
   "resultLearnedMoves": "Erlernte Attacken",
   "resultRemoveFromParty": "Aus dem Team nehmen",
   "resultAddToParty": "Zum Team hinzufügen",
-  "resultReplaceInParty": "Tausche ein Mitglied deines Teams aus"
+  "resultReplaceInParty": "Tausche ein Mitglied deines Teams aus",
+  "resultCaptureAnother": "Vergrößere dein Team"
 }

@@ -146,5 +146,6 @@
   "resultLearnedMoves": "Geleerde aanvallen",
   "resultRemoveFromParty": "Uit je team halen",
   "resultAddToParty": "Voeg toe aan je team",
-  "resultReplaceInParty": "Wissel een lid van je team"
+  "resultReplaceInParty": "Wissel een lid van je team",
+  "resultCaptureAnother": "Breid je team uit"
 }

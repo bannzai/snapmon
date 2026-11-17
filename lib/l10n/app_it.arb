@@ -146,5 +146,6 @@
   "resultLearnedMoves": "mosse apprese",
   "resultRemoveFromParty": "Rimuovi dalla squadra",
   "resultAddToParty": "Aggiungi alla squadra",
-  "resultReplaceInParty": "Sostituisci un membro della squadra"
+  "resultReplaceInParty": "Sostituisci un membro della squadra",
+  "resultCaptureAnother": "Allarga la tua squadra"
 }

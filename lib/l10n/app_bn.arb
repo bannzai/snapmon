@@ -146,5 +146,6 @@
   "resultLearnedMoves": "শেখা কৌশল",
   "resultRemoveFromParty": "দল থেকে সরাও",
   "resultAddToParty": "দলে যোগ করো",
-  "resultReplaceInParty": "দলের একজনকে বদলাও"
+  "resultReplaceInParty": "দলের একজনকে বদলাও",
+  "resultCaptureAnother": "তোমার দল বাড়াও"
 }

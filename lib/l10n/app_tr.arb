@@ -146,5 +146,6 @@
   "resultLearnedMoves": "Öğrenilen hamleler",
   "resultRemoveFromParty": "Takımından çıkar",
   "resultAddToParty": "takıma ekle",
-  "resultReplaceInParty": "Takımından birini değiştir"
+  "resultReplaceInParty": "Takımından birini değiştir",
+  "resultCaptureAnother": "Takımını büyüt"
 }

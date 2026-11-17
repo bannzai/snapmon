@@ -146,5 +146,6 @@
   "resultLearnedMoves": "Naučeni potezi",
   "resultRemoveFromParty": "Odstrani iz ekipe",
   "resultAddToParty": "Dodaj v ekipo",
-  "resultReplaceInParty": "Zamenjaj člana ekipe"
+  "resultReplaceInParty": "Zamenjaj člana ekipe",
+  "resultCaptureAnother": "Razširi svojo ekipo"
 }

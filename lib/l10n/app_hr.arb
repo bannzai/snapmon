@@ -146,5 +146,6 @@
   "resultLearnedMoves": "Naučeni potezi",
   "resultRemoveFromParty": "Ukloni iz tima",
   "resultAddToParty": "Dodaj u tim",
-  "resultReplaceInParty": "Zamijeni člana tima"
+  "resultReplaceInParty": "Zamijeni člana tima",
+  "resultCaptureAnother": "Proširi svoj tim"
 }

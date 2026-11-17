@@ -146,5 +146,6 @@
   "resultLearnedMoves": "Inlärda attacker",
   "resultRemoveFromParty": "Ta bort från laget",
   "resultAddToParty": "Lägg till i laget",
-  "resultReplaceInParty": "Byt ut en medlem i ditt lag"
+  "resultReplaceInParty": "Byt ut en medlem i ditt lag",
+  "resultCaptureAnother": "Utöka ditt lag"
 }

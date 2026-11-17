@@ -146,5 +146,6 @@
   "resultLearnedMoves": "ଶିଖିଥିବା ଚାଲ",
   "resultRemoveFromParty": "ଦଳରୁ କାଢ଼",
   "resultAddToParty": "ଦଳରେ ଯୋଗ କର",
-  "resultReplaceInParty": "ଦଳର ଜଣେ ସଦସ୍ୟକୁ ବଦଳାଅ"
+  "resultReplaceInParty": "ଦଳର ଜଣେ ସଦସ୍ୟକୁ ବଦଳାଅ",
+  "resultCaptureAnother": "ତୁମ ଦଳ ବଢ଼ାଅ"
 }

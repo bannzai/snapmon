@@ -146,5 +146,6 @@
   "resultLearnedMoves": "ಕಲಿತ ತಂತ್ರಗಳು",
   "resultRemoveFromParty": "ತಂಡದಿಂದ ತೆಗೆ",
   "resultAddToParty": "ತಂಡಕ್ಕೆ ಸೇರಿಸು",
-  "resultReplaceInParty": "ತಂಡದ ಸದಸ್ಯನನ್ನು ಬದಲಾಯಿಸು"
+  "resultReplaceInParty": "ತಂಡದ ಸದಸ್ಯನನ್ನು ಬದಲಾಯಿಸು",
+  "resultCaptureAnother": "ನಿನ್ನ ತಂಡವನ್ನು ಬೆಳೆಸು"
 }
