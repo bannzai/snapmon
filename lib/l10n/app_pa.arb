@@ -280,5 +280,6 @@
   "actionCardPurchasePriceChanged": "ਇਸ ਚਾਲ ਦੀ ਕੀਮਤ ਬਦਲ ਗਈ ਹੈ\nਖਰੀਦਣ ਤੋਂ ਪਹਿਲਾਂ ਕੀਮਤ ਦੇਖ ਲਓ",
   "actionCardPurchaseWaiting": "ਚਾਲ ਮਿਲ ਰਹੀ ਹੈ",
   "actionCardPurchaseArrivalDelayed": "ਦਿਖਾਈ ਦੇਣ ਦੀ ਉਡੀਕ ਹੈ\nਇਹ ਸਕ੍ਰੀਨ ਬੰਦ ਕਰਨ ’ਤੇ ਵੀ ਮਿਲੀ ਚਾਲ ਤੁਹਾਡੇ ਕੋਲ ਰਹੇਗੀ",
-  "actionCardPurchasePending": "ਭੁਗਤਾਨ ਪੂਰਾ ਹੋਣ ਦੀ ਉਡੀਕ ਹੈ\nਤੁਸੀਂ ਇਹ ਸਕ੍ਰੀਨ ਬੰਦ ਕਰ ਦਿਓ ਤਾਂ ਵੀ ਭੁਗਤਾਨ ਪੂਰਾ ਹੋਣ ਤੇ ਚਾਲ ਮਿਲ ਜਾਵੇਗੀ"
+  "actionCardPurchasePending": "ਭੁਗਤਾਨ ਪੂਰਾ ਹੋਣ ਦੀ ਉਡੀਕ ਹੈ\nਤੁਸੀਂ ਇਹ ਸਕ੍ਰੀਨ ਬੰਦ ਕਰ ਦਿਓ ਤਾਂ ਵੀ ਭੁਗਤਾਨ ਪੂਰਾ ਹੋਣ ਤੇ ਚਾਲ ਮਿਲ ਜਾਵੇਗੀ",
+  "actionCardPurchaseArrivedTitle": "ਤੁਹਾਨੂੰ {moveName} ਚਾਲ ਮਿਲ ਗਈ!"
 }

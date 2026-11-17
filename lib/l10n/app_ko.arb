@@ -280,5 +280,6 @@
   "actionCardPurchasePriceChanged": "이 기술의 가격이 바뀌었어요\n구매하기 전에 가격을 확인해 주세요",
   "actionCardPurchaseWaiting": "기술을 받고 있어요",
   "actionCardPurchaseArrivalDelayed": "반영되기를 기다리고 있어요\n이 화면을 닫아도 받은 기술은 그대로 남아요",
-  "actionCardPurchasePending": "결제가 완료되길 기다리고 있어요\n이 화면을 닫아도 결제가 완료되면 기술을 받을 수 있어요"
+  "actionCardPurchasePending": "결제가 완료되길 기다리고 있어요\n이 화면을 닫아도 결제가 완료되면 기술을 받을 수 있어요",
+  "actionCardPurchaseArrivedTitle": "기술 {moveName}을 손에 넣었어요!"
 }

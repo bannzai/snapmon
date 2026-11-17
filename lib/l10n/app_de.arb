@@ -280,5 +280,6 @@
   "actionCardPurchasePriceChanged": "Der Preis dieser Attacke hat sich geändert\nPrüfe ihn vor dem Kauf",
   "actionCardPurchaseWaiting": "Attacke wird empfangen",
   "actionCardPurchaseArrivalDelayed": "Warte, bis sie erscheint\nDie erhaltene Attacke bleibt dir erhalten, auch wenn du diesen Bildschirm schließt",
-  "actionCardPurchasePending": "Warten auf den Abschluss der Zahlung\nDu erhältst die Attacke nach Abschluss, auch wenn du diesen Bildschirm schließt"
+  "actionCardPurchasePending": "Warten auf den Abschluss der Zahlung\nDu erhältst die Attacke nach Abschluss, auch wenn du diesen Bildschirm schließt",
+  "actionCardPurchaseArrivedTitle": "Du hast {moveName} erhalten!"
 }

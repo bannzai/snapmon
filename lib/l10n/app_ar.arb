@@ -280,5 +280,6 @@
   "actionCardPurchasePriceChanged": "تغيّر سعر هذه الحركة\nتحقّق من السعر قبل الشراء",
   "actionCardPurchaseWaiting": "جارٍ استلام الحركة",
   "actionCardPurchaseArrivalDelayed": "بانتظار ظهورها\nستبقى الحركة التي حصلت عليها حتى لو أغلقت هذه الشاشة",
-  "actionCardPurchasePending": "بانتظار اكتمال الدفع\nستصلك الحركة عند اكتماله، حتى لو أغلقت هذه الشاشة"
+  "actionCardPurchasePending": "بانتظار اكتمال الدفع\nستصلك الحركة عند اكتماله، حتى لو أغلقت هذه الشاشة",
+  "actionCardPurchaseArrivedTitle": "حصلت على الحركة {moveName}!"
 }

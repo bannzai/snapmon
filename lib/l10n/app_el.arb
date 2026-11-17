@@ -280,5 +280,6 @@
   "actionCardPurchasePriceChanged": "Άλλαξε η τιμή αυτής της τεχνικής\nΈλεγξέ την πριν αγοράσεις",
   "actionCardPurchaseWaiting": "Παραλαβή τεχνικής",
   "actionCardPurchaseArrivalDelayed": "Περιμένουμε να εμφανιστεί\nΗ τεχνική που απέκτησες θα μείνει δική σου, ακόμα κι αν κλείσεις αυτή την οθόνη",
-  "actionCardPurchasePending": "Αναμονή ολοκλήρωσης πληρωμής\nΘα πάρεις την τεχνική μόλις ολοκληρωθεί, ακόμα κι αν κλείσεις αυτή την οθόνη"
+  "actionCardPurchasePending": "Αναμονή ολοκλήρωσης πληρωμής\nΘα πάρεις την τεχνική μόλις ολοκληρωθεί, ακόμα κι αν κλείσεις αυτή την οθόνη",
+  "actionCardPurchaseArrivedTitle": "Απέκτησες την κίνηση {moveName}!"
 }

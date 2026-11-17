@@ -280,5 +280,6 @@
   "actionCardPurchasePriceChanged": "ഈ നീക്കത്തിന്റെ വില മാറി\nവാങ്ങും മുമ്പ് വില പരിശോധിക്കൂ",
   "actionCardPurchaseWaiting": "നീക്കം ലഭിച്ചുകൊണ്ടിരിക്കുന്നു",
   "actionCardPurchaseArrivalDelayed": "കാണിക്കാൻ കാത്തിരിക്കുന്നു\nഈ സ്ക്രീൻ അടച്ചാലും ലഭിച്ച നീക്കം നിലനിൽക്കും",
-  "actionCardPurchasePending": "പണമടയ്ക്കൽ പൂർത്തിയാകാൻ കാത്തിരിക്കുന്നു\nഈ സ്ക്രീൻ അടച്ചാലും പണമടയ്ക്കൽ പൂർത്തിയായാൽ നീക്കം ലഭിക്കും"
+  "actionCardPurchasePending": "പണമടയ്ക്കൽ പൂർത്തിയാകാൻ കാത്തിരിക്കുന്നു\nഈ സ്ക്രീൻ അടച്ചാലും പണമടയ്ക്കൽ പൂർത്തിയായാൽ നീക്കം ലഭിക്കും",
+  "actionCardPurchaseArrivedTitle": "നിങ്ങൾക്ക് {moveName} എന്ന നീക്കം കിട്ടി!"
 }

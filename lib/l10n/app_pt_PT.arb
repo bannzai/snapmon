@@ -280,5 +280,6 @@
   "actionCardPurchasePriceChanged": "O preço deste golpe mudou\nConfirma-o antes de comprar",
   "actionCardPurchaseWaiting": "A receber o golpe",
   "actionCardPurchaseArrivalDelayed": "À espera que apareça\nO golpe que recebeste continuará contigo mesmo que feches este ecrã",
-  "actionCardPurchasePending": "À espera da conclusão do pagamento\nReceberás o golpe quando estiver concluído, mesmo que feches este ecrã"
+  "actionCardPurchasePending": "À espera da conclusão do pagamento\nReceberás o golpe quando estiver concluído, mesmo que feches este ecrã",
+  "actionCardPurchaseArrivedTitle": "Conseguiste o golpe {moveName}!"
 }

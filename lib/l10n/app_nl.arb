@@ -280,5 +280,6 @@
   "actionCardPurchasePriceChanged": "De prijs van deze aanval is veranderd\nControleer hem voordat je koopt",
   "actionCardPurchaseWaiting": "Aanval wordt ontvangen",
   "actionCardPurchaseArrivalDelayed": "Wachten tot hij verschijnt\nDe aanval die je hebt gekregen, blijft van jou, ook als je dit scherm sluit",
-  "actionCardPurchasePending": "Wachten tot de betaling is afgerond\nJe krijgt de aanval zodra de betaling rond is, ook als je dit scherm sluit"
+  "actionCardPurchasePending": "Wachten tot de betaling is afgerond\nJe krijgt de aanval zodra de betaling rond is, ook als je dit scherm sluit",
+  "actionCardPurchaseArrivedTitle": "Je hebt de aanval {moveName} gekregen!"
 }

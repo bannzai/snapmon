@@ -280,5 +280,6 @@
   "actionCardPurchasePriceChanged": "Bu hamlenin fiyatı değişti\nSatın almadan önce fiyatı kontrol et",
   "actionCardPurchaseWaiting": "Hamle alınıyor",
   "actionCardPurchaseArrivalDelayed": "Görünmesini bekliyoruz\nBu ekranı kapatsan da aldığın hamle sende kalacak",
-  "actionCardPurchasePending": "Ödemenin tamamlanması bekleniyor\nBu ekranı kapatsan da ödeme tamamlanınca hamleyi alacaksın"
+  "actionCardPurchasePending": "Ödemenin tamamlanması bekleniyor\nBu ekranı kapatsan da ödeme tamamlanınca hamleyi alacaksın",
+  "actionCardPurchaseArrivedTitle": "{moveName} hamlesini kazandın!"
 }

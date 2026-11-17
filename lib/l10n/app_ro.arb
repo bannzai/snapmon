@@ -280,5 +280,6 @@
   "actionCardPurchasePriceChanged": "Prețul acestei mișcări s-a schimbat\nVerifică-l înainte să cumperi",
   "actionCardPurchaseWaiting": "Se primește mișcarea",
   "actionCardPurchaseArrivalDelayed": "Așteptăm să apară\nMișcarea primită rămâne a ta chiar dacă închizi acest ecran",
-  "actionCardPurchasePending": "Se așteaptă finalizarea plății\nVei primi mișcarea după finalizare, chiar dacă închizi acest ecran"
+  "actionCardPurchasePending": "Se așteaptă finalizarea plății\nVei primi mișcarea după finalizare, chiar dacă închizi acest ecran",
+  "actionCardPurchaseArrivedTitle": "Ai obținut mișcarea {moveName}!"
 }

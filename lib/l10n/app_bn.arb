@@ -280,5 +280,6 @@
   "actionCardPurchasePriceChanged": "এই কৌশলের দাম বদলেছে\nকেনার আগে দাম দেখে নাও",
   "actionCardPurchaseWaiting": "কৌশলটি পাওয়া যাচ্ছে",
   "actionCardPurchaseArrivalDelayed": "যোগ হওয়ার অপেক্ষায়\nএই স্ক্রিন বন্ধ করলেও পাওয়া কৌশলটি তোমার কাছেই থাকবে",
-  "actionCardPurchasePending": "পেমেন্ট সম্পূর্ণ হওয়ার অপেক্ষায়\nএই স্ক্রিন বন্ধ করলেও পেমেন্ট সম্পূর্ণ হলে কৌশলটি পাবে"
+  "actionCardPurchasePending": "পেমেন্ট সম্পূর্ণ হওয়ার অপেক্ষায়\nএই স্ক্রিন বন্ধ করলেও পেমেন্ট সম্পূর্ণ হলে কৌশলটি পাবে",
+  "actionCardPurchaseArrivedTitle": "চাল পেয়েছ: {moveName}!"
 }

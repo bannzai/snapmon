@@ -280,5 +280,6 @@
   "actionCardPurchasePriceChanged": "Il prezzo di questa mossa è cambiato\nControllalo prima di acquistare",
   "actionCardPurchaseWaiting": "Ricezione della mossa in corso",
   "actionCardPurchaseArrivalDelayed": "In attesa che compaia\nLa mossa che hai ottenuto resterà con te anche se chiudi questa schermata",
-  "actionCardPurchasePending": "In attesa del completamento del pagamento\nRiceverai la mossa a pagamento completato, anche se chiudi questa schermata"
+  "actionCardPurchasePending": "In attesa del completamento del pagamento\nRiceverai la mossa a pagamento completato, anche se chiudi questa schermata",
+  "actionCardPurchaseArrivedTitle": "Hai ottenuto la mossa {moveName}!"
 }

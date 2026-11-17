@@ -280,5 +280,6 @@
   "actionCardPurchasePriceChanged": "המחיר של המתקפה הזו השתנה\nכדאי לבדוק את המחיר לפני הקנייה",
   "actionCardPurchaseWaiting": "המתקפה בדרך אליך",
   "actionCardPurchaseArrivalDelayed": "מחכים שהיא תופיע\nהמתקפה שהתקבלה תישאר גם אחרי סגירת המסך הזה",
-  "actionCardPurchasePending": "ממתינים להשלמת התשלום\nהמתקפה תגיע כשהתשלום יושלם, גם אם סוגרים את המסך הזה"
+  "actionCardPurchasePending": "ממתינים להשלמת התשלום\nהמתקפה תגיע כשהתשלום יושלם, גם אם סוגרים את המסך הזה",
+  "actionCardPurchaseArrivedTitle": "המתקפה {moveName} התקבלה!"
 }
