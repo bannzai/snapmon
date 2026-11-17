@@ -63,5 +63,6 @@
   "settingsLinkedWith": "Compte lié à {providerNames}",
   "settingsProviderSeparator": " et ",
   "settingsDeleteAccount": "Supprimer ton compte",
-  "settingsProfileSection": "Profil"
+  "settingsProfileSection": "Profil",
+  "settingsDisplayName": "pseudo"
 }
