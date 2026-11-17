@@ -229,5 +229,6 @@
   "movePower": "Erő",
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "Válassz képet, és kezdj bele",
-  "titleStartFromCamera": "Fotózz, és kezdj bele"
+  "titleStartFromCamera": "Fotózz, és kezdj bele",
+  "titleContinue": "Folytatás"
 }

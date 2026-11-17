@@ -229,5 +229,6 @@
   "movePower": "Sila",
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "Vyber fotku a začni",
-  "titleStartFromCamera": "Odfoť a začni"
+  "titleStartFromCamera": "Odfoť a začni",
+  "titleContinue": "Pokračovať"
 }

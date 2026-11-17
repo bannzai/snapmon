@@ -229,5 +229,6 @@
   "movePower": "Sức mạnh",
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "Chọn ảnh để bắt đầu",
-  "titleStartFromCamera": "Chụp ảnh để bắt đầu"
+  "titleStartFromCamera": "Chụp ảnh để bắt đầu",
+  "titleContinue": "Chơi tiếp"
 }

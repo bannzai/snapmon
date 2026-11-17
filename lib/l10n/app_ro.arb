@@ -229,5 +229,6 @@
   "movePower": "Putere",
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "Alege o poză și începe",
-  "titleStartFromCamera": "Fă o poză și începe"
+  "titleStartFromCamera": "Fă o poză și începe",
+  "titleContinue": "Continuă"
 }

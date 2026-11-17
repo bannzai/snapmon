@@ -229,5 +229,6 @@
   "movePower": "Stärke",
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "Foto auswählen und loslegen",
-  "titleStartFromCamera": "Mach ein Foto und leg los"
+  "titleStartFromCamera": "Mach ein Foto und leg los",
+  "titleContinue": "Fortsetzen"
 }

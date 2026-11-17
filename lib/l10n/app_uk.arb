@@ -229,5 +229,6 @@
   "movePower": "Сила",
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "Вибери фото й почни",
-  "titleStartFromCamera": "Зроби фото й почни"
+  "titleStartFromCamera": "Зроби фото й почни",
+  "titleContinue": "Продовжити"
 }

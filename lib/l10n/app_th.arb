@@ -229,5 +229,6 @@
   "movePower": "พลัง",
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "เลือกรูปแล้วเริ่มเลย",
-  "titleStartFromCamera": "ถ่ายรูปแล้วเริ่มเลย"
+  "titleStartFromCamera": "ถ่ายรูปแล้วเริ่มเลย",
+  "titleContinue": "เล่นต่อ"
 }

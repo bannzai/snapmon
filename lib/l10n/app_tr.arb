@@ -229,5 +229,6 @@
   "movePower": "Güç",
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "Fotoğraf seç ve başla",
-  "titleStartFromCamera": "Fotoğraf çekip başla"
+  "titleStartFromCamera": "Fotoğraf çekip başla",
+  "titleContinue": "Devam et"
 }

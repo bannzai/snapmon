@@ -229,5 +229,6 @@
   "movePower": "Snaga",
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "Odaberi fotografiju i kreni",
-  "titleStartFromCamera": "Fotkaj i kreni"
+  "titleStartFromCamera": "Fotkaj i kreni",
+  "titleContinue": "Nastavi"
 }

@@ -229,5 +229,6 @@
   "movePower": "עוצמה",
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "לבחור תמונה ולהתחיל",
-  "titleStartFromCamera": "לצלם ולהתחיל"
+  "titleStartFromCamera": "לצלם ולהתחיל",
+  "titleContinue": "המשך משחק"
 }

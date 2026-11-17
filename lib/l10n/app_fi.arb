@@ -229,5 +229,6 @@
   "movePower": "Voima",
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "Valitse kuva ja aloita",
-  "titleStartFromCamera": "Ota kuva ja aloita"
+  "titleStartFromCamera": "Ota kuva ja aloita",
+  "titleContinue": "Jatka"
 }

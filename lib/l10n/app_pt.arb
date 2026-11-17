@@ -229,5 +229,6 @@
   "movePower": "Poder",
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "Escolha uma foto para começar",
-  "titleStartFromCamera": "Tire uma foto e comece"
+  "titleStartFromCamera": "Tire uma foto e comece",
+  "titleContinue": "Continuar"
 }

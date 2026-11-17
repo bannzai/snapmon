@@ -229,5 +229,6 @@
   "movePower": "Moc",
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "Wybierz zdjęcie i zacznij",
-  "titleStartFromCamera": "Zrób zdjęcie i zacznij"
+  "titleStartFromCamera": "Zrób zdjęcie i zacznij",
+  "titleContinue": "Kontynuuj"
 }

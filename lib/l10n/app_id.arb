@@ -229,5 +229,6 @@
   "movePower": "Kekuatan",
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "Pilih foto untuk mulai",
-  "titleStartFromCamera": "Foto dulu, lalu mulai"
+  "titleStartFromCamera": "Foto dulu, lalu mulai",
+  "titleContinue": "Lanjutkan"
 }

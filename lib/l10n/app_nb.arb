@@ -229,5 +229,6 @@
   "movePower": "Styrke",
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "Velg et bilde og start",
-  "titleStartFromCamera": "Ta et bilde og start"
+  "titleStartFromCamera": "Ta et bilde og start",
+  "titleContinue": "Fortsett"
 }

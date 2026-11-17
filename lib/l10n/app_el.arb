@@ -229,5 +229,6 @@
   "movePower": "Ισχύς",
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "Διάλεξε φωτογραφία και ξεκίνα",
-  "titleStartFromCamera": "Βγάλε φωτογραφία και ξεκίνα"
+  "titleStartFromCamera": "Βγάλε φωτογραφία και ξεκίνα",
+  "titleContinue": "Συνέχεια"
 }

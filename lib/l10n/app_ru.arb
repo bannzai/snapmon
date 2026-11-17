@@ -229,5 +229,6 @@
   "movePower": "Сила",
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "Выбери фото и начни",
-  "titleStartFromCamera": "Сделай фото и начни"
+  "titleStartFromCamera": "Сделай фото и начни",
+  "titleContinue": "Продолжить"
 }

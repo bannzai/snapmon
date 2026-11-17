@@ -229,5 +229,6 @@
   "movePower": "Kracht",
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "Kies een foto en begin",
-  "titleStartFromCamera": "Maak een foto en begin"
+  "titleStartFromCamera": "Maak een foto en begin",
+  "titleContinue": "Verder spelen"
 }
