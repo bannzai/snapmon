@@ -259,5 +259,6 @@
   "moveDetailSuperEffective": "Siêu hiệu quả",
   "moveDetailNotVeryEffective": "Không hiệu quả lắm",
   "moveDetailNeutralEverywhere": "Mọi hệ: ×1",
-  "ticketBalance": "Vé: {count}"
+  "ticketBalance": "Vé: {count}",
+  "ticketPurchaseTitle": "vé tạo"
 }

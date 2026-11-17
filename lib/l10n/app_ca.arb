@@ -259,5 +259,6 @@
   "moveDetailSuperEffective": "Supereficaç",
   "moveDetailNotVeryEffective": "Poc eficaç",
   "moveDetailNeutralEverywhere": "Tots els elements: ×1",
-  "ticketBalance": "Tiquets: {count}"
+  "ticketBalance": "Tiquets: {count}",
+  "ticketPurchaseTitle": "tiquet"
 }

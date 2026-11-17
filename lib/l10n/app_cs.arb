@@ -259,5 +259,6 @@
   "moveDetailSuperEffective": "Velmi účinné",
   "moveDetailNotVeryEffective": "Málo účinné",
   "moveDetailNeutralEverywhere": "Všechny elementy: 1×",
-  "ticketBalance": "Vstupenky: {count}"
+  "ticketBalance": "Vstupenky: {count}",
+  "ticketPurchaseTitle": "tiket na vytvoření"
 }

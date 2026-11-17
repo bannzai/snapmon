@@ -259,5 +259,6 @@
   "moveDetailSuperEffective": "చాలా ప్రభావవంతం",
   "moveDetailNotVeryEffective": "అంత ప్రభావవంతం కాదు",
   "moveDetailNeutralEverywhere": "అన్ని మూలకాలకు 1 రెట్టు",
-  "ticketBalance": "టికెట్లు: {count}"
+  "ticketBalance": "టికెట్లు: {count}",
+  "ticketPurchaseTitle": "సృష్టి టికెట్"
 }

@@ -259,5 +259,6 @@
   "moveDetailSuperEffective": "Sangat efektif",
   "moveDetailNotVeryEffective": "Kurang efektif",
   "moveDetailNeutralEverywhere": "Semua elemen: 1×",
-  "ticketBalance": "Tiket: {count}"
+  "ticketBalance": "Tiket: {count}",
+  "ticketPurchaseTitle": "tiket pembuatan"
 }

@@ -259,5 +259,6 @@
   "moveDetailSuperEffective": "വളരെ ഫലപ്രദം",
   "moveDetailNotVeryEffective": "അത്ര ഫലപ്രദമല്ല",
   "moveDetailNeutralEverywhere": "എല്ലാ മൂലകങ്ങൾക്കും 1×",
-  "ticketBalance": "ടിക്കറ്റുകൾ: {count}"
+  "ticketBalance": "ടിക്കറ്റുകൾ: {count}",
+  "ticketPurchaseTitle": "സൃഷ്ടിക്കൽ ടിക്കറ്റ"
 }

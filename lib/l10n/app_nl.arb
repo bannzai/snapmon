@@ -259,5 +259,6 @@
   "moveDetailSuperEffective": "Superdoeltreffend",
   "moveDetailNotVeryEffective": "Niet erg effectief",
   "moveDetailNeutralEverywhere": "Alle types: 1×",
-  "ticketBalance": "Tickets: {count}"
+  "ticketBalance": "Tickets: {count}",
+  "ticketPurchaseTitle": "creatieticket"
 }

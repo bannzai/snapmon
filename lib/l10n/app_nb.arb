@@ -259,5 +259,6 @@
   "moveDetailSuperEffective": "Supereffektivt",
   "moveDetailNotVeryEffective": "Ikke særlig effektiv",
   "moveDetailNeutralEverywhere": "Alle typer: 1×",
-  "ticketBalance": "Billetter: {count}"
+  "ticketBalance": "Billetter: {count}",
+  "ticketPurchaseTitle": "genereringsbillett"
 }

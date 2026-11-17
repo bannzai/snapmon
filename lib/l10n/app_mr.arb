@@ -259,5 +259,6 @@
   "moveDetailSuperEffective": "खूप प्रभावी",
   "moveDetailNotVeryEffective": "फारसा परिणामकारक नाही",
   "moveDetailNeutralEverywhere": "सर्व तत्त्वांवर 1 पट",
-  "ticketBalance": "तिकिटे: {count}"
+  "ticketBalance": "तिकिटे: {count}",
+  "ticketPurchaseTitle": "निर्मिती तिकिट"
 }

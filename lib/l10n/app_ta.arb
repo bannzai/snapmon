@@ -259,5 +259,6 @@
   "moveDetailSuperEffective": "மிகவும் பயனுள்ளது",
   "moveDetailNotVeryEffective": "அவ்வளவாகப் பலனளிக்காது",
   "moveDetailNeutralEverywhere": "எல்லா வகைகளுக்கும் 1 மடங்கு",
-  "ticketBalance": "டிக்கெட்டுகள்: {count}"
+  "ticketBalance": "டிக்கெட்டுகள்: {count}",
+  "ticketPurchaseTitle": "உருவாக்க டிக்கெட்"
 }

@@ -259,5 +259,6 @@
   "moveDetailSuperEffective": "ได้ผลดีมาก",
   "moveDetailNotVeryEffective": "ไม่ค่อยได้ผล",
   "moveDetailNeutralEverywhere": "ทุกธาตุ: 1 เท่า",
-  "ticketBalance": "ตั๋ว: {count}"
+  "ticketBalance": "ตั๋ว: {count}",
+  "ticketPurchaseTitle": "ตั๋วสร้าง"
 }

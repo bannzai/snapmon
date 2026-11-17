@@ -259,5 +259,6 @@
   "moveDetailSuperEffective": "Szuperhatásos",
   "moveDetailNotVeryEffective": "Nem túl hatásos",
   "moveDetailNeutralEverywhere": "Minden típus ellen: 1×",
-  "ticketBalance": "Jegyek: {count}"
+  "ticketBalance": "Jegyek: {count}",
+  "ticketPurchaseTitle": "alkotójegy"
 }

@@ -259,5 +259,6 @@
   "moveDetailSuperEffective": "بہت مؤثر",
   "moveDetailNotVeryEffective": "زیادہ مؤثر نہیں",
   "moveDetailNeutralEverywhere": "ہر ٹائپ پر 1 گنا",
-  "ticketBalance": "ٹکٹ: {count}"
+  "ticketBalance": "ٹکٹ: {count}",
+  "ticketPurchaseTitle": "تخلیقی ٹکٹ"
 }

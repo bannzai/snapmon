@@ -259,5 +259,6 @@
   "moveDetailSuperEffective": "ਬਹੁਤ ਅਸਰਦਾਰ",
   "moveDetailNotVeryEffective": "ਬਹੁਤਾ ਅਸਰਦਾਰ ਨਹੀਂ",
   "moveDetailNeutralEverywhere": "ਸਾਰੇ ਤੱਤਾਂ ਵਿਰੁੱਧ 1 ਗੁਣਾ",
-  "ticketBalance": "ਟਿਕਟਾਂ: {count}"
+  "ticketBalance": "ਟਿਕਟਾਂ: {count}",
+  "ticketPurchaseTitle": "ਰਚਨਾ ਟਿਕਟ"
 }

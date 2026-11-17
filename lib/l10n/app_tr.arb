@@ -259,5 +259,6 @@
   "moveDetailSuperEffective": "Çok etkili",
   "moveDetailNotVeryEffective": "Pek etkili değil",
   "moveDetailNeutralEverywhere": "Tüm elementlere karşı 1×",
-  "ticketBalance": "Bilet: {count}"
+  "ticketBalance": "Bilet: {count}",
+  "ticketPurchaseTitle": "oluşturma bilet"
 }

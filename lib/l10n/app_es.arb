@@ -259,5 +259,6 @@
   "moveDetailSuperEffective": "Muy eficaz",
   "moveDetailNotVeryEffective": "Poco eficaz",
   "moveDetailNeutralEverywhere": "Todos los elementos: ×1",
-  "ticketBalance": "Boletos: {count}"
+  "ticketBalance": "Boletos: {count}",
+  "ticketPurchaseTitle": "ticket de creación"
 }

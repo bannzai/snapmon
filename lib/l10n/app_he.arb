@@ -259,5 +259,6 @@
   "moveDetailSuperEffective": "יעיל במיוחד",
   "moveDetailNotVeryEffective": "לא יעיל במיוחד",
   "moveDetailNeutralEverywhere": "כל סוג: פי 1",
-  "ticketBalance": "כרטיסים: {count}"
+  "ticketBalance": "כרטיסים: {count}",
+  "ticketPurchaseTitle": "כרטיס יצירה"
 }

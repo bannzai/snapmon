@@ -259,5 +259,6 @@
   "moveDetailSuperEffective": "Erittäin tehokas",
   "moveDetailNotVeryEffective": "Ei kovin tehokas",
   "moveDetailNeutralEverywhere": "Kaikki elementit: 1×",
-  "ticketBalance": "Liput: {count}"
+  "ticketBalance": "Liput: {count}",
+  "ticketPurchaseTitle": "luontilip"
 }

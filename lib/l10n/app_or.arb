@@ -259,5 +259,6 @@
   "moveDetailSuperEffective": "ଖୁବ୍ ପ୍ରଭାବଶାଳୀ",
   "moveDetailNotVeryEffective": "ବିଶେଷ ପ୍ରଭାବୀ ନୁହେଁ",
   "moveDetailNeutralEverywhere": "ସବୁ ତତ୍ତ୍ୱ ବିରୁଦ୍ଧରେ ୧ ଗୁଣ",
-  "ticketBalance": "ଟିକେଟ୍: {count}"
+  "ticketBalance": "ଟିକେଟ୍: {count}",
+  "ticketPurchaseTitle": "ତିଆରି ଟିକେଟ"
 }

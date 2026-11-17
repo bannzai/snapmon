@@ -259,5 +259,6 @@
   "moveDetailSuperEffective": "فعّال جدًا",
   "moveDetailNotVeryEffective": "ليس فعّالًا جدًا",
   "moveDetailNeutralEverywhere": "كل عنصر: ×1",
-  "ticketBalance": "التذاكر: {count}"
+  "ticketBalance": "التذاكر: {count}",
+  "ticketPurchaseTitle": "تذكرة الإنشاء"
 }

@@ -259,5 +259,6 @@
   "moveDetailSuperEffective": "효과가 굉장함",
   "moveDetailNotVeryEffective": "효과가 별로",
   "moveDetailNeutralEverywhere": "모든 속성에 1배",
-  "ticketBalance": "티켓: {count}"
+  "ticketBalance": "티켓: {count}",
+  "ticketPurchaseTitle": "생성 티켓"
 }

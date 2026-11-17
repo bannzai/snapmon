@@ -259,5 +259,6 @@
   "moveDetailSuperEffective": "Bardzo skuteczne",
   "moveDetailNotVeryEffective": "Mało skuteczne",
   "moveDetailNeutralEverywhere": "Każdy typ: 1×",
-  "ticketBalance": "Bilety: {count}"
+  "ticketBalance": "Bilety: {count}",
+  "ticketPurchaseTitle": "bilet"
 }
