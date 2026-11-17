@@ -80,5 +80,6 @@
   "dexAddMonster": "ଯୋଡ଼",
   "dexAddToPartyTitle": "ଦଳରେ ଯୋଡ଼",
   "dexNoPartyCandidates": "ଦଳରେ ଯୋଡ଼ିବାକୁ କୌଣସି ମନଷ୍ଟର ନାହିଁ",
-  "captureCameraUnavailable": "କ୍ୟାମେରା ବ୍ୟବହାର କରିହେଉନାହିଁ\nଆଲବମରୁ ଫଟୋ ବାଛ"
+  "captureCameraUnavailable": "କ୍ୟାମେରା ବ୍ୟବହାର କରିହେଉନାହିଁ\nଆଲବମରୁ ଫଟୋ ବାଛ",
+  "captureDexCount": "ବିଶ୍ୱକୋଷ {monsterCount}"
 }

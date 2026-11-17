@@ -80,5 +80,6 @@
   "dexAddMonster": "ਸ਼ਾਮਲ ਕਰੋ",
   "dexAddToPartyTitle": "ਟੀਮ ਵਿੱਚ ਸ਼ਾਮਲ ਕਰੋ",
   "dexNoPartyCandidates": "ਟੀਮ ਵਿੱਚ ਸ਼ਾਮਲ ਕਰਨ ਲਈ ਕੋਈ ਮੌਂਸਟਰ ਨਹੀਂ ਹੈ",
-  "captureCameraUnavailable": "ਕੈਮਰਾ ਵਰਤਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ\nਐਲਬਮ ਵਿੱਚੋਂ ਫ਼ੋਟੋ ਚੁਣੋ"
+  "captureCameraUnavailable": "ਕੈਮਰਾ ਵਰਤਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ\nਐਲਬਮ ਵਿੱਚੋਂ ਫ਼ੋਟੋ ਚੁਣੋ",
+  "captureDexCount": "ਸੰਗ੍ਰਹਿ {monsterCount}"
 }

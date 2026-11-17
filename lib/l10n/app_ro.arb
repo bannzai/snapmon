@@ -80,5 +80,6 @@
   "dexAddMonster": "Adaugă",
   "dexAddToPartyTitle": "Adaugă în echipă",
   "dexNoPartyCandidates": "Nu ai monștri de adăugat în echipă",
-  "captureCameraUnavailable": "Camera nu este disponibilă\nAlege o fotografie din album"
+  "captureCameraUnavailable": "Camera nu este disponibilă\nAlege o fotografie din album",
+  "captureDexCount": "enciclopedie {monsterCount}"
 }

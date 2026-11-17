@@ -80,5 +80,6 @@
   "dexAddMonster": "شامل کرو",
   "dexAddToPartyTitle": "ٹیم میں شامل کرو",
   "dexNoPartyCandidates": "تمہاری ٹیم میں شامل کرنے کے لیے کوئی مونسٹر نہیں ہے",
-  "captureCameraUnavailable": "کیمرہ استعمال نہیں ہو سکتا\nالبم سے تصویر چنو"
+  "captureCameraUnavailable": "کیمرہ استعمال نہیں ہو سکتا\nالبم سے تصویر چنو",
+  "captureDexCount": "ڈیکس {monsterCount}"
 }

@@ -80,5 +80,6 @@
   "dexAddMonster": "Dodaj",
   "dexAddToPartyTitle": "Dodaj do drużyny",
   "dexNoPartyCandidates": "Nie masz potworów do dodania do drużyny",
-  "captureCameraUnavailable": "Aparat jest niedostępny\nWybierz zdjęcie z albumu"
+  "captureCameraUnavailable": "Aparat jest niedostępny\nWybierz zdjęcie z albumu",
+  "captureDexCount": "encyklopedia {monsterCount}"
 }

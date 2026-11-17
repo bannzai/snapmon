@@ -80,5 +80,6 @@
   "dexAddMonster": "הוספה",
   "dexAddToPartyTitle": "הוספה לצוות",
   "dexNoPartyCandidates": "אין מפלצות שאפשר להוסיף לצוות",
-  "captureCameraUnavailable": "המצלמה לא זמינה\nאפשר לבחור תמונה מהאלבום"
+  "captureCameraUnavailable": "המצלמה לא זמינה\nאפשר לבחור תמונה מהאלבום",
+  "captureDexCount": "אוסף {monsterCount}"
 }

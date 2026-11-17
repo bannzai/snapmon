@@ -80,5 +80,6 @@
   "dexAddMonster": "జోడించు",
   "dexAddToPartyTitle": "జట్టులో చేర్చు",
   "dexNoPartyCandidates": "జట్టులో చేర్చడానికి మాన్స్టర్లు లేవు",
-  "captureCameraUnavailable": "కెమెరా ఉపయోగించలేకపోతున్నాం\nఆల్బమ్ నుంచి ఫోటో ఎంచుకో"
+  "captureCameraUnavailable": "కెమెరా ఉపయోగించలేకపోతున్నాం\nఆల్బమ్ నుంచి ఫోటో ఎంచుకో",
+  "captureDexCount": "డెక్స్ {monsterCount}"
 }

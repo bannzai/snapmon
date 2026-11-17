@@ -80,5 +80,6 @@
   "dexAddMonster": "Tilføj",
   "dexAddToPartyTitle": "Føj til dit hold",
   "dexNoPartyCandidates": "Du har ingen monstre, du kan føje til dit hold",
-  "captureCameraUnavailable": "Kameraet er ikke tilgængeligt\nVælg et billede fra albummet"
+  "captureCameraUnavailable": "Kameraet er ikke tilgængeligt\nVælg et billede fra albummet",
+  "captureDexCount": "dex {monsterCount}"
 }

@@ -80,5 +80,6 @@
   "dexAddMonster": "Pridať",
   "dexAddToPartyTitle": "Pridaj do tímu",
   "dexNoPartyCandidates": "Nemáš príšery, ktoré by si mohol pridať do tímu",
-  "captureCameraUnavailable": "Fotoaparát nie je dostupný\nVyber fotku z albumu"
+  "captureCameraUnavailable": "Fotoaparát nie je dostupný\nVyber fotku z albumu",
+  "captureDexCount": "encyklopédia {monsterCount}"
 }

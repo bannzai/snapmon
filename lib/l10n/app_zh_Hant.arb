@@ -80,5 +80,6 @@
   "dexAddMonster": "新增",
   "dexAddToPartyTitle": "加入隊伍",
   "dexNoPartyCandidates": "沒有可加入隊伍的怪物",
-  "captureCameraUnavailable": "相機無法使用\n請從相簿選一張照片"
+  "captureCameraUnavailable": "相機無法使用\n請從相簿選一張照片",
+  "captureDexCount": "圖鑑 {monsterCount}"
 }

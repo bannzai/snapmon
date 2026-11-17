@@ -80,5 +80,6 @@
   "dexAddMonster": "إضافة",
   "dexAddToPartyTitle": "أضف إلى فريقك",
   "dexNoPartyCandidates": "لا يوجد وحش يمكنك إضافته إلى فريقك",
-  "captureCameraUnavailable": "الكاميرا غير متاحة\nاختر صورة من ألبوم الصور"
+  "captureCameraUnavailable": "الكاميرا غير متاحة\nاختر صورة من ألبوم الصور",
+  "captureDexCount": "موسوعة {monsterCount}"
 }

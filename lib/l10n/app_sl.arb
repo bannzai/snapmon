@@ -80,5 +80,6 @@
   "dexAddMonster": "Dodaj",
   "dexAddToPartyTitle": "Dodaj v ekipo",
   "dexNoPartyCandidates": "Nimaš pošasti, ki bi jih lahko dodal v ekipo",
-  "captureCameraUnavailable": "Kamera ni na voljo\nIzberi fotografijo iz albuma"
+  "captureCameraUnavailable": "Kamera ni na voljo\nIzberi fotografijo iz albuma",
+  "captureDexCount": "enciklopedija {monsterCount}"
 }

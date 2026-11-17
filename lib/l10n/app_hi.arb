@@ -80,5 +80,6 @@
   "dexAddMonster": "जोड़ो",
   "dexAddToPartyTitle": "टीम में जोड़ो",
   "dexNoPartyCandidates": "टीम में जोड़ने के लिए कोई मॉन्स्टर नहीं है",
-  "captureCameraUnavailable": "कैमरा इस्तेमाल नहीं हो पा रहा है\nएल्बम से फ़ोटो चुनो"
+  "captureCameraUnavailable": "कैमरा इस्तेमाल नहीं हो पा रहा है\nएल्बम से फ़ोटो चुनो",
+  "captureDexCount": "संग्रह {monsterCount}"
 }

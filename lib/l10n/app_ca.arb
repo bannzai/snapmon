@@ -80,5 +80,6 @@
   "dexAddMonster": "Afegeix",
   "dexAddToPartyTitle": "Afegeix a l’equip",
   "dexNoPartyCandidates": "No hi ha cap monstre per afegir al teu equip",
-  "captureCameraUnavailable": "La càmera no està disponible\nTria una foto de l'àlbum"
+  "captureCameraUnavailable": "La càmera no està disponible\nTria una foto de l'àlbum",
+  "captureDexCount": "enciclopèdia {monsterCount}"
 }
