@@ -191,5 +191,6 @@
   "battleLogFieldStatShuffleStarted": "Le terrain se met à fluctuer",
   "battleLogFieldStatShuffled": "Les fluctuations du terrain ont échangé {firstStatName} et {secondStatName} !",
   "battleLogFieldEnded": "Le terrain est revenu à la normale",
-  "battleStatusStackCount": "{statusName} ×{stackCount}"
+  "battleStatusStackCount": "{statusName} ×{stackCount}",
+  "statusConditionPoison": "Poison"
 }
