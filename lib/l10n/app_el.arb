@@ -247,5 +247,6 @@
   "moveDetailUnlockLevel": "Επίπεδο εκμάθησης",
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "Ειδική επίδραση",
-  "moveDetailNoSpecialEffect": "Κανένα"
+  "moveDetailNoSpecialEffect": "Κανένα",
+  "moveDetailFormula": "Πολλαπλασιαστής ισχύος (%)"
 }

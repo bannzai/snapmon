@@ -247,5 +247,6 @@
   "moveDetailUnlockLevel": "Stopnja učenja",
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "Poseben učinek",
-  "moveDetailNoSpecialEffect": "Nobenega"
+  "moveDetailNoSpecialEffect": "Nobenega",
+  "moveDetailFormula": "Množilnik moči (%)"
 }

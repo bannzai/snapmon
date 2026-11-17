@@ -247,5 +247,6 @@
   "moveDetailUnlockLevel": "ଚାଲ ଶିଖିବା ସ୍ତର",
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "ବିଶେଷ ପ୍ରଭାବ",
-  "moveDetailNoSpecialEffect": "କିଛି ନାହିଁ"
+  "moveDetailNoSpecialEffect": "କିଛି ନାହିଁ",
+  "moveDetailFormula": "ଶକ୍ତି ଗୁଣକ (%)"
 }

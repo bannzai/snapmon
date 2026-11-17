@@ -247,5 +247,6 @@
   "moveDetailUnlockLevel": "Megtanulási szint",
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "Különleges hatás",
-  "moveDetailNoSpecialEffect": "Nincs"
+  "moveDetailNoSpecialEffect": "Nincs",
+  "moveDetailFormula": "Erőszorzó (%)"
 }

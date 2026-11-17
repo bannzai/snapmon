@@ -247,5 +247,6 @@
   "moveDetailUnlockLevel": "学会招式的等级",
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "特殊效果",
-  "moveDetailNoSpecialEffect": "无"
+  "moveDetailNoSpecialEffect": "无",
+  "moveDetailFormula": "威力倍率 (%)"
 }

@@ -247,5 +247,6 @@
   "moveDetailUnlockLevel": "चाल सीखने का लेवल",
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "खास प्रभाव",
-  "moveDetailNoSpecialEffect": "कोई नहीं"
+  "moveDetailNoSpecialEffect": "कोई नहीं",
+  "moveDetailFormula": "शक्ति गुणक (%)"
 }

@@ -247,5 +247,6 @@
   "moveDetailUnlockLevel": "Рівень вивчення",
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "Особливий ефект",
-  "moveDetailNoSpecialEffect": "Немає"
+  "moveDetailNoSpecialEffect": "Немає",
+  "moveDetailFormula": "Множник сили (%)"
 }

@@ -247,5 +247,6 @@
   "moveDetailUnlockLevel": "ಚಲನೆ ಕಲಿಯುವ ಹಂತ",
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "ವಿಶೇಷ ಪರಿಣಾಮ",
-  "moveDetailNoSpecialEffect": "ಯಾವುದೂ ಇಲ್ಲ"
+  "moveDetailNoSpecialEffect": "ಯಾವುದೂ ಇಲ್ಲ",
+  "moveDetailFormula": "ಶಕ್ತಿಯ ಗುಣಕ (%)"
 }

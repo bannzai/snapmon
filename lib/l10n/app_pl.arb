@@ -247,5 +247,6 @@
   "moveDetailUnlockLevel": "Poziom nauki ruchu",
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "Efekt specjalny",
-  "moveDetailNoSpecialEffect": "Brak"
+  "moveDetailNoSpecialEffect": "Brak",
+  "moveDetailFormula": "Mnożnik mocy (%)"
 }

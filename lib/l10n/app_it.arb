@@ -247,5 +247,6 @@
   "moveDetailUnlockLevel": "Livello di apprendimento",
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "Effetto speciale",
-  "moveDetailNoSpecialEffect": "Nessuno"
+  "moveDetailNoSpecialEffect": "Nessuno",
+  "moveDetailFormula": "Moltiplicatore di potenza (%)"
 }

@@ -247,5 +247,6 @@
   "moveDetailUnlockLevel": "Tahap belajar gerakan",
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "Kesan khas",
-  "moveDetailNoSpecialEffect": "Tiada"
+  "moveDetailNoSpecialEffect": "Tiada",
+  "moveDetailFormula": "Pengganda kuasa (%)"
 }

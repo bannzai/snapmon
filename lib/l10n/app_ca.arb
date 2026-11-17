@@ -247,5 +247,6 @@
   "moveDetailUnlockLevel": "Nivell d'aprenentatge",
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "Efecte especial",
-  "moveDetailNoSpecialEffect": "Cap"
+  "moveDetailNoSpecialEffect": "Cap",
+  "moveDetailFormula": "Multiplicador de potència (%)"
 }

@@ -247,5 +247,6 @@
   "moveDetailUnlockLevel": "רמת לימוד המהלך",
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "השפעה מיוחדת",
-  "moveDetailNoSpecialEffect": "אין"
+  "moveDetailNoSpecialEffect": "אין",
+  "moveDetailFormula": "מכפיל עוצמה (%)"
 }

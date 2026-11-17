@@ -247,5 +247,6 @@
   "moveDetailUnlockLevel": "Öğrenme seviyesi",
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "Özel etki",
-  "moveDetailNoSpecialEffect": "Yok"
+  "moveDetailNoSpecialEffect": "Yok",
+  "moveDetailFormula": "Güç çarpanı (%)"
 }

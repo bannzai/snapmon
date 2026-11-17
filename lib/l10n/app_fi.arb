@@ -247,5 +247,6 @@
   "moveDetailUnlockLevel": "Oppimistaso",
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "Erikoisvaikutus",
-  "moveDetailNoSpecialEffect": "Ei mitään"
+  "moveDetailNoSpecialEffect": "Ei mitään",
+  "moveDetailFormula": "Voimakerroin (%)"
 }

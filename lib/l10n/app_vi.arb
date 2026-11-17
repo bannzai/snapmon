@@ -247,5 +247,6 @@
   "moveDetailUnlockLevel": "Cấp học chiêu",
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "Hiệu ứng đặc biệt",
-  "moveDetailNoSpecialEffect": "Không có"
+  "moveDetailNoSpecialEffect": "Không có",
+  "moveDetailFormula": "Hệ số sức mạnh (%)"
 }

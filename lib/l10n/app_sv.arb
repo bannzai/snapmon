@@ -247,5 +247,6 @@
   "moveDetailUnlockLevel": "Inlärningsnivå",
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "Specialeffekt",
-  "moveDetailNoSpecialEffect": "Ingen"
+  "moveDetailNoSpecialEffect": "Ingen",
+  "moveDetailFormula": "Styrkemultiplikator (%)"
 }

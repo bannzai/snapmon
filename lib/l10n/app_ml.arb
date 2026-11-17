@@ -247,5 +247,6 @@
   "moveDetailUnlockLevel": "നീക്കം പഠിക്കുന്ന ലെവൽ",
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "പ്രത്യേക പ്രഭാവം",
-  "moveDetailNoSpecialEffect": "ഒന്നുമില്ല"
+  "moveDetailNoSpecialEffect": "ഒന്നുമില്ല",
+  "moveDetailFormula": "ശക്തി ഗുണകം (%)"
 }

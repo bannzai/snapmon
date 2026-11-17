@@ -247,5 +247,6 @@
   "moveDetailUnlockLevel": "ਚਾਲ ਸਿੱਖਣ ਦਾ ਲੈਵਲ",
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "ਖ਼ਾਸ ਪ੍ਰਭਾਵ",
-  "moveDetailNoSpecialEffect": "ਕੋਈ ਨਹੀਂ"
+  "moveDetailNoSpecialEffect": "ਕੋਈ ਨਹੀਂ",
+  "moveDetailFormula": "ਤਾਕਤ ਦਾ ਗੁਣਕ (%)"
 }

@@ -247,5 +247,6 @@
   "moveDetailUnlockLevel": "Úroveň naučenia",
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "Špeciálny účinok",
-  "moveDetailNoSpecialEffect": "Žiadny"
+  "moveDetailNoSpecialEffect": "Žiadny",
+  "moveDetailFormula": "Násobiteľ sily (%)"
 }

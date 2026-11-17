@@ -247,5 +247,6 @@
   "moveDetailUnlockLevel": "Leerniveau",
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "Speciaal effect",
-  "moveDetailNoSpecialEffect": "Geen"
+  "moveDetailNoSpecialEffect": "Geen",
+  "moveDetailFormula": "Krachtvermenigvuldiger (%)"
 }

@@ -247,5 +247,6 @@
   "moveDetailUnlockLevel": "Level belajar jurus",
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "Efek khusus",
-  "moveDetailNoSpecialEffect": "Tidak ada"
+  "moveDetailNoSpecialEffect": "Tidak ada",
+  "moveDetailFormula": "Pengali kekuatan (%)"
 }

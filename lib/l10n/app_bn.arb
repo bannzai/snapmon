@@ -247,5 +247,6 @@
   "moveDetailUnlockLevel": "চাল শেখার লেভেল",
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "বিশেষ প্রভাব",
-  "moveDetailNoSpecialEffect": "নেই"
+  "moveDetailNoSpecialEffect": "নেই",
+  "moveDetailFormula": "শক্তির গুণক (%)"
 }

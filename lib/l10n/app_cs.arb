@@ -247,5 +247,6 @@
   "moveDetailUnlockLevel": "Úroveň naučení",
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "Speciální efekt",
-  "moveDetailNoSpecialEffect": "Žádný"
+  "moveDetailNoSpecialEffect": "Žádný",
+  "moveDetailFormula": "Násobitel síly (%)"
 }

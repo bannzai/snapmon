@@ -247,5 +247,6 @@
   "moveDetailUnlockLevel": "Nivel de învățare",
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "Efect special",
-  "moveDetailNoSpecialEffect": "Niciunul"
+  "moveDetailNoSpecialEffect": "Niciunul",
+  "moveDetailFormula": "Multiplicator de putere (%)"
 }

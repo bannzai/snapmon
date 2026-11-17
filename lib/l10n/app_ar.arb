@@ -247,5 +247,6 @@
   "moveDetailUnlockLevel": "مستوى تعلّم الحركة",
   "moveDetailUnlockLevelValue": "Lv. {level}",
   "moveDetailSpecialEffect": "تأثير خاص",
-  "moveDetailNoSpecialEffect": "لا يوجد"
+  "moveDetailNoSpecialEffect": "لا يوجد",
+  "moveDetailFormula": "مضاعف القوة (%)"
 }
