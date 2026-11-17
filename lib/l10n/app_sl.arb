@@ -36,5 +36,6 @@
   "opponentSwapParty": "Zamenjaj",
   "opponentEmptyPartyNote": "Dodaj pošast v ekipo, da lahko izzoveš nasprotnika",
   "opponentFindOthers": "Poišči druge nasprotnike",
-  "opponentAverageLevel": "Povprečna Lv. {level}"
+  "opponentAverageLevel": "Povprečna Lv. {level}",
+  "opponentReportHelpPrompt": "Težava s pošastjo nasprotnika?"
 }

@@ -36,5 +36,6 @@
   "opponentSwapParty": "Zamijeni",
   "opponentEmptyPartyNote": "Dodaj čudovište u tim pa možeš izazvati protivnika",
   "opponentFindOthers": "Pronađi druge protivnike",
-  "opponentAverageLevel": "Prosječna Lv. {level}"
+  "opponentAverageLevel": "Prosječna Lv. {level}",
+  "opponentReportHelpPrompt": "Problem s čudovištem protivnika?"
 }

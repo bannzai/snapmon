@@ -36,5 +36,6 @@
   "opponentSwapParty": "മാറ്റുക",
   "opponentEmptyPartyNote": "പാർട്ടിയിൽ ഒരു മോൺസ്റ്ററിനെ ചേർത്താൽ വെല്ലുവിളിക്കാം",
   "opponentFindOthers": "മറ്റ് എതിരാളികളെ കണ്ടെത്തൂ",
-  "opponentAverageLevel": "ശരാശരി Lv. {level}"
+  "opponentAverageLevel": "ശരാശരി Lv. {level}",
+  "opponentReportHelpPrompt": "എതിരാളിയുടെ മോൺസ്റ്ററുമായി എന്തെങ്കിലും പ്രശ്നമുണ്ടോ?"
 }

@@ -36,5 +36,6 @@
   "opponentSwapParty": "สลับ",
   "opponentEmptyPartyNote": "เพิ่มมอนสเตอร์เข้าทีมแล้วจะท้าสู้ได้",
   "opponentFindOthers": "หาคู่ต่อสู้คนอื่น",
-  "opponentAverageLevel": "Lv. เฉลี่ย {level}"
+  "opponentAverageLevel": "Lv. เฉลี่ย {level}",
+  "opponentReportHelpPrompt": "มอนสเตอร์ของคู่ต่อสู้มีปัญหาหรือเปล่า?"
 }

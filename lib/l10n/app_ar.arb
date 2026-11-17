@@ -36,5 +36,6 @@
   "opponentSwapParty": "تبديل",
   "opponentEmptyPartyNote": "أضف وحشًا إلى فريقك لتتمكن من التحدي",
   "opponentFindOthers": "ابحث عن خصوم آخرين",
-  "opponentAverageLevel": "متوسط Lv. {level}"
+  "opponentAverageLevel": "متوسط Lv. {level}",
+  "opponentReportHelpPrompt": "هل هناك مشكلة في وحش الخصم؟"
 }

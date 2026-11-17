@@ -36,5 +36,6 @@
   "opponentSwapParty": "Αλλαγή",
   "opponentEmptyPartyNote": "Βάλε ένα τέρας στην ομάδα σου για να προκαλέσεις",
   "opponentFindOthers": "Βρες άλλους αντιπάλους",
-  "opponentAverageLevel": "Μέση Lv. {level}"
+  "opponentAverageLevel": "Μέση Lv. {level}",
+  "opponentReportHelpPrompt": "Πρόβλημα με το τέρας του αντιπάλου;"
 }

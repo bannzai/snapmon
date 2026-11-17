@@ -36,5 +36,6 @@
   "opponentSwapParty": "Skift",
   "opponentEmptyPartyNote": "Føj et monster til dit hold, så kan du udfordre",
   "opponentFindOthers": "Find andre modstandere",
-  "opponentAverageLevel": "Gennemsnitlig Lv. {level}"
+  "opponentAverageLevel": "Gennemsnitlig Lv. {level}",
+  "opponentReportHelpPrompt": "Problemer med modstanderens monster?"
 }

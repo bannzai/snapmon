@@ -36,5 +36,6 @@
   "opponentSwapParty": "बदलो",
   "opponentEmptyPartyNote": "टीम में मॉन्स्टर जोड़ो, फिर चुनौती दे सकोगे",
   "opponentFindOthers": "दूसरे प्रतिद्वंद्वी खोजो",
-  "opponentAverageLevel": "औसत Lv. {level}"
+  "opponentAverageLevel": "औसत Lv. {level}",
+  "opponentReportHelpPrompt": "विरोधी के मॉन्स्टर से कोई समस्या?"
 }

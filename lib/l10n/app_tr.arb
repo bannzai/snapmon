@@ -36,5 +36,6 @@
   "opponentSwapParty": "Değiştir",
   "opponentEmptyPartyNote": "Takımına bir canavar ekle, sonra meydan okuyabilirsin",
   "opponentFindOthers": "Başka rakipler bul",
-  "opponentAverageLevel": "Ortalama Lv. {level}"
+  "opponentAverageLevel": "Ortalama Lv. {level}",
+  "opponentReportHelpPrompt": "Rakibin canavarıyla ilgili bir sorun mu var?"
 }

@@ -36,5 +36,6 @@
   "opponentSwapParty": "Đổi",
   "opponentEmptyPartyNote": "Thêm quái vật vào đội để có thể thách đấu",
   "opponentFindOthers": "Tìm đối thủ khác",
-  "opponentAverageLevel": "Lv. trung bình {level}"
+  "opponentAverageLevel": "Lv. trung bình {level}",
+  "opponentReportHelpPrompt": "Quái vật của đối thủ có vấn đề?"
 }

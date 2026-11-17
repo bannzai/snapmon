@@ -36,5 +36,6 @@
   "opponentSwapParty": "Cambiar",
   "opponentEmptyPartyNote": "Añade un monstruo a tu equipo para poder desafiar",
   "opponentFindOthers": "Busca otros rivales",
-  "opponentAverageLevel": "Lv. promedio {level}"
+  "opponentAverageLevel": "Lv. promedio {level}",
+  "opponentReportHelpPrompt": "¿Hay algún problema con el monstruo rival?"
 }

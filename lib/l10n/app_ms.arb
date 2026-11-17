@@ -36,5 +36,6 @@
   "opponentSwapParty": "Tukar",
   "opponentEmptyPartyNote": "Tambah raksasa ke dalam pasukan untuk mencabar",
   "opponentFindOthers": "Cari lawan lain",
-  "opponentAverageLevel": "Purata Lv. {level}"
+  "opponentAverageLevel": "Purata Lv. {level}",
+  "opponentReportHelpPrompt": "Ada masalah dengan monster lawan?"
 }

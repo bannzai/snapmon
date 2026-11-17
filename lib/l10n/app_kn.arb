@@ -36,5 +36,6 @@
   "opponentSwapParty": "ಬದಲಾಯಿಸು",
   "opponentEmptyPartyNote": "ತಂಡಕ್ಕೆ ಮಾನ್‌ಸ್ಟರ್ ಸೇರಿಸು, ನಂತರ ಸವಾಲು ಹಾಕಬಹುದು",
   "opponentFindOthers": "ಬೇರೆ ಎದುರಾಳಿಗಳನ್ನು ಹುಡುಕು",
-  "opponentAverageLevel": "ಸರಾಸರಿ Lv. {level}"
+  "opponentAverageLevel": "ಸರಾಸರಿ Lv. {level}",
+  "opponentReportHelpPrompt": "ಎದುರಾಳಿಯ ಮಾನ್ಸ್ಟರ್ ಬಗ್ಗೆ ಸಮಸ್ಯೆಯಿದೆಯೇ?"
 }

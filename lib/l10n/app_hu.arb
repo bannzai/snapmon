@@ -36,5 +36,6 @@
   "opponentSwapParty": "Csere",
   "opponentEmptyPartyNote": "Tegyél szörnyet a csapatodba, és már kihívhatod az ellenfelet",
   "opponentFindOthers": "Keress más ellenfeleket",
-  "opponentAverageLevel": "Átlagos Lv. {level}"
+  "opponentAverageLevel": "Átlagos Lv. {level}",
+  "opponentReportHelpPrompt": "Gond van az ellenfél szörnyével?"
 }

@@ -36,5 +36,6 @@
   "opponentSwapParty": "બદલો",
   "opponentEmptyPartyNote": "ટીમમાં મોન્સ્ટર ઉમેરો, પછી પડકાર આપી શકશો",
   "opponentFindOthers": "બીજા હરીફો શોધો",
-  "opponentAverageLevel": "સરેરાશ Lv. {level}"
+  "opponentAverageLevel": "સરેરાશ Lv. {level}",
+  "opponentReportHelpPrompt": "હરીફના મોન્સ્ટર સાથે કોઈ સમસ્યા?"
 }

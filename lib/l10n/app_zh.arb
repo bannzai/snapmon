@@ -36,5 +36,6 @@
   "opponentSwapParty": "替换",
   "opponentEmptyPartyNote": "把怪物加入队伍，就能发起挑战",
   "opponentFindOthers": "寻找其他对手",
-  "opponentAverageLevel": "平均 Lv. {level}"
+  "opponentAverageLevel": "平均 Lv. {level}",
+  "opponentReportHelpPrompt": "对手的怪物有问题？"
 }

@@ -36,5 +36,6 @@
   "opponentSwapParty": "Byt",
   "opponentEmptyPartyNote": "Lägg till ett monster i ditt lag för att kunna utmana",
   "opponentFindOthers": "Hitta andra motståndare",
-  "opponentAverageLevel": "Genomsnittlig Lv. {level}"
+  "opponentAverageLevel": "Genomsnittlig Lv. {level}",
+  "opponentReportHelpPrompt": "Problem med motståndarens monster?"
 }

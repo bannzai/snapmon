@@ -36,5 +36,6 @@
   "opponentSwapParty": "Vaihda",
   "opponentEmptyPartyNote": "Lisää hirviö joukkueeseesi, niin voit haastaa",
   "opponentFindOthers": "Etsi muita vastustajia",
-  "opponentAverageLevel": "Keskimääräinen Lv. {level}"
+  "opponentAverageLevel": "Keskimääräinen Lv. {level}",
+  "opponentReportHelpPrompt": "Ongelma vastustajan hirviön kanssa?"
 }
