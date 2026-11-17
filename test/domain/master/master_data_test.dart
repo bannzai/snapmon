@@ -20,34 +20,31 @@ void main() {
     expect(master.version, greaterThanOrEqualTo(1));
   });
 
-  test(
-    '相性表は master の属性と、相性を決めたその場で作った属性のすべての組に 0.5 / 1 / 2 の倍率を持つ',
-    () {
-      final chartElementTypeIDs = master.typeChart.keys.toSet();
-      final masterElementTypeIDs = {
-        for (final elementType in master.elementTypes) elementType.id,
-      };
-      expect(chartElementTypeIDs, containsAll(masterElementTypeIDs));
-      // master の属性ではない行は、その場で作った属性の ID の形 (functions/src/generation/pipeline.ts の
-      // `element_<名前の FNV-1a の 16 進>`) だけを許す。打ち間違えた master の属性 ID の行を通さないため
-      for (final elementTypeID in chartElementTypeIDs.difference(
-        masterElementTypeIDs,
-      )) {
-        expect(elementTypeID, matches(RegExp(r'^element_[0-9a-f]{1,8}$')));
+  test('相性表は master の属性と、相性を決めたその場で作った属性のすべての組に 0.5 / 1 / 2 の倍率を持つ', () {
+    final chartElementTypeIDs = master.typeChart.keys.toSet();
+    final masterElementTypeIDs = {
+      for (final elementType in master.elementTypes) elementType.id,
+    };
+    expect(chartElementTypeIDs, containsAll(masterElementTypeIDs));
+    // master の属性ではない行は、その場で作った属性の ID の形 (functions/src/generation/pipeline.ts の
+    // `element_<名前の FNV-1a の 16 進>`) だけを許す。打ち間違えた master の属性 ID の行を通さないため
+    for (final elementTypeID in chartElementTypeIDs.difference(
+      masterElementTypeIDs,
+    )) {
+      expect(elementTypeID, matches(RegExp(r'^element_[0-9a-f]{1,8}$')));
+    }
+    for (final attackerElementTypeID in chartElementTypeIDs) {
+      final row = master.typeChart[attackerElementTypeID]!;
+      expect(
+        row.keys.toSet(),
+        chartElementTypeIDs,
+        reason: '$attackerElementTypeID の行に抜けか余分な列がある',
+      );
+      for (final multiplier in row.values) {
+        expect([0.5, 1.0, 2.0], contains(multiplier));
       }
-      for (final attackerElementTypeID in chartElementTypeIDs) {
-        final row = master.typeChart[attackerElementTypeID]!;
-        expect(
-          row.keys.toSet(),
-          chartElementTypeIDs,
-          reason: '$attackerElementTypeID の行に抜けか余分な列がある',
-        );
-        for (final multiplier in row.values) {
-          expect([0.5, 1.0, 2.0], contains(multiplier));
-        }
-      }
-    },
-  );
+    }
+  });
 
   test('版 13 で、その場で作られた属性「料理」に相性を足した (#348)', () {
     expect(master.version, greaterThanOrEqualTo(13));
@@ -68,6 +65,7 @@ void main() {
         },
       ),
     );
+
     /// 料理を足した定義で、属性 [attacker] の技が属性 [defender] のモンスターに与える倍率を返す。
     double multiplier({required String attacker, required String defender}) =>
         merged.typeMultiplier(
