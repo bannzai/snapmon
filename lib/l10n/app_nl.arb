@@ -183,5 +183,6 @@
   "battleLogOneHitKnockout": "K.O. in één klap!",
   "battleLogSelfDestructed": "{monsterName} blies zichzelf op!",
   "battleLogStatusInflicted": "{monsterName} heeft nu de status {statusName}!",
-  "battleLogStatusStacked": "{monsterName}: de status {statusName} is versterkt (×{stackCount})"
+  "battleLogStatusStacked": "{monsterName}: de status {statusName} is versterkt (×{stackCount})",
+  "battleLogStatusReplaced": "De status van {monsterName} veranderde van {previousStatusName} naar {statusName}"
 }

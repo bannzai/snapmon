@@ -183,5 +183,6 @@
   "battleLogOneHitKnockout": "Nocaute com um só golpe!",
   "battleLogSelfDestructed": "{monsterName} se autodestruiu!",
   "battleLogStatusInflicted": "{monsterName} recebeu o status {statusName}!",
-  "battleLogStatusStacked": "{monsterName}: o estado {statusName} se acumulou (×{stackCount})"
+  "battleLogStatusStacked": "{monsterName}: o estado {statusName} se acumulou (×{stackCount})",
+  "battleLogStatusReplaced": "O estado de {monsterName} mudou de {previousStatusName} para {statusName}"
 }

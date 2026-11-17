@@ -183,5 +183,6 @@
   "battleLogOneHitKnockout": "נוקאאוט במכה אחת!",
   "battleLogSelfDestructed": "{monsterName} השמיד את עצמו!",
   "battleLogStatusInflicted": "{monsterName} נכנס למצב {statusName}!",
-  "battleLogStatusStacked": "{monsterName}: מצב {statusName} הצטבר (×{stackCount})"
+  "battleLogStatusStacked": "{monsterName}: מצב {statusName} הצטבר (×{stackCount})",
+  "battleLogStatusReplaced": "המצב של {monsterName} השתנה מ־{previousStatusName} ל־{statusName}"
 }

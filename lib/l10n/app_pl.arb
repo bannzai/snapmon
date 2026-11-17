@@ -183,5 +183,6 @@
   "battleLogOneHitKnockout": "K.O. jednym ciosem!",
   "battleLogSelfDestructed": "{monsterName} wysadził się w powietrze!",
   "battleLogStatusInflicted": "{monsterName} otrzymał status {statusName}!",
-  "battleLogStatusStacked": "{monsterName}: stan {statusName} się nasilił (×{stackCount})"
+  "battleLogStatusStacked": "{monsterName}: stan {statusName} się nasilił (×{stackCount})",
+  "battleLogStatusReplaced": "Status {monsterName} zmienił się z {previousStatusName} na {statusName}"
 }

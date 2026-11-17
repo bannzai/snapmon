@@ -183,5 +183,6 @@
   "battleLogOneHitKnockout": "ஒரே அடியில் வீழ்த்தியது!",
   "battleLogSelfDestructed": "{monsterName} தன்னைத்தானே வெடிக்கச் செய்தது!",
   "battleLogStatusInflicted": "{monsterName} இப்போது {statusName} நிலையில் உள்ளது!",
-  "battleLogStatusStacked": "{monsterName}: {statusName} நிலை மேலும் அதிகரித்தது (×{stackCount})"
+  "battleLogStatusStacked": "{monsterName}: {statusName} நிலை மேலும் அதிகரித்தது (×{stackCount})",
+  "battleLogStatusReplaced": "{monsterName}ன் நிலை {previousStatusName} இலிருந்து {statusName} ஆக மாறியது"
 }

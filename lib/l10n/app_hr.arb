@@ -183,5 +183,6 @@
   "battleLogOneHitKnockout": "K. O. jednim udarcem!",
   "battleLogSelfDestructed": "{monsterName} se samouništio!",
   "battleLogStatusInflicted": "{monsterName} je dobio stanje {statusName}!",
-  "battleLogStatusStacked": "{monsterName}: stanje {statusName} se pojačalo (×{stackCount})"
+  "battleLogStatusStacked": "{monsterName}: stanje {statusName} se pojačalo (×{stackCount})",
+  "battleLogStatusReplaced": "Stanje čudovišta {monsterName} promijenilo se iz {previousStatusName} u {statusName}"
 }

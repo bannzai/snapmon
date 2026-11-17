@@ -183,5 +183,6 @@
   "battleLogOneHitKnockout": "Νοκ άουτ με ένα χτύπημα!",
   "battleLogSelfDestructed": "Το {monsterName} αυτοκαταστράφηκε!",
   "battleLogStatusInflicted": "Ο {monsterName} απέκτησε την κατάσταση {statusName}!",
-  "battleLogStatusStacked": "{monsterName}: η κατάσταση {statusName} ενισχύθηκε (×{stackCount})"
+  "battleLogStatusStacked": "{monsterName}: η κατάσταση {statusName} ενισχύθηκε (×{stackCount})",
+  "battleLogStatusReplaced": "Η κατάσταση του {monsterName} άλλαξε από {previousStatusName} σε {statusName}"
 }

@@ -183,5 +183,6 @@
   "battleLogOneHitKnockout": "Tyrmäys yhdellä iskulla!",
   "battleLogSelfDestructed": "{monsterName} räjäytti itsensä!",
   "battleLogStatusInflicted": "{monsterName} sai tilan {statusName}!",
-  "battleLogStatusStacked": "{monsterName}: tila {statusName} vahvistui (×{stackCount})"
+  "battleLogStatusStacked": "{monsterName}: tila {statusName} vahvistui (×{stackCount})",
+  "battleLogStatusReplaced": "Monsterin {monsterName} tila vaihtui: {previousStatusName} → {statusName}"
 }

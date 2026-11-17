@@ -183,5 +183,6 @@
   "battleLogOneHitKnockout": "एक ही वार में ढेर!",
   "battleLogSelfDestructed": "{monsterName} ने खुद को उड़ा लिया!",
   "battleLogStatusInflicted": "{monsterName} अब {statusName} स्थिति में है!",
-  "battleLogStatusStacked": "{monsterName}: {statusName} स्थिति और बढ़ गई (×{stackCount})"
+  "battleLogStatusStacked": "{monsterName}: {statusName} स्थिति और बढ़ गई (×{stackCount})",
+  "battleLogStatusReplaced": "{monsterName} की स्थिति {previousStatusName} से बदलकर {statusName} हो गई"
 }

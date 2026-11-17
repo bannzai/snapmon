@@ -183,5 +183,6 @@
   "battleLogOneHitKnockout": "K. O. jednou ranou!",
   "battleLogSelfDestructed": "{monsterName} se samo zničil!",
   "battleLogStatusInflicted": "{monsterName} získal stav {statusName}!",
-  "battleLogStatusStacked": "{monsterName}: stav {statusName} se nahromadil (×{stackCount})"
+  "battleLogStatusStacked": "{monsterName}: stav {statusName} se nahromadil (×{stackCount})",
+  "battleLogStatusReplaced": "Stav {monsterName}: {previousStatusName} se změnil na {statusName}"
 }

@@ -183,5 +183,6 @@
   "battleLogOneHitKnockout": "Нокаут одним ударом!",
   "battleLogSelfDestructed": "{monsterName} взорвал себя!",
   "battleLogStatusInflicted": "{monsterName} получил статус {statusName}!",
-  "battleLogStatusStacked": "{monsterName}: эффект {statusName} усилился (×{stackCount})"
+  "battleLogStatusStacked": "{monsterName}: эффект {statusName} усилился (×{stackCount})",
+  "battleLogStatusReplaced": "Состояние {monsterName} сменилось с {previousStatusName} на {statusName}"
 }

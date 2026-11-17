@@ -183,5 +183,6 @@
   "battleLogOneHitKnockout": "K. O. jedným úderom!",
   "battleLogSelfDestructed": "{monsterName} sa samo zničil!",
   "battleLogStatusInflicted": "{monsterName} získal stav {statusName}!",
-  "battleLogStatusStacked": "{monsterName}: stav {statusName} sa zosilnil (×{stackCount})"
+  "battleLogStatusStacked": "{monsterName}: stav {statusName} sa zosilnil (×{stackCount})",
+  "battleLogStatusReplaced": "Stav príšery {monsterName} sa zmenil z {previousStatusName} na {statusName}"
 }

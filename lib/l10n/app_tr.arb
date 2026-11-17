@@ -183,5 +183,6 @@
   "battleLogOneHitKnockout": "Tek vuruşta nakavt!",
   "battleLogSelfDestructed": "{monsterName} kendini patlattı!",
   "battleLogStatusInflicted": "{monsterName}, {statusName} durumuna girdi!",
-  "battleLogStatusStacked": "{monsterName}: {statusName} durumu birikti (×{stackCount})"
+  "battleLogStatusStacked": "{monsterName}: {statusName} durumu birikti (×{stackCount})",
+  "battleLogStatusReplaced": "{monsterName} için durum {previousStatusName} yerine {statusName} oldu"
 }

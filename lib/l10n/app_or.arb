@@ -183,5 +183,6 @@
   "battleLogOneHitKnockout": "ଗୋଟିଏ ଆଘାତରେ ପରାସ୍ତ!",
   "battleLogSelfDestructed": "{monsterName} ନିଜକୁ ବିସ୍ଫୋରଣ କରିଦେଲା!",
   "battleLogStatusInflicted": "{monsterName} ଏବେ {statusName} ଅବସ୍ଥାରେ ଅଛି!",
-  "battleLogStatusStacked": "{monsterName}: {statusName} ଅବସ୍ଥା ଆହୁରି ବଢ଼ିଲା (×{stackCount})"
+  "battleLogStatusStacked": "{monsterName}: {statusName} ଅବସ୍ଥା ଆହୁରି ବଢ଼ିଲା (×{stackCount})",
+  "battleLogStatusReplaced": "{monsterName}ର ଅବସ୍ଥା {previousStatusName} ରୁ {statusName} ହୋଇଗଲା"
 }

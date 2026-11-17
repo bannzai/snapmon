@@ -183,5 +183,6 @@
   "battleLogOneHitKnockout": "K.O. på ett slag!",
   "battleLogSelfDestructed": "{monsterName} sprängde sig själv!",
   "battleLogStatusInflicted": "{monsterName} fick statusen {statusName}!",
-  "battleLogStatusStacked": "{monsterName}: statusen {statusName} förstärktes (×{stackCount})"
+  "battleLogStatusStacked": "{monsterName}: statusen {statusName} förstärktes (×{stackCount})",
+  "battleLogStatusReplaced": "{monsterName}s status ändrades från {previousStatusName} till {statusName}"
 }

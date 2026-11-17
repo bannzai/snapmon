@@ -183,5 +183,6 @@
   "battleLogOneHitKnockout": "一击必杀！",
   "battleLogSelfDestructed": "{monsterName} 自爆了！",
   "battleLogStatusInflicted": "{monsterName}陷入了{statusName}状态！",
-  "battleLogStatusStacked": "{monsterName}的{statusName}状态叠加了（×{stackCount}）"
+  "battleLogStatusStacked": "{monsterName}的{statusName}状态叠加了（×{stackCount}）",
+  "battleLogStatusReplaced": "{monsterName}的状态从{previousStatusName}变成了{statusName}"
 }

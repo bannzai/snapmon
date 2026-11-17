@@ -183,5 +183,6 @@
   "battleLogOneHitKnockout": "일격 필살!",
   "battleLogSelfDestructed": "{monsterName}의 자폭!",
   "battleLogStatusInflicted": "{monsterName}에게 {statusName} 상태가 걸렸다!",
-  "battleLogStatusStacked": "{monsterName}의 {statusName} 상태가 중첩됐다 (×{stackCount})"
+  "battleLogStatusStacked": "{monsterName}의 {statusName} 상태가 중첩됐다 (×{stackCount})",
+  "battleLogStatusReplaced": "{monsterName}의 상태가 {previousStatusName}에서 {statusName}(으)로 바뀌었다"
 }

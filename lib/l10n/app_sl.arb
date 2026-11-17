@@ -183,5 +183,6 @@
   "battleLogOneHitKnockout": "Nokavt z enim udarcem!",
   "battleLogSelfDestructed": "{monsterName} se je samouničil!",
   "battleLogStatusInflicted": "{monsterName} je dobil stanje {statusName}!",
-  "battleLogStatusStacked": "{monsterName}: stanje {statusName} se je okrepilo (×{stackCount})"
+  "battleLogStatusStacked": "{monsterName}: stanje {statusName} se je okrepilo (×{stackCount})",
+  "battleLogStatusReplaced": "Stanje pošasti {monsterName} se je spremenilo iz {previousStatusName} v {statusName}"
 }

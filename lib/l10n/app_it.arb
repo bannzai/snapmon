@@ -183,5 +183,6 @@
   "battleLogOneHitKnockout": "K.O. in un colpo!",
   "battleLogSelfDestructed": "{monsterName} si è autodistrutto!",
   "battleLogStatusInflicted": "{monsterName} ha subito lo stato {statusName}!",
-  "battleLogStatusStacked": "{monsterName}: lo stato {statusName} si è accumulato (×{stackCount})"
+  "battleLogStatusStacked": "{monsterName}: lo stato {statusName} si è accumulato (×{stackCount})",
+  "battleLogStatusReplaced": "Lo stato di {monsterName} è cambiato da {previousStatusName} a {statusName}"
 }

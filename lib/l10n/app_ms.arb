@@ -183,5 +183,6 @@
   "battleLogOneHitKnockout": "KO dengan satu serangan!",
   "battleLogSelfDestructed": "{monsterName} meletupkan diri!",
   "battleLogStatusInflicted": "{monsterName} terkena status {statusName}!",
-  "battleLogStatusStacked": "{monsterName}: status {statusName} bertindan (×{stackCount})"
+  "battleLogStatusStacked": "{monsterName}: status {statusName} bertindan (×{stackCount})",
+  "battleLogStatusReplaced": "Status {monsterName} berubah daripada {previousStatusName} kepada {statusName}"
 }

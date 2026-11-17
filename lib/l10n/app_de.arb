@@ -183,5 +183,6 @@
   "battleLogOneHitKnockout": "K. o. mit einem Treffer!",
   "battleLogSelfDestructed": "{monsterName} hat sich selbst zerstört!",
   "battleLogStatusInflicted": "{monsterName} hat jetzt den Status {statusName}!",
-  "battleLogStatusStacked": "{monsterName}: Der Status {statusName} hat sich verstärkt (×{stackCount})"
+  "battleLogStatusStacked": "{monsterName}: Der Status {statusName} hat sich verstärkt (×{stackCount})",
+  "battleLogStatusReplaced": "Der Status von {monsterName} wechselte von {previousStatusName} zu {statusName}"
 }

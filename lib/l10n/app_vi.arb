@@ -183,5 +183,6 @@
   "battleLogOneHitKnockout": "Hạ gục chỉ bằng một đòn!",
   "battleLogSelfDestructed": "{monsterName} tự phát nổ!",
   "battleLogStatusInflicted": "{monsterName} đã nhận trạng thái {statusName}!",
-  "battleLogStatusStacked": "{monsterName}: trạng thái {statusName} cộng dồn (×{stackCount})"
+  "battleLogStatusStacked": "{monsterName}: trạng thái {statusName} cộng dồn (×{stackCount})",
+  "battleLogStatusReplaced": "Trạng thái của {monsterName} đổi từ {previousStatusName} sang {statusName}"
 }
