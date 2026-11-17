@@ -110,5 +110,6 @@
   "generationNotBornTitle": "Quái vật đã không ra đời",
   "generationFailedTitle": "Không thể tạo quái vật",
   "generationBattlePreparationFailedTitle": "Không thể chuẩn bị trận đấu",
-  "generationStagePreparingPhoto": "Đang chuẩn bị ảnh"
+  "generationStagePreparingPhoto": "Đang chuẩn bị ảnh",
+  "generationStageUploadingPhoto": "Đang tải ảnh lên"
 }

@@ -110,5 +110,6 @@
   "generationNotBornTitle": "لم يولد الوحش",
   "generationFailedTitle": "تعذّر إنشاء الوحش",
   "generationBattlePreparationFailedTitle": "تعذّر تجهيز المعركة",
-  "generationStagePreparingPhoto": "جارٍ تجهيز الصورة"
+  "generationStagePreparingPhoto": "جارٍ تجهيز الصورة",
+  "generationStageUploadingPhoto": "جارٍ رفع الصورة"
 }

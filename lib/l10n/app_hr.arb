@@ -110,5 +110,6 @@
   "generationNotBornTitle": "Čudovište se nije rodilo",
   "generationFailedTitle": "Čudovište nije stvoreno",
   "generationBattlePreparationFailedTitle": "Borba se nije mogla pripremiti",
-  "generationStagePreparingPhoto": "Pripremamo fotografiju"
+  "generationStagePreparingPhoto": "Pripremamo fotografiju",
+  "generationStageUploadingPhoto": "Fotografija se prenosi"
 }

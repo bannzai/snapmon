@@ -110,5 +110,6 @@
   "generationNotBornTitle": "El monstre no ha nascut",
   "generationFailedTitle": "No s'ha pogut crear el monstre",
   "generationBattlePreparationFailedTitle": "No s'ha pogut preparar el combat",
-  "generationStagePreparingPhoto": "Preparant la foto"
+  "generationStagePreparingPhoto": "Preparant la foto",
+  "generationStageUploadingPhoto": "S'està pujant la foto"
 }

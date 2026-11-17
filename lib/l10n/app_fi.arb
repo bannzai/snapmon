@@ -110,5 +110,6 @@
   "generationNotBornTitle": "Hirviö ei syntynyt",
   "generationFailedTitle": "Hirviön luominen epäonnistui",
   "generationBattlePreparationFailedTitle": "Taistelua ei voitu valmistella",
-  "generationStagePreparingPhoto": "Valmistellaan kuvaa"
+  "generationStagePreparingPhoto": "Valmistellaan kuvaa",
+  "generationStageUploadingPhoto": "Kuvaa ladataan"
 }

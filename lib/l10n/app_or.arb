@@ -110,5 +110,6 @@
   "generationNotBornTitle": "ମନଷ୍ଟରଟି ଜନ୍ମ ନେଲା ନାହିଁ",
   "generationFailedTitle": "ରାକ୍ଷସ ତିଆରି ହୋଇପାରିଲା ନାହିଁ",
   "generationBattlePreparationFailedTitle": "ଲଢ଼େଇ ପାଇଁ ପ୍ରସ୍ତୁତି ହୋଇପାରିଲା ନାହିଁ",
-  "generationStagePreparingPhoto": "ଫଟୋ ପ୍ରସ୍ତୁତ ହେଉଛି"
+  "generationStagePreparingPhoto": "ଫଟୋ ପ୍ରସ୍ତୁତ ହେଉଛି",
+  "generationStageUploadingPhoto": "ଫଟୋ ଅପଲୋଡ୍ ହେଉଛି"
 }

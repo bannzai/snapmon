@@ -110,5 +110,6 @@
   "generationNotBornTitle": "மான்ஸ்டர் பிறக்கவில்லை",
   "generationFailedTitle": "அரக்கனை உருவாக்க முடியவில்லை",
   "generationBattlePreparationFailedTitle": "போருக்குத் தயாராக முடியவில்லை",
-  "generationStagePreparingPhoto": "படம் தயாராகிறது"
+  "generationStagePreparingPhoto": "படம் தயாராகிறது",
+  "generationStageUploadingPhoto": "படம் பதிவேற்றப்படுகிறது"
 }

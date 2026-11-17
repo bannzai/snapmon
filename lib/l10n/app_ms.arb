@@ -110,5 +110,6 @@
   "generationNotBornTitle": "Raksasa itu tidak jadi lahir",
   "generationFailedTitle": "Monster tak dapat dicipta",
   "generationBattlePreparationFailedTitle": "Pertarungan tak dapat disiapkan",
-  "generationStagePreparingPhoto": "Menyiapkan foto"
+  "generationStagePreparingPhoto": "Menyiapkan foto",
+  "generationStageUploadingPhoto": "Memuat naik foto"
 }

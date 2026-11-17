@@ -110,5 +110,6 @@
   "generationNotBornTitle": "మాన్స్టర్ పుట్టలేదు",
   "generationFailedTitle": "రాక్షసాన్ని సృష్టించలేకపోయాం",
   "generationBattlePreparationFailedTitle": "పోరాటానికి సిద్ధం కాలేకపోయాం",
-  "generationStagePreparingPhoto": "ఫోటో సిద్ధమవుతోంది"
+  "generationStagePreparingPhoto": "ఫోటో సిద్ధమవుతోంది",
+  "generationStageUploadingPhoto": "ఫోటో అప్‌లోడ్ అవుతోంది"
 }

@@ -110,5 +110,6 @@
   "generationNotBornTitle": "Příšerka se nenarodila",
   "generationFailedTitle": "Příšeru se nepodařilo vytvořit",
   "generationBattlePreparationFailedTitle": "Souboj se nepodařilo připravit",
-  "generationStagePreparingPhoto": "Připravuji fotku"
+  "generationStagePreparingPhoto": "Připravuji fotku",
+  "generationStageUploadingPhoto": "Nahrává se fotka"
 }

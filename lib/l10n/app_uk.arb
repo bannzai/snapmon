@@ -110,5 +110,6 @@
   "generationNotBornTitle": "Монстр не народився",
   "generationFailedTitle": "Не вдалося створити монстра",
   "generationBattlePreparationFailedTitle": "Не вдалося підготувати бій",
-  "generationStagePreparingPhoto": "Готуємо фото"
+  "generationStagePreparingPhoto": "Готуємо фото",
+  "generationStageUploadingPhoto": "Завантажуємо фото"
 }

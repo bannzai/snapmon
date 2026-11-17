@@ -110,5 +110,6 @@
   "generationNotBornTitle": "המפלצת לא נולדה",
   "generationFailedTitle": "לא הצלחנו ליצור את המפלצת",
   "generationBattlePreparationFailedTitle": "לא ניתן היה להכין את הקרב",
-  "generationStagePreparingPhoto": "מכינים את התמונה"
+  "generationStagePreparingPhoto": "מכינים את התמונה",
+  "generationStageUploadingPhoto": "התמונה נשלחת"
 }

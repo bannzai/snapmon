@@ -110,5 +110,6 @@
   "generationNotBornTitle": "A szörny nem született meg",
   "generationFailedTitle": "Nem sikerült létrehozni a szörnyet",
   "generationBattlePreparationFailedTitle": "Nem sikerült előkészíteni a csatát",
-  "generationStagePreparingPhoto": "Fotó előkészítése"
+  "generationStagePreparingPhoto": "Fotó előkészítése",
+  "generationStageUploadingPhoto": "Fotó feltöltése"
 }

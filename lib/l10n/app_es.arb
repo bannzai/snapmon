@@ -110,5 +110,6 @@
   "generationNotBornTitle": "El monstruo no nació",
   "generationFailedTitle": "No se pudo crear el monstruo",
   "generationBattlePreparationFailedTitle": "No se pudo preparar el combate",
-  "generationStagePreparingPhoto": "Preparando la foto"
+  "generationStagePreparingPhoto": "Preparando la foto",
+  "generationStageUploadingPhoto": "Subiendo foto"
 }

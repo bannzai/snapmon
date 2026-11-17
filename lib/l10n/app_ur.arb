@@ -110,5 +110,6 @@
   "generationNotBornTitle": "مونسٹر پیدا نہیں ہوا",
   "generationFailedTitle": "مونسٹر نہیں بن سکا",
   "generationBattlePreparationFailedTitle": "لڑائی کی تیاری نہیں ہو سکی",
-  "generationStagePreparingPhoto": "تصویر تیار ہو رہی ہے"
+  "generationStagePreparingPhoto": "تصویر تیار ہو رہی ہے",
+  "generationStageUploadingPhoto": "تصویر اپ لوڈ ہو رہی ہے"
 }

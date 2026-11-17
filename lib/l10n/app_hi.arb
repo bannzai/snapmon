@@ -110,5 +110,6 @@
   "generationNotBornTitle": "मॉन्स्टर जन्म नहीं ले पाया",
   "generationFailedTitle": "मॉन्स्टर नहीं बन पाया",
   "generationBattlePreparationFailedTitle": "लड़ाई की तैयारी नहीं हो पाई",
-  "generationStagePreparingPhoto": "फ़ोटो तैयार हो रही है"
+  "generationStagePreparingPhoto": "फ़ोटो तैयार हो रही है",
+  "generationStageUploadingPhoto": "फ़ोटो अपलोड हो रही है"
 }

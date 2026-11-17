@@ -110,5 +110,6 @@
   "generationNotBornTitle": "ਮੌਂਸਟਰ ਦਾ ਜਨਮ ਨਹੀਂ ਹੋਇਆ",
   "generationFailedTitle": "ਮੌਂਸਟਰ ਨਹੀਂ ਬਣ ਸਕਿਆ",
   "generationBattlePreparationFailedTitle": "ਲੜਾਈ ਦੀ ਤਿਆਰੀ ਨਹੀਂ ਹੋ ਸਕੀ",
-  "generationStagePreparingPhoto": "ਫ਼ੋਟੋ ਤਿਆਰ ਹੋ ਰਹੀ ਹੈ"
+  "generationStagePreparingPhoto": "ਫ਼ੋਟੋ ਤਿਆਰ ਹੋ ਰਹੀ ਹੈ",
+  "generationStageUploadingPhoto": "ਫੋਟੋ ਅੱਪਲੋਡ ਹੋ ਰਹੀ ਹੈ"
 }

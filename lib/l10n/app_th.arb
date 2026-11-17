@@ -110,5 +110,6 @@
   "generationNotBornTitle": "มอนสเตอร์ไม่ถือกำเนิด",
   "generationFailedTitle": "สร้างมอนสเตอร์ไม่สำเร็จ",
   "generationBattlePreparationFailedTitle": "เตรียมการต่อสู้ไม่สำเร็จ",
-  "generationStagePreparingPhoto": "กำลังเตรียมรูปภาพ"
+  "generationStagePreparingPhoto": "กำลังเตรียมรูปภาพ",
+  "generationStageUploadingPhoto": "กำลังอัปโหลดรูปภาพ"
 }

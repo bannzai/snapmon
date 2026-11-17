@@ -110,5 +110,6 @@
   "generationNotBornTitle": "Το τέρας δεν γεννήθηκε",
   "generationFailedTitle": "Δεν ήταν δυνατή η δημιουργία του τέρατος",
   "generationBattlePreparationFailedTitle": "Δεν ήταν δυνατή η προετοιμασία της μάχης",
-  "generationStagePreparingPhoto": "Προετοιμασία φωτογραφίας"
+  "generationStagePreparingPhoto": "Προετοιμασία φωτογραφίας",
+  "generationStageUploadingPhoto": "Ανεβαίνει η φωτογραφία"
 }

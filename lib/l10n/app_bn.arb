@@ -110,5 +110,6 @@
   "generationNotBornTitle": "দানবটা জন্মায়নি",
   "generationFailedTitle": "দানব তৈরি করা যায়নি",
   "generationBattlePreparationFailedTitle": "লড়াইয়ের প্রস্তুতি নেওয়া যায়নি",
-  "generationStagePreparingPhoto": "ছবি প্রস্তুত হচ্ছে"
+  "generationStagePreparingPhoto": "ছবি প্রস্তুত হচ্ছে",
+  "generationStageUploadingPhoto": "ছবি আপলোড হচ্ছে"
 }

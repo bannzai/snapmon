@@ -110,5 +110,6 @@
   "generationNotBornTitle": "Il mostro non è nato",
   "generationFailedTitle": "Impossibile creare il mostro",
   "generationBattlePreparationFailedTitle": "Impossibile preparare la lotta",
-  "generationStagePreparingPhoto": "Preparazione della foto"
+  "generationStagePreparingPhoto": "Preparazione della foto",
+  "generationStageUploadingPhoto": "Caricamento foto"
 }

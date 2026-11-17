@@ -110,5 +110,6 @@
   "generationNotBornTitle": "Príšerka sa nenarodila",
   "generationFailedTitle": "Nepodarilo sa vytvoriť príšeru",
   "generationBattlePreparationFailedTitle": "Súboj sa nepodarilo pripraviť",
-  "generationStagePreparingPhoto": "Pripravujeme fotku"
+  "generationStagePreparingPhoto": "Pripravujeme fotku",
+  "generationStageUploadingPhoto": "Nahráva sa fotka"
 }

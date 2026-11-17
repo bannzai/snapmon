@@ -110,5 +110,6 @@
   "generationNotBornTitle": "Monsteret ble ikke født",
   "generationFailedTitle": "Kunne ikke lage monsteret",
   "generationBattlePreparationFailedTitle": "Kampen kunne ikke klargjøres",
-  "generationStagePreparingPhoto": "Klargjør bildet"
+  "generationStagePreparingPhoto": "Klargjør bildet",
+  "generationStageUploadingPhoto": "Laster opp bilde"
 }

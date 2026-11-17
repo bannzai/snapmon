@@ -110,5 +110,6 @@
   "generationNotBornTitle": "怪獸沒能誕生",
   "generationFailedTitle": "無法生成怪獸",
   "generationBattlePreparationFailedTitle": "無法準備對戰",
-  "generationStagePreparingPhoto": "正在準備照片"
+  "generationStagePreparingPhoto": "正在準備照片",
+  "generationStageUploadingPhoto": "正在上傳照片"
 }
