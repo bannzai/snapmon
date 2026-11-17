@@ -293,7 +293,7 @@ class BattleResultShareCard extends StatelessWidget {
           learnset: monster.definition.learnset,
           actionCardMoveIDs: monster.actionCardMoveIDs,
           selectedMoveIDs: monster.selectedMoveIDs,
-          level: appliedLevel ?? monster.level,
+          level: monster.level,
         ))
           definitions.moveByID(moveID: moveID),
       ],
@@ -590,7 +590,9 @@ class _PartyMonsterPanel extends StatelessWidget {
               // 技が 2 列 (文字は 4 行ほど) の時は絵に 2/3 を、1 列 (文字は 6 行ほど) の時は半分を使う
               Expanded(
                 flex: moveColumnCount == 1 ? 1 : 2,
-                child: Center(child: AspectRatio(aspectRatio: 1, child: art)),
+                child: Center(
+                  child: SizedBox.square(dimension: 92, child: art),
+                ),
               ),
               const SizedBox(height: 8),
               Expanded(child: info),
