@@ -267,5 +267,6 @@
   "ticketPurchasePending": "En attente de la confirmation du paiement\nTu recevras tes tickets dès qu’il sera confirmé, même si tu fermes cet écran",
   "ticketPurchaseArrivedTitle": "Tes tickets sont arrivés",
   "ticketPurchaseContinue": "Créer à partir de cette photo",
-  "ticketPurchaseSync": "Synchroniser l’état des achats"
+  "ticketPurchaseSync": "Synchroniser l’état des achats",
+  "ticketPurchaseSynced": "L’état de ton achat a été synchronisé"
 }
