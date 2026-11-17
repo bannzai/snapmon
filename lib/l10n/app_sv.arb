@@ -120,5 +120,6 @@
   "generationRejectedExplicitContent": "Du kan inte skapa ett monster av det här fotot",
   "generationRejectedPerson": "Du kan inte skapa ett monster av ett foto där någon syns\nFotografera bara föremål",
   "generationPersonNoticeTitle": "Det finns en person på bilden",
-  "generationPersonNoticeMessage": "Andra kan också se bilden på ditt monster i strider.\nOm någon annan än du syns på fotot, be om personens tillåtelse innan du använder det."
+  "generationPersonNoticeMessage": "Andra kan också se bilden på ditt monster i strider.\nOm någon annan än du syns på fotot, be om personens tillåtelse innan du använder det.",
+  "generationChooseCutoutTitle": "Motivet är frilagt"
 }

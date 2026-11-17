@@ -120,5 +120,6 @@
   "generationRejectedExplicitContent": "Aus diesem Foto lässt sich kein Monster erschaffen",
   "generationRejectedPerson": "Aus Fotos mit Personen kannst du keine Monster erschaffen\nFotografiere nur Gegenstände",
   "generationPersonNoticeTitle": "Eine Person ist auf dem Foto",
-  "generationPersonNoticeMessage": "Andere können das Bild deines Monsters im Kampf sehen.\nWenn außer dir noch jemand auf dem Foto ist, hol vor der Verwendung die Zustimmung dieser Person ein."
+  "generationPersonNoticeMessage": "Andere können das Bild deines Monsters im Kampf sehen.\nWenn außer dir noch jemand auf dem Foto ist, hol vor der Verwendung die Zustimmung dieser Person ein.",
+  "generationChooseCutoutTitle": "Motiv freigestellt"
 }

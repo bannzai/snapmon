@@ -120,5 +120,6 @@
   "generationRejectedExplicitContent": "이 사진으로는 몬스터를 만들 수 없어요",
   "generationRejectedPerson": "사람이 나온 사진으로는 몬스터를 만들 수 없어요\n물건만 찍어 주세요",
   "generationPersonNoticeTitle": "사진에 사람이 있어요",
-  "generationPersonNoticeMessage": "배틀에서는 다른 사람도 몬스터 이미지를 볼 수 있어요.\n사진에 본인 외의 사람이 있다면, 사용하기 전에 그 사람의 동의를 받아 주세요."
+  "generationPersonNoticeMessage": "배틀에서는 다른 사람도 몬스터 이미지를 볼 수 있어요.\n사진에 본인 외의 사람이 있다면, 사용하기 전에 그 사람의 동의를 받아 주세요.",
+  "generationChooseCutoutTitle": "피사체를 오려냈어요"
 }

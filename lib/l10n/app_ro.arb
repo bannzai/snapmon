@@ -120,5 +120,6 @@
   "generationRejectedExplicitContent": "Nu poți crea un monstru din această poză",
   "generationRejectedPerson": "Nu poți crea un monstru dintr-o poză în care apare o persoană\nFotografiază doar obiecte",
   "generationPersonNoticeTitle": "În fotografie apare o persoană",
-  "generationPersonNoticeMessage": "Și alții pot vedea imaginea monstrului tău în lupte.\nDacă în fotografie apare altcineva în afară de tine, cere-i acordul înainte să o folosești."
+  "generationPersonNoticeMessage": "Și alții pot vedea imaginea monstrului tău în lupte.\nDacă în fotografie apare altcineva în afară de tine, cere-i acordul înainte să o folosești.",
+  "generationChooseCutoutTitle": "Subiectul a fost decupat"
 }

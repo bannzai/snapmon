@@ -120,5 +120,6 @@
   "generationRejectedExplicitContent": "Je kunt van deze foto geen monster maken",
   "generationRejectedPerson": "Je kunt geen monster maken van een foto waar iemand op staat\nFotografeer alleen voorwerpen",
   "generationPersonNoticeTitle": "Er staat een persoon op de foto",
-  "generationPersonNoticeMessage": "Anderen kunnen de afbeelding van je monster ook zien tijdens gevechten.\nStaat er iemand anders dan jij op de foto? Vraag die persoon dan om toestemming voordat je de foto gebruikt."
+  "generationPersonNoticeMessage": "Anderen kunnen de afbeelding van je monster ook zien tijdens gevechten.\nStaat er iemand anders dan jij op de foto? Vraag die persoon dan om toestemming voordat je de foto gebruikt.",
+  "generationChooseCutoutTitle": "Onderwerp uitgeknipt"
 }

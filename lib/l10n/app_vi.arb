@@ -120,5 +120,6 @@
   "generationRejectedExplicitContent": "Không thể tạo quái vật từ ảnh này",
   "generationRejectedPerson": "Bạn không thể tạo quái vật từ ảnh có người\nChỉ chụp đồ vật thôi",
   "generationPersonNoticeTitle": "Có người trong ảnh",
-  "generationPersonNoticeMessage": "Người khác cũng có thể thấy ảnh quái vật của bạn trong trận đấu.\nNếu ảnh có người khác ngoài bạn, hãy xin họ đồng ý trước khi dùng."
+  "generationPersonNoticeMessage": "Người khác cũng có thể thấy ảnh quái vật của bạn trong trận đấu.\nNếu ảnh có người khác ngoài bạn, hãy xin họ đồng ý trước khi dùng.",
+  "generationChooseCutoutTitle": "Đã tách chủ thể khỏi ảnh"
 }

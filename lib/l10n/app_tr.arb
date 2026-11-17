@@ -120,5 +120,6 @@
   "generationRejectedExplicitContent": "Bu fotoğraftan canavar oluşturamazsın",
   "generationRejectedPerson": "İnsan görünen bir fotoğraftan canavar oluşturamazsın\nYalnızca eşyaların fotoğrafını çek",
   "generationPersonNoticeTitle": "Fotoğrafta bir kişi var",
-  "generationPersonNoticeMessage": "Canavarının görselini savaşlarda başkaları da görebilir.\nFotoğrafta senden başka biri varsa kullanmadan önce ondan izin al."
+  "generationPersonNoticeMessage": "Canavarının görselini savaşlarda başkaları da görebilir.\nFotoğrafta senden başka biri varsa kullanmadan önce ondan izin al.",
+  "generationChooseCutoutTitle": "Nesne kesilip çıkarıldı"
 }

@@ -120,5 +120,6 @@
   "generationRejectedExplicitContent": "Não consegues criar um monstro a partir desta fotografia",
   "generationRejectedPerson": "Não podes criar um monstro a partir de uma foto onde apareça alguém\nFotografa apenas objetos",
   "generationPersonNoticeTitle": "Há uma pessoa na fotografia",
-  "generationPersonNoticeMessage": "Outras pessoas também podem ver a imagem do teu monstro nos combates.\nSe aparecer alguém além de ti na fotografia, pede-lhe autorização antes de a usares."
+  "generationPersonNoticeMessage": "Outras pessoas também podem ver a imagem do teu monstro nos combates.\nSe aparecer alguém além de ti na fotografia, pede-lhe autorização antes de a usares.",
+  "generationChooseCutoutTitle": "Objeto recortado"
 }

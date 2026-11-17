@@ -120,5 +120,6 @@
   "generationRejectedExplicitContent": "Z této fotky nejde vytvořit příšeru",
   "generationRejectedPerson": "Z fotky, na které je člověk, monstrum nevytvoříš\nFoť jen předměty",
   "generationPersonNoticeTitle": "Na fotce je člověk",
-  "generationPersonNoticeMessage": "Obrázek příšery uvidí během soubojů i ostatní.\nPokud je na fotce někdo kromě tebe, požádej ho před použitím o souhlas."
+  "generationPersonNoticeMessage": "Obrázek příšery uvidí během soubojů i ostatní.\nPokud je na fotce někdo kromě tebe, požádej ho před použitím o souhlas.",
+  "generationChooseCutoutTitle": "Objekt je vyříznutý"
 }

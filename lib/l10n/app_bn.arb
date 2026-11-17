@@ -120,5 +120,6 @@
   "generationRejectedExplicitContent": "এই ছবি থেকে মনস্টার বানানো যাবে না",
   "generationRejectedPerson": "মানুষ আছে এমন ছবি থেকে মনস্টার বানানো যাবে না\nশুধু জিনিসপত্রের ছবি তোলো",
   "generationPersonNoticeTitle": "ছবিতে একজন মানুষ আছে",
-  "generationPersonNoticeMessage": "লড়াইয়ে অন্যরাও মনস্টারের ছবি দেখতে পাবে।\nছবিতে তুমি ছাড়া অন্য কেউ থাকলে, ব্যবহার করার আগে তার সম্মতি নাও।"
+  "generationPersonNoticeMessage": "লড়াইয়ে অন্যরাও মনস্টারের ছবি দেখতে পাবে।\nছবিতে তুমি ছাড়া অন্য কেউ থাকলে, ব্যবহার করার আগে তার সম্মতি নাও।",
+  "generationChooseCutoutTitle": "ছবির বস্তুটি কেটে নেওয়া হয়েছে"
 }

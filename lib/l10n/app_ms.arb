@@ -120,5 +120,6 @@
   "generationRejectedExplicitContent": "Kamu tak boleh cipta monster daripada foto ini",
   "generationRejectedPerson": "Kamu tak boleh cipta raksasa daripada foto yang ada orang\nAmbil gambar objek sahaja",
   "generationPersonNoticeTitle": "Ada orang dalam foto",
-  "generationPersonNoticeMessage": "Orang lain juga boleh melihat imej monster kamu semasa bertarung.\nJika ada orang lain selain kamu dalam foto, dapatkan persetujuan mereka sebelum menggunakannya."
+  "generationPersonNoticeMessage": "Orang lain juga boleh melihat imej monster kamu semasa bertarung.\nJika ada orang lain selain kamu dalam foto, dapatkan persetujuan mereka sebelum menggunakannya.",
+  "generationChooseCutoutTitle": "Objek foto berjaya dipotong"
 }

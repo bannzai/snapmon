@@ -120,5 +120,6 @@
   "generationRejectedExplicitContent": "Iz te fotografije ne moreš ustvariti pošasti",
   "generationRejectedPerson": "Iz fotografije, na kateri je človek, ne moreš ustvariti pošasti\nFotografiraj samo predmete",
   "generationPersonNoticeTitle": "Na fotografiji je oseba",
-  "generationPersonNoticeMessage": "Drugi lahko med boji vidijo sliko tvoje pošasti.\nČe je na fotografiji poleg tebe še kdo, ga pred uporabo prosi za dovoljenje."
+  "generationPersonNoticeMessage": "Drugi lahko med boji vidijo sliko tvoje pošasti.\nČe je na fotografiji poleg tebe še kdo, ga pred uporabo prosi za dovoljenje.",
+  "generationChooseCutoutTitle": "Predmet je izrezan"
 }

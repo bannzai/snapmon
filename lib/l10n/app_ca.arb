@@ -120,5 +120,6 @@
   "generationRejectedExplicitContent": "No es pot crear un monstre amb aquesta foto",
   "generationRejectedPerson": "No pots crear un monstre amb una foto on surti algú\nFes fotos només d'objectes",
   "generationPersonNoticeTitle": "Hi surt una persona",
-  "generationPersonNoticeMessage": "Els altres també poden veure la imatge del monstre durant els combats.\nSi a la foto hi surt algú més, demana-li permís abans de fer-la servir."
+  "generationPersonNoticeMessage": "Els altres també poden veure la imatge del monstre durant els combats.\nSi a la foto hi surt algú més, demana-li permís abans de fer-la servir.",
+  "generationChooseCutoutTitle": "Hem retallat el subjecte"
 }

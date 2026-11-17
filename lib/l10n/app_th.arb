@@ -120,5 +120,6 @@
   "generationRejectedExplicitContent": "สร้างมอนสเตอร์จากรูปนี้ไม่ได้",
   "generationRejectedPerson": "สร้างมอนสเตอร์จากรูปที่มีคนไม่ได้\nถ่ายเฉพาะสิ่งของ",
   "generationPersonNoticeTitle": "มีคนอยู่ในรูป",
-  "generationPersonNoticeMessage": "คนอื่นอาจเห็นภาพมอนสเตอร์ของคุณระหว่างการต่อสู้\nถ้าในรูปมีคนอื่นนอกจากคุณ ขอความยินยอมจากคนนั้นก่อนนำรูปไปใช้"
+  "generationPersonNoticeMessage": "คนอื่นอาจเห็นภาพมอนสเตอร์ของคุณระหว่างการต่อสู้\nถ้าในรูปมีคนอื่นนอกจากคุณ ขอความยินยอมจากคนนั้นก่อนนำรูปไปใช้",
+  "generationChooseCutoutTitle": "ตัดตัวแบบออกจากภาพแล้ว"
 }
