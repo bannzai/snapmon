@@ -198,5 +198,6 @@
   "statusConditionBurn": "Brannskade",
   "statusConditionDrowsy": "Døsighet",
   "statusConditionSleep": "Søvn",
-  "statusConditionCurse": "Forbannelse"
+  "statusConditionCurse": "Forbannelse",
+  "statusConditionConfusion": "Forvirring"
 }

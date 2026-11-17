@@ -198,5 +198,6 @@
   "statusConditionBurn": "灼伤",
   "statusConditionDrowsy": "困倦",
   "statusConditionSleep": "睡眠",
-  "statusConditionCurse": "诅咒"
+  "statusConditionCurse": "诅咒",
+  "statusConditionConfusion": "混乱"
 }

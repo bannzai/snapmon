@@ -198,5 +198,6 @@
   "statusConditionBurn": "Popálení",
   "statusConditionDrowsy": "Ospalost",
   "statusConditionSleep": "Spánek",
-  "statusConditionCurse": "Prokletí"
+  "statusConditionCurse": "Prokletí",
+  "statusConditionConfusion": "Zmatení"
 }

@@ -198,5 +198,6 @@
   "statusConditionBurn": "Brandwond",
   "statusConditionDrowsy": "Sufheid",
   "statusConditionSleep": "Slaap",
-  "statusConditionCurse": "Vervloeking"
+  "statusConditionCurse": "Vervloeking",
+  "statusConditionConfusion": "Verwarring"
 }

@@ -198,5 +198,6 @@
   "statusConditionBurn": "Opeklina",
   "statusConditionDrowsy": "Pospanost",
   "statusConditionSleep": "San",
-  "statusConditionCurse": "Prokletstvo"
+  "statusConditionCurse": "Prokletstvo",
+  "statusConditionConfusion": "Zbunjenost"
 }

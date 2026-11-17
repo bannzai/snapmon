@@ -198,5 +198,6 @@
   "statusConditionBurn": "Luka bakar",
   "statusConditionDrowsy": "Mengantuk",
   "statusConditionSleep": "Tidur",
-  "statusConditionCurse": "Kutukan"
+  "statusConditionCurse": "Kutukan",
+  "statusConditionConfusion": "Kebingungan"
 }

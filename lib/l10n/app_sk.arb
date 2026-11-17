@@ -198,5 +198,6 @@
   "statusConditionBurn": "Popálenie",
   "statusConditionDrowsy": "Ospalosť",
   "statusConditionSleep": "Spánok",
-  "statusConditionCurse": "Kliatba"
+  "statusConditionCurse": "Kliatba",
+  "statusConditionConfusion": "Zmätenie"
 }

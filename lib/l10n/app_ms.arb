@@ -198,5 +198,6 @@
   "statusConditionBurn": "Melecur",
   "statusConditionDrowsy": "Mengantuk",
   "statusConditionSleep": "Tidur",
-  "statusConditionCurse": "Sumpahan"
+  "statusConditionCurse": "Sumpahan",
+  "statusConditionConfusion": "Keliru"
 }

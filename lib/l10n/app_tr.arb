@@ -198,5 +198,6 @@
   "statusConditionBurn": "Yanık",
   "statusConditionDrowsy": "Uyuklama",
   "statusConditionSleep": "Uyku",
-  "statusConditionCurse": "Lanet"
+  "statusConditionCurse": "Lanet",
+  "statusConditionConfusion": "Şaşkınlık"
 }

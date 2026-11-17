@@ -198,5 +198,6 @@
   "statusConditionBurn": "Arsură",
   "statusConditionDrowsy": "Somnolență",
   "statusConditionSleep": "Somn",
-  "statusConditionCurse": "Blestem"
+  "statusConditionCurse": "Blestem",
+  "statusConditionConfusion": "Confuzie"
 }

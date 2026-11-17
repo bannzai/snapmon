@@ -198,5 +198,6 @@
   "statusConditionBurn": "화상",
   "statusConditionDrowsy": "졸음",
   "statusConditionSleep": "잠듦",
-  "statusConditionCurse": "저주"
+  "statusConditionCurse": "저주",
+  "statusConditionConfusion": "혼란"
 }

@@ -198,5 +198,6 @@
   "statusConditionBurn": "દાઝ",
   "statusConditionDrowsy": "ઘેન",
   "statusConditionSleep": "ઊંઘ",
-  "statusConditionCurse": "શાપ"
+  "statusConditionCurse": "શાપ",
+  "statusConditionConfusion": "મૂંઝવણ"
 }

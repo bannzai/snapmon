@@ -198,5 +198,6 @@
   "statusConditionBurn": "Poparzenie",
   "statusConditionDrowsy": "Senność",
   "statusConditionSleep": "Sen",
-  "statusConditionCurse": "Klątwa"
+  "statusConditionCurse": "Klątwa",
+  "statusConditionConfusion": "Dezorientacja"
 }

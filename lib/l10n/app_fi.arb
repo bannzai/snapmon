@@ -198,5 +198,6 @@
   "statusConditionBurn": "Palovamma",
   "statusConditionDrowsy": "Uneliaisuus",
   "statusConditionSleep": "Uni",
-  "statusConditionCurse": "Kirous"
+  "statusConditionCurse": "Kirous",
+  "statusConditionConfusion": "Sekavuus"
 }

@@ -198,5 +198,6 @@
   "statusConditionBurn": "కాలిన గాయం",
   "statusConditionDrowsy": "కునుకుపాటు",
   "statusConditionSleep": "నిద్ర",
-  "statusConditionCurse": "శాపం"
+  "statusConditionCurse": "శాపం",
+  "statusConditionConfusion": "గందరగోళం"
 }

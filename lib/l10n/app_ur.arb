@@ -198,5 +198,6 @@
   "statusConditionBurn": "جلنا",
   "statusConditionDrowsy": "غنودگی",
   "statusConditionSleep": "نیند",
-  "statusConditionCurse": "لعنت"
+  "statusConditionCurse": "لعنت",
+  "statusConditionConfusion": "الجھن"
 }

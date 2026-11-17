@@ -198,5 +198,6 @@
   "statusConditionBurn": "Bỏng",
   "statusConditionDrowsy": "Buồn ngủ",
   "statusConditionSleep": "Ngủ",
-  "statusConditionCurse": "Lời nguyền"
+  "statusConditionCurse": "Lời nguyền",
+  "statusConditionConfusion": "Bối rối"
 }

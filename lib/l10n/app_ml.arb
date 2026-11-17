@@ -198,5 +198,6 @@
   "statusConditionBurn": "പൊള്ളൽ",
   "statusConditionDrowsy": "മയക്കം",
   "statusConditionSleep": "ഉറക്കം",
-  "statusConditionCurse": "ശാപം"
+  "statusConditionCurse": "ശാപം",
+  "statusConditionConfusion": "ആശയക്കുഴപ്പം"
 }

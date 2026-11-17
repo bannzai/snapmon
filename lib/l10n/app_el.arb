@@ -198,5 +198,6 @@
   "statusConditionBurn": "Έγκαυμα",
   "statusConditionDrowsy": "Υπνηλία",
   "statusConditionSleep": "Ύπνος",
-  "statusConditionCurse": "Κατάρα"
+  "statusConditionCurse": "Κατάρα",
+  "statusConditionConfusion": "Σύγχυση"
 }

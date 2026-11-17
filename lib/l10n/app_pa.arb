@@ -198,5 +198,6 @@
   "statusConditionBurn": "ਸੜਨ",
   "statusConditionDrowsy": "ਊਂਘ",
   "statusConditionSleep": "ਨੀਂਦ",
-  "statusConditionCurse": "ਸਰਾਪ"
+  "statusConditionCurse": "ਸਰਾਪ",
+  "statusConditionConfusion": "ਉਲਝਣ"
 }

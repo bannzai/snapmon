@@ -198,5 +198,6 @@
   "statusConditionBurn": "Scottatura",
   "statusConditionDrowsy": "Sonnolenza",
   "statusConditionSleep": "Sonno",
-  "statusConditionCurse": "Maledizione"
+  "statusConditionCurse": "Maledizione",
+  "statusConditionConfusion": "Confusione"
 }

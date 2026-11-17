@@ -198,5 +198,6 @@
   "statusConditionBurn": "แผลไหม้",
   "statusConditionDrowsy": "ง่วงนอน",
   "statusConditionSleep": "หลับ",
-  "statusConditionCurse": "คำสาป"
+  "statusConditionCurse": "คำสาป",
+  "statusConditionConfusion": "สับสน"
 }

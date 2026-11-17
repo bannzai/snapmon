@@ -198,5 +198,6 @@
   "statusConditionBurn": "Verbrennung",
   "statusConditionDrowsy": "Schläfrigkeit",
   "statusConditionSleep": "Schlaf",
-  "statusConditionCurse": "Fluch"
+  "statusConditionCurse": "Fluch",
+  "statusConditionConfusion": "Verwirrung"
 }

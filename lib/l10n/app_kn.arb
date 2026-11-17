@@ -198,5 +198,6 @@
   "statusConditionBurn": "ಸುಟ್ಟ ಗಾಯ",
   "statusConditionDrowsy": "ತೂಕಡಿಕೆ",
   "statusConditionSleep": "ನಿದ್ರೆ",
-  "statusConditionCurse": "ಶಾಪ"
+  "statusConditionCurse": "ಶಾಪ",
+  "statusConditionConfusion": "ಗೊಂದಲ"
 }

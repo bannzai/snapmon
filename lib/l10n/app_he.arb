@@ -198,5 +198,6 @@
   "statusConditionBurn": "כוויה",
   "statusConditionDrowsy": "נמנום",
   "statusConditionSleep": "שינה",
-  "statusConditionCurse": "קללה"
+  "statusConditionCurse": "קללה",
+  "statusConditionConfusion": "בלבול"
 }
