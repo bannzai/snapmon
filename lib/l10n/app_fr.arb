@@ -194,5 +194,6 @@
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "Poison",
   "statusConditionParalysis": "Paralysie",
-  "statusConditionStun": "K.O."
+  "statusConditionStun": "K.O.",
+  "statusConditionBurn": "Brûlure"
 }
