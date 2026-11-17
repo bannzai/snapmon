@@ -230,5 +230,6 @@
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "Chọn ảnh để bắt đầu",
   "titleStartFromCamera": "Chụp ảnh để bắt đầu",
-  "titleContinue": "Chơi tiếp"
+  "titleContinue": "Chơi tiếp",
+  "titleContinueWithCount": "Chơi tiếp (bộ sưu tập {monsterCount})"
 }

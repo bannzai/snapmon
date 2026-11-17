@@ -230,5 +230,6 @@
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "ಫೋಟೋ ಆಯ್ಕೆ ಮಾಡಿ ಶುರು ಮಾಡು",
   "titleStartFromCamera": "ಫೋಟೋ ತೆಗೆದು ಶುರು ಮಾಡು",
-  "titleContinue": "ಆಟ ಮುಂದುವರಿಸು"
+  "titleContinue": "ಆಟ ಮುಂದುವರಿಸು",
+  "titleContinueWithCount": "ಮುಂದುವರಿಸು (ವಿಶ್ವಕೋಶ {monsterCount})"
 }

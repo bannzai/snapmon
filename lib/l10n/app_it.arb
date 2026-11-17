@@ -230,5 +230,6 @@
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "Scegli una foto e inizia",
   "titleStartFromCamera": "Scatta una foto e inizia",
-  "titleContinue": "Continua"
+  "titleContinue": "Continua",
+  "titleContinueWithCount": "Continua (dex {monsterCount})"
 }

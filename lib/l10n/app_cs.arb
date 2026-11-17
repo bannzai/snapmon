@@ -230,5 +230,6 @@
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "Vyber fotku a začni",
   "titleStartFromCamera": "Vyfoť a začni",
-  "titleContinue": "Pokračovat"
+  "titleContinue": "Pokračovat",
+  "titleContinueWithCount": "Pokračuj (encyklopedie {monsterCount})"
 }

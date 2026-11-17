@@ -230,5 +230,6 @@
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "ছবি বেছে শুরু করো",
   "titleStartFromCamera": "ছবি তুলে শুরু করো",
-  "titleContinue": "খেলা চালিয়ে যাও"
+  "titleContinue": "খেলা চালিয়ে যাও",
+  "titleContinueWithCount": "চালিয়ে যাও (সংগ্রহ {monsterCount})"
 }

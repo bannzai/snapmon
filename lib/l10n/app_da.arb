@@ -230,5 +230,6 @@
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "Vælg et billede, og start",
   "titleStartFromCamera": "Tag et billede, og kom i gang",
-  "titleContinue": "Fortsæt"
+  "titleContinue": "Fortsæt",
+  "titleContinueWithCount": "Fortsæt (dex {monsterCount})"
 }

@@ -230,5 +230,6 @@
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "เลือกรูปแล้วเริ่มเลย",
   "titleStartFromCamera": "ถ่ายรูปแล้วเริ่มเลย",
-  "titleContinue": "เล่นต่อ"
+  "titleContinue": "เล่นต่อ",
+  "titleContinueWithCount": "เล่นต่อ (สารานุกรม {monsterCount})"
 }

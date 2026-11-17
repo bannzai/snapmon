@@ -230,5 +230,6 @@
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "Fotoğraf seç ve başla",
   "titleStartFromCamera": "Fotoğraf çekip başla",
-  "titleContinue": "Devam et"
+  "titleContinue": "Devam et",
+  "titleContinueWithCount": "Devam et (ansiklopedi {monsterCount})"
 }

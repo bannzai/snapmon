@@ -230,5 +230,6 @@
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "اختر صورة وابدأ",
   "titleStartFromCamera": "ابدأ بالتقاط صورة",
-  "titleContinue": "متابعة اللعب"
+  "titleContinue": "متابعة اللعب",
+  "titleContinueWithCount": "تابع (الموسوعة {monsterCount})"
 }

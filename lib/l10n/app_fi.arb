@@ -230,5 +230,6 @@
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "Valitse kuva ja aloita",
   "titleStartFromCamera": "Ota kuva ja aloita",
-  "titleContinue": "Jatka"
+  "titleContinue": "Jatka",
+  "titleContinueWithCount": "Jatka (kokoelma {monsterCount})"
 }

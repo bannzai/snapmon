@@ -230,5 +230,6 @@
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "Pilih foto untuk mulai",
   "titleStartFromCamera": "Foto dulu, lalu mulai",
-  "titleContinue": "Lanjutkan"
+  "titleContinue": "Lanjutkan",
+  "titleContinueWithCount": "Lanjutkan (dex {monsterCount})"
 }

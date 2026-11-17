@@ -230,5 +230,6 @@
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "사진을 골라 시작하기",
   "titleStartFromCamera": "사진 찍고 시작하기",
-  "titleContinue": "이어하기"
+  "titleContinue": "이어하기",
+  "titleContinueWithCount": "이어하기 (도감 {monsterCount})"
 }

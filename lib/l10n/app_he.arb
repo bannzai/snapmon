@@ -230,5 +230,6 @@
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "לבחור תמונה ולהתחיל",
   "titleStartFromCamera": "לצלם ולהתחיל",
-  "titleContinue": "המשך משחק"
+  "titleContinue": "המשך משחק",
+  "titleContinueWithCount": "להמשיך (אוסף {monsterCount})"
 }

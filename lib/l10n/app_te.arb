@@ -230,5 +230,6 @@
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "ఫోటో ఎంచుకుని మొదలుపెట్టు",
   "titleStartFromCamera": "ఫోటో తీసి మొదలుపెట్టు",
-  "titleContinue": "ఆట కొనసాగించు"
+  "titleContinue": "ఆట కొనసాగించు",
+  "titleContinueWithCount": "కొనసాగించు (డెక్స్ {monsterCount})"
 }

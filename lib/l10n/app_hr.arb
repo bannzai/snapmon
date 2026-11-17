@@ -230,5 +230,6 @@
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "Odaberi fotografiju i kreni",
   "titleStartFromCamera": "Fotkaj i kreni",
-  "titleContinue": "Nastavi"
+  "titleContinue": "Nastavi",
+  "titleContinueWithCount": "Nastavi (enciklopedija {monsterCount})"
 }

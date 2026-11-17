@@ -230,5 +230,6 @@
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "Pilih foto untuk mula",
   "titleStartFromCamera": "Ambil gambar dan mula",
-  "titleContinue": "Teruskan"
+  "titleContinue": "Teruskan",
+  "titleContinueWithCount": "Teruskan (ensiklopedia {monsterCount})"
 }

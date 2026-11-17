@@ -230,5 +230,6 @@
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "Διάλεξε φωτογραφία και ξεκίνα",
   "titleStartFromCamera": "Βγάλε φωτογραφία και ξεκίνα",
-  "titleContinue": "Συνέχεια"
+  "titleContinue": "Συνέχεια",
+  "titleContinueWithCount": "Συνέχεια (εγκυκλοπαίδεια {monsterCount})"
 }

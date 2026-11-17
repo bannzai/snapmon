@@ -230,5 +230,6 @@
   "movePowerPoints": "PP",
   "titleStartFromAlbum": "फोटो निवडून सुरुवात कर",
   "titleStartFromCamera": "फोटो काढून सुरुवात कर",
-  "titleContinue": "पुढे खेळ"
+  "titleContinue": "पुढे खेळ",
+  "titleContinueWithCount": "पुढे खेळ (संग्रह {monsterCount})"
 }
