@@ -115,6 +115,7 @@ void main() {
         expectOnlyArtImage(tester: tester, artImage: artImage);
         expect(find.textContaining(sourcePhotoReference), findsNothing);
         expectNoGeneratedByAiText();
+        expect(find.text('SnapMonster'), findsOneWidget);
       });
 
       testWidgets('バトルの結果のカード (${format.name})', (tester) async {
@@ -138,6 +139,7 @@ void main() {
         expect(find.textContaining(sourcePhotoReference), findsNothing);
         expectNoGeneratedByAiText();
         expect(find.text('Lv. 7 → 8'), findsOneWidget);
+        expect(find.text('SnapMonster'), findsOneWidget);
       });
     }
   });

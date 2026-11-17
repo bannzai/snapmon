@@ -393,7 +393,7 @@ void main() {
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
       );
-      expect(find.text('snapmon'), findsOneWidget);
+      expect(find.text('SnapMonster'), findsOneWidget);
       expect(find.text('身の回りの物が\nモンスターになって戦う'), findsOneWidget);
       expect(find.text('写真から選んではじめる'), findsOneWidget);
       expect(find.text('$minimumAge 歳以上が対象 · '), findsOneWidget);
@@ -411,6 +411,28 @@ void main() {
       ]);
     });
 
+    // 幅 320 は Flutter の Web 版を開ける狭いスマホの幅、390 は iPhone の幅。高さは幅だけを変えて確かめるため 844 のままにする
+    for (final screenWidth in [320.0, 390.0]) {
+      testWidgets('幅 $screenWidth の画面で、ロゴ「SnapMonster」が 1 行のまま画面の幅に収まる', (
+        tester,
+      ) async {
+        await pumpApp(
+          tester: tester,
+          hasStartedSession: false,
+          startSessionFailureCount: 0,
+          isDeveloperMenuEnabled: false,
+        );
+        tester.view.physicalSize = Size(screenWidth, 844);
+        await tester.pumpAndSettle();
+        final logo = find.text('SnapMonster');
+        // ロゴは 44px・行の高さ 1 倍のため、1 行なら高さは 44。語の途中で折り返すと 88 になる
+        expect(tester.renderObject<RenderParagraph>(logo).size.height, 44);
+        final logoRect = tester.getRect(logo);
+        expect(logoRect.left, greaterThanOrEqualTo(0));
+        expect(logoRect.right, lessThanOrEqualTo(screenWidth));
+      });
+    }
+
     testWidgets('Web のように最初の操作を待つ時、タイトルでは BGM を流さず、画面のどこかを押した時に流す', (
       tester,
     ) async {
@@ -424,7 +446,7 @@ void main() {
       expect(audioCalls.playedBackgroundMusicAssetPaths, isEmpty);
       // タッチは指を置いただけではブラウザが操作に数えないため、離すまで流さない
       final gesture = await tester.startGesture(
-        tester.getCenter(find.text('snapmon')),
+        tester.getCenter(find.text('SnapMonster')),
         kind: PointerDeviceKind.touch,
       );
       await tester.pump();
@@ -446,7 +468,7 @@ void main() {
         isDeveloperMenuEnabled: false,
       );
       final gesture = await tester.startGesture(
-        tester.getCenter(find.text('snapmon')),
+        tester.getCenter(find.text('SnapMonster')),
         kind: PointerDeviceKind.mouse,
       );
       await tester.pumpAndSettle();
@@ -1366,6 +1388,8 @@ void main() {
       expect(shared.fileName, 'snapmon-${bornMonster.id}-portrait.png');
       expect(shared.text, contains(bornMonster.name));
       expect(shared.text, contains(landingPageUri.toString()));
+      expect(shared.text, contains('SnapMonster で'));
+      expect(shared.text, contains('#SnapMonster'));
       final logged = shareCalls.loggedEvents.single;
       expect(logged.event, AnalyticsEvent.contentShared);
       expect(logged.parameters, {

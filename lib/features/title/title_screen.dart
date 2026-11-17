@@ -413,7 +413,7 @@ class _TitleScreenState extends State<TitleScreen> {
   Widget _buildContent() => Column(
     children: [
       const SizedBox(height: 40),
-      const Text('snapmon', style: _TitleTextStyles.logo),
+      const Text('SnapMonster', style: _TitleTextStyles.logo),
       const SizedBox(height: 10),
       const Text('SNAP IT  FIGHT IT', style: _TitleTextStyles.tagline),
       Expanded(
