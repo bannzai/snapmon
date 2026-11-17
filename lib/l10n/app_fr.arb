@@ -288,5 +288,6 @@
   "actionCardUnassignedChooseMove": "Choisir une capacité",
   "actionCardAssignTitle": "Choisis la capacité à recevoir avec cette Action Card",
   "actionCardAssignNoMoves": "Aucune capacité à recevoir",
-  "actionCardAssigned": "Tu as reçu {moveName}"
+  "actionCardAssigned": "Tu as reçu {moveName}",
+  "actionCardFilterAll": "Tout"
 }
