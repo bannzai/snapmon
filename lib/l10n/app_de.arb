@@ -88,5 +88,6 @@
   "capturePickFromAlbum": "Aus dem Album auswählen",
   "captureGoToBattle": "Kämpfen",
   "captureViewfinderGuide": "Bring dein Motiv in den Rahmen",
-  "captureCameraPermissionRequired": "Du musst den Kamerazugriff erlauben"
+  "captureCameraPermissionRequired": "Du musst den Kamerazugriff erlauben",
+  "captureCameraPermissionHint": "Erlaube den Kamerazugriff in den Einstellungen"
 }

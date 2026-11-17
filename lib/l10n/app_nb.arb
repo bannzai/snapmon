@@ -88,5 +88,6 @@
   "capturePickFromAlbum": "Velg fra albumet",
   "captureGoToBattle": "Kjemp",
   "captureViewfinderGuide": "Plasser motivet innenfor rammen",
-  "captureCameraPermissionRequired": "Du må gi tilgang til kameraet"
+  "captureCameraPermissionRequired": "Du må gi tilgang til kameraet",
+  "captureCameraPermissionHint": "Gi tilgang til kameraet i innstillingene"
 }

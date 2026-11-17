@@ -88,5 +88,6 @@
   "capturePickFromAlbum": "Escolher do álbum",
   "captureGoToBattle": "Combater",
   "captureViewfinderGuide": "Põe o que vais fotografar dentro do enquadramento",
-  "captureCameraPermissionRequired": "Tens de permitir o acesso à câmara"
+  "captureCameraPermissionRequired": "Tens de permitir o acesso à câmara",
+  "captureCameraPermissionHint": "Permite o acesso à câmara nas definições"
 }

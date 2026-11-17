@@ -88,5 +88,6 @@
   "capturePickFromAlbum": "ಆಲ್ಬಮ್‌ನಿಂದ ಆಯ್ಕೆ ಮಾಡು",
   "captureGoToBattle": "ಹೋರಾಡು",
   "captureViewfinderGuide": "ಚಿತ್ರ ತೆಗೆಯುವ ವಸ್ತುವನ್ನು ಚೌಕಟ್ಟಿನೊಳಗೆ ಇರಿಸು",
-  "captureCameraPermissionRequired": "ಕ್ಯಾಮೆರಾ ಬಳಸಲು ಅನುಮತಿ ಬೇಕು"
+  "captureCameraPermissionRequired": "ಕ್ಯಾಮೆರಾ ಬಳಸಲು ಅನುಮತಿ ಬೇಕು",
+  "captureCameraPermissionHint": "ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಕ್ಯಾಮೆರಾ ಬಳಕೆಗೆ ಅನುಮತಿ ನೀಡು"
 }

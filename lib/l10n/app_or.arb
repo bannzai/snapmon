@@ -88,5 +88,6 @@
   "capturePickFromAlbum": "ଆଲବମରୁ ବାଛ",
   "captureGoToBattle": "ଲଢ଼",
   "captureViewfinderGuide": "ଫଟୋ ଉଠାଇବାକୁ ଥିବା ବସ୍ତୁକୁ ଫ୍ରେମ୍‌ ଭିତରେ ରଖ",
-  "captureCameraPermissionRequired": "କ୍ୟାମେରା ବ୍ୟବହାର ପାଇଁ ଅନୁମତି ଦରକାର"
+  "captureCameraPermissionRequired": "କ୍ୟାମେରା ବ୍ୟବହାର ପାଇଁ ଅନୁମତି ଦରକାର",
+  "captureCameraPermissionHint": "ସେଟିଂସ୍‌ରେ କ୍ୟାମେରାକୁ ଅନୁମତି ଦିଅ"
 }

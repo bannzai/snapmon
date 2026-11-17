@@ -88,5 +88,6 @@
   "capturePickFromAlbum": "البم سے چنو",
   "captureGoToBattle": "لڑو",
   "captureViewfinderGuide": "جس کی تصویر لے رہے ہو، اسے فریم میں لاؤ",
-  "captureCameraPermissionRequired": "کیمرہ استعمال کرنے کی اجازت چاہیے"
+  "captureCameraPermissionRequired": "کیمرہ استعمال کرنے کی اجازت چاہیے",
+  "captureCameraPermissionHint": "سیٹنگز میں کیمرے کی اجازت دو"
 }

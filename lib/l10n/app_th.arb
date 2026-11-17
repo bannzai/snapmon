@@ -88,5 +88,6 @@
   "capturePickFromAlbum": "เลือกจากอัลบั้ม",
   "captureGoToBattle": "ต่อสู้",
   "captureViewfinderGuide": "วางสิ่งที่จะถ่ายให้อยู่ในกรอบ",
-  "captureCameraPermissionRequired": "ต้องอนุญาตให้ใช้กล้อง"
+  "captureCameraPermissionRequired": "ต้องอนุญาตให้ใช้กล้อง",
+  "captureCameraPermissionHint": "อนุญาตให้ใช้กล้องในการตั้งค่า"
 }

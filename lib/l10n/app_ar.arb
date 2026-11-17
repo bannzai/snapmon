@@ -88,5 +88,6 @@
   "capturePickFromAlbum": "اختر من الألبوم",
   "captureGoToBattle": "قاتل",
   "captureViewfinderGuide": "ضع ما تصوّره داخل الإطار",
-  "captureCameraPermissionRequired": "يلزم السماح باستخدام الكاميرا"
+  "captureCameraPermissionRequired": "يلزم السماح باستخدام الكاميرا",
+  "captureCameraPermissionHint": "اسمح بالوصول إلى الكاميرا من الإعدادات"
 }

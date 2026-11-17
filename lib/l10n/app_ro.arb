@@ -88,5 +88,6 @@
   "capturePickFromAlbum": "Alege din album",
   "captureGoToBattle": "Luptă-te",
   "captureViewfinderGuide": "Pune subiectul în cadru",
-  "captureCameraPermissionRequired": "Trebuie să permiți accesul la cameră"
+  "captureCameraPermissionRequired": "Trebuie să permiți accesul la cameră",
+  "captureCameraPermissionHint": "Permite accesul la cameră din setări"
 }

@@ -88,5 +88,6 @@
   "capturePickFromAlbum": "לבחור מהאלבום",
   "captureGoToBattle": "להילחם",
   "captureViewfinderGuide": "להכניס את מה שמצלמים למסגרת",
-  "captureCameraPermissionRequired": "צריך לאפשר גישה למצלמה"
+  "captureCameraPermissionRequired": "צריך לאפשר גישה למצלמה",
+  "captureCameraPermissionHint": "לאפשר גישה למצלמה בהגדרות"
 }

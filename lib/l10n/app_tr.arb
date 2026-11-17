@@ -88,5 +88,6 @@
   "capturePickFromAlbum": "Albümden seç",
   "captureGoToBattle": "Savaş",
   "captureViewfinderGuide": "Fotoğrafını çekeceğin şeyi çerçeveye al",
-  "captureCameraPermissionRequired": "Kamera erişimine izin vermen gerekiyor"
+  "captureCameraPermissionRequired": "Kamera erişimine izin vermen gerekiyor",
+  "captureCameraPermissionHint": "Ayarlardan kamera erişimine izin ver"
 }

@@ -88,5 +88,6 @@
   "capturePickFromAlbum": "Выбери из альбома",
   "captureGoToBattle": "Сразиться",
   "captureViewfinderGuide": "Помести объект съёмки в рамку",
-  "captureCameraPermissionRequired": "Нужно разрешить доступ к камере"
+  "captureCameraPermissionRequired": "Нужно разрешить доступ к камере",
+  "captureCameraPermissionHint": "Разреши доступ к камере в настройках"
 }

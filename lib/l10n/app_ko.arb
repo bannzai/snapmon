@@ -88,5 +88,6 @@
   "capturePickFromAlbum": "앨범에서 선택하기",
   "captureGoToBattle": "대전하기",
   "captureViewfinderGuide": "찍을 대상을 프레임 안에 넣기",
-  "captureCameraPermissionRequired": "카메라 사용 권한이 필요해요"
+  "captureCameraPermissionRequired": "카메라 사용 권한이 필요해요",
+  "captureCameraPermissionHint": "설정에서 카메라 사용을 허용해 주세요"
 }

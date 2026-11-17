@@ -88,5 +88,6 @@
   "capturePickFromAlbum": "Chọn từ album",
   "captureGoToBattle": "Chiến đấu",
   "captureViewfinderGuide": "Đưa vật cần chụp vào khung hình",
-  "captureCameraPermissionRequired": "Bạn cần cho phép dùng camera"
+  "captureCameraPermissionRequired": "Bạn cần cho phép dùng camera",
+  "captureCameraPermissionHint": "Cho phép dùng camera trong phần cài đặt"
 }

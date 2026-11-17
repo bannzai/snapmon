@@ -88,5 +88,6 @@
   "capturePickFromAlbum": "Scegli dall’album",
   "captureGoToBattle": "Combatti",
   "captureViewfinderGuide": "Metti il soggetto nell'inquadratura",
-  "captureCameraPermissionRequired": "Devi consentire l’accesso alla fotocamera"
+  "captureCameraPermissionRequired": "Devi consentire l’accesso alla fotocamera",
+  "captureCameraPermissionHint": "Consenti l'accesso alla fotocamera nelle impostazioni"
 }

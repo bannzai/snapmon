@@ -88,5 +88,6 @@
   "capturePickFromAlbum": "ஆல்பத்திலிருந்து தேர்ந்தெடுங்கள்",
   "captureGoToBattle": "போரிடுங்கள்",
   "captureViewfinderGuide": "படம் எடுக்க வேண்டிய பொருளைச் சட்டத்திற்குள் வையுங்கள்",
-  "captureCameraPermissionRequired": "கேமராவைப் பயன்படுத்த அனுமதி தேவை"
+  "captureCameraPermissionRequired": "கேமராவைப் பயன்படுத்த அனுமதி தேவை",
+  "captureCameraPermissionHint": "அமைப்புகளில் கேமராவை பயன்படுத்த அனுமதியுங்கள்"
 }

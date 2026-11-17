@@ -88,5 +88,6 @@
   "capturePickFromAlbum": "Válassz az albumból",
   "captureGoToBattle": "Harcolj",
   "captureViewfinderGuide": "Helyezd a témát a keretbe",
-  "captureCameraPermissionRequired": "Engedélyezned kell a kamera használatát"
+  "captureCameraPermissionRequired": "Engedélyezned kell a kamera használatát",
+  "captureCameraPermissionHint": "Engedélyezd a kamerát a beállításokban"
 }

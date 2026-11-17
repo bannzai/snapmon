@@ -88,5 +88,6 @@
   "capturePickFromAlbum": "从相册选择",
   "captureGoToBattle": "对战",
   "captureViewfinderGuide": "把拍摄对象放进框内",
-  "captureCameraPermissionRequired": "需要允许使用相机"
+  "captureCameraPermissionRequired": "需要允许使用相机",
+  "captureCameraPermissionHint": "在设置中允许使用相机"
 }

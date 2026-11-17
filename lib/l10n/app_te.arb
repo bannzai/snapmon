@@ -88,5 +88,6 @@
   "capturePickFromAlbum": "ఆల్బమ్ నుంచి ఎంచుకో",
   "captureGoToBattle": "పోరాడు",
   "captureViewfinderGuide": "ఫోటో తీయాల్సిన వస్తువును ఫ్రేమ్‌లో పెట్టు",
-  "captureCameraPermissionRequired": "కెమెరా వాడటానికి అనుమతి కావాలి"
+  "captureCameraPermissionRequired": "కెమెరా వాడటానికి అనుమతి కావాలి",
+  "captureCameraPermissionHint": "సెట్టింగ్‌లలో కెమెరాకు అనుమతి ఇవ్వు"
 }

@@ -88,5 +88,6 @@
   "capturePickFromAlbum": "Kies uit je album",
   "captureGoToBattle": "Vechten",
   "captureViewfinderGuide": "Plaats je onderwerp binnen het kader",
-  "captureCameraPermissionRequired": "Je moet toegang tot de camera toestaan"
+  "captureCameraPermissionRequired": "Je moet toegang tot de camera toestaan",
+  "captureCameraPermissionHint": "Geef toegang tot de camera via de instellingen"
 }

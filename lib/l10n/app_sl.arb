@@ -88,5 +88,6 @@
   "capturePickFromAlbum": "Izberi iz albuma",
   "captureGoToBattle": "Bori se",
   "captureViewfinderGuide": "Postavi motiv v okvir",
-  "captureCameraPermissionRequired": "Dovoliti moraš dostop do kamere"
+  "captureCameraPermissionRequired": "Dovoliti moraš dostop do kamere",
+  "captureCameraPermissionHint": "Dovoli dostop do kamere v nastavitvah"
 }

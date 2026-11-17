@@ -88,5 +88,6 @@
   "capturePickFromAlbum": "Valitse albumista",
   "captureGoToBattle": "Taistele",
   "captureViewfinderGuide": "Aseta kuvattava kohde kehyksen sisään",
-  "captureCameraPermissionRequired": "Kameran käyttöön tarvitaan lupa"
+  "captureCameraPermissionRequired": "Kameran käyttöön tarvitaan lupa",
+  "captureCameraPermissionHint": "Salli kameran käyttö asetuksissa"
 }

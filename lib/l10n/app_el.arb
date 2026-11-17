@@ -88,5 +88,6 @@
   "capturePickFromAlbum": "Διάλεξε από το άλμπουμ",
   "captureGoToBattle": "Μάχη",
   "captureViewfinderGuide": "Βάλε το θέμα σου μέσα στο πλαίσιο",
-  "captureCameraPermissionRequired": "Χρειάζεται άδεια πρόσβασης στην κάμερα"
+  "captureCameraPermissionRequired": "Χρειάζεται άδεια πρόσβασης στην κάμερα",
+  "captureCameraPermissionHint": "Επίτρεψε την πρόσβαση στην κάμερα από τις ρυθμίσεις"
 }

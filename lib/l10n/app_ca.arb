@@ -88,5 +88,6 @@
   "capturePickFromAlbum": "Tria de l’àlbum",
   "captureGoToBattle": "Combat",
   "captureViewfinderGuide": "Posa el que vols fotografiar dins del marc",
-  "captureCameraPermissionRequired": "Cal donar permís per utilitzar la càmera"
+  "captureCameraPermissionRequired": "Cal donar permís per utilitzar la càmera",
+  "captureCameraPermissionHint": "Permet l'accés a la càmera a la configuració"
 }

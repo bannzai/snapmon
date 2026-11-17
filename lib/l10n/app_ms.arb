@@ -88,5 +88,6 @@
   "capturePickFromAlbum": "Pilih daripada album",
   "captureGoToBattle": "Bertarung",
   "captureViewfinderGuide": "Letakkan subjek dalam bingkai",
-  "captureCameraPermissionRequired": "Kamu perlu benarkan akses kamera"
+  "captureCameraPermissionRequired": "Kamu perlu benarkan akses kamera",
+  "captureCameraPermissionHint": "Benarkan akses kamera dalam tetapan"
 }

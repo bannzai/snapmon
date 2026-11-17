@@ -88,5 +88,6 @@
   "capturePickFromAlbum": "एल्बम से चुनो",
   "captureGoToBattle": "लड़ो",
   "captureViewfinderGuide": "जिसकी फ़ोटो ले रहे हो, उसे फ़्रेम में लाओ",
-  "captureCameraPermissionRequired": "कैमरे की अनुमति चाहिए"
+  "captureCameraPermissionRequired": "कैमरे की अनुमति चाहिए",
+  "captureCameraPermissionHint": "सेटिंग में कैमरे की अनुमति दो"
 }

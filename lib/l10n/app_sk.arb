@@ -88,5 +88,6 @@
   "capturePickFromAlbum": "Vyber z albumu",
   "captureGoToBattle": "Bojuj",
   "captureViewfinderGuide": "Umiestni fotografovaný objekt do rámčeka",
-  "captureCameraPermissionRequired": "Treba povoliť prístup k fotoaparátu"
+  "captureCameraPermissionRequired": "Treba povoliť prístup k fotoaparátu",
+  "captureCameraPermissionHint": "Povoľ prístup ku kamere v nastaveniach"
 }
