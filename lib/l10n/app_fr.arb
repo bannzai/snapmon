@@ -90,5 +90,6 @@
   "captureViewfinderGuide": "Place ton sujet dans le cadre",
   "captureCameraPermissionRequired": "Autorise l’accès à la caméra",
   "captureCameraPermissionHint": "Autorise l’accès à l’appareil photo dans les paramètres",
-  "captureCameraPermissionHintWeb": "Dans les paramètres du site, accessibles depuis la barre d’adresse,\nautorise la caméra"
+  "captureCameraPermissionHintWeb": "Dans les paramètres du site, accessibles depuis la barre d’adresse,\nautorise la caméra",
+  "captureOpenSettings": "Ouvrir les paramètres"
 }
