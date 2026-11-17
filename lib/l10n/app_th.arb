@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "ลบบัญชี",
   "settingsProfileSection": "โปรไฟล์",
   "settingsDisplayName": "ชื่อที่แสดง",
-  "settingsDisplayNameLoading": "กำลังโหลด"
+  "settingsDisplayNameLoading": "กำลังโหลด",
+  "settingsDisplayNameHelper": "ชื่อที่คู่ต่อสู้เห็นในการต่อสู้"
 }

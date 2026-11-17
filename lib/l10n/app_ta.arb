@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "கணக்கை நீக்குங்கள்",
   "settingsProfileSection": "சுயவிவரம்",
   "settingsDisplayName": "காட்சிப் பெயர",
-  "settingsDisplayNameLoading": "ஏற்றப்படுகிறது"
+  "settingsDisplayNameLoading": "ஏற்றப்படுகிறது",
+  "settingsDisplayNameHelper": "போரில் எதிராளிகளுக்குத் தெரியும் பெயர்"
 }

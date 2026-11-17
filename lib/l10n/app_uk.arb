@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "Видалити акаунт",
   "settingsProfileSection": "Профіль",
   "settingsDisplayName": "псевдонім",
-  "settingsDisplayNameLoading": "Завантаження"
+  "settingsDisplayNameLoading": "Завантаження",
+  "settingsDisplayNameHelper": "Ім’я, яке бачать твої суперники в бою"
 }

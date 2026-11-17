@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "删除账号",
   "settingsProfileSection": "个人资料",
   "settingsDisplayName": "昵称",
-  "settingsDisplayNameLoading": "加载中"
+  "settingsDisplayNameLoading": "加载中",
+  "settingsDisplayNameHelper": "对战时对手看到的名字"
 }

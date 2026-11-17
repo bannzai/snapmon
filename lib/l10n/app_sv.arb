@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "Radera konto",
   "settingsProfileSection": "Profil",
   "settingsDisplayName": "visningsnamn",
-  "settingsDisplayNameLoading": "Laddar"
+  "settingsDisplayNameLoading": "Laddar",
+  "settingsDisplayNameHelper": "Namnet dina motståndare ser i strid"
 }

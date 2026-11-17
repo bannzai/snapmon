@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "Elimina el compte",
   "settingsProfileSection": "Perfil",
   "settingsDisplayName": "nom visible",
-  "settingsDisplayNameLoading": "S'està carregant"
+  "settingsDisplayNameLoading": "S'està carregant",
+  "settingsDisplayNameHelper": "Nom que veuen els teus rivals als combats"
 }

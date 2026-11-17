@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "Elimina account",
   "settingsProfileSection": "Profilo",
   "settingsDisplayName": "nome visualizzato",
-  "settingsDisplayNameLoading": "Caricamento"
+  "settingsDisplayNameLoading": "Caricamento",
+  "settingsDisplayNameHelper": "Nome che i tuoi avversari vedono in battaglia"
 }

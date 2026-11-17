@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "ಖಾತೆ ಅಳಿಸು",
   "settingsProfileSection": "ಪ್ರೊಫೈಲ್",
   "settingsDisplayName": "ಪ್ರದರ್ಶನ ಹೆಸರ",
-  "settingsDisplayNameLoading": "ಲೋಡ್ ಆಗುತ್ತಿದೆ"
+  "settingsDisplayNameLoading": "ಲೋಡ್ ಆಗುತ್ತಿದೆ",
+  "settingsDisplayNameHelper": "ಕಾಳಗದಲ್ಲಿ ಎದುರಾಳಿಗಳಿಗೆ ಕಾಣುವ ಹೆಸರು"
 }

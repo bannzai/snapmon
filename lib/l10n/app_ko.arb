@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "계정 삭제",
   "settingsProfileSection": "프로필",
   "settingsDisplayName": "표시 이름",
-  "settingsDisplayNameLoading": "불러오는 중"
+  "settingsDisplayNameLoading": "불러오는 중",
+  "settingsDisplayNameHelper": "배틀 상대에게 보이는 이름"
 }

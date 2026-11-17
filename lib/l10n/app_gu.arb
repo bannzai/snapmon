@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "એકાઉન્ટ કાઢી નાખો",
   "settingsProfileSection": "પ્રોફાઇલ",
   "settingsDisplayName": "પ્રદર્શિત નામ",
-  "settingsDisplayNameLoading": "લોડ થઈ રહ્યું છે"
+  "settingsDisplayNameLoading": "લોડ થઈ રહ્યું છે",
+  "settingsDisplayNameHelper": "લડાઈમાં હરીફોને દેખાતું નામ"
 }

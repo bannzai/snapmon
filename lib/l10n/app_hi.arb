@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "अकाउंट हटाओ",
   "settingsProfileSection": "प्रोफ़ाइल",
   "settingsDisplayName": "डिस्प्ले नाम",
-  "settingsDisplayNameLoading": "लोड हो रहा है"
+  "settingsDisplayNameLoading": "लोड हो रहा है",
+  "settingsDisplayNameHelper": "लड़ाई में विरोधियों को दिखने वाला नाम"
 }

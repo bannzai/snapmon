@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "מחיקת חשבון",
   "settingsProfileSection": "פרופיל",
   "settingsDisplayName": "שם תצוגה",
-  "settingsDisplayNameLoading": "בטעינה"
+  "settingsDisplayNameLoading": "בטעינה",
+  "settingsDisplayNameHelper": "השם שמוצג ליריבים בקרב"
 }

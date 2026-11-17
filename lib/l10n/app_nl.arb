@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "Account verwijderen",
   "settingsProfileSection": "Profiel",
   "settingsDisplayName": "weergavenaam",
-  "settingsDisplayNameLoading": "Laden"
+  "settingsDisplayNameLoading": "Laden",
+  "settingsDisplayNameHelper": "Naam die je tegenstanders zien tijdens gevechten"
 }

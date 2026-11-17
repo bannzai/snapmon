@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "Konto löschen",
   "settingsProfileSection": "Profil",
   "settingsDisplayName": "Anzeigename",
-  "settingsDisplayNameLoading": "Lädt"
+  "settingsDisplayNameLoading": "Lädt",
+  "settingsDisplayNameHelper": "Name, den deine Gegner im Kampf sehen"
 }

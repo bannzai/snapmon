@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "Padam akaun",
   "settingsProfileSection": "Profil",
   "settingsDisplayName": "nama paparan",
-  "settingsDisplayNameLoading": "Memuatkan"
+  "settingsDisplayNameLoading": "Memuatkan",
+  "settingsDisplayNameHelper": "Nama yang lawan kamu nampak semasa bertarung"
 }

@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "Διαγραφή λογαριασμού",
   "settingsProfileSection": "Προφίλ",
   "settingsDisplayName": "εμφανιζόμενο όνομα",
-  "settingsDisplayNameLoading": "Φόρτωση"
+  "settingsDisplayNameLoading": "Φόρτωση",
+  "settingsDisplayNameHelper": "Το όνομα που βλέπουν οι αντίπαλοί σου στη μάχη"
 }

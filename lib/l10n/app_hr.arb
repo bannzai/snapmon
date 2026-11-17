@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "Izbriši račun",
   "settingsProfileSection": "Profil",
   "settingsDisplayName": "prikazno ime",
-  "settingsDisplayNameLoading": "Učitavanje"
+  "settingsDisplayNameLoading": "Učitavanje",
+  "settingsDisplayNameHelper": "Ime koje tvoji protivnici vide u borbi"
 }

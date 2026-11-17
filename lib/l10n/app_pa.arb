@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "ਖਾਤਾ ਮਿਟਾਓ",
   "settingsProfileSection": "ਪ੍ਰੋਫਾਈਲ",
   "settingsDisplayName": "ਪ੍ਰਦਰਸ਼ਿਤ ਨਾਮ",
-  "settingsDisplayNameLoading": "ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ"
+  "settingsDisplayNameLoading": "ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ",
+  "settingsDisplayNameHelper": "ਲੜਾਈ ਵਿੱਚ ਵਿਰੋਧੀਆਂ ਨੂੰ ਦਿਸਣ ਵਾਲਾ ਨਾਮ"
 }

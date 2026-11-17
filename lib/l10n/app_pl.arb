@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "Usuń konto",
   "settingsProfileSection": "Profil",
   "settingsDisplayName": "wyświetlan",
-  "settingsDisplayNameLoading": "Wczytywanie"
+  "settingsDisplayNameLoading": "Wczytywanie",
+  "settingsDisplayNameHelper": "Imię widoczne dla twoich rywali w walce"
 }

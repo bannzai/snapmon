@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "ఖాతాను తొలగించు",
   "settingsProfileSection": "ప్రొఫైల్",
   "settingsDisplayName": "ప్రదర్శన పేరు",
-  "settingsDisplayNameLoading": "లోడ్ అవుతోంది"
+  "settingsDisplayNameLoading": "లోడ్ అవుతోంది",
+  "settingsDisplayNameHelper": "పోరులో ప్రత్యర్థులకు కనిపించే పేరు"
 }

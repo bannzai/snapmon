@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "অ্যাকাউন্ট মুছে ফেলো",
   "settingsProfileSection": "প্রোফাইল",
   "settingsDisplayName": "প্রদর্শিত নাম",
-  "settingsDisplayNameLoading": "লোড হচ্ছে"
+  "settingsDisplayNameLoading": "লোড হচ্ছে",
+  "settingsDisplayNameHelper": "লড়াইয়ে প্রতিপক্ষ যে নাম দেখবে"
 }

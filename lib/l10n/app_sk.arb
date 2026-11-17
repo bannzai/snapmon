@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "Odstrániť účet",
   "settingsProfileSection": "Profil",
   "settingsDisplayName": "zobrazovan",
-  "settingsDisplayNameLoading": "Načítava sa"
+  "settingsDisplayNameLoading": "Načítava sa",
+  "settingsDisplayNameHelper": "Meno, ktoré tvoji súperi uvidia v súboji"
 }

@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "Șterge contul",
   "settingsProfileSection": "Profil",
   "settingsDisplayName": "afișat",
-  "settingsDisplayNameLoading": "Se încarcă"
+  "settingsDisplayNameLoading": "Se încarcă",
+  "settingsDisplayNameHelper": "Numele pe care îl văd adversarii tăi în luptă"
 }

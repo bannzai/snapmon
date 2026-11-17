@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "Удалить аккаунт",
   "settingsProfileSection": "Профиль",
   "settingsDisplayName": "ник",
-  "settingsDisplayNameLoading": "Загрузка"
+  "settingsDisplayNameLoading": "Загрузка",
+  "settingsDisplayNameHelper": "Имя, которое видят твои соперники в бою"
 }

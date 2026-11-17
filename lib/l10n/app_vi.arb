@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "Xóa tài khoản",
   "settingsProfileSection": "Hồ sơ",
   "settingsDisplayName": "tên hiển thị",
-  "settingsDisplayNameLoading": "Đang tải"
+  "settingsDisplayNameLoading": "Đang tải",
+  "settingsDisplayNameHelper": "Tên đối thủ nhìn thấy khi đấu"
 }

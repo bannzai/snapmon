@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "اکاؤنٹ حذف کرو",
   "settingsProfileSection": "پروفائل",
   "settingsDisplayName": "ڈسپلے نام",
-  "settingsDisplayNameLoading": "لوڈ ہو رہا ہے"
+  "settingsDisplayNameLoading": "لوڈ ہو رہا ہے",
+  "settingsDisplayNameHelper": "لڑائی میں حریفوں کو نظر آنے والا نام"
 }

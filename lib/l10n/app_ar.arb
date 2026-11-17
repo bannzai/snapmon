@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "حذف الحساب",
   "settingsProfileSection": "الملف الشخصي",
   "settingsDisplayName": "اسم العرض",
-  "settingsDisplayNameLoading": "جارٍ التحميل"
+  "settingsDisplayNameLoading": "جارٍ التحميل",
+  "settingsDisplayNameHelper": "الاسم الذي يراه خصومك في المعارك"
 }

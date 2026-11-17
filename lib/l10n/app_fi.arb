@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "Poista tili",
   "settingsProfileSection": "Profiili",
   "settingsDisplayName": "näyttönim",
-  "settingsDisplayNameLoading": "Ladataan"
+  "settingsDisplayNameLoading": "Ladataan",
+  "settingsDisplayNameHelper": "Nimi, jonka vastustajasi näkevät taistelussa"
 }

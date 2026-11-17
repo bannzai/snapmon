@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "Slett konto",
   "settingsProfileSection": "Profil",
   "settingsDisplayName": "visningsnavn",
-  "settingsDisplayNameLoading": "Laster inn"
+  "settingsDisplayNameLoading": "Laster inn",
+  "settingsDisplayNameHelper": "Navnet motstanderne dine ser i kamp"
 }

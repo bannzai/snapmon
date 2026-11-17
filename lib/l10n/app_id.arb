@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "Hapus akun",
   "settingsProfileSection": "Profil",
   "settingsDisplayName": "nama tampilan",
-  "settingsDisplayNameLoading": "Memuat"
+  "settingsDisplayNameLoading": "Memuat",
+  "settingsDisplayNameHelper": "Nama yang dilihat lawanmu saat bertarung"
 }

@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "खाते हटव",
   "settingsProfileSection": "प्रोफाइल",
   "settingsDisplayName": "प्रदर्शन नाव",
-  "settingsDisplayNameLoading": "लोड होत आहे"
+  "settingsDisplayNameLoading": "लोड होत आहे",
+  "settingsDisplayNameHelper": "लढाईत प्रतिस्पर्ध्यांना दिसणारे नाव"
 }

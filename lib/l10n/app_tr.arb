@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "Hesabı sil",
   "settingsProfileSection": "Profil",
   "settingsDisplayName": "görünen ad",
-  "settingsDisplayNameLoading": "Yükleniyor"
+  "settingsDisplayNameLoading": "Yükleniyor",
+  "settingsDisplayNameHelper": "Rakiplerinin savaşta gördüğü ad"
 }

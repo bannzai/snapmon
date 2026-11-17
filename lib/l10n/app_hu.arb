@@ -65,5 +65,6 @@
   "settingsDeleteAccount": "Fiók törlése",
   "settingsProfileSection": "Profil",
   "settingsDisplayName": "megjelenített",
-  "settingsDisplayNameLoading": "Betöltés"
+  "settingsDisplayNameLoading": "Betöltés",
+  "settingsDisplayNameHelper": "A név, amit az ellenfeleid látnak a csatában"
 }
