@@ -23,5 +23,6 @@
   "settingsTitle": "Настройки",
   "opponentReported": "Жалоба отправлена",
   "opponentBlocked": "Заблокировано",
-  "blockDialogTitle": "блокировка"
+  "blockDialogTitle": "блокировка",
+  "blockDialogMessage": "Ты и {displayName} больше не попадёте друг другу в соперники"
 }

@@ -23,5 +23,6 @@
   "settingsTitle": "Instellingen",
   "opponentReported": "Melding verstuurd",
   "opponentBlocked": "Geblokkeerd",
-  "blockDialogTitle": "blokkeren"
+  "blockDialogTitle": "blokkeren",
+  "blockDialogMessage": "Je wordt niet meer aan {displayName} gekoppeld als tegenstander, en andersom"
 }

@@ -23,5 +23,6 @@
   "settingsTitle": "Innstillinger",
   "opponentReported": "Rapport sendt",
   "opponentBlocked": "Blokkert (blokker)",
-  "blockDialogTitle": "blokkering"
+  "blockDialogTitle": "blokkering",
+  "blockDialogMessage": "Du og {displayName} blir ikke lenger satt opp mot hverandre"
 }

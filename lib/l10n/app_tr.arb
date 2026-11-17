@@ -23,5 +23,6 @@
   "settingsTitle": "Ayarlar",
   "opponentReported": "Bildirim gönderildi",
   "opponentBlocked": "Engellendi",
-  "blockDialogTitle": "engelle"
+  "blockDialogTitle": "engelle",
+  "blockDialogMessage": "Sen ve {displayName} artık birbirinize rakip olarak eşleşmeyeceksiniz"
 }

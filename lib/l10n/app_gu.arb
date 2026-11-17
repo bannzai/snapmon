@@ -23,5 +23,6 @@
   "settingsTitle": "સેટિંગ્સ",
   "opponentReported": "રિપોર્ટ મોકલાયો",
   "opponentBlocked": "બ્લોક કર્યું",
-  "blockDialogTitle": "બ્લોક"
+  "blockDialogTitle": "બ્લોક",
+  "blockDialogMessage": "તમે અને {displayName} હવે એકબીજાના હરીફ તરીકે નહીં આવો"
 }

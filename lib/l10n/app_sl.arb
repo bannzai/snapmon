@@ -23,5 +23,6 @@
   "settingsTitle": "Nastavitve",
   "opponentReported": "Prijava poslana",
   "opponentBlocked": "Blokirano",
-  "blockDialogTitle": "blokiranje"
+  "blockDialogTitle": "blokiranje",
+  "blockDialogMessage": "Ti in {displayName} ne bosta več izbrana za nasprotnika"
 }

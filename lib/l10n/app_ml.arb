@@ -23,5 +23,6 @@
   "settingsTitle": "ക്രമീകരണങ്ങൾ",
   "opponentReported": "റിപ്പോർട്ട് അയച്ചു",
   "opponentBlocked": "ബ്ലോക്ക് ചെയ്തു",
-  "blockDialogTitle": "ബ്ലോക്ക്"
+  "blockDialogTitle": "ബ്ലോക്ക്",
+  "blockDialogMessage": "നിങ്ങളും {displayName}യും ഇനി പരസ്പരം എതിരാളികളായി വരില്ല"
 }

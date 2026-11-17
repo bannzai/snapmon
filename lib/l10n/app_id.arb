@@ -23,5 +23,6 @@
   "settingsTitle": "Pengaturan",
   "opponentReported": "Laporan terkirim",
   "opponentBlocked": "Berhasil diblokir",
-  "blockDialogTitle": "blokir"
+  "blockDialogTitle": "blokir",
+  "blockDialogMessage": "Kamu dan {displayName} tidak akan lagi bertemu sebagai lawan"
 }

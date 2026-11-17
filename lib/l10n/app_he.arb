@@ -23,5 +23,6 @@
   "settingsTitle": "הגדרות",
   "opponentReported": "הדיווח נשלח",
   "opponentBlocked": "בוצעה חסימה",
-  "blockDialogTitle": "חסימה"
+  "blockDialogTitle": "חסימה",
+  "blockDialogMessage": "לא תהיה עוד התאמה לקרב בינך לבין {displayName}"
 }

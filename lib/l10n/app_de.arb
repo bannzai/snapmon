@@ -23,5 +23,6 @@
   "settingsTitle": "Einstellungen",
   "opponentReported": "Deine Meldung wurde gesendet",
   "opponentBlocked": "Erfolgreich blockiert",
-  "blockDialogTitle": "blockieren"
+  "blockDialogTitle": "blockieren",
+  "blockDialogMessage": "Du und {displayName} werdet nicht mehr gegeneinander als Gegner ausgelost"
 }

@@ -23,5 +23,6 @@
   "settingsTitle": "Setări",
   "opponentReported": "Raport trimis",
   "opponentBlocked": "Blocat",
-  "blockDialogTitle": "blocare"
+  "blockDialogTitle": "blocare",
+  "blockDialogMessage": "Tu și {displayName} nu veți mai fi potriviți ca adversari"
 }

@@ -23,5 +23,6 @@
   "settingsTitle": "ترتیبات",
   "opponentReported": "رپورٹ بھیج دی گئی",
   "opponentBlocked": "بلاک کر دیا",
-  "blockDialogTitle": "بلاک"
+  "blockDialogTitle": "بلاک",
+  "blockDialogMessage": "تم اور {displayName} اب ایک دوسرے کے مقابلے میں حریف نہیں بنو گے"
 }

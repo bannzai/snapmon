@@ -23,5 +23,6 @@
   "settingsTitle": "Nastavení",
   "opponentReported": "Úspěšně nahlášeno",
   "opponentBlocked": "Zablokováno: blok",
-  "blockDialogTitle": "blokovat"
+  "blockDialogTitle": "blokovat",
+  "blockDialogMessage": "Ty a {displayName} už proti sobě nebudete přiřazeni do souboje"
 }

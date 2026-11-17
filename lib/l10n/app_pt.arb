@@ -23,5 +23,6 @@
   "settingsTitle": "Configurações",
   "opponentReported": "Denúncia enviada",
   "opponentBlocked": "Bloqueado",
-  "blockDialogTitle": "bloquear"
+  "blockDialogTitle": "bloquear",
+  "blockDialogMessage": "Você e {displayName} não vão mais se enfrentar nas batalhas"
 }

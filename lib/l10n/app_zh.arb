@@ -23,5 +23,6 @@
   "settingsTitle": "设置",
   "opponentReported": "已举报",
   "opponentBlocked": "已屏蔽",
-  "blockDialogTitle": "屏蔽"
+  "blockDialogTitle": "屏蔽",
+  "blockDialogMessage": "你和{displayName}将不会再匹配为对战对手"
 }

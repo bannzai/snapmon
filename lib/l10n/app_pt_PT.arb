@@ -23,5 +23,6 @@
   "settingsTitle": "Definições",
   "opponentReported": "Denúncia enviada",
   "opponentBlocked": "Bloqueado",
-  "blockDialogTitle": "bloquear"
+  "blockDialogTitle": "bloquear",
+  "blockDialogMessage": "Tu e {displayName} já não vão ser emparelhados como adversários"
 }

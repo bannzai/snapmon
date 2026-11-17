@@ -23,5 +23,6 @@
   "settingsTitle": "Inställningar",
   "opponentReported": "Rapport skickad",
   "opponentBlocked": "Blockerad",
-  "blockDialogTitle": "blockera"
+  "blockDialogTitle": "blockera",
+  "blockDialogMessage": "Du och {displayName} matchas inte längre mot varandra"
 }

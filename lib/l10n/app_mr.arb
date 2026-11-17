@@ -23,5 +23,6 @@
   "settingsTitle": "सेटिंग्ज",
   "opponentReported": "रिपोर्ट पाठवला",
   "opponentBlocked": "ब्लॉक केलं",
-  "blockDialogTitle": "ब्लॉक"
+  "blockDialogTitle": "ब्लॉक",
+  "blockDialogMessage": "तू आणि {displayName} आता एकमेकांचे प्रतिस्पर्धी म्हणून समोर येणार नाही"
 }

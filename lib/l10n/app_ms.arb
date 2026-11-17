@@ -23,5 +23,6 @@
   "settingsTitle": "Tetapan",
   "opponentReported": "Laporan dihantar",
   "opponentBlocked": "Berjaya disekat",
-  "blockDialogTitle": "sekat"
+  "blockDialogTitle": "sekat",
+  "blockDialogMessage": "Kamu dan {displayName} takkan lagi bertemu sebagai lawan"
 }

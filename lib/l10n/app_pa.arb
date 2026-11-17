@@ -23,5 +23,6 @@
   "settingsTitle": "ਸੈਟਿੰਗਾਂ",
   "opponentReported": "ਰਿਪੋਰਟ ਭੇਜ ਦਿੱਤੀ",
   "opponentBlocked": "ਬਲਾਕ ਕਰ ਦਿੱਤਾ",
-  "blockDialogTitle": "ਬਲਾਕ"
+  "blockDialogTitle": "ਬਲਾਕ",
+  "blockDialogMessage": "ਤੁਸੀਂ ਅਤੇ {displayName} ਹੁਣ ਇੱਕ-ਦੂਜੇ ਦੇ ਮੁਕਾਬਲੇ ਵਿੱਚ ਨਹੀਂ ਆਓਗੇ"
 }

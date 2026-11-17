@@ -23,5 +23,6 @@
   "settingsTitle": "Cài đặt",
   "opponentReported": "Đã gửi báo cáo",
   "opponentBlocked": "Đã chặn",
-  "blockDialogTitle": "chặn"
+  "blockDialogTitle": "chặn",
+  "blockDialogMessage": "Bạn và {displayName} sẽ không còn được ghép đấu với nhau"
 }

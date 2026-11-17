@@ -23,5 +23,6 @@
   "settingsTitle": "설정",
   "opponentReported": "신고했어요",
   "opponentBlocked": "차단했어요",
-  "blockDialogTitle": "차단"
+  "blockDialogTitle": "차단",
+  "blockDialogMessage": "이제 {displayName}님과 서로 대전 상대로 매칭되지 않아요"
 }

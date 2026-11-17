@@ -23,5 +23,6 @@
   "settingsTitle": "الإعدادات",
   "opponentReported": "تم إرسال إبلاغ",
   "opponentBlocked": "تم الحظر",
-  "blockDialogTitle": "حظر"
+  "blockDialogTitle": "حظر",
+  "blockDialogMessage": "لن تظهر أنت و{displayName} لبعضكما كخصمين في المعارك"
 }

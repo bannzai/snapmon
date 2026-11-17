@@ -23,5 +23,6 @@
   "settingsTitle": "Beállítások",
   "opponentReported": "Jelentés elküldve",
   "opponentBlocked": "Sikerült letiltani",
-  "blockDialogTitle": "letiltás"
+  "blockDialogTitle": "letiltás",
+  "blockDialogMessage": "Te és {displayName} többé nem kerültök egymással szembe"
 }
