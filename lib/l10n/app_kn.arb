@@ -42,5 +42,6 @@
   "opponentSearchAgain": "ಮತ್ತೆ ಹುಡುಕು",
   "opponentNoneAvailable": "ಈಗ ಹೋರಾಡಲು ಯಾವುದೇ ಟ್ರೈನರ್ ಇಲ್ಲ\nನೀನು CPU ಟ್ರೈನರ್ ಜೊತೆ ಹೋರಾಡಬಹುದು",
   "opponentRandomBattle": "ಯಾದೃಚ್ಛಿಕ ಎದುರಾಳಿಯೊಂದಿಗೆ ಹೋರಾಡು",
-  "settingsLinked": "{providerName} ಜೊತೆ ಸಂಪರ್ಕಗೊಂಡಿದೆ"
+  "settingsLinked": "{providerName} ಜೊತೆ ಸಂಪರ್ಕಗೊಂಡಿದೆ",
+  "settingsSwitchAccountTitle": "ಲಿಂಕ್ ಮಾಡಿದ ಖಾತೆಗೆ ಬದಲಾಯಿಸುತ್ತೀಯಾ?"
 }

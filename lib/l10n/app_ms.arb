@@ -42,5 +42,6 @@
   "opponentSearchAgain": "Cari lagi",
   "opponentNoneAvailable": "Tiada jurulatih untuk dilawan sekarang\nKamu boleh lawan jurulatih CPU",
   "opponentRandomBattle": "Lawan musuh rawak",
-  "settingsLinked": "Berjaya dipautkan dengan {providerName}"
+  "settingsLinked": "Berjaya dipautkan dengan {providerName}",
+  "settingsSwitchAccountTitle": "Nak tukar ke akaun yang dipautkan?"
 }

@@ -42,5 +42,6 @@
   "opponentSearchAgain": "ابحث مجددًا",
   "opponentNoneAvailable": "لا يوجد مدرب متاح للقتال الآن\nيمكنك قتال مدرب CPU",
   "opponentRandomBattle": "قاتل خصمًا عشوائيًا",
-  "settingsLinked": "تم الربط مع {providerName}"
+  "settingsLinked": "تم الربط مع {providerName}",
+  "settingsSwitchAccountTitle": "هل تريد التبديل إلى الحساب المرتبط؟"
 }

@@ -42,5 +42,6 @@
   "opponentSearchAgain": "Erneut suchen",
   "opponentNoneAvailable": "Gerade ist kein Trainer für einen Kampf da\nDu kannst gegen einen CPU-Trainer kämpfen",
   "opponentRandomBattle": "Kämpfe gegen einen zufälligen Gegner",
-  "settingsLinked": "Mit {providerName} verknüpft"
+  "settingsLinked": "Mit {providerName} verknüpft",
+  "settingsSwitchAccountTitle": "Möchtest du zum verknüpften Konto wechseln?"
 }

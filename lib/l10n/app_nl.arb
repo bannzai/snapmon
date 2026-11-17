@@ -42,5 +42,6 @@
   "opponentSearchAgain": "Zoek opnieuw",
   "opponentNoneAvailable": "Er is nu geen trainer om tegen te vechten\nJe kunt tegen een CPU-trainer vechten",
   "opponentRandomBattle": "Vecht tegen een willekeurige tegenstander",
-  "settingsLinked": "Gekoppeld aan {providerName}"
+  "settingsLinked": "Gekoppeld aan {providerName}",
+  "settingsSwitchAccountTitle": "Wil je overschakelen naar je gekoppelde account?"
 }

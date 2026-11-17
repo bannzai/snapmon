@@ -42,5 +42,6 @@
   "opponentSearchAgain": "Szukaj ponownie",
   "opponentNoneAvailable": "Teraz nie ma trenera, z którym możesz walczyć\nMożesz walczyć z trenerem CPU",
   "opponentRandomBattle": "Walcz z losowym przeciwnikiem",
-  "settingsLinked": "Połączono z {providerName}"
+  "settingsLinked": "Połączono z {providerName}",
+  "settingsSwitchAccountTitle": "Chcesz przełączyć się na połączone konto?"
 }

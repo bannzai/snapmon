@@ -42,5 +42,6 @@
   "opponentSearchAgain": "Torna a buscar",
   "opponentNoneAvailable": "Ara no hi ha cap entrenador disponible\nPots lluitar contra un entrenador CPU",
   "opponentRandomBattle": "Combat contra un rival aleatori",
-  "settingsLinked": "T'has vinculat amb {providerName}"
+  "settingsLinked": "T'has vinculat amb {providerName}",
+  "settingsSwitchAccountTitle": "Vols canviar al compte vinculat?"
 }

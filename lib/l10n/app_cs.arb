@@ -42,5 +42,6 @@
   "opponentSearchAgain": "Hledej znovu",
   "opponentNoneAvailable": "Teď není k dispozici žádný trenér k boji\nMůžeš bojovat s trenérem CPU",
   "opponentRandomBattle": "Bojuj s náhodným soupeřem",
-  "settingsLinked": "Propojeno s {providerName}"
+  "settingsLinked": "Propojeno s {providerName}",
+  "settingsSwitchAccountTitle": "Chceš přepnout na propojený účet?"
 }

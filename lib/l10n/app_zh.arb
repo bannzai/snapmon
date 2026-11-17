@@ -42,5 +42,6 @@
   "opponentSearchAgain": "重新寻找",
   "opponentNoneAvailable": "现在没有可对战的训练家\n你可以和 CPU 训练家对战",
   "opponentRandomBattle": "挑战随机对手",
-  "settingsLinked": "已关联 {providerName}"
+  "settingsLinked": "已关联 {providerName}",
+  "settingsSwitchAccountTitle": "要切换到已关联的账号吗？"
 }

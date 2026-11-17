@@ -42,5 +42,6 @@
   "opponentSearchAgain": "మళ్లీ వెతుకు",
   "opponentNoneAvailable": "ఇప్పుడు పోరాడటానికి ట్రైనర్ ఎవరూ లేరు\nనువ్వు CPU ట్రైనర్‌తో పోరాడవచ్చు",
   "opponentRandomBattle": "యాదృచ్ఛిక ప్రత్యర్థితో పోరాడు",
-  "settingsLinked": "{providerName}తో లింక్ అయింది"
+  "settingsLinked": "{providerName}తో లింక్ అయింది",
+  "settingsSwitchAccountTitle": "లింక్ చేసిన ఖాతాకు మారతావా?"
 }

@@ -42,5 +42,6 @@
   "opponentSearchAgain": "Søk igjen",
   "opponentNoneAvailable": "Ingen trener er klar til kamp akkurat nå\nDu kan kjempe mot en CPU-trener",
   "opponentRandomBattle": "Kjemp mot en tilfeldig motstander",
-  "settingsLinked": "Koblet til {providerName}"
+  "settingsLinked": "Koblet til {providerName}",
+  "settingsSwitchAccountTitle": "Vil du bytte til den tilknyttede kontoen?"
 }

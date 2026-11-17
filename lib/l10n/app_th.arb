@@ -42,5 +42,6 @@
   "opponentSearchAgain": "ค้นหาอีกครั้ง",
   "opponentNoneAvailable": "ตอนนี้ยังไม่มีเทรนเนอร์ให้สู้ด้วย\nสู้กับเทรนเนอร์ CPU ได้",
   "opponentRandomBattle": "สู้กับคู่ต่อสู้แบบสุ่ม",
-  "settingsLinked": "เชื่อมต่อกับ {providerName} แล้ว"
+  "settingsLinked": "เชื่อมต่อกับ {providerName} แล้ว",
+  "settingsSwitchAccountTitle": "จะเปลี่ยนไปใช้บัญชีที่เชื่อมไว้ไหม?"
 }
