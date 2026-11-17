@@ -251,5 +251,6 @@
   "moveDetailFormula": "威力倍率 (%)",
   "moveDetailFormulaNote": "100 時倍率為 ×1\n威力 × 倍率 ÷ 100（捨去小數）會計入傷害計算",
   "moveDetailSelfStatFormula": "加到自身{statName}倍率上的數值 (%)",
-  "moveDetailOpponentStatFormula": "加到對手{statName}倍率上的數值 (%)"
+  "moveDetailOpponentStatFormula": "加到對手{statName}倍率上的數值 (%)",
+  "moveDetailStatFormulaNote": "倍率 100 等於 1 倍\n持續到怪物倒下，並在 50 到 200 之間停止"
 }

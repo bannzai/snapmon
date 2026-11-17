@@ -251,5 +251,6 @@
   "moveDetailFormula": "מכפיל עוצמה (%)",
   "moveDetailFormulaNote": "ב־100 המכפיל הוא ×1\nעוצמה × מכפיל ÷ 100 (ללא החלק העשרוני) נכנסים לחישוב הנזק",
   "moveDetailSelfStatFormula": "ערך שנוסף למכפיל {statName} שלך (%)",
-  "moveDetailOpponentStatFormula": "ערך שמתווסף למכפיל {statName} של היריב (%)"
+  "moveDetailOpponentStatFormula": "ערך שמתווסף למכפיל {statName} של היריב (%)",
+  "moveDetailStatFormulaNote": "מכפיל 100 שווה ל־×1\nממשיך עד שמפלצת נופלת, ונעצר בין 50 ל־200"
 }

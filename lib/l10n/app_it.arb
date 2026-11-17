@@ -251,5 +251,6 @@
   "moveDetailFormula": "Moltiplicatore di potenza (%)",
   "moveDetailFormulaNote": "A 100, il moltiplicatore è ×1\nPotenza × moltiplicatore ÷ 100 (senza decimali) entra nel calcolo dei danni",
   "moveDetailSelfStatFormula": "Valore aggiunto al tuo moltiplicatore di {statName} (%)",
-  "moveDetailOpponentStatFormula": "Valore aggiunto al moltiplicatore di {statName} dell'avversario (%)"
+  "moveDetailOpponentStatFormula": "Valore aggiunto al moltiplicatore di {statName} dell'avversario (%)",
+  "moveDetailStatFormulaNote": "Un moltiplicatore di 100 equivale a ×1\nContinua finché un mostro non va KO e si ferma tra 50 e 200"
 }

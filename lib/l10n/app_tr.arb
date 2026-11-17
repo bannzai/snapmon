@@ -251,5 +251,6 @@
   "moveDetailFormula": "Güç çarpanı (%)",
   "moveDetailFormulaNote": "100'de çarpan ×1 olur\nGüç × çarpan ÷ 100 (ondalık kısmı atılarak) hasar hesabına katılır",
   "moveDetailSelfStatFormula": "Kendi {statName} çarpanına eklenen değer (%)",
-  "moveDetailOpponentStatFormula": "Rakibin {statName} çarpanına eklenen değer (%)"
+  "moveDetailOpponentStatFormula": "Rakibin {statName} çarpanına eklenen değer (%)",
+  "moveDetailStatFormulaNote": "Çarpan 100, ×1 demek\nBir canavar bayılana kadar sürer ve 50 ile 200 arasında durur"
 }

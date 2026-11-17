@@ -251,5 +251,6 @@
   "moveDetailFormula": "Multiplicador de poder (%)",
   "moveDetailFormulaNote": "Com 100, o multiplicador é ×1\nPoder × multiplicador ÷ 100 (sem casas decimais) entra no cálculo do dano",
   "moveDetailSelfStatFormula": "Valor somado ao teu multiplicador de {statName} (%)",
-  "moveDetailOpponentStatFormula": "Valor adicionado ao multiplicador de {statName} do adversário (%)"
+  "moveDetailOpponentStatFormula": "Valor adicionado ao multiplicador de {statName} do adversário (%)",
+  "moveDetailStatFormulaNote": "Multiplicador 100 equivale a ×1\nContinua até um monstro cair e pára entre 50 e 200"
 }

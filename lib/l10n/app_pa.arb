@@ -251,5 +251,6 @@
   "moveDetailFormula": "ਤਾਕਤ ਦਾ ਗੁਣਕ (%)",
   "moveDetailFormulaNote": "100 'ਤੇ ਗੁਣਕ ×1 ਹੈ\nਤਾਕਤ × ਗੁਣਕ ÷ 100 (ਦਸ਼ਮਲਵ ਹਿੱਸਾ ਛੱਡ ਕੇ) ਨੁਕਸਾਨ ਦੇ ਹਿਸਾਬ ਵਿੱਚ ਆਉਂਦਾ ਹੈ",
   "moveDetailSelfStatFormula": "ਤੁਹਾਡੇ {statName} ਗੁਣਕ ਵਿੱਚ ਜੋੜਿਆ ਜਾਣ ਵਾਲਾ ਮੁੱਲ (%)",
-  "moveDetailOpponentStatFormula": "ਵਿਰੋਧੀ ਦੇ {statName} ਗੁਣਕ ਵਿੱਚ ਜੋੜਿਆ ਜਾਣ ਵਾਲਾ ਮੁੱਲ (%)"
+  "moveDetailOpponentStatFormula": "ਵਿਰੋਧੀ ਦੇ {statName} ਗੁਣਕ ਵਿੱਚ ਜੋੜਿਆ ਜਾਣ ਵਾਲਾ ਮੁੱਲ (%)",
+  "moveDetailStatFormulaNote": "ਗੁਣਕ 100 ਦਾ ਮਤਲਬ 1 ਗੁਣਾ\nਮੌਂਸਟਰ ਡਿੱਗਣ ਤੱਕ ਜਾਰੀ ਰਹਿੰਦਾ ਹੈ ਅਤੇ 50 ਤੋਂ 200 ਵਿਚਕਾਰ ਰੁਕਦਾ ਹੈ"
 }

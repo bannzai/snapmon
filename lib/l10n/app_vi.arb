@@ -251,5 +251,6 @@
   "moveDetailFormula": "Hệ số sức mạnh (%)",
   "moveDetailFormulaNote": "Ở mức 100, hệ số là ×1\nSức mạnh × hệ số ÷ 100 (bỏ phần thập phân) được tính vào sát thương",
   "moveDetailSelfStatFormula": "Giá trị cộng vào hệ số nhân {statName} của bạn (%)",
-  "moveDetailOpponentStatFormula": "Giá trị cộng vào hệ số nhân {statName} của đối thủ (%)"
+  "moveDetailOpponentStatFormula": "Giá trị cộng vào hệ số nhân {statName} của đối thủ (%)",
+  "moveDetailStatFormulaNote": "Hệ số 100 tương đương ×1\nTiếp tục đến khi quái vật gục ngã và dừng ở mức từ 50 đến 200"
 }

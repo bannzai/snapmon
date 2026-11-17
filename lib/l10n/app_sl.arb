@@ -251,5 +251,6 @@
   "moveDetailFormula": "Množilnik moči (%)",
   "moveDetailFormulaNote": "Pri 100 je množilnik ×1\nMoč × množilnik ÷ 100 (brez decimalnega dela) se upošteva pri izračunu škode",
   "moveDetailSelfStatFormula": "Vrednost, dodana tvojemu množilniku za {statName} (%)",
-  "moveDetailOpponentStatFormula": "Vrednost, dodana množilniku {statName} nasprotnika (%)"
+  "moveDetailOpponentStatFormula": "Vrednost, dodana množilniku {statName} nasprotnika (%)",
+  "moveDetailStatFormulaNote": "Množilnik 100 pomeni ×1\nTraja, dokler pošast ne pade, in se ustavi med 50 in 200"
 }

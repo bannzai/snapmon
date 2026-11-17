@@ -251,5 +251,6 @@
   "moveDetailFormula": "Násobitel síly (%)",
   "moveDetailFormulaNote": "Při 100 je násobitel ×1\nSíla × násobitel ÷ 100 (bez desetinné části) vstupuje do výpočtu poškození",
   "moveDetailSelfStatFormula": "Hodnota přičtená k násobiči vlastního {statName} (%)",
-  "moveDetailOpponentStatFormula": "Hodnota přičtená k násobiteli {statName} soupeře (%)"
+  "moveDetailOpponentStatFormula": "Hodnota přičtená k násobiteli {statName} soupeře (%)",
+  "moveDetailStatFormulaNote": "Násobitel 100 znamená ×1\nPokračuje, dokud příšera nepadne, a zastaví se mezi 50 a 200"
 }

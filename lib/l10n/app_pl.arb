@@ -251,5 +251,6 @@
   "moveDetailFormula": "Mnożnik mocy (%)",
   "moveDetailFormulaNote": "Przy 100 mnożnik wynosi ×1\nMoc × mnożnik ÷ 100 (bez części dziesiętnej) wchodzi do obliczeń obrażeń",
   "moveDetailSelfStatFormula": "Wartość dodawana do twojego mnożnika {statName} (%)",
-  "moveDetailOpponentStatFormula": "Wartość dodawana do mnożnika {statName} przeciwnika (%)"
+  "moveDetailOpponentStatFormula": "Wartość dodawana do mnożnika {statName} przeciwnika (%)",
+  "moveDetailStatFormulaNote": "Mnożnik 100 oznacza ×1\nTrwa, aż potwór padnie, i zatrzymuje się między 50 a 200"
 }

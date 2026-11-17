@@ -251,5 +251,6 @@
   "moveDetailFormula": "위력 배율 (%)",
   "moveDetailFormulaNote": "100이면 배율은 ×1\n위력 × 배율 ÷ 100(소수점 이하 버림)이 데미지 계산에 들어가요",
   "moveDetailSelfStatFormula": "자신의 {statName} 배율에 더하는 값 (%)",
-  "moveDetailOpponentStatFormula": "상대의 {statName} 배율에 더하는 값 (%)"
+  "moveDetailOpponentStatFormula": "상대의 {statName} 배율에 더하는 값 (%)",
+  "moveDetailStatFormulaNote": "배율 100은 1배예요\n몬스터가 쓰러질 때까지 이어지고 50에서 200 사이에서 멈춰요"
 }

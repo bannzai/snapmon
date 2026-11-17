@@ -251,5 +251,6 @@
   "moveDetailFormula": "ଶକ୍ତି ଗୁଣକ (%)",
   "moveDetailFormulaNote": "୧୦୦ ହେଲେ ଗୁଣକ ×୧\nଶକ୍ତି × ଗୁଣକ ÷ ୧୦୦ (ଦଶମିକ ଅଂଶ ଛାଡ଼ି) କ୍ଷତିର ହିସାବରେ ଲାଗେ",
   "moveDetailSelfStatFormula": "ତୁମର {statName} ଗୁଣକରେ ଯୋଗ ହେଉଥିବା ମୂଲ୍ୟ (%)",
-  "moveDetailOpponentStatFormula": "ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀର {statName} ଗୁଣକରେ ଯୋଡ଼ାଯାଉଥିବା ମୂଲ୍ୟ (%)"
+  "moveDetailOpponentStatFormula": "ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀର {statName} ଗୁଣକରେ ଯୋଡ଼ାଯାଉଥିବା ମୂଲ୍ୟ (%)",
+  "moveDetailStatFormulaNote": "ଗୁଣକ 100 ମାନେ 1 ଗୁଣ\nଦାନବ ଢଳିପଡ଼ିବା ଯାଏଁ ଚାଲେ ଏବଂ 50ରୁ 200 ମଧ୍ୟରେ ଅଟକେ"
 }

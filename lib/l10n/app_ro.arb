@@ -251,5 +251,6 @@
   "moveDetailFormula": "Multiplicator de putere (%)",
   "moveDetailFormulaNote": "La 100, multiplicatorul este ×1\nPutere × multiplicator ÷ 100 (fără zecimale) intră în calculul daunelor",
   "moveDetailSelfStatFormula": "Valoarea adăugată la multiplicatorul tău pentru {statName} (%)",
-  "moveDetailOpponentStatFormula": "Valoare adăugată la multiplicatorul {statName} al adversarului (%)"
+  "moveDetailOpponentStatFormula": "Valoare adăugată la multiplicatorul {statName} al adversarului (%)",
+  "moveDetailStatFormulaNote": "Multiplicatorul 100 înseamnă ×1\nContinuă până când un monstru cade și se oprește între 50 și 200"
 }

@@ -251,5 +251,6 @@
   "moveDetailFormula": "Množitelj snage (%)",
   "moveDetailFormulaNote": "Na 100 množitelj je ×1\nSnaga × množitelj ÷ 100 (bez decimalnog dijela) ulazi u izračun štete",
   "moveDetailSelfStatFormula": "Vrijednost dodana vlastitom množitelju za {statName} (%)",
-  "moveDetailOpponentStatFormula": "Vrijednost koja se dodaje protivnikovu množitelju za {statName} (%)"
+  "moveDetailOpponentStatFormula": "Vrijednost koja se dodaje protivnikovu množitelju za {statName} (%)",
+  "moveDetailStatFormulaNote": "Množitelj 100 znači ×1\nTraje dok čudovište ne padne i zaustavlja se između 50 i 200"
 }

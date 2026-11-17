@@ -251,5 +251,6 @@
   "moveDetailFormula": "Styrkemultiplikator (%)",
   "moveDetailFormulaNote": "Vid 100 är multiplikatorn ×1\nStyrka × multiplikator ÷ 100 (avrundat nedåt) ingår i beräkningen av skada",
   "moveDetailSelfStatFormula": "Värde som läggs till din {statName}-multiplikator (%)",
-  "moveDetailOpponentStatFormula": "Värde som läggs till motståndarens {statName}-multiplikator (%)"
+  "moveDetailOpponentStatFormula": "Värde som läggs till motståndarens {statName}-multiplikator (%)",
+  "moveDetailStatFormulaNote": "Multiplikator 100 motsvarar ×1\nFortsätter tills ett monster faller och stannar mellan 50 och 200"
 }
