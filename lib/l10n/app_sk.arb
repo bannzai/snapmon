@@ -41,5 +41,6 @@
   "opponentSearching": "Hľadá sa tréner",
   "opponentSearchAgain": "Hľadaj znova",
   "opponentNoneAvailable": "Teraz nie je dostupný žiadny tréner na súboj\nMôžeš bojovať s CPU trénerom",
-  "opponentRandomBattle": "Bojuj s náhodným súperom"
+  "opponentRandomBattle": "Bojuj s náhodným súperom",
+  "settingsLinked": "Prepojené s {providerName}"
 }

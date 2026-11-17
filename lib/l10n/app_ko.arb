@@ -41,5 +41,6 @@
   "opponentSearching": "트레이너를 찾고 있어요",
   "opponentSearchAgain": "다시 찾기",
   "opponentNoneAvailable": "지금 배틀할 수 있는 트레이너가 없어요\nCPU 트레이너와 배틀할 수 있어요",
-  "opponentRandomBattle": "무작위 상대와 배틀하기"
+  "opponentRandomBattle": "무작위 상대와 배틀하기",
+  "settingsLinked": "{providerName}에 연동했어요"
 }

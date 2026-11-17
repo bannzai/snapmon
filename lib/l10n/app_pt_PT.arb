@@ -41,5 +41,6 @@
   "opponentSearching": "À procura de um treinador",
   "opponentSearchAgain": "Procura outra vez",
   "opponentNoneAvailable": "Não há nenhum treinador disponível para combater agora\nPodes combater com um treinador CPU",
-  "opponentRandomBattle": "Combate um adversário aleatório"
+  "opponentRandomBattle": "Combate um adversário aleatório",
+  "settingsLinked": "Ligado a {providerName}"
 }

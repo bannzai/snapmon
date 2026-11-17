@@ -41,5 +41,6 @@
   "opponentSearching": "Letar efter en tränare",
   "opponentSearchAgain": "Sök igen",
   "opponentNoneAvailable": "Ingen tränare är redo för strid just nu\nDu kan strida mot en CPU-tränare",
-  "opponentRandomBattle": "Strid mot en slumpad motståndare"
+  "opponentRandomBattle": "Strid mot en slumpad motståndare",
+  "settingsLinked": "Anslutet till {providerName}"
 }

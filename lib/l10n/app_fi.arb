@@ -41,5 +41,6 @@
   "opponentSearching": "Etsitään kouluttajaa",
   "opponentSearchAgain": "Etsi uudelleen",
   "opponentNoneAvailable": "Yhtään kouluttajaa ei ole nyt vastassa\nVoit taistella CPU-kouluttajaa vastaan",
-  "opponentRandomBattle": "Taistele satunnaista vastustajaa vastaan"
+  "opponentRandomBattle": "Taistele satunnaista vastustajaa vastaan",
+  "settingsLinked": "Yhdistetty palveluun {providerName}"
 }

@@ -41,5 +41,6 @@
   "opponentSearching": "Edző keresése",
   "opponentSearchAgain": "Keress újra",
   "opponentNoneAvailable": "Most nincs elérhető edző, akivel megküzdhetnél\nMegküzdhetsz egy CPU-edzővel",
-  "opponentRandomBattle": "Küzdj egy véletlen ellenféllel"
+  "opponentRandomBattle": "Küzdj egy véletlen ellenféllel",
+  "settingsLinked": "Összekapcsolva ezzel: {providerName}"
 }

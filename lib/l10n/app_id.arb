@@ -41,5 +41,6 @@
   "opponentSearching": "Mencari pelatih",
   "opponentSearchAgain": "Cari lagi",
   "opponentNoneAvailable": "Belum ada pelatih yang bisa dilawan sekarang\nKamu bisa melawan pelatih CPU",
-  "opponentRandomBattle": "Lawan musuh acak"
+  "opponentRandomBattle": "Lawan musuh acak",
+  "settingsLinked": "Terhubung dengan {providerName}"
 }

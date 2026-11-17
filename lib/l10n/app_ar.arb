@@ -41,5 +41,6 @@
   "opponentSearching": "جارٍ البحث عن مدرب",
   "opponentSearchAgain": "ابحث مجددًا",
   "opponentNoneAvailable": "لا يوجد مدرب متاح للقتال الآن\nيمكنك قتال مدرب CPU",
-  "opponentRandomBattle": "قاتل خصمًا عشوائيًا"
+  "opponentRandomBattle": "قاتل خصمًا عشوائيًا",
+  "settingsLinked": "تم الربط مع {providerName}"
 }

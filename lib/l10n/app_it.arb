@@ -41,5 +41,6 @@
   "opponentSearching": "Cerco un allenatore",
   "opponentSearchAgain": "Cerca di nuovo",
   "opponentNoneAvailable": "Al momento non c'è nessun allenatore da sfidare\nPuoi sfidare un allenatore CPU",
-  "opponentRandomBattle": "Sfida un avversario casuale"
+  "opponentRandomBattle": "Sfida un avversario casuale",
+  "settingsLinked": "Collegato a {providerName}"
 }

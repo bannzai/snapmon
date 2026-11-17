@@ -41,5 +41,6 @@
   "opponentSearching": "กำลังหาเทรนเนอร์",
   "opponentSearchAgain": "ค้นหาอีกครั้ง",
   "opponentNoneAvailable": "ตอนนี้ยังไม่มีเทรนเนอร์ให้สู้ด้วย\nสู้กับเทรนเนอร์ CPU ได้",
-  "opponentRandomBattle": "สู้กับคู่ต่อสู้แบบสุ่ม"
+  "opponentRandomBattle": "สู้กับคู่ต่อสู้แบบสุ่ม",
+  "settingsLinked": "เชื่อมต่อกับ {providerName} แล้ว"
 }

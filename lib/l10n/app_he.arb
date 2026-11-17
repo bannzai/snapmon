@@ -41,5 +41,6 @@
   "opponentSearching": "מחפשים מאמן",
   "opponentSearchAgain": "לחפש שוב",
   "opponentNoneAvailable": "אין כרגע מאמן זמין לקרב\nאפשר להילחם מול מאמן CPU",
-  "opponentRandomBattle": "קרב נגד יריב אקראי"
+  "opponentRandomBattle": "קרב נגד יריב אקראי",
+  "settingsLinked": "החיבור אל {providerName} הושלם"
 }

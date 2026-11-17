@@ -41,5 +41,6 @@
   "opponentSearching": "Iščemo trenerja",
   "opponentSearchAgain": "Poišči znova",
   "opponentNoneAvailable": "Trenutno ni trenerja, s katerim bi se boril\nLahko se boriš s CPU-trenerjem",
-  "opponentRandomBattle": "Bori se z naključnim nasprotnikom"
+  "opponentRandomBattle": "Bori se z naključnim nasprotnikom",
+  "settingsLinked": "Povezano s {providerName}"
 }

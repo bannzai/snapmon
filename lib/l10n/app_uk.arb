@@ -41,5 +41,6 @@
   "opponentSearching": "Шукаємо тренера",
   "opponentSearchAgain": "Шукай знову",
   "opponentNoneAvailable": "Зараз немає тренера, з яким можна битися\nТи можеш битися з CPU-тренером",
-  "opponentRandomBattle": "Бийся з випадковим суперником"
+  "opponentRandomBattle": "Бийся з випадковим суперником",
+  "settingsLinked": "Підключено до {providerName}"
 }

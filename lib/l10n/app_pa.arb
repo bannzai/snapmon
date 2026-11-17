@@ -41,5 +41,6 @@
   "opponentSearching": "ਟ੍ਰੇਨਰ ਦੀ ਭਾਲ ਜਾਰੀ ਹੈ",
   "opponentSearchAgain": "ਦੁਬਾਰਾ ਲੱਭੋ",
   "opponentNoneAvailable": "ਇਸ ਵੇਲੇ ਲੜਨ ਲਈ ਕੋਈ ਟ੍ਰੇਨਰ ਨਹੀਂ ਹੈ\nਤੁਸੀਂ CPU ਟ੍ਰੇਨਰ ਨਾਲ ਲੜ ਸਕਦੇ ਹੋ",
-  "opponentRandomBattle": "ਕਿਸੇ ਬੇਤਰਤੀਬ ਵਿਰੋਧੀ ਨਾਲ ਲੜੋ"
+  "opponentRandomBattle": "ਕਿਸੇ ਬੇਤਰਤੀਬ ਵਿਰੋਧੀ ਨਾਲ ਲੜੋ",
+  "settingsLinked": "{providerName} ਨਾਲ ਜੁੜ ਗਿਆ"
 }
