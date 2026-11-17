@@ -125,5 +125,6 @@
   "generationChooseCutoutMessage": "Tu peux créer ton monstre avec l’image découpée\nou choisir une zone sur la photo",
   "generationCutoutLabel": "Détourage",
   "generationOriginalPhotoLabel": "Photo d’origine",
-  "generationCreateWithCutout": "Créer à partir de l’image détourée"
+  "generationCreateWithCutout": "Créer à partir de l’image détourée",
+  "generationChooseRangeMyself": "Choisir moi-même la zone"
 }
