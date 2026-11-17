@@ -91,5 +91,6 @@
   "captureCameraPermissionRequired": "需要允许使用相机",
   "captureCameraPermissionHint": "在设置中允许使用相机",
   "captureCameraPermissionHintWeb": "在地址栏的网站设置中允许使用相机",
-  "captureOpenSettings": "打开设置"
+  "captureOpenSettings": "打开设置",
+  "captureUseCamera": "使用相机"
 }

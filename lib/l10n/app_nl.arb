@@ -91,5 +91,6 @@
   "captureCameraPermissionRequired": "Je moet toegang tot de camera toestaan",
   "captureCameraPermissionHint": "Geef toegang tot de camera via de instellingen",
   "captureCameraPermissionHintWeb": "Sta de camera toe via de site-instellingen in de adresbalk",
-  "captureOpenSettings": "Instellingen openen"
+  "captureOpenSettings": "Instellingen openen",
+  "captureUseCamera": "Gebruik de camera"
 }

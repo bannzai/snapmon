@@ -91,5 +91,6 @@
   "captureCameraPermissionRequired": "ಕ್ಯಾಮೆರಾ ಬಳಸಲು ಅನುಮತಿ ಬೇಕು",
   "captureCameraPermissionHint": "ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಕ್ಯಾಮೆರಾ ಬಳಕೆಗೆ ಅನುಮತಿ ನೀಡು",
   "captureCameraPermissionHintWeb": "ವಿಳಾಸ ಪಟ್ಟಿಯಲ್ಲಿರುವ ಸೈಟ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳಿಂದ ಕ್ಯಾಮೆರಾಗೆ ಅನುಮತಿ ಕೊಡು",
-  "captureOpenSettings": "ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ತೆರೆ"
+  "captureOpenSettings": "ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ತೆರೆ",
+  "captureUseCamera": "ಕ್ಯಾಮೆರಾ ಬಳಸು"
 }

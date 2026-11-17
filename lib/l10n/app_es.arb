@@ -91,5 +91,6 @@
   "captureCameraPermissionRequired": "Debes permitir el acceso a la cámara",
   "captureCameraPermissionHint": "Permite el acceso a la cámara en la configuración",
   "captureCameraPermissionHintWeb": "Permite el acceso a la cámara desde la configuración del sitio en la barra de direcciones",
-  "captureOpenSettings": "Abrir ajustes"
+  "captureOpenSettings": "Abrir ajustes",
+  "captureUseCamera": "Usar la cámara"
 }

@@ -91,5 +91,6 @@
   "captureCameraPermissionRequired": "Je potřeba povolit přístup k fotoaparátu",
   "captureCameraPermissionHint": "Povol kameru v nastavení",
   "captureCameraPermissionHintWeb": "Povol kameru v nastavení webu v adresním řádku",
-  "captureOpenSettings": "Otevřít nastavení"
+  "captureOpenSettings": "Otevřít nastavení",
+  "captureUseCamera": "Použij fotoaparát"
 }

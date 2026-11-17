@@ -91,5 +91,6 @@
   "captureCameraPermissionRequired": "Kamera erişimine izin vermen gerekiyor",
   "captureCameraPermissionHint": "Ayarlardan kamera erişimine izin ver",
   "captureCameraPermissionHintWeb": "Adres çubuğundaki site ayarlarından kameraya izin ver",
-  "captureOpenSettings": "Ayarları aç"
+  "captureOpenSettings": "Ayarları aç",
+  "captureUseCamera": "Kamerayı kullan"
 }

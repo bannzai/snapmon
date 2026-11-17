@@ -91,5 +91,6 @@
   "captureCameraPermissionRequired": "Kamu perlu mengizinkan akses kamera",
   "captureCameraPermissionHint": "Izinkan akses kamera di pengaturan",
   "captureCameraPermissionHintWeb": "Izinkan kamera lewat setelan situs di bilah alamat",
-  "captureOpenSettings": "Buka pengaturan"
+  "captureOpenSettings": "Buka pengaturan",
+  "captureUseCamera": "Pakai kamera"
 }

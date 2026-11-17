@@ -91,5 +91,6 @@
   "captureCameraPermissionRequired": "கேமராவைப் பயன்படுத்த அனுமதி தேவை",
   "captureCameraPermissionHint": "அமைப்புகளில் கேமராவை பயன்படுத்த அனுமதியுங்கள்",
   "captureCameraPermissionHintWeb": "முகவரிப் பட்டியில் உள்ள தள அமைப்புகளிலிருந்து கேமராவுக்கு அனுமதி வழங்குங்கள்",
-  "captureOpenSettings": "அமைப்புகளைத் திறக்கவும்"
+  "captureOpenSettings": "அமைப்புகளைத் திறக்கவும்",
+  "captureUseCamera": "கேமராவைப் பயன்படுத்துங்கள்"
 }

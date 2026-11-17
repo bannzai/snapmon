@@ -91,5 +91,6 @@
   "captureCameraPermissionRequired": "Kameran käyttöön tarvitaan lupa",
   "captureCameraPermissionHint": "Salli kameran käyttö asetuksissa",
   "captureCameraPermissionHintWeb": "Salli kamera osoiterivin sivustoasetuksista",
-  "captureOpenSettings": "Avaa asetukset"
+  "captureOpenSettings": "Avaa asetukset",
+  "captureUseCamera": "Käytä kameraa"
 }

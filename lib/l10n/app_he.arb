@@ -91,5 +91,6 @@
   "captureCameraPermissionRequired": "צריך לאפשר גישה למצלמה",
   "captureCameraPermissionHint": "לאפשר גישה למצלמה בהגדרות",
   "captureCameraPermissionHintWeb": "יש לאפשר גישה למצלמה דרך הגדרות האתר בשורת הכתובת",
-  "captureOpenSettings": "פתיחת ההגדרות"
+  "captureOpenSettings": "פתיחת ההגדרות",
+  "captureUseCamera": "להשתמש במצלמה"
 }

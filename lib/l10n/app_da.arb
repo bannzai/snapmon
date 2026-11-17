@@ -91,5 +91,6 @@
   "captureCameraPermissionRequired": "Du skal give adgang til kameraet",
   "captureCameraPermissionHint": "Giv adgang til kameraet i indstillingerne",
   "captureCameraPermissionHintWeb": "Giv adgang til kameraet i webstedets indstillinger i adresselinjen",
-  "captureOpenSettings": "Åbn indstillinger"
+  "captureOpenSettings": "Åbn indstillinger",
+  "captureUseCamera": "Brug kameraet"
 }

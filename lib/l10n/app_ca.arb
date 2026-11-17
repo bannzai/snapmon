@@ -91,5 +91,6 @@
   "captureCameraPermissionRequired": "Cal donar permís per utilitzar la càmera",
   "captureCameraPermissionHint": "Permet l'accés a la càmera a la configuració",
   "captureCameraPermissionHintWeb": "Permet l'accés a la càmera des de la configuració del lloc a la barra d'adreces",
-  "captureOpenSettings": "Obre la configuració"
+  "captureOpenSettings": "Obre la configuració",
+  "captureUseCamera": "Fes servir la càmera"
 }
