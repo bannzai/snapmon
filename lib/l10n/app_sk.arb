@@ -11,5 +11,6 @@
   "reportReasonInappropriateText": "Nevhodné meno alebo text",
   "reportReasonPersonInPicture": "Na fotke je človek",
   "reportReasonInappropriateIcon": "Nevhodná ikona",
-  "reportReasonOther": "Iné"
+  "reportReasonOther": "Iné",
+  "reportSheetTitle": "Nahlásiť {monsterName}"
 }

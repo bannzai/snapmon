@@ -11,5 +11,6 @@
   "reportReasonInappropriateText": "שם או טקסט לא הולם",
   "reportReasonPersonInPicture": "מופיע אדם בתמונה",
   "reportReasonInappropriateIcon": "סמל לא הולם",
-  "reportReasonOther": "אחר"
+  "reportReasonOther": "אחר",
+  "reportSheetTitle": "דיווח על {monsterName}"
 }

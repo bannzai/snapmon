@@ -11,5 +11,6 @@
   "reportReasonInappropriateText": "Ongepaste naam of tekst",
   "reportReasonPersonInPicture": "Er staat een persoon op de foto",
   "reportReasonInappropriateIcon": "Ongepast pictogram",
-  "reportReasonOther": "Overig"
+  "reportReasonOther": "Overig",
+  "reportSheetTitle": "{monsterName} melden"
 }

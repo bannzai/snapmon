@@ -11,5 +11,6 @@
   "reportReasonInappropriateText": "അനുചിതമായ പേരോ എഴുത്തോ",
   "reportReasonPersonInPicture": "ചിത്രത്തിൽ ഒരാൾ ഉണ്ട്",
   "reportReasonInappropriateIcon": "അനുചിതമായ ഐക്കൺ",
-  "reportReasonOther": "മറ്റുള്ളവ"
+  "reportReasonOther": "മറ്റുള്ളവ",
+  "reportSheetTitle": "{monsterName}നെ റിപ്പോർട്ട് ചെയ്യുക"
 }

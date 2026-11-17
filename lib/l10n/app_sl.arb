@@ -11,5 +11,6 @@
   "reportReasonInappropriateText": "Neprimerno ime ali besedilo",
   "reportReasonPersonInPicture": "Na fotografiji je oseba",
   "reportReasonInappropriateIcon": "Neprimerna ikona",
-  "reportReasonOther": "Drugo"
+  "reportReasonOther": "Drugo",
+  "reportSheetTitle": "Prijavi {monsterName}"
 }

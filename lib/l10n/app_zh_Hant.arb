@@ -11,5 +11,6 @@
   "reportReasonInappropriateText": "名稱或文字不當",
   "reportReasonPersonInPicture": "照片中有人",
   "reportReasonInappropriateIcon": "圖示不當",
-  "reportReasonOther": "其他"
+  "reportReasonOther": "其他",
+  "reportSheetTitle": "檢舉 {monsterName}"
 }

@@ -11,5 +11,6 @@
   "reportReasonInappropriateText": "نام یا متن نامناسب ہے",
   "reportReasonPersonInPicture": "تصویر میں ایک شخص ہے",
   "reportReasonInappropriateIcon": "نامناسب آئیکن",
-  "reportReasonOther": "دیگر"
+  "reportReasonOther": "دیگر",
+  "reportSheetTitle": "{monsterName} کو رپورٹ کرو"
 }

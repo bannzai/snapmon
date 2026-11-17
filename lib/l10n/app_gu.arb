@@ -11,5 +11,6 @@
   "reportReasonInappropriateText": "અયોગ્ય નામ અથવા લખાણ",
   "reportReasonPersonInPicture": "ફોટામાં વ્યક્તિ દેખાય છે",
   "reportReasonInappropriateIcon": "અયોગ્ય ચિહ્ન",
-  "reportReasonOther": "અન્ય"
+  "reportReasonOther": "અન્ય",
+  "reportSheetTitle": "{monsterName}નો રિપોર્ટ કરો"
 }

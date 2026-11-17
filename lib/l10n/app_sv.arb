@@ -11,5 +11,6 @@
   "reportReasonInappropriateText": "Olämpligt namn eller text",
   "reportReasonPersonInPicture": "En person syns på bilden",
   "reportReasonInappropriateIcon": "Olämplig ikon",
-  "reportReasonOther": "Annat"
+  "reportReasonOther": "Annat",
+  "reportSheetTitle": "Rapportera {monsterName}"
 }

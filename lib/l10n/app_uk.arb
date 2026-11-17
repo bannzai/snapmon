@@ -11,5 +11,6 @@
   "reportReasonInappropriateText": "Недоречне ім’я або текст",
   "reportReasonPersonInPicture": "На фото є людина",
   "reportReasonInappropriateIcon": "Неприйнятна іконка",
-  "reportReasonOther": "Інше"
+  "reportReasonOther": "Інше",
+  "reportSheetTitle": "Скарга на {monsterName}"
 }

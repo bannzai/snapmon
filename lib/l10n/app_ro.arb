@@ -11,5 +11,6 @@
   "reportReasonInappropriateText": "Nume sau text nepotrivit",
   "reportReasonPersonInPicture": "În poză apare o persoană",
   "reportReasonInappropriateIcon": "Pictogramă nepotrivită",
-  "reportReasonOther": "Altele"
+  "reportReasonOther": "Altele",
+  "reportSheetTitle": "Raportează {monsterName}"
 }

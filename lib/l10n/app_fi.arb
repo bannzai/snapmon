@@ -11,5 +11,6 @@
   "reportReasonInappropriateText": "Sopimaton nimi tai teksti",
   "reportReasonPersonInPicture": "Kuvassa näkyy ihminen",
   "reportReasonInappropriateIcon": "Sopimaton kuvake",
-  "reportReasonOther": "Muu"
+  "reportReasonOther": "Muu",
+  "reportSheetTitle": "Ilmoita kohteesta {monsterName}"
 }

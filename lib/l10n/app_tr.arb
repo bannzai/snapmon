@@ -11,5 +11,6 @@
   "reportReasonInappropriateText": "Uygunsuz ad veya metin",
   "reportReasonPersonInPicture": "Fotoğrafta bir kişi var",
   "reportReasonInappropriateIcon": "Uygunsuz simge",
-  "reportReasonOther": "Diğer"
+  "reportReasonOther": "Diğer",
+  "reportSheetTitle": "{monsterName} için bildir"
 }

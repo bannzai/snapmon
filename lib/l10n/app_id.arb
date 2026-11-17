@@ -11,5 +11,6 @@
   "reportReasonInappropriateText": "Nama atau teks tidak pantas",
   "reportReasonPersonInPicture": "Ada orang di foto",
   "reportReasonInappropriateIcon": "Ikon tidak pantas",
-  "reportReasonOther": "Lainnya"
+  "reportReasonOther": "Lainnya",
+  "reportSheetTitle": "Laporkan {monsterName}"
 }

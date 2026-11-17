@@ -11,5 +11,6 @@
   "reportReasonInappropriateText": "নাম বা লেখা অনুপযুক্ত",
   "reportReasonPersonInPicture": "ছবিতে একজন মানুষ আছে",
   "reportReasonInappropriateIcon": "আইকনটি অনুপযুক্ত",
-  "reportReasonOther": "অন্যান্য"
+  "reportReasonOther": "অন্যান্য",
+  "reportSheetTitle": "{monsterName}-কে রিপোর্ট করো"
 }

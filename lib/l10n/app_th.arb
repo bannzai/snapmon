@@ -11,5 +11,6 @@
   "reportReasonInappropriateText": "ชื่อหรือข้อความไม่เหมาะสม",
   "reportReasonPersonInPicture": "มีคนอยู่ในภาพ",
   "reportReasonInappropriateIcon": "ไอคอนไม่เหมาะสม",
-  "reportReasonOther": "อื่นๆ"
+  "reportReasonOther": "อื่นๆ",
+  "reportSheetTitle": "รายงาน {monsterName}"
 }

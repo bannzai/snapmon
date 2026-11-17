@@ -11,5 +11,6 @@
   "reportReasonInappropriateText": "Tên hoặc nội dung không phù hợp",
   "reportReasonPersonInPicture": "Có người trong ảnh",
   "reportReasonInappropriateIcon": "Biểu tượng không phù hợp",
-  "reportReasonOther": "Khác"
+  "reportReasonOther": "Khác",
+  "reportSheetTitle": "Báo cáo {monsterName}"
 }

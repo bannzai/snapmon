@@ -11,5 +11,6 @@
   "reportReasonInappropriateText": "Nem megfelelő név vagy szöveg",
   "reportReasonPersonInPicture": "Személy látható a képen",
   "reportReasonInappropriateIcon": "Nem megfelelő ikon",
-  "reportReasonOther": "Egyéb"
+  "reportReasonOther": "Egyéb",
+  "reportSheetTitle": "{monsterName} jelentése"
 }

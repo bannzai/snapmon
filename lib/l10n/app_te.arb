@@ -11,5 +11,6 @@
   "reportReasonInappropriateText": "అనుచితమైన పేరు లేదా వచనం",
   "reportReasonPersonInPicture": "ఫోటోలో ఒక వ్యక్తి ఉన్నారు",
   "reportReasonInappropriateIcon": "అనుచితమైన ఐకాన్",
-  "reportReasonOther": "ఇతర"
+  "reportReasonOther": "ఇతర",
+  "reportSheetTitle": "{monsterName}పై రిపోర్ట్ చేయి"
 }

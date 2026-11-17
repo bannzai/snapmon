@@ -11,5 +11,6 @@
   "reportReasonInappropriateText": "Ακατάλληλο όνομα ή κείμενο",
   "reportReasonPersonInPicture": "Φαίνεται άτομο στη φωτογραφία",
   "reportReasonInappropriateIcon": "Ακατάλληλο εικονίδιο",
-  "reportReasonOther": "Άλλο"
+  "reportReasonOther": "Άλλο",
+  "reportSheetTitle": "Αναφορά για {monsterName}"
 }

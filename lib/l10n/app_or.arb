@@ -11,5 +11,6 @@
   "reportReasonInappropriateText": "ଅନୁପଯୁକ୍ତ ନାମ କିମ୍ବା ଲେଖା",
   "reportReasonPersonInPicture": "ଫଟୋରେ ଜଣେ ବ୍ୟକ୍ତି ଅଛନ୍ତି",
   "reportReasonInappropriateIcon": "ଅନୁପଯୁକ୍ତ ଆଇକନ୍",
-  "reportReasonOther": "ଅନ୍ୟାନ୍ୟ"
+  "reportReasonOther": "ଅନ୍ୟାନ୍ୟ",
+  "reportSheetTitle": "{monsterName} ବିଷୟରେ ରିପୋର୍ଟ କର"
 }
