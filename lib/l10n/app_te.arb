@@ -193,5 +193,6 @@
   "battleLogFieldEnded": "మైదానం మళ్లీ మామూలు స్థితికి వచ్చింది",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "విషం",
-  "statusConditionParalysis": "పక్షవాతం"
+  "statusConditionParalysis": "పక్షవాతం",
+  "statusConditionStun": "స్పృహ తప్పడం"
 }

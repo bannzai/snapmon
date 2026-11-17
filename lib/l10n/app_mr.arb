@@ -193,5 +193,6 @@
   "battleLogFieldEnded": "मैदान पुन्हा पूर्ववत झालं",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "विष",
-  "statusConditionParalysis": "पक्षाघात"
+  "statusConditionParalysis": "पक्षाघात",
+  "statusConditionStun": "बेशुद्ध"
 }

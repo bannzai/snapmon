@@ -193,5 +193,6 @@
   "battleLogFieldEnded": "Pole se vrátilo do normálu",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "Jed",
-  "statusConditionParalysis": "Paralýza"
+  "statusConditionParalysis": "Paralýza",
+  "statusConditionStun": "Omráčení"
 }

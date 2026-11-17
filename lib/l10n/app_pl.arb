@@ -193,5 +193,6 @@
   "battleLogFieldEnded": "Pole wróciło do normy",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "Zatrucie",
-  "statusConditionParalysis": "Paraliż"
+  "statusConditionParalysis": "Paraliż",
+  "statusConditionStun": "Ogłuszenie"
 }

@@ -193,5 +193,6 @@
   "battleLogFieldEnded": "場地恢復原狀了",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "中毒",
-  "statusConditionParalysis": "麻痺"
+  "statusConditionParalysis": "麻痺",
+  "statusConditionStun": "昏厥"
 }

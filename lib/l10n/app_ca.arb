@@ -193,5 +193,6 @@
   "battleLogFieldEnded": "El camp ha tornat a la normalitat",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "Verí",
-  "statusConditionParalysis": "Paràlisi"
+  "statusConditionParalysis": "Paràlisi",
+  "statusConditionStun": "Atordiment"
 }

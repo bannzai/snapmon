@@ -193,5 +193,6 @@
   "battleLogFieldEnded": "필드가 원래대로 돌아왔다",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "독",
-  "statusConditionParalysis": "마비"
+  "statusConditionParalysis": "마비",
+  "statusConditionStun": "기절"
 }

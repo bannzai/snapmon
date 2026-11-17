@@ -193,5 +193,6 @@
   "battleLogFieldEnded": "Polje se vratilo u normalu",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "Otrov",
-  "statusConditionParalysis": "Paraliza"
+  "statusConditionParalysis": "Paraliza",
+  "statusConditionStun": "Ošamućenost"
 }

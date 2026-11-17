@@ -193,5 +193,6 @@
   "battleLogFieldEnded": "Il campo è tornato normale",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "Veleno",
-  "statusConditionParalysis": "Paralisi"
+  "statusConditionParalysis": "Paralisi",
+  "statusConditionStun": "Stordimento"
 }

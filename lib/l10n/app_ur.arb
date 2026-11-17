@@ -193,5 +193,6 @@
   "battleLogFieldEnded": "میدان پھر معمول پر آ گیا",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "زہر",
-  "statusConditionParalysis": "فالج"
+  "statusConditionParalysis": "فالج",
+  "statusConditionStun": "بے ہوشی"
 }

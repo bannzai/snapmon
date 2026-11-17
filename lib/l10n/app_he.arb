@@ -193,5 +193,6 @@
   "battleLogFieldEnded": "השדה חזר לקדמותו",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "רעל",
-  "statusConditionParalysis": "שיתוק"
+  "statusConditionParalysis": "שיתוק",
+  "statusConditionStun": "עילפון"
 }

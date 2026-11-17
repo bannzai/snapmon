@@ -193,5 +193,6 @@
   "battleLogFieldEnded": "Câmpul a revenit la normal",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "Otravă",
-  "statusConditionParalysis": "Paralizie"
+  "statusConditionParalysis": "Paralizie",
+  "statusConditionStun": "Amețeală"
 }

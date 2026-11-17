@@ -193,5 +193,6 @@
   "battleLogFieldEnded": "สนามกลับเป็นปกติแล้ว",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "พิษ",
-  "statusConditionParalysis": "อัมพาต"
+  "statusConditionParalysis": "อัมพาต",
+  "statusConditionStun": "หมดสติ"
 }

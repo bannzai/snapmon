@@ -193,5 +193,6 @@
   "battleLogFieldEnded": "मैदान फिर सामान्य हो गया",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "ज़हर",
-  "statusConditionParalysis": "लकवा"
+  "statusConditionParalysis": "लकवा",
+  "statusConditionStun": "बेहोशी"
 }

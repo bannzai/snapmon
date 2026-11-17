@@ -193,5 +193,6 @@
   "battleLogFieldEnded": "A mező visszatért a normális állapotába",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "Méreg",
-  "statusConditionParalysis": "Bénulás"
+  "statusConditionParalysis": "Bénulás",
+  "statusConditionStun": "Kábulat"
 }

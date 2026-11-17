@@ -193,5 +193,6 @@
   "battleLogFieldEnded": "মাঠ আবার স্বাভাবিক হলো",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "বিষ",
-  "statusConditionParalysis": "পক্ষাঘাত"
+  "statusConditionParalysis": "পক্ষাঘাত",
+  "statusConditionStun": "অজ্ঞান"
 }

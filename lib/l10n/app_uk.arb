@@ -193,5 +193,6 @@
   "battleLogFieldEnded": "Поле повернулося до норми",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "Отрута",
-  "statusConditionParalysis": "Параліч"
+  "statusConditionParalysis": "Параліч",
+  "statusConditionStun": "Оглушення"
 }

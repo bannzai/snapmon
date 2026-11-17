@@ -193,5 +193,6 @@
   "battleLogFieldEnded": "களம் மீண்டும் இயல்பு நிலைக்குத் திரும்பியது",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "நஞ்சு",
-  "statusConditionParalysis": "பக்கவாதம்"
+  "statusConditionParalysis": "பக்கவாதம்",
+  "statusConditionStun": "மயக்கம்"
 }

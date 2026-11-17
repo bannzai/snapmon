@@ -193,5 +193,6 @@
   "battleLogFieldEnded": "Het veld is weer normaal",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "Gif",
-  "statusConditionParalysis": "Verlamming"
+  "statusConditionParalysis": "Verlamming",
+  "statusConditionStun": "Verdoofd"
 }

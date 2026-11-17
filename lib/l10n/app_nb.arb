@@ -193,5 +193,6 @@
   "battleLogFieldEnded": "Feltet er tilbake til normalen",
   "battleStatusStackCount": "{statusName} ×{stackCount}",
   "statusConditionPoison": "Gift",
-  "statusConditionParalysis": "Lammelse"
+  "statusConditionParalysis": "Lammelse",
+  "statusConditionStun": "Slått ut"
 }
