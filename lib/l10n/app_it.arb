@@ -264,5 +264,6 @@
   "ticketPurchaseDescription": "Anche se hai esaurito le creazioni gratis di oggi,\ncon 1 biglietto puoi crearne ancora 1",
   "ticketPurchaseWaiting": "Ricezione dei biglietti",
   "ticketPurchaseArrivalDelayed": "In attesa che compaiano i biglietti\nI biglietti ricevuti resteranno anche se chiudi questa schermata",
-  "ticketPurchasePending": "In attesa del completamento del pagamento\nAnche se chiudi questa schermata, riceverai il biglietto appena il pagamento sarà completato"
+  "ticketPurchasePending": "In attesa del completamento del pagamento\nAnche se chiudi questa schermata, riceverai il biglietto appena il pagamento sarà completato",
+  "ticketPurchaseArrivedTitle": "I biglietti sono arrivati"
 }

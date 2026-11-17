@@ -264,5 +264,6 @@
   "ticketPurchaseDescription": "即使用完今天的免费生成次数，\n也能用1张券再生成1次",
   "ticketPurchaseWaiting": "正在领取票券",
   "ticketPurchaseArrivalDelayed": "正在等待票券到账\n即使关闭此页面，已收到的票券也会保留",
-  "ticketPurchasePending": "正在等待付款完成\n即使关闭此页面，付款完成后你也会收到票券"
+  "ticketPurchasePending": "正在等待付款完成\n即使关闭此页面，付款完成后你也会收到票券",
+  "ticketPurchaseArrivedTitle": "票券已到账"
 }

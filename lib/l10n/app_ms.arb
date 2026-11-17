@@ -264,5 +264,6 @@
   "ticketPurchaseDescription": "Walaupun peluang cipta percuma hari ini dah habis,\n1 tiket boleh digunakan untuk cipta 1 kali lagi",
   "ticketPurchaseWaiting": "Sedang menerima tiket",
   "ticketPurchaseArrivalDelayed": "Menunggu tiket kamu muncul\nTiket yang sudah diterima tetap ada walaupun kamu tutup skrin ini",
-  "ticketPurchasePending": "Menunggu pembayaran selesai\nWalaupun kamu tutup skrin ini, tiket akan diterima sebaik sahaja pembayaran selesai"
+  "ticketPurchasePending": "Menunggu pembayaran selesai\nWalaupun kamu tutup skrin ini, tiket akan diterima sebaik sahaja pembayaran selesai",
+  "ticketPurchaseArrivedTitle": "Tiket kamu dah sampai"
 }

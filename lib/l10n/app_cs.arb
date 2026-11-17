@@ -264,5 +264,6 @@
   "ticketPurchaseDescription": "I když vyčerpáš dnešní tvorbu zdarma,\nza 1 lístek můžeš tvořit ještě 1×",
   "ticketPurchaseWaiting": "Přijímají se vstupenky",
   "ticketPurchaseArrivalDelayed": "Čeká se na připsání lístků\nZískané lístky ti zůstanou, i když tuto obrazovku zavřeš",
-  "ticketPurchasePending": "Čeká se na dokončení platby\nI když tuto obrazovku zavřeš, po dokončení platby dostaneš lístek"
+  "ticketPurchasePending": "Čeká se na dokončení platby\nI když tuto obrazovku zavřeš, po dokončení platby dostaneš lístek",
+  "ticketPurchaseArrivedTitle": "Lístky dorazily"
 }

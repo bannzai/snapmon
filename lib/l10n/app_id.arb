@@ -264,5 +264,6 @@
   "ticketPurchaseDescription": "Meski jatah kreasi gratis hari ini habis,\n1 tiket bisa dipakai untuk membuat 1 kali lagi",
   "ticketPurchaseWaiting": "Menerima tiketmu",
   "ticketPurchaseArrivalDelayed": "Menunggu tiketmu muncul\nTiket yang sudah kamu terima tetap ada meski layar ini ditutup",
-  "ticketPurchasePending": "Menunggu pembayaran selesai\nMeski kamu menutup layar ini, tiket akan masuk begitu pembayaran selesai"
+  "ticketPurchasePending": "Menunggu pembayaran selesai\nMeski kamu menutup layar ini, tiket akan masuk begitu pembayaran selesai",
+  "ticketPurchaseArrivedTitle": "Tiketmu sudah datang"
 }

@@ -264,5 +264,6 @@
   "ticketPurchaseDescription": "Mesmo depois de esgotares as criações grátis de hoje,\ncom 1 bilhete podes criar mais 1 vez",
   "ticketPurchaseWaiting": "A receber os teus bilhetes",
   "ticketPurchaseArrivalDelayed": "À espera que os bilhetes apareçam\nOs bilhetes recebidos ficam contigo mesmo que feches este ecrã",
-  "ticketPurchasePending": "À espera da conclusão do pagamento\nMesmo que feches este ecrã, receberás o bilhete quando o pagamento estiver concluído"
+  "ticketPurchasePending": "À espera da conclusão do pagamento\nMesmo que feches este ecrã, receberás o bilhete quando o pagamento estiver concluído",
+  "ticketPurchaseArrivedTitle": "Os teus bilhetes chegaram"
 }

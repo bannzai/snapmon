@@ -264,5 +264,6 @@
   "ticketPurchaseDescription": "Vaikka päivän ilmaiset luontikerrat loppuvat,\n1 lipulla voit luoda vielä 1 kerran",
   "ticketPurchaseWaiting": "Vastaanotetaan lippuja",
   "ticketPurchaseArrivalDelayed": "Odotetaan lippujen näkymistä\nSaamasi liput säilyvät, vaikka suljet tämän näkymän",
-  "ticketPurchasePending": "Odotetaan maksun valmistumista\nSaat lipun maksun valmistuttua, vaikka sulkisit tämän näkymän"
+  "ticketPurchasePending": "Odotetaan maksun valmistumista\nSaat lipun maksun valmistuttua, vaikka sulkisit tämän näkymän",
+  "ticketPurchaseArrivedTitle": "Liput saapuivat"
 }
