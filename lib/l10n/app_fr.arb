@@ -73,5 +73,6 @@
   "profileIconUpdated": "Ton icône a changé !",
   "dexSummary": "Monstres : {monsterCount} · équipe : {partyCount}",
   "dexReload": "Recharger",
-  "dexParty": "équipe"
+  "dexParty": "équipe",
+  "dexAll": "Tous"
 }
