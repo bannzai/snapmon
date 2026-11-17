@@ -53,5 +53,6 @@
   "settingsSoundSection": "Son",
   "settingsBackgroundMusic": "Musique de fond",
   "settingsSoundEffects": "Effets sonores",
-  "settingsSupportSection": "Assistance"
+  "settingsSupportSection": "Assistance",
+  "settingsTerms": "Conditions d’utilisation"
 }
