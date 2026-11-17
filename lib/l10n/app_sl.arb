@@ -28,5 +28,6 @@
   "blockDialogConfirm": "blokiraj",
   "opponentSafetyMenuTooltip": "prijavi · blokiraj",
   "opponentBlockTrainer": "Blokiraj tega trenerja",
-  "opponentReportHelpBody": "Pridrži nasprotnikovo pošast, da jo prijaviš\nZ gumbom zgoraj desno na kartici jo lahko prijaviš ali blokiraš"
+  "opponentReportHelpBody": "Pridrži nasprotnikovo pošast, da jo prijaviš\nZ gumbom zgoraj desno na kartici jo lahko prijaviš ali blokiraš",
+  "opponentLevelUpNote": "Po vsaki bitki se raven zviša za 1"
 }

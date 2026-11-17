@@ -28,5 +28,6 @@
   "blockDialogConfirm": "letiltás",
   "opponentSafetyMenuTooltip": "jelentés · letiltás",
   "opponentBlockTrainer": "Tiltsd le ezt az edzőt",
-  "opponentReportHelpBody": "Tartsd lenyomva az ellenfél szörnyét a jelentéshez\nA kártya jobb felső gombjával jelentheted vagy letilthatod"
+  "opponentReportHelpBody": "Tartsd lenyomva az ellenfél szörnyét a jelentéshez\nA kártya jobb felső gombjával jelentheted vagy letilthatod",
+  "opponentLevelUpNote": "Minden csata után 1 szintet lép"
 }

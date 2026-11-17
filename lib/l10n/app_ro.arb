@@ -28,5 +28,6 @@
   "blockDialogConfirm": "blochează",
   "opponentSafetyMenuTooltip": "raportează · blochează",
   "opponentBlockTrainer": "Blochează acest antrenor",
-  "opponentReportHelpBody": "Ține apăsat pe monstrul adversarului ca să îl raportezi\nFolosește butonul din dreapta sus al cărții ca să îl raportezi sau să îl blochezi"
+  "opponentReportHelpBody": "Ține apăsat pe monstrul adversarului ca să îl raportezi\nFolosește butonul din dreapta sus al cărții ca să îl raportezi sau să îl blochezi",
+  "opponentLevelUpNote": "Crește cu 1 nivel după fiecare luptă"
 }

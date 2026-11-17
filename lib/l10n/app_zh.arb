@@ -28,5 +28,6 @@
   "blockDialogConfirm": "屏蔽",
   "opponentSafetyMenuTooltip": "举报 · 屏蔽",
   "opponentBlockTrainer": "屏蔽这位训练家",
-  "opponentReportHelpBody": "长按对手的怪物即可举报\n点击卡片右上角的按钮可举报或屏蔽"
+  "opponentReportHelpBody": "长按对手的怪物即可举报\n点击卡片右上角的按钮可举报或屏蔽",
+  "opponentLevelUpNote": "每战升 1 级"
 }

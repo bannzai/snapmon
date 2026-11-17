@@ -28,5 +28,6 @@
   "blockDialogConfirm": "ब्लॉक करो",
   "opponentSafetyMenuTooltip": "रिपोर्ट · ब्लॉक",
   "opponentBlockTrainer": "इस ट्रेनर को ब्लॉक करो",
-  "opponentReportHelpBody": "विरोधी के मॉन्स्टर को देर तक दबाकर रिपोर्ट करो\nकार्ड के ऊपर दाईं ओर के बटन से रिपोर्ट या ब्लॉक करो"
+  "opponentReportHelpBody": "विरोधी के मॉन्स्टर को देर तक दबाकर रिपोर्ट करो\nकार्ड के ऊपर दाईं ओर के बटन से रिपोर्ट या ब्लॉक करो",
+  "opponentLevelUpNote": "हर लड़ाई के बाद लेवल 1 बढ़ता है"
 }

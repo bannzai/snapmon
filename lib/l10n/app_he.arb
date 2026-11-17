@@ -28,5 +28,6 @@
   "blockDialogConfirm": "חסימה",
   "opponentSafetyMenuTooltip": "דיווח · חסימה",
   "opponentBlockTrainer": "חסימת המאמן הזה",
-  "opponentReportHelpBody": "לחיצה ארוכה על המפלצת של היריב מאפשרת דיווח\nהכפתור בפינה הימנית העליונה של הקלף מאפשר דיווח או חסימה"
+  "opponentReportHelpBody": "לחיצה ארוכה על המפלצת של היריב מאפשרת דיווח\nהכפתור בפינה הימנית העליונה של הקלף מאפשר דיווח או חסימה",
+  "opponentLevelUpNote": "עולים רמה אחת אחרי כל קרב"
 }

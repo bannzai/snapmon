@@ -28,5 +28,6 @@
   "blockDialogConfirm": "حظر",
   "opponentSafetyMenuTooltip": "إبلاغ · حظر",
   "opponentBlockTrainer": "حظر هذا المدرب",
-  "opponentReportHelpBody": "اضغط مطولًا على وحش الخصم لإرسال إبلاغ\nيمكنك إرسال إبلاغ أو حظر الخصم من الزر أعلى يمين البطاقة"
+  "opponentReportHelpBody": "اضغط مطولًا على وحش الخصم لإرسال إبلاغ\nيمكنك إرسال إبلاغ أو حظر الخصم من الزر أعلى يمين البطاقة",
+  "opponentLevelUpNote": "يرتفع المستوى درجة واحدة بعد كل معركة"
 }

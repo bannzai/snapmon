@@ -28,5 +28,6 @@
   "blockDialogConfirm": "blokkeren",
   "opponentSafetyMenuTooltip": "melden · blokkeren",
   "opponentBlockTrainer": "Blokkeer deze trainer",
-  "opponentReportHelpBody": "Houd het monster van je tegenstander ingedrukt om het te melden\nMet de knop rechtsboven op de kaart kun je melden of blokkeren"
+  "opponentReportHelpBody": "Houd het monster van je tegenstander ingedrukt om het te melden\nMet de knop rechtsboven op de kaart kun je melden of blokkeren",
+  "opponentLevelUpNote": "Stijgt 1 level na elk gevecht"
 }

@@ -28,5 +28,6 @@
   "blockDialogConfirm": "blokovať",
   "opponentSafetyMenuTooltip": "nahlásiť · blokovať",
   "opponentBlockTrainer": "Zablokuj tohto trénera",
-  "opponentReportHelpBody": "Podrž súperovu príšeru a môžeš ju nahlásiť\nTlačidlom vpravo hore na karte ju môžeš nahlásiť alebo blokovať"
+  "opponentReportHelpBody": "Podrž súperovu príšeru a môžeš ju nahlásiť\nTlačidlom vpravo hore na karte ju môžeš nahlásiť alebo blokovať",
+  "opponentLevelUpNote": "Po každom súboji stúpne úroveň o 1"
 }

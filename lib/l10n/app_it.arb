@@ -28,5 +28,6 @@
   "blockDialogConfirm": "bloccare",
   "opponentSafetyMenuTooltip": "segnala · blocca",
   "opponentBlockTrainer": "Blocca questo allenatore",
-  "opponentReportHelpBody": "Tieni premuto il mostro avversario per segnalarlo\nUsa il pulsante in alto a destra sulla carta per segnalare o bloccare"
+  "opponentReportHelpBody": "Tieni premuto il mostro avversario per segnalarlo\nUsa il pulsante in alto a destra sulla carta per segnalare o bloccare",
+  "opponentLevelUpNote": "Sale di 1 livello dopo ogni lotta"
 }
