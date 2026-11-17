@@ -10,5 +10,6 @@
   "reportReasonInappropriatePicture": "תמונה לא הולמת",
   "reportReasonInappropriateText": "שם או טקסט לא הולם",
   "reportReasonPersonInPicture": "מופיע אדם בתמונה",
-  "reportReasonInappropriateIcon": "סמל לא הולם"
+  "reportReasonInappropriateIcon": "סמל לא הולם",
+  "reportReasonOther": "אחר"
 }

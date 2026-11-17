@@ -10,5 +10,6 @@
   "reportReasonInappropriatePicture": "ਅਣਉਚਿਤ ਤਸਵੀਰ",
   "reportReasonInappropriateText": "ਅਣਉਚਿਤ ਨਾਮ ਜਾਂ ਲਿਖਤ",
   "reportReasonPersonInPicture": "ਫੋਟੋ ਵਿੱਚ ਕੋਈ ਵਿਅਕਤੀ ਹੈ",
-  "reportReasonInappropriateIcon": "ਅਣਉਚਿਤ ਆਈਕਨ"
+  "reportReasonInappropriateIcon": "ਅਣਉਚਿਤ ਆਈਕਨ",
+  "reportReasonOther": "ਹੋਰ"
 }

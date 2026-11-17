@@ -10,5 +10,6 @@
   "reportReasonInappropriatePicture": "圖片不當",
   "reportReasonInappropriateText": "名稱或文字不當",
   "reportReasonPersonInPicture": "照片中有人",
-  "reportReasonInappropriateIcon": "圖示不當"
+  "reportReasonInappropriateIcon": "圖示不當",
+  "reportReasonOther": "其他"
 }

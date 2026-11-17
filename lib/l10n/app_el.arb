@@ -10,5 +10,6 @@
   "reportReasonInappropriatePicture": "Ακατάλληλη εικόνα",
   "reportReasonInappropriateText": "Ακατάλληλο όνομα ή κείμενο",
   "reportReasonPersonInPicture": "Φαίνεται άτομο στη φωτογραφία",
-  "reportReasonInappropriateIcon": "Ακατάλληλο εικονίδιο"
+  "reportReasonInappropriateIcon": "Ακατάλληλο εικονίδιο",
+  "reportReasonOther": "Άλλο"
 }

@@ -10,5 +10,6 @@
   "reportReasonInappropriatePicture": "ภาพไม่เหมาะสม",
   "reportReasonInappropriateText": "ชื่อหรือข้อความไม่เหมาะสม",
   "reportReasonPersonInPicture": "มีคนอยู่ในภาพ",
-  "reportReasonInappropriateIcon": "ไอคอนไม่เหมาะสม"
+  "reportReasonInappropriateIcon": "ไอคอนไม่เหมาะสม",
+  "reportReasonOther": "อื่นๆ"
 }

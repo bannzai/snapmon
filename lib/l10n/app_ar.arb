@@ -10,5 +10,6 @@
   "reportReasonInappropriatePicture": "صورة غير لائقة",
   "reportReasonInappropriateText": "اسم أو نص غير لائق",
   "reportReasonPersonInPicture": "تظهر صورة لشخص",
-  "reportReasonInappropriateIcon": "الأيقونة غير لائقة"
+  "reportReasonInappropriateIcon": "الأيقونة غير لائقة",
+  "reportReasonOther": "غير ذلك"
 }

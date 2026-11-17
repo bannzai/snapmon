@@ -10,5 +10,6 @@
   "reportReasonInappropriatePicture": "Uygunsuz görsel",
   "reportReasonInappropriateText": "Uygunsuz ad veya metin",
   "reportReasonPersonInPicture": "Fotoğrafta bir kişi var",
-  "reportReasonInappropriateIcon": "Uygunsuz simge"
+  "reportReasonInappropriateIcon": "Uygunsuz simge",
+  "reportReasonOther": "Diğer"
 }

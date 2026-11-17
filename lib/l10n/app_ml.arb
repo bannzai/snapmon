@@ -10,5 +10,6 @@
   "reportReasonInappropriatePicture": "അനുചിതമായ ചിത്രം",
   "reportReasonInappropriateText": "അനുചിതമായ പേരോ എഴുത്തോ",
   "reportReasonPersonInPicture": "ചിത്രത്തിൽ ഒരാൾ ഉണ്ട്",
-  "reportReasonInappropriateIcon": "അനുചിതമായ ഐക്കൺ"
+  "reportReasonInappropriateIcon": "അനുചിതമായ ഐക്കൺ",
+  "reportReasonOther": "മറ്റുള്ളവ"
 }

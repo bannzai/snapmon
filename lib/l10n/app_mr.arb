@@ -10,5 +10,6 @@
   "reportReasonInappropriatePicture": "अयोग्य चित्र",
   "reportReasonInappropriateText": "अयोग्य नाव किंवा मजकूर",
   "reportReasonPersonInPicture": "फोटोत एक व्यक्ती आहे",
-  "reportReasonInappropriateIcon": "अयोग्य आयकॉन"
+  "reportReasonInappropriateIcon": "अयोग्य आयकॉन",
+  "reportReasonOther": "इतर"
 }

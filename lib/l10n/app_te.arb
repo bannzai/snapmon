@@ -10,5 +10,6 @@
   "reportReasonInappropriatePicture": "అనుచితమైన చిత్రం",
   "reportReasonInappropriateText": "అనుచితమైన పేరు లేదా వచనం",
   "reportReasonPersonInPicture": "ఫోటోలో ఒక వ్యక్తి ఉన్నారు",
-  "reportReasonInappropriateIcon": "అనుచితమైన ఐకాన్"
+  "reportReasonInappropriateIcon": "అనుచితమైన ఐకాన్",
+  "reportReasonOther": "ఇతర"
 }

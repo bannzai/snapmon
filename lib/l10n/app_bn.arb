@@ -10,5 +10,6 @@
   "reportReasonInappropriatePicture": "অনুপযুক্ত ছবি",
   "reportReasonInappropriateText": "নাম বা লেখা অনুপযুক্ত",
   "reportReasonPersonInPicture": "ছবিতে একজন মানুষ আছে",
-  "reportReasonInappropriateIcon": "আইকনটি অনুপযুক্ত"
+  "reportReasonInappropriateIcon": "আইকনটি অনুপযুক্ত",
+  "reportReasonOther": "অন্যান্য"
 }

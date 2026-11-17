@@ -10,5 +10,6 @@
   "reportReasonInappropriatePicture": "Недоречне зображення",
   "reportReasonInappropriateText": "Недоречне ім’я або текст",
   "reportReasonPersonInPicture": "На фото є людина",
-  "reportReasonInappropriateIcon": "Неприйнятна іконка"
+  "reportReasonInappropriateIcon": "Неприйнятна іконка",
+  "reportReasonOther": "Інше"
 }

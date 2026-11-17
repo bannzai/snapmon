@@ -10,5 +10,6 @@
   "reportReasonInappropriatePicture": "Nevhodný obrázek",
   "reportReasonInappropriateText": "Nevhodné jméno nebo text",
   "reportReasonPersonInPicture": "Na fotce je člověk",
-  "reportReasonInappropriateIcon": "Nevhodná ikona"
+  "reportReasonInappropriateIcon": "Nevhodná ikona",
+  "reportReasonOther": "Jiné"
 }

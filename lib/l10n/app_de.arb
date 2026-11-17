@@ -10,5 +10,6 @@
   "reportReasonInappropriatePicture": "Unangemessenes Bild",
   "reportReasonInappropriateText": "Unangemessener Name oder Text",
   "reportReasonPersonInPicture": "Eine Person ist auf dem Bild",
-  "reportReasonInappropriateIcon": "Unangemessenes Symbol"
+  "reportReasonInappropriateIcon": "Unangemessenes Symbol",
+  "reportReasonOther": "Sonstiges"
 }

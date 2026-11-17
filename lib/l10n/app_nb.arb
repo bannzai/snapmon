@@ -10,5 +10,6 @@
   "reportReasonInappropriatePicture": "Upassende bilde",
   "reportReasonInappropriateText": "Upassende navn eller tekst",
   "reportReasonPersonInPicture": "Det er en person på bildet",
-  "reportReasonInappropriateIcon": "Upassende ikon"
+  "reportReasonInappropriateIcon": "Upassende ikon",
+  "reportReasonOther": "Annet"
 }

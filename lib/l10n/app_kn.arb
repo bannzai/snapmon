@@ -10,5 +10,6 @@
   "reportReasonInappropriatePicture": "ಅನುಚಿತ ಚಿತ್ರ",
   "reportReasonInappropriateText": "ಅನುಚಿತ ಹೆಸರು ಅಥವಾ ಪಠ್ಯ",
   "reportReasonPersonInPicture": "ಫೋಟೋದಲ್ಲಿ ವ್ಯಕ್ತಿ ಕಾಣಿಸುತ್ತಿದ್ದಾರೆ",
-  "reportReasonInappropriateIcon": "ಅನುಚಿತ ಐಕಾನ್"
+  "reportReasonInappropriateIcon": "ಅನುಚಿತ ಐಕಾನ್",
+  "reportReasonOther": "ಇತರೆ"
 }

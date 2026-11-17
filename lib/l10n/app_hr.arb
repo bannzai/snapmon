@@ -10,5 +10,6 @@
   "reportReasonInappropriatePicture": "Neprimjerena slika",
   "reportReasonInappropriateText": "Neprimjereno ime ili tekst",
   "reportReasonPersonInPicture": "Na slici je osoba",
-  "reportReasonInappropriateIcon": "Neprikladna ikona"
+  "reportReasonInappropriateIcon": "Neprikladna ikona",
+  "reportReasonOther": "Ostalo"
 }

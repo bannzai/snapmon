@@ -10,5 +10,6 @@
   "reportReasonInappropriatePicture": "Gambar tidak pantas",
   "reportReasonInappropriateText": "Nama atau teks tidak pantas",
   "reportReasonPersonInPicture": "Ada orang di foto",
-  "reportReasonInappropriateIcon": "Ikon tidak pantas"
+  "reportReasonInappropriateIcon": "Ikon tidak pantas",
+  "reportReasonOther": "Lainnya"
 }

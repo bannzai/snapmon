@@ -10,5 +10,6 @@
   "reportReasonInappropriatePicture": "Nem megfelelő kép",
   "reportReasonInappropriateText": "Nem megfelelő név vagy szöveg",
   "reportReasonPersonInPicture": "Személy látható a képen",
-  "reportReasonInappropriateIcon": "Nem megfelelő ikon"
+  "reportReasonInappropriateIcon": "Nem megfelelő ikon",
+  "reportReasonOther": "Egyéb"
 }

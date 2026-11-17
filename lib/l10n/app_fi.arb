@@ -10,5 +10,6 @@
   "reportReasonInappropriatePicture": "Sopimaton kuva",
   "reportReasonInappropriateText": "Sopimaton nimi tai teksti",
   "reportReasonPersonInPicture": "Kuvassa näkyy ihminen",
-  "reportReasonInappropriateIcon": "Sopimaton kuvake"
+  "reportReasonInappropriateIcon": "Sopimaton kuvake",
+  "reportReasonOther": "Muu"
 }
