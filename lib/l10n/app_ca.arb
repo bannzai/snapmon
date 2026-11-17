@@ -122,5 +122,6 @@
   "generationPersonNoticeTitle": "Hi surt una persona",
   "generationPersonNoticeMessage": "Els altres també poden veure la imatge del monstre durant els combats.\nSi a la foto hi surt algú més, demana-li permís abans de fer-la servir.",
   "generationChooseCutoutTitle": "Hem retallat el subjecte",
-  "generationChooseCutoutMessage": "Tria si vols crear-lo amb el retall\n o marcar una zona de la foto"
+  "generationChooseCutoutMessage": "Tria si vols crear-lo amb el retall\n o marcar una zona de la foto",
+  "generationCutoutLabel": "Retall"
 }

@@ -122,5 +122,6 @@
   "generationPersonNoticeTitle": "Er staat een persoon op de foto",
   "generationPersonNoticeMessage": "Anderen kunnen de afbeelding van je monster ook zien tijdens gevechten.\nStaat er iemand anders dan jij op de foto? Vraag die persoon dan om toestemming voordat je de foto gebruikt.",
   "generationChooseCutoutTitle": "Onderwerp uitgeknipt",
-  "generationChooseCutoutMessage": "Kies of je de uitgesneden afbeelding gebruikt\nof een gebied op de foto selecteert"
+  "generationChooseCutoutMessage": "Kies of je de uitgesneden afbeelding gebruikt\nof een gebied op de foto selecteert",
+  "generationCutoutLabel": "Uitknipsel"
 }

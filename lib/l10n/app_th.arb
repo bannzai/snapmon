@@ -122,5 +122,6 @@
   "generationPersonNoticeTitle": "มีคนอยู่ในรูป",
   "generationPersonNoticeMessage": "คนอื่นอาจเห็นภาพมอนสเตอร์ของคุณระหว่างการต่อสู้\nถ้าในรูปมีคนอื่นนอกจากคุณ ขอความยินยอมจากคนนั้นก่อนนำรูปไปใช้",
   "generationChooseCutoutTitle": "ตัดตัวแบบออกจากภาพแล้ว",
-  "generationChooseCutoutMessage": "เลือกใช้ภาพที่ตัดออกมา\nหรือกำหนดพื้นที่บนรูปถ่าย"
+  "generationChooseCutoutMessage": "เลือกใช้ภาพที่ตัดออกมา\nหรือกำหนดพื้นที่บนรูปถ่าย",
+  "generationCutoutLabel": "ภาพตัดพื้นหลัง"
 }

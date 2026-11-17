@@ -122,5 +122,6 @@
   "generationPersonNoticeTitle": "사진에 사람이 있어요",
   "generationPersonNoticeMessage": "배틀에서는 다른 사람도 몬스터 이미지를 볼 수 있어요.\n사진에 본인 외의 사람이 있다면, 사용하기 전에 그 사람의 동의를 받아 주세요.",
   "generationChooseCutoutTitle": "피사체를 오려냈어요",
-  "generationChooseCutoutMessage": "잘라낸 이미지로 만들거나\n사진에서 영역을 직접 고를 수 있어요"
+  "generationChooseCutoutMessage": "잘라낸 이미지로 만들거나\n사진에서 영역을 직접 고를 수 있어요",
+  "generationCutoutLabel": "오려낸 그림"
 }

@@ -122,5 +122,6 @@
   "generationPersonNoticeTitle": "Na fotografiji je osoba",
   "generationPersonNoticeMessage": "Drugi mogu vidjeti sliku tvog čudovišta u borbi.\nAko je na fotografiji još netko osim tebe, zatraži njegov pristanak prije upotrebe.",
   "generationChooseCutoutTitle": "Objekt je izrezan",
-  "generationChooseCutoutMessage": "Odaberi želiš li ga stvoriti iz izrezanog motiva\nili označiti područje na fotografiji"
+  "generationChooseCutoutMessage": "Odaberi želiš li ga stvoriti iz izrezanog motiva\nili označiti područje na fotografiji",
+  "generationCutoutLabel": "Izrez"
 }

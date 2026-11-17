@@ -122,5 +122,6 @@
   "generationPersonNoticeTitle": "照片裡有人",
   "generationPersonNoticeMessage": "對戰時，其他人也看得到你的怪物圖片。\n如果照片裡有你以外的人，使用前先徵得對方同意。",
   "generationChooseCutoutTitle": "已將拍攝對象去背",
-  "generationChooseCutoutMessage": "你可以用去背後的圖片來製作\n也可以在照片上選取範圍"
+  "generationChooseCutoutMessage": "你可以用去背後的圖片來製作\n也可以在照片上選取範圍",
+  "generationCutoutLabel": "去背圖片"
 }

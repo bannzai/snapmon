@@ -122,5 +122,6 @@
   "generationPersonNoticeTitle": "Fotoğrafta bir kişi var",
   "generationPersonNoticeMessage": "Canavarının görselini savaşlarda başkaları da görebilir.\nFotoğrafta senden başka biri varsa kullanmadan önce ondan izin al.",
   "generationChooseCutoutTitle": "Nesne kesilip çıkarıldı",
-  "generationChooseCutoutMessage": "Kesilmiş görselle oluşturmayı\nveya fotoğrafta bir alan seçmeyi tercih et"
+  "generationChooseCutoutMessage": "Kesilmiş görselle oluşturmayı\nveya fotoğrafta bir alan seçmeyi tercih et",
+  "generationCutoutLabel": "Kesilmiş görsel"
 }

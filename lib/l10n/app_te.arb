@@ -122,5 +122,6 @@
   "generationPersonNoticeTitle": "ఫోటోలో ఒక వ్యక్తి ఉన్నారు",
   "generationPersonNoticeMessage": "యుద్ధాల్లో నీ మాన్స్టర్ చిత్రాన్ని ఇతరులు కూడా చూడగలరు.\nఫోటోలో నువ్వు కాకుండా ఇంకెవరైనా ఉంటే, దాన్ని ఉపయోగించే ముందు వారి అనుమతి తీసుకో.",
   "generationChooseCutoutTitle": "ఫోటోలోని వస్తువును కత్తిరించి వేరు చేశాం",
-  "generationChooseCutoutMessage": "కత్తిరించిన బొమ్మతో చేయాలా\nలేదా ఫొటోలో భాగాన్ని ఎంచుకోవాలా నిర్ణయించుకో"
+  "generationChooseCutoutMessage": "కత్తిరించిన బొమ్మతో చేయాలా\nలేదా ఫొటోలో భాగాన్ని ఎంచుకోవాలా నిర్ణయించుకో",
+  "generationCutoutLabel": "కత్తిరించిన చిత్రం"
 }

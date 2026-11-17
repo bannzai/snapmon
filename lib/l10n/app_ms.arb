@@ -122,5 +122,6 @@
   "generationPersonNoticeTitle": "Ada orang dalam foto",
   "generationPersonNoticeMessage": "Orang lain juga boleh melihat imej monster kamu semasa bertarung.\nJika ada orang lain selain kamu dalam foto, dapatkan persetujuan mereka sebelum menggunakannya.",
   "generationChooseCutoutTitle": "Objek foto berjaya dipotong",
-  "generationChooseCutoutMessage": "Pilih sama ada mahu guna imej yang dipotong\natau tandakan kawasan pada foto"
+  "generationChooseCutoutMessage": "Pilih sama ada mahu guna imej yang dipotong\natau tandakan kawasan pada foto",
+  "generationCutoutLabel": "Imej potongan"
 }

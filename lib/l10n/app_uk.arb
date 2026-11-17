@@ -122,5 +122,6 @@
   "generationPersonNoticeTitle": "На фото є людина",
   "generationPersonNoticeMessage": "Інші теж можуть бачити зображення твого монстра в боях.\nЯкщо на фото є хтось, окрім тебе, попроси його згоди перед використанням.",
   "generationChooseCutoutTitle": "Об’єкт вирізано",
-  "generationChooseCutoutMessage": "Вибери: створити його з вирізаного об’єкта\nчи виділити ділянку на фото"
+  "generationChooseCutoutMessage": "Вибери: створити його з вирізаного об’єкта\nчи виділити ділянку на фото",
+  "generationCutoutLabel": "Вирізане зображення"
 }

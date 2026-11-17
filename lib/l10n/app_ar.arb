@@ -122,5 +122,6 @@
   "generationPersonNoticeTitle": "تظهر صورة شخص",
   "generationPersonNoticeMessage": "صورة الوحش تظهر للآخرين أثناء المعارك.\nإذا ظهر شخص غيرك في الصورة، احصل على موافقته قبل استخدامها.",
   "generationChooseCutoutTitle": "تم قصّ العنصر من الصورة",
-  "generationChooseCutoutMessage": "يمكنك اختيار صنع الوحش من الصورة المقصوصة\nأو تحديد جزء من الصورة الأصلية"
+  "generationChooseCutoutMessage": "يمكنك اختيار صنع الوحش من الصورة المقصوصة\nأو تحديد جزء من الصورة الأصلية",
+  "generationCutoutLabel": "الصورة المقصوصة"
 }

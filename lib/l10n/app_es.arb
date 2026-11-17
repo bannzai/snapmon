@@ -122,5 +122,6 @@
   "generationPersonNoticeTitle": "Hay una persona en la foto",
   "generationPersonNoticeMessage": "Otras personas también pueden ver la imagen de tu monstruo en los combates.\nSi aparece alguien más en la foto, pídele permiso antes de usarla.",
   "generationChooseCutoutTitle": "Recortamos el objeto",
-  "generationChooseCutoutMessage": "Elige si quieres usar el recorte\no marcar una zona en la foto"
+  "generationChooseCutoutMessage": "Elige si quieres usar el recorte\no marcar una zona en la foto",
+  "generationCutoutLabel": "Recorte"
 }

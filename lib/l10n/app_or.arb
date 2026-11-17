@@ -122,5 +122,6 @@
   "generationPersonNoticeTitle": "ଫଟୋରେ ଜଣେ ବ୍ୟକ୍ତି ଅଛନ୍ତି",
   "generationPersonNoticeMessage": "ଯୁଦ୍ଧ ବେଳେ ଅନ୍ୟମାନେ ମଧ୍ୟ ତୁମ ମନଷ୍ଟରର ଛବି ଦେଖିପାରିବେ।\nଫଟୋରେ ତୁମ ବ୍ୟତୀତ ଆଉ କେହି ଥିଲେ, ବ୍ୟବହାର ପୂର୍ବରୁ ତାଙ୍କ ସମ୍ମତି ନିଅ।",
   "generationChooseCutoutTitle": "ଫଟୋରୁ ବସ୍ତୁଟି କାଟି ବାହାର କରାଯାଇଛି",
-  "generationChooseCutoutMessage": "କଟା ଛବିରୁ ତିଆରି କରିବାକୁ ଚାହୁଁଛ\nନା ଫଟୋରେ ଏକ ଅଂଶ ବାଛିବାକୁ, ତୁମେ ବାଛ"
+  "generationChooseCutoutMessage": "କଟା ଛବିରୁ ତିଆରି କରିବାକୁ ଚାହୁଁଛ\nନା ଫଟୋରେ ଏକ ଅଂଶ ବାଛିବାକୁ, ତୁମେ ବାଛ",
+  "generationCutoutLabel": "କଟା ଛବି"
 }

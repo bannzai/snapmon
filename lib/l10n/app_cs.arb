@@ -122,5 +122,6 @@
   "generationPersonNoticeTitle": "Na fotce je člověk",
   "generationPersonNoticeMessage": "Obrázek příšery uvidí během soubojů i ostatní.\nPokud je na fotce někdo kromě tebe, požádej ho před použitím o souhlas.",
   "generationChooseCutoutTitle": "Objekt je vyříznutý",
-  "generationChooseCutoutMessage": "Vyber si, jestli ho vytvoříš z výřezu,\nnebo označíš oblast na fotce"
+  "generationChooseCutoutMessage": "Vyber si, jestli ho vytvoříš z výřezu,\nnebo označíš oblast na fotce",
+  "generationCutoutLabel": "Výřez"
 }

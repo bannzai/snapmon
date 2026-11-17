@@ -122,5 +122,6 @@
   "generationPersonNoticeTitle": "C'è una persona nella foto",
   "generationPersonNoticeMessage": "Anche gli altri possono vedere l'immagine del tuo mostro durante le lotte.\nSe nella foto c'è qualcun altro oltre a te, chiedigli il permesso prima di usarla.",
   "generationChooseCutoutTitle": "Soggetto ritagliato",
-  "generationChooseCutoutMessage": "Scegli se crearlo dal soggetto ritagliato\no selezionare un’area della foto"
+  "generationChooseCutoutMessage": "Scegli se crearlo dal soggetto ritagliato\no selezionare un’area della foto",
+  "generationCutoutLabel": "Ritaglio"
 }

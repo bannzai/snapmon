@@ -122,5 +122,6 @@
   "generationPersonNoticeTitle": "Det finns en person på bilden",
   "generationPersonNoticeMessage": "Andra kan också se bilden på ditt monster i strider.\nOm någon annan än du syns på fotot, be om personens tillåtelse innan du använder det.",
   "generationChooseCutoutTitle": "Motivet är frilagt",
-  "generationChooseCutoutMessage": "Välj om du vill använda det frilagda motivet\neller markera ett område i bilden"
+  "generationChooseCutoutMessage": "Välj om du vill använda det frilagda motivet\neller markera ett område i bilden",
+  "generationCutoutLabel": "Utklipp"
 }

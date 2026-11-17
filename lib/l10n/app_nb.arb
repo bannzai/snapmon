@@ -122,5 +122,6 @@
   "generationPersonNoticeTitle": "Det er en person på bildet",
   "generationPersonNoticeMessage": "Andre kan også se bildet av monsteret ditt i kamp.\nHvis noen andre enn deg er med på bildet, må du få samtykke fra dem før du bruker det.",
   "generationChooseCutoutTitle": "Motivet er klippet ut",
-  "generationChooseCutoutMessage": "Velg om du vil bruke det utskårne motivet\neller markere et område i bildet"
+  "generationChooseCutoutMessage": "Velg om du vil bruke det utskårne motivet\neller markere et område i bildet",
+  "generationCutoutLabel": "Utsnitt"
 }
