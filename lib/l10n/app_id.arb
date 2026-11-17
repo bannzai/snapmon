@@ -295,5 +295,6 @@
   "actionCardMovesHeading": "Jurus Action Card",
   "actionCardTaughtNone": "Belum ada jurus yang diajarkan",
   "actionCardTeach": "Ajarkan jurus",
-  "actionCardTeachTitle": "Ajari {monsterName}"
+  "actionCardTeachTitle": "Ajari {monsterName}",
+  "actionCardTeachNoForgotten": "Tidak ada jurus yang dilepas"
 }

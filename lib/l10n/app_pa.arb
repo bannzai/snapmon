@@ -295,5 +295,6 @@
   "actionCardMovesHeading": "Action Card ਦੀਆਂ ਚਾਲਾਂ",
   "actionCardTaughtNone": "ਹਾਲੇ ਕੋਈ ਚਾਲ ਨਹੀਂ ਸਿਖਾਈ",
   "actionCardTeach": "ਚਾਲ ਸਿਖਾਓ",
-  "actionCardTeachTitle": "{monsterName} ਨੂੰ ਸਿਖਾਓ"
+  "actionCardTeachTitle": "{monsterName} ਨੂੰ ਸਿਖਾਓ",
+  "actionCardTeachNoForgotten": "ਕੋਈ ਚਾਲ ਨਹੀਂ ਹਟੇਗੀ"
 }

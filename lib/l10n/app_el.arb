@@ -295,5 +295,6 @@
   "actionCardMovesHeading": "Τεχνικές της Action Card",
   "actionCardTaughtNone": "Δεν έχει μάθει καμία τεχνική ακόμα",
   "actionCardTeach": "Δίδαξε τεχνική",
-  "actionCardTeachTitle": "Δίδαξέ το στο {monsterName}"
+  "actionCardTeachTitle": "Δίδαξέ το στο {monsterName}",
+  "actionCardTeachNoForgotten": "Δεν θα αφαιρεθεί καμία τεχνική"
 }

@@ -295,5 +295,6 @@
   "actionCardMovesHeading": "Action Card 招式",
   "actionCardTaughtNone": "還沒教會任何招式",
   "actionCardTeach": "傳授招式",
-  "actionCardTeachTitle": "教給 {monsterName}"
+  "actionCardTeachTitle": "教給 {monsterName}",
+  "actionCardTeachNoForgotten": "沒有招式會被移除"
 }

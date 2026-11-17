@@ -295,5 +295,6 @@
   "actionCardMovesHeading": "Potezi s Action Card",
   "actionCardTaughtNone": "Još ga nisi naučio nijedan potez",
   "actionCardTeach": "Nauči potez",
-  "actionCardTeachTitle": "Nauči {monsterName}"
+  "actionCardTeachTitle": "Nauči {monsterName}",
+  "actionCardTeachNoForgotten": "Nijedan potez neće biti uklonjen"
 }

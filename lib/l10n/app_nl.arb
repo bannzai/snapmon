@@ -295,5 +295,6 @@
   "actionCardMovesHeading": "Action Card-aanvallen",
   "actionCardTaughtNone": "Je hebt nog geen aanval aangeleerd",
   "actionCardTeach": "Leer een aanval aan",
-  "actionCardTeachTitle": "Leer het aan {monsterName}"
+  "actionCardTeachTitle": "Leer het aan {monsterName}",
+  "actionCardTeachNoForgotten": "Er wordt geen aanval verwijderd"
 }

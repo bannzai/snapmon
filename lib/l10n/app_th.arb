@@ -295,5 +295,6 @@
   "actionCardMovesHeading": "ท่าของ Action Card",
   "actionCardTaughtNone": "ยังไม่ได้สอนท่าไหนเลย",
   "actionCardTeach": "สอนท่า",
-  "actionCardTeachTitle": "สอนให้ {monsterName}"
+  "actionCardTeachTitle": "สอนให้ {monsterName}",
+  "actionCardTeachNoForgotten": "ไม่มีท่าที่จะถูกถอดออก"
 }

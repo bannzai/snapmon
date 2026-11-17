@@ -295,5 +295,6 @@
   "actionCardMovesHeading": "Action Card-এর কৌশল",
   "actionCardTaughtNone": "এখনও কোনো কৌশল শেখানো হয়নি",
   "actionCardTeach": "কৌশল শেখাও",
-  "actionCardTeachTitle": "{monsterName}-কে শেখাও"
+  "actionCardTeachTitle": "{monsterName}-কে শেখাও",
+  "actionCardTeachNoForgotten": "কোনো কৌশল বাদ যাবে না"
 }

@@ -295,5 +295,6 @@
   "actionCardMovesHeading": "Mișcări Action Card",
   "actionCardTaughtNone": "Nu i-ai predat încă nicio mișcare",
   "actionCardTeach": "Învață o mișcare",
-  "actionCardTeachTitle": "Învață-l pe {monsterName}"
+  "actionCardTeachTitle": "Învață-l pe {monsterName}",
+  "actionCardTeachNoForgotten": "Nu va fi eliminată nicio mișcare"
 }

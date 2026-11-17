@@ -295,5 +295,6 @@
   "actionCardMovesHeading": "Gerakan Action Card",
   "actionCardTaughtNone": "Belum ada gerakan yang diajar",
   "actionCardTeach": "Ajar gerakan",
-  "actionCardTeachTitle": "Ajar {monsterName}"
+  "actionCardTeachTitle": "Ajar {monsterName}",
+  "actionCardTeachNoForgotten": "Tiada gerakan yang akan dibuang"
 }

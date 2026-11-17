@@ -295,5 +295,6 @@
   "actionCardMovesHeading": "Action Card کی چالیں",
   "actionCardTaughtNone": "ابھی کوئی چال نہیں سکھائی",
   "actionCardTeach": "چال سکھاؤ",
-  "actionCardTeachTitle": "{monsterName} کو سکھاؤ"
+  "actionCardTeachTitle": "{monsterName} کو سکھاؤ",
+  "actionCardTeachNoForgotten": "کوئی چال نہیں ہٹائی جائے گی"
 }

@@ -295,5 +295,6 @@
   "actionCardMovesHeading": "Útoky z Action Card",
   "actionCardTaughtNone": "Ešte si ho nenaučil žiadny útok",
   "actionCardTeach": "Nauč útok",
-  "actionCardTeachTitle": "Nauč {monsterName}"
+  "actionCardTeachTitle": "Nauč {monsterName}",
+  "actionCardTeachNoForgotten": "Žiadny útok sa neodstráni"
 }

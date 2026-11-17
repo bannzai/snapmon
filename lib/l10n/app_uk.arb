@@ -295,5 +295,6 @@
   "actionCardMovesHeading": "Прийоми Action Card",
   "actionCardTaughtNone": "Ти ще не навчив його жодного прийому",
   "actionCardTeach": "Навчити прийому",
-  "actionCardTeachTitle": "Навчити {monsterName}"
+  "actionCardTeachTitle": "Навчити {monsterName}",
+  "actionCardTeachNoForgotten": "Жоден прийом не буде вилучено"
 }

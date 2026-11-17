@@ -295,5 +295,6 @@
   "actionCardMovesHeading": "Movimientos de Action Card",
   "actionCardTaughtNone": "Aún no le has enseñado ningún movimiento",
   "actionCardTeach": "Enseñar un movimiento",
-  "actionCardTeachTitle": "Enséñaselo a {monsterName}"
+  "actionCardTeachTitle": "Enséñaselo a {monsterName}",
+  "actionCardTeachNoForgotten": "No se quitará ningún movimiento"
 }

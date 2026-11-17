@@ -295,5 +295,6 @@
   "actionCardMovesHeading": "Action Card మూవ్‌లు",
   "actionCardTaughtNone": "ఇంకా ఏ మూవ్ నేర్పలేదు",
   "actionCardTeach": "మూవ్ నేర్పు",
-  "actionCardTeachTitle": "{monsterName}కి నేర్పు"
+  "actionCardTeachTitle": "{monsterName}కి నేర్పు",
+  "actionCardTeachNoForgotten": "ఏ మూవ్ కూడా తీసివేయబడదు"
 }

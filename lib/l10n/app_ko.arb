@@ -295,5 +295,6 @@
   "actionCardMovesHeading": "Action Card 기술",
   "actionCardTaughtNone": "아직 가르친 기술이 없어요",
   "actionCardTeach": "기술 가르치기",
-  "actionCardTeachTitle": "{monsterName}에게 가르치기"
+  "actionCardTeachTitle": "{monsterName}에게 가르치기",
+  "actionCardTeachNoForgotten": "빠지는 기술이 없어요"
 }

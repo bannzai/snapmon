@@ -295,5 +295,6 @@
   "actionCardMovesHeading": "Action Cardin liikkeet",
   "actionCardTaughtNone": "Et ole vielä opettanut liikkeitä",
   "actionCardTeach": "Opeta liike",
-  "actionCardTeachTitle": "Opeta se {monsterName}-hahmolle"
+  "actionCardTeachTitle": "Opeta se {monsterName}-hahmolle",
+  "actionCardTeachNoForgotten": "Yhtään liikettä ei poisteta"
 }

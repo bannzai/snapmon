@@ -295,5 +295,6 @@
   "actionCardMovesHeading": "Golpes do Action Card",
   "actionCardTaughtNone": "Ainda não lhe ensinaste nenhum golpe",
   "actionCardTeach": "Ensinar um golpe",
-  "actionCardTeachTitle": "Ensinar a {monsterName}"
+  "actionCardTeachTitle": "Ensinar a {monsterName}",
+  "actionCardTeachNoForgotten": "Nenhum golpe será removido"
 }

@@ -295,5 +295,6 @@
   "actionCardMovesHeading": "Chiêu từ Action Card",
   "actionCardTaughtNone": "Bạn chưa dạy chiêu nào",
   "actionCardTeach": "Dạy chiêu",
-  "actionCardTeachTitle": "Dạy cho {monsterName}"
+  "actionCardTeachTitle": "Dạy cho {monsterName}",
+  "actionCardTeachNoForgotten": "Không có chiêu nào bị bỏ"
 }

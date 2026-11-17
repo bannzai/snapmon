@@ -295,5 +295,6 @@
   "actionCardMovesHeading": "Attacken der Action Card",
   "actionCardTaughtNone": "Noch keine Attacke beigebracht",
   "actionCardTeach": "Attacke beibringen",
-  "actionCardTeachTitle": "{monsterName} etwas beibringen"
+  "actionCardTeachTitle": "{monsterName} etwas beibringen",
+  "actionCardTeachNoForgotten": "Keine Attacke wird entfernt"
 }
