@@ -320,5 +320,6 @@
   "helpTypeSuperEffective": "Siêu hiệu quả! Sát thương gấp 2",
   "helpTypeNotVeryEffective": "Không hiệu quả lắm, sát thương ×0.5",
   "helpTypeDualNote": "Nếu đối thủ có hai hệ, hãy nhân hai hệ số với nhau\nXem mọi tương khắc trong bộ sưu tập, mục «Tương khắc giữa các hệ và danh sách chiêu»",
-  "helpStatusHeading": "trạng thái bất thường"
+  "helpStatusHeading": "trạng thái bất thường",
+  "helpStatusBody": "Một số chiêu gây trạng thái bất thường cho đối thủ\nTrạng thái bất thường vẫn còn sau khi đổi quái"
 }

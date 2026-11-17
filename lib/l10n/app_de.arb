@@ -320,5 +320,6 @@
   "helpTypeSuperEffective": "Sehr effektiv! Schaden ×2",
   "helpTypeNotVeryEffective": "Nicht sehr effektiv, Schaden ×0.5",
   "helpTypeDualNote": "Hat dein Gegner zwei Elemente, werden beide Faktoren miteinander multipliziert\nAlle Effektivitäten findest du im Dex unter „Element-Effektivität und Attacken“",
-  "helpStatusHeading": "Statusprobleme"
+  "helpStatusHeading": "Statusprobleme",
+  "helpStatusBody": "Manche Attacken verursachen beim Gegner Statusprobleme\nStatusprobleme bleiben auch nach dem Wechsel"
 }

@@ -320,5 +320,6 @@
   "helpTypeSuperEffective": "Supereffektivt! Skade ×2",
   "helpTypeNotVeryEffective": "Ikke særlig effektivt, skade ×0.5",
   "helpTypeDualNote": "Har motstanderen to typer, ganger du de to faktorene sammen\nSe all effektivitet i «Typeeffektivitet og angrep» i samlingen",
-  "helpStatusHeading": "statuseffekter"
+  "helpStatusHeading": "statuseffekter",
+  "helpStatusBody": "Noen angrep gir motstanderen en statuseffekt\nStatuseffekten varer selv om du bytter monster"
 }

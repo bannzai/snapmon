@@ -320,5 +320,6 @@
   "helpTypeSuperEffective": "Supereffektivt! Skada ×2",
   "helpTypeNotVeryEffective": "Inte särskilt effektivt, skada ×0.5",
   "helpTypeDualNote": "Har motståndaren två element, multiplicera de två faktorerna\nSe all effektivitet i samlingen under ”Elementens effektivitet och attacker”",
-  "helpStatusHeading": "statuseffekter"
+  "helpStatusHeading": "statuseffekter",
+  "helpStatusBody": "Vissa attacker ger motståndaren en statuseffekt\nStatuseffekten finns kvar även när du byter monster"
 }

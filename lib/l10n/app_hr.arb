@@ -320,5 +320,6 @@
   "helpTypeSuperEffective": "Superučinkovito! Šteta ×2",
   "helpTypeNotVeryEffective": "Nije baš učinkovito, šteta ×0.5",
   "helpTypeDualNote": "Ako protivnik ima dva elementa, pomnoži oba množitelja\nSvu učinkovitost pogledaj u enciklopediji pod „Učinkovitost elemenata i popis poteza”",
-  "helpStatusHeading": "statusne promjene"
+  "helpStatusHeading": "statusne promjene",
+  "helpStatusBody": "Neki potezi izazivaju statusne probleme kod protivnika\nStatusni problemi ostaju i nakon zamjene"
 }

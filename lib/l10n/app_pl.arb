@@ -320,5 +320,6 @@
   "helpTypeSuperEffective": "To super skuteczne! Obrażenia ×2",
   "helpTypeNotVeryEffective": "Niezbyt skuteczne, obrażenia ×0.5",
   "helpTypeDualNote": "Jeśli rywal ma dwa typy, pomnóż oba mnożniki\nCałą skuteczność sprawdzisz w encyklopedii w „Skuteczność typów i lista ruchów”",
-  "helpStatusHeading": "statusy"
+  "helpStatusHeading": "statusy",
+  "helpStatusBody": "Niektóre ruchy nakładają na rywala status\nStatus pozostaje nawet po zmianie potwora"
 }

@@ -320,5 +320,6 @@
   "helpTypeSuperEffective": "效果絕佳！傷害 2 倍",
   "helpTypeNotVeryEffective": "效果不太好，傷害 ×0.5",
   "helpTypeDualNote": "對手有兩種屬性時，將兩個倍率相乘\n所有相剋關係都能在圖鑑的「屬性相剋與招式一覽」查看",
-  "helpStatusHeading": "異常狀態"
+  "helpStatusHeading": "異常狀態",
+  "helpStatusBody": "有些招式會讓對手陷入異常狀態\n換下場後，異常狀態仍會保留"
 }

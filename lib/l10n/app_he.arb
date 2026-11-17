@@ -320,5 +320,6 @@
   "helpTypeSuperEffective": "יעיל במיוחד! נזק כפול",
   "helpTypeNotVeryEffective": "לא ממש יעיל, נזק ×0.5",
   "helpTypeDualNote": "מול יריב עם שני סוגים, יש להכפיל את שני המקדמים\nכל פרטי היעילות מופיעים באוסף תחת ״יעילות סוגים ורשימת מתקפות״",
-  "helpStatusHeading": "מצב חריג"
+  "helpStatusHeading": "מצב חריג",
+  "helpStatusBody": "מתקפות מסוימות גורמות ליריב מצב חריג\nהמצב החריג נשאר גם אחרי החלפה"
 }

@@ -320,5 +320,6 @@
   "helpTypeSuperEffective": "Je to superúčinné! Poškodenie ×2",
   "helpTypeNotVeryEffective": "Nie je to veľmi účinné, poškodenie ×0.5",
   "helpTypeDualNote": "Ak má súper dva elementy, vynásob oba násobitele\nVšetku účinnosť nájdeš v encyklopédii v časti „Účinnosť elementov a zoznam útokov“",
-  "helpStatusHeading": "stavové efekty"
+  "helpStatusHeading": "stavové efekty",
+  "helpStatusBody": "Niektoré útoky spôsobia súperovi stavové ťažkosti\nStavové ťažkosti zostanú aj po výmene"
 }

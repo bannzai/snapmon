@@ -320,5 +320,6 @@
   "helpTypeSuperEffective": "Det er supereffektivt! Skade ×2",
   "helpTypeNotVeryEffective": "Ikke særlig effektivt, skade ×0.5",
   "helpTypeDualNote": "Har modstanderen to elementer, ganges de to faktorer sammen\nSe al effektivitet i »Elementers effektivitet og angreb« i din dex",
-  "helpStatusHeading": "statuseffekter"
+  "helpStatusHeading": "statuseffekter",
+  "helpStatusBody": "Nogle angreb giver modstanderen en statuseffekt\nStatuseffekten bliver, selv når du skifter"
 }

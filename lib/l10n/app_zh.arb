@@ -320,5 +320,6 @@
   "helpTypeSuperEffective": "效果绝佳！伤害 2 倍",
   "helpTypeNotVeryEffective": "效果不太好，伤害 ×0.5",
   "helpTypeDualNote": "对手有两种属性时，将两个倍率相乘\n所有克制关系可在图鉴的「属性克制与招式一览」中查看",
-  "helpStatusHeading": "异常状态"
+  "helpStatusHeading": "异常状态",
+  "helpStatusBody": "有些招式会让对手陷入异常状态\n换下场后，异常状态仍会保留"
 }

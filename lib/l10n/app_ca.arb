@@ -320,5 +320,6 @@
   "helpTypeSuperEffective": "És supereficaç! Dany ×2",
   "helpTypeNotVeryEffective": "No és gaire eficaç, dany ×0.5",
   "helpTypeDualNote": "Si el rival té dos elements, multiplica els dos factors\nConsulta tota l’eficàcia a «Eficàcia dels elements i llista de moviments» de l’enciclopèdia",
-  "helpStatusHeading": "alteracions d'estat"
+  "helpStatusHeading": "alteracions d'estat",
+  "helpStatusBody": "Alguns moviments causen alteracions d'estat al rival\nLes alteracions persisteixen encara que canviïs de monstre"
 }

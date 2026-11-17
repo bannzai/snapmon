@@ -320,5 +320,6 @@
   "helpTypeSuperEffective": "Sangat berkesan! Kerosakan 2 kali ganda",
   "helpTypeNotVeryEffective": "Kurang berkesan, kerosakan ×0.5",
   "helpTypeDualNote": "Jika lawan ada dua elemen, darabkan kedua-dua pengganda\nLihat semua keberkesanan dalam ensiklopedia, di «Keberkesanan elemen dan senarai gerakan»",
-  "helpStatusHeading": "kesan status"
+  "helpStatusHeading": "kesan status",
+  "helpStatusBody": "Sesetengah gerakan mengenakan kesan status pada lawan\nKesan status kekal walaupun kamu bertukar monster"
 }

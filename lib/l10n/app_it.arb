@@ -320,5 +320,6 @@
   "helpTypeSuperEffective": "È superefficace! Danni ×2",
   "helpTypeNotVeryEffective": "Non è molto efficace, danni ×0.5",
   "helpTypeDualNote": "Se l’avversario ha due elementi, moltiplica i due valori\nTrovi ogni efficacia nel dex, alla voce «Efficacia degli elementi e lista delle mosse»",
-  "helpStatusHeading": "problemi di stato"
+  "helpStatusHeading": "problemi di stato",
+  "helpStatusBody": "Alcune mosse causano problemi di stato all'avversario\nI problemi di stato restano anche dopo il cambio"
 }
