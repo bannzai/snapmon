@@ -330,5 +330,6 @@
   "helpStatusSleep": "Mungkin tidak bisa bertindak selama beberapa giliran",
   "helpStatusCurse": "Salah satu dari Serangan, Pertahanan, atau Kecepatan berkurang setengah",
   "helpStatusConfusion": "Selama beberapa giliran, jurus yang keluar bisa berbeda dari jurus pilihanmu",
-  "helpStatusDizzy": "Jurus lebih sulit mengenai sasaran selama 3 giliran"
+  "helpStatusDizzy": "Jurus lebih sulit mengenai sasaran selama 3 giliran",
+  "helpStatusExcited": "Serangan naik, pertahanan turun"
 }

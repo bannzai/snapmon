@@ -330,5 +330,6 @@
   "helpStatusSleep": "Puede que no actúe durante unos turnos",
   "helpStatusCurse": "El Ataque, la Defensa o la Velocidad se reduce a la mitad",
   "helpStatusConfusion": "Durante unos turnos, puede salir un movimiento distinto al que elegiste",
-  "helpStatusDizzy": "Los movimientos aciertan menos durante 3 turnos"
+  "helpStatusDizzy": "Los movimientos aciertan menos durante 3 turnos",
+  "helpStatusExcited": "Sube el ataque y baja la defensa"
 }

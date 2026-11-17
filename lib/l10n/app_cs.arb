@@ -330,5 +330,6 @@
   "helpStatusSleep": "Několik tahů nemusí být schopný jednat",
   "helpStatusCurse": "Útok, obrana nebo rychlost se sníží na polovinu",
   "helpStatusConfusion": "Několik kol se může místo vybraného útoku spustit jiný útok",
-  "helpStatusDizzy": "Útoky mají 3 tahy nižší přesnost"
+  "helpStatusDizzy": "Útoky mají 3 tahy nižší přesnost",
+  "helpStatusExcited": "Útok roste, obrana klesá"
 }

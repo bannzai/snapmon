@@ -330,5 +330,6 @@
   "helpStatusSleep": "Pode ficar sem agir durante alguns turnos",
   "helpStatusCurse": "O Ataque, a Defesa ou a Velocidade cai para metade",
   "helpStatusConfusion": "Durante alguns turnos, pode sair um golpe diferente do que escolheste",
-  "helpStatusDizzy": "Os golpes acertam menos durante 3 turnos"
+  "helpStatusDizzy": "Os golpes acertam menos durante 3 turnos",
+  "helpStatusExcited": "O Ataque sobe e a Defesa desce"
 }

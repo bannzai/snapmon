@@ -330,5 +330,6 @@
   "helpStatusSleep": "Ei välttämättä pysty toimimaan muutamaan vuoroon",
   "helpStatusCurse": "Hyökkäys, puolustus tai nopeus puolittuu",
   "helpStatusConfusion": "Muutaman vuoron ajan voi lähteä eri liike kuin valitsemasi liike",
-  "helpStatusDizzy": "Liikkeet osuvat harvemmin 3 vuoron ajan"
+  "helpStatusDizzy": "Liikkeet osuvat harvemmin 3 vuoron ajan",
+  "helpStatusExcited": "Hyökkäys nousee, puolustus laskee"
 }

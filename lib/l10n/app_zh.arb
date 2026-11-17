@@ -330,5 +330,6 @@
   "helpStatusSleep": "接下来几回合可能无法行动",
   "helpStatusCurse": "攻击、防御或速度中的一项减半",
   "helpStatusConfusion": "接下来几回合，可能使出与你选择的招式不同的招式",
-  "helpStatusDizzy": "3回合内招式更容易落空"
+  "helpStatusDizzy": "3回合内招式更容易落空",
+  "helpStatusExcited": "攻击提升，防御下降"
 }

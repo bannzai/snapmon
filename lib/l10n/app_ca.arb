@@ -330,5 +330,6 @@
   "helpStatusSleep": "Pot quedar-se sense actuar durant uns quants torns",
   "helpStatusCurse": "L'atac, la defensa o la velocitat es redueix a la meitat",
   "helpStatusConfusion": "Durant uns quants torns, pot sortir un moviment diferent del que has triat",
-  "helpStatusDizzy": "Els moviments encerten menys durant 3 torns"
+  "helpStatusDizzy": "Els moviments encerten menys durant 3 torns",
+  "helpStatusExcited": "Puja l'atac i baixa la defensa"
 }

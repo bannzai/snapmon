@@ -330,5 +330,6 @@
   "helpStatusSleep": "Potrebbe non agire per alcuni turni",
   "helpStatusCurse": "Attacco, Difesa o Velocità si dimezza",
   "helpStatusConfusion": "Per qualche turno, può uscire una mossa diversa da quella scelta",
-  "helpStatusDizzy": "Le mosse vanno a segno meno spesso per 3 turni"
+  "helpStatusDizzy": "Le mosse vanno a segno meno spesso per 3 turni",
+  "helpStatusExcited": "L'attacco sale, la difesa scende"
 }

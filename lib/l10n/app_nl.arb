@@ -330,5 +330,6 @@
   "helpStatusSleep": "Kan een paar beurten niet in actie komen",
   "helpStatusCurse": "Aanval, verdediging of snelheid wordt gehalveerd",
   "helpStatusConfusion": "Een paar beurten lang kan een andere aanval dan de gekozen aanval worden gebruikt",
-  "helpStatusDizzy": "Aanvallen raken 3 beurten lang minder vaak"
+  "helpStatusDizzy": "Aanvallen raken 3 beurten lang minder vaak",
+  "helpStatusExcited": "Aanval stijgt, verdediging daalt"
 }

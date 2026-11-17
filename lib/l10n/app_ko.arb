@@ -330,5 +330,6 @@
   "helpStatusSleep": "몇 턴 동안 행동하지 못할 수 있어요",
   "helpStatusCurse": "공격, 방어, 스피드 중 하나가 절반이 돼요",
   "helpStatusConfusion": "몇 턴 동안 선택한 기술 대신 다른 기술이 나갈 수 있어요",
-  "helpStatusDizzy": "3턴 동안 기술이 빗나가기 쉬워져요"
+  "helpStatusDizzy": "3턴 동안 기술이 빗나가기 쉬워져요",
+  "helpStatusExcited": "공격이 오르고 방어가 내려가요"
 }

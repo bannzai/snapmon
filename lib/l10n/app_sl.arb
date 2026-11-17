@@ -330,5 +330,6 @@
   "helpStatusSleep": "Nekaj potez morda ne bo mogel ukrepati",
   "helpStatusCurse": "Napad, obramba ali hitrost se prepolovi",
   "helpStatusConfusion": "Nekaj potez se lahko namesto izbranega poteza sproži drug potez",
-  "helpStatusDizzy": "Potezi težje zadenejo 3 poteze"
+  "helpStatusDizzy": "Potezi težje zadenejo 3 poteze",
+  "helpStatusExcited": "Napad se poveča, obramba zmanjša"
 }
