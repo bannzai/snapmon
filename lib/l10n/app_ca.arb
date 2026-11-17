@@ -42,6 +42,7 @@
   "opponentSearchAgain": "Torna a buscar",
   "opponentNoneAvailable": "Ara no hi ha cap entrenador disponible\nPots lluitar contra un entrenador CPU",
   "opponentRandomBattle": "Combat contra un rival aleatori",
+  "opponentCpuBattle": "Combat contra CPU",
   "settingsLinked": "T'has vinculat amb {providerName}",
   "settingsSwitchAccountTitle": "Vols canviar al compte vinculat?",
   "settingsSwitchAccountMessage": "Aquest compte de {providerName} ja està vinculat en un altre dispositiu. Si hi canvies, s'esborrarà l'enciclopèdia d'aquest dispositiu (monstres: {monsterCount}) i veuràs la del compte vinculat.",
@@ -160,6 +161,7 @@
   "battleWon": "Has guanyat!",
   "battleLost": "Has perdut",
   "shareVersusOpponents": "Contra {opponentNames}",
+  "shareOpponentSeparator": " · ",
   "battleLogChallenged": "{monsterName} et desafia a un combat!",
   "battleLogMoveUsed": "{monsterName} fa servir {moveName}!",
   "battleStruggle": "Lluita desesperada",
@@ -333,6 +335,5 @@
   "helpStatusDizzy": "Els moviments encerten menys durant 3 torns",
   "helpStatusExcited": "Puja l'atac i baixa la defensa",
   "helpStatusFrozen": "Pot impedir actuar durant uns quants torns\nEs cura en rebre dany d’un moviment",
-  "helpStatusSwitchBlocked": "No pots canviar de monstre per decisió pròpia durant 3 torns",
-  "shareOpponentSeparator": " · "
+  "helpStatusSwitchBlocked": "No pots canviar de monstre per decisió pròpia durant 3 torns"
 }

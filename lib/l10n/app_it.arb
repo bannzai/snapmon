@@ -42,6 +42,7 @@
   "opponentSearchAgain": "Cerca di nuovo",
   "opponentNoneAvailable": "Al momento non c'è nessun allenatore da sfidare\nPuoi sfidare un allenatore CPU",
   "opponentRandomBattle": "Sfida un avversario casuale",
+  "opponentCpuBattle": "Sfida la CPU",
   "settingsLinked": "Collegato a {providerName}",
   "settingsSwitchAccountTitle": "Vuoi passare all'account collegato?",
   "settingsSwitchAccountMessage": "Questo account {providerName} è già collegato su un altro dispositivo. Se passi a questo account, il dex su questo dispositivo (mostri: {monsterCount}) verrà cancellato e vedrai il dex dell'account collegato.",
@@ -160,6 +161,7 @@
   "battleWon": "Hai vinto!",
   "battleLost": "Hai perso",
   "shareVersusOpponents": "Contro {opponentNames}",
+  "shareOpponentSeparator": " · ",
   "battleLogChallenged": "{monsterName} ti sfida a una lotta!",
   "battleLogMoveUsed": "{monsterName} usa {moveName}!",
   "battleStruggle": "Scontro",
@@ -333,6 +335,5 @@
   "helpStatusDizzy": "Le mosse vanno a segno meno spesso per 3 turni",
   "helpStatusExcited": "L'Attacco sale, la Difesa scende",
   "helpStatusFrozen": "Può impedire di agire per alcuni turni\nSvanisce quando una mossa infligge danni",
-  "helpStatusSwitchBlocked": "Non puoi cambiare mostro di tua iniziativa per 3 turni",
-  "shareOpponentSeparator": " · "
+  "helpStatusSwitchBlocked": "Non puoi cambiare mostro di tua iniziativa per 3 turni"
 }

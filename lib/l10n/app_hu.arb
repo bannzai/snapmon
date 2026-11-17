@@ -42,6 +42,7 @@
   "opponentSearchAgain": "Keress újra",
   "opponentNoneAvailable": "Most nincs elérhető edző, akivel megküzdhetnél\nMegküzdhetsz egy CPU-edzővel",
   "opponentRandomBattle": "Küzdj egy véletlen ellenféllel",
+  "opponentCpuBattle": "Harcolj a CPU ellen",
   "settingsLinked": "Összekapcsolva ezzel: {providerName}",
   "settingsSwitchAccountTitle": "Átváltasz a kapcsolt fiókra?",
   "settingsSwitchAccountMessage": "Ez a {providerName}-fiók már össze van kapcsolva egy másik eszközön. Ha átváltasz rá, az eszköz gyűjteménye (szörnyek: {monsterCount}) törlődik, és a kapcsolt fiók gyűjteménye jelenik meg.",
@@ -160,6 +161,7 @@
   "battleWon": "Győztél!",
   "battleLost": "Vesztettél",
   "shareVersusOpponents": "{opponentNames} ellen",
+  "shareOpponentSeparator": " · ",
   "battleLogChallenged": "{monsterName} párbajra hív!",
   "battleLogMoveUsed": "{monsterName} beveti a(z) {moveName} támadást!",
   "battleStruggle": "Elkeseredett küzdelem",
@@ -333,6 +335,5 @@
   "helpStatusDizzy": "A támadások 3 körig ritkábban találnak",
   "helpStatusExcited": "A támadás nő, a védelem csökken",
   "helpStatusFrozen": "Néhány körig megakadályozhatja a cselekvést\nElmúlik, ha egy támadás sebzést okoz",
-  "helpStatusSwitchBlocked": "3 körig nem cserélhetsz szörnyet saját döntésből",
-  "shareOpponentSeparator": " · "
+  "helpStatusSwitchBlocked": "3 körig nem cserélhetsz szörnyet saját döntésből"
 }

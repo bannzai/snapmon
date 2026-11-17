@@ -42,6 +42,7 @@
   "opponentSearchAgain": "다시 찾기",
   "opponentNoneAvailable": "지금 배틀할 수 있는 트레이너가 없어요\nCPU 트레이너와 배틀할 수 있어요",
   "opponentRandomBattle": "무작위 상대와 배틀하기",
+  "opponentCpuBattle": "CPU와 대결하기",
   "settingsLinked": "{providerName}에 연동했어요",
   "settingsSwitchAccountTitle": "연동된 계정으로 전환할까요?",
   "settingsSwitchAccountMessage": "이 {providerName} 계정은 다른 기기에 이미 연동되어 있어요. 계정을 바꾸면 이 기기의 도감(몬스터: {monsterCount})이 삭제되고 연동된 계정의 도감으로 바뀌어요.",
@@ -160,6 +161,7 @@
   "battleWon": "승리했다!",
   "battleLost": "패배",
   "shareVersusOpponents": "{opponentNames} 상대",
+  "shareOpponentSeparator": " · ",
   "battleLogChallenged": "{monsterName}의 도전이 시작됐다!",
   "battleLogMoveUsed": "{monsterName}의 {moveName}!",
   "battleStruggle": "발버둥",
@@ -333,6 +335,5 @@
   "helpStatusDizzy": "3턴 동안 기술이 빗나가기 쉬워져요",
   "helpStatusExcited": "공격이 오르고 방어가 내려가요",
   "helpStatusFrozen": "몇 턴 동안 행동하지 못할 수 있어요\n기술로 피해를 받으면 풀려요",
-  "helpStatusSwitchBlocked": "3턴 동안 직접 몬스터를 교체할 수 없어요",
-  "shareOpponentSeparator": " · "
+  "helpStatusSwitchBlocked": "3턴 동안 직접 몬스터를 교체할 수 없어요"
 }

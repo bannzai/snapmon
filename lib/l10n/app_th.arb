@@ -42,6 +42,7 @@
   "opponentSearchAgain": "ค้นหาอีกครั้ง",
   "opponentNoneAvailable": "ตอนนี้ยังไม่มีเทรนเนอร์ให้สู้ด้วย\nสู้กับเทรนเนอร์ CPU ได้",
   "opponentRandomBattle": "สู้กับคู่ต่อสู้แบบสุ่ม",
+  "opponentCpuBattle": "สู้กับ CPU",
   "settingsLinked": "เชื่อมต่อกับ {providerName} แล้ว",
   "settingsSwitchAccountTitle": "จะเปลี่ยนไปใช้บัญชีที่เชื่อมไว้ไหม?",
   "settingsSwitchAccountMessage": "บัญชี {providerName} นี้เชื่อมกับอุปกรณ์อื่นแล้ว หากสลับบัญชี สารานุกรมบนอุปกรณ์นี้ (มอนสเตอร์: {monsterCount}) จะถูกลบ และจะแสดงสารานุกรมของบัญชีที่เชื่อมไว้",
@@ -160,6 +161,7 @@
   "battleWon": "ชนะแล้ว!",
   "battleLost": "แพ้แล้ว",
   "shareVersusOpponents": "ปะทะ {opponentNames}",
+  "shareOpponentSeparator": " · ",
   "battleLogChallenged": "{monsterName} ท้าให้สู้!",
   "battleLogMoveUsed": "{monsterName} ใช้ท่า {moveName}!",
   "battleStruggle": "ดิ้นรนสุดแรง",
@@ -333,6 +335,5 @@
   "helpStatusDizzy": "ท่าโจมตีมีโอกาสโดนลดลง 3 เทิร์น",
   "helpStatusExcited": "พลังโจมตีเพิ่ม พลังป้องกันลด",
   "helpStatusFrozen": "อาจทำให้ขยับไม่ได้หลายเทิร์น\nหายเมื่อได้รับความเสียหายจากท่า",
-  "helpStatusSwitchBlocked": "เปลี่ยนมอนสเตอร์เองไม่ได้เป็นเวลา 3 เทิร์น",
-  "shareOpponentSeparator": " · "
+  "helpStatusSwitchBlocked": "เปลี่ยนมอนสเตอร์เองไม่ได้เป็นเวลา 3 เทิร์น"
 }

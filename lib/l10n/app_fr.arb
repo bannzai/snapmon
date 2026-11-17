@@ -42,6 +42,7 @@
   "opponentSearchAgain": "Chercher encore",
   "opponentNoneAvailable": "Aucun dresseur à affronter pour le moment\nTu peux affronter un dresseur CPU",
   "opponentRandomBattle": "Affronter un adversaire au hasard",
+  "opponentCpuBattle": "Combats le CPU",
   "settingsLinked": "Ton compte est lié à {providerName}",
   "settingsSwitchAccountTitle": "Tu veux passer à ton compte déjà associé ?",
   "settingsSwitchAccountMessage": "Ce compte {providerName} est déjà lié à un autre appareil. Si tu y passes, le dex de cet appareil (monstres : {monsterCount}) sera effacé et tu retrouveras le dex du compte lié.",
@@ -160,6 +161,7 @@
   "battleWon": "Victoire !",
   "battleLost": "Défaite",
   "shareVersusOpponents": "VS {opponentNames}",
+  "shareOpponentSeparator": " · ",
   "battleLogChallenged": "{monsterName} te défie !",
   "battleLogMoveUsed": "{monsterName} utilise {moveName} !",
   "battleStruggle": "Lutte",
@@ -333,6 +335,5 @@
   "helpStatusDizzy": "Précision des capacités réduite pendant 3 tours",
   "helpStatusExcited": "L’Attaque augmente et la Défense diminue",
   "helpStatusFrozen": "Peut empêcher d’agir pendant quelques tours\nSe dissipe si une capacité inflige des dégâts",
-  "helpStatusSwitchBlocked": "Tu ne peux pas changer de monstre volontairement pendant 3 tours",
-  "shareOpponentSeparator": " · "
+  "helpStatusSwitchBlocked": "Tu ne peux pas changer de monstre volontairement pendant 3 tours"
 }

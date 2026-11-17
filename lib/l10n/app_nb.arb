@@ -42,6 +42,7 @@
   "opponentSearchAgain": "Søk igjen",
   "opponentNoneAvailable": "Ingen trener er klar til kamp akkurat nå\nDu kan kjempe mot en CPU-trener",
   "opponentRandomBattle": "Kjemp mot en tilfeldig motstander",
+  "opponentCpuBattle": "Kjemp mot CPU",
   "settingsLinked": "Koblet til {providerName}",
   "settingsSwitchAccountTitle": "Vil du bytte til den tilknyttede kontoen?",
   "settingsSwitchAccountMessage": "Denne {providerName}-kontoen er allerede koblet til på en annen enhet. Hvis du bytter, slettes samlingen på denne enheten (monstre: {monsterCount}), og du får se samlingen til den tilknyttede kontoen.",
@@ -160,6 +161,7 @@
   "battleWon": "Du vant!",
   "battleLost": "Du tapte",
   "shareVersusOpponents": "Mot {opponentNames}",
+  "shareOpponentSeparator": " · ",
   "battleLogChallenged": "{monsterName} utfordrer deg til kamp!",
   "battleLogMoveUsed": "{monsterName} bruker {moveName}!",
   "battleStruggle": "Desperat kamp",
@@ -333,6 +335,5 @@
   "helpStatusDizzy": "Angrep treffer sjeldnere i 3 turer",
   "helpStatusExcited": "Angrep øker, forsvar synker",
   "helpStatusFrozen": "Kan hindre handling i noen turer\nOpphører ved skade fra et angrep",
-  "helpStatusSwitchBlocked": "Du kan ikke bytte monster selv i 3 turer",
-  "shareOpponentSeparator": " · "
+  "helpStatusSwitchBlocked": "Du kan ikke bytte monster selv i 3 turer"
 }

@@ -42,6 +42,7 @@
   "opponentSearchAgain": "Søg igen",
   "opponentNoneAvailable": "Der er ingen træner at kæmpe mod lige nu\nDu kan kæmpe mod en CPU-træner",
   "opponentRandomBattle": "Kæmp mod en tilfældig modstander",
+  "opponentCpuBattle": "Kæmp mod CPU",
   "settingsLinked": "Forbundet med {providerName}",
   "settingsSwitchAccountTitle": "Vil du skifte til den tilknyttede konto?",
   "settingsSwitchAccountMessage": "Denne {providerName}-konto er allerede knyttet til en anden enhed. Hvis du skifter til den, slettes denne enheds dex (monstre: {monsterCount}), og du får den tilknyttede kontos dex.",
@@ -160,6 +161,7 @@
   "battleWon": "Du vandt!",
   "battleLost": "Du tabte",
   "shareVersusOpponents": "Mod {opponentNames}",
+  "shareOpponentSeparator": " · ",
   "battleLogChallenged": "{monsterName} udfordrer dig til kamp!",
   "battleLogMoveUsed": "{monsterName} bruger {moveName}!",
   "battleStruggle": "Desperat kamp",
@@ -333,6 +335,5 @@
   "helpStatusDizzy": "Angreb rammer sjældnere i 3 ture",
   "helpStatusExcited": "Angreb stiger, forsvar falder",
   "helpStatusFrozen": "Kan forhindre handling i nogle ture\nOphører ved skade fra et angreb",
-  "helpStatusSwitchBlocked": "Du kan ikke selv skifte monster i 3 ture",
-  "shareOpponentSeparator": " · "
+  "helpStatusSwitchBlocked": "Du kan ikke selv skifte monster i 3 ture"
 }

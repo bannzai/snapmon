@@ -42,6 +42,7 @@
   "opponentSearchAgain": "پھر سے ڈھونڈو",
   "opponentNoneAvailable": "ابھی لڑنے کے لیے کوئی ٹرینر نہیں ہے\nتم CPU ٹرینر سے لڑ سکتے ہو",
   "opponentRandomBattle": "کسی بھی بے ترتیب حریف سے لڑو",
+  "opponentCpuBattle": "CPU سے لڑو",
   "settingsLinked": "{providerName} سے منسلک ہو گیا",
   "settingsSwitchAccountTitle": "کیا تم منسلک اکاؤنٹ پر جانا چاہتے ہو؟",
   "settingsSwitchAccountMessage": "یہ {providerName} اکاؤنٹ پہلے ہی کسی اور ڈیوائس پر منسلک ہے۔ اس پر سوئچ کرو گے تو اس ڈیوائس کا ڈیکس (مونسٹر: {monsterCount}) مٹ جائے گا اور منسلک اکاؤنٹ کا ڈیکس نظر آئے گا۔",
@@ -160,6 +161,7 @@
   "battleWon": "تم جیت گئے!",
   "battleLost": "تم ہار گئے",
   "shareVersusOpponents": "{opponentNames} کے خلاف",
+  "shareOpponentSeparator": " · ",
   "battleLogChallenged": "{monsterName} نے تمہیں لڑائی کا چیلنج دیا!",
   "battleLogMoveUsed": "{monsterName} نے {moveName} استعمال کیا!",
   "battleStruggle": "آخری جدوجہد",
@@ -333,6 +335,5 @@
   "helpStatusDizzy": "3 باریوں تک چالیں نشانے پر کم لگتی ہیں",
   "helpStatusExcited": "حملہ بڑھتا ہے، دفاع گھٹتا ہے",
   "helpStatusFrozen": "چند باریوں تک حرکت نہ کر پانے کا امکان ہے\nنقصان پہنچانے والی چال لگنے پر اثر ختم ہو جاتا ہے",
-  "helpStatusSwitchBlocked": "تم 3 باریوں تک اپنی مرضی سے مونسٹر نہیں بدل سکتے",
-  "shareOpponentSeparator": " · "
+  "helpStatusSwitchBlocked": "تم 3 باریوں تک اپنی مرضی سے مونسٹر نہیں بدل سکتے"
 }

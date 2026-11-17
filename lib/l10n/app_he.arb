@@ -42,6 +42,7 @@
   "opponentSearchAgain": "לחפש שוב",
   "opponentNoneAvailable": "אין כרגע מאמן זמין לקרב\nאפשר להילחם מול מאמן CPU",
   "opponentRandomBattle": "קרב נגד יריב אקראי",
+  "opponentCpuBattle": "קרב נגד CPU",
   "settingsLinked": "החיבור אל {providerName} הושלם",
   "settingsSwitchAccountTitle": "לעבור לחשבון המקושר?",
   "settingsSwitchAccountMessage": "חשבון {providerName} הזה כבר מקושר במכשיר אחר. מעבר אליו ימחק את האוסף במכשיר הזה (מפלצות: {monsterCount}) ויציג את האוסף של החשבון המקושר.",
@@ -160,6 +161,7 @@
   "battleWon": "ניצחון!",
   "battleLost": "הפסד",
   "shareVersusOpponents": "נגד {opponentNames}",
+  "shareOpponentSeparator": " · ",
   "battleLogChallenged": "קרב מול {monsterName} מתחיל!",
   "battleLogMoveUsed": "{monsterName} השתמש במתקפה {moveName}!",
   "battleStruggle": "מאבק נואש",
@@ -333,6 +335,5 @@
   "helpStatusDizzy": "המתקפות פוגעות פחות במשך 3 תורות",
   "helpStatusExcited": "ההתקפה עולה וההגנה יורדת",
   "helpStatusFrozen": "ייתכן שלא תהיה אפשרות לפעול במשך כמה תורות\nחולף כשסופגים נזק ממתקפה",
-  "helpStatusSwitchBlocked": "אין אפשרות להחליף מפלצת מרצון במשך 3 תורות",
-  "shareOpponentSeparator": " · "
+  "helpStatusSwitchBlocked": "אין אפשרות להחליף מפלצת מרצון במשך 3 תורות"
 }

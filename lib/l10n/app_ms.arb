@@ -42,6 +42,7 @@
   "opponentSearchAgain": "Cari lagi",
   "opponentNoneAvailable": "Tiada jurulatih untuk dilawan sekarang\nKamu boleh lawan jurulatih CPU",
   "opponentRandomBattle": "Lawan musuh rawak",
+  "opponentCpuBattle": "Lawan CPU",
   "settingsLinked": "Berjaya dipautkan dengan {providerName}",
   "settingsSwitchAccountTitle": "Nak tukar ke akaun yang dipautkan?",
   "settingsSwitchAccountMessage": "Akaun {providerName} ini sudah dipautkan pada peranti lain. Jika kamu beralih, ensiklopedia pada peranti ini (monster: {monsterCount}) akan dipadam dan ensiklopedia akaun yang dipautkan akan dipaparkan.",
@@ -160,6 +161,7 @@
   "battleWon": "Kamu menang!",
   "battleLost": "Kamu kalah",
   "shareVersusOpponents": "VS {opponentNames}",
+  "shareOpponentSeparator": " · ",
   "battleLogChallenged": "{monsterName} cabar kamu bertarung!",
   "battleLogMoveUsed": "{monsterName} menggunakan {moveName}!",
   "battleStruggle": "Perjuangan Terakhir",
@@ -333,6 +335,5 @@
   "helpStatusDizzy": "Gerakan lebih sukar mengena selama 3 giliran",
   "helpStatusExcited": "Serangan naik, pertahanan turun",
   "helpStatusFrozen": "Mungkin tidak dapat bertindak selama beberapa giliran\nHilang apabila terkena gerakan yang menyebabkan kerosakan",
-  "helpStatusSwitchBlocked": "Kamu tak boleh tukar monster sendiri selama 3 giliran",
-  "shareOpponentSeparator": " · "
+  "helpStatusSwitchBlocked": "Kamu tak boleh tukar monster sendiri selama 3 giliran"
 }

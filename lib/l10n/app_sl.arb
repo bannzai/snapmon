@@ -42,6 +42,7 @@
   "opponentSearchAgain": "Poišči znova",
   "opponentNoneAvailable": "Trenutno ni trenerja, s katerim bi se boril\nLahko se boriš s CPU-trenerjem",
   "opponentRandomBattle": "Bori se z naključnim nasprotnikom",
+  "opponentCpuBattle": "Bori se proti CPU",
   "settingsLinked": "Povezano s {providerName}",
   "settingsSwitchAccountTitle": "Želiš preklopiti na povezani račun?",
   "settingsSwitchAccountMessage": "Ta račun {providerName} je že povezan na drugi napravi. Če preklopiš nanj, bo enciklopedija v tej napravi (pošasti: {monsterCount}) izbrisana in prikazala se bo enciklopedija povezanega računa.",
@@ -160,6 +161,7 @@
   "battleWon": "Zmagal si!",
   "battleLost": "Izgubil si",
   "shareVersusOpponents": "VS {opponentNames}",
+  "shareOpponentSeparator": " · ",
   "battleLogChallenged": "{monsterName} te izziva na dvoboj!",
   "battleLogMoveUsed": "{monsterName} uporabi potezo {moveName}!",
   "battleStruggle": "Obupen boj",
@@ -333,6 +335,5 @@
   "helpStatusDizzy": "Poteze 3 kroge težje zadenejo",
   "helpStatusExcited": "Napad se poveča, obramba zmanjša",
   "helpStatusFrozen": "Lahko prepreči delovanje za nekaj krogov\nMine ob škodi zaradi poteze",
-  "helpStatusSwitchBlocked": "3 kroge ne moreš sam zamenjati pošasti",
-  "shareOpponentSeparator": " · "
+  "helpStatusSwitchBlocked": "3 kroge ne moreš sam zamenjati pošasti"
 }

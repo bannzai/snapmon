@@ -42,6 +42,7 @@
   "opponentSearchAgain": "Szukaj ponownie",
   "opponentNoneAvailable": "Teraz nie ma trenera, z którym możesz walczyć\nMożesz walczyć z trenerem CPU",
   "opponentRandomBattle": "Walcz z losowym przeciwnikiem",
+  "opponentCpuBattle": "Walcz z CPU",
   "settingsLinked": "Połączono z {providerName}",
   "settingsSwitchAccountTitle": "Chcesz przełączyć się na połączone konto?",
   "settingsSwitchAccountMessage": "To konto {providerName} jest już połączone na innym urządzeniu. Jeśli na nie przejdziesz, encyklopedia na tym urządzeniu (potwory: {monsterCount}) zostanie usunięta, a pojawi się encyklopedia połączonego konta.",
@@ -160,6 +161,7 @@
   "battleWon": "Wygrana!",
   "battleLost": "Przegrana",
   "shareVersusOpponents": "VS {opponentNames}",
+  "shareOpponentSeparator": " · ",
   "battleLogChallenged": "{monsterName} wyzywa cię na pojedynek!",
   "battleLogMoveUsed": "{monsterName} używa ruchu {moveName}!",
   "battleStruggle": "Desperacka walka",
@@ -333,6 +335,5 @@
   "helpStatusDizzy": "Ruchy trafiają rzadziej przez 3 tury",
   "helpStatusExcited": "Atak rośnie, obrona spada",
   "helpStatusFrozen": "Może uniemożliwić działanie przez kilka tur\nMija po otrzymaniu obrażeń od ruchu",
-  "helpStatusSwitchBlocked": "Przez 3 tury nie możesz samodzielnie zmienić potwora",
-  "shareOpponentSeparator": " · "
+  "helpStatusSwitchBlocked": "Przez 3 tury nie możesz samodzielnie zmienić potwora"
 }

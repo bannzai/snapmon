@@ -42,6 +42,7 @@
   "opponentSearchAgain": "ابحث مجددًا",
   "opponentNoneAvailable": "لا يوجد مدرب متاح للقتال الآن\nيمكنك قتال مدرب CPU",
   "opponentRandomBattle": "قاتل خصمًا عشوائيًا",
+  "opponentCpuBattle": "قاتل CPU",
   "settingsLinked": "تم الربط مع {providerName}",
   "settingsSwitchAccountTitle": "هل تريد التبديل إلى الحساب المرتبط؟",
   "settingsSwitchAccountMessage": "حساب {providerName} هذا مرتبط بجهاز آخر. إذا بدّلت إليه، ستُحذف موسوعة هذا الجهاز (الوحوش: {monsterCount}) وستنتقل إلى موسوعة الحساب المرتبط.",
@@ -160,6 +161,7 @@
   "battleWon": "فزت!",
   "battleLost": "خسرت",
   "shareVersusOpponents": "ضد {opponentNames}",
+  "shareOpponentSeparator": " · ",
   "battleLogChallenged": "تحدّاك {monsterName}!",
   "battleLogMoveUsed": "استخدم {monsterName} حركة {moveName}!",
   "battleStruggle": "هجوم اليأس",
@@ -333,6 +335,5 @@
   "helpStatusDizzy": "تقل دقة الحركات لمدة 3 أدوار",
   "helpStatusExcited": "يرتفع الهجوم وينخفض الدفاع",
   "helpStatusFrozen": "قد لا يتمكن من التحرك لعدة أدوار\nتزول الحالة عند تلقي ضرر من حركة",
-  "helpStatusSwitchBlocked": "لا يمكنك تبديل الوحش باختيارك لمدة 3 أدوار",
-  "shareOpponentSeparator": " · "
+  "helpStatusSwitchBlocked": "لا يمكنك تبديل الوحش باختيارك لمدة 3 أدوار"
 }

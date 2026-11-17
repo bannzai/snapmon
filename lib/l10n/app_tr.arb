@@ -42,6 +42,7 @@
   "opponentSearchAgain": "Tekrar ara",
   "opponentNoneAvailable": "Şu anda savaşacak eğitmen yok\nBir CPU eğitmeniyle savaşabilirsin",
   "opponentRandomBattle": "Rastgele bir rakiple savaş",
+  "opponentCpuBattle": "CPU ile savaş",
   "settingsLinked": "{providerName} ile bağlantı kuruldu",
   "settingsSwitchAccountTitle": "Bağlı hesaba geçmek ister misin?",
   "settingsSwitchAccountMessage": "Bu {providerName} hesabı başka bir cihazda zaten bağlı. Bu hesaba geçersen bu cihazdaki ansiklopedi (canavar: {monsterCount}) silinir ve bağlı hesabın ansiklopedisi açılır.",
@@ -160,6 +161,7 @@
   "battleWon": "Kazandın!",
   "battleLost": "Kaybettin",
   "shareVersusOpponents": "VS {opponentNames}",
+  "shareOpponentSeparator": " · ",
   "battleLogChallenged": "{monsterName} seni düelloya çağırıyor!",
   "battleLogMoveUsed": "{monsterName}, {moveName} hamlesini kullandı!",
   "battleStruggle": "Son Çırpınış",
@@ -333,6 +335,5 @@
   "helpStatusDizzy": "Hamleler 3 tur boyunca daha zor isabet eder",
   "helpStatusExcited": "Saldırı artar, savunma düşer",
   "helpStatusFrozen": "Birkaç tur boyunca hareket etmeyi engelleyebilir\nHasar veren bir hamle isabet edince geçer",
-  "helpStatusSwitchBlocked": "3 tur boyunca kendi isteğinle canavar değiştiremezsin",
-  "shareOpponentSeparator": " · "
+  "helpStatusSwitchBlocked": "3 tur boyunca kendi isteğinle canavar değiştiremezsin"
 }

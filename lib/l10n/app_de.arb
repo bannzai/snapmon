@@ -42,6 +42,7 @@
   "opponentSearchAgain": "Erneut suchen",
   "opponentNoneAvailable": "Gerade ist kein Trainer für einen Kampf da\nDu kannst gegen einen CPU-Trainer kämpfen",
   "opponentRandomBattle": "Kämpfe gegen einen zufälligen Gegner",
+  "opponentCpuBattle": "Kämpfe gegen CPU",
   "settingsLinked": "Mit {providerName} verknüpft",
   "settingsSwitchAccountTitle": "Möchtest du zum verknüpften Konto wechseln?",
   "settingsSwitchAccountMessage": "Dieses {providerName}-Konto ist bereits auf einem anderen Gerät verknüpft. Wenn du wechselst, wird der Dex auf diesem Gerät gelöscht (Monster: {monsterCount}) und der Dex des verknüpften Kontos angezeigt.",
@@ -160,6 +161,7 @@
   "battleWon": "Du hast gewonnen!",
   "battleLost": "Du hast verloren",
   "shareVersusOpponents": "Gegen {opponentNames}",
+  "shareOpponentSeparator": " · ",
   "battleLogChallenged": "{monsterName} fordert dich zum Kampf heraus!",
   "battleLogMoveUsed": "{monsterName} setzt {moveName} ein!",
   "battleStruggle": "Verzweifler",
@@ -333,6 +335,5 @@
   "helpStatusDizzy": "Attacken treffen 3 Runden lang seltener",
   "helpStatusExcited": "Angriff steigt, Verteidigung sinkt",
   "helpStatusFrozen": "Kann einige Runden lang am Handeln hindern\nEndet bei Schaden durch eine Attacke",
-  "helpStatusSwitchBlocked": "Du kannst dein Monster 3 Runden lang nicht selbst auswechseln",
-  "shareOpponentSeparator": " · "
+  "helpStatusSwitchBlocked": "Du kannst dein Monster 3 Runden lang nicht selbst auswechseln"
 }

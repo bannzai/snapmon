@@ -42,6 +42,7 @@
   "opponentSearchAgain": "Sök igen",
   "opponentNoneAvailable": "Ingen tränare är redo för strid just nu\nDu kan strida mot en CPU-tränare",
   "opponentRandomBattle": "Strid mot en slumpad motståndare",
+  "opponentCpuBattle": "Strid mot CPU",
   "settingsLinked": "Anslutet till {providerName}",
   "settingsSwitchAccountTitle": "Vill du byta till det länkade kontot?",
   "settingsSwitchAccountMessage": "Det här {providerName}-kontot är redan länkat på en annan enhet. Om du byter raderas samlingen på den här enheten (monster: {monsterCount}) och du byter till det länkade kontots samling.",
@@ -160,6 +161,7 @@
   "battleWon": "Du vann!",
   "battleLost": "Du förlorade",
   "shareVersusOpponents": "Mot {opponentNames}",
+  "shareOpponentSeparator": " · ",
   "battleLogChallenged": "{monsterName} utmanar dig till strid!",
   "battleLogMoveUsed": "{monsterName} använder {moveName}!",
   "battleStruggle": "Desperat kamp",
@@ -333,6 +335,5 @@
   "helpStatusDizzy": "Attacker träffar mer sällan i 3 turer",
   "helpStatusExcited": "Attacken ökar, försvaret sjunker",
   "helpStatusFrozen": "Kan hindra handling i några turer\nUpphör vid skada från en attack",
-  "helpStatusSwitchBlocked": "Du kan inte byta monster själv på 3 turer",
-  "shareOpponentSeparator": " · "
+  "helpStatusSwitchBlocked": "Du kan inte byta monster själv på 3 turer"
 }

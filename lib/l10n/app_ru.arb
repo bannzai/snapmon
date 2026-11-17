@@ -42,6 +42,7 @@
   "opponentSearchAgain": "Искать снова",
   "opponentNoneAvailable": "Сейчас нет тренера, с которым можно сразиться\nТы можешь сразиться с CPU-тренером",
   "opponentRandomBattle": "Сразись со случайным соперником",
+  "opponentCpuBattle": "Сразись с CPU",
   "settingsLinked": "Подключено к {providerName}",
   "settingsSwitchAccountTitle": "Хочешь переключиться на привязанный аккаунт?",
   "settingsSwitchAccountMessage": "Этот аккаунт {providerName} уже привязан на другом устройстве. Если переключишься на него, энциклопедия на этом устройстве (монстры: {monsterCount}) удалится и появится энциклопедия привязанного аккаунта.",
@@ -160,6 +161,7 @@
   "battleWon": "Победа!",
   "battleLost": "Поражение",
   "shareVersusOpponents": "VS {opponentNames}",
+  "shareOpponentSeparator": " · ",
   "battleLogChallenged": "{monsterName} вызывает тебя на бой!",
   "battleLogMoveUsed": "{monsterName} применяет приём {moveName}!",
   "battleStruggle": "Отчаянная борьба",
@@ -333,6 +335,5 @@
   "helpStatusDizzy": "Приёмы попадают реже в течение 3 ходов",
   "helpStatusExcited": "Атака растёт, защита падает",
   "helpStatusFrozen": "Может мешать действовать несколько ходов\nПроходит при получении урона от приёма",
-  "helpStatusSwitchBlocked": "Ты не можешь сам сменить монстра в течение 3 ходов",
-  "shareOpponentSeparator": " · "
+  "helpStatusSwitchBlocked": "Ты не можешь сам сменить монстра в течение 3 ходов"
 }

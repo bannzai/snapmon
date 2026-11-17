@@ -42,6 +42,7 @@
   "opponentSearchAgain": "Ψάξε ξανά",
   "opponentNoneAvailable": "Δεν υπάρχει διαθέσιμος εκπαιδευτής για μάχη τώρα\nΜπορείς να πολεμήσεις με εκπαιδευτή CPU",
   "opponentRandomBattle": "Πολέμησε έναν τυχαίο αντίπαλο",
+  "opponentCpuBattle": "Πολέμησε το CPU",
   "settingsLinked": "Συνδέθηκε με το {providerName}",
   "settingsSwitchAccountTitle": "Θες να αλλάξεις στον συνδεδεμένο λογαριασμό;",
   "settingsSwitchAccountMessage": "Αυτός ο λογαριασμός {providerName} είναι ήδη συνδεδεμένος σε άλλη συσκευή. Αν αλλάξεις λογαριασμό, η εγκυκλοπαίδεια αυτής της συσκευής (τέρατα: {monsterCount}) θα διαγραφεί και θα εμφανιστεί η εγκυκλοπαίδεια του συνδεδεμένου λογαριασμού.",
@@ -160,6 +161,7 @@
   "battleWon": "Νίκησες!",
   "battleLost": "Έχασες",
   "shareVersusOpponents": "VS {opponentNames}",
+  "shareOpponentSeparator": " · ",
   "battleLogChallenged": "Το {monsterName} σε προκαλεί σε μάχη!",
   "battleLogMoveUsed": "Το {monsterName} χρησιμοποίησε την τεχνική {moveName}!",
   "battleStruggle": "Απεγνωσμένη μάχη",
@@ -333,6 +335,5 @@
   "helpStatusDizzy": "Οι τεχνικές πετυχαίνουν δυσκολότερα για 3 γύρους",
   "helpStatusExcited": "Η επίθεση ανεβαίνει, η άμυνα πέφτει",
   "helpStatusFrozen": "Μπορεί να εμποδίσει τη δράση για μερικούς γύρους\nΦεύγει με ζημιά από τεχνική",
-  "helpStatusSwitchBlocked": "Δεν μπορείς να αλλάξεις τέρας με δική σου επιλογή για 3 γύρους",
-  "shareOpponentSeparator": " · "
+  "helpStatusSwitchBlocked": "Δεν μπορείς να αλλάξεις τέρας με δική σου επιλογή για 3 γύρους"
 }

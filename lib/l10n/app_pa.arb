@@ -42,6 +42,7 @@
   "opponentSearchAgain": "ਦੁਬਾਰਾ ਲੱਭੋ",
   "opponentNoneAvailable": "ਇਸ ਵੇਲੇ ਲੜਨ ਲਈ ਕੋਈ ਟ੍ਰੇਨਰ ਨਹੀਂ ਹੈ\nਤੁਸੀਂ CPU ਟ੍ਰੇਨਰ ਨਾਲ ਲੜ ਸਕਦੇ ਹੋ",
   "opponentRandomBattle": "ਕਿਸੇ ਬੇਤਰਤੀਬ ਵਿਰੋਧੀ ਨਾਲ ਲੜੋ",
+  "opponentCpuBattle": "CPU ਨਾਲ ਲੜੋ",
   "settingsLinked": "{providerName} ਨਾਲ ਜੁੜ ਗਿਆ",
   "settingsSwitchAccountTitle": "ਕੀ ਤੁਸੀਂ ਲਿੰਕ ਕੀਤੇ ਖਾਤੇ 'ਤੇ ਜਾਣਾ ਚਾਹੁੰਦੇ ਹੋ?",
   "settingsSwitchAccountMessage": "ਇਹ {providerName} ਖਾਤਾ ਕਿਸੇ ਹੋਰ ਡਿਵਾਈਸ 'ਤੇ ਪਹਿਲਾਂ ਹੀ ਲਿੰਕ ਹੈ। ਇਸ 'ਤੇ ਸਵਿੱਚ ਕਰਨ ਨਾਲ ਇਸ ਡਿਵਾਈਸ ਦਾ ਸੰਗ੍ਰਹਿ (ਮੌਂਸਟਰ: {monsterCount}) ਮਿਟ ਜਾਵੇਗਾ ਅਤੇ ਲਿੰਕ ਕੀਤੇ ਖਾਤੇ ਦਾ ਸੰਗ੍ਰਹਿ ਦਿਖੇਗਾ।",
@@ -160,6 +161,7 @@
   "battleWon": "ਤੁਸੀਂ ਜਿੱਤ ਗਏ!",
   "battleLost": "ਤੁਸੀਂ ਹਾਰ ਗਏ",
   "shareVersusOpponents": "{opponentNames} ਦੇ ਵਿਰੁੱਧ",
+  "shareOpponentSeparator": " · ",
   "battleLogChallenged": "{monsterName} ਨੇ ਤੁਹਾਨੂੰ ਲੜਾਈ ਲਈ ਚੁਣੌਤੀ ਦਿੱਤੀ!",
   "battleLogMoveUsed": "{monsterName} ਨੇ {moveName} ਵਰਤਿਆ!",
   "battleStruggle": "ਆਖ਼ਰੀ ਜੱਦੋਜਹਿਦ",
@@ -333,6 +335,5 @@
   "helpStatusDizzy": "3 ਵਾਰੀਆਂ ਲਈ ਚਾਲਾਂ ਦੇ ਨਿਸ਼ਾਨੇ 'ਤੇ ਲੱਗਣ ਦੀ ਸੰਭਾਵਨਾ ਘੱਟ ਜਾਂਦੀ ਹੈ",
   "helpStatusExcited": "ਹਮਲਾ ਵਧਦਾ ਹੈ, ਰੱਖਿਆ ਘਟਦੀ ਹੈ",
   "helpStatusFrozen": "ਕੁਝ ਵਾਰੀਆਂ ਤੱਕ ਕੋਈ ਕਾਰਵਾਈ ਨਾ ਕਰ ਸਕਣ ਦੀ ਸੰਭਾਵਨਾ ਹੈ\nਨੁਕਸਾਨ ਕਰਨ ਵਾਲੀ ਚਾਲ ਲੱਗਣ ’ਤੇ ਅਸਰ ਖ਼ਤਮ ਹੋ ਜਾਂਦਾ ਹੈ",
-  "helpStatusSwitchBlocked": "ਤੁਸੀਂ 3 ਵਾਰੀਆਂ ਤੱਕ ਆਪਣੀ ਮਰਜ਼ੀ ਨਾਲ ਮੌਂਸਟਰ ਨਹੀਂ ਬਦਲ ਸਕਦੇ",
-  "shareOpponentSeparator": " · "
+  "helpStatusSwitchBlocked": "ਤੁਸੀਂ 3 ਵਾਰੀਆਂ ਤੱਕ ਆਪਣੀ ਮਰਜ਼ੀ ਨਾਲ ਮੌਂਸਟਰ ਨਹੀਂ ਬਦਲ ਸਕਦੇ"
 }

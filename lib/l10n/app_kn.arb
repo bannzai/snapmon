@@ -42,6 +42,7 @@
   "opponentSearchAgain": "ಮತ್ತೆ ಹುಡುಕು",
   "opponentNoneAvailable": "ಈಗ ಹೋರಾಡಲು ಯಾವುದೇ ಟ್ರೈನರ್ ಇಲ್ಲ\nನೀನು CPU ಟ್ರೈನರ್ ಜೊತೆ ಹೋರಾಡಬಹುದು",
   "opponentRandomBattle": "ಯಾದೃಚ್ಛಿಕ ಎದುರಾಳಿಯೊಂದಿಗೆ ಹೋರಾಡು",
+  "opponentCpuBattle": "CPU ವಿರುದ್ಧ ಹೋರಾಡು",
   "settingsLinked": "{providerName} ಜೊತೆ ಸಂಪರ್ಕಗೊಂಡಿದೆ",
   "settingsSwitchAccountTitle": "ಲಿಂಕ್ ಮಾಡಿದ ಖಾತೆಗೆ ಬದಲಾಯಿಸುತ್ತೀಯಾ?",
   "settingsSwitchAccountMessage": "ಈ {providerName} ಖಾತೆ ಇನ್ನೊಂದು ಸಾಧನದಲ್ಲಿ ಈಗಾಗಲೇ ಲಿಂಕ್ ಆಗಿದೆ. ಇದಕ್ಕೆ ಬದಲಾಯಿಸಿದರೆ, ಈ ಸಾಧನದ ವಿಶ್ವಕೋಶ (ಮಾನ್ಸ್ಟರ್‌ಗಳು: {monsterCount}) ಅಳಿದು, ಲಿಂಕ್ ಆಗಿರುವ ಖಾತೆಯ ವಿಶ್ವಕೋಶ ಕಾಣಿಸುತ್ತದೆ.",
@@ -160,6 +161,7 @@
   "battleWon": "ನೀನು ಗೆದ್ದೆ!",
   "battleLost": "ನೀನು ಸೋತೆ",
   "shareVersusOpponents": "{opponentNames} ವಿರುದ್ಧ",
+  "shareOpponentSeparator": " · ",
   "battleLogChallenged": "{monsterName} ನಿನಗೆ ಕಾಳಗಕ್ಕೆ ಸವಾಲು ಹಾಕಿದೆ!",
   "battleLogMoveUsed": "{monsterName} {moveName} ಬಳಸಿತು!",
   "battleStruggle": "ಕೊನೆಯ ಹೋರಾಟ",
@@ -333,6 +335,5 @@
   "helpStatusDizzy": "3 ಸರದಿಗಳವರೆಗೆ ತಂತ್ರಗಳು ಗುರಿ ತಲುಪುವ ಸಾಧ್ಯತೆ ಕಡಿಮೆಯಾಗುತ್ತದೆ",
   "helpStatusExcited": "ದಾಳಿ ಹೆಚ್ಚುತ್ತದೆ, ರಕ್ಷಣೆ ಕಡಿಮೆಯಾಗುತ್ತದೆ",
   "helpStatusFrozen": "ಕೆಲವು ಸರದಿಗಳವರೆಗೆ ಚಲಿಸಲು ಆಗದಿರಬಹುದು\nಹಾನಿ ಮಾಡುವ ತಂತ್ರ ತಗುಲಿದರೆ ಪರಿಣಾಮ ಕಳೆಯುತ್ತದೆ",
-  "helpStatusSwitchBlocked": "3 ಸರದಿಗಳವರೆಗೆ ನೀನಾಗಿ ಮಾನ್ಸ್ಟರ್ ಅನ್ನು ಬದಲಾಯಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ",
-  "shareOpponentSeparator": " · "
+  "helpStatusSwitchBlocked": "3 ಸರದಿಗಳವರೆಗೆ ನೀನಾಗಿ ಮಾನ್ಸ್ಟರ್ ಅನ್ನು ಬದಲಾಯಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ"
 }

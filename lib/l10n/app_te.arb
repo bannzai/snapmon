@@ -42,6 +42,7 @@
   "opponentSearchAgain": "మళ్లీ వెతుకు",
   "opponentNoneAvailable": "ఇప్పుడు పోరాడటానికి ట్రైనర్ ఎవరూ లేరు\nనువ్వు CPU ట్రైనర్‌తో పోరాడవచ్చు",
   "opponentRandomBattle": "యాదృచ్ఛిక ప్రత్యర్థితో పోరాడు",
+  "opponentCpuBattle": "CPUతో పోరాడు",
   "settingsLinked": "{providerName}తో లింక్ అయింది",
   "settingsSwitchAccountTitle": "లింక్ చేసిన ఖాతాకు మారతావా?",
   "settingsSwitchAccountMessage": "ఈ {providerName} ఖాతా ఇప్పటికే మరో పరికరంలో లింక్ అయింది. దీనికి మారితే ఈ పరికరంలోని డెక్స్ (మాన్స్టర్లు: {monsterCount}) తొలగిపోతుంది, లింక్ అయిన ఖాతా డెక్స్ కనిపిస్తుంది.",
@@ -160,6 +161,7 @@
   "battleWon": "నువ్వు గెలిచావు!",
   "battleLost": "నువ్వు ఓడిపోయావు",
   "shareVersusOpponents": "{opponentNames}తో పోరు",
+  "shareOpponentSeparator": " · ",
   "battleLogChallenged": "{monsterName} నిన్ను పోరాటానికి సవాలు చేసింది!",
   "battleLogMoveUsed": "{monsterName} {moveName} వాడింది!",
   "battleStruggle": "చివరి పోరాటం",
@@ -333,6 +335,5 @@
   "helpStatusDizzy": "3 టర్న్‌ల పాటు మూవ్‌లు తగిలే అవకాశం తగ్గుతుంది",
   "helpStatusExcited": "దాడి పెరుగుతుంది, రక్షణ తగ్గుతుంది",
   "helpStatusFrozen": "కొన్ని టర్న్‌ల పాటు చర్య తీసుకోలేకపోవచ్చు\nనష్టం కలిగించే మూవ్ తగిలితే ప్రభావం పోతుంది",
-  "helpStatusSwitchBlocked": "3 టర్న్‌ల వరకు నువ్వు స్వయంగా మాన్స్టర్‌ను మార్చలేవు",
-  "shareOpponentSeparator": " · "
+  "helpStatusSwitchBlocked": "3 టర్న్‌ల వరకు నువ్వు స్వయంగా మాన్స్టర్‌ను మార్చలేవు"
 }

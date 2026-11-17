@@ -42,6 +42,7 @@
   "opponentSearchAgain": "Caută din nou",
   "opponentNoneAvailable": "Acum nu e niciun antrenor disponibil pentru luptă\nPoți lupta cu un antrenor CPU",
   "opponentRandomBattle": "Luptă cu un adversar aleatoriu",
+  "opponentCpuBattle": "Luptă cu CPU",
   "settingsLinked": "Conectat la {providerName}",
   "settingsSwitchAccountTitle": "Vrei să treci la contul conectat?",
   "settingsSwitchAccountMessage": "Acest cont {providerName} este deja conectat pe alt dispozitiv. Dacă treci la el, enciclopedia de pe acest dispozitiv (monștri: {monsterCount}) va fi ștearsă și va apărea enciclopedia contului conectat.",
@@ -160,6 +161,7 @@
   "battleWon": "Ai câștigat!",
   "battleLost": "Ai pierdut",
   "shareVersusOpponents": "Contra {opponentNames}",
+  "shareOpponentSeparator": " · ",
   "battleLogChallenged": "{monsterName} te provoacă la luptă!",
   "battleLogMoveUsed": "{monsterName} folosește {moveName}!",
   "battleStruggle": "Luptă disperată",
@@ -333,6 +335,5 @@
   "helpStatusDizzy": "Mișcările nimeresc mai greu timp de 3 ture",
   "helpStatusExcited": "Atacul crește, Apărarea scade",
   "helpStatusFrozen": "Poate împiedica acțiunea câteva ture\nDispare la primirea de daune de la o mișcare",
-  "helpStatusSwitchBlocked": "Nu poți schimba monstrul din proprie inițiativă timp de 3 ture",
-  "shareOpponentSeparator": " · "
+  "helpStatusSwitchBlocked": "Nu poți schimba monstrul din proprie inițiativă timp de 3 ture"
 }

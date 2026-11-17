@@ -42,6 +42,7 @@
   "opponentSearchAgain": "Hledej znovu",
   "opponentNoneAvailable": "Teď není k dispozici žádný trenér k boji\nMůžeš bojovat s trenérem CPU",
   "opponentRandomBattle": "Bojuj s náhodným soupeřem",
+  "opponentCpuBattle": "Bojuj proti CPU",
   "settingsLinked": "Propojeno s {providerName}",
   "settingsSwitchAccountTitle": "Chceš přepnout na propojený účet?",
   "settingsSwitchAccountMessage": "Tento účet {providerName} už je propojený na jiném zařízení. Když na něj přepneš, encyklopedie na tomto zařízení (příšery: {monsterCount}) se smaže a zobrazí se encyklopedie propojeného účtu.",
@@ -160,6 +161,7 @@
   "battleWon": "Vyhrál jsi!",
   "battleLost": "Prohrál jsi",
   "shareVersusOpponents": "VS {opponentNames}",
+  "shareOpponentSeparator": " · ",
   "battleLogChallenged": "{monsterName} tě vyzývá k souboji!",
   "battleLogMoveUsed": "{monsterName} použil útok {moveName}!",
   "battleStruggle": "Zoufalý boj",
@@ -333,6 +335,5 @@
   "helpStatusDizzy": "Útoky mají 3 tahy nižší přesnost",
   "helpStatusExcited": "Útok roste, obrana klesá",
   "helpStatusFrozen": "Několik tahů nemusí být možné jednat\nPomine po zásahu útokem, který způsobí poškození",
-  "helpStatusSwitchBlocked": "Po 3 tahy nemůžeš sám vyměnit příšeru",
-  "shareOpponentSeparator": " · "
+  "helpStatusSwitchBlocked": "Po 3 tahy nemůžeš sám vyměnit příšeru"
 }

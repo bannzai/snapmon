@@ -42,6 +42,7 @@
   "opponentSearchAgain": "மீண்டும் தேடுங்கள்",
   "opponentNoneAvailable": "இப்போது போரிடப் பயிற்சியாளர் யாரும் இல்லை\nநீங்கள் CPU பயிற்சியாளருடன் போரிடலாம்",
   "opponentRandomBattle": "சீரற்ற எதிராளியுடன் போரிடுங்கள்",
+  "opponentCpuBattle": "CPU-வுடன் போரிடுங்கள்",
   "settingsLinked": "{providerName} உடன் இணைக்கப்பட்டது",
   "settingsSwitchAccountTitle": "இணைக்கப்பட்ட கணக்கிற்கு மாற விரும்புகிறீர்களா?",
   "settingsSwitchAccountMessage": "இந்த {providerName} கணக்கு வேறொரு சாதனத்தில் ஏற்கெனவே இணைக்கப்பட்டுள்ளது. இதற்கு மாறினால், இந்தச் சாதனத்தின் களஞ்சியத்தில் உள்ளவை (மான்ஸ்டர்கள்: {monsterCount}) அழிக்கப்படும்; இணைக்கப்பட்ட கணக்கின் களஞ்சியம் காட்டப்படும்.",
@@ -160,6 +161,7 @@
   "battleWon": "நீங்கள் வென்றீர்கள்!",
   "battleLost": "நீங்கள் தோற்றுவிட்டீர்கள்",
   "shareVersusOpponents": "VS {opponentNames}",
+  "shareOpponentSeparator": " · ",
   "battleLogChallenged": "{monsterName} உங்களைப் போருக்கு அழைக்கிறது!",
   "battleLogMoveUsed": "{monsterName} {moveName} பயன்படுத்தியது!",
   "battleStruggle": "கடைசிப் போராட்டம்",
@@ -333,6 +335,5 @@
   "helpStatusDizzy": "3 சுற்றுகளுக்கு தாக்குதல்கள் இலக்கைத் தாக்கும் வாய்ப்பு குறையும்",
   "helpStatusExcited": "தாக்குதல் உயரும், தற்காப்பு குறையும்",
   "helpStatusFrozen": "சில சுற்றுகளுக்கு செயல்பட முடியாமல் போகலாம்\nசேதம் விளைவிக்கும் தாக்குதல் பட்டால் நீங்கும்",
-  "helpStatusSwitchBlocked": "3 சுற்றுகளுக்கு நீங்களாகவே மான்ஸ்டரை மாற்ற முடியாது",
-  "shareOpponentSeparator": " · "
+  "helpStatusSwitchBlocked": "3 சுற்றுகளுக்கு நீங்களாகவே மான்ஸ்டரை மாற்ற முடியாது"
 }

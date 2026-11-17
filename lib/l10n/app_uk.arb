@@ -42,6 +42,7 @@
   "opponentSearchAgain": "Шукай знову",
   "opponentNoneAvailable": "Зараз немає тренера, з яким можна битися\nТи можеш битися з CPU-тренером",
   "opponentRandomBattle": "Бийся з випадковим суперником",
+  "opponentCpuBattle": "Бийся з CPU",
   "settingsLinked": "Підключено до {providerName}",
   "settingsSwitchAccountTitle": "Хочеш перейти на пов’язаний обліковий запис?",
   "settingsSwitchAccountMessage": "Цей акаунт {providerName} уже прив’язано на іншому пристрої. Якщо перейдеш на нього, енциклопедія на цьому пристрої (монстри: {monsterCount}) зникне й відкриється енциклопедія прив’язаного акаунта.",
@@ -160,6 +161,7 @@
   "battleWon": "Перемога!",
   "battleLost": "Поразка",
   "shareVersusOpponents": "VS {opponentNames}",
+  "shareOpponentSeparator": " · ",
   "battleLogChallenged": "{monsterName} викликає тебе на бій!",
   "battleLogMoveUsed": "{monsterName} застосовує прийом {moveName}!",
   "battleStruggle": "Відчайдушна боротьба",
@@ -333,6 +335,5 @@
   "helpStatusDizzy": "Прийоми рідше влучають протягом 3 ходів",
   "helpStatusExcited": "Атака зростає, захист падає",
   "helpStatusFrozen": "Може завадити діяти кілька ходів\nМинає після отримання шкоди від прийому",
-  "helpStatusSwitchBlocked": "Ти не можеш сам змінити монстра протягом 3 ходів",
-  "shareOpponentSeparator": " · "
+  "helpStatusSwitchBlocked": "Ти не можеш сам змінити монстра протягом 3 ходів"
 }

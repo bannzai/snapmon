@@ -42,6 +42,7 @@
   "opponentSearchAgain": "再找一次",
   "opponentNoneAvailable": "現在沒有可以對戰的訓練家\n你可以和 CPU 訓練家對戰",
   "opponentRandomBattle": "挑戰隨機對手",
+  "opponentCpuBattle": "與 CPU 對戰",
   "settingsLinked": "已連結 {providerName}",
   "settingsSwitchAccountTitle": "要切換到已連結的帳號嗎？",
   "settingsSwitchAccountMessage": "這個 {providerName} 帳號已在其他裝置上連結。切換後，這台裝置的圖鑑（怪物：{monsterCount}）會被清除，並顯示已連結帳號的圖鑑。",
@@ -160,6 +161,7 @@
   "battleWon": "你贏了！",
   "battleLost": "你輸了",
   "shareVersusOpponents": "對戰 {opponentNames}",
+  "shareOpponentSeparator": " · ",
   "battleLogChallenged": "{monsterName} 向你發起挑戰！",
   "battleLogMoveUsed": "{monsterName}使出了{moveName}！",
   "battleStruggle": "掙扎",
@@ -333,6 +335,5 @@
   "helpStatusDizzy": "3回合內招式更容易落空",
   "helpStatusExcited": "攻擊提升，防禦下降",
   "helpStatusFrozen": "可能有幾個回合無法行動\n受到招式傷害後解除",
-  "helpStatusSwitchBlocked": "3回合內不能主動替換怪物",
-  "shareOpponentSeparator": " · "
+  "helpStatusSwitchBlocked": "3回合內不能主動替換怪物"
 }

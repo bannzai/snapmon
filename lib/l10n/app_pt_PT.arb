@@ -42,6 +42,7 @@
   "opponentSearchAgain": "Procura outra vez",
   "opponentNoneAvailable": "Não há nenhum treinador disponível para combater agora\nPodes combater com um treinador CPU",
   "opponentRandomBattle": "Combate um adversário aleatório",
+  "opponentCpuBattle": "Combate contra o CPU",
   "settingsLinked": "Ligado a {providerName}",
   "settingsSwitchAccountTitle": "Queres mudar para a conta associada?",
   "settingsSwitchAccountMessage": "Esta conta {providerName} já está associada noutro dispositivo. Se mudares para ela, a enciclopédia deste dispositivo (monstros: {monsterCount}) será apagada e verás a enciclopédia da conta associada.",
@@ -160,6 +161,7 @@
   "battleWon": "Ganhaste!",
   "battleLost": "Perdeste",
   "shareVersusOpponents": "Contra {opponentNames}",
+  "shareOpponentSeparator": " · ",
   "battleLogChallenged": "{monsterName} desafia-te para um combate!",
   "battleLogMoveUsed": "{monsterName} usou {moveName}!",
   "battleStruggle": "Luta Desesperada",
@@ -333,6 +335,5 @@
   "helpStatusDizzy": "Os golpes acertam menos durante 3 turnos",
   "helpStatusExcited": "O Ataque sobe e a Defesa desce",
   "helpStatusFrozen": "Pode impedir ações durante alguns turnos\nPassa ao sofrer dano de um golpe",
-  "helpStatusSwitchBlocked": "Não podes trocar de monstro por tua iniciativa durante 3 turnos",
-  "shareOpponentSeparator": " · "
+  "helpStatusSwitchBlocked": "Não podes trocar de monstro por tua iniciativa durante 3 turnos"
 }

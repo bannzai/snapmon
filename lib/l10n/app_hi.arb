@@ -42,6 +42,7 @@
   "opponentSearchAgain": "फिर से खोजो",
   "opponentNoneAvailable": "अभी लड़ने के लिए कोई ट्रेनर नहीं है\nतुम CPU ट्रेनर से लड़ सकते हो",
   "opponentRandomBattle": "किसी रैंडम प्रतिद्वंद्वी से लड़ो",
+  "opponentCpuBattle": "CPU से लड़ो",
   "settingsLinked": "{providerName} से जुड़ गया",
   "settingsSwitchAccountTitle": "लिंक किए गए खाते पर जाना चाहते हो?",
   "settingsSwitchAccountMessage": "यह {providerName} खाता दूसरे डिवाइस पर पहले से लिंक है। इस पर स्विच करोगे तो इस डिवाइस का संग्रह (मॉन्स्टर: {monsterCount}) मिट जाएगा और लिंक किए गए खाते का संग्रह दिखेगा।",
@@ -160,6 +161,7 @@
   "battleWon": "जीत!",
   "battleLost": "तुम हार गए",
   "shareVersusOpponents": "{opponentNames} के ख़िलाफ़",
+  "shareOpponentSeparator": " · ",
   "battleLogChallenged": "{monsterName} ने तुम्हें मुकाबले की चुनौती दी!",
   "battleLogMoveUsed": "{monsterName} ने {moveName} इस्तेमाल किया!",
   "battleStruggle": "आख़िरी दाँव",
@@ -333,6 +335,5 @@
   "helpStatusDizzy": "3 टर्न तक चालें कम सटीक होंगी",
   "helpStatusExcited": "आक्रमण बढ़ता है, रक्षा घटती है",
   "helpStatusFrozen": "कुछ टर्न तक शायद कार्रवाई न कर पाए\nनुकसान पहुँचाने वाली चाल लगने पर असर हट जाता है",
-  "helpStatusSwitchBlocked": "तुम 3 टर्न तक अपनी मर्ज़ी से मॉन्स्टर नहीं बदल सकते",
-  "shareOpponentSeparator": " · "
+  "helpStatusSwitchBlocked": "तुम 3 टर्न तक अपनी मर्ज़ी से मॉन्स्टर नहीं बदल सकते"
 }

@@ -42,6 +42,7 @@
   "opponentSearchAgain": "വീണ്ടും തിരയുക",
   "opponentNoneAvailable": "ഇപ്പോൾ പോരാടാൻ ട്രെയിനർ ആരുമില്ല\nനിങ്ങൾക്ക് CPU ട്രെയിനറുമായി പോരാടാം",
   "opponentRandomBattle": "ക്രമരഹിത എതിരാളിയോട് പോരാടൂ",
+  "opponentCpuBattle": "CPU-യോട് പോരാടൂ",
   "settingsLinked": "{providerName} എന്നതുമായി ബന്ധിപ്പിച്ചു",
   "settingsSwitchAccountTitle": "ലിങ്ക് ചെയ്ത അക്കൗണ്ടിലേക്ക് മാറണോ?",
   "settingsSwitchAccountMessage": "ഈ {providerName} അക്കൗണ്ട് മറ്റൊരു ഉപകരണത്തിൽ ഇതിനകം ലിങ്ക് ചെയ്തിട്ടുണ്ട്. ഇതിലേക്ക് മാറിയാൽ ഈ ഉപകരണത്തിലെ വിജ്ഞാനകോശം (മോൺസ്റ്ററുകൾ: {monsterCount}) ഇല്ലാതാകും; ലിങ്ക് ചെയ്ത അക്കൗണ്ടിന്റെ വിജ്ഞാനകോശത്തിലേക്ക് മാറും.",
@@ -160,6 +161,7 @@
   "battleWon": "നിങ്ങൾ ജയിച്ചു!",
   "battleLost": "നിങ്ങൾ തോറ്റു",
   "shareVersusOpponents": "VS {opponentNames}",
+  "shareOpponentSeparator": " · ",
   "battleLogChallenged": "{monsterName} നിങ്ങളെ പോരാട്ടത്തിന് വെല്ലുവിളിക്കുന്നു!",
   "battleLogMoveUsed": "{monsterName} {moveName} ഉപയോഗിച്ചു!",
   "battleStruggle": "അവസാന പോരാട്ടം",
@@ -333,6 +335,5 @@
   "helpStatusDizzy": "3 ടേണുകൾ വരെ നീക്കങ്ങൾ ലക്ഷ്യത്തിൽ പതിക്കാൻ സാധ്യത കുറയും",
   "helpStatusExcited": "ആക്രമണം കൂടും, പ്രതിരോധം കുറയും",
   "helpStatusFrozen": "കുറച്ച് ടേണുകൾ പ്രവർത്തിക്കാനാകാതെ വന്നേക്കാം\nനാശം വരുത്തുന്ന നീക്കം ഏൽക്കുമ്പോൾ മാറും",
-  "helpStatusSwitchBlocked": "3 ടേൺ വരെ നിങ്ങൾക്ക് സ്വയം മോൺസ്റ്ററിനെ മാറ്റാനാവില്ല",
-  "shareOpponentSeparator": " · "
+  "helpStatusSwitchBlocked": "3 ടേൺ വരെ നിങ്ങൾക്ക് സ്വയം മോൺസ്റ്ററിനെ മാറ്റാനാവില്ല"
 }

@@ -42,6 +42,7 @@
   "opponentSearchAgain": "ફરી શોધો",
   "opponentNoneAvailable": "અત્યારે લડવા માટે કોઈ ટ્રેનર નથી\nતમે CPU ટ્રેનર સાથે લડી શકો છો",
   "opponentRandomBattle": "રેન્ડમ હરીફ સામે લડો",
+  "opponentCpuBattle": "CPU સામે લડો",
   "settingsLinked": "{providerName} સાથે જોડાઈ ગયું",
   "settingsSwitchAccountTitle": "શું તમે લિંક કરેલા એકાઉન્ટ પર સ્વિચ કરવા માંગો છો?",
   "settingsSwitchAccountMessage": "આ {providerName} એકાઉન્ટ બીજા ઉપકરણ પર પહેલેથી જોડાયેલું છે. તેના પર સ્વિચ કરશો તો આ ઉપકરણનો ડેક્સ (મોન્સ્ટર: {monsterCount}) ભૂંસાઈ જશે અને જોડાયેલા એકાઉન્ટનો ડેક્સ દેખાશે.",
@@ -160,6 +161,7 @@
   "battleWon": "તમે જીતી ગયા!",
   "battleLost": "તમે હારી ગયા",
   "shareVersusOpponents": "{opponentNames} સામે",
+  "shareOpponentSeparator": " · ",
   "battleLogChallenged": "{monsterName} તમને લડાઈ માટે પડકારે છે!",
   "battleLogMoveUsed": "{monsterName}એ {moveName} વાપરી!",
   "battleStruggle": "છેલ્લો પ્રયાસ",
@@ -333,6 +335,5 @@
   "helpStatusDizzy": "૩ ટર્ન સુધી ચાલ નિશાન પર લાગવાની શક્યતા ઘટે છે",
   "helpStatusExcited": "હુમલો વધે છે, બચાવ ઘટે છે",
   "helpStatusFrozen": "થોડા ટર્ન સુધી કદાચ ચાલ ન કરી શકે\nનુકસાન કરતી ચાલથી ઈજા થતાં અસર દૂર થાય છે",
-  "helpStatusSwitchBlocked": "તમે 3 ટર્ન સુધી જાતે મોન્સ્ટર બદલી શકતા નથી",
-  "shareOpponentSeparator": " · "
+  "helpStatusSwitchBlocked": "તમે 3 ટર્ન સુધી જાતે મોન્સ્ટર બદલી શકતા નથી"
 }

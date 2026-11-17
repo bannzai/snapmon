@@ -42,6 +42,7 @@
   "opponentSearchAgain": "ପୁଣି ଖୋଜ",
   "opponentNoneAvailable": "ଏବେ ଲଢ଼ିବାକୁ କୌଣସି ଟ୍ରେନର ନାହାନ୍ତି\nତୁମେ CPU ଟ୍ରେନର ସହ ଲଢ଼ିପାରିବ",
   "opponentRandomBattle": "ଯାଦୃଚ୍ଛିକ ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ ସହ ଲଢ଼",
+  "opponentCpuBattle": "CPU ସହ ଲଢ଼",
   "settingsLinked": "{providerName} ସହ ସଂଯୋଗ ହୋଇଛି",
   "settingsSwitchAccountTitle": "ଲିଙ୍କ୍ ହୋଇଥିବା ଆକାଉଣ୍ଟକୁ ବଦଳାଇବାକୁ ଚାହୁଁଛ କି?",
   "settingsSwitchAccountMessage": "ଏହି {providerName} ଆକାଉଣ୍ଟ ଅନ୍ୟ ଡିଭାଇସ୍‌ରେ ପୂର୍ବରୁ ଲିଙ୍କ୍ ହୋଇଛି। ଏଥିକୁ ବଦଳାଇଲେ ଏହି ଡିଭାଇସ୍‌ର ବିଶ୍ୱକୋଷ (ମନଷ୍ଟର: {monsterCount}) ଲିଭିଯିବ ଏବଂ ଲିଙ୍କ୍ ହୋଇଥିବା ଆକାଉଣ୍ଟର ବିଶ୍ୱକୋଷ ଦେଖାଯିବ।",
@@ -160,6 +161,7 @@
   "battleWon": "ତୁମେ ଜିତିଲ!",
   "battleLost": "ତୁମେ ହାରିଗଲ",
   "shareVersusOpponents": "{opponentNames} ବିପକ୍ଷରେ",
+  "shareOpponentSeparator": " · ",
   "battleLogChallenged": "{monsterName} ତୁମକୁ ଲଢ଼େଇ ପାଇଁ ଆହ୍ୱାନ କରିଛି!",
   "battleLogMoveUsed": "{monsterName} {moveName} ବ୍ୟବହାର କଲା!",
   "battleStruggle": "ଶେଷ ଲଢ଼େଇ",
@@ -333,6 +335,5 @@
   "helpStatusDizzy": "୩ ପାଳି ପର୍ଯ୍ୟନ୍ତ ଚାଲ ଲକ୍ଷ୍ୟରେ ଲାଗିବାର ସମ୍ଭାବନା କମେ",
   "helpStatusExcited": "ଆକ୍ରମଣ ବଢ଼େ, ପ୍ରତିରକ୍ଷା କମେ",
   "helpStatusFrozen": "କିଛି ପାଳି ପର୍ଯ୍ୟନ୍ତ ହୁଏତ କିଛି କରିପାରିବ ନାହିଁ\nକ୍ଷତି କରୁଥିବା ଚାଲ ଲାଗିଲେ ପ୍ରଭାବ ହଟେ",
-  "helpStatusSwitchBlocked": "୩ ପାଳି ପର୍ଯ୍ୟନ୍ତ ତୁମେ ନିଜେ ମନଷ୍ଟର ବଦଳାଇ ପାରିବ ନାହିଁ",
-  "shareOpponentSeparator": " · "
+  "helpStatusSwitchBlocked": "୩ ପାଳି ପର୍ଯ୍ୟନ୍ତ ତୁମେ ନିଜେ ମନଷ୍ଟର ବଦଳାଇ ପାରିବ ନାହିଁ"
 }
