@@ -293,5 +293,6 @@
   "actionCardOwnedHeading": "Tes capacités achetées",
   "actionCardOwnedEmpty": "Tu n’as encore acheté aucune capacité",
   "actionCardMovesHeading": "Capacités d’Action Card",
-  "actionCardTaughtNone": "Aucune capacité enseignée"
+  "actionCardTaughtNone": "Aucune capacité enseignée",
+  "actionCardTeach": "Enseigner une capacité"
 }
