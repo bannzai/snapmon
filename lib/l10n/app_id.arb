@@ -325,5 +325,6 @@
   "helpStatusPoison": "Terkena damage di akhir setiap giliran\nMakin banyak racun menumpuk, makin besar damage-nya",
   "helpStatusParalysis": "Jurus serangan kadang bisa gagal",
   "helpStatusStun": "Mungkin tidak bisa bertindak pada giliran berikutnya",
-  "helpStatusBurn": "Damage yang kamu berikan jadi setengah, dan damage yang kamu terima meningkat"
+  "helpStatusBurn": "Damage yang kamu berikan jadi setengah, dan damage yang kamu terima meningkat",
+  "helpStatusDrowsy": "Kecepatan berkurang setengah\nJika terkena efek ini lagi, monster tertidur"
 }

@@ -325,5 +325,6 @@
   "helpStatusPoison": "Tager skade sidst i hver tur\nJo mere gift der ophobes, jo større skade",
   "helpStatusParalysis": "Angrebsangreb kan nogle gange slå fejl",
   "helpStatusStun": "Kan måske ikke handle i næste tur",
-  "helpStatusBurn": "Skade, du giver, halveres, og skade, du tager, øges"
+  "helpStatusBurn": "Skade, du giver, halveres, og skade, du tager, øges",
+  "helpStatusDrowsy": "Hastighed halveres\nRammer effekten igen, falder monsteret i søvn"
 }

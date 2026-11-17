@@ -325,5 +325,6 @@
   "helpStatusPoison": "Minden kör végén sebződik\nMinél több méreg halmozódik fel, annál nagyobb a sebzés",
   "helpStatusParalysis": "A támadó támadások néha kudarcot vallhatnak",
   "helpStatusStun": "Lehet, hogy a következő körben nem tud cselekedni",
-  "helpStatusBurn": "Az okozott sebzésed a felére csökken, a kapott sebzésed nő"
+  "helpStatusBurn": "Az okozott sebzésed a felére csökken, a kapott sebzésed nő",
+  "helpStatusDrowsy": "A Sebesség a felére csökken\nHa újra éri a hatás, elalszik"
 }

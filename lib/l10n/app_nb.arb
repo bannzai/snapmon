@@ -325,5 +325,6 @@
   "helpStatusPoison": "Tar skade på slutten av hver tur\nJo mer gift som samler seg, desto større skade",
   "helpStatusParalysis": "Angrep kan noen ganger mislykkes",
   "helpStatusStun": "Kan kanskje ikke handle i neste tur",
-  "helpStatusBurn": "Skaden du gjør halveres, og skaden du tar øker"
+  "helpStatusBurn": "Skaden du gjør halveres, og skaden du tar øker",
+  "helpStatusDrowsy": "Hastigheten halveres\nHvis effekten treffer igjen, sovner monsteret"
 }

@@ -325,5 +325,6 @@
   "helpStatusPoison": "Na konci každého ťahu utrpí poškodenie\nČím viac jedu sa nahromadí, tým väčšie poškodenie",
   "helpStatusParalysis": "Útočné útoky môžu niekedy zlyhať",
   "helpStatusStun": "V ďalšom ťahu možno nebude môcť konať",
-  "helpStatusBurn": "Poškodenie, ktoré spôsobíš, sa zníži na polovicu a prijaté poškodenie sa zvýši"
+  "helpStatusBurn": "Poškodenie, ktoré spôsobíš, sa zníži na polovicu a prijaté poškodenie sa zvýši",
+  "helpStatusDrowsy": "Rýchlosť sa zníži na polovicu\nAk účinok zasiahne znova, príšera zaspí"
 }

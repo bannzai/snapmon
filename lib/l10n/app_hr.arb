@@ -325,5 +325,6 @@
   "helpStatusPoison": "Prima štetu na kraju svakog poteza\nŠto se više otrova nakupi, šteta je veća",
   "helpStatusParalysis": "Napadački potezi ponekad mogu podbaciti",
   "helpStatusStun": "Možda neće moći djelovati u sljedećem potezu",
-  "helpStatusBurn": "Šteta koju nanosiš se prepolovi, a šteta koju primaš raste"
+  "helpStatusBurn": "Šteta koju nanosiš se prepolovi, a šteta koju primaš raste",
+  "helpStatusDrowsy": "Brzina se prepolovi\nAko se učinak ponovi, čudovište zaspi"
 }

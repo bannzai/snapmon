@@ -325,5 +325,6 @@
   "helpStatusPoison": "Na konci tahu utrpí poškození\nČím víc se jed nahromadí, tím víc bolí",
   "helpStatusParalysis": "Útočné útoky mohou někdy selhat",
   "helpStatusStun": "V příštím tahu možná nebude moct jednat",
-  "helpStatusBurn": "Způsobené poškození klesne na polovinu a utržené poškození vzroste"
+  "helpStatusBurn": "Způsobené poškození klesne na polovinu a utržené poškození vzroste",
+  "helpStatusDrowsy": "Rychlost se sníží na polovinu\nPři dalším zásahu tímto efektem usne"
 }

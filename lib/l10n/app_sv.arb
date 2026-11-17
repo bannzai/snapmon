@@ -325,5 +325,6 @@
   "helpStatusPoison": "Tar skada i slutet av varje tur\nJu mer gift som samlas, desto större skada",
   "helpStatusParalysis": "Attackattacker kan ibland misslyckas",
   "helpStatusStun": "Kan kanske inte agera nästa tur",
-  "helpStatusBurn": "Skadan du gör halveras, och skadan du tar ökar"
+  "helpStatusBurn": "Skadan du gör halveras, och skadan du tar ökar",
+  "helpStatusDrowsy": "Snabbheten halveras\nOm effekten träffar igen somnar monstret"
 }
