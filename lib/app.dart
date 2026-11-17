@@ -179,6 +179,11 @@ class _SnapmonAppState extends State<SnapmonApp> {
     theme: snapmonThemeData(),
     localizationsDelegates: AppLocalizations.localizationsDelegates,
     supportedLocales: AppLocalizations.supportedLocales,
+    localeListResolutionCallback: (preferredLocales, supportedLocales) =>
+        resolveAppLocale(
+          preferredLocales: preferredLocales,
+          supportedLocales: supportedLocales,
+        ),
     // Navigator より外に置き、push したバトル画面・設定画面からも引けるようにする
     builder: (context, child) => GameAudioScope(
       gameAudio: widget.gameAudio,

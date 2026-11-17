@@ -12,6 +12,31 @@ extension L10nBuildContext on BuildContext {
   AppLocalizations get l10n => AppLocalizations.of(this);
 }
 
+/// 端末・ブラウザの優先言語 [preferredLocales] から、[supportedLocales] のうち画面に使う言語を返す。
+/// 文字の種類が付いていない台湾・香港・マカオの中国語 (Web のブラウザの `zh-TW` 等) を繁体字として扱い、
+/// それ以外は Flutter の既定の選び方 ([basicLocaleListResolution]) のままにする。
+Locale resolveAppLocale({
+  required List<Locale>? preferredLocales,
+  required Iterable<Locale> supportedLocales,
+}) => basicLocaleListResolution(
+  preferredLocales
+      ?.map(
+        (locale) =>
+            locale.languageCode == 'zh' &&
+                locale.scriptCode == null &&
+                // 繁体字を使う地域 (台湾・香港・マカオ)。Unicode CLDR の likely subtags が zh-TW・zh-HK・zh-MO を Hant に対応付けている
+                const <String>{}.contains(locale.countryCode)
+            ? Locale.fromSubtags(
+                languageCode: 'zh',
+                scriptCode: 'Hant',
+                countryCode: locale.countryCode,
+              )
+            : locale,
+      )
+      .toList(),
+  supportedLocales,
+);
+
 /// [statKind] の画面の名前 (HP・攻撃・防御・素早さ・命中) を、[l10n] の言語で返す。
 String statLabel({
   required AppLocalizations l10n,
