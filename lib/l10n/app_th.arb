@@ -206,5 +206,6 @@
   "statusConditionSwitchBlocked": "สลับตัวไม่ได้",
   "moveTypeSuperEffective": "ได้ผลสุดยอด ×{multiplier}",
   "moveTypeNotVeryEffective": "ไม่ค่อยได้ผล ×{multiplier}",
-  "moveDetailAccuracy": "ความแม่นยำ"
+  "moveDetailAccuracy": "ความแม่นยำ",
+  "moveDetailPriority": "ลำดับความสำคัญ"
 }

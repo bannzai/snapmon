@@ -206,5 +206,6 @@
   "statusConditionSwitchBlocked": "Kan ikke skiftes",
   "moveTypeSuperEffective": "Supereffektivt ×{multiplier}",
   "moveTypeNotVeryEffective": "Ikke særlig effektivt ×{multiplier}",
-  "moveDetailAccuracy": "Træfsikkerhed"
+  "moveDetailAccuracy": "Træfsikkerhed",
+  "moveDetailPriority": "Prioritet"
 }

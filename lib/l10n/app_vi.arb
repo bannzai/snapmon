@@ -206,5 +206,6 @@
   "statusConditionSwitchBlocked": "Không thể đổi",
   "moveTypeSuperEffective": "Cực kỳ hiệu quả ×{multiplier}",
   "moveTypeNotVeryEffective": "Không mấy hiệu quả ×{multiplier}",
-  "moveDetailAccuracy": "Độ chính xác"
+  "moveDetailAccuracy": "Độ chính xác",
+  "moveDetailPriority": "Độ ưu tiên"
 }

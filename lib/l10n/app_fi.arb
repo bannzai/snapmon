@@ -206,5 +206,6 @@
   "statusConditionSwitchBlocked": "Ei voi vaihtaa",
   "moveTypeSuperEffective": "Erittäin tehokas ×{multiplier}",
   "moveTypeNotVeryEffective": "Ei kovin tehokas ×{multiplier}",
-  "moveDetailAccuracy": "Tarkkuus"
+  "moveDetailAccuracy": "Tarkkuus",
+  "moveDetailPriority": "Etusija"
 }

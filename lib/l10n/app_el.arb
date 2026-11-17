@@ -206,5 +206,6 @@
   "statusConditionSwitchBlocked": "Δεν μπορεί να αλλάξει",
   "moveTypeSuperEffective": "Πολύ αποτελεσματικό ×{multiplier}",
   "moveTypeNotVeryEffective": "Δεν είναι πολύ αποτελεσματικό ×{multiplier}",
-  "moveDetailAccuracy": "Ακρίβεια"
+  "moveDetailAccuracy": "Ακρίβεια",
+  "moveDetailPriority": "Προτεραιότητα"
 }

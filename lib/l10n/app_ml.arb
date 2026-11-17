@@ -206,5 +206,6 @@
   "statusConditionSwitchBlocked": "മാറ്റാൻ കഴിയില്ല",
   "moveTypeSuperEffective": "വളരെ ഫലപ്രദം ×{multiplier}",
   "moveTypeNotVeryEffective": "അത്ര ഫലപ്രദമല്ല ×{multiplier}",
-  "moveDetailAccuracy": "കൃത്യത"
+  "moveDetailAccuracy": "കൃത്യത",
+  "moveDetailPriority": "മുൻഗണന"
 }

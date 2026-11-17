@@ -206,5 +206,6 @@
   "statusConditionSwitchBlocked": "אי אפשר להחליף",
   "moveTypeSuperEffective": "יעיל במיוחד ×{multiplier}",
   "moveTypeNotVeryEffective": "לא יעיל במיוחד ×{multiplier}",
-  "moveDetailAccuracy": "דיוק"
+  "moveDetailAccuracy": "דיוק",
+  "moveDetailPriority": "עדיפות"
 }

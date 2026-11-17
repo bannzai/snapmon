@@ -206,5 +206,6 @@
   "statusConditionSwitchBlocked": "Kan inte bytas",
   "moveTypeSuperEffective": "Supereffektivt ×{multiplier}",
   "moveTypeNotVeryEffective": "Inte särskilt effektivt ×{multiplier}",
-  "moveDetailAccuracy": "Träffsäkerhet"
+  "moveDetailAccuracy": "Träffsäkerhet",
+  "moveDetailPriority": "Prioritet"
 }

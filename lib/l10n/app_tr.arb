@@ -206,5 +206,6 @@
   "statusConditionSwitchBlocked": "Değiştirilemez",
   "moveTypeSuperEffective": "Çok etkili ×{multiplier}",
   "moveTypeNotVeryEffective": "Pek etkili değil ×{multiplier}",
-  "moveDetailAccuracy": "İsabet"
+  "moveDetailAccuracy": "İsabet",
+  "moveDetailPriority": "Öncelik"
 }

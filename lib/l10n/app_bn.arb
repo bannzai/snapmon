@@ -206,5 +206,6 @@
   "statusConditionSwitchBlocked": "বদলানো যাবে না",
   "moveTypeSuperEffective": "দারুণ কার্যকর ×{multiplier}",
   "moveTypeNotVeryEffective": "খুব একটা কার্যকর নয় ×{multiplier}",
-  "moveDetailAccuracy": "নির্ভুলতা"
+  "moveDetailAccuracy": "নির্ভুলতা",
+  "moveDetailPriority": "অগ্রাধিকার"
 }

@@ -206,5 +206,6 @@
   "statusConditionSwitchBlocked": "மாற்ற முடியாது",
   "moveTypeSuperEffective": "மிகவும் பயனுள்ளது ×{multiplier}",
   "moveTypeNotVeryEffective": "அவ்வளவு பயனுள்ளதாக இல்லை ×{multiplier}",
-  "moveDetailAccuracy": "துல்லியம்"
+  "moveDetailAccuracy": "துல்லியம்",
+  "moveDetailPriority": "முன்னுரிமை"
 }

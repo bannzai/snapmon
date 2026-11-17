@@ -206,5 +206,6 @@
   "statusConditionSwitchBlocked": "Tidak bisa diganti",
   "moveTypeSuperEffective": "Sangat efektif ×{multiplier}",
   "moveTypeNotVeryEffective": "Kurang efektif ×{multiplier}",
-  "moveDetailAccuracy": "Akurasi"
+  "moveDetailAccuracy": "Akurasi",
+  "moveDetailPriority": "Prioritas"
 }

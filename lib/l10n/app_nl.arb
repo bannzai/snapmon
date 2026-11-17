@@ -206,5 +206,6 @@
   "statusConditionSwitchBlocked": "Wisselen niet mogelijk",
   "moveTypeSuperEffective": "Superdoeltreffend ×{multiplier}",
   "moveTypeNotVeryEffective": "Niet erg effectief ×{multiplier}",
-  "moveDetailAccuracy": "Nauwkeurigheid"
+  "moveDetailAccuracy": "Nauwkeurigheid",
+  "moveDetailPriority": "Prioriteit"
 }

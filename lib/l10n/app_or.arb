@@ -206,5 +206,6 @@
   "statusConditionSwitchBlocked": "ବଦଳାଇ ହେବ ନାହିଁ",
   "moveTypeSuperEffective": "ଖୁବ୍ ପ୍ରଭାବଶାଳୀ ×{multiplier}",
   "moveTypeNotVeryEffective": "ବେଶି ପ୍ରଭାବଶାଳୀ ନୁହେଁ ×{multiplier}",
-  "moveDetailAccuracy": "ସଠିକତା"
+  "moveDetailAccuracy": "ସଠିକତା",
+  "moveDetailPriority": "ଅଗ୍ରାଧିକାର"
 }

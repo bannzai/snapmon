@@ -206,5 +206,6 @@
   "statusConditionSwitchBlocked": "Nem cserélhető le",
   "moveTypeSuperEffective": "Szuperhatásos ×{multiplier}",
   "moveTypeNotVeryEffective": "Nem túl hatásos ×{multiplier}",
-  "moveDetailAccuracy": "Pontosság"
+  "moveDetailAccuracy": "Pontosság",
+  "moveDetailPriority": "Elsőbbség"
 }

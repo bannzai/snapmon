@@ -206,5 +206,6 @@
   "statusConditionSwitchBlocked": "Menjava ni mogoča",
   "moveTypeSuperEffective": "Zelo učinkovito ×{multiplier}",
   "moveTypeNotVeryEffective": "Ni zelo učinkovito ×{multiplier}",
-  "moveDetailAccuracy": "Natančnost"
+  "moveDetailAccuracy": "Natančnost",
+  "moveDetailPriority": "Prednost"
 }

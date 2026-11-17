@@ -206,5 +206,6 @@
   "statusConditionSwitchBlocked": "ਬਦਲਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ",
   "moveTypeSuperEffective": "ਬਹੁਤ ਅਸਰਦਾਰ ×{multiplier}",
   "moveTypeNotVeryEffective": "ਬਹੁਤਾ ਅਸਰਦਾਰ ਨਹੀਂ ×{multiplier}",
-  "moveDetailAccuracy": "ਸਟੀਕਤਾ"
+  "moveDetailAccuracy": "ਸਟੀਕਤਾ",
+  "moveDetailPriority": "ਤਰਜੀਹ"
 }

@@ -206,5 +206,6 @@
   "statusConditionSwitchBlocked": "Nelze vyměnit",
   "moveTypeSuperEffective": "Velmi účinné ×{multiplier}",
   "moveTypeNotVeryEffective": "Není to moc účinné ×{multiplier}",
-  "moveDetailAccuracy": "Přesnost"
+  "moveDetailAccuracy": "Přesnost",
+  "moveDetailPriority": "Priorita"
 }

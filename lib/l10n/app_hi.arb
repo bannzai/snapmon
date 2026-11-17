@@ -206,5 +206,6 @@
   "statusConditionSwitchBlocked": "बदला नहीं जा सकता",
   "moveTypeSuperEffective": "बहुत असरदार ×{multiplier}",
   "moveTypeNotVeryEffective": "ज़्यादा असरदार नहीं ×{multiplier}",
-  "moveDetailAccuracy": "सटीकता"
+  "moveDetailAccuracy": "सटीकता",
+  "moveDetailPriority": "प्राथमिकता"
 }

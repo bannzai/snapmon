@@ -206,5 +206,6 @@
   "statusConditionSwitchBlocked": "Нельзя заменить",
   "moveTypeSuperEffective": "Суперэффективно ×{multiplier}",
   "moveTypeNotVeryEffective": "Не очень эффективно ×{multiplier}",
-  "moveDetailAccuracy": "Точность"
+  "moveDetailAccuracy": "Точность",
+  "moveDetailPriority": "Приоритет"
 }

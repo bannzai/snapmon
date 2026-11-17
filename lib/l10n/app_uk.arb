@@ -206,5 +206,6 @@
   "statusConditionSwitchBlocked": "Не можна замінити",
   "moveTypeSuperEffective": "Надзвичайно ефективно ×{multiplier}",
   "moveTypeNotVeryEffective": "Не дуже ефективно ×{multiplier}",
-  "moveDetailAccuracy": "Точність"
+  "moveDetailAccuracy": "Точність",
+  "moveDetailPriority": "Пріоритет"
 }
