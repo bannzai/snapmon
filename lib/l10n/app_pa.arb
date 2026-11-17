@@ -139,5 +139,6 @@
   "resultReplaceTitle": "{monsterName} ਨਾਲ ਬਦਲੋ",
   "resultNewlyBorn": "ਨਵਾਂ ਸਾਥੀ",
   "statHitPoints": "HP",
-  "statAttack": "ਹਮਲਾ"
+  "statAttack": "ਹਮਲਾ",
+  "statDefense": "ਰੱਖਿਆ"
 }

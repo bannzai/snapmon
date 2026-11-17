@@ -139,5 +139,6 @@
   "resultReplaceTitle": "Schimbă cu {monsterName}",
   "resultNewlyBorn": "Un nou prieten",
   "statHitPoints": "HP",
-  "statAttack": "Atac"
+  "statAttack": "Atac",
+  "statDefense": "Apărare"
 }

@@ -139,5 +139,6 @@
   "resultReplaceTitle": "Заміни на {monsterName}",
   "resultNewlyBorn": "Новий друг",
   "statHitPoints": "HP",
-  "statAttack": "Атака"
+  "statAttack": "Атака",
+  "statDefense": "Захист"
 }

@@ -139,5 +139,6 @@
   "resultReplaceTitle": "{monsterName} ile değiştir",
   "resultNewlyBorn": "Yeni bir dost",
   "statHitPoints": "HP",
-  "statAttack": "Saldırı"
+  "statAttack": "Saldırı",
+  "statDefense": "Savunma"
 }

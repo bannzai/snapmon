@@ -139,5 +139,6 @@
   "resultReplaceTitle": "Vaihda tilalle {monsterName}",
   "resultNewlyBorn": "Uusi ystävä",
   "statHitPoints": "HP",
-  "statAttack": "Hyökkäys"
+  "statAttack": "Hyökkäys",
+  "statDefense": "Puolustus"
 }

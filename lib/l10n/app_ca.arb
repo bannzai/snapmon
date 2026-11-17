@@ -139,5 +139,6 @@
   "resultReplaceTitle": "Canvia'l per {monsterName}",
   "resultNewlyBorn": "Un nou company",
   "statHitPoints": "HP",
-  "statAttack": "Atac"
+  "statAttack": "Atac",
+  "statDefense": "Defensa"
 }

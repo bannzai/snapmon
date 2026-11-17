@@ -139,5 +139,6 @@
   "resultReplaceTitle": "{monsterName}(으)로 교체하기",
   "resultNewlyBorn": "새로운 친구",
   "statHitPoints": "HP",
-  "statAttack": "공격"
+  "statAttack": "공격",
+  "statDefense": "방어"
 }

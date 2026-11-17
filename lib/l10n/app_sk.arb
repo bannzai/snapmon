@@ -139,5 +139,6 @@
   "resultReplaceTitle": "Vymeň za {monsterName}",
   "resultNewlyBorn": "Nový parťák",
   "statHitPoints": "HP",
-  "statAttack": "Útok"
+  "statAttack": "Útok",
+  "statDefense": "Obrana"
 }

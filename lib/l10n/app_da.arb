@@ -139,5 +139,6 @@
   "resultReplaceTitle": "Byt ud med {monsterName}",
   "resultNewlyBorn": "En ny ven",
   "statHitPoints": "HP",
-  "statAttack": "Angreb"
+  "statAttack": "Angreb",
+  "statDefense": "Forsvar"
 }

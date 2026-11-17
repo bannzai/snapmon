@@ -139,5 +139,6 @@
   "resultReplaceTitle": "{monsterName} सोबत अदलाबदल कर",
   "resultNewlyBorn": "नवा सोबती",
   "statHitPoints": "HP",
-  "statAttack": "हल्ला"
+  "statAttack": "हल्ला",
+  "statDefense": "बचाव"
 }

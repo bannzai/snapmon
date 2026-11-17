@@ -139,5 +139,6 @@
   "resultReplaceTitle": "สลับกับ {monsterName}",
   "resultNewlyBorn": "เพื่อนใหม่",
   "statHitPoints": "HP",
-  "statAttack": "โจมตี"
+  "statAttack": "โจมตี",
+  "statDefense": "พลังป้องกัน"
 }

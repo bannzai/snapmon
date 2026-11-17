@@ -139,5 +139,6 @@
   "resultReplaceTitle": "Gantikan dengan {monsterName}",
   "resultNewlyBorn": "Kawan baru",
   "statHitPoints": "HP",
-  "statAttack": "Serangan"
+  "statAttack": "Serangan",
+  "statDefense": "Pertahanan"
 }

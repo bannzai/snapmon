@@ -139,5 +139,6 @@
   "resultReplaceTitle": "Cseréld le erre: {monsterName}",
   "resultNewlyBorn": "Új társ",
   "statHitPoints": "HP",
-  "statAttack": "Támadás"
+  "statAttack": "Támadás",
+  "statDefense": "Védelem"
 }

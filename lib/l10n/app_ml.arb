@@ -139,5 +139,6 @@
   "resultReplaceTitle": "{monsterName} ഉപയോഗിച്ച് മാറ്റൂ",
   "resultNewlyBorn": "പുതിയ കൂട്ടുകാരൻ",
   "statHitPoints": "HP",
-  "statAttack": "ആക്രമണം"
+  "statAttack": "ആക്രമണം",
+  "statDefense": "പ്രതിരോധം"
 }

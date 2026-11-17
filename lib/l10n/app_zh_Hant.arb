@@ -139,5 +139,6 @@
   "resultReplaceTitle": "換成{monsterName}",
   "resultNewlyBorn": "新夥伴",
   "statHitPoints": "HP",
-  "statAttack": "攻擊"
+  "statAttack": "攻擊",
+  "statDefense": "防禦"
 }

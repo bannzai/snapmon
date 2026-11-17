@@ -139,5 +139,6 @@
   "resultReplaceTitle": "{monsterName} உடன் மாற்றுங்கள்",
   "resultNewlyBorn": "புதிய தோழன்",
   "statHitPoints": "HP",
-  "statAttack": "தாக்குதல்"
+  "statAttack": "தாக்குதல்",
+  "statDefense": "தற்காப்பு"
 }

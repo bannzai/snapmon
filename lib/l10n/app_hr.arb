@@ -139,5 +139,6 @@
   "resultReplaceTitle": "Zamijeni za {monsterName}",
   "resultNewlyBorn": "Novi prijatelj",
   "statHitPoints": "HP",
-  "statAttack": "Napad"
+  "statAttack": "Napad",
+  "statDefense": "Obrana"
 }

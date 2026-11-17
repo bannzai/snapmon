@@ -139,5 +139,6 @@
   "resultReplaceTitle": "{monsterName} से बदलो",
   "resultNewlyBorn": "नया साथी",
   "statHitPoints": "HP",
-  "statAttack": "आक्रमण"
+  "statAttack": "आक्रमण",
+  "statDefense": "रक्षा"
 }

@@ -139,5 +139,6 @@
   "resultReplaceTitle": "Ruil voor {monsterName}",
   "resultNewlyBorn": "Een nieuwe vriend",
   "statHitPoints": "HP",
-  "statAttack": "Aanval"
+  "statAttack": "Aanval",
+  "statDefense": "Verdediging"
 }

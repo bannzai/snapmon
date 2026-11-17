@@ -139,5 +139,6 @@
   "resultReplaceTitle": "החלפה עם {monsterName}",
   "resultNewlyBorn": "חבר חדש",
   "statHitPoints": "HP",
-  "statAttack": "התקפה"
+  "statAttack": "התקפה",
+  "statDefense": "הגנה"
 }
