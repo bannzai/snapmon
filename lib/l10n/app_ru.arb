@@ -254,5 +254,6 @@
   "moveDetailOpponentStatFormula": "Значение, добавляемое к множителю {statName} противника (%)",
   "moveDetailStatFormulaNote": "Множитель 100 равен ×1\nПродолжается, пока монстр не падёт, и останавливается между 50 и 200",
   "moveDetailRecoveryFormula": "Восстановленные HP",
-  "moveDetailRecoveryFormulaNote": "HP не восстанавливаются выше максимума"
+  "moveDetailRecoveryFormulaNote": "HP не восстанавливаются выше максимума",
+  "moveDetailEffectiveness": "эффективность"
 }

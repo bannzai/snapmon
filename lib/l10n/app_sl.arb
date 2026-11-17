@@ -254,5 +254,6 @@
   "moveDetailOpponentStatFormula": "Vrednost, dodana množilniku {statName} nasprotnika (%)",
   "moveDetailStatFormulaNote": "Množilnik 100 pomeni ×1\nTraja, dokler pošast ne pade, in se ustavi med 50 in 200",
   "moveDetailRecoveryFormula": "Obnovljeni HP",
-  "moveDetailRecoveryFormulaNote": "HP ni mogoče obnoviti nad največjo vrednost"
+  "moveDetailRecoveryFormulaNote": "HP ni mogoče obnoviti nad največjo vrednost",
+  "moveDetailEffectiveness": "učinkovitost"
 }

@@ -254,5 +254,6 @@
   "moveDetailOpponentStatFormula": "ערך שמתווסף למכפיל {statName} של היריב (%)",
   "moveDetailStatFormulaNote": "מכפיל 100 שווה ל־×1\nממשיך עד שמפלצת נופלת, ונעצר בין 50 ל־200",
   "moveDetailRecoveryFormula": "כמות HP שמשוחזרת",
-  "moveDetailRecoveryFormulaNote": "אי אפשר לשחזר HP מעבר למקסימום"
+  "moveDetailRecoveryFormulaNote": "אי אפשר לשחזר HP מעבר למקסימום",
+  "moveDetailEffectiveness": "יעילות"
 }

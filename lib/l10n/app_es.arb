@@ -254,5 +254,6 @@
   "moveDetailOpponentStatFormula": "Valor añadido al multiplicador de {statName} del rival (%)",
   "moveDetailStatFormulaNote": "Un multiplicador de 100 equivale a ×1\nContinúa hasta que cae un monstruo y se detiene entre 50 y 200",
   "moveDetailRecoveryFormula": "HP recuperados",
-  "moveDetailRecoveryFormulaNote": "No recupera HP por encima del máximo"
+  "moveDetailRecoveryFormulaNote": "No recupera HP por encima del máximo",
+  "moveDetailEffectiveness": "eficacia"
 }

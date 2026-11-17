@@ -254,5 +254,6 @@
   "moveDetailOpponentStatFormula": "प्रतिस्पर्ध्याच्या {statName} गुणकात जोडले जाणारे मूल्य (%)",
   "moveDetailStatFormulaNote": "गुणक 100 म्हणजे 1 पट\nमॉन्स्टर कोसळेपर्यंत सुरू राहते आणि 50 ते 200 दरम्यान थांबते",
   "moveDetailRecoveryFormula": "भरून येणारे HP",
-  "moveDetailRecoveryFormulaNote": "कमाल HP पेक्षा जास्त भरून निघत नाही"
+  "moveDetailRecoveryFormulaNote": "कमाल HP पेक्षा जास्त भरून निघत नाही",
+  "moveDetailEffectiveness": "परिणामकारकता"
 }

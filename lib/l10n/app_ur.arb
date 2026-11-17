@@ -254,5 +254,6 @@
   "moveDetailOpponentStatFormula": "حریف کے {statName} کے ضارب میں شامل کی جانے والی قدر (%)",
   "moveDetailStatFormulaNote": "ضارب 100 یعنی 1 گنا\nعفریت کے گرنے تک جاری رہتا ہے اور 50 سے 200 کے درمیان رک جاتا ہے",
   "moveDetailRecoveryFormula": "بحال ہونے والے HP",
-  "moveDetailRecoveryFormulaNote": "زیادہ سے زیادہ HP سے بڑھ کر بحال نہیں ہوتا"
+  "moveDetailRecoveryFormulaNote": "زیادہ سے زیادہ HP سے بڑھ کر بحال نہیں ہوتا",
+  "moveDetailEffectiveness": "اثر"
 }

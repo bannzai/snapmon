@@ -254,5 +254,6 @@
   "moveDetailOpponentStatFormula": "હરીફના {statName} ગુણકમાં ઉમેરાતું મૂલ્ય (%)",
   "moveDetailStatFormulaNote": "ગુણક 100 એટલે 1 ગણું\nરાક્ષસ ઢળી પડે ત્યાં સુધી ચાલે છે અને 50થી 200 વચ્ચે અટકે છે",
   "moveDetailRecoveryFormula": "પુનઃપ્રાપ્ત થતું HP",
-  "moveDetailRecoveryFormulaNote": "મહત્તમ HPથી વધુ પુનઃપ્રાપ્ત થતું નથી"
+  "moveDetailRecoveryFormulaNote": "મહત્તમ HPથી વધુ પુનઃપ્રાપ્ત થતું નથી",
+  "moveDetailEffectiveness": "અસરકારકતા"
 }

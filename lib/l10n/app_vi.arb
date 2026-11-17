@@ -254,5 +254,6 @@
   "moveDetailOpponentStatFormula": "Giá trị cộng vào hệ số nhân {statName} của đối thủ (%)",
   "moveDetailStatFormulaNote": "Hệ số 100 tương đương ×1\nTiếp tục đến khi quái vật gục ngã và dừng ở mức từ 50 đến 200",
   "moveDetailRecoveryFormula": "HP hồi phục",
-  "moveDetailRecoveryFormulaNote": "Không hồi phục HP vượt mức tối đa"
+  "moveDetailRecoveryFormulaNote": "Không hồi phục HP vượt mức tối đa",
+  "moveDetailEffectiveness": "tương khắc"
 }

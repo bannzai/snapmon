@@ -254,5 +254,6 @@
   "moveDetailOpponentStatFormula": "ਵਿਰੋਧੀ ਦੇ {statName} ਗੁਣਕ ਵਿੱਚ ਜੋੜਿਆ ਜਾਣ ਵਾਲਾ ਮੁੱਲ (%)",
   "moveDetailStatFormulaNote": "ਗੁਣਕ 100 ਦਾ ਮਤਲਬ 1 ਗੁਣਾ\nਮੌਂਸਟਰ ਡਿੱਗਣ ਤੱਕ ਜਾਰੀ ਰਹਿੰਦਾ ਹੈ ਅਤੇ 50 ਤੋਂ 200 ਵਿਚਕਾਰ ਰੁਕਦਾ ਹੈ",
   "moveDetailRecoveryFormula": "ਮੁੜ ਪ੍ਰਾਪਤ ਹੋਣ ਵਾਲਾ HP",
-  "moveDetailRecoveryFormulaNote": "ਵੱਧ ਤੋਂ ਵੱਧ HP ਤੋਂ ਵੱਧ ਠੀਕ ਨਹੀਂ ਹੁੰਦਾ"
+  "moveDetailRecoveryFormulaNote": "ਵੱਧ ਤੋਂ ਵੱਧ HP ਤੋਂ ਵੱਧ ਠੀਕ ਨਹੀਂ ਹੁੰਦਾ",
+  "moveDetailEffectiveness": "ਮੇਲ"
 }

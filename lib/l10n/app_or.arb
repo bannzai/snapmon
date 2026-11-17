@@ -254,5 +254,6 @@
   "moveDetailOpponentStatFormula": "ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀର {statName} ଗୁଣକରେ ଯୋଡ଼ାଯାଉଥିବା ମୂଲ୍ୟ (%)",
   "moveDetailStatFormulaNote": "ଗୁଣକ 100 ମାନେ 1 ଗୁଣ\nଦାନବ ଢଳିପଡ଼ିବା ଯାଏଁ ଚାଲେ ଏବଂ 50ରୁ 200 ମଧ୍ୟରେ ଅଟକେ",
   "moveDetailRecoveryFormula": "ପୁନରୁଦ୍ଧାର ହେଉଥିବା HP",
-  "moveDetailRecoveryFormulaNote": "ସର୍ବାଧିକ HP ଠାରୁ ଅଧିକ ପୁନରୁଦ୍ଧାର ହୁଏ ନାହିଁ"
+  "moveDetailRecoveryFormulaNote": "ସର୍ବାଧିକ HP ଠାରୁ ଅଧିକ ପୁନରୁଦ୍ଧାର ହୁଏ ନାହିଁ",
+  "moveDetailEffectiveness": "ପ୍ରଭାବ"
 }

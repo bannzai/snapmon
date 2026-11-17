@@ -254,5 +254,6 @@
   "moveDetailOpponentStatFormula": "ప్రత్యర్థి {statName} గుణకానికి జోడించే విలువ (%)",
   "moveDetailStatFormulaNote": "గుణకం 100 అంటే 1 రెట్టు\nరాక్షసుడు పడిపోయే వరకు కొనసాగుతుంది, 50 నుంచి 200 మధ్య ఆగుతుంది",
   "moveDetailRecoveryFormula": "తిరిగి పొందే HP",
-  "moveDetailRecoveryFormulaNote": "గరిష్ఠ HP కంటే ఎక్కువగా పునరుద్ధరణ జరగదు"
+  "moveDetailRecoveryFormulaNote": "గరిష్ఠ HP కంటే ఎక్కువగా పునరుద్ధరణ జరగదు",
+  "moveDetailEffectiveness": "అనుకూలత"
 }
