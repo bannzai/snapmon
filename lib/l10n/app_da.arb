@@ -159,5 +159,6 @@
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
   "battleWon": "Du vandt!",
   "battleLost": "Du tabte",
-  "shareVersusOpponents": "mod {opponentNames}"
+  "shareVersusOpponents": "mod {opponentNames}",
+  "battleLogChallenged": "{monsterName} udfordrer dig til kamp!"
 }

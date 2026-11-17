@@ -159,5 +159,6 @@
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
   "battleWon": "Voitit!",
   "battleLost": "Hävisit",
-  "shareVersusOpponents": "vastaan {opponentNames}"
+  "shareVersusOpponents": "vastaan {opponentNames}",
+  "battleLogChallenged": "{monsterName} haastaa sinut taisteluun!"
 }

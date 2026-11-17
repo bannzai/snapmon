@@ -159,5 +159,6 @@
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
   "battleWon": "Du vann!",
   "battleLost": "Du förlorade",
-  "shareVersusOpponents": "mot {opponentNames}"
+  "shareVersusOpponents": "mot {opponentNames}",
+  "battleLogChallenged": "{monsterName} utmanar dig på strid!"
 }

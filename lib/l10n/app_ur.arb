@@ -159,5 +159,6 @@
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
   "battleWon": "تم جیت گئے!",
   "battleLost": "تم ہار گئے",
-  "shareVersusOpponents": "{opponentNames} کے خلاف"
+  "shareVersusOpponents": "{opponentNames} کے خلاف",
+  "battleLogChallenged": "{monsterName} نے تمہیں لڑائی کا چیلنج دیا!"
 }

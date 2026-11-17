@@ -159,5 +159,6 @@
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
   "battleWon": "Kamu menang!",
   "battleLost": "Kamu kalah",
-  "shareVersusOpponents": "lawan {opponentNames}"
+  "shareVersusOpponents": "lawan {opponentNames}",
+  "battleLogChallenged": "{monsterName} menantangmu bertarung!"
 }

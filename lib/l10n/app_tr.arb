@@ -159,5 +159,6 @@
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
   "battleWon": "Kazandın!",
   "battleLost": "Kaybettin",
-  "shareVersusOpponents": "{opponentNames} ile karşılaş"
+  "shareVersusOpponents": "{opponentNames} ile karşılaş",
+  "battleLogChallenged": "{monsterName} seni düelloya çağırıyor!"
 }

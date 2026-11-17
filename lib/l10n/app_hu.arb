@@ -159,5 +159,6 @@
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
   "battleWon": "Győztél!",
   "battleLost": "Vesztettél",
-  "shareVersusOpponents": "{opponentNames} ellen"
+  "shareVersusOpponents": "{opponentNames} ellen",
+  "battleLogChallenged": "{monsterName} párbajra hív!"
 }

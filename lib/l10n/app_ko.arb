@@ -159,5 +159,6 @@
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
   "battleWon": "승리했다!",
   "battleLost": "패배",
-  "shareVersusOpponents": "{opponentNames} 상대"
+  "shareVersusOpponents": "{opponentNames} 상대",
+  "battleLogChallenged": "{monsterName}의 도전이 시작됐다!"
 }

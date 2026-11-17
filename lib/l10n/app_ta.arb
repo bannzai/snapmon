@@ -159,5 +159,6 @@
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
   "battleWon": "நீங்கள் வென்றீர்கள்!",
   "battleLost": "நீங்கள் தோற்றுவிட்டீர்கள்",
-  "shareVersusOpponents": "{opponentNames} எதிராக"
+  "shareVersusOpponents": "{opponentNames} எதிராக",
+  "battleLogChallenged": "{monsterName} உங்களைப் போருக்கு அழைக்கிறது!"
 }

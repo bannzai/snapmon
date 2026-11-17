@@ -159,5 +159,6 @@
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
   "battleWon": "Zmagal si!",
   "battleLost": "Izgubil si",
-  "shareVersusOpponents": "proti {opponentNames}"
+  "shareVersusOpponents": "proti {opponentNames}",
+  "battleLogChallenged": "{monsterName} te izziva na dvoboj!"
 }
