@@ -170,5 +170,6 @@
   "battleLogStatFell": "La stat {statName} de {monsterName} a baissé",
   "battleLogStatUnchanged": "La stat {statName} de {monsterName} ne peut plus changer !",
   "battleLogRecovered": "{monsterName} a récupéré {amount} HP",
-  "battleLogNoEffect": "Mais rien ne s’est passé !"
+  "battleLogNoEffect": "Mais rien ne s’est passé !",
+  "battleStatModifier": "{statName} ×{multiplier}"
 }
