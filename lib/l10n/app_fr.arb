@@ -82,5 +82,6 @@
   "dexNoPartyCandidates": "Aucun monstre à ajouter à ton équipe",
   "captureCameraUnavailable": "Appareil photo indisponible\nChoisis une photo dans ta galerie",
   "captureDexCount": "dex {monsterCount}",
-  "captureFirstHintAlbum": "Choisis une photo d’un objet autour de toi"
+  "captureFirstHintAlbum": "Choisis une photo d’un objet autour de toi",
+  "captureFirstHintCamera": "Prends en photo un objet autour de toi"
 }
