@@ -109,5 +109,6 @@
   "generationSeeLater": "לצפות אחר כך",
   "generationNotBornTitle": "המפלצת לא נולדה",
   "generationFailedTitle": "לא הצלחנו ליצור את המפלצת",
-  "generationBattlePreparationFailedTitle": "לא ניתן היה להכין את הקרב"
+  "generationBattlePreparationFailedTitle": "לא ניתן היה להכין את הקרב",
+  "generationStagePreparingPhoto": "מכינים את התמונה"
 }

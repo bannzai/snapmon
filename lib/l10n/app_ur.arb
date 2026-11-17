@@ -109,5 +109,6 @@
   "generationSeeLater": "بعد میں دیکھو",
   "generationNotBornTitle": "مونسٹر پیدا نہیں ہوا",
   "generationFailedTitle": "مونسٹر نہیں بن سکا",
-  "generationBattlePreparationFailedTitle": "لڑائی کی تیاری نہیں ہو سکی"
+  "generationBattlePreparationFailedTitle": "لڑائی کی تیاری نہیں ہو سکی",
+  "generationStagePreparingPhoto": "تصویر تیار ہو رہی ہے"
 }

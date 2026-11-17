@@ -109,5 +109,6 @@
   "generationSeeLater": "Lihat nanti",
   "generationNotBornTitle": "Monsternya tidak jadi lahir",
   "generationFailedTitle": "Monster gagal dibuat",
-  "generationBattlePreparationFailedTitle": "Pertarungan gagal disiapkan"
+  "generationBattlePreparationFailedTitle": "Pertarungan gagal disiapkan",
+  "generationStagePreparingPhoto": "Menyiapkan foto"
 }

@@ -109,5 +109,6 @@
   "generationSeeLater": "Sonra bak",
   "generationNotBornTitle": "Canavar doğmadı",
   "generationFailedTitle": "Canavar oluşturulamadı",
-  "generationBattlePreparationFailedTitle": "Savaş hazırlanamadı"
+  "generationBattlePreparationFailedTitle": "Savaş hazırlanamadı",
+  "generationStagePreparingPhoto": "Fotoğraf hazırlanıyor"
 }

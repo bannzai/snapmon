@@ -109,5 +109,6 @@
   "generationSeeLater": "ನಂತರ ನೋಡು",
   "generationNotBornTitle": "ಮಾನ್ಸ್ಟರ್ ಹುಟ್ಟಲಿಲ್ಲ",
   "generationFailedTitle": "ಮಾನ್ಸ್ಟರ್ ರಚಿಸಲಾಗಲಿಲ್ಲ",
-  "generationBattlePreparationFailedTitle": "ಕದನಕ್ಕೆ ಸಿದ್ಧತೆ ಮಾಡಲಾಗಲಿಲ್ಲ"
+  "generationBattlePreparationFailedTitle": "ಕದನಕ್ಕೆ ಸಿದ್ಧತೆ ಮಾಡಲಾಗಲಿಲ್ಲ",
+  "generationStagePreparingPhoto": "ಫೋಟೋ ಸಿದ್ಧವಾಗುತ್ತಿದೆ"
 }

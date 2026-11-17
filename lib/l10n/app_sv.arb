@@ -109,5 +109,6 @@
   "generationSeeLater": "Visa senare",
   "generationNotBornTitle": "Monstret föddes inte",
   "generationFailedTitle": "Monstret kunde inte skapas",
-  "generationBattlePreparationFailedTitle": "Striden kunde inte förberedas"
+  "generationBattlePreparationFailedTitle": "Striden kunde inte förberedas",
+  "generationStagePreparingPhoto": "Förbereder fotot"
 }

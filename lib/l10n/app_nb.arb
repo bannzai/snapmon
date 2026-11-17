@@ -109,5 +109,6 @@
   "generationSeeLater": "Se senere",
   "generationNotBornTitle": "Monsteret ble ikke født",
   "generationFailedTitle": "Kunne ikke lage monsteret",
-  "generationBattlePreparationFailedTitle": "Kampen kunne ikke klargjøres"
+  "generationBattlePreparationFailedTitle": "Kampen kunne ikke klargjøres",
+  "generationStagePreparingPhoto": "Klargjør bildet"
 }

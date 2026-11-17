@@ -109,5 +109,6 @@
   "generationSeeLater": "Переглянути пізніше",
   "generationNotBornTitle": "Монстр не народився",
   "generationFailedTitle": "Не вдалося створити монстра",
-  "generationBattlePreparationFailedTitle": "Не вдалося підготувати бій"
+  "generationBattlePreparationFailedTitle": "Не вдалося підготувати бій",
+  "generationStagePreparingPhoto": "Готуємо фото"
 }

@@ -109,5 +109,6 @@
   "generationSeeLater": "Ver más tarde",
   "generationNotBornTitle": "El monstruo no nació",
   "generationFailedTitle": "No se pudo crear el monstruo",
-  "generationBattlePreparationFailedTitle": "No se pudo preparar el combate"
+  "generationBattlePreparationFailedTitle": "No se pudo preparar el combate",
+  "generationStagePreparingPhoto": "Preparando la foto"
 }

@@ -109,5 +109,6 @@
   "generationSeeLater": "Poglej pozneje",
   "generationNotBornTitle": "Pošast se ni rodila",
   "generationFailedTitle": "Pošasti ni bilo mogoče ustvariti",
-  "generationBattlePreparationFailedTitle": "Bitke ni bilo mogoče pripraviti"
+  "generationBattlePreparationFailedTitle": "Bitke ni bilo mogoče pripraviti",
+  "generationStagePreparingPhoto": "Pripravljamo fotografijo"
 }
