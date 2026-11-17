@@ -1,3 +1,4 @@
 {
-  "@@locale": "es"
+  "@@locale": "es",
+  "commonRetry": "Intentar de nuevo"
 }

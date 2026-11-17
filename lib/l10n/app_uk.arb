@@ -1,3 +1,4 @@
 {
-  "@@locale": "uk"
+  "@@locale": "uk",
+  "commonRetry": "Спробуй ще раз"
 }
