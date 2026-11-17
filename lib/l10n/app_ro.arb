@@ -177,5 +177,6 @@
   "battleLogMissed": "Dar atacul a ratat!",
   "battleLogParalyzed": "{monsterName} e paralizat și nu poate ataca",
   "battleLogStunned": "{monsterName} a leșinat și nu se poate mișca",
-  "battleLogAsleep": "{monsterName} doarme dus"
+  "battleLogAsleep": "{monsterName} doarme dus",
+  "battleLogFrozenSolid": "{monsterName} a înghețat și nu se poate mișca"
 }

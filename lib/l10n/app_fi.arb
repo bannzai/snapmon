@@ -177,5 +177,6 @@
   "battleLogMissed": "Mutta hyökkäys meni ohi!",
   "battleLogParalyzed": "{monsterName} on halvaantunut eikä voi hyökätä",
   "battleLogStunned": "{monsterName} pyörtyi eikä pysty liikkumaan",
-  "battleLogAsleep": "{monsterName} nukkuu sikeästi"
+  "battleLogAsleep": "{monsterName} nukkuu sikeästi",
+  "battleLogFrozenSolid": "{monsterName} on jäässä eikä pysty liikkumaan"
 }

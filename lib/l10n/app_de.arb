@@ -177,5 +177,6 @@
   "battleLogMissed": "Aber der Angriff ging daneben!",
   "battleLogParalyzed": "{monsterName} ist paralysiert und kann nicht angreifen",
   "battleLogStunned": "{monsterName} ist ohnmächtig und kann sich nicht bewegen",
-  "battleLogAsleep": "{monsterName} schläft tief und fest"
+  "battleLogAsleep": "{monsterName} schläft tief und fest",
+  "battleLogFrozenSolid": "{monsterName} ist eingefroren und kann sich nicht bewegen"
 }

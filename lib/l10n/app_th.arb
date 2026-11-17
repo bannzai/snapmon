@@ -177,5 +177,6 @@
   "battleLogMissed": "แต่การโจมตีพลาดเป้า!",
   "battleLogParalyzed": "{monsterName} เป็นอัมพาตจนโจมตีไม่ได้",
   "battleLogStunned": "{monsterName} หมดสติจนขยับไม่ได้",
-  "battleLogAsleep": "{monsterName} กำลังหลับปุ๋ย"
+  "battleLogAsleep": "{monsterName} กำลังหลับปุ๋ย",
+  "battleLogFrozenSolid": "{monsterName} ถูกแช่แข็งจนขยับไม่ได้"
 }

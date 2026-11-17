@@ -177,5 +177,6 @@
   "battleLogMissed": "Nhưng đòn đánh đã trượt!",
   "battleLogParalyzed": "{monsterName} bị tê liệt, không thể tấn công",
   "battleLogStunned": "{monsterName} đã ngất và không thể cử động",
-  "battleLogAsleep": "{monsterName} đang ngủ say"
+  "battleLogAsleep": "{monsterName} đang ngủ say",
+  "battleLogFrozenSolid": "{monsterName} bị đóng băng, không thể di chuyển"
 }

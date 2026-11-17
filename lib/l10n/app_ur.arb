@@ -177,5 +177,6 @@
   "battleLogMissed": "لیکن حملہ نشانے سے چوک گیا!",
   "battleLogParalyzed": "{monsterName} کا جسم سن ہو گیا ہے، حملہ نہیں کر سکتا",
   "battleLogStunned": "{monsterName} بے ہوش ہے اور ہل نہیں سکتا",
-  "battleLogAsleep": "{monsterName} گہری نیند میں ہے"
+  "battleLogAsleep": "{monsterName} گہری نیند میں ہے",
+  "battleLogFrozenSolid": "{monsterName} جم گیا ہے اور ہل نہیں سکتا"
 }

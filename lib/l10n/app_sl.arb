@@ -177,5 +177,6 @@
   "battleLogMissed": "A napad je zgrešil!",
   "battleLogParalyzed": "{monsterName} je paraliziran in ne more napasti",
   "battleLogStunned": "{monsterName} je omedlel in se ne more premakniti",
-  "battleLogAsleep": "{monsterName} trdno spi"
+  "battleLogAsleep": "{monsterName} trdno spi",
+  "battleLogFrozenSolid": "{monsterName} je zmrznil in se ne more premakniti"
 }

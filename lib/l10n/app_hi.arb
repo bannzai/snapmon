@@ -177,5 +177,6 @@
   "battleLogMissed": "लेकिन वार चूक गया!",
   "battleLogParalyzed": "{monsterName} का शरीर सुन्न है, हमला नहीं कर सकता",
   "battleLogStunned": "{monsterName} बेहोश है और हिल नहीं सकता",
-  "battleLogAsleep": "{monsterName} गहरी नींद में सो रहा है"
+  "battleLogAsleep": "{monsterName} गहरी नींद में सो रहा है",
+  "battleLogFrozenSolid": "{monsterName} जम गया है और हिल नहीं सकता"
 }

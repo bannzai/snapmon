@@ -177,5 +177,6 @@
   "battleLogMissed": "De a támadás célt tévesztett!",
   "battleLogParalyzed": "{monsterName} lebénult, és nem tud támadni",
   "battleLogStunned": "{monsterName} elájult, és nem tud mozogni",
-  "battleLogAsleep": "{monsterName} mélyen alszik"
+  "battleLogAsleep": "{monsterName} mélyen alszik",
+  "battleLogFrozenSolid": "{monsterName} jéggé dermedt, és nem tud megmozdulni"
 }

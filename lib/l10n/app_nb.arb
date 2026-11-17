@@ -177,5 +177,6 @@
   "battleLogMissed": "Men angrepet bommet!",
   "battleLogParalyzed": "{monsterName} er lammet og kan ikke angripe",
   "battleLogStunned": "{monsterName} har besvimt og kan ikke bevege seg",
-  "battleLogAsleep": "{monsterName} sover tungt"
+  "battleLogAsleep": "{monsterName} sover tungt",
+  "battleLogFrozenSolid": "{monsterName} er frosset fast og kan ikke røre seg"
 }

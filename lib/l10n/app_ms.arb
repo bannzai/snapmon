@@ -177,5 +177,6 @@
   "battleLogMissed": "Tapi serangan itu tersasar!",
   "battleLogParalyzed": "{monsterName} lumpuh dan tak dapat menyerang",
   "battleLogStunned": "{monsterName} pengsan dan tak boleh bergerak",
-  "battleLogAsleep": "{monsterName} tidur lena"
+  "battleLogAsleep": "{monsterName} tidur lena",
+  "battleLogFrozenSolid": "{monsterName} membeku dan tak boleh bergerak"
 }

@@ -177,5 +177,6 @@
   "battleLogMissed": "କିନ୍ତୁ ଆକ୍ରମଣ ଲକ୍ଷ୍ୟଭ୍ରଷ୍ଟ ହେଲା!",
   "battleLogParalyzed": "{monsterName} ର ଦେହ ଅବଶ ହୋଇଛି, ଆକ୍ରମଣ କରିପାରୁନି",
   "battleLogStunned": "{monsterName} ବେହୋସ ହୋଇଯାଇଛି, ହଲିପାରୁନି",
-  "battleLogAsleep": "{monsterName} ଘୋର ନିଦରେ ଶୋଇଛି"
+  "battleLogAsleep": "{monsterName} ଘୋର ନିଦରେ ଶୋଇଛି",
+  "battleLogFrozenSolid": "{monsterName} ବରଫରେ ଜମିଯାଇଛି, ହଲି ପାରୁନାହିଁ"
 }

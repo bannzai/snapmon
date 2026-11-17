@@ -177,5 +177,6 @@
   "battleLogMissed": "ஆனால் தாக்குதல் குறி தவறியது!",
   "battleLogParalyzed": "{monsterName} முடங்கியதால் தாக்க முடியவில்லை",
   "battleLogStunned": "{monsterName} மயங்கி விட்டது, அசைய முடியவில்லை",
-  "battleLogAsleep": "{monsterName} ஆழ்ந்த உறக்கத்தில் இருக்கிறது"
+  "battleLogAsleep": "{monsterName} ஆழ்ந்த உறக்கத்தில் இருக்கிறது",
+  "battleLogFrozenSolid": "{monsterName} உறைந்துவிட்டதால் அசைய முடியவில்லை"
 }

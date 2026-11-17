@@ -177,5 +177,6 @@
   "battleLogMissed": "Però l'atac ha fallat!",
   "battleLogParalyzed": "{monsterName} està paralitzat i no pot atacar",
   "battleLogStunned": "{monsterName} s'ha desmaiat i no es pot moure",
-  "battleLogAsleep": "{monsterName} dorm com un tronc"
+  "battleLogAsleep": "{monsterName} dorm com un tronc",
+  "battleLogFrozenSolid": "{monsterName} s'ha congelat i no es pot moure"
 }

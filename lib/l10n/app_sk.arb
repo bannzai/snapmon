@@ -177,5 +177,6 @@
   "battleLogMissed": "Ale útok minul!",
   "battleLogParalyzed": "{monsterName} je paralyzovaný a nemôže zaútočiť",
   "battleLogStunned": "{monsterName} omdlel a nemôže sa hýbať",
-  "battleLogAsleep": "{monsterName} tvrdo spí"
+  "battleLogAsleep": "{monsterName} tvrdo spí",
+  "battleLogFrozenSolid": "{monsterName} zamrzol a nemôže sa hýbať"
 }

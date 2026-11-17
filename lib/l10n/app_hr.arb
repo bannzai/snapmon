@@ -177,5 +177,6 @@
   "battleLogMissed": "Ali napad je promašio!",
   "battleLogParalyzed": "{monsterName} je paraliziran i ne može napasti",
   "battleLogStunned": "{monsterName} se onesvijestio i ne može se pomaknuti",
-  "battleLogAsleep": "{monsterName} čvrsto spava"
+  "battleLogAsleep": "{monsterName} čvrsto spava",
+  "battleLogFrozenSolid": "{monsterName} je zaleđen i ne može se pomaknuti"
 }

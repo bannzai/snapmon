@@ -177,5 +177,6 @@
   "battleLogMissed": "Maar de aanval miste!",
   "battleLogParalyzed": "{monsterName} is verlamd en kan niet aanvallen",
   "battleLogStunned": "{monsterName} is flauwgevallen en kan niet bewegen",
-  "battleLogAsleep": "{monsterName} slaapt als een roos"
+  "battleLogAsleep": "{monsterName} slaapt als een roos",
+  "battleLogFrozenSolid": "{monsterName} is bevroren en kan niet bewegen"
 }

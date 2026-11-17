@@ -177,5 +177,6 @@
   "battleLogMissed": "하지만 공격은 빗나갔다!",
   "battleLogParalyzed": "{monsterName}은 몸이 마비돼 공격하지 못했다",
   "battleLogStunned": "{monsterName}은(는) 기절해서 움직일 수 없었다",
-  "battleLogAsleep": "{monsterName}은(는) 쿨쿨 잠들어 있다"
+  "battleLogAsleep": "{monsterName}은(는) 쿨쿨 잠들어 있다",
+  "battleLogFrozenSolid": "{monsterName}: 꽁꽁 얼어 움직일 수 없었다"
 }
