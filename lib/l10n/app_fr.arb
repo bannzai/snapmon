@@ -3,5 +3,6 @@
   "commonRetry": "Réessayer",
   "commonContact": "Contacte-nous",
   "tabDex": "dex",
-  "tabCapture": "Capturer"
+  "tabCapture": "Capturer",
+  "tabOpponent": "Combat"
 }
