@@ -97,5 +97,6 @@
   "commonBack": "Vissza",
   "generationSearchingOpponent": "Ellenfél keresése",
   "generationBattleWith": "A harcban {monsterName} lesz veled",
-  "generationOpponentAppeared": "Felbukkant {opponentName}!"
+  "generationOpponentAppeared": "Felbukkant {opponentName}!",
+  "generationLetsBattleWith": "Harcolj {monsterName} oldalán"
 }

@@ -97,5 +97,6 @@
   "commonBack": "Torna",
   "generationSearchingOpponent": "Buscant un rival",
   "generationBattleWith": "Lluitaràs amb {monsterName}",
-  "generationOpponentAppeared": "Ha aparegut {opponentName}!"
+  "generationOpponentAppeared": "Ha aparegut {opponentName}!",
+  "generationLetsBattleWith": "Lluita amb {monsterName}"
 }

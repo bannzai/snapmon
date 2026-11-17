@@ -97,5 +97,6 @@
   "commonBack": "मागे",
   "generationSearchingOpponent": "प्रतिस्पर्धी शोधत आहे",
   "generationBattleWith": "तू {monsterName} सोबत लढशील",
-  "generationOpponentAppeared": "{opponentName} समोर आलं!"
+  "generationOpponentAppeared": "{opponentName} समोर आलं!",
+  "generationLetsBattleWith": "{monsterName}सोबत लढ"
 }

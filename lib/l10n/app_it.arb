@@ -97,5 +97,6 @@
   "commonBack": "Indietro",
   "generationSearchingOpponent": "Cerco un avversario",
   "generationBattleWith": "Combatterai con {monsterName}",
-  "generationOpponentAppeared": "È apparso {opponentName}!"
+  "generationOpponentAppeared": "È apparso {opponentName}!",
+  "generationLetsBattleWith": "Combatti con {monsterName}"
 }

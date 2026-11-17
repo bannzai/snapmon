@@ -97,5 +97,6 @@
   "commonBack": "Volver",
   "generationSearchingOpponent": "Buscando un rival",
   "generationBattleWith": "Lucharás con {monsterName}",
-  "generationOpponentAppeared": "¡Apareció {opponentName}!"
+  "generationOpponentAppeared": "¡Apareció {opponentName}!",
+  "generationLetsBattleWith": "¡Lucha con {monsterName}!"
 }

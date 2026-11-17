@@ -97,5 +97,6 @@
   "commonBack": "Quay lại",
   "generationSearchingOpponent": "Đang tìm đối thủ",
   "generationBattleWith": "Bạn sẽ chiến đấu cùng {monsterName}",
-  "generationOpponentAppeared": "{opponentName} xuất hiện!"
+  "generationOpponentAppeared": "{opponentName} xuất hiện!",
+  "generationLetsBattleWith": "Chiến đấu cùng {monsterName}"
 }

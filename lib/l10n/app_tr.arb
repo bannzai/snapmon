@@ -97,5 +97,6 @@
   "commonBack": "Geri",
   "generationSearchingOpponent": "Rakip aranıyor",
   "generationBattleWith": "{monsterName} ile savaşacaksın",
-  "generationOpponentAppeared": "{opponentName} ortaya çıktı!"
+  "generationOpponentAppeared": "{opponentName} ortaya çıktı!",
+  "generationLetsBattleWith": "{monsterName} ile savaş"
 }

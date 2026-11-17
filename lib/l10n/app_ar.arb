@@ -97,5 +97,6 @@
   "commonBack": "رجوع",
   "generationSearchingOpponent": "جارٍ البحث عن خصم",
   "generationBattleWith": "ستقاتل مع {monsterName}",
-  "generationOpponentAppeared": "ظهر {opponentName}!"
+  "generationOpponentAppeared": "ظهر {opponentName}!",
+  "generationLetsBattleWith": "لنخض المعركة مع {monsterName}"
 }

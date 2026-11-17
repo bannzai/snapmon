@@ -97,5 +97,6 @@
   "commonBack": "ফিরে যাও",
   "generationSearchingOpponent": "প্রতিপক্ষ খোঁজা হচ্ছে",
   "generationBattleWith": "তুমি {monsterName} নিয়ে লড়বে",
-  "generationOpponentAppeared": "হাজির হলো {opponentName}!"
+  "generationOpponentAppeared": "হাজির হলো {opponentName}!",
+  "generationLetsBattleWith": "{monsterName} নিয়ে লড়াই করো"
 }

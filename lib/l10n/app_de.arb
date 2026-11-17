@@ -97,5 +97,6 @@
   "commonBack": "Zurück",
   "generationSearchingOpponent": "Gegner wird gesucht",
   "generationBattleWith": "Du kämpfst mit {monsterName}",
-  "generationOpponentAppeared": "{opponentName} ist aufgetaucht!"
+  "generationOpponentAppeared": "{opponentName} ist aufgetaucht!",
+  "generationLetsBattleWith": "Kämpfe mit {monsterName}"
 }

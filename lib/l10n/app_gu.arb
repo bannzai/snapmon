@@ -97,5 +97,6 @@
   "commonBack": "પાછા જાઓ",
   "generationSearchingOpponent": "હરીફની શોધ ચાલી રહી છે",
   "generationBattleWith": "તમે {monsterName} સાથે લડશો",
-  "generationOpponentAppeared": "{opponentName} દેખાયો!"
+  "generationOpponentAppeared": "{opponentName} દેખાયો!",
+  "generationLetsBattleWith": "{monsterName} સાથે લડો"
 }

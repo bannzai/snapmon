@@ -97,5 +97,6 @@
   "commonBack": "กลับ",
   "generationSearchingOpponent": "กำลังค้นหาคู่ต่อสู้",
   "generationBattleWith": "จะต่อสู้ไปพร้อมกับ {monsterName}",
-  "generationOpponentAppeared": "{opponentName} ปรากฏตัว!"
+  "generationOpponentAppeared": "{opponentName} ปรากฏตัว!",
+  "generationLetsBattleWith": "สู้ไปกับ {monsterName}"
 }

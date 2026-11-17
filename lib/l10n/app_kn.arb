@@ -97,5 +97,6 @@
   "commonBack": "ಹಿಂದೆ",
   "generationSearchingOpponent": "ಎದುರಾಳಿಯನ್ನು ಹುಡುಕಲಾಗುತ್ತಿದೆ",
   "generationBattleWith": "ನೀನು {monsterName} ಜೊತೆ ಹೋರಾಡುತ್ತೀಯ",
-  "generationOpponentAppeared": "{opponentName} ಕಾಣಿಸಿಕೊಂಡಿತು!"
+  "generationOpponentAppeared": "{opponentName} ಕಾಣಿಸಿಕೊಂಡಿತು!",
+  "generationLetsBattleWith": "{monsterName} ಜೊತೆ ಹೋರಾಡು"
 }

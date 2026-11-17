@@ -97,5 +97,6 @@
   "commonBack": "Terug",
   "generationSearchingOpponent": "Op zoek naar een tegenstander",
   "generationBattleWith": "Je vecht met {monsterName}",
-  "generationOpponentAppeared": "{opponentName} verscheen!"
+  "generationOpponentAppeared": "{opponentName} verscheen!",
+  "generationLetsBattleWith": "Vecht met {monsterName}"
 }

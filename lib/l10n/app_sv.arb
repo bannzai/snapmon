@@ -97,5 +97,6 @@
   "commonBack": "Tillbaka",
   "generationSearchingOpponent": "Letar efter en motståndare",
   "generationBattleWith": "Du slåss med {monsterName}",
-  "generationOpponentAppeared": "{opponentName} dök upp!"
+  "generationOpponentAppeared": "{opponentName} dök upp!",
+  "generationLetsBattleWith": "Strid med {monsterName}"
 }

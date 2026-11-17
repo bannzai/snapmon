@@ -97,5 +97,6 @@
   "commonBack": "Wróć",
   "generationSearchingOpponent": "Szukanie przeciwnika",
   "generationBattleWith": "Walczysz u boku {monsterName}",
-  "generationOpponentAppeared": "Pojawia się {opponentName}!"
+  "generationOpponentAppeared": "Pojawia się {opponentName}!",
+  "generationLetsBattleWith": "Walcz u boku {monsterName}"
 }

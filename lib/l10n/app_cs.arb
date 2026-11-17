@@ -97,5 +97,6 @@
   "commonBack": "Zpět",
   "generationSearchingOpponent": "Hledá se soupeř",
   "generationBattleWith": "Budeš bojovat s {monsterName}",
-  "generationOpponentAppeared": "Objevil se {opponentName}!"
+  "generationOpponentAppeared": "Objevil se {opponentName}!",
+  "generationLetsBattleWith": "Bojuj s {monsterName}"
 }

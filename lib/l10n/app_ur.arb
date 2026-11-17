@@ -97,5 +97,6 @@
   "commonBack": "واپس",
   "generationSearchingOpponent": "حریف کی تلاش جاری ہے",
   "generationBattleWith": "تم {monsterName} کے ساتھ لڑو گے",
-  "generationOpponentAppeared": "{opponentName} سامنے آ گیا!"
+  "generationOpponentAppeared": "{opponentName} سامنے آ گیا!",
+  "generationLetsBattleWith": "{monsterName} کے ساتھ لڑو"
 }

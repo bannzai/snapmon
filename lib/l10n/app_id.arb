@@ -97,5 +97,6 @@
   "commonBack": "Kembali",
   "generationSearchingOpponent": "Mencari lawan",
   "generationBattleWith": "Kamu bertarung bersama {monsterName}",
-  "generationOpponentAppeared": "{opponentName} muncul!"
+  "generationOpponentAppeared": "{opponentName} muncul!",
+  "generationLetsBattleWith": "Bertarunglah bersama {monsterName}"
 }

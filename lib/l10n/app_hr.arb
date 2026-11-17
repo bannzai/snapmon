@@ -97,5 +97,6 @@
   "commonBack": "Natrag",
   "generationSearchingOpponent": "Traži se protivnik",
   "generationBattleWith": "Borit ćeš se uz {monsterName}",
-  "generationOpponentAppeared": "Pojavio se {opponentName}!"
+  "generationOpponentAppeared": "Pojavio se {opponentName}!",
+  "generationLetsBattleWith": "Bori se uz {monsterName}"
 }

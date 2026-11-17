@@ -97,5 +97,6 @@
   "commonBack": "Πίσω",
   "generationSearchingOpponent": "Αναζήτηση αντιπάλου",
   "generationBattleWith": "Θα πολεμήσεις με το {monsterName}",
-  "generationOpponentAppeared": "Εμφανίστηκε ο αντίπαλος: {opponentName}!"
+  "generationOpponentAppeared": "Εμφανίστηκε ο αντίπαλος: {opponentName}!",
+  "generationLetsBattleWith": "Πάλεψε με το {monsterName}"
 }

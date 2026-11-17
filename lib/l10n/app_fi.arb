@@ -97,5 +97,6 @@
   "commonBack": "Takaisin",
   "generationSearchingOpponent": "Etsitään vastustajaa",
   "generationBattleWith": "Taistelet yhdessä {monsterName} kanssa",
-  "generationOpponentAppeared": "{opponentName} ilmestyi!"
+  "generationOpponentAppeared": "{opponentName} ilmestyi!",
+  "generationLetsBattleWith": "Taistele {monsterName} rinnallasi"
 }
