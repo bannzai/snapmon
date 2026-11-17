@@ -321,5 +321,6 @@
   "helpTypeNotVeryEffective": "효과가 별로였다, 데미지 ×0.5",
   "helpTypeDualNote": "상대에게 속성이 두 개라면 배율 두 개를 곱해요\n모든 상성은 도감의 ‘속성 상성과 기술 목록’에서 볼 수 있어요",
   "helpStatusHeading": "상태 이상",
-  "helpStatusBody": "일부 기술은 상대에게 상태 이상을 일으켜요\n교체해도 상태 이상은 남아요"
+  "helpStatusBody": "일부 기술은 상대에게 상태 이상을 일으켜요\n교체해도 상태 이상은 남아요",
+  "helpStatusPoison": "매 턴이 끝날 때 데미지를 받아요\n독이 쌓일수록 데미지가 커져요"
 }

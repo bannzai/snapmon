@@ -321,5 +321,6 @@
   "helpTypeNotVeryEffective": "Ei kovin tehokas, vahinko ×0.5",
   "helpTypeDualNote": "Jos vastustajalla on kaksi elementtiä, kerro kertoimet keskenään\nKaikki tehokkuus löytyy kokoelmasta kohdasta ”Elementtien tehokkuus ja liikkeet”",
   "helpStatusHeading": "statustilat",
-  "helpStatusBody": "Jotkin liikkeet aiheuttavat vastustajalle statustilan\nStatustila säilyy, vaikka vaihdat hirviötä"
+  "helpStatusBody": "Jotkin liikkeet aiheuttavat vastustajalle statustilan\nStatustila säilyy, vaikka vaihdat hirviötä",
+  "helpStatusPoison": "Ottaa vahinkoa vuoron lopussa\nMyrkyn kertyessä vahinko kasvaa"
 }

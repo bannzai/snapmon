@@ -321,5 +321,6 @@
   "helpTypeNotVeryEffective": "Ikke særlig effektivt, skade ×0.5",
   "helpTypeDualNote": "Har motstanderen to typer, ganger du de to faktorene sammen\nSe all effektivitet i «Typeeffektivitet og angrep» i samlingen",
   "helpStatusHeading": "statuseffekter",
-  "helpStatusBody": "Noen angrep gir motstanderen en statuseffekt\nStatuseffekten varer selv om du bytter monster"
+  "helpStatusBody": "Noen angrep gir motstanderen en statuseffekt\nStatuseffekten varer selv om du bytter monster",
+  "helpStatusPoison": "Tar skade på slutten av hver tur\nJo mer gift som samler seg, desto større skade"
 }

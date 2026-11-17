@@ -321,5 +321,6 @@
   "helpTypeNotVeryEffective": "Nie je to veľmi účinné, poškodenie ×0.5",
   "helpTypeDualNote": "Ak má súper dva elementy, vynásob oba násobitele\nVšetku účinnosť nájdeš v encyklopédii v časti „Účinnosť elementov a zoznam útokov“",
   "helpStatusHeading": "stavové efekty",
-  "helpStatusBody": "Niektoré útoky spôsobia súperovi stavové ťažkosti\nStavové ťažkosti zostanú aj po výmene"
+  "helpStatusBody": "Niektoré útoky spôsobia súperovi stavové ťažkosti\nStavové ťažkosti zostanú aj po výmene",
+  "helpStatusPoison": "Na konci každého ťahu utrpí poškodenie\nČím viac jedu sa nahromadí, tým väčšie poškodenie"
 }

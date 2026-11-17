@@ -321,5 +321,6 @@
   "helpTypeNotVeryEffective": "Pek etkili değil, hasar ×0.5",
   "helpTypeDualNote": "Rakibin iki elementi varsa iki çarpanı birbiriyle çarp\nTüm uyumları ansiklopedideki “Element uyumu ve hamle listesi” bölümünde gör",
   "helpStatusHeading": "durum etkileri",
-  "helpStatusBody": "Bazı hamleler rakibe durum etkisi uygular\nDurum etkisi, canavar değişse de kalır"
+  "helpStatusBody": "Bazı hamleler rakibe durum etkisi uygular\nDurum etkisi, canavar değişse de kalır",
+  "helpStatusPoison": "Her turun sonunda hasar alır\nZehir biriktikçe hasar artar"
 }

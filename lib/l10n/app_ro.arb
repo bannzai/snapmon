@@ -321,5 +321,6 @@
   "helpTypeNotVeryEffective": "Nu e prea eficient, daune ×0.5",
   "helpTypeDualNote": "Dacă adversarul are două elemente, înmulțește cei doi multiplicatori\nVezi toată eficacitatea în enciclopedie, la „Eficacitatea elementelor și lista de mișcări”",
   "helpStatusHeading": "efecte de stare",
-  "helpStatusBody": "Unele mișcări provoacă probleme de stare adversarului\nProblemele de stare rămân și după schimbare"
+  "helpStatusBody": "Unele mișcări provoacă probleme de stare adversarului\nProblemele de stare rămân și după schimbare",
+  "helpStatusPoison": "Primește daune la sfârșitul fiecărei ture\nCu cât se acumulează mai multă otravă, cu atât cresc daunele"
 }

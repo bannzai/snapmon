@@ -321,5 +321,6 @@
   "helpTypeNotVeryEffective": "No es muy eficaz, daño ×0.5",
   "helpTypeDualNote": "Si el rival tiene dos elementos, multiplica ambos factores\nConsulta toda la eficacia en «Eficacia de elementos y lista de movimientos» de la colección",
   "helpStatusHeading": "problemas de estado",
-  "helpStatusBody": "Algunos movimientos causan problemas de estado al rival\nLos problemas de estado persisten aunque cambies de monstruo"
+  "helpStatusBody": "Algunos movimientos causan problemas de estado al rival\nLos problemas de estado persisten aunque cambies de monstruo",
+  "helpStatusPoison": "Recibe daño al final de cada turno\nCuanto más veneno se acumula, más daño causa"
 }

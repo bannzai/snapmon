@@ -321,5 +321,6 @@
   "helpTypeNotVeryEffective": "Nem túl hatásos, sebzés ×0.5",
   "helpTypeDualNote": "Ha az ellenfélnek két típusa van, szorozd össze a két szorzót\nMinden hatékonyságot megtalálsz a gyűjteményben, a „Típusok hatékonysága és támadások” résznél",
   "helpStatusHeading": "állapothatások",
-  "helpStatusBody": "Egyes támadások állapothatást okoznak az ellenfélnél\nAz állapothatás váltás után is megmarad"
+  "helpStatusBody": "Egyes támadások állapothatást okoznak az ellenfélnél\nAz állapothatás váltás után is megmarad",
+  "helpStatusPoison": "Minden kör végén sebződik\nMinél több méreg halmozódik fel, annál nagyobb a sebzés"
 }

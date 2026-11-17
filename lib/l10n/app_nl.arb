@@ -321,5 +321,6 @@
   "helpTypeNotVeryEffective": "Niet erg effectief, schade ×0.5",
   "helpTypeDualNote": "Heeft je tegenstander twee types? Vermenigvuldig dan beide factoren\nBekijk alle effectiviteit in de dex bij ‘Type-effectiviteit en aanvallen’",
   "helpStatusHeading": "statuseffecten",
-  "helpStatusBody": "Sommige aanvallen geven de tegenstander een statuseffect\nHet statuseffect blijft, ook als je van monster wisselt"
+  "helpStatusBody": "Sommige aanvallen geven de tegenstander een statuseffect\nHet statuseffect blijft, ook als je van monster wisselt",
+  "helpStatusPoison": "Krijgt schade aan het einde van elke beurt\nHoe meer gif zich opstapelt, hoe groter de schade"
 }
