@@ -4,5 +4,6 @@
   "commonContact": "Ota yhteyttä",
   "tabDex": "kokoelma",
   "tabCapture": "Ota kuva",
-  "tabOpponent": "Taistelu"
+  "tabOpponent": "Taistelu",
+  "sessionPreparing": "Valmistellaan"
 }
