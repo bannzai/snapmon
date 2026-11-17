@@ -59,5 +59,6 @@
   "settingsAccountSection": "Compte",
   "settingsAboutAccountDeletion": "À propos de la suppression de ton compte",
   "settingsTransferData": "Transférer tes données",
-  "settingsTransferDataDescription": "Connecte-toi avec {providerName}\npour garder ton dex même si tu changes d’appareil"
+  "settingsTransferDataDescription": "Connecte-toi avec {providerName}\npour garder ton dex même si tu changes d’appareil",
+  "settingsLinkedWith": "Compte lié à {providerNames}"
 }
