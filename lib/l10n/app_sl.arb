@@ -76,5 +76,6 @@
   "dexParty": "ekipa",
   "dexAll": "Vsi",
   "dexEmpty": "Nimaš še nobene pošasti\nNa zaslonu za fotografiranje poskusi slikati kaj okoli sebe",
-  "dexEmptySlot": "Prazno"
+  "dexEmptySlot": "Prazno",
+  "dexAddMonster": "Dodaj"
 }

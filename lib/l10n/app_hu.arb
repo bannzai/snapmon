@@ -76,5 +76,6 @@
   "dexParty": "csapat",
   "dexAll": "Összes",
   "dexEmpty": "Még nincsenek szörnyeid\nPróbálj lefotózni valamit magad körül a fotózás képernyőjén",
-  "dexEmptySlot": "Üres"
+  "dexEmptySlot": "Üres",
+  "dexAddMonster": "Hozzáadás"
 }

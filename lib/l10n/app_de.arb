@@ -76,5 +76,6 @@
   "dexParty": "Team",
   "dexAll": "Alle",
   "dexEmpty": "Du hast noch keine Monster\nFotografiere auf dem Aufnahmebildschirm etwas aus deiner Umgebung",
-  "dexEmptySlot": "Leer"
+  "dexEmptySlot": "Leer",
+  "dexAddMonster": "Hinzufügen"
 }

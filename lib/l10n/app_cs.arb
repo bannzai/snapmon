@@ -76,5 +76,6 @@
   "dexParty": "tým",
   "dexAll": "Všichni",
   "dexEmpty": "Zatím nemáš žádné příšery\nNa obrazovce focení zkus vyfotit něco kolem sebe",
-  "dexEmptySlot": "Prázdné"
+  "dexEmptySlot": "Prázdné",
+  "dexAddMonster": "Přidat"
 }

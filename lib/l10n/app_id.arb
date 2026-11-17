@@ -76,5 +76,6 @@
   "dexParty": "tim",
   "dexAll": "Semua",
   "dexEmpty": "Kamu belum punya monster\nCoba foto benda di sekitarmu dari layar kamera",
-  "dexEmptySlot": "Kosong"
+  "dexEmptySlot": "Kosong",
+  "dexAddMonster": "Tambahkan"
 }

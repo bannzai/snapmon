@@ -76,5 +76,6 @@
   "dexParty": "echipă",
   "dexAll": "Toți",
   "dexEmpty": "Nu ai încă monștri\nÎncearcă să fotografiezi ceva din jurul tău pe ecranul de fotografiere",
-  "dexEmptySlot": "Gol"
+  "dexEmptySlot": "Gol",
+  "dexAddMonster": "Adaugă"
 }

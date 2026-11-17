@@ -76,5 +76,6 @@
   "dexParty": "隊伍",
   "dexAll": "全部",
   "dexEmpty": "還沒有怪物\n到拍照畫面，試著拍下身邊的物品吧",
-  "dexEmptySlot": "空位"
+  "dexEmptySlot": "空位",
+  "dexAddMonster": "新增"
 }

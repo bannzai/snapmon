@@ -76,5 +76,6 @@
   "dexParty": "فريق",
   "dexAll": "الكل",
   "dexEmpty": "لا يوجد لديك وحش بعد\nجرّب تصوير شيء من حولك من شاشة التصوير",
-  "dexEmptySlot": "فارغ"
+  "dexEmptySlot": "فارغ",
+  "dexAddMonster": "إضافة"
 }

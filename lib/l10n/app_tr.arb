@@ -76,5 +76,6 @@
   "dexParty": "takım",
   "dexAll": "Tümü",
   "dexEmpty": "Henüz canavarın yok\nFotoğraf ekranından çevrendeki bir eşyanın fotoğrafını çekmeyi dene",
-  "dexEmptySlot": "Boş"
+  "dexEmptySlot": "Boş",
+  "dexAddMonster": "Ekle"
 }

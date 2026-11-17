@@ -76,5 +76,6 @@
   "dexParty": "파티",
   "dexAll": "전체",
   "dexEmpty": "아직 몬스터가 없어요\n촬영 화면에서 주변 물건을 찍어 봐요",
-  "dexEmptySlot": "빈자리"
+  "dexEmptySlot": "빈자리",
+  "dexAddMonster": "추가하기"
 }

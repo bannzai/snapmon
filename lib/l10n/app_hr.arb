@@ -76,5 +76,6 @@
   "dexParty": "tim",
   "dexAll": "Svi",
   "dexEmpty": "Još nemaš čudovišta\nNa zaslonu za fotografiranje uslikaj nešto oko sebe",
-  "dexEmptySlot": "Prazno"
+  "dexEmptySlot": "Prazno",
+  "dexAddMonster": "Dodaj"
 }

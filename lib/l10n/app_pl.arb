@@ -76,5 +76,6 @@
   "dexParty": "drużyna",
   "dexAll": "Wszystkie",
   "dexEmpty": "Nie masz jeszcze żadnych potworów\nSpróbuj sfotografować coś wokół siebie na ekranie robienia zdjęć",
-  "dexEmptySlot": "Puste"
+  "dexEmptySlot": "Puste",
+  "dexAddMonster": "Dodaj"
 }

@@ -76,5 +76,6 @@
   "dexParty": "צוות",
   "dexAll": "הכול",
   "dexEmpty": "עוד אין לך מפלצות\nאפשר לצלם חפץ בסביבה דרך מסך הצילום",
-  "dexEmptySlot": "פנוי"
+  "dexEmptySlot": "פנוי",
+  "dexAddMonster": "הוספה"
 }
