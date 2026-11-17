@@ -1,5 +1,6 @@
 {
   "@@locale": "da",
   "commonRetry": "Prøv igen",
-  "commonContact": "Kontakt os"
+  "commonContact": "Kontakt os",
+  "tabDex": "dex"
 }

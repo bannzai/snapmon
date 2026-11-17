@@ -1,5 +1,6 @@
 {
   "@@locale": "nl",
   "commonRetry": "Probeer opnieuw",
-  "commonContact": "Neem contact op"
+  "commonContact": "Neem contact op",
+  "tabDex": "dex"
 }

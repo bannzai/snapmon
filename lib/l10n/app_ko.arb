@@ -1,5 +1,6 @@
 {
   "@@locale": "ko",
   "commonRetry": "다시 시도하기",
-  "commonContact": "문의하기"
+  "commonContact": "문의하기",
+  "tabDex": "도감"
 }

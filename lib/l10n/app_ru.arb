@@ -1,5 +1,6 @@
 {
   "@@locale": "ru",
   "commonRetry": "Попробуй ещё раз",
-  "commonContact": "Свяжись с нами"
+  "commonContact": "Свяжись с нами",
+  "tabDex": "энциклопедия"
 }

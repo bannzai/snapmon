@@ -1,5 +1,6 @@
 {
   "@@locale": "fi",
   "commonRetry": "Yritä uudelleen",
-  "commonContact": "Ota yhteyttä"
+  "commonContact": "Ota yhteyttä",
+  "tabDex": "kokoelma"
 }

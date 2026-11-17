@@ -1,5 +1,6 @@
 {
   "@@locale": "de",
   "commonRetry": "Erneut versuchen",
-  "commonContact": "Kontaktiere uns"
+  "commonContact": "Kontaktiere uns",
+  "tabDex": "Dex"
 }
