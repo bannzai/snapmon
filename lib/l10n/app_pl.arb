@@ -201,5 +201,6 @@
   "statusConditionCurse": "Klątwa",
   "statusConditionConfusion": "Dezorientacja",
   "statusConditionDizzy": "Zawroty głowy",
-  "statusConditionExcited": "Ekscytacja"
+  "statusConditionExcited": "Ekscytacja",
+  "statusConditionFrozen": "Zamrożenie"
 }

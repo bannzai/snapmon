@@ -201,5 +201,6 @@
   "statusConditionCurse": "저주",
   "statusConditionConfusion": "혼란",
   "statusConditionDizzy": "어지러움",
-  "statusConditionExcited": "흥분"
+  "statusConditionExcited": "흥분",
+  "statusConditionFrozen": "얼음"
 }

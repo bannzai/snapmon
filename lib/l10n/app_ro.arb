@@ -201,5 +201,6 @@
   "statusConditionCurse": "Blestem",
   "statusConditionConfusion": "Confuzie",
   "statusConditionDizzy": "Amețeală",
-  "statusConditionExcited": "Entuziasm"
+  "statusConditionExcited": "Entuziasm",
+  "statusConditionFrozen": "Înghețat"
 }

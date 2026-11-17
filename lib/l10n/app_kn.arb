@@ -201,5 +201,6 @@
   "statusConditionCurse": "ಶಾಪ",
   "statusConditionConfusion": "ಗೊಂದಲ",
   "statusConditionDizzy": "ತಲೆಸುತ್ತು",
-  "statusConditionExcited": "ಉತ್ಸಾಹ"
+  "statusConditionExcited": "ಉತ್ಸಾಹ",
+  "statusConditionFrozen": "ಹೆಪ್ಪುಗಟ್ಟಿದೆ"
 }

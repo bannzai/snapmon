@@ -201,5 +201,6 @@
   "statusConditionCurse": "Átok",
   "statusConditionConfusion": "Zavarodottság",
   "statusConditionDizzy": "Szédülés",
-  "statusConditionExcited": "Izgalom"
+  "statusConditionExcited": "Izgalom",
+  "statusConditionFrozen": "Fagyott"
 }

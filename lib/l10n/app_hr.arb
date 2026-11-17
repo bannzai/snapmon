@@ -201,5 +201,6 @@
   "statusConditionCurse": "Prokletstvo",
   "statusConditionConfusion": "Zbunjenost",
   "statusConditionDizzy": "Vrtoglavica",
-  "statusConditionExcited": "Uzbuđenje"
+  "statusConditionExcited": "Uzbuđenje",
+  "statusConditionFrozen": "Smrznut"
 }

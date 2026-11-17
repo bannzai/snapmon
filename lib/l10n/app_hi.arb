@@ -201,5 +201,6 @@
   "statusConditionCurse": "श्राप",
   "statusConditionConfusion": "भ्रम",
   "statusConditionDizzy": "चक्कर",
-  "statusConditionExcited": "जोश"
+  "statusConditionExcited": "जोश",
+  "statusConditionFrozen": "जमा हुआ"
 }

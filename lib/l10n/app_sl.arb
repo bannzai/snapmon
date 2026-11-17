@@ -201,5 +201,6 @@
   "statusConditionCurse": "Prekletstvo",
   "statusConditionConfusion": "Zmedenost",
   "statusConditionDizzy": "Omotica",
-  "statusConditionExcited": "Navdušenje"
+  "statusConditionExcited": "Navdušenje",
+  "statusConditionFrozen": "Zamrznitev"
 }

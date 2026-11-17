@@ -201,5 +201,6 @@
   "statusConditionCurse": "Forbannelse",
   "statusConditionConfusion": "Forvirring",
   "statusConditionDizzy": "Svimmelhet",
-  "statusConditionExcited": "Opphisselse"
+  "statusConditionExcited": "Opphisselse",
+  "statusConditionFrozen": "Frosset"
 }

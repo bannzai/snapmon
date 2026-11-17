@@ -201,5 +201,6 @@
   "statusConditionCurse": "Kirous",
   "statusConditionConfusion": "Sekavuus",
   "statusConditionDizzy": "Huimaus",
-  "statusConditionExcited": "Innostus"
+  "statusConditionExcited": "Innostus",
+  "statusConditionFrozen": "Jäässä"
 }

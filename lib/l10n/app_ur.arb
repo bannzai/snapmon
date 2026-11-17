@@ -201,5 +201,6 @@
   "statusConditionCurse": "لعنت",
   "statusConditionConfusion": "الجھن",
   "statusConditionDizzy": "چکر",
-  "statusConditionExcited": "جوش"
+  "statusConditionExcited": "جوش",
+  "statusConditionFrozen": "منجمد"
 }

@@ -201,5 +201,6 @@
   "statusConditionCurse": "Förbannelse",
   "statusConditionConfusion": "Förvirring",
   "statusConditionDizzy": "Yrsel",
-  "statusConditionExcited": "Upprymdhet"
+  "statusConditionExcited": "Upprymdhet",
+  "statusConditionFrozen": "Frusen"
 }

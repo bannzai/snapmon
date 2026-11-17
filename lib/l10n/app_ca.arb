@@ -201,5 +201,6 @@
   "statusConditionCurse": "Maledicció",
   "statusConditionConfusion": "Confusió",
   "statusConditionDizzy": "Mareig",
-  "statusConditionExcited": "Eufòria"
+  "statusConditionExcited": "Eufòria",
+  "statusConditionFrozen": "Congelat"
 }

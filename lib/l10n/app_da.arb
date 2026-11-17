@@ -201,5 +201,6 @@
   "statusConditionCurse": "Forbandelse",
   "statusConditionConfusion": "Forvirring",
   "statusConditionDizzy": "Svimmelhed",
-  "statusConditionExcited": "Begejstring"
+  "statusConditionExcited": "Begejstring",
+  "statusConditionFrozen": "Frosset"
 }

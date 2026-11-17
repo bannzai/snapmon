@@ -201,5 +201,6 @@
   "statusConditionCurse": "Lời nguyền",
   "statusConditionConfusion": "Bối rối",
   "statusConditionDizzy": "Chóng mặt",
-  "statusConditionExcited": "Phấn khích"
+  "statusConditionExcited": "Phấn khích",
+  "statusConditionFrozen": "Đóng băng"
 }

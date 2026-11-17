@@ -201,5 +201,6 @@
   "statusConditionCurse": "Kutukan",
   "statusConditionConfusion": "Kebingungan",
   "statusConditionDizzy": "Pusing",
-  "statusConditionExcited": "Semangat"
+  "statusConditionExcited": "Semangat",
+  "statusConditionFrozen": "Membeku"
 }

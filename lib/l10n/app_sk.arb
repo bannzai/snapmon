@@ -201,5 +201,6 @@
   "statusConditionCurse": "Kliatba",
   "statusConditionConfusion": "Zmätenie",
   "statusConditionDizzy": "Závrat",
-  "statusConditionExcited": "Nadšenie"
+  "statusConditionExcited": "Nadšenie",
+  "statusConditionFrozen": "Zmrazenie"
 }

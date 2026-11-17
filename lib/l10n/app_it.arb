@@ -201,5 +201,6 @@
   "statusConditionCurse": "Maledizione",
   "statusConditionConfusion": "Confusione",
   "statusConditionDizzy": "Capogiro",
-  "statusConditionExcited": "Euforia"
+  "statusConditionExcited": "Euforia",
+  "statusConditionFrozen": "Congelato"
 }

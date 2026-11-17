@@ -201,5 +201,6 @@
   "statusConditionCurse": "Vervloeking",
   "statusConditionConfusion": "Verwarring",
   "statusConditionDizzy": "Duizeligheid",
-  "statusConditionExcited": "Opwinding"
+  "statusConditionExcited": "Opwinding",
+  "statusConditionFrozen": "Bevroren"
 }

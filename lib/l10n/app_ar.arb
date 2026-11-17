@@ -201,5 +201,6 @@
   "statusConditionCurse": "لعنة",
   "statusConditionConfusion": "ارتباك",
   "statusConditionDizzy": "دوار",
-  "statusConditionExcited": "حماس"
+  "statusConditionExcited": "حماس",
+  "statusConditionFrozen": "تجمّد"
 }

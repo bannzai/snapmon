@@ -201,5 +201,6 @@
   "statusConditionCurse": "शाप",
   "statusConditionConfusion": "गोंधळ",
   "statusConditionDizzy": "चक्कर",
-  "statusConditionExcited": "उत्साह"
+  "statusConditionExcited": "उत्साह",
+  "statusConditionFrozen": "गोठलेला"
 }

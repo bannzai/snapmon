@@ -201,5 +201,6 @@
   "statusConditionCurse": "Sumpahan",
   "statusConditionConfusion": "Keliru",
   "statusConditionDizzy": "Pening",
-  "statusConditionExcited": "Teruja"
+  "statusConditionExcited": "Teruja",
+  "statusConditionFrozen": "Beku"
 }

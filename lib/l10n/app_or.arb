@@ -201,5 +201,6 @@
   "statusConditionCurse": "ଅଭିଶାପ",
   "statusConditionConfusion": "ଦ୍ୱନ୍ଦ୍ୱ",
   "statusConditionDizzy": "ମୁଣ୍ଡ ବୁଲାଇବା",
-  "statusConditionExcited": "ଉତ୍ସାହ"
+  "statusConditionExcited": "ଉତ୍ସାହ",
+  "statusConditionFrozen": "ବରଫରେ ଜମିଛି"
 }

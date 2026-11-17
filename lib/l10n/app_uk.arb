@@ -201,5 +201,6 @@
   "statusConditionCurse": "Прокляття",
   "statusConditionConfusion": "Збентеження",
   "statusConditionDizzy": "Запаморочення",
-  "statusConditionExcited": "Збудження"
+  "statusConditionExcited": "Збудження",
+  "statusConditionFrozen": "Замороження"
 }

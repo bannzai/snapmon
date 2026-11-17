@@ -201,5 +201,6 @@
   "statusConditionCurse": "অভিশাপ",
   "statusConditionConfusion": "বিভ্রান্তি",
   "statusConditionDizzy": "মাথা ঘোরা",
-  "statusConditionExcited": "উত্তেজনা"
+  "statusConditionExcited": "উত্তেজনা",
+  "statusConditionFrozen": "জমে গেছে"
 }

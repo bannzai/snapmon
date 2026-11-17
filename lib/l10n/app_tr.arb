@@ -201,5 +201,6 @@
   "statusConditionCurse": "Lanet",
   "statusConditionConfusion": "Şaşkınlık",
   "statusConditionDizzy": "Baş dönmesi",
-  "statusConditionExcited": "Heyecan"
+  "statusConditionExcited": "Heyecan",
+  "statusConditionFrozen": "Donma"
 }

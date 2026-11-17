@@ -201,5 +201,6 @@
   "statusConditionCurse": "శాపం",
   "statusConditionConfusion": "గందరగోళం",
   "statusConditionDizzy": "తలతిరగడం",
-  "statusConditionExcited": "ఉత్సాహం"
+  "statusConditionExcited": "ఉత్సాహం",
+  "statusConditionFrozen": "గడ్డకట్టింది"
 }

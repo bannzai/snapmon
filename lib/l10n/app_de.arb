@@ -201,5 +201,6 @@
   "statusConditionCurse": "Fluch",
   "statusConditionConfusion": "Verwirrung",
   "statusConditionDizzy": "Schwindel",
-  "statusConditionExcited": "Aufregung"
+  "statusConditionExcited": "Aufregung",
+  "statusConditionFrozen": "Eingefroren"
 }

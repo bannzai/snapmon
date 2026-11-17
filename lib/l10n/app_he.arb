@@ -201,5 +201,6 @@
   "statusConditionCurse": "קללה",
   "statusConditionConfusion": "בלבול",
   "statusConditionDizzy": "סחרחורת",
-  "statusConditionExcited": "התלהבות"
+  "statusConditionExcited": "התלהבות",
+  "statusConditionFrozen": "קיפאון"
 }

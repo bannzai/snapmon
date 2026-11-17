@@ -201,5 +201,6 @@
   "statusConditionCurse": "Проклятие",
   "statusConditionConfusion": "Замешательство",
   "statusConditionDizzy": "Головокружение",
-  "statusConditionExcited": "Воодушевление"
+  "statusConditionExcited": "Воодушевление",
+  "statusConditionFrozen": "Заморозка"
 }

@@ -201,5 +201,6 @@
   "statusConditionCurse": "Κατάρα",
   "statusConditionConfusion": "Σύγχυση",
   "statusConditionDizzy": "Ζάλη",
-  "statusConditionExcited": "Ενθουσιασμός"
+  "statusConditionExcited": "Ενθουσιασμός",
+  "statusConditionFrozen": "Παγωμένο"
 }

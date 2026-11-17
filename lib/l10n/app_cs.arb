@@ -201,5 +201,6 @@
   "statusConditionCurse": "Prokletí",
   "statusConditionConfusion": "Zmatení",
   "statusConditionDizzy": "Závrať",
-  "statusConditionExcited": "Vzrušení"
+  "statusConditionExcited": "Vzrušení",
+  "statusConditionFrozen": "Zmrznutí"
 }

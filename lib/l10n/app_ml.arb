@@ -201,5 +201,6 @@
   "statusConditionCurse": "ശാപം",
   "statusConditionConfusion": "ആശയക്കുഴപ്പം",
   "statusConditionDizzy": "തലകറക്കം",
-  "statusConditionExcited": "ആവേശം"
+  "statusConditionExcited": "ആവേശം",
+  "statusConditionFrozen": "മരവിപ്പ്"
 }
