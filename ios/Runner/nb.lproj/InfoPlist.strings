@@ -1,0 +1,4 @@
+/* 権限の確認の文言 (norsk bokmål)。Info.plist の同じキーの値を言語ごとに置き換える */
+"NSCameraUsageDescription" = "SnapMonster bruker kameraet til å ta bilder av ting rundt deg og gjøre dem om til monstre";
+"NSPhotoLibraryAddUsageDescription" = "SnapMonster lagrer kortbildene du deler i bildebiblioteket ditt";
+"NSPhotoLibraryUsageDescription" = "SnapMonster leser bilder fra biblioteket ditt for å gjøre dem om til monstre";

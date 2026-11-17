@@ -28,6 +28,246 @@
           "locale": "en-US",
           "name": "10 Generation Tickets",
           "description": "Create 10 monsters from your photos"
+        },
+        {
+          "locale": "ar-SA",
+          "name": "تذاكر الإنشاء ×10",
+          "description": "عدد الوحوش التي تنشئها من صورك: 10"
+        },
+        {
+          "locale": "bn-BD",
+          "name": "10টি তৈরির টিকিট",
+          "description": "আপনার ছবি থেকে 10টি মনস্টার তৈরি করুন"
+        },
+        {
+          "locale": "ca",
+          "name": "10 tiquets de creació",
+          "description": "Crea 10 monstres amb les teves fotos"
+        },
+        {
+          "locale": "cs",
+          "name": "Lístky na vytvoření ×10",
+          "description": "10× vytvoření příšery z tvé fotky"
+        },
+        {
+          "locale": "da",
+          "name": "10 skabelsesbilletter",
+          "description": "Skab 10 monstre ud fra dine billeder"
+        },
+        {
+          "locale": "de-DE",
+          "name": "10 Erstellungstickets",
+          "description": "Erschaffe 10 Monster aus deinen Fotos"
+        },
+        {
+          "locale": "el",
+          "name": "10 εισιτήρια δημιουργίας",
+          "description": "Δημιούργησε 10 τέρατα από τις φωτό σου"
+        },
+        {
+          "locale": "en-AU",
+          "name": "10 Generation Tickets",
+          "description": "Create 10 monsters from your photos"
+        },
+        {
+          "locale": "en-CA",
+          "name": "10 Generation Tickets",
+          "description": "Create 10 monsters from your photos"
+        },
+        {
+          "locale": "en-GB",
+          "name": "10 Generation Tickets",
+          "description": "Create 10 monsters from your photos"
+        },
+        {
+          "locale": "es-ES",
+          "name": "10 tickets de creación",
+          "description": "Crea 10 monstruos con tus fotos"
+        },
+        {
+          "locale": "es-MX",
+          "name": "10 tickets de creación",
+          "description": "Crea 10 monstruos con tus fotos"
+        },
+        {
+          "locale": "fi",
+          "name": "10 luontilippua",
+          "description": "Luo 10 hirviötä omista kuvistasi"
+        },
+        {
+          "locale": "fr-CA",
+          "name": "10 tickets de création",
+          "description": "Crée 10 monstres à partir de tes photos"
+        },
+        {
+          "locale": "fr-FR",
+          "name": "10 tickets de création",
+          "description": "Crée 10 monstres à partir de tes photos"
+        },
+        {
+          "locale": "gu-IN",
+          "name": "10 બનાવવાની ટિકિટ",
+          "description": "તમારા ફોટોમાંથી 10 મોન્સ્ટર બનાવો"
+        },
+        {
+          "locale": "he",
+          "name": "10 כרטיסי יצירה",
+          "description": "יצירת 10 מפלצות מהתמונות שלך"
+        },
+        {
+          "locale": "hi",
+          "name": "10 निर्माण टिकट",
+          "description": "अपनी फोटो से 10 मॉन्स्टर बनाइए"
+        },
+        {
+          "locale": "hr",
+          "name": "Kuponi za stvaranje ×10",
+          "description": "Stvaranje čudovišta iz fotke ×10"
+        },
+        {
+          "locale": "hu",
+          "name": "10 alkotójegy",
+          "description": "10 szörny létrehozása a fotóidból"
+        },
+        {
+          "locale": "id",
+          "name": "10 Tiket Pembuatan",
+          "description": "Buat 10 monster dari fotomu"
+        },
+        {
+          "locale": "it",
+          "name": "10 biglietti di creazione",
+          "description": "Crea 10 mostri dalle tue foto"
+        },
+        {
+          "locale": "kn-IN",
+          "name": "10 ರಚನೆ ಟಿಕೆಟ್‌ಗಳು",
+          "description": "ನಿಮ್ಮ ಫೋಟೋಗಳಿಂದ 10 ಮಾನ್ಸ್ಟರ್‌ಗಳನ್ನು ರಚಿಸಿ"
+        },
+        {
+          "locale": "ko",
+          "name": "생성 티켓 10장",
+          "description": "사진으로 몬스터 10마리 생성"
+        },
+        {
+          "locale": "ml-IN",
+          "name": "10 സൃഷ്ടിക്കൽ ടിക്കറ്റുകൾ",
+          "description": "ഫോട്ടോകളിൽ നിന്ന് 10 മോൺസ്റ്ററുകളെ സൃഷ്ടിക്കൂ"
+        },
+        {
+          "locale": "mr-IN",
+          "name": "10 निर्मिती तिकिटे",
+          "description": "तुमच्या फोटोंमधून 10 मॉन्स्टर तयार करा"
+        },
+        {
+          "locale": "ms",
+          "name": "10 Tiket Jana",
+          "description": "Cipta 10 monster daripada foto kamu"
+        },
+        {
+          "locale": "nl-NL",
+          "name": "10 creatietickets",
+          "description": "Maak 10 monsters van je foto's"
+        },
+        {
+          "locale": "no",
+          "name": "10 genereringsbilletter",
+          "description": "Lag 10 monstre av bildene dine"
+        },
+        {
+          "locale": "or-IN",
+          "name": "10ଟି ତିଆରି ଟିକେଟ",
+          "description": "ଆପଣଙ୍କ ଫଟୋରୁ 10ଟି ମନଷ୍ଟର ତିଆରି କରନ୍ତୁ"
+        },
+        {
+          "locale": "pa-IN",
+          "name": "10 ਰਚਨਾ ਟਿਕਟਾਂ",
+          "description": "ਆਪਣੀਆਂ ਫੋਟੋਆਂ ਤੋਂ 10 ਮੌਂਸਟਰ ਬਣਾਓ"
+        },
+        {
+          "locale": "pl",
+          "name": "Bilety na tworzenie ×10",
+          "description": "10× stworzenie potwora ze zdjęcia"
+        },
+        {
+          "locale": "pt-BR",
+          "name": "10 bilhetes de criação",
+          "description": "Crie 10 monstros com suas fotos"
+        },
+        {
+          "locale": "pt-PT",
+          "name": "10 bilhetes de criação",
+          "description": "Cria 10 monstros com as tuas fotos"
+        },
+        {
+          "locale": "ro",
+          "name": "Bilete de creare ×10",
+          "description": "Crearea unui monstru din poză ×10"
+        },
+        {
+          "locale": "ru",
+          "name": "Билеты на создание ×10",
+          "description": "Создание монстра из фото ×10"
+        },
+        {
+          "locale": "sk",
+          "name": "Lístky na vytvorenie ×10",
+          "description": "10× vytvorenie príšery z tvojej fotky"
+        },
+        {
+          "locale": "sl-SI",
+          "name": "Žetoni za ustvarjanje ×10",
+          "description": "Ustvarjanje pošasti iz fotke ×10"
+        },
+        {
+          "locale": "sv",
+          "name": "10 skapandebiljetter",
+          "description": "Skapa 10 monster av dina foton"
+        },
+        {
+          "locale": "ta-IN",
+          "name": "10 உருவாக்க டிக்கெட்டுகள்",
+          "description": "புகைப்படங்களை 10 மான்ஸ்டர்களாக்குங்கள்"
+        },
+        {
+          "locale": "te-IN",
+          "name": "10 సృష్టి టికెట్‌లు",
+          "description": "మీ ఫోటోల నుండి 10 మాన్స్టర్‌లను సృష్టించండి"
+        },
+        {
+          "locale": "th",
+          "name": "ตั๋วสร้าง 10 ใบ",
+          "description": "สร้างมอนสเตอร์ 10 ตัวจากรูปถ่าย"
+        },
+        {
+          "locale": "tr",
+          "name": "10 Oluşturma Bileti",
+          "description": "Fotoğraflarından 10 canavar oluştur"
+        },
+        {
+          "locale": "uk",
+          "name": "Квитки на створення ×10",
+          "description": "Створення монстра з фото ×10"
+        },
+        {
+          "locale": "ur-PK",
+          "name": "10 تخلیقی ٹکٹ",
+          "description": "اپنی تصویروں سے 10 مونسٹر بناؤ"
+        },
+        {
+          "locale": "vi",
+          "name": "10 vé tạo",
+          "description": "Tạo 10 quái vật từ ảnh của bạn"
+        },
+        {
+          "locale": "zh-Hans",
+          "name": "10 张生成券",
+          "description": "用照片生成 10 只怪物"
+        },
+        {
+          "locale": "zh-Hant",
+          "name": "10 張生成券",
+          "description": "用照片生成 10 隻怪物"
         }
       ]
     },
@@ -54,6 +294,246 @@
           "locale": "en-US",
           "name": "30 Generation Tickets",
           "description": "Create 30 monsters from your photos"
+        },
+        {
+          "locale": "ar-SA",
+          "name": "تذاكر الإنشاء ×30",
+          "description": "عدد الوحوش التي تنشئها من صورك: 30"
+        },
+        {
+          "locale": "bn-BD",
+          "name": "30টি তৈরির টিকিট",
+          "description": "আপনার ছবি থেকে 30টি মনস্টার তৈরি করুন"
+        },
+        {
+          "locale": "ca",
+          "name": "30 tiquets de creació",
+          "description": "Crea 30 monstres amb les teves fotos"
+        },
+        {
+          "locale": "cs",
+          "name": "Lístky na vytvoření ×30",
+          "description": "30× vytvoření příšery z tvé fotky"
+        },
+        {
+          "locale": "da",
+          "name": "30 skabelsesbilletter",
+          "description": "Skab 30 monstre ud fra dine billeder"
+        },
+        {
+          "locale": "de-DE",
+          "name": "30 Erstellungstickets",
+          "description": "Erschaffe 30 Monster aus deinen Fotos"
+        },
+        {
+          "locale": "el",
+          "name": "30 εισιτήρια δημιουργίας",
+          "description": "Δημιούργησε 30 τέρατα από τις φωτό σου"
+        },
+        {
+          "locale": "en-AU",
+          "name": "30 Generation Tickets",
+          "description": "Create 30 monsters from your photos"
+        },
+        {
+          "locale": "en-CA",
+          "name": "30 Generation Tickets",
+          "description": "Create 30 monsters from your photos"
+        },
+        {
+          "locale": "en-GB",
+          "name": "30 Generation Tickets",
+          "description": "Create 30 monsters from your photos"
+        },
+        {
+          "locale": "es-ES",
+          "name": "30 tickets de creación",
+          "description": "Crea 30 monstruos con tus fotos"
+        },
+        {
+          "locale": "es-MX",
+          "name": "30 tickets de creación",
+          "description": "Crea 30 monstruos con tus fotos"
+        },
+        {
+          "locale": "fi",
+          "name": "30 luontilippua",
+          "description": "Luo 30 hirviötä omista kuvistasi"
+        },
+        {
+          "locale": "fr-CA",
+          "name": "30 tickets de création",
+          "description": "Crée 30 monstres à partir de tes photos"
+        },
+        {
+          "locale": "fr-FR",
+          "name": "30 tickets de création",
+          "description": "Crée 30 monstres à partir de tes photos"
+        },
+        {
+          "locale": "gu-IN",
+          "name": "30 બનાવવાની ટિકિટ",
+          "description": "તમારા ફોટોમાંથી 30 મોન્સ્ટર બનાવો"
+        },
+        {
+          "locale": "he",
+          "name": "30 כרטיסי יצירה",
+          "description": "יצירת 30 מפלצות מהתמונות שלך"
+        },
+        {
+          "locale": "hi",
+          "name": "30 निर्माण टिकट",
+          "description": "अपनी फोटो से 30 मॉन्स्टर बनाइए"
+        },
+        {
+          "locale": "hr",
+          "name": "Kuponi za stvaranje ×30",
+          "description": "Stvaranje čudovišta iz fotke ×30"
+        },
+        {
+          "locale": "hu",
+          "name": "30 alkotójegy",
+          "description": "30 szörny létrehozása a fotóidból"
+        },
+        {
+          "locale": "id",
+          "name": "30 Tiket Pembuatan",
+          "description": "Buat 30 monster dari fotomu"
+        },
+        {
+          "locale": "it",
+          "name": "30 biglietti di creazione",
+          "description": "Crea 30 mostri dalle tue foto"
+        },
+        {
+          "locale": "kn-IN",
+          "name": "30 ರಚನೆ ಟಿಕೆಟ್‌ಗಳು",
+          "description": "ನಿಮ್ಮ ಫೋಟೋಗಳಿಂದ 30 ಮಾನ್ಸ್ಟರ್‌ಗಳನ್ನು ರಚಿಸಿ"
+        },
+        {
+          "locale": "ko",
+          "name": "생성 티켓 30장",
+          "description": "사진으로 몬스터 30마리 생성"
+        },
+        {
+          "locale": "ml-IN",
+          "name": "30 സൃഷ്ടിക്കൽ ടിക്കറ്റുകൾ",
+          "description": "ഫോട്ടോകളിൽ നിന്ന് 30 മോൺസ്റ്ററുകളെ സൃഷ്ടിക്കൂ"
+        },
+        {
+          "locale": "mr-IN",
+          "name": "30 निर्मिती तिकिटे",
+          "description": "तुमच्या फोटोंमधून 30 मॉन्स्टर तयार करा"
+        },
+        {
+          "locale": "ms",
+          "name": "30 Tiket Jana",
+          "description": "Cipta 30 monster daripada foto kamu"
+        },
+        {
+          "locale": "nl-NL",
+          "name": "30 creatietickets",
+          "description": "Maak 30 monsters van je foto's"
+        },
+        {
+          "locale": "no",
+          "name": "30 genereringsbilletter",
+          "description": "Lag 30 monstre av bildene dine"
+        },
+        {
+          "locale": "or-IN",
+          "name": "30ଟି ତିଆରି ଟିକେଟ",
+          "description": "ଆପଣଙ୍କ ଫଟୋରୁ 30ଟି ମନଷ୍ଟର ତିଆରି କରନ୍ତୁ"
+        },
+        {
+          "locale": "pa-IN",
+          "name": "30 ਰਚਨਾ ਟਿਕਟਾਂ",
+          "description": "ਆਪਣੀਆਂ ਫੋਟੋਆਂ ਤੋਂ 30 ਮੌਂਸਟਰ ਬਣਾਓ"
+        },
+        {
+          "locale": "pl",
+          "name": "Bilety na tworzenie ×30",
+          "description": "30× stworzenie potwora ze zdjęcia"
+        },
+        {
+          "locale": "pt-BR",
+          "name": "30 bilhetes de criação",
+          "description": "Crie 30 monstros com suas fotos"
+        },
+        {
+          "locale": "pt-PT",
+          "name": "30 bilhetes de criação",
+          "description": "Cria 30 monstros com as tuas fotos"
+        },
+        {
+          "locale": "ro",
+          "name": "Bilete de creare ×30",
+          "description": "Crearea unui monstru din poză ×30"
+        },
+        {
+          "locale": "ru",
+          "name": "Билеты на создание ×30",
+          "description": "Создание монстра из фото ×30"
+        },
+        {
+          "locale": "sk",
+          "name": "Lístky na vytvorenie ×30",
+          "description": "30× vytvorenie príšery z tvojej fotky"
+        },
+        {
+          "locale": "sl-SI",
+          "name": "Žetoni za ustvarjanje ×30",
+          "description": "Ustvarjanje pošasti iz fotke ×30"
+        },
+        {
+          "locale": "sv",
+          "name": "30 skapandebiljetter",
+          "description": "Skapa 30 monster av dina foton"
+        },
+        {
+          "locale": "ta-IN",
+          "name": "30 உருவாக்க டிக்கெட்டுகள்",
+          "description": "புகைப்படங்களை 30 மான்ஸ்டர்களாக்குங்கள்"
+        },
+        {
+          "locale": "te-IN",
+          "name": "30 సృష్టి టికెట్‌లు",
+          "description": "మీ ఫోటోల నుండి 30 మాన్స్టర్‌లను సృష్టించండి"
+        },
+        {
+          "locale": "th",
+          "name": "ตั๋วสร้าง 30 ใบ",
+          "description": "สร้างมอนสเตอร์ 30 ตัวจากรูปถ่าย"
+        },
+        {
+          "locale": "tr",
+          "name": "30 Oluşturma Bileti",
+          "description": "Fotoğraflarından 30 canavar oluştur"
+        },
+        {
+          "locale": "uk",
+          "name": "Квитки на створення ×30",
+          "description": "Створення монстра з фото ×30"
+        },
+        {
+          "locale": "ur-PK",
+          "name": "30 تخلیقی ٹکٹ",
+          "description": "اپنی تصویروں سے 30 مونسٹر بناؤ"
+        },
+        {
+          "locale": "vi",
+          "name": "30 vé tạo",
+          "description": "Tạo 30 quái vật từ ảnh của bạn"
+        },
+        {
+          "locale": "zh-Hans",
+          "name": "30 张生成券",
+          "description": "用照片生成 30 只怪物"
+        },
+        {
+          "locale": "zh-Hant",
+          "name": "30 張生成券",
+          "description": "用照片生成 30 隻怪物"
         }
       ]
     },
@@ -80,6 +560,246 @@
           "locale": "en-US",
           "name": "Action Card Rank 1",
           "description": "Pick one move and teach it to any of your monsters"
+        },
+        {
+          "locale": "ar-SA",
+          "name": "Action Card رتبة 1",
+          "description": "اختر حركة واحدة وعلّمها لأي وحش من وحوشك"
+        },
+        {
+          "locale": "bn-BD",
+          "name": "Action Card র‍্যাঙ্ক 1",
+          "description": "একটি কৌশল বেছে যেকোনো মনস্টারকে শেখান"
+        },
+        {
+          "locale": "ca",
+          "name": "Action Card de rang 1",
+          "description": "Tria un moviment per a tots els teus monstres"
+        },
+        {
+          "locale": "cs",
+          "name": "Action Card stupeň 1",
+          "description": "Vyber útok a nauč ho kteroukoli svou příšeru"
+        },
+        {
+          "locale": "da",
+          "name": "Action Card rang 1",
+          "description": "Vælg et angreb og lær det til dine monstre"
+        },
+        {
+          "locale": "de-DE",
+          "name": "Action Card Rang 1",
+          "description": "Wähle eine Attacke für beliebig viele Monster"
+        },
+        {
+          "locale": "el",
+          "name": "Action Card Βαθμίδα 1",
+          "description": "Διάλεξε τεχνική και μάθε τη σε όποιο τέρας"
+        },
+        {
+          "locale": "en-AU",
+          "name": "Action Card Rank 1",
+          "description": "Pick one move and teach it to any of your monsters"
+        },
+        {
+          "locale": "en-CA",
+          "name": "Action Card Rank 1",
+          "description": "Pick one move and teach it to any of your monsters"
+        },
+        {
+          "locale": "en-GB",
+          "name": "Action Card Rank 1",
+          "description": "Pick one move and teach it to any of your monsters"
+        },
+        {
+          "locale": "es-ES",
+          "name": "Action Card de rango 1",
+          "description": "Elige un movimiento para todos tus monstruos"
+        },
+        {
+          "locale": "es-MX",
+          "name": "Action Card de rango 1",
+          "description": "Elige un movimiento para todos tus monstruos"
+        },
+        {
+          "locale": "fi",
+          "name": "Action Card luokka 1",
+          "description": "Valitse liike mille tahansa hirviöllesi"
+        },
+        {
+          "locale": "fr-CA",
+          "name": "Action Card de rang 1",
+          "description": "Choisis une capacité pour tous tes monstres"
+        },
+        {
+          "locale": "fr-FR",
+          "name": "Action Card de rang 1",
+          "description": "Choisis une capacité pour tous tes monstres"
+        },
+        {
+          "locale": "gu-IN",
+          "name": "Action Card રેન્ક 1",
+          "description": "એક ચાલ પસંદ કરી કોઈ પણ મોન્સ્ટરને શીખવો"
+        },
+        {
+          "locale": "he",
+          "name": "Action Card דרגה 1",
+          "description": "בוחרים מתקפה אחת ומלמדים אותה לכל מפלצת שלך"
+        },
+        {
+          "locale": "hi",
+          "name": "Action Card रैंक 1",
+          "description": "एक चाल चुनकर किसी भी मॉन्स्टर को सिखाइए"
+        },
+        {
+          "locale": "hr",
+          "name": "Action Card ranga 1",
+          "description": "Odaberi potez i daj ga bilo kojem čudovištu"
+        },
+        {
+          "locale": "hu",
+          "name": "Action Card rang: 1",
+          "description": "Válassz egy támadást bármelyik szörnyednek"
+        },
+        {
+          "locale": "id",
+          "name": "Action Card Peringkat 1",
+          "description": "Pilih 1 jurus dan ajarkan ke monster mana pun"
+        },
+        {
+          "locale": "it",
+          "name": "Action Card di rango 1",
+          "description": "Scegli una mossa e insegnala ai tuoi mostri"
+        },
+        {
+          "locale": "kn-IN",
+          "name": "Action Card ಶ್ರೇಣಿ 1",
+          "description": "ಒಂದು ತಂತ್ರ ಆರಿಸಿ ಯಾವುದೇ ಮಾನ್ಸ್ಟರ್‌ಗೆ ಕಲಿಸಿ"
+        },
+        {
+          "locale": "ko",
+          "name": "Action Card 랭크 1",
+          "description": "원하는 기술 하나를 골라 어느 몬스터에게나 가르치기"
+        },
+        {
+          "locale": "ml-IN",
+          "name": "Action Card റാങ്ക് 1",
+          "description": "ഒരു ഇഷ്ട നീക്കം ഏത് മോൺസ്റ്ററെയും പഠിപ്പിക്കൂ"
+        },
+        {
+          "locale": "mr-IN",
+          "name": "Action Card रँक 1",
+          "description": "एक चाल निवडा आणि कोणत्याही मॉन्स्टरला शिकवा"
+        },
+        {
+          "locale": "ms",
+          "name": "Action Card Peringkat 1",
+          "description": "Pilih satu gerakan dan ajar mana-mana monster"
+        },
+        {
+          "locale": "nl-NL",
+          "name": "Action Card rang 1",
+          "description": "Kies een aanval en leer die aan je monsters"
+        },
+        {
+          "locale": "no",
+          "name": "Action Card rang 1",
+          "description": "Velg et angrep og lær det til monstrene dine"
+        },
+        {
+          "locale": "or-IN",
+          "name": "Action Card ରାଙ୍କ 1",
+          "description": "ଗୋଟିଏ ଚାଲ ବାଛି ଯେକୌଣସି ମନଷ୍ଟରକୁ ଶିଖାନ୍ତୁ"
+        },
+        {
+          "locale": "pa-IN",
+          "name": "Action Card ਰੈਂਕ 1",
+          "description": "ਇੱਕ ਚਾਲ ਚੁਣ ਕੇ ਕਿਸੇ ਵੀ ਮੌਂਸਟਰ ਨੂੰ ਸਿਖਾਓ"
+        },
+        {
+          "locale": "pl",
+          "name": "Action Card ranga 1",
+          "description": "Wybierz ruch i naucz go dowolnego potwora"
+        },
+        {
+          "locale": "pt-BR",
+          "name": "Action Card de rank 1",
+          "description": "Escolha um golpe e ensine aos seus monstros"
+        },
+        {
+          "locale": "pt-PT",
+          "name": "Action Card de rank 1",
+          "description": "Escolhe um golpe e ensina-o aos teus monstros"
+        },
+        {
+          "locale": "ro",
+          "name": "Action Card rang 1",
+          "description": "Alege o mișcare pentru oricare monstru al tău"
+        },
+        {
+          "locale": "ru",
+          "name": "Action Card ранга 1",
+          "description": "Выбери приём и научи ему любого монстра"
+        },
+        {
+          "locale": "sk",
+          "name": "Action Card stupeň 1",
+          "description": "Vyber útok a nauč ho hociktorú svoju príšeru"
+        },
+        {
+          "locale": "sl-SI",
+          "name": "Action Card ranga 1",
+          "description": "Izberi potezo in jo nauči katerokoli pošast"
+        },
+        {
+          "locale": "sv",
+          "name": "Action Card rang 1",
+          "description": "Välj en attack och lär dina monster den"
+        },
+        {
+          "locale": "ta-IN",
+          "name": "Action Card ரேங்க் 1",
+          "description": "தேர்ந்த தாக்குதலை எந்த மான்ஸ்டரும் கற்கலாம்"
+        },
+        {
+          "locale": "te-IN",
+          "name": "Action Card ర్యాంక్ 1",
+          "description": "ఒక మూవ్ ఎంచుకుని ఏ మాన్స్టర్‌కైనా నేర్పండి"
+        },
+        {
+          "locale": "th",
+          "name": "Action Card แรงก์ 1",
+          "description": "เลือกท่า 1 ท่าแล้วสอนให้มอนสเตอร์ตัวไหนก็ได้"
+        },
+        {
+          "locale": "tr",
+          "name": "Action Card Kademe 1",
+          "description": "Bir hamle seç ve istediğin canavara öğret"
+        },
+        {
+          "locale": "uk",
+          "name": "Action Card рангу 1",
+          "description": "Вибери прийом і навчи будь-якого монстра"
+        },
+        {
+          "locale": "ur-PK",
+          "name": "Action Card رینک 1",
+          "description": "ایک چال چنو اور اپنے کسی بھی مونسٹر کو سکھاؤ"
+        },
+        {
+          "locale": "vi",
+          "name": "Action Card hạng 1",
+          "description": "Chọn một chiêu và dạy cho bất kỳ quái vật nào"
+        },
+        {
+          "locale": "zh-Hans",
+          "name": "Action Card 1 阶",
+          "description": "任选一个招式 教给任意一只怪物"
+        },
+        {
+          "locale": "zh-Hant",
+          "name": "Action Card 1 階",
+          "description": "任選一個招式 教給任意一隻怪物"
         }
       ]
     },
@@ -106,6 +826,246 @@
           "locale": "en-US",
           "name": "Action Card Rank 2",
           "description": "Pick one move and teach it to any of your monsters"
+        },
+        {
+          "locale": "ar-SA",
+          "name": "Action Card رتبة 2",
+          "description": "اختر حركة واحدة وعلّمها لأي وحش من وحوشك"
+        },
+        {
+          "locale": "bn-BD",
+          "name": "Action Card র‍্যাঙ্ক 2",
+          "description": "একটি কৌশল বেছে যেকোনো মনস্টারকে শেখান"
+        },
+        {
+          "locale": "ca",
+          "name": "Action Card de rang 2",
+          "description": "Tria un moviment per a tots els teus monstres"
+        },
+        {
+          "locale": "cs",
+          "name": "Action Card stupeň 2",
+          "description": "Vyber útok a nauč ho kteroukoli svou příšeru"
+        },
+        {
+          "locale": "da",
+          "name": "Action Card rang 2",
+          "description": "Vælg et angreb og lær det til dine monstre"
+        },
+        {
+          "locale": "de-DE",
+          "name": "Action Card Rang 2",
+          "description": "Wähle eine Attacke für beliebig viele Monster"
+        },
+        {
+          "locale": "el",
+          "name": "Action Card Βαθμίδα 2",
+          "description": "Διάλεξε τεχνική και μάθε τη σε όποιο τέρας"
+        },
+        {
+          "locale": "en-AU",
+          "name": "Action Card Rank 2",
+          "description": "Pick one move and teach it to any of your monsters"
+        },
+        {
+          "locale": "en-CA",
+          "name": "Action Card Rank 2",
+          "description": "Pick one move and teach it to any of your monsters"
+        },
+        {
+          "locale": "en-GB",
+          "name": "Action Card Rank 2",
+          "description": "Pick one move and teach it to any of your monsters"
+        },
+        {
+          "locale": "es-ES",
+          "name": "Action Card de rango 2",
+          "description": "Elige un movimiento para todos tus monstruos"
+        },
+        {
+          "locale": "es-MX",
+          "name": "Action Card de rango 2",
+          "description": "Elige un movimiento para todos tus monstruos"
+        },
+        {
+          "locale": "fi",
+          "name": "Action Card luokka 2",
+          "description": "Valitse liike mille tahansa hirviöllesi"
+        },
+        {
+          "locale": "fr-CA",
+          "name": "Action Card de rang 2",
+          "description": "Choisis une capacité pour tous tes monstres"
+        },
+        {
+          "locale": "fr-FR",
+          "name": "Action Card de rang 2",
+          "description": "Choisis une capacité pour tous tes monstres"
+        },
+        {
+          "locale": "gu-IN",
+          "name": "Action Card રેન્ક 2",
+          "description": "એક ચાલ પસંદ કરી કોઈ પણ મોન્સ્ટરને શીખવો"
+        },
+        {
+          "locale": "he",
+          "name": "Action Card דרגה 2",
+          "description": "בוחרים מתקפה אחת ומלמדים אותה לכל מפלצת שלך"
+        },
+        {
+          "locale": "hi",
+          "name": "Action Card रैंक 2",
+          "description": "एक चाल चुनकर किसी भी मॉन्स्टर को सिखाइए"
+        },
+        {
+          "locale": "hr",
+          "name": "Action Card ranga 2",
+          "description": "Odaberi potez i daj ga bilo kojem čudovištu"
+        },
+        {
+          "locale": "hu",
+          "name": "Action Card rang: 2",
+          "description": "Válassz egy támadást bármelyik szörnyednek"
+        },
+        {
+          "locale": "id",
+          "name": "Action Card Peringkat 2",
+          "description": "Pilih 1 jurus dan ajarkan ke monster mana pun"
+        },
+        {
+          "locale": "it",
+          "name": "Action Card di rango 2",
+          "description": "Scegli una mossa e insegnala ai tuoi mostri"
+        },
+        {
+          "locale": "kn-IN",
+          "name": "Action Card ಶ್ರೇಣಿ 2",
+          "description": "ಒಂದು ತಂತ್ರ ಆರಿಸಿ ಯಾವುದೇ ಮಾನ್ಸ್ಟರ್‌ಗೆ ಕಲಿಸಿ"
+        },
+        {
+          "locale": "ko",
+          "name": "Action Card 랭크 2",
+          "description": "원하는 기술 하나를 골라 어느 몬스터에게나 가르치기"
+        },
+        {
+          "locale": "ml-IN",
+          "name": "Action Card റാങ്ക് 2",
+          "description": "ഒരു ഇഷ്ട നീക്കം ഏത് മോൺസ്റ്ററെയും പഠിപ്പിക്കൂ"
+        },
+        {
+          "locale": "mr-IN",
+          "name": "Action Card रँक 2",
+          "description": "एक चाल निवडा आणि कोणत्याही मॉन्स्टरला शिकवा"
+        },
+        {
+          "locale": "ms",
+          "name": "Action Card Peringkat 2",
+          "description": "Pilih satu gerakan dan ajar mana-mana monster"
+        },
+        {
+          "locale": "nl-NL",
+          "name": "Action Card rang 2",
+          "description": "Kies een aanval en leer die aan je monsters"
+        },
+        {
+          "locale": "no",
+          "name": "Action Card rang 2",
+          "description": "Velg et angrep og lær det til monstrene dine"
+        },
+        {
+          "locale": "or-IN",
+          "name": "Action Card ରାଙ୍କ 2",
+          "description": "ଗୋଟିଏ ଚାଲ ବାଛି ଯେକୌଣସି ମନଷ୍ଟରକୁ ଶିଖାନ୍ତୁ"
+        },
+        {
+          "locale": "pa-IN",
+          "name": "Action Card ਰੈਂਕ 2",
+          "description": "ਇੱਕ ਚਾਲ ਚੁਣ ਕੇ ਕਿਸੇ ਵੀ ਮੌਂਸਟਰ ਨੂੰ ਸਿਖਾਓ"
+        },
+        {
+          "locale": "pl",
+          "name": "Action Card ranga 2",
+          "description": "Wybierz ruch i naucz go dowolnego potwora"
+        },
+        {
+          "locale": "pt-BR",
+          "name": "Action Card de rank 2",
+          "description": "Escolha um golpe e ensine aos seus monstros"
+        },
+        {
+          "locale": "pt-PT",
+          "name": "Action Card de rank 2",
+          "description": "Escolhe um golpe e ensina-o aos teus monstros"
+        },
+        {
+          "locale": "ro",
+          "name": "Action Card rang 2",
+          "description": "Alege o mișcare pentru oricare monstru al tău"
+        },
+        {
+          "locale": "ru",
+          "name": "Action Card ранга 2",
+          "description": "Выбери приём и научи ему любого монстра"
+        },
+        {
+          "locale": "sk",
+          "name": "Action Card stupeň 2",
+          "description": "Vyber útok a nauč ho hociktorú svoju príšeru"
+        },
+        {
+          "locale": "sl-SI",
+          "name": "Action Card ranga 2",
+          "description": "Izberi potezo in jo nauči katerokoli pošast"
+        },
+        {
+          "locale": "sv",
+          "name": "Action Card rang 2",
+          "description": "Välj en attack och lär dina monster den"
+        },
+        {
+          "locale": "ta-IN",
+          "name": "Action Card ரேங்க் 2",
+          "description": "தேர்ந்த தாக்குதலை எந்த மான்ஸ்டரும் கற்கலாம்"
+        },
+        {
+          "locale": "te-IN",
+          "name": "Action Card ర్యాంక్ 2",
+          "description": "ఒక మూవ్ ఎంచుకుని ఏ మాన్స్టర్‌కైనా నేర్పండి"
+        },
+        {
+          "locale": "th",
+          "name": "Action Card แรงก์ 2",
+          "description": "เลือกท่า 1 ท่าแล้วสอนให้มอนสเตอร์ตัวไหนก็ได้"
+        },
+        {
+          "locale": "tr",
+          "name": "Action Card Kademe 2",
+          "description": "Bir hamle seç ve istediğin canavara öğret"
+        },
+        {
+          "locale": "uk",
+          "name": "Action Card рангу 2",
+          "description": "Вибери прийом і навчи будь-якого монстра"
+        },
+        {
+          "locale": "ur-PK",
+          "name": "Action Card رینک 2",
+          "description": "ایک چال چنو اور اپنے کسی بھی مونسٹر کو سکھاؤ"
+        },
+        {
+          "locale": "vi",
+          "name": "Action Card hạng 2",
+          "description": "Chọn một chiêu và dạy cho bất kỳ quái vật nào"
+        },
+        {
+          "locale": "zh-Hans",
+          "name": "Action Card 2 阶",
+          "description": "任选一个招式 教给任意一只怪物"
+        },
+        {
+          "locale": "zh-Hant",
+          "name": "Action Card 2 階",
+          "description": "任選一個招式 教給任意一隻怪物"
         }
       ]
     },
@@ -132,6 +1092,246 @@
           "locale": "en-US",
           "name": "Action Card Rank 3",
           "description": "Pick one move and teach it to any of your monsters"
+        },
+        {
+          "locale": "ar-SA",
+          "name": "Action Card رتبة 3",
+          "description": "اختر حركة واحدة وعلّمها لأي وحش من وحوشك"
+        },
+        {
+          "locale": "bn-BD",
+          "name": "Action Card র‍্যাঙ্ক 3",
+          "description": "একটি কৌশল বেছে যেকোনো মনস্টারকে শেখান"
+        },
+        {
+          "locale": "ca",
+          "name": "Action Card de rang 3",
+          "description": "Tria un moviment per a tots els teus monstres"
+        },
+        {
+          "locale": "cs",
+          "name": "Action Card stupeň 3",
+          "description": "Vyber útok a nauč ho kteroukoli svou příšeru"
+        },
+        {
+          "locale": "da",
+          "name": "Action Card rang 3",
+          "description": "Vælg et angreb og lær det til dine monstre"
+        },
+        {
+          "locale": "de-DE",
+          "name": "Action Card Rang 3",
+          "description": "Wähle eine Attacke für beliebig viele Monster"
+        },
+        {
+          "locale": "el",
+          "name": "Action Card Βαθμίδα 3",
+          "description": "Διάλεξε τεχνική και μάθε τη σε όποιο τέρας"
+        },
+        {
+          "locale": "en-AU",
+          "name": "Action Card Rank 3",
+          "description": "Pick one move and teach it to any of your monsters"
+        },
+        {
+          "locale": "en-CA",
+          "name": "Action Card Rank 3",
+          "description": "Pick one move and teach it to any of your monsters"
+        },
+        {
+          "locale": "en-GB",
+          "name": "Action Card Rank 3",
+          "description": "Pick one move and teach it to any of your monsters"
+        },
+        {
+          "locale": "es-ES",
+          "name": "Action Card de rango 3",
+          "description": "Elige un movimiento para todos tus monstruos"
+        },
+        {
+          "locale": "es-MX",
+          "name": "Action Card de rango 3",
+          "description": "Elige un movimiento para todos tus monstruos"
+        },
+        {
+          "locale": "fi",
+          "name": "Action Card luokka 3",
+          "description": "Valitse liike mille tahansa hirviöllesi"
+        },
+        {
+          "locale": "fr-CA",
+          "name": "Action Card de rang 3",
+          "description": "Choisis une capacité pour tous tes monstres"
+        },
+        {
+          "locale": "fr-FR",
+          "name": "Action Card de rang 3",
+          "description": "Choisis une capacité pour tous tes monstres"
+        },
+        {
+          "locale": "gu-IN",
+          "name": "Action Card રેન્ક 3",
+          "description": "એક ચાલ પસંદ કરી કોઈ પણ મોન્સ્ટરને શીખવો"
+        },
+        {
+          "locale": "he",
+          "name": "Action Card דרגה 3",
+          "description": "בוחרים מתקפה אחת ומלמדים אותה לכל מפלצת שלך"
+        },
+        {
+          "locale": "hi",
+          "name": "Action Card रैंक 3",
+          "description": "एक चाल चुनकर किसी भी मॉन्स्टर को सिखाइए"
+        },
+        {
+          "locale": "hr",
+          "name": "Action Card ranga 3",
+          "description": "Odaberi potez i daj ga bilo kojem čudovištu"
+        },
+        {
+          "locale": "hu",
+          "name": "Action Card rang: 3",
+          "description": "Válassz egy támadást bármelyik szörnyednek"
+        },
+        {
+          "locale": "id",
+          "name": "Action Card Peringkat 3",
+          "description": "Pilih 1 jurus dan ajarkan ke monster mana pun"
+        },
+        {
+          "locale": "it",
+          "name": "Action Card di rango 3",
+          "description": "Scegli una mossa e insegnala ai tuoi mostri"
+        },
+        {
+          "locale": "kn-IN",
+          "name": "Action Card ಶ್ರೇಣಿ 3",
+          "description": "ಒಂದು ತಂತ್ರ ಆರಿಸಿ ಯಾವುದೇ ಮಾನ್ಸ್ಟರ್‌ಗೆ ಕಲಿಸಿ"
+        },
+        {
+          "locale": "ko",
+          "name": "Action Card 랭크 3",
+          "description": "원하는 기술 하나를 골라 어느 몬스터에게나 가르치기"
+        },
+        {
+          "locale": "ml-IN",
+          "name": "Action Card റാങ്ക് 3",
+          "description": "ഒരു ഇഷ്ട നീക്കം ഏത് മോൺസ്റ്ററെയും പഠിപ്പിക്കൂ"
+        },
+        {
+          "locale": "mr-IN",
+          "name": "Action Card रँक 3",
+          "description": "एक चाल निवडा आणि कोणत्याही मॉन्स्टरला शिकवा"
+        },
+        {
+          "locale": "ms",
+          "name": "Action Card Peringkat 3",
+          "description": "Pilih satu gerakan dan ajar mana-mana monster"
+        },
+        {
+          "locale": "nl-NL",
+          "name": "Action Card rang 3",
+          "description": "Kies een aanval en leer die aan je monsters"
+        },
+        {
+          "locale": "no",
+          "name": "Action Card rang 3",
+          "description": "Velg et angrep og lær det til monstrene dine"
+        },
+        {
+          "locale": "or-IN",
+          "name": "Action Card ରାଙ୍କ 3",
+          "description": "ଗୋଟିଏ ଚାଲ ବାଛି ଯେକୌଣସି ମନଷ୍ଟରକୁ ଶିଖାନ୍ତୁ"
+        },
+        {
+          "locale": "pa-IN",
+          "name": "Action Card ਰੈਂਕ 3",
+          "description": "ਇੱਕ ਚਾਲ ਚੁਣ ਕੇ ਕਿਸੇ ਵੀ ਮੌਂਸਟਰ ਨੂੰ ਸਿਖਾਓ"
+        },
+        {
+          "locale": "pl",
+          "name": "Action Card ranga 3",
+          "description": "Wybierz ruch i naucz go dowolnego potwora"
+        },
+        {
+          "locale": "pt-BR",
+          "name": "Action Card de rank 3",
+          "description": "Escolha um golpe e ensine aos seus monstros"
+        },
+        {
+          "locale": "pt-PT",
+          "name": "Action Card de rank 3",
+          "description": "Escolhe um golpe e ensina-o aos teus monstros"
+        },
+        {
+          "locale": "ro",
+          "name": "Action Card rang 3",
+          "description": "Alege o mișcare pentru oricare monstru al tău"
+        },
+        {
+          "locale": "ru",
+          "name": "Action Card ранга 3",
+          "description": "Выбери приём и научи ему любого монстра"
+        },
+        {
+          "locale": "sk",
+          "name": "Action Card stupeň 3",
+          "description": "Vyber útok a nauč ho hociktorú svoju príšeru"
+        },
+        {
+          "locale": "sl-SI",
+          "name": "Action Card ranga 3",
+          "description": "Izberi potezo in jo nauči katerokoli pošast"
+        },
+        {
+          "locale": "sv",
+          "name": "Action Card rang 3",
+          "description": "Välj en attack och lär dina monster den"
+        },
+        {
+          "locale": "ta-IN",
+          "name": "Action Card ரேங்க் 3",
+          "description": "தேர்ந்த தாக்குதலை எந்த மான்ஸ்டரும் கற்கலாம்"
+        },
+        {
+          "locale": "te-IN",
+          "name": "Action Card ర్యాంక్ 3",
+          "description": "ఒక మూవ్ ఎంచుకుని ఏ మాన్స్టర్‌కైనా నేర్పండి"
+        },
+        {
+          "locale": "th",
+          "name": "Action Card แรงก์ 3",
+          "description": "เลือกท่า 1 ท่าแล้วสอนให้มอนสเตอร์ตัวไหนก็ได้"
+        },
+        {
+          "locale": "tr",
+          "name": "Action Card Kademe 3",
+          "description": "Bir hamle seç ve istediğin canavara öğret"
+        },
+        {
+          "locale": "uk",
+          "name": "Action Card рангу 3",
+          "description": "Вибери прийом і навчи будь-якого монстра"
+        },
+        {
+          "locale": "ur-PK",
+          "name": "Action Card رینک 3",
+          "description": "ایک چال چنو اور اپنے کسی بھی مونسٹر کو سکھاؤ"
+        },
+        {
+          "locale": "vi",
+          "name": "Action Card hạng 3",
+          "description": "Chọn một chiêu và dạy cho bất kỳ quái vật nào"
+        },
+        {
+          "locale": "zh-Hans",
+          "name": "Action Card 3 阶",
+          "description": "任选一个招式 教给任意一只怪物"
+        },
+        {
+          "locale": "zh-Hant",
+          "name": "Action Card 3 階",
+          "description": "任選一個招式 教給任意一隻怪物"
         }
       ]
     }

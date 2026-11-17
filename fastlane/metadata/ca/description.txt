@@ -1,0 +1,25 @@
+Apunta la càmera a qualsevol cosa que tinguis a prop i en naixerà un monstre que s'hi assembla. Col·lecciona'ls, fes-los lluitar i ensenya'ls a tothom.
+
+LA TEVA FOTO ES CONVERTEIX EN UN MONSTRE
+Fes una foto o tria'n una de la teva fototeca. El subjecte retallat de la foto (o la zona que triïs sobre la foto) es converteix en el monstre tal com és. El nom, l'entrada de l'enciclopèdia, els elements, els moviments i les estadístiques surten del que és el subjecte. Un cop neix un monstre, el seu aspecte i les seves habilitats no canvien mai.
+
+BATALLES PER TORNS ON LES ESTADÍSTIQUES COMPTEN
+Els monstres actuen per ordre de velocitat. La potència dels moviments, les debilitats d'element, l'atac i la defensa i els PP que queden decideixen el resultat. Porta el teu equip de tres monstres a lluitar contra entrenadors CPU i puja de nivell després de cada batalla.
+
+OMPLE L'ENCICLOPÈDIA
+Cada monstre que crees es guarda a la teva enciclopèdia.
+
+COMPARTEIX
+Converteix les cartes de l'enciclopèdia i els resultats de les batalles en imatges i comparteix-les a les xarxes socials. La imatge d'un monstre pot ser una part o tota la foto original, i qualsevol persona que vegi una carta compartida la pot veure.
+
+JUGA AMB SEGURETAT
+• Els noms dels monstres i les entrades de l'enciclopèdia els genera una AI
+• No es generen monstres a partir de fotos inapropiades
+• Reps un avís quan un monstre es crea a partir d'una foto on surt una persona
+• Demana permís abans si a la foto hi surt algú altre
+• Vincula el teu Apple ID per conservar l'enciclopèdia quan canviïs de dispositiu
+• Per a majors de 13 anys
+• Ofereix compres dins de l'app (tiquets) per continuar creant monstres després del límit diari gratuït
+
+Contacte: bannzai.app@gmail.com
+Condicions d'ús (en japonès): https://bannzai.github.io/snapmon/Terms

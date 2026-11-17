@@ -1,0 +1,4 @@
+/* 権限の確認の文言 (العربية)。Info.plist の同じキーの値を言語ごとに置き換える */
+"NSCameraUsageDescription" = "يستخدم SnapMonster الكاميرا لتصوير الأشياء من حولك وتحويلها إلى وحوش";
+"NSPhotoLibraryAddUsageDescription" = "يحفظ SnapMonster صور البطاقات التي تشاركها في مكتبة الصور";
+"NSPhotoLibraryUsageDescription" = "يقرأ SnapMonster الصور من مكتبتك لتحويلها إلى وحوش";

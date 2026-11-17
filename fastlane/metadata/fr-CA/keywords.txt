@@ -1,0 +1,1 @@
+monstre,combat,photo,caméra,collection,créature,tour par tour,rpg,dex,dresseur,élément,capacité

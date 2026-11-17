@@ -1,0 +1,25 @@
+Arahkan kamera ke benda apa pun di sekitarmu, lalu lahirlah monster yang mirip banget dengannya. Kumpulkan, adu dalam pertarungan, dan pamerkan.
+
+FOTOMU JADI MONSTER
+Ambil foto atau pilih dari galerimu. Objek yang dipotong dari fotomu (atau area yang kamu pilih di foto) langsung menjadi monster apa adanya. Nama, entri dex, elemen, jurus, dan statusnya ditentukan dari objek itu. Setelah monster lahir, wujud dan kemampuannya tidak akan pernah berubah.
+
+PERTARUNGAN BERGILIR YANG DITENTUKAN STATUS
+Monster bergerak sesuai urutan kecepatan. Kekuatan jurus, kelemahan elemen, serangan dan pertahanan, serta sisa PP semuanya menentukan hasil. Bawa tim berisi tiga monster untuk melawan pelatih CPU, dan naik level setiap selesai bertarung.
+
+LENGKAPI DEX-MU
+Setiap monster yang kamu buat tersimpan di dex-mu.
+
+BAGIKAN
+Ubah kartu dex dan hasil pertarungan menjadi gambar, lalu bagikan di media sosial. Gambar monster bisa berupa sebagian atau seluruh foto aslinya, dan siapa pun yang melihat kartu yang dibagikan bisa melihatnya.
+
+BERMAIN DENGAN AMAN
+• Nama monster dan entri dex dibuat oleh AI
+• Monster tidak dibuat dari foto yang tidak pantas
+• Kamu akan mendapat pemberitahuan saat monster dibuat dari foto yang memuat orang
+• Minta izin dulu jika ada orang lain di dalam foto
+• Tautkan Apple ID agar dex-mu tetap ada saat ganti perangkat
+• Untuk usia 13 tahun ke atas
+• Menawarkan pembelian dalam aplikasi (tiket pembuatan) untuk terus membuat monster setelah batas gratis harianmu habis
+
+Kontak: bannzai.app@gmail.com
+Ketentuan Penggunaan (bahasa Jepang): https://bannzai.github.io/snapmon/Terms

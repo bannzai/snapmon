@@ -1,0 +1,4 @@
+/* 権限の確認の文言 (română)。Info.plist の同じキーの値を言語ごとに置き換える */
+"NSCameraUsageDescription" = "SnapMonster folosește camera pentru a fotografia lucrurile din jurul tău și a le transforma în monștri";
+"NSPhotoLibraryAddUsageDescription" = "SnapMonster salvează în biblioteca foto imaginile cărților pe care le partajezi";
+"NSPhotoLibraryUsageDescription" = "SnapMonster citește poze din biblioteca ta pentru a le transforma în monștri";

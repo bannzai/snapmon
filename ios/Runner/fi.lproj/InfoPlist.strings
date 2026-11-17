@@ -1,0 +1,4 @@
+/* 権限の確認の文言 (suomi)。Info.plist の同じキーの値を言語ごとに置き換える */
+"NSCameraUsageDescription" = "SnapMonster käyttää kameraa ympärilläsi olevien esineiden kuvaamiseen ja muuttamiseen hirviöiksi";
+"NSPhotoLibraryAddUsageDescription" = "SnapMonster tallentaa jakamasi korttikuvat kuvakirjastoosi";
+"NSPhotoLibraryUsageDescription" = "SnapMonster lukee kuvia kirjastostasi muuttaakseen ne hirviöiksi";

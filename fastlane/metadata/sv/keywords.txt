@@ -1,0 +1,1 @@
+monster,strid,foto,kamera,samla,varelse,turbaserad,rpg,samling,tränare,element,attack,kort

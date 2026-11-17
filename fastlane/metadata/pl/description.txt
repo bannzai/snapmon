@@ -1,0 +1,25 @@
+Skieruj aparat na cokolwiek wokół siebie, a narodzi się potwór, który wygląda dokładnie tak samo. Zbieraj potwory, walcz nimi i chwal się nimi.
+
+TWOJE ZDJĘCIE STAJE SIĘ POTWOREM
+Zrób zdjęcie albo wybierz je z biblioteki. Obiekt wycięty ze zdjęcia (albo obszar, który na nim zaznaczysz) staje się potworem w niezmienionej postaci. Imię, wpis w encyklopedii, typy, ruchy i statystyki wynikają z tego, co jest na zdjęciu. Gdy potwór się narodzi, jego wygląd i zdolności już nigdy się nie zmienią.
+
+TUROWE WALKI, W KTÓRYCH LICZĄ SIĘ STATYSTYKI
+Potwory działają w kolejności szybkości. O wyniku decydują moc ruchów, słabości typów, atak i obrona oraz pozostałe PP. Zabierz swoją drużynę trzech potworów na walkę z trenerami CPU i zdobywaj poziomy po każdej walce.
+
+ZAPEŁNIJ ENCYKLOPEDIĘ
+Każdy stworzony przez ciebie potwór zostaje w twojej encyklopedii.
+
+UDOSTĘPNIAJ
+Zamieniaj karty z encyklopedii i wyniki walk w obrazki i udostępniaj je w mediach społecznościowych. Grafika potwora może być częścią albo całością oryginalnego zdjęcia i zobaczy ją każdy, kto zobaczy udostępnioną kartę.
+
+GRAJ BEZPIECZNIE
+• Imiona potworów i wpisy w encyklopedii generuje AI
+• Z nieodpowiednich zdjęć potwory nie powstają
+• Gdy potwór powstaje ze zdjęcia, na którym jest człowiek, dostajesz powiadomienie
+• Jeśli na zdjęciu jest ktoś inny, najpierw poproś go o zgodę
+• Połącz grę z Apple ID, żeby zachować encyklopedię po zmianie urządzenia
+• Dla graczy od 13 lat
+• Oferuje zakupy w aplikacji (bilety), dzięki którym możesz tworzyć potwory po wykorzystaniu darmowego dziennego limitu
+
+Kontakt: bannzai.app@gmail.com
+Regulamin (po japońsku): https://bannzai.github.io/snapmon/Terms

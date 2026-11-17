@@ -1,0 +1,1 @@
+monster,kampf,foto,kamera,sammeln,kreatur,rundenbasiert,rpg,dex,trainer,element,attacke,sammelspiel

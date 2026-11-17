@@ -1,0 +1,4 @@
+/* 権限の確認の文言 (slovenščina)。Info.plist の同じキーの値を言語ごとに置き換える */
+"NSCameraUsageDescription" = "SnapMonster uporablja kamero za fotografiranje stvari okoli vas in njihovo spreminjanje v pošasti";
+"NSPhotoLibraryAddUsageDescription" = "SnapMonster shrani slike kart, ki jih delite, v vašo knjižnico fotografij";
+"NSPhotoLibraryUsageDescription" = "SnapMonster bere fotografije iz vaše knjižnice, da jih spremeni v pošasti";

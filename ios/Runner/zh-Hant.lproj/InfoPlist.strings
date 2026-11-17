@@ -1,0 +1,4 @@
+/* 権限の確認の文言 (繁體中文)。Info.plist の同じキーの値を言語ごとに置き換える */
+"NSCameraUsageDescription" = "SnapMonster 使用相機拍攝你身邊的物品並將它們變成怪獸";
+"NSPhotoLibraryAddUsageDescription" = "SnapMonster 將你分享的卡片圖片儲存到照片圖庫";
+"NSPhotoLibraryUsageDescription" = "SnapMonster 讀取圖庫中的照片並將它們變成怪獸";

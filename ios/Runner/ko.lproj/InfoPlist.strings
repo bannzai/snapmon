@@ -1,0 +1,4 @@
+/* 権限の確認の文言 (한국어)。Info.plist の同じキーの値を言語ごとに置き換える */
+"NSCameraUsageDescription" = "주변의 물건을 찍어 몬스터로 만들기 위해 SnapMonster가 카메라를 사용합니다";
+"NSPhotoLibraryAddUsageDescription" = "공유하는 카드 이미지를 사진 보관함에 저장하기 위해 사용합니다";
+"NSPhotoLibraryUsageDescription" = "앨범의 사진으로 몬스터를 만들기 위해 SnapMonster가 사진을 읽어 옵니다";

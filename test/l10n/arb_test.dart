@@ -18,21 +18,55 @@ Set<String> _placeholders({required String message}) => {
 
 void main() {
   final japaneseMessages = _readMessages(path: 'lib/l10n/app_ja.arb');
-  final englishMessages = _readMessages(path: 'lib/l10n/app_en.arb');
+  final translatedArbPaths = [
+    for (final file in Directory('lib/l10n').listSync().whereType<File>())
+      if (file.path.endsWith('.arb') && !file.path.endsWith('app_ja.arb'))
+        file.path,
+  ]..sort();
 
-  test('英語の arb は原文 (日本語) のすべてのキーを持ち、原文に無いキーを持たない', () {
-    expect(englishMessages.keys.toSet(), japaneseMessages.keys.toSet());
+  test('App Store の掲載が対応する言語の arb がある', () {
+    // Apple の App Store localizations の 50 言語 (https://developer.apple.com/help/app-store-connect/reference/app-information/app-store-localizations/
+    // 、2026-11-17 に確認) を、gen-l10n の言語にまとめたもの。地域だけが違う英語・フランス語・スペイン語は 1 つにし、
+    // ポルトガル語は pt (ブラジル) と pt_PT、中国語は zh (簡体字) と zh_Hant、ノルウェー語は nb で持つ
+    expect(
+      [
+        for (final path in translatedArbPaths)
+          path.split('app_').last.replaceAll('.arb', ''),
+      ],
+      [
+        ...['ar', 'bn', 'ca', 'cs', 'da', 'de', 'el', 'en', 'es', 'fi', 'fr'],
+        ...['gu', 'he', 'hi', 'hr', 'hu', 'id', 'it', 'kn', 'ko', 'ml', 'mr'],
+        ...['ms', 'nb', 'nl', 'or', 'pa', 'pl', 'pt', 'pt_PT', 'ro', 'ru'],
+        ...['sk', 'sl', 'sv', 'ta', 'te', 'th', 'tr', 'uk', 'ur', 'vi', 'zh'],
+        'zh_Hant',
+      ],
+    );
   });
 
-  test('英語の文言は原文と同じプレースホルダーを使い、空でない', () {
-    for (final entry in japaneseMessages.entries) {
-      final englishMessage = englishMessages[entry.key]!;
-      expect(englishMessage.trim(), isNotEmpty, reason: entry.key);
-      expect(
-        _placeholders(message: englishMessage),
-        _placeholders(message: entry.value),
-        reason: entry.key,
-      );
-    }
-  });
+  for (final path in translatedArbPaths) {
+    final translatedMessages = _readMessages(path: path);
+
+    test('$path は原文 (日本語) のすべてのキーを持ち、原文に無いキーを持たない', () {
+      expect(translatedMessages.keys.toSet(), japaneseMessages.keys.toSet());
+    });
+
+    test('$path の文言は原文と同じプレースホルダーを使い、空でない', () {
+      for (final entry in japaneseMessages.entries) {
+        final translatedMessage = translatedMessages[entry.key]!;
+        // 区切りの文言 (settingsProviderSeparator・shareOpponentSeparator) は空白だけの言語があり得るため、trim せずに確かめる
+        expect(
+          entry.key.endsWith('Separator')
+              ? translatedMessage
+              : translatedMessage.trim(),
+          isNotEmpty,
+          reason: entry.key,
+        );
+        expect(
+          _placeholders(message: translatedMessage),
+          _placeholders(message: entry.value),
+          reason: entry.key,
+        );
+      }
+    });
+  }
 }

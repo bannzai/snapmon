@@ -1,0 +1,25 @@
+Hướng camera vào bất cứ thứ gì quanh bạn, một quái vật giống hệt thứ đó sẽ ra đời. Sưu tầm, cho chúng chiến đấu và đem đi khoe.
+
+ẢNH CỦA BẠN HÓA THÀNH QUÁI VẬT
+Chụp ảnh hoặc chọn ảnh từ thư viện. Chủ thể được cắt ra từ ảnh (hoặc vùng bạn chọn trên ảnh) sẽ trở thành quái vật y nguyên như vậy. Tên, mô tả trong bộ sưu tập, hệ, chiêu và chỉ số đều được quyết định từ chủ thể đó. Một khi quái vật đã ra đời, ngoại hình và năng lực của nó sẽ không bao giờ thay đổi.
+
+CHIẾN ĐẤU THEO LƯỢT NƠI CHỈ SỐ LÊN TIẾNG
+Quái vật hành động theo thứ tự tốc độ. Sức mạnh của chiêu, điểm yếu của hệ, tấn công và phòng thủ, cùng lượng PP còn lại đều quyết định thắng bại. Mang đội ba quái vật của bạn đi đấu với các nhà huấn luyện CPU và lên cấp sau mỗi trận.
+
+LẤP ĐẦY BỘ SƯU TẬP
+Mọi quái vật bạn tạo ra đều được lưu trong bộ sưu tập.
+
+CHIA SẺ
+Biến thẻ trong bộ sưu tập và kết quả trận đấu thành hình ảnh rồi chia sẻ lên mạng xã hội. Hình của quái vật có thể là một phần hoặc toàn bộ bức ảnh gốc, và bất kỳ ai thấy thẻ được chia sẻ đều có thể nhìn thấy nó.
+
+CHƠI AN TOÀN
+• Tên quái vật và mô tả trong bộ sưu tập do AI tạo ra
+• Không tạo quái vật từ ảnh không phù hợp
+• Bạn sẽ nhận được thông báo khi quái vật được tạo từ ảnh có người
+• Hãy xin phép trước nếu trong ảnh có người khác
+• Liên kết Apple ID để giữ bộ sưu tập khi đổi thiết bị
+• Dành cho người từ 13 tuổi trở lên
+• Có mua hàng trong ứng dụng (vé tạo) để tiếp tục tạo quái vật sau khi hết lượt miễn phí trong ngày
+
+Liên hệ: bannzai.app@gmail.com
+Điều khoản sử dụng (tiếng Nhật): https://bannzai.github.io/snapmon/Terms

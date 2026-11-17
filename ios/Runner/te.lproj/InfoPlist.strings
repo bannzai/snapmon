@@ -1,0 +1,4 @@
+/* 権限の確認の文言 (తెలుగు)。Info.plist の同じキーの値を言語ごとに置き換える */
+"NSCameraUsageDescription" = "మీ చుట్టూ ఉన్న వస్తువుల ఫోటోలు తీసి వాటిని మాన్‌స్టర్‌లుగా మార్చడానికి SnapMonster కెమెరాను ఉపయోగిస్తుంది";
+"NSPhotoLibraryAddUsageDescription" = "మీరు షేర్ చేసే కార్డ్ చిత్రాలను SnapMonster మీ ఫోటో లైబ్రరీలో సేవ్ చేస్తుంది";
+"NSPhotoLibraryUsageDescription" = "ఫోటోలను మాన్‌స్టర్‌లుగా మార్చడానికి SnapMonster మీ లైబ్రరీ నుండి ఫోటోలను చదువుతుంది";

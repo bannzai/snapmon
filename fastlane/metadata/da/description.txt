@@ -1,0 +1,25 @@
+Ret kameraet mod hvad som helst omkring dig, og et monster, der ligner det på en prik, bliver født. Saml dem, kæmp med dem og vis dem frem.
+
+DIT BILLEDE BLIVER TIL ET MONSTER
+Tag et billede, eller vælg et fra dit bibliotek. Motivet, der klippes ud af billedet (eller det område, du vælger på billedet), bliver til monsteret, præcis som det er. Navn, dex-tekst, elementer, angreb og værdier afhænger af, hvad motivet er. Når et monster først er født, ændrer dets udseende og evner sig aldrig.
+
+TURBASEREDE KAMPE, HVOR VÆRDIERNE TÆLLER
+Monstrene handler i rækkefølge efter hurtighed. Angrebenes styrke, elementsvagheder, angreb og forsvar samt de resterende PP afgør udfaldet. Tag dit hold på tre monstre med i kamp mod CPU-trænere, og stig i level efter hver kamp.
+
+FYLD DIN DEX
+Alle monstre, du skaber, bliver gemt i din dex.
+
+DEL
+Lav dex-kort og kampresultater om til billeder, og del dem på sociale medier. Et monsters billede kan være en del af eller hele det oprindelige billede, og alle, der ser et delt kort, kan se det.
+
+SPIL TRYGT
+• Monstrenes navne og dex-tekster er genereret af AI
+• Der bliver ikke lavet monstre ud fra upassende billeder
+• Du får en besked, når et monster er lavet ud fra et billede med en person på
+• Spørg om lov først, hvis der er andre på billedet
+• Tilknyt dit Apple ID for at beholde din dex, når du skifter enhed
+• For alle fra 13 år
+• Tilbyder køb i appen (skabelsesbilletter), så du kan skabe flere monstre efter din gratis daglige grænse
+
+Kontakt: bannzai.app@gmail.com
+Vilkår for brug (på japansk): https://bannzai.github.io/snapmon/Terms
