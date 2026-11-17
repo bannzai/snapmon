@@ -270,5 +270,6 @@
   "ticketPurchaseSync": "Kaufstatus synchronisieren",
   "ticketPurchaseSynced": "Kaufstatus synchronisiert",
   "actionCardTitle": "Action Card",
-  "actionCardEntrySubtitle": "Kauf Attacken einmalig und bring sie deinen Monstern bei"
+  "actionCardEntrySubtitle": "Kauf Attacken einmalig und bring sie deinen Monstern bei",
+  "actionCardOfPrice": "Action Card für {price}"
 }

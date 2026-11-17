@@ -270,5 +270,6 @@
   "ticketPurchaseSync": "Sincronitza l’estat de la compra",
   "ticketPurchaseSynced": "S'ha sincronitzat l'estat de la compra",
   "actionCardTitle": "Action Card",
-  "actionCardEntrySubtitle": "Compra moviments per sempre i ensenya’ls al teu monstre"
+  "actionCardEntrySubtitle": "Compra moviments per sempre i ensenya’ls al teu monstre",
+  "actionCardOfPrice": "Action Card de {price}"
 }

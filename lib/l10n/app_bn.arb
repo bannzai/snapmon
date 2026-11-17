@@ -270,5 +270,6 @@
   "ticketPurchaseSync": "কেনাকাটার অবস্থা সিঙ্ক করো",
   "ticketPurchaseSynced": "কেনাকাটার অবস্থা সিঙ্ক হয়েছে",
   "actionCardTitle": "Action Card",
-  "actionCardEntrySubtitle": "কৌশল একবার কিনে মনস্টারকে শেখাও"
+  "actionCardEntrySubtitle": "কৌশল একবার কিনে মনস্টারকে শেখাও",
+  "actionCardOfPrice": "{price} দামের Action Card"
 }

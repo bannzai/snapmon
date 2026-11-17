@@ -270,5 +270,6 @@
   "ticketPurchaseSync": "Sincronizza lo stato dell’acquisto",
   "ticketPurchaseSynced": "Stato dell'acquisto sincronizzato",
   "actionCardTitle": "Action Card",
-  "actionCardEntrySubtitle": "Compra le mosse una volta e insegnale ai tuoi mostri"
+  "actionCardEntrySubtitle": "Compra le mosse una volta e insegnale ai tuoi mostri",
+  "actionCardOfPrice": "Action Card da {price}"
 }

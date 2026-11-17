@@ -270,5 +270,6 @@
   "ticketPurchaseSync": "مزامنة حالة الشراء",
   "ticketPurchaseSynced": "تمت مزامنة حالة الشراء",
   "actionCardTitle": "Action Card",
-  "actionCardEntrySubtitle": "اشترِ الحركات مرة واحدة وعلّمها لوحشك"
+  "actionCardEntrySubtitle": "اشترِ الحركات مرة واحدة وعلّمها لوحشك",
+  "actionCardOfPrice": "Action Card بسعر {price}"
 }

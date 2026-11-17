@@ -270,5 +270,6 @@
   "ticketPurchaseSync": "同步购买状态",
   "ticketPurchaseSynced": "购买状态已同步",
   "actionCardTitle": "Action Card",
-  "actionCardEntrySubtitle": "买断招式，教给你的怪物"
+  "actionCardEntrySubtitle": "买断招式，教给你的怪物",
+  "actionCardOfPrice": "价格为 {price} 的 Action Card"
 }

@@ -270,5 +270,6 @@
   "ticketPurchaseSync": "खरीद की स्थिति सिंक करो",
   "ticketPurchaseSynced": "खरीदारी की स्थिति सिंक हो गई",
   "actionCardTitle": "Action Card",
-  "actionCardEntrySubtitle": "चाल एक बार खरीदो और अपने मॉन्स्टर को सिखाओ"
+  "actionCardEntrySubtitle": "चाल एक बार खरीदो और अपने मॉन्स्टर को सिखाओ",
+  "actionCardOfPrice": "{price} वाला Action Card"
 }

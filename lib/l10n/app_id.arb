@@ -270,5 +270,6 @@
   "ticketPurchaseSync": "Sinkronkan status pembelianmu",
   "ticketPurchaseSynced": "Status pembelian sudah disinkronkan",
   "actionCardTitle": "Action Card",
-  "actionCardEntrySubtitle": "Beli jurus sekali, lalu ajarkan ke monstermu"
+  "actionCardEntrySubtitle": "Beli jurus sekali, lalu ajarkan ke monstermu",
+  "actionCardOfPrice": "Action Card seharga {price}"
 }

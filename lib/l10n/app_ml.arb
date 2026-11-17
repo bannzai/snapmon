@@ -270,5 +270,6 @@
   "ticketPurchaseSync": "വാങ്ങലിന്റെ നില സമന്വയിപ്പിക്കുക",
   "ticketPurchaseSynced": "വാങ്ങലിന്റെ നില സമന്വയിപ്പിച്ചു",
   "actionCardTitle": "Action Card",
-  "actionCardEntrySubtitle": "നീക്കങ്ങൾ ഒറ്റത്തവണ വാങ്ങി നിങ്ങളുടെ മോൺസ്റ്ററുകളെ പഠിപ്പിക്കൂ"
+  "actionCardEntrySubtitle": "നീക്കങ്ങൾ ഒറ്റത്തവണ വാങ്ങി നിങ്ങളുടെ മോൺസ്റ്ററുകളെ പഠിപ്പിക്കൂ",
+  "actionCardOfPrice": "{price} വിലയുള്ള Action Card"
 }

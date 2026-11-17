@@ -270,5 +270,6 @@
   "ticketPurchaseSync": "Synka köpstatus",
   "ticketPurchaseSynced": "Köpstatus synkroniserad",
   "actionCardTitle": "Action Card",
-  "actionCardEntrySubtitle": "Köp attacker en gång och lär dina monster dem"
+  "actionCardEntrySubtitle": "Köp attacker en gång och lär dina monster dem",
+  "actionCardOfPrice": "Action Card för {price}"
 }

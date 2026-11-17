@@ -270,5 +270,6 @@
   "ticketPurchaseSync": "Synchronizuj stav nákupu",
   "ticketPurchaseSynced": "Stav nákupu bol synchronizovaný",
   "actionCardTitle": "Action Card",
-  "actionCardEntrySubtitle": "Kúp si útok natrvalo a nauč ho svoju príšeru"
+  "actionCardEntrySubtitle": "Kúp si útok natrvalo a nauč ho svoju príšeru",
+  "actionCardOfPrice": "Action Card za {price}"
 }

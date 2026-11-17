@@ -270,5 +270,6 @@
   "ticketPurchaseSync": "Synchroniseer je aankoopstatus",
   "ticketPurchaseSynced": "Aankoopstatus gesynchroniseerd",
   "actionCardTitle": "Action Card",
-  "actionCardEntrySubtitle": "Koop aanvallen voorgoed en leer ze je monsters"
+  "actionCardEntrySubtitle": "Koop aanvallen voorgoed en leer ze je monsters",
+  "actionCardOfPrice": "Action Card voor {price}"
 }

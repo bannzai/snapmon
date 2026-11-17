@@ -270,5 +270,6 @@
   "ticketPurchaseSync": "Synkroniser købsstatus",
   "ticketPurchaseSynced": "Købsstatus er synkroniseret",
   "actionCardTitle": "Action Card",
-  "actionCardEntrySubtitle": "Køb angreb én gang, og lær dem til dine monstre"
+  "actionCardEntrySubtitle": "Køb angreb én gang, og lær dem til dine monstre",
+  "actionCardOfPrice": "Action Card til {price}"
 }

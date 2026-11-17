@@ -270,5 +270,6 @@
   "ticketPurchaseSync": "Satın alma durumunu eşitle",
   "ticketPurchaseSynced": "Satın alma durumu eşitlendi",
   "actionCardTitle": "Action Card",
-  "actionCardEntrySubtitle": "Hamleleri kalıcı olarak satın al, canavarlarına öğret"
+  "actionCardEntrySubtitle": "Hamleleri kalıcı olarak satın al, canavarlarına öğret",
+  "actionCardOfPrice": "{price} tutarında Action Card"
 }

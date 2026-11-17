@@ -270,5 +270,6 @@
   "ticketPurchaseSync": "Sincronizar status da compra",
   "ticketPurchaseSynced": "Status da compra sincronizado",
   "actionCardTitle": "Action Card",
-  "actionCardEntrySubtitle": "Compre golpes de uma vez e ensine aos seus monstros"
+  "actionCardEntrySubtitle": "Compre golpes de uma vez e ensine aos seus monstros",
+  "actionCardOfPrice": "Action Card de {price}"
 }
