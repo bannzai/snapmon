@@ -222,5 +222,6 @@
   "battleNextLearnLevel": "Na Lv. {level} sa naučí nový útok",
   "battleShareTextWon": "Vyhral som súboj v snapmon\n#snapmon\n{url}",
   "battleShareTextLost": "Prehral som súboj v snapmon\n#snapmon\n{url}",
-  "battleShareResult": "Zdieľaj výsledok"
+  "battleShareResult": "Zdieľaj výsledok",
+  "battleOpenDex": "Pozri si encyklopédiu"
 }

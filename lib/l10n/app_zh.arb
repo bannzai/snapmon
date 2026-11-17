@@ -222,5 +222,6 @@
   "battleNextLearnLevel": "在 Lv. {level} 学会新招式",
   "battleShareTextWon": "我在 snapmon 的对战中赢了\n#snapmon\n{url}",
   "battleShareTextLost": "在 snapmon 对战中输了\n#snapmon\n{url}",
-  "battleShareResult": "分享结果"
+  "battleShareResult": "分享结果",
+  "battleOpenDex": "查看图鉴"
 }

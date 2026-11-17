@@ -222,5 +222,6 @@
   "battleNextLearnLevel": "Aprèn un moviment nou al Lv. {level}",
   "battleShareTextWon": "He guanyat una batalla a snapmon\n#snapmon\n{url}",
   "battleShareTextLost": "He perdut un combat a snapmon\n#snapmon\n{url}",
-  "battleShareResult": "Comparteix el resultat"
+  "battleShareResult": "Comparteix el resultat",
+  "battleOpenDex": "Mira l'enciclopèdia"
 }

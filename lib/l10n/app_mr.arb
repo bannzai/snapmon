@@ -222,5 +222,6 @@
   "battleNextLearnLevel": "Lv. {level} वर नवी चाल शिकेल",
   "battleShareTextWon": "snapmon मधली लढाई जिंकली\n#snapmon\n{url}",
   "battleShareTextLost": "snapmon मध्ये लढाई हरलो\n#snapmon\n{url}",
-  "battleShareResult": "निकाल शेअर कर"
+  "battleShareResult": "निकाल शेअर कर",
+  "battleOpenDex": "संग्रह पाहा"
 }

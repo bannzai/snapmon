@@ -222,5 +222,6 @@
   "battleNextLearnLevel": "Lernt auf Lv. {level} eine neue Attacke",
   "battleShareTextWon": "Ich habe einen Kampf in snapmon gewonnen\n#snapmon\n{url}",
   "battleShareTextLost": "Ich habe einen Kampf in snapmon verloren\n#snapmon\n{url}",
-  "battleShareResult": "Ergebnis teilen"
+  "battleShareResult": "Ergebnis teilen",
+  "battleOpenDex": "Dex ansehen"
 }

@@ -222,5 +222,6 @@
   "battleNextLearnLevel": "Lv. {level} seviyesinde yeni bir hamle öğrenir",
   "battleShareTextWon": "snapmon'da bir savaşı kazandım\n#snapmon\n{url}",
   "battleShareTextLost": "snapmon'da bir savaşı kaybettim\n#snapmon\n{url}",
-  "battleShareResult": "Sonucu paylaş"
+  "battleShareResult": "Sonucu paylaş",
+  "battleOpenDex": "Ansiklopediye bak"
 }

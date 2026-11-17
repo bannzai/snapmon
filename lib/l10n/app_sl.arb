@@ -222,5 +222,6 @@
   "battleNextLearnLevel": "Na Lv. {level} se nauči nov potez",
   "battleShareTextWon": "Zmagal sem v boju v snapmon\n#snapmon\n{url}",
   "battleShareTextLost": "Izgubil sem bitko v snapmonu\n#snapmon\n{url}",
-  "battleShareResult": "Deli rezultat"
+  "battleShareResult": "Deli rezultat",
+  "battleOpenDex": "Poglej enciklopedijo"
 }

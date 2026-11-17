@@ -222,5 +222,6 @@
   "battleNextLearnLevel": "Belajar gerakan baharu pada Lv. {level}",
   "battleShareTextWon": "Aku menang pertempuran dalam snapmon\n#snapmon\n{url}",
   "battleShareTextLost": "Kalah dalam pertempuran di snapmon\n#snapmon\n{url}",
-  "battleShareResult": "Kongsi keputusan"
+  "battleShareResult": "Kongsi keputusan",
+  "battleOpenDex": "Lihat ensiklopedia"
 }

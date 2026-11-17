@@ -222,5 +222,6 @@
   "battleNextLearnLevel": "يتعلم حركة جديدة عند Lv. {level}",
   "battleShareTextWon": "فزت في معركة في snapmon\n#snapmon\n{url}",
   "battleShareTextLost": "خسرت معركة في snapmon\n#snapmon\n{url}",
-  "battleShareResult": "شارك النتيجة"
+  "battleShareResult": "شارك النتيجة",
+  "battleOpenDex": "افتح الموسوعة"
 }

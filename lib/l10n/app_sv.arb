@@ -222,5 +222,6 @@
   "battleNextLearnLevel": "Lär sig en ny attack på Lv. {level}",
   "battleShareTextWon": "Jag vann en strid i snapmon\n#snapmon\n{url}",
   "battleShareTextLost": "Jag förlorade en strid i snapmon\n#snapmon\n{url}",
-  "battleShareResult": "Dela resultatet"
+  "battleShareResult": "Dela resultatet",
+  "battleOpenDex": "Visa samling"
 }

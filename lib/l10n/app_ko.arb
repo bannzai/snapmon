@@ -222,5 +222,6 @@
   "battleNextLearnLevel": "Lv. {level}에 새로운 기술을 배워요",
   "battleShareTextWon": "snapmon 배틀에서 이겼어요\n#snapmon\n{url}",
   "battleShareTextLost": "snapmon 배틀에서 졌어요\n#snapmon\n{url}",
-  "battleShareResult": "결과 공유하기"
+  "battleShareResult": "결과 공유하기",
+  "battleOpenDex": "도감 보기"
 }

@@ -222,5 +222,6 @@
   "battleNextLearnLevel": "מתקפה חדשה נלמדת ב־Lv. {level}",
   "battleShareTextWon": "ניצחתי בקרב ב־snapmon\n#snapmon\n{url}",
   "battleShareTextLost": "הפסדתי בקרב ב-snapmon\n#snapmon\n{url}",
-  "battleShareResult": "שיתוף התוצאה"
+  "battleShareResult": "שיתוף התוצאה",
+  "battleOpenDex": "לצפות באוסף"
 }

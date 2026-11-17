@@ -222,5 +222,6 @@
   "battleNextLearnLevel": "Lv. {level}-এ নতুন কৌশল শিখবে",
   "battleShareTextWon": "তুমি snapmon-এর লড়াই জিতেছ\n#snapmon\n{url}",
   "battleShareTextLost": "snapmon-এ লড়াইয়ে হেরে গেলাম\n#snapmon\n{url}",
-  "battleShareResult": "ফলাফল শেয়ার করো"
+  "battleShareResult": "ফলাফল শেয়ার করো",
+  "battleOpenDex": "সংগ্রহ দেখো"
 }

@@ -222,5 +222,6 @@
   "battleNextLearnLevel": "Lv. {level} szinten új támadást tanul",
   "battleShareTextWon": "Megnyertem egy csatát a snapmonban\n#snapmon\n{url}",
   "battleShareTextLost": "Elvesztettem egy csatát a snapmonban\n#snapmon\n{url}",
-  "battleShareResult": "Oszd meg az eredményt"
+  "battleShareResult": "Oszd meg az eredményt",
+  "battleOpenDex": "Nézd meg a gyűjteményt"
 }

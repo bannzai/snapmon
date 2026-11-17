@@ -222,5 +222,6 @@
   "battleNextLearnLevel": "Lv. {level} ನಲ್ಲಿ ಹೊಸ ತಂತ್ರ ಕಲಿಯುತ್ತದೆ",
   "battleShareTextWon": "snapmonನಲ್ಲಿ ಯುದ್ಧ ಗೆದ್ದೆ\n#snapmon\n{url}",
   "battleShareTextLost": "snapmonನಲ್ಲಿ ಯುದ್ಧ ಸೋತೆ\n#snapmon\n{url}",
-  "battleShareResult": "ಫಲಿತಾಂಶ ಹಂಚಿಕೊ"
+  "battleShareResult": "ಫಲಿತಾಂಶ ಹಂಚಿಕೊ",
+  "battleOpenDex": "ವಿಶ್ವಕೋಶ ನೋಡು"
 }
