@@ -271,5 +271,6 @@
   "ticketPurchaseSynced": "تمت مزامنة حالة الشراء",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "اشترِ الحركات مرة واحدة وعلّمها لوحشك",
-  "actionCardOfPrice": "Action Card بسعر {price}"
+  "actionCardOfPrice": "Action Card بسعر {price}",
+  "actionCardPricesPreparing": "نجهّز أسعار الحركات\nافتح الصفحة مجددًا بعد قليل"
 }

@@ -271,5 +271,6 @@
   "ticketPurchaseSynced": "खरेदीची स्थिती सिंक झाली",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "चाल एकदाच विकत घे आणि तुझ्या मॉन्स्टरला शिकव",
-  "actionCardOfPrice": "{price} किमतीचे Action Card"
+  "actionCardOfPrice": "{price} किमतीचे Action Card",
+  "actionCardPricesPreparing": "चालींच्या किमती तयार होत आहेत\nथोड्या वेळाने पुन्हा उघड"
 }

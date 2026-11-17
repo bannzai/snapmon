@@ -271,5 +271,6 @@
   "ticketPurchaseSynced": "Stanje nakupa je sinhronizirano",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Kupi poteze za vedno in jih nauči svoje pošasti",
-  "actionCardOfPrice": "Action Card za {price}"
+  "actionCardOfPrice": "Action Card za {price}",
+  "actionCardPricesPreparing": "Pripravljamo cene potez\nČez nekaj časa znova odpri zaslon"
 }

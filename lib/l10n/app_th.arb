@@ -271,5 +271,6 @@
   "ticketPurchaseSynced": "ซิงก์สถานะการซื้อแล้ว",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "ซื้อท่าขาดแล้วสอนให้มอนสเตอร์",
-  "actionCardOfPrice": "Action Card ราคา {price}"
+  "actionCardOfPrice": "Action Card ราคา {price}",
+  "actionCardPricesPreparing": "กำลังเตรียมราคาท่า\nรอสักครู่แล้วเปิดหน้านี้อีกครั้ง"
 }

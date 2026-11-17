@@ -271,5 +271,6 @@
   "ticketPurchaseSynced": "Starea achiziției a fost sincronizată",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Cumpără mișcări definitiv și învață-ți monștrii să le folosească",
-  "actionCardOfPrice": "Action Card la {price}"
+  "actionCardOfPrice": "Action Card la {price}",
+  "actionCardPricesPreparing": "Pregătim prețurile mișcărilor\nDeschide din nou ecranul peste puțin timp"
 }

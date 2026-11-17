@@ -271,5 +271,6 @@
   "ticketPurchaseSynced": "סטטוס הרכישה סונכרן",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "לקנות מתקפות לתמיד וללמד את המפלצות שלך",
-  "actionCardOfPrice": "Action Card במחיר {price}"
+  "actionCardOfPrice": "Action Card במחיר {price}",
+  "actionCardPricesPreparing": "מחירי המתקפות בהכנה\nאפשר לפתוח שוב בעוד רגע"
 }

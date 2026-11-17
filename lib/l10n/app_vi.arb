@@ -271,5 +271,6 @@
   "ticketPurchaseSynced": "Đã đồng bộ trạng thái mua hàng",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Mua đứt chiêu rồi dạy cho quái vật của bạn",
-  "actionCardOfPrice": "Action Card giá {price}"
+  "actionCardOfPrice": "Action Card giá {price}",
+  "actionCardPricesPreparing": "Đang chuẩn bị giá các chiêu\nMột lát nữa hãy mở lại"
 }

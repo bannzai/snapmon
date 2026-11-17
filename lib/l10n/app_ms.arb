@@ -271,5 +271,6 @@
   "ticketPurchaseSynced": "Status pembelian telah disegerakkan",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Beli gerakan sekali, lalu ajar monstermu",
-  "actionCardOfPrice": "Action Card berharga {price}"
+  "actionCardOfPrice": "Action Card berharga {price}",
+  "actionCardPricesPreparing": "Harga gerakan sedang disediakan\nBuka semula sebentar lagi"
 }

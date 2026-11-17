@@ -271,5 +271,6 @@
   "ticketPurchaseSynced": "ಖರೀದಿಯ ಸ್ಥಿತಿ ಸಿಂಕ್ ಆಗಿದೆ",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "ತಂತ್ರವನ್ನು ಒಮ್ಮೆ ಖರೀದಿಸಿ ನಿನ್ನ ಮಾನ್ಸ್ಟರಿಗೆ ಕಲಿಸು",
-  "actionCardOfPrice": "{price} ಬೆಲೆಯ Action Card"
+  "actionCardOfPrice": "{price} ಬೆಲೆಯ Action Card",
+  "actionCardPricesPreparing": "ತಂತ್ರಗಳ ಬೆಲೆಗಳನ್ನು ಸಿದ್ಧಪಡಿಸಲಾಗುತ್ತಿದೆ\nಸ್ವಲ್ಪ ಹೊತ್ತಿನ ನಂತರ ಮತ್ತೆ ತೆರೆ"
 }

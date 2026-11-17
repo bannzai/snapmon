@@ -271,5 +271,6 @@
   "ticketPurchaseSynced": "ਖਰੀਦ ਦੀ ਸਥਿਤੀ ਸਿੰਕ ਹੋ ਗਈ ਹੈ",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "ਚਾਲ ਇੱਕ ਵਾਰ ਖਰੀਦੋ ਤੇ ਆਪਣੇ ਮੌਂਸਟਰ ਨੂੰ ਸਿਖਾਓ",
-  "actionCardOfPrice": "{price} ਕੀਮਤ ਵਾਲਾ Action Card"
+  "actionCardOfPrice": "{price} ਕੀਮਤ ਵਾਲਾ Action Card",
+  "actionCardPricesPreparing": "ਚਾਲਾਂ ਦੀਆਂ ਕੀਮਤਾਂ ਤਿਆਰ ਹੋ ਰਹੀਆਂ ਹਨ\nਥੋੜ੍ਹੀ ਦੇਰ ਬਾਅਦ ਦੁਬਾਰਾ ਖੋਲ੍ਹੋ"
 }

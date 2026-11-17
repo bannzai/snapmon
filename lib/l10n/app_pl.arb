@@ -271,5 +271,6 @@
   "ticketPurchaseSynced": "Stan zakupu zsynchronizowany",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Kup ruch na stałe i naucz go swojego potwora",
-  "actionCardOfPrice": "Action Card za {price}"
+  "actionCardOfPrice": "Action Card za {price}",
+  "actionCardPricesPreparing": "Przygotowujemy ceny ruchów\nOtwórz ekran ponownie za chwilę"
 }

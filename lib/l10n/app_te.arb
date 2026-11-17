@@ -271,5 +271,6 @@
   "ticketPurchaseSynced": "కొనుగోలు స్థితి సమకాలీకరించబడింది",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "మూవ్‌లను ఒక్కసారే కొని నీ మాన్స్టర్‌కు నేర్పు",
-  "actionCardOfPrice": "{price} ధర గల Action Card"
+  "actionCardOfPrice": "{price} ధర గల Action Card",
+  "actionCardPricesPreparing": "మూవ్‌ల ధరలు సిద్ధమవుతున్నాయి\nకాసేపటి తర్వాత మళ్లీ తెరువు"
 }

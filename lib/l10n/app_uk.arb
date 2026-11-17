@@ -271,5 +271,6 @@
   "ticketPurchaseSynced": "Статус покупки синхронізовано",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Купи прийоми назавжди й навчи їх своїх монстрів",
-  "actionCardOfPrice": "Action Card за {price}"
+  "actionCardOfPrice": "Action Card за {price}",
+  "actionCardPricesPreparing": "Готуємо ціни на прийоми\nВідкрий екран знову трохи пізніше"
 }

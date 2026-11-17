@@ -271,5 +271,6 @@
   "ticketPurchaseSynced": "Ostoksen tila synkronoitu",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Osta liikkeet pysyvästi ja opeta ne hirviöillesi",
-  "actionCardOfPrice": "{price} hintainen Action Card"
+  "actionCardOfPrice": "{price} hintainen Action Card",
+  "actionCardPricesPreparing": "Liikkeiden hintoja valmistellaan\nAvaa näkymä uudelleen hetken kuluttua"
 }

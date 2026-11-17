@@ -271,5 +271,6 @@
   "ticketPurchaseSynced": "A vásárlás állapota szinkronizálva",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Vegyél támadásokat végleg, és tanítsd meg őket a szörnyeidnek",
-  "actionCardOfPrice": "Action Card {price} áron"
+  "actionCardOfPrice": "Action Card {price} áron",
+  "actionCardPricesPreparing": "A támadások árait készítjük elő\nNyisd meg újra egy kis idő múlva"
 }

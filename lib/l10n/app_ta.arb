@@ -271,5 +271,6 @@
   "ticketPurchaseSynced": "வாங்கிய நிலை ஒத்திசைக்கப்பட்டது",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "தாக்குதல்களை ஒருமுறை வாங்கி உங்கள் மான்ஸ்டருக்குக் கற்றுக்கொடுங்கள்",
-  "actionCardOfPrice": "{price} விலையுள்ள Action Card"
+  "actionCardOfPrice": "{price} விலையுள்ள Action Card",
+  "actionCardPricesPreparing": "தாக்குதல்களின் விலைகள் தயாராகின்றன\nசிறிது நேரம் கழித்து மீண்டும் திறங்கள்"
 }

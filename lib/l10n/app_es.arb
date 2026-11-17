@@ -271,5 +271,6 @@
   "ticketPurchaseSynced": "Se sincronizó el estado de la compra",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Compra movimientos para siempre y enséñaselos a tus monstruos",
-  "actionCardOfPrice": "Action Card de {price}"
+  "actionCardOfPrice": "Action Card de {price}",
+  "actionCardPricesPreparing": "Estamos preparando los precios de los movimientos\nVuelve a abrir la pantalla en un rato"
 }

@@ -271,5 +271,6 @@
   "ticketPurchaseSynced": "Η κατάσταση αγοράς συγχρονίστηκε",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Αγόρασε τεχνικές μια για πάντα και μάθε τες στα τέρατά σου",
-  "actionCardOfPrice": "Action Card με τιμή {price}"
+  "actionCardOfPrice": "Action Card με τιμή {price}",
+  "actionCardPricesPreparing": "Ετοιμάζουμε τις τιμές των τεχνικών\nΆνοιξε ξανά την οθόνη σε λίγο"
 }

@@ -271,5 +271,6 @@
   "ticketPurchaseSynced": "କ୍ରୟର ସ୍ଥିତି ସିଙ୍କ୍ ହୋଇଛି",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "ଚାଲ ଥରେ କିଣ ଓ ତୁମ ମନଷ୍ଟରକୁ ଶିଖାଅ",
-  "actionCardOfPrice": "{price} ମୂଲ୍ୟର Action Card"
+  "actionCardOfPrice": "{price} ମୂଲ୍ୟର Action Card",
+  "actionCardPricesPreparing": "ଚାଲଗୁଡ଼ିକର ଦାମ ପ୍ରସ୍ତୁତ ହେଉଛି\nକିଛି ସମୟ ପରେ ପୁଣି ଖୋଲ"
 }

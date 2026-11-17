@@ -271,5 +271,6 @@
   "ticketPurchaseSynced": "購買狀態已同步",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "買斷招式，教給你的怪物",
-  "actionCardOfPrice": "價格為 {price} 的 Action Card"
+  "actionCardOfPrice": "價格為 {price} 的 Action Card",
+  "actionCardPricesPreparing": "正在準備招式價格\n稍後再打開"
 }
