@@ -305,5 +305,6 @@
   "moveSelectionDescription": "Vælg op til {count} angreb til kamp\nAngrebsknapperne vises i den rækkefølge, du vælger dem",
   "moveSelectionSave": "Bekræft",
   "moveSelectionReset": "Vælg igen",
-  "actionCardForget": "Lad den glemme et angreb"
+  "actionCardForget": "Lad den glemme et angreb",
+  "battleRematch": "Kæmp igen"
 }

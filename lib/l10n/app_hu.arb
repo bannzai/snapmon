@@ -305,5 +305,6 @@
   "moveSelectionDescription": "Válassz legfeljebb {count} támadást a csatához\nA támadások gombjai a választásod sorrendjében jelennek meg",
   "moveSelectionSave": "Megerősítés",
   "moveSelectionReset": "Válassz újra",
-  "actionCardForget": "Felejtesd el vele a támadást"
+  "actionCardForget": "Felejtesd el vele a támadást",
+  "battleRematch": "Harcolj újra"
 }

@@ -305,5 +305,6 @@
   "moveSelectionDescription": "Wähle bis zu {count} Attacken für den Kampf\nDie Attacken-Buttons erscheinen in deiner Auswahlreihenfolge",
   "moveSelectionSave": "Bestätigen",
   "moveSelectionReset": "Neu auswählen",
-  "actionCardForget": "Attacke vergessen lassen"
+  "actionCardForget": "Attacke vergessen lassen",
+  "battleRematch": "Noch mal kämpfen"
 }

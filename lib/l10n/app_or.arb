@@ -305,5 +305,6 @@
   "moveSelectionDescription": "ଯୁଦ୍ଧ ପାଇଁ ସର୍ବାଧିକ {count} ଚାଲ ବାଛ\nଯୁଦ୍ଧରେ ଚାଲ ବଟନ୍‌ଗୁଡ଼ିକ ତୁମେ ବାଛିଥିବା କ୍ରମରେ ଦେଖାଯିବ",
   "moveSelectionSave": "ନିଶ୍ଚିତ କର",
   "moveSelectionReset": "ପୁଣି ବାଛ",
-  "actionCardForget": "ଚାଲ ଭୁଲାଇଦିଅ"
+  "actionCardForget": "ଚାଲ ଭୁଲାଇଦିଅ",
+  "battleRematch": "ପୁଣି ଲଢ଼"
 }

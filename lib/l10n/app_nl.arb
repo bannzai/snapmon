@@ -305,5 +305,6 @@
   "moveSelectionDescription": "Kies maximaal {count} aanvallen voor het gevecht\nDe aanvalsknoppen verschijnen in de volgorde waarin je ze kiest",
   "moveSelectionSave": "Bevestigen",
   "moveSelectionReset": "Kies opnieuw",
-  "actionCardForget": "Laat een aanval vergeten"
+  "actionCardForget": "Laat een aanval vergeten",
+  "battleRematch": "Vecht opnieuw"
 }

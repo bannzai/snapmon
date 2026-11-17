@@ -305,5 +305,6 @@
   "moveSelectionDescription": "เลือกท่าสำหรับต่อสู้ได้สูงสุด {count} ท่า\nปุ่มท่าต่อสู้จะเรียงตามลำดับที่เลือก",
   "moveSelectionSave": "ยืนยัน",
   "moveSelectionReset": "เลือกใหม่",
-  "actionCardForget": "ให้ลืมท่า"
+  "actionCardForget": "ให้ลืมท่า",
+  "battleRematch": "สู้กันอีกครั้ง"
 }

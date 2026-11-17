@@ -305,5 +305,6 @@
   "moveSelectionDescription": "لڑائی کے لیے زیادہ سے زیادہ {count} چالیں چنو\nلڑائی میں چالوں کے بٹن تمہارے چنے ہوئے ترتیب سے دکھیں گے",
   "moveSelectionSave": "تصدیق کرو",
   "moveSelectionReset": "دوبارہ چنو",
-  "actionCardForget": "چال بھلوا دو"
+  "actionCardForget": "چال بھلوا دو",
+  "battleRematch": "دوبارہ لڑو"
 }

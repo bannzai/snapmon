@@ -305,5 +305,6 @@
   "moveSelectionDescription": "選擇最多 {count} 個對戰招式\n對戰中的招式按鈕會依選擇順序排列",
   "moveSelectionSave": "確定",
   "moveSelectionReset": "重新選擇",
-  "actionCardForget": "忘記招式"
+  "actionCardForget": "忘記招式",
+  "battleRematch": "再戰一次"
 }

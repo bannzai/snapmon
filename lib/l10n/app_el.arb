@@ -305,5 +305,6 @@
   "moveSelectionDescription": "Διάλεξε έως {count} τεχνικές για τη μάχη\nΤα κουμπιά των τεχνικών θα μπουν στη σειρά που τις διάλεξες",
   "moveSelectionSave": "Επιβεβαίωση",
   "moveSelectionReset": "Διάλεξε ξανά",
-  "actionCardForget": "Κάν’ το να ξεχάσει την κίνηση"
+  "actionCardForget": "Κάν’ το να ξεχάσει την κίνηση",
+  "battleRematch": "Πολέμησε ξανά"
 }

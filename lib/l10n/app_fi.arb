@@ -305,5 +305,6 @@
   "moveSelectionDescription": "Valitse taisteluun enintään {count} liikettä\nLiikkeiden painikkeet näkyvät valitsemassasi järjestyksessä",
   "moveSelectionSave": "Vahvista",
   "moveSelectionReset": "Valitse uudelleen",
-  "actionCardForget": "Anna unohtaa liike"
+  "actionCardForget": "Anna unohtaa liike",
+  "battleRematch": "Taistele uudelleen"
 }

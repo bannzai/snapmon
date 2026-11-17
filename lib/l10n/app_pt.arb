@@ -305,5 +305,6 @@
   "moveSelectionDescription": "Escolha até {count} golpes para a batalha\nOs botões dos golpes aparecem na ordem em que você os escolher",
   "moveSelectionSave": "Confirmar",
   "moveSelectionReset": "Escolher de novo",
-  "actionCardForget": "Fazer esquecer o golpe"
+  "actionCardForget": "Fazer esquecer o golpe",
+  "battleRematch": "Batalhar de novo"
 }

@@ -305,5 +305,6 @@
   "moveSelectionDescription": "Savaş için en fazla {count} hamle seç\nHamle düğmeleri seçtiğin sırayla dizilir",
   "moveSelectionSave": "Onayla",
   "moveSelectionReset": "Yeniden seç",
-  "actionCardForget": "Hamleyi unuttur"
+  "actionCardForget": "Hamleyi unuttur",
+  "battleRematch": "Tekrar savaş"
 }

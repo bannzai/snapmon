@@ -305,5 +305,6 @@
   "moveSelectionDescription": "Odaberi najviše {count} poteza za borbu\nGumbi poteza u borbi bit će poredani redom kojim ih odabereš",
   "moveSelectionSave": "Potvrdi",
   "moveSelectionReset": "Odaberi ponovno",
-  "actionCardForget": "Neka zaboravi potez"
+  "actionCardForget": "Neka zaboravi potez",
+  "battleRematch": "Bori se opet"
 }

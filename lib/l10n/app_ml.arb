@@ -305,5 +305,6 @@
   "moveSelectionDescription": "പോരാട്ടത്തിന് പരമാവധി {count} നീക്കങ്ങൾ തിരഞ്ഞെടുക്കൂ\nനീക്കങ്ങളുടെ ബട്ടണുകൾ തിരഞ്ഞെടുത്ത ക്രമത്തിൽ കാണാം",
   "moveSelectionSave": "സ്ഥിരീകരിക്കുക",
   "moveSelectionReset": "വീണ്ടും തിരഞ്ഞെടുക്കുക",
-  "actionCardForget": "നീക്കം മറക്കാൻ അനുവദിക്കുക"
+  "actionCardForget": "നീക്കം മറക്കാൻ അനുവദിക്കുക",
+  "battleRematch": "വീണ്ടും പോരാടൂ"
 }

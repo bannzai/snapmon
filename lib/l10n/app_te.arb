@@ -305,5 +305,6 @@
   "moveSelectionDescription": "పోరాటానికి గరిష్ఠంగా {count} మూవ్‌లు ఎంచుకో\nమూవ్ బటన్‌లు నువ్వు ఎంచుకున్న క్రమంలో కనిపిస్తాయి",
   "moveSelectionSave": "నిర్ధారించు",
   "moveSelectionReset": "మళ్లీ ఎంచుకో",
-  "actionCardForget": "ఎత్తుగడను మరిచిపోయేలా చేయి"
+  "actionCardForget": "ఎత్తుగడను మరిచిపోయేలా చేయి",
+  "battleRematch": "మళ్లీ పోరాడు"
 }

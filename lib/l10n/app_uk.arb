@@ -305,5 +305,6 @@
   "moveSelectionDescription": "Вибери для бою щонайбільше {count} прийомів\nКнопки прийомів з’являться в тому порядку, у якому ти їх вибереш",
   "moveSelectionSave": "Підтвердити",
   "moveSelectionReset": "Вибрати знову",
-  "actionCardForget": "Дати забути прийом"
+  "actionCardForget": "Дати забути прийом",
+  "battleRematch": "Бийся знову"
 }

@@ -305,5 +305,6 @@
   "moveSelectionDescription": "Выбери для боя не больше {count} приёмов\nКнопки приёмов появятся в том порядке, в котором ты их выберешь",
   "moveSelectionSave": "Подтвердить",
   "moveSelectionReset": "Выбрать заново",
-  "actionCardForget": "Заставить забыть приём"
+  "actionCardForget": "Заставить забыть приём",
+  "battleRematch": "Сразиться снова"
 }

@@ -305,5 +305,6 @@
   "moveSelectionDescription": "배틀에서 쓸 기술을 최대 {count}개 골라요\n기술 버튼은 고른 순서대로 배치돼요",
   "moveSelectionSave": "확인",
   "moveSelectionReset": "다시 선택하기",
-  "actionCardForget": "기술 잊게 하기"
+  "actionCardForget": "기술 잊게 하기",
+  "battleRematch": "다시 대결하기"
 }

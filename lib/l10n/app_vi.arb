@@ -305,5 +305,6 @@
   "moveSelectionDescription": "Chọn tối đa {count} chiêu để chiến đấu\nNút chiêu trong trận sẽ xếp theo thứ tự bạn chọn",
   "moveSelectionSave": "Xác nhận",
   "moveSelectionReset": "Chọn lại",
-  "actionCardForget": "Cho quên chiêu thức"
+  "actionCardForget": "Cho quên chiêu thức",
+  "battleRematch": "Đấu lại"
 }
