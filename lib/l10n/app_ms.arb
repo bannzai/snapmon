@@ -81,5 +81,6 @@
   "dexAddToPartyTitle": "Tambah ke pasukan",
   "dexNoPartyCandidates": "Tiada monster untuk kamu tambah ke pasukan",
   "captureCameraUnavailable": "Kamera tak dapat digunakan\nPilih foto daripada album",
-  "captureDexCount": "ensiklopedia {monsterCount}"
+  "captureDexCount": "ensiklopedia {monsterCount}",
+  "captureFirstHintAlbum": "Pilih 1 foto barang di sekeliling kamu"
 }

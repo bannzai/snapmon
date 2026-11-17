@@ -81,5 +81,6 @@
   "dexAddToPartyTitle": "הוספה לצוות",
   "dexNoPartyCandidates": "אין מפלצות שאפשר להוסיף לצוות",
   "captureCameraUnavailable": "המצלמה לא זמינה\nאפשר לבחור תמונה מהאלבום",
-  "captureDexCount": "אוסף {monsterCount}"
+  "captureDexCount": "אוסף {monsterCount}",
+  "captureFirstHintAlbum": "לבחור תמונה אחת של חפץ מהסביבה"
 }

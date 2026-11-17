@@ -81,5 +81,6 @@
   "dexAddToPartyTitle": "加入隊伍",
   "dexNoPartyCandidates": "沒有可加入隊伍的怪物",
   "captureCameraUnavailable": "相機無法使用\n請從相簿選一張照片",
-  "captureDexCount": "圖鑑 {monsterCount}"
+  "captureDexCount": "圖鑑 {monsterCount}",
+  "captureFirstHintAlbum": "選一張身邊物品的照片吧"
 }

@@ -81,5 +81,6 @@
   "dexAddToPartyTitle": "ટીમમાં ઉમેરો",
   "dexNoPartyCandidates": "ટીમમાં ઉમેરવા માટે કોઈ મોન્સ્ટર નથી",
   "captureCameraUnavailable": "કૅમેરા વાપરી શકાતો નથી\nઆલ્બમમાંથી ફોટો પસંદ કરો",
-  "captureDexCount": "ડેક્સ {monsterCount}"
+  "captureDexCount": "ડેક્સ {monsterCount}",
+  "captureFirstHintAlbum": "આસપાસની કોઈ વસ્તુનો 1 ફોટો પસંદ કરો"
 }

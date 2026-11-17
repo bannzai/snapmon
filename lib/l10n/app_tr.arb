@@ -81,5 +81,6 @@
   "dexAddToPartyTitle": "Takıma ekle",
   "dexNoPartyCandidates": "Takımına ekleyebileceğin canavar yok",
   "captureCameraUnavailable": "Kamera kullanılamıyor\nAlbümden bir fotoğraf seç",
-  "captureDexCount": "ansiklopedi {monsterCount}"
+  "captureDexCount": "ansiklopedi {monsterCount}",
+  "captureFirstHintAlbum": "Etrafındaki bir eşyanın 1 fotoğrafını seç"
 }

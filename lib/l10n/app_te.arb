@@ -81,5 +81,6 @@
   "dexAddToPartyTitle": "జట్టులో చేర్చు",
   "dexNoPartyCandidates": "జట్టులో చేర్చడానికి మాన్స్టర్లు లేవు",
   "captureCameraUnavailable": "కెమెరా ఉపయోగించలేకపోతున్నాం\nఆల్బమ్ నుంచి ఫోటో ఎంచుకో",
-  "captureDexCount": "డెక్స్ {monsterCount}"
+  "captureDexCount": "డెక్స్ {monsterCount}",
+  "captureFirstHintAlbum": "చుట్టూ ఉన్న ఏదైనా వస్తువు ఫోటో 1టి ఎంచుకో"
 }

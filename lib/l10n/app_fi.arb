@@ -81,5 +81,6 @@
   "dexAddToPartyTitle": "Lisää joukkueeseen",
   "dexNoPartyCandidates": "Sinulla ei ole hirviöitä, joita voisit lisätä joukkueeseesi",
   "captureCameraUnavailable": "Kamera ei ole käytettävissä\nValitse kuva albumista",
-  "captureDexCount": "kokoelma {monsterCount}"
+  "captureDexCount": "kokoelma {monsterCount}",
+  "captureFirstHintAlbum": "Valitse yksi kuva lähelläsi olevasta esineestä"
 }

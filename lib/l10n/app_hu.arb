@@ -81,5 +81,6 @@
   "dexAddToPartyTitle": "Add a csapathoz",
   "dexNoPartyCandidates": "Nincs szörny, akit felvehetnél a csapatodba",
   "captureCameraUnavailable": "A kamera nem érhető el\nVálassz képet az albumból",
-  "captureDexCount": "gyűjtemény {monsterCount}"
+  "captureDexCount": "gyűjtemény {monsterCount}",
+  "captureFirstHintAlbum": "Válassz egy fotót egy körülötted lévő tárgyról"
 }

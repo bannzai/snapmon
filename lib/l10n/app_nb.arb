@@ -81,5 +81,6 @@
   "dexAddToPartyTitle": "Legg til på laget",
   "dexNoPartyCandidates": "Du har ingen monstre å legge til på laget",
   "captureCameraUnavailable": "Kameraet er ikke tilgjengelig\nVelg et bilde fra albumet",
-  "captureDexCount": "samling {monsterCount}"
+  "captureDexCount": "samling {monsterCount}",
+  "captureFirstHintAlbum": "Velg ett bilde av en ting du har rundt deg"
 }

@@ -81,5 +81,6 @@
   "dexAddToPartyTitle": "Додати до команди",
   "dexNoPartyCandidates": "У тебе немає монстрів, яких можна додати до команди",
   "captureCameraUnavailable": "Камера недоступна\nВибери фото з альбому",
-  "captureDexCount": "енциклопедія {monsterCount}"
+  "captureDexCount": "енциклопедія {monsterCount}",
+  "captureFirstHintAlbum": "Вибери одне фото предмета навколо себе"
 }

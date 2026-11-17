@@ -81,5 +81,6 @@
   "dexAddToPartyTitle": "Voeg toe aan je team",
   "dexNoPartyCandidates": "Je hebt geen monsters om aan je team toe te voegen",
   "captureCameraUnavailable": "De camera is niet beschikbaar\nKies een foto uit je album",
-  "captureDexCount": "dex {monsterCount}"
+  "captureDexCount": "dex {monsterCount}",
+  "captureFirstHintAlbum": "Kies één foto van een voorwerp om je heen"
 }

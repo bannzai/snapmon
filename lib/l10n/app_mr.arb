@@ -81,5 +81,6 @@
   "dexAddToPartyTitle": "टीममध्ये जोड",
   "dexNoPartyCandidates": "टीममध्ये घालण्यासाठी मॉन्स्टर नाहीत",
   "captureCameraUnavailable": "कॅमेरा वापरता येत नाही\nअल्बममधून फोटो निवड",
-  "captureDexCount": "संग्रह {monsterCount}"
+  "captureDexCount": "संग्रह {monsterCount}",
+  "captureFirstHintAlbum": "आजूबाजूच्या एखाद्या वस्तूचा 1 फोटो निवड"
 }
