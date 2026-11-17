@@ -130,5 +130,6 @@
   "generationChooseRangeTitle": "Area yang akan jadi monster",
   "generationChooseRangeMessage": "Seret bingkai hingga mengelilingi objek\nUbah ukurannya dengan penggeser di bawah atau dua jari",
   "generationAutoCutoutUnavailable": "Pemotongan otomatis tidak bisa digunakan",
-  "generationCreateWithRange": "Buat dari area ini"
+  "generationCreateWithRange": "Buat dari area ini",
+  "generationCropSizeLabel": "Ukuran bingkai"
 }

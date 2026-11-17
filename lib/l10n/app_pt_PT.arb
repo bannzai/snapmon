@@ -130,5 +130,6 @@
   "generationChooseRangeTitle": "Área que se vai tornar monstro",
   "generationChooseRangeMessage": "Arrasta a moldura à volta do objeto\nAjusta o tamanho com o controlo abaixo ou com dois dedos",
   "generationAutoCutoutUnavailable": "Não foi possível usar o recorte automático",
-  "generationCreateWithRange": "Criar a partir desta área"
+  "generationCreateWithRange": "Criar a partir desta área",
+  "generationCropSizeLabel": "Tamanho da moldura"
 }

@@ -130,5 +130,6 @@
   "generationChooseRangeTitle": "மான்ஸ்டர் ஆகும் பகுதி",
   "generationChooseRangeMessage": "பொருளைச் சுற்றி சட்டத்தை இழுங்கள்\nகீழுள்ள நழுவியால் அல்லது இரு விரல்களால் அளவை மாற்றுங்கள்",
   "generationAutoCutoutUnavailable": "தானாகப் படத்திலிருந்து பிரித்தெடுக்க முடியவில்லை",
-  "generationCreateWithRange": "இந்தப் பகுதியிலிருந்து உருவாக்குங்கள்"
+  "generationCreateWithRange": "இந்தப் பகுதியிலிருந்து உருவாக்குங்கள்",
+  "generationCropSizeLabel": "சட்டத்தின் அளவு"
 }

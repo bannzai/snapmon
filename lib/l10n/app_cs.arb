@@ -130,5 +130,6 @@
   "generationChooseRangeTitle": "Oblast, ze které bude příšera",
   "generationChooseRangeMessage": "Přetáhni rámeček kolem objektu\nVelikost změň posuvníkem dole nebo dvěma prsty",
   "generationAutoCutoutUnavailable": "Automatické vyříznutí nešlo použít",
-  "generationCreateWithRange": "Vytvoř z této oblasti"
+  "generationCreateWithRange": "Vytvoř z této oblasti",
+  "generationCropSizeLabel": "Velikost rámečku"
 }

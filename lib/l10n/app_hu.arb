@@ -130,5 +130,6 @@
   "generationChooseRangeTitle": "A szörnnyé váló terület",
   "generationChooseRangeMessage": "Húzd a keretet a képen lévő tárgy köré\nA méretet az alsó csúszkával vagy két ujjal állíthatod",
   "generationAutoCutoutUnavailable": "Az automatikus kivágás nem volt elérhető",
-  "generationCreateWithRange": "Készítsd el ebből a területből"
+  "generationCreateWithRange": "Készítsd el ebből a területből",
+  "generationCropSizeLabel": "Keret mérete"
 }

@@ -130,5 +130,6 @@
   "generationChooseRangeTitle": "Područje koje postaje čudovište",
   "generationChooseRangeMessage": "Povuci okvir oko objekta\nPromijeni mu veličinu klizačem ispod ili dvama prstima",
   "generationAutoCutoutUnavailable": "Automatsko izrezivanje nije bilo dostupno",
-  "generationCreateWithRange": "Stvori iz ovog područja"
+  "generationCreateWithRange": "Stvori iz ovog područja",
+  "generationCropSizeLabel": "Veličina okvira"
 }

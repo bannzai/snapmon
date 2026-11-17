@@ -130,5 +130,6 @@
   "generationChooseRangeTitle": "האזור שיהפוך למפלצת",
   "generationChooseRangeMessage": "לגרור את המסגרת סביב האובייקט\nלשנות את הגודל בעזרת המחוון למטה או שתי אצבעות",
   "generationAutoCutoutUnavailable": "לא ניתן היה להשתמש בחיתוך האוטומטי",
-  "generationCreateWithRange": "ליצור מהאזור הזה"
+  "generationCreateWithRange": "ליצור מהאזור הזה",
+  "generationCropSizeLabel": "גודל המסגרת"
 }

@@ -130,5 +130,6 @@
   "generationChooseRangeTitle": "മോൺസ്റ്റർ ആകുന്ന ഭാഗം",
   "generationChooseRangeMessage": "വിഷയത്തിന് ചുറ്റും ഫ്രെയിം വലിച്ചിടൂ\nതാഴെയുള്ള സ്ലൈഡറോ രണ്ട് വിരലുകളോ ഉപയോഗിച്ച് വലുപ്പം മാറ്റാം",
   "generationAutoCutoutUnavailable": "യാന്ത്രികമായി ചിത്രം മുറിച്ചെടുക്കാൻ കഴിഞ്ഞില്ല",
-  "generationCreateWithRange": "ഈ ഭാഗത്തിൽ നിന്ന് സൃഷ്ടിക്കൂ"
+  "generationCreateWithRange": "ഈ ഭാഗത്തിൽ നിന്ന് സൃഷ്ടിക്കൂ",
+  "generationCropSizeLabel": "ചട്ടക്കൂടിന്റെ വലുപ്പം"
 }

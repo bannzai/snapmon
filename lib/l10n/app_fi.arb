@@ -130,5 +130,6 @@
   "generationChooseRangeTitle": "Hirviöksi muuttuva alue",
   "generationChooseRangeMessage": "Vedä kehys kohteen ympärille\nMuuta kokoa alla olevalla liukusäätimellä tai kahdella sormella",
   "generationAutoCutoutUnavailable": "Automaattinen rajaus ei ollut käytettävissä",
-  "generationCreateWithRange": "Luo tältä alueelta"
+  "generationCreateWithRange": "Luo tältä alueelta",
+  "generationCropSizeLabel": "Rajauksen koko"
 }

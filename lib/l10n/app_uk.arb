@@ -130,5 +130,6 @@
   "generationChooseRangeTitle": "Область, яка стане монстром",
   "generationChooseRangeMessage": "Перетягни рамку навколо об’єкта\nЗміни розмір повзунком унизу або двома пальцями",
   "generationAutoCutoutUnavailable": "Автоматичне вирізання недоступне",
-  "generationCreateWithRange": "Створи з цієї області"
+  "generationCreateWithRange": "Створи з цієї області",
+  "generationCropSizeLabel": "Розмір рамки"
 }

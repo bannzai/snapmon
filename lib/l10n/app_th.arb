@@ -130,5 +130,6 @@
   "generationChooseRangeTitle": "ส่วนที่จะกลายเป็นมอนสเตอร์",
   "generationChooseRangeMessage": "ลากกรอบให้ล้อมรอบวัตถุ\nปรับขนาดด้วยแถบเลื่อนด้านล่างหรือใช้สองนิ้ว",
   "generationAutoCutoutUnavailable": "ใช้การตัดภาพอัตโนมัติไม่ได้",
-  "generationCreateWithRange": "สร้างจากบริเวณนี้"
+  "generationCreateWithRange": "สร้างจากบริเวณนี้",
+  "generationCropSizeLabel": "ขนาดกรอบ"
 }
