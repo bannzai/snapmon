@@ -288,5 +288,6 @@
   "actionCardUnassignedChooseMove": "Chọn chiêu",
   "actionCardAssignTitle": "Chiêu bạn nhận được từ Action Card này",
   "actionCardAssignNoMoves": "Không có chiêu nào để nhận",
-  "actionCardAssigned": "Bạn nhận được chiêu {moveName}"
+  "actionCardAssigned": "Bạn nhận được chiêu {moveName}",
+  "actionCardFilterAll": "Tất cả"
 }

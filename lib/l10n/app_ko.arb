@@ -288,5 +288,6 @@
   "actionCardUnassignedChooseMove": "기술 선택하기",
   "actionCardAssignTitle": "이 Action Card로 받을 기술",
   "actionCardAssignNoMoves": "받을 수 있는 기술이 없어요",
-  "actionCardAssigned": "새 기술을 받았어요: {moveName}"
+  "actionCardAssigned": "새 기술을 받았어요: {moveName}",
+  "actionCardFilterAll": "전체"
 }

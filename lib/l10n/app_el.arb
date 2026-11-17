@@ -288,5 +288,6 @@
   "actionCardUnassignedChooseMove": "Διάλεξε τεχνική",
   "actionCardAssignTitle": "Τεχνική που παίρνεις με αυτή την Action Card",
   "actionCardAssignNoMoves": "Δεν υπάρχουν τεχνικές για να λάβεις",
-  "actionCardAssigned": "Πήρες την κίνηση {moveName}"
+  "actionCardAssigned": "Πήρες την κίνηση {moveName}",
+  "actionCardFilterAll": "Όλα"
 }

@@ -288,5 +288,6 @@
   "actionCardUnassignedChooseMove": "चाल चुनो",
   "actionCardAssignTitle": "इस Action Card से मिलने वाली चाल",
   "actionCardAssignNoMoves": "पाने के लिए कोई चाल नहीं है",
-  "actionCardAssigned": "तुम्हें नई चाल मिली: {moveName}"
+  "actionCardAssigned": "तुम्हें नई चाल मिली: {moveName}",
+  "actionCardFilterAll": "सभी"
 }

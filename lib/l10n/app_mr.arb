@@ -288,5 +288,6 @@
   "actionCardUnassignedChooseMove": "चाल निवड",
   "actionCardAssignTitle": "या Action Card मधून मिळणारी चाल",
   "actionCardAssignNoMoves": "मिळवण्यासाठी कोणतीही चाल नाही",
-  "actionCardAssigned": "तुला नवा डाव मिळाला: {moveName}"
+  "actionCardAssigned": "तुला नवा डाव मिळाला: {moveName}",
+  "actionCardFilterAll": "सर्व"
 }

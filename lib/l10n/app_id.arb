@@ -288,5 +288,6 @@
   "actionCardUnassignedChooseMove": "Pilih jurus",
   "actionCardAssignTitle": "Jurus yang kamu dapat dari Action Card ini",
   "actionCardAssignNoMoves": "Tidak ada jurus yang bisa kamu terima",
-  "actionCardAssigned": "Kamu mendapat jurus {moveName}"
+  "actionCardAssigned": "Kamu mendapat jurus {moveName}",
+  "actionCardFilterAll": "Semua"
 }

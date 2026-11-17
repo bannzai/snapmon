@@ -288,5 +288,6 @@
   "actionCardUnassignedChooseMove": "Escolha um golpe",
   "actionCardAssignTitle": "Golpe que você ganha com esta Action Card",
   "actionCardAssignNoMoves": "Não há golpes para receber",
-  "actionCardAssigned": "Você recebeu o golpe {moveName}"
+  "actionCardAssigned": "Você recebeu o golpe {moveName}",
+  "actionCardFilterAll": "Todos"
 }

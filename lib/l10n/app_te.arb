@@ -288,5 +288,6 @@
   "actionCardUnassignedChooseMove": "మూవ్ ఎంచుకో",
   "actionCardAssignTitle": "ఈ Action Cardతో పొందే మూవ్",
   "actionCardAssignNoMoves": "అందుకోవడానికి మూవ్‌లు లేవు",
-  "actionCardAssigned": "కొత్త ఎత్తుగడ దొరికింది: {moveName}"
+  "actionCardAssigned": "కొత్త ఎత్తుగడ దొరికింది: {moveName}",
+  "actionCardFilterAll": "అన్నీ"
 }

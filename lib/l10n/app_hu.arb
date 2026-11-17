@@ -288,5 +288,6 @@
   "actionCardUnassignedChooseMove": "Válassz támadást",
   "actionCardAssignTitle": "Támadás, amit ezzel az Action Carddal kapsz",
   "actionCardAssignNoMoves": "Nincs megszerezhető támadás",
-  "actionCardAssigned": "Megkaptad a {moveName} támadást"
+  "actionCardAssigned": "Megkaptad a {moveName} támadást",
+  "actionCardFilterAll": "Összes"
 }

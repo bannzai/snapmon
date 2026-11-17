@@ -288,5 +288,6 @@
   "actionCardUnassignedChooseMove": "Обери прийом",
   "actionCardAssignTitle": "Прийом, який ти отримаєш із цією Action Card",
   "actionCardAssignNoMoves": "Немає прийомів, які можна отримати",
-  "actionCardAssigned": "Ти отримав прийом {moveName}"
+  "actionCardAssigned": "Ти отримав прийом {moveName}",
+  "actionCardFilterAll": "Усі"
 }

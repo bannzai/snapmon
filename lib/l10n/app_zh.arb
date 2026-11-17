@@ -288,5 +288,6 @@
   "actionCardUnassignedChooseMove": "选择招式",
   "actionCardAssignTitle": "用这张 Action Card 获得的招式",
   "actionCardAssignNoMoves": "没有可领取的招式",
-  "actionCardAssigned": "你获得了招式：{moveName}"
+  "actionCardAssigned": "你获得了招式：{moveName}",
+  "actionCardFilterAll": "全部"
 }

@@ -288,5 +288,6 @@
   "actionCardUnassignedChooseMove": "לבחור מתקפה",
   "actionCardAssignTitle": "מתקפה שמקבלים עם ה־Action Card הזו",
   "actionCardAssignNoMoves": "אין מתקפות שאפשר לקבל",
-  "actionCardAssigned": "התקבלה מתקפה חדשה: {moveName}"
+  "actionCardAssigned": "התקבלה מתקפה חדשה: {moveName}",
+  "actionCardFilterAll": "הכול"
 }

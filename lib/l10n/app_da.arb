@@ -288,5 +288,6 @@
   "actionCardUnassignedChooseMove": "Vælg et angreb",
   "actionCardAssignTitle": "Angreb, du får med dette Action Card",
   "actionCardAssignNoMoves": "Ingen angreb at modtage",
-  "actionCardAssigned": "Du fik angrebet {moveName}"
+  "actionCardAssigned": "Du fik angrebet {moveName}",
+  "actionCardFilterAll": "Alle"
 }

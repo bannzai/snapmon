@@ -288,5 +288,6 @@
   "actionCardUnassignedChooseMove": "Odaberi potez",
   "actionCardAssignTitle": "Potez koji dobivaš ovom Action Card",
   "actionCardAssignNoMoves": "Nema poteza za primanje",
-  "actionCardAssigned": "Dobio si potez {moveName}"
+  "actionCardAssigned": "Dobio si potez {moveName}",
+  "actionCardFilterAll": "Sve"
 }

@@ -288,5 +288,6 @@
   "actionCardUnassignedChooseMove": "Kies een aanval",
   "actionCardAssignTitle": "Aanval die je met deze Action Card krijgt",
   "actionCardAssignNoMoves": "Geen aanvallen om te ontvangen",
-  "actionCardAssigned": "Je hebt de aanval {moveName} gekregen"
+  "actionCardAssigned": "Je hebt de aanval {moveName} gekregen",
+  "actionCardFilterAll": "Alles"
 }

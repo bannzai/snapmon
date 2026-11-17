@@ -288,5 +288,6 @@
   "actionCardUnassignedChooseMove": "ತಂತ್ರ ಆಯ್ಕೆ ಮಾಡು",
   "actionCardAssignTitle": "ಈ Action Card ಮೂಲಕ ಸಿಗುವ ತಂತ್ರ",
   "actionCardAssignNoMoves": "ಪಡೆಯಲು ಯಾವುದೇ ತಂತ್ರಗಳಿಲ್ಲ",
-  "actionCardAssigned": "ಹೊಸ ನಡೆ ಸಿಕ್ಕಿತು: {moveName}"
+  "actionCardAssigned": "ಹೊಸ ನಡೆ ಸಿಕ್ಕಿತು: {moveName}",
+  "actionCardFilterAll": "ಎಲ್ಲಾ"
 }

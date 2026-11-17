@@ -288,5 +288,6 @@
   "actionCardUnassignedChooseMove": "നീക്കം തിരഞ്ഞെടുക്കൂ",
   "actionCardAssignTitle": "ഈ Action Card വഴി ലഭിക്കുന്ന നീക്കം",
   "actionCardAssignNoMoves": "സ്വീകരിക്കാൻ നീക്കങ്ങളില്ല",
-  "actionCardAssigned": "പുതിയ നീക്കം ലഭിച്ചു: {moveName}"
+  "actionCardAssigned": "പുതിയ നീക്കം ലഭിച്ചു: {moveName}",
+  "actionCardFilterAll": "എല്ലാം"
 }

@@ -288,5 +288,6 @@
   "actionCardUnassignedChooseMove": "Wybierz ruch",
   "actionCardAssignTitle": "Ruch, który dostaniesz dzięki tej Action Card",
   "actionCardAssignNoMoves": "Brak ruchów do odebrania",
-  "actionCardAssigned": "Zdobywasz atak {moveName}"
+  "actionCardAssigned": "Zdobywasz atak {moveName}",
+  "actionCardFilterAll": "Wszystkie"
 }

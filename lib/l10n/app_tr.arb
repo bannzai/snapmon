@@ -288,5 +288,6 @@
   "actionCardUnassignedChooseMove": "Hamle seç",
   "actionCardAssignTitle": "Bu Action Card ile alacağın hamle",
   "actionCardAssignNoMoves": "Alınabilecek hamle yok",
-  "actionCardAssigned": "{moveName} hareketini aldın"
+  "actionCardAssigned": "{moveName} hareketini aldın",
+  "actionCardFilterAll": "Tümü"
 }

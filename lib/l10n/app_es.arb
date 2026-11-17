@@ -288,5 +288,6 @@
   "actionCardUnassignedChooseMove": "Elige un movimiento",
   "actionCardAssignTitle": "Movimiento que recibirás con esta Action Card",
   "actionCardAssignNoMoves": "No hay movimientos para recibir",
-  "actionCardAssigned": "¡Has recibido el movimiento {moveName}!"
+  "actionCardAssigned": "¡Has recibido el movimiento {moveName}!",
+  "actionCardFilterAll": "Todos"
 }

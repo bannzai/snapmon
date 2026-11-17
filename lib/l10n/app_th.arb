@@ -288,5 +288,6 @@
   "actionCardUnassignedChooseMove": "เลือกท่า",
   "actionCardAssignTitle": "ท่าที่จะได้รับจาก Action Card ใบนี้",
   "actionCardAssignNoMoves": "ไม่มีท่าให้รับ",
-  "actionCardAssigned": "ได้รับท่าใหม่: {moveName}"
+  "actionCardAssigned": "ได้รับท่าใหม่: {moveName}",
+  "actionCardFilterAll": "ทั้งหมด"
 }

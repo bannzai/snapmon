@@ -288,5 +288,6 @@
   "actionCardUnassignedChooseMove": "Scegli una mossa",
   "actionCardAssignTitle": "Mossa che ottieni con questa Action Card",
   "actionCardAssignNoMoves": "Nessuna mossa da ricevere",
-  "actionCardAssigned": "Hai ricevuto la mossa {moveName}"
+  "actionCardAssigned": "Hai ricevuto la mossa {moveName}",
+  "actionCardFilterAll": "Tutte"
 }

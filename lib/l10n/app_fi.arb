@@ -288,5 +288,6 @@
   "actionCardUnassignedChooseMove": "Valitse liike",
   "actionCardAssignTitle": "Liike, jonka saat tällä Action Cardilla",
   "actionCardAssignNoMoves": "Ei vastaanotettavia liikkeitä",
-  "actionCardAssigned": "Sait liikkeen {moveName}"
+  "actionCardAssigned": "Sait liikkeen {moveName}",
+  "actionCardFilterAll": "Kaikki"
 }
