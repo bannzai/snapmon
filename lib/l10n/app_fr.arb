@@ -314,5 +314,6 @@
   "helpPartyHeading": "Monstres dans ton équipe : max. {maximumPartySize}",
   "helpPartyBody": "Les monstres de ton équipe combattent\nSi le monstre en jeu tombe K.O., le suivant prend sa place\nSi toute ton équipe est K.O., tu perds\nTu peux changer ton équipe dans le dex",
   "helpLevelHeading": "Niveau",
-  "helpLevelBody": "Que tu gagnes ou perdes, les monstres qui ont combattu montent de niveau\nEn montant de niveau, ils apprennent de nouvelles capacités"
+  "helpLevelBody": "Que tu gagnes ou perdes, les monstres qui ont combattu montent de niveau\nEn montant de niveau, ils apprennent de nouvelles capacités",
+  "helpTypeHeading": "Efficacité des éléments (faiblesses)"
 }
