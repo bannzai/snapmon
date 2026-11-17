@@ -214,5 +214,6 @@
   "battleNotRecorded": "لم تُسجَّل المعركة لأنك لم تسجّل الدخول",
   "battleFirstHint": "اختر حركة، فيتحرك الأسرع أولًا. كلما كان العنصر أنسب، زادت الفعالية",
   "battleChooseMove": "اختر حركة لـ{monsterName}",
-  "battleTurn": "الدور {turnNumber}"
+  "battleTurn": "الدور {turnNumber}",
+  "battleSwitchMonster": "بدّل الوحش"
 }

@@ -214,5 +214,6 @@
   "battleNotRecorded": "Giriş yapmadığın için savaş kaydedilmedi",
   "battleFirstHint": "Bir hamle seç, hızlı olan önce oynar. Element uyumu ne kadar iyiyse etki o kadar güçlü olur",
   "battleChooseMove": "{monsterName} için hamle seç",
-  "battleTurn": "Tur {turnNumber}"
+  "battleTurn": "Tur {turnNumber}",
+  "battleSwitchMonster": "Canavar değiştir"
 }

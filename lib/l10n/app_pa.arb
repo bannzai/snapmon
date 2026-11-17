@@ -214,5 +214,6 @@
   "battleNotRecorded": "ਤੁਸੀਂ ਲੌਗ ਇਨ ਨਹੀਂ ਕੀਤਾ, ਇਸ ਲਈ ਲੜਾਈ ਰਿਕਾਰਡ ਨਹੀਂ ਹੋਈ",
   "battleFirstHint": "ਚਾਲ ਚੁਣੋ, ਫਿਰ ਤੇਜ਼ ਮੌਂਸਟਰ ਪਹਿਲਾਂ ਚੱਲੇਗਾ। ਤੱਤ ਦਾ ਮੇਲ ਜਿੰਨਾ ਵਧੀਆ, ਅਸਰ ਓਨਾ ਵੱਧ",
   "battleChooseMove": "{monsterName} ਲਈ ਚਾਲ ਚੁਣੋ",
-  "battleTurn": "ਵਾਰੀ {turnNumber}"
+  "battleTurn": "ਵਾਰੀ {turnNumber}",
+  "battleSwitchMonster": "ਮੌਂਸਟਰ ਬਦਲੋ"
 }

@@ -214,5 +214,6 @@
   "battleNotRecorded": "Lupta nu a fost salvată fiindcă nu te-ai conectat",
   "battleFirstHint": "Alege o mișcare, iar cel mai rapid acționează primul. Cu cât elementul se potrivește mai bine, cu atât crește eficacitatea",
   "battleChooseMove": "Alege o mișcare pentru {monsterName}",
-  "battleTurn": "Tura {turnNumber}"
+  "battleTurn": "Tura {turnNumber}",
+  "battleSwitchMonster": "Schimbă monstrul"
 }

@@ -214,5 +214,6 @@
   "battleNotRecorded": "הקרב לא נשמר כי אין חיבור לחשבון",
   "battleFirstHint": "לבחור מתקפה: המהיר פועל ראשון. ככל שהסוג מתאים יותר, כך היעילות גבוהה יותר",
   "battleChooseMove": "לבחור מתקפה עבור {monsterName}",
-  "battleTurn": "תור {turnNumber}"
+  "battleTurn": "תור {turnNumber}",
+  "battleSwitchMonster": "החלפת מפלצת"
 }

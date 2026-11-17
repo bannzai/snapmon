@@ -214,5 +214,6 @@
   "battleNotRecorded": "Pertarungan tidak tersimpan karena kamu belum masuk",
   "battleFirstHint": "Pilih jurus, lalu yang lebih cepat bergerak dulu. Makin cocok elemennya, makin tinggi efektivitasnya",
   "battleChooseMove": "Pilih jurus untuk {monsterName}",
-  "battleTurn": "Giliran {turnNumber}"
+  "battleTurn": "Giliran {turnNumber}",
+  "battleSwitchMonster": "Ganti monster"
 }

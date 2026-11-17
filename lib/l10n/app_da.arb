@@ -214,5 +214,6 @@
   "battleNotRecorded": "Kampen blev ikke gemt, fordi du ikke er logget ind",
   "battleFirstHint": "Vælg et angreb, så handler den hurtigste først. Jo bedre elementet passer, desto mere effektivt er det",
   "battleChooseMove": "Vælg et angreb til {monsterName}",
-  "battleTurn": "Tur {turnNumber}"
+  "battleTurn": "Tur {turnNumber}",
+  "battleSwitchMonster": "Skift monster"
 }

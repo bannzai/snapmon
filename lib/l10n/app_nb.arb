@@ -214,5 +214,6 @@
   "battleNotRecorded": "Kampen ble ikke lagret fordi du ikke er logget inn",
   "battleFirstHint": "Velg et angrep, så handler den raskeste først. Jo bedre typen passer, desto høyere effektivitet",
   "battleChooseMove": "Velg et angrep for {monsterName}",
-  "battleTurn": "Tur {turnNumber}"
+  "battleTurn": "Tur {turnNumber}",
+  "battleSwitchMonster": "Bytt monster"
 }

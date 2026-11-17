@@ -214,5 +214,6 @@
   "battleNotRecorded": "Бій не записано, бо ти не ввійшов в обліковий запис",
   "battleFirstHint": "Вибери прийом — швидший ходить першим. Чим краще підходить елемент, тим прийом ефективніший",
   "battleChooseMove": "Вибери прийом для {monsterName}",
-  "battleTurn": "Хід {turnNumber}"
+  "battleTurn": "Хід {turnNumber}",
+  "battleSwitchMonster": "Змінити монстра"
 }

@@ -214,5 +214,6 @@
   "battleNotRecorded": "ไม่ได้บันทึกการต่อสู้ เพราะยังไม่ได้เข้าสู่ระบบ",
   "battleFirstHint": "เลือกท่าแล้วฝ่ายที่เร็วกว่าจะออกก่อน ธาตุยิ่งได้เปรียบ ยิ่งได้ผลแรง",
   "battleChooseMove": "เลือกท่าให้ {monsterName}",
-  "battleTurn": "เทิร์น {turnNumber}"
+  "battleTurn": "เทิร์น {turnNumber}",
+  "battleSwitchMonster": "เปลี่ยนมอนสเตอร์"
 }

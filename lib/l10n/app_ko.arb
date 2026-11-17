@@ -214,5 +214,6 @@
   "battleNotRecorded": "로그인하지 않아 배틀 기록이 저장되지 않았어요",
   "battleFirstHint": "기술을 고르면 빠른 쪽부터 행동해요. 속성 상성이 좋을수록 효과가 커져요",
   "battleChooseMove": "{monsterName}: 기술 고르기",
-  "battleTurn": "턴 {turnNumber}"
+  "battleTurn": "턴 {turnNumber}",
+  "battleSwitchMonster": "몬스터 교체"
 }

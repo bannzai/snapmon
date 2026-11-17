@@ -214,5 +214,6 @@
   "battleNotRecorded": "Taistelua ei tallennettu, koska et ole kirjautunut sisään",
   "battleFirstHint": "Valitse liike, niin nopeampi toimii ensin. Mitä paremmin elementti sopii, sitä suurempi tehokkuus",
   "battleChooseMove": "Valitse liike hahmolle {monsterName}",
-  "battleTurn": "Vuoro {turnNumber}"
+  "battleTurn": "Vuoro {turnNumber}",
+  "battleSwitchMonster": "Vaihda hirviö"
 }

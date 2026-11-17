@@ -214,5 +214,6 @@
   "battleNotRecorded": "നിങ്ങൾ ലോഗിൻ ചെയ്തിട്ടില്ലാത്തതിനാൽ പോരാട്ടം രേഖപ്പെടുത്തിയില്ല",
   "battleFirstHint": "നീക്കം തിരഞ്ഞെടുക്കൂ; വേഗമുള്ളത് ആദ്യം നീങ്ങും. മൂലകം കൂടുതൽ അനുകൂലമായാൽ ഫലപ്രാപ്തിയും കൂടും",
   "battleChooseMove": "{monsterName}: നീക്കം തിരഞ്ഞെടുക്കൂ",
-  "battleTurn": "ഊഴം {turnNumber}"
+  "battleTurn": "ഊഴം {turnNumber}",
+  "battleSwitchMonster": "മോൺസ്റ്ററിനെ മാറ്റുക"
 }

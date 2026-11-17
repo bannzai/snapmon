@@ -214,5 +214,6 @@
   "battleNotRecorded": "你還沒登入，這場對戰沒有記錄",
   "battleFirstHint": "選好招式後，速度快的一方先行動。屬性越相剋，效果越強",
   "battleChooseMove": "選擇{monsterName}的招式",
-  "battleTurn": "回合 {turnNumber}"
+  "battleTurn": "回合 {turnNumber}",
+  "battleSwitchMonster": "更換怪物"
 }

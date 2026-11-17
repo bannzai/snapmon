@@ -214,5 +214,6 @@
   "battleNotRecorded": "Súboj sa neuložil, lebo nie si prihlásený",
   "battleFirstHint": "Vyber útok a rýchlejší koná prvý. Čím vhodnejší element, tým vyššia účinnosť",
   "battleChooseMove": "Vyber útok pre {monsterName}",
-  "battleTurn": "Ťah {turnNumber}"
+  "battleTurn": "Ťah {turnNumber}",
+  "battleSwitchMonster": "Vymeň príšeru"
 }
