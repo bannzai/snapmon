@@ -313,5 +313,6 @@
   "helpTitle": "Így játssz",
   "helpPartyHeading": "A csapatodban legfeljebb {maximumPartySize} szörny lehet",
   "helpPartyBody": "A csapatod szörnyei lépnek harcba\nHa a harcoló szörny kidől, a következő váltja\nHa az egész csapat kidől, veszítesz\nA gyűjteményben módosíthatod a csapatodat",
-  "helpLevelHeading": "Szint"
+  "helpLevelHeading": "Szint",
+  "helpLevelBody": "Akár nyersz, akár veszítesz, a harcoló szörnyek szintet lépnek\nSzintlépéskor új támadásokat tanulnak"
 }

@@ -313,5 +313,6 @@
   "helpTitle": "Ako hrať",
   "helpPartyHeading": "V tvojom tíme môže byť až {maximumPartySize} príšer",
   "helpPartyBody": "Do boja nastupujú príšery z tvojho tímu\nKeď príšera na bojisku padne, nastúpi ďalšia\nAk padne celý tím, prehráš\nTím môžeš meniť v encyklopédii",
-  "helpLevelHeading": "Úroveň"
+  "helpLevelHeading": "Úroveň",
+  "helpLevelBody": "Či vyhráš, alebo prehráš, príšery, ktoré bojovali, získajú vyššiu úroveň\nS novou úrovňou sa naučia nové útoky"
 }

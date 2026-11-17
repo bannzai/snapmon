@@ -313,5 +313,6 @@
   "helpTitle": "Come si gioca",
   "helpPartyHeading": "Nella tua squadra ci stanno fino a {maximumPartySize} mostri",
   "helpPartyBody": "I mostri della tua squadra entrano in lotta\nSe il mostro in campo va K.O., entra il successivo\nSe tutta la squadra va K.O., perdi\nPuoi cambiare la squadra nel dex",
-  "helpLevelHeading": "Livello"
+  "helpLevelHeading": "Livello",
+  "helpLevelBody": "Che tu vinca o perda, i mostri che hanno lottato salgono di livello\nSalendo di livello, imparano nuove mosse"
 }

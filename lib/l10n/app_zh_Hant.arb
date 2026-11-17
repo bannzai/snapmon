@@ -313,5 +313,6 @@
   "helpTitle": "玩法",
   "helpPartyHeading": "你的隊伍最多可有 {maximumPartySize} 隻怪獸",
   "helpPartyBody": "你隊伍裡的怪物會出戰\n場上的怪物倒下後，下一隻會接替上場\n隊伍全員倒下就輸了\n你可以在圖鑑畫面調整隊伍",
-  "helpLevelHeading": "等級"
+  "helpLevelHeading": "等級",
+  "helpLevelBody": "不論輸贏，參戰的怪物都會升級\n升級後會學會新招式"
 }

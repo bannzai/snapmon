@@ -313,5 +313,6 @@
   "helpTitle": "Com es juga",
   "helpPartyHeading": "Al teu equip hi caben fins a {maximumPartySize} monstres",
   "helpPartyBody": "Els monstres del teu equip entren en combat\nSi cau el monstre actiu, entra el següent\nSi cau tot l'equip, perds\nPots canviar l'equip a la pantalla de l'enciclopèdia",
-  "helpLevelHeading": "Nivell"
+  "helpLevelHeading": "Nivell",
+  "helpLevelBody": "Guanyis o perdis, els monstres que han lluitat pugen de nivell\nEn pujar de nivell, aprenen moviments nous"
 }

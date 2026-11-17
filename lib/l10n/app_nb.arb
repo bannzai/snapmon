@@ -313,5 +313,6 @@
   "helpTitle": "Slik spiller du",
   "helpPartyHeading": "Du kan ha opptil {maximumPartySize} monstre på laget ditt",
   "helpPartyBody": "Monstrene på laget ditt går i kamp\nNår monsteret på banen faller, tar det neste over\nHvis hele laget faller, taper du\nDu kan endre laget i samlingen",
-  "helpLevelHeading": "Nivå"
+  "helpLevelHeading": "Nivå",
+  "helpLevelBody": "Enten du vinner eller taper, går monstre som kjempet opp i nivå\nNår de går opp i nivå, lærer de nye angrep"
 }

@@ -313,5 +313,6 @@
   "helpTitle": "Cara bermain",
   "helpPartyHeading": "Pasukan kamu boleh ada hingga {maximumPartySize} raksasa",
   "helpPartyBody": "Monster dalam pasukan kamu turun bertarung\nBila monster di medan tumbang, yang seterusnya masuk\nJika seluruh pasukan tumbang, kamu kalah\nKamu boleh tukar pasukan dalam ensiklopedia",
-  "helpLevelHeading": "Tahap"
+  "helpLevelHeading": "Tahap",
+  "helpLevelBody": "Menang atau kalah, monster yang bertarung naik tahap\nBila naik tahap, mereka belajar gerakan baharu"
 }

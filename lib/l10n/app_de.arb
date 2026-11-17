@@ -313,5 +313,6 @@
   "helpTitle": "So spielst du",
   "helpPartyHeading": "In deinem Team ist Platz für bis zu {maximumPartySize} Monster",
   "helpPartyBody": "Die Monster in deinem Team kämpfen für dich\nFällt das aktive Monster, übernimmt das nächste\nFällt dein ganzes Team, verlierst du\nIm Dex kannst du dein Team ändern",
-  "helpLevelHeading": "Level"
+  "helpLevelHeading": "Level",
+  "helpLevelBody": "Ob du gewinnst oder verlierst: Monster, die gekämpft haben, steigen im Level auf\nBeim Levelaufstieg lernen sie neue Attacken"
 }
