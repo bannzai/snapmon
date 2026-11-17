@@ -22,5 +22,6 @@
   "commonLevel": "Lv. {level}",
   "settingsTitle": "Paramètres",
   "opponentReported": "Signalement envoyé",
-  "opponentBlocked": "Adversaire bloqué"
+  "opponentBlocked": "Adversaire bloqué",
+  "blockDialogTitle": "bloquer"
 }
