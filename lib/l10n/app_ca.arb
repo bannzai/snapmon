@@ -140,5 +140,6 @@
   "resultNewlyBorn": "Un nou company",
   "statHitPoints": "HP",
   "statAttack": "Atac",
-  "statDefense": "Defensa"
+  "statDefense": "Defensa",
+  "statSpeed": "Velocitat"
 }

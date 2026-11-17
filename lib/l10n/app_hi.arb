@@ -140,5 +140,6 @@
   "resultNewlyBorn": "नया साथी",
   "statHitPoints": "HP",
   "statAttack": "आक्रमण",
-  "statDefense": "रक्षा"
+  "statDefense": "रक्षा",
+  "statSpeed": "गति"
 }

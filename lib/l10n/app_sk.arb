@@ -140,5 +140,6 @@
   "resultNewlyBorn": "Nový parťák",
   "statHitPoints": "HP",
   "statAttack": "Útok",
-  "statDefense": "Obrana"
+  "statDefense": "Obrana",
+  "statSpeed": "Rýchlosť"
 }

@@ -140,5 +140,6 @@
   "resultNewlyBorn": "En ny venn",
   "statHitPoints": "HP",
   "statAttack": "Angrep",
-  "statDefense": "Forsvar"
+  "statDefense": "Forsvar",
+  "statSpeed": "Hastighet"
 }

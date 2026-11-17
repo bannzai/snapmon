@@ -140,5 +140,6 @@
   "resultNewlyBorn": "Bạn đồng hành mới",
   "statHitPoints": "HP",
   "statAttack": "Tấn công",
-  "statDefense": "Phòng thủ"
+  "statDefense": "Phòng thủ",
+  "statSpeed": "Tốc độ"
 }

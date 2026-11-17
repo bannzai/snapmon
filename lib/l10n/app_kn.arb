@@ -140,5 +140,6 @@
   "resultNewlyBorn": "ಹೊಸ ಸಂಗಾತಿ",
   "statHitPoints": "HP",
   "statAttack": "ದಾಳಿ",
-  "statDefense": "ರಕ್ಷಣೆ"
+  "statDefense": "ರಕ್ಷಣೆ",
+  "statSpeed": "ವೇಗ"
 }

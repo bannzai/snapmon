@@ -140,5 +140,6 @@
   "resultNewlyBorn": "नवा सोबती",
   "statHitPoints": "HP",
   "statAttack": "हल्ला",
-  "statDefense": "बचाव"
+  "statDefense": "बचाव",
+  "statSpeed": "वेग"
 }

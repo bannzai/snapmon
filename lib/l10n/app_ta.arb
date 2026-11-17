@@ -140,5 +140,6 @@
   "resultNewlyBorn": "புதிய தோழன்",
   "statHitPoints": "HP",
   "statAttack": "தாக்குதல்",
-  "statDefense": "தற்காப்பு"
+  "statDefense": "தற்காப்பு",
+  "statSpeed": "வேகம்"
 }

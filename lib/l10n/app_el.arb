@@ -140,5 +140,6 @@
   "resultNewlyBorn": "Νέος σύντροφος",
   "statHitPoints": "HP",
   "statAttack": "Επίθεση",
-  "statDefense": "Άμυνα"
+  "statDefense": "Άμυνα",
+  "statSpeed": "Ταχύτητα"
 }

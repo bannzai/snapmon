@@ -140,5 +140,6 @@
   "resultNewlyBorn": "പുതിയ കൂട്ടുകാരൻ",
   "statHitPoints": "HP",
   "statAttack": "ആക്രമണം",
-  "statDefense": "പ്രതിരോധം"
+  "statDefense": "പ്രതിരോധം",
+  "statSpeed": "വേഗം"
 }

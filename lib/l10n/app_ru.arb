@@ -140,5 +140,6 @@
   "resultNewlyBorn": "Новый друг",
   "statHitPoints": "HP",
   "statAttack": "Атака",
-  "statDefense": "Защита"
+  "statDefense": "Защита",
+  "statSpeed": "Скорость"
 }

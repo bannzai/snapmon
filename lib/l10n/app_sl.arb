@@ -140,5 +140,6 @@
   "resultNewlyBorn": "Nov prijatelj",
   "statHitPoints": "HP",
   "statAttack": "Napad",
-  "statDefense": "Obramba"
+  "statDefense": "Obramba",
+  "statSpeed": "Hitrost"
 }

@@ -140,5 +140,6 @@
   "resultNewlyBorn": "Uusi ystävä",
   "statHitPoints": "HP",
   "statAttack": "Hyökkäys",
-  "statDefense": "Puolustus"
+  "statDefense": "Puolustus",
+  "statSpeed": "Nopeus"
 }

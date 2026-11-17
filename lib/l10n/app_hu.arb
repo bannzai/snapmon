@@ -140,5 +140,6 @@
   "resultNewlyBorn": "Új társ",
   "statHitPoints": "HP",
   "statAttack": "Támadás",
-  "statDefense": "Védelem"
+  "statDefense": "Védelem",
+  "statSpeed": "Gyorsaság"
 }

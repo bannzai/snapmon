@@ -140,5 +140,6 @@
   "resultNewlyBorn": "Yeni bir dost",
   "statHitPoints": "HP",
   "statAttack": "Saldırı",
-  "statDefense": "Savunma"
+  "statDefense": "Savunma",
+  "statSpeed": "Hız"
 }

@@ -140,5 +140,6 @@
   "resultNewlyBorn": "Un nou prieten",
   "statHitPoints": "HP",
   "statAttack": "Atac",
-  "statDefense": "Apărare"
+  "statDefense": "Apărare",
+  "statSpeed": "Viteză"
 }

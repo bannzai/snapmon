@@ -140,5 +140,6 @@
   "resultNewlyBorn": "Een nieuwe vriend",
   "statHitPoints": "HP",
   "statAttack": "Aanval",
-  "statDefense": "Verdediging"
+  "statDefense": "Verdediging",
+  "statSpeed": "Snelheid"
 }

@@ -140,5 +140,6 @@
   "resultNewlyBorn": "رفيق جديد",
   "statHitPoints": "HP",
   "statAttack": "الهجوم",
-  "statDefense": "الدفاع"
+  "statDefense": "الدفاع",
+  "statSpeed": "السرعة"
 }

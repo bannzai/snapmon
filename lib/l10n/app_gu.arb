@@ -140,5 +140,6 @@
   "resultNewlyBorn": "નવો સાથી",
   "statHitPoints": "HP",
   "statAttack": "હુમલો",
-  "statDefense": "બચાવ"
+  "statDefense": "બચાવ",
+  "statSpeed": "ઝડપ"
 }

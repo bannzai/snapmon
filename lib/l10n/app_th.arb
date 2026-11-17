@@ -140,5 +140,6 @@
   "resultNewlyBorn": "เพื่อนใหม่",
   "statHitPoints": "HP",
   "statAttack": "โจมตี",
-  "statDefense": "พลังป้องกัน"
+  "statDefense": "พลังป้องกัน",
+  "statSpeed": "ความเร็ว"
 }

@@ -140,5 +140,6 @@
   "resultNewlyBorn": "新夥伴",
   "statHitPoints": "HP",
   "statAttack": "攻擊",
-  "statDefense": "防禦"
+  "statDefense": "防禦",
+  "statSpeed": "速度"
 }

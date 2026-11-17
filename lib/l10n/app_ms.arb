@@ -140,5 +140,6 @@
   "resultNewlyBorn": "Kawan baru",
   "statHitPoints": "HP",
   "statAttack": "Serangan",
-  "statDefense": "Pertahanan"
+  "statDefense": "Pertahanan",
+  "statSpeed": "Kelajuan"
 }

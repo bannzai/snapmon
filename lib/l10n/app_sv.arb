@@ -140,5 +140,6 @@
   "resultNewlyBorn": "En ny vän",
   "statHitPoints": "HP",
   "statAttack": "Attack",
-  "statDefense": "Försvar"
+  "statDefense": "Försvar",
+  "statSpeed": "Snabbhet"
 }

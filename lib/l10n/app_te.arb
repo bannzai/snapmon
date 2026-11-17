@@ -140,5 +140,6 @@
   "resultNewlyBorn": "కొత్త స్నేహితుడు",
   "statHitPoints": "HP",
   "statAttack": "దాడి",
-  "statDefense": "రక్షణ"
+  "statDefense": "రక్షణ",
+  "statSpeed": "వేగం"
 }

@@ -140,5 +140,6 @@
   "resultNewlyBorn": "새로운 친구",
   "statHitPoints": "HP",
   "statAttack": "공격",
-  "statDefense": "방어"
+  "statDefense": "방어",
+  "statSpeed": "스피드"
 }

@@ -140,5 +140,6 @@
   "resultNewlyBorn": "نیا ساتھی",
   "statHitPoints": "HP",
   "statAttack": "حملہ",
-  "statDefense": "دفاع"
+  "statDefense": "دفاع",
+  "statSpeed": "رفتار"
 }

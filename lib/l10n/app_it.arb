@@ -140,5 +140,6 @@
   "resultNewlyBorn": "Un nuovo amico",
   "statHitPoints": "HP",
   "statAttack": "Attacco",
-  "statDefense": "Difesa"
+  "statDefense": "Difesa",
+  "statSpeed": "Velocità"
 }

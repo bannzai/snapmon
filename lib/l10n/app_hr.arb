@@ -140,5 +140,6 @@
   "resultNewlyBorn": "Novi prijatelj",
   "statHitPoints": "HP",
   "statAttack": "Napad",
-  "statDefense": "Obrana"
+  "statDefense": "Obrana",
+  "statSpeed": "Brzina"
 }

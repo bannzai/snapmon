@@ -140,5 +140,6 @@
   "resultNewlyBorn": "ନୂଆ ସାଥୀ",
   "statHitPoints": "HP",
   "statAttack": "ଆକ୍ରମଣ",
-  "statDefense": "ପ୍ରତିରକ୍ଷା"
+  "statDefense": "ପ୍ରତିରକ୍ଷା",
+  "statSpeed": "ବେଗ"
 }

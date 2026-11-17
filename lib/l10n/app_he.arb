@@ -140,5 +140,6 @@
   "resultNewlyBorn": "חבר חדש",
   "statHitPoints": "HP",
   "statAttack": "התקפה",
-  "statDefense": "הגנה"
+  "statDefense": "הגנה",
+  "statSpeed": "מהירות"
 }
