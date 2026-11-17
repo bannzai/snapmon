@@ -172,5 +172,6 @@
   "battleLogRecovered": "{monsterName} a récupéré {amount} HP",
   "battleLogNoEffect": "Mais rien ne s’est passé !",
   "battleStatModifier": "{statName} ×{multiplier}",
-  "battleLogSwitchedIn": "{monsterName} entre en scène !"
+  "battleLogSwitchedIn": "{monsterName} entre en scène !",
+  "battleLogSwitchedOut": "{withdrawnMonsterName} cède sa place à {monsterName} !"
 }
