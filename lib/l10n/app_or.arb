@@ -99,5 +99,6 @@
   "generationBattleWith": "ତୁମେ {monsterName} ସହ ଲଢ଼ିବ",
   "generationOpponentAppeared": "{opponentName} ଦେଖାଦେଲା!",
   "generationLetsBattleWith": "{monsterName} ସହ ଲଢ଼",
-  "generationAlreadyInDexTitle": "ଆଗରୁ ବିଶ୍ୱକୋଷରେ ଅଛି"
+  "generationAlreadyInDexTitle": "ଆଗରୁ ବିଶ୍ୱକୋଷରେ ଅଛି",
+  "generationAlreadyInDexMessage": "ଏହି ବସ୍ତୁ {monsterName} ନାମରେ ବିଶ୍ୱକୋଷରେ ଅଛି\nତୁମେ ଏହି ମନଷ୍ଟର ସହ ଲଢ଼ିପାରିବ"
 }

@@ -99,5 +99,6 @@
   "generationBattleWith": "Combatterai con {monsterName}",
   "generationOpponentAppeared": "È apparso {opponentName}!",
   "generationLetsBattleWith": "Combatti con {monsterName}",
-  "generationAlreadyInDexTitle": "È già nel dex"
+  "generationAlreadyInDexTitle": "È già nel dex",
+  "generationAlreadyInDexMessage": "Questo oggetto è già nel dex come {monsterName}\nPuoi lottare con questo mostro"
 }

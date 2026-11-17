@@ -99,5 +99,6 @@
   "generationBattleWith": "Budeš bojovat s {monsterName}",
   "generationOpponentAppeared": "Objevil se {opponentName}!",
   "generationLetsBattleWith": "Bojuj s {monsterName}",
-  "generationAlreadyInDexTitle": "Už je v encyklopedii"
+  "generationAlreadyInDexTitle": "Už je v encyklopedii",
+  "generationAlreadyInDexMessage": "Tento předmět už je v encyklopedii jako {monsterName}\nS touto příšerou můžeš bojovat"
 }

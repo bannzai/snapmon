@@ -99,5 +99,6 @@
   "generationBattleWith": "{monsterName}(으)로 싸워요",
   "generationOpponentAppeared": "{opponentName} 등장!",
   "generationLetsBattleWith": "{monsterName}(으)로 배틀해요",
-  "generationAlreadyInDexTitle": "이미 도감에 있어요"
+  "generationAlreadyInDexTitle": "이미 도감에 있어요",
+  "generationAlreadyInDexMessage": "이 피사체는 이미 {monsterName} 이름으로 도감에 있어요\n이 몬스터와 함께 배틀할 수 있어요"
 }

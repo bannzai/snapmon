@@ -99,5 +99,6 @@
   "generationBattleWith": "Du kæmper med {monsterName}",
   "generationOpponentAppeared": "{opponentName} dukkede op!",
   "generationLetsBattleWith": "Kæmp med {monsterName}",
-  "generationAlreadyInDexTitle": "Allerede i din dex"
+  "generationAlreadyInDexTitle": "Allerede i din dex",
+  "generationAlreadyInDexMessage": "Denne genstand er allerede i din dex som {monsterName}\nDu kan kæmpe med dette monster"
 }

@@ -99,5 +99,6 @@
   "generationBattleWith": "יוצאים לקרב עם {monsterName}",
   "generationOpponentAppeared": "הופיע יריב: {opponentName}!",
   "generationLetsBattleWith": "לקרב עם {monsterName}",
-  "generationAlreadyInDexTitle": "כבר באוסף"
+  "generationAlreadyInDexTitle": "כבר באוסף",
+  "generationAlreadyInDexMessage": "הפריט הזה כבר באוסף בשם {monsterName}\nאפשר להילחם עם המפלצת הזאת"
 }

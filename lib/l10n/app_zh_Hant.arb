@@ -99,5 +99,6 @@
   "generationBattleWith": "你將和 {monsterName} 一起戰鬥",
   "generationOpponentAppeared": "{opponentName}出現了！",
   "generationLetsBattleWith": "和{monsterName}一起戰鬥吧",
-  "generationAlreadyInDexTitle": "已經在圖鑑裡了"
+  "generationAlreadyInDexTitle": "已經在圖鑑裡了",
+  "generationAlreadyInDexMessage": "這個物品已經以 {monsterName} 的名字收錄在圖鑑中\n你可以用這隻怪物戰鬥"
 }

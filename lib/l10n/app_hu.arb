@@ -99,5 +99,6 @@
   "generationBattleWith": "A harcban {monsterName} lesz veled",
   "generationOpponentAppeared": "Felbukkant {opponentName}!",
   "generationLetsBattleWith": "Harcolj {monsterName} oldalán",
-  "generationAlreadyInDexTitle": "Már a gyűjteményben van"
+  "generationAlreadyInDexTitle": "Már a gyűjteményben van",
+  "generationAlreadyInDexMessage": "Ez a tárgy már szerepel a gyűjteményben {monsterName} néven\nHarcolhatsz ezzel a szörnnyel"
 }

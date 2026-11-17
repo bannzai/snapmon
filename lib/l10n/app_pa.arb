@@ -99,5 +99,6 @@
   "generationBattleWith": "ਤੁਸੀਂ {monsterName} ਨਾਲ ਲੜੋਗੇ",
   "generationOpponentAppeared": "{opponentName} ਸਾਹਮਣੇ ਆ ਗਿਆ!",
   "generationLetsBattleWith": "{monsterName} ਨਾਲ ਲੜੋ",
-  "generationAlreadyInDexTitle": "ਪਹਿਲਾਂ ਹੀ ਸੰਗ੍ਰਹਿ ਵਿੱਚ ਹੈ"
+  "generationAlreadyInDexTitle": "ਪਹਿਲਾਂ ਹੀ ਸੰਗ੍ਰਹਿ ਵਿੱਚ ਹੈ",
+  "generationAlreadyInDexMessage": "ਇਹ ਚੀਜ਼ {monsterName} ਵਜੋਂ ਸੰਗ੍ਰਹਿ ਵਿੱਚ ਪਹਿਲਾਂ ਹੀ ਹੈ\nਤੁਸੀਂ ਇਸ ਮੌਂਸਟਰ ਨਾਲ ਲੜ ਸਕਦੇ ਹੋ"
 }

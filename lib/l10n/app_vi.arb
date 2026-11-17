@@ -99,5 +99,6 @@
   "generationBattleWith": "Bạn sẽ chiến đấu cùng {monsterName}",
   "generationOpponentAppeared": "{opponentName} xuất hiện!",
   "generationLetsBattleWith": "Chiến đấu cùng {monsterName}",
-  "generationAlreadyInDexTitle": "Đã có trong bộ sưu tập"
+  "generationAlreadyInDexTitle": "Đã có trong bộ sưu tập",
+  "generationAlreadyInDexMessage": "Vật này đã có trong bộ sưu tập với tên {monsterName}\nBạn có thể chiến đấu cùng quái vật này"
 }

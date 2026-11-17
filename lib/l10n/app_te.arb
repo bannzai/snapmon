@@ -99,5 +99,6 @@
   "generationBattleWith": "నువ్వు {monsterName}తో పోరాడతావు",
   "generationOpponentAppeared": "{opponentName} కనిపించింది!",
   "generationLetsBattleWith": "{monsterName}తో పోరాడు",
-  "generationAlreadyInDexTitle": "ఇప్పటికే డెక్స్‌లో ఉంది"
+  "generationAlreadyInDexTitle": "ఇప్పటికే డెక్స్‌లో ఉంది",
+  "generationAlreadyInDexMessage": "ఈ వస్తువు {monsterName} పేరుతో డెక్స్‌లో ఇప్పటికే ఉంది\nఈ మాన్స్టర్‌తో పోరాడవచ్చు"
 }

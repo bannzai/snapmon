@@ -99,5 +99,6 @@
   "generationBattleWith": "Ты будешь сражаться с {monsterName}",
   "generationOpponentAppeared": "Появляется {opponentName}!",
   "generationLetsBattleWith": "Сражайся вместе с {monsterName}",
-  "generationAlreadyInDexTitle": "Уже есть в энциклопедии"
+  "generationAlreadyInDexTitle": "Уже есть в энциклопедии",
+  "generationAlreadyInDexMessage": "Этот предмет уже есть в энциклопедии под именем {monsterName}\nТы можешь сражаться с этим монстром"
 }

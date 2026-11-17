@@ -99,5 +99,6 @@
   "generationBattleWith": "Du kämpfst mit {monsterName}",
   "generationOpponentAppeared": "{opponentName} ist aufgetaucht!",
   "generationLetsBattleWith": "Kämpfe mit {monsterName}",
-  "generationAlreadyInDexTitle": "Schon im Dex"
+  "generationAlreadyInDexTitle": "Schon im Dex",
+  "generationAlreadyInDexMessage": "Dieses Motiv ist als {monsterName} in deinem Dex\nDu kannst mit diesem Monster kämpfen"
 }

@@ -99,5 +99,6 @@
   "generationBattleWith": "จะต่อสู้ไปพร้อมกับ {monsterName}",
   "generationOpponentAppeared": "{opponentName} ปรากฏตัว!",
   "generationLetsBattleWith": "สู้ไปกับ {monsterName}",
-  "generationAlreadyInDexTitle": "อยู่ในสารานุกรมแล้ว"
+  "generationAlreadyInDexTitle": "อยู่ในสารานุกรมแล้ว",
+  "generationAlreadyInDexMessage": "สิ่งนี้อยู่ในสารานุกรมในชื่อ {monsterName} แล้ว\nใช้มอนสเตอร์ตัวนี้ต่อสู้ได้"
 }

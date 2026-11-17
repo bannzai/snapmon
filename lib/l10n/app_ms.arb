@@ -99,5 +99,6 @@
   "generationBattleWith": "Kamu bertarung bersama {monsterName}",
   "generationOpponentAppeared": "{opponentName} muncul!",
   "generationLetsBattleWith": "Bertarung bersama {monsterName}",
-  "generationAlreadyInDexTitle": "Sudah ada dalam ensiklopedia"
+  "generationAlreadyInDexTitle": "Sudah ada dalam ensiklopedia",
+  "generationAlreadyInDexMessage": "Objek ini sudah ada dalam ensiklopedia sebagai {monsterName}\nKamu boleh bertarung dengan monster ini"
 }

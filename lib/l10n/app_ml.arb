@@ -99,5 +99,6 @@
   "generationBattleWith": "നിങ്ങൾ {monsterName} ഒപ്പം പോരാടും",
   "generationOpponentAppeared": "{opponentName} പ്രത്യക്ഷപ്പെട്ടു!",
   "generationLetsBattleWith": "{monsterName} ഒപ്പം പോരാടൂ",
-  "generationAlreadyInDexTitle": "ഇതിനകം വിജ്ഞാനകോശത്തിലുണ്ട്"
+  "generationAlreadyInDexTitle": "ഇതിനകം വിജ്ഞാനകോശത്തിലുണ്ട്",
+  "generationAlreadyInDexMessage": "ഈ വസ്തു {monsterName} എന്ന പേരിൽ വിജ്ഞാനകോശത്തിലുണ്ട്\nഈ മോൺസ്റ്ററുമായി പോരാടാം"
 }

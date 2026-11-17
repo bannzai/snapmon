@@ -99,5 +99,6 @@
   "generationBattleWith": "তুমি {monsterName} নিয়ে লড়বে",
   "generationOpponentAppeared": "হাজির হলো {opponentName}!",
   "generationLetsBattleWith": "{monsterName} নিয়ে লড়াই করো",
-  "generationAlreadyInDexTitle": "ইতিমধ্যেই সংগ্রহে আছে"
+  "generationAlreadyInDexTitle": "ইতিমধ্যেই সংগ্রহে আছে",
+  "generationAlreadyInDexMessage": "এই বস্তুটি {monsterName} নামে সংগ্রহে আছে\nএই মনস্টারকে নিয়ে লড়তে পারো"
 }
