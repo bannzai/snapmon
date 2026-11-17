@@ -30,5 +30,6 @@
   "opponentBlockTrainer": "Blokir pelatih ini",
   "opponentReportHelpBody": "Tekan lama monster lawan untuk melaporkannya\nPakai tombol di kanan atas kartu untuk melapor atau memblokir",
   "opponentLevelUpNote": "Naik 1 level setiap selesai bertarung",
-  "opponentBattleRecordLabel": "Rekor Pertarungan"
+  "opponentBattleRecordLabel": "Rekor Pertarungan",
+  "opponentBattleRecord": "Menang: {wins}  Kalah: {losses}"
 }

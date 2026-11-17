@@ -30,5 +30,6 @@
   "opponentBlockTrainer": "Bloquear este treinador",
   "opponentReportHelpBody": "Pressione o monstro do adversário para denunciar\nUse o botão no canto superior direito da carta para denunciar ou bloquear",
   "opponentLevelUpNote": "Sobe 1 nível após cada batalha",
-  "opponentBattleRecordLabel": "Histórico de batalhas"
+  "opponentBattleRecordLabel": "Histórico de batalhas",
+  "opponentBattleRecord": "Vitórias: {wins}  Derrotas: {losses}"
 }

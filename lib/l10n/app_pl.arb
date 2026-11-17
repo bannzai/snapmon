@@ -30,5 +30,6 @@
   "opponentBlockTrainer": "Zablokuj tego trenera",
   "opponentReportHelpBody": "Przytrzymaj potwora rywala, aby go zgłosić\nPrzyciskiem w prawym górnym rogu karty możesz go zgłosić lub zablokować",
   "opponentLevelUpNote": "Po każdej walce poziom rośnie o 1",
-  "opponentBattleRecordLabel": "Bilans walk"
+  "opponentBattleRecordLabel": "Bilans walk",
+  "opponentBattleRecord": "Wygrane: {wins}  Przegrane: {losses}"
 }

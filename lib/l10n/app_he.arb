@@ -30,5 +30,6 @@
   "opponentBlockTrainer": "חסימת המאמן הזה",
   "opponentReportHelpBody": "לחיצה ארוכה על המפלצת של היריב מאפשרת דיווח\nהכפתור בפינה הימנית העליונה של הקלף מאפשר דיווח או חסימה",
   "opponentLevelUpNote": "עולים רמה אחת אחרי כל קרב",
-  "opponentBattleRecordLabel": "מאזן קרבות"
+  "opponentBattleRecordLabel": "מאזן קרבות",
+  "opponentBattleRecord": "ניצחונות: {wins}  הפסדים: {losses}"
 }

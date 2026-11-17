@@ -30,5 +30,6 @@
   "opponentBlockTrainer": "封鎖這位訓練家",
   "opponentReportHelpBody": "長按對手的怪物即可檢舉\n點擊卡片右上角的按鈕可檢舉或封鎖",
   "opponentLevelUpNote": "每場戰鬥升 1 級",
-  "opponentBattleRecordLabel": "對戰紀錄"
+  "opponentBattleRecordLabel": "對戰紀錄",
+  "opponentBattleRecord": "勝：{wins}  敗：{losses}"
 }

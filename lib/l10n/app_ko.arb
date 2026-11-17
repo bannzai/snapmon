@@ -30,5 +30,6 @@
   "opponentBlockTrainer": "이 트레이너 차단하기",
   "opponentReportHelpBody": "상대 몬스터를 길게 누르면 신고할 수 있어요\n카드 오른쪽 위 버튼에서 신고하거나 차단할 수 있어요",
   "opponentLevelUpNote": "배틀할 때마다 레벨이 1 올라요",
-  "opponentBattleRecordLabel": "배틀 전적"
+  "opponentBattleRecordLabel": "배틀 전적",
+  "opponentBattleRecord": "승리: {wins}  패배: {losses}"
 }

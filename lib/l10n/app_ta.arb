@@ -30,5 +30,6 @@
   "opponentBlockTrainer": "இந்தப் பயிற்சியாளரைத் தடு",
   "opponentReportHelpBody": "எதிராளியின் மான்ஸ்டரை அழுத்திப் பிடித்துப் புகார் அளிக்கலாம்\nஅட்டையின் மேல் வலது பொத்தானில் புகார் அளிக்கலாம் அல்லது தடுக்கலாம்",
   "opponentLevelUpNote": "ஒவ்வொரு போருக்குப் பிறகும் நிலை 1 உயரும்",
-  "opponentBattleRecordLabel": "போர் சாதனை"
+  "opponentBattleRecordLabel": "போர் சாதனை",
+  "opponentBattleRecord": "வெற்றி: {wins}  தோல்வி: {losses}"
 }

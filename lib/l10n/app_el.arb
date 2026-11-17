@@ -30,5 +30,6 @@
   "opponentBlockTrainer": "Μπλοκάρισμα αυτού του εκπαιδευτή",
   "opponentReportHelpBody": "Κράτα πατημένο το τέρας του αντιπάλου για να κάνεις αναφορά\nΑπό το κουμπί πάνω δεξιά στην κάρτα μπορείς να κάνεις αναφορά ή μπλοκ",
   "opponentLevelUpNote": "Ανεβαίνει 1 επίπεδο μετά από κάθε μάχη",
-  "opponentBattleRecordLabel": "Ιστορικό μαχών"
+  "opponentBattleRecordLabel": "Ιστορικό μαχών",
+  "opponentBattleRecord": "Νίκες: {wins}  Ήττες: {losses}"
 }

@@ -30,5 +30,6 @@
   "opponentBlockTrainer": "Bu eğitmeni engelle",
   "opponentReportHelpBody": "Rakibin canavarına basılı tutarak bildir\nKartın sağ üstündeki düğmeyle bildir veya engelle",
   "opponentLevelUpNote": "Her savaştan sonra 1 seviye yükselir",
-  "opponentBattleRecordLabel": "Savaş İstatistikleri"
+  "opponentBattleRecordLabel": "Savaş İstatistikleri",
+  "opponentBattleRecord": "Galibiyet: {wins}  Mağlubiyet: {losses}"
 }

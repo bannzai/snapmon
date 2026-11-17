@@ -30,5 +30,6 @@
   "opponentBlockTrainer": "Zablokuj tohto trénera",
   "opponentReportHelpBody": "Podrž súperovu príšeru a môžeš ju nahlásiť\nTlačidlom vpravo hore na karte ju môžeš nahlásiť alebo blokovať",
   "opponentLevelUpNote": "Po každom súboji stúpne úroveň o 1",
-  "opponentBattleRecordLabel": "Bilancia súbojov"
+  "opponentBattleRecordLabel": "Bilancia súbojov",
+  "opponentBattleRecord": "Výhry: {wins}  Prehry: {losses}"
 }

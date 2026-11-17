@@ -30,5 +30,6 @@
   "opponentBlockTrainer": "Bloqueja aquest entrenador",
   "opponentReportHelpBody": "Mantén premut el monstre rival per fer un denunci\nPots fer un denunci o bloquejar-lo amb el botó de dalt a la dreta de la carta",
   "opponentLevelUpNote": "Puja 1 nivell després de cada combat",
-  "opponentBattleRecordLabel": "Historial de combats"
+  "opponentBattleRecordLabel": "Historial de combats",
+  "opponentBattleRecord": "Victòries: {wins}  Derrotes: {losses}"
 }

@@ -30,5 +30,6 @@
   "opponentBlockTrainer": "اس ٹرینر کو بلاک کرو",
   "opponentReportHelpBody": "حریف کے مونسٹر کو دیر تک دبا کر رپورٹ کرو\nکارڈ کے اوپری دائیں بٹن سے رپورٹ یا بلاک کرو",
   "opponentLevelUpNote": "ہر لڑائی کے بعد لیول 1 بڑھتا ہے",
-  "opponentBattleRecordLabel": "لڑائیوں کا ریکارڈ"
+  "opponentBattleRecordLabel": "لڑائیوں کا ریکارڈ",
+  "opponentBattleRecord": "جیت: {wins}  ہار: {losses}"
 }

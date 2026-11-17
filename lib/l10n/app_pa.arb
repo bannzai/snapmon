@@ -30,5 +30,6 @@
   "opponentBlockTrainer": "ਇਸ ਟ੍ਰੇਨਰ ਨੂੰ ਬਲਾਕ ਕਰੋ",
   "opponentReportHelpBody": "ਵਿਰੋਧੀ ਦੇ ਮੌਂਸਟਰ ਨੂੰ ਦੇਰ ਤੱਕ ਦਬਾ ਕੇ ਰਿਪੋਰਟ ਕਰੋ\nਕਾਰਡ ਦੇ ਉੱਪਰ ਸੱਜੇ ਬਟਨ ਤੋਂ ਰਿਪੋਰਟ ਜਾਂ ਬਲਾਕ ਕਰੋ",
   "opponentLevelUpNote": "ਹਰ ਲੜਾਈ ਤੋਂ ਬਾਅਦ ਲੈਵਲ 1 ਵਧਦਾ ਹੈ",
-  "opponentBattleRecordLabel": "ਲੜਾਈ ਦਾ ਰਿਕਾਰਡ"
+  "opponentBattleRecordLabel": "ਲੜਾਈ ਦਾ ਰਿਕਾਰਡ",
+  "opponentBattleRecord": "ਜਿੱਤ: {wins}  ਹਾਰ: {losses}"
 }

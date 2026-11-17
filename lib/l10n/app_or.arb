@@ -30,5 +30,6 @@
   "opponentBlockTrainer": "ଏହି ଟ୍ରେନରକୁ ବ୍ଲକ କର",
   "opponentReportHelpBody": "ପ୍ରତିପକ୍ଷର ମନଷ୍ଟରକୁ ଚାପି ଧରି ରିପୋର୍ଟ କର\nକାର୍ଡର ଉପର ଡାହାଣ ବଟନ୍‌ରୁ ରିପୋର୍ଟ କିମ୍ବା ବ୍ଲକ କର",
   "opponentLevelUpNote": "ପ୍ରତି ଲଢ଼େଇ ପରେ ଲେଭଲ୍ 1 ବଢ଼େ",
-  "opponentBattleRecordLabel": "ଯୁଦ୍ଧ ରେକର୍ଡ"
+  "opponentBattleRecordLabel": "ଯୁଦ୍ଧ ରେକର୍ଡ",
+  "opponentBattleRecord": "ଜିତ: {wins}  ହାର: {losses}"
 }

@@ -30,5 +30,6 @@
   "opponentBlockTrainer": "Blockera den här tränaren",
   "opponentReportHelpBody": "Håll inne motståndarens monster för att rapportera det\nAnvänd knappen uppe till höger på kortet för att rapportera eller blockera",
   "opponentLevelUpNote": "Går upp 1 nivå efter varje strid",
-  "opponentBattleRecordLabel": "Stridsstatistik"
+  "opponentBattleRecordLabel": "Stridsstatistik",
+  "opponentBattleRecord": "Vinster: {wins}  Förluster: {losses}"
 }

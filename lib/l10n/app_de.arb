@@ -30,5 +30,6 @@
   "opponentBlockTrainer": "Diesen Trainer blockieren",
   "opponentReportHelpBody": "Halte das Monster deines Gegners gedrückt, um es zu melden\nÜber den Button oben rechts auf der Karte kannst du es melden oder blockieren",
   "opponentLevelUpNote": "Steigt nach jedem Kampf um 1 Level",
-  "opponentBattleRecordLabel": "Kampfbilanz"
+  "opponentBattleRecordLabel": "Kampfbilanz",
+  "opponentBattleRecord": "Siege: {wins}  Niederlagen: {losses}"
 }

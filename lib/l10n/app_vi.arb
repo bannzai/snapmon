@@ -30,5 +30,6 @@
   "opponentBlockTrainer": "Chặn nhà huấn luyện này",
   "opponentReportHelpBody": "Nhấn giữ quái vật của đối thủ để báo cáo\nDùng nút ở góc trên bên phải thẻ để báo cáo hoặc chặn",
   "opponentLevelUpNote": "Tăng 1 cấp sau mỗi trận đấu",
-  "opponentBattleRecordLabel": "Thành tích chiến đấu"
+  "opponentBattleRecordLabel": "Thành tích chiến đấu",
+  "opponentBattleRecord": "Thắng: {wins}  Thua: {losses}"
 }

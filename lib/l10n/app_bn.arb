@@ -30,5 +30,6 @@
   "opponentBlockTrainer": "এই ট্রেনারকে ব্লক করো",
   "opponentReportHelpBody": "প্রতিপক্ষের মনস্টার চেপে ধরে রিপোর্ট করতে পারো\nকার্ডের ওপরের ডান দিকের বোতাম থেকে রিপোর্ট বা ব্লক করতে পারো",
   "opponentLevelUpNote": "প্রতি লড়াইয়ের পর লেভেল ১ বাড়ে",
-  "opponentBattleRecordLabel": "লড়াইয়ের রেকর্ড"
+  "opponentBattleRecordLabel": "লড়াইয়ের রেকর্ড",
+  "opponentBattleRecord": "জয়: {wins}  হার: {losses}"
 }

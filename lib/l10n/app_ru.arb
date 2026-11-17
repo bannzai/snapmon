@@ -30,5 +30,6 @@
   "opponentBlockTrainer": "Заблокировать этого тренера",
   "opponentReportHelpBody": "Удерживай монстра соперника, чтобы отправить жалобу\nКнопка справа вверху на карточке позволяет отправить жалобу или блокировать",
   "opponentLevelUpNote": "После каждого боя уровень растёт на 1",
-  "opponentBattleRecordLabel": "Статистика боёв"
+  "opponentBattleRecordLabel": "Статистика боёв",
+  "opponentBattleRecord": "Победы: {wins}  Поражения: {losses}"
 }
