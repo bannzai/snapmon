@@ -48,5 +48,6 @@
   "settingsSwitchAccountConfirm": "Змінити обліковий запис",
   "settingsSwitchedAccount": "Ти перейшов на прив’язаний обліковий запис",
   "settingsDeleteAccountTitle": "Хочеш видалити свій обліковий запис?",
-  "settingsDeleteAccountMessage": "Твої монстри, енциклопедія, оригінальні фото та записи боїв будуть видалені назавжди. Після цього ти почнеш із новим акаунтом."
+  "settingsDeleteAccountMessage": "Твої монстри, енциклопедія, оригінальні фото та записи боїв будуть видалені назавжди. Після цього ти почнеш із новим акаунтом.",
+  "settingsDeleteAccountConfirm": "Видалити"
 }

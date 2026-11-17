@@ -48,5 +48,6 @@
   "settingsSwitchAccountConfirm": "ಖಾತೆ ಬದಲಾಯಿಸು",
   "settingsSwitchedAccount": "ಲಿಂಕ್ ಮಾಡಿರುವ ಖಾತೆಗೆ ಬದಲಾಯಿಸಲಾಗಿದೆ",
   "settingsDeleteAccountTitle": "ನಿನ್ನ ಖಾತೆಯನ್ನು ಅಳಿಸಬೇಕೇ?",
-  "settingsDeleteAccountMessage": "ನಿನ್ನ ಮಾನ್ಸ್ಟರಗಳು, ವಿಶ್ವಕೋಶ, ಮೂಲ ಫೋಟೋಗಳು ಮತ್ತು ಕಾಳಗದ ದಾಖಲೆಗಳು ಶಾಶ್ವತವಾಗಿ ಅಳಿದುಹೋಗುತ್ತವೆ. ನಂತರ ಹೊಸ ಖಾತೆಯಿಂದ ಆರಂಭಿಸುತ್ತೀಯ."
+  "settingsDeleteAccountMessage": "ನಿನ್ನ ಮಾನ್ಸ್ಟರಗಳು, ವಿಶ್ವಕೋಶ, ಮೂಲ ಫೋಟೋಗಳು ಮತ್ತು ಕಾಳಗದ ದಾಖಲೆಗಳು ಶಾಶ್ವತವಾಗಿ ಅಳಿದುಹೋಗುತ್ತವೆ. ನಂತರ ಹೊಸ ಖಾತೆಯಿಂದ ಆರಂಭಿಸುತ್ತೀಯ.",
+  "settingsDeleteAccountConfirm": "ಅಳಿಸು"
 }

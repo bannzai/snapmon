@@ -48,5 +48,6 @@
   "settingsSwitchAccountConfirm": "ఖాతా మార్చు",
   "settingsSwitchedAccount": "లింక్ చేసిన ఖాతాకు మారావు",
   "settingsDeleteAccountTitle": "నీ ఖాతాను తొలగించాలనుకుంటున్నావా?",
-  "settingsDeleteAccountMessage": "నీ మాన్స్టర్లు, డెక్స్, అసలు ఫోటోలు, పోరాట రికార్డులు శాశ్వతంగా తొలగిపోతాయి. ఆ తర్వాత కొత్త ఖాతాతో మొదలుపెడతావు."
+  "settingsDeleteAccountMessage": "నీ మాన్స్టర్లు, డెక్స్, అసలు ఫోటోలు, పోరాట రికార్డులు శాశ్వతంగా తొలగిపోతాయి. ఆ తర్వాత కొత్త ఖాతాతో మొదలుపెడతావు.",
+  "settingsDeleteAccountConfirm": "తొలగించు"
 }

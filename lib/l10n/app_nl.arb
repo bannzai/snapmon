@@ -48,5 +48,6 @@
   "settingsSwitchAccountConfirm": "Wissel van account",
   "settingsSwitchedAccount": "Je bent overgeschakeld naar een gekoppeld account",
   "settingsDeleteAccountTitle": "Wil je je account verwijderen?",
-  "settingsDeleteAccountMessage": "Je monsters, dex, originele foto's en gevechtsgegevens worden voorgoed verwijderd. Daarna begin je met een nieuw account."
+  "settingsDeleteAccountMessage": "Je monsters, dex, originele foto's en gevechtsgegevens worden voorgoed verwijderd. Daarna begin je met een nieuw account.",
+  "settingsDeleteAccountConfirm": "Verwijderen"
 }

@@ -48,5 +48,6 @@
   "settingsSwitchAccountConfirm": "Tukar akaun",
   "settingsSwitchedAccount": "Kamu sudah beralih ke akaun yang dipautkan",
   "settingsDeleteAccountTitle": "Nak padam akaun kamu?",
-  "settingsDeleteAccountMessage": "Monster, ensiklopedia, foto asal dan rekod pertarungan kamu akan dipadam buat selamanya. Selepas itu, kamu akan bermula dengan akaun baharu."
+  "settingsDeleteAccountMessage": "Monster, ensiklopedia, foto asal dan rekod pertarungan kamu akan dipadam buat selamanya. Selepas itu, kamu akan bermula dengan akaun baharu.",
+  "settingsDeleteAccountConfirm": "Padam"
 }

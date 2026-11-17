@@ -48,5 +48,6 @@
   "settingsSwitchAccountConfirm": "Canvia de compte",
   "settingsSwitchedAccount": "Has canviat a un compte vinculat",
   "settingsDeleteAccountTitle": "Vols eliminar el teu compte?",
-  "settingsDeleteAccountMessage": "S'esborraran els monstres, l'enciclopèdia, les fotos originals i els registres de combat. No els podràs recuperar. Després, començaràs amb un compte nou."
+  "settingsDeleteAccountMessage": "S'esborraran els monstres, l'enciclopèdia, les fotos originals i els registres de combat. No els podràs recuperar. Després, començaràs amb un compte nou.",
+  "settingsDeleteAccountConfirm": "Suprimeix"
 }

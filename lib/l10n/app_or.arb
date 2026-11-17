@@ -48,5 +48,6 @@
   "settingsSwitchAccountConfirm": "ଖାତା ବଦଳାଅ",
   "settingsSwitchedAccount": "ଲିଙ୍କ୍ ହୋଇଥିବା ଆକାଉଣ୍ଟକୁ ବଦଳାଗଲା",
   "settingsDeleteAccountTitle": "ତୁମେ ତୁମ ଖାତା ବିଲୋପ କରିବାକୁ ଚାହୁଁଛ କି?",
-  "settingsDeleteAccountMessage": "ତୁମର ମନଷ୍ଟର, ବିଶ୍ୱକୋଷ, ମୂଳ ଫଟୋ ଓ ଯୁଦ୍ଧ ରେକର୍ଡ ସବୁଦିନ ପାଇଁ ଲିଭିଯିବ। ତା’ପରେ ତୁମେ ନୂଆ ଆକାଉଣ୍ଟରୁ ଆରମ୍ଭ କରିବ।"
+  "settingsDeleteAccountMessage": "ତୁମର ମନଷ୍ଟର, ବିଶ୍ୱକୋଷ, ମୂଳ ଫଟୋ ଓ ଯୁଦ୍ଧ ରେକର୍ଡ ସବୁଦିନ ପାଇଁ ଲିଭିଯିବ। ତା’ପରେ ତୁମେ ନୂଆ ଆକାଉଣ୍ଟରୁ ଆରମ୍ଭ କରିବ।",
+  "settingsDeleteAccountConfirm": "ଲିଭାଇ ଦିଅ"
 }

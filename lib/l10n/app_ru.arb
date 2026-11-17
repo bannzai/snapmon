@@ -48,5 +48,6 @@
   "settingsSwitchAccountConfirm": "Сменить аккаунт",
   "settingsSwitchedAccount": "Ты переключился на привязанный аккаунт",
   "settingsDeleteAccountTitle": "Хочешь удалить свой аккаунт?",
-  "settingsDeleteAccountMessage": "Твои монстры, энциклопедия, исходные фото и записи боёв будут удалены навсегда. После этого ты начнёшь с новым аккаунтом."
+  "settingsDeleteAccountMessage": "Твои монстры, энциклопедия, исходные фото и записи боёв будут удалены навсегда. После этого ты начнёшь с новым аккаунтом.",
+  "settingsDeleteAccountConfirm": "Удалить"
 }

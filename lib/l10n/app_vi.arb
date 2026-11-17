@@ -48,5 +48,6 @@
   "settingsSwitchAccountConfirm": "Đổi tài khoản",
   "settingsSwitchedAccount": "Bạn đã chuyển sang tài khoản được liên kết",
   "settingsDeleteAccountTitle": "Bạn muốn xóa tài khoản?",
-  "settingsDeleteAccountMessage": "Quái vật, bộ sưu tập, ảnh gốc và lịch sử trận đấu của bạn sẽ bị xóa vĩnh viễn. Sau đó, bạn sẽ bắt đầu với tài khoản mới."
+  "settingsDeleteAccountMessage": "Quái vật, bộ sưu tập, ảnh gốc và lịch sử trận đấu của bạn sẽ bị xóa vĩnh viễn. Sau đó, bạn sẽ bắt đầu với tài khoản mới.",
+  "settingsDeleteAccountConfirm": "Xóa"
 }

@@ -48,5 +48,6 @@
   "settingsSwitchAccountConfirm": "खाते बदल",
   "settingsSwitchedAccount": "तू लिंक केलेल्या खात्यावर स्विच केलं आहेस",
   "settingsDeleteAccountTitle": "तुला तुझं खातं हटवायचं आहे का?",
-  "settingsDeleteAccountMessage": "तुझे मॉन्स्टर, संग्रह, मूळ फोटो आणि लढाईचे रेकॉर्ड कायमचे हटतील. त्यानंतर तू नवीन खात्याने सुरुवात करशील."
+  "settingsDeleteAccountMessage": "तुझे मॉन्स्टर, संग्रह, मूळ फोटो आणि लढाईचे रेकॉर्ड कायमचे हटतील. त्यानंतर तू नवीन खात्याने सुरुवात करशील.",
+  "settingsDeleteAccountConfirm": "हटव"
 }

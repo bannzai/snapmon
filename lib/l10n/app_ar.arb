@@ -48,5 +48,6 @@
   "settingsSwitchAccountConfirm": "بدّل الحساب",
   "settingsSwitchedAccount": "تم التبديل إلى حساب مرتبط",
   "settingsDeleteAccountTitle": "هل تريد حذف حسابك؟",
-  "settingsDeleteAccountMessage": "ستُحذف الوحوش من نوع وحش، والموسوعة موسوع، والصور الأصلية، وسجلات المعارك نهائيًا. بعد الحذف، ستبدأ بحساب جديد."
+  "settingsDeleteAccountMessage": "ستُحذف الوحوش من نوع وحش، والموسوعة موسوع، والصور الأصلية، وسجلات المعارك نهائيًا. بعد الحذف، ستبدأ بحساب جديد.",
+  "settingsDeleteAccountConfirm": "حذف"
 }

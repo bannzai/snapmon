@@ -48,5 +48,6 @@
   "settingsSwitchAccountConfirm": "Zmeň účet",
   "settingsSwitchedAccount": "Prepol si sa na prepojený účet",
   "settingsDeleteAccountTitle": "Chceš odstrániť svoj účet?",
-  "settingsDeleteAccountMessage": "Tvoje príšery, encyklopédia, pôvodné fotky a záznamy súbojov sa natrvalo vymažú. Potom začneš s novým účtom."
+  "settingsDeleteAccountMessage": "Tvoje príšery, encyklopédia, pôvodné fotky a záznamy súbojov sa natrvalo vymažú. Potom začneš s novým účtom.",
+  "settingsDeleteAccountConfirm": "Odstrániť"
 }

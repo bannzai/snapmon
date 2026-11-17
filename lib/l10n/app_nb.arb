@@ -48,5 +48,6 @@
   "settingsSwitchAccountConfirm": "Bytt konto",
   "settingsSwitchedAccount": "Du har byttet til en tilknyttet konto",
   "settingsDeleteAccountTitle": "Vil du slette kontoen din?",
-  "settingsDeleteAccountMessage": "Monstrene dine, samlingen, originalbildene og kampdataene slettes for godt. Etterpå starter du med en ny konto."
+  "settingsDeleteAccountMessage": "Monstrene dine, samlingen, originalbildene og kampdataene slettes for godt. Etterpå starter du med en ny konto.",
+  "settingsDeleteAccountConfirm": "Slett"
 }

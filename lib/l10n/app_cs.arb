@@ -48,5 +48,6 @@
   "settingsSwitchAccountConfirm": "Přepni účet",
   "settingsSwitchedAccount": "Přepnul ses na propojený účet",
   "settingsDeleteAccountTitle": "Chceš smazat svůj účet?",
-  "settingsDeleteAccountMessage": "Tvoje příšery, encyklopedie, původní fotky a záznamy soubojů budou smazány. Nepůjde je obnovit. Pak začneš s novým účtem."
+  "settingsDeleteAccountMessage": "Tvoje příšery, encyklopedie, původní fotky a záznamy soubojů budou smazány. Nepůjde je obnovit. Pak začneš s novým účtem.",
+  "settingsDeleteAccountConfirm": "Smazat"
 }
