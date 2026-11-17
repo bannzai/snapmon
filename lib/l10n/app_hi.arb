@@ -304,5 +304,6 @@
   "moveSelectionTitle": "{monsterName} की चालें",
   "moveSelectionDescription": "लड़ाई के लिए ज़्यादा से ज़्यादा {count} चालें चुनो\nलड़ाई में चालों के बटन चुने हुए क्रम में दिखेंगे",
   "moveSelectionSave": "पक्का करो",
-  "moveSelectionReset": "फिर से चुनो"
+  "moveSelectionReset": "फिर से चुनो",
+  "actionCardForget": "चाल भुला दो"
 }

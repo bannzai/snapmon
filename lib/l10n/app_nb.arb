@@ -304,5 +304,6 @@
   "moveSelectionTitle": "Angrep for {monsterName}",
   "moveSelectionDescription": "Velg opptil {count} angrep til kamp\nAngrepsknappene vises i rekkefølgen du velger dem",
   "moveSelectionSave": "Bekreft",
-  "moveSelectionReset": "Velg på nytt"
+  "moveSelectionReset": "Velg på nytt",
+  "actionCardForget": "La den glemme et angrep"
 }

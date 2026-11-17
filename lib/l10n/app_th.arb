@@ -304,5 +304,6 @@
   "moveSelectionTitle": "ท่าของ {monsterName}",
   "moveSelectionDescription": "เลือกท่าสำหรับต่อสู้ได้สูงสุด {count} ท่า\nปุ่มท่าต่อสู้จะเรียงตามลำดับที่เลือก",
   "moveSelectionSave": "ยืนยัน",
-  "moveSelectionReset": "เลือกใหม่"
+  "moveSelectionReset": "เลือกใหม่",
+  "actionCardForget": "ให้ลืมท่า"
 }

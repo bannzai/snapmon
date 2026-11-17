@@ -304,5 +304,6 @@
   "moveSelectionTitle": "Potezi za {monsterName}",
   "moveSelectionDescription": "Odaberi najviše {count} poteza za borbu\nGumbi poteza u borbi bit će poredani redom kojim ih odabereš",
   "moveSelectionSave": "Potvrdi",
-  "moveSelectionReset": "Odaberi ponovno"
+  "moveSelectionReset": "Odaberi ponovno",
+  "actionCardForget": "Neka zaboravi potez"
 }

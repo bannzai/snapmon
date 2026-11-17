@@ -304,5 +304,6 @@
   "moveSelectionTitle": "Τεχνικές του {monsterName}",
   "moveSelectionDescription": "Διάλεξε έως {count} τεχνικές για τη μάχη\nΤα κουμπιά των τεχνικών θα μπουν στη σειρά που τις διάλεξες",
   "moveSelectionSave": "Επιβεβαίωση",
-  "moveSelectionReset": "Διάλεξε ξανά"
+  "moveSelectionReset": "Διάλεξε ξανά",
+  "actionCardForget": "Κάν’ το να ξεχάσει την κίνηση"
 }

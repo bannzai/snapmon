@@ -304,5 +304,6 @@
   "moveSelectionTitle": "{monsterName}च्या चाली",
   "moveSelectionDescription": "लढाईसाठी जास्तीत जास्त {count} चाली निवड\nलढाईत चालींची बटणे निवडलेल्या क्रमाने दिसतील",
   "moveSelectionSave": "निश्चित कर",
-  "moveSelectionReset": "पुन्हा निवड"
+  "moveSelectionReset": "पुन्हा निवड",
+  "actionCardForget": "चाल विसरव"
 }

@@ -304,5 +304,6 @@
   "moveSelectionTitle": "Hahmon {monsterName} liikkeet",
   "moveSelectionDescription": "Valitse taisteluun enintään {count} liikettä\nLiikkeiden painikkeet näkyvät valitsemassasi järjestyksessä",
   "moveSelectionSave": "Vahvista",
-  "moveSelectionReset": "Valitse uudelleen"
+  "moveSelectionReset": "Valitse uudelleen",
+  "actionCardForget": "Anna unohtaa liike"
 }

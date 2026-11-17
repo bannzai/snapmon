@@ -304,5 +304,6 @@
   "moveSelectionTitle": "Útoky {monsterName}",
   "moveSelectionDescription": "Vyber si do boja najviac {count} útokov\nTlačidlá útokov budú v poradí, v akom ich vyberieš",
   "moveSelectionSave": "Potvrď",
-  "moveSelectionReset": "Vyber znova"
+  "moveSelectionReset": "Vyber znova",
+  "actionCardForget": "Nechaj ho zabudnúť útok"
 }

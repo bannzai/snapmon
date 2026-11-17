@@ -304,5 +304,6 @@
   "moveSelectionTitle": "Aanvallen van {monsterName}",
   "moveSelectionDescription": "Kies maximaal {count} aanvallen voor het gevecht\nDe aanvalsknoppen verschijnen in de volgorde waarin je ze kiest",
   "moveSelectionSave": "Bevestigen",
-  "moveSelectionReset": "Kies opnieuw"
+  "moveSelectionReset": "Kies opnieuw",
+  "actionCardForget": "Laat een aanval vergeten"
 }

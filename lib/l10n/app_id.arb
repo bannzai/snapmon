@@ -304,5 +304,6 @@
   "moveSelectionTitle": "Jurus {monsterName}",
   "moveSelectionDescription": "Pilih hingga {count} jurus untuk bertarung\nTombol jurus saat bertarung akan mengikuti urutan pilihanmu",
   "moveSelectionSave": "Konfirmasi",
-  "moveSelectionReset": "Pilih lagi"
+  "moveSelectionReset": "Pilih lagi",
+  "actionCardForget": "Buat lupakan jurus"
 }

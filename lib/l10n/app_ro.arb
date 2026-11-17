@@ -304,5 +304,6 @@
   "moveSelectionTitle": "Mișcările lui {monsterName}",
   "moveSelectionDescription": "Alege cel mult {count} mișcări pentru luptă\nButoanele mișcărilor vor apărea în ordinea în care le alegi",
   "moveSelectionSave": "Confirmă",
-  "moveSelectionReset": "Alege din nou"
+  "moveSelectionReset": "Alege din nou",
+  "actionCardForget": "Fă-l să uite mișcarea"
 }

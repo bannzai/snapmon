@@ -304,5 +304,6 @@
   "moveSelectionTitle": "{monsterName} hamleleri",
   "moveSelectionDescription": "Savaş için en fazla {count} hamle seç\nHamle düğmeleri seçtiğin sırayla dizilir",
   "moveSelectionSave": "Onayla",
-  "moveSelectionReset": "Yeniden seç"
+  "moveSelectionReset": "Yeniden seç",
+  "actionCardForget": "Hamleyi unuttur"
 }

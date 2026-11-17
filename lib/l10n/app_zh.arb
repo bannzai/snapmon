@@ -304,5 +304,6 @@
   "moveSelectionTitle": "{monsterName}的招式",
   "moveSelectionDescription": "选择最多 {count} 个对战招式\n对战中的招式按钮会按选择顺序排列",
   "moveSelectionSave": "确定",
-  "moveSelectionReset": "重新选择"
+  "moveSelectionReset": "重新选择",
+  "actionCardForget": "忘记招式"
 }

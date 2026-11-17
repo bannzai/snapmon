@@ -304,5 +304,6 @@
   "moveSelectionTitle": "Moviments de {monsterName}",
   "moveSelectionDescription": "Tria fins a {count} moviments per al combat\nEls botons dels moviments sortiran en l'ordre que els triïs",
   "moveSelectionSave": "Confirma",
-  "moveSelectionReset": "Torna a triar"
+  "moveSelectionReset": "Torna a triar",
+  "actionCardForget": "Fes-li oblidar el moviment"
 }

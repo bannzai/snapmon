@@ -304,5 +304,6 @@
   "moveSelectionTitle": "{monsterName}-এর কৌশল",
   "moveSelectionDescription": "লড়াইয়ের জন্য সর্বোচ্চ {count}টি কৌশল বেছে নাও\nবেছে নেওয়ার ক্রমেই লড়াইয়ের কৌশল বোতামগুলো সাজানো থাকবে",
   "moveSelectionSave": "নিশ্চিত করো",
-  "moveSelectionReset": "আবার বেছে নাও"
+  "moveSelectionReset": "আবার বেছে নাও",
+  "actionCardForget": "চাল ভুলিয়ে দাও"
 }

@@ -304,5 +304,6 @@
   "moveSelectionTitle": "Chiêu của {monsterName}",
   "moveSelectionDescription": "Chọn tối đa {count} chiêu để chiến đấu\nNút chiêu trong trận sẽ xếp theo thứ tự bạn chọn",
   "moveSelectionSave": "Xác nhận",
-  "moveSelectionReset": "Chọn lại"
+  "moveSelectionReset": "Chọn lại",
+  "actionCardForget": "Cho quên chiêu thức"
 }
