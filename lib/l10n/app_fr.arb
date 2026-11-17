@@ -216,5 +216,6 @@
   "battleChooseMove": "Choisis une capacité pour {monsterName}",
   "battleTurn": "Tour {turnNumber}",
   "battleSwitchMonster": "Changer de monstre",
-  "battleChooseSwitchMonster": "Choisis le monstre à envoyer au combat"
+  "battleChooseSwitchMonster": "Choisis le monstre à envoyer au combat",
+  "battleLevelUpNote": "Victoire ou défaite, les monstres qui ont combattu gagnent un niveau"
 }
