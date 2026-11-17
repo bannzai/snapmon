@@ -108,5 +108,6 @@
   "generationCheckAgain": "Vérifier à nouveau",
   "generationSeeLater": "Voir plus tard",
   "generationNotBornTitle": "Il n’est pas né",
-  "generationFailedTitle": "La création a échoué"
+  "generationFailedTitle": "La création a échoué",
+  "generationBattlePreparationFailedTitle": "Impossible de préparer le combat"
 }
