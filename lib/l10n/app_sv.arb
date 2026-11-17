@@ -151,5 +151,6 @@
   "resultShareText": "{monsterName} föddes i snapmon\n#snapmon\n{url}",
   "resultShareCard": "Dela kort",
   "shareChooseFormat": "Välj form på kortbilden",
-  "shareFormatPortrait": "Stående"
+  "shareFormatPortrait": "Stående",
+  "shareFormatLandscape": "Liggande"
 }

@@ -151,5 +151,6 @@
   "resultShareText": "Στο snapmon γεννήθηκε το {monsterName}\n#snapmon\n{url}",
   "resultShareCard": "Μοιράσου την κάρτα",
   "shareChooseFormat": "Διάλεξε σχήμα για την εικόνα της κάρτας",
-  "shareFormatPortrait": "Κατακόρυφο"
+  "shareFormatPortrait": "Κατακόρυφο",
+  "shareFormatLandscape": "Οριζόντιο"
 }

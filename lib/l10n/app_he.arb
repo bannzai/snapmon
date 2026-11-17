@@ -151,5 +151,6 @@
   "resultShareText": "{monsterName} נולד בעולם של snapmon\n#snapmon\n{url}",
   "resultShareCard": "שיתוף קלף",
   "shareChooseFormat": "בחירת צורה לתמונת הקלף",
-  "shareFormatPortrait": "לאורך"
+  "shareFormatPortrait": "לאורך",
+  "shareFormatLandscape": "לרוחב"
 }

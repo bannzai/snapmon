@@ -151,5 +151,6 @@
   "resultShareText": "Su snapmon è nato {monsterName}\n#snapmon\n{url}",
   "resultShareCard": "Condividi la carta",
   "shareChooseFormat": "Scegli la forma dell’immagine della carta",
-  "shareFormatPortrait": "Verticale"
+  "shareFormatPortrait": "Verticale",
+  "shareFormatLandscape": "Orizzontale"
 }

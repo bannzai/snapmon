@@ -151,5 +151,6 @@
   "resultShareText": "A snapmon világában megszületett {monsterName}\n#snapmon\n{url}",
   "resultShareCard": "Oszd meg a kártyát",
   "shareChooseFormat": "Válaszd ki a kártyakép formáját",
-  "shareFormatPortrait": "Álló"
+  "shareFormatPortrait": "Álló",
+  "shareFormatLandscape": "Fekvő"
 }

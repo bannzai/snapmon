@@ -151,5 +151,6 @@
   "resultShareText": "У snapmon з’явився {monsterName}\n#snapmon\n{url}",
   "resultShareCard": "Поділися карткою",
   "shareChooseFormat": "Вибери форму зображення картки",
-  "shareFormatPortrait": "Вертикально"
+  "shareFormatPortrait": "Вертикально",
+  "shareFormatLandscape": "Горизонтально"
 }

@@ -151,5 +151,6 @@
   "resultShareText": "{monsterName}, snapmon'da doğdu\n#snapmon\n{url}",
   "resultShareCard": "Kartı paylaş",
   "shareChooseFormat": "Kart görselinin şeklini seç",
-  "shareFormatPortrait": "Dikey"
+  "shareFormatPortrait": "Dikey",
+  "shareFormatLandscape": "Yatay"
 }

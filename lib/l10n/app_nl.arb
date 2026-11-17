@@ -151,5 +151,6 @@
   "resultShareText": "{monsterName} is geboren in snapmon\n#snapmon\n{url}",
   "resultShareCard": "Deel de kaart",
   "shareChooseFormat": "Kies de vorm van de kaartafbeelding",
-  "shareFormatPortrait": "Staand"
+  "shareFormatPortrait": "Staand",
+  "shareFormatLandscape": "Liggend"
 }

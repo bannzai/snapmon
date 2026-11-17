@@ -151,5 +151,6 @@
   "resultShareText": "snapmon-এ জন্ম নিল {monsterName}\n#snapmon\n{url}",
   "resultShareCard": "কার্ড শেয়ার করো",
   "shareChooseFormat": "কার্ডের ছবির আকার বেছে নাও",
-  "shareFormatPortrait": "লম্বালম্বি"
+  "shareFormatPortrait": "লম্বালম্বি",
+  "shareFormatLandscape": "আড়াআড়ি"
 }

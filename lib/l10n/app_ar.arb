@@ -151,5 +151,6 @@
   "resultShareText": "وُلد {monsterName} في snapmon\n#snapmon\n{url}",
   "resultShareCard": "مشاركة البطاقة",
   "shareChooseFormat": "اختر شكل صورة البطاقة",
-  "shareFormatPortrait": "عمودي"
+  "shareFormatPortrait": "عمودي",
+  "shareFormatLandscape": "أفقي"
 }

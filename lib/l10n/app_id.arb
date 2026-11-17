@@ -151,5 +151,6 @@
   "resultShareText": "{monsterName} lahir di snapmon\n#snapmon\n{url}",
   "resultShareCard": "Bagikan kartu",
   "shareChooseFormat": "Pilih bentuk gambar kartu",
-  "shareFormatPortrait": "Potret"
+  "shareFormatPortrait": "Potret",
+  "shareFormatLandscape": "Lanskap"
 }

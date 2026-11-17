@@ -151,5 +151,6 @@
   "resultShareText": "{monsterName} lahir dalam snapmon\n#snapmon\n{url}",
   "resultShareCard": "Kongsi kad",
   "shareChooseFormat": "Pilih bentuk imej kad",
-  "shareFormatPortrait": "Potret"
+  "shareFormatPortrait": "Potret",
+  "shareFormatLandscape": "Melintang"
 }

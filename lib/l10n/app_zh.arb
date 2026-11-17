@@ -151,5 +151,6 @@
   "resultShareText": "{monsterName} 在 snapmon 中诞生了\n#snapmon\n{url}",
   "resultShareCard": "分享卡片",
   "shareChooseFormat": "选择卡片图片的形状",
-  "shareFormatPortrait": "竖版"
+  "shareFormatPortrait": "竖版",
+  "shareFormatLandscape": "横版"
 }
