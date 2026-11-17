@@ -113,5 +113,6 @@
   "generationStagePreparingPhoto": "사진을 준비하고 있어요",
   "generationStageUploadingPhoto": "사진을 업로드하고 있어요",
   "generationStageCheckingPhoto": "사진을 확인하고 있어요",
-  "generationStageCuttingOut": "사진에서 피사체를 분리하고 있어요"
+  "generationStageCuttingOut": "사진에서 피사체를 분리하고 있어요",
+  "generationStageWritingName": "이름과 도감 설명을 생각하고 있어요"
 }

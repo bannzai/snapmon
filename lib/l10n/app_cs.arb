@@ -113,5 +113,6 @@
   "generationStagePreparingPhoto": "Připravuji fotku",
   "generationStageUploadingPhoto": "Nahrává se fotka",
   "generationStageCheckingPhoto": "Kontrolujeme tvoji fotku",
-  "generationStageCuttingOut": "Vyřezávání objektu z fotky"
+  "generationStageCuttingOut": "Vyřezávání objektu z fotky",
+  "generationStageWritingName": "Vymýšlíme jméno a popis do encyklopedie"
 }

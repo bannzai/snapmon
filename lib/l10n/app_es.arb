@@ -113,5 +113,6 @@
   "generationStagePreparingPhoto": "Preparando la foto",
   "generationStageUploadingPhoto": "Subiendo foto",
   "generationStageCheckingPhoto": "Estamos revisando tu foto",
-  "generationStageCuttingOut": "Recortando el objeto de la foto"
+  "generationStageCuttingOut": "Recortando el objeto de la foto",
+  "generationStageWritingName": "Pensando un nombre y una descripción para la colección"
 }

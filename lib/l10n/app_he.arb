@@ -113,5 +113,6 @@
   "generationStagePreparingPhoto": "מכינים את התמונה",
   "generationStageUploadingPhoto": "התמונה נשלחת",
   "generationStageCheckingPhoto": "בודקים את התמונה שלך",
-  "generationStageCuttingOut": "גוזרים את האובייקט מהתמונה"
+  "generationStageCuttingOut": "גוזרים את האובייקט מהתמונה",
+  "generationStageWritingName": "חושבים על שם ותיאור לאוסף"
 }

@@ -113,5 +113,6 @@
   "generationStagePreparingPhoto": "Przygotowywanie zdjęcia",
   "generationStageUploadingPhoto": "Przesyłanie zdjęcia",
   "generationStageCheckingPhoto": "Sprawdzamy twoje zdjęcie",
-  "generationStageCuttingOut": "Wycinanie obiektu ze zdjęcia"
+  "generationStageCuttingOut": "Wycinanie obiektu ze zdjęcia",
+  "generationStageWritingName": "Wymyślamy imię i opis do encyklopedii"
 }

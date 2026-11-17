@@ -113,5 +113,6 @@
   "generationStagePreparingPhoto": "Klargjør bildet",
   "generationStageUploadingPhoto": "Laster opp bilde",
   "generationStageCheckingPhoto": "Vi sjekker bildet ditt",
-  "generationStageCuttingOut": "Klipper ut motivet"
+  "generationStageCuttingOut": "Klipper ut motivet",
+  "generationStageWritingName": "Finner på navn og tekst til samlingen"
 }

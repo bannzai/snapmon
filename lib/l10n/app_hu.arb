@@ -113,5 +113,6 @@
   "generationStagePreparingPhoto": "Fotó előkészítése",
   "generationStageUploadingPhoto": "Fotó feltöltése",
   "generationStageCheckingPhoto": "Ellenőrizzük a fotódat",
-  "generationStageCuttingOut": "A képen lévő tárgy kivágása"
+  "generationStageCuttingOut": "A képen lévő tárgy kivágása",
+  "generationStageWritingName": "Neven és gyűjteménybe illő leíráson gondolkodunk"
 }

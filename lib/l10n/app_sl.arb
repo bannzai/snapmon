@@ -113,5 +113,6 @@
   "generationStagePreparingPhoto": "Pripravljamo fotografijo",
   "generationStageUploadingPhoto": "Nalaganje fotografije",
   "generationStageCheckingPhoto": "Preverjamo tvojo fotografijo",
-  "generationStageCuttingOut": "Izrezovanje predmeta s fotografije"
+  "generationStageCuttingOut": "Izrezovanje predmeta s fotografije",
+  "generationStageWritingName": "Smišljamo ime in opis za enciklopedijo"
 }

@@ -113,5 +113,6 @@
   "generationStagePreparingPhoto": "正在準備照片",
   "generationStageUploadingPhoto": "正在上傳照片",
   "generationStageCheckingPhoto": "正在檢查你的照片",
-  "generationStageCuttingOut": "正在把照片中的物體去背"
+  "generationStageCuttingOut": "正在把照片中的物體去背",
+  "generationStageWritingName": "正在構思名字和圖鑑介紹"
 }

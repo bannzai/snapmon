@@ -113,5 +113,6 @@
   "generationStagePreparingPhoto": "ਫ਼ੋਟੋ ਤਿਆਰ ਹੋ ਰਹੀ ਹੈ",
   "generationStageUploadingPhoto": "ਫੋਟੋ ਅੱਪਲੋਡ ਹੋ ਰਹੀ ਹੈ",
   "generationStageCheckingPhoto": "ਤੁਹਾਡੀ ਫੋਟੋ ਜਾਂਚੀ ਜਾ ਰਹੀ ਹੈ",
-  "generationStageCuttingOut": "ਫ਼ੋਟੋ ਵਿੱਚੋਂ ਚੀਜ਼ ਨੂੰ ਵੱਖ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ"
+  "generationStageCuttingOut": "ਫ਼ੋਟੋ ਵਿੱਚੋਂ ਚੀਜ਼ ਨੂੰ ਵੱਖ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ",
+  "generationStageWritingName": "ਨਾਮ ਅਤੇ ਸੰਗ੍ਰਹਿ ਲਈ ਵੇਰਵਾ ਸੋਚ ਰਹੇ ਹਾਂ"
 }

@@ -113,5 +113,6 @@
   "generationStagePreparingPhoto": "फ़ोटो तैयार हो रही है",
   "generationStageUploadingPhoto": "फ़ोटो अपलोड हो रही है",
   "generationStageCheckingPhoto": "तुम्हारी फ़ोटो जाँची जा रही है",
-  "generationStageCuttingOut": "फ़ोटो से विषय को अलग किया जा रहा है"
+  "generationStageCuttingOut": "फ़ोटो से विषय को अलग किया जा रहा है",
+  "generationStageWritingName": "नाम और संग्रह के लिए विवरण सोच रहे हैं"
 }

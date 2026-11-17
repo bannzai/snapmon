@@ -113,5 +113,6 @@
   "generationStagePreparingPhoto": "تصویر تیار ہو رہی ہے",
   "generationStageUploadingPhoto": "تصویر اپ لوڈ ہو رہی ہے",
   "generationStageCheckingPhoto": "تمہاری تصویر چیک کی جا رہی ہے",
-  "generationStageCuttingOut": "تصویر سے چیز کو الگ کیا جا رہا ہے"
+  "generationStageCuttingOut": "تصویر سے چیز کو الگ کیا جا رہا ہے",
+  "generationStageWritingName": "نام اور ڈیکس کی تفصیل سوچ رہے ہیں"
 }

@@ -113,5 +113,6 @@
   "generationStagePreparingPhoto": "A preparar a fotografia",
   "generationStageUploadingPhoto": "A carregar a fotografia",
   "generationStageCheckingPhoto": "Estamos a verificar a tua foto",
-  "generationStageCuttingOut": "A recortar o objeto da fotografia"
+  "generationStageCuttingOut": "A recortar o objeto da fotografia",
+  "generationStageWritingName": "A pensar num nome e numa descrição para a enciclopédia"
 }

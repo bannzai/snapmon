@@ -113,5 +113,6 @@
   "generationStagePreparingPhoto": "ছবি প্রস্তুত হচ্ছে",
   "generationStageUploadingPhoto": "ছবি আপলোড হচ্ছে",
   "generationStageCheckingPhoto": "তোমার ছবি যাচাই করা হচ্ছে",
-  "generationStageCuttingOut": "ছবির বিষয়টি কেটে আলাদা করা হচ্ছে"
+  "generationStageCuttingOut": "ছবির বিষয়টি কেটে আলাদা করা হচ্ছে",
+  "generationStageWritingName": "নাম আর সংগ্রহের বর্ণনা ভাবছি"
 }

@@ -113,5 +113,6 @@
   "generationStagePreparingPhoto": "Foto voorbereiden",
   "generationStageUploadingPhoto": "Foto wordt geüpload",
   "generationStageCheckingPhoto": "We controleren je foto",
-  "generationStageCuttingOut": "Onderwerp uit de foto knippen"
+  "generationStageCuttingOut": "Onderwerp uit de foto knippen",
+  "generationStageWritingName": "Een naam en dex-beschrijving bedenken"
 }

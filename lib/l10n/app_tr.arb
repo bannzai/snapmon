@@ -113,5 +113,6 @@
   "generationStagePreparingPhoto": "Fotoğraf hazırlanıyor",
   "generationStageUploadingPhoto": "Fotoğraf yükleniyor",
   "generationStageCheckingPhoto": "Fotoğrafın kontrol ediliyor",
-  "generationStageCuttingOut": "Fotoğraftaki nesne kesilip çıkarılıyor"
+  "generationStageCuttingOut": "Fotoğraftaki nesne kesilip çıkarılıyor",
+  "generationStageWritingName": "İsim ve ansiklopedi açıklaması düşünüyoruz"
 }

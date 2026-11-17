@@ -113,5 +113,6 @@
   "generationStagePreparingPhoto": "Menyiapkan foto",
   "generationStageUploadingPhoto": "Mengunggah foto",
   "generationStageCheckingPhoto": "Sedang memeriksa fotomu",
-  "generationStageCuttingOut": "Memotong objek dari foto"
+  "generationStageCuttingOut": "Memotong objek dari foto",
+  "generationStageWritingName": "Memikirkan nama dan deskripsi untuk dex"
 }

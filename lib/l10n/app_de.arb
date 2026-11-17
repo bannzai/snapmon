@@ -113,5 +113,6 @@
   "generationStagePreparingPhoto": "Foto wird vorbereitet",
   "generationStageUploadingPhoto": "Foto wird hochgeladen",
   "generationStageCheckingPhoto": "Wir prüfen dein Foto",
-  "generationStageCuttingOut": "Motiv wird freigestellt"
+  "generationStageCuttingOut": "Motiv wird freigestellt",
+  "generationStageWritingName": "Denke mir einen Namen und einen Dex-Eintrag aus"
 }

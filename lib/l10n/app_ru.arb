@@ -113,5 +113,6 @@
   "generationStagePreparingPhoto": "Подготавливаем фото",
   "generationStageUploadingPhoto": "Загружаем фото",
   "generationStageCheckingPhoto": "Проверяем твоё фото",
-  "generationStageCuttingOut": "Вырезаем объект из фото"
+  "generationStageCuttingOut": "Вырезаем объект из фото",
+  "generationStageWritingName": "Придумываем имя и описание для энциклопедии"
 }

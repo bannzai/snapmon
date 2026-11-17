@@ -113,5 +113,6 @@
   "generationStagePreparingPhoto": "படம் தயாராகிறது",
   "generationStageUploadingPhoto": "படம் பதிவேற்றப்படுகிறது",
   "generationStageCheckingPhoto": "உங்கள் புகைப்படத்தைச் சரிபார்க்கிறோம்",
-  "generationStageCuttingOut": "படத்திலிருந்து பொருள் தனியாகப் பிரிக்கப்படுகிறது"
+  "generationStageCuttingOut": "படத்திலிருந்து பொருள் தனியாகப் பிரிக்கப்படுகிறது",
+  "generationStageWritingName": "பெயரும் களஞ்சியத்திற்கான விளக்கமும் யோசிக்கப்படுகின்றன"
 }

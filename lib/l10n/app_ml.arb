@@ -113,5 +113,6 @@
   "generationStagePreparingPhoto": "ഫോട്ടോ തയ്യാറാക്കുന്നു",
   "generationStageUploadingPhoto": "ഫോട്ടോ അപ്‌ലോഡ് ചെയ്യുന്നു",
   "generationStageCheckingPhoto": "നിങ്ങളുടെ ഫോട്ടോ പരിശോധിക്കുകയാണ്",
-  "generationStageCuttingOut": "ഫോട്ടോയിൽ നിന്ന് വസ്തുവിനെ വേർതിരിക്കുന്നു"
+  "generationStageCuttingOut": "ഫോട്ടോയിൽ നിന്ന് വസ്തുവിനെ വേർതിരിക്കുന്നു",
+  "generationStageWritingName": "പേരും വിജ്ഞാനകോശത്തിലെ വിവരണവും ആലോചിക്കുന്നു"
 }
