@@ -327,5 +327,6 @@
   "helpStatusStun": "Peut être incapable d’agir au prochain tour",
   "helpStatusBurn": "Les dégâts infligés sont réduits de moitié et les dégâts subis augmentent",
   "helpStatusDrowsy": "La Vitesse est réduite de moitié\nSi l’effet se répète, le monstre s’endort",
-  "helpStatusSleep": "Peut empêcher d’agir pendant plusieurs tours"
+  "helpStatusSleep": "Peut empêcher d’agir pendant plusieurs tours",
+  "helpStatusCurse": "Une seule stat parmi l'Attaque, la Défense et la Vitesse est réduite de moitié"
 }
