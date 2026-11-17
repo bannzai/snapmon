@@ -116,5 +116,6 @@
   "generationStageCuttingOut": "Détourage du sujet en cours",
   "generationStageWritingName": "On imagine un nom et une description pour le dex",
   "generationStageDecidingElements": "On choisit les éléments et les capacités",
-  "generationStageBeingBorn": "Un monstre va naître"
+  "generationStageBeingBorn": "Un monstre va naître",
+  "generationRejectedExplicitContent": "Impossible de créer un monstre à partir de cette photo"
 }
