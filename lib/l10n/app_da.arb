@@ -3,5 +3,6 @@
   "commonRetry": "Prøv igen",
   "commonContact": "Kontakt os",
   "tabDex": "dex",
-  "tabCapture": "Tag et billede"
+  "tabCapture": "Tag et billede",
+  "tabOpponent": "Kamp"
 }

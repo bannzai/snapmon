@@ -3,5 +3,6 @@
   "commonRetry": "Yritä uudelleen",
   "commonContact": "Ota yhteyttä",
   "tabDex": "kokoelma",
-  "tabCapture": "Ota kuva"
+  "tabCapture": "Ota kuva",
+  "tabOpponent": "Taistelu"
 }
