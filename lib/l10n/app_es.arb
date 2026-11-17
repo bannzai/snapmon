@@ -242,5 +242,6 @@
   "referenceTypeChartNote": "Vertical: elemento del movimiento. Horizontal: elemento del monstruo que lo recibe\nSi el monstruo que lo recibe tiene dos elementos, multiplica los dos factores",
   "referenceTypeChartCorner": "movimiento ／ defensa",
   "referenceMoveStats": "Potencia {power}  PP {powerPoints}  Desde Lv. {unlockLevel}",
-  "moveDetailPower": "Potencia"
+  "moveDetailPower": "Potencia",
+  "moveDetailPowerPoints": "PP"
 }

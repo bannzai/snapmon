@@ -242,5 +242,6 @@
   "referenceTypeChartNote": "По вертикали — элемент приёма, по горизонтали — элемент монстра, который его получает\nЕсли у монстра, получающего удар, два элемента, перемножь оба множителя",
   "referenceTypeChartCorner": "приём ／ защита",
   "referenceMoveStats": "Сила {power}  PP {powerPoints}  С Lv. {unlockLevel}",
-  "moveDetailPower": "Сила"
+  "moveDetailPower": "Сила",
+  "moveDetailPowerPoints": "PP"
 }

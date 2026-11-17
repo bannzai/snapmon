@@ -242,5 +242,6 @@
   "referenceTypeChartNote": "ಲಂಬವಾಗಿ: ತಂತ್ರದ ಪ್ರಕಾರ. ಅಡ್ಡವಾಗಿ: ತಂತ್ರವನ್ನು ಎದುರಿಸುವ ಮಾನ್ಸ್ಟರಿನ ಪ್ರಕಾರ\nಎದುರಿಸುವ ಮಾನ್ಸ್ಟರಿಗೆ ಎರಡು ಪ್ರಕಾರಗಳಿದ್ದರೆ, ಎರಡೂ ಗುಣಕಗಳನ್ನು ಗುಣಿಸು",
   "referenceTypeChartCorner": "ತಂತ್ರ ／ ರಕ್ಷಣೆ",
   "referenceMoveStats": "ಶಕ್ತಿ {power}  PP {powerPoints}  Lv. {unlockLevel}ರಿಂದ",
-  "moveDetailPower": "ಶಕ್ತಿ"
+  "moveDetailPower": "ಶಕ್ತಿ",
+  "moveDetailPowerPoints": "PP"
 }

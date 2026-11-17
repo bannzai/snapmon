@@ -242,5 +242,6 @@
   "referenceTypeChartNote": "Pe verticală: elementul mișcării. Pe orizontală: elementul monstrului care o primește\nDacă monstrul lovit are două elemente, înmulțește cei doi multiplicatori",
   "referenceTypeChartCorner": "mișcare ／ apărare",
   "referenceMoveStats": "Putere {power}  PP {powerPoints}  De la Lv. {unlockLevel}",
-  "moveDetailPower": "Putere"
+  "moveDetailPower": "Putere",
+  "moveDetailPowerPoints": "PP"
 }

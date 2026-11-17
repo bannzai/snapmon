@@ -242,5 +242,6 @@
   "referenceTypeChartNote": "แนวตั้งคือธาตุของท่า แนวนอนคือธาตุของมอนสเตอร์ที่รับท่า\nถ้ามอนสเตอร์ที่รับท่ามี 2 ธาตุ ให้นำตัวคูณทั้ง 2 มาคูณกัน",
   "referenceTypeChartCorner": "ท่า ／ ป้องกัน",
   "referenceMoveStats": "พลัง {power}  PP {powerPoints}  ตั้งแต่ Lv. {unlockLevel}",
-  "moveDetailPower": "พลัง"
+  "moveDetailPower": "พลัง",
+  "moveDetailPowerPoints": "PP"
 }

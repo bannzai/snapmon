@@ -242,5 +242,6 @@
   "referenceTypeChartNote": "నిలువుగా: మూవ్ మూలకం. అడ్డంగా: మూవ్ తగిలే మాన్స్టర్ మూలకం\nమూవ్ తగిలే మాన్స్టర్‌కు రెండు మూలకాలు ఉంటే, రెండు గుణకాలను గుణించు",
   "referenceTypeChartCorner": "మూవ్ ／ రక్షణ",
   "referenceMoveStats": "శక్తి {power}  PP {powerPoints}  Lv. {unlockLevel} నుంచి",
-  "moveDetailPower": "శక్తి"
+  "moveDetailPower": "శక్తి",
+  "moveDetailPowerPoints": "PP"
 }

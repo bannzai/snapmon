@@ -242,5 +242,6 @@
   "referenceTypeChartNote": "Vertical: elemento do golpe. Horizontal: elemento do monstro que recebe o golpe\nSe o monstro atingido tiver dois elementos, multiplique os dois fatores",
   "referenceTypeChartCorner": "golpe ／ defesa",
   "referenceMoveStats": "Poder {power}  PP {powerPoints}  A partir do Lv. {unlockLevel}",
-  "moveDetailPower": "Poder"
+  "moveDetailPower": "Poder",
+  "moveDetailPowerPoints": "PP"
 }

@@ -242,5 +242,6 @@
   "referenceTypeChartNote": "Navpično: element poteze. Vodoravno: element pošasti, ki jo prejme\nČe ima zadeta pošast dva elementa, pomnoži oba množilnika",
   "referenceTypeChartCorner": "potez ／ obramba",
   "referenceMoveStats": "Moč {power}  PP {powerPoints}  Od Lv. {unlockLevel}",
-  "moveDetailPower": "Moč"
+  "moveDetailPower": "Moč",
+  "moveDetailPowerPoints": "PP"
 }

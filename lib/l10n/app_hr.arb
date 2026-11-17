@@ -242,5 +242,6 @@
   "referenceTypeChartNote": "Okomito: element poteza. Vodoravno: element čudovišta koje prima potez\nAko pogođeno čudovište ima dva elementa, pomnoži oba množitelja",
   "referenceTypeChartCorner": "potez ／ obrana",
   "referenceMoveStats": "Snaga {power}  PP {powerPoints}  Od Lv. {unlockLevel}",
-  "moveDetailPower": "Snaga"
+  "moveDetailPower": "Snaga",
+  "moveDetailPowerPoints": "PP"
 }

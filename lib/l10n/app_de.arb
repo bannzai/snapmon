@@ -242,5 +242,6 @@
   "referenceTypeChartNote": "Senkrecht: Element der Attacke. Waagerecht: Element des getroffenen Monsters\nHat das getroffene Monster zwei Elemente, multipliziere die beiden Faktoren",
   "referenceTypeChartCorner": "Attacke ／ Verteidigung",
   "referenceMoveStats": "Stärke {power}  PP {powerPoints}  Ab Lv. {unlockLevel}",
-  "moveDetailPower": "Stärke"
+  "moveDetailPower": "Stärke",
+  "moveDetailPowerPoints": "PP"
 }

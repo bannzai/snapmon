@@ -242,5 +242,6 @@
   "referenceTypeChartNote": "Függőlegesen a támadás típusa, vízszintesen a támadást elszenvedő szörny típusa\nHa az eltalált szörnynek két típusa van, szorozd össze a két szorzót",
   "referenceTypeChartCorner": "támadás ／ védekezés",
   "referenceMoveStats": "Erő {power}  PP {powerPoints}  Lv. {unlockLevel} szinttől",
-  "moveDetailPower": "Erő"
+  "moveDetailPower": "Erő",
+  "moveDetailPowerPoints": "PP"
 }
