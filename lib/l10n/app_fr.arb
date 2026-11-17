@@ -287,5 +287,6 @@
   "actionCardUnassignedHeading": "Action Card à récupérer",
   "actionCardUnassignedChooseMove": "Choisir une capacité",
   "actionCardAssignTitle": "Choisis la capacité à recevoir avec cette Action Card",
-  "actionCardAssignNoMoves": "Aucune capacité à recevoir"
+  "actionCardAssignNoMoves": "Aucune capacité à recevoir",
+  "actionCardAssigned": "Tu as reçu {moveName}"
 }
