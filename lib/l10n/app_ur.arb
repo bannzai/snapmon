@@ -77,5 +77,6 @@
   "dexAll": "سب",
   "dexEmpty": "ابھی تمہارے پاس کوئی مونسٹر نہیں\nتصویر لینے والی اسکرین سے آس پاس کی کسی چیز کی تصویر کھینچو",
   "dexEmptySlot": "خالی",
-  "dexAddMonster": "شامل کرو"
+  "dexAddMonster": "شامل کرو",
+  "dexAddToPartyTitle": "ٹیم میں شامل کرو"
 }

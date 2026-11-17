@@ -77,5 +77,6 @@
   "dexAll": "Όλα",
   "dexEmpty": "Δεν έχεις ακόμα τέρατα\nΔοκίμασε να φωτογραφίσεις κάτι γύρω σου από την οθόνη λήψης",
   "dexEmptySlot": "Κενό",
-  "dexAddMonster": "Προσθήκη"
+  "dexAddMonster": "Προσθήκη",
+  "dexAddToPartyTitle": "Προσθήκη στην ομάδα"
 }

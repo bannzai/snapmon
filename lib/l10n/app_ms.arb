@@ -77,5 +77,6 @@
   "dexAll": "Semua",
   "dexEmpty": "Kamu belum ada monster\nCuba ambil gambar benda di sekelilingmu dari skrin kamera",
   "dexEmptySlot": "Kosong",
-  "dexAddMonster": "Tambah"
+  "dexAddMonster": "Tambah",
+  "dexAddToPartyTitle": "Tambah ke pasukan"
 }

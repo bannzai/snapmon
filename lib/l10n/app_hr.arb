@@ -77,5 +77,6 @@
   "dexAll": "Svi",
   "dexEmpty": "Još nemaš čudovišta\nNa zaslonu za fotografiranje uslikaj nešto oko sebe",
   "dexEmptySlot": "Prazno",
-  "dexAddMonster": "Dodaj"
+  "dexAddMonster": "Dodaj",
+  "dexAddToPartyTitle": "Dodaj u tim"
 }

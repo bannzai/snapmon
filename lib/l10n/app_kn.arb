@@ -77,5 +77,6 @@
   "dexAll": "ಎಲ್ಲಾ",
   "dexEmpty": "ಇನ್ನೂ ಮಾನ್ಸ್ಟರ್‌ಗಳು ಇಲ್ಲ\nಫೋಟೋ ತೆಗೆಯುವ ಪರದೆಯಲ್ಲಿ ಸುತ್ತಲಿನ ಯಾವುದಾದರೂ ವಸ್ತುವಿನ ಫೋಟೋ ತೆಗೆ",
   "dexEmptySlot": "ಖಾಲಿ",
-  "dexAddMonster": "ಸೇರಿಸು"
+  "dexAddMonster": "ಸೇರಿಸು",
+  "dexAddToPartyTitle": "ತಂಡಕ್ಕೆ ಸೇರಿಸು"
 }

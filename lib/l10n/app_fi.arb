@@ -77,5 +77,6 @@
   "dexAll": "Kaikki",
   "dexEmpty": "Sinulla ei ole vielä hirviöitä\nKokeile kuvata jotain ympäriltäsi kuvausnäytössä",
   "dexEmptySlot": "Tyhjä",
-  "dexAddMonster": "Lisää"
+  "dexAddMonster": "Lisää",
+  "dexAddToPartyTitle": "Lisää joukkueeseen"
 }

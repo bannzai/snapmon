@@ -77,5 +77,6 @@
   "dexAll": "Tots",
   "dexEmpty": "Encara no tens cap monstre\nProva de fer una foto d'un objecte del teu voltant des de la pantalla de captura",
   "dexEmptySlot": "Buit",
-  "dexAddMonster": "Afegeix"
+  "dexAddMonster": "Afegeix",
+  "dexAddToPartyTitle": "Afegeix a l’equip"
 }

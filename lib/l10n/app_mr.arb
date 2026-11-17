@@ -77,5 +77,6 @@
   "dexAll": "सर्व",
   "dexEmpty": "अजून मॉन्स्टर नाहीत\nफोटो काढण्याच्या स्क्रीनवरून आजूबाजूच्या एखाद्या वस्तूचा फोटो काढ",
   "dexEmptySlot": "रिकामे",
-  "dexAddMonster": "जोड"
+  "dexAddMonster": "जोड",
+  "dexAddToPartyTitle": "टीममध्ये जोड"
 }

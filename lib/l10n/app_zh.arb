@@ -77,5 +77,6 @@
   "dexAll": "全部",
   "dexEmpty": "还没有怪物\n去拍摄画面给身边的物品拍张照吧",
   "dexEmptySlot": "空位",
-  "dexAddMonster": "添加"
+  "dexAddMonster": "添加",
+  "dexAddToPartyTitle": "加入队伍"
 }

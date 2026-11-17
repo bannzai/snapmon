@@ -77,5 +77,6 @@
   "dexAll": "Všetci",
   "dexEmpty": "Zatiaľ nemáš žiadne príšery\nNa obrazovke fotenia skús odfotiť niečo okolo seba",
   "dexEmptySlot": "Prázdne",
-  "dexAddMonster": "Pridať"
+  "dexAddMonster": "Pridať",
+  "dexAddToPartyTitle": "Pridaj do tímu"
 }

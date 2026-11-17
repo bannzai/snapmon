@@ -77,5 +77,6 @@
   "dexAll": "ସମସ୍ତେ",
   "dexEmpty": "ଏଯାଏଁ ତୁମର କୌଣସି ମନଷ୍ଟର ନାହିଁ\nଫଟୋ ଉଠାଇବା ପରଦାରୁ ଆଖପାଖର କୌଣସି ଜିନିଷର ଫଟୋ ଉଠାଅ",
   "dexEmptySlot": "ଖାଲି",
-  "dexAddMonster": "ଯୋଡ଼"
+  "dexAddMonster": "ଯୋଡ଼",
+  "dexAddToPartyTitle": "ଦଳରେ ଯୋଡ଼"
 }

@@ -77,5 +77,6 @@
   "dexAll": "ทั้งหมด",
   "dexEmpty": "ยังไม่มีมอนสเตอร์\nลองถ่ายรูปสิ่งของรอบตัวจากหน้าถ่ายรูปดูสิ",
   "dexEmptySlot": "ว่าง",
-  "dexAddMonster": "เพิ่ม"
+  "dexAddMonster": "เพิ่ม",
+  "dexAddToPartyTitle": "เพิ่มเข้าทีม"
 }

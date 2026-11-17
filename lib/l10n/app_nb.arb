@@ -77,5 +77,6 @@
   "dexAll": "Alle",
   "dexEmpty": "Du har ingen monstre ennå\nPrøv å ta bilde av noe rundt deg på fotoskjermen",
   "dexEmptySlot": "Tom",
-  "dexAddMonster": "Legg til"
+  "dexAddMonster": "Legg til",
+  "dexAddToPartyTitle": "Legg til på laget"
 }

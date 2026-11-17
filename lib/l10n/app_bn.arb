@@ -77,5 +77,6 @@
   "dexAll": "সব",
   "dexEmpty": "এখনও কোনো মনস্টার নেই\nছবি তোলার স্ক্রিন থেকে আশেপাশের কোনো জিনিসের ছবি তোলো",
   "dexEmptySlot": "খালি",
-  "dexAddMonster": "যোগ করো"
+  "dexAddMonster": "যোগ করো",
+  "dexAddToPartyTitle": "দলে যোগ করো"
 }

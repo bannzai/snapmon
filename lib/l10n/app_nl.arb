@@ -77,5 +77,6 @@
   "dexAll": "Alle",
   "dexEmpty": "Je hebt nog geen monsters\nMaak op het fotoscherm eens een foto van iets om je heen",
   "dexEmptySlot": "Leeg",
-  "dexAddMonster": "Toevoegen"
+  "dexAddMonster": "Toevoegen",
+  "dexAddToPartyTitle": "Voeg toe aan je team"
 }

@@ -77,5 +77,6 @@
   "dexAll": "Tất cả",
   "dexEmpty": "Bạn chưa có quái vật nào\nThử chụp một món đồ quanh bạn từ màn hình chụp ảnh",
   "dexEmptySlot": "Trống",
-  "dexAddMonster": "Thêm"
+  "dexAddMonster": "Thêm",
+  "dexAddToPartyTitle": "Thêm vào đội"
 }

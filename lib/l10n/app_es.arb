@@ -77,5 +77,6 @@
   "dexAll": "Todos",
   "dexEmpty": "Aún no tienes monstruos\nPrueba a fotografiar algo que tengas cerca desde la pantalla de captura",
   "dexEmptySlot": "Vacío",
-  "dexAddMonster": "Añadir"
+  "dexAddMonster": "Añadir",
+  "dexAddToPartyTitle": "Añadir al equipo"
 }

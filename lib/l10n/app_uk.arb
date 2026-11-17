@@ -77,5 +77,6 @@
   "dexAll": "Усі",
   "dexEmpty": "У тебе ще немає монстрів\nСпробуй сфотографувати щось навколо себе на екрані зйомки",
   "dexEmptySlot": "Порожньо",
-  "dexAddMonster": "Додати"
+  "dexAddMonster": "Додати",
+  "dexAddToPartyTitle": "Додати до команди"
 }

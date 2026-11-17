@@ -77,5 +77,6 @@
   "dexAll": "બધા",
   "dexEmpty": "હજી કોઈ મોન્સ્ટર નથી\nફોટો પાડવાની સ્ક્રીન પરથી તમારી આસપાસની કોઈ વસ્તુનો ફોટો પાડો",
   "dexEmptySlot": "ખાલી",
-  "dexAddMonster": "ઉમેરો"
+  "dexAddMonster": "ઉમેરો",
+  "dexAddToPartyTitle": "ટીમમાં ઉમેરો"
 }
