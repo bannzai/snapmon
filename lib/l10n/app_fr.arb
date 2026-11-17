@@ -77,5 +77,6 @@
   "dexAll": "Tous",
   "dexEmpty": "Aucun monstre pour l’instant\nEssaie de photographier un objet autour de toi depuis l’écran photo",
   "dexEmptySlot": "Place libre",
-  "dexAddMonster": "Ajouter"
+  "dexAddMonster": "Ajouter",
+  "dexAddToPartyTitle": "Ajouter à l'équipe"
 }
