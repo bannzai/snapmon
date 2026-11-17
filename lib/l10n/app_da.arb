@@ -87,5 +87,6 @@
   "captureHero": "Tag et billede af en ting omkring dig\nEt monster bliver født!",
   "capturePickFromAlbum": "Vælg fra albummet",
   "captureGoToBattle": "Kæmp",
-  "captureViewfinderGuide": "Placér motivet inden for rammen"
+  "captureViewfinderGuide": "Placér motivet inden for rammen",
+  "captureCameraPermissionRequired": "Du skal give adgang til kameraet"
 }

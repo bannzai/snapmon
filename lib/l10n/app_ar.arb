@@ -87,5 +87,6 @@
   "captureHero": "صوّر شيئًا من حولك\nيولد وحش!",
   "capturePickFromAlbum": "اختر من الألبوم",
   "captureGoToBattle": "قاتل",
-  "captureViewfinderGuide": "ضع ما تصوّره داخل الإطار"
+  "captureViewfinderGuide": "ضع ما تصوّره داخل الإطار",
+  "captureCameraPermissionRequired": "يلزم السماح باستخدام الكاميرا"
 }

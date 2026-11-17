@@ -87,5 +87,6 @@
   "captureHero": "Chụp một đồ vật quanh bạn\nQuái vật sẽ ra đời!",
   "capturePickFromAlbum": "Chọn từ album",
   "captureGoToBattle": "Chiến đấu",
-  "captureViewfinderGuide": "Đưa vật cần chụp vào khung hình"
+  "captureViewfinderGuide": "Đưa vật cần chụp vào khung hình",
+  "captureCameraPermissionRequired": "Bạn cần cho phép dùng camera"
 }

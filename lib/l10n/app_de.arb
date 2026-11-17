@@ -87,5 +87,6 @@
   "captureHero": "Fotografiere etwas um dich herum\nEin Monster wird geboren!",
   "capturePickFromAlbum": "Aus dem Album auswählen",
   "captureGoToBattle": "Kämpfen",
-  "captureViewfinderGuide": "Bring dein Motiv in den Rahmen"
+  "captureViewfinderGuide": "Bring dein Motiv in den Rahmen",
+  "captureCameraPermissionRequired": "Du musst den Kamerazugriff erlauben"
 }

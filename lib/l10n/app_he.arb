@@ -87,5 +87,6 @@
   "captureHero": "לצלם חפץ מהסביבה\nמפלצת נולדת!",
   "capturePickFromAlbum": "לבחור מהאלבום",
   "captureGoToBattle": "להילחם",
-  "captureViewfinderGuide": "להכניס את מה שמצלמים למסגרת"
+  "captureViewfinderGuide": "להכניס את מה שמצלמים למסגרת",
+  "captureCameraPermissionRequired": "צריך לאפשר גישה למצלמה"
 }

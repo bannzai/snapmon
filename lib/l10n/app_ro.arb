@@ -87,5 +87,6 @@
   "captureHero": "Fotografiază un obiect din jurul tău\nSe naște un monstru!",
   "capturePickFromAlbum": "Alege din album",
   "captureGoToBattle": "Luptă-te",
-  "captureViewfinderGuide": "Pune subiectul în cadru"
+  "captureViewfinderGuide": "Pune subiectul în cadru",
+  "captureCameraPermissionRequired": "Trebuie să permiți accesul la cameră"
 }

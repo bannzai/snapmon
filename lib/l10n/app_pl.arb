@@ -87,5 +87,6 @@
   "captureHero": "Zrób zdjęcie przedmiotu obok siebie\nRodzi się potwór!",
   "capturePickFromAlbum": "Wybierz z albumu",
   "captureGoToBattle": "Walcz",
-  "captureViewfinderGuide": "Umieść fotografowany obiekt w kadrze"
+  "captureViewfinderGuide": "Umieść fotografowany obiekt w kadrze",
+  "captureCameraPermissionRequired": "Musisz zezwolić na dostęp do aparatu"
 }

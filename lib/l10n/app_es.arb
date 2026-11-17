@@ -87,5 +87,6 @@
   "captureHero": "Fotografía algo que tengas cerca\n¡Nace un monstruo!",
   "capturePickFromAlbum": "Elige del álbum",
   "captureGoToBattle": "Combatir",
-  "captureViewfinderGuide": "Coloca lo que vas a fotografiar dentro del marco"
+  "captureViewfinderGuide": "Coloca lo que vas a fotografiar dentro del marco",
+  "captureCameraPermissionRequired": "Debes permitir el acceso a la cámara"
 }

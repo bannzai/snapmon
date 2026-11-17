@@ -87,5 +87,6 @@
   "captureHero": "చుట్టూ ఉన్న వస్తువును ఫోటో తీయి\nమాన్స్టర్ పుడుతుంది!",
   "capturePickFromAlbum": "ఆల్బమ్ నుంచి ఎంచుకో",
   "captureGoToBattle": "పోరాడు",
-  "captureViewfinderGuide": "ఫోటో తీయాల్సిన వస్తువును ఫ్రేమ్‌లో పెట్టు"
+  "captureViewfinderGuide": "ఫోటో తీయాల్సిన వస్తువును ఫ్రేమ్‌లో పెట్టు",
+  "captureCameraPermissionRequired": "కెమెరా వాడటానికి అనుమతి కావాలి"
 }

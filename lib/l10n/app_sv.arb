@@ -87,5 +87,6 @@
   "captureHero": "Fota en sak omkring dig\nEtt monster föds!",
   "capturePickFromAlbum": "Välj från albumet",
   "captureGoToBattle": "Kämpa",
-  "captureViewfinderGuide": "Placera motivet inom ramen"
+  "captureViewfinderGuide": "Placera motivet inom ramen",
+  "captureCameraPermissionRequired": "Du behöver ge åtkomst till kameran"
 }

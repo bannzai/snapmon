@@ -87,5 +87,6 @@
   "captureHero": "Fotografa un oggetto vicino a te\nNasce un mostro!",
   "capturePickFromAlbum": "Scegli dall’album",
   "captureGoToBattle": "Combatti",
-  "captureViewfinderGuide": "Metti il soggetto nell'inquadratura"
+  "captureViewfinderGuide": "Metti il soggetto nell'inquadratura",
+  "captureCameraPermissionRequired": "Devi consentire l’accesso alla fotocamera"
 }

@@ -87,5 +87,6 @@
   "captureHero": "ಸುತ್ತಲಿನ ಯಾವುದಾದರೂ ವಸ್ತುವಿನ ಫೋಟೋ ತೆಗೆ\nಮಾನ್ಸ್ಟರ್ ಹುಟ್ಟುತ್ತದೆ!",
   "capturePickFromAlbum": "ಆಲ್ಬಮ್‌ನಿಂದ ಆಯ್ಕೆ ಮಾಡು",
   "captureGoToBattle": "ಹೋರಾಡು",
-  "captureViewfinderGuide": "ಚಿತ್ರ ತೆಗೆಯುವ ವಸ್ತುವನ್ನು ಚೌಕಟ್ಟಿನೊಳಗೆ ಇರಿಸು"
+  "captureViewfinderGuide": "ಚಿತ್ರ ತೆಗೆಯುವ ವಸ್ತುವನ್ನು ಚೌಕಟ್ಟಿನೊಳಗೆ ಇರಿಸು",
+  "captureCameraPermissionRequired": "ಕ್ಯಾಮೆರಾ ಬಳಸಲು ಅನುಮತಿ ಬೇಕು"
 }

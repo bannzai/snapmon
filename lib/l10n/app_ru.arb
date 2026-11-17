@@ -87,5 +87,6 @@
   "captureHero": "Сфотографируй предмет рядом с собой\nРодится монстр!",
   "capturePickFromAlbum": "Выбери из альбома",
   "captureGoToBattle": "Сразиться",
-  "captureViewfinderGuide": "Помести объект съёмки в рамку"
+  "captureViewfinderGuide": "Помести объект съёмки в рамку",
+  "captureCameraPermissionRequired": "Нужно разрешить доступ к камере"
 }

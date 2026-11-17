@@ -87,5 +87,6 @@
   "captureHero": "ถ่ายรูปสิ่งของรอบตัว\nมอนสเตอร์ถือกำเนิด!",
   "capturePickFromAlbum": "เลือกจากอัลบั้ม",
   "captureGoToBattle": "ต่อสู้",
-  "captureViewfinderGuide": "วางสิ่งที่จะถ่ายให้อยู่ในกรอบ"
+  "captureViewfinderGuide": "วางสิ่งที่จะถ่ายให้อยู่ในกรอบ",
+  "captureCameraPermissionRequired": "ต้องอนุญาตให้ใช้กล้อง"
 }

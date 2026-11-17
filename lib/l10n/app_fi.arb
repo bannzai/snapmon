@@ -87,5 +87,6 @@
   "captureHero": "Kuvaa esine ympäriltäsi\nHirviö syntyy!",
   "capturePickFromAlbum": "Valitse albumista",
   "captureGoToBattle": "Taistele",
-  "captureViewfinderGuide": "Aseta kuvattava kohde kehyksen sisään"
+  "captureViewfinderGuide": "Aseta kuvattava kohde kehyksen sisään",
+  "captureCameraPermissionRequired": "Kameran käyttöön tarvitaan lupa"
 }

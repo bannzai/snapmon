@@ -87,5 +87,6 @@
   "captureHero": "ਆਲੇ-ਦੁਆਲੇ ਦੀ ਕਿਸੇ ਚੀਜ਼ ਦੀ ਫੋਟੋ ਖਿੱਚੋ\nਮੌਂਸਟਰ ਜਨਮ ਲਵੇਗਾ!",
   "capturePickFromAlbum": "ਐਲਬਮ ਵਿੱਚੋਂ ਚੁਣੋ",
   "captureGoToBattle": "ਲੜੋ",
-  "captureViewfinderGuide": "ਜਿਸ ਦੀ ਫੋਟੋ ਖਿੱਚਣੀ ਹੈ, ਉਸ ਨੂੰ ਫਰੇਮ ਵਿੱਚ ਰੱਖੋ"
+  "captureViewfinderGuide": "ਜਿਸ ਦੀ ਫੋਟੋ ਖਿੱਚਣੀ ਹੈ, ਉਸ ਨੂੰ ਫਰੇਮ ਵਿੱਚ ਰੱਖੋ",
+  "captureCameraPermissionRequired": "ਕੈਮਰਾ ਵਰਤਣ ਦੀ ਇਜਾਜ਼ਤ ਚਾਹੀਦੀ ਹੈ"
 }

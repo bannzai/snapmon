@@ -87,5 +87,6 @@
   "captureHero": "Vyfoť věc kolem sebe\nZrodí se příšera!",
   "capturePickFromAlbum": "Vyber z alba",
   "captureGoToBattle": "Bojuj",
-  "captureViewfinderGuide": "Umísti focený objekt do rámečku"
+  "captureViewfinderGuide": "Umísti focený objekt do rámečku",
+  "captureCameraPermissionRequired": "Je potřeba povolit přístup k fotoaparátu"
 }

@@ -87,5 +87,6 @@
   "captureHero": "Fes una foto a un objecte del teu voltant\nNeix un monstre!",
   "capturePickFromAlbum": "Tria de l’àlbum",
   "captureGoToBattle": "Combat",
-  "captureViewfinderGuide": "Posa el que vols fotografiar dins del marc"
+  "captureViewfinderGuide": "Posa el que vols fotografiar dins del marc",
+  "captureCameraPermissionRequired": "Cal donar permís per utilitzar la càmera"
 }

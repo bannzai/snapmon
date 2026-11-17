@@ -87,5 +87,6 @@
   "captureHero": "Etrafındaki bir eşyanın fotoğrafını çek\nBir canavar doğar!",
   "capturePickFromAlbum": "Albümden seç",
   "captureGoToBattle": "Savaş",
-  "captureViewfinderGuide": "Fotoğrafını çekeceğin şeyi çerçeveye al"
+  "captureViewfinderGuide": "Fotoğrafını çekeceğin şeyi çerçeveye al",
+  "captureCameraPermissionRequired": "Kamera erişimine izin vermen gerekiyor"
 }

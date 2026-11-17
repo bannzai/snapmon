@@ -87,5 +87,6 @@
   "captureHero": "Foto benda di sekitarmu\nMonster pun lahir!",
   "capturePickFromAlbum": "Pilih dari album",
   "captureGoToBattle": "Bertarung",
-  "captureViewfinderGuide": "Masukkan objek foto ke dalam bingkai"
+  "captureViewfinderGuide": "Masukkan objek foto ke dalam bingkai",
+  "captureCameraPermissionRequired": "Kamu perlu mengizinkan akses kamera"
 }

@@ -87,5 +87,6 @@
   "captureHero": "आजूबाजूच्या वस्तूचा फोटो काढ\nमॉन्स्टर जन्माला येईल!",
   "capturePickFromAlbum": "अल्बममधून निवड",
   "captureGoToBattle": "लढ",
-  "captureViewfinderGuide": "ज्याचा फोटो काढतोस, त्याला चौकटीत आण"
+  "captureViewfinderGuide": "ज्याचा फोटो काढतोस, त्याला चौकटीत आण",
+  "captureCameraPermissionRequired": "कॅमेरा वापरण्याची परवानगी हवी"
 }

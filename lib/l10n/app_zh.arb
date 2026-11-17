@@ -87,5 +87,6 @@
   "captureHero": "拍下身边的物品\n怪物诞生了！",
   "capturePickFromAlbum": "从相册选择",
   "captureGoToBattle": "对战",
-  "captureViewfinderGuide": "把拍摄对象放进框内"
+  "captureViewfinderGuide": "把拍摄对象放进框内",
+  "captureCameraPermissionRequired": "需要允许使用相机"
 }

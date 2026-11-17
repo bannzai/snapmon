@@ -87,5 +87,6 @@
   "captureHero": "ଆଖପାଖର କୌଣସି ଜିନିଷର ଫଟୋ ଉଠାଅ\nମନଷ୍ଟର ଜନ୍ମ ନେବ!",
   "capturePickFromAlbum": "ଆଲବମରୁ ବାଛ",
   "captureGoToBattle": "ଲଢ଼",
-  "captureViewfinderGuide": "ଫଟୋ ଉଠାଇବାକୁ ଥିବା ବସ୍ତୁକୁ ଫ୍ରେମ୍‌ ଭିତରେ ରଖ"
+  "captureViewfinderGuide": "ଫଟୋ ଉଠାଇବାକୁ ଥିବା ବସ୍ତୁକୁ ଫ୍ରେମ୍‌ ଭିତରେ ରଖ",
+  "captureCameraPermissionRequired": "କ୍ୟାମେରା ବ୍ୟବହାର ପାଇଁ ଅନୁମତି ଦରକାର"
 }

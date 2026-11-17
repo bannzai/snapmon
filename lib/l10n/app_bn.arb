@@ -87,5 +87,6 @@
   "captureHero": "চারপাশের জিনিসের ছবি তোলো\nজন্ম নেবে এক মনস্টার!",
   "capturePickFromAlbum": "অ্যালবাম থেকে বেছে নাও",
   "captureGoToBattle": "লড়াই করো",
-  "captureViewfinderGuide": "যার ছবি তুলবে, তাকে ফ্রেমের মধ্যে রাখো"
+  "captureViewfinderGuide": "যার ছবি তুলবে, তাকে ফ্রেমের মধ্যে রাখো",
+  "captureCameraPermissionRequired": "ক্যামেরা ব্যবহারের অনুমতি দরকার"
 }

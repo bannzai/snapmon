@@ -87,5 +87,6 @@
   "captureHero": "Fotografiraj predmet okoli sebe\nRodi se pošast!",
   "capturePickFromAlbum": "Izberi iz albuma",
   "captureGoToBattle": "Bori se",
-  "captureViewfinderGuide": "Postavi motiv v okvir"
+  "captureViewfinderGuide": "Postavi motiv v okvir",
+  "captureCameraPermissionRequired": "Dovoliti moraš dostop do kamere"
 }

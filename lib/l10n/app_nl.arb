@@ -87,5 +87,6 @@
   "captureHero": "Fotografeer iets om je heen\nEr wordt een monster geboren!",
   "capturePickFromAlbum": "Kies uit je album",
   "captureGoToBattle": "Vechten",
-  "captureViewfinderGuide": "Plaats je onderwerp binnen het kader"
+  "captureViewfinderGuide": "Plaats je onderwerp binnen het kader",
+  "captureCameraPermissionRequired": "Je moet toegang tot de camera toestaan"
 }

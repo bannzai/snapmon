@@ -87,5 +87,6 @@
   "captureHero": "Φωτογράφισε κάτι γύρω σου\nΓεννιέται ένα τέρας!",
   "capturePickFromAlbum": "Διάλεξε από το άλμπουμ",
   "captureGoToBattle": "Μάχη",
-  "captureViewfinderGuide": "Βάλε το θέμα σου μέσα στο πλαίσιο"
+  "captureViewfinderGuide": "Βάλε το θέμα σου μέσα στο πλαίσιο",
+  "captureCameraPermissionRequired": "Χρειάζεται άδεια πρόσβασης στην κάμερα"
 }

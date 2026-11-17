@@ -87,5 +87,6 @@
   "captureHero": "આસપાસની કોઈ વસ્તુનો ફોટો પાડો\nમોન્સ્ટર જન્મે છે!",
   "capturePickFromAlbum": "આલ્બમમાંથી પસંદ કરો",
   "captureGoToBattle": "લડો",
-  "captureViewfinderGuide": "જેનો ફોટો પાડવો છે, તેને ફ્રેમમાં લાવો"
+  "captureViewfinderGuide": "જેનો ફોટો પાડવો છે, તેને ફ્રેમમાં લાવો",
+  "captureCameraPermissionRequired": "કૅમેરાનો ઉપયોગ કરવાની પરવાનગી જરૂરી છે"
 }

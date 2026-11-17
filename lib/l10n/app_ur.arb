@@ -87,5 +87,6 @@
   "captureHero": "آس پاس کی کسی چیز کی تصویر لو\nمونسٹر جنم لے گا!",
   "capturePickFromAlbum": "البم سے چنو",
   "captureGoToBattle": "لڑو",
-  "captureViewfinderGuide": "جس کی تصویر لے رہے ہو، اسے فریم میں لاؤ"
+  "captureViewfinderGuide": "جس کی تصویر لے رہے ہو، اسے فریم میں لاؤ",
+  "captureCameraPermissionRequired": "کیمرہ استعمال کرنے کی اجازت چاہیے"
 }
