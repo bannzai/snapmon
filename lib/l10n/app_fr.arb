@@ -168,5 +168,6 @@
   "battleLogFainted": "{monsterName} est K.O.",
   "battleLogStatRose": "La stat {statName} de {monsterName} augmente !",
   "battleLogStatFell": "La stat {statName} de {monsterName} a baissé",
-  "battleLogStatUnchanged": "La stat {statName} de {monsterName} ne peut plus changer !"
+  "battleLogStatUnchanged": "La stat {statName} de {monsterName} ne peut plus changer !",
+  "battleLogRecovered": "{monsterName} a récupéré {amount} HP"
 }
