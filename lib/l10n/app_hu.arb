@@ -7,5 +7,6 @@
   "tabOpponent": "Csata",
   "sessionPreparing": "Előkészület folyamatban",
   "sessionConnectionFailed": "Nem sikerült csatlakozni",
-  "reportReasonInappropriatePicture": "Nem megfelelő kép"
+  "reportReasonInappropriatePicture": "Nem megfelelő kép",
+  "reportReasonInappropriateText": "Nem megfelelő név vagy szöveg"
 }

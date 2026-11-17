@@ -7,5 +7,6 @@
   "tabOpponent": "लढाई",
   "sessionPreparing": "तयारी सुरू आहे",
   "sessionConnectionFailed": "कनेक्ट होता आलं नाही",
-  "reportReasonInappropriatePicture": "अयोग्य चित्र"
+  "reportReasonInappropriatePicture": "अयोग्य चित्र",
+  "reportReasonInappropriateText": "अयोग्य नाव किंवा मजकूर"
 }

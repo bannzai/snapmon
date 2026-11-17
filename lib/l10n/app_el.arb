@@ -7,5 +7,6 @@
   "tabOpponent": "Μάχη",
   "sessionPreparing": "Γίνεται προετοιμασία",
   "sessionConnectionFailed": "Η σύνδεση απέτυχε",
-  "reportReasonInappropriatePicture": "Ακατάλληλη εικόνα"
+  "reportReasonInappropriatePicture": "Ακατάλληλη εικόνα",
+  "reportReasonInappropriateText": "Ακατάλληλο όνομα ή κείμενο"
 }

@@ -7,5 +7,6 @@
   "tabOpponent": "Lotta",
   "sessionPreparing": "Preparativi in corso",
   "sessionConnectionFailed": "Connessione non riuscita",
-  "reportReasonInappropriatePicture": "Immagine inappropriata"
+  "reportReasonInappropriatePicture": "Immagine inappropriata",
+  "reportReasonInappropriateText": "Nome o testo inappropriato"
 }

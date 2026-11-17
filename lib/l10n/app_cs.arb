@@ -7,5 +7,6 @@
   "tabOpponent": "Souboj",
   "sessionPreparing": "Připravuje se",
   "sessionConnectionFailed": "Nepodařilo se připojit",
-  "reportReasonInappropriatePicture": "Nevhodný obrázek"
+  "reportReasonInappropriatePicture": "Nevhodný obrázek",
+  "reportReasonInappropriateText": "Nevhodné jméno nebo text"
 }

@@ -7,5 +7,6 @@
   "tabOpponent": "പോരാട്ടം",
   "sessionPreparing": "തയ്യാറെടുക്കുന്നു",
   "sessionConnectionFailed": "കണക്റ്റ് ചെയ്യാനായില്ല",
-  "reportReasonInappropriatePicture": "അനുചിതമായ ചിത്രം"
+  "reportReasonInappropriatePicture": "അനുചിതമായ ചിത്രം",
+  "reportReasonInappropriateText": "അനുചിതമായ പേരോ എഴുത്തോ"
 }

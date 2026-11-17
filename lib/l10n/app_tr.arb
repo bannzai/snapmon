@@ -7,5 +7,6 @@
   "tabOpponent": "Savaş",
   "sessionPreparing": "Hazırlanıyor",
   "sessionConnectionFailed": "Bağlantı kurulamadı",
-  "reportReasonInappropriatePicture": "Uygunsuz görsel"
+  "reportReasonInappropriatePicture": "Uygunsuz görsel",
+  "reportReasonInappropriateText": "Uygunsuz ad veya metin"
 }

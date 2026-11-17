@@ -7,5 +7,6 @@
   "tabOpponent": "المعركة",
   "sessionPreparing": "جارٍ التحضير",
   "sessionConnectionFailed": "تعذّر الاتصال",
-  "reportReasonInappropriatePicture": "صورة غير لائقة"
+  "reportReasonInappropriatePicture": "صورة غير لائقة",
+  "reportReasonInappropriateText": "اسم أو نص غير لائق"
 }

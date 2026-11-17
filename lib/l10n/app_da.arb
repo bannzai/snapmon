@@ -7,5 +7,6 @@
   "tabOpponent": "Kamp",
   "sessionPreparing": "Gør klar",
   "sessionConnectionFailed": "Kunne ikke oprette forbindelse",
-  "reportReasonInappropriatePicture": "Upassende billede"
+  "reportReasonInappropriatePicture": "Upassende billede",
+  "reportReasonInappropriateText": "Upassende navn eller tekst"
 }

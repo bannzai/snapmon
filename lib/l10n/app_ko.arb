@@ -7,5 +7,6 @@
   "tabOpponent": "배틀",
   "sessionPreparing": "준비하고 있어요",
   "sessionConnectionFailed": "연결하지 못했어요",
-  "reportReasonInappropriatePicture": "부적절한 사진"
+  "reportReasonInappropriatePicture": "부적절한 사진",
+  "reportReasonInappropriateText": "부적절한 이름이나 글"
 }

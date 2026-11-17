@@ -7,5 +7,6 @@
   "tabOpponent": "Borba",
   "sessionPreparing": "Priprema se",
   "sessionConnectionFailed": "Povezivanje nije uspjelo",
-  "reportReasonInappropriatePicture": "Neprimjerena slika"
+  "reportReasonInappropriatePicture": "Neprimjerena slika",
+  "reportReasonInappropriateText": "Neprimjereno ime ili tekst"
 }

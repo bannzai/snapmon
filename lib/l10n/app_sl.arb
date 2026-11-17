@@ -7,5 +7,6 @@
   "tabOpponent": "Dvoboj",
   "sessionPreparing": "Pripravljamo",
   "sessionConnectionFailed": "Povezava ni uspela",
-  "reportReasonInappropriatePicture": "Neprimerna slika"
+  "reportReasonInappropriatePicture": "Neprimerna slika",
+  "reportReasonInappropriateText": "Neprimerno ime ali besedilo"
 }

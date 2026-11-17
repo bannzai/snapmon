@@ -7,5 +7,6 @@
   "tabOpponent": "લડાઈ",
   "sessionPreparing": "તૈયારી ચાલી રહી છે",
   "sessionConnectionFailed": "કનેક્ટ થઈ શક્યું નહીં",
-  "reportReasonInappropriatePicture": "અયોગ્ય ચિત્ર"
+  "reportReasonInappropriatePicture": "અયોગ્ય ચિત્ર",
+  "reportReasonInappropriateText": "અયોગ્ય નામ અથવા લખાણ"
 }

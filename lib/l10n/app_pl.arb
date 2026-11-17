@@ -7,5 +7,6 @@
   "tabOpponent": "Walka",
   "sessionPreparing": "Trwa przygotowanie",
   "sessionConnectionFailed": "Nie udało się połączyć",
-  "reportReasonInappropriatePicture": "Nieodpowiedni obraz"
+  "reportReasonInappropriatePicture": "Nieodpowiedni obraz",
+  "reportReasonInappropriateText": "Nieodpowiednia nazwa lub tekst"
 }

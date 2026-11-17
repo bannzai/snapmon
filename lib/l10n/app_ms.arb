@@ -7,5 +7,6 @@
   "tabOpponent": "Pertarungan",
   "sessionPreparing": "Sedang bersiap",
   "sessionConnectionFailed": "Gagal menyambung",
-  "reportReasonInappropriatePicture": "Gambar tidak sesuai"
+  "reportReasonInappropriatePicture": "Gambar tidak sesuai",
+  "reportReasonInappropriateText": "Nama atau teks tidak sesuai"
 }

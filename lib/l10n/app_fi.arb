@@ -7,5 +7,6 @@
   "tabOpponent": "Taistelu",
   "sessionPreparing": "Valmistellaan",
   "sessionConnectionFailed": "Yhteys epäonnistui",
-  "reportReasonInappropriatePicture": "Sopimaton kuva"
+  "reportReasonInappropriatePicture": "Sopimaton kuva",
+  "reportReasonInappropriateText": "Sopimaton nimi tai teksti"
 }

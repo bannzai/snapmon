@@ -7,5 +7,6 @@
   "tabOpponent": "对战",
   "sessionPreparing": "准备中",
   "sessionConnectionFailed": "连接失败",
-  "reportReasonInappropriatePicture": "图片不当"
+  "reportReasonInappropriatePicture": "图片不当",
+  "reportReasonInappropriateText": "名称或文字不当"
 }

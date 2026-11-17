@@ -7,5 +7,6 @@
   "tabOpponent": "مقابلہ",
   "sessionPreparing": "تیاری ہو رہی ہے",
   "sessionConnectionFailed": "رابطہ قائم نہیں ہو سکا",
-  "reportReasonInappropriatePicture": "نامناسب تصویر"
+  "reportReasonInappropriatePicture": "نامناسب تصویر",
+  "reportReasonInappropriateText": "نام یا متن نامناسب ہے"
 }

@@ -7,5 +7,6 @@
   "tabOpponent": "Luptă",
   "sessionPreparing": "Se pregătește",
   "sessionConnectionFailed": "Conectarea a eșuat",
-  "reportReasonInappropriatePicture": "Imagine nepotrivită"
+  "reportReasonInappropriatePicture": "Imagine nepotrivită",
+  "reportReasonInappropriateText": "Nume sau text nepotrivit"
 }

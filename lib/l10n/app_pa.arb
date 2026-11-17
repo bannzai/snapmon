@@ -7,5 +7,6 @@
   "tabOpponent": "ਮੁਕਾਬਲਾ",
   "sessionPreparing": "ਤਿਆਰੀ ਚੱਲ ਰਹੀ ਹੈ",
   "sessionConnectionFailed": "ਕਨੈਕਟ ਨਹੀਂ ਹੋ ਸਕਿਆ",
-  "reportReasonInappropriatePicture": "ਅਣਉਚਿਤ ਤਸਵੀਰ"
+  "reportReasonInappropriatePicture": "ਅਣਉਚਿਤ ਤਸਵੀਰ",
+  "reportReasonInappropriateText": "ਅਣਉਚਿਤ ਨਾਮ ਜਾਂ ਲਿਖਤ"
 }

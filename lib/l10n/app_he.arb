@@ -7,5 +7,6 @@
   "tabOpponent": "קרב",
   "sessionPreparing": "מתכוננים",
   "sessionConnectionFailed": "החיבור נכשל",
-  "reportReasonInappropriatePicture": "תמונה לא הולמת"
+  "reportReasonInappropriatePicture": "תמונה לא הולמת",
+  "reportReasonInappropriateText": "שם או טקסט לא הולם"
 }

@@ -7,5 +7,6 @@
   "tabOpponent": "Битва",
   "sessionPreparing": "Подготовка",
   "sessionConnectionFailed": "Не удалось подключиться",
-  "reportReasonInappropriatePicture": "Неподходящее изображение"
+  "reportReasonInappropriatePicture": "Неподходящее изображение",
+  "reportReasonInappropriateText": "Недопустимое имя или текст"
 }

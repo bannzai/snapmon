@@ -7,5 +7,6 @@
   "tabOpponent": "పోరాటం",
   "sessionPreparing": "సిద్ధమవుతోంది",
   "sessionConnectionFailed": "కనెక్ట్ కాలేదు",
-  "reportReasonInappropriatePicture": "అనుచితమైన చిత్రం"
+  "reportReasonInappropriatePicture": "అనుచితమైన చిత్రం",
+  "reportReasonInappropriateText": "అనుచితమైన పేరు లేదా వచనం"
 }

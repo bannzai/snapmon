@@ -7,5 +7,6 @@
   "tabOpponent": "Strid",
   "sessionPreparing": "Gör klart",
   "sessionConnectionFailed": "Kunde inte ansluta",
-  "reportReasonInappropriatePicture": "Olämplig bild"
+  "reportReasonInappropriatePicture": "Olämplig bild",
+  "reportReasonInappropriateText": "Olämpligt namn eller text"
 }

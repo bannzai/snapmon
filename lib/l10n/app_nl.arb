@@ -7,5 +7,6 @@
   "tabOpponent": "Gevecht",
   "sessionPreparing": "Alles wordt klaargemaakt",
   "sessionConnectionFailed": "Verbinding mislukt",
-  "reportReasonInappropriatePicture": "Ongepaste afbeelding"
+  "reportReasonInappropriatePicture": "Ongepaste afbeelding",
+  "reportReasonInappropriateText": "Ongepaste naam of tekst"
 }
