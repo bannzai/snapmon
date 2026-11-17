@@ -117,5 +117,6 @@
   "generationStageWritingName": "Vymýšľame meno a opis do encyklopédie",
   "generationStageDecidingElements": "Vyberáme elementy a útoky",
   "generationStageBeingBorn": "Rodí sa príšera",
-  "generationRejectedExplicitContent": "Z tejto fotky sa nedá vytvoriť príšera"
+  "generationRejectedExplicitContent": "Z tejto fotky sa nedá vytvoriť príšera",
+  "generationRejectedPerson": "Z fotky, na ktorej je človek, príšeru nevytvoríš\nFoť len predmety"
 }

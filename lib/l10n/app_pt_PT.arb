@@ -117,5 +117,6 @@
   "generationStageWritingName": "A pensar num nome e numa descrição para a enciclopédia",
   "generationStageDecidingElements": "A escolher elementos e golpes",
   "generationStageBeingBorn": "Está a nascer um monstro",
-  "generationRejectedExplicitContent": "Não consegues criar um monstro a partir desta fotografia"
+  "generationRejectedExplicitContent": "Não consegues criar um monstro a partir desta fotografia",
+  "generationRejectedPerson": "Não podes criar um monstro a partir de uma foto onde apareça alguém\nFotografa apenas objetos"
 }

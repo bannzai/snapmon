@@ -117,5 +117,6 @@
   "generationStageWritingName": "กำลังคิดชื่อและคำอธิบายสำหรับสารานุกรม",
   "generationStageDecidingElements": "กำลังเลือกธาตุและท่า",
   "generationStageBeingBorn": "มอนสเตอร์กำลังถือกำเนิด",
-  "generationRejectedExplicitContent": "สร้างมอนสเตอร์จากรูปนี้ไม่ได้"
+  "generationRejectedExplicitContent": "สร้างมอนสเตอร์จากรูปนี้ไม่ได้",
+  "generationRejectedPerson": "สร้างมอนสเตอร์จากรูปที่มีคนไม่ได้\nถ่ายเฉพาะสิ่งของ"
 }

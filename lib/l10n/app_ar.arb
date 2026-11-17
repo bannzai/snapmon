@@ -117,5 +117,6 @@
   "generationStageWritingName": "نفكر في اسم ووصف للموسوعة",
   "generationStageDecidingElements": "نختار العناصر والحركات",
   "generationStageBeingBorn": "وحش يولد الآن",
-  "generationRejectedExplicitContent": "لا يمكن صنع وحش من هذه الصورة"
+  "generationRejectedExplicitContent": "لا يمكن صنع وحش من هذه الصورة",
+  "generationRejectedPerson": "لا يمكن صنع وحش من صورة يظهر فيها شخص\nصوّر الأشياء فقط"
 }

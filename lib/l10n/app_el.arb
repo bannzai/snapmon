@@ -117,5 +117,6 @@
   "generationStageWritingName": "Σκεφτόμαστε όνομα και περιγραφή για την εγκυκλοπαίδεια",
   "generationStageDecidingElements": "Διαλέγουμε στοιχεία και τεχνικές",
   "generationStageBeingBorn": "Ένα τέρας γεννιέται",
-  "generationRejectedExplicitContent": "Δεν μπορεί να γεννηθεί τέρας από αυτή τη φωτογραφία"
+  "generationRejectedExplicitContent": "Δεν μπορεί να γεννηθεί τέρας από αυτή τη φωτογραφία",
+  "generationRejectedPerson": "Δεν μπορείς να φτιάξεις τέρας από φωτογραφία με άνθρωπο\nΦωτογράφισε μόνο αντικείμενα"
 }

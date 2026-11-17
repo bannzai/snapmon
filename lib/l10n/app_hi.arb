@@ -117,5 +117,6 @@
   "generationStageWritingName": "नाम और संग्रह के लिए विवरण सोच रहे हैं",
   "generationStageDecidingElements": "तत्व और चालें चुनी जा रही हैं",
   "generationStageBeingBorn": "एक मॉन्स्टर जन्म ले रहा है",
-  "generationRejectedExplicitContent": "इस फ़ोटो से मॉन्स्टर नहीं बनाया जा सकता"
+  "generationRejectedExplicitContent": "इस फ़ोटो से मॉन्स्टर नहीं बनाया जा सकता",
+  "generationRejectedPerson": "जिस फ़ोटो में कोई व्यक्ति हो, उससे मॉन्स्टर नहीं बना सकते\nसिर्फ़ चीज़ों की फ़ोटो खींचो"
 }

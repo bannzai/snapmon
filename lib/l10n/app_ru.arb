@@ -117,5 +117,6 @@
   "generationStageWritingName": "Придумываем имя и описание для энциклопедии",
   "generationStageDecidingElements": "Выбираем элементы и приёмы",
   "generationStageBeingBorn": "Рождается монстр",
-  "generationRejectedExplicitContent": "Из этого фото не получится создать монстра"
+  "generationRejectedExplicitContent": "Из этого фото не получится создать монстра",
+  "generationRejectedPerson": "Нельзя создать монстра из фото, на котором есть человек\nФотографируй только предметы"
 }

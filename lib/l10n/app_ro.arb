@@ -117,5 +117,6 @@
   "generationStageWritingName": "Gândim un nume și o descriere pentru enciclopedie",
   "generationStageDecidingElements": "Alegem elementele și mișcările",
   "generationStageBeingBorn": "Se naște un monstru",
-  "generationRejectedExplicitContent": "Nu poți crea un monstru din această poză"
+  "generationRejectedExplicitContent": "Nu poți crea un monstru din această poză",
+  "generationRejectedPerson": "Nu poți crea un monstru dintr-o poză în care apare o persoană\nFotografiază doar obiecte"
 }

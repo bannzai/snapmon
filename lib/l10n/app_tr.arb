@@ -117,5 +117,6 @@
   "generationStageWritingName": "İsim ve ansiklopedi açıklaması düşünüyoruz",
   "generationStageDecidingElements": "Elementleri ve hamleleri seçiyoruz",
   "generationStageBeingBorn": "Bir canavar doğuyor",
-  "generationRejectedExplicitContent": "Bu fotoğraftan canavar oluşturamazsın"
+  "generationRejectedExplicitContent": "Bu fotoğraftan canavar oluşturamazsın",
+  "generationRejectedPerson": "İnsan görünen bir fotoğraftan canavar oluşturamazsın\nYalnızca eşyaların fotoğrafını çek"
 }

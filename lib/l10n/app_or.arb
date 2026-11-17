@@ -117,5 +117,6 @@
   "generationStageWritingName": "ନାମ ଓ ବିଶ୍ୱକୋଷ ପାଇଁ ବର୍ଣ୍ଣନା ଭାବୁଛୁ",
   "generationStageDecidingElements": "ତତ୍ତ୍ୱ ଓ ଚାଲ ବାଛୁଛୁ",
   "generationStageBeingBorn": "ଗୋଟିଏ ମନଷ୍ଟର ଜନ୍ମ ନେଉଛି",
-  "generationRejectedExplicitContent": "ଏହି ଫଟୋରୁ ମନଷ୍ଟର ତିଆରି କରିହେବ ନାହିଁ"
+  "generationRejectedExplicitContent": "ଏହି ଫଟୋରୁ ମନଷ୍ଟର ତିଆରି କରିହେବ ନାହିଁ",
+  "generationRejectedPerson": "ଲୋକ ଥିବା ଫଟୋରୁ ମନଷ୍ଟର ତିଆରି କରିହେବ ନାହିଁ\nକେବଳ ଜିନିଷର ଫଟୋ ଉଠାଅ"
 }

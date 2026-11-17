@@ -117,5 +117,6 @@
   "generationStageWritingName": "Smišljamo ime i opis za enciklopediju",
   "generationStageDecidingElements": "Biramo elemente i poteze",
   "generationStageBeingBorn": "Rađa se čudovište",
-  "generationRejectedExplicitContent": "Od ove fotografije ne možeš stvoriti čudovište"
+  "generationRejectedExplicitContent": "Od ove fotografije ne možeš stvoriti čudovište",
+  "generationRejectedPerson": "Ne možeš stvoriti čudovište iz fotografije na kojoj je osoba\nFotografiraj samo predmete"
 }

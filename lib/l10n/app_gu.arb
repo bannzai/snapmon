@@ -117,5 +117,6 @@
   "generationStageWritingName": "નામ અને ડેક્સ માટેનું વર્ણન વિચારી રહ્યા છીએ",
   "generationStageDecidingElements": "તત્ત્વ અને ચાલ પસંદ થઈ રહ્યાં છે",
   "generationStageBeingBorn": "એક મોન્સ્ટર જન્મી રહ્યું છે",
-  "generationRejectedExplicitContent": "આ ફોટામાંથી મોન્સ્ટર બનાવી શકાશે નહીં"
+  "generationRejectedExplicitContent": "આ ફોટામાંથી મોન્સ્ટર બનાવી શકાશે નહીં",
+  "generationRejectedPerson": "લોકો દેખાતા હોય એવા ફોટામાંથી મોન્સ્ટર બનાવી શકાતું નથી\nફક્ત વસ્તુઓના ફોટા લો"
 }

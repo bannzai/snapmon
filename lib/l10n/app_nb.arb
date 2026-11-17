@@ -117,5 +117,6 @@
   "generationStageWritingName": "Finner på navn og tekst til samlingen",
   "generationStageDecidingElements": "Velger typer og angrep",
   "generationStageBeingBorn": "Et monster blir født",
-  "generationRejectedExplicitContent": "Du kan ikke lage et monster av dette bildet"
+  "generationRejectedExplicitContent": "Du kan ikke lage et monster av dette bildet",
+  "generationRejectedPerson": "Du kan ikke lage et monster av et bilde med personer\nTa bare bilder av ting"
 }

@@ -117,5 +117,6 @@
   "generationStageWritingName": "Memikirkan nama dan deskripsi untuk dex",
   "generationStageDecidingElements": "Memilih elemen dan jurus",
   "generationStageBeingBorn": "Monster sedang lahir",
-  "generationRejectedExplicitContent": "Kamu tidak bisa membuat monster dari foto ini"
+  "generationRejectedExplicitContent": "Kamu tidak bisa membuat monster dari foto ini",
+  "generationRejectedPerson": "Kamu tidak bisa membuat monster dari foto yang menampilkan orang\nFoto benda saja"
 }

@@ -117,5 +117,6 @@
   "generationStageWritingName": "Pensando un nombre y una descripción para la colección",
   "generationStageDecidingElements": "Eligiendo elementos y movimientos",
   "generationStageBeingBorn": "Está naciendo un monstruo",
-  "generationRejectedExplicitContent": "No se puede crear un monstruo con esta foto"
+  "generationRejectedExplicitContent": "No se puede crear un monstruo con esta foto",
+  "generationRejectedPerson": "No puedes crear un monstruo con una foto en la que salga alguien\nFotografía solo objetos"
 }

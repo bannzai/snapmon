@@ -117,5 +117,6 @@
   "generationStageWritingName": "Vymýšlíme jméno a popis do encyklopedie",
   "generationStageDecidingElements": "Vybíráme elementy a útoky",
   "generationStageBeingBorn": "Rodí se příšera",
-  "generationRejectedExplicitContent": "Z této fotky nejde vytvořit příšeru"
+  "generationRejectedExplicitContent": "Z této fotky nejde vytvořit příšeru",
+  "generationRejectedPerson": "Z fotky, na které je člověk, monstrum nevytvoříš\nFoť jen předměty"
 }

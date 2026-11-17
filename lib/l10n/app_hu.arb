@@ -117,5 +117,6 @@
   "generationStageWritingName": "Neven és gyűjteménybe illő leíráson gondolkodunk",
   "generationStageDecidingElements": "Típusok és támadások kiválasztása",
   "generationStageBeingBorn": "Egy szörny születik",
-  "generationRejectedExplicitContent": "Ebből a fotóból nem lehet szörnyet alkotni"
+  "generationRejectedExplicitContent": "Ebből a fotóból nem lehet szörnyet alkotni",
+  "generationRejectedPerson": "Embert ábrázoló fotóból nem készíthetsz szörnyet\nCsak tárgyakat fotózz"
 }

@@ -117,5 +117,6 @@
   "generationStageWritingName": "Denke mir einen Namen und einen Dex-Eintrag aus",
   "generationStageDecidingElements": "Elemente und Attacken werden ausgewählt",
   "generationStageBeingBorn": "Ein Monster wird geboren",
-  "generationRejectedExplicitContent": "Aus diesem Foto lässt sich kein Monster erschaffen"
+  "generationRejectedExplicitContent": "Aus diesem Foto lässt sich kein Monster erschaffen",
+  "generationRejectedPerson": "Aus Fotos mit Personen kannst du keine Monster erschaffen\nFotografiere nur Gegenstände"
 }
