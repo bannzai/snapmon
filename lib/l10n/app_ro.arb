@@ -332,5 +332,6 @@
   "helpStatusConfusion": "Timp de câteva ture, poate ieși o altă mișcare decât cea aleasă",
   "helpStatusDizzy": "Mișcările nimeresc mai greu timp de 3 ture",
   "helpStatusExcited": "Atacul crește, apărarea scade",
-  "helpStatusFrozen": "Poate împiedica acțiunea câteva ture\nDispare la primirea de daune de la o mișcare"
+  "helpStatusFrozen": "Poate împiedica acțiunea câteva ture\nDispare la primirea de daune de la o mișcare",
+  "helpStatusSwitchBlocked": "Nu poți schimba monstrul din proprie inițiativă timp de 3 ture"
 }

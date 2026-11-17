@@ -332,5 +332,6 @@
   "helpStatusConfusion": "Een paar beurten lang kan een andere aanval dan de gekozen aanval worden gebruikt",
   "helpStatusDizzy": "Aanvallen raken 3 beurten lang minder vaak",
   "helpStatusExcited": "Aanval stijgt, verdediging daalt",
-  "helpStatusFrozen": "Kan een paar beurten lang handelen verhinderen\nVerdwijnt bij schade door een aanval"
+  "helpStatusFrozen": "Kan een paar beurten lang handelen verhinderen\nVerdwijnt bij schade door een aanval",
+  "helpStatusSwitchBlocked": "Je kunt 3 beurten lang niet zelf van monster wisselen"
 }

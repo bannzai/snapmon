@@ -332,5 +332,6 @@
   "helpStatusConfusion": "Trong vài lượt, có thể tung chiêu khác với chiêu bạn đã chọn",
   "helpStatusDizzy": "Chiêu thức khó trúng hơn trong 3 lượt",
   "helpStatusExcited": "Tấn công tăng, phòng thủ giảm",
-  "helpStatusFrozen": "Có thể không hành động được trong vài lượt\nHết khi chịu sát thương từ chiêu"
+  "helpStatusFrozen": "Có thể không hành động được trong vài lượt\nHết khi chịu sát thương từ chiêu",
+  "helpStatusSwitchBlocked": "Bạn không thể tự đổi quái vật trong 3 lượt"
 }

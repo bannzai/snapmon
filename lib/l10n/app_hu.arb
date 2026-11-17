@@ -332,5 +332,6 @@
   "helpStatusConfusion": "Néhány körig a választott támadás helyett másik támadás indulhat",
   "helpStatusDizzy": "A támadások 3 körig ritkábban találnak",
   "helpStatusExcited": "A támadás nő, a védekezés csökken",
-  "helpStatusFrozen": "Néhány körig megakadályozhatja a cselekvést\nElmúlik, ha egy támadás sebzést okoz"
+  "helpStatusFrozen": "Néhány körig megakadályozhatja a cselekvést\nElmúlik, ha egy támadás sebzést okoz",
+  "helpStatusSwitchBlocked": "3 körig nem cserélhetsz szörnyet saját döntésből"
 }

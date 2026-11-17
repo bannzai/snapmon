@@ -332,5 +332,6 @@
   "helpStatusConfusion": "Under några turer kan en annan attack än den valda användas",
   "helpStatusDizzy": "Attacker träffar mer sällan i 3 omgångar",
   "helpStatusExcited": "Attacken ökar, försvaret sjunker",
-  "helpStatusFrozen": "Kan hindra handling i några rundor\nUpphör vid skada från en attack"
+  "helpStatusFrozen": "Kan hindra handling i några rundor\nUpphör vid skada från en attack",
+  "helpStatusSwitchBlocked": "Du kan inte byta monster själv på 3 turer"
 }
