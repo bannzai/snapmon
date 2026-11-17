@@ -158,5 +158,6 @@
   "shareConfirm": "Megosztás",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
   "battleWon": "Győztél!",
-  "battleLost": "Vesztettél"
+  "battleLost": "Vesztettél",
+  "shareVersusOpponents": "{opponentNames} ellen"
 }

@@ -158,5 +158,6 @@
   "shareConfirm": "分享",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
   "battleWon": "你赢了！",
-  "battleLost": "你输了"
+  "battleLost": "你输了",
+  "shareVersusOpponents": "对战 {opponentNames}"
 }

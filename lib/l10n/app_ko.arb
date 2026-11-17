@@ -158,5 +158,6 @@
   "shareConfirm": "공유하기",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
   "battleWon": "승리했다!",
-  "battleLost": "패배"
+  "battleLost": "패배",
+  "shareVersusOpponents": "{opponentNames} 상대"
 }

@@ -158,5 +158,6 @@
   "shareConfirm": "Del",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
   "battleWon": "Du vant!",
-  "battleLost": "Du tapte"
+  "battleLost": "Du tapte",
+  "shareVersusOpponents": "mot {opponentNames}"
 }

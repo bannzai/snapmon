@@ -158,5 +158,6 @@
   "shareConfirm": "Delen",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
   "battleWon": "Je hebt gewonnen!",
-  "battleLost": "Je hebt verloren"
+  "battleLost": "Je hebt verloren",
+  "shareVersusOpponents": "tegen {opponentNames}"
 }

@@ -158,5 +158,6 @@
   "shareConfirm": "Deli",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
   "battleWon": "Zmagal si!",
-  "battleLost": "Izgubil si"
+  "battleLost": "Izgubil si",
+  "shareVersusOpponents": "proti {opponentNames}"
 }

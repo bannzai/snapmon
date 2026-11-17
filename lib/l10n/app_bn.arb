@@ -158,5 +158,6 @@
   "shareConfirm": "শেয়ার করো",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
   "battleWon": "জিতেছ!",
-  "battleLost": "তুমি হেরে গেছ"
+  "battleLost": "তুমি হেরে গেছ",
+  "shareVersusOpponents": "{opponentNames}-এর বিরুদ্ধে"
 }

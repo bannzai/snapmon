@@ -158,5 +158,6 @@
   "shareConfirm": "Κοινοποίηση",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
   "battleWon": "Νίκησες!",
-  "battleLost": "Έχασες"
+  "battleLost": "Έχασες",
+  "shareVersusOpponents": "εναντίον {opponentNames}"
 }

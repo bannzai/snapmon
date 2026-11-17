@@ -158,5 +158,6 @@
   "shareConfirm": "શેર કરો",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
   "battleWon": "તમે જીતી ગયા!",
-  "battleLost": "તમે હારી ગયા"
+  "battleLost": "તમે હારી ગયા",
+  "shareVersusOpponents": "{opponentNames} સામે"
 }

@@ -158,5 +158,6 @@
   "shareConfirm": "Kongsi",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
   "battleWon": "Kamu menang!",
-  "battleLost": "Kamu kalah"
+  "battleLost": "Kamu kalah",
+  "shareVersusOpponents": "lawan {opponentNames}"
 }

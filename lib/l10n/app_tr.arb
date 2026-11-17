@@ -158,5 +158,6 @@
   "shareConfirm": "Paylaş",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
   "battleWon": "Kazandın!",
-  "battleLost": "Kaybettin"
+  "battleLost": "Kaybettin",
+  "shareVersusOpponents": "{opponentNames} ile karşılaş"
 }

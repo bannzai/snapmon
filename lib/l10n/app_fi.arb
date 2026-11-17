@@ -158,5 +158,6 @@
   "shareConfirm": "Jaa",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
   "battleWon": "Voitit!",
-  "battleLost": "Hävisit"
+  "battleLost": "Hävisit",
+  "shareVersusOpponents": "vastaan {opponentNames}"
 }

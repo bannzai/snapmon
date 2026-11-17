@@ -158,5 +158,6 @@
   "shareConfirm": "שיתוף",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
   "battleWon": "ניצחון!",
-  "battleLost": "הפסד"
+  "battleLost": "הפסד",
+  "shareVersusOpponents": "נגד {opponentNames}"
 }

@@ -158,5 +158,6 @@
   "shareConfirm": "షేర్ చేయి",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
   "battleWon": "నువ్వు గెలిచావు!",
-  "battleLost": "నువ్వు ఓడిపోయావు"
+  "battleLost": "నువ్వు ఓడిపోయావు",
+  "shareVersusOpponents": "{opponentNames}తో పోరు"
 }

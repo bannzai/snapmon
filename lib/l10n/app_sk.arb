@@ -158,5 +158,6 @@
   "shareConfirm": "Zdieľaj",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
   "battleWon": "Vyhral si!",
-  "battleLost": "Prehral si"
+  "battleLost": "Prehral si",
+  "shareVersusOpponents": "proti {opponentNames}"
 }

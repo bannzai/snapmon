@@ -158,5 +158,6 @@
   "shareConfirm": "Udostępnij",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
   "battleWon": "Wygrana!",
-  "battleLost": "Przegrywasz"
+  "battleLost": "Przegrywasz",
+  "shareVersusOpponents": "przeciwko {opponentNames}"
 }

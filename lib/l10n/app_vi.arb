@@ -158,5 +158,6 @@
   "shareConfirm": "Chia sẻ",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
   "battleWon": "Bạn thắng rồi!",
-  "battleLost": "Bạn đã thua"
+  "battleLost": "Bạn đã thua",
+  "shareVersusOpponents": "đấu với {opponentNames}"
 }

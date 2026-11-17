@@ -158,5 +158,6 @@
   "shareConfirm": "शेअर कर",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
   "battleWon": "तू जिंकलास!",
-  "battleLost": "तू हरलास"
+  "battleLost": "तू हरलास",
+  "shareVersusOpponents": "{opponentNames} विरुद्ध"
 }

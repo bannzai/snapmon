@@ -158,5 +158,6 @@
   "shareConfirm": "Dela",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
   "battleWon": "Du vann!",
-  "battleLost": "Du förlorade"
+  "battleLost": "Du förlorade",
+  "shareVersusOpponents": "mot {opponentNames}"
 }

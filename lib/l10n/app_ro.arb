@@ -158,5 +158,6 @@
   "shareConfirm": "Distribuie",
   "commonLevelUp": "Lv. {oldLevel} → {newLevel}",
   "battleWon": "Ai câștigat!",
-  "battleLost": "Ai pierdut"
+  "battleLost": "Ai pierdut",
+  "shareVersusOpponents": "contra {opponentNames}"
 }
