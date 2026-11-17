@@ -43,5 +43,6 @@
   "opponentNoneAvailable": "Teraz nie je dostupný žiadny tréner na súboj\nMôžeš bojovať s CPU trénerom",
   "opponentRandomBattle": "Bojuj s náhodným súperom",
   "settingsLinked": "Prepojené s {providerName}",
-  "settingsSwitchAccountTitle": "Chceš prepnúť na prepojený účet?"
+  "settingsSwitchAccountTitle": "Chceš prepnúť na prepojený účet?",
+  "settingsSwitchAccountMessage": "Tento účet {providerName} je už prepojený na inom zariadení. Ak naň prepneš, miestna encyklopédia (príšerky: {monsterCount}) sa vymaže a zobrazí sa encyklopédia prepojeného účtu."
 }

@@ -43,5 +43,6 @@
   "opponentNoneAvailable": "Não há treinador disponível para batalhar agora\nVocê pode batalhar com um treinador CPU",
   "opponentRandomBattle": "Batalhe contra um oponente aleatório",
   "settingsLinked": "Conectado ao {providerName}",
-  "settingsSwitchAccountTitle": "Quer mudar para a conta vinculada?"
+  "settingsSwitchAccountTitle": "Quer mudar para a conta vinculada?",
+  "settingsSwitchAccountMessage": "Esta conta {providerName} já está vinculada em outro dispositivo. Se você trocar de conta, o dex deste dispositivo (monstros: {monsterCount}) será apagado e aparecerá o dex da conta vinculada."
 }

@@ -43,5 +43,6 @@
   "opponentNoneAvailable": "এখন লড়ার মতো কোনো ট্রেনার নেই\nতুমি CPU ট্রেনারের সঙ্গে লড়তে পারো",
   "opponentRandomBattle": "এলোমেলো প্রতিপক্ষের সঙ্গে লড়ো",
   "settingsLinked": "{providerName}-এর সঙ্গে সংযুক্ত হয়েছে",
-  "settingsSwitchAccountTitle": "লিঙ্ক করা অ্যাকাউন্টে বদলাবে?"
+  "settingsSwitchAccountTitle": "লিঙ্ক করা অ্যাকাউন্টে বদলাবে?",
+  "settingsSwitchAccountMessage": "এই {providerName} অ্যাকাউন্টটি অন্য ডিভাইসে লিঙ্ক করা আছে। এতে বদলালে এই ডিভাইসের সংগ্রহ (দানব: {monsterCount}) মুছে যাবে, আর লিঙ্ক করা অ্যাকাউন্টের সংগ্রহ দেখা যাবে।"
 }

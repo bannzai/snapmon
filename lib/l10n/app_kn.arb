@@ -43,5 +43,6 @@
   "opponentNoneAvailable": "ಈಗ ಹೋರಾಡಲು ಯಾವುದೇ ಟ್ರೈನರ್ ಇಲ್ಲ\nನೀನು CPU ಟ್ರೈನರ್ ಜೊತೆ ಹೋರಾಡಬಹುದು",
   "opponentRandomBattle": "ಯಾದೃಚ್ಛಿಕ ಎದುರಾಳಿಯೊಂದಿಗೆ ಹೋರಾಡು",
   "settingsLinked": "{providerName} ಜೊತೆ ಸಂಪರ್ಕಗೊಂಡಿದೆ",
-  "settingsSwitchAccountTitle": "ಲಿಂಕ್ ಮಾಡಿದ ಖಾತೆಗೆ ಬದಲಾಯಿಸುತ್ತೀಯಾ?"
+  "settingsSwitchAccountTitle": "ಲಿಂಕ್ ಮಾಡಿದ ಖಾತೆಗೆ ಬದಲಾಯಿಸುತ್ತೀಯಾ?",
+  "settingsSwitchAccountMessage": "ಈ {providerName} ಖಾತೆ ಇನ್ನೊಂದು ಸಾಧನದಲ್ಲಿ ಈಗಾಗಲೇ ಲಿಂಕ್ ಆಗಿದೆ. ಇದಕ್ಕೆ ಬದಲಾಯಿಸಿದರೆ, ಈ ಸಾಧನದ ವಿಶ್ವಕೋಶ (ರಾಕ್ಷಸರು: {monsterCount}) ಅಳಿದು, ಲಿಂಕ್ ಆಗಿರುವ ಖಾತೆಯ ವಿಶ್ವಕೋಶ ಕಾಣಿಸುತ್ತದೆ."
 }

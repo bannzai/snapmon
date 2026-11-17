@@ -43,5 +43,6 @@
   "opponentNoneAvailable": "अभी लड़ने के लिए कोई ट्रेनर नहीं है\nतुम CPU ट्रेनर से लड़ सकते हो",
   "opponentRandomBattle": "किसी रैंडम प्रतिद्वंद्वी से लड़ो",
   "settingsLinked": "{providerName} से जुड़ गया",
-  "settingsSwitchAccountTitle": "लिंक किए गए खाते पर जाना चाहते हो?"
+  "settingsSwitchAccountTitle": "लिंक किए गए खाते पर जाना चाहते हो?",
+  "settingsSwitchAccountMessage": "यह {providerName} खाता दूसरे डिवाइस पर पहले से लिंक है। इस पर स्विच करोगे तो इस डिवाइस का संग्रह (मॉन्स्टर: {monsterCount}) मिट जाएगा और लिंक किए गए खाते का संग्रह दिखेगा।"
 }

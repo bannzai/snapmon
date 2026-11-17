@@ -43,5 +43,6 @@
   "opponentNoneAvailable": "Belum ada pelatih yang bisa dilawan sekarang\nKamu bisa melawan pelatih CPU",
   "opponentRandomBattle": "Lawan musuh acak",
   "settingsLinked": "Terhubung dengan {providerName}",
-  "settingsSwitchAccountTitle": "Mau beralih ke akun yang tertaut?"
+  "settingsSwitchAccountTitle": "Mau beralih ke akun yang tertaut?",
+  "settingsSwitchAccountMessage": "Akun {providerName} ini sudah tertaut di perangkat lain. Jika kamu beralih, dex di perangkat ini (monster: {monsterCount}) akan terhapus dan diganti dengan dex akun tertaut."
 }

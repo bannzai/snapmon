@@ -43,5 +43,6 @@
   "opponentNoneAvailable": "Yhtään kouluttajaa ei ole nyt vastassa\nVoit taistella CPU-kouluttajaa vastaan",
   "opponentRandomBattle": "Taistele satunnaista vastustajaa vastaan",
   "settingsLinked": "Yhdistetty palveluun {providerName}",
-  "settingsSwitchAccountTitle": "Haluatko vaihtaa linkitettyyn tiliin?"
+  "settingsSwitchAccountTitle": "Haluatko vaihtaa linkitettyyn tiliin?",
+  "settingsSwitchAccountMessage": "Tämä {providerName}-tili on jo yhdistetty toisella laitteella. Jos vaihdat siihen, tämän laitteen kokoelma (hirviöt: {monsterCount}) poistuu ja tilalle tulee yhdistetyn tilin kokoelma."
 }

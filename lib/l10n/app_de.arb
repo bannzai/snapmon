@@ -43,5 +43,6 @@
   "opponentNoneAvailable": "Gerade ist kein Trainer für einen Kampf da\nDu kannst gegen einen CPU-Trainer kämpfen",
   "opponentRandomBattle": "Kämpfe gegen einen zufälligen Gegner",
   "settingsLinked": "Mit {providerName} verknüpft",
-  "settingsSwitchAccountTitle": "Möchtest du zum verknüpften Konto wechseln?"
+  "settingsSwitchAccountTitle": "Möchtest du zum verknüpften Konto wechseln?",
+  "settingsSwitchAccountMessage": "Dieses {providerName}-Konto ist bereits auf einem anderen Gerät verknüpft. Wenn du wechselst, wird der Dex auf diesem Gerät gelöscht (Monster: {monsterCount}) und der Dex des verknüpften Kontos angezeigt."
 }

@@ -43,5 +43,6 @@
   "opponentNoneAvailable": "Acum nu e niciun antrenor disponibil pentru luptă\nPoți lupta cu un antrenor CPU",
   "opponentRandomBattle": "Luptă cu un adversar aleatoriu",
   "settingsLinked": "Conectat la {providerName}",
-  "settingsSwitchAccountTitle": "Vrei să treci la contul conectat?"
+  "settingsSwitchAccountTitle": "Vrei să treci la contul conectat?",
+  "settingsSwitchAccountMessage": "Acest cont {providerName} este deja conectat pe alt dispozitiv. Dacă treci la el, enciclopedia de pe acest dispozitiv (monștri: {monsterCount}) va fi ștearsă și va apărea enciclopedia contului conectat."
 }

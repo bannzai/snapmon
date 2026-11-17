@@ -43,5 +43,6 @@
   "opponentNoneAvailable": "Сейчас нет тренера, с которым можно сразиться\nТы можешь сразиться с CPU-тренером",
   "opponentRandomBattle": "Сразись со случайным соперником",
   "settingsLinked": "Подключено к {providerName}",
-  "settingsSwitchAccountTitle": "Хочешь переключиться на привязанный аккаунт?"
+  "settingsSwitchAccountTitle": "Хочешь переключиться на привязанный аккаунт?",
+  "settingsSwitchAccountMessage": "Этот аккаунт {providerName} уже привязан на другом устройстве. Если переключишься на него, энциклопедия на этом устройстве (монстры: {monsterCount}) удалится и появится энциклопедия привязанного аккаунта."
 }

@@ -43,5 +43,6 @@
   "opponentNoneAvailable": "אין כרגע מאמן זמין לקרב\nאפשר להילחם מול מאמן CPU",
   "opponentRandomBattle": "קרב נגד יריב אקראי",
   "settingsLinked": "החיבור אל {providerName} הושלם",
-  "settingsSwitchAccountTitle": "לעבור לחשבון המקושר?"
+  "settingsSwitchAccountTitle": "לעבור לחשבון המקושר?",
+  "settingsSwitchAccountMessage": "חשבון {providerName} הזה כבר מקושר במכשיר אחר. מעבר אליו ימחק את האוסף במכשיר הזה (מפלצות: {monsterCount}) ויציג את האוסף של החשבון המקושר."
 }
