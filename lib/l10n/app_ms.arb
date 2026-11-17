@@ -103,5 +103,6 @@
   "generationAlreadyInDexMessage": "Objek ini sudah ada dalam ensiklopedia sebagai {monsterName}\nKamu boleh bertarung dengan monster ini",
   "generationBattleWithThisMonster": "Bertarung dengan monster ini",
   "generationRetake": "Ambil gambar semula",
-  "generationWaitingTitle": "Tunggu sekejap lagi, ya"
+  "generationWaitingTitle": "Tunggu sekejap lagi, ya",
+  "generationWaitingMessage": "Menentukan elemen monster mengambil masa sedikit lebih lama\nSebaik lahir, monster akan masuk ke ensiklopedia"
 }

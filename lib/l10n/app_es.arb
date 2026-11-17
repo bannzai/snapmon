@@ -103,5 +103,6 @@
   "generationAlreadyInDexMessage": "Este objeto ya está en tu colección como {monsterName}\nPuedes combatir con este monstruo",
   "generationBattleWithThisMonster": "Combate con este monstruo",
   "generationRetake": "Tomar otra foto",
-  "generationWaitingTitle": "Espera un poquito más"
+  "generationWaitingTitle": "Espera un poquito más",
+  "generationWaitingMessage": "El elemento del monstruo está tardando un poco en definirse\nCuando nazca, aparecerá en tu colección"
 }

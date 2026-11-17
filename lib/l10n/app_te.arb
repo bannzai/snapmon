@@ -103,5 +103,6 @@
   "generationAlreadyInDexMessage": "ఈ వస్తువు {monsterName} పేరుతో డెక్స్‌లో ఇప్పటికే ఉంది\nఈ మాన్స్టర్‌తో పోరాడవచ్చు",
   "generationBattleWithThisMonster": "ఈ మాన్స్టర్‌తో పోరాడు",
   "generationRetake": "మళ్లీ ఫోటో తీయి",
-  "generationWaitingTitle": "ఇంకొంచెం సేపు ఆగు"
+  "generationWaitingTitle": "ఇంకొంచెం సేపు ఆగు",
+  "generationWaitingMessage": "మాన్స్టర్ మూలకం నిర్ణయించడానికి ఇంకాస్త సమయం పడుతోంది\nపుట్టగానే డెక్స్‌లో చేరుతుంది"
 }

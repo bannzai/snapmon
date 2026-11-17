@@ -103,5 +103,6 @@
   "generationAlreadyInDexMessage": "Ez a tárgy már szerepel a gyűjteményben {monsterName} néven\nHarcolhatsz ezzel a szörnnyel",
   "generationBattleWithThisMonster": "Harcolj ezzel a szörnnyel",
   "generationRetake": "Fotózd le újra",
-  "generationWaitingTitle": "Várj még egy kicsit"
+  "generationWaitingTitle": "Várj még egy kicsit",
+  "generationWaitingMessage": "A szörny típusának meghatározása még eltart egy kicsit\nAmint megszületik, bekerül a gyűjteménybe"
 }

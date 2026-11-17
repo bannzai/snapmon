@@ -103,5 +103,6 @@
   "generationAlreadyInDexMessage": "Denne gjenstanden er allerede i samlingen som {monsterName}\nDu kan kjempe med dette monsteret",
   "generationBattleWithThisMonster": "Kjemp med dette monsteret",
   "generationRetake": "Ta bildet på nytt",
-  "generationWaitingTitle": "Vent litt til"
+  "generationWaitingTitle": "Vent litt til",
+  "generationWaitingMessage": "Det tar litt tid å bestemme monsterets type\nNår det er født, havner det i samlingen"
 }

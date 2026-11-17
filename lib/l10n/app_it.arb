@@ -103,5 +103,6 @@
   "generationAlreadyInDexMessage": "Questo oggetto è già nel dex come {monsterName}\nPuoi lottare con questo mostro",
   "generationBattleWithThisMonster": "Combatti con questo mostro",
   "generationRetake": "Scatta di nuovo",
-  "generationWaitingTitle": "Aspetta ancora un po'"
+  "generationWaitingTitle": "Aspetta ancora un po'",
+  "generationWaitingMessage": "Ci vuole ancora un po' per stabilire l'elemento del mostro\nAppena nasce, entrerà nel dex"
 }

@@ -103,5 +103,6 @@
   "generationAlreadyInDexMessage": "這個物品已經以 {monsterName} 的名字收錄在圖鑑中\n你可以用這隻怪物戰鬥",
   "generationBattleWithThisMonster": "用這隻怪物戰鬥",
   "generationRetake": "重新拍照",
-  "generationWaitingTitle": "再等一下喔"
+  "generationWaitingTitle": "再等一下喔",
+  "generationWaitingMessage": "決定怪物的屬性還需要一點時間\n誕生後就會加入圖鑑"
 }

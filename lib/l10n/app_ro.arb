@@ -103,5 +103,6 @@
   "generationAlreadyInDexMessage": "Acest obiect este deja în enciclopedie ca {monsterName}\nPoți lupta cu acest monstru",
   "generationBattleWithThisMonster": "Luptă cu acest monstru",
   "generationRetake": "Fă din nou poza",
-  "generationWaitingTitle": "Mai așteaptă puțin"
+  "generationWaitingTitle": "Mai așteaptă puțin",
+  "generationWaitingMessage": "Stabilirea elementului monstrului mai durează puțin\nCând se naște, intră în enciclopedie"
 }

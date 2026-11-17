@@ -103,5 +103,6 @@
   "generationAlreadyInDexMessage": "Tento předmět už je v encyklopedii jako {monsterName}\nS touto příšerou můžeš bojovat",
   "generationBattleWithThisMonster": "Bojuj s touto příšerou",
   "generationRetake": "Vyfoť znovu",
-  "generationWaitingTitle": "Ještě chvilku počkej"
+  "generationWaitingTitle": "Ještě chvilku počkej",
+  "generationWaitingMessage": "Určení elementu příšery chvíli trvá\nAž se narodí, přibude do encyklopedie"
 }

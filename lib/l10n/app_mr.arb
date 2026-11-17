@@ -103,5 +103,6 @@
   "generationAlreadyInDexMessage": "ही वस्तू {monsterName} म्हणून संग्रहात आधीच आहे\nया मॉन्स्टरसोबत लढू शकतोस",
   "generationBattleWithThisMonster": "या मॉन्स्टरसोबत लढ",
   "generationRetake": "पुन्हा फोटो काढ",
-  "generationWaitingTitle": "आणखी थोडं थांब"
+  "generationWaitingTitle": "आणखी थोडं थांब",
+  "generationWaitingMessage": "मॉन्स्टरचं तत्त्व ठरायला आणखी थोडा वेळ लागतोय\nजन्मल्यावर तो संग्रहात जोडला जाईल"
 }

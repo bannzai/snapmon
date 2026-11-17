@@ -103,5 +103,6 @@
   "generationAlreadyInDexMessage": "Aquest objecte ja és a l'enciclopèdia com a {monsterName}\nPots lluitar amb aquest monstre",
   "generationBattleWithThisMonster": "Combat amb aquest monstre",
   "generationRetake": "Torna a fer la foto",
-  "generationWaitingTitle": "Espera una mica més"
+  "generationWaitingTitle": "Espera una mica més",
+  "generationWaitingMessage": "Costa una mica decidir l'element del monstre\nQuan neixi, entrarà a l'enciclopèdia"
 }

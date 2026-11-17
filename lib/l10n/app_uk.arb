@@ -103,5 +103,6 @@
   "generationAlreadyInDexMessage": "Цей предмет уже є в енциклопедії під ім’ям {monsterName}\nТи можеш битися з цим монстром",
   "generationBattleWithThisMonster": "Бийся з цим монстром",
   "generationRetake": "Сфотографуй ще раз",
-  "generationWaitingTitle": "Зачекай ще трохи"
+  "generationWaitingTitle": "Зачекай ще трохи",
+  "generationWaitingMessage": "Визначення елемента монстра триває трохи довше\nКоли він народиться, то потрапить до енциклопедії"
 }

@@ -103,5 +103,6 @@
   "generationAlreadyInDexMessage": "Ten przedmiot jest już w encyklopedii jako {monsterName}\nMożesz walczyć z tym potworem",
   "generationBattleWithThisMonster": "Walcz z tym potworem",
   "generationRetake": "Zrób zdjęcie ponownie",
-  "generationWaitingTitle": "Poczekaj jeszcze chwilę"
+  "generationWaitingTitle": "Poczekaj jeszcze chwilę",
+  "generationWaitingMessage": "Ustalenie typu potwora trwa trochę dłużej\nGdy się narodzi, trafi do encyklopedii"
 }

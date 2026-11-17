@@ -103,5 +103,6 @@
   "generationAlreadyInDexMessage": "이 피사체는 이미 {monsterName} 이름으로 도감에 있어요\n이 몬스터와 함께 배틀할 수 있어요",
   "generationBattleWithThisMonster": "이 몬스터로 싸우기",
   "generationRetake": "다시 찍기",
-  "generationWaitingTitle": "조금만 더 기다려 주세요"
+  "generationWaitingTitle": "조금만 더 기다려 주세요",
+  "generationWaitingMessage": "몬스터의 속성을 정하는 데 시간이 좀 더 걸리고 있어요\n태어나면 도감에 들어가요"
 }

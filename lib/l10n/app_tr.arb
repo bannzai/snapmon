@@ -103,5 +103,6 @@
   "generationAlreadyInDexMessage": "Bu nesne {monsterName} adıyla ansiklopedide zaten var\nBu canavarla savaşabilirsin",
   "generationBattleWithThisMonster": "Bu canavarla savaş",
   "generationRetake": "Yeniden fotoğraf çek",
-  "generationWaitingTitle": "Biraz daha bekle"
+  "generationWaitingTitle": "Biraz daha bekle",
+  "generationWaitingMessage": "Canavarın elementini belirlemek biraz zaman alıyor\nDoğduğunda ansiklopediye eklenecek"
 }

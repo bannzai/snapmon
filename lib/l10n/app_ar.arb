@@ -103,5 +103,6 @@
   "generationAlreadyInDexMessage": "هذا الشيء موجود في الموسوعة باسم {monsterName}\nيمكنك القتال بهذا الوحش",
   "generationBattleWithThisMonster": "قاتل بهذا الوحش",
   "generationRetake": "التقط صورة من جديد",
-  "generationWaitingTitle": "انتظر قليلًا بعد"
+  "generationWaitingTitle": "انتظر قليلًا بعد",
+  "generationWaitingMessage": "تحديد عنصر الوحش يستغرق وقتًا أطول\nعندما يظهر، سيُضاف إلى الموسوعة"
 }

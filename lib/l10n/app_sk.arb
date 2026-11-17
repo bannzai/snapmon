@@ -103,5 +103,6 @@
   "generationAlreadyInDexMessage": "Tento predmet už je v encyklopédii ako {monsterName}\nS touto príšerou môžeš bojovať",
   "generationBattleWithThisMonster": "Bojuj s touto príšerou",
   "generationRetake": "Odfoť znova",
-  "generationWaitingTitle": "Počkaj ešte chvíľu"
+  "generationWaitingTitle": "Počkaj ešte chvíľu",
+  "generationWaitingMessage": "Určenie elementu príšery trvá o čosi dlhšie\nKeď sa narodí, pribudne do encyklopédie"
 }

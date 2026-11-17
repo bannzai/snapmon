@@ -103,5 +103,6 @@
   "generationAlreadyInDexMessage": "Dit voorwerp staat al als {monsterName} in je dex\nJe kunt met dit monster vechten",
   "generationBattleWithThisMonster": "Vecht met dit monster",
   "generationRetake": "Maak de foto opnieuw",
-  "generationWaitingTitle": "Wacht nog even"
+  "generationWaitingTitle": "Wacht nog even",
+  "generationWaitingMessage": "Het bepalen van het type van je monster duurt iets langer\nZodra het geboren is, komt het in je dex"
 }

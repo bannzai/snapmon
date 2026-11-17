@@ -103,5 +103,6 @@
   "generationAlreadyInDexMessage": "Αυτό το αντικείμενο είναι ήδη στην εγκυκλοπαίδεια ως {monsterName}\nΜπορείς να πολεμήσεις με αυτό το τέρας",
   "generationBattleWithThisMonster": "Πάλεψε με αυτό το τέρας",
   "generationRetake": "Βγάλε ξανά φωτογραφία",
-  "generationWaitingTitle": "Περίμενε λίγο ακόμα"
+  "generationWaitingTitle": "Περίμενε λίγο ακόμα",
+  "generationWaitingMessage": "Ο καθορισμός του στοιχείου του τέρατος παίρνει λίγο χρόνο\nΜόλις γεννηθεί, θα μπει στην εγκυκλοπαίδεια"
 }

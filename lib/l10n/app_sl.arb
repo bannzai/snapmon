@@ -103,5 +103,6 @@
   "generationAlreadyInDexMessage": "Ta predmet je že v enciklopediji kot {monsterName}\nS to pošastjo se lahko boriš",
   "generationBattleWithThisMonster": "Bori se s to pošastjo",
   "generationRetake": "Fotografiraj znova",
-  "generationWaitingTitle": "Počakaj še malo"
+  "generationWaitingTitle": "Počakaj še malo",
+  "generationWaitingMessage": "Določanje elementa pošasti traja še malo\nKo se rodi, bo dodana v enciklopedijo"
 }
