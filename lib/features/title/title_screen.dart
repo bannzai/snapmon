@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../../common_ui/scene_route.dart';
 import '../../analytics/analytics_events.dart';
+import '../../app_display_name.dart';
 import '../../audio/game_audio.dart';
 import '../../l10n/l10n.dart';
 import '../../theme/snapmon_colors.dart';
@@ -413,7 +414,14 @@ class _TitleScreenState extends State<TitleScreen> {
   Widget _buildContent() => Column(
     children: [
       const SizedBox(height: 40),
-      const Text('SnapMonster', style: _TitleTextStyles.logo),
+      // 44px の 11 文字は幅 320 の画面に収まらず、語の途中で 2 行に折り返すため、狭い画面では 1 行のまま縮める
+      const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 24),
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(appDisplayName, style: _TitleTextStyles.logo),
+        ),
+      ),
       const SizedBox(height: 10),
       const Text('SNAP IT  FIGHT IT', style: _TitleTextStyles.tagline),
       Expanded(
