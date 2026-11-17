@@ -114,5 +114,6 @@
   "generationStageUploadingPhoto": "फोटो अपलोड होत आहे",
   "generationStageCheckingPhoto": "तुझा फोटो तपासत आहोत",
   "generationStageCuttingOut": "फोटोतील वस्तू वेगळी काढली जात आहे",
-  "generationStageWritingName": "नाव आणि संग्रहासाठी वर्णन सुचवत आहोत"
+  "generationStageWritingName": "नाव आणि संग्रहासाठी वर्णन सुचवत आहोत",
+  "generationStageDecidingElements": "तत्त्वं आणि चाली निवडत आहोत"
 }

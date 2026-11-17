@@ -114,5 +114,6 @@
   "generationStageUploadingPhoto": "جارٍ رفع الصورة",
   "generationStageCheckingPhoto": "جارٍ التحقق من صورتك",
   "generationStageCuttingOut": "جارٍ قصّ العنصر من الصورة",
-  "generationStageWritingName": "نفكر في اسم ووصف للموسوعة"
+  "generationStageWritingName": "نفكر في اسم ووصف للموسوعة",
+  "generationStageDecidingElements": "نختار العناصر والحركات"
 }

@@ -114,5 +114,6 @@
   "generationStageUploadingPhoto": "Memuat naik foto",
   "generationStageCheckingPhoto": "Sedang menyemak foto kamu",
   "generationStageCuttingOut": "Mengasingkan objek daripada foto",
-  "generationStageWritingName": "Memikirkan nama dan keterangan ensiklopedia"
+  "generationStageWritingName": "Memikirkan nama dan keterangan ensiklopedia",
+  "generationStageDecidingElements": "Memilih elemen dan gerakan"
 }

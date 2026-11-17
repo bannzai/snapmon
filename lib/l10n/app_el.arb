@@ -114,5 +114,6 @@
   "generationStageUploadingPhoto": "Ανεβαίνει η φωτογραφία",
   "generationStageCheckingPhoto": "Ελέγχουμε τη φωτογραφία σου",
   "generationStageCuttingOut": "Αποκοπή του θέματος από τη φωτογραφία",
-  "generationStageWritingName": "Σκεφτόμαστε όνομα και περιγραφή για την εγκυκλοπαίδεια"
+  "generationStageWritingName": "Σκεφτόμαστε όνομα και περιγραφή για την εγκυκλοπαίδεια",
+  "generationStageDecidingElements": "Διαλέγουμε στοιχεία και τεχνικές"
 }

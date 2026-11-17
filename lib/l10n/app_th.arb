@@ -114,5 +114,6 @@
   "generationStageUploadingPhoto": "กำลังอัปโหลดรูปภาพ",
   "generationStageCheckingPhoto": "กำลังตรวจสอบรูปของคุณ",
   "generationStageCuttingOut": "กำลังตัดวัตถุออกจากภาพ",
-  "generationStageWritingName": "กำลังคิดชื่อและคำอธิบายสำหรับสารานุกรม"
+  "generationStageWritingName": "กำลังคิดชื่อและคำอธิบายสำหรับสารานุกรม",
+  "generationStageDecidingElements": "กำลังเลือกธาตุและท่า"
 }

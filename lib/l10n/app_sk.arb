@@ -114,5 +114,6 @@
   "generationStageUploadingPhoto": "Nahráva sa fotka",
   "generationStageCheckingPhoto": "Kontrolujeme tvoju fotku",
   "generationStageCuttingOut": "Vyrezávanie objektu z fotky",
-  "generationStageWritingName": "Vymýšľame meno a opis do encyklopédie"
+  "generationStageWritingName": "Vymýšľame meno a opis do encyklopédie",
+  "generationStageDecidingElements": "Vyberáme elementy a útoky"
 }

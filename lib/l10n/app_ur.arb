@@ -114,5 +114,6 @@
   "generationStageUploadingPhoto": "تصویر اپ لوڈ ہو رہی ہے",
   "generationStageCheckingPhoto": "تمہاری تصویر چیک کی جا رہی ہے",
   "generationStageCuttingOut": "تصویر سے چیز کو الگ کیا جا رہا ہے",
-  "generationStageWritingName": "نام اور ڈیکس کی تفصیل سوچ رہے ہیں"
+  "generationStageWritingName": "نام اور ڈیکس کی تفصیل سوچ رہے ہیں",
+  "generationStageDecidingElements": "ٹائپ اور چالیں چن رہے ہیں"
 }

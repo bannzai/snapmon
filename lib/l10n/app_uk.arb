@@ -114,5 +114,6 @@
   "generationStageUploadingPhoto": "Завантажуємо фото",
   "generationStageCheckingPhoto": "Перевіряємо твоє фото",
   "generationStageCuttingOut": "Вирізаємо об’єкт із фото",
-  "generationStageWritingName": "Вигадуємо ім’я та опис для енциклопедії"
+  "generationStageWritingName": "Вигадуємо ім’я та опис для енциклопедії",
+  "generationStageDecidingElements": "Обираємо елементи й прийоми"
 }

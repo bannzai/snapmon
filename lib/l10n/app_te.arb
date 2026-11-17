@@ -114,5 +114,6 @@
   "generationStageUploadingPhoto": "ఫోటో అప్‌లోడ్ అవుతోంది",
   "generationStageCheckingPhoto": "నీ ఫోటోను తనిఖీ చేస్తున్నాం",
   "generationStageCuttingOut": "ఫొటో నుంచి వస్తువును వేరు చేస్తున్నాం",
-  "generationStageWritingName": "పేరు, డెక్స్ వివరణ గురించి ఆలోచిస్తున్నాం"
+  "generationStageWritingName": "పేరు, డెక్స్ వివరణ గురించి ఆలోచిస్తున్నాం",
+  "generationStageDecidingElements": "మూలకాలు, మూవ్‌లు ఎంచుకుంటున్నాం"
 }

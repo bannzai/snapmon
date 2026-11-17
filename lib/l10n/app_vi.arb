@@ -114,5 +114,6 @@
   "generationStageUploadingPhoto": "Đang tải ảnh lên",
   "generationStageCheckingPhoto": "Đang kiểm tra ảnh của bạn",
   "generationStageCuttingOut": "Đang tách vật thể khỏi ảnh",
-  "generationStageWritingName": "Đang nghĩ tên và mô tả cho bộ sưu tập"
+  "generationStageWritingName": "Đang nghĩ tên và mô tả cho bộ sưu tập",
+  "generationStageDecidingElements": "Đang chọn hệ và chiêu"
 }

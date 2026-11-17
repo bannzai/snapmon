@@ -114,5 +114,6 @@
   "generationStageUploadingPhoto": "Kuvaa ladataan",
   "generationStageCheckingPhoto": "Tarkistamme kuvaasi",
   "generationStageCuttingOut": "Kohdetta irrotetaan kuvasta",
-  "generationStageWritingName": "Keksitään nimeä ja kuvausta kokoelmaan"
+  "generationStageWritingName": "Keksitään nimeä ja kuvausta kokoelmaan",
+  "generationStageDecidingElements": "Valitaan elementit ja liikkeet"
 }

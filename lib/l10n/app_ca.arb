@@ -114,5 +114,6 @@
   "generationStageUploadingPhoto": "S'està pujant la foto",
   "generationStageCheckingPhoto": "Estem comprovant la teva foto",
   "generationStageCuttingOut": "Retallant el subjecte",
-  "generationStageWritingName": "Pensant un nom i una descripció per a l'enciclopèdia"
+  "generationStageWritingName": "Pensant un nom i una descripció per a l'enciclopèdia",
+  "generationStageDecidingElements": "Triant elements i moviments"
 }

@@ -114,5 +114,6 @@
   "generationStageUploadingPhoto": "Przesyłanie zdjęcia",
   "generationStageCheckingPhoto": "Sprawdzamy twoje zdjęcie",
   "generationStageCuttingOut": "Wycinanie obiektu ze zdjęcia",
-  "generationStageWritingName": "Wymyślamy imię i opis do encyklopedii"
+  "generationStageWritingName": "Wymyślamy imię i opis do encyklopedii",
+  "generationStageDecidingElements": "Wybieramy typy i ruchy"
 }

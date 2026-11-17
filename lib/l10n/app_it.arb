@@ -114,5 +114,6 @@
   "generationStageUploadingPhoto": "Caricamento foto",
   "generationStageCheckingPhoto": "Stiamo controllando la tua foto",
   "generationStageCuttingOut": "Ritaglio del soggetto in corso",
-  "generationStageWritingName": "Pensiamo a un nome e a una descrizione per il dex"
+  "generationStageWritingName": "Pensiamo a un nome e a una descrizione per il dex",
+  "generationStageDecidingElements": "Scegliamo elementi e mosse"
 }

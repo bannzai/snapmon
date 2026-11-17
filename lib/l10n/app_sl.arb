@@ -114,5 +114,6 @@
   "generationStageUploadingPhoto": "Nalaganje fotografije",
   "generationStageCheckingPhoto": "Preverjamo tvojo fotografijo",
   "generationStageCuttingOut": "Izrezovanje predmeta s fotografije",
-  "generationStageWritingName": "Smišljamo ime in opis za enciklopedijo"
+  "generationStageWritingName": "Smišljamo ime in opis za enciklopedijo",
+  "generationStageDecidingElements": "Izbiramo elemente in poteze"
 }

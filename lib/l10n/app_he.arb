@@ -114,5 +114,6 @@
   "generationStageUploadingPhoto": "התמונה נשלחת",
   "generationStageCheckingPhoto": "בודקים את התמונה שלך",
   "generationStageCuttingOut": "גוזרים את האובייקט מהתמונה",
-  "generationStageWritingName": "חושבים על שם ותיאור לאוסף"
+  "generationStageWritingName": "חושבים על שם ותיאור לאוסף",
+  "generationStageDecidingElements": "בוחרים סוג ומתקפות"
 }

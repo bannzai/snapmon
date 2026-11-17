@@ -114,5 +114,6 @@
   "generationStageUploadingPhoto": "Foto wird hochgeladen",
   "generationStageCheckingPhoto": "Wir prüfen dein Foto",
   "generationStageCuttingOut": "Motiv wird freigestellt",
-  "generationStageWritingName": "Denke mir einen Namen und einen Dex-Eintrag aus"
+  "generationStageWritingName": "Denke mir einen Namen und einen Dex-Eintrag aus",
+  "generationStageDecidingElements": "Elemente und Attacken werden ausgewählt"
 }

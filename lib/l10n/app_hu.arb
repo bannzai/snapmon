@@ -114,5 +114,6 @@
   "generationStageUploadingPhoto": "Fotó feltöltése",
   "generationStageCheckingPhoto": "Ellenőrizzük a fotódat",
   "generationStageCuttingOut": "A képen lévő tárgy kivágása",
-  "generationStageWritingName": "Neven és gyűjteménybe illő leíráson gondolkodunk"
+  "generationStageWritingName": "Neven és gyűjteménybe illő leíráson gondolkodunk",
+  "generationStageDecidingElements": "Típusok és támadások kiválasztása"
 }

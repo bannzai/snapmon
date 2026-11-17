@@ -114,5 +114,6 @@
   "generationStageUploadingPhoto": "Se încarcă fotografia",
   "generationStageCheckingPhoto": "Îți verificăm fotografia",
   "generationStageCuttingOut": "Decupăm obiectul din fotografie",
-  "generationStageWritingName": "Gândim un nume și o descriere pentru enciclopedie"
+  "generationStageWritingName": "Gândim un nume și o descriere pentru enciclopedie",
+  "generationStageDecidingElements": "Alegem elementele și mișcările"
 }

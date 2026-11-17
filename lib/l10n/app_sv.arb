@@ -114,5 +114,6 @@
   "generationStageUploadingPhoto": "Laddar upp foto",
   "generationStageCheckingPhoto": "Vi kollar ditt foto",
   "generationStageCuttingOut": "Klipper ut motivet",
-  "generationStageWritingName": "Hittar på ett namn och en text till samlingen"
+  "generationStageWritingName": "Hittar på ett namn och en text till samlingen",
+  "generationStageDecidingElements": "Väljer element och attacker"
 }
