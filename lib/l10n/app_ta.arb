@@ -203,5 +203,6 @@
   "statusConditionDizzy": "தலைச்சுற்றல்",
   "statusConditionExcited": "உற்சாகம்",
   "statusConditionFrozen": "உறைநிலை",
-  "statusConditionSwitchBlocked": "மாற்ற முடியாது"
+  "statusConditionSwitchBlocked": "மாற்ற முடியாது",
+  "moveTypeSuperEffective": "மிகவும் பயனுள்ளது ×{multiplier}"
 }

@@ -203,5 +203,6 @@
   "statusConditionDizzy": "Tontura",
   "statusConditionExcited": "Entusiasmo",
   "statusConditionFrozen": "Congelado",
-  "statusConditionSwitchBlocked": "Não podes trocar"
+  "statusConditionSwitchBlocked": "Não podes trocar",
+  "moveTypeSuperEffective": "Supereficaz ×{multiplier}"
 }

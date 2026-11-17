@@ -203,5 +203,6 @@
   "statusConditionDizzy": "Chóng mặt",
   "statusConditionExcited": "Phấn khích",
   "statusConditionFrozen": "Đóng băng",
-  "statusConditionSwitchBlocked": "Không thể đổi"
+  "statusConditionSwitchBlocked": "Không thể đổi",
+  "moveTypeSuperEffective": "Cực kỳ hiệu quả ×{multiplier}"
 }

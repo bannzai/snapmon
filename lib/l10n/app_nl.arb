@@ -203,5 +203,6 @@
   "statusConditionDizzy": "Duizeligheid",
   "statusConditionExcited": "Opwinding",
   "statusConditionFrozen": "Bevroren",
-  "statusConditionSwitchBlocked": "Wisselen niet mogelijk"
+  "statusConditionSwitchBlocked": "Wisselen niet mogelijk",
+  "moveTypeSuperEffective": "Superdoeltreffend ×{multiplier}"
 }

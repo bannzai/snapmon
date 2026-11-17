@@ -203,5 +203,6 @@
   "statusConditionDizzy": "ମୁଣ୍ଡ ବୁଲାଇବା",
   "statusConditionExcited": "ଉତ୍ସାହ",
   "statusConditionFrozen": "ବରଫରେ ଜମିଛି",
-  "statusConditionSwitchBlocked": "ବଦଳାଇ ହେବ ନାହିଁ"
+  "statusConditionSwitchBlocked": "ବଦଳାଇ ହେବ ନାହିଁ",
+  "moveTypeSuperEffective": "ଖୁବ୍ ପ୍ରଭାବଶାଳୀ ×{multiplier}"
 }

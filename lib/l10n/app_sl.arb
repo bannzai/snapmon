@@ -203,5 +203,6 @@
   "statusConditionDizzy": "Omotica",
   "statusConditionExcited": "Navdušenje",
   "statusConditionFrozen": "Zamrznitev",
-  "statusConditionSwitchBlocked": "Menjava ni mogoča"
+  "statusConditionSwitchBlocked": "Menjava ni mogoča",
+  "moveTypeSuperEffective": "Zelo učinkovito ×{multiplier}"
 }

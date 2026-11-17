@@ -203,5 +203,6 @@
   "statusConditionDizzy": "Головокружение",
   "statusConditionExcited": "Воодушевление",
   "statusConditionFrozen": "Заморозка",
-  "statusConditionSwitchBlocked": "Нельзя заменить"
+  "statusConditionSwitchBlocked": "Нельзя заменить",
+  "moveTypeSuperEffective": "Суперэффективно ×{multiplier}"
 }

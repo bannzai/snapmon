@@ -203,5 +203,6 @@
   "statusConditionDizzy": "Závrat",
   "statusConditionExcited": "Nadšenie",
   "statusConditionFrozen": "Zmrazenie",
-  "statusConditionSwitchBlocked": "Nedá sa vymeniť"
+  "statusConditionSwitchBlocked": "Nedá sa vymeniť",
+  "moveTypeSuperEffective": "Veľmi účinné ×{multiplier}"
 }

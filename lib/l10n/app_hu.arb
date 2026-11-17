@@ -203,5 +203,6 @@
   "statusConditionDizzy": "Szédülés",
   "statusConditionExcited": "Izgalom",
   "statusConditionFrozen": "Fagyott",
-  "statusConditionSwitchBlocked": "Nem cserélhető le"
+  "statusConditionSwitchBlocked": "Nem cserélhető le",
+  "moveTypeSuperEffective": "Szuperhatásos ×{multiplier}"
 }

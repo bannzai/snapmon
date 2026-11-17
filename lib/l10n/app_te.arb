@@ -203,5 +203,6 @@
   "statusConditionDizzy": "తలతిరగడం",
   "statusConditionExcited": "ఉత్సాహం",
   "statusConditionFrozen": "గడ్డకట్టింది",
-  "statusConditionSwitchBlocked": "మార్చలేవు"
+  "statusConditionSwitchBlocked": "మార్చలేవు",
+  "moveTypeSuperEffective": "చాలా ప్రభావవంతం ×{multiplier}"
 }

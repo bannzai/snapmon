@@ -203,5 +203,6 @@
   "statusConditionDizzy": "Mareo",
   "statusConditionExcited": "Emoción",
   "statusConditionFrozen": "Congelado",
-  "statusConditionSwitchBlocked": "No se puede cambiar"
+  "statusConditionSwitchBlocked": "No se puede cambiar",
+  "moveTypeSuperEffective": "Supereficaz ×{multiplier}"
 }

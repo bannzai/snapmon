@@ -203,5 +203,6 @@
   "statusConditionDizzy": "Huimaus",
   "statusConditionExcited": "Innostus",
   "statusConditionFrozen": "Jäässä",
-  "statusConditionSwitchBlocked": "Ei voi vaihtaa"
+  "statusConditionSwitchBlocked": "Ei voi vaihtaa",
+  "moveTypeSuperEffective": "Erittäin tehokas ×{multiplier}"
 }

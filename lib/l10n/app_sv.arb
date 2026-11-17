@@ -203,5 +203,6 @@
   "statusConditionDizzy": "Yrsel",
   "statusConditionExcited": "Upprymdhet",
   "statusConditionFrozen": "Frusen",
-  "statusConditionSwitchBlocked": "Kan inte bytas"
+  "statusConditionSwitchBlocked": "Kan inte bytas",
+  "moveTypeSuperEffective": "Supereffektivt ×{multiplier}"
 }

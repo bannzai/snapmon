@@ -203,5 +203,6 @@
   "statusConditionDizzy": "ਚੱਕਰ",
   "statusConditionExcited": "ਜੋਸ਼",
   "statusConditionFrozen": "ਜੰਮਿਆ ਹੋਇਆ",
-  "statusConditionSwitchBlocked": "ਬਦਲਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ"
+  "statusConditionSwitchBlocked": "ਬਦਲਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ",
+  "moveTypeSuperEffective": "ਬਹੁਤ ਅਸਰਦਾਰ ×{multiplier}"
 }

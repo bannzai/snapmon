@@ -203,5 +203,6 @@
   "statusConditionDizzy": "Pening",
   "statusConditionExcited": "Teruja",
   "statusConditionFrozen": "Beku",
-  "statusConditionSwitchBlocked": "Tak boleh ditukar"
+  "statusConditionSwitchBlocked": "Tak boleh ditukar",
+  "moveTypeSuperEffective": "Sangat berkesan ×{multiplier}"
 }

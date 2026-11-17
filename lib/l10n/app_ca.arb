@@ -203,5 +203,6 @@
   "statusConditionDizzy": "Mareig",
   "statusConditionExcited": "Eufòria",
   "statusConditionFrozen": "Congelat",
-  "statusConditionSwitchBlocked": "No es pot canviar"
+  "statusConditionSwitchBlocked": "No es pot canviar",
+  "moveTypeSuperEffective": "Supereficaç ×{multiplier}"
 }

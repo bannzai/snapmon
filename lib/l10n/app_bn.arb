@@ -203,5 +203,6 @@
   "statusConditionDizzy": "মাথা ঘোরা",
   "statusConditionExcited": "উত্তেজনা",
   "statusConditionFrozen": "জমে গেছে",
-  "statusConditionSwitchBlocked": "বদলানো যাবে না"
+  "statusConditionSwitchBlocked": "বদলানো যাবে না",
+  "moveTypeSuperEffective": "দারুণ কার্যকর ×{multiplier}"
 }

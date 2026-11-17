@@ -203,5 +203,6 @@
   "statusConditionDizzy": "Svimmelhed",
   "statusConditionExcited": "Begejstring",
   "statusConditionFrozen": "Frosset",
-  "statusConditionSwitchBlocked": "Kan ikke skiftes"
+  "statusConditionSwitchBlocked": "Kan ikke skiftes",
+  "moveTypeSuperEffective": "Supereffektivt ×{multiplier}"
 }

@@ -203,5 +203,6 @@
   "statusConditionDizzy": "Pusing",
   "statusConditionExcited": "Semangat",
   "statusConditionFrozen": "Membeku",
-  "statusConditionSwitchBlocked": "Tidak bisa diganti"
+  "statusConditionSwitchBlocked": "Tidak bisa diganti",
+  "moveTypeSuperEffective": "Sangat efektif ×{multiplier}"
 }

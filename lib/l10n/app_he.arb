@@ -203,5 +203,6 @@
   "statusConditionDizzy": "סחרחורת",
   "statusConditionExcited": "התלהבות",
   "statusConditionFrozen": "קיפאון",
-  "statusConditionSwitchBlocked": "אי אפשר להחליף"
+  "statusConditionSwitchBlocked": "אי אפשר להחליף",
+  "moveTypeSuperEffective": "יעיל במיוחד ×{multiplier}"
 }

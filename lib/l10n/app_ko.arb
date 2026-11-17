@@ -203,5 +203,6 @@
   "statusConditionDizzy": "어지러움",
   "statusConditionExcited": "흥분",
   "statusConditionFrozen": "얼음",
-  "statusConditionSwitchBlocked": "교체 불가"
+  "statusConditionSwitchBlocked": "교체 불가",
+  "moveTypeSuperEffective": "효과가 굉장했다 ×{multiplier}"
 }

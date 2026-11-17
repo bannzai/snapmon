@@ -203,5 +203,6 @@
   "statusConditionDizzy": "ચક્કર",
   "statusConditionExcited": "ઉત્સાહ",
   "statusConditionFrozen": "જામી ગયું",
-  "statusConditionSwitchBlocked": "બદલી શકાતું નથી"
+  "statusConditionSwitchBlocked": "બદલી શકાતું નથી",
+  "moveTypeSuperEffective": "ખૂબ અસરકારક ×{multiplier}"
 }

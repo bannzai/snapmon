@@ -203,5 +203,6 @@
   "statusConditionDizzy": "Schwindel",
   "statusConditionExcited": "Aufregung",
   "statusConditionFrozen": "Eingefroren",
-  "statusConditionSwitchBlocked": "Wechsel nicht möglich"
+  "statusConditionSwitchBlocked": "Wechsel nicht möglich",
+  "moveTypeSuperEffective": "Sehr effektiv ×{multiplier}"
 }

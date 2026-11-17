@@ -203,5 +203,6 @@
   "statusConditionDizzy": "دوار",
   "statusConditionExcited": "حماس",
   "statusConditionFrozen": "تجمّد",
-  "statusConditionSwitchBlocked": "لا يمكن التبديل"
+  "statusConditionSwitchBlocked": "لا يمكن التبديل",
+  "moveTypeSuperEffective": "فعّال جدًا ×{multiplier}"
 }

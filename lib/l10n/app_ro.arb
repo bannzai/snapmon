@@ -203,5 +203,6 @@
   "statusConditionDizzy": "Amețeală",
   "statusConditionExcited": "Entuziasm",
   "statusConditionFrozen": "Înghețat",
-  "statusConditionSwitchBlocked": "Nu poate fi schimbat"
+  "statusConditionSwitchBlocked": "Nu poate fi schimbat",
+  "moveTypeSuperEffective": "Super eficient ×{multiplier}"
 }

@@ -203,5 +203,6 @@
   "statusConditionDizzy": "Capogiro",
   "statusConditionExcited": "Euforia",
   "statusConditionFrozen": "Congelato",
-  "statusConditionSwitchBlocked": "Non può essere sostituito"
+  "statusConditionSwitchBlocked": "Non può essere sostituito",
+  "moveTypeSuperEffective": "Superefficace ×{multiplier}"
 }

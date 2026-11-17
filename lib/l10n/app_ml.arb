@@ -203,5 +203,6 @@
   "statusConditionDizzy": "തലകറക്കം",
   "statusConditionExcited": "ആവേശം",
   "statusConditionFrozen": "മരവിപ്പ്",
-  "statusConditionSwitchBlocked": "മാറ്റാൻ കഴിയില്ല"
+  "statusConditionSwitchBlocked": "മാറ്റാൻ കഴിയില്ല",
+  "moveTypeSuperEffective": "വളരെ ഫലപ്രദം ×{multiplier}"
 }

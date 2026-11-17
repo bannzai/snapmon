@@ -203,5 +203,6 @@
   "statusConditionDizzy": "Ζάλη",
   "statusConditionExcited": "Ενθουσιασμός",
   "statusConditionFrozen": "Παγωμένο",
-  "statusConditionSwitchBlocked": "Δεν μπορεί να αλλάξει"
+  "statusConditionSwitchBlocked": "Δεν μπορεί να αλλάξει",
+  "moveTypeSuperEffective": "Πολύ αποτελεσματικό ×{multiplier}"
 }

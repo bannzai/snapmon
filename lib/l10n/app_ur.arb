@@ -203,5 +203,6 @@
   "statusConditionDizzy": "چکر",
   "statusConditionExcited": "جوش",
   "statusConditionFrozen": "منجمد",
-  "statusConditionSwitchBlocked": "بدلا نہیں جا سکتا"
+  "statusConditionSwitchBlocked": "بدلا نہیں جا سکتا",
+  "moveTypeSuperEffective": "بہت مؤثر ×{multiplier}"
 }

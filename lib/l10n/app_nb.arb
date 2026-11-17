@@ -203,5 +203,6 @@
   "statusConditionDizzy": "Svimmelhet",
   "statusConditionExcited": "Opphisselse",
   "statusConditionFrozen": "Frosset",
-  "statusConditionSwitchBlocked": "Kan ikke byttes"
+  "statusConditionSwitchBlocked": "Kan ikke byttes",
+  "moveTypeSuperEffective": "Supereffektivt ×{multiplier}"
 }

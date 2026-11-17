@@ -203,5 +203,6 @@
   "statusConditionDizzy": "Baş dönmesi",
   "statusConditionExcited": "Heyecan",
   "statusConditionFrozen": "Donma",
-  "statusConditionSwitchBlocked": "Değiştirilemez"
+  "statusConditionSwitchBlocked": "Değiştirilemez",
+  "moveTypeSuperEffective": "Çok etkili ×{multiplier}"
 }

@@ -203,5 +203,6 @@
   "statusConditionDizzy": "चक्कर",
   "statusConditionExcited": "जोश",
   "statusConditionFrozen": "जमा हुआ",
-  "statusConditionSwitchBlocked": "बदला नहीं जा सकता"
+  "statusConditionSwitchBlocked": "बदला नहीं जा सकता",
+  "moveTypeSuperEffective": "बहुत असरदार ×{multiplier}"
 }

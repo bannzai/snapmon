@@ -203,5 +203,6 @@
   "statusConditionDizzy": "Запаморочення",
   "statusConditionExcited": "Збудження",
   "statusConditionFrozen": "Замороження",
-  "statusConditionSwitchBlocked": "Не можна замінити"
+  "statusConditionSwitchBlocked": "Не можна замінити",
+  "moveTypeSuperEffective": "Надзвичайно ефективно ×{multiplier}"
 }

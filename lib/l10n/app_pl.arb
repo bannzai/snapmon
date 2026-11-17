@@ -203,5 +203,6 @@
   "statusConditionDizzy": "Zawroty głowy",
   "statusConditionExcited": "Ekscytacja",
   "statusConditionFrozen": "Zamrożenie",
-  "statusConditionSwitchBlocked": "Nie można zmienić"
+  "statusConditionSwitchBlocked": "Nie można zmienić",
+  "moveTypeSuperEffective": "Super skuteczne ×{multiplier}"
 }
