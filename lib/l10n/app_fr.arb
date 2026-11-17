@@ -75,5 +75,6 @@
   "dexReload": "Recharger",
   "dexParty": "équipe",
   "dexAll": "Tous",
-  "dexEmpty": "Aucun monstre pour l’instant\nEssaie de photographier un objet autour de toi depuis l’écran photo"
+  "dexEmpty": "Aucun monstre pour l’instant\nEssaie de photographier un objet autour de toi depuis l’écran photo",
+  "dexEmptySlot": "Place libre"
 }
