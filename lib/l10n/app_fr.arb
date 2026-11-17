@@ -234,5 +234,6 @@
   "titleContinueWithCount": "Continuer (dex {monsterCount})",
   "titleMinimumAge": "À partir de {age} ans",
   "titlePrivacy": "Confidentialité",
-  "titleHeading": "Les objets du quotidien\ndeviennent des monstres et se battent"
+  "titleHeading": "Les objets du quotidien\ndeviennent des monstres et se battent",
+  "referenceOpen": "Efficacité des éléments et liste des capacités"
 }
