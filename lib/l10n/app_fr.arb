@@ -26,5 +26,6 @@
   "blockDialogTitle": "bloquer",
   "blockDialogMessage": "Tu ne rencontreras plus {displayName} comme adversaire, et inversement",
   "blockDialogConfirm": "bloquer",
-  "opponentSafetyMenuTooltip": "signaler · bloquer"
+  "opponentSafetyMenuTooltip": "signaler · bloquer",
+  "opponentBlockTrainer": "Bloquer ce dresseur"
 }
