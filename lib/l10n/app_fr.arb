@@ -27,5 +27,6 @@
   "blockDialogMessage": "Tu ne rencontreras plus {displayName} comme adversaire, et inversement",
   "blockDialogConfirm": "bloquer",
   "opponentSafetyMenuTooltip": "signaler · bloquer",
-  "opponentBlockTrainer": "Bloquer ce dresseur"
+  "opponentBlockTrainer": "Bloquer ce dresseur",
+  "opponentReportHelpBody": "Appuie longuement sur le monstre adverse pour le signaler\nLe bouton en haut à droite de la carte te permet de signaler ou de bloquer ton adversaire"
 }
