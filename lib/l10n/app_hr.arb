@@ -258,5 +258,6 @@
   "moveDetailEffectiveness": "učinkovitost",
   "moveDetailSuperEffective": "Vrlo učinkovito",
   "moveDetailNotVeryEffective": "Nije baš učinkovito",
-  "moveDetailNeutralEverywhere": "Svi elementi: 1×"
+  "moveDetailNeutralEverywhere": "Svi elementi: 1×",
+  "ticketBalance": "Ulaznice: {count}"
 }

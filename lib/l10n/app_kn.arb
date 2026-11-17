@@ -258,5 +258,6 @@
   "moveDetailEffectiveness": "ಪರಿಣಾಮಕಾರಿತ್ವ",
   "moveDetailSuperEffective": "ತುಂಬಾ ಪರಿಣಾಮಕಾರಿ",
   "moveDetailNotVeryEffective": "ಹೆಚ್ಚು ಪರಿಣಾಮಕಾರಿಯಲ್ಲ",
-  "moveDetailNeutralEverywhere": "ಎಲ್ಲ ಪ್ರಕಾರಗಳ ವಿರುದ್ಧ 1×"
+  "moveDetailNeutralEverywhere": "ಎಲ್ಲ ಪ್ರಕಾರಗಳ ವಿರುದ್ಧ 1×",
+  "ticketBalance": "ಟಿಕೆಟ್‌ಗಳು: {count}"
 }

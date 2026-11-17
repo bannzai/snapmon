@@ -258,5 +258,6 @@
   "moveDetailEffectiveness": "相剋",
   "moveDetailSuperEffective": "效果絕佳",
   "moveDetailNotVeryEffective": "效果不太好",
-  "moveDetailNeutralEverywhere": "對所有屬性都是 1 倍"
+  "moveDetailNeutralEverywhere": "對所有屬性都是 1 倍",
+  "ticketBalance": "票券：{count}"
 }

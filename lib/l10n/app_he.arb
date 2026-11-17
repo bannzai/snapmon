@@ -258,5 +258,6 @@
   "moveDetailEffectiveness": "יעילות",
   "moveDetailSuperEffective": "יעיל במיוחד",
   "moveDetailNotVeryEffective": "לא יעיל במיוחד",
-  "moveDetailNeutralEverywhere": "כל סוג: פי 1"
+  "moveDetailNeutralEverywhere": "כל סוג: פי 1",
+  "ticketBalance": "כרטיסים: {count}"
 }

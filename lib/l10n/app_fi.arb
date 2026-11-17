@@ -258,5 +258,6 @@
   "moveDetailEffectiveness": "tehokkuus",
   "moveDetailSuperEffective": "Erittäin tehokas",
   "moveDetailNotVeryEffective": "Ei kovin tehokas",
-  "moveDetailNeutralEverywhere": "Kaikki elementit: 1×"
+  "moveDetailNeutralEverywhere": "Kaikki elementit: 1×",
+  "ticketBalance": "Liput: {count}"
 }

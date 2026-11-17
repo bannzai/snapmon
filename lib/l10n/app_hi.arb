@@ -258,5 +258,6 @@
   "moveDetailEffectiveness": "प्रभावशीलता",
   "moveDetailSuperEffective": "बहुत असरदार",
   "moveDetailNotVeryEffective": "ज़्यादा असरदार नहीं",
-  "moveDetailNeutralEverywhere": "हर तत्व पर 1 गुना"
+  "moveDetailNeutralEverywhere": "हर तत्व पर 1 गुना",
+  "ticketBalance": "टिकट: {count}"
 }

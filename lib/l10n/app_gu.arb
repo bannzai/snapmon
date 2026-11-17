@@ -258,5 +258,6 @@
   "moveDetailEffectiveness": "અસરકારકતા",
   "moveDetailSuperEffective": "ખૂબ અસરકારક",
   "moveDetailNotVeryEffective": "ખાસ અસરકારક નથી",
-  "moveDetailNeutralEverywhere": "બધાં તત્ત્વ સામે ૧ ગણું"
+  "moveDetailNeutralEverywhere": "બધાં તત્ત્વ સામે ૧ ગણું",
+  "ticketBalance": "ટિકિટ: {count}"
 }

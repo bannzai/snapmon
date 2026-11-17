@@ -258,5 +258,6 @@
   "moveDetailEffectiveness": "effektivitet",
   "moveDetailSuperEffective": "Supereffektivt",
   "moveDetailNotVeryEffective": "Inte särskilt effektiv",
-  "moveDetailNeutralEverywhere": "Alla element: 1×"
+  "moveDetailNeutralEverywhere": "Alla element: 1×",
+  "ticketBalance": "Biljetter: {count}"
 }

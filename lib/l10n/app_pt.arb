@@ -258,5 +258,6 @@
   "moveDetailEffectiveness": "eficácia",
   "moveDetailSuperEffective": "Supereficaz",
   "moveDetailNotVeryEffective": "Pouco eficaz",
-  "moveDetailNeutralEverywhere": "Todos os elementos: 1×"
+  "moveDetailNeutralEverywhere": "Todos os elementos: 1×",
+  "ticketBalance": "Bilhetes: {count}"
 }

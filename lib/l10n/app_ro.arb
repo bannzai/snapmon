@@ -258,5 +258,6 @@
   "moveDetailEffectiveness": "eficacitate",
   "moveDetailSuperEffective": "Foarte eficient",
   "moveDetailNotVeryEffective": "Puțin eficient",
-  "moveDetailNeutralEverywhere": "Toate elementele: 1×"
+  "moveDetailNeutralEverywhere": "Toate elementele: 1×",
+  "ticketBalance": "Bilete: {count}"
 }

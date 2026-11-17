@@ -258,5 +258,6 @@
   "moveDetailEffectiveness": "uyum",
   "moveDetailSuperEffective": "Çok etkili",
   "moveDetailNotVeryEffective": "Pek etkili değil",
-  "moveDetailNeutralEverywhere": "Tüm elementlere karşı 1×"
+  "moveDetailNeutralEverywhere": "Tüm elementlere karşı 1×",
+  "ticketBalance": "Bilet: {count}"
 }

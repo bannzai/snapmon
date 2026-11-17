@@ -258,5 +258,6 @@
   "moveDetailEffectiveness": "αποτελεσματικότητα",
   "moveDetailSuperEffective": "Πολύ αποτελεσματικό",
   "moveDetailNotVeryEffective": "Όχι πολύ αποτελεσματικό",
-  "moveDetailNeutralEverywhere": "Όλα τα στοιχεία: ×1"
+  "moveDetailNeutralEverywhere": "Όλα τα στοιχεία: ×1",
+  "ticketBalance": "Εισιτήρια: {count}"
 }

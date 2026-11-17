@@ -258,5 +258,6 @@
   "moveDetailEffectiveness": "اثر",
   "moveDetailSuperEffective": "بہت مؤثر",
   "moveDetailNotVeryEffective": "زیادہ مؤثر نہیں",
-  "moveDetailNeutralEverywhere": "ہر ٹائپ پر 1 گنا"
+  "moveDetailNeutralEverywhere": "ہر ٹائپ پر 1 گنا",
+  "ticketBalance": "ٹکٹ: {count}"
 }

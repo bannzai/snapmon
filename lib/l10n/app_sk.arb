@@ -258,5 +258,6 @@
   "moveDetailEffectiveness": "účinnosť",
   "moveDetailSuperEffective": "Veľmi účinné",
   "moveDetailNotVeryEffective": "Málo účinné",
-  "moveDetailNeutralEverywhere": "Všetky elementy: 1×"
+  "moveDetailNeutralEverywhere": "Všetky elementy: 1×",
+  "ticketBalance": "Lístky: {count}"
 }

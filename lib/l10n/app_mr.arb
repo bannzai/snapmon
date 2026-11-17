@@ -258,5 +258,6 @@
   "moveDetailEffectiveness": "परिणामकारकता",
   "moveDetailSuperEffective": "खूप प्रभावी",
   "moveDetailNotVeryEffective": "फारसा परिणामकारक नाही",
-  "moveDetailNeutralEverywhere": "सर्व तत्त्वांवर 1 पट"
+  "moveDetailNeutralEverywhere": "सर्व तत्त्वांवर 1 पट",
+  "ticketBalance": "तिकिटे: {count}"
 }

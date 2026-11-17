@@ -258,5 +258,6 @@
   "moveDetailEffectiveness": "effectiviteit",
   "moveDetailSuperEffective": "Superdoeltreffend",
   "moveDetailNotVeryEffective": "Niet erg effectief",
-  "moveDetailNeutralEverywhere": "Alle types: 1×"
+  "moveDetailNeutralEverywhere": "Alle types: 1×",
+  "ticketBalance": "Tickets: {count}"
 }

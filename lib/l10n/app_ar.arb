@@ -258,5 +258,6 @@
   "moveDetailEffectiveness": "فعالية",
   "moveDetailSuperEffective": "فعّال جدًا",
   "moveDetailNotVeryEffective": "ليس فعّالًا جدًا",
-  "moveDetailNeutralEverywhere": "كل عنصر: ×1"
+  "moveDetailNeutralEverywhere": "كل عنصر: ×1",
+  "ticketBalance": "التذاكر: {count}"
 }

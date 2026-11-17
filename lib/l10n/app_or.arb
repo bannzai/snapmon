@@ -258,5 +258,6 @@
   "moveDetailEffectiveness": "ପ୍ରଭାବ",
   "moveDetailSuperEffective": "ଖୁବ୍ ପ୍ରଭାବଶାଳୀ",
   "moveDetailNotVeryEffective": "ବିଶେଷ ପ୍ରଭାବୀ ନୁହେଁ",
-  "moveDetailNeutralEverywhere": "ସବୁ ତତ୍ତ୍ୱ ବିରୁଦ୍ଧରେ ୧ ଗୁଣ"
+  "moveDetailNeutralEverywhere": "ସବୁ ତତ୍ତ୍ୱ ବିରୁଦ୍ଧରେ ୧ ଗୁଣ",
+  "ticketBalance": "ଟିକେଟ୍: {count}"
 }

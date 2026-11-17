@@ -258,5 +258,6 @@
   "moveDetailEffectiveness": "ефективність",
   "moveDetailSuperEffective": "Дуже ефективно",
   "moveDetailNotVeryEffective": "Не дуже ефективно",
-  "moveDetailNeutralEverywhere": "Кожен елемент: ×1"
+  "moveDetailNeutralEverywhere": "Кожен елемент: ×1",
+  "ticketBalance": "Квитки: {count}"
 }

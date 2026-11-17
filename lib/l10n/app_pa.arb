@@ -258,5 +258,6 @@
   "moveDetailEffectiveness": "ਮੇਲ",
   "moveDetailSuperEffective": "ਬਹੁਤ ਅਸਰਦਾਰ",
   "moveDetailNotVeryEffective": "ਬਹੁਤਾ ਅਸਰਦਾਰ ਨਹੀਂ",
-  "moveDetailNeutralEverywhere": "ਸਾਰੇ ਤੱਤਾਂ ਵਿਰੁੱਧ 1 ਗੁਣਾ"
+  "moveDetailNeutralEverywhere": "ਸਾਰੇ ਤੱਤਾਂ ਵਿਰੁੱਧ 1 ਗੁਣਾ",
+  "ticketBalance": "ਟਿਕਟਾਂ: {count}"
 }

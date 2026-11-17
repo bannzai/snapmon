@@ -258,5 +258,6 @@
   "moveDetailEffectiveness": "ഫലപ്രാപ്തി",
   "moveDetailSuperEffective": "വളരെ ഫലപ്രദം",
   "moveDetailNotVeryEffective": "അത്ര ഫലപ്രദമല്ല",
-  "moveDetailNeutralEverywhere": "എല്ലാ മൂലകങ്ങൾക്കും 1×"
+  "moveDetailNeutralEverywhere": "എല്ലാ മൂലകങ്ങൾക്കും 1×",
+  "ticketBalance": "ടിക്കറ്റുകൾ: {count}"
 }
