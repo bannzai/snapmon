@@ -138,5 +138,6 @@
   "generationFailedMessage": "La création a échoué\nEssaie de prendre une autre photo",
   "resultReplaceTitle": "Qui remplacer par {monsterName} ?",
   "resultNewlyBorn": "Un nouveau compagnon",
-  "statHitPoints": "HP"
+  "statHitPoints": "HP",
+  "statAttack": "Attaque"
 }
