@@ -228,5 +228,6 @@
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "Styrka",
   "movePowerPoints": "PP",
-  "titleStartFromAlbum": "Välj en bild och börja"
+  "titleStartFromAlbum": "Välj en bild och börja",
+  "titleStartFromCamera": "Ta ett foto och börja"
 }

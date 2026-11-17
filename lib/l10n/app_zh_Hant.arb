@@ -228,5 +228,6 @@
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "威力",
   "movePowerPoints": "PP",
-  "titleStartFromAlbum": "選張照片，開始吧"
+  "titleStartFromAlbum": "選張照片，開始吧",
+  "titleStartFromCamera": "拍張照，開始冒險"
 }

@@ -228,5 +228,6 @@
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "Stärke",
   "movePowerPoints": "PP",
-  "titleStartFromAlbum": "Foto auswählen und loslegen"
+  "titleStartFromAlbum": "Foto auswählen und loslegen",
+  "titleStartFromCamera": "Mach ein Foto und leg los"
 }

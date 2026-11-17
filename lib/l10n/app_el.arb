@@ -228,5 +228,6 @@
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "Ισχύς",
   "movePowerPoints": "PP",
-  "titleStartFromAlbum": "Διάλεξε φωτογραφία και ξεκίνα"
+  "titleStartFromAlbum": "Διάλεξε φωτογραφία και ξεκίνα",
+  "titleStartFromCamera": "Βγάλε φωτογραφία και ξεκίνα"
 }

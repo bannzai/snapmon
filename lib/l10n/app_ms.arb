@@ -228,5 +228,6 @@
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "Kuasa",
   "movePowerPoints": "PP",
-  "titleStartFromAlbum": "Pilih foto untuk mula"
+  "titleStartFromAlbum": "Pilih foto untuk mula",
+  "titleStartFromCamera": "Ambil gambar dan mula"
 }

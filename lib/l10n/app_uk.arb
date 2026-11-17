@@ -228,5 +228,6 @@
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "Сила",
   "movePowerPoints": "PP",
-  "titleStartFromAlbum": "Вибери фото й почни"
+  "titleStartFromAlbum": "Вибери фото й почни",
+  "titleStartFromCamera": "Зроби фото й почни"
 }

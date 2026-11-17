@@ -228,5 +228,6 @@
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "Síla",
   "movePowerPoints": "PP",
-  "titleStartFromAlbum": "Vyber fotku a začni"
+  "titleStartFromAlbum": "Vyber fotku a začni",
+  "titleStartFromCamera": "Vyfoť a začni"
 }

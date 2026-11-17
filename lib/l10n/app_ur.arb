@@ -228,5 +228,6 @@
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "طاقت",
   "movePowerPoints": "PP",
-  "titleStartFromAlbum": "تصویر چن کر شروع کرو"
+  "titleStartFromAlbum": "تصویر چن کر شروع کرو",
+  "titleStartFromCamera": "تصویر کھینچ کر شروع کرو"
 }

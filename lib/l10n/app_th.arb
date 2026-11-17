@@ -228,5 +228,6 @@
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "พลัง",
   "movePowerPoints": "PP",
-  "titleStartFromAlbum": "เลือกรูปแล้วเริ่มเลย"
+  "titleStartFromAlbum": "เลือกรูปแล้วเริ่มเลย",
+  "titleStartFromCamera": "ถ่ายรูปแล้วเริ่มเลย"
 }

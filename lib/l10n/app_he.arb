@@ -228,5 +228,6 @@
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "עוצמה",
   "movePowerPoints": "PP",
-  "titleStartFromAlbum": "לבחור תמונה ולהתחיל"
+  "titleStartFromAlbum": "לבחור תמונה ולהתחיל",
+  "titleStartFromCamera": "לצלם ולהתחיל"
 }

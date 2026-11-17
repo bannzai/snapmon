@@ -228,5 +228,6 @@
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "Erő",
   "movePowerPoints": "PP",
-  "titleStartFromAlbum": "Válassz képet, és kezdj bele"
+  "titleStartFromAlbum": "Válassz képet, és kezdj bele",
+  "titleStartFromCamera": "Fotózz, és kezdj bele"
 }

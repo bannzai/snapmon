@@ -228,5 +228,6 @@
   "battleHitPoints": "HP {current} / {maximum}",
   "movePower": "ಶಕ್ತಿ",
   "movePowerPoints": "PP",
-  "titleStartFromAlbum": "ಫೋಟೋ ಆಯ್ಕೆ ಮಾಡಿ ಶುರು ಮಾಡು"
+  "titleStartFromAlbum": "ಫೋಟೋ ಆಯ್ಕೆ ಮಾಡಿ ಶುರು ಮಾಡು",
+  "titleStartFromCamera": "ಫೋಟೋ ತೆಗೆದು ಶುರು ಮಾಡು"
 }
