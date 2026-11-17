@@ -282,5 +282,6 @@
   "actionCardPurchaseArrivalDelayed": "En attente de confirmation\nLa capacité reçue reste disponible même si tu fermes cet écran",
   "actionCardPurchasePending": "En attente de la fin du paiement\nTu recevras la capacité une fois le paiement terminé, même si tu fermes cet écran",
   "actionCardPurchaseArrivedTitle": "Tu as obtenu {moveName}",
-  "actionCardPurchaseUnassignedTitle": "Impossible de recevoir la capacité"
+  "actionCardPurchaseUnassignedTitle": "Impossible de recevoir la capacité",
+  "actionCardPurchaseUnassignedBody": "Le prix de cette capacité a changé pendant l’achat, ou tu la possèdes déjà.\nChoisis à nouveau une capacité dans « Action Card à récupérer »."
 }
