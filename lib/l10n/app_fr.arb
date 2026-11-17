@@ -284,5 +284,6 @@
   "actionCardPurchaseArrivedTitle": "Tu as obtenu {moveName}",
   "actionCardPurchaseUnassignedTitle": "Impossible de recevoir la capacité",
   "actionCardPurchaseUnassignedBody": "Le prix de cette capacité a changé pendant l’achat, ou tu la possèdes déjà.\nChoisis à nouveau une capacité dans « Action Card à récupérer ».",
-  "actionCardUnassignedHeading": "Action Card à récupérer"
+  "actionCardUnassignedHeading": "Action Card à récupérer",
+  "actionCardUnassignedChooseMove": "Choisir une capacité"
 }
