@@ -312,5 +312,6 @@
   "helpOpen": "Jak hrát",
   "helpTitle": "Jak hrát",
   "helpPartyHeading": "V týmu můžeš mít až {maximumPartySize} příšer",
-  "helpPartyBody": "Do boje nastupují příšery z tvého týmu\nKdyž příšera v boji padne, vystřídá ji další\nKdyž padne celý tým, prohraješ\nTým můžeš měnit v encyklopedii"
+  "helpPartyBody": "Do boje nastupují příšery z tvého týmu\nKdyž příšera v boji padne, vystřídá ji další\nKdyž padne celý tým, prohraješ\nTým můžeš měnit v encyklopedii",
+  "helpLevelHeading": "Úroveň"
 }

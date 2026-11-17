@@ -312,5 +312,6 @@
   "helpOpen": "Kako igrati",
   "helpTitle": "Kako igrati",
   "helpPartyHeading": "U tvom timu može biti do {maximumPartySize} čudovišta",
-  "helpPartyBody": "Čudovišta iz tvog tima ulaze u borbu\nKad čudovište u borbi padne, ulazi sljedeće\nAko padne cijeli tim, gubiš\nTim možeš mijenjati u enciklopediji"
+  "helpPartyBody": "Čudovišta iz tvog tima ulaze u borbu\nKad čudovište u borbi padne, ulazi sljedeće\nAko padne cijeli tim, gubiš\nTim možeš mijenjati u enciklopediji",
+  "helpLevelHeading": "Razina"
 }

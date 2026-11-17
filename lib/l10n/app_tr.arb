@@ -312,5 +312,6 @@
   "helpOpen": "Nasıl oynanır",
   "helpTitle": "Nasıl oynanır",
   "helpPartyHeading": "Takımında en fazla {maximumPartySize} canavar olabilir",
-  "helpPartyBody": "Takımındaki canavarlar savaşa katılır\nSahadaki canavar yenilirse sıradaki onun yerini alır\nTüm takım yenilirse kaybedersin\nTakımını ansiklopedi ekranında değiştirebilirsin"
+  "helpPartyBody": "Takımındaki canavarlar savaşa katılır\nSahadaki canavar yenilirse sıradaki onun yerini alır\nTüm takım yenilirse kaybedersin\nTakımını ansiklopedi ekranında değiştirebilirsin",
+  "helpLevelHeading": "Seviye"
 }

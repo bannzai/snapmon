@@ -312,5 +312,6 @@
   "helpOpen": "게임 방법 보기",
   "helpTitle": "게임 방법",
   "helpPartyHeading": "파티에는 몬스터를 최대 {maximumPartySize}마리까지 넣을 수 있어요",
-  "helpPartyBody": "파티의 몬스터가 배틀에 나가요\n배틀 중인 몬스터가 쓰러지면 다음 몬스터가 나와요\n파티가 모두 쓰러지면 패배해요\n도감 화면에서 파티를 바꿀 수 있어요"
+  "helpPartyBody": "파티의 몬스터가 배틀에 나가요\n배틀 중인 몬스터가 쓰러지면 다음 몬스터가 나와요\n파티가 모두 쓰러지면 패배해요\n도감 화면에서 파티를 바꿀 수 있어요",
+  "helpLevelHeading": "레벨"
 }

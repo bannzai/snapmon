@@ -312,5 +312,6 @@
   "helpOpen": "Cómo jugar",
   "helpTitle": "Cómo jugar",
   "helpPartyHeading": "En tu equipo caben hasta {maximumPartySize} monstruos",
-  "helpPartyBody": "Los monstruos de tu equipo entran en combate\nSi cae el monstruo activo, entra el siguiente\nSi cae todo tu equipo, pierdes\nPuedes cambiar tu equipo en la colección"
+  "helpPartyBody": "Los monstruos de tu equipo entran en combate\nSi cae el monstruo activo, entra el siguiente\nSi cae todo tu equipo, pierdes\nPuedes cambiar tu equipo en la colección",
+  "helpLevelHeading": "Nivel"
 }

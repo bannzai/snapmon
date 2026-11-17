@@ -312,5 +312,6 @@
   "helpOpen": "Näin pelaat",
   "helpTitle": "Näin pelaat",
   "helpPartyHeading": "Joukkueeseesi mahtuu enintään {maximumPartySize} hirviötä",
-  "helpPartyBody": "Joukkueesi hirviöt lähtevät taisteluun\nKun kentällä oleva hirviö kaatuu, seuraava astuu tilalle\nJos koko joukkue kaatuu, häviät\nVoit vaihtaa joukkuetta kokoelmassa"
+  "helpPartyBody": "Joukkueesi hirviöt lähtevät taisteluun\nKun kentällä oleva hirviö kaatuu, seuraava astuu tilalle\nJos koko joukkue kaatuu, häviät\nVoit vaihtaa joukkuetta kokoelmassa",
+  "helpLevelHeading": "Taso"
 }

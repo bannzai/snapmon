@@ -312,5 +312,6 @@
   "helpOpen": "Jak grać",
   "helpTitle": "Jak grać",
   "helpPartyHeading": "W twojej drużynie zmieści się do {maximumPartySize} potworów",
-  "helpPartyBody": "Potwory z twojej drużyny ruszają do walki\nGdy potwór na polu padnie, wchodzi następny\nJeśli padnie cała drużyna, przegrywasz\nDrużynę możesz zmienić w encyklopedii"
+  "helpPartyBody": "Potwory z twojej drużyny ruszają do walki\nGdy potwór na polu padnie, wchodzi następny\nJeśli padnie cała drużyna, przegrywasz\nDrużynę możesz zmienić w encyklopedii",
+  "helpLevelHeading": "Poziom"
 }
