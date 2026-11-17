@@ -57,5 +57,6 @@
   "settingsTerms": "Brugsvilkår",
   "settingsPrivacyPolicy": "Privatlivspolitik",
   "settingsAccountSection": "Konto",
-  "settingsAboutAccountDeletion": "Om sletning af konto"
+  "settingsAboutAccountDeletion": "Om sletning af konto",
+  "settingsTransferData": "Overfør data"
 }

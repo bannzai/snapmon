@@ -57,5 +57,6 @@
   "settingsTerms": "பயன்பாட்டு விதிமுறைகள்",
   "settingsPrivacyPolicy": "தனியுரிமைக் கொள்கை",
   "settingsAccountSection": "கணக்கு",
-  "settingsAboutAccountDeletion": "கணக்கை நீக்குவது பற்றி"
+  "settingsAboutAccountDeletion": "கணக்கை நீக்குவது பற்றி",
+  "settingsTransferData": "தரவை மாற்றுங்கள்"
 }

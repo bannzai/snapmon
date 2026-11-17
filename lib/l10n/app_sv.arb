@@ -57,5 +57,6 @@
   "settingsTerms": "Användarvillkor",
   "settingsPrivacyPolicy": "Integritetspolicy",
   "settingsAccountSection": "Konto",
-  "settingsAboutAccountDeletion": "Om att radera kontot"
+  "settingsAboutAccountDeletion": "Om att radera kontot",
+  "settingsTransferData": "Överför data"
 }

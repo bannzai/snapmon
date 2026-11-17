@@ -57,5 +57,6 @@
   "settingsTerms": "תנאי שימוש",
   "settingsPrivacyPolicy": "מדיניות פרטיות",
   "settingsAccountSection": "חשבון",
-  "settingsAboutAccountDeletion": "על מחיקת החשבון"
+  "settingsAboutAccountDeletion": "על מחיקת החשבון",
+  "settingsTransferData": "העברת נתונים"
 }

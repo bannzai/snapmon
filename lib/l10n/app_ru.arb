@@ -57,5 +57,6 @@
   "settingsTerms": "Условия использования",
   "settingsPrivacyPolicy": "Политика конфиденциальности",
   "settingsAccountSection": "Аккаунт",
-  "settingsAboutAccountDeletion": "Об удалении аккаунта"
+  "settingsAboutAccountDeletion": "Об удалении аккаунта",
+  "settingsTransferData": "Перенести данные"
 }

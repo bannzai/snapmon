@@ -57,5 +57,6 @@
   "settingsTerms": "Gebruiksvoorwaarden",
   "settingsPrivacyPolicy": "Privacybeleid",
   "settingsAccountSection": "Account",
-  "settingsAboutAccountDeletion": "Over het verwijderen van je account"
+  "settingsAboutAccountDeletion": "Over het verwijderen van je account",
+  "settingsTransferData": "Gegevens overzetten"
 }

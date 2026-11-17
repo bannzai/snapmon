@@ -57,5 +57,6 @@
   "settingsTerms": "ব্যবহারের শর্তাবলি",
   "settingsPrivacyPolicy": "গোপনীয়তা নীতি",
   "settingsAccountSection": "অ্যাকাউন্ট",
-  "settingsAboutAccountDeletion": "অ্যাকাউন্ট মুছে ফেলা সম্পর্কে"
+  "settingsAboutAccountDeletion": "অ্যাকাউন্ট মুছে ফেলা সম্পর্কে",
+  "settingsTransferData": "ডেটা স্থানান্তর করো"
 }

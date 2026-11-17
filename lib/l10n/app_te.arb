@@ -57,5 +57,6 @@
   "settingsTerms": "వినియోగ నిబంధనలు",
   "settingsPrivacyPolicy": "గోప్యతా విధానం",
   "settingsAccountSection": "ఖాతా",
-  "settingsAboutAccountDeletion": "ఖాతా తొలగింపు గురించి"
+  "settingsAboutAccountDeletion": "ఖాతా తొలగింపు గురించి",
+  "settingsTransferData": "డేటాను బదిలీ చేయి"
 }

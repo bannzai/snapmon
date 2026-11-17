@@ -57,5 +57,6 @@
   "settingsTerms": "Nutzungsbedingungen",
   "settingsPrivacyPolicy": "Datenschutzerklärung",
   "settingsAccountSection": "Konto",
-  "settingsAboutAccountDeletion": "Über die Kontolöschung"
+  "settingsAboutAccountDeletion": "Über die Kontolöschung",
+  "settingsTransferData": "Daten übertragen"
 }

@@ -57,5 +57,6 @@
   "settingsTerms": "Condicions d'ús",
   "settingsPrivacyPolicy": "Política de privacitat",
   "settingsAccountSection": "Compte",
-  "settingsAboutAccountDeletion": "Sobre la supressió del compte"
+  "settingsAboutAccountDeletion": "Sobre la supressió del compte",
+  "settingsTransferData": "Transferir dades"
 }

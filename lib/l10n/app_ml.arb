@@ -57,5 +57,6 @@
   "settingsTerms": "ഉപയോഗ നിബന്ധനകൾ",
   "settingsPrivacyPolicy": "സ്വകാര്യതാ നയം",
   "settingsAccountSection": "അക്കൗണ്ട്",
-  "settingsAboutAccountDeletion": "അക്കൗണ്ട് ഇല്ലാതാക്കുന്നതിനെക്കുറിച്ച്"
+  "settingsAboutAccountDeletion": "അക്കൗണ്ട് ഇല്ലാതാക്കുന്നതിനെക്കുറിച്ച്",
+  "settingsTransferData": "ഡാറ്റ കൈമാറുക"
 }

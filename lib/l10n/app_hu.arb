@@ -57,5 +57,6 @@
   "settingsTerms": "Felhasználási feltételek",
   "settingsPrivacyPolicy": "Adatvédelmi szabályzat",
   "settingsAccountSection": "Fiók",
-  "settingsAboutAccountDeletion": "A fiók törléséről"
+  "settingsAboutAccountDeletion": "A fiók törléséről",
+  "settingsTransferData": "Adatok átvitele"
 }

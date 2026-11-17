@@ -57,5 +57,6 @@
   "settingsTerms": "شروط الاستخدام",
   "settingsPrivacyPolicy": "سياسة الخصوصية",
   "settingsAccountSection": "الحساب",
-  "settingsAboutAccountDeletion": "حول حذف الحساب"
+  "settingsAboutAccountDeletion": "حول حذف الحساب",
+  "settingsTransferData": "نقل البيانات"
 }

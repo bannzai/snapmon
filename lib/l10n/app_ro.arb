@@ -57,5 +57,6 @@
   "settingsTerms": "Termeni de utilizare",
   "settingsPrivacyPolicy": "Politica de confidențialitate",
   "settingsAccountSection": "Cont",
-  "settingsAboutAccountDeletion": "Despre ștergerea contului"
+  "settingsAboutAccountDeletion": "Despre ștergerea contului",
+  "settingsTransferData": "Transferă datele"
 }

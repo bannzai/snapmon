@@ -57,5 +57,6 @@
   "settingsTerms": "Podmínky používání",
   "settingsPrivacyPolicy": "Zásady ochrany osobních údajů",
   "settingsAccountSection": "Účet",
-  "settingsAboutAccountDeletion": "O smazání účtu"
+  "settingsAboutAccountDeletion": "O smazání účtu",
+  "settingsTransferData": "Přenést data"
 }

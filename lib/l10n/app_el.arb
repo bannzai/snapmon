@@ -57,5 +57,6 @@
   "settingsTerms": "Όροι χρήσης",
   "settingsPrivacyPolicy": "Πολιτική απορρήτου",
   "settingsAccountSection": "Λογαριασμός",
-  "settingsAboutAccountDeletion": "Σχετικά με τη διαγραφή λογαριασμού"
+  "settingsAboutAccountDeletion": "Σχετικά με τη διαγραφή λογαριασμού",
+  "settingsTransferData": "Μεταφορά δεδομένων"
 }

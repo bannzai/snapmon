@@ -57,5 +57,6 @@
   "settingsTerms": "使用条款",
   "settingsPrivacyPolicy": "隐私政策",
   "settingsAccountSection": "账号",
-  "settingsAboutAccountDeletion": "关于删除账号"
+  "settingsAboutAccountDeletion": "关于删除账号",
+  "settingsTransferData": "转移数据"
 }

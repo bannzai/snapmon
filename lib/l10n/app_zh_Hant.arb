@@ -57,5 +57,6 @@
   "settingsTerms": "使用條款",
   "settingsPrivacyPolicy": "隱私權政策",
   "settingsAccountSection": "帳號",
-  "settingsAboutAccountDeletion": "關於刪除帳號"
+  "settingsAboutAccountDeletion": "關於刪除帳號",
+  "settingsTransferData": "轉移資料"
 }

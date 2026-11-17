@@ -57,5 +57,6 @@
   "settingsTerms": "ข้อกำหนดการใช้งาน",
   "settingsPrivacyPolicy": "นโยบายความเป็นส่วนตัว",
   "settingsAccountSection": "บัญชี",
-  "settingsAboutAccountDeletion": "เกี่ยวกับการลบบัญชี"
+  "settingsAboutAccountDeletion": "เกี่ยวกับการลบบัญชี",
+  "settingsTransferData": "โอนย้ายข้อมูล"
 }

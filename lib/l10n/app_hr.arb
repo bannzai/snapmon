@@ -57,5 +57,6 @@
   "settingsTerms": "Uvjeti korištenja",
   "settingsPrivacyPolicy": "Pravila privatnosti",
   "settingsAccountSection": "Račun",
-  "settingsAboutAccountDeletion": "O brisanju računa"
+  "settingsAboutAccountDeletion": "O brisanju računa",
+  "settingsTransferData": "Prenesi podatke"
 }

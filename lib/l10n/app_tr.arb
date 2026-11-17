@@ -57,5 +57,6 @@
   "settingsTerms": "Kullanım Koşulları",
   "settingsPrivacyPolicy": "Gizlilik politikası",
   "settingsAccountSection": "Hesap",
-  "settingsAboutAccountDeletion": "Hesap silme hakkında"
+  "settingsAboutAccountDeletion": "Hesap silme hakkında",
+  "settingsTransferData": "Verileri aktar"
 }

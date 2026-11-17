@@ -57,5 +57,6 @@
   "settingsTerms": "वापराच्या अटी",
   "settingsPrivacyPolicy": "गोपनीयता धोरण",
   "settingsAccountSection": "खाते",
-  "settingsAboutAccountDeletion": "खाते हटवण्याबद्दल"
+  "settingsAboutAccountDeletion": "खाते हटवण्याबद्दल",
+  "settingsTransferData": "डेटा हस्तांतरित कर"
 }

@@ -57,5 +57,6 @@
   "settingsTerms": "ਵਰਤੋਂ ਦੀਆਂ ਸ਼ਰਤਾਂ",
   "settingsPrivacyPolicy": "ਪਰਦੇਦਾਰੀ ਨੀਤੀ",
   "settingsAccountSection": "ਖਾਤਾ",
-  "settingsAboutAccountDeletion": "ਖਾਤਾ ਮਿਟਾਉਣ ਬਾਰੇ"
+  "settingsAboutAccountDeletion": "ਖਾਤਾ ਮਿਟਾਉਣ ਬਾਰੇ",
+  "settingsTransferData": "ਡਾਟਾ ਟ੍ਰਾਂਸਫ਼ਰ ਕਰੋ"
 }

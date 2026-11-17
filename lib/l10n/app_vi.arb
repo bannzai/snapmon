@@ -57,5 +57,6 @@
   "settingsTerms": "Điều khoản sử dụng",
   "settingsPrivacyPolicy": "Chính sách quyền riêng tư",
   "settingsAccountSection": "Tài khoản",
-  "settingsAboutAccountDeletion": "Về việc xóa tài khoản"
+  "settingsAboutAccountDeletion": "Về việc xóa tài khoản",
+  "settingsTransferData": "Chuyển dữ liệu"
 }

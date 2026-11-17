@@ -57,5 +57,6 @@
   "settingsTerms": "Käyttöehdot",
   "settingsPrivacyPolicy": "Tietosuojakäytäntö",
   "settingsAccountSection": "Tili",
-  "settingsAboutAccountDeletion": "Tietoa tilin poistamisesta"
+  "settingsAboutAccountDeletion": "Tietoa tilin poistamisesta",
+  "settingsTransferData": "Siirrä tiedot"
 }

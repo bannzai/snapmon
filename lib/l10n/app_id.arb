@@ -57,5 +57,6 @@
   "settingsTerms": "Ketentuan Penggunaan",
   "settingsPrivacyPolicy": "Kebijakan privasi",
   "settingsAccountSection": "Akun",
-  "settingsAboutAccountDeletion": "Tentang penghapusan akun"
+  "settingsAboutAccountDeletion": "Tentang penghapusan akun",
+  "settingsTransferData": "Pindahkan data"
 }

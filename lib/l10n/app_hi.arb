@@ -57,5 +57,6 @@
   "settingsTerms": "उपयोग की शर्तें",
   "settingsPrivacyPolicy": "गोपनीयता नीति",
   "settingsAccountSection": "खाता",
-  "settingsAboutAccountDeletion": "अकाउंट मिटाने के बारे में"
+  "settingsAboutAccountDeletion": "अकाउंट मिटाने के बारे में",
+  "settingsTransferData": "डेटा ट्रांसफ़र करो"
 }
