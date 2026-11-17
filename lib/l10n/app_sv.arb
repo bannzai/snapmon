@@ -209,5 +209,6 @@
   "moveDetailAccuracy": "Träffsäkerhet",
   "moveDetailPriority": "Prioritet",
   "moveDetailPriorityValue": "Används först oavsett snabbhet",
-  "battleRecording": "Sparar resultatet"
+  "battleRecording": "Sparar resultatet",
+  "battleRecorded": "Registrerat"
 }

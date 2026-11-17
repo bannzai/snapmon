@@ -209,5 +209,6 @@
   "moveDetailAccuracy": "דיוק",
   "moveDetailPriority": "עדיפות",
   "moveDetailPriorityValue": "יוצא ראשון בלי קשר למהירות",
-  "battleRecording": "התוצאה נשמרת"
+  "battleRecording": "התוצאה נשמרת",
+  "battleRecorded": "נרשם"
 }

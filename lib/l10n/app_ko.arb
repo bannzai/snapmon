@@ -209,5 +209,6 @@
   "moveDetailAccuracy": "명중률",
   "moveDetailPriority": "우선도",
   "moveDetailPriorityValue": "스피드와 관계없이 먼저 나가요",
-  "battleRecording": "결과를 기록하고 있어요"
+  "battleRecording": "결과를 기록하고 있어요",
+  "battleRecorded": "기록했어요"
 }

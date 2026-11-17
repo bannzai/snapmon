@@ -209,5 +209,6 @@
   "moveDetailAccuracy": "Genauigkeit",
   "moveDetailPriority": "Priorität",
   "moveDetailPriorityValue": "Kommt unabhängig von der Initiative zuerst zum Zug",
-  "battleRecording": "Ergebnis wird gespeichert"
+  "battleRecording": "Ergebnis wird gespeichert",
+  "battleRecorded": "Aufgezeichnet"
 }

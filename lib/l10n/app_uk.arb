@@ -209,5 +209,6 @@
   "moveDetailAccuracy": "Точність",
   "moveDetailPriority": "Пріоритет",
   "moveDetailPriorityValue": "Застосовується першим незалежно від Швидкості",
-  "battleRecording": "Збереження результату"
+  "battleRecording": "Збереження результату",
+  "battleRecorded": "Записано"
 }

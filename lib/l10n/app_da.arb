@@ -209,5 +209,6 @@
   "moveDetailAccuracy": "Træfsikkerhed",
   "moveDetailPriority": "Prioritet",
   "moveDetailPriorityValue": "Bruges først uanset hastighed",
-  "battleRecording": "Gemmer resultatet"
+  "battleRecording": "Gemmer resultatet",
+  "battleRecorded": "Registreret"
 }

@@ -209,5 +209,6 @@
   "moveDetailAccuracy": "Preciznost",
   "moveDetailPriority": "Prioritet",
   "moveDetailPriorityValue": "Izvodi se prvi bez obzira na brzinu",
-  "battleRecording": "Spremanje rezultata"
+  "battleRecording": "Spremanje rezultata",
+  "battleRecorded": "Zabilježeno"
 }

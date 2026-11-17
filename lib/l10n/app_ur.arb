@@ -209,5 +209,6 @@
   "moveDetailAccuracy": "درستگی",
   "moveDetailPriority": "ترجیح",
   "moveDetailPriorityValue": "رفتار چاہے جو بھی ہو، یہ پہلے استعمال ہوتا ہے",
-  "battleRecording": "نتیجہ محفوظ ہو رہا ہے"
+  "battleRecording": "نتیجہ محفوظ ہو رہا ہے",
+  "battleRecorded": "ریکارڈ ہو گیا"
 }

@@ -209,5 +209,6 @@
   "moveDetailAccuracy": "Độ chính xác",
   "moveDetailPriority": "Độ ưu tiên",
   "moveDetailPriorityValue": "Ra đòn trước, bất kể Tốc độ",
-  "battleRecording": "Đang lưu kết quả"
+  "battleRecording": "Đang lưu kết quả",
+  "battleRecorded": "Đã ghi lại"
 }

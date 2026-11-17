@@ -209,5 +209,6 @@
   "moveDetailAccuracy": "Presnosť",
   "moveDetailPriority": "Priorita",
   "moveDetailPriorityValue": "Použije sa ako prvý bez ohľadu na rýchlosť",
-  "battleRecording": "Ukladá sa výsledok"
+  "battleRecording": "Ukladá sa výsledok",
+  "battleRecorded": "Zaznamenané"
 }

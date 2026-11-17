@@ -209,5 +209,6 @@
   "moveDetailAccuracy": "Pontosság",
   "moveDetailPriority": "Elsőbbség",
   "moveDetailPriorityValue": "Sebességtől függetlenül elsőként hajtódik végre",
-  "battleRecording": "Eredmény mentése"
+  "battleRecording": "Eredmény mentése",
+  "battleRecorded": "Rögzítve"
 }

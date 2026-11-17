@@ -209,5 +209,6 @@
   "moveDetailAccuracy": "Tarkkuus",
   "moveDetailPriority": "Etusija",
   "moveDetailPriorityValue": "Käytetään ensin nopeudesta riippumatta",
-  "battleRecording": "Tallennetaan tulosta"
+  "battleRecording": "Tallennetaan tulosta",
+  "battleRecorded": "Tallennettu"
 }

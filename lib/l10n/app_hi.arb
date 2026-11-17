@@ -209,5 +209,6 @@
   "moveDetailAccuracy": "सटीकता",
   "moveDetailPriority": "प्राथमिकता",
   "moveDetailPriorityValue": "स्पीड चाहे जो हो, यह पहले चलता है",
-  "battleRecording": "नतीजा सहेजा जा रहा है"
+  "battleRecording": "नतीजा सहेजा जा रहा है",
+  "battleRecorded": "रिकॉर्ड हो गया"
 }

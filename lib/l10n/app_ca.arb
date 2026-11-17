@@ -209,5 +209,6 @@
   "moveDetailAccuracy": "Precisió",
   "moveDetailPriority": "Prioritat",
   "moveDetailPriorityValue": "S'utilitza primer, sigui quina sigui la velocitat",
-  "battleRecording": "Desant el resultat"
+  "battleRecording": "Desant el resultat",
+  "battleRecorded": "Registrat"
 }

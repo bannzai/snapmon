@@ -209,5 +209,6 @@
   "moveDetailAccuracy": "Ketepatan",
   "moveDetailPriority": "Keutamaan",
   "moveDetailPriorityValue": "Digunakan dahulu tanpa mengira Kelajuan",
-  "battleRecording": "Menyimpan keputusan"
+  "battleRecording": "Menyimpan keputusan",
+  "battleRecorded": "Direkodkan"
 }

@@ -209,5 +209,6 @@
   "moveDetailAccuracy": "ನಿಖರತೆ",
   "moveDetailPriority": "ಆದ್ಯತೆ",
   "moveDetailPriorityValue": "ವೇಗ ಏನೇ ಇರಲಿ, ಮೊದಲು ಬಳಸಲಾಗುತ್ತದೆ",
-  "battleRecording": "ಫಲಿತಾಂಶವನ್ನು ಉಳಿಸಲಾಗುತ್ತಿದೆ"
+  "battleRecording": "ಫಲಿತಾಂಶವನ್ನು ಉಳಿಸಲಾಗುತ್ತಿದೆ",
+  "battleRecorded": "ದಾಖಲಾಗಿದೆ"
 }

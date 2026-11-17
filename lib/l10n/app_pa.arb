@@ -209,5 +209,6 @@
   "moveDetailAccuracy": "ਸਟੀਕਤਾ",
   "moveDetailPriority": "ਤਰਜੀਹ",
   "moveDetailPriorityValue": "ਰਫ਼ਤਾਰ ਭਾਵੇਂ ਜੋ ਵੀ ਹੋਵੇ, ਇਹ ਪਹਿਲਾਂ ਵਰਤੀ ਜਾਂਦੀ ਹੈ",
-  "battleRecording": "ਨਤੀਜਾ ਸੰਭਾਲਿਆ ਜਾ ਰਿਹਾ ਹੈ"
+  "battleRecording": "ਨਤੀਜਾ ਸੰਭਾਲਿਆ ਜਾ ਰਿਹਾ ਹੈ",
+  "battleRecorded": "ਰਿਕਾਰਡ ਹੋ ਗਿਆ"
 }

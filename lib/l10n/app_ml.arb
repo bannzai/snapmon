@@ -209,5 +209,6 @@
   "moveDetailAccuracy": "കൃത്യത",
   "moveDetailPriority": "മുൻഗണന",
   "moveDetailPriorityValue": "വേഗം എത്രയായാലും ആദ്യം ഉപയോഗിക്കും",
-  "battleRecording": "ഫലം സൂക്ഷിക്കുന്നു"
+  "battleRecording": "ഫലം സൂക്ഷിക്കുന്നു",
+  "battleRecorded": "രേഖപ്പെടുത്തി"
 }

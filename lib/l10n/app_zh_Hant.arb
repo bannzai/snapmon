@@ -209,5 +209,6 @@
   "moveDetailAccuracy": "命中率",
   "moveDetailPriority": "優先度",
   "moveDetailPriorityValue": "無論速度如何，都會搶先使出",
-  "battleRecording": "正在記錄結果"
+  "battleRecording": "正在記錄結果",
+  "battleRecorded": "已記錄"
 }

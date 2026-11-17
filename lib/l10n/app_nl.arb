@@ -209,5 +209,6 @@
   "moveDetailAccuracy": "Nauwkeurigheid",
   "moveDetailPriority": "Prioriteit",
   "moveDetailPriorityValue": "Wordt als eerste gebruikt, ongeacht de Snelheid",
-  "battleRecording": "Resultaat opslaan"
+  "battleRecording": "Resultaat opslaan",
+  "battleRecorded": "Vastgelegd"
 }

@@ -209,5 +209,6 @@
   "moveDetailAccuracy": "নির্ভুলতা",
   "moveDetailPriority": "অগ্রাধিকার",
   "moveDetailPriorityValue": "গতি যা-ই হোক, আগে ব্যবহার হবে",
-  "battleRecording": "ফলাফল সংরক্ষণ হচ্ছে"
+  "battleRecording": "ফলাফল সংরক্ষণ হচ্ছে",
+  "battleRecorded": "রেকর্ড করা হয়েছে"
 }

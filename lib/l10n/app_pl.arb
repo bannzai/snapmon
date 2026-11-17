@@ -209,5 +209,6 @@
   "moveDetailAccuracy": "Celność",
   "moveDetailPriority": "Priorytet",
   "moveDetailPriorityValue": "Wykonywany jako pierwszy, niezależnie od Szybkości",
-  "battleRecording": "Zapisywanie wyniku"
+  "battleRecording": "Zapisywanie wyniku",
+  "battleRecorded": "Zapisano"
 }

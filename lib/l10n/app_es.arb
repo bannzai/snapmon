@@ -209,5 +209,6 @@
   "moveDetailAccuracy": "Precisión",
   "moveDetailPriority": "Prioridad",
   "moveDetailPriorityValue": "Se usa primero, sin importar la Velocidad",
-  "battleRecording": "Guardando el resultado"
+  "battleRecording": "Guardando el resultado",
+  "battleRecorded": "Registrado"
 }

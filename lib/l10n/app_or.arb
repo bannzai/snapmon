@@ -209,5 +209,6 @@
   "moveDetailAccuracy": "ସଠିକତା",
   "moveDetailPriority": "ଅଗ୍ରାଧିକାର",
   "moveDetailPriorityValue": "ବେଗ ଯେତେ ହେଉ, ଏହା ଆଗେ ବ୍ୟବହାର ହୁଏ",
-  "battleRecording": "ଫଳାଫଳ ସଂରକ୍ଷଣ ହେଉଛି"
+  "battleRecording": "ଫଳାଫଳ ସଂରକ୍ଷଣ ହେଉଛି",
+  "battleRecorded": "ରେକର୍ଡ ହୋଇଛି"
 }
