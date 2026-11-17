@@ -121,5 +121,6 @@
   "generationRejectedPerson": "لا يمكن صنع وحش من صورة يظهر فيها شخص\nصوّر الأشياء فقط",
   "generationPersonNoticeTitle": "تظهر صورة شخص",
   "generationPersonNoticeMessage": "صورة الوحش تظهر للآخرين أثناء المعارك.\nإذا ظهر شخص غيرك في الصورة، احصل على موافقته قبل استخدامها.",
-  "generationChooseCutoutTitle": "تم قصّ العنصر من الصورة"
+  "generationChooseCutoutTitle": "تم قصّ العنصر من الصورة",
+  "generationChooseCutoutMessage": "يمكنك اختيار صنع الوحش من الصورة المقصوصة\nأو تحديد جزء من الصورة الأصلية"
 }

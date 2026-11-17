@@ -121,5 +121,6 @@
   "generationRejectedPerson": "Et voi luoda hirviötä kuvasta, jossa näkyy ihminen\nKuvaa vain esineitä",
   "generationPersonNoticeTitle": "Kuvassa näkyy henkilö",
   "generationPersonNoticeMessage": "Muutkin näkevät hirviön kuvan taisteluissa.\nJos kuvassa näkyy joku muu kuin sinä, pyydä häneltä lupa ennen kuvan käyttöä.",
-  "generationChooseCutoutTitle": "Kohde on irrotettu kuvasta"
+  "generationChooseCutoutTitle": "Kohde on irrotettu kuvasta",
+  "generationChooseCutoutMessage": "Valitse, käytätkö irrotettua kohdetta\nvai rajaatko alueen kuvasta"
 }

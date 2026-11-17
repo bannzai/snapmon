@@ -121,5 +121,6 @@
   "generationRejectedPerson": "Не можна створити монстра з фото, на якому є людина\nФотографуй лише предмети",
   "generationPersonNoticeTitle": "На фото є людина",
   "generationPersonNoticeMessage": "Інші теж можуть бачити зображення твого монстра в боях.\nЯкщо на фото є хтось, окрім тебе, попроси його згоди перед використанням.",
-  "generationChooseCutoutTitle": "Об’єкт вирізано"
+  "generationChooseCutoutTitle": "Об’єкт вирізано",
+  "generationChooseCutoutMessage": "Вибери: створити його з вирізаного об’єкта\nчи виділити ділянку на фото"
 }

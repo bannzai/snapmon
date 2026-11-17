@@ -121,5 +121,6 @@
   "generationRejectedPerson": "אי אפשר ליצור מפלצת מתמונה שמופיע בה אדם\nיש לצלם רק חפצים",
   "generationPersonNoticeTitle": "יש אדם בתמונה",
   "generationPersonNoticeMessage": "גם אחרים יכולים לראות את תמונת המפלצת בקרבות.\nאם מופיע בתמונה אדם נוסף, יש לקבל את הסכמתו לפני השימוש בה.",
-  "generationChooseCutoutTitle": "האובייקט נחתך מהתמונה"
+  "generationChooseCutoutTitle": "האובייקט נחתך מהתמונה",
+  "generationChooseCutoutMessage": "אפשר לבחור אם ליצור מהתמונה הגזורה\nאו לסמן אזור בתמונה"
 }
