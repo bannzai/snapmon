@@ -21,5 +21,6 @@
   "commonCancel": "Annuler",
   "commonLevel": "Lv. {level}",
   "settingsTitle": "Paramètres",
-  "opponentReported": "Signalement envoyé"
+  "opponentReported": "Signalement envoyé",
+  "opponentBlocked": "Adversaire bloqué"
 }
