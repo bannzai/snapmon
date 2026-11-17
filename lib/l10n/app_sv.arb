@@ -108,5 +108,6 @@
   "generationCheckAgain": "Kolla igen",
   "generationSeeLater": "Visa senare",
   "generationNotBornTitle": "Monstret föddes inte",
-  "generationFailedTitle": "Monstret kunde inte skapas"
+  "generationFailedTitle": "Monstret kunde inte skapas",
+  "generationBattlePreparationFailedTitle": "Striden kunde inte förberedas"
 }

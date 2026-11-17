@@ -108,5 +108,6 @@
   "generationCheckAgain": "Kiểm tra lại",
   "generationSeeLater": "Xem sau",
   "generationNotBornTitle": "Quái vật đã không ra đời",
-  "generationFailedTitle": "Không thể tạo quái vật"
+  "generationFailedTitle": "Không thể tạo quái vật",
+  "generationBattlePreparationFailedTitle": "Không thể chuẩn bị trận đấu"
 }

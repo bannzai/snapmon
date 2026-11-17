@@ -108,5 +108,6 @@
   "generationCheckAgain": "دوبارہ چیک کرو",
   "generationSeeLater": "بعد میں دیکھو",
   "generationNotBornTitle": "مونسٹر پیدا نہیں ہوا",
-  "generationFailedTitle": "مونسٹر نہیں بن سکا"
+  "generationFailedTitle": "مونسٹر نہیں بن سکا",
+  "generationBattlePreparationFailedTitle": "لڑائی کی تیاری نہیں ہو سکی"
 }

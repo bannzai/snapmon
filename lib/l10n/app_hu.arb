@@ -108,5 +108,6 @@
   "generationCheckAgain": "Ellenőrizd újra",
   "generationSeeLater": "Nézd meg később",
   "generationNotBornTitle": "A szörny nem született meg",
-  "generationFailedTitle": "Nem sikerült létrehozni a szörnyet"
+  "generationFailedTitle": "Nem sikerült létrehozni a szörnyet",
+  "generationBattlePreparationFailedTitle": "Nem sikerült előkészíteni a csatát"
 }

@@ -108,5 +108,6 @@
   "generationCheckAgain": "Skontroluj znova",
   "generationSeeLater": "Pozrieť neskôr",
   "generationNotBornTitle": "Príšerka sa nenarodila",
-  "generationFailedTitle": "Nepodarilo sa vytvoriť príšeru"
+  "generationFailedTitle": "Nepodarilo sa vytvoriť príšeru",
+  "generationBattlePreparationFailedTitle": "Súboj sa nepodarilo pripraviť"
 }

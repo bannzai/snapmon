@@ -108,5 +108,6 @@
   "generationCheckAgain": "Tekrar kontrol et",
   "generationSeeLater": "Sonra bak",
   "generationNotBornTitle": "Canavar doğmadı",
-  "generationFailedTitle": "Canavar oluşturulamadı"
+  "generationFailedTitle": "Canavar oluşturulamadı",
+  "generationBattlePreparationFailedTitle": "Savaş hazırlanamadı"
 }

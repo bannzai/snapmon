@@ -108,5 +108,6 @@
   "generationCheckAgain": "Sprawdź ponownie",
   "generationSeeLater": "Zobacz później",
   "generationNotBornTitle": "Potwór się nie narodził",
-  "generationFailedTitle": "Nie udało się stworzyć potwora"
+  "generationFailedTitle": "Nie udało się stworzyć potwora",
+  "generationBattlePreparationFailedTitle": "Nie udało się przygotować walki"
 }

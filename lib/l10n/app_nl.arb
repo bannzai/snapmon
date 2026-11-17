@@ -108,5 +108,6 @@
   "generationCheckAgain": "Controleer opnieuw",
   "generationSeeLater": "Later bekijken",
   "generationNotBornTitle": "Het monster is niet geboren",
-  "generationFailedTitle": "Het monster kon niet worden gemaakt"
+  "generationFailedTitle": "Het monster kon niet worden gemaakt",
+  "generationBattlePreparationFailedTitle": "Het gevecht kon niet worden voorbereid"
 }

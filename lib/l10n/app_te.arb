@@ -108,5 +108,6 @@
   "generationCheckAgain": "మళ్లీ చూసుకో",
   "generationSeeLater": "తర్వాత చూడు",
   "generationNotBornTitle": "మాన్స్టర్ పుట్టలేదు",
-  "generationFailedTitle": "రాక్షసాన్ని సృష్టించలేకపోయాం"
+  "generationFailedTitle": "రాక్షసాన్ని సృష్టించలేకపోయాం",
+  "generationBattlePreparationFailedTitle": "పోరాటానికి సిద్ధం కాలేకపోయాం"
 }

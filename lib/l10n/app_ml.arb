@@ -108,5 +108,6 @@
   "generationCheckAgain": "വീണ്ടും പരിശോധിക്കൂ",
   "generationSeeLater": "പിന്നീട് കാണൂ",
   "generationNotBornTitle": "മോൺസ്റ്റർ ജനിച്ചില്ല",
-  "generationFailedTitle": "മോൺസ്റ്ററിനെ സൃഷ്ടിക്കാനായില്ല"
+  "generationFailedTitle": "മോൺസ്റ്ററിനെ സൃഷ്ടിക്കാനായില്ല",
+  "generationBattlePreparationFailedTitle": "പോരാട്ടത്തിനുള്ള ഒരുക്കം പൂർത്തിയാക്കാനായില്ല"
 }

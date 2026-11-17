@@ -108,5 +108,6 @@
   "generationCheckAgain": "पुन्हा तपास",
   "generationSeeLater": "नंतर पाहा",
   "generationNotBornTitle": "मॉन्स्टरचा जन्म झाला नाही",
-  "generationFailedTitle": "मॉन्स्टर तयार झाला नाही"
+  "generationFailedTitle": "मॉन्स्टर तयार झाला नाही",
+  "generationBattlePreparationFailedTitle": "लढाईची तयारी करता आली नाही"
 }

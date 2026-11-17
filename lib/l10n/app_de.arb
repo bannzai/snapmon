@@ -108,5 +108,6 @@
   "generationCheckAgain": "Noch mal prüfen",
   "generationSeeLater": "Später ansehen",
   "generationNotBornTitle": "Das Monster wurde nicht geboren",
-  "generationFailedTitle": "Das Monster konnte nicht erschaffen werden"
+  "generationFailedTitle": "Das Monster konnte nicht erschaffen werden",
+  "generationBattlePreparationFailedTitle": "Der Kampf konnte nicht vorbereitet werden"
 }

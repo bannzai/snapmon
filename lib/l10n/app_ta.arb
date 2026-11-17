@@ -108,5 +108,6 @@
   "generationCheckAgain": "மீண்டும் சரிபாருங்கள்",
   "generationSeeLater": "பிறகு பாருங்கள்",
   "generationNotBornTitle": "மான்ஸ்டர் பிறக்கவில்லை",
-  "generationFailedTitle": "அரக்கனை உருவாக்க முடியவில்லை"
+  "generationFailedTitle": "அரக்கனை உருவாக்க முடியவில்லை",
+  "generationBattlePreparationFailedTitle": "போருக்குத் தயாராக முடியவில்லை"
 }

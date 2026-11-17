@@ -108,5 +108,6 @@
   "generationCheckAgain": "Provjeri opet",
   "generationSeeLater": "Pogledaj kasnije",
   "generationNotBornTitle": "Čudovište se nije rodilo",
-  "generationFailedTitle": "Čudovište nije stvoreno"
+  "generationFailedTitle": "Čudovište nije stvoreno",
+  "generationBattlePreparationFailedTitle": "Borba se nije mogla pripremiti"
 }

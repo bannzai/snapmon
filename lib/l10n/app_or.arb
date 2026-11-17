@@ -108,5 +108,6 @@
   "generationCheckAgain": "ପୁଣି ଯାଞ୍ଚ କର",
   "generationSeeLater": "ପରେ ଦେଖ",
   "generationNotBornTitle": "ମନଷ୍ଟରଟି ଜନ୍ମ ନେଲା ନାହିଁ",
-  "generationFailedTitle": "ରାକ୍ଷସ ତିଆରି ହୋଇପାରିଲା ନାହିଁ"
+  "generationFailedTitle": "ରାକ୍ଷସ ତିଆରି ହୋଇପାରିଲା ନାହିଁ",
+  "generationBattlePreparationFailedTitle": "ଲଢ଼େଇ ପାଇଁ ପ୍ରସ୍ତୁତି ହୋଇପାରିଲା ନାହିଁ"
 }

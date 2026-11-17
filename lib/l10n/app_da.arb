@@ -108,5 +108,6 @@
   "generationCheckAgain": "Tjek igen",
   "generationSeeLater": "Se senere",
   "generationNotBornTitle": "Monsteret blev ikke født",
-  "generationFailedTitle": "Monsteret kunne ikke skabes"
+  "generationFailedTitle": "Monsteret kunne ikke skabes",
+  "generationBattlePreparationFailedTitle": "Kampen kunne ikke gøres klar"
 }

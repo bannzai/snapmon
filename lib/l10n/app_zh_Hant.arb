@@ -108,5 +108,6 @@
   "generationCheckAgain": "再確認一次",
   "generationSeeLater": "稍後查看",
   "generationNotBornTitle": "怪獸沒能誕生",
-  "generationFailedTitle": "無法生成怪獸"
+  "generationFailedTitle": "無法生成怪獸",
+  "generationBattlePreparationFailedTitle": "無法準備對戰"
 }

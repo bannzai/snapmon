@@ -108,5 +108,6 @@
   "generationCheckAgain": "Cek lagi",
   "generationSeeLater": "Lihat nanti",
   "generationNotBornTitle": "Monsternya tidak jadi lahir",
-  "generationFailedTitle": "Monster gagal dibuat"
+  "generationFailedTitle": "Monster gagal dibuat",
+  "generationBattlePreparationFailedTitle": "Pertarungan gagal disiapkan"
 }

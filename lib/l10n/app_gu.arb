@@ -108,5 +108,6 @@
   "generationCheckAgain": "ફરી તપાસો",
   "generationSeeLater": "પછી જુઓ",
   "generationNotBornTitle": "મોન્સ્ટરનો જન્મ થયો નહીં",
-  "generationFailedTitle": "મોન્સ્ટર બનાવી શકાયું નહીં"
+  "generationFailedTitle": "મોન્સ્ટર બનાવી શકાયું નહીં",
+  "generationBattlePreparationFailedTitle": "લડાઈની તૈયારી થઈ શકી નહીં"
 }

@@ -108,5 +108,6 @@
   "generationCheckAgain": "Проверить ещё раз",
   "generationSeeLater": "Посмотреть позже",
   "generationNotBornTitle": "Монстр не родился",
-  "generationFailedTitle": "Не удалось создать монстра"
+  "generationFailedTitle": "Не удалось создать монстра",
+  "generationBattlePreparationFailedTitle": "Не удалось подготовить битву"
 }

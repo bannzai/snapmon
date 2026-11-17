@@ -108,5 +108,6 @@
   "generationCheckAgain": "تحقّق مرة أخرى",
   "generationSeeLater": "شاهد لاحقًا",
   "generationNotBornTitle": "لم يولد الوحش",
-  "generationFailedTitle": "تعذّر إنشاء الوحش"
+  "generationFailedTitle": "تعذّر إنشاء الوحش",
+  "generationBattlePreparationFailedTitle": "تعذّر تجهيز المعركة"
 }

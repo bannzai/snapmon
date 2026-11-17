@@ -108,5 +108,6 @@
   "generationCheckAgain": "Έλεγξε ξανά",
   "generationSeeLater": "Δες το αργότερα",
   "generationNotBornTitle": "Το τέρας δεν γεννήθηκε",
-  "generationFailedTitle": "Δεν ήταν δυνατή η δημιουργία του τέρατος"
+  "generationFailedTitle": "Δεν ήταν δυνατή η δημιουργία του τέρατος",
+  "generationBattlePreparationFailedTitle": "Δεν ήταν δυνατή η προετοιμασία της μάχης"
 }

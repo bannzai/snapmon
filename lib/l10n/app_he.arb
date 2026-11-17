@@ -108,5 +108,6 @@
   "generationCheckAgain": "לבדוק שוב",
   "generationSeeLater": "לצפות אחר כך",
   "generationNotBornTitle": "המפלצת לא נולדה",
-  "generationFailedTitle": "לא הצלחנו ליצור את המפלצת"
+  "generationFailedTitle": "לא הצלחנו ליצור את המפלצת",
+  "generationBattlePreparationFailedTitle": "לא ניתן היה להכין את הקרב"
 }
