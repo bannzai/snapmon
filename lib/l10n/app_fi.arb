@@ -111,5 +111,6 @@
   "generationFailedTitle": "Hirviön luominen epäonnistui",
   "generationBattlePreparationFailedTitle": "Taistelua ei voitu valmistella",
   "generationStagePreparingPhoto": "Valmistellaan kuvaa",
-  "generationStageUploadingPhoto": "Kuvaa ladataan"
+  "generationStageUploadingPhoto": "Kuvaa ladataan",
+  "generationStageCheckingPhoto": "Tarkistamme kuvaasi"
 }

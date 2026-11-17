@@ -111,5 +111,6 @@
   "generationFailedTitle": "Příšeru se nepodařilo vytvořit",
   "generationBattlePreparationFailedTitle": "Souboj se nepodařilo připravit",
   "generationStagePreparingPhoto": "Připravuji fotku",
-  "generationStageUploadingPhoto": "Nahrává se fotka"
+  "generationStageUploadingPhoto": "Nahrává se fotka",
+  "generationStageCheckingPhoto": "Kontrolujeme tvoji fotku"
 }

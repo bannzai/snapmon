@@ -111,5 +111,6 @@
   "generationFailedTitle": "Monstret kunde inte skapas",
   "generationBattlePreparationFailedTitle": "Striden kunde inte förberedas",
   "generationStagePreparingPhoto": "Förbereder fotot",
-  "generationStageUploadingPhoto": "Laddar upp foto"
+  "generationStageUploadingPhoto": "Laddar upp foto",
+  "generationStageCheckingPhoto": "Vi kollar ditt foto"
 }

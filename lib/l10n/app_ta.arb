@@ -111,5 +111,6 @@
   "generationFailedTitle": "அரக்கனை உருவாக்க முடியவில்லை",
   "generationBattlePreparationFailedTitle": "போருக்குத் தயாராக முடியவில்லை",
   "generationStagePreparingPhoto": "படம் தயாராகிறது",
-  "generationStageUploadingPhoto": "படம் பதிவேற்றப்படுகிறது"
+  "generationStageUploadingPhoto": "படம் பதிவேற்றப்படுகிறது",
+  "generationStageCheckingPhoto": "உங்கள் புகைப்படத்தைச் சரிபார்க்கிறோம்"
 }

@@ -111,5 +111,6 @@
   "generationFailedTitle": "Kunne ikke lage monsteret",
   "generationBattlePreparationFailedTitle": "Kampen kunne ikke klargjøres",
   "generationStagePreparingPhoto": "Klargjør bildet",
-  "generationStageUploadingPhoto": "Laster opp bilde"
+  "generationStageUploadingPhoto": "Laster opp bilde",
+  "generationStageCheckingPhoto": "Vi sjekker bildet ditt"
 }

@@ -111,5 +111,6 @@
   "generationFailedTitle": "ಮಾನ್ಸ್ಟರ್ ರಚಿಸಲಾಗಲಿಲ್ಲ",
   "generationBattlePreparationFailedTitle": "ಕದನಕ್ಕೆ ಸಿದ್ಧತೆ ಮಾಡಲಾಗಲಿಲ್ಲ",
   "generationStagePreparingPhoto": "ಫೋಟೋ ಸಿದ್ಧವಾಗುತ್ತಿದೆ",
-  "generationStageUploadingPhoto": "ಫೋಟೋ ಅಪ್‌ಲೋಡ್ ಆಗುತ್ತಿದೆ"
+  "generationStageUploadingPhoto": "ಫೋಟೋ ಅಪ್‌ಲೋಡ್ ಆಗುತ್ತಿದೆ",
+  "generationStageCheckingPhoto": "ನಿನ್ನ ಫೋಟೋ ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ"
 }

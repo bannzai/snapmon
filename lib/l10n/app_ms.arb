@@ -111,5 +111,6 @@
   "generationFailedTitle": "Monster tak dapat dicipta",
   "generationBattlePreparationFailedTitle": "Pertarungan tak dapat disiapkan",
   "generationStagePreparingPhoto": "Menyiapkan foto",
-  "generationStageUploadingPhoto": "Memuat naik foto"
+  "generationStageUploadingPhoto": "Memuat naik foto",
+  "generationStageCheckingPhoto": "Sedang menyemak foto kamu"
 }

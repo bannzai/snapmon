@@ -111,5 +111,6 @@
   "generationFailedTitle": "મોન્સ્ટર બનાવી શકાયું નહીં",
   "generationBattlePreparationFailedTitle": "લડાઈની તૈયારી થઈ શકી નહીં",
   "generationStagePreparingPhoto": "ફોટો તૈયાર થઈ રહ્યો છે",
-  "generationStageUploadingPhoto": "ફોટો અપલોડ થઈ રહ્યો છે"
+  "generationStageUploadingPhoto": "ફોટો અપલોડ થઈ રહ્યો છે",
+  "generationStageCheckingPhoto": "તમારો ફોટો તપાસી રહ્યા છીએ"
 }

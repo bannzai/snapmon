@@ -111,5 +111,6 @@
   "generationFailedTitle": "Nie udało się stworzyć potwora",
   "generationBattlePreparationFailedTitle": "Nie udało się przygotować walki",
   "generationStagePreparingPhoto": "Przygotowywanie zdjęcia",
-  "generationStageUploadingPhoto": "Przesyłanie zdjęcia"
+  "generationStageUploadingPhoto": "Przesyłanie zdjęcia",
+  "generationStageCheckingPhoto": "Sprawdzamy twoje zdjęcie"
 }

@@ -111,5 +111,6 @@
   "generationFailedTitle": "مونسٹر نہیں بن سکا",
   "generationBattlePreparationFailedTitle": "لڑائی کی تیاری نہیں ہو سکی",
   "generationStagePreparingPhoto": "تصویر تیار ہو رہی ہے",
-  "generationStageUploadingPhoto": "تصویر اپ لوڈ ہو رہی ہے"
+  "generationStageUploadingPhoto": "تصویر اپ لوڈ ہو رہی ہے",
+  "generationStageCheckingPhoto": "تمہاری تصویر چیک کی جا رہی ہے"
 }

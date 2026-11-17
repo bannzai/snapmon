@@ -111,5 +111,6 @@
   "generationFailedTitle": "Canavar oluşturulamadı",
   "generationBattlePreparationFailedTitle": "Savaş hazırlanamadı",
   "generationStagePreparingPhoto": "Fotoğraf hazırlanıyor",
-  "generationStageUploadingPhoto": "Fotoğraf yükleniyor"
+  "generationStageUploadingPhoto": "Fotoğraf yükleniyor",
+  "generationStageCheckingPhoto": "Fotoğrafın kontrol ediliyor"
 }

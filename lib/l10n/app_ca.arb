@@ -111,5 +111,6 @@
   "generationFailedTitle": "No s'ha pogut crear el monstre",
   "generationBattlePreparationFailedTitle": "No s'ha pogut preparar el combat",
   "generationStagePreparingPhoto": "Preparant la foto",
-  "generationStageUploadingPhoto": "S'està pujant la foto"
+  "generationStageUploadingPhoto": "S'està pujant la foto",
+  "generationStageCheckingPhoto": "Estem comprovant la teva foto"
 }

@@ -111,5 +111,6 @@
   "generationFailedTitle": "Não foi possível criar o monstro",
   "generationBattlePreparationFailedTitle": "Não foi possível preparar a batalha",
   "generationStagePreparingPhoto": "Preparando a foto",
-  "generationStageUploadingPhoto": "Enviando foto"
+  "generationStageUploadingPhoto": "Enviando foto",
+  "generationStageCheckingPhoto": "Estamos conferindo sua foto"
 }

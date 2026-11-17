@@ -111,5 +111,6 @@
   "generationFailedTitle": "Het monster kon niet worden gemaakt",
   "generationBattlePreparationFailedTitle": "Het gevecht kon niet worden voorbereid",
   "generationStagePreparingPhoto": "Foto voorbereiden",
-  "generationStageUploadingPhoto": "Foto wordt geüpload"
+  "generationStageUploadingPhoto": "Foto wordt geüpload",
+  "generationStageCheckingPhoto": "We controleren je foto"
 }

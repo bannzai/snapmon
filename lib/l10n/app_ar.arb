@@ -111,5 +111,6 @@
   "generationFailedTitle": "تعذّر إنشاء الوحش",
   "generationBattlePreparationFailedTitle": "تعذّر تجهيز المعركة",
   "generationStagePreparingPhoto": "جارٍ تجهيز الصورة",
-  "generationStageUploadingPhoto": "جارٍ رفع الصورة"
+  "generationStageUploadingPhoto": "جارٍ رفع الصورة",
+  "generationStageCheckingPhoto": "جارٍ التحقق من صورتك"
 }

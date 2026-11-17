@@ -111,5 +111,6 @@
   "generationFailedTitle": "Không thể tạo quái vật",
   "generationBattlePreparationFailedTitle": "Không thể chuẩn bị trận đấu",
   "generationStagePreparingPhoto": "Đang chuẩn bị ảnh",
-  "generationStageUploadingPhoto": "Đang tải ảnh lên"
+  "generationStageUploadingPhoto": "Đang tải ảnh lên",
+  "generationStageCheckingPhoto": "Đang kiểm tra ảnh của bạn"
 }

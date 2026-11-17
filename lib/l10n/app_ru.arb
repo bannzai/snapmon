@@ -111,5 +111,6 @@
   "generationFailedTitle": "Не удалось создать монстра",
   "generationBattlePreparationFailedTitle": "Не удалось подготовить битву",
   "generationStagePreparingPhoto": "Подготавливаем фото",
-  "generationStageUploadingPhoto": "Загружаем фото"
+  "generationStageUploadingPhoto": "Загружаем фото",
+  "generationStageCheckingPhoto": "Проверяем твоё фото"
 }

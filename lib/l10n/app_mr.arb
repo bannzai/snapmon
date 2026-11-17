@@ -111,5 +111,6 @@
   "generationFailedTitle": "मॉन्स्टर तयार झाला नाही",
   "generationBattlePreparationFailedTitle": "लढाईची तयारी करता आली नाही",
   "generationStagePreparingPhoto": "फोटो तयार होत आहे",
-  "generationStageUploadingPhoto": "फोटो अपलोड होत आहे"
+  "generationStageUploadingPhoto": "फोटो अपलोड होत आहे",
+  "generationStageCheckingPhoto": "तुझा फोटो तपासत आहोत"
 }

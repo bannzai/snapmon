@@ -111,5 +111,6 @@
   "generationFailedTitle": "Monstrul nu a putut fi creat",
   "generationBattlePreparationFailedTitle": "Lupta nu a putut fi pregătită",
   "generationStagePreparingPhoto": "Se pregătește fotografia",
-  "generationStageUploadingPhoto": "Se încarcă fotografia"
+  "generationStageUploadingPhoto": "Se încarcă fotografia",
+  "generationStageCheckingPhoto": "Îți verificăm fotografia"
 }

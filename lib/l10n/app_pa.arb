@@ -111,5 +111,6 @@
   "generationFailedTitle": "ਮੌਂਸਟਰ ਨਹੀਂ ਬਣ ਸਕਿਆ",
   "generationBattlePreparationFailedTitle": "ਲੜਾਈ ਦੀ ਤਿਆਰੀ ਨਹੀਂ ਹੋ ਸਕੀ",
   "generationStagePreparingPhoto": "ਫ਼ੋਟੋ ਤਿਆਰ ਹੋ ਰਹੀ ਹੈ",
-  "generationStageUploadingPhoto": "ਫੋਟੋ ਅੱਪਲੋਡ ਹੋ ਰਹੀ ਹੈ"
+  "generationStageUploadingPhoto": "ਫੋਟੋ ਅੱਪਲੋਡ ਹੋ ਰਹੀ ਹੈ",
+  "generationStageCheckingPhoto": "ਤੁਹਾਡੀ ਫੋਟੋ ਜਾਂਚੀ ਜਾ ਰਹੀ ਹੈ"
 }

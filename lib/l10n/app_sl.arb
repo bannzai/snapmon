@@ -111,5 +111,6 @@
   "generationFailedTitle": "Pošasti ni bilo mogoče ustvariti",
   "generationBattlePreparationFailedTitle": "Bitke ni bilo mogoče pripraviti",
   "generationStagePreparingPhoto": "Pripravljamo fotografijo",
-  "generationStageUploadingPhoto": "Nalaganje fotografije"
+  "generationStageUploadingPhoto": "Nalaganje fotografije",
+  "generationStageCheckingPhoto": "Preverjamo tvojo fotografijo"
 }

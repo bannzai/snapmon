@@ -111,5 +111,6 @@
   "generationFailedTitle": "മോൺസ്റ്ററിനെ സൃഷ്ടിക്കാനായില്ല",
   "generationBattlePreparationFailedTitle": "പോരാട്ടത്തിനുള്ള ഒരുക്കം പൂർത്തിയാക്കാനായില്ല",
   "generationStagePreparingPhoto": "ഫോട്ടോ തയ്യാറാക്കുന്നു",
-  "generationStageUploadingPhoto": "ഫോട്ടോ അപ്‌ലോഡ് ചെയ്യുന്നു"
+  "generationStageUploadingPhoto": "ഫോട്ടോ അപ്‌ലോഡ് ചെയ്യുന്നു",
+  "generationStageCheckingPhoto": "നിങ്ങളുടെ ഫോട്ടോ പരിശോധിക്കുകയാണ്"
 }

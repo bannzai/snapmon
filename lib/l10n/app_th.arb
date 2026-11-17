@@ -111,5 +111,6 @@
   "generationFailedTitle": "สร้างมอนสเตอร์ไม่สำเร็จ",
   "generationBattlePreparationFailedTitle": "เตรียมการต่อสู้ไม่สำเร็จ",
   "generationStagePreparingPhoto": "กำลังเตรียมรูปภาพ",
-  "generationStageUploadingPhoto": "กำลังอัปโหลดรูปภาพ"
+  "generationStageUploadingPhoto": "กำลังอัปโหลดรูปภาพ",
+  "generationStageCheckingPhoto": "กำลังตรวจสอบรูปของคุณ"
 }

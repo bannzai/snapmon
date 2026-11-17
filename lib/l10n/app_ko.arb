@@ -111,5 +111,6 @@
   "generationFailedTitle": "몬스터를 만들지 못했어요",
   "generationBattlePreparationFailedTitle": "배틀을 준비하지 못했어요",
   "generationStagePreparingPhoto": "사진을 준비하고 있어요",
-  "generationStageUploadingPhoto": "사진을 업로드하고 있어요"
+  "generationStageUploadingPhoto": "사진을 업로드하고 있어요",
+  "generationStageCheckingPhoto": "사진을 확인하고 있어요"
 }
