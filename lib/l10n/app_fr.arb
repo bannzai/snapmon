@@ -211,5 +211,6 @@
   "moveDetailPriorityValue": "Agit en premier, quelle que soit la Vitesse",
   "battleRecording": "Enregistrement en cours",
   "battleRecorded": "Enregistré",
-  "battleNotRecorded": "Combat non enregistré : tu n’es pas connecté"
+  "battleNotRecorded": "Combat non enregistré : tu n’es pas connecté",
+  "battleFirstHint": "Choisis une capacité : le plus rapide agit d’abord. Plus l’efficacité de l’élément est élevée, plus les dégâts sont importants"
 }
