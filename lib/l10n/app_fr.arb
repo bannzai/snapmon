@@ -39,5 +39,6 @@
   "opponentAverageLevel": "Lv. moyen : {level}",
   "opponentReportHelpPrompt": "Un problème avec le monstre adverse ?",
   "opponentSearching": "Recherche d’un dresseur",
-  "opponentSearchAgain": "Chercher encore"
+  "opponentSearchAgain": "Chercher encore",
+  "opponentNoneAvailable": "Aucun dresseur à affronter pour le moment\nTu peux affronter un dresseur CPU"
 }
