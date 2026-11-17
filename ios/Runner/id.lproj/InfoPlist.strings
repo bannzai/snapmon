@@ -1,4 +1,4 @@
 /* 権限の確認の文言 (Indonesia)。Info.plist の同じキーの値を言語ごとに置き換える */
-"NSCameraUsageDescription" = "snapmon menggunakan kamera untuk memotret benda di sekitarmu dan mengubahnya menjadi monster";
-"NSPhotoLibraryAddUsageDescription" = "snapmon menyimpan gambar kartu yang kamu bagikan ke perpustakaan fotomu";
-"NSPhotoLibraryUsageDescription" = "snapmon membaca foto dari perpustakaanmu untuk mengubahnya menjadi monster";
+"NSCameraUsageDescription" = "SnapMonster menggunakan kamera untuk memotret benda di sekitarmu dan mengubahnya menjadi monster";
+"NSPhotoLibraryAddUsageDescription" = "SnapMonster menyimpan gambar kartu yang kamu bagikan ke perpustakaan fotomu";
+"NSPhotoLibraryUsageDescription" = "SnapMonster membaca foto dari perpustakaanmu untuk mengubahnya menjadi monster";

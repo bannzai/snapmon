@@ -1,4 +1,4 @@
 /* 権限の確認の文言 (Türkçe)。Info.plist の同じキーの値を言語ごとに置き換える */
-"NSCameraUsageDescription" = "snapmon çevrendeki nesnelerin fotoğrafını çekip onları canavarlara dönüştürmek için kamerayı kullanır";
-"NSPhotoLibraryAddUsageDescription" = "snapmon paylaştığın kart görsellerini fotoğraf arşivine kaydeder";
-"NSPhotoLibraryUsageDescription" = "snapmon fotoğrafları canavarlara dönüştürmek için arşivindeki fotoğrafları okur";
+"NSCameraUsageDescription" = "SnapMonster çevrendeki nesnelerin fotoğrafını çekip onları canavarlara dönüştürmek için kamerayı kullanır";
+"NSPhotoLibraryAddUsageDescription" = "SnapMonster paylaştığın kart görsellerini fotoğraf arşivine kaydeder";
+"NSPhotoLibraryUsageDescription" = "SnapMonster fotoğrafları canavarlara dönüştürmek için arşivindeki fotoğrafları okur";

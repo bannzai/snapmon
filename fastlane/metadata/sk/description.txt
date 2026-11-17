@@ -19,7 +19,7 @@ HRAJ BEZPEČNE
 • Ak je na fotke niekto iný, najprv si vypýtaj jeho súhlas
 • Prepoj hru s Apple ID a encyklopédia ti zostane aj po výmene zariadenia
 • Pre hráčov od 13 rokov
-• Ponúka nákupy v aplikácii (tikety na vytvorenie), vďaka ktorým môžeš tvoriť príšery aj po vyčerpaní bezplatného denného limitu
+• Ponúka nákupy v aplikácii (lístky na vytvorenie), vďaka ktorým môžeš tvoriť príšery aj po vyčerpaní bezplatného denného limitu
 
 Kontakt: bannzai.app@gmail.com
 Podmienky používania (v japončine): https://bannzai.github.io/snapmon/Terms

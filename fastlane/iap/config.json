@@ -46,7 +46,7 @@
         },
         {
           "locale": "cs",
-          "name": "Tikety na vytvoření ×10",
+          "name": "Lístky na vytvoření ×10",
           "description": "10× vytvoření příšery z tvé fotky"
         },
         {
@@ -136,7 +136,7 @@
         },
         {
           "locale": "it",
-          "name": "10 ticket di creazione",
+          "name": "10 biglietti di creazione",
           "description": "Crea 10 mostri dalle tue foto"
         },
         {
@@ -186,12 +186,12 @@
         },
         {
           "locale": "pl",
-          "name": "Bilety tworzenia ×10",
+          "name": "Bilety na tworzenie ×10",
           "description": "10× stworzenie potwora ze zdjęcia"
         },
         {
           "locale": "pt-BR",
-          "name": "10 tickets de criação",
+          "name": "10 bilhetes de criação",
           "description": "Crie 10 monstros com suas fotos"
         },
         {
@@ -206,12 +206,12 @@
         },
         {
           "locale": "ru",
-          "name": "Билеты создания ×10",
+          "name": "Билеты на создание ×10",
           "description": "Создание монстра из фото ×10"
         },
         {
           "locale": "sk",
-          "name": "Tikety na vytvorenie ×10",
+          "name": "Lístky na vytvorenie ×10",
           "description": "10× vytvorenie príšery z tvojej fotky"
         },
         {
@@ -246,7 +246,7 @@
         },
         {
           "locale": "uk",
-          "name": "Квитки створення ×10",
+          "name": "Квитки на створення ×10",
           "description": "Створення монстра з фото ×10"
         },
         {
@@ -312,7 +312,7 @@
         },
         {
           "locale": "cs",
-          "name": "Tikety na vytvoření ×30",
+          "name": "Lístky na vytvoření ×30",
           "description": "30× vytvoření příšery z tvé fotky"
         },
         {
@@ -402,7 +402,7 @@
         },
         {
           "locale": "it",
-          "name": "30 ticket di creazione",
+          "name": "30 biglietti di creazione",
           "description": "Crea 30 mostri dalle tue foto"
         },
         {
@@ -452,12 +452,12 @@
         },
         {
           "locale": "pl",
-          "name": "Bilety tworzenia ×30",
+          "name": "Bilety na tworzenie ×30",
           "description": "30× stworzenie potwora ze zdjęcia"
         },
         {
           "locale": "pt-BR",
-          "name": "30 tickets de criação",
+          "name": "30 bilhetes de criação",
           "description": "Crie 30 monstros com suas fotos"
         },
         {
@@ -472,12 +472,12 @@
         },
         {
           "locale": "ru",
-          "name": "Билеты создания ×30",
+          "name": "Билеты на создание ×30",
           "description": "Создание монстра из фото ×30"
         },
         {
           "locale": "sk",
-          "name": "Tikety na vytvorenie ×30",
+          "name": "Lístky na vytvorenie ×30",
           "description": "30× vytvorenie príšery z tvojej fotky"
         },
         {
@@ -512,7 +512,7 @@
         },
         {
           "locale": "uk",
-          "name": "Квитки створення ×30",
+          "name": "Квитки на створення ×30",
           "description": "Створення монстра з фото ×30"
         },
         {

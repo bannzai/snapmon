@@ -1,4 +1,4 @@
 /* 権限の確認の文言 (ଓଡ଼ିଆ)。Info.plist の同じキーの値を言語ごとに置き換える */
-"NSCameraUsageDescription" = "ଆପଣଙ୍କ ଚାରିପାଖର ଜିନିଷର ଫଟୋ ଉଠାଇ ସେଗୁଡ଼ିକୁ ମନଷ୍ଟରରେ ପରିଣତ କରିବା ପାଇଁ snapmon କ୍ୟାମେରା ବ୍ୟବହାର କରେ";
-"NSPhotoLibraryAddUsageDescription" = "ଆପଣ ସେୟାର କରୁଥିବା କାର୍ଡ ଛବିଗୁଡ଼ିକୁ snapmon ଆପଣଙ୍କ ଫଟୋ ଲାଇବ୍ରେରୀରେ ସେଭ୍ କରେ";
-"NSPhotoLibraryUsageDescription" = "ଫଟୋଗୁଡ଼ିକୁ ମନଷ୍ଟରରେ ପରିଣତ କରିବା ପାଇଁ snapmon ଆପଣଙ୍କ ଲାଇବ୍ରେରୀରୁ ଫଟୋ ପଢ଼େ";
+"NSCameraUsageDescription" = "ଆପଣଙ୍କ ଚାରିପାଖର ଜିନିଷର ଫଟୋ ଉଠାଇ ସେଗୁଡ଼ିକୁ ମନଷ୍ଟରରେ ପରିଣତ କରିବା ପାଇଁ SnapMonster କ୍ୟାମେରା ବ୍ୟବହାର କରେ";
+"NSPhotoLibraryAddUsageDescription" = "ଆପଣ ସେୟାର କରୁଥିବା କାର୍ଡ ଛବିଗୁଡ଼ିକୁ SnapMonster ଆପଣଙ୍କ ଫଟୋ ଲାଇବ୍ରେରୀରେ ସେଭ୍ କରେ";
+"NSPhotoLibraryUsageDescription" = "ଫଟୋଗୁଡ଼ିକୁ ମନଷ୍ଟରରେ ପରିଣତ କରିବା ପାଇଁ SnapMonster ଆପଣଙ୍କ ଲାଇବ୍ରେରୀରୁ ଫଟୋ ପଢ଼େ";

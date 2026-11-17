@@ -1,4 +1,4 @@
 /* 権限の確認の文言 (українська)。Info.plist の同じキーの値を言語ごとに置き換える */
-"NSCameraUsageDescription" = "snapmon використовує камеру, щоб знімати речі навколо вас і перетворювати їх на монстрів";
-"NSPhotoLibraryAddUsageDescription" = "snapmon зберігає в медіатеку зображення карток, якими ви ділитеся";
-"NSPhotoLibraryUsageDescription" = "snapmon читає фото з вашої медіатеки, щоб перетворювати їх на монстрів";
+"NSCameraUsageDescription" = "SnapMonster використовує камеру, щоб знімати речі навколо вас і перетворювати їх на монстрів";
+"NSPhotoLibraryAddUsageDescription" = "SnapMonster зберігає в медіатеку зображення карток, якими ви ділитеся";
+"NSPhotoLibraryUsageDescription" = "SnapMonster читає фото з вашої медіатеки, щоб перетворювати їх на монстрів";

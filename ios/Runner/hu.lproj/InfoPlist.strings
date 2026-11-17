@@ -1,4 +1,4 @@
 /* 権限の確認の文言 (magyar)。Info.plist の同じキーの値を言語ごとに置き換える */
-"NSCameraUsageDescription" = "A snapmon a kamerával fényképezi le a körülötted lévő tárgyakat, hogy szörnyekké változtassa őket";
-"NSPhotoLibraryAddUsageDescription" = "A snapmon a megosztott kártyaképeket a fotókönyvtáradba menti";
-"NSPhotoLibraryUsageDescription" = "A snapmon fotókat olvas be a könyvtáradból, hogy szörnyekké változtassa őket";
+"NSCameraUsageDescription" = "A SnapMonster a kamerával fényképezi le a körülötted lévő tárgyakat, hogy szörnyekké változtassa őket";
+"NSPhotoLibraryAddUsageDescription" = "A SnapMonster a megosztott kártyaképeket a fotókönyvtáradba menti";
+"NSPhotoLibraryUsageDescription" = "A SnapMonster fotókat olvas be a könyvtáradból, hogy szörnyekké változtassa őket";

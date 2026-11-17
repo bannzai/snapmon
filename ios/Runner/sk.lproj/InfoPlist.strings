@@ -1,4 +1,4 @@
 /* 権限の確認の文言 (slovenčina)。Info.plist の同じキーの値を言語ごとに置き換える */
-"NSCameraUsageDescription" = "snapmon používa fotoaparát na fotenie vecí okolo vás a ich premenu na príšery";
-"NSPhotoLibraryAddUsageDescription" = "snapmon ukladá obrázky kariet, ktoré zdieľate, do vašej knižnice fotiek";
-"NSPhotoLibraryUsageDescription" = "snapmon číta fotky z vašej knižnice, aby ich premenil na príšery";
+"NSCameraUsageDescription" = "SnapMonster používa fotoaparát na fotenie vecí okolo vás a ich premenu na príšery";
+"NSPhotoLibraryAddUsageDescription" = "SnapMonster ukladá obrázky kariet, ktoré zdieľate, do vašej knižnice fotiek";
+"NSPhotoLibraryUsageDescription" = "SnapMonster číta fotky z vašej knižnice, aby ich premenil na príšery";
