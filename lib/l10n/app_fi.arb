@@ -245,5 +245,6 @@
   "moveDetailPower": "Voima",
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "Oppimistaso",
-  "moveDetailUnlockLevelValue": "Lv. {level}"
+  "moveDetailUnlockLevelValue": "Lv. {level}",
+  "moveDetailSpecialEffect": "Erikoisvaikutus"
 }

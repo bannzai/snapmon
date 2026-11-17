@@ -245,5 +245,6 @@
   "moveDetailPower": "Сила",
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "Уровень изучения",
-  "moveDetailUnlockLevelValue": "Lv. {level}"
+  "moveDetailUnlockLevelValue": "Lv. {level}",
+  "moveDetailSpecialEffect": "Особый эффект"
 }

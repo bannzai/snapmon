@@ -245,5 +245,6 @@
   "moveDetailPower": "ਤਾਕਤ",
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "ਚਾਲ ਸਿੱਖਣ ਦਾ ਲੈਵਲ",
-  "moveDetailUnlockLevelValue": "Lv. {level}"
+  "moveDetailUnlockLevelValue": "Lv. {level}",
+  "moveDetailSpecialEffect": "ਖ਼ਾਸ ਪ੍ਰਭਾਵ"
 }

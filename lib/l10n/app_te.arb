@@ -245,5 +245,6 @@
   "moveDetailPower": "శక్తి",
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "కదలిక నేర్చుకునే స్థాయి",
-  "moveDetailUnlockLevelValue": "Lv. {level}"
+  "moveDetailUnlockLevelValue": "Lv. {level}",
+  "moveDetailSpecialEffect": "ప్రత్యేక ప్రభావం"
 }

@@ -245,5 +245,6 @@
   "moveDetailPower": "Kekuatan",
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "Level belajar jurus",
-  "moveDetailUnlockLevelValue": "Lv. {level}"
+  "moveDetailUnlockLevelValue": "Lv. {level}",
+  "moveDetailSpecialEffect": "Efek khusus"
 }

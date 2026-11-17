@@ -245,5 +245,6 @@
   "moveDetailPower": "ಶಕ್ತಿ",
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "ಚಲನೆ ಕಲಿಯುವ ಹಂತ",
-  "moveDetailUnlockLevelValue": "Lv. {level}"
+  "moveDetailUnlockLevelValue": "Lv. {level}",
+  "moveDetailSpecialEffect": "ವಿಶೇಷ ಪರಿಣಾಮ"
 }

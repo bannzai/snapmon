@@ -245,5 +245,6 @@
   "moveDetailPower": "Styrke",
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "Lærenivå",
-  "moveDetailUnlockLevelValue": "Lv. {level}"
+  "moveDetailUnlockLevelValue": "Lv. {level}",
+  "moveDetailSpecialEffect": "Spesialeffekt"
 }

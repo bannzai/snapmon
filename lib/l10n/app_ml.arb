@@ -245,5 +245,6 @@
   "moveDetailPower": "ശക്തി",
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "നീക്കം പഠിക്കുന്ന ലെവൽ",
-  "moveDetailUnlockLevelValue": "Lv. {level}"
+  "moveDetailUnlockLevelValue": "Lv. {level}",
+  "moveDetailSpecialEffect": "പ്രത്യേക പ്രഭാവം"
 }

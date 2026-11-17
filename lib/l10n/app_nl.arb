@@ -245,5 +245,6 @@
   "moveDetailPower": "Kracht",
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "Leerniveau",
-  "moveDetailUnlockLevelValue": "Lv. {level}"
+  "moveDetailUnlockLevelValue": "Lv. {level}",
+  "moveDetailSpecialEffect": "Speciaal effect"
 }

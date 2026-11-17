@@ -245,5 +245,6 @@
   "moveDetailPower": "威力",
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "学会招式的等级",
-  "moveDetailUnlockLevelValue": "Lv. {level}"
+  "moveDetailUnlockLevelValue": "Lv. {level}",
+  "moveDetailSpecialEffect": "特殊效果"
 }

@@ -245,5 +245,6 @@
   "moveDetailPower": "Güç",
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "Öğrenme seviyesi",
-  "moveDetailUnlockLevelValue": "Lv. {level}"
+  "moveDetailUnlockLevelValue": "Lv. {level}",
+  "moveDetailSpecialEffect": "Özel etki"
 }

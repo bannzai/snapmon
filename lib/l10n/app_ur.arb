@@ -245,5 +245,6 @@
   "moveDetailPower": "طاقت",
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "چال سیکھنے کی سطح",
-  "moveDetailUnlockLevelValue": "Lv. {level}"
+  "moveDetailUnlockLevelValue": "Lv. {level}",
+  "moveDetailSpecialEffect": "خاص اثر"
 }

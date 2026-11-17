@@ -245,5 +245,6 @@
   "moveDetailPower": "Erő",
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "Megtanulási szint",
-  "moveDetailUnlockLevelValue": "Lv. {level}"
+  "moveDetailUnlockLevelValue": "Lv. {level}",
+  "moveDetailSpecialEffect": "Különleges hatás"
 }

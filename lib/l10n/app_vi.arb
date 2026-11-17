@@ -245,5 +245,6 @@
   "moveDetailPower": "Sức mạnh",
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "Cấp học chiêu",
-  "moveDetailUnlockLevelValue": "Lv. {level}"
+  "moveDetailUnlockLevelValue": "Lv. {level}",
+  "moveDetailSpecialEffect": "Hiệu ứng đặc biệt"
 }

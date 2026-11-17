@@ -245,5 +245,6 @@
   "moveDetailPower": "Moč",
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "Stopnja učenja",
-  "moveDetailUnlockLevelValue": "Lv. {level}"
+  "moveDetailUnlockLevelValue": "Lv. {level}",
+  "moveDetailSpecialEffect": "Poseben učinek"
 }

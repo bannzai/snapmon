@@ -245,5 +245,6 @@
   "moveDetailPower": "Síla",
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "Úroveň naučení",
-  "moveDetailUnlockLevelValue": "Lv. {level}"
+  "moveDetailUnlockLevelValue": "Lv. {level}",
+  "moveDetailSpecialEffect": "Speciální efekt"
 }

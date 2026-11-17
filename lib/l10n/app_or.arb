@@ -245,5 +245,6 @@
   "moveDetailPower": "ଶକ୍ତି",
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "ଚାଲ ଶିଖିବା ସ୍ତର",
-  "moveDetailUnlockLevelValue": "Lv. {level}"
+  "moveDetailUnlockLevelValue": "Lv. {level}",
+  "moveDetailSpecialEffect": "ବିଶେଷ ପ୍ରଭାବ"
 }

@@ -245,5 +245,6 @@
   "moveDetailPower": "Putere",
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "Nivel de învățare",
-  "moveDetailUnlockLevelValue": "Lv. {level}"
+  "moveDetailUnlockLevelValue": "Lv. {level}",
+  "moveDetailSpecialEffect": "Efect special"
 }

@@ -245,5 +245,6 @@
   "moveDetailPower": "القوة",
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "مستوى تعلّم الحركة",
-  "moveDetailUnlockLevelValue": "Lv. {level}"
+  "moveDetailUnlockLevelValue": "Lv. {level}",
+  "moveDetailSpecialEffect": "تأثير خاص"
 }

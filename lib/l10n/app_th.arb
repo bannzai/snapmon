@@ -245,5 +245,6 @@
   "moveDetailPower": "พลัง",
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "เลเวลที่เรียนรู้ท่า",
-  "moveDetailUnlockLevelValue": "Lv. {level}"
+  "moveDetailUnlockLevelValue": "Lv. {level}",
+  "moveDetailSpecialEffect": "เอฟเฟกต์พิเศษ"
 }

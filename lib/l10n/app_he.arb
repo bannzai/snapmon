@@ -245,5 +245,6 @@
   "moveDetailPower": "עוצמה",
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "רמת לימוד המהלך",
-  "moveDetailUnlockLevelValue": "Lv. {level}"
+  "moveDetailUnlockLevelValue": "Lv. {level}",
+  "moveDetailSpecialEffect": "השפעה מיוחדת"
 }

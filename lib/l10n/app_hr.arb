@@ -245,5 +245,6 @@
   "moveDetailPower": "Snaga",
   "moveDetailPowerPoints": "PP",
   "moveDetailUnlockLevel": "Razina učenja",
-  "moveDetailUnlockLevelValue": "Lv. {level}"
+  "moveDetailUnlockLevelValue": "Lv. {level}",
+  "moveDetailSpecialEffect": "Poseban učinak"
 }
