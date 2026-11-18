@@ -23,6 +23,23 @@ function attributeValue({ tag, attributeName }) {
   return tag.match(new RegExp(`\\s${attributeName}="([^"]*)"`))?.[1];
 }
 
+/**
+ * 非可逆の WebP (RIFF の最初のチャンクが `VP8 `) の bytes から、画素の幅と高さを返す。
+ * 幅と高さは、フレームの開始符号 (9d 01 2a) の直後に 14 ビットずつリトルエンディアンで入っている (RFC 6386 の 9.1)。
+ * 別の形 (可逆の `VP8L`・拡張の `VP8X`) の時は、切り出しのスクリプトが書き出す形が変わったと分かるように throw する。
+ */
+function lossyWebPSize({ bytes }) {
+  assert.equal(bytes.toString('latin1', 0, 4), 'RIFF');
+  assert.equal(bytes.toString('latin1', 8, 16), 'WEBPVP8 ');
+  assert.deepEqual([...bytes.subarray(23, 26)], [0x9d, 0x01, 0x2a]);
+  return { width: bytes.readUInt16LE(26) & 0x3fff, height: bytes.readUInt16LE(28) & 0x3fff };
+}
+
+/** fastlane/metadata の直下の、App Store の掲載文を持つ言語のディレクトリの名前 (android などの言語でないディレクトリを除く)。 */
+const appStoreLocales = readdirSync(new URL('../../fastlane/metadata/', import.meta.url)).filter((name) =>
+  existsSync(new URL(`../../fastlane/metadata/${name}/support_url.txt`, import.meta.url)),
+);
+
 /** landingPageHTML の中の、すべての a 要素の href の値。 */
 const linkHrefs = openingTags({ tagName: 'a' }).map((tag) => attributeValue({ tag, attributeName: 'href' }));
 
@@ -96,6 +113,42 @@ test('切り出しのスクリプトが書き出す画像・docs/images/ のフ�
     openingTags({ tagName: 'img' }).map((tag) => attributeValue({ tag, attributeName: 'src' })).sort(),
     scriptOutputNames.map((name) => `./images/${name}`).sort(),
   );
+});
+
+test('画像の width・height の属性が、画像のファイルの画素の幅 (600) と高さに一致する', () => {
+  // 属性が実際の大きさと違うと、読み込みの前後で縦横比が変わって表示がずれる。幅 600 は、ページで出す最大の幅 300 CSS px の 2 倍
+  for (const tag of openingTags({ tagName: 'img' })) {
+    const source = attributeValue({ tag, attributeName: 'src' });
+    const size = lossyWebPSize({ bytes: readFileSync(new URL(source, docsDirectoryURL)) });
+    assert.equal(size.width, 600, source);
+    assert.equal(Number(attributeValue({ tag, attributeName: 'width' })), size.width, source);
+    assert.equal(Number(attributeValue({ tag, attributeName: 'height' })), size.height, source);
+  }
+});
+
+test('App Store の掲載文のサポート URL とプライバシーポリシーの URL が、紹介ページのドメインの決まったパスを指す', () => {
+  assert.ok(appStoreLocales.includes('ja'));
+  assert.ok(appStoreLocales.includes('en-US'));
+  for (const locale of appStoreLocales) {
+    const localeDirectoryURL = new URL(`../../fastlane/metadata/${locale}/`, import.meta.url);
+    assert.equal(readFileSync(new URL('support_url.txt', localeDirectoryURL), 'utf8').trim(), `${LANDING_PAGE_URL}#support`, locale);
+    assert.equal(readFileSync(new URL('privacy_url.txt', localeDirectoryURL), 'utf8').trim(), `${LANDING_PAGE_URL}PrivacyPolicy`, locale);
+  }
+});
+
+test('App Store と Google Play の説明文の中の URL は、紹介ページのドメインのものだけ', () => {
+  for (const descriptionURL of [
+    ...appStoreLocales.map((locale) => new URL(`../../fastlane/metadata/${locale}/description.txt`, import.meta.url)),
+    ...readdirSync(new URL('../../fastlane/metadata/android/', import.meta.url)).map(
+      (locale) => new URL(`../../fastlane/metadata/android/${locale}/full_description.txt`, import.meta.url),
+    ),
+  ]) {
+    const urlsInDescription = readFileSync(descriptionURL, 'utf8').match(/https?:\/\/[^\s)]+/g) ?? [];
+    assert.ok(urlsInDescription.length >= 1, descriptionURL.pathname);
+    for (const url of urlsInDescription) {
+      assert.ok(url.startsWith(LANDING_PAGE_URL), `${descriptionURL.pathname}: ${url}`);
+    }
+  }
 });
 
 test('古い公開 URL (bannzai.github.io) がページに無い', () => {
