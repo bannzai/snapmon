@@ -2,7 +2,7 @@
 // 実行: node --test scripts/test/test-landing-page.mjs (リポジトリのルートで)
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 
 const docsDirectoryURL = new URL('../../docs/', import.meta.url);
 const landingPageHTML = readFileSync(new URL('index.html', docsDirectoryURL), 'utf8');
@@ -83,6 +83,19 @@ test('画像はすべて docs/ にあるファイルを指し、代替テキス�
     assert.match(attributeValue({ tag, attributeName: 'width' }), /^\d+$/, source);
     assert.match(attributeValue({ tag, attributeName: 'height' }), /^\d+$/, source);
   }
+});
+
+test('切り出しのスクリプトが書き出す画像・docs/images/ のファイル・ページが使う画像が一致する', () => {
+  // スクリーンショットを作り直した時に scripts/landing_page/crop_landing_page_images.py を実行すれば、ページの画像がすべて新しくなることを保つ
+  const scriptOutputNames = [
+    ...readFileSync(new URL('../landing_page/crop_landing_page_images.py', import.meta.url), 'utf8').matchAll(/^ {4}"([^"]+\.webp)": \(/gm),
+  ].map((match) => match[1]);
+  assert.ok(scriptOutputNames.length >= 1);
+  assert.deepEqual(readdirSync(new URL('images/', docsDirectoryURL)).sort(), [...scriptOutputNames].sort());
+  assert.deepEqual(
+    openingTags({ tagName: 'img' }).map((tag) => attributeValue({ tag, attributeName: 'src' })).sort(),
+    scriptOutputNames.map((name) => `./images/${name}`).sort(),
+  );
 });
 
 test('古い公開 URL (bannzai.github.io) がページに無い', () => {
