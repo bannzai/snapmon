@@ -43,8 +43,9 @@ def write_sample_og_image(path: Path):
     draw = ImageDraw.Draw(image)
     # 古いロゴの代わり (塗る四角の内側)
     draw.rectangle((84, 226, 619, 313), fill=(255, 255, 255))
-    # 塗る四角の内側で、新しい名前の文字が掛からない左上の隅。塗れば地の色に戻る
+    # 塗る四角の内側で、新しい名前の文字が掛からない左上・右下の隅。塗れば地の色に戻る
     draw.rectangle((60, 190, 70, 200), fill=(255, 255, 255))
+    draw.rectangle((690, 318, 700, 328), fill=(255, 255, 255))
     # 下の 2 行の文言の代わり (塗る四角の下、上端 335)
     draw.rectangle((84, 335, 668, 420), fill=(250, 200, 60))
     # 右の絵の代わり (塗る四角の右、左端 710)
@@ -168,10 +169,10 @@ class ReplaceOgLogoTest(TemporaryRepositoryTestCase):
 
     def test_erases_old_logo_with_background_color(self):
         replace_og_logo.replace_og_logo()
-        self.assertEqual(
-            Image.open(self.og_image_path).convert("RGB").crop((60, 190, 71, 201)).getcolors(),
-            [(11 * 11, BACKGROUND_COLOR)],
-        )
+        replaced_image = Image.open(self.og_image_path).convert("RGB")
+        # 左上の隅と右下の隅 (四角の右端 700・下端 328 の画素を含む)。四角を内側へ縮めると古いロゴの色が残る
+        for corner_box in [(60, 190, 71, 201), (690, 318, 701, 329)]:
+            self.assertEqual(replaced_image.crop(corner_box).getcolors(), [(11 * 11, BACKGROUND_COLOR)])
 
     def test_draws_logo_between_left_and_max_right(self):
         replace_og_logo.replace_og_logo()
