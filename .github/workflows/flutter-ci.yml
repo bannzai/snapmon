@@ -69,6 +69,10 @@ jobs:
     - run: bash scripts/test/test-makefile-targets.sh
     - run: bash scripts/test/test-metadata-check.sh
     - run: bash scripts/test/test-upload-crashlytics-symbols.sh
+    # scripts/og_image/replace_og_logo.py のテストは Pillow を使う。runner の python3 は externally-managed (PEP 668) で
+    # pip install が拒否されるため、apt のパッケージで入れる (move-effect-sprite-sheets.yml と同じ)
+    - run: sudo apt-get update && sudo apt-get install -y python3-pil
+    - run: python3 scripts/test/test_replace_og_logo.py
     # docs/master-viewer.js は package.json の無いディレクトリの ES module で、拡張子 .js のまま読むには
     # module の構文の自動判別が既定で有効な Node 22 以降が要る (firebase-ci.yml と同じ版)
     - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0

@@ -39,11 +39,18 @@ LOGO_COLOR = (255, 255, 255)
 
 
 def app_display_name() -> str:
-    """lib/app_display_name.dart の定数 appDisplayName の値を返す。"""
-    return re.search(
+    """lib/app_display_name.dart の定数 appDisplayName の値を返す。
+
+    定数の書き方が変わって読めない時 (空の名前を含む) は ValueError を投げる。replace_og_logo はこれを画像を
+    保存する前に呼ぶため、読めない名前で docs/og.png を壊さない。
+    """
+    match = re.search(
         r"const String appDisplayName = '([^']+)';",
         (REPOSITORY_ROOT / "lib/app_display_name.dart").read_text(),
-    ).group(1)
+    )
+    if match is None:
+        raise ValueError("lib/app_display_name.dart から appDisplayName の値を読み取れない")
+    return match.group(1)
 
 
 def logo_font(text: str) -> ImageFont.FreeTypeFont:
