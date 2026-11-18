@@ -541,9 +541,7 @@ class _PartyMonsterPanel extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             ElementTypeIcon(
-                              elementTypeID:
-                                  monster.definition.elementTypeIDs[index %
-                                      monster.definition.elementTypeIDs.length],
+                              elementTypeID: move.elementTypeID,
                               definitions: definitions,
                             ),
                             const SizedBox(width: 4),
@@ -555,9 +553,6 @@ class _PartyMonsterPanel extends StatelessWidget {
                             ),
                           ],
                         ),
-                    for (var index = moves.length; index < 4; index++)
-                      if (moves.isNotEmpty && index % moveColumnCount == column)
-                        const SizedBox(width: 20, height: 12),
                   ],
                 ),
               ],
