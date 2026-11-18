@@ -93,6 +93,7 @@ verify: flutter-version-check
 	bash scripts/test/test-metadata-check.sh
 	bash scripts/test/test-upload-crashlytics-symbols.sh
 	node --test scripts/test/test-master-viewer.mjs
+	node --test scripts/test/test-landing-page.mjs
 
 # アプリアイコンを描き直して iOS・Android・Web と Google Play のストア掲載 (fastlane/metadata/android/*/images/icon.png) に書き出す
 # (Pillow の入った python3 が要る。PYTHON=<python3 のパス> で差し替えられる)
