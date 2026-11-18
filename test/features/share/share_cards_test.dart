@@ -144,6 +144,43 @@ void main() {
     }
   });
 
+  group('カードに紹介ページの URL を、独自ドメインのスキームを省いた表記で 1 つ描く', () {
+    for (final format in ShareCardFormat.values) {
+      testWidgets('図鑑のカード (${format.name})', (tester) async {
+        await pumpCard(
+          tester: tester,
+          card: MonsterShareCard(
+            monster: monsterWithArt,
+            artImagesByPath: {artPath: await createArtImage(tester: tester)},
+            definitions: sampleData.definitions,
+            format: format,
+          ),
+          format: format,
+        );
+        expect(find.text('snapmonster.app/'), findsOneWidget);
+      });
+
+      testWidgets('バトルの結果のカード (${format.name})', (tester) async {
+        await pumpCard(
+          tester: tester,
+          card: BattleResultShareCard(
+            winner: BattleSideID.player,
+            playerParty: [monsterWithArt],
+            appliedLevels: {monsterWithArt.definition.id: 8},
+            opponentParty: [
+              sampleData.monsterByID(monsterID: 'sample-ringora'),
+            ],
+            artImagesByPath: {artPath: await createArtImage(tester: tester)},
+            definitions: sampleData.definitions,
+            format: format,
+          ),
+          format: format,
+        );
+        expect(find.text('snapmonster.app/'), findsOneWidget);
+      });
+    }
+  });
+
   group('バトルの結果のカードに技の枠の技を描く', () {
     /// マグモン (見本の Lv. 7。Lv. 1 の技が 4 つ、Lv. 15 で覚える技が 2 つ) を [level] と [selectedMoveIDs] にした 1 体。
     OwnedMonster mugmon({

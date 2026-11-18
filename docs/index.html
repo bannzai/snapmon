@@ -4,21 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SnapMonster | 撮った写真がモンスターになるバトルゲーム</title>
-<meta name="description" content="身の回りの物を撮ると、その物に似た自分だけのモンスターが生まれる。属性の相性や技で勝敗が決まるターン制バトルで、集めて、戦わせて、見せ合おう。">
-<link rel="canonical" href="https://bannzai.github.io/snapmon/">
+<meta name="description" content="身の回りの物を撮ると、その物に似た自分だけのモンスターが生まれる。属性の相性や技で勝敗が決まるターン制バトルで、集めて、戦わせて、見せ合おう。ブラウザで開いて遊べます。">
+<link rel="canonical" href="https://snapmonster.app/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="SnapMonster">
 <meta property="og:title" content="SnapMonster | 撮った写真がモンスターになるバトルゲーム">
 <meta property="og:description" content="身の回りの物を撮ると、その物に似た自分だけのモンスターが生まれる。ターン制バトルで集めて、戦わせて、見せ合おう。">
-<meta property="og:url" content="https://bannzai.github.io/snapmon/">
-<meta property="og:image" content="https://bannzai.github.io/snapmon/og.png">
+<meta property="og:url" content="https://snapmonster.app/">
+<meta property="og:image" content="https://snapmonster.app/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="SnapMonster | 撮った写真がモンスターになるバトルゲーム">
 <meta name="twitter:description" content="身の回りの物を撮ると、その物に似た自分だけのモンスターが生まれる。ターン制バトルで集めて、戦わせて、見せ合おう。">
-<meta name="twitter:image" content="https://bannzai.github.io/snapmon/og.png">
+<meta name="twitter:image" content="https://snapmonster.app/og.png">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -26,10 +26,10 @@
   "name": "SnapMonster",
   "description": "身の回りの物を撮ると、その物に似た自分だけのモンスターが生まれ、ターン制バトルで戦わせられるゲーム。",
   "applicationCategory": "GameApplication",
-  "operatingSystem": "iOS, Android, Web",
+  "operatingSystem": "Web",
   "inLanguage": "ja",
-  "url": "https://bannzai.github.io/snapmon/",
-  "image": "https://bannzai.github.io/snapmon/og.png",
+  "url": "https://snapmonster.app/",
+  "image": "https://snapmonster.app/og.png",
   "author": { "@type": "Person", "name": "bannzai" }
 }
 </script>
@@ -37,13 +37,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap">
 <style>
+/* 色と書体はアプリの画面 (lib/ のテーマと fastlane/screenshots/ の画像) に合わせる。
+   --color-bg は docs/images/ の画像の地の色と同じ値で、画像を背景の上に境目なく置くために変えない */
 :root {
   --color-bg: #15121c;
-  --color-surface: #f4f1ea;
+  --color-surface: #231e30;
   --color-text: #f4f1ea;
   --color-muted: #cfc9bd;
-  --color-card-text: #15121c;
-  --color-card-muted: #4a4452;
   --color-accent: #c6f432;
   --color-on-accent: #15121c;
   --color-border: #3a3347;
@@ -61,41 +61,63 @@ body {
   line-height: 1.8;
 }
 h1, h2, h3, header.site strong { font-family: var(--font-heading); font-weight: 400; }
+img { max-width: 100%; height: auto; display: block; }
 a { color: var(--color-accent); }
-a:focus-visible, .button:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 3px; }
+a:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 3px; }
 .wrap { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+
 header.site { border-bottom: 1px solid var(--color-border); }
-header.site .wrap { display: flex; justify-content: space-between; align-items: center; padding-top: 14px; padding-bottom: 14px; }
+header.site .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 4px 20px; padding-top: 14px; padding-bottom: 14px; }
 header.site strong { font-size: 1.25rem; color: var(--color-accent); }
-header.site nav a { color: var(--color-muted); margin-left: 20px; text-decoration: none; font-size: 0.95rem; }
+header.site nav { display: flex; flex-wrap: wrap; gap: 4px 20px; }
+header.site nav a { color: var(--color-muted); text-decoration: none; font-size: 0.95rem; }
 header.site nav a:hover { color: var(--color-accent); }
-.hero { padding: 56px 0 72px; }
-.hero .wrap { display: grid; grid-template-columns: 1.3fr 1fr; gap: 32px; align-items: center; }
-.hero h1 { font-size: 2.4rem; line-height: 1.35; margin: 0 0 16px; }
-.hero p { margin: 0 0 24px; color: var(--color-muted); font-size: 1.05rem; }
-.hero img { width: 100%; height: auto; border-radius: var(--radius); display: block; }
+
+.hero { padding: 56px 0 40px; }
+.hero .wrap { display: grid; grid-template-columns: 1fr 300px; gap: 48px; align-items: center; }
+.hero h1 { font-size: 2.5rem; line-height: 1.4; margin: 0 0 20px; }
+.hero h1 span { color: var(--color-accent); }
+.hero p { margin: 0 0 28px; color: var(--color-muted); font-size: 1.05rem; }
 .button {
-  display: inline-block; padding: 12px 22px; border-radius: 12px;
-  background: var(--color-accent); color: var(--color-on-accent); text-decoration: none; font-weight: 700;
+  display: inline-block; padding: 16px 28px; border-radius: 14px;
+  background: var(--color-accent); color: var(--color-on-accent);
+  text-decoration: none; font-weight: 700; font-size: 1.1rem; line-height: 1.4;
 }
-span.button { background: transparent; color: var(--color-accent); border: 2px solid var(--color-accent); }
-.store-note { display: block; margin-top: 10px; font-size: 0.9rem; color: var(--color-muted); }
+.button:hover { background: #d6fb5c; }
+.button:focus-visible { outline-color: var(--color-text); }
+.hero .play-note { margin: 14px 0 0; font-size: 0.9rem; }
+
 section { padding: 56px 0; }
-section h2 { font-size: 1.6rem; margin: 0 0 20px; }
-.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.card { background: var(--color-surface); color: var(--color-card-text); border-radius: var(--radius); padding: 24px; }
-.card h3 { margin: 0 0 8px; font-size: 1.1rem; }
-.card p { margin: 0; color: var(--color-card-muted); }
-.flow { border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
-.flow ol { margin: 0; padding-left: 1.4em; }
-.flow li { margin-bottom: 8px; }
-ul.links { padding-left: 1.2em; }
-footer { padding: 28px 0 40px; color: var(--color-muted); font-size: 0.9rem; }
+section h2 { font-size: 1.7rem; line-height: 1.5; margin: 0 0 28px; }
+.feature { display: grid; grid-template-columns: 1fr 300px; gap: 48px; align-items: center; padding: 28px 0; }
+.feature:nth-of-type(even) { grid-template-columns: 300px 1fr; }
+.feature:nth-of-type(even) img { order: -1; }
+.feature h3 { font-size: 1.5rem; line-height: 1.5; margin: 0 0 12px; color: var(--color-accent); }
+.feature p { margin: 0; color: var(--color-muted); font-size: 1.05rem; }
+
+.band { border-top: 1px solid var(--color-border); }
+.steps { margin: 0 0 32px; padding-left: 1.4em; font-size: 1.05rem; }
+.steps li { margin-bottom: 8px; padding-left: 4px; }
+.steps li::marker { color: var(--color-accent); font-weight: 700; }
+.notes { margin: 0; padding: 24px 24px 24px 44px; background: var(--color-surface); border-radius: var(--radius); color: var(--color-muted); }
+.notes li { margin-bottom: 6px; }
+.notes li:last-child { margin-bottom: 0; }
+ul.links { margin: 0; padding-left: 1.2em; }
+footer { border-top: 1px solid var(--color-border); padding: 28px 0 40px; color: var(--color-muted); font-size: 0.9rem; }
+footer p { margin: 0; }
+
 @media (max-width: 720px) {
-  .hero .wrap { grid-template-columns: 1fr; }
-  .hero h1 { font-size: 1.9rem; }
-  .cards { grid-template-columns: 1fr; }
-  header.site nav a { margin-left: 12px; }
+  .hero { padding-top: 40px; }
+  .hero .wrap, .feature, .feature:nth-of-type(even) { grid-template-columns: 1fr; gap: 24px; }
+  /* 見出しの 2 行目 (13 文字) が幅 320px の画面でも 1 行に収まる大きさにする (左右の余白 40px を引いた幅 280px ÷ 13 文字 ≒ 6.7vw より小さい値) */
+  .hero h1 { font-size: min(1.9rem, 6.6vw); }
+  /* いちばん長い見出し (15 文字) が幅 320px の画面でも 1 行に収まる大きさにする */
+  .feature h3 { font-size: min(1.25rem, 5.4vw); }
+  .hero img, .feature img { width: 260px; margin: 0 auto; }
+  .feature:nth-of-type(even) img { order: 0; }
+  .button { display: block; text-align: center; }
+  section { padding: 40px 0; }
+  section h2 { font-size: 1.4rem; }
 }
 </style>
 </head>
@@ -104,7 +126,8 @@ footer { padding: 28px 0 40px; color: var(--color-muted); font-size: 0.9rem; }
   <div class="wrap">
     <strong>SnapMonster</strong>
     <nav aria-label="ページ内リンク">
-      <a href="#features">特徴</a>
+      <a href="#features">できること</a>
+      <a href="#how">遊び方</a>
       <a href="#support">サポート</a>
       <a href="#documents">規約・ポリシー</a>
     </nav>
@@ -115,47 +138,74 @@ footer { padding: 28px 0 40px; color: var(--color-muted); font-size: 0.9rem; }
   <div class="hero">
     <div class="wrap">
       <div>
-        <h1>撮った写真が<br>自分だけのモンスターになる</h1>
+        <h1>撮った写真が<br><span>自分だけのモンスター</span>になる</h1>
         <p>身の回りの物にカメラを向けると、その物に似たモンスターが生まれます。属性の相性と技で勝敗が決まるターン制バトルで、集めて、戦わせて、見せ合おう。</p>
-        <span class="button">近日公開</span>
-        <span class="store-note">App Store・Google Play・Web 版を準備中です。</span>
+        <a class="button" data-play href="https://play.snapmonster.app/">Web 版で今すぐ遊ぶ</a>
+        <p class="play-note">ブラウザで開いて遊べます。iOS・Android のアプリは準備中です。</p>
       </div>
-      <img src="./og.png" width="1200" height="630" alt="SnapMonster のロゴと、カメラのレンズの形をした緑のモンスター">
+      <img src="./images/screen-born.webp" width="600" height="1093" alt="生まれたモンスターの画面。マグカップの写真から生まれた「マグモン」の絵と属性とステータスと 4 つの技が 1 枚のカードに並んでいる">
     </div>
   </div>
 
-  <section id="features">
+  <section id="features" class="band">
     <div class="wrap">
       <h2>SnapMonster でできること</h2>
-      <div class="cards">
-        <div class="card">
-          <h3>撮った物が、モンスターに</h3>
-          <p>カメラで撮るか、アルバムから選ぶだけ。被写体の特徴から名前と図鑑の文章、属性、技、ステータスが決まります。一度生まれたモンスターは後から変わりません。</p>
+      <div class="feature">
+        <div>
+          <h3>身の回りの物を撮るだけ</h3>
+          <p>カメラで撮るか、アルバムから写真を選ぶだけ。写真の上で選んだ範囲が、そのままモンスターの姿になります。被写体の特徴から名前と図鑑の文章、属性、技、ステータスが決まります。</p>
         </div>
-        <div class="card">
-          <h3>ステータスが効くバトル</h3>
-          <p>素早さの順に行動し、技の威力、属性の弱点、攻撃と防御、技の残り回数が勝敗に効きます。バトルのたびにレベルが上がります。</p>
+        <img src="./images/screen-capture.webp" width="600" height="1093" loading="lazy" alt="撮る画面。カメラの枠の中にマグカップが写っていて、下に撮影のボタンがある">
+      </div>
+      <div class="feature">
+        <div>
+          <h3>ステータスと相性で勝負が決まる</h3>
+          <p>素早さの順に行動し、技の威力、属性の弱点、攻撃と防御、技の残り回数 (PP) が勝敗に効きます。手持ちの 3 体で CPU トレーナーと戦い、バトルのたびにレベルが上がります。</p>
         </div>
-        <div class="card">
-          <h3>集めて、見せ合う</h3>
-          <p>生まれたモンスターは図鑑に残ります。モンスターの絵は元の写真の一部または全体のことがあり、共有したカードを見た人にも見えます。図鑑のカードやバトルの結果は SNS に共有できます。</p>
+        <img src="./images/screen-battle.webp" width="600" height="1093" loading="lazy" alt="バトルの画面。マグカップのモンスターとハサミのモンスターが向かい合い、下に 4 つの技のボタンが並んでいる">
+      </div>
+      <div class="feature">
+        <div>
+          <h3>集めて図鑑を埋めよう</h3>
+          <p>生まれたモンスターは図鑑に残ります。一度生まれたモンスターの姿と能力は後から変わりません。</p>
         </div>
+        <img src="./images/screen-dex.webp" width="600" height="1093" loading="lazy" alt="図鑑の画面。手持ちの 3 体と、集めたモンスターの絵と名前とレベルが並んでいる">
+      </div>
+      <div class="feature">
+        <div>
+          <h3>生まれたモンスターを見せ合おう</h3>
+          <p>図鑑のカードやバトルの結果を画像にして SNS に共有できます。モンスターの絵は元の写真の一部または全体のことがあり、共有したカードを見た人にも見えます。</p>
+        </div>
+        <img src="./images/card-share.webp" width="600" height="943" loading="lazy" alt="共有するカード。アヒルのおもちゃの写真から生まれた「プカプック」の絵とステータスと図鑑の文章が載っている">
       </div>
     </div>
   </section>
 
-  <section class="flow" id="how">
+  <section id="how" class="band">
     <div class="wrap">
       <h2>遊び方</h2>
-      <ol>
-        <li>身の回りの物を撮る、またはアルバムから選ぶ。</li>
-        <li>生まれたモンスターを図鑑に登録し、手持ちの 3 体を選ぶ。</li>
-        <li>CPU トレーナーと、ターン制バトルで戦う。</li>
+      <ol class="steps">
+        <li>身の回りの物を撮るかアルバムから選ぶ</li>
+        <li>生まれたモンスターを図鑑に登録して手持ちの 3 体を選ぶ</li>
+        <li>CPU トレーナーとターン制バトルで戦う</li>
       </ol>
+      <a class="button" data-play href="https://play.snapmonster.app/">Web 版で今すぐ遊ぶ</a>
     </div>
   </section>
 
-  <section id="support">
+  <section id="safety" class="band">
+    <div class="wrap">
+      <h2>安心して遊ぶために</h2>
+      <ul class="notes">
+        <li>不適切な写真からはモンスターを生成しません</li>
+        <li>人が写る写真から生成した時は注意を出します</li>
+        <li>他の人が写る写真はその人の同意を得てから使ってください</li>
+        <li>対象年齢は 13 歳以上です</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="support" class="band">
     <div class="wrap">
       <h2>サポート・お問い合わせ</h2>
       <p>不具合のご報告やご質問は、次のメールアドレスで受け付けています。アプリの設定画面の「お問い合わせ」からも連絡できます。</p>
@@ -164,7 +214,7 @@ footer { padding: 28px 0 40px; color: var(--color-muted); font-size: 0.9rem; }
     </div>
   </section>
 
-  <section id="documents" class="flow">
+  <section id="documents" class="band">
     <div class="wrap">
       <h2>規約・ポリシー</h2>
       <ul class="links">

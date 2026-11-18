@@ -22,4 +22,4 @@ IGRAJ VARNO
 • Ponuja nakupe v aplikaciji (žetone) za ustvarjanje pošasti tudi po porabi brezplačne dnevne omejitve
 
 Stik: bannzai.app@gmail.com
-Pogoji uporabe (v japonščini): https://bannzai.github.io/snapmon/Terms
+Pogoji uporabe (v japonščini): https://snapmonster.app/Terms

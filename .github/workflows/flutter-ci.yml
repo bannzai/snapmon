@@ -75,6 +75,7 @@ jobs:
       with:
         node-version: '22'
     - run: node --test scripts/test/test-master-viewer.mjs
+    - run: node --test scripts/test/test-landing-page.mjs
 
   build-web:
     runs-on: ubuntu-latest

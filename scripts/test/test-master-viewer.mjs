@@ -49,7 +49,7 @@ test('MASTER_SECTIONS に無いキーは unrenderedKeys が返す', () => {
 });
 
 test('src が無ければ main の master.json を読む', () => {
-  assert.equal(resolveMasterURL('https://bannzai.github.io/snapmon/master.html'), DEFAULT_MASTER_URL);
+  assert.equal(resolveMasterURL('https://snapmonster.app/master.html'), DEFAULT_MASTER_URL);
 });
 
 test('src はページからの相対で解決する', () => {
@@ -61,14 +61,14 @@ test('src はページからの相対で解決する', () => {
 
 test('src の http・https の絶対 URL はそのまま使う', () => {
   assert.equal(
-    resolveMasterURL('https://bannzai.github.io/snapmon/master.html?src=https://example.com/master.json'),
+    resolveMasterURL('https://snapmonster.app/master.html?src=https://example.com/master.json'),
     'https://example.com/master.json',
   );
 });
 
 test('src の javascript: と data: は拒否する', () => {
-  assert.throws(() => resolveMasterURL('https://bannzai.github.io/snapmon/master.html?src=javascript:alert(1)'), /javascript:/);
-  assert.throws(() => resolveMasterURL('https://bannzai.github.io/snapmon/master.html?src=data:application/json,{}'), /data:/);
+  assert.throws(() => resolveMasterURL('https://snapmonster.app/master.html?src=javascript:alert(1)'), /javascript:/);
+  assert.throws(() => resolveMasterURL('https://snapmonster.app/master.html?src=data:application/json,{}'), /data:/);
 });
 
 test('倍率の区分', () => {
