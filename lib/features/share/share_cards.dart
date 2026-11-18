@@ -297,6 +297,17 @@ class BattleResultShareCard extends StatelessWidget {
           level: appliedLevel ?? monster.level,
         ))
           definitions.moveByID(moveID: moveID),
+        for (
+          var index = equippedLearnsetEntries(
+            learnset: monster.definition.learnset,
+            actionCardMoveIDs: monster.actionCardMoveIDs,
+            selectedMoveIDs: monster.selectedMoveIDs,
+            level: appliedLevel ?? monster.level,
+          ).length;
+          index < 4;
+          index++
+        )
+          definitions.moveByID(moveID: 'fire_1'),
       ],
       artImagesByPath: artImagesByPath,
       definitions: definitions,
@@ -541,7 +552,7 @@ class _PartyMonsterPanel extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             ElementTypeIcon(
-                              elementTypeID: move.elementTypeID,
+                              elementTypeID: moves.first.elementTypeID,
                               definitions: definitions,
                             ),
                             const SizedBox(width: 4),
