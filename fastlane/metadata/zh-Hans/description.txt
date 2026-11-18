@@ -22,4 +22,4 @@
 • 提供 App 内购买项目（生成券），用完每日免费次数后可继续生成怪物
 
 联系方式：bannzai.app@gmail.com
-使用条款（日语）：https://bannzai.github.io/snapmon/Terms
+使用条款（日语）：https://snapmonster.app/Terms

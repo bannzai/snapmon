@@ -43,9 +43,9 @@ Play の「収集」は端末の外に送ることを指し、「共有」は第
 | --- | --- |
 | 必須のユーザーデータを収集・共有するか | はい (収集する。共有しない) |
 | すべてのユーザーデータを転送時に暗号化するか | はい (Firebase・Cloud Functions への通信は HTTPS) |
-| ユーザーがデータの削除をリクエストできるか | はい。アプリの「設定」→「アカウントを削除」と、 https://bannzai.github.io/snapmon/AccountDeletion |
+| ユーザーがデータの削除をリクエストできるか | はい。アプリの「設定」→「アカウントを削除」と、 https://snapmonster.app/AccountDeletion |
 | アカウントの作成 | 匿名ログインで自動作成。Apple / Google の連携は任意 |
-| アカウント削除の URL | https://bannzai.github.io/snapmon/AccountDeletion |
+| アカウント削除の URL | https://snapmonster.app/AccountDeletion |
 
 ### データの種類ごとの回答
 

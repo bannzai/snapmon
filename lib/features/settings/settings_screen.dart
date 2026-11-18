@@ -28,19 +28,19 @@ typedef OpenURL = Future<bool> Function({required Uri uri});
 final Uri contactUri = Uri.parse('mailto:bannzai.app@gmail.com');
 
 /// 紹介ページ (docs/index.html を GitHub Pages で公開したページ)。共有するカード画像と文章に入れる。
-final Uri landingPageUri = Uri.parse('https://bannzai.github.io/snapmon/');
+final Uri landingPageUri = Uri.parse('https://snapmonster.app/');
 
 /// 利用規約 (docs/Terms.md を GitHub Pages で公開したページ)。
-final Uri termsUri = Uri.parse('https://bannzai.github.io/snapmon/Terms');
+final Uri termsUri = Uri.parse('https://snapmonster.app/Terms');
 
 /// プライバシーポリシー (docs/PrivacyPolicy.md を GitHub Pages で公開したページ)。
 final Uri privacyPolicyUri = Uri.parse(
-  'https://bannzai.github.io/snapmon/PrivacyPolicy',
+  'https://snapmonster.app/PrivacyPolicy',
 );
 
 /// アカウントの削除の手順 (docs/AccountDeletion.md を GitHub Pages で公開したページ)。
 final Uri accountDeletionUri = Uri.parse(
-  'https://bannzai.github.io/snapmon/AccountDeletion',
+  'https://snapmonster.app/AccountDeletion',
 );
 
 /// 設定画面。図鑑・撮る・対戦の各画面の右上の歯車から開く (モックに設定画面は無いため置き場所は agent が決めた)。

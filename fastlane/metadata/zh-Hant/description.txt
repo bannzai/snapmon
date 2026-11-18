@@ -22,4 +22,4 @@
 • 提供 App 內購買項目（生成券），用完每日免費次數後可繼續生成怪物
 
 聯絡我們：bannzai.app@gmail.com
-使用條款（日文）：https://bannzai.github.io/snapmon/Terms
+使用條款（日文）：https://snapmonster.app/Terms
