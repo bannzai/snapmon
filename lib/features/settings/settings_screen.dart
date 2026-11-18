@@ -34,9 +34,7 @@ final Uri landingPageUri = Uri.parse('https://snapmonster.app/');
 final Uri termsUri = Uri.parse('https://snapmonster.app/Terms');
 
 /// プライバシーポリシー (docs/PrivacyPolicy.md を GitHub Pages で公開したページ)。
-final Uri privacyPolicyUri = Uri.parse(
-  'https://snapmonster.app/PrivacyPolicy',
-);
+final Uri privacyPolicyUri = Uri.parse('https://snapmonster.app/PrivacyPolicy');
 
 /// アカウントの削除の手順 (docs/AccountDeletion.md を GitHub Pages で公開したページ)。
 final Uri accountDeletionUri = Uri.parse(
