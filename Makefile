@@ -92,6 +92,7 @@ verify: flutter-version-check
 	bash scripts/test/test-makefile-targets.sh
 	bash scripts/test/test-metadata-check.sh
 	bash scripts/test/test-upload-crashlytics-symbols.sh
+	$(PYTHON) scripts/test/test_replace_og_logo.py
 	node --test scripts/test/test-master-viewer.mjs
 	node --test scripts/test/test-landing-page.mjs
 

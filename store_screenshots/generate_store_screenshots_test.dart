@@ -261,6 +261,15 @@ Future<void> _writeFeatureGraphic({
     _FeatureGraphicCanvas(key: canvasKey, language: language),
   );
   await tester.pump();
+  // ロゴ (アプリの名前) は 1 行に収める。Text は溢れずに折り返すため、1 行で描いた時の幅が置ける幅を超えないかで確かめる
+  final logoParagraph = tester.renderObject<RenderParagraph>(
+    find.text(appDisplayName),
+  );
+  expect(
+    logoParagraph.getMaxIntrinsicWidth(double.infinity),
+    lessThanOrEqualTo(logoParagraph.constraints.maxWidth),
+    reason: 'フィーチャーグラフィックのロゴ「$appDisplayName」が 1 行に収まらず折り返す',
+  );
   final pngBytes = await tester.runAsync(
     () => _encodeOpaquePng(tester: tester, key: canvasKey, pixelRatio: 1),
   );
