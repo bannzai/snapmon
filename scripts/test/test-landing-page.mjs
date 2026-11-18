@@ -9,9 +9,9 @@ const landingPageHTML = readFileSync(new URL('index.html', docsDirectoryURL), 'u
 
 // 紹介ページを公開している URL。GitHub Pages の独自ドメイン (docs/CNAME) と同じ
 const LANDING_PAGE_URL = 'https://snapmonster.app/';
-// 「今すぐ遊ぶ」の宛先 (Web 版)。https://play.snapmonster.app/ は 2026-11-18T05:43Z の時点で証明書のエラー (curl の exit 60) で
-// 200 を返さないため、Firebase Hosting の既定のドメインを指す (issue #362 の「200 を返さなければ snapmon-prod.web.app」)
-const WEB_APP_URL = 'https://snapmon-prod.web.app/';
+// 「今すぐ遊ぶ」の宛先 (Web 版)。Firebase Hosting の snapmon-prod に向けた独自ドメインで、2026-11-18T06:12Z に curl で 200 を確かめた
+// (issue #362 の「200 を返すなら play.snapmonster.app」)
+const WEB_APP_URL = 'https://play.snapmonster.app/';
 
 /** landingPageHTML の中の、tagName の開始タグの文字列をすべて返す。 */
 function openingTags({ tagName }) {
