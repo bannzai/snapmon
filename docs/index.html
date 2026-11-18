@@ -109,7 +109,7 @@ footer p { margin: 0; }
 @media (max-width: 720px) {
   .hero { padding-top: 40px; }
   .hero .wrap, .feature, .feature:nth-of-type(even) { grid-template-columns: 1fr; gap: 24px; }
-  /* 見出しの 2 行目 (12 文字) が幅 320px の画面でも 1 行に収まる大きさにする (左右の余白 40px を引いた幅 ÷ 12 文字) */
+  /* 見出しの 2 行目 (13 文字) が幅 320px の画面でも 1 行に収まる大きさにする (左右の余白 40px を引いた幅 280px ÷ 13 文字 ≒ 6.7vw より小さい値) */
   .hero h1 { font-size: min(1.9rem, 6.6vw); }
   /* いちばん長い見出し (15 文字) が幅 320px の画面でも 1 行に収まる大きさにする */
   .feature h3 { font-size: min(1.25rem, 5.4vw); }
@@ -153,7 +153,7 @@ footer p { margin: 0; }
       <div class="feature">
         <div>
           <h3>身の回りの物を撮るだけ</h3>
-          <p>カメラで撮るか、アルバムから写真を選ぶだけ。写真から切り出した被写体が、そのままモンスターの姿になります。被写体の特徴から名前と図鑑の文章、属性、技、ステータスが決まります。</p>
+          <p>カメラで撮るか、アルバムから写真を選ぶだけ。写真の上で選んだ範囲が、そのままモンスターの姿になります。被写体の特徴から名前と図鑑の文章、属性、技、ステータスが決まります。</p>
         </div>
         <img src="./images/screen-capture.webp" width="600" height="1093" loading="lazy" alt="撮る画面。カメラの枠の中にマグカップが写っていて、下に撮影のボタンがある">
       </div>
