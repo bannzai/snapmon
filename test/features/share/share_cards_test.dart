@@ -285,6 +285,135 @@ void main() {
         expect(find.text('ブリキパンチ'), findsNothing);
         expect(find.text('ゆげのもや'), findsNothing);
       });
+
+      testWidgets('技の名前の左に、その技の属性のアイコンを描く (${format.name})', (tester) async {
+        // マグモンの属性は [fire, steel]。技の属性が枠の順に [steel, fire, steel, fire] になるよう選び、
+        // どの枠でも、モンスターの属性を枠の順に当てた時の属性と技の属性が違うようにする
+        final moveIDs = ['steel_1', 'fire_1', 'steel_1b', 'fire_1b'];
+        await pumpBattleResultCard(
+          tester: tester,
+          monster: mugmon(level: 7, selectedMoveIDs: moveIDs),
+          appliedLevels: const {},
+          format: format,
+        );
+        final moves = [
+          for (final moveID in moveIDs)
+            sampleData.definitions.moveByID(moveID: moveID),
+        ];
+        // 枠の 4 つの技に 1 つずつ描き、モンスターの属性 (札) にはアイコンを使わない
+        expect(find.byType(ElementTypeIcon), findsNWidgets(moves.length));
+        for (final move in moves) {
+          final elementTypeIcon = find.descendant(
+            of: find
+                .ancestor(
+                  of: find.text(move.displayName),
+                  matching: find.byType(Row),
+                )
+                .first,
+            matching: find.byType(ElementTypeIcon),
+          );
+          expect(elementTypeIcon, findsOneWidget);
+          expect(
+            tester.widget<ElementTypeIcon>(elementTypeIcon).elementTypeID,
+            move.elementTypeID,
+          );
+          expect(
+            tester.getTopRight(elementTypeIcon).dx,
+            lessThanOrEqualTo(
+              tester.getTopLeft(find.text(move.displayName)).dx,
+            ),
+          );
+        }
+      });
+
+      testWidgets('選んだ技が 1 つなら、その 1 つだけを描き、空の枠を描かない (${format.name})', (
+        tester,
+      ) async {
+        await pumpBattleResultCard(
+          tester: tester,
+          // 選ばない時に先頭の枠に入る技 (ほかほかタッチ) とは別の技を選ぶ
+          monster: mugmon(level: 7, selectedMoveIDs: ['steel_1b']),
+          appliedLevels: const {},
+          format: format,
+        );
+        expect(find.text('ねじこみ'), findsOneWidget);
+        for (final moveName in ['ほかほかタッチ', 'ブリキパンチ', 'ゆげのもや']) {
+          expect(find.text(moveName), findsNothing);
+        }
+        expect(find.byType(ElementTypeIcon), findsOneWidget);
+        // 技を並べる列 (Column) の中身を、名前もアイコンも無い枠を含めて数え、選んだ技の 1 つだけであることを確かめる
+        expect(
+          tester
+              .widgetList<Column>(
+                find.descendant(
+                  of: find
+                      .ancestor(
+                        of: find
+                            .ancestor(
+                              of: find.text('ねじこみ'),
+                              matching: find.byType(Column),
+                            )
+                            .first,
+                        matching: find.byType(Row),
+                      )
+                      .first,
+                  matching: find.byType(Column),
+                ),
+              )
+              .fold(0, (count, column) => count + column.children.length),
+          1,
+        );
+      });
+
+      testWidgets('技の枠に技が無ければ、技を描かずに名前とレベルを描く (${format.name})', (
+        tester,
+      ) async {
+        // マグモンの覚える技を Lv. 15 の 2 つだけにし、Lv. 7 では技の枠が空になる 1 体
+        final monster = mugmon(level: 7, selectedMoveIDs: null);
+        await pumpBattleResultCard(
+          tester: tester,
+          monster: OwnedMonster(
+            definition: MonsterDefinition(
+              id: monster.definition.id,
+              sourcePhotoReference: monster.definition.sourcePhotoReference,
+              name: monster.definition.name,
+              encyclopediaText: monster.definition.encyclopediaText,
+              elementTypeIDs: monster.definition.elementTypeIDs,
+              learnset: [
+                for (final learnsetEntry in monster.definition.learnset)
+                  if (learnsetEntry.unlockLevel > monster.level) learnsetEntry,
+              ],
+              baseStats: monster.definition.baseStats,
+              individualValues: monster.definition.individualValues,
+              statCalculationVersion: monster.definition.statCalculationVersion,
+              masterVersion: monster.definition.masterVersion,
+            ),
+            level: monster.level,
+            actionCardMoveIDs: const [],
+            selectedMoveIDs: null,
+            artPath: monster.artPath,
+            definitionIDs: monster.definitionIDs,
+            decoration: monster.decoration,
+            decorationVersion: monster.decorationVersion,
+          ),
+          appliedLevels: const {},
+          format: format,
+        );
+        expect(tester.takeException(), isNull);
+        expect(find.text(monster.definition.name), findsOneWidget);
+        expect(find.text('Lv. 7'), findsOneWidget);
+        expect(find.byType(ElementTypeIcon), findsNothing);
+        for (final moveName in [
+          'ほかほかタッチ',
+          'ブリキパンチ',
+          'ゆげのもや',
+          'ねじこみ',
+          'ねつふうしゃ',
+          'スチールプレス',
+        ]) {
+          expect(find.text(moveName), findsNothing);
+        }
+      });
     }
   });
 
@@ -586,6 +715,11 @@ void main() {
             ]) {
               // 相手の名前は「VS 〇〇・〇〇」の 1 つの文字列のため、名前だけの文字列は自分の手持ちの枠にしか無い
               expect(find.text(text), findsAtLeastNWidgets(1));
+              // はみ出さずに描いたことは、文字の左上と右下がカードの中にあることで確かめる。
+              // 手持ちの枠の名前と技の文字は行数の上限も `overflow: TextOverflow.ellipsis` も持たず、
+              // 枠に入らない時は FittedBox で全体を縮めるため、今の作りでは didExceedMaxLines は true にならない。
+              // それでも確かめるのは、FittedBox を外して ellipsis を付けた時に、文字は `...` で切られても
+              // 左上と右下はカードの中に収まり、位置の確認だけでは切れを見分けられないため
               for (final element in find.text(text).evaluate()) {
                 final paragraph = element.renderObject! as RenderParagraph;
                 expect(paragraph.didExceedMaxLines, isFalse);
