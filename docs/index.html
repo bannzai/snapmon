@@ -92,8 +92,8 @@ section h2 { font-size: 1.7rem; line-height: 1.5; margin: 0 0 28px; }
 .feature { display: grid; grid-template-columns: 1fr 300px; gap: 48px; align-items: center; padding: 28px 0; }
 .feature:nth-of-type(even) { grid-template-columns: 300px 1fr; }
 .feature:nth-of-type(even) img { order: -1; }
-.feature h3 { font-size: 1.35rem; line-height: 1.5; margin: 0 0 12px; color: var(--color-accent); }
-.feature p { margin: 0; color: var(--color-muted); }
+.feature h3 { font-size: 1.5rem; line-height: 1.5; margin: 0 0 12px; color: var(--color-accent); }
+.feature p { margin: 0; color: var(--color-muted); font-size: 1.05rem; }
 
 .band { border-top: 1px solid var(--color-border); }
 .steps { margin: 0 0 32px; padding-left: 1.4em; font-size: 1.05rem; }
@@ -109,7 +109,10 @@ footer p { margin: 0; }
 @media (max-width: 720px) {
   .hero { padding-top: 40px; }
   .hero .wrap, .feature, .feature:nth-of-type(even) { grid-template-columns: 1fr; gap: 24px; }
-  .hero h1 { font-size: 1.9rem; }
+  /* 見出しの 2 行目 (12 文字) が幅 320px の画面でも 1 行に収まる大きさにする (左右の余白 40px を引いた幅 ÷ 12 文字) */
+  .hero h1 { font-size: min(1.9rem, 6.6vw); }
+  /* いちばん長い見出し (15 文字) が幅 320px の画面でも 1 行に収まる大きさにする */
+  .feature h3 { font-size: min(1.25rem, 5.4vw); }
   .hero img, .feature img { width: 260px; margin: 0 auto; }
   .feature:nth-of-type(even) img { order: 0; }
   .button { display: block; text-align: center; }
@@ -196,7 +199,8 @@ footer p { margin: 0; }
       <ul class="notes">
         <li>モンスターの名前と図鑑の文章は AI が生成したものです</li>
         <li>不適切な写真からはモンスターを生成しません</li>
-        <li>人が写る写真から生成した時は注意を出します 他の人が写る写真はその人の同意を得てから使ってください</li>
+        <li>人が写る写真から生成した時は注意を出します</li>
+        <li>他の人が写る写真はその人の同意を得てから使ってください</li>
         <li>対象年齢は 13 歳以上です</li>
       </ul>
     </div>
