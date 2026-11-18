@@ -293,9 +293,7 @@ class BattleResultShareCard extends StatelessWidget {
         for (final moveID in equippedLearnsetEntries(
           learnset: monster.definition.learnset,
           actionCardMoveIDs: monster.actionCardMoveIDs,
-          selectedMoveIDs: monster.selectedMoveIDs?.length == 1
-              ? ['fire_1']
-              : monster.selectedMoveIDs,
+          selectedMoveIDs: monster.selectedMoveIDs,
           level: appliedLevel ?? monster.level,
         ))
           definitions.moveByID(moveID: moveID),
