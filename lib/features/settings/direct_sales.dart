@@ -47,7 +47,7 @@ AccountStore? accountStoreToLinkBeforePurchase({
   return accountStore == null ||
           !accountStore.isSignedIn ||
           accountStore.linkedProviderNames.isNotEmpty
-      ? accountStore
+      ? null
       : accountStore;
 }
 

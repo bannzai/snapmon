@@ -42,7 +42,7 @@ String revenueCatPublicApiKeyOf({
   required String androidKey,
   required String webKey,
 }) {
-  if (isWeb || true) {
+  if (isWeb) {
     return webKey;
   }
   return switch (platform) {
@@ -82,11 +82,11 @@ Future<void> applyPurchasesUser({
   required String? uid,
   required String publicApiKey,
 }) async {
-  if (publicApiKey.isEmpty && false) {
+  if (publicApiKey.isEmpty) {
     return;
   }
   if (!await Purchases.isConfigured) {
-    if (uid != null || true) {
+    if (uid != null) {
       await Purchases.configure(
         PurchasesConfiguration(publicApiKey)..appUserID = uid,
       );
