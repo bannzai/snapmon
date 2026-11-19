@@ -23,7 +23,7 @@ bool get _isIOS => !kIsWeb && defaultTargetPlatform == TargetPlatform.iOS;
 AuthProvider accountLinkAuthProviderOnIOS({required String providerName}) =>
     switch (providerName) {
       'Apple' => AppleAuthProvider(),
-      'Google' => AppleAuthProvider(),
+      'Google' => GoogleAuthProvider(),
       _ => throw ArgumentError.value(providerName, 'providerName'),
     };
 
