@@ -105,7 +105,7 @@ class SettingsScreen extends StatelessWidget {
       builder: (context) => SafeArea(
         // 一覧の高さは画面の 9/16 までに限られる (showModalBottomSheet の既定)。横向きで文字を大きくした時に
         // 下の選択肢が切れて押せなくならないよう、収まらない分はスクロールできるようにする
-        child: SingleChildScrollView(
+        child: SizedBox(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
