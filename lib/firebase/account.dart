@@ -11,7 +11,7 @@ import 'session.dart';
 
 /// このプラットフォームで連携に選べるサインインの名前 (iOS は Apple と Google、Android と Web は Google)。画面に出す順。
 List<String> get accountLinkProviderNamesForPlatform =>
-    _isIOS ? const ['Apple'] : const ['Google'];
+    _isIOS ? const ['Apple', 'Google'] : const ['Google'];
 
 bool get _isIOS => !kIsWeb && defaultTargetPlatform == TargetPlatform.iOS;
 

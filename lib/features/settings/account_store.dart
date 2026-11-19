@@ -66,7 +66,7 @@ class AccountStore extends ChangeNotifier {
   /// いまの匿名アカウントに [providerName] ([linkProviderNames] の名前) のサインインを連携する。連携できたら null を返す
   /// (uid は変わらず、図鑑はそのまま残る)。別の端末で連携済みの時は、[switchToLinkedAccount] に渡す関数を返す。
   Future<Future<String> Function()?> link({required String providerName}) =>
-      _work(() => linkAccount(providerName: linkProviderNames.first));
+      _work(() => linkAccount(providerName: providerName));
 
   /// いまの匿名アカウントを捨てて、[signInToLinkedAccount] で連携済みのアカウントに切り替える
   /// (端末の匿名の図鑑を連携済みのアカウントに合流させない。documents/adr/0003-account-link-and-deletion.md)。
