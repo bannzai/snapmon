@@ -159,6 +159,15 @@ test('相性表の倍率は行か列が無い組を等倍で返し、ある組�
   assert.equal(typeChartMultiplier(master, 'water', 'element_357cac2f'), 2);
 });
 
+test('相性表の行か列が無い組は、等倍に書き換えても差分に出ず、等倍以外に書き換えると差分に出る', () => {
+  const sparseMaster = { version: 1, moves: [], typeChart: { fire: { water: 0.5 } } };
+  assert.equal(buildDiff(sparseMaster, { typeChart: { fire: { grass: 1 }, grass: { water: 1 } } }), null);
+  assert.deepEqual(buildDiff(sparseMaster, { typeChart: { fire: { grass: 2 }, grass: { water: 0.5 } } }), {
+    baseVersion: 1,
+    typeChart: { fire: { grass: 2 }, grass: { water: 0.5 } },
+  });
+});
+
 test('master.html の相性表は typeChartElementTypeIDs の属性を並べ、倍率を typeChartMultiplier で引く', () => {
   assert.match(masterHtml, /const elementTypeIDs = typeChartElementTypeIDs\(master\);/);
   assert.doesNotMatch(masterHtml, /typeChart\[attackerID\]\[defenderID\]/);

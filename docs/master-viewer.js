@@ -139,7 +139,7 @@ export function buildDiff(master, edits) {
   }
   for (const [attackerID, row] of Object.entries(edits.typeChart ?? {})) {
     for (const [defenderID, value] of Object.entries(row)) {
-      if (master.typeChart[attackerID]?.[defenderID] === value) continue;
+      if (typeChartMultiplier(master, attackerID, defenderID) === value) continue;
       diff.typeChart ??= {};
       diff.typeChart[attackerID] ??= {};
       diff.typeChart[attackerID][defenderID] = value;
