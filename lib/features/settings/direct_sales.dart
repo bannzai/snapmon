@@ -85,7 +85,13 @@ class _LinkBeforePurchaseDialogState extends State<_LinkBeforePurchaseDialog> {
   /// ボタンを押した処理の中で連携を始めるのは、Web のサインインのポップアップを利用者の操作として開くため。
   Future<void> _link() async {
     setState(() => _failureMessage = null);
-    final providerName = widget.accountStore.linkProviderNames.first;
+    final providerName = await chooseLinkProviderName(
+      context: context,
+      accountStore: widget.accountStore,
+    );
+    if (providerName == null || !mounted) {
+      return;
+    }
     try {
       if (await widget.accountStore.link(providerName: providerName) != null) {
         if (mounted) {
