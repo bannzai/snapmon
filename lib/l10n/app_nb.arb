@@ -44,6 +44,7 @@
   "opponentPvpBattle": "Kjemp",
   "opponentCpuBattle": "Kjemp mot CPU",
   "pvpMatchingNotFound": "Fant ingen motstander",
+  "generationTrainerAppeared": "En trener dukket opp!",
   "settingsLinked": "Koblet til {providerName}",
   "settingsSwitchAccountTitle": "Vil du bytte til den tilknyttede kontoen?",
   "settingsSwitchAccountMessage": "Denne {providerName}-kontoen er allerede koblet til på en annen enhet. Hvis du bytter, slettes samlingen på denne enheten (monstre: {monsterCount}), og du får se samlingen til den tilknyttede kontoen.",

@@ -44,6 +44,7 @@
   "opponentPvpBattle": "Bojuj",
   "opponentCpuBattle": "Bojuj proti CPU",
   "pvpMatchingNotFound": "Súper sa nenašiel",
+  "generationTrainerAppeared": "Objavil sa tréner!",
   "settingsLinked": "Prepojené s {providerName}",
   "settingsSwitchAccountTitle": "Chceš prepnúť na prepojený účet?",
   "settingsSwitchAccountMessage": "Tento účet {providerName} je už prepojený na inom zariadení. Ak naň prepneš, encyklopédia na tomto zariadení (príšery: {monsterCount}) sa vymaže a zobrazí sa encyklopédia prepojeného účtu.",

@@ -44,6 +44,7 @@
   "opponentPvpBattle": "Bori se",
   "opponentCpuBattle": "Bori se proti CPU",
   "pvpMatchingNotFound": "Nasprotnik ni bil najden",
+  "generationTrainerAppeared": "Pojavil se je trener!",
   "settingsLinked": "Povezano s {providerName}",
   "settingsSwitchAccountTitle": "Želiš preklopiti na povezani račun?",
   "settingsSwitchAccountMessage": "Ta račun {providerName} je že povezan na drugi napravi. Če preklopiš nanj, bo enciklopedija v tej napravi (pošasti: {monsterCount}) izbrisana in prikazala se bo enciklopedija povezanega računa.",

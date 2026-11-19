@@ -44,6 +44,7 @@
   "opponentPvpBattle": "Битися",
   "opponentCpuBattle": "Бийся з CPU",
   "pvpMatchingNotFound": "Суперника не знайдено",
+  "generationTrainerAppeared": "З’явився тренер!",
   "settingsLinked": "Підключено до {providerName}",
   "settingsSwitchAccountTitle": "Хочеш перейти на пов’язаний обліковий запис?",
   "settingsSwitchAccountMessage": "Цей акаунт {providerName} уже прив’язано на іншому пристрої. Якщо перейдеш на нього, енциклопедія на цьому пристрої (монстри: {monsterCount}) зникне й відкриється енциклопедія прив’язаного акаунта.",

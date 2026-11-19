@@ -44,6 +44,7 @@
   "opponentPvpBattle": "Bojovat",
   "opponentCpuBattle": "Bojuj proti CPU",
   "pvpMatchingNotFound": "Soupeř se nenašel",
+  "generationTrainerAppeared": "Objevil se trenér!",
   "settingsLinked": "Propojeno s {providerName}",
   "settingsSwitchAccountTitle": "Chceš přepnout na propojený účet?",
   "settingsSwitchAccountMessage": "Tento účet {providerName} už je propojený na jiném zařízení. Když na něj přepneš, encyklopedie na tomto zařízení (příšery: {monsterCount}) se smaže a zobrazí se encyklopedie propojeného účtu.",

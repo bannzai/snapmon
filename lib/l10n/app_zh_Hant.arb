@@ -44,6 +44,7 @@
   "opponentPvpBattle": "對戰",
   "opponentCpuBattle": "與 CPU 對戰",
   "pvpMatchingNotFound": "找不到對戰對手",
+  "generationTrainerAppeared": "訓練家出現了！",
   "settingsLinked": "已連結 {providerName}",
   "settingsSwitchAccountTitle": "要切換到已連結的帳號嗎？",
   "settingsSwitchAccountMessage": "這個 {providerName} 帳號已在其他裝置上連結。切換後，這台裝置的圖鑑（怪物：{monsterCount}）會被清除，並顯示已連結帳號的圖鑑。",

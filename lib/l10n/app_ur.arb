@@ -44,6 +44,7 @@
   "opponentPvpBattle": "لڑو",
   "opponentCpuBattle": "CPU سے لڑو",
   "pvpMatchingNotFound": "مقابلے کے لیے کوئی حریف نہیں ملا",
+  "generationTrainerAppeared": "ایک ٹرینر آ گیا!",
   "settingsLinked": "{providerName} سے منسلک ہو گیا",
   "settingsSwitchAccountTitle": "کیا تم منسلک اکاؤنٹ پر جانا چاہتے ہو؟",
   "settingsSwitchAccountMessage": "یہ {providerName} اکاؤنٹ پہلے ہی کسی اور ڈیوائس پر منسلک ہے۔ اس پر سوئچ کرو گے تو اس ڈیوائس کا ڈیکس (مونسٹر: {monsterCount}) مٹ جائے گا اور منسلک اکاؤنٹ کا ڈیکس نظر آئے گا۔",
