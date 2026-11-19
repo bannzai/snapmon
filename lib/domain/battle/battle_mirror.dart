@@ -14,7 +14,7 @@ BattleState mirrorBattleState({required BattleState state}) => BattleState(
   events: [for (final event in state.events) _mirrorBattleEvent(event: event)],
   winner: switch (state.winner) {
     null => null,
-    final winner => otherSide(side: winner),
+    final winner => winner,
   },
   battleDate: state.battleDate,
   field: state.field,

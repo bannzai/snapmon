@@ -94,7 +94,7 @@ async function unmatchableWaitingUIDs({
     // ブロックの文書は、待っている相手ごとに「自分がブロックした」「相手にブロックされた」の順に 2 件ずつ読んでいる
     ...waitingUIDs.filter((_, index) => blocks[index * 2].exists || blocks[index * 2 + 1].exists),
     ...reportsByPlayer.docs.map((report) => report.get("monsterOwnerUid") as string),
-    ...reportsAgainstPlayer.docs.map((report) => report.get("reporterUid") as string),
+    ...reportsAgainstPlayer.docs.map((report) => report.get("monsterOwnerUid") as string),
   ]);
 }
 
@@ -136,7 +136,7 @@ export const joinPvpMatch = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
       .where("rulesVersion", "==", rulesVersion)
       .where("heartbeatAt", ">=", freshSince)
       .orderBy("heartbeatAt")
-      .limit(MATCH_TICKET_SCAN_LIMIT)
+      .limit(MATCH_TICKET_SCAN_LIMIT + 1)
       .get()
   ).docs
     .filter((ticket) => ticket.id !== uid)
@@ -153,7 +153,7 @@ export const joinPvpMatch = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
     ? []
     : waitingUIDs
         .filter((waitingUID) => !unmatchableUIDs.has(waitingUID) && !hiddenOwnerUIDs.has(waitingUID))
-        .slice(0, MATCH_CANDIDATE_LIMIT);
+        .slice(0, MATCH_CANDIDATE_LIMIT + 1);
   const memberUIDs = [uid, ...candidateUIDs];
   const [memberUsers, memberParties] = await Promise.all([
     firestore.getAll(...memberUIDs.map((memberUID) => firestore.doc(`users/${memberUID}`))),
@@ -341,8 +341,8 @@ export const submitPvpAction = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, as
     if (actionSnapshot.exists) {
       return;
     }
-    transaction.create(actionDocument, { action: parsedAction } satisfies PvpActionDocument);
     if (!opponentActionSnapshot.exists) {
+      transaction.create(actionDocument, { action: parsedAction } satisfies PvpActionDocument);
       return;
     }
     const opponentAction = (opponentActionSnapshot.data() as PvpActionDocument).action;
@@ -381,7 +381,7 @@ export const claimPvpTimeout = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, as
     // 過去のターンの行動も残っているため、今のターン (公開済みのターンの数と同じ番号) の行動だけを読む
     const actionSnapshots = await transaction.getAll(
       ...battle.participantUIDs.map((participantUID) =>
-        firestore.doc(`pvpBattles/${battleID}/actions/${pvpActionDocumentID({ turn: battle.turns.length, uid: participantUID })}`),
+        firestore.doc(`pvpBattles/${battleID}/actions/${pvpActionDocumentID({ turn: 0, uid: participantUID })}`),
       ),
     );
     const outcome = timeoutOutcome({
