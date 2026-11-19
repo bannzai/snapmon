@@ -61,6 +61,98 @@ void main() {
     });
   });
 
+  group('addPlayVideoCompanionToParty', () {
+    /// 図鑑が [monsters]、手持ちが [partyMonsterIDs] の図鑑に足した後の、手持ちの ID の並び。
+    Future<List<String>> partyMonsterIDsAfterAdding({
+      required List<OwnedMonster> monsters,
+      required List<String> partyMonsterIDs,
+    }) async {
+      final dexStore = DexStore(definitions: sampleData.definitions)
+        ..applyServerSnapshot(
+          monsters: monsters,
+          partyMonsterIDs: partyMonsterIDs,
+          definitions: null,
+        );
+      await addPlayVideoCompanionToParty(
+        dexStore: dexStore,
+        sampleData: sampleData,
+      );
+      return [for (final monster in dexStore.party) monster.definition.id];
+    }
+
+    final sampleMugmon = sampleData.monsterByID(monsterID: 'sample-mugmon');
+
+    test('手持ちが撮影用のマグモンの 1 体だけで図鑑にプカプックがいれば、プカプックを 2 体目に足す', () async {
+      expect(
+        await partyMonsterIDsAfterAdding(
+          monsters: [playVideo.companionMonster, playVideo.bornMonster],
+          partyMonsterIDs: ['play-video-mugmon'],
+        ),
+        ['play-video-mugmon', 'play-video-pukapukku'],
+      );
+    });
+
+    test('2 回呼んでも手持ちは 2 体のまま', () async {
+      final dexStore = DexStore(definitions: sampleData.definitions)
+        ..applyServerSnapshot(
+          monsters: [playVideo.companionMonster, playVideo.bornMonster],
+          partyMonsterIDs: ['play-video-mugmon'],
+          definitions: null,
+        );
+      for (var count = 0; count < 2; count++) {
+        await addPlayVideoCompanionToParty(
+          dexStore: dexStore,
+          sampleData: sampleData,
+        );
+      }
+      expect(dexStore.party.map((monster) => monster.definition.id), [
+        'play-video-mugmon',
+        'play-video-pukapukku',
+      ]);
+    });
+
+    test('図鑑にプカプックがいなければ、手持ちは撮影用のマグモンの 1 体のまま', () async {
+      expect(
+        await partyMonsterIDsAfterAdding(
+          monsters: [playVideo.bornMonster],
+          partyMonsterIDs: ['play-video-mugmon'],
+        ),
+        ['play-video-mugmon'],
+      );
+    });
+
+    test(
+      '手持ちが同じ名前の見本のマグモンの 1 体・空・撮影用のマグモンと別の 1 体の時は、図鑑にプカプックがいても足さない',
+      () async {
+        expect(
+          await partyMonsterIDsAfterAdding(
+            monsters: [playVideo.companionMonster, sampleMugmon],
+            partyMonsterIDs: ['sample-mugmon'],
+          ),
+          ['sample-mugmon'],
+        );
+        expect(
+          await partyMonsterIDsAfterAdding(
+            monsters: [playVideo.companionMonster, playVideo.bornMonster],
+            partyMonsterIDs: [],
+          ),
+          isEmpty,
+        );
+        expect(
+          await partyMonsterIDsAfterAdding(
+            monsters: [
+              playVideo.companionMonster,
+              playVideo.bornMonster,
+              sampleMugmon,
+            ],
+            partyMonsterIDs: ['play-video-mugmon', 'sample-mugmon'],
+          ),
+          ['play-video-mugmon', 'sample-mugmon'],
+        );
+      },
+    );
+  });
+
   group('isPlayVideoParty', () {
     test('撮影用の味方の 2 体だけなら、並びがどちらでも true', () {
       expect(

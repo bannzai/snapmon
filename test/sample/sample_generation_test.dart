@@ -57,7 +57,7 @@ void main() {
           definitions: null,
         );
 
-    test('最初の生成は撮影用のマグモンを Lv.1 で生み、手持ちを生まれた方が先頭の 2 体にして saved を返す', () {
+    test('最初の生成は撮影用のマグモンを Lv.1 で図鑑に足して saved を返し、手持ちは空のまま (初回の導線に進むため)', () {
       final dexStore = preparedDexStore();
       final result = generateSampleMonster(
         dexStore: dexStore,
@@ -71,12 +71,26 @@ void main() {
         'play-video-pukapukku',
         'play-video-mugmon',
       ]);
+      expect(dexStore.party, isEmpty);
+      expect(dexStore.monsters.last.definition.name, 'マグモン');
+      expect(dexStore.monsters.last.level, 1);
+    });
+
+    test('手持ちに一緒に戦う味方がいる図鑑でも、最初の生成は手持ちを変えない', () {
+      final dexStore = DexStore(definitions: sampleData.definitions)
+        ..applyServerSnapshot(
+          monsters: [sampleData.playVideo.companionMonster],
+          partyMonsterIDs: const ['play-video-pukapukku'],
+          definitions: null,
+        );
+      generateSampleMonster(
+        dexStore: dexStore,
+        sampleData: sampleData,
+        requestID: 'request-1',
+      );
       expect(dexStore.party.map((monster) => monster.definition.id), [
-        'play-video-mugmon',
         'play-video-pukapukku',
       ]);
-      expect(dexStore.party.first.definition.name, 'マグモン');
-      expect(dexStore.party.first.level, 1);
     });
 
     test('2 回目の生成は今までどおり見本のモンスターを足し、手持ちを変えない', () {
@@ -99,10 +113,7 @@ void main() {
         'play-video-mugmon',
         'sample-mugmon',
       ]);
-      expect(dexStore.party.map((monster) => monster.definition.id), [
-        'play-video-mugmon',
-        'play-video-pukapukku',
-      ]);
+      expect(dexStore.party, isEmpty);
     });
   });
 

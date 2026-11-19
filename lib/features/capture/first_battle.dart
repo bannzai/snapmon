@@ -1,4 +1,5 @@
 import '../../domain/master/master_data.dart';
+import '../../sample/play_video.dart';
 import '../../sample/sample_data.dart';
 import '../dex/dex_store.dart';
 import '../opponent/battle_definitions.dart';
@@ -15,20 +16,27 @@ typedef FirstBattleOpponent = ({
 /// 相手は対戦のシーンと同じく [randomSeed] で決めた CPU の相手 ([chooseRandomCpuOpponent]) で、他のユーザーの手持ち
 /// (Functions の fetchOpponents) は相手にしない (本人の操作なしに他人の手持ちを CPU に操作させないため。issue #130)。
 /// 図鑑の定義を読み直せない時は例外を投げる ([prepareBattleDefinitions])。
+/// 紹介動画の撮影の準備の後だけは、相手を決める前に一緒に戦う味方を手持ちに足す ([addPlayVideoCompanionToParty])。
 Future<FirstBattleOpponent> prepareFirstBattleOpponent({
   required DexStore dexStore,
   required PvpClient pvpClient,
   required SampleData sampleData,
   required int randomSeed,
-}) async => (
-  cpuOpponent: chooseRandomCpuOpponent(
-    sampleData: sampleData,
-    playerParty: dexStore.party,
-    randomSeed: randomSeed,
-  ),
-  definitions: await prepareBattleDefinitions(
+}) async {
+  await addPlayVideoCompanionToParty(
     dexStore: dexStore,
-    pvpClient: pvpClient,
-    pvpOpponentMonsters: null,
-  ),
-);
+    sampleData: sampleData,
+  );
+  return (
+    cpuOpponent: chooseRandomCpuOpponent(
+      sampleData: sampleData,
+      playerParty: dexStore.party,
+      randomSeed: randomSeed,
+    ),
+    definitions: await prepareBattleDefinitions(
+      dexStore: dexStore,
+      pvpClient: pvpClient,
+      pvpOpponentMonsters: null,
+    ),
+  );
+}

@@ -12,8 +12,8 @@ import 'sample_data.dart';
 /// サーバーに繋いでいない図鑑だけに使う ([DexStore.applyServerSnapshot] で端末の図鑑に足すため)。
 ///
 /// 紹介動画の撮影の準備 (lib/sample/play_video.dart の `preparePlayVideo`) の後の最初の 1 回 (図鑑に [SamplePlayVideo.companionMonster] が
-/// いて [SamplePlayVideo.bornMonster] がいない時) だけは、[SamplePlayVideo.bornMonster] を図鑑に足し、手持ちをその 2 体
-/// (生まれた方が先頭) にして saved を返す。
+/// いて [SamplePlayVideo.bornMonster] がいない時) だけは、見本のモンスターの代わりに [SamplePlayVideo.bornMonster] を図鑑に足して
+/// saved を返す (手持ちは変えない)。
 GenerationResult generateSampleMonster({
   required DexStore dexStore,
   required SampleData sampleData,
@@ -25,8 +25,7 @@ GenerationResult generateSampleMonster({
     dexStore.applyServerSnapshot(
       monsters: [...dexStore.monsters, playVideo.bornMonster],
       partyMonsterIDs: [
-        playVideo.bornMonster.definition.id,
-        playVideo.companionMonster.definition.id,
+        for (final monster in dexStore.party) monster.definition.id,
       ],
       definitions: null,
     );

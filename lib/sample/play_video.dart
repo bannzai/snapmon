@@ -6,7 +6,8 @@ import 'sample_data.dart';
 /// 紹介用のプレイ動画を撮る状態にする (issue #384)。DEBUG ビルドの開発者メニューだけが使う。
 /// ログインを終えて「ログインせずに使う」状態にし、[dexStore] の図鑑を [SamplePlayVideo.companionMonster] だけ、手持ちを空にする。
 /// 手持ちが空のため、この後に写真を選ぶと初回の導線 (生まれてそのまま戦う) になり、生成 (lib/sample/sample_generation.dart) が
-/// [SamplePlayVideo.bornMonster] を生んで 2 体の手持ちにし、相手 (lib/features/opponent/cpu_party.dart) が決まった 2 体になる。
+/// [SamplePlayVideo.bornMonster] を生み、初回のバトルの準備 ([addPlayVideoCompanionToParty]) が 2 体の手持ちにし、
+/// 相手 (lib/features/opponent/cpu_party.dart) が決まった 2 体になる。
 /// 撮影用かどうかは図鑑と手持ちの中身だけで決まり、別の切り替えの値は持たない。何度呼んでも同じ状態になる (冪等)。
 Future<void> preparePlayVideo({
   required SessionStore sessionStore,
@@ -21,6 +22,23 @@ Future<void> preparePlayVideo({
     partyMonsterIDs: const [],
     definitions: null,
   );
+}
+
+/// [dexStore] の手持ちが [SamplePlayVideo.bornMonster] の 1 体だけの時に、図鑑にいる [SamplePlayVideo.companionMonster] を
+/// 手持ちの 2 体目に足す。それ以外の手持ちと、図鑑に [SamplePlayVideo.companionMonster] がいない時は何もしない。
+/// [SamplePlayVideo.bornMonster] は [preparePlayVideo] の後の生成でしか生まれないため、普通に遊ぶ時の手持ちは変わらない。
+/// 何度呼んでも同じ手持ちになる (冪等)。
+Future<void> addPlayVideoCompanionToParty({
+  required DexStore dexStore,
+  required SampleData sampleData,
+}) async {
+  if (dexStore.party.length == 1 &&
+      dexStore.party.single.definition.id ==
+          sampleData.playVideo.bornMonster.definition.id) {
+    await dexStore.addToParty(
+      monsterID: sampleData.playVideo.companionMonster.definition.id,
+    );
+  }
 }
 
 /// [party] が撮影用の味方 ([SamplePlayVideo.bornMonster] と [SamplePlayVideo.companionMonster]) の 2 体だけか。並びは問わない。
