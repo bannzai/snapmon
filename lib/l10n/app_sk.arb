@@ -164,7 +164,7 @@
   "battleStruggle": "Zúfalý boj",
   "battleLogSuperEffective": "Je to super účinné!",
   "battleLogNotVeryEffective": "Nie je to veľmi účinné",
-  "battleLogFainted": "{monsterName} omdlel",
+  "battleLogFainted": "{monsterName} padá na zem",
   "battleLogStatRose": "Hodnota {statName} u {monsterName} stúpla!",
   "battleLogStatFell": "Hodnota {statName} u {monsterName} klesla",
   "battleLogStatUnchanged": "Hodnota {statName} u {monsterName} sa už nemôže zmeniť",
