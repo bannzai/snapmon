@@ -59,6 +59,20 @@ function appProductIDOf(productID: string): string {
   return productID.endsWith(WEB_PRODUCT_ID_SUFFIX) ? productID.slice(0, -WEB_PRODUCT_ID_SUFFIX.length) : productID;
 }
 
+/**
+ * 届いた購入が、Web の販売 (RevenueCat Billing。[store] が `RC_BILLING`) の試験の購入 ([environment] が `SANDBOX`) か。
+ * 試験の購入は代金を払っていないため、Web の販売の分は残高に足さない。アプリのストアの試験の購入 (審査とテスターの購入) は今までどおり足す。
+ * Web の販売だけ足さないのは、試験の購入を作れる人を絞る仕組みがこちら側に無いため。Web の販売には試験用の public API key があり
+ * (「only sandbox API keys and web purchase links will be available」「RevenueCat will automatically use Stripe's test mode for sandbox web
+ * purchase links and web SDK purchases」 https://www.revenuecat.com/docs/web/connect-stripe-account )、RevenueCat は試験用の URL を
+ * 外に出さないよう求めている (「Since sandbox URLs can be tied to real entitlements, you should never share them externally or with users.」
+ * https://www.revenuecat.com/docs/web/web-billing/testing 。どちらも 2026-11-19 に確認)。試験用の鍵が外に出た時に、その鍵で購入を
+ * 作られても本番の残高が増えないようにする (鍵を知る人が実際に購入を作れるかは、実際の購入では確かめていない)。
+ */
+function isWebSandboxPurchase({ store, environment }: { store: string | null; environment: string | null }): boolean {
+  return store === "RC_BILLING" && environment === "SANDBOX";
+}
+
 /** [productID] が生成チケットの商品なら 1 回の購入で足す枚数、それ以外は undefined。継承したキー (`constructor` 等) を商品として扱わない。 */
 function generationTicketCount(productID: string | null): number | undefined {
   return productID !== null && Object.hasOwn(GENERATION_TICKET_COUNT_BY_PRODUCT_ID, productID) ? GENERATION_TICKET_COUNT_BY_PRODUCT_ID[productID] : undefined;
@@ -211,6 +225,7 @@ async function canReceiveReservedMove({
  * - 返金・取り消し (`CANCELLATION`) は残高・買い切った技を減らさず Slack に知らせる (残高が負になる扱いを作らないため。DIRECTION.md「決めたこと」2026-11-07 の行と
  *   2026-11-09 の #271 の行)
  * - 足せない購入 (知らない商品・uid の形でない・アカウントが無い) は Slack に知らせて 200 を返す (再送しても足せないため)
+ * - Web の販売の試験の購入 ([isWebSandboxPurchase]) は足さず、記録も残さず、Slack に知らせて 200 を返す
  * - それ以外のイベントは何もせず 200 を返す
  *
  * Firestore の書き込みが失敗した時は投げる (onRequest が 500 を返し、RevenueCat が再送する)。
@@ -231,6 +246,7 @@ export async function handleRevenueCatWebhook(
   // 返金・取り消しの通知も Web の商品を見分けられるよう、種類を見分けるどの分岐よりも前でアプリの商品の ID に直す
   const productID = eventProductID === null ? null : appProductIDOf(eventProductID);
   const environment = optionalString(event.environment);
+  const store = optionalString(event.store);
   const summary = `イベント ${event.id}・ユーザー ${String(appUserID)}・商品 ${eventProductID ?? "(なし)"}・環境 ${environment ?? "(なし)"}`;
   const product = consumableProductOf(productID);
 
@@ -248,6 +264,10 @@ export async function handleRevenueCatWebhook(
     await notify(dependencies.sendMessage, `知らない商品の購入を受けました。残高に足していません (${summary})`);
     return { status: 200, body: "unknown product" };
   }
+  if (isWebSandboxPurchase({ store, environment })) {
+    await notify(dependencies.sendMessage, `Web の販売の試験の購入 (sandbox) で${productLabel(product)}が買われました。残高に足していません (${summary})`);
+    return { status: 200, body: "web sandbox purchase" };
+  }
   if (typeof appUserID !== "string" || !FIREBASE_UID_PATTERN.test(appUserID)) {
     await notify(dependencies.sendMessage, `uid ではないユーザーの${productLabel(product)}の購入を受けました。残高に足していません (${summary})`);
     return { status: 200, body: "unknown user" };
@@ -259,7 +279,7 @@ export async function handleRevenueCatWebhook(
     productID: productID!,
     transactionID: optionalString(event.transaction_id),
     environment,
-    store: optionalString(event.store),
+    store,
     createdAt: Timestamp.fromDate(dependencies.now()),
   };
   const purchaseDocument =

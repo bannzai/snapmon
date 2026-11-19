@@ -103,17 +103,20 @@ const webhookAuth = { getUser: async (uid: string) => ({ uid }) } as unknown as 
 /**
  * [uid] が商品 [productID] の Action Card を購入した webhook (イベント [eventID]) を、端末を介さずに Functions の本体に渡す
  * (購入の後に端末が何も呼ばなくても技が手に入ることを確かめるため)。[store] は購入したストアで、渡さなければイベントに含めない。
+ * [environment] は購入の環境で、既定はアプリのストアの試験の購入 (`SANDBOX`)。
  */
 async function receivePurchase({
   uid,
   productID,
   eventID = "event-1",
   store,
+  environment = "SANDBOX",
 }: {
   uid: string;
   productID: string;
   eventID?: string;
   store?: string;
+  environment?: string;
 }): Promise<void> {
   const { status } = await handleRevenueCatWebhook(
     { firestore, auth: webhookAuth, sendMessage: async () => {}, expectedAuthorization: WEBHOOK_AUTHORIZATION, now: () => new Date() },
@@ -121,7 +124,7 @@ async function receivePurchase({
       authorization: WEBHOOK_AUTHORIZATION,
       body: {
         api_version: "1.0",
-        event: { id: eventID, type: "NON_RENEWING_PURCHASE", app_user_id: uid, product_id: productID, environment: "SANDBOX", store },
+        event: { id: eventID, type: "NON_RENEWING_PURCHASE", app_user_id: uid, product_id: productID, environment, store },
       },
     },
   );
@@ -208,7 +211,7 @@ describe("技を選んで買う (reserveActionCardMove と webhook)", () => {
   it("Web で買った購入 (商品の ID の末尾が _web) も、アプリの商品の ID で控えた技を買い切った技にし、アプリの商品の ID で記録する", async () => {
     const user = await signInUser();
     const { body } = await callFunction({ name: "reserveActionCardMove", user, data: { moveID: "middle", productID: MODERATE_ACTION_CARD_PRODUCT_ID } });
-    await receivePurchase({ uid: user.uid, productID: `${MODERATE_ACTION_CARD_PRODUCT_ID}_web`, store: "RC_BILLING" });
+    await receivePurchase({ uid: user.uid, productID: `${MODERATE_ACTION_CARD_PRODUCT_ID}_web`, store: "RC_BILLING", environment: "PRODUCTION" });
     expect(await purchaseOf({ uid: user.uid })).toMatchObject({
       productID: MODERATE_ACTION_CARD_PRODUCT_ID,
       store: "RC_BILLING",
@@ -224,7 +227,7 @@ describe("技を選んで買う (reserveActionCardMove と webhook)", () => {
   it("Web で買った購入も、控えの商品と違う商品なら控えを使わずに残し、買った商品の技を選び直せる", async () => {
     const user = await signInUser();
     const { body } = await callFunction({ name: "reserveActionCardMove", user, data: { moveID: "middle", productID: MODERATE_ACTION_CARD_PRODUCT_ID } });
-    await receivePurchase({ uid: user.uid, productID: `${CHEAP_ACTION_CARD_PRODUCT_ID}_web`, store: "RC_BILLING" });
+    await receivePurchase({ uid: user.uid, productID: `${CHEAP_ACTION_CARD_PRODUCT_ID}_web`, store: "RC_BILLING", environment: "PRODUCTION" });
     expect(await purchaseOf({ uid: user.uid })).toMatchObject({
       productID: CHEAP_ACTION_CARD_PRODUCT_ID,
       store: "RC_BILLING",

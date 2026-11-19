@@ -408,3 +408,84 @@ describe("RevenueCat の webhook の Web の購入 (store が RC_BILLING で、�
     expect(slackTexts).toHaveLength(0);
   });
 });
+
+describe("RevenueCat の webhook の試験の購入 (environment が SANDBOX)", () => {
+  it.each([
+    { label: "生成チケット", productID: "snapmon_generationticket10_200yen_web" },
+    { label: "生成チケット", productID: "snapmon_generationticket10_200yen" },
+    { label: "Action Card", productID: "snapmon_actioncardrank2_300yen_web" },
+  ])("Web の販売 (store が RC_BILLING) の試験の購入 $productID は、残高にも購入の記録にも書かず Slack に知らせる", async ({ label, productID }) => {
+    const user = { generationTickets: 5, actionCardMoveReservation: { moveID: "fire_1c", productID: "snapmon_actioncardrank2_300yen", actionCardMoveReservationID: "reservation-1" } };
+    await firestore.doc("users/alice").set(user);
+    const { dependencies, slackTexts } = createDependencies();
+    expect(
+      await handleRevenueCatWebhook(dependencies, {
+        authorization: AUTHORIZATION,
+        body: webhookBody({ store: "RC_BILLING", environment: "SANDBOX", product_id: productID }),
+      }),
+    ).toEqual({ status: 200, body: "web sandbox purchase" });
+    // 残高も、買う前に控えた技も変えない
+    expect((await firestore.doc("users/alice").get()).data()).toEqual(user);
+    expect((await firestore.collection("users/alice/ticketPurchases").get()).size).toBe(0);
+    expect((await firestore.collection("users/alice/actionCardPurchases").get()).size).toBe(0);
+    expect(slackTexts).toEqual([
+      `Web の販売の試験の購入 (sandbox) で${label}が買われました。残高に足していません (イベント event-1・ユーザー alice・商品 ${productID}・環境 SANDBOX)`,
+    ]);
+  });
+
+  it("Web の販売の試験の購入は、まだ users/{uid} が無いユーザーの文書を作らない", async () => {
+    const { dependencies } = createDependencies();
+    await handleRevenueCatWebhook(dependencies, {
+      authorization: AUTHORIZATION,
+      body: webhookBody({ store: "RC_BILLING", environment: "SANDBOX", product_id: "snapmon_generationticket10_200yen_web" }),
+    });
+    expect((await firestore.doc("users/alice").get()).exists).toBe(false);
+  });
+
+  it.each([
+    // アプリのストアの試験の購入 (審査とテスターの購入) は今までどおり足す
+    { store: "APP_STORE", environment: "SANDBOX" },
+    { store: "PLAY_STORE", environment: "SANDBOX" },
+    // ストアの値が届かない試験の購入も今までどおり足す
+    { store: undefined, environment: "SANDBOX" },
+    // Web の販売でも、代金を払った購入は足す
+    { store: "RC_BILLING", environment: "PRODUCTION" },
+    // 環境の値が届かない Web の販売の購入は、試験の購入として扱わない
+    { store: "RC_BILLING", environment: undefined },
+  ])("store が $store・environment が $environment の購入は残高に足す", async ({ store, environment }) => {
+    const { dependencies } = createDependencies();
+    expect((await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ store, environment }) })).body).toBe("added");
+    expect(await generationTickets("alice")).toBe(10);
+    expect((await firestore.doc("users/alice/ticketPurchases/event-1").get()).data()).toMatchObject({ store: store ?? null, environment: environment ?? null });
+  });
+
+  it("Web の販売の試験の購入の返金・取り消しは、ほかの返金・取り消しと同じく残高を変えずに Slack に知らせる", async () => {
+    await firestore.doc("users/alice").set({ generationTickets: 10 });
+    const { dependencies, slackTexts } = createDependencies();
+    expect(
+      await handleRevenueCatWebhook(dependencies, {
+        authorization: AUTHORIZATION,
+        body: webhookBody({ type: "CANCELLATION", store: "RC_BILLING", environment: "SANDBOX", product_id: "snapmon_generationticket10_200yen_web" }),
+      }),
+    ).toEqual({ status: 200, body: "ignored" });
+    expect(await generationTickets("alice")).toBe(10);
+    expect(slackTexts).toEqual([
+      "生成チケットの返金・取り消しを受けました。残高は減らしていません (イベント event-1・ユーザー alice・商品 snapmon_generationticket10_200yen_web・環境 SANDBOX)",
+    ]);
+  });
+
+  it("Web の販売の試験の購入でも、アプリの商品に当たらない商品は知らない商品として Slack に知らせる", async () => {
+    const { dependencies, slackTexts } = createDependencies();
+    expect(
+      (
+        await handleRevenueCatWebhook(dependencies, {
+          authorization: AUTHORIZATION,
+          body: webhookBody({ store: "RC_BILLING", environment: "SANDBOX", product_id: "snapmon_generationticket100_1500yen_web" }),
+        })
+      ).body,
+    ).toBe("unknown product");
+    expect(slackTexts).toEqual([
+      "知らない商品の購入を受けました。残高に足していません (イベント event-1・ユーザー alice・商品 snapmon_generationticket100_1500yen_web・環境 SANDBOX)",
+    ]);
+  });
+});
