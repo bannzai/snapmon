@@ -3,38 +3,50 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 
 /// HTML の `<head>` にある、SNS がカードを作る時に読むタグ (`og:` と `twitter:`) の名前と値の組を返す。
-/// [htmlPath] はリポジトリのルートからの HTML のパス。`<head>` が無い HTML では throw する。
-Map<String, String> socialCardMetaTags({required String htmlPath}) => {
+/// [html] は HTML の全文。コメント (`<!-- -->`) の中のタグはクローラーが読まないため含めない。`<head>` が無い HTML では throw する。
+Map<String, String> socialCardMetaTags({required String html}) => {
   for (final match
       in RegExp(
         r'<meta\s+(?:property|name)="((?:og|twitter):[^"]+)"\s+content="([^"]*)"\s*/?>',
       ).allMatches(
-        RegExp(
-          r'<head>(.*?)</head>',
-          dotAll: true,
-        ).firstMatch(File(htmlPath).readAsStringSync())![1]!,
+        RegExp(r'<head>(.*?)</head>', dotAll: true).firstMatch(html)![1]!,
       ))
     match[1]!: match[2]!,
 };
 
 void main() {
+  test('コメントの中のタグは数えず、コメントの外のタグだけを数える', () {
+    expect(
+      socialCardMetaTags(
+        html:
+            '<head><!-- <meta property="og:title" content="消したタグ"> -->\n'
+            '<meta property="og:type" content="website"></head>',
+      ),
+      {'og:type': 'website'},
+    );
+  });
+
   // Web 版の URL (https://play.snapmonster.app/) を X などに貼った投稿にカードが出るかは、配信する HTML の <head> のタグで決まる。
   // Flutter の描画は JavaScript が動いてから始まるため、JavaScript を動かさないクローラーが読めるよう web/index.html に直に書く。
   group('web/index.html の SNS のカードのタグ', () {
     test('LP と同じ種類のタグを、Web 版の URL と LP と同じ文・画像で持つ', () {
-      final landingPageTags = socialCardMetaTags(htmlPath: 'docs/index.html');
+      final landingPageTags = socialCardMetaTags(
+        html: File('docs/index.html').readAsStringSync(),
+      );
 
       // 形の確認: LP のタグを読めていなければ、下の比較は空どうしで通ってしまう
       expect(landingPageTags['og:title'], startsWith('SnapMonster'));
       expect(landingPageTags['og:description'], isNotEmpty);
-      expect(socialCardMetaTags(htmlPath: 'web/index.html'), {
-        ...landingPageTags,
-        'og:url': 'https://play.snapmonster.app/',
-      });
+      expect(
+        socialCardMetaTags(html: File('web/index.html').readAsStringSync()),
+        {...landingPageTags, 'og:url': 'https://play.snapmonster.app/'},
+      );
     });
 
     test('大きな画像のカードになる値を持つ', () {
-      final webTags = socialCardMetaTags(htmlPath: 'web/index.html');
+      final webTags = socialCardMetaTags(
+        html: File('web/index.html').readAsStringSync(),
+      );
 
       expect(webTags['og:type'], 'website');
       expect(webTags['og:site_name'], 'SnapMonster');
