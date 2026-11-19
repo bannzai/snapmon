@@ -50,6 +50,7 @@
   "battleLogOpponentTimedOut": "എതിരാളി സമയത്തിനുള്ളിൽ നീക്കം തിരഞ്ഞെടുത്തില്ല",
   "battleLogPlayerTimedOut": "നിങ്ങൾ സമയത്തിനുള്ളിൽ നീക്കം തിരഞ്ഞെടുത്തില്ല",
   "battleNoContestTitle": "പോരാട്ടം അവസാനിച്ചു",
+  "battleNoContestMessage": "ജയപരാജയമില്ല, ഫലം രേഖപ്പെടുത്തില്ല",
   "settingsLinked": "{providerName} എന്നതുമായി ബന്ധിപ്പിച്ചു",
   "settingsSwitchAccountTitle": "ലിങ്ക് ചെയ്ത അക്കൗണ്ടിലേക്ക് മാറണോ?",
   "settingsSwitchAccountMessage": "ഈ {providerName} അക്കൗണ്ട് മറ്റൊരു ഉപകരണത്തിൽ ഇതിനകം ലിങ്ക് ചെയ്തിട്ടുണ്ട്. ഇതിലേക്ക് മാറിയാൽ ഈ ഉപകരണത്തിലെ വിജ്ഞാനകോശം (മോൺസ്റ്ററുകൾ: {monsterCount}) ഇല്ലാതാകും; ലിങ്ക് ചെയ്ത അക്കൗണ്ടിന്റെ വിജ്ഞാനകോശത്തിലേക്ക് മാറും.",

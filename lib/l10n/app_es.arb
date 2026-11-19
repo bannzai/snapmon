@@ -50,6 +50,7 @@
   "battleLogOpponentTimedOut": "El rival no eligió una acción a tiempo",
   "battleLogPlayerTimedOut": "No elegiste una acción a tiempo",
   "battleNoContestTitle": "El combate terminó",
+  "battleNoContestMessage": "Sin ganador, no se registrará el resultado",
   "settingsLinked": "Cuenta vinculada con {providerName}",
   "settingsSwitchAccountTitle": "¿Quieres cambiar a la cuenta vinculada?",
   "settingsSwitchAccountMessage": "Esta cuenta de {providerName} ya está vinculada en otro dispositivo. Si cambias a ella, se borrará la colección de este dispositivo (monstruos: {monsterCount}) y verás la colección de la cuenta vinculada.",

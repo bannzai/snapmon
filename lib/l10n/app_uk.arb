@@ -50,6 +50,7 @@
   "battleLogOpponentTimedOut": "Суперник не встиг вибрати дію",
   "battleLogPlayerTimedOut": "Ти не встиг вибрати дію",
   "battleNoContestTitle": "Бій завершено",
+  "battleNoContestMessage": "Переможця немає, результат не буде записано",
   "settingsLinked": "Підключено до {providerName}",
   "settingsSwitchAccountTitle": "Хочеш перейти на пов’язаний обліковий запис?",
   "settingsSwitchAccountMessage": "Цей акаунт {providerName} уже прив’язано на іншому пристрої. Якщо перейдеш на нього, енциклопедія на цьому пристрої (монстри: {monsterCount}) зникне й відкриється енциклопедія прив’язаного акаунта.",

@@ -50,6 +50,7 @@
   "battleLogOpponentTimedOut": "คู่ต่อสู้เลือกการกระทำไม่ทันเวลา",
   "battleLogPlayerTimedOut": "ไม่ได้เลือกการกระทำภายในเวลาที่กำหนด",
   "battleNoContestTitle": "การต่อสู้จบลงแล้ว",
+  "battleNoContestMessage": "ไม่มีผู้ชนะ ผลการต่อสู้จะไม่ถูกบันทึก",
   "settingsLinked": "เชื่อมต่อกับ {providerName} แล้ว",
   "settingsSwitchAccountTitle": "จะเปลี่ยนไปใช้บัญชีที่เชื่อมไว้ไหม?",
   "settingsSwitchAccountMessage": "บัญชี {providerName} นี้เชื่อมกับอุปกรณ์อื่นแล้ว หากสลับบัญชี สารานุกรมบนอุปกรณ์นี้ (มอนสเตอร์: {monsterCount}) จะถูกลบ และจะแสดงสารานุกรมของบัญชีที่เชื่อมไว้",

@@ -50,6 +50,7 @@
   "battleLogOpponentTimedOut": "Rakip zamanında bir hamle seçmedi",
   "battleLogPlayerTimedOut": "Zamanında bir hamle seçemedin",
   "battleNoContestTitle": "Savaş sona erdi",
+  "battleNoContestMessage": "Kazanan yok, sonuç kaydedilmeyecek",
   "settingsLinked": "{providerName} ile bağlantı kuruldu",
   "settingsSwitchAccountTitle": "Bağlı hesaba geçmek ister misin?",
   "settingsSwitchAccountMessage": "Bu {providerName} hesabı başka bir cihazda zaten bağlı. Bu hesaba geçersen bu cihazdaki ansiklopedi (canavar: {monsterCount}) silinir ve bağlı hesabın ansiklopedisi açılır.",

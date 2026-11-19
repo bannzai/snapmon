@@ -50,6 +50,7 @@
   "battleLogOpponentTimedOut": "El rival no ha triat cap acció a temps",
   "battleLogPlayerTimedOut": "No has triat cap acció a temps",
   "battleNoContestTitle": "El combat ha acabat",
+  "battleNoContestMessage": "Sense guanyador, no es desarà el resultat",
   "settingsLinked": "T'has vinculat amb {providerName}",
   "settingsSwitchAccountTitle": "Vols canviar al compte vinculat?",
   "settingsSwitchAccountMessage": "Aquest compte de {providerName} ja està vinculat en un altre dispositiu. Si hi canvies, s'esborrarà l'enciclopèdia d'aquest dispositiu (monstres: {monsterCount}) i veuràs la del compte vinculat.",

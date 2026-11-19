@@ -50,6 +50,7 @@
   "battleLogOpponentTimedOut": "ಎದುರಾಳಿ ಸಮಯಕ್ಕೆ ಸರಿಯಾಗಿ ನಡೆ ಆಯ್ಕೆ ಮಾಡಲಿಲ್ಲ",
   "battleLogPlayerTimedOut": "ನೀನು ಸಮಯಕ್ಕೆ ಸರಿಯಾಗಿ ಕ್ರಮವನ್ನು ಆಯ್ಕೆ ಮಾಡಲಿಲ್ಲ",
   "battleNoContestTitle": "ಕಾಳಗ ಮುಗಿದಿದೆ",
+  "battleNoContestMessage": "ಸೋಲು-ಗೆಲುವಿಲ್ಲ, ಫಲಿತಾಂಶ ದಾಖಲಾಗುವುದಿಲ್ಲ",
   "settingsLinked": "{providerName} ಜೊತೆ ಸಂಪರ್ಕಗೊಂಡಿದೆ",
   "settingsSwitchAccountTitle": "ಲಿಂಕ್ ಮಾಡಿದ ಖಾತೆಗೆ ಬದಲಾಯಿಸುತ್ತೀಯಾ?",
   "settingsSwitchAccountMessage": "ಈ {providerName} ಖಾತೆ ಇನ್ನೊಂದು ಸಾಧನದಲ್ಲಿ ಈಗಾಗಲೇ ಲಿಂಕ್ ಆಗಿದೆ. ಇದಕ್ಕೆ ಬದಲಾಯಿಸಿದರೆ, ಈ ಸಾಧನದ ವಿಶ್ವಕೋಶ (ಮಾನ್ಸ್ಟರ್‌ಗಳು: {monsterCount}) ಅಳಿದು, ಲಿಂಕ್ ಆಗಿರುವ ಖಾತೆಯ ವಿಶ್ವಕೋಶ ಕಾಣಿಸುತ್ತದೆ.",

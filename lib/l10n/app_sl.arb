@@ -50,6 +50,7 @@
   "battleLogOpponentTimedOut": "Nasprotnik ni pravočasno izbral poteze",
   "battleLogPlayerTimedOut": "Nisi pravočasno izbral poteze",
   "battleNoContestTitle": "Dvoboj se je končal",
+  "battleNoContestMessage": "Ni zmagovalca, rezultat se ne bo zabeležil",
   "settingsLinked": "Povezano s {providerName}",
   "settingsSwitchAccountTitle": "Želiš preklopiti na povezani račun?",
   "settingsSwitchAccountMessage": "Ta račun {providerName} je že povezan na drugi napravi. Če preklopiš nanj, bo enciklopedija v tej napravi (pošasti: {monsterCount}) izbrisana in prikazala se bo enciklopedija povezanega računa.",

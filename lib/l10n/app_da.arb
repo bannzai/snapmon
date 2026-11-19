@@ -50,6 +50,7 @@
   "battleLogOpponentTimedOut": "Modstanderen nåede ikke at vælge en handling",
   "battleLogPlayerTimedOut": "Du nåede ikke at vælge en handling",
   "battleNoContestTitle": "Kampen er slut",
+  "battleNoContestMessage": "Ingen vinder, og resultatet bliver ikke gemt",
   "settingsLinked": "Forbundet med {providerName}",
   "settingsSwitchAccountTitle": "Vil du skifte til den tilknyttede konto?",
   "settingsSwitchAccountMessage": "Denne {providerName}-konto er allerede knyttet til en anden enhed. Hvis du skifter til den, slettes denne enheds dex (monstre: {monsterCount}), og du får den tilknyttede kontos dex.",
