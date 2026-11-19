@@ -85,12 +85,19 @@ class _LinkBeforePurchaseDialogState extends State<_LinkBeforePurchaseDialog> {
   /// ボタンを押した処理の中で連携を始めるのは、Web のサインインのポップアップを利用者の操作として開くため。
   Future<void> _link() async {
     setState(() => _failureMessage = null);
+    final providerName = await chooseLinkProviderName(
+      context: context,
+      accountStore: widget.accountStore,
+    );
+    if (providerName == null || !mounted) {
+      return;
+    }
     try {
-      if (await widget.accountStore.link() != null) {
+      if (await widget.accountStore.link(providerName: providerName) != null) {
         if (mounted) {
           setState(
             () => _failureMessage = context.l10n.purchaseLinkAlreadyUsed(
-              widget.accountStore.linkProviderName,
+              providerName,
             ),
           );
         }
@@ -118,8 +125,9 @@ class _LinkBeforePurchaseDialogState extends State<_LinkBeforePurchaseDialog> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
+            // 選べるサインインが 2 つの時は、設定画面の「データを引き継ぐ」の説明と同じく「Apple / Google」と並べる
             context.l10n.purchaseLinkRequiredMessage(
-              widget.accountStore.linkProviderName,
+              widget.accountStore.linkProviderNames.join(' / '),
             ),
           ),
           if (_failureMessage case final failureMessage?)

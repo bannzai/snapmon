@@ -529,7 +529,7 @@ void main() {
       await tester.tap(find.byKey(const Key('link-before-purchase-link')));
       await tester.pumpAndSettle();
 
-      expect(accountLink.linkCallCount, 1);
+      expect(accountLink.linkedWithProviderNames, ['Google']);
       expect(linkDialog, findsNothing);
       expect(fakeActionCards.reservedMoves, [
         (moveID: 'water_3', productID: testExpensiveActionCardProductID),

@@ -102,7 +102,7 @@ void main() {
       await tester.tap(find.text(l10n.commonCancel));
       await tester.pumpAndSettle();
       expect(linkDialog, findsNothing);
-      expect(accountLink.linkCallCount, 0);
+      expect(accountLink.linkedWithProviderNames, isEmpty);
       expect(purchasedPackages, isEmpty);
       // 購入画面は開いたままで もう一度買える
       expect(buyButton, findsOneWidget);
@@ -117,7 +117,7 @@ void main() {
       await tester.tap(find.byKey(const Key('link-before-purchase-link')));
       await tester.pumpAndSettle();
 
-      expect(accountLink.linkCallCount, 1);
+      expect(accountLink.linkedWithProviderNames, ['Google']);
       expect(linkDialog, findsNothing);
       expect(purchasedPackages, [testTicketPackage]);
     });
@@ -130,7 +130,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(linkDialog, findsNothing);
-      expect(accountLink.linkCallCount, 0);
+      expect(accountLink.linkedWithProviderNames, isEmpty);
       expect(purchasedPackages, [testTicketPackage]);
     });
 
@@ -154,7 +154,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(linkDialog, findsNothing);
-      expect(accountLink.linkCallCount, 0);
+      expect(accountLink.linkedWithProviderNames, isEmpty);
       expect(purchasedPackages, [testTicketPackage]);
     });
 

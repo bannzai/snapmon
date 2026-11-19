@@ -38,6 +38,46 @@ Future<String?> openAndDescribeFailure({
   }
 }
 
+/// [accountStore] の連携に使うサインインの名前を返す。選べるサインインが 1 つ (Android と Web) ならその名前を返し、2 つ以上 (iOS) なら
+/// 下からの一覧で利用者に選んでもらう。選ばずに閉じた時は null を返す。
+/// 設定画面の「データを引き継ぐ」と、購入の前の連携の案内 (lib/features/settings/direct_sales.dart) が使う。
+Future<String?> chooseLinkProviderName({
+  required BuildContext context,
+  required AccountStore accountStore,
+}) {
+  if (accountStore.linkProviderNames.length == 1) {
+    return Future.value(accountStore.linkProviderNames.single);
+  }
+  return showModalBottomSheet<String>(
+    context: context,
+    builder: (context) => SafeArea(
+      // 一覧の高さは画面の 9/16 までに限られる (showModalBottomSheet の既定)。横向きで文字を大きくした時に
+      // 下の選択肢が切れて押せなくならないよう、収まらない分はスクロールできるようにする
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
+              child: Text(
+                context.l10n.settingsTransferData,
+                style: SnapmonTextStyles.label,
+              ),
+            ),
+            for (final providerName in accountStore.linkProviderNames)
+              ListTile(
+                key: Key('settings-link-provider-$providerName'),
+                title: Text(providerName, style: SnapmonTextStyles.label),
+                onTap: () => Navigator.of(context).pop(providerName),
+              ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
 /// お問い合わせの宛先 (docs/index.html のサポートの連絡先と同じ)。
 final Uri contactUri = Uri.parse('mailto:bannzai.app@gmail.com');
 
@@ -114,45 +154,12 @@ class SettingsScreen extends StatelessWidget {
         ..hideCurrentSnackBar()
         ..showSnackBar(SnackBar(content: Text(message)));
 
-  /// 連携に使うサインインの名前を返す。選べるサインインが 1 つ (Android と Web) ならその名前を返し、2 つ以上 (iOS) なら
-  /// 下からの一覧で利用者に選んでもらう。選ばずに閉じた時は null を返す。
-  Future<String?> _chooseLinkProviderName({required BuildContext context}) {
-    if (accountStore.linkProviderNames.length == 1) {
-      return Future.value(accountStore.linkProviderNames.single);
-    }
-    return showModalBottomSheet<String>(
-      context: context,
-      builder: (context) => SafeArea(
-        // 一覧の高さは画面の 9/16 までに限られる (showModalBottomSheet の既定)。横向きで文字を大きくした時に
-        // 下の選択肢が切れて押せなくならないよう、収まらない分はスクロールできるようにする
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
-                child: Text(
-                  context.l10n.settingsTransferData,
-                  style: SnapmonTextStyles.label,
-                ),
-              ),
-              for (final providerName in accountStore.linkProviderNames)
-                ListTile(
-                  key: Key('settings-link-provider-$providerName'),
-                  title: Text(providerName, style: SnapmonTextStyles.label),
-                  onTap: () => Navigator.of(context).pop(providerName),
-                ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   /// 「データを引き継ぐ」。いまの匿名アカウントに連携し、別の端末で連携済みなら切り替えてよいかを確かめてから切り替える。
   Future<void> _link({required BuildContext context}) async {
-    final providerName = await _chooseLinkProviderName(context: context);
+    final providerName = await chooseLinkProviderName(
+      context: context,
+      accountStore: accountStore,
+    );
     if (providerName == null) {
       return;
     }
