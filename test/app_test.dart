@@ -31,6 +31,7 @@ import 'package:snapmon/features/settings/settings_screen.dart';
 import 'package:snapmon/features/share/card_sharer.dart';
 import 'package:snapmon/features/share/share_cards.dart';
 import 'package:snapmon/features/title/title_screen.dart';
+import 'package:snapmon/firebase/account.dart';
 import 'package:snapmon/l10n/l10n.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
 import 'package:snapmon/common_ui/storage_image.dart';
@@ -97,11 +98,16 @@ void main() {
   late ui.Image artImage;
 
   /// [pumpApp] の設定画面のアカウントの連携と削除。呼ばれた操作を [accountCalls] に順に残す。
-  /// 連携と削除の振る舞いは、テストが [pumpApp] の前に変える。既定は連携でき、削除できる。
+  /// 連携に選べるサインイン・連携と削除の振る舞いは、テストが [pumpApp] の前に変える。
+  /// 既定は、選べるサインインがテストの実行環境 (flutter test は Android として動く) の Google だけで、連携でき、削除できる。
   late AccountStore accountStore;
   late List<String> accountCalls;
+  late List<String> linkProviderNames;
   late List<String> linkedProviderNames;
-  late Future<Future<String> Function()?> Function() linkAccount;
+  late Future<Future<String> Function()?> Function({
+    required String providerName,
+  })
+  linkAccount;
   late Future<void> Function() deleteAccount;
 
   setUp(() {
@@ -115,9 +121,10 @@ void main() {
     pvpClient = signedOutPvpClient(calls: pvpCalls);
     shareResultStatus = ShareResultStatus.success;
     accountCalls = [];
+    linkProviderNames = accountLinkProviderNamesForPlatform;
     linkedProviderNames = [];
-    linkAccount = () async {
-      linkedProviderNames = ['Google'];
+    linkAccount = ({required providerName}) async {
+      linkedProviderNames = [providerName];
       return null;
     };
     deleteAccount = () async {};
@@ -127,11 +134,11 @@ void main() {
   AccountStore fakeAccountStore({required SessionStore sessionStore}) =>
       AccountStore(
         sessionStore: sessionStore,
-        linkProviderName: 'Google',
+        linkProviderNames: linkProviderNames,
         readLinkedProviderNames: () => linkedProviderNames,
-        linkAccount: () {
-          accountCalls.add('link');
-          return linkAccount();
+        linkAccount: ({required providerName}) {
+          accountCalls.add('link $providerName');
+          return linkAccount(providerName: providerName);
         },
         discardCurrentAccount: () async => accountCalls.add('discard'),
         deleteAccount: () {
@@ -2568,7 +2575,7 @@ void main() {
 
     testWidgets('アカウントの切り替えの間はプロフィール画面を開けず、切り替えの後は開ける', (tester) async {
       final linkedAccountSignIn = Completer<String>();
-      linkAccount = () async =>
+      linkAccount = ({required providerName}) async =>
           () => linkedAccountSignIn.future;
       pvpClient = fakePvpClient(
         calls: pvpCalls,
@@ -2697,16 +2704,177 @@ void main() {
       await tester.tap(find.text('データを引き継ぐ'));
       await tester.pumpAndSettle();
 
+      // 選べるサインインが 1 つの時は、選ぶ一覧を出さずにそのサインインで連携する
+      expect(
+        find.byKey(const Key('settings-link-provider-Google')),
+        findsNothing,
+      );
       expect(find.text('Google と連携しました'), findsOneWidget);
       expect(find.text('Google で連携済み'), findsOneWidget);
       expect(sessionStore.uid, 'uid-resumed');
       await tester.tap(find.text('データを引き継ぐ'));
       await tester.pumpAndSettle();
-      expect(accountCalls, ['link']);
+      expect(accountCalls, ['link Google']);
+    });
+
+    group('iOS (連携に選べるサインインが Apple と Google)', () {
+      // 画面の作り (スクロール・画面遷移) まで iOS に変えないよう、選べるサインインを読む間だけ iOS にする
+      setUp(() {
+        debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
+        linkProviderNames = accountLinkProviderNamesForPlatform;
+        debugDefaultTargetPlatformOverride = null;
+      });
+
+      testWidgets('説明に両方の名前を出し、データを引き継ぐを押すと Apple と Google の一覧を出す', (
+        tester,
+      ) async {
+        await openSettings(tester: tester);
+        expect(
+          find.text('Apple / Google でサインインして\n機種変更しても図鑑を残す'),
+          findsOneWidget,
+        );
+        expect(
+          find.byKey(const Key('settings-link-provider-Apple')),
+          findsNothing,
+        );
+
+        await tester.tap(find.text('データを引き継ぐ'));
+        await tester.pumpAndSettle();
+
+        expect(
+          find.descendant(
+            of: find.byKey(const Key('settings-link-provider-Apple')),
+            matching: find.text('Apple'),
+          ),
+          findsOneWidget,
+        );
+        expect(
+          find.descendant(
+            of: find.byKey(const Key('settings-link-provider-Google')),
+            matching: find.text('Google'),
+          ),
+          findsOneWidget,
+        );
+        // 一覧を出しただけでは連携を始めない
+        expect(accountCalls, isEmpty);
+      });
+
+      for (final providerName in ['Apple', 'Google']) {
+        testWidgets('一覧で $providerName を選ぶと、$providerName で連携して連携済みの表示になる', (
+          tester,
+        ) async {
+          await openSettings(tester: tester);
+          await tester.tap(find.text('データを引き継ぐ'));
+          await tester.pumpAndSettle();
+
+          await tester.tap(
+            find.byKey(Key('settings-link-provider-$providerName')),
+          );
+          await tester.pumpAndSettle();
+
+          expect(accountCalls, ['link $providerName']);
+          expect(find.text('$providerName と連携しました'), findsOneWidget);
+          expect(find.text('$providerName で連携済み'), findsOneWidget);
+          expect(
+            find.byKey(Key('settings-link-provider-$providerName')),
+            findsNothing,
+          );
+          expect(sessionStore.uid, 'uid-resumed');
+        });
+      }
+
+      testWidgets('一覧で選ばずに閉じると、連携を始めない', (tester) async {
+        await openSettings(tester: tester);
+        await tester.tap(find.text('データを引き継ぐ'));
+        await tester.pumpAndSettle();
+
+        // 一覧の外 (画面の左上) を押して閉じる
+        await tester.tapAt(const Offset(10, 10));
+        await tester.pumpAndSettle();
+
+        expect(
+          find.byKey(const Key('settings-link-provider-Apple')),
+          findsNothing,
+        );
+        expect(accountCalls, isEmpty);
+        expect(
+          find.text('Apple / Google でサインインして\n機種変更しても図鑑を残す'),
+          findsOneWidget,
+        );
+      });
+
+      testWidgets('Google が別の端末で連携済みなら、Google の名前で確かめてから連携済みのアカウントに切り替える', (
+        tester,
+      ) async {
+        linkAccount = ({required providerName}) async => () async {
+          accountCalls.add('signInToLinkedAccount');
+          return 'uid-linked';
+        };
+        await openSettings(tester: tester);
+        await tester.tap(find.text('データを引き継ぐ'));
+        await tester.pumpAndSettle();
+        await tester.tap(
+          find.byKey(const Key('settings-link-provider-Google')),
+        );
+        await tester.pumpAndSettle();
+        expect(
+          find.textContaining('この Google アカウントは別の端末で連携済みです'),
+          findsOneWidget,
+        );
+
+        await tester.tap(find.text('切り替える'));
+        await tester.pumpAndSettle();
+
+        expect(accountCalls, [
+          'link Google',
+          'discard',
+          'signInToLinkedAccount',
+        ]);
+        expect(sessionStore.uid, 'uid-linked');
+        expect(find.text('連携済みのアカウントに切り替えました'), findsOneWidget);
+      });
+
+      testWidgets('Google の連携に失敗したら、エラーをそのまま出し、もう一度選べる', (tester) async {
+        linkAccount = ({required providerName}) async =>
+            throw Exception('operation-not-allowed');
+        await openSettings(tester: tester);
+        await tester.tap(find.text('データを引き継ぐ'));
+        await tester.pumpAndSettle();
+        await tester.tap(
+          find.byKey(const Key('settings-link-provider-Google')),
+        );
+        await tester.pumpAndSettle();
+
+        expect(find.text('Exception: operation-not-allowed'), findsOneWidget);
+        expect(sessionStore.uid, 'uid-resumed');
+
+        await tester.tap(find.text('データを引き継ぐ'));
+        await tester.pumpAndSettle();
+        await tester.tap(find.byKey(const Key('settings-link-provider-Apple')));
+        await tester.pumpAndSettle();
+        expect(accountCalls, ['link Google', 'link Apple']);
+      });
+
+      testWidgets('Apple と Google の両方と連携済みなら、両方の名前を出し、データを引き継ぐを押しても一覧を出さない', (
+        tester,
+      ) async {
+        linkedProviderNames = ['Apple', 'Google'];
+        await openSettings(tester: tester);
+        expect(find.text('Apple と Google で連携済み'), findsOneWidget);
+
+        await tester.tap(find.text('データを引き継ぐ'));
+        await tester.pumpAndSettle();
+
+        expect(
+          find.byKey(const Key('settings-link-provider-Apple')),
+          findsNothing,
+        );
+        expect(accountCalls, isEmpty);
+      });
     });
 
     testWidgets('別の端末で連携済みなら、確認してからこの端末の匿名アカウントを捨てて切り替える', (tester) async {
-      linkAccount = () async => () async {
+      linkAccount = ({required providerName}) async => () async {
         accountCalls.add('signInToLinkedAccount');
         return 'uid-linked';
       };
@@ -2718,13 +2886,13 @@ void main() {
       await tester.tap(find.text('切り替える'));
       await tester.pumpAndSettle();
 
-      expect(accountCalls, ['link', 'discard', 'signInToLinkedAccount']);
+      expect(accountCalls, ['link Google', 'discard', 'signInToLinkedAccount']);
       expect(sessionStore.uid, 'uid-linked');
       expect(find.text('連携済みのアカウントに切り替えました'), findsOneWidget);
     });
 
     testWidgets('連携済みのアカウントに切り替えると、プロフィールを切り替え先の名前に読み直す', (tester) async {
-      linkAccount = () async =>
+      linkAccount = ({required providerName}) async =>
           () async => 'uid-linked';
       final signedInPvpClient = fakePvpClient(
         calls: pvpCalls,
@@ -2767,7 +2935,7 @@ void main() {
     });
 
     testWidgets('対戦の画面から連携済みのアカウントに切り替えると、戦績を切り替え先の分に読み直す', (tester) async {
-      linkAccount = () async =>
+      linkAccount = ({required providerName}) async =>
           () async => 'uid-linked';
       final signedInPvpClient = fakePvpClient(
         calls: pvpCalls,
@@ -2819,7 +2987,7 @@ void main() {
     });
 
     testWidgets('別の端末で連携済みの確認で「やめる」を選ぶと、匿名アカウントを捨てない', (tester) async {
-      linkAccount = () async =>
+      linkAccount = ({required providerName}) async =>
           () async => 'uid-linked';
       await openSettings(tester: tester);
       await tester.tap(find.text('データを引き継ぐ'));
@@ -2827,7 +2995,7 @@ void main() {
       await tester.tap(find.text('やめる'));
       await tester.pumpAndSettle();
 
-      expect(accountCalls, ['link']);
+      expect(accountCalls, ['link Google']);
       expect(sessionStore.uid, 'uid-resumed');
     });
 

@@ -8,7 +8,7 @@ class AccountStore extends ChangeNotifier {
   /// 連携と削除の状態を作る。
   AccountStore({
     required this.sessionStore,
-    required this.linkProviderName,
+    required this.linkProviderNames,
     required this.readLinkedProviderNames,
     required this.linkAccount,
     required this.discardCurrentAccount,
@@ -18,15 +18,18 @@ class AccountStore extends ChangeNotifier {
   /// ログイン。切り替え・削除の後に uid を差し替える・ログインを終える。
   final SessionStore sessionStore;
 
-  /// このプラットフォームで連携に使うサインインの名前 (`accountLinkProviderNameForPlatform`)。
-  final String linkProviderName;
+  /// このプラットフォームで連携に選べるサインインの名前 (`accountLinkProviderNamesForPlatform`)。1 つ以上で、画面に出す順。
+  final List<String> linkProviderNames;
 
   /// いまのユーザーが連携済みのサインインの名前を返す (`linkedProviderNamesWithFirebase`)。
   final List<String> Function() readLinkedProviderNames;
 
-  /// いまの匿名アカウントに連携する。連携できたら null、別の端末で連携済みなら連携済みのアカウントにサインインして uid を返す関数を返す
-  /// (`linkAccountWithFirebase`)。
-  final Future<Future<String> Function()?> Function() linkAccount;
+  /// いまの匿名アカウントに `providerName` ([linkProviderNames] の名前) のサインインを連携する。連携できたら null、
+  /// 別の端末で連携済みなら連携済みのアカウントにサインインして uid を返す関数を返す (`linkAccountWithFirebase`)。
+  final Future<Future<String> Function()?> Function({
+    required String providerName,
+  })
+  linkAccount;
 
   /// いまのアカウントのサーバーのデータと Auth のユーザーを消す (`deleteCurrentAccountOnServerWithFirebase`)。
   /// 連携済みのアカウントに切り替える前に、いまの匿名アカウントを捨てるのに使う。
@@ -60,9 +63,10 @@ class AccountStore extends ChangeNotifier {
     }
   }
 
-  /// いまの匿名アカウントに連携する。連携できたら null を返す (uid は変わらず、図鑑はそのまま残る)。
-  /// 別の端末で連携済みの時は、[switchToLinkedAccount] に渡す関数を返す。
-  Future<Future<String> Function()?> link() => _work(linkAccount);
+  /// いまの匿名アカウントに [providerName] ([linkProviderNames] の名前) のサインインを連携する。連携できたら null を返す
+  /// (uid は変わらず、図鑑はそのまま残る)。別の端末で連携済みの時は、[switchToLinkedAccount] に渡す関数を返す。
+  Future<Future<String> Function()?> link({required String providerName}) =>
+      _work(() => linkAccount(providerName: providerName));
 
   /// いまの匿名アカウントを捨てて、[signInToLinkedAccount] で連携済みのアカウントに切り替える
   /// (端末の匿名の図鑑を連携済みのアカウントに合流させない。documents/adr/0003-account-link-and-deletion.md)。
