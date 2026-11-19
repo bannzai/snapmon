@@ -14,7 +14,7 @@ import 'pvp_battle_client.dart';
 /// 通信が戻った時と、サーバーの期限 (端末より猶予の分だけ遅い) が来た時に、数秒のうちに次の状態へ進める間隔にした。
 const Duration _retryInterval = Duration(seconds: 3);
 
-/// 計算の決着の前に人との対戦が終わった時の終わり方 (時間切れ・ブロック・2 人の勝者の食い違い・対戦の削除)。
+/// 計算の決着どおりに終わらなかった人との対戦の終わり方 (時間切れ・ブロック・2 人の勝者の食い違い・対戦の削除)。
 typedef PvpBattleInterruption = ({
   /// 行動の期限を過ぎて勝った陣営 (自分の端末の向き)。勝敗を付けずに終わった時は null。
   BattleSideID? winner,
@@ -96,8 +96,11 @@ class PvpBattleSession {
   /// 自分の計算で進め終えたラウンドの数 (= 次に行動を出すターンの 0 始まりの番号)。
   int _resolvedRoundCount = 0;
 
-  /// 対戦の同期を終えたか (自分の計算で決着した・[interruption] が完了した・[dispose] した)。
+  /// 対戦の同期を終えたか (自分の計算で決着した対戦をサーバーも勝者を決めて終えた・[interruption] が完了した・[dispose] した)。
   bool _isSettled = false;
+
+  /// 自分の計算で決着したか。決着した後は残り時間を数えず、サーバーが対戦を終えるのを待つ。
+  bool _isDecided = false;
 
   /// [dispose] したか。
   bool _isDisposed = false;
@@ -136,7 +139,9 @@ class PvpBattleSession {
   /// 端末が対戦の状態を受け取った時から数えるため、サーバーの期限より早く 0 になる (0 の後に出した行動も、サーバーの期限の前なら通る)。
   ValueListenable<int> get remainingSeconds => _remainingSeconds;
 
-  /// 計算の決着の前に対戦が終わった時に、その終わり方で完了する。計算で決着した対戦と [dispose] した対戦では完了しない。
+  /// 計算の決着の前に対戦が終わった時に、その終わり方で完了する。
+  /// 計算で決着した後でも、サーバーが勝者を決める前に勝敗を付けずに終えた時 (相手がブロックした・対戦が消えた) は、勝敗なしで完了する。
+  /// 計算で決着してサーバーも勝者を決めた対戦と、[dispose] した対戦では完了しない。
   Future<PvpBattleInterruption> get interruption => _interruption.future;
 
   /// 対戦の状態の購読と、残り時間のカウントを始める。
@@ -172,7 +177,7 @@ class PvpBattleSession {
     required BattleState state,
     required BattleAction playerAction,
   }) {
-    if (_isSettled) {
+    if (_isSettled || _isDecided) {
       return Future.value();
     }
     final nextState = Completer<BattleState?>();
@@ -228,7 +233,11 @@ class PvpBattleSession {
       _pendingRound = null;
       _resolvedRoundCount += 1;
       if (nextState.winner != null) {
-        _settle();
+        // 購読は止めない。勝者を報告するのは最後のラウンドの演出の後で、それまでにサーバーが勝敗を付けずに終える
+        // (相手がブロックした・対戦が消えた) ことがあるため、サーバーが対戦を終えるまで受け取り続ける
+        _isDecided = true;
+        _turnTimer?.cancel();
+        _turnTimer = null;
       } else {
         _remainingSeconds.value = battle.turnSeconds;
         _secondsAfterDeadline = 0;
@@ -236,6 +245,11 @@ class PvpBattleSession {
       pendingRound.nextState.complete(nextState);
     }
     if (_isSettled || battle.status != PvpBattleStatus.finished) {
+      return;
+    }
+    if (_isDecided) {
+      // 自分の計算で決着した対戦を、サーバーも勝者を決めて終えた。途中で終わった扱いにしない
+      _settle();
       return;
     }
     if (battle.finishReason == PvpFinishReason.timeout) {

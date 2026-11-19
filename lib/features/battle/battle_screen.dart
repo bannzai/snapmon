@@ -507,7 +507,8 @@ class _BattleScreenState extends State<BattleScreen>
       }
       _isPlaying = false;
     });
-    if (nextState.winner != null) {
+    // 最後のラウンドの演出の間に、サーバーが勝敗を付けずに対戦を終えていた時は、勝敗の画面に進まない
+    if (nextState.winner != null && _pendingPvpInterruption == null) {
       await _concludeBattle(finishedState: nextState);
       return;
     }
@@ -540,12 +541,14 @@ class _BattleScreenState extends State<BattleScreen>
     }
   }
 
-  /// 受け取ってある終わり方 ([_pendingPvpInterruption]) で人との対戦を終える。受け取っていない時と、計算で決着した後は何もしない。
+  /// 受け取ってある終わり方 ([_pendingPvpInterruption]) で人との対戦を終える。受け取っていない時は何もしない。
   /// 行動の期限を過ぎて勝った陣営がある時は、その陣営の勝ちとして決着させて勝敗の画面に進む ([finishBattleByForfeit])。
   /// 勝敗を付けずに終わった時 (どちらも選ばなかった・ブロックした・2 人の勝者が食い違った) は、そのことを知らせて画面を閉じる (結果を記録しない)。
+  /// 計算で決着した後 (最後のラウンドの演出の間・勝敗の画面) でも、サーバーが勝敗を付けずに終えた時は同じく知らせて閉じる。
   Future<void> _settleInterruptedPvpBattle() async {
     final interruption = _pendingPvpInterruption;
-    if (interruption == null || _battleState.winner != null) {
+    if (interruption == null ||
+        (interruption.winner != null && _battleState.winner != null)) {
       return;
     }
     _pendingPvpInterruption = null;

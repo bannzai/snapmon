@@ -138,6 +138,62 @@ void main() {
     expect(server.leaveCalls, isEmpty);
   });
 
+  testWidgets('待っている途中で相手を探す呼び出しが失敗したら、待ちの札を残さないよう探すのをやめると伝えてから、その失敗を返す', (
+    tester,
+  ) async {
+    final server = unmatchedServer();
+    Object? searchError;
+    (searchOf(server: server)..start()).matchedBattleID
+        .then(
+          (_) {},
+          onError: (Object error) {
+            searchError = error;
+          },
+        )
+        .ignore();
+    await tester.pump();
+    expect(searchError, isNull);
+
+    server.joinError = StateError('通信に失敗しました');
+    await tester.pump(const Duration(seconds: 3));
+
+    expect(searchError, isStateError);
+    expect(server.leaveCalls, [(uid: 'player-uid', searchID: 'search-1')]);
+    await tester.pump(const Duration(seconds: 30));
+    expect(server.joinCalls, hasLength(2));
+    expect(server.leaveCalls, hasLength(1));
+  });
+
+  testWidgets('相手を探す呼び出しが失敗した時に既に組み合わされていたら、失敗ではなくその対戦の ID を返す', (
+    tester,
+  ) async {
+    final server = unmatchedServer();
+    final search = searchOf(server: server)..start();
+    await tester.pump();
+    // 次に相手を探す呼び出しの前に後から来た相手と組み合わされ、その呼び出しは通信の失敗で結果を受け取れなかった
+    server
+      ..match()
+      ..joinError = StateError('通信に失敗しました');
+    await tester.pump(const Duration(seconds: 3));
+
+    expect(await search.matchedBattleID, FakePvpBattleServer.battleID);
+    expect(await search.stop(), FakePvpBattleServer.battleID);
+    expect(server.leaveCalls, hasLength(1));
+  });
+
+  testWidgets('相手を探す呼び出しも、探すのをやめると伝える呼び出しも失敗したら、相手を探す呼び出しの失敗を返す', (
+    tester,
+  ) async {
+    final server = unmatchedServer()
+      ..joinError = StateError('通信に失敗しました')
+      ..leaveError = ArgumentError('やめると伝えられませんでした');
+    final search = searchOf(server: server)..start();
+    await tester.pump();
+
+    await expectLater(search.matchedBattleID, throwsStateError);
+    expect(server.leaveCalls, hasLength(1));
+  });
+
   testWidgets('相手を探す呼び出しが失敗したら、その失敗を返して探すのをやめる', (tester) async {
     final server = unmatchedServer()..joinError = StateError('手持ちを入れてください');
     final search = searchOf(server: server);
@@ -158,6 +214,6 @@ void main() {
     await tester.pump(const Duration(seconds: 30));
     expect(server.joinCalls, hasLength(1));
     await expectLater(search.stop(), throwsStateError);
-    expect(server.leaveCalls, isEmpty);
+    expect(server.leaveCalls, hasLength(1));
   });
 }

@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
+
 import '../../domain/battle/battle_engine.dart';
 import '../../domain/master/master_data.dart';
 import 'pvp_battle_client.dart';
@@ -44,7 +46,8 @@ class PvpMatchSearch {
   Future<String?>? _stopInProgress;
 
   /// 組み合わされた対戦の ID で完了する。組み合わされる前に [stop] した時は null で完了し、
-  /// 相手を探す呼び出しが失敗した時 (通信の失敗・手持ちが空) はそのエラーで完了する。
+  /// 相手を探す呼び出しが失敗した時 (通信の失敗・手持ちが空) は、失敗の前に組み合わされていたらその対戦の ID で、
+  /// そうでなければそのエラーで完了する。
   Future<String?> get matchedBattleID => _matchedBattleID.future;
 
   /// 相手を探し始める。
@@ -71,12 +74,33 @@ class PvpMatchSearch {
       } catch (error, stackTrace) {
         if (!_matchedBattleID.isCompleted) {
           _joinTimer?.cancel();
-          _matchedBattleID.completeError(error, stackTrace);
+          await _settleFailedJoin(joinError: error, joinStackTrace: stackTrace);
         }
       } finally {
         _joinInProgress = null;
       }
     }();
+  }
+
+  /// 相手を探す呼び出しが [joinError] ([joinStackTrace]) で失敗した時に、Functions に探すのをやめると伝えて [matchedBattleID] を決める。
+  /// 前の呼び出しで置いた待ちの札が残っていると、探すのをやめた後に別の利用者と組み合わされ、相手が行動の期限まで待たされるため。
+  /// 失敗の前に組み合わされていたらその対戦の ID で、そうでなければ [joinError] で完了する。
+  /// やめると伝える呼び出しも失敗した時 (通信が切れている) は [joinError] で完了する
+  /// (札は最後の呼び出しから 10 秒で相手に選ばれなくなる。functions/src/pvp_battle_rules.ts の `MATCH_TICKET_FRESH_SECONDS`)。
+  Future<void> _settleFailedJoin({
+    required Object joinError,
+    required StackTrace joinStackTrace,
+  }) async {
+    try {
+      final battleID = await client.leaveMatch(searchID: _searchID);
+      if (battleID != null) {
+        _matchedBattleID.complete(battleID);
+        return;
+      }
+    } catch (leaveError) {
+      debugPrint('leavePvpMatch: $leaveError');
+    }
+    _matchedBattleID.completeError(joinError, joinStackTrace);
   }
 
   /// 相手を探すのをやめ、[matchedBattleID] と同じ結果を返す。

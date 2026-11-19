@@ -558,6 +558,39 @@ void main() {
       expect(battleCalls.completedBattles, isEmpty);
     });
 
+    testWidgets(
+      '最後のラウンドの演出の間に相手がブロックして勝敗を付けずに終わった対戦は、勝敗の画面に進まず、勝敗が付かなかったことを知らせて記録しない',
+      (tester) async {
+        await pumpOpponentScreen(tester: tester, blockUser: () async {});
+        await openMatchingScreen(tester: tester);
+        await matchAndOpenBattle(tester: tester);
+
+        // 相手の端末が選べない行動を出して自分の計算は勝ちで決着するが、勝者を報告する前に相手がブロックする
+        await tapFirstMove(tester: tester);
+        server
+          ..submitAction(
+            uid: 'opponent-uid',
+            round: 0,
+            action: const UseMoveAction(moveID: 'no-such-move'),
+          )
+          ..finishByBlock();
+        await pumpUntilFound(
+          tester: tester,
+          finder: find.text(l10n.battleNoContestTitle),
+          maximumSeconds: 30,
+        );
+        expect(find.text(l10n.battleWon), findsNothing);
+
+        await tester.tap(find.byKey(const Key('battle-no-contest-close')));
+        await tester.pump();
+        await tester.pump(const Duration(seconds: 1));
+
+        expect(find.byType(BattleScreen), findsNothing);
+        expect(server.reportCalls, isEmpty);
+        expect(battleCalls.completedBattles, isEmpty);
+      },
+    );
+
     testWidgets('メニューから場に出ている相手のモンスターを通報すると、相手の uid とモンスターと選んだ理由で通報する', (
       tester,
     ) async {

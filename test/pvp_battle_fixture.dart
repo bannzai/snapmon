@@ -86,6 +86,9 @@ class FakePvpBattleServer {
   /// null 以外の時、joinMatch がこのエラーで失敗する。
   Object? joinError;
 
+  /// null 以外の時、leaveMatch がこのエラーで失敗する (通信の失敗)。
+  Object? leaveError;
+
   /// null 以外の時、submitAction がこのエラーで失敗する (通信の失敗)。
   Object? submitError;
 
@@ -178,6 +181,9 @@ class FakePvpBattleServer {
     },
     leaveMatch: ({required searchID}) async {
       leaveCalls.add((uid: uid, searchID: searchID));
+      if (leaveError case final error?) {
+        throw error;
+      }
       final ticket = _tickets[uid];
       if (ticket == null || ticket.searchID != searchID) {
         return null;

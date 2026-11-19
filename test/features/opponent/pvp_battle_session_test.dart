@@ -514,6 +514,44 @@ void main() {
       expect(server.timeoutClaimUIDs, isEmpty);
     });
 
+    testWidgets('自分の計算で決着した後、勝者を報告する前にブロックで終わった対戦と消えた対戦は、勝敗を付けずに終わる', (
+      tester,
+    ) async {
+      for (final finish in [
+        (FakePvpBattleServer server) => server.finishByBlock(),
+        (FakePvpBattleServer server) => server.deleteBattle(),
+      ]) {
+        final server = matchedServer();
+        final hostSession = sessionOf(server: server, player: host)..start();
+        PvpBattleInterruption? hostInterruption;
+        var isInterrupted = false;
+        hostSession.interruption.then((interruption) {
+          hostInterruption = interruption;
+          isInterrupted = true;
+        }).ignore();
+        // 後から来た側が選べない行動を出し、先に待っていた側の計算が自分の勝ちで決着する
+        final hostNext = hostSession.advance(
+          state: startStateOf(player: host, opponent: guest),
+          playerAction: const UseMoveAction(moveID: 'fire_1'),
+        );
+        server.submitAction(
+          uid: guest.uid,
+          round: 0,
+          action: const UseMoveAction(moveID: 'water_1'),
+        );
+        await tester.pump();
+        expect((await hostNext)!.winner, BattleSideID.player);
+        expect(isInterrupted, isFalse);
+
+        finish(server);
+        await tester.pump();
+
+        expect(isInterrupted, isTrue);
+        expect(hostInterruption, (winner: null));
+        hostSession.dispose();
+      }
+    });
+
     testWidgets('行動を出す呼び出しが失敗した時は、通るまでやり直す', (tester) async {
       final server = matchedServer()..submitError = StateError('通信に失敗');
       final hostSession = sessionOf(server: server, player: host)..start();
