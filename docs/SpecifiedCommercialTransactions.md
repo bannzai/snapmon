@@ -25,9 +25,9 @@ bannzai.app@gmail.com
 
 ## 販売価格
 
-購入の画面に、商品ごとの価格を表示します。表示する価格は消費税を含みます。[^tax]
+購入の画面に、商品ごとの価格を表示します。日本国内からの購入では、表示する価格は消費税を含みます。日本以外からの購入で、その地域の税が価格に加算される場合は、決済の画面に税の内訳と支払う総額を表示します。[^tax]
 
-[^tax]: 出典: https://www.revenuecat.com/docs/web/web-billing/tax 「transactions for customers in the US and Canada use **tax-exclusive** pricing (applicable taxes are added to the product price), and the rest of the world uses **tax-inclusive** pricing (all taxes are included in the product price).」（決済の画面を用意する RevenueCat の文書。2026-11-19 に確認）
+[^tax]: 出典: https://www.revenuecat.com/docs/web/web-billing/tax 「transactions for customers in the US and Canada use **tax-exclusive** pricing (applicable taxes are added to the product price), and the rest of the world uses **tax-inclusive** pricing (all taxes are included in the product price).」「Customers will see a tax breakdown in the checkout when a tax rate is applied to their purchase」（決済の画面を用意する RevenueCat の文書。2026-11-19 に確認）
 
 ## 商品の代金以外に必要な料金
 
