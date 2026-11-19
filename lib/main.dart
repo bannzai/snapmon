@@ -269,6 +269,7 @@ Future<void> main() async {
       ),
       logEvent: logAnalyticsEvent,
       actionCardStore: actionCardStore,
+      isDirectSales: kIsWeb,
     ),
   );
 }

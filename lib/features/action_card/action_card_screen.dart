@@ -11,6 +11,7 @@ import '../../theme/snapmon_text_styles.dart';
 import '../../monster_ui/move_card.dart';
 import '../capture/monster_generator.dart';
 import '../dex/dex_store.dart';
+import '../settings/direct_sales.dart';
 import 'action_card_client.dart';
 import 'action_card_store.dart';
 
@@ -402,6 +403,18 @@ class _ActionCardMovePurchaseSheetState
     required ActionCardStore store,
     required Package package,
   }) async {
+    // 技を控える前に確かめる (購入を始めないのに控えだけを残さないため)
+    final accountStoreToLink = accountStoreToLinkBeforePurchase(
+      context: context,
+    );
+    if (accountStoreToLink != null &&
+        (!await linkBeforePurchase(
+              context: context,
+              accountStore: accountStoreToLink,
+            ) ||
+            !mounted)) {
+      return;
+    }
     setState(() {
       _isPurchasing = true;
       _isPriceChanged = false;
@@ -410,7 +423,9 @@ class _ActionCardMovePurchaseSheetState
     try {
       final actionCardMoveReservationID = await store.reserveMove(
         moveID: widget.move.id,
-        productID: package.storeProduct.identifier,
+        productID: appProductIDOfStoreProductID(
+          storeProductID: package.storeProduct.identifier,
+        ),
       );
       final result = await store.purchase(package: package);
       if (!mounted) {
@@ -542,6 +557,7 @@ class _ActionCardMovePurchaseSheetState
           padding: EdgeInsets.only(top: 8),
           child: Center(child: CircularProgressIndicator()),
         ),
+      const SpecifiedCommercialTransactionsLink(),
     ];
   }
 
