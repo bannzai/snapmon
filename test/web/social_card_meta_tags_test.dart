@@ -9,7 +9,9 @@ Map<String, String> socialCardMetaTags({required String html}) => {
       in RegExp(
         r'<meta\s+(?:property|name)="((?:og|twitter):[^"]+)"\s+content="([^"]*)"\s*/?>',
       ).allMatches(
-        RegExp(r'<head>(.*?)</head>', dotAll: true).firstMatch(html)![1]!,
+        RegExp(r'<head>(.*?)</head>', dotAll: true)
+            .firstMatch(html)![1]!
+            .replaceAll(RegExp(r'<!--.*?-->', dotAll: true), ''),
       ))
     match[1]!: match[2]!,
 };
