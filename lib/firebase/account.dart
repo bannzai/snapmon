@@ -54,7 +54,7 @@ bool _idTokenHasNonce({required String? idToken}) {
   }
   try {
     final payload = jsonDecode(
-      utf8.decode(base64Url.decode(segments[1])),
+      utf8.decode(base64Url.decode(base64Url.normalize(segments[1]))),
     );
     return payload is Map && payload['nonce'] != null;
   } on FormatException {
