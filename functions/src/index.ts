@@ -26,3 +26,4 @@ export { healthCheck } from "./health_check";
 export { selectMonsterMoves } from "./monster_moves";
 export { setProfileIcon } from "./profile";
 export { blockUser, fetchOpponents, getDisplayName, notifyReport, reportMonster, setDisplayName } from "./pvp";
+export { claimPvpTimeout, joinPvpMatch, leavePvpMatch, reportPvpResult, submitPvpAction } from "./pvp_battle";

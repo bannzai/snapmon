@@ -202,6 +202,49 @@ describe("reports と blocks と reportedMonsters", () => {
   });
 });
 
+describe("人との対戦 (pvpMatchTickets・pvpBattles・pendingActions)", () => {
+  beforeEach(async () => {
+    await testEnvironment.withSecurityRulesDisabled(async (context) => {
+      const firestore = context.firestore();
+      await setDoc(doc(firestore, "pvpMatchTickets/alice"), { searchID: "search", battleID: "battle" });
+      await setDoc(doc(firestore, "pvpBattles/battle"), { participantUids: ["alice", "bob"], status: "active", turns: [] });
+      await setDoc(doc(firestore, "pvpBattles/battle/pendingActions/alice"), { action: { kind: "struggle" } });
+      await setDoc(doc(firestore, "pvpBattles/battle/pendingActions/bob"), { action: { kind: "struggle" } });
+    });
+  });
+
+  it("対戦に出ている 2 人は対戦を読める", async () => {
+    await assertSucceeds(getDoc(doc(signedInFirestore("alice"), "pvpBattles/battle")));
+    await assertSucceeds(getDoc(doc(signedInFirestore("bob"), "pvpBattles/battle")));
+  });
+
+  it("対戦に出ていない利用者と未ログインは対戦を読めない", async () => {
+    await assertFails(getDoc(doc(signedInFirestore("carol"), "pvpBattles/battle")));
+    await assertFails(getDoc(doc(testEnvironment.unauthenticatedContext().firestore(), "pvpBattles/battle")));
+  });
+
+  it("出ている利用者も対戦を書けない (行動と結果を改ざんさせないため)", async () => {
+    const firestore = signedInFirestore("alice");
+    await assertFails(updateDoc(doc(firestore, "pvpBattles/battle"), { status: "finished", winnerUid: "alice" }));
+    await assertFails(setDoc(doc(firestore, "pvpBattles/another"), { participantUids: ["alice", "bob"] }));
+    await assertFails(deleteDoc(doc(firestore, "pvpBattles/battle")));
+  });
+
+  it("まだ公開していない行動は、相手のものも自分のものも読み書きできない", async () => {
+    const firestore = signedInFirestore("alice");
+    await assertFails(getDoc(doc(firestore, "pvpBattles/battle/pendingActions/bob")));
+    await assertFails(getDoc(doc(firestore, "pvpBattles/battle/pendingActions/alice")));
+    await assertFails(setDoc(doc(firestore, "pvpBattles/battle/pendingActions/alice"), { action: { kind: "struggle" } }));
+  });
+
+  it("待ちの札は本人も読み書きできない", async () => {
+    const firestore = signedInFirestore("alice");
+    await assertFails(getDoc(doc(firestore, "pvpMatchTickets/alice")));
+    await assertFails(setDoc(doc(firestore, "pvpMatchTickets/alice"), { battleID: null }));
+    await assertFails(getDoc(doc(firestore, "pvpMatchTickets/bob")));
+  });
+});
+
 describe("生成のカウンタと使い回しの記録", () => {
   it("本人も含めてクライアントから読み書きできない", async () => {
     const firestore = signedInFirestore("alice");

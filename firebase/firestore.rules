@@ -82,6 +82,23 @@ service cloud.firestore {
       allow read, write: if false;
     }
 
+    // 人との対戦の待ちの札。組み合わせは Functions (joinPvpMatch) だけが行い、誰が相手を探しているかをクライアントから読ませない。
+    match /pvpMatchTickets/{uid} {
+      allow read, write: if false;
+    }
+
+    // 人との対戦 1 戦。対戦に出ている 2 人だけが読み (相手の手持ちの他人に見せてよい項目の写し・表示名・アイコン・公開された行動)、
+    // 書くのは Functions だけ (行動と結果を改ざんさせないため)。
+    match /pvpBattles/{battleID} {
+      allow read: if isSignedIn() && request.auth.uid in resource.data.participantUids;
+      allow write: if false;
+
+      // そのターンの、まだ公開していない行動。相手の行動を見てから選べないよう、相手にも本人にも読ませない。
+      match /pendingActions/{uid} {
+        allow read, write: if false;
+      }
+    }
+
     match /users/{uid} {
       // ユーザーのドキュメントには Functions が生成中ロック等を書く。
       allow read: if isOwner(uid);

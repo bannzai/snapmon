@@ -102,6 +102,12 @@ export async function deleteAccountData(dependencies: AccountDeletionDependencie
       await Promise.all(snapshot.docs.map((document) => document.ref.delete()));
     }),
   );
+  // 人との対戦の待ちの札と、本人が出た対戦 (2 人の手持ちの写し・表示名・アイコンのパスを持つ。pvp_battle.ts)。
+  // 対戦は出したままの行動 (pendingActions) ごと消す。相手の `users/{uid}/battles/{battleID}` は本人の情報を持たないため残す
+  await firestore.doc(`pvpMatchTickets/${uid}`).delete();
+  for (const battle of (await firestore.collection("pvpBattles").where("participantUids", "array-contains", uid).get()).docs) {
+    await firestore.recursiveDelete(battle.ref);
+  }
   for (const collection of await userDocument.listCollections()) {
     await firestore.recursiveDelete(collection);
   }

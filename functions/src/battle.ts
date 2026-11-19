@@ -65,6 +65,8 @@ export const startBattle = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async 
  * 受け取る data: `{ battleID: string, participantMonsterIDs: string[], winner: "player" | "opponent", turnCount: number }`。
  * participantMonsterIDs は場に出たことがある自分のモンスター (startBattle で記録した手持ちの部分集合)。
  * 勝敗とターン数は端末の計算をそのまま記録し、検証しない (レベルは勝敗に関係なく +1 のため。ADR 0001 の DB の行)。
+ * 人との対戦 (joinPvpMatch が `opponentKind: "pvp"` で作った記録) は battleID に `pvpBattles/{battleID}` の ID を受け取り、
+ * 勝敗を端末の値で書かない (サーバーが決めた勝敗を pvp_battle_finish.ts が書く)。レベルと 1 日の上限は CPU との対戦と同じに扱う。
  * 返す値: `{ levels: { [monsterID]: number } }` (上がった後のレベル)。
  * トランザクションでバトルの完了状態を確かめ、未完了の時だけ、1 日 (日本時間) の上限 [DAILY_BATTLE_LIMIT] 戦を検証して
  * レベル・経験の加算、1 日の数、完了の記録を同時に書く。コミットの後に、参加したモンスターの技の枠の技の使用回数
@@ -160,7 +162,8 @@ export const recordBattle = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
     transaction.update(battleDocument, {
       status: "completed",
       participantMonsterIDs,
-      winner,
+      // 人との対戦の勝敗は、2 人の報告と期限からサーバーが決めて書く (pvp_battle_finish.ts)。端末が送った値で上書きしない
+      ...(battleSnapshot.get("opponentKind") === "pvp" ? {} : { winner }),
       turnCount,
       levels: nextLevels,
       completedAt: FieldValue.serverTimestamp(),

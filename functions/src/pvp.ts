@@ -7,6 +7,8 @@ import { authUserExists } from "./account";
 import { ENFORCE_APP_CHECK } from "./app_check";
 import { requireSignedInUid } from "./battle";
 import type { MonsterDocument } from "./generation/records";
+import { finishPvpBattle } from "./pvp_battle_finish";
+import type { PvpBattleDocument } from "./pvp_battle_rules";
 import {
   OPPONENT_CANDIDATE_SCAN_LIMIT,
   REPORT_HIDE_THRESHOLD,
@@ -44,7 +46,7 @@ export function requireActiveAccount({ userSnapshot }: { userSnapshot: DocumentS
 }
 
 /** `users/{uid}/party/current` の monsterIDs のうち、文字列の ID だけを返す (無ければ空)。 */
-function partyMonsterIDsOf(partyData: DocumentData | undefined): string[] {
+export function partyMonsterIDsOf(partyData: DocumentData | undefined): string[] {
   const monsterIDs: unknown = partyData?.monsterIDs;
   return Array.isArray(monsterIDs) ? monsterIDs.filter(isDocumentID) : [];
 }
@@ -53,7 +55,7 @@ function partyMonsterIDsOf(partyData: DocumentData | undefined): string[] {
  * [partyMonsterIDsByUid] (uid ごとの手持ちの ID) の図鑑のモンスターを 1 回の getAll で読み、uid ごとに図鑑にあるものだけを返す
  * (手持ちの ID は消えたモンスターを指すことがあるため、無いものは落とす)。
  */
-async function partyMonstersOf({
+export async function partyMonstersOf({
   firestore,
   partyMonsterIDsByUid,
 }: {
@@ -80,7 +82,7 @@ async function partyMonstersOf({
  * "up to 30 equality (==) clauses on the same field with a logical OR" )、30 人ずつに分けて読む。
  * `in` と `reporterCount` の範囲の条件の組み合わせは複合インデックスを使う (firebase/firestore.indexes.json)。
  */
-async function ownersHiddenByReports({ firestore, ownerUids }: { firestore: Firestore; ownerUids: string[] }): Promise<Set<string>> {
+export async function ownersHiddenByReports({ firestore, ownerUids }: { firestore: Firestore; ownerUids: string[] }): Promise<Set<string>> {
   const chunks = Array.from({ length: Math.ceil(ownerUids.length / 30) }, (_, index) => ownerUids.slice(index * 30, index * 30 + 30));
   const snapshots = await Promise.all(
     chunks.map((chunk) =>
@@ -236,7 +238,10 @@ export const reportMonster = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, asyn
  *
  * 受け取る data: `{ blockedUid: string }`。
  * 返す値: `{ blocked: true }`。`blocks/{blockerUid}_{blockedUid}` を作る。ブロックした相手とブロックされた相手は、互いの
- * fetchOpponents の候補に出ない。同じ相手をブロックし直しても 1 件のまま (冪等)。自分はブロックできない (invalid-argument)。
+ * fetchOpponents の候補に出ず、人との対戦 (pvp_battle.ts の joinPvpMatch) でも組み合わされない。
+ * その相手との人との対戦が進行中なら、同じトランザクションで勝敗を付けずに終える (ブロックした相手との対戦を続けさせず、
+ * ブロックした側に負けを付けないため)。進行中の対戦は、組み合わせた時に `pvpMatchTickets/{uid}` に書いた対戦の ID から探す。
+ * 同じ相手をブロックし直しても 1 件のまま (冪等)。自分はブロックできない (invalid-argument)。
  */
 export const blockUser = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async (request) => {
   const uid = requireSignedInUid({ request });
@@ -250,8 +255,25 @@ export const blockUser = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async (r
   const firestore = getFirestore();
   const blockDocument = firestore.doc(`blocks/${blockDocumentID({ blockerUid: uid, blockedUid })}`);
   await firestore.runTransaction(async (transaction) => {
-    const [userSnapshot, blockSnapshot] = await transaction.getAll(firestore.doc(`users/${uid}`), blockDocument);
+    const [userSnapshot, blockSnapshot, ticketSnapshot] = await transaction.getAll(
+      firestore.doc(`users/${uid}`),
+      blockDocument,
+      firestore.doc(`pvpMatchTickets/${uid}`),
+    );
     requireActiveAccount({ userSnapshot });
+    const battleID: unknown = ticketSnapshot.get("battleID");
+    if (typeof battleID === "string") {
+      const battle = (await transaction.get(firestore.doc(`pvpBattles/${battleID}`))).data() as PvpBattleDocument | undefined;
+      if (battle?.status === "active" && battle.participantUids.includes(blockedUid)) {
+        await finishPvpBattle({
+          transaction,
+          firestore,
+          battleID,
+          battle,
+          outcome: { status: "void", winnerUid: null, finishReason: "blocked" },
+        });
+      }
+    }
     if (!blockSnapshot.exists) {
       transaction.create(blockDocument, { blockerUid: uid, blockedUid, createdAt: FieldValue.serverTimestamp() });
     }
