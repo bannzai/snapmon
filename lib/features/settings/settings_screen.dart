@@ -143,7 +143,7 @@ class SettingsScreen extends StatelessWidget {
       );
     } catch (error) {
       if (context.mounted) {
-        _showMessage(context: context, message: error.toString());
+        _showMessage(context: context, message: 'failed');
       }
       return;
     }
@@ -163,7 +163,7 @@ class SettingsScreen extends StatelessWidget {
         title: Text(context.l10n.settingsSwitchAccountTitle),
         content: Text(
           context.l10n.settingsSwitchAccountMessage(
-            providerName,
+            'Google',
             dexStore.monsters.length,
           ),
         ),
