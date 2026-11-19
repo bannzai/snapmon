@@ -163,9 +163,6 @@ export const joinPvpMatch = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
     firestore,
     partyMonsterIDsByUid: new Map(memberUIDs.map((memberUID, index) => [memberUID, partyMonsterIDsOf(memberParties[index].data())])),
   });
-  if (partyMonstersByUID.get(uid)!.length === 0) {
-    throw new HttpsError("failed-precondition", "手持ちを入れてから相手を探してください");
-  }
   const trainerOf = (memberUID: string): PvpTrainer => {
     const memberUser = memberUsers[memberUIDs.indexOf(memberUID)];
     return {
@@ -206,6 +203,11 @@ export const joinPvpMatch = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
     const matchedBattleID: unknown = ticketSnapshot.get("battleID");
     if (isSameSearch && typeof matchedBattleID === "string") {
       return { battleID: matchedBattleID };
+    }
+    // 組み合わせ済みの確認の後に確かめる。対戦は組み合わせた時点の手持ちの写しで進むため、組み合わされた後に手持ちを空にした利用者の
+    // 呼び直しにも対戦の ID を返す (先に断ると、本人は対戦に入れず、相手は行動の期限まで待たされる)
+    if (partyMonstersByUID.get(uid)!.length === 0) {
+      throw new HttpsError("failed-precondition", "手持ちを入れてから相手を探してください");
     }
     const ticket: PvpMatchTicketDocument = {
       rulesVersion,
@@ -326,11 +328,15 @@ export const submitPvpAction = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, as
     if (now.toMillis() > battle.turnDeadline.toMillis()) {
       throw new HttpsError("deadline-exceeded", "行動を選ぶ時間を過ぎました");
     }
-    const opponentUID = battle.participantUIDs.find((participantUID) => participantUID !== uid)!;
     const actionDocument = firestore.doc(`pvpBattles/${battleID}/actions/${pvpActionDocumentID({ turn: round, uid })}`);
     const [actionSnapshot, opponentActionSnapshot] = await transaction.getAll(
       actionDocument,
-      firestore.doc(`pvpBattles/${battleID}/actions/${pvpActionDocumentID({ turn: round, uid: opponentUID })}`),
+      firestore.doc(
+        `pvpBattles/${battleID}/actions/${pvpActionDocumentID({
+          turn: round,
+          uid: battle.participantUIDs.find((participantUID) => participantUID !== uid)!,
+        })}`,
+      ),
     );
     if (actionSnapshot.exists) {
       return;

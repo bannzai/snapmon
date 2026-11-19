@@ -5,7 +5,7 @@ import { Timestamp, deleteDoc, doc, getDoc, setDoc, updateDoc, type DocumentData
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 
 import { DAILY_BATTLE_LIMIT } from "../../src/battle_rules";
-import { MATCH_CANDIDATE_LIMIT, MATCH_TICKET_FRESH_SECONDS, TURN_DEADLINE_GRACE_SECONDS, TURN_SECONDS } from "../../src/pvp_battle_rules";
+import { MATCH_CANDIDATE_LIMIT, MATCH_TICKET_SCAN_LIMIT,MATCH_TICKET_FRESH_SECONDS, TURN_DEADLINE_GRACE_SECONDS, TURN_SECONDS } from "../../src/pvp_battle_rules";
 import { REPORT_HIDE_THRESHOLD, defaultDisplayName } from "../../src/pvp_rules";
 
 // firebase emulators:exec (package.json の test:emulator) の中で実行する。
@@ -181,6 +181,22 @@ async function placeLongWaitingTickets({ uidPrefix, count }: { uidPrefix: string
   return waitingUIDs;
 }
 
+/**
+ * 今も相手を探している利用者の札を [count] 枚置き ([placeLongWaitingTickets])、その全員を [blocker] がブロックした記録を Rules を通さずに置く。
+ * 札の持ち主は [blocker] と組み合わせられない相手として、[blocker] より長く待っている。
+ */
+async function blockLongWaitingUsers({ blocker, count }: { blocker: TestUser; count: number }): Promise<void> {
+  await testEnvironment.withSecurityRulesDisabled(async (context) => {
+    for (const blockedUID of await placeLongWaitingTickets({ uidPrefix: "blocked-user", count })) {
+      await setDoc(doc(context.firestore(), `blocks/${blocker.uid}_${blockedUID}`), {
+        blockerUid: blocker.uid,
+        blockedUid: blockedUID,
+        createdAt: Timestamp.now(),
+      });
+    }
+  });
+}
+
 describe("joinPvpMatch", () => {
   it(`手持ちまで読む候補は長く待っている ${MATCH_CANDIDATE_LIMIT} 人までで、組める相手がその中の最後にいれば組み合わせる`, async () => {
     await placeLongWaitingTickets({ uidPrefix: "left-user", count: MATCH_CANDIDATE_LIMIT - 1 });
@@ -207,15 +223,7 @@ describe("joinPvpMatch", () => {
   it(`ブロックした相手が ${MATCH_CANDIDATE_LIMIT + 1} 人先に待っていても、その後ろで待っている組める相手と組み合わせる`, async () => {
     const host = await signInTrainer({ levels: [5] });
     const guest = await signInTrainer({ levels: [5] });
-    await testEnvironment.withSecurityRulesDisabled(async (context) => {
-      for (const blockedUID of await placeLongWaitingTickets({ uidPrefix: "blocked-user", count: MATCH_CANDIDATE_LIMIT + 1 })) {
-        await setDoc(doc(context.firestore(), `blocks/${guest.uid}_${blockedUID}`), {
-          blockerUid: guest.uid,
-          blockedUid: blockedUID,
-          createdAt: Timestamp.now(),
-        });
-      }
-    });
+    await blockLongWaitingUsers({ blocker: guest, count: MATCH_CANDIDATE_LIMIT + 1 });
     expect(await joinMatch({ user: host, searchID: "search-host", rulesVersion: "1" })).toBeNull();
 
     expect(
@@ -455,6 +463,38 @@ describe("joinPvpMatch", () => {
     });
 
     expect(await joinMatch({ user: other, searchID: "search-2", rulesVersion: "1" })).toBeNull();
+  });
+
+  it("組み合わされた後に手持ちが空になっても、同じ searchID の呼び直しは対戦の ID を返す", async () => {
+    const host = await signInTrainer({ levels: [5] });
+    const battleID = await matchTrainers({ host, guest: await signInTrainer({ levels: [5] }) });
+    await testEnvironment.withSecurityRulesDisabled(async (context) => {
+      await updateDoc(doc(context.firestore(), `users/${host.uid}/party/current`), { monsterIDs: [] });
+    });
+
+    expect(await joinMatch({ user: host, searchID: `search-${host.uid}`, rulesVersion: "1" })).toBe(battleID);
+  });
+
+  it(`組めない相手が ${MATCH_TICKET_SCAN_LIMIT - 1} 人先に待っていても、1 回に読む札の最後 (${MATCH_TICKET_SCAN_LIMIT} 枚目) にいる組める相手と組み合わせる`, async () => {
+    const host = await signInTrainer({ levels: [5] });
+    const guest = await signInTrainer({ levels: [5] });
+    await blockLongWaitingUsers({ blocker: guest, count: MATCH_TICKET_SCAN_LIMIT - 1 });
+    expect(await joinMatch({ user: host, searchID: "search-host", rulesVersion: "1" })).toBeNull();
+
+    expect(
+      (await readDocument({ path: `pvpBattles/${await joinMatch({ user: guest, searchID: "search-guest", rulesVersion: "1" })}` }))!
+        .participantUIDs,
+    ).toEqual([host.uid, guest.uid]);
+  });
+
+  it(`組める相手が 1 回に読む札の数の 1 つ先 (${MATCH_TICKET_SCAN_LIMIT + 1} 枚目) にいる時は、その呼び出しでは組み合わせない`, async () => {
+    const host = await signInTrainer({ levels: [5] });
+    const guest = await signInTrainer({ levels: [5] });
+    await blockLongWaitingUsers({ blocker: guest, count: MATCH_TICKET_SCAN_LIMIT });
+    expect(await joinMatch({ user: host, searchID: "search-host", rulesVersion: "1" })).toBeNull();
+
+    expect(await joinMatch({ user: guest, searchID: "search-guest", rulesVersion: "1" })).toBeNull();
+    expect((await readDocument({ path: `pvpMatchTickets/${host.uid}` }))!.battleID).toBeNull();
   });
 
   it("手持ちが空の利用者は探せず、札も作らない", async () => {
