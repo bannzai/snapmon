@@ -94,7 +94,7 @@ class SettingsScreen extends StatelessWidget {
         ..hideCurrentSnackBar()
         ..showSnackBar(SnackBar(content: Text(message)));
 
-  /// 連携に使うサインインの名前を返す。選べるサインインが 1 つ (Android と Web) ならその名前を返し、2 つ以上 (iOS) なら
+  /// 連携に使うサインインの名前を返す。選べるサインインが 1 つならその名前を返し、2 つ以上なら
   /// 下からの一覧で利用者に選んでもらう。選ばずに閉じた時は null を返す。
   Future<String?> _chooseLinkProviderName({required BuildContext context}) {
     if (accountStore.linkProviderNames.length == 1) {

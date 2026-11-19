@@ -18,7 +18,7 @@ class AccountStore extends ChangeNotifier {
   /// ログイン。切り替え・削除の後に uid を差し替える・ログインを終える。
   final SessionStore sessionStore;
 
-  /// このプラットフォームで連携に選べるサインインの名前 (`accountLinkProviderNamesForPlatform`)。1 つ以上で、画面に出す順。
+  /// 連携に選べるサインインの名前 (`accountLinkProviderNames`)。1 つ以上で、画面に出す順。
   final List<String> linkProviderNames;
 
   /// いまのユーザーが連携済みのサインインの名前を返す (`linkedProviderNamesWithFirebase`)。

@@ -4,59 +4,95 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:snapmon/firebase/account.dart';
 
 void main() {
-  group('accountLinkProviderNamesForPlatform', () {
-    tearDown(() => debugDefaultTargetPlatformOverride = null);
-
-    test('iOS は Apple と Google をこの順で選べる', () {
-      debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
-
-      expect(accountLinkProviderNamesForPlatform, ['Apple', 'Google']);
+  group('accountLinkProviderNames', () {
+    // プラットフォームで分けない定数のため、iOS・Android・Web が同じ値を読む
+    test('Apple と Google をこの順で選べる', () {
+      expect(accountLinkProviderNames, ['Apple', 'Google']);
     });
-
-    // Web (kIsWeb) はコンパイル時の定数で、VM のテストでは切り替えられない。Web も iOS 以外と同じ分岐を通る
-    for (final platform in [TargetPlatform.android, TargetPlatform.macOS]) {
-      test('iOS 以外 ($platform) は Google だけを選べる', () {
-        debugDefaultTargetPlatformOverride = platform;
-
-        expect(accountLinkProviderNamesForPlatform, ['Google']);
-      });
-    }
   });
 
-  group('accountLinkAuthProviderOnIOS', () {
+  group('accountLinkAuthProvider', () {
     test('Apple は Sign in with Apple の provider を返す', () {
-      final provider = accountLinkAuthProviderOnIOS(providerName: 'Apple');
+      final provider = accountLinkAuthProvider(providerName: 'Apple');
 
       expect(provider, isA<AppleAuthProvider>());
       expect(provider.providerId, 'apple.com');
     });
 
     test('Google は Google の provider を返す', () {
-      final provider = accountLinkAuthProviderOnIOS(providerName: 'Google');
+      final provider = accountLinkAuthProvider(providerName: 'Google');
 
       expect(provider, isA<GoogleAuthProvider>());
       expect(provider.providerId, 'google.com');
     });
 
-    test('iOS で選べる名前は、どれも provider を返す', () {
-      debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
-      addTearDown(() => debugDefaultTargetPlatformOverride = null);
-
-      for (final providerName in accountLinkProviderNamesForPlatform) {
+    test('選べる名前は、どれも provider を返す', () {
+      for (final providerName in accountLinkProviderNames) {
         expect(
-          accountLinkAuthProviderOnIOS(providerName: providerName),
+          accountLinkAuthProvider(providerName: providerName),
           isA<AuthProvider>(),
         );
       }
     });
 
-    for (final providerName in ['google', 'google.com', 'Facebook', '']) {
-      test('iOS で選べない名前 ("$providerName") は ArgumentError を投げる', () {
+    for (final providerName in ['google', 'apple.com', 'Facebook', '']) {
+      test('選べない名前 ("$providerName") は ArgumentError を投げる', () {
         expect(
-          () => accountLinkAuthProviderOnIOS(providerName: providerName),
+          () => accountLinkAuthProvider(providerName: providerName),
           throwsArgumentError,
         );
       });
+    }
+  });
+
+  group('linksAccountWithGoogleSignIn', () {
+    test('Android のアプリの Google は google_sign_in で連携する', () {
+      expect(
+        linksAccountWithGoogleSignIn(
+          providerName: 'Google',
+          isWeb: false,
+          platform: TargetPlatform.android,
+        ),
+        isTrue,
+      );
+    });
+
+    test('Android のアプリの Apple は google_sign_in を使わず、provider で連携する', () {
+      expect(
+        linksAccountWithGoogleSignIn(
+          providerName: 'Apple',
+          isWeb: false,
+          platform: TargetPlatform.android,
+        ),
+        isFalse,
+      );
+    });
+
+    for (final providerName in ['Apple', 'Google']) {
+      test('iOS のアプリの $providerName は provider で連携する', () {
+        expect(
+          linksAccountWithGoogleSignIn(
+            providerName: providerName,
+            isWeb: false,
+            platform: TargetPlatform.iOS,
+          ),
+          isFalse,
+        );
+      });
+
+      // Android のブラウザで開いた Web 版は platform が Android になる。Web 版はポップアップで連携する
+      for (final platform in [TargetPlatform.android, TargetPlatform.iOS]) {
+        test('Web 版 ($platform のブラウザ) の $providerName は provider で連携する', () {
+          expect(
+            linksAccountWithGoogleSignIn(
+              providerName: providerName,
+              isWeb: true,
+              platform: platform,
+            ),
+            isFalse,
+          );
+        });
+      }
     }
   });
 }
