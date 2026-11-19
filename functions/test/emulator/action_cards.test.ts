@@ -195,6 +195,31 @@ describe("技を選んで買う (reserveActionCardMove と webhook)", () => {
     expect(await reservationOf(user.uid)).toMatchObject({ actionCardMoveReservationID: body.result.actionCardMoveReservationID });
   });
 
+  it("Web で買った購入 (商品の ID の末尾が _web) も、アプリの商品の ID で控えた技を買い切った技にし、アプリの商品の ID で記録する", async () => {
+    const user = await signInUser();
+    const { body } = await callFunction({ name: "reserveActionCardMove", user, data: { moveID: "middle", productID: MODERATE_ACTION_CARD_PRODUCT_ID } });
+    await receivePurchase({ uid: user.uid, productID: `${MODERATE_ACTION_CARD_PRODUCT_ID}_web` });
+    expect(await purchaseOf({ uid: user.uid })).toMatchObject({
+      productID: MODERATE_ACTION_CARD_PRODUCT_ID,
+      moveID: "middle",
+      actionCardMoveReservationID: body.result.actionCardMoveReservationID,
+    });
+    expect(await reservationOf(user.uid)).toBeUndefined();
+    expect((await callFunction({ name: "teachActionCardMove", user, data: { monsterID: "m1", moveID: "middle" } })).body.result).toEqual({
+      actionCardMoveIDs: ["middle"],
+    });
+  });
+
+  it("Web で買った購入も、控えの商品と違う商品なら控えを使わずに残し、買った商品の技を選び直せる", async () => {
+    const user = await signInUser();
+    const { body } = await callFunction({ name: "reserveActionCardMove", user, data: { moveID: "middle", productID: MODERATE_ACTION_CARD_PRODUCT_ID } });
+    await receivePurchase({ uid: user.uid, productID: `${CHEAP_ACTION_CARD_PRODUCT_ID}_web` });
+    expect(await purchaseOf({ uid: user.uid })).toMatchObject({ productID: CHEAP_ACTION_CARD_PRODUCT_ID, moveID: null, actionCardMoveReservationID: null });
+    expect(await reservationOf(user.uid)).toMatchObject({ actionCardMoveReservationID: body.result.actionCardMoveReservationID });
+    expect((await callFunction({ name: "assignActionCardMove", user, data: { actionCardPurchaseID: "event-1", moveID: "weak" } })).status).toBe(200);
+    expect(await purchaseOf({ uid: user.uid })).toMatchObject({ moveID: "weak" });
+  });
+
   it("商品の ID を持たない #293 より前の形の控えは使わず、購入を技に結び付けずに残す (利用者は購入から技を選び直せる)", async () => {
     const user = await signInUser();
     await firestore

@@ -5,6 +5,8 @@
 // その購入に結び付ける。枚数の残高は持たない (#290)。
 // 受け取る形は https://www.revenuecat.com/docs/integrations/webhooks/event-types-and-fields (2026-11-07 に確認): 本文は
 // `{ api_version, event }` で、消耗型を含む自動更新しない購入は `event.type` が `NON_RENEWING_PURCHASE`、返金と取り消しは `CANCELLATION`。
+// Web の販売 (RevenueCat Billing) の購入も同じ 2 つのイベントで届き、`event.store` が `RC_BILLING` になる (同じ文書。2026-11-19 に確認)。
+// Web の購入がこの形で届くことは、実際の購入では確かめていない (販売を始める前に sandbox の購入で確かめる。documents/generation-ticket-release.md)。
 
 import { timingSafeEqual } from "node:crypto";
 
@@ -42,6 +44,21 @@ const FIREBASE_UID_PATTERN = /^[A-Za-z0-9_-]{1,128}$/;
  */
 const REVENUECAT_EVENT_ID_PATTERN = /^[A-Za-z0-9_-]{1,128}$/;
 
+/**
+ * Web で売る商品 (RevenueCat Billing。決済は Stripe) の ID の末尾。Web の商品は RevenueCat でアプリの商品と別に作り、ID を
+ * `<アプリの商品の ID>_web` にする (RevenueCat が Web の商品にアプリの商品と同じ ID を受け付けるかを確かめていないため。同じ ID で作れた時は
+ * 末尾が無く、そのまま読める)。アプリも同じ末尾を外して商品を照合する (lib/features/action_card/action_card_client.dart の `appProductIDOfStoreProductID`)。
+ */
+const WEB_PRODUCT_ID_SUFFIX = "_web";
+
+/**
+ * RevenueCat から届いた商品の ID [productID] に当たるアプリの商品の ID。Web の商品は末尾の [WEB_PRODUCT_ID_SUFFIX] を 1 つ外した ID、それ以外はそのまま。
+ * 枚数の表・技の控えとの照合・購入の記録はアプリの商品の ID だけで扱い、Web の商品の ID の一覧を別に持たない。
+ */
+function appProductIDOf(productID: string): string {
+  return productID.endsWith(WEB_PRODUCT_ID_SUFFIX) ? productID.slice(0, -WEB_PRODUCT_ID_SUFFIX.length) : productID;
+}
+
 /** [productID] が生成チケットの商品なら 1 回の購入で足す枚数、それ以外は undefined。継承したキー (`constructor` 等) を商品として扱わない。 */
 function generationTicketCount(productID: string | null): number | undefined {
   return productID !== null && Object.hasOwn(GENERATION_TICKET_COUNT_BY_PRODUCT_ID, productID) ? GENERATION_TICKET_COUNT_BY_PRODUCT_ID[productID] : undefined;
@@ -72,19 +89,19 @@ export interface RevenueCatWebhookEvent {
   type?: unknown;
   /** 購入したユーザーの ID (アプリが logIn した Firebase の uid)。 */
   app_user_id?: unknown;
-  /** 商品の識別子。 */
+  /** 商品の識別子。Web の商品は末尾に [WEB_PRODUCT_ID_SUFFIX] が付く。 */
   product_id?: unknown;
   /** `SANDBOX` か `PRODUCTION`。 */
   environment?: unknown;
   /** ストアの取引の ID。 */
   transaction_id?: unknown;
-  /** 購入したストア (`APP_STORE`・`PLAY_STORE` 等)。 */
+  /** 購入したストア (`APP_STORE`・`PLAY_STORE`・Web の販売の `RC_BILLING` 等)。 */
   store?: unknown;
 }
 
 /** 生成チケットの購入の記録 (`users/{uid}/ticketPurchases/{eventID}`)。同じイベントを 2 回足さない判定と購入の履歴に使う。 */
 export interface TicketPurchaseDocument {
-  /** 商品の識別子。 */
+  /** アプリの商品の識別子 (Web で買った時も、Web の商品の ID ではなくアプリの商品の ID。Web の購入かは `store` で見分ける)。 */
   productID: string;
   /** 足した枚数。 */
   ticketCount: number;
@@ -101,7 +118,7 @@ export interface TicketPurchaseDocument {
 /**
  * Action Card の購入 1 件 (`users/{uid}/actionCardPurchases/{eventID}`)。同じイベントを 2 回記録しない判定に使い、買い切った技はこの記録の
  * `moveID` から出す (技ごとのドキュメントと残高の枚数を別に持たない。#290)。形は [TicketPurchaseDocument] の枚数の代わりに技を持つ。
- * 買った商品は `productID` (webhook が届いた商品の ID をそのまま書く) で、この購入で受け取れる技は、受け取る時にその商品で買える技 (#293)。
+ * 買った商品は `productID` (webhook が届いた商品に当たるアプリの商品の ID を書く) で、この購入で受け取れる技は、受け取る時にその商品で買える技 (#293)。
  */
 export interface ActionCardPurchaseDocument extends Omit<TicketPurchaseDocument, "ticketCount"> {
   /**
@@ -210,9 +227,11 @@ export async function handleRevenueCatWebhook(
     return { status: 400, body: "event.id と event.type がないか、event.id の形が違います" };
   }
   const appUserID = event.app_user_id;
-  const productID = optionalString(event.product_id);
+  const eventProductID = optionalString(event.product_id);
+  // 返金・取り消しの通知も Web の商品を見分けられるよう、種類を見分けるどの分岐よりも前でアプリの商品の ID に直す
+  const productID = eventProductID === null ? null : appProductIDOf(eventProductID);
   const environment = optionalString(event.environment);
-  const summary = `イベント ${event.id}・ユーザー ${String(appUserID)}・商品 ${productID ?? "(なし)"}・環境 ${environment ?? "(なし)"}`;
+  const summary = `イベント ${event.id}・ユーザー ${String(appUserID)}・商品 ${eventProductID ?? "(なし)"}・環境 ${environment ?? "(なし)"}`;
   const product = consumableProductOf(productID);
 
   if (event.type === "CANCELLATION") {
