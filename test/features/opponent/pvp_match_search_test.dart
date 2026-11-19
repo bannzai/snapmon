@@ -187,10 +187,18 @@ void main() {
     final server = unmatchedServer()
       ..joinError = StateError('通信に失敗しました')
       ..leaveError = ArgumentError('やめると伝えられませんでした');
-    final search = searchOf(server: server)..start();
+    Object? searchError;
+    (searchOf(server: server)..start()).matchedBattleID
+        .then(
+          (_) {},
+          onError: (Object error) {
+            searchError = error;
+          },
+        )
+        .ignore();
     await tester.pump();
 
-    await expectLater(search.matchedBattleID, throwsStateError);
+    expect(searchError, isStateError);
     expect(server.leaveCalls, hasLength(1));
   });
 
