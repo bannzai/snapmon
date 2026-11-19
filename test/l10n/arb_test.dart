@@ -56,6 +56,33 @@ void main() {
     }
   });
 
+  test(
+    '戦闘不能のログ (battleLogFainted) の述語は、気絶で動けないログ (battleLogStunned) に含まれない',
+    () {
+      // 同じ語だと、HP が 0 になって倒れたのか、状態異常の気絶で 1 ターン動けないだけなのかを、ログから見分けられない。
+      // 名前が文の途中に入る言語 (ギリシャ語は冠詞が名前の前に付く) があるため、名前の前後のうち長い方を述語として比べる。
+      // 語が違って意味が同じ訳 (同義語) と、同じ動詞の活用が違う訳はこの検査では拾えないため、訳を足す・直す時に読んで確かめる
+      for (final path in ['lib/l10n/app_ja.arb', ...translatedArbPaths]) {
+        final messages = _readMessages(path: path);
+        expect(
+          messages['battleLogStunned'],
+          isNot(
+            contains(
+              messages['battleLogFainted']!
+                  .split('{monsterName}')
+                  .map((part) => part.trim())
+                  .reduce(
+                    (longest, part) =>
+                        part.length > longest.length ? part : longest,
+                  ),
+            ),
+          ),
+          reason: path,
+        );
+      }
+    },
+  );
+
   for (final path in translatedArbPaths) {
     final translatedMessages = _readMessages(path: path);
 

@@ -172,7 +172,7 @@
   "battleStruggle": "Obupen boj",
   "battleLogSuperEffective": "Zelo učinkovito!",
   "battleLogNotVeryEffective": "Ni bilo preveč učinkovito",
-  "battleLogFainted": "{monsterName} je omedlel",
+  "battleLogFainted": "{monsterName} omaga",
   "battleLogStatRose": "Vrednost {statName} pri {monsterName} je zrasla!",
   "battleLogStatFell": "Vrednost {statName} pri {monsterName} je padla",
   "battleLogStatUnchanged": "Vrednost {statName} pri {monsterName} se ne more več spremeniti",

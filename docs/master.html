@@ -143,6 +143,8 @@ import {
   moveFeedbackLine,
   elementTypeFeedbackLine,
   typeChartCellFeedbackLine,
+  typeChartElementTypeIDs,
+  typeChartMultiplier,
   buildDiff,
 } from './master-viewer.js';
 
@@ -184,7 +186,7 @@ function editedMove(move) {
 
 /** 書き換えを反映した相性表の倍率を返す */
 function editedMultiplier(attackerID, defenderID) {
-  return state.edits.typeChart[attackerID]?.[defenderID] ?? state.master.typeChart[attackerID][defenderID];
+  return state.edits.typeChart[attackerID]?.[defenderID] ?? typeChartMultiplier(state.master, attackerID, defenderID);
 }
 
 /** 書き換えた差分を下の欄に描き直す */
@@ -247,7 +249,7 @@ const renderers = {
     ))),
 
   typeChart: (master) => {
-    const elementTypeIDs = master.elementTypes.map((elementType) => elementType.id);
+    const elementTypeIDs = typeChartElementTypeIDs(master);
     return element('div', {},
       element('p', {}, '行が攻撃する技の属性、列が受けるモンスターの属性。セルを押すとその 1 行をコピーする'),
       element('div', { className: 'legend' },
@@ -337,7 +339,7 @@ function typeChartCell(master, attackerID, defenderID) {
   const cell = element('td', { title: feedbackLine });
   const paint = (value) => {
     cell.className = multiplierKind(value);
-    cell.classList.toggle('edited', value !== master.typeChart[attackerID][defenderID]);
+    cell.classList.toggle('edited', value !== typeChartMultiplier(master, attackerID, defenderID));
   };
   paint(multiplier);
   if (state.editMode) {

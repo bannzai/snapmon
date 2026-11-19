@@ -172,7 +172,7 @@
   "battleStruggle": "Očajnička borba",
   "battleLogSuperEffective": "Super je učinkovito!",
   "battleLogNotVeryEffective": "Nije baš učinkovito",
-  "battleLogFainted": "{monsterName} se onesvijestio",
+  "battleLogFainted": "{monsterName} ispada iz borbe",
   "battleLogStatRose": "Vrijednost {statName} kod {monsterName} je porasla!",
   "battleLogStatFell": "Vrijednost {statName} kod {monsterName} je pala",
   "battleLogStatUnchanged": "Vrijednost {statName} kod {monsterName} više se ne može promijeniti",
