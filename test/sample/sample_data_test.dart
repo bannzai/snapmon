@@ -78,6 +78,81 @@ void main() {
     }
   });
 
+  group('紹介動画の撮影用の味方と相手', () {
+    final playVideo = sampleData.playVideo;
+    final playerMonsters = [playVideo.bornMonster, playVideo.companionMonster];
+
+    test('味方は紹介ページと同じ名前の 2 体で、生まれたばかりの Lv.1。見本のモンスターとは別の ID・別の絵', () {
+      expect(playVideo.bornMonster.definition.name, 'マグモン');
+      expect(playVideo.companionMonster.definition.name, 'プカプック');
+      for (final monster in playerMonsters) {
+        expect(monster.level, 1);
+        expect(
+          sampleData.monsters.map((sample) => sample.definition.id),
+          isNot(contains(monster.definition.id)),
+        );
+        expect(
+          sampleData.monsters.map((sample) => sample.artPath),
+          isNot(contains(monster.artPath)),
+        );
+      }
+    });
+
+    test('味方は同梱した絵を持ち、出典が LICENSES.md にあり、属性と Lv.1 の 4 つの技が見本の定義にある', () {
+      final licenses = File(
+        '${sampleArtAssetDirectory}LICENSES.md',
+      ).readAsStringSync();
+      for (final monster in playerMonsters) {
+        final artPath = monster.artPath!;
+        expect(isBundledArtPath(artPath: artPath), isTrue, reason: artPath);
+        expect(File(artPath).existsSync(), isTrue, reason: artPath);
+        expect(licenses, contains('| ${artPath.split('/').last} |'));
+        expect(monster.definition.sourcePhotoReference, isNull);
+        for (final elementTypeID in monster.definition.elementTypeIDs) {
+          expect(
+            sampleData.definitions.elementTypes.map((type) => type.id),
+            contains(elementTypeID),
+          );
+        }
+        expect(
+          monster.definition.learnset.where(
+            (learnsetEntry) => learnsetEntry.unlockLevel == 1,
+          ),
+          hasLength(maximumEquippedMoveCount),
+        );
+        for (final learnsetEntry in monster.definition.learnset) {
+          expect(
+            () => sampleData.definitions.effectByID(
+              effectID: sampleData.definitions
+                  .moveByID(moveID: learnsetEntry.moveID)
+                  .effectID,
+            ),
+            returnsNormally,
+          );
+        }
+      }
+    });
+
+    test('相手は味方と同じ 2 体で、重複せず、どれも見本のモンスター。1 体目は竜の属性のウロコドラ', () {
+      expect(playVideo.opponentMonsterIDs, hasLength(playerMonsters.length));
+      expect(
+        playVideo.opponentMonsterIDs.toSet(),
+        hasLength(playVideo.opponentMonsterIDs.length),
+      );
+      for (final monsterID in playVideo.opponentMonsterIDs) {
+        expect(
+          () => sampleData.monsterByID(monsterID: monsterID),
+          returnsNormally,
+        );
+      }
+      final firstOpponent = sampleData.monsterByID(
+        monsterID: playVideo.opponentMonsterIDs.first,
+      );
+      expect(firstOpponent.definition.name, 'ウロコドラ');
+      expect(firstOpponent.definition.elementTypeIDs, contains('dragon'));
+    });
+  });
+
   test('見本のモンスターは生まれた時の技 (Lv.1) を技の枠の数だけ持つ', () {
     for (final monster in sampleData.monsters) {
       expect(

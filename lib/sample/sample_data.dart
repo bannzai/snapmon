@@ -39,6 +39,57 @@ class SampleOpponent {
   final List<String> monsterIDs;
 }
 
+/// 紹介用のプレイ動画を撮る時だけ使う味方と相手 (issue #384)。開発者メニューの「紹介動画の撮影の準備」
+/// (lib/sample/play_video.dart の `preparePlayVideo`) が [companionMonster] を図鑑に入れた時だけ効き、
+/// 普通に遊ぶ時の図鑑・生成・対戦の相手には出ない。味方は紹介ページ (docs/index.html) に載せているモンスターと同じ名前・絵。
+class SamplePlayVideo {
+  /// 撮影用の味方と相手を作る。
+  const SamplePlayVideo({
+    required this.bornMonster,
+    required this.companionMonster,
+    required this.opponentMonsterIDs,
+  });
+
+  /// JSON から撮影用の味方と相手を読む。
+  factory SamplePlayVideo.fromJson({required Map<String, dynamic> json}) =>
+      SamplePlayVideo(
+        bornMonster: _sampleMonsterFromJson(
+          json: json['bornMonster'] as Map<String, dynamic>,
+        ),
+        companionMonster: _sampleMonsterFromJson(
+          json: json['companionMonster'] as Map<String, dynamic>,
+        ),
+        opponentMonsterIDs: [
+          for (final monsterID in json['opponentMonsterIDs'] as List<dynamic>)
+            monsterID as String,
+        ],
+      );
+
+  /// 動画の中で写真 (assets/samples/photos/mug.jpg) から生まれる味方。
+  final OwnedMonster bornMonster;
+
+  /// 生まれる味方と一緒に戦う、撮影の準備で先に図鑑に入れておく味方。
+  final OwnedMonster companionMonster;
+
+  /// 相手にする見本のモンスターの識別子 ([SampleData.monsters] の定義の `id`)。手持ちの並びの順。
+  final List<String> opponentMonsterIDs;
+}
+
+/// 見本データの JSON のモンスター 1 体 (`definition`・`level`・`artPath`) を読む。
+OwnedMonster _sampleMonsterFromJson({required Map<String, dynamic> json}) =>
+    OwnedMonster(
+      definition: MonsterDefinition.fromJson(
+        json: json['definition'] as Map<String, dynamic>,
+      ),
+      level: json['level'] as int,
+      actionCardMoveIDs: const [],
+      selectedMoveIDs: null,
+      artPath: json['artPath'] as String,
+      definitionIDs: const [],
+      decoration: null,
+      decorationVersion: null,
+    );
+
 /// 見本データ (`assets/samples/sample_monsters.json`) の中身。
 class SampleData {
   /// 見本データを作る。
@@ -47,6 +98,7 @@ class SampleData {
     required this.monsters,
     required this.opponents,
     required this.cpuTrainerNames,
+    required this.playVideo,
   });
 
   /// JSON から見本データを読む。
@@ -57,21 +109,11 @@ class SampleData {
         ),
         monsters: [
           for (final monsterJson in json['monsters'] as List<dynamic>)
-            OwnedMonster(
-              definition: MonsterDefinition.fromJson(
-                json:
-                    (monsterJson as Map<String, dynamic>)['definition']
-                        as Map<String, dynamic>,
-              ),
-              level: monsterJson['level'] as int,
-              actionCardMoveIDs: const [],
-              selectedMoveIDs: null,
-              artPath: monsterJson['artPath'] as String,
-              definitionIDs: const [],
-              decoration: null,
-              decorationVersion: null,
-            ),
+            _sampleMonsterFromJson(json: monsterJson as Map<String, dynamic>),
         ],
+        playVideo: SamplePlayVideo.fromJson(
+          json: json['playVideo'] as Map<String, dynamic>,
+        ),
         opponents: [
           for (final opponentJson in json['opponents'] as List<dynamic>)
             SampleOpponent.fromJson(json: opponentJson as Map<String, dynamic>),
@@ -97,6 +139,9 @@ class SampleData {
   /// 乱数で選んだ手持ちで組む (lib/features/opponent/cpu_party.dart の `chooseRandomCpuOpponent`。2026-11-08 の DIRECTION.md「決めたこと」)。
   /// 名前は他のユーザーと見分けられるよう「CPU」を含める (どの画面の言語でも同じ印にするため、文言ではなく見本データに持つ)。
   final List<String> cpuTrainerNames;
+
+  /// 紹介用のプレイ動画を撮る時だけ使う味方と相手。
+  final SamplePlayVideo playVideo;
 
   /// [monsterID] の見本のモンスターを返す。無ければ [StateError] を投げる。
   OwnedMonster monsterByID({required String monsterID}) => monsters.firstWhere(

@@ -1,6 +1,6 @@
 # 見本のモンスターの切り出した絵の出典
 
-Wikimedia Commons の CC0 / Public domain の写真 (sample-mugmon.png から sample-slippan.png までは 2026-10-28、動物の sample-haineko.png から sample-uzumai.png までは 2026-11-16 に取得) を、`functions/scripts/build-sample-art.mjs` が本番の生成と同じ切り出し (長辺 1024px に縮小 → macOS の Vision の前景のマスク (`functions/scripts/subject-mask.swift`) → 背景を透明にして被写体の周りで切り詰める) に通したもの。切り出しの前に写真を切り詰めたものは、その旨を「改変」に書く。クレジットの表記はどのライセンスも求めていない。
+Wikimedia Commons の CC0 / Public domain の写真 (sample-mugmon.png から sample-slippan.png までは 2026-10-28、動物の sample-haineko.png から sample-uzumai.png までは 2026-11-16 に取得) を、`functions/scripts/build-sample-art.mjs` が本番の生成と同じ切り出し (長辺 1024px に縮小 → macOS の Vision の前景のマスク (`functions/scripts/subject-mask.swift`) → 背景を透明にして被写体の周りで切り詰める) に通したもの。play-video- で始まる 2 枚だけは、このスクリプトを通さず「改変」に書いた別の絵を写したもの。切り出しの前に写真を切り詰めたものは、その旨を「改変」に書く。クレジットの表記はどのライセンスも求めていない。
 
 | ファイル | 元のファイル | 作者 | ライセンス | 改変 | 出典 |
 | --- | --- | --- | --- | --- | --- |
@@ -21,3 +21,5 @@ Wikimedia Commons の CC0 / Public domain の写真 (sample-mugmon.png から sa
 | sample-midorigamo.png | Mallard Duck (Unsplash).jpg | Håkon Helberg | CC0 | 水面を減らすため、カモの周りに切り詰めてから切り出した | https://commons.wikimedia.org/wiki/File:Mallard_Duck_(Unsplash).jpg |
 | sample-urokodora.png | Lizard on rock (Unsplash).jpg | Mitchell Lawler | CC0 | なし | https://commons.wikimedia.org/wiki/File:Lizard_on_rock_(Unsplash).jpg |
 | sample-uzumai.png | Snail yellow striped shell (Unsplash).jpg | Johan Desaeyere | CC0 | ガラスへの映り込みを外すため、カタツムリの周りに切り詰めてから切り出した | https://commons.wikimedia.org/wiki/File:Snail_yellow_striped_shell_(Unsplash).jpg |
+| play-video-mugmon.png | Coffee Mug (Unsplash).jpg | Ryan Holloway | CC0 | store_screenshots/fixtures/cutouts/mug.png (紹介ページとストアのスクリーンショットの「マグモン」の絵) を写したもの。被写体の切り出しと縮小は同ディレクトリの LICENSES.md のとおり。紹介用のプレイ動画の撮影用 (issue #384) | https://commons.wikimedia.org/wiki/File:Coffee_Mug_(Unsplash).jpg |
+| play-video-pukapukku.png | Rubber duck in glass bowl crop.jpg | Nanda93 (Wikimedia Commons の利用者) | Public domain | store_screenshots/fixtures/cutouts/rubber_duck.png (紹介ページとストアのスクリーンショットの「プカプック」の絵) を写したもの。被写体の切り出しと縮小は同ディレクトリの LICENSES.md のとおり。紹介用のプレイ動画の撮影用 (issue #384) | https://commons.wikimedia.org/wiki/File:Rubber_duck_in_glass_bowl_crop.jpg |

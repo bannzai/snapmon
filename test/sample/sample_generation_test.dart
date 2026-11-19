@@ -32,6 +32,91 @@ void main() {
     ]);
   });
 
+  test('何もいない図鑑 (撮影の準備をしていない) では、先頭の見本のモンスターが生まれ、撮影用の味方は図鑑にも手持ちにも入らない', () {
+    final dexStore = DexStore(definitions: sampleData.definitions);
+    expect(
+      generateSampleMonster(
+        dexStore: dexStore,
+        sampleData: sampleData,
+        requestID: 'request-1',
+      ).monsterID,
+      'sample-mugmon',
+    );
+    expect(dexStore.monsters.map((monster) => monster.definition.id), [
+      'sample-mugmon',
+    ]);
+    expect(dexStore.party, isEmpty);
+  });
+
+  group('紹介動画の撮影の準備の後 (図鑑に一緒に戦う味方だけがいる)', () {
+    /// 撮影の準備 (preparePlayVideo) が作る図鑑。
+    DexStore preparedDexStore() =>
+        DexStore(definitions: sampleData.definitions)..applyServerSnapshot(
+          monsters: [sampleData.playVideo.companionMonster],
+          partyMonsterIDs: const [],
+          definitions: null,
+        );
+
+    test('最初の生成は撮影用のマグモンを Lv.1 で図鑑に足して saved を返し、手持ちは空のまま (初回の導線に進むため)', () {
+      final dexStore = preparedDexStore();
+      final result = generateSampleMonster(
+        dexStore: dexStore,
+        sampleData: sampleData,
+        requestID: 'request-1',
+      );
+      expect(result.status, GenerationStatus.saved);
+      expect(result.requestID, 'request-1');
+      expect(result.monsterID, 'play-video-mugmon');
+      expect(dexStore.monsters.map((monster) => monster.definition.id), [
+        'play-video-pukapukku',
+        'play-video-mugmon',
+      ]);
+      expect(dexStore.party, isEmpty);
+      expect(dexStore.monsters.last.definition.name, 'マグモン');
+      expect(dexStore.monsters.last.level, 1);
+    });
+
+    test('手持ちに一緒に戦う味方がいる図鑑でも、最初の生成は手持ちを変えない', () {
+      final dexStore = DexStore(definitions: sampleData.definitions)
+        ..applyServerSnapshot(
+          monsters: [sampleData.playVideo.companionMonster],
+          partyMonsterIDs: const ['play-video-pukapukku'],
+          definitions: null,
+        );
+      generateSampleMonster(
+        dexStore: dexStore,
+        sampleData: sampleData,
+        requestID: 'request-1',
+      );
+      expect(dexStore.party.map((monster) => monster.definition.id), [
+        'play-video-pukapukku',
+      ]);
+    });
+
+    test('2 回目の生成は今までどおり見本のモンスターを足し、手持ちを変えない', () {
+      final dexStore = preparedDexStore();
+      generateSampleMonster(
+        dexStore: dexStore,
+        sampleData: sampleData,
+        requestID: 'request-1',
+      );
+      expect(
+        generateSampleMonster(
+          dexStore: dexStore,
+          sampleData: sampleData,
+          requestID: 'request-2',
+        ).monsterID,
+        'sample-mugmon',
+      );
+      expect(dexStore.monsters.map((monster) => monster.definition.id), [
+        'play-video-pukapukku',
+        'play-video-mugmon',
+        'sample-mugmon',
+      ]);
+      expect(dexStore.party, isEmpty);
+    });
+  });
+
   test('見本のモンスターが全部図鑑にいる時は、図鑑を変えずに先頭の duplicate を返す', () {
     final dexStore = DexStore(definitions: sampleData.definitions)
       ..replaceAll(monsters: sampleData.monsters);

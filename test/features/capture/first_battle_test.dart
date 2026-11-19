@@ -73,4 +73,56 @@ void main() {
       }
     },
   );
+
+  test(
+    '紹介動画の撮影の準備の後 (図鑑にプカプックと撮影用のマグモン、手持ちがマグモンだけ) は、プカプックを手持ちに足し、ウロコドラとメダマズクと戦う',
+    () async {
+      final dexStore = DexStore(definitions: sampleData.definitions)
+        ..applyServerSnapshot(
+          monsters: [
+            sampleData.playVideo.companionMonster,
+            sampleData.playVideo.bornMonster,
+          ],
+          partyMonsterIDs: ['play-video-mugmon'],
+          definitions: null,
+        );
+      final opponent = await prepareFirstBattleOpponent(
+        dexStore: dexStore,
+        pvpClient: PvpClient(
+          fetchOpponents: () => throw StateError('fetchOpponents は呼ばない'),
+          fetchDefinitions: ({required base, required definitionIDs}) =>
+              throw StateError('fetchDefinitions は呼ばない'),
+          reportMonster:
+              ({
+                required monsterOwnerUid,
+                required monsterID,
+                required reason,
+              }) => throw StateError('reportMonster は呼ばない'),
+          blockUser: ({required blockedUid}) =>
+              throw StateError('blockUser は呼ばない'),
+          fetchBattleRecord: () async => null,
+          fetchProfile: () async => null,
+          updateDisplayName: ({required displayName}) async => displayName,
+          updateIcon: ({required photo}) =>
+              throw StateError('updateIcon は呼ばない'),
+        ),
+        sampleData: sampleData,
+        randomSeed: 7,
+      );
+      expect(dexStore.party.map((monster) => monster.definition.name), [
+        'マグモン',
+        'プカプック',
+      ]);
+      expect(
+        opponent.cpuOpponent.opponentParty.map(
+          (monster) => monster.definition.name,
+        ),
+        ['ウロコドラ', 'メダマズク'],
+      );
+      expect(
+        sampleData.cpuTrainerNames,
+        contains(opponent.cpuOpponent.opponentName),
+      );
+    },
+  );
 }

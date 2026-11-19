@@ -3303,5 +3303,53 @@ void main() {
       expect(sessionStore.uid, isNull);
       expect(sessionStore.canEnterApp, isTrue);
     });
+
+    testWidgets('DEBUG ビルドでも右上の DEBUG の帯を出さない (紹介動画に映さないため)', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: true,
+      );
+      // テストは debug で動くため、MaterialApp が帯を出す設定なら CheckedModeBanner が画面にある
+      expect(find.byType(CheckedModeBanner), findsNothing);
+    });
+
+    testWidgets(
+      '開発者メニューで紹介動画の撮影の準備をすると、ログインを終えてタイトルに戻り、ログインし直さず、図鑑がプカプックだけ・手持ちが空になる',
+      (tester) async {
+        endSessionCallCount = 0;
+        await pumpApp(
+          tester: tester,
+          hasStartedSession: true,
+          startSessionFailureCount: 0,
+          isDeveloperMenuEnabled: true,
+        );
+        await enterHomeFromTitle(tester: tester);
+        await tester.tap(find.byTooltip('設定'));
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('開発者メニュー'));
+        await tester.pumpAndSettle();
+        // 一覧の末尾にあり、開いた時点では作られていないことがあるため、出るまで送る
+        await tester.dragUntilVisible(
+          find.byKey(const Key('developer-prepare-play-video')),
+          find.byType(ListView).last,
+          const Offset(0, -200),
+        );
+        await tester.pumpAndSettle();
+        await tester.tap(find.byKey(const Key('developer-prepare-play-video')));
+        await tester.pumpAndSettle();
+        // 動画の最初の画面はタイトルで、手持ちが空のため写真から選ぶと初回の導線になる
+        expect(find.text('写真から選んではじめる'), findsOneWidget);
+        expect(endSessionCallCount, 1);
+        expect(startSessionCallCount, 0);
+        expect(sessionStore.uid, isNull);
+        expect(sessionStore.canEnterApp, isTrue);
+        expect(dexStore.monsters.map((monster) => monster.definition.name), [
+          'プカプック',
+        ]);
+        expect(dexStore.party, isEmpty);
+      },
+    );
   });
 }

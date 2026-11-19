@@ -1,4 +1,5 @@
 import '../../domain/random/deterministic_random.dart';
+import '../../sample/play_video.dart';
 import '../../sample/sample_data.dart';
 import '../dex/owned_monster.dart';
 
@@ -36,6 +37,8 @@ typedef RandomCpuOpponent = ({
 /// [playerParty] のどれかと同じ絵 (同じ画像のパス) の見本のモンスターは選ばない。自分の手持ちに見本のモンスターがいるのは
 /// DEBUG ビルドの見本の生成・投入の時で、それ以外の手持ちの絵は Storage にあり見本と重ならない。見本のモンスターは手持ちの
 /// 上限の 2 倍以上いる (test/sample/sample_data_test.dart で検査する) ため、除いても必ず数が足りる。同じ引数からは同じ相手になる。
+/// [playerParty] が紹介動画の撮影用の味方の 2 体だけの時 ([isPlayVideoParty]。DEBUG ビルドの開発者メニューからしか作れない) は、
+/// 手持ちを乱数で選ばず [SamplePlayVideo.opponentMonsterIDs] の見本のモンスターにする (名前とレベルの決め方は変えない)。
 RandomCpuOpponent chooseRandomCpuOpponent({
   required SampleData sampleData,
   required List<OwnedMonster> playerParty,
@@ -56,12 +59,20 @@ RandomCpuOpponent chooseRandomCpuOpponent({
           maximum: sampleData.cpuTrainerNames.length - 1,
         )],
     opponentParty: buildCpuParty(
-      monsters: [
-        for (var index = 0; index < playerParty.length; index++)
-          candidates.removeAt(
-            random.nextIntInRange(minimum: 0, maximum: candidates.length - 1),
-          ),
-      ],
+      monsters: isPlayVideoParty(sampleData: sampleData, party: playerParty)
+          ? [
+              for (final monsterID in sampleData.playVideo.opponentMonsterIDs)
+                sampleData.monsterByID(monsterID: monsterID),
+            ]
+          : [
+              for (var index = 0; index < playerParty.length; index++)
+                candidates.removeAt(
+                  random.nextIntInRange(
+                    minimum: 0,
+                    maximum: candidates.length - 1,
+                  ),
+                ),
+            ],
       playerParty: playerParty,
     ),
   );
