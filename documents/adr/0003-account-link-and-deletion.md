@@ -11,7 +11,7 @@ Accepted
 - 連携しようとした Apple / Google のアカウントが、別の端末で既に連携済みの時の扱い。その端末の匿名アカウントの図鑑を捨てるか、連携済みのアカウントに合流させるか
 - アカウント削除の手順 (Functions `deleteAccount`)。消す範囲は [docs/AccountDeletion.md](../../docs/AccountDeletion.md) に合わせる
 
-連携済みのアカウントがある時に匿名アカウントへリンクしようとすると、Firebase Authentication は `credential-already-in-use` で失敗する (https://firebase.google.com/docs/auth/flutter/account-linking の `case "credential-already-in-use"`)。firebase_auth 7.0.0 の iOS・Android の plugin と Web の実装は、この失敗に連携済みのアカウントにサインインできる credential を付けて返す (iOS: `AuthErrors.swift` が `AuthErrorUserInfoUpdatedCredentialKey` を、Web: `web_utils.dart` が `OAuthProviderJsImpl.credentialFromError` を読む)。
+連携済みのアカウントがある時に匿名アカウントへリンクしようとすると、Firebase Authentication は `credential-already-in-use` で失敗する (https://firebase.google.com/docs/auth/flutter/account-linking の `case "credential-already-in-use"`)。firebase_auth 7.0.0 の iOS・Android の plugin と Web の実装は、この失敗に連携済みのアカウントの credential を付けて返す (iOS: `AuthErrors.swift` が `AuthErrorUserInfoUpdatedCredentialKey` を、Web: `web_utils.dart` が `OAuthProviderJsImpl.credentialFromError` を読む)。Web の Apple は、この credential でサインインできるかを確かめていない (下の「Android と Web の Sign in with Apple の連携」の「確かめていないこと」)。
 
 ## 比べた選択肢
 
@@ -25,14 +25,14 @@ Accepted
 
 | 項目 | 決定 | 根拠 |
 | --- | --- | --- |
-| 連携先 | iOS は Sign in with Apple (`linkWithProvider(AppleAuthProvider())`) と Google (`linkWithProvider(GoogleAuthProvider())`) から利用者が選ぶ。Android は Google (google_sign_in の ID トークンを `linkWithCredential`)、Web は Google (`linkWithPopup`) | iOS の Google は #370 で足した (下の「iOS の Google の連携」)。Android で Google にサインインするには google_sign_in のような外部のライブラリが要る (https://firebase.google.com/docs/auth/flutter/federated-auth "On native platforms, a 3rd party library is required to trigger the authentication flow") |
+| 連携先 | iOS・Android・Web のどれでも、Sign in with Apple と Google から利用者が選ぶ。iOS はどちらも `linkWithProvider` (`AppleAuthProvider()`・`GoogleAuthProvider()`)。Android は Apple が `linkWithProvider(AppleAuthProvider())`、Google が google_sign_in の ID トークンを `linkWithCredential`。Web はどちらも `linkWithPopup` | iOS の Google は #370 (下の「iOS の Google の連携」)、Android と Web の Apple は #374 (下の「Android と Web の Sign in with Apple の連携」) で足した。Android で Google にサインインするには google_sign_in のような外部のライブラリが要る (https://firebase.google.com/docs/auth/flutter/federated-auth "On native platforms, a 3rd party library is required to trigger the authentication flow") |
 | 連携済みのアカウントへの 2 つ目の連携 | 足さない。どれかと連携済みの時は「データを引き継ぐ」を押せない (#17 のまま) | 連携済みのアカウントから 2 つ目を選んで別の端末で連携済みだった時、切り替えの流れは連携済みの図鑑を消すことになる。切り替えは匿名アカウントだけを捨てる前提で決めた (上の比較) |
 | 別の端末で連携済みの時 | 端末の匿名アカウントを捨てて、連携済みのアカウントに切り替える。切り替える前に、消える図鑑の数を示して確かめる。credential を受け取れなかった時は何も消さずにエラーを出す | 上の比較。合流は不整合の起き方が多く、引き継ぎの用途 (機種変更した人が前の図鑑に戻る) では新しい端末の図鑑は少ない |
 | 捨てた後のサインインの失敗 | ログインを終え、新しい匿名アカウントから始め直す | 連携済みのアカウントはサーバーに残るため、もう一度「データを引き継ぐ」を選べば切り替えられる |
 | 削除の主体 | Functions `deleteAccount` が Admin SDK で消す。クライアントは最近のログインを求められない | クライアントの `User.delete()` は最近のログインを求める (https://firebase.google.com/docs/auth/web/manage-users "To delete a user, the user must have signed in recently")。Admin SDK にこの制約は無く、Firestore・Storage のデータと一緒に消せる |
 | 削除の順 | Storage → 本人の通報・ブロック → `users/{uid}` のサブコレクション → Auth → `users/{uid}`。始める時に `users/{uid}` に `accountDeletionStartedAt` を付け、付いている間は生成を受け付けない。生成中ロックが期限内の時は断る | Auth を消すまでに失敗しても、もう一度呼べば続きから消せる (冪等)。印を最後まで残し、削除の途中に生成がモンスターを書いて残さない |
 | Storage の消し残し | 消すのに失敗したら、消すパス (`users/{uid}/` と、Firestore を消すと引けなくなる絵のパス) を持つタスク (`deleteAccountFiles`) を Cloud Tasks に積んでから先へ進む | ADR 0001「画像ストレージ」の「消せなかった分は Cloud Tasks の再試行で消す」と、docs/AccountDeletion.md の「一部の写真は、削除に失敗した場合に再試行する」 |
-| Sign in with Apple の取り消し | iOS で Apple と連携している時は、削除の前に Apple のサインインをもう一度求め、受け取った認可コードで `revokeTokenWithAuthorizationCode` を呼ぶ | 認可コードは Apple のサインインの結果にだけ入る (https://firebase.google.com/docs/auth/flutter/federated-auth "Apple sign-in on Apple platforms returns an authorization code that can be used to revoke the Apple auth token")。firebase_auth 7.0.0 の iOS の plugin は再認証の結果にも認可コードを入れる (`FLTFirebaseAuthPlugin.swift` の `isReauthenticatingWithApple` の分岐) |
+| Sign in with Apple の取り消し | iOS で Apple と連携している時は、削除の前に Apple のサインインをもう一度求め、受け取った認可コードで `revokeTokenWithAuthorizationCode` を呼ぶ | 認可コードは Apple のサインインの結果にだけ入る (https://firebase.google.com/docs/auth/flutter/federated-auth "Apple sign-in on Apple platforms returns an authorization code that can be used to revoke the Apple auth token")。firebase_auth 7.0.0 の iOS の plugin は再認証の結果にも認可コードを入れる (`FLTFirebaseAuthPlugin.swift` の `isReauthenticatingWithApple` の分岐)。Android と Web で Apple と連携済みのアカウントを削除する時 (#374 で起きるようになった) は、取り消さずに削除する。firebase_auth 7.0.1 の Android の plugin の `revokeTokenWithAuthorizationCode` は何もせずに成功を返し (`FlutterFirebaseAuthPlugin.kt`)、firebase_auth_web 6.3.2 は `UnimplementedError('revokeTokenWithAuthorizationCode() is only available on apple platforms.')` を投げるため、iOS と同じ手段が無い。Apple の側の記録は利用者が Apple のアカウントの設定から消せ、その手順を docs/AccountDeletion.md に書く (Apple の TN3194 は、トークンが無い時もアカウントの削除は行い、利用者を手動の取り消しに案内するとしている。https://developer.apple.com/documentation/technotes/tn3194-handling-account-deletions-and-revoking-tokens-for-sign-in-with-apple "If you don’t have the user’s refresh token, access token, or authorization code, you must still fulfill the user’s account deletion request"、2026-11-19 に確認) |
 
 ## iOS の Google の連携 (#370、2026-11-19)
 
@@ -53,10 +53,38 @@ Web 版か Android で Google と連携した人が iPhone のアプリで図鑑
 
 確かめていないこと: 実際の Google のアカウントでの連携と、連携済みのアカウントへの切り替え。2026-11-19 の時点で snapmon-prod の Firebase Authentication は Google も Apple もサインインを有効にしておらず (Identity Toolkit の `defaultSupportedIdpConfigs/google.com`・`apple.com` がどちらも 404 `CONFIGURATION_NOT_FOUND`)、iOS・Android・Web のどの連携も端から端までは動かせない。Firebase の文書がネイティブの Google のサインインに案内しているのは google_sign_in で (上の「連携先」の行の引用)、`linkWithProvider` での Google が通ることは上のソースの読みだけが根拠。有効化の後に実機で通らなければ、上の表の google_sign_in の案に切り替える。
 
+## Android と Web の Sign in with Apple の連携 (#374、2026-11-19)
+
+iPhone のアプリで Apple と連携した人が、Android のアプリか Web 版で同じ Apple を選んで図鑑を引き継げるよう、Android と Web の連携先に Sign in with Apple を足した。これで連携先は iOS・Android・Web のどれでも Apple と Google の 2 つになり、設定画面の「データを引き継ぐ」は 3 つとも #370 の下から出る一覧で選ぶ。
+
+| プラットフォーム | 採った手段 | 設定に要るもの |
+| --- | --- | --- |
+| Android | `linkWithProvider(AppleAuthProvider())`。Apple のサインインの画面は Custom Chrome Tab で開く (https://firebase.google.com/docs/auth/android/apple "this will take control of your UI by opening a Custom Chrome Tab"、2026-11-19 に確認) | Apple の Services ID とサインイン用の鍵を Firebase Authentication に登録する。Firebase の Android アプリに署名の SHA-1 を登録する (同じ文書 "Specify your app's SHA-1 fingerprint if you haven't already.")。アプリのコード・manifest に足す設定は無い |
+| Web | `linkWithPopup(AppleAuthProvider())` (Google と同じポップアップ) | 上と同じ Services ID の Return URL に Firebase の `__/auth/handler` を登録する |
+
+設定は owner の作業で、手順は https://github.com/bannzai/snapmon/issues/375 の「Apple を有効にする」にある。
+
+ソースで確かめたこと:
+
+- Android (firebase_auth 7.0.1 の plugin。firebase_core 5.1.0 が固定する Firebase Android BoM は 35.1.0):
+  - plugin の `linkWithProvider` (`FlutterFirebaseAuthUser.kt`) は、Dart の provider の ID (`apple.com`) をそのまま `OAuthProvider.newBuilder(providerId)` に渡し (`buildOAuthProvider`)、`startActivityForLinkWithProvider` を呼ぶ。Apple を断る分岐は無い
+  - そのサインインが別のアカウントに連携済みの時、plugin は `FirebaseAuthUserCollisionException.updatedCredential` を保管して (`PigeonParser.parseAuthCredential` が `authCredentials` に置く)、その番号を Dart の `FirebaseAuthException.credential` に渡す (`FlutterFirebaseAuthPluginException.kt`、Dart 側は firebase_auth_platform_interface 9.1.2 の `method_channel/utils/exception.dart`)。`signInWithCredential` は番号から保管した credential を引き直す (`PigeonParser.getCredential`)。上の「別の端末で連携済みの時」の切り替えは、この credential でサインインする
+  - FirebaseUI-Android 8.0.2 も、匿名アカウントへの provider での連携 (`startActivityForLinkWithProvider`) が衝突した時に同じ `getUpdatedCredential()` を使っている (`GenericIdpSignInHandler.java` の `handleAnonymousUpgradeFlow`)
+- Web (firebase_auth_web 6.3.2。firebase_core_web 4.1.0 が読み込む Firebase JS SDK は 13.1.0):
+  - `convertPlatformAuthProvider` (`web_utils.dart`) は `AppleAuthProvider` を JS SDK の `OAuthProvider('apple.com')` にして `linkWithPopup` に渡す
+  - 連携が失敗した時、`getFirebaseAuthException` (`web_utils.dart`) は JS SDK の `OAuthProvider.credentialFromError` で credential を取り出し、`FirebaseAuthException.credential` に入れる
+
+確かめていないこと:
+
+- **Web で、Apple が別のアカウントに連携済みの時の切り替え**。JS SDK がエラーから取り出す credential は `idToken`・`accessToken`・`nonce`・`pendingToken` を持ち (`packages/auth/src/core/providers/oauth.ts` の `oauthCredentialFromTaggedObject`)、サインインの要求は `pendingToken` があればそれだけを送る (`packages/auth/src/core/credentials/oauth.ts` の `buildRequest`)。firebase_auth_web は Dart の credential に移す時に `accessToken`・`secret`・`idToken` だけを写し、`pendingToken` と `nonce` を写さない (`web_utils.dart` の `getFirebaseAuthException`)。写した credential の `signInWithCredential` が Apple で通るかは、クライアントのソースからは決まらない (サーバーが、nonce を持たない Apple の ID トークンを受け付けるかによる)。通らない時、切り替えは端末の匿名アカウントを捨てた後で失敗し、利用者は上の「捨てた後のサインインの失敗」の行のとおり新しい匿名アカウントから始め直す (端末の図鑑は戻らず、連携済みの図鑑にも入れない)。Web の Google の切り替え (#17) も同じ写し方を通るが、Google は ID トークンだけから credential を作る使い方を Firebase が文書にしている (https://firebase.google.com/docs/auth/flutter/federated-auth の `GoogleAuthProvider.credential(idToken: googleAuth.idToken)`、2026-11-19 に確認) のに対し、Apple の ID トークンは nonce と組で検証される (JS SDK の `OAuthCredentialOptions.rawNonce` の説明 "It is required when an ID token with a nonce field is provided")。通らなかった時の候補は、匿名アカウントを捨てた後に credential ではなく `signInWithPopup(AppleAuthProvider())` で入り直すこと (ポップアップをもう 1 回開く。未検証)
+- 実際の Apple のアカウントでの、Android と Web の連携と切り替え。2026-11-19 の時点で snapmon-prod の Firebase Authentication は Apple のサインインを有効にしておらず (上の「iOS の Google の連携」の「確かめていないこと」)、Services ID も無いため、端から端までは動かせない。有効化の後に、上の太字の点を先に確かめる (リリース前の確認の一覧に移した)
+- Android で、Custom Chrome Tab を開いている間にアプリのプロセスが止められた時の再開。plugin は `pendingAuthResult` を読まないため、その時は連携の結果を受け取れない (利用者はもう一度「データを引き継ぐ」を選ぶ)
+
 ## Consequences
 
-- iPhone で Apple と連携した人は、Android・Web に移っても Apple でサインインできず、図鑑を引き継げない (Android と Web は Google だけ)。Android・Web に Sign in with Apple を足すには、Apple の Services ID と Firebase の設定が要る。iPhone で Google を選んで連携した人は、Android・Web でも同じ Google で引き継げる
-- iPhone で先に Apple と連携した人は、Web 版か Android で Google と連携した図鑑に後から切り替えられない (連携済みのアカウントに 2 つ目を足さないため)。アカウントを削除して匿名から始め直せば Google を選べる
+- iPhone・Android・Web のどれで連携した人も、ほかのどれに移っても同じ Apple か Google を選んで図鑑を引き継げる
+- Android のアプリか Web 版で Apple と連携済みのアカウントを削除した時は、Apple の側の記録 (「Apple でサインイン」を使っているアプリの一覧) が残る。利用者が Apple のアカウントの設定から消す (docs/AccountDeletion.md)
+- 先に Apple と連携した人は、別の端末で Google と連携した図鑑に後から切り替えられず、逆も同じ (連携済みのアカウントに 2 つ目を足さないため)。アカウントを削除して匿名から始め直せば、もう一方を選べる
 - 連携済みのアカウントへの切り替えでは、その端末で作ったモンスターは戻らない
 - 削除が終わった後も、その uid の ID トークンは期限 (1 時間) まで通る (同じアカウントでサインインしている別の端末)。`generate` は最初に Auth のユーザーが残っているかを確かめ、消えていれば断ってその uid の `users/{uid}/` の配下のファイルを消す (`functions/src/account.ts` の `rejectDeletedAccount`)。バトルは図鑑のモンスターが無いと始められないため、削除の後にデータを作らない。Storage の Rules は Auth のユーザーの有無を見られないため、削除の後のその期限の間に、別の端末が写真を置いたまま `generate` を呼ばなかった時は、そのファイルを消す経路が無く残る
 - 予約の切れた生成の再試行 (`resumeGeneration`) も、削除の印がある時と生成のレコードが消えた時は再開しない
