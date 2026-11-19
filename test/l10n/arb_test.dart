@@ -56,24 +56,27 @@ void main() {
     }
   });
 
-  test('戦闘不能のログ (battleLogFainted) の述語は、気絶で動けないログ (battleLogStunned) に含まれない', () {
-    // 同じ語だと、HP が 0 になって倒れたのか、状態異常の気絶で 1 ターン動けないだけなのかを、ログから見分けられない。
-    // 語が違って意味が同じ訳 (同義語) はこの検査では拾えないため、訳を足す・直す時に読んで確かめる
-    for (final path in ['lib/l10n/app_ja.arb', ...translatedArbPaths]) {
-      final messages = _readMessages(path: path);
-      expect(
-        messages['battleLogStunned'],
-        isNot(
-          contains(
-            messages['battleLogFainted']!
-                .replaceAll('{monsterName}', '')
-                .trim(),
+  test(
+    '戦闘不能のログ (battleLogFainted) の述語は、気絶で動けないログ (battleLogStunned) に含まれない',
+    () {
+      // 同じ語だと、HP が 0 になって倒れたのか、状態異常の気絶で 1 ターン動けないだけなのかを、ログから見分けられない。
+      // 語が違って意味が同じ訳 (同義語) はこの検査では拾えないため、訳を足す・直す時に読んで確かめる
+      for (final path in ['lib/l10n/app_ja.arb', ...translatedArbPaths]) {
+        final messages = _readMessages(path: path);
+        expect(
+          messages['battleLogStunned'],
+          isNot(
+            contains(
+              messages['battleLogFainted']!
+                  .replaceAll('{monsterName}', '')
+                  .trim(),
+            ),
           ),
-        ),
-        reason: path,
-      );
-    }
-  });
+          reason: path,
+        );
+      }
+    },
+  );
 
   for (final path in translatedArbPaths) {
     final translatedMessages = _readMessages(path: path);
