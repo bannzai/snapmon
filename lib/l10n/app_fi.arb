@@ -41,6 +41,7 @@
   "opponentSearching": "Etsitään kouluttajaa",
   "opponentSearchAgain": "Etsi uudelleen",
   "opponentNoneAvailable": "Yhtään kouluttajaa ei ole nyt vastassa\nVoit taistella CPU-kouluttajaa vastaan",
+  "opponentPvpBattle": "Taistele",
   "opponentCpuBattle": "Taistele CPU:ta vastaan",
   "settingsLinked": "Yhdistetty palveluun {providerName}",
   "settingsSwitchAccountTitle": "Haluatko vaihtaa linkitettyyn tiliin?",

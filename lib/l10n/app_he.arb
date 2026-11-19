@@ -41,6 +41,7 @@
   "opponentSearching": "מחפשים מאמן",
   "opponentSearchAgain": "לחפש שוב",
   "opponentNoneAvailable": "אין כרגע מאמן זמין לקרב\nאפשר להילחם מול מאמן CPU",
+  "opponentPvpBattle": "להילחם",
   "opponentCpuBattle": "קרב נגד CPU",
   "settingsLinked": "החיבור אל {providerName} הושלם",
   "settingsSwitchAccountTitle": "לעבור לחשבון המקושר?",

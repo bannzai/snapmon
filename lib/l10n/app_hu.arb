@@ -41,6 +41,7 @@
   "opponentSearching": "Edző keresése",
   "opponentSearchAgain": "Keress újra",
   "opponentNoneAvailable": "Most nincs elérhető edző, akivel megküzdhetnél\nMegküzdhetsz egy CPU-edzővel",
+  "opponentPvpBattle": "Harcolj",
   "opponentCpuBattle": "Harcolj a CPU ellen",
   "settingsLinked": "Összekapcsolva ezzel: {providerName}",
   "settingsSwitchAccountTitle": "Átváltasz a kapcsolt fiókra?",

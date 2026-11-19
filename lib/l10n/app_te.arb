@@ -41,6 +41,7 @@
   "opponentSearching": "ట్రైనర్ కోసం వెతుకుతున్నాం",
   "opponentSearchAgain": "మళ్లీ వెతుకు",
   "opponentNoneAvailable": "ఇప్పుడు పోరాడటానికి ట్రైనర్ ఎవరూ లేరు\nనువ్వు CPU ట్రైనర్‌తో పోరాడవచ్చు",
+  "opponentPvpBattle": "పోరాడు",
   "opponentCpuBattle": "CPUతో పోరాడు",
   "settingsLinked": "{providerName}తో లింక్ అయింది",
   "settingsSwitchAccountTitle": "లింక్ చేసిన ఖాతాకు మారతావా?",

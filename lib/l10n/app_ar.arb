@@ -41,6 +41,7 @@
   "opponentSearching": "جارٍ البحث عن مدرب",
   "opponentSearchAgain": "ابحث مجددًا",
   "opponentNoneAvailable": "لا يوجد مدرب متاح للقتال الآن\nيمكنك قتال مدرب CPU",
+  "opponentPvpBattle": "ابدأ معركة",
   "opponentCpuBattle": "قاتل CPU",
   "settingsLinked": "تم الربط مع {providerName}",
   "settingsSwitchAccountTitle": "هل تريد التبديل إلى الحساب المرتبط؟",

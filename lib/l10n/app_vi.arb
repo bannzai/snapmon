@@ -41,6 +41,7 @@
   "opponentSearching": "Đang tìm nhà huấn luyện",
   "opponentSearchAgain": "Tìm lại",
   "opponentNoneAvailable": "Hiện chưa có nhà huấn luyện nào để đấu\nBạn có thể đấu với nhà huấn luyện CPU",
+  "opponentPvpBattle": "Chiến đấu",
   "opponentCpuBattle": "Đấu với CPU",
   "settingsLinked": "Đã liên kết với {providerName}",
   "settingsSwitchAccountTitle": "Bạn muốn chuyển sang tài khoản đã liên kết?",

@@ -41,6 +41,7 @@
   "opponentSearching": "Leter etter en trener",
   "opponentSearchAgain": "Søk igjen",
   "opponentNoneAvailable": "Ingen trener er klar til kamp akkurat nå\nDu kan kjempe mot en CPU-trener",
+  "opponentPvpBattle": "Kjemp",
   "opponentCpuBattle": "Kjemp mot CPU",
   "settingsLinked": "Koblet til {providerName}",
   "settingsSwitchAccountTitle": "Vil du bytte til den tilknyttede kontoen?",

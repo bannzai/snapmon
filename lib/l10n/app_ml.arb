@@ -41,6 +41,7 @@
   "opponentSearching": "ട്രെയിനറെ തിരയുന്നു",
   "opponentSearchAgain": "വീണ്ടും തിരയുക",
   "opponentNoneAvailable": "ഇപ്പോൾ പോരാടാൻ ട്രെയിനർ ആരുമില്ല\nനിങ്ങൾക്ക് CPU ട്രെയിനറുമായി പോരാടാം",
+  "opponentPvpBattle": "പോരാടൂ",
   "opponentCpuBattle": "CPU-യോട് പോരാടൂ",
   "settingsLinked": "{providerName} എന്നതുമായി ബന്ധിപ്പിച്ചു",
   "settingsSwitchAccountTitle": "ലിങ്ക് ചെയ്ത അക്കൗണ്ടിലേക്ക് മാറണോ?",

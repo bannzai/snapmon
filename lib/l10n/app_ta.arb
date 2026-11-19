@@ -41,6 +41,7 @@
   "opponentSearching": "பயிற்சியாளரைத் தேடுகிறோம்",
   "opponentSearchAgain": "மீண்டும் தேடுங்கள்",
   "opponentNoneAvailable": "இப்போது போரிடப் பயிற்சியாளர் யாரும் இல்லை\nநீங்கள் CPU பயிற்சியாளருடன் போரிடலாம்",
+  "opponentPvpBattle": "போரிடுங்கள்",
   "opponentCpuBattle": "CPU-வுடன் போரிடுங்கள்",
   "settingsLinked": "{providerName} உடன் இணைக்கப்பட்டது",
   "settingsSwitchAccountTitle": "இணைக்கப்பட்ட கணக்கிற்கு மாற விரும்புகிறீர்களா?",

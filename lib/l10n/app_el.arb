@@ -41,6 +41,7 @@
   "opponentSearching": "Αναζήτηση εκπαιδευτή",
   "opponentSearchAgain": "Ψάξε ξανά",
   "opponentNoneAvailable": "Δεν υπάρχει διαθέσιμος εκπαιδευτής για μάχη τώρα\nΜπορείς να πολεμήσεις με εκπαιδευτή CPU",
+  "opponentPvpBattle": "Μάχη",
   "opponentCpuBattle": "Πολέμησε το CPU",
   "settingsLinked": "Συνδέθηκε με το {providerName}",
   "settingsSwitchAccountTitle": "Θες να αλλάξεις στον συνδεδεμένο λογαριασμό;",

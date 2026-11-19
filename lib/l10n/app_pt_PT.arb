@@ -41,6 +41,7 @@
   "opponentSearching": "À procura de um treinador",
   "opponentSearchAgain": "Procura outra vez",
   "opponentNoneAvailable": "Não há nenhum treinador disponível para combater agora\nPodes combater com um treinador CPU",
+  "opponentPvpBattle": "Combate",
   "opponentCpuBattle": "Combate contra o CPU",
   "settingsLinked": "Ligado a {providerName}",
   "settingsSwitchAccountTitle": "Queres mudar para a conta associada?",

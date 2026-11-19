@@ -41,6 +41,7 @@
   "opponentSearching": "ट्रेनरचा शोध सुरू आहे",
   "opponentSearchAgain": "पुन्हा शोध",
   "opponentNoneAvailable": "आत्ता लढायला कोणताही ट्रेनर नाही\nतू CPU ट्रेनरशी लढू शकतोस",
+  "opponentPvpBattle": "लढ",
   "opponentCpuBattle": "CPU शी लढ",
   "settingsLinked": "{providerName} शी जोडले गेले",
   "settingsSwitchAccountTitle": "लिंक केलेल्या खात्यावर जाशील का?",

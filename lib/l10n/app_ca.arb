@@ -41,6 +41,7 @@
   "opponentSearching": "Buscant un entrenador",
   "opponentSearchAgain": "Torna a buscar",
   "opponentNoneAvailable": "Ara no hi ha cap entrenador disponible\nPots lluitar contra un entrenador CPU",
+  "opponentPvpBattle": "Combat",
   "opponentCpuBattle": "Combat contra CPU",
   "settingsLinked": "T'has vinculat amb {providerName}",
   "settingsSwitchAccountTitle": "Vols canviar al compte vinculat?",

@@ -41,6 +41,7 @@
   "opponentSearching": "Hľadá sa tréner",
   "opponentSearchAgain": "Hľadaj znova",
   "opponentNoneAvailable": "Teraz nie je dostupný žiadny tréner na súboj\nMôžeš bojovať s CPU trénerom",
+  "opponentPvpBattle": "Bojuj",
   "opponentCpuBattle": "Bojuj proti CPU",
   "settingsLinked": "Prepojené s {providerName}",
   "settingsSwitchAccountTitle": "Chceš prepnúť na prepojený účet?",
