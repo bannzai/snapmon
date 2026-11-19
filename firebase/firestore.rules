@@ -90,7 +90,7 @@ service cloud.firestore {
     // 人との対戦 1 戦。対戦に出ている 2 人だけが読み (相手の手持ちの他人に見せてよい項目の写し・表示名・アイコン・公開された行動)、
     // 書くのは Functions だけ (行動と結果を改ざんさせないため)。
     match /pvpBattles/{battleID} {
-      allow read: if isSignedIn() && request.auth.uid in resource.data.participantUids;
+      allow read: if isSignedIn() && request.auth.uid in resource.data.participantUIDs;
       allow write: if false;
 
       // そのターンの、まだ公開していない行動。相手の行動を見てから選べないよう、相手にも本人にも読ませない。

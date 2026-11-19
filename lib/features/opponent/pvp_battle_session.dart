@@ -68,12 +68,12 @@ BattleState resolvePvpRound({
 /// 計算の決着の前に対戦が終わったこと (時間切れ・ブロック等) を知らせる。
 /// バトルの画面が [start] で始め、画面を閉じる時に [dispose] する。途中でアプリを閉じた対戦は再開せず、時間切れで終わる。
 class PvpBattleSession {
-  /// [client] で、自分の uid が [playerUid] の対戦 [battle] (組み合わせた直後の状態) の同期を作る。
+  /// [client] で、自分の uid が [playerUID] の対戦 [battle] (組み合わせた直後の状態) の同期を作る。
   /// [definitions] は 2 人の手持ちの属性・技を引ける定義。
   PvpBattleSession({
     required this.client,
     required PvpBattle battle,
-    required this.playerUid,
+    required this.playerUID,
     required this.definitions,
   }) : _battle = battle,
        _remainingSeconds = ValueNotifier(battle.turnSeconds);
@@ -82,7 +82,7 @@ class PvpBattleSession {
   final PvpBattleClient client;
 
   /// 自分の uid。
-  final String playerUid;
+  final String playerUID;
 
   /// 2 人の手持ちの属性・技を引ける定義。
   final MasterData definitions;
@@ -118,7 +118,7 @@ class PvpBattleSession {
   int _secondsAfterDeadline = 0;
 
   /// 自分が先に待っていた側か。
-  bool get _isHost => _battle.host.uid == playerUid;
+  bool get _isHost => _battle.host.uid == playerUID;
 
   /// 対戦の ID。
   String get battleID => _battle.battleID;
@@ -241,7 +241,7 @@ class PvpBattleSession {
     if (battle.finishReason == PvpFinishReason.timeout) {
       _interrupt(
         interruption: (
-          winner: battle.winnerUid == playerUid
+          winner: battle.winnerUID == playerUID
               ? BattleSideID.player
               : BattleSideID.opponent,
         ),
@@ -252,7 +252,7 @@ class PvpBattleSession {
     // 決着していないと報告して勝敗を付けずに終える (報告を出せなくても、この端末では勝敗なしとして閉じる)
     unawaited(
       client
-          .reportResult(battleID: battleID, winnerUid: null)
+          .reportResult(battleID: battleID, winnerUID: null)
           .catchError((Object error) => debugPrint('reportPvpResult: $error')),
     );
     _interrupt(interruption: (winner: null));
@@ -315,7 +315,7 @@ BattleRecorder pvpBattleRecorder({
       }) async {
         await session.client.reportResult(
           battleID: battleID,
-          winnerUid: switch (winner) {
+          winnerUID: switch (winner) {
             BattleSideID.player => session.player.uid,
             BattleSideID.opponent => session.opponent.uid,
           },

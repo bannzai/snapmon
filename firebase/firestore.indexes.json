@@ -9,6 +9,14 @@
       ]
     },
     {
+      "collectionGroup": "reports",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "reporterUid", "order": "ASCENDING" },
+        { "fieldPath": "monsterOwnerUid", "order": "ASCENDING" }
+      ]
+    },
+    {
       "collectionGroup": "pvpMatchTickets",
       "queryScope": "COLLECTION",
       "fields": [

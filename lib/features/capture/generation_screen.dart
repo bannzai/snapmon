@@ -577,7 +577,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
   /// (CPU と対戦する。人を探すのは見つかれば人と戦わせるためで、探せないことで初回のバトルを止めない)。
   Future<({String battleID, MasterData definitions})?>
   _searchFirstBattlePvpMatch() async {
-    if (widget.pvpClient.battleClient.signedInUid() == null) {
+    if (widget.pvpClient.battleClient.signedInUID() == null) {
       return null;
     }
     final definitions = widget.dexStore.definitions;

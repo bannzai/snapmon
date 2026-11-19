@@ -33,17 +33,17 @@ Future<BattleScreen> preparePvpBattleScreen({
   required OwnedMonster? firstBattleBornMonster,
   required bool firstBattleMonsterIsNewlyBorn,
 }) async {
-  final playerUid = pvpClient.battleClient.signedInUid();
+  final playerUID = pvpClient.battleClient.signedInUID();
   final battle = await pvpClient.battleClient
       .watchBattle(battleID: battleID)
       .first;
-  if (playerUid == null || battle == null) {
+  if (playerUID == null || battle == null) {
     throw StateError('対戦を読み込めませんでした');
   }
   final session = PvpBattleSession(
     client: pvpClient.battleClient,
     battle: battle,
-    playerUid: playerUid,
+    playerUID: playerUID,
     definitions: await pvpClient.fetchDefinitions(
       base: definitions,
       definitionIDs: [
@@ -94,7 +94,7 @@ Future<BattleScreen?> prepareMatchedBattleScreen({
   required CardSharer cardSharer,
   required PlayerProfile? playerProfile,
 }) async {
-  if (pvpClient.battleClient.signedInUid() != null) {
+  if (pvpClient.battleClient.signedInUID() != null) {
     // 同じ版の master の利用者だけを組み合わせるため、探す前に定義を最新の master から読み直す
     await dexStore.refreshDefinitions();
     // 相手に版を伝える定義と、対戦で使う定義を同じものにする (探している間に図鑑の定義が替わっても、伝えた版で計算するため)

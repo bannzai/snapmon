@@ -210,7 +210,7 @@ Future<void> main() async {
         updateDisplayName: updateDisplayNameWithFirebase,
         updateIcon: updateProfileIconWithFirebase,
         battleClient: PvpBattleClient(
-          signedInUid: signedInUidWithFirebase,
+          signedInUID: signedInUIDWithFirebase,
           createSearchID: createPvpSearchID,
           joinMatch: joinPvpMatchWithFirebase,
           leaveMatch: leavePvpMatchWithFirebase,

@@ -87,7 +87,7 @@ class PvpBattle {
     required this.turns,
     required this.turnSeconds,
     required this.status,
-    required this.winnerUid,
+    required this.winnerUID,
     required this.finishReason,
   });
 
@@ -121,7 +121,7 @@ class PvpBattle {
       'void' => PvpBattleStatus.noContest,
       final status => throw FormatException('知らない対戦の状態 $status'),
     },
-    winnerUid: json['winnerUid'] as String?,
+    winnerUID: json['winnerUID'] as String?,
     finishReason: switch (json['finishReason'] as String?) {
       null => null,
       final finishReason => PvpFinishReason.values.byName(finishReason),
@@ -153,7 +153,7 @@ class PvpBattle {
   final PvpBattleStatus status;
 
   /// 勝者の uid。[PvpBattleStatus.finished] の時だけ入る。
-  final String? winnerUid;
+  final String? winnerUID;
 
   /// どう終わったか。進行中は null。
   final PvpFinishReason? finishReason;

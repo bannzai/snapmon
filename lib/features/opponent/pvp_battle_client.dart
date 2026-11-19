@@ -7,7 +7,7 @@ import 'pvp_battle.dart';
 class PvpBattleClient {
   /// 関数の組を作る。
   const PvpBattleClient({
-    required this.signedInUid,
+    required this.signedInUID,
     required this.createSearchID,
     required this.joinMatch,
     required this.leaveMatch,
@@ -18,7 +18,7 @@ class PvpBattleClient {
   });
 
   /// ログインしている利用者の uid を返す。ログインが無い時 (DEBUG ビルドでログインを飛ばした時) は null で、人との対戦は探せない。
-  final String? Function() signedInUid;
+  final String? Function() signedInUID;
 
   /// 1 回の探す操作の ID を作る。Functions が、前の探す操作で組み合わされた対戦を新しい探す操作の結果として返さないために使う。
   final String Function() createSearchID;
@@ -48,11 +48,11 @@ class PvpBattleClient {
   /// 対戦 [battleID] の今のターンを時間切れとして終えるよう頼む。期限 (サーバーの時計) の前に呼んでも何も変わらない。
   final Future<void> Function({required String battleID}) claimTimeout;
 
-  /// 対戦 [battleID] の、自分の端末の計算が出した勝者の uid [winnerUid] を報告する。
+  /// 対戦 [battleID] の、自分の端末の計算が出した勝者の uid [winnerUID] を報告する。
   /// 公開されたターンでは決着していない (相手が勝者を報告したが、自分の計算では決着していない) 時は null を渡す。
   final Future<void> Function({
     required String battleID,
-    required String? winnerUid,
+    required String? winnerUID,
   })
   reportResult;
 }

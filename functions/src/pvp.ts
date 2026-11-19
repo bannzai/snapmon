@@ -262,13 +262,13 @@ export const blockUser = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async (r
     requireActiveAccount({ userSnapshot });
     if (typeof battleID === "string") {
       const battle = (await transaction.get(firestore.doc(`pvpBattles/${battleID}`))).data() as PvpBattleDocument | undefined;
-      if (battle?.status === "active" && battle.participantUids.includes(uid) && battle.participantUids.includes(blockedUid)) {
+      if (battle?.status === "active" && battle.participantUIDs.includes(uid) && battle.participantUIDs.includes(blockedUid)) {
         await finishPvpBattle({
           transaction,
           firestore,
           battleID,
           battle,
-          outcome: { status: "void", winnerUid: null, finishReason: "blocked" },
+          outcome: { status: "void", winnerUID: null, finishReason: "blocked" },
         });
       }
     }

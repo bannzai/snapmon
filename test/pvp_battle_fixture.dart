@@ -8,7 +8,7 @@ import 'package:snapmon/features/opponent/pvp_battle_client.dart';
 /// ログインが無い時の [PvpBattleClient]。uid が無く、人との対戦の呼び出しはどれも失敗する
 /// (ログインが無い時に人との対戦を探さないことを、呼ばれたら落ちることで確かめる)。
 PvpBattleClient signedOutPvpBattleClient() => PvpBattleClient(
-  signedInUid: () => null,
+  signedInUID: () => null,
   createSearchID: () => throw StateError('ログインが無いのに相手を探そうとした'),
   joinMatch: ({required rulesVersion, required searchID}) =>
       throw StateError('ログインが無いのに joinMatch を呼んだ'),
@@ -20,7 +20,7 @@ PvpBattleClient signedOutPvpBattleClient() => PvpBattleClient(
       throw StateError('ログインが無いのに submitAction を呼んだ'),
   claimTimeout: ({required battleID}) =>
       throw StateError('ログインが無いのに claimTimeout を呼んだ'),
-  reportResult: ({required battleID, required winnerUid}) =>
+  reportResult: ({required battleID, required winnerUID}) =>
       throw StateError('ログインが無いのに reportResult を呼んだ'),
 );
 
@@ -78,10 +78,10 @@ class FakePvpBattleServer {
   final List<({String uid, int round, BattleAction action})> submitCalls = [];
 
   /// claimTimeout を呼んだ uid (呼ばれた順)。
-  final List<String> timeoutClaimUids = [];
+  final List<String> timeoutClaimUIDs = [];
 
   /// reportResult の呼び出し (呼ばれた順)。
-  final List<({String uid, String? winnerUid})> reportCalls = [];
+  final List<({String uid, String? winnerUID})> reportCalls = [];
 
   /// null 以外の時、joinMatch がこのエラーで失敗する。
   Object? joinError;
@@ -99,7 +99,7 @@ class FakePvpBattleServer {
   final Map<String, BattleAction> _pendingActions = {};
 
   /// 勝者を報告済みの uid。
-  final Set<String> _reportedUids = {};
+  final Set<String> _reportedUIDs = {};
 
   /// 対戦の変化を、見ている端末に流す。
   final StreamController<PvpBattle?> _battleChanges =
@@ -122,7 +122,7 @@ class FakePvpBattleServer {
     _update(
       turns: const [],
       status: PvpBattleStatus.active,
-      winnerUid: null,
+      winnerUID: null,
       finishReason: null,
     );
     for (final uid in [host.uid, guest.uid]) {
@@ -137,7 +137,7 @@ class FakePvpBattleServer {
   /// 進行中の対戦を、片方が相手をブロックした時と同じく勝敗を付けずに終える。
   void finishByBlock() => _finish(
     status: PvpBattleStatus.noContest,
-    winnerUid: null,
+    winnerUID: null,
     finishReason: PvpFinishReason.blocked,
   );
 
@@ -148,7 +148,7 @@ class FakePvpBattleServer {
     _update(
       turns: [..._battle!.turns, turn],
       status: PvpBattleStatus.noContest,
-      winnerUid: null,
+      winnerUID: null,
       finishReason: PvpFinishReason.blocked,
     );
   }
@@ -161,7 +161,7 @@ class FakePvpBattleServer {
 
   /// uid が [uid] の利用者の端末が使う [PvpBattleClient] を返す。
   PvpBattleClient clientOf({required String uid}) => PvpBattleClient(
-    signedInUid: () => uid,
+    signedInUID: () => uid,
     createSearchID: () => 'search-${++_searchIDCount}',
     joinMatch: ({required rulesVersion, required searchID}) async {
       joinCalls.add((uid: uid, rulesVersion: rulesVersion, searchID: searchID));
@@ -202,8 +202,8 @@ class FakePvpBattleServer {
         ({required battleID, required round, required action}) async =>
             submitAction(uid: uid, round: round, action: action),
     claimTimeout: ({required battleID}) async => claimTimeout(uid: uid),
-    reportResult: ({required battleID, required winnerUid}) async =>
-        reportResult(uid: uid, winnerUid: winnerUid),
+    reportResult: ({required battleID, required winnerUID}) async =>
+        reportResult(uid: uid, winnerUID: winnerUID),
   );
 
   /// [uid] の、[round] 番目のターンの行動 [action] を受け取る。2 人分そろったら公開する。
@@ -240,7 +240,7 @@ class FakePvpBattleServer {
           (hostAction: hostAction, guestAction: guestAction),
         ],
         status: PvpBattleStatus.active,
-        winnerUid: null,
+        winnerUID: null,
         finishReason: null,
       );
     }
@@ -249,68 +249,68 @@ class FakePvpBattleServer {
   /// [uid] からの、今のターンを時間切れとして終える頼みを受け取る。期限 ([isTurnDeadlinePassed]) の前と、終わった対戦では何もしない。
   /// 行動を出したのが片方だけならその側の勝ち、どちらも出していなければ勝敗を付けずに終える。
   void claimTimeout({required String uid}) {
-    timeoutClaimUids.add(uid);
+    timeoutClaimUIDs.add(uid);
     if (_battle?.status != PvpBattleStatus.active || !isTurnDeadlinePassed) {
       return;
     }
-    if (_pendingActions.keys.singleOrNull case final submittedUid?) {
+    if (_pendingActions.keys.singleOrNull case final submittedUID?) {
       _finish(
         status: PvpBattleStatus.finished,
-        winnerUid: submittedUid,
+        winnerUID: submittedUID,
         finishReason: PvpFinishReason.timeout,
       );
     } else {
       _finish(
         status: PvpBattleStatus.noContest,
-        winnerUid: null,
+        winnerUID: null,
         finishReason: PvpFinishReason.timeout,
       );
     }
   }
 
-  /// [uid] の端末の計算が出した勝者 [winnerUid] (決着していなければ null) の報告を受け取る。
+  /// [uid] の端末の計算が出した勝者 [winnerUID] (決着していなければ null) の報告を受け取る。
   /// 進行中の対戦は最初の報告の勝者で終え、報告で終わった対戦に食い違う報告が届いたら勝敗を付けずに終える。
-  void reportResult({required String uid, required String? winnerUid}) {
-    reportCalls.add((uid: uid, winnerUid: winnerUid));
+  void reportResult({required String uid, required String? winnerUID}) {
+    reportCalls.add((uid: uid, winnerUID: winnerUID));
     final battle = _battle!;
-    if (_reportedUids.contains(uid)) {
+    if (_reportedUIDs.contains(uid)) {
       return;
     }
     if (battle.status == PvpBattleStatus.active) {
-      if (winnerUid == null) {
+      if (winnerUID == null) {
         return;
       }
-      _reportedUids.add(uid);
+      _reportedUIDs.add(uid);
       _finish(
         status: PvpBattleStatus.finished,
-        winnerUid: winnerUid,
+        winnerUID: winnerUID,
         finishReason: PvpFinishReason.result,
       );
       return;
     }
-    _reportedUids.add(uid);
+    _reportedUIDs.add(uid);
     if (battle.status == PvpBattleStatus.finished &&
         battle.finishReason == PvpFinishReason.result &&
-        winnerUid != battle.winnerUid) {
+        winnerUID != battle.winnerUID) {
       _finish(
         status: PvpBattleStatus.noContest,
-        winnerUid: null,
+        winnerUID: null,
         finishReason: PvpFinishReason.mismatch,
       );
     }
   }
 
-  /// 対戦を [status]・[winnerUid]・[finishReason] で終え、出したままの行動を消す。
+  /// 対戦を [status]・[winnerUID]・[finishReason] で終え、出したままの行動を消す。
   void _finish({
     required PvpBattleStatus status,
-    required String? winnerUid,
+    required String? winnerUID,
     required PvpFinishReason finishReason,
   }) {
     _pendingActions.clear();
     _update(
       turns: _battle!.turns,
       status: status,
-      winnerUid: winnerUid,
+      winnerUID: winnerUID,
       finishReason: finishReason,
     );
   }
@@ -319,7 +319,7 @@ class FakePvpBattleServer {
   void _update({
     required List<PvpTurn> turns,
     required PvpBattleStatus status,
-    required String? winnerUid,
+    required String? winnerUID,
     required PvpFinishReason? finishReason,
   }) {
     _battle = PvpBattle(
@@ -331,7 +331,7 @@ class FakePvpBattleServer {
       turns: turns,
       turnSeconds: turnSeconds,
       status: status,
-      winnerUid: winnerUid,
+      winnerUID: winnerUID,
       finishReason: finishReason,
     );
     _battleChanges.add(_battle);

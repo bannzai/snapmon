@@ -1,6 +1,6 @@
 import { randomInt } from "node:crypto";
 
-import { FieldPath, FieldValue, Timestamp, getFirestore, type DocumentSnapshot } from "firebase-admin/firestore";
+import { FieldPath, FieldValue, Timestamp, getFirestore, type DocumentSnapshot, type Firestore } from "firebase-admin/firestore";
 import { HttpsError, onCall } from "firebase-functions/v2/https";
 
 import { ENFORCE_APP_CHECK } from "./app_check";
@@ -45,7 +45,7 @@ function requireParticipantBattle({ battleSnapshot, uid }: { battleSnapshot: Doc
     throw new HttpsError("not-found", "対戦が見つかりません");
   }
   const battle = battleSnapshot.data() as PvpBattleDocument;
-  if (!battle.participantUids.includes(uid)) {
+  if (!battle.participantUIDs.includes(uid)) {
     throw new HttpsError("permission-denied", "この対戦に出ていません");
   }
   return battle;
@@ -60,12 +60,51 @@ function requireBattleID({ battleID }: { battleID: unknown }): string {
 }
 
 /**
+ * 今も相手を探している利用者 [waitingUIDs] のうち、[uid] とブロック・通報の関係があって組み合わせない利用者の uid を返す
+ * ([uid] がブロックした / された相手、[uid] が通報したモンスターの持ち主、[uid] のモンスターを通報した利用者)。
+ * 探している間 3 秒ごとに呼ばれるため、[uid] のブロック・通報の全件ではなく、今待っている相手との関係だけを読む
+ * (待っている相手がいなければ何も読まない)。ブロックは 2 人の uid から決まる ID で読み、通報は相手の uid を `in` で絞る。
+ * `in` に渡せる値は 30 個まで ( https://firebase.google.com/docs/firestore/query-data/queries の「in」) のため、
+ * [waitingUIDs] は [MATCH_TICKET_SCAN_LIMIT] 個以下で渡す。通報の読み取りは firebase/firestore.indexes.json の reports の複合インデックスを使う。
+ */
+async function unmatchableWaitingUIDs({
+  firestore,
+  uid,
+  waitingUIDs,
+}: {
+  firestore: Firestore;
+  uid: string;
+  waitingUIDs: string[];
+}): Promise<Set<string>> {
+  if (waitingUIDs.length === 0) {
+    return new Set();
+  }
+  const [blocks, reportsByPlayer, reportsAgainstPlayer] = await Promise.all([
+    firestore.getAll(
+      ...waitingUIDs.flatMap((waitingUID) => [
+        firestore.doc(`blocks/${blockDocumentID({ blockerUid: uid, blockedUid: waitingUID })}`),
+        firestore.doc(`blocks/${blockDocumentID({ blockerUid: waitingUID, blockedUid: uid })}`),
+      ]),
+    ),
+    firestore.collection("reports").where("reporterUid", "==", uid).where("monsterOwnerUid", "in", waitingUIDs).get(),
+    firestore.collection("reports").where("monsterOwnerUid", "==", uid).where("reporterUid", "in", waitingUIDs).get(),
+  ]);
+  return new Set<string>([
+    // ブロックの文書は、待っている相手ごとに「自分がブロックした」「相手にブロックされた」の順に 2 件ずつ読んでいる
+    ...waitingUIDs.filter((_, index) => blocks[index * 2].exists || blocks[index * 2 + 1].exists),
+    ...reportsByPlayer.docs.map((report) => report.get("monsterOwnerUid") as string),
+    ...reportsAgainstPlayer.docs.map((report) => report.get("reporterUid") as string),
+  ]);
+}
+
+/**
  * 人との対戦の相手を探す callable。探している間、端末が 3 秒ごとに同じ `searchID` で呼び直す。
  *
  * 受け取る data: `{ rulesVersion: string, searchID: string }` (rulesVersion は端末の対戦の計算の版、searchID は 1 回の探す操作ごとに端末が作る ID)。
  * 返す値: `{ battleID: string | null }`。組み合わされたら `pvpBattles/{battleID}` の ID、まだなら null。
  * 呼ぶたびに `pvpMatchTickets/{uid}` の時刻を更新し、今も探している他の利用者の札のうち、同じ版で長く待っている札と組み合わせる
  * (札の読み取りは firebase/firestore.indexes.json の pvpMatchTickets の複合インデックスを使う)。
+ * 1 回の呼び出しが読む数は、待っている利用者の数ではなく上限 ([MATCH_TICKET_SCAN_LIMIT]・[MATCH_CANDIDATE_LIMIT]) で決まる。
  * 自分・ブロックした / された相手・自分が通報したモンスターの持ち主・自分のモンスターを通報した利用者・
  * [REPORT_HIDE_THRESHOLD] 人から通報されたモンスターの持ち主 (自分がそうである時は誰とも組み合わせない)・アカウントの削除の途中の利用者・
  * 手持ちが空の利用者とは組み合わせない。fetchOpponents の除外に、自分のモンスターを通報した利用者を足したもの
@@ -87,60 +126,63 @@ export const joinPvpMatch = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
   const firestore = getFirestore();
   const now = Timestamp.now();
   const freshSince = Timestamp.fromMillis(now.toMillis() - MATCH_TICKET_FRESH_SECONDS * 1000);
-  const [blockedByPlayer, blockingPlayer, reportedByPlayer, reportingPlayer, waitingTickets] = await Promise.all([
-    firestore.collection("blocks").where("blockerUid", "==", uid).get(),
-    firestore.collection("blocks").where("blockedUid", "==", uid).get(),
-    firestore.collection("reports").where("reporterUid", "==", uid).get(),
-    firestore.collection("reports").where("monsterOwnerUid", "==", uid).get(),
-    // 読む数の上限の前に、組み合わせられない札 (組み合わせ済み・別の版) を Firestore の側で外す
-    // (上限の数だけそれらが先に並ぶと、組める相手が待っていても読めないため)
-    firestore
+  // 読む数の上限の前に、組み合わせられない札 (組み合わせ済み・別の版) を Firestore の側で外す
+  // (上限の数だけそれらが先に並ぶと、組める相手が待っていても読めないため)
+  const waitingUIDs = (
+    await firestore
       .collection("pvpMatchTickets")
       .where("battleID", "==", null)
       .where("rulesVersion", "==", rulesVersion)
       .where("heartbeatAt", ">=", freshSince)
       .orderBy("heartbeatAt")
       .limit(MATCH_TICKET_SCAN_LIMIT)
-      .get(),
-  ]);
-  const excludedUids = new Set<unknown>([
-    uid,
-    ...blockedByPlayer.docs.map((snapshot) => snapshot.get("blockedUid")),
-    ...blockingPlayer.docs.map((snapshot) => snapshot.get("blockerUid")),
-    ...reportedByPlayer.docs.map((snapshot) => snapshot.get("monsterOwnerUid")),
-    ...reportingPlayer.docs.map((snapshot) => snapshot.get("reporterUid")),
-  ]);
-  const candidateUids = waitingTickets.docs
-    .filter((ticket) => !excludedUids.has(ticket.id))
+      .get()
+  ).docs
+    .filter((ticket) => ticket.id !== uid)
     .sort((left, right) => (left.get("createdAt") as Timestamp).toMillis() - (right.get("createdAt") as Timestamp).toMillis())
-    .slice(0, MATCH_CANDIDATE_LIMIT)
     .map((ticket) => ticket.id);
-  const memberUids = [uid, ...candidateUids];
-  const [hiddenOwnerUids, memberUsers, memberParties] = await Promise.all([
-    ownersHiddenByReports({ firestore, ownerUids: memberUids }),
-    firestore.getAll(...memberUids.map((memberUid) => firestore.doc(`users/${memberUid}`))),
-    firestore.getAll(...memberUids.map((memberUid) => firestore.doc(`users/${memberUid}/party/current`))),
+  // 通報で隠れている利用者は探している間ずっと候補に残るため、手持ちまで読む候補の数 (MATCH_CANDIDATE_LIMIT) に絞る前に外す
+  // (絞った後に外すと、隠れている利用者がその数だけ先に待っているだけで、後ろの組める相手に届かなくなる)
+  const [unmatchableUIDs, hiddenOwnerUIDs] = await Promise.all([
+    unmatchableWaitingUIDs({ firestore, uid, waitingUIDs }),
+    ownersHiddenByReports({ firestore, ownerUids: [uid, ...waitingUIDs] }),
   ]);
-  const partyMonstersByUid = await partyMonstersOf({
+  // 自分が通報で隠れている時は札の時刻だけを更新し、誰とも組み合わせない (隠れていることを本人に知らせない)
+  const candidateUIDs = hiddenOwnerUIDs.has(uid)
+    ? []
+    : waitingUIDs
+        .filter((waitingUID) => !unmatchableUIDs.has(waitingUID) && !hiddenOwnerUIDs.has(waitingUID))
+        .slice(0, MATCH_CANDIDATE_LIMIT);
+  const memberUIDs = [uid, ...candidateUIDs];
+  const [memberUsers, memberParties] = await Promise.all([
+    firestore.getAll(...memberUIDs.map((memberUID) => firestore.doc(`users/${memberUID}`))),
+    firestore.getAll(...memberUIDs.map((memberUID) => firestore.doc(`users/${memberUID}/party/current`))),
+  ]);
+  const partyMonstersByUID = await partyMonstersOf({
     firestore,
-    partyMonsterIDsByUid: new Map(memberUids.map((memberUid, index) => [memberUid, partyMonsterIDsOf(memberParties[index].data())])),
+    partyMonsterIDsByUid: new Map(memberUIDs.map((memberUID, index) => [memberUID, partyMonsterIDsOf(memberParties[index].data())])),
   });
-  if (partyMonstersByUid.get(uid)!.length === 0) {
+  if (partyMonstersByUID.get(uid)!.length === 0) {
     throw new HttpsError("failed-precondition", "手持ちを入れてから相手を探してください");
   }
-  const trainerOf = (memberUid: string): PvpTrainer => {
-    const memberUser = memberUsers[memberUids.indexOf(memberUid)];
+  const trainerOf = (memberUID: string): PvpTrainer => {
+    const memberUser = memberUsers[memberUIDs.indexOf(memberUID)];
     return {
-      uid: memberUid,
-      displayName: displayNameOf({ uid: memberUid, storedDisplayName: memberUser.get("displayName") }),
+      uid: memberUID,
+      displayName: displayNameOf({ uid: memberUID, storedDisplayName: memberUser.get("displayName") }),
       iconPath: profileIconOf({ storedIconPath: memberUser.get("iconPath") }),
-      monsters: partyMonstersByUid.get(memberUid)!.map(publicMonster),
+      monsters: partyMonstersByUID.get(memberUID)!.map(publicMonster),
     };
   };
-  // 自分が通報で隠れている時は札の時刻だけを更新し、誰とも組み合わせない (隠れていることを本人に知らせない)
-  const hostUid = hiddenOwnerUids.has(uid)
-    ? undefined
-    : candidateUids.find((candidateUid) => !hiddenOwnerUids.has(candidateUid) && partyMonstersByUid.get(candidateUid)!.length > 0);
+  // 長く待っている順に、アカウントの削除の途中でなく手持ちのある最初の候補と組み合わせる
+  const hostUID = candidateUIDs.find((candidateUID) => {
+    const candidateUser = memberUsers[memberUIDs.indexOf(candidateUID)];
+    return (
+      candidateUser.exists &&
+      candidateUser.get("accountDeletionStartedAt") === undefined &&
+      partyMonstersByUID.get(candidateUID)!.length > 0
+    );
+  });
   const ticketDocument = firestore.doc(`pvpMatchTickets/${uid}`);
   const battleDocument = firestore.collection("pvpBattles").doc();
   return firestore.runTransaction(async (transaction): Promise<{ battleID: string | null }> => {
@@ -149,13 +191,13 @@ export const joinPvpMatch = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
     const [userSnapshot, ticketSnapshot, ...hostSnapshots] = await transaction.getAll(
       firestore.doc(`users/${uid}`),
       ticketDocument,
-      ...(hostUid === undefined
+      ...(hostUID === undefined
         ? []
         : [
-            firestore.doc(`users/${hostUid}`),
-            firestore.doc(`pvpMatchTickets/${hostUid}`),
-            firestore.doc(`blocks/${blockDocumentID({ blockerUid: uid, blockedUid: hostUid })}`),
-            firestore.doc(`blocks/${blockDocumentID({ blockerUid: hostUid, blockedUid: uid })}`),
+            firestore.doc(`users/${hostUID}`),
+            firestore.doc(`pvpMatchTickets/${hostUID}`),
+            firestore.doc(`blocks/${blockDocumentID({ blockerUid: uid, blockedUid: hostUID })}`),
+            firestore.doc(`blocks/${blockDocumentID({ blockerUid: hostUID, blockedUid: uid })}`),
           ]),
     );
     requireActiveAccount({ userSnapshot });
@@ -174,7 +216,7 @@ export const joinPvpMatch = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
     const [hostUser, hostTicket, ...blockSnapshots] = hostSnapshots;
     // 候補を読んだ後に、相手が組み合わせられなくなった (札が替わった・削除を始めた・どちらかがブロックした) 時は、札だけを更新して次の呼び出しで探し直す
     if (
-      hostUid === undefined ||
+      hostUID === undefined ||
       !hostUser.exists ||
       hostUser.get("accountDeletionStartedAt") !== undefined ||
       blockSnapshots.some((blockSnapshot) => blockSnapshot.exists) ||
@@ -183,12 +225,12 @@ export const joinPvpMatch = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
       transaction.set(ticketDocument, ticket);
       return { battleID: null };
     }
-    const host = trainerOf(hostUid);
+    const host = trainerOf(hostUID);
     const guest = trainerOf(uid);
     transaction.create(battleDocument, {
       host,
       guest,
-      participantUids: [hostUid, uid],
+      participantUIDs: [hostUID, uid],
       // 端末の乱数 (lib/domain/random/deterministic_random.dart の xorshift32) の状態は 32 ビットで、0 は別の値に置き換えられるため、
       // 置き換えの起きない 1 以上の 32 ビットの整数にする
       randomSeed: randomInt(1, 2 ** 32),
@@ -197,13 +239,13 @@ export const joinPvpMatch = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
       turnSeconds: TURN_SECONDS,
       turnDeadline: turnDeadlineFrom({ now }),
       status: "active",
-      winnerUid: null,
+      winnerUID: null,
       finishReason: null,
-      reportedWinnerUids: {},
+      reportedWinnerUIDs: {},
       createdAt: now,
     } satisfies PvpBattleDocument);
     transaction.set(ticketDocument, { ...ticket, battleID: battleDocument.id });
-    transaction.update(firestore.doc(`pvpMatchTickets/${hostUid}`), { battleID: battleDocument.id });
+    transaction.update(firestore.doc(`pvpMatchTickets/${hostUID}`), { battleID: battleDocument.id });
     for (const trainer of [host, guest]) {
       transaction.create(firestore.doc(`users/${trainer.uid}/battles/${battleDocument.id}`), {
         status: "started",
@@ -283,11 +325,11 @@ export const submitPvpAction = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, as
     if (now.toMillis() > battle.turnDeadline.toMillis()) {
       throw new HttpsError("deadline-exceeded", "行動を選ぶ時間を過ぎました");
     }
-    const opponentUid = battle.participantUids.find((participantUid) => participantUid !== uid)!;
+    const opponentUID = battle.participantUIDs.find((participantUID) => participantUID !== uid)!;
     const pendingDocument = firestore.doc(`pvpBattles/${battleID}/pendingActions/${uid}`);
     const [pendingSnapshot, opponentPendingSnapshot] = await transaction.getAll(
       pendingDocument,
-      firestore.doc(`pvpBattles/${battleID}/pendingActions/${opponentUid}`),
+      firestore.doc(`pvpBattles/${battleID}/pendingActions/${opponentUID}`),
     );
     if (pendingSnapshot.exists) {
       return;
@@ -331,10 +373,10 @@ export const claimPvpTimeout = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, as
       return { status: battle.status };
     }
     const pendingSnapshots = await transaction.getAll(
-      ...battle.participantUids.map((participantUid) => firestore.doc(`pvpBattles/${battleID}/pendingActions/${participantUid}`)),
+      ...battle.participantUIDs.map((participantUID) => firestore.doc(`pvpBattles/${battleID}/pendingActions/${participantUID}`)),
     );
     const outcome = timeoutOutcome({
-      submittedUids: pendingSnapshots.filter((snapshot) => snapshot.exists).map((snapshot) => snapshot.id),
+      submittedUIDs: pendingSnapshots.filter((snapshot) => snapshot.exists).map((snapshot) => snapshot.id),
     });
     await finishPvpBattle({ transaction, firestore, battleID, battle, outcome });
     return { status: outcome.status };
@@ -344,7 +386,7 @@ export const claimPvpTimeout = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, as
 /**
  * 人との対戦で、自分の端末の計算が出した勝者を報告する callable。端末は決着の後、recordBattle (レベルの記録) の前に呼ぶ。
  *
- * 受け取る data: `{ battleID: string, winnerUid: string | null }` (winnerUid は 2 人のどちらかの uid。公開されたターンでは決着していない、という報告は null)。
+ * 受け取る data: `{ battleID: string, winnerUID: string | null }` (winnerUID は 2 人のどちらかの uid。公開されたターンでは決着していない、という報告は null)。
  * 返す値: `{ status: "active" | "finished" | "void" }` (呼んだ後の対戦の状態)。
  * 進行中の対戦は最初の報告の勝者で終え、2 人の `users/{uid}/battles/{battleID}` に勝敗を書く。報告で終わった対戦に、食い違う報告
  * (別の勝者・決着していない) が届いたら、勝敗を付けない終わりに変えて書いた勝敗を消す (pvp_battle_rules.ts の outcomeAfterReport)。
@@ -353,20 +395,20 @@ export const claimPvpTimeout = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, as
  */
 export const reportPvpResult = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async (request) => {
   const uid = requireSignedInUid({ request });
-  const { battleID: requestedBattleID, winnerUid } = (request.data ?? {}) as { battleID?: unknown; winnerUid?: unknown };
+  const { battleID: requestedBattleID, winnerUID } = (request.data ?? {}) as { battleID?: unknown; winnerUID?: unknown };
   const battleID = requireBattleID({ battleID: requestedBattleID });
   const firestore = getFirestore();
   const battleDocument = firestore.doc(`pvpBattles/${battleID}`);
   return firestore.runTransaction(async (transaction): Promise<{ status: PvpBattleDocument["status"] }> => {
     const battle = requireParticipantBattle({ battleSnapshot: await transaction.get(battleDocument), uid });
-    if (winnerUid !== null && !battle.participantUids.includes(winnerUid as string)) {
-      throw new HttpsError("invalid-argument", "winnerUid に対戦に出ている利用者の uid か null を渡してください");
+    if (winnerUID !== null && !battle.participantUIDs.includes(winnerUID as string)) {
+      throw new HttpsError("invalid-argument", "winnerUID に対戦に出ている利用者の uid か null を渡してください");
     }
-    const reportedWinnerUid = winnerUid as string | null;
-    if (uid in battle.reportedWinnerUids) {
+    const reportedWinnerUID = winnerUID as string | null;
+    if (uid in battle.reportedWinnerUIDs) {
       return { status: battle.status };
     }
-    const outcome = outcomeAfterReport({ battle, reportedWinnerUid });
+    const outcome = outcomeAfterReport({ battle, reportedWinnerUID });
     // 進行中の対戦への「決着していない」は、変えるものが無いため報告として残さない (後で出す本当の勝者の報告を塞がないため)
     if (battle.status === "active" && outcome === undefined) {
       return { status: battle.status };
@@ -374,7 +416,7 @@ export const reportPvpResult = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, as
     if (outcome !== undefined) {
       await finishPvpBattle({ transaction, firestore, battleID, battle, outcome });
     }
-    transaction.update(battleDocument, new FieldPath("reportedWinnerUids", uid), reportedWinnerUid);
+    transaction.update(battleDocument, new FieldPath("reportedWinnerUIDs", uid), reportedWinnerUID);
     return { status: outcome?.status ?? battle.status };
   });
 });

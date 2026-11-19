@@ -19,7 +19,7 @@ import 'session.dart';
 
 /// ログインしていれば、その uid を返す。無ければ null
 /// (Functions と Rules がログインの無い呼び出しを拒否するため。DEBUG ビルドでログインを飛ばした時に当たる)。
-String? signedInUidWithFirebase() => FirebaseAuth.instance.currentUser?.uid;
+String? signedInUIDWithFirebase() => FirebaseAuth.instance.currentUser?.uid;
 
 /// Functions の callable [name] を [data] で呼び、返った値を返す。
 Future<Map<Object?, Object?>> _call({
@@ -33,7 +33,7 @@ Future<Map<Object?, Object?>> _call({
 
 /// Functions の fetchOpponents を呼び、相手の候補を返す。ログインが無い時は呼ばずに null を返す。
 Future<List<PvpOpponent>?> fetchPvpOpponentsWithFirebase() async {
-  if (signedInUidWithFirebase() == null) {
+  if (signedInUIDWithFirebase() == null) {
     return null;
   }
   final result = await _call(name: 'fetchOpponents', data: null);
@@ -105,7 +105,7 @@ Future<void> blockUserWithFirebase({
 /// 自分の `users/{uid}/battles` のうち、勝った・負けた記録の数を数えて返す (集計を Firestore に持たないため、数えるクエリで読む。
 /// .claude/rules/firestore.md)。ログインが無い時は null を返す。
 Future<({int wins, int losses})?> fetchBattleRecordWithFirebase() async {
-  final uid = signedInUidWithFirebase();
+  final uid = signedInUIDWithFirebase();
   if (uid == null) {
     return null;
   }
@@ -122,7 +122,7 @@ Future<({int wins, int losses})?> fetchBattleRecordWithFirebase() async {
 /// Functions の getDisplayName を呼び、自分の表示名とアイコンを返す。ログインが無い時は呼ばずに null を返す。
 /// iconPath を返さない古い Functions (アイコンを足す前の版) の応答は、アイコンの無いプロフィールとして読む。
 Future<PlayerProfile?> fetchProfileWithFirebase() async {
-  if (signedInUidWithFirebase() == null) {
+  if (signedInUIDWithFirebase() == null) {
     return null;
   }
   final result = await _call(name: 'getDisplayName', data: null);
@@ -135,7 +135,7 @@ Future<PlayerProfile?> fetchProfileWithFirebase() async {
 /// [photo] (JPEG) を Storage の `users/{uid}/iconUploads/{uploadID}` に置いてから Functions の setProfileIcon を呼び、
 /// 保存したアイコンのパスを返す。uploadID は呼ぶたびに作る (同じ写真を選び直しても、別のアイコンとして検査し直すため)。
 Future<String> updateProfileIconWithFirebase({required Uint8List photo}) async {
-  final uid = signedInUidWithFirebase();
+  final uid = signedInUIDWithFirebase();
   if (uid == null) {
     throw StateError('ログインしていないためアイコンを変えられません');
   }
@@ -215,11 +215,11 @@ Future<void> submitPvpActionWithFirebase({
 Future<void> claimPvpTimeoutWithFirebase({required String battleID}) =>
     _call(name: 'claimPvpTimeout', data: {'battleID': battleID});
 
-/// Functions の reportPvpResult を呼び、対戦 [battleID] の自分の計算の勝者 [winnerUid] (決着していなければ null) を報告する。
+/// Functions の reportPvpResult を呼び、対戦 [battleID] の自分の計算の勝者 [winnerUID] (決着していなければ null) を報告する。
 Future<void> reportPvpResultWithFirebase({
   required String battleID,
-  required String? winnerUid,
+  required String? winnerUID,
 }) => _call(
   name: 'reportPvpResult',
-  data: {'battleID': battleID, 'winnerUid': winnerUid},
+  data: {'battleID': battleID, 'winnerUID': winnerUID},
 );

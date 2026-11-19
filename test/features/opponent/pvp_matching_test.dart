@@ -440,7 +440,7 @@ void main() {
       await tester.pump();
 
       expect(server.reportCalls, [
-        (uid: 'player-uid', winnerUid: 'player-uid'),
+        (uid: 'player-uid', winnerUID: 'player-uid'),
       ]);
       expect(battleCalls.startedPartyMonsterIDs, isEmpty);
       expect(battleCalls.completedBattles.single.battleID, 'pvp-battle');
@@ -466,7 +466,7 @@ void main() {
 
       // 端末の残り時間が切れても、サーバーの期限の前は終わらない
       await tester.pump(const Duration(seconds: 61));
-      expect(server.timeoutClaimUids, contains('player-uid'));
+      expect(server.timeoutClaimUIDs, contains('player-uid'));
       expect(find.text(l10n.battleWon), findsNothing);
       expect(battleLogText(tester: tester), l10n.battleLogWaitingForOpponent);
 
@@ -481,7 +481,7 @@ void main() {
       expect(battleLogText(tester: tester), l10n.battleLogOpponentTimedOut);
       expect(server.battle!.finishReason, PvpFinishReason.timeout);
       expect(server.reportCalls, [
-        (uid: 'player-uid', winnerUid: 'player-uid'),
+        (uid: 'player-uid', winnerUID: 'player-uid'),
       ]);
       expect(battleCalls.completedBattles.single.battleID, 'pvp-battle');
       expect(battleCalls.completedBattles.single.winner, BattleSideID.player);
@@ -525,9 +525,9 @@ void main() {
       await tester.pump();
 
       expect(battleLogText(tester: tester), l10n.battleLogPlayerTimedOut);
-      expect(server.battle!.winnerUid, 'opponent-uid');
+      expect(server.battle!.winnerUID, 'opponent-uid');
       expect(server.reportCalls, [
-        (uid: 'player-uid', winnerUid: 'opponent-uid'),
+        (uid: 'player-uid', winnerUID: 'opponent-uid'),
       ]);
       expect(battleCalls.completedBattles.single.winner, BattleSideID.opponent);
     });

@@ -24,10 +24,10 @@ export async function finishPvpBattle({
   outcome: PvpBattleOutcome;
 }): Promise<void> {
   const recordSnapshots = await transaction.getAll(
-    ...battle.participantUids.map((uid) => firestore.doc(`users/${uid}/battles/${battleID}`)),
+    ...battle.participantUIDs.map((uid) => firestore.doc(`users/${uid}/battles/${battleID}`)),
   );
   transaction.update(firestore.doc(`pvpBattles/${battleID}`), { ...outcome, turnDeadline: null });
-  for (const uid of battle.participantUids) {
+  for (const uid of battle.participantUIDs) {
     transaction.delete(firestore.doc(`pvpBattles/${battleID}/pendingActions/${uid}`));
   }
   for (const [index, recordSnapshot] of recordSnapshots.entries()) {
@@ -35,7 +35,7 @@ export async function finishPvpBattle({
       transaction.update(recordSnapshot.ref, {
         winner:
           outcome.status === "finished"
-            ? outcome.winnerUid === battle.participantUids[index]
+            ? outcome.winnerUID === battle.participantUIDs[index]
               ? "player"
               : "opponent"
             : FieldValue.delete(),

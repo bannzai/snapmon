@@ -207,7 +207,7 @@ describe("人との対戦 (pvpMatchTickets・pvpBattles・pendingActions)", () =
     await testEnvironment.withSecurityRulesDisabled(async (context) => {
       const firestore = context.firestore();
       await setDoc(doc(firestore, "pvpMatchTickets/alice"), { searchID: "search", battleID: "battle" });
-      await setDoc(doc(firestore, "pvpBattles/battle"), { participantUids: ["alice", "bob"], status: "active", turns: [] });
+      await setDoc(doc(firestore, "pvpBattles/battle"), { participantUIDs: ["alice", "bob"], status: "active", turns: [] });
       await setDoc(doc(firestore, "pvpBattles/battle/pendingActions/alice"), { action: { kind: "struggle" } });
       await setDoc(doc(firestore, "pvpBattles/battle/pendingActions/bob"), { action: { kind: "struggle" } });
     });
@@ -225,8 +225,8 @@ describe("人との対戦 (pvpMatchTickets・pvpBattles・pendingActions)", () =
 
   it("出ている利用者も対戦を書けない (行動と結果を改ざんさせないため)", async () => {
     const firestore = signedInFirestore("alice");
-    await assertFails(updateDoc(doc(firestore, "pvpBattles/battle"), { status: "finished", winnerUid: "alice" }));
-    await assertFails(setDoc(doc(firestore, "pvpBattles/another"), { participantUids: ["alice", "bob"] }));
+    await assertFails(updateDoc(doc(firestore, "pvpBattles/battle"), { status: "finished", winnerUID: "alice" }));
+    await assertFails(setDoc(doc(firestore, "pvpBattles/another"), { participantUIDs: ["alice", "bob"] }));
     await assertFails(deleteDoc(doc(firestore, "pvpBattles/battle")));
   });
 

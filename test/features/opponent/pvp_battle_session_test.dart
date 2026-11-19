@@ -47,7 +47,7 @@ void main() {
   }) => PvpBattleSession(
     client: server.clientOf(uid: player.uid),
     battle: server.battle!,
-    playerUid: player.uid,
+    playerUID: player.uid,
     definitions: definitions,
   );
 
@@ -334,9 +334,9 @@ void main() {
 
       // 端末の残り時間が 0 になると時間切れを頼むが、サーバーの期限の前は対戦が終わらない
       await tester.pump(const Duration(seconds: 59));
-      expect(server.timeoutClaimUids, isEmpty);
+      expect(server.timeoutClaimUIDs, isEmpty);
       await tester.pump(const Duration(seconds: 1));
-      expect(server.timeoutClaimUids, unorderedEquals([host.uid, guest.uid]));
+      expect(server.timeoutClaimUIDs, unorderedEquals([host.uid, guest.uid]));
       expect(server.battle!.status, PvpBattleStatus.active);
       expect(hostInterruption, isNull);
 
@@ -344,16 +344,16 @@ void main() {
       server.isTurnDeadlinePassed = true;
       await tester.pump(const Duration(seconds: 3));
       expect(server.battle!.status, PvpBattleStatus.finished);
-      expect(server.battle!.winnerUid, host.uid);
+      expect(server.battle!.winnerUID, host.uid);
       expect(hostInterruption, (winner: BattleSideID.player));
       expect(guestInterruption, (winner: BattleSideID.opponent));
       expect(hostAdvanceCompleted, isTrue);
       expect(hostNextState, isNull);
 
       // 終わった後は時間切れを頼み続けない
-      final claimCount = server.timeoutClaimUids.length;
+      final claimCount = server.timeoutClaimUIDs.length;
       await tester.pump(const Duration(seconds: 30));
-      expect(server.timeoutClaimUids, hasLength(claimCount));
+      expect(server.timeoutClaimUIDs, hasLength(claimCount));
     });
 
     testWidgets('2 人とも行動を出さなかった対戦は、サーバーの期限の後に勝敗を付けずに終わる', (tester) async {
@@ -478,10 +478,10 @@ void main() {
         isInterrupted = true;
       }).ignore();
 
-      server.reportResult(uid: guest.uid, winnerUid: guest.uid);
+      server.reportResult(uid: guest.uid, winnerUID: guest.uid);
       await tester.pump();
 
-      expect(server.reportCalls.last, (uid: host.uid, winnerUid: null));
+      expect(server.reportCalls.last, (uid: host.uid, winnerUID: null));
       expect(server.battle!.status, PvpBattleStatus.noContest);
       expect(server.battle!.finishReason, PvpFinishReason.mismatch);
       expect(isInterrupted, isTrue);
@@ -507,11 +507,11 @@ void main() {
       await tester.pump();
       expect((await hostNext)!.winner, BattleSideID.player);
 
-      server.reportResult(uid: guest.uid, winnerUid: host.uid);
+      server.reportResult(uid: guest.uid, winnerUID: host.uid);
       await tester.pump(const Duration(seconds: 120));
 
       expect(isInterrupted, isFalse);
-      expect(server.timeoutClaimUids, isEmpty);
+      expect(server.timeoutClaimUIDs, isEmpty);
     });
 
     testWidgets('行動を出す呼び出しが失敗した時は、通るまでやり直す', (tester) async {
@@ -552,7 +552,7 @@ void main() {
       hostSession.dispose();
       expect(await hostNext, isNull);
       await tester.pump(const Duration(seconds: 120));
-      expect(server.timeoutClaimUids, isEmpty);
+      expect(server.timeoutClaimUIDs, isEmpty);
     });
   });
 
@@ -560,7 +560,7 @@ void main() {
     testWidgets('開始の記録は呼ばずに対戦の ID を返し、完了の記録は勝者の uid を報告してからレベルを記録する', (
       tester,
     ) async {
-      for (final (winner, winnerUid) in [
+      for (final (winner, winnerUID) in [
         (BattleSideID.player, guest.uid),
         (BattleSideID.opponent, host.uid),
       ]) {
@@ -591,7 +591,7 @@ void main() {
           ),
           {'sample-noton': 3},
         );
-        expect(server.reportCalls, [(uid: guest.uid, winnerUid: winnerUid)]);
+        expect(server.reportCalls, [(uid: guest.uid, winnerUID: winnerUID)]);
         expect(
           calls.completedBattles.single.battleID,
           FakePvpBattleServer.battleID,
@@ -609,7 +609,7 @@ void main() {
       final session = PvpBattleSession(
         client: signedOutPvpBattleClient(),
         battle: matchedServer().battle!,
-        playerUid: host.uid,
+        playerUID: host.uid,
         definitions: definitions,
       );
 

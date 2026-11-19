@@ -93,7 +93,7 @@ async function seedAccount({ uid }: { uid: string }): Promise<void> {
   await adminFirestore.doc(`blocks/block-by-${uid}`).set({ blockerUid: uid });
   await adminFirestore.doc(`reportedMonsters/monster-${uid}`).set({ monsterOwnerUid: uid, reporterCount: 1 });
   await adminFirestore.doc(`pvpMatchTickets/${uid}`).set({ searchID: "search", battleID: `pvp-battle-of-${uid}` });
-  await adminFirestore.doc(`pvpBattles/pvp-battle-of-${uid}`).set({ participantUids: [`opponent-of-${uid}`, uid], status: "active" });
+  await adminFirestore.doc(`pvpBattles/pvp-battle-of-${uid}`).set({ participantUIDs: [`opponent-of-${uid}`, uid], status: "active" });
   await adminFirestore.doc(`pvpBattles/pvp-battle-of-${uid}/pendingActions/${uid}`).set({ action: { kind: "struggle" } });
   for (const path of [
     `users/${uid}/photos/request-saved`,
@@ -207,7 +207,7 @@ describe("アカウントの削除 (deleteAccount)", () => {
     await signOut(auth);
     const user = await signInUser();
     await seedAccount({ uid: user.uid });
-    await adminFirestore.doc("pvpBattles/shared-battle").set({ participantUids: [otherUser.uid, user.uid], status: "finished" });
+    await adminFirestore.doc("pvpBattles/shared-battle").set({ participantUIDs: [otherUser.uid, user.uid], status: "finished" });
     await adminFirestore.doc(`pvpBattles/shared-battle/pendingActions/${otherUser.uid}`).set({ action: { kind: "struggle" } });
     await adminFirestore.doc(`users/${otherUser.uid}/battles/shared-battle`).set({ status: "completed", opponentKind: "pvp", winner: "player" });
 
@@ -221,6 +221,27 @@ describe("アカウントの削除 (deleteAccount)", () => {
       winner: "player",
     });
   });
+
+  it("1 回に読む件数 (100) を超える数の人との対戦に出た利用者でも、出した対戦をすべて消し、他人どうしの対戦は残す", async () => {
+    const user = await signInUser();
+    await seedAccount({ uid: user.uid });
+    // seedAccount が置く 1 件と合わせて、1 回に読む件数 + 1 件を超える対戦にする
+    for (let start = 0; start < 101; start += 50) {
+      const batch = adminFirestore.batch();
+      for (let index = start; index < Math.min(start + 50, 101); index++) {
+        batch.set(adminFirestore.doc(`pvpBattles/many-${index}`), { participantUIDs: [`opponent-${index}`, user.uid], status: "finished" });
+        batch.set(adminFirestore.doc(`pvpBattles/many-${index}/pendingActions/opponent-${index}`), { action: { kind: "struggle" } });
+      }
+      await batch.commit();
+    }
+    await adminFirestore.doc("pvpBattles/others").set({ participantUIDs: ["someone", "someone-else"], status: "finished" });
+
+    expect((await callFunction({ name: "deleteAccount", idToken: await user.getIdToken(), data: null })).status).toBe(200);
+
+    expect((await adminFirestore.collection("pvpBattles").where("participantUIDs", "array-contains", user.uid).get()).size).toBe(0);
+    expect((await adminFirestore.doc("pvpBattles/many-100/pendingActions/opponent-100").get()).exists).toBe(false);
+    expect((await adminFirestore.doc("pvpBattles/others").get()).exists).toBe(true);
+  }, 60_000);
 
   it("生成の途中 (生成中ロックが期限内) は断り、何も消さない", async () => {
     const user = await signInUser();
