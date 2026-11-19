@@ -506,8 +506,11 @@ test_dart_defines_file_stops_on_version_mismatch() {
   pass "dart-defines-file: 手元の版が pubspec と違えばファイルを書かずに止まる"
 }
 
-# アプリが String.fromEnvironment で受けるキーは、書き出すキーと、秘匿値のため書き出さない debug token のどちらかに入る
-# (キーを足した時に、エディタの実行にだけ渡らない状態を見つける)
+# アプリが String.fromEnvironment で受けるキーは、書き出すキーか、書き出さないと決めた 2 つのキーのどちらかに入る
+# (キーを足した時に、エディタの実行にだけ渡らない状態を見つける)。書き出さないキー:
+#   - FIREBASE_APPCHECK_DEBUG_TOKEN_WEB: 秘匿値のため
+#   - FIREBASE_EMULATOR_HOST: Emulator での動作確認 (scripts/start-web-with-firebase-emulators.sh の前提のビルド) だけが渡す値で、
+#     make の各 target とエディタの実行は本番につなぐため (lib/firebase/emulator.dart)
 test_dart_defines_file_covers_keys_read_by_app() {
   local work
   work="$(mktemp -d)"
@@ -517,11 +520,11 @@ test_dart_defines_file_covers_keys_read_by_app() {
     fail "dart-defines-file: 失敗した ($(cat "$work/stdout"))"
     return
   fi
-  if [ "$({ jq -r 'keys[]' "$work/build/dart_defines.json"; echo FIREBASE_APPCHECK_DEBUG_TOKEN_WEB; } | sort)" != "$(find "$repo_root/lib" -name '*.dart' -exec perl -0777 -ne 'print "$1\n" while /fromEnvironment\(\s*\x27([A-Z0-9_]+)\x27/g' {} + | sort -u)" ]; then
-    fail "dart-defines-file: 書き出すキーと debug token の合計が、lib の String.fromEnvironment のキーと一致しない ($(jq -c 'keys' "$work/build/dart_defines.json"))"
+  if [ "$({ jq -r 'keys[]' "$work/build/dart_defines.json"; echo FIREBASE_APPCHECK_DEBUG_TOKEN_WEB; echo FIREBASE_EMULATOR_HOST; } | sort)" != "$(find "$repo_root/lib" -name '*.dart' -exec perl -0777 -ne 'print "$1\n" while /fromEnvironment\(\s*\x27([A-Z0-9_]+)\x27/g' {} + | sort -u)" ]; then
+    fail "dart-defines-file: 書き出すキーと、書き出さないと決めたキー (debug token・Emulator のホスト) の合計が、lib の String.fromEnvironment のキーと一致しない ($(jq -c 'keys' "$work/build/dart_defines.json"))"
     return
   fi
-  pass "dart-defines-file: lib が受けるキーを debug token を除いてすべて書き出す"
+  pass "dart-defines-file: lib が受けるキーを、debug token と Emulator のホストを除いてすべて書き出す"
 }
 
 # エディタの実行の設定が、dart-defines-file を実行の前に呼び、その target が書いたファイルを flutter run に渡す
