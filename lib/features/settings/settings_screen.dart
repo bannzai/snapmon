@@ -332,7 +332,7 @@ class SettingsScreen extends StatelessWidget {
                   title: Text(context.l10n.settingsTransferData),
                   subtitle: Text(
                     linkedProviderNames.isEmpty
-                        // 選べるサインインが 2 つの時 (iOS) は「Apple / Google」と並べる。「か」に当たる語を
+                        // 選べるサインインが 2 つ以上の時は「Apple / Google」と並べる。「か」に当たる語を
                         // 各言語の文言に足さずに、どの言語でも同じに読める記号で区切るため
                         ? context.l10n.settingsTransferDataDescription(
                             accountStore.linkProviderNames.join(' / '),
