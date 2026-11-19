@@ -31,7 +31,7 @@ export const DAILY_ICON_CHECK_LIMIT_PER_USER = 10;
 /**
  * プロジェクト全体の 1 日のアイコンの検査の上限。Vision の SafeSearch と顔の検出は 1 枚 2 機能で、
  * 単価 (1,000 枚あたり 1.5 ドル × 2。https://cloud.google.com/vision/pricing ) から 1 日 3 ドル前後に抑える値。
- * App Check の強制を外している間 (DIRECTION.md 2026-10-25 の行) は匿名のアカウントを作り直せば uid ごとの上限を越えられるため、全体でも抑える。
+ * 匿名のアカウントを作り直せば uid ごとの上限を越えられるため、全体でも抑える (App Check を通る正規のアプリからでも作り直せる)。
  */
 export const DAILY_ICON_CHECK_LIMIT_TOTAL = 1_000;
 
