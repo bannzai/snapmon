@@ -114,11 +114,53 @@ class SettingsScreen extends StatelessWidget {
         ..hideCurrentSnackBar()
         ..showSnackBar(SnackBar(content: Text(message)));
 
+  /// 連携に使うサインインの名前を返す。選べるサインインが 1 つ (Android と Web) ならその名前を返し、2 つ以上 (iOS) なら
+  /// 下からの一覧で利用者に選んでもらう。選ばずに閉じた時は null を返す。
+  Future<String?> _chooseLinkProviderName({required BuildContext context}) {
+    if (accountStore.linkProviderNames.length == 1) {
+      return Future.value(accountStore.linkProviderNames.single);
+    }
+    return showModalBottomSheet<String>(
+      context: context,
+      builder: (context) => SafeArea(
+        // 一覧の高さは画面の 9/16 までに限られる (showModalBottomSheet の既定)。横向きで文字を大きくした時に
+        // 下の選択肢が切れて押せなくならないよう、収まらない分はスクロールできるようにする
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
+                child: Text(
+                  context.l10n.settingsTransferData,
+                  style: SnapmonTextStyles.label,
+                ),
+              ),
+              for (final providerName in accountStore.linkProviderNames)
+                ListTile(
+                  key: Key('settings-link-provider-$providerName'),
+                  title: Text(providerName, style: SnapmonTextStyles.label),
+                  onTap: () => Navigator.of(context).pop(providerName),
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   /// 「データを引き継ぐ」。いまの匿名アカウントに連携し、別の端末で連携済みなら切り替えてよいかを確かめてから切り替える。
   Future<void> _link({required BuildContext context}) async {
+    final providerName = await _chooseLinkProviderName(context: context);
+    if (providerName == null) {
+      return;
+    }
     final Future<String> Function()? signInToLinkedAccount;
     try {
-      signInToLinkedAccount = await accountStore.link();
+      signInToLinkedAccount = await accountStore.link(
+        providerName: providerName,
+      );
     } catch (error) {
       if (context.mounted) {
         _showMessage(context: context, message: error.toString());
@@ -131,7 +173,7 @@ class SettingsScreen extends StatelessWidget {
     if (signInToLinkedAccount == null) {
       _showMessage(
         context: context,
-        message: context.l10n.settingsLinked(accountStore.linkProviderName),
+        message: context.l10n.settingsLinked(providerName),
       );
       return;
     }
@@ -141,7 +183,7 @@ class SettingsScreen extends StatelessWidget {
         title: Text(context.l10n.settingsSwitchAccountTitle),
         content: Text(
           context.l10n.settingsSwitchAccountMessage(
-            accountStore.linkProviderName,
+            providerName,
             dexStore.monsters.length,
           ),
         ),
@@ -298,8 +340,10 @@ class SettingsScreen extends StatelessWidget {
                   title: Text(context.l10n.settingsTransferData),
                   subtitle: Text(
                     linkedProviderNames.isEmpty
+                        // 選べるサインインが 2 つの時 (iOS) は「Apple / Google」と並べる。「か」に当たる語を
+                        // 各言語の文言に足さずに、どの言語でも同じに読める記号で区切るため
                         ? context.l10n.settingsTransferDataDescription(
-                            accountStore.linkProviderName,
+                            accountStore.linkProviderNames.join(' / '),
                           )
                         : context.l10n.settingsLinkedWith(
                             linkedProviderNames.join(
