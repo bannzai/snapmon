@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -35,6 +37,33 @@ bool linksAccountWithGoogleSignIn({
   required TargetPlatform platform,
 }) => !isWeb && platform == TargetPlatform.android && providerName == 'Google';
 
+/// 連携済みのアカウントの [credential] が、ID トークンに nonce があるのに元の nonce を持たない Apple の credential か。
+/// 当たる credential では連携済みのアカウントへの切り替えに進めない (元の nonce が無いとサインインできず、
+/// 匿名アカウントを捨てた後で失敗するため)。Web の Apple が当たり得る: firebase_auth_web は連携の失敗の credential に
+/// ID トークンを写すが nonce を写さない。iOS と Android の credential は [OAuthCredential] ではなく、ネイティブ側が持つ
+/// credential を番号で引き直すため当たらない。根拠は ADR 0003 の「Android と Web の Sign in with Apple の連携」。
+bool linkedAccountCredentialLacksNonce({required AuthCredential credential}) =>
+    credential is OAuthCredential &&
+    credential.providerId == 'apple.com' &&
+    credential.rawNonce == null &&
+    _idTokenHasNonce(idToken: credential.idToken);
+
+/// [idToken] (JWT) の payload に nonce があるか。JWT として読めない時は false。
+bool _idTokenHasNonce({required String? idToken}) {
+  final segments = idToken?.split('.') ?? const <String>[];
+  if (segments.length != 3) {
+    return false;
+  }
+  try {
+    final payload = jsonDecode(
+      utf8.decode(base64Url.decode(base64Url.normalize(segments[1]))),
+    );
+    return payload is Map && payload['nonce'] != null;
+  } on FormatException {
+    return false;
+  }
+}
+
 /// Firebase の provider の ID ごとの、画面に出す名前。
 const Map<String, String> _providerNamesByID = {
   'apple.com': 'Apple',
@@ -68,7 +97,8 @@ Future<AuthCredential> _googleCredentialOnAndroid() async {
 ///
 /// 連携できた時は null を返す。そのサインインが別の端末で連携済み (`credential-already-in-use`) の時は、連携済みのアカウントに
 /// サインインする関数を返す (呼ぶ前に、いまの匿名アカウントを捨ててよいかを利用者に確かめるため、ここではサインインしない)。
-/// 連携済みのアカウントの credential を受け取れなかった時と、それ以外の失敗は投げる。
+/// 連携済みのアカウントの credential を受け取れなかった時、受け取った credential でサインインできないと分かる時
+/// ([linkedAccountCredentialLacksNonce])、それ以外の失敗は投げる。
 Future<Future<String> Function()?> linkAccountWithFirebase({
   required String providerName,
 }) async {
@@ -94,7 +124,9 @@ Future<Future<String> Function()?> linkAccountWithFirebase({
     return null;
   } on FirebaseAuthException catch (error) {
     final credential = error.credential ?? googleCredential;
-    if (error.code != 'credential-already-in-use' || credential == null) {
+    if (error.code != 'credential-already-in-use' ||
+        credential == null ||
+        linkedAccountCredentialLacksNonce(credential: credential)) {
       rethrow;
     }
     return () => _signInToLinkedAccount(credential: credential);
