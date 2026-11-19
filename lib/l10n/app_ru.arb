@@ -43,6 +43,7 @@
   "opponentNoneAvailable": "Сейчас нет тренера, с которым можно сразиться\nТы можешь сразиться с CPU-тренером",
   "opponentPvpBattle": "Сразиться",
   "opponentCpuBattle": "Сразись с CPU",
+  "pvpMatchingNotFound": "Соперник не найден",
   "settingsLinked": "Подключено к {providerName}",
   "settingsSwitchAccountTitle": "Хочешь переключиться на привязанный аккаунт?",
   "settingsSwitchAccountMessage": "Этот аккаунт {providerName} уже привязан на другом устройстве. Если переключишься на него, энциклопедия на этом устройстве (монстры: {monsterCount}) удалится и появится энциклопедия привязанного аккаунта.",

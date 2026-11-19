@@ -43,6 +43,7 @@
   "opponentNoneAvailable": "અત્યારે લડવા માટે કોઈ ટ્રેનર નથી\nતમે CPU ટ્રેનર સાથે લડી શકો છો",
   "opponentPvpBattle": "લડાઈ કરો",
   "opponentCpuBattle": "CPU સામે લડો",
+  "pvpMatchingNotFound": "મુકાબલા માટે કોઈ પ્રતિસ્પર્ધી મળ્યો નહીં",
   "settingsLinked": "{providerName} સાથે જોડાઈ ગયું",
   "settingsSwitchAccountTitle": "શું તમે લિંક કરેલા એકાઉન્ટ પર સ્વિચ કરવા માંગો છો?",
   "settingsSwitchAccountMessage": "આ {providerName} એકાઉન્ટ બીજા ઉપકરણ પર પહેલેથી જોડાયેલું છે. તેના પર સ્વિચ કરશો તો આ ઉપકરણનો ડેક્સ (મોન્સ્ટર: {monsterCount}) ભૂંસાઈ જશે અને જોડાયેલા એકાઉન્ટનો ડેક્સ દેખાશે.",

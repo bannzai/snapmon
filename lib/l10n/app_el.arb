@@ -43,6 +43,7 @@
   "opponentNoneAvailable": "Δεν υπάρχει διαθέσιμος εκπαιδευτής για μάχη τώρα\nΜπορείς να πολεμήσεις με εκπαιδευτή CPU",
   "opponentPvpBattle": "Μάχη",
   "opponentCpuBattle": "Πολέμησε το CPU",
+  "pvpMatchingNotFound": "Δεν βρέθηκε αντίπαλος",
   "settingsLinked": "Συνδέθηκε με το {providerName}",
   "settingsSwitchAccountTitle": "Θες να αλλάξεις στον συνδεδεμένο λογαριασμό;",
   "settingsSwitchAccountMessage": "Αυτός ο λογαριασμός {providerName} είναι ήδη συνδεδεμένος σε άλλη συσκευή. Αν αλλάξεις λογαριασμό, η εγκυκλοπαίδεια αυτής της συσκευής (τέρατα: {monsterCount}) θα διαγραφεί και θα εμφανιστεί η εγκυκλοπαίδεια του συνδεδεμένου λογαριασμού.",

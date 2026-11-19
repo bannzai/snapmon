@@ -43,6 +43,7 @@
   "opponentNoneAvailable": "Não há treinador disponível para batalhar agora\nVocê pode batalhar com um treinador CPU",
   "opponentPvpBattle": "Batalhar",
   "opponentCpuBattle": "Enfrente o CPU",
+  "pvpMatchingNotFound": "Nenhum oponente encontrado",
   "settingsLinked": "Conectado ao {providerName}",
   "settingsSwitchAccountTitle": "Quer mudar para a conta vinculada?",
   "settingsSwitchAccountMessage": "Esta conta {providerName} já está vinculada em outro dispositivo. Se você trocar de conta, o Dex deste dispositivo (monstros: {monsterCount}) será apagado e aparecerá o Dex da conta vinculada.",

@@ -43,6 +43,7 @@
   "opponentNoneAvailable": "Aucun dresseur à affronter pour le moment\nTu peux affronter un dresseur CPU",
   "opponentPvpBattle": "Combattre",
   "opponentCpuBattle": "Affronter le CPU",
+  "pvpMatchingNotFound": "Aucun adversaire trouvé",
   "settingsLinked": "Ton compte est lié à {providerName}",
   "settingsSwitchAccountTitle": "Tu veux passer à ton compte déjà associé ?",
   "settingsSwitchAccountMessage": "Ce compte {providerName} est déjà lié à un autre appareil. Si tu y passes, le dex de cet appareil (monstres : {monsterCount}) sera effacé et tu retrouveras le dex du compte lié.",

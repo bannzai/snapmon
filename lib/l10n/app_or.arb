@@ -43,6 +43,7 @@
   "opponentNoneAvailable": "ଏବେ ଲଢ଼ିବାକୁ କୌଣସି ଟ୍ରେନର ନାହାନ୍ତି\nତୁମେ CPU ଟ୍ରେନର ସହ ଲଢ଼ିପାରିବ",
   "opponentPvpBattle": "ଲଢ଼",
   "opponentCpuBattle": "CPU ସହ ଲଢ଼",
+  "pvpMatchingNotFound": "ଲଢ଼େଇ ପାଇଁ ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ ମିଳିଲେ ନାହିଁ",
   "settingsLinked": "{providerName} ସହ ସଂଯୋଗ ହୋଇଛି",
   "settingsSwitchAccountTitle": "ଲିଙ୍କ୍ ହୋଇଥିବା ଆକାଉଣ୍ଟକୁ ବଦଳାଇବାକୁ ଚାହୁଁଛ କି?",
   "settingsSwitchAccountMessage": "ଏହି {providerName} ଆକାଉଣ୍ଟ ଅନ୍ୟ ଡିଭାଇସ୍‌ରେ ପୂର୍ବରୁ ଲିଙ୍କ୍ ହୋଇଛି। ଏଥିକୁ ବଦଳାଇଲେ ଏହି ଡିଭାଇସ୍‌ର ବିଶ୍ୱକୋଷ (ମନଷ୍ଟର: {monsterCount}) ଲିଭିଯିବ ଏବଂ ଲିଙ୍କ୍ ହୋଇଥିବା ଆକାଉଣ୍ଟର ବିଶ୍ୱକୋଷ ଦେଖାଯିବ।",

@@ -43,6 +43,7 @@
   "opponentNoneAvailable": "ఇప్పుడు పోరాడటానికి ట్రైనర్ ఎవరూ లేరు\nనువ్వు CPU ట్రైనర్‌తో పోరాడవచ్చు",
   "opponentPvpBattle": "పోరాడు",
   "opponentCpuBattle": "CPUతో పోరాడు",
+  "pvpMatchingNotFound": "పోరాడటానికి ప్రత్యర్థి దొరకలేదు",
   "settingsLinked": "{providerName}తో లింక్ అయింది",
   "settingsSwitchAccountTitle": "లింక్ చేసిన ఖాతాకు మారతావా?",
   "settingsSwitchAccountMessage": "ఈ {providerName} ఖాతా ఇప్పటికే మరో పరికరంలో లింక్ అయింది. దీనికి మారితే ఈ పరికరంలోని డెక్స్ (మాన్స్టర్లు: {monsterCount}) తొలగిపోతుంది, లింక్ అయిన ఖాతా డెక్స్ కనిపిస్తుంది.",

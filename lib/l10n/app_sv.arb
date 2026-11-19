@@ -43,6 +43,7 @@
   "opponentNoneAvailable": "Ingen tränare är redo för strid just nu\nDu kan strida mot en CPU-tränare",
   "opponentPvpBattle": "Strid",
   "opponentCpuBattle": "Strid mot CPU",
+  "pvpMatchingNotFound": "Ingen motståndare hittades",
   "settingsLinked": "Anslutet till {providerName}",
   "settingsSwitchAccountTitle": "Vill du byta till det länkade kontot?",
   "settingsSwitchAccountMessage": "Det här {providerName}-kontot är redan länkat på en annan enhet. Om du byter raderas samlingen på den här enheten (monster: {monsterCount}) och du byter till det länkade kontots samling.",

@@ -43,6 +43,7 @@
   "opponentNoneAvailable": "Ahora no hay ningún entrenador disponible para combatir\nPuedes combatir contra un entrenador CPU",
   "opponentPvpBattle": "Combatir",
   "opponentCpuBattle": "Combate contra CPU",
+  "pvpMatchingNotFound": "No se encontró rival",
   "settingsLinked": "Cuenta vinculada con {providerName}",
   "settingsSwitchAccountTitle": "¿Quieres cambiar a la cuenta vinculada?",
   "settingsSwitchAccountMessage": "Esta cuenta de {providerName} ya está vinculada en otro dispositivo. Si cambias a ella, se borrará la colección de este dispositivo (monstruos: {monsterCount}) y verás la colección de la cuenta vinculada.",

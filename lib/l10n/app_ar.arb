@@ -43,6 +43,7 @@
   "opponentNoneAvailable": "لا يوجد مدرب متاح للقتال الآن\nيمكنك قتال مدرب CPU",
   "opponentPvpBattle": "ابدأ معركة",
   "opponentCpuBattle": "قاتل CPU",
+  "pvpMatchingNotFound": "لم يُعثر على خصم للمباراة",
   "settingsLinked": "تم الربط مع {providerName}",
   "settingsSwitchAccountTitle": "هل تريد التبديل إلى الحساب المرتبط؟",
   "settingsSwitchAccountMessage": "حساب {providerName} هذا مرتبط بجهاز آخر. إذا بدّلت إليه، ستُحذف موسوعة هذا الجهاز (الوحوش: {monsterCount}) وستنتقل إلى موسوعة الحساب المرتبط.",

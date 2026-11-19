@@ -43,6 +43,7 @@
   "opponentNoneAvailable": "Yhtään kouluttajaa ei ole nyt vastassa\nVoit taistella CPU-kouluttajaa vastaan",
   "opponentPvpBattle": "Taistele",
   "opponentCpuBattle": "Taistele CPU:ta vastaan",
+  "pvpMatchingNotFound": "Vastustajaa ei löytynyt",
   "settingsLinked": "Yhdistetty palveluun {providerName}",
   "settingsSwitchAccountTitle": "Haluatko vaihtaa linkitettyyn tiliin?",
   "settingsSwitchAccountMessage": "Tämä {providerName}-tili on jo yhdistetty toisella laitteella. Jos vaihdat siihen, tämän laitteen kokoelma (hirviöt: {monsterCount}) poistuu ja tilalle tulee yhdistetyn tilin kokoelma.",

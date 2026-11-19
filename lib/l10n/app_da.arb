@@ -43,6 +43,7 @@
   "opponentNoneAvailable": "Der er ingen træner at kæmpe mod lige nu\nDu kan kæmpe mod en CPU-træner",
   "opponentPvpBattle": "Kæmp",
   "opponentCpuBattle": "Kæmp mod CPU",
+  "pvpMatchingNotFound": "Ingen modstander fundet",
   "settingsLinked": "Forbundet med {providerName}",
   "settingsSwitchAccountTitle": "Vil du skifte til den tilknyttede konto?",
   "settingsSwitchAccountMessage": "Denne {providerName}-konto er allerede knyttet til en anden enhed. Hvis du skifter til den, slettes denne enheds dex (monstre: {monsterCount}), og du får den tilknyttede kontos dex.",

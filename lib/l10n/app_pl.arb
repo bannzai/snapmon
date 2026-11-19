@@ -43,6 +43,7 @@
   "opponentNoneAvailable": "Teraz nie ma trenera, z którym możesz walczyć\nMożesz walczyć z trenerem CPU",
   "opponentPvpBattle": "Walcz",
   "opponentCpuBattle": "Walcz z CPU",
+  "pvpMatchingNotFound": "Nie znaleziono przeciwnika",
   "settingsLinked": "Połączono z {providerName}",
   "settingsSwitchAccountTitle": "Chcesz przełączyć się na połączone konto?",
   "settingsSwitchAccountMessage": "To konto {providerName} jest już połączone na innym urządzeniu. Jeśli na nie przejdziesz, encyklopedia na tym urządzeniu (potwory: {monsterCount}) zostanie usunięta, a pojawi się encyklopedia połączonego konta.",

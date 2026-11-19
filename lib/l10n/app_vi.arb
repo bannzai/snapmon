@@ -43,6 +43,7 @@
   "opponentNoneAvailable": "Hiện chưa có nhà huấn luyện nào để đấu\nBạn có thể đấu với nhà huấn luyện CPU",
   "opponentPvpBattle": "Chiến đấu",
   "opponentCpuBattle": "Đấu với CPU",
+  "pvpMatchingNotFound": "Không tìm thấy đối thủ",
   "settingsLinked": "Đã liên kết với {providerName}",
   "settingsSwitchAccountTitle": "Bạn muốn chuyển sang tài khoản đã liên kết?",
   "settingsSwitchAccountMessage": "Tài khoản {providerName} này đã được liên kết trên thiết bị khác. Nếu bạn chuyển sang tài khoản đó, bộ sưu tập trên thiết bị này (quái vật: {monsterCount}) sẽ bị xóa và bộ sưu tập của tài khoản đã liên kết sẽ hiện ra.",

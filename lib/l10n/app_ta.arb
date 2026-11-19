@@ -43,6 +43,7 @@
   "opponentNoneAvailable": "இப்போது போரிடப் பயிற்சியாளர் யாரும் இல்லை\nநீங்கள் CPU பயிற்சியாளருடன் போரிடலாம்",
   "opponentPvpBattle": "போரிடுங்கள்",
   "opponentCpuBattle": "CPU-வுடன் போரிடுங்கள்",
+  "pvpMatchingNotFound": "போரிட எதிரணி கிடைக்கவில்லை",
   "settingsLinked": "{providerName} உடன் இணைக்கப்பட்டது",
   "settingsSwitchAccountTitle": "இணைக்கப்பட்ட கணக்கிற்கு மாற விரும்புகிறீர்களா?",
   "settingsSwitchAccountMessage": "இந்த {providerName} கணக்கு வேறொரு சாதனத்தில் ஏற்கெனவே இணைக்கப்பட்டுள்ளது. இதற்கு மாறினால், இந்தச் சாதனத்தின் களஞ்சியத்தில் உள்ளவை (மான்ஸ்டர்கள்: {monsterCount}) அழிக்கப்படும்; இணைக்கப்பட்ட கணக்கின் களஞ்சியம் காட்டப்படும்.",
