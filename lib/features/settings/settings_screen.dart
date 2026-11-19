@@ -339,7 +339,7 @@ class SettingsScreen extends StatelessWidget {
                             ),
                           ),
                   ),
-                  enabled: canOperate && linkedProviderNames.isEmpty,
+                  enabled: canOperate,
                   onTap: () => _link(context: context),
                 ),
                 ListTile(
