@@ -194,7 +194,7 @@ export function isMatchableHostTicket({
 }): boolean {
   return (
     hostTicket !== undefined &&
-    hostTicket.battleID !== undefined &&
+    hostTicket.battleID === null &&
     hostTicket.rulesVersion === rulesVersion &&
     hostTicket.heartbeatAt.toMillis() >= freshSince.toMillis()
   );
@@ -205,7 +205,7 @@ export function isMatchableHostTicket({
  * 片方だけが出していれば出した側の勝ち、どちらも出していなければ勝敗を付けない (どちらが操作をやめたかをサーバーは見分けられないため)。
  */
 export function timeoutOutcome({ submittedUIDs }: { submittedUIDs: string[] }): PvpBattleOutcome {
-  return submittedUIDs.length === 2
+  return submittedUIDs.length === 1
     ? { status: "finished", winnerUID: submittedUIDs[0], finishReason: "timeout" }
     : { status: "void", winnerUID: null, finishReason: "timeout" };
 }
