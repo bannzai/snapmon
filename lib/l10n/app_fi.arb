@@ -46,6 +46,7 @@
   "pvpMatchingNotFound": "Vastustajaa ei löytynyt",
   "generationTrainerAppeared": "Kouluttaja ilmestyi!",
   "battleLogWaitingForOpponent": "Odotetaan vastustajan siirtoa",
+  "battleLogTurnTimeRemaining": "Valitse siirtosi {seconds} sekunnissa",
   "settingsLinked": "Yhdistetty palveluun {providerName}",
   "settingsSwitchAccountTitle": "Haluatko vaihtaa linkitettyyn tiliin?",
   "settingsSwitchAccountMessage": "Tämä {providerName}-tili on jo yhdistetty toisella laitteella. Jos vaihdat siihen, tämän laitteen kokoelma (hirviöt: {monsterCount}) poistuu ja tilalle tulee yhdistetyn tilin kokoelma.",

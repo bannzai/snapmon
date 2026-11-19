@@ -46,6 +46,7 @@
   "pvpMatchingNotFound": "대전 상대를 찾지 못했어요",
   "generationTrainerAppeared": "트레이너가 나타났다!",
   "battleLogWaitingForOpponent": "상대가 행동을 고르길 기다리고 있어요",
+  "battleLogTurnTimeRemaining": "{seconds}초 안에 행동을 골라요",
   "settingsLinked": "{providerName}에 연동했어요",
   "settingsSwitchAccountTitle": "연동된 계정으로 전환할까요?",
   "settingsSwitchAccountMessage": "이 {providerName} 계정은 다른 기기에 이미 연동되어 있어요. 계정을 바꾸면 이 기기의 도감(몬스터: {monsterCount})이 삭제되고 연동된 계정의 도감으로 바뀌어요.",

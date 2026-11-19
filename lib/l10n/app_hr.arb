@@ -46,6 +46,7 @@
   "pvpMatchingNotFound": "Protivnik nije pronađen",
   "generationTrainerAppeared": "Pojavio se trener!",
   "battleLogWaitingForOpponent": "Čeka se potez protivnika",
+  "battleLogTurnTimeRemaining": "Odaberi potez za {seconds} s",
   "settingsLinked": "Povezano s {providerName}",
   "settingsSwitchAccountTitle": "Želiš li prijeći na povezani račun?",
   "settingsSwitchAccountMessage": "Ovaj {providerName} račun već je povezan na drugom uređaju. Ako se prebaciš na njega, enciklopedija na ovom uređaju (čudovišta: {monsterCount}) izbrisat će se i prikazat će se enciklopedija povezanog računa.",

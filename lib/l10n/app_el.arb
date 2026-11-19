@@ -46,6 +46,7 @@
   "pvpMatchingNotFound": "Δεν βρέθηκε αντίπαλος",
   "generationTrainerAppeared": "Εμφανίστηκε ένας εκπαιδευτής!",
   "battleLogWaitingForOpponent": "Αναμονή για την κίνηση του αντιπάλου",
+  "battleLogTurnTimeRemaining": "Διάλεξε κίνηση σε {seconds} δευτ.",
   "settingsLinked": "Συνδέθηκε με το {providerName}",
   "settingsSwitchAccountTitle": "Θες να αλλάξεις στον συνδεδεμένο λογαριασμό;",
   "settingsSwitchAccountMessage": "Αυτός ο λογαριασμός {providerName} είναι ήδη συνδεδεμένος σε άλλη συσκευή. Αν αλλάξεις λογαριασμό, η εγκυκλοπαίδεια αυτής της συσκευής (τέρατα: {monsterCount}) θα διαγραφεί και θα εμφανιστεί η εγκυκλοπαίδεια του συνδεδεμένου λογαριασμού.",

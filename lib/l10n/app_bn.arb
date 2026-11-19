@@ -46,6 +46,7 @@
   "pvpMatchingNotFound": "লড়াইয়ের জন্য কোনো প্রতিপক্ষ পাওয়া যায়নি",
   "generationTrainerAppeared": "একজন ট্রেনার হাজির!",
   "battleLogWaitingForOpponent": "প্রতিপক্ষের চালের অপেক্ষায়",
+  "battleLogTurnTimeRemaining": "আর {seconds} সেকেন্ড—চাল বেছে নাও",
   "settingsLinked": "{providerName}-এর সঙ্গে সংযুক্ত হয়েছে",
   "settingsSwitchAccountTitle": "লিঙ্ক করা অ্যাকাউন্টে বদলাবে?",
   "settingsSwitchAccountMessage": "এই {providerName} অ্যাকাউন্টটি অন্য ডিভাইসে লিঙ্ক করা আছে। এতে বদলালে এই ডিভাইসের সংগ্রহ (মনস্টার: {monsterCount}) মুছে যাবে, আর লিঙ্ক করা অ্যাকাউন্টের সংগ্রহ দেখা যাবে।",

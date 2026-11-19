@@ -46,6 +46,7 @@
   "pvpMatchingNotFound": "Aucun adversaire trouvé",
   "generationTrainerAppeared": "Un dresseur apparaît !",
   "battleLogWaitingForOpponent": "En attente du coup de l’adversaire",
+  "battleLogTurnTimeRemaining": "Choisis ton action dans {seconds} s",
   "settingsLinked": "Ton compte est lié à {providerName}",
   "settingsSwitchAccountTitle": "Tu veux passer à ton compte déjà associé ?",
   "settingsSwitchAccountMessage": "Ce compte {providerName} est déjà lié à un autre appareil. Si tu y passes, le dex de cet appareil (monstres : {monsterCount}) sera effacé et tu retrouveras le dex du compte lié.",

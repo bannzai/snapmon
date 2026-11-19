@@ -46,6 +46,7 @@
   "pvpMatchingNotFound": "పోరాడటానికి ప్రత్యర్థి దొరకలేదు",
   "generationTrainerAppeared": "ఒక ట్రైనర్ కనిపించాడు!",
   "battleLogWaitingForOpponent": "ప్రత్యర్థి ఎత్తు కోసం వేచి ఉంది",
+  "battleLogTurnTimeRemaining": "{seconds} సెకన్లలో నీ ఎత్తును ఎంచుకో",
   "settingsLinked": "{providerName}తో లింక్ అయింది",
   "settingsSwitchAccountTitle": "లింక్ చేసిన ఖాతాకు మారతావా?",
   "settingsSwitchAccountMessage": "ఈ {providerName} ఖాతా ఇప్పటికే మరో పరికరంలో లింక్ అయింది. దీనికి మారితే ఈ పరికరంలోని డెక్స్ (మాన్స్టర్లు: {monsterCount}) తొలగిపోతుంది, లింక్ అయిన ఖాతా డెక్స్ కనిపిస్తుంది.",

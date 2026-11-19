@@ -46,6 +46,7 @@
   "pvpMatchingNotFound": "Ingen motståndare hittades",
   "generationTrainerAppeared": "En tränare dök upp!",
   "battleLogWaitingForOpponent": "Väntar på motståndarens drag",
+  "battleLogTurnTimeRemaining": "Välj ditt drag inom {seconds} sek.",
   "settingsLinked": "Anslutet till {providerName}",
   "settingsSwitchAccountTitle": "Vill du byta till det länkade kontot?",
   "settingsSwitchAccountMessage": "Det här {providerName}-kontot är redan länkat på en annan enhet. Om du byter raderas samlingen på den här enheten (monster: {monsterCount}) och du byter till det länkade kontots samling.",

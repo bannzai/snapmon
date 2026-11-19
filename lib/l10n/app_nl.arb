@@ -46,6 +46,7 @@
   "pvpMatchingNotFound": "Geen tegenstander gevonden",
   "generationTrainerAppeared": "Er verscheen een trainer!",
   "battleLogWaitingForOpponent": "Wachten op de zet van je tegenstander",
+  "battleLogTurnTimeRemaining": "Kies je zet binnen {seconds} sec.",
   "settingsLinked": "Gekoppeld aan {providerName}",
   "settingsSwitchAccountTitle": "Wil je overschakelen naar je gekoppelde account?",
   "settingsSwitchAccountMessage": "Dit {providerName}-account is al gekoppeld op een ander apparaat. Als je overstapt, wordt de dex op dit apparaat gewist (monsters: {monsterCount}) en zie je de dex van het gekoppelde account.",
