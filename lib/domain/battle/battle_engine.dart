@@ -1504,7 +1504,7 @@ bool isSelectableAction({
     _validateAction(party: party, action: action, master: master);
     return true;
   } on ArgumentError {
-    return true;
+    return false;
   }
 }
 

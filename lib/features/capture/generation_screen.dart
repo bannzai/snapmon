@@ -42,7 +42,7 @@ const Duration _opponentRevealDuration = Duration(milliseconds: 1500);
 
 /// 初回の導線で、生まれたモンスターの相手として人との対戦の相手を探す長さ。issue #386 が決めた値
 /// (生まれてから 5 秒だけ人を探し、組み合わされなければ CPU と対戦する)。
-const Duration firstBattlePvpSearchDuration = Duration(seconds: 10);
+const Duration firstBattlePvpSearchDuration = Duration(seconds: 5);
 
 /// 生成が途中の状態 (processing・pending_judge) で返った後に、結果を取り直し続ける長さ。
 /// owner の指定 (https://github.com/bannzai/snapmon/issues/218)。これを過ぎても終わらない時は「もう少し待ってね」を出す。
@@ -530,10 +530,13 @@ class _GenerationScreenState extends State<GenerationScreen> {
         ).then((opponent) => _firstBattleOpponent = opponent),
       ], eagerError: true);
       // 準備の間に画面を閉じた時は、相手を探し始めない (閉じた画面は、組み合わされた対戦を開けないため)
+      if (!mounted) {
+        return;
+      }
       // 同じ版の master の利用者と組み合わせるため、相手を決める準備 (定義の読み直し) の後に探す。
       // 組み合わされた対戦は探した時の定義と一緒に持ち続け、この後の読み込みが失敗した時の「もう一度試す」でも同じ対戦を開く
       // (探し直すと、相手が入っている対戦を置いていくことになるため)
-      _firstPvpMatch = await _searchFirstBattlePvpMatch();
+      _firstPvpMatch ??= await _searchFirstBattlePvpMatch();
       if (!mounted) {
         return;
       }

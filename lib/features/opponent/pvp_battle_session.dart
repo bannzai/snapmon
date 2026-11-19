@@ -46,7 +46,7 @@ BattleState resolvePvpRound({
   )) {
     (false, _) => finishBattleByForfeit(
       state: hostSideState,
-      winner: BattleSideID.player,
+      winner: BattleSideID.opponent,
     ),
     (true, false) => finishBattleByForfeit(
       state: hostSideState,
@@ -218,7 +218,7 @@ class PvpBattleSession {
     _battle = battle;
     // 勝敗を付けずに終わった対戦は、同じ知らせに最後のターンが入っていても進めない
     // (進めて決着すると、この端末だけが勝敗を出して記録に進むため)
-    if (battle.status == PvpBattleStatus.noContest && _pendingRound == null) {
+    if (battle.status == PvpBattleStatus.noContest) {
       _interrupt(interruption: (winner: null));
       return;
     }
@@ -235,7 +235,9 @@ class PvpBattleSession {
       if (nextState.winner != null) {
         // 購読は止めない。勝者を報告するのは最後のラウンドの演出の後で、それまでにサーバーが勝敗を付けずに終える
         // (相手がブロックした・対戦が消えた) ことがあるため、サーバーが対戦を終えるまで受け取り続ける
-        _settle();
+        _isDecided = true;
+        _turnTimer?.cancel();
+        _turnTimer = null;
       } else {
         _remainingSeconds.value = battle.turnSeconds;
         _secondsAfterDeadline = 0;
