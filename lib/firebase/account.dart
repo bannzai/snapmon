@@ -6,13 +6,26 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'session.dart';
 
 // 匿名アカウントへの Apple / Google の連携 (引き継ぎ) と、アカウントの削除の Firebase の実体。
-// 連携先はプラットフォームごとに 1 つ (iOS は Sign in with Apple、Android と Web は Google)。
-// 別の端末で連携済みの時の扱いは documents/adr/0003-account-link-and-deletion.md。
+// 連携先は iOS が Sign in with Apple と Google、Android と Web が Google。
+// 連携先の決め方と、別の端末で連携済みの時の扱いは documents/adr/0003-account-link-and-deletion.md。
 
-/// このプラットフォームで連携に使うサインインの名前 (iOS は Apple、Android と Web は Google)。
-String get accountLinkProviderNameForPlatform => _isIOS ? 'Apple' : 'Google';
+/// このプラットフォームで連携に選べるサインインの名前 (iOS は Apple と Google、Android と Web は Google)。画面に出す順。
+List<String> get accountLinkProviderNamesForPlatform =>
+    _isIOS ? const ['Apple', 'Google'] : const ['Google'];
 
 bool get _isIOS => !kIsWeb && defaultTargetPlatform == TargetPlatform.iOS;
+
+/// iOS で [providerName] ([accountLinkProviderNamesForPlatform] の名前) の連携に使う Firebase の provider を返す。
+/// iOS で選べない名前の時は [ArgumentError] を投げる。
+///
+/// Google は google_sign_in を使わず、firebase_auth の Web のサインインの流れ (`linkWithProvider`) で連携する
+/// (iOS の OAuth クライアントの ID が要らないため。根拠は ADR 0003 の「連携先」の行)。
+AuthProvider accountLinkAuthProviderOnIOS({required String providerName}) =>
+    switch (providerName) {
+      'Apple' => AppleAuthProvider(),
+      'Google' => GoogleAuthProvider(),
+      _ => throw ArgumentError.value(providerName, 'providerName'),
+    };
 
 /// Firebase の provider の ID ごとの、画面に出す名前。
 const Map<String, String> _providerNamesByID = {
@@ -42,19 +55,24 @@ Future<AuthCredential> _googleCredentialOnAndroid() async {
   return GoogleAuthProvider.credential(idToken: account.authentication.idToken);
 }
 
-/// いまの匿名アカウントに、このプラットフォームのサインイン ([accountLinkProviderNameForPlatform]) を連携する。uid は変わらない。
+/// いまの匿名アカウントに、[providerName] ([accountLinkProviderNamesForPlatform] から利用者が選んだ名前) のサインインを連携する。
+/// uid は変わらない。Android と Web は Google だけのため、[providerName] は iOS でだけ連携先を分ける。
 ///
 /// 連携できた時は null を返す。そのサインインが別の端末で連携済み (`credential-already-in-use`) の時は、連携済みのアカウントに
 /// サインインする関数を返す (呼ぶ前に、いまの匿名アカウントを捨ててよいかを利用者に確かめるため、ここではサインインしない)。
 /// 連携済みのアカウントの credential を受け取れなかった時と、それ以外の失敗は投げる。
-Future<Future<String> Function()?> linkAccountWithFirebase() async {
+Future<Future<String> Function()?> linkAccountWithFirebase({
+  required String providerName,
+}) async {
   final user = FirebaseAuth.instance.currentUser!;
   AuthCredential? googleCredential;
   try {
     if (kIsWeb) {
       await user.linkWithPopup(GoogleAuthProvider());
     } else if (_isIOS) {
-      await user.linkWithProvider(AppleAuthProvider());
+      await user.linkWithProvider(
+        accountLinkAuthProviderOnIOS(providerName: providerName),
+      );
     } else {
       googleCredential = await _googleCredentialOnAndroid();
       await user.linkWithCredential(googleCredential);

@@ -24,10 +24,10 @@ void main() {
     required Future<void> Function() deleteAccount,
   }) => AccountStore(
     sessionStore: sessionStore,
-    linkProviderName: 'Apple',
+    linkProviderNames: const ['Apple', 'Google'],
     readLinkedProviderNames: () => const [],
-    linkAccount: () {
-      calls.add('link');
+    linkAccount: ({required providerName}) {
+      calls.add('link $providerName');
       return linkAccount();
     },
     discardCurrentAccount: () async => calls.add('discard'),
@@ -109,13 +109,59 @@ void main() {
       deleteAccount: () async {},
     );
 
-    final link = store.link();
+    final link = store.link(providerName: 'Apple');
     expect(store.isWorking, isTrue);
     await expectLater(store.delete(), throwsA(isA<StateError>()));
     linking.complete(null);
     expect(await link, isNull);
 
-    expect(calls, ['link']);
+    expect(calls, ['link Apple']);
     expect(store.isWorking, isFalse);
+  });
+
+  group('link', () {
+    test('選んだサインインの名前で連携し、連携できたら null を返す', () async {
+      final store = accountStore(
+        linkAccount: () async => null,
+        deleteAccount: () async {},
+      );
+
+      expect(await store.link(providerName: 'Google'), isNull);
+
+      expect(calls, ['link Google']);
+      expect(store.isWorking, isFalse);
+    });
+
+    test('別の端末で連携済みの時は、連携済みのアカウントにサインインする関数をそのまま返す', () async {
+      /// 連携済みのアカウントにサインインして uid を返す関数の代わり。同じものが返ったかを見分けるために置く。
+      Future<String> signInToLinkedAccount() async => 'uid-linked';
+
+      expect(
+        await accountStore(
+          linkAccount: () async => signInToLinkedAccount,
+          deleteAccount: () async {},
+        ).link(providerName: 'Google'),
+        same(signInToLinkedAccount),
+      );
+
+      expect(calls, ['link Google']);
+      expect(sessionStore.uid, 'uid-anonymous');
+    });
+
+    test('連携に失敗したら、ログインを残したまま投げて次の操作を受け付ける', () async {
+      final store = accountStore(
+        linkAccount: () async => throw Exception('operation-not-allowed'),
+        deleteAccount: () async {},
+      );
+
+      await expectLater(
+        store.link(providerName: 'Google'),
+        throwsA(isA<Exception>()),
+      );
+
+      expect(calls, ['link Google']);
+      expect(sessionStore.uid, 'uid-anonymous');
+      expect(store.isWorking, isFalse);
+    });
   });
 }

@@ -32,6 +32,23 @@
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<!-- 「データを引き継ぐ」の Google のサインイン (firebase_auth の linkWithProvider) が、ブラウザの画面からアプリに戻る時の URL scheme。
+	     値は Firebase の iOS アプリの ID (firebase.json の flutter.platforms.ios.default.appId。GoogleService-Info.plist の
+	     GOOGLE_APP_ID と同じ値) の「:」を「-」に替えて「app-」を前に付けたもの (firebase-ios-sdk の OAuthProvider.swift の
+	     callbackScheme)。この scheme が登録されていないと、Google を選んだ時に SDK が fatalError でアプリを落とす
+	     (同ファイルの "Please register custom URL scheme")。Firebase の iOS アプリを作り直して ID が変わった時は、この値も直す
+	     (test/firebase/account_link_url_scheme_test.dart が firebase.json と食い違うと落ちる) -->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>app-1-1032186168570-ios-8942cc45bb72e5b027f543</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<!-- 輸出コンプライアンスの申告。無いとビルドを上げるたびに App Store Connect で答える必要がある。
